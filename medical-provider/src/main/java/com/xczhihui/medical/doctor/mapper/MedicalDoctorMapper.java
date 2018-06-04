@@ -90,4 +90,6 @@ public interface MedicalDoctorMapper extends BaseMapper<MedicalDoctor> {
             " on md.`authentication_information_id` = mdai.`id`" +
             " where md.deleted = 0 AND md.status = 1 and (#{type} is null OR #{type} = 0 OR md.type = #{type}) limit #{offset},#{row}"})
     List<MedicalDoctorVO> selectRandomDoctorByType(@Param("type") String type, @Param("offset") int offset, @Param("row") int row);
+
+	List<MedicalDoctorVO> selectDoctorCouserByAccountId(@Param("offset")Integer offset,@Param("rows")Integer rows);
 }

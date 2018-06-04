@@ -156,31 +156,43 @@ if (current.indexOf("course_id") != -1 ||
     h5PcConversions(false);
 }
 
+function requestGetService(url, param, callback, ac) {
+    ajaxRequest(url, param,"get", callback, ac);
+}
 
 //ajax统一请求
 function requestService(url, param, callback, ac) {
+    ajaxRequest(url, param,"post", callback, ac);
+}
+
+
+//ajax统一请求
+function ajaxRequest(url, param,type, callback, ac) {
     if (ac == null)
         ac = true;// 默认异步
-//	  if(document.location.host.indexOf('dev.ixincheng.com')!=-1){
-//	      url = "/apis"+url;
-//	  }
+//  	if(document.location.host.indexOf('dev.ixincheng.com')!=-1){
+//      	url = "/apis"+url;
+//  	}
     mui.ajax({
         url: url,
-        type: "post",
+        type: type,
         data: param,
         async: ac,
         success: function (msg) {
+            // alert(url+":"+JSON.stringify(msg))
             var rd = getCurrentRelativeUrl();
             if (msg.code == USER_UN_LOGIN) {
                 localStorage.setItem("rd", rd);
                 location.href = "/xcview/html/enter.html";
-            } else if (msg.code == 1003) { //被同一用户顶掉了
+            } else if (msg.code == USER_TOP) { //被同一用户顶掉了
                 location.href = "/xcview/html/common.html";
             } else if (msg.code == USER_UN_BIND) { //去完善信息页面
                 localStorage.setItem("rd", rd);
                 var openId = msg.resultObject.openId;
                 var unionId = msg.resultObject.unionId;
                 location.href = "/xcview/html/evpi.html?openId=" + openId + "&unionId=" + unionId;
+            } else if (msg.code == USER_WEIXIN_AUTH) {
+                location.href = "/xczh/wxlogin/middle?url=" + getCurrentUrl();
             } else {
                 if (callback) {
                     callback(msg);
@@ -193,6 +205,10 @@ function requestService(url, param, callback, ac) {
     });
 }
 
+//点击学习判断游客
+function go_study() {
+    location.href = "/xcview/html/my_study.html";
+}
 
 /**
  * 现在的入口有两个呢，一个是
@@ -492,8 +508,10 @@ var cookie = {
  * 返回 1000 有效   1002 过期，去登录页面  1005 过期且去完善信息
  */
 var USER_UN_LOGIN = 1002;//未登录
+var USER_TOP = 1003;//被顶掉
 var USER_UN_BIND = 1005;//用户用微信登录的但是没有绑定注册信息
 var USER_NORMAL = 1000;
+var USER_WEIXIN_AUTH = 1006;//需要去微信授权
 
 function getFlagStatus() {
     var falg = USER_NORMAL;

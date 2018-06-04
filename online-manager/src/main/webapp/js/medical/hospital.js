@@ -175,14 +175,12 @@ $(function () {
                             '<a class="blue" href="javascript:void(-1);" title="领域" onclick="openFieldManage(this)"><i class="glyphicon glyphicon-bookmark"></i></a>' +
                             '<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this,1)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>' +
                             '<a class="blue" href="javascript:void(-1);" title="禁用" onclick="updateStatus(this,1);"><i class="ace-icon fa fa-ban bigger-130"></i></a> ' +
-                            '<a class="blue" href="javascript:void(-1);" title="医馆图片" onclick="showDetailDialog(this,1);"><i class="ace-icon glyphicon glyphicon-picture bigger-130"></i></a>' +
                             '<a class="blue" href="javascript:void(-1);" title="招聘信息" onclick="showRecruit(this,1);"><i class="ace-icon glyphicon glyphicon-list-alt bigger-130"></i></a>'
 
                     } else {
                         return '<div class="hidden-sm hidden-xs action-buttons">' +
                             '<a class="blue" href="javascript:void(-1);" title="查看" onclick="previewDialog(this,1)"><i class="ace-icon fa fa-search bigger-130"></i></a>' +
                             '<a class="blue" href="javascript:void(-1);" title="禁用" onclick="updateStatus(this,1);"><i class="ace-icon fa fa-ban bigger-130"></i></a> ' +
-                            '<a class="blue" href="javascript:void(-1);" title="医馆图片" onclick="showDetailDialog(this,1);"><i class="ace-icon glyphicon glyphicon-picture bigger-130"></i></a>' +
                             '<a class="blue" href="javascript:void(-1);" title="招聘信息" onclick="showRecruit(this,1);"><i class="ace-icon glyphicon glyphicon-list-alt bigger-130"></i></a>'
 
                     }
@@ -193,14 +191,12 @@ $(function () {
                             '<a class="blue" href="javascript:void(-1);" title="领域" onclick="openFieldManage(this)"><i class="glyphicon glyphicon-bookmark"></i></a>' +
                             '<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this,1)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>' +
                             '<a class="blue" href="javascript:void(-1);" title="启用" onclick="updateStatus(this,1);"><i class="ace-icon fa fa-check-square-o bigger-130"></i></a> ' +
-                            '<a class="blue" href="javascript:void(-1);" title="医馆图片" onclick="showDetailDialog(this,1);"><i class="ace-icon glyphicon glyphicon-picture bigger-130"></i></a>' +
                             '<a class="blue" href="javascript:void(-1);" title="招聘信息" onclick="showRecruit(this,1);"><i class="ace-icon glyphicon glyphicon-list-alt bigger-130"></i></a>'
 
                     } else {
                         return '<div class="hidden-sm hidden-xs action-buttons">' +
                             '<a class="blue" href="javascript:void(-1);" title="查看" onclick="previewDialog(this,1)"><i class="ace-icon fa fa-search bigger-130"></i></a>' +
                             '<a class="blue" href="javascript:void(-1);" title="启用" onclick="updateStatus(this,1);"><i class="ace-icon fa fa-check-square-o bigger-130"></i></a> ' +
-                            '<a class="blue" href="javascript:void(-1);" title="医馆图片" onclick="showDetailDialog(this,1);"><i class="ace-icon glyphicon glyphicon-picture bigger-130"></i></a>' +
                             '<a class="blue" href="javascript:void(-1);" title="招聘信息" onclick="showRecruit(this,1);"><i class="ace-icon glyphicon glyphicon-list-alt bigger-130"></i></a>'
 
                     }
@@ -881,9 +877,11 @@ function previewDialog(obj, status) {
 
     var oo = $(obj).parent().parent().parent();
     var aData;
+    var page;
     if (status == 1) {
         aData = P_courseTable.fnGetData(oo); // get datarow
-        window.location.href = basePath + '/home#medical/hospital/info/' + aData.id;
+        page = getCurrentPageNo(P_courseTable);
+        window.location.href = basePath + '/home#medical/hospital/info/' + aData.id+"?page="+page+"&courseId="+aData.id+"&sourceId="+aData.sourceId;
     }
 }
 

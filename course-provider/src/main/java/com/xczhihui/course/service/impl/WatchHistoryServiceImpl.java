@@ -88,7 +88,6 @@ public class WatchHistoryServiceImpl extends ServiceImpl<WatchHistoryMapper,Watc
 		watchHistoryMapper.deleteWatchHistoryByUserId(userId);
 	}
 	
-	
 	@Override
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	@Lock(lockName = "addOrUpdateLearnLock",waitTime = 5,effectiveTime = 8)
@@ -97,9 +96,12 @@ public class WatchHistoryServiceImpl extends ServiceImpl<WatchHistoryMapper,Watc
 		if(hasCourse!=null && hasCourse == 0) {
 			String id = UUID.randomUUID().toString().replace("-", "");
 			watchHistoryMapper.insertApplyRGradeCourse(id,courseId,userId,loginName);
-			
 		}
 	}
+	public static void main(String[] args) {
+		System.out.println(UUID.randomUUID().toString().replace("-", ""));
+	}
+	
 	
 	
 	

@@ -80,6 +80,25 @@ function getUrlParamsReturnJson() {
 };
 var paramsObj = getUrlParamsReturnJson();
 
+
+
+function changeURLArg(url,arg,arg_val){
+	var pattern=arg+'=([^&]*)';
+	var replaceText=arg+'='+arg_val; 
+	if(url.match(pattern)){
+		var tmp='/('+ arg+'=)([^&]*)/gi';
+		tmp=url.replace(eval(tmp),replaceText);
+		return tmp;
+	}else{ 
+		if(url.match('[\?]')){ 
+			return url+'&'+replaceText; 
+		}else{ 
+			return url+'?'+replaceText; 
+		} 
+	}
+}
+
+
 /*
  * 显示所选中的条件
  */
@@ -92,12 +111,21 @@ function viewConditionOption(obj) {
 
 	var kindId = "selectCondition" + subject;
 
+	var urlFinalParams = webUrlParam;
 	if (subject == "menuType") {
 		selectCondition = "分类";
+		
+		//js替换掉这个条件
+		urlFinalParams = changeURLArg(webUrlParam,"menuType","");
+		
 	} else if (subject == "courseType") {
 		selectCondition = "类型";
+		
+		urlFinalParams = changeURLArg(webUrlParam,"courseType","");
 	} else if (subject == "lineState") {
 		selectCondition = "状态";
+		
+		urlFinalParams = changeURLArg(webUrlParam,"lineState","");
 	} else if (subject == "isFree") {
 		selectCondition = "收费";
 	} else if (subject == "city") {
@@ -107,7 +135,7 @@ function viewConditionOption(obj) {
 			+ '<p class="wrap-border" subject=' + subject + ' value='
 			+ selectValue + '>' + '<span>' + selectCondition + ' : </span>'
 			+ '<span class="select-text" >' + selectText + '</span>'
-			+ '<span class="select-close" onclick="deleteStatus()">x</span>'
+			+ '<span class="select-close"><a href='+urlFinalParams+'>x</a></span>'
 			+ '</p>' + '</dd>';
 
 	/**

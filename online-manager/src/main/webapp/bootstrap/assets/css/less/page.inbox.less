@@ -97,13 +97,13 @@
 
 
 
-.xgMessage-container {
+.message-container {
  position:relative;
 }
-.xgMessage-list {
+.message-list {
  position:relative;
 }
-.xgMessage-item {
+.message-item {
  border:1px solid #EAEDF1;
  border-bottom-width:0;
  padding:12px 12px 14px;
@@ -120,7 +120,7 @@
 	border-color:#E2EAF2;
 	background-color:#F2F6F9;
 	
-	+ .xgMessage-item {
+	+ .message-item {
 		border-top-color:#E2EAF2;
 		
 		&.selected {
@@ -133,17 +133,17 @@
 	background-color:#EFF4F7;
 	border-color:#FFF #E2EAF2;
 	
-	+ .xgMessage-item{
+	+ .message-item{
 		border-top-color:#FFF;
 
-		&:hover + .xgMessage-item {
+		&:hover + .message-item {
 			border-top-color:#FFF;
 		}
 	}
  }
 }
 
-.xgMessage-navbar , .xgMessage-item {
+.message-navbar , .message-item {
  input.ace + .lbl::before {
 	top: auto;
  }
@@ -151,7 +151,7 @@
 
 
 
-.xgMessage-item {
+.message-item {
  .sender {
 	margin:0 6px 0 4px;
 	vertical-align:middle;
@@ -165,7 +165,7 @@
 
 	cursor:pointer;
  }
- &.xgMessage-unread .sender {
+ &.message-unread .sender {
 	color:#6A9CBA; font-weight:bold;
  }
 
@@ -200,7 +200,7 @@
 		}
 	}
 	
-	.xgMessage-flags {
+	.message-flags {
 		display:block;
 		position:absolute;
 
@@ -212,7 +212,7 @@
 	}
 	
  }
- &.xgMessage-unread .summary .text {
+ &.message-unread .summary .text {
 	color:#609FC4;
 	font-weight:bold;
  }
@@ -227,11 +227,11 @@
 	white-space: nowrap;
 	color:#666;
  }
- &.xgMessage-unread .time {
+ &.message-unread .time {
 	font-weight: bold;
 	color: #609FC4;
  }
- &.xgMessage-unread .xgMessage-content .time {
+ &.message-unread .message-content .time {
 	font-weight: normal;
  }
  
@@ -244,15 +244,15 @@
 	margin: 0 12px;
 	position: relative;
  }
- &.xgMessage-unread .attachment{
+ &.message-unread .attachment{
 	color:#4F99C6;
  }
 }
-.xgMessage-content .time {
+.message-content .time {
  font-weight: normal;
 }
 
-.xgMessage-star{
+.message-star{
  vertical-align: middle;
  margin: 2px 4px 0 6px;
  font-size: @font-size-inbox-start-icon;
@@ -282,28 +282,28 @@
 
 
 @media only screen and (max-width: @screen-sm-max) {
- .xgMessage-item .summary {
+ .message-item .summary {
 	min-width:0;
  }
- .xgMessage-item .sender {
+ .message-item .sender {
 	width:100px;
  }
 }
 
 
 @media only screen and (max-width: 550px) {
- .xgMessage-item .summary {
+ .message-item .summary {
 	margin:8px 0 0 32px;
 	max-width:95%;
 	min-width:0;
 	 
 	display:block;
  }
- .xgMessage-item .sender {
+ .message-item .sender {
 	width:auto;
 	max-width:150px;
  }
- .xgMessage-item .summary  .text {
+ .message-item .summary  .text {
 	max-width:95%;
  }
 }
@@ -311,7 +311,7 @@
 
 
 
-.btn-xgMessage , .btn-xgMessage:hover , .btn-xgMessage:focus, .btn-xgMessage:active, .open .btn-xgMessage.dropdown-toggle {
+.btn-message , .btn-message:hover , .btn-message:focus, .btn-message:active, .open .btn-message.dropdown-toggle {
  background-color:#FFF  !important;
  border:1px solid #94B9CE !important;
  color:#7CA3BA !important;
@@ -321,25 +321,25 @@
 
 
 
-.xgMessage-content {
+.message-content {
  padding:16px 12px;
  border:1px solid #E9E9E9;
  .box-shadow(~"0 0 1px 1px rgba(0,0,0,0.02)");
  background-color:rgba(255,255,255,0.8);
  border-top-width:0;
  
- .xgMessage-item & {
+ .message-item & {
 	margin-top:16px;
 	border-top-width:1px;
  }
 }
-.xgMessage-body {
+.message-body {
   padding:0 9px;
   color:#6A7177;
 }
 
 
-.xgMessage-navbar {
+.message-navbar {
  line-height:24px;
  padding:10px 12px;
  border:1px solid #D6E1EA;
@@ -351,7 +351,7 @@
  position:relative;
 }
 
-.xgMessage-navbar , .xgMessage-content {
+.message-navbar , .message-content {
  .dropdown-toggle {
 	color:#777;	
 	&:hover, &:focus {
@@ -363,20 +363,20 @@
 
 
 
-.xgMessage-bar {
+.message-bar {
   display:inline-block;
   min-height:28px;
 }
 
 @media only screen and (max-width: @screen-xs) {
-.xgMessage-bar {
+.message-bar {
   display:block;
   min-height:60px;
  }
 }
 
 
-.xgMessage-footer {
+.message-footer {
   background-color: #F1F1F1;
   padding: 12px 16px;
   border: 1px solid #E6E6E6;
@@ -432,7 +432,7 @@
 }
 
 
-.xgMessage-footer-style2 .pagination > li {
+.message-footer-style2 .pagination > li {
 	 > a , > span {
 		border: 1px solid #B5B5B5;
 		border-radius: 100% !important;
@@ -456,7 +456,7 @@
 
 
 
-.xgMessage-item.xgMessage-inline-open {
+.message-item.message-inline-open {
  background-color:#F2F6F9;
  border:1px solid #DDD;
  border-bottom-color:#CCC;
@@ -467,14 +467,14 @@
  &:last-child {
 	border-bottom-color:#DDD;
  }
- + .xgMessage-item {
+ + .message-item {
 	border-bottom-color:transparent;
  }
 }
 
 
 
-.xgMessage-loading-overlay {
+.message-loading-overlay {
  position: absolute;
  z-index: 14;
  top: 0;
@@ -495,7 +495,7 @@
 }
 
 
-.xgMessage-content {
+.message-content {
   .sender {
 	color:#6A9CBA;
 	font-weight:bold;
@@ -522,7 +522,7 @@ ul.attachment-list {
 	margin-bottom:3px;
  }
 }
-.xgMessage-attachment {
+.message-attachment {
   padding-left:10px;
   padding-right:10px;
 }
@@ -572,33 +572,33 @@ ul.attachment-list {
  right: 12px;
  left: auto;
 }
-.xgMessage-navbar .nav-search {
+.message-navbar .nav-search {
   right: auto;
   left: 5px;
   top: auto;
   bottom: 11px;
 }
-.xgMessage-navbar .messagebar-item-left ~ .nav-search {
+.message-navbar .messagebar-item-left ~ .nav-search {
   left: 60px;
 }
 
 
 
 
-.xgMessage-form {
+.message-form {
  border:1px solid #ddd;
  border-top:none;
  padding-top:22px;
 }
 
 @media only screen and (max-width: @screen-xs) {
- .xgMessage-form {
+ .message-form {
 	padding-left:16px;
 	padding-right:16px;
  }
 }
 
-.xgMessage-form {
+.message-form {
  .form-actions {
 	margin-bottom:0;
  }
@@ -611,14 +611,14 @@ ul.attachment-list {
  }
 }
 
-.btn-send-xgMessage {
+.btn-send-message {
   position: relative;
   top: 6px;
   vertical-align: middle;
   
 }
 
-.btn-back-xgMessage-list {
+.btn-back-message-list {
   color: #777;
   &:hover {
 	color: #478FCA;
@@ -628,12 +628,12 @@ ul.attachment-list {
 
 
 
-.xgMessage-condensed {
-	.xgMessage-item {
+.message-condensed {
+	.message-item {
 		padding-top:8px;
 		padding-bottom:9px;
 	}
-	.xgMessage-navbar , .xgMessage-footer {
+	.message-navbar , .message-footer {
 		padding-top:7px;
 		padding-bottom:7px;
 	}
@@ -641,13 +641,13 @@ ul.attachment-list {
 	.messagebar-item-left , .messagebar-item-right {
 		bottom:9px;
 	}
-	.xgMessage-navbar .nav-search {
+	.message-navbar .nav-search {
 		bottom:7px;
 	}
 }
 
 @media only screen and (max-width: @screen-xs) {
-.xgMessage-condensed .xgMessage-bar {
+.message-condensed .message-bar {
   min-height:42px;
  }
 }

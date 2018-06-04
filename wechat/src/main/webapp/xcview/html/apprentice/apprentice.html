@@ -11,8 +11,10 @@
 
 	<!--手机嵌入模板-->
 	<script type="text/javascript" src="/xcview/js/common/layout.js"></script>
+
+	
 </head>
-<body>
+<body style="overflow: scroll;-webkit-overflow-scrolling:touch;">
 	<!-- 师承头部开始 -->
 	<header>
 		<div class="apprentice_title">发现</div>
@@ -21,33 +23,56 @@
 
 	<!-- 中间内容开始 -->
 	<div class="fiexd"></div>
-	<div class="main">
+	<div class="main" style="-webkit-overflow-scrolling1:touch;">
 		<div class="center">
 			<ul>
-				<li onclick="location.href ='inherited_introduction.html'">
+				<li onclick="location.href ='/xcview/html/down_load.html'">
 					<div class="apprentice_main">
 						<div class="flat_patternmaking">
-							<img src="/xcview/images/9ed0246c806c9c8d.jpg" alt="" />
+							<img src="/xcview/images/anchor_entry.jpg" alt="" />
 						</div>
-						<div class="main_title">我是标题我是标题我是标题我是标题我是标题我是标题我是标题我是标题我是标题我是标题</div>
+						<div class="main_title">主播招募，马上加入就分享平台前期红利</div>
 					</div>
 				</li>
-				<li onclick="location.href ='inherited_introduction.html'">
-					<div class="apprentice_main">
-						<div class="flat_patternmaking">
-							<img src="/xcview/images/9ed0246c806c9c8d.jpg" alt="" />
+			</ul>
+			<ul class="apprentice_list">
+				<script type="text/html" id="apprentice_list_tmp">
+					{{each items as item i}}
+					<li onclick="location.href ='inherited_introduction.html?merId={{item.id}}{{item.tokenStr}}'">
+						<div class="apprentice_main">
+							<div class="flat_patternmaking">
+								<img src="{{item.coverImg}}" alt="封面" />
+							</div>
+							<div class="main_title">{{item.title}}</div>
 						</div>
-						<div class="main_title">我是标题我是标题我是标题我是标题我是标题我是标题我是标题我是标题我是标题我是标题</div>
-					</div>
-				</li>
+					</li>
+					{{/each}}
+				</script>
+
+				<!--<li onclick="location.href ='inherited_introduction.html'">-->
+					<!--<div class="apprentice_main">-->
+						<!--<div class="flat_patternmaking">-->
+							<!--<img src="http://test-file.ipandatcm.com/18522104635/936dd0d79046-2c9aec356231d035016231eb7b0b00001526957195438.png" alt="" />-->
+						<!--</div>-->
+						<!--<div class="main_title">我是标题我是标题我是标题我是标题我是标题我是标题我是标题我是标题我是标题我是标题</div>-->
+					<!--</div>-->
+				<!--</li>-->
+				<!--<li onclick="location.href ='inherited_introduction.html'">-->
+					<!--<div class="apprentice_main">-->
+						<!--<div class="flat_patternmaking">-->
+							<!--<img src="/xcview/images/9ed0246c806c9c8d.jpg" alt="" />-->
+						<!--</div>-->
+						<!--<div class="main_title">我是标题我是标题我是标题我是标题我是标题我是标题我是标题我是标题我是标题我是标题</div>-->
+					<!--</div>-->
+				<!--</li>-->
 			</ul>
 		</div>
 	</div>
 	<!-- 中间内容结束 -->
 
 	<!-- 底部开始 -->
-	<div class="footer_perch"></div>
-	<div class="footer">
+	<div class="footer_perch" style="display: none"></div>
+	<div class="footer" style="display: none">
 		<ul>
 			<li>
 				<a href="/xcview/html/home_page.html" class="footer_one"></a>
@@ -58,7 +83,7 @@
 				<p>学习</p>
 			</li>
 			<li>
-				<a href="/xcview/html/discovery.html" class="footer_three" style="height: 0.42rem;margin-top: 0.13rem; margin-bottom: 0.07rem;background: url(/xcview/images/discovery_threes.png) no-repeat center;background-size: 0.42rem 0.42rem;margin-bottom: 0.04rem;"></a>
+				<a href="/xcview/html/apprentice/apprentice.html" class="footer_three" style="height: 0.42rem;margin-top: 0.13rem; margin-bottom: 0.07rem;background: url(/xcview/images/discovery_threes.png) no-repeat center;background-size: 0.42rem 0.42rem;margin-bottom: 0.04rem;"></a>
 				<p style="color: #00BC12;">发现</p>
 			</li>
 			<li>
@@ -68,5 +93,18 @@
 		</ul>
 	</div>
 	<!--底部结束-->
+	<script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
+	<script type="text/javascript" src="/xcview/js/common/common.js"></script>
+	<script type="text/javascript" src="/xcview/js/common/template.js"></script>   <!--模板引入-->
+	<script type="text/javascript" src="/xcview/js/apprentice/apprentice-common.js?v=10"></script>
+	<script type="text/javascript" src="/xcview/js/apprentice/apprentice.js"></script>
 </body>
+<script>
+	var school_height=$(window).height()-$(".fiexd").height();
+	$(".main").height(school_height);
+
+	var school_heights=$(window).height()-$(".fiexd").height();
+	$("body").height(school_heights);
+</script>
 </html>

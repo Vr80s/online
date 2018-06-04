@@ -18,9 +18,9 @@
 		<div class="header">
 			<div class="return" onclick="javascript:history.go(-1);"><img src="/xcview/images/back icon.png" alt="" /></div>
 			<div class="apply_title">邀请卡</div>
-			<div class="header_news share">
-				<img src="/xcview/images/share_img.png" alt="">
-			</div>
+			<!--<div class="header_news share">-->
+				<!--<img src="/xcview/images/share_img.png" alt="">-->
+			<!--</div>-->
 		</div>
 		
 	</header>
@@ -28,8 +28,8 @@
 
 	<!-- 中间内容开始 -->
 	<div class="fiexd"></div>
-	<div class="main">
-		<img src="/xcview/images/1526991186(1).png" alt="" class="main_img" />
+	<div class="main" style="display: none">
+		<img src="" alt="邀请卡" class="main_img" />
 		<div class="main_size">长按上图保存图片</div>
 	</div>
 	<!-- 中间内容结束 -->
@@ -41,14 +41,39 @@
 	</div>
 </body>
 <script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
+<script type="text/JavaScript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/common.js?v=wechat_1.1.1"></script>
+<script type="text/javascript" src="/xcview/js/apprentice/apprentice-common.js"></script>
 <script>
-	window.onload = function(){
-		$(".share").click(function(){
-			$(".weixin_ceng").show();
-		});
-		$(".weixin_ceng").click(function(){
-			$(".weixin_ceng").hide();
-		});
-	};
+var gradeName ="";
+var smallImgPath ="";
+var description ="";
+ $(".share").click(function(){
+     $(".weixin_ceng").show();
+ });
+ $(".weixin_ceng").click(function(){
+     $(".weixin_ceng").hide();
+ });
+ requestGetService("/xczh/enrol/enrollmentRegulations/"+merId,data,function(data){
+	 debugger;
+     if(data.success){
+         $(".main_img").attr("src",data.resultObject.posterImg);
+         $(".main").show();
+
+         //分享的信息展示
+         var enrollmentRegulations = data.resultObject
+         gradeName = enrollmentRegulations.title;  /*标题*/
+         smallImgPath = enrollmentRegulations.posterImg;    /*img*/     /*下是--详情*/
+         if(enrollmentRegulations.propaganda==null || enrollmentRegulations.propaganda==''){
+         	description="";
+         }else{
+             description = enrollmentRegulations.propaganda.stripHTML();
+         }
+     }else{
+         location.href="/xcview/html/apprentice/apprentice.html";
+     }
+ },false);
 </script>
+<script type="text/javascript" src="/xcview/js/share/share.js?v=wechat_1.1.3"></script>
 </html>

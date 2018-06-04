@@ -1,5 +1,6 @@
 package com.xczhihui.medical.doctor.vo;
 
+import com.baomidou.mybatisplus.toolkit.StringUtils;
 import com.xczhihui.medical.department.model.MedicalDepartment;
 import com.xczhihui.medical.field.vo.MedicalFieldVO;
 import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
@@ -110,7 +111,7 @@ public class MedicalDoctorVO implements Serializable{
 	private String fieldText;
 
 	private String departmentText;
-
+	
 	/**
 	 * 认证信息
 	 */
@@ -125,6 +126,19 @@ public class MedicalDoctorVO implements Serializable{
 	 * 身份证号
 	 */
 	private String cardNum;
+	
+	
+	/*
+	 * 课程名字和课程id拼接得到的
+	 *    gradeName +  "concatGradeNameId"  +id
+	 *    方法映射出来的时候就把其进行分解
+	 */
+	private String concatGradeNameId;
+	
+	private String gradeName;
+	private String courseId;
+	
+	
 
 	public String getDepartmentText() {
 		return departmentText;
@@ -314,7 +328,40 @@ public class MedicalDoctorVO implements Serializable{
 		description = description.replace("\n","<br/>");
 		return description;
 	}
+	
 
+	public String getConcatGradeNameId() {
+		return concatGradeNameId;
+	}
+
+	public void setConcatGradeNameId(String concatGradeNameId) {
+		if(StringUtils.isNotEmpty(concatGradeNameId)) {
+			String [] array = concatGradeNameId.split("concatGradeNameId");
+			if(array!=null && array.length == 2) {
+				this.setCourseId(array[0]);
+				this.setGradeName(array[1]);
+			}
+		}
+		this.concatGradeNameId = concatGradeNameId;
+	}
+
+	
+	
+	public String getGradeName() {
+		return gradeName;
+	}
+
+	public void setGradeName(String gradeName) {
+		this.gradeName = gradeName;
+	}
+
+	public String getCourseId() {
+		return courseId;
+	}
+
+	public void setCourseId(String courseId) {
+		this.courseId = courseId;
+	}
 
 	@Override
 	public String toString() {

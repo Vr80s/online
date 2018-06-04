@@ -38,8 +38,3 @@
 function myAnchor() {
     location.href = "down_load.html";
 }
-
-//点击学习判断游客
-function go_study() {
-    location.href = "/xcview/html/my_study.html";
-}

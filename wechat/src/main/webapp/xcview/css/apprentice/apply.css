@@ -139,8 +139,29 @@ header{
 	margin-right: 0.26rem;
 	outline: none;
 }
+.tel input{
+	width: 6rem;
+	height: 0.98rem;
+	/*background: red;*/
+	text-align: right;
+	font-size: 0.28rem;
+	color: #666;
+	border: none;
+	float: right;
+	margin-right: 0.26rem;
+	outline: none;
+}
 
 .sex{
+	width: 7.24rem;
+	height: 0.98rem;
+	line-height: 0.98rem;
+	font-size: 0.28rem;
+	color: #333333;
+	border-bottom: 1px solid #f0f0f0;
+	float: right;
+}
+.tel{
 	width: 7.24rem;
 	height: 0.98rem;
 	line-height: 0.98rem;
@@ -158,8 +179,44 @@ header{
 }
 .sex div img{
 	width: 0.15rem;
+	margin-top: 0.3rem;
 }
 .sex  p{
+	font-size: 0.28rem;
+	color: #666666;
+	float: right;
+}
+
+.education{
+	width: 7.24rem;
+	height: 0.98rem;
+	line-height: 0.98rem;
+	font-size: 0.28rem;
+	color: #333333;
+	border-bottom: 1px solid #f0f0f0;
+	float: right;
+}
+.tel{
+	width: 7.24rem;
+	height: 0.98rem;
+	line-height: 0.98rem;
+	font-size: 0.28rem;
+	color: #333333;
+	border-bottom: 1px solid #f0f0f0;
+	float: right;
+}
+.education div{
+	float: right;
+    text-align: right;
+    margin-right: 0.26rem;
+    margin-top: 0.03rem;
+    width: 0.25rem;
+}
+.education div img{
+	width: 0.15rem;
+	margin-top: 0.3rem;
+}
+.education  p{
 	font-size: 0.28rem;
 	color: #666666;
 	float: right;
@@ -172,7 +229,7 @@ header{
 	font-size: 0.28rem;
 	color: #333333;
 	float: right;
-
+	border-bottom: 1px solid #f0f0f0;
 }
 .birthplace input{
 	width: 6rem;
@@ -196,12 +253,13 @@ header{
 	padding: 0.29rem 0;
 }
 .learning_experience .copyreader{
-	width:5.6rem;
-	/*line-height: 0.5rem;*/
-	/*background: red;*/
-	float: right;
+	width:6.98rem;
     margin-right: 0.26rem;
     outline: none;
+    margin-top: 0.2rem;
+    min-height: 1.68rem;
+    border: none;
+    font-size: 0.28rem;
 }
 /* .learning_experience input{
 	width: 5.5rem;
@@ -226,12 +284,13 @@ header{
 	padding: 0.29rem 0;
 }
 .practice_medicine .copyreader{
-	width:5.6rem;
-	/*line-height: 0.5rem;*/
-	/*background: red;*/
-	float: right;
+	width:6.98rem;
     margin-right: 0.26rem;
     outline: none;
+    margin-top: 0.2rem;
+    min-height: 1.68rem;
+    border: none;
+    font-size: 0.28rem;
 }
 /* .practice_medicine input{
 	width: 5.5rem;
@@ -256,12 +315,13 @@ header{
 	padding: 0.29rem 0;
 }
 .study .copyreader{
-	width:5.3rem;
-	/*line-height: 0.5rem;*/
-	/*background: red;*/
-	float: right;
+	width:6.98rem;
     margin-right: 0.26rem;
     outline: none;
+    margin-top: 0.2rem;
+    min-height: 1.68rem;
+    border: none;
+    font-size: 0.28rem;
 }
 .copyreader:empty:before{
 content: attr(placeholder);
@@ -294,14 +354,113 @@ color:#bbb;
 .opacity{
 	opacity: 0.5;
 }
+
+/*点击性别出现弹窗开始*/
+.popup{
+	width: 100%;
+	height: 100%;
+	display: none;
+}
+.popup_bg{
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	background: #000;
+	opacity: 0.5;
+	z-index: 1;
+}
+.popup_sex{
+	width: 100%;
+	height: 2.4rem;
+	background: #fff;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	z-index: 2;
+}
+.man{
+	width: 100%;
+	height: 1.2rem;
+	line-height: 1.2rem;
+	border-bottom: 1px solid #f0f0f0;
+	text-align: center;
+	font-size: 0.3rem;
+	color: #333;
+}
+.she{
+	width: 100%;
+	height: 1.2rem;
+	line-height: 1.2rem;
+	border-bottom: 1px solid #f0f0f0;
+	text-align: center;
+	font-size: 0.3rem;
+	color: #333;
+}
+/*点击性别出现弹窗结束*/
+
+/*点击学历出现弹窗开始*/
+.education_background{
+	width: 100%;
+	height: 100%;
+	display: none;
+}
+.education_background_bg{
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	background: #000;
+	opacity: 0.5;
+	z-index: 1;
+}
+.education_background_sex{
+	width: 100%;
+	height: 4.8rem;
+	background: #fff;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	z-index: 2;
+}
+.undergraduate{
+	width: 100%;
+	height: 1.2rem;
+	line-height: 1.2rem;
+	border-bottom: 1px solid #f0f0f0;
+	text-align: center;
+	font-size: 0.3rem;
+	color: #333;
+}
+.master{
+	width: 100%;
+	height: 1.2rem;
+	line-height: 1.2rem;
+	border-bottom: 1px solid #f0f0f0;
+	text-align: center;
+	font-size: 0.3rem;
+	color: #333;
+}
+.doctor{
+	width: 100%;
+	height: 1.2rem;
+	line-height: 1.2rem;
+	border-bottom: 1px solid #f0f0f0;
+	text-align: center;
+	font-size: 0.3rem;
+	color: #333;
+}
+.not_have{
+	width: 100%;
+	height: 1.2rem;
+	line-height: 1.2rem;
+	border-bottom: 1px solid #f0f0f0;
+	text-align: center;
+	font-size: 0.3rem;
+	color: #333;
+}
+/*点击性别出现弹窗结束*/
+
 /*中间内容结束*/
-
-
-
-
-
-
-
-
-
-

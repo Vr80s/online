@@ -1,12 +1,12 @@
 <div class="header_body">
-    <div class="header_right"><a href="/index.html"><img
+    <div class="header_right"><a href="/index"><img
             src="/web/images/pandaLogo.jpg" alt="" width="206" height="50" style="float:left"></a>
     </div>
     <div class="header_left">
         <div class="path" style="width:95%">
-            <a href="/index.html" class="home">首页</a>
+            <a href="/index" class="home">首页</a>
             <a href="/headline/1" class="headline">头条</a>
-            <a href="/classroom.html" class="classroom">学堂</a>
+            <a href="/courses/recommendation" class="classroom">学堂</a>
             <a href="/doctors" class="doctor-tab">名医</a>
             <a href="/clinics" class="hospital-tab">医馆</a>
             <a href="/web/html/ansAndQus.html" class="ansAndQus">问道</a>

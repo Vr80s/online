@@ -15,7 +15,7 @@ ul{
 }
 li{
 	list-style: none;
-	background: blue;
+	background: #f0f0f0;
 }
 
 .both{
@@ -47,14 +47,27 @@ header{
 .intro_top{
 	width: 2.24rem;
     height: 0.88rem;
-    line-height: 0.48rem;
+    line-height: 0.4rem;
     float: left;
     padding-left: 0.26rem;
 }
 .intro_top img{
-	width: 0.24rem;
-    height: 0.42rem;
+	    width: 0.23rem;
+    /* height: 0.34rem; */
+    margin-left: 0.1rem;
+    margin-top: 0.3rem;
 }
+.intro_top_bg{
+			position: absolute;
+		    width: 0.6rem;
+		    height: 0.6rem;
+		    background: #000;
+		    opacity: 0.5;
+		    border-radius: 100px;
+		    top: 0.2rem;
+		    left: 0.2rem;
+		    z-index: -1;
+		}
 .invitation_card{
 	width: 2rem;
 	height: 0.46rem;
@@ -118,13 +131,13 @@ header{
 .intro_border{
 	width: 100%;
 	height: 1px;
-	background: #d8dde6;
+	background: #f0f0f0;
 	margin: 0.3rem 0 0.36rem 0;
 }
 .intro_borders{
 	width: 100%;
 	height: 1px;
-	background: #d8dde6;
+	background: #f0f0f0;
 	margin: 0.3rem 0 0.3rem 0;
 }
 .apprentice{
@@ -184,6 +197,10 @@ header{
 	width: 0.6rem;
 	height: 0.6rem;
 	border-radius: 100px;
+	font-size: 0.2rem;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-indent: -0.21rem;
 }
 
 /*大师简介开始*/
@@ -198,7 +215,7 @@ header{
 	width: 0.06rem;
 	height: 0.27rem;
 	background: #00bc12;
-	border-radius: 100%;
+	border-radius: 100px;
 	float: left;
 	margin-top: 0.06rem;
     margin-right: 0.08rem;
@@ -214,6 +231,7 @@ header{
 	margin: 0 auto;
 	font-size: 0.26rem;
 	color: #666666;
+	line-height: 0.4rem;
 }
 /*大师简介结束*/
 
@@ -229,7 +247,7 @@ header{
 	width: 0.06rem;
 	height: 0.27rem;
 	background: #00bc12;
-	border-radius: 100%;
+	border-radius: 100px;
 	float: left;
 	margin-top: 0.06rem;
     margin-right: 0.08rem;
@@ -245,6 +263,10 @@ header{
 	margin: 0 auto;
 	font-size: 0.26rem;
 	color: #666666;
+	line-height: 0.4rem;
+}
+.apprentices_center img{
+	max-width: 6.98rem;
 }
 /*拜师资格结束*/
 
@@ -260,7 +282,7 @@ header{
 	width: 0.06rem;
 	height: 0.27rem;
 	background: #00bc12;
-	border-radius: 100%;
+	border-radius: 100px;
 	float: left;
 	margin-top: 0.06rem;
     margin-right: 0.08rem;
@@ -276,6 +298,10 @@ header{
 	margin: 0 auto;
 	font-size: 0.26rem;
 	color: #666666;
+	line-height: 0.4rem;
+}
+.disciple_center img{
+	max-width: 6.98rem;
 }
 /*弟子权益结束*/
 
@@ -291,7 +317,7 @@ header{
 	width: 0.06rem;
 	height: 0.27rem;
 	background: #00bc12;
-	border-radius: 100%;
+	border-radius: 100px;
 	float: left;
 	margin-top: 0.06rem;
     margin-right: 0.08rem;
@@ -307,8 +333,81 @@ header{
 	margin: 0 auto;
 	font-size: 0.26rem;
 	color: #666666;
+	line-height: 0.4rem;
+}
+.site_center p img{
+	max-width: 6.98rem;
 }
 /*拜师地址结束*/
+
+/*学习时间开始*/
+.learning_time{
+	width: 100%;
+	margin-bottom: 0.4rem;
+}
+.learning_time_title{
+	margin-bottom: 0.2rem;
+}
+.learning_time_title .border{
+	width: 0.06rem;
+	height: 0.27rem;
+	background: #00bc12;
+	border-radius: 100px;
+	float: left;
+	margin-top: 0.06rem;
+    margin-right: 0.08rem;
+    margin-left: 0.26rem;
+}
+.learning_time_title .title{
+	font-size: 0.28rem;
+	color: #333333;
+	float: left;
+}
+.learning_timecenter{
+	width: 6.98rem;
+	margin: 0 auto;
+	font-size: 0.26rem;
+	color: #666666;
+}
+.learning_timecenter p img{
+	max-width: 6.98rem;
+}
+/*学习时间结束*/
+
+/*学习地址开始*/
+.address_learning{
+	width: 100%;
+	margin-bottom: 0.4rem;
+}
+.address_learning_title{
+	margin-bottom: 0.2rem;
+}
+.address_learning_title .border{
+	width: 0.06rem;
+	height: 0.27rem;
+	background: #00bc12;
+	border-radius: 100px;
+	float: left;
+	margin-top: 0.06rem;
+    margin-right: 0.08rem;
+    margin-left: 0.26rem;
+}
+.address_learning_title .title{
+	font-size: 0.28rem;
+	color: #333333;
+	float: left;
+}
+.address_learning_center{
+	width: 6.98rem;
+	margin: 0 auto;
+	font-size: 0.26rem;
+	color: #666666;
+}
+.address_learning_center p img{
+	max-width: 6.98rem;
+}
+/*学习地址结束*/
+
 
 /*拜师学习流程开始*/
 .flow{
@@ -322,7 +421,7 @@ header{
 	width: 0.06rem;
 	height: 0.27rem;
 	background: #00bc12;
-	border-radius: 100%;
+	border-radius: 100px;
 	float: left;
 	margin-top: 0.06rem;
     margin-right: 0.08rem;
@@ -338,6 +437,10 @@ header{
 	margin: 0 auto;
 	font-size: 0.26rem;
 	color: #666666;
+	margin-bottom: 0.4rem;
+}
+.flow_center img{
+	max-width: 6.98rem;
 }
 /*拜师学习流程结束*/
 
@@ -353,7 +456,7 @@ header{
 	width: 0.06rem;
 	height: 0.27rem;
 	background: #00bc12;
-	border-radius: 100%;
+	border-radius: 100px;
 	float: left;
 	margin-top: 0.06rem;
     margin-right: 0.08rem;
@@ -370,6 +473,9 @@ header{
 	font-size: 0.26rem;
 	color: #666666;
 }
+.contacts_center img{
+	max-width: 6.98rem;
+}
 /*联系人结束*/
 
 /*招生简章开始*/
@@ -384,7 +490,7 @@ header{
 	width: 0.06rem;
 	height: 0.27rem;
 	background: #00bc12;
-	border-radius: 100%;
+	border-radius: 100px;
 	float: left;
 	margin-top: 0.06rem;
     margin-right: 0.08rem;
@@ -415,10 +521,23 @@ header{
     margin-left: 0.26rem;
     margin-top: 0.3rem;
 }
+.show_height{
+	width: 100%;
+	height: 0.98rem;
+	opacity: 0;
+}
+.bottom_fiexd{
+	width:100%;
+	height:0.98rem;
+	background:#fff;
+	position: fixed;
+	bottom: 0;
+    border-top: 1px solid #f0f0f0;
+}
 .general_border{
-	margin-top: 0.3rem;
+	/* margin-top: 0.3rem;
 	margin-bottom: 0.13rem;
-	border: 1px solid #dedede;
+	border: 1px solid #f0f0f0; */
 }
 /*招生简章结束*/
 .apply{
@@ -431,7 +550,7 @@ header{
 	color: #FFFFFF;
 	background: #00BC12;
 	border-radius: 100px;
-	margin-bottom: 0.13rem;
+	margin-top: 0.13rem;
 }
 .applys{
 	width: 6.98rem;
@@ -446,4 +565,3 @@ header{
 	margin-bottom: 0.13rem;
 }
 /*中间内容结束*/
-

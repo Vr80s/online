@@ -18,6 +18,7 @@ import com.xczh.consumer.market.utils.Sha1SignUtil;
 import com.xczh.consumer.market.wxpay.consts.WxPayConst;
 import com.xczh.consumer.market.wxpay.util.CommonUtil;
 
+import me.chanjar.weixin.mp.api.WxMpConfigStorage;
 import me.chanjar.weixin.mp.api.WxMpService;
 
 /**
@@ -34,6 +35,8 @@ public class WechatJSSDKControllder {
 
     @Autowired
     private WxMpService wxMpService;
+    @Autowired
+    private WxMpConfigStorage wxMpConfigStorage;
 
     /**
      * Description：如果是微信公众号的话需要签名下微信提供的jsssdk，这样才能使用微信的内置的分享和其他功能
@@ -61,7 +64,7 @@ public class WechatJSSDKControllder {
             String strSha1 = Sha1SignUtil.SHA1(map);
 
             map.put("sign", strSha1);
-            map.put("appId", wxMpService.getWxMpConfigStorage().getAppId());
+            map.put("appId", wxMpConfigStorage.getAppId());
         } catch (DigestException e) {
             e.printStackTrace();
             return ResponseObject.newErrorResponseObject("获取初始化信息数据有误");

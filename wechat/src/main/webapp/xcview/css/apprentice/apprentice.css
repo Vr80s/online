@@ -20,6 +20,9 @@ li{
 .both{
 	clear: both;
 }
+body{
+	background: #f8f8f8;
+}
 
 /*师承头部开始*/
 header{
@@ -38,6 +41,7 @@ header{
 	position: fixed;
 	top: 0;
 	z-index: 1;
+	border-bottom: 1px solid #d8dde6;
 }
 /*师承头部结束*/
 
@@ -49,18 +53,31 @@ header{
 }
 .main{
 	width: 100%;
-	background: #fff;
+	/*background: #fff;*/
+	position: relative;
+    top: 0rem;
+    overflow: scroll;
+    height: 100%;
+	-webkit-overflow-scrolling1:touch;
+
+	overflow-x: hidden;
+/ overflow-y: auto; /
+touch-action: pan-y;
+-webkit-overflow-scrolling: touch;
+
 }
 .center{
 	width: 100%;
+	padding-bottom: 0.2rem;
 }
 .center ul li{
 	/*background: blue;*/
 	margin-bottom: 0.2rem;
+	background: #fff;
 }
 .apprentice_main{
 	width: 100%;
-	height: 4.06rem;
+	/*height: 4.06rem;*/
 	margin-bottom: 0.02rem;
 }
 .flat_patternmaking{
@@ -75,10 +92,12 @@ header{
 	margin-bottom: 0.2rem;
 }
 .main_title{
-	height: 0.84rem;
+	/*height: 0.84rem;*/
 	font-size: 0.30rem;
 	padding-left: 0.26rem;
     padding-right: 0.26rem;
+    color: #333;
+    padding-bottom: 0.2rem;
 }
 /*中间内容结束*/
 
@@ -137,3 +156,4 @@ header{
 	background-size: 0.38rem 0.4rem;
 }
 /*底部结束*/
+

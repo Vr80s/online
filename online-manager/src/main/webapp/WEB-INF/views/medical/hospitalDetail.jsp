@@ -134,46 +134,7 @@
 </ul>
 <!-- Tab panes -->
 <div class="tab-content" style="padding-left: 0;">
-  <%--<div role="tabpanel" class="tab-pane" id="home">
-  		<div id="divKcjs" class="row">
-		<br/>
-			<div class="col-xs-3" style="width:20%">
-				<div class="panel panel-default">
-				    <div class="panel-body"> 
-			        	<button class="btn btn-sm btn-block" id="tjgsbt">
-							添加故事标题
-						</button>
-				    </div>
-				    <ul class="list-group" id="titleUl" style="margin: 0;"></ul>
-				</div>
-			</div>
-			<div class="col-xs-9" id="ce">
-			        <script id="courseContentPreviewEdit" type="text/plain" style="width:90%;height:65%;"></script>
-				    <br>
-					<input type="hidden" name="courseContentPreview"  id="courseContentPreview" class="col-xs-10 col-sm-12 {required:true,minlength:1}">
-					<div class="row">
-						<div class="col-xs-4" style="text-align: right">
-							<!-- 第一个复选框是控制单个故事的 暂时保留 -->
-							<input type="checkbox" id="desStatusEdit" name="status" checked="checked" style="display:none">
-							<!-- 控制全局展示 -->
-							
-								<input type="checkbox" id="descriptionShow" name="descriptionShow" style="cursor: pointer;">
-								<label for="descriptionShow" style="cursor: pointer;">
-									设置在前台展示
-								</label>
-						</div>
-						<div class="col-xs-8" style="text-align: left">
-							<button class="btn btn-sm btn-success" id="desSaveBtn">
-								保存
-							</button>
-							<button class="btn btn-sm btn-success" id="returnbutton2">
-								返回
-							</button>
-						</div>
-					</div>
-			</div>
-		</div>
-  </div>--%>
+
   <div role="tabpanel" class="tab-pane active" id="profile">
   		<div id="divKcxq">
 		<!-- 增加form -->
@@ -182,6 +143,7 @@
 				<input type="hidden" name="medicalHospitalId" id="courseId" value="${param.courseId}">
 				<input type="hidden" name="weburl" id="weburl" value="${weburl}">
 				<input type="hidden" name="page" id="page" value="${param.page}">
+				<input type="hidden" name="sourceId" id="sourceId" value="${param.sourceId}">
 				<div class="form-group" style="margin-top:18px;">
 					<!-- <label class="col-sm-1 control-label no-padding-right"><font color="red">*</font>医馆展示图:</label> -->
 					<div class="col-sm-4" style="width: 285px; height: 140px;">

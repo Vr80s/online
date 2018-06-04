@@ -57,7 +57,6 @@ public class SaltUtil {
      * @return
      */
     public static String MD5Encode(String origin) {
-        System.out.println(origin);
         String resultString = null;
         try {
             resultString = new String(origin);
@@ -97,9 +96,4 @@ public class SaltUtil {
         return HEX_DIGITS[d1] + HEX_DIGITS[d2];
     }
 
-    public static void main(String[] args) {
-        String jlakgjo9345j = SaltUtil.encodePassword(new String("123456"),
-                "jlakgjo9345j");
-        System.out.println(jlakgjo9345j);
-    }
 }

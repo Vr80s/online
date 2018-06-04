@@ -12,18 +12,34 @@
 
 	<!--手机嵌入模板-->
 	<script type="text/javascript" src="/xcview/js/common/layout.js"></script>
+	<style>
+		.opacity{
+			width: 100%;
+		    height: 3.02rem;
+		    position: absolute;
+		    top: 0;
+		    left: 0;
+		    z-index: -1;
+		    background: #000;
+		    opacity: 0.2;
+		}
+		
+	</style>
 </head>
 <body>
+<script id="inherited_introduction_temp" type="text/html">
 	<!-- 简介头部开始 -->
 	<header>
 		<div class="intro">
+			<div class="opacity"></div>
 			<div class="special_img">
-				<img src="/xcview/images/anchorbg.png" alt="" /> <!-- 此图是从上一页专题图的封面图 -->
+				<img src="{{coverImg}}" alt="" /> <!-- 此图是从上一页专题图的封面图 -->
 			</div>
-			<div class="intro_top" onclick="javascript:history.go(-1);">
+			<div class="intro_top" onclick="location.href='/xcview/html/apprentice/apprentice.html'">
+				<div class="intro_top_bg"></div>
 				<img src="/xcview/images/anchorj.png" alt="" />
 			</div>
-			<div class="invitation_card" onclick="location.href ='invitation_card.html'">
+			<div class="invitation_card" onclick="cardInfo()">
 				<div class="invitation_card_share"><img src="/xcview/images/anchorf.png" alt=""></div>
 				<div class="invitation_card_size">我的邀请卡</div>
 			</div>
@@ -34,30 +50,38 @@
 	<!-- 中间内容开始 -->
 	<div class="main">
 		<div class="head_portrait">
-			<img src="http://test-www.ixincheng.com:38080/data/picture/other/2018/03/18/07/0352136763c14f9daa4f4186c9f5a66b.jpg" alt="" />
+
+			{{if doctorPhoto == null}}
+				<img src="/xcview/images/regards.png" alt="医师头像" />
+			{{else}}
+				<img src="{{doctorPhoto}}" alt="医师头像" />
+			{{/if}}
+
+			
 		</div>
-		<div class="intro_title">京城四大名医林超岱收徒—传授草药学精髓</div>
-		<div class="intro_title_size">如果你也想拥有“一鸟在手，胜过双鸟在林”的“一招鲜吃遍天，仗艺走天涯”本领—切实掌握上乘的腹针临床技艺，就来拜林超岱先生为师吧。他答应一对一、手把手真的教会你，“真传一句话，假传万言书”！原创“一朝为师徒，终身做哥们儿”理念，提出终身相互学习、相互服务、互相帮助、学以致用原则，实现共同进步目标。原创“一朝为师徒，终身做哥们儿”理念，提出终身相互学习、相互服务、互相帮助、学以致用原则，实现共同进步目标。</div>
+		<div class="intro_title">{{title}}</div>
+		<div class="intro_title_size">{{propaganda}}</div>
 		<div class="intro_border"></div>
 		<div class="apprentice">
 			<span class="number_enlightening">收徒人数</span>
-			<span class="number_people">50人</span>
+			<span class="number_people">{{countLimit}}人</span>
 			<span class="hint">报名人数不受限，成为弟子需面试</span>
 		</div>
 		<div class="schooling">
 			<span class="schooling_size">学费</span>
-			<span class="number_schooling">￥30000</span>
+			<span class="number_schooling">￥{{tuition}}</span>
 		</div>
 		<div class="registered">
-			<span>已报名(123人)</span>
+			<span>已报名({{allEnrolledUserCount}}人)</span>
 			<ul>
-				<li><img src="http://test-www.ixincheng.com:38080/data/picture/other/2018/03/18/07/0352136763c14f9daa4f4186c9f5a66b.jpg" alt="" /></li>
-				<li><img src="http://test-www.ixincheng.com:38080/data/picture/other/2018/03/18/07/0352136763c14f9daa4f4186c9f5a66b.jpg" alt="" /></li>
-				<li><img src="http://test-www.ixincheng.com:38080/data/picture/other/2018/03/18/07/0352136763c14f9daa4f4186c9f5a66b.jpg" alt="" /></li>
-				<li><img src="http://test-www.ixincheng.com:38080/data/picture/other/2018/03/18/07/0352136763c14f9daa4f4186c9f5a66b.jpg" alt="" /></li>
-				<li><img src="http://test-www.ixincheng.com:38080/data/picture/other/2018/03/18/07/0352136763c14f9daa4f4186c9f5a66b.jpg" alt="" /></li>
-				<li><img src="http://test-www.ixincheng.com:38080/data/picture/other/2018/03/18/07/0352136763c14f9daa4f4186c9f5a66b.jpg" alt="" /></li>
-				<li><img src="http://test-www.ixincheng.com:38080/data/picture/other/2018/03/18/07/0352136763c14f9daa4f4186c9f5a66b.jpg" alt="" /></li>
+				{{each allEnrolledUser as user i}}
+				
+				{{if user == null}}
+				<li><img src="/xcview/images/default_pic.png" alt="头像" /></li>
+				{{else}}
+				<li><img src="{{user}}" alt="头像" /></li>
+				{{/if}}
+				{{/each}}
 			</ul>
 			<div class="both"></div>
 		</div>
@@ -69,7 +93,7 @@
 				<p class="title">大师简介</p>
 				<div class="both"></div>
 			</div>
-			<div class="master_center">林超岱 主任医师、教授，中国针灸学会腹针专业委员会副主任委员兼秘书长、中国针灸学会穴位贴敷专业委员会副主任委员、世界针灸学会联合会腹针传承委员会副主任委员兼秘书长。1986年7月毕业于广州中医学院，出身中医世家，腹针发明人、腹针疗法创始人薄智云教授亲传大弟子，腹针疗法第一传承人；中医大家樊正伦教授亲传弟子。</div>
+			<div class="master_center doctorIntroduction">{{doctorIntroduction}}</div>
 		</div>
 		<!-- 大师简介结束 -->
 		<!-- 拜师资格开始 -->
@@ -79,9 +103,7 @@
 				<p class="title">拜师资格</p>
 				<div class="both"></div>
 			</div>
-			<div class="apprentices_center">1、已获取行医资格（包括中医医术确有专长人员）者；</div>
-			<div class="apprentices_center">2、已获取行医资格（包括中医医术确有专长人员）者；</div>
-			<div class="apprentices_center">3、已获取行医资格（包括中医医术确有专长人员）者；</div>
+			<div class="apprentices_center qualification">{{qualification}}</div>
 		</div>
 		<!-- 拜师资格结束 -->
 
@@ -92,12 +114,7 @@
 				<p class="title">弟子权益</p>
 				<div class="both"></div>
 			</div>
-			<div class="disciple_center">1、“一日为师徒，终身互学习”。一旦确认师徒缘分，就开启了与师父、与同学终身相互学习、携手并进的关系模式；</div>
-			<div class="disciple_center">2、先期入室弟子可以免费继续参加后3期的拜师学习；</div>
-			<div class="disciple_center">3、拜师期间餐饮免费（交通、住宿费自理）；</div>
-			<div class="disciple_center">4、赠送《腹针临床效案点评（典藏版）》、资料费、证书费、会务会议费、师叔讲课和交通住宿费等；</div>
-			<div class="disciple_center">5、3年内跟师临床免费；</div>
-			<div class="disciple_center">6、师父巡查到入室弟子所在地免费听课。</div>
+			<div class="disciple_center rightsAndInterests">{{rightsAndInterests}}</div>
 		</div>
 		<!-- 弟子权益结束 -->
 
@@ -108,10 +125,32 @@
 				<p class="title">拜师地址</p>
 				<div class="both"></div>
 			</div>
-			<div class="site_center">北京广西大厦，北京市朝阳区潘家园街道华威里26号；地铁：地铁10号线潘家园站C2（东南出口）向西步行411米即到；
-公交：公交车36路、378路左安路站下车即到。</div>
+			<div class="site_center ceremonyAddress" >{{ceremonyAddress}}</div>
 		</div>
 		<!-- 拜师地址结束 -->
+
+		<!-- 学习时间开始 -->
+		<div class="flow">
+		<div class="flow_title">
+			<p class="border"></p>
+			<p class="title">学习时间</p>
+			<div class="both"></div>
+		</div>
+		<div class="flow_center learningProcess">
+			{{startTime}}至{{endTime}}
+		</div>
+		<!-- 学习时间结束 -->
+		<!-- 学习地址开始 -->
+		<div class="flow">
+		<div class="flow_title">
+			<p class="border"></p>
+			<p class="title">学习地址</p>
+			<div class="both"></div>
+		</div>
+		<div class="flow_center learningProcess">
+			{{studyAddress}}
+		</div>
+		<!-- 学习地址结束 -->
 
 		<!-- 拜师学习流程开始 -->
 		<div class="flow">
@@ -120,26 +159,8 @@
 				<p class="title">拜师学习流程</p>
 				<div class="both"></div>
 			</div>
-			<div class="flow_center">1、4月29日上午报到，28日晚报到亦可；</div>
-			<div class="flow_center">2、4月29日下午14:30开始：
-1）14:30—15:30拜师仪式；
-2）15:40—17:40师父讲大课；
-3）17:40—18:30选班委、自我介绍、男男结对子、          女女结对子；
-4）18:30—21:00师徒联欢交流学习;</div>
-			<div class="flow_center">4月30日上午8:00开始，全天：
-1）8:00—10:00请师叔北京中医药大学张红林教授讲腹针取穴方法及演示，同学相互练习取穴；
-2）10:20—12:00请师叔“中医鬼谷子”张胜兵先生讲辨证论治高血压、糖尿病、类风湿等难治病；
-3）8:00—12:00师父一对二逐个手把手教取穴方法和头疼、颈椎病、腰椎病、膝关节病、痛经等处方及其加减，学会！
-4）12:00—13:00午餐（盒饭）
-5）13:00—19:00请师叔“中医鬼谷子”张胜兵先生讲辨证论治高血压、糖尿病、类风湿等难治病；
-6）13:00—19:00师父一对二逐个手把手教取穴方法和头疼、颈椎病、腰椎病、膝关节病、痛经等处方及其加减，学会！
-7）19:00—21:00师徒联欢交流学习。</div>
-			<div class="flow_center">4、5月1日上午8:00开始，10:00之后可以安排返程：
-1）8:00—12:00同学互相练习取穴、交流学习心得。下午返程的先进行考核；
-2）8:00—12:00师父一对二逐个考核；
-3）12:00—13:00午餐（盒饭）；
-4）13:00—18:00同学互相练习取穴、交流学习心得；
-5）13:00—18:00师父一对二逐个考核未考核者及上午考核不合格者，必须100%合格；6）18:00—20:30师徒话别，志同道合，依依不舍。</div>
+			<div class="flow_center learningProcess">
+				{{learningProcess}}
 			</div>
 		<!-- 拜师学习流程结束 -->
 
@@ -150,8 +171,7 @@
 				<p class="title">联系人</p>
 				<div class="both"></div>
 			</div>
-			<div class="contacts_center">1、欣，电话：15210010184，微信同号，电子邮箱：15210010184@163.com；</div>
-			<div class="contacts_center">2、王丽丽，电话：17153024655，微信号：wll1998517，电子邮箱：2697149123@qq.com。。</div>
+			<div class="contacts_center">{{contactWay}}</div>
 		</div>
 		<!-- 联系人结束 -->
 
@@ -162,17 +182,56 @@
 				<p class="title">招生简章</p>
 				<div class="both"></div>
 			</div>
-			<div class="general_center" onclick="location.href ='recruit.html'">更多详细内容请查看招生简章全文 > </div>
-			<a href="" class="download">下载招生简章</a>
+			<div class="general_center" onclick="location.href ='recruit.html?merId={{id}}'">更多详细内容请查看招生简章全文 > </div>
+			<a href="{{entryFormAttachment}}" class="download"  download="招生简章">下载招生简章</a>
 		</div>
+		<div class="show_height"></div>
+		<dev class="bottom_fiexd">
 		<div class="general_border"></div>
 		<!-- 招生简章结束 -->
+			{{if !enrolled}}
+				<div class="apply" onclick="location.href='apply.html?merId={{id}}'">我也要报名</div>
+			{{else}}
+				<div class="apply" onclick="location.href ='information_registration.html?merId={{id}}'">已报名，查看报名信息</div>
+			{{/if}}
+		<!--<div class="applys" style="display: none;" onclick="location.href ='information_registration.html'">已报名，查看报名信息</div>-->
+		</div>
 
-		<div class="apply" onclick="location.href ='apply.html'">我也要报名</div>
-		<div class="applys" style="display: none;" onclick="location.href ='information_registration.html'">已报名，查看报名信息</div>
+	</div>
+</script>
 
-
-	</div>    
-	<!-- 中间内容结束 -->
 </body>
+<!-- 中间内容结束 -->
+<script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
+<script type="text/JavaScript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/common.js?v=wechat_1.1.1"></script>
+<script type="text/javascript" src="/xcview/js/common/template.js"></script>   <!--模板引入-->
+<script type="text/javascript" src="/xcview/js/apprentice/apprentice-common.js"></script>
+
+<script type="text/javascript" src="/xcview/js/common/alertPopShow.js"></script>
+<!-- 分享引入 -->
+<script type="text/javascript" src="/xcview/js/apprentice/inherited_introduction.js?v=wechat_1.1.24"></script>
+<script type="text/javascript" src="/xcview/js/share/share.js?v=wechat_1.1.3"></script>
+
+
+
+
+<script>
+	//需要JQ1.8版本以上兼容toggle,则引入以下代码
+$.fn.toggle = function( fn, fn2 ) {
+    var args = arguments,guid = fn.guid || $.guid++,i=0,
+    toggle = function( event ) {
+      var lastToggle = ( $._data( this, "lastToggle" + fn.guid ) || 0 ) % i;
+      $._data( this, "lastToggle" + fn.guid, lastToggle + 1 );
+      event.preventDefault();
+      return args[ lastToggle ].apply( this, arguments ) || false;
+    };
+    toggle.guid = guid;
+    while ( i < args.length ) {
+      args[ i++ ].guid = guid;
+    }
+    return this.click( toggle );
+  };
+</script>
 </html>

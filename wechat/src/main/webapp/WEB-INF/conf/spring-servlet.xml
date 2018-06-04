@@ -134,8 +134,11 @@
     <dubbo:reference interface="com.xczhihui.course.service.IMobileHotSearchService" id="mobileHotSearchServiceImpl" timeout="${dubbo.consumer.timeout}"/>
     <!-- 微信公众号 -->
     <dubbo:reference id="wxMpService" interface="me.chanjar.weixin.mp.api.WxMpService" timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference id="wxMpConfigStorage" interface="me.chanjar.weixin.mp.api.WxMpConfigStorage" timeout="${dubbo.consumer.timeout}"/>
     <!-- 消息服务 -->
     <dubbo:reference id="commonMessageService" interface="com.xczhihui.course.service.ICommonMessageService" timeout="${dubbo.consumer.timeout}">
         <dubbo:method name="saveMessage" async="true"/>
     </dubbo:reference>
+    <!-- 师承模块服务 -->
+    <dubbo:reference interface="com.xczhihui.medical.enrol.service.EnrolService" id="enrolServiceImpl" timeout="${dubbo.consumer.timeout}"/>
 </beans>

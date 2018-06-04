@@ -37,16 +37,9 @@ public class PageVisitFilter implements Filter {
         String uri = request.getRequestURI();
         String ext = FilenameUtils.getExtension(uri);
 
-        //LOGGER.info("欢迎欢迎，静态资源："+ext);
         try {
-//			这里的配置不让有浏览器缓存，不能这样的    		
-//			response.setHeader("Pragma", "No-cache");
-//			response.setHeader("Cache-Control", "no-cache");
-//			response.setDateHeader("Expires", -1);
             request.setCharacterEncoding("UTF-8");
             response.setCharacterEncoding("UTF-8");
-//			response.setHeader("renderer", "webkit"); 
-//			response.setHeader("viewport", "width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0 user-scalable=no"); 
             if (isGZipEncoding(request)) {
                 //需要过滤的扩展名：.htm,.html,.jsp,.js,.ajax,.css
                 String gzippPattern = ",.htm,.html,.js,.css,";

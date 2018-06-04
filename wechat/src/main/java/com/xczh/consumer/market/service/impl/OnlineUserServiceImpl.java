@@ -26,6 +26,7 @@ import com.xczhihui.user.center.utils.CookieUtil;
 import com.xczhihui.user.center.vo.OeUserVO;
 import com.xczhihui.user.center.vo.ThirdFlag;
 
+import me.chanjar.weixin.mp.api.WxMpConfigStorage;
 import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.bean.result.WxMpOAuth2AccessToken;
 import me.chanjar.weixin.mp.bean.result.WxMpUser;
@@ -45,6 +46,8 @@ public class OnlineUserServiceImpl implements OnlineUserService {
     private UserCoinService userCoinService;
     @Autowired
     private WxMpService wxMpService;
+    @Autowired
+    private WxMpConfigStorage wxMpConfigStorage;
 
     @Value("${returnOpenidUri}")
     private String returnOpenidUri;
@@ -142,7 +145,7 @@ public class OnlineUserServiceImpl implements OnlineUserService {
             if (null == m) {
                 WxcpClientUserWxMapping wxcpClientUserWxMapping = new WxcpClientUserWxMapping();
                 wxcpClientUserWxMapping.setWx_id(CodeUtil.getRandomUUID());
-                wxcpClientUserWxMapping.setWx_public_id(wxMpService.getWxMpConfigStorage().getAppId());
+                wxcpClientUserWxMapping.setWx_public_id(wxMpConfigStorage.getAppId());
                 wxcpClientUserWxMapping.setWx_public_name(WxPayConst.appid4name);
                 wxcpClientUserWxMapping.setOpenid(openId);
                 wxcpClientUserWxMapping.setNickname(nickname);

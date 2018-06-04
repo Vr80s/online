@@ -53,8 +53,6 @@ public class MobileShareController {
     @Value("${returnOpenidUri}")
     private String returnOpenidUri;
     @Autowired
-    private WxcpClientUserWxMappingService wxcpClientUserWxMappingService;
-    @Autowired
     private OnlineUserMapper onlineUserMapper;
     @Autowired
     private UserCenterService userCenterService;
@@ -136,7 +134,8 @@ public class MobileShareController {
             HttpServletResponse res,
             @RequestParam(value="shareId")String shareId,
             @RequestParam(value="shareType")Integer shareType,
-            @RequestParam(value="wxOrbrower")String wxOrbrower, @Account(optional = true) Optional<String> accountIdOpt)throws Exception{
+            @RequestParam(value="wxOrbrower")String wxOrbrower, 
+            @Account(optional = true) Optional<String> accountIdOpt)throws Exception{
         /**
          * 这里有个问题就是。如果去分享页面的话
          */
@@ -160,29 +159,30 @@ public class MobileShareController {
 
             if(courseLecturVo.getStatus() == 1 && !accountIdOpt.isPresent()) { //课程下架了
                 LOGGER.info("课程被下架,用户为登录");
-
+                res.sendRedirect(returnOpenidUri +"/xcview/html/unshelve.html");
             }else if(courseLecturVo.getStatus() == 1 &&  accountIdOpt.isPresent()) { //课程虽然被下架。但判断此用户是否购买过啊
                 Boolean falg = onlineWebService.getLiveUserCourse(courseId, accountIdOpt.get());
                 if(!falg) {
                     LOGGER.info("课程虽然被下架。用户也没有购买");
+                    res.sendRedirect(returnOpenidUri +"/xcview/html/unshelve.html");
                 }
             }else if(courseLecturVo.getIsDelete()) { //课程被删除
                 LOGGER.info("课程被物理删除");
+                res.sendRedirect(returnOpenidUri +"/xcview/html/unshelve.html");
 
             }else if(StringUtils.isBlank(courseLecturVo.getUserLecturerId())) {
                 LOGGER.info("课程的教师没有找到");
+                res.sendRedirect(returnOpenidUri +"/xcview/html/unshelve.html");
             }
         }else if(ShareType.HOST_SHARE.equals(shareType)){ //主播分享
             OnlineUser o = onlineUserService.findUserById(shareId);
             if (o != null) {
                 if (o.isDelete() || o.getStatus() == -1) {
-
-
+                	res.sendRedirect(returnOpenidUri +"/xcview/html/unshelve.html");
                 }
             }
         }else { //分享类型有误 --》首页
-
-
+        	res.sendRedirect(returnOpenidUri +"/xcview/html/unshelve.html");
         }
 		/*
 		 * 这里需要判断下是不是微信浏览器
@@ -241,8 +241,9 @@ public class MobileShareController {
                         ou.setTicket(t.getTicket());
                         UCCookieUtil.writeTokenCookie(res, t);
                     }
+                }else {
+                	 UCCookieUtil.writeThirdPartyCookie(res,onlineUserService.buildThirdFlag(wxw));
                 }
-                UCCookieUtil.writeThirdPartyCookie(res,onlineUserService.buildThirdFlag(wxw));
             } else {
                 ou = accountIdOpt.isPresent() ? onlineUserService.findUserById(accountIdOpt.get()) : null;
             }
@@ -271,9 +272,7 @@ public class MobileShareController {
                     res.sendRedirect(returnOpenidUri + "/xcview/html/home_page.html");
                     return;
                 }
-                LOGGER.info("cv.getWatchState():+"+cv.getWatchState());
-                LOGGER.info("cv.getType()=:+"+cv.getType());
-                LOGGER.info("cv.getCollection()=:+"+cv.getCollection());
+                LOGGER.info("cv.getWatchState():+"+cv.getWatchState()+",cv.getType()=:+"+cv.getType()+",cv.getCollection()=:+"+cv.getCollection());
 
                 if(ou == null) {
                     if(cv.getType()==1 || cv.getType()==2){

@@ -439,26 +439,51 @@
     </select>
     <select id="selectDoctorRecommendList4Random" resultType="com.xczhihui.medical.doctor.vo.MedicalDoctorVO">
         SELECT
-        md.*,
-        md.`work_time` workTime,
-        mdai.head_portrait headPortrait,
-        mh.`name` hospitalName
+	        md.*,
+	        md.`work_time` workTime,
+	        mdai.head_portrait headPortrait,
+	        mh.`name` hospitalName
         FROM
-        medical_doctor md
-        LEFT JOIN `medical_doctor_authentication_information` mdai
-        ON md.`authentication_information_id` = mdai.`id`
-        LEFT JOIN `medical_hospital_doctor` mhd
-        ON mhd.`doctor_id` = md.`id`
-        AND mhd.`deleted`=0
-        LEFT JOIN `medical_hospital` mh
-        ON mhd.`hospital_id` = mh.`id`
-        WHERE md.deleted = 0
-        AND md.status = 1
-        AND md.`recommend`=1
-        <if test="type != null and type != ''">
-            and md.type = #{type}
-        </if>
+	        medical_doctor md
+	        LEFT JOIN `medical_doctor_authentication_information` mdai
+	        ON md.`authentication_information_id` = mdai.`id`
+	        LEFT JOIN `medical_hospital_doctor` mhd
+	        ON mhd.`doctor_id` = md.`id`
+	        AND mhd.`deleted`=0
+	        LEFT JOIN `medical_hospital` mh
+	        ON mhd.`hospital_id` = mh.`id`
+	        WHERE md.deleted = 0
+	        AND md.status = 1
+	        AND md.`recommend`=1
+	        <if test="type != null and type != ''">
+	            and md.type = #{type}
+	        </if>
         ORDER BY md.`recommend_sort`desc
         LIMIT #{offset},#{rows}
     </select>
+    
+    <select id="selectDoctorCouserByAccountId" resultType="com.xczhihui.medical.doctor.vo.MedicalDoctorVO">
+        SELECT
+	        md.*,
+	        md.`work_time` workTime,
+	        mda.account_id userId,
+	        mdai.head_portrait headPortrait,
+	        (select CONCAT_WS("concatGradeNameId",id,grade_name) from 
+					    oe_course 
+							where user_lecturer_id = mda.account_id  
+							and is_delete=0 and status=1  
+							ORDER BY release_time desc  limit 0,1 ) as concatGradeNameId
+        FROM
+	        medical_doctor md
+	        LEFT JOIN `medical_doctor_authentication_information` mdai
+	        ON md.`authentication_information_id` = mdai.`id`
+       		left join medical_doctor_account mda
+			on   md.id  =  mda.doctor_id
+	        WHERE md.deleted = 0
+	        AND md.status = 1
+	        AND mda.account_id is not null
+        ORDER BY md.`recommend_sort`desc
+        LIMIT #{offset},#{rows}
+    </select>
+    
 </mapper>

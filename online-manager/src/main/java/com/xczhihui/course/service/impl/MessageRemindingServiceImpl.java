@@ -17,9 +17,9 @@ import com.xczhihui.bxg.online.common.domain.Course;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.common.support.service.CacheService;
 import com.xczhihui.common.support.service.impl.RedisCacheService;
+import com.xczhihui.common.util.DateUtil;
 import com.xczhihui.common.util.TimeUtil;
 import com.xczhihui.constant.RedisKeyConstant;
-import com.xczhihui.course.consts.MultiUrlHelper;
 import com.xczhihui.course.dao.CollectionCourseApplyUpdateDateDao;
 import com.xczhihui.course.dao.CourseDao;
 import com.xczhihui.course.enums.MessageTypeEnum;
@@ -47,8 +47,8 @@ public class MessageRemindingServiceImpl implements MessageRemindingService {
     private static final String APP_PUSH_OFFLINE_COURSE_REMIND = "您报名的《{0}》将于明天{1}在{2}开始，别忘了准时参加！";
     private static final String WEB_OFFLINE_COURSE_REMIND = "【上课提醒】您报名的《{0}》将于明天{1}在{2}开始，别忘了准时参加！";
 
-    private static final String APP_PUSH_COLLECTION_COURSE_REMIND = "您的专辑课程《{0}》需要更新啦~更新时间为每周{1}";
-    private static final String WEB_COLLECTION_COURSE_REMIND = "【课程更新提示】您的专辑课程《{0}》需要更新啦~更新时间为每周{1}";
+    private static final String APP_PUSH_COLLECTION_COURSE_REMIND = "您的专辑课程《{0}》需要更新啦~更新时间为每{1}";
+    private static final String WEB_COLLECTION_COURSE_REMIND = "【课程更新提示】您的专辑课程《{0}》需要更新啦~更新时间为每{1}";
 
     @Value("${sms.live.course.remind.code}")
     private String sendLiveRemindCode;
@@ -63,18 +63,6 @@ public class MessageRemindingServiceImpl implements MessageRemindingService {
     private String mobileDomain;
 
     CacheService cacheService;
-    private static Map<Integer, String> dayMap;
-
-    static {
-        dayMap = new HashMap<>();
-        dayMap.put(1, "一");
-        dayMap.put(2, "二");
-        dayMap.put(3, "三");
-        dayMap.put(4, "四");
-        dayMap.put(5, "五");
-        dayMap.put(6, "六");
-        dayMap.put(7, "日");
-    }
 
     @Autowired
     CourseDao courseDao;
@@ -170,7 +158,7 @@ public class MessageRemindingServiceImpl implements MessageRemindingService {
                 List<OnlineUser> users = getUsersByCourseId(course.getId());
                 String courseName = course.getGradeName();
                 String address = course.getAddress();
-                String dateStr = dates.stream().map(date -> dayMap.get(date)).collect(Collectors.joining(","));
+                String dateStr = dates.stream().map(DateUtil::getDayOfWeek).collect(Collectors.joining(","));
                 Map<String, String> params = new HashMap<>(1);
                 params.put("courseName", courseName);
                 for (OnlineUser user : users) {

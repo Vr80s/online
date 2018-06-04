@@ -246,4 +246,27 @@ public interface OeBxsArticleMapper extends BaseMapper<OeBxsArticle> {
             " where oba.`is_delete`=0 and oba.status = 1 and oba.sort > 0 and (oba.recommend_time is null or oba.recommend_time > now()) " +
             " order by oba.sort desc, oba.create_time desc"})
     List<OeBxsArticleVO> listPublicWritings(Page<OeBxsArticleVO> page);
+    
+    
+    
+    /**
+     * 获取专栏作者
+     *
+     * @param size size
+     * @return
+     */
+    @Select({"SELECT md.name AS doctorName, md.`id` AS doctorId, mdai.head_portrait headPortrait, md.`province`, md.`city`,oba.title " +
+            "        FROM" +
+            "            `oe_bxs_article` oba" +
+            "            JOIN `medical_doctor_special_column` mdsc" +
+            "                ON oba.`id` = mdsc.`article_id`" +
+            "            JOIN `medical_doctor` md" +
+            "                ON md.id = mdsc.`doctor_id`" +
+            "            JOIN `medical_doctor_authentication_information` mdai" +
+            "                ON mdai.`id` = md.`authentication_information_id`" +
+            "        WHERE oba.status = 1 and oba.is_delete = 0" +
+            "           group by md.`id` " +
+            "        ORDER BY oba.`create_time` DESC limit #{size}"})
+    List<Map<String, Object>> listSpecialAuthorContent(int size);
+    
 }

@@ -2,10 +2,12 @@ package com.xczh.consumer.market.interceptor;
 
 import static com.xczh.consumer.market.utils.ResponseObject.tokenBlankError;
 import static com.xczh.consumer.market.utils.ResponseObject.tokenExpired;
-import static com.xczhihui.common.util.enums.UserUnitedStateType.GO_TO_BIND;
 import static com.xczhihui.common.util.enums.UserUnitedStateType.OVERDUE;
+import static com.xczhihui.common.util.enums.UserUnitedStateType.WEIXIN_AUTH;
 
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,14 +30,12 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
-import com.google.common.collect.ImmutableList;
 import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.user.center.service.UserCenterService;
 import com.xczhihui.user.center.utils.UCCookieUtil;
-import com.xczhihui.user.center.vo.ThirdFlag;
 import com.xczhihui.user.center.vo.Token;
 
 /**
@@ -46,16 +46,22 @@ public class AuthInterceptor implements HandlerInterceptor, HandlerMethodArgumen
     private static final String TOKEN_PARAM_NAME = "token";
     private static final String APP_UNIQUE_ID_PARAM_NAME = "appUniqueId";
     private static final String ENTER_HTML_URL = "/xcview/html/enter.html";
-    private static final String EVPI_HTML_URL = "/xcview/html/evpi.html?jump_type=1";
+    private static final String EVPI_HTML_URL = "/xcview/html/evpi.html";
+    private static final String WEIXIN_AUTH_CALLBACK = "/xczh/wxlogin/middle?url=";
+    private static final String USER_AGENT_HEADER_NAME = "User-Agent";
+    private static final String X_REQUEST_WITH_HEADER_NAME = "x-requested-with";
+    private static final String XML_HTTP_REQUEST = "XMLHttpRequest";
+    private static final String MICRO_MESSENGER = "micromessenger";
 
-    private static List<String> noNeedAuthPaths = ImmutableList.of("/xczh/user/**", "/xczh/share/**", "/xczh/qq/**",
+    private static List<String> noNeedAuthPaths = Arrays.asList("/xczh/user/**", "/xczh/share/**", "/xczh/qq/**",
             "/xczh/wxlogin/**", "/xczh/weibo/**", "/xczh/third/**", "/xczh/wxpublic/**", "/xczh/alipay/alipayNotifyUrl",
             "/bxg/wxpay/wxNotify", "/xczh/alipay/pay", "/xczh/alipay/rechargePay", "/xczh/criticize/getCriticizeList",
-            "/xczh/ccvideo/palyCode", "/xczh/wechatJssdk/certificationSign", "/xczh/medical/applyStatus", "/xczh/manager/home",
+            "/xczh/ccvideo/palyCode", "/xczh/wechatJssdk/certificationSign", "/xczh/manager/home",
             "/xczh/common/getProblems", "/xczh/common/verifyLoginStatus", "/xczh/common/getProblemAnswer",
             "/xczh/common/checkUpdate", "/xczh/common/addOpinion", "/xczh/gift/rankingList", "/xczh/common/richTextDetails",
             "/xczh/gift/list", "/xczh/common/checkToken", "/xczh/message", "/xczh/pay/pay_notify", "/xczh/set/isLogined",
-            "/xczh/recommend/**", "/xczh/classify/**", "/xczh/bunch/**", "/xczh/live/**", "/xczh/host/**", "/xczh/course/**");
+            "/xczh/recommend/**", "/xczh/classify/**", "/xczh/bunch/**", "/xczh/live/**", "/xczh/host/**", "/xczh/course/**",
+            "/xczh/enrol/enrollmentRegulations");
 
     @Autowired
     private PathMatcher pathMatcher;
@@ -68,8 +74,8 @@ public class AuthInterceptor implements HandlerInterceptor, HandlerMethodArgumen
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        ServletOutputStream outputStream = response.getOutputStream();
         if (!isExcludePath(request)) {
+            ServletOutputStream outputStream = response.getOutputStream();
             if (isAppRequest(request)) {
                 String token = getParam(request, TOKEN_PARAM_NAME);
                 ResponseObject responseObject = null;
@@ -98,11 +104,11 @@ public class AuthInterceptor implements HandlerInterceptor, HandlerMethodArgumen
                     redisToken = userCenterService.getToken(token.getTicket());
                 }
                 boolean isAjax = isAjax(request);
+                boolean isWeixin = isWeixin(request);
                 if (token == null || redisToken == null) {
-                    ThirdFlag thirdFlag = UCCookieUtil.readThirdPartyCookie(request);
-                    if (thirdFlag != null && token == null) {
-                        redirectUrl = request.getContextPath() + EVPI_HTML_URL;
-                        responseObject = ResponseObject.newErrorResponseObject(null, GO_TO_BIND.getCode());
+                    if (isWeixin) {
+                        redirectUrl = request.getContextPath() + WEIXIN_AUTH_CALLBACK + URLEncoder.encode(request.getServletPath(), "UTF-8");
+                        responseObject = ResponseObject.newErrorResponseObject(null, WEIXIN_AUTH.getCode());
                     } else {
                         redirectUrl = request.getContextPath() + ENTER_HTML_URL;
                         responseObject = ResponseObject.newErrorResponseObject(null, OVERDUE.getCode());
@@ -141,8 +147,13 @@ public class AuthInterceptor implements HandlerInterceptor, HandlerMethodArgumen
     }
 
     private boolean isAjax(HttpServletRequest request) {
-        return request.getHeader("x-requested-with") != null
-                && "XMLHttpRequest".equalsIgnoreCase(request.getHeader("x-requested-with"));
+        return request.getHeader(X_REQUEST_WITH_HEADER_NAME) != null
+                && XML_HTTP_REQUEST.equalsIgnoreCase(request.getHeader(X_REQUEST_WITH_HEADER_NAME));
+    }
+
+    private boolean isWeixin(HttpServletRequest request) {
+        String header = request.getHeader(USER_AGENT_HEADER_NAME).toLowerCase();
+        return header.contains(MICRO_MESSENGER);
     }
 
     private boolean isExcludePath(HttpServletRequest request) {
@@ -199,6 +210,8 @@ public class AuthInterceptor implements HandlerInterceptor, HandlerMethodArgumen
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
         HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.class);
         String token;
+        String str = request.getServletPath();
+        System.out.println();
         if (isAppRequest(request)) {
             token = getParam(request, TOKEN_PARAM_NAME);
         } else {
@@ -218,7 +231,7 @@ public class AuthInterceptor implements HandlerInterceptor, HandlerMethodArgumen
             }
         } else {
             if (tokenData == null) {
-                throw new IllegalArgumentException("token 无效");
+                throw new IllegalArgumentException("token 无效" + str);
             }
             if (OnlineUser.class.isAssignableFrom(clazz)) {
                 return onlineUserService.findUserById(userId);

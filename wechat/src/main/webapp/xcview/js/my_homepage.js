@@ -7,34 +7,6 @@ var opendId = getQueryString("openId");
 if (stringnull(opendId)) {
     localStorage.setItem("openid", opendId);
 }
-
-if (opendId == "ovE_owyUT1bUmVuGS7NDBPr8gy28") {
-    alert("雪灵专用---》falg" + falg);
-}
-
-//点击学习判断游客
-function go_study() {
-    if (opendId == "ovE_owyUT1bUmVuGS7NDBPr8gy28") {
-        alert("雪灵专用---》falg" + falg);
-    }
-    location.href = "/xcview/html/my_study.html";
-}
-
-/*
- * 更新下用户信息
- */
-if (falg == USER_NORMAL) {
-    requestService("/xczh/set/isLogined", null, function (data) {
-        if (data.success) {
-            commonLocalStorageSetItem(data);
-        } else {
-            location.href = "/xcview/html/cn_login.html";
-        }
-    }, false)
-}
-
-//yx_新增
-//var openId = getQueryString("openId");
 var opendId = getQueryString("openId");
 if (stringnull(opendId)) {
     localStorage.setItem("openid", opendId);

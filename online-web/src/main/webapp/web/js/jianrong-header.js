@@ -58,8 +58,8 @@ $(function () {
 //        	开始
         '<div class="header_left">'+
         '<div class="path">'+
-        '<a href="/index.html" class="home">首页</a>'+
-        '<a href="/classroom.html" class="classroom">中医课堂</a>'+
+        '<a href="/index" class="home">首页</a>'+
+        '<a href="/courses/recommendation" class="classroom">中医课堂</a>'+
         '<a href="#">师承有道</a>'+
         '<a href="#">国医馆</a>'+
         '<a href="/web/html/forum.html" class="forum">书房斋</a>'+
@@ -67,7 +67,7 @@ $(function () {
         '</div>'+
         ' </div>'+
         '<div class="header_right">'+
-        '<a href="/index.html"><img src="/web/images/logo.png" alt="" width="165" height="50" style="float:left"></a>'+
+        '<a href="/index"><img src="/web/images/logo.png" alt="" width="165" height="50" style="float:left"></a>'+
 //        '<a href="javascript:;" class="studentCenterBox">学习中心</a>'+
 //        '<div class="shoppingBox">' +
 //             '<a href="javascript:;" data-id="" class="shoppingCar">购物车</a>'+
