@@ -76,7 +76,7 @@ public class UserCenterDao extends SimpleHibernateDao {
 				"a.region_area_id AS province," +
 				"a.region_city_id AS city," +
 				"a.region_id AS district," +
-				
+				"a.email AS email," +
 				"ifnull(a.target,'') AS target," +
 //				"ifnull(a.region_area_id,'') AS province," +
 //				"ifnull(a.region_city_id,'') AS city," +

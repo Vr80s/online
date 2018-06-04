@@ -9,6 +9,9 @@ import java.security.Security;
 import java.util.Date;
 import java.util.Properties;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Description: <br>
  *
@@ -17,6 +20,7 @@ import java.util.Properties;
  */
 public class EmailUtil {
 
+    private static Logger logger = LoggerFactory.getLogger(EmailUtil.class);
     public static Properties pro = new Properties();
     static {
         try {
@@ -35,9 +39,13 @@ public class EmailUtil {
     public static final String TOUSER = "system@ixincheng.com";
     public static final String MODIFYLOGINNAMETOUSER = "yuruixin@ixincheng.com";
     
-    public static void sendExceptionMailBySSL(String server,String subject,String content) throws MessagingException {
+    public static void sendExceptionMailBySSL(String server,String subject,String content){
         if(ENV != null && (ENV.equals("test")||ENV.equals("prod"))){
-            sendMailBySSL(SMTP,USERNAME,PASSWORD,TOUSER,server+":"+ENV+"环境异常:"+subject,content);
+            try {
+                sendMailBySSL(SMTP,USERNAME,PASSWORD,TOUSER,server+":"+ENV+"环境异常:"+subject,content);
+            } catch (MessagingException e) {
+                logger.error("发送告警邮件失败！");
+            }
         }
     }
 

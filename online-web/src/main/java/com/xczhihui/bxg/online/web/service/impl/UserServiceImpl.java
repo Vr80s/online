@@ -98,7 +98,6 @@ public class UserServiceImpl implements UserService {
             if (app != null) {
                 vo.setUid(app.getUserId());
                 vo.setQq(app.getQq());
-                vo.setEmail(app.getEmail());
                 vo.setMobile(app.getMobile());
                 vo.setBirthdayStr(app.getBirthday() != null ? DateUtil.formatDate(app.getBirthday(), DateUtil.FORMAT_DAY) : "");
                 vo.setApplyProvince(app.getProvince());
