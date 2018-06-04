@@ -264,7 +264,7 @@ $(function(){
                                 newAccNameBox.css("display", "block");
                             }
                         }else{
-                            window.location.href="/index.html";
+                            window.location.href="/index";
                         }
                     });
                     if (result.resultObject != "用户已存在！") {

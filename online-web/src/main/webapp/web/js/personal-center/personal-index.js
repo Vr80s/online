@@ -9,6 +9,12 @@ $(function() {
 		$(this).find("a").addClass("mune-active")
 		e.stopPropagation();
 		
+//		判断数据加载
+		var dataLoadTittle=$(this).find("a").attr("data-load");
+		if (dataLoadTittle=="load-anchor") {
+			anchorShow();
+		}
+//		判断数据加载
 		var index = $(this).parent().parent().index();
 		$('#right-content > div:eq('+index+') > div').addClass('hide')
 		$('#right-content > div:eq('+index+') > div').eq($(this).index()).removeClass('hide');
@@ -37,6 +43,17 @@ $(function() {
 			}else{
 				$el.find('.submenu').not($next).parent().find("span").removeClass('glyphicon-triangle-bottom');			
 			}
+//		判断数据加载
+		var dataLoadmune=$this.attr("data-load");
+		if (dataLoadmune=="load-order") {
+			orderList(1,0,5);
+		}else if(dataLoadmune=="load-money"){
+			tradeList(1)
+		}
+		else if(dataLoadmune=="load-news"){
+			newsList(1)
+		}
+//		判断数据加载 
 			$this.parent().toggleClass('open');
 			if (!e.data.multiple) {
 				$el.find('.submenu').not($next).slideUp().parent().removeClass('open');
@@ -57,10 +74,17 @@ var noDataImg= '<div class="no-data-img">'+
 				
 //已购/结束课程/历史记录选项卡
 $(".my-class-nav li").click(function(){
+	var loadData=$(this).attr("data-btn");
+	if (loadData=="load-buy") {
+		buyClass(1)
+	}else if(loadData=="load-end"){
+		endClass(1)
+	}
 	$(".my-class-nav li").removeClass("class-active");
 	$(this).addClass("class-active");
 	$(".save-class").addClass("hide").eq($(this).index()).removeClass("hide");
 })
+
 //播放历史
 historyClass(1)
 function historyClass(pages){
@@ -113,17 +137,20 @@ $(".clear-history").click(function(){
    })
 })
 //已购课程
-buyClass(1)
+
 function buyClass (pages){
+
  RequestService("/userCourse/freeCourseList", "POST",{
  	pageNumber:pages,
  	pageSize:8
  }, function (data) {
  		if(data.success==true){
+ 			$(".save-class .laod-buy").addClass("hide");
             if (data.resultObject.records.length == 0) {
             	$(".nodata-buyclass").html(noDataImg).removeClass("hide");
             } else {
-            	$(".nodata-buyclass").addClass("hide");          	
+            	$(".nodata-buyclass").addClass("hide");    
+            	$(".save-class .laod-buy").addClass("hide");
             	$("#buy-template").html(template("purchased-class",{items:data.resultObject.records}))
             }
                //分页添加
@@ -151,7 +178,7 @@ function buyClass (pages){
 	
 }
 //结束课程
-endClass(1)
+
 function endClass(pages){
  RequestService("/userCourse/myCourseType", "POST",{
  	pageNumber:pages,
@@ -159,10 +186,11 @@ function endClass(pages){
  	type:2
  }, function (data) {
  		if(data.success==true){
+ 			$(".save-class .laod-end").addClass("hide");
             if (data.resultObject.records.length == 0) {
             	$(".nodata-endclass").html(noDataImg).removeClass("hide");
             } else {
-            	$(".nodata-endclass").addClass("hide");          	
+            	$(".nodata-endclass").addClass("hide"); 	
             }
             	$("#end-template").html(template("end-class",{items:data.resultObject.records}))
             
@@ -190,19 +218,21 @@ function endClass(pages){
      })
 }
 //我关注的主播
+function anchorShow(){
  RequestService("/focus/myFocus", "POST",null, function (data) {
  		if(data.success==true){
+ 			$(".laod-anchor").addClass("hide");
             if (data.resultObject.length == 0) {
             	$(".no-follow-anchor").removeClass("hide");
             } else {
-            	$(".no-follow-anchor").addClass("hide");          	
+            	$(".no-follow-anchor").addClass("hide");            	
             	$("#anchor-template").html(template("anchor-box",{items:data.resultObject}))
             }
           }else{
     		showTip("获取数据失败");
     	}   
      })
-
+}
 
 //--------------------------------------学习中心结束--问答论坛开始--------------------------------------------
 
@@ -269,8 +299,21 @@ function quizList(pages){
             if (data.resultObject.items.length == 0) {
             	$(".no-question-box").removeClass("hide");
             } else {   
-            	$(".no-question-box").addClass("hide");  
-            	$("#quiz-template").html(template("quiz-box",{items:data.resultObject.items}))
+            	$(".no-question-box").addClass("hide"); 
+//          	内容底下的三张图片
+            	var contentLength=data.resultObject.items
+            	for(var i=0; i<contentLength.length;i++){
+						contentQuestion = contentLength[i].content;           		
+	            		contentLength[i].picture=getImgArray(contentQuestion);
+//	            		
+//	            		var noImg=contentQuestion.replace(/<(?!img).*?>/g, ""); 
+//	            		data.resultObject.items.content=noImg;
+            	}
+//          	内容底下的三张图片  
+            	$("#quiz-template").html(template("quiz-box",{items:data.resultObject.items}));
+//          	去掉内容里的img标签
+            	$(".list-Answer-right-text img").remove();
+            	
            		showMoneText();
             }
           }else{
@@ -296,8 +339,19 @@ function myAnswer(pages){
             	for(var i=0; i<tagsObject.length;i++){
             		tagsObject[i].tags=tagsObject[i].tags.split(",");   
             	}
+//          	内容底下的三张图片
+            	var contentLength=data.resultObject.items
+            	for(var i=0; i<contentLength.length;i++){
+						contentQuestion = contentLength[i].content;           		
+	            		contentLength[i].picture=getImgArray(contentQuestion);
+//	            		var noImg=contentQuestion.replace(/<(?!img).*?>/g, ""); 
+//	            		data.resultObject.items.content=noImg;
+            	}
+//          	内容底下的三张图片  
             	$("#answer").html(template("answer-box",{items:data.resultObject.items}))
-//          	showMoneText()//展示更多文字
+//          	去掉内容的img标签
+            	$(".list-Answer-right-text img").remove();
+
             }
           }else{
     		showTip("获取数据失败");
@@ -476,19 +530,40 @@ function balanceShow () {
 	}) 	
 }
 //交易记录
-tradeList(1)
+
 function tradeList (pages) {
 	RequestService("/userCoin/transactionRecords", "post",{
 		pageNumber:pages,
 		pageSize:6
 	}, function (data) {
 		if (data.success==true) {
+			$(".laod-money").addClass("hide");
 			if (data.resultObject.length==0){
 				$(".all-money-order").removeClass("hide")
 			} else{
 				$("#trade-template").html(template("trade-box",{items:data.resultObject}))
 			}
-		} else{
+			
+			if(data.resultObject.pages > 1) { //分页判断
+					$(".not-data").remove();
+		            $(".reply_pages").removeClass("hide");
+		            $(".reply_pages .searchPage .allPage").text(data.resultObject.pages);
+		            $("#reply_doctors").pagination(data.resultObject.pages, {
+		                num_edge_entries: 1, //边缘页数
+		                num_display_entries: 4, //主体页数
+		                current_page:pages-1,
+		                callback: function (page) {
+		                    //翻页功能
+		                    replyList(page+1)
+		                }
+		            });
+				}
+				else {
+					$(".reply_pages").addClass("hide");
+				}
+			
+			
+		}else{
 			showTip("获取数据失败-我的钱包接口")
 		}
 	}) 	
@@ -514,18 +589,181 @@ function tradeList (pages) {
 	$(".data-mune label").click(function() {
 		$(this).find(".radio-cover em").addClass("active").parent().parent().siblings().find(".radio-cover em").removeClass("active");
 	})
-	$("#data-btn").click(function(){
-		$(".address-info").iProvincesSelect("init",null)	
+//	$("#data-btn").click(function(){
+//		$(".address-info").iProvincesSelect("init",null)	
+//	})
+$(".address-info").iProvincesSelect("init",null);
+
+//个人资料回显
+echoData()
+function echoData(){
+	RequestService("/online/user/getUserData", "GET", "", function(data) {
+		if(data.resultObject.nickName == undefined) {
+			$(".data-mune .nickname").val("博小白");
+		} else {
+			$(".data-mune .nickname").val(data.resultObject.nickName);
+		};
+//		账号
+		if(data.resultObject.loginName.indexOf("@") == -1) {
+//			$(".emailname").val(data.resultObject.email);
+			$(".account-number").val(data.resultObject.loginName).attr("disabled", "disabled").css("background", "#fafafa");
+		} else {
+//			$(".emailname").val(data.resultObject.loginName).attr("disabled", "disabled").css("background", "#fafafa");
+			$(".account-number").val(data.resultObject.mobile);
+		};
+//		/邮箱
+			$(".emailname").val(data.resultObject.email);
+
+
+
+
+//		性别
+		if(data.resultObject.sex == 1) {
+			$("#myradio-man").attr("checked", true);
+			$(".sex-select-all .radio-cover em").removeClass("active");
+			$("#myradio-man").parent().find(".radio-cover em").addClass("active");
+		} else if(data.resultObject.sex == 0) {
+			$("#myradio-woman").attr("checked", true);
+			$(".sex-select-all .radio-cover em").removeClass("active");
+			$("#myradio-woman").parent().find(".radio-cover em").addClass("active");
+		} else {
+			$("#myradio-man,#myradio-woman").attr("checked", false);
+			$(".sex-select-all .radio-cover em").removeClass("active");
+		}
+		
+		//身份信息渲染	
+		var SFinforid = data.resultObject.occupation;
+		if(data.resultObject.job.length>=1){
+			$("#identity-select").html(template("SFinfor",{items:data.resultObject.job}));
+				$("#identity-select").html(template("SFinfor",{item:data.resultObject.job}))
+		}
+		if(SFinforid){
+		$("#identity-select option[value='"+SFinforid+"']").attr("selected","selected");
+		}
+	//	职业信息
+		if(data.resultObject.occupationOther !=''&&data.resultObject.occupationOther != null){
+			$('.profession').val(data.resultObject.occupationOther);
+		}
+	//	省市区三联动
+		var pcd = {};
+	        pcd.province=data.resultObject.province;
+	        pcd.city=data.resultObject.city;
+	        pcd.district=data.resultObject.district;
+			$(".data-mune .address-info").iProvincesSelect("init",pcd,true);
 	})
 
+}
+//个人资料保存
+	$(".save-data button").click(function() { //点击保存
+		$.ajax({
+			type: "get",
+			url: bath + "/online/user/isAlive",
+			async: false,
+			success: function(data) {
+				if(data.success === true) {
+					geren();
+					
+				} else {
 
+					$('#login').modal('show');
+					$('#login').css("display", "block");
+					$(".loginGroup .logout").css("display", "block");
+					$(".loginGroup .login").css("display", "none");
+					return false;
+				}
+			}
+		});
+	});
+function geren() {
+	RequestService("/online/user/checkNickName", "get", {
+		nickName: $.trim($(".nickname").val())
+	}, function(data) {
+		var value = $.trim($(".nickname").val()), // 用jQuery的trim方法删除前后空格
+			email = $(".emailname").val(),
+			emailProving = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/;
+		//昵称不能为空
+		if(value == "" ) {
+			$(".warning-name").text("用户名不能为空").removeClass("hide");
+			return false;
+		}else{
+			$(".warning-name").addClass("hide")
+		}
+		if(value.length<2 || value.length>20) {
+			$(".warning-name").text("用户名长度不能小于2或者大于20");
+			return false;
+		}else{
+			$(".warning-name").addClass("hide")			
+		}
+//		邮箱认证
+		if(email != "" && !emailProving.test(email)) {
+			$(".warning-email").text("邮箱格式不正确").removeClass("hide");
+			return false;
+		}else{
+			$(".warning-email").addClass("hide")			
+		}
 
+//		性别
+		if($('.select-man em').hasClass('active')){
+			sex = 1;
+		}else{
+			sex = 0;
+		}	
+		//身份信息验证
+		if($('.identity-select').val() == 'volvo'){
+			$(".identity-null").removeClass("hide");
+			return false;
+		}else{
+			$(".identity-null").addClass("hide");
+		}
+		
+		var pcd  = $(".address-info").iProvincesSelect("val");
+//		保存个人信息数据
+		RequestService("/online/user/updateUser", "POST", {
+			userId: localStorage.userid,
+			name: $(".nickname").val(),
+			loginName: $(".account-number").val(),
+			provinceName: pcd.provinceText,
+			cityName: pcd.cityText,
+			countyName: pcd.districtText,
+			province : pcd.province,
+			city : pcd.city,
+			district :  pcd.district,
+			email : email,
+			sex:sex,
+			occupationOther:$('.profession').val(),
+			occupation:$('#identity-select option:selected').attr('value'),
+		}, function(data) {
+			if(data.success == false){
+				showTip(data.errorMessage)			
+			}
+			if(data.success == true) {
+				showTip(data.resultObject)			
+//				$(".intro .msg").remove();
+//				$(".intro").append("<div class='msg' data-maxlengts='11'></div>");
+				$(".doctor_inf h4").text($(".nickname").val()).attr("title", $(".nickname").val())
+//				if($.trim($(".mycytextarea").val()) != "") {
+//					$(".intro .msg0").text($.trim($(".mycytextarea").val())).attr("title", $.trim($(".mycytextarea").val()))
+//				} else {
+//					$(".intro .msg0").text("说点什么来彰显你的个性吧……").attr("title", "说点什么来彰显你的个性吧……")
+//				}
+
+				$(".block-center:eq(1)").text("保存成功");
+				$(".loginGroup .name").text($(".nickname").val()).attr("title", $(".nickname").val())
+//				$(".view-content .view-content-notbodys").html("");
+//				$(".rrrTips").html("保存成功").css("display", "block");
+				showTip("保存成功")
+
+			} else {
+				showTip("系统繁忙，稍后再试")
+			}
+		});
+	})
+};
 //-------------------------------------- 我的资料结束,消息开始--------------------------------------------
 //消息列表
-newsList(1)
+
 //消息总数
 Newsnumber()
-
 //将全部消息设为已读
 $(".sign-read").click(function(){
 	RequestService("/online/message/readMessage", "POST",null, function (data) {
@@ -598,7 +836,7 @@ $(".sign-read").click(function(){
 //html内嵌点击事件
 
 //我的订单-----------------------------------------------------------------------------------
-orderList(1,0,5)	
+	
 	function orderList(pages,time,pageSize,status){
 		var data = {
 		 	pageNumber:pages,
@@ -610,6 +848,7 @@ orderList(1,0,5)
 		}
 		RequestService("/web/getMyAllOrder", "get",data, function (data) {
 		 	if(data.success==true){
+		 		$(".laod-order").addClass("hide");
 		 		if(data.resultObject.items.length==0){
 		 			$(".all-no-order").removeClass("hide");
 					$("#order-template").html(template("order-content",{items:data.resultObject.items}))	
@@ -704,7 +943,27 @@ function deleteBtnOrder(index){
 		
 }
 
-
+var	contentQuestion
+function getImgArray(str) {
+    var imgReg = /<img.*?(?:>|\/>)/gi;
+    var srcReg = /src=[\'\"]?([^\'\"]*)[\'\"]?/i;
+    var arr = str.match(imgReg);
+    var imgStr =new Array();
+    if(arr!=null){
+        for (var i = 0; i < arr.length; i++) {
+            var src = arr[i].match(srcReg);
+            //获取图片地址
+            if (src[1]) {
+                imgStr[i]=src[1];
+                if(imgStr.length == 3){
+                	return imgStr;
+                }
+            }
+        }
+        return imgStr;
+    }
+    return imgStr;
+}
 
 
 //我的消息--------------------------------------------------------------------------------
@@ -719,7 +978,7 @@ function newsList(pages){
 		pageSize:10
 	}
 	RequestService("/online/message/getMessageList", "get",setData, function (data) {
-		
+		$(".load-news").addClass("hide");
 		if(data.resultObject.items.length == 0){
 			$(".all-news-order").removeClass("hide");
 		}else{

@@ -1083,6 +1083,16 @@ function echoCollection(collectionId,passEdit){
     initCourse(collection.multimediaType);
     courseArr = collection.courseApplyInfos;
     courseArr = upDownShowInit(courseArr);
+    if (collection.updateDates && collection.updateDates.length > 0) {
+        var updateDates = collection.updateDates;
+        $('.div_one').each(function(){
+            var $this = $(this);
+            var number = $this.data('number');
+            if (updateDates.indexOf(number) != -1) {
+                $this.addClass("div_one0");
+            }
+        });
+    }
     var arr={};
     arr.courseArr=courseArr;
     $(".collection_courses").html(template('collection_course_list_tpl', arr));

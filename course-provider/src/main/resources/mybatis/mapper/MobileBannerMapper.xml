@@ -517,7 +517,15 @@
         )
     </select>  
 	
-
-
+	
+	<!--  课程下架后，为用户推荐的课程 -->
+	<select id="selectUnshelveRecommenCourse" resultType="com.xczhihui.course.vo.CourseLecturVo">
+		select 
+		  <include refid="selectRecommenCourse"/>
+		    '精品课程' as note
+		  <include refid="commonCondition"/>
+		order by recommendSort desc,oc.release_time desc  limit 0,#{pageSize} 
+	</select>  
+	
 	
 </mapper>

@@ -170,9 +170,9 @@ function requestService(url, param, callback, ac) {
 function ajaxRequest(url, param,type, callback, ac) {
     if (ac == null)
         ac = true;// 默认异步
-  	if(document.location.host.indexOf('dev.ixincheng.com')!=-1){
-      	url = "/apis"+url;
-  	}
+//  	if(document.location.host.indexOf('dev.ixincheng.com')!=-1){
+//      	url = "/apis"+url;
+//  	}
     mui.ajax({
         url: url,
         type: type,

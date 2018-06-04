@@ -124,12 +124,12 @@ $(function () {
             nav:
 
             '<div class="header_right">' +
-            '<a href="/index.html"><img src="/web/images/pandaLogo.jpg" alt="" width="206" height="50" style="float:left"></a>' +
+            '<a href="/index"><img src="/web/images/pandaLogo.jpg" alt="" width="206" height="50" style="float:left"></a>' +
 
             '</div>' +
             '<div class="header_left">' +
             '<div class="path" style="width:95%">' +
-            '<a href="/index.html" class="home" target="_blank">首页</a>' +
+            '<a href="/index" class="home" target="_blank">首页</a>' +
 
 //        '<a href="#">师承有道</a>'+
 //        '<a href="#">国医馆</a>'+
@@ -317,7 +317,7 @@ $(function () {
                 $('#login').modal('show');
             } else {
 //              window.location.href = "/web/html/myStudyCenter.html";
-                window.open("/web/html/myStudyCenter.html");
+                window.open("/web/html/personal-center/personal-index.html");
             }
         })
     });
