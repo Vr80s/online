@@ -102,7 +102,7 @@
 								<div class="link"><i class="icomoon-icon-xuexi"></i>学习中心<span class="" aria-hidden="true"></span></div>
 								<ul class="submenu">
 									<li><a href="javascript:;">我的课程</a></li>
-									<li><a href="javascript:;">关注的主播</a></li>
+									<li><a href="javascript:;" data-load="load-anchor">关注的主播</a></li>
 								</ul>
 							</li>
 							<li>
@@ -114,28 +114,28 @@
 								</ul>
 							</li>
 							<li>
-								<div class="link"><i class="icomoon-icon-dingdan"></i>我的订单</div>
+								<div class="link" data-load="load-order"><i class="icomoon-icon-dingdan"></i>我的订单</div>
 								<ul class="submenu">
 									<!--<li><a href="javascript:;">课程收益</a></li>
 									<li><a href="javascript:;">礼物收益</a></li>-->
 								</ul>
 							</li>
 							<li id="wallet-btn">
-								<div class="link"><i class="icomoon-icon-zichan"></i>我的钱包</div>
+								<div class="link" data-load="load-money"><i class="icomoon-icon-zichan"></i>我的钱包</div>
 								<ul class="submenu">
 									<!--<li><a href="javascript:;">认证信息</a></li>
 									<li><a href="javascript:;">主播信息</a></li>-->
 								</ul>
 							</li>
 							<li id="data-btn">
-								<div class="link"><i class="icomoon-icon-ziliao"></i>个人资料</div>
+								<div class="link" data-load="load-data"><i class="icomoon-icon-ziliao"></i>个人资料</div>
 								<ul class="submenu">
 									<!--<li><a href="javascript:;">认证信息</a></li>
 									<li><a href="javascript:;">主播信息</a></li>-->
 								</ul>
 							</li>
 							<li>
-								<div class="link"><i class="iconfont icon-ziyuan" style="font-size: 14px;top: 26px;"></i>消息</div>
+								<div class="link" data-load="load-news"><i class="iconfont icon-ziyuan" style="font-size: 14px;top: 26px;"></i>消息</div>
 								<ul class="submenu">
 									<!--<li><a href="javascript:;">认证信息</a></li>
 									<li><a href="javascript:;">主播信息</a></li>-->
@@ -162,8 +162,8 @@
 									<div class="my-class-nav">
 										<ul>
 											<li class="class-active">播放历史</li>
-											<li>已购课程</li>
-											<li>结束课程</li>
+											<li data-btn="load-buy">已购课程</li>
+											<li data-btn="load-end">结束课程</li>
 										</ul>
 									</div>
 									<!--播放历史-->
@@ -239,6 +239,11 @@
 									</div>
 									<!--已购课程-->
 									<div class="save-class hide">
+										<div class="loadImg laod-buy">
+											<img class="loadingImg" src="/web/images/ansandqus/loading.gif" alt="" />
+											<p class="loadingWord">加载中</p>
+										</div>
+										
 										<div id="buy-template">
 											<script type="text/template" id="purchased-class">
 												{{each items as item i}}
@@ -309,9 +314,15 @@
 												</div>
 											</div>
 											<!--分页部分end-->
+											
+										
 									</div>
 									<!--结束课程-->
 									<div class="save-class hide">
+										<div class="loadImg laod-end">
+											<img class="loadingImg" src="/web/images/ansandqus/loading.gif" alt="" />
+											<p class="loadingWord">加载中</p>
+										</div>
 										<div id="end-template">
 											<script type="text/template" id="end-class">
 												{{each items as item i}}
@@ -388,6 +399,10 @@
 									<div class="my-class-nav">
 										<h5 class="anchor-follow">关注的主播</h5>
 									</div>	
+									<div class="loadImg laod-anchor">
+											<img class="loadingImg" src="/web/images/ansandqus/loading.gif" alt="" />
+											<p class="loadingWord">加载中</p>
+									</div>
 									<div class="anchor-list">
 										<div id="anchor-template">
 										
@@ -465,13 +480,16 @@
 														<div class="list-Answer-right-text dot5" >
 															{{item.content}}
 														</div>
-														<div class="show-img">
+															{{if item.picture.length>0}}
+														<div class="show-img showPicture">
 															<ul>
-																<li><img src="../../images/04.png"/></li>
-																<li><img src="../../images/04.png"/></li>
-																<li><img src="../../images/04.png"/></li>
+																{{each item.picture as pic j}}
+																<li><img src="{{pic}}"></li>
+																{{/each}}
 															</ul>
 														</div>
+														{{/if}}
+
 														<div class="time-status cl">
 															<ul>
 																<li>
@@ -560,13 +578,15 @@
 												<div class="list-Answer-right-text dot5" >
 														{{item.content}}
 												</div>
+												{{if item.picture.length>0}}
 												<div class="show-img">
 													<ul>
-														<li><img src="../../images/04.png"/></li>
-														<li><img src="../../images/04.png"/></li>
-														<li><img src="../../images/04.png"/></li>
+														{{each item.picture as pic j}}
+															<li><img src="{{pic}}"></li>
+														{{/each}}
 													</ul>
 												</div>
+												{{/if}}
 												<div class="time-status cl">
 													<ul>
 														<li>
@@ -734,7 +754,10 @@
 									</div>
 									<!--全部订单-->
 									<div class="all-order-wrap">
-									
+										<div class="loadImg laod-order">
+											<img class="loadingImg" src="/web/images/ansandqus/loading.gif" alt="" />
+											<p class="loadingWord">加载中</p>
+										</div>
 										<div id="order-template">
 											<script type="text/template" id="order-content">
 											{{each items as item i}}
@@ -825,6 +848,10 @@
 										<div class="main-wallet-bottom">
 											<div class="wallel-content-list">
 												<p class="title-wallet">交易记录</p>
+												<div class="loadImg laod-money">
+													<img class="loadingImg" src="/web/images/ansandqus/loading.gif" alt="" />
+													<p class="loadingWord">加载中</p>
+												</div>
 												<table border="0" cellspacing="0" cellpadding="0" class="table-wallet-list" id="trade-template">
 													<script type="text/template" id="trade-box">
 													<tr>
@@ -853,6 +880,16 @@
 													</div>
 													<p>暂无交易记录</p>
 												</div>
+												<!--分页部分start-->
+												<div class="money_pages pages hide">  <!--如需要复制分页doctors_pages要改类名并在JS里对应-->
+													<div id="money_doctors" class="pagination-pages"></div>	<!--如需要复制分页Pagination_doctors要改类名并在JS里对应-->
+													<div class="searchPage">
+														<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+														<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
+														<a href="javascript:;" class="page-btn">确定</a>
+													</div>
+												</div>
+												<!--分页部分end-->
 											</div>
 										</div>
 									</div>
@@ -931,7 +968,7 @@
 												<span>*</span>
 												用户名
 											</div>
-											<input type="" name="" id="" value="" />	
+											<input class="nickname" type="" name="" id="" value="" />	
 											<span class="warning-name hide">用户名格式不能为空 !</span>
 										</div>
 										
@@ -939,43 +976,48 @@
 											<div class="data-left-name">
 												账号
 											</div>
-											<input class="account-number" type="" name="" id="" value="" disabled="disabled" />
+											<input class="account-number" type="" name="" id="" value="" />
 											<a href="/web/html/resetPassword.html" class="mypassword-g">修改密码&nbsp;&gt;</a>
 										</div>
 										<div class="data-mune">
 											<div class="data-left-name">
 												邮箱
 											</div>
-											<input type="" name="" id="" value="" />
+											<input class="emailname" type="" name="" id="" value="" />
+											<span class="warning-email hide" style="color: red;">邮箱格式不正确</span>
 										</div>	
 										<div class="data-mune">
 											<div class="data-left-name">
 												身份信息
 											</div>
-											<select class="identity-select">
-												<option value="volvo">请输入身份信息</option> 
-												<option>这里渲染</option>
-											</select>
+											<select class="identity-select" id="identity-select"></select>	
+											<span class="identity-null hide" style="color: red;">请选择身份信息</span>
+												
+											
 										</div>
 										<div class="data-mune">
 											<div class="data-left-name">
 												职业信息
 											</div>
-											<input type="" name="" id="" value="" />
+											<input type="" name="" id="" value="" class="profession" />
 										</div>
-										<div class="data-mune">
+										<div class="data-mune sex-select-all">
 											<div class="data-left-name">
 												性别
 											</div>
 											
 											<label>
-												<div class="radio-cover"><em class="active"></em></div>								
-												<input class="sex-select" type="radio" name="sex" id="" value="1" />
+												<div class="radio-cover select-man">
+													<em></em>
+												</div>								
+												<input class="sex-select" type="radio" name="sex" id="myradio-man" value="1" />
 												<span>男</span>
 											</label>
 											<label>
-												<input class="sex-select" type="radio" name="sex" id="" value="0" />
-												<div class="radio-cover"><em></em></div>								
+												<input class="sex-select" type="radio" name="sex" id="myradio-woman" value="0" />
+												<div class="radio-cover">
+													<em></em>
+												</div>								
 												<span>女</span>
 											</label>
 										</div>	
@@ -1001,7 +1043,12 @@
 									       </div>
 
 										</div>
+										
 									</div>
+									<!--保存资料-->
+										<div class="save-data">
+											<button type="button">保存</button>
+										</div>
 								</div>
 							</div>
 
@@ -1014,6 +1061,10 @@
 									</div>
 									<div class="main-news">	
 										<button type="button" class="sign-read">全部标记为已读</button>
+										<div class="loadImg load-news">
+											<img class="loadingImg" src="/web/images/ansandqus/loading.gif" alt="" />
+											<p class="loadingWord">加载中</p>
+										</div>
 										<ul id="news-template">
 										<script type="text/template" id="news-box">
 											
@@ -1086,10 +1137,6 @@
 							</div>
 						</div>
 					</div>
-				
-				
-				
-				
 			</div>
 			
 			
@@ -1110,6 +1157,13 @@
 			
 			
 			
+<!-- 身份信息模板 -->
+ <script type="text/template" id="SFinfor">
+<option value="volvo">请输入身份信息</option> 
+{{each item as item i}}
+<option value="{{item.id}}" data_key="{{item.key}}">{{item.value}}</option> 
+{{/each}}
+</script> 
 			
 			
 			
@@ -1147,6 +1201,6 @@
 		
 		<script src="/web/js/personal-center/personal-index.js" type="text/javascript" charset="utf-8"></script>	
 	</body>	
-
+		
 		
 </html>

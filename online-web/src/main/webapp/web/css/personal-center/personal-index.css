@@ -169,6 +169,26 @@ a:hover{text-decoration: none;}
 	padding: 20px 0 20px 0;
 	overflow: hidden;
 }
+.loadImg{
+	text-align: center;
+	margin-top: 200px;
+}
+.loadImg img{
+	  display: block;
+    width: 56px;
+    height: 8px;
+    margin: 0 auto;
+}  
+.loadImg p{
+	display: block;
+    margin: 0 auto;
+    font-size: 12px;
+    color: #333;
+    width: 37px;
+    margin-top: 5px;
+}  
+
+  
 .save-class .clear-history{
 	background: #F0F0F0;
 border-radius: 2px;
@@ -420,7 +440,7 @@ overflow: hidden;
 	width: 820px;
 	overflow: hidden;
 	border-bottom: 1px solid #f0f0f0;
-	padding: 20px 0 0 0;
+	padding: 20px 0;
 	color: #666666;
 }
 .question-list-wrap:last-child{
@@ -588,6 +608,9 @@ overflow: hidden;
 }
 .reply-user-text p{
 	margin-bottom: 10px;
+}
+.reply-user-text p img{
+	max-width: 200px;
 }
 .reply-user-text ul li{
 	float: left;
@@ -1290,7 +1313,17 @@ overflow: hidden;*/
     padding-left: 15px;
     border: 1px solid #ccc;
 }
-    
+.save-data button{
+	width: 100px;
+    height: 34px;
+    margin: 37px 0  0px 301px;
+    background: #00bc12;
+    display: block;
+    border: 0;
+    border-radius: 4px;
+
+    color: white;
+}    
 
 
 /*个人资料结束*/
