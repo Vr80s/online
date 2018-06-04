@@ -179,6 +179,7 @@ function ajaxRequest(url, param,type, callback, ac) {
         data: param,
         async: ac,
         success: function (msg) {
+            // alert(url+":"+JSON.stringify(msg))
             var rd = getCurrentRelativeUrl();
             if (msg.code == USER_UN_LOGIN) {
                 localStorage.setItem("rd", rd);
@@ -204,6 +205,10 @@ function ajaxRequest(url, param,type, callback, ac) {
     });
 }
 
+//点击学习判断游客
+function go_study() {
+    location.href = "/xcview/html/my_study.html";
+}
 
 /**
  * 现在的入口有两个呢，一个是
