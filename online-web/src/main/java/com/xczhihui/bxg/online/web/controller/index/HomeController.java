@@ -74,7 +74,7 @@ public class HomeController extends AbstractFtlController {
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView index() throws InvocationTargetException, IllegalAccessException {
 		
-		 ModelAndView view = new ModelAndView("index2");
+		 ModelAndView view = new ModelAndView("index");
 		
 		/**
 		 * banner图   2.主页banner3.头条banner4.创业banner5.海外banner
