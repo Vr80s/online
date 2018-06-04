@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.xczh.consumer.market.auth.Account;
-import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.OLAttachmentCenterService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.medical.common.service.ICommonService;
@@ -57,43 +56,40 @@ public class MedicalDoctorApplyController {
             HttpServletRequest req,
             HttpServletResponse res,
             MedicalDoctorApply medicalDoctorApply,
-            @RequestParam("cardPositiveFile") MultipartFile cardPositiveFile,
-            @RequestParam("cardNegativeFile") MultipartFile cardNegativeFile,
+            @RequestParam(value = "cardPositiveFile",required = false) MultipartFile cardPositiveFile,
+            @RequestParam(value = "cardNegativeFile",required = false) MultipartFile cardNegativeFile,
             @RequestParam("qualificationCertificateFile") MultipartFile qualificationCertificateFile,
             @RequestParam("professionalCertificateFile") MultipartFile professionalCertificateFile)
             throws Exception {
 
-        LOGGER.info("--------------------医师认证开始");
+        LOGGER.info("--------------------医师认证开始"
+                + professionalCertificateFile.getOriginalFilename());
         medicalDoctorApply.setUserId(accountId);
         // 循环获取file数组中得文件
         String projectName = "other";
         String fileType = "1"; // 图片类型了
+        if(cardPositiveFile!=null && cardNegativeFile!=null){
+            // 身份证正面
+            String cardPositive = service.upload(null, projectName,
+                    cardPositiveFile.getOriginalFilename(),
+                    cardPositiveFile.getContentType(), cardPositiveFile.getBytes(),
+                    fileType, null);
+            medicalDoctorApply.setCardPositive(cardPositive);
+            // 身份证反面
+            String cardNegative = service.upload(null, projectName,
+                    cardNegativeFile.getOriginalFilename(),
+                    cardNegativeFile.getContentType(), cardNegativeFile.getBytes(),
+                    fileType, null);
+            medicalDoctorApply.setCardNegative(cardNegative);
+        }
 
-        LOGGER.info("身份证正面:bytes():" + cardPositiveFile.getBytes().length
-                + ",filename:" + cardPositiveFile.getOriginalFilename());
-        // 身份证正面
-        String cardPositive = service.upload(null, projectName,
-                cardPositiveFile.getOriginalFilename(),
-                cardPositiveFile.getContentType(), cardPositiveFile.getBytes(),
-                fileType, null);
-        medicalDoctorApply.setCardPositive(cardPositive);
-
-        LOGGER.info("身份证反面:bytes():" + cardNegativeFile.getBytes().length + ",filename:" + cardNegativeFile.getOriginalFilename());
-        // 身份证反面
-        String cardNegative = service.upload(null, projectName,
-                cardNegativeFile.getOriginalFilename(),
-                cardNegativeFile.getContentType(), cardNegativeFile.getBytes(),
-                fileType, null);
-        medicalDoctorApply.setCardNegative(cardNegative);
-
-        LOGGER.info("医师资格证:bytes():" + qualificationCertificateFile.getBytes().length + ",filename:" + qualificationCertificateFile.getOriginalFilename());
         // 医师资格证
         String qualificationCertificate = service.upload(null, projectName,
                 qualificationCertificateFile.getOriginalFilename(),
                 qualificationCertificateFile.getContentType(),
                 qualificationCertificateFile.getBytes(), fileType, null);
-        medicalDoctorApply.setQualificationCertificate(qualificationCertificate);
-        LOGGER.info("医师执业证书:bytes():" + professionalCertificateFile.getBytes().length + ",filename:" + professionalCertificateFile.getOriginalFilename());
+        medicalDoctorApply
+                .setQualificationCertificate(qualificationCertificate);
         // 医师执业证书
         String professionalCertificate = service.upload(null, projectName,
                 professionalCertificateFile.getOriginalFilename(),

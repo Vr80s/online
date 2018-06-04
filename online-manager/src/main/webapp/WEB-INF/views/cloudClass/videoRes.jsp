@@ -37,7 +37,7 @@
 					});
 		} catch (e) {
 			
-			alertInfo(e.xgMessage);
+			alertInfo(e.message);
 		}
 		var BASE = "";
 		 $(function(){

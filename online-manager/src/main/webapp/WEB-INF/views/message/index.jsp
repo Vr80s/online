@@ -10,13 +10,13 @@
     var questionTable;
 
 //    function initUserModule() {
-//        ajaxRequest("xgMessage/user", null, function (data) {
+//        ajaxRequest("message/user", null, function (data) {
 //            $("#message_user").html(data);
 //        });
 //    }
 
     function initListModule() {
-        ajaxRequest("xgMessage/list", null, function (data) {
+        ajaxRequest("message/list", null, function (data) {
             $("#message_list").html(data);
         });
     }

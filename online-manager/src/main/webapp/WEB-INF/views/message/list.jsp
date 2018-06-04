@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%><%@ include file="../common/jstl_taglib.jsp"%>
-<script type="text/javascript" src="js/xgMessage/message_manage_list.js"></script>
+<script type="text/javascript" src="js/message/message_manage_list.js"></script>
 <script type="text/javascript" src="bootstrap/assets/js/bootstrap-select.js"></script>
 <script type="text/javascript" src="bootstrap/assets/js/defaults-zh_CN.js"></script>
 <link rel="stylesheet" type="text/css" href="bootstrap/assets/css/bootstrap-select.css" />

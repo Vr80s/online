@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.bean.WxcpClientUserWxMapping;
-import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
 import com.xczh.consumer.market.utils.ResponseObject;
@@ -87,12 +86,18 @@ public class ThirdPartyCertificationController {
                                                        @RequestParam("unionId") String unionId,
                                                        @RequestParam("code") String code,
                                                        @RequestParam("type") Integer type) throws Exception {
-        verificationCodeService.checkCode(userName, VCodeType.BIND, code);
-
         OnlineUser ou = onlineUserService.findUserByLoginName(userName);
         if (ou == null) {
             return ResponseObject.newErrorResponseObject("该手机号暂未注册,请输入密码");
         }
+        try {
+            verificationCodeService.checkCode(userName, VCodeType.BIND, code);
+        } catch (Exception e) {
+            //兼容老版本的传参, 之后可移除该catch中的代码
+            verificationCodeService.checkCode(userName, VCodeType.FORGOT_PASSWORD, code);
+            LOGGER.error("兼容性检验通过, username: {}, code: {}", userName, code);
+        }
+
         switch (type) {
             case 1: // 微信
                 WxcpClientUserWxMapping m = wxcpClientUserWxMappingService.getWxcpClientUserByUnionId(unionId);
@@ -171,7 +176,6 @@ public class ThirdPartyCertificationController {
         if (!XzStringUtils.checkPassword(passWord)) {
             return ResponseObject.newErrorResponseObject("密码为6-18位英文大小写字母或者阿拉伯数字");
         }
-        verificationCodeService.checkCode(userName, VCodeType.BIND, code);
 
         OnlineUser ou = onlineUserService.findUserByLoginName(userName);
         if (ou == null) {
@@ -180,6 +184,14 @@ public class ThirdPartyCertificationController {
         } else {
             return ResponseObject.newErrorResponseObject("该手机号已经注册不用重新输入密码");
         }
+        try {
+            verificationCodeService.checkCode(userName, VCodeType.BIND, code);
+        } catch (Exception e) {
+            //兼容老版本的传参, 之后可移除该catch中的代码
+            verificationCodeService.checkCode(userName, VCodeType.RETISTERED, code);
+            LOGGER.error("兼容性检验通过, username: {}, code: {}", userName, code);
+        }
+
         String nickName = "";
         Integer sex = 0;
 

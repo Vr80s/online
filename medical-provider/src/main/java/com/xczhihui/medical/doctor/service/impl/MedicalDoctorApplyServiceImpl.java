@@ -166,21 +166,13 @@ public class MedicalDoctorApplyServiceImpl extends ServiceImpl<MedicalDoctorAppl
                 throw new MedicalException("真实姓名应保持在32字以内");
             }
         }
-//        if (StringUtils.isBlank(target.getHeadPortrait())) {
-//            throw new MedicalException("请上传头像");
-//        }
+
         if(StringUtils.isBlank(target.getCardNum())){
             throw new MedicalException("请填写身份证号");
         }else{
             if(!IDCard.validator(target.getCardNum())){
                 throw new MedicalException("身份证号不正确");
             }
-        }
-        if(StringUtils.isBlank(target.getCardPositive())){
-            throw new MedicalException("请上传身份证正面");
-        }
-        if(StringUtils.isBlank(target.getCardNegative())){
-            throw new MedicalException("请上传身份证反面");
         }
         if(StringUtils.isBlank(target.getQualificationCertificate())){
             throw new MedicalException("请上传医师资格证");

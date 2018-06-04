@@ -17,7 +17,7 @@ public enum UserUnitedStateType {
     OVERDUE(1002, "过期"),
     WITHDRAWAL(1003, "其他设备登录"),
     GO_TO_BIND(1005, "完善信息"),
-
+    WEIXIN_AUTH(1006, "微信授权"),
 
     //三方登录状态
     //200 已经绑定过，201 未绑定 202 数据异常
