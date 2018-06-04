@@ -141,6 +141,7 @@ public class GiftSendServiceImpl implements GiftSendService {
         } else {
             logger.info("取到礼物缓存数据");
         }
+        return gift;
     }
 
     private void freeGiftCheck(Gift gift, String liveId, String giverId) {
