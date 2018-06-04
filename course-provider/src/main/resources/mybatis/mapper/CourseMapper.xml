@@ -394,6 +394,7 @@
 		    if(oc.id is not null,(select ca.name from course_anchor ca where ca.user_id =  oc.user_lecturer_id),cai.lecturer) as name,
 		    if(oc.start_time is null,(DATE_FORMAT(cai.create_time,'%Y-%m-%d %H:%i')),
 		        (DATE_FORMAT(oc.start_time,'%Y-%m-%d %H:%i'))) as startDateStr,
+		        
 		    if(oc.live_status = 2,if(DATE_SUB(now(),INTERVAL 30 MINUTE)>=oc.start_time,6,if(
 			 (DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time) or
     		   (DATE_ADD(now(),INTERVAL 1 HOUR)>=oc.start_time and now() &lt; oc.start_time),4,

@@ -184,7 +184,16 @@ public class WeChatThirdPartyController {
             if (ou == null) {
                 return ResponseObject.newErrorResponseObject("获取用户信息有误");
             }
+            /**
+             * 判断这个用户是否已经判断了其他微信号了
+             */
+            WxcpClientUserWxMapping   wcwm =   wxcpClientUserWxMappingService.getWxcpClientUserWxMappingByUserId(userId);
+            if(wcwm!=null) {
+            	 return ResponseObject.newErrorResponseObject("用户已绑定过微信号");
+            }
         }
+        
+        
         Map<String, String> mapRequest = new HashMap<String, String>();
         mapRequest.put("type", ThirdPartyType.WECHAT.getCode() + "");
         try {
@@ -242,12 +251,8 @@ public class WeChatThirdPartyController {
             } else if (StringUtils.isNotBlank(m.getClient_id())) { // 绑定了用户信息
 
                 if (StringUtils.isNotBlank(userId)) { // 这里说明人家这个已经绑定过其他信息了。我的天
-                    mapRequest
-                            .put("code",
-                                    UserUnitedStateType.MOBILE_UNBOUNDED
-                                            .getCode() + "");
-                    return ResponseObject.newSuccessResponseObject(mapRequest,
-                            UserUnitedStateType.MOBILE_UNBOUNDED.getCode());
+                    mapRequest .put("code", UserUnitedStateType.MOBILE_UNBOUNDED.getCode() + "");
+                    return ResponseObject.newSuccessResponseObject(mapRequest,UserUnitedStateType.MOBILE_UNBOUNDED.getCode());
                 }
 
                 OnlineUser ou = onlineUserService

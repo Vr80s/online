@@ -4,7 +4,7 @@
 var home = false;
 var bath = "";
 (function(){
-    if(document.location.host.indexOf('dev-front.ixincheng.com')!=-1){
+    if(document.location.host.indexOf('dev-front.xczhihui.com')!=-1){
         bath = "/apis"+bath;
     }
 })();

@@ -182,6 +182,10 @@ public class QQThirdPartyController {
             if (ou == null) {
                 return ResponseObject.newErrorResponseObject("获取用户信息有误");
             }
+            QQClientUserMapping  qqUser =threePartiesLoginService.selectQQClientUserMappingByUserId(userId);
+            if(qqUser!=null) {
+            	return ResponseObject.newErrorResponseObject("用户已绑定过QQ号");
+            }
         }
 
         Map<String, String> mapRequest = new HashMap<>();

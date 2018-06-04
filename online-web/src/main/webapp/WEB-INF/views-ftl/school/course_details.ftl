@@ -165,13 +165,15 @@
 				  <div class="sidebar-content buy_tab hide"  style="padding: 0;">
 						<div class="wrap-anthology">
 							<ul>
-														
 							 <#if collectionList??>   
 							   <#list collectionList as collectionItem>
-							  
 							   	<li>
 							   	 <a href="/web/html/ccvideo/liveVideoAlbum.html?collectionId=${courseInfo.id}&courseId=${collectionItem.id}" target="_blank">
 									<div class="play-img z">
+										<div class="circle">
+												<div class="percent left"></div>
+												<div class="percent right wth0"></div>
+										</div>
 										<img src="../../web/images/icon-play.png"/>
 									</div>
 									<div class="play-album z">
@@ -180,7 +182,6 @@
 									</div>
 								 </a>		
 								</li>
-							  
 							   </#list>
 							 </#if>
 							</ul>

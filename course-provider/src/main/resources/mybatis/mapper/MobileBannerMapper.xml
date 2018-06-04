@@ -492,6 +492,32 @@
 	         </otherwise>   
 	      </choose>   
 	</sql>
+
+
+	<!-- pc首页查询   在线课程、线下课  -->
+     
+    <!-- 在线课程、也就是直播课程（直播中、预告、回放）   live_status   1.直播中，2预告，3直播结束   -->
+    <select id="selectPcIndex" resultType="com.xczhihui.course.vo.CourseLecturVo">
+		( 
+		  select 
+		    <include refid="selectLiveCourse"/>
+		    '在线课程' as note
+		  <include refid="commonCondition"/>
+			and	oc.type=1
+			order by  oc.live_status,recommendSort DESC,oc.start_time DESC LIMIT 0,#{pageSize}
+        )
+        union all
+        ( 
+		  select 
+		    <include refid="selectLiveCourse"/>
+		    '线下课程' as note
+		  <include refid="commonCondition"/>
+		  	and  oc.type = 3
+		    ORDER BY recommendSort desc,oc.start_time DESC LIMIT 0,#{pageSize}
+        )
+    </select>  
 	
+
+
 	
 </mapper>

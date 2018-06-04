@@ -215,4 +215,8 @@ public class MobileBannerServiceImpl extends ServiceImpl<MobileBannerMapper,Mobi
 		List<CourseLecturVo> list =iMobileBannerMapper.searchCourseList(page,queryConditionVo);
 		return page.setRecords(list);
 	}
+	@Override
+	public List<CourseLecturVo> selectPcIndex(Integer value) {
+		return iMobileBannerMapper.selectPcIndex(value);
+	}
 }
