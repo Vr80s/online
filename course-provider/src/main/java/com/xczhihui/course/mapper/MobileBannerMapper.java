@@ -46,5 +46,7 @@ public interface MobileBannerMapper extends BaseMapper<MobileBanner> {
 	List<CourseLecturVo> searchQueryKeyCourseList(@Param("page")Page<CourseLecturVo> page,@Param("queryVo")QueryConditionVo queryConditionVo);
 
 	List<CourseLecturVo> selectPcIndex(@Param("pageSize")Integer pageSize);
+
+	List<CourseLecturVo> selectUnshelveRecommenCourse(@Param("pageSize")Integer pageSize);
 	 
 }

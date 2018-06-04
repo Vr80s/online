@@ -21,6 +21,7 @@ import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.WeihouInterfacesListUtil;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.course.service.IFocusService;
+import com.xczhihui.course.service.IMobileBannerService;
 import com.xczhihui.course.util.CourseUtil;
 import com.xczhihui.course.vo.CourseLecturVo;
 
@@ -41,6 +42,9 @@ public class CourseController {
 
     @Autowired
     private OnlineWebService onlineWebService;
+    
+    @Autowired
+    private IMobileBannerService mobileBannerService;
 
     @Autowired
     @Qualifier("focusServiceRemote")
@@ -248,4 +252,26 @@ public class CourseController {
         return ResponseObject.newSuccessResponseObject(courses);
     }
 
+    
+    /**
+     * Description：下架课程推荐
+     * @param courseId
+     * @return ResponseObject
+     * @throws Exception
+     * @author name：yangxuan <br>
+     * email: 15936216273@163.com
+     */
+    @RequestMapping("unshelveCouserRecommen")
+    public ResponseObject unshelveCouserRecommen(
+    		@RequestParam(required=false,value = "pageSize") Integer pageSize)
+            throws Exception {
+    	
+    	if(pageSize==null || pageSize==0) {
+    		pageSize = 8;
+    	}
+        List<CourseLecturVo> courses = mobileBannerService.selectUnshelveRecommenCourse(pageSize);
+        return ResponseObject.newSuccessResponseObject(courses);
+    }
+    
+    
 }

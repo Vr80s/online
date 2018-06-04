@@ -95,4 +95,12 @@ public interface IMobileBannerService {
 	   */
 	  public Map<String,Object> selectPcIndex(Integer value);
 
+	  /**
+     * 下架课程推荐页面
+     * @param page
+     * @param courseId
+     * @return
+     */
+	  public List<CourseLecturVo> selectUnshelveRecommenCourse(Integer pageSize);
+
 }
