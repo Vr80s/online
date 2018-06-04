@@ -2,6 +2,7 @@ package com.xczhihui.bxg.online.web.controller.index;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.controller.ftl.AbstractFtlController;
 import com.xczhihui.bxg.online.web.service.BannerService;
@@ -22,6 +24,15 @@ import com.xczhihui.common.util.enums.PagingFixedType;
 import com.xczhihui.course.model.MobileBanner;
 import com.xczhihui.course.service.IMobileBannerService;
 import com.xczhihui.course.vo.CourseLecturVo;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorArticleService;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
+import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
+import com.xczhihui.medical.headline.model.OeBxsArticle;
+import com.xczhihui.medical.headline.service.IOeBxsArticleService;
+import com.xczhihui.medical.hospital.service.IMedicalHospitalBusinessService;
+import com.xczhihui.medical.hospital.service.IMedicalHospitalRecruitBusinessService;
+import com.xczhihui.medical.hospital.vo.MedicalHospitalRecruitVO;
+import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
 
 @Controller
 @RequestMapping(value = "/index")
@@ -34,15 +45,20 @@ public class HomeController extends AbstractFtlController {
     private IMobileBannerService mobileBannerService;
 	
 	@Autowired
-	private StudentStoryService studentStoryService;
+	private IMedicalDoctorBusinessService medicalDoctorBusinessService;
 	
 	@Autowired
-	private OtherlinkService otherlinkService;
+	private IMedicalHospitalBusinessService medicalHospitalBusinessServiceImpl;
 	
-	 @Autowired
-     private MenuService  menuService;
+	@Autowired
+	private IOeBxsArticleService oeBxsArticleService;
+	
+	@Autowired
+	private IMedicalDoctorArticleService medicalDoctorArticleService;
 
-
+	@Autowired
+	private IMedicalHospitalRecruitBusinessService medicalHospitalRecruitBusinessService;
+	
 	
 	@Value("${web.url}")
 	private String  webUrl;
@@ -55,10 +71,10 @@ public class HomeController extends AbstractFtlController {
 	 * @throws IllegalAccessException 
 	 * @throws InvocationTargetException 
 	 */
-	@RequestMapping(value = "recommendation", method = RequestMethod.POST)
-	public ModelAndView recommendation() throws InvocationTargetException, IllegalAccessException {
+	@RequestMapping(method = RequestMethod.POST)
+	public ModelAndView index() throws InvocationTargetException, IllegalAccessException {
 		
-		ModelAndView view = new ModelAndView("school/list/school_index");
+		 ModelAndView view = new ModelAndView("school/list/school_index");
 		
 		/**
 		 * banner图   2.主页banner3.头条banner4.创业banner5.海外banner
@@ -67,18 +83,39 @@ public class HomeController extends AbstractFtlController {
 		
 		 //在线课程 --直播课呗，直播为主、回放其次
 		 //线下课
-		 List<CourseLecturVo> list = mobileBannerService.selectPcIndex(PagingFixedType.PC_INDEX.getValue());
-		 view.addObject("courseTypeList",list);
+		 Map<String,Object> map = mobileBannerService.selectPcIndex(PagingFixedType.PC_INDEX.getValue());
+		 view.addObject("courseTypeList",map);
 		 
 		 /**
-		  * 
+		  * 名医推荐
+		  * 推荐值最高的随机取四个
 		  */
-		
+		 List<MedicalDoctorVO> listMdv =  medicalDoctorBusinessService.selectDoctorRecommendList4Random(0,0,4); 
+		 view.addObject("doctorList", listMdv);
 		 
+		 /**
+		  * 头条推荐
+		  */
+		 Page<OeBxsArticle> articles = oeBxsArticleService.selectArticlesByPage(new Page(0, 2), "");
+		 view.addObject("articles", articles);
+		 
+	     /**
+	      * 医馆推荐
+	      */
+	      Page<MedicalHospitalVo> hospitalList = medicalHospitalBusinessServiceImpl.selectHospitalPage(new Page<>(0, 6), null, null);
+	      view.addObject("hospitalList", hospitalList);
+
+	      /**
+	       * 大家专栏
+	       */
+	      view.addObject("hotSpecialColumnAuthors", medicalDoctorArticleService.listHotSpecialColumnAuthor(6));
 	     
-	     
-	     
+	      /**
+	       * 医馆招聘信息  
+	       */
+	      List<MedicalHospitalRecruitVO> recruits = medicalHospitalRecruitBusinessService.selectRecHospitalRecruit();
+	      view.addObject("recruits", recruits);
 		
-		return view;
+		  return view;
 	}
 }

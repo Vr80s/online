@@ -49,16 +49,52 @@
 				<div id="banner" class="clearfix">
 					<div class="slider-container">
 						<ul id="slider" class="slider">
+						   <#if bannerList??>	
+								<#list bannerList as bannerItem >	
+									<li data-indexid="${bannerItem.id}" 
+										class="cur"
+										data-img="${bannerItem.imgPath}"
+										<#if bannerList_index == 0>
+											style="display: none;"
+										</#if>
+										>
+										<a id="aImg${bannerList_index}" target="_blank"
+											href="${bannerItem.imgHref}"
+											style="background: url(&quot;${bannerItem.imgPath}&quot;) center top no-repeat;">
+									   </a>
+								   </li>
+								</#list>	
+				            </#if>
 						</ul>
-						<div id="left"><em></em></div>
-						<div id="right"><em></em></div>
-						<div id="selector" class="selector">
+						   <#if bannerList?? && bannerList == 1>	
+					            <div id="left"><em></em></div>
+					            <div id="right"><em></em></div>
+					        <#elseif bannerList?? && bannerList gt 1>    
+					            <div id="left" style="display:none"><em></em></div>
+					            <div id="right" style="display:none"><em></em></div>
+							</#if>	
+					
+				            <div id="selector" class="selector">
+								<#if bannerList??>	
+									<#list bannerList as bannerItem >
+									   <#if bannerList_index == 0>
+									   	  <span class="cur"></span>
+									   <#else> 
+									   	  <span></span>
+										</#if>
+									</#list>	
+								</#if>
+				            </div>
 						</div>
 					</div>
 				</div>
 
+
+
 				<!--在线课程部分-->
-				<div class="online_course">
+				<#if courseTypeList.listLive?size gt 0 >
+				
+						<div class="online_course">
 					<div class="course_title"><span class="title">在线课程</span>
 						<a href="javascript:;" class="more">更多&nbsp;></a>
 					</div>
@@ -79,39 +115,12 @@
 							</a>
 						</li>
 
-						<li class="course">
-							<a style="cursor:pointer" href="/web/liveCoursePage/677" target="_blank">
-								<div class="img"><img src="http://test-file.ipandatcm.com/18508164259/cb2b6641a715-2c9aec345eba077f015ebbac558400061525768979627.png"></div>
-								<span class="classCategory">直播中</span>
-								<div class="detail">
-									<p class="title" data-text="音频测试3" title="音频测试3">H5需要的PC直播1</p>
-									<p class="timeAndTeac"><span class="teacher">你你你你</span>
-									</p>
-									<p class="info clearfix"><span><span class="price">0</span><span>熊猫币</span></span>
-										<span class="stuCount"><img src="/web/images/studentCount.png" alt="">
-								<span class="studentCou">10</span></span>
-									</p>
-								</div>
-							</a>
-						</li>
-
-						<li class="course">
-							<a style="cursor:pointer" href="/web/liveCoursePage/677" target="_blank">
-								<div class="img"><img src="http://test-file.ipandatcm.com/18508164259/cb2b6641a715-2c9aec345eba077f015ebbac558400061525768979627.png"></div>
-								<span class="classCategory">直播中</span>
-								<div class="detail">
-									<p class="title" data-text="音频测试3" title="音频测试3">H5需要的PC直播1</p>
-									<p class="timeAndTeac"><span class="teacher">你你你你</span>
-									</p>
-									<p class="info clearfix"><span><span class="price">0</span><span>熊猫币</span></span>
-										<span class="stuCount"><img src="/web/images/studentCount.png" alt="">
-								<span class="studentCou">10</span></span>
-									</p>
-								</div>
-							</a>
-						</li>
 					</ul>
 				</div>
+				
+				
+				
+				</#if>				
 
 				<!--线下课程部分-->
 				<div class="underline_course">

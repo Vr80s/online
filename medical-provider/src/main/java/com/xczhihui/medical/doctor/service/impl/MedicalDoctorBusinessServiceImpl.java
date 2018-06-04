@@ -598,6 +598,18 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
         return medicalDoctorMapper.selectRandomDoctorByType(type, offset, size);
     }
 
+    
+    @Override
+    public List<MedicalDoctorVO>  selectDoctorRecommendList4Random(Integer type,
+    		Integer pageNumber,Integer pageSize) {
+    	
+    	List<MedicalDoctorVO> records =medicalDoctorMapper.
+    			selectDoctorRecommendList4Random(type,pageNumber,pageSize);
+        return records;
+    }
+
+    
+    
     /**
      * 参数校验
      *

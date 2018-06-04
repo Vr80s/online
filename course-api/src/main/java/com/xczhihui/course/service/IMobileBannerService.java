@@ -93,6 +93,6 @@ public interface IMobileBannerService {
 	   * @param value
 	   * @return
 	   */
-	  public List<CourseLecturVo> selectPcIndex(Integer value);
+	  public Map<String,Object> selectPcIndex(Integer value);
 
 }

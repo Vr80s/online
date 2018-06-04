@@ -216,7 +216,24 @@ public class MobileBannerServiceImpl extends ServiceImpl<MobileBannerMapper,Mobi
 		return page.setRecords(list);
 	}
 	@Override
-	public List<CourseLecturVo> selectPcIndex(Integer value) {
-		return iMobileBannerMapper.selectPcIndex(value);
+	public Map<String,Object> selectPcIndex(Integer value) {
+		
+		List<CourseLecturVo> listCv  = iMobileBannerMapper.selectPcIndex(value);
+		
+		List<CourseLecturVo> listLive = new ArrayList<CourseLecturVo>();
+		List<CourseLecturVo> listReal = new ArrayList<CourseLecturVo>();
+		
+		for (CourseLecturVo courseLecturVo : listCv) {
+			if("在线课程".equals(courseLecturVo.getNote())){
+				listLive.add(courseLecturVo);
+			}
+			if("线下课程".equals(courseLecturVo.getNote())){
+				listReal.add(courseLecturVo);
+			}
+		}
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("listLive", listLive);
+		map.put("listReal", listReal);
+		return map;
 	}
 }
