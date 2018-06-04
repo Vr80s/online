@@ -6,6 +6,7 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -19,6 +20,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xczhihui.common.support.cc.util.CCUtils;
 import com.xczhihui.common.support.lock.Lock;
+import com.xczhihui.common.util.DateUtil;
 import com.xczhihui.common.util.enums.ApplyStatus;
 import com.xczhihui.common.util.enums.CourseForm;
 import com.xczhihui.common.util.enums.Multimedia;
@@ -27,7 +29,6 @@ import com.xczhihui.medical.anchor.mapper.CollectionCourseApplyUpdateDateMapper;
 import com.xczhihui.medical.anchor.mapper.CourseApplyInfoMapper;
 import com.xczhihui.medical.anchor.mapper.CourseApplyResourceMapper;
 import com.xczhihui.medical.anchor.model.CollectionCourseApply;
-import com.xczhihui.medical.anchor.model.CollectionCourseApplyUpdateDate;
 import com.xczhihui.medical.anchor.model.CourseApplyInfo;
 import com.xczhihui.medical.anchor.model.CourseApplyResource;
 import com.xczhihui.medical.anchor.service.IAnchorInfoService;
@@ -204,6 +205,16 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
     public void saveCollectionApply(CourseApplyInfo courseApplyInfo) {
         anchorInfoService.validateAnchorPermission(courseApplyInfo.getUserId());
         courseApplyService.saveCollectionApply4Lock(courseApplyInfo.getUserId(), courseApplyInfo);
+        addCollectionUpdateDate(courseApplyInfo);
+    }
+
+    private void addCollectionUpdateDate(CourseApplyInfo courseApplyInfo) {
+        //专辑的更新时间
+        if (courseApplyInfo.getUpdateDates() != null && !courseApplyInfo.getUpdateDates().isEmpty()) {
+            for (int date : courseApplyInfo.getUpdateDates()) {
+                collectionCourseApplyUpdateDateMapper.insertModel(courseApplyInfo.getId(), date);
+            }
+        }
     }
 
     @Override
@@ -216,15 +227,6 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         courseApplyInfo.setCreateTime(new Date());
         courseApplyInfoMapper.insert(courseApplyInfo);
 
-        //专辑的更新时间
-        if (courseApplyInfo.getUpdateDates() != null && !courseApplyInfo.getUpdateDates().isEmpty()) {
-            for (int date : courseApplyInfo.getUpdateDates()) {
-                CollectionCourseApplyUpdateDate collectionCourseApplyUpdateDate = new CollectionCourseApplyUpdateDate();
-                collectionCourseApplyUpdateDate.setCollectionApplyId(courseApplyInfo.getId());
-                collectionCourseApplyUpdateDate.setDate(date);
-                collectionCourseApplyUpdateDateMapper.insert(collectionCourseApplyUpdateDate);
-            }
-        }
         //当专辑为点播视频时
         for (CourseApplyInfo applyInfo : courseApplyInfo.getCourseApplyInfos()) {
             CollectionCourseApply collectionCourseApply = new CollectionCourseApply();
@@ -409,6 +411,12 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         //删除更新时间
         collectionCourseApplyUpdateDateMapper.deleteByCollectionApplyId(collectionApplyInfo.getId());
         courseApplyService.saveCollectionApply(collectionApplyInfo);
+    }
+
+    @Override
+    public String getCollectionUpdateDateText(Integer collectionId) {
+        return collectionCourseApplyUpdateDateMapper.listDatesByCollectionId(collectionId)
+                .stream().map(DateUtil::getDayOfWeek).collect(Collectors.joining(","));
     }
 
     /**

@@ -24,7 +24,7 @@
 		<!--分页CSS-->
 		<link rel="stylesheet" href="/web/css/ftl-page.css"/>
 			<link rel="stylesheet" href="/web/css/school/details-album.css"  />
-	
+
 </head>
 	<body>
 		<div class="wp">
@@ -51,78 +51,78 @@
 							<span>价</span>
 							<span>格</span>
 						</div>
-						
-						<#if courseInfo.watchState == 0 || courseInfo.watchState == 2>  
+
+						<#if courseInfo.watchState == 0 || courseInfo.watchState == 2>
 							<p><span>${courseInfo.currentPrice}</span>熊猫币</p>
-						<#elseif courseInfo.watchState == 1> 
+						<#elseif courseInfo.watchState == 1>
 							<p><span style="font-size: 17px;">免费</span></p>
 						</#if>
-						
+
 						<#-- 根据不同的课程类型，显示不同的课程介绍 -->
-						
+
 						<#if courseInfo.type == 1 || courseInfo.type == 2>
 						    <#if courseInfo.collection >
 						      	<ul>
 									<li>更新时间</li>
-									<li>共${courseInfo.courseNumber}集</li>
+									<li>共${courseInfo.courseNumber}集, 已更新${collectionListSize!'0'}<#if updateDateText??>(每${updateDateText}更新)</#if></li>
 									<#-- <li>共16集，已更新13集（每周三、周五更新）</li> -->
 								</ul>
 						    </#if>
-						<#elseif courseInfo.type == 3>	
+						<#elseif courseInfo.type == 3>
 						    <#-- 直播的 -->
 							<ul>
 								<li>直播时间</li>
 								<li>${courseInfo.startTime?string("yyyy.MM.dd HH:mm")}</li>
 							</ul>
-						<#elseif courseInfo.type == 4>	
+						<#elseif courseInfo.type == 4>
 						    <#-- 线下课的 -->
 						    <ul>
 								<li>上课时间</li>
-								<li>${courseInfo.startTime?string("yyyy.MM.dd HH:mm")} - 
+								<li>${courseInfo.startTime?string("yyyy.MM.dd HH:mm")} -
 								   ${courseInfo.endTime?string("yyyy.MM.dd HH:mm")}</li>
 							</ul>
 							<p class="under-address">上课地址<span>${courseInfo.address}</span></p>
 						</#if>
 					</div>
-					 <#-- 
+					 <#--
 					 	免费的进入到一个：
 						 	直播、预告、回放的进入到一个。   /web/livepage/{courseId}
-						 	专辑的进入一个。	
+						 	专辑的进入一个。
 						 	  /web/html/ccvideo/liveVideoAlbum.html?collectionId={}&courseId={}
-						 	课程的进入一个 。 
-						 	  /web/html/ccvideo/video.html?courseId={}	
+						 	课程的进入一个 。
+						 	  /web/html/ccvideo/video.html?courseId={}
 						 	线下课不用显示
 						 	还需要判断如果报名截止的话，显示报名截止
 						付费的跳转到：支付页面了呗：
-					 -->  	
-					<#if (courseInfo.watchState == 1  && courseInfo.type != 4 ) || courseInfo.watchState == 2>  
-						<button type="button" class="immediately-buy  learning_immediately"  
-						     data-watchState ="${courseInfo.watchState}"  
+					 -->
+					<#if (courseInfo.watchState == 1  && courseInfo.type != 4 ) || courseInfo.watchState == 2>
+						<button type="button" class="immediately-buy  learning_immediately"
+						     data-watchState ="${courseInfo.watchState}"
 						     data-type ="${courseInfo.type}"
 						     data-realCourseId ="${courseInfo.id}"
-						     <#if  courseInfo.type == 1 || courseInfo.type == 2 >  
-							     data-collection ="${courseInfo.collection?string(1,0)}"  
+						     <#if  courseInfo.type == 1 || courseInfo.type == 2 >
+							     data-collection ="${courseInfo.collection?string(1,0)}"
 							     <#if  courseInfo.collection>
 									 data-collectionCourseId ="${collectionList[0].id}"
-								 </#if>	
-							 </#if>	
+								 </#if>
+							 </#if>
 						     >
 						    <#if courseInfo.watchState == 2  && courseInfo.type == 4>
 								已报名
 							<#else>
 							           进入学习
-							<#-- 
-							
+							<#--
+
 								<a href="/web/livepage/${courseInfo.id}"   target="_blank">进入学习 </a>
-							<#elseif courseInfo.type == 1 || courseInfo.type == 2 > 	
+							<#elseif courseInfo.type == 1 || courseInfo.type == 2 >
 								<#if  courseInfo.collection>
 								  <a href="/web/html/ccvideo/liveVideoAlbum.html?collectionId=${courseInfo.id}&courseId=${collectionList[0].id}&ljxx=ljxx" target="_blank">进入学习 </a>
 								<#else>
-								  <a href="/web/html/ccvideo/video.html?courseId=${courseInfo.id}" target="_blank">进入学习 </a>  
-								</#if>			-->					
+								  <a href="/web/html/ccvideo/video.html?courseId=${courseInfo.id}" target="_blank">进入学习 </a>
+								</#if>			-->
 							</#if>
 						</button>
-					<#elseif courseInfo.watchState == 0> 
+					<#elseif courseInfo.watchState == 0>
 						<#if courseInfo.type ==4 && courseInfo.cutoff = 1>
 							<button type="button" class="immediately-buy">报名截止</button>
 						<#else>
@@ -133,7 +133,7 @@
 					</#if>
 				</div>
 			</div>
-		
+
 			<div class="main">
 		<!--左侧详情/评价/常见问题-->
 				<div class="content-inf z">
@@ -141,23 +141,23 @@
 					<div class="wrap-sidebar">
 						<ul>
 						<#-- tab的显示，这个就当做专辑页面来写   -->
-						
-						
+
+
 						<#if  courseInfo.collection> <#-- 专辑tab显示    -->
 							<#if courseInfo.watchState = 1 || courseInfo.watchState = 2> <#-- 免费或已购买  -->
 								<li><a href="${webUrlParam}/selection">选集</a></li>
 							    <li><a href="${webUrlParam}/info">详情</a></li>
-							<#elseif courseInfo.watchState = 0>    
+							<#elseif courseInfo.watchState = 0>
 							    <li><a href="${webUrlParam}/info" >详情</a></li>
 								<li><a href="${webUrlParam}/outline" >课程大纲</a></li>
-							</#if> 
+							</#if>
 						<#else> <#-- 非专辑tab显示    -->
 						   <li><a href="${webUrlParam}/info" >详情</a></li>
 						   <li><a href="${webUrlParam}/outline" >课程大纲</a></li>
 						</#if>
 							<li ><a href="${webUrlParam}/comment" >评价（${courseInfo.criticizeCount}）</a></li>
-							<li><a href="${webUrlParam}/aq" >常见问题</a></li>	
-						
+							<li><a href="${webUrlParam}/aq" >常见问题</a></li>
+
 						</ul>
 					</div>
 		<!--content-->
@@ -165,7 +165,7 @@
 				  <div class="sidebar-content buy_tab hide"  style="padding: 0;">
 						<div class="wrap-anthology">
 							<ul>
-							 <#if collectionList??>   
+							 <#if collectionList??>
 							   <#list collectionList as collectionItem>
 							   	<li>
 							   	 <a href="/web/html/ccvideo/liveVideoAlbum.html?collectionId=${courseInfo.id}&courseId=${collectionItem.id}" target="_blank">
@@ -180,14 +180,14 @@
 										<p>${collectionItem.gradeName}</p>
 										<p>${collectionItem.courseLength}</p>
 									</div>
-								 </a>		
+								 </a>
 								</li>
 							   </#list>
 							 </#if>
 							</ul>
 						</div>
 					</div>
-		
+
 		<!--详情-->
 					<div class="sidebar-content">
 						<div class="author-introduce">
@@ -211,35 +211,35 @@
 							</div>
 						</div>
 					</div>
-		
+
 		<!--课程大纲-->
 					<div class="sidebar-content no_buy_tab hide">
 					    <#if courseInfo.courseOutline??>
 								${courseInfo.courseOutline}							    
-						 </#if>	
+						 </#if>
 					</div>
-		<!--评价-->			
+		<!--评价-->
 					<div class="sidebar-content hide">
 						 <#if type == 'comment' >
 							<#include "common/comment.ftl">
 						 </#if>
 					</div>
-		<!--常见问题-->					
+		<!--常见问题-->
 					<div class="sidebar-content hide">
 						<ul class="often-problem">
 							${commonProblem}
 						</ul>
 					</div>
 				</div>
-			
+
 		<!--右侧推荐课程-->
 				<div class="wrap-recommend y">
 					<h3>推荐课程</h3>
 					 <#if recommendCourse?? && recommendCourse?size gt 0 >
 			  	   		<#include "common/recommend_course.ftl">
-			     	 </#if>						
+			     	 </#if>
 				</div>
-			</div>	
+			</div>
 		</div>
 
 
