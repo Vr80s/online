@@ -69,7 +69,7 @@
     <div class="main_left">
         <!--医生简介-->
         <div class="doctor_int">
-            <p>${doctor.description}</p>
+            <p>${doctor.description!''}</p>
         </div>
         <!--坐诊医馆-->
     <#if doctor.medicalHospital??>
