@@ -684,4 +684,9 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
         }
     }
 
+	@Override
+	public List<MedicalDoctorVO> selectDoctorCouserByAccountId(Integer pageNumber, Integer pageSize) {
+        return  medicalDoctorMapper.selectDoctorCouserByAccountId(pageNumber,pageSize);
+	}
+
 }

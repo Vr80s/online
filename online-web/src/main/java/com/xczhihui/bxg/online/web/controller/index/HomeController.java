@@ -87,8 +87,8 @@ public class HomeController extends AbstractFtlController {
 		 view.addObject("courseTypeList",map);
 		 
 		 /**
-		  * 名医坐诊
-		  * 推荐值最高的随机取四个
+		  * 名医坐诊   包含坐诊时间的
+		  *   推荐值最高的取四个
 		  */
 		 List<MedicalDoctorVO> listMdv =  medicalDoctorBusinessService.selectDoctorRecommendList4Random(0,0,4); 
 		 view.addObject("doctorList", listMdv);
@@ -105,6 +105,14 @@ public class HomeController extends AbstractFtlController {
 	      Page<MedicalHospitalVo> hospitalList = medicalHospitalBusinessServiceImpl.selectHospitalPage(new Page<>(0, 6), null, null);
 	      view.addObject("hospitalList", hospitalList);
 
+	      
+	      /*********************  右侧的数据   ***************************/
+	      
+	      /**
+	       * 大家专栏
+	       */
+	      view.addObject("doctorCourseList", medicalDoctorBusinessService.selectDoctorCouserByAccountId(0,3));
+	      
 	      /**
 	       * 大家专栏
 	       */

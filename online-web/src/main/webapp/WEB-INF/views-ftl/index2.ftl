@@ -264,7 +264,6 @@
 
 				<!--底部的医馆部分-->
 			<#if hospitalList.records?size gt 0>	
-				
 				<div class="hospital_part">
 					<div class="course_title"><span class="title">医馆</span>
 						<a href="${webUrl}/clinics/list" class="more" target="_blank">更多&nbsp;></a>
@@ -292,11 +291,20 @@
                                 	     <span>${clinic.province}&nbsp;&nbsp;${clinic.city}</span>
                            			 </div>
 									<div class="hospital_star">
-										<em class="full_star"></em>
-										<em class="full_star"></em>
-										<em class="full_star"></em>
-										<em class="full_star"></em>
-										<em class="full_star"></em>
+										 <#if clinic.score??>
+		                                    <#list 1..clinic.score/1 as t>
+		                                        <em class="full_star"></em>
+		                                    </#list>
+		                                    <#if (5-(clinic.score/1)) gt 0>
+		                                        <#list 1..(5-(clinic.score/1)) as t>
+		                                            <em class="gray_star"></em>
+		                                        </#list>
+		                                    </#if>
+		                                 <#else >
+		                                    <#list 1..5 as t>
+		                                        <em class="gray_star"></em>
+		                                    </#list>
+		                                 </#if>
 									</div>
 								</div>
 							</li>
@@ -307,49 +315,36 @@
 				
 			</div>
 			<div class="right_content clearfix">
+				
+				
 				<!--名医部分-->
+				<#if doctorCourseList?size gt 0>	
+				
 				<div class="famousDocter">
 
 					<div class="right_title"><span class="title">名医</span></div>
 
 					<ul>
-						<li class="doctorInfTpl clearfix">
-							<div class="touxiang">
-								<a href="/doctors/c654bcc007354244a6ba22cfd907f426" style="color: #0C0C0C" target="_blank">
-									<img src="https://file.ipandatcm.com/data/attachment/online/2018/03/16/23/45980c8a6b9046029c3504d06e167a42.png" alt="">
-								</a>
-							</div>
-							<div class="zuozhe_inf">
-								<span><a href="/doctors/c654bcc007354244a6ba22cfd907f426" style="color: #0C0C0C" target="_blank">于瑞鑫 </a><span style="font-size: 14px;color: #666666;font-weight: 400;margin-left: 10px;">四川&nbsp;新通</span></span>
-								<p>课程：中医外治四期班第二季</p>
-							</div>
-						</li>
-
-						<li class="doctorInfTpl clearfix">
-							<div class="touxiang">
-								<a href="/doctors/c654bcc007354244a6ba22cfd907f426" style="color: #0C0C0C" target="_blank">
-									<img src="https://file.ipandatcm.com/data/attachment/online/2018/03/16/23/45980c8a6b9046029c3504d06e167a42.png" alt="">
-								</a>
-							</div>
-							<div class="zuozhe_inf">
-								<span><a href="/doctors/c654bcc007354244a6ba22cfd907f426" style="color: #0C0C0C" target="_blank">于瑞鑫 </a><span style="font-size: 14px;color: #666666;font-weight: 400;margin-left: 10px;">四川&nbsp;新通</span></span>
-								<p>课程：中医外治四期班第二季</p>
-							</div>
-						</li>
-
-						<li class="doctorInfTpl clearfix">
-							<div class="touxiang">
-								<a href="/doctors/c654bcc007354244a6ba22cfd907f426" style="color: #0C0C0C" target="_blank">
-									<img src="https://file.ipandatcm.com/data/attachment/online/2018/03/16/23/45980c8a6b9046029c3504d06e167a42.png" alt="">
-								</a>
-							</div>
-							<div class="zuozhe_inf">
-								<span><a href="/doctors/c654bcc007354244a6ba22cfd907f426" style="color: #0C0C0C" target="_blank">于瑞鑫 </a><span style="font-size: 14px;color: #666666;font-weight: 400;margin-left: 10px;">四川&nbsp;新通</span></span>
-								<p>课程：中医外治四期班第二季</p>
-							</div>
-						</li>
+					    <#list doctorCourseList as doctorCourse>
+							<li class="doctorInfTpl clearfix">
+								<div class="touxiang">
+									<a href="${webUrl}/doctors/${doctor.id}"  style="color: #0C0C0C" target="_blank">
+										<img src="${doctor.headPortrait!''}" alt="${doctor.name}">
+									</a>
+								</div>
+								<div class="zuozhe_inf">
+									<span><a href="/doctors/c654bcc007354244a6ba22cfd907f426" style="color: #0C0C0C" target="_blank">${doctor.name} </a>
+									<span style="font-size: 14px;color: #666666;font-weight: 400;margin-left: 10px;">
+									  ${doctor.province}&nbsp;${doctor.city}
+									 </span></span>
+									<p>${doctor.gradeName?default('暂无')}</p>
+								</div>
+							</li>
+						</#list>
 					</ul>
 				</div>
+				
+				</#if>
 
 				<!--大家专栏部分-->
 				<#if (hotSpecialColumnAuthors?size gt 0)>

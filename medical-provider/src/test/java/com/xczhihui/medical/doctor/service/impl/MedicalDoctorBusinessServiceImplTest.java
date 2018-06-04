@@ -2,6 +2,9 @@ package com.xczhihui.medical.doctor.service.impl;
 
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
+
+import java.util.List;
+
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import test.BaseJunit4Test;
@@ -25,5 +28,18 @@ public class MedicalDoctorBusinessServiceImplTest  extends BaseJunit4Test {
         MedicalDoctorVO medicalDoctor = iMedicalDoctorBusinessService.selectDoctorById("3476f961251b4094b020b560b8fddf48");
         System.out.println(medicalDoctor.toString());
     }
+    
+    
+    
+    
+      @Test
+	  public void test2(){
+	      System.out.println("测试iMedicalHolistspitallBusinessService");
+	      List<MedicalDoctorVO> list = iMedicalDoctorBusinessService.selectDoctorCouserByAccountId(0,3);
+	      System.out.println(list.size());
+	  }
+    
+    
+    
 
 }
