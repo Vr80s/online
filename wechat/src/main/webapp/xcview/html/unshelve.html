@@ -40,6 +40,31 @@
 	    top: 0;
 	    right: 0;
 	}
+	.recommend{
+		font-size: 0.32rem;
+	    color: #333;
+	    margin-left: 0.26rem;
+	    margin-top: 0.8rem;
+    	padding-top: 0.2rem;
+    	padding-bottom: 0.2rem;
+	}
+	.course_list_main{
+		margin-top: 0rem;
+	    padding-top: 0rem;
+	}
+	.baseimagenumber{
+		width: 2rem;
+		height: 2rem;
+		line-height: 4.8rem;
+		background: url(../images/soldout.png) no-repeat center;
+		background-size: 100% 100%;
+		color: #999;
+    	font-size: 0.22rem;
+    	margin: 0 auto;
+	    margin-top: 1rem;
+	    text-align: center;
+	    
+	}
 </style>
 </head>
 <body style="background:#efefef;" class="mui-ios mui-ios-11 mui-ios-11-0">
@@ -50,15 +75,17 @@
 			<div class="header_return" onclick="javascript:history.go(-1);">
 				<img src="/xcview/images/back icon.png">
 			</div>
-			<div class="header_title">下架课程</div>
+			<div class="header_title">课程已下架</div>
 		</div>
 	</header>
 	<!-- 头部结束 -->
 	<!-- 中间内容开始 -->
 	  <div class="mui-scroll">
+	  		<div class="baseimagenumber">课程已下架</div>
 	   	    <!--数据列表-->
 	   	    <!--列表内容开始-->
 	   	    <div class="course_list">
+	   	    	<div class="recommend">为您推荐</div>
 	   	    	<div class="course_list_main" id="course_list_main">   
 	   	    		<div class="course_list_main_one div">
 	   	    			<!--跳转-->
