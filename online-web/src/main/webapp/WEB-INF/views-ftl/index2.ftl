@@ -58,8 +58,7 @@
 											style="display: none;"
 										</#if>
 										>
-										<a id="aImg${bannerItem_index}" target="_blank"
-											href="${bannerItem.imgHref}"
+										<a id="aImg${bannerItem_index}" target="_blank" href="${bannerItem.imgHref}"
 											style="background: url(&quot;${bannerItem.imgPath}&quot;) center top no-repeat;">
 									   </a>
 								   </li>
@@ -325,7 +324,7 @@
 					<div class="right_title"><span class="title">名医</span></div>
 
 					<ul>
-					    <#list doctorCourseList as doctorCourse>
+					    <#list doctorCourseList as doctor>
 							<li class="doctorInfTpl clearfix">
 								<div class="touxiang">
 									<a href="${webUrl}/doctors/${doctor.id}"  style="color: #0C0C0C" target="_blank">
@@ -337,7 +336,7 @@
 									<span style="font-size: 14px;color: #666666;font-weight: 400;margin-left: 10px;">
 									  ${doctor.province}&nbsp;${doctor.city}
 									 </span></span>
-									<p>${doctor.gradeName?default('暂无')}</p>
+									<p>课程：${doctor.gradeName?default('暂无')}</p>
 								</div>
 							</li>
 						</#list>

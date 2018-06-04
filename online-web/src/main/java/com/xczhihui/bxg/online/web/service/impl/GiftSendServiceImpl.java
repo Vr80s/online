@@ -1,17 +1,9 @@
 package com.xczhihui.bxg.online.web.service.impl;
 
-import com.xczhihui.common.support.service.CacheService;
-import com.xczhihui.common.support.service.impl.RedisCacheService;
-import com.xczhihui.bxg.online.common.domain.Gift;
-import com.xczhihui.bxg.online.common.domain.GiftStatement;
-import com.xczhihui.common.util.RedisCacheKey;
-import com.xczhihui.online.api.service.GiftSendService;
-import com.xczhihui.online.api.service.UserCoinService;
-import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.common.util.enums.OrderFrom;
-import com.xczhihui.common.support.lock.Lock;
-import com.xczhihui.bxg.online.web.dao.GiftDao;
-import com.xczhihui.bxg.online.web.service.OnlineUserCenterService;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
@@ -24,10 +16,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import com.xczhihui.bxg.online.common.domain.Gift;
+import com.xczhihui.bxg.online.common.domain.GiftStatement;
+import com.xczhihui.bxg.online.common.domain.OnlineUser;
+import com.xczhihui.bxg.online.web.dao.GiftDao;
+import com.xczhihui.bxg.online.web.service.OnlineUserCenterService;
+import com.xczhihui.common.support.lock.Lock;
+import com.xczhihui.common.support.service.CacheService;
+import com.xczhihui.common.support.service.impl.RedisCacheService;
+import com.xczhihui.common.util.RedisCacheKey;
+import com.xczhihui.common.util.enums.OrderFrom;
+import com.xczhihui.online.api.service.GiftSendService;
+import com.xczhihui.online.api.service.UserCoinService;
 
 @Service
 public class GiftSendServiceImpl implements GiftSendService {
