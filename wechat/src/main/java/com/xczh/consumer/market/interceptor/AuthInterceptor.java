@@ -77,8 +77,8 @@ public class AuthInterceptor implements HandlerInterceptor, HandlerMethodArgumen
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        ServletOutputStream outputStream = response.getOutputStream();
         if (!isExcludePath(request)) {
+            ServletOutputStream outputStream = response.getOutputStream();
             if (isAppRequest(request)) {
                 String token = getParam(request, TOKEN_PARAM_NAME);
                 ResponseObject responseObject = null;
