@@ -94,280 +94,230 @@
 				<!--在线课程部分-->
 				<#if courseTypeList.listLive?size gt 0 >
 				
-						<div class="online_course">
+					<div class="online_course">
 					<div class="course_title"><span class="title">在线课程</span>
 						<a href="javascript:;" class="more">更多&nbsp;></a>
 					</div>
 					<ul class="online_course_list clearfix">
+					
+						<#list courseTypeList.listLive as courseItem>
+					
 						<li class="course">
-							<a style="cursor:pointer" href="/web/liveCoursePage/677" target="_blank">
-								<div class="img"><img src="http://test-file.ipandatcm.com/18508164259/cb2b6641a715-2c9aec345eba077f015ebbac558400061525768979627.png"></div>
-								<span class="classCategory">直播中</span>
-								<div class="detail">
-									<p class="title" data-text="音频测试3" title="音频测试3">H5需要的PC直播1</p>
-									<p class="timeAndTeac"><span class="teacher">你你你你</span>
+							     <#if courseItem.type == 1 ||  courseItem.type == 2 ||  courseItem.type == 4 > 
+							 		    <a style="cursor:pointer" href="/courses/${courseItem.id}/info" target="_blank">
+								 <#elseif courseItem.type == 3>
+							            <a style="cursor:pointer" href="/web/liveCoursePage/${courseItem.id}" target="_blank">
+								 </#if>
+							    
+								<div class="img"><img src="${courseItem.smallImgPath}"></div>
+								
+							   <#if courseItem.type == 1  > 
+							      <#if courseItem.collection> 
+							         <span class="classCategory">视频专辑</span>
+								  <#elseif !courseItem.collection>
+						              <span class="classCategory">视频</span>
+						          </#if>
+								 
+							   <#elseif courseItem.type == 2>
+							      <#if courseItem.collection> 
+							       <span class="classCategory">音频专辑</span>
+								  <#elseif !courseItem.collection>
+						             <span class="classCategory">音频</span>
+						          </#if>
+							      
+							   <#elseif courseItem.type == 3>
+						          <#if courseItem.lineState  == 1  > 
+							        <span class="classCategory">直播中</span>
+								  <#elseif courseItem.lineState  == 2>
+								      <span class="classCategory">预告</span>
+								  <#elseif courseItem.lineState  == 3>
+								      <span class="classCategory">直播回放</span>
+								  <#elseif courseItem.lineState  == 4>
+						             <span class="classCategory">即将直播</span>
+						          </#if>
+							   <#elseif courseItem.type == 4>
+							      <span class="classCategory">线下培训班</span>
+							   </#if>
+							   <div class="detail">
+									<p class="title" data-text="音频测试3" title="音频测试3">${courseItem.gradeName}</p>
+									<p class="timeAndTeac"><span class="teacher">${courseItem.name}</span>
 									</p>
-									<p class="info clearfix"><span><span class="price">0</span><span>熊猫币</span></span>
+									<p class="info clearfix"><span><span class="price">${courseItem.currentPrice}</span><span>熊猫币</span></span>
 										<span class="stuCount"><img src="/web/images/studentCount.png" alt="">
-								<span class="studentCou">10</span></span>
+								        <span class="studentCou">${courseItem.learndCount}</span></span>
 									</p>
 								</div>
 							</a>
 						</li>
-
+						</#list>
 					</ul>
 				</div>
-				
-				
-				
 				</#if>				
 
+				<#if courseTypeList.listReal?size gt 0 >
 				<!--线下课程部分-->
 				<div class="underline_course">
 					<div class="course_title"><span class="title">线下课程</span>
 						<a href="javascript:;" class="more">更多&nbsp;></a>
 					</div>
 					<ul class="online_course_list clearfix">
+					
+						<#list courseTypeList.listReal as courseItem>
 						<li class="course">
-							<a style="cursor:pointer" href="/web/liveCoursePage/677" target="_blank">
-								<div class="img"><img src="http://test-file.ipandatcm.com/18508164259/cb2b6641a715-2c9aec345eba077f015ebbac558400061525768979627.png"></div>
-								<span class="classCategory">直播中</span>
+							    
+							    <#if courseItem.type == 1 ||  courseItem.type == 2 ||  courseItem.type == 4 > 
+							 		    <a style="cursor:pointer" href="/courses/${courseItem.id}/info" target="_blank">
+								 <#elseif courseItem.type == 3>
+							            <a style="cursor:pointer" href="/web/liveCoursePage/${courseItem.id}" target="_blank">
+								 </#if>
+								
+								<div class="img"><img src="src="${courseItem.smallImgPath}""></div>
+								
+								
+							   <#if courseItem.type == 1  > 
+							      <#if courseItem.collection> 
+							         <span class="classCategory">视频专辑</span>
+								  <#elseif !courseItem.collection>
+						              <span class="classCategory">视频</span>
+						          </#if>
+								 
+							   <#elseif courseItem.type == 2>
+							      <#if courseItem.collection> 
+							       <span class="classCategory">音频专辑</span>
+								  <#elseif !courseItem.collection>
+						             <span class="classCategory">音频</span>
+						          </#if>
+							      
+							   <#elseif courseItem.type == 3>
+						          <#if courseItem.lineState  == 1  > 
+							        <span class="classCategory">直播中</span>
+								  <#elseif courseItem.lineState  == 2>
+								      <span class="classCategory">预告</span>
+								  <#elseif courseItem.lineState  == 3>
+								      <span class="classCategory">直播回放</span>
+								  <#elseif courseItem.lineState  == 4>
+						             <span class="classCategory">即将直播</span>
+						          </#if>
+							   <#elseif courseItem.type == 4>
+							      <span class="classCategory">线下培训班</span>
+							   </#if>
+								
+								
 								<div class="detail">
-									<p class="title" data-text="音频测试3" title="音频测试3">H5需要的PC直播1</p>
-									<p class="timeAndTeac"><span class="teacher">你你你你</span>
+									<p class="title" data-text="音频测试3" title="音频测试3">${courseItem.gradeName}</p>
+									<p class="timeAndTeac"><span class="teacher">${courseItem.name}</span>
 									</p>
-									<p class="info clearfix"><span><span class="price">0</span><span>熊猫币</span></span>
+									<p class="info clearfix"><span><span class="price">${courseItem.currentPrice}</span><span>熊猫币</span></span>
 										<span class="stuCount"><img src="/web/images/studentCount.png" alt="">
-								<span class="studentCou">10</span></span>
+								<span class="studentCou">${courseItem.learndCount}</span></span>
 									</p>
 								</div>
 							</a>
 						</li>
-
-						<li class="course">
-							<a style="cursor:pointer" href="/web/liveCoursePage/677" target="_blank">
-								<div class="img"><img src="http://test-file.ipandatcm.com/18508164259/cb2b6641a715-2c9aec345eba077f015ebbac558400061525768979627.png"></div>
-								<span class="classCategory">直播中</span>
-								<div class="detail">
-									<p class="title" data-text="音频测试3" title="音频测试3">H5需要的PC直播1</p>
-									<p class="timeAndTeac"><span class="teacher">你你你你</span>
-									</p>
-									<p class="info clearfix"><span><span class="price">0</span><span>熊猫币</span></span>
-										<span class="stuCount"><img src="/web/images/studentCount.png" alt="">
-								<span class="studentCou">10</span></span>
-									</p>
-								</div>
-							</a>
-						</li>
-
-						<li class="course">
-							<a style="cursor:pointer" href="/web/liveCoursePage/677" target="_blank">
-								<div class="img"><img src="http://test-file.ipandatcm.com/18508164259/cb2b6641a715-2c9aec345eba077f015ebbac558400061525768979627.png"></div>
-								<span class="classCategory">直播中</span>
-								<div class="detail">
-									<p class="title" data-text="音频测试3" title="音频测试3">H5需要的PC直播1</p>
-									<p class="timeAndTeac"><span class="teacher">你你你你</span>
-									</p>
-									<p class="info clearfix"><span><span class="price">0</span><span>熊猫币</span></span>
-										<span class="stuCount"><img src="/web/images/studentCount.png" alt="">
-								<span class="studentCou">10</span></span>
-									</p>
-								</div>
-							</a>
-						</li>
+						</#list>
 					</ul>
 				</div>
+				</#if>	
 
-				<!--名家坐诊部分-->
-				<div class="famous_doctor">
-					<div class="course_title"><span class="title">名家坐诊</span>
-						<a href="javascript:;" class="more">更多&nbsp;></a>
+				<#if doctorList?size gt 0 >	
+					<!--名家坐诊部分-->
+					<div class="famous_doctor">
+						<div class="course_title"><span class="title">名家坐诊</span>
+							<a href="javascript:;" class="more">更多&nbsp;></a>
+						</div>
+						<ul class="famous_doctor_list clearfix">
+							
+							<#list doctorList as doctor>
+						
+							<li class="doctorTpl">
+								<a href="${webUrl}/doctors/${doctor.id}" target="_blank"></a>
+								<img src="${doctor.headPortrait!''}" alt="${doctor.name}">
+								<h5>${doctor.name}&nbsp;<span>${doctor.title?default('暂无')}</span></h5>
+								<p>${doctor.workTime}</p>
+                      			<p>${doctor.province}&nbsp;${doctor.city}&nbsp; </p>
+							</li>
+						
+							</#list>
+						</ul>
 					</div>
-					<ul class="famous_doctor_list clearfix">
-						<li class="doctorTpl">
-							<a href="http://dev-www.ixincheng.com/doctors/d629a5bfd8934ccbac46ebe2e0ff5490" target="_blank"></a>
-							<img src="https://file.ipandatcm.com/data/picture/online/2018/01/12/21/e55d83d376f448478e811fa55e5fa671.jpg" alt="路志正">
-							<h5>路志正&nbsp;<span>主任医师</span></h5>
-							<p>周四上午</p>
-							<p>北京市&nbsp;北京市&nbsp; </p>
-						</li>
+                </#if>
 
-						<li class="doctorTpl">
-							<a href="http://dev-www.ixincheng.com/doctors/d629a5bfd8934ccbac46ebe2e0ff5490" target="_blank"></a>
-							<img src="https://file.ipandatcm.com/data/picture/online/2018/01/12/21/e55d83d376f448478e811fa55e5fa671.jpg" alt="路志正">
-							<h5>路志正&nbsp;<span>主任医师</span></h5>
-							<p>周四上午</p>
-							<p>北京市&nbsp;北京市&nbsp; </p>
-						</li>
 
-						<li class="doctorTpl">
-							<a href="http://dev-www.ixincheng.com/doctors/d629a5bfd8934ccbac46ebe2e0ff5490" target="_blank"></a>
-							<img src="https://file.ipandatcm.com/data/picture/online/2018/01/12/21/e55d83d376f448478e811fa55e5fa671.jpg" alt="路志正">
-							<h5>路志正&nbsp;<span>主任医师</span></h5>
-							<p>周四上午</p>
-							<p>北京市&nbsp;北京市&nbsp; </p>
-						</li>
-
-						<li class="doctorTpl">
-							<a href="http://dev-www.ixincheng.com/doctors/d629a5bfd8934ccbac46ebe2e0ff5490" target="_blank"></a>
-							<img src="https://file.ipandatcm.com/data/picture/online/2018/01/12/21/e55d83d376f448478e811fa55e5fa671.jpg" alt="路志正">
-							<h5>路志正&nbsp;<span>主任医师</span></h5>
-							<p>周四上午</p>
-							<p>北京市&nbsp;北京市&nbsp; </p>
-						</li>
-
-					</ul>
-				</div>
 
 				<!--头条新闻部分开始-->
+
+			  <#if articles.records?size gt 0 >	
 				<div class="topLine_news">
 					<div class="course_title"><span class="title">头条新闻</span>
 						<a href="javascript:;" class="more">更多&nbsp;></a>
 					</div>
 					<ul class="topLine_news_list">
-
+					 <#list articles.records as article>	
 						<li class="newsTpl clearfix">
-							<a href="http://dev-www.ixincheng.com/headline/details/385" target="_blank">
-								<img class="forum-info-left" src="https://file.ipandatcm.com/data/picture/online/2018/03/13/16/1d1d5be02e8a4a73a56dd07a867c8bd5.png" alt="">
+							<a href="${webUrl}/headline/details/${article.id}" target="_blank">
+								<img class="forum-info-left" src="${article.imgPath}" alt="">
 							</a>
 							<div class="forum-info-right">
 								<div class="forum-info-title">
-									<a href="http://dev-www.ixincheng.com/headline/details/385" target="_blank">校地合作 推动基层和农村中医药人才素质能力建设</a>
+									<a href="${webUrl}/headline/details/${article.id}" target="_blank">${article.title}</a>
 								</div>
 								<div class="forum-info-content dot-ellipsis">
-									由上海中医药大学和台州市政府合办的台州市中医人才队伍素质提升工程基层中医骨干培训班(第一期)及开班仪式在台州举行，台州市区社区卫生服务中心和乡镇卫生院中取得中医执业医师资格的相关人员、“台州市农村中青年中医骨干”称号获得者等73名学员参加了培训。上海中医药大学副校长胡鸿毅表示，大学与台州市政府的合作是落实十九大提出的关于做好中医药传承发展工作精神的实践。为期3个月的培训班组织安排了学校多位教授专家与台州市基层中医骨干一起探讨交流，希望促进当地基层中医骨干将新的中医发展理念、学术观点运用到临床一线。台州市副市长吴丽慧在开班仪式中指出，“中医基层化，基层中医化”是我国中医药事业发展的方向。加快基层中医药人才的培训培养，优化农村基层中医药人才队伍结构，提升整体素质能力，已成为当前台州中医药事业补短板的关键。台州市委市政府高度重视中医药事业的发展问题，从全面接轨上海，建立中医药人才教育培训体系开始，开展多方面举措合力推动台州市中医药事业的发展。开班仪式后，胡鸿毅作题为“新时代与中医药传承发展的使命”的专题讲座。下午，上海中医药大学杨柏灿教授以“临证中药选用三结合”为题作学术讲座，受到学员们欢迎。据悉，2017年11月，上海中医药大学与台州市政府签订了《台州市中医药事业发展战略合作协议》，双方明确将在医疗服务、医学教育以及科学研究等方面展开全面合作。首期培训班开班标志着基层中医骨干轮训工作正式开启，双方第一轮合作项目落地。
+								 ${article.content}
 								</div>
 								<div class="forum-info-tags">
-									<span>来源：中新网上海<em></em>2018-03-13</span>
+									<span>${article.author!''}<em></em>${(article.createTime?string("yyyy-MM-dd"))!}</span>
 								</div>
 							</div>
 						</li>
-
-						<li class="newsTpl clearfix">
-							<a href="http://dev-www.ixincheng.com/headline/details/385" target="_blank">
-								<img class="forum-info-left" src="https://file.ipandatcm.com/data/picture/online/2018/03/13/16/1d1d5be02e8a4a73a56dd07a867c8bd5.png" alt="">
-							</a>
-							<div class="forum-info-right">
-								<div class="forum-info-title">
-									<a href="http://dev-www.ixincheng.com/headline/details/385" target="_blank">校地合作 推动基层和农村中医药人才素质能力建设</a>
-								</div>
-								<div class="forum-info-content dot-ellipsis">
-									由上海中医药大学和台州市政府合办的台州市中医人才队伍素质提升工程基层中医骨干培训班(第一期)及开班仪式在台州举行，台州市区社区卫生服务中心和乡镇卫生院中取得中医执业医师资格的相关人员、“台州市农村中青年中医骨干”称号获得者等73名学员参加了培训。上海中医药大学副校长胡鸿毅表示，大学与台州市政府的合作是落实十九大提出的关于做好中医药传承发展工作精神的实践。为期3个月的培训班组织安排了学校多位教授专家与台州市基层中医骨干一起探讨交流，希望促进当地基层中医骨干将新的中医发展理念、学术观点运用到临床一线。台州市副市长吴丽慧在开班仪式中指出，“中医基层化，基层中医化”是我国中医药事业发展的方向。加快基层中医药人才的培训培养，优化农村基层中医药人才队伍结构，提升整体素质能力，已成为当前台州中医药事业补短板的关键。台州市委市政府高度重视中医药事业的发展问题，从全面接轨上海，建立中医药人才教育培训体系开始，开展多方面举措合力推动台州市中医药事业的发展。开班仪式后，胡鸿毅作题为“新时代与中医药传承发展的使命”的专题讲座。下午，上海中医药大学杨柏灿教授以“临证中药选用三结合”为题作学术讲座，受到学员们欢迎。据悉，2017年11月，上海中医药大学与台州市政府签订了《台州市中医药事业发展战略合作协议》，双方明确将在医疗服务、医学教育以及科学研究等方面展开全面合作。首期培训班开班标志着基层中医骨干轮训工作正式开启，双方第一轮合作项目落地。
-								</div>
-								<div class="forum-info-tags">
-									<span>来源：中新网上海<em></em>2018-03-13</span>
-								</div>
-							</div>
-						</li>
-
+					   </#list>
 					</ul>
 				</div>
+			 </#if>
 
 				<!--底部的医馆部分-->
+			<#if clinics.records?size gt 0 >	
+				
 				<div class="hospital_part">
 					<div class="course_title"><span class="title">医馆</span>
 						<a href="javascript:;" class="more">更多&nbsp;></a>
 					</div>
 					<ul class="hostpital_list">
-						<li class="hospitalTpl">
-							<a href="http://dev-www.ixincheng.com/clinics/08a08cf4f87848298576838206653c39" id="08a08cf4f87848298576838206653c39" target="_blank"></a>
-							<img src="https://file.ipandatcm.com/data/attachment/online/2018/03/17/17/d649639747464d7c8343bd0c3df333ea.png" style="width: 100%;height: 147px;" alt="坤鹤百草堂中医馆">
-							<div class="hospital_inf">
-								<span class="hospital_name">坤鹤百草堂中医馆</span>
-								<span class="hospital_pass">已认证</span>
-								<div class="hospital_address"><em></em>
-									<span>北京市&nbsp;&nbsp;北京市</span>
+						
+						<#list clinics.records as clinic>
+							<li class="hospitalTpl">
+								<a href="${webUrl}/clinics/${clinic.id}" id="${clinic.id}" target="_blank"></a>
+								<#if clinic.medicalHospitalPictures[0]??>
+		                            <img src="${clinic.medicalHospitalPictures[0].picture}" style="width: 100%;height: 147px;"
+		                                 alt="${clinic.name}">
+		                        <#else >
+		                            <img src="/web/images/hospitalDefault.png" style="width: 100%;height: 147px;"
+		                                 alt="${clinic.name}">
+		                        </#if>
+								
+								<div class="hospital_inf">
+									<span class="hospital_name">${clinic.name}</span>
+									
+									<#if clinic.authentication==true>
+                                		<span class="hospital_pass">已认证</span>
+                            		</#if>
+									 <div class="hospital_address"><em></em>
+                                	     <span>${clinic.province}&nbsp;&nbsp;${clinic.city}</span>
+                           			 </div>
+									<div class="hospital_star">
+										<em class="full_star"></em>
+										<em class="full_star"></em>
+										<em class="full_star"></em>
+										<em class="full_star"></em>
+										<em class="full_star"></em>
+									</div>
 								</div>
-								<div class="hospital_star">
-									<em class="full_star"></em>
-									<em class="full_star"></em>
-									<em class="full_star"></em>
-									<em class="full_star"></em>
-									<em class="full_star"></em>
-								</div>
-							</div>
-						</li>
-
-						<li class="hospitalTpl">
-							<a href="http://dev-www.ixincheng.com/clinics/08a08cf4f87848298576838206653c39" id="08a08cf4f87848298576838206653c39" target="_blank"></a>
-							<img src="https://file.ipandatcm.com/data/attachment/online/2018/03/17/17/d649639747464d7c8343bd0c3df333ea.png" style="width: 100%;height: 147px;" alt="坤鹤百草堂中医馆">
-							<div class="hospital_inf">
-								<span class="hospital_name">坤鹤百草堂中医馆</span>
-								<span class="hospital_pass">已认证</span>
-								<div class="hospital_address"><em></em>
-									<span>北京市&nbsp;&nbsp;北京市</span>
-								</div>
-								<div class="hospital_star">
-									<em class="full_star"></em>
-									<em class="full_star"></em>
-									<em class="full_star"></em>
-									<em class="full_star"></em>
-									<em class="full_star"></em>
-								</div>
-							</div>
-						</li>
-
-						<li class="hospitalTpl">
-							<a href="http://dev-www.ixincheng.com/clinics/08a08cf4f87848298576838206653c39" id="08a08cf4f87848298576838206653c39" target="_blank"></a>
-							<img src="https://file.ipandatcm.com/data/attachment/online/2018/03/17/17/d649639747464d7c8343bd0c3df333ea.png" style="width: 100%;height: 147px;" alt="坤鹤百草堂中医馆">
-							<div class="hospital_inf">
-								<span class="hospital_name">坤鹤百草堂中医馆</span>
-								<span class="hospital_pass">已认证</span>
-								<div class="hospital_address"><em></em>
-									<span>北京市&nbsp;&nbsp;北京市</span>
-								</div>
-								<div class="hospital_star">
-									<em class="full_star"></em>
-									<em class="full_star"></em>
-									<em class="full_star"></em>
-									<em class="full_star"></em>
-									<em class="full_star"></em>
-								</div>
-							</div>
-						</li>
-
-						<li class="hospitalTpl">
-							<a href="http://dev-www.ixincheng.com/clinics/08a08cf4f87848298576838206653c39" id="08a08cf4f87848298576838206653c39" target="_blank"></a>
-							<img src="https://file.ipandatcm.com/data/attachment/online/2018/03/17/17/d649639747464d7c8343bd0c3df333ea.png" style="width: 100%;height: 147px;" alt="坤鹤百草堂中医馆">
-							<div class="hospital_inf">
-								<span class="hospital_name">坤鹤百草堂中医馆</span>
-								<span class="hospital_pass">已认证</span>
-								<div class="hospital_address"><em></em>
-									<span>北京市&nbsp;&nbsp;北京市</span>
-								</div>
-								<div class="hospital_star">
-									<em class="full_star"></em>
-									<em class="full_star"></em>
-									<em class="full_star"></em>
-									<em class="full_star"></em>
-									<em class="full_star"></em>
-								</div>
-							</div>
-						</li>
-
-						<li class="hospitalTpl">
-							<a href="http://dev-www.ixincheng.com/clinics/08a08cf4f87848298576838206653c39" id="08a08cf4f87848298576838206653c39" target="_blank"></a>
-							<img src="https://file.ipandatcm.com/data/attachment/online/2018/03/17/17/d649639747464d7c8343bd0c3df333ea.png" style="width: 100%;height: 147px;" alt="坤鹤百草堂中医馆">
-							<div class="hospital_inf">
-								<span class="hospital_name">坤鹤百草堂中医馆</span>
-								<span class="hospital_pass">已认证</span>
-								<div class="hospital_address"><em></em>
-									<span>北京市&nbsp;&nbsp;北京市</span>
-								</div>
-								<div class="hospital_star">
-									<em class="full_star"></em>
-									<em class="full_star"></em>
-									<em class="full_star"></em>
-									<em class="full_star"></em>
-									<em class="full_star"></em>
-								</div>
-							</div>
-						</li>
-
+							</li>
+						</#list>
 					</ul>
 				</div>
+				</#if>	
+				
 			</div>
-
 			<div class="right_content clearfix">
 				<!--名医部分-->
 				<div class="famousDocter">
@@ -416,7 +366,6 @@
 				<!--专题课程部分-->
 				<div class="thematic_course">
 					<div class="right_title"><span class="title">专题课程</span></div>
-
 					<ul class="thematic_course_list">
 						<li class="thematic_courseTpl">
 							<a href="javascript:;">

@@ -87,7 +87,7 @@ public class HomeController extends AbstractFtlController {
 		 view.addObject("courseTypeList",map);
 		 
 		 /**
-		  * 名医推荐
+		  * 名医坐诊
 		  * 推荐值最高的随机取四个
 		  */
 		 List<MedicalDoctorVO> listMdv =  medicalDoctorBusinessService.selectDoctorRecommendList4Random(0,0,4); 
