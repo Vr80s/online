@@ -55,7 +55,8 @@ public class AuthInterceptor implements HandlerInterceptor, HandlerMethodArgumen
             "/xczh/common/getProblems", "/xczh/common/verifyLoginStatus", "/xczh/common/getProblemAnswer",
             "/xczh/common/checkUpdate", "/xczh/common/addOpinion", "/xczh/gift/rankingList", "/xczh/common/richTextDetails",
             "/xczh/gift/list", "/xczh/common/checkToken", "/xczh/message", "/xczh/pay/pay_notify", "/xczh/set/isLogined",
-            "/xczh/recommend/**", "/xczh/classify/**", "/xczh/bunch/**", "/xczh/live/**", "/xczh/host/**", "/xczh/course/**");
+            "/xczh/recommend/**", "/xczh/classify/**", "/xczh/bunch/**", "/xczh/live/**", "/xczh/host/**", "/xczh/course/**",
+            "/xczh/enrol/enrollmentRegulations");
 
     @Autowired
     private PathMatcher pathMatcher;

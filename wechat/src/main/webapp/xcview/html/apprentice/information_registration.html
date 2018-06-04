@@ -13,15 +13,15 @@
 	<script type="text/javascript" src="/xcview/js/common/layout.js"></script>
 </head>
 <body>
+<!-- 报名头部结束 -->
+<script id="entry_information_temp" type="text/html">
 	<!-- 报名头部开始 -->
 	<header>
 		<div class="header">
-			<div class="return" onclick="javascript:history.go(-1);"><img src="/xcview/images/back icon.png" alt="" /></div>
+			<div class="return" onclick="location.href='/xcview/html/apprentice/inherited_introduction.html'"><img src="/xcview/images/back%20icon.png" alt="" /></div>
 			<div class="apply_title">报名信息</div>
 		</div>
-		
 	</header>
-	<!-- 报名头部结束 -->
 
 	<!-- 中间内容开始 -->
 	<div class="fiexd"></div>
@@ -29,64 +29,78 @@
 		<div class="main_bg">
 			<div class="name">
 				姓名
-				<div class="size">你是谁</div>
-				<!-- <input type="text" placeholder="请输入" /> -->
+				<div class="size">{{name}}</div>
+				<div class="both"></div>
+			</div>
+			<div class="name">
+				手机号
+				<div class="size">{{tel}}</div>
 				<div class="both"></div>
 			</div>
 			<div class="age">
 				年龄
-				<!-- <input type="text" placeholder="请输入" /> -->
-				<div class="size">你是谁</div>
+				<div class="size">{{age}}</div>
 				<div class="both"></div>
 			</div>
 			<div class="sex">
 				性别
-
 				<div class="sex_hide" style="display:none;">
 					<img src="http://test-wx.xczhihui.com/xcview/images/right_jian.png" alt="" />
 				</div>
-				<p class="sex_show">男</p>  <!-- 男女传值 -->
+				{{if sex == 1}}
+				<p class="sex_show">男</p>
+				{{else if sex == 0}}
+				<p class="sex_show">女</p>
+				{{/if}}
 				<div class="both"></div>
 			</div>
-			<div class="birthplace">
+			<div class="birthplace" style="border-bottom: 1px solid #f0f0f0;">
 				籍贯
-				<!-- <input type="text" placeholder="请输入" /> -->
-				<div class="size">山东菏泽</div>
+				<div class="size">{{nativePlace}}</div>
+				<div class="both"></div>
+			</div>
+			<div class="both"></div>
+			<div class="education">
+				学历
+				<p >{{education}}</p>
 				<div class="both"></div>
 			</div>
 			<div class="both"></div>
 		</div>
 		<div class="main_bg">
 			<div class="learning_experience">
-				学习经历
-				<!-- <input type="text" placeholder="请输入" /> -->
-				<div class="size" >测试测试</div>
+				<p>学习经历</p>
+				<div class="size" >{{educationExperience}}</div>
 				<div class="both"></div>
 			</div>
 			<div class="both"></div>
 		</div>
 		<div class="main_bg">
 			<div class="practice_medicine">
-				行医经历
-				<!-- <input type="text" placeholder="请输入" /> -->
-				<!-- <div class="copyreader" contenteditable="true" placeholder="请输入" ></div> -->
-				<div class="size" >测试测试</div>
+				<p>行医经历</p>
+				<div class="size" >{{medicalExperience}}</div>
 				<div class="both"></div>
 			</div>
 			<div class="both"></div>
 		</div>
 		<div class="main_bg">
 			<div class="study">
-				学中医目的
-				<!-- <input type="text" placeholder="请输入"  /> -->
-				<div class="size" >测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试</div>
+				<p>学中医目的</p>
+				<div class="size" >{{goal}}</div>
 				<div class="both"></div>
 			</div>
 			<div class="both"></div>
 		</div>
 		<div class="both"></div>
 	</div>
-	
-	<!-- 中间内容结束 -->
+	</script>
 </body>
+<!-- 中间内容结束 -->
+<script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/common.js?v=wechat_1.1.1"></script>
+<script type="text/javascript" src="/xcview/js/common/template.js"></script>   <!--模板引入-->
+<script type="text/javascript" src="/xcview/js/apprentice/apprentice-common.js"></script>
+<script type="text/javascript" src="/xcview/js/apprentice/apprentice-oauth.js"></script>
+<script type="text/javascript" src="/xcview/js/apprentice/inherited_registration.js"></script>
 </html>

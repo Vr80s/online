@@ -138,4 +138,6 @@
     <dubbo:reference id="commonMessageService" interface="com.xczhihui.course.service.ICommonMessageService" timeout="${dubbo.consumer.timeout}">
         <dubbo:method name="saveMessage" async="true"/>
     </dubbo:reference>
+    <!-- 师承模块服务 -->
+    <dubbo:reference interface="com.xczhihui.medical.enrol.service.EnrolService" id="enrolServiceImpl" timeout="${dubbo.consumer.timeout}"/>
 </beans>

@@ -156,9 +156,18 @@ if (current.indexOf("course_id") != -1 ||
     h5PcConversions(false);
 }
 
+function requestGetService(url, param, callback, ac) {
+    ajaxRequest(url, param,"get", callback, ac);
+}
 
 //ajax统一请求
 function requestService(url, param, callback, ac) {
+    ajaxRequest(url, param,"post", callback, ac);
+}
+
+
+//ajax统一请求
+function ajaxRequest(url, param,type, callback, ac) {
     if (ac == null)
         ac = true;// 默认异步
 //	  if(document.location.host.indexOf('dev.ixincheng.com')!=-1){
@@ -166,7 +175,7 @@ function requestService(url, param, callback, ac) {
 //	  }
     mui.ajax({
         url: url,
-        type: "post",
+        type: type,
         data: param,
         async: ac,
         success: function (msg) {

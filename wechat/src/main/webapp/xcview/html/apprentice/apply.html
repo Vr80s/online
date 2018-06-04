@@ -8,7 +8,8 @@
 	<meta name="description" content="" />
 	<!-- 页面css引入 -->
 	<link rel="stylesheet" href="/xcview/css/apprentice/apply.css">
-
+	<!--公用弹框 -->
+	<link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
 	<!--手机嵌入模板-->
 	<script type="text/javascript" src="/xcview/js/common/layout.js"></script>
 </head>
@@ -16,7 +17,7 @@
 	<!-- 报名头部开始 -->
 	<header>
 		<div class="header">
-			<div class="return" onclick="javascript:history.go(-1);"><img src="http://test-wx.xczhihui.com/xcview/images/back%20icon.png" alt="" /></div>
+			<div class="return" onclick="location.href='/xcview/html/apprentice/inherited_introduction.html'"><img src="/xcview/images/back%20icon.png" alt="" /></div>
 			<div class="apply_title">报名</div>
 		</div>
 	</header>
@@ -31,16 +32,20 @@
 				<input type="text" placeholder="请输入" />
 				<div class="both"></div>
 			</div>
-			<div class="age">
-				年龄
-				<input type="text" placeholder="请输入" />
+			<div class="tel">
+				手机号
+				<input type="tel" placeholder="请输入" />
 				<div class="both"></div>
 			</div>
-			<div class="sex" onclick="location.href ='gender.html'">
+			<div class="age">
+				年龄
+				<input type="tel" placeholder="请输入" />
+				<div class="both"></div>
+			</div>
+			<div class="sex">
 				性别
-
 				<div class="sex_hide">
-					<img src="http://test-wx.xczhihui.com/xcview/images/right_jian.png" alt="" />
+					<img src="/xcview/images/right_jian.png" alt="" />
 				</div>
 				<p class="sex_show"></p>  <!-- 男女传值 -->
 				<div class="both"></div>
@@ -51,109 +56,77 @@
 				<div class="both"></div>
 			</div>
 			<div class="both"></div>
+			<div class="education">
+				学历
+				<div class="sex_hide">
+					<img src="/xcview/images/right_jian.png" alt="" />
+				</div>
+				<p class="education_show"></p>  <!-- 男女传值 -->
+				<div class="both"></div>
+			</div>
+			<div class="both"></div>
 		</div>
 		<div class="main_bg">
 			<div class="learning_experience">
-				学习经历
+				<p>学习经历</p>
 				<!-- <input type="text" placeholder="请输入" /> -->
-				<div class="copyreader" contenteditable="true" placeholder="请输入" ></div>
+				<textarea class="copyreader" contenteditable="true" placeholder="请输入" ></textarea>
 				<div class="both"></div>
 			</div>
 			<div class="both"></div>
 		</div>
 		<div class="main_bg">
 			<div class="practice_medicine">
-				行医经历
+				<p>行医经历</p>
 				<!-- <input type="text" placeholder="请输入" /> -->
-				<div class="copyreader" contenteditable="true" placeholder="请输入" ></div>
+				<textarea class="copyreader" contenteditable="true" placeholder="请输入" ></textarea>
 				<div class="both"></div>
 			</div>
 			<div class="both"></div>
 		</div>
 		<div class="main_bg">
 			<div class="study">
-				学中医目的
+				<p>学中医目的</p>
 				<!-- <input type="text" placeholder="请输入"  /> -->
-				<div class="copyreader" contenteditable="true" placeholder="请输入" ></div>
+				<textarea class="copyreader" contenteditable="true" placeholder="请输入" ></textarea>
 				<div class="both"></div>
 			</div>
 			<div class="both"></div>
 		</div>
-		<div class="buttom opacity">提交报名申请</div>
+		<div class="buttom opacity" data-able="1">提交报名申请</div>
 		<!-- <div class="buttom opacity" onclick="location.href ='information_registration.html'">提交报名申请</div> -->
 		<!-- <div class="buttom opacity" onclick="reportComment()">提交报名申请</div> -->
 		<div class="both"></div>
 	</div>
+	<!-- 点击性别出现弹窗开始 -->
+		<div class="popup">
+			<div class="popup_bg"></div>
+			<div class="popup_sex">
+				<div class="man" id="man">男</div>
+				<div class="she" id="she">女</div>
+			</div>
+		</div>
+	<!-- 点击性别出现弹窗结束 -->
+
+	<!-- 点击学历出现弹窗开始 -->
+		<div class="education_background">
+			<div class="education_background_bg"></div>
+			<div class="education_background_sex">
+				<div class="man edu" data-id="5" id="undergraduate">本科</div>
+				<div class="she edu" data-id="6" id="master">硕士</div>
+				<div class="she edu" data-id="7" id="doctor">博士</div>
+				<div class="she edu" data-id="0" id="not_have">无</div>
+			</div>
+		</div>
+	<!-- 点击学历出现弹窗结束 -->
 	<!-- 中间内容结束 -->
 </body>
 <script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
-<script type="text/javascript">
-	window.onload = function(){
-		// 姓名
-        $('.name input').keyup(function(){
-            if($('.name input').val()==""||$('.age input').val()==""||$('.birthplace input').val()==""||$('.learning_experience .copyreader').html()==""||$('.practice_medicine .copyreader').html()==""||$('.study .copyreader').html()==""){
-                $(".buttom").css("opacity","0.5");
-            }else{
-                $(".buttom").css("opacity","1");
-            }
-        });
-        // 年龄
-        $('.age input').keyup(function(){
-            if($('.age input').val()==""||$('.name input').val()==""||$('.birthplace input').val()==""||$('.learning_experience .copyreader').html()==""||$('.practice_medicine .copyreader').html()==""||$('.study .copyreader').html()==""||$('.sex .sex_show').html()==""){
-                $(".buttom").css("opacity","0.5");
-            }else{
-                $(".buttom").css("opacity","1");
-            }
-        });
-        // 性别
-        $('.sex .sex_show').keyup(function(){
-            if($('.age input').val()==""||$('.name input').val()==""||$('.birthplace input').val()==""||$('.learning_experience .copyreader').html()==""||$('.practice_medicine .copyreader').html()==""||$('.study .copyreader').html()==""||$('.sex .sex_show').html()==""){
-                $(".buttom").css("opacity","0.5");
-            }else{
-                $(".buttom").css("opacity","1");
-            }
-        });
-        // 籍贯
-        $('.birthplace input').keyup(function(){
-            if($('.age input').val()==""||$('.name input').val()==""||$('.birthplace input').val()==""||$('.learning_experience .copyreader').html()==""||$('.practice_medicine .copyreader').html()==""||$('.study .copyreader').html()==""||$('.sex .sex_show').html()==""){
-                $(".buttom").css("opacity","0.5");
-            }else{
-                $(".buttom").css("opacity","1");
-            }
-        });
-        // 学习经历
-        $('.learning_experience .copyreader').keyup(function(){
-            if($('.age input').val()==""||$('.name input').val()==""||$('.birthplace input').val()==""||$('.learning_experience .copyreader').html()==""||$('.practice_medicine .copyreader').html()==""||$('.study .copyreader').html()==""||$('.sex .sex_show').html()==""){
-                $(".buttom").css("opacity","0.5");
-            }else{
-                $(".buttom").css("opacity","1");
-            }
-        });
-        // 行医经历
-        $('.practice_medicine .copyreader').keyup(function(){
-            if($('.age input').val()==""||$('.name input').val()==""||$('.birthplace input').val()==""||$('.learning_experience .copyreader').html()==""||$('.practice_medicine .copyreader').html()==""||$('.study .copyreader').html()==""||$('.sex .sex_show').html()==""){
-                $(".buttom").css("opacity","0.5");
-            }else{
-                $(".buttom").css("opacity","1");
-            }
-        });
-        // 学中医目的
-        $('.study .copyreader').keyup(function(){
-            if($('.age input').val()==""||$('.name input').val()==""||$('.birthplace input').val()==""||$('.learning_experience .copyreader').html()==""||$('.practice_medicine .copyreader').html()==""||$('.study .copyreader').html()==""||$('.sex .sex_show').html()==""){
-                $(".buttom").css("opacity","0.5");
-            }else{
-                $(".buttom").css("opacity","1");
-            }
-        });
-
-        // 透明度为1跳转
-        var opacity = $(".buttom").css("opacity");
-        if(opacity=1){
-            $(".buttom").click(function(){
-            	window.location.href ='information_registration.html'
-            });
-        }
-	};
-</script>
+<script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/common.js?v=wechat_1.1.1"></script>
+<script type="text/javascript" src="/xcview/js/apprentice/apprentice-common.js"></script>
+<script type="text/javascript" src="/xcview/js/apprentice/apprentice-oauth.js"></script>
+<script type="text/javascript" src="/xcview/js/common/alertPopShow.js"></script>
+<script type="text/javascript" src="/xcview/js/apprentice/apply.js"></script>
 
 </html>

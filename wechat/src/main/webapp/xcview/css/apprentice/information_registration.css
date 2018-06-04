@@ -116,6 +116,7 @@ header{
 	float: right;
 	margin-right: 0.26rem;
 	outline: none;
+	text-align: right;
 }
 
 .age{
@@ -166,6 +167,34 @@ header{
 	margin-right: 0.26rem;
 }
 
+
+.education{
+	width: 7.24rem;
+	height: 0.98rem;
+	line-height: 0.98rem;
+	font-size: 0.28rem;
+	color: #333333;
+	border-bottom: 1px solid #f0f0f0;
+	float: right;
+}
+.education div{
+	float: right;
+    text-align: right;
+    margin-right: 0.26rem;
+    margin-top: 0.03rem;
+    width: 0.25rem;
+}
+.education div img{
+	width: 0.15rem;
+}
+.education  p{
+	font-size: 0.28rem;
+	color: #666666;
+	float: right;
+	margin-right: 0.26rem;
+}
+
+
 .birthplace{
 	width: 7.24rem;
 	height: 0.98rem;
@@ -197,14 +226,13 @@ header{
 	padding: 0.29rem 0;
 }
 .learning_experience .size{
-	width:5.6rem;
-	/*line-height: 0.5rem;*/
-	/*background: red;*/
-	float: right;
+	width:6.98rem;
     margin-right: 0.26rem;
     outline: none;
     font-size: 0.28rem;
 	color: #666;
+	margin-top: 0.2rem;
+    min-height: 0.68rem;
 }
 /* .learning_experience input{
 	width: 5.5rem;
@@ -229,17 +257,13 @@ header{
 	padding: 0.29rem 0;
 }
 .practice_medicine .size{
-	width:5.6rem;
-	/*line-height: 0.5rem;*/
-	/*background: red;*/
-	float: right;
-    margin-right: 0.26rem;
-    outline: none;
-    float: right;
+	width:6.98rem;
     margin-right: 0.26rem;
     outline: none;
     font-size: 0.28rem;
 	color: #666;
+	margin-top: 0.2rem;
+    min-height: 0.68rem;
 }
 /* .practice_medicine input{
 	width: 5.5rem;
@@ -264,14 +288,13 @@ header{
 	padding: 0.29rem 0;
 }
 .study .size{
-	width:5.3rem;
-	/*line-height: 0.5rem;*/
-	/*background: red;*/
-	float: right;
+	width:6.98rem;
     margin-right: 0.26rem;
     outline: none;
     font-size: 0.28rem;
 	color: #666;
+	margin-top: 0.2rem;
+    min-height: 0.68rem;
 }
 /* .study input{
 	width: 5.5rem;
@@ -301,13 +324,3 @@ header{
 	opacity: 0.5;
 }
 /*中间内容结束*/
-
-
-
-
-
-
-
-
-
-
