@@ -1,16 +1,15 @@
 package com.xczh.consumer.market.service.impl;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.xczhihui.common.support.domain.Attachment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.xczh.consumer.market.service.OLAttachmentCenterService;
+import com.xczhihui.common.support.domain.Attachment;
 import com.xczhihui.common.support.service.AttachmentCenterService;
-import com.xczhihui.medical.exception.MedicalException;
 
 @Service
 public class OLAttachmentCenterServiceImpl implements OLAttachmentCenterService {

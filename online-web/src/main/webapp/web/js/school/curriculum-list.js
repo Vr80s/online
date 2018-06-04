@@ -80,6 +80,25 @@ function getUrlParamsReturnJson() {
 };
 var paramsObj = getUrlParamsReturnJson();
 
+
+
+function changeURLArg(url,arg,arg_val){
+	var pattern=arg+'=([^&]*)';
+	var replaceText=arg+'='+arg_val; 
+	if(url.match(pattern)){
+		var tmp='/('+ arg+'=)([^&]*)/gi';
+		tmp=url.replace(eval(tmp),replaceText);
+		return tmp;
+	}else{ 
+		if(url.match('[\?]')){ 
+			return url+'&'+replaceText; 
+		}else{ 
+			return url+'?'+replaceText; 
+		} 
+	}
+}
+
+
 /*
  * 显示所选中的条件
  */
@@ -94,6 +113,10 @@ function viewConditionOption(obj) {
 
 	if (subject == "menuType") {
 		selectCondition = "分类";
+		
+		//js替换掉这个条件
+		replace("(" + name + "=[^&]*)", ""); 
+		
 	} else if (subject == "courseType") {
 		selectCondition = "类型";
 	} else if (subject == "lineState") {
@@ -107,7 +130,7 @@ function viewConditionOption(obj) {
 			+ '<p class="wrap-border" subject=' + subject + ' value='
 			+ selectValue + '>' + '<span>' + selectCondition + ' : </span>'
 			+ '<span class="select-text" >' + selectText + '</span>'
-			+ '<span class="select-close" onclick="deleteStatus()">x</span>'
+			+ '<span class="select-close"><a >x</a></span>'
 			+ '</p>' + '</dd>';
 
 	/**

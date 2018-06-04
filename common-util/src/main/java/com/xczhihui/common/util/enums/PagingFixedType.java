@@ -27,14 +27,19 @@ public enum PagingFixedType {
 	
 		/************  PC客户端分页展示类别   *****************/
 		
-		PC_RECOMMENDATION(8, "PC端--->固定展示3个",3),
+		PC_RECOMMENDATION(8, "PC端-推荐-->固定展示3个",3),
 		
 		PC_REAL_PAGETYPE_UP(9, "PC端-->线下课->全国课程-->固定展示12个",12),
 		PC_REAL_PAGETYPE_DOWN(10, "PC端-->线下课->其他城市-->固定展示6个",6),
 	
-		PC_LIVE_PAGETYPE(11, "PC端-->固定展示3个",3),
+		PC_LIVE_PAGETYPE(11, "PC端-->直播课--》固定展示3个",3),
 	
 		PC_LISTEN(12, "PC端-->固定展示12个",12);
+	
+		
+		/************  PC客户端分页展示类别   *****************/
+		
+	
 	
 	
 		/**

@@ -37,8 +37,8 @@
 							<li>
 								<dl id="select-kind">
 									<dt>分类 :</dt>
-									<a href="${replaceUrl(webUrlParam,'menuType',"")}">
-									  <dd class="select-all" subject ="menuType">全部</dd>
+									<a href="${replaceUrl(webUrlParam,'menuType',0)}">
+									  <dd class="select-all" subject ="menuType" data-id="0">全部</dd>
 									</a>
 									<#list courseMenuList as courseMenu>
 										<a href="${replaceUrl(webUrlParam,'menuType',courseMenu.id)}"><dd subject ="menuType" data-id="${courseMenu.id}">${courseMenu.name}</dd></a>
@@ -50,8 +50,8 @@
 							<li>
 								<dl id="select-style">
 									<dt>类型 :</dt>
-									<a href="${replaceUrl(webUrlParam,'courseType',"")}">
-									<dd class="select-all" subject ="courseType">全部</dd>
+									<a href="${replaceUrl(webUrlParam,'courseType',0)}">
+									<dd class="select-all" subject ="courseType" data-id="0">全部</dd>
 									</a>
 									<#list courseTypeEnum as courseType>
 										<a href="${replaceUrl(webUrlParam,'courseType',courseType.id)}">
@@ -65,8 +65,8 @@
 							<li>
 								<dl id="select-status">
 									<dt>状态 :</dt>
-									<a href="${replaceUrl(webUrlParam,'lineState',"")}">
-									<dd class="select-all" subject ="lineState">全部</dd>
+									<a href="${replaceUrl(webUrlParam,'lineState',0)}">
+									<dd class="select-all" subject ="lineState" data-id="0">全部</dd>
 									</a>
 									<#list liveStatusEnum as liveStatus>
 										<a href="${replaceUrl(webUrlParam,'lineState',liveStatus.id)}">
@@ -219,6 +219,11 @@
 
 		<!--登陆结束-->	
 			<script src="/web/js/school/curriculum-list.js" type="text/javascript" charset="utf-8"></script>
+		<script  type="text/javascript" >
+		      var webUrlParam = "${webUrlParam}";
+		<script>
+		
+	
 	</body>
 		
 </html>
