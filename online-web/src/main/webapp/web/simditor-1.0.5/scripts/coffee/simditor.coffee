@@ -2961,8 +2961,8 @@ class ImageButton extends Button
 
       if result.success == false
         msg = result.msg || '上传被拒绝了'
-        if simple? and simple.xgMessage?
-          simple.xgMessage
+        if simple? and simple.message?
+          simple.message
             content: msg
         else
           alert msg
@@ -2988,8 +2988,8 @@ class ImageButton extends Button
         catch e
           msg = '上传出错了'
 
-        if simple? and simple.xgMessage?
-          simple.xgMessage
+        if simple? and simple.message?
+          simple.message
             content: msg
         else
           alert msg
