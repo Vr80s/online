@@ -67,11 +67,14 @@ header{
 /*报名头部结束*/
 
 /*中间内容开始*/
+.main{
+    padding: 0 0.26rem;
+}
 .main_title{
 	font-size: 0.32rem;
 	color: #333333;
 	margin: 0.3rem 0;
-    text-indent: 0.26rem;
+    /*text-indent: 0.26rem;*/
 
 }
 .recruit p{

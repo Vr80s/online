@@ -468,7 +468,4 @@ function clickBanner(id) {
     });
 }
 
-function go_study() {
-    location.href = "/xcview/html/my_study.html";
-}
 

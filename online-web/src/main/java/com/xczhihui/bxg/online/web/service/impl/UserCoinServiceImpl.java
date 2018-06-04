@@ -24,6 +24,7 @@ import com.xczhihui.common.support.lock.Lock;
 import com.xczhihui.common.support.service.impl.RedisCacheService;
 import com.xczhihui.common.util.CodeUtil;
 import com.xczhihui.common.util.OrderNoUtil;
+import com.xczhihui.common.util.RedisCacheKey;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.util.enums.*;
 import com.xczhihui.medical.anchor.service.IAnchorInfoService;
@@ -55,8 +56,6 @@ public class UserCoinServiceImpl implements UserCoinService {
     private IAnchorInfoService anchorInfoService;
     @Autowired
     private EnchashmentApplyDao enchashmentApplyDao;
-
-    private static String anchorCache = "anchor_";
 
     @Override
     public String getBalanceByUserId(String userId) {
@@ -92,7 +91,7 @@ public class UserCoinServiceImpl implements UserCoinService {
 
     @Override
     public void updateBalanceForRecharge(String userId, Payment payment, BigDecimal coin, OrderFrom orderFrom, String orderNo) {
-        UserCoinIncrease userCoinIncrease=new UserCoinIncrease();
+        UserCoinIncrease userCoinIncrease = new UserCoinIncrease();
         userCoinIncrease.setUserId(userId);
         //充值
         userCoinIncrease.setChangeType(IncreaseChangeType.RECHARGE.getCode());
@@ -109,6 +108,7 @@ public class UserCoinServiceImpl implements UserCoinService {
 
     /**
      * Description：用户熊猫币新增
+     *
      * @param uci
      * @return void
      * @author name：yuxin <br>email: yuruixin@ixincheng.com
@@ -130,7 +130,7 @@ public class UserCoinServiceImpl implements UserCoinService {
             //若为礼物打赏或课程分成，则礼物打赏余额增加
             sql.append(" uc.`balance_reward_gift`=uc.`balance_reward_gift`+" + uci.getValue());
             balanceRewardGift = uci.getValue();
-        } else if (IncreaseChangeType.RECHARGE.getCode() == uci.getChangeType()){
+        } else if (IncreaseChangeType.RECHARGE.getCode() == uci.getChangeType()) {
             //若为充值  则充值余额增加
             sql.append(" uc.`balance`=uc.`balance`+" + uci.getValue());
             balance = uci.getValue();
@@ -160,6 +160,7 @@ public class UserCoinServiceImpl implements UserCoinService {
 
     /**
      * Description：用户熊猫币消费
+     *
      * @param ucc
      * @return UserCoinConsumption
      * @author name：yuxin <br>email: yuruixin@ixincheng.com
@@ -199,7 +200,7 @@ public class UserCoinServiceImpl implements UserCoinService {
             int updateCount = userCoinDao.getNamedParameterJdbcTemplate().getJdbcOperations().update(sql.toString());
             //若更新失败
             if (updateCount < 1) {
-                logger.error("刷礼物出现问题,userId:{}",ucc.getUserId());
+                logger.error("刷礼物出现问题,userId:{}", ucc.getUserId());
                 throw new RuntimeException("网络异常,请稍后再试！");
             }
         } else {
@@ -223,7 +224,7 @@ public class UserCoinServiceImpl implements UserCoinService {
 
     @Override
     public String updateBalanceForBuyCourse(String userId, OrderFrom orderFrom, BigDecimal coin, String orderNo) {
-        if(coin.compareTo(BigDecimal.ZERO) != 1){
+        if (coin.compareTo(BigDecimal.ZERO) != 1) {
             throw new RuntimeException("课程熊猫币价格必须大于0");
         }
         UserCoinConsumption ucc = new UserCoinConsumption();
@@ -253,7 +254,7 @@ public class UserCoinServiceImpl implements UserCoinService {
     }
 
     @Override
-    public Page<RechargeRecord> getUserCoinIncreaseRecord(String userId,Integer pageNumber, Integer pageSize) {
+    public Page<RechargeRecord> getUserCoinIncreaseRecord(String userId, Integer pageNumber, Integer pageSize) {
         return userCoinDao.getUserCoinIncreaseRecord(userId, pageNumber, pageSize);
     }
 
@@ -273,24 +274,25 @@ public class UserCoinServiceImpl implements UserCoinService {
         //扣除用户熊猫币余额
         this.updateBalanceForConsumption(ucc);
 
-        CourseAnchor courseAnchor = cacheService.get(anchorCache+giftStatement.getReceiver());
-        if(courseAnchor == null){
+        String anchorCacheKey = RedisCacheKey.getAnchorCacheKey(giftStatement.getReceiver());
+        CourseAnchor courseAnchor = cacheService.get(anchorCacheKey);
+        if (courseAnchor == null) {
             courseAnchor = userCoinDao.getCourseAnchor(giftStatement.getReceiver());
             //缓存60s
-            cacheService.set(anchorCache+giftStatement.getReceiver(),courseAnchor,60);
-        }else{
+            cacheService.set(anchorCacheKey, courseAnchor, 60);
+        } else {
             logger.info("取到缓存主播分成数据");
         }
 
         BigDecimal ratio = courseAnchor.getGiftDivide();
         BigDecimal iOSBrokerageValue = BigDecimal.ZERO;
         //若为ios订单，计算苹果分成
-        if(giftStatement.getClientType()== OrderFrom.IOS.getCode()){
+        if (giftStatement.getClientType() == OrderFrom.IOS.getCode()) {
             iOSBrokerageValue = total.multiply(iosRatio);
         }
         //主播获益=(总金额-ios抽成)*主播分成比例
         BigDecimal addTotal = (total.subtract(iOSBrokerageValue)).multiply(ratio.divide(new BigDecimal(100)));
-        logger.info("礼物订单："+giftStatement.getId()+"总金额"+total+" 苹果分成="+iOSBrokerageValue+" 主播分成："+ratio+"="+addTotal);
+        logger.info("礼物订单：" + giftStatement.getId() + "总金额" + total + " 苹果分成=" + iOSBrokerageValue + " 主播分成：" + ratio + "=" + addTotal);
         UserCoinIncrease uci = new UserCoinIncrease();
 
         uci.setChangeType(IncreaseChangeType.GIFT.getCode());
@@ -319,6 +321,7 @@ public class UserCoinServiceImpl implements UserCoinService {
     /**
      * Description：买课后，给主播分成
      * creed: Talk is cheap,show me the code
+     *
      * @author name：yuxin <br>email: yuruixin@ixincheng.com
      * @Date: 下午 8:19 2018/1/29 0029
      **/
@@ -328,24 +331,24 @@ public class UserCoinServiceImpl implements UserCoinService {
         Course course = courseDao.getCourse(orderVo.getCourse_id());
         String anchorId = course.getUserLecturerId();
         CourseAnchor courseAnchor = userCoinDao.getCourseAnchor(anchorId);
-        if(courseAnchor!=null){
+        if (courseAnchor != null) {
             //根据打赏比例获取主播实际获得的熊猫币   总数量*分得熊猫币比例
             BigDecimal ratio = BigDecimal.ZERO;
-            if(course.getType()== CourseForm.LIVE.getCode()){
+            if (course.getType() == CourseForm.LIVE.getCode()) {
                 ratio = courseAnchor.getLiveDivide();
-            }else if(course.getType()== CourseForm.VOD.getCode()){
+            } else if (course.getType() == CourseForm.VOD.getCode()) {
                 ratio = courseAnchor.getVodDivide();
-            }else if(course.getType()== CourseForm.OFFLINE.getCode()){
+            } else if (course.getType() == CourseForm.OFFLINE.getCode()) {
                 ratio = courseAnchor.getOfflineDivide();
             }
             BigDecimal iOSBrokerageValue = BigDecimal.ZERO;
             //若为ios订单，计算苹果分成
-            if(orderVo.getOrder_from()== OrderFrom.IOS.getCode()){
+            if (orderVo.getOrder_from() == OrderFrom.IOS.getCode()) {
                 iOSBrokerageValue = total.multiply(iosRatio);
             }
             //主播获益=(总金额-ios抽成)*主播分成比例
             BigDecimal addTotal = (total.subtract(iOSBrokerageValue)).multiply(ratio.divide(new BigDecimal(100)));
-            logger.info("订单："+orderVo.getOrderId()+"总金额"+total+" 苹果分成="+iOSBrokerageValue+" 主播分成："+ratio+"="+addTotal);
+            logger.info("订单：" + orderVo.getOrderId() + "总金额" + total + " 苹果分成=" + iOSBrokerageValue + " 主播分成：" + ratio + "=" + addTotal);
             UserCoinIncrease uci = new UserCoinIncrease();
 
             uci.setChangeType(IncreaseChangeType.COURSE.getCode());
@@ -366,18 +369,18 @@ public class UserCoinServiceImpl implements UserCoinService {
             uci.setOrderFrom(orderVo.getOrder_from());
             //更新主播的数量
             this.updateBalanceForIncrease(uci);
-        }else{
-            logger.info("课程{}主播不存在，未进行分成",orderVo.getCourse_id());
+        } else {
+            logger.info("课程{}主播不存在，未进行分成", orderVo.getCourse_id());
         }
     }
 
     @Override
     public void updateBalanceForCourses(List<OrderVo> orderVos) {
-        for (OrderVo orderVo:orderVos){
-            if(orderVo.getOrder_from()!= OrderFrom.WORKER.getCode()&&orderVo.getOrder_from()!= OrderFrom.GIVE.getCode()){
+        for (OrderVo orderVo : orderVos) {
+            if (orderVo.getOrder_from() != OrderFrom.WORKER.getCode() && orderVo.getOrder_from() != OrderFrom.GIVE.getCode()) {
                 this.updateBalanceForCourse(orderVo);
-            }else{
-                logger.info("订单{}为工作人员订单，不计入主播分成",orderVo.getOrderDetail());
+            } else {
+                logger.info("订单{}为工作人员订单，不计入主播分成", orderVo.getOrderDetail());
             }
         }
     }
@@ -408,16 +411,17 @@ public class UserCoinServiceImpl implements UserCoinService {
     /**
      * Description：提现-更改用户的人民币余额
      * creed: Talk is cheap,show me the code
+     *
      * @author name：yuxin <br>email: yuruixin@ixincheng.com
      * @Date: 下午 4:34 2018/1/29 0029
      **/
-    public UserCoinConsumption updateBalanceForEnchashment(String userId, BigDecimal enchashmentSum, OrderFrom orderFrom,String enchashmentApplyId) {
+    public UserCoinConsumption updateBalanceForEnchashment(String userId, BigDecimal enchashmentSum, OrderFrom orderFrom, String enchashmentApplyId) {
         UserCoin uc = userCoinDao.getBalanceByUserId(userId);
 
         if (uc == null) {
             throw new RuntimeException("用户账户不存在！");
         }
-        if(enchashmentSum.compareTo(BigDecimal.ZERO)!=1){
+        if (enchashmentSum.compareTo(BigDecimal.ZERO) != 1) {
             throw new RuntimeException("提现金额必须大于0");
         }
 
@@ -473,6 +477,7 @@ public class UserCoinServiceImpl implements UserCoinService {
     /**
      * Description：结算
      * creed: Talk is cheap,show me the code
+     *
      * @author name：yuxin <br>email: yuruixin@ixincheng.com
      * @Date: 2018/3/5 0005 下午 4:17
      **/
@@ -483,11 +488,11 @@ public class UserCoinServiceImpl implements UserCoinService {
 
         BigDecimal value = new BigDecimal(amount).negate();
 
-        if(value.compareTo(BigDecimal.ZERO) != -1){
+        if (value.compareTo(BigDecimal.ZERO) != -1) {
             throw new RuntimeException("结算金额必须大于0");
         }
         UserCoin uc = userCoinDao.getBalanceByUserId(userId);
-        if(uc.getBalanceRewardGift().add(value).compareTo(BigDecimal.ZERO) == -1){
+        if (uc.getBalanceRewardGift().add(value).compareTo(BigDecimal.ZERO) == -1) {
             throw new RuntimeException("结算金额超出熊猫币余额");
         }
         UserCoinConsumption ucc = new UserCoinConsumption();
@@ -557,13 +562,14 @@ public class UserCoinServiceImpl implements UserCoinService {
     /**
      * Description：提现申请
      * creed: Talk is cheap,show me the code
+     *
      * @author name：yuxin <br>email: yuruixin@ixincheng.com
      * @Date: 2018/3/5 0005 下午 4:17
      **/
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Lock(lockName = "saveEnchashmentApplyInfo")
-    public void saveEnchashmentApplyInfo4Lock(String lockKey, String userId, BigDecimal enchashmentSum, int bankCardId, OrderFrom orderFrom){
+    public void saveEnchashmentApplyInfo4Lock(String lockKey, String userId, BigDecimal enchashmentSum, int bankCardId, OrderFrom orderFrom) {
         EnchashmentApplyInfo enchashmentApplyInfo = new EnchashmentApplyInfo();
         String enchashmentApplyId = CodeUtil.getRandomUUID();
         enchashmentApplyInfo.setId(enchashmentApplyId);
@@ -578,23 +584,24 @@ public class UserCoinServiceImpl implements UserCoinService {
         enchashmentApplyInfo.setOrderNo(enchashmentOrderNo);
         validateEnchashmentApplyInfo(enchashmentApplyInfo);
         //更新用户人民币余额
-        this.updateBalanceForEnchashment(userId,enchashmentSum,orderFrom,enchashmentApplyId);
+        this.updateBalanceForEnchashment(userId, enchashmentSum, orderFrom, enchashmentApplyId);
         enchashmentApplyDao.save(enchashmentApplyInfo);
     }
 
     /**
      * Description：提现申请校验
      * creed: Talk is cheap,show me the code
+     *
      * @author name：yuxin <br>email: yuruixin@ixincheng.com
      * @Date: 下午 4:04 2018/1/29 0029
      **/
     private void validateEnchashmentApplyInfo(EnchashmentApplyInfo enchashmentApplyInfo) {
-        if(StringUtils.isBlank(enchashmentApplyInfo.getUserId())){
+        if (StringUtils.isBlank(enchashmentApplyInfo.getUserId())) {
             throw new RuntimeException("用户不可为空");
         }
-        if(enchashmentApplyInfo.getEnchashmentSum()==null){
+        if (enchashmentApplyInfo.getEnchashmentSum() == null) {
             throw new RuntimeException("提现金额不可为空");
-        }else if(enchashmentApplyInfo.getEnchashmentSum().compareTo(BigDecimal.ZERO)!=1){
+        } else if (enchashmentApplyInfo.getEnchashmentSum().compareTo(BigDecimal.ZERO) != 1) {
             throw new RuntimeException("提现金额必须大于0");
         }
 

@@ -225,6 +225,9 @@ padding-bottom: 0.17rem;
 	word-wrap:break-word; 
 word-break:break-all; 
 }
+.wrap p{
+	line-height: 0.4rem;
+}
 .wrap p img{
 	/*width: 100%;*/
 	max-width: 7rem;
@@ -307,6 +310,9 @@ word-break:break-all;
 	padding-bottom: 0.2rem;
 	word-wrap:break-word; 
 word-break:break-all; 
+}
+.wrap1 p{
+	line-height: 0.4rem;
 }
 .wrap1 p img{
 	/*width: 100%;*/

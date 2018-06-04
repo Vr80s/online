@@ -122,4 +122,14 @@ public class ResponseObject implements Serializable {
     public void setCode(Integer code) {
         this.code = code;
     }
+
+    @Override
+    public String toString() {
+        return "ResponseObject{" +
+                "success=" + success +
+                ", errorMessage='" + errorMessage + '\'' +
+                ", resultObject=" + resultObject +
+                ", code=" + code +
+                '}';
+    }
 }

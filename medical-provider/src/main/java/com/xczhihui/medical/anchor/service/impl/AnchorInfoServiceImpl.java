@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
+import com.xczhihui.common.util.RedisCacheKey;
 import com.xczhihui.medical.exception.AnchorException;
 import com.xczhihui.common.support.cc.util.CCUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -47,8 +48,6 @@ import com.xczhihui.medical.hospital.service.IMedicalHospitalAuthenticationServi
 @Service
 @Slf4j
 public class AnchorInfoServiceImpl implements IAnchorInfoService{
-
-    public static String VALIDATE_ANCHOR_PERMISSION_CACHE="v_a_p_c";
 
     private org.slf4j.Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -197,7 +196,7 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService{
         CourseAnchor courseAnchor = new CourseAnchor();
         courseAnchor.setUserId(userId);
         courseAnchor.setStatus(true);
-        String key = VALIDATE_ANCHOR_PERMISSION_CACHE + userId;
+        String key = RedisCacheKey.getAnchorPermissionValidateCacheKey(userId);
         CourseAnchor ca = cacheService.get(key);
         
         if(ca == null){
