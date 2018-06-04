@@ -48,5 +48,6 @@
     <dubbo:service interface="com.xczhihui.course.service.ICommonMessageService" ref="commonMessageServiceImpl" timeout="${dubbo.provider.timeout}"/>
     <!--微信接口服务-->
     <dubbo:service interface="me.chanjar.weixin.mp.api.WxMpService" ref="wxMpService" timeout="${dubbo.provider.timeout}"/>
+    <dubbo:service interface="me.chanjar.weixin.mp.api.WxMpConfigStorage" ref="wxMpConfigStorage" timeout="${dubbo.provider.timeout}"/>
 
 </beans>
