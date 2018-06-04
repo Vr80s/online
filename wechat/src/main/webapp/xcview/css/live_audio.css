@@ -265,6 +265,9 @@ textarea::-webkit-input-placeholder {
 	word-wrap:break-word; 
 word-break:break-all; 
 }
+.wrap p{
+	line-height: 0.4rem;
+}
 .wrap p img{
 	max-width: 7rem;
 }
@@ -345,6 +348,9 @@ word-break:break-all;
 	padding-bottom: 0.2rem;
 	word-wrap:break-word; 
 word-break:break-all; 
+}
+.wrap1 p{
+	line-height: 0.4rem;
 }
 .wrap1 p img{
 	max-width: 7rem;
