@@ -212,4 +212,9 @@ public class MedicalDoctorArticleServiceImpl implements IMedicalDoctorArticleSer
         Page<OeBxsArticleVO> oeBxsArticleVOPage = new Page<>(page, size);
         return oeBxsArticleVOPage.setRecords(oeBxsArticleMapper.listPublicWritings(oeBxsArticleVOPage));
     }
+
+	@Override
+	public List<Map<String, Object>> listSpecialAuthorContent(int size) {
+		return oeBxsArticleMapper.listSpecialAuthorContent(size);
+	}
 }

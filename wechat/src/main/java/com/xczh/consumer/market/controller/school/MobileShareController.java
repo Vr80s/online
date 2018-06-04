@@ -241,8 +241,9 @@ public class MobileShareController {
                         ou.setTicket(t.getTicket());
                         UCCookieUtil.writeTokenCookie(res, t);
                     }
+                }else {
+                	 UCCookieUtil.writeThirdPartyCookie(res,onlineUserService.buildThirdFlag(wxw));
                 }
-                UCCookieUtil.writeThirdPartyCookie(res,onlineUserService.buildThirdFlag(wxw));
             } else {
                 ou = accountIdOpt.isPresent() ? onlineUserService.findUserById(accountIdOpt.get()) : null;
             }
