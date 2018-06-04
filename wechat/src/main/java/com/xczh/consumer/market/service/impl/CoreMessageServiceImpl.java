@@ -32,6 +32,8 @@ public class CoreMessageServiceImpl implements CoreMessageService {
 
 
     private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(XzUserController.class);
+    private static String PIC_URL = "https://file.ipandatcm.com/18404195804/daec4a7882a13c1e-jpg";
+    private static String TITLE = "欢迎来到熊猫中医!";
 
     @Value("${returnOpenidUri}")
     private String returnOpenidUri;
@@ -40,9 +42,9 @@ public class CoreMessageServiceImpl implements CoreMessageService {
     private String gzh_appid;
     @Autowired
     private WxMpService wxMpService;
-    
+
     @Value("${webdomain}")
-	private String webdomain;
+    private String webdomain;
 
     @Autowired
     private WxcpClientUserWxMappingService wxcpClientUserWxMappingService;
@@ -87,13 +89,11 @@ public class CoreMessageServiceImpl implements CoreMessageService {
 
             // 文本消息  
             if (msgType.equals(MessageConstant.REQ_MESSAGE_TYPE_TEXT)) {
-
-                LOGGER.info("有人给我们发送二维码了~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-
+                LOGGER.info("有人给我们发送消息了~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             } else if (msgType.equals(MessageConstant.REQ_MESSAGE_TYPE_EVENT)) { //请求消息类型：事件推送
 
-                if (scan.equals(MessageConstant.EVENT_TYPE_SUBSCRIBE)) {  // 关注公众号事件
 
+                if (scan.equals(MessageConstant.EVENT_TYPE_SUBSCRIBE)) {  // 关注公众号事件
                     LOGGER.info("有人关注了~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                    /*
                     * 保存用户微信信息
@@ -104,7 +104,8 @@ public class CoreMessageServiceImpl implements CoreMessageService {
 
                     String openid_ = (String) jsonObject.get("openid");
                     String nickname_ = (String) jsonObject.get("nickname");
-                    nickname_ = SLEmojiFilter.filterEmoji(nickname_); //nickname需要过滤啦
+                    //nickname需要过滤啦
+                    nickname_ = SLEmojiFilter.filterEmoji(nickname_);
 
                     String subscribe = String.valueOf(jsonObject.get("subscribe"));
                     String sex_ = String.valueOf(jsonObject.get("sex"));
@@ -119,7 +120,6 @@ public class CoreMessageServiceImpl implements CoreMessageService {
 
                     String remark = (String) jsonObject.get("remark");
                     Integer groupid = (Integer) jsonObject.get("groupid");
-                    //JSONArray tagid_list = (JSONArray)jsonObject.get("tagid_list");
 
                     String subscribe_scene = (String) jsonObject.get("subscribe_scene");
                     Integer qr_scene = (Integer) jsonObject.get("qr_scene");
@@ -144,11 +144,11 @@ public class CoreMessageServiceImpl implements CoreMessageService {
                         wxcpClientUserWxMapping.setCity(city_);
                         wxcpClientUserWxMapping.setProvince(province_);
                         wxcpClientUserWxMapping.setCountry(country_);
-                        
-        				if(!StringUtils.isNotBlank(headimgurl_)) {
-        					headimgurl_ = webdomain+"/web/images/defaultHead/18.png";
-        				}
-                        
+
+                        if (!StringUtils.isNotBlank(headimgurl_)) {
+                            headimgurl_ = webdomain + "/web/images/defaultHead/18.png";
+                        }
+
                         wxcpClientUserWxMapping.setHeadimgurl(headimgurl_);
                         wxcpClientUserWxMapping.setProvince(province_);
                         wxcpClientUserWxMapping.setUnionid(unionid_);
@@ -156,20 +156,13 @@ public class CoreMessageServiceImpl implements CoreMessageService {
                         wxcpClientUserWxMapping.setSubscribe_time(DateUtil.parseDate(subscribe_time + "", DateUtil.FORMAT_CHINA_DAY_TIME));
                         wxcpClientUserWxMapping.setRemark(remark);
                         wxcpClientUserWxMapping.setGroupid(groupid + "");
-                        //wxcpClientUserWxMapping.setTagid_list(tagid_list.toString());
                         wxcpClientUserWxMapping.setSubscribe_scene(subscribe_scene);
                         wxcpClientUserWxMapping.setQr_scene(qr_scene + "");
                         wxcpClientUserWxMapping.setQr_scene_str(qr_scene_str);
                         wxcpClientUserWxMappingService.insert(wxcpClientUserWxMapping);
-
-
-//	    			    Integer qr_scene = (Integer)jsonObject.get("qr_scene");
-//		    			String qr_scene_str = (String)jsonObject.get("qr_scene_str");    
-
                     } else if (m != null && (qr_scene != null || qr_scene_str != null)) {
 
                         m.setGroupid(groupid + "");
-                        //m.setTagid_list(tagid_list);
                         m.setSubscribe(subscribe);
                         m.setSubscribe_scene(subscribe_scene);
                         m.setQr_scene(qr_scene + "");
@@ -182,10 +175,10 @@ public class CoreMessageServiceImpl implements CoreMessageService {
 
                     newsMessage.setMsgType(MessageConstant.RESP_MESSAGE_TYPE_NEWS);
                     Article article = new Article();
-                    article.setTitle("欢迎来到熊猫中医!");
+                    article.setTitle(TITLE);
                     article.setDescription("");
-                    article.setPicUrl("https://file.ipandatcm.com/18404195804/daec4a7882a13c1e-jpg");
-                    article.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + gzh_appid + "&redirect_uri=" + returnOpenidUri + "/xczh/wxpublic/publicToRecommended&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect");
+                    article.setPicUrl(PIC_URL);
+                    article.setUrl(returnOpenidUri);
                     articleList.add(article);
                     // 设置图文消息个数
                     newsMessage.setArticleCount(articleList.size());
@@ -211,13 +204,9 @@ public class CoreMessageServiceImpl implements CoreMessageService {
                 } else if (scan.equals(MessageConstant.EVENT_TYPE_SCAN)) {
 
                     LOGGER.info("有人了扫二维码了~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-
                     newsMessage.setMsgType(MessageConstant.RESP_MESSAGE_TYPE_NEWS);
-
                     JSONObject jsonObject = serviceToken(fromUserName);
-
                     LOGGER.info("jsonObject~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + jsonObject.toString());
-
                     String openid_ = (String) jsonObject.get("openid");
                     String nickname_ = (String) jsonObject.get("nickname");
                     nickname_ = SLEmojiFilter.filterEmoji(nickname_); //nickname需要过滤啦
@@ -290,10 +279,10 @@ public class CoreMessageServiceImpl implements CoreMessageService {
 
                     newsMessage.setMsgType(MessageConstant.RESP_MESSAGE_TYPE_NEWS);
                     Article article = new Article();
-                    article.setTitle("欢迎来到熊猫中医!");
+                    article.setTitle(TITLE);
                     article.setDescription("");
-                    article.setPicUrl("https://file.ipandatcm.com/18404195804/daec4a7882a13c1e-jpg");
-                    article.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + gzh_appid + "&redirect_uri=" + returnOpenidUri + "/xczh/wxpublic/publicToRecommended&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect");
+                    article.setPicUrl(PIC_URL);
+                    article.setUrl(returnOpenidUri);
                     articleList.add(article);
                     // 设置图文消息个数
                     newsMessage.setArticleCount(articleList.size());
