@@ -18,6 +18,10 @@ import com.xczhihui.bxg.online.web.service.MenuService;
 import com.xczhihui.bxg.online.web.service.OtherlinkService;
 import com.xczhihui.bxg.online.web.service.StudentStoryService;
 import com.xczhihui.bxg.online.web.vo.OpenCourseVo;
+import com.xczhihui.common.util.enums.PagingFixedType;
+import com.xczhihui.course.model.MobileBanner;
+import com.xczhihui.course.service.IMobileBannerService;
+import com.xczhihui.course.vo.CourseLecturVo;
 
 @Controller
 @RequestMapping(value = "/index")
@@ -27,7 +31,7 @@ public class HomeController extends AbstractFtlController {
 	private BannerService  bannerService;
 	
 	@Autowired
-    private LiveService liveService;
+    private IMobileBannerService mobileBannerService;
 	
 	@Autowired
 	private StudentStoryService studentStoryService;
@@ -56,18 +60,19 @@ public class HomeController extends AbstractFtlController {
 		
 		ModelAndView view = new ModelAndView("school/list/school_index");
 		
-		//截取等号后边的
 		/**
-		 * banner图
+		 * banner图   2.主页banner3.头条banner4.创业banner5.海外banner
 		 */
-		 //2.主页banner3.头条banner4.创业banner5.海外banner
 		 view.addObject("bannerList",bannerService.list(null,null,2));
 		
 		 //在线课程 --直播课呗，直播为主、回放其次
 		 //线下课
+		 List<CourseLecturVo> list = mobileBannerService.selectPcIndex(PagingFixedType.PC_INDEX.getValue());
+		 view.addObject("courseTypeList",list);
 		 
-		 
-		 
+		 /**
+		  * 
+		  */
 		
 		 
 	     

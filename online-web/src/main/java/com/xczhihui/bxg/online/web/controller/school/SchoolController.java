@@ -166,11 +166,13 @@ public class SchoolController extends AbstractFtlController {
 		view.addObject("bannerList", mobileBannerService.selectMobileBannerPage(BannerType.LIVE.getCode()));
 
 		// 直播课程
-		view.addObject("courseTypeList",
-				mobileBannerService.liveCourseList(PagingFixedType.PC_LIVE_PAGETYPE.getValue()));
+		view.addObject("courseTypeList",mobileBannerService.liveCourseList(PagingFixedType.PC_LIVE_PAGETYPE.getValue()));
 
 		// 名医推荐
 		view.addObject("doctorList", myInfoService.hostInfoRec());
+		
+		
+		
 		return view;
 	}
 
