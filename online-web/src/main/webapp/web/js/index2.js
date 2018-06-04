@@ -10,6 +10,8 @@ template.helper('href', function(num) {
 	}
 });
 
+
+
 $(function() {
 	/*轮播图*/
 	RequestService("/banner/getBannerList?type=2", "GET", "", function(data) {

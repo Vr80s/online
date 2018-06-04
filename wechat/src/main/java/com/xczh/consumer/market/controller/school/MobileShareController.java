@@ -271,9 +271,7 @@ public class MobileShareController {
                     res.sendRedirect(returnOpenidUri + "/xcview/html/home_page.html");
                     return;
                 }
-                LOGGER.info("cv.getWatchState():+"+cv.getWatchState());
-                LOGGER.info("cv.getType()=:+"+cv.getType());
-                LOGGER.info("cv.getCollection()=:+"+cv.getCollection());
+                LOGGER.info("cv.getWatchState():+"+cv.getWatchState()+",cv.getType()=:+"+cv.getType()+",cv.getCollection()=:+"+cv.getCollection());
 
                 if(ou == null) {
                     if(cv.getType()==1 || cv.getType()==2){

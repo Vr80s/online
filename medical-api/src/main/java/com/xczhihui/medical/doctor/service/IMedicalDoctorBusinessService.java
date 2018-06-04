@@ -145,4 +145,13 @@ public interface IMedicalDoctorBusinessService {
      * @return 列表
      */
     List<MedicalDoctorVO> listRandomByType(String type, int size);
+
+    /**
+     * 查询名医，随机去除推荐值最高的
+     * @param type
+     * @param pageNumber
+     * @param pageSize
+     * @return
+     */
+	List<MedicalDoctorVO> selectDoctorRecommendList4Random(Integer type, Integer pageNumber, Integer pageSize);
 }
