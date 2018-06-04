@@ -54,11 +54,11 @@
 									<li data-indexid="${bannerItem.id}" 
 										class="cur"
 										data-img="${bannerItem.imgPath}"
-										<#if bannerList_index == 0>
+										<#if bannerItem_index == 0>
 											style="display: none;"
 										</#if>
 										>
-										<a id="aImg${bannerList_index}" target="_blank"
+										<a id="aImg${bannerItem_index}" target="_blank"
 											href="${bannerItem.imgHref}"
 											style="background: url(&quot;${bannerItem.imgPath}&quot;) center top no-repeat;">
 									   </a>
@@ -66,29 +66,26 @@
 								</#list>	
 				            </#if>
 						</ul>
-						   <#if bannerList?? && bannerList == 1>	
-					            <div id="left"><em></em></div>
-					            <div id="right"><em></em></div>
-					        <#elseif bannerList?? && bannerList gt 1>    
-					            <div id="left" style="display:none"><em></em></div>
-					            <div id="right" style="display:none"><em></em></div>
-							</#if>	
-					
-				            <div id="selector" class="selector">
-								<#if bannerList??>	
-									<#list bannerList as bannerItem >
-									   <#if bannerList_index == 0>
-									   	  <span class="cur"></span>
-									   <#else> 
-									   	  <span></span>
-										</#if>
-									</#list>	
-								</#if>
-				            </div>
-						</div>
+					    <#if bannerList?? && bannerList?size == 1>	
+				            <div id="left" style="display:none"><em></em></div>
+				            <div id="right" style="display:none"><em></em></div>
+				        <#elseif bannerList?? && bannerList?size gt 1>    
+				            <div id="left"><em></em></div>
+				            <div id="right"><em></em></div>
+						</#if>	
+			            <div id="selector" class="selector">
+							<#if bannerList??>	
+								<#list bannerList as bannerItem >
+								   <#if bannerItem_index == 0>
+								   	  <span class="cur"></span>
+								   <#else> 
+								   	  <span></span>
+									</#if>
+								</#list>	
+							</#if>
+			            </div>
 					</div>
 				</div>
-
 
 
 				<!--在线课程部分-->
@@ -96,12 +93,10 @@
 				
 					<div class="online_course">
 					<div class="course_title"><span class="title">在线课程</span>
-						<a href="javascript:;" class="more">更多&nbsp;></a>
+						<a href="${webUrl}/courses/list?courseType=3" target="_blank" class="more">更多&nbsp;></a>
 					</div>
 					<ul class="online_course_list clearfix">
-					
 						<#list courseTypeList.listLive as courseItem>
-					
 						<li class="course">
 							     <#if courseItem.type == 1 ||  courseItem.type == 2 ||  courseItem.type == 4 > 
 							 		    <a style="cursor:pointer" href="/courses/${courseItem.id}/info" target="_blank">
@@ -117,14 +112,12 @@
 								  <#elseif !courseItem.collection>
 						              <span class="classCategory">视频</span>
 						          </#if>
-								 
 							   <#elseif courseItem.type == 2>
 							      <#if courseItem.collection> 
 							       <span class="classCategory">音频专辑</span>
 								  <#elseif !courseItem.collection>
 						             <span class="classCategory">音频</span>
 						          </#if>
-							      
 							   <#elseif courseItem.type == 3>
 						          <#if courseItem.lineState  == 1  > 
 							        <span class="classCategory">直播中</span>
@@ -158,7 +151,7 @@
 				<!--线下课程部分-->
 				<div class="underline_course">
 					<div class="course_title"><span class="title">线下课程</span>
-						<a href="javascript:;" class="more">更多&nbsp;></a>
+						<a href="${webUrl}/courses/list?courseType=4" class="more" target="_blank" >更多&nbsp;></a>
 					</div>
 					<ul class="online_course_list clearfix">
 					
@@ -171,7 +164,7 @@
 							            <a style="cursor:pointer" href="/web/liveCoursePage/${courseItem.id}" target="_blank">
 								 </#if>
 								
-								<div class="img"><img src="src="${courseItem.smallImgPath}""></div>
+								<div class="img"><img src="${courseItem.smallImgPath}"></div>
 								
 								
 							   <#if courseItem.type == 1  > 
@@ -223,33 +216,28 @@
 					<!--名家坐诊部分-->
 					<div class="famous_doctor">
 						<div class="course_title"><span class="title">名家坐诊</span>
-							<a href="javascript:;" class="more">更多&nbsp;></a>
+							<a href="${webUrl}/doctors/list" class="more" target="_blank">更多&nbsp;></a>
 						</div>
 						<ul class="famous_doctor_list clearfix">
-							
 							<#list doctorList as doctor>
-						
-							<li class="doctorTpl">
-								<a href="${webUrl}/doctors/${doctor.id}" target="_blank"></a>
-								<img src="${doctor.headPortrait!''}" alt="${doctor.name}">
-								<h5>${doctor.name}&nbsp;<span>${doctor.title?default('暂无')}</span></h5>
-								<p>${doctor.workTime}</p>
-                      			<p>${doctor.province}&nbsp;${doctor.city}&nbsp; </p>
-							</li>
-						
+								<li class="doctorTpl">
+									<a href="${webUrl}/doctors/${doctor.id}" target="_blank"></a>
+									<img src="${doctor.headPortrait!''}" alt="${doctor.name}">
+									<h5>${doctor.name}&nbsp;<span>${doctor.title?default('暂无')}</span></h5>
+									<p>${doctor.workTime}</p>
+	                      			<p>${doctor.province}&nbsp;${doctor.city}&nbsp; </p>
+								</li>
 							</#list>
 						</ul>
 					</div>
                 </#if>
 
-
-
-				<!--头条新闻部分开始-->
+			  <!--头条新闻部分开始-->
 
 			  <#if articles.records?size gt 0 >	
 				<div class="topLine_news">
 					<div class="course_title"><span class="title">头条新闻</span>
-						<a href="javascript:;" class="more">更多&nbsp;></a>
+						<a href="${webUrl}/headline/1" class="more" target="_blank">更多&nbsp;></a>
 					</div>
 					<ul class="topLine_news_list">
 					 <#list articles.records as article>	
@@ -275,15 +263,15 @@
 			 </#if>
 
 				<!--底部的医馆部分-->
-			<#if clinics.records?size gt 0 >	
+			<#if hospitalList.records?size gt 0>	
 				
 				<div class="hospital_part">
 					<div class="course_title"><span class="title">医馆</span>
-						<a href="javascript:;" class="more">更多&nbsp;></a>
+						<a href="${webUrl}/clinics/list" class="more" target="_blank">更多&nbsp;></a>
 					</div>
 					<ul class="hostpital_list">
 						
-						<#list clinics.records as clinic>
+						<#list hospitalList.records as clinic>
 							<li class="hospitalTpl">
 								<a href="${webUrl}/clinics/${clinic.id}" id="${clinic.id}" target="_blank"></a>
 								<#if clinic.medicalHospitalPictures[0]??>
@@ -363,138 +351,54 @@
 					</ul>
 				</div>
 
-				<!--专题课程部分-->
-				<div class="thematic_course">
-					<div class="right_title"><span class="title">专题课程</span></div>
-					<ul class="thematic_course_list">
-						<li class="thematic_courseTpl">
-							<a href="javascript:;">
-								<img src="http://test-file.ipandatcm.com/18508140759/62e63271326a-2c9aec356231d035016231eb7b0b00001525759679430.png" alt="" />
-							</a>
-						</li>
-
-						<li class="thematic_courseTpl">
-							<a href="javascript:;">
-								<img src="http://test-file.ipandatcm.com/18508140759/62e63271326a-2c9aec356231d035016231eb7b0b00001525759679430.png" alt="" />
-							</a>
-						</li>
-					</ul>
-				</div>
-
-				<!--活动部分-->
-				<div class="activity">
-					<div class="right_title"><span class="title">活动</span></div>
-
-					<ul class="activity_list">
-						<li class="activityTpl">
-							<div>
-								<a href="javascript:;"><span class="activity_teacher">施小墨</span><span class="activity_title">讲学：中医对药的误区</span></a>
-							</div>
-							<div><em class="activity_timePic"></em><span class="activity_time">2017.12.12  14:00</span></div>
-							<div><em class="activity_addressPic"></em><span class="activity_address">北京中医药大学礼堂</span></div>
-						</li>
-
-						<li class="activityTpl">
-							<div>
-								<a href="javascript:;"><span class="activity_teacher">施小墨</span><span class="activity_title">讲学：中医对药的误区</span></a>
-							</div>
-							<div><em class="activity_timePic"></em><span class="activity_time">2017.12.12  14:00</span></div>
-							<div><em class="activity_addressPic"></em><span class="activity_address">北京中医药大学礼堂</span></div>
-						</li>
-					</ul>
-				</div>
-
 				<!--大家专栏部分-->
-				<div class="columnist">
-					<div class="right_title"><span class="title">大家专栏</span></div>
-
-					<ul>
-						<li class="doctorInfTpl clearfix">
-							<div class="touxiang">
-								<a href="/doctors/c654bcc007354244a6ba22cfd907f426" style="color: #0C0C0C" target="_blank">
-									<img src="https://file.ipandatcm.com/data/attachment/online/2018/03/16/23/45980c8a6b9046029c3504d06e167a42.png" alt="">
-								</a>
-							</div>
-							<div class="zuozhe_inf">
-								<span><a href="/doctors/c654bcc007354244a6ba22cfd907f426" style="color: #0C0C0C" target="_blank">于瑞鑫 </a></span>
-								<p>课程：中医外治四期班第二季55</p>
-							</div>
-						</li>
-
-						<li class="doctorInfTpl clearfix">
-							<div class="touxiang">
-								<a href="/doctors/c654bcc007354244a6ba22cfd907f426" style="color: #0C0C0C" target="_blank">
-									<img src="https://file.ipandatcm.com/data/attachment/online/2018/03/16/23/45980c8a6b9046029c3504d06e167a42.png" alt="">
-								</a>
-							</div>
-							<div class="zuozhe_inf">
-								<span><a href="/doctors/c654bcc007354244a6ba22cfd907f426" style="color: #0C0C0C" target="_blank">于瑞鑫 </a></span>
-								<p>课程：中医外治四期班第二季</p>
-							</div>
-						</li>
-
-						<li class="doctorInfTpl clearfix">
-							<div class="touxiang">
-								<a href="/doctors/c654bcc007354244a6ba22cfd907f426" style="color: #0C0C0C" target="_blank">
-									<img src="https://file.ipandatcm.com/data/attachment/online/2018/03/16/23/45980c8a6b9046029c3504d06e167a42.png" alt="">
-								</a>
-							</div>
-							<div class="zuozhe_inf">
-								<span><a href="/doctors/c654bcc007354244a6ba22cfd907f426" style="color: #0C0C0C" target="_blank">于瑞鑫 </a></span>
-								<p>课程：中医外治四期班第二季</p>
-							</div>
-						</li>
-					</ul>
-				</div>
+				<#if (hotSpecialColumnAuthors?size gt 0)>
+				
+					<div class="columnist">
+						<div class="right_title"><span class="title">大家专栏</span></div>
+						<ul>
+						   <#list hotSpecialColumnAuthors as hotSpecialColumnAuthor>
+						
+							<li class="doctorInfTpl clearfix">
+								<div class="touxiang">
+									<a href="/doctors/${hotSpecialColumnAuthor.doctorId}" style="color: #0C0C0C"target="_blank">
+										 <img src="${hotSpecialColumnAuthor.headPortrait}" alt=""/>
+									</a>
+								</div>
+								<div class="zuozhe_inf">
+									<span><a  href="/doctors/${hotSpecialColumnAuthor.doctorId}" style="color: #0C0C0C" 
+									target="_blank">${hotSpecialColumnAuthor.doctorName}</a></span>
+									<p>${hotSpecialColumnAuthor.title}</p>
+								</div>
+							</li>
+						    </#list>	
+							
+						</ul>
+					</div>
+				</#if>	
 
 				<!--坐诊医生招募-->
-				<div class="recruitment_information">
-					<div class="right_title"><span class="title">坐诊医生招募</span></div>
-					
-					<ul class="recruitment_information_list">
-						<li class="recruitment_informationTpl">
-							<h4><a href="http://dev-www.ixincheng.com/clinics/2acbd572c3f9491997d2ea8b491f2b34" style="color: #000;" target="_blank">招募治未病医师</a></h4>
-							<a href="http://dev-www.ixincheng.com/clinics/2acbd572c3f9491997d2ea8b491f2b34" target="_blank">黄石市 &nbsp;&nbsp;王总医馆
-							</a>
-						</li>
+				
+				<#if (recruits?? && recruits?size gt 0)>
+					<div class="recruitment_information">
+						<div class="right_title"><span class="title">坐诊医生招募</span></div>
 						
-						<li class="recruitment_informationTpl">
-							<h4><a href="http://dev-www.ixincheng.com/clinics/2acbd572c3f9491997d2ea8b491f2b34" style="color: #000;" target="_blank">招募治未病医师</a></h4>
-							<a href="http://dev-www.ixincheng.com/clinics/2acbd572c3f9491997d2ea8b491f2b34" target="_blank">黄石市 &nbsp;&nbsp;王总医馆
-							</a>
-						</li>
-						
-						<li class="recruitment_informationTpl">
-							<h4><a href="http://dev-www.ixincheng.com/clinics/2acbd572c3f9491997d2ea8b491f2b34" style="color: #000;" target="_blank">招募治未病医师</a></h4>
-							<a href="http://dev-www.ixincheng.com/clinics/2acbd572c3f9491997d2ea8b491f2b34" target="_blank">黄石市 &nbsp;&nbsp;王总医馆
-							</a>
-						</li>
-						
-						<li class="recruitment_informationTpl">
-							<h4><a href="http://dev-www.ixincheng.com/clinics/2acbd572c3f9491997d2ea8b491f2b34" style="color: #000;" target="_blank">招募治未病医师</a></h4>
-							<a href="http://dev-www.ixincheng.com/clinics/2acbd572c3f9491997d2ea8b491f2b34" target="_blank">黄石市 &nbsp;&nbsp;王总医馆
-							</a>
-						</li>
-						
-						<li class="recruitment_informationTpl">
-							<h4><a href="http://dev-www.ixincheng.com/clinics/2acbd572c3f9491997d2ea8b491f2b34" style="color: #000;" target="_blank">招募治未病医师</a></h4>
-							<a href="http://dev-www.ixincheng.com/clinics/2acbd572c3f9491997d2ea8b491f2b34" target="_blank">黄石市 &nbsp;&nbsp;王总医馆
-							</a>
-						</li>
-						
-						<li class="recruitment_informationTpl">
-							<h4><a href="http://dev-www.ixincheng.com/clinics/2acbd572c3f9491997d2ea8b491f2b34" style="color: #000;" target="_blank">招募治未病医师</a></h4>
-							<a href="http://dev-www.ixincheng.com/clinics/2acbd572c3f9491997d2ea8b491f2b34" target="_blank">黄石市 &nbsp;&nbsp;王总医馆
-							</a>
-						</li>
-						
-						<li class="recruitment_informationTpl">
-							<h4><a href="http://dev-www.ixincheng.com/clinics/2acbd572c3f9491997d2ea8b491f2b34" style="color: #000;" target="_blank">招募治未病医师</a></h4>
-							<a href="http://dev-www.ixincheng.com/clinics/2acbd572c3f9491997d2ea8b491f2b34" target="_blank">黄石市 &nbsp;&nbsp;王总医馆
-							</a>
-						</li>
-					</ul>
-				</div>
+						<ul class="recruitment_information_list">
+							
+							<#list recruits as recruit>	
+							<li class="recruitment_informationTpl">
+								<h4><a href="${webUrl}/clinics/${recruit.hospitalId}"
+									style="color: #000;" target="_blank">${recruit.position}</a></h4>
+								<a href="${webUrl}/clinics/${recruit.hospitalId}" target="_blank">
+								${recruit.city} &nbsp;&nbsp;${recruit.hospitalName}
+								</a>
+							</li>
+							</#list>
+							
+						</ul>
+					</div>
+				</#if>
+				
 			</div>
 
 		</div>
@@ -534,6 +438,7 @@
 		});
 	}
 </script>
+
 <script src="/web/js/index2.js?v=ipandatcm_1.3" type="text/javascript" charset="utf-8"></script>
 
 <script>

@@ -71,10 +71,10 @@ public class HomeController extends AbstractFtlController {
 	 * @throws IllegalAccessException 
 	 * @throws InvocationTargetException 
 	 */
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView index() throws InvocationTargetException, IllegalAccessException {
 		
-		 ModelAndView view = new ModelAndView("school/list/school_index");
+		 ModelAndView view = new ModelAndView("index2");
 		
 		/**
 		 * banner图   2.主页banner3.头条banner4.创业banner5.海外banner
@@ -96,8 +96,8 @@ public class HomeController extends AbstractFtlController {
 		 /**
 		  * 头条推荐
 		  */
-		 Page<OeBxsArticle> articles = oeBxsArticleService.selectArticlesByPage(new Page(0, 2), "");
-		 view.addObject("articles", articles);
+		  Page<OeBxsArticle> articles = oeBxsArticleService.selectArticlesByPage(new Page(0, 2), "");
+		  view.addObject("articles", articles);
 		 
 	     /**
 	      * 医馆推荐
@@ -108,7 +108,7 @@ public class HomeController extends AbstractFtlController {
 	      /**
 	       * 大家专栏
 	       */
-	      view.addObject("hotSpecialColumnAuthors", medicalDoctorArticleService.listHotSpecialColumnAuthor(6));
+	      view.addObject("hotSpecialColumnAuthors", medicalDoctorArticleService.listSpecialAuthorContent(3));
 	     
 	      /**
 	       * 医馆招聘信息  

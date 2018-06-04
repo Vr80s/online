@@ -181,4 +181,6 @@ public interface IMedicalDoctorArticleService {
      * @return 热门专栏作者
      */
     List<Map<String, Object>> listHotSpecialColumnAuthorByArticleId(int articleId);
+
+    List<Map<String, Object>> listSpecialAuthorContent(int size);
 }

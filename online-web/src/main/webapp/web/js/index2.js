@@ -14,59 +14,59 @@ template.helper('href', function(num) {
 
 $(function() {
 	/*轮播图*/
-	RequestService("/banner/getBannerList?type=2", "GET", "", function(data) {
-		if(data.resultObject.length === 1) {
-			$.each(data.resultObject, function(index, item) {
-				$("#left,#right").css("display", "none");
-				if(index === 0) {
-					var imgPath = item.imgPath;
-					$('#slider').append($('<li data-indexId=' + data.resultObject[index].id + ' class="cur" data-img="' + imgPath + '"><a id="aImg' + index + '" target="_blank" href="' + item.imgHref + '" ></a></li>'));
-					$("#aImg" + index).css("background", "url('" + imgPath + "') no-repeat top center");
-				} else {
-					var imgPath = item.imgPath;
-					$('#slider').append($('<li data-indexId=' + data.resultObject[index].id + ' class="cur" data-img="' + imgPath + '"><a id="aImg' + index + '" target="_blank" href="' + item.imgHref + '" ></a></li>'));
-					$("#aImg" + index).css("background", "url('" + imgPath + "') no-repeat top center");
-				}
-			})
-		} else if(data.resultObject.length > 1 && data.resultObject.length <= 6) {
-			$.each(data.resultObject, function(index, item) {
-				if(index === 0) {
-					var imgPath = item.imgPath;
-					$('#slider').append($('<li data-indexId=' + data.resultObject[index].id + ' class="cur" data-img="' + imgPath + '"><a id="aImg' + index + '" target="_blank" href="' + item.imgHref + '" ></a></li>'));
-					$("#aImg" + index).css("background", "url('" + imgPath + "')  no-repeat top center");
-					$('#selector').append($('<span class="cur"></span>'));
-				} else {
-					var imgPath = item.imgPath;
-					$('#slider').append($('<li data-indexId=' + data.resultObject[index].id + ' class="cur" style="display:none;" data-img="' + imgPath + '"><a id="aImg' + index + '" target="_blank" href="' + item.imgHref + '" ></a></li>'));
-					$("#aImg" + index).css("background", "url('" + imgPath + "') no-repeat top center");
-					$('#selector').append($('<span></span>'));
-				}
-			});
-		} else if(data.resultObject.length > 6) {
-			$.each(data.resultObject.slice(0), function(index, item) {
-				if(index === 0) {
-					var imgPath = item.imgPath;
-					$('#slider').append($('<li data-indexId=' + data.resultObject[index].id + ' class="cur" data-img="' + imgPath + '"><a id="aImg' + index + '" target="_blank" href="' + item.imgHref + '" ></a></li>'));
-					$("#aImg" + index).css("background", "url('" + imgPath + "') no-repeat top center");
-					$('#selector').append($('<span class="cur"></span>'));
-				} else {
-					var imgPath = item.imgPath;
-					$('#slider').append($('<li data-indexId=' + data.resultObject[index].id + ' class="cur" style="display:none;" data-img="' + imgPath + '"><a id="aImg' + index + '" target="_blank" href="' + item.imgHref + '" ></a></li>'));
-					$("#aImg" + index).css("background", "url('" + imgPath + "') no-repeat top center");
-					$('#selector').append($('<span></span>'));
-				}
-			});
-		}
-		init();
-		$("#slider li").on("click", function() {
-			var indexId = $(this).attr("data-indexId");
-			RequestService("/banner/updateClickCount", "POST", {
-				id: indexId
-			}, function() {
-
-			})
-		})
-	});
+//	RequestService("/banner/getBannerList?type=2", "GET", "", function(data) {
+//		if(data.resultObject.length === 1) {
+//			$.each(data.resultObject, function(index, item) {
+//				$("#left,#right").css("display", "none");
+//				if(index === 0) {
+//					var imgPath = item.imgPath;
+//					$('#slider').append($('<li data-indexId=' + data.resultObject[index].id + ' class="cur" data-img="' + imgPath + '"><a id="aImg' + index + '" target="_blank" href="' + item.imgHref + '" ></a></li>'));
+//					$("#aImg" + index).css("background", "url('" + imgPath + "') no-repeat top center");
+//				} else {
+//					var imgPath = item.imgPath;
+//					$('#slider').append($('<li data-indexId=' + data.resultObject[index].id + ' class="cur" data-img="' + imgPath + '"><a id="aImg' + index + '" target="_blank" href="' + item.imgHref + '" ></a></li>'));
+//					$("#aImg" + index).css("background", "url('" + imgPath + "') no-repeat top center");
+//				}
+//			})
+//		} else if(data.resultObject.length > 1 && data.resultObject.length <= 6) {
+//			$.each(data.resultObject, function(index, item) {
+//				if(index === 0) {
+//					var imgPath = item.imgPath;
+//					$('#slider').append($('<li data-indexId=' + data.resultObject[index].id + ' class="cur" data-img="' + imgPath + '"><a id="aImg' + index + '" target="_blank" href="' + item.imgHref + '" ></a></li>'));
+//					$("#aImg" + index).css("background", "url('" + imgPath + "')  no-repeat top center");
+//					$('#selector').append($('<span class="cur"></span>'));
+//				} else {
+//					var imgPath = item.imgPath;
+//					$('#slider').append($('<li data-indexId=' + data.resultObject[index].id + ' class="cur" style="display:none;" data-img="' + imgPath + '"><a id="aImg' + index + '" target="_blank" href="' + item.imgHref + '" ></a></li>'));
+//					$("#aImg" + index).css("background", "url('" + imgPath + "') no-repeat top center");
+//					$('#selector').append($('<span></span>'));
+//				}
+//			});
+//		} else if(data.resultObject.length > 6) {
+//			$.each(data.resultObject.slice(0), function(index, item) {
+//				if(index === 0) {
+//					var imgPath = item.imgPath;
+//					$('#slider').append($('<li data-indexId=' + data.resultObject[index].id + ' class="cur" data-img="' + imgPath + '"><a id="aImg' + index + '" target="_blank" href="' + item.imgHref + '" ></a></li>'));
+//					$("#aImg" + index).css("background", "url('" + imgPath + "') no-repeat top center");
+//					$('#selector').append($('<span class="cur"></span>'));
+//				} else {
+//					var imgPath = item.imgPath;
+//					$('#slider').append($('<li data-indexId=' + data.resultObject[index].id + ' class="cur" style="display:none;" data-img="' + imgPath + '"><a id="aImg' + index + '" target="_blank" href="' + item.imgHref + '" ></a></li>'));
+//					$("#aImg" + index).css("background", "url('" + imgPath + "') no-repeat top center");
+//					$('#selector').append($('<span></span>'));
+//				}
+//			});
+//		}
+//		init();
+//		$("#slider li").on("click", function() {
+//			var indexId = $(this).attr("data-indexId");
+//			RequestService("/banner/updateClickCount", "POST", {
+//				id: indexId
+//			}, function() {
+//
+//			})
+//		})
+//	});
 });
 
 function init() {
@@ -132,6 +132,8 @@ function init() {
 		timer = window.setInterval(autoChange, 2000);
 	})
 }
+
+init();
 
 function rTips(errorMessage) {
 	//  $(".rTips").text(errorMessage);
