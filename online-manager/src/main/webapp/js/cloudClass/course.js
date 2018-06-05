@@ -79,7 +79,22 @@ $(function(){
 	/** 点播管理列表end */
 
 
-	createDatetimePicker2($(".datetime-picker"),"yy-mm-dd","HH:mm:ss");
+	//createDatetimePicker2($(".datetime-picker"),"yy-mm-dd","HH:mm:ss");
+    $('#recommendTime').datetimepicker({
+        showSecond: true,
+        changeMonth: true,
+        changeYear: true,
+        language: 'zh-CN',
+        dateFormat:'yy-mm-dd',
+        monthNamesShort: [ "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" ],
+        timeFormat: 'HH:mm:ss',
+        minDate:new Date(),
+        onSelect: function( startDate ) {
+        }
+    });
+    $("#recommendTime").bind("click",function(){
+        $(".ui-datepicker-current").attr("style","display:none;");
+    });
 });
 
 

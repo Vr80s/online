@@ -50,7 +50,15 @@
 									<p class="timeAndTeac">
 										<span class="teacher">${courseItem.name}</span>
 									</p>
-									<p class="info clearfix"><span><span class="price">${courseItem.currentPrice}</span><span>熊猫币</span></span>
+									<p class="info clearfix"><span>
+									 <#if courseItem.currentPrice gt 0 >
+									 	 <span class="price">${courseItem.currentPrice}</span>
+									 	 <span>熊猫币</span>
+									 <#else> 	 
+									 	 <span class="price">免费</span>
+									 </#if>
+									
+									</span>
 									<span class="stuCount"><img src="/web/images/studentCount.png" alt="">
 									<span class="studentCou">${courseItem.learndCount}</span></span>
 									</p>
@@ -64,25 +72,15 @@
 			</div>
 	
 <!--右侧名师推荐-->
-			<div class="wrap-right y">				
-				<div class="wrap-docter">
-					<span>名师推荐</span>
-					<#include "../common/famous_doctor_common.ftl">
-				</div>
+			<div class="wrap-right y">
+				 <#if doctorList??>							
+					<div class="wrap-docter">
+						<span>名师推荐</span>
+						<#include "../common/famous_doctor_common.ftl">
+					</div>
+				</#if>	
 			</div>
 		</div>
-	
-	
-
-
-
-
-
-
-
-
-
-
 
 			<script src="/web/js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script>
 			<script type="text/javascript" src="/web/js/artTemplate.js"></script>	

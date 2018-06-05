@@ -202,7 +202,15 @@ public class SchoolController extends AbstractFtlController {
         ModelAndView view = new ModelAndView("school/list/school_list");
 
         current = current == null ? 1 : current;
-        size = size == null ? 10 : size;
+        size = size == null ? 12 : size;
+        
+        if(queryConditionVo.getMenuType()!=null && "0".equals(queryConditionVo.getMenuType())) {
+        	queryConditionVo.setMenuType(null);
+        }
+        if(queryConditionVo.getLineState()!=null && queryConditionVo.getLineState() == 0) {
+        	queryConditionVo.setLineState(null);
+        }
+        
         // 课程列表
         if (StringUtils.isNotBlank(queryConditionVo.getQueryKey())) {
             queryConditionVo.setQueryKey("%" + queryConditionVo.getQueryKey() + "%");
@@ -210,7 +218,6 @@ public class SchoolController extends AbstractFtlController {
         } else {
             view.addObject("courseList", mobileBannerService.searchCourseList(new Page<CourseLecturVo>(current, size), queryConditionVo));
         }
-
 
         //Map<String,String> returnMap = new HashMap<String,String>();
         StringBuffer sb = new StringBuffer(webUrl + "/courses/list");

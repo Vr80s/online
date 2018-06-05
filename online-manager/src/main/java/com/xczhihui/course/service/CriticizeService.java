@@ -1,37 +1,30 @@
 package com.xczhihui.course.service;
 
+import java.util.List;
+
 import com.xczhihui.common.util.bean.Page;
-import com.xczhihui.course.vo.CourseVo;
 import com.xczhihui.course.vo.CriticizeVo;
 
+/**
+ * @author hejiwei
+ */
 public interface CriticizeService {
 
-	public Page<CriticizeVo> findCriticizePage(CriticizeVo criticizeVo,
-			Integer pageNumber, Integer pageSize);
+    /**
+     * 评论列表
+     *
+     * @param keyword    关键字
+     * @param pageNumber 页码
+     * @param pageSize   页数
+     * @return
+     */
+    Page<CriticizeVo> list(String keyword,
+                           Integer pageNumber, Integer pageSize);
 
-	/**
-	 * 根据条件分页获取课程信息。
-	 * 
-	 * @param groups
-	 * @param pageVo
-	 * @return
-	 */
-	public Page<CourseVo> findCoursePage(CourseVo courseVo, int pageNumber,
-			int pageSize);
-
-	/**
-	 * 逻辑批量删除
-	 * 
-	 * @return void
-	 */
-	public void deletes(String[] ids);
-
-	/**
-	 * 回复
-	 * 
-	 * @param id
-	 * @param content
-	 */
-	public void addResponse(String id, String content);
-
+    /**
+     * 批量删除评论
+     *
+     * @param ids id列表
+     */
+    void deletes(List<String> ids);
 }

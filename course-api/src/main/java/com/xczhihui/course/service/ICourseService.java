@@ -215,4 +215,6 @@ public interface ICourseService {
      * @return
      */
     public CourseLecturVo selectCourseStatusDeleteUserLecturerId(Integer courseId);
+
+    String getLiveCourseUrl4Wechat(String courseId);
 }
