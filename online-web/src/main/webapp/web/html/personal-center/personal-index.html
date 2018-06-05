@@ -98,51 +98,50 @@
 					<div id="left-tab">
 					<!-- Contenedor -->
 						<ul id="accordion" class="accordion">
-							<li>
+							<li data-mune="mune1-1">
 								<div class="link"><i class="icomoon-icon-xuexi"></i>学习中心<span class="" aria-hidden="true"></span></div>
 								<ul class="submenu">
-									<li><a href="javascript:;">我的课程</a></li>
-									<li><a href="javascript:;" data-load="load-anchor">关注的主播</a></li>
+									<li><a href="javascript:;" data-mune="mune1-1">我的课程</a></li>
+									<li><a href="javascript:;" data-load="load-anchor" data-mune="mune1-2">关注的主播</a></li>
 								</ul>
 							</li>
-							<li>
+							<li data-mune="mune2-1">
 								<div class="link"><i class="icomoon-icon-wenda"></i>问答与论坛<span class="" aria-hidden="true"></span></div>
 								<ul class="submenu">
-									<li><a href="#">我的问答</a></li>
-									<li><a href="#">我的论坛</a></li>
-
+									<li><a href="javascript:;" data-mune="mune2-1">我的问答</a></li>
+									<li><a href="javascript:;" data-mune="mune2-2">我的论坛</a></li>
 								</ul>
 							</li>
-							<li>
-								<div class="link" data-load="load-order"><i class="icomoon-icon-dingdan"></i>我的订单</div>
+							<li  data-mune="mune3">
+								<div class="link" data-mune="mune3" data-load="load-order"><i class="icomoon-icon-dingdan"></i>我的订单</div>
 								<ul class="submenu">
 									<!--<li><a href="javascript:;">课程收益</a></li>
 									<li><a href="javascript:;">礼物收益</a></li>-->
 								</ul>
-							</li>
+							</li data-mune="mune4">
 							<li id="wallet-btn">
-								<div class="link" data-load="load-money"><i class="icomoon-icon-zichan"></i>我的钱包</div>
+								<div class="link" data-mune="mune4" data-load="load-money"><i class="icomoon-icon-zichan"></i>我的钱包</div>
 								<ul class="submenu">
 									<!--<li><a href="javascript:;">认证信息</a></li>
 									<li><a href="javascript:;">主播信息</a></li>-->
 								</ul>
 							</li>
-							<li id="data-btn">
-								<div class="link" data-load="load-data"><i class="icomoon-icon-ziliao"></i>个人资料</div>
+							<li id="data-btn" data-mune="mune5">
+								<div class="link jump-data" data-mune="mune5" data-load="load-data"><i class="icomoon-icon-ziliao"></i>个人资料</div>
 								<ul class="submenu">
 									<!--<li><a href="javascript:;">认证信息</a></li>
 									<li><a href="javascript:;">主播信息</a></li>-->
 								</ul>
 							</li>
-							<li>
-								<div class="link" data-load="load-news"><i class="iconfont icon-ziyuan" style="font-size: 14px;top: 26px;"></i>消息</div>
+							<li data-mune="mune6">
+								<div class="link" data-mune="mune6" data-load="load-news"><i class="iconfont icon-ziyuan" style="font-size: 14px;top: 26px;"></i>消息</div>
 								<ul class="submenu">
 									<!--<li><a href="javascript:;">认证信息</a></li>
 									<li><a href="javascript:;">主播信息</a></li>-->
 								</ul>
 							</li>
-							<li>
-								<div class="link"><i class="iconfont icon-yijianfankui"style="top: 23px;"></i>意见反馈</div>
+							<li data-mune="mune7">
+								<div class="link" data-mune="mune7"><i class="iconfont icon-yijianfankui"style="top: 23px;"></i>意见反馈</div>
 								<ul class="submenu">
 									<!--<li><a href="javascript:;">认证信息</a></li>
 									<li><a href="javascript:;">主播信息</a></li>-->
@@ -1069,7 +1068,7 @@
 										<script type="text/template" id="news-box">
 											
 											{{each items as item i}}
-												{{if item.readstatus==0}}
+												{{if item.readStatus==0}}
 												<li class="weidu">
 													<div class="message-box" onclick="jump_msg()" data-id="{{item.id}}" data-url='{{item.url}}'>
 														<span class="icon-tip"></span>
@@ -1080,7 +1079,7 @@
 													</div>
 													<p class="delete-news" style="display: none;"><img src="../../images/qxCloser.png"/></p>
 												</li>
-												{{else if item.readstatus==1}}
+												{{else if item.readStatus==1}}
 												<li>
 													<div class="message-box" style="cursor: pointer;" onclick="jump_msg()" data-id="{{item.id}}" data-url='{{item.url}}'>
 														{{item.context}}
@@ -1167,7 +1166,7 @@
 			
 			
 			
-			
+		
 			
 			
 			
@@ -1200,6 +1199,11 @@
 		
 		
 		<script src="/web/js/personal-center/personal-index.js" type="text/javascript" charset="utf-8"></script>	
+		<script>
+			
+	
+
+		</script>
 	</body>	
 		
 		
