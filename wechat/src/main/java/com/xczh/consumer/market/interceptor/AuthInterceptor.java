@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Component;
@@ -43,6 +45,8 @@ import com.xczhihui.user.center.vo.Token;
  */
 @Component
 public class AuthInterceptor implements HandlerInterceptor, HandlerMethodArgumentResolver {
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
     private static final String TOKEN_PARAM_NAME = "token";
     private static final String APP_UNIQUE_ID_PARAM_NAME = "appUniqueId";
     private static final String ENTER_HTML_URL = "/xcview/html/enter.html";
@@ -109,6 +113,7 @@ public class AuthInterceptor implements HandlerInterceptor, HandlerMethodArgumen
                     if (isWeixin) {
                         redirectUrl = request.getContextPath() + WEIXIN_AUTH_CALLBACK + URLEncoder.encode(request.getServletPath(), "UTF-8");
                         responseObject = ResponseObject.newErrorResponseObject(null, WEIXIN_AUTH.getCode());
+                        logger.info("wechat的ajax请求：{}",responseObject.toString() );
                     } else {
                         redirectUrl = request.getContextPath() + ENTER_HTML_URL;
                         responseObject = ResponseObject.newErrorResponseObject(null, OVERDUE.getCode());
@@ -159,6 +164,7 @@ public class AuthInterceptor implements HandlerInterceptor, HandlerMethodArgumen
     private boolean isExcludePath(HttpServletRequest request) {
         String path = request.getServletPath();
         boolean isExclude = false;
+        logger.info("url:{}",path);
         for (String publicPath : noNeedAuthPaths) {
             if (pathMatcher.match(publicPath, path)) {
                 isExclude = true;

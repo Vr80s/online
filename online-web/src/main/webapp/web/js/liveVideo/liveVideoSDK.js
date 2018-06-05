@@ -126,7 +126,6 @@ $(".concern-click").click(function(){
 			setTimeout(function(){
 				$(".concern-click").removeAttr("disabled");
 			},5000)
-			
 		});
 		$(".concern-right").css("background","#00BC12");
 		$(".concern-right").html("加关注");
