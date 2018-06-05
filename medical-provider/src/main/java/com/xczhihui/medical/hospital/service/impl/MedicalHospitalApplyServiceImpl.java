@@ -227,13 +227,11 @@ public class MedicalHospitalApplyServiceImpl extends ServiceImpl<MedicalHospital
 
 	@Override
 	public MedicalHospital getMedicalHospitalByMiddleUserId(String userId) {
-		// TODO Auto-generated method stub
 		return hospitalAccountMapper.getMedicalHospitalByMiddleUserId(userId);
 	}
 	
 	@Override
 	public MedicalHospital getMedicalHospitalByUserId(String userId) {
-		// TODO Auto-generated method stub
 		return hospitalAccountMapper.getMedicalHospitalByUserId(userId);
 	}
 

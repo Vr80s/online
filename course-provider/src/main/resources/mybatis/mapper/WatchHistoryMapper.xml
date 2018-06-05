@@ -25,6 +25,7 @@
 			oc.lecturer
 		  ) AS lecturerName,
 		  MAX(owh.create_time) AS watchTime,
+		  oc.live_source_type as liveSourceType,
 		  IF(
 			oc.type = 3,
 			4,

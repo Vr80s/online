@@ -128,8 +128,10 @@ function viewConditionOption(obj) {
 		urlFinalParams = changeURLArg(webUrlParam,"lineState","");
 	} else if (subject == "isFree") {
 		selectCondition = "收费";
+		urlFinalParams = changeURLArg(webUrlParam,"isFree","");	
 	} else if (subject == "city") {
 		selectCondition = "城市";
+		urlFinalParams = changeURLArg(webUrlParam,"city","");	
 	}
 	var selectKind = '<dd id="' + kindId + '" class="query_dev_condition">'
 			+ '<p class="wrap-border" subject=' + subject + ' value='
