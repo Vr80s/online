@@ -1,7 +1,7 @@
 package com.xczhihui.bxg.online.web.controller.ftl;
 
 import com.xczhihui.bxg.online.web.controller.AbstractController;
-import com.xczhihui.common.web.util.UserLoginUtil;
+import com.xczhihui.bxg.online.web.base.utils.UserLoginUtil;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -31,6 +31,6 @@ public class AbstractFtlController extends AbstractController {
     }
 
     public OnlineUser getOnlineUserNull(HttpServletRequest request){
-        return (OnlineUser) UserLoginUtil.getLoginUser(request);
+        return (OnlineUser) UserLoginUtil.getLoginUser();
     }
 }

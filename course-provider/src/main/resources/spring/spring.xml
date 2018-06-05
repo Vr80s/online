@@ -50,4 +50,7 @@
     <dubbo:service interface="me.chanjar.weixin.mp.api.WxMpService" ref="wxMpService" timeout="${dubbo.provider.timeout}"/>
     <dubbo:service interface="me.chanjar.weixin.mp.api.WxMpConfigStorage" ref="wxMpConfigStorage" timeout="${dubbo.provider.timeout}"/>
 
+	 <!--线下课报名信息 -->
+    <dubbo:service interface="com.xczhihui.course.service.ILineApplyService" ref="lineApplyServiceImpl"  timeout="${dubbo.consumer.timeout}"/>
+
 </beans>

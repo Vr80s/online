@@ -5,7 +5,7 @@ import com.xczhihui.common.support.dao.SimpleHibernateDao;
 import com.xczhihui.common.support.domain.BxgUser;
 import com.xczhihui.common.support.service.impl.RedisCacheService;
 import com.xczhihui.common.util.CodeUtil;
-import com.xczhihui.common.web.util.UserLoginUtil;
+import com.xczhihui.bxg.online.web.base.utils.UserLoginUtil;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.Course;
 import com.xczhihui.bxg.online.web.service.VedioService;
@@ -151,7 +151,7 @@ public class VedioServiceImpl extends OnlineBaseServiceImpl implements VedioServ
 	@Override
 	public Map<String,Object> getVideoInfo(Map<String, String> paramsMap, HttpServletRequest req) {
 		
-		BxgUser loginUser = UserLoginUtil.getLoginUser(req);
+		BxgUser loginUser = UserLoginUtil.getLoginUser();
 //		String email = loginUser.getEmail();
 		String email = loginUser.getLoginName()+"@xczh.com";
 		String name = loginUser.getName();

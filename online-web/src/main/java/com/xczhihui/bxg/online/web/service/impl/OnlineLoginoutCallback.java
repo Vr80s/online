@@ -4,7 +4,7 @@ import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.common.support.dao.SimpleHibernateDao;
 import com.xczhihui.common.support.domain.BxgUser;
 import com.xczhihui.common.web.auth.service.LoginoutCallback;
-import com.xczhihui.common.web.util.UserLoginUtil;
+import com.xczhihui.bxg.online.web.base.utils.UserLoginUtil;
 import com.xczhihui.user.center.utils.CookieUtil;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +24,7 @@ public class OnlineLoginoutCallback implements LoginoutCallback {
 	 */
 	@Override
 	public void onLogin(HttpServletRequest request, HttpServletResponse response) {
-		OnlineUser ou = (OnlineUser)UserLoginUtil.getLoginUser(request);
+		OnlineUser ou = (OnlineUser)UserLoginUtil.getLoginUser();
 		OnlineUser u = dao.findOneEntitiyByProperty(OnlineUser.class, "loginName",ou.getLoginName());
 		u.setLastLoginDate(new Date());
 		u.setVisitSum(u.getVisitSum() + 1);
@@ -37,7 +37,7 @@ public class OnlineLoginoutCallback implements LoginoutCallback {
 	 */
 	@Override
 	public void onLogout(HttpServletRequest request, HttpServletResponse response) {
-		BxgUser user = UserLoginUtil.getLoginUser(request);
+		BxgUser user = UserLoginUtil.getLoginUser();
 		//清空分享码cookie
 		CookieUtil.setCookie(response, "_usercode_", "", "ixincheng.com", "/", 0);
 		if (user != null) {

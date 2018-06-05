@@ -109,7 +109,7 @@ public class LookHistoryController {
         try {
             Page<WatchHistoryVO> page = new Page<>();
             page.setCurrent(1);
-            page.setSize(Integer.MAX_VALUE);
+            page.setSize(5);
             return ResponseObject.newSuccessResponseObject(watchHistoryServiceImpl.selectWatchHistory(page, accountId));
         } catch (Exception e) {
             e.printStackTrace();

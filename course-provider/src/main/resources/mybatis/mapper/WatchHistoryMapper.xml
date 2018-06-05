@@ -17,7 +17,6 @@
 		  		     where oc.id = owh.collectionId ),oc.lecturer) 
 		  		as lecturerName,
 		  owh.create_time as watchTime,
-		  oc.live_source_type as liveSourceType,
 		  if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
 		  if(oc.is_free =0,0,1) as watchState,
 		  oc.live_source_type as liveSourceType,
@@ -36,7 +35,7 @@
 		  inner join oe_course oc on owh.course_id = oc.id
 		  inner join course_anchor ou on owh.lecturer_id = ou.user_id
 		  where owh.user_id =#{userId}  
-		  order by owh.create_time desc limit 0,5
+		  order by owh.create_time desc
 	</select>		  
 	
 <!-- 	@Param("userId") Integer type, @Param("courseId") -->

@@ -4,12 +4,12 @@ var loginUserId = "";
  RequestService("/online/user/isAlive", "GET", null, function (data) {
     if (data.success) {
     	loginUserId = data.resultObject.id;
-    } 
+    }
 },false)
 
 
 $(function(){
-	
+
 	var index = 0;
 	//表名是专辑
 	if(collection == 1){ //
@@ -40,17 +40,17 @@ $(function(){
 		$(".wrap-sidebar ul li").eq(3).addClass("active-footer");
 		index =3;
 	}
-	
+
 	$(".sidebar-content").addClass("hide").eq(index).removeClass("hide")
-	
+
 //	详情/评价/常见问题	选项卡
     $(".wrap-sidebar ul li").click(function () {
         $(".wrap-sidebar ul li").removeClass("active-footer");
         $(this).addClass("active-footer");
         $(".sidebar-content").addClass("hide").eq($(this).index()).removeClass("hide")
     })
-  
-    
+
+
 //购买课程
     $('.J-course-buy').on('click', function(e) {
        var $this = $(this);
@@ -73,17 +73,17 @@ $(function(){
            }
        });
     });
-	
+
 //	点击立即学习时，需要判断是否登录了
 	$(".learning_immediately").click(function(){
-		
+
 		 var $this = $(this);
 		 var watchState = $this.attr("data-watchState");
 		 var type = $this.attr("data-type");
 		 var collection = $this.attr("data-collection");
 		 var realCourseId = $this.attr("data-realCourseId");
 		 var collectionCourseId = $this.attr("data-collectionCourseId");
-		 
+
 		 if(watchState == 2 && type == 4){ //已报名
 			 return;
 		 }
@@ -106,43 +106,43 @@ $(function(){
 	           }
 	     });
 	})
-	
-	
-	
-	
-	
+
+
+
+
+
 //判断进入条	
 	/**
 	 * 得到这个记录
 	 */
 	var key = loginUserId + courseId;
 	var recordingList = localStorage.getItem(key);
-	
-	
+
+
 	if(recordingList!=null || recordingList!=undefined ){
-		var re = new RegExp("%","i"); 
+		var re = new RegExp("%","i");
 		var fristArr = recordingList.split(re);
 		var arr = [];
 		for(var i =0; i<fristArr.length; i++){
 			var arrI = fristArr[i];
 			if(arrI!=""){
 				var  obj ={}
-				var lalaArr = arrI.split("=");	
+				var lalaArr = arrI.split("=");
 			    obj[lalaArr[0]] = lalaArr[1];
 				arr.push(obj);
 			}
 		}
 	    console.log(arr);
-		
+
 	   //进行循环啦
 		$(".wrap-anthology .left").each(function(){
 			var $this = $(this);
 	        var courseId =$this.attr("data-courseId");
-	        
+
 	        //分钟
 	        var timeLength =$this.attr("data-timeLength");
 	        var percent =0;
-	        
+
 	        for (var i = 0; i < arr.length; i++) {
 	        	var json = arr[i];
 	        	for (var key in json) {
@@ -151,7 +151,7 @@ $(function(){
 	 	        	}
 	 	        }
 			}
-	        
+
 	        if (percent > 100) {
  	    		percent = 0;
  	    		$this.parent().removeClass('clip-auto');
@@ -161,11 +161,11 @@ $(function(){
  	    		$this.next().removeClass('wth0');
  	    	}
  	    	$this.css("-webkit-transform", "rotate(" + (18 / 5) * percent + "deg)");
-	        
+
 		})
 	}
-	
-	
-	
-	
+
+
+
+
 });
