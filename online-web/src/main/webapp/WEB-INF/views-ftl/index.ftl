@@ -145,7 +145,6 @@
 										 <#else> 	 
 										 	 <span class="price">免费</span>
 										 </#if>
-									     
 									     </span>
 										<span class="stuCount"><img src="/web/images/studentCount.png" alt="">
 								        <span class="studentCou">${courseItem.learndCount}</span></span>

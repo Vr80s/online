@@ -202,7 +202,7 @@ public class SchoolController extends AbstractFtlController {
         ModelAndView view = new ModelAndView("school/list/school_list");
 
         current = current == null ? 1 : current;
-        size = size == null ? 10 : size;
+        size = size == null ? 12 : size;
         
         if(queryConditionVo.getMenuType()!=null && "0".equals(queryConditionVo.getMenuType())) {
         	queryConditionVo.setMenuType(null);

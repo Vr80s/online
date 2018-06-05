@@ -38,8 +38,14 @@
 								<#-- 课程的小标题--> 
 								<span>${courseTypeItem.title}</span>
 								<#-- 课程列表 页跳转  带上跳转条件 -->
-								<p><a href="/courses/list?city=${courseTypeItem.title}">更多</a>
-								<img src="/web/images/rili_icon.png" alt="箭头" /> </p>
+								<p>
+								<#if courseTypeItem.title?? && courseTypeItem.title == "全国课程">									
+									<a href="/courses/list?courseType=4">更多</a>
+								<#else>
+									<a href="/courses/list?city=${courseTypeItem.title}">更多</a>
+								</#if>
+								<img src="/web/images/rili_icon.png" alt="箭头" />
+								 </p>
 							</div>
 							
 							<#list courseTypeItem.courseList as courseItem>
