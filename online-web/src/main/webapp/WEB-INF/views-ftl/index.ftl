@@ -337,7 +337,7 @@
 								<div class="zuozhe_inf">
 									<span><a href="/doctors/c654bcc007354244a6ba22cfd907f426" style="color: #0C0C0C" target="_blank">${doctor.name} </a>
 									<span style="font-size: 14px;color: #666666;font-weight: 400;margin-left: 10px;">
-									  ${doctor.province}&nbsp;${doctor.city}
+									  ${doctor.province?default('')}&nbsp;${doctor.city?default('')}
 									 </span></span>
 									<p>课程：${doctor.gradeName?default('暂无')}</p>
 								</div>
