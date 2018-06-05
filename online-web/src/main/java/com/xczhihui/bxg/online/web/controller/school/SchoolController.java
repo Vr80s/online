@@ -292,7 +292,7 @@ public class SchoolController extends AbstractFtlController {
 
         //StringBuffer sb = new StringBuffer(webUrl+"/courses/list");
 
-        view.addObject("webUrlParam", webUrl + "/courses/" + courseId);
+        view.addObject("webUrlParam", "/courses/" + courseId);
 
         //获取用户信息
         OnlineUser user = getCurrentUser();
