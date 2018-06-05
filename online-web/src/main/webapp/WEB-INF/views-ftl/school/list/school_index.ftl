@@ -34,7 +34,7 @@
 					     	<#if project_index lt 4 >
 					     	 <li>
 					     		<a href="">
-									<p><img src="${project.icon}" alt="${project.name}" /></p>
+									<p><img src="${project.icon}" style="width: 54px;height: 54px;" alt="${project.name}" /></p>
 									<span>${project.name}</span>
 							    </a>
 							  </li>  
