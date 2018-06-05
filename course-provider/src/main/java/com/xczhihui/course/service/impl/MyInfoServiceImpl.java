@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.course.exception.UserInfoException;
 import com.xczhihui.course.model.OnlineUser;
 import com.xczhihui.course.service.IMyInfoService;
@@ -90,10 +91,10 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper,OnlineUser> impl
 	}
 
 	@Override
-	public List<Map<String, Object>> findUserWallet(
-			Integer pageNumber,Integer pageSize, String id) {
-		List<Map<String, Object>>  page1 = 	myInfoMapper.findUserWallet(pageNumber,pageSize,id);
-		return page1;
+	public Page<Map<String, Object>> findUserWallet(
+			Page<Map<String, Object>> page, String id) {
+		List<Map<String, Object>>  page1 = 	myInfoMapper.findUserWallet(page,id);
+		return page.setRecords(page1);
 	}
 
 	@Override
