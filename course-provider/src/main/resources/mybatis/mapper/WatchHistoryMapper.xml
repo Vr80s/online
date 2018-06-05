@@ -35,7 +35,7 @@
 		  inner join oe_course oc on owh.course_id = oc.id
 		  inner join course_anchor ou on owh.lecturer_id = ou.user_id
 		  where owh.user_id =#{userId}  
-		  order by owh.create_time desc limit 0,5
+		  order by owh.create_time desc
 	</select>		  
 	
 <!-- 	@Param("userId") Integer type, @Param("courseId") -->
