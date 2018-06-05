@@ -70,11 +70,13 @@
 			</div>
 	
 <!--右侧名师推荐-->
-			<div class="wrap-right y">				
-				<div class="wrap-docter">
-					<span>名师推荐</span>
-					<#include "../common/famous_doctor_common.ftl"> 
-				</div>
+			<div class="wrap-right y">	
+			     <#if doctorList??>					
+					<div class="wrap-docter">
+						<span>名师推荐</span>
+						<#include "../common/famous_doctor_common.ftl"> 
+					</div>
+				</#if>
 			</div>
 		</div>
 

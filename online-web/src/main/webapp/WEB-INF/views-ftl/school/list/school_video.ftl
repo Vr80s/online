@@ -64,25 +64,15 @@
 			</div>
 	
 <!--右侧名师推荐-->
-			<div class="wrap-right y">				
-				<div class="wrap-docter">
-					<span>名师推荐</span>
-					<#include "../common/famous_doctor_common.ftl">
-				</div>
+			<div class="wrap-right y">
+				 <#if doctorList??>							
+					<div class="wrap-docter">
+						<span>名师推荐</span>
+						<#include "../common/famous_doctor_common.ftl">
+					</div>
+				</#if>	
 			</div>
 		</div>
-	
-	
-
-
-
-
-
-
-
-
-
-
 
 			<script src="/web/js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script>
 			<script type="text/javascript" src="/web/js/artTemplate.js"></script>	
