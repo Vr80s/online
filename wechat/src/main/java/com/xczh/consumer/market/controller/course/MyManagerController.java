@@ -253,10 +253,11 @@ public class MyManagerController {
     public ResponseObject wallet(HttpServletRequest req,
                                  @RequestParam("pageNumber") Integer pageNumber,
                                  @RequestParam("pageSize") Integer pageSize, @Account String accountId) throws Exception {
-        int num = (pageNumber - 1) * pageSize;
-        num = num < 0 ? 0 : num;
-
-        return ResponseObject.newSuccessResponseObject(myInfoService.findUserWallet(num, pageSize, accountId));
+        Page<Map<String, Object>> page = new Page<Map<String, Object>>();
+        page.setCurrent(pageNumber);
+        page.setSize(pageSize);
+        Page<Map<String, Object>> list = myInfoService.findUserWallet(page, accountId);
+        return ResponseObject.newSuccessResponseObject(list.getRecords());
     }
 
     /**

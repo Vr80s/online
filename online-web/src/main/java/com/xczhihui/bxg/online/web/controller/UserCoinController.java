@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -156,9 +157,10 @@ public class UserCoinController extends AbstractController {
             if (u == null) {
                 return ResponseObject.newErrorResponseObject("用户未登录");
             }
-            int num = (pageNumber - 1) * pageSize;
-            num = num < 0 ? 0 : num;
-            List<Map<String, Object>> list = myInfoService.findUserWallet(num, pageSize, u.getId());
+            Page<Map<String, Object>> page = new Page<Map<String, Object>>();
+            page.setCurrent(pageNumber);
+            page.setSize(pageSize);
+            Page<Map<String, Object>> list = myInfoService.findUserWallet(page, u.getId());
             return ResponseObject.newSuccessResponseObject(list);
         } catch (Exception e) {
             e.printStackTrace();

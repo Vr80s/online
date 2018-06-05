@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.course.vo.OnlineUserVO;
 
 
@@ -71,9 +72,8 @@ public interface IMyInfoService {
 	 */
 	List<Map<String,Object>> hostInfoRec();
 
-	List<Map<String,Object>> findUserWallet(Integer pageNumber,Integer pageSize, String id);
-	
-	
+	Page<Map<String, Object>> findUserWallet(Page<Map<String, Object>> page, String id);
+
 	/**
 	 * 查询主播信息
 	 * @param userId
