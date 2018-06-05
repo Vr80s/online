@@ -4,13 +4,11 @@ $(function() {
 	$('#accordion > li').click(function(){
 		    $('#right-content > div').addClass('hide');
 			$('#right-content > div').eq($(this).index()).removeClass('hide');
-
-			
 	})
 	$('#accordion > li >.submenu >li').click(function(e){
-		$('#accordion > li >.submenu >li a').removeClass("mune-active")
+		$('#accordion > li >.submenu >li a').removeClass("menu-active")
 		$(this).find("a").addClass("mune-active");
-		location.hash = $(this).find("a").attr("data-mune");
+		location.hash = $(this).find("a").attr("data-menu");
 //		e.stopPropagation();
 		
 //		判断数据加载
@@ -25,46 +23,59 @@ $(function() {
 	})
 	
 	
-		var hash = location.hash;
+
 		if(!location.hash){
-	        	location.hash = "#mune1-1";
+	        	location.hash = "#menu1-1";
 		}
-		if(location.hash == "#mune1-1" || location.hash == "#mune1-2"){
-	    	$("#accordion li[data-mune='mune1-1']").click();
-	    	$("#accordion li[data-mune='mune1-1']").addClass('open');
-	    	$("#accordion li[data-mune='mune1-1'] .submenu").css('display','block')
-    	}else if(location.hash == "#mune2-1" || location.hash == "#mune2-2"){
-	    	$("#accordion li[data-mune='mune2-1']").click();
-	    	$("#accordion li[data-mune='mune2-1']").addClass('open');
-	    	$("#accordion li[data-mune='mune2-1'] .submenu").css('display','block')
-    	}else if(location.hash == "#mune3" || location.hash == "#mune3"){
-	    	$("#accordion div[data-mune='mune3']").click();
-	    	$("#accordion li[data-mune='mune3']").addClass('open');
-
-    	}
-
-	
-	
+		var hash = location.hash;
+		
+		if(location.hash == "#menu1-1" || location.hash == "#menu1-2"){
+	    	$("#accordion li[data-menu='menu1-1']").click();
+	    	$("#accordion li[data-menu='menu1-1']").addClass('open');
+	    	$("#accordion li[data-menu='menu1-1'] .submenu").css('display','block')
+    	}else if(location.hash == "#menu2-1" || location.hash == "#menu2-2"){
+	    	$("#accordion li[data-menu='menu2-1']").click();
+	    	$("#accordion li[data-menu='menu2-1']").addClass('open');
+	    	$("#accordion li[data-menu='menu2-1'] .submenu").css('display','block')
+    	}else if(location.hash == "#menu3"){
+	    	$("#accordion li[data-menu='menu3']").click();
+	    	$("#accordion li[data-menu='menu3']").addClass('open');
+    	}else if(location.hash == "#menu4"){
+	    	$("#accordion li[data-menu='menu4']").click();
+	    	$("#accordion li[data-menu='menu4']").addClass('open');
+    	}else if(location.hash == "#menu5"){
+	    	$("#accordion li[data-menu='menu5']").click();
+	    	$("#accordion li[data-menu='menu5']").addClass('open');
+    	}else if(location.hash == "#menu6"){
+	    	$("#accordion li[data-menu='menu6']").click();
+	    	$("#accordion li[data-menu='menu6']").addClass('open');
+    	}else if(location.hash == "#menu7"){
+	    	$("#accordion li[data-menu='menu7']").click();
+	    	$("#accordion li[data-menu='menu7']").addClass('open');
+    	}	
+    	
 //	判断路径的hash进行页面跳转
-
-	if(hash == '#mune1-1'){
- 		$("#accordion a[data-mune='mune1-1']").click();
-	}else if(hash == '#mune1-2'){		
-		$("#accordion a[data-mune='mune1-2']").click();
-	}else if(hash == '#mune2-1'){
-		$("#accordion a[data-mune='mune2-1']").click();
-	}else if(hash == '#mune2-2'){
-		$("#accordion a[data-mune='mune2-2']").click();
-	}else if(hash == '#mune3'){
-		$("#accordion .link[data-mune='mune3']").click();
-	}else if(hash == '#mune4'){
-		$("#accordion .link[data-mune='mune4']").click();
-	}else if(hash == '#mune5'){
-		$("#accordion .link[data-mune='mune5']").click();
-	}else if(hash == '#mune6'){
-		$("#accordion .link[data-mune='mune6']").click();
-	}else if(hash == '#mune7'){
-		$("#accordion .link[data-mune='mune7']").click();
+	if(hash == '#menu1-1'){
+ 		$("#accordion a[data-menu='menu1-1']").click();
+	}else if(hash == '#menu1-2'){		
+		$("#accordion a[data-menu='menu1-2']").click();
+	}else if(hash == '#menu2-1'){
+		$("#accordion a[data-menu='menu2-1']").click();
+	}else if(hash == '#menu2-2'){
+		$("#accordion a[data-menu='menu2-2']").click();
+	}else if(hash == '#menu3'){
+		orderList(1,0,5);
+		$("#accordion .link[data-menu='menu3']").click();
+	}else if(hash == '#menu4'){
+		tradeList(1)
+		$("#accordion .link[data-menu='menu4']").click();
+	}else if(hash == '#menu5'){
+		$("#accordion .link[data-menu='menu5']").click();
+	}else if(hash == '#menu6'){
+		newsList(1)
+		$("#accordion .link[data-menu='menu6']").click();
+	}else if(hash == '#menu7'){
+		$("#accordion .link[data-menu='menu7']").click();
 	}
 //	判断路径的hash进行页面跳转
 	var Accordion = function(el, multiple) {
@@ -81,7 +92,7 @@ $(function() {
 		var $el = e.data.el;
 			$this = $(this),
 			$next = $this.next();
-			location.hash = $(this).attr("data-mune");
+			location.hash = $(this).attr("data-menu");
 //			判断若是有下拉子菜单,则给第一个菜单加点击
 			if($(this).siblings(".submenu").find("li").length>0){
 				$(this).siblings(".submenu").find("li").first().click();
@@ -294,47 +305,47 @@ $(".question-forum li").click(function(){
 
 //		我的提问    我的回答  由于hide后不能获取元素高度 展示更多文字
 function showMoneText(){
-//		$("#show-set").removeClass("hide");
-//		$("#answer").removeClass("hide");
-////点击收起,隐藏则字体
-//			var $dot5 = $('.dot5');
-//              $dot5.each(function () {
-//                  if ($(this).height() > 40) {
-//                      $(this).attr("data-txt", $(this).attr("data-text"));
-//                      $(this).height(40);
-//                      $(this).append('<span class="qq" style="margin-right:60px"> <a class="toggle" href="###" style="color:#2cb82c"><span class="opens">显示全部</span><span class="closes">收起</span></a></span>');
-//                  }
-//                  var $dot4 = $(this);
-//
-//                  function createDots() {
-//                      $dot4.dotdotdot({
-//                          after: 'span.qq'
-//                      });
-//                  }
-//
-//                  function destroyDots() {
-//                      $dot4.trigger('destroy');
-//                  }
-//
-//                  createDots();
-//                  $dot4.on(
-//                      'click',
-//                      'a.toggle',
-//                      function () {
-//                          $dot4.toggleClass('opened');
-//
-//                          if ($dot4.hasClass('opened')) {
-//                              destroyDots();
-//                          } else {
-//                              createDots();
-//                          }
-//                          return false;
-//                      }
-//                  );
-//              });
-////获取高度后立马将其隐藏
-//		$("#show-set").addClass("hide")
-//		$("#answer").addClass("hide")
+
+
+//点击收起,隐藏则字体
+			var $dot5 = $('.dot5');
+                $dot5.each(function () {
+                    if ($(this).height() > 40) {
+                        $(this).attr("data-txt", $(this).attr("data-text"));
+                        $(this).height(40);
+                        $(this).append('<span class="qq" style="margin-right:60px"> <a class="toggle" href="###" style="color:#2cb82c"><span class="opens">显示全部</span><span class="closes">收起</span></a></span>');
+                    }
+                    var $dot4 = $(this);
+
+                    function createDots() {
+                        $dot4.dotdotdot({
+                            after: 'span.qq'
+                        });
+                    }
+
+                    function destroyDots() {
+                        $dot4.trigger('destroy');
+                    }
+
+                    createDots();
+                    $dot4.on(
+                        'click',
+                        'a.toggle',
+                        function () {
+                            $dot4.toggleClass('opened');
+
+                            if ($dot4.hasClass('opened')) {
+                                destroyDots();
+                            } else {
+                                createDots();
+                            }
+                            return false;
+                        }
+                    );
+                });
+//获取高度后立马将其隐藏
+
+
 }
 
 //我的提问
@@ -603,7 +614,7 @@ function tradeList (pages) {
 		                current_page:pages-1,
 		                callback: function (page) {
 		                    //翻页功能
-		                    replyList(page+1)
+		                    tradeList(page+1)
 		                }
 		            });
 				}
@@ -774,9 +785,9 @@ function geren() {
 			provinceName: pcd.provinceText,
 			cityName: pcd.cityText,
 			countyName: pcd.districtText,
-			province : pcd.province,
-			city : pcd.city,
-			district :  pcd.district,
+			regionAreaId : pcd.province,
+			regionCityId : pcd.city,
+			regionId :  pcd.district,
 			email : email,
 			sex:sex,
 			occupationOther:$('.profession').val(),
@@ -800,6 +811,7 @@ function geren() {
 				$(".loginGroup .name").text($(".nickname").val()).attr("title", $(".nickname").val())
 //				$(".view-content .view-content-notbodys").html("");
 //				$(".rrrTips").html("保存成功").css("display", "block");
+
 				showTip("保存成功")
 
 			} else {
