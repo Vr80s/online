@@ -1,5 +1,7 @@
 package com.xczh.consumer.market.controller.course;
 
+import java.sql.SQLException;
+
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,25 +34,21 @@ public class LineApplyController {
      * @param res
      * @param lineApply
      * @return
+     * @throws SQLException 
      */
     @RequestMapping("add")
     @ResponseBody
     public ResponseObject add(@Account OnlineUser account,
                               HttpServletResponse res,
-                              LineApply lineApply) {
-        try {
-    	  String accountId = account.getId();
-    	  OnlineUser ou = onlineUserService.findUserById(accountId);
-    	  if(ou == null ) {
-    		  return ResponseObject.newErrorResponseObject("用户信息有误");
-    	  }
-    	  lineApply.setUserId(accountId);
-    	  lineApplyService.saveOrUpdate(accountId,lineApply);
-          return ResponseObject.newSuccessResponseObject("保存成功");
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseObject.newErrorResponseObject("保存失败");
-        }
+                              LineApply lineApply) throws SQLException {
+	  String accountId = account.getId();
+	  OnlineUser ou = onlineUserService.findUserById(accountId);
+	  if(ou == null ) {
+		  return ResponseObject.newErrorResponseObject("用户信息有误");
+	  }
+	  lineApply.setUserId(accountId);
+	  lineApplyService.saveOrUpdate(accountId,lineApply);
+      return ResponseObject.newSuccessResponseObject("保存成功");
     }
     
     /**

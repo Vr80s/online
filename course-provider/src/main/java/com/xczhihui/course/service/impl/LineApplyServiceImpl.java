@@ -90,7 +90,7 @@ public class LineApplyServiceImpl extends ServiceImpl<LineApplyMapper,LineApply>
 			throw new LineApplyException("微信账号仅支持6-20个字母、数字、下划线或减号，以字母开头");
 		}
 	
-		if(lineApply.getSex()!=null && !UserSex.isValid(lineApply.getSex())){
+		if(lineApply.getSex()==null || !UserSex.isValid(lineApply.getSex())){
 			throw new LineApplyException("性别不合法,0 女  1男   2 未知");
 		}
 	}
