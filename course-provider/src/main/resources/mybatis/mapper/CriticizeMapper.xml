@@ -124,30 +124,30 @@
 	
 	<sql id="selectCourseLabelMean">
 	   (
-         select count(*) from oe_criticize  where course_id =#{courseId}  and 
+         select count(*) from oe_criticize  where course_id =#{courseId} and is_delete = 0 and
             criticize_lable  like "%1%"
        )
        union all
        (
-         select count(*) from oe_criticize  where course_id =#{courseId}  and 
+         select count(*) from oe_criticize  where course_id =#{courseId} and is_delete = 0 and
             criticize_lable  like "%2%"
        )
        
        union all
        (
-         select count(*) from oe_criticize  where course_id =#{courseId}  and 
+         select count(*) from oe_criticize  where course_id =#{courseId} and is_delete = 0 and
             criticize_lable  like "%3%"
        )
        
        union all
        (
-         select count(*) from oe_criticize  where course_id =#{courseId}  and 
+         select count(*) from oe_criticize  where course_id =#{courseId} and is_delete = 0 and
             criticize_lable  like "%4%"
        )
        
        union all
        (
-         select count(*) from oe_criticize  where course_id =#{courseId}  and 
+         select count(*) from oe_criticize  where course_id =#{courseId} and is_delete = 0 and
             criticize_lable  like "%5%"
        )
 	</sql>
@@ -176,27 +176,27 @@
 	
 	<sql id="selectUserLabelMean">
 	   (
-         select count(*) from oe_criticize  where user_id =#{userId}  and 
+         select count(*) from oe_criticize  where user_id =#{userId} and is_delete = 0 and
             criticize_lable  like "%1%"
        )
        union all
        (
-         select count(*) from oe_criticize  where user_id =#{userId}  and 
+         select count(*) from oe_criticize  where user_id =#{userId} and is_delete = 0 and
             criticize_lable  like "%2%"
        )
        union all
        (
-         select count(*) from oe_criticize  where user_id =#{userId}  and 
+         select count(*) from oe_criticize  where user_id =#{userId} and is_delete = 0 and
             criticize_lable  like "%3%"
        )
        union all
        (
-         select count(*) from oe_criticize  where user_id =#{userId}  and 
+         select count(*) from oe_criticize  where user_id =#{userId} and is_delete = 0 and
             criticize_lable  like "%4%"
        )
   		union all
        (
-         select count(*) from oe_criticize  where user_id =#{userId}  and 
+         select count(*) from oe_criticize  where user_id =#{userId} and is_delete = 0 and
             criticize_lable  like "%5%"
        )       
 	</sql>
