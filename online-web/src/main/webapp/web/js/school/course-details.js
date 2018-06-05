@@ -44,11 +44,11 @@ $(function(){
 	$(".sidebar-content").addClass("hide").eq(index).removeClass("hide")
 
 //	详情/评价/常见问题	选项卡
-//     $(".wrap-sidebar ul li").click(function () {
-//         $(".wrap-sidebar ul li").removeClass("active-footer");
-//         $(this).addClass("active-footer");
-//         $(".sidebar-content").addClass("hide").eq($(this).index()).removeClass("hide")
-//     })
+    $(".wrap-sidebar ul li").click(function () {
+        $(".wrap-sidebar ul li").removeClass("active-footer");
+        $(this).addClass("active-footer");
+        $(".sidebar-content").addClass("hide").eq($(this).index()).removeClass("hide")
+    })
 
 
 //购买课程

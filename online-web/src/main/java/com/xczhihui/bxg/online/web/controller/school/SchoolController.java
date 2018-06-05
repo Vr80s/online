@@ -304,10 +304,11 @@ public class SchoolController extends AbstractFtlController {
         if (user != null && clv != null) {
             /*
              * 收费课程判断有没有购买过
-			 * 免费课程判断有没有学习过
-			 */
+             * 免费课程判断有没有学习过
+             */
             Integer falg = criticizeService.hasCourse(user.getId(), courseId);
-            if (clv.getWatchState() == 0) { // 付费课程
+            // 付费课程
+            if (clv.getWatchState() == 0) {
                 if (falg > 0) {
                     clv.setWatchState(2);
                 }
@@ -318,9 +319,7 @@ public class SchoolController extends AbstractFtlController {
                 }
             }
         }
-	    /*
-	     * 如果是专辑获取专辑列表
-	     */
+        //如果是专辑获取专辑列表
         if (clv.getCollection()) {
             List<CourseLecturVo> courses = courseService.selectCoursesByCollectionId(clv.getId());
             view.addObject("collectionList", courses);
@@ -330,9 +329,8 @@ public class SchoolController extends AbstractFtlController {
 
         //课程详情
         view.addObject("courseInfo", clv);
-        /**
-         * 常见问题。啦啦啦
-         */
+
+        //常见问题。啦啦啦
         String path = req.getServletContext().getRealPath("/template");
         File f = new File(path + File.separator + "/course_common_problem.html");
         view.addObject("commonProblem", FileUtil.readAsString(f));

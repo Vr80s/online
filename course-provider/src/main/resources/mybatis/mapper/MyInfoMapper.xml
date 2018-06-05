@@ -113,9 +113,9 @@
 				INNER  JOIN oe_course as oc on oc.id =ood.course_id
       			WHERE  oo.pay_type in (0,1) and argc.user_id =#{userId}  )
 		  
-		 ) as tixian  order by tixian.gmtCreate desc  limit #{pageNumber},#{pageSize}
+		 ) as tixian  order by tixian.gmtCreate desc
 	 
-	</select>	
+	</select>
 	
 	
 	<!-- 修改用户信息  个人资料信息  -->

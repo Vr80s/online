@@ -24,8 +24,6 @@ public class ApplyServiceImpl implements ApplyService {
 
     @Override
     public void saveOrUpdateBaseInfo(String userId,String realName, String phone) {
-
-
         try {
             Apply apply=  get(userId);
            if(apply!=null){
@@ -36,8 +34,6 @@ public class ApplyServiceImpl implements ApplyService {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-
     }
 
     @Override

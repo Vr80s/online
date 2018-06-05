@@ -141,4 +141,7 @@
     </dubbo:reference>
     <!-- 师承模块服务 -->
     <dubbo:reference interface="com.xczhihui.medical.enrol.service.EnrolService" id="enrolServiceImpl" timeout="${dubbo.consumer.timeout}"/>
+	
+	 <!--线下课报名信息 -->
+    <dubbo:reference interface="com.xczhihui.course.service.ILineApplyService" id="lineApplyServiceImpl"  timeout="${dubbo.consumer.timeout}"/>
 </beans>

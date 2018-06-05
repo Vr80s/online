@@ -1,15 +1,10 @@
 package com.xczhihui.bxg.online.web.controller.medical;
 
-import com.xczhihui.common.support.domain.Attachment;
-import com.xczhihui.common.support.service.AttachmentCenterService;
-import com.xczhihui.common.support.service.AttachmentType;
-import com.xczhihui.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.online.web.base.common.OnlineResponse;
-import com.xczhihui.bxg.online.web.controller.AbstractController;
-import com.xczhihui.bxg.online.web.service.UserService;
-import com.xczhihui.bxg.online.web.vo.UserDataVo;
-import com.xczhihui.medical.common.service.ICommonService;
+import java.io.IOException;
+import java.util.Base64;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.ServletRequestUtils;
@@ -17,18 +12,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.util.Base64;
+import com.xczhihui.bxg.online.common.domain.OnlineUser;
+import com.xczhihui.bxg.online.web.base.common.OnlineResponse;
+import com.xczhihui.bxg.online.web.controller.AbstractController;
+import com.xczhihui.common.support.domain.Attachment;
+import com.xczhihui.common.support.service.AttachmentCenterService;
+import com.xczhihui.common.support.service.AttachmentType;
+import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.medical.common.service.ICommonService;
 
 @RestController
 @RequestMapping("/medical/common")
-public class CommonController extends AbstractController{
+public class CommonController extends AbstractController {
 
     @Autowired
     private ICommonService commonService;
-    @Autowired
-    private UserService userService;
     @Autowired
     private AttachmentCenterService attachmentCenterService;
 
@@ -43,8 +41,7 @@ public class CommonController extends AbstractController{
         if (loginUser == null) {
             return OnlineResponse.newErrorOnlineResponse("请登录！");
         }
-        UserDataVo currentUser = userService.getUserData(loginUser);
-
+        String userId = loginUser.getId();
         String content = ServletRequestUtils.getRequiredStringParameter(request, "image");
         int i = content.indexOf(',');
         if (i > 0) {
@@ -52,10 +49,10 @@ public class CommonController extends AbstractController{
         }
         byte[] image = Base64.getDecoder().decode(content);
 
-        Attachment attachment = attachmentCenterService.addAttachment(currentUser.getUid(),
+        Attachment attachment = attachmentCenterService.addAttachment(userId,
                 AttachmentType.ONLINE,
-                currentUser.getUid() + System.currentTimeMillis() + ".png", image,
-                org.springframework.util.StringUtils.getFilenameExtension(currentUser.getUid()+ System.currentTimeMillis()  + ".png"));
+                userId + System.currentTimeMillis() + ".png", image,
+                org.springframework.util.StringUtils.getFilenameExtension(userId + System.currentTimeMillis() + ".png"));
 
         return ResponseObject.newSuccessResponseObject(attachment.getUrl());
 
@@ -68,10 +65,7 @@ public class CommonController extends AbstractController{
     public ResponseObject isDoctorOrHospital(HttpServletRequest request) throws ServletRequestBindingException, IOException {
         // 获取当前用户
         OnlineUser loginUser = getCurrentUser();
-        UserDataVo currentUser = userService.getUserData(loginUser);
-        Integer result = commonService.isDoctorOrHospital(currentUser.getUid());
+        Integer result = commonService.isDoctorOrHospital(loginUser.getId());
         return ResponseObject.newSuccessResponseObject(result);
     }
-
-
 }
