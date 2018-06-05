@@ -1,8 +1,6 @@
 package com.xczhihui.bxg.online.web.controller;
 
-import com.xczhihui.common.support.domain.BxgUser;
 import com.xczhihui.common.util.bean.ResponseObject;
-import com.xczhihui.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.domain.GiftStatement;
 import com.xczhihui.online.api.service.GiftService;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;

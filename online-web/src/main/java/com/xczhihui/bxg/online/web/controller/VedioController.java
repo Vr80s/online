@@ -15,7 +15,7 @@ import com.xczhihui.bxg.online.web.service.VedioService;
 import com.xczhihui.common.support.cc.util.CCUtils;
 import com.xczhihui.common.support.domain.BxgUser;
 import com.xczhihui.common.util.bean.ResponseObject;
-import com.xczhihui.common.web.util.UserLoginUtil;
+import com.xczhihui.bxg.online.web.base.utils.UserLoginUtil;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.course.vo.CourseLecturVo;
 
@@ -95,7 +95,7 @@ public class VedioController extends AbstractController{
 			@RequestParam(required=false)Integer collectionId) {
 		
 		//获取登录用户     -- 判断是否登录
-		BxgUser loginUser = UserLoginUtil.getLoginUser(req);
+		BxgUser loginUser = UserLoginUtil.getLoginUser();
 		if(loginUser==null) {
 			return ResponseObject.newErrorResponseObject("请先登录");
 		}

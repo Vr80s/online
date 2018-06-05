@@ -20,7 +20,7 @@ import com.xczhihui.bxg.online.common.domain.User;
 import com.xczhihui.bxg.online.web.service.LiveService;
 import com.xczhihui.bxg.online.web.service.ManagerUserService;
 import com.xczhihui.common.support.domain.BxgUser;
-import com.xczhihui.common.web.util.UserLoginUtil;
+import com.xczhihui.bxg.online.web.base.utils.UserLoginUtil;
 import com.xczhihui.course.model.WatchHistory;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.course.service.IWatchHistoryService;
@@ -28,6 +28,7 @@ import com.xczhihui.course.vo.CourseLecturVo;
 
 /**
  * 页面路由控制器.
+ *
  * @author majian
  * @date 2016-8-1 14:38:06
  */
@@ -36,14 +37,14 @@ import com.xczhihui.course.vo.CourseLecturVo;
 public class PageController {
 
     @Autowired
-    private ManagerUserService  managerUserService;
+    private ManagerUserService managerUserService;
     @Autowired
-    private LiveService  liveService;
-    
+    private LiveService liveService;
+
     @Autowired
-	private ICourseService courseService;
-    
-    
+    private ICourseService courseService;
+
+
     @Value("${env.flag}")
     private String env;
     @Value("${rate}")
@@ -54,55 +55,50 @@ public class PageController {
     private String boshService;//im服务地址
     @Value("${gift.im.host}")
     private String host;
-    
+
     @Autowired
-	public IWatchHistoryService watchHistoryServiceImpl;
-    
-    @RequestMapping(value = "/courseDetail/{courserId}",method= RequestMethod.GET)
-    public ModelAndView courseDetail(@PathVariable String courserId,HttpServletRequest request,HttpServletResponse response){
-    	ModelAndView mav=new ModelAndView("CourseDetail");
-    	mav.addObject("courserId",courserId);
-    	return mav;
-    }
+    public IWatchHistoryService watchHistoryServiceImpl;
 
-    @RequestMapping(value = "/storyDetail/{id}",method= RequestMethod.GET)
-    public ModelAndView storyDetail(@PathVariable String id,HttpServletRequest request,HttpServletResponse response){
-        ModelAndView mav=new ModelAndView("StoryDetail");
-        mav.addObject("id",id);
+    @RequestMapping(value = "/courseDetail/{courserId}", method = RequestMethod.GET)
+    public ModelAndView courseDetail(@PathVariable String courserId, HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView mav = new ModelAndView("CourseDetail");
+        mav.addObject("courserId", courserId);
         return mav;
     }
 
-    @RequestMapping(value = "/qusDetail/{qid}",method= RequestMethod.GET)
-    public ModelAndView qusDetail(@PathVariable String qid,HttpServletRequest request,HttpServletResponse response){
-        ModelAndView mav=new ModelAndView("QusDetail");
-        mav.addObject("qid",qid);
+    @RequestMapping(value = "/storyDetail/{id}", method = RequestMethod.GET)
+    public ModelAndView storyDetail(@PathVariable String id, HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView mav = new ModelAndView("StoryDetail");
+        mav.addObject("id", id);
         return mav;
     }
 
+    @RequestMapping(value = "/qusDetail/{qid}", method = RequestMethod.GET)
+    public ModelAndView qusDetail(@PathVariable String qid, HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView mav = new ModelAndView("QusDetail");
+        mav.addObject("qid", qid);
+        return mav;
+    }
 
-    @RequestMapping(value = "/jumpMethod/{qid}/{type}/{loginname}",method= RequestMethod.GET)
-    public void  jumpMethod(@PathVariable String qid,@PathVariable Integer type,@PathVariable String loginname,HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
-        //Token token=  UCCookieUtil.readTokenCookie(request);
-        //在manager端和web端再查看一下当前用户是否存在
-        User user=managerUserService.findUserByLoginName(loginname);
-//        request.getSession().setAttribute("_adminUser_",user);
+    @RequestMapping(value = "/jumpMethod/{qid}/{type}/{loginname}", method = RequestMethod.GET)
+    public void jumpMethod(@PathVariable String qid, @PathVariable Integer type, @PathVariable String loginname, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        User user = managerUserService.findUserByLoginName(loginname);
         //如果浏览器中获取有用户登录，接着在库里面查询此用户是管理员还是普通用户
-        if(user !=null){
+        if (user != null) {
             //管理
-            if(type==1){
-              response.sendRedirect("/web/html/qusAndAnsDetailGuanLi.html?qid=" + qid + "&ln=" + loginname);
+            if (type == 1) {
+                response.sendRedirect("/web/html/qusAndAnsDetailGuanLi.html?qid=" + qid + "&ln=" + loginname);
             } else {//投诉
-              response.sendRedirect("/web/html/qusAndAnsDetailTouSu.html?qid=" + qid + "&ln=" + loginname);
+                response.sendRedirect("/web/html/qusAndAnsDetailTouSu.html?qid=" + qid + "&ln=" + loginname);
             }
-        }else{
-           throw new RuntimeException("您不是管理员！");
-            // response.sendRedirect("/web/html/404.html");
+        } else {
+            throw new RuntimeException("您不是管理员！");
         }
-
-
     }
+
     /**
      * 跳转到直播间
+     *
      * @param courseId
      * @param roomId
      * @param planId
@@ -110,96 +106,98 @@ public class PageController {
      * @param response
      * @return
      */
-    @RequestMapping(value = "/livepage/{courseId}/{roomId}/{planId}",method= RequestMethod.GET)
-    public ModelAndView livepage(@PathVariable String courseId,@PathVariable String roomId,
-    		@PathVariable String planId,HttpServletRequest request,HttpServletResponse response){
-        ModelAndView mv = liveService.livepage(courseId, request,response);
+    @RequestMapping(value = "/livepage/{courseId}/{roomId}/{planId}", method = RequestMethod.GET)
+    public ModelAndView livepage(@PathVariable String courseId, @PathVariable String roomId,
+                                 @PathVariable String planId, HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView mv = liveService.livepage(courseId, request, response);
         return mv;
     }
 
     /**
      * 跳转到直播间
+     *
      * @param courseId
      * @param request
      * @param response
      * @return
      */
-    @RequestMapping(value = "/livepage/{courseId}",method= RequestMethod.GET)
-    public ModelAndView livepage(@PathVariable String courseId,HttpServletRequest request,HttpServletResponse response){
-        ModelAndView mv = liveService.livepage(courseId, request,response);
+    @RequestMapping(value = "/livepage/{courseId}", method = RequestMethod.GET)
+    public ModelAndView livepage(@PathVariable String courseId, HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView mv = liveService.livepage(courseId, request, response);
         return mv;
     }
-    
-    
+
+
     /**
      * 判断是否跳到直播间
+     *
      * @param courseId
      * @param request
      * @param response
      * @return
      */
-    @RequestMapping(value = "/liveCoursePage/{courseId}",method= RequestMethod.GET)
-    public ModelAndView liveCoursePage(@PathVariable Integer courseId,HttpServletRequest request,HttpServletResponse response){
-     	
-    	ModelAndView mv = null ;
-        BxgUser user = UserLoginUtil.getLoginUser(request);
+    @RequestMapping(value = "/liveCoursePage/{courseId}", method = RequestMethod.GET)
+    public ModelAndView liveCoursePage(@PathVariable Integer courseId, HttpServletRequest request, HttpServletResponse response) {
+
+        ModelAndView mv = null;
+        BxgUser user = UserLoginUtil.getLoginUser();
         CourseLecturVo clv = null;
-        if(user!=null) {
-        	clv = courseService.selectUserCurrentCourseStatus(courseId, user.getId());
-        	//0：收费 1：免费 2：已购买
-        	
-        	//只有直播中的直接跳转  --》  直播间
-        	if((clv.getWatchState() == 1 || clv.getWatchState() == 2) 
-        			 &&  clv.getType() == 3 
-        			 &&  clv.getLineState() == 1) {
-        		
-        		mv = new ModelAndView("live_success_page");
-        		
-        		mv.addObject("lecturerId",clv.getUserLecturerId());
-    	        mv.addObject("vhallName",clv.getVhallName());
-    	        mv.addObject("userId", user.getId());
-    	        mv.addObject("courseId", courseId);
-    	        mv.addObject("liveStatus",clv.getLineState());
-    	        mv.addObject("roomId",clv.getDirectId());
-    	        mv.addObject("roomJId", courseId + postfix);
-    	        mv.addObject("boshService", boshService);
-    	        mv.addObject("now", new Date().getTime());
-    	        mv.addObject("description", clv);
-    	        mv.addObject("email", user == null ? null : user.getId() + "@xczh.com");
-    	        mv.addObject("name", user == null ? null : user.getName());
-    	        mv.addObject("k", "yrxk");//TODO 此处暂时写死
-    	        mv.addObject("guId", user.getId());
-    	        mv.addObject("guPwd", user.getPassword());
-    	        mv.addObject("env", env);
-    	        mv.addObject("host", host);
-    	        mv.addObject("rate", rate);
-        		
-        		/**
-        		 * 增加学习记录、增加播放记录
-        		 */
-    	        String lockId = user.getId()+courseId;
-    	        
-    	        watchHistoryServiceImpl.addLearnRecord(lockId, courseId, user.getId(), user.getLoginName());
-    	        
-    	    	WatchHistory target = new WatchHistory();
-				target.setCourseId(courseId);
-				target.setUserId(user.getId());
-				target.setLecturerId(clv.getUserLecturerId());
-				target.setCollectionId(null);
-    	        watchHistoryServiceImpl.addOrUpdate(lockId,target);
-        	}else{
-        		mv=  new ModelAndView("redirect:/courses/"+courseId+"/info");
-        	}
-        }else {
-        	//转发到展示页面
-        	mv=  new ModelAndView("redirect:/courses/"+courseId+"/info");
+        if (user != null) {
+            clv = courseService.selectUserCurrentCourseStatus(courseId, user.getId());
+            //0：收费 1：免费 2：已购买
+
+            //只有直播中的直接跳转  --》  直播间
+            if ((clv.getWatchState() == 1 || clv.getWatchState() == 2)
+                    && clv.getType() == 3
+                    && clv.getLineState() == 1) {
+
+                mv = new ModelAndView("live_success_page");
+
+                mv.addObject("lecturerId", clv.getUserLecturerId());
+                mv.addObject("vhallName", clv.getVhallName());
+                mv.addObject("userId", user.getId());
+                mv.addObject("courseId", courseId);
+                mv.addObject("liveStatus", clv.getLineState());
+                mv.addObject("roomId", clv.getDirectId());
+                mv.addObject("roomJId", courseId + postfix);
+                mv.addObject("boshService", boshService);
+                mv.addObject("now", new Date().getTime());
+                mv.addObject("description", clv);
+                mv.addObject("email", user == null ? null : user.getId() + "@xczh.com");
+                mv.addObject("name", user == null ? null : user.getName());
+                mv.addObject("k", "yrxk");//TODO 此处暂时写死
+                mv.addObject("guId", user.getId());
+                mv.addObject("guPwd", user.getPassword());
+                mv.addObject("env", env);
+                mv.addObject("host", host);
+                mv.addObject("rate", rate);
+
+                /**
+                 * 增加学习记录、增加播放记录
+                 */
+                String lockId = user.getId() + courseId;
+
+                watchHistoryServiceImpl.addLearnRecord(lockId, courseId, user.getId(), user.getLoginName());
+
+                WatchHistory target = new WatchHistory();
+                target.setCourseId(courseId);
+                target.setUserId(user.getId());
+                target.setLecturerId(clv.getUserLecturerId());
+                target.setCollectionId(null);
+                watchHistoryServiceImpl.addOrUpdate(lockId, target);
+            } else {
+                mv = new ModelAndView("redirect:/courses/" + courseId + "/info");
+            }
+        } else {
+            //转发到展示页面
+            mv = new ModelAndView("redirect:/courses/" + courseId + "/info");
         }
-        
-        System.out.println(mv.getViewName()+"____"+mv.getView());
+
+        System.out.println(mv.getViewName() + "____" + mv.getView());
         System.out.println(mv.getView() instanceof RedirectView);
-        
+
         return mv;
     }
-    
+
 
 }

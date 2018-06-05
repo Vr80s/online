@@ -22,7 +22,7 @@ public interface OrderService {
      * @param request
      * @return 所有订单信息
      */
-    public Page<OrderVo> getMyAllOrder(Integer  orderStatus,Integer timeQuantum,Integer pageNumber, Integer pageSize,HttpServletRequest request);
+    public Page<OrderVo> getMyAllOrder(Integer  orderStatus,Integer timeQuantum,Integer pageNumber, Integer pageSize,String userId);
 
     /**
      * 为购买用户发送消息通知

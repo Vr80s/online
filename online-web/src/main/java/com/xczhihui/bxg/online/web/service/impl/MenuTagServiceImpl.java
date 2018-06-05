@@ -1,6 +1,6 @@
 package com.xczhihui.bxg.online.web.service.impl;
 
-import com.xczhihui.common.web.util.UserLoginUtil;
+import com.xczhihui.bxg.online.web.base.utils.UserLoginUtil;
 import com.xczhihui.bxg.online.common.base.service.OnlineBaseService;
 import com.xczhihui.bxg.online.common.domain.Menu;
 import com.xczhihui.bxg.online.common.domain.MenuTag;
@@ -161,7 +161,7 @@ public class MenuTagServiceImpl  implements OnlineBaseService, MenuTagService {
 	@Override
     public List<Map> getQuestionMenuTags(HttpServletRequest request) throws InvocationTargetException, IllegalAccessException {
 		//获取当前登录用户信息
-		OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
+		OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser();
 		List<Map> resultList = new ArrayList<Map>();
 		//获取全部学科信息
 		List<Menu> firstMenu = menuService.getQuestionFirstMenu(null, null);

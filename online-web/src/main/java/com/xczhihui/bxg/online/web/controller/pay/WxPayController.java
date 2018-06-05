@@ -36,7 +36,7 @@ import com.xczhihui.bxg.online.web.utils.MatrixToImageWriter;
 import com.xczhihui.common.util.IStringUtil;
 import com.xczhihui.common.util.OrderNoUtil;
 import com.xczhihui.common.util.enums.PayOrderType;
-import com.xczhihui.common.web.util.UserLoginUtil;
+import com.xczhihui.bxg.online.web.base.utils.UserLoginUtil;
 import com.xczhihui.course.model.Order;
 import com.xczhihui.course.service.IOrderService;
 import com.xczhihui.course.vo.PayMessage;
@@ -159,7 +159,7 @@ public class WxPayController extends WxPayApiController {
             m.addObject("preurl", request.getParameter("preurl"));
         }
 
-        OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser();
         if (loginUser == null) {
             throw new RuntimeException("充值需登录后进行");
         }

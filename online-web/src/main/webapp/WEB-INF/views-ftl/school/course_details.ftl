@@ -145,18 +145,18 @@
 
 						<#if  courseInfo.collection> <#-- 专辑tab显示    -->
 							<#if courseInfo.watchState = 1 || courseInfo.watchState = 2> <#-- 免费或已购买  -->
-								<li><a href="${webUrlParam}/selection">选集</a></li>
-							    <li><a href="${webUrlParam}/info">详情</a></li>
+								<li><a href="${webUrl}${webUrlParam}/selection">选集</a></li>
+							    <li><a href="${webUrl}${webUrlParam}/info">详情</a></li>
 							<#elseif courseInfo.watchState = 0>
-							    <li><a href="${webUrlParam}/info" >详情</a></li>
-								<li><a href="${webUrlParam}/outline" >课程大纲</a></li>
+							    <li><a href="${webUrl}${webUrlParam}/info" >详情</a></li>
+								<li><a href="${webUrl}${webUrlParam}/outline" >课程大纲</a></li>
 							</#if>
 						<#else> <#-- 非专辑tab显示    -->
-						   <li><a href="${webUrlParam}/info" >详情</a></li>
-						   <li><a href="${webUrlParam}/outline" >课程大纲</a></li>
+						   <li><a href="${webUrl}${webUrlParam}/info" >详情</a></li>
+						   <li><a href="${webUrl}${webUrlParam}/outline" >课程大纲</a></li>
 						</#if>
-							<li ><a href="${webUrlParam}/comment" >评价（${courseInfo.criticizeCount}）</a></li>
-							<li><a href="${webUrlParam}/aq" >常见问题</a></li>
+							<li ><a href="${webUrl}${webUrlParam}/comment" >评价（${courseInfo.criticizeCount}）</a></li>
+							<li><a href="${webUrl}${webUrlParam}/aq" >常见问题</a></li>
 
 						</ul>
 					</div>
@@ -263,8 +263,8 @@
     var userId = "${courseInfo.userLecturerId}";
     var collection = ${courseInfo.collection?string(1,0)};
     var commentCode = ${criticizesMap.commentCode};
-    console.error("type：" + type + ";watchState：" + watchState + ";courseId：" + courseId);
-    console.error("userId：" + userId + ";collection：" + collection+",commentCode:"+commentCode);
+//    console.info("type：" + type + ";watchState：" + watchState + ";courseId：" + courseId);
+//    console.info("userId：" + userId + ";collection：" + collection+",commentCode:"+commentCode);
 </script>
 
 <script src="/web/js/school/course-details.js" type="text/javascript" charset="utf-8"></script>

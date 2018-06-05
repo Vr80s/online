@@ -34,7 +34,7 @@
 					     	<#if project_index lt 4 >
 					     	 <li>
 					     		<a href="">
-									<p><img src="${project.icon}" alt="${project.name}" /></p>
+									<p><img src="${project.icon}" style="width: 54px;height: 54px;" alt="${project.name}" /></p>
 									<span>${project.name}</span>
 							    </a>
 							  </li>  
@@ -44,11 +44,6 @@
 				</div>
 <!--精品课程、免费课程、最新课程、养生课程、-->	
 
-		<#-- 	 
-			menuType: 200,
-            courseList: [
-            ],
-            title: "针灸疗法"  -->
 		
 				<#list courseTypeList as courseTypeItem>
 					<div class="main">
@@ -114,23 +109,27 @@
 					<span><a href="${webUrl}/web/html/want-anchor.html" target="_blank">成为主播</a></span>
 				</div>
 			
-				<div class="hot-search">
-					<p>热门搜索</p>
-					<ul>
-				    <#list hotList as hot>
-                        <li data-id="hot.id">
-							<a href="/courses/list?queryKey=${hot.name}" target="_blank">${hot.name}</a>
-						</li> 
-                    </#list>
-					<#-- 
-					     <li>热门搜索</li>
-					-->     	
-					</ul>
-				</div>
-				<div class="wrap-docter">
-					<span>名师推荐</span>
-					<#include "../common/famous_doctor_common.ftl"> 
-				</div>
+			    
+			    <#if hotList??>	
+					<div class="hot-search">
+						<p>热门搜索</p>
+						<ul>
+					    <#list hotList as hot>
+	                        <li data-id="hot.id">
+								<a href="/courses/list?queryKey=${hot.name}" target="_blank">${hot.name}</a>
+							</li> 
+	                    </#list>
+						</ul>
+					</div>
+				</#if>
+				
+				 <#if doctorList??>	
+					<div class="wrap-docter">
+						<span>名师推荐</span>
+						<#include "../common/famous_doctor_common.ftl"> 
+					</div>
+				</#if>
+			
 			</div>
 		</div>
 
