@@ -16,7 +16,7 @@ import com.xczhihui.bxg.online.web.vo.AskAnswerVo;
 import com.xczhihui.bxg.online.web.vo.AskQuestionVo;
 import com.xczhihui.bxg.online.web.vo.CourseVo;
 import com.xczhihui.common.util.bean.Page;
-import com.xczhihui.common.web.util.UserLoginUtil;
+import com.xczhihui.bxg.online.web.base.utils.UserLoginUtil;
 import com.xczhihui.user.center.vo.Token;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -132,7 +132,7 @@ public class AskQuestionListServiceImpl extends OnlineBaseServiceImpl implements
             //未登录情况下： 控制此问题下回答信息是否显示 true 显示   false 未显示
             questionVo.setIsShowAnswer(questionVo.getAsk_limit() == 1 ? true : false);
             //获取当前登录用户信息
-            OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
+            OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser();
             if (loginUser != null) {
                 //查找用户收藏状态
                 boolean statu = questionListDao.findCollectionByQidAndUserId(questionId, loginUser.getId());
@@ -209,7 +209,7 @@ public class AskQuestionListServiceImpl extends OnlineBaseServiceImpl implements
     @Override
     public String saveQuestion(AskQuestionVo qu, HttpServletRequest request) {
         //获取当前登录用户信息
-        OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser();
         loginUser =  userDao.get(loginUser.getId(),OnlineUser.class);
         if (loginUser != null) {
             qu.setCreate_nick_name(loginUser.getName());
@@ -302,7 +302,7 @@ public class AskQuestionListServiceImpl extends OnlineBaseServiceImpl implements
     @Override
     public Page<AskQuestionVo> findVideoQuestion(String videoId, Integer type, Integer pageNumber, Integer pageSize, HttpServletRequest request) {
          //获取当前登录用户信息
-         OnlineUser u = (OnlineUser) UserLoginUtil.getLoginUser(request);
+         OnlineUser u = (OnlineUser) UserLoginUtil.getLoginUser();
          if(u != null){
              return  questionListDao.findVideoQuestion(videoId,type,pageNumber,pageSize,u);
          }

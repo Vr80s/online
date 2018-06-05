@@ -225,18 +225,6 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
         return coursedao.getCourseDescriptionsById(id, courseId);
     }
 
-
-    /**
-     * 报名后课程详情也接口，根据课程id查找对应课程
-     *
-     * @param courseId 课程id号
-     * @return 返回对应的课程对象
-     */
-    @Override
-    public CourseVo findEnterCourseDetail(HttpServletRequest request, Integer courseId) {
-        return coursedao.findEnterCourseDetail(request, courseId);
-    }
-
     /**
      * 课程订单 根据课程id产生订单
      *

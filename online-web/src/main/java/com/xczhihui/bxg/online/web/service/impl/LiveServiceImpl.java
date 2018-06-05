@@ -8,7 +8,7 @@ import com.xczhihui.bxg.online.web.dao.LiveDao;
 import com.xczhihui.bxg.online.web.service.LiveService;
 import com.xczhihui.bxg.online.web.vo.OpenCourseVo;
 import com.xczhihui.common.support.domain.BxgUser;
-import com.xczhihui.common.web.util.UserLoginUtil;
+import com.xczhihui.bxg.online.web.base.utils.UserLoginUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -118,7 +118,7 @@ public class LiveServiceImpl extends OnlineBaseServiceImpl implements LiveServic
             (String courseId, HttpServletRequest request, HttpServletResponse response) {
 
         Map<String, Object> paramMap = new HashMap<String, Object>();
-        BxgUser user = UserLoginUtil.getLoginUser(request);
+        BxgUser user = UserLoginUtil.getLoginUser();
         paramMap.put("courseId", courseId);
         if (user == null) {
             return new ModelAndView("redirect:/course/courses/" + courseId);
@@ -147,7 +147,7 @@ public class LiveServiceImpl extends OnlineBaseServiceImpl implements LiveServic
             description = "";
         }
         description = description.replaceAll("\n", "");
-        OnlineUser u = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        OnlineUser u = (OnlineUser) UserLoginUtil.getLoginUser();
         //ModelAndView mv = null;
        /* if(liveStatus==1){
             mv = new ModelAndView("live_success_page");

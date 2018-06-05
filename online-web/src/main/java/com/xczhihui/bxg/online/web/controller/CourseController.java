@@ -160,17 +160,6 @@ public class CourseController extends AbstractController{
         return ResponseObject.newSuccessResponseObject(service.getCourseDescriptionById(id, courseId));
     }
 
-
-    /**
-     * 报名后课程详情也接口，根据课程id查找对应课程
-     * @param courseId  课程id号
-     * @return 返回对应的课程对象
-     */
-    @RequestMapping(value = "/findEnterCourseDetail")
-    public ResponseObject findEnterCourseDetail(HttpServletRequest request,Integer  courseId){
-        return ResponseObject.newSuccessResponseObject(service.findEnterCourseDetail(request, courseId));
-    }
-
     /**
      * 课程订单 根据课程id产生订单
      * @param courseId  课程id号

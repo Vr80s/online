@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.base.common.OnlineResponse;
 import com.xczhihui.bxg.online.web.controller.AbstractController;
-import com.xczhihui.bxg.online.web.service.UserService;
 import com.xczhihui.common.support.domain.Attachment;
 import com.xczhihui.common.support.service.AttachmentCenterService;
 import com.xczhihui.common.support.service.AttachmentType;
@@ -28,8 +27,6 @@ public class CommonController extends AbstractController {
 
     @Autowired
     private ICommonService commonService;
-    @Autowired
-    private UserService userService;
     @Autowired
     private AttachmentCenterService attachmentCenterService;
 

@@ -23,7 +23,7 @@ import com.xczhihui.common.support.dao.SimpleHibernateDao;
 import com.xczhihui.common.support.domain.BxgUser;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.util.enums.CourseForm;
-import com.xczhihui.common.web.util.UserLoginUtil;
+import com.xczhihui.bxg.online.web.base.utils.UserLoginUtil;
 
 /**
  * 课程底层实现类
@@ -350,7 +350,7 @@ public class CourseDao extends SimpleHibernateDao {
 
 
             //获取登录用户
-            BxgUser loginUser = UserLoginUtil.getLoginUser(request);
+            BxgUser loginUser = UserLoginUtil.getLoginUser();
             Map<String, Object> paramMap = new HashMap<>();
             paramMap.put("courseId", courseId);
             //用户登录，查看用户是否购买此课程,报名isApply=true,否则isApply=false
@@ -520,34 +520,6 @@ public class CourseDao extends SimpleHibernateDao {
         return null;
     }
 
-
-    /**
-     * 报名后课程详情也接口，根据课程id查找对应课程
-     *
-     * @param courseId 课程id号
-     * @return 返回对应的课程对象
-     */
-    public CourseVo findEnterCourseDetail(HttpServletRequest request, Integer courseId) {
-        OnlineUser u = (OnlineUser) request.getSession().getAttribute("_user_");
-        Map<String, Object> paramMap = new HashMap<>();
-        StringBuffer sql = new StringBuffer();
-        List<CourseVo> courseVos = null;
-        if (u != null) {
-            paramMap.put("courseId", courseId);
-            paramMap.put("userId", u.getId());
-            sql.append("  select c.id,c.grade_name as courseName,c.description,c.course_length as courseLength, c.course_type,c.is_free,");
-            sql.append(" IFNULL((SELECT  COUNT(*)  FROM  apply_r_grade_course  WHERE course_id = c.id),0)+ IFNULL(default_student_count, 0) learndCount,");
-//             sql.append( " if(c.is_free=1,(SELECT count(*) FROM apply_r_grade_course where course_id=c.id),");
-//             sql.append( " (select  sum(ifnull(student_count,0))+sum(ifnull(default_student_count,0)) from  oe_grade  where course_id=:courseId  and is_delete=0 and status=1)) learndCount,");
-            sql.append(" (select count(id) from  oe_video   where status=1 and is_delete=0 and course_id=:courseId  ) as count,");
-            sql.append(" (select count(id) from  user_r_video  where status=1 and is_delete=0 and user_id=:userId and course_id=:courseId and study_status=1 ) as learndVideo, ");
-            sql.append(" (select count(id) from  user_r_video  where status=1 and is_delete=0 and user_id=:userId and course_id=:courseId and study_status=0 ) as unStudy ");
-            sql.append(" from oe_course c  where c.id=:courseId");
-            courseVos = this.findEntitiesByJdbc(CourseVo.class, sql.toString(), paramMap);
-        }
-        return courseVos.size() > 0 ? courseVos.get(0) : null;
-    }
-
     /**
      * 根据课程id查询课程
      *
@@ -682,7 +654,7 @@ public class CourseDao extends SimpleHibernateDao {
             courseVo = courseVoList.size() > 0 ? courseVoList.get(0) : courseVo;
 
             //获取登录用户
-            BxgUser loginUser = UserLoginUtil.getLoginUser(request);
+            BxgUser loginUser = UserLoginUtil.getLoginUser();
             Map<String, Object> paramMap = new HashMap<>();
             paramMap.put("courseId", courseId);
             if (loginUser != null && courseVo != null) { //用户登录，查看用户是否购买此课程,报名isApply=true,否则isApply=false

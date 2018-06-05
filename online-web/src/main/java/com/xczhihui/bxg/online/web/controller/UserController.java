@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.ServletRequestUtils;
@@ -19,14 +18,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.xczhihui.bxg.online.common.base.controller.OnlineBaseController;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.base.common.OnlineResponse;
-import com.xczhihui.bxg.online.web.base.utils.UserUtil;
 import com.xczhihui.bxg.online.web.service.UserService;
 import com.xczhihui.common.support.domain.BxgUser;
-import com.xczhihui.common.support.service.impl.RedisCacheService;
 import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.common.util.enums.TokenExpires;
-import com.xczhihui.common.web.util.UserLoginUtil;
+import com.xczhihui.bxg.online.web.base.utils.UserLoginUtil;
 import com.xczhihui.user.center.service.UserCenterService;
+import com.xczhihui.user.center.utils.UCCookieUtil;
 import com.xczhihui.user.center.vo.OeUserVO;
 import com.xczhihui.user.center.vo.Token;
 
@@ -45,20 +43,17 @@ public class UserController extends OnlineBaseController {
     @Autowired
     private UserCenterService userCenterService;
 
-    @Autowired
-    private RedisCacheService cacheService;
-
     @RequestMapping(value = "login", method = RequestMethod.POST)
-    public ResponseObject login(String username, String password, HttpServletRequest request, HttpServletResponse response) {
+    public ResponseObject login(String username, String password, HttpServletResponse response) {
         OnlineUser o = service.findUserByLoginName(username);
         Token t = userCenterService.loginMobile(username, password, TokenExpires.Year);
-        UserUtil.setSessionCookie(request, response, o, t);
+        UCCookieUtil.writeTokenCookie(response, t);
         return ResponseObject.newSuccessResponseObject("登录成功");
     }
 
     @RequestMapping(value = "logout", method = RequestMethod.GET)
     public ResponseObject logout(HttpServletRequest request, HttpServletResponse response) {
-        UserUtil.cleanSessionCookie(request, response);
+        UCCookieUtil.clearTokenCookie(response);
         return ResponseObject.newSuccessResponseObject(null);
     }
 
@@ -74,28 +69,13 @@ public class UserController extends OnlineBaseController {
     @RequestMapping(value = "phoneRegist", method = RequestMethod.POST)
     public ResponseObject phoneRegist(String username, String password, String code, String nikeName, HttpServletRequest req, HttpServletResponse resp) {
         service.addPhoneRegist(req, username, password, code, nikeName);
-        autoLogin(req, resp, username, password);
+        autoLogin(resp, username, password);
         return ResponseObject.newSuccessResponseObject("注册成功");
     }
 
-    private void autoLogin(HttpServletRequest req, HttpServletResponse resp, String loginname, String password) {
-        OnlineUser o = service.findUserByLoginName(loginname);
-        Token t = null;
-        if (o != null) {
-            t = userCenterService.loginMobile(loginname, password, TokenExpires.Year);
-        }
-        if (t != null) {
-            if (o != null) {
-                t.setHeadPhoto(o.getSmallHeadPhoto());
-                t.setUuid(o.getId());
-                if (o.isDelete() || o.getStatus() == -1) {
-                    throw new RuntimeException("用户已禁用");
-                }
-            } else {
-                throw new RuntimeException("用户不存在");
-            }
-        }
-        UserUtil.setSessionCookie(req, resp, o, t);
+    private void autoLogin(HttpServletResponse resp, String loginname, String password) {
+        Token t = userCenterService.loginMobile(loginname, password, TokenExpires.Year);
+        UCCookieUtil.writeTokenCookie(resp, t);
     }
 
     /**
@@ -122,7 +102,7 @@ public class UserController extends OnlineBaseController {
     @RequestMapping(value = "isAlive")
     @ResponseBody
     public OnlineResponse isAlive(HttpServletRequest request) {
-        BxgUser loginUser = UserLoginUtil.getLoginUser(request);
+        BxgUser loginUser = UserLoginUtil.getLoginUser();
         return OnlineResponse.newSuccessOnlineResponse(service.isAlive(loginUser.getLoginName()));
     }
 
@@ -146,7 +126,7 @@ public class UserController extends OnlineBaseController {
     @RequestMapping(value = "getUserData")
     @ResponseBody
     public ResponseObject getUserData(HttpServletRequest request) {
-        OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser();
         if (loginUser == null) {
             return OnlineResponse.newErrorOnlineResponse("请登录！");
         }
@@ -164,7 +144,7 @@ public class UserController extends OnlineBaseController {
     @RequestMapping(value = "updateUser", method = RequestMethod.POST)
     @ResponseBody
     public OnlineResponse updateUser(HttpServletRequest request, OeUserVO oeUserVO) throws ServletRequestBindingException {
-        OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser();
         oeUserVO.setId(loginUser.getId());
         userCenterService.update(oeUserVO);
         return OnlineResponse.newSuccessOnlineResponse("修改成功");
@@ -181,7 +161,7 @@ public class UserController extends OnlineBaseController {
     @RequestMapping(value = "updateUserHeadImg", method = RequestMethod.POST)
     @ResponseBody
     public OnlineResponse updateUserHeadImg(HttpServletRequest request) throws ServletRequestBindingException {
-        OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser();
         String img = ServletRequestUtils.getStringParameter(request, "img");
         OeUserVO oeUserVO = new OeUserVO();
         oeUserVO.setId(loginUser.getId());
@@ -202,7 +182,7 @@ public class UserController extends OnlineBaseController {
     @ResponseBody
     public ResponseObject updateHeadPhoto(HttpServletRequest request) throws ServletRequestBindingException, IOException {
         //获取当前登录用户信息
-        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser();
 
         String content = ServletRequestUtils.getRequiredStringParameter(request, "image");
         int i = content.indexOf(',');

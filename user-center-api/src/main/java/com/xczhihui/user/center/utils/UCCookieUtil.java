@@ -41,7 +41,8 @@ public class UCCookieUtil {
      */
     public static Token readTokenCookie(HttpServletRequest request) {
         String str = CookieUtil.getCookieValue(request, COOKIE_TOKEN_NAME);
-        if (str == null || str.length() < 1) {// 没有token信息
+        // 没有token信息
+        if (str == null || str.length() < 1) {
             return null;
         }
         return decodeToken(str);
@@ -55,14 +56,14 @@ public class UCCookieUtil {
      */
     public static void writeTokenCookie(HttpServletResponse response, Token token) {
         String str = encodeToken(token);
-        writeBXGCookie(response, COOKIE_TOKEN_NAME, str, token.getExpires());
+        writeCookie(response, COOKIE_TOKEN_NAME, str, token.getExpires());
     }
 
     /**
      * 清除cookie中的token信息。
      */
     public static void clearTokenCookie(HttpServletResponse response) {
-        clearBXGCookie(response, COOKIE_TOKEN_NAME);
+        clearCookie(response, COOKIE_TOKEN_NAME);
     }
 
     /**
@@ -114,11 +115,11 @@ public class UCCookieUtil {
         return t;
     }
 
-    private static void clearBXGCookie(HttpServletResponse response, String name) {
+    private static void clearCookie(HttpServletResponse response, String name) {
         CookieUtil.setCookie(response, name, "", null, "/", 0);//20171215 yuxin
     }
 
-    private static void writeBXGCookie(HttpServletResponse response, String name, String value, long maxAge) {
+    private static void writeCookie(HttpServletResponse response, String name, String value, long maxAge) {
         long age = maxAge - System.currentTimeMillis();
         age = age / 1000;
         CookieUtil.setCookie(response, name, value, null, "/", (int) age);
@@ -128,7 +129,7 @@ public class UCCookieUtil {
      * 清除cookie中的token信息。 -- 第三方cookie
      */
     public static void clearThirdPartyCookie(HttpServletResponse response) {
-        clearBXGCookie(response, THIRD_PARTY_COOKIE_TOKEN_NAME);
+        clearCookie(response, THIRD_PARTY_COOKIE_TOKEN_NAME);
     }
 
     /**
@@ -148,7 +149,7 @@ public class UCCookieUtil {
             String v = String.format("%s;%s;%s;%s", openId, unionId, nickName, headImg);
             str = URLEncoder.encode(v, "UTF-8");
 
-            writeBXGCookie(response, THIRD_PARTY_COOKIE_TOKEN_NAME, str, TokenExpires.TenDay.getExpires());
+            writeCookie(response, THIRD_PARTY_COOKIE_TOKEN_NAME, str, TokenExpires.TenDay.getExpires());
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
