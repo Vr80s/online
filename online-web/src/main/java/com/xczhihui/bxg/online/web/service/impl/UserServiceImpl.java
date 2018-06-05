@@ -92,7 +92,7 @@ public class UserServiceImpl implements UserService {
             vo.setBirthdayStr(DateUtil.formatDate(vo.getBirthday(), DateUtil.FORMAT_DAY));
             //设置职位
             vo.setJob(userCenterDao.getJob("occupation"));
-            
+
         }
         return vo;
     }
