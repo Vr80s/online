@@ -67,7 +67,7 @@ public class LookHistoryController {
                         watchHistoryServiceImpl.addLearnRecord(lockId, courseId, accountId, account.getLoginName());
                     }
                 }
-                if (recordType == 2) {
+                if (recordType == 2) { 
                     WatchHistory target = new WatchHistory();
                     target.setCourseId(courseId);
                     target.setUserId(account.getId());
