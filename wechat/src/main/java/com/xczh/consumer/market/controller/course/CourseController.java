@@ -1,5 +1,6 @@
 package com.xczh.consumer.market.controller.course;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,7 +44,7 @@ public class CourseController {
 
     @Autowired
     private OnlineWebService onlineWebService;
-    
+
     @Autowired
     private IMobileBannerService mobileBannerService;
 
@@ -252,9 +254,10 @@ public class CourseController {
         return ResponseObject.newSuccessResponseObject(courses);
     }
 
-    
+
     /**
      * Description：下架课程推荐
+     *
      * @param courseId
      * @return ResponseObject
      * @throws Exception
@@ -263,15 +266,26 @@ public class CourseController {
      */
     @RequestMapping("unshelveCouserRecommen")
     public ResponseObject unshelveCouserRecommen(
-    		@RequestParam(required=false,value = "pageSize") Integer pageSize)
+            @RequestParam(required = false, value = "pageSize") Integer pageSize)
             throws Exception {
-    	
-    	if(pageSize==null || pageSize==0) {
-    		pageSize = 8;
-    	}
+
+        if (pageSize == null || pageSize == 0) {
+            pageSize = 8;
+        }
         List<CourseLecturVo> courses = mobileBannerService.selectUnshelveRecommenCourse(pageSize);
         return ResponseObject.newSuccessResponseObject(courses);
     }
-    
-    
+
+    /**
+     * Description：根据直播状态跳转不同页面
+     * creed: Talk is cheap,show me the code
+     * @author name：yuxin
+     * @Date: 2018/6/5 0005 下午 8:23
+     **/
+    @RequestMapping("live/{courseId}")
+    public void liveCourse(@PathVariable("courseId")String courseId,HttpServletResponse response) throws IOException {
+        String liveCourseUrl4Wechat = courseServiceImpl.getLiveCourseUrl4Wechat(courseId);
+        response.sendRedirect(liveCourseUrl4Wechat);
+    }
+
 }
