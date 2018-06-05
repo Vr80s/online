@@ -125,6 +125,35 @@ public class XzStringUtils {
 		return flag;
 	}
 
+	
+	/**
+	 * 校验微信号
+	 * @param wechatNo
+	 * @return
+	 */
+	 public static boolean checkWechatNo(String wechatNo) {
+    	boolean flag = false;
+		try {
+			 // 校验微信号正则
+	        String judge = "^[a-zA-Z]{1}[-_a-zA-Z0-9]{5,19}+$";
+	        Pattern pat = Pattern.compile(judge);
+	        Matcher mat = pat.matcher(wechatNo);
+	        flag = mat.matches();
+		} catch (Exception e) {
+			flag = false;
+		}
+	    return flag;
+	 }
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public static void main(String[] args) {
 		
 		System.out.println(checkNickName("54523"));
