@@ -9,7 +9,7 @@ import com.xczhihui.bxg.online.web.base.utils.WebUtil;
 import com.xczhihui.bxg.online.web.utils.alipay.AlipayConfig;
 import com.xczhihui.common.util.OrderNoUtil;
 import com.xczhihui.common.util.enums.PayOrderType;
-import com.xczhihui.common.web.util.UserLoginUtil;
+import com.xczhihui.bxg.online.web.base.utils.UserLoginUtil;
 import com.xczhihui.course.model.Order;
 import com.xczhihui.course.service.IOrderService;
 import com.xczhihui.course.vo.PayMessage;
@@ -108,7 +108,7 @@ public class AliPayController extends AliPayApiController {
 
     @RequestMapping(value = "/alipay/recharge/{price}", method = RequestMethod.GET)
     public void recharge(HttpServletRequest request, HttpServletResponse response,@PathVariable String price) throws IOException, AlipayApiException {
-        OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser();
         if(loginUser==null){
             throw new RuntimeException("充值需登录后进行");
         }

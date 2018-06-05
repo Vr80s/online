@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 
 import com.xczhihui.common.support.dao.SimpleHibernateDao;
 import com.xczhihui.common.util.bean.Page;
-import com.xczhihui.common.web.util.UserLoginUtil;
+import com.xczhihui.bxg.online.web.base.utils.UserLoginUtil;
 import com.xczhihui.bxg.online.web.base.utils.RandomUtil;
 import com.xczhihui.bxg.online.web.base.utils.TimeUtil;
 import com.xczhihui.bxg.online.web.vo.MyConsumptionRecords;
@@ -260,8 +260,8 @@ public class OrderDao extends SimpleHibernateDao {
      * @return
      */
     public List<Map<String,Object>>  findActivityOrder(HttpServletRequest request,String idArr){
-    	Object uo = UserLoginUtil.getLoginUser(request);
-    	String userId = uo == null ? null : UserLoginUtil.getLoginUser(request).getId();
+    	Object uo = UserLoginUtil.getLoginUser();
+    	String userId = uo == null ? null : UserLoginUtil.getLoginUser().getId();
     	Map<String,Object[]> check = new HashMap<String,Object[]>();
         String[] ids = idArr.split(",");
         Map<String,Object> paramMap = new HashMap<>();
@@ -377,8 +377,8 @@ public class OrderDao extends SimpleHibernateDao {
      * @return 返回对应的课程对象
      */
     public  List<Map<String,Object>>   findNotActivityOrder(String  idArr,String orderNo,HttpServletRequest request){
-    	Object uo = UserLoginUtil.getLoginUser(request);
-    	String userId = uo == null ? null : UserLoginUtil.getLoginUser(request).getId();
+    	Object uo = UserLoginUtil.getLoginUser();
+    	String userId = uo == null ? null : UserLoginUtil.getLoginUser().getId();
         List<Map<String,Object>> courses=null;
         Double totalAmount=0.00d;  //此订单总金额
         String[] ids = idArr.split(",");

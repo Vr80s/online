@@ -123,19 +123,6 @@ public class VideoController extends AbstractController{
     }
 
     /**
-     * 免费课程 用户报名时，将课程下所有视频插入用户视频中间表中
-     * @param courseId 课程id
-     * @return
-     */
-    @RequestMapping(value = "/saveEntryVideo",method = RequestMethod.POST)
-    public  ResponseObject saveEntryVideo(Integer  courseId,@RequestParam(required=false)String password,HttpServletRequest request){
-    	synchronized (lock) {
-    		return ResponseObject.newSuccessResponseObject(videoService.saveEntryVideo(courseId,password, request));
-		}
-    }
-
-
-    /**
      * 判断课程下是否有视频
      * @param courseId 课程id
      * @return

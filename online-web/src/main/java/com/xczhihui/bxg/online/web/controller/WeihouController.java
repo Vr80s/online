@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.xczhihui.common.support.domain.BxgUser;
 import com.xczhihui.common.util.WeihouInterfacesListUtil;
 import com.xczhihui.common.util.bean.ResponseObject;
-import com.xczhihui.common.web.util.UserLoginUtil;
+import com.xczhihui.bxg.online.web.base.utils.UserLoginUtil;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.service.UserService;
 
@@ -75,7 +75,7 @@ public class WeihouController {
 			HttpServletResponse response) throws Exception {
 		
 		String roomNumber = req.getParameter("videoId");  //视频id
-		BxgUser sessionLoginUser = UserLoginUtil.getLoginUser(req);
+		BxgUser sessionLoginUser = UserLoginUtil.getLoginUser();
 		if(sessionLoginUser!=null) {
 			OnlineUser user = service.findUserByLoginName(sessionLoginUser.getLoginName());
 			String email = user.getLoginName();

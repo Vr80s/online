@@ -24,10 +24,9 @@ import com.xczhihui.bxg.online.web.service.UserService;
 import com.xczhihui.common.support.dao.SimpleHibernateDao;
 import com.xczhihui.common.support.domain.BxgUser;
 import com.xczhihui.common.util.bean.ResponseObject;
-import com.xczhihui.common.web.util.UserLoginUtil;
+import com.xczhihui.bxg.online.web.base.utils.UserLoginUtil;
 import com.xczhihui.user.center.service.UserCenterService;
 import com.xczhihui.user.center.utils.UCCookieUtil;
-import com.xczhihui.user.center.vo.OeUserVO;
 import com.xczhihui.user.center.vo.Token;
 
 /**
@@ -85,33 +84,14 @@ public class OnlineInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
 
-        BxgUser u = UserLoginUtil.getLoginUser(request);
         Token t = UCCookieUtil.readTokenCookie(request);
-
-        //session里没有用户，cookie里有用户，以cookie为准设置session
-        //这种情况是session失效了
-        if (u == null && t != null) {
-            Token token = userCenterService.getToken(t.getTicket());
-            //验证票和用户中心，验证不通过清空cookie
-            if (token != null) {
-                UserLoginUtil.setLoginUser(request, this.getUser(t));
-            } else {
-                //20171214若无票据 清理cookies
-                UCCookieUtil.clearTokenCookie(response);
-            }
-        }
-
-        //session与cookie都有，但是不是同一个用户的，以cookie为准重新设置session
-        //这种情况可能是先登录了一个用户，然后用另一个用户从其他系统登录再跳过来
-        if (u != null && t != null) {
-            OeUserVO userVO = userCenterService.getUserVO(t.getLoginName());
-            if (userVO != null) {
-                UserLoginUtil.setLoginUser(request, this.getUser(t));
-            }
+        Token token = null;
+        if (t != null) {
+            token = userCenterService.getToken(t.getTicket());
         }
 
         //没登录，但是调用了必须登录才可以调的接口
-        boolean b = (UserLoginUtil.getLoginUser(request) == null || UCCookieUtil.readTokenCookie(request) == null) && checkUris(request.getRequestURI());
+        boolean b = (token == null) && checkUris(request.getRequestURI());
         if (b) {
             Gson gson = new GsonBuilder().create();
             response.setCharacterEncoding("utf-8");
@@ -119,14 +99,14 @@ public class OnlineInterceptor implements HandlerInterceptor {
             response.getWriter().write(gson.toJson(ResponseObject.newErrorResponseObject("请登录！")));
             return false;
         } else {
-            OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
+            OnlineUser user = getUser(token);
             //设置当前用户
             com.xczhihui.bxg.online.web.controller.AbstractController.setCurrentUser(user);
         }
 
         //已经登录，但是调用了主播角色才可以调的接口
         if (checkAnchoruris(request.getRequestURI())) {
-            BxgUser user = UserLoginUtil.getLoginUser(request);
+            BxgUser user = UserLoginUtil.getLoginUser();
             Boolean anchor = userService.isAnchor(user.getLoginName());
             if (!anchor) {
                 response.sendRedirect("/");
@@ -195,8 +175,11 @@ public class OnlineInterceptor implements HandlerInterceptor {
     }
 
     private OnlineUser getUser(Token t) {
-        OnlineUser o = dao.findOneEntitiyByProperty(OnlineUser.class, "loginName", t.getLoginName());
-        return o;
+        if (t == null) {
+            return null;
+        }
+        OnlineUser ou = dao.findOneEntitiyByProperty(OnlineUser.class, "loginName", t.getLoginName());
+        return ou;
     }
 
     @Override

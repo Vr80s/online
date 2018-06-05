@@ -15,7 +15,7 @@ import com.google.gson.GsonBuilder;
 
 import com.xczhihui.common.util.HttpUtil;
 import com.xczhihui.common.util.bean.ResponseObject;
-import com.xczhihui.common.web.util.UserLoginUtil;
+import com.xczhihui.bxg.online.web.base.utils.UserLoginUtil;
 
 /**
  * 短链接转换
@@ -37,7 +37,7 @@ public class ShortUrlController {
      */
     @RequestMapping(value = "/url",method= RequestMethod.POST)
     public ResponseObject  url(HttpServletRequest req,String url) {
-    	if (UserLoginUtil.getLoginUser(req) == null) {
+    	if (UserLoginUtil.getLoginUser() == null) {
     		return ResponseObject.newErrorResponseObject("请登录！");
 		}
     	String msg = HttpUtil.sendGetRequest("https://api.t.sina.com.cn/short_url/shorten.json?source=305153524&url_long="+url);

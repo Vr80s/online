@@ -18,7 +18,7 @@ import com.google.gson.GsonBuilder;
 import com.xczhihui.common.support.domain.Attachment;
 import com.xczhihui.common.support.domain.BxgUser;
 import com.xczhihui.common.support.service.AttachmentCenterService;
-import com.xczhihui.common.web.util.UserLoginUtil;
+import com.xczhihui.bxg.online.web.base.utils.UserLoginUtil;
 
 /**
  * 工具
@@ -61,7 +61,7 @@ public class UtilController {
 				return;
 			}
 			
-			BxgUser u = UserLoginUtil.getLoginUser(request);
+			BxgUser u = UserLoginUtil.getLoginUser();
 			String upload = attService.upload(u.getId(), "online", attachmentFile.getOriginalFilename(), 
 					attachmentFile.getContentType(), attachmentFile.getBytes(), "1");
 			

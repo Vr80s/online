@@ -1,13 +1,7 @@
 package com.xczhihui.bxg.online.web.base.common;
 
 public class Constant {
-	/**
-	 * 用户登录后的session存放
-	 */
-	//public static Map<String, UserSessionBean> LOGIN_USER_SESSIONS = new HashMap<String, UserSessionBean>();
-	public static final String LOGINUSER = "_user_";
-	public static final String LOGINTOKEN = "_token_";
-	private static final String SESSION_TICKET = "_ticket_";
+
 	/**
 	 * 有效的状态
 	 */
