@@ -1,7 +1,6 @@
+
 $(function() {
 //左右侧边栏mune功能
-//showMoneText()
-
 	$('#accordion > li').click(function(){
 		    $('#right-content > div').addClass('hide');
 			$('#right-content > div').eq($(this).index()).removeClass('hide');
@@ -34,6 +33,7 @@ $(function() {
 	    	$("#accordion li[data-menu='menu1-1']").addClass('open');
 	    	$("#accordion li[data-menu='menu1-1'] .submenu").css('display','block')
     	}else if(location.hash == "#menu2-1" || location.hash == "#menu2-2"){
+    		
 	    	$("#accordion li[data-menu='menu2-1']").click();
 	    	$("#accordion li[data-menu='menu2-1']").addClass('open');
 	    	$("#accordion li[data-menu='menu2-1'] .submenu").css('display','block')
@@ -60,6 +60,7 @@ $(function() {
 	}else if(hash == '#menu1-2'){		
 		$("#accordion a[data-menu='menu1-2']").click();
 	}else if(hash == '#menu2-1'){
+		quizList(1)	
 		$("#accordion a[data-menu='menu2-1']").click();
 	}else if(hash == '#menu2-2'){
 		$("#accordion a[data-menu='menu2-2']").click();
@@ -102,6 +103,9 @@ $(function() {
 //				$this.parent().find("span").toggleClass('glyphicon-triangle-bottom');
 			}else{
 				$el.find('.submenu').not($next).parent().find("span").removeClass('glyphicon-triangle-bottom');			
+			}
+			if($(this).siblings(".tte").length>0){	
+				quizList(1)	
 			}
 //		判断数据加载
 		var dataLoadmune=$this.attr("data-load");
@@ -304,51 +308,10 @@ $(".question-forum li").click(function(){
 })
 
 //		我的提问    我的回答  由于hide后不能获取元素高度 展示更多文字
-function showMoneText(){
-	$("#answer").removeClass("hide");
-//点击收起,隐藏则字体
-			var $dot5 = $('.dot5');
-                $dot5.each(function () {
-                    if ($(this).height() > 40) {
-                        $(this).attr("data-txt", $(this).attr("data-text"));
-                        $(this).height(40);
-                        $(this).append('<span class="qq" style="margin-right:60px"> <a class="toggle" href="###" style="color:#2cb82c"><span class="opens">显示全部</span><span class="closes">收起</span></a></span>');
-                    }
-                    var $dot4 = $(this);
 
-                    function createDots() {
-                        $dot4.dotdotdot({
-                            after: 'span.qq'
-                        });
-                    }
-
-                    function destroyDots() {
-                        $dot4.trigger('destroy');
-                    }
-
-                    createDots();
-                    $dot4.on(
-                        'click',
-                        'a.toggle',
-                        function () {
-                            $dot4.toggleClass('opened');
-
-                            if ($dot4.hasClass('opened')) {
-                                destroyDots();
-                            } else {
-                                createDots();
-                            }
-                            return false;
-                        }
-                    );
-                });
-//获取高度后立马将其隐藏
-	$("#answer").addClass("hide");
-
-}
 
 //我的提问
-quizList(1)		
+	
 function quizList(pages){
 	 RequestService("/online/questionlist/getQuestionList", "get",{
 	 	pageNumber:pages,
@@ -1114,6 +1077,45 @@ function deleteNews(index){
     	}
     })
 }
- 
-    
+  
+function showMoneText(){
+	$("#answer").removeClass("hide");
+//点击收起,隐藏则字体
+			var $dot5 = $('.dot5');
+                $dot5.each(function () {
+                    if ($(this).height() > 40) {
+                        $(this).attr("data-txt", $(this).attr("data-text"));
+                        $(this).height(40);
+                        $(this).append('<span class="qq" style="margin-right:60px"> <a class="toggle" href="###" style="color:#2cb82c"><span class="opens">显示全部</span><span class="closes">收起</span></a></span>');
+                    }
+                    var $dot4 = $(this);
 
+                    function createDots() {
+                        $dot4.dotdotdot({
+                            after: 'span.qq'
+                        });
+                    }
+                    function destroyDots() {
+                        $dot4.trigger('destroy');
+                    }
+
+                    createDots();
+                    $dot4.on(
+                        'click',
+                        'a.toggle',
+                        function () {
+                            $dot4.toggleClass('opened');
+
+                            if ($dot4.hasClass('opened')) {
+                                destroyDots();
+                            } else {
+                                createDots();
+                            }
+                            return false;
+                        }
+                    );
+                });
+//获取高度后立马将其隐藏
+	$("#answer").addClass("hide");
+
+}
