@@ -66,6 +66,7 @@ public class UserCenterDao extends SimpleHibernateDao {
 				"a.login_name AS loginName," +
 				"a.occupation AS occupation," +
 				"a.occupation_other AS occupationOther," +
+				"a.mobile AS mobile," +
 //				"a.jobyears AS jobyearId," +
 //				"a.full_address AS fullAddress," +
 				"a.sex," +

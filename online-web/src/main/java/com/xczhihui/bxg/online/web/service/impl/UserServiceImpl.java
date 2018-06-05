@@ -92,23 +92,7 @@ public class UserServiceImpl implements UserService {
             vo.setBirthdayStr(DateUtil.formatDate(vo.getBirthday(), DateUtil.FORMAT_DAY));
             //设置职位
             vo.setJob(userCenterDao.getJob("occupation"));
-
-            // 获取用户报名信息
-            Apply app = dao.findOneEntitiyByProperty(Apply.class, "userId", loginUser.getId());
-            if (app != null) {
-                vo.setUid(app.getUserId());
-                vo.setQq(app.getQq());
-                vo.setMobile(app.getMobile());
-                vo.setBirthdayStr(app.getBirthday() != null ? DateUtil.formatDate(app.getBirthday(), DateUtil.FORMAT_DAY) : "");
-                vo.setApplyProvince(app.getProvince());
-                vo.setAppCity(app.getCity());
-                vo.setRealName(app.getRealName());
-                vo.setSchoolId(app.getSchoolId());
-                vo.setEducationId(app.getEducationId());
-                vo.setMajorId(app.getMajorId());
-                vo.setApplyId(app.getId());
-                vo.setIdCardNo(app.getIdCardNo());
-            }
+            
         }
         return vo;
     }
