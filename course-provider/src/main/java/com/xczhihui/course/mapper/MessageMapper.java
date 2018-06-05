@@ -51,7 +51,7 @@ public interface MessageMapper extends BaseMapper<Message> {
      * @param userId 用户id
      * @return
      */
-    @Update("update oe_message set is_delete = 1 where user_id = #{userId} and id = #{id} and is_deleted = 0")
+    @Update("update oe_message set is_delete = 1 where user_id = #{userId} and id = #{id} and is_delete = 0")
     int markDeleted(@Param("id") String id, @Param("userId") String userId);
 
     /**
