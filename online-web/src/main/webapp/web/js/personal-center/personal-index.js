@@ -1,15 +1,16 @@
 $(function() {
 //左右侧边栏mune功能
+//showMoneText()
 
 	$('#accordion > li').click(function(){
 		    $('#right-content > div').addClass('hide');
 			$('#right-content > div').eq($(this).index()).removeClass('hide');
 	})
 	$('#accordion > li >.submenu >li').click(function(e){
-		$('#accordion > li >.submenu >li a').removeClass("menu-active")
+		$('#accordion > li >.submenu >li a').removeClass("mune-active");
 		$(this).find("a").addClass("mune-active");
 		location.hash = $(this).find("a").attr("data-menu");
-//		e.stopPropagation();
+		e.stopPropagation();
 		
 //		判断数据加载
 		var dataLoadTittle=$(this).find("a").attr("data-load");
@@ -23,7 +24,6 @@ $(function() {
 	})
 	
 	
-
 		if(!location.hash){
 	        	location.hash = "#menu1-1";
 		}
@@ -56,7 +56,7 @@ $(function() {
     	
 //	判断路径的hash进行页面跳转
 	if(hash == '#menu1-1'){
- 		$("#accordion a[data-menu='menu1-1']").click();
+   		$("#accordion a[data-menu='menu1-1']").click();
 	}else if(hash == '#menu1-2'){		
 		$("#accordion a[data-menu='menu1-2']").click();
 	}else if(hash == '#menu2-1'){
@@ -305,8 +305,7 @@ $(".question-forum li").click(function(){
 
 //		我的提问    我的回答  由于hide后不能获取元素高度 展示更多文字
 function showMoneText(){
-
-
+	$("#answer").removeClass("hide");
 //点击收起,隐藏则字体
 			var $dot5 = $('.dot5');
                 $dot5.each(function () {
@@ -344,7 +343,7 @@ function showMoneText(){
                     );
                 });
 //获取高度后立马将其隐藏
-
+	$("#answer").addClass("hide");
 
 }
 
