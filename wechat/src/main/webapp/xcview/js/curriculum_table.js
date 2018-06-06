@@ -89,8 +89,8 @@ requestService("/xczh/classify/listScreen",null,function(data){
 		$("#pagenavi1").html(pagenavi1);
 		$('#draw_isfree_list').html(template('isfree_list',{items:data.resultObject[1]}));
 		$('#draw_course_big_list').html(template('course_big_list',{items:data.resultObject[2]}));
-		$('#draw_city_list').html(template('city_list',{items:data.resultObject[3]}));
-		$('#draw_live_status_list').html(template('live_status_list',{items:data.resultObject[4]}));
+		$('#draw_city_list').html(template('city_list',{items:data.resultObject[4]}));
+		$('#draw_live_status_list').html(template('live_status_list',{items:data.resultObject[3]}));
 		
 		menuTypeArray = data.resultObject[0];
 		courseTypeArray = data.resultObject[2];

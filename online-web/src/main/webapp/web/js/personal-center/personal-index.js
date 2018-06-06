@@ -20,6 +20,12 @@ $(function() {
 		var index = $(this).parent().parent().index();
 		$('#right-content > div:eq('+index+') > div').addClass('hide')
 		$('#right-content > div:eq('+index+') > div').eq($(this).index()).removeClass('hide');
+//		if(location.hash == "#menu2-1"){
+//			$("#btnQuestion").click();
+////			myAnswer(1);
+//			quizList(1);
+//			
+//		}
 	})
 	
 	
@@ -33,7 +39,8 @@ $(function() {
 	    	$("#accordion li[data-menu='menu1-1']").addClass('open');
 	    	$("#accordion li[data-menu='menu1-1'] .submenu").css('display','block')
     	}else if(location.hash == "#menu2-1" || location.hash == "#menu2-2"){
-    		
+//  		quizList(1)
+//  		myAnswer(1)
 	    	$("#accordion li[data-menu='menu2-1']").click();
 	    	$("#accordion li[data-menu='menu2-1']").addClass('open');
 	    	$("#accordion li[data-menu='menu2-1'] .submenu").css('display','block')
@@ -60,9 +67,11 @@ $(function() {
 	}else if(hash == '#menu1-2'){		
 		$("#accordion a[data-menu='menu1-2']").click();
 	}else if(hash == '#menu2-1'){
-		quizList(1)	
+		quizList(1);
+		myAnswer(1);
 		$("#accordion a[data-menu='menu2-1']").click();
 	}else if(hash == '#menu2-2'){
+
 		$("#accordion a[data-menu='menu2-2']").click();
 	}else if(hash == '#menu3'){
 		orderList(1,0,5);
@@ -105,6 +114,8 @@ $(function() {
 				$el.find('.submenu').not($next).parent().find("span").removeClass('glyphicon-triangle-bottom');			
 			}
 			if($(this).siblings(".tte").length>0){	
+				$("#btnQuestion").click();
+						myAnswer(1);
 				quizList(1)	
 			}
 //		判断数据加载
@@ -143,6 +154,8 @@ $(".my-class-nav li").click(function(){
 		buyClass(1)
 	}else if(loadData=="load-end"){
 		endClass(1)
+	}else if(loadData=="load-history"){
+		historyClass(1)
 	}
 	$(".my-class-nav li").removeClass("class-active");
 	$(this).addClass("class-active");
@@ -311,7 +324,7 @@ $(".question-forum li").click(function(){
 
 
 //我的提问
-	
+//quizList(1)
 function quizList(pages){
 	 RequestService("/online/questionlist/getQuestionList", "get",{
 	 	pageNumber:pages,
@@ -346,7 +359,7 @@ function quizList(pages){
 	
 //我的回答
 
-myAnswer(1)
+
 function myAnswer(pages){
 	 RequestService("/ask/my/findMyAnswers", "POST",{
 	 	pageNumber:pages,
@@ -789,7 +802,7 @@ function geren() {
 Newsnumber()
 //将全部消息设为已读
 $(".sign-read").click(function(){
-	RequestService("/message/readStatus", "POST",PUT, function (data) {
+	RequestService("/message/readStatus", "PUT",null, function (data) {
 		if(data.success==true){
 			showTip(data.resultObject);
 			newsList(1)
@@ -902,28 +915,28 @@ $(".sign-read").click(function(){
 		 })
 	}
 //已失效，重新购买课程
-    function againBuy(index) {
-       var $this = $(index);
-       RequestService("/online/user/isAlive", "GET", null, function(data) {
-           if(!data.success) {
-               $('#login').modal('show');
-           } else {
-               var id = $this.data('id');
-
-               if (!id) {
-                   showTip("无法获取课程id");
-               }
-               RequestService("/order/" + id, "POST", null, function(data){
-                   if (data.success) {
-                       window.open("/order/pay?orderId=" + data.resultObject);
-                   } else {
-                       showTip(data.errorMessage);
-                   }
-               });
-           }
-       });
-
-    };
+//  function againBuy(index) {
+//     var $this = $(index);
+//     RequestService("/online/user/isAlive", "GET", null, function(data) {
+//         if(!data.success) {
+//             $('#login').modal('show');
+//         } else {
+//             var id = $this.data('id');
+//
+//             if (!id) {
+//                 showTip("无法获取课程id");
+//             }
+//             RequestService("/order/" + id, "POST", null, function(data){
+//                 if (data.success) {
+//                     window.open("/order/pay?orderId=" + data.resultObject);
+//                 } else {
+//                     showTip(data.errorMessage);
+//                 }
+//             });
+//         }
+//     });
+//
+//  };
 //取消订单和删除订单
 function deleteBtnOrder(index){
 	var dataDelete=$(index).attr("data-delete"),

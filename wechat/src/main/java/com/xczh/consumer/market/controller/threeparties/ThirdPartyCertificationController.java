@@ -90,6 +90,9 @@ public class ThirdPartyCertificationController {
         if (ou == null) {
             return ResponseObject.newErrorResponseObject("该手机号暂未注册,请输入密码");
         }
+        if (ou.getStatus() == 1) {
+            return ResponseObject.newErrorResponseObject("账号已被系统禁用");
+        }
         try {
             verificationCodeService.checkCode(userName, VCodeType.BIND, code);
         } catch (Exception e) {
