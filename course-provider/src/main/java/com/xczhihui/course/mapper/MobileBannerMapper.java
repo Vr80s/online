@@ -15,7 +15,7 @@ import com.xczhihui.course.vo.QueryConditionVo;
 
 /**
  * <p>
-  *  Mapper 接口
+ * Mapper 接口
  * </p>
  *
  * @author yuxin
@@ -24,29 +24,29 @@ import com.xczhihui.course.vo.QueryConditionVo;
 public interface MobileBannerMapper extends BaseMapper<MobileBanner> {
 
 
-	 List<MobileBanner> selectMobileBannerPage(@Param("type") Integer type);
-	 
-	 void addClickNum(@Param("id") String id);
+    List<MobileBanner> selectMobileBannerPage(@Param("type") Integer type);
 
-	 List<CourseLecturVo> recommendCourseList(@Param("cateGoryList")List<MenuVo> menuList,
-			@Param("pageSizeUp")Integer pageSizeUp,@Param("pageSizeDown")Integer pageSizeDown);
+    void addClickNum(@Param("id") String id);
 
-	 List<CourseLecturVo> realCourseList(@Param("cityList")List<OfflineCity> cityList,
-			 @Param("pageSizeUp")Integer pageSizeUp, @Param("pageSizeDown")Integer pageSizeDown);
+    List<CourseLecturVo> recommendCourseList(@Param("cateGoryList") List<MenuVo> menuList,
+                                             @Param("pageSizeUp") Integer pageSizeUp, @Param("pageSizeDown") Integer pageSizeDown, @Param("onlyFree") boolean onlyFree);
 
-	List<CourseLecturVo> liveCourseList(@Param("pageSizeUp")Integer pageSizeUp,
-			@Param("pageSizeDown")Integer pageSizeDown);
+    List<CourseLecturVo> realCourseList(@Param("cityList") List<OfflineCity> cityList,
+                                        @Param("pageSizeUp") Integer pageSizeUp, @Param("pageSizeDown") Integer pageSizeDown, @Param("onlyFree") boolean onlyFree);
 
-	List<CourseLecturVo> searchQueryKeyCourseList(@Param("queryVo")QueryConditionVo queryVo);
+    List<CourseLecturVo> liveCourseList(@Param("pageSizeUp") Integer pageSizeUp,
+                                        @Param("pageSizeDown") Integer pageSizeDown, @Param("onlyFree") Boolean onlyFree);
 
-	List<CourseLecturVo> searchCourseList(@Param("queryVo")QueryConditionVo queryVo);
+    List<CourseLecturVo> searchQueryKeyCourseList(@Param("queryVo") QueryConditionVo queryVo);
 
-	List<CourseLecturVo> searchCourseList(@Param("page")Page<CourseLecturVo> page, @Param("queryVo")QueryConditionVo queryConditionVo);
+    List<CourseLecturVo> searchCourseList(@Param("queryVo") QueryConditionVo queryVo);
 
-	List<CourseLecturVo> searchQueryKeyCourseList(@Param("page")Page<CourseLecturVo> page,@Param("queryVo")QueryConditionVo queryConditionVo);
+    List<CourseLecturVo> searchCourseList(@Param("page") Page<CourseLecturVo> page, @Param("queryVo") QueryConditionVo queryConditionVo);
 
-	List<CourseLecturVo> selectPcIndex(@Param("pageSize")Integer pageSize);
+    List<CourseLecturVo> searchQueryKeyCourseList(@Param("page") Page<CourseLecturVo> page, @Param("queryVo") QueryConditionVo queryConditionVo);
 
-	List<CourseLecturVo> selectUnshelveRecommenCourse(@Param("pageSize")Integer pageSize);
-	 
+    List<CourseLecturVo> selectPcIndex(@Param("pageSize") Integer pageSize);
+
+    List<CourseLecturVo> selectUnshelveRecommenCourse(@Param("pageSize") Integer pageSize);
+
 }

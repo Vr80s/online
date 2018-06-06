@@ -37,5 +37,6 @@ public interface OLCourseServiceI {
 	public List<CourseVo> queryAllCourse(String menuType,Integer lineState,
 			Integer courseType, String isFree, String city,String queryKey,
 			Integer pageNumber, Integer pageSize) throws SQLException;
-	
+
+    List<CourseVo> queryAllCourse(String menuType, Integer lineState, Integer courseType, String isFree, String city, String queryKey, Integer pageNumber, Integer pageSize, Boolean onlyFree) throws SQLException;
 }

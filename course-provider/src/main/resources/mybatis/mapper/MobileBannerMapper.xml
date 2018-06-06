@@ -34,15 +34,20 @@
 		SET click_sum = click_sum+1
 		WHERE id = #{id}
 	</update>
-	
-	
+
+
 	<sql id="commonCondition">
-	   from  oe_course oc 
+		from  oe_course oc
 		inner join course_anchor as ou on oc.user_lecturer_id = ou.user_id
 		where  ou.status = 1
 		and ou.deleted =0
-		and oc.is_delete=0 
-		and oc.status=1 
+		and oc.is_delete=0
+		and oc.status=1
+	</sql>
+	<sql id="onlyFreeCondition">
+		<if test="onlyFree" >
+			and oc.is_free = 1
+		</if>
 	</sql>
 	
 	<sql id="selectRecommenCourse">
@@ -79,13 +84,15 @@
 		  <include refid="selectRecommenCourse"/>
 		    '精品课程' as note
 		  <include refid="commonCondition"/>
-			order by recommendSort desc,oc.release_time desc  limit 0,#{pageSizeUp} 
+		  <include refid="onlyFreeCondition"/>
+			order by recommendSort desc,oc.release_time desc  limit 0,#{pageSizeUp}
         )
         union all
         ( select 
 		  <include refid="selectRecommenCourse"/>
 		    '最新课程' as note
-		 <include refid="commonCondition"/> 
+		 <include refid="commonCondition"/>
+		<include refid="onlyFreeCondition"/>
 			 order by  oc.release_time desc  limit 0,#{pageSizeUp} 
         )
 		<if test="cateGoryList !=null ">  
@@ -102,6 +109,7 @@
 						 and oc.is_delete=0 
 						 and oc.status=1 
 						 and om.id  = #{cateGory.id}
+						<include refid="onlyFreeCondition"/>
 						 order by recommendSort desc,oc.release_time desc limit 0,#{pageSizeDown}
 	    		 )
 	        </foreach>  
@@ -134,6 +142,7 @@
 		    '全国课程' as note
 			from oe_course oc 
 			WHERE oc.is_delete=0 and oc.status=1 and oc.type = 3
+			<include refid="onlyFreeCondition"/>
 		    ORDER BY recommendSort desc,oc.start_time DESC LIMIT 0,#{pageSizeUp}
         )
 		<if test="cityList !=null ">  
@@ -145,6 +154,7 @@
 				    oc.city as note
 					from  oe_course oc 
 					WHERE oc.is_delete=0 and oc.status=1 and oc.type = 3 and oc.city = #{city.cityName}
+					<include refid="onlyFreeCondition"/>
 					ORDER BY recommendSort desc,oc.start_time DESC LIMIT 0,#{pageSizeDown}
 	    		 )
 	        </foreach>  
@@ -183,6 +193,7 @@
 		    <include refid="selectLiveCourse"/>
 		    '正在直播' as note
 		  <include refid="commonCondition"/>
+		  <include refid="onlyFreeCondition"/>
 			and	oc.type=1 and oc.live_status = 1 and oc.start_time >= DATE_SUB(now(),INTERVAL 1 DAY)
 			order by  recommendSort DESC,oc.start_time DESC LIMIT 0,#{pageSizeUp}
         )
@@ -192,7 +203,8 @@
 		    <include refid="selectLiveCourse"/>
 		    '即将直播' as note
 		  <include refid="commonCondition"/>
-		   and oc.type=1 and oc.live_status = 2 and ( ( oc.start_time &lt;= DATE_ADD(now(),INTERVAL 1 DAY) and oc.start_time > now() ) or ( DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time ))   
+		  <include refid="onlyFreeCondition"/>
+		   and oc.type=1 and oc.live_status = 2 and ( ( oc.start_time &lt;= DATE_ADD(now(),INTERVAL 1 DAY) and oc.start_time > now() ) or ( DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time ))
 		   order by  recommendSort DESC,oc.start_time asc LIMIT 0,#{pageSizeDown}
         )
         union all
@@ -201,6 +213,7 @@
 		    <include refid="selectLiveCourse"/>
 		    '直播课程' as note
 			<include refid="commonCondition"/>
+			<include refid="onlyFreeCondition"/>
 			and oc.type=1 and oc.live_status = 2 and oc.start_time >= DATE_ADD(now(),INTERVAL 1 DAY)
 			order by  recommendSort DESC,oc.start_time asc LIMIT 0,#{pageSizeDown}
         )
@@ -210,6 +223,7 @@
 		    <include refid="selectLiveCourse"/>
 		    '精彩直播回放' as note
 			<include refid="commonCondition"/> 
+			<include refid="onlyFreeCondition"/>
 			and oc.type=1 and oc.live_status = 3
 		    order by  recommendSort DESC,oc.start_time desc LIMIT 0,#{pageSizeDown}
         ) 

@@ -22,6 +22,12 @@
 		<id column="address" property="address" />
 		<id column="city" property="city" />
 	</resultMap>
+
+	<sql id="onlyFreeCondition">
+		<if test="onlyFree" >
+			and oc.is_free = 1
+		</if>
+	</sql>
 	<!-- 查询所有的课程 -->
 	<select id="selectCoursePage" resultMap="courseBaseResult">
 		SELECT
@@ -280,6 +286,7 @@
 			and oc.is_delete=0 
 			and oc.status=1 
 			and oc.type = 1
+			<include refid="onlyFreeCondition"/>
 			order by recent limit 0,1
 	</select>
 
@@ -291,7 +298,8 @@
 		    DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr
 		FROM
 		oe_course oc
-		where oc.user_lecturer_id = #{userId} and oc.status = 1 and oc.is_delete=0  
+		where oc.user_lecturer_id = #{userId} and oc.status = 1 and oc.is_delete=0
+		<include refid="onlyFreeCondition"/>
 		order by release_time desc
 	</select>
 
@@ -535,9 +543,11 @@
 		if(oc.sort_update_time< now(),0,oc.recommend_sort) recommendSort,
 		oc.start_time as startTime,oc.create_time
 		from oe_course oc ,oe_user ou
-		where oc.user_lecturer_id = ou.id and oc.is_delete=0 and oc.status = 1 and oc.multimedia_type = 2
-		order by recommendSort desc,oc.release_time desc LIMIT 0,12
 		]]>
+		where oc.user_lecturer_id = ou.id and oc.is_delete=0 and oc.status = 1 and oc.multimedia_type = 2
+		<include refid="onlyFreeCondition"/>
+		order by recommendSort desc,oc.release_time desc LIMIT 0,12
+
 	</select>
 	<!--  查看直播课程列表  -->
 	<select id="findLiveListInfo" resultType="com.xczhihui.course.vo.CourseLecturVo">

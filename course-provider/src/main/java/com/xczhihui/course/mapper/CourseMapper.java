@@ -37,9 +37,9 @@ public interface CourseMapper extends BaseMapper<Course> {
 
     List<CourseLecturVo> selectCoursesByCollectionId(Integer collectionId);
 
-    CourseLecturVo selectLecturerRecentCourse(@Param("userId") String userId);
+    CourseLecturVo selectLecturerRecentCourse(@Param("userId") String userId, @Param("onlyFree") boolean onlyFree);
 
-    List<CourseLecturVo> selectLecturerAllCourse(@Param("page") Page<CourseLecturVo> page, @Param("userId") String id);
+    List<CourseLecturVo> selectLecturerAllCourse(@Param("page") Page<CourseLecturVo> page, @Param("userId") String id, @Param("onlyFree") boolean onlyFree);
 
     List<CourseLecturVo> selectUserConsoleCourse(@Param("userId") String userId);
 
@@ -63,7 +63,7 @@ public interface CourseMapper extends BaseMapper<Course> {
 
     List<CourseLecturVo> selectUserConsoleCourseLiveByPage(@Param("page") Page<CourseLecturVo> page, @Param("userId") String userId);
 
-    List<CourseLecturVo> listenCourseList();
+    List<CourseLecturVo> listenCourseList(@Param("onlyFree") boolean onlyFree);
 
     List<CourseLecturVo> findLiveListInfo();
 

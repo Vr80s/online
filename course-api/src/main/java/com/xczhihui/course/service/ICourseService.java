@@ -61,6 +61,8 @@ public interface ICourseService {
      */
     public CourseLecturVo selectLecturerRecentCourse(String lecturerId);
 
+    CourseLecturVo selectLecturerRecentCourse(String lecturerId, boolean onlyFreee);
+
     /**
      * Description：根据主播id得到主播的所有课程，按照发布时间排序
      *
@@ -70,6 +72,8 @@ public interface ICourseService {
      * @author name：yangxuan <br>email: 15936216273@163.com
      */
     public Page<CourseLecturVo> selectLecturerAllCourse(Page<CourseLecturVo> page, String lecturerId);
+
+    Page<CourseLecturVo> selectLecturerAllCourse(Page<CourseLecturVo> page, String lecturerId, boolean onlyFree);
 
     /**
      * Description：查找用户控制台的课程数据
@@ -116,6 +120,8 @@ public interface ICourseService {
      * @Date: 2018/2/28 20:52
      **/
     public List<CourseLecturVo> listenCourseList();
+
+    List<CourseLecturVo> listenCourseList(boolean onlyFree);
 
     /**
      * Description：查询直播课程列表
