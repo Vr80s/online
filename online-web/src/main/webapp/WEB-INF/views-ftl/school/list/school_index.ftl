@@ -54,6 +54,8 @@
 								<#-- 课程列表 页跳转  带上跳转条件 -->
 								<#if courseTypeItem.title?? && courseTypeItem.title == "最新课程"> 
 									<p><a href="/courses/list?menuType=${courseTypeItem.menuType}&sortOrder=2" target="_blank">更多</a>
+								<#elseif  courseTypeItem.title?? && courseTypeItem.title == "免费课程">
+								    <p><a href="/courses/list?isFree=1" target="_blank">更多</a>
 								<#else>
 									<p><a href="/courses/list?menuType=${courseTypeItem.menuType}" target="_blank">更多</a>
 								</#if>

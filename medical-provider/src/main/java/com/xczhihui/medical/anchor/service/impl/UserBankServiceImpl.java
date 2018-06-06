@@ -273,8 +273,10 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper, UserBank>
 			if(BankUtil.getNameOfBank(acctPan).contains(yzcx) || BankUtil.getNameOfBank(acctPan).contains("邮政储蓄银行")){
 				verifyBank = true;
 			}
-		}else{
+		}else if (!BankUtil.getNameOfBank(acctPan).equals("")){
 			verifyBank = BankUtil.getNameOfBank(acctPan).contains(yzcx);
+		}else {
+			verifyBank = true;
 		}
 		
 		if (!verifyBank) {

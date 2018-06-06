@@ -167,4 +167,22 @@ public class AskQuestionListController extends AbstractController{
          questionListService.updateQuestion(questionVo);
          return ResponseObject.newSuccessResponseObject("操作成功");
     }
+
+    /**
+     * 获取我的提问列表信息
+     * @param pageNumber 当前页码
+     * @param pageSize  每页显示条数
+     * @param status    状态，0待回答，1回答中，2已解决
+     * @param tag  标签信息
+     * @param title 标题
+     * @param text 纯文本内容
+     * @param content 内容
+     * @param menuId 学科ID号
+     * @return
+     */
+    @RequestMapping(value = "/getMyQuestionList",method= RequestMethod.GET)
+    public ResponseObject getMyQuestionList(Integer pageNumber, Integer pageSize,Integer menuId, String status, String tag, String title, String text, String content,HttpSession s) {
+        OnlineUser u =  getCurrentUser();
+        return ResponseObject.newSuccessResponseObject(questionListService.findMyListQuestion(u,pageNumber,pageSize,menuId,status,tag,title,text,content));
+    }
 }

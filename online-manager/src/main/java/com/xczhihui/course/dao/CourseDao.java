@@ -42,6 +42,7 @@ public class CourseDao extends HibernateDao<Course> {
                         + "  oc.create_time AS createTime,\n"
                         + "  oc.status AS STATUS,\n"
                         + "  oc.is_free AS isFree, \n"
+                        + "  oc.smallimg_path AS smallingPath, \n"
                         +
                         "  oc.current_price*10 AS currentPrice,\n"
                         + "  oc.description AS description,\n"
