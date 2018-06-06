@@ -25,7 +25,8 @@ public interface IWatchHistoryService {
      * @author name：yangxuan <br>email: 15936216273@163.com
      *
      */
-	void addOrUpdate(String lockId,WatchHistory target);
+	void addWatchHistory(Integer courseId, String userId, String userLecturerId, Integer collectionId);
+
 	/**
 	 * 逻辑删除
 	 * Description：
@@ -35,6 +36,8 @@ public interface IWatchHistoryService {
 	 */
 	void deleteBatch(String userId);
 
-	void addLearnRecord(String lockId, Integer courseId, String userId, String loginName);
-	
+	void addLearnRecord(Integer courseId, String userId);
+
+	void addLookHistory(Integer courseId, String id, Integer recordType, Integer collectionId);
+
 }

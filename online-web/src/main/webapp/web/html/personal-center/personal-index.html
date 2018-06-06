@@ -98,50 +98,50 @@
 					<div id="left-tab">
 					<!-- Contenedor -->
 						<ul id="accordion" class="accordion">
-							<li data-mune="mune1-1">
+							<li data-menu="menu1-1">
 								<div class="link"><i class="icomoon-icon-xuexi"></i>学习中心<span class="" aria-hidden="true"></span></div>
 								<ul class="submenu">
-									<li><a href="javascript:;" data-mune="mune1-1">我的课程</a></li>
-									<li><a href="javascript:;" data-load="load-anchor" data-mune="mune1-2">关注的主播</a></li>
+									<li><a href="javascript:;" data-menu="menu1-1">我的课程</a></li>
+									<li><a href="javascript:;" data-load="load-anchor" data-menu="menu1-2">关注的主播</a></li>
 								</ul>
 							</li>
-							<li data-mune="mune2-1">
+							<li data-menu="menu2-1">
 								<div class="link"><i class="icomoon-icon-wenda"></i>问答与论坛<span class="" aria-hidden="true"></span></div>
-								<ul class="submenu">
-									<li><a href="javascript:;" data-mune="mune2-1">我的问答</a></li>
-									<li><a href="javascript:;" data-mune="mune2-2">我的论坛</a></li>
+								<ul class="submenu tte">
+									<li><a href="javascript:;" data-menu="menu2-1">我的问答</a></li>
+									<li><a href="javascript:;" data-menu="menu2-2">我的论坛</a></li>
 								</ul>
 							</li>
-							<li  data-mune="mune3">
-								<div class="link" data-mune="mune3" data-load="load-order"><i class="icomoon-icon-dingdan"></i>我的订单</div>
+							<li  data-menu="menu3">
+								<div class="link" data-menu="menu3" data-load="load-order"><i class="icomoon-icon-dingdan"></i>我的订单</div>
 								<ul class="submenu">
 									<!--<li><a href="javascript:;">课程收益</a></li>
 									<li><a href="javascript:;">礼物收益</a></li>-->
 								</ul>
-							</li data-mune="mune4">
-							<li id="wallet-btn">
-								<div class="link" data-mune="mune4" data-load="load-money"><i class="icomoon-icon-zichan"></i>我的钱包</div>
+							</li>
+							<li id="wallet-btn" data-menu="menu4">
+								<div class="link" data-menu="menu4" data-load="load-money"><i class="icomoon-icon-zichan"></i>我的钱包</div>
 								<ul class="submenu">
 									<!--<li><a href="javascript:;">认证信息</a></li>
 									<li><a href="javascript:;">主播信息</a></li>-->
 								</ul>
 							</li>
-							<li id="data-btn" data-mune="mune5">
-								<div class="link jump-data" data-mune="mune5" data-load="load-data"><i class="icomoon-icon-ziliao"></i>个人资料</div>
+							<li id="data-btn" data-menu="menu5">
+								<div class="link jump-data" data-menu="menu5" data-load="load-data"><i class="icomoon-icon-ziliao"></i>个人资料</div>
 								<ul class="submenu">
 									<!--<li><a href="javascript:;">认证信息</a></li>
 									<li><a href="javascript:;">主播信息</a></li>-->
 								</ul>
 							</li>
-							<li data-mune="mune6">
-								<div class="link" data-mune="mune6" data-load="load-news"><i class="iconfont icon-ziyuan" style="font-size: 14px;top: 26px;"></i>消息</div>
+							<li data-menu="menu6">
+								<div class="link" data-menu="menu6" data-load="load-news"><i class="iconfont icon-ziyuan" style="font-size: 14px;top: 26px;"></i>消息</div>
 								<ul class="submenu">
 									<!--<li><a href="javascript:;">认证信息</a></li>
 									<li><a href="javascript:;">主播信息</a></li>-->
 								</ul>
 							</li>
-							<li data-mune="mune7">
-								<div class="link" data-mune="mune7"><i class="iconfont icon-yijianfankui"style="top: 23px;"></i>意见反馈</div>
+							<li data-menu="menu7">
+								<div class="link" data-menu="menu7"><i class="iconfont icon-yijianfankui"style="top: 23px;"></i>意见反馈</div>
 								<ul class="submenu">
 									<!--<li><a href="javascript:;">认证信息</a></li>
 									<li><a href="javascript:;">主播信息</a></li>-->
@@ -160,7 +160,7 @@
 								<div class="mune1-1">
 									<div class="my-class-nav">
 										<ul>
-											<li class="class-active">播放历史</li>
+											<li class="class-active" data-btn="load-history">播放历史</li>
 											<li data-btn="load-buy">已购课程</li>
 											<li data-btn="load-end">结束课程</li>
 										</ul>
@@ -437,12 +437,12 @@
 								</div>	
 							</div>
 						<!--问答与论坛-->
-							<div class="content hide aa" id="show-set" >
+							<div class="content hide" id="aaa">
 								<!--我的问答-->
 								<div class="mune2-1">
 									<div class="question-forum">
 										<ul>
-											<li class="mune-active">我的提问</li>
+											<li class="mune-active" id="btnQuestion">我的提问</li>
 											<li>我的回答</li>
 										</ul>
 									</div>
@@ -797,8 +797,8 @@
 															{{else if item.order_status==2}}
 															<li>已失效</li>
 															<li>
-																<p onclick="againBuy(this)" data-id="{{t.id}}">重新购买</p>
-																<p onclick="deleteBtnOrder(this)" data-delete="0" data-number="{{item.order_no}}">删除订单</p>
+																
+																<p style="line-height: 59px;" onclick="deleteBtnOrder(this)" data-delete="0" data-number="{{item.order_no}}">删除订单</p>
 															</li>
 															{{/if}}
 														</ul>
@@ -880,7 +880,7 @@
 													<p>暂无交易记录</p>
 												</div>
 												<!--分页部分start-->
-												<div class="money_pages pages hide">  <!--如需要复制分页doctors_pages要改类名并在JS里对应-->
+												<div class="money_pages pages hide" style="margin-top: 20px;">  <!--如需要复制分页doctors_pages要改类名并在JS里对应-->
 													<div id="money_doctors" class="pagination-pages"></div>	<!--如需要复制分页Pagination_doctors要改类名并在JS里对应-->
 													<div class="searchPage">
 														<span class="page-sum">共<strong class="allPage">0</strong>页</span>
@@ -1199,11 +1199,7 @@
 		
 		
 		<script src="/web/js/personal-center/personal-index.js" type="text/javascript" charset="utf-8"></script>	
-		<script>
-			
 	
-
-		</script>
 	</body>	
 		
 		

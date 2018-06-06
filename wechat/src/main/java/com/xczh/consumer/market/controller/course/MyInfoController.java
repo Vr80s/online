@@ -47,6 +47,7 @@ public class MyInfoController {
 
     @Autowired
     private OnlineUserService onlineUserService;
+    
 
     private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(MyInfoController.class);
 
@@ -128,15 +129,17 @@ public class MyInfoController {
     @ResponseBody
     public ResponseObject updateFocus(HttpServletRequest req,
                                       @RequestParam("lecturerId") String lecturerId,
-                                      @RequestParam("type") Integer type, @Account String accountId)
+                                      @RequestParam("type") Integer type, 
+                                      @Account String accountId)
             throws Exception {
         OnlineUser onlineLecturer = onlineUserService.findUserById(lecturerId);
         if (null == onlineLecturer) {
             return ResponseObject.newErrorResponseObject("操作失败");
         }
         String lockId = lecturerId + accountId;
-
-        ifocusService.updateFocus(lockId, lecturerId, accountId, type);
+        ifocusService.updateFocus(lockId, 
+        		lecturerId,accountId, type);
+       
         return ResponseObject.newSuccessResponseObject("操作成功");
     }
 

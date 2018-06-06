@@ -1,22 +1,23 @@
 package com.xczhihui.bxg.online.web.controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
-import com.xczhihui.course.vo.FocusVo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.xczhihui.common.support.domain.BxgUser;
-import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.service.UserService;
+import com.xczhihui.common.support.domain.BxgUser;
+import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.course.service.IFocusService;
-
-import java.util.List;
+import com.xczhihui.course.vo.FocusVo;
 
 
 /** 
@@ -35,10 +36,9 @@ public class FocusController extends AbstractController{
 	@Autowired
 	private UserService service;
 
-	@Autowired
-	@Qualifier("focusServiceRemote")
-	private IFocusService ifocusService;
 
+	
+	
 	/**
 	 * Description:获取主播信息接口
 	 * @return
@@ -81,7 +81,15 @@ public class FocusController extends AbstractController{
 		}
 		String lockId = lecturerId+loginUser.getId();
 		focusService.updateFocus(lockId,lecturerId,loginUser.getId(),type);
-		return ResponseObject.newSuccessResponseObject("操作成功");
+		
+        Map<String,Object> map = new HashMap<String,Object>();
+        /*
+         * 这里建议获取下粉丝数和关注数
+         */
+        List<Integer> listff = focusService.selectFocusAndFansCountAndCriticizeCount(loginUser.getId());
+        map.put("fansCount", listff.get(0));           //粉丝总数
+        map.put("focusCount", listff.get(1));           //关注总数
+		return ResponseObject.newSuccessResponseObject(map);
 	}
 
 	/**
@@ -97,7 +105,7 @@ public class FocusController extends AbstractController{
 			if(u==null) {
                 return ResponseObject.newErrorResponseObject("用户未登录");
             }
-			List<FocusVo> list = ifocusService.selectFocusList(u.getId());
+			List<FocusVo> list = focusService.selectFocusList(u.getId());
 			return ResponseObject.newSuccessResponseObject(list);
 		} catch (Exception e) {
 			e.printStackTrace();

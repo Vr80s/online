@@ -1,7 +1,6 @@
 package com.xczhihui.bxg.online.web.controller;
 
 import java.io.IOException;
-import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -14,14 +13,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
 import com.xczhihui.bxg.online.common.domain.User;
+import com.xczhihui.bxg.online.web.base.utils.UserLoginUtil;
 import com.xczhihui.bxg.online.web.service.LiveService;
 import com.xczhihui.bxg.online.web.service.ManagerUserService;
 import com.xczhihui.common.support.domain.BxgUser;
-import com.xczhihui.bxg.online.web.base.utils.UserLoginUtil;
-import com.xczhihui.course.model.WatchHistory;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.course.service.IWatchHistoryService;
 import com.xczhihui.course.vo.CourseLecturVo;
@@ -132,12 +129,10 @@ public class PageController {
      * 判断是否跳到直播间
      *
      * @param courseId
-     * @param request
-     * @param response
      * @return
      */
     @RequestMapping(value = "/liveCoursePage/{courseId}", method = RequestMethod.GET)
-    public ModelAndView liveCoursePage(@PathVariable Integer courseId, HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView liveCoursePage(@PathVariable Integer courseId) {
 
         ModelAndView mv = null;
         BxgUser user = UserLoginUtil.getLoginUser();
@@ -161,7 +156,7 @@ public class PageController {
                 mv.addObject("roomId", clv.getDirectId());
                 mv.addObject("roomJId", courseId + postfix);
                 mv.addObject("boshService", boshService);
-                mv.addObject("now", new Date().getTime());
+                mv.addObject("now", System.currentTimeMillis());
                 mv.addObject("description", clv);
                 mv.addObject("email", user == null ? null : user.getId() + "@xczh.com");
                 mv.addObject("name", user == null ? null : user.getName());
@@ -172,19 +167,8 @@ public class PageController {
                 mv.addObject("host", host);
                 mv.addObject("rate", rate);
 
-                /**
-                 * 增加学习记录、增加播放记录
-                 */
-                String lockId = user.getId() + courseId;
-
-                watchHistoryServiceImpl.addLearnRecord(lockId, courseId, user.getId(), user.getLoginName());
-
-                WatchHistory target = new WatchHistory();
-                target.setCourseId(courseId);
-                target.setUserId(user.getId());
-                target.setLecturerId(clv.getUserLecturerId());
-                target.setCollectionId(null);
-                watchHistoryServiceImpl.addOrUpdate(lockId, target);
+                watchHistoryServiceImpl.addLearnRecord(courseId, user.getId());
+                watchHistoryServiceImpl.addWatchHistory(courseId, user.getId(), clv.getUserLecturerId(), null);
             } else {
                 mv = new ModelAndView("redirect:/courses/" + courseId + "/info");
             }
@@ -192,9 +176,6 @@ public class PageController {
             //转发到展示页面
             mv = new ModelAndView("redirect:/courses/" + courseId + "/info");
         }
-
-        System.out.println(mv.getViewName() + "____" + mv.getView());
-        System.out.println(mv.getView() instanceof RedirectView);
 
         return mv;
     }

@@ -269,7 +269,9 @@ $(function () {
                 $("#login").modal("show");
             } else {
                 window.localStorage.personcenter = $(this).attr("data-id");
-                window.location.href = "/web/html/personcenter.html";
+//              window.location.href = "/web/html/personcenter.html";
+				window.open("/web/html/personal-center/personal-index.html#menu6");
+							$("#accordion .link[data-menu='menu6']").click();
             }
         })
     });
@@ -539,7 +541,7 @@ $(function () {
 
                 location.href = "/myReply";
             } else {
-                if (window.location.pathname == "/web/html/personcenter.html") {
+//              if (window.location.pathname == "/web/html/personcenter.html") {
                     if ($(this).attr("data-exit")) {
                         RequestService("/online/user/logout", "GET", {}, function () {
                             location.href = "/index.html";
@@ -547,17 +549,17 @@ $(function () {
                             $(".loginGroup .login").css("display", "none");
                         });
                     } else {
-                        $(".left-nav ." + window.localStorage.personcenter).click();
-                    }
-                } else {
-                    if ($(this).attr("data-exit")) {
-                        RequestService("/online/user/logout", "GET", {}, function () {
-                            location.href = "/index.html";
-                            $(".loginGroup .logout").css("display", "block");
-                            $(".loginGroup .login").css("display", "none");
-                        });
-                    } else {
-                        location.href = "/web/html/personcenter.html";
+                    	
+						if(window.localStorage.personcenter=="mydata"){
+							window.open("/web/html/personal-center/personal-index.html#menu5");
+							$("#accordion .link[data-menu='menu5']").click();						
+						}else if(window.localStorage.personcenter=="idea"){
+							window.open("/web/html/personal-center/personal-index.html#menu7");
+							$("#accordion .link[data-menu='menu7']").click();	
+						}else if(window.localStorage.personcenter=="mymoney"){
+							window.open("/web/html/personal-center/personal-index.html#menu4");
+							$("#accordion .link[data-menu='menu4']").click();	
+						}
                         RequestService("/online/user/isAlive", "GET", null, function (data) {///online/user/isAlive
                             if (data.success) {
                                 if (data.resultObject.smallHeadPhoto != "/web/images/defaultHeadImg.jpg") {
@@ -591,7 +593,49 @@ $(function () {
                             }
                         });
                     }
-                }
+//              } else {
+//                  if ($(this).attr("data-exit")) {
+//                      RequestService("/online/user/logout", "GET", {}, function () {
+//                          location.href = "/index.html";
+//                          $(".loginGroup .logout").css("display", "block");
+//                          $(".loginGroup .login").css("display", "none");
+//                      });
+//                  } else {
+//                      location.href = "/web/html/personcenter.html";
+//                      RequestService("/online/user/isAlive", "GET", null, function (data) {///online/user/isAlive
+//                          if (data.success) {
+//                              if (data.resultObject.smallHeadPhoto != "/web/images/defaultHeadImg.jpg") {
+//                                  path = data.resultObject.smallHeadPhoto;
+//                              } else {
+//                                  path = bath + data.resultObject.smallHeadPhoto
+//                              }
+//                              //头像预览
+//                              $(".userPic").css({
+//                                  background: "url(" + path + ") no-repeat",
+//                                  backgroundSize: "100% 100%"
+//                              });
+//                              $('#login').modal('hide');
+//                              $("html").css({"overflow-x": "hidden", "overflow-y": "auto"});
+//                              $(".loginGroup .logout").hide();
+//                              $(".loginGroup .login").show();
+//                              $(".dropdown .name").text(data.resultObject.name).attr("title", data.resultObject.name);
+//                              localStorage.username = data.resultObject.loginName;
+//                              localStorage.userid = data.resultObject.id;
+//                              if ($(btn.parent().hasClass('selected'))) {
+//
+//                              } else {
+//                                  hideHtml();
+//                              }
+//                          } else {
+//                              // location.href = "/webapp/otherDevice.html";
+//                              // localStorage.username = null;
+//                              // localStorage.password = null;
+//                              // $(".login").css("display", "none");
+//                              // $(".logout").css("display", "block");
+//                          }
+//                      });
+//                  }
+//              }
             }
 
         });
