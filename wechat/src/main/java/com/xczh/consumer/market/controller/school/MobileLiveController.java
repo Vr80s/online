@@ -51,7 +51,7 @@ public class MobileLiveController {
         Map<String, Object> mapAll = new HashMap<String, Object>();
         //直播banner
         Page<MobileBanner> mobileBannerPage = new Page<>();
-        mobileBannerPage.setRecords(mobileBannerService.selectMobileBannerPage(BannerType.LIVE.getCode()));
+        mobileBannerPage.setRecords(mobileBannerService.selectMobileBannerPage(BannerType.LIVE.getCode(),IOSVersionInterceptor.onlyThread.get()));
         mapAll.put("banner", mobileBannerPage);
         List<Map<String, Object>> mapCourseList = mobileBannerService.liveCourseList(
                 PagingFixedType.LIVE_PAGETYPE_UP.getValue(),

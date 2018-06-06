@@ -52,7 +52,7 @@ public class MobileListenCourseController {
         Map<String, Object> mapAll = new HashMap<String, Object>();
         //听课banner
         Page<MobileBanner> mobileBannerPage = new Page<>();
-        mobileBannerPage.setRecords(mobileBannerService.selectMobileBannerPage(BannerType.LISTEN.getCode()));
+        mobileBannerPage.setRecords(mobileBannerService.selectMobileBannerPage(BannerType.LISTEN.getCode(),IOSVersionInterceptor.onlyThread.get()));
         mapAll.put("banner", mobileBannerPage);
 
         //听课课程列表
