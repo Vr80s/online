@@ -3,6 +3,7 @@
  *	 
  */
 $(".want-evaluate").click(function() {
+	
 	// 判断是否登录
 	RequestService("/online/user/isAlive", "get", null, function(data) {
 		if (!data.success) { //未登录
@@ -16,17 +17,13 @@ $(".want-evaluate").click(function() {
 				$('#login').modal('show');
 			}
 		} else { //已登录
-			
 			//没有购买以及购买或者评论过的，隐藏这写东东
 			if(commentCode == 0 || commentCode == 2){
 				$(".commentCode").hide();
 			}
-			
-			
-			
 			$(".bg-modal").removeClass("hide");
 			$(".wrap-modal").removeClass("hide");
-			
+			$(".submission").css("background-color", "");
 		}
 	})
 
