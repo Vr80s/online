@@ -55,79 +55,41 @@ public class CityServiceImpl  extends OnlineBaseServiceImpl implements CityServi
 		 /*
 		  * sql 一下字查完。然后在进行拼接，得到中国下的省份。
 		  */
-//		 String sql1 = "select code_p as pid,name as pname from place_province";
-//		 List<Map<String, Object>> listProven = dao.getNamedParameterJdbcTemplate().queryForList(sql1,new HashMap<>());
-//		 
-//		 String sql2 = "select code_c as cid,name as cname,code_p as pid from place_city";
-//		 List<Map<String, Object>> listCity =  dao.getNamedParameterJdbcTemplate().queryForList(sql2,new HashMap<>());
-//		 
-//		 String sql3 = "select code_a as did,name as dname,code_c as  cid from place_area";
-//		 List<Map<String, Object>> listDistrict =  dao.getNamedParameterJdbcTemplate().queryForList(sql3,new HashMap<>());
-//		 
-//		 /**
-//		  * 先循环小的，在循环大的
-//		  */
-//		 for (Map<String, Object> mapCity : listCity) {
-//			 List<Map<String, Object>> listCityC = new ArrayList<Map<String,Object>>(); 
-//			 String objPcid  = mapCity.get("cid").toString();
-//			 for (Map<String, Object> mapDistrict : listDistrict) {
-//				 String objPclin  = mapDistrict.get("cid").toString();
-//				 if(objPcid.equals(objPclin)){
-//					 listCityC.add(mapDistrict);
-//				 }
-//			 }
-//			 mapCity.put("disList", listCityC);
-//	     }
-//		 /**
-//		  * 在循环大的
-//		  */
-//		 for (Map<String, Object> mapProven : listProven) {
-//			 List<Map<String, Object>> listCityC = new ArrayList<Map<String,Object>>(); 
-//			 String objPcid  = mapProven.get("pid").toString();
-//			 for (Map<String, Object> mapCity : listCity) {
-//				 String objPclin  = mapCity.get("pid").toString();
-//				 if(objPcid.equals(objPclin)){
-//					 listCityC.add(mapCity);
-//				 }
-//			 }
-//			 mapProven.put("cityList", listCityC);
-//		 }
-		 String sql1 = "select code_p as value,name as text from place_province";
+		 String sql1 = "select code_p as pid,name as pname from place_province";
 		 List<Map<String, Object>> listProven = dao.getNamedParameterJdbcTemplate().queryForList(sql1,new HashMap<>());
 		 
-		 String sql2 = "select code_c as value,name as text,code_p as code from place_city";
+		 String sql2 = "select code_c as cid,name as cname,code_p as pid from place_city";
 		 List<Map<String, Object>> listCity =  dao.getNamedParameterJdbcTemplate().queryForList(sql2,new HashMap<>());
 		 
-		 String sql3 = "select code_a as value,name as text,code_c as  code from place_area";
+		 String sql3 = "select code_a as did,name as dname,code_c as  cid from place_area";
 		 List<Map<String, Object>> listDistrict =  dao.getNamedParameterJdbcTemplate().queryForList(sql3,new HashMap<>());
-		 
 		 /**
 		  * 先循环小的，在循环大的
 		  */
 		 for (Map<String, Object> mapCity : listCity) {
 			 List<Map<String, Object>> listCityC = new ArrayList<Map<String,Object>>(); 
-			 String objPcid  = mapCity.get("value").toString();
+			 String objPcid  = mapCity.get("cid").toString();
 			 for (Map<String, Object> mapDistrict : listDistrict) {
-				 String objPclin  = mapDistrict.get("code").toString();
+				 String objPclin  = mapDistrict.get("cid").toString();
 				 if(objPcid.equals(objPclin)){
 					 listCityC.add(mapDistrict);
 				 }
 			 }
-			 mapCity.put("children", listCityC);
+			 mapCity.put("disList", listCityC);
 	     }
 		 /**
 		  * 在循环大的
 		  */
 		 for (Map<String, Object> mapProven : listProven) {
 			 List<Map<String, Object>> listCityC = new ArrayList<Map<String,Object>>(); 
-			 String objPcid  = mapProven.get("value").toString();
+			 String objPcid  = mapProven.get("pid").toString();
 			 for (Map<String, Object> mapCity : listCity) {
-				 String objPclin  = mapCity.get("code").toString();
+				 String objPclin  = mapCity.get("pid").toString();
 				 if(objPcid.equals(objPclin)){
 					 listCityC.add(mapCity);
 				 }
 			 }
-			 mapProven.put("children", listCityC);
+			 mapProven.put("cityList", listCityC);
 		 }
 		
 		 return listProven;
