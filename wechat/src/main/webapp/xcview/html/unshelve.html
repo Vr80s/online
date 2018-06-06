@@ -12,10 +12,7 @@
 <meta name="description" content="" />
 <!--手机嵌入模板-->
 <script type="text/javascript" src="/xcview/js/common/layout.js"></script>
-<link rel="stylesheet" href="/xcview/css/unshelve.css?version=e888934897">
-<!--下拉刷新引入的css-->
-<link rel="stylesheet" href="/xcview/css/mui.min.css">
-<!--rem引入的JS-->
+<link rel="stylesheet" href="/xcview/css/unshelve.css">
 <script>
 	// 判断横屏展示时的状态
 	window.onorientationchange=function(){
@@ -64,6 +61,24 @@
 	    text-align: center;
 	    
 	}
+	.zhibo_play{
+		border: none;
+	    float: left;
+	    font-size: 0.22rem !important;
+	    padding: 0rem 0.1rem;
+	    /* color: #F97B49 !important; */
+	    margin-left: 0.1rem;
+	    border-radius: 3px;
+	    margin-top: -0.05rem;
+	    position: absolute;
+	    top: 0;
+	    right: 0;
+	    background: #F96B49;
+	    color: #fff !important;
+	}
+	.header_title{
+		border-bottom: 1px solid #f8f8f8;
+	}
 </style>
 </head>
 <body style="background:#f8f8f8;" class="mui-ios mui-ios-11 mui-ios-11-0">
@@ -86,135 +101,64 @@
 	   	    <div class="course_list">
 	   	    	<div class="recommend">为您推荐</div>
 	   	    	<div class="course_list_main" id="course_list_main">   
-	   	    		<div class="course_list_main_one div">
-	   	    			<!--跳转-->
-                			<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;"></a>
-                			
-	   	    			<!--视频/音频/直播/线下课判断-->
-	   	    			<div class="course_list_one_img">
-        					<img src="/xcview/images/Sinatv_auto.png" alt="" class="img0">
-	   	    				<img src="http://test-file.ipandatcm.com/18525190326/1603a80f1f384403.jpg?imageView2/2/w/339" class="img1">
-	   	    				<div class="course_list_mark">直播中</div>
-	   	    			</div>
-	   	    			<div class="course_list_one_title">副局级</div>
-	   	    			<div class="course_list_one_title_name">默默</div>
-	   	    			<div class="course_list_main_cen_one">
-							<p class="p0" style="margin-top: -0.02rem;"><span style="margin-top: 0.05rem;">1</span><span class="span0_span">熊猫币</span></p>
-   	    					<p class="p1"><img src="/xcview/images/population.png" alt=""><span>5</span></p>
-	   	    			</div>
-	   	    		</div>
+	   	    		<script type="text/html" id="data_course_list">
+		   	    		{{each items as item i}}   	    		
+				   	    		<div class="course_list_main_one div">
+				   	    			<!--跳转-->
+				   	    			{{if item.type == 1 || item.type == 2}}
+		                    			<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;" 
+											class="common_jump_school" onclick="common_jump_all({{item.id}})"></a>
+	                    				{{else if item.type == 3}}
+		                    			<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;"
+										   class="common_jump_all" onclick="common_jump_all({{item.id}})"></a>
+		                    			{{else if item.type == 4}}
+		                    			<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;"
+										   class="common_jump_school" onclick="common_jump_all({{item.id}})"></a>
+									{{/if}}
+				   	    			<!--视频/音频/直播/线下课判断-->
+				   	    			<div class="course_list_one_img">
+				   	    					{{if item.type == 1}}
+                    								<img src="/xcview/images/tv_auto.png" alt="" class="img0" />
+                    							{{else if item.type == 2}}
+                    								<img src="/xcview/images/frequency.png" alt="" class="img0" />
+												{{else if item.type == 3}}
+                    								<img src="/xcview/images/Sinatv_auto.png" alt="" class="img0" />
+												{{else if item.type == 4}}
+                    								<img src="/xcview/images/offline.png" alt="" class="img0" />
+		                    				{{/if}}
+				   	    				<!--<img src="/xcview/images/tv_auto.png" class="img0" />-->
+				   	    				<img src="{{item.smallImgPath}}?imageView2/2/w/339" class="img1" />
+				   	    			</div>
+				   	    			<div class="course_list_one_title">{{item.gradeName}}</div>
+				   	    			<div class="course_list_one_title_name">{{item.name}}</div>
+				   	    			
+				   	    			<div class="course_list_main_cen_one">
+				   	    				
+				   	    				{{if item.watchState == 1}}
+	            							<p class="p0" style="color: #F97B49;margin-top: -0.05rem;">免费</p>
+	            							{{else}}
+											<p class="p0" style="margin-top: -0.02rem;font-size0.24rem;margin-top: 0.04rem;"><span>{{item.currentPrice}}</span><span class='span0_span'>熊猫币</span></p>
+            							{{/if}}
+				   	    				<!--<p class="p0"><span>9000</span>熊猫币</p>-->
+				   	    					<p class="p1"><img src="/xcview/images/population.png" alt="" /><span>{{item.learndCount}}</span></p>
+				   	    				{{if item.type == 3 }}
+					   	    				{{if item.lineState==1 || item.lineState==4}}
+					   	    				<p class="zhibo_play">直播中</p>
+					   	    				{{else}}
+				   	    					<p class="p2"><img src="/xcview/images/learn.png" alt="" style="width: 0.24rem;" /><span>{{item.startDateStr}}</span></p>
+					   	    				{{/if}}
+		   	    						{{else if item.type == 4}}
+		   	    							<p class="p2"><img src="/xcview/images/location_four.png" alt="" /><span>{{item.city}}</span></p>
+				   	    				{{/if}}
+				   	    			</div>
+				   	    		</div>
+			   	    		{{/each}}
+	   	    		</script>
 
-	   	    		<div class="course_list_main_one div">
-	   	    			<!--跳转-->
-                			<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;"></a>
-                			
-	   	    			<!--视频/音频/直播/线下课判断-->
-	   	    			<div class="course_list_one_img">
-        					<img src="/xcview/images/Sinatv_auto.png" alt="" class="img0">
-	   	    				<img src="http://test-file.ipandatcm.com/18525190304/b4d9b76e23a0653b.jpg?imageView2/2/w/339" class="img1">
-	   	    			</div>
-	   	    			<div class="course_list_one_title">恶意哦哦哦哦哦哦哦</div>
-	   	    			<div class="course_list_one_title_name">默默</div>
-	   	    			
-	   	    			<div class="course_list_main_cen_one">
-							<p class="p0" style="color: #F97B49;margin-top: -0.05rem;">免费</p>
-   	    					<p class="p1"><img src="/xcview/images/population.png" alt=""><span>8</span></p>
-	   	    			</div>
-	   	    		</div>
-		   	    		   	    		
-	   	    		<div class="course_list_main_one div">
-	   	    			<!--跳转-->
-                			<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;"></a>
-            				
-	   	    			<!--视频/音频/直播/线下课判断-->
-	   	    			<div class="course_list_one_img">
-	   	    				<img src="/xcview/images/tv_auto.png" alt="" class="img0">
-	   	    				<img src="http://test-file.ipandatcm.com/18525182809/ab8d5f803ac9-2c9aec356231d035016231eb7b0b00001527244089135.png?imageView2/2/w/339" class="img1">
-	   	    			</div>
-	   	    			<div class="course_list_one_title">5.28视频免费1</div>
-	   	    			<div class="course_list_one_title_name">默默</div>
-	   	    			<div class="course_list_main_cen_one">
-							<p class="p0" style="color: #F97B49;margin-top: -0.05rem;">免费</p>
-   	    					<p class="p1"><img src="/xcview/images/population.png" alt=""><span>8</span></p>
-	   	    			</div>
-	   	    		</div>
-		   	    		   	    		
-	   	    		<div class="course_list_main_one div">
-	   	    			<!--跳转-->
-            			<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;"></a>
-        				
-	   	    			<!--视频/音频/直播/线下课判断-->
-	   	    			<div class="course_list_one_img">
-	   	    				<img src="/xcview/images/tv_auto.png" alt="" class="img0">
-	   	    				<img src="http://test-file.ipandatcm.com/18525182727/89cf1060877d-2c9aec356231d035016231eb7b0b00001527244047407.png?imageView2/2/w/339" class="img1">
-	   	    			</div>
-	   	    			<div class="course_list_one_title">5.28视频收费1</div>
-	   	    			<div class="course_list_one_title_name">默默</div>
-	   	    			<div class="course_list_main_cen_one">
-							<p class="p0" style="margin-top: -0.02rem;"><span style="margin-top:0.04rem;">1</span><span class="span0_span">熊猫币</span></p>
-	   	    				<p class="p1"><img src="/xcview/images/population.png" alt=""><span>4</span></p>
-	   	    			</div>
-	   	    		</div>
-		   	    		   	    		
-	   	    		<div class="course_list_main_one div">
-	   	    			<!--跳转-->
-                		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;"></a>
-            				
-	   	    			<!--视频/音频/直播/线下课判断-->
-	   	    			<div class="course_list_one_img">
-	   	    				<img src="/xcview/images/frequency.png" alt="" class="img0">
-	   	    				<img src="http://test-file.ipandatcm.com/18525182918/628694c3db7a-2c9aec356231d035016231eb7b0b00001527244158288.png?imageView2/2/w/339" class="img1">
-	   	    			</div>
-	   	    			<div class="course_list_one_title">5.28音频免费1</div>
-	   	    			<div class="course_list_one_title_name">默默</div>
-	   	    			
-	   	    			<div class="course_list_main_cen_one">
-	   	    				<p class="p0" style="color: #F97B49;margin-top: -0.05rem;">免费</p>
-    						<p class="p1"><img src="/xcview/images/population.png" alt=""><span>13</span></p>
-	   	    			</div>
-	   	    		</div>
-		   	    		   	    		
-	   	    		<div class="course_list_main_one div">
-	   	    			<!--跳转-->
-                		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;"></a>
-            				
-	   	    			<!--视频/音频/直播/线下课判断-->
-	   	    			<div class="course_list_one_img">
-	   	    				<img src="/xcview/images/frequency.png" alt="" class="img0">
-	   	    				<img src="http://test-file.ipandatcm.com/18525183012/e35113483423-2c9aec356231d035016231eb7b0b00001527244212733.png?imageView2/2/w/339" class="img1">
-	   	    			</div>
-	   	    			<div class="course_list_one_title">5.28音频收费1</div>
-	   	    			<div class="course_list_one_title_name">默默</div>
-	   	    			
-	   	    			<div class="course_list_main_cen_one">
-							<p class="p0" style="margin-top: -0.02rem;"><span style="margin-top:0.04rem;">2</span><span class="span0_span">熊猫币</span></p>
-	   	    				<p class="p1"><img src="/xcview/images/population.png" alt=""><span>2</span></p>
-	   	    			</div>
-	   	    		</div>
-		   	    		   	   		
-	   	    		<div class="course_list_main_one div">
-	   	    			<!--跳转-->
-                		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;" ></a>
-						
-	   	    			<!--视频/音频/直播/线下课判断-->
-	   	    			<div class="course_list_one_img">
-	   	    				<img src="/xcview/images/offline.png" alt="" class="img0">
-	   	    				<img src="http://test-file.ipandatcm.com/18525161856/1011d4e203ef-2c9aec356231d035016231eb7b0b00001527236336548.png?imageView2/2/w/339" class="img1">
-	   	    			</div>
-	   	    			<div class="course_list_one_title">5.25线下课收费</div>
-	   	    			<div class="course_list_one_title_name">默默</div>
-	   	    			
-	   	    			<div class="course_list_main_cen_one">
-	   	    				<p class="p0" style="margin-top: -0.02rem;"><span style="margin-top:0.04rem;">1</span><span class="span0_span">熊猫币</span></p>
-	   	    				<p class="p1"><img src="/xcview/images/population.png" alt=""><span>4</span></p>
-	   	    				<p class="p2"><img src="/xcview/images/location_four.png" alt=""><span>天津市</span></p>
-	   	    			</div>
-	   	    		</div>
-		   	    		   	 
+
 		   	    </div>
 	   	    </div>
 	   	    <!--列表内容结束-->
-		    <div class=""></div>
 	  </div>
 	<!-- 中间内容结束 -->
 	<!-- 底部结束 -->
@@ -223,6 +167,8 @@
 <script type="text/javascript" src="/xcview/js/common/jquery.min-2.1.1.js"></script>
 <script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/common.js"></script>
+<!-- 公共跳转的 -->
+<script type="text/javascript" src="/xcview/js/common/commonJumpPlay.js"></script>
 <script type="text/javascript" src="/xcview/js/common/template.js"></script>
-<script type="text/javascript" src="/xcview/js/unshelve.js?wechat_1.1"></script>
+<script type="text/javascript" src="/xcview/js/unshelve.js"></script>
 </html>
