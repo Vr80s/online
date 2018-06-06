@@ -24,7 +24,9 @@
 		<link rel="stylesheet" href="/web/font/iconfont.css" />
 		<!--<link rel="stylesheet" href="/web/css/index-9a525196fb.css" type="text/css">-->
 	</head>
-
+    <header>
+	<#include "header-body.ftl">
+    </header>
 	<body>
 		<!-- <div class="dianwo">点我</div> -->
 		<div class="popover_order">
@@ -240,7 +242,7 @@
 							<#list doctorList as doctor>
 								<li class="doctorTpl">
 									<a href="${webUrl}/doctors/${doctor.id}" target="_blank"></a>
-									<img src="${doctor.headPortrait!''}" alt="${doctor.name}">
+									<img src="${doctor.headPortrait!defaultDoctorHeadImg}" alt="${doctor.name}">
 									<h5>${doctor.name}&nbsp;<span>${doctor.title?default('暂无')}</span></h5>
 									<p>${doctor.workTime}</p>
 	                      			<p>${doctor.province}&nbsp;${doctor.city}&nbsp; </p>
@@ -443,7 +445,7 @@
 <script type="text/javascript" charset="utf-8">
 	home = true;
 </script>
-<script src="/web/js/header.js?v=ipandatcm_1.3" type="text/javascript" charset="utf-8"></script>
+<script src="/web/js/header-top.js?v=ipandatcm_1.3" type="text/javascript" charset="utf-8"></script>
 
 <script type="text/javascript" src="/web/js/jquery.pagination.js"></script>
 <script type="text/javascript" src="/web/js/bootstrap-paginator.min.js"></script>
