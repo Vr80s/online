@@ -94,7 +94,9 @@
     input.custom-combobox-input.ui-widget.ui-widget-content.ui-state-default.ui-corner-left.ui-autocomplete-input{
      width: 100%;
     }
- 
+	.ui-datepicker-buttonpane .ui-datepicker-current{
+		display: none !important;
+	}
 </style>
 <script type="text/javascript">
 
