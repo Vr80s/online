@@ -59,7 +59,7 @@
 	<div class="personal_bg" id="personal_bg">
 		<script type="text/html" id="personal_header">
 			<div class="personal_header">
-				<img src="{{lecturerInfo.small_head_photo}}"/>
+				<img src="{{lecturerInfo.small_head_photo}}" onerror="nofind();"/>
 			</div>
 			<!--主播名字/粉丝数量-->
 			<div class="wrap_wrapPersonal">
@@ -262,7 +262,7 @@
 			
 		</div>
 		<div class="quie_pics">
-			<img src="../images/no_class.png"/>	
+			<img src="../images/no_deal.png"/>	
 			<p>该主播暂未发布课程~</p>
 		</div>
 	</div>
@@ -286,7 +286,7 @@
 					<div class="wrap_comment_text">
 						<!--头像-->
 						<div class="user_header">
-							<img src="{{item.onlineUser.smallHeadPhoto}}"/>
+							<img src="{{item.onlineUser.smallHeadPhoto}}" onerror="nofinds();"/>
 						</div>
 						<!--右边评论-->
 						<div class="user_text">
@@ -382,7 +382,7 @@
 		<div class="quie_pic">
 			<img src="../images/no_comment.png"/>	
 			<p>还没有评价？快来抢沙发呀~</p>
-			<span onclick="btn_user_allComment()">去评价</span>
+			<!-- <span onclick="btn_user_allComment()">去评价</span> -->
 		</div>
 		<!--底下评论输入框-->	
 		<div class="wrap_user_input">
@@ -502,6 +502,7 @@
 			$(".li_data_hide").addClass("hide");
 			$(".li_course_hide").addClass("hide");
 			$(".li_evaluate_hide").removeClass("hide");
+			// $(".wrap_all_returned").css("padding-bottom","0");
 		});
 		$(".li_data").click();
 

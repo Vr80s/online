@@ -17,7 +17,7 @@
 	<!-- 报名头部开始 -->
 	<header>
 		<div class="header">
-			<div class="return" onclick="location.href=''"><img src="/xcview/images/back icon.png" alt="" /></div>
+			<div class="return" onclick="window.history.go(-1);"><img src="/xcview/images/back icon.png" alt="" /></div>
 			<div class="apply_title">填写报名信息</div>
 		</div>
 	</header>
@@ -40,7 +40,7 @@
 			</div>
 			<div class="tel">
 				手机号
-				<input type="tel" placeholder="请输入" />
+				<input type="tel" placeholder="请输入" maxlength="11" />
 				<div class="both"></div>
 			</div>
 			<div class="age">
@@ -75,53 +75,19 @@
 	<!-- 中间内容结束 -->
 </body>
 <script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
+<!-- 弹框 -->
+<script type="text/javascript" src="/xcview/js/common/alertPopShow.js"></script>
+
+
 <script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/common.js?v=wechat_1.1.1"></script>
+<script type="text/javascript" src="/xcview/js/line_class.js"></script>
+
 
 <script>
 window.onload = function(){
 
- /*点击性别开始*/
-    $(".sex").click(function(){
-        $(".popup").show();
-    });
-    $("#man").click(function(){
-        $(".sex_show").html($("#man").html());
-         getApply();
-    });
-    $("#she").click(function(){
-        $(".sex_show").html($("#she").html());
-         getApply();
-    });
-    $(".popup").click(function(){
-        $(".popup").hide();
-    });
-    /*点击性别结束*/
-    function getApply(){
-    if($('.name input').val()==''
-    	||$('.tel input').val()==''
-    	||$('.age input').val()==''
-    	||$('.sex_show').html()==''){
-    	$(".buttom").css("opacity","0.5");
-    	return false;
-    }else{
-    	$(".buttom").css("opacity","1");
-    	return true;
-    };
-}
-	// 姓名
-	$('.name input').keyup(function(){
-        getApply();
-    });
-    // 手机号
-    $('.tel input').keyup(function(){
-        getApply();
-    });
-
-    // 微信
-    $('.age input').keyup(function(){
-        getApply();
-    });    
+ 
 };
 </script>
 

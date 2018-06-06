@@ -301,10 +301,15 @@ function refresh() {
     }, function (data) {
         //  	判断有无评论显示默认图片
         if (data.resultObject.items.length == 0) {
-            $(".quie_pic").show()
+            $(".quie_pic").show();
+            $(".quie_pic").css("padding-bottom","0");
+            $(".quie_pic img").css("margin-top","1.8rem");
+            var school_height=$(window).height()-$(".anchor_navigation").height()-$(".personal_bg").height();
+            $(".quie_pic").height(school_height);
+            // alert(school_height);
         } else {
-            $(".quie_pic").hide()
-
+            $(".quie_pic").hide();
+            $(".wrap_all_returned").css("padding-bottom","1.2rem");
         }
         //	课程名称/等级/评论
         $(".wrap_all_returned").html(template('wrap_people_comment', {items: data.resultObject.items}));
@@ -312,7 +317,10 @@ function refresh() {
         $(".wrap_returned_btn .btn_littleReturn").click(function () {
             //评论id
             criticize_id = this.id;
-            btn_user_allComment();
+            //btn_user_allComment();
+            $(".bg_userModal").show();
+            $(".wrapLittle_comment").show();
+            $("#littlt_return").focus();
         });
         $(".bg_userModal").click(function () {
             $(".bg_userModal").hide();
@@ -322,7 +330,22 @@ function refresh() {
         $(".btn_click_zan").click(function () {
             //评论id
             criticize_id = $(this).attr("data-id");
-            btn_user_allComment();
+            // btn_user_allComment();
+            
+            criticize_id=$(this).attr("data-id");
+            var p = $(this).find('span').html();
+            var src = $(this).find('img').attr('src');
+            if(src.indexOf("zan001")>-1){
+                $(this).find('img').attr('src','../images/zan01.png');
+                $(this).find('span').html(parseInt(p)-1);
+                updatePraise(criticize_id,false);
+            }else{
+                $(this).find('img').attr('src','../images/zan001.png');
+                $(this).find('span').html(parseInt(p)+1);
+                updatePraise(criticize_id,true);
+            }
+
+
         });
 
     });
