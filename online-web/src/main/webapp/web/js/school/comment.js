@@ -172,16 +172,26 @@ $(".impression-setlist li").click(function() {
 	isSubmit();
 })
 
-$("#commentContent").change(
-		function() {
-			var commentContent = $(this).val();
-			if (commentContent == null || commentContent == ""
-					|| commentContent.trim().length <= 0) {
-				$('.submission').attr("disabled", true);
-				$(".submission").css("background",  "#999");
-			}
-			isSubmit();
-		})
+//$("#commentContent").change(
+//		function() {
+//			var commentContent = $(this).val();
+//			if (commentContent == null || commentContent == ""
+//					|| commentContent.trim().length <= 0) {
+//				$('.submission').attr("disabled", true);
+//				$(".submission").css("background",  "#999");
+//			}
+//			isSubmit();
+//})
+
+$('#commentContent').keyup(function(){
+	var commentContent = $(this).val();
+	if (commentContent == null || commentContent == "" || commentContent.trim().length <= 0) {
+		$('.submission').attr("disabled", true);
+		$(".submission").css("background",  "#999");
+	}
+	isSubmit();
+})
+
 
 /**
  * 清空属性啦
