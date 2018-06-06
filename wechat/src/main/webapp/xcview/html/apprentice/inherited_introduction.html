@@ -23,6 +23,20 @@
 		    background: #000;
 		    opacity: 0.2;
 		}
+		.flow_center{
+			line-height: 0.4rem;
+		}
+		.general_center span{
+			display: block;
+			float: left;
+		}
+		.general_center img{
+			width: 0.15rem;
+			margin-top: 0.05rem;
+		    display: inline-block;
+		    float: left;
+		    margin-left: 0.1rem;
+		}
 		
 	</style>
 </head>
@@ -57,7 +71,6 @@
 				<img src="{{doctorPhoto}}" alt="医师头像" />
 			{{/if}}
 
-			
 		</div>
 		<div class="intro_title">{{title}}</div>
 		<div class="intro_title_size">{{propaganda}}</div>
@@ -182,7 +195,8 @@
 				<p class="title">招生简章</p>
 				<div class="both"></div>
 			</div>
-			<div class="general_center" onclick="location.href ='recruit.html?merId={{id}}'">更多详细内容请查看招生简章全文 > </div>
+			<div class="general_center" onclick="location.href ='recruit.html?merId={{id}}'"><span>更多详细内容请查看招生简章全文</span> <img src="/xcview/images/right_jian.png" alt="" /></div>
+			<div class="both"></div>
 			<a href="{{entryFormAttachment}}" class="download"  download="招生简章">下载招生简章</a>
 		</div>
 		<div class="show_height"></div>
