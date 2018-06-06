@@ -36,9 +36,6 @@ public class FocusController extends AbstractController{
 	@Autowired
 	private UserService service;
 
-
-	
-	
 	/**
 	 * Description:获取主播信息接口
 	 * @return
@@ -50,7 +47,6 @@ public class FocusController extends AbstractController{
 		
 		return ResponseObject.newSuccessResponseObject(focusService.selectFocusAndFansCount(userId));
 	}
-	
 	
 	/**
 	 * Description： 取消/增加   关注
@@ -86,7 +82,7 @@ public class FocusController extends AbstractController{
         /*
          * 这里建议获取下粉丝数和关注数
          */
-        List<Integer> listff = focusService.selectFocusAndFansCountAndCriticizeCount(loginUser.getId());
+        List<Integer> listff = focusService.selectFocusAndFansCountAndCriticizeCount(lecturerId);
         map.put("fansCount", listff.get(0));           //粉丝总数
         map.put("focusCount", listff.get(1));           //关注总数
 		return ResponseObject.newSuccessResponseObject(map);

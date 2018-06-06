@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.xczh.consumer.market.interceptor.IOSVersionInterceptor;
 import com.xczh.consumer.market.service.OLCourseServiceI;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.vo.CourseVo;
@@ -92,7 +93,7 @@ public class MobileRecommendController {
          */
         List<MenuVo> listMenu = mobileProjectService.selectMenuVo();
         List<Map<String, Object>> mapCourseList = mobileBannerService.recommendCourseList(listMenu, PagingFixedType.RECOMMENDATION_PAGETYPE_UP.getValue(),
-                PagingFixedType.RECOMMENDATION_PAGETYPE_DOWN.getValue());
+                PagingFixedType.RECOMMENDATION_PAGETYPE_DOWN.getValue(), IOSVersionInterceptor.onlyThread.get());
         return ResponseObject.newSuccessResponseObject(mapCourseList);
     }
 
@@ -117,7 +118,7 @@ public class MobileRecommendController {
                                          Integer pageNumber, Integer pageSize)
             throws Exception {
 
-        List<CourseVo> list = wxcpCourseService.queryAllCourse(menuType, lineState, courseType, isFree, city, queryKey, pageNumber, pageSize);
+        List<CourseVo> list = wxcpCourseService.queryAllCourse(menuType, lineState, courseType, isFree, city, queryKey, pageNumber, pageSize,IOSVersionInterceptor.onlyThread.get());
 
         return ResponseObject.newSuccessResponseObject(list);
     }

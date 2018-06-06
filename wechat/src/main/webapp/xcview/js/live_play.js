@@ -5,6 +5,11 @@ var course_id ="";
 var criticize_id = "";
 var LecturerId="";
 var commentCode ="";
+
+
+
+
+
 $(function(){
 
 function stripHTML(str){
@@ -16,6 +21,8 @@ function stripHTML(str){
 //引入comment.j后调用方法获取ID，course_id为html里的a链接后面的ID
 var courseId = getQueryString('my_study');
     course_id = courseId;
+
+    
 //传ID courseId为接口的课程ID
 requestService("/xczh/course/liveDetails",{
 	courseId : courseId	
@@ -34,15 +41,7 @@ requestService("/xczh/course/liveDetails",{
 //	视频直播/回放/未开播状态判断
 	$(".play_video").html(template('data_video',data.resultObject));
 	
-		//点击播放记下记录
-		$(".memory_lujin").click(function(){
-			var memory_data=$(this).attr("data-memory")
-			requestService("/xczh/history/add",
-			{courseId:memory_data,recordType:2}
-			,function(data) {
 
-			})	
-		})
 	//	CC视频ID
 	var	videoId = data.resultObject.directId;
     var	type = data.resultObject.type;	
@@ -103,11 +102,22 @@ requestService("/xczh/course/liveDetails",{
 		}
 		
 		
-});
+},false);
 
 //传ID courseId为接口的课程ID，评论列表
     refresh();
 
+    
+  //点击播放记下记录
+	$(".memory_lujin").click(function(){
+		var memory_data=$(this).attr("data-memory")
+		requestService("/xczh/history/add",
+		{courseId:memory_data,recordType:2},function(data) {
+			
+		})	
+		
+		window.location.href="details.html?courseId="+course_id;
+	})
 
 
 

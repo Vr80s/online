@@ -177,6 +177,7 @@ function ajaxRequest(url, param,type, callback, ac) {
         url: url,
         type: type,
         data: param,
+        // headers: {"iversion":"1.0.2"},
         async: ac,
         success: function (msg) {
             // alert(url+":"+JSON.stringify(msg))

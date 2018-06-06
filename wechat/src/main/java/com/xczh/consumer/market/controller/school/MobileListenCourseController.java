@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.xczh.consumer.market.interceptor.IOSVersionInterceptor;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.enums.BannerType;
 import com.xczhihui.course.model.MobileBanner;
@@ -55,7 +56,7 @@ public class MobileListenCourseController {
         mapAll.put("banner", mobileBannerPage);
 
         //听课课程列表
-        List<CourseLecturVo> listenCourseList = courseService.listenCourseList();
+        List<CourseLecturVo> listenCourseList = courseService.listenCourseList(IOSVersionInterceptor.onlyThread.get());
         mapAll.put("listenCourseList", listenCourseList);
         return ResponseObject.newSuccessResponseObject(mapAll);
     }

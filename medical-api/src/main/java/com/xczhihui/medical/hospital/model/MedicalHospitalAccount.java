@@ -40,6 +40,12 @@ public class MedicalHospitalAccount extends Model<MedicalHospitalAccount> {
 	@TableField("create_time")
 	private Date createTime;
 
+	@TableField(exist = false)
+	private Boolean  status;
+	
+	@TableField(exist = false)
+	private Boolean deleted;
+
 
 	public String getId() {
 		return id;
@@ -78,13 +84,30 @@ public class MedicalHospitalAccount extends Model<MedicalHospitalAccount> {
 		return this.id;
 	}
 
+	
+	
+	public Boolean getStatus() {
+		return status;
+	}
+
+	public void setStatus(Boolean status) {
+		this.status = status;
+	}
+
+	public Boolean getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
+	}
+
 	@Override
 	public String toString() {
-		return "MedicalHospitalAccount{" +
-			", id=" + id +
-			", doctorId=" + doctorId +
-			", accountId=" + accountId +
-			", createTime=" + createTime +
-			"}";
+		return "MedicalHospitalAccount [id=" + id + ", doctorId=" + doctorId + ", accountId=" + accountId
+				+ ", createTime=" + createTime + ", status=" + status + ", deleted=" + deleted + "]";
 	}
+
+	
+	
 }

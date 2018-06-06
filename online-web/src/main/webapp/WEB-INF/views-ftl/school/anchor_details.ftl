@@ -37,9 +37,9 @@
 						<h4>${hospital.name}</h4>
 					</#if>
 					<ul class="follow-box cl">
-						<li>关注<span id="focusCount">${fansCount}</span></li>
+						<li>关注<span id="focusCount">${focusCount}</span></li>
 						<li>|</li>
-						<li>粉丝<span id="fansCount">${focusCount}</span></li>
+						<li>粉丝<span id="fansCount">${fansCount}</span></li>
 					</ul>
 					<#if isFours == 0>
 						<button type="button" class="isAdd-follow">
@@ -63,7 +63,7 @@
 		<!--nav-->
 					<div class="wrap-sidebar">
 						<ul>
-							<li class="active-footer"><a href="${webUrlParam}/courses">课程</a></li>
+							<li><a href="${webUrlParam}/courses">课程</a></li>
 							<li><a href="${webUrlParam}/info">介绍</a></li>
 							<li><a href="${webUrlParam}/comment">评价（${criticizeCount}）</a></li>
 						</ul>
@@ -80,7 +80,7 @@
 					<div class="sidebar-content hide" style="background: #F8F8F8;padding: 0;">
 						<div class="anchor-introduce">
 							<p>
-								${lecturerInfo.detail?default("")}
+								${lecturerInfo.detail?default("暂无主讲人介绍")}
 							</p>
 						</div>
 						<div class="anchor-hospital">
