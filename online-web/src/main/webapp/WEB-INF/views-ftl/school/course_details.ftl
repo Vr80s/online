@@ -31,6 +31,13 @@
 			<div class="wrap-buy">
 				<div class="left-cover z">
 					<img src="${courseInfo.smallImgPath}"/>
+					<div class="progress" style="position: absolute;bottom: 0;left: 0;width: 100%;margin-bottom: 0;height: 14px;">
+						<div class="progress-bar progress-bar-success" role="progressbar" 
+						 aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" 
+						  style="background: #00BC12;">
+							<span class="sr-only">90% 完成（成功）</span>
+						</div>
+					</div>
 				</div>
 				<div class="right-details y">
 					<h4>${courseInfo.gradeName}</h4>
@@ -171,7 +178,7 @@
 							   	 <a href="/web/html/ccvideo/liveVideoAlbum.html?collectionId=${courseInfo.id}&courseId=${collectionItem.id}" target="_blank">
 									<div class="play-img z">
 										<div class="circle">
-												<div class="percent left"></div>
+												<div class="percent left" data-courseId ="${collectionItem.id}" data-timeLength ="${collectionItem.courseLength}" ></div>
 												<div class="percent right wth0"></div>
 										</div>
 										<img src="../../web/images/icon-play.png"/>
@@ -252,6 +259,8 @@
     var userId = "${courseInfo.userLecturerId}";
     var collection = ${courseInfo.collection?string(1,0)};
     var commentCode = ${criticizesMap.commentCode};
+    var courseLength = ${courseInfo.courseLength};
+    
 //    console.info("type：" + type + ";watchState：" + watchState + ";courseId：" + courseId);
 //    console.info("userId：" + userId + ";collection：" + collection+",commentCode:"+commentCode);
 </script>

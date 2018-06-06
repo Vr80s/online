@@ -743,10 +743,10 @@ overflow-y: auto;
 }
 #auto_play[type="checkbox"] {
 	  -webkit-appearance: none;  /*清除复选框默认样式*/
-		  background: #fff url(../images/blue.png);   /*复选框的背景图，就是上图*/
-		  height: 22px;   /*高度*/
-		  vertical-align: middle;
-		  width: 22px;
+	  background: #fff;   /*复选框的背景图，就是上图   url(../images/blue.png)*/
+	  height: 22px;   /*高度*/
+	  vertical-align: middle;
+	  width: 22px;
 }
 #auto_play[type="checkbox"]:checked {
 		  background-position: -48px 0;

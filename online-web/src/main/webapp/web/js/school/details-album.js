@@ -86,7 +86,7 @@ $(function() {
 	})
 
 	// 专辑进度条
-	var percent = 45;
+	var percent = 101;
 	if (percent > 100) {
 		percent = 0;
 		$('.circle').removeClass('clip-auto');
