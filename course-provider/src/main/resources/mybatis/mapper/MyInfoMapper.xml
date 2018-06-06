@@ -193,7 +193,7 @@
 		    from 
 		    course_anchor ca 
 		         join oe_user  ou on ca.user_id = ou.id
-		         where ca.deleted = 0 
+		         where   ca.status = 1 and ca.deleted = 0
 		    AND ou.is_delete = 0
 		    AND ca.is_recommend = 1  ORDER BY ca.recommend_sort DESC 
 		</select>	
