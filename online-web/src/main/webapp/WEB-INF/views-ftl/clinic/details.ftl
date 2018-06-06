@@ -95,28 +95,30 @@
                 </div>
             </div>
 
+        <#if doctors.pages gt 0>
             <!--医馆名家-->
             <div class="hospital_doctor clearfix">
                 <div class="hospital_top">
                     <span>医馆名家</span>
                     <#if doctors.pages gt 1>
-                    <a href="${webUrl}/clinics/${clinic.id}/doctors" id="more_doc" target="_blank">
-                        更多&nbsp;&gt;
-                    </a>
+                        <a href="${webUrl}/clinics/${clinic.id}/doctors" id="more_doc" target="_blank">
+                            更多&nbsp;&gt;
+                        </a>
                     </#if>
                 </div>
                 <ul class="doctor_inf" id="yiguan_mingjia">
-                <#list doctors.records as doctor>
-                    <li>
-                        <a href="${webUrl}/doctors/${doctor.id}" target="_blank"></a>
-                        <img src="${doctor.headPortrait?default('')}" alt="${doctor.name}">
-                        <h5>${doctor.name}</h5>
-                        <p>${doctor.workTime?default('')}</p>
-                        <p>${doctor.province?default('')}&nbsp;${doctor.city?default('')}</p>
-                    </li>
-                </#list>
+                    <#list doctors.records as doctor>
+                        <li>
+                            <a href="${webUrl}/doctors/${doctor.id}" target="_blank"></a>
+                            <img src="${doctor.headPortrait?default('')}" alt="${doctor.name}">
+                            <h5>${doctor.name}</h5>
+                            <p>${doctor.workTime?default('')}</p>
+                            <p>${doctor.province?default('')}&nbsp;${doctor.city?default('')}</p>
+                        </li>
+                    </#list>
                 </ul>
             </div>
+        </#if>
             <!--课程-->
             <!--<div class="class clearfix hide">
                 <div class="class_top">

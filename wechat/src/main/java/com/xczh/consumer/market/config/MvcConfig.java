@@ -18,6 +18,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xczh.consumer.market.interceptor.AuthInterceptor;
+import com.xczh.consumer.market.interceptor.IOSVersionInterceptor;
 
 /**
  * @author hejiwei
@@ -29,6 +30,8 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 
     @Autowired
     private AuthInterceptor authInterceptor;
+    @Autowired
+    private IOSVersionInterceptor iosVersionInterceptor;
 
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
@@ -40,6 +43,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
     public void addInterceptors(InterceptorRegistry registry) {
         super.addInterceptors(registry);
         registry.addInterceptor(authInterceptor);
+        registry.addInterceptor(iosVersionInterceptor);
     }
 
     @Override

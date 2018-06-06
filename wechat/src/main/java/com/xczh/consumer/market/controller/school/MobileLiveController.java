@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.xczh.consumer.market.interceptor.IOSVersionInterceptor;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.enums.BannerType;
 import com.xczhihui.common.util.enums.PagingFixedType;
@@ -37,8 +38,6 @@ public class MobileLiveController {
     @Autowired
     private IMobileBannerService mobileBannerService;
 
-    @Autowired
-    private ICourseService courseService;
 
     /*****************************************
      * 		新版app关于学堂的接口   -- 直播接口
@@ -56,7 +55,8 @@ public class MobileLiveController {
         mapAll.put("banner", mobileBannerPage);
         List<Map<String, Object>> mapCourseList = mobileBannerService.liveCourseList(
                 PagingFixedType.LIVE_PAGETYPE_UP.getValue(),
-                PagingFixedType.LIVE_PAGETYPE_DOWN.getValue());
+                PagingFixedType.LIVE_PAGETYPE_DOWN.getValue(),
+                IOSVersionInterceptor.onlyThread.get());
         mapAll.put("allCourseList", mapCourseList);
         return ResponseObject.newSuccessResponseObject(mapAll);
     }

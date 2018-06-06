@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczh.consumer.market.auth.Account;
+import com.xczh.consumer.market.interceptor.IOSVersionInterceptor;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.course.service.ICourseService;
@@ -113,7 +114,7 @@ public class HostController {
         /**
          * 此主播最近一次的直播
          */
-        CourseLecturVo cv = courseService.selectLecturerRecentCourse(lecturerId);
+        CourseLecturVo cv = courseService.selectLecturerRecentCourse(lecturerId, IOSVersionInterceptor.onlyThread.get());
         mapAll.put("recentCourse", cv);
         return ResponseObject.newSuccessResponseObject(mapAll);
     }
@@ -121,18 +122,13 @@ public class HostController {
     /**
      * Description：用户主页    -- 课程列表
      *
-     * @param req
-     * @param res
-     * @param params
      * @return ResponseObject
      * @throws Exception
      * @author name：yangxuan <br>email: 15936216273@163.com
      */
     @RequestMapping("hostPageCourse")
     @ResponseBody
-    public ResponseObject userHomePageCourseList(HttpServletRequest req,
-                                                 HttpServletResponse res,
-                                                 @RequestParam("lecturerId") String lecturerId,
+    public ResponseObject userHomePageCourseList(@RequestParam("lecturerId") String lecturerId,
                                                  @RequestParam("pageNumber") Integer pageNumber,
                                                  @RequestParam("pageSize") Integer pageSize) throws Exception {
 
@@ -140,7 +136,7 @@ public class HostController {
         page.setCurrent(pageNumber);
         page.setSize(pageSize);
         try {
-            Page<CourseLecturVo> list = courseService.selectLecturerAllCourse(page, lecturerId);
+            Page<CourseLecturVo> list = courseService.selectLecturerAllCourse(page, lecturerId,IOSVersionInterceptor.onlyThread.get());
             return ResponseObject.newSuccessResponseObject(list);
         } catch (Exception e) {
             e.printStackTrace();
