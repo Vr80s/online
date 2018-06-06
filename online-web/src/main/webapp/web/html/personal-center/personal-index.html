@@ -160,7 +160,7 @@
 								<div class="mune1-1">
 									<div class="my-class-nav">
 										<ul>
-											<li class="class-active">播放历史</li>
+											<li class="class-active" data-btn="load-history">播放历史</li>
 											<li data-btn="load-buy">已购课程</li>
 											<li data-btn="load-end">结束课程</li>
 										</ul>
@@ -442,7 +442,7 @@
 								<div class="mune2-1">
 									<div class="question-forum">
 										<ul>
-											<li class="mune-active">我的提问</li>
+											<li class="mune-active" id="btnQuestion">我的提问</li>
 											<li>我的回答</li>
 										</ul>
 									</div>
@@ -797,8 +797,8 @@
 															{{else if item.order_status==2}}
 															<li>已失效</li>
 															<li>
-																<p onclick="againBuy(this)" data-id="{{t.id}}">重新购买</p>
-																<p onclick="deleteBtnOrder(this)" data-delete="0" data-number="{{item.order_no}}">删除订单</p>
+																
+																<p style="line-height: 59px;" onclick="deleteBtnOrder(this)" data-delete="0" data-number="{{item.order_no}}">删除订单</p>
 															</li>
 															{{/if}}
 														</ul>
