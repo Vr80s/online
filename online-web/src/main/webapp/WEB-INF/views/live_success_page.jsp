@@ -23,14 +23,5 @@
   
   var vhallName = '<%=request.getAttribute("vhallName")%>';
 
-  
 </script>
 <%@include file="../../web/html/liveVideo.html" %>
-<script>
-
-  var vvurl = "http://e.vhall.com/webinar/inituser/"+room_id+"?email="+email+"&name="+name+"&k="+k;
-  if(name == "" || name == null ||name == "null"){
-	  vvurl += "&embed=video";
-  }
-  $("#vhall-video").attr("src",vvurl); 
-</script>

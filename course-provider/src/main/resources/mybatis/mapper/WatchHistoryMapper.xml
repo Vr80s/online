@@ -2,55 +2,65 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xczhihui.course.mapper.WatchHistoryMapper">
 
-	<select id="selectWatchHistory" resultType="com.xczhihui.course.vo.WatchHistoryVO">
+    <select id="selectWatchHistory" resultType="com.xczhihui.course.vo.WatchHistoryVO">
 		SELECT
-		  owh.course_id as id,
-		  owh.course_id as courseId,
-		  owh.lecturer_id as lecturerId,
-		  owh.collectionId as collectionId,
-		  if(owh.collectionId is not null and owh.collectionId>0,
-		  		( select grade_name from oe_course where id = owh.collectionId ),null) as collectionName,
-		  if(owh.collectionId is not null and owh.collectionId >0,1,oc.collection) as collection,
-		  oc.grade_name as gradeName,
-		  if(owh.collectionId is not null and owh.collectionId>0,
-		  		( select oc.lecturer from oe_course oc  
-		  		     where oc.id = owh.collectionId ),oc.lecturer) 
-		  		as lecturerName,
-		  owh.create_time as watchTime,
+		  owh.course_id AS id,
+		  owh.course_id AS courseId,
+		  owh.lecturer_id AS lecturerId,
+		  owh.collectionId AS collectionId,
+		  IF(
+			owh.collectionId IS NOT NULL AND owh.collectionId > 0,
+			(SELECT grade_name FROM oe_course WHERE id = owh.collectionId),
+			NULL
+		  ) AS collectionName,
+		  IF(
+			owh.collectionId IS NOT NULL AND owh.collectionId > 0,
+			1,
+			oc.collection
+		  ) AS collection,
+		  oc.grade_name AS gradeName,
+		  IF(
+			owh.collectionId IS NOT NULL AND owh.collectionId > 0,
+			(SELECT oc.lecturer FROM oe_course oc WHERE oc.id = owh.collectionId),
+			oc.lecturer
+		  ) AS lecturerName,
+		  MAX(owh.create_time) AS watchTime,
 		  oc.live_source_type as liveSourceType,
-		  if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
-		  if(oc.is_free =0,0,1) as watchState,
-		  oc.live_source_type as liveSourceType,
-		  oc.user_lecturer_id as userId,
-		  oc.direct_id as directId,
-		  oc.smallimg_path as smallimgPath,
-		  oc.current_price as currentPrice,
-		  oc.is_free as isFree,
-		  IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) + IFNULL(oc.default_student_count, 0) learndCount,
-		  if(oc.live_status = 2,if((DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time ) or 
-		                             (DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now() &lt; oc.start_time ),4,
-                    if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now() &lt; oc.start_time,5,oc.live_status)),oc.live_status) as lineState
-                    
+		  IF(
+			oc.type = 3,
+			4,
+			IF(oc.type = 1,3,IF(oc.multimedia_type = 1, 1, 2)
+			)
+		  ) AS TYPE,
+		  oc.is_free AS watchState,
+		  oc.live_source_type AS liveSourceType,
+		  oc.user_lecturer_id AS userId,
+		  oc.direct_id AS directId,
+		  oc.smallimg_path AS smallimgPath,
+		  oc.current_price AS currentPrice,
+		  oc.is_free AS isFree
 		FROM
-		  oe_watch_history1 owh 
-		  inner join oe_course oc on owh.course_id = oc.id
-		  inner join course_anchor ou on owh.lecturer_id = ou.user_id
-		  where owh.user_id =#{userId}  
-		  order by owh.create_time desc limit 0,5
-	</select>		  
-	
-<!-- 	@Param("userId") Integer type, @Param("courseId") -->
-	<select id="findWatchHistoryByUserIdAndCourseId" resultType="com.xczhihui.course.model.WatchHistory" >
+		  oe_watch_history1 owh
+		  INNER JOIN oe_course oc
+			ON owh.course_id = oc.id
+		  INNER JOIN course_anchor ou
+			ON owh.lecturer_id = ou.user_id
+		WHERE owh.user_id =#{userId}
+		GROUP BY owh.`course_id`,owh.`user_id`
+		ORDER BY owh.create_time DESC
+	</select>
+
+    <!-- 	@Param("userId") Integer type, @Param("courseId") -->
+    <select id="findWatchHistoryByUserIdAndCourseId" resultType="com.xczhihui.course.model.WatchHistory">
 		SELECT
 		  *
 		FROM
 		  oe_watch_history1 owh where owh.user_id = #{userId}
 		  and  owh.course_id = #{courseId}  and owh.collectionId = 0
 	</select>
-	
-	
-	
-	<select id="findWatchHistoryByUserIdAndCollectionId" resultType="com.xczhihui.course.model.WatchHistory" >
+
+
+    <select id="findWatchHistoryByUserIdAndCollectionId" resultType="com.xczhihui.course.model.WatchHistory">
 		SELECT
 		  *
 		FROM
@@ -58,39 +68,40 @@
 		  
 		  and  owh.collectionId = #{collectionId}
 	</select>
-	
-	
-    <select id="findWatchHistoryByUserId" resultType="com.xczhihui.course.model.WatchHistory" >
+
+
+    <select id="findWatchHistoryByUserId" resultType="com.xczhihui.course.model.WatchHistory">
 		SELECT
 		  *
 		FROM
 		  oe_watch_history1 owh where owh.user_id = #{userId}  limit 0,5
 	</select>
-	
-	<delete  id="deleteBatch">    
-        delete  from  oe_watch_history1  	
-       	  where id  in 
-        <foreach collection="list" item="model" open="(" separator="," close=")" >    
-            	#{model.id}
-        </foreach>  
-	</delete >
-	
-	<delete  id="deleteWatchHistoryByUserId">    
+
+    <delete id="deleteBatch">
+        delete from oe_watch_history1
+        where id in
+        <foreach collection="list" item="model" open="(" separator="," close=")">
+            #{model.id}
+        </foreach>
+    </delete>
+
+    <delete id="deleteWatchHistoryByUserId">
         delete  from  oe_watch_history1  where user_id = #{userId}
-	</delete >
-	
-	<update id="insertApplyRGradeCourse" >
-		INSERT INTO apply_r_grade_course(
-			id, course_id,is_payment,cost, create_person, user_id, create_time
-		) VALUES
-			( #{id},
-			 #{courseId},
-			 0,
-			 0,
-			 #{loginName},
-			 #{userId},
-			 now())
-	</update>
-	
-	
+	</delete>
+
+    <insert id="insertApplyRGradeCourse">
+	INSERT IGNORE INTO apply_r_grade_course(
+		id, course_id,is_payment,cost,  user_id, create_time
+	) VALUES
+		( #{id}, #{courseId},  0,  0,   #{userId}, now())
+	</insert>
+    <insert id="insertWatchHistory">
+		INSERT IGNORE INTO `oe_watch_history1` (
+		  user_id, lecturer_id, course_id, collectionId
+		)
+		VALUES
+		  (#{userId},#{userLecturerId},#{courseId},#{collectionId})
+	</insert>
+
+
 </mapper>

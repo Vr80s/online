@@ -26,7 +26,7 @@ import com.xczhihui.common.support.service.AttachmentCenterService;
 import com.xczhihui.common.util.IStringUtil;
 import com.xczhihui.common.util.JsonUtil;
 import com.xczhihui.common.util.bean.ResponseObject;
-import com.xczhihui.common.web.util.UserLoginUtil;
+import com.xczhihui.bxg.online.web.base.utils.UserLoginUtil;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.body.bbs.PostBody;
 import com.xczhihui.bxg.online.web.body.bbs.ReplyBody;
@@ -113,7 +113,7 @@ public class BBSController extends AbstractFtlController {
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     public ModelAndView view(@PathVariable Integer id, @RequestParam(defaultValue = "1") int page, HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView("bbs/detail");
-        BxgUser loginUser = UserLoginUtil.getLoginUser(request);
+        BxgUser loginUser = UserLoginUtil.getLoginUser();
         postService.addBrowseRecord(id, loginUser == null ? null : loginUser.getId());
         PostVO postVO = postService.get(id);
         modelAndView.addObject("post", postVO);

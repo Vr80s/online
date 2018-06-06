@@ -43,7 +43,15 @@
 					<p class="title" data-text="音频测试3" title="音频测试3">${courseItem.gradeName}</p>
 					<p class="timeAndTeac"><span>讲师：<span class="teacher">${courseItem.name}</span></span>
 					</p>
-					<p class="info clearfix"><span><span class="price">${courseItem.currentPrice}</span><span>熊猫币</span></span>
+					<p class="info clearfix">
+					 <span>
+					 <#if courseItem.currentPrice gt 0 >
+					 	 <span class="price">${courseItem.currentPrice}</span>
+					 	 <span>熊猫币</span>
+					 <#else> 	 
+					 	 <span class="price">免费</span>
+					 </#if>
+					</span>
 					 <span class="stuCount"><img src="/web/images/studentCount.png" alt="">
 					 <span class="studentCou">${courseItem.learndCount}</span></span>
 					</p>

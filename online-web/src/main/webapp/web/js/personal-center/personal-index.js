@@ -1,3 +1,4 @@
+
 $(function() {
 //左右侧边栏mune功能
 	$('#accordion > li').click(function(){
@@ -5,20 +6,79 @@ $(function() {
 			$('#right-content > div').eq($(this).index()).removeClass('hide');
 	})
 	$('#accordion > li >.submenu >li').click(function(e){
-		$('#accordion > li >.submenu >li a').removeClass("mune-active")
-		$(this).find("a").addClass("mune-active")
+		$('#accordion > li >.submenu >li a').removeClass("mune-active");
+		$(this).find("a").addClass("mune-active");
+		location.hash = $(this).find("a").attr("data-menu");
 		e.stopPropagation();
 		
 //		判断数据加载
 		var dataLoadTittle=$(this).find("a").attr("data-load");
 		if (dataLoadTittle=="load-anchor") {
 			anchorShow();
-		}
+		}		
 //		判断数据加载
 		var index = $(this).parent().parent().index();
 		$('#right-content > div:eq('+index+') > div').addClass('hide')
 		$('#right-content > div:eq('+index+') > div').eq($(this).index()).removeClass('hide');
 	})
+	
+	
+		if(!location.hash){
+	        	location.hash = "#menu1-1";
+		}
+		var hash = location.hash;
+		
+		if(location.hash == "#menu1-1" || location.hash == "#menu1-2"){
+	    	$("#accordion li[data-menu='menu1-1']").click();
+	    	$("#accordion li[data-menu='menu1-1']").addClass('open');
+	    	$("#accordion li[data-menu='menu1-1'] .submenu").css('display','block')
+    	}else if(location.hash == "#menu2-1" || location.hash == "#menu2-2"){
+    		
+	    	$("#accordion li[data-menu='menu2-1']").click();
+	    	$("#accordion li[data-menu='menu2-1']").addClass('open');
+	    	$("#accordion li[data-menu='menu2-1'] .submenu").css('display','block')
+    	}else if(location.hash == "#menu3"){
+	    	$("#accordion li[data-menu='menu3']").click();
+	    	$("#accordion li[data-menu='menu3']").addClass('open');
+    	}else if(location.hash == "#menu4"){
+	    	$("#accordion li[data-menu='menu4']").click();
+	    	$("#accordion li[data-menu='menu4']").addClass('open');
+    	}else if(location.hash == "#menu5"){
+	    	$("#accordion li[data-menu='menu5']").click();
+	    	$("#accordion li[data-menu='menu5']").addClass('open');
+    	}else if(location.hash == "#menu6"){
+	    	$("#accordion li[data-menu='menu6']").click();
+	    	$("#accordion li[data-menu='menu6']").addClass('open');
+    	}else if(location.hash == "#menu7"){
+	    	$("#accordion li[data-menu='menu7']").click();
+	    	$("#accordion li[data-menu='menu7']").addClass('open');
+    	}	
+    	
+//	判断路径的hash进行页面跳转
+	if(hash == '#menu1-1'){
+   		$("#accordion a[data-menu='menu1-1']").click();
+	}else if(hash == '#menu1-2'){		
+		$("#accordion a[data-menu='menu1-2']").click();
+	}else if(hash == '#menu2-1'){
+		quizList(1)	
+		$("#accordion a[data-menu='menu2-1']").click();
+	}else if(hash == '#menu2-2'){
+		$("#accordion a[data-menu='menu2-2']").click();
+	}else if(hash == '#menu3'){
+		orderList(1,0,5);
+		$("#accordion .link[data-menu='menu3']").click();
+	}else if(hash == '#menu4'){
+		tradeList(1)
+		$("#accordion .link[data-menu='menu4']").click();
+	}else if(hash == '#menu5'){
+		$("#accordion .link[data-menu='menu5']").click();
+	}else if(hash == '#menu6'){
+		newsList(1)
+		$("#accordion .link[data-menu='menu6']").click();
+	}else if(hash == '#menu7'){
+		$("#accordion .link[data-menu='menu7']").click();
+	}
+//	判断路径的hash进行页面跳转
 	var Accordion = function(el, multiple) {
 		this.el = el || {};
 		this.multiple = multiple || false;
@@ -33,6 +93,7 @@ $(function() {
 		var $el = e.data.el;
 			$this = $(this),
 			$next = $this.next();
+			location.hash = $(this).attr("data-menu");
 //			判断若是有下拉子菜单,则给第一个菜单加点击
 			if($(this).siblings(".submenu").find("li").length>0){
 				$(this).siblings(".submenu").find("li").first().click();
@@ -42,6 +103,9 @@ $(function() {
 //				$this.parent().find("span").toggleClass('glyphicon-triangle-bottom');
 			}else{
 				$el.find('.submenu').not($next).parent().find("span").removeClass('glyphicon-triangle-bottom');			
+			}
+			if($(this).siblings(".tte").length>0){	
+				quizList(1)	
 			}
 //		判断数据加载
 		var dataLoadmune=$this.attr("data-load");
@@ -244,52 +308,10 @@ $(".question-forum li").click(function(){
 })
 
 //		我的提问    我的回答  由于hide后不能获取元素高度 展示更多文字
-function showMoneText(){
-		$("#show-set").removeClass("hide");
-		$("#answer").removeClass("hide");
-//点击收起,隐藏则字体
-			var $dot5 = $('.dot5');
-                $dot5.each(function () {
-                    if ($(this).height() > 40) {
-                        $(this).attr("data-txt", $(this).attr("data-text"));
-                        $(this).height(40);
-                        $(this).append('<span class="qq" style="margin-right:60px"> <a class="toggle" href="###" style="color:#2cb82c"><span class="opens">显示全部</span><span class="closes">收起</span></a></span>');
-                    }
-                    var $dot4 = $(this);
 
-                    function createDots() {
-                        $dot4.dotdotdot({
-                            after: 'span.qq'
-                        });
-                    }
-
-                    function destroyDots() {
-                        $dot4.trigger('destroy');
-                    }
-
-                    createDots();
-                    $dot4.on(
-                        'click',
-                        'a.toggle',
-                        function () {
-                            $dot4.toggleClass('opened');
-
-                            if ($dot4.hasClass('opened')) {
-                                destroyDots();
-                            } else {
-                                createDots();
-                            }
-                            return false;
-                        }
-                    );
-                });
-//获取高度后立马将其隐藏
-		$("#show-set").addClass("hide")
-		$("#answer").addClass("hide")
-}
 
 //我的提问
-quizList(1)		
+	
 function quizList(pages){
 	 RequestService("/online/questionlist/getQuestionList", "get",{
 	 	pageNumber:pages,
@@ -538,28 +560,28 @@ function tradeList (pages) {
 	}, function (data) {
 		if (data.success==true) {
 			$(".laod-money").addClass("hide");
-			if (data.resultObject.length==0){
+			if (data.resultObject.records.length==0){
 				$(".all-money-order").removeClass("hide")
 			} else{
-				$("#trade-template").html(template("trade-box",{items:data.resultObject}))
+				$("#trade-template").html(template("trade-box",{items:data.resultObject.records}))
 			}
 			
 			if(data.resultObject.pages > 1) { //分页判断
 					$(".not-data").remove();
-		            $(".reply_pages").removeClass("hide");
-		            $(".reply_pages .searchPage .allPage").text(data.resultObject.pages);
-		            $("#reply_doctors").pagination(data.resultObject.pages, {
+		            $(".money_pages").removeClass("hide");
+		            $(".money_pages .searchPage .allPage").text(data.resultObject.pages);
+		            $("#money_doctors").pagination(data.resultObject.pages, {
 		                num_edge_entries: 1, //边缘页数
 		                num_display_entries: 4, //主体页数
 		                current_page:pages-1,
 		                callback: function (page) {
 		                    //翻页功能
-		                    replyList(page+1)
+		                    tradeList(page+1)
 		                }
 		            });
 				}
 				else {
-					$(".reply_pages").addClass("hide");
+					$(".money_pages").addClass("hide");
 				}
 			
 			
@@ -725,9 +747,9 @@ function geren() {
 			provinceName: pcd.provinceText,
 			cityName: pcd.cityText,
 			countyName: pcd.districtText,
-			province : pcd.province,
-			city : pcd.city,
-			district :  pcd.district,
+			regionAreaId : pcd.province,
+			regionCityId : pcd.city,
+			regionId :  pcd.district,
 			email : email,
 			sex:sex,
 			occupationOther:$('.profession').val(),
@@ -751,6 +773,7 @@ function geren() {
 				$(".loginGroup .name").text($(".nickname").val()).attr("title", $(".nickname").val())
 //				$(".view-content .view-content-notbodys").html("");
 //				$(".rrrTips").html("保存成功").css("display", "block");
+
 				showTip("保存成功")
 
 			} else {
@@ -766,7 +789,7 @@ function geren() {
 Newsnumber()
 //将全部消息设为已读
 $(".sign-read").click(function(){
-	RequestService("/online/message/readMessage", "POST",null, function (data) {
+	RequestService("/message/readStatus", "POST",PUT, function (data) {
 		if(data.success==true){
 			showTip(data.resultObject);
 			newsList(1)
@@ -776,7 +799,6 @@ $(".sign-read").click(function(){
 		}
 
 	})
-
 })
 
 
@@ -972,28 +994,28 @@ function getImgArray(str) {
 //	$("#news-template").html(template.compile(nnee)({
 //      items: data.resultObject.items
 //  }));
-function newsList(pages){
+function newsList(page){
 	var setData={
-		pageNumber:pages,
-		pageSize:10
+		page:page,
+		size:10
 	}
-	RequestService("/online/message/getMessageList", "get",setData, function (data) {
+	RequestService("/message", "get",setData, function (data) {
 		$(".load-news").addClass("hide");
-		if(data.resultObject.items.length == 0){
+		if(data.resultObject.records.length == 0){
 			$(".all-news-order").removeClass("hide");
 		}else{
 			$(".all-news-order").addClass("hide");
 		}
-		$("#news-template").html(template("news-box",{items:data.resultObject.items}))
+		$("#news-template").html(template("news-box",{items:data.resultObject.records}))
     //分页添加
-			if(data.resultObject.totalPageCount > 1) { //分页判断
+			if(data.resultObject.pages > 1) { //分页判断
 					$(".not-data").remove();
 		            $(".news_pages").removeClass("hide");
-		            $(".news_pages .searchPage .allPage").text(data.resultObject.totalPageCount); //共几页
-		            $("#news_doctors").pagination(data.resultObject.totalPageCount, {
+		            $(".news_pages .searchPage .allPage").text(data.resultObject.pages); //共几页
+		            $("#news_doctors").pagination(data.resultObject.pages, {
 		                num_edge_entries: 1, //边缘页数
 		                num_display_entries: 4, //主体页数
-		                current_page:pages-1,  //pages为传的页数
+		                current_page:page-1,  //pages为传的页数
 		                callback: function (page) {
 		                    //翻页功能
 		                    newsList(page+1);
@@ -1008,18 +1030,18 @@ function newsList(pages){
 }
 //获取未读的消息条数
 function Newsnumber(){
-RequestService("/online/message/findMessageCount", "get",null, function (data) {
+RequestService("/message/count", "get",null, function (data) {
 		if(data.success==true){
-			var numberAll=data.resultObject.count;
+			var numberAll=data.resultObject;
 			if(numberAll>99){
 				numberAll=99;
 			}
-			if(data.resultObject.count==0){
+			if(data.resultObject==0){
 				$(".mune-news .news-tip").addClass("hide");
 				$(".sign-read").addClass("hide");
 			}else{
 				$(".mune-news .news-tip").removeClass("hide");
-				$(".mune-news .news-tip").htme(numberAll);
+				$(".mune-news .news-tip").html(numberAll);
 				$(".sign-read").removeClass("hide");
 			}
 		}else{
@@ -1031,9 +1053,7 @@ RequestService("/online/message/findMessageCount", "get",null, function (data) {
 function jump_msg() {
     var e = window.event || arguments.callee.caller.arguments[0];
     var id = $(e.target).data('id');
-    RequestService("/online/message/updateReadStatusById", "post", {
-        id: id
-    }, function (data) {
+    RequestService("/message/"+id+"/readStatus", "PUT",null, function (data) {
         if (data.success == true) {
         	newsList(1);
         	Newsnumber();
@@ -1042,14 +1062,12 @@ function jump_msg() {
                 window.open(url, "_blank");
             }
         }
-    }, false);
+    });
 }
 //删除消息
 function deleteNews(index){
 	var deleteId=$(index).attr("data-delete");
-	RequestService("/online/message/deleteMessage", "post", {
-        id: deleteId
-    }, function (data) {
+	RequestService("/message/"+deleteId+"", "DELETE",null, function (data) {
     	if(data.success== true){
     		showTip(data.resultObject);
     		newsList(1);
@@ -1059,6 +1077,45 @@ function deleteNews(index){
     	}
     })
 }
- 
-    
+  
+function showMoneText(){
+	$("#answer").removeClass("hide");
+//点击收起,隐藏则字体
+			var $dot5 = $('.dot5');
+                $dot5.each(function () {
+                    if ($(this).height() > 40) {
+                        $(this).attr("data-txt", $(this).attr("data-text"));
+                        $(this).height(40);
+                        $(this).append('<span class="qq" style="margin-right:60px"> <a class="toggle" href="###" style="color:#2cb82c"><span class="opens">显示全部</span><span class="closes">收起</span></a></span>');
+                    }
+                    var $dot4 = $(this);
 
+                    function createDots() {
+                        $dot4.dotdotdot({
+                            after: 'span.qq'
+                        });
+                    }
+                    function destroyDots() {
+                        $dot4.trigger('destroy');
+                    }
+
+                    createDots();
+                    $dot4.on(
+                        'click',
+                        'a.toggle',
+                        function () {
+                            $dot4.toggleClass('opened');
+
+                            if ($dot4.hasClass('opened')) {
+                                destroyDots();
+                            } else {
+                                createDots();
+                            }
+                            return false;
+                        }
+                    );
+                });
+//获取高度后立马将其隐藏
+	$("#answer").addClass("hide");
+
+}

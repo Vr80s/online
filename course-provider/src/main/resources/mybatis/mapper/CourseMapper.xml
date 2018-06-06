@@ -450,7 +450,7 @@
    <select id="selectCurrentCourseStatus" resultType="com.xczhihui.course.vo.CourseLecturVo">
        SELECT
           <include refid="relCurrentCourseStatus"/>
-		  if(oc.is_free =0,0,1) as watchState
+		  oc.is_free as watchState
 		FROM
 			oe_course as oc
 			inner join course_anchor as ou on oc.user_lecturer_id = ou.user_id

@@ -34,7 +34,7 @@
 					     	<#if project_index lt 4 >
 					     	 <li>
 					     		<a href="">
-									<p><img src="${project.icon}" alt="${project.name}" /></p>
+									<p><img src="${project.icon}" style="width: 54px;height: 54px;" alt="${project.name}" /></p>
 									<span>${project.name}</span>
 							    </a>
 							  </li>  
@@ -44,11 +44,6 @@
 				</div>
 <!--精品课程、免费课程、最新课程、养生课程、-->	
 
-		<#-- 	 
-			menuType: 200,
-            courseList: [
-            ],
-            title: "针灸疗法"  -->
 		
 				<#list courseTypeList as courseTypeItem>
 					<div class="main">
@@ -57,7 +52,11 @@
 							    <#-- 课程的小标题--> 
 								<span>${courseTypeItem.title}</span>
 								<#-- 课程列表 页跳转  带上跳转条件 -->
-								<p><a href="/courses/list?menuType=${courseTypeItem.menuType}" target="_blank">更多</a>
+								<#if courseTypeItem.title?? && courseTypeItem.title == "最新课程"> 
+									<p><a href="/courses/list?menuType=${courseTypeItem.menuType}&sortOrder=2" target="_blank">更多</a>
+								<#else>
+									<p><a href="/courses/list?menuType=${courseTypeItem.menuType}" target="_blank">更多</a>
+								</#if>
 								<img src="/web/images/rili_icon.png" alt="箭头" /> </p>
 							</div>
 							<#list courseTypeItem.courseList as courseItem>
@@ -94,7 +93,16 @@
 											<p class="timeAndTeac">
 												<span class="teacher">${courseItem.name}</span>
 											</p>
-											<p class="info clearfix"><span><span class="price">${courseItem.currentPrice}</span><span>熊猫币</span></span><span class="stuCount">
+											<p class="info clearfix"><span>
+											
+											 <#if courseItem.currentPrice gt 0 >
+											 	 <span class="price">${courseItem.currentPrice}</span>
+											 	 <span>熊猫币</span>
+											 <#else> 	 
+											 	 <span class="price">免费</span>
+											 </#if>
+											
+											<span class="stuCount">
 											<img src="/web/images/studentCount.png" alt=""><span class="studentCou">${courseItem.learndCount}</span></span>
 											</p>
 										</div>
@@ -114,23 +122,27 @@
 					<span><a href="${webUrl}/web/html/want-anchor.html" target="_blank">成为主播</a></span>
 				</div>
 			
-				<div class="hot-search">
-					<p>热门搜索</p>
-					<ul>
-				    <#list hotList as hot>
-                        <li data-id="hot.id">
-							<a href="/courses/list?queryKey=${hot.name}" target="_blank">${hot.name}</a>
-						</li> 
-                    </#list>
-					<#-- 
-					     <li>热门搜索</li>
-					-->     	
-					</ul>
-				</div>
-				<div class="wrap-docter">
-					<span>名师推荐</span>
-					<#include "../common/famous_doctor_common.ftl"> 
-				</div>
+			    
+			    <#if hotList??>	
+					<div class="hot-search">
+						<p>热门搜索</p>
+						<ul>
+					    <#list hotList as hot>
+	                        <li data-id="hot.id">
+								<a href="/courses/list?queryKey=${hot.name}" target="_blank">${hot.name}</a>
+							</li> 
+	                    </#list>
+						</ul>
+					</div>
+				</#if>
+				
+				 <#if doctorList??>	
+					<div class="wrap-docter">
+						<span>名师推荐</span>
+						<#include "../common/famous_doctor_common.ftl"> 
+					</div>
+				</#if>
+			
 			</div>
 		</div>
 

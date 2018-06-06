@@ -32,14 +32,14 @@
 					<span class="icon-adopt"></span>
 				
 				<div class="anchor-status z">
-					<h2>${lecturerInfo.name}</h2>
-					<#if lecturerInfo.type == 1 && hospital.name??>
+					<h2>${lecturerInfo.name?default('')}</h2>
+					<#if lecturerInfo.type == 1 && hospital?? && hospital.name??>
 						<h4>${hospital.name}</h4>
 					</#if>
 					<ul class="follow-box cl">
-						<li>关注${fansCount}</li>
+						<li>关注<span id="focusCount">${fansCount}</span></li>
 						<li>|</li>
-						<li>粉丝${focusCount}</li>
+						<li>粉丝<span id="fansCount">${focusCount}</span></li>
 					</ul>
 					<#if isFours == 0>
 						<button type="button" class="isAdd-follow">
@@ -52,8 +52,6 @@
 						  <span>已关注</span>
 						</button>
 					</#if>
-					
-					
 				</div>
 			</div>
 		</div>
@@ -82,32 +80,40 @@
 					<div class="sidebar-content hide" style="background: #F8F8F8;padding: 0;">
 						<div class="anchor-introduce">
 							<p>
-								${lecturerInfo.detail}
+								${lecturerInfo.detail?default("")}
 							</p>
 						</div>
 						<div class="anchor-hospital">
 							<h5>坐诊医馆</h5>
 							<div class="hospital-img z">
-								<img src="${hospital.versionPictures}"/>
+							    <#if hospital?? >
+									<img src="${hospital.versionPictures}"/>
+								<#else> 
+								    <img src="${webUrl}/web/images/defaultHead/18.png" />
+							    </#if>
 							</div>
 							<div class="hospital-inf y">
 								<div class="hospital-status">
-									<#if lecturerInfo.type == 1 && hospital.name??>
-										<p>${hospital.name}</p>
+									<#if lecturerInfo.type == 1 && hospital?? && hospital.name??>
+										<p>${hospital.name?default("")}</p>
 									</#if>
 									<p>预约电话：400-800-9999</p>
 									<#if lecturerInfo.type == 1 && lecturerInfo.workTime??>
-										<p>坐诊时间：${lecturerInfo.workTime}</p>
+										<p>坐诊时间：${lecturerInfo.workTime?default("")}</p>
 									</#if>
 								</div>
 								<div class="address-box">
-									<p class="address z">
-										<span>地</span>
-										<span>址：</span>
-									</p>
-									<p class="address-text z">
-										${hospital.province}${hospital.city}${hospital.detailedAddress}
-									</p>
+									<#if hospital??>
+										<p class="address z">
+											<span>地</span>
+											<span>址：</span>
+										</p>
+										<p class="address-text z">
+											${hospital.province?default("")}
+											${hospital.city?default("")}
+											${hospital.detailedAddress}
+										</p>
+									</#if>	
 								</div>
 							</div>
 						</div>

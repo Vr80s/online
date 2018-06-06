@@ -106,7 +106,7 @@ public class AnchorsController extends AbstractFtlController {
 		
 		
 		pageNumber = pageNumber == null ? 1 : pageNumber;
-		pageSize = pageSize == null ? 2 : pageSize;
+		pageSize = pageSize == null ? 8 : pageSize;
 		
 		ModelAndView view = new ModelAndView("school/anchor_details");
 		//显示详情呢、大纲、评论、常见问题呢
@@ -197,7 +197,7 @@ public class AnchorsController extends AbstractFtlController {
 	    Map<String,Object> lecturerInfo = myInfoService.findHostInfoById(userId);
 	    view.addObject("lecturerInfo", lecturerInfo);
 	    
-	    MedicalHospital mha = null;
+	    MedicalHospital mha = new MedicalHospital();
 		//1.医师2.医馆
 		if(lecturerInfo.get("type").toString().equals("1")){
 			 mha = 	medicalHospitalApplyService.getMedicalHospitalByMiddleUserId(userId);	
@@ -206,7 +206,6 @@ public class AnchorsController extends AbstractFtlController {
 		}
 		//认证的主播 还是 医馆
 		view.addObject("hospital",mha);
-	    
 	    
 	    List<Integer> listff =   focusServiceRemote.selectFocusAndFansCountAndCriticizeCount(userId);
 	    view.addObject("fansCount", listff.get(0));       	   //粉丝总数

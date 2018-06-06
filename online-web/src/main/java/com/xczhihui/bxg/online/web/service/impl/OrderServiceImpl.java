@@ -59,12 +59,8 @@ public class OrderServiceImpl extends OnlineBaseServiceImpl implements OrderServ
      * @return 所有订单信息
      */
     @Override
-    public Page<OrderVo> getMyAllOrder(Integer orderStatus, Integer timeQuantum, Integer pageNumber, Integer pageSize, HttpServletRequest request) {
-        OnlineUser u = (OnlineUser) request.getSession().getAttribute("_user_");
-        if (u != null) {
-            return orderDao.getMyAllOrder(orderStatus, timeQuantum, pageNumber, pageSize, u.getId());
-        }
-        return null;
+    public Page<OrderVo> getMyAllOrder(Integer orderStatus, Integer timeQuantum, Integer pageNumber, Integer pageSize, String userId) {
+        return orderDao.getMyAllOrder(orderStatus, timeQuantum, pageNumber, pageSize, userId);
     }
 
     /**

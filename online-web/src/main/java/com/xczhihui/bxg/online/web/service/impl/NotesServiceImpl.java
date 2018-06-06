@@ -1,7 +1,7 @@
 package com.xczhihui.bxg.online.web.service.impl;
 
 import com.xczhihui.common.util.bean.Page;
-import com.xczhihui.common.web.util.UserLoginUtil;
+import com.xczhihui.bxg.online.web.base.utils.UserLoginUtil;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.dao.NotesDao;
 import com.xczhihui.bxg.online.web.service.NotesService;
@@ -30,7 +30,7 @@ public class NotesServiceImpl implements NotesService{
     public void saveOrUpdateNotes(HttpServletRequest request, NotesVo notes) {
         if(notes.getId()==null){
             //获取当前登录用户信息
-            OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
+            OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser();
             Map<String, Object> paramMap = new HashMap<>();
             paramMap.put("id",user.getId());
             paramMap.put("courseId",notes.getCourse_id());
@@ -50,7 +50,7 @@ public class NotesServiceImpl implements NotesService{
     @Override
     public Page<NotesVo> findNotes(HttpServletRequest request, String videoId,Integer type, Integer pageNumber, Integer pageSize) {
         //获取当前登录用户信息
-        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser();
         String userId = "";
         if(user!=null){
             userId=user.getId();
@@ -61,28 +61,28 @@ public class NotesServiceImpl implements NotesService{
     @Override
     public void deleteNotes(HttpServletRequest request, String notes_id) {
         //获取当前登录用户信息
-        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser();
         notesDao.deleteNotes(request,user,notes_id);
     }
 
     @Override
     public Map<String,Object> updatePraise(HttpServletRequest request,String notes_id) {
         //获取当前登录用户信息
-        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser();
         return notesDao.praise(notes_id,user);
     }
 
     @Override
     public boolean updateCollect(HttpServletRequest request,String notes_id) {
         //获取当前登录用户信息
-        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser();
         return notesDao.updateCollect(notes_id,user);
     }
 
     @Override
     public Page<NotesCommentVo> findComments(HttpServletRequest request,String notes_id, Integer pageNumber, Integer pageSize) {
         //获取当前登录用户信息
-        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser();
         String userId = "";
         if(user!=null){
             userId=user.getId();
@@ -93,7 +93,7 @@ public class NotesServiceImpl implements NotesService{
     @Override
     public void saveComment(HttpServletRequest request,NotesCommentVo nv) {
         //获取当前登录用户信息
-        OnlineUser u = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        OnlineUser u = (OnlineUser) UserLoginUtil.getLoginUser();
         nv.setCreate_person(u.getLoginName());
         nv.setCreate_head_img(u.getSmallHeadPhoto());
         nv.setCreate_nick_name(u.getName());
@@ -104,7 +104,7 @@ public class NotesServiceImpl implements NotesService{
     @Override
     public void deleteComment(HttpServletRequest request, String comment_id) {
         //获取当前登录用户信息
-        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser();
         notesDao.deleteComment(request,user,comment_id);
     }
 }

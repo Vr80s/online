@@ -137,7 +137,15 @@
 									<p class="title" data-text="音频测试3" title="音频测试3">${courseItem.gradeName}</p>
 									<p class="timeAndTeac"><span class="teacher">${courseItem.name}</span>
 									</p>
-									<p class="info clearfix"><span><span class="price">${courseItem.currentPrice}</span><span>熊猫币</span></span>
+									<p class="info clearfix">
+									     <span>
+									      <#if courseItem.currentPrice gt 0 >
+										 	 <span class="price">${courseItem.currentPrice}</span>
+										 	 <span>熊猫币</span>
+										 <#else> 	 
+										 	 <span class="price">免费</span>
+										 </#if>
+									     </span>
 										<span class="stuCount"><img src="/web/images/studentCount.png" alt="">
 								        <span class="studentCou">${courseItem.learndCount}</span></span>
 									</p>
@@ -202,7 +210,15 @@
 									<p class="title" data-text="音频测试3" title="音频测试3">${courseItem.gradeName}</p>
 									<p class="timeAndTeac"><span class="teacher">${courseItem.name}</span>
 									</p>
-									<p class="info clearfix"><span><span class="price">${courseItem.currentPrice}</span><span>熊猫币</span></span>
+									<p class="info clearfix">
+									 <span>
+									 <#if courseItem.currentPrice gt 0 >
+									 	 <span class="price">${courseItem.currentPrice}</span>
+									 	 <span>熊猫币</span>
+									 <#else> 	 
+									 	 <span class="price">免费</span>
+									 </#if>
+									 </span>
 										<span class="stuCount"><img src="/web/images/studentCount.png" alt="">
 								<span class="studentCou">${courseItem.learndCount}</span></span>
 									</p>
@@ -331,13 +347,17 @@
 							<li class="doctorInfTpl clearfix">
 								<div class="touxiang">
 									<a href="${webUrl}/doctors/${doctor.id}"  style="color: #0C0C0C" target="_blank">
-										<img src="${doctor.headPortrait!''}" alt="${doctor.name}">
+										 <#if doctor.headPortrait??>
+										    <img src="${doctor.headPortrait}" alt="${doctor.name}"/>
+										 <#else> 
+										    <img src="${webUrl}/web/images/defaultHead/18.png" alt="${doctor.name}" />
+										 </#if>
 									</a>
 								</div>
 								<div class="zuozhe_inf">
 									<span><a href="/doctors/c654bcc007354244a6ba22cfd907f426" style="color: #0C0C0C" target="_blank">${doctor.name} </a>
 									<span style="font-size: 14px;color: #666666;font-weight: 400;margin-left: 10px;">
-									  ${doctor.province}&nbsp;${doctor.city}
+									  ${doctor.province?default('')}&nbsp;${doctor.city?default('')}
 									 </span></span>
 									<p>课程：${doctor.gradeName?default('暂无')}</p>
 								</div>
@@ -359,7 +379,11 @@
 							<li class="doctorInfTpl clearfix">
 								<div class="touxiang">
 									<a href="/doctors/${hotSpecialColumnAuthor.doctorId}" style="color: #0C0C0C"target="_blank">
-										 <img src="${hotSpecialColumnAuthor.headPortrait}" alt=""/>
+										 <#if hotSpecialColumnAuthor.headPortrait??>
+										    <img src="${hotSpecialColumnAuthor.headPortrait}" alt=""/>
+										 <#else> 
+										    <img src="${webUrl}/web/images/defaultHead/18.png" alt=""/>
+										 </#if>
 									</a>
 								</div>
 								<div class="zuozhe_inf">

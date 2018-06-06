@@ -1,7 +1,7 @@
 package com.xczhihui.bxg.online.web.service.impl;
 
 import com.xczhihui.common.util.bean.Page;
-import com.xczhihui.common.web.util.UserLoginUtil;
+import com.xczhihui.bxg.online.web.base.utils.UserLoginUtil;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.common.util.enums.HeadlineType;
@@ -117,7 +117,7 @@ public class ArticleServiceImpl extends OnlineBaseServiceImpl implements Article
 
         String loginName="0";
         //获取当前登录用户信息
-        OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser();
         if(loginUser !=null){
             loginName=loginUser.getLoginName();
         }
@@ -167,7 +167,7 @@ public class ArticleServiceImpl extends OnlineBaseServiceImpl implements Article
     @Override
     public void  saveAppraise(AppraiseVo appraiseVo, HttpServletRequest request){
         //获取当前登录用户信息
-        OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser();
         appraiseVo.setUser_id(loginUser.getId());
         appraiseVo.setId(UUID.randomUUID().toString().replaceAll("-", ""));
         String sql = "insert into oe_bxs_appraise (id,article_id,content,user_id,target_user_id,reply_comment_id) "
@@ -194,7 +194,7 @@ public class ArticleServiceImpl extends OnlineBaseServiceImpl implements Article
         Map<String,Object> paramMap = new HashMap<String,Object>();
         paramMap.put("articleId",articleId);
         //获取当前登录用户信息
-        OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser();
         String user_id="-1";
         if(loginUser!= null ){
            user_id=loginUser.getId();
@@ -215,7 +215,7 @@ public class ArticleServiceImpl extends OnlineBaseServiceImpl implements Article
     @Override
     public  Map<String,Object>   updatePraiseSum(Integer articleId, Integer praiseSum, HttpServletRequest request){
         //获取当前登录用户信息
-        OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser();
 
         Map<String,Object> resultMap = new HashMap<String,Object>();
         Integer newPraiseSum=praiseSum;
@@ -249,7 +249,7 @@ public class ArticleServiceImpl extends OnlineBaseServiceImpl implements Article
     @Override
     public  void   deleteAppraiseId(String appraiseId, HttpServletRequest request){
         //获取当前登录用户信息
-        OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser();
         Map<String,Object> paramMap = new HashMap<String,Object>();
         paramMap.put("appraiseId",appraiseId);
         paramMap.put("userId",loginUser.getId());

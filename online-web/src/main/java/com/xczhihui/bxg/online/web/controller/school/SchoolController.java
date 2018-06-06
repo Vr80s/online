@@ -26,9 +26,21 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.controller.ftl.AbstractFtlController;
 import com.xczhihui.bxg.online.web.utils.ftl.ReplaceUrl;
-import com.xczhihui.common.util.enums.*;
+import com.xczhihui.common.util.enums.BannerType;
+import com.xczhihui.common.util.enums.CourseType;
+import com.xczhihui.common.util.enums.LiveStatus;
+import com.xczhihui.common.util.enums.PagingFixedType;
+import com.xczhihui.common.util.enums.PayStatus;
+import com.xczhihui.common.util.enums.ProjectType;
+import com.xczhihui.common.util.enums.SearchType;
 import com.xczhihui.course.model.OfflineCity;
-import com.xczhihui.course.service.*;
+import com.xczhihui.course.service.ICourseService;
+import com.xczhihui.course.service.ICriticizeService;
+import com.xczhihui.course.service.IMobileBannerService;
+import com.xczhihui.course.service.IMobileHotSearchService;
+import com.xczhihui.course.service.IMobileProjectService;
+import com.xczhihui.course.service.IMyInfoService;
+import com.xczhihui.course.service.IOfflineCityService;
 import com.xczhihui.course.util.CourseUtil;
 import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.course.vo.MenuVo;
@@ -202,7 +214,15 @@ public class SchoolController extends AbstractFtlController {
         ModelAndView view = new ModelAndView("school/list/school_list");
 
         current = current == null ? 1 : current;
-        size = size == null ? 10 : size;
+        size = size == null ? 12 : size;
+        
+        if(queryConditionVo.getMenuType()!=null && "0".equals(queryConditionVo.getMenuType())) {
+        	queryConditionVo.setMenuType(null);
+        }
+        if(queryConditionVo.getLineState()!=null && queryConditionVo.getLineState() == 0) {
+        	queryConditionVo.setLineState(null);
+        }
+        
         // 课程列表
         if (StringUtils.isNotBlank(queryConditionVo.getQueryKey())) {
             queryConditionVo.setQueryKey("%" + queryConditionVo.getQueryKey() + "%");
@@ -210,7 +230,6 @@ public class SchoolController extends AbstractFtlController {
         } else {
             view.addObject("courseList", mobileBannerService.searchCourseList(new Page<CourseLecturVo>(current, size), queryConditionVo));
         }
-
 
         //Map<String,String> returnMap = new HashMap<String,String>();
         StringBuffer sb = new StringBuffer(webUrl + "/courses/list");
@@ -292,7 +311,7 @@ public class SchoolController extends AbstractFtlController {
 
         //StringBuffer sb = new StringBuffer(webUrl+"/courses/list");
 
-        view.addObject("webUrlParam", webUrl + "/courses/" + courseId);
+        view.addObject("webUrlParam", "/courses/" + courseId);
 
         //获取用户信息
         OnlineUser user = getCurrentUser();
@@ -304,10 +323,11 @@ public class SchoolController extends AbstractFtlController {
         if (user != null && clv != null) {
             /*
              * 收费课程判断有没有购买过
-			 * 免费课程判断有没有学习过
-			 */
+             * 免费课程判断有没有学习过
+             */
             Integer falg = criticizeService.hasCourse(user.getId(), courseId);
-            if (clv.getWatchState() == 0) { // 付费课程
+            // 付费课程
+            if (clv.getWatchState() == 0) {
                 if (falg > 0) {
                     clv.setWatchState(2);
                 }
@@ -318,9 +338,7 @@ public class SchoolController extends AbstractFtlController {
                 }
             }
         }
-	    /*
-	     * 如果是专辑获取专辑列表
-	     */
+        //如果是专辑获取专辑列表
         if (clv.getCollection()) {
             List<CourseLecturVo> courses = courseService.selectCoursesByCollectionId(clv.getId());
             view.addObject("collectionList", courses);
@@ -330,9 +348,8 @@ public class SchoolController extends AbstractFtlController {
 
         //课程详情
         view.addObject("courseInfo", clv);
-        /**
-         * 常见问题。啦啦啦
-         */
+
+        //常见问题。啦啦啦
         String path = req.getServletContext().getRealPath("/template");
         File f = new File(path + File.separator + "/course_common_problem.html");
         view.addObject("commonProblem", FileUtil.readAsString(f));

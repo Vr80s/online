@@ -25,11 +25,12 @@ public class MedicalEntryInformationDao extends HibernateDao<MedicalEntryInforma
                 " mei.native_place as nativePlace,mei.tel as tel,mer.deadline as deadline,mei.education,mei.apprentice as apprentice  " +
                 " FROM" +
                 " medical_entry_information mei ,medical_enrollment_regulations mer " +
-                " WHERE mei.mer_id = mer.id and mei.deleted = 0 order by mei.create_time desc");
+                " WHERE mei.mer_id = mer.id and mei.deleted = 0 ");
         if (medicalEntryInformation.getMerId() != null) {
             paramMap.put("merId", medicalEntryInformation.getMerId());
             sql.append(" and mei.mer_id = :merId ");
         }
+        sql.append(" order by mei.create_time desc ");
         Page<MedicalEntryInformation> list = this.findPageBySQL(sql.toString(),
                 paramMap, MedicalEntryInformation.class, pageNumber, pageSize);
         return list;

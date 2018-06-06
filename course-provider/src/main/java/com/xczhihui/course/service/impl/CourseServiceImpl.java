@@ -177,4 +177,14 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 	public CourseLecturVo selectCourseStatusDeleteUserLecturerId(Integer courseId) {
 		return iCourseMapper.selectCourseStatusDeleteUserLecturerId(courseId);
 	}
+
+    @Override
+    public String getLiveCourseUrl4Wechat(String courseId) {
+        Integer lineStatus = iCourseMapper.getLineStatus(courseId);
+        //直播中、直播结束、即将直播
+        if(lineStatus == 1 || lineStatus == 3 || lineStatus == 4){
+            return "/xcview/html/details.html?courseId="+courseId;
+        }
+        return "/xcview/html/live_play.html?my_study="+courseId;
+    }
 }

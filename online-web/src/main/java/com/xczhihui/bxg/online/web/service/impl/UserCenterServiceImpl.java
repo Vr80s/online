@@ -5,6 +5,7 @@ import com.xczhihui.bxg.online.common.domain.Apply;
 import com.xczhihui.bxg.online.common.domain.Message;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.base.common.Constant;
+import com.xczhihui.bxg.online.web.base.utils.UserLoginUtil;
 import com.xczhihui.bxg.online.web.dao.UserCenterDao;
 import com.xczhihui.bxg.online.web.service.OnlineUserCenterService;
 import com.xczhihui.bxg.online.web.vo.*;
@@ -12,19 +13,21 @@ import com.xczhihui.common.support.domain.BxgUser;
 import com.xczhihui.common.util.DateUtil;
 import com.xczhihui.user.center.service.UserCenterService;
 import com.xczhihui.user.center.vo.OeUserVO;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
+
 import java.sql.SQLException;
 import java.util.*;
 
 /**
  * 用户中心显示内容
- * @author duanqh
  *
+ * @author duanqh
  */
 @Service("userCenterServiceImpl")
 public class UserCenterServiceImpl extends OnlineBaseServiceImpl implements OnlineUserCenterService {
@@ -37,50 +40,43 @@ public class UserCenterServiceImpl extends OnlineBaseServiceImpl implements Onli
 
     @Override
     public void updateUser(OeUserVO user, HttpServletRequest request) {
-        OnlineUser u= (OnlineUser) request.getSession().getAttribute(Constant.LOGINUSER);
-        if (u == null){
-            throw new RuntimeException("请登录!");
-        }
+        OnlineUser ou = (OnlineUser) UserLoginUtil.getLoginUser();
         user.setLoginName(null);
-        user.setId(u.getId());
+        user.setId(ou.getId());
         userCenterService.update(user);
     }
 
     @Override
-    public Map<String,String>  updateApply(ApplyVo applyVo, HttpServletRequest request) {
-        Map<String,String> mapValue=new HashMap<String,String>();
-        OnlineUser user= (OnlineUser) request.getSession().getAttribute(Constant.LOGINUSER);
-        if (user == null){
+    public Map<String, String> updateApply(ApplyVo applyVo, HttpServletRequest request) {
+        Map<String, String> mapValue = new HashMap<String, String>();
+        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser();
+        if (user == null) {
             throw new RuntimeException("请登录!");
         }
         Apply apply = dao.findOneEntitiyByProperty(Apply.class, "idCardNo", applyVo.getIdCardNo());
-        if(apply!=null && !apply.getUserId().equals(user.getId())){
+        if (apply != null && !apply.getUserId().equals(user.getId())) {
             throw new RuntimeException("该身份证号已被填写");
         }
         apply = dao.findOneEntitiyByProperty(Apply.class, "userId", user.getId());
-        String card_no="";
-        Integer isOldUser=0;
-        if(apply==null){
-            apply=new Apply();
-            //apply.setId(UUID.randomUUID().toString().replace("-", ""));
+        String card_no = "";
+        Integer isOldUser = 0;
+        if (apply == null) {
+            apply = new Apply();
             apply.setDelete(false);
             apply.setCreatePerson(user.getLoginName());
             apply.setIsOldUser(isOldUser);
             apply.setCreateTime(new Date());
             BeanUtils.copyProperties(applyVo, apply);
             dao.save(apply);
-        }else{ //如果是老学员  身份证无法修改
-            card_no= apply.getIsOldUser()==0 ? applyVo.getIdCardNo() :apply.getIdCardNo();
-            isOldUser=apply.getIsOldUser();
+        } else { //如果是老学员  身份证无法修改
+            card_no = apply.getIsOldUser() == 0 ? applyVo.getIdCardNo() : apply.getIdCardNo();
+            isOldUser = apply.getIsOldUser();
             BeanUtils.copyProperties(applyVo, apply);
             apply.setIdCardNo(card_no);
             dao.update(apply);
         }
-
-
-
-        mapValue.put("updateState","修改成功");
-        mapValue.put("isOldUser",String.valueOf(isOldUser));
+        mapValue.put("updateState", "修改成功");
+        mapValue.put("isOldUser", String.valueOf(isOldUser));
         return mapValue;
     }
 
@@ -102,7 +98,7 @@ public class UserCenterServiceImpl extends OnlineBaseServiceImpl implements Onli
     public boolean updatePassword(String userId, String pwd) {
         OnlineUser user = dao.get(userId, OnlineUser.class);
         //修改用户中心密码
-        userCenterService.updatePassword(user.getLoginName(),null, pwd);
+        userCenterService.updatePassword(user.getLoginName(), null, pwd);
         return true;
     }
 
@@ -152,6 +148,7 @@ public class UserCenterServiceImpl extends OnlineBaseServiceImpl implements Onli
 
         return vo;
     }
+
     @Override
     public List<ProvinceVo> getAllProvince() {
         return userCenter.getAllProvince();
@@ -164,21 +161,21 @@ public class UserCenterServiceImpl extends OnlineBaseServiceImpl implements Onli
 
     @Override
     public List<Map<String, Object>> getAllProvinceCity() throws SQLException {
-		 /*
-		  * sql 一下字查完。然后在进行拼接，得到中国下的省份。
-		  */
+         /*
+          * sql 一下字查完。然后在进行拼接，得到中国下的省份。
+          */
         String sql1 = "select cid,lin,name from ht_location where level = 3 and lin = 7";
-        List<Map<String, Object>> listProven =dao.getNamedParameterJdbcTemplate().getJdbcOperations().queryForList(sql1);
+        List<Map<String, Object>> listProven = dao.getNamedParameterJdbcTemplate().getJdbcOperations().queryForList(sql1);
 
         String sql2 = "select cid,lin,name from ht_location where level = 4";
-        List<Map<String, Object>> listCity =dao.getNamedParameterJdbcTemplate().getJdbcOperations().queryForList(sql2);
+        List<Map<String, Object>> listCity = dao.getNamedParameterJdbcTemplate().getJdbcOperations().queryForList(sql2);
 
         for (Map<String, Object> mapProven : listProven) {
-            List<Map<String, Object>> listCityC = new ArrayList<Map<String,Object>>();
-            String objPcid  = mapProven.get("cid").toString();
+            List<Map<String, Object>> listCityC = new ArrayList<Map<String, Object>>();
+            String objPcid = mapProven.get("cid").toString();
             for (Map<String, Object> mapCity : listCity) {
-                String objPclin  = mapCity.get("lin").toString();
-                if(objPcid.equals(objPclin)){
+                String objPclin = mapCity.get("lin").toString();
+                if (objPcid.equals(objPclin)) {
                     listCityC.add(mapCity);
                 }
             }

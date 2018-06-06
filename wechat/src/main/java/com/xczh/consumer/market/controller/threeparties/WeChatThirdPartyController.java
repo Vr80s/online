@@ -20,7 +20,6 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.bean.WxcpClientUserWxMapping;
-import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
 import com.xczh.consumer.market.utils.ResponseObject;
@@ -54,9 +53,6 @@ public class WeChatThirdPartyController {
 
     @Autowired
     private UserCenterService userCenterService;
-
-    @Autowired
-    private CacheService cacheService;
 
     @Autowired
     private WxMpService wxMpService;
@@ -300,7 +296,7 @@ public class WeChatThirdPartyController {
     public void getCurrentWechatOpenId(@RequestParam String url, HttpServletResponse response) throws Exception {
         String strLinkHome = wxMpService.oauth2buildAuthorizationUrl(returnOpenidUri + "/xczh/wxlogin/middle/callback?url=" + url,
                 "snsapi_userinfo", "STATE");
-        LOGGER.info("strLinkHome:" + strLinkHome);
+        LOGGER.warn("strLinkHome:" + strLinkHome);
         response.sendRedirect(strLinkHome);
     }
 
@@ -314,9 +310,9 @@ public class WeChatThirdPartyController {
      * @throws Exception
      */
     @RequestMapping("middle/callback")
-    public void getCurrentWechatOpenIdCallback(HttpServletRequest req,
-                                               HttpServletResponse res, @RequestParam String code, @RequestParam String url)
+    public void getCurrentWechatOpenIdCallback(HttpServletResponse res, @RequestParam String code, @RequestParam String url)
             throws Exception {
+        LOGGER.warn("middle/callback:code={}",code);
         WxcpClientUserWxMapping wxw = onlineUserService.saveWxInfo(code);
         if (StringUtils.isNotBlank(wxw.getClient_id())) {
             OnlineUser ou = onlineUserService.findUserById(wxw.getClient_id());
