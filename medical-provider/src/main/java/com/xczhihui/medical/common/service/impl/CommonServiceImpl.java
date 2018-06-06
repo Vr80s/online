@@ -118,7 +118,7 @@ public class CommonServiceImpl implements ICommonService {
                 Integer result = null;
                 MedicalHospitalAccount mha =   this.isHospitalStatus(userId);
                 if(mha!=null){
-                	if(!mha.getStatus() || mha.getDeleted()) { //医师被禁用或者删除
+                	if(!mha.getStatus() || mha.getDeleted()) { //医馆被禁用或者删除
                 		 result = CommonEnum.AUTH_HOSPITAL_STATUS.getCode();
                 	}else{
                 		 result = CommonEnum.AUTH_HOSPITAL.getCode();
