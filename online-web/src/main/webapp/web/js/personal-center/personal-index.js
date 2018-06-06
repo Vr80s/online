@@ -802,7 +802,7 @@ function geren() {
 Newsnumber()
 //将全部消息设为已读
 $(".sign-read").click(function(){
-	RequestService("/message/readStatus", "POST",PUT, function (data) {
+	RequestService("/message/readStatus", "PUT",null, function (data) {
 		if(data.success==true){
 			showTip(data.resultObject);
 			newsList(1)
