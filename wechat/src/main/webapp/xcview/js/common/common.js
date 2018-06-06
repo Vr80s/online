@@ -665,9 +665,20 @@ var _hmt = _hmt || [];
 })();
 
 
+// 主播链接错误时用到的默认头像
+function nofind(){ 
+    var img=event.srcElement; 
+    img.src="/xcview/images/regards.png"; 
+    img.onerror=null; //控制不要一直跳动 
+} 
 
 
-
+//用户链接错误时用到的头像
+function nofinds(){ 
+    var img=event.srcElement; 
+    img.src="/xcview/images/default_pic.png"; 
+    img.onerror=null; //控制不要一直跳动 
+} 
 
 
 
