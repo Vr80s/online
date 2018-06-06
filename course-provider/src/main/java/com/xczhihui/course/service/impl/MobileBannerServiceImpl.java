@@ -52,8 +52,10 @@ public class MobileBannerServiceImpl extends ServiceImpl<MobileBannerMapper, Mob
 
         Map<String, Object> mapTj = new HashMap<String, Object>();
         Map<String, Object> mapNw = new HashMap<String, Object>();
+        Map<String, Object> mapMf = new HashMap<String, Object>();
         List<CourseLecturVo> listTj = new ArrayList<CourseLecturVo>();
         List<CourseLecturVo> listNw = new ArrayList<CourseLecturVo>();
+        List<CourseLecturVo> listMf = new ArrayList<CourseLecturVo>();
 
         for (CourseLecturVo courseLecturVo : listAll) {
             if ("精品课程".equals(courseLecturVo.getNote())) {
@@ -61,6 +63,9 @@ public class MobileBannerServiceImpl extends ServiceImpl<MobileBannerMapper, Mob
             }
             if ("最新课程".equals(courseLecturVo.getNote())) {
                 listNw.add(courseLecturVo);
+            }
+            if ("免费课程".equals(courseLecturVo.getNote())) {
+            	listMf.add(courseLecturVo);
             }
         }
 
@@ -75,6 +80,13 @@ public class MobileBannerServiceImpl extends ServiceImpl<MobileBannerMapper, Mob
             mapNw.put("title", "最新课程");
             mapNw.put("courseList", listNw);
             mapCourseList.add(mapNw);
+        }
+        
+        if (listMf.size() > 0) {
+        	mapMf.put("menuType", "freeCourse");
+        	mapMf.put("title", "免费课程");
+        	mapMf.put("courseList", listMf);
+            mapCourseList.add(mapMf);
         }
 
         //定义好这

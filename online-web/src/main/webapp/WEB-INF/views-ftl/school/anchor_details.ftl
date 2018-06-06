@@ -37,9 +37,9 @@
 						<h4>${hospital.name}</h4>
 					</#if>
 					<ul class="follow-box cl">
-						<li>关注<span id="focusCount">${fansCount}</span></li>
+						<li>关注<span id="focusCount">${focusCount}</span></li>
 						<li>|</li>
-						<li>粉丝<span id="fansCount">${focusCount}</span></li>
+						<li>粉丝<span id="fansCount">${fansCount}</span></li>
 					</ul>
 					<#if isFours == 0>
 						<button type="button" class="isAdd-follow">
