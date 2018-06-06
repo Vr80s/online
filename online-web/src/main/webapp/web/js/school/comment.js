@@ -4,32 +4,25 @@
  */
 $(".want-evaluate").click(function() {
 	// 判断是否登录
-	RequestService("/online/user/isAlive", "get", null, function(data) {
-		if (!data.success) { //未登录
-			localStorage.username = null;
-			localStorage.password = null;
-			if ($(".login").css("display") == "block") {
-				$(".login").css("display", "none");
-				$(".logout").css("display", "block");
-				$('#login').modal('show');
-			} else {
-				$('#login').modal('show');
-			}
-		} else { //已登录
-			
-			//没有购买以及购买或者评论过的，隐藏这写东东
-			if(commentCode == 0 || commentCode == 2){
-				$(".commentCode").hide();
-			}
-			
-			
-			
-			$(".bg-modal").removeClass("hide");
-			$(".wrap-modal").removeClass("hide");
-			
+	if (!loginStatus) { //未登录
+		localStorage.username = null;
+		localStorage.password = null;
+		if ($(".login").css("display") == "block") {
+			$(".login").css("display", "none");
+			$(".logout").css("display", "block");
+			$('#login').modal('show');
+		} else {
+			$('#login').modal('show');
 		}
-	})
-
+	} else { //已登录
+		//没有购买以及购买或者评论过的，隐藏这写东东
+		if(commentCode == 0 || commentCode == 2){
+			$(".commentCode").hide();
+		}
+		$(".bg-modal").removeClass("hide");
+		$(".wrap-modal").removeClass("hide");
+		$(".submission").css("background", "999");
+	}
 });
 // 关闭窗口
 $(".close-impression").click(function() {
@@ -75,7 +68,6 @@ $(".operation-reply-li").click(function() {
 
 // 点击回复图标出现输入框
 $(".reply-icon").click(function() {
-
 	if ($(this).hasClass("selected")) {
 		$(this).removeClass("selected");
 	} else {
@@ -83,18 +75,14 @@ $(".reply-icon").click(function() {
 	}
 	// 判断存不存在此cookie
 	// 请求下后台吧
-	RequestService("/online/user/isAlive", "get", null, function(data) {
-		if (data.success == true) {
-			var result = data.resultObject;
-			$(".header-input img").attr("src", result.smallHeadPhoto);
-			$(".reply_login").removeClass("hide");
-			$(".reply_no_login").addClass("hide");
-		} else {
-			$(".reply_login").removeClass("hide");
-			$(".reply_no_login").addClass("hide");
-		}
-	})
-
+	if (loginStatus) {
+		$(".header-input img").attr("src",smallHeadPhoto);
+		$(".reply_login").removeClass("hide");
+		$(".reply_no_login").addClass("hide");
+	} else {
+		$(".reply_login").removeClass("hide");
+		$(".reply_no_login").addClass("hide");
+	}
 	if ($(this).hasClass("selected")) {
 		$(this).parents().siblings(".wrap-input").removeClass("hide");
 	} else {
@@ -190,7 +178,7 @@ $("#commentContent").change(
 			if (commentContent == null || commentContent == ""
 					|| commentContent.trim().length <= 0) {
 				$('.submission').attr("disabled", true);
-				$(".submission").css("background", "");
+				$(".submission").css("background",  "#999");
 			}
 			isSubmit();
 		})
@@ -237,7 +225,7 @@ function isSubmit() {
 				})
 		if (value == "") {
 			$('.submission').attr("disabled", true);
-			$(".submission").css("background", "");
+			$(".submission").css("background", "#999");
 			return;
 		}
 	}
@@ -246,7 +234,7 @@ function isSubmit() {
 	if (commentContent == null || commentContent == ""
 			|| commentContent.trim().length <= 0) {
 		$('.submission').attr("disabled", true);
-		$(".submission").css("background", "");
+		$(".submission").css("background", "#999");
 		return;
 	}
 	
@@ -295,15 +283,13 @@ $(".submission").click(function() {
 	 */
 	RequestService("/criticize/saveCriticize", "post",
 			paramsObj, function(data) {
-				if (data.success) {
-					//alert("评论成功");
-//					emptyFromValue();
-//					$(".bg-modal").addClass("hide");
-//					$(".wrap-modal").addClass("hide");
-					
-					location.reload();
-				} else {
-					alert("不中啊");
-				}
+		if (data.success) {
+//			emptyFromValue();
+//			$(".bg-modal").addClass("hide");
+//			$(".wrap-modal").addClass("hide");
+			location.reload();
+		} else {
+			alert("不中啊");
+		}
 	})
 });

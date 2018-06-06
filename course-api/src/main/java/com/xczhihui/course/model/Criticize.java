@@ -142,6 +142,7 @@ public class Criticize extends Model<Criticize> {
     @TableField(exist = false)
     private String replySmallHeadPhoto;
 
+    @TableField(exist = false)
     private List<String> labels;
 
     public String getLoginName() {

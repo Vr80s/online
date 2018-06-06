@@ -145,18 +145,18 @@
 
 						<#if  courseInfo.collection> <#-- 专辑tab显示    -->
 							<#if courseInfo.watchState = 1 || courseInfo.watchState = 2> <#-- 免费或已购买  -->
-								<li><a href="${webUrl}${webUrlParam}/selection">选集</a></li>
-							    <li><a href="${webUrl}${webUrlParam}/info">详情</a></li>
+								<li><a href="javascript:;">选集</a></li>
+							    <li><a href="javascript:;">详情</a></li>
 							<#elseif courseInfo.watchState = 0>
-							    <li><a href="${webUrl}${webUrlParam}/info" >详情</a></li>
-								<li><a href="${webUrl}${webUrlParam}/outline" >课程大纲</a></li>
+							    <li><a href="javascript:;" >详情</a></li>
+								<li><a href="javascript:;" >课程大纲</a></li>
 							</#if>
 						<#else> <#-- 非专辑tab显示    -->
-						   <li><a href="${webUrl}${webUrlParam}/info" >详情</a></li>
-						   <li><a href="${webUrl}${webUrlParam}/outline" >课程大纲</a></li>
+						   <li><a href="javascript:;" >详情</a></li>
+						   <li><a href="javascript:;" >课程大纲</a></li>
 						</#if>
-							<li ><a href="${webUrl}${webUrlParam}/comment" >评价（${courseInfo.criticizeCount}）</a></li>
-							<li><a href="${webUrl}${webUrlParam}/aq" >常见问题</a></li>
+							<li ><a href="javascript:;" >评价（${courseInfo.criticizeCount}）</a></li>
+							<li><a href="javascript:;" >常见问题</a></li>
 
 						</ul>
 					</div>
@@ -206,7 +206,7 @@
                 <div class="author-content">
                     <div class="class-text">
                     <#if courseInfo.description??>
-									${courseInfo.description}							    
+							${courseInfo.description}							    
 				    </#if>
 							</div>
 						</div>
@@ -220,9 +220,7 @@
 					</div>
 		<!--评价-->
 					<div class="sidebar-content hide">
-						 <#if type == 'comment' >
 							<#include "common/comment.ftl">
-						 </#if>
 					</div>
 		<!--常见问题-->
 					<div class="sidebar-content hide">
@@ -231,7 +229,6 @@
 						</ul>
 					</div>
 				</div>
-
 		<!--右侧推荐课程-->
 				<div class="wrap-recommend y">
 					<h3>推荐课程</h3>
@@ -241,14 +238,10 @@
 				</div>
 			</div>
 		</div>
-
-
 <script src="/web/js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" src="/web/js/artTemplate.js"></script>
 <script src="/web/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
 <script src="/web/js/common_msg.js"></script>
-
-
 <!--公共头部和底部-->
 <script src="/web/js/ajax.js" type="text/javascript" charset="utf-8"></script>
 <script src="/web/html/school/school-header/header.js" type="text/javascript" charset="utf-8"></script>

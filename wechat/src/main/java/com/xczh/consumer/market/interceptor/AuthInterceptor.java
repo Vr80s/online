@@ -118,11 +118,11 @@ public class AuthInterceptor implements HandlerInterceptor, HandlerMethodArgumen
                     if (isWeixin) {
                         boolean isNeedBind = isNeedBind(request);
                         if (isNeedBind) {
-                            redirectUrl = request.getContextPath() + WEIXIN_AUTH_CALLBACK + URLEncoder.encode(request.getServletPath(), "UTF-8");
-                            responseObject = ResponseObject.newErrorResponseObject(null, WEIXIN_AUTH.getCode());
-                        } else {
                             redirectUrl = request.getContextPath() + EVPI_HTML_URL;
                             responseObject = ResponseObject.newErrorResponseObject(null, GO_TO_BIND.getCode());
+                        } else {
+                            redirectUrl = request.getContextPath() + WEIXIN_AUTH_CALLBACK + URLEncoder.encode(request.getServletPath(), "UTF-8");
+                            responseObject = ResponseObject.newErrorResponseObject(null, WEIXIN_AUTH.getCode());
                         }
                         logger.info("wechat的ajax请求：{}", responseObject.toString());
                     } else {

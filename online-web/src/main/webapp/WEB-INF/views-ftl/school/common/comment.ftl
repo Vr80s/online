@@ -46,7 +46,7 @@
     </ul>
     <textarea class="impression-text" name="" id="commentContent"
               rows="" cols="" placeholder="写评价给主播鼓励一下吧~"></textarea>
-    <button class="submission" disabled=true type="button">发表评价</button>
+    <button class="submission" disabled=true style="background: #999" type="button">发表评价</button>
 </div>
 
 <#-- 发表评论弹窗结束 -->
