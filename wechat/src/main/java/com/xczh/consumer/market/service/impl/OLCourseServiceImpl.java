@@ -118,9 +118,14 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 	}
 
 	@Override
+	public List<CourseVo> queryAllCourse(String menuType, Integer lineState, Integer courseType, String isFree, String city, String queryKey, Integer pageNumber, Integer pageSize) throws SQLException {
+		return queryAllCourse(menuType,lineState,courseType,isFree,city,queryKey,pageNumber,pageSize,false);
+	}
+
+	@Override
 	public List<CourseVo> queryAllCourse(String menuType,Integer lineState,
 			Integer courseType, String isFree,String city, String queryKey,
-			Integer pageNumber, Integer pageSize) throws SQLException {
+			Integer pageNumber, Integer pageSize, Boolean onlyFree) throws SQLException {
 
 	    pageNumber = pageNumber == null ? 1 : pageNumber;
 		pageSize = pageSize == null ? 100000 : pageSize;
@@ -155,7 +160,9 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 		commonSql.append(" where  oc.user_lecturer_id = ou.id and om.id = oc.menu_id  and "
 				+ " oc.is_delete=0 and oc.status = 1   ");
 		
-		
+		if(onlyFree){
+			commonSql.append(" and oc.is_free=1 ");
+		}
 		if(org.apache.commons.lang.StringUtils.isNotBlank(city)){
 			if(city.equals("其他")){
 				Page<OfflineCity> OfflineCityPage = new Page<>();
@@ -259,7 +266,11 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 			commonSql.append(" from oe_course oc,oe_menu as om ,oe_user ou ");
 			commonSql.append(" where  oc.user_lecturer_id = ou.id and om.id = oc.menu_id  and "
 					+ " oc.is_delete=0 and oc.status = 1   ");
-			
+
+			if(onlyFree){
+				commonSql.append(" and oc.is_free=1 ");
+			}
+
 			if(org.apache.commons.lang.StringUtils.isNotBlank(city)){
 				if(city.equals("其他")){
 					Page<OfflineCity> OfflineCityPage = new Page<>();
@@ -341,6 +352,11 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 			commonSql.append(" from oe_course oc,oe_menu as om ,oe_user ou ");
 			commonSql.append(" where  oc.user_lecturer_id = ou.id and om.id = oc.menu_id  and "
 					+ " oc.is_delete=0 and oc.status = 1   ");
+
+			if(onlyFree){
+				commonSql.append(" and oc.is_free=1 ");
+			}
+
 			if(org.apache.commons.lang.StringUtils.isNotBlank(city)){
 				if(city.equals("其他")){
 					Page<OfflineCity> OfflineCityPage = new Page<>();
@@ -423,6 +439,11 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 			commonSql.append(" from oe_course oc,oe_menu as om ,oe_user ou ");
 			commonSql.append(" where  oc.user_lecturer_id = ou.id and om.id = oc.menu_id  and "
 					+ " oc.is_delete=0 and oc.status = 1   ");
+
+			if(onlyFree){
+				commonSql.append(" and oc.is_free=1 ");
+			}
+
 			if(org.apache.commons.lang.StringUtils.isNotBlank(city)){
 				if(city.equals("其他")){
 					Page<OfflineCity> OfflineCityPage = new Page<>();
@@ -504,6 +525,11 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 			commonSql.append(" from oe_course oc,oe_menu as om ,oe_user ou ");
 			commonSql.append(" where  oc.user_lecturer_id = ou.id and om.id = oc.menu_id  and "
 					+ " oc.is_delete=0 and oc.status = 1   ");
+
+			if(onlyFree){
+				commonSql.append(" and oc.is_free=1 ");
+			}
+
 			if(org.apache.commons.lang.StringUtils.isNotBlank(city)){
 				if(city.equals("其他")){
 					Page<OfflineCity> OfflineCityPage = new Page<>();
@@ -571,6 +597,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
         return wxcpCourseDao.queryPage(JdbcUtil.getCurrentConnection(),commonSql.toString(),
         		pageNumber,pageSize,CourseVo.class);
 	}
+
 
 	@Override
 	public List<CourseVo> offLineClassList(List<OfflineCity> cityList) throws SQLException {

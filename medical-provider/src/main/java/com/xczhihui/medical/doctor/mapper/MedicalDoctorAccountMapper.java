@@ -31,4 +31,6 @@ public interface MedicalDoctorAccountMapper extends BaseMapper<MedicalDoctorAcco
      */
     @Select("select * from medical_doctor_account where doctor_id = #{doctorId}")
     MedicalDoctorAccount getByDoctorId(@Param("doctorId") String doctorId);
+
+    MedicalDoctorAccount getMedicalDoctorStatusByUserId(String string);
 }

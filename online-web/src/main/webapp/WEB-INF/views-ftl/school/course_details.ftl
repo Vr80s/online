@@ -31,6 +31,13 @@
 			<div class="wrap-buy">
 				<div class="left-cover z">
 					<img src="${courseInfo.smallImgPath}"/>
+					<div class="progress" style="position: absolute;bottom: 0;left: 0;width: 100%;margin-bottom: 0;height: 14px;">
+						<div class="progress-bar progress-bar-success" role="progressbar" 
+						 aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" 
+						  style="background: #00BC12;">
+							<span class="sr-only">90% 完成（成功）</span>
+						</div>
+					</div>
 				</div>
 				<div class="right-details y">
 					<h4>${courseInfo.gradeName}</h4>
@@ -145,18 +152,18 @@
 
 						<#if  courseInfo.collection> <#-- 专辑tab显示    -->
 							<#if courseInfo.watchState = 1 || courseInfo.watchState = 2> <#-- 免费或已购买  -->
-								<li><a href="${webUrl}${webUrlParam}/selection">选集</a></li>
-							    <li><a href="${webUrl}${webUrlParam}/info">详情</a></li>
+								<li><a href="javascript:;">选集</a></li>
+							    <li><a href="javascript:;">详情</a></li>
 							<#elseif courseInfo.watchState = 0>
-							    <li><a href="${webUrl}${webUrlParam}/info" >详情</a></li>
-								<li><a href="${webUrl}${webUrlParam}/outline" >课程大纲</a></li>
+							    <li><a href="javascript:;" >详情</a></li>
+								<li><a href="javascript:;" >课程大纲</a></li>
 							</#if>
 						<#else> <#-- 非专辑tab显示    -->
-						   <li><a href="${webUrl}${webUrlParam}/info" >详情</a></li>
-						   <li><a href="${webUrl}${webUrlParam}/outline" >课程大纲</a></li>
+						   <li><a href="javascript:;" >详情</a></li>
+						   <li><a href="javascript:;" >课程大纲</a></li>
 						</#if>
-							<li ><a href="${webUrl}${webUrlParam}/comment" >评价（${courseInfo.criticizeCount}）</a></li>
-							<li><a href="${webUrl}${webUrlParam}/aq" >常见问题</a></li>
+							<li ><a href="javascript:;" >评价（${courseInfo.criticizeCount}）</a></li>
+							<li><a href="javascript:;" >常见问题</a></li>
 
 						</ul>
 					</div>
@@ -171,7 +178,7 @@
 							   	 <a href="/web/html/ccvideo/liveVideoAlbum.html?collectionId=${courseInfo.id}&courseId=${collectionItem.id}" target="_blank">
 									<div class="play-img z">
 										<div class="circle">
-												<div class="percent left"></div>
+												<div class="percent left" data-courseId ="${collectionItem.id}" data-timeLength ="${collectionItem.courseLength}" ></div>
 												<div class="percent right wth0"></div>
 										</div>
 										<img src="../../web/images/icon-play.png"/>
@@ -195,9 +202,9 @@
 						</div>
 						<div class="author-content">
 							<div class="author-text">
-							    <#if courseInfo.lecturerDescription??>
-									${courseInfo.lecturerDescription}							    
-							    </#if>
+							    
+						     ${courseInfo.lecturerDescription?default('暂无主讲人信息')}							    
+							   
                     </div>
                 </div>
                 <div class="author-introduce" style="margin-top: 30px;">
@@ -205,33 +212,26 @@
                 </div>
                 <div class="author-content">
                     <div class="class-text">
-                    <#if courseInfo.description??>
-									${courseInfo.description}							    
-				    </#if>
+							${courseInfo.description?default('暂无课程介绍')}							    
 							</div>
 						</div>
 					</div>
 
 		<!--课程大纲-->
 					<div class="sidebar-content no_buy_tab hide">
-					    <#if courseInfo.courseOutline??>
-								${courseInfo.courseOutline}							    
-						 </#if>
+						${courseInfo.courseOutline?default('暂无课程大纲')}							    
 					</div>
 		<!--评价-->
 					<div class="sidebar-content hide">
-						 <#if type == 'comment' >
 							<#include "common/comment.ftl">
-						 </#if>
 					</div>
 		<!--常见问题-->
 					<div class="sidebar-content hide">
 						<ul class="often-problem">
-							${commonProblem}
+							${commonProblem?default('暂无常见问题')}
 						</ul>
 					</div>
 				</div>
-
 		<!--右侧推荐课程-->
 				<div class="wrap-recommend y">
 					<h3>推荐课程</h3>
@@ -241,14 +241,10 @@
 				</div>
 			</div>
 		</div>
-
-
 <script src="/web/js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" src="/web/js/artTemplate.js"></script>
 <script src="/web/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
 <script src="/web/js/common_msg.js"></script>
-
-
 <!--公共头部和底部-->
 <script src="/web/js/ajax.js" type="text/javascript" charset="utf-8"></script>
 <script src="/web/html/school/school-header/header.js" type="text/javascript" charset="utf-8"></script>
@@ -263,6 +259,8 @@
     var userId = "${courseInfo.userLecturerId}";
     var collection = ${courseInfo.collection?string(1,0)};
     var commentCode = ${criticizesMap.commentCode};
+    var courseLength = ${courseInfo.courseLength};
+    
 //    console.info("type：" + type + ";watchState：" + watchState + ";courseId：" + courseId);
 //    console.info("userId：" + userId + ";collection：" + collection+",commentCode:"+commentCode);
 </script>

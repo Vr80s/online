@@ -6,6 +6,7 @@ var collectionId = "";
 var courseName = "中医传承平台";
 var	smallImgPath = "https://file.ipandatcm.com/data/picture/online/2017/12/18/15/12db98e4fc674f1d9b1e5995d2c533d3.jpg";
 var	description = "零基础也能学中医！许多学员推荐“古籍经典”系列以及【小宝中医带你快速入门学针灸】课程作为他们的入门必备。";
+
 var userId= "";
 $(function() {
 	/**
@@ -156,8 +157,6 @@ function on_cc_player_init(vid, objectId ){
     
 }
 
-
-
 /**
  * 记录播放到哪里了。我的天
  * 获取当前播放时间（单位：秒）
@@ -175,7 +174,11 @@ var key ="";
 function videoPositionRecording(time){
 	if(userId!="" && courseId!=""){
 		key == ""? key = userId+courseId : key;
-
+		
+		/**
+		 * 获取的是秒
+		 * player.getPosition()
+		 */
 		localStorage.setItem(key,player.getPosition());
 	}
 }

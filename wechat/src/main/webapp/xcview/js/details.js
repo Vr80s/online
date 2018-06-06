@@ -28,14 +28,13 @@ var courseHead = "";
 var roomNumber = "";
 var lineState = 1;
 var result = "";
+
 // 统一提交的方法
 requestService("/xczh/course/liveDetails",{
 			courseId : course_id
 		},
 		function(data) {
 			if (data.success) {
-
-
 				// 修改title
 				document.setTitle = function(t) {
 			        document.title = t;

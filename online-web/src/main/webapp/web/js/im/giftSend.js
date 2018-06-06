@@ -1,18 +1,56 @@
 // XMPP连接
 var connection = null;
-
 // 当前状态是否连接
 var connected = false;
-
 // 当前登录的JID
 var jid = "";
-
 var giftList;
-
 //初始化没有参数的队列
 var queue = new Queue();
 
-// 连接状态改变的事件
+
+/**
+ * 礼物列表血染
+ * @returns
+ */
+function getGiftList(){
+	RequestService("/gift/getGift", "GET", {
+	}, function(data) {
+		var gifts ="";
+		for (var i = 0; i < data.resultObject.length; i++) {
+			var item = data.resultObject[i];
+			var  gift = "<li class='li-initial-border' data-id="+item.id+" data-number="+item.price+">"+
+			"	<img src='"+item.smallimgPath+"' />";
+			if(liveStatus != 3){
+				gift+="	<div class='surprise-hide'>"+
+					"		<div class='surprise-show'>"+
+					"			<div class='surprise-show-img'>"+
+					"				<img src='"+item.smallimgPath+"' style='width: 80px;height: 64px;margin-top: 8px;' />"+
+					"			</div>"+
+					"			<div class='surprise-show-name' style='width: 150px;margin-left: 110px;'>"+
+					"				<div class='surprise-show-title'>"+
+					"					<span class='show-name'>"+item.name+"</span><span class='show-number'>"+item.price+"熊猫币</span>"+
+					"				</div>"+
+					"				<div class='surprise-presented' data-id="+item.id+" data-number="+item.price+">赠送</div>"+
+					"			</div>"+
+					"		</div>"+
+					"		<div class='aspect-down'></div>"+
+					"	</div>";
+			}
+			gift+="</li>";
+		    gifts += gift;
+		}
+		$(".surprise-mouseover-ul").html(gifts);
+	},false);
+}
+//礼物渲染
+getGiftList();
+
+/**
+ * 连接IM服务器
+ * @param status
+ * @returns
+ */
 function onConnect(status) {
     if (status == Strophe.Status.CONNFAIL) {
 //        alert("连接失败！");
@@ -44,12 +82,19 @@ function onConnect(status) {
 	}
 }
 
+/**
+ * 自定义string过滤方法
+ */
 String.prototype.replaceAll = function (FindText, RepText) {
 	regExp = new RegExp(FindText, "g"); 
 	return this.replace(regExp, RepText); 
-	}
+}
 
-// 接收到<message>
+/**
+ * 接受到IM消息
+ * @param msg
+ * @returns
+ */
 function onMessage(msg) {
     // 解析出<message>的from、type属性，以及body子元素
     var from = msg.getAttribute('from');
@@ -71,46 +116,6 @@ function onMessage(msg) {
     return true;
 }
 
-function repalceAll(str,rstr,arstr){
-	while(str.split(rstr).length>1){
-		str = str.replace(rstr,arstr);
-	}
-	return str;
-}
-
-
-function getGiftList(){
-	RequestService("/gift/getGift", "GET", {
-	}, function(data) {
-		
-		var gifts ="";
-		
-		for (var i = 0; i < data.resultObject.length; i++) {
-			var item = data.resultObject[i];
-			var  gift = "<li class='li-initial-border' data-id="+item.id+" data-number="+item.price+">"+
-			"	<img src='"+item.smallimgPath+"' />"+
-			"	<div class='surprise-hide'>"+
-			"		<div class='surprise-show'>"+
-			"			<div class='surprise-show-img'>"+
-			"				<img src='"+item.smallimgPath+"' style='width: 80px;height: 64px;margin-top: 8px;' />"+
-			"			</div>"+
-			"			<div class='surprise-show-name' style='width: 150px;margin-left: 110px;'>"+
-			"				<div class='surprise-show-title'>"+
-			"					<span class='show-name'>"+item.name+"</span><span class='show-number'>"+item.price+"熊猫币</span>"+
-			"				</div>"+
-			"				<div class='surprise-presented' data-id="+item.id+" data-number="+item.price+">赠送</div>"+
-			"			</div>"+
-			"		</div>"+
-			"		<div class='aspect-down'></div>"+
-			"	</div>"+
-			"</li>";
-		    gifts += gift;
-		}
-		$(".surprise-mouseover-ul").html(gifts);
-	},false);
-}
-//礼物渲染
-getGiftList();
 
 
 $(document).ready(function() {
@@ -140,51 +145,17 @@ $(document).ready(function() {
 	var lastGift=null;
 	var lastTime = new Date();
 	var myid =null;
-	//获取右侧底部的礼物数据
-	RequestService("/gift/getGift", "GET", {
-	}, function(data) {
-		for(var i in data.resultObject){
-			if(data.resultObject[i].isContinuous){
-				data.resultObject[i].isContinuous = 1;
-			}else{
-				data.resultObject[i].isContinuous = 0;
-			}
-			if(data.resultObject[i].isFree){
-				data.resultObject[i].isFree = 1;
-			}else{
-				data.resultObject[i].isFree = 0;
-			}
-		}
-		giftList = data.resultObject;
-		var html = template('gift_temp',data);
-		$('#gifList').html(html)
-		
-		//右侧送礼物代码
-		//点击渲染的图片时
-		$('#gifList li').click(function(){
-			$('#gifList li').removeClass('giftSelectColor');
-			$(this).addClass('giftSelectColor');
-			
-			//获取最新的时间
-			var newtime = new Date();
-			//下面的小图标获取对应的图片url
-			$('.gif-num-small img').attr("src",$(this).find('img').attr('src')).css('opacity','1')
-			//判断按钮是充值/发送 
-			if(($('.balance').text()-0)<($(this).find('.gif-free').text()-0)){
-				$('#chat-submit').text("充值")
-			}else{
-				$('#chat-submit').text("发送")
-			}
-			$('.gif-num-small em').text('x')
-			$('.gif-num').text('1')
-			//获取当前点击的li的id后面使用
-			myid =  $(this).attr('data-id');
-		})			
-	});
-	
 
-	//点击发送时候的送礼物效果/充值事件
+	/*
+	 * 点击发送时候的送礼物效果/充值事件
+	 */
 	$('.surprise-mouseover-ul li .surprise-presented').click(function(){
+		
+		//回放状态不让发送
+		if(liveStatus == 3){
+			return;
+		}
+		
 		var gid = $(this).attr("data-id");
 		var number = $(this).attr("data-number");
 		//判断余额是否足够

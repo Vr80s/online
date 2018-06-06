@@ -21,6 +21,9 @@ $(function(){
         return '<input type="checkbox" value='+data+' class="ace" /><span class="lbl"></span><span name="skfs" style=\'display:none\'>'+row.teachMethodName+'</span>';
     }},
     { "title": "课程ID", "class": "center","width":"5%","sortable": false,"data":"id" },
+	{"title": "封面图", "class": "center", "width": "12%", "sortable": false, "data": 'smallingPath',"mRender":function(data){
+			return "<img src='"+data+"' style='width:128px;height:68px;cursor:pointer;'/>";
+		}},
     { "title": "课程名称", "class":"center","width":"9%","sortable":false,"data": 'courseName' },
     { "title": "所属学科", "class":"center","width":"8%","sortable":false,"data": 'xMenuName' },
 	{ "title": "主讲人", "class":"center","width":"8%","sortable":false,"data": 'lecturer'},
@@ -165,9 +168,6 @@ $(function(){
         minDate:new Date(),
         onSelect: function( startDate ) {
         }
-    });
-    $("#recommendTime").bind("click",function(){
-        $(".ui-datepicker-current").attr("style","display:none;");
     });
 });
 

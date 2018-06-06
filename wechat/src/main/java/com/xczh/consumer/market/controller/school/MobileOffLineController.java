@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.xczh.consumer.market.interceptor.IOSVersionInterceptor;
 import com.xczh.consumer.market.service.OLCourseServiceI;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.enums.BannerType;
@@ -59,7 +60,7 @@ public class MobileOffLineController {
         Map<String, Object> mapAll = new HashMap<String, Object>();
         //线下课banner
         Page<MobileBanner> MobileBannerPage = new Page<>();
-        MobileBannerPage.setRecords(mobileBannerService.selectMobileBannerPage(BannerType.REAL.getCode()));
+        MobileBannerPage.setRecords(mobileBannerService.selectMobileBannerPage(BannerType.REAL.getCode(),IOSVersionInterceptor.onlyThread.get()));
         mapAll.put("banner", MobileBannerPage);
         //城市
         Page<OfflineCity> OfflineCityPage = new Page<>();
@@ -76,7 +77,7 @@ public class MobileOffLineController {
 
         LOGGER.info(ocl.getRecords().size() + "");
         List<Map<String, Object>> mapCourseList = mobileBannerService.realCourseList(ocl.getRecords(), PagingFixedType.PC_REAL_PAGETYPE_UP.getValue(),
-                PagingFixedType.PC_REAL_PAGETYPE_DOWN.getValue());
+                PagingFixedType.PC_REAL_PAGETYPE_DOWN.getValue(), IOSVersionInterceptor.onlyThread.get());
         mapAll.put("allCourseList", mapCourseList);
         return ResponseObject.newSuccessResponseObject(mapAll);
     }

@@ -66,14 +66,23 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     }
 
     @Override
-    public CourseLecturVo selectLecturerRecentCourse(String lecturerId) {
-        return iCourseMapper.selectLecturerRecentCourse(lecturerId);
+    public CourseLecturVo selectLecturerRecentCourse(String lecturerId){
+        return selectLecturerRecentCourse(lecturerId,false);
     }
 
     @Override
-    public Page<CourseLecturVo> selectLecturerAllCourse(
-            Page<CourseLecturVo> page, String lecturerId) {
-        List<CourseLecturVo> records = iCourseMapper.selectLecturerAllCourse(page, lecturerId);
+    public CourseLecturVo selectLecturerRecentCourse(String lecturerId, boolean onlyFreee) {
+        return iCourseMapper.selectLecturerRecentCourse(lecturerId,onlyFreee);
+    }
+
+    @Override
+    public Page<CourseLecturVo> selectLecturerAllCourse(Page<CourseLecturVo> page, String lecturerId) {
+        return selectLecturerAllCourse(page,lecturerId,false);
+    }
+
+    @Override
+    public Page<CourseLecturVo> selectLecturerAllCourse(Page<CourseLecturVo> page, String lecturerId,boolean onlyFree) {
+        List<CourseLecturVo> records = iCourseMapper.selectLecturerAllCourse(page, lecturerId,onlyFree);
         return page.setRecords(records);
     }
 
@@ -110,8 +119,13 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     }
 
     @Override
+    public List<CourseLecturVo> listenCourseList(boolean onlyFree) {
+        return iCourseMapper.listenCourseList(onlyFree);
+    }
+
+    @Override
     public List<CourseLecturVo> listenCourseList() {
-        return iCourseMapper.listenCourseList();
+        return listenCourseList(false);
     }
 
     @Override

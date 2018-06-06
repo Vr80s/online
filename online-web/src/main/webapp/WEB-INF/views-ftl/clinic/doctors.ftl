@@ -75,7 +75,7 @@
                     <li class="clearfix">
                         <a href="${webUrl}/doctors/${doctor.id}" id="${doctor.id}"></a>
                         <div class="doctor_pic">
-                            <img src="${doctor.headPortrait!''}" alt="${doctor.name}">
+                            <img src="${doctor.headPortrait!defaultDoctorHeadImg}" alt="${doctor.name}">
                         </div>
                         <div class="doctor_inf">
                             <h4>${doctor.name}&nbsp;&nbsp;&nbsp;&nbsp;
@@ -106,7 +106,7 @@
                         <li>
                             <a href="${webUrl}/doctors/${doctor.id}"></a>
                             <span class="about_doctor_pic">
-                                <img src="${doctor.headPortrait!''}" alt="暂无图片">
+                                <img src="${doctor.headPortrait!defaultDoctorHeadImg}" alt="暂无图片">
                             </span>
                             <p>${doctor.name}</p>
                         </li>

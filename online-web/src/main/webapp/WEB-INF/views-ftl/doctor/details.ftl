@@ -36,7 +36,7 @@
 <div class="header" id="doctor_detail_header">
     <div class="header_inf content">
         <div class="header_inf_left">
-            <img src="${doctor.headPortrait!''}" alt="${doctor.name}">
+            <img src="${doctor.headPortrait!defaultDoctorHeadImg}" alt="${doctor.name}">
             <!--<img src=../images/doctor_detail/xunzhang.png alt="">-->
         </div>
         <div class="header_inf_right">
@@ -242,7 +242,7 @@
                     <li>
                         <span class="about_doctor_pic">
                             <a href="/doctors/${doctor.id}" target="_blank">
-                             <img src="${doctor.headPortrait!''}" alt="" style="border-radius: 60px">
+                             <img src="${doctor.headPortrait!defaultDoctorHeadImg}" alt="" style="border-radius: 60px">
                             </a>
                         </span>
                         <p><a href="/doctors/${doctor.id}" target="_blank" style="color: #0C0C0C">${doctor.name!''} </a></p>

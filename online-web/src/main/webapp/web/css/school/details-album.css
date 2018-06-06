@@ -32,6 +32,7 @@ a:active{text-decoration:none;}/* 指正在点的链接*/
 .left-cover{
 	width: 462px;
 	height: 260px;
+	position:relative;
 }
 .left-cover img{
 	width: 100%;
