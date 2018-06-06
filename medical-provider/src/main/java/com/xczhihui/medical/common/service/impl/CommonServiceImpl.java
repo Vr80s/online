@@ -90,8 +90,13 @@ public class CommonServiceImpl implements ICommonService {
             // 判断是否是认证医师
             Future<Integer> authDoctorFuture = commonThreadPoolTaskExecutor.submit(() -> {
                 Integer result = null;
-                if(this.isDoctor(userId)){
-                    result = CommonEnum.AUTH_DOCTOR.getCode();
+                MedicalDoctorAccount mda =   this.isDoctorStatus(userId);
+                if(mda!=null){
+                	if(!mda.getStatus() || mda.getDeleted()) { //医师被禁用或者删除
+                		 result = CommonEnum.AUTH_DOCTOR_STATUS.getCode();
+                	}else{
+                		result = CommonEnum.AUTH_DOCTOR.getCode();
+                	}
                 }else {
                     // 如果不是认证医师，判断是否正在认证医师
                     MedicalDoctorApply doctorApply = doctorApplyMapper.getLastOne(userId);
@@ -111,8 +116,13 @@ public class CommonServiceImpl implements ICommonService {
             // 判断是否是已认证医馆
             Future<Integer> authHospitalFuture = commonThreadPoolTaskExecutor.submit(() -> {
                 Integer result = null;
-                if(this.isHospital(userId)){
-                    result = CommonEnum.AUTH_HOSPITAL.getCode();
+                MedicalHospitalAccount mha =   this.isHospitalStatus(userId);
+                if(mha!=null){
+                	if(!mha.getStatus() || mha.getDeleted()) { //医馆被禁用或者删除
+                		 result = CommonEnum.AUTH_HOSPITAL_STATUS.getCode();
+                	}else{
+                		 result = CommonEnum.AUTH_HOSPITAL.getCode();
+                	}
                 }else {
                     // 如果不是已认证医馆，判断是否正在认证医馆
                     MedicalHospitalApply hospitalApply = hospitalApplyMapper.getLastOne(userId);
@@ -218,4 +228,25 @@ public class CommonServiceImpl implements ICommonService {
             }
         }
     }
+    
+    /**
+     * 根据用户id 判断用户是否是认证医师
+     * @param userId 用户id
+     */
+    @Override
+    public MedicalDoctorAccount isDoctorStatus(String userId) {
+        MedicalDoctorAccount medicalDoctorAccount = doctorAccountMapper.getMedicalDoctorStatusByUserId(userId);
+        return medicalDoctorAccount;
+    }
+
+    /**
+     * 根据用户id 判断用户拥有认证医馆
+     * @param userId 用户id
+     */
+    @Override
+    public MedicalHospitalAccount isHospitalStatus(String userId) {
+        MedicalHospitalAccount hospitalAccount = hospitalAccountMapper.getMedicalHospitalStatusByUserId(userId);
+        return hospitalAccount;
+    }
+    
 }

@@ -306,7 +306,7 @@
 	            </when>  
 	        </choose>  
 	     </if> 
-	     <if test="queryVo.menuType != null and queryVo.menuType != ''  and  queryVo.menuType != '0'
+	     <if test="queryVo.menuType != null and queryVo.menuType != '' 
 	     		and queryVo.menuType != 'goodCourse' 
 	     		and queryVo.menuType != 'newCourse'">   
 	        AND oc.menu_id = #{queryVo.menuType}
@@ -353,7 +353,7 @@
 	     "1" as note
 	   from oe_course oc  
 	      inner join oe_user ou  on  oc.user_lecturer_id = ou.id		
-	     <if test="queryVo.menuType != null  and queryVo.menuType != '' and  queryVo.menuType != '0'
+	     <if test="queryVo.menuType != null  and queryVo.menuType != ''
 	     		and queryVo.menuType != 'goodCourse' 
 	     		and queryVo.menuType != 'newCourse'">   
 	        inner join oe_menu as om  on om.id = oc.menu_id
@@ -404,7 +404,7 @@
 	     1 as querySort
 	   from oe_course oc  
 	      inner join oe_user ou  on   oc.user_lecturer_id = ou.id		
-	     <if test="queryVo.menuType != null and queryVo.menuType != '' and queryVo.menuType != '0' 
+	     <if test="queryVo.menuType != null and queryVo.menuType != '' 
 	     		and queryVo.menuType != 'goodCourse' 
 	     		and queryVo.menuType != 'newCourse'">   
 	        inner join oe_menu as om  on om.id = oc.menu_id
@@ -424,7 +424,7 @@
 	     2 as querySort
 	    from oe_course oc  
 	      inner join oe_user ou  on   oc.user_lecturer_id = ou.id		
-	     <if test="queryVo.menuType != null and queryVo.menuType !='' and queryVo.menuType != '0' 
+	     <if test="queryVo.menuType != null and queryVo.menuType !='' 
 	     		and queryVo.menuType != 'goodCourse' 
 	     		and queryVo.menuType != 'newCourse'">   
 	        inner join oe_menu as om  on om.id = oc.menu_id
@@ -444,7 +444,7 @@
 	     3 as querySort
 	    from oe_course oc  
 	      inner join oe_user ou  on   oc.user_lecturer_id = ou.id		
-	     <if test="queryVo.menuType != null and queryVo.menuType != '' and queryVo.menuType != '0' 
+	     <if test="queryVo.menuType != null and queryVo.menuType != '' 
 	     		and queryVo.menuType != 'goodCourse' 
 	     		and queryVo.menuType != 'newCourse'">   
 	        inner join oe_menu as om  on om.id = oc.menu_id
@@ -462,7 +462,7 @@
 	     4 as querySort
 	    from oe_course oc  
 	      inner join oe_user ou  on   oc.user_lecturer_id = ou.id		
-	     <if test="queryVo.menuType != null and queryVo.menuType != '' and queryVo.menuType != '0' 
+	     <if test="queryVo.menuType != null and queryVo.menuType != '' 
 	     		and queryVo.menuType != 'goodCourse' 
 	     		and queryVo.menuType != 'newCourse'">   
 	        inner join oe_menu as om  on om.id = oc.menu_id

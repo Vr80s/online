@@ -12,7 +12,10 @@ public enum CommonEnum {
     HOSPITAL_APPLYING(4),
     DOCTOR_APPLY_REJECT(5),
     HOSPITAL_APPLY_REJECT(6),
-    NOT_DOCTOR_AND_HOSPITAL(7);
+    NOT_DOCTOR_AND_HOSPITAL(7),
+	
+    AUTH_DOCTOR_STATUS(8),
+    AUTH_HOSPITAL_STATUS(9);
 
 
     CommonEnum(Integer code){

@@ -27,7 +27,7 @@
 <div class="wp">
     <div class="main-top">
         <div class="buy-icon">
-            <img src="/web/images/qxsc.png"/>
+            <img src="/web/images/buy-success.png"/>
             <span>购买成功</span>
         </div>
         <div class="buy-information">

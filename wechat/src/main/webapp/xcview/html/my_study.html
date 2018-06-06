@@ -104,6 +104,8 @@
 						    	{{else}}
 								<a href="live_audio.html?my_study={{item.id}}" style="position: absolute;width: 100%; height: 100%;left: 0; z-index: 2;"></a>
 						    {{/if}}
+
+
 <!--直播状态判断-->				
 						{{else if item.type == 3 && item.lineState==1}}  <!--直播中-->
 						<a href="javascript:;" data-ppd="{{item.id}}" class="paly_ing_all" style="position: absolute;width: 100%; height: 100%;left: 0; z-index: 2;"></a>	  
