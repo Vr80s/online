@@ -1,9 +1,17 @@
 
 
+
+
 var loginUserId = "";
+var loginStatus = true;
+var smallHeadPhoto ="";
  RequestService("/online/user/isAlive", "GET", null, function (data) {
     if (data.success) {
     	loginUserId = data.resultObject.id;
+    	smallHeadPhoto = data.resultObject.smallHeadPhoto;
+    	loginStatus = true;
+    }else{
+    	loginStatus = false;
     }
 },false)
 
@@ -83,7 +91,6 @@ $(function(){
 		 var collection = $this.attr("data-collection");
 		 var realCourseId = $this.attr("data-realCourseId");
 		 var collectionCourseId = $this.attr("data-collectionCourseId");
-
 		 if(watchState == 2 && type == 4){ //已报名
 			 return;
 		 }
@@ -106,9 +113,6 @@ $(function(){
 	           }
 	     });
 	})
-
-
-
 
 
 //判断进入条	
@@ -161,11 +165,6 @@ $(function(){
  	    		$this.next().removeClass('wth0');
  	    	}
  	    	$this.css("-webkit-transform", "rotate(" + (18 / 5) * percent + "deg)");
-
 		})
 	}
-
-
-
-
 });

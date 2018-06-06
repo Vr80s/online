@@ -1,3 +1,19 @@
+
+
+
+var loginUserId = "";
+var loginStatus = true;
+var smallHeadPhoto ="";
+ RequestService("/online/user/isAlive", "GET", null, function (data) {
+    if (data.success) {
+    	loginUserId = data.resultObject.id;
+    	smallHeadPhoto = data.resultObject.smallHeadPhoto;
+    	loginStatus = true;
+    }else{
+    	loginStatus = false;
+    }
+},false)
+
 $(function(){
 	
 	//tab 的显示
@@ -14,6 +30,17 @@ $(function(){
 	}
 	
 	$(".sidebar-content").addClass("hide").eq(index).removeClass("hide")
+	
+	
+	//	详情/评价/常见问题	选项卡
+//    $(".wrap-sidebar ul li").click(function () {
+//        $(".wrap-sidebar ul li").removeClass("active-footer");
+//        $(this).addClass("active-footer");
+//        $(".sidebar-content").addClass("hide").eq($(this).index()).removeClass("hide")
+//    })
+	
+	
+	
 	
 //  渲染精彩视频看是否存在啦	
 	if(type == "info" && video!=null && video != undefined){
@@ -36,9 +63,7 @@ $(function(){
 	}
 //	关注效果
 	$(".isAdd-follow").click(function(){
-		
 		var $this =  $(this);
-		
 		//判断有没有登录啦
 		RequestService("/online/user/isAlive", "GET", null, function(data) {
            if(!data.success) {
