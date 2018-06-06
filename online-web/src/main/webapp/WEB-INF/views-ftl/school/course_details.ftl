@@ -195,9 +195,9 @@
 						</div>
 						<div class="author-content">
 							<div class="author-text">
-							    <#if courseInfo.lecturerDescription??>
-									${courseInfo.lecturerDescription}							    
-							    </#if>
+							    
+						     ${courseInfo.lecturerDescription?default('暂无主讲人信息')}							    
+							   
                     </div>
                 </div>
                 <div class="author-introduce" style="margin-top: 30px;">
@@ -205,18 +205,14 @@
                 </div>
                 <div class="author-content">
                     <div class="class-text">
-                    <#if courseInfo.description??>
-							${courseInfo.description}							    
-				    </#if>
+							${courseInfo.description?default('暂无课程介绍')}							    
 							</div>
 						</div>
 					</div>
 
 		<!--课程大纲-->
 					<div class="sidebar-content no_buy_tab hide">
-					    <#if courseInfo.courseOutline??>
-								${courseInfo.courseOutline}							    
-						 </#if>
+						${courseInfo.courseOutline?default('暂无课程大纲')}							    
 					</div>
 		<!--评价-->
 					<div class="sidebar-content hide">
@@ -225,7 +221,7 @@
 		<!--常见问题-->
 					<div class="sidebar-content hide">
 						<ul class="often-problem">
-							${commonProblem}
+							${commonProblem?default('暂无常见问题')}
 						</ul>
 					</div>
 				</div>

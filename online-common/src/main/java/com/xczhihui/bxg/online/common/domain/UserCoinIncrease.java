@@ -16,285 +16,294 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 
-
-/** 
+/**
  * ClassName: UserCoinIncrease.java <br>
  * Description:用户代币增加明细 <br>
  * Create by: name：yuxin <br>email: yuruixin@ixincheng.com <br>
  * Create Time: 2017年9月11日<br>
  */
 @Entity
-@Table(name="user_coin_increase")
-@NamedQuery(name="UserCoinIncrease.findAll", query="SELECT u FROM UserCoinIncrease u")
+@Table(name = "user_coin_increase")
+@NamedQuery(name = "UserCoinIncrease.findAll", query = "SELECT u FROM UserCoinIncrease u")
 public class UserCoinIncrease implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-	private BigDecimal balance;
+    private BigDecimal balance;
 
-	@Column(name="balance_give")
-	private BigDecimal balanceGive;
+    @Column(name = "balance_give")
+    private BigDecimal balanceGive;
 
-	@Column(name="balance_reward_gift")
-	private BigDecimal balanceRewardGift;
-	private BigDecimal rmb;
+    @Column(name = "balance_reward_gift")
+    private BigDecimal balanceRewardGift;
+    private BigDecimal rmb;
 
-	@Column(name="brokerage_value")
-	private BigDecimal brokerageValue;
-	@Column(name="ios_brokerage_value")
-	private BigDecimal iosBrokerageValue;
-	@Column(name="ratio")
-	private BigDecimal ratio;
+    @Column(name = "brokerage_value")
+    private BigDecimal brokerageValue;
+    @Column(name = "ios_brokerage_value")
+    private BigDecimal iosBrokerageValue;
+    @Column(name = "ratio")
+    private BigDecimal ratio;
 
-	@Column(name="change_type")
-	private Integer changeType;
+    @Column(name = "change_type")
+    private Integer changeType;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="create_time")
-	private Date createTime;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "create_time")
+    private Date createTime;
 
-	private boolean deleted;
+    private boolean deleted;
 
-	@Column(name="order_from")
-	private Integer orderFrom;
+    @Column(name = "order_from")
+    private Integer orderFrom;
 
-	@Column(name="correlation_id")
-	private String correlationId;
+    @Column(name = "correlation_id")
+    private String correlationId;
 
-	@Column(name="pay_type")
-	private Integer payType;
+    @Column(name = "pay_type")
+    private Integer payType;
 
-	private String remark;
+    private String remark;
 
-	private boolean status;
+    private boolean status;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="update_time")
-	private Date updateTime;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "update_time")
+    private Date updateTime;
 
-	@Column(name="user_coin_id")
-	private Integer userCoinId;
+    @Column(name = "user_coin_id")
+    private Integer userCoinId;
 
-	@Column(name="user_id")
-	private String userId;
+    @Column(name = "user_id")
+    private String userId;
 
-	private BigDecimal value;
+    private BigDecimal value;
 
-	private String version;
-	
-	@Transient
-	private String subject;
-	@Column(name="balance_type")
-	private Integer balanceType;
+    private String version;
 
-	public Integer getBalanceType() {
-		return balanceType;
-	}
+    @Transient
+    private String subject;
+    @Transient
+    private String orderNoRecharge;
+    @Column(name = "balance_type")
+    private Integer balanceType;
 
-	public void setBalanceType(Integer balanceType) {
-		this.balanceType = balanceType;
-	}
+    public Integer getBalanceType() {
+        return balanceType;
+    }
 
-	@Transient
+    public void setBalanceType(Integer balanceType) {
+        this.balanceType = balanceType;
+    }
+
+    @Transient
     private java.util.Date startTime;
-	@Transient
+    @Transient
     private java.util.Date stopTime;
 
-	public UserCoinIncrease() {
-	}
+    public UserCoinIncrease() {
+    }
 
-	public BigDecimal getIosBrokerageValue() {
-		return iosBrokerageValue;
-	}
+    public String getOrderNoRecharge() {
+        return orderNoRecharge;
+    }
 
-	public void setIosBrokerageValue(BigDecimal iosBrokerageValue) {
-		this.iosBrokerageValue = iosBrokerageValue;
-	}
+    public void setOrderNoRecharge(String orderNoRecharge) {
+        this.orderNoRecharge = orderNoRecharge;
+    }
 
-	public BigDecimal getRatio() {
-		return ratio;
-	}
+    public BigDecimal getIosBrokerageValue() {
+        return iosBrokerageValue;
+    }
 
-	public void setRatio(BigDecimal ratio) {
-		this.ratio = ratio;
-	}
+    public void setIosBrokerageValue(BigDecimal iosBrokerageValue) {
+        this.iosBrokerageValue = iosBrokerageValue;
+    }
 
-	public BigDecimal getRmb() {
-		return rmb;
-	}
+    public BigDecimal getRatio() {
+        return ratio;
+    }
 
-	public void setRmb(BigDecimal rmb) {
-		this.rmb = rmb;
-	}
+    public void setRatio(BigDecimal ratio) {
+        this.ratio = ratio;
+    }
 
-	public Integer getId() {
-		return this.id;
-	}
+    public BigDecimal getRmb() {
+        return rmb;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public void setRmb(BigDecimal rmb) {
+        this.rmb = rmb;
+    }
 
-	public BigDecimal getBalance() {
-		return this.balance;
-	}
+    public Integer getId() {
+        return this.id;
+    }
 
-	public void setBalance(BigDecimal balance) {
-		this.balance = balance;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public BigDecimal getBalanceGive() {
-		return this.balanceGive;
-	}
+    public BigDecimal getBalance() {
+        return this.balance;
+    }
 
-	public void setBalanceGive(BigDecimal balanceGive) {
-		this.balanceGive = balanceGive;
-	}
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
+    }
 
-	public BigDecimal getBalanceRewardGift() {
-		return this.balanceRewardGift;
-	}
+    public BigDecimal getBalanceGive() {
+        return this.balanceGive;
+    }
 
-	public void setBalanceRewardGift(BigDecimal balanceRewardGift) {
-		this.balanceRewardGift = balanceRewardGift;
-	}
+    public void setBalanceGive(BigDecimal balanceGive) {
+        this.balanceGive = balanceGive;
+    }
 
-	public BigDecimal getBrokerageValue() {
-		return this.brokerageValue;
-	}
+    public BigDecimal getBalanceRewardGift() {
+        return this.balanceRewardGift;
+    }
 
-	public void setBrokerageValue(BigDecimal brokerageValue) {
-		this.brokerageValue = brokerageValue;
-	}
+    public void setBalanceRewardGift(BigDecimal balanceRewardGift) {
+        this.balanceRewardGift = balanceRewardGift;
+    }
 
-	public Integer getChangeType() {
-		return this.changeType;
-	}
+    public BigDecimal getBrokerageValue() {
+        return this.brokerageValue;
+    }
 
-	public void setChangeType(Integer changeType) {
-		this.changeType = changeType;
-	}
+    public void setBrokerageValue(BigDecimal brokerageValue) {
+        this.brokerageValue = brokerageValue;
+    }
 
-	public Date getCreateTime() {
-		return this.createTime;
-	}
+    public Integer getChangeType() {
+        return this.changeType;
+    }
 
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
+    public void setChangeType(Integer changeType) {
+        this.changeType = changeType;
+    }
 
-	public boolean getDeleted() {
-		return this.deleted;
-	}
+    public Date getCreateTime() {
+        return this.createTime;
+    }
 
-	public void setDeleted(boolean deleted) {
-		this.deleted = deleted;
-	}
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
 
-	public Integer getOrderFrom() {
-		return this.orderFrom;
-	}
+    public boolean getDeleted() {
+        return this.deleted;
+    }
 
-	public void setOrderFrom(Integer orderFrom) {
-		this.orderFrom = orderFrom;
-	}
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
 
-	public Integer getPayType() {
-		return this.payType;
-	}
+    public Integer getOrderFrom() {
+        return this.orderFrom;
+    }
 
-	public void setPayType(Integer payType) {
-		this.payType = payType;
-	}
+    public void setOrderFrom(Integer orderFrom) {
+        this.orderFrom = orderFrom;
+    }
 
-	public String getRemark() {
-		return this.remark;
-	}
+    public Integer getPayType() {
+        return this.payType;
+    }
 
-	public void setRemark(String remark) {
-		this.remark = remark;
-	}
+    public void setPayType(Integer payType) {
+        this.payType = payType;
+    }
 
-	public boolean getStatus() {
-		return this.status;
-	}
+    public String getRemark() {
+        return this.remark;
+    }
 
-	public void setStatus(boolean status) {
-		this.status = status;
-	}
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
 
-	public Date getUpdateTime() {
-		return this.updateTime;
-	}
+    public boolean getStatus() {
+        return this.status;
+    }
 
-	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
-	}
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
 
-	public Integer getUserCoinId() {
-		return this.userCoinId;
-	}
+    public Date getUpdateTime() {
+        return this.updateTime;
+    }
 
-	public void setUserCoinId(Integer userCoinId) {
-		this.userCoinId = userCoinId;
-	}
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
 
-	public String getUserId() {
-		return this.userId;
-	}
+    public Integer getUserCoinId() {
+        return this.userCoinId;
+    }
 
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
+    public void setUserCoinId(Integer userCoinId) {
+        this.userCoinId = userCoinId;
+    }
 
-	public BigDecimal getValue() {
-		return this.value;
-	}
+    public String getUserId() {
+        return this.userId;
+    }
 
-	public void setValue(BigDecimal value) {
-		this.value = value;
-	}
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
-	public String getVersion() {
-		return this.version;
-	}
+    public BigDecimal getValue() {
+        return this.value;
+    }
 
-	public void setVersion(String version) {
-		this.version = version;
-	}
+    public void setValue(BigDecimal value) {
+        this.value = value;
+    }
 
-	public String getSubject() {
-		return subject;
-	}
+    public String getVersion() {
+        return this.version;
+    }
 
-	public void setSubject(String subject) {
-		this.subject = subject;
-	}
+    public void setVersion(String version) {
+        this.version = version;
+    }
 
-	public java.util.Date getStartTime() {
-		return startTime;
-	}
+    public String getSubject() {
+        return subject;
+    }
 
-	public void setStartTime(java.util.Date startTime) {
-		this.startTime = startTime;
-	}
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
 
-	public java.util.Date getStopTime() {
-		return stopTime;
-	}
+    public java.util.Date getStartTime() {
+        return startTime;
+    }
 
-	public void setStopTime(java.util.Date stopTime) {
-		this.stopTime = stopTime;
-	}
+    public void setStartTime(java.util.Date startTime) {
+        this.startTime = startTime;
+    }
 
-	public String getCorrelationId() {
-		return correlationId;
-	}
+    public java.util.Date getStopTime() {
+        return stopTime;
+    }
 
-	public void setCorrelationId(String correlationId) {
-		this.correlationId = correlationId;
-	}
+    public void setStopTime(java.util.Date stopTime) {
+        this.stopTime = stopTime;
+    }
+
+    public String getCorrelationId() {
+        return correlationId;
+    }
+
+    public void setCorrelationId(String correlationId) {
+        this.correlationId = correlationId;
+    }
 }
