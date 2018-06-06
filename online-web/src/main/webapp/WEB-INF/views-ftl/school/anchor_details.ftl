@@ -80,7 +80,7 @@
 					<div class="sidebar-content hide" style="background: #F8F8F8;padding: 0;">
 						<div class="anchor-introduce">
 							<p>
-								${lecturerInfo.detail?default("")}
+								${lecturerInfo.detail?default("暂无主讲人介绍")}
 							</p>
 						</div>
 						<div class="anchor-hospital">

@@ -79,7 +79,6 @@ $(function(){
     			}
     			RequestService("/focus/updateFocus", "get", paramsObj, function(data) {
     				if(data.success) {
-    					
     					if($this.hasClass("isAdd-active")){
     						$this.removeClass("isAdd-active").find("span").text("加关注")
     						$this.find("img").attr("src","../../web/images/icon-up.png");
