@@ -260,6 +260,7 @@ header{
     min-height: 1.68rem;
     border: none;
     font-size: 0.28rem;
+    resize: none;
 }
 /* .learning_experience input{
 	width: 5.5rem;
@@ -291,6 +292,7 @@ header{
     min-height: 1.68rem;
     border: none;
     font-size: 0.28rem;
+    resize: none;
 }
 /* .practice_medicine input{
 	width: 5.5rem;
@@ -322,6 +324,7 @@ header{
     min-height: 1.68rem;
     border: none;
     font-size: 0.28rem;
+    resize: none;
 }
 .copyreader:empty:before{
 content: attr(placeholder);

@@ -165,11 +165,9 @@ public class OrderServiceImpl extends OnlineBaseServiceImpl implements OrderServ
             sql = "SELECT id FROM oe_order WHERE order_no=:order_no AND order_status =2 AND user_id=:user_id";
             String orderId = orderDao.getNamedParameterJdbcTemplate().queryForObject(sql, paramMap, String.class);
             //删除订单表
-            sql = " DELETE FROM oe_order WHERE order_no=:order_no AND user_id=:user_id AND order_status=2";
+            sql = " UPDATE oe_order SET is_delete=1 WHERE order_no=:order_no AND user_id=:user_id AND order_status=2";
             orderDao.getNamedParameterJdbcTemplate().update(sql, paramMap);
-            //删除订单详情表
-            sql = " delete from oe_order_detail where order_id='" + orderId + "'";
-            orderDao.getNamedParameterJdbcTemplate().update(sql, paramMap);
+
         } else {
             sql = " UPDATE oe_order SET order_status=2 WHERE order_no=:order_no AND user_id=:user_id AND order_status=0";
             orderDao.getNamedParameterJdbcTemplate().update(sql, paramMap);

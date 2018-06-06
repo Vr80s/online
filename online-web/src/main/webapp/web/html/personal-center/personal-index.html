@@ -107,7 +107,7 @@
 							</li>
 							<li data-menu="menu2-1">
 								<div class="link"><i class="icomoon-icon-wenda"></i>问答与论坛<span class="" aria-hidden="true"></span></div>
-								<ul class="submenu">
+								<ul class="submenu tte">
 									<li><a href="javascript:;" data-menu="menu2-1">我的问答</a></li>
 									<li><a href="javascript:;" data-menu="menu2-2">我的论坛</a></li>
 								</ul>
@@ -160,7 +160,7 @@
 								<div class="mune1-1">
 									<div class="my-class-nav">
 										<ul>
-											<li class="class-active">播放历史</li>
+											<li class="class-active" data-btn="load-history">播放历史</li>
 											<li data-btn="load-buy">已购课程</li>
 											<li data-btn="load-end">结束课程</li>
 										</ul>
@@ -437,12 +437,12 @@
 								</div>	
 							</div>
 						<!--问答与论坛-->
-							<div class="content hide aa" id="show-set" >
+							<div class="content hide" id="aaa">
 								<!--我的问答-->
 								<div class="mune2-1">
 									<div class="question-forum">
 										<ul>
-											<li class="mune-active">我的提问</li>
+											<li class="mune-active" id="btnQuestion">我的提问</li>
 											<li>我的回答</li>
 										</ul>
 									</div>
@@ -797,8 +797,8 @@
 															{{else if item.order_status==2}}
 															<li>已失效</li>
 															<li>
-																<p onclick="againBuy(this)" data-id="{{t.id}}">重新购买</p>
-																<p onclick="deleteBtnOrder(this)" data-delete="0" data-number="{{item.order_no}}">删除订单</p>
+																
+																<p style="line-height: 59px;" onclick="deleteBtnOrder(this)" data-delete="0" data-number="{{item.order_no}}">删除订单</p>
 															</li>
 															{{/if}}
 														</ul>
@@ -1199,11 +1199,7 @@
 		
 		
 		<script src="/web/js/personal-center/personal-index.js" type="text/javascript" charset="utf-8"></script>	
-		<script>
-			
 	
-
-		</script>
 	</body>	
 		
 		

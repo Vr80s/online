@@ -1,15 +1,15 @@
+
 $(function() {
 //左右侧边栏mune功能
-
 	$('#accordion > li').click(function(){
 		    $('#right-content > div').addClass('hide');
 			$('#right-content > div').eq($(this).index()).removeClass('hide');
 	})
 	$('#accordion > li >.submenu >li').click(function(e){
-		$('#accordion > li >.submenu >li a').removeClass("menu-active")
+		$('#accordion > li >.submenu >li a').removeClass("mune-active");
 		$(this).find("a").addClass("mune-active");
 		location.hash = $(this).find("a").attr("data-menu");
-//		e.stopPropagation();
+		e.stopPropagation();
 		
 //		判断数据加载
 		var dataLoadTittle=$(this).find("a").attr("data-load");
@@ -20,10 +20,12 @@ $(function() {
 		var index = $(this).parent().parent().index();
 		$('#right-content > div:eq('+index+') > div').addClass('hide')
 		$('#right-content > div:eq('+index+') > div').eq($(this).index()).removeClass('hide');
+		if(location.hash == "#menu2-1"){
+			$("#btnQuestion").click();
+		}
 	})
 	
 	
-
 		if(!location.hash){
 	        	location.hash = "#menu1-1";
 		}
@@ -34,6 +36,8 @@ $(function() {
 	    	$("#accordion li[data-menu='menu1-1']").addClass('open');
 	    	$("#accordion li[data-menu='menu1-1'] .submenu").css('display','block')
     	}else if(location.hash == "#menu2-1" || location.hash == "#menu2-2"){
+//  		quizList(1)
+//  		myAnswer(1)
 	    	$("#accordion li[data-menu='menu2-1']").click();
 	    	$("#accordion li[data-menu='menu2-1']").addClass('open');
 	    	$("#accordion li[data-menu='menu2-1'] .submenu").css('display','block')
@@ -56,12 +60,17 @@ $(function() {
     	
 //	判断路径的hash进行页面跳转
 	if(hash == '#menu1-1'){
- 		$("#accordion a[data-menu='menu1-1']").click();
+   		$("#accordion a[data-menu='menu1-1']").click();
 	}else if(hash == '#menu1-2'){		
 		$("#accordion a[data-menu='menu1-2']").click();
 	}else if(hash == '#menu2-1'){
+		quizList(1);
+		myAnswer(1);
 		$("#accordion a[data-menu='menu2-1']").click();
 	}else if(hash == '#menu2-2'){
+//		myAnswer(1);
+//		quizList(1);
+		
 		$("#accordion a[data-menu='menu2-2']").click();
 	}else if(hash == '#menu3'){
 		orderList(1,0,5);
@@ -103,6 +112,11 @@ $(function() {
 			}else{
 				$el.find('.submenu').not($next).parent().find("span").removeClass('glyphicon-triangle-bottom');			
 			}
+			if($(this).siblings(".tte").length>0){	
+				$("#btnQuestion").click();
+						myAnswer(1);
+				quizList(1)	
+			}
 //		判断数据加载
 		var dataLoadmune=$this.attr("data-load");
 		if (dataLoadmune=="load-order") {
@@ -139,6 +153,8 @@ $(".my-class-nav li").click(function(){
 		buyClass(1)
 	}else if(loadData=="load-end"){
 		endClass(1)
+	}else if(loadData=="load-history"){
+		historyClass(1)
 	}
 	$(".my-class-nav li").removeClass("class-active");
 	$(this).addClass("class-active");
@@ -304,52 +320,10 @@ $(".question-forum li").click(function(){
 })
 
 //		我的提问    我的回答  由于hide后不能获取元素高度 展示更多文字
-function showMoneText(){
 
-
-//点击收起,隐藏则字体
-			var $dot5 = $('.dot5');
-                $dot5.each(function () {
-                    if ($(this).height() > 40) {
-                        $(this).attr("data-txt", $(this).attr("data-text"));
-                        $(this).height(40);
-                        $(this).append('<span class="qq" style="margin-right:60px"> <a class="toggle" href="###" style="color:#2cb82c"><span class="opens">显示全部</span><span class="closes">收起</span></a></span>');
-                    }
-                    var $dot4 = $(this);
-
-                    function createDots() {
-                        $dot4.dotdotdot({
-                            after: 'span.qq'
-                        });
-                    }
-
-                    function destroyDots() {
-                        $dot4.trigger('destroy');
-                    }
-
-                    createDots();
-                    $dot4.on(
-                        'click',
-                        'a.toggle',
-                        function () {
-                            $dot4.toggleClass('opened');
-
-                            if ($dot4.hasClass('opened')) {
-                                destroyDots();
-                            } else {
-                                createDots();
-                            }
-                            return false;
-                        }
-                    );
-                });
-//获取高度后立马将其隐藏
-
-
-}
 
 //我的提问
-quizList(1)		
+//quizList(1)
 function quizList(pages){
 	 RequestService("/online/questionlist/getQuestionList", "get",{
 	 	pageNumber:pages,
@@ -384,7 +358,7 @@ function quizList(pages){
 	
 //我的回答
 
-myAnswer(1)
+//myAnswer(1)
 function myAnswer(pages){
 	 RequestService("/ask/my/findMyAnswers", "POST",{
 	 	pageNumber:pages,
@@ -827,7 +801,7 @@ function geren() {
 Newsnumber()
 //将全部消息设为已读
 $(".sign-read").click(function(){
-	RequestService("/message/readStatus", "POST",PUT, function (data) {
+	RequestService("/message/readStatus", "PUT",null, function (data) {
 		if(data.success==true){
 			showTip(data.resultObject);
 			newsList(1)
@@ -940,28 +914,28 @@ $(".sign-read").click(function(){
 		 })
 	}
 //已失效，重新购买课程
-    function againBuy(index) {
-       var $this = $(index);
-       RequestService("/online/user/isAlive", "GET", null, function(data) {
-           if(!data.success) {
-               $('#login').modal('show');
-           } else {
-               var id = $this.data('id');
-
-               if (!id) {
-                   showTip("无法获取课程id");
-               }
-               RequestService("/order/" + id, "POST", null, function(data){
-                   if (data.success) {
-                       window.open("/order/pay?orderId=" + data.resultObject);
-                   } else {
-                       showTip(data.errorMessage);
-                   }
-               });
-           }
-       });
-
-    };
+//  function againBuy(index) {
+//     var $this = $(index);
+//     RequestService("/online/user/isAlive", "GET", null, function(data) {
+//         if(!data.success) {
+//             $('#login').modal('show');
+//         } else {
+//             var id = $this.data('id');
+//
+//             if (!id) {
+//                 showTip("无法获取课程id");
+//             }
+//             RequestService("/order/" + id, "POST", null, function(data){
+//                 if (data.success) {
+//                     window.open("/order/pay?orderId=" + data.resultObject);
+//                 } else {
+//                     showTip(data.errorMessage);
+//                 }
+//             });
+//         }
+//     });
+//
+//  };
 //取消订单和删除订单
 function deleteBtnOrder(index){
 	var dataDelete=$(index).attr("data-delete"),
@@ -1115,6 +1089,45 @@ function deleteNews(index){
     	}
     })
 }
- 
-    
+  
+function showMoneText(){
+	$("#answer").removeClass("hide");
+//点击收起,隐藏则字体
+			var $dot5 = $('.dot5');
+                $dot5.each(function () {
+                    if ($(this).height() > 40) {
+                        $(this).attr("data-txt", $(this).attr("data-text"));
+                        $(this).height(40);
+                        $(this).append('<span class="qq" style="margin-right:60px"> <a class="toggle" href="###" style="color:#2cb82c"><span class="opens">显示全部</span><span class="closes">收起</span></a></span>');
+                    }
+                    var $dot4 = $(this);
 
+                    function createDots() {
+                        $dot4.dotdotdot({
+                            after: 'span.qq'
+                        });
+                    }
+                    function destroyDots() {
+                        $dot4.trigger('destroy');
+                    }
+
+                    createDots();
+                    $dot4.on(
+                        'click',
+                        'a.toggle',
+                        function () {
+                            $dot4.toggleClass('opened');
+
+                            if ($dot4.hasClass('opened')) {
+                                destroyDots();
+                            } else {
+                                createDots();
+                            }
+                            return false;
+                        }
+                    );
+                });
+//获取高度后立马将其隐藏
+	$("#answer").addClass("hide");
+
+}

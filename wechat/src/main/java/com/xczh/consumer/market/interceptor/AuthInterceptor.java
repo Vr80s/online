@@ -2,11 +2,11 @@ package com.xczh.consumer.market.interceptor;
 
 import static com.xczh.consumer.market.utils.ResponseObject.tokenBlankError;
 import static com.xczh.consumer.market.utils.ResponseObject.tokenExpired;
-import static com.xczhihui.common.util.enums.UserUnitedStateType.OVERDUE;
-import static com.xczhihui.common.util.enums.UserUnitedStateType.WEIXIN_AUTH;
+import static com.xczhihui.common.util.enums.UserUnitedStateType.*;
 
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -34,10 +34,13 @@ import org.springframework.web.servlet.ModelAndView;
 import com.alibaba.fastjson.JSON;
 import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.bean.OnlineUser;
+import com.xczh.consumer.market.bean.WxcpClientUserWxMapping;
 import com.xczh.consumer.market.service.OnlineUserService;
+import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.user.center.service.UserCenterService;
 import com.xczhihui.user.center.utils.UCCookieUtil;
+import com.xczhihui.user.center.vo.ThirdFlag;
 import com.xczhihui.user.center.vo.Token;
 
 /**
@@ -75,6 +78,8 @@ public class AuthInterceptor implements HandlerInterceptor, HandlerMethodArgumen
     private OnlineUserService onlineUserService;
     @Autowired
     private CommonsMultipartResolver multipartResolver;
+    @Autowired
+    private WxcpClientUserWxMappingService wxcpClientUserWxMappingService;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -111,9 +116,15 @@ public class AuthInterceptor implements HandlerInterceptor, HandlerMethodArgumen
                 boolean isWeixin = isWeixin(request);
                 if (token == null || redisToken == null) {
                     if (isWeixin) {
-                        redirectUrl = request.getContextPath() + WEIXIN_AUTH_CALLBACK + URLEncoder.encode(request.getServletPath(), "UTF-8");
-                        responseObject = ResponseObject.newErrorResponseObject(null, WEIXIN_AUTH.getCode());
-                        logger.info("wechat的ajax请求：{}",responseObject.toString() );
+                        boolean isNeedBind = isNeedBind(request);
+                        if (isNeedBind) {
+                            redirectUrl = request.getContextPath() + EVPI_HTML_URL;
+                            responseObject = ResponseObject.newErrorResponseObject(null, GO_TO_BIND.getCode());
+                        } else {
+                            redirectUrl = request.getContextPath() + WEIXIN_AUTH_CALLBACK + URLEncoder.encode(request.getServletPath(), "UTF-8");
+                            responseObject = ResponseObject.newErrorResponseObject(null, WEIXIN_AUTH.getCode());
+                        }
+                        logger.info("wechat的ajax请求：{}", responseObject.toString());
                     } else {
                         redirectUrl = request.getContextPath() + ENTER_HTML_URL;
                         responseObject = ResponseObject.newErrorResponseObject(null, OVERDUE.getCode());
@@ -137,6 +148,28 @@ public class AuthInterceptor implements HandlerInterceptor, HandlerMethodArgumen
         } else {
             return true;
         }
+    }
+
+    /**
+     * 判断如果存在第三方token，并且未绑定手机号，先去绑定手机号
+     *
+     * @param request
+     * @return
+     * @throws SQLException
+     */
+    private boolean isNeedBind(HttpServletRequest request) throws SQLException {
+        ThirdFlag thirdFlag = UCCookieUtil.readThirdPartyCookie(request);
+        if (thirdFlag != null) {
+            String unionId = thirdFlag.getUnionId();
+            if (StringUtils.isNotBlank(unionId)) {
+                WxcpClientUserWxMapping wxcpClientUser = wxcpClientUserWxMappingService.getWxcpClientUserByUnionId(unionId);
+                //有第三方登陆token,但是没有绑定手机号时，需要去完善信息
+                if (wxcpClientUser != null && StringUtils.isBlank(wxcpClientUser.getClient_id())) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     @Override
@@ -164,7 +197,7 @@ public class AuthInterceptor implements HandlerInterceptor, HandlerMethodArgumen
     private boolean isExcludePath(HttpServletRequest request) {
         String path = request.getServletPath();
         boolean isExclude = false;
-        logger.info("url:{}",path);
+        logger.info("url:{}", path);
         for (String publicPath : noNeedAuthPaths) {
             if (pathMatcher.match(publicPath, path)) {
                 isExclude = true;
