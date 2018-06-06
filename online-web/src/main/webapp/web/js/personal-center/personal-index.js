@@ -20,12 +20,9 @@ $(function() {
 		var index = $(this).parent().parent().index();
 		$('#right-content > div:eq('+index+') > div').addClass('hide')
 		$('#right-content > div:eq('+index+') > div').eq($(this).index()).removeClass('hide');
-//		if(location.hash == "#menu2-1"){
-//			$("#btnQuestion").click();
-////			myAnswer(1);
-//			quizList(1);
-//			
-//		}
+		if(location.hash == "#menu2-1"){
+			$("#btnQuestion").click();
+		}
 	})
 	
 	
@@ -71,7 +68,9 @@ $(function() {
 		myAnswer(1);
 		$("#accordion a[data-menu='menu2-1']").click();
 	}else if(hash == '#menu2-2'){
-
+//		myAnswer(1);
+//		quizList(1);
+		
 		$("#accordion a[data-menu='menu2-2']").click();
 	}else if(hash == '#menu3'){
 		orderList(1,0,5);
@@ -359,7 +358,7 @@ function quizList(pages){
 	
 //我的回答
 
-
+//myAnswer(1)
 function myAnswer(pages){
 	 RequestService("/ask/my/findMyAnswers", "POST",{
 	 	pageNumber:pages,
