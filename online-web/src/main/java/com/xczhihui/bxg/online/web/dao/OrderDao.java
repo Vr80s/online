@@ -109,7 +109,7 @@ public class OrderDao extends SimpleHibernateDao {
         StringBuffer sql = new StringBuffer();
         Map<String,Object> paramMap = new HashMap<>();
         sql.append("select order_status from oe_order where id =:orderId");
-        paramMap.put("orderId1", orderId);
+        paramMap.put("orderId", orderId);
         List<OrderVo> list = this.findEntitiesByJdbc(OrderVo.class, sql.toString(), paramMap);
         return list.size()>0 ? list.get(0).getOrder_status() : null;
     }
