@@ -78,6 +78,7 @@ body{
 
 .li_list0{
 	padding-top: 0.6rem !important;
+    -webkit-overflow-scrolling:touch;
 }
 /*将每个li封闭成一个盒子，就可以独立每个li内的内容*/
  .li_list span{

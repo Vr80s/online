@@ -188,9 +188,7 @@ function ajaxRequest(url, param,type, callback, ac) {
                 location.href = "/xcview/html/common.html";
             } else if (msg.code == USER_UN_BIND) { //去完善信息页面
                 localStorage.setItem("rd", rd);
-                var openId = msg.resultObject.openId;
-                var unionId = msg.resultObject.unionId;
-                location.href = "/xcview/html/evpi.html?openId=" + openId + "&unionId=" + unionId;
+                location.href = "/xcview/html/evpi.html";
             } else if (msg.code == USER_WEIXIN_AUTH) {
                 location.href = "/xczh/wxlogin/middle?url=" + getCurrentUrl();
             } else {
