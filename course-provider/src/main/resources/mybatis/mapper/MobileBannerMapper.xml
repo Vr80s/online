@@ -82,6 +82,15 @@
 			order by recommendSort desc,oc.release_time desc  limit 0,#{pageSizeUp} 
         )
         union all
+        ( 
+		  select 
+		  <include refid="selectRecommenCourse"/>
+		    '免费课程' as note
+		  <include refid="commonCondition"/>
+		    and oc.is_free = 1
+			order by recommendSort desc,oc.release_time desc  limit 0,#{pageSizeUp} 
+        )
+        union all
         ( select 
 		  <include refid="selectRecommenCourse"/>
 		    '最新课程' as note
