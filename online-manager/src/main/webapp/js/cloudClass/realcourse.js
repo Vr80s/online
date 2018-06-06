@@ -166,9 +166,6 @@ $(function(){
         onSelect: function( startDate ) {
         }
     });
-    $("#recommendTime").bind("click",function(){
-        $(".ui-datepicker-current").attr("style","display:none;");
-    });
 });
 
 /**

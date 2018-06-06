@@ -420,7 +420,9 @@
     input.custom-combobox-input.ui-widget.ui-widget-content.ui-state-default.ui-corner-left.ui-autocomplete-input{
      width: 100%;
     }
-    
+    .ui-datepicker-buttonpane .ui-datepicker-current{
+		display: none !important;
+	}
     </style>
 <script type="text/javascript">
 
@@ -540,7 +542,7 @@
 		<div class="form-group"  style="margin-top: 18px;" >
 			<label class="col-sm-3 control-label no-padding-right" for="recommendTime"><font color="red">*</font>推荐时效: </label>
 			<div class="col-sm-6 searchTr">
-				<input type="text" class="datetime-picker propertyValue1 {required:true}"  id="recommendTime" name="recommendTime" placeholder = "推荐时效" style="width:150px" />
+				<input type="text" class="datetime-picker propertyValue1 {required:true}" id="recommendTime" name="recommendTime" placeholder = "推荐时效" style="width:150px" />
 			</div>
 		</div>
 	</form>
