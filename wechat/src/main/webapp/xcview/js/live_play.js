@@ -23,8 +23,6 @@ var courseId = getQueryString('my_study');
     course_id = courseId;
 
     
-    
-    
 //传ID courseId为接口的课程ID
 requestService("/xczh/course/liveDetails",{
 	courseId : courseId	
