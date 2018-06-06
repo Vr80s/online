@@ -137,7 +137,7 @@ function viewConditionOption(obj) {
 			+ '<p class="wrap-border" subject=' + subject + ' value='
 			+ selectValue + '>' + '<span>' + selectCondition + ' : </span>'
 			+ '<span class="select-text" >' + selectText + '</span>'
-			+ '<span class="select-close"><a href='+urlFinalParams+'>x</a></span>'
+			+ '<span class="select-close"><a href='+urlFinalParams+'><img src="/web/images/mynote-close-hover.png"></a></span>'
 			+ '</p>' + '</dd>';
 
 	/**

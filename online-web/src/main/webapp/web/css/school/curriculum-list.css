@@ -97,7 +97,7 @@ a:hover{text-decoration: none;}
 	margin-right: 20px;
 }
 #select-condition .select-close:hover{
-	transform: scale(1.3);
+	/*transform: scale(1.3);*/
 }
 .author-search{
 	border: 1px solid #dedede;

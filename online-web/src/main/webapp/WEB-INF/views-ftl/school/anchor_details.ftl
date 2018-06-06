@@ -63,7 +63,7 @@
 		<!--nav-->
 					<div class="wrap-sidebar">
 						<ul>
-							<li class="active-footer"><a href="${webUrlParam}/courses">课程</a></li>
+							<li><a href="${webUrlParam}/courses">课程</a></li>
 							<li><a href="${webUrlParam}/info">介绍</a></li>
 							<li><a href="${webUrlParam}/comment">评价（${criticizeCount}）</a></li>
 						</ul>
