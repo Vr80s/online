@@ -351,7 +351,9 @@ $(function () {
             } else {
                 window.localStorage.personcenter = $(this).attr("data-id");
 //              window.location.href = "/web/html/personcenter.html";
-				window.open("/web/html/personcenter.html")
+//				window.open("/web/html/personcenter.html")
+				window.open("/web/html/personal-center/personal-index.html#menu6");
+							$("#accordion .link[data-menu='menu6']").click();
             }
         })
     });
