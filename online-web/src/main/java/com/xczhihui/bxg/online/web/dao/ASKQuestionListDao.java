@@ -438,4 +438,57 @@ public class ASKQuestionListDao extends SimpleHibernateDao {
         List<Map<String, Object>> courses= this.getNamedParameterJdbcTemplate().queryForList(sql,paramMap);
         return  courses.size() > 0 ? courses.get(0): null;
     }
+
+    /**
+     * 获取我的提问列表信息
+     */
+    public Page<AskQuestionVo> findMyListQuestion(String userId,Integer pageNumber, Integer pageSize, Integer menuId, String status, String tag, String title, String text, String content) {
+        pageNumber = pageNumber == null ? 1 : pageNumber;
+        pageSize = pageSize == null ? 20 : pageSize;
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        String sql = "";
+        title = MysqlUtils.replaceESC(title);
+        tag = MysqlUtils.replaceESC(tag);
+
+        String titleSql ="";
+        String tagSql = "";
+        String menuSql="";
+        String statuSql="";
+
+        String userIdSql =" and  q.user_id = :userId  ";
+        paramMap.put("userId", userId);
+        //判断学员是否根据问题标题和标签进行搜索
+        //根据问题标题搜索，拼接的sql
+        if (!"".equals(title) && title != null){
+            titleSql =" and  q.title like :title ";
+            paramMap.put("title", "%" + title + "%");
+        }
+        //根据标签搜索，拼接的sql
+        if (!"".equals(tag) && tag != null){
+            tagSql=" and q.tags  like :tag ";
+            paramMap.put("tag", "%" + tag + "%");
+        }
+        //根据学科搜索，拼接的sql
+        if(menuId != null && menuId > 0){
+            menuSql=" and  q.ment_id = :menuId  ";
+            paramMap.put("menuId", menuId);
+        }
+        //根据问题状态搜索，拼接的sql
+        if(!"".equals(status) && status!=null && !"-1".equals(status)){
+            if("2".equals(status)){
+                statuSql= " and  q.status = :status " ;
+                paramMap.put("status", status);
+            }else{
+                statuSql= " and  q.status != 2 ";
+            }
+
+
+        }
+        sql= " select m.ask_limit, q.create_nick_name,q.create_head_img,q.title,q.content,q.accused,q.text,q.tags,q.create_time,q.create_person,q.answer_sum,q.browse_sum, m.`name`,m.id as ment_id ,q.id,NOW() as systemTime" +
+                " from oe_ask_question q  join oe_menu m " +
+                " where  q.ment_id = m.id  and q.is_delete = 0  "+userIdSql+titleSql+tagSql+menuSql+statuSql + " order by q.create_time  desc ";
+
+        Page<AskQuestionVo> page = this.findPageBySQL(sql, paramMap, AskQuestionVo.class, pageNumber, pageSize);
+        return page;
+    }
 }

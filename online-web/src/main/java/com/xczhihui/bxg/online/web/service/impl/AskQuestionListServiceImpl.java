@@ -318,4 +318,62 @@ public class AskQuestionListServiceImpl extends OnlineBaseServiceImpl implements
     public void updateQuestion(AskQuestionVo  questionVo){
          questionListDao.updateQuestion(questionVo);
     }
+
+    @Override
+    public Page<AskQuestionVo> findMyListQuestion(OnlineUser u, Integer pageNumber, Integer pageSize, Integer menuId, String status, String tag, String title, String text, String content) {
+        //处理搜索条件中的特殊字符
+        title = MysqlUtils.replaceESC(title);
+        tag = MysqlUtils.replaceESC(tag);
+        //获取所有问题信息
+        Page<AskQuestionVo> askQuestionVos = questionListDao.findMyListQuestion(u.getId(),pageNumber, pageSize, menuId, status, tag, title, text, content);
+        //如果存在提问信息,再循环获取当前问题下点赞数最多的一条回答信息
+        if (!CollectionUtils.isEmpty(askQuestionVos.getItems())) {
+            //获取当前用户，判断登录用户是否与当前问题的提问者一致，如果一致，则是本人提问，可以删除，否则，反之
+            for (AskQuestionVo askQuestionVo : askQuestionVos.getItems()) {
+                askQuestionVo.setIs_delete(u != null ? u.getId().equals(askQuestionVo.getUserId()) : false);
+                //将问题标签按照逗号拆分组装成数组
+                String[] tags = askQuestionVo.getTags().split(",");
+                askQuestionVo.setTag(tags);
+                askQuestionVo.setStrTime(TimeUtil.comparisonDate(askQuestionVo.getCreate_time()));
+
+                /**
+                 * 判断问题所属学科是否是全部公开
+                 * 1、如果全部公开，获取回答数据，
+                 * 2、如果不公开，查询登录用户是否报名此学科并缴费，如果未报名缴费，看不到问题下回答；否则，可以看到回答问题
+                 */
+                if (askQuestionVo.getAsk_limit() == 1) {
+                    //获取当前提问下的问题信息()
+                    AskAnswerVo askAnswerVo = questionListDao.findAskAnswerByQuestionId(askQuestionVo.getId(), u);
+                    if (askAnswerVo != null) {
+                        askQuestionVo.setAskAnswerVo(askAnswerVo); //将当前问题的回答信息存入提问结果中
+                    }
+                } else {
+                    if (u != null) {
+                        //看当前用户是否针对当前学科有权限，如果有，可以看到回答信息，否则必须购买才可以看到
+                        OnlineUser user=questionListDao.findOneEntitiyByProperty(OnlineUser.class, "loginName", u.getLoginName());
+                        if(user.getMenuId().intValue()==askQuestionVo.getMent_id().intValue()) {
+                            //获取当前提问下的问题信息()
+                            AskAnswerVo askAnswerVo = questionListDao.findAskAnswerByQuestionId(askQuestionVo.getId(), u);
+                            if (askAnswerVo != null) {
+                                askQuestionVo.setAskAnswerVo(askAnswerVo); //将当前问题的回答信息存入提问结果中
+                            }
+                        }else
+                        {
+                            //查看当前用户是否购买此学科下的课程
+                            boolean payStatus = courseDao.checkUserToPay(u.getId(),askQuestionVo.getMent_id());
+                            if (payStatus) {
+                                //获取当前提问下的问题信息()
+                                AskAnswerVo askAnswerVo = questionListDao.findAskAnswerByQuestionId(askQuestionVo.getId(), u);
+                                if (askAnswerVo != null) {
+                                    askQuestionVo.setAskAnswerVo(askAnswerVo); //将当前问题的回答信息存入提问结果中
+                                }
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+        return askQuestionVos;
+    }
 }
