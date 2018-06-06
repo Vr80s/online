@@ -92,7 +92,7 @@
             </li>
             <li class="pay-way" data-type="3">
                 <div class="pay-logo">
-                    <img src="/web/images/live/weixin.png"/>
+                    <img src="/web/images/weixin.png"/>
                 </div>
                 <p>微信</p>
                 <span class="icon-sure hide"></span>
