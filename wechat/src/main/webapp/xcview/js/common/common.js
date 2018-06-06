@@ -680,6 +680,7 @@ function nofinds(){
     img.onerror=null; //控制不要一直跳动 
 } 
 
+// onerror="nofinds();"
 
 
 

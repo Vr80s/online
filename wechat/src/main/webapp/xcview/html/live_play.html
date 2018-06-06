@@ -24,8 +24,22 @@
 	    }
 	}	
 </script>
+<style>
+	.wrap_purchaser{
+		border: none;
+		float: left;
+	    width: 0.56rem;
+	    height: 0.28rem;
+	    text-align: center;
+	    line-height: 0.32rem;
+	    color: #fff;
+	    background: #00bc12;
+	    font-size: 0.16rem;
+	    margin: 0.04rem 0rem 0 0.1rem;
+	    border-radius: 4px;
+	}
+</style>
 </head>
-    
 <body style="background:#F8F8F8;">
 <div class="wp">
 	<div class="wrap-header">
@@ -220,7 +234,7 @@
 				<div class="wrap_comment_text">
 					<!--头像-->
 					<div class="user_header">
-						<img src="{{item.onlineUser.smallHeadPhoto}}"/>
+						<img src="{{item.onlineUser.smallHeadPhoto}}" onerror="nofinds();"/>
 					</div>
 					<!--右边评论-->
 					<div class="user_text">
@@ -229,7 +243,7 @@
 							<!--购买者显示-->
 							{{if item.isBuy  }}
 							<div class="wrap_purchaser">
-								<p>购买者</p>
+								<p>已购</p>
 							</div>
 							{{/if}}
 							{{if item.starLevel == 1}}
