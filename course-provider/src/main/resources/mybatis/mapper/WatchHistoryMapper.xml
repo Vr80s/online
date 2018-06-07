@@ -24,7 +24,7 @@
 			(SELECT oc.lecturer FROM oe_course oc WHERE oc.id = owh.collectionId),
 			oc.lecturer
 		  ) AS lecturerName,
-		  MAX(owh.create_time) AS watchTime,
+		  owh.create_time AS watchTime,
 		  IF(
 			oc.type = 3,
 			4,
@@ -45,7 +45,6 @@
 		  INNER JOIN course_anchor ou
 			ON owh.lecturer_id = ou.user_id
 		WHERE owh.user_id =#{userId}
-		GROUP BY owh.`course_id`,owh.`user_id`
 		ORDER BY owh.create_time DESC
 	</select>
 
@@ -100,6 +99,7 @@
 		)
 		VALUES
 		  (#{userId},#{userLecturerId},#{courseId},#{collectionId})
+		   ON DUPLICATE KEY UPDATE create_time = NOW();
 	</insert>
 
 
