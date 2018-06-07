@@ -224,12 +224,27 @@
 		<!--评价-->
 					<div class="sidebar-content hide">
 							<#include "common/comment.ftl">
+								
+						<!--无数据时显示背景图-->
+						 <div class="all-null course-null hide">
+						 	<div class="null-img">
+						 		<img src="/web/images/icon-nodata.png"/>
+						 	</div>
+						 	<p>暂无数据</p>
+						 </div>
 					</div>
 		<!--常见问题-->
 					<div class="sidebar-content hide">
 						<ul class="often-problem">
 							${commonProblem?default('暂无常见问题')}
 						</ul>
+						<!--无数据时显示背景图-->
+						 <div class="all-null question-null hide">
+						 	<div class="null-img">
+						 		<img src="/web/images/icon-nodata.png"/>
+						 	</div>
+						 	<p>暂无数据</p>
+						 </div>
 					</div>
 				</div>
 		<!--右侧推荐课程-->
