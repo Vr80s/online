@@ -121,7 +121,7 @@
 							<#elseif courseInfo.watchState == 1  && courseInfo.type == 4>
 							           立即报名      
 							 <#else> 
-							           进入学习       
+							            开始学习      
 							</#if>
 						</button>
 					<#elseif courseInfo.watchState == 0>
@@ -153,7 +153,6 @@
 							</#if>
 						<#else> <#-- 非专辑tab显示    -->
 						   <li><a href="${webUrlParam}/info" >详情</a></li>
-						   <li><a href="${webUrlParam}/outline" >课程大纲</a></li>
 						</#if>
 							<li><a href="${webUrlParam}/comment" >评价（${courseInfo.criticizeCount}）</a></li>
 							<li><a href="${webUrlParam}/aq" >常见问题</a></li>

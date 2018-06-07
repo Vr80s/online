@@ -25,23 +25,27 @@ var smallHeadPhoto ="";
 $(function(){
 
 	var index = 0;
-	//表名是专辑
-	if(collection == 1  ){
-		$(".buy_tab").removeClass("hide");
-		$(".no_buy_tab").remove();
-		if(type == "info"){
-			$(".wrap-sidebar ul li").eq(1).addClass("active-footer");
-			index =1;
-		}
-	}else{
-		$(".no_buy_tab").removeClass("hide");
+	/**
+	 * 
+	 */
+	if(collection == 1 &&  watchState ==0){ //专辑付费，删除选集、显示大纲
 		$(".buy_tab").remove();
+		$(".no_buy_tab").removeClass("hide");
+		
+		if(type == "info"){
+			$(".wrap-sidebar ul li").eq(0).addClass("active-footer");
+		}
+		
+	}else if(collection == 1 &&  watchState !=0){  //专辑免费或已购买，显示选集、删除大纲
+		$(".no_buy_tab").remove();
+		$(".buy_tab").removeClass("hide");
 		if(type == "info"){
 			$(".wrap-sidebar ul li").eq(0).addClass("active-footer");
 		}
 	}
 	//type对应显示
 	//outline  comment    info   aq    selection
+	
 	if(type == "selection"){
 		$(".wrap-sidebar ul li").eq(0).addClass("active-footer");
 	}else if(type == "outline"){
@@ -125,7 +129,6 @@ $(function(){
 			
 			 
 		 }
-		 
 		 
 		 /**
 		  * 判断是否登录了
