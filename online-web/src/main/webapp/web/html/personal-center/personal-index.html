@@ -1079,8 +1079,8 @@
 											
 											{{each items as item i}}
 												{{if item.readStatus==0}}
-												<li class="weidu">
-													<div class="message-box" onclick="jump_msg()" data-id="{{item.id}}" data-url='{{item.url}}'>
+												<li class="weidu" onclick="jump_msg(this)" data-id="{{item.id}}" data-url='{{item.url}}'>
+													<div class="message-box">
 														<span class="icon-tip"></span>
 														{{item.context}}
 
@@ -1090,8 +1090,8 @@
 													<p class="delete-news" style="display: none;"><img src="../../images/qxCloser.png"/></p>
 												</li>
 												{{else if item.readStatus==1}}
-												<li>
-													<div class="message-box" style="cursor: pointer;" onclick="jump_msg()" data-id="{{item.id}}" data-url='{{item.url}}'>
+												<li onclick="jump_msg(this)" data-id="{{item.id}}" data-url='{{item.url}}'>
+													<div class="message-box" style="cursor: pointer;">
 														{{item.context}}
 														<span class="news-time">{{item.createTime}}</span>
 													</div>

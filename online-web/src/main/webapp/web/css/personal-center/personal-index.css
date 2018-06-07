@@ -1373,6 +1373,7 @@ overflow: hidden;*/
 	position: relative;
 	border-bottom: 1px solid #dedede;
 	color: #999999;
+	cursor: pointer;
 }
 .main-news ul li .delete-news{
 	position: absolute;
