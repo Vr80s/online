@@ -69,7 +69,8 @@ $(".buttom").click(function(){
         }
         requestService("/xczh/apply/add",{
         	'realName':realName,"mobile":mobile,
-        	"wechatNo":wechatNo,"sex":sex},
+        	"wechatNo":wechatNo,"sex":sex,
+        	"courseId":courseId},
         	function(data) {
         		if(data.success){ //报名成功
         			/**
@@ -81,8 +82,7 @@ $(".buttom").click(function(){
         				   /**
         				    * 免费的并且是没有学习的
         				    */
-        				   if(data.watchState && data.learning == 0){
-
+        				   if(data.watchState == 1 && data.learning == 0){
         					    /*
         					     * 添加学习信息 -->去猜你喜欢页面
         					     */

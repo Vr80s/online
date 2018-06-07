@@ -30,20 +30,16 @@ requestService("/xczh/course/details",{courseId:courseId}, function(data) {
           * 判断是不是线下课
           */
          if(type == 4){ //线下课
-        	  
         	  $(".hint").show();
-        	  
         	  /**
         	   * 查询这个信息
         	   */
         	  requestService("/xczh/apply/applyInfo",{courseId:courseId}, function(data) {
               	 if (data.success) {
                        var result = data.resultObject;
-                       
                        $(".hint_name_right").html(result.realName);
                        $(".hint_tel_right").html(result.mobile);
                        $(".hint_wx_right").html(result.wechatNo);
-                       
                        if(result.sex==0){
                     	   $(".hint_sex_right").html("女");
                        }else if(result.sex==1){
