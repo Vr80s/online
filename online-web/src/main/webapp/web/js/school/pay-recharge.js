@@ -19,9 +19,9 @@ $(function () {
             return;
         }
         if (type === 1) {
-            window.location.href = "/web/alipay/recharge/" + price;
+            window.location.href = "/web/alipay/recharge/" + price + "/";
         } else {
-            window.location.href = "/web/wxPay/recharge/" + price;
+            window.location.href = "/web/wxPay/recharge/" + price + "/";
         }
     });
 });
