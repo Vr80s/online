@@ -12,10 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.bxg.online.common.domain.Course;
@@ -29,9 +26,11 @@ import com.xczhihui.course.enums.MessageTypeEnum;
 import com.xczhihui.course.params.BaseMessage;
 import com.xczhihui.course.service.ICommonMessageService;
 import com.xczhihui.course.service.IFocusService;
+import com.xczhihui.course.service.ILineApplyService;
 import com.xczhihui.course.util.CourseUtil;
 import com.xczhihui.course.util.TextStyleUtil;
 import com.xczhihui.course.vo.FocusVo;
+import com.xczhihui.course.vo.LineCourseApplyStudentVO;
 import com.xczhihui.medical.anchor.model.CourseApplyInfo;
 import com.xczhihui.medical.anchor.model.CourseApplyResource;
 import com.xczhihui.medical.anchor.service.ICourseApplyService;
@@ -61,6 +60,8 @@ public class CourseApplyController extends AbstractController {
     private CourseService courseService;
     @Autowired
     private ICommonMessageService commonMessageService;
+    @Autowired
+    private ILineApplyService lineApplyService;
     @Value("${weixin.course.remind.code}")
     private String weixinTemplateMessageRemindCode;
 
@@ -333,6 +334,22 @@ public class CourseApplyController extends AbstractController {
         responseObj.setSuccess(true);
         responseObj.setResultObject(url);
         return responseObj;
+    }
+
+    @RequestMapping(value = "student", method = RequestMethod.GET)
+    public ResponseObject offlineStudent(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10") int size,
+                                         @RequestParam(required = false) Integer courseId) {
+        Page<LineCourseApplyStudentVO> studentVOPage = new Page<>(page, size);
+        return ResponseObject.newSuccessResponseObject(lineApplyService.listLineApplyStudent(studentVOPage, courseId, getCurrentUser().getId()));
+    }
+
+    @RequestMapping(value = "student/{id}/{learned}", method = RequestMethod.PUT)
+    public ResponseObject studentLearned(@PathVariable String id, @PathVariable boolean learned) {
+        if (lineApplyService.updateLearned(id, learned, getCurrentUser().getId())) {
+            return ResponseObject.newSuccessResponseObject("设置成功");
+        } else {
+            return ResponseObject.newErrorResponseObject("设置失败");
+        }
     }
 
     /**
