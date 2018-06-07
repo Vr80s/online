@@ -1,4 +1,4 @@
-debugger
+// debugger
 var data = {};
 var merId = getQueryString('merId');
 var wv = getQueryString('wv');

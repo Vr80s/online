@@ -27,7 +27,6 @@ $(function () {
             }
         },
         {"title": "分类", "class": "center", "width": "6%", "sortable": false, "data": "typeName"},
-        {"title": "引用的标签", "class": "center", "width": "10%", "sortable": false, "data": "tagName"},
         {"title": "作者", "class": "center", "width": "8%", "sortable": false, "data": "author"},
         {"title": "阅读量", "class": "center", "width": "6%", "sortable": false, "data": "browseSum"},
         {"title": "点赞数", "class": "center", "width": "6%", "sortable": false, "data": "praiseSum"},
