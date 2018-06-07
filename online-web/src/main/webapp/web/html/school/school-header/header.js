@@ -408,7 +408,8 @@ $(function() {
 				localStorage.myStudyCenter = "1";
 				$('#login').modal('show');
 			} else {
-				window.location.href = "/web/html/myStudyCenter.html";
+//				window.location.href = "/web/html/myStudyCenter.html";
+				window.open("/web/html/personal-center/personal-index.html");
 			}
 		})
 	});

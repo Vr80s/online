@@ -68,7 +68,7 @@
 			{{if doctorPhoto == null}}
 				<img src="/xcview/images/regards.png" alt="医师头像" />
 			{{else}}
-				<img src="{{doctorPhoto}}" alt="医师头像" />
+				<img src="{{doctorPhoto}}" alt="医师头像" onerror="nofind();" />
 			{{/if}}
 
 		</div>
@@ -92,7 +92,7 @@
 				{{if user == null}}
 				<li><img src="/xcview/images/default_pic.png" alt="头像" /></li>
 				{{else}}
-				<li><img src="{{user}}" alt="头像" /></li>
+				<li><img src="{{user}}" alt="头像" onerror="nofinds();" /></li>
 				{{/if}}
 				{{/each}}
 			</ul>

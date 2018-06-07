@@ -37,7 +37,11 @@ public class IOSVersionInterceptor implements HandlerInterceptor{
         }
         if(version.equals(iversion)){
             onlyThread.set(Boolean.TRUE);
+        }else{
+            onlyThread.set(Boolean.FALSE);
         }
+        logger.info(version+":"+iversion+version.equals(iversion));
+        logger.info("tl:"+onlyThread.get());
         return true;
     }
 

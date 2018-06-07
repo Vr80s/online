@@ -157,8 +157,6 @@ function on_cc_player_init(vid, objectId ){
     
 }
 
-
-
 /**
  * 记录播放到哪里了。我的天
  * 获取当前播放时间（单位：秒）
@@ -176,7 +174,11 @@ var key ="";
 function videoPositionRecording(time){
 	if(userId!="" && courseId!=""){
 		key == ""? key = userId+courseId : key;
-
+		
+		/**
+		 * 获取的是秒
+		 * player.getPosition()
+		 */
 		localStorage.setItem(key,player.getPosition());
 	}
 }

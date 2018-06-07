@@ -64,7 +64,7 @@ public class MobileRecommendController {
         Map<String, Object> mapAll = new HashMap<String, Object>();
         //课程banner
         Page<MobileBanner> MobileBannerPage = new Page<>();
-        MobileBannerPage.setRecords(mobileBannerService.selectMobileBannerPage(BannerType.RECOMMENDATION.getCode()));
+        MobileBannerPage.setRecords(mobileBannerService.selectMobileBannerPage(BannerType.RECOMMENDATION.getCode(),IOSVersionInterceptor.onlyThread.get()));
         mapAll.put("banner", MobileBannerPage);
 
         //课程专题

@@ -304,6 +304,7 @@ function btn_zj_mianfei() {
             orderFrom: 2
         }, function (data) {
             window.location.href = "purchase.html?orderId=" + data.resultObject.orderId + "";
+            // window.location.href = "line_class.html?orderId=" + data.resultObject.orderId + "";
         });
     } else if (data_zj == 1) {
         requestService("/xczh/history/add", {

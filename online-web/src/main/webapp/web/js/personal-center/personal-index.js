@@ -325,7 +325,7 @@ $(".question-forum li").click(function(){
 //我的提问
 //quizList(1)
 function quizList(pages){
-	 RequestService("/online/questionlist/getQuestionList", "get",{
+	 RequestService("/online/questionlist/getMyQuestionList", "get",{
 	 	pageNumber:pages,
 	 	pageSize:5
 	 }, function (data) {
