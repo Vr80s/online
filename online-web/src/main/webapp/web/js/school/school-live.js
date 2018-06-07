@@ -5,4 +5,10 @@ $(function(){
 	$('.carousel').carousel({
 	  interval: 3000
 	})
+	$(".hover-select").hover(function(){
+		$(".banner-prev").fadeIn(200)
+	},function(){
+		$(".banner-prev").fadeOut(200)
+		
+	})
 })

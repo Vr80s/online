@@ -42,7 +42,7 @@
         </#list>
         </div>
 
-        <p class="z study-core">查看已购课程，<a href="/web/html/myStudyCenter.html">请前往学习中心</a></p>
+        <p class="z study-core">查看已购课程，<a href="/web/html/personal-center/personal-index.html">请前往学习中心</a></p>
         <p class="z class-list">继续寻找感兴趣的课程，<a href="/courses/recommendation">请前往学堂</a></p>
     </div>
     <!--猜你喜欢-->

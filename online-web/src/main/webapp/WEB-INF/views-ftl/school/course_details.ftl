@@ -162,9 +162,8 @@
 						   <li><a href="javascript:;" >详情</a></li>
 						   <li><a href="javascript:;" >课程大纲</a></li>
 						</#if>
-							<li ><a href="javascript:;" >评价（${courseInfo.criticizeCount}）</a></li>
+							<li ><a href="${webUrlParam}/comment" >评价（${courseInfo.criticizeCount}）</a></li>
 							<li><a href="javascript:;" >常见问题</a></li>
-
 						</ul>
 					</div>
 		<!--content-->

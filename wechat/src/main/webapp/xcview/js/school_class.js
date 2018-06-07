@@ -291,23 +291,34 @@ var courseId = getQueryString('course_id');
 
 function btn_zj_mianfei() {
     checkAuth(courseId, 3);
+    
     var data_zj = $(".right_priceBtn").attr("data-zj");
-
-    if (data_zj == 0) {
+    if (data_zj == 0) {   //还没购买呢
+    		
         requestService("/xczh/order/save", {
             courseId: courseId,
             orderFrom: 2
         }, function (data) {
-            window.location.href = "purchase.html?orderId=" + data.resultObject.orderId + "";
+//            window.location.href = "purchase.html?orderId=" + data.resultObject.orderId + "";
+        	if(data.success){
+        		window.location.href = "line_class.html?orderId=" + data.resultObject.orderId + 
+        		   "&courseId="+courseId;
+    		}else{
+    			webToast(data.errorMessage,"middle",1500);
+    		}
         });
-    } else if (data_zj == 1) {
-        requestService("/xczh/history/add", {
-            courseId: courseId,
-            recordType: 1
-        }, function (data) {
-        });
-        window.location.href = "live_class.html?my_study=" + course_id + "";
-    } else if (data_zj == 2) {
+    } else if (data_zj == 1) {  // 免费的还没报名  
+    	
+//        requestService("/xczh/history/add", {
+//            courseId: courseId,
+//            recordType: 1
+//        }, function (data) {
+//        });
+        //window.location.href = "live_class.html?my_study=" + course_id + "";
+    	
+    	window.location.href = "line_class.html?&courseId="+courseId;
+    
+    } else if (data_zj == 2) {  // 已购买或者免费的报过名的
         window.location.href = "live_class.html?my_study=" + course_id + "";
     }
 

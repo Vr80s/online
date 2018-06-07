@@ -1,0 +1,174 @@
+body{
+	background: #F8F8F8;
+}
+.both{
+	clear: both;
+}
+.main{
+	width: 1200px;
+	height: 481px;
+	background: #fff;
+	margin: 0 auto;
+	margin-top: 20px;
+}
+.title{
+	width: 70%;
+	height: 62px;
+	line-height: 62px;
+	font-size: 16px;
+	color: #333333;
+	padding-left: 50px;
+}
+.hint{
+	width: 100%;
+	height: 70px;
+	background: #FFF6F3;
+	margin-bottom: 20px;
+}
+.hint .img{
+	width: 30px;
+	height: 30px;
+	float: left;
+	margin: 0 10px;
+	margin-top: 20px;
+}
+.hint .img img{
+	width: 30px;
+	height: 30px;
+}
+.hint .size{
+	width: 1000px;
+	height: 70px;
+	line-height: 70px;
+	font-size: 14px;
+	color: #333333;
+	float: left;
+}
+.center{
+	margin-left: 71px;
+}
+.name{
+	margin-bottom: 20px;
+}
+.name .xx{
+	width: 10px;
+    float: left;
+    text-align: right;
+    height: 30px;
+	line-height: 42px;
+    color: #F97B49;
+    margin-left: 12px;
+}
+.name .names{
+	width: 33px;
+    float: left;
+    margin-right: 20px;
+    text-align: right;
+    height: 36px;
+	line-height: 36px;
+	font-size: 14px;
+	color: #333;
+}
+.name .input input{
+	width: 280px;
+    height: 36px;
+    border: 1px solid #f0f0f0;
+    outline: none;
+}
+
+.tel{
+	margin-bottom: 20px;
+}
+.tel .xx{
+	width: 10px;
+    float: left;
+    text-align: right;
+    height: 30px;
+	line-height: 42px;
+    color: #F97B49;
+}
+.tel .tels{
+	width: 33px;
+    float: left;
+    margin-right: 20px;
+    text-align: right;
+    height: 36px;
+	line-height: 36px;
+	font-size: 14px;
+	color: #333;
+}
+.tel .input input{
+	width: 280px;
+    height: 36px;
+    border: 1px solid #f0f0f0;
+    outline: none;
+}
+
+.weixin{
+	margin-bottom: 20px;
+}
+.weixin .xx{
+	width: 10px;
+    float: left;
+    text-align: right;
+    height: 30px;
+	line-height: 42px;
+    color: #F97B49;
+}
+.weixin .weixins{
+	width: 33px;
+    float: left;
+    margin-right: 20px;
+    text-align: right;
+    height: 36px;
+	line-height: 36px;
+	font-size: 14px;
+	color: #333;
+}
+.weixin .input input{
+	width: 280px;
+    height: 36px;
+    border: 1px solid #f0f0f0;
+    outline: none;
+}
+
+.sex{
+	margin-bottom: 30px;
+}
+.sex .xx{
+	width: 10px;
+    float: left;
+    text-align: right;
+    height: 30px;
+	line-height: 42px;
+    color: #F97B49;
+    margin-left: 12px;
+}
+.sex .sexs{
+	width: 33px;
+    float: left;
+    margin-right: 20px;
+    text-align: right;
+    height: 36px;
+	line-height: 36px;
+	font-size: 14px;
+	color: #333;
+}
+.sex .select select{
+	width: 280px;
+    height: 36px;
+    border: 1px solid #f0f0f0;
+    color: #999;
+    outline: none;
+}
+.button{
+    width: 120px;
+    height:  36px;
+    line-height:  36px;
+    background: #00BC12;
+    border-radius: 4px;
+    text-align:  center;
+    font-size: 14px;
+    color: #FFFFFF;
+    margin-left: 148px;
+}
