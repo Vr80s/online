@@ -162,7 +162,7 @@
 										<ul>
 											<li class="class-active" data-btn="load-history">播放历史</li>
 											<li data-btn="load-buy">已购课程</li>
-											<li data-btn="load-end">结束课程</li>
+											<li data-btn="load-end">已结束课程</li>
 										</ul>
 									</div>
 									<!--播放历史-->
@@ -865,7 +865,17 @@
 													<tr>
 														<td>180320181450MHJCx394</td>
 														<td>{{item.money}}</td>
-														<td>{{item.courseName}}</td>
+														
+														{{if item.type==1}}
+														<td>赠送礼物给{{item.receiver}}</td>
+														{{else if item.type==2}}
+														<td>购买课程【{{item.courseName}}】</td>
+														{{else if item.type==3}}
+														<td>充值{{item.money}}熊猫币</td>
+														{{else if item.type==4}}
+														<td>购买课程【{{item.courseName}}】</td>
+														{{/if}}
+														
 														<td>{{item.gmtCreate}}</td>
 														<td>{{item.payType}}</td>
 													</tr>
