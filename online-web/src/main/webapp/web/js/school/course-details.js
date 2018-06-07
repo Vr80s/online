@@ -116,55 +116,79 @@ $(function(){
 
 
 //判断进入条	
+	
 	/**
 	 * 得到这个记录
 	 */
 	var key = loginUserId + courseId;
 	var recordingList = localStorage.getItem(key);
-
-
-	if(recordingList!=null || recordingList!=undefined ){
-		var re = new RegExp("%","i");
-		var fristArr = recordingList.split(re);
-		var arr = [];
-		for(var i =0; i<fristArr.length; i++){
-			var arrI = fristArr[i];
-			if(arrI!=""){
-				var  obj ={}
-				var lalaArr = arrI.split("=");
-			    obj[lalaArr[0]] = lalaArr[1];
-				arr.push(obj);
-			}
+	/**
+	 * 播放进度条
+	 */
+	if(collection == 0 && recordingList!=null ){  //单个课程
+		//秒转换为分钟
+		var lookRecord  = parseFloat(recordingList)/60
+		var progressBar  = (lookRecord/courseLength)*100;
+		
+		if(progressBar>100){
+			progressBar=100;
 		}
-	    console.log(arr);
-
-	   //进行循环啦
-		$(".wrap-anthology .left").each(function(){
-			var $this = $(this);
-	        var courseId =$this.attr("data-courseId");
-
-	        //分钟
-	        var timeLength =$this.attr("data-timeLength");
-	        var percent =0;
-
-	        for (var i = 0; i < arr.length; i++) {
-	        	var json = arr[i];
-	        	for (var key in json) {
-	 	        	if(courseId == key){
-	 	        		percent = json[key];
-	 	        	}
-	 	        }
+		$(".progress-bar-success").css("width",progressBar+"%");
+	}else if(recordingList!=null){				//专辑
+		var key = loginUserId + courseId;
+		
+		if(recordingList!=null || recordingList!=undefined ){
+			var re = new RegExp("%","i");
+			var fristArr = recordingList.split(re);
+			var arr = [];
+			for(var i =0; i<fristArr.length; i++){
+				var arrI = fristArr[i];
+				if(arrI!=""){
+					var  obj ={}
+					var lalaArr = arrI.split("=");
+				    obj[lalaArr[0]] = lalaArr[1];
+					arr.push(obj);
+				}
 			}
-
-	        if (percent > 100) {
- 	    		percent = 0;
- 	    		$this.parent().removeClass('clip-auto');
- 	    		$this.next().addClass('wth0');
- 	    	} else if (percent > 50) {
- 	    		$this.parent().addClass('clip-auto');
- 	    		$this.next().removeClass('wth0');
- 	    	}
- 	    	$this.css("-webkit-transform", "rotate(" + (18 / 5) * percent + "deg)");
-		})
+		    console.log(arr);
+		   //进行循环啦
+			$(".wrap-anthology .left").each(function(){
+				var $this = $(this);
+		        var courseId =$this.attr("data-courseId");
+		        //分钟
+		        var timeLength =$this.attr("data-timeLength");
+		        var recording =0;
+		        for (var i = 0; i < arr.length; i++) {
+		        	var json = arr[i];
+		        	for (var key in json) {
+		 	        	if(courseId == key){
+		 	        		recording = json[key];
+		 	        		break;
+		 	        	}
+		 	        }
+				}
+		        if(recording <=0){
+		        	return true; //结束本地
+		        }
+		        var lookRecord  = parseFloat(recording)/60
+				var percent  = (lookRecord/timeLength)*100;
+		        
+		        if(percent>100){
+		        	percent = 100;
+		        }
+		        if (percent > 100) {
+	 	    		percent = 0;
+	 	    		$this.parent().removeClass('clip-auto');
+	 	    		$this.next().addClass('wth0');
+	 	    	} else if (percent > 50) {
+	 	    		$this.parent().addClass('clip-auto');
+	 	    		$this.next().removeClass('wth0');
+	 	    	}
+	 	    	$this.css("-webkit-transform", "rotate(" + (18 / 5) * percent + "deg)");
+			})
+		}
 	}
+	
+
+	
 });

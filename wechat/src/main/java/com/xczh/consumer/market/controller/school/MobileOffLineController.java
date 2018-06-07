@@ -60,7 +60,7 @@ public class MobileOffLineController {
         Map<String, Object> mapAll = new HashMap<String, Object>();
         //线下课banner
         Page<MobileBanner> MobileBannerPage = new Page<>();
-        MobileBannerPage.setRecords(mobileBannerService.selectMobileBannerPage(BannerType.REAL.getCode()));
+        MobileBannerPage.setRecords(mobileBannerService.selectMobileBannerPage(BannerType.REAL.getCode(),IOSVersionInterceptor.onlyThread.get()));
         mapAll.put("banner", MobileBannerPage);
         //城市
         Page<OfflineCity> OfflineCityPage = new Page<>();

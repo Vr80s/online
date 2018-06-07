@@ -33,6 +33,14 @@ public class MobileBannerServiceImpl extends ServiceImpl<MobileBannerMapper, Mob
     private MobileBannerMapper iMobileBannerMapper;
 
     @Override
+    public List<MobileBanner> selectMobileBannerPage(Integer type, boolean onlyFree) {
+        if(onlyFree){
+            return  new ArrayList<>();
+        }
+        return selectMobileBannerPage(type);
+    }
+
+    @Override
     public List<MobileBanner> selectMobileBannerPage(Integer type) {
         List<MobileBanner> records = iMobileBannerMapper.selectMobileBannerPage(type);
         return records;

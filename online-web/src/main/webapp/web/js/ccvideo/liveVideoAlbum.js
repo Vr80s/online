@@ -128,18 +128,6 @@ RequestService("/course/newGetCoursesByCollectionId",
 
 $(function() {
 	
-	/**
-	 * 点击选集
-	 */
-	$(".album_list li").click(function(){
-	   var courseId = $(this).attr("data-id");
-	   //$(this).attr("calss","choosedAlbum");
-	   //getPlayCode(collectionId,courseId);
-	   location.href = "/web/html/ccvideo/liveVideoAlbum.html?collectionId="+collectionId+"&courseId="+courseId;
-	})
-	
-	
-	
 	
 	//时间格式处理
 	function timeChange(num) {
@@ -186,6 +174,7 @@ $(function() {
 
 /*********************** 帅气的cc视频自定义事件  **************************/
 
+
 function getSWF(objectId) {
     if (window.document[ objectId ]) {
         return window.document[ objectId ];
@@ -199,6 +188,84 @@ function getSWF(objectId) {
 }
 
 var player ="";
+
+/*
+ * 开始播放了
+ */
+function custom_player_start(){
+	//alert("开始播放了");
+}
+
+/**
+ * 播放暂定了
+ * @returns
+ */
+function custom_player_pause(){
+	//alert("开始暂停了");
+}
+/**
+ * 播放器准备就绪
+ * @returns
+ */
+function custom_player_ready(){
+	player.start();
+}
+
+
+var auto_play = $.getUrlParam("auto_play");
+if(auto_play != null && auto_play == "true"){
+
+	$("#auto_play").attr("checked","true");
+	$("#auto_play").css("background","green");
+}
+
+
+$("#auto_play").click(function(){
+	var falg = $(this).is(':checked')
+	if(falg){
+		$(this).css("background","green");
+	}else{
+		$(this).css("background","#fff");
+	}
+})
+
+/**
+ * 点击选集
+ */
+$(".album_list li").click(function(){
+   var courseId = $(this).attr("data-id");
+   var falg = $("#auto_play").is(':checked')
+   
+   location.href = "/web/html/ccvideo/liveVideoAlbum.html" +
+   		"?collectionId="+collectionId+"&courseId="+courseId+"&auto_play="+falg;
+})
+
+/**
+ * 播放结束了
+ */
+function custom_player_stop(){
+	var falg = $("#auto_play").is(':checked')
+	if(falg){
+		$('.album_list > ul > li').each(function(index,element){
+			$this = $(this);
+			var className = $this.attr("class");
+			if(className!=null && className!= undefined && className.indexOf("choosedAlbum")!=-1){
+				var $nextNode = $this.next()
+				var nextCourseId = courseId;
+				var liSize = $('.album_list > ul > li').length;
+				if(liSize== (index+1)){
+					var firstNode = $('.album_list > ul > li').first();
+					nextCourseId = firstNode.attr("data-id");
+				}else{
+					nextCourseId = $nextNode.attr("data-id");
+				}
+				location.href = "/web/html/ccvideo/liveVideoAlbum.html"+"?collectionId="+collectionId+"&courseId="+nextCourseId+"&auto_play="+falg;
+			}
+		})
+	}
+}
+
+
 /**
  * 播放器配置示例
  *
@@ -210,13 +277,14 @@ function on_cc_player_init(vid, objectId ){
     //关闭右侧菜单
     config.rightmenu_enable = 0;
    
+    
     config.on_player_seek = "custom_seek";
     config.on_player_ready = "custom_player_ready";
     config.on_player_start = "custom_player_start";
     config.on_player_pause = "custom_player_pause";
     config.on_player_resume = "custom_player_resume";
     config.on_player_stop = "custom_player_stop";
-   
+    
     config.player_plugins = {// 插件名称 : 插件参数
         Subtitle : {
             url : "http://dev.bokecc.com/static/font/example.utf8.srt"
@@ -247,7 +315,6 @@ function clock(){
 		videoAlbumPositionRecording(player.getPosition());
 	}
 }
-
 var key ="";
 function videoAlbumPositionRecording(time){
 	if(userId!="" && collectionId!=""){
@@ -268,7 +335,3 @@ function videoAlbumPositionRecording(time){
 		localStorage.setItem(key,recordingList);
 	}
 }
-
-
-
-

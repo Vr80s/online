@@ -372,7 +372,7 @@ color: #999999;
     padding-top: 1.5rem;
 }    
 .quie_pics img{
-	width: 2.5rem;
+	width: 1.59rem;
 	display: inline-block;
 }
 .quie_pics p{
@@ -516,10 +516,11 @@ overflow: hidden;
 
 }
 .wrap_comment_title span img{
-
 	width: 0.15rem;
 	height: 0.25rem;
-
+}
+.wrap_all_returned{
+	padding-bottom: 1.2rem;
 }
 .wrap_people_comment{
 	width: 100%;
@@ -540,7 +541,7 @@ overflow: hidden;
 .user_header{
 	width: 0.98rem;
 	height: 0.98rem;
-	background: skyblue;
+	background: #f8f8f8;
 	float: left;
 	border-radius: 50%;
 }
@@ -681,6 +682,10 @@ color: #666666;
 	padding: 0.01rem 0.26rem 0 0.26rem;
 	margin-top: 0.2rem;
 	box-sizing: border-box;
+	position: fixed;
+    bottom: 0;
+    left: 0;
+    border-top: 1px solid #f0f0f0;
 }
 .wrap_input{
 	width: 7rem;
@@ -730,16 +735,15 @@ color: #666666;
 }
 .wrapLittle_comment{
 	width: 7.5rem;
-    position: absolute;
-	height: 4.45rem;
-	display: none;
-	background:white;
-	box-sizing: border-box;
-	bottom: 0;
-	left: 0;
-	z-index: 5;
-	padding: 0 0.26rem 0.6rem;
-	
+    position: fixed;
+    height: 4.45rem;
+    display: none;
+    background: white;
+    box-sizing: border-box;
+    bottom: 0;
+    left: 0;
+    z-index: 5;
+    padding: 0.3rem 0.26rem 0.6rem;
 }
 /*评论主播弹出框*/
 .bg_modal{
@@ -754,8 +758,7 @@ color: #666666;
 }
 .wrapAll_comment{
 	width: 7.5rem;
-    position: absolute;
-
+    position: fixed;
 	display: none;
 	background:white;
 	box-sizing: border-box;

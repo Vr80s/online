@@ -12,6 +12,8 @@ import com.xczhihui.course.vo.QueryConditionVo;
 
 public interface IMobileBannerService {
 
+    List<MobileBanner> selectMobileBannerPage(Integer type, boolean onlyFree);
+
     /**
      * Description：app端banner列表
      * creed: Talk is cheap,show me the code
