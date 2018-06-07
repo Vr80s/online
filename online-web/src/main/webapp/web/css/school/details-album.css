@@ -169,7 +169,15 @@ padding-bottom: 10px;
 }
 
 
-
+.all-null{
+	text-align: center;
+	padding: 120px 0;
+	background: white;
+}
+.all-null p{
+	padding: 10px 0;
+	color: #999999;
+}
 
 
 .main{
