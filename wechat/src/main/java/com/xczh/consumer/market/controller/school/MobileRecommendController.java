@@ -148,9 +148,9 @@ public class MobileRecommendController {
 	       // 课程列表
 	      if (StringUtils.isNotBlank(queryConditionVo.getQueryKey())) {
 	            queryConditionVo.setQueryKey("%" + queryConditionVo.getQueryKey() + "%");
-	            page= mobileBannerService.searchQueryKeyCourseList(page, queryConditionVo);
+	            page= mobileBannerService.searchQueryKeyCourseList(page, queryConditionVo,IOSVersionInterceptor.onlyThread.get());
 	      } else {
-	    	    page =mobileBannerService.searchCourseList(page, queryConditionVo);
+	    	    page =mobileBannerService.searchCourseList(page, queryConditionVo, IOSVersionInterceptor.onlyThread.get());
 	      }
 	      return ResponseObject.newSuccessResponseObject(page.getRecords());
 	  }

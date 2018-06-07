@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -251,13 +252,25 @@ public class MobileBannerServiceImpl extends ServiceImpl<MobileBannerMapper, Mob
 
     @Override
     public Page<CourseLecturVo> searchQueryKeyCourseList(Page<CourseLecturVo> page, QueryConditionVo queryConditionVo) {
-        List<CourseLecturVo> list = iMobileBannerMapper.searchQueryKeyCourseList(page, queryConditionVo);
+        List<CourseLecturVo> list = iMobileBannerMapper.searchQueryKeyCourseList(page, queryConditionVo,false);
+        return page.setRecords(list);
+    }
+
+    @Override
+    public Page<CourseLecturVo> searchQueryKeyCourseList(Page<CourseLecturVo> page, QueryConditionVo queryConditionVo, boolean onlyFree) {
+        List<CourseLecturVo> list = iMobileBannerMapper.searchQueryKeyCourseList(page, queryConditionVo,onlyFree);
         return page.setRecords(list);
     }
 
     @Override
     public Page<CourseLecturVo> searchCourseList(Page<CourseLecturVo> page, QueryConditionVo queryConditionVo) {
-        List<CourseLecturVo> list = iMobileBannerMapper.searchCourseList(page, queryConditionVo);
+        List<CourseLecturVo> list = iMobileBannerMapper.searchCourseList(page, queryConditionVo, false);
+        return page.setRecords(list);
+    }
+
+    @Override
+    public Page<CourseLecturVo> searchCourseList(Page<CourseLecturVo> page, QueryConditionVo queryConditionVo, boolean onlyFree) {
+        List<CourseLecturVo> list = iMobileBannerMapper.searchCourseList(page, queryConditionVo, onlyFree);
         return page.setRecords(list);
     }
 

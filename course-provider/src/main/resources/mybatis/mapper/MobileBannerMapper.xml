@@ -377,7 +377,8 @@
 	    where oc.is_delete=0 and oc.status = 1  
 	     
 	     <include refid="commonSearchCondition"/>
-	     
+	     <include refid="onlyFreeCondition"/>
+
 	     <!-- 排序条件  -->
 	     <choose>  
 	        <!-- 课程分类  -->
@@ -427,7 +428,8 @@
 	     </if>
 	    where oc.is_delete=0 and oc.status = 1  
 	     <include refid="commonSearchCondition"/>
-	     <if test="queryVo.queryKey != null and queryVo.queryKey != ''">   
+	     <include refid="onlyFreeCondition"/>
+	     <if test="queryVo.queryKey != null and queryVo.queryKey != ''">
 	       and  oc.grade_name like  #{queryVo.queryKey}
 	     </if> 
 	   )
