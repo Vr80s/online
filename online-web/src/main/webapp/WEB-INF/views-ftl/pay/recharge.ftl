@@ -32,10 +32,21 @@
         </div>
         <div class="select-pay-money">
             <ul>
-                <li class="select-money" data-val="10">
-                    <p>100熊猫币</p>
-                    <p class="cny">&yen; 10</p>
-                </li>
+                <#if envFlag?? && envFlag != "prod">
+                    <li class="select-money" data-val="0.1">
+                        <p>1熊猫币</p>
+                        <p class="cny">&yen; 0.1</p>
+                    </li>
+                    <li data-val="10">
+                        <p>100熊猫币</p>
+                        <p class="cny">&yen; 10</p>
+                    </li>
+                <#else>
+                    <li class="select-money" data-val="10">
+                        <p>100熊猫币</p>
+                        <p class="cny">&yen; 10</p>
+                    </li>
+                </#if>
                 <li data-val="50">
                     <p>500熊猫币</p>
                     <p class="cny">&yen; 50</p>
