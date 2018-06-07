@@ -126,6 +126,8 @@ public class UserCenterServiceImpl extends OnlineBaseServiceImpl implements Onli
         message.setContext(describe);
         message.setUserId(userId);
         message.setType(2);
+        message.setStatus((short)1);
+        message.setCreateTime(new Date());
         dao.save(message);
     }
 
