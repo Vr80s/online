@@ -218,7 +218,7 @@
         <div class="forum-content-right">
 
             <div class="forum-hosJoin hide">
-                <p>期待有志于传承和发展中医药的医馆加入</p>
+                <p>期待有志于传承和发展中医药的医师加入</p>
                 <a href="javascript:;" id="toDocJoin">医师入驻</a>
             </div>
 

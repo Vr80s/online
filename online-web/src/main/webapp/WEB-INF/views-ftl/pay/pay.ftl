@@ -55,7 +55,7 @@
             <img src="/web/images/130/icon11.png" alt="" />
             <span>请在新打开的充值页面执行充值操作</span>
         </div>
-        <div class="recharge-modal-btn">已完成充值</div>
+        <div class="recharge-modal-btn" style="margin-left: 110px;">已完成充值</div>
     </div>
 </div>
 <div class="wp">

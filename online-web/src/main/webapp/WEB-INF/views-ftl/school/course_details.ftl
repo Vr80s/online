@@ -19,11 +19,12 @@
     <!--登陆的bootstrap样式-->
     <link rel="stylesheet" href="/web/css/mylogin.css"/>
     <link href="/web/bootstrap-select/bootstrap.min.css" rel="stylesheet">
-
-		<!--登陆的bootstrap样式-->
-		<!--分页CSS-->
-		<link rel="stylesheet" href="/web/css/ftl-page.css"/>
-			<link rel="stylesheet" href="/web/css/school/details-album.css"  />
+	<!--登陆的bootstrap样式-->
+	<!--字体图标样式-->
+	<link rel="stylesheet" href="/web/fonts/style.css" />
+	<!--分页CSS-->
+	<link rel="stylesheet" href="/web/css/ftl-page.css"/>
+	<link rel="stylesheet" href="/web/css/school/details-album.css"  />
 
 </head>
 	<body>

@@ -69,9 +69,14 @@ a:hover{text-decoration: none;}
 .carousel-indicators li{
 	border: 0 !important;
 	background: white;
+	width: 10px;
+	height: 10px;
+	margin: 0 5px;
 }
 .carousel-indicators .active{
 	background: #00BC12;
+	width: 10px;
+	height: 10px;
 }
 /*轮播箭头*/
 .physic-type{
