@@ -145,8 +145,8 @@ public class MobileShareController {
         /**
          * 判断课程或者主播是否存在
          */
-        if(ShareType.COURSE_SHARE.equals(shareType) ||
-                ShareType.ALBUM_SHARE.equals(shareType)){ //课程分享
+        if(ShareType.COURSE_SHARE.getCode() == shareType ||
+                ShareType.ALBUM_SHARE.getCode() ==shareType){ //课程分享
             Integer courseId = Integer.parseInt(shareId);
 
             CourseLecturVo  courseLecturVo =
@@ -177,7 +177,7 @@ public class MobileShareController {
                 res.sendRedirect(returnOpenidUri +"/xcview/html/unshelve.html");
                 return;
             }
-        }else if(ShareType.HOST_SHARE.equals(shareType)){ //主播分享
+        }else if(ShareType.HOST_SHARE.getCode()==shareType){ //主播分享
             OnlineUser o = onlineUserService.findUserById(shareId);
             if (o != null) {
                 if (o.isDelete() || o.getStatus() == -1) {
