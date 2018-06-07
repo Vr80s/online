@@ -206,14 +206,15 @@ ul {
 
 .slider-container .selector span {
 	display: inline-block;
-	width: 8px;
-	height: 8px;
+	width: 10px;
+	height: 10px;
 	margin-right: 10px;
 	background-color: #fff;
+	border-radius: 50%;
 }
 
 .slider-container .selector span.cur {
-	height: 8px;
+	height: 10px;
 	background-color: #2cb82c;
 	border-radius: 50%;
 }

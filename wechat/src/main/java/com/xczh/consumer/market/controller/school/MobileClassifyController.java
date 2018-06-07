@@ -92,9 +92,7 @@ public class MobileClassifyController {
 		//课程类型
 		List<Map<String, Object>> getCourseTypeList = mobileProjectService.getCourseType();
 		list.add(getCourseTypeList);
-		//直播状态
-		List<Map<String, Object>> getLiveStatusList = courseService.getLiveStatusList();
-		list.add(getLiveStatusList);
+		
 		//城市
 		Page<OfflineCity> OfflineCityPage = new Page<>();
 		OfflineCityPage.setCurrent(1);
@@ -110,6 +108,11 @@ public class MobileClassifyController {
 			city.setName(name);
 		}
 		list.add(oclist);
+		
+		//直播状态
+		List<Map<String, Object>> getLiveStatusList = courseService.getLiveStatusList();
+		list.add(getLiveStatusList);
+
 		return ResponseObject.newSuccessResponseObject(list);
 	}
 

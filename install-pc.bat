@@ -19,4 +19,7 @@ echo 当前路径：%cd%
 call online-manager\install-online-manager.bat
 cd ..\
 echo 当前路径：%cd%
+call wechat\install-wechat.bat
+cd ..\
+echo 当前路径：%cd%
 pause

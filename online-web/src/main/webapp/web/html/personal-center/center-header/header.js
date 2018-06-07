@@ -126,6 +126,7 @@ $(function() {
 						'<li class="first-li">'+
 							'<a href="/index" class="home">首页</a>' +
 							'<a href="/headline/1" class="forum">头条</a>' +
+							'<a href="/courses/recommendation" class="classroom">学堂</a>' +
 							'<a href="/doctors" class="doctor">名医</a>' +
 							'<a href="/clinics" class="hospital">医馆</a>' +
 							'<a href="/web/html/ansAndQus.html" class="ansAndQus">问道</a>' +

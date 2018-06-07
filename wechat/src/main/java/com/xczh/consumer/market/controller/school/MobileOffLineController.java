@@ -33,8 +33,6 @@ import com.xczhihui.course.service.IOfflineCityService;
 public class MobileOffLineController {
     private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(MobileOffLineController.class);
 
-    @Autowired
-    private OLCourseServiceI wxcpCourseService;
 
     @Autowired
     private IMobileBannerService mobileBannerService;

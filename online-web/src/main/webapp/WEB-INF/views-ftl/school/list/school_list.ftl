@@ -140,7 +140,11 @@
 						</span>
 					</div>
 				</div>
+			
+				<#if courseList.records?size gt 0> 				
+				
 				<div class="wrap-video">	
+				  
 				 <#list courseList.records as courseItem>			
 					<div class="course clearfix">
 						<!-- <img style="position:absolute;width: 16%;top:-2px;left:-2px;z-index:999" src="/web/images/recommend2.png">-->
@@ -211,6 +215,16 @@
 					 <@cast.page pageNo=courseList.current totalPage=courseList.pages showPages=5 callUrl="${webUrlParam}?page="/>
 				 </#if>
 				</div>
+				
+				<#else>
+				 <!--无数据时显示背景图-->
+				 <div class="all-null class-null">
+				 	<div class="null-img">
+				 		<img src="/web/images/other_noResult.png"/>
+				 	</div>
+				 	<p>更多精彩课程正在更新中,敬请期待...</p>
+				 </div>
+				</#if> 
 			</div>
 		</div>
 

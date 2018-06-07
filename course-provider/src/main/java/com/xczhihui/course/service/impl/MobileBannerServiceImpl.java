@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -54,7 +55,9 @@ public class MobileBannerServiceImpl extends ServiceImpl<MobileBannerMapper, Mob
     @Override
     public List<Map<String, Object>> recommendCourseList(List<MenuVo> menuList, Integer pageSizeUp, Integer pageSizeDown, boolean onlyFree) {
 
-        List<CourseLecturVo> listAll = iMobileBannerMapper.recommendCourseList(menuList, pageSizeUp, pageSizeDown, onlyFree);
+        List<CourseLecturVo> listAll = iMobileBannerMapper.recommendCourseList(menuList, 
+        		pageSizeUp, pageSizeDown,
+        		onlyFree);
 
         List<Map<String, Object>> mapCourseList = new ArrayList<Map<String, Object>>();
 
@@ -69,11 +72,11 @@ public class MobileBannerServiceImpl extends ServiceImpl<MobileBannerMapper, Mob
             if ("精品课程".equals(courseLecturVo.getNote())) {
                 listTj.add(courseLecturVo);
             }
-            if ("最新课程".equals(courseLecturVo.getNote())) {
-                listNw.add(courseLecturVo);
-            }
             if ("免费课程".equals(courseLecturVo.getNote())) {
             	listMf.add(courseLecturVo);
+            }
+            if ("最新课程".equals(courseLecturVo.getNote())) {
+                listNw.add(courseLecturVo);
             }
         }
 
@@ -83,6 +86,12 @@ public class MobileBannerServiceImpl extends ServiceImpl<MobileBannerMapper, Mob
             mapTj.put("courseList", listTj);
             mapCourseList.add(mapTj);
         }
+        if (listMf.size() > 0) {
+        	mapMf.put("menuType", "freeCourse");
+        	mapMf.put("title", "免费课程");
+        	mapMf.put("courseList", listMf);
+            mapCourseList.add(mapMf);
+        }
         if (listNw.size() > 0) {
             mapNw.put("menuType", "newCourse");
             mapNw.put("title", "最新课程");
@@ -90,12 +99,7 @@ public class MobileBannerServiceImpl extends ServiceImpl<MobileBannerMapper, Mob
             mapCourseList.add(mapNw);
         }
         
-        if (listMf.size() > 0) {
-        	mapMf.put("menuType", "freeCourse");
-        	mapMf.put("title", "免费课程");
-        	mapMf.put("courseList", listMf);
-            mapCourseList.add(mapMf);
-        }
+        
 
         //定义好这
         for (MenuVo menuVo : menuList) {
@@ -249,13 +253,25 @@ public class MobileBannerServiceImpl extends ServiceImpl<MobileBannerMapper, Mob
 
     @Override
     public Page<CourseLecturVo> searchQueryKeyCourseList(Page<CourseLecturVo> page, QueryConditionVo queryConditionVo) {
-        List<CourseLecturVo> list = iMobileBannerMapper.searchQueryKeyCourseList(page, queryConditionVo);
+        List<CourseLecturVo> list = iMobileBannerMapper.searchQueryKeyCourseList(page, queryConditionVo,false);
+        return page.setRecords(list);
+    }
+
+    @Override
+    public Page<CourseLecturVo> searchQueryKeyCourseList(Page<CourseLecturVo> page, QueryConditionVo queryConditionVo, boolean onlyFree) {
+        List<CourseLecturVo> list = iMobileBannerMapper.searchQueryKeyCourseList(page, queryConditionVo,onlyFree);
         return page.setRecords(list);
     }
 
     @Override
     public Page<CourseLecturVo> searchCourseList(Page<CourseLecturVo> page, QueryConditionVo queryConditionVo) {
-        List<CourseLecturVo> list = iMobileBannerMapper.searchCourseList(page, queryConditionVo);
+        List<CourseLecturVo> list = iMobileBannerMapper.searchCourseList(page, queryConditionVo, false);
+        return page.setRecords(list);
+    }
+
+    @Override
+    public Page<CourseLecturVo> searchCourseList(Page<CourseLecturVo> page, QueryConditionVo queryConditionVo, boolean onlyFree) {
+        List<CourseLecturVo> list = iMobileBannerMapper.searchCourseList(page, queryConditionVo, onlyFree);
         return page.setRecords(list);
     }
 

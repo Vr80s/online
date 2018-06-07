@@ -145,9 +145,8 @@ public class MobileShareController {
         /**
          * 判断课程或者主播是否存在
          */
-        if(ShareType.COURSE_SHARE.equals(shareType) ||
-                ShareType.ALBUM_SHARE.equals(shareType)){ //课程分享
-
+        if(ShareType.COURSE_SHARE.getCode() == shareType ||
+                ShareType.ALBUM_SHARE.getCode() ==shareType){ //课程分享
             Integer courseId = Integer.parseInt(shareId);
 
             CourseLecturVo  courseLecturVo =
@@ -157,32 +156,38 @@ public class MobileShareController {
                     ",isDelete():"+courseLecturVo.getIsDelete()+
                     ",userLecturerId():"+courseLecturVo.getUserLecturerId());
 
-            if(courseLecturVo.getStatus() == 1 && !accountIdOpt.isPresent()) { //课程下架了
-                LOGGER.info("课程被下架,用户为登录");
+            if(courseLecturVo.getStatus() == 0 && !accountIdOpt.isPresent()) { //课程下架了
+                LOGGER.info("课程被下架,用户未登录");
                 res.sendRedirect(returnOpenidUri +"/xcview/html/unshelve.html");
-            }else if(courseLecturVo.getStatus() == 1 &&  accountIdOpt.isPresent()) { //课程虽然被下架。但判断此用户是否购买过啊
+                return;
+            }else if(courseLecturVo.getStatus() == 0 &&  accountIdOpt.isPresent()) { //课程虽然被下架。但判断此用户是否购买过啊
                 Boolean falg = onlineWebService.getLiveUserCourse(courseId, accountIdOpt.get());
                 if(!falg) {
                     LOGGER.info("课程虽然被下架。用户也没有购买");
                     res.sendRedirect(returnOpenidUri +"/xcview/html/unshelve.html");
+                    return;
                 }
             }else if(courseLecturVo.getIsDelete()) { //课程被删除
                 LOGGER.info("课程被物理删除");
                 res.sendRedirect(returnOpenidUri +"/xcview/html/unshelve.html");
+                return;
 
             }else if(StringUtils.isBlank(courseLecturVo.getUserLecturerId())) {
                 LOGGER.info("课程的教师没有找到");
                 res.sendRedirect(returnOpenidUri +"/xcview/html/unshelve.html");
+                return;
             }
-        }else if(ShareType.HOST_SHARE.equals(shareType)){ //主播分享
+        }else if(ShareType.HOST_SHARE.getCode()==shareType){ //主播分享
             OnlineUser o = onlineUserService.findUserById(shareId);
             if (o != null) {
                 if (o.isDelete() || o.getStatus() == -1) {
                 	res.sendRedirect(returnOpenidUri +"/xcview/html/unshelve.html");
+                	return;
                 }
             }
         }else { //分享类型有误 --》首页
         	res.sendRedirect(returnOpenidUri +"/xcview/html/unshelve.html");
+        	return;
         }
 		/*
 		 * 这里需要判断下是不是微信浏览器

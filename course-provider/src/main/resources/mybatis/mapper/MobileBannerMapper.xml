@@ -87,6 +87,10 @@
 		  <include refid="onlyFreeCondition"/>
 			order by recommendSort desc,oc.release_time desc  limit 0,#{pageSizeUp}
         )
+        
+        
+        <!-- pc 因为pc端和手机端显示的条目不一样。所以用这个来区分。pc端显示免费课程  -->
+        <if test="pageSizeUp != null and pageSizeUp == 3" >
         union all
         ( 
 		  select 
@@ -96,6 +100,9 @@
 		    and oc.is_free = 1
 			order by recommendSort desc,oc.release_time desc  limit 0,#{pageSizeUp} 
         )
+        </if>
+        
+        
         union all
         ( select 
 		  <include refid="selectRecommenCourse"/>
@@ -370,7 +377,8 @@
 	    where oc.is_delete=0 and oc.status = 1  
 	     
 	     <include refid="commonSearchCondition"/>
-	     
+	     <include refid="onlyFreeCondition"/>
+
 	     <!-- 排序条件  -->
 	     <choose>  
 	        <!-- 课程分类  -->
@@ -420,7 +428,8 @@
 	     </if>
 	    where oc.is_delete=0 and oc.status = 1  
 	     <include refid="commonSearchCondition"/>
-	     <if test="queryVo.queryKey != null and queryVo.queryKey != ''">   
+	     <include refid="onlyFreeCondition"/>
+	     <if test="queryVo.queryKey != null and queryVo.queryKey != ''">
 	       and  oc.grade_name like  #{queryVo.queryKey}
 	     </if> 
 	   )
