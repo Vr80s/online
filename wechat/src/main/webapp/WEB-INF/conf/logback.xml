@@ -39,6 +39,8 @@
 		<appender-ref ref="stdout_appender" />
 		<appender-ref ref="file"/>
 	</root>
+	
+	
 	<!--<logger name="com.alibaba.dubbo" additivity="false">-->
 		<!--<level value="warn" />&lt;!&ndash;debug print sql&ndash;&gt;-->
 		<!--<appender-ref ref="stdout_appender" />-->

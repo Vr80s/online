@@ -89,8 +89,14 @@
 								<li>${courseInfo.startTime?string("yyyy.MM.dd HH:mm")} -
 								   ${courseInfo.endTime?string("yyyy.MM.dd HH:mm")}</li>
 							</ul>
-							<p class="under-address">上课地址<span>${courseInfo.address}</span></p>
+							<p class="under-address">上课地址
+							<span>
+								<#if courseInfo.address??>
+									${(courseInfo.address?replace("-",""))?replace(" ","")}
+								</#if>
+							</span></p>
 						</#if>
+
 					</div>
 					 <#--
 					 	免费的进入到一个：

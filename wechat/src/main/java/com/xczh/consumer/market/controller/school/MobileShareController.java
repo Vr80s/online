@@ -157,7 +157,7 @@ public class MobileShareController {
                     ",userLecturerId():"+courseLecturVo.getUserLecturerId());
 
             if(courseLecturVo.getStatus() == 0 && !accountIdOpt.isPresent()) { //课程下架了
-                LOGGER.info("课程被下架,用户为登录");
+                LOGGER.info("课程被下架,用户未登录");
                 res.sendRedirect(returnOpenidUri +"/xcview/html/unshelve.html");
                 return;
             }else if(courseLecturVo.getStatus() == 0 &&  accountIdOpt.isPresent()) { //课程虽然被下架。但判断此用户是否购买过啊

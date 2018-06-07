@@ -32,17 +32,20 @@ $(function(){
 		$(".buy_tab").remove();
 		$(".no_buy_tab").removeClass("hide");
 		
-		if(type == "info"){
-			$(".wrap-sidebar ul li").eq(0).addClass("active-footer");
-		}
-		
 	}else if(collection == 1 &&  watchState !=0){  //专辑免费或已购买，显示选集、删除大纲
 		$(".no_buy_tab").remove();
 		$(".buy_tab").removeClass("hide");
-		if(type == "info"){
-			$(".wrap-sidebar ul li").eq(0).addClass("active-footer");
-		}
+	}else{
+		$(".no_buy_tab").remove();
+		$(".buy_tab").remove();
 	}
+	if(type == "info"){
+		
+		
+		$(".wrap-sidebar ul li").eq(0).addClass("active-footer");
+	}
+	
+	
 	//type对应显示
 	//outline  comment    info   aq    selection
 	
