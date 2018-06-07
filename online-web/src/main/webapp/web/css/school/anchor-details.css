@@ -148,6 +148,15 @@ p{margin-bottom: 0;}
 	padding:30px 20px 20px;
 	overflow: hidden;
 }
+.all-null{
+	text-align: center;
+	padding: 120px 0;
+	
+}
+.all-null p{
+	padding: 10px 0;
+	color: #999999;
+}
 /*课程视频*/
 /*视频样式*/
 .wrap-class .course {

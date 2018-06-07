@@ -123,7 +123,8 @@ public class SchoolController extends AbstractFtlController {
          * 课程列表
          */
         view.addObject("courseTypeList",
-                mobileBannerService.recommendCourseList(listMenu, PagingFixedType.PC_RECOMMENDATION.getValue()));
+                mobileBannerService.recommendCourseList(listMenu, 
+                		PagingFixedType.PC_RECOMMENDATION.getValue()));
         return view;
     }
 
