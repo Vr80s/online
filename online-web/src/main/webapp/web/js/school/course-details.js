@@ -17,7 +17,7 @@ var smallHeadPhoto ="";
 
 
 $(function(){
-
+$(".recommend").css({"color":"#00bc12"})
 	var index = 0;
 	//表名是专辑
 	if(collection == 1){ //

@@ -305,7 +305,6 @@
 //    console.info("type：" + type + ";watchState：" + watchState + ";courseId：" + courseId);
 //    console.info("userId：" + userId + ";collection：" + collection+",commentCode:"+commentCode);
 </script>
-
 <script src="/web/js/school/course-details.js" type="text/javascript" charset="utf-8"></script>
 <script src="/web/js/school/comment.js" type="text/javascript" charset="utf-8"></script>
 </body>

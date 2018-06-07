@@ -11,9 +11,8 @@
                     </ul>
                 </div>
                 <div class="trademark">
-                    <a href="http://www.miibeian.gov.cn/" target="_blank" class="ml14" style="color: white;">琼ICP备17002789号-2</a> Copyright &copy; 2017-2018 熊猫中医 All Rights Reserved
-                    <span style="margin-right:5px;"></span>
-                    <span id="cnzz_stat_icon_1273217042"><a href="http://www.cnzz.com/stat/website.php?web_id=1273217042" target="_blank" title="站长统计"><img border="0" hspace="0" vspace="0" src="http://icon.cnzz.com/img/pic1.gif" /></a></span>
+                    <a href="http://www.miibeian.gov.cn/" target="_blank" class="ml14" style="color: white;">琼ICP备17002789号-2</a>Copyright &copy; 2017-2018 熊猫中医 All Rights Reserved<span style="margin-right:5px;"></span>
+                    <!--<span id="cnzz_stat_icon_1273217042"><a href="http://www.cnzz.com/stat/website.php?web_id=1273217042" target="_blank" title="站长统计"><img border="0" hspace="0" vspace="0" src="http://icon.cnzz.com/img/pic1.gif" /></a></span>-->
                 </div>
             </div>
         </div>

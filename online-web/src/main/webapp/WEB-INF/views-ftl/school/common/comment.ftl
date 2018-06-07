@@ -151,7 +151,7 @@
                 <span class="praiseSum">${criticizesItem.praiseSum}</span>
             </li>
                 <li class="reply-icon">
-                    <i class="icomoon-icon-xuexi"></i>
+                    <i class="icomoon-icon-huifu"></i>
                 </li>
             </ul>
             <!--回复点赞按钮  结束-->

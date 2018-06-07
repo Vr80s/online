@@ -48,11 +48,13 @@ function showDOrH() {
 				$('#docOrHos').text('我是医师');
 				$('#docOrHos').attr('href', '/web/html/anchors_resources.html')
 				$('#docOrHos').removeClass('hide');
+				$(".want-anchor").addClass('hide');  //我要当主播
 			} else if(data.resultObject == 2) {
 				//医馆认证成功
 				$('#docOrHos').text('我是医馆');
 				$('#docOrHos').attr('href', '/web/html/ResidentHospital.html')
 				$('#docOrHos').removeClass('hide');
+				$(".want-anchor").addClass('hide'); //我要当主播
 			}
 			showAnchorWorkbench();
 		} else if(data.success == false && data.errorMessage == "请登录！") {
@@ -158,7 +160,7 @@ $(function() {
 								'</div>' +
 						'</li>' +
 //						'<li><a href="/App.html" class="appDown">APP下载</a></li>' +
-						'<li><a href="/web/html/want-anchor.html" class="" target="_blank">我要当主播</a></li>' +
+						'<li><a href="/web/html/want-anchor.html" class="want-anchor" target="_blank">我要当主播</a></li>' +
 //						'<li>' +
 //							'<div class="messageBox">'+
 //								'<a href="javascript:;" data-id="mynews" class="message">消息</a>'+
