@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,7 +28,9 @@ import com.xczhihui.course.model.MobileProject;
 import com.xczhihui.course.service.IMobileBannerService;
 import com.xczhihui.course.service.IMobileProjectService;
 import com.xczhihui.course.service.IMyInfoService;
+import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.course.vo.MenuVo;
+import com.xczhihui.course.vo.QueryConditionVo;
 
 /**
  * 推荐控制器 ClassName: MobileRecommendController.java <br>
@@ -112,16 +115,46 @@ public class MobileRecommendController {
      * 类型
      * 城市
      */
-    @RequestMapping("queryAllCourse")
-    @ResponseBody
-    public ResponseObject queryAllCourse(String menuType, Integer lineState, Integer courseType, String city, String isFree, String queryKey,
-                                         Integer pageNumber, Integer pageSize)
-            throws Exception {
-
-        List<CourseVo> list = wxcpCourseService.queryAllCourse(menuType, lineState, courseType, isFree, city, queryKey, pageNumber, pageSize,IOSVersionInterceptor.onlyThread.get());
-
-        return ResponseObject.newSuccessResponseObject(list);
-    }
+//    @RequestMapping("queryAllCourse")
+//    @ResponseBody
+//    public ResponseObject queryAllCourse(String menuType, 
+//    		String city,String isFree,
+//    		Integer lineState, Integer courseType,
+//    		String queryKey,
+//    		Integer pageNumber, Integer pageSize)
+//            throws Exception {
+//        List<CourseVo> list = wxcpCourseService.queryAllCourse(menuType, lineState, courseType, isFree, city, queryKey, pageNumber, pageSize,IOSVersionInterceptor.onlyThread.get());
+//        return ResponseObject.newSuccessResponseObject(list);
+//    }
+    
+	  @RequestMapping("queryAllCourse")
+	  @ResponseBody
+	  public ResponseObject queryAllCourse(
+			QueryConditionVo queryConditionVo,
+	  		Integer pageNumber, Integer pageSize)
+	          throws Exception {
+	      
+		  pageNumber = pageNumber == null ? 1 : pageNumber;
+		  pageSize = pageSize == null ? 10 : pageSize;
+		  
+	      if(queryConditionVo.getMenuType()!=null && "0".equals(queryConditionVo.getMenuType())) {
+	         queryConditionVo.setMenuType(null);
+	      }
+	      if(queryConditionVo.getLineState()!=null && queryConditionVo.getLineState() == 0) {
+	        queryConditionVo.setLineState(null);
+	      }
+		  
+	      Page<CourseLecturVo> page = new Page<CourseLecturVo>(pageNumber, pageSize);
+	       // 课程列表
+	      if (StringUtils.isNotBlank(queryConditionVo.getQueryKey())) {
+	            queryConditionVo.setQueryKey("%" + queryConditionVo.getQueryKey() + "%");
+	            page= mobileBannerService.searchQueryKeyCourseList(page, queryConditionVo);
+	      } else {
+	    	    page =mobileBannerService.searchCourseList(page, queryConditionVo);
+	      }
+	      return ResponseObject.newSuccessResponseObject(page.getRecords());
+	  }
+    
 
     /**
      * banner点击量
