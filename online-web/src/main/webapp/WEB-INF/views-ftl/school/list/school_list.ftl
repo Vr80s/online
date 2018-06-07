@@ -211,6 +211,14 @@
 					 <@cast.page pageNo=courseList.current totalPage=courseList.pages showPages=5 callUrl="${webUrlParam}?page="/>
 				 </#if>
 				</div>
+
+				 <!--无数据时显示背景图-->
+			 <div class="all-null class-null hide">
+			 	<div class="null-img">
+			 		<img src="/web/images/other_noResult.png"/>
+			 	</div>
+			 	<p>更多精彩课程正在更新中,敬请期待...</p>
+			 </div>
 			</div>
 		</div>
 

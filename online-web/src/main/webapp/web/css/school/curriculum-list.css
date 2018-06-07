@@ -176,6 +176,15 @@ a:active{text-decoration:none;}/* 指正在点的链接*/
     right: 0;
     font-size: 12px;
 }
+.all-null{
+	text-align: center;
+	padding: 120px 0;
+	background: white;
+}
+.all-null p{
+	padding: 10px 0;
+	color: #999999;
+}
 /*视频样式*/
 .wrap-video{
 	width: 100%;
