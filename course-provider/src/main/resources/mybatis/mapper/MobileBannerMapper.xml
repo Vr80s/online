@@ -327,7 +327,7 @@
 		<!-- 综合 -->
 		<choose>
 	        <when test="queryVo.sortOrder == 1 " >
-	              recommendSort desc
+	              recommendSort desc,oc.release_time desc
 	        </when> 
 			<!-- 最新 -->
 	        <when test="queryVo.sortOrder == 2 ">
@@ -346,7 +346,7 @@
 	              currentPrice asc,recommendSort desc 
 	         </when>
 	         <otherwise>
-             	recommendSort desc
+             	recommendSort desc,oc.release_time desc
 	         </otherwise>   
 	      </choose>   
 	</sql>
