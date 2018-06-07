@@ -150,7 +150,6 @@
 						<ul>
 						<#-- tab的显示，这个就当做专辑页面来写   -->
 
-
 						<#if  courseInfo.collection> <#-- 专辑tab显示    -->
 							<#if courseInfo.watchState = 1 || courseInfo.watchState = 2> <#-- 免费或已购买  -->
 								<li><a href="javascript:;">选集</a></li>
@@ -202,9 +201,17 @@
 						</div>
 						<div class="author-content">
 							<div class="author-text">
-							    
-						     ${courseInfo.lecturerDescription?default('暂无主讲人信息')}							    
-							   
+							 <#if courseInfo.lecturerDescription??> 
+								    ${courseInfo.lecturerDescription}	
+							 <#else>
+							     <!--无数据时显示背景图-->
+								 <div class="all-null course-null">
+								 	<div class="null-img">
+								 		<img src="/web/images/icon-nodata.png"/>
+								 	</div>
+								 	<p>暂无数据</p>
+								 </div> 
+							 </#if>   
                     </div>
                 </div>
                 <div class="author-introduce" style="margin-top: 30px;">
@@ -212,7 +219,19 @@
                 </div>
                 <div class="author-content">
                     <div class="class-text">
-							${courseInfo.description?default('暂无课程介绍')}							    
+							
+							<#if courseInfo.description??> 
+								    ${courseInfo.description}	
+							 <#else>
+							     <!--无数据时显示背景图-->
+								 <div class="all-null course-null">
+								 	<div class="null-img">
+								 		<img src="/web/images/icon-nodata.png"/>
+								 	</div>
+								 	<p>暂无数据</p>
+								 </div> 
+							 </#if>   
+													    
 							</div>
 						</div>
 					</div>
@@ -223,28 +242,35 @@
 					</div>
 		<!--评价-->
 					<div class="sidebar-content hide">
-							<#include "common/comment.ftl">
-								
-						<!--无数据时显示背景图-->
-						 <div class="all-null course-null hide">
-						 	<div class="null-img">
-						 		<img src="/web/images/icon-nodata.png"/>
-						 	</div>
-						 	<p>暂无数据</p>
-						 </div>
+						 
+						 <#if courseInfo.criticizeCount gt 0> 
+						    <#include "common/comment.ftl">
+						 <#else>
+						     <!--无数据时显示背景图-->
+							 <div class="all-null course-null">
+							 	<div class="null-img">
+							 		<img src="/web/images/icon-nodata.png"/>
+							 	</div>
+							 	<p>暂无数据</p>
+							 </div> 
+						 </#if> 
+						  
 					</div>
 		<!--常见问题-->
 					<div class="sidebar-content hide">
 						<ul class="often-problem">
-							${commonProblem?default('暂无常见问题')}
+							<#if courseInfo.description??> 
+								    ${commonProblem}	
+							 <#else>
+							     <!--无数据时显示背景图-->
+								 <div class="all-null course-null">
+								 	<div class="null-img">
+								 		<img src="/web/images/icon-nodata.png"/>
+								 	</div>
+								 	<p>暂无数据</p>
+								 </div> 
+							 </#if>   
 						</ul>
-						<!--无数据时显示背景图-->
-						 <div class="all-null question-null hide">
-						 	<div class="null-img">
-						 		<img src="/web/images/icon-nodata.png"/>
-						 	</div>
-						 	<p>暂无数据</p>
-						 </div>
 					</div>
 				</div>
 		<!--右侧推荐课程-->

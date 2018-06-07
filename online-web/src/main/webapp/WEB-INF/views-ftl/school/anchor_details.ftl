@@ -71,23 +71,40 @@
 		<!--content-->
 		<!--课程-->
 		<div class="sidebar-content" style="padding: 0 0 30px;">
-			 <#if type == 'courses' >
-			  	<#include "anchor_course.ftl">
-			 </#if>
-			 <!--无数据时显示背景图-->
-			 <div class="all-null anchor-null hide">
-			 	<div class="null-img">
-			 		<img src="/web/images/icon-nodata.png"/>
-			 	</div>
-			 	<p>暂无数据</p>
-			 </div>
+		
+				
+			 <#if courseList?? && courseList.records?size gt 0>
+				  <#if type == 'courses' >
+				  	<#include "anchor_course.ftl">
+				 </#if>
+			 <#else>
+			     <!--无数据时显示背景图-->
+				 <div class="all-null anchor-null hide">
+				 	<div class="null-img">
+				 		<img src="/web/images/icon-nodata.png"/>
+				 	</div>
+				 	<p>暂无数据</p>
+				 </div>
+			 </#if>	
+			
 		</div>
 		
 		<!--介绍-->					
 					<div class="sidebar-content hide" style="background: #F8F8F8;padding: 0;">
 						<div class="anchor-introduce">
 							<p>
-								${lecturerInfo.detail?default("暂无主讲人介绍")}
+							 <#if lecturerInfo.detail??> 
+								    ${lecturerInfo.detail}	
+							 <#else>
+							     <!--无数据时显示背景图-->
+								 <div class="all-null course-null">
+								 	<div class="null-img">
+								 		<img src="/web/images/icon-nodata.png"/>
+								 	</div>
+								 	<p>暂无数据</p>
+								 </div> 
+							 </#if> 
+
 							</p>
 						</div>
 						<div class="anchor-hospital">
@@ -134,16 +151,19 @@
 					</div>
 		<!--评价-->	
 		<div class="sidebar-content hide">		
-			 <#if type == 'comment' >
-			  	<#include "common/comment.ftl">
-			 </#if>
-			 <!--无数据时显示-->
-			  <div class="all-null evaluate-null hide">
-			 	<div class="null-img">
-			 		<img src="/web/images/icon-nodata.png"/>
-			 	</div>
-			 	<p>暂无数据</p>
-			 </div>
+			 <#if criticizeCount gt 0> 
+					 <#if type == 'comment' >
+			  			<#include "common/comment.ftl">
+					 </#if>
+			 <#else>
+			     <!--无数据时显示背景图-->
+				 <div class="all-null course-null">
+				 	<div class="null-img">
+				 		<img src="/web/images/icon-nodata.png"/>
+				 	</div>
+				 	<p>暂无数据</p>
+				 </div> 
+			 </#if>   	
 		</div>		
 				</div>
 		
