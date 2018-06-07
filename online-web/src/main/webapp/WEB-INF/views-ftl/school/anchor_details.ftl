@@ -73,7 +73,14 @@
 		<div class="sidebar-content" style="padding: 0 0 30px;">
 			 <#if type == 'courses' >
 			  	<#include "anchor_course.ftl">
-			 </#if>			
+			 </#if>
+			 <!--无数据时显示背景图-->
+			 <div class="all-null anchor-null hide">
+			 	<div class="null-img">
+			 		<img src="/web/images/icon-nodata.png"/>
+			 	</div>
+			 	<p>暂无数据</p>
+			 </div>
 		</div>
 		
 		<!--介绍-->					
@@ -130,6 +137,13 @@
 			 <#if type == 'comment' >
 			  	<#include "common/comment.ftl">
 			 </#if>
+			 <!--无数据时显示-->
+			  <div class="all-null evaluate-null hide">
+			 	<div class="null-img">
+			 		<img src="/web/images/icon-nodata.png"/>
+			 	</div>
+			 	<p>暂无数据</p>
+			 </div>
 		</div>		
 				</div>
 		
