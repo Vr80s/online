@@ -57,41 +57,52 @@ function completeCourseList(pageNumber,pageSize,downOrUp) {
 
             }
 
-            $(".onclick_li").on('click',function(){
+            /*$(".onclick_li").on('click',function(){
+                alert(123);
                 location.href ='/xcview/html/down_load.html'
             });
 
             $(".click_lis").on('click',function(){
+                alert(123);
                 location.href ='inherited_introduction.html?merId={{item.id}}{{item.tokenStr}}'
-            });
+            });*/
+
+            
 
 
         }else{
             alert(data.errorMessage);
         }
 
-        $(".onclick_li").on('click',function(){
-            location.href ='/xcview/html/down_load.html'
+        mui("#refreshContainer").on('tap','.onclick_li',function(){
+                alert(123);
+                location.href ='/xcview/html/down_load.html'
         });
 
-        $(".click_lis").on('click',function(){
-            location.href ='inherited_introduction.html?merId={{item.id}}{{item.tokenStr}}'
+        mui("#refreshContainer").on('tap','.onclick_lis',function(){
+            alert(4);
+            var id=$(this).attr("data-ids");
+            var tokenStr=$(this).attr("data-tokenStr");
+            location.href ='inherited_introduction.html?merId='+id+tokenStr;
         });
+        
 
         mui("#refreshContainer").on('tap', '.live_select_album', function (event) {
             var course_id=$(this).attr("data-id");
             location.href="live_select_album.html?course_id="+course_id;
         });
 
-        $(".onclick_li").on('click',function(){
+        /*$(".onclick_li").on('click',function(){
+            alert(123);
             location.href ='/xcview/html/down_load.html'
         });
 
         $(".click_lis").on('click',function(){
+            alert(123);
             location.href ='inherited_introduction.html?merId={{item.id}}{{item.tokenStr}}'
-        });
+        });*/
 
-        $(".onclick_li").click(function(){
+        /*$(".onclick_li").click(function(){
             alert(123);
                  location.href ='/xcview/html/down_load.html'
         });
@@ -99,7 +110,7 @@ function completeCourseList(pageNumber,pageSize,downOrUp) {
              alert(258);
              location.href ='inherited_introduction.html?merId={{item.id}}{{item.tokenStr}}'
         });
-
+*/
 
 
         
@@ -137,7 +148,7 @@ mui.init({
 function pulldownRefresh() {
     num = 1;
     setTimeout(function() {
-        completeCourseList(num,2,'down');
+        completeCourseList(num,8,'down');
         mui('#refreshContainer').pullRefresh().endPulldownToRefresh(); //refresh completed
     }, 500);
 };
@@ -148,6 +159,6 @@ var count = 0;
 function pullupRefresh() {
     num++;
     setTimeout(function() {
-        completeCourseList(num,2,'up');
+        completeCourseList(num,8,'up');
     }, 500);
 }

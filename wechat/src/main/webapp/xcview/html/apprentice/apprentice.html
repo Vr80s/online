@@ -33,15 +33,14 @@
 			display: block;
 		} */
 		/*处理刷新效果*/
-		.mui-scroll-wrapper{
-			top: 0.7rem;
-		}
+		
 		.mui-pull-top-pocket{
 			top: 0;
 		}
 		.mui-scroll-wrapper{
 			height: 100%;
-
+			position: fixed;
+			top: 0.88rem;
 		}
 		.mui-pull-bottom-pocket .mui-pull{
 			bottom: 1rem;
@@ -63,8 +62,20 @@
 		.both{
 			clear: both;
 		}
-		.mui-scroll-wrapper{
-			z-index: 1;
+		.footer{
+			z-index: 9999999999;
+		}
+		.mui-scroll{
+			padding-bottom: 1.5rem;
+		}
+		.mui-pull-bottom-pocket .mui-pull-loading{
+			margin-top: 0.8rem;
+		}
+		.mui-icon{
+			margin-top: 0.8rem;
+		}
+		.mui-pull-caption{
+			margin-top: 0.8rem;
 		}
 	</style>
 </head>
@@ -105,7 +116,7 @@
 						<ul class="apprentice_list">
 							<script type="text/html" id="apprentice_list_tmp">
 								{{each items as item i}}
-								<li class="click_lis">
+								<li class="onclick_lis" data-ids="{{item.id}}" data-tokenStr="{{item.tokenStr}}">
 									<div class="apprentice_main">
 										<div class="flat_patternmaking">
 											<img src="{{item.coverImg}}" alt="封面" />
