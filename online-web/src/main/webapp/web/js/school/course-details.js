@@ -15,12 +15,18 @@ var smallHeadPhoto ="";
     }
 },false)
 
+//<div class="path" style="width:95%"><a href="/courses/recommendation" 
+//	class="recommend" target="_blank">推荐</a><a href="/courses/real" 
+//		class="under" target="_blank" style="color: rgb(0, 188, 18);">线下课</a>
+//		<a href="/courses/live" class="broadcast" target="_blank">直播</a>
+//		<a href="/courses/listen" class="listen" target="_blank">听课</a><
+//		a href="/App.html" class="download-app" target="_blank">下载APP</a></div>
 
 $(function(){
 
 	var index = 0;
 	//表名是专辑
-	if(collection == 1){ //
+	if(collection == 1  ){
 		$(".buy_tab").removeClass("hide");
 		$(".no_buy_tab").remove();
 		if(type == "info"){
@@ -48,9 +54,23 @@ $(function(){
 		$(".wrap-sidebar ul li").eq(3).addClass("active-footer");
 		index =3;
 	}
-
 	$(".sidebar-content").addClass("hide").eq(index).removeClass("hide")
 
+	//课程类型 1：视频 2：音频 3：直播 4：线下培训班
+	if(courseType == 4){
+		//$(".sidebar-content").addClass("hide").eq(index).removeClass("hide");
+		
+		$(".under").css("color","rgb(0, 188, 18)");
+	}else if(courseType == 3){
+		$(".broadcast").css("color","rgb(0, 188, 18)");
+	}else if(courseType == 1 || courseType == 2){
+		$(".listen").css("color","rgb(0, 188, 18)");
+	}
+	
+	
+	
+	
+	
 //	详情/评价/常见问题	选项卡
     $(".wrap-sidebar ul li").click(function () {
         $(".wrap-sidebar ul li").removeClass("active-footer");
@@ -91,9 +111,22 @@ $(function(){
 		 var collection = $this.attr("data-collection");
 		 var realCourseId = $this.attr("data-realCourseId");
 		 var collectionCourseId = $this.attr("data-collectionCourseId");
+		 
 		 if(watchState == 2 && type == 4){ //已报名
 			 return;
 		 }
+		 
+		 if(watchState == 1 && type == 4){ //免费未报名
+			
+			 
+		 }
+		 
+		 if(watchState == 0 && type == 4){ //收费未报名
+			
+			 
+		 }
+		 
+		 
 		 /**
 		  * 判断是否登录了
 		  */

@@ -103,7 +103,8 @@
 						 	还需要判断如果报名截止的话，显示报名截止
 						付费的跳转到：支付页面了呗：
 					 -->
-					<#if (courseInfo.watchState == 1  && courseInfo.type != 4 ) || courseInfo.watchState == 2>
+
+					<#if courseInfo.watchState == 1 || courseInfo.watchState == 2>
 						<button type="button" class="immediately-buy  learning_immediately"
 						     data-watchState ="${courseInfo.watchState}"
 						     data-type ="${courseInfo.type}"
@@ -117,17 +118,10 @@
 						     >
 						    <#if courseInfo.watchState == 2  && courseInfo.type == 4>
 								已报名
-							<#else>
-							           进入学习
-							<#--
-
-								<a href="/web/livepage/${courseInfo.id}"   target="_blank">进入学习 </a>
-							<#elseif courseInfo.type == 1 || courseInfo.type == 2 >
-								<#if  courseInfo.collection>
-								  <a href="/web/html/ccvideo/liveVideoAlbum.html?collectionId=${courseInfo.id}&courseId=${collectionList[0].id}&ljxx=ljxx" target="_blank">进入学习 </a>
-								<#else>
-								  <a href="/web/html/ccvideo/video.html?courseId=${courseInfo.id}" target="_blank">进入学习 </a>
-								</#if>			-->
+							<#elseif courseInfo.watchState == 1  && courseInfo.type == 4>
+							           立即报名      
+							 <#else> 
+							           进入学习       
 							</#if>
 						</button>
 					<#elseif courseInfo.watchState == 0>
@@ -149,21 +143,20 @@
 					<div class="wrap-sidebar">
 						<ul>
 						<#-- tab的显示，这个就当做专辑页面来写   -->
-
 						<#if  courseInfo.collection> <#-- 专辑tab显示    -->
 							<#if courseInfo.watchState = 1 || courseInfo.watchState = 2> <#-- 免费或已购买  -->
-								<li><a href="javascript:;">选集</a></li>
-							    <li><a href="javascript:;">详情</a></li>
+								<li><a href="${webUrlParam}/selection">选集</a></li>
+							    <li><a href="${webUrlParam}/info">详情</a></li>
 							<#elseif courseInfo.watchState = 0>
-							    <li><a href="javascript:;" >详情</a></li>
-								<li><a href="javascript:;" >课程大纲</a></li>
+							    <li><a href="${webUrlParam}/info" >详情</a></li>
+								<li><a href="${webUrlParam}/outline" >课程大纲</a></li>
 							</#if>
 						<#else> <#-- 非专辑tab显示    -->
-						   <li><a href="javascript:;" >详情</a></li>
-						   <li><a href="javascript:;" >课程大纲</a></li>
+						   <li><a href="${webUrlParam}/info" >详情</a></li>
+						   <li><a href="${webUrlParam}/outline" >课程大纲</a></li>
 						</#if>
-							<li ><a href="${webUrlParam}/comment" >评价（${courseInfo.criticizeCount}）</a></li>
-							<li><a href="javascript:;" >常见问题</a></li>
+							<li><a href="${webUrlParam}/comment" >评价（${courseInfo.criticizeCount}）</a></li>
+							<li><a href="${webUrlParam}/aq" >常见问题</a></li>
 						</ul>
 					</div>
 		<!--content-->
@@ -195,7 +188,7 @@
 					</div>
 
 		<!--详情-->
-					<div class="sidebar-content">
+					<div class="sidebar-content hide">
 						<div class="author-introduce">
 							主讲人
 						</div>
@@ -219,7 +212,6 @@
                 </div>
                 <div class="author-content">
                     <div class="class-text">
-							
 							<#if courseInfo.description??> 
 								    ${courseInfo.description}	
 							 <#else>
@@ -238,11 +230,21 @@
 
 		<!--课程大纲-->
 					<div class="sidebar-content no_buy_tab hide">
-						${courseInfo.courseOutline?default('暂无课程大纲')}							    
+						 <#if courseInfo.courseOutline??> 
+						    ${courseInfo.courseOutline}	
+						 <#else>
+						     <!--无数据时显示背景图-->
+							 <div class="all-null course-null">
+							 	<div class="null-img">
+							 		<img src="/web/images/icon-nodata.png"/>
+							 	</div>
+							 	<p>暂无数据</p>
+							 </div> 
+						 </#if> 
+											    
 					</div>
 		<!--评价-->
 					<div class="sidebar-content hide">
-						 
 						 <#if courseInfo.criticizeCount gt 0> 
 						    <#include "common/comment.ftl">
 						 <#else>
@@ -254,7 +256,6 @@
 							 	<p>暂无数据</p>
 							 </div> 
 						 </#if> 
-						  
 					</div>
 		<!--常见问题-->
 					<div class="sidebar-content hide">
@@ -294,10 +295,12 @@
 
 <!--登陆结束-->
 <script type="text/javascript" charset="utf-8">
+
     var type = "${type}";
     var watchState = "${courseInfo.watchState}";
     var courseId = "${courseInfo.id}";
     var userId = "${courseInfo.userLecturerId}";
+    var courseType = "${courseInfo.type}";
     var collection = ${courseInfo.collection?string(1,0)};
     var commentCode = ${criticizesMap.commentCode};
     var courseLength = ${courseInfo.courseLength};
