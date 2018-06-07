@@ -1,5 +1,7 @@
 package com.xczhihui.bxg.online.web.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 /**
@@ -122,6 +124,12 @@ public class AskQuestionVo  extends AskVo  {
 	 * 视频id
 	 */
 	private String videoId;
+
+	/**
+	 * 创建时间
+	 */
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+	private Date createTime1;
 
 	public String getName() {
 		return name;
@@ -317,4 +325,5 @@ public class AskQuestionVo  extends AskVo  {
 	public void setVideoId(String videoId) {
 		this.videoId = videoId;
 	}
+
 }

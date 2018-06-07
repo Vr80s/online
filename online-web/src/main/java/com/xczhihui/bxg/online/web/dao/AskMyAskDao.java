@@ -51,11 +51,16 @@ public class AskMyAskDao extends SimpleHibernateDao {
 	public  Page<AskQuestionVo> findMyAnswers(Boolean accepted,OnlineUser u,Integer pageNumber,Integer pageSize){
 		pageNumber = pageNumber == null ? 1 : pageNumber;
 		pageSize = pageSize == null ? 5 : pageSize;
-		String sql = "select distinct t1.* from oe_ask_question t1,oe_ask_answer t2 where t2.question_id = t1.id "
-				+ " and t2.user_id = :userId and t2.accepted=:accepted and t1.is_delete = 0   order by create_time desc ";
 		Map<String, Object> params = new HashMap<String, Object>();
+		String acceptedSql="";
 		params.put("userId", u.getId());
-		params.put("accepted", accepted);
+		if(accepted!=null){
+			params.put("accepted", accepted);
+			acceptedSql=" and t2.accepted=:accepted ";
+		}
+		String sql = "select distinct t1.* ,t2.create_time as createTime1 from oe_ask_question t1,oe_ask_answer t2 where t2.question_id = t1.id "
+				+ " and t2.user_id = :userId  " +acceptedSql+
+				"and t1.is_delete = 0   order by t2.create_time desc ";
 		
 		Page<AskQuestionVo> qs = this.findPageBySQL(sql, params, AskQuestionVo.class, pageNumber, pageSize);
 		this.setAskAnswerVo(qs,u.getLoginName());
@@ -89,7 +94,7 @@ public class AskMyAskDao extends SimpleHibernateDao {
 	public void setAskAnswerVo(Page<AskQuestionVo> qs,String loginName){
 		for (AskQuestionVo q : qs.getItems()) {
 			String praise = qs != null ? "find_in_set('"+loginName+"',praise_login_names) > 0 and praise_login_names is not null" : "false";
-			String sql = "select *,"+praise+" as praise from oe_ask_answer where question_id = ? and is_delete = 0  and  answer_type =false  order by praise_sum desc  ";
+			String sql = "select *,"+praise+" as praise from oe_ask_answer where question_id = ? and is_delete = 0  and  answer_type =false  order by accepted desc,praise_sum desc,create_time desc  ";
 			List<AskAnswerVo> as = this.getNamedParameterJdbcTemplate().getJdbcOperations().query(sql,
 					BeanPropertyRowMapper.newInstance(AskAnswerVo.class), q.getId());
 			if (as != null && as.size() > 0) {

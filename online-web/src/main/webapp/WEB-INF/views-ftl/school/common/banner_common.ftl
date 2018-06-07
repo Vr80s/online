@@ -1,7 +1,7 @@
 
 <#-- 公共的banner图 -->
 
-<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+<div id="carousel-example-generic" class="carousel slide hover-select" data-ride="carousel">
   <ol class="carousel-indicators">
    	<#list bannerList as banner>
  	<#if banner_index == 0 >
@@ -31,6 +31,13 @@
      		<img src="${banner.imgPath}" alt="广告图">
      	</a>
     </div>	
+    <!-- Controls -->
+					  <a class="left carousel-control banner-prev" href="#carousel-example-generic" role="button" data-slide="prev">
+					    <em></em>
+					  </a>
+					  <a class="right carousel-control banner-prev banner-next" href="#carousel-example-generic" role="button" data-slide="next">
+					     <em></em>
+					  </a>
 </#list>
   </div>	
 </div>

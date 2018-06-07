@@ -54,6 +54,6 @@ public interface ReplyMapper extends BaseMapper<Reply> {
     @Select({"select r.id as id, r.content as content, r.init_time as initTime," +
             " r.to_reply_id as toReplyId, p.title as postTitle, l.name as labelName, p.id as postId, ou.small_head_photo as smallHeadPhoto" +
             " from quark_reply r, quark_posts p, quark_label l, oe_user ou" +
-            " where r.posts_id = p.id and p.label_id = l.id and r.user_id = ou.id and r.`is_delete` = false and r.user_id = #{userId}"})
+            " where r.posts_id = p.id and p.label_id = l.id and r.user_id = ou.id and r.`is_delete` = false and r.user_id = #{userId} order by r.init_time desc"})
     List<ReplyVO> listMyReplies(Page<ReplyVO> page, @Param("userId") String userId);
 }

@@ -42,7 +42,6 @@ public class AskMyAskController extends AbstractController{
 	@RequestMapping(value = "/findMyAnswers")
 	public ResponseObject findMyAnswers(Boolean accepted, Integer pageNumber, Integer pageSize,HttpSession s) {
 		OnlineUser u =  getCurrentUser();
-		accepted = accepted == null ? false : accepted;
 		return ResponseObject.newSuccessResponseObject(service.findMyAnswers(accepted, u, pageNumber, pageSize));
 	}
 	/**

@@ -17,7 +17,7 @@ var footers = {
     '<li data-id="four" class="noline" data-url="/web/html/aboutUs.html">常见问题<span>|</span></li>' +
     '<li data-id="five" data-url="/copyright.html" class="noline">版权声明</li>' +
     '</ul></div>' +
-    '<div class="trademark"><a href="http://www.miibeian.gov.cn/" target="_blank" class="ml14" style="color: #333;">琼ICP备17002789号-2</a>  Copyright &copy; 2017-2018  熊猫中医 All Rights Reserved <span style="margin-right:5px;"></span></div>' +
+    '<div class="trademark"><a href="http://www.miibeian.gov.cn/" target="_blank" class="ml14" style="color:white;">琼ICP备17002789号-2</a>  Copyright &copy; 2017-2018  熊猫中医 All Rights Reserved <span style="margin-right:5px;"></span></div>' +
     '</div></div></footer></div>',
     footer: '<div class="footerDT">' +
     '<footer>' +
@@ -32,7 +32,7 @@ var footers = {
     '<li data-id="five" data-url="/copyright.html" class="noline">版权声明</li>' +
     '</ul>' +
     '</div>' +
-    '<div class="trademark"><a href="http://www.miibeian.gov.cn/" target="_blank" class="ml14" style="color: #333;">琼ICP备17002789号-2</a>  Copyright &copy; 2017-2018  熊猫中医 All Rights Reserved<span style="margin-right:5px;"></span></div>' +
+    '<div class="trademark"><a href="http://www.miibeian.gov.cn/" target="_blank" class="ml14" style="color: white;">琼ICP备17002789号-2</a>  Copyright &copy; 2017-2018  熊猫中医 All Rights Reserved<span style="margin-right:5px;"></span></div>' +
     '</div></div></footer></div>'
 }
 if (window.location.pathname.indexOf("/index.html") != -1 || window.location.pathname == '/') {

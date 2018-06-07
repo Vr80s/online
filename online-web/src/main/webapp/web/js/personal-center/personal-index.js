@@ -1062,14 +1062,28 @@ RequestService("/message/count", "get",null, function (data) {
 	});
 }
 //将某条消息设为已读
-function jump_msg() {
-    var e = window.event || arguments.callee.caller.arguments[0];
-    var id = $(e.target).data('id');
+//function jump_msg() {
+//  var e = window.event || arguments.callee.caller.arguments[0];
+//  var id = $(e.target).data('id');
+//  RequestService("/message/"+id+"/readStatus", "PUT",null, function (data) {
+//      if (data.success == true) {
+//      	newsList(1);
+//      	Newsnumber();
+//          var url = $(e.target).data('url');
+//          if (url) {
+//              window.open(url, "_blank");
+//          }
+//      }
+//  });
+//}
+function jump_msg(index) {
+//  var e = window.event || arguments.callee.caller.arguments[0];
+    var id = $(index).data('id');
     RequestService("/message/"+id+"/readStatus", "PUT",null, function (data) {
         if (data.success == true) {
         	newsList(1);
         	Newsnumber();
-            var url = $(e.target).data('url');
+            var url = $(index).data('url');
             if (url) {
                 window.open(url, "_blank");
             }
@@ -1078,6 +1092,7 @@ function jump_msg() {
 }
 //删除消息
 function deleteNews(index){
+	event.stopPropagation();
 	var deleteId=$(index).attr("data-delete");
 	RequestService("/message/"+deleteId+"", "DELETE",null, function (data) {
     	if(data.success== true){

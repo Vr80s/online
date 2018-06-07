@@ -29,7 +29,56 @@ a:hover{text-decoration: none;}
 	width: 860px;
 	height: 346px !important;
 }
+/*轮播箭头*/
+.banner-prev{
+	 width: 50px;
+    height: 80px;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    margin-top: -40px;
+    background: rgba(0, 0, 0, 0.2)  !important;
+    background-image:none !important;
+    display: none;
+}
 
+.banner-prev em{
+	-webkit-background-size: 20px 37px;
+	background-size: 20px 37px;
+	background-image: url("/web/images/130/banner_left_normal.png");
+	background-repeat: no-repeat;
+	background-position: center center;
+	width: 50px;
+    height: 80px;
+    display: block;
+}
+ .banner-prev:nth-child(2){
+    right: 0; 
+}  
+ .banner-next em{
+	-webkit-background-size: 20px 37px;
+	background-size: 20px 37px;
+	background-image: url("/web/images/130/banner_right_normal.png");
+	background-repeat: no-repeat;
+	background-position: center center;
+	width: 50px;
+    height: 80px;
+    display: block;
+}
+.carousel-indicators li{
+	border: 0 !important;
+	background: white;
+	width: 10px;
+	height: 10px;
+	margin: 0 5px;
+}
+.carousel-indicators .active{
+	background: #00BC12;
+	width: 10px;
+	height: 10px;
+
+}
+/*轮播箭头*/
 /*精品,免费,最新,养生课程*/
 .main{
 	    width: 100%;

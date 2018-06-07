@@ -5,7 +5,12 @@ $(function(){
 	$('.carousel').carousel({
 	  interval: 3000
 	})
-
+	$(".hover-select").hover(function(){
+		$(".banner-prev").fadeIn(200)
+	},function(){
+		$(".banner-prev").fadeOut(200)
+		
+	})
 	//1：认证医师 2：认证医馆 3：医师认证中 4：医馆认证中 5：医师认证被拒 6：医馆认证被拒 7：即没有认证医师也没有认证医馆
 	
     //登入之后进行判断 右侧医师入驻入口是否有
