@@ -78,7 +78,7 @@ function getRankingListByLiveId(){
  * 轮询渲染礼物榜单
  * 	 一分钟
  */
-self.setInterval("getRankingListByLiveId()",5000);
+self.setInterval("getRankingListByLiveId()",1000*60);
 
 //排行榜渲染
 getRankingListByLiveId();
