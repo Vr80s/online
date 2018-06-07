@@ -6,30 +6,6 @@ if(liveStatus!=1){ //
 	$("#mywords").attr('readonly',"readonly");
 }
 
-/**
-* 礼物排行榜
- * @returns
- */
-function getRankingListByLiveId(){
-	//获取个人熊猫币余额
-	/**
-	 * 课程id，分页参数
-	 * @param data
-	 * @returns
-	 */
-	var params = {
-		liveId:course_id,
-		pageSize:10,
-		pageNumber:1	
-	}
-	RequestService("/gift/getRankingListByLiveId", "GET",params, function(data) {
-		if(data.success && data.resultObject!=null && data.resultObject.length>0){
-            createRanking(data.resultObject);
-	     }
-	});
-}
-//排行榜渲染
-getRankingListByLiveId();
 
 function createRanking(ranking){
 	if(ranking==null)return;
@@ -73,6 +49,39 @@ function createRanking(ranking){
     }
     $(".toptenreviews-list").html(gifts);
 }
+
+
+
+/**
+* 礼物排行榜
+ * @returns
+ */
+function getRankingListByLiveId(){
+	//获取个人熊猫币余额
+	/**
+	 * 课程id，分页参数
+	 * @param data
+	 * @returns
+	 */
+	var params = {
+		liveId:course_id,
+		pageSize:10,
+		pageNumber:1	
+	}
+	RequestService("/gift/getRankingListByLiveId", "GET",params, function(data) {
+		if(data.success && data.resultObject!=null && data.resultObject.length>0){
+            createRanking(data.resultObject);
+	     }
+	});
+}
+/**
+ * 轮询渲染礼物榜单
+ * 	 一分钟
+ */
+self.setInterval("getRankingListByLiveId()",5000);
+
+//排行榜渲染
+getRankingListByLiveId();
 
 /**
  * 获取主播信息

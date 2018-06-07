@@ -54,7 +54,9 @@ public class MobileBannerServiceImpl extends ServiceImpl<MobileBannerMapper, Mob
     @Override
     public List<Map<String, Object>> recommendCourseList(List<MenuVo> menuList, Integer pageSizeUp, Integer pageSizeDown, boolean onlyFree) {
 
-        List<CourseLecturVo> listAll = iMobileBannerMapper.recommendCourseList(menuList, pageSizeUp, pageSizeDown, onlyFree);
+        List<CourseLecturVo> listAll = iMobileBannerMapper.recommendCourseList(menuList, 
+        		pageSizeUp, pageSizeDown,
+        		onlyFree);
 
         List<Map<String, Object>> mapCourseList = new ArrayList<Map<String, Object>>();
 
