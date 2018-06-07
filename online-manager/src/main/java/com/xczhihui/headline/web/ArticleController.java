@@ -124,7 +124,7 @@ public class ArticleController extends AbstractController {
         content = ImageUtils.base64ToimageURL(content, attachmentCenterService);
         articleVo.setContent(content);
         articleService.addArticle(articleVo);
-        articleService.addArticleTag(articleVo);
+        //articleService.addArticleTag(articleVo);
         return ResponseObject.newSuccessResponseObject("操作成功！");
     }
 
