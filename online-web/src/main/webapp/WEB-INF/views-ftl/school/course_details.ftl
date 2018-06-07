@@ -118,15 +118,15 @@
 						    <#if courseInfo.watchState == 2  && courseInfo.type == 4>
 								已报名
 							<#else>
-							           进入学习
+							           开始学习
 							<#--
 
-								<a href="/web/livepage/${courseInfo.id}"   target="_blank">进入学习 </a>
+								<a href="/web/livepage/${courseInfo.id}"   target="_blank">开始学习 </a>
 							<#elseif courseInfo.type == 1 || courseInfo.type == 2 >
 								<#if  courseInfo.collection>
-								  <a href="/web/html/ccvideo/liveVideoAlbum.html?collectionId=${courseInfo.id}&courseId=${collectionList[0].id}&ljxx=ljxx" target="_blank">进入学习 </a>
+								  <a href="/web/html/ccvideo/liveVideoAlbum.html?collectionId=${courseInfo.id}&courseId=${collectionList[0].id}&ljxx=ljxx" target="_blank">开始学习</a>
 								<#else>
-								  <a href="/web/html/ccvideo/video.html?courseId=${courseInfo.id}" target="_blank">进入学习 </a>
+								  <a href="/web/html/ccvideo/video.html?courseId=${courseInfo.id}" target="_blank">开始学习 </a>
 								</#if>			-->
 							</#if>
 						</button>
