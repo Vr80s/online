@@ -337,6 +337,7 @@ function btn_zj_mianfei() {
     	
     	window.location.href = "line_class.html?&courseId="+courseId;
     } else if (data_zj == 2) {  // 已购买或者免费的报过名的
+    	window.location.href = "xcview/html/live_class.html?my_study="+courseId;
        return;
     }
 
