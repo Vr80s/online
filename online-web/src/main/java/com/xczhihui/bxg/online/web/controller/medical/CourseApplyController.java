@@ -336,7 +336,7 @@ public class CourseApplyController extends AbstractController {
         return responseObj;
     }
 
-    @RequestMapping(value = "student", method = RequestMethod.GET)
+    @RequestMapping(value = "student", method = RequestMethonline-web/src/main/webapp/web/js/school/course-details.jsod.GET)
     public ResponseObject offlineStudent(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10") int size,
                                          @RequestParam(required = false) Integer courseId) {
         Page<LineCourseApplyStudentVO> studentVOPage = new Page<>(page, size);

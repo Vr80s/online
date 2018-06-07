@@ -1,5 +1,6 @@
 package com.xczhihui.course.vo;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -7,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 /**
  * @author hejiwei
  */
-public class LineCourseApplyStudentVO {
+public class LineCourseApplyStudentVO implements Serializable {
 
     private String id;
 

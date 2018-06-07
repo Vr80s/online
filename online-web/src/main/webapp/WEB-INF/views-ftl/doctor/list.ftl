@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="/web/css/doctor_list.css"/>
     <link rel="stylesheet" href="/web/css/footer.css"/>
     <link rel="stylesheet" href="/web/font/iconfont.css"/>
+    <link rel="stylesheet" href="/web/css/ftl-page.css"/>
 
     <script src="/web/js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript" src="/web/js/artTemplate.js"></script>
