@@ -34,4 +34,10 @@
         var s = document.getElementsByTagName("script")[0];
         s.parentNode.insertBefore(hm, s);
     })();
+    //左侧导航栏点击添加缓存
+$(".gate li").click(function () {
+    var dataId = $(this).attr("data-id");
+    window.sessionStorage.aboutus = $(this).attr("data-id");
+    top.document.location.href = $(this).attr("data-url");
+});
 </script>
