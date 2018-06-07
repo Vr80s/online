@@ -215,6 +215,7 @@ ul {
 .slider-container .selector span.cur {
 	height: 8px;
 	background-color: #2cb82c;
+	border-radius: 50%;
 }
 
 .slider-container #left,
