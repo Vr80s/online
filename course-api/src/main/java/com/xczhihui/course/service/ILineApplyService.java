@@ -55,4 +55,13 @@ public interface ILineApplyService {
      * @return
      */
     boolean updateLearned(String id, boolean learned, String anchorId);
+
+    /**
+     * 查询课程的报名信息
+     *
+     * @param courseId 课程id
+     * @param userId 用户id
+     * @return
+     */
+    LineCourseApplyStudentVO findByCourseIdAndUserId(Integer courseId, String userId);
 }

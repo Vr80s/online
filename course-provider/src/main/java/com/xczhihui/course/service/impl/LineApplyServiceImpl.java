@@ -73,4 +73,9 @@ public class LineApplyServiceImpl implements ILineApplyService {
         }
         return false;
     }
+
+    @Override
+    public LineCourseApplyStudentVO findByCourseIdAndUserId(Integer courseId, String userId) {
+        return lineApplyMapper.findByCourseIdAndUserId(courseId, userId);
+    }
 }

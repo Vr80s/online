@@ -45,32 +45,34 @@
         <p class="z study-core">查看已购课程，<a href="/web/html/personal-center/personal-index.html">请前往学习中心</a></p>
         <p class="z class-list">继续寻找感兴趣的课程，<a href="/courses/recommendation">请前往学堂</a></p>
     </div>
+<#if applyInfo??>
     <!--判断线下课回显-->
     <div class="registration">
-				<div class="registration-title">报名信息</div>
-				<div class="registration-border"></div>
-				<div class="registration-name">
-					<div class="registration-compellation">姓名</div>
-					<div class="registration-show">测试</div>
-					<div class="both"></div>
-				</div>
-				<div class="registration-mobile">
-					<div class="registration-cell">手机号</div>
-					<div class="registration-number">150540545656</div>
-					<div class="both"></div>
-				</div>
-				<div class="registration-weixin">
-					<div class="registration-weix">微信号</div>
-					<div class="registration-wx">h150540545656</div>
-					<div class="both"></div>
-				</div>
-				<div class="registration-sex">
-					<div class="registration-sexs">性别</div>
-					<div class="registration-gender">男</div>
-					<div class="both"></div>
-				</div>
-				
-			</div>
+        <div class="registration-title">报名信息</div>
+        <div class="registration-border"></div>
+        <div class="registration-name">
+            <div class="registration-compellation">姓名</div>
+            <div class="registration-show">${applyInfo.realName}</div>
+            <div class="both"></div>
+        </div>
+        <div class="registration-mobile">
+            <div class="registration-cell">手机号</div>
+            <div class="registration-number">${applyInfo.mobile}</div>
+            <div class="both"></div>
+        </div>
+        <div class="registration-weixin">
+            <div class="registration-weix">微信号</div>
+            <div class="registration-wx">${applyInfo.wechatNo}</div>
+            <div class="both"></div>
+        </div>
+        <div class="registration-sex">
+            <div class="registration-sexs">性别</div>
+            <div class="registration-gender"><#if applyInfo.sex == 1>男<#else>女</#if></div>
+            <div class="both"></div>
+        </div>
+    </div>
+</#if>
+
     <!--猜你喜欢-->
     <div class="main-bottom">
         <h4 class="video-title">猜你喜欢</h4>
@@ -88,12 +90,13 @@
                     </p>
                     <p class="info clearfix">
                         <span>
-                            <span class="price"><#if course.currentPrice gt 0>${course.currentPrice}<span>熊猫币</span><#else >
+                            <span class="price"><#if course.currentPrice gt 0>${course.currentPrice}
+                                <span>熊猫币</span><#else >
                                 免费</#if></span>
                         </span>
                         <span class="stuCount">
                             <img src="/web/images/studentCount.png" alt="">
-                            <span class="studentCou">${course.learndCount}</span>
+                            <span class="studentCou">${course.learndCount!"0"}</span>
                         </span>
                     </p>
                 </div>

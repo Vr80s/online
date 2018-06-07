@@ -19,6 +19,7 @@ import com.xczhihui.course.exception.OrderException;
 import com.xczhihui.course.model.Course;
 import com.xczhihui.course.model.Order;
 import com.xczhihui.course.service.ICourseService;
+import com.xczhihui.course.service.ILineApplyService;
 import com.xczhihui.course.service.IOrderService;
 import com.xczhihui.medical.anchor.service.ICourseOrderService;
 import com.xczhihui.medical.anchor.vo.UserCoinIncreaseVO;
@@ -44,6 +45,8 @@ public class CourseOrderController extends AbstractController {
     private UserCoinService userCoinService;
     @Autowired
     private XmbBuyCouserService xmbBuyCouserService;
+    @Autowired
+    private ILineApplyService lineApplyService;
 
     @Value("${rate}")
     private Integer rate;
@@ -137,6 +140,7 @@ public class CourseOrderController extends AbstractController {
         modelAndView.addObject("courses", courses);
         modelAndView.addObject("balance", balance);
         Course course = courses.get(0);
+        modelAndView.addObject("applyInfo", lineApplyService.findByCourseIdAndUserId(course.getId(), getUserId()));
         modelAndView.addObject("recommendCourses", courseService.findByMenuIdExcludeId(course.getMenuId(), course.getId()));
         return modelAndView;
     }

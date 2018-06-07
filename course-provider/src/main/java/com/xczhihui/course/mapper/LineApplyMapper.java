@@ -66,4 +66,17 @@ public interface LineApplyMapper extends BaseMapper<LineApply> {
      */
     @Update({"update oe_line_apply set learned = #{learned} where id = #{id} and anchor_id = #{anchorId}"})
     int updateLearned(@Param("id") String id, @Param("learned") boolean learned, @Param("anchorId") String anchorId);
+
+    /**
+     * 用户的报名信息
+     *
+     * @param courseId 课程id
+     * @param userId   用户id
+     * @return
+     */
+    @Select({"SELECT la.real_name as realName, la.sex, la.mobile, la.wechat_no as wechatNo, la.learned, ac.create_time as createTime, la.id, oc.grade_name as courseName" +
+            " FROM oe_line_apply la join apply_r_grade_course ac on la.course_id = ac.course_id, oe_course oc" +
+            " WHERE oc.id = la.course_id AND la.`user_id` = #{userId} AND la.course_id = #{courseId}" +
+            " ORDER BY la.create_time desc limit 1"})
+    LineCourseApplyStudentVO findByCourseIdAndUserId(@Param("courseId") Integer courseId, @Param("userId") String userId);
 }
