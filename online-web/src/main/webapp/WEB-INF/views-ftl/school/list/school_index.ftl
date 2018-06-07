@@ -121,7 +121,7 @@
 			
 				<div class="wrap-anchor hide" >
 					<p>期待有志于传承和发展中医药的医师加入</p>
-					<span><a href="${webUrl}/web/html/want-anchor.html" target="_blank">成为主播</a></span>
+					<span><a href="${webUrl}/web/html/want-anchor.html" target="_blank" style="color: white;">成为主播</a></span>
 				</div>
 			
 			    
