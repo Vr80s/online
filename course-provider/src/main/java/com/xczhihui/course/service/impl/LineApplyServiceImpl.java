@@ -111,6 +111,4 @@ public class LineApplyServiceImpl extends ServiceImpl<LineApplyMapper,LineApply>
 	public static void main(String[] args) {
 		weixin("a45369975");
 	}
-	
-	
 }

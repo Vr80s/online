@@ -40,16 +40,15 @@
         getApply();
     });    
 
-/*function getQueryString(name){
-    var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
-    var r = window.location.search.substr(1).match(reg);
-    if (r!=null) return r[2]; return '';
-}*/
-var courseId = getQueryString('orderId');
-/*console.log("courseId");
-alert(courseId);*/
+
+var courseId = getQueryString('courseId');
+var orderId = getQueryString('orderId');
+/**
+ * 提交表单
+ * @returns
+ */
 $(".buttom").click(function(){
-        // var courseId = getQueryString('course_id');
+	
         var realName = $(".name input").val();
         var mobile = $(".tel input").val();
         if (!(/^1[345678]\d{9}$/.test(mobile))) {
@@ -62,14 +61,47 @@ $(".buttom").click(function(){
             webToast("微信号格式不正确","middle",1500);
             return false;
         }
-        // var sex = $(".sex .sex_show").html();
         var sex = "";
         if($(".sex_show").html()=='女'){
             sex = 0;
         }else if($(".sex_show").html()=='男'){
             sex = 1;
         }
-        requestService("/xczh/apply/add",{'realName':realName,"mobile":mobile,"wechatNo":wechatNo,"sex":sex},function(data) {
-             window.location.href = "purchase.html?orderId=" + courseId + "";
+        requestService("/xczh/apply/add",{
+        	'realName':realName,"mobile":mobile,
+        	"wechatNo":wechatNo,"sex":sex},
+        	function(data) {
+        		if(data.success){ //报名成功
+        			/**
+        			 * 判断这个课程是否是免费了
+        			 *  courseId
+        			 */
+        		   requestService("/xczh/course/userCurrentCourseStatus",{'courseId':courseId},function(data) {
+        			   if(data.success){ //报名成功
+        				   /**
+        				    * 免费的并且是没有学习的
+        				    */
+        				   if(data.watchState && data.learning == 0){
+
+        					    /*
+        					     * 添加学习信息 -->去猜你喜欢页面
+        					     */
+        				        requestService("/xczh/history/add", {courseId: courseId,recordType: 1
+	        			        }, function (data) {});
+        				        
+        				        window.location.href = "/xcview/html/buy_prosperity.html?courseId="+c.id;
+        				   }else{
+        					   /*
+        	        			 * 去购买页面
+        	        			 */
+        	        			window.location.href = "purchase.html?orderId=" + orderId + "";
+        				   }
+        			   }else{
+        				   webToast("课程信息有误","middle",1500);
+        			   }
+        		    })
+        		}else{
+        			webToast(data.errorMessage,"middle",1500);
+        		}
         });
 });

@@ -293,26 +293,21 @@ public class SchoolController extends AbstractFtlController {
      * @throws IOException
      */
     @RequestMapping(value = "{courseId}/{type}", method = RequestMethod.GET)
-    public ModelAndView info(HttpServletRequest req,
+    public ModelAndView info(HttpServletRequest req,HttpServletResponse res,
                              @PathVariable Integer courseId,
                              @PathVariable String type,
-                             HttpServletResponse res, @RequestParam(required = false) String userId,
+                             @RequestParam(required = false) String userId,
                              @RequestParam(required = false) Integer pageSize,
                              @RequestParam(required = false) Integer pageNumber) throws IOException {
 
 
         pageNumber = pageNumber == null ? 1 : pageNumber;
         pageSize = pageSize == null ? 2 : pageSize;
-
         ModelAndView view = new ModelAndView("school/course_details");
-
         //显示详情呢、大纲、评论、常见问题呢
         view.addObject("type", type);
 
-        //StringBuffer sb = new StringBuffer(webUrl+"/courses/list");
-
         view.addObject("webUrlParam", "/courses/" + courseId);
-
         //获取用户信息
         OnlineUser user = getCurrentUser();
         CourseLecturVo clv = courseService.selectCourseMiddleDetailsById(courseId);
@@ -338,6 +333,9 @@ public class SchoolController extends AbstractFtlController {
                 }
             }
         }
+        
+        
+        
         //如果是专辑获取专辑列表
         if (clv.getCollection()) {
             List<CourseLecturVo> courses = courseService.selectCoursesByCollectionId(clv.getId());
@@ -354,6 +352,7 @@ public class SchoolController extends AbstractFtlController {
         File f = new File(path + File.separator + "/course_common_problem.html");
         view.addObject("commonProblem", FileUtil.readAsString(f));
 
+        
         //课程评价
         Map<String, Object> map = null;
         if (courseId != null) {
@@ -361,7 +360,6 @@ public class SchoolController extends AbstractFtlController {
         } else {
             map = criticizeService.getAnchorCriticizes(new Page<>(pageNumber, pageSize), userId, user != null ? user.getId() : null);
         }
-
         view.addObject("criticizesMap", map);
 
         //查询各种平均值
@@ -373,7 +371,6 @@ public class SchoolController extends AbstractFtlController {
         page.setCurrent(0);
         page.setSize(2);
         view.addObject("recommendCourse", courseService.selectRecommendSortAndRandCourse(page));
-
         return view;
     }
 }
