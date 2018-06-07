@@ -30,6 +30,7 @@
     <script src="/web/js/ajax.js" type="text/javascript" charset="utf-8"></script>
     <script src="/web/js/header-top.js" type="text/javascript" charset="utf-8"></script>
 
+
 </head>
 <body>
 <!--提示-->
@@ -279,7 +280,7 @@
         </div>
     </div>
 </div>
-<#include "../footer.ftl">
+<!--<#include "../footer.ftl">-->
 </body>
 <script src="/web/js/jquery.pagination.js"></script>
 <script src="/web/js/placeHolder.js"></script>

@@ -301,6 +301,9 @@
     <dubbo:reference interface="com.xczhihui.course.service.IOfflineCityService" id="offlineCityServiceImpl"
                      timeout="${dubbo.consumer.timeout}"/>
 
+    <!--线下课报名信息 -->
+    <dubbo:reference interface="com.xczhihui.course.service.ILineApplyService" id="lineApplyServiceImpl"
+                     timeout="${dubbo.consumer.timeout}"/>
 
     <!--=============================================消费者end============================================-->
 

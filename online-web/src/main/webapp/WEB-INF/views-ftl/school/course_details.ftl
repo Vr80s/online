@@ -118,15 +118,15 @@
 						    <#if courseInfo.watchState == 2  && courseInfo.type == 4>
 								已报名
 							<#else>
-							           进入学习
+							           开始学习
 							<#--
 
-								<a href="/web/livepage/${courseInfo.id}"   target="_blank">进入学习 </a>
+								<a href="/web/livepage/${courseInfo.id}"   target="_blank">开始学习 </a>
 							<#elseif courseInfo.type == 1 || courseInfo.type == 2 >
 								<#if  courseInfo.collection>
-								  <a href="/web/html/ccvideo/liveVideoAlbum.html?collectionId=${courseInfo.id}&courseId=${collectionList[0].id}&ljxx=ljxx" target="_blank">进入学习 </a>
+								  <a href="/web/html/ccvideo/liveVideoAlbum.html?collectionId=${courseInfo.id}&courseId=${collectionList[0].id}&ljxx=ljxx" target="_blank">开始学习</a>
 								<#else>
-								  <a href="/web/html/ccvideo/video.html?courseId=${courseInfo.id}" target="_blank">进入学习 </a>
+								  <a href="/web/html/ccvideo/video.html?courseId=${courseInfo.id}" target="_blank">开始学习 </a>
 								</#if>			-->
 							</#if>
 						</button>
@@ -149,7 +149,6 @@
 					<div class="wrap-sidebar">
 						<ul>
 						<#-- tab的显示，这个就当做专辑页面来写   -->
-
 
 						<#if  courseInfo.collection> <#-- 专辑tab显示    -->
 							<#if courseInfo.watchState = 1 || courseInfo.watchState = 2> <#-- 免费或已购买  -->
@@ -202,9 +201,17 @@
 						</div>
 						<div class="author-content">
 							<div class="author-text">
-							    
-						     ${courseInfo.lecturerDescription?default('暂无主讲人信息')}							    
-							   
+							 <#if courseInfo.lecturerDescription??> 
+								    ${courseInfo.lecturerDescription}	
+							 <#else>
+							     <!--无数据时显示背景图-->
+								 <div class="all-null course-null">
+								 	<div class="null-img">
+								 		<img src="/web/images/icon-nodata.png"/>
+								 	</div>
+								 	<p>暂无数据</p>
+								 </div> 
+							 </#if>   
                     </div>
                 </div>
                 <div class="author-introduce" style="margin-top: 30px;">
@@ -212,7 +219,19 @@
                 </div>
                 <div class="author-content">
                     <div class="class-text">
-							${courseInfo.description?default('暂无课程介绍')}							    
+							
+							<#if courseInfo.description??> 
+								    ${courseInfo.description}	
+							 <#else>
+							     <!--无数据时显示背景图-->
+								 <div class="all-null course-null">
+								 	<div class="null-img">
+								 		<img src="/web/images/icon-nodata.png"/>
+								 	</div>
+								 	<p>暂无数据</p>
+								 </div> 
+							 </#if>   
+													    
 							</div>
 						</div>
 					</div>
@@ -223,12 +242,34 @@
 					</div>
 		<!--评价-->
 					<div class="sidebar-content hide">
-							<#include "common/comment.ftl">
+						 
+						 <#if courseInfo.criticizeCount gt 0> 
+						    <#include "common/comment.ftl">
+						 <#else>
+						     <!--无数据时显示背景图-->
+							 <div class="all-null course-null">
+							 	<div class="null-img">
+							 		<img src="/web/images/icon-nodata.png"/>
+							 	</div>
+							 	<p>暂无数据</p>
+							 </div> 
+						 </#if> 
+						  
 					</div>
 		<!--常见问题-->
 					<div class="sidebar-content hide">
 						<ul class="often-problem">
-							${commonProblem?default('暂无常见问题')}
+							<#if courseInfo.description??> 
+								    ${commonProblem}	
+							 <#else>
+							     <!--无数据时显示背景图-->
+								 <div class="all-null course-null">
+								 	<div class="null-img">
+								 		<img src="/web/images/icon-nodata.png"/>
+								 	</div>
+								 	<p>暂无数据</p>
+								 </div> 
+							 </#if>   
 						</ul>
 					</div>
 				</div>

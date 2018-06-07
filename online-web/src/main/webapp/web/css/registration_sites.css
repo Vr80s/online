@@ -1,4 +1,4 @@
-body{
+			body{
 	background: #F8F8F8;
 }
 .both{
@@ -88,7 +88,7 @@ body{
     color: #F97B49;
 }
 .tel .tels{
-	width: 33px;
+	width: 47px;
     float: left;
     margin-right: 20px;
     text-align: right;
@@ -116,7 +116,7 @@ body{
     color: #F97B49;
 }
 .weixin .weixins{
-	width: 33px;
+	width: 47px;
     float: left;
     margin-right: 20px;
     text-align: right;
@@ -171,4 +171,5 @@ body{
     font-size: 14px;
     color: #FFFFFF;
     margin-left: 148px;
+    cursor: pointer;
 }

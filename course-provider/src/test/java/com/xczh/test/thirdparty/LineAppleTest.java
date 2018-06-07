@@ -36,12 +36,4 @@ public class LineAppleTest extends BaseJunit4Test {
 		lineApply.setWechatNo("www45399975");
 		lineApplyServiceImpl.saveOrUpdate("123", lineApply);
     }
-	
-	
-	@Test
-    public void selectLineApply(){
-		LineApply lineApply  = lineApplyServiceImpl.findLineApplyByUserId("123");
-		System.out.println(lineApply.toString());
-    }
-
 }
