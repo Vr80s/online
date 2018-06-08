@@ -321,8 +321,9 @@ $(function () {
                 localStorage.myStudyCenter = "1";
                 $('#login').modal('show');
             } else {
-//              window.location.href = "/web/html/myStudyCenter.html";
-                window.open("/web/html/personal-center/personal-index.html");
+                location.href = "/web/html/personal-center/personal-index.html";
+//              window.open("/web/html/personal-center/personal-index.html");
+//              setTimeout('window.open("/web/html/personal-center/personal-index.html");', 500);
             }
         })
     });
@@ -355,9 +356,9 @@ $(function () {
                 $("#login").modal("show");
             } else {
                 window.localStorage.personcenter = $(this).attr("data-id");
-//              window.location.href = "/web/html/personcenter.html";
+               	location.href = "/web/html/personal-center/personal-index.html#menu6";
 //				window.open("/web/html/personcenter.html")
-				window.open("/web/html/personal-center/personal-index.html#menu6");
+//				window.open("/web/html/personal-center/personal-index.html#menu6");
 							$("#accordion .link[data-menu='menu6']").click();
             }
         })
@@ -642,7 +643,7 @@ $(function () {
                     var myStudent = window.localStorage.myStudyCenter;
 
                     if (myStudent == 1) {
-                        window.location.href = "/web/html/myStudyCenter.html";
+                        window.location.href = "/web/html/personal-center/personal-index.html";
                         window.localStorage.myStudyCenter = null;
                     }
                     /*
