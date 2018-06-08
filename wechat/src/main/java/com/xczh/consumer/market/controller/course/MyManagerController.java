@@ -172,7 +172,7 @@ public class MyManagerController {
         }
         page.setCurrent(pageNumber);
         page.setSize(pageSize);
-        return ResponseObject.newSuccessResponseObject(courseService.selectMyFreeCourseList(page, accountId));
+        return ResponseObject.newSuccessResponseObject(courseService.selectMyPurchasedCourseList(page, accountId));
     }
 
     /**

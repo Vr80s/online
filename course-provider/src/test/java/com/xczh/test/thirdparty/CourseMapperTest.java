@@ -28,9 +28,9 @@ public class CourseMapperTest extends BaseJunit4Test {
 		//return ResponseObject.newSuccessResponseObject(courseService.selectMyFreeCourseList(page, user.getUserId()));
 		
 	//	Page<CourseLecturVo>
-		List<CourseLecturVo> list  =courseMapper.selectMyFreeCourseList(page,"9cfa53e6cea044e3b4279a86bc3b382c");
-		
-		System.out.println(list.size());
+//		List<CourseLecturVo> list  =courseMapper.selectMyFreeCourseList(page,"9cfa53e6cea044e3b4279a86bc3b382c");
+//
+//		System.out.println(list.size());
 	}
 	
 

@@ -2,6 +2,10 @@ package com.xczhihui.order.service;
 
 import java.util.List;
 
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.order.vo.OrderVo;
 
@@ -19,4 +23,5 @@ public interface OrderService {
 
 	public List getOrderPreferenty(String orderNo);
 
+    String createOrder(OnlineUser onlineUser, String courseId, Double coursePrice, String orderForm);
 }

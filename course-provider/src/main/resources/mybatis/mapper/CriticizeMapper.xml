@@ -76,6 +76,7 @@
 		where argc.is_delete = 0
 		  and argc.course_id = #{courseId}
 		  and argc.user_id = #{userId}
+		  AND argc.`validity`>NOW()
 	</select>
 	<select id="hasCriticizeScore" resultType="integer">
 		SELECT

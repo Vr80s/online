@@ -129,9 +129,6 @@ public class UserCourseController extends AbstractController{
     public ResponseObject getHostInfoById(HttpServletRequest request,Integer pageNumber, Integer pageSize,Integer type) {
         try {
             OnlineUser u =  getCurrentUser();
-            if(u==null) {
-                return ResponseObject.newErrorResponseObject("用户未登录");
-            }
             String myCourseType = MyCourseType.getTypeText(type);
             if(myCourseType == null) {
                 return ResponseObject.newErrorResponseObject("我的课程类型有误："+MyCourseType.getAllToString());
@@ -152,7 +149,7 @@ public class UserCourseController extends AbstractController{
      * @return ResponseObject
      * @author wangyishuai
      **/
-    @RequestMapping(value = "/freeCourseList")
+    @RequestMapping(value = "/purchasedCourseList")
     @ResponseBody
     public ResponseObject freeCourseList(HttpServletRequest request,Integer pageNumber, Integer pageSize) {
         try {
@@ -160,10 +157,7 @@ public class UserCourseController extends AbstractController{
             page.setCurrent(pageNumber);
             page.setSize(pageSize);
             OnlineUser u =  getCurrentUser();
-            if(u==null) {
-                return ResponseObject.newErrorResponseObject("用户未登录");
-            }
-            com.baomidou.mybatisplus.plugins.Page<CourseLecturVo> list=courseServiceImpl.selectMyFreeCourseList(page, u.getId());
+            com.baomidou.mybatisplus.plugins.Page<CourseLecturVo> list=courseServiceImpl.selectMyPurchasedCourseList(page, u.getId());
             return ResponseObject.newSuccessResponseObject(list);
         } catch (Exception e) {
             e.printStackTrace();
