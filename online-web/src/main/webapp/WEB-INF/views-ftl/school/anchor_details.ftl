@@ -17,6 +17,8 @@
 		<!--公共头部和底部样式结束-->
 			<link href="/web/bootstrap-select/bootstrap.min.css" rel="stylesheet">
 			<link rel="stylesheet" href="/web/css/mylogin.css"/>
+			 <!--字体图标样式-->
+   			 <link rel="stylesheet" href="/web/fonts/style.css"/>
 			<!--分页样式-->
 			<link rel="stylesheet" href="/web/css/ftl-page.css"/>
 			<!--分页样式-->
