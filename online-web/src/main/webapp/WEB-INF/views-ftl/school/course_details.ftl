@@ -209,14 +209,14 @@
                 <div class="author-content">
                     <div class="author-text">
                     <#if courseInfo.lecturerDescription??>
-                    ${courseInfo.lecturerDescription}
+                    	${courseInfo.lecturerDescription}
                     <#else>
                         <!--无数据时显示背景图-->
                         <div class="all-null course-null">
                             <div class="null-img">
                                 <img src="/web/images/icon-nodata.png"/>
                             </div>
-                            <p>暂无数据</p>
+                            <p>暂无主讲人介绍</p>
                         </div>
                     </#if>
                     </div>

@@ -98,7 +98,7 @@
 								 	<div class="null-img">
 								 		<img src="/web/images/icon-nodata.png"/>
 								 	</div>
-								 	<p>暂无数据</p>
+								 	<p>暂无主讲人介绍</p>
 								 </div> 
 							 </#if> 
 
