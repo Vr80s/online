@@ -5,8 +5,13 @@
 <#if courseList?? && courseList.records?size gt 0>
     <#list courseList.records as courseItem>
        <div class="course clearfix">
-			<img style="position:absolute;width: 16%;top:-2px;left:-2px;z-index:999" src="/web/images/recommend2.png">
-			    <#if courseItem.type == 1 ||  courseItem.type == 2 ||  courseItem.type == 4 > 
+			
+				<#if courseItem.recommendSort?? &&  courseItem.recommendSort gt 0>	
+					<img style="position:absolute;width: 16%;top:-2px;left:-2px;z-index:999" 
+								src="/web/images/recommend2.png">
+				</#if> 
+			    
+				<#if courseItem.type == 1 ||  courseItem.type == 2 ||  courseItem.type == 4 > 
 			 		    <a style="cursor:pointer" href="/courses/${courseItem.id}/info" target="_blank">
 				<#elseif courseItem.type == 3>
 			            <a style="cursor:pointer" href="/web/liveCoursePage/${courseItem.id}" target="_blank">

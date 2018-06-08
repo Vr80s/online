@@ -341,11 +341,8 @@
 				
 				<!--名医部分-->
 				<#if doctorCourseList?size gt 0>	
-				
 				<div class="famousDocter">
-
 					<div class="right_title"><span class="title">名医</span></div>
-
 					<ul>
 					    <#list doctorCourseList as doctor>
 							<li class="doctorInfTpl clearfix">
@@ -364,7 +361,7 @@
 									  ${doctor.province?default('')}&nbsp;${doctor.city?default('')}
 									 </span></span>
 									 <#if doctor.gradeName??>
-									 	<p>课程：${doctor.gradeName?default('暂无')}</p>
+									 	<p>课程：${doctor.gradeName?default('')}</p>
 									 </#if>
 								</div>
 							</li>
@@ -393,9 +390,10 @@
 									</a>
 								</div>
 								<div class="zuozhe_inf">
-									<span><a  href="/doctors/${hotSpecialColumnAuthor.doctorId}" style="color: #0C0C0C" 
-									target="_blank">${hotSpecialColumnAuthor.doctorName}</a></span>
-									<p>${hotSpecialColumnAuthor.title}</p>
+									<span>
+									<a  href="/doctors/${hotSpecialColumnAuthor.doctorId}" style="color: #0C0C0C" 
+									target="_blank">${hotSpecialColumnAuthor.title}</a></span>
+									<p>${hotSpecialColumnAuthor.doctorName}</p>
 								</div>
 							</li>
 						    </#list>	

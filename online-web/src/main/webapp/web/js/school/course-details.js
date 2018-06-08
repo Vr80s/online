@@ -189,6 +189,7 @@ $(function () {
             progressBar = 100;
         }
         $(".progress-bar-success").css("width", progressBar + "%");
+        $(".progress").show();
     } else if (recordingList != null) {				//专辑
         var key = loginUserId + courseId;
         if (recordingList != null || recordingList != undefined) {
@@ -241,7 +242,5 @@ $(function () {
                 $this.css("-webkit-transform", "rotate(" + (18 / 5) * percent + "deg)");
             })
         }
-    }else{
-    	$(".progress").hide();
     }
 });

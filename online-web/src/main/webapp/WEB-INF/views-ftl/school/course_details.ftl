@@ -33,7 +33,8 @@
         <div class="left-cover z">
             <img src="${courseInfo.smallImgPath}"/>
             <div class="progress"
-                 style="position: absolute;bottom: 0;left: 0;width: 100%;margin-bottom: 0;height: 14px;">
+                 style="position: absolute;bottom: 0;left: 0;width: 100%;
+                 	margin-bottom: 0;height: 14px;display:none">
                 <div class="progress-bar progress-bar-success" role="progressbar"
                      aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
                      style="background: #00BC12;">
@@ -46,7 +47,7 @@
             <p class="subtitle">${courseInfo.subtitle?default('')}</p>
             <ul class="author-inf">
                 <li>
-                    <span><a href="${webUrl}/anchors/${courseInfo.userLecturerId}/info" 
+                    <span><a style="color:#999999" href="${webUrl}/anchors/${courseInfo.userLecturerId}/info" 
                     		target="_blank">主讲人：${courseInfo.name}</a></span>
                 </li>
                 <li class="grade">
