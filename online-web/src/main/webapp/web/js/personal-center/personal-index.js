@@ -1113,7 +1113,7 @@ function showMoneText(){
                     if ($(this).height() > 40) {
                         $(this).attr("data-txt", $(this).attr("data-text"));
                         $(this).height(40);
-                        $(this).append('<span class="qq" style="margin-right:60px"> <a class="toggle" href="###" style="color:#2cb82c"><span class="opens">显示全部</span><span class="closes">收起</span></a></span>');
+                        $(this).append('<span class="qq" style="margin-right:60px"> <a class="toggle" href="###" style="color:#2cb82c"><span class="opens">阅读全文<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></span><span class="closes">收起<span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span></span></a></span>');
                     }
                     var $dot4 = $(this);
 

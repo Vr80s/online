@@ -577,7 +577,7 @@ overflow: hidden;
 .time-status ul li .icon-set{
 	    font-size: 12px;
     float: left;
-    margin-top: 4px;
+    margin-top: 1px;
     margin-right: 5px;
 }
 /*回复的内容/点赞*/
@@ -620,7 +620,7 @@ overflow: hidden;
 .reply-user-text ul li i{
 	color: #bcbcbc;
     vertical-align: middle;
-    margin-top: 3px;
+    margin-top: 0px;
     float: left;
     margin-right: 5px;
     cursor: pointer;
