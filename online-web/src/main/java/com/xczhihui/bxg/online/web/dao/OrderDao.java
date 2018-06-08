@@ -46,7 +46,7 @@ public class OrderDao extends SimpleHibernateDao {
         paramMap.put("orderStatus", orderStatus);
         StringBuffer  strBf=new StringBuffer();
         strBf.append(" select o.id,o.order_no,o.preferenty_money,o.actual_pay,o.purchaser,o.order_status,o.create_time,( actual_pay+preferenty_money) as original_cost");
-        strBf.append(" from oe_order o  where  o.user_id=:userId");
+        strBf.append(" from oe_order o  where  o.user_id=:userId and is_delete = 0");
         //订单状态不等于空，说明需要更具订单状态和时间段进行搜索
         if(orderStatus != null && orderStatus !=-1) {
             strBf.append(" and  o.order_status =:orderStatus ");
