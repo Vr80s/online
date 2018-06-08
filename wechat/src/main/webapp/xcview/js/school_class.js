@@ -296,14 +296,26 @@ function btn_zj_mianfei() {
     
     
     if (data_zj == 0) {   //  付费的
-    		
         requestService("/xczh/order/save", {
             courseId: courseId,
             orderFrom: 2
         }, function (data) {
-//            window.location.href = "purchase.html?orderId=" + data.resultObject.orderId + "";
-        	if(data.success){
-        		window.location.href = "line_class.html?orderId=" + data.resultObject.orderId+"&courseId="+courseId;
+        	
+        	var orderId = data.resultObject.orderId;
+        	if(data.success){  
+        		 //查看是否存在报名信息
+        		requestGetService("/xczh/apply/applyInfo", {
+            		 courseId: courseId
+                 }, function (data) {
+                	var obj =  data.resultObject;
+                 	if(data.success ){
+                 		if(!obj.submitted){
+                 			window.location.href = "line_class.html?orderId=" + orderId+"&courseId="+courseId;
+                 		}else{
+                            window.location.href = "purchase.html?orderId=" + orderId;
+                 		}
+             		}
+                 });
     		}else{
     			webToast(data.errorMessage,"middle",1500);
     		}
@@ -313,7 +325,7 @@ function btn_zj_mianfei() {
     	 * 判断是否填写了报名信息
     	 * @returns
     	 */
-    	 requestService("/xczh/apply/applyInfo", {
+    	requestGetService("/xczh/apply/applyInfo", {
     		 courseId: courseId
          }, function (data) {
         	var obj =  data.resultObject;
@@ -337,7 +349,7 @@ function btn_zj_mianfei() {
     	
     	window.location.href = "line_class.html?&courseId="+courseId;
     } else if (data_zj == 2) {  // 已购买或者免费的报过名的
-    	window.location.href = "xcview/html/live_class.html?my_study="+courseId;
+    	window.location.href = "/xcview/html/live_class.html?my_study="+courseId;
        return;
     }
 

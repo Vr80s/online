@@ -27,6 +27,8 @@ public class LineCourseApplyStudentVO implements Serializable {
 
     private String realName;
 
+    private String anchorName;
+
     public String getId() {
         return id;
     }
@@ -89,6 +91,14 @@ public class LineCourseApplyStudentVO implements Serializable {
 
     public void setRealName(String realName) {
         this.realName = realName;
+    }
+
+    public String getAnchorName() {
+        return anchorName;
+    }
+
+    public void setAnchorName(String anchorName) {
+        this.anchorName = anchorName;
     }
 
     @Override

@@ -89,6 +89,16 @@ public class WatchHistoryServiceImpl extends ServiceImpl<WatchHistoryMapper, Wat
                 this.addLearnRecord(courseId, userId);
             }
         } else if (recordType == 2) {
+        	
+        	if(collectionId!=null) {  //如果是专辑，并且存在的话，做更新操作
+        		WatchHistory wh = watchHistoryMapper.findWatchHistoryByUserIdAndCollectionId(userId,collectionId);
+        		if(wh!=null) {
+        			wh.setCourseId(courseId);
+        			wh.setCreateTime(new Date());
+        			watchHistoryMapper.updateById(wh);
+        			return;
+        		}
+        	}
             //更新观看记录
             this.addWatchHistory(courseId,userId,course.getUserLecturerId(),collectionId);
         }

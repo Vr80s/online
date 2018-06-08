@@ -259,17 +259,7 @@
             </div>
             <!--评价-->
             <div class="sidebar-content hide">
-            <#if courseInfo.criticizeCount gt 0>
-                <#include "common/comment.ftl">
-            <#else>
-                <!--无数据时显示背景图-->
-                <div class="all-null course-null">
-                    <div class="null-img">
-                        <img src="/web/images/icon-nodata.png"/>
-                    </div>
-                    <p>暂无数据</p>
-                </div>
-            </#if>
+            	 <#include "common/comment.ftl">
             </div>
             <!--常见问题-->
             <div class="sidebar-content hide">

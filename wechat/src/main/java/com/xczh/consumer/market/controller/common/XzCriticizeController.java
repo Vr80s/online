@@ -60,6 +60,8 @@ public class XzCriticizeController {
 //			List<Integer> list  = criticizeService.selectMobileCourseCommentMeanCount(courseId);
 //			map.put("labelCountList", list);
         } else {
+        	
+        	
             map = criticizeService.getAnchorCriticizes(new Page<>(pageNumber, pageSize), userId, accountIdOpt.orElse(null));
 //			List<Integer> list  =  criticizeService.selectMobileUserCommentMeanCount(userId);
 //			map.put("labelCountList", list);

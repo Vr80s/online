@@ -1,7 +1,7 @@
 <#assign defaultDoctorHeadImg="/web/images/defaultHead/18.png"/>
 <div class="header_body">
     <div class="header_right"><a href="/index"><img
-            src="/web/images/pandaLogo.jpg" alt="" width="206" height="50" style="float:left"></a>
+            src="/web/images/logos.png" alt="logo" style="float:left"></a>
     </div>
     <div class="header_left">
         <div class="path" style="width:95%">

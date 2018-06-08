@@ -51,10 +51,6 @@
 
 <#-- 发表评论弹窗结束 -->
 
-
-
-
-
 <div class="impression-content">
     <ul class="impression-list">
         <li>
@@ -81,7 +77,10 @@
 </div>
 <div class="wrap-comment">
 
-<#list criticizesMap.items as criticizesItem>
+
+<#if courseInfo.criticizeCount gt 0>
+           
+     <#list criticizesMap.items as criticizesItem>
     <!--一个完整的评论内容-->
     <div class="container-comment">
         <div class="wrap-portrait z">
@@ -151,7 +150,7 @@
                 <span class="praiseSum">${criticizesItem.praiseSum}</span>
             </li>
                 <li class="reply-icon">
-                    <i class="icomoon-icon-huifu"></i>
+                    <i class="icomoon-icon-ziliao"></i>
                 </li>
             </ul>
             <!--回复点赞按钮  结束-->
@@ -177,7 +176,17 @@
     </div>
 
     <!--一个完整的评论内容结束-->
-</#list>
+</#list>      
+               
+<#else>
+    <!--无数据时显示背景图-->
+    <div class="all-null course-null">
+        <div class="null-img">
+            <img src="/web/images/icon-nodata.png"/>
+        </div>
+        <p>暂无数据</p>
+    </div>
+</#if>
 
 
 </div>

@@ -20,13 +20,14 @@ var	smallImgPath = "https://file.ipandatcm.com/data/picture/online/2017/12/18/15
 var	description = "零基础也能学中医！许多学员推荐“古籍经典”系列以及【小宝中医带你快速入门学针灸】课程作为他们的入门必备。";
 
 var userId= "";
+
 /**
  * 增加学习记录
  */
 RequestService("/learnWatch/add", "POST", {
 	courseId:collectionId,recordType:1
 }, function(data) {
-	console.log("添加观看记录");
+	console.log("增加学习记录");
 },false);
 
 
