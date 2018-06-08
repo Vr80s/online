@@ -176,6 +176,7 @@ $(function () {
      */
     var key = loginUserId + courseId;
     var recordingList = localStorage.getItem(key);
+    
     /**
      * 播放进度条
      */
@@ -190,7 +191,6 @@ $(function () {
         $(".progress-bar-success").css("width", progressBar + "%");
     } else if (recordingList != null) {				//专辑
         var key = loginUserId + courseId;
-
         if (recordingList != null || recordingList != undefined) {
             var re = new RegExp("%", "i");
             var fristArr = recordingList.split(re);
@@ -241,7 +241,7 @@ $(function () {
                 $this.css("-webkit-transform", "rotate(" + (18 / 5) * percent + "deg)");
             })
         }
+    }else{
+    	$(".progress").hide();
     }
-
-
 });

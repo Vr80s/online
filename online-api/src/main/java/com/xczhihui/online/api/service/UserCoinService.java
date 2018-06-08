@@ -92,13 +92,6 @@ public interface UserCoinService {
 	 **/
     public void updateBalanceForCourses(List<OrderVo> orderVos);
 
-    /**
-	 * Description：打赏主播余额增加
-	 * @return void
-	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
-	 **/
-	public void updateBalanceForReward(Object rs)throws Exception;
-
 
 	public boolean checkRechargeOrder(String orderNo);
 

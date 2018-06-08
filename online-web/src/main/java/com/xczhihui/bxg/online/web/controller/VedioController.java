@@ -96,10 +96,7 @@ public class VedioController extends AbstractController{
 		
 		//获取登录用户     -- 判断是否登录
 		BxgUser loginUser = UserLoginUtil.getLoginUser();
-		if(loginUser==null) {
-			return ResponseObject.newErrorResponseObject("请先登录");
-		}
-		
+
 		CourseLecturVo cv = null;
 		if(collectionId!=null && collectionId!=0) {
 			 cv = courseServiceImpl.selectUserCurrentCourseStatus(collectionId,loginUser.getId());

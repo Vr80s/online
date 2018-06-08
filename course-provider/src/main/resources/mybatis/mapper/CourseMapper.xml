@@ -211,7 +211,7 @@
 			'我的课程' as note
 			FROM
 				oe_course as oc
-				inner join apply_r_grade_course argc on oc.`id`=argc.`course_id`
+				inner join apply_r_grade_course argc on oc.`id`=argc.`course_id` AND argc.`validity`>NOW()
 			where
 				argc.user_id=#{userId}
 				and oc.is_delete=0 group by oc.id order by
@@ -226,7 +226,7 @@
 			'已结束课程' as note
 			FROM
 				oe_course as oc
-				inner join apply_r_grade_course argc on oc.`id`=argc.`course_id`
+				inner join apply_r_grade_course argc on oc.`id`=argc.`course_id` AND argc.`validity`>NOW()
 				where
 			   ( oc.type = 3 and  now() >= oc.end_time  and argc.user_id=#{userId}  and  oc.is_delete=0 ) or 
 		       ( oc.type = 1 and oc.live_status = 3  and argc.user_id=#{userId}  and  oc.is_delete=0 )
@@ -241,20 +241,20 @@
 		count(*)
 		FROM
 		oe_course as oc
-		inner join apply_r_grade_course argc on oc.`id`=argc.`course_id`
+		inner join apply_r_grade_course argc on oc.`id`=argc.`course_id` AND argc.`validity`>NOW()
 		where argc.user_id=#{userId}
 		and oc.is_delete=0  and oc.is_free = 0
 	</select>
 	
 	
 	<!-- 得到已经购买的课程排序 -->
-	<select id="selectMyFreeCourseList" resultType="com.xczhihui.course.vo.CourseLecturVo">
+	<select id="selectMyPurchasedCourseList" resultType="com.xczhihui.course.vo.CourseLecturVo">
 		SELECT
            <include refid="relLearningCourseListByUserId"/>
 		   DATE_FORMAT(oc.start_time,'%Y-%m-%d %H:%i') as startDateStr
 		FROM
 			oe_course as oc
-			inner join apply_r_grade_course argc on oc.`id`=argc.`course_id`
+			inner join apply_r_grade_course argc on oc.`id`=argc.`course_id` AND argc.`validity`>NOW()
 			where argc.user_id=#{userId}
 			and oc.is_delete=0 and oc.is_free = 0 group by oc.id
 			order by argc.create_time desc
@@ -472,7 +472,7 @@
 		    SELECT
 			  <include refid="relCurrentCourseStatus"/>
 				if(oc.is_free =0, if((select count(*) from apply_r_grade_course as args 
-      			   where  args.course_id = oc.id  and  args.user_id = #{userId} 
+      			   where  args.course_id = oc.id  and  args.user_id = #{userId} AND args.`validity`>NOW()
       			   and args.is_delete=0 ) >0 ,2, 0),1)as watchState
 			FROM
 				oe_course as oc
@@ -516,7 +516,7 @@
 			'学习中心' as note
 		FROM
 			oe_course as oc
-			inner join apply_r_grade_course argc on oc.`id`=argc.`course_id`
+			inner join apply_r_grade_course argc on oc.`id`=argc.`course_id`  AND argc.`validity`>NOW()
 		where
 		<if test="type != null and type == 1">
 			argc.user_id=#{userId}

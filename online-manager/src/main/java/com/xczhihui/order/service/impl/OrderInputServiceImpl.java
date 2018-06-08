@@ -1,21 +1,10 @@
 package com.xczhihui.order.service.impl;
 
-import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
-import com.xczhihui.bxg.online.common.domain.Course;
-import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.common.support.dao.SimpleHibernateDao;
-import com.xczhihui.common.util.IStringUtil;
-import com.xczhihui.common.util.OrderNoUtil;
-import com.xczhihui.common.util.bean.Page;
-import com.xczhihui.common.util.enums.Payment;
-import com.xczhihui.common.util.enums.UserOrigin;
-import com.xczhihui.course.dao.CourseDao;
-import com.xczhihui.online.api.service.UserCoinService;
-import com.xczhihui.online.api.vo.OrderVo;
-import com.xczhihui.order.service.OrderInputService;
-import com.xczhihui.order.vo.OrderInputVo;
-import com.xczhihui.user.center.service.UserCenterService;
-import com.xczhihui.user.service.OnlineUserService;
+import java.util.*;
+import java.util.regex.Pattern;
+
+import javax.annotation.Resource;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +12,21 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import javax.annotation.Resource;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.regex.Pattern;
+import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
+import com.xczhihui.bxg.online.common.domain.OnlineUser;
+import com.xczhihui.common.support.dao.SimpleHibernateDao;
+import com.xczhihui.common.util.IStringUtil;
+import com.xczhihui.common.util.bean.Page;
+import com.xczhihui.common.util.enums.Payment;
+import com.xczhihui.common.util.enums.UserOrigin;
+import com.xczhihui.online.api.service.OrderPayService;
+import com.xczhihui.online.api.service.UserCoinService;
+import com.xczhihui.online.api.vo.OrderVo;
+import com.xczhihui.order.service.OrderInputService;
+import com.xczhihui.order.service.OrderService;
+import com.xczhihui.order.vo.OrderInputVo;
+import com.xczhihui.user.center.service.UserCenterService;
+import com.xczhihui.user.service.OnlineUserService;
 
 
 /**
@@ -37,8 +35,7 @@ import java.util.regex.Pattern;
  * @author Haicheng Jiang
  */
 @Service
-public class OrderInputServiceImpl extends OnlineBaseServiceImpl implements
-		OrderInputService {
+public class OrderInputServiceImpl extends OnlineBaseServiceImpl implements OrderInputService {
 
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -46,7 +43,9 @@ public class OrderInputServiceImpl extends OnlineBaseServiceImpl implements
 	private SimpleHibernateDao dao;
 
 	@Autowired
-	private CourseDao courseDao;
+	private OrderPayService orderPayServiceImpl;
+	@Autowired
+	private OrderService orderServiceImpl;
 	@Autowired
 	UserCoinService userCoinService;
 	@Autowired
@@ -57,8 +56,18 @@ public class OrderInputServiceImpl extends OnlineBaseServiceImpl implements
 	@Override
 	public Page<OrderInputVo> findOrderInputPage(OrderInputVo orderVo,
 			Integer pageNumber, Integer pageSize) {
-		String sql = "select t1.course_name,t1.login_name,t1.actual_pay,t1.create_time,t2.`name` as create_person "
-				+ " from oe_order_input t1,`user` t2 where t1.create_person=t2.id ";
+		String sql = "SELECT \n" +
+				"  t1.id, t1.course_name, t1.login_name, t1.actual_pay, t1.create_time, t2.`name` AS create_person , argc.`validity`,t1.order_from \n" +
+				"FROM\n" +
+				"  oe_order_input t1 JOIN\n" +
+				"  `user` t2 \n" +
+				"ON t1.create_person = t2.id \n" +
+				"LEFT JOIN `oe_order` oo\n" +
+				"ON t1.`id` = oo.`pay_account`\n" +
+				"LEFT JOIN `oe_order_detail` ood\n" +
+				"ON oo.id=ood.`order_id`\n" +
+				"LEFT JOIN `apply_r_grade_course` argc\n" +
+				"ON argc.`order_no` = ood.id ";
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		if (orderVo.getCreate_time_start() != null) {
 			sql += " and t1.create_time >= :create_time_start ";
@@ -118,17 +127,18 @@ public class OrderInputServiceImpl extends OnlineBaseServiceImpl implements
 		//检验该用户是否已经购买过该课程
 		hasCourse(userId, courseId,user.getLoginName());
 		Integer orderFrom = vo.getOrder_from();
-		String orderNo = createOrder(user,courseId,coursePrice, orderFrom.toString());
+		String orderNo = orderServiceImpl.createOrder(user,courseId,coursePrice, orderFrom.toString());
 		//保存订单导入记录
 		String orderInputId = saveOrderInput(user, courseId, coursePrice, vo.getCreate_person(), orderFrom);
 
-		logger.info("用户" + vo.getLogin_name() + "购买" + courseId + "成功");
 		// 执行支付成功方法
-		addPaySuccess(orderNo, Payment.OFFLINE, orderInputId);
+		orderPayServiceImpl.addPaySuccess(orderNo, Payment.OFFLINE, orderInputId);
+		logger.info("用户" + vo.getLogin_name() + "购买" + courseId + "成功");
 		return orderNo;
 	}
 
-	private String saveOrderInput(OnlineUser user, String courseId, Double coursePrice, String createPerson, Integer orderFrom) {
+	@Override
+	public String saveOrderInput(OnlineUser user, String courseId, Double coursePrice, String createPerson, Integer orderFrom) {
 		String courseName = getCourseName(courseId);
 		// 写入记录
 		String uuid = IStringUtil.getUuid();
@@ -153,47 +163,6 @@ public class OrderInputServiceImpl extends OnlineBaseServiceImpl implements
 		return uuid;
 	}
 
-	private String createOrder(OnlineUser onlineUser,String courseId,Double coursePrice,String orderForm) {
-		String orderNo = OrderNoUtil.getCourseOrderNo();
-		// 写订单主表
-		String id = IStringUtil.getUuid();
-		String did = IStringUtil.getUuid();
-		String sql = "insert into oe_order (id,create_person,order_no, actual_pay,purchaser,order_status,user_id,order_from) "
-				+ " values ('"
-				+ id
-				+ "','"
-				+ onlineUser.getLoginName()
-				+ "',"
-				+ "'"
-				+ orderNo
-				+ "',"
-				+ coursePrice
-				+ ",'"
-				+ onlineUser.getName()
-				+ "',0,'"
-				+ onlineUser.getId()
-				+ "',"
-				+ orderForm + ")";
-		dao.getNamedParameterJdbcTemplate().update(sql, new HashMap<>());
-
-		// 写订单明细表
-		sql = "insert into oe_order_detail (id,order_id,course_id,actual_pay,activity_rule_detal_id,price,class_id) "
-				+ "values('"
-				+ did
-				+ "','"
-				+ id
-				+ "','"
-				+ courseId
-				+ "',"
-				+ coursePrice
-				+ ",null,"
-				+ coursePrice
-				+ ","
-				+ null
-				+ ")";
-		dao.getNamedParameterJdbcTemplate().update(sql,  new HashMap<>());
-		return orderNo;
-	}
 
 	/**
 	 * Description：校验课程信息是否有问题
@@ -243,7 +212,7 @@ public class OrderInputServiceImpl extends OnlineBaseServiceImpl implements
 					"FROM\n" +
 					"  apply_r_grade_course argc \n" +
 					"WHERE argc.`user_id` = :userId \n" +
-					"  AND argc.course_id = :courseId  ";
+					"  AND argc.course_id = :courseId AND argc.`validity`>NOW()  ";
 		Integer count = dao.getNamedParameterJdbcTemplate().queryForObject(sql,
 				paramMap, Integer.class);
 		if (count > 0) {
@@ -270,92 +239,42 @@ public class OrderInputServiceImpl extends OnlineBaseServiceImpl implements
 		}
 	}
 
-	public void subscribe(OrderInputVo vo) {
-		Course c = courseDao.getCourseById(Integer.valueOf(vo.getCourse_id()));
-		if (c.getType() != null
-				&& c.getType() == 1
-				&& !isSubscribe(vo.getUser_id(),
-						Integer.valueOf(vo.getCourse_id()))) {
-			insertSubscribe(vo.getUser_id(), vo.getLogin_name(),
-					Integer.valueOf(vo.getClass_id()));
-		}
-	}
-
-	/**
-	 * Description：订单支付成功后业务处理 creed: Talk is cheap,show me the code
-	 * 
-	 * @author name：yuxin <br>
-	 *         email: yuruixin@ixincheng.com
-	 * @Date: 下午 10:02 2018/1/24 0024
-	 **/
-	public void addPaySuccess(String orderNo, Payment payment, String transactionId) {
-		String sql = "";
-
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		List<OrderVo> orders = getOrderByNo(orderNo);
-		if (orders.size() > 0) {
-			// 更新订单表
-			sql = "update oe_order set order_status=1,pay_type="
-					+ payment.getCode() + ",pay_time=now(),pay_account='"
-					+ transactionId + "' where order_no='" + orderNo + "' ";
-			dao.getNamedParameterJdbcTemplate().update(sql, paramMap);
-
-			for (OrderVo order : orders) {
-				order.setPayment(payment);
-				//保存课程-用户关系表
-				saveArgc(order);
-			}
-			// 给主播分成
-			try {
-				userCoinService.updateBalanceForCourses(orders);
-			} catch (Exception e) {
-				logger.info("订单分成失败，订单id:{}", orders.get(0).getOrderId());
+	@Override
+	public void updateValidity(String[] inputOrderIds, String days) {
+		for (String inputOrderId : inputOrderIds) {
+			OrderVo order = getOrderByInputOrderId(inputOrderId);
+			if(order!=null){
+				String sql = "update apply_r_grade_course set validity=:validity where order_no=:orderNo ";
+				Map<String, Object> paramMap = new HashMap<>();
+				paramMap.put("validity",getValidity(days));
+				paramMap.put("orderNo",order.getOrderDetailId());
+				dao.getNamedParameterJdbcTemplate().update(sql, paramMap);
 			}
 		}
 	}
 
-	private void saveArgc(OrderVo order) {
-		int gradeId = 0;
-		// 写课程中间表
-		String id = IStringUtil.getUuid();
-		String sql = "select (ifnull(max(cast(student_number as signed)),'0'))+1 from apply_r_grade_course where grade_id="
-				+ gradeId;
-		Integer no = dao.getNamedParameterJdbcTemplate()
-				.queryForObject(sql, new HashMap<>(), Integer.class);
-		String sno = no < 10 ? "00" + no : (no < 100 ? "0" + no : no
-				.toString());
-		sql = "insert into apply_r_grade_course (id,course_id,grade_id,apply_id,is_payment,create_person,user_id,create_time,cost,student_number,order_no)"
-				+ " values('"
-				+ id
-				+ "',"
-				+ order.getCourse_id()
-				+ ","
-				+ gradeId
-				+ ",'"
-				+ null
-				+ "',2,'"
-				+ order.getCreate_person()
-				+ "','"
-				+ order.getUser_id()
-				+ "',now(),"
-				+ order.getActual_pay()
-				+ ","
-				+ " '"
-				+ sno
-				+ "'," + "'" + order.getOrder_no() + "')";
-		dao.getNamedParameterJdbcTemplate().update(sql, new HashMap<>());
+	private Date getValidity(String d){
+		try {
+			double days = Double.valueOf(d);
+			int min = Double.valueOf(days * 24 * 60).intValue();
+			Calendar now=Calendar.getInstance();
+			now.add(Calendar.MINUTE,min);
+			return now.getTime();
+		}catch (Exception e){
+			throw new RuntimeException("天数有误");
+		}
 	}
 
-	private List<OrderVo> getOrderByNo(String orderNo) {
+	private OrderVo getOrderByInputOrderId(String inputOrderId) {
 		// 查未支付的订单
 		String sql = "select od.id orderDetailId ,o.id orderId ,od.actual_pay,od.course_id,o.user_id,o.create_person,od.class_id,o.`order_from` "
 				+ "from oe_order o,oe_order_detail od "
-				+ " where o.id = od.order_id  and  o.order_no='"
-				+ orderNo
-				+ "' and order_status=0 ";
+				+ " where o.id = od.order_id  and  o.pay_account='"
+				+ inputOrderId
+				+ "'";
 		List<OrderVo> orders = dao.getNamedParameterJdbcTemplate().query(sql,
 				new BeanPropertyRowMapper<OrderVo>(OrderVo.class));
-		return orders;
+		return orders.size()>0?orders.get(0):null;
 	}
 
 	/**

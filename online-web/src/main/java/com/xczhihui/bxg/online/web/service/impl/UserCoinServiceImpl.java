@@ -380,32 +380,9 @@ public class UserCoinServiceImpl implements UserCoinService {
             if (orderVo.getOrder_from() != OrderFrom.WORKER.getCode() && orderVo.getOrder_from() != OrderFrom.GIVE.getCode()) {
                 this.updateBalanceForCourse(orderVo);
             } else {
-                logger.info("订单{}为工作人员订单，不计入主播分成", orderVo.getOrderDetail());
+                logger.info("订单{}为工作人员订单，不计入主播分成", orderVo.getOrderId());
             }
         }
-    }
-
-    @Override
-    public void updateBalanceForReward(Object rs) throws XMPPException, SmackException, IOException {
-        throw new RuntimeException("打赏功能暂时关闭，请通过送礼物方式为主播加油！");
-        /*rewardService.insert(rs);
-        Reward reward = rewardDao.getReward(Integer.valueOf(rs.getRewardId()));
-        //根据打赏比例获取主播实际获得的熊猫币: 打赏金额*兑换比例*(1-平台抽成比例)
-        BigDecimal total = new BigDecimal(rs.getPrice()).multiply(new BigDecimal(rate));
-        BigDecimal addTotal = total.multiply(BigDecimal.ONE.subtract(new BigDecimal(reward.getBrokerage()).divide(new BigDecimal(100))));
-        UserCoinIncrease uci = new UserCoinIncrease();
-        uci.setChangeType(4);
-        uci.setUserId(rs.getReceiver());
-        uci.setValue(addTotal);
-        //平台本笔交易抽成金额
-        uci.setBrokerageValue(total.subtract(addTotal));
-        //存入打赏流水id
-        uci.setOrderNoReward(rs.getId().toString());
-        //订单来源:1.pc 2.h5 3.app 4.其他
-        uci.setOrderFrom(rs.getClientType());
-        uci.setPayType(rs.getPayType());
-        //更新主播的数量
-        updateBalanceForIncrease(uci);*/
     }
 
     /**

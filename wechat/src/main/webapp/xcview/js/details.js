@@ -28,6 +28,7 @@ var courseHead = "";
 var roomNumber = "";
 var lineState = 1;
 var result = "";
+var playBackType = 1;
 
 // 统一提交的方法
 requestService("/xczh/course/liveDetails",{
@@ -127,11 +128,19 @@ requestService("/xczh/course/liveDetails",{
 					$(".add_follow").addClass("add_follows0");
 					$(".add_follow").removeClass("add_follows1");
 				}
+
+				// 0表示生成中，1表示生成成功，2表示生成失败 3 直播状态不是已结束
+				// 判断结束状态--提示
+				playBackType = result.playBackType;
+
+				if(playBackType == 0){
+					$(".history_span").text("即将直播");
+				}
+
+
+
 				
 				lineState = result.lineState;
-
-
-
 				/**
 				 * 直播状态1.直播中，2预告，3直播结束 4 即将直播
 				 */
@@ -145,8 +154,6 @@ requestService("/xczh/course/liveDetails",{
 
 					$(".cover").show();  /*回放时添加遮盖层*/
 					$(".give_a1_img").attr("src","/xcview/images/gafts.png");
-					
-
 					//alert(123);
 				}else if(lineState == 4){
 					$(".history_span").text("即将直播");

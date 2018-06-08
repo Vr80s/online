@@ -94,10 +94,8 @@
 			    <#if doctorList??>					
 					<div class="wrap-docter">
 						<span>名师推荐</span>
-						<#include "../common/famous_doctor_common.ftl"> 
 					</div>
 				</#if>
-				
 			</div>
 		</div>
 

@@ -46,7 +46,7 @@ public interface ICourseService {
      * @return Page<CourseLecturVo>
      * @author name：yangxuan <br>email: 15936216273@163.com
      */
-    Page<CourseLecturVo> selectMyFreeCourseList(Page<CourseLecturVo> page,
+    Page<CourseLecturVo> selectMyPurchasedCourseList(Page<CourseLecturVo> page,
                                                 String userId);
 
 

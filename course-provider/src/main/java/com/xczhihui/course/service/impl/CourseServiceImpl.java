@@ -53,8 +53,8 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     }
 
     @Override
-    public Page<CourseLecturVo> selectMyFreeCourseList(Page<CourseLecturVo> page, String id) {
-        List<CourseLecturVo> records = iCourseMapper.selectMyFreeCourseList(page, id);
+    public Page<CourseLecturVo> selectMyPurchasedCourseList(Page<CourseLecturVo> page, String id) {
+        List<CourseLecturVo> records = iCourseMapper.selectMyPurchasedCourseList(page, id);
 
         return page.setRecords(records);
     }

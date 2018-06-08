@@ -243,8 +243,10 @@
 								<li class="doctorTpl">
 									<a href="${webUrl}/doctors/${doctor.id}" target="_blank"></a>
 									<img src="${doctor.headPortrait!defaultDoctorHeadImg}" alt="${doctor.name}">
-									<h5>${doctor.name}&nbsp;<span>${doctor.title?default('暂无')}</span></h5>
-									<p>${doctor.workTime}</p>
+									<h5>${doctor.name}&nbsp;<span>${doctor.title?default('')}</span></h5>
+									<#if doctor.workTime != "暂无">
+										<p>${doctor.workTime?default('')}</p>
+	                      			</#if>
 	                      			<p>${doctor.province}&nbsp;${doctor.city}&nbsp; </p>
 								</li>
 							</#list>
@@ -361,7 +363,9 @@
 									<span style="font-size: 14px;color: #666666;font-weight: 400;margin-left: 10px;">
 									  ${doctor.province?default('')}&nbsp;${doctor.city?default('')}
 									 </span></span>
-									<p>课程：${doctor.gradeName?default('暂无')}</p>
+									 <#if doctor.gradeName??>
+									 	<p>课程：${doctor.gradeName?default('暂无')}</p>
+									 </#if>
 								</div>
 							</li>
 						</#list>
@@ -400,28 +404,29 @@
 					</div>
 				</#if>	
 
-				<!--坐诊医生招募-->
+				<!-- 坐诊医生招募   先注释  -->
 				
-				<#if (recruits?? && recruits?size gt 0)>
-					<div class="recruitment_information">
-						<div class="right_title"><span class="title">坐诊医生招募</span></div>
-						
-						<ul class="recruitment_information_list">
+				<#--	
+					<#if (recruits?? && recruits?size gt 0)>
+						<div class="recruitment_information">
+							<div class="right_title"><span class="title">坐诊医生招募</span></div>
 							
-							<#list recruits as recruit>	
-							<li class="recruitment_informationTpl">
-								<h4><a href="${webUrl}/clinics/${recruit.hospitalId}"
-									style="color: #000;" target="_blank">${recruit.position}</a></h4>
-								<a href="${webUrl}/clinics/${recruit.hospitalId}" target="_blank">
-								${recruit.city} &nbsp;&nbsp;${recruit.hospitalName}
-								</a>
-							</li>
-							</#list>
-							
-						</ul>
-					</div>
-				</#if>
-				
+							<ul class="recruitment_information_list">
+								
+								<#list recruits as recruit>	
+								<li class="recruitment_informationTpl">
+									<h4><a href="${webUrl}/clinics/${recruit.hospitalId}"
+										style="color: #000;" target="_blank">${recruit.position}</a></h4>
+									<a href="${webUrl}/clinics/${recruit.hospitalId}" target="_blank">
+									${recruit.city} &nbsp;&nbsp;${recruit.hospitalName}
+									</a>
+								</li>
+								</#list>
+								
+							</ul>
+						</div>
+					</#if>
+				-->
 			</div>
 
 		</div>

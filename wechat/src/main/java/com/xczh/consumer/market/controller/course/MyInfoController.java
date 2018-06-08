@@ -65,9 +65,7 @@ public class MyInfoController {
      */
     @RequestMapping("list")
     @ResponseBody
-    public ResponseObject list(HttpServletRequest req,
-                               HttpServletResponse res,
-                               @RequestParam(value = "pageSize", required = false) Integer pageSize, @Account String accountId)
+    public ResponseObject list(@RequestParam(value = "pageSize", required = false) Integer pageSize, @Account String accountId)
             throws Exception {
         if (pageSize == null || pageSize == 0) {
             pageSize = Integer.MAX_VALUE;
