@@ -1,5 +1,7 @@
 package com.xczhihui.order.vo;
 
+import java.util.Date;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import com.xczhihui.bxg.online.common.base.vo.OnlineBaseVo;
@@ -26,6 +28,15 @@ public class OrderInputVo extends OnlineBaseVo {
 
 	private String key_type;
 	private String key_value;
+	private String validity;
+
+	public String getValidity() {
+		return validity;
+	}
+
+	public void setValidity(String validity) {
+		this.validity = validity;
+	}
 
 	public String getId() {
 		return id;

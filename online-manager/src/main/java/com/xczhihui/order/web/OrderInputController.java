@@ -168,4 +168,17 @@ public class OrderInputController {
 
     }
 
+    /**
+     * Description：设置订单有效期
+     * creed: Talk is cheap,show me the code
+     * @author name：yuxin
+     * @Date: 2018/6/8 0008 上午 10:05
+     **/
+    @RequestMapping(value = "/setValidity", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseObject setValidity(String ids, String days) {
+        // 生成订单
+        service.updateValidity(ids.split(","),days);
+        return ResponseObject.newSuccessResponseObject("有效期设置成功");
+    }
 }

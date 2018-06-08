@@ -216,7 +216,7 @@ $(".clear-history").click(function(){
 
 function buyClass (pages){
 
- RequestService("/userCourse/freeCourseList", "POST",{
+ RequestService("/userCourse/purchasedCourseList", "POST",{
  	pageNumber:pages,
  	pageSize:8
  }, function (data) {

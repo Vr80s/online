@@ -97,7 +97,7 @@ public class LiveServiceImpl extends OnlineBaseServiceImpl implements LiveServic
             paramMap.put("userId", user.getId());
             paramMap.put("courseId", courseId);
             List<Map<String, Object>> argc = dao.getNamedParameterJdbcTemplate()
-                    .queryForList("SELECT id FROM `apply_r_grade_course` argc WHERE argc.course_id = :courseId AND argc.`user_id`=:userId", paramMap);
+                    .queryForList("SELECT id FROM `apply_r_grade_course` argc WHERE argc.course_id = :courseId AND argc.`user_id`=:userId AND argc.`validity`>NOW()", paramMap);
             if (argc.size() == 0) {
                 List<Map<String, Object>> selfCourse = dao.getNamedParameterJdbcTemplate()
                         .queryForList("SELECT id FROM `oe_course` oc WHERE oc.id = :courseId AND oc.`user_lecturer_id`=:userId", paramMap);
@@ -125,7 +125,7 @@ public class LiveServiceImpl extends OnlineBaseServiceImpl implements LiveServic
         } else {
             paramMap.put("userId", user.getId());
             List<Map<String, Object>> argc = dao.getNamedParameterJdbcTemplate()
-                    .queryForList("SELECT id FROM `apply_r_grade_course` argc WHERE argc.course_id = :courseId AND argc.`user_id`=:userId", paramMap);
+                    .queryForList("SELECT id FROM `apply_r_grade_course` argc WHERE argc.course_id = :courseId AND argc.`user_id`=:userId AND argc.`validity`>NOW()", paramMap);
             if (argc.size() == 0) {
                 ApplyGradeCourse applyGradeCourse = applyGradeCourseDao.findCollectionCourseByCourseIdAndUserId(Integer.valueOf(courseId), user.getId());
                 if (applyGradeCourse != null) {
@@ -171,7 +171,7 @@ public class LiveServiceImpl extends OnlineBaseServiceImpl implements LiveServic
         mv.addObject("roomId", course.get("direct_id"));
         mv.addObject("roomJId", courseId + postfix);
         mv.addObject("boshService", boshService);
-        mv.addObject("now", new Date().getTime());
+        mv.addObject("now", System.currentTimeMillis());
         mv.addObject("description", description);
         mv.addObject("email", user == null ? null : user.getId() + "@xczh.com");
         mv.addObject("name", user == null ? null : user.getName());

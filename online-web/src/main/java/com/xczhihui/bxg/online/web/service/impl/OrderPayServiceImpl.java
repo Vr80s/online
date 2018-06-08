@@ -67,35 +67,17 @@ public class OrderPayServiceImpl extends OnlineBaseServiceImpl implements OrderP
 			sql = "update oe_order set order_status=1,pay_type="+payment.getCode()+",pay_time=now(),pay_account='"+ transactionId +"' where order_no='"+orderNo+"' ";
 			orderDao.getNamedParameterJdbcTemplate().update(sql, paramMap);
     		
-    		//写用户报名信息表，如果有就不写了
-			String apply_id = UUID.randomUUID().toString().replace("-", "");
-			sql = "select a.id from oe_apply a where  a.user_id='"+orders.get(0).getUser_id()+"' ";
-			List<Map<String, Object>> applies = orderDao.getNamedParameterJdbcTemplate().queryForList(sql, paramMap);
-			if (applies.size() > 0) {
-				apply_id = applies.get(0).get("id").toString();
-			} else {
-				sql = "insert into oe_apply(id,user_id,create_time,is_delete,create_person) "
-						+ " values ('"+apply_id+"','"+orders.get(0).getUser_id()+"',now(),0,'"+orders.get(0).getCreate_person()+"')";
-				orderDao.getNamedParameterJdbcTemplate().update(sql, paramMap);
-			}
-			
-			//更新用户is_apply为true（报过课）
-			sql = "update oe_user set is_apply=1 where id='"+orders.get(0).getUser_id()+"' and is_apply=0";
-			orderDao.getNamedParameterJdbcTemplate().update(sql, paramMap);
-    		
-			for (OrderVo order : orders){
+    		for (OrderVo order : orders){
 				//插入支付类型
 				order.setPayment(payment);
 				int  gradeId = 0;
 
 				//写用户、报名、课程中间表
 				id = UUID.randomUUID().toString().replace("-", "");
-				sql = "select (ifnull(max(cast(student_number as signed)),'0'))+1 from apply_r_grade_course where grade_id="+gradeId;
-				Integer no = orderDao.getNamedParameterJdbcTemplate().queryForObject(sql, paramMap, Integer.class);
-				String sno = no < 10 ? "00"+no : (no < 100 ? "0"+no : no.toString());
 				sql = "insert into  apply_r_grade_course(id,course_id,grade_id,apply_id,is_payment,create_person,user_id,create_time,cost,student_number,order_no)"
-						+ " values('"+id+"',"+order.getCourse_id()+","+gradeId+",'"+apply_id+"',2,'"+order.getCreate_person()+"','"+order.getUser_id()+"',now(),"+order.getActual_pay()+","
-						+ " '"+sno+"',"+"'"+order.getOrderDetailId()+"')";
+						+ " values('"+id+"',"+order.getCourse_id()+","+gradeId+",'"+0+"',2,'"+order.getCreate_person()+"','"+order.getUser_id()+"',now(),"+order.getActual_pay()+","
+						+ " '"+0+"',"+"'"+order.getOrderDetailId()+"')";
+				System.out.println(sql);
 				orderDao.getNamedParameterJdbcTemplate().update(sql, paramMap);
 
 				/*
@@ -104,28 +86,10 @@ public class OrderPayServiceImpl extends OnlineBaseServiceImpl implements OrderP
 				Map<String,Object> paramMap1 = new HashMap<>();
 				paramMap1.put("createPerson", order.getUser_id());
 				paramMap1.put("courseId", order.getCourse_id());
-				
-			
-				
+
 				String sql1 = "update oe_criticize set is_buy = TRUE  where create_person =:createPerson and course_id=:courseId";
 				orderDao.getNamedParameterJdbcTemplate().update(sql1, paramMap1);
 
-				/*//如果是限时免费课程，不参与分销，业务到此结束
-				if(Double.valueOf(order.getActual_pay())==0){
-					continue;
-				}
-
-				//如果是购买大使课，成为分享大使
-				if (shareCourseId.trim().equals(order.getCourse_id().toString().trim())) {
-					id = UUID.randomUUID().toString().replace("-", "");
-					orderDao.getNamedParameterJdbcTemplate().update("update oe_user set share_code='"+id+"' "
-							+ "where share_code is null and id='"+order.getUser_id()+"' ", paramMap);
-				}
-
-				//如果是微课参与分销，如果购买人有上级，此订单更新为分销订单
-				sql = "update oe_order o set o.order_from=1 where o.order_no='"+orderNo+"' "
-						+ " and o.user_id=(select id from oe_user where parent_id is not null and parent_id != '' and id = o.user_id);";
-				orderDao.getNamedParameterJdbcTemplate().update(sql, paramMap);*/
 			}
 
 			//给主播分成
