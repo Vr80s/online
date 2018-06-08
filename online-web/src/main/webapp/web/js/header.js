@@ -124,7 +124,7 @@ $(function () {
             nav:
 
             '<div class="header_right">' +
-            '<a href="/index"><img src="/web/images/pandaLogo.jpg" alt="" width="206" height="50" style="float:left"></a>' +
+            '<a href="/index"><img src="/web/images/logos.png" alt="" style="float:left"></a>' +
 
             '</div>' +
             '<div class="header_left">' +
