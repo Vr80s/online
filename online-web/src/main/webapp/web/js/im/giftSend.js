@@ -29,7 +29,7 @@ function getGiftList(){
 					"			</div>"+
 					"			<div class='surprise-show-name' style='width: 150px;margin-left: 110px;'>"+
 					"				<div class='surprise-show-title'>"+
-					"					<span class='show-name'>"+item.name+"</span><span class='show-number'>"+item.price+"熊猫币</span>"+
+					"					<span class='show-name'>"+item.name+"</span><span class='show-number'>（&nbsp;"+item.price+"熊猫币&nbsp;）</span>"+
 					"				</div>"+
 					"				<div class='surprise-presented' data-id="+item.id+" data-number="+item.price+">赠送</div>"+
 					"			</div>"+

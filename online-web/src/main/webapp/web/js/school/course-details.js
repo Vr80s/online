@@ -21,45 +21,45 @@ RequestService("/online/user/isAlive", "GET", null, function (data) {
 $(function () {
 
     var index = 0;
-    /**
-     *
-     */
+    
+    var falg = false;
     if(collection == 1 &&  watchState ==0){ //专辑付费，删除选集、显示大纲
         $(".buy_tab").remove();
         $(".no_buy_tab").removeClass("hide");
-
+        falg = true;
     }else if(collection == 1 &&  watchState !=0){  //专辑免费或已购买，显示选集、删除大纲
         $(".no_buy_tab").remove();
         $(".buy_tab").removeClass("hide");
+        falg = true;
+        index=1;
     }else{
         $(".no_buy_tab").remove();
         $(".buy_tab").remove();
     }
     if(type == "info"){
-
-
-        $(".wrap-sidebar ul li").eq(0).addClass("active-footer");
+        $(".wrap-sidebar ul li").eq(index).addClass("active-footer");
     }
     //type对应显示
     //outline  comment    info   aq    selection
     if (type == "selection") {
+    	index = 0;
         $(".wrap-sidebar ul li").eq(0).addClass("active-footer");
     } else if (type == "outline") {
+    	index = 1;
         $(".wrap-sidebar ul li").eq(1).addClass("active-footer");
-        index = 1;
     } else if (type == "comment") {
-        $(".wrap-sidebar ul li").eq(2).addClass("active-footer");
-        index = 2;
+    	 falg ? index = 2 : index = 1;
+        $(".wrap-sidebar ul li").eq(index).addClass("active-footer");
+       
     } else if (type == "aq") {
-        $(".wrap-sidebar ul li").eq(3).addClass("active-footer");
-        index = 3;
+    	  falg ? index = 3 : index = 2;
+        $(".wrap-sidebar ul li").eq(index).addClass("active-footer");
     }
     $(".sidebar-content").addClass("hide").eq(index).removeClass("hide")
 
     //课程类型 1：视频 2：音频 3：直播 4：线下培训班
     if (courseType == 4) {
         //$(".sidebar-content").addClass("hide").eq(index).removeClass("hide");
-
         $(".under").css("color", "rgb(0, 188, 18)");
     } else if (courseType == 3) {
         $(".broadcast").css("color", "rgb(0, 188, 18)");
