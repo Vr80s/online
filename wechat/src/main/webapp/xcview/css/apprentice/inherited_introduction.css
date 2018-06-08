@@ -47,7 +47,7 @@ header{
 .intro_top{
 	width: 2.24rem;
     height: 0.88rem;
-    line-height: 0.4rem;
+    line-height: 0.42rem;
     float: left;
     padding-left: 0.26rem;
 }
@@ -231,7 +231,7 @@ header{
 	margin: 0 auto;
 	font-size: 0.26rem;
 	color: #666666;
-	line-height: 0.4rem;
+	line-height: 0.42rem;
 }
 /*大师简介结束*/
 
@@ -263,7 +263,7 @@ header{
 	margin: 0 auto;
 	font-size: 0.26rem;
 	color: #666666;
-	line-height: 0.4rem;
+	line-height: 0.42rem;
 }
 .apprentices_center img{
 	max-width: 6.98rem;
@@ -298,7 +298,7 @@ header{
 	margin: 0 auto;
 	font-size: 0.26rem;
 	color: #666666;
-	line-height: 0.4rem;
+	line-height: 0.42rem;
 }
 .disciple_center img{
 	max-width: 6.98rem;
@@ -333,7 +333,7 @@ header{
 	margin: 0 auto;
 	font-size: 0.26rem;
 	color: #666666;
-	line-height: 0.4rem;
+	line-height: 0.42rem;
 }
 .site_center p img{
 	max-width: 6.98rem;
@@ -472,6 +472,7 @@ header{
 	margin: 0 auto;
 	font-size: 0.26rem;
 	color: #666666;
+	line-height: 0.42rem;
 }
 .contacts_center img{
 	max-width: 6.98rem;
