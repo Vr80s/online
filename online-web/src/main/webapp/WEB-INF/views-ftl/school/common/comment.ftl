@@ -146,11 +146,12 @@
                 <#elseif !criticizesItem.isPraise>
                 <li class="operation-reply-li">
                 </#if>
-                <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
-                <span class="praiseSum">${criticizesItem.praiseSum}</span>
+                <!--<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>-->
+                <i class="iconfont icon-zan" style="font-size: 12px;"></i>
+                <span class="praiseSum" style="vertical-align: middle;">${criticizesItem.praiseSum}</span>
             </li>
                 <li class="reply-icon">
-                    <i class="icomoon-icon-ziliao"></i>
+                    <i class="icomoon-icon-huifu" style="display: inline-block;margin-top: 5px;"></i>
                 </li>
             </ul>
             <!--回复点赞按钮  结束-->

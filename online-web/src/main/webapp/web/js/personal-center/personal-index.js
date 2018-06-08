@@ -186,7 +186,7 @@ function historyClass(pages){
 		            $("#history_doctors").pagination(data.resultObject.pages, {
 		                num_edge_entries: 1, //边缘页数
 		                num_display_entries: 4, //主体页数
-		                current_page:pageNumber-1,
+		                current_page:pages-1,
 		                callback: function (page) {
 		                    //翻页功能
 		                    recruitList(page+1);
