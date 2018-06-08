@@ -313,6 +313,7 @@
 			oc.direct_id as directId,
 			oc.status as status,
 			if(now() > DATE_SUB(oc.start_time,INTERVAL 1 HOUR) and  oc.start_time > now()  ,1,0) as isLive,
+			1 as applyStatus,
 			'直播间' as note
 		FROM
 			oe_course oc
@@ -338,6 +339,7 @@
 			oc.direct_id as directId,
 			oc.status as status,
 			'0' as isLive,
+			1 as applyStatus,
 			'我的课程' as note
 		FROM
 			oe_course oc
@@ -672,6 +674,4 @@
 			oc.user_lecturer_id = ou.user_id
 			where oc.id =#{courseId}
 	</select>	
-	
-	
 </mapper>

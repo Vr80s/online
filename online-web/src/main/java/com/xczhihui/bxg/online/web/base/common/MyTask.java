@@ -5,6 +5,9 @@ import com.xczhihui.bxg.online.web.dao.OrderDao;
 import com.xczhihui.bxg.online.web.service.CourseService;
 import com.xczhihui.bxg.online.web.service.MessageService;
 import com.xczhihui.medical.anchor.service.ICourseApplyService;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -29,6 +32,8 @@ public class MyTask extends SimpleHibernateDao{
     
     @Value("${web.url}")
 	private String weburl;
+    
+    private Logger log = LoggerFactory.getLogger(this.getClass());
     /**
      * 每半个小时执行一次
      * 将数据库超过24小时未支付的订单关闭
@@ -76,9 +81,13 @@ public class MyTask extends SimpleHibernateDao{
      * @author name：yuxin <br>email: yuruixin@ixincheng.com
      * @Date: 下午 12:17 2018/2/2 0002
      **/
-    @Scheduled(cron = "0 0/30 * * * ?")
+     @Scheduled(cron = "0 0/30 * * * ?")
+    // @Scheduled(cron = "*/30 * * * * ?")
     public void dealCourseApplyResourceTask(){
+
+    	log.info("开始---》 用户上次的视频时长更新");
         courseApplyService.updateCourseApplyResource();
+        log.info("结束---》 用户上次的视频时长更新");
     }
 
 

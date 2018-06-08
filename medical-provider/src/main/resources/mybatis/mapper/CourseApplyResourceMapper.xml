@@ -46,4 +46,27 @@
 		WHERE car.`user_id`=#{userId}
 		AND car.id=#{resourceId}
 	</delete>
+	
+	
+		<!-- 根据资源查找课程存在的多个课程    -->
+	<select id="selectCourseListByVideoRecourse" resultType="java.lang.Integer">
+       SELECT
+           id 
+		FROM
+			oe_course where direct_id = '${directId}'
+	</select>	
+	
+	<!--   批量更新时长     -->
+	<update id="updateBatchCourseLength" parameterType="java.util.List" >
+		update oe_course set course_length = ${videoLength}
+		   where id in
+		<foreach collection="list" item="item" separator="," open="(" close=")">
+			#{item}
+		</foreach>
+	</update>
+	
+	
+	
+	
+	
 </mapper>
