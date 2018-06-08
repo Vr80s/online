@@ -3,7 +3,6 @@ var anchorRecTable;//推荐主播列表
 var courseForm;//添加课程表单
 
 $(function() {
-    ;
     createDatePicker($(".datetime-picker"),"yy-mm-dd");
     document.onkeydown = function (event) {
         if (event.keyCode == 13) {
