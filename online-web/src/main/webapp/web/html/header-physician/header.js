@@ -188,7 +188,7 @@ $(function() {
 			'<div class="header_right">' +
 				'<a href="/index">' +
 				'<img src="/web/images/logos.png" alt=""  style="float:left">' +
-				'<span>个人中心</span>'+
+				'<span>医师管理</span>'+
 				'</a>' +
 			'</div>' +
 //			'<div class="header_left">' +

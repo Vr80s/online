@@ -329,6 +329,7 @@ a:hover{text-decoration: none;}
 .wrap-docter ul li img{
 	width: 60px;
 	height: 60px;
+	border-radius: 50%;
 }
 .wrap-docter ul li p{
 overflow: hidden;
