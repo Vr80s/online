@@ -482,7 +482,16 @@ public class DoctorServiceImpl extends OnlineBaseServiceImpl implements
 	@Override
 	public List<MedicalDoctor> getAllMedicalDoctorList() {
 		// TODO Auto-generated method stub
-		return list();
+		return getDoctorName();
+	}
+
+	public List<MedicalDoctor> getDoctorName() {
+		String sql = "select md.id,concat_ws('-',md.name,oe.login_name) as name from medical_doctor md,oe_user oe,medical_doctor_account mda " +
+				" where md.id = mda.doctor_id and mda.account_id = oe.id and " +
+				"md.deleted=0 and md.status=1 ";
+		List<MedicalDoctor> voList = dao.findEntitiesByJdbc(
+				MedicalDoctor.class, sql, null);
+		return voList;
 	}
 
 }
