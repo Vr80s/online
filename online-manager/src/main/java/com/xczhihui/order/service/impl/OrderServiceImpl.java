@@ -1,6 +1,9 @@
 package com.xczhihui.order.service.impl;
 
+import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.common.support.service.SystemVariateService;
+import com.xczhihui.common.util.IStringUtil;
+import com.xczhihui.common.util.OrderNoUtil;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.Order;
@@ -14,6 +17,8 @@ import com.xczhihui.order.service.OrderService;
 import com.xczhihui.utils.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.xczhihui.order.vo.OrderVo;
 
@@ -87,4 +92,47 @@ public class OrderServiceImpl extends OnlineBaseServiceImpl implements
 		return list;
 	}
 
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	@Override
+	public String createOrder(OnlineUser onlineUser, String courseId, Double coursePrice, String orderForm) {
+		String orderNo = OrderNoUtil.getCourseOrderNo();
+		// 写订单主表
+		String id = IStringUtil.getUuid();
+		String did = IStringUtil.getUuid();
+		String sql = "insert into oe_order (id,create_person,order_no, actual_pay,purchaser,order_status,user_id,order_from) "
+				+ " values ('"
+				+ id
+				+ "','"
+				+ onlineUser.getLoginName()
+				+ "',"
+				+ "'"
+				+ orderNo
+				+ "',"
+				+ coursePrice
+				+ ",'"
+				+ onlineUser.getName()
+				+ "',0,'"
+				+ onlineUser.getId()
+				+ "',"
+				+ orderForm + ")";
+		dao.getNamedParameterJdbcTemplate().update(sql, new HashMap<>());
+
+		// 写订单明细表
+		sql = "insert into oe_order_detail (id,order_id,course_id,actual_pay,activity_rule_detal_id,price,class_id) "
+				+ "values('"
+				+ did
+				+ "','"
+				+ id
+				+ "','"
+				+ courseId
+				+ "',"
+				+ coursePrice
+				+ ",null,"
+				+ coursePrice
+				+ ","
+				+ null
+				+ ")";
+		dao.getNamedParameterJdbcTemplate().update(sql,  new HashMap<>());
+		return orderNo;
+	}
 }

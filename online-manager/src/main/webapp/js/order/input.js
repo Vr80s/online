@@ -4,14 +4,11 @@ $(function() {
 
 	createDatetimePicker($('#create_time_start'));
 	createDatetimePicker($('#create_time_end'));
-
-	var objData = [{
-		"title" : "序号",
-		"width" : "6%",
-		"class" : "center",
-		"sortable" : false,
-		"data" : "id"
-	},{
+    var checkbox = '<input type="checkbox" class="ace" onclick="chooseAll(this)" /> <span class="lbl"></span>';
+	var objData = [
+		{ "title": checkbox, "class":"center","width":"5%","sortable":false,"data": 'id' ,"mRender":function(data,display,row){
+        return '<input type="checkbox" value='+data+' class="ace" /><span class="lbl"></span>';
+    }},{
 		"title" : "课程名称",
 		"width" : "12%",
 		"class" : "center",
@@ -24,14 +21,37 @@ $(function() {
 		"sortable" : false,
 		"data" : 'login_name'
 	},{
-		"title" : "实际支付（元）",
-		"width" : "12%",
-		"class" : "center",
-		"sortable" : false,
-		"data" : 'actual_pay'
-	}
-	
-	,{
+            "title" : "实际支付（元）",
+            "width" : "12%",
+            "class" : "center",
+            "sortable" : false,
+            "data" : 'actual_pay'
+        },{
+            "title" : "有效期",
+            "width" : "12%",
+            "class" : "center",
+            "sortable" : false,
+            "data" : 'validity',
+            "mRender":function(data,display,row){
+                if(data == '9999-01-01 00:00:00.0')return "永久";
+                return data;
+            }
+        }
+        ,{
+            "title" : "类型",
+            "width" : "12%",
+            "class" : "center",
+            "sortable" : false,
+            "data" : 'order_from',
+            "mRender":function(data,display,row){
+                if(data == 5)return "线下订单";
+                if(data == 6)return "工作人员";
+                if(data == 0)return "赠送";
+                return null;
+            }
+        }
+
+        ,{
 		"title" : "创建时间",
 		"width" : "12%",
 		"class" : "center",
@@ -44,7 +64,7 @@ $(function() {
 		"sortable" : false,
 		"data" : 'create_person'
 	} ];
-	orderinputTable = initTables("orderinputTable", basePath + "/order/input/find", objData, true, true, 1);
+	orderinputTable = initTables("orderinputTable", basePath + "/order/input/find", objData, true, true, 0);
 	orderinputForm = $("#orderinputForm").validate({});
 });
 
@@ -71,7 +91,38 @@ function add(obj){
 		}
 	});
 }
+$(".validity").click(function () {
+	debugger
+    var ids = new Array();
+    var trs = $(".dataTable tbody input[type='checkbox']:checked");
 
+    for(var i = 0;i<trs.size();i++){
+        ids.push($(trs[i]).val());
+    }
+    if(ids.length>0){
+    	$("#ids").val(ids.join(","));
+        var dialog = openDialog("UpdateValidityDialog","dialogUpdateValidityDiv","修改推荐值",350,200,true,"确定",function(){
+            if($("#UpdateValidityFrom").valid()){
+                mask();
+                $("#UpdateValidityFrom").attr("action", basePath+"/order/input/setValidity");
+                $("#UpdateValidityFrom").ajaxSubmit(function(data){
+                    data = getJsonData(data);
+                    unmask();
+                    if(data.success){
+                        $("#UpdateValidityDialog").dialog("close");
+                        layer.msg(data.resultObject);
+                        $("#days").val("");
+                        freshTable(orderinputTable);
+                    }else{
+                        alertInfo(data.errorMessage);
+                    }
+                });
+            }
+        });
+    }else{
+        showDelDialog("","","请选择订单！","");
+    }
+});
 function importOrders (obj){
     ;
 	  $("#orderImportForm").resetForm();

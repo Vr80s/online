@@ -108,6 +108,8 @@
                      pointcut="execution(* com.xczhihui..service..*.*(..))"/>
     </aop:config>
 
+    <!-- 开启事务控制的注解支持 20180608-->
+    <tx:annotation-driven transaction-manager="txManager"/>
     <import resource="shiro.xml"/>
 
     <bean id="simpleHibernateDao" class="com.xczhihui.common.support.dao.SimpleHibernateDao"/>
@@ -143,4 +145,6 @@
     <!-- 微信公众号 -->
     <dubbo:reference id="wxMpService" interface="me.chanjar.weixin.mp.api.WxMpService"
                      timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference id="orderPayServiceImpl" interface="com.xczhihui.online.api.service.OrderPayService"
+                   timeout="${dubbo.consumer.timeout}"/>
 </beans>

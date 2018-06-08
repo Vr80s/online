@@ -59,6 +59,7 @@ public class ApplyGradeCourseDao extends SimpleHibernateDao {
                 "  ON oc.id = cc.`collection_id`" +
                 "WHERE cc.course_id = ? \n" +
                 "  AND argc.user_id = ? \n" +
+                "  AND argc.`validity`>NOW() \n" +
                 "ORDER BY student_number DESC \n" +
                 "LIMIT 1  ";
         List<ApplyGradeCourse> applyGradeCourses= this.getNamedParameterJdbcTemplate().getJdbcOperations().query(sql,new Object[]{courseId,userId}, BeanPropertyRowMapper.newInstance(ApplyGradeCourse.class));

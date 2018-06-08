@@ -22,7 +22,9 @@
 <div class="mainrighttab tabresourse bordernone">
 	<p class="col-xs-4" style="padding: 0;">
 	 	<button class="btn btn-sm btn-success add_bx" onclick="add();"><i class="glyphicon glyphicon-plus"></i>线下订单录入</button>      
-	 	<button class="btn btn-sm btn-success add_bx" onclick="importOrders();"><i class="glyphicon glyphicon-plus"></i>批量导入</button>      
+	 	<button class="btn btn-sm btn-success add_bx" onclick="importOrders();"><i class="glyphicon glyphicon-plus"></i>批量导入</button>
+	 	<button class="btn btn-sm btn-success add_bx validity">设置有效期</button>
+
 	</p>
 	<div style="padding-bottom:10px; float: right;" id="searchDiv" >
 		<table>
@@ -125,6 +127,18 @@
 				<div class="clearfix">
 					<input type="file" name="excelFile" id="excelFile" style="width:200px;"/>
 				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<div id="dialogUpdateValidityDiv"></div>
+<div id="UpdateValidityDialog" class="hide">
+	<form class="form-horizontal" id="UpdateValidityFrom" method="post" action="" style="margin-top: 15px;">
+		<input type="hidden" name="ids" id="ids">
+		<div class="form-group"  style="margin-top: 18px;" >
+			<label class="col-sm-3 control-label no-padding-right" ><font color="red">*</font>有效天数: </label>
+			<div class="col-sm-6">
+				<input type="text" name="days"  id="days" class="col-xs-10 col-sm-12 {required:true,number:true,range:[0.0,36000.00]}">
 			</div>
 		</div>
 	</form>

@@ -1,9 +1,13 @@
 package com.xczhihui.order.service;
 
+import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.order.vo.OrderInputVo;
 
 import java.util.List;
+
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 线下订单录入
@@ -37,6 +41,8 @@ public interface OrderInputService {
 	 */
 	public String addOrder(OrderInputVo vo);
 
+	String saveOrderInput(OnlineUser user, String courseId, Double coursePrice, String createPerson, Integer orderFrom);
+
 	public void checkOrderInput(OrderInputVo vo);
 
 	/**
@@ -47,4 +53,6 @@ public interface OrderInputService {
 	 * @Date: 下午 10:00 2018/1/24 0024
 	 **/
 	void addOrders(List<OrderInputVo> lv);
+
+    void updateValidity(String[] id, String days);
 }
