@@ -359,14 +359,19 @@ $(function () {
                 $(".anchor_info").show();
 
                 //首页未读消息总数
-                RequestService("/online/message/findMessageCount", "GET", null, function (data) {
-                    if (data.success == true && data.resultObject.count != 0) {
-                        $(".messageCount").css("display", "block");
-                        if (data.resultObject.count <= 99) {
-                            $(".messageCount em").text(data.resultObject.count);
+                RequestService("/message/count", "GET", null, function (data) {
+                    if (data.success == true){
+                    	if( data.resultObject != 0){
+                    		$(".messageCount").css("display", "block");
+                    	}else{
+                    		$(".messageCount").css("display", "none");
+                    	}
+                    	
+                    	if (data.resultObject <= 99) {
+                            $(".messageCount em").text(data.resultObject);
                         } else {
                             $(".messageCount em").text(99);
-                        }
+                        } 
                     }
                 });
                 showDOrH();
