@@ -78,7 +78,7 @@
 <div class="wrap-comment">
 
 
-<#if courseInfo.criticizeCount gt 0>
+<#if criticizesMap.items?size gt 0>
            
      <#list criticizesMap.items as criticizesItem>
     <!--一个完整的评论内容-->

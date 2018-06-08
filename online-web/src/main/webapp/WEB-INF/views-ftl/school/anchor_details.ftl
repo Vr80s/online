@@ -71,22 +71,19 @@
 		<!--content-->
 		<!--课程-->
 		<div class="sidebar-content" style="padding: 0 0 30px;">
-		
-				
 			 <#if courseList?? && courseList.records?size gt 0>
 				  <#if type == 'courses' >
 				  	<#include "anchor_course.ftl">
 				 </#if>
 			 <#else>
 			     <!--无数据时显示背景图-->
-				 <div class="all-null anchor-null hide">
+				 <div class="all-null anchor-null">
 				 	<div class="null-img">
 				 		<img src="/web/images/icon-nodata.png"/>
 				 	</div>
 				 	<p>暂无数据</p>
 				 </div>
 			 </#if>	
-			
 		</div>
 		
 		<!--介绍-->					
@@ -151,19 +148,9 @@
 					</div>
 		<!--评价-->	
 		<div class="sidebar-content hide">		
-			 <#if criticizeCount gt 0> 
-					 <#if type == 'comment' >
-			  			<#include "common/comment.ftl">
-					 </#if>
-			 <#else>
-			     <!--无数据时显示背景图-->
-				 <div class="all-null course-null">
-				 	<div class="null-img">
-				 		<img src="/web/images/icon-nodata.png"/>
-				 	</div>
-				 	<p>暂无数据</p>
-				 </div> 
-			 </#if>   	
+			 <#if type == 'comment' >
+	  			<#include "common/comment.ftl">
+			 </#if>
 		</div>		
 				</div>
 		
