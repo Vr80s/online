@@ -293,33 +293,64 @@ function btn_zj_mianfei() {
     checkAuth(courseId, 3);
     
     var data_zj = $(".right_priceBtn").attr("data-zj");
-    if (data_zj == 0) {   //还没购买呢
-    		
+    
+    
+    if (data_zj == 0) {   //  付费的
         requestService("/xczh/order/save", {
             courseId: courseId,
             orderFrom: 2
         }, function (data) {
-//            window.location.href = "purchase.html?orderId=" + data.resultObject.orderId + "";
-        	if(data.success){
-        		window.location.href = "line_class.html?orderId=" + data.resultObject.orderId + 
-        		   "&courseId="+courseId;
+        	
+        	var orderId = data.resultObject.orderId;
+        	if(data.success){  
+        		 //查看是否存在报名信息
+        		requestGetService("/xczh/apply/applyInfo", {
+            		 courseId: courseId
+                 }, function (data) {
+                	var obj =  data.resultObject;
+                 	if(data.success ){
+                 		if(!obj.submitted){
+                 			window.location.href = "line_class.html?orderId=" + orderId+"&courseId="+courseId;
+                 		}else{
+                            window.location.href = "purchase.html?orderId=" + orderId;
+                 		}
+             		}
+                 });
     		}else{
     			webToast(data.errorMessage,"middle",1500);
     		}
         });
-    } else if (data_zj == 1) {  // 免费的还没报名  
-    	
-//        requestService("/xczh/history/add", {
-//            courseId: courseId,
-//            recordType: 1
-//        }, function (data) {
-//        });
-        //window.location.href = "live_class.html?my_study=" + course_id + "";
+    } else if (data_zj == 1) {  //免费的还没报名  
+    	/**
+    	 * 判断是否填写了报名信息
+    	 * @returns
+    	 */
+    	requestGetService("/xczh/apply/applyInfo", {
+    		 courseId: courseId
+         }, function (data) {
+        	var obj =  data.resultObject;
+         	if(data.success ){
+         		if(!obj.submitted){
+         			window.location.href = "line_class.html?courseId="+courseId;
+         		}else{
+         			/**
+         			 * 增加学习记录
+         			 * @returns
+         			 */	
+         			requestService("/xczh/history/add", {courseId: courseId, recordType: 1}, function (data) {
+                         console.log("增加学习记录");
+                    })
+         			location.href="/xcview/html/buy_prosperity.html?courseId="+courseId;
+         		}
+     		}else{
+     			webToast(data.errorMessage,"middle",1500);
+     		}
+         });
     	
     	window.location.href = "line_class.html?&courseId="+courseId;
-    
     } else if (data_zj == 2) {  // 已购买或者免费的报过名的
-        window.location.href = "live_class.html?my_study=" + course_id + "";
+    	window.location.href = "/xcview/html/live_class.html?my_study="+courseId;
+       return;
     }
 
 }

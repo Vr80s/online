@@ -89,8 +89,14 @@ $(function () {
      */
         //==========================================================================================
     var headersIndex = {
-            navtop: '<div class="head-top"><div class="content"><ul><li class="first-li"><a href="/web/html/aboutUs.html">关于我们</a></li>' +
-
+            navtop: '<div class="head-top"><div class="content">' +
+            '<ul>' +
+//         '<li class="first-li">' +
+//          '<a href="/web/html/aboutUs.html">关于我们</a>' +
+//         '</li>' +
+			'<li class="first-li">' +
+            '<span">全球中医传承平台</span>' +
+           '</li>' +
             '<li>' +
             '<div class="loginGroup">' +
             ' <div class="login" style="display:none;">' +
@@ -122,7 +128,7 @@ $(function () {
             '<li>' +
 
             '</li>' +
-            '<li><div class="messageBox"><a href="javascript:;" data-id="mynews" class="message">消息</a><span class="messageCount" style="display: none;"><em style="background-color: #F97B49;height:20px;padding: 2px 6px;border-radius: 10px 10px 10px 10px;position: absolute;color:white;font-style:normal"></em></span></div></li><li><a href="javascript:;" class="studentCenterBox">学习中心</a></li><li><a href="javascript:;" class="hide" id="docOrHos">我是医师</a></li><li><a href="/web/html/anchor/curriculum.html" class="hide" id="anchorWorkbench">主播工作台</a></li>' +
+            '<li><div class="messageBox"><a href="javascript:;" data-id="mynews" class="message">消息</a><span class="messageCount" style="display: none;"><em style="background-color: #F97B49;height:20px;padding: 2px 6px;border-radius: 10px 10px 10px 10px;position: absolute;color:white;font-style:normal"></em></span></div></li><li><a href="/web/html/anchor/curriculum.html" class="hide" id="anchorWorkbench">主播工作台</a></li><li><a href="javascript:;" class="hide" id="docOrHos">我是医师</a></li><li><a href="javascript:;" class="studentCenterBox">学习中心</a></li>' +
             '</ul></div></div>'
         };
     //<!--网站公告-->
@@ -359,14 +365,19 @@ $(function () {
                 $(".anchor_info").show();
 
                 //首页未读消息总数
-                RequestService("/online/message/findMessageCount", "GET", null, function (data) {
-                    if (data.success == true && data.resultObject.count != 0) {
-                        $(".messageCount").css("display", "block");
-                        if (data.resultObject.count <= 99) {
-                            $(".messageCount em").text(data.resultObject.count);
+                RequestService("/message/count", "GET", null, function (data) {
+                    if (data.success == true){
+                    	if( data.resultObject != 0){
+                    		$(".messageCount").css("display", "block");
+                    	}else{
+                    		$(".messageCount").css("display", "none");
+                    	}
+                    	
+                    	if (data.resultObject <= 99) {
+                            $(".messageCount em").text(data.resultObject);
                         } else {
                             $(".messageCount em").text(99);
-                        }
+                        } 
                     }
                 });
                 showDOrH();

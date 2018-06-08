@@ -88,7 +88,12 @@ $(function () {
      * Created by admin on 2016/9/14.
      */
     var headersIndex = {
-            navtop: '<div class="head-top"><div class="content"><ul><li class="first-li"><a href="/web/html/aboutUs.html" target="_blank">关于我们</a></li>' +
+            navtop: '<div class="head-top">' +
+            '<div class="content">' +
+            '<ul style="padding-left:0"><li class="first-li">' +
+//          '<a href="/web/html/aboutUs.html" target="_blank">关于我们</a>' +
+			'<span>全球中医传承平台</span>' +
+            '</li>' +
             '<li>' +
             '<div class="loginGroup">' +
             ' <div class="login" style="display:none;">' +
@@ -119,12 +124,12 @@ $(function () {
 
             '<li>' +
             '</li>' +
-            '<li><div class="messageBox"><a href="javascript:;" data-id="mynews" class="message" target="_blank">消息</a><span class="messageCount" style="display: none;"><em style="background-color: #F97B49;height:20px;padding: 2px 6px;border-radius: 10px 10px 10px 10px;position: absolute;color:white;font-style:normal"></em></span></div></li><li><a href="javascript:;" class="studentCenterBox" target="_blank">学习中心</a></li><li><a href="javascript:;" class="hide" id="docOrHos" target="_blank">我是医师</a></li><li><a href="/web/html/anchor/curriculum.html" class="hide" id="anchorWorkbench" target="_blank">主播工作台</a></li>' +
+            '<li><div class="messageBox"><a href="javascript:;" data-id="mynews" class="message" target="_blank">消息</a><span class="messageCount" style="display: none;"><em style="background-color: #F97B49;height:20px;padding: 2px 6px;border-radius: 10px 10px 10px 10px;position: absolute;color:white;font-style:normal"></em></span></div></li><li><a href="/web/html/anchor/curriculum.html" class="hide" id="anchorWorkbench" target="_blank">主播工作台</a></li><li><a href="javascript:;" class="hide" id="docOrHos" target="_blank">我是医师</a></li><li><a href="javascript:;" class="studentCenterBox" target="_blank">学习中心</a></li>' +
             '</ul></div></div>',
             nav:
 
             '<div class="header_right">' +
-            '<a href="/index"><img src="/web/images/pandaLogo.jpg" alt="" width="206" height="50" style="float:left"></a>' +
+            '<a href="/index"><img src="/web/images/logos.png" alt="" style="float:left"></a>' +
 
             '</div>' +
             '<div class="header_left">' +

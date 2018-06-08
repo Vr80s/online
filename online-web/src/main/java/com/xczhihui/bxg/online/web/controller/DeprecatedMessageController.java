@@ -8,6 +8,7 @@ import java.text.ParseException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.xczhihui.bxg.online.web.service.OnlineUserCenterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,6 +38,8 @@ public class DeprecatedMessageController extends AbstractController {
     private MessageService messageService;
     @Autowired
     private ICommonMessageService commonMessageService;
+    @Autowired
+    private OnlineUserCenterService onlineUserCenterService;
 
     /**
      * 获取当前用户的系统消息
@@ -130,5 +133,27 @@ public class DeprecatedMessageController extends AbstractController {
     public ResponseObject findNewestNotice(HttpSession s) {
         OnlineUser user = getCurrentUser();
         return OnlineResponse.newSuccessOnlineResponse(messageService.findNewestNotice(user));
+    }
+
+    /**
+     * 添加意见反馈消息
+     *
+     * @param title
+     * @param describe
+     * @return
+     * @throws ParseException
+     * @throws InvocationTargetException
+     * @throws IllegalAccessException
+     */
+    @RequestMapping(path = "addFeedBack", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseObject addFeedBack(HttpSession s, String title, String describe) {
+
+        OnlineUser u = getCurrentUser();
+        if (u == null) {
+            return OnlineResponse.newErrorOnlineResponse("请登录!");
+        }
+        onlineUserCenterService.addFeedBack(u.getId(),title, describe);
+        return OnlineResponse.newSuccessOnlineResponse("操作成功");
     }
 }

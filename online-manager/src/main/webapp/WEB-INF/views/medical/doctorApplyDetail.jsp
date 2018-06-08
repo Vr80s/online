@@ -44,11 +44,11 @@
         <div class="doctor-cardnum-text">${medicalDoctorApply.cardNum}</div>
     </div>
 
-    <div class="doctor-cardPicture-container">
+    <%--<div class="doctor-cardPicture-container">
         <div class="doctor-cardPicture">身份证：</div>
         <img class="doctor-cardPositive-img" src="${medicalDoctorApply.cardPositive}"/>
         <img class="doctor-cardNegative-img" src="${medicalDoctorApply.cardNegative}"/>
-    </div>
+    </div>--%>
 
     <div class="doctor-qualification-container">
         <div class="doctor-qualification">医师资格证：</div>

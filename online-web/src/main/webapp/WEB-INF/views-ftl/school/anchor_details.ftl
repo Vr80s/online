@@ -17,6 +17,8 @@
 		<!--公共头部和底部样式结束-->
 			<link href="/web/bootstrap-select/bootstrap.min.css" rel="stylesheet">
 			<link rel="stylesheet" href="/web/css/mylogin.css"/>
+			 <!--字体图标样式-->
+   			 <link rel="stylesheet" href="/web/fonts/style.css"/>
 			<!--分页样式-->
 			<link rel="stylesheet" href="/web/css/ftl-page.css"/>
 			<!--分页样式-->
@@ -71,22 +73,19 @@
 		<!--content-->
 		<!--课程-->
 		<div class="sidebar-content" style="padding: 0 0 30px;">
-		
-				
 			 <#if courseList?? && courseList.records?size gt 0>
 				  <#if type == 'courses' >
 				  	<#include "anchor_course.ftl">
 				 </#if>
 			 <#else>
 			     <!--无数据时显示背景图-->
-				 <div class="all-null anchor-null hide">
+				 <div class="all-null anchor-null">
 				 	<div class="null-img">
 				 		<img src="/web/images/icon-nodata.png"/>
 				 	</div>
 				 	<p>暂无数据</p>
 				 </div>
 			 </#if>	
-			
 		</div>
 		
 		<!--介绍-->					
@@ -101,7 +100,7 @@
 								 	<div class="null-img">
 								 		<img src="/web/images/icon-nodata.png"/>
 								 	</div>
-								 	<p>暂无数据</p>
+								 	<p>暂无主讲人介绍</p>
 								 </div> 
 							 </#if> 
 
@@ -111,7 +110,7 @@
 							<h5>坐诊医馆</h5>
 							<div class="hospital-img z">
 							    <#if hospital?? >
-									<img src="${hospital.versionPictures}"/>
+									<img src="${hospital.headPortrait}"/>
 								<#else> 
 								    <img src="${webUrl}/web/images/defaultHead/18.png" />
 							    </#if>
@@ -119,9 +118,9 @@
 							<div class="hospital-inf y">
 								<div class="hospital-status">
 									<#if lecturerInfo.type == 1 && hospital?? && hospital.name??>
-										<p>${hospital.name?default("")}</p>
+										<p>医馆名称：${hospital.name?default("")}</p>
 									</#if>
-									<p>预约电话：400-800-9999</p>
+									<p>预约电话：${hospital.tel?default("")}</p>
 									<#if lecturerInfo.type == 1 && lecturerInfo.workTime??>
 										<p>坐诊时间：${lecturerInfo.workTime?default("")}</p>
 									</#if>
@@ -133,9 +132,7 @@
 											<span>址：</span>
 										</p>
 										<p class="address-text z">
-											${hospital.province?default("")}
-											${hospital.city?default("")}
-											${hospital.detailedAddress}
+											${hospital.province?default("")}${hospital.city?default("")}${hospital.detailedAddress}
 										</p>
 									</#if>	
 								</div>
@@ -151,19 +148,9 @@
 					</div>
 		<!--评价-->	
 		<div class="sidebar-content hide">		
-			 <#if criticizeCount gt 0> 
-					 <#if type == 'comment' >
-			  			<#include "common/comment.ftl">
-					 </#if>
-			 <#else>
-			     <!--无数据时显示背景图-->
-				 <div class="all-null course-null">
-				 	<div class="null-img">
-				 		<img src="/web/images/icon-nodata.png"/>
-				 	</div>
-				 	<p>暂无数据</p>
-				 </div> 
-			 </#if>   	
+			 <#if type == 'comment' >
+	  			<#include "common/comment.ftl">
+			 </#if>
 		</div>		
 				</div>
 		

@@ -57,8 +57,8 @@
 								        <span class="classCategory">直播中</span>
 									  <#elseif courseItem.lineState  == 2>
 									      <span class="classCategory">预告</span>
-									  <#elseif courseItem.lineState  == 3>
-									      <span class="classCategory">直播回放</span>
+									  <#elseif courseItem.lineState  == 3 ||  courseItem.lineState == 5 ||  courseItem.lineState == 6>
+									      <span class="classCategory">暂未开播</span>
 									  <#elseif courseItem.lineState  == 4>
 							             <span class="classCategory">即将直播</span>
 							         </#if>

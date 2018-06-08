@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
 import org.aspectj.util.FileUtil;
 import org.slf4j.Logger;
@@ -114,8 +115,8 @@ public class SchoolController extends AbstractFtlController {
          * 课程列表
          */
         view.addObject("courseTypeList",
-                mobileBannerService.recommendCourseList(listMenu, 
-                		PagingFixedType.PC_RECOMMENDATION.getValue()));
+                mobileBannerService.recommendCourseList(listMenu,
+                        PagingFixedType.PC_RECOMMENDATION.getValue()));
         return view;
     }
 
@@ -285,7 +286,7 @@ public class SchoolController extends AbstractFtlController {
      * @throws IOException
      */
     @RequestMapping(value = "{courseId}/{type}", method = RequestMethod.GET)
-    public ModelAndView info(HttpServletRequest req,HttpServletResponse res,
+    public ModelAndView info(HttpServletRequest req, HttpServletResponse res,
                              @PathVariable Integer courseId,
                              @PathVariable String type,
                              @RequestParam(required = false) String userId,
@@ -325,9 +326,8 @@ public class SchoolController extends AbstractFtlController {
                 }
             }
         }
-        
-        
-        
+
+
         //如果是专辑获取专辑列表
         if (clv.getCollection()) {
             List<CourseLecturVo> courses = courseService.selectCoursesByCollectionId(clv.getId());
@@ -344,7 +344,7 @@ public class SchoolController extends AbstractFtlController {
         File f = new File(path + File.separator + "/course_common_problem.html");
         view.addObject("commonProblem", FileUtil.readAsString(f));
 
-        
+
         //课程评价
         Map<String, Object> map = null;
         if (courseId != null) {
@@ -377,7 +377,8 @@ public class SchoolController extends AbstractFtlController {
     public ResponseObject add(LineApplyBody lineApplyBody) {
         String userId = getUserId();
         lineApplyService.saveOrUpdate(userId, lineApplyBody.build(userId));
-        return ResponseObject.newSuccessResponseObject("保存成功");
+        CourseLecturVo clv = courseService.selectCourseMiddleDetailsById(lineApplyBody.getCourseId());
+        return ResponseObject.newSuccessResponseObject(clv.getWatchState());
     }
 
     /**
@@ -391,7 +392,18 @@ public class SchoolController extends AbstractFtlController {
         Map<String, Object> result = new HashMap<>(2);
         String userId = getUserId();
         result.put("submitted", lineApplyService.submitted(userId, courseId));
-        result.put("applyInfo", lineApplyService.findLineApplyByUserId(userId));
         return ResponseObject.newSuccessResponseObject(result);
+    }
+
+    @RequestMapping(value = "offlineApply", method = RequestMethod.GET)
+    public ModelAndView offlineApply(@RequestParam Integer courseId) {
+        ModelAndView modelAndView = new ModelAndView("/school/offline_apply");
+        Map<String, Object> lineApply = lineApplyService.findLineApplyByUserId(getUserId());
+        modelAndView.addObject("mobile", MapUtils.getString(lineApply, "mobile", ""));
+        modelAndView.addObject("wechatNo", MapUtils.getString(lineApply, "wechatNo", ""));
+        modelAndView.addObject("realName", MapUtils.getString(lineApply, "realName", ""));
+        modelAndView.addObject("sex", MapUtils.getString(lineApply, "sex", ""));
+        modelAndView.addObject("courseId", courseId);
+        return modelAndView;
     }
 }

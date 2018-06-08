@@ -169,14 +169,16 @@ $(function() {
 //							'</div>'+
 //						'</li>'+
 						'<li>'+
-							'<a href="javascript:;" class="studentCenterBox">学习中心</a>'+
+							'<a href="/web/html/anchor/curriculum.html" class="hide" id="anchorWorkbench">主播工作台</a>'+
 						'</li>'+
 						'<li>'+
 							'<a href="javascript:;" class="hide" id="docOrHos">我是医师</a>'+
 						'</li>'+
 						'<li>'+
-							'<a href="/web/html/anchor/curriculum.html" class="hide" id="anchorWorkbench">主播工作台</a>'+
+							'<a href="javascript:;" class="studentCenterBox">学习中心</a>'+
 						'</li>'+
+						
+						
 						// '<li><div class="messageBox"><a href="javascript:;" data-id="mynews" class="message">消息</a><span class="messageCount" style="display: none;"><em style="background-color: #2cb82c;padding: 0 2px;border-radius: 5px;position: absolute;color:white;font-style:normal"></em></span></div></li><li><div class="shoppingBox"><a href="javascript:;" data-id="" class="shoppingCar">购物车</a><span class="shopping" style="display: none;"><em style="background-color: #2cb82c;padding: 0 2px;border-radius: 5px;position: absolute;color:white;font-style:normal"></em></span></div></li><li><a href="javascript:;" class="studentCenterBox">学习中心</a></li><li><a href="javascript:;" class="hide" id="docOrHos">我是医师</a></li><li><a href="/web/html/anchor/curriculum.html" class="hide" id="anchorWorkbench">主播工作台</a></li>'+
 					'</ul>'+
 				'</div>'+

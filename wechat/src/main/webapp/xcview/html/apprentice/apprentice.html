@@ -9,10 +9,75 @@
 	<!-- 页面css引入 -->
 	<link rel="stylesheet" href="/xcview/css/apprentice/apprentice.css">
 
+	<!-- 刷新引入 -->
+	<link rel="stylesheet" href="/xcview/css/mui.min.css">
+	<link rel="stylesheet" href="/xcview/css/mescroll.min.css">
+	<script type="text/javascript" src="/xcview/js/common/mescroll.min.js"></script>
+
 	<!--手机嵌入模板-->
 	<script type="text/javascript" src="/xcview/js/common/layout.js"></script>
 
 	
+	
+	<style>
+		/* .arror_return{
+			width: 0.24rem;
+			height: 0.42rem;
+			position: absolute;
+			left: 0.26rem;
+			top: 0.23rem;
+		}
+		.arror_return img{
+			width: 100%;
+			height: 100%;
+			display: block;
+		} */
+		/*处理刷新效果*/
+		
+		.mui-pull-top-pocket{
+			top: 0;
+		}
+		.mui-scroll-wrapper{
+			height: 100%;
+			position: fixed;
+			top: 0.88rem;
+		}
+		.mui-pull-bottom-pocket .mui-pull{
+			bottom: 1rem;
+		}
+		.bought_main{
+			padding-bottom: 0.6rem;
+		}
+		.mui-pull-bottom-pocket .mui-pull{
+			bottom: 0rem;
+			height: 40px;
+			line-height: 40px;
+		}
+		.mui-pull-bottom-pocket{
+			position: relative;
+			bottom: 1rem;
+			height: 40px;
+			line-height: 40px;
+		}
+		.both{
+			clear: both;
+		}
+		.footer{
+			z-index: 9999999999;
+		}
+		.mui-scroll{
+			padding-bottom: 1.5rem;
+		}
+		.mui-pull-bottom-pocket .mui-pull-loading{
+			margin-top: 0.8rem;
+		}
+		.mui-icon{
+			margin-top: 0.8rem;
+		}
+		.mui-pull-caption{
+			margin-top: 0.8rem;
+		}
+	</style>
 </head>
 <body style="overflow: scroll;-webkit-overflow-scrolling:touch;">
 	<!-- 师承头部开始 -->
@@ -23,51 +88,70 @@
 
 	<!-- 中间内容开始 -->
 	<div class="fiexd"></div>
-	<div class="main" style="-webkit-overflow-scrolling1:touch;">
-		<div class="center">
-			<ul>
-				<li onclick="location.href ='/xcview/html/down_load.html'">
-					<div class="apprentice_main">
-						<div class="flat_patternmaking">
-							<img src="/xcview/images/anchor_entry.jpg" alt="" />
-						</div>
-						<div class="main_title">主播招募，马上加入就分享平台前期红利</div>
-					</div>
-				</li>
-			</ul>
-			<ul class="apprentice_list">
-				<script type="text/html" id="apprentice_list_tmp">
-					{{each items as item i}}
-					<li onclick="location.href ='inherited_introduction.html?merId={{item.id}}{{item.tokenStr}}'">
-						<div class="apprentice_main">
-							<div class="flat_patternmaking">
-								<img src="{{item.coverImg}}" alt="封面" />
-							</div>
-							<div class="main_title">{{item.title}}</div>
-						</div>
-					</li>
-					{{/each}}
-				</script>
 
-				<!--<li onclick="location.href ='inherited_introduction.html'">-->
-					<!--<div class="apprentice_main">-->
-						<!--<div class="flat_patternmaking">-->
-							<!--<img src="http://test-file.ipandatcm.com/18522104635/936dd0d79046-2c9aec356231d035016231eb7b0b00001526957195438.png" alt="" />-->
-						<!--</div>-->
-						<!--<div class="main_title">我是标题我是标题我是标题我是标题我是标题我是标题我是标题我是标题我是标题我是标题</div>-->
-					<!--</div>-->
-				<!--</li>-->
-				<!--<li onclick="location.href ='inherited_introduction.html'">-->
-					<!--<div class="apprentice_main">-->
-						<!--<div class="flat_patternmaking">-->
-							<!--<img src="/xcview/images/9ed0246c806c9c8d.jpg" alt="" />-->
-						<!--</div>-->
-						<!--<div class="main_title">我是标题我是标题我是标题我是标题我是标题我是标题我是标题我是标题我是标题我是标题</div>-->
-					<!--</div>-->
-				<!--</li>-->
-			</ul>
+	<!-- <div id="my_class_box"> -->
+		<div id="refreshContainer" class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<!-- 刷新里面内容开始 -->
+				<div class="main" style="-webkit-overflow-scrolling1:touch;">
+					<div class="center">
+						<ul>
+							<!-- <li onclick="location.href ='/xcview/html/down_load.html'">
+								<div class="apprentice_main">
+									<div class="flat_patternmaking">
+										<img src="/xcview/images/anchor_entry.jpg" alt="" />
+									</div>
+									<div class="main_title">主播招募，马上加入就分享平台前期红利</div>
+								</div>
+							</li> -->
+							<li class="onclick_li">
+								<div class="apprentice_main">
+									<div class="flat_patternmaking">
+										<img src="/xcview/images/anchor_entry.jpg" alt="" />
+									</div>
+									<div class="main_title">主播招募，马上加入就分享平台前期红利</div>
+								</div>
+							</li>
+						</ul>
+						<ul class="apprentice_list">
+							<script type="text/html" id="apprentice_list_tmp">
+								{{each items as item i}}
+								<li class="onclick_lis" data-ids="{{item.id}}" data-tokenStr="{{item.tokenStr}}">
+									<div class="apprentice_main">
+										<div class="flat_patternmaking">
+											<img src="{{item.coverImg}}" alt="封面" />
+										</div>
+										<div class="main_title">{{item.title}}</div>
+									</div>
+								</li>
+								{{/each}}
+							</script>
+
+							<!--<li onclick="location.href ='inherited_introduction.html'">-->
+								<!--<div class="apprentice_main">-->
+									<!--<div class="flat_patternmaking">-->
+										<!--<img src="http://test-file.ipandatcm.com/18522104635/936dd0d79046-2c9aec356231d035016231eb7b0b00001526957195438.png" alt="" />-->
+									<!--</div>-->
+									<!--<div class="main_title">我是标题我是标题我是标题我是标题我是标题我是标题我是标题我是标题我是标题我是标题</div>-->
+								<!--</div>-->
+							<!--</li>-->
+							<!--<li onclick="location.href ='inherited_introduction.html'">-->
+								<!--<div class="apprentice_main">-->
+									<!--<div class="flat_patternmaking">-->
+										<!--<img src="/xcview/images/9ed0246c806c9c8d.jpg" alt="" />-->
+									<!--</div>-->
+									<!--<div class="main_title">我是标题我是标题我是标题我是标题我是标题我是标题我是标题我是标题我是标题我是标题</div>-->
+								<!--</div>-->
+							<!--</li>-->
+						</ul>
+					</div>
+				</div>
+				<!-- 刷新里面内容结束 -->
+			</div>
 		</div>
-	</div>
+	<!-- </div> -->
+
+	
 	<!-- 中间内容结束 -->
 
 	<!-- 底部开始 -->
@@ -101,10 +185,10 @@
 	<script type="text/javascript" src="/xcview/js/apprentice/apprentice.js"></script>
 </body>
 <script>
-	var school_height=$(window).height()-$(".fiexd").height();
+	/*var school_height=$(window).height()-$(".fiexd").height();
 	$(".main").height(school_height);
 
 	var school_heights=$(window).height()-$(".fiexd").height();
-	$("body").height(school_heights);
+	$("body").height(school_heights);*/
 </script>
 </html>

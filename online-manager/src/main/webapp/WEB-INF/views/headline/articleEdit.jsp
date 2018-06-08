@@ -61,7 +61,7 @@
 			</div>
 		</div>
 		
-		<div class="form-group" style="margin-top:18px;">
+		<%--<div class="form-group" style="margin-top:18px;">
 			<label class="col-sm-1 control-label no-padding-right"><font color="red">*</font>所属标签:</label>
 			<div class="col-sm-3" >
 				<div class="clearfix" style="width: 240px;">
@@ -69,7 +69,7 @@
 					 <input type="hidden" name="tagId" value="${article.tagId}" id="tagId" >
 				</div>
 			</div>
-		</div>
+		</div>--%>
 
 		<div class="form-group" style="margin-top:18px;">
 			<label class="col-sm-1 control-label no-padding-right"><font color="red">*</font>文章标题:</label>

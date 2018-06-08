@@ -1,6 +1,7 @@
 .wp{width: 1200px; margin: 0 auto;}
 .z{float: left;}
 .y{float: right;}
+body{color: #333333;}
 table{
 	width: 100%;
 }
@@ -421,8 +422,89 @@ table{
 .contentWrap #zhuanlan .zhuanlan_bottom2 table tr,.contentWrap #zhuanlan .zhuanlan_bottom2 table td{
 	border: 1px solid #DEDEDE;
 }
+/*学员部分*/
+.trainee-title{
+	width: 100%;
+	height: 60px;
+	border-bottom: 1px solid #f0f0f0;
 
-
+	padding-left: 20px;
+	color: #333333;
+	line-height: 60px;
+}
+.trainee-title h5{
+	margin: 0;
+	padding: 0;	
+	font-size: 16px;
+	display: inline-block;
+}
+.trainee-main{
+	overflow: hidden;
+	padding: 20px;
+	font-size: 14px;
+}
+.trainee-class-select select{
+	width: 280px;
+    height: 36px;
+    border: 1px solid #eeeeee;
+    outline: none;
+}
+.trainee-table{
+	margin-top: 20px;
+}
+.trainee-table table{
+	table-layout: fixed;
+	width:100%;
+	text-align: center;
+}
+.trainee-table table th{
+	border: 1px solid #dedede;
+	text-align: center;
+	font-weight: 600;
+	background: #f0f0f0;
+color: #666666;
+height: 40px;
+width: 63px;
+}
+.trainee-table table th:nth-child(1){
+	width: 90px;
+}
+.trainee-table table th:nth-child(2){
+	width: 105px;
+}
+.trainee-table table th:nth-child(3){
+	width: 105px;
+}
+.trainee-table table th:nth-child(4){
+	width: 60px;
+}
+.trainee-table table th:nth-child(5){
+	width: 170px;
+}
+.trainee-table table th:nth-child(6){
+	width: 160px;
+}
+.trainee-table table th:nth-child(7){
+	width: 90px;
+}
+.trainee-table table th:nth-child(8){
+	width: 120px;
+}
+.trainee-table table td{
+	border: 1px solid #dedede;
+	height: 80px;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden; 
+}
+.trainee-modal{
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,.2);
+	position: fixed;
+	top: 0;
+	left: 0;
+}
 /*右侧资源部分*/
 .wrap_box  #resource .zhuanlan_top{
 	height: 60px;

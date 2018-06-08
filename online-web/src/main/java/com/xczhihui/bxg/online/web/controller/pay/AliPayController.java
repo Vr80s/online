@@ -175,7 +175,7 @@ public class AliPayController extends AliPayApiController {
             boolean verify_result = AlipaySignature.rsaCheckV1(map, aliPayBean.getPublicKey(), "UTF-8","RSA2");
             if (verify_result) {
                 logger.info("return_url 验证成功");
-                response.getWriter().println("<script>window.open('" + weburl + "/web/html/myStudyCenter.html"+"','_self')</script>");
+                response.getWriter().println("<script>window.open('" + weburl + "/web/html/personal-center/personal-index.html"+"','_self')</script>");
             } else {
                 logger.info("return_url 验证失败");
                 response.getWriter().println("验签失败");

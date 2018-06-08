@@ -1,5 +1,6 @@
 package com.xczhihui.course.vo;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -7,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 /**
  * @author hejiwei
  */
-public class LineCourseApplyStudentVO {
+public class LineCourseApplyStudentVO implements Serializable {
 
     private String id;
 
@@ -25,6 +26,8 @@ public class LineCourseApplyStudentVO {
     private Date createTime;
 
     private String realName;
+
+    private String anchorName;
 
     public String getId() {
         return id;
@@ -88,6 +91,14 @@ public class LineCourseApplyStudentVO {
 
     public void setRealName(String realName) {
         this.realName = realName;
+    }
+
+    public String getAnchorName() {
+        return anchorName;
+    }
+
+    public void setAnchorName(String anchorName) {
+        this.anchorName = anchorName;
     }
 
     @Override

@@ -847,7 +847,7 @@ $(".sign-read").click(function(){
 							title: title,
 							describe: miaoshu
 						};
-						RequestService("/online/message/getMessageList", "get",data, function (data) {
+						$.post(bath + "/online/message/addFeedBack", data, function(data) {
 							if(data.success==true){
 								showTip("提交成功");
 								$(".text-title").val("");
