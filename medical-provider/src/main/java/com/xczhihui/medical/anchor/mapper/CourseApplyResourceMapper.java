@@ -25,4 +25,10 @@ public interface CourseApplyResourceMapper extends BaseMapper<CourseApplyResourc
     List<CourseApplyResource> selectAllCourseResourcesForUpdateDuration();
 
     void deleteCourseApplyResource(@Param("userId")String userId, @Param("resourceId")String resourceId);
+    
+    
+	List<Integer> selectCourseListByVideoRecourse(@Param("directId")String directId);
+
+	void updateBatchCourseLength(@Param("videoLength")String videoLength,
+			@Param("list")List<Integer> list);
 }

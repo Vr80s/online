@@ -62,6 +62,7 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
     private CollectionCourseApplyUpdateDateMapper collectionCourseApplyUpdateDateMapper;
     @Autowired
     private CCUtils CCUtils;
+    
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -301,6 +302,9 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
     @Override
     public void updateCourseApplyResource() {
         List<CourseApplyResource> CourseApplyResources = courseApplyResourceMapper.selectAllCourseResourcesForUpdateDuration();
+       
+        System.out.println("CourseApplyResources.size()"+CourseApplyResources.size());
+        
         for (CourseApplyResource courseApplyResource : CourseApplyResources) {
             try {
                 LocalDateTime today = LocalDateTime.now();
@@ -313,7 +317,22 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
                     String duration = CCUtils.getVideoLength(courseApplyResource.getResource());
                     courseApplyResource.setLength(duration);
                 }
+                logger.info("资源id:"+courseApplyResource.getResource());
+                logger.info("课程时长:"+courseApplyResource.getLength());
+                
+                
+                /**
+                 * 更改这个课程的时长
+                 */
+                List<Integer> list  =courseApplyResourceMapper.selectCourseListByVideoRecourse(courseApplyResource.getResource());
+                if(list.size()>0) {
+                	 courseApplyResourceMapper.updateBatchCourseLength(courseApplyResource.getLength(),list);
+                }
+               
 
+        		/**
+                 * 通过这个视频Id查找这个对应的课程
+                 */
                 courseApplyResourceMapper.updateById(courseApplyResource);
             } catch (Exception e) {
                 e.printStackTrace();
