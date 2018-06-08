@@ -110,7 +110,7 @@
 							<h5>坐诊医馆</h5>
 							<div class="hospital-img z">
 							    <#if hospital?? >
-									<img src="${hospital.versionPictures}"/>
+									<img src="${hospital.headPortrait}"/>
 								<#else> 
 								    <img src="${webUrl}/web/images/defaultHead/18.png" />
 							    </#if>
@@ -118,9 +118,9 @@
 							<div class="hospital-inf y">
 								<div class="hospital-status">
 									<#if lecturerInfo.type == 1 && hospital?? && hospital.name??>
-										<p>${hospital.name?default("")}</p>
+										<p>医馆名称：${hospital.name?default("")}</p>
 									</#if>
-									<p>预约电话：400-800-9999</p>
+									<p>预约电话：${hospital.tel?default("")}</p>
 									<#if lecturerInfo.type == 1 && lecturerInfo.workTime??>
 										<p>坐诊时间：${lecturerInfo.workTime?default("")}</p>
 									</#if>
@@ -132,9 +132,7 @@
 											<span>址：</span>
 										</p>
 										<p class="address-text z">
-											${hospital.province?default("")}
-											${hospital.city?default("")}
-											${hospital.detailedAddress}
+											${hospital.province?default("")}${hospital.city?default("")}${hospital.detailedAddress}
 										</p>
 									</#if>	
 								</div>

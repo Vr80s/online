@@ -94,7 +94,7 @@
         <div class="right-comment y">
             <ul class="user-name">
                 <li>${criticizesItem.onlineUser.name}</li>
-                <li>${criticizesItem.createTime?string("yyyy.MM.dd")}</li>
+                <li>${criticizesItem.createTime?string("yyyy-MM-dd")}</li>
                 <#if criticizesItem.starLevel?? && criticizesItem.starLevel gt 0 >
 
                     <#if criticizesItem.starLevel?contains(".")>
@@ -130,7 +130,7 @@
                     <div class="content-reply y">
                         <ul class="name-reply">
                             <li>${reply.onlineUser.name}</li>
-                            <li>${reply.createTime?string("yyyy.MM.dd")}</li>
+                            <li>${reply.createTime?string("yyyy-MM-dd")}</li>
                         </ul>
                         <p class="reply-text cl">
                         ${reply.replyContent}
