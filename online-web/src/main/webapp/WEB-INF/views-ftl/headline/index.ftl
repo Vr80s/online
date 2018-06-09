@@ -195,7 +195,7 @@
                     <li class="clearfix">
                         <div class="touxiang">
                         	<a href="/doctors/${hotSpecialColumnAuthor.doctorId}" style="color: #0C0C0C"target="_blank">
-                            <img src="${hotSpecialColumnAuthor.headPortrait}" alt=""/>
+                            <img src="${hotSpecialColumnAuthor.headPortrait!defaultDoctorHeadImg}" alt=""/>
                             </a>
                         </div>
                         <div class="zuozhe_inf">
