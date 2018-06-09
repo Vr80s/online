@@ -21,7 +21,8 @@ $(function() {
 		$('#right-content > div:eq('+index+') > div').addClass('hide')
 		$('#right-content > div:eq('+index+') > div').eq($(this).index()).removeClass('hide');
 		if(location.hash == "#menu2-1"){
-			$("#btnQuestion").click();
+			$("#btnQuestion").click()
+			quizList(1);		
 		}
 	})
 	
@@ -35,9 +36,7 @@ $(function() {
 	    	$("#accordion li[data-menu='menu1-1']").click();
 	    	$("#accordion li[data-menu='menu1-1']").addClass('open');
 	    	$("#accordion li[data-menu='menu1-1'] .submenu").css('display','block')
-    	}else if(location.hash == "#menu2-1" || location.hash == "#menu2-2"){
-//  		quizList(1)
-//  		myAnswer(1)
+   	 	}else if(location.hash == "#menu2-1" || location.hash == "#menu2-2"){
 	    	$("#accordion li[data-menu='menu2-1']").click();
 	    	$("#accordion li[data-menu='menu2-1']").addClass('open');
 	    	$("#accordion li[data-menu='menu2-1'] .submenu").css('display','block')
@@ -57,20 +56,15 @@ $(function() {
 	    	$("#accordion li[data-menu='menu7']").click();
 	    	$("#accordion li[data-menu='menu7']").addClass('open');
     	}	
-    	
+//  	
 //	判断路径的hash进行页面跳转
 	if(hash == '#menu1-1'){
    		$("#accordion a[data-menu='menu1-1']").click();
 	}else if(hash == '#menu1-2'){		
 		$("#accordion a[data-menu='menu1-2']").click();
 	}else if(hash == '#menu2-1'){
-		quizList(1);
-		myAnswer(1);
 		$("#accordion a[data-menu='menu2-1']").click();
-	}else if(hash == '#menu2-2'){
-//		myAnswer(1);
-//		quizList(1);
-		
+	}else if(hash == '#menu2-2'){		
 		$("#accordion a[data-menu='menu2-2']").click();
 	}else if(hash == '#menu3'){
 		orderList(1,0,5);
@@ -113,8 +107,6 @@ $(function() {
 				$el.find('.submenu').not($next).parent().find("span").removeClass('glyphicon-triangle-bottom');			
 			}
 			if($(this).siblings(".tte").length>0){	
-				$("#btnQuestion").click();
-						myAnswer(1);
 				quizList(1)	
 			}
 //		判断数据加载
@@ -317,6 +309,10 @@ $(".question-forum li").click(function(){
 	$(".question-forum li").removeClass("mune-active");
 	$(this).addClass("mune-active");
 	$(".question-wrap").addClass("hide").eq($(this).index()).removeClass("hide");
+	if($(this).attr("data-name")=="showText"){
+		myAnswer(1);
+//		showMoneText();
+	}
 })
 
 //		我的提问    我的回答  由于hide后不能获取元素高度 展示更多文字
@@ -348,7 +344,42 @@ function quizList(pages){
 //          	去掉内容里的img标签
             	$(".list-Answer-right-text img").remove();
             	
-           		showMoneText();
+				//控制阅读更多
+				var $dot5 = $('.dot6');
+                $dot5.each(function () {
+                    if ($(this).height() > 40) {
+                        $(this).attr("data-txt", $(this).attr("data-text"));
+                        $(this).height(40);
+                        $(this).append('<span class="qq" style="margin-right:60px"> <a class="toggle" href="###" style="color:#2cb82c"><span class="opens">阅读全文<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></span><span class="closes">收起<span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span></span></a></span>');
+                    }
+                    var $dot4 = $(this);
+
+                    function createDots() {
+                        $dot4.dotdotdot({
+                            after: 'span.qq'
+                        });
+                    }
+                    function destroyDots() {
+                        $dot4.trigger('destroy');
+                    }
+
+                    createDots();
+                    $dot4.on(
+                        'click',
+                        'a.toggle',
+                        function () {
+                            $dot4.toggleClass('opened');
+
+                            if ($dot4.hasClass('opened')) {
+                                destroyDots();
+                            } else {
+                                createDots();
+                            }
+                            return false;
+                        }
+                    );
+                });
+                //控制阅读更多
             }
           }else{
     		showTip("获取数据失败");
@@ -385,7 +416,42 @@ function myAnswer(pages){
             	$("#answer").html(template("answer-box",{items:data.resultObject.items}))
 //          	去掉内容的img标签
             	$(".list-Answer-right-text img").remove();
+            	//控制阅读更多
+            	var $dot5 = $('.dot5');
+                $dot5.each(function () {
+                    if ($(this).height() > 40) {
+                        $(this).attr("data-txt", $(this).attr("data-text"));
+                        $(this).height(40);
+                        $(this).append('<span class="qq" style="margin-right:60px"> <a class="toggle" href="###" style="color:#2cb82c"><span class="opens">阅读全文<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></span><span class="closes">收起<span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span></span></a></span>');
+                    }
+                    var $dot4 = $(this);
 
+                    function createDots() {
+                        $dot4.dotdotdot({
+                            after: 'span.qq'
+                        });
+                    }
+                    function destroyDots() {
+                        $dot4.trigger('destroy');
+                    }
+
+                    createDots();
+                    $dot4.on(
+                        'click',
+                        'a.toggle',
+                        function () {
+                            $dot4.toggleClass('opened');
+
+                            if ($dot4.hasClass('opened')) {
+                                destroyDots();
+                            } else {
+                                createDots();
+                            }
+                            return false;
+                        }
+                    );
+                });
+                //控制阅读更多
             }
           }else{
     		showTip("获取数据失败");
@@ -1106,7 +1172,7 @@ function deleteNews(index){
 }
   
 function showMoneText(){
-	$("#answer").removeClass("hide");
+//	$("#answer").removeClass("hide");
 //点击收起,隐藏则字体
 			var $dot5 = $('.dot5');
                 $dot5.each(function () {
@@ -1143,6 +1209,6 @@ function showMoneText(){
                     );
                 });
 //获取高度后立马将其隐藏
-	$("#answer").addClass("hide");
+//	$("#answer").addClass("hide");
 
 }
