@@ -340,7 +340,7 @@ color: #999999;
 	margin-top: 0.2rem;
 	/*text-indent: 2em;*/
 	text-align: justify;
-	line-height: 0.4rem;
+	line-height: 0.42rem;
 }
 .user_mywrite img{
 	/*width: 100%;*/
@@ -520,7 +520,7 @@ overflow: hidden;
 	height: 0.25rem;
 }
 .wrap_all_returned{
-	padding-bottom: 1.2rem;
+	/*padding-bottom: 1.2rem;*/
 }
 .wrap_people_comment{
 	width: 100%;

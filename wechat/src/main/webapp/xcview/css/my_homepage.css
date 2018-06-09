@@ -137,7 +137,7 @@ header{
 	float: right;
 	font-size: 0.28rem;
 	color: #333333;
-	/*border-bottom: 1px solid #D8DDE6;*/
+	/*border-bottom: 1px solid #f0f0f0;*/
 }
 .anchor_main .img0{
 	width: 0.36rem;
@@ -172,7 +172,7 @@ header{
 .news{
 	height: 0.98rem;
 	line-height: 0.98rem;
-	border-bottom: 1px solid #D8DDE6;
+	border-bottom: 1px solid #f0f0f0;
 	
 }
 .news .img0{
@@ -191,7 +191,7 @@ header{
 .achievement{
 	height: 0.98rem;
 	line-height: 0.98rem;
-	border-bottom: 1px solid #D8DDE6;
+	border-bottom: 1px solid #f0f0f0;
 }
 .achievement .img0{
 	width: 0.36rem;
@@ -209,7 +209,7 @@ header{
 .integral{
 	height: 0.98rem;
 	line-height: 0.98rem;
-	border-bottom: 1px solid #D8DDE6;
+	border-bottom: 1px solid #f0f0f0;
 }
 .integral .img0{
 	width: 0.36rem;
@@ -241,7 +241,7 @@ header{
 .help{
 	height: 0.98rem;
 	line-height: 0.98rem;
-	border-bottom: 1px solid #D8DDE6;
+	border-bottom: 1px solid #f0f0f0;
 	
 }
 .help .img0{
@@ -260,7 +260,7 @@ header{
 .tickling{
 	height: 0.98rem;
 	line-height: 0.98rem;
-	border-bottom: 1px solid #D8DDE6;
+	border-bottom: 1px solid #f0f0f0;
 	
 }
 .tickling .img0{
