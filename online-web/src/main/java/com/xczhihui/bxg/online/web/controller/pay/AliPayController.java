@@ -8,6 +8,7 @@ import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.base.utils.WebUtil;
 import com.xczhihui.bxg.online.web.utils.alipay.AlipayConfig;
 import com.xczhihui.common.util.OrderNoUtil;
+import com.xczhihui.common.util.enums.OrderFrom;
 import com.xczhihui.common.util.enums.PayOrderType;
 import com.xczhihui.bxg.online.web.base.utils.UserLoginUtil;
 import com.xczhihui.course.model.Order;
@@ -99,6 +100,7 @@ public class AliPayController extends AliPayApiController {
         PayMessage payMessage = new PayMessage();
         payMessage.setType(PayOrderType.COURSE_ORDER.getCode());
         payMessage.setUserId(order.getUserId());
+        payMessage.setFrom(OrderFrom.PC.getCode());
 
         String passbackParams = PayMessage.getPayMessage(payMessage);
         model.setPassbackParams(passbackParams);
@@ -131,6 +133,7 @@ public class AliPayController extends AliPayApiController {
         payMessage.setType(PayOrderType.COIN_ORDER.getCode());
         payMessage.setUserId(loginUser.getId());
         payMessage.setValue(new BigDecimal(count));
+        payMessage.setFrom(OrderFrom.PC.getCode());
 
         String passbackParams = PayMessage.getPayMessage(payMessage);
         model.setPassbackParams(passbackParams);
