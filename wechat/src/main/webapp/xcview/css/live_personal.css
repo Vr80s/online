@@ -526,7 +526,7 @@ overflow: hidden;
 	width: 100%;
 	background: white;
 	overflow: hidden;
-	    border-bottom: 0.01rem solid #D8DDE6;
+	    border-bottom: 0.01rem solid #f0f0f0;
 	    padding-top: 0.2rem;
 }
 .wrap_all_returned .wrap_people_comment:nth-last-child(1){
