@@ -92,7 +92,7 @@
                     window.setInterval(function () {
                         m--;
                         if (m === 0) {
-                            window.location.href = "/order/pay/success?orderId=" + '${orderId}';
+                            window.location.href = "/order/pay/success?orderId=" + '${orderId!''}';
                         }
                         $(".tank span").html(m + "s");
                     }, 1000);

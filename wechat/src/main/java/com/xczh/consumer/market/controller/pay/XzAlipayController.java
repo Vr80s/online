@@ -29,6 +29,7 @@ import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.WebUtil;
 import com.xczhihui.common.util.OrderNoUtil;
+import com.xczhihui.common.util.enums.OrderFrom;
 import com.xczhihui.common.util.enums.PayOrderType;
 import com.xczhihui.course.model.Order;
 import com.xczhihui.course.service.IOrderService;
@@ -113,6 +114,8 @@ public class XzAlipayController extends AliPayApiController {
         PayMessage payMessage = new PayMessage();
         payMessage.setType(PayOrderType.COURSE_ORDER.getCode());
         payMessage.setUserId(order.getUserId());
+        payMessage.setFrom(OrderFrom.H5.getCode());
+
         String passbackParams = PayMessage.getPayMessage(payMessage);
         model.setPassbackParams(passbackParams);
 
@@ -155,6 +158,7 @@ public class XzAlipayController extends AliPayApiController {
         payMessage.setType(PayOrderType.COIN_ORDER.getCode());
         payMessage.setUserId(accountId);
         payMessage.setValue(new BigDecimal(count));
+        payMessage.setFrom(OrderFrom.H5.getCode());
 
         String passbackParams = PayMessage.getPayMessage(payMessage);
         model.setPassbackParams(passbackParams);
@@ -190,6 +194,9 @@ public class XzAlipayController extends AliPayApiController {
         PayMessage payMessage = new PayMessage();
         payMessage.setType(PayOrderType.COURSE_ORDER.getCode());
         payMessage.setUserId(order.getUserId());
+        //目前app端仅安卓调用支付宝接口
+        payMessage.setFrom(OrderFrom.ANDROID.getCode());
+
         String passbackParams = PayMessage.getPayMessage(payMessage);
         model.setPassbackParams(passbackParams);
 
@@ -227,6 +234,8 @@ public class XzAlipayController extends AliPayApiController {
         payMessage.setType(PayOrderType.COIN_ORDER.getCode());
         payMessage.setUserId(accountId);
         payMessage.setValue(new BigDecimal(count));
+        //目前app端仅安卓调用支付宝接口
+        payMessage.setFrom(OrderFrom.ANDROID.getCode());
 
         String passbackParams = PayMessage.getPayMessage(payMessage);
         model.setPassbackParams(passbackParams);
@@ -250,6 +259,11 @@ public class XzAlipayController extends AliPayApiController {
         try {
             // 获取支付宝POST过来反馈信息
             Map<String, String> params = AliPayApi.toMap(request);
+            StringBuilder sb = new StringBuilder();
+            for (Map.Entry<String, String> entry : params.entrySet()) {
+                sb.append(entry.getKey() + " = " + entry.getValue()+";");
+            }
+            logger.warn("wechat服务支付宝支付回调:{}",sb.toString());
             boolean verify_result = AlipaySignature.rsaCheckV1(params, aliPayBean.getPublicKey(), "UTF-8", "RSA2");
             if (verify_result) {
                 payService.aliPayBusiness(params);

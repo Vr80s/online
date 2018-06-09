@@ -48,18 +48,20 @@ public class PayServiceImpl implements PayService {
         if (apr != null) {
             if (SUCCESS.equals(apr.getTradeStatus())) {
                 String type = payMessage.getType();
-                this.business(type, apr.getOutTradeNo(), apr.getTradeNo(), payMessageStr);
+                this.business(type, apr.getOutTradeNo(), apr.getTradeNo(), payMessageStr,Payment.ALIPAY);
             } else {
-                logger.info("===支付失败===");
+                StringBuilder sb = new StringBuilder();
                 for (Map.Entry<String, String> entry : params.entrySet()) {
-                    logger.error(entry.getKey() + " = " + entry.getValue());
+                    sb.append(entry.getKey() + " = " + entry.getValue()+";");
                 }
+                logger.error("alipay支付失败:{}",sb.toString());
             }
         } else {
-            logger.info("===该支付记录已存在===");
+            StringBuilder sb = new StringBuilder();
             for (Map.Entry<String, String> entry : params.entrySet()) {
-                logger.error(entry.getKey() + " = " + entry.getValue());
+                sb.append(entry.getKey() + " = " + entry.getValue()+";");
             }
+            logger.error("alipay该支付记录已存在:{}",sb.toString());
         }
     }
 
@@ -71,17 +73,18 @@ public class PayServiceImpl implements PayService {
         WxcpPayFlow wxcpPayFlow = paymentRecordService.saveWxPayPaymentRecord(params);
         if (wxcpPayFlow != null) {
             String type = payMessage.getType();
-            this.business(type, wxcpPayFlow.getOutTradeNo().substring(0, 20), wxcpPayFlow.getTransactionId(), payMessageStr);
+            this.business(type, wxcpPayFlow.getOutTradeNo().substring(0, 20), wxcpPayFlow.getTransactionId(), payMessageStr, Payment.WECHATPAY);
         } else {
-            logger.info("===该支付记录已存在===");
+            StringBuilder sb = new StringBuilder();
             for (Map.Entry<String, String> entry : params.entrySet()) {
-                logger.error(entry.getKey() + " = " + entry.getValue());
+                sb.append(entry.getKey() + " = " + entry.getValue()+";");
             }
+            logger.error("wxpay该支付记录已存在:{}",sb.toString());
         }
     }
 
     @Override
-    public void business(String type, String outTradeNo, String tradeNo, String payMessageStr) throws Exception {
+    public void business(String type, String outTradeNo, String tradeNo, String payMessageStr, Payment payment) throws Exception {
         if (PayOrderType.COURSE_ORDER.getCode().equals(type)) {
             Integer orderStatus = orderService.getOrderStatus(outTradeNo);
             //付款成功，如果order未完成
@@ -90,7 +93,7 @@ public class PayServiceImpl implements PayService {
                     //计时
                     long current = System.currentTimeMillis();
                     //处理订单业务
-                    orderPayService.addPaySuccess(outTradeNo, Payment.ALIPAY, tradeNo);
+                    orderPayService.addPaySuccess(outTradeNo, payment, tradeNo);
                     logger.info("订单支付成功，订单号:{},用时{}",
                             outTradeNo, (System.currentTimeMillis() - current) + "毫秒");
                 } catch (Exception e) {
@@ -99,7 +102,8 @@ public class PayServiceImpl implements PayService {
             }
         } else if (PayOrderType.COIN_ORDER.getCode().equals(type)) {
             PayMessage payMessage = PayMessage.getPayMessage(String.valueOf(payMessageStr));
-            userCoinService.updateBalanceForRecharge(payMessage.getUserId(), Payment.ALIPAY, payMessage.getValue(), OrderFrom.PC, outTradeNo);
+            Integer from = payMessage.getFrom();
+            userCoinService.updateBalanceForRecharge(payMessage.getUserId(), payment, payMessage.getValue(), OrderFrom.getOrderFrom(from), outTradeNo);
         }
     }
 
