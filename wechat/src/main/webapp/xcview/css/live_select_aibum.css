@@ -379,7 +379,7 @@ overflow: hidden;
 word-break:break-all; 
 }
 .wrap p{
-	line-height: 0.4rem;
+	line-height: 0.42rem;
 }
 .wrap p img{
 	/*width: 100%;*/
@@ -420,16 +420,16 @@ word-break:break-all;
 .no_data{
 	display: none;
 	text-align: center;
-    line-height: 1.8rem;
+    line-height: 1rem;
     /*border-bottom: 1px solid #D8DDE6;*/
     color: #a5a5a5;
-	
+	text-align: left;
 }
 .no_data1{
 	display: none;
 	text-align: center;
-    line-height: 1.8rem;
-
+    line-height: 1rem;
+	text-align: left;
     color: #a5a5a5;
 }
 /*主讲人*/
@@ -467,7 +467,7 @@ word-break:break-all;
 word-break:break-all; 
 }
 .wrap1 p{
-	line-height: 0.4rem;
+	line-height: 0.42rem;
 }
 .wrap1 p img{
 	/*width: 100%;*/

@@ -26,6 +26,7 @@ header {
     top: 0;
     left: 0;
     z-index: 9;
+    border-bottom: 1px solid #D8DDE6;
 }
 .header{
 	/*width: 14.851rem;*/
