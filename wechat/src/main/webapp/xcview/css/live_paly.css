@@ -44,7 +44,7 @@ textarea::-webkit-input-placeholder {
 	line-height: 0.88rem;
 	overflow: hidden;
 	position: fixed;
-	border-bottom: 1px solid #d8dde6;	
+	border-bottom: 1px solid #D8DDE6;	
 	background: white;
 	z-index: 999999;
 }
@@ -217,7 +217,7 @@ margin-top: -0.28rem;
 	background: white;
 	text-align: center;
 	font-size: 0.28rem;
-	border-bottom: 1px solid #D8DDE6;
+	border-bottom: 1px solid #F0F0F0;
 }
 /*简介*/
 .wrap_synopsis{
@@ -247,7 +247,7 @@ margin-top: -0.28rem;
 .my_synopsis ul li p{
 	width: 0.6rem;
 	height: 1px;
-	background: #D8DDE6;
+	background: #f0f0f0;
 	margin-top: 0.2rem;
 }
 /* .my_synopsis ul li:nth-child(2){
@@ -263,7 +263,7 @@ margin-top: -0.28rem;
 	position: relative;
 	text-align: justify;
 	padding-top: 0.1rem;
-	min-height: 2.5rem;
+	min-height: 1rem;
 	padding-bottom: 0.2rem;
 	word-wrap:break-word; 
 word-break:break-all; 
@@ -294,7 +294,7 @@ word-break:break-all;
 	    text-align: center;
     background: white;
 	padding-bottom: 0.2rem;
-	border-bottom: 1px solid #D8DDE6;
+	border-bottom: 1px solid #f0f0f0;
 }
 .btn a{
 	display:inline-block;
@@ -310,10 +310,10 @@ word-break:break-all;
 .no_data{
 	display: none;
 	text-align: center;
-    line-height: 1.8rem;
+    line-height: 1rem;
     /*border-bottom: 1px solid #D8DDE6;*/
     color: #a5a5a5;
-	
+	text-align: left;
 }
 .no_data1{
 	display: none;
@@ -370,7 +370,7 @@ word-break:break-all;
 	position: relative;
 	text-align: justify;
 	padding-top: 0.1rem;
-	min-height: 2.5rem;
+	min-height: 1rem;
 	padding-bottom: 0.2rem;
 	word-wrap:break-word; 
 word-break:break-all; 
@@ -402,7 +402,7 @@ word-break:break-all;
 	    text-align: center;
     background: white;
 	padding-bottom: 0.2rem;
-	border-bottom: 1px solid #D8DDE6;
+	border-bottom: 1px solid #f0f0f0;
 }
 .btn1 a{
 	display:inline-block;
@@ -462,7 +462,7 @@ margin-top: 0.1rem;
 	width: 100%;
 	background: white;
 	overflow: hidden;
-	    border-bottom: 1px solid #D8DDE6;
+	    border-bottom: 1px solid #f0f0f0;
 	    padding-top: 0.2rem;
 }
 
@@ -641,7 +641,10 @@ color: white;
 	padding: 0.01rem 0.26rem 0 0.26rem;
 	margin-top: 0.2rem;
 	box-sizing: border-box;
-
+	position: fixed;
+    bottom: 0;
+    left: 0;
+    border-top: 1px solid #f0f0f0;
 }
 .wrap_input{
 	width: 7rem;

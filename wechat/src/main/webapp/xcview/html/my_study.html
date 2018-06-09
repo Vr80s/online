@@ -186,7 +186,7 @@
 					{{each resultObject as p}}
 						<li onclick="location.href='live_personal.html?userLecturerId={{p.userId}}'">
 							<div class="img_people">
-								<img src="{{p.smallHeadPhoto}}?imageView2/2/w/100"/>
+								<img src="{{p.smallHeadPhoto}}?imageView2/2/w/100" onerror="nofind();"  />
 							</div>
 							<p>{{p.name}}</p>
 						</li>

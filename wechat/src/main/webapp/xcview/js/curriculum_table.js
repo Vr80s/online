@@ -450,7 +450,7 @@ function queryDataByParams(params,data_type){
 							      
 						           "<div class='li_list_one_right'>" +
 							           "<p class='p00'>" +
-							           "<span>"+item.gradeName+"</span><br />" +
+							           "<span>"+item.gradeName+"</span>" +
 							           "<span class='span'>"+item.name+"</span></p>" +
 							           "<div class='div'>" + isFreeStr +"<p class='p1'><img src='/xcview/images/population.png' alt=''>" +
 							             "<span>"+item.learndCount+"</span></p>"+typeStr+"</div>" +
