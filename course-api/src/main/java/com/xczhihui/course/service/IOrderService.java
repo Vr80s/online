@@ -28,4 +28,6 @@ public interface IOrderService extends IService<Order> {
      * @return
      */
     Order getOrderById(String orderId);
+
+    Order getOrderByOrderNo(String out_trade_no);
 }

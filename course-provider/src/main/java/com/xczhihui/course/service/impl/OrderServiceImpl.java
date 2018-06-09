@@ -109,6 +109,12 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         return order;
     }
 
+    @Override
+    public Order getOrderByOrderNo(String orderNo) {
+        Order order = this.baseMapper.selectByOrderNo(orderNo);
+        return order;
+    }
+
     private List<Integer> getCourseIds(Order order) {
         List<OrderDetail> orderDetailList = this.orderDetailService.selectOrderDetailsByOrderId(order.getId());
         List<Integer> courseIds = new ArrayList<>();
