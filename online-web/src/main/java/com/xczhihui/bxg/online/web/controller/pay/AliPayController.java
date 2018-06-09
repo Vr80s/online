@@ -8,6 +8,7 @@ import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.base.utils.WebUtil;
 import com.xczhihui.bxg.online.web.utils.alipay.AlipayConfig;
 import com.xczhihui.common.util.OrderNoUtil;
+import com.xczhihui.common.util.enums.OrderFrom;
 import com.xczhihui.common.util.enums.PayOrderType;
 import com.xczhihui.bxg.online.web.base.utils.UserLoginUtil;
 import com.xczhihui.course.model.Order;
@@ -99,6 +100,7 @@ public class AliPayController extends AliPayApiController {
         PayMessage payMessage = new PayMessage();
         payMessage.setType(PayOrderType.COURSE_ORDER.getCode());
         payMessage.setUserId(order.getUserId());
+        payMessage.setFrom(OrderFrom.PC.getCode());
 
         String passbackParams = PayMessage.getPayMessage(payMessage);
         model.setPassbackParams(passbackParams);
@@ -131,6 +133,7 @@ public class AliPayController extends AliPayApiController {
         payMessage.setType(PayOrderType.COIN_ORDER.getCode());
         payMessage.setUserId(loginUser.getId());
         payMessage.setValue(new BigDecimal(count));
+        payMessage.setFrom(OrderFrom.PC.getCode());
 
         String passbackParams = PayMessage.getPayMessage(payMessage);
         model.setPassbackParams(passbackParams);
@@ -168,16 +171,24 @@ public class AliPayController extends AliPayApiController {
         try {
             // 获取支付宝GET过来反馈信息
             Map<String, String> map = AliPayApi.toMap(request);
+            StringBuilder sb = new StringBuilder();
             for (Map.Entry<String, String> entry : map.entrySet()) {
-                System.out.println(entry.getKey() + " = " + entry.getValue());
+                sb.append(entry.getKey() + " = " + entry.getValue()+";");
             }
+            logger.error("return_url 回调信息:{}",sb.toString());
 
             boolean verify_result = AlipaySignature.rsaCheckV1(map, aliPayBean.getPublicKey(), "UTF-8","RSA2");
             if (verify_result) {
                 logger.info("return_url 验证成功");
-                response.getWriter().println("<script>window.open('" + weburl + "/web/html/personal-center/personal-index.html"+"','_self')</script>");
+                Order order = orderService.getOrderByOrderNo(map.get("out_trade_no"));
+                String page = "/web/html/personal-center/personal-index.html#menu4";
+                if(order != null){
+                    page = "/order/pay/success?orderId="+order.getId();
+                }
+                String url = "<script>window.open('" + weburl + page + "','_self')</script>";
+                response.getWriter().println(url);
             } else {
-                logger.info("return_url 验证失败");
+                logger.error("return_url 验证失败");
                 response.getWriter().println("验签失败");
             }
         } catch (AlipayApiException e) {
@@ -200,13 +211,19 @@ public class AliPayController extends AliPayApiController {
             Map<String, String> params = AliPayApi.toMap(request);
             boolean verify_result = AlipaySignature.rsaCheckV1(params, aliPayBean.getPublicKey(), "UTF-8","RSA2");
             if (verify_result) {
+                StringBuilder sb = new StringBuilder();
+                for (Map.Entry<String, String> entry : params.entrySet()) {
+                    sb.append(entry.getKey() + " = " + entry.getValue()+";");
+                }
+                logger.warn("notify_url 验证成功:{}",sb.toString());
                 payService.aliPayBusiness(params);
                 return "success";
             } else {
-                logger.error("notify_url 验证失败"+params);
+                StringBuilder sb = new StringBuilder();
                 for (Map.Entry<String, String> entry : params.entrySet()) {
-                    logger.error(entry.getKey() + " = " + entry.getValue());
+                    sb.append(entry.getKey() + " = " + entry.getValue()+";");
                 }
+                logger.error("notify_url 验证失败:{}",sb.toString());
                 return "failure";
             }
         } catch (AlipayApiException e) {

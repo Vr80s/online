@@ -3,6 +3,8 @@ package com.xczhihui.online.api.service;
 
 import java.util.Map;
 
+import com.xczhihui.common.util.enums.Payment;
+
 /**
  * Description: <br>
  *
@@ -15,5 +17,5 @@ public interface PayService {
 
     void wxPayBusiness(Map<String, String> params) throws Exception;
 
-    void business(String type, String outTradeNo, String tradeNo, String payMessageStr) throws Exception;
+    void business(String type, String outTradeNo, String tradeNo, String payMessageStr, Payment payment) throws Exception;
 }
