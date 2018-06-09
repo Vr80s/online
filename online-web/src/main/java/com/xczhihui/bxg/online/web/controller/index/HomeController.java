@@ -108,6 +108,7 @@ public class HomeController extends AbstractFtlController {
 	      
 	      /*********************  右侧的数据   ***************************/
 	      
+	      
 	      /**
 	       * 大家专栏
 	       */
@@ -119,10 +120,10 @@ public class HomeController extends AbstractFtlController {
 	      view.addObject("hotSpecialColumnAuthors", medicalDoctorArticleService.listSpecialAuthorContent(3));
 	     
 	      /**
-	       * 医馆招聘信息  
+	       * 医馆招聘信息  -- 先屏蔽掉
 	       */
-	      List<MedicalHospitalRecruitVO> recruits = medicalHospitalRecruitBusinessService.selectRecHospitalRecruit();
-	      view.addObject("recruits", recruits);
+//	      List<MedicalHospitalRecruitVO> recruits = medicalHospitalRecruitBusinessService.selectRecHospitalRecruit();
+//	      view.addObject("recruits", recruits);
 		
 		  return view;
 	}

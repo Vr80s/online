@@ -128,7 +128,7 @@ $(function () {
             '<li>' +
 
             '</li>' +
-            '<li><div class="messageBox"><a href="javascript:;" data-id="mynews" class="message">消息</a><span class="messageCount" style="display: none;"><em style="background-color: #F97B49;height:20px;padding: 2px 6px;border-radius: 10px 10px 10px 10px;position: absolute;color:white;font-style:normal"></em></span></div></li><li><a href="/web/html/anchor/curriculum.html" class="hide" id="anchorWorkbench">主播工作台</a></li><li><a href="javascript:;" class="hide" id="docOrHos">我是医师</a></li><li><a href="javascript:;" class="studentCenterBox">学习中心</a></li>' +
+            '<li><div class="messageBox"><a href="javascript:;" data-id="mynews" class="message">消息</a><span class="messageCount" style="display: none;"><em style="background-color: #F97B49;height:20px;padding: 2px 6px;border-radius: 10px 10px 10px 10px;position: absolute;color:white;font-style:normal"></em></span></div></li><li><a href="/web/html/anchor/curriculum.html" class="hide" id="anchorWorkbench">主播工作台</a></li><li><a href="javascript:;" class="hide" id="docOrHos">我是医师</a></li><li><a class="studentCenterBox" href="javascript:;" target="_blank">学习中心</a></li>' +
             '</ul></div></div>'
         };
     //<!--网站公告-->
@@ -253,8 +253,7 @@ $(function () {
                 localStorage.myStudyCenter = "1";
                 $('#login').modal('show');
             } else {
-//              window.location.href = "/web/html/myStudyCenter.html";
-				window.open("/web/html/personal-center/personal-index.html");
+                location.href = "/web/html/personal-center/personal-index.html";
             }
         })
     });
@@ -275,8 +274,8 @@ $(function () {
                 $("#login").modal("show");
             } else {
                 window.localStorage.personcenter = $(this).attr("data-id");
-//              window.location.href = "/web/html/personcenter.html";
-				window.open("/web/html/personal-center/personal-index.html#menu6");
+                location.href = "/web/html/personal-center/personal-index.html#menu6";
+//				window.open("/web/html/personal-center/personal-index.html#menu6");
 							$("#accordion .link[data-menu='menu6']").click();
             }
         })
@@ -507,7 +506,7 @@ $(function () {
                     var myStudent = window.localStorage.myStudyCenter;
 
                     if (myStudent == 1) {
-                        window.location.href = "/web/html/myStudyCenter.html";
+                        window.location.href = "/web/html/personal-center/personal-index.html";
                         window.localStorage.myStudyCenter = null;
                     }
                     /*

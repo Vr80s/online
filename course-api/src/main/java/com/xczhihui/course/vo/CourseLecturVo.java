@@ -200,6 +200,8 @@ public class CourseLecturVo implements Serializable {
 	
 	private Boolean isDelete; // false 没有删除  true 删除
 	
+	private Integer recommendSort; // 推荐值	
+	
 	
 	public String getUdescription() {
 		return udescription;
@@ -639,5 +641,15 @@ public class CourseLecturVo implements Serializable {
 	public void setIsDelete(Boolean isDelete) {
 		this.isDelete = isDelete;
 	}
+
+	public Integer getRecommendSort() {
+		return recommendSort;
+	}
+
+	public void setRecommendSort(Integer recommendSort) {
+		this.recommendSort = recommendSort;
+	}
+	
+	
 	
 }

@@ -1,20 +1,6 @@
 $(function(){
-    /*var tokenStr = "";
-    if(data.token!=null&&data.appUniqueId!=null){
-        tokenStr = "&token="+data.token+"&appUniqueId="+data.appUniqueId;
-    }*/
-    /*data.page=1;
-    data.size=2
-    requestGetService("/xczh/enrol/enrollmentRegulations",data,function(data){
-        var enrollmentRegulationsList = data.resultObject.records;
-        for(var i = 0;i < enrollmentRegulationsList.length;i++){
-            enrollmentRegulationsList[i].tokenStr = tokenStr;
-        }
-		$(".apprentice_list").html(template('apprentice_list_tmp',{items:enrollmentRegulationsList}))
-	});*/
     completeCourseList(1,8,"down");  /*1页数，8几个*/
 })
-
 
 //获取已结束课程
 function completeCourseList(pageNumber,pageSize,downOrUp) {
@@ -32,8 +18,6 @@ function completeCourseList(pageNumber,pageSize,downOrUp) {
                     if(data.token!=null&&data.appUniqueId!=null){
                         tokenStr = "&token="+data.token+"&appUniqueId="+data.appUniqueId;
                     }
-                    
-
                 }
                 var enrollmentRegulationsList = data.resultObject.records;
             for(var i = 0;i < enrollmentRegulationsList.length;i++){
@@ -54,28 +38,12 @@ function completeCourseList(pageNumber,pageSize,downOrUp) {
             $(".apprentice_list").append(template('apprentice_list_tmp',{items:enrollmentRegulationsList}));
                 mui("#refreshContainer").off();
                 mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);
-
             }
-
-            /*$(".onclick_li").on('click',function(){
-                alert(123);
-                location.href ='/xcview/html/down_load.html'
-            });
-
-            $(".click_lis").on('click',function(){
-                alert(123);
-                location.href ='inherited_introduction.html?merId={{item.id}}{{item.tokenStr}}'
-            });*/
-
-            
-
-
         }else{
             alert(data.errorMessage);
         }
 
         mui("#refreshContainer").on('tap','.onclick_li',function(){
-                alert(123);
                 location.href ='/xcview/html/down_load.html'
         });
 
@@ -86,41 +54,12 @@ function completeCourseList(pageNumber,pageSize,downOrUp) {
             location.href ='inherited_introduction.html?merId='+id+tokenStr;
         });
         
-
         mui("#refreshContainer").on('tap', '.live_select_album', function (event) {
             var course_id=$(this).attr("data-id");
             location.href="live_select_album.html?course_id="+course_id;
-        });
-
-        /*$(".onclick_li").on('click',function(){
-            alert(123);
-            location.href ='/xcview/html/down_load.html'
-        });
-
-        $(".click_lis").on('click',function(){
-            alert(123);
-            location.href ='inherited_introduction.html?merId={{item.id}}{{item.tokenStr}}'
-        });*/
-
-        /*$(".onclick_li").click(function(){
-            alert(123);
-                 location.href ='/xcview/html/down_load.html'
-        });
-        $(".onclick_lis").click(function(){
-             alert(258);
-             location.href ='inherited_introduction.html?merId={{item.id}}{{item.tokenStr}}'
-        });
-*/
-
-
-        
-
+        });   
     })
 }
-
-
-
-
 
 
 var num = 1;
@@ -137,11 +76,7 @@ mui.init({
         }
     }
 });
-/*mui('.mui-scroll-wrapper').scroll({
-     deceleration: 0.0005, //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
-     indicators: false //是否显示滚动条
-});
-*/
+
 /**
  * 下拉刷新
  */

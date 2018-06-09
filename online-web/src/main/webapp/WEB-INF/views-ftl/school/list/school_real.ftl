@@ -51,7 +51,11 @@
 							<#list courseTypeItem.courseList as courseItem>
 								<div class="course clearfix">
 									<#-- 推荐课程的标记  -->
-									<img style="position:absolute;width: 16%;top:-2px;left:-2px;z-index:999" src="/web/images/recommend2.png">
+										<#if courseItem.recommendSort?? &&  courseItem.recommendSort gt 0>	
+											<img style="position:absolute;width: 16%;top:-2px;left:-2px;z-index:999" 
+														src="/web/images/recommend2.png">
+										</#if> 
+									
 									<a style="cursor:pointer" href="/courses/${courseItem.id}/info" target="_blank">
 										<div class="img"><img src="${courseItem.smallImgPath}"></div>
 										<span class="classCategory">线下课程</span>

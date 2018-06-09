@@ -184,7 +184,7 @@
 		if(oc.is_free =0,0,1) as watchState,
 		oc.collection as collection,
 		oc.course_number as courseNumber,
-		
+		if(oc.sort_update_time &lt; now(),0,oc.recommend_sort) recommendSort,
 		IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) + IFNULL(oc.default_student_count, 0) learndCount,
 		
 		if(oc.live_status = 2,if(DATE_SUB(now(),INTERVAL 30 MINUTE)>=oc.start_time,6,if(
