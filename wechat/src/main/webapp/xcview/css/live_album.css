@@ -206,7 +206,7 @@ textarea::-webkit-input-placeholder {
 	font-size: 0.26rem;
 	padding: 0.22rem 0;
 	width: 100%;
-    border-bottom: 1px solid #D8DDE6;
+    border-bottom: 1px solid #f0f0f0;
 }
 .playTime img{
 	display: inline-block;
@@ -234,7 +234,7 @@ textarea::-webkit-input-placeholder {
 	background: white;
 	text-align: center;
 	font-size: 0.28rem;
-	border-bottom: 1px solid #D8DDE6;
+	border-bottom: 1px solid #f0f0f0;
 }
 /*简介*/
 .wrap_synopsis{
@@ -252,7 +252,7 @@ textarea::-webkit-input-placeholder {
 .my_synopsis ul li p{
 	width: 0.6rem;
 	height: 1px;
-	background: #D8DDE6;
+	background: #F0F0F0;
 	margin-top: 0.2rem;
 }
 .my_synopsis ul .border{
@@ -273,10 +273,11 @@ textarea::-webkit-input-placeholder {
 	position: relative;
 	text-align: justify;
 	padding-top: 0.1rem;
-	min-height: 2.5rem;
+	min-height: 1rem;
 	padding-bottom: 0.2rem;
 	word-wrap:break-word; 
-	word-break:break-all; 
+	word-break:break-all;
+	line-height: 0.42rem;
 }
 .wrap p{
 	line-height: 0.4rem;
@@ -303,7 +304,7 @@ textarea::-webkit-input-placeholder {
 	text-align: center;
     background: white;
 	padding-bottom: 0.2rem;
-	border-bottom: 1px solid #D8DDE6;
+	border-bottom: 1px solid #f0f0f0;
 }
 .btn a{
 	display:inline-block;
@@ -319,14 +320,16 @@ textarea::-webkit-input-placeholder {
 .no_data{
 	display: none;
 	text-align: center;
-    line-height: 1.8rem;
+    line-height: 1rem;
     color: #a5a5a5;
+    text-align: left;
 }
 .no_data1{
 	display: none;
 	text-align: center;
-    line-height: 1.8rem;
+    line-height: 1rem;
     color: #a5a5a5;
+    text-align: left;
 }
 /*主讲人*/
 .wrap_speak{
@@ -355,10 +358,11 @@ textarea::-webkit-input-placeholder {
 	position: relative;
 	text-align: justify;
 	padding-top: 0.1rem;
-	min-height: 2.5rem;
+	min-height: 1rem;
 	padding-bottom: 0.2rem;
 	word-wrap:break-word; 
 	word-break:break-all; 
+	line-height: 0.42rem;
 }
 .wrap1 p{
 	line-height: 0.4rem;
@@ -386,7 +390,7 @@ textarea::-webkit-input-placeholder {
 	text-align: center;
     background: white;
 	padding-bottom: 0.2rem;
-	border-bottom: 1px solid #D8DDE6;
+	border-bottom: 1px solid #f0f0f0;
 }
 .btn1 a{
 	display:inline-block;
@@ -428,7 +432,7 @@ textarea::-webkit-input-placeholder {
 	width: 100%;
 	background: white;
 	overflow: hidden;
-    border-bottom: 1px solid #D8DDE6;
+    border-bottom: 1px solid #f0f0f0;
     padding-top: 0.2rem;
 }
 .wrap_comment_title .border{
@@ -585,6 +589,10 @@ textarea::-webkit-input-placeholder {
 	padding: 0.01rem 0.26rem 0 0.26rem;
 	margin-top: 0.2rem;
 	box-sizing: border-box;
+	border-top: 1px solid #d8dde6;
+	position: fixed;
+	bottom: 0;
+	left: 0;
 }
 .wrap_input{
 	width: 7rem;
@@ -802,14 +810,14 @@ color: #888888;
 	padding-top: 0.4rem;
 	box-sizing: border-box;
 	background-color: #fff;
-	border-top: 1px solid #e6e6e6;
+	border-top: 1px solid #F0F0F0;
 }
 .list_box{
 	overflow: hidden;
 	padding: 0 0.26rem 0.19rem;
 	box-sizing: border-box;
 	font-size: 0.18rem;
-	border-bottom: 1px solid #e6e6e6;
+	border-bottom: 1px solid #F0F0F0;
 	position: absolute;
     top: 0;
     left: 0;
