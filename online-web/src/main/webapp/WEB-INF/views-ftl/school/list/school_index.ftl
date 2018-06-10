@@ -28,20 +28,24 @@
 				<div class="wrap-banner">
 					<#include "../common/banner_common.ftl">
 				</div>
-				<div class="physic-type">
-					<ul>
-						<#list projectList as project>
-					     	<#if project_index lt 4 >
-					     	 <li>
-					     		<a href="">
-									<p><img src="${project.icon}" style="width: 54px;height: 54px;" alt="${project.name}" /></p>
-									<span>${project.name}</span>
-							    </a>
-							  </li>  
-					        </#if>
-						</#list>
-					</ul>
-				</div>
+				
+				<#if projectList?? && projectList?size gt 0 >
+					<div class="physic-type">
+						<ul>
+							<#list projectList as project>
+						     	<#if project_index lt 4 >
+						     	 <li>
+						     		<a href="">
+										<p><img src="${project.icon}" style="width: 54px;height: 54px;" alt="${project.name}" /></p>
+										<span>${project.name}</span>
+								    </a>
+								  </li>  
+						        </#if>
+							</#list>
+						</ul>
+					</div>
+				</#if>
+				
 <!--精品课程、免费课程、最新课程、养生课程、-->	
 
 		

@@ -26,8 +26,19 @@
     <link rel="stylesheet" href="/web/css/ftl-page.css"/>
     <link rel="stylesheet" href="/web/css/school/details-album.css"/>
 
+	<script src="/web/js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="/web/js/artTemplate.js"></script>
+	<script src="/web/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/web/js/common_msg.js"></script>
+	<!--公共头部和底部-->
+	<script src="/web/js/ajax.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/web/html/school/school-header/header.js" type="text/javascript" charset="utf-8"></script>
+
 </head>
 <body>
+<header>
+<#include "header-body.ftl">
+</header>
 <div class="wp">
     <div class="wrap-buy">
         <div class="left-cover z">
@@ -164,13 +175,13 @@
                         <li><a href="${webUrlParam}/info">详情</a></li>
                     <#elseif courseInfo.watchState = 0>
                         <li><a href="${webUrlParam}/info">详情</a></li>
-                        <li><a href="${webUrlParam}/outline">课程大纲</a></li>
+                        <li><a href="javascirpt:;">课程大纲</a></li>
                     </#if>
                 <#else> <#-- 非专辑tab显示    -->
                     <li><a href="${webUrlParam}/info">详情</a></li>
                 </#if>
                     <li><a href="${webUrlParam}/comment">评价（${courseInfo.criticizeCount}）</a></li>
-                    <li><a href="${webUrlParam}/aq">常见问题</a></li>
+                    <li><a href="javascirpt:;">常见问题</a></li>
                 </ul>
             </div>
             <!--content-->
@@ -261,7 +272,9 @@
             </div>
             <!--评价-->
             <div class="sidebar-content hide">
+               <#if criticizesMap??> 
             	 <#include "common/comment.ftl">
+			   </#if>	            
             </div>
             <!--常见问题-->
             <div class="sidebar-content hide">
@@ -289,28 +302,22 @@
         </div>
     </div>
 </div>
-<script src="/web/js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script>
-<script type="text/javascript" src="/web/js/artTemplate.js"></script>
-<script src="/web/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
-<script src="/web/js/common_msg.js"></script>
-<!--公共头部和底部-->
-<script src="/web/js/ajax.js" type="text/javascript" charset="utf-8"></script>
-<script src="/web/html/school/school-header/header.js" type="text/javascript" charset="utf-8"></script>
+
 <script type="text/javascript" src="/web/js/footer.js"></script>
 <!--公共头部和底部结束-->
 
 <!--登陆结束-->
 <script type="text/javascript" charset="utf-8">
-
     var type = "${type}";
     var watchState = "${courseInfo.watchState}";
     var courseId = "${courseInfo.id}";
     var userId = "${courseInfo.userLecturerId}";
     var courseType = "${courseInfo.type}";
     var collection = ${courseInfo.collection?string(1,0)};
-    var commentCode = ${criticizesMap.commentCode};
+    <#if criticizesMap??> 
+         var commentCode = ${criticizesMap.commentCode};
+	</#if>	
     var courseLength = ${courseInfo.courseLength};
-
     //    console.info("type：" + type + ";watchState：" + watchState + ";courseId：" + courseId);
     //    console.info("userId：" + userId + ";collection：" + collection+",commentCode:"+commentCode);
 </script>

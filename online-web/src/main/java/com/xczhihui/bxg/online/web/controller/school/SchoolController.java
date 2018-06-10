@@ -293,11 +293,12 @@ public class SchoolController extends AbstractFtlController {
                              @RequestParam(required = false) Integer pageSize,
                              @RequestParam(required = false) Integer pageNumber) throws IOException {
 
-
         pageNumber = pageNumber == null ? 1 : pageNumber;
         pageSize = pageSize == null ? 2 : pageSize;
+        
         ModelAndView view = new ModelAndView("school/course_details");
         //显示详情呢、大纲、评论、常见问题呢
+        //outline  comment    info   aq  selection
         view.addObject("type", type);
 
         view.addObject("webUrlParam", "/courses/" + courseId);
@@ -327,9 +328,8 @@ public class SchoolController extends AbstractFtlController {
             }
         }
 
-
         //如果是专辑获取专辑列表
-        if (clv.getCollection()) {
+        if (clv.getCollection() && type!=null &&  type.equals("selection")) {
             List<CourseLecturVo> courses = courseService.selectCoursesByCollectionId(clv.getId());
             view.addObject("collectionList", courses);
             view.addObject("collectionListSize", courses.size());
@@ -339,24 +339,26 @@ public class SchoolController extends AbstractFtlController {
         //课程详情
         view.addObject("courseInfo", clv);
 
-        //常见问题。啦啦啦
+        //常见问题。
         String path = req.getServletContext().getRealPath("/template");
         File f = new File(path + File.separator + "/course_common_problem.html");
         view.addObject("commonProblem", FileUtil.readAsString(f));
 
-
         //课程评价
-        Map<String, Object> map = null;
-        if (courseId != null) {
-            map = criticizeService.getCourseCriticizes(new Page<>(pageNumber, pageSize), courseId, user != null ? user.getId() : null);
-        } else {
-            map = criticizeService.getAnchorCriticizes(new Page<>(pageNumber, pageSize), userId, user != null ? user.getId() : null);
+        if(type!=null && type.equals("comment")) {
+            Map<String, Object> map = null;
+            if (courseId != null) {
+                map = criticizeService.getCourseCriticizes(new Page<>(pageNumber, pageSize), courseId, user != null ? user.getId() : null);
+            } else {
+                map = criticizeService.getAnchorCriticizes(new Page<>(pageNumber, pageSize), userId, user != null ? user.getId() : null);
+            }
+            view.addObject("criticizesMap", map);
+            
+            //查询各种平均值
+            List<Integer> listComment = criticizeService.
+            		selectPcCourseCommentMeanCount(clv.getCollection(), courseId);
+            view.addObject("listCommentCount", listComment);
         }
-        view.addObject("criticizesMap", map);
-
-        //查询各种平均值
-        List<Integer> listComment = criticizeService.selectPcCourseCommentMeanCount(clv.getCollection(), courseId);
-        view.addObject("listCommentCount", listComment);
 
         //推荐课程   -- 从推荐值最高的课程里面查询啦啦啦啦。
         Page<CourseLecturVo> page = new Page<CourseLecturVo>();
