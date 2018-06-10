@@ -146,8 +146,8 @@ $(function() {
 							//        '<li><a data-id="mynews"><i class="iconfont icon-ziyuan myNews" style="font-size:12px"></i>我的消息</a></li>'+
 											'<li><a data-id="mydata"><i class="iconfont icon-xueyuan"></i>我的资料</a></li>' +
 											'<li><a data-id="idea"><i class="iconfont icon-yijianfankui"></i>意见反馈</a></li>' +
-											'<li><a data-id="mymoney"><i class="iconfont icon-qianbao"></i>我的资产</a></li>' +
-											'<li><a href="/bbs/user"  data-id="mytiezi"><i class="iconfont icon-zaixiankecheng"></i>我的贴子</a></li>' +
+											'<li><a data-id="mymoney"><i class="iconfont icon-qianbao"></i>我的钱包</a></li>' +
+											'<li><a style="margin-left:12px;" data-id="mytiezi"><i class="iconfont icon-zaixiankecheng"></i>问答与论坛</a></li>' +
 											'<li><a data-exit="exit"><i class="iconfont icon-tuichu"></i>安全退出</a></li>' +
 										'</ul>' +
 									'</div>'+
@@ -779,10 +779,7 @@ $(function() {
 			var id = "personcenter";
 			window.localStorage.personcenter = $(evt.target).attr("data-id");
 
-			if($(evt.target).attr("data-id") == "mytiezi") { 
 
-				location.href = "/myReply";
-			} else {
 //				if(window.location.pathname == "/web/html/personcenter.html") {
 					if($(this).attr("data-exit")) {
 						RequestService("/online/user/logout", "GET", {}, function() {
@@ -801,6 +798,9 @@ $(function() {
 						}else if(window.localStorage.personcenter=="mymoney"){
 							window.open("/web/html/personal-center/personal-index.html#menu4");
 							$("#accordion .link[data-menu='menu4']").click();	
+						}else if(window.localStorage.personcenter=="mytiezi"){
+							window.open("/web/html/personal-center/personal-index.html#menu2-2");
+							$("#accordion .link[data-menu='menu2-2']").click();	
 						}
 						RequestService("/online/user/isAlive", "GET", null, function(data) { ///online/user/isAlive
 							if(data.success) {
@@ -886,7 +886,7 @@ $(function() {
 //						});
 //					}
 //				}
-			}
+
 
 		});
 	}
