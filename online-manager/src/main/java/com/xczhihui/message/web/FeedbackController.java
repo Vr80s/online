@@ -141,12 +141,7 @@ public class FeedbackController {
 			for (MessageVo messageVo : page.getItems()) {
 				messageVo.setRowId(rowId++);
 
-				try {
-					messageVo.setTitle(emojiRecovery2(messageVo.getTitle()));
-				} catch (UnsupportedEncodingException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+					messageVo.setTitle(messageVo.getTitle());
 
 				for (KeyValVo keyValVo : keyValVos) {
 					if (keyValVo.get_key() != null) {
@@ -252,39 +247,6 @@ public class FeedbackController {
 		}
 
 		return responseObj;
-	}
-
-	/**
-	 * @Description 还原utf8数据库中保存的含转换后emoji表情的字符串
-	 * @param str
-	 *            转换后的字符串
-	 * @return 转换前的字符串
-	 * @throws UnsupportedEncodingException
-	 *             exception
-	 */
-	public static String emojiRecovery2(String str)
-			throws UnsupportedEncodingException {
-		if(str==null){
-			return null;
-		}
-		String patternString = "\\[\\[(.*?)\\]\\]";
-
-		Pattern pattern = Pattern.compile(patternString);
-		Matcher matcher = pattern.matcher(str);
-
-		StringBuffer sb = new StringBuffer();
-		while (matcher.find()) {
-			try {
-
-				matcher.appendReplacement(sb,
-						URLDecoder.decode(matcher.group(1), "UTF-8"));
-
-			} catch (UnsupportedEncodingException e) {
-				throw e;
-			}
-		}
-		matcher.appendTail(sb);
-		return sb.toString();
 	}
 
 }

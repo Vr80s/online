@@ -4,20 +4,19 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
-import com.baomidou.mybatisplus.plugins.Page;
-import com.xczhihui.course.exception.UserInfoException;
-import com.xczhihui.course.model.OnlineUser;
-import com.xczhihui.course.service.IMyInfoService;
-import com.xczhihui.course.util.XzStringUtils;
-import com.xczhihui.course.vo.OnlineUserVO;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.xczhihui.common.util.SLEmojiFilter;
 import com.xczhihui.common.util.enums.UserSex;
+import com.xczhihui.course.exception.UserInfoException;
 import com.xczhihui.course.mapper.MyInfoMapper;
+import com.xczhihui.course.model.OnlineUser;
+import com.xczhihui.course.service.IMyInfoService;
+import com.xczhihui.course.util.XzStringUtils;
+import com.xczhihui.course.vo.OnlineUserVO;
 
 /**
  * <p>
@@ -59,7 +58,7 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper,OnlineUser> impl
 		//过滤掉可能出现的表情字符
 		if(StringUtils.isNotBlank(user.getName())) {
 			String name = user.getName();
-			user.setName(SLEmojiFilter.filterEmoji(name));
+			user.setName(name);
 		}
 		
 		if(StringUtils.isNotBlank(user.getName()) && XzStringUtils.checkNickName(user.getName())

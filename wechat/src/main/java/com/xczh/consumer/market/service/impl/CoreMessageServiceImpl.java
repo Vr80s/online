@@ -22,7 +22,6 @@ import com.xczh.consumer.market.wxmessage.resp.NewsMessage;
 import com.xczh.consumer.market.wxmessage.resp.TextMessage;
 import com.xczh.consumer.market.wxpay.consts.WxPayConst;
 import com.xczh.consumer.market.wxpay.util.CommonUtil;
-import com.xczhihui.common.util.SLEmojiFilter;
 
 import me.chanjar.weixin.mp.api.WxMpService;
 import net.sf.json.JSONObject;
@@ -104,8 +103,6 @@ public class CoreMessageServiceImpl implements CoreMessageService {
 
                     String openid_ = (String) jsonObject.get("openid");
                     String nickname_ = (String) jsonObject.get("nickname");
-                    //nickname需要过滤啦
-                    nickname_ = SLEmojiFilter.filterEmoji(nickname_);
 
                     String subscribe = String.valueOf(jsonObject.get("subscribe"));
                     String sex_ = String.valueOf(jsonObject.get("sex"));
@@ -209,7 +206,6 @@ public class CoreMessageServiceImpl implements CoreMessageService {
                     LOGGER.info("jsonObject~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + jsonObject.toString());
                     String openid_ = (String) jsonObject.get("openid");
                     String nickname_ = (String) jsonObject.get("nickname");
-                    nickname_ = SLEmojiFilter.filterEmoji(nickname_); //nickname需要过滤啦
 
                     String subscribe = String.valueOf(jsonObject.get("subscribe"));
                     String sex_ = String.valueOf(jsonObject.get("sex"));

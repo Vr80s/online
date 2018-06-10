@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xczhihui.common.util.IStringUtil;
-import com.xczhihui.common.util.SLEmojiFilter;
 import com.xczhihui.common.util.enums.CriticizeLabel;
 import com.xczhihui.course.exception.CriticizeException;
 import com.xczhihui.course.mapper.CourseMapper;
@@ -137,7 +136,7 @@ public class CriticizeServiceImpl extends ServiceImpl<CriticizeMapper, Criticize
         criticize.setReplyCriticizeId(criticizeId);
 
         if (StringUtils.isNotBlank(criticize.getContent())) {
-            content = SLEmojiFilter.emojiConvert1(criticize.getContent());
+            content = criticize.getContent();
             criticize.setContent(content);
         }
         if ((overallLevel != null && overallLevel != 0)
@@ -274,13 +273,13 @@ public class CriticizeServiceImpl extends ServiceImpl<CriticizeMapper, Criticize
                 criticize.setIsPraise(true);
             }
             if (StringUtils.isNotBlank(criticize.getContent())) {
-                criticize.setContent(SLEmojiFilter.emojiRecovery2(criticize.getContent()));
+                criticize.setContent(criticize.getContent());
             }
             if (criticize.getReply() != null && criticize.getReply().size() > 0) {
                 List<Reply> replyList = criticize.getReply();
                 String replyContent = replyList.get(0).getReplyContent();
                 if (StringUtils.isNotBlank(replyContent)) {
-                    replyList.get(0).setReplyContent(SLEmojiFilter.emojiRecovery2(replyList.get(0).getReplyContent()));
+                    replyList.get(0).setReplyContent(replyList.get(0).getReplyContent());
                 }
                 criticize.setReply(replyList);
             }

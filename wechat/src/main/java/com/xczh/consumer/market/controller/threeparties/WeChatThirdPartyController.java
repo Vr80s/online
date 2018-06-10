@@ -25,7 +25,6 @@ import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.wxpay.consts.WxPayConst;
 import com.xczhihui.common.util.CodeUtil;
-import com.xczhihui.common.util.SLEmojiFilter;
 import com.xczhihui.common.util.enums.ThirdPartyType;
 import com.xczhihui.common.util.enums.TokenExpires;
 import com.xczhihui.common.util.enums.UserUnitedStateType;
@@ -214,7 +213,6 @@ public class WeChatThirdPartyController {
                 String province = wxMpUser.getProvince();
                 String country = wxMpUser.getCountry();
                 String headimgurl = wxMpUser.getHeadImgUrl();
-                nickname = SLEmojiFilter.filterEmoji(nickname);
                 WxcpClientUserWxMapping wxcpClientUserWxMapping = new WxcpClientUserWxMapping();
                 wxcpClientUserWxMapping.setWx_id(CodeUtil.getRandomUUID());
                 wxcpClientUserWxMapping.setWx_public_id(wxMpConfigStorage.getAppId());
