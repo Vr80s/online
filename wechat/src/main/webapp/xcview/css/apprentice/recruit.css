@@ -21,21 +21,28 @@ li{
 	clear: both;
 }
 
+body{
+    max-width: 7.5rem;
+    margin: 0 auto;
+}
+
 /*报名头部开始*/
 header{
-	width: 100%;
+	width: 7.5rem;
 	height: 0.88rem;
 	position: fixed;
 	top: 0;
 	z-index: 1;
 	border-bottom: 1px solid #d8dde6;
+    margin: 0 auto;
 }
 .header{
-	width: 100%;
+	width: 7.5rem;
 	height: 0.88rem;
 	line-height: 0.88rem;
 	position: relative;
     background: #fff;
+    margin: 0 auto;
 }
 .return{
 	width: 0.24rem;
@@ -52,12 +59,13 @@ header{
     top: 0rem;
 }
 .apply_title{
-	width: 100%;
+	width: 7.5rem;
 	height: 0.88rem;
 	line-height: 0.88rem;
 	font-size: 0.36rem;
 	color: #333333;
 	text-align: center;
+    margin: 0 auto;
 }
 .fiexd{
 	width: 100%;
