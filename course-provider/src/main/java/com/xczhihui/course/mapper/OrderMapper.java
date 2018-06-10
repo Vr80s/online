@@ -32,4 +32,7 @@ public interface OrderMapper extends BaseMapper<Order> {
 
     @Select("SELECT COUNT(*) FROM `apply_r_grade_course` argc WHERE argc.`user_id`=#{userId} AND argc.`course_id`=#{courseId} AND argc.`validity`>NOW()")
     Integer selectCountByUserIdAndCourseId(@Param("userId") String userId, @Param("courseId") String courseId);
+
+    @Select("SELECT id FROM `oe_order` oo WHERE oo.`order_no` = #{orderNo}")
+    Order selectByOrderNo(String orderNo);
 }

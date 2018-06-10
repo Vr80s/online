@@ -48,7 +48,7 @@ function completeCourseList(pageNumber,pageSize,downOrUp) {
         });
 
         mui("#refreshContainer").on('tap','.onclick_lis',function(){
-            alert(4);
+            // alert(4);
             var id=$(this).attr("data-ids");
             var tokenStr=$(this).attr("data-tokenStr");
             location.href ='inherited_introduction.html?merId='+id+tokenStr;

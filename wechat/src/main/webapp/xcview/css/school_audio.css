@@ -242,10 +242,11 @@ padding-bottom: 0.17rem;
 	position: relative;
 	text-align: justify;
 	padding-top: 0.1rem;
-	min-height: 2rem;
+	min-height: 1rem;
 	padding-bottom: 0.2rem;
 	word-wrap:break-word; 
 word-break:break-all; 
+line-height: 0.42rem;
 }
 .wrap p img{
 	/*width: 100%;*/
@@ -285,16 +286,16 @@ word-break:break-all;
 .no_data{
 	display: none;
 	text-align: center;
-    line-height: 1.8rem;
+    line-height: 1rem;
     /*border-bottom: 1px solid #D8DDE6;*/
     color: #a5a5a5;
-	
+	text-align: left;
 }
 .no_data1{
 	display: none;
 	text-align: center;
-    line-height: 1.8rem;
-
+    line-height: 1rem;
+	text-align: left;
     color: #a5a5a5;
 }
 /*主讲人*/
@@ -325,10 +326,11 @@ word-break:break-all;
 	position: relative;
 	text-align: justify;
 	padding-top: 0.1rem;
-	min-height: 2rem;
+	min-height: 1rem;
 	padding-bottom: 0.2rem;
 	word-wrap:break-word; 
 word-break:break-all; 
+line-height: 0.42rem;
 }
 .wrap1 p img{
 	/*width: 100%;*/
@@ -353,7 +355,7 @@ word-break:break-all;
 	    text-align: center;
     background: white;
 	padding-bottom: 0.2rem;
-	border-bottom: 1px solid #D8DDE6;
+	border-bottom: 1px solid #F0F0F0;
 }
 .btn1 a{
 	display:inline-block;

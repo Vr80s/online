@@ -35,6 +35,7 @@ import com.xczhihui.bxg.online.web.base.utils.WebUtil;
 import com.xczhihui.bxg.online.web.utils.MatrixToImageWriter;
 import com.xczhihui.common.util.IStringUtil;
 import com.xczhihui.common.util.OrderNoUtil;
+import com.xczhihui.common.util.enums.OrderFrom;
 import com.xczhihui.common.util.enums.PayOrderType;
 import com.xczhihui.bxg.online.web.base.utils.UserLoginUtil;
 import com.xczhihui.course.model.Order;
@@ -104,6 +105,7 @@ public class WxPayController extends WxPayApiController {
         PayMessage payMessage = new PayMessage();
         payMessage.setType(PayOrderType.COURSE_ORDER.getCode());
         payMessage.setUserId(order.getUserId());
+        payMessage.setFrom(OrderFrom.PC.getCode());
 
         String attach = PayMessage.getPayMessage(payMessage);
         Map<String, String> params = WxPayApiConfigKit.getWxPayApiConfig()
@@ -177,6 +179,7 @@ public class WxPayController extends WxPayApiController {
         payMessage.setType(PayOrderType.COIN_ORDER.getCode());
         payMessage.setUserId(loginUser.getId());
         payMessage.setValue(new BigDecimal(count));
+        payMessage.setFrom(OrderFrom.PC.getCode());
 
         String orderNo = OrderNoUtil.getCoinOrderNo();
         String attach = PayMessage.getPayMessage(payMessage);

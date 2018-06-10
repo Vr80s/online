@@ -7,7 +7,6 @@ import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.text.MessageFormat;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,14 +25,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSON;
 import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.bean.WxcpClientUserWxMapping;
-import com.xczh.consumer.market.bean.WxcpPayFlow;
 import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
-import com.xczh.consumer.market.service.WxcpPayFlowService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.WebUtil;
 import com.xczh.consumer.market.wxpay.entity.PayInfo;
 import com.xczhihui.common.util.IStringUtil;
 import com.xczhihui.common.util.OrderNoUtil;
+import com.xczhihui.common.util.enums.OrderFrom;
 import com.xczhihui.common.util.enums.PayOrderType;
 import com.xczhihui.course.model.Order;
 import com.xczhihui.course.service.IOrderService;
@@ -57,8 +55,6 @@ public class XzWxPayController {
 
     @Autowired
     private IOrderService orderService;
-    @Autowired
-    private WxcpPayFlowService wxcpPayFlowService;
     @Autowired
     private WxcpClientUserWxMappingService wxcpClientUserWxMappingService;
     @Autowired
@@ -96,6 +92,7 @@ public class XzWxPayController {
 
     /**
      * Description：微信支付-购课
+     *  orderFrom 3:微信 4：h5 5 app
      * creed: Talk is cheap,show me the code
      *
      * @author name：yuxin <br>email: yuruixin@ixincheng.com
@@ -112,19 +109,22 @@ public class XzWxPayController {
 
         int orderFromI = Integer.parseInt(orderFrom);
         boolean appPay = false;
-        if (orderFromI == 5) {
-            appPay = true;
-        }
-        WxPayApiConfigKit.setThreadLocalWxPayApiConfig(getApiConfig(appPay));
-
-//		String spbill_create_ip =WxPayConst.server_ip;
-        String ip = IpKit.getRealIp(req);
-//		String tradeType = null;
-        String openId = getWxOpenId(accountId);
 
         PayMessage payMessage = new PayMessage();
         payMessage.setType(PayOrderType.COURSE_ORDER.getCode());
         payMessage.setUserId(order.getUserId());
+        if (orderFromI == 5) {
+            appPay = true;
+            //app端目前仅安卓端调用
+            payMessage.setFrom(OrderFrom.ANDROID.getCode());
+        }else{
+            payMessage.setFrom(OrderFrom.H5.getCode());
+        }
+        WxPayApiConfigKit.setThreadLocalWxPayApiConfig(getApiConfig(appPay));
+
+        String ip = IpKit.getRealIp(req);
+        String openId = getWxOpenId(accountId);
+
         String attach = PayMessage.getPayMessage(payMessage);
 
         Map<String, String> payParams = getPayParams(orderFromI, order.getOrderNo() + IStringUtil.getRandomString(), ip, actualPay + "", openId, attach, MessageFormat.format(BUY_COURSE_TEXT, order.getCourseNames()));
@@ -170,9 +170,6 @@ public class XzWxPayController {
                 packageParams.put("timestamp", System.currentTimeMillis() / 1000 + "");
                 String packageSign = PaymentKit.createSign(packageParams, WxPayApiConfigKit.getWxPayApiConfig().getPaternerKey());
                 packageParams.put("sign", packageSign);
-
-                String jsonStr = JSON.toJSONString(packageParams);
-                System.out.println(jsonStr);
                 return ResponseObject.newSuccessResponseObject(packageParams);
             } else if (orderFromI == 3) {
                 Map<String, String> param = new HashMap<>();
@@ -183,8 +180,6 @@ public class XzWxPayController {
                 param.put("package", "prepay_id=" + preid);
                 param.put("signType", "MD5");
                 param.put("paySign", PaymentKit.createSign(param, WxPayApiConfigKit.getWxPayApiConfig().getPaternerKey()));
-
-
                 return ResponseObject.newSuccessResponseObject(param);
             }
             return ResponseObject.newSuccessResponseObject(result);
@@ -212,8 +207,17 @@ public class XzWxPayController {
 
         int orderFromI = Integer.valueOf(clientType);
         boolean appPay = false;
+
+        PayMessage payMessage = new PayMessage();
+        payMessage.setType(PayOrderType.COIN_ORDER.getCode());
+        payMessage.setUserId(accountId);
+        payMessage.setValue(new BigDecimal(count));
         if (orderFromI == 5) {
             appPay = true;
+            //app端目前仅安卓端调用
+            payMessage.setFrom(OrderFrom.ANDROID.getCode());
+        }else{
+            payMessage.setFrom(OrderFrom.H5.getCode());
         }
         WxPayApiConfig apiConfig = getApiConfig(appPay);
         log.info("appi" + apiConfig.getAppId());
@@ -221,14 +225,8 @@ public class XzWxPayController {
         log.info("paternerekey" + apiConfig.getPaternerKey());
         WxPayApiConfigKit.setThreadLocalWxPayApiConfig(apiConfig);
 
-//		String spbill_create_ip =WxPayConst.server_ip;
         String ip = IpKit.getRealIp(request);
         String openId = getWxOpenId(accountId);
-
-        PayMessage payMessage = new PayMessage();
-        payMessage.setType(PayOrderType.COIN_ORDER.getCode());
-        payMessage.setUserId(accountId);
-        payMessage.setValue(new BigDecimal(count));
 
         String attach = PayMessage.getPayMessage(payMessage);
 
@@ -267,7 +265,6 @@ public class XzWxPayController {
              * app支付需要进行二次签名
              */
             if (orderFromI == 5) {
-                System.out.println("result" + JSON.toJSONString(result));
                 //封装调起微信支付的参数 https://pay.weixin.qq.com/wiki/doc/api/app/app.php?chapter=9_12
                 Map<String, String> packageParams = new HashMap<String, String>();
                 packageParams.put("appid", WxPayApiConfigKit.getWxPayApiConfig().getAppId());
@@ -280,18 +277,8 @@ public class XzWxPayController {
                 String packageSign = PaymentKit.createSign(packageParams, WxPayApiConfigKit.getWxPayApiConfig().getPaternerKey());
                 packageParams.put("sign", packageSign);
 
-//				result.put("device_info","wxpay");
-//				result.put("sign", packageSign);
-//				result.put("timestamp", timestamp);
-//				String jsonStr = JSON.toJSONString(result);
-
-                String jsonStr = JSON.toJSONString(packageParams);
-
-                System.out.println("json" + jsonStr);
                 return ResponseObject.newSuccessResponseObject(packageParams);
             } else if (orderFromI == 3) {
-
-
                 Map<String, String> param = new HashMap<>();
                 param.put("appId", result.get("appid"));
                 param.put("nonceStr", result.get("nonce_str"));
@@ -307,28 +294,6 @@ public class XzWxPayController {
         return ResponseObject.newErrorResponseObject("请求错误");
     }
 
-    /**
-     * 通过 自定义的订单号来查找微信充值信息
-     *
-     * @return
-     * @throws Exception
-     */
-    @RequestMapping(value = "queryWechatPayInfoByOutTradeNo")
-    @ResponseBody
-    public ResponseObject queryAlipayPaymentRecordH5ByOutTradeNo(@RequestParam("outTradeNo") String outTradeNo) throws Exception {
-
-        log.info("查询充值订单信息：" + outTradeNo);
-
-        WxcpPayFlow condition = new WxcpPayFlow();
-        condition.setOut_trade_no(outTradeNo);
-        List<WxcpPayFlow> list = wxcpPayFlowService.select(condition);
-        if (list != null && list.size() > 0) {
-            log.info("list：" + list.size());
-            return ResponseObject.newSuccessResponseObject(list.get(0));
-        }
-        return ResponseObject.newErrorResponseObject("未获得充值信息");
-    }
-
     @RequestMapping(value = "pay_notify")
     @ResponseBody
     public String wxNotify(HttpServletRequest req, HttpServletResponse res)
@@ -336,27 +301,28 @@ public class XzWxPayController {
         // 支付结果通用通知文档: https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=9_7
 
         String xmlMsg = HttpKit.readData(req);
-        System.out.println("支付通知=" + xmlMsg);
+        log.warn("wechat服务微信支付回调通知:{}", xmlMsg);
         Map<String, String> params = PaymentKit.xmlToMap(xmlMsg);
-        String result_code = params.get("result_code");
+        String resultCode = params.get("result_code");
 
         // 交易类型
-        String trade_type = params.get("trade_type");
+        String tradeType = params.get("trade_type");
         //根据支付类型判断得到--》回调验证签名的key
         //h5和公众号用的是一样了。
         //app用的是另一个
-        if (PayInfo.TRADE_TYPE_APP.equals(trade_type)) {
+        if (PayInfo.TRADE_TYPE_APP.equals(tradeType)) {
             WxPayApiConfigKit.setThreadLocalWxPayApiConfig(getApiConfig(true));
         } else {
             WxPayApiConfigKit.setThreadLocalWxPayApiConfig(getApiConfig(false));
         }
 
         if (PaymentKit.verifyNotify(params, WxPayApiConfigKit.getWxPayApiConfig().getPaternerKey())) {
-            if (("SUCCESS").equals(result_code)) {
-                log.info("============kaishi===========");
+            if (("SUCCESS").equals(resultCode)) {
+                StringBuilder sb = new StringBuilder();
                 for (Map.Entry<String, String> entry : params.entrySet()) {
-                    log.error(entry.getKey() + " = " + entry.getValue());
+                    sb.append(entry.getKey() + " = " + entry.getValue()+";");
                 }
+                log.warn("wechat服务微信支付回调:{}",sb.toString());
                 payService.wxPayBusiness(params);
                 //发送通知等
                 Map<String, String> xml = new HashMap<String, String>();
@@ -367,7 +333,6 @@ public class XzWxPayController {
         }
 
         return null;
-
     }
 
     public Map<String, String> getPayParams(Integer orderFromI, String orderNo, String ip, String actualPay, String openId, String attach, String body) {

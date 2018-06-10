@@ -151,7 +151,7 @@ padding-bottom: 0.17rem;
 	font-size: 0.26rem;
 	padding: 0.22rem 0;
 	width: 100%;
-    border-bottom: 0.01rem solid #D8DDE6;
+    border-bottom: 0.01rem solid #f0f0f0;
 }
 .playTime img{
 	display: inline-block;
@@ -183,7 +183,7 @@ padding-bottom: 0.17rem;
 	background: white;
 	text-align: center;
 	font-size: 0.28rem;
-	border-bottom: 0.01rem solid #D8DDE6;
+	border-bottom: 0.01rem solid #f0f0f0;
 }
 /*简介*/
 .wrap_synopsis{
@@ -202,7 +202,7 @@ padding-bottom: 0.17rem;
 .my_synopsis ul li p{
 	width: 0.6rem;
 	height: 1px;
-	background: #D8DDE6;
+	background: #f0f0f0;
 	margin-top: 0.2rem;
 }
 .my_synopsis ul .border{
@@ -223,10 +223,11 @@ padding-bottom: 0.17rem;
 	position: relative;
 	text-align: justify;
 	padding-top: 0.1rem;
-	min-height: 2rem;
+	min-height: 1rem;
 	padding-bottom: 0.2rem;
 	word-wrap:break-word; 
 word-break:break-all; 
+line-height: 0.42rem;
 }
 .wrap p img{
 	/*width: 100%;*/
@@ -251,7 +252,7 @@ word-break:break-all;
 	    text-align: center;
     background: white;
 	padding-bottom: 0.2rem;
-	border-bottom: 0.01rem solid #D8DDE6;
+	border-bottom: 0.01rem solid #f0f0f0;
 }
 .btn a{
 	display:inline-block;
@@ -266,16 +267,15 @@ word-break:break-all;
 .no_data{
 	display: none;
 	text-align: center;
-    line-height: 1.8rem;
-    /*border-bottom: 0.01rem solid #D8DDE6;*/
+    line-height: 1rem;
     color: #a5a5a5;
-	
+	text-align: left;
 }
 .no_data1{
 	display: none;
 	text-align: center;
-    line-height: 1.8rem;
-
+    line-height: 1rem;
+	text-align: left;
     color: #a5a5a5;
 }
 /*主讲人*/
@@ -305,10 +305,12 @@ word-break:break-all;
 	position: relative;
 	text-align: justify;
 	padding-top: 0.1rem;
-	min-height: 2rem;
+	min-height: 1rem;
 	padding-bottom: 0.2rem;
 	word-wrap:break-word; 
 word-break:break-all; 
+line-height: 0.42rem;
+    border-bottom: 1px solid #f0f0f0;
 }
 .wrap1 p img{
 	/*width: 100%;*/
@@ -333,7 +335,7 @@ word-break:break-all;
 	    text-align: center;
     background: white;
 	padding-bottom: 0.2rem;
-	border-bottom: 0.01rem solid #D8DDE6;
+	border-bottom: 0.01rem solid #f0f0f0;
 }
 .btn1 a{
 	display:inline-block;
@@ -363,7 +365,7 @@ height: 100%;
 display: block;
 text-align: center;
 color: #333;
-border-top: 1px solid #D8DDE6;
+border-top: 1px solid #f0f0f0;
 }
 .left_price p span{
 	color: #F97B49;
@@ -413,7 +415,7 @@ color: white;
 	width: 100%;
 	background: white;
 	overflow: hidden;
-    border-bottom: 0.01rem solid #D8DDE6;
+    border-bottom: 0.01rem solid #f0f0f0;
     padding-top: 0.2rem;
 }
 .wrap_all_returned .wrap_people_comment:nth-last-child(1){

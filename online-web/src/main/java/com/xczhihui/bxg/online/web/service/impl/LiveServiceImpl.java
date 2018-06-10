@@ -126,9 +126,10 @@ public class LiveServiceImpl extends OnlineBaseServiceImpl implements LiveServic
             paramMap.put("userId", user.getId());
             List<Map<String, Object>> argc = dao.getNamedParameterJdbcTemplate()
                     .queryForList("SELECT id FROM `apply_r_grade_course` argc WHERE argc.course_id = :courseId AND argc.`user_id`=:userId AND argc.`validity`>NOW()", paramMap);
+            
             if (argc.size() == 0) {
                 ApplyGradeCourse applyGradeCourse = applyGradeCourseDao.findCollectionCourseByCourseIdAndUserId(Integer.valueOf(courseId), user.getId());
-                if (applyGradeCourse != null) {
+                if (applyGradeCourse == null) {
                     return new ModelAndView("redirect:/course/courses/" + courseId);
                 }
             }
