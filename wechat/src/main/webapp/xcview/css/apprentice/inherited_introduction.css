@@ -23,21 +23,23 @@ li{
 }
 /*简介头部开始*/
 header{
-	width: 100%;
+	width: 7.5rem;
 	height: 3.02rem;
+	margin: 0 auto;
 	/* background: url(http://test-wx.xczhihui.com/xcview/images/anchorbg.png) no-repeat;
 	background-size: 100% 100%; */
 }
 .intro{
-	width: 100%;
+	width: 7.5rem;
 	height: 0.88rem;
+	margin: 0 auto;
 }
 .special_img{
-	width: 100%;
+	width: 7.5rem;
     height: 3.02rem;
     position: absolute;
     top: 0;
-    left: 0;
+    /*left: 0;*/
     z-index: -1;
 }
 .special_img img{
@@ -50,6 +52,7 @@ header{
     line-height: 0.42rem;
     float: left;
     padding-left: 0.26rem;
+    position: relative;
 }
 .intro_top img{
 	    width: 0.23rem;
@@ -58,16 +61,16 @@ header{
     margin-top: 0.3rem;
 }
 .intro_top_bg{
-			position: absolute;
-		    width: 0.6rem;
-		    height: 0.6rem;
-		    background: #000;
-		    opacity: 0.5;
-		    border-radius: 100px;
-		    top: 0.2rem;
-		    left: 0.2rem;
-		    z-index: -1;
-		}
+	position: absolute;
+    width: 0.6rem;
+    height: 0.6rem;
+    background: #000;
+    opacity: 0.5;
+    border-radius: 100px;
+    top: 0.2rem;
+    left: 0.2rem;
+    z-index: -1;
+}
 .invitation_card{
 	width: 2rem;
 	height: 0.46rem;
@@ -97,7 +100,8 @@ header{
 
 /*中间内容开始*/
 .main{
-	width: 100%;
+	width: 7.5rem;
+    margin: 0 auto;
     margin-top: -0.7rem;
 }
 .head_portrait{
@@ -528,7 +532,7 @@ header{
 	opacity: 0;
 }
 .bottom_fiexd{
-	width:100%;
+	width:7.5rem;
 	height:0.98rem;
 	background:#fff;
 	position: fixed;

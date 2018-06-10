@@ -40,7 +40,7 @@ $(function () {
         $(".wrap-sidebar ul li").eq(index).addClass("active-footer");
     }
     //type对应显示
-    //outline  comment    info   aq    selection
+    //outline  comment    info   aq  selection
     if (type == "selection") {
     	index = 0;
         $(".wrap-sidebar ul li").eq(0).addClass("active-footer");

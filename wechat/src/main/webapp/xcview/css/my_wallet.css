@@ -17,12 +17,13 @@ img{display: block;}
 
 /*头部开始*/
 header{
-	width: 100%;
+	width: 7.5rem;
 	height: 0.88rem;
 	background: #fff;
 	position: fixed;
 	top: 0;
-	left: 0;
+	left: 50%;
+	margin-left: -3.75rem;
 	z-index: 999999999;
 }
 .header_img{
@@ -101,10 +102,11 @@ header{
 
 /*交易记录开始*/
 .record{
-	width: 100%;
-	min-height: 1rem;
-	background: #fff;
-	margin-top: 0.4rem;
+	width: 7.5rem;
+    min-height: 1rem;
+    background: #fff;
+    margin: 0 auto;
+    margin-top: 0.4rem;
 }
 .record_main{
 	width: 7.24rem;

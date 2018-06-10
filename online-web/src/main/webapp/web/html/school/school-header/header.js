@@ -212,9 +212,7 @@ $(function() {
 					'<img src="/web/images/search.png" alt="搜索">' +
 				'</div>'+
 				'<div class="search-input">' +
-					
 					   '<input type="text" name="queryKey"  id="defaultSearch" />' +
-			       
 				'</div>' +
 				'<div class="search-button">' +
 					'<button type="submit">搜索</button>' +
@@ -258,11 +256,15 @@ $(function() {
 			'</div>' +
 			'<div id="oldModalBack"></div>'
 	};
+	
+	
 	//<!--网站公告-->
 	var webNotice = '<div class="webSiteNotice" style="display:none;">' +
 		'<div class="innerBox clearfix">' +
 		'<i class="iconfont icon-xiaoxilaba xiaoxilaba"></i><span class="noticeInfo"></span><i class="iconfont icon-guanbi noticeClose"></i>' +
 		'</div></div>';
+	
+	
 	var slideNavIndex = {
 		/* 咨询中心*/
 		consult_center: '<div class="consult_center">咨询中心</div>',
@@ -316,9 +318,11 @@ $(function() {
 	//  '<div class="closeSee"><img src="web/images/close.png"></div>' +
 	//  '</div></div>';
 
-	var header = $('<header><div class="header_body"></div></header>');
+	//var header = $('<header><div class="header_body"></div></header>');
+	var header = $('header');
 	$(header).find(".header_body").before(template.compile(headersIndex.navtop)); //首页头部顶部
-	$(header).find(".header_body").append(template.compile(headersIndex.nav)); //首页头部
+	
+	//$(header).find(".header_body").append(template.compile(headersIndex.nav)); //首页头部
 
 	//    $("body").children(":first").before(header);
 	if(home) {
@@ -326,9 +330,14 @@ $(function() {
 	} else {
 		$("body").children(":first").before(header);
 	}
+	
 	$(header).append(template.compile(headersIndex.login));
 	$(header).append(template.compile(headersIndex.oldStudent));
+	
+	//系统公告
 	$(header).before(template.compile(webNotice));
+	
+	//咨询
 	$(header).append(template.compile(slideNavIndex.consult_center));
 	$(header).append(template.compile(slideNavIndex.online_consult));
 	$(header).append(template.compile(slideNavIndex.phone_consult));

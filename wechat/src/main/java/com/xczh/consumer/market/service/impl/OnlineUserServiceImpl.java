@@ -18,7 +18,6 @@ import com.xczh.consumer.market.dao.WxcpClientUserWxMappingMapper;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.wxpay.consts.WxPayConst;
 import com.xczhihui.common.util.CodeUtil;
-import com.xczhihui.common.util.SLEmojiFilter;
 import com.xczhihui.common.util.enums.UserOrigin;
 import com.xczhihui.online.api.service.UserCoinService;
 import com.xczhihui.user.center.service.UserCenterService;
@@ -138,7 +137,7 @@ public class OnlineUserServiceImpl implements OnlineUserService {
         try {
             WxMpOAuth2AccessToken wxMpOAuth2AccessToken = wxMpService.oauth2getAccessToken(code);
             WxMpUser wxMpUser = wxMpService.oauth2getUserInfo(wxMpOAuth2AccessToken, "zh_CN");
-            String nickname = SLEmojiFilter.filterEmoji(wxMpUser.getNickname());
+            String nickname = wxMpUser.getNickname();
             String openId = wxMpUser.getOpenId();
             WxcpClientUserWxMapping m = wxcpClientUserWxMappingMapper.getWxcpClientUserByUnionId(wxMpUser.getUnionId());
 

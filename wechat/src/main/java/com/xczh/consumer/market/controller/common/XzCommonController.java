@@ -24,7 +24,6 @@ import com.xczh.consumer.market.service.VersionService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.VersionCompareUtil;
 import com.xczh.consumer.market.vo.VersionInfoVo;
-import com.xczhihui.common.util.SLEmojiFilter;
 import com.xczhihui.course.enums.MessageTypeEnum;
 import com.xczhihui.course.enums.RouteTypeEnum;
 import com.xczhihui.course.params.BaseMessage;
@@ -183,13 +182,7 @@ public class XzCommonController {
     @ResponseBody
     public ResponseObject addOpinion(HttpServletRequest req,
                                      @RequestParam("content") String content, @Account(optional = true) Optional<String> accountIdOpt) throws Exception {
-        content = SLEmojiFilter.filterEmojiToNullStr11(content);
-        if (!StringUtils.isNotBlank(content)) {
-            return ResponseObject.newErrorResponseObject("暂不支持添加表情");
-        }
 
-        LOGGER.info("content" + content);
-        content = SLEmojiFilter.filterEmoji(content);
         String userId = accountIdOpt.orElse(null);
         commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.FEEDBACK.getVal())
                 .buildWeb(content)

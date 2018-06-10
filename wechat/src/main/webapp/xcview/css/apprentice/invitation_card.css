@@ -21,14 +21,15 @@ li{
 	clear: both;
 }
 body{
-	width: 100%;
-	height: 100%;
-	/*background: #000;*/
+	width: 7.5rem;
+    height: 100%;
+    /* background: #000; */
+    margin: 0 auto;
 }
 
 /*报名头部开始*/
 header{
-	width: 100%;
+	width: 7.5rem;
 	height: 0.88rem;
 	position: fixed;
 	top: 0;

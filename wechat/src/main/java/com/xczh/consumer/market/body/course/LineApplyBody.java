@@ -4,7 +4,6 @@ import java.util.Date;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.xczhihui.common.util.SLEmojiFilter;
 import com.xczhihui.common.util.enums.UserSex;
 import com.xczhihui.course.exception.LineApplyException;
 import com.xczhihui.course.model.LineApply;
@@ -48,7 +47,7 @@ public class LineApplyBody {
         String name = lineApply.getRealName();
         //过滤掉可能出现的表情字符
         if (StringUtils.isNotBlank(name)) {
-            lineApply.setRealName(SLEmojiFilter.filterEmoji(name));
+            lineApply.setRealName(name);
         }
         name = lineApply.getRealName();
         if (!StringUtils.isNotBlank(name) || (name.length() > 20)) {

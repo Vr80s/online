@@ -22,7 +22,6 @@ import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.CodeUtil;
-import com.xczhihui.common.util.SLEmojiFilter;
 import com.xczhihui.common.util.enums.ThirdPartyType;
 import com.xczhihui.common.util.enums.TokenExpires;
 import com.xczhihui.common.util.enums.UserUnitedStateType;
@@ -109,11 +108,9 @@ public class WeiBoThirdPartyController {
                     wbuser.setId(CodeUtil.getRandomUUID());
                     //用户昵称
                     String screenName = wbuser.getScreenName();
-                    screenName = SLEmojiFilter.filterEmoji(screenName);
                     wbuser.setScreenName(screenName);
                     //友好显示名称
                     String name = wbuser.getName();
-                    name = SLEmojiFilter.filterEmoji(name);
                     wbuser.setName(name);
                     threePartiesLoginService.saveWeiboClientUserMapping(wbuser);
 
@@ -201,11 +198,9 @@ public class WeiBoThirdPartyController {
                     wbuser.setId(CodeUtil.getRandomUUID());
                     //用户昵称
                     String screenName = wbuser.getScreenName();
-                    screenName = SLEmojiFilter.filterEmoji(screenName);
                     wbuser.setScreenName(screenName);
                     //友好显示名称
                     String name = wbuser.getName();
-                    name = SLEmojiFilter.filterEmoji(name);
                     wbuser.setName(name);
 
                     if (StringUtils.isNotBlank(userId)) {  // 绑定成功
