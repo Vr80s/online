@@ -82,6 +82,9 @@ textarea::-webkit-input-placeholder {
 	height: 4.24rem;
 	opacity: 0;
 }
+.ccH5playerBox{
+	width: 7.5rem !important;
+}
 .play_video{
 	width: 100%;
 	height: 4.24rem;
@@ -92,6 +95,7 @@ textarea::-webkit-input-placeholder {
 	height: 4.24rem;
 	position: absolute;
 	top: 0;
+	left: 0;
 	z-index: 9;
 }
 .video_prompt{
@@ -260,10 +264,11 @@ textarea::-webkit-input-placeholder {
 	position: relative;
 	text-align: justify;
 	padding-top: 0.1rem;
-	min-height: 2rem;
+	min-height: 1rem;
 	padding-bottom: 0.2rem;
 	word-wrap:break-word; 
 word-break:break-all; 
+line-height: 0.42rem;
 }
 .wrap p{
 	line-height: 0.4rem;
@@ -306,16 +311,16 @@ word-break:break-all;
 .no_data{
 	display: none;
 	text-align: center;
-    line-height: 1.8rem;
+    line-height: 1rem;
     color: #a5a5a5;
-	
+	text-align: left;
 }
 .no_data1{
 	display: none;
 	text-align: center;
-    line-height: 1.8rem;
-
+    line-height: 1rem;
     color: #a5a5a5;
+    text-align: left;
 }
 /*主讲人*/
 .wrap_speak{
@@ -344,10 +349,11 @@ word-break:break-all;
 	position: relative;
 	text-align: justify;
 	padding-top: 0.1rem;
-	min-height: 2rem;
+	min-height: 1rem;
 	padding-bottom: 0.2rem;
 	word-wrap:break-word; 
 word-break:break-all; 
+line-height: 0.42rem;
 }
 .wrap1 p{
 	line-height: 0.4rem;
@@ -448,7 +454,7 @@ word-break:break-all;
 .user_header img{
 	width: 100%;
 	height: 100%;
-	border-radius: 50px;
+	border-radius: 100px;
 }
 .user_text{
 	width: 5.85rem;
@@ -597,12 +603,15 @@ word-break:break-all;
 }
 /*底下评论输入框*/
 .wrap_user_input{
-	width: 100%;
-	background: white;
-	height: 0.98rem;
-	padding: 0.01rem 0.26rem 0 0.26rem;
-	margin-top: 0.2rem;
-	box-sizing: border-box;
+	width: 7.5rem;
+    background: white;
+    height: 0.98rem;
+    padding: 0.01rem 0.26rem 0 0.26rem;
+    margin-top: 0.2rem;
+    box-sizing: border-box;
+    position: fixed;
+    bottom: 0;
+    border-top: 1px solid #D8DDE6;
 }
 .wrap_input{
 	width: 7rem;
@@ -653,15 +662,17 @@ word-break:break-all;
 }
 .wrapLittle_comment{
 	width: 7.5rem;
-    position: absolute;
-	height: 4.45rem;
-	display: none;
-	background:white;
-	box-sizing: border-box;
-	bottom: 0;
-	left: 0;
-	z-index: 5;
-	padding: 0 0.26rem 0.6rem;
+    /* position: absolute; */
+    position: fixed;
+    height: 4.45rem;
+    display: none;
+    background: white;
+    box-sizing: border-box;
+    bottom: 0;
+    left: 50%;
+    z-index: 10;
+    padding: 0.3rem 0.26rem 0.6rem;
+    margin-left: -3.75rem;
 	
 }
 /*评论主播弹出框*/
@@ -681,7 +692,8 @@ word-break:break-all;
 	background:white;
 	box-sizing: border-box;
 	bottom: 0;
-	left: 0;
+	left: 50%;
+	margin-left: -3.75rem;
 	z-index: 5;
 	padding: 0.3rem 0.26rem 0.3rem;
 }

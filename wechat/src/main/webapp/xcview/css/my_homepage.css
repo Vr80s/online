@@ -16,9 +16,10 @@ img{display: block;}
 
 /*头部开始*/
 header{
-	width: 100%;
-	height: 4.39rem;
-	background: #fff;
+	width: 7.5rem;
+    height: 4.39rem;
+    background: #fff;
+    margin: 0 auto;
 }
 .header{
 	width: 100%;
@@ -49,7 +50,7 @@ header{
 .header_img .img0{
 	width: 1.6rem;
 	height: 1.6rem;
-	border-radius: 60px;
+	border-radius: 100px;
 	/*border: 3px solid #fff;*/
 	margin: 0 auto;
     padding: 3px;
@@ -96,10 +97,12 @@ header{
 /*中间模块开始*/
 
 .my_main{
-	width: 100%;
-	height: 1.56rem;
-	background: #fff;
-	margin: 0.2rem 0;
+	 width: 7.5rem;
+    height: 1.56rem;
+    background: #fff;
+    margin: 0 auto;
+    margin-top: 0.2rem;
+    margin-bottom: 0.2rem;
 }
 .my_main ul li{
 	width: 1.87rem;
@@ -125,10 +128,10 @@ header{
 
 /*我要当主播*/
 .my_anchor{
-	width: 100%;
+	width: 7.5rem;
 	height: 0.98rem;
 	background: #fff;
-	/*margin: 0.2rem 0;*/
+	margin: 0 auto;
 }
 .anchor_main{
 	width: 7.24rem;
@@ -226,10 +229,12 @@ header{
 
 /*帮助*/
 .my_help{
-	width: 100%;
-	height: 2.94rem;
-	background: #fff;
-	margin: 0.2rem 0;
+	width: 7.5rem;
+    height: 2.94rem;
+    background: #fff;
+    margin: 0 auto;
+    margin-top: 0.2rem;
+    margin-bottom: 0.2rem;
 }
 .my_help_main{
 	width: 7.24rem;
@@ -303,13 +308,15 @@ header{
 	/*background: red;*/
 }
 .footer{
-	width: 100%;
-	height: 1rem;
-	background: #fff;
-	/*background: red;*/
-	position: fixed;
-	bottom: 0;
-	border-top: 1px solid #d8dde6;
+	width: 7.5rem;
+    height: 1rem;
+    background: #fff;
+    /* background: red; */
+    position: fixed;
+    bottom: 0;
+    border-top: 1px solid #d8dde6;
+    left: 50%;
+    margin-left: -3.75rem;
 }
 .footer ul li{
 	width: 25%;

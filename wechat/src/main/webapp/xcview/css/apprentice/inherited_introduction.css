@@ -29,8 +29,9 @@ header{
 	background-size: 100% 100%; */
 }
 .intro{
-	width: 100%;
+	width: 7.5rem;
 	height: 0.88rem;
+	margin: 0 auto;
 }
 .special_img{
 	width: 100%;

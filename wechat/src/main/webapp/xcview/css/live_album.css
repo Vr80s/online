@@ -86,9 +86,13 @@ textarea::-webkit-input-placeholder {
 	height: 4.24rem;
 	position: relative;
 }
+.ccH5playerBox{
+	width: 7.5rem !important;
+}
 .play_video img{
 	width: 100%;
 	height: 100%;
+	left: 0;
 }
 .hide_height{
 	width: 100%;
@@ -461,7 +465,7 @@ textarea::-webkit-input-placeholder {
 .user_header img{
 	width: 100%;
 	height: 100%;
-	border-radius: 50px;
+	border-radius: 100px;
 }
 .user_text{
 	width: 5.85rem;
@@ -583,16 +587,17 @@ textarea::-webkit-input-placeholder {
 }
 /*底下评论输入框*/
 .wrap_user_input{
-	width: 100%;
-	background: white;
-	height: 0.98rem;
-	padding: 0.01rem 0.26rem 0 0.26rem;
-	margin-top: 0.2rem;
-	box-sizing: border-box;
-	border-top: 1px solid #d8dde6;
-	position: fixed;
-	bottom: 0;
-	left: 0;
+	width: 7.5rem;
+    background: white;
+    height: 0.98rem;
+    padding: 0.01rem 0.26rem 0 0.26rem;
+    margin-top: 0.2rem;
+    box-sizing: border-box;
+    border-top: 1px solid #d8dde6;
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    margin-left: -3.75rem;
 }
 .wrap_input{
 	width: 7rem;
@@ -649,7 +654,8 @@ textarea::-webkit-input-placeholder {
 	background:white;
 	box-sizing: border-box;
 	bottom: 0;
-	left: 0;
+	left: 50%;
+	margin-left: -3.75rem;
 	z-index: 5;
 	padding: 0 0.26rem 0.6rem;
 }
@@ -670,7 +676,8 @@ textarea::-webkit-input-placeholder {
 	background:white;
 	box-sizing: border-box;
 	bottom: 0;
-	left: 0;
+	left: 50%;
+	margin-left: -3.75rem;
 	z-index: 5;
 	padding: 0.3rem 0.26rem 0.3rem;
 }
