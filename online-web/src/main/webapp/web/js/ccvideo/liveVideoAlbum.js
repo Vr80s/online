@@ -47,6 +47,13 @@ RequestService("/learnWatch/add", "POST", {
  */
 function getPlayCode(collectionId,courseId){
 	
+	/**
+	 * 记录最后播放到那个地方了
+	 */
+    var key = userId+collectionId+"lastLive";
+    localStorage.setItem(key,courseId);
+	
+    
 	RequestService("/learnWatch/add", "POST", {
 		collectionId:collectionId,
 		courseId:courseId,
@@ -130,10 +137,11 @@ RequestService("/course/newGetCoursesByCollectionId",
 		//默认是第一个课程
 		if(!stringnull(courseId) && stringnull(ljxx)){
 			courseId = list[0].id;
+			// $(".wrap-sidebar ul li").removeClass("active-footer");
+			$(".album_list ul li").removeClass("choosedAlbum");
+			$(".album_list ul li").eq(0).addClass("choosedAlbum");
 		}
-		// $(".wrap-sidebar ul li").removeClass("active-footer");
-		$(".album_list ul li").removeClass("choosedAlbum");
-		$(".album_list ul li").eq(0).addClass("choosedAlbum");
+
 	}
 },false);
 
@@ -256,9 +264,6 @@ $(".album_list li").click(function(){
    var courseId = $(this).attr("data-id");
    var falg = $("#auto_play").is(':checked')
    
-   var key = userId+collectionId+"lastLive";
-   localStorage.setItem(key,courseId);
-   
    location.href = "/web/html/ccvideo/liveVideoAlbum.html" +
    		"?collectionId="+collectionId+"&courseId="+courseId+"&auto_play="+falg;
 })
@@ -283,8 +288,7 @@ function custom_player_stop(){
 					nextCourseId = $nextNode.attr("data-id");
 				}
 				
-				var key = userId+collectionId+"lastLive";
-				localStorage.setItem(key,nextCourseId);
+		
 				location.href = "/web/html/ccvideo/liveVideoAlbum.html"+"?collectionId="+collectionId+"&courseId="+nextCourseId+"&auto_play="+falg;
 			}
 		})

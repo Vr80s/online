@@ -102,6 +102,11 @@ function createGiftList(gift) {
 	   		$(".video_end_top0").hide();
         	$(".video_end_top2").hide();
         	$(".video_end_top1").show();
+
+            $(".video_end_top1 .div img").click(function(){
+                $(".video_end_top1").hide();
+                location.reload();
+            });
 	   		
 	   		console.info("回放生成成功");
     	}
@@ -123,6 +128,7 @@ function createGiftList(gift) {
 			 $(".video_end_top0").hide();
 			 //生成回访中
 			 $(".video_end_top2").show(); 
+
     	} 
     	return;
     }
@@ -156,10 +162,6 @@ function createGiftList(gift) {
         }
     }
 }
-
-
-
-
 
 var gif = [];
 var num = [];
@@ -332,7 +334,7 @@ function countChange(count) {
         count = 2;
         return 16.1;
     } else if (count == 2) {
-        count = 3;
+        count = 1;
         return 13.8;
     } else {
         count = 1;
@@ -457,7 +459,6 @@ $(document).ready(function() {
             				" </div> "+
             			    "<div class='both'></div></div>";
                             
-                            
                             //将礼物发送到
                             var msg = null;
                             msg = VHALL_SDK.sendChat({
@@ -465,8 +466,6 @@ $(document).ready(function() {
                             });
                             $("#chatmsg").append(str);
                            
-                            
-                            
                             //显示礼物总数
                             $("#liveGiftCount").html(data.resultObject.giftCount);
                             
