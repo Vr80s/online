@@ -5,6 +5,17 @@
 })(mui);
 
 /**
+ * cookie
+ * third_party_falg   true 需要进行完善信息   false 不用进行完善信息
+ * 返回 1000 有效   1002 过期，去登录页面  1005 过期且去完善信息
+ */
+var USER_UN_LOGIN = 1002;//未登录
+var USER_TOP = 1003;//被顶掉
+var USER_UN_BIND = 1005;//用户用微信登录的但是没有绑定注册信息
+var USER_NORMAL = 1000;
+var USER_WEIXIN_AUTH = 1006;//需要去微信授权
+
+/**
  * 判断是不是来自微信浏览器
  */
 function is_weixin() {
@@ -116,15 +127,15 @@ function h5PcConversions(falg, courserId) {
             };
         }(),
         language: (navigator.browserLanguage || navigator.language).toLowerCase()
-    }
+    };
     if (!(browser.versions.mobile || browser.versions.ios || browser.versions.android ||
             browser.versions.iPhone || browser.versions.iPad)) {
 
         var front_area = getServerHost();
         if (falg) {//ture
-            window.location = front_area + "/course/courses/" + courserId
+            location.href = front_area + "/courses/" + courserId + "/info"
         } else {
-            window.location = front_area;
+            location.href = front_area;
         }
         return false;
     } else {
@@ -152,7 +163,6 @@ if (current.indexOf("course_id") != -1 ||
     }
 } else {
     //跳转到课程页面
-
     h5PcConversions(false);
 }
 
@@ -499,18 +509,7 @@ var cookie = {
         date.setTime(date.getTime() - 10000); //将date设置为过去的时间
         document.cookie = key + "=;expires =" + date.toGMTString() + ";path=/";//设置cookie
     }
-}
-
-/**
- * cookie
- * third_party_falg   true 需要进行完善信息   false 不用进行完善信息
- * 返回 1000 有效   1002 过期，去登录页面  1005 过期且去完善信息
- */
-var USER_UN_LOGIN = 1002;//未登录
-var USER_TOP = 1003;//被顶掉
-var USER_UN_BIND = 1005;//用户用微信登录的但是没有绑定注册信息
-var USER_NORMAL = 1000;
-var USER_WEIXIN_AUTH = 1006;//需要去微信授权
+};
 
 function getFlagStatus() {
     var falg = USER_NORMAL;
