@@ -86,17 +86,17 @@
 									
 										<div class="img"><img src="${courseItem.smallImgPath}"></div>
 										   <#if courseItem.type == 1 > 
-										       <#if courseInfo.collection> 
+										       <#if courseItem.collection> 
 										         <span class="classCategory">视频专辑</span>
 										       <#else>
 										         <span class="classCategory">视频</span>
 										       </#if>
 										   <#elseif courseItem.type == 2>
-										      <#if courseInfo.collection> 
+										      <#if courseItem.collection> 
 										         <span class="classCategory">音频专辑</span>
-										       <#else>
+										      <#else>
 										         <span class="classCategory">音频</span>
-										       </#if>
+										      </#if>
 										   <#elseif courseItem.type == 3>
 									          <#if courseItem.lineState  == 1  > 
 										        <span class="classCategory">直播中</span>
