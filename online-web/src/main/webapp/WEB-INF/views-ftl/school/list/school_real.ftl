@@ -43,9 +43,9 @@
 								<#-- 课程列表 页跳转  带上跳转条件 -->
 								<p>
 								<#if courseTypeItem.title?? && courseTypeItem.title == "全国课程">									
-									<a href="/courses/list?courseType=4">更多</a>
+									<a href="${webUrl}/courses/list?courseType=4">更多</a>
 								<#else>
-									<a href="/courses/list?city=${courseTypeItem.title}">更多</a>
+									<a href="${webUrl}/courses/list?city=${courseTypeItem.title}">更多</a>
 								</#if>
 								<img src="/web/images/rili_icon.png" alt="箭头" />
 								 </p>
@@ -59,7 +59,7 @@
 														src="/web/images/recommend2.png">
 										</#if> 
 									
-									<a style="cursor:pointer" href="/courses/${courseItem.id}/info" target="_blank">
+									<a style="cursor:pointer" href="${webUrl}/courses/${courseItem.id}/info" target="_blank">
 										<div class="img"><img src="${courseItem.smallImgPath}"></div>
 										<span class="classCategory">线下课程</span>
 										<div class="detail">

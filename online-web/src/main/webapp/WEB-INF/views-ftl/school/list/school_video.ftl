@@ -39,7 +39,7 @@
 					<div class="content-class">	
 						<div class="wrap-title">
 							<span>听课推荐</span>
-							<p><a href="/courses/list?courseType=2">更多</a><img src="/web/images/rili_icon.png" alt="箭头" /> </p>
+							<p><a href="${webUrl}/courses/list?courseType=2">更多</a><img src="/web/images/rili_icon.png" alt="箭头" /> </p>
 						</div>
 						
 					<#list courseList as courseItem>
@@ -52,7 +52,7 @@
 														src="/web/images/recommend2.png">
 								</#if> 
 							    
-							    <a style="cursor:pointer" href="/courses/${courseItem.id}/info" target="_blank">
+							    <a style="cursor:pointer" href="${webUrl}/courses/${courseItem.id}/info" target="_blank">
 								<div class="img"><img src="${courseItem.smallImgPath}"></div>
 								
 								
