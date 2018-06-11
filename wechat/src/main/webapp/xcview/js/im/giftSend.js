@@ -183,8 +183,8 @@ function giftShow(gift, f,continuous) {
             + gift.senderInfo.userName    //userName  用户昵称
             + "</p><p class='animation_name_p2'>送出"
             + gift.giftInfo.name
-            + "</p></div><div class='animation_span'>×<span class=addnum"
-            + f + "  id='"+gift.senderInfo.userId+gift.giftInfo.giftId+"' xh='"+f+"' >1</span></div><div class='animation_gift'><img src='"
+            + "</p></div><div class='animation_span'>×<span class=addnum"                //展示区域.开始默认1，修改为字段  
+            + f + "  id='"+gift.senderInfo.userId+gift.giftInfo.giftId+"' xh='"+f+"' >"+gift.giftInfo.continuousCount+"</span></div><div class='animation_gift'><img src='"
             + gift.giftInfo.smallimgPath
             + "' alt='' /></div></div></li>");
         
@@ -224,13 +224,13 @@ function giftShow(gift, f,continuous) {
     	     },500,"linear",
     function(){
     	 if (f == 1) {
-        $('.addnum'+f).html(gift.giftInfo.continuousCount);
+        // $('.addnum'+f).html(gift.giftInfo.continuousCount);  由于点击连击的时候，数字倒数，就隐藏掉了，然后添加在默认展示区域
         $('.addnum'+f).data("sto",new Date().getTime());
     } else if (f == 2) {
-        $('.addnum'+f).html(gift.giftInfo.continuousCount);
+        // $('.addnum'+f).html(gift.giftInfo.continuousCount);
         $('.addnum'+f).data("sto",new Date().getTime());
     } else {
-        $('.addnum'+f).html(gift.giftInfo.continuousCount);
+        // $('.addnum'+f).html(gift.giftInfo.continuousCount);
         $('.addnum'+f).data("sto",new Date().getTime());
     }
     });
@@ -332,7 +332,7 @@ function countChange(count) {
         count = 2;
         return 16.1;
     } else if (count == 2) {
-        count = 3;
+        count = 1;
         return 13.8;
     } else {
         count = 1;

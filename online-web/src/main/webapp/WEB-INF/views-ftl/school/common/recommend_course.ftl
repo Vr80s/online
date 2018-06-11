@@ -3,9 +3,9 @@
 	<div class="course clearfix">
 	
 	     <#if courseItem.type == 1 ||  courseItem.type == 2 ||  courseItem.type == 4 > 
-	 		    <a style="cursor:pointer" href="/courses/${courseItem.id}/info" target="_blank">
+	 		    <a style="cursor:pointer" href="${webUrl}/courses/${courseItem.id}/info" target="_blank">
 		 <#elseif courseItem.type == 3>
-	            <a style="cursor:pointer" href="/web/liveCoursePage/${courseItem.id}" target="_blank">
+	            <a style="cursor:pointer" href="${webUrl}/web/liveCoursePage/${courseItem.id}" target="_blank">
 		 </#if>
 		
 		
@@ -32,7 +32,11 @@
 			   </#if>
 				</p>
 				
-				<p class="timeAndTeac"><span class="teacher">${courseItem.name}</span>
+				<p class="timeAndTeac">
+				<span class="teacher">${courseItem.name}</span>
+					<#if courseItem.type == 4> 
+						<span class="y">${courseItem.city}</span>
+					</#if>
 				</p>
 				<p class="info clearfix">
 				<span>

@@ -44,7 +44,6 @@ public class UserController extends OnlineBaseController {
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
     public ResponseObject login(String username, String password, HttpServletResponse response) {
-        OnlineUser o = service.findUserByLoginName(username);
         Token t = userCenterService.loginMobile(username, password, TokenExpires.Year);
         UCCookieUtil.writeTokenCookie(response, t);
         return ResponseObject.newSuccessResponseObject("登录成功");

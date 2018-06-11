@@ -116,9 +116,11 @@
 											<p class="title" data-text="音频测试3" title="音频测试3">${courseItem.gradeName}</p>
 											<p class="timeAndTeac">
 												<span class="teacher">${courseItem.name}</span>
+												<#if courseItem.type == 4> 
+													<span class="y">${courseItem.city}</span>
+												</#if>
 											</p>
-											<p class="info clearfix"><span>
-											
+											<p class="info clearfix">
 											 <#if courseItem.currentPrice gt 0 >
 											 	 <span class="price">${courseItem.currentPrice}</span>
 											 	 <span>熊猫币</span>
@@ -127,7 +129,10 @@
 											 </#if>
 											
 											<span class="stuCount">
-											<img src="/web/images/studentCount.png" alt=""><span class="studentCou">${courseItem.learndCount}</span></span>
+											<img src="/web/images/studentCount.png" alt="">
+												<span class="studentCou">${courseItem.learndCount}
+												</span>
+											</span>
 											</p>
 										</div>
 									</a>

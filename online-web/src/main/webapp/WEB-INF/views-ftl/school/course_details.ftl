@@ -86,7 +86,7 @@
                 <#if courseInfo.collection >
                     <ul>
                         <li>更新时间</li>
-                        <li>共${courseInfo.courseNumber}集, 已更新${collectionListSize!'0'}<#if updateDateText??>
+                        <li>共${courseInfo.courseNumber}集, 已更新${collectionListSize!'0'}集<#if updateDateText??>
                             (每${updateDateText}更新)</#if></li>
                     <#-- <li>共16集，已更新13集（每周三、周五更新）</li> -->
                     </ul>
@@ -167,17 +167,17 @@
                 <#-- tab的显示，这个就当做专辑页面来写   -->
                 <#if  courseInfo.collection> <#-- 专辑tab显示    -->
                     <#if courseInfo.watchState = 1 || courseInfo.watchState = 2> <#-- 免费或已购买  -->
-                        <li><a href="${webUrlParam}/selection">选集</a></li>
-                        <li><a href="${webUrlParam}/info">详情</a></li>
+                        <li><a href="javascript:void(0);">选集</a></li>
+                        <li><a href="javascript:void(0);">详情</a></li>
                     <#elseif courseInfo.watchState = 0>
-                        <li><a href="${webUrlParam}/info">详情</a></li>
-                        <li><a href="javascirpt:;">课程大纲</a></li>
+                        <li><a href="javascript:void(0);">详情</a></li>
+                        <li><a href="javascript:void(0);">课程大纲</a></li>
                     </#if>
                 <#else> <#-- 非专辑tab显示    -->
-                    <li><a href="${webUrlParam}/info">详情</a></li>
+                    <li><a href="javascript:void(0);">详情</a></li>
                 </#if>
                     <li><a href="${webUrlParam}/comment">评价（${courseInfo.criticizeCount}）</a></li>
-                    <li><a href="javascirpt:;">常见问题</a></li>
+                    <li><a href="javascript:void(0);">常见问题</a></li>
                 </ul>
             </div>
             <!--content-->
@@ -192,13 +192,13 @@
                                    target="_blank">
                                     <div class="play-img z">
                                         <div class="circle">
-                                            <div class="percent left" data-courseId="${collectionItem.id}"
+                                            <div class="percent left percentleftId" data-courseId="${collectionItem.id}"
                                                  data-timeLength="${collectionItem.courseLength}"></div>
                                             <div class="percent right wth0"></div>
                                         </div>
                                         <img src="../../web/images/icon-play.png"/>
                                     </div>
-                                    <div class="play-album z">
+                                    <div class="play-album z" data-courseId="${collectionItem.id}">
                                         <p>${collectionItem.gradeName}</p>
                                         <p>${collectionItem.courseLength}</p>
                                     </div>

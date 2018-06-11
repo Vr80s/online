@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.body.course.LineApplyBody;
-import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.course.service.ILineApplyService;
 

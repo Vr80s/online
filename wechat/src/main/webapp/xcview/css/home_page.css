@@ -1047,13 +1047,16 @@ header{
     margin-top: 0.02rem;
 }
 .zhibo_play{
-    border: 1px solid #F97B49;
-    border-radius: 3px;
+    border-radius: 0 0 0 3px;
     float: left;
     font-size: 0.22rem;
     padding: 0rem 0.1rem;
-    color: #F97B49 !important;
+    color: #fff !important;
     margin-top: -0.02rem;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: #f97b49;
 }
 .boutique_main_one_size .p3{
     overflow: hidden;

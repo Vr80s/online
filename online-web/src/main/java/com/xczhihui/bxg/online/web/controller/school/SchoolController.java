@@ -295,7 +295,7 @@ public class SchoolController extends AbstractFtlController {
                              @RequestParam(required = false) Integer pageNumber) throws IOException {
 
         pageNumber = pageNumber == null ? 1 : pageNumber;
-        pageSize = pageSize == null ? 2 : pageSize;
+        pageSize = pageSize == null ? 5 : pageSize;
         
         ModelAndView view = new ModelAndView("school/course_details");
         //显示详情呢、大纲、评论、常见问题呢
@@ -329,13 +329,11 @@ public class SchoolController extends AbstractFtlController {
             }
         }
 
-        //如果是专辑获取专辑列表
-        if (clv.getCollection() && type!=null &&  type.equals("selection")) {
-            List<CourseLecturVo> courses = courseService.selectCoursesByCollectionId(clv.getId());
-            view.addObject("collectionList", courses);
-            view.addObject("collectionListSize", courses.size());
-            view.addObject("updateDateText", courseApplyService.getCollectionUpdateDateText(clv.getId()));
-        }
+        //获取专辑
+        List<CourseLecturVo> courses = courseService.selectCoursesByCollectionId(clv.getId());
+        view.addObject("collectionList", courses);
+        view.addObject("collectionListSize", courses.size());
+        view.addObject("updateDateText", courseApplyService.getCollectionUpdateDateText(clv.getId()));
 
         //课程详情
         view.addObject("courseInfo", clv);

@@ -222,5 +222,5 @@ public interface ICourseService {
      */
     public CourseLecturVo selectCourseStatusDeleteUserLecturerId(Integer courseId);
 
-    String getLiveCourseUrl4Wechat(String courseId);
+    String getLiveCourseUrl4Wechat(String userId,String courseId);
 }
