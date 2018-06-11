@@ -131,9 +131,8 @@ $(function () {
         var type = $this.attr("data-type");
         var collection = $this.attr("data-collection");
         var realCourseId = $this.attr("data-realCourseId");
-        var collectionCourseId = $this.attr("data-collectionCourseId");
+        //var collectionCourseId = $this.attr("data-collectionCourseId");
         var learning = $this.attr("data-learning");
-
         /**
          * 判断是否登录了
          */
@@ -159,7 +158,7 @@ $(function () {
                     window.location.href = "/web/livepage/" + realCourseId;
                 } else if (type == 1 || type == 2) {
                     if (collection == 1) {
-                        window.location.href = "/web/html/ccvideo/liveVideoAlbum.html?collectionId=" + realCourseId + "&courseId=" + collectionCourseId + "&ljxx=ljxx"
+                        window.location.href = "/web/html/ccvideo/liveVideoAlbum.html?collectionId=" + realCourseId + "&ljxx=ljxx"
                     } else {
                         window.location.href = "/web/html/ccvideo/video.html?courseId=" + realCourseId;
                     }

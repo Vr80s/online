@@ -267,21 +267,24 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper, UserBank>
 		if (!MatchLuhn.matchLuhn(acctPan)) {
 			throw new AnchorWorkException("银行卡格式有误");
 		}
-		boolean verifyBank  = false;
-		String yzcx = BankCardType.getBankCard(Integer.valueOf(tel));
-		if(yzcx.indexOf("邮储银行")!=-1){ //邮政储蓄银行需要在判断下
-			if(BankUtil.getNameOfBank(acctPan).contains(yzcx) || BankUtil.getNameOfBank(acctPan).contains("邮政储蓄银行")){
-				verifyBank = true;
-			}
-		}else if (!BankUtil.getNameOfBank(acctPan).equals("")){
-			verifyBank = BankUtil.getNameOfBank(acctPan).contains(yzcx);
-		}else {
-			verifyBank = true;
-		}
 		
-		if (!verifyBank) {
-			throw new AnchorWorkException("银行卡号与银行不匹配");
-		}
+//		银行卡类型验证暂时去掉
+//		boolean verifyBank  = false;
+//		String yzcx = BankCardType.getBankCard(Integer.valueOf(tel));
+//		if(yzcx.indexOf("邮储银行")!=-1){ 	//邮政储蓄银行需要在判断下
+//			if(BankUtil.getNameOfBank(acctPan).contains(yzcx) || BankUtil.getNameOfBank(acctPan).contains("邮政储蓄银行")){
+//				verifyBank = true;
+//			}
+//		}else if (!BankUtil.getNameOfBank(acctPan).equals("")){
+//			verifyBank = BankUtil.getNameOfBank(acctPan).contains(yzcx);
+//		}else {
+//			verifyBank = true;
+//		}
+//		
+//		if (!verifyBank) {
+//			throw new AnchorWorkException("银行卡号与银行不匹配");
+//		}
+		
 		UserBank userBank = new UserBank();
 		userBank.setUserId(userId);
 		userBank.setAcctName(acctName);

@@ -128,7 +128,7 @@
                             <a href="${webUrl}/headline/details/${article.id}" target="_blank">${article.title}</a>
                         </div>
                         <div class="forum-info-content dot-ellipsis">
-                        ${article.content}
+                        	${article.content}
                         </div>
                         <div class="forum-info-tags">
                             <span>${article.author!''}<em></em>${(article.createTime?string("yyyy-MM-dd"))!}</span>
