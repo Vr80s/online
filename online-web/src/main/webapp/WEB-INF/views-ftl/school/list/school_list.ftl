@@ -28,6 +28,9 @@
 	</head>
 	
 	<body>
+	<header>
+<#include "../header-body.ftl">
+</header>
 		<div class="wp" >
 			<div class="wrap-screen">
 				<p class="class-title">课程列表</p>

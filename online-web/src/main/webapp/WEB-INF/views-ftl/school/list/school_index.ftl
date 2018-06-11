@@ -20,8 +20,12 @@
 
 		<!--登陆的bootstrap样式-->
 			<link rel="stylesheet" href="/web/css/school/school-recommend.css?version=6b7f0ba64e"  />
+			
 	</head>
 	<body>
+<header>
+<#include "../header-body.ftl">
+</header>
 <!--左侧精品、免费、最新、养生课程-->		
 		<div class="wp">
 			<div class="wrap-left z">
@@ -81,8 +85,12 @@
 									   </#if>
 									
 										<div class="img"><img src="${courseItem.smallImgPath}"></div>
-										   <#if courseItem.type == 1  > 
-											      <span class="classCategory">视频</span>
+										   <#if courseItem.type == 1 > 
+										       <#if courseInfo.collection> 
+										         <span class="classCategory">视频</span>
+										       <#else>
+										         <span class="classCategory">视频</span>
+										       </#if>
 										   <#elseif courseItem.type == 2>
 										      <span class="classCategory">音频</span>
 										   <#elseif courseItem.type == 3>
@@ -156,15 +164,15 @@
 			</div>
 		</div>
 
-		<script src="/web/js/jquery-1.12.1.js?version=da6deec5d1" type="text/javascript" charset="utf-8"></script>
+	    <script src="/web/js/jquery-1.12.1.js?version=da6deec5d1" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript" src="/web/js/artTemplate.js?version=8ba0d405af"></script>	
 		<script src="/web/js/bootstrap.js?version=32941860bf" type="text/javascript" charset="utf-8"></script>
-		
 		<!--公共头部和底部-->
 		<script src="/web/js/ajax.js?version=b9420555ff" type="text/javascript" charset="utf-8"></script>
 		<script src="/web/html/school/school-header/header.js?version=1fead7f563" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript" src="/web/js/footer.js?version=355911bda4"></script>
 		<!--公共头部和底部结束-->
+				
 
 		<!--登陆结束-->	
 		<script src="/web/js/school/school-recommend.js?version=ff165246cb" type="text/javascript" charset="utf-8"></script>

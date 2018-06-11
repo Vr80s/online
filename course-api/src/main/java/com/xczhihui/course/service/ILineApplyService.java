@@ -34,7 +34,7 @@ public interface ILineApplyService {
      * @param lockId    用户id
      * @param lineApply 报名信息
      */
-    void saveOrUpdate(String lockId, LineApply lineApply);
+    void saveOrUpdate(LineApply lineApply);
 
     /**
      * 查询线下课报名的学员

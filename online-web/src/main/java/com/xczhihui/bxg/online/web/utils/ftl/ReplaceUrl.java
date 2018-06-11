@@ -15,7 +15,7 @@ import freemarker.template.TemplateModelException;
 public class ReplaceUrl implements TemplateMethodModelEx {  
   
     public ReplaceUrl() {  
-        System.out.println("ToUpperCaseMethod构造函数被调用啦");  
+        //System.out.println("ToUpperCaseMethod构造函数被调用啦");  
     }  
 
 	@Override

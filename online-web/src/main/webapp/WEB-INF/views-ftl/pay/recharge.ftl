@@ -24,6 +24,9 @@
     <link rel="stylesheet" href="/web/css/school/pay-recharge.css"/>
 </head>
 <body>
+<header>
+<#include "../school/header-body.ftl">
+</header>
 <div class="wp">
     <div class="main-top">
         <div class="recharge-explain">
@@ -101,7 +104,6 @@
 <script src="/web/html/school/school-header/header.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" src="/web/js/footer.js"></script>
 <!--公共头部和底部结束-->
-
 <!--登陆结束-->
 <script src="/web/js/school/pay-recharge.js" type="text/javascript" charset="utf-8"></script>
 

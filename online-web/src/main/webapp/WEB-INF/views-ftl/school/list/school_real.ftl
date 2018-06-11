@@ -23,6 +23,9 @@
 			<link rel="stylesheet" href="/web/css/school/school-under.css"  />
 	</head>
 		<body>
+			<header>
+<#include "../header-body.ftl">
+</header>
 <!--左侧精品、免费、最新、养生课程-->		
 		<div class="wp">
 			<div class="wrap-left z">

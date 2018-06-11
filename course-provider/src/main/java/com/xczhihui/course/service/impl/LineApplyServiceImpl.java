@@ -40,9 +40,7 @@ public class LineApplyServiceImpl implements ILineApplyService {
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = RuntimeException.class)
-    @Lock(lockName = "addOrUpdateLineApplyLock", waitTime = 5, effectiveTime = 8)
-    public void saveOrUpdate(String lockId, LineApply lineApply) {
+    public void saveOrUpdate(LineApply lineApply) {
         LineApply lineApplyOld = lineApplyMapper.findLineApplyByUserIdAndCourseId(lineApply.getUserId(), lineApply.getCourseId());
         if (lineApplyOld == null) {
             Course course = courseMapper.selectById(lineApply.getCourseId());
@@ -55,7 +53,8 @@ public class LineApplyServiceImpl implements ILineApplyService {
             String id = CodeUtil.getRandomUUID();
             lineApply.setId(id);
             lineApply.setAnchorId(course.getUserLecturerId());
-            lineApplyMapper.insert(lineApply);
+            
+            lineApplyMapper.insertLineApply(lineApply);
         }
     }
 

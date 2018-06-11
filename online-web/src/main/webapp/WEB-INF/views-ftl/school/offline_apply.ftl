@@ -24,6 +24,9 @@
 </head>
 
 <body>
+<header>
+<#include "header-body.ftl">
+</header>
 <div class="main">
     <div class="title">填写报名信息</div>
     <div class="hint">
