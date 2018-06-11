@@ -87,12 +87,16 @@
 										<div class="img"><img src="${courseItem.smallImgPath}"></div>
 										   <#if courseItem.type == 1 > 
 										       <#if courseInfo.collection> 
-										         <span class="classCategory">视频</span>
+										         <span class="classCategory">视频专辑</span>
 										       <#else>
 										         <span class="classCategory">视频</span>
 										       </#if>
 										   <#elseif courseItem.type == 2>
-										      <span class="classCategory">音频</span>
+										      <#if courseInfo.collection> 
+										         <span class="classCategory">音频专辑</span>
+										       <#else>
+										         <span class="classCategory">音频</span>
+										       </#if>
 										   <#elseif courseItem.type == 3>
 									          <#if courseItem.lineState  == 1  > 
 										        <span class="classCategory">直播中</span>
@@ -102,6 +106,8 @@
 											      <span class="classCategory">直播回放</span>
 											  <#elseif courseItem.lineState  == 4>
 									             <span class="classCategory">即将直播</span>
+									          <#else>   
+							            		 <span class="classCategory">暂未开播</span>
 									          </#if>
 										   <#elseif courseItem.type == 4>
 										      <span class="classCategory">线下培训班</span>

@@ -1100,3 +1100,18 @@ function changePeriod(checked) {
 		$("#btn_width").attr("accept", ".Mp3,.Wav,.aif,.aiff,.au,.snd,.voc,.ra,.midrmi,.wma,.ape,.flac,.aac,.m4a,.vqf");
 	}
 }
+
+
+//学员开始
+//是否上课单选框
+	$(".content-setClass label").click(function() {
+		$(this).find(".radio-cover em").addClass("active").parent().parent().siblings().find(".radio-cover em").removeClass("active");
+	});
+	$(".class-btnUp").click(function(){
+		$(".set-trainee").addClass("hide");
+		$(".trainee-background").addClass(hide);
+	});
+	$(".trainee-close").click(function(){
+		$(".set-trainee").addClass("hide");
+		$(".trainee-background").addClass(hide);
+	})

@@ -72,6 +72,12 @@ public class FeedBackDao extends HibernateDao<Menu> {
 			paramMap.put("title", "%" + vo.getTitle() + "%");
 			sql.append("and om.title like :title ");
 		}
+		
+		if (StringUtils.isNotEmpty(vo.getContext())) {
+			paramMap.put("context", "%" + vo.getContext() + "%");
+			sql.append("and om.context like :context ");
+		}
+		
 		if (StringUtils.isNotEmpty(vo.getUserName())) {
 			paramMap.put("userName", "%" + vo.getUserName() + "%");
 			sql.append("and ou.login_name like :userName ");
@@ -90,6 +96,9 @@ public class FeedBackDao extends HibernateDao<Menu> {
 			paramMap.put("endTime",
 					TimeUtil.parseDate(vo.getTime_end() + " 23:59:59"));
 		}
+		
+		
+		
 		sql.append(" order by om.create_time desc,om.answerStatus ");
 		return this.findPageBySQL(sql.toString(), paramMap,
 				Message.class, pageNumber, pageSize);
