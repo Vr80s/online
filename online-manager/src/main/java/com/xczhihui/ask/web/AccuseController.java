@@ -2,6 +2,7 @@ package com.xczhihui.ask.web;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.xczhihui.common.support.cc.util.Md5Encrypt;
 import com.xczhihui.common.util.CodeUtil;
 import com.xczhihui.utils.Groups;
 import com.xczhihui.utils.TableVo;
@@ -32,6 +33,8 @@ import com.xczhihui.utils.Group;
 @RequestMapping(value = "/ask/accuse")
 public class AccuseController {
 
+	private final static String salt = "ipandatcm20180611";
+
 	@Autowired
 	private AccuseService accuseService;
 
@@ -46,10 +49,8 @@ public class AccuseController {
 	@RequestMapping(value = "/index")
 	public ModelAndView index(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("ask/accuse");
-		mav.addObject(
-				"md5UserName",
-				CodeUtil.MD5Encode(CodeUtil.MD5Encode(ManagerUserUtil
-						.getUsername() + "WWW.ixincheng.com20161021")));
+		String str = ManagerUserUtil.getUsername() + salt;
+		mav.addObject("md5UserName", Md5Encrypt.md5(Md5Encrypt.md5(str)));
 		weburl = (weburl == null) ? "http://www.ixincheng.com" : weburl;
 		request.setAttribute("weburl", weburl);
 		return mav;
