@@ -484,7 +484,7 @@ public class ASKQuestionListDao extends SimpleHibernateDao {
 
 
         }
-        sql= " select m.ask_limit, q.create_nick_name,q.create_head_img,q.title,q.content,q.accused,q.text,q.tags,q.create_time,q.create_person,q.answer_sum,q.browse_sum, m.`name`,m.id as ment_id ,q.id,NOW() as systemTime" +
+        sql= " select m.ask_limit, q.create_nick_name,q.create_head_img,q.title,q.content,q.accused,q.status,q.text,q.tags,q.create_time,q.create_person,q.answer_sum,q.browse_sum, m.`name`,m.id as ment_id ,q.id,NOW() as systemTime" +
                 " from oe_ask_question q  join oe_menu m " +
                 " where  q.ment_id = m.id  and q.is_delete = 0  "+userIdSql+titleSql+tagSql+menuSql+statuSql + " order by q.create_time  desc ";
 
