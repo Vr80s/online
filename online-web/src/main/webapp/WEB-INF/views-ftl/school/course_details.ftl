@@ -130,24 +130,18 @@
                     data-watchState="${courseInfo.watchState}"
                     data-type="${courseInfo.type}"
                     data-realCourseId="${courseInfo.id}"
-                <#if  courseInfo.type == 1 || courseInfo.type == 2 >
-                    data-collection="${courseInfo.collection?string(1,0)}"
-                    <#if  courseInfo.collection>
-                    data-collectionCourseId="${collectionList[0].id}"
-                    </#if>
-                </#if>
-            >
-
+                    data-learning = "${courseInfo.learning}"
+                    data-collection="${courseInfo.collection?string(1,0)}">
                 <#if courseInfo.watchState == 2  && courseInfo.type == 4>
-                    已报名
+                  		  已报名
                 <#elseif courseInfo.watchState == 1  && courseInfo.type == 4>
                     <#if courseInfo.learning == 1>
-                        已报名
+                       	 已报名
                     <#else>
-                        立即报名
+                      	立即报名
                     </#if>
                 <#else>
-                    开始学习
+                  	开始学习
                 </#if>
             </button>
             
@@ -156,12 +150,11 @@
                 <button type="button" class="immediately-buy">报名截止</button>
             <#else>
                 <button type="button" class="immediately-buy J-course-buy" data-id="${courseInfo.id}">
-                    立即购买
+                 	   立即购买
                 </button>
             </#if>
         </#if>
-        
-        <span class="remember-last">上次播放位置：<span>标幽赋的前世今生详解 </span></span>
+        <span class="remember-last hide">上次播放位置：<span>标幽赋的前世今生详解 </span></span>
         </div>
     </div>
 

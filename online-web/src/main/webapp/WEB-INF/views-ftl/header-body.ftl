@@ -1,4 +1,9 @@
 <#assign defaultDoctorHeadImg="/web/images/defaultHead/18.png"/>
+<#macro workTime text>
+    <#if text?? && text != '暂无' && text != ''>
+        <p>${text}</p>
+    </#if>
+</#macro>
 <div class="header_body">
     <div class="header_right"><a href="/index"><img
             src="/web/images/logos.png" alt="logo" style="float:left"></a>
