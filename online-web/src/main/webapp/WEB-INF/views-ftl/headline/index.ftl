@@ -198,11 +198,12 @@
                             <img src="${hotSpecialColumnAuthor.headPortrait!defaultDoctorHeadImg}" alt=""/>
                             </a>
                         </div>
-                        <div class="zuozhe_inf">
-                                <span><a href="/doctors/${hotSpecialColumnAuthor.doctorId}" style="color: #0C0C0C"
-                                         target="_blank">${hotSpecialColumnAuthor.title} </a></span>
-                            <p>${hotSpecialColumnAuthor.doctorName}</p>
-                        </div>
+                     	<div class="zuozhe_inf">
+							<span>
+							<a  href="/doctors/${hotSpecialColumnAuthor.doctorId}" style="color: #0C0C0C" 
+							target="_blank">${hotSpecialColumnAuthor.title}</a></span>
+							<p>${hotSpecialColumnAuthor.doctorName}</p>
+						</div>
                     </li>
                 </#list>
             </ul>
