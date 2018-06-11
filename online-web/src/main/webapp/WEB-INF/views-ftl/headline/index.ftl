@@ -200,8 +200,8 @@
                         </div>
                         <div class="zuozhe_inf">
                                 <span><a href="/doctors/${hotSpecialColumnAuthor.doctorId}" style="color: #0C0C0C"
-                                         target="_blank">${hotSpecialColumnAuthor.doctorName} </a></span>
-                            <p>${hotSpecialColumnAuthor.province} ${hotSpecialColumnAuthor.city}</p>
+                                         target="_blank">${hotSpecialColumnAuthor.title} </a></span>
+                            <p>${hotSpecialColumnAuthor.doctorName}</p>
                         </div>
                     </li>
                 </#list>
