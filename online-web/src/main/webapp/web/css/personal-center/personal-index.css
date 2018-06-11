@@ -990,6 +990,10 @@ overflow: hidden;*/
 .order-right li p{
 	line-height: 30px;
 	cursor: pointer;
+
+}
+.order-right li p:hover{
+	color: #00bc12;
 }
   .no-order-box{
 	text-align: center;

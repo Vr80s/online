@@ -497,6 +497,12 @@ width: 63px;
 	text-overflow: ellipsis;
 	overflow: hidden; 
 }
+.trainee-table span{
+	cursor: pointer;
+}
+.trainee-table span:hover{
+	color: #00bc12;
+}
 .trainee-background{
 	width: 100%;
 	height: 100%;
@@ -505,11 +511,55 @@ width: 63px;
 	top: 0;
 	left: 0;
 }
+/*查看*/
+.see-trainee{
+    width: 680px;
+    height: 550px;
+    background: white;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-top: -275px;
+    margin-left: -340px;
+}
+.see-trainee .preview-top{
+	width: 100%;
+    height: 60px;
+    border-bottom: 1px solid #F0F0F0;
+    line-height: 60px;
+    padding: 0 40px;
+    box-sizing: border-box;
+}
+ .see-trainee .preview-top p{	  
+    color: #333333;
+    font-size: 16px;
+    float: left;
+ } 
+ .see-trainee .preview-top img{	  
+  float: right;
+    margin-top: 23px;
+    cursor: pointer;
+ } 
+.trainee-inf{
+	margin-top: 28px;
+}
+ .trainee-inf span{
+ 	 width: 96px;
+    display: inline-block;
+    text-align: right;
+    float: left;
+ } 
+  .trainee-inf p{
+ 	width: 500px;
+    display: inline;
+    display: inline-block;
+   margin: 0;
+ }   
+    
 .set-trainee{
 	width: 580px;
     height: 280px;
     background: white;
-    /*display: none;*/
     position: absolute;
     left: 50%;
     top: 50%;
@@ -518,6 +568,9 @@ width: 63px;
 }
  .set-trainee .trainee-close{
  	margin: 12px 15px;
+ }  
+  .set-trainee .trainee-close img{
+ 	cursor: pointer;
  }  
 .content-setClass{
  	width: 260px;
@@ -533,15 +586,15 @@ width: 63px;
     margin: 0;
 }
 .radio-cover{
-	    position: absolute;
-    width: 12px;
-    height: 12px;
+
+    width: 15px;
+    height: 15px;
     border-radius: 8px;
-
+	border: 1px solid #666666;
     vertical-align: middle;
-    display: block;
-    top: 6px;
+    display: inline-block;
 
+    margin-top: -3px;
 }
 .content-setClass span{
 	font-size: 16px;
@@ -550,19 +603,14 @@ width: 63px;
        width: 9px;
     height: 9px;
     border-radius: 50%;
-    position: absolute;
-    top: 2px;
-    left: 4px;
+        margin: 0 auto;
+    margin-top: 2px;
 }
 .radio-cover .active {
     background: #00bc12;
 } 
 
-.content-setClass .sex-select {
-    margin: 0;
-    width: 18px;
-    height: 18px;
-}
+
 .set-trainee .class-btnUp {
     width: 68px;
     height: 36px;
