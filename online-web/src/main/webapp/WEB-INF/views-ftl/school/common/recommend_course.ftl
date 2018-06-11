@@ -21,7 +21,7 @@
 		          <#if courseItem.lineState  == 1  > 
 			        <span class="classCategory">直播中</span>
 				  <#elseif courseItem.lineState  == 2>
-				      <span class="classCategory">预告</span>
+				      <span class="classCategory">直播预告</span>
 				  <#elseif courseItem.lineState  == 3>
 				      <span class="classCategory">直播回放</span>
 				  <#elseif courseItem.lineState  == 4>

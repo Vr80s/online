@@ -374,7 +374,7 @@ color:#bbb;
 	font-size: 0.3rem;
 	color: #FFFFFF;
 	text-align: center;
-	margin-bottom: 0.2rem;
+	margin-bottom: 0.6rem;
 }
 .opacity{
 	opacity: 0.5;
@@ -489,3 +489,26 @@ color:#bbb;
 /*点击性别出现弹窗结束*/
 
 /*中间内容结束*/
+
+/*微信提示*/
+.weixin{
+	width: 7.5rem;
+	height: 100%;
+	margin: 0 auto;
+	padding-bottom: 0.3rem;
+}
+.weixin_hint{
+	width: 6.98rem;
+	margin: 0 auto;
+	font-size: 0.26rem;
+	color: #666666;
+	margin-bottom: 0.2rem;
+}
+.weixin .img{
+	width: 6.98rem;
+	height: 100%;
+	margin: 0 auto;
+}
+.weixin .img img{
+	width: 100%;
+}
