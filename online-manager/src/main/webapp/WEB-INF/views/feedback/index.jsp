@@ -28,6 +28,12 @@
 
 				<table frame=void >
 					<tr>
+					 	<td>
+							<div class="profile-info-value searchTr">
+								  <input type="text" id="q_content" placeholder = "意见内容" class="propertyValue1">
+								<input type="hidden" value="q_content" class="propertyName"/> 
+							</div>
+						</td>		
 						<td>
 							<div class="profile-info-value searchTr">
 								<input type="text"  class="propertyValue1" name="q_name" id="q_name"  placeholder = "创建人" />
@@ -60,9 +66,6 @@
 						</td>
 						<td>
 							<div class="profile-info-value searchTr">
-								<input type="text" id="q_content" placeholder = "意见内容" class="propertyValue1">
-								<input type="hidden" value="q_content" class="propertyName"/>
-							
 								<!-- <input type="text" id="q_title" placeholder = "意见标题" class="propertyValue1">
 								<input type="hidden" value="q_title" class="propertyName"/> -->
 								<input type="hidden" value="5" class="tempMatchType"/><!-- 4等于 5包含 6小于 7大于  8小于等于  9大于等于  10之间 -->
