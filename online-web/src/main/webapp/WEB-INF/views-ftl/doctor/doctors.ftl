@@ -134,7 +134,7 @@
                     <li>
                         <a href="${webUrl}/doctors/${doctor.id}" target="_blank"></a>
                         <img src="${doctor.headPortrait!''}" alt="${doctor.name}">
-                        <h5>${doctor.name}&nbsp;<span>${doctor.title?default('暂无')}</span></h5>
+                        <h5>${doctor.name}&nbsp;<span>${doctor.title}</span></h5>
                         <p>${doctor.workTime}</p>
                         <p>${doctor.province}&nbsp;${doctor.city}&nbsp; </p>
                     </li>
@@ -152,7 +152,7 @@
                     <li>
                         <a href="${webUrl}/doctors/${doctor.id}" target="_blank"></a>
                         <img src="${doctor.headPortrait!''}" alt="${doctor.name}">
-                        <h5>${doctor.name}&nbsp;<span>${doctor.title?default('暂无')}</span></h5>
+                        <h5>${doctor.name}&nbsp;<span>${doctor.title}</span></h5>
                         <p>${doctor.workTime?default('')}</p>
                         <p>${doctor.province!''}&nbsp;${doctor.city!''}&nbsp; </p>
                     </li>
@@ -169,7 +169,7 @@
                     <li>
                         <a href="${webUrl}/doctors/${doctor.id}" target="_blank"></a>
                         <img src="${doctor.headPortrait!''}" alt="${doctor.name}">
-                        <h5>${doctor.name}&nbsp;<span>${doctor.title?default('暂无')}</span></h5>
+                        <h5>${doctor.name}&nbsp;<span>${doctor.title}</span></h5>
                         <p>${doctor.workTime?default('')}</p>
                         <p>${doctor.province!''}&nbsp;${doctor.city!''}&nbsp; </p>
                     </li>
@@ -187,7 +187,7 @@
                     <li>
                         <a href="${webUrl}/doctors/${doctor.id}" target="_blank"></a>
                         <img src="${doctor.headPortrait!''}" alt="${doctor.name}">
-                        <h5>${doctor.name}&nbsp;<span>${doctor.title?default('暂无')}</span></h5>
+                        <h5>${doctor.name}&nbsp;<span>${doctor.title}</span></h5>
                         <p>${doctor.workTime?default('')}</p>
                         <p>${doctor.province!''}&nbsp;${doctor.city!''}&nbsp; </p>
                     </li>
@@ -205,7 +205,7 @@
                     <li>
                         <a href="${webUrl}/doctors/${doctor.id}" target="_blank"></a>
                         <img src="${doctor.headPortrait!''}" alt="${doctor.name}">
-                        <h5>${doctor.name}&nbsp;<span>${doctor.title?default('暂无')}</span></h5>
+                        <h5>${doctor.name}&nbsp;<span>${doctor.title}</span></h5>
                         <p>${doctor.workTime?default('暂无')}</p>
                         <p>${doctor.province?default('')}&nbsp;${doctor.city?default('')}&nbsp; </p>
                     </li>

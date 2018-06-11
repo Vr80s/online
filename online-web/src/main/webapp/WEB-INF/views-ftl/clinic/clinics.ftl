@@ -173,27 +173,31 @@
                 </#list>
                 </ul>
             </div>
-        <#if (recruits?? && recruits?size gt 0)>
-            <div class="forum-hot-course ">
-                <div class="forum-hot-course-title">
-                    <span>坐诊医生招募</span>
-                </div>
-                <div class="hot-course">
-                    <div id="box" class="slideBox clearfix">
-                        <ul class="course boxContent clearfix" id="doctor_recruit_list">
-                            <#list recruits as recruit>
-                                <li>
-                                    <h4><a href="${webUrl}/clinics/${recruit.hospitalId}"
-                                           style="color: #000;" target="_blank">${recruit.position}</a></h4>
-                                    <a href="${webUrl}/clinics/${recruit.hospitalId}" target="_blank">${recruit.city}
-                                        &nbsp;&nbsp;${recruit.hospitalName}</a>
-                                </li>
-                            </#list>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </#if>
+        
+        <!-- 坐诊医生招募   先注释  -->
+        <#--	    
+	        <#if (recruits?? && recruits?size gt 0)>
+	            <div class="forum-hot-course ">
+	                <div class="forum-hot-course-title">
+	                    <span>坐诊医生招募</span>
+	                </div>
+	                <div class="hot-course">
+	                    <div id="box" class="slideBox clearfix">
+	                        <ul class="course boxContent clearfix" id="doctor_recruit_list">
+	                            <#list recruits as recruit>
+	                                <li>
+	                                    <h4><a href="${webUrl}/clinics/${recruit.hospitalId}"
+	                                           style="color: #000;" target="_blank">${recruit.position}</a></h4>
+	                                    <a href="${webUrl}/clinics/${recruit.hospitalId}" target="_blank">${recruit.city}
+	                                        &nbsp;&nbsp;${recruit.hospitalName}</a>
+	                                </li>
+	                            </#list>
+	                        </ul>
+	                    </div>
+	                </div>
+	            </div>
+	        </#if>
+			-->
         </div>
     </div>
 </div>

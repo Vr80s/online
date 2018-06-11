@@ -131,6 +131,8 @@
 								      <span class="classCategory">直播回放</span>
 								  <#elseif courseItem.lineState  == 4>
 						             <span class="classCategory">即将直播</span>
+						          <#else>   
+							          <span class="classCategory">暂未开播</span>   
 						          </#if>
 							   <#elseif courseItem.type == 4>
 							      <span class="classCategory">线下培训班</span>
@@ -202,6 +204,8 @@
 								      <span class="classCategory">直播回放</span>
 								  <#elseif courseItem.lineState  == 4>
 						             <span class="classCategory">即将直播</span>
+						          <#else>   
+							         <span class="classCategory">暂未开播</span>   
 						          </#if>
 							   <#elseif courseItem.type == 4>
 							      <span class="classCategory">线下培训班</span>
