@@ -283,8 +283,11 @@ public class CourseController {
      * @Date: 2018/6/5 0005 下午 8:23
      **/
     @RequestMapping("live/{courseId}")
-    public void liveCourse(@PathVariable("courseId")String courseId,HttpServletResponse response) throws IOException {
-        String liveCourseUrl4Wechat = courseServiceImpl.getLiveCourseUrl4Wechat(courseId);
+    public void liveCourse(@PathVariable("courseId")String courseId,
+    		@Account String accountId,
+    		HttpServletResponse response) throws IOException {
+        String liveCourseUrl4Wechat = courseServiceImpl.getLiveCourseUrl4Wechat(accountId,courseId);
+        
         response.sendRedirect(liveCourseUrl4Wechat);
     }
 

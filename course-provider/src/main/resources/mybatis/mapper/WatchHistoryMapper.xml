@@ -2,15 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xczhihui.course.mapper.WatchHistoryMapper">
 
-    <select id="selectWatchHistory" resultType="com.xczhihui.course.vo.WatchHistoryVO">
-		SELECT
+
+    <!-- 观看记录的sql  -->
+	<sql id="watchHistoryCommon">
 		  owh.course_id AS id,
+		  owh.create_time,
 		  owh.course_id AS courseId,
 		  owh.lecturer_id AS lecturerId,
 		  owh.collectionId AS collectionId,
-		  IF(
-			owh.collectionId IS NOT NULL AND owh.collectionId > 0,
-			(SELECT grade_name FROM oe_course WHERE id = owh.collectionId),
+		  IF(owh.collectionId IS NOT NULL AND owh.collectionId > 0,(SELECT grade_name FROM oe_course WHERE id = owh.collectionId),
 			NULL
 		  ) AS collectionName,
 		  IF(
@@ -38,18 +38,40 @@
 		  oc.smallimg_path AS smallimgPath,
 		  oc.current_price AS currentPrice,
 		  oc.is_free AS isFree
+	</sql>
+
+    <select id="selectWatchHistory" resultType="com.xczhihui.course.vo.WatchHistoryVO">
+		
+	 select * from	(
+	  (	SELECT
+		  <include refid="watchHistoryCommon"/>
 		FROM
 		  oe_watch_history1 owh
 		  INNER JOIN oe_course oc
-			ON owh.course_id = oc.id or owh.collectionId = oc.id
+			ON owh.course_id = oc.id
 		  INNER JOIN course_anchor ou
 			ON owh.lecturer_id = ou.user_id
 		  INNER JOIN apply_r_grade_course argc
 		    ON oc.`id`=argc.`course_id` 
 		  AND argc.`user_id`=owh.user_id AND argc.`validity`>NOW()
-		WHERE owh.user_id =#{userId}
-		ORDER BY owh.create_time DESC
+		WHERE owh.user_id =#{userId}   and   owh.collectionId is  null )
+	 	union
+	  (	SELECT
+		  <include refid="watchHistoryCommon"/>
+		FROM
+		  oe_watch_history1 owh
+		  INNER JOIN oe_course oc
+			ON  owh.collectionId = oc.id
+		  INNER JOIN course_anchor ou
+			ON owh.lecturer_id = ou.user_id
+		  INNER JOIN apply_r_grade_course argc
+		    ON oc.`id`=argc.`course_id` 
+		  AND argc.`user_id`=owh.user_id AND argc.`validity`>NOW()
+		WHERE owh.user_id =#{userId} )
+	  )	as owh ORDER BY owh.create_time DESC
 	</select>
+
+
 
     <!-- 	@Param("userId") Integer type, @Param("courseId") -->
     <select id="findWatchHistoryByUserIdAndCourseId" resultType="com.xczhihui.course.model.WatchHistory">
