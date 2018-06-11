@@ -122,7 +122,7 @@
 								</div>
 								<div class="hospital-inf y">
 									<div class="hospital-status">
-										<#if lecturerInfo.type == 2>
+										<#if hospital.name??>
 											<p>医馆名称：${hospital.name?default("")}</p>
 										</#if>
 										<p>预约电话：${hospital.tel?default("")}</p>

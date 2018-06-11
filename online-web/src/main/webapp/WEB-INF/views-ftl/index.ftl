@@ -257,7 +257,6 @@
 						</ul>
 					</div>
                 </#if>
-
 			  <!--头条新闻部分开始-->
 
 			  <#if articles.records?size gt 0 >	
