@@ -18,7 +18,8 @@ li{
 	background: blue;
 }
 body{
-    width: 100%;
+    width: 7.5rem;
+    margin: 0 auto !important;
     height: 100%;
     background: #F5F5F5;
 }
@@ -41,7 +42,7 @@ placeholder{
 
 /*报名头部开始*/
 header{
-	width: 100%;
+	width: 7.5rem;
 	height: 0.88rem;
 	position: fixed;
 	top: 0;
