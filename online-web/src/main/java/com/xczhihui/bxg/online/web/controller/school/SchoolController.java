@@ -295,7 +295,7 @@ public class SchoolController extends AbstractFtlController {
                              @RequestParam(required = false) Integer pageNumber) throws IOException {
 
         pageNumber = pageNumber == null ? 1 : pageNumber;
-        pageSize = pageSize == null ? 2 : pageSize;
+        pageSize = pageSize == null ? 5 : pageSize;
         
         ModelAndView view = new ModelAndView("school/course_details");
         //显示详情呢、大纲、评论、常见问题呢

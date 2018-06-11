@@ -177,7 +177,10 @@ $(function () {
     			 var $this = $(this);
     			 var courseId =  $this.attr("data-courseId");
     			 if(lastLiveCourseId == courseId){
+    				 
     				var gradeName =  $this.find("p").eq(0).text();
+    				$(".immediately-buy").html("继续学习");
+    				$(".remember-last").removeClass("hide");
     				$(".remember-last span").text(gradeName);
     				return false;
     			 }
