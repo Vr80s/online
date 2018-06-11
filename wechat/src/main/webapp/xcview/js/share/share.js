@@ -40,25 +40,21 @@ function getCurrentViewHtml(){
  * @returns {Number}  
  */
 function getShareId(){
-	
 	var viewHtml = getCurrentViewHtml();
-	
 	if(viewHtml == "live_personal.html"){
 		
 		return getQueryString("userLecturerId");
-	
 	}else if(viewHtml == "live_audio.html" || 
-			viewHtml == "live_play.html"){
+			viewHtml == "live_play.html" ||
+			viewHtml == "live_class.html"){
 		
 		return getQueryString("my_study");
-		
 	}else if(viewHtml == "school_audio.html"|| 
 			viewHtml == "school_play.html"|| 
 			viewHtml == "school_class.html"|| 
 			viewHtml == "live_select_album.html"){
 		
 		return getQueryString("course_id");
-
 	}else if(viewHtml == "live_album.html"){
 	
 		return getQueryString("collection_id");
