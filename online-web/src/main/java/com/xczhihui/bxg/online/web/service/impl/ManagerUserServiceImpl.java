@@ -20,8 +20,7 @@ import java.util.List;
 @Service
 public class ManagerUserServiceImpl  extends  SimpleHibernateDao  implements ManagerUserService {
 
-    @Autowired
-    private SimpleHibernateDao simpleHibernateDao;
+    private final static String salt = "ipandatcm20180611";
 
     /**
      * 查看当前登录账号是否存在于manager端
@@ -30,7 +29,7 @@ public class ManagerUserServiceImpl  extends  SimpleHibernateDao  implements Man
      */
     @Override
     public User  findUserByLoginName(String loginName){
-        String  sql="select login_name from user t where upper(md5(md5(CONCAT(t.login_name,'WWW.ixincheng.com20161021')))) = upper(?)";
+        String  sql="select login_name from user t where upper(md5(upper(md5(CONCAT(t.login_name,'"+salt+"'))))) = upper(?)";
         List<User> user = this.getNamedParameterJdbcTemplate().getJdbcOperations().query(sql,
                 BeanPropertyRowMapper.newInstance(User.class), loginName);
         return user.size()> 0 ? user.get(0) : null;

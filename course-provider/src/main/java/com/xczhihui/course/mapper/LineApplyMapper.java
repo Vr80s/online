@@ -79,4 +79,6 @@ public interface LineApplyMapper extends BaseMapper<LineApply> {
             " WHERE oc.id = la.course_id AND la.`user_id` = #{userId} AND la.course_id = #{courseId}" +
             " ORDER BY la.create_time desc limit 1"})
     LineCourseApplyStudentVO findByCourseIdAndUserId(@Param("courseId") Integer courseId, @Param("userId") String userId);
+
+	void insertLineApply(@Param("item")LineApply lineApply);
 }

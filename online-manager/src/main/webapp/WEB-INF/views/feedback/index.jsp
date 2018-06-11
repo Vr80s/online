@@ -28,13 +28,19 @@
 
 				<table frame=void >
 					<tr>
+					 	<td>
+							<div class="profile-info-value searchTr">
+								  <input type="text" id="q_content" placeholder = "意见内容" class="propertyValue1">
+								<input type="hidden" value="q_content" class="propertyName"/> 
+							</div>
+						</td>		
 						<td>
 							<div class="profile-info-value searchTr">
 								<input type="text"  class="propertyValue1" name="q_name" id="q_name"  placeholder = "创建人" />
 								<input type="hidden" value="q_name" class="propertyName"/>
 							</div>
 						</td>
-						<td>
+<!-- 						<td>
 							<div class="profile-info-value searchTr">
 								<select class="propertyValue1" id="q_answerStatus">
 								<option value="-1">全部</option>
@@ -43,7 +49,7 @@
 							</select>
 								<input type="hidden" value="q_answerStatus" class="propertyName"/>
 							</div>
-						</td>
+						</td> -->
 						<td>
 							<div class="profile-info-value searchTr">
 								<input type="text" class="datetime-picker" name="time_start" id="time_start"  placeholder = "开始创建时间"/>
@@ -60,8 +66,8 @@
 						</td>
 						<td>
 							<div class="profile-info-value searchTr">
-								<%--<input type="text" id="q_title" placeholder = "意见标题" class="propertyValue1">--%>
-								<%--<input type="hidden" value="q_title" class="propertyName"/>--%>
+								<!-- <input type="text" id="q_title" placeholder = "意见标题" class="propertyValue1">
+								<input type="hidden" value="q_title" class="propertyName"/> -->
 								<input type="hidden" value="5" class="tempMatchType"/><!-- 4等于 5包含 6小于 7大于  8小于等于  9大于等于  10之间 -->
 								<input type="hidden" value="String" class="tempType"/><!-- 默认是String -->
 							</div>
@@ -154,7 +160,8 @@
 			<%--<input type="text" readonly="readonly" class="col-xs-12" id="show_replytitle" style="width:345px"/>--%>
 		<%--</div>--%>
 	<%--</div>--%>
-	<div class="form-group row my_setPadding">
+	
+	<!-- <div class="form-group row my_setPadding">
 		<label class="control-label col-xs-12 col-sm-2 no-padding-right" style="text-align:right;"
 				>回复内容:</label>
 		<div class="col-lg-7 col-xs-9">
@@ -171,7 +178,7 @@
 				<option value="1" >已回答</option>
 			</select>
 		</div>
-	</div>
+	</div> -->
 
 </div>
 	

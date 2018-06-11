@@ -11,15 +11,22 @@ var ljxx = $.getUrlParam("ljxx");
 var falgCollectionId = "_"+collectionId;
 var falgId = "_"+collectionId+"_"+courseId;
 
-
 $("#return").attr("href","/courses/"+collectionId+"/info");
-
-
 var courseName = "中医传承平台";
 var	smallImgPath = "https://file.ipandatcm.com/data/picture/online/2017/12/18/15/12db98e4fc674f1d9b1e5995d2c533d3.jpg";
 var	description = "零基础也能学中医！许多学员推荐“古籍经典”系列以及【小宝中医带你快速入门学针灸】课程作为他们的入门必备。";
 
 var userId= "";
+
+//判断字段空值
+function stringnull(zifu) {
+    if (zifu == "" || zifu == null || zifu == undefined || zifu == "undefined"
+        || zifu == "null") {
+        return false;
+    }
+    return true;
+
+}
 
 /**
  * 增加学习记录
@@ -94,12 +101,6 @@ if(ljxx != null && ljxx != undefined && "" != ljxx && falgId!=null &&
 	}
 }
 /**
- * 获取播放代码
- * @returns
- */
-getPlayCode(collectionId,courseId);
-
-/**
  * 请求专辑列表
  */
 RequestService("/course/newGetCoursesByCollectionId", 
@@ -110,10 +111,13 @@ RequestService("/course/newGetCoursesByCollectionId",
 		for (var i = 0; i < list.length; i++) {
 			var obj = list[i];
 			var li = "<li>";
-			if(courseId == obj.id){
-				li = "<li class='choosedAlbum' data-id = "+obj.id+">";
-			}else{
-				li = "<li data-id = "+obj.id+">"
+			
+			if(stringnull(courseId)){
+				if(courseId == obj.id ){
+					li = "<li class='choosedAlbum' data-id = "+obj.id+">";
+				}else{
+					li = "<li data-id = "+obj.id+">"
+				}
 			}
 			lalal += (li+"<div>" +
 				"<span class='playbtn'></span>" +
@@ -123,8 +127,23 @@ RequestService("/course/newGetCoursesByCollectionId",
 				"</div></li>");
 		}
 		$(".album_list ul").html(lalal);
+		//默认是第一个课程
+		if(!stringnull(courseId) && stringnull(ljxx)){
+			courseId = list[0].id;
+		}
+		// $(".wrap-sidebar ul li").removeClass("active-footer");
+		$(".album_list ul li").removeClass("choosedAlbum");
+		$(".album_list ul li").eq(0).addClass("choosedAlbum");
 	}
 },false);
+
+
+/**
+ * 获取播放代码
+ * @returns
+ */
+getPlayCode(collectionId,courseId);
+
 
 
 $(function() {

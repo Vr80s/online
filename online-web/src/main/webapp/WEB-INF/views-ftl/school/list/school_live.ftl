@@ -42,7 +42,12 @@
 								<#-- 课程的小标题--> 
 								<span>${courseTypeItem.title}</span>
 								<#-- 课程列表 页跳转  带上跳转条件 -->
-								<p><a href="/courses/list?lineState=${courseTypeItem.lineState}">更多</a>
+								
+								<#if courseTypeItem.title?? && courseTypeItem.title == "直播课程"> 
+								    <p><a href="${webUrl}/courses/list?courseType=3">更多</a>
+								<#else>
+									<p><a href="${webUrl}/courses/list?lineState=${courseTypeItem.lineState}">更多</a>
+								</#if>
 								<img src="/web/images/rili_icon.png" alt="箭头" /> </p>
 							</div>
 							
@@ -55,20 +60,22 @@
 								</#if>    
 
 									<#if courseItem.type == 1 ||  courseItem.type == 2 ||  courseItem.type == 4 > 
-										    <a style="cursor:pointer" href="/courses/${courseItem.id}/info" target="_blank">
+										    <a style="cursor:pointer" href="${webUrl}/courses/${courseItem.id}/info" target="_blank">
 									   <#elseif courseItem.type == 3>
-								            <a style="cursor:pointer" href="/web/liveCoursePage/${courseItem.id}" target="_blank">
+								            <a style="cursor:pointer" href="${webUrl}/web/liveCoursePage/${courseItem.id}" target="_blank">
 									</#if>
 									<div class="img"><img src="${courseItem.smallImgPath}"></div>
 								    <#if courseItem.type == 3>
 							          <#if courseItem.lineState  == 1  > 
 								        <span class="classCategory">直播中</span>
 									  <#elseif courseItem.lineState  == 2>
-									      <span class="classCategory">预告</span>
-									  <#elseif courseItem.lineState  == 3 ||  courseItem.lineState == 5 ||  courseItem.lineState == 6>
-									      <span class="classCategory">暂未开播</span>
+									      <span class="classCategory">直播预告</span>
+									  <#elseif courseItem.lineState  == 3>
+									      <span class="classCategory">直播回放</span>
 									  <#elseif courseItem.lineState  == 4>
 							             <span class="classCategory">即将直播</span>
+							          <#else>   
+							             <span class="classCategory">暂未开播</span>
 							         </#if>
 									</#if>
 									<div class="detail">

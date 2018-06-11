@@ -61,11 +61,11 @@
 								<span>${courseTypeItem.title}</span>
 								<#-- 课程列表 页跳转  带上跳转条件 -->
 								<#if courseTypeItem.title?? && courseTypeItem.title == "最新课程"> 
-									<p><a href="/courses/list?menuType=${courseTypeItem.menuType}&sortOrder=2" target="_blank">更多</a>
+									<p><a href="${webUrl}/courses/list?menuType=${courseTypeItem.menuType}&sortOrder=2" target="_blank">更多</a>
 								<#elseif  courseTypeItem.title?? && courseTypeItem.title == "免费课程">
-								    <p><a href="/courses/list?isFree=1" target="_blank">更多</a>
+								    <p><a href="${webUrl}/courses/list?isFree=1" target="_blank">更多</a>
 								<#else>
-									<p><a href="/courses/list?menuType=${courseTypeItem.menuType}" target="_blank">更多</a>
+									<p><a href="${webUrl}/courses/list?menuType=${courseTypeItem.menuType}" target="_blank">更多</a>
 								</#if>
 								<img src="/web/images/rili_icon.png" alt="箭头" /> </p>
 							</div>
@@ -79,25 +79,35 @@
 										</#if>    
 									
 									   <#if courseItem.type == 1 ||  courseItem.type == 2 ||  courseItem.type == 4 > 
-										    <a style="cursor:pointer" href="/courses/${courseItem.id}/info" target="_blank">
+										    <a style="cursor:pointer" href="${webUrl}/courses/${courseItem.id}/info" target="_blank">
 									   <#elseif courseItem.type == 3>
-								            <a style="cursor:pointer" href="/web/liveCoursePage/${courseItem.id}" target="_blank">
+								            <a style="cursor:pointer" href="${webUrl}/web/liveCoursePage/${courseItem.id}" target="_blank">
 									   </#if>
 									
 										<div class="img"><img src="${courseItem.smallImgPath}"></div>
-										   <#if courseItem.type == 1  > 
-											      <span class="classCategory">视频</span>
+										   <#if courseItem.type == 1 > 
+										       <#if courseItem.collection> 
+										         <span class="classCategory">视频专辑</span>
+										       <#else>
+										         <span class="classCategory">视频</span>
+										       </#if>
 										   <#elseif courseItem.type == 2>
-										      <span class="classCategory">音频</span>
+										      <#if courseItem.collection> 
+										         <span class="classCategory">音频专辑</span>
+										      <#else>
+										         <span class="classCategory">音频</span>
+										      </#if>
 										   <#elseif courseItem.type == 3>
 									          <#if courseItem.lineState  == 1  > 
 										        <span class="classCategory">直播中</span>
 											  <#elseif courseItem.lineState  == 2>
-											      <span class="classCategory">预告</span>
+											      <span class="classCategory">直播预告</span>
 											  <#elseif courseItem.lineState  == 3>
 											      <span class="classCategory">直播回放</span>
 											  <#elseif courseItem.lineState  == 4>
 									             <span class="classCategory">即将直播</span>
+									          <#else>   
+							            		 <span class="classCategory">暂未开播</span>
 									          </#if>
 										   <#elseif courseItem.type == 4>
 										      <span class="classCategory">线下培训班</span>
@@ -143,7 +153,7 @@
 						<ul>
 					    <#list hotList as hot>
 	                        <li data-id="hot.id">
-								<a href="/courses/list?queryKey=${hot.name}" target="_blank">${hot.name}</a>
+								<a href="${webUrl}/courses/list?queryKey=${hot.name}" target="_blank">${hot.name}</a>
 							</li> 
 	                    </#list>
 						</ul>

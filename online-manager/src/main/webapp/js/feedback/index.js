@@ -194,7 +194,7 @@ function feedbackDialog(obj){
 		$("#show_replytitle").val(replytitle);
 		$("#show_replycreateTimeStr").val(replycreateTimeStr);
 
-		var dialog = openDialogNoBtnName("showfeedBackDialog","dialogfeedBackDiv","查看",450, 510,false,"确定",null);
+		var dialog = openDialogNoBtnName("showfeedBackDialog","dialogfeedBackDiv","查看",450, 300,false,"确定",null);
 	});
 }
 

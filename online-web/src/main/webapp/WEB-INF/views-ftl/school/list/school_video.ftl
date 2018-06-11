@@ -39,7 +39,7 @@
 					<div class="content-class">	
 						<div class="wrap-title">
 							<span>听课推荐</span>
-							<p><a href="/courses/list?courseType=2">更多</a><img src="/web/images/rili_icon.png" alt="箭头" /> </p>
+							<p><a href="${webUrl}/courses/list?courseType=2">更多</a><img src="/web/images/rili_icon.png" alt="箭头" /> </p>
 						</div>
 						
 					<#list courseList as courseItem>
@@ -52,9 +52,15 @@
 														src="/web/images/recommend2.png">
 								</#if> 
 							    
-							    <a style="cursor:pointer" href="/courses/${courseItem.id}/info" target="_blank">
+							    <a style="cursor:pointer" href="${webUrl}/courses/${courseItem.id}/info" target="_blank">
 								<div class="img"><img src="${courseItem.smallImgPath}"></div>
-								<span class="classCategory">音频</span>
+								
+								
+								  <#if courseItem.collection> 
+							       <span class="classCategory">音频专辑</span>
+								  <#elseif !courseItem.collection>
+						             <span class="classCategory">音频</span>
+						          </#if>
 								<div class="detail">
 									<p class="title" data-text="音频测试3" title="音频测试3">${courseItem.gradeName}</p>
 									<p class="timeAndTeac">

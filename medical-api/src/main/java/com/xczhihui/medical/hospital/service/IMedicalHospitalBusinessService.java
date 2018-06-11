@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.medical.doctor.model.MedicalDoctor;
+import com.xczhihui.medical.doctor.model.MedicalDoctorAccount;
 import com.xczhihui.medical.field.model.MedicalField;
 import com.xczhihui.medical.field.vo.MedicalFieldVO;
 import com.xczhihui.medical.hospital.model.MedicalHospital;
@@ -97,4 +98,6 @@ public interface IMedicalHospitalBusinessService {
      * @return 医馆id
      */
     String getHospitalIdByUserId(String userId);
+
+    String getAccountIdByHospitalId(String id);
 }

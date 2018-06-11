@@ -84,10 +84,7 @@ public class MyTask extends SimpleHibernateDao{
      @Scheduled(cron = "0 0/30 * * * ?")
     // @Scheduled(cron = "*/30 * * * * ?")
     public void dealCourseApplyResourceTask(){
-
-    	log.info("开始---》 用户上次的视频时长更新");
         courseApplyService.updateCourseApplyResource();
-        log.info("结束---》 用户上次的视频时长更新");
     }
 
 

@@ -74,9 +74,10 @@ public class CommonMessageServiceImpl implements ICommonMessageService {
     @Override
     public void saveMessage(BaseMessage baseMessage) {
         insertMessage(baseMessage);
-        pushAppMessage(baseMessage);
-        pushWeixinMessage(baseMessage);
-        sendSMS(baseMessage);
+        //未测试, 下一版本再上
+//        pushAppMessage(baseMessage);
+//        pushWeixinMessage(baseMessage);
+//        sendSMS(baseMessage);
     }
 
     @Override

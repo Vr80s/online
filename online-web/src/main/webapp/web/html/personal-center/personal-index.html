@@ -184,6 +184,14 @@
 														<div class="img">
 															<img src="{{item.smallimgPath}}"/>
 														</div>
+														{{if item.collection == true}}
+															{{else if item.type == 1}}
+															<span class="classCategory">音频专辑</span>
+															{{else if item.type == 2}}
+															<span class="classCategory">视频专辑</span>
+														{{/if}}
+														
+														
 														{{if item.type == 1}}
 														<span class="classCategory">音频</span>
 														{{else if item.type == 2}}
@@ -192,8 +200,6 @@
 														<span class="classCategory">直播</span>
 														{{else if item.type == 4}}
 														<span class="classCategory">线下课</span>
-														{{else if item.collection == true}}
-														<span class="classCategory">视频专辑</span>
 														{{/if}}
 														<div class="detail">
 															<p class="title" data-text="音频测试3" title="音频测试3">{{item.gradeName}}</p>
@@ -259,6 +265,12 @@
 														<div class="img">
 															<img src="{{item.smallImgPath}}">
 														</div>
+														{{if item.collection == true}}
+															{{else if item.type == 1}}
+															<span class="classCategory">音频专辑</span>
+															{{else if item.type == 2}}
+															<span class="classCategory">视频专辑</span>
+														{{/if}}
 														{{if item.type == 1}}
 														<span class="classCategory">音频</span>
 														{{else if item.type == 2}}
@@ -267,9 +279,7 @@
 														<span class="classCategory">直播</span>
 														{{else if item.type == 4}}
 														<span class="classCategory">线下课</span>
-														{{else if item.collection == true}}
-														<span class="classCategory">视频专辑</span>
-														{{/if}}
+												
 														<div class="detail">
 															<p class="title" data-text="音频测试3" title="音频测试3">{{item.gradeName}}</p>
 															<p class="timeAndTeac">
@@ -338,6 +348,12 @@
 														<div class="img">
 															<img src="{{item.smallImgPath}}">
 														</div>
+														{{if item.collection == true}}
+															{{else if item.type == 1}}
+															<span class="classCategory">音频专辑</span>
+															{{else if item.type == 2}}
+															<span class="classCategory">视频专辑</span>
+														{{/if}}
 														{{if item.type == 1}}
 														<span class="classCategory">音频</span>
 														{{else if item.type == 2}}
@@ -346,8 +362,7 @@
 														<span class="classCategory">直播</span>
 														{{else if item.type == 4}}
 														<span class="classCategory">线下课</span>
-														{{else if item.collection == true}}
-														<span class="classCategory">视频专辑</span>
+													
 														{{/if}}
 														<div class="detail">
 															<p class="title" data-text="音频测试3" title="音频测试3">{{item.gradeName}}</p>

@@ -128,7 +128,7 @@
                             <a href="${webUrl}/headline/details/${article.id}" target="_blank">${article.title}</a>
                         </div>
                         <div class="forum-info-content dot-ellipsis">
-                        ${article.content}
+                        	${article.content}
                         </div>
                         <div class="forum-info-tags">
                             <span>${article.author!''}<em></em>${(article.createTime?string("yyyy-MM-dd"))!}</span>
@@ -198,11 +198,12 @@
                             <img src="${hotSpecialColumnAuthor.headPortrait!defaultDoctorHeadImg}" alt=""/>
                             </a>
                         </div>
-                        <div class="zuozhe_inf">
-                                <span><a href="/doctors/${hotSpecialColumnAuthor.doctorId}" style="color: #0C0C0C"
-                                         target="_blank">${hotSpecialColumnAuthor.doctorName} </a></span>
-                            <p>${hotSpecialColumnAuthor.province} ${hotSpecialColumnAuthor.city}</p>
-                        </div>
+                     	<div class="zuozhe_inf">
+							<span>
+							<a  href="/doctors/${hotSpecialColumnAuthor.doctorId}" style="color: #0C0C0C" 
+							target="_blank">${hotSpecialColumnAuthor.title}</a></span>
+							<p>${hotSpecialColumnAuthor.doctorName}</p>
+						</div>
                     </li>
                 </#list>
             </ul>

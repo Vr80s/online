@@ -2,43 +2,41 @@ var gradeName ="";
 var smallImgPath ="";
 var description ="";
 debugger;
-$(function () {
-    requestGetService("/xczh/enrol/enrollmentRegulations/"+merId,data,function(data){
-        if(data.success){
-            var enrollmentRegulations = data.resultObject
-            template.defaults.escape=false;
-            enrollmentRegulations.qualification = newline(enrollmentRegulations.qualification);
-            enrollmentRegulations.learningProcess = newline(enrollmentRegulations.learningProcess);
-            enrollmentRegulations.rightsAndInterests = newline(enrollmentRegulations.rightsAndInterests);
-            enrollmentRegulations.doctorIntroduction = newline(enrollmentRegulations.doctorIntroduction);
-            enrollmentRegulations.propaganda = newline(enrollmentRegulations.propaganda);
+requestGetService("/xczh/enrol/enrollmentRegulations/"+merId,data,function(data){
+    if(data.success){
+        var enrollmentRegulations = data.resultObject
+        template.defaults.escape=false;
+        enrollmentRegulations.qualification = newline(enrollmentRegulations.qualification);
+        enrollmentRegulations.learningProcess = newline(enrollmentRegulations.learningProcess);
+        enrollmentRegulations.rightsAndInterests = newline(enrollmentRegulations.rightsAndInterests);
+        enrollmentRegulations.doctorIntroduction = newline(enrollmentRegulations.doctorIntroduction);
+        enrollmentRegulations.propaganda = newline(enrollmentRegulations.propaganda);
 
-            //分享的信息展示
-            gradeName = enrollmentRegulations.title;  /*标题*/
-            smallImgPath = enrollmentRegulations.posterImg;    /*img*/     /*下是--详情*/
-            if(enrollmentRegulations.propaganda==null || enrollmentRegulations.propaganda==''){
-                description="";
-            }else{
-                description = enrollmentRegulations.propaganda.stripHTML();
-            }
-
-            enrollmentRegulations.contactWay = newline(enrollmentRegulations.contactWay);
-
-            enrollmentRegulations.startTime = enrollmentRegulations.startTime.substring(0,16);
-            enrollmentRegulations.endTime = enrollmentRegulations.endTime.substring(0,16);
-            enrollmentRegulations.studyAddress = doAddress(enrollmentRegulations.studyAddress);
-            $("body").html(template('inherited_introduction_temp',enrollmentRegulations));
-            // console.log(enrollmentRegulations)
-
+        //分享的信息展示
+        gradeName = enrollmentRegulations.title;  /*标题*/
+        smallImgPath = enrollmentRegulations.posterImg;    /*img*/     /*下是--详情*/
+        if(enrollmentRegulations.propaganda==null || enrollmentRegulations.propaganda==''){
+            description="";
         }else{
-            location.href="/xcview/html/apprentice/apprentice.html";
+            description = enrollmentRegulations.propaganda.stripHTML();
         }
-    },false);
-// $('.general_center').html(wv+"11111111");
-    if(wv == 'ios'){
-        $('.download').hide();
+
+        enrollmentRegulations.contactWay = newline(enrollmentRegulations.contactWay);
+
+        enrollmentRegulations.startTime = enrollmentRegulations.startTime.substring(0,16);
+        enrollmentRegulations.endTime = enrollmentRegulations.endTime.substring(0,16);
+        enrollmentRegulations.studyAddress = doAddress(enrollmentRegulations.studyAddress);
+        $("body").html(template('inherited_introduction_temp',enrollmentRegulations));
+        // console.log(enrollmentRegulations)
+
+    }else{
+        location.href="/xcview/html/apprentice/apprentice.html";
     }
-});
+},false);
+// $('.general_center').html(wv+"11111111");
+if(wv == 'ios'){
+    $('.download').hide();
+}
 
 function newline(str){
     return str.replace(/\n|\r\n/g,'<br/>');

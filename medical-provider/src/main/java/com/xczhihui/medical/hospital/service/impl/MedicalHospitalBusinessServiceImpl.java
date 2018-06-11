@@ -164,6 +164,11 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
     }
 
     @Override
+    public String getAccountIdByHospitalId(String id) {
+        return hospitalAccountMapper.getAccountIdByHospitalId(id);
+    }
+
+    @Override
     public List<MedicalFieldVO> getHotField() {
         return medicalHospitalMapper.getHotField();
     }

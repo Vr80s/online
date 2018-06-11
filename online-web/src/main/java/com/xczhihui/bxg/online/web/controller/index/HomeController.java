@@ -19,6 +19,7 @@ import com.xczhihui.bxg.online.web.service.LiveService;
 import com.xczhihui.bxg.online.web.service.MenuService;
 import com.xczhihui.bxg.online.web.service.OtherlinkService;
 import com.xczhihui.bxg.online.web.service.StudentStoryService;
+import com.xczhihui.bxg.online.web.utils.HtmlUtil;
 import com.xczhihui.bxg.online.web.vo.OpenCourseVo;
 import com.xczhihui.common.util.enums.PagingFixedType;
 import com.xczhihui.course.model.MobileBanner;
@@ -93,10 +94,14 @@ public class HomeController extends AbstractFtlController {
 		 List<MedicalDoctorVO> listMdv =  medicalDoctorBusinessService.selectDoctorRecommendList4Random(0,0,4); 
 		 view.addObject("doctorList", listMdv);
 		 
+		 
 		 /**
 		  * 头条推荐
 		  */
 		  Page<OeBxsArticle> articles = oeBxsArticleService.selectArticlesByPage(new Page(0, 2), "");
+		  articles.getRecords().forEach(article ->
+              article.setContent(HtmlUtil.getTextFromHtml(article.getContent()))
+		  );
 		  view.addObject("articles", articles);
 		 
 	     /**

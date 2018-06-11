@@ -225,7 +225,8 @@ public class SchoolController extends AbstractFtlController {
         }
 
         //Map<String,String> returnMap = new HashMap<String,String>();
-        StringBuffer sb = new StringBuffer(webUrl + "/courses/list");
+//        StringBuffer sb = new StringBuffer(webUrl + "/courses/list");
+        StringBuffer sb = new StringBuffer("/courses/list");
         Enumeration em = req.getParameterNames();
         if (em.hasMoreElements()) {
             sb.append("?");
@@ -378,7 +379,7 @@ public class SchoolController extends AbstractFtlController {
     @ResponseBody
     public ResponseObject add(LineApplyBody lineApplyBody) {
         String userId = getUserId();
-        lineApplyService.saveOrUpdate(userId, lineApplyBody.build(userId));
+        lineApplyService.saveOrUpdate(lineApplyBody.build(userId));
         CourseLecturVo clv = courseService.selectCourseMiddleDetailsById(lineApplyBody.getCourseId());
         return ResponseObject.newSuccessResponseObject(clv.getWatchState());
     }

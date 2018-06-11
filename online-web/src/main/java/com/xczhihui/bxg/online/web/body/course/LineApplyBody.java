@@ -58,9 +58,12 @@ public class LineApplyBody {
             throw new LineApplyException("请输入正确的手机号");
         }
 
-        if (!StringUtils.isNotBlank(lineApply.getWechatNo()) ||
-                !XzStringUtils.checkWechatNo(lineApply.getWechatNo())) {
-            throw new LineApplyException("微信账号仅支持6-20个字母、数字、下划线或减号，以字母开头");
+        if (StringUtils.isBlank(lineApply.getWechatNo())) {
+            throw new LineApplyException("微信号不能为空");
+        }
+
+        if (lineApply.getWechatNo().length() > 50) {
+            throw new LineApplyException("微信号长度不能超过50");
         }
 
         if (lineApply.getSex() == null || !UserSex.isValid(lineApply.getSex())) {
