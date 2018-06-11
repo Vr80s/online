@@ -9,9 +9,10 @@ var wwww1="";
 var collectionId = "";
 var name_title = "";
 
-
-
-
+//分享的信息
+var gradeName = "";
+var smallImgPath ="";
+var description ="";
 
     function getQueryString(key){
         var reg = new RegExp("(^|&)"+key+"=([^&]*)(&|$)");

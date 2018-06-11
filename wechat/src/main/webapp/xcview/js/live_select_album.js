@@ -10,6 +10,11 @@ var select_jump_id="";
 var select_directId="";
 var select_collectionId="";
 var name_title="";
+
+//分享的信息
+var gradeName = "";
+var smallImgPath ="";
+var description ="";
 $(function(){
 	function stripHTML(str){
 	var reTag = /<(?:.|\s)*?>/g;
@@ -85,7 +90,7 @@ $(function(){
 		}
 		
 		
-	});
+	},false);
 //详情以及选集选项卡
 $(".my_details li").click(function(){
 	$(".my_details li span").removeClass("spanActive");

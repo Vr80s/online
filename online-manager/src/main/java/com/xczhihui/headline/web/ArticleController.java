@@ -78,7 +78,12 @@ public class ArticleController extends AbstractController {
         }
         Group isRecommend = groups.findByName("search_isRecommend");
         if (isRecommend != null) {
-            searchVo.setIsRecommend(Integer.parseInt(isRecommend.getPropertyValue1().toString())==1);
+            if(Integer.parseInt(isRecommend.getPropertyValue1().toString())==3){
+
+            }else {
+                searchVo.setSort(Integer.parseInt(isRecommend.getPropertyValue1().toString()));
+            }
+
         }
 
         Group startTime = groups.findByName("startTime");

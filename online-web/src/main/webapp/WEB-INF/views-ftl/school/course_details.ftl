@@ -167,7 +167,7 @@
                 <#-- tab的显示，这个就当做专辑页面来写   -->
                 <#if  courseInfo.collection> <#-- 专辑tab显示    -->
                     <#if courseInfo.watchState = 1 || courseInfo.watchState = 2> <#-- 免费或已购买  -->
-                        <li><a href="${webUrlParam}/selection">选集</a></li>
+                        <li><a href="javascirpt:;">选集</a></li>
                         <li><a href="${webUrlParam}/info">详情</a></li>
                     <#elseif courseInfo.watchState = 0>
                         <li><a href="${webUrlParam}/info">详情</a></li>
@@ -192,13 +192,13 @@
                                    target="_blank">
                                     <div class="play-img z">
                                         <div class="circle">
-                                            <div class="percent left" data-courseId="${collectionItem.id}"
+                                            <div class="percent left percentleftId" data-courseId="${collectionItem.id}"
                                                  data-timeLength="${collectionItem.courseLength}"></div>
                                             <div class="percent right wth0"></div>
                                         </div>
                                         <img src="../../web/images/icon-play.png"/>
                                     </div>
-                                    <div class="play-album z">
+                                    <div class="play-album z" data-courseId="${collectionItem.id}">
                                         <p>${collectionItem.gradeName}</p>
                                         <p>${collectionItem.courseLength}</p>
                                     </div>

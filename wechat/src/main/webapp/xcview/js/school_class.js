@@ -5,6 +5,11 @@ var course_id = "";
 var criticize_id = "";
 var LecturerId = "";
 
+//分享的信息
+var gradeName = "";
+var smallImgPath ="";
+var description ="";
+
 function stripHTML(str) {
     var reTag = /<(?:.|\s)*?>/g;
     return str.replace(reTag, "");
@@ -139,7 +144,7 @@ $(function () {
             $(".zhezhao").hide()
             $(".btn").hide()
         }
-    });
+    },false);
 
     //传ID courseId为接口的课程ID，评论列表
     refresh();

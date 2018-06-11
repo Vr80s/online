@@ -34,13 +34,18 @@
 					<img src="${lecturerInfo.small_head_photo}"   />
 
 				</div>
+				<#--
+				    星标志
 					<span class="icon-adopt"></span>
+				-->	
 				
 				<div class="anchor-status z">
 					<h2>${lecturerInfo.name?default('')}</h2>
-					<#if lecturerInfo.type == 1 && hospital?? && hospital.name??>
-						<h4>${hospital.name}</h4>
-					</#if>
+					<#--
+						<#if lecturerInfo.type == 1 && hospital?? && hospital.name??>
+							<h4>${hospital.name}</h4>
+						</#if>
+					-->
 					<ul class="follow-box cl">
 						<li>关注<span id="focusCount">${focusCount}</span></li>
 						<li>|</li>
@@ -112,7 +117,11 @@
 						
 						<#if hospital??>
 							<div class="anchor-hospital">
-								<h5>坐诊医馆</h5>
+							    <#if lecturerInfo.type == 1>
+									<h5>坐诊医馆</h5>
+								<#elseif lecturerInfo.type == 2>
+									<h5>医馆</h5>
+							    </#if>
 								<div class="hospital-img z">
 								    <#if hospital?? >
 										<img src="${hospital.headPortrait}"/>
@@ -122,7 +131,7 @@
 								</div>
 								<div class="hospital-inf y">
 									<div class="hospital-status">
-										<#if lecturerInfo.type == 2>
+										<#if hospital.name??>
 											<p>医馆名称：${hospital.name?default("")}</p>
 										</#if>
 										<p>预约电话：${hospital.tel?default("")}</p>

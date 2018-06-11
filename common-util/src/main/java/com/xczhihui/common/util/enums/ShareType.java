@@ -15,14 +15,15 @@ public enum ShareType {
 	
 		COURSE_SHARE(1, "课程分享"),
 		HOST_SHARE(2, "主播分享"),
-		ALBUM_SHARE(3, "专辑（及其子课程）分享");
+		ALBUM_SHARE(3, "专辑（及其子课程）分享"),
+		APPRENTICE_SHARE(4, "师承分享");
 		/**
 	     * 描述
 	     **/
-		private int code;
+		private Integer code;
 		private String text;
 			
-	    private ShareType(int code,String text) {
+	    private ShareType(Integer code,String text) {
 			this.text = text;
 			this.code = code;
 		}
@@ -33,10 +34,10 @@ public enum ShareType {
 		public void setText(String text) {
 			this.text = text;
 		}
-		public int getCode() {
+		public Integer getCode() {
 			return code;
 		}
-		public void setCode(int code) {
+		public void setCode(Integer code) {
 			this.code = code;
 		}
 }
