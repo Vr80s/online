@@ -92,11 +92,11 @@ public class CommonServiceImpl implements ICommonService {
                 Integer result = null;
                 MedicalDoctorAccount mda =   this.isDoctorStatus(userId);
                 if(mda!=null){
-                	if(!mda.getStatus() || mda.getDeleted()) { //医师被禁用或者删除
-                		 result = CommonEnum.AUTH_DOCTOR_STATUS.getCode();
-                	}else{
+//                	if(!mda.getStatus() || mda.getDeleted()) { //医师被禁用或者删除
+//                		 result = CommonEnum.AUTH_DOCTOR_STATUS.getCode();
+//                	}else{
                 		result = CommonEnum.AUTH_DOCTOR.getCode();
-                	}
+//                	}
                 }else {
                     // 如果不是认证医师，判断是否正在认证医师
                     MedicalDoctorApply doctorApply = doctorApplyMapper.getLastOne(userId);
@@ -118,11 +118,11 @@ public class CommonServiceImpl implements ICommonService {
                 Integer result = null;
                 MedicalHospitalAccount mha =   this.isHospitalStatus(userId);
                 if(mha!=null){
-                	if(!mha.getStatus() || mha.getDeleted()) { //医馆被禁用或者删除
-                		 result = CommonEnum.AUTH_HOSPITAL_STATUS.getCode();
-                	}else{
+//                	if(!mha.getStatus() || mha.getDeleted()) { //医馆被禁用或者删除
+//                		 result = CommonEnum.AUTH_HOSPITAL_STATUS.getCode();
+//                	}else{
                 		 result = CommonEnum.AUTH_HOSPITAL.getCode();
-                	}
+//                	}
                 }else {
                     // 如果不是已认证医馆，判断是否正在认证医馆
                     MedicalHospitalApply hospitalApply = hospitalApplyMapper.getLastOne(userId);

@@ -16,6 +16,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.bxg.online.web.service.BannerService;
 import com.xczhihui.bxg.online.web.vo.BannerVo;
+import com.xczhihui.course.service.ICourseService;
+import com.xczhihui.course.vo.CourseLecturVo;
+import com.xczhihui.medical.doctor.model.MedicalDoctorAccount;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 import com.xczhihui.medical.field.model.MedicalField;
@@ -47,6 +50,8 @@ public class ClinicPageController extends AbstractFtlController {
     private IMedicalHospitalRecruitBusinessService medicalHospitalRecruitBusinessService;
     @Autowired
     private IMedicalHospitalAnnouncementService medicalHospitalAnnouncementService;
+    @Autowired
+    private ICourseService courseService;
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView index() {
@@ -86,7 +91,11 @@ public class ClinicPageController extends AbstractFtlController {
 
         List<MedicalHospitalVo> recClinics = medicalHospitalBusinessServiceImpl.selectRecHospital();
         view.addObject("recClinics", recClinics);
-
+        String accountId = medicalHospitalBusinessServiceImpl.getAccountIdByHospitalId(id);
+        if (accountId != null) {
+            view.addObject("courses", courseService.selectLecturerAllCourse(new Page<CourseLecturVo>(1, 6), accountId).getRecords());
+            view.addObject("accountId", accountId);
+        }
         view.addObject("announcement", medicalHospitalAnnouncementService.findNewestOne(id));
 
         doTitleKeyWords(view, clinic.getName() + "-", clinic.getName() + ",");

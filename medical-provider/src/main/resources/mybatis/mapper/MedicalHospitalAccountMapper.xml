@@ -32,4 +32,7 @@
           	medical_hospital_account mha on  mh.id = mha.doctor_id
           	  where mh.deleted =0 and mh.status = 1 and  mha.account_id = #{userId}
      </select>
+    <select id="getAccountIdByHospitalId" resultType="java.lang.String">
+        SELECT mha.`account_id` FROM `medical_hospital_account` mha WHERE mha.`doctor_id` = #{hospitalId}
+    </select>
 </mapper>

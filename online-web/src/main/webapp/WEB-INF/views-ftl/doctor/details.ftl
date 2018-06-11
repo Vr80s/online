@@ -102,7 +102,7 @@
         <div class="class clearfix">
             <div class="class_top">
                 <span>课程</span>
-                <a href="${webUrl}/classroom.html">
+                <a href="${webUrl}/anchors/${accountId}/courses">
                     更多&nbsp;&gt;
                 </a>
             </div>
@@ -111,7 +111,7 @@
                 <#list courses as course>
 
                     <div class="class_inf">
-                        <a href="${webUrl}/web/html/courseDetail.html?courseId=${course.id}" style="color: #0C0C0C" target="_blank">
+                        <a href="${webUrl}/courses/${course.id}/info" style="color: #0C0C0C" target="_blank">
                             <div class="class_inf_pic">
                                 <img src="${course.smallImgPath}" alt="">
                             </div>
