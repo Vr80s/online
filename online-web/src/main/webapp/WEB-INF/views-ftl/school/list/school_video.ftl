@@ -54,7 +54,13 @@
 							    
 							    <a style="cursor:pointer" href="/courses/${courseItem.id}/info" target="_blank">
 								<div class="img"><img src="${courseItem.smallImgPath}"></div>
-								<span class="classCategory">音频</span>
+								
+								
+								  <#if courseItem.collection> 
+							       <span class="classCategory">音频专辑</span>
+								  <#elseif !courseItem.collection>
+						             <span class="classCategory">音频</span>
+						          </#if>
 								<div class="detail">
 									<p class="title" data-text="音频测试3" title="音频测试3">${courseItem.gradeName}</p>
 									<p class="timeAndTeac">
