@@ -18,26 +18,31 @@ a{
 body{
 	font-family: "Helvetica";
 }
+body{
+    width: 7.5rem;
+    margin: 0 auto;
+}
 /*头部开始*/
 header {
-    width: 100%;
-    height: 1.872rem;
-    line-height: 1.872rem;
+    width: 7.5rem;
+    height: 0.88rem;
+    line-height: 0.88rem;
     background: #fff;
     position: fixed;
     top: 0;
-    left: 0;
+    /*left: 0;*/
     z-index: 9;
 }
 .header {
-    width: 14.851rem;
+    width: 6.98rem;
     height: 100%;
-    margin-left: 0.553rem;
+    /*margin-left: 0.553rem;*/
     /* padding-top: 0.298rem; */
+    margin: 0 auto;
 }
 .header_return {
     width: 2.15rem;
-    height: 1.8rem;
+    height: 0.88rem;
     /* background: red; */
     margin-right: 0.362rem;
     float: left;
@@ -45,9 +50,12 @@ header {
     z-index: 10;
 }
 .header_return img {
-    width: 0.511rem;
-    height: 0.915rem;
-    margin-top: 0.5rem;
+    background-size: 100% 100%;
+    width: 0.24rem;
+    height: 0.42rem;
+    margin-top: 0.22rem;
+    display: block;
+    /*margin-left: 0.26rem;*/
 }
 .header_title {
     width: 100%;
@@ -55,7 +63,8 @@ header {
     position: absolute;
     top: 0;
     left: 0;
-    font-size: 0.766rem;
+    font-size: 0.36rem;
+	color: #333333;
     text-align: center;
     color: #333;
     z-index: 9;
@@ -84,55 +93,54 @@ header {
 	    width: 100%;
     /* height: 2.2rem; */
     background: #fff;
-    padding: 0.338rem 0;
-    margin-top: 2.398rem;
-    margin-bottom: 0.426rem;
+    padding: 0.3rem 0;
+    margin-top: 1.1rem;
+    margin-bottom: 0.2rem;
     overflow: hidden;
 }
 .purchase_details_main{
-	width: 15.45rem;
+	width: 7.24rem;
 	float: right;
 }
 .purchase_details_main_cen{
 	width: 100%;
 }
 .purchase_details_main_cen img{
-	width: 3.7rem;
-	height: 2.4rem;
+	width: 2.12rem;
+	height: 1.2rem;
 	float: left;
-	margin-right: 0.532rem;
+	margin-right: 0.22rem;
 }
 .purchase_details_left{
 	float: left;
-	width: 9rem;
+	width: 4rem;
 	height1: 1.915rem;
 	/*background: red;*/
 }
 .purchase_details_title{
-	font-size: 0.596rem;
+	font-size: 0.28rem;
 	color: #333;
 }
 .purchase_details_title .span0{
 	display: block;
     float: left;
     color: #999;
-    font-size: 0.468rem;
+    font-size: 0.22rem;
     margin-top: 0.1rem;
 }
 .purchase_details_title .span1{
-	width: 9rem;
+	width: 4.72rem;
     display: block;
     float: left;
 }
 .purchase_details_money{
-	font-size: 0.596rem;
+	font-size: 0.28rem;
 	color: #333333;
 	width: 100%;
-    height: 1.064rem;
-    line-height: 1.064rem;
+    margin-top: 0.1rem;
 }
 .purchase_details_money span{
-	font-size: 0.666rem;
+	font-size: 0.36rem;
 	color: #F97B49;
 }
 
@@ -145,33 +153,33 @@ header {
 	margin-bottom: 0.426rem;
 }
 .purchase_list_main{
-	width: 15.45rem;
+	width: 7.24rem;
 	height: 100%;
     float: right;
 }
 .purchase_list_one{
 	width: 100%;
-	height: 1.702rem;
-	line-height: 1.702rem;
+	height: 0.8rem;
+	line-height: 0.8rem;
 	border-bottom: 1px solid #d8dde6;
 }
 .purchase_list_one_left{
-	font-size: 0.596rem;
+	font-size: 0.28rem;
 	color: #888;
 	float: left;
 }
 .purchase_list_one_left img{
-	width: 0.511rem;
-	height: 0.511rem;
-	margin-right: 0.212rem;
+	width: 0.24rem;
+	height: 0.24rem;
+	margin-right: 0.1rem;
 }
 .purchase_list_one_right{
-	font-size: 0.596rem;
-	color: #888;
+	font-size: 0.28rem;
+	color: #333;
 	float: right;
 }
 .purchase_list_one_right span{
-	font-size: 0.666rem;
+	font-size: 0.36rem;
 	color: #F97B49;
 }
 .purchase_list_one_right img{
@@ -220,13 +228,13 @@ header {
 }
 .price{
 	width: 100%;
-	height: 1.702rem;
-	line-height: 1.702rem;
+	height: 0.8rem;
+	line-height: 0.8rem;
 	background: #fff;
 }
 
 .price .purchase_list_one_right{
-	margin-right: 1.2rem;
+	margin-right: 0.26rem;
 }
 .price .purchase_list_one{
 	border-bottom: 0;
@@ -238,36 +246,30 @@ header {
 	width: 100%;
 	height: 100%;
 	background: #fff;
-    margin-top: 0.426rem;
-    padding: 0.638rem 0;
+    margin-top: 0.21rem;
+    padding: 0.3rem 0;
 }
 .payment_title{
-	/*width: 5rem;*/
-	font-size: 0.681rem;
-	color: #333333;
-	margin-bottom: 0.638rem;
-    margin-left: 0.5rem;
+	font-size: 0.32rem;
+    color: #333333;
+    margin-bottom: 0.29rem;
+    margin-left: 0.26rem;
 }
 .payment_ul{
-	margin-bottom: 0.638rem;
+	margin-bottom: 0.29rem;
 }
 .payment_ul ul li{
-	font-size: 0.596rem;
-	color: #666;
-	float: left;
-	width: 4.468rem;
-	height: 2.085rem;
-	line-height: 2.085rem;
-	/*border: 1px solid #DEDEDE;*/
-	border-radius: 4px;
-	margin-left: 0.55rem;
-	text-align: center;
-	position: relative;
-	/*background: url("/xcview/images/pitch.png") no-repeat;
-	background: 100% 100%;*/
-	/*position: absolute;*/
-	/*right: 0;*/
-	/*bottom: 0;*/
+	font-size: 0.28rem;
+    color: #666;
+    float: left;
+    width: 2.12rem;
+    height: 1rem;
+    line-height: 1rem;
+    /* border: 1px solid #DEDEDE; */
+    border-radius: 4px;
+    margin-left: 0.26rem;
+    text-align: center;
+    position: relative;
 }
 .ul_li{
 	border: 1px solid #DEDEDE;
@@ -287,22 +289,22 @@ header {
 
 .payment_ul ul li img{
 	vertical-align: middle;
-    margin-right: 0.5rem;
+    margin-right: 0.16rem;
 }
 .BTCpanda{
-	width: 1.277rem;
-	height: 1.277rem;
+	width: 0.6rem;
+	height: 0.6rem;
 }
 .alipay_img{
 	width: 1.277rem;
 	height: 1.064rem;
 }
 .weixin_img{
-	width: 1.277rem;
-	height: 1.149rem;
+	width: 0.6rem;
+	height: 0.54rem;
 }
 .balance{
-	font-size: 0.511rem;
+	font-size: 0.24rem;
 	color: #666;
 	margin-left: 0.5rem;
 }
@@ -320,28 +322,28 @@ header {
 	margin-bottom: 0.426rem;
 }
 .footer{
-	width: 100%;
-	height: 2.085rem;
-	line-height: 2.085rem;
+	width: 7.5rem;
+	height: 0.98rem;
+	line-height: 0.98rem;
 	text-align: center;
-	font-size: 0.638rem;
+	font-size: 0.36rem;
 	position: fixed;
 	bottom: 0;
-	left: 0;
+	/*left: 0;*/
 	background: #fff;
 	/*border-top: 1px solid #D8DDE6;*/
 	background: #00BC12;
 }
 .footer_div{
 	width: 100%;
-	height: 2.085rem;
-	line-height: 2.085rem;
+	height: 0.98rem;
+	line-height: 0.98rem;
 	color: #fff;
 }
 .footer_div_btn{
 	width: 100%;
-	height: 2.085rem;
-	line-height: 2.085rem;
+	height: 0.98rem;
+	line-height: 0.98rem;
 	color: #fff;
 }
 /*底部结束*/
