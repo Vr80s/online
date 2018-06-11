@@ -497,7 +497,7 @@ width: 63px;
 	text-overflow: ellipsis;
 	overflow: hidden; 
 }
-.trainee-modal{
+.trainee-background{
 	width: 100%;
 	height: 100%;
 	background: rgba(0,0,0,.2);
@@ -505,6 +505,77 @@ width: 63px;
 	top: 0;
 	left: 0;
 }
+.set-trainee{
+	width: 580px;
+    height: 280px;
+    background: white;
+    /*display: none;*/
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-top: -140px;
+    margin-left: -290px;
+}
+ .set-trainee .trainee-close{
+ 	margin: 12px 15px;
+ }  
+.content-setClass{
+ 	width: 260px;
+
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 100px;
+    position: relative;
+ }
+.content-setClass label {
+    cursor: pointer;
+    font-weight: 500;
+    margin: 0;
+}
+.radio-cover{
+	    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-radius: 8px;
+
+    vertical-align: middle;
+    display: block;
+    top: 6px;
+
+}
+.content-setClass span{
+	font-size: 16px;
+}
+.radio-cover em {
+       width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    position: absolute;
+    top: 2px;
+    left: 4px;
+}
+.radio-cover .active {
+    background: #00bc12;
+} 
+
+.content-setClass .sex-select {
+    margin: 0;
+    width: 18px;
+    height: 18px;
+}
+.set-trainee .class-btnUp {
+    width: 68px;
+    height: 36px;
+    background: #00bc12;
+    border: 0;
+    outline: none;
+    border-radius: 4px;
+    margin: 0 auto;
+    display: block;
+    margin-top: 30px;
+    color: white;
+}
+
 /*右侧资源部分*/
 .wrap_box  #resource .zhuanlan_top{
 	height: 60px;
