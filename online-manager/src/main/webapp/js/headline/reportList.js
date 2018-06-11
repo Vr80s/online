@@ -56,10 +56,10 @@ $(function () {
             "class": "center",
             "width": "7%",
             "sortable": false,
-            "data": "isRecommend",
+            "data": "sort",
             "mRender": function (data) {
-                if (data) {
-                    return "推荐";
+                if (data>0) {
+                    return "已推荐";
                 } else {
                     return "未推荐";
                 }
@@ -139,15 +139,18 @@ function recommendDialog(obj) {
 function search() {
     var startTime = $("#startTime").val(); //开始时间
     var stopTime = $("#stopTime").val(); //结束时间
+    var search_isRecommend = $("#search_isRecommend").val(); //是否推荐
     if (startTime != "" || stopTime != "") {
 
         if (startTime != "" && stopTime != "" && startTime > stopTime) {
             alertInfo("开始日期不能大于结束日期");
             return;
         }
+
         searchJson.push('{"tempMatchType":"7","propertyName":"startTime","propertyValue1":"' + startTime + '","tempType":"String"}');
         searchJson.push('{"tempMatchType":"6","propertyName":"stopTime","propertyValue1":"' + stopTime + '","tempType":"String"}');
     }
+    searchJson.push('{"tempMatchType":"5","propertyName":"search_isRecommend","propertyValue1":"' + search_isRecommend + '","tempType":"String"}');
     searchJson.push(typeSearch);
     searchButton(articleTable, searchJson);
 }

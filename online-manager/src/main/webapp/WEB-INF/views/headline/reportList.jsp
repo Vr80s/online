@@ -49,7 +49,7 @@
                     <td>
                         <div class="profile-info-value searchTr">
                             <select name="search_isRecommend" id="search_isRecommend" value="" class="propertyValue1">
-                                <option value="">是否推荐</option>
+                                <option value="3">是否推荐</option>
                                 <option value="1">已推荐</option>
                                 <option value="0">未推荐</option>
                             </select>
