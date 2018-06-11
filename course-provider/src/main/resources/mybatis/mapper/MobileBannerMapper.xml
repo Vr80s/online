@@ -185,6 +185,7 @@
 	     oc.course_length as courseLength,
 	     oc.grade_name as gradeName,
 	     oc.lecturer as name,
+	     oc.city as city,
 		 oc.smallimg_path as smallImgPath,
 		 DATE_FORMAT(oc.start_time,'%H:%i') as startDateStr,oc.end_time as endTime,
 		 oc.current_price*10 as currentPrice,

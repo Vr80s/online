@@ -85,6 +85,6 @@
 <script type="text/javascript" src="/web/js/school/offline-apply.js"></script>
 <!--公共头部和底部结束-->
 <!--登陆结束-->
-
+<script src="/web/js/common_msg.js"></script>
 
 </html>

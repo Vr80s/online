@@ -280,7 +280,7 @@
         </div>
     </div>
 </div>
-<!--<#include "../footer.ftl">-->
+<#include "../footer.ftl">
 </body>
 <script src="/web/js/jquery.pagination.js"></script>
 <script src="/web/js/placeHolder.js"></script>

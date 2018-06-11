@@ -78,6 +78,7 @@ $(function(){
                 'simpleupload', //单图上传
                 // 'insertimage', //多图上传
                 'emotion', //表情
+                'lineheight', //行距
                 'fullscreen'
             ] ],
               initialFrameWidth: 540,
@@ -119,6 +120,7 @@ $(function(){
                 'simpleupload', //单图上传
                 // 'insertimage', //多图上传
                 'emotion', //表情
+                'lineheight', //行距
                 'fullscreen'
             ] ],
               initialFrameWidth: 540,
@@ -174,6 +176,7 @@ $(function(){
                 'simpleupload', //单图上传
                 // 'insertimage', //多图上传
                 'emotion', //表情
+                'lineheight', //行距
                 'fullscreen'
             ] ],
              initialFrameWidth: 540,
@@ -215,6 +218,7 @@ $(function(){
                 'simpleupload', //单图上传
                 // 'insertimage', //多图上传
                 'emotion', //表情
+                'lineheight', //行距
                 'fullscreen'
             ] ],
             initialFrameWidth: 540,
@@ -256,6 +260,7 @@ $(function(){
                 'simpleupload', //单图上传
                 // 'insertimage', //多图上传
                 'emotion', //表情
+                'lineheight', //行距
                 'fullscreen'
             ] ],
             initialFrameWidth: 540,
