@@ -96,7 +96,7 @@
 		( #{id}, #{courseId},  0,  0,   #{userId}, now())
 	</insert>
     <insert id="insertWatchHistory">
-		INSERT IGNORE INTO `oe_watch_history1` (
+		INSERT INTO `oe_watch_history1` (
 		  user_id, lecturer_id, course_id, collectionId
 		)
 		VALUES
