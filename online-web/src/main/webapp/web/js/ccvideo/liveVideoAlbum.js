@@ -256,6 +256,9 @@ $(".album_list li").click(function(){
    var courseId = $(this).attr("data-id");
    var falg = $("#auto_play").is(':checked')
    
+   var key = userId+collectionId+"lastLive";
+   localStorage.setItem(key,courseId);
+   
    location.href = "/web/html/ccvideo/liveVideoAlbum.html" +
    		"?collectionId="+collectionId+"&courseId="+courseId+"&auto_play="+falg;
 })
@@ -279,6 +282,9 @@ function custom_player_stop(){
 				}else{
 					nextCourseId = $nextNode.attr("data-id");
 				}
+				
+				var key = userId+collectionId+"lastLive";
+				localStorage.setItem(key,nextCourseId);
 				location.href = "/web/html/ccvideo/liveVideoAlbum.html"+"?collectionId="+collectionId+"&courseId="+nextCourseId+"&auto_play="+falg;
 			}
 		})
