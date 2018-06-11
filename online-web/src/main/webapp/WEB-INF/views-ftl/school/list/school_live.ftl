@@ -23,6 +23,9 @@
 			<link rel="stylesheet" href="/web/css/school/school-live.css"  />
 	</head>
 	<body>
+	<header>
+<#include "../header-body.ftl">
+</header>
 <!--左侧精品、免费、最新、养生课程-->		
 		<div class="wp">
 			<div class="wrap-left z">
@@ -99,6 +102,7 @@
 			    <#if doctorList??>					
 					<div class="wrap-docter">
 						<span>名师推荐</span>
+						<#include "../common/famous_doctor_common.ftl"> 
 					</div>
 				</#if>
 			</div>
@@ -115,7 +119,7 @@
 		<!--公共头部和底部结束-->
 
 		<!--登陆结束-->	
-			<script src="/web/js/school/school-live.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/web/js/school/school-live.js" type="text/javascript" charset="utf-8"></script>
 			
 	</body>
 		

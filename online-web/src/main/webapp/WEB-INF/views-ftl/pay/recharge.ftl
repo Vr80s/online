@@ -24,6 +24,9 @@
     <link rel="stylesheet" href="/web/css/school/pay-recharge.css"/>
 </head>
 <body>
+<header>
+<#include "../school/header-body.ftl">
+</header>
 <div class="wp">
     <div class="main-top">
         <div class="recharge-explain">

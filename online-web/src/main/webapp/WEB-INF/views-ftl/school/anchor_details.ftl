@@ -25,6 +25,9 @@
 			<link rel="stylesheet" href="/web/css/school/anchor-details.css"  />
 	</head>
 	<body>
+				<header>
+<#include "header-body.ftl">
+</header>
 		<div class="wrap-top">
 			<div class="main-top">
 				<div class="head-portrait z">
