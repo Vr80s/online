@@ -150,6 +150,7 @@
                     开始学习
                 </#if>
             </button>
+            
         <#elseif courseInfo.watchState == 0>
             <#if courseInfo.type ==4 && courseInfo.cutoff = 1>
                 <button type="button" class="immediately-buy">报名截止</button>
@@ -159,6 +160,8 @@
                 </button>
             </#if>
         </#if>
+        
+        <span class="remember-last">上次播放位置：<span>标幽赋的前世今生详解 </span></span>
         </div>
     </div>
 
