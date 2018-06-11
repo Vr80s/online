@@ -171,7 +171,7 @@ $(function () {
     if(collection == 1){
     	 var lastLiveKey = loginUserId + courseId+"lastLive";
     	 var lastLiveCourseId = localStorage.getItem(lastLiveKey);
-    	 if(lastLiveCourseId!=null || lastLiveCourseId!="" || lastLiveCourseId!=undefined){
+    	 if(lastLiveCourseId!=null && lastLiveCourseId!="" && lastLiveCourseId!=undefined){
     		 //选集
     		 $(".play-album").each(function(){
     			 var $this = $(this);
