@@ -139,7 +139,11 @@
 							   </#if>
 							   <div class="detail">
 									<p class="title" data-text="音频测试3" title="音频测试3">${courseItem.gradeName}</p>
-									<p class="timeAndTeac"><span class="teacher">${courseItem.name}</span>
+									<p class="timeAndTeac">
+									<span class="teacher">${courseItem.name}</span>
+									<#if courseItem.type == 4> 
+										<span class="y">${courseItem.city}</span>
+									</#if>
 									</p>
 									<p class="info clearfix">
 									     <span>
@@ -214,7 +218,11 @@
 								
 								<div class="detail">
 									<p class="title" data-text="音频测试3" title="音频测试3">${courseItem.gradeName}</p>
-									<p class="timeAndTeac"><span class="teacher">${courseItem.name}</span>
+									<p class="timeAndTeac">
+									<span class="teacher">${courseItem.name}</span>
+									<#if courseItem.type == 4> 
+										<span class="y" style="float: right;" >${courseItem.city}</span>
+								    </#if>
 									</p>
 									<p class="info clearfix">
 									 <span>

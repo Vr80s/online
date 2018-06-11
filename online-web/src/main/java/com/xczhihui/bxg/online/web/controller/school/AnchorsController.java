@@ -144,7 +144,7 @@ public class AnchorsController extends AbstractFtlController {
 		
 		
 		pageNumber = pageNumber == null ? 1 : pageNumber;
-		pageSize = pageSize == null ? 2 : pageSize;
+		pageSize = pageSize == null ? 5 : pageSize;
 		
 		ModelAndView view = new ModelAndView("school/anchor_details");
 		
