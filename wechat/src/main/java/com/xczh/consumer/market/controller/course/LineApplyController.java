@@ -23,8 +23,6 @@ public class LineApplyController {
     @Autowired
     private ILineApplyService lineApplyService;
 
-    @Autowired
-    private OnlineUserService onlineUserService;
 
     /**
      * 增加线下课报名记录
@@ -36,7 +34,7 @@ public class LineApplyController {
     @ResponseBody
     public ResponseObject add(@Account String accountId,
                               LineApplyBody lineApplyBody) {
-        lineApplyService.saveOrUpdate(accountId, lineApplyBody.build(accountId));
+        lineApplyService.saveOrUpdate(lineApplyBody.build(accountId));
         return ResponseObject.newSuccessResponseObject("保存成功");
     }
 

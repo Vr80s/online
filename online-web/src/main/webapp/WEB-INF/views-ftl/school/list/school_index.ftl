@@ -85,8 +85,12 @@
 									   </#if>
 									
 										<div class="img"><img src="${courseItem.smallImgPath}"></div>
-										   <#if courseItem.type == 1  > 
-											      <span class="classCategory">视频</span>
+										   <#if courseItem.type == 1 > 
+										       <#if courseInfo.collection> 
+										         <span class="classCategory">视频</span>
+										       <#else>
+										         <span class="classCategory">视频</span>
+										       </#if>
 										   <#elseif courseItem.type == 2>
 										      <span class="classCategory">音频</span>
 										   <#elseif courseItem.type == 3>

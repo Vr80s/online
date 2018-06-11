@@ -11,4 +11,11 @@
 		where ola.user_id = #{userId}  and ola.is_delete = 0
 	</select>
 	
+	
+	<insert id="insertLineApply">
+		INSERT IGNORE INTO `oe_line_apply` (
+		  id, user_id, create_time, update_time,real_name,sex,mobile,wechat_no,course_id,anchor_id
+		) VALUES
+		  (#{item.id},#{item.userId},#{item.createTime},#{item.updateTime},#{item.realName},#{item.sex},#{item.mobile},#{item.wechatNo},#{item.courseId},#{item.anchorId})
+	</insert>
 </mapper>
