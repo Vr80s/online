@@ -3,9 +3,9 @@
 	<div class="course clearfix">
 	
 	     <#if courseItem.type == 1 ||  courseItem.type == 2 ||  courseItem.type == 4 > 
-	 		    <a style="cursor:pointer" href="/courses/${courseItem.id}/info" target="_blank">
+	 		    <a style="cursor:pointer" href="${webUrl}/courses/${courseItem.id}/info" target="_blank">
 		 <#elseif courseItem.type == 3>
-	            <a style="cursor:pointer" href="/web/liveCoursePage/${courseItem.id}" target="_blank">
+	            <a style="cursor:pointer" href="${webUrl}/web/liveCoursePage/${courseItem.id}" target="_blank">
 		 </#if>
 		
 		
@@ -21,7 +21,7 @@
 		          <#if courseItem.lineState  == 1  > 
 			        <span class="classCategory">直播中</span>
 				  <#elseif courseItem.lineState  == 2>
-				      <span class="classCategory">预告</span>
+				      <span class="classCategory">直播预告</span>
 				  <#elseif courseItem.lineState  == 3>
 				      <span class="classCategory">直播回放</span>
 				  <#elseif courseItem.lineState  == 4>

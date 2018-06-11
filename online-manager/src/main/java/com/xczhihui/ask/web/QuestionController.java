@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.xczhihui.ask.service.TagService;
 import com.xczhihui.ask.vo.QuestionVo;
 import com.xczhihui.ask.vo.TagVo;
+import com.xczhihui.common.support.cc.util.Md5Encrypt;
 import com.xczhihui.common.util.CodeUtil;
 import com.xczhihui.course.service.CloudClassMenuService;
 import com.xczhihui.support.shiro.ManagerUserUtil;
@@ -37,6 +38,8 @@ import com.xczhihui.course.vo.MenuVo;
 @RestController
 @RequestMapping(value = "/ask/question")
 public class QuestionController {
+
+	private final static String salt = "ipandatcm20180611";
 	@Autowired
 	private QuestionService questionService;
 
@@ -58,12 +61,9 @@ public class QuestionController {
 	public ModelAndView index(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("ask/question");
 
-		mav.addObject(
-				"md5UserName",
-				CodeUtil.MD5Encode(CodeUtil.MD5Encode(ManagerUserUtil
-						.getUsername() + "WWW.ixincheng.com20161021")));
+		String str = ManagerUserUtil.getUsername() + salt;
+		mav.addObject("md5UserName",Md5Encrypt.md5(Md5Encrypt.md5(str)));
 
-		weburl = (weburl == null) ? "http://www.ixincheng.com" : weburl;
 		request.setAttribute("weburl", weburl);
 
 		return mav;

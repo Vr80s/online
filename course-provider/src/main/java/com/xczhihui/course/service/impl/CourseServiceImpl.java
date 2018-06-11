@@ -14,6 +14,7 @@ import com.xczhihui.common.util.enums.PayStatus;
 import com.xczhihui.course.mapper.CourseMapper;
 import com.xczhihui.course.model.Course;
 import com.xczhihui.course.service.ICourseService;
+import com.xczhihui.course.service.IWatchHistoryService;
 import com.xczhihui.course.vo.CourseLecturVo;
 
 /**
@@ -29,6 +30,9 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 
     @Autowired
     private CourseMapper iCourseMapper;
+    
+    @Autowired
+    public IWatchHistoryService watchHistoryServiceImpl;
 
     @Override
     public Page<CourseLecturVo> selectCoursePage(Page<CourseLecturVo> page) {
@@ -193,11 +197,13 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 	}
 
     @Override
-    public String getLiveCourseUrl4Wechat(String courseId) {
+    public String getLiveCourseUrl4Wechat(String userId,String courseId) {
         Integer lineStatus = iCourseMapper.getLineStatus(courseId);
         //直播中、直播结束、即将直播
         if(lineStatus == 1 || lineStatus == 3 || lineStatus == 4){
-            return "/xcview/html/details.html?courseId="+courseId;
+        	
+        	watchHistoryServiceImpl.addLookHistory(Integer.parseInt(courseId),userId,2,null);
+        	return "/xcview/html/details.html?courseId="+courseId;
         }
         return "/xcview/html/live_play.html?my_study="+courseId;
     }

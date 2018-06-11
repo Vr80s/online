@@ -96,10 +96,9 @@ public class FeedbackController {
 		Groups groups = Tools.filterGroup(params);
 		MessageVo searchMessageVo = new MessageVo();
 		for (Group g : groups.getGroupList()) {
-			if ("q_name".equals(g.getPropertyName())
-					&& g.getPropertyValue1() != null
-					&& !StringUtils.isEmpty(String.valueOf(g
+			if ("q_name".equals(g.getPropertyName())&& g.getPropertyValue1() != null&& !StringUtils.isEmpty(String.valueOf(g
 							.getPropertyValue1()))) {
+				
 				searchMessageVo.setUserName(String.valueOf(g
 						.getPropertyValue1()));
 			}
@@ -116,6 +115,15 @@ public class FeedbackController {
 							.getPropertyValue1()))) {
 				searchMessageVo.setTitle(String.valueOf(g.getPropertyValue1()));
 			}
+			
+			if ("q_content".equals(g.getPropertyName())
+					&& g.getPropertyValue1() != null&& !StringUtils.isEmpty(String.valueOf(g.getPropertyValue1()))) {
+				
+				searchMessageVo.setContext(String.valueOf(g.getPropertyValue1()));
+			}
+			
+			
+			
 			if ("time_start".equals(g.getPropertyName())
 					&& g.getPropertyValue1() != null
 					&& !StringUtils.isEmpty(String.valueOf(g

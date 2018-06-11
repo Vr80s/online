@@ -40,10 +40,6 @@
         getApply();
     });    
 
-
-
-
-
 var courseId = getQueryString('courseId');
 var orderId = getQueryString('orderId');
 // var submitted = getQueryString('submitted');
@@ -68,15 +64,14 @@ var orderId = getQueryString('orderId');
         requestGetService("/xczh/apply/applyInfo",{'courseId':courseId},function(data){
             if(data.success){
                 // 调接口成功
-                // 这个是由于  data.resultObject.applyInfo  这个太长
                 var result = data.resultObject.applyInfo;
                 var submitted = data.resultObject.submitted;
                 // 这个判断你要问问是需要怎么处理，没有需要怎么处理
                 if(submitted){
                     
-                    $(".opacity").css("opacity","1");
-                }else{
                     $(".opacity").css("opacity","0.3");
+                }else{
+                    $(".opacity").css("opacity","1");
                 }
                 $(".name input").val(result.realName);
                 $(".tel input").val(result.mobile);

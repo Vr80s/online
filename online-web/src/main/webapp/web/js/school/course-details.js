@@ -131,9 +131,8 @@ $(function () {
         var type = $this.attr("data-type");
         var collection = $this.attr("data-collection");
         var realCourseId = $this.attr("data-realCourseId");
-        var collectionCourseId = $this.attr("data-collectionCourseId");
+        //var collectionCourseId = $this.attr("data-collectionCourseId");
         var learning = $this.attr("data-learning");
-
         /**
          * 判断是否登录了
          */
@@ -159,7 +158,7 @@ $(function () {
                     window.location.href = "/web/livepage/" + realCourseId;
                 } else if (type == 1 || type == 2) {
                     if (collection == 1) {
-                        window.location.href = "/web/html/ccvideo/liveVideoAlbum.html?collectionId=" + realCourseId + "&courseId=" + collectionCourseId + "&ljxx=ljxx"
+                        window.location.href = "/web/html/ccvideo/liveVideoAlbum.html?collectionId=" + realCourseId + "&ljxx=ljxx"
                     } else {
                         window.location.href = "/web/html/ccvideo/video.html?courseId=" + realCourseId;
                     }
@@ -168,14 +167,33 @@ $(function () {
         });
     });
 
-
+//  专辑判断播放到那个位置了
+    if(collection == 1){
+    	 var lastLiveKey = loginUserId + courseId+"lastLive";
+    	 var lastLiveCourseId = localStorage.getItem(lastLiveKey);
+    	 if(lastLiveCourseId!=null && lastLiveCourseId!="" && lastLiveCourseId!=undefined){
+    		 //选集
+    		 $(".play-album").each(function(){
+    			 var $this = $(this);
+    			 var courseId =  $this.attr("data-courseId");
+    			 if(lastLiveCourseId == courseId){
+    				var gradeName =  $this.find("p").eq(0).text();
+    				$(".remember-last span").text(gradeName);
+    				return false;
+    			 }
+    		 
+    		 })
+    		 
+    	 }
+    }
+    
 //判断进入条	
-
     /**
      * 得到这个记录
      */
     var key = loginUserId + courseId;
     var recordingList = localStorage.getItem(key);
+    
     
     /**
      * 播放进度条
@@ -184,12 +202,15 @@ $(function () {
         //秒转换为分钟
         var lookRecord = parseFloat(recordingList) / 60
         var progressBar = (lookRecord / courseLength) * 100;
-
         if (progressBar > 100) {
             progressBar = 100;
         }
         $(".progress-bar-success").css("width", progressBar + "%");
         $(".progress").show();
+
+    
+        $(".immediately-buy").text("继续学习");
+        
     } else if (recordingList != null) {				//专辑
         var key = loginUserId + courseId;
         if (recordingList != null || recordingList != undefined) {

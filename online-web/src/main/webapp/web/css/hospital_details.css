@@ -400,3 +400,11 @@
     margin-right: 10px;
     border-radius: 4px;
 }
+
+.class_person em {
+    display: inline-block;
+    width: 11px;
+    height: 13px;
+    background:url('/web/images/studentCount.png') 0 0 no-repeat;
+    margin-right: 5px;
+}

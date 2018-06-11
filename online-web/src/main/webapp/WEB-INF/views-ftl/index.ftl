@@ -126,7 +126,7 @@
 						          <#if courseItem.lineState  == 1  > 
 							        <span class="classCategory">直播中</span>
 								  <#elseif courseItem.lineState  == 2>
-								      <span class="classCategory">预告</span>
+								      <span class="classCategory">直播预告</span>
 								  <#elseif courseItem.lineState  == 3>
 								      <span class="classCategory">直播回放</span>
 								  <#elseif courseItem.lineState  == 4>
@@ -199,7 +199,7 @@
 						          <#if courseItem.lineState  == 1  > 
 							        <span class="classCategory">直播中</span>
 								  <#elseif courseItem.lineState  == 2>
-								      <span class="classCategory">预告</span>
+								      <span class="classCategory">直播预告</span>
 								  <#elseif courseItem.lineState  == 3>
 								      <span class="classCategory">直播回放</span>
 								  <#elseif courseItem.lineState  == 4>
@@ -257,7 +257,6 @@
 						</ul>
 					</div>
                 </#if>
-
 			  <!--头条新闻部分开始-->
 
 			  <#if articles.records?size gt 0 >	
@@ -276,7 +275,7 @@
 									<a href="${webUrl}/headline/details/${article.id}" target="_blank">${article.title}</a>
 								</div>
 								<div class="forum-info-content dot-ellipsis">
-								 ${article.content}
+								 	${article.content}
 								</div>
 								<div class="forum-info-tags">
 									<span>${article.author!''}<em></em>${(article.createTime?string("yyyy-MM-dd"))!}</span>

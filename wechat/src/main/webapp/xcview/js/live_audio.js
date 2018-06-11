@@ -9,6 +9,10 @@ var LecturerId="";
 var commentCode ="";
 var memory_data="";
 
+//分享的信息
+var gradeName = "";
+var smallImgPath ="";
+var description ="";
 /**
  * 当cc初始化成功后，会主动调用这个方法
  * @returns {String}
@@ -121,7 +125,7 @@ function stripHTML(str){
 			$(".btn1").hide()
 		}
 	
-	});
+	},false);
 
     //传ID courseId为接口的课程ID，评论列表
     refresh();

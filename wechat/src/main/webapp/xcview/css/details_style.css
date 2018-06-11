@@ -972,14 +972,17 @@ div.pinch-zoom,
     margin-bottom: 1rem;
 }
 .video_end_top1 .div{
-	background: rgba(255,255,255,0.20);
+	background: none;
 	border-radius: 8px;
 	width: 3.489rem;
-	height: 1.191rem;
+	height: 2.191rem;
 	line-height: 1.191rem;
 	margin: 0 auto;
 	font-size: 0.595rem;
 	color: #fff;
+}
+.video_end_top1 .div img{
+	width: 1.5rem;
 }
 /*直播结束查看回放*/
 

@@ -65,7 +65,7 @@ public class AuthInterceptor implements HandlerInterceptor, HandlerMethodArgumen
             "/bxg/wxpay/wxNotify", "/xczh/alipay/pay", "/xczh/alipay/rechargePay", "/xczh/criticize/getCriticizeList",
             "/xczh/ccvideo/palyCode", "/xczh/wechatJssdk/certificationSign", "/xczh/manager/home",
             "/xczh/common/getProblems", "/xczh/common/verifyLoginStatus", "/xczh/common/getProblemAnswer",
-            "/xczh/common/checkUpdate", "/xczh/common/addOpinion", "/xczh/gift/rankingList", "/xczh/common/richTextDetails",
+            "/xczh/common/checkUpdate", "/xczh/common/addOpinion", "/xczh/gift/rankingList", "/xczh/common/richTextDetails", "/xczh/common/getDomain",
             "/xczh/gift/list", "/xczh/common/checkToken", "/xczh/message", "/xczh/pay/pay_notify", "/xczh/set/isLogined",
             "/xczh/recommend/**", "/xczh/classify/**", "/xczh/bunch/**", "/xczh/live/**", "/xczh/host/**", "/xczh/course/**",
             "/xczh/enrol/enrollmentRegulations");

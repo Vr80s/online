@@ -115,7 +115,7 @@
                                     <span class="hospital_pass">已认证</span>
                                 </#if>
                                 <div class="hospital_address"><em></em>
-                                    <span>${clinic.province}&nbsp;&nbsp;${clinic.city}</span>
+                                    <span>${clinic.province!""}&nbsp;&nbsp;${clinic.city!""}</span>
                                 </div>
                                 <div class="hospital_star">
                                     <#if clinic.score??>

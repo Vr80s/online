@@ -250,7 +250,7 @@ $(function () {
         }
 
 
-    });
+    },false);
 
 //主播课程
 //var userLecturerId = getQueryString('userLecturerId');

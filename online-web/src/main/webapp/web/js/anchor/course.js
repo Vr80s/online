@@ -78,6 +78,7 @@ $(function(){
                 'simpleupload', //单图上传
                 // 'insertimage', //多图上传
                 'emotion', //表情
+                'lineheight', //行距
                 'fullscreen'
             ] ],
               initialFrameWidth: 540,
@@ -119,6 +120,7 @@ $(function(){
                 'simpleupload', //单图上传
                 // 'insertimage', //多图上传
                 'emotion', //表情
+                'lineheight', //行距
                 'fullscreen'
             ] ],
               initialFrameWidth: 540,
@@ -174,6 +176,7 @@ $(function(){
                 'simpleupload', //单图上传
                 // 'insertimage', //多图上传
                 'emotion', //表情
+                'lineheight', //行距
                 'fullscreen'
             ] ],
              initialFrameWidth: 540,
@@ -215,6 +218,7 @@ $(function(){
                 'simpleupload', //单图上传
                 // 'insertimage', //多图上传
                 'emotion', //表情
+                'lineheight', //行距
                 'fullscreen'
             ] ],
             initialFrameWidth: 540,
@@ -256,6 +260,7 @@ $(function(){
                 'simpleupload', //单图上传
                 // 'insertimage', //多图上传
                 'emotion', //表情
+                'lineheight', //行距
                 'fullscreen'
             ] ],
             initialFrameWidth: 540,
@@ -649,7 +654,7 @@ function verifyCourse(course){
     }else{
         $('.warning_course_start_time').addClass('hide');
     }
-    if((course.courseForm==1||course.courseForm==3)){
+    /*if((course.courseForm==1||course.courseForm==3)){
         var startTime =  new Date(course.startTime.replace(/-/g,"/"));
         if(startTime<new Date()){
             $('.warning_course_time1').removeClass('hide');
@@ -657,7 +662,7 @@ function verifyCourse(course){
         }else{
             $('.warning_course_time1').addClass('hide');
         }
-    }
+    }*/
     //请选择结课时间
     if(course.endTime == '' && course.courseForm==3){
         $('.warning_course_end_time').removeClass('hide');
@@ -666,7 +671,6 @@ function verifyCourse(course){
         $('.warning_course_end_time').addClass('hide');
     }
     if(course.startTime != ''&&course.endTime != ''&&course.endTime != null){
-//
         var startTime =  new Date(course.startTime.replace(/-/g,"/"));
         var endTime =  new Date(course.endTime.replace(/-/g,"/"));
         if(startTime>endTime){

@@ -34,13 +34,18 @@
 					<img src="${lecturerInfo.small_head_photo}"   />
 
 				</div>
+				<#--
+				    星标志
 					<span class="icon-adopt"></span>
+				-->	
 				
 				<div class="anchor-status z">
 					<h2>${lecturerInfo.name?default('')}</h2>
-					<#if lecturerInfo.type == 1 && hospital?? && hospital.name??>
-						<h4>${hospital.name}</h4>
-					</#if>
+					<#--
+						<#if lecturerInfo.type == 1 && hospital?? && hospital.name??>
+							<h4>${hospital.name}</h4>
+						</#if>
+					-->
 					<ul class="follow-box cl">
 						<li>关注<span id="focusCount">${focusCount}</span></li>
 						<li>|</li>
@@ -109,38 +114,46 @@
 
 							</p>
 						</div>
-						<div class="anchor-hospital">
-							<h5>坐诊医馆</h5>
-							<div class="hospital-img z">
-							    <#if hospital?? >
-									<img src="${hospital.headPortrait}"/>
-								<#else> 
-								    <img src="${webUrl}/web/images/defaultHead/18.png" />
+						
+						<#if hospital??>
+							<div class="anchor-hospital">
+							    <#if lecturerInfo.type == 1>
+									<h5>坐诊医馆</h5>
+								<#elseif lecturerInfo.type == 2>
+									<h5>医馆</h5>
 							    </#if>
-							</div>
-							<div class="hospital-inf y">
-								<div class="hospital-status">
-									<#if lecturerInfo.type == 1 && hospital?? && hospital.name??>
-										<p>医馆名称：${hospital.name?default("")}</p>
-									</#if>
-									<p>预约电话：${hospital.tel?default("")}</p>
-									<#if lecturerInfo.type == 1 && lecturerInfo.workTime??>
-										<p>坐诊时间：${lecturerInfo.workTime?default("")}</p>
-									</#if>
+								<div class="hospital-img z">
+								    <#if hospital?? >
+										<img src="${hospital.headPortrait}"/>
+									<#else> 
+									    <img src="${webUrl}/web/images/defaultHead/18.png" />
+								    </#if>
 								</div>
-								<div class="address-box">
-									<#if hospital??>
-										<p class="address z">
-											<span>地</span>
-											<span>址：</span>
-										</p>
-										<p class="address-text z">
-											${hospital.province?default("")}${hospital.city?default("")}${hospital.detailedAddress}
-										</p>
-									</#if>	
+								<div class="hospital-inf y">
+									<div class="hospital-status">
+										<#if hospital.name??>
+											<p>医馆名称：${hospital.name?default("")}</p>
+										</#if>
+										<p>预约电话：${hospital.tel?default("")}</p>
+										<#if lecturerInfo.type == 1 && lecturerInfo.workTime??>
+											<p>坐诊时间：${lecturerInfo.workTime?default("")}</p>
+										</#if>
+									</div>
+									<div class="address-box">
+										<#if hospital??>
+											<p class="address z">
+												<span>地</span>
+												<span>址：</span>
+											</p>
+											<p class="address-text z">
+												${hospital.province?default("")}${hospital.city?default("")}${hospital.detailedAddress}
+											</p>
+										</#if>	
+									</div>
 								</div>
 							</div>
-						</div>
+						</#if>
+						
 						<#if lecturerInfo.video??>
 							<div class="anchor-video">
 								<h5>主播视频介绍</h5>

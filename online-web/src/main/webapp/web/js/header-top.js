@@ -1,6 +1,4 @@
 (function () {
-    //解析url地址
-    var ourl = document.location.search;
     var browser = {
         versions: function () {
             var u = navigator.userAgent, app = navigator.appVersion;
@@ -73,19 +71,6 @@ function showAnchorWorkbench() {
         }
     });
 }
-
-//如果有链接的点击事件
-function on_click_msg(msg_id, msg_link) {
-    var $this = $(this);
-    RequestService("/online/message/updateReadStatusById", "post", {
-        id: msg_id
-    }, function (data) {
-        if (data.success == true) {
-            window.open(msg_link, "_blank");
-        }
-    }, false);
-};
-
 
 $(function () {
     /**

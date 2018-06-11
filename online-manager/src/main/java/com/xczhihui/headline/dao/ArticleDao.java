@@ -26,7 +26,7 @@ public class ArticleDao extends HibernateDao<ArticleVo> {
                 "    article.id,article.title,article.content,article.type_id,article.img_path,article.banner_path,article.browse_sum," +
                 "    article.praise_sum,article.comment_sum,article.banner_status,article.status,article.is_delete,article.user_id," +
                 "    article.create_time,article.praise_login_names,article.update_time,article.url,article.recommend_time," +
-                "    arttype.`name` AS typeName, article.`user_id` author, if(article.recommend_time< now(),0,article.sort) sort," +
+                "    arttype.`name` AS typeName, article.`user_id` author, if((article.recommend_time is null or article.recommend_time< now()),0,article.sort) sort," +
                 "    art_tag.tagName as tagName, art_tag.tagId as tagId, article.user_created as userCreated" +
                 "    FROM oe_bxs_article article" +
                 "       left join (" +
@@ -59,6 +59,13 @@ public class ArticleDao extends HibernateDao<ArticleVo> {
         if (articleVo.getStopTime() != null) {
             sql.append(" and article.create_time <=:stopTime");
             paramMap.put("stopTime", articleVo.getStopTime());
+        }
+        if (articleVo.getSort() != null) {
+            if(articleVo.getSort()==1){
+                sql.append(" and article.recommend_time> now()");
+            }else {
+                sql.append(" and (article.recommend_time is null or article.recommend_time< now()) ");
+            }
         }
         sql.append(" order by article.status desc,sort desc, create_time desc ");
 

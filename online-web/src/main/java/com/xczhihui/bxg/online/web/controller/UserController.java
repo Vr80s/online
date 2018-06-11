@@ -5,7 +5,6 @@ import java.util.Base64;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,11 +17,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.xczhihui.bxg.online.common.base.controller.OnlineBaseController;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.base.common.OnlineResponse;
+import com.xczhihui.bxg.online.web.base.utils.UserLoginUtil;
 import com.xczhihui.bxg.online.web.service.UserService;
 import com.xczhihui.common.support.domain.BxgUser;
 import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.common.util.enums.TokenExpires;
-import com.xczhihui.bxg.online.web.base.utils.UserLoginUtil;
 import com.xczhihui.user.center.service.UserCenterService;
 import com.xczhihui.user.center.utils.UCCookieUtil;
 import com.xczhihui.user.center.vo.OeUserVO;
@@ -45,7 +44,6 @@ public class UserController extends OnlineBaseController {
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
     public ResponseObject login(String username, String password, HttpServletResponse response) {
-        OnlineUser o = service.findUserByLoginName(username);
         Token t = userCenterService.loginMobile(username, password, TokenExpires.Year);
         UCCookieUtil.writeTokenCookie(response, t);
         return ResponseObject.newSuccessResponseObject("登录成功");
@@ -114,8 +112,8 @@ public class UserController extends OnlineBaseController {
      */
     @RequestMapping(value = "checkNickName")
     @ResponseBody
-    public ResponseObject checkNickName(String nickName, HttpSession s) {
-        OnlineUser u = (OnlineUser) s.getAttribute("_user_");
+    public ResponseObject checkNickName(String nickName) {
+        OnlineUser u = (OnlineUser) UserLoginUtil.getLoginUser();
         return ResponseObject.newSuccessResponseObject(service.checkNickName(nickName, u));
     }
 

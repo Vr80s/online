@@ -137,7 +137,7 @@ requestService("/xczh/course/details", {
         $(".zhezhao").hide();
         $(".btn").hide();
     }
-});
+},false);
 
 /*document.setTitle = function(t) {
     document.title = t;

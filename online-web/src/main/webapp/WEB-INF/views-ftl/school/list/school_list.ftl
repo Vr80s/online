@@ -40,11 +40,11 @@
 							<li>
 								<dl id="select-kind">
 									<dt>分类 :</dt>
-									<a href="${replaceUrl(webUrlParam,'menuType',0)}">
+									<a href="${webUrl}${replaceUrl(webUrlParam,'menuType',0)}">
 									  <dd class="select-all" subject ="menuType" data-id="0">全部</dd>
 									</a>
 									<#list courseMenuList as courseMenu>
-										<a href="${replaceUrl(webUrlParam,'menuType',courseMenu.id)}"><dd subject ="menuType" data-id="${courseMenu.id}">${courseMenu.name}</dd></a>
+										<a href="${webUrl}${replaceUrl(webUrlParam,'menuType',courseMenu.id)}"><dd subject ="menuType" data-id="${courseMenu.id}">${courseMenu.name}</dd></a>
 									</#list>	
 								</dl>
 							</li>
@@ -53,11 +53,11 @@
 							<li>
 								<dl id="select-style">
 									<dt>类型 :</dt>
-									<a href="${replaceUrl(webUrlParam,'courseType',0)}">
+									<a href="${webUrl}${replaceUrl(webUrlParam,'courseType',0)}">
 									<dd class="select-all" subject ="courseType" data-id="0">全部</dd>
 									</a>
 									<#list courseTypeEnum as courseType>
-										<a href="${replaceUrl(webUrlParam,'courseType',courseType.id)}">
+										<a href="${webUrl}${replaceUrl(webUrlParam,'courseType',courseType.id)}">
 										<dd subject ="courseType" data-id="${courseType.id}">${courseType.name}</dd>
 										</a>
 									</#list>	
@@ -68,7 +68,7 @@
 							<li>
 								<dl id="select-status">
 									<dt>状态 :</dt>
-									<a href="${replaceUrl(webUrlParam,'lineState',0)}">
+									<a href="${webUrl}${replaceUrl(webUrlParam,'lineState',0)}">
 									<dd class="select-all" subject ="lineState" data-id="0">全部</dd>
 									</a>
 									<#list liveStatusEnum as liveStatus>
@@ -84,7 +84,7 @@
 								<dl id="select-price">
 									<dt>收费 :</dt>
 									<#list freeTypeEnum as freeType>
-									<a href="${replaceUrl(webUrlParam,'isFree',freeType.id)}">
+									<a href="${webUrl}${replaceUrl(webUrlParam,'isFree',freeType.id)}">
 										<dd subject ="isFree" data-id="${freeType.id}">${freeType.name}</dd>
 										</a>		
 									</#list>
@@ -94,11 +94,11 @@
 						<#if cityList?? && cityList?size gt 0>
 							<li>
 								<dl id="select-address">
-								    <a href="${replaceUrl(webUrlParam,'city',"")}"> 
+								    <a href="${webUrl}${replaceUrl(webUrlParam,'city',"")}">
 									<dt>城市 :</dt>
 									</a>
 									<#list cityList as city>
-									<a href="${replaceUrl(webUrlParam,'city',city.cityName)}">
+									<a href="${webUrl}${replaceUrl(webUrlParam,'city',city.cityName)}">
 										<dd subject ="city" data-id="${city.cityName!''}">${city.cityName}</dd>
 									</a>	
 									</#list>
@@ -109,7 +109,7 @@
 							<dl id="select-condition">
 								<dt>筛选条件 :</dt>
 							</dl>
-							<form action="/courses/list" id="queryKeyFrom" method="get">
+							<form action="${webUrl}/courses/list" id="queryKeyFrom" method="get">
 							    <input type="hidden"  name="isFree" value="">
                                 <input type="hidden" name="menuType" value="">
                                 <input type="hidden" name="courseType" value="">
@@ -120,7 +120,7 @@
 									<button type="submit"></button>
 								</p>
 							</form>
-							<a href="${replaceUrl(webUrlParam,"","")}" class="reset-btn">重置</a>
+							<a href="${webUrl}${replaceUrl(webUrlParam,"","")}" class="reset-btn">重置</a>
 						</li>
 					</ul>
 				</div>
@@ -129,16 +129,16 @@
 			<div class="main">
 				<div class="wrap-tab">
 					<ul>
-						<li><a href="${replaceUrl(webUrlParam,"sortOrder",1)}">综合排序</a></li>
-						<li><a href="${replaceUrl(webUrlParam,"sortOrder",2)}">最新</a></li>
-						<li><a href="${replaceUrl(webUrlParam,"sortOrder",3)}">人气</a></li>	
+						<li><a href="${webUrl}${replaceUrl(webUrlParam,"sortOrder",1)}">综合排序</a></li>
+						<li><a href="${webUrl}${replaceUrl(webUrlParam,"sortOrder",2)}">最新</a></li>
+						<li><a href="${webUrl}${replaceUrl(webUrlParam,"sortOrder",3)}">人气</a></li>
 					</ul>
 					<div class="tab-price z">
 						<p>价格</p>
-						<a href="${replaceUrl(webUrlParam,"sortOrder",4)}">
+						<a href="${webUrl}${replaceUrl(webUrlParam,"sortOrder",4)}">
 						 <span class="glyphicon glyphicon-menu-up tab-top" aria-hidden="true" style="color:#333"> </a>
 						</span>
-						<a href="${replaceUrl(webUrlParam,"sortOrder",5)}">
+						<a href="${webUrl}${replaceUrl(webUrlParam,"sortOrder",5)}">
 						   <span class="glyphicon glyphicon-menu-down tab-bottom" aria-hidden="true" style="color:#333"></a>
 						</span>
 					</div>
@@ -159,9 +159,9 @@
 						 	
 						
 					     <#if courseItem.type == 1 ||  courseItem.type == 2 ||  courseItem.type == 4 > 
-					 		    <a style="cursor:pointer" href="/courses/${courseItem.id}/info" target="_blank">
+					 		    <a style="cursor:pointer" href="${webUrl}/courses/${courseItem.id}/info" target="_blank">
 						 <#elseif courseItem.type == 3>
-					            <a style="cursor:pointer" href="/web/liveCoursePage/${courseItem.id}" target="_blank">
+					            <a style="cursor:pointer" href="${webUrl}/web/liveCoursePage/${courseItem.id}" target="_blank">
 						 </#if>
 							
 							<div class="img"><img src="${courseItem.smallImgPath}"></div>
@@ -184,7 +184,7 @@
 					          <#if courseItem.lineState  == 1  > 
 						        <span class="classCategory">直播中</span>
 							  <#elseif courseItem.lineState  == 2>
-							      <span class="classCategory">预告</span>
+							      <span class="classCategory">直播预告</span>
 							  <#elseif courseItem.lineState  == 3>
 							      <span class="classCategory">直播回放</span>
 							  <#elseif courseItem.lineState  == 4>
@@ -221,9 +221,9 @@
 					<div class="cl" style="overflow: hidden;"></div>
 				 
 				 <#if (webUrlParam?contains('?'))>
-				 	<@cast.page pageNo=courseList.current totalPage=courseList.pages showPages=5 callUrl="${webUrlParam}&page="/>
+				 	<@cast.page pageNo=courseList.current totalPage=courseList.pages showPages=5 callUrl="${webUrl}${webUrlParam}&page="/>
 				 <#else>
-					 <@cast.page pageNo=courseList.current totalPage=courseList.pages showPages=5 callUrl="${webUrlParam}?page="/>
+					 <@cast.page pageNo=courseList.current totalPage=courseList.pages showPages=5 callUrl="${webUrl}${webUrlParam}?page="/>
 				 </#if>
 				</div>
 				
@@ -251,7 +251,7 @@
 
 		<!--登陆结束-->	
 	    <script  type="text/javascript" >
-		      var webUrlParam = "${webUrlParam}";
+		      var webUrlParam = "${webUrl}${webUrlParam}";
 		</script>
 			<script src="/web/js/school/curriculum-list.js" type="text/javascript" charset="utf-8"></script>
 	
