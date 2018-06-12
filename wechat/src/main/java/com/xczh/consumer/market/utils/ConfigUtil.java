@@ -59,7 +59,6 @@ public class ConfigUtil {
 			properties = new Properties();
 			properties.load(in);
 		} catch (IOException e) {
-			//System.err.println("reading `" + CONFIG_FILE + "` error!");
 			e.printStackTrace();
 		}
 	}
@@ -71,7 +70,6 @@ public class ConfigUtil {
 			properties = new Properties();
 			properties.load(in);
 		} catch (IOException e) {
-			//System.err.println("reading `" + CONFIG_FILE + "` error!");
 			e.printStackTrace();
 		}
 	}
