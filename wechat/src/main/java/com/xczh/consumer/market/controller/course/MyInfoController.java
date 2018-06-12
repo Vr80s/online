@@ -12,10 +12,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczh.consumer.market.auth.Account;
@@ -34,10 +34,11 @@ import com.xczhihui.course.vo.CourseLecturVo;
  * email: 15936216273@163.com <br>
  * Create Time: 2017年8月11日<br>
  */
-@Controller
+@RestController
 @RequestMapping("/xczh/myinfo")
 public class MyInfoController {
 
+    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(MyInfoController.class);
     @Autowired
     private ICourseService courseServiceImpl;
 
@@ -47,24 +48,22 @@ public class MyInfoController {
 
     @Autowired
     private OnlineUserService onlineUserService;
-    
 
-    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(MyInfoController.class);
+
 
     @Value("${gift.im.room.postfix}")
     private String postfix;
+    @Value("${ios.check.version}")
+    private String version;
 
     /**
      * Description：学习模块课程
      *
-     * @param req
-     * @param res
      * @return ResponseObject
      * @throws Exception
      * @author name：yangxuan <br>email: 15936216273@163.com
      */
     @RequestMapping("list")
-    @ResponseBody
     public ResponseObject list(@RequestParam(value = "pageSize", required = false) Integer pageSize, @Account String accountId)
             throws Exception {
         if (pageSize == null || pageSize == 0) {
@@ -106,7 +105,6 @@ public class MyInfoController {
      * @author name：yangxuan <br>email: 15936216273@163.com
      */
     @RequestMapping("myFocus")
-    @ResponseBody
     public ResponseObject myFocus(HttpServletRequest req,
                                   HttpServletResponse res, @Account String accountId)
             throws Exception {
@@ -124,7 +122,6 @@ public class MyInfoController {
      * @author name：yangxuan <br>email: 15936216273@163.com
      */
     @RequestMapping("updateFocus")
-    @ResponseBody
     public ResponseObject updateFocus(HttpServletRequest req,
                                       @RequestParam("lecturerId") String lecturerId,
                                       @RequestParam("type") Integer type, 
@@ -144,16 +141,13 @@ public class MyInfoController {
     /**
      * 我的课程和已结束课程
      *
-     * @param req
      * @param pageNumber
      * @param pageSize
      * @return
      * @throws Exception
      */
     @RequestMapping("myCourseType")
-    @ResponseBody
-    public ResponseObject myCourseType(HttpServletRequest req,
-                                       @RequestParam("pageNumber") Integer pageNumber,
+    public ResponseObject myCourseType(@RequestParam("pageNumber") Integer pageNumber,
                                        @RequestParam("pageSize") Integer pageSize,
                                        @RequestParam("type") Integer type, @Account String accountId) throws Exception {
 
@@ -169,4 +163,10 @@ public class MyInfoController {
         Page<CourseLecturVo> pageList = courseServiceImpl.myCourseType(page, accountId, type);
         return ResponseObject.newSuccessResponseObject(pageList.getRecords());
     }
+
+    @RequestMapping("showWallet")
+    public ResponseObject showWallet(String iversion){
+        return ResponseObject.newSuccessResponseObject(!version.equals(iversion));
+    }
+
 }
