@@ -233,7 +233,7 @@ public class MobileShareController {
             
             LOGGER.info("shareId:" +shareId+"shareType:" +shareType+"wxOrbrower:" +wxOrbrower);
             OnlineUser ou =null;
-            if(!StringUtils.isNotBlank(wxOrbrower) && wxOrbrower.equals("wx")){ //微信浏览器
+            if(StringUtils.isNotBlank(wxOrbrower) && wxOrbrower.equals("wx")){ //微信浏览器
                 WxcpClientUserWxMapping wxw = onlineUserService.saveWxInfo(code);
 				/*
 				 * 判断此微信用户是否已经存在与我们的账户系统中不

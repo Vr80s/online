@@ -176,14 +176,13 @@ public class OrderInputServiceImpl extends OnlineBaseServiceImpl implements Orde
 		paramMap.put("course_id", courseId);
 		// 查询课程信息
 		String sql = "select current_price currentPrice from oe_course where id=:course_id";
-		Double currentPrice = dao.getNamedParameterJdbcTemplate().queryForObject(sql,
-				paramMap, Double.class);
-		if (currentPrice == null) {
+		List<Map<String, Object>> list = dao.getNamedParameterJdbcTemplate().queryForList(sql, paramMap);
+		if (list.size()==0) {
 			throw new RuntimeException("根据id“" + courseId + "”找不到课程信息！");
-		} else if(currentPrice == 0){
+		} else if("0".equals(list.get(0).get("currentPrice"))){
 			throw new RuntimeException("id“" + courseId + "”为免费课程，请直接登录学习！");
 		}
-		return currentPrice;
+		return (Double) list.get(0).get("currentPrice");
 	}
 
 	private String getCourseName(String courseId) {
@@ -277,24 +276,4 @@ public class OrderInputServiceImpl extends OnlineBaseServiceImpl implements Orde
 		return orders.size()>0?orders.get(0):null;
 	}
 
-	/**
-	 * 查询用户是否预约过
-	 * 
-	 * @param userId
-	 * @param courseId
-	 * @return
-	 */
-	public boolean isSubscribe(String userId, Integer courseId) {
-		String sql = " select count(*) as allCount from oe_course_subscribe where course_id =? and user_id = ?";
-		int ct = dao.queryForInt(sql.toString(), courseId, userId);
-		return ct >= 1 ? true : false;
-	}
-
-	public Integer insertSubscribe(String userId, String mobile,
-			Integer courseId) {
-		String sql = " insert into oe_course_subscribe(course_id,user_id,phone,create_time ) values (?,?,?,?) ";
-		int ct = dao.getNamedParameterJdbcTemplate().getJdbcOperations()
-				.update(sql, courseId, userId, mobile, new Date());
-		return ct;
-	}
 }
