@@ -162,9 +162,6 @@ public class CourseController {
                     cv.setLearning(1);
                 }
             }
-            if (cv.getType() == CourseType.OFFLINE.getId()) {
-                cv.setSubmitted(lineApplyService.submitted(accountId, courseId));
-            }
         }
         return ResponseObject.newSuccessResponseObject(cv);
     }

@@ -399,7 +399,7 @@ public class SchoolController extends AbstractFtlController {
     @RequestMapping(value = "offlineApply", method = RequestMethod.GET)
     public ModelAndView offlineApply(@RequestParam Integer courseId) {
         ModelAndView modelAndView = new ModelAndView("/school/offline_apply");
-        Map<String, Object> lineApply = lineApplyService.findLineApplyByUserId(getUserId());
+        Map<String, Object> lineApply = lineApplyService.findLineApplyByUserId(getUserId(), courseId);
         modelAndView.addObject("mobile", MapUtils.getString(lineApply, "mobile", ""));
         modelAndView.addObject("wechatNo", MapUtils.getString(lineApply, "wechatNo", ""));
         modelAndView.addObject("realName", MapUtils.getString(lineApply, "realName", ""));

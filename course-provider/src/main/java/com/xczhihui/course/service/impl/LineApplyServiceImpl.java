@@ -4,11 +4,8 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.xczhihui.common.support.lock.Lock;
 import com.xczhihui.common.util.CodeUtil;
 import com.xczhihui.course.exception.LineApplyException;
 import com.xczhihui.course.mapper.CourseMapper;
@@ -30,8 +27,12 @@ public class LineApplyServiceImpl implements ILineApplyService {
     private CourseMapper courseMapper;
 
     @Override
-    public Map<String, Object> findLineApplyByUserId(String userId) {
-        return lineApplyMapper.newestApplyInfoByUserId(userId);
+    public Map<String, Object> findLineApplyByUserId(String userId, Integer courseId) {
+        Map<String, Object> result = lineApplyMapper.findByUserIdAndCourseId(userId, courseId);
+        if (result == null) {
+            result = lineApplyMapper.newestApplyInfoByUserId(userId);
+        }
+        return result;
     }
 
     @Override
@@ -53,8 +54,13 @@ public class LineApplyServiceImpl implements ILineApplyService {
             String id = CodeUtil.getRandomUUID();
             lineApply.setId(id);
             lineApply.setAnchorId(course.getUserLecturerId());
-            
             lineApplyMapper.insertLineApply(lineApply);
+        } else {
+            lineApplyOld.setWechatNo(lineApply.getWechatNo());
+            lineApplyOld.setSex(lineApply.getSex());
+            lineApplyOld.setRealName(lineApply.getRealName());
+            lineApplyOld.setMobile(lineApply.getMobile());
+            lineApplyMapper.updateById(lineApplyOld);
         }
     }
 
