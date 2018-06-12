@@ -5,7 +5,7 @@
     </#if>
 </#macro>
 <div class="header_body">
-    <div class="header_right"><a href="/index"><img
+    <div class="header_right"><a href="/"><img
             src="/web/images/logos.png" alt="logo" style="float:left"></a>
     </div>
     <div class="header_left">

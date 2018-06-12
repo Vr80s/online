@@ -36,7 +36,7 @@ import com.xczhihui.medical.hospital.vo.MedicalHospitalRecruitVO;
 import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
 
 @Controller
-@RequestMapping(value = "/index")
+@RequestMapping(value = "/")
 public class HomeController extends AbstractFtlController {
 
 	@Autowired

@@ -129,12 +129,12 @@ $(function () {
             nav:
 
             '<div class="header_right">' +
-            '<a href="/index"><img src="/web/images/logos.png" alt="" style="float:left"></a>' +
+            '<a href="/"><img src="/web/images/logos.png" alt="" style="float:left"></a>' +
 
             '</div>' +
             '<div class="header_left">' +
             '<div class="path" style="width:95%">' +
-            '<a href="/index" class="home" target="_blank">首页</a>' +
+            '<a href="/" class="home" target="_blank">首页</a>' +
 
 //        '<a href="#">师承有道</a>'+
 //        '<a href="#">国医馆</a>'+

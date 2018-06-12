@@ -30,7 +30,7 @@
 </head>
 <body>
 <%
-  request.getRequestDispatcher("/index").forward(request, response);
+  request.getRequestDispatcher("/").forward(request, response);
 %>
 </body>
 </html>
