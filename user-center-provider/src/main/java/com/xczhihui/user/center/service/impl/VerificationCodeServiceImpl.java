@@ -122,7 +122,8 @@ public class VerificationCodeServiceImpl implements VerificationCodeService {
         params.put("code", vcode);
         response = SmsUtil.sendSMS(vtype.getSmsCode(), params, phone);
         if (response == null || !"OK".equals(response.getCode())) {
-            throw new RuntimeException("发送动态码失败！");
+            String message = response != null ? response.getMessage() : null;
+            throw new RuntimeException(message != null ? message : "动态码发送失败");
         }
     }
 
