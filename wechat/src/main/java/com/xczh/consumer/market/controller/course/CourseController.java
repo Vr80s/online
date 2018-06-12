@@ -21,8 +21,11 @@ import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.service.OnlineWebService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.WeihouInterfacesListUtil;
+import com.xczhihui.common.util.enums.CourseType;
+import com.xczhihui.course.model.Course;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.course.service.IFocusService;
+import com.xczhihui.course.service.ILineApplyService;
 import com.xczhihui.course.service.IMobileBannerService;
 import com.xczhihui.course.service.IWatchHistoryService;
 import com.xczhihui.course.util.CourseUtil;
@@ -45,6 +48,9 @@ public class CourseController {
 
     @Autowired
     private OnlineWebService onlineWebService;
+
+    @Autowired
+    private ILineApplyService lineApplyService;
 
     @Autowired
     private IMobileBannerService mobileBannerService;
@@ -155,6 +161,9 @@ public class CourseController {
                 if (falg) {
                     cv.setLearning(1);
                 }
+            }
+            if (cv.getType() == CourseType.OFFLINE.getId()) {
+                cv.setSubmitted(lineApplyService.submitted(accountId, courseId));
             }
         }
         return ResponseObject.newSuccessResponseObject(cv);

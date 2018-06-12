@@ -117,13 +117,26 @@ public interface CourseMapper extends BaseMapper<Course> {
             " order by oc.release_time desc " +
             " limit 4"})
     List<Map<String, Object>> selectByMenuIdExcludeSelf(@Param("menuId") Integer menuId, @Param("id") Integer id);
-    
-    
-	CourseLecturVo selectCourseStatusDeleteUserLecturerId(@Param("courseId")Integer courseId);
 
-	@Select("SELECT IF( oc.live_status = 2,\n" +
+
+    CourseLecturVo selectCourseStatusDeleteUserLecturerId(@Param("courseId") Integer courseId);
+
+    @Select("SELECT IF( oc.live_status = 2,\n" +
             "    IF((DATE_SUB(NOW(), INTERVAL 30 MINUTE) < oc.start_time AND NOW() > oc.start_time) OR (DATE_ADD(NOW(), INTERVAL 10 MINUTE) >= oc.start_time AND NOW() < oc.start_time),4,\n" +
             "IF(DATE_ADD(NOW(), INTERVAL 2 HOUR) >= oc.start_time AND NOW() < oc.start_time,5,oc.live_status)),oc.live_status) AS lineState FROM oe_course oc " +
             " WHERE oc.id = #{courseId}")
     Integer getLineStatus(String courseId);
+
+    /**
+     * 查询主播线下课
+     *
+     * @param page     分页参数
+     * @param anchorId 主播id
+     * @return
+     */
+    @Select({"select oc.id, oc.grade_name as courseName " +
+            " from oe_course oc" +
+            " where oc.user_lecturer_id = #{anchorId} and type = 3 and is_delete = 0 " +
+            " order by oc.create_time desc"})
+    List<Map<String, Object>> selectOfflineCourseByAnchorId(Page<Map<String, Object>> page, @Param("anchorId") String anchorId);
 }
