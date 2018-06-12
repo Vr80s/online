@@ -35,7 +35,6 @@ public class XzStringUtils {
 		if(htmlStr!=null && !"".equals(htmlStr)
 				&& !"null".equals(htmlStr)) { //过滤掉空格
 			htmlStr = htmlStr.replaceAll("&nbsp;", "");
-			System.out.println(htmlStr);
 		}
 		return htmlStr.trim(); // 返回文本字符串
 	}

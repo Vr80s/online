@@ -36,13 +36,20 @@ public class EmailUtil {
     public static final String USERNAME = getValue("email.user");
     public static final String PASSWORD = getValue("email.password");
     public static final String ENV = getValue("env.flag");
-    public static final String TOUSER = "system@ixincheng.com";
+    public static final String TOUSER1 = "system@ixincheng.com";
+    public static final String TOUSER2 = "account@ixincheng.com";
     public static final String MODIFYLOGINNAMETOUSER = "yuruixin@ixincheng.com";
     
     public static void sendExceptionMailBySSL(String server,String subject,String content){
         if(ENV != null && (ENV.equals("test")||ENV.equals("prod"))){
             try {
-                sendMailBySSL(SMTP,USERNAME,PASSWORD,TOUSER,server+":"+ENV+"环境异常:"+subject,content);
+                String user;
+                if(ENV.equals("test")){
+                    user = TOUSER2;
+                }else{
+                    user = TOUSER1;
+                }
+                sendMailBySSL(SMTP,USERNAME,PASSWORD,user,server+":"+ENV+"环境异常:"+subject,content);
             } catch (MessagingException e) {
                 logger.error("发送告警邮件失败！");
             }

@@ -15,8 +15,7 @@ public class Sha1SignUtil {
     public static String SHA1(Map<String,Object> maps) throws DigestException {  
         //获取信息摘要 - 参数字典排序后字符串  
         String decrypt = getOrderByLexicographic(maps);
-        System.out.println(decrypt);
-        try {  
+        try {
             //指定sha1算法  
             MessageDigest digest = MessageDigest.getInstance("SHA-1");  
             digest.update(decrypt.getBytes());  

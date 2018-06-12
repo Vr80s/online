@@ -24,7 +24,7 @@ public class MailBySSL{
 		  props.setProperty("mail.smtp.socketFactory.port", "465");
 		  props.put("mail.smtp.auth", "true");
 		  final String username = "system@ixincheng.com";
-		  final String password = "Ixincheng1234";
+		  final String password = "Ixincheng123456";
 		  Session session = Session.getDefaultInstance(props, new Authenticator(){
 		      protected PasswordAuthentication getPasswordAuthentication() {
 		          return new PasswordAuthentication(username, password);

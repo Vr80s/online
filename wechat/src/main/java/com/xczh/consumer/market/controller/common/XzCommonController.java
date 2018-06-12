@@ -86,9 +86,7 @@ public class XzCommonController {
      */
     @RequestMapping(value = "/richTextDetails")
     @ResponseBody
-    public ResponseObject richTextDetails(HttpServletRequest req,
-                                          HttpServletResponse res,
-                                          @RequestParam("type") Integer type,
+    public ResponseObject richTextDetails(@RequestParam("type") Integer type,
                                           @RequestParam("typeId") String typeId) throws Exception {
 
         return ResponseObject.newSuccessResponseObject(courseServiceImpl.selectCourseDescription(type, typeId));
