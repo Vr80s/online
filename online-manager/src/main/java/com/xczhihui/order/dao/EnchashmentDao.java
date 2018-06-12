@@ -26,12 +26,13 @@ public class EnchashmentDao extends SimpleHibernateDao {
 						+ "  eai.`dismissal`,\n"
 						+ "  eai.`dismissal_remark`,  \n"
 						+ "  eai.`order_no`,  \n"
-						+ "  ubc.`acct_name` acctName, ubc.`cert_id` certId,ubc.`acct_pan` acctPan,ubc.`bank_name` bankName\n"
+						+ "  ubc.`acct_name` acctName,"
+						+ "  ubc.`cert_id` certId,ubc.`acct_pan` acctPan,ubc.`bank_name` bankName\n"
 						+ "FROM\n" + "  `enchashment_apply_info` eai\n"
 						+ "  JOIN oe_user ou \n"
 						+ "    ON ou.`id` = eai.`user_id` \n"
 						+ "   join `oe_user_bank_card` ubc\n"
-						+ "   on ou.id=ubc.`user_id`\n"
+						+ "   on eai.bank_card_id=ubc.`id`\n"
 						+ "  JOIN `course_anchor` ca \n"
 						+ "    ON ca.`user_id`=ou.`id`" + "where 1 = 1");
 
