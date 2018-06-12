@@ -360,7 +360,7 @@ $('#hos_base_inf').click(function() {
 			//回显数据
 			//					 $('#hos_Administration .hos_base_inf #submit').val('重新提交')
 			baseInfrese1(data.resultObject.headPortrait, data.resultObject.name, data.resultObject.medicalHospitalPictures, data.resultObject.fields, data.resultObject.description,
-				data.resultObject.contactor, data.resultObject.email, data.resultObject.wechat, data.resultObject.province, data.resultObject.city, data.resultObject.detailedAddress)
+				data.resultObject.contactor, data.resultObject.email, data.resultObject.wechat, data.resultObject.province, data.resultObject.city,data.resultObject.county, data.resultObject.detailedAddress)
 		}
 		//				 $('#doc_Distinguish .'+imgname+'').html('<img src="'+data.resultObject+'" >');
 		//			$('#areaList').html(template('areaTpl', {item:data.resultObject.records}));
@@ -395,7 +395,7 @@ function baseInfrese() {
 }
 
 //医馆基础信息回显
-function baseInfrese1(headPortrait, name, medicalHospitalPictures, fields, description, contactor, email, wechat, province, city, detailedAddress) {
+function baseInfrese1(headPortrait, name, medicalHospitalPictures, fields, description, contactor, email, wechat, province, city,county, detailedAddress) {
 	//头像
 	if(headPortrait != null) {
 		var headPic = '<img src=' + headPortrait +'>';
@@ -455,6 +455,10 @@ function baseInfrese1(headPortrait, name, medicalHospitalPictures, fields, descr
 	//城市
 	$('#hos_Administration .hos_base_inf .bottomContent #choosePro option:selected').text(province);
 	$('#hos_Administration .hos_base_inf .bottomContent #citys option:selected').text(city);
+    $('#hos_Administration .hos_base_inf .bottomContent #county option:selected').text(county);
+    doProvAndCityRelation();
+    doCityAndCountyRelation();
+    onchangeCountyEdit();
 
 	//详细地址
 	$('#hos_Administration .hos_base_inf .doc_address textarea').val(detailedAddress);

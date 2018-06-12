@@ -28,7 +28,7 @@
 		             <span class="classCategory">即将直播</span>
 		          </#if>
 			   <#elseif courseItem.type == 4>
-			      <span class="classCategory">线下培训班</span>
+			      <span class="classCategory">线下课程</span>
 			   </#if>
 				</p>
 				
