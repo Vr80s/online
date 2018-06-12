@@ -149,7 +149,7 @@
             <#if courseInfo.type ==4 && courseInfo.cutoff = 1>
                 <button type="button" class="immediately-buy">报名截止</button>
             <#else>
-                <button type="button" class="immediately-buy J-course-buy" data-id="${courseInfo.id}">
+                <button type="button" class="immediately-buy J-course-buy" data-id="${courseInfo.id}" data-type="${courseInfo.type}">
                  	   立即购买
                 </button>
             </#if>

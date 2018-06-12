@@ -12,7 +12,7 @@ $(function () {
 
     function addHistory(courseId, recordType) {
         RequestService("/history/add?courseId=" + courseId + "&recordType=" + recordType, "GET", null, function (data) {
-            window.location.href = "/courses/" + courseId + "/info";
+            window.location.href = "/order/pay/success?courseId=" + courseId;
         }, false);
     }
 
