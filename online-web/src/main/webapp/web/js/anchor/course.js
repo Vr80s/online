@@ -538,6 +538,9 @@ function showPersonInf(){
     $('.course_lecturer').val(data.resultObject.name);
    	UE.getEditor('editor').setContent(data.resultObject.detail);
    },false);
+    RequestService("/template/course_detail.html", "get",null, function(data) {
+        UE.getEditor('editor_cd').setContent(data);
+    },false);
 }
 
 /**
@@ -1271,6 +1274,10 @@ function showPersonInf2(){
     $('.collection_lecturer').val(data.resultObject.name);
    	UE.getEditor('editor_collection_lecturer_description').setContent(data.resultObject.detail);
    });
+    RequestService("/template/course_detail.html", "get",null, function(data) {
+        UE.getEditor('editor_collection_details').setContent(data);
+        UE.getEditor('editor_collection_outline').setContent(data);
+    },false);
 }
 
 
