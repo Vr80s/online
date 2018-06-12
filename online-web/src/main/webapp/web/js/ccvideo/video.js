@@ -123,6 +123,30 @@ function getSWF(objectId) {
 }
 
 var player ="";
+
+/*
+ * 开始播放了
+ */
+function custom_player_start(){
+	//alert("开始播放了");
+}
+
+/**
+ * 播放暂定了
+ * @returns
+ */
+function custom_player_pause(){
+	//alert("开始暂停了");
+}
+/**
+ * 播放器准备就绪
+ * @returns
+ */
+function custom_player_ready(){
+	player.start();
+}
+
+
 /**
  * 播放器配置示例
  *
