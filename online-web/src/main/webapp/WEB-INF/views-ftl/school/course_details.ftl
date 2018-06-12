@@ -212,39 +212,49 @@
 
             <!--详情-->
             <div class="sidebar-content hide">
-                <div class="author-introduce">
-                    主讲人
-                </div>
-                <div class="author-content">
-                    <div class="author-text">
-                    <#if courseInfo.lecturerDescription??>
-                    	${courseInfo.lecturerDescription}
-                    <#else>
-                    	<p style="padding-top:20px;">暂无主讲人介绍</p>
-                    <#--
-                                                                        无数据时显示背景图
-                        <div class="all-null course-null">
-                            <div class="null-img">
-                                <img src="/web/images/icon-nodata.png"/>
-                            </div>
-                            <p>暂无主讲人介绍</p>
-                            -->
-                        </div>
-                    </#if>
-                    </div>
-                </div>
-                <div class="author-introduce" style="margin-top: 30px;">
-                    课程简介
-                </div>
-                <div class="author-content">
-                    <div class="class-text">
-                    <#if courseInfo.description??>
-                    	${courseInfo.description}
-                    <#else>
-                        <p style="padding-top:20px;">暂无课程介绍</p>
-                    </#if>
-                    </div>
-                </div>
+            	<#if courseInfo.lecturerDescription?? || courseInfo.description??>
+	            	<div class="author-introduce">
+	                   	 主讲人
+	                </div>
+	                <div class="author-content">
+	                    <div class="author-text">
+	                    <#if courseInfo.lecturerDescription??>
+	                    	${courseInfo.lecturerDescription}
+	                    <#else>
+	                    	<p style="padding-top:20px;">暂无主讲人介绍</p>
+	                    <#--
+	                                                                        无数据时显示背景图
+	                        <div class="all-null course-null">
+	                            <div class="null-img">
+	                                <img src="/web/images/icon-nodata.png"/>
+	                            </div>
+	                            <p>暂无主讲人介绍</p>
+	                            -->
+	                        </div>
+	                    </#if>
+	                    </div>
+	                </div>
+	                <div class="author-introduce" style="margin-top: 30px;">
+	                   		 课程简介
+	                </div>
+	                <div class="author-content">
+	                    <div class="class-text">
+	                    <#if courseInfo.description??>
+	                    	${courseInfo.description}
+	                    <#else>
+	                        <p style="padding-top:20px;">暂无课程简介</p>
+	                    </#if>
+	                    </div>
+	                </div>
+            	<#else>	
+            		  <div class="all-null course-null">
+		                    <div class="null-img">
+		                        <img src="/web/images/icon-nodata.png"/>
+		                    </div>
+		                <p>暂无主讲人介绍</p>
+                	 </div>
+            	</#if> 
+                
             </div>
 
             <!--课程大纲-->
