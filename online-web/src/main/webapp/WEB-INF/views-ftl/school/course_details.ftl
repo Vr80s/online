@@ -147,7 +147,7 @@
             
         <#elseif courseInfo.watchState == 0>
             <#if courseInfo.type ==4 && courseInfo.cutoff = 1>
-                <button type="button" class="immediately-buy" style="background:#FFFFFF;">报名截止</button>
+                <button type="button" class="immediately-buy" style="background:#DEDEDE;">报名截止</button>
             <#else>
                 <button type="button" class="immediately-buy J-course-buy" data-id="${courseInfo.id}" data-type="${courseInfo.type}">
                  	   立即购买
