@@ -1105,7 +1105,7 @@ function changePeriod(checked) {
 
 
 //学员列表
-
+var traineeSee;
 traineeList(1);
 function traineeList(pages,courseId){
 	var data = {
@@ -1117,8 +1117,13 @@ function traineeList(pages,courseId){
 	};
 	RequestService("/anchor/course/student", "GET", data, function(data) {
 			if(data.success==true){
+				traineeSee=data.resultObject.records;
 				if(data.resultObject.total==0){
-					alert("没数据");
+					$(".trainee-table").addClass("hide");
+					$(".all-money-order").removeClass("hide");
+				}else{
+					$(".trainee-table").removeClass("hide");
+					$(".all-money-order").addClass("hide");
 				}
 				$("#trainee-template").html(template("wrap-trainee",{items:data.resultObject.records}))
 //				分页
