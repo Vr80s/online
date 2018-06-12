@@ -102,4 +102,23 @@
 <script type="text/javascript" src="/xcview/js/common/template.js"></script>   <!--模板引入-->
 <script type="text/javascript" src="/xcview/js/apprentice/apprentice-common.js"></script>
 <script type="text/javascript" src="/xcview/js/apprentice/inherited_registration.js"></script>
+
+<script>
+window.onload = function(){
+	if(window.history && window.history.pushState) {  
+	    $(window).on('popstate', function() {  
+	        var hashLocation = location.hash;  
+	        var hashSplit = hashLocation.split("#!/");  
+	        var hashName = hashSplit[1];  
+	        if(hashName !== '') {  
+	            var hash = window.location.hash;  
+	            if(hash === '') {  
+	                location.href ='/xcview/html/apprentice/inherited_introduction.html'
+	            }  
+	        }  
+	    });  
+	    window.history.pushState('forward', null, './#forward');  
+	}
+};
+</script>	
 </html>

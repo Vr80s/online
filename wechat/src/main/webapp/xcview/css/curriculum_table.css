@@ -290,6 +290,7 @@ header{
 	left: 0.1rem;
 	top: 0.1rem;
 }
+
 .li_list_one_right .p00{
 	line-height: 0.351rem !important;
     font-size: 0.28rem;
@@ -627,4 +628,24 @@ header{
 }
 .li_listss2{
     background: none !important;
+}
+
+
+.li_list_one_right{
+    position: relative;
+}
+.li_list_one_right .div .zhibo_play{
+    border-radius: 0 0 0 3px;
+    float: left;
+    font-size: 0.22rem;
+    padding: 0rem 0.1rem;
+    color: #fff !important;
+    margin-top: -0.02rem;
+    position: absolute;
+    top: 0;
+    left: 1.25rem;
+    /* right: 0; */
+    background: #f97b49;
+    z-index: 99999;
+    border: none;
 }

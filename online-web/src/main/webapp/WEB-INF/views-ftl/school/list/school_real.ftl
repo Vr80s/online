@@ -45,7 +45,7 @@
 								<#if courseTypeItem.title?? && courseTypeItem.title == "全国课程">									
 									<a href="${webUrl}/courses/list?courseType=4" style="color: #00bc12;">更多</a>
 								<#else>
-									<a href="${webUrl}/courses/list?city=${courseTypeItem.title}" style="color: #00bc12;">更多</a>
+									<a href="${webUrl}/courses/list?courseType=4&city=${courseTypeItem.title}" style="color: #00bc12;">更多</a>
 								</#if>
 								<img src="/web/images/right_more.png" alt="箭头" />
 								 </p>
@@ -90,7 +90,7 @@
 	
 <!--右侧名师推荐-->
 			<div class="wrap-right y">	
-			     <#if doctorList??>					
+			     <#if doctorList?? && doctorList?size gt 0>					
 					<div class="wrap-docter">
 						<span>名师推荐</span>
 						<#include "../common/famous_doctor_common.ftl"> 
