@@ -20,7 +20,7 @@ public class LoginRegException extends IpandaTcmException implements Serializabl
 
     public LoginRegException(String msg) {
         super(msg);
-        this.alarm = true;
+        this.alarm = false;
     }
 
 }
