@@ -76,7 +76,7 @@ img {
   display: none;
 }
 .protocol-tip .tip-content {
-  width: 434px;
+  width: 450px;
   height: 225px;
   position: absolute;
   left: 50%;
@@ -101,6 +101,7 @@ img {
 .protocol-tip .tip-content .tip-bottom {
   padding: 20px;
   background-color: #fff;
+  text-align: center;
 }
 .protocol-tip .tip-content .tip-bottom span {
   font-size: 16px;

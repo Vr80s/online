@@ -1258,12 +1258,11 @@
 					<div class="trainee-class-select">
 						<span>选择课程：</span>
 						<select name="" id="selectClass">
-
 							<script type="text/template" id="template-option">
 								<option value="">选择课程</option>
 								{{each items as item i}}
-								<option value="">{{item.title}}</option>
-								{{each}}
+								<option value="{{item.id}}">{{item.courseName}}</option>
+								{{/each}}
 							</script>
 						</select>
 					</div>
@@ -1322,6 +1321,13 @@
 							</div>
 						</div>
 					<!--分页部分end-->
+					<!--暂无学员-->
+					<div class="no-order-box all-money-order hide">
+						<div class="no-order-img">
+							<img src="../../images/nodealHos.png"/>
+						</div>
+						<p>暂无学员</p>
+					</div>
 				</div>
 			</div>
 			
@@ -2119,21 +2125,25 @@
 					<!--</div>-->
 					<div class="name">
 						<div class="one one_name">医馆名称</div>
-						<div class="two hosName">百草堂国医馆</div>
+						<div class="two hosName"></div>
 					</div>
 					<div class="name">
 						<div class="one one_name">所属公司</div>
-						<div class="two companyName">江苏国医馆有限公司</div>
+						<div class="two companyName"></div>
 					</div>
 					<div class="name">
 						<div class="one one_name" style="margin-left: 1px;">统一社会信用代码</div>
-						<div class="two businessLicenseNo">511000123998223666</div>
+						<div class="two businessLicenseNo"></div>
 					</div>
 					<div class="name">
 						<div class="one one_name">营业执照</div>
 						<div class="two two_img">
 							<img src="../../images/3.jpg"  class="businessLicensePicture"/>
 						</div>
+					</div>
+					<div class="name">
+						<div class="one one_name" style="margin-left: 1px;">药品经营许可证号</div>
+						<div class="two licenseForPharmaceuticalTrading"></div>
 					</div>
 					<div class="name">
 						<div class="one one_name">药品经营许可证</div>

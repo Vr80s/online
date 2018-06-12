@@ -31,7 +31,7 @@
     <div class="main-top">
         <div class="buy-icon">
             <img src="/web/images/buy-success.png"/>
-            <span>购买成功</span>
+            <span>报名成功</span>
         </div>
         <div class="buy-information">
         <#list courses as course >

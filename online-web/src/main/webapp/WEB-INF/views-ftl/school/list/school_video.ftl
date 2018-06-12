@@ -39,7 +39,7 @@
 					<div class="content-class">	
 						<div class="wrap-title">
 							<span>听课推荐</span>
-							<p><a href="${webUrl}/courses/list?courseType=2">更多</a><img src="/web/images/rili_icon.png" alt="箭头" /> </p>
+							<p><a href="${webUrl}/courses/list?courseType=2" style="color: #00bc12;">更多</a><img src="/web/images/right_more.png" alt="箭头" /> </p>
 						</div>
 						
 					<#list courseList as courseItem>
@@ -89,7 +89,7 @@
 	
 <!--右侧名师推荐-->
 			<div class="wrap-right y">
-				 <#if doctorList??>							
+				 <#if doctorList?? && doctorList?size gt 0>							
 					<div class="wrap-docter">
 						<span>名师推荐</span>
 						<#include "../common/famous_doctor_common.ftl">

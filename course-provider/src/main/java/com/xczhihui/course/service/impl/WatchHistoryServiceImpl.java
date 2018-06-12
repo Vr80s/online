@@ -2,26 +2,20 @@ package com.xczhihui.course.service.impl;
 
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
-
-import com.xczhihui.common.util.CodeUtil;
-import com.xczhihui.course.model.WatchHistory;
-import com.xczhihui.course.service.ICourseService;
-import com.xczhihui.course.util.DateUtil;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.xczhihui.common.support.lock.Lock;
-import com.xczhihui.course.mapper.CriticizeMapper;
+import com.xczhihui.common.util.CodeUtil;
 import com.xczhihui.course.mapper.WatchHistoryMapper;
+import com.xczhihui.course.model.WatchHistory;
+import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.course.service.IWatchHistoryService;
 import com.xczhihui.course.util.DateDistance;
+import com.xczhihui.course.util.DateUtil;
 import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.course.vo.WatchHistoryVO;
 

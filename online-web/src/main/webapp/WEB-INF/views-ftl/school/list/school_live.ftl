@@ -44,11 +44,11 @@
 								<#-- 课程列表 页跳转  带上跳转条件 -->
 								
 								<#if courseTypeItem.title?? && courseTypeItem.title == "直播课程"> 
-								    <p><a href="${webUrl}/courses/list?courseType=3">更多</a>
+								    <p><a href="${webUrl}/courses/list?courseType=3&lineState=2" style="color: #00bc12;">更多</a>
 								<#else>
-									<p><a href="${webUrl}/courses/list?lineState=${courseTypeItem.lineState}">更多</a>
+									<p><a href="${webUrl}/courses/list?courseType=3&lineState=${courseTypeItem.lineState}" style="color: #00bc12;">更多</a>
 								</#if>
-								<img src="/web/images/rili_icon.png" alt="箭头" /> </p>
+								<img src="/web/images/right_more.png" alt="箭头" /> </p>
 							</div>
 							
 						<#list courseTypeItem.courseList as courseItem>	
@@ -106,7 +106,7 @@
 	
 <!--右侧成为主播、搜索、名师推荐-->
 			<div class="wrap-right y">	
-			    <#if doctorList??>					
+			    <#if doctorList?? && doctorList?size gt 0>					
 					<div class="wrap-docter">
 						<span>名师推荐</span>
 						<#include "../common/famous_doctor_common.ftl"> 

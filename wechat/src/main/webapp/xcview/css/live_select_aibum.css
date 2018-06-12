@@ -780,7 +780,7 @@ color: #666666;
 	box-sizing: border-box;
 	bottom: 0;
 	left: 50;
-	margin-left: -3.75rem;
+	/*margin-left: -3.75rem;*/
 	z-index: 5;
 	padding: 0.3rem 0.26rem 0.3rem;
 	

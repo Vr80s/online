@@ -329,16 +329,16 @@ function giftShow(gift,f,continuous){
     	       "left": "50px"
     	     }, 500, "linear", function () {
     	    	 if(f==1){
-                     $('.addnum'+f).html(gift.giftInfo.continuousCount);
+                     // $('.addnum'+f).html(gift.giftInfo.continuousCount);
                      $('.addnum'+f).data("sto",new Date().getTime())
     	    	 }else if(f==2){
-                     $('.addnum'+f).html(gift.giftInfo.continuousCount);
+                     // $('.addnum'+f).html(gift.giftInfo.continuousCount);
                      $('.addnum'+f).data("sto",new Date().getTime())
                  }else if(f==3){
-                     $('.addnum'+f).html(gift.giftInfo.continuousCount);
+                     // $('.addnum'+f).html(gift.giftInfo.continuousCount);
                      $('.addnum'+f).data("sto",new Date().getTime())
                  }else{
-                     $('.addnum'+f).html(gift.giftInfo.continuousCount);
+                     // $('.addnum'+f).html(gift.giftInfo.continuousCount);
                      $('.addnum'+f).data("sto",new Date().getTime())
     	    	 }
     	     });
