@@ -336,7 +336,6 @@ public class XzWxPayController {
     }
 
     public Map<String, String> getPayParams(Integer orderFromI, String orderNo, String ip, String actualPay, String openId, String attach, String body) {
-        System.out.println(notify_url);
         WxPayApiConfig wxPayApiConfig = WxPayApiConfigKit.getWxPayApiConfig()
                 .setAttach(attach)
                 .setBody(body)

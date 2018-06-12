@@ -292,7 +292,6 @@ public class QQThirdPartyController {
             request.getSession().setAttribute("qq_connect_state", state);
             String scope = QQConnectConfig.getValue("scope");
             String state1 = (String) request.getSession().getAttribute("qq_connect_state");
-            System.out.println("state1" + state1);
             /**
              * 请求转发
              */
