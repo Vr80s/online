@@ -175,7 +175,7 @@ public class AliPayController extends AliPayApiController {
             for (Map.Entry<String, String> entry : map.entrySet()) {
                 sb.append(entry.getKey() + " = " + entry.getValue()+";");
             }
-            logger.error("return_url 回调信息:{}",sb.toString());
+            logger.warn("return_url 回调信息:{}",sb.toString());
 
             boolean verify_result = AlipaySignature.rsaCheckV1(map, aliPayBean.getPublicKey(), "UTF-8","RSA2");
             if (verify_result) {

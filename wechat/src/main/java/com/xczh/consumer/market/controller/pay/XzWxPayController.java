@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSON;
 import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.bean.WxcpClientUserWxMapping;
 import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
@@ -133,7 +132,7 @@ public class XzWxPayController {
         }
 
         String xmlResult = WxPayApi.pushOrder(false, payParams);
-        log.info(xmlResult);
+        log.warn("xmlResult:{}",xmlResult);
         Map<String, String> result = PaymentKit.xmlToMap(xmlResult);
 
         String return_code = result.get("return_code");
@@ -152,7 +151,8 @@ public class XzWxPayController {
         String prepay_id = result.get("prepay_id");
         String mweb_url = result.get("mweb_url");
 
-        log.info("prepay_id:" + prepay_id + " mweb_url:" + mweb_url);
+        log.warn("prepay_id:{}", prepay_id);
+        log.warn("mweb_url:{}", mweb_url);
 
         if (result != null) {
             result.put("ok", "true");
@@ -238,7 +238,7 @@ public class XzWxPayController {
         }
 
         String xmlResult = WxPayApi.pushOrder(false, payParams);
-        log.info(xmlResult);
+        log.warn("xmlResult:{}",xmlResult);
         Map<String, String> result = PaymentKit.xmlToMap(xmlResult);
 
         String return_code = result.get("return_code");
@@ -257,7 +257,8 @@ public class XzWxPayController {
         String prepay_id = result.get("prepay_id");
         String mweb_url = result.get("mweb_url");
 
-        log.info("prepay_id:" + prepay_id + " mweb_url:" + mweb_url);
+        log.warn("mweb_url:{}", mweb_url);
+        log.warn("prepay_id:{}", prepay_id);
 
         if (result != null) {
             result.put("ok", "true");
