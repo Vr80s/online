@@ -1,4 +1,4 @@
-package com.xczhihui.bxg.online.web.controller.school;
+package com.xczhihui.bxg.online.web.controller.ftl;
 
 import java.io.IOException;
 import java.util.List;
