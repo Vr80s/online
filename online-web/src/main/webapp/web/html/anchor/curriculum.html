@@ -84,7 +84,7 @@
 	<!--时间插件引入-->
 	<script src="/web/js/anchor/jquery.jedate.min.js" type="text/javascript" charset="UTF-8"></script>
 	
-	<script src="../../js/common_msg.js"></script>
+	<script src="/web/js/common_msg.js"></script>
 	
 	<style type="text/css">
 		.fla_btn {
@@ -1257,12 +1257,19 @@
 				<div class="trainee-main">
 					<div class="trainee-class-select">
 						<span>选择课程：</span>
-						<select name="">
-							<option value="">1</option>
+						<select name="" id="selectClass">
+
+							<script type="text/template" id="template-option">
+								<option value="">选择课程</option>
+								{{each items as item i}}
+								<option value="">{{item.title}}</option>
+								{{each}}
+							</script>
 						</select>
 					</div>
 					<div class="trainee-table">
 						<table border="0" cellspacing="0" cellpadding="0">
+							
 							<tr>
 								<th>姓名</th>
 								<th>手机号</th>
@@ -1273,21 +1280,48 @@
 								<th>是否已上课</th>
 								<th>操作</th>
 							</tr>
-							<tr>
-								<td>网大哥</td>
-								<td>16608913303</td>
-								<td>16608913303</td>
-								<td>男</td>
-								<td>针灸针灸针灸感冒感冒</td>
-								<td>2018-12-05 12:15:13</td>
-								<td>是</td>
-								<td>
-									<span class="trainee-preview">查看</span>
-									<span class="trainee-set">设置上课</span>
-								</td>
-							</tr>
+							
+							<tbody id="trainee-template">
+								<script type="text/template" id="wrap-trainee">
+								{{each items as item i}}
+								<tr>
+									<td>{{item.realName}}</td>
+									<td>{{item.mobile}}</td>
+									<td>{{item.wechatNo}}</td>
+									{{if item.sex==1}}
+										<td>男</td>
+									{{else}}
+										<td>女</td>
+									{{/if}}
+									<td>{{item.courseName}}</td>
+									<td>{{item.createTime}}</td>
+									{{if item.learned==true}}
+										<td>是</td>
+									{{else}}
+										<td>否</td>
+									{{/if}}
+	
+									<td>
+										<span onclick="trainee_preview({{i}})">查看</span>
+										<span onclick="trainee_set({{i}})">设置上课</span>
+									</td>
+								</tr>
+								{{/each}}
+								</script>
+							</tbody>
+							
 						</table>
 					</div>
+					<!--分页部分start-->
+						<div class="trainee_pages pages hide" style="margin-top: 20px;">  <!--如需要复制分页doctors_pages要改类名并在JS里对应-->
+							<div id="Pagination_trainee" class="pagination-pages"></div>	<!--如需要复制分页Pagination_doctors要改类名并在JS里对应-->
+							<div class="searchPage">
+								<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+								<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
+								<a href="javascript:;" class="page-btn">确定</a>
+							</div>
+						</div>
+					<!--分页部分end-->
 				</div>
 			</div>
 			
@@ -2623,7 +2657,45 @@
 
 <!--学员查看/设置上课弹窗-->
 <div class="trainee-background hide"></div>	
+
+<div class="see-trainee hide">
+	<div class="preview-top">
+		<p>查看</p>
+		<img src="/web/images/rili_close.png"/>
+	</div>
+	<div class="trainee-inf name-job">
+		<span>姓名：</span>
+		<p>wang</p>
+	</div>
+	<div class="trainee-inf sex-text">
+		<span>性别：</span>
+		<p>男</p>
+	</div>
+	<div class="trainee-inf phone-number">
+		<span>手机号：</span>
+		<p>32659865326</p>
+	</div>
+	<div class="trainee-inf winxin-number">
+		<span>微信号：</span>
+		<p>23568956235</p>
+	</div>
+	<div class="trainee-inf class-name">
+		<span>课程名称：</span>
+		<p>课程名称课程名称</p>
+	</div>
+	<div class="trainee-inf sing-time">
+		<span>报名时间：</span>
+		<p>2018-25-15 15:15:15</p>
+	</div>
+	<div class="trainee-inf sure-class">
+		<span>是否上课：</span>
+		<p>是</p>
+	</div>
+</div>
+
+
 <div class="set-trainee hide">
+	<input type="hidden" name="saveId" id="saveId" value="" />
 	<div class="trainee-close y">
 		<img src="/web/images/collection-close.png"/>
 	</div>
@@ -2633,19 +2705,21 @@
 			<div class="radio-cover select-man">
 				<em></em>
 			</div>								
-			<input class="sex-select" type="radio" name="sex" id="myradio-man" value="1">
+
 			<span style="margin-right: 20px;">是</span>
 		</label>
 		<label>
-			<div class="radio-cover select-man">
+			<div class="radio-cover select-woman">
 				<em></em>
 			</div>								
-			<input class="sex-select" type="radio" name="sex" id="myradio-man" value="1">
+
 			<span>否</span>
 		</label>
 	</div>
-	<button type="button" class="class-btnUp">确认</button>
+	<button type="button" class="class-btnUp" onclick="class_btnUp(this)">确认</button>
 </div>
+
+
 <!--学员查看/设置上课弹窗结束-->
 <script type="text/javascript" src="/web/js/footer.js"></script>
 <script type="text/javascript" src="/web/js/placeHolder.js"></script>

@@ -94,7 +94,7 @@
                 </div>
                 <div style="height: 20px;background-color:#f7f7f7 ;"></div>
                 <div id="hospital_list">
-                    <div style="border-bottom: 1px solid #ccc;padding: 20px 20px;margin-bottom: 20px;">
+                    <div style="border-bottom: 1px solid #ccc;padding: 20px 0px;margin-bottom: 20px;">
                         共找到${clinics.total}家医馆
                     </div>
                 <#if clinics.total gt 0>

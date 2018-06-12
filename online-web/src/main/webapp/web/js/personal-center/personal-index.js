@@ -1042,7 +1042,28 @@ function deleteBtnOrder(index){
       })
 		
 }
-
+//提问阅览数
+function previewNumber(index){
+	var quesId=$(index).attr("data-id");
+	RequestService("/online/questionlist/updateBrowseSum", "post",{
+			id:quesId		
+		}, function(data) {
+			if(data.success==true){
+				
+			}
+		})
+}
+//问答阅览数
+function anwserNumber(index){
+	var answerId=$(index).attr("data-id");
+	RequestService("/online/questionlist/updateBrowseSum", "post",{
+			id:answerId		
+		}, function(data) {
+			if(data.success==true){
+				
+			}
+		})
+}
 var	contentQuestion
 function getImgArray(str) {
     var imgReg = /<img.*?(?:>|\/>)/gi;

@@ -102,11 +102,6 @@ function createGiftList(gift) {
 	   		$(".video_end_top0").hide();
         	$(".video_end_top2").hide();
         	$(".video_end_top1").show();
-
-            $(".video_end_top1 .div img").click(function(){
-                $(".video_end_top1").hide();
-                location.reload();
-            });
 	   		
 	   		console.info("回放生成成功");
     	}
@@ -128,7 +123,6 @@ function createGiftList(gift) {
 			 $(".video_end_top0").hide();
 			 //生成回访中
 			 $(".video_end_top2").show(); 
-
     	} 
     	return;
     }
@@ -163,6 +157,10 @@ function createGiftList(gift) {
     }
 }
 
+
+
+
+
 var gif = [];
 var num = [];
 var min = [];
@@ -185,8 +183,8 @@ function giftShow(gift, f,continuous) {
             + gift.senderInfo.userName    //userName  用户昵称
             + "</p><p class='animation_name_p2'>送出"
             + gift.giftInfo.name
-            + "</p></div><div class='animation_span'>×<span class=addnum"
-            + f + "  id='"+gift.senderInfo.userId+gift.giftInfo.giftId+"' xh='"+f+"' >1</span></div><div class='animation_gift'><img src='"
+            + "</p></div><div class='animation_span'>×<span class=addnum"                //展示区域.开始默认1，修改为字段  
+            + f + "  id='"+gift.senderInfo.userId+gift.giftInfo.giftId+"' xh='"+f+"' >"+gift.giftInfo.continuousCount+"</span></div><div class='animation_gift'><img src='"
             + gift.giftInfo.smallimgPath
             + "' alt='' /></div></div></li>");
         
@@ -226,13 +224,13 @@ function giftShow(gift, f,continuous) {
     	     },500,"linear",
     function(){
     	 if (f == 1) {
-        $('.addnum'+f).html(gift.giftInfo.continuousCount);
+        // $('.addnum'+f).html(gift.giftInfo.continuousCount);  由于点击连击的时候，数字倒数，就隐藏掉了，然后添加在默认展示区域
         $('.addnum'+f).data("sto",new Date().getTime());
     } else if (f == 2) {
-        $('.addnum'+f).html(gift.giftInfo.continuousCount);
+        // $('.addnum'+f).html(gift.giftInfo.continuousCount);
         $('.addnum'+f).data("sto",new Date().getTime());
     } else {
-        $('.addnum'+f).html(gift.giftInfo.continuousCount);
+        // $('.addnum'+f).html(gift.giftInfo.continuousCount);
         $('.addnum'+f).data("sto",new Date().getTime());
     }
     });
@@ -459,6 +457,7 @@ $(document).ready(function() {
             				" </div> "+
             			    "<div class='both'></div></div>";
                             
+                            
                             //将礼物发送到
                             var msg = null;
                             msg = VHALL_SDK.sendChat({
@@ -466,6 +465,8 @@ $(document).ready(function() {
                             });
                             $("#chatmsg").append(str);
                            
+                            
+                            
                             //显示礼物总数
                             $("#liveGiftCount").html(data.resultObject.giftCount);
                             

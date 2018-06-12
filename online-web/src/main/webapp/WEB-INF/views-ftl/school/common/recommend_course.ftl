@@ -32,7 +32,11 @@
 			   </#if>
 				</p>
 				
-				<p class="timeAndTeac"><span class="teacher">${courseItem.name}</span>
+				<p class="timeAndTeac">
+				<span class="teacher">${courseItem.name}</span>
+					<#if courseItem.type == 4> 
+						<span class="y">${courseItem.city}</span>
+					</#if>
 				</p>
 				<p class="info clearfix">
 				<span>

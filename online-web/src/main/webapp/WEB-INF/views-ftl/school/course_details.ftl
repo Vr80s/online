@@ -167,17 +167,17 @@
                 <#-- tab的显示，这个就当做专辑页面来写   -->
                 <#if  courseInfo.collection> <#-- 专辑tab显示    -->
                     <#if courseInfo.watchState = 1 || courseInfo.watchState = 2> <#-- 免费或已购买  -->
-                        <li><a href="javascirpt:;">选集</a></li>
-                        <li><a href="${webUrlParam}/info">详情</a></li>
+                        <li><a href="javascript:void(0);">选集</a></li>
+                        <li><a href="javascript:void(0);">详情</a></li>
                     <#elseif courseInfo.watchState = 0>
-                        <li><a href="${webUrlParam}/info">详情</a></li>
-                        <li><a href="javascirpt:;">课程大纲</a></li>
+                        <li><a href="javascript:void(0);">详情</a></li>
+                        <li><a href="javascript:void(0);">课程大纲</a></li>
                     </#if>
                 <#else> <#-- 非专辑tab显示    -->
-                    <li><a href="${webUrlParam}/info">详情</a></li>
+                    <li><a href="javascript:void(0);">详情</a></li>
                 </#if>
                     <li><a href="${webUrlParam}/comment">评价（${courseInfo.criticizeCount}）</a></li>
-                    <li><a href="javascirpt:;">常见问题</a></li>
+                    <li><a href="javascript:void(0);">常见问题</a></li>
                 </ul>
             </div>
             <!--content-->

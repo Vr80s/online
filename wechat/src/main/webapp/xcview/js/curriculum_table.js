@@ -101,11 +101,6 @@ requestService("/xczh/classify/listScreen",null,function(data){
 },false)
 
 
-requestService("/xczh/classify/listScreen",null,function(data){
-	alert(111);
-})
-
-
 /**
  * 创建查询参数
  * @param menuType
@@ -668,4 +663,3 @@ if (urlAttribute=='' || urlAttribute== null) {
 //  }
 //JQ预加载分界线----------------------------------------------------------------
 
-alert(123);

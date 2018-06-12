@@ -35,6 +35,39 @@ RequestService("/learnWatch/add", "POST", {
 	courseId:collectionId,recordType:1
 }, function(data) {
 	console.log("增加学习记录");
+});
+
+//获取视频信息接口
+RequestService("/online/user/isAlive", "GET", null, function(data) { ///online/user/isAlive
+	if(data.success === true) {
+		userId = data.resultObject.id;
+		
+		//请求集合查看列表
+		
+		//获取课程名字和讲师姓名
+		RequestService("/online/live/getOpenCourseById", "get", {
+			courseId: collectionId
+		}, function(data) {
+			if(!data.success){
+				location.href="/courses/"+collectionId+"/info";
+			}
+			$(".headerBody .rightT p").html(data.resultObject.courseName).attr("title", data.resultObject.courseName);
+			document.title = data.resultObject.courseName ;
+			$(".headerBody .rightT i").html(data.resultObject.lecturer);
+			menuid = data.resultObject.menu_id;
+			
+			//分享使用
+			courseName = data.resultObject.courseName;
+			smallImgPath = data.resultObject.smallImgPath;
+			description = data.resultObject.description;
+			
+		}, false);
+	} else {
+		/**
+		 * 如果用户没有登录直接就搞走呗
+		 */
+		location.href="/courses/"+collectionId+"/info";
+	}
 },false);
 
 
@@ -119,12 +152,10 @@ RequestService("/course/newGetCoursesByCollectionId",
 			var obj = list[i];
 			var li = "<li>";
 			
-			if(stringnull(courseId)){
-				if(courseId == obj.id ){
-					li = "<li class='choosedAlbum' data-id = "+obj.id+">";
-				}else{
-					li = "<li data-id = "+obj.id+">"
-				}
+			if(courseId == obj.id ){
+				li = "<li class='choosedAlbum' data-id = "+obj.id+">";
+			}else{
+				li = "<li data-id = "+obj.id+">"
 			}
 			lalal += (li+"<div>" +
 				"<span class='playbtn'></span>" +
@@ -156,46 +187,10 @@ getPlayCode(collectionId,courseId);
 
 $(function() {
 	
-	
 	//时间格式处理
 	function timeChange(num) {
 		return '' + num + "分钟";
 	};
-	//获取视频信息接口
-	RequestService("/online/user/isAlive", "GET", null, function(data) { ///online/user/isAlive
-		if(data.success === true) {
-			userId = data.resultObject.id;
-			
-			//请求集合查看列表
-			
-			//获取课程名字和讲师姓名
-			RequestService("/online/live/getOpenCourseById", "get", {
-				courseId: collectionId
-			}, function(data) {
-				if(!data.success){
-					location.href="/courses/"+collectionId+"/info";
-				}
-				$(".headerBody .rightT p").html(data.resultObject.courseName).attr("title", data.resultObject.courseName);
-				document.title = data.resultObject.courseName ;
-				$(".headerBody .rightT i").html(data.resultObject.lecturer);
-				menuid = data.resultObject.menu_id;
-				
-				//分享使用
-				courseName = data.resultObject.courseName;
-				smallImgPath = data.resultObject.smallImgPath;
-				description = data.resultObject.description;
-				
-			}, false);
-		} else {
-			/**
-			 * 如果用户没有登录直接就搞走呗
-			 */
-			location.href="/courses/"+collectionId+"/info";
-		}
-	});
-	
-	
-	
 });
 
 

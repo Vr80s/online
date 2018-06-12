@@ -71,6 +71,7 @@ $(function() {
 	//头像上传
 	var userPic = $('.userPic').css('background')
 	RequestService("/online/user/isAlive", "get", null, function(data) {
+		selectSetId=data.resultObject.id;
 		//头像预览
 		if(data.resultObject.smallHeadPhoto) {
 			$('.doctor_inf>img').attr('src', data.resultObject.smallHeadPhoto);
@@ -1102,16 +1103,123 @@ function changePeriod(checked) {
 }
 
 
-//学员开始
+
+//学员列表
+var traineeSee;
+traineeList(1)
+function traineeList(pages){
+	RequestService("/anchor/course/student", "GET", {
+		page:pages,
+		size:10
+		}, function(data) {
+			traineeSee=data.resultObject.records;
+			if(data.success==true){
+				$("#trainee-template").html(template("wrap-trainee",{items:data.resultObject.records}))
+//				分页
+				if(data.resultObject.pages > 1) {
+							debugger //分页判断
+					        $(".trainee_pages").removeClass("hide");
+					        $(".trainee_pages .searchPage .allPage").text(data.resultObject.pages);
+					        $("#Pagination_trainee").pagination(data.resultObject.pages, {
+					            num_edge_entries: 1, //边缘页数
+					            num_display_entries: 4, //主体页数
+					            current_page:pages-1,
+					            callback: function (page) {
+					                //翻页功能
+					                traineeList(page+1);
+				
+					            }
+					        });
+						} else {
+							$(".trainee_pages").addClass("hide");
+						}
+//				分页
+			}else{
+				showTip("获取学员列表失败")
+			}
+			
+	})
+}
+//点击查看回显
+function trainee_preview(i){
+	var traineeText = traineeSee[i];
+		if(traineeText.sex==1){
+			$(".sex-text p").text("男");
+		}else{
+			$(".sex-text p").text("女");
+		}
+		if(traineeText.learned==1){
+			$(".sure-class p").text("是");
+		}else{
+			$(".sure-class p").text("否");
+		}
+	$(".name-job p").text(traineeText.realName);
+	$(".phone-number p").text(traineeText.mobile);
+	$(".winxin-number p").text(traineeText.wechatNo);
+	$(".class-name p").text(traineeText.courseName);
+	$(".sing-time p").text(traineeText.createTime);
+	$(".see-trainee").removeClass("hide");
+	$(".trainee-background").removeClass("hide");
+}
+//点击关闭查看
+$(".preview-top img").click(function(){
+		$(".see-trainee").addClass("hide");
+		$(".trainee-background").addClass("hide");
+})
+
+//点击设置上课
+function trainee_set(i){
+	var setClass = traineeSee[i];
+		$("#saveId").val(setClass.id)
+	if (setClass.learned==true) {
+			$(".radio-cover em").removeClass("active");
+			$(".select-man em").addClass("active");
+		} else if(setClass.learned==false) {
+
+			$(".radio-cover em").removeClass("active");
+			$(".select-woman em").addClass("active");
+		} else {
+			$(".radio-cover em").removeClass("active");
+
+	}
+	$(".set-trainee").removeClass("hide");
+	$(".trainee-background").removeClass("hide");
+}
 //是否上课单选框
 	$(".content-setClass label").click(function() {
 		$(this).find(".radio-cover em").addClass("active").parent().parent().siblings().find(".radio-cover em").removeClass("active");
 	});
-	$(".class-btnUp").click(function(){
-		$(".set-trainee").addClass("hide");
-		$(".trainee-background").addClass(hide);
-	});
+//	确认
+	function class_btnUp(i){
+		var traineeId = $("#saveId").val();		
+		if($(".select-man em").hasClass("active")){
+			sex = 1;
+		}else{
+			sex = 0;
+		}
+		RequestService("anchor/course/student/"+traineeId+"/"+sex+"", "PUT",null, function(data) {
+			if(data.success==true){
+				showTip("操作成功");
+				traineeList(1)
+				$(".set-trainee").addClass("hide");
+				$(".trainee-background").addClass("hide");
+			}else{
+				showTip("操作失败")
+			}
+		})	
+	}
+//	关闭
 	$(".trainee-close").click(function(){
 		$(".set-trainee").addClass("hide");
-		$(".trainee-background").addClass(hide);
+		$(".trainee-background").addClass("hide");
 	})
+
+//搜索
+var selectSetId;
+	RequestService("/anchor/course/getCourseApplyList?size=500&id="+selectSetId, "get",null, function(data) {
+			if(data.success==true){
+				
+			}else{
+				
+			}
+		})	
