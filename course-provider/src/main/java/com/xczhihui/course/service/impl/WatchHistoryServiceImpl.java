@@ -83,7 +83,6 @@ public class WatchHistoryServiceImpl extends ServiceImpl<WatchHistoryMapper, Wat
                 this.addLearnRecord(courseId, userId);
             }
         } else if (recordType == 2) {
-        	
         	if(collectionId!=null) {  //如果是专辑，并且存在的话，做更新操作
         		WatchHistory wh = watchHistoryMapper.findWatchHistoryByUserIdAndCollectionId(userId,collectionId);
         		if(wh!=null) {
@@ -92,6 +91,8 @@ public class WatchHistoryServiceImpl extends ServiceImpl<WatchHistoryMapper, Wat
         			watchHistoryMapper.updateById(wh);
         			return;
         		}
+        	}else {
+        		collectionId = 0;
         	}
             //更新观看记录
             this.addWatchHistory(courseId,userId,course.getUserLecturerId(),collectionId);

@@ -54,7 +54,7 @@
 		  INNER JOIN apply_r_grade_course argc
 		    ON oc.`id`=argc.`course_id` 
 		  AND argc.`user_id`=owh.user_id AND argc.`validity`>NOW()
-		WHERE owh.user_id =#{userId}   and   owh.collectionId is  null )
+		WHERE owh.user_id =#{userId}   and   owh.collectionId = 0 )
 	 	union
 	  (	SELECT
 		  <include refid="watchHistoryCommon"/>
