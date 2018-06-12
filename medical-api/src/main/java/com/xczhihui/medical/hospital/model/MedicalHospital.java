@@ -69,6 +69,11 @@ public class MedicalHospital extends Model<MedicalHospital> {
 	private String city;
 
 	/**
+	 * 市
+	 */
+	private String county;
+
+	/**
      * 详细地址
      */
 	@TableField("detailed_address")
@@ -414,6 +419,14 @@ public class MedicalHospital extends Model<MedicalHospital> {
 
 	public void setFrontImg(String frontImg) {
 		this.frontImg = frontImg;
+	}
+
+	public String getCounty() {
+		return county;
+	}
+
+	public void setCounty(String county) {
+		this.county = county;
 	}
 
 	@Override

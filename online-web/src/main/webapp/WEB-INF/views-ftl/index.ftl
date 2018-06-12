@@ -97,7 +97,7 @@
 				
 					<div class="online_course">
 					<div class="course_title"><span class="title">在线课程</span>
-						<a href="${webUrl}/courses/list?courseType=3" target="_blank" class="more">更多&nbsp;></a>
+						<a href="${webUrl}/courses/list?courseType=3" target="_blank" class="more">更多<img src="/web/images/right_more.png" alt="箭头"></a>
 					</div>
 					<ul class="online_course_list clearfix">
 						<#list courseTypeList.listLive as courseItem>
@@ -169,7 +169,7 @@
 				<!--线下课程部分-->
 				<div class="underline_course">
 					<div class="course_title"><span class="title">线下课程</span>
-						<a href="${webUrl}/courses/list?courseType=4" class="more" target="_blank" >更多&nbsp;></a>
+						<a href="${webUrl}/courses/list?courseType=4" class="more" target="_blank" >更多<img src="/web/images/right_more.png" alt="箭头"></a>
 					</div>
 					<ul class="online_course_list clearfix">
 					
@@ -248,7 +248,7 @@
 					<!--名家坐诊部分-->
 					<div class="famous_doctor">
 						<div class="course_title"><span class="title">名家坐诊</span>
-							<a href="${webUrl}/doctors/list" class="more" target="_blank">更多&nbsp;></a>
+							<a href="${webUrl}/doctors/list" class="more" target="_blank">更多<img src="/web/images/right_more.png" alt="箭头"></a>
 						</div>
 						<ul class="famous_doctor_list clearfix">
 							<#list doctorList as doctor>
@@ -270,7 +270,7 @@
 			  <#if articles.records?size gt 0 >	
 				<div class="topLine_news">
 					<div class="course_title"><span class="title">头条新闻</span>
-						<a href="${webUrl}/headline/1" class="more" target="_blank">更多&nbsp;></a>
+						<a href="${webUrl}/headline/1" class="more" target="_blank">更多<img src="/web/images/right_more.png" alt="箭头"></a>
 					</div>
 					<ul class="topLine_news_list">
 					 <#list articles.records as article>	
@@ -299,7 +299,7 @@
 			<#if hospitalList.records?size gt 0>	
 				<div class="hospital_part">
 					<div class="course_title"><span class="title">医馆</span>
-						<a href="${webUrl}/clinics/list" class="more" target="_blank">更多&nbsp;></a>
+						<a href="${webUrl}/clinics/list" class="more" target="_blank">更多<img src="/web/images/right_more.png" alt="箭头"></a>
 					</div>
 					<ul class="hostpital_list">
 						

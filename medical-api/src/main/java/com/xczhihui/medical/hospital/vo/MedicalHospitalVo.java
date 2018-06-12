@@ -46,9 +46,13 @@ public class MedicalHospitalVo implements Serializable{
      */
 	private String province;
     /**
-     * 市
-     */
+	 * 市
+	 */
 	private String city;
+	/**
+	 * 市
+	 */
+	private String county;
     /**
      * 详细地址
      */
@@ -262,6 +266,14 @@ public class MedicalHospitalVo implements Serializable{
 
 	public void setFrontImg(String frontImg) {
 		this.frontImg = frontImg;
+	}
+
+	public String getCounty() {
+		return county;
+	}
+
+	public void setCounty(String county) {
+		this.county = county;
 	}
 
 	@Override
