@@ -681,7 +681,7 @@ a {
 .newsTpl .forum-info-right {
 	float: right;
 	width: 520px;
-	height: 160px;
+	height: 152px;
 }
 
 .newsTpl .forum-info-right .forum-info-title a {
@@ -857,7 +857,9 @@ a {
 	margin-bottom: 20px;
 	height: 60px;
 }
-
+.doctorInfTpl:last-child{
+	margin-bottom: 0;
+}
 .doctorInfTpl>div {
 	display: inline-block;
 	float: left;
@@ -866,8 +868,21 @@ a {
 
 .doctorInfTpl .zuozhe_inf {
 	margin-right: 0;
+	width: 195px;
+    float: right;
 }
+.doctorInfTpl .zuozhe_inf .address-show{
+	    font-size: 14px;
+    color: #666666;
+    font-weight: 400;
+    margin-left: 10px;
 
+    float: left;
+    max-width: 143px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
 .doctorInfTpl>.dajia_inf>p {
 	width: 180px;
 	height: 20px;
@@ -916,6 +931,7 @@ a {
 	white-space: nowrap;
 	margin-top: 10px;
 	font-size: 14px;
+	float: left;
 }
 
 .doctorInfTpl .zuozhe_touxaing {
