@@ -1258,12 +1258,11 @@
 					<div class="trainee-class-select">
 						<span>选择课程：</span>
 						<select name="" id="selectClass">
-
 							<script type="text/template" id="template-option">
 								<option value="">选择课程</option>
 								{{each items as item i}}
-								<option value="">{{item.title}}</option>
-								{{each}}
+								<option value="{{item.id}}">{{item.title}}</option>
+								{{/each}}
 							</script>
 						</select>
 					</div>

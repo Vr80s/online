@@ -560,7 +560,8 @@ function replyList (pages) {
 		event.stopPropagation();
 		$(".order-box li").removeClass("mune-active");
 		$(this).addClass("mune-active");
-		orderList(1,$(".all-change .select-order").attr("data-order"),5,$(this).attr("data-orderStatus"))
+		orderStatus = $(this).attr("data-orderStatus");
+		orderList(1,$(".all-change .select-order").attr("data-order"),5,orderStatus)
 	})
 	//全部订单/近三月订单筛选	
 	$(".all-order").hover(function(){
@@ -934,7 +935,7 @@ $(".sign-read").click(function(){
 });
 
 //html内嵌点击事件
-
+var orderStatus;
 //我的订单-----------------------------------------------------------------------------------
 	
 	function orderList(pages,time,pageSize,status){
@@ -1012,8 +1013,7 @@ function deleteBtnOrder(index){
 		}, function(data) {
 		 	if(data.success == true){
 		 		showTip(data.resultObject);
-		 		$(".order-box li:first").click(); //删除成功后tab选为第一个
-		 		orderList(1,0,5)
+				orderList(1,$(".all-change .select-order").attr("data-order"),5,orderStatus)
 		 	}else{
 		 		showTip("操作失败");
 		 	}

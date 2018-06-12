@@ -1105,15 +1105,21 @@ function changePeriod(checked) {
 
 
 //学员列表
-var traineeSee;
-traineeList(1)
-function traineeList(pages){
-	RequestService("/anchor/course/student", "GET", {
+
+traineeList(1);
+function traineeList(pages,courseId){
+	var data = {
 		page:pages,
 		size:10
-		}, function(data) {
-			traineeSee=data.resultObject.records;
+	};
+	if(courseId!=null && courseId!=""){
+		data.courseId=courseId;
+	};
+	RequestService("/anchor/course/student", "GET", data, function(data) {
 			if(data.success==true){
+				if(data.resultObject.total==0){
+					alert("没数据");
+				}
 				$("#trainee-template").html(template("wrap-trainee",{items:data.resultObject.records}))
 //				分页
 				if(data.resultObject.pages > 1) {
@@ -1200,11 +1206,11 @@ function trainee_set(i){
 		RequestService("anchor/course/student/"+traineeId+"/"+sex+"", "PUT",null, function(data) {
 			if(data.success==true){
 				showTip("操作成功");
-				traineeList(1)
+				traineeList(1);
 				$(".set-trainee").addClass("hide");
 				$(".trainee-background").addClass("hide");
 			}else{
-				showTip("操作失败")
+				showTip("操作失败");
 			}
 		})	
 	}
@@ -1216,10 +1222,14 @@ function trainee_set(i){
 
 //搜索
 var selectSetId;
-	RequestService("/anchor/course/getCourseApplyList?size=500&id="+selectSetId, "get",null, function(data) {
-			if(data.success==true){
-				
+	RequestService("/anchor/course/getCourseApplyList?size=500&current=1&courseForm=3", "get",null, function(data) {
+			if(data.success==true){	
+				$("#selectClass").html(template("template-option",{items:data.resultObject.records}))
 			}else{
 				
 			}
 		})	
+$("#selectClass").on("change",function(){
+	console.log($("#selectClass").val())
+	traineeList(1,$("#selectClass").val());
+})

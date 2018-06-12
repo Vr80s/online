@@ -61,13 +61,13 @@
 								<span>${courseTypeItem.title}</span>
 								<#-- 课程列表 页跳转  带上跳转条件 -->
 								<#if courseTypeItem.title?? && courseTypeItem.title == "最新课程"> 
-									<p><a href="${webUrl}/courses/list?menuType=${courseTypeItem.menuType}&sortOrder=2" target="_blank">更多</a>
+									<p><a href="${webUrl}/courses/list?menuType=${courseTypeItem.menuType}&sortOrder=2" target="_blank" style="color: #00bc12;">更多</a>
 								<#elseif  courseTypeItem.title?? && courseTypeItem.title == "免费课程">
-								    <p><a href="${webUrl}/courses/list?isFree=1" target="_blank">更多</a>
+								    <p><a href="${webUrl}/courses/list?isFree=1" target="_blank" style="color: #00bc12;">更多</a>
 								<#else>
-									<p><a href="${webUrl}/courses/list?menuType=${courseTypeItem.menuType}" target="_blank">更多</a>
+									<p><a href="${webUrl}/courses/list?menuType=${courseTypeItem.menuType}" target="_blank" style="color: #00bc12;">更多</a>
 								</#if>
-								<img src="/web/images/rili_icon.png" alt="箭头" /> </p>
+								<img src="/web/images/right_more.png" alt="箭头" /> </p>
 							</div>
 							<#list courseTypeItem.courseList as courseItem>
 								<div class="course clearfix">
