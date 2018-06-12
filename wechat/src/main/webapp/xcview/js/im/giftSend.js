@@ -330,13 +330,13 @@ function createGiftShow() {
 function countChange(count) {
     if (count == 3) {
         count = 2;
-        return 16.1;
+        return 8.3;
     } else if (count == 2) {
         count = 1;
-        return 13.8;
+        return 7.2;
     } else {
         count = 1;
-        return 11.5;
+        return 6.1;
     }
 }
 
@@ -550,7 +550,7 @@ $(function () {
                 }else{
                     f3 = true;
                 }
-                $("#gift"+i).remove();   /*注释以后,礼物就不会隐藏*/
+                //$("#gift"+i).remove();   /*注释以后,礼物就不会隐藏*/
             }
         }
     },16)

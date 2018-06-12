@@ -1372,34 +1372,35 @@ footer{
 	border-top: 0.01rem solid #ccc;
 	position: fixed;
     bottom: 0;
-    z-index: 1;
+    z-index: 99999;
 }
 .coze_bottom_input{
 	float: left;
-	margin-right: 0.5rem;
-    margin-left: 0.5rem;
+	/*margin-right: 0.5rem;*/
+    /*margin-left: 0.5rem;*/
 }
 .coze_bottom input{
-	width: 11.9rem;
-	height: 1.45rem;
-	line-height: 1.45rem;
-	border: 1px solid #ccc;
-	outline: none;
-	font-size: 0.7rem;
-	text-indent: 0.3rem;
-	color: #999;
-	border-radius: 9px;
-	margin-top: 0.35rem;
+	    width: 6rem;
+    height: 0.6rem;
+    /* line-height: 1.45rem; */
+    border: none;
+    outline: none;
+    font-size: 0.28rem;
+    text-indent: 0.3rem;
+    color: #999;
+    border-radius: 9px;
+    /* margin-top: 0.35rem; */
+    background: #f0f0f0;
 }
 .coze_bottom img{
-	width: 1.3rem;
+	width: 0.6rem;
 	margin-top: -0.1rem;
 }
 
 /* 礼物 */
 .animation{
-	width: 9.55rem;
-	height: 2.1rem;
+	width: 4rem;
+	height: 1rem;
    	background: #F97B49;
     margin-bottom:0.5rem;
    	z-index: 9;
@@ -1428,38 +1429,38 @@ footer{
 	height: 100%;
 }
 .animation_name{
-	height: 1.0625rem;
+	    height: 0.8rem;
     margin-left: 0.553rem;
     float: left;
-    width: 4rem;
+    width: 1.25rem;
     font-size: 0.6rem;
     margin-right: 0.15rem;
     margin-top: 0.2rem;
 }
 .animation_name p{
-	padding-top: 0.1rem;
+	/*padding-top: 0.1rem;*/
     width: 100%;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
 }
 .animation_name_p1{
-	font-size: 0.596rem;
+	font-size: 0.28rem;
 	color: #fff;
 }
 .animation_name_p2{
-	font-size: 0.468rem;
+	font-size: 0.22rem;
     color: #FFD800;
 }
 .animation_gift{
-	width: 2rem;
+	width: 1rem;
     overflow: hidden;
     text-align: center;
     float: right;
-    height: 2rem;
+    height: 1rem;
 }
 .animation_gift img{
-	width: 2rem;
+	width: 1rem;
     float: right;
     text-align: center;
     display: block;
@@ -1487,17 +1488,18 @@ footer{
     
 }
 .animation_span{
-    font-size: 1rem;
+   font-size: 0.52rem;
     color: #fff;
-    width: 2.5rem;
+    width: 1rem;
     float: right;
     margin-right: 0rem;
-    margin-top: 0.5rem;
+    /* margin-top: 0.5rem; */
     color: #FFD800;
     text-align: right;
+    margin-top: 0.2rem;
 }
 .animation_span span{
-	font-size: 1.106rem;
+	font-size: 0.52rem;
 	margin-left: 0.1rem;
 	text-shadow: 1px 1.5px 1px #999;
 	color: #FFD800;
@@ -1524,9 +1526,11 @@ footer{
 }
 
 .details_anchor_center{
-	width: 95%;
+	width: 6.98rem;
+    line-height: 0.42rem;
     margin: 0 auto;
-    padding-top: 0.4rem;
+    font-size: 0.24rem;
+    text-align: justify;
 }
 .details_portrait{
 	width: 1.95rem;
@@ -1603,10 +1607,9 @@ footer{
 }
 
 .anchor_center01{
-	width:100%;
-	background: #fff;
-	padding: 0.8rem 0 0.8rem;
-	margin-top: 2.7rem;
+	width: 100%;
+    background: #fff;
+    padding: 0.2rem 0 0.2rem;
 }
 .anchor_center02{
 	width: 100%;
@@ -1615,10 +1618,10 @@ footer{
 	padding-top: 4.2rem;
 }
 .anchor_center{
-	width: 90%;
-	line-height:0.8rem;
+	width: 6.98rem;
+	line-height:0.42rem;
     margin: 0 auto;
-    font-size: 0.59rem;
+    font-size: 0.24rem;
     text-align: justify;
 }
 .anchor_center p span{
@@ -1647,28 +1650,31 @@ footer{
 	
 }
 .leaderboard_list{
-	width: 95%;
 	margin: 0 auto;
-	border-bottom: 0.02rem solid #d2d2d2;
-	padding-bottom: 0.4rem;
+    border-bottom: 1px solid #f2f2f2;
+    padding-bottom: 0.24rem;
 }
 .leaderboard_left{
 	float: left;
-	margin-top: 0.7rem;
-    margin-left: 0.5rem;
+	margin-top: 0.24rem;
+    margin-left: 0.26rem;
     margin-right: 1rem;
+}
+.leaderboard_left img{
+	display: block;
 }
 .leaderboard_left span{
 	display: block;
     margin-top: 0.1rem;
-    font-size: 0.55rem;
-    margin-left: 0.28rem;
+    font-size: 0.24rem;
+    /*margin-left: 0.28rem;*/
     color: #666;
+    text-align: center;
 }
 .leaderboard_center{
-	width: 11rem;
+	width: 5rem;
 	float: left;
-	margin-top: 0.4rem;
+	margin-top: 0.24rem;
 }
 .leaderboard_center img{
 	width:1.975rem;
@@ -1679,14 +1685,17 @@ footer{
     border-radius: 60px;
 }
 .leaderboard_center_size .p1{
-	font-size: 0.675rem;;
-	color: #333;
-	margin-top: 0.25rem;
-	margin-bottom: 0.25rem;
+	    font-size: 0.32rem;
+    color: #333;
+    margin-top: 0rem;
+    margin-bottom: 0.16rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .leaderboard_center_size .p2{
-	font-size: 0.55rem;
-	color: #F97B49;
+	font-size: 0.24rem;
+    color: #F97B49;
 }
 .leaderboard_list_right{
 	float: right;
@@ -2107,7 +2116,7 @@ footer{
 }
 .give_a01{
 	margin-right: 0.5rem;
-	font-size:0.7rem;
+	font-size:0.5rem;
 	display:none;
 	color:#00bc12;
 	float: right;
@@ -2345,7 +2354,7 @@ footer{
     background: #fff;
     position: fixed;
     bottom: 2rem;
-    z-index: 2;
+    z-index: 999999;
     display: none;
     background-size: 100% 100%;
 	background: #fff;
