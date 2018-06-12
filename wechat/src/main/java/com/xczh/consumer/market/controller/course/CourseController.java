@@ -21,9 +21,13 @@ import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.service.OnlineWebService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.WeihouInterfacesListUtil;
+import com.xczhihui.common.util.enums.CourseType;
+import com.xczhihui.course.model.Course;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.course.service.IFocusService;
+import com.xczhihui.course.service.ILineApplyService;
 import com.xczhihui.course.service.IMobileBannerService;
+import com.xczhihui.course.service.IWatchHistoryService;
 import com.xczhihui.course.util.CourseUtil;
 import com.xczhihui.course.vo.CourseLecturVo;
 
@@ -46,7 +50,14 @@ public class CourseController {
     private OnlineWebService onlineWebService;
 
     @Autowired
+    private ILineApplyService lineApplyService;
+
+    @Autowired
     private IMobileBannerService mobileBannerService;
+    
+
+    @Autowired
+    public IWatchHistoryService watchHistoryServiceImpl;
 
     @Autowired
     @Qualifier("focusServiceRemote")
@@ -150,6 +161,9 @@ public class CourseController {
                 if (falg) {
                     cv.setLearning(1);
                 }
+            }
+            if (cv.getType() == CourseType.OFFLINE.getId()) {
+                cv.setSubmitted(lineApplyService.submitted(accountId, courseId));
             }
         }
         return ResponseObject.newSuccessResponseObject(cv);
@@ -286,8 +300,12 @@ public class CourseController {
     public void liveCourse(@PathVariable("courseId")String courseId,
     		@Account String accountId,
     		HttpServletResponse response) throws IOException {
+    	
         String liveCourseUrl4Wechat = courseServiceImpl.getLiveCourseUrl4Wechat(accountId,courseId);
-        
+        //添加学习记录
+        if(liveCourseUrl4Wechat!=null && liveCourseUrl4Wechat.indexOf("details.html")!=-1) {
+        	watchHistoryServiceImpl.addLookHistory(Integer.parseInt(courseId), accountId, 2, null);
+        }
         response.sendRedirect(liveCourseUrl4Wechat);
     }
 

@@ -47,7 +47,7 @@ public interface ICourseService {
      * @author name：yangxuan <br>email: 15936216273@163.com
      */
     Page<CourseLecturVo> selectMyPurchasedCourseList(Page<CourseLecturVo> page,
-                                                String userId);
+                                                     String userId);
 
 
     List<CourseLecturVo> selectCoursesByCollectionId(Integer collectionId);
@@ -222,5 +222,13 @@ public interface ICourseService {
      */
     public CourseLecturVo selectCourseStatusDeleteUserLecturerId(Integer courseId);
 
-    String getLiveCourseUrl4Wechat(String userId,String courseId);
+    String getLiveCourseUrl4Wechat(String userId, String courseId);
+
+    /**
+     * 查询主播的线下课
+     *
+     * @param anchorId 主播id
+     * @return
+     */
+    Page<Map<String, Object>> selectOfflineCourseByAnchorId(String anchorId);
 }

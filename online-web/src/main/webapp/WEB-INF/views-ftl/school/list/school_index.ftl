@@ -61,13 +61,13 @@
 								<span>${courseTypeItem.title}</span>
 								<#-- 课程列表 页跳转  带上跳转条件 -->
 								<#if courseTypeItem.title?? && courseTypeItem.title == "最新课程"> 
-									<p><a href="${webUrl}/courses/list?menuType=${courseTypeItem.menuType}&sortOrder=2" target="_blank">更多</a>
+									<p><a href="${webUrl}/courses/list?menuType=${courseTypeItem.menuType}&sortOrder=2" target="_blank" style="color: #00bc12;">更多</a>
 								<#elseif  courseTypeItem.title?? && courseTypeItem.title == "免费课程">
-								    <p><a href="${webUrl}/courses/list?isFree=1" target="_blank">更多</a>
+								    <p><a href="${webUrl}/courses/list?isFree=1" target="_blank" style="color: #00bc12;">更多</a>
 								<#else>
-									<p><a href="${webUrl}/courses/list?menuType=${courseTypeItem.menuType}" target="_blank">更多</a>
+									<p><a href="${webUrl}/courses/list?menuType=${courseTypeItem.menuType}" target="_blank" style="color: #00bc12;">更多</a>
 								</#if>
-								<img src="/web/images/rili_icon.png" alt="箭头" /> </p>
+								<img src="/web/images/right_more.png" alt="箭头" /> </p>
 							</div>
 							<#list courseTypeItem.courseList as courseItem>
 								<div class="course clearfix">
@@ -152,7 +152,7 @@
 				</div>
 			
 			    
-			    <#if hotList??>	
+			    <#if hotList?? && hotList?size gt 0>	
 					<div class="hot-search">
 						<p>热门搜索</p>
 						<ul>
@@ -165,7 +165,7 @@
 					</div>
 				</#if>
 				
-				 <#if doctorList??>	
+				 <#if doctorList?? && doctorList?size gt 0>	
 					<div class="wrap-docter">
 						<span>名师推荐</span>
 						<#include "../common/famous_doctor_common.ftl"> 
