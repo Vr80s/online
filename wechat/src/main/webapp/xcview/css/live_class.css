@@ -561,7 +561,7 @@ margin-top: 0.1rem;
 }
 /*底下评论输入框*/
 .wrap_user_input{
-	width: 100%;
+	width: 7.5rem;
 	background: white;
 	height: 0.98rem;
 	padding: 0.01rem 0.26rem 0 0.26rem;
