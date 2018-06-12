@@ -36,7 +36,7 @@ public class ExceptionResolver extends SimpleMappingExceptionResolver {
                                               HttpServletResponse response, Object handler, Exception ex) {
         HandlerMethod method = (HandlerMethod) handler;
         //异常通知告警
-        if ((ex instanceof IpandaTcmException)) {
+        if (!(ex instanceof IpandaTcmException) || ((IpandaTcmException) ex).isAlarm()) {
             String subject = "业务异常";
             EmailUtil.sendExceptionMailBySSL("pc端", subject, printStackTraceToString(ex));
         }

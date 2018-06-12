@@ -39,7 +39,7 @@ public class ExceptionResolver {
         pw.flush();
         sw.flush();
         //异常通知告警
-        if ((ex instanceof IpandaTcmException) && ((IpandaTcmException) ex).isAlarm()) {
+        if (!(ex instanceof IpandaTcmException) || ((IpandaTcmException) ex).isAlarm()) {
             String subject = "业务异常";
             EmailUtil.sendExceptionMailBySSL("wechat端", subject, printStackTraceToString(ex));
         }
