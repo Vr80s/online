@@ -687,7 +687,7 @@ line-height: 0.42rem;
 }
 .wrapAll_comment{
 	width: 7.5rem;
-    position: absolute;
+    position: fixed;
 	display: none;
 	background:white;
 	box-sizing: border-box;

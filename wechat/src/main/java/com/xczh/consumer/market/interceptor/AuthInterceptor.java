@@ -250,7 +250,6 @@ public class AuthInterceptor implements HandlerInterceptor, HandlerMethodArgumen
         HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.class);
         String token;
         String str = request.getServletPath();
-        System.out.println();
         if (isAppRequest(request)) {
             token = getParam(request, TOKEN_PARAM_NAME);
         } else {
