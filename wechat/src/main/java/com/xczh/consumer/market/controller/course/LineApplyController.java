@@ -22,7 +22,6 @@ public class LineApplyController {
     @Autowired
     private ILineApplyService lineApplyService;
 
-
     /**
      * 增加线下课报名记录
      *

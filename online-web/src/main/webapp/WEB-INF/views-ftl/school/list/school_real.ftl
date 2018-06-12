@@ -43,11 +43,11 @@
 								<#-- 课程列表 页跳转  带上跳转条件 -->
 								<p>
 								<#if courseTypeItem.title?? && courseTypeItem.title == "全国课程">									
-									<a href="${webUrl}/courses/list?courseType=4">更多</a>
+									<a href="${webUrl}/courses/list?courseType=4" style="color: #00bc12;">更多</a>
 								<#else>
-									<a href="${webUrl}/courses/list?courseType=4&city=${courseTypeItem.title}">更多</a>
+									<a href="${webUrl}/courses/list?courseType=4&city=${courseTypeItem.title}" style="color: #00bc12;">更多</a>
 								</#if>
-								<img src="/web/images/rili_icon.png" alt="箭头" />
+								<img src="/web/images/right_more.png" alt="箭头" />
 								 </p>
 							</div>
 							

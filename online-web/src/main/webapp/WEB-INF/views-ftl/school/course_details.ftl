@@ -58,8 +58,8 @@
             <p class="subtitle">${courseInfo.subtitle?default('')}</p>
             <ul class="author-inf">
                 <li>
-                    <span><a style="color:#999999" href="${webUrl}/anchors/${courseInfo.userLecturerId}/info" 
-                    		target="_blank">主讲人：${courseInfo.name}</a></span>
+                    <span>主讲人：<a href="${webUrl}/anchors/${courseInfo.userLecturerId}/info" 
+                    		target="_blank">${courseInfo.name}</a></span>
                 </li>
                 <li class="grade">
                     <img src="../../web/images/icon-start${startLevel}.png"/>
@@ -149,7 +149,7 @@
             <#if courseInfo.type ==4 && courseInfo.cutoff = 1>
                 <button type="button" class="immediately-buy">报名截止</button>
             <#else>
-                <button type="button" class="immediately-buy J-course-buy" data-id="${courseInfo.id}">
+                <button type="button" class="immediately-buy J-course-buy" data-id="${courseInfo.id}" data-type="${courseInfo.type}">
                  	   立即购买
                 </button>
             </#if>

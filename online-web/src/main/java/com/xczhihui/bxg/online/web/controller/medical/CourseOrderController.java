@@ -1,9 +1,11 @@
 package com.xczhihui.bxg.online.web.controller.medical;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -128,15 +130,23 @@ public class CourseOrderController extends AbstractController {
     }
 
     @RequestMapping(value = "pay/success", method = RequestMethod.GET)
-    public ModelAndView paySuccess(@RequestParam String orderId) {
-        Order order = orderService.getOrderById(orderId);
-        if (order.getOrderStatus() != OrderStatus.PAID.getCode()) {
-            throw new OrderException("订单状态异常 id: " + orderId);
-        }
-        String balance = userCoinService.getBalanceByUserId(getUserId());
-        List<Course> courses = courseService.findByIds(order.getCourseIds());
+    public ModelAndView paySuccess(@RequestParam(required = false) String orderId, @RequestParam(required = false) Integer courseId) {
         ModelAndView modelAndView = new ModelAndView("/pay/success");
-        modelAndView.addObject("order", order);
+        List<Integer> courseIds = new ArrayList<>();
+        if (StringUtils.isNotBlank(orderId)) {
+            Order order = orderService.getOrderById(orderId);
+            if (order.getOrderStatus() != OrderStatus.PAID.getCode()) {
+                throw new OrderException("订单状态异常 id: " + orderId);
+            }
+            courseIds = order.getCourseIds();
+        } else if (courseId != null && courseId != 0) {
+            courseIds.add(courseId);
+        } else {
+            throw new IllegalArgumentException("参数错误");
+        }
+
+        String balance = userCoinService.getBalanceByUserId(getUserId());
+        List<Course> courses = courseService.findByIds(courseIds);
         modelAndView.addObject("courses", courses);
         modelAndView.addObject("balance", balance);
         Course course = courses.get(0);

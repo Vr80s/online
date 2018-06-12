@@ -271,7 +271,7 @@ $(function(){
 		<!--直播结束查看回放-->
 		<div class="video_end_top1" style="display: none;">
 			<div class="video_end"></div>
-			<p>直播结束,回放生成成功</p>
+			<p>直播结束,点击查看回放</p>
 			<div class="div"><img src="/xcview/images/refurbish.png" alt=""></div>
 		</div>
 		<!--直播结束查看回放-->
@@ -653,6 +653,11 @@ $(function(){
 <script type="text/javascript">
 	window.onload = function(){
 
+		$(".video_end_top1 .div img").click(function(){
+			location.reload();
+			$(".video_end_top1").hide();
+		});
+
 		$("body").scrollTop($("body").scrollHeight);
 		$(".chatmsg-box").scrollTop($(".chatmsg-box")[0].scrollHeight);
 		$(".mCSB_dragger").scrollTop($(".mCSB_dragger")[0].scrollHeight);
@@ -717,6 +722,10 @@ $(function(){
 			var school_height=$(window).height()-$(".details_cen1").height();
 			$(".pinch-zoom-container").height(school_height);
 		});
+
+		
+
+		
 	};
 </script>
 

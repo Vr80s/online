@@ -144,6 +144,7 @@ function initAuthenticationHos (){
         $(".account_one .hosName").html(data.name);
         $(".account_one .companyName").html(data.company);
 		$(".account_one .businessLicenseNo").text(data.businessLicenseNo)
+		$(".account_one .licenseForPharmaceuticalTrading").text(data.licenseForPharmaceuticalTrading)
         $(".account_one .businessLicensePicture").attr("src",data.businessLicensePicture);
         $(".account_one .licenseForPharmaceuticalTradingPicture").attr("src",data.licenseForPharmaceuticalTradingPicture);
         $(".anchor_qualification_certificate").attr("src",data.qualificationCertificate);
