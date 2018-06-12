@@ -125,11 +125,10 @@ public class PostServiceImpl implements IPostService {
                 BrowseRecord br = new BrowseRecord(postId, userId);
                 br.setInsertTime(new Date());
                 browseRecordMapper.insert(br);
-                postMapper.updateBrowseCount(postId);
             }
-        } else {
-            postMapper.updateBrowseCount(postId);
         }
+        postMapper.updateBrowseCount(postId);
+
     }
 
     @Override
