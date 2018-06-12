@@ -252,7 +252,7 @@ $(function () {
     $(header).append(template.compile(slideNavIndex.h_top));
     $(".oldBtn").click(function () {
         window.localStorage.personcenter = "mydata";
-        window.location.href = "/web/html/personcenter.html";
+        window.location.href = "/web/html/personal-center/personal-index.html#menu1-1";
     });
     $(".oldX").click(function () {
         $("#oldModalBack").hide();
