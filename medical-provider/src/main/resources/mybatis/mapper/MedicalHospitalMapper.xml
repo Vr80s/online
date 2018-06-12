@@ -11,6 +11,7 @@
 		<id column="email" property="email" />
 		<id column="province" property="province" />
 		<id column="city" property="city" />
+		<id column="county" property="county" />
 		<id column="detailed_address" property="detailedAddress" />
 		<id column="score" property="score" />
 		<id column="authentication" property="authentication" />
@@ -190,6 +191,9 @@
 			<if test="medicalHospital.city != null">
 				city = #{medicalHospital.city},
 			</if>
+			<if test="medicalHospital.county != null">
+				county = #{medicalHospital.county},
+			</if>
 			<if test="medicalHospital.detailedAddress != null">
 				detailed_address = #{medicalHospital.detailedAddress},
 			</if>
@@ -229,6 +233,7 @@
 		mh.email,
 		mh.province,
 		mh.city,
+		mh.county,
 		mh.detailed_address,
 		mh.score,
 		mh.authentication,
