@@ -207,4 +207,12 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         }
         return "/xcview/html/live_play.html?my_study="+courseId;
     }
+
+    @Override
+    public Page<Map<String, Object>> selectOfflineCourseByAnchorId(String anchorId) {
+        //TODO 当前需求列出所有线下课
+        Page<Map<String, Object>> page = new Page<>(1, 1000);
+        List<Map<String, Object>> results = iCourseMapper.selectOfflineCourseByAnchorId(page, anchorId);
+        return page.setRecords(results);
+    }
 }
