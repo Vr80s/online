@@ -100,4 +100,26 @@ $(function () {
         }, false);
 
     });
+//  同意提示
+$(".pay-protocol-box").click(function() {
+		$(".pay-protocol-box em").removeClass("active");
+		$(".protocol-tip").css("display", "block");
+	});
+	$(".tip-top,.tip-btn").click(function() {
+		$(".protocol-tip").css("display", "none");
+		$(".pay-protocol-box em").addClass("active");
+	});
+	$(".boxuegu-protocol2").click(function() {
+		$(".protocol-shadow").css({
+			"display": "block",
+			"backgroundColor": "rgba(255,255,255,0)"
+		});
+	})
+	$(".pay-result1-close").click(function() {
+		$(".pay-result1").css("display", "none");
+	})
+	$(".pay-result2-close").click(function() {
+		$(".userShip").css("display", "none");
+		$(".pay-result2").css("display", "none");
+	})
 });

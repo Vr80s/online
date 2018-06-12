@@ -1222,7 +1222,7 @@ function trainee_set(i){
 
 //搜索
 var selectSetId;
-	RequestService("/anchor/course/getCourseApplyList?size=500&current=1&courseForm=3", "get",null, function(data) {
+	RequestService("/anchors/offline", "get",null, function(data) {
 			if(data.success==true){	
 				$("#selectClass").html(template("template-option",{items:data.resultObject.records}))
 			}else{

@@ -187,9 +187,11 @@ p {
     width: 14px;
     height: 14px;
     cursor: pointer;
-    background: url(../../images/130/select14_click.png) no-repeat;
+        background: url(/web/images/130/select14_normal.png) no-repeat center center;
 }
-
+.agreement-box p em.active{
+		background: url(/web/images/130/select14_click.png) no-repeat center center;
+}
 .agreement-box .agreement-content {
     vertical-align: middle;
     margin-top: -7px;
@@ -367,4 +369,292 @@ p {
 .recharge-modal .pay-result2-content .recharge-modal-btn {
     margin-right: 20px;
     margin-left: 55px;
+}
+
+/*统一熊猫中医提示*/
+.protocol-tip {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 99999;
+  display: none;
+}
+.protocol-tip .tip-content {
+  width: 450px;
+  height: 225px;
+  position: absolute;
+  left: 50%;
+  margin-left: -217px;
+  margin-top: 15%;
+}
+.protocol-tip .tip-content .tip-top {
+  background-color: #fafafa;
+  height: 52px;
+  padding: 20px;
+}
+.protocol-tip .tip-content .tip-top span {
+  font-size: 18px;
+  color: #333;
+  display: inline-block;
+  margin-top: -5px;
+}
+.protocol-tip .tip-content .tip-top .tip-close {
+  float: right;
+  cursor: pointer;
+}
+.protocol-tip .tip-content .tip-bottom {
+  padding: 20px;
+  background-color: #fff;
+  text-align: center;
+}
+.protocol-tip .tip-content .tip-bottom span {
+  font-size: 16px;
+  color: #333;
+  display: inline-block;
+  margin-top: 26px;
+}
+.protocol-tip .tip-content .tip-bottom .kuhao1 {
+  color: #2cb82c;
+}
+.protocol-tip .tip-content .tip-bottom .boxuegu-protocol2 {
+  font-size: 16px;
+  color: #2cb82c;
+  cursor: pointer;
+}
+.protocol-tip .tip-content .tip-bottom .boxuegu-protocol2:hover {
+  text-decoration: underline;
+}
+.protocol-tip .tip-content .tip-bottom .tip-btn {
+  float: right;
+  margin-top: 48px;
+  color: #fff;
+  background-color: #2cb82c;
+  font-size: 16px;
+  line-height: 43px;
+  height: 43px;
+  width: 95px;
+  text-align: center;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+/*协议*/
+.protocol-shadow {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999999;
+  display: none;
+}
+.protocol-shadow .pay-protocol-text {
+  width: 580px;
+  background-color: #fff;
+  position: absolute;
+  left: 50%;
+  margin-left: -290px;
+  margin-top: 80px;
+}
+.protocol-shadow .pay-protocol-text .pay-protocol-top {
+  font-size: 18px;
+  color: #333;
+  padding: 12px 20px;
+  height: 52px;
+  background-color: #fafafa;
+}
+.protocol-shadow .pay-protocol-text .pay-protocol-top p {
+  float: left;
+}
+.protocol-shadow .pay-protocol-text .pay-protocol-top img {
+  float: right;
+  margin-top: 7px;
+  cursor: pointer;
+}
+.protocol-shadow .pay-protocol-text .pay-protocol-content {
+  padding: 0 30px 30px;
+  height: 568px;
+  overflow: auto;
+  word-break: break-all;
+}
+.protocol-shadow .pay-protocol-text .pay-protocol-content p {
+  font-size: 14px;
+  color: #333;
+  line-height: 22px;
+  margin-top: 12px;
+  text-indent: 2px;
+}
+.protocol-shadow .pay-protocol-text .pay-protocol-content p:first-child {
+  margin-top: 27px;
+}
+.protocol-shadow .pay-protocol-text .pay-protocol-content .indent {
+  font-weight: bold;
+}
+.protocol-shadow .pay-protocol-text .pay-protocol-content span {
+  display: block;
+}
+.protocol-shadow .pay-protocol-text .pay-protocol-content .youxiang {
+  color: #2cb82c;
+  display: inline-block;
+}
+.protocol-shadow .pay-protocol-text .pay-protocol-content em {
+  font-style: normal;
+}
+.protocol-shadow .pay-protocol-text .pay-protocol-content h2 {
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+  margin: 15px 0;
+}
+.pay-result1 {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999999;
+  display: none;
+}
+.pay-result1 .rTips {
+  width: 200px;
+  height: 62px;
+  position: fixed;
+  z-index: 9999;
+  top: 47%;
+  left: 49%;
+  margin-left: -100px;
+  margin-top: -31px;
+  line-height: 62px;
+  background: #000;
+  filter: alpha(opacity=50);
+  /*ie*/
+  -moz-opacity: 0.5;
+  -o-opacity: 0.5;
+  -webkit-opacity: 0.5;
+  opacity: 0.5;
+  color: white;
+  text-align: center;
+  font-size: 14px;
+  border-radius: 2px;
+  display: none;
+}
+.pay-result1 .pay-result-content {
+  position: absolute;
+  width: 420px;
+  left: 50%;
+  top: 20%;
+  margin-left: -210px;
+  padding: 20px 20px 57px;
+  background-color: #fff;
+}
+.pay-result1 .pay-result-content .pay-result1-close {
+  float: right;
+  cursor: pointer;
+}
+.pay-result1 .pay-result-content .pay-result-text {
+  width: 305px;
+  text-align: center;
+  font-size: 16px;
+  color: #333;
+  line-height: 26px;
+  margin: 39px auto 0;
+}
+.pay-result1 .pay-result-content .pay-success-btn {
+  width: 119px;
+  height: 44px;
+  background-color: #2cb82c;
+  line-height: 44px;
+  text-align: center;
+  color: #fff;
+  font-size: 16px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  cursor: pointer;
+  margin: 25px auto 12px;
+}
+.pay-result1 .pay-result-content .pay-result-hint {
+  text-align: center;
+}
+.pay-result1 .pay-result-content .pay-result-hint span,
+.pay-result1 .pay-result-content .pay-result-hint a {
+  display: inline-block;
+  font-size: 14px;
+  color: #333;
+}
+.pay-result1 .pay-result-content .pay-result-hint .kefu {
+  margin: 0 3px;
+  color: #2cb82c;
+}
+.pay-result2,
+.userShip {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999999;
+  display: none;
+}
+.pay-result2 .pay-result2-content,
+.userShip .pay-result2-content {
+  position: absolute;
+  width: 354px;
+  left: 50%;
+  top: 20%;
+  margin-left: -210px;
+  padding: 20px 20px 61px;
+  background-color: #fff;
+}
+.pay-result2 .pay-result2-content .pay-result2-close,
+.userShip .pay-result2-content .pay-result2-close {
+  float: right;
+  cursor: pointer;
+}
+.pay-result2 .pay-result2-content .pay-result2-hint,
+.userShip .pay-result2-content .pay-result2-hint {
+  text-align: center;
+  margin-top: 43px;
+}
+.pay-result2 .pay-result2-content .pay-result2-hint span,
+.userShip .pay-result2-content .pay-result2-hint span {
+  font-size: 16px;
+  color: #333;
+}
+.pay-result2 .pay-result2-content .pay-result2-hint img,
+.userShip .pay-result2-content .pay-result2-hint img {
+  margin-right: 5px;
+}
+.pay-result2 .pay-result2-content .pay-result2-btn,
+.userShip .pay-result2-content .pay-result2-btn,
+.pay-result2 .pay-result2-content .userShip-btn,
+.userShip .pay-result2-content .userShip-btn,
+.pay-result2 .pay-result2-content .userShip-cancleBtn,
+.userShip .pay-result2-content .userShip-cancleBtn {
+  width: 94px;
+  height: 42px;
+  background-color: #2cb82c;
+  color: #fff;
+  line-height: 42px;
+  text-align: center;
+  margin: 14px auto 0;
+  font-size: 16px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+.pay-result2 .pay-result2-content .userShip-btn,
+.userShip .pay-result2-content .userShip-btn,
+.pay-result2 .pay-result2-content .userShip-cancleBtn,
+.userShip .pay-result2-content .userShip-cancleBtn {
+  display: inline-block;
+}
+.pay-result2 .pay-result2-content .userShip-btn,
+.userShip .pay-result2-content .userShip-btn {
+  margin-right: 20px;
+  margin-left: 55px;
 }
