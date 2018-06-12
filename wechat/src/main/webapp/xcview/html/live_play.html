@@ -60,6 +60,9 @@
 					{{if lineState == 3}}
 						<p>直播回放</p>
 					{{/if}}
+					{{if lineState == 5}}
+						<p>直播预告</p>
+					{{/if}}
 				</script>
 			</div>
 			<!-- <div class="arror_return z" onclick="javascript:history.go(-1);"> -->
@@ -170,6 +173,8 @@
 						{{/if}}
 						{{if lineState == 3}}
 						<p style="width: 0.6rem;height: 0.32rem;font-size: 0.2rem;">回放</p>
+						{{/if}}{{if lineState == 5}}
+						<p style="width: 0.6rem;height: 0.32rem;font-size: 0.2rem;">预告</p>
 						{{/if}}
 					</li>
 				</ul>
