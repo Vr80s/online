@@ -36,7 +36,7 @@
 		  oc.user_lecturer_id AS userId,
 		  oc.direct_id AS directId,
 		  oc.smallimg_path AS smallimgPath,
-		  oc.current_price AS currentPrice,
+		  oc.current_price*10 AS currentPrice,
 		  oc.is_free AS isFree
 	</sql>
 
