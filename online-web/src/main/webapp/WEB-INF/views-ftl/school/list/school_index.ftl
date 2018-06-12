@@ -152,7 +152,7 @@
 				</div>
 			
 			    
-			    <#if hotList??>	
+			    <#if hotList?? && hotList?size gt 0>	
 					<div class="hot-search">
 						<p>热门搜索</p>
 						<ul>
@@ -165,7 +165,7 @@
 					</div>
 				</#if>
 				
-				 <#if doctorList??>	
+				 <#if doctorList?? && doctorList?size gt 0>	
 					<div class="wrap-docter">
 						<span>名师推荐</span>
 						<#include "../common/famous_doctor_common.ftl"> 
