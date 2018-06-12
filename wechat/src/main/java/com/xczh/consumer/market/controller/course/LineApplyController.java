@@ -46,8 +46,9 @@ public class LineApplyController {
     @ResponseBody
     public ResponseObject applyInfo(@Account String accountId, @RequestParam Integer courseId) {
         Map<String, Object> result = new HashMap<>(2);
-        result.put("submitted", lineApplyService.submitted(accountId, courseId));
-        result.put("applyInfo", lineApplyService.findLineApplyByUserId(accountId));
+        //这里不需要判断之前是否提交过,每次都需要填写
+        result.put("submitted", false);
+        result.put("applyInfo", lineApplyService.findLineApplyByUserId(accountId, courseId));
         return ResponseObject.newSuccessResponseObject(result);
     }
 }

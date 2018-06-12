@@ -30,6 +30,18 @@ public interface LineApplyMapper extends BaseMapper<LineApply> {
     LineApply findLineApplyByUserIdAndCourseId(@Param("userId") String userId, @Param("courseId") Integer courseId);
 
     /**
+     * 通过用户id与课程id查询线下课报名信息
+     *
+     * @param userId   用户id
+     * @param courseId 课程信息
+     * @return 课程报名信息
+     */
+    @Select("SELECT ola.real_name as realName, ola.sex, ola.mobile, ola.wechat_no as wechatNo" +
+            " FROM oe_line_apply ola " +
+            " where ola.user_id = #{userId} and ola.course_id = #{courseId} and ola.is_delete = 0")
+    Map<String, Object> findByUserIdAndCourseId(@Param("userId") String userId, @Param("courseId") Integer courseId);
+
+    /**
      * 通过用户id查询最新一条报名信息
      *
      * @param userId 用户id
@@ -80,5 +92,5 @@ public interface LineApplyMapper extends BaseMapper<LineApply> {
             " ORDER BY la.create_time desc limit 1"})
     LineCourseApplyStudentVO findByCourseIdAndUserId(@Param("courseId") Integer courseId, @Param("userId") String userId);
 
-	void insertLineApply(@Param("item")LineApply lineApply);
+    void insertLineApply(@Param("item") LineApply lineApply);
 }

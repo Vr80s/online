@@ -1,21 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xczhihui.course.mapper.LineApplyMapper">
-
-	
-    <select id="findLineApplyByUserId" resultType="com.xczhihui.course.model.LineApply" >
-		SELECT
-		   *
-		FROM
-		  oe_line_apply ola 
-		where ola.user_id = #{userId}  and ola.is_delete = 0
-	</select>
-	
-	
-	<insert id="insertLineApply">
-		INSERT IGNORE INTO `oe_line_apply` (
-		  id, user_id, create_time, update_time,real_name,sex,mobile,wechat_no,course_id,anchor_id
-		) VALUES
-		  (#{item.id},#{item.userId},#{item.createTime},#{item.updateTime},#{item.realName},#{item.sex},#{item.mobile},#{item.wechatNo},#{item.courseId},#{item.anchorId})
-	</insert>
+    <insert id="insertLineApply">
+        INSERT IGNORE INTO `oe_line_apply` (
+            id, user_id, create_time, update_time, real_name, sex, mobile, wechat_no, course_id, anchor_id
+        ) VALUES
+            (#{item.id}, #{item.userId}, #{item.createTime}, #{item.updateTime}, #{item.realName}, #{item.sex},
+             #{item.mobile}, #{item.wechatNo}, #{item.courseId}, #{item.anchorId})
+    </insert>
 </mapper>

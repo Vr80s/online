@@ -33,6 +33,10 @@ public class SmsUtil {
 
     private static final String ACCESS_KEY_ID = "LTAIwptezJl2QHcu";
     private static final String ACCESS_KEY_SECRET = "0ndfvxDux1DHTVEgLUqoQI6FDasg3p";
+    private static final String OK = "OK";
+    private static final String BUSINESS_LIMIT_CONTROL_CODE = "isv.BUSINESS_LIMIT_CONTROL";
+    private static final String BUSINESS_LIMIT_CONTROL_DAY_MESSAGE = "触发天级流控Permits:10";
+    private static final String BUSINESS_LIMIT_CONTROL_HOUR_MESSAGE = "触发小时级流控Permits:5";
 
     private static IAcsClient aliAcsClient;
 
@@ -117,7 +121,19 @@ public class SmsUtil {
             e.printStackTrace();
         }
         if (acsResponse != null) {
-            logger.info("sms response code : {}", acsResponse.getCode());
+            String code = acsResponse.getCode();
+            if (!OK.equals(code)) {
+                //流控提示
+                String message = acsResponse.getMessage();
+                if (BUSINESS_LIMIT_CONTROL_CODE.equals(code)) {
+                    if (BUSINESS_LIMIT_CONTROL_DAY_MESSAGE.equals(message)) {
+                        acsResponse.setMessage("该业务今天短信额度超出限制");
+                    } else if (BUSINESS_LIMIT_CONTROL_HOUR_MESSAGE.equals(message)) {
+                        acsResponse.setMessage("一小时内短信发送超限,请稍后重试");
+                    }
+                }
+                logger.error("sms response code : {}, tel: {}", code, phoneNumber);
+            }
         }
         return acsResponse;
     }

@@ -14,10 +14,11 @@ public interface ILineApplyService {
     /**
      * 查询用户最新一次线下课报名信息
      *
-     * @param userId 用户id
+     * @param userId   用户id
+     * @param courseId 课程id
      * @return 线下课报名信息
      */
-    Map<String, Object> findLineApplyByUserId(String userId);
+    Map<String, Object> findLineApplyByUserId(String userId, Integer courseId);
 
     /**
      * 判断用户对该课程是否已经提交报名信息
@@ -31,7 +32,6 @@ public interface ILineApplyService {
     /**
      * 保存或更新用户的线下课报名信息
      *
-     * @param lockId    用户id
      * @param lineApply 报名信息
      */
     void saveOrUpdate(LineApply lineApply);
@@ -60,7 +60,7 @@ public interface ILineApplyService {
      * 查询课程的报名信息
      *
      * @param courseId 课程id
-     * @param userId 用户id
+     * @param userId   用户id
      * @return
      */
     LineCourseApplyStudentVO findByCourseIdAndUserId(Integer courseId, String userId);

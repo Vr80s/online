@@ -21,38 +21,38 @@ RequestService("/online/user/isAlive", "GET", null, function (data) {
 $(function () {
 
     var index = 0;
-    
+
     var falg = false;
-    if(collection == 1 &&  watchState ==0){ //专辑付费，删除选集、显示大纲
+    if (collection == 1 && watchState == 0) { //专辑付费，删除选集、显示大纲
         $(".buy_tab").remove();
         $(".no_buy_tab").removeClass("hide");
         falg = true;
-    }else if(collection == 1 &&  watchState !=0){  //专辑免费或已购买，显示选集、删除大纲
+    } else if (collection == 1 && watchState != 0) {  //专辑免费或已购买，显示选集、删除大纲
         $(".no_buy_tab").remove();
         $(".buy_tab").removeClass("hide");
         falg = true;
-        index=1;
-    }else{
+        index = 1;
+    } else {
         $(".no_buy_tab").remove();
         $(".buy_tab").remove();
     }
-    if(type == "info"){
+    if (type == "info") {
         $(".wrap-sidebar ul li").eq(index).addClass("active-footer");
     }
     //type对应显示
     //outline  comment    info   aq  selection
     if (type == "selection") {
-    	index = 0;
+        index = 0;
         $(".wrap-sidebar ul li").eq(0).addClass("active-footer");
     } else if (type == "outline") {
-    	index = 1;
+        index = 1;
         $(".wrap-sidebar ul li").eq(1).addClass("active-footer");
     } else if (type == "comment") {
-    	 falg ? index = 2 : index = 1;
+        falg ? index = 2 : index = 1;
         $(".wrap-sidebar ul li").eq(index).addClass("active-footer");
-       
+
     } else if (type == "aq") {
-    	  falg ? index = 3 : index = 2;
+        falg ? index = 3 : index = 2;
         $(".wrap-sidebar ul li").eq(index).addClass("active-footer");
     }
     $(".sidebar-content").addClass("hide").eq(index).removeClass("hide")
@@ -89,14 +89,8 @@ $(function () {
                 if (!id) {
                     showTip("无法获取课程id");
                 }
-                if (type === 4) {//线下课，需要先判断是否已经填写报名信息
-                    RequestService("/courses/applyInfo?courseId=" + id, "GET", null, function (data) {
-                        if (data.resultObject.submitted) {
-                            createOrder(id);
-                        } else {
-                            goOfflineApply(id);
-                        }
-                    }, false);
+                if (type === 4) {//线下课，需要先填写报名信息
+                    goOfflineApply(id);
                 } else {
                     createOrder(id);
                 }
@@ -118,16 +112,6 @@ $(function () {
         location.href = "/courses/offlineApply?courseId=" + courseId;
     }
 
-    function addHistory(courseId, recordType) {
-        RequestService("/history/add?courseId=" + courseId + "&recordType=" + recordType, "GET", null, function (data) {
-            window.location.href = "/courses/" + courseId + "/info";
-        }, false);
-    }
-
-    
-    
-    
-    
 //	点击立即学习时，需要判断是否登录了
     $(".learning_immediately").click(function () {
         var $this = $(this);
@@ -149,27 +133,21 @@ $(function () {
                         return;
                     }
                     if (watchState == 1) {
-                        RequestService("/courses/applyInfo?courseId=" + realCourseId, "GET", null, function (data) {
-                            if (data.resultObject.submitted) {
-                                addHistory(realCourseId, 1);
-                            } else {
-                                goOfflineApply(realCourseId);
-                            }
-                        });
+                        goOfflineApply(realCourseId);
                     }
                 }
                 if (type == 3) { //已报名
                     window.location.href = "/web/livepage/" + realCourseId;
                 } else if (type == 1 || type == 2) {
                     if (collection == 1) {
-                    	
-                    	var lastLiveKey = loginUserId + courseId+"lastLive";
-                    	var lastLiveCourseId = localStorage.getItem(lastLiveKey);
-                    	if(lastLiveCourseId!=null && lastLiveCourseId!="" && lastLiveCourseId!=undefined){ //继续学习
-                    		 window.location.href = "/web/html/ccvideo/liveVideoAlbum.html?collectionId=" + realCourseId + "&courseId="+lastLiveCourseId;
-                    	}else{
-                    		 window.location.href = "/web/html/ccvideo/liveVideoAlbum.html?collectionId=" + realCourseId + "&ljxx=ljxx";
-                    	}
+
+                        var lastLiveKey = loginUserId + courseId + "lastLive";
+                        var lastLiveCourseId = localStorage.getItem(lastLiveKey);
+                        if (lastLiveCourseId != null && lastLiveCourseId != "" && lastLiveCourseId != undefined) { //继续学习
+                            window.location.href = "/web/html/ccvideo/liveVideoAlbum.html?collectionId=" + realCourseId + "&courseId=" + lastLiveCourseId;
+                        } else {
+                            window.location.href = "/web/html/ccvideo/liveVideoAlbum.html?collectionId=" + realCourseId + "&ljxx=ljxx";
+                        }
                     } else {
                         window.location.href = "/web/html/ccvideo/video.html?courseId=" + realCourseId;
                     }
@@ -178,39 +156,39 @@ $(function () {
         });
     });
 
-    
+
 //  专辑判断播放到那个位置了
-    if(collection == 1){
-    	 var lastLiveKey = loginUserId + courseId+"lastLive";
-    	 var lastLiveCourseId = localStorage.getItem(lastLiveKey);
-    	 if(lastLiveCourseId!=null && lastLiveCourseId!="" && lastLiveCourseId!=undefined){
-    		 //选集
-    		 $(".play-album").each(function(){
-    			 var $this = $(this);
-    			 var courseId =  $this.attr("data-courseId");
-    			 if(lastLiveCourseId == courseId){
-    				 
-    				var gradeName =  $this.find("p").eq(0).text();
-    				$(".immediately-buy").html("继续学习");
-    				$(".remember-last").removeClass("hide");
-    				$(".remember-last span").text(gradeName);
-    				return false;
-    			 }
-    		 
-    		 })
-    		 
-    	 }
+    if (collection == 1) {
+        var lastLiveKey = loginUserId + courseId + "lastLive";
+        var lastLiveCourseId = localStorage.getItem(lastLiveKey);
+        if (lastLiveCourseId != null && lastLiveCourseId != "" && lastLiveCourseId != undefined) {
+            //选集
+            $(".play-album").each(function () {
+                var $this = $(this);
+                var courseId = $this.attr("data-courseId");
+                if (lastLiveCourseId == courseId) {
+
+                    var gradeName = $this.find("p").eq(0).text();
+                    $(".immediately-buy").html("继续学习");
+                    $(".remember-last").removeClass("hide");
+                    $(".remember-last span").text(gradeName);
+                    return false;
+                }
+
+            })
+
+        }
     }
-    
-    
+
+
 //判断进入条	
     /**
      * 得到这个记录
      */
     var key = loginUserId + courseId;
     var recordingList = localStorage.getItem(key);
-    
-    
+
+
     /**
      * 播放进度条
      */
@@ -225,7 +203,7 @@ $(function () {
         $(".progress").show();
 
         $(".immediately-buy").text("继续学习");
-        
+
     } else if (recordingList != null) {				//专辑
         var key = loginUserId + courseId;
         if (recordingList != null || recordingList != undefined) {
