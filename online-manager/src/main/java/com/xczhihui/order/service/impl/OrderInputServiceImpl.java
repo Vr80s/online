@@ -68,6 +68,7 @@ public class OrderInputServiceImpl extends OnlineBaseServiceImpl implements Orde
 				"ON oo.id=ood.`order_id`\n" +
 				"LEFT JOIN `apply_r_grade_course` argc\n" +
 				"ON argc.`order_no` = ood.id ";
+		sql += " where 1=1 ";
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		if (orderVo.getCreate_time_start() != null) {
 			sql += " and t1.create_time >= :create_time_start ";
