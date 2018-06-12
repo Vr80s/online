@@ -24,6 +24,7 @@ import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.course.service.IFocusService;
+import com.xczhihui.course.service.IMyInfoService;
 import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.medical.hospital.model.MedicalHospital;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalApplyService;
@@ -52,7 +53,11 @@ public class HostController {
 
     @Autowired
     private ICourseService courseService;
-
+    
+    @Autowired
+    private  IMyInfoService  myInfoService;
+    
+    
     @Value("${returnOpenidUri}")
     private String returnOpenidUri;
 
@@ -73,19 +78,24 @@ public class HostController {
     public ResponseObject userHomePage(@Account(optional = true) Optional<String> accountIdOpt,
                                        HttpServletResponse res,
                                        @RequestParam("lecturerId") String lecturerId) throws Exception {
-        LOGGER.info("lecturerId-->id" + lecturerId);
+        
+    	LOGGER.info("lecturerId-->id" + lecturerId);
+        
         Map<String, Object> mapAll = new HashMap<String, Object>();
         /**
          * 得到讲师   主要是房间号，缩略图的信息、讲师的精彩简介
          *
          * 这个主播可能认证的是医馆，也可能认证的是医师
          */
-        Map<String, Object> lecturerInfo = onlineUserService.findHostById(lecturerId);
+        Map<String, Object> lecturerInfo = myInfoService.findHostInfoById(lecturerId);
         if (lecturerInfo == null) {
             return ResponseObject.newErrorResponseObject("获取医师信息有误");
         }
 
         lecturerInfo.put("richHostDetailsUrl", returnOpenidUri + "/xcview/html/person_fragment.html?type=4&typeId=" + lecturerId);
+       
+        
+        
         mapAll.put("lecturerInfo", lecturerInfo);          //讲师基本信息
         MedicalHospital mha = null;
 
