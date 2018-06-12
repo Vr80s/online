@@ -54,6 +54,10 @@ public class LineApplyBody {
             throw new LineApplyException("昵称最多允许输入20个字符");
         }
 
+        if (!XzStringUtils.checkNickName(name)) {
+            throw new LineApplyException("昵称支持中文、字母、数字、'-'、'_'的组合，4-20个字符");
+        }
+        
         if (!XzStringUtils.checkPhone(lineApply.getMobile())) {
             throw new LineApplyException("请输入正确的手机号");
         }

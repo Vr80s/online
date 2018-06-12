@@ -69,16 +69,16 @@ a:active{text-decoration:none;}/* 指正在点的链接*/
     display: block;
 }
 .carousel-indicators li{
-	border: 0 !important;
-	background: white;
-	width: 10px;
-	height: 10px;
+
+	width: 12px;
+	height: 12px;
 	margin: 0 5px;
 }
 .carousel-indicators .active{
 	background: #00BC12;
-	width: 10px;
-	height: 10px;
+	width: 12px;
+	height: 12px;
+	border: 1px solid #00bc12;
 
 }
 /*轮播箭头*/

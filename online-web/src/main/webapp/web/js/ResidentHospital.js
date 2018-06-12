@@ -453,13 +453,28 @@ function baseInfrese1(headPortrait, name, medicalHospitalPictures, fields, descr
 	//微信
 	$('#hos_Administration .hos_base_inf .bottomContent .hos_weixin').val(wechat);
 	//城市
-	$('#hos_Administration .hos_base_inf .bottomContent #choosePro option:selected').text(province);
-	$('#hos_Administration .hos_base_inf .bottomContent #citys option:selected').text(city);
-    $('#hos_Administration .hos_base_inf .bottomContent #county option:selected').text(county);
-    doProvAndCityRelation();
-    doCityAndCountyRelation();
-    onchangeCountyEdit();
 
+	//省
+    $("#citys").empty();
+    $('#choosePro option:contains(' + province + ')').each(function () {
+        if ($(this).text() == province) {
+            $(this).prop("selected", 'selected');
+        }
+    });
+    //市
+    doProvAndCityRelation();
+    $('#citys option:contains(' + city + ')').each(function () {
+        if ($(this).text() == city) {
+            $(this).prop("selected", 'selected');
+        }
+    });
+    //县
+    onchangeCityEdit();
+    $('#county option:contains(' + county + ')').each(function () {
+        if ($(this).text() == county) {
+            $(this).prop("selected", 'selected');
+        }
+    });
 	//详细地址
 	$('#hos_Administration .hos_base_inf .doc_address textarea').val(detailedAddress);
 }

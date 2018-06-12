@@ -112,7 +112,6 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 				all.append("  union all ");
 			}
 		}
-		System.out.println(all.toString());
 		
 		return wxcpCourseDao.query(JdbcUtil.getCurrentConnection(),all.toString(),new BeanListHandler<>(CourseVo.class));
 	}
@@ -593,7 +592,6 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 
 		}
 
-    	System.out.println("commonSql:"+commonSql.toString());
         return wxcpCourseDao.queryPage(JdbcUtil.getCurrentConnection(),commonSql.toString(),
         		pageNumber,pageSize,CourseVo.class);
 	}

@@ -995,6 +995,9 @@ overflow: hidden;*/
 .order-right li p:hover{
 	color: #00bc12;
 }
+.order-right li p:hover a{
+	color: #00bc12 !important;
+}
   .no-order-box{
 	text-align: center;
 	color: #999999;

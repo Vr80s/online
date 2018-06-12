@@ -123,7 +123,6 @@ public class OnlineWebServiceImpl extends BasicSimpleDao implements OnlineWebSer
 	        List<Map<String,Object>>  list = null;
 	        //说明是专辑下的评论，直接查上一级
 	        
-	        System.out.println("专辑idcollectionId:"+criticize.getCollectionId());
 	        if(criticize.getCollectionId()!=null){
 	        	  Object []  params = {criticize.getCollectionId(),criticize.getCreatePerson()};
 	        	  list =  this.query(JdbcUtil.getCurrentConnection(),sql.toString(),new MapListHandler(),params);
@@ -131,7 +130,6 @@ public class OnlineWebServiceImpl extends BasicSimpleDao implements OnlineWebSer
 	        	  Object []  params = {criticize.getCourseId(),criticize.getCreatePerson()};
 	        	  list =  this.query(JdbcUtil.getCurrentConnection(),sql.toString(),new MapListHandler(),params);
 	        }
-	        System.out.println("list.size()："+list.size());
 	        if(list!=null && list.size()>0){
 	        	return true;
 	        }

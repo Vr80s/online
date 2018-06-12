@@ -246,7 +246,7 @@
 
 				<#if doctorList?size gt 0 >	
 					<!--名家坐诊部分-->
-					<div class="famous_doctor">
+					<div class="famous_doctor" style="padding: 20px 20px 0;">
 						<div class="course_title"><span class="title">名家坐诊</span>
 							<a href="${webUrl}/doctors/list" class="more" target="_blank">更多<img src="/web/images/right_more.png" alt="箭头"></a>
 						</div>
@@ -268,8 +268,8 @@
 			  <!--头条新闻部分开始-->
 
 			  <#if articles.records?size gt 0 >	
-				<div class="topLine_news">
-					<div class="course_title"><span class="title">头条新闻</span>
+				<div class="topLine_news" style="padding-bottom: 0;">
+					<div class="course_title" style="margin-bottom: 0;"><span class="title">头条新闻</span>
 						<a href="${webUrl}/headline/1" class="more" target="_blank">更多<img src="/web/images/right_more.png" alt="箭头"></a>
 					</div>
 					<ul class="topLine_news_list">
@@ -297,7 +297,7 @@
 
 				<!--底部的医馆部分-->
 			<#if hospitalList.records?size gt 0>	
-				<div class="hospital_part">
+				<div class="hospital_part" style="padding-bottom: 0;">
 					<div class="course_title"><span class="title">医馆</span>
 						<a href="${webUrl}/clinics/list" class="more" target="_blank">更多<img src="/web/images/right_more.png" alt="箭头"></a>
 					</div>
@@ -367,8 +367,8 @@
 									</a>
 								</div>
 								<div class="zuozhe_inf">
-									<span><a href="/doctors/c654bcc007354244a6ba22cfd907f426" style="color: #0C0C0C" target="_blank">${doctor.name} </a>
-									<span style="font-size: 14px;color: #666666;font-weight: 400;margin-left: 10px;">
+									<span><a href="/doctors/c654bcc007354244a6ba22cfd907f426" style="color: #0C0C0C;float: left;" target="_blank">${doctor.name} </a>
+									<span class="address-show">
 									  ${doctor.province?default('')}&nbsp;${doctor.city?default('')}
 									 </span></span>
 									 <#if doctor.gradeName??>

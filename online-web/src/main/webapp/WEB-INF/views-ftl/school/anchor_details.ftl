@@ -136,7 +136,7 @@
 										</#if>
 										<p>预约电话：${hospital.tel?default("")}</p>
 										<#if lecturerInfo.type == 1 && lecturerInfo.workTime??>
-											<p>坐诊时间：每周${lecturerInfo.workTime?default("")}全天</p>
+											<p>坐诊时间：${lecturerInfo.workTime?default("")}</p>
 										</#if>
 									</div>
 									<div class="address-box">
