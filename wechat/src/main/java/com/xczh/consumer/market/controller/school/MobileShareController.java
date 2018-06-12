@@ -192,7 +192,7 @@ public class MobileShareController {
                 String strLinkHome 	= "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+WxPayConst.gzh_appid+"&redirect_uri="+returnOpenidUri+"/xczh/share/viewUser?shareIdAndType="+shareIdAndType+"&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect".replace("appid=APPID", "appid="+ WxPayConst.gzh_appid);
                 res.sendRedirect(strLinkHome);
             }else if(StringUtils.isNotBlank(wxOrbrower) && "brower".equals(wxOrbrower)){
-                res.sendRedirect(returnOpenidUri +"/xczh/share/viewUser?shareId="+shareId+"&wxOrbrower=brower"+"&shareType="+shareType);//
+                res.sendRedirect(returnOpenidUri +"/xczh/share/viewUser?shareIdAndType="+shareIdAndType+"&wxOrbrower=brower");//
             }
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -233,12 +233,12 @@ public class MobileShareController {
             
             LOGGER.info("shareId:" +shareId+"shareType:" +shareType+"wxOrbrower:" +wxOrbrower);
             OnlineUser ou =null;
-            if(!StringUtils.isNotBlank(wxOrbrower)){ //微信浏览器
+            if(!StringUtils.isNotBlank(wxOrbrower) && wxOrbrower.equals("wx")){ //微信浏览器
                 WxcpClientUserWxMapping wxw = onlineUserService.saveWxInfo(code);
 				/*
 				 * 判断此微信用户是否已经存在与我们的账户系统中不
 				 */
-                if(StringUtils.isNotBlank(wxw.getClient_id())){ //说明这个用户已经绑定过了
+                if(wxw!=null && StringUtils.isNotBlank(wxw.getClient_id())){ //说明这个用户已经绑定过了
                     /**
                      * 判断这个用户session是否有效了，如果有效就不用登录了
                      */
@@ -331,6 +331,9 @@ public class MobileShareController {
                 res.sendRedirect(returnOpenidUri + WechatShareLinkType.LIVE_PERSONAL.getLink()+shareId);
             }else if(ShareType.APPRENTICE_SHARE.getCode().equals(shareType)) {
             	res.sendRedirect(returnOpenidUri + WechatShareLinkType.APPRENTICE.getLink()+shareId);
+            }else {
+            	
+            	res.sendRedirect(returnOpenidUri +WechatShareLinkType.HOME_PAGE.getLink());
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -45,7 +45,7 @@
 								<#if courseTypeItem.title?? && courseTypeItem.title == "全国课程">									
 									<a href="${webUrl}/courses/list?courseType=4">更多</a>
 								<#else>
-									<a href="${webUrl}/courses/list?city=${courseTypeItem.title}">更多</a>
+									<a href="${webUrl}/courses/list?courseType=4&city=${courseTypeItem.title}">更多</a>
 								</#if>
 								<img src="/web/images/rili_icon.png" alt="箭头" />
 								 </p>
