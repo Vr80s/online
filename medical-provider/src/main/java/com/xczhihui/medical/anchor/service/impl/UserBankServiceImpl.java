@@ -151,6 +151,11 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper, UserBank>
 		String cardType = belong.get("cardType").toString();
 		userBank.setCardType(cardType);
 
+		String vtel = belong.get("tel").toString();
+
+		if(!vtel.equals(userBank.getTel())){
+			throw new RuntimeException("银行卡号与银行不匹配");
+		}
 		List<UserBank> userBankList = selectUserBankByUserId(
 				userBank.getUserId(), false);
 		if (userBankList != null && userBankList.size() > 0) {
