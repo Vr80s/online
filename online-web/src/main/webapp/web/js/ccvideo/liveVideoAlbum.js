@@ -17,6 +17,7 @@ var	smallImgPath = "https://file.ipandatcm.com/data/picture/online/2017/12/18/15
 var	description = "零基础也能学中医！许多学员推荐“古籍经典”系列以及【小宝中医带你快速入门学针灸】课程作为他们的入门必备。";
 
 var userId= "";
+var multimediaType = 1;
 
 //判断字段空值
 function stringnull(zifu) {
@@ -55,12 +56,15 @@ RequestService("/online/user/isAlive", "GET", null, function(data) { ///online/u
 			document.title = data.resultObject.courseName ;
 			
 			$(".headerBody .rightT i").html(data.resultObject.lecturer);
-			menuid = data.resultObject.menu_id;
 			
 			//分享使用
 			courseName = data.resultObject.courseName;
 			smallImgPath = data.resultObject.smallImgPath;
 			description = data.resultObject.description;
+			
+			
+			//如果是音频的话，需要自己去设置哪里播放
+			multimediaType = data.resultObject.multimediaType;
 			
 		}, false);
 	} else {
@@ -194,6 +198,42 @@ $(function() {
 	};
 });
 
+   /******************  从指定时间开始播放  **********************/
+
+var key = userId + collectionId;
+var recordingList = localStorage.getItem(key);
+var recording = 0;
+if (multimediaType!=null && multimediaType !=undefined && multimediaType ==2 && 
+		recordingList != null && recordingList != undefined  ) {
+    var re = new RegExp("%", "i");
+    var fristArr = recordingList.split(re);
+    var arr = [];
+    for (var i = 0; i < fristArr.length; i++) {
+        var arrI = fristArr[i];
+        if (arrI != "") {
+            var obj = {}
+            var lalaArr = arrI.split("=");
+            obj[lalaArr[0]] = lalaArr[1];
+            arr.push(obj);
+        }
+    }
+    console.log(arr);
+    
+    for (var i = 0; i < arr.length; i++) {
+        var json = arr[i];
+        for (var key in json) {
+            if (courseId == key) {
+                recording = json[key];
+                break;
+            }
+        }
+    }
+}
+
+
+
+
+
 
 
 /*********************** 帅气的cc视频自定义事件  **************************/
@@ -218,6 +258,9 @@ var player ="";
  */
 function custom_player_start(){
 	//alert("开始播放了");
+	if(recording>0){
+		player.seek(recording);
+	}
 }
 
 /**
@@ -296,7 +339,7 @@ function custom_player_stop(){
  * 播放器配置示例
  *
  * */
-function on_cc_player_init(vid, objectId ){
+function on_cc_player_init(vid, objectId){
     var config = {};
     
     console.log("sdada")
@@ -309,7 +352,6 @@ function on_cc_player_init(vid, objectId ){
     config.on_player_pause = "custom_player_pause";
     config.on_player_resume = "custom_player_resume";
     config.on_player_stop = "custom_player_stop";
-    
 //    config.player_plugins = {// 插件名称 : 插件参数
 //        Subtitle : {
 //            url : "http://dev.bokecc.com/static/font/example.utf8.srt"

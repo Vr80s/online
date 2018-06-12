@@ -643,7 +643,9 @@ public class CourseDao extends SimpleHibernateDao {
         String courseTableName = "1".equals(ispreview) ? "oe_course_preview" : "oe_course";
         String course_type = "1".equals(ispreview) ? "" : "c.course_type,";
         if (courseId != null) {
-            String sql = " select " + course_type + " c.id, c.is_recommend, c.is_free, c.grade_name as courseName ,c.description,c.current_price,c.original_cost," +
+        	
+            String sql = " select " + course_type + " c.id, c.is_recommend, c.is_free, c.grade_name as courseName ,"
+            		+ "c.description,c.current_price,c.original_cost,c.multimedia_type multimediaType," +
 //            			"IF(c.live_status='1', 2, IF(c.live_status='2', 1, 3)) AS broadcastState, "+
                     " if(c.is_free=1,(SELECT count(*) FROM apply_r_grade_course where course_id=c.id)," +
                     " (select  sum(ifnull(student_count,0))+sum(ifnull(default_student_count,0)) from  oe_grade  where course_id=?  and is_delete=0 and status=1)) learnd_count,c.course_length," +

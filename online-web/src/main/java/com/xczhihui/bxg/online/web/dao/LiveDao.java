@@ -146,7 +146,8 @@ public class LiveDao extends SimpleHibernateDao {
                 "  ) start_time,\n" +
                 "  c.direct_id,\n" +
                 "  c.type,\n" +
-                "  c.flowers_number,\n" +
+                "  c.flowers_number,"
+                + "c.multimedia_type multimediaType, \n" +
                 "  c.user_lecturer_id userLecturerId FROM\n" +
                 "  oe_course c \n" +
                 "  LEFT JOIN `course_anchor` ca\n" +
