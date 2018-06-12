@@ -24,6 +24,7 @@ import com.xczhihui.common.util.WeihouInterfacesListUtil;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.course.service.IFocusService;
 import com.xczhihui.course.service.IMobileBannerService;
+import com.xczhihui.course.service.IWatchHistoryService;
 import com.xczhihui.course.util.CourseUtil;
 import com.xczhihui.course.vo.CourseLecturVo;
 
@@ -47,6 +48,10 @@ public class CourseController {
 
     @Autowired
     private IMobileBannerService mobileBannerService;
+    
+
+    @Autowired
+    public IWatchHistoryService watchHistoryServiceImpl;
 
     @Autowired
     @Qualifier("focusServiceRemote")
@@ -286,8 +291,12 @@ public class CourseController {
     public void liveCourse(@PathVariable("courseId")String courseId,
     		@Account String accountId,
     		HttpServletResponse response) throws IOException {
+    	
         String liveCourseUrl4Wechat = courseServiceImpl.getLiveCourseUrl4Wechat(accountId,courseId);
-        
+        //添加学习记录
+        if(liveCourseUrl4Wechat!=null && liveCourseUrl4Wechat.indexOf("details.html")!=-1) {
+        	watchHistoryServiceImpl.addLookHistory(Integer.parseInt(courseId), accountId, 2, null);
+        }
         response.sendRedirect(liveCourseUrl4Wechat);
     }
 
