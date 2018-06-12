@@ -73,8 +73,12 @@ public class CourseApplyController extends AbstractController {
      * @Date: 下午 3:42 2018/1/19 0019
      **/
     @RequestMapping(value = "/getCourseApplyList", method = RequestMethod.GET)
-    public ResponseObject getCourseApplyList(HttpServletRequest request, Integer current, Integer size, Integer courseForm, Integer multimediaType, String title) {
+    public ResponseObject getCourseApplyList(Integer current, Integer size, Integer courseForm, Integer multimediaType, String title) {
         Page<CourseApplyInfoVO> page = new Page<>();
+        if(size == null){
+            size = Integer.MAX_VALUE;
+            current = 1;
+        }
         page.setCurrent(current);
         page.setSize(size);
         OnlineUser user = getCurrentUser();
