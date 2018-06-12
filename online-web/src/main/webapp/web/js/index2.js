@@ -25,8 +25,8 @@ function init() {
 	var $left = $('#left');
 	var $right = $('#right');
 	var arg = $selector.width() / 2;
-	$selector.css("left", "50%");
-	$selector.css("marginLeft", -arg);
+//	$selector.css("left", "50%");
+//	$selector.css("marginLeft", -arg);
 	//自动切换
 	var step = 0;
 
