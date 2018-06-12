@@ -724,7 +724,7 @@ color: white;
 }
 .wrapAll_comment{
 	width: 7.5rem;
-    position: absolute;
+    position: fixed;
 
 	display: none;
 	background:white;

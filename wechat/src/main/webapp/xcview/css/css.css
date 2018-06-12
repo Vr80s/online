@@ -544,19 +544,19 @@ footer{
     margin-left: 0.4rem;
 }
 .history_span{
-	font-size: 0.851rem;
-    display: table-cell;
-    width: 80%;
-    float: left;
-    text-align: center;
-    color: #666;
+	/* font-size: 0.851rem;
+	    display: table-cell;
+	    width: 80%;
+	    float: left;
+	    text-align: center;
+	    color: #666; */
 }
 .history_span span{
-	margin-right: 1.8rem;
+	/*margin-right: 1.8rem;*/
 }
 .history_span01{
-	border-bottom: 0.05rem solid #666;
-	margin-left: 2rem;
+	/*border-bottom: 0.05rem solid #666;
+	margin-left: 2rem;*/
 }
 .history_span1{
 	font-size: 0.7rem;
@@ -943,15 +943,15 @@ footer{
 	width: 100%;
 }
 .grabble_img{
-	width: 0.5rem;
-    height: 0.9rem;
-    background: red;
-    display: inline-block;
-    float: left;
-    background: url(../images/return.png) no-repeat;
-    background-size: 100% 100%;
-    margin-top: 0.4rem; 
-    margin-left: 0.4rem;
+	/* width: 0.5rem;
+	    height: 0.9rem;
+	    background: red;
+	    display: inline-block;
+	    float: left;
+	    background: url(../images/return.png) no-repeat;
+	    background-size: 100% 100%;
+	    margin-top: 0.4rem; 
+	    margin-left: 0.4rem; */
 }
 .grabble_top input{
 	width: 12rem;
@@ -1173,8 +1173,8 @@ footer{
 }
 .details_footer{
 	width: 100%;
-    height: 1.675rem;
-    line-height: 1.675rem;
+    height: 0.8rem;
+    line-height: 0.8rem;
     border-top: 1px solid #f0f0f0;
 }
 .details_footer_width{
@@ -1186,7 +1186,7 @@ footer{
 }
 .details_footer_width ul li{
 	float: left;
-    font-size: 0.7rem;
+    font-size: 0.28rem;
     margin-left: 2.85rem;
     color: #000;
     margin-top: 0rem !important;
