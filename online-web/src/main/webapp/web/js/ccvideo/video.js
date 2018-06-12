@@ -141,17 +141,17 @@ function on_cc_player_init(vid, objectId ){
     config.on_player_resume = "custom_player_resume";
     config.on_player_stop = "custom_player_stop";
    
-    config.player_plugins = {// 插件名称 : 插件参数
-        Subtitle : {
-            url : "http://dev.bokecc.com/static/font/example.utf8.srt"
-            , size : 24
-            , color : 0xFFFFFF
-            , surroundColor : 0x3c3c3c
-            , bottom : 0.15
-            , font : "Helvetica"
-            , code : "utf-8"
-        }
-    };
+//    config.player_plugins = {// 插件名称 : 插件参数
+//        Subtitle : {
+//            url : "http://dev.bokecc.com/static/font/example.utf8.srt"
+//            , size : 24
+//            , color : 0xFFFFFF
+//            , surroundColor : 0x3c3c3c
+//            , bottom : 0.15
+//            , font : "Helvetica"
+//            , code : "utf-8"
+//        }
+//    };
     player= getSWF(objectId);
     player.setConfig(config);
     

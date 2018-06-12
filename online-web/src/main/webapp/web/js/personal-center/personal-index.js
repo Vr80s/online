@@ -181,7 +181,7 @@ function historyClass(pages){
 		                current_page:pages-1,
 		                callback: function (page) {
 		                    //翻页功能
-		                    recruitList(page+1);
+		                    historyClass(page+1);
 		                }
 		            });
 				}

@@ -51,8 +51,9 @@ RequestService("/online/user/isAlive", "GET", null, function(data) { ///online/u
 			if(!data.success){
 				location.href="/courses/"+collectionId+"/info";
 			}
-			$(".headerBody .rightT p").html(data.resultObject.courseName).attr("title", data.resultObject.courseName);
+			$("#courseName").html(data.resultObject.courseName).attr("title", data.resultObject.courseName);
 			document.title = data.resultObject.courseName ;
+			
 			$(".headerBody .rightT i").html(data.resultObject.lecturer);
 			menuid = data.resultObject.menu_id;
 			
@@ -302,7 +303,6 @@ function on_cc_player_init(vid, objectId ){
     //关闭右侧菜单
     config.rightmenu_enable = 0;
    
-    
     config.on_player_seek = "custom_seek";
     config.on_player_ready = "custom_player_ready";
     config.on_player_start = "custom_player_start";
@@ -310,17 +310,17 @@ function on_cc_player_init(vid, objectId ){
     config.on_player_resume = "custom_player_resume";
     config.on_player_stop = "custom_player_stop";
     
-    config.player_plugins = {// 插件名称 : 插件参数
-        Subtitle : {
-            url : "http://dev.bokecc.com/static/font/example.utf8.srt"
-            , size : 24
-            , color : 0xFFFFFF
-            , surroundColor : 0x3c3c3c
-            , bottom : 0.15
-            , font : "Helvetica"
-            , code : "utf-8"
-        }
-    };
+//    config.player_plugins = {// 插件名称 : 插件参数
+//        Subtitle : {
+//            url : "http://dev.bokecc.com/static/font/example.utf8.srt"
+//            , size : 24
+//            , color : 0xFFFFFF
+//            , surroundColor : 0x3c3c3c
+//            , bottom : 0.15
+//            , font : "Helvetica"
+//            , code : "utf-8"
+//        }
+//    };
     player= getSWF(objectId);
     player.setConfig(config);
     

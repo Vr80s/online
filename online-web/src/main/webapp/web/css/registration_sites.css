@@ -6,7 +6,7 @@
 }
 .main{
 	width: 1200px;
-	height: 481px;
+	height: 569px;
 	background: #fff;
 	margin: 0 auto;
 	margin-top: 20px;
@@ -23,7 +23,7 @@
 	width: 100%;
 	height: 70px;
 	background: #FFF6F3;
-	margin-bottom: 20px;
+
 }
 .hint .img{
 	width: 30px;
@@ -46,9 +46,11 @@
 }
 .center{
 	margin-left: 71px;
+	position: relative;
+	margin-top: 70px;
 }
 .name{
-	margin-bottom: 20px;
+	margin-bottom: 30px;
 }
 .name .xx{
 	width: 10px;
@@ -74,10 +76,11 @@
     height: 36px;
     border: 1px solid #f0f0f0;
     outline: none;
+    padding-left: 5px;
 }
 
 .tel{
-	margin-bottom: 20px;
+	margin-bottom: 30px;
 }
 .tel .xx{
 	width: 10px;
@@ -102,10 +105,11 @@
     height: 36px;
     border: 1px solid #f0f0f0;
     outline: none;
+    padding-left: 5px;
 }
 
 .weixin{
-	margin-bottom: 20px;
+	margin-bottom: 30px;
 }
 .weixin .xx{
 	width: 10px;
@@ -130,6 +134,7 @@
     height: 36px;
     border: 1px solid #f0f0f0;
     outline: none;
+    padding-left: 5px;
 }
 
 .sex{
@@ -160,7 +165,30 @@
     border: 1px solid #f0f0f0;
     color: #999;
     outline: none;
+    padding-left: 5px;
 }
+/*右边展示*/
+.mian-right{
+	width: 350px;
+    height: 200px;
+    float: left;
+    position: absolute;
+    top: -29px;
+    right: 200px;
+}
+
+.mian-right p{
+	font-size: 14px;
+color: #666666;
+line-height: 1;
+}
+
+.mian-right img{
+	width: 175px;
+	height: 280px;
+}
+
+
 .button{
     width: 120px;
     height:  36px;
