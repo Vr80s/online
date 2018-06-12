@@ -124,6 +124,10 @@ $(function () {
         }, false);
     }
 
+    
+    
+    
+    
 //	点击立即学习时，需要判断是否登录了
     $(".learning_immediately").click(function () {
         var $this = $(this);
@@ -158,7 +162,14 @@ $(function () {
                     window.location.href = "/web/livepage/" + realCourseId;
                 } else if (type == 1 || type == 2) {
                     if (collection == 1) {
-                        window.location.href = "/web/html/ccvideo/liveVideoAlbum.html?collectionId=" + realCourseId + "&ljxx=ljxx"
+                    	
+                    	var lastLiveKey = loginUserId + courseId+"lastLive";
+                    	var lastLiveCourseId = localStorage.getItem(lastLiveKey);
+                    	if(lastLiveCourseId!=null && lastLiveCourseId!="" && lastLiveCourseId!=undefined){ //继续学习
+                    		 window.location.href = "/web/html/ccvideo/liveVideoAlbum.html?collectionId=" + realCourseId + "&courseId="+lastLiveCourseId;
+                    	}else{
+                    		 window.location.href = "/web/html/ccvideo/liveVideoAlbum.html?collectionId=" + realCourseId + "&ljxx=ljxx";
+                    	}
                     } else {
                         window.location.href = "/web/html/ccvideo/video.html?courseId=" + realCourseId;
                     }
@@ -167,6 +178,7 @@ $(function () {
         });
     });
 
+    
 //  专辑判断播放到那个位置了
     if(collection == 1){
     	 var lastLiveKey = loginUserId + courseId+"lastLive";
@@ -190,6 +202,7 @@ $(function () {
     	 }
     }
     
+    
 //判断进入条	
     /**
      * 得到这个记录
@@ -211,7 +224,6 @@ $(function () {
         $(".progress-bar-success").css("width", progressBar + "%");
         $(".progress").show();
 
-    
         $(".immediately-buy").text("继续学习");
         
     } else if (recordingList != null) {				//专辑

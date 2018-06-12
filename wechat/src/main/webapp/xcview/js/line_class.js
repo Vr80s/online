@@ -94,7 +94,7 @@ var orderId = getQueryString('orderId');
 
 // 点击按钮提交表单 
 $(".buttom").click(function(){
-	
+    
         var realName = $(".name input").val();
         var mobile = $(".tel input").val();
         if (!(/^1[345678]\d{9}$/.test(mobile))) {
@@ -103,8 +103,8 @@ $(".buttom").click(function(){
         }
         var wechatNo = $(".age input").val();
 
-        if (!(/^[a-zA-Z]([-_a-zA-Z0-9]{5,19})+$/.test(wechatNo))) {
-            webToast("微信号格式不正确","middle",1500);
+        if (!(/^(?=.*\d)[a-z\d]{6,20}$/i.test(wechatNo))) {
+            webToast("仅支持6-20字母、数字、下划线或减号","middle",1500);
             return false;
         }
         var sex = "";
@@ -114,42 +114,42 @@ $(".buttom").click(function(){
             sex = 1;
         }
         requestService("/xczh/apply/add",{
-        	'realName':realName,"mobile":mobile,
-        	"wechatNo":wechatNo,"sex":sex,
-        	"courseId":courseId},
-        	function(data) {
-        		if(data.success){ //报名成功
-        			/**
-        			 * 判断这个课程是否是免费了
-        			 *  courseId
-        			 */
-        		    requestService("/xczh/course/userCurrentCourseStatus",{'courseId':courseId},function(data) {
-        			   if(data.success){ //报名成功
-        				   var obj = data.resultObject;
-        				   /**
-        				    * 免费的并且是没有学习的
-        				    */
-        				   if(obj.watchState == 1 && obj.learning == 0){
-        					    /*
-        					     * 添加学习信息 -->去猜你喜欢页面
-        					     */
-        				        requestService("/xczh/history/add", {courseId: courseId,recordType: 1
-	        			        }, function (data) {});
-        				        
-        				        window.location.href = "/xcview/html/buy_prosperity.html?courseId="+courseId;
-        				   }else{
-        					   /*
-        	        			 * 去购买页面
-        	        			 */
-        	        			window.location.href = "purchase.html?orderId=" + orderId + "";
-        				   }
-        			    }else{
-        				   webToast("课程信息有误","middle",1500);
-        			    }
-        		    })
-        		}else{
-        			webToast(data.errorMessage,"middle",1500);
-        		}
+            'realName':realName,"mobile":mobile,
+            "wechatNo":wechatNo,"sex":sex,
+            "courseId":courseId},
+            function(data) {
+                if(data.success){ //报名成功
+                    /**
+                     * 判断这个课程是否是免费了
+                     *  courseId
+                     */
+                    requestService("/xczh/course/userCurrentCourseStatus",{'courseId':courseId},function(data) {
+                       if(data.success){ //报名成功
+                           var obj = data.resultObject;
+                           /**
+                            * 免费的并且是没有学习的
+                            */
+                           if(obj.watchState == 1 && obj.learning == 0){
+                                /*
+                                 * 添加学习信息 -->去猜你喜欢页面
+                                 */
+                                requestService("/xczh/history/add", {courseId: courseId,recordType: 1
+                                }, function (data) {});
+                                
+                                window.location.href = "/xcview/html/buy_prosperity.html?courseId="+courseId;
+                           }else{
+                               /*
+                                 * 去购买页面
+                                 */
+                                window.location.href = "purchase.html?orderId=" + orderId + "";
+                           }
+                        }else{
+                           webToast("课程信息有误","middle",1500);
+                        }
+                    })
+                }else{
+                    webToast(data.errorMessage,"middle",1500);
+                }
         });
 
        

@@ -152,12 +152,10 @@ RequestService("/course/newGetCoursesByCollectionId",
 			var obj = list[i];
 			var li = "<li>";
 			
-			if(stringnull(courseId)){
-				if(courseId == obj.id ){
-					li = "<li class='choosedAlbum' data-id = "+obj.id+">";
-				}else{
-					li = "<li data-id = "+obj.id+">"
-				}
+			if(courseId == obj.id ){
+				li = "<li class='choosedAlbum' data-id = "+obj.id+">";
+			}else{
+				li = "<li data-id = "+obj.id+">"
 			}
 			lalal += (li+"<div>" +
 				"<span class='playbtn'></span>" +
