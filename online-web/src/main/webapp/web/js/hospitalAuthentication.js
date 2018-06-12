@@ -133,6 +133,7 @@ $('.path .hospital').addClass('select');
 		data.email = $.trim($('.hos_base_inf .doc_hospital').val());
 		data.province = $('#hos_Administration .hos_base_inf #choosePro  option:selected').text();
 		data.city = $('#hos_Administration .hos_base_inf  #citys option:selected').text();
+        data.county = $('#hos_Administration .hos_base_inf  #county option:selected').text();
 		data.wechat =  $('#hos_Administration .hos_base_inf  .hos_weixin').val();
 		data.headPortrait = $('.hos_base_inf   .touxiang_pic img').attr('src');
         data.description = UE.getEditor('editor2').getContent();
