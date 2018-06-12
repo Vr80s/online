@@ -511,6 +511,16 @@ width: 63px;
 	top: 0;
 	left: 0;
 }
+/*五学员背景图*/
+.no-order-box{
+	text-align: center;
+	color: #999999;
+	padding: 183px 0 185px;
+}
+.no-order-box .no-order-img{
+	   margin: 0 auto 10px;
+
+}
 /*查看*/
 .see-trainee{
     width: 680px;

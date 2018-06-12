@@ -833,17 +833,20 @@ function courseLiveList(current){
  **/
 function startLive(id) {
     RequestService("/anchor/course/getWebinarUrl?webinarId="+id, "get", null, function(data) {
-        window.open(data.resultObject);
+//      window.open(data.resultObject);
+        location.href=data.resultObject;
     });
 }
 
 function startGuestLive(id) {
     RequestService("/anchor/course/getWebinarGuestUrl?webinarId="+id, "get", null, function(data) {
-        window.open(data.resultObject);
+//      window.open(data.resultObject);
+location.href=data.resultObject;
     });
 }
 function previewLive(id) {
-    window.open("http://e.vhall.com/"+id);
+//  window.open("http://e.vhall.com/"+id);
+location.href="http://e.vhall.com/"+id+""
 }
 
 /**
