@@ -293,9 +293,9 @@ function submit(){
 	var lineState = $(".all_mold4  .all_right_type_one_add").attr("title");
 	var queryKey = getQueryString('queryKey');
 	
-/*	paramsObj.pageNumber = num;
-	paramsObj.pageSize = 10;
-	paramsObj.downUp = "down";*/
+	paramsObj.pageNumber = num;
+	paramsObj.pageSize = 1000;
+	paramsObj.downUp = "down";
 	
 	if(stringnull(menuType)){
 		paramsObj.menuType =menuType;
@@ -524,9 +524,9 @@ function typeQuery(){
 
     var menuType = $("[class='find_nav_cur'] a").attr("title");
     
-//	paramsObj.pageNumber = 1;
-//	paramsObj.pageSize = 10;
-//	paramsObj.downUp = "down";
+	paramsObj.pageNumber = 1;
+	paramsObj.pageSize = 1000;
+	paramsObj.downUp = "down";
     
     if((menuType ==0 && matching == 'goodCourse') || (menuType ==0 && matching == 'newCourse')){
     	paramsObj.menuType= matching;
