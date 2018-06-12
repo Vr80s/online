@@ -529,16 +529,7 @@ $(function() {
 		}
 		return false;
 	});
-	/*云课堂和博问答切换*/
-	//  $(".path a").on('click', function () {
-	//      $(this).addClass('select').siblings().removeClass('select');
-	//  })
-	/*点击头像和用户名跳转到个人中心*/
-	//  $(".userPic,#dLabel").on('click', function () {
-	//      var id = "personcenter";
-	//      window.localStorage.personcenter = "myanswer";
-	//      location.href = "/web/html/personcenter.html";
-	//  });
+
 	/*个人中心点击立即登录后，当前用户退出登录*/
 	$(".pLogin").on("click", function() {
 		$(".loginGroup .logout").css("display", "block");
@@ -778,7 +769,6 @@ $(function() {
 			var btn = $(evt.target);
 			var id = "personcenter";
 			window.localStorage.personcenter = $(evt.target).attr("data-id");		
-//				if(window.location.pathname == "/web/html/personcenter.html") {
 					if($(this).attr("data-exit")) {
 						RequestService("/online/user/logout", "GET", {}, function() {
 							location.href = "/index.html";
@@ -837,64 +827,7 @@ $(function() {
 							}
 						});
 					}
-//				} else {
-//					if($(this).attr("data-exit")) {
-//						RequestService("/online/user/logout", "GET", {}, function() {
-//							location.href = "/index.html";
-//							$(".loginGroup .logout").css("display", "block");
-//							$(".loginGroup .login").css("display", "none");
-//						});
-//					} else {
-//						location.href = "/web/html/personcenter.html";
-//						RequestService("/online/user/isAlive", "GET", null, function(data) { ///online/user/isAlive
-//							if(data.success) {
-//								if(data.resultObject.smallHeadPhoto != "/web/images/defaultHeadImg.jpg") {
-//									path = data.resultObject.smallHeadPhoto;
-//								} else {
-//									path = bath + data.resultObject.smallHeadPhoto
-//								}
-//								//头像预览
-//								$(".userPic").css({
-//									background: "url(" + path + ") no-repeat",
-//									backgroundSize: "100% 100%"
-//								});
-//								$('#login').modal('hide');
-//								$("html").css({
-//									"overflow-x": "hidden",
-//									"overflow-y": "auto"
-//								});
-//								$(".loginGroup .logout").hide();
-//								$(".loginGroup .login").show();
-//								$(".dropdown .name").text(data.resultObject.name).attr("title", data.resultObject.name);
-//								localStorage.username = data.resultObject.loginName;
-//								localStorage.userid = data.resultObject.id;
-//								if($(btn.parent().hasClass('selected'))) {
-//
-//								} else {
-//									hideHtml();
-//								}
-//							} else {
-//								// location.href = "/webapp/otherDevice.html";
-//								//
-//								// localStorage.username = null;
-//								// localStorage.password = null;
-//								// $(".login").css("display", "none");
-//								// $(".logout").css("display", "block");
-//							}
-//						});
-//					}
-//				}
-			
-
 		});
 	}
-
-	//    if(navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i)){
-	//    	alert("shouji");
-	//    	alert(navigator.userAgent);
-	//    }else{
-	//    	alert("pc");
-	//    	alert(navigator.userAgent);
-	//    }
 
 });
