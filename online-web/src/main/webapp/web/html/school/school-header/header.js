@@ -126,7 +126,7 @@ $(function() {
 		navtop: '<div class="head-top"><div class="content">' +
 					'<ul>'+
 						'<li class="first-li">'+
-							'<a href="/index" class="home">首页</a>' +
+							'<a href="/" class="home">首页</a>' +
 							'<a href="/headline/1" class="forum">头条</a>' +
 							'<a href="/doctors" class="doctor">名医</a>' +
 							'<a href="/clinics" class="hospital">医馆</a>' +
@@ -187,7 +187,7 @@ $(function() {
 		nav:
 			//        	开始
 			'<div class="header_right">' +
-				'<a href="/index">' +
+				'<a href="/">' +
 				'<img src="/web/images/logos.png" alt=""  style="float:left">' +
 				'<span>学堂</span>'+
 				'</a>' +

@@ -97,6 +97,9 @@ public class DoctorPageController extends AbstractFtlController {
         ModelAndView view = new ModelAndView("doctor/details");
 
         MedicalDoctorVO doctor = medicalDoctorBusinessService.selectDoctorById(id);
+        if(doctor == null){
+            return to404();
+        }
         view.addObject("doctor", doctor);
 
         Page page = new Page<>();

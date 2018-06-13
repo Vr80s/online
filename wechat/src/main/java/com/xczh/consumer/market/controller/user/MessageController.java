@@ -14,14 +14,13 @@ import com.xczhihui.course.service.ICommonMessageService;
  * @author hejiwei
  */
 @RestController
-@RequestMapping("/xczh/message")
+@RequestMapping("/xczh/user/message")
 public class MessageController {
 
     @Autowired
     private ICommonMessageService commonMessageService;
 
-    @ResponseBody
-    @RequestMapping
+    @RequestMapping(method = RequestMethod.GET)
     public ResponseObject list(@Account String accountId, @RequestParam(name = "page", defaultValue = "1") int page, @RequestParam(defaultValue = "10") int size) {
         Page<Message> messages = commonMessageService.list(page, size, accountId);
         messages.getRecords().forEach(message -> {
@@ -33,7 +32,6 @@ public class MessageController {
         return ResponseObject.newSuccessResponseObject(messages.getRecords());
     }
 
-    @ResponseBody
     @RequestMapping(value = "count", method = RequestMethod.GET)
     public ResponseObject count(@Account String accountId) {
         return ResponseObject.newSuccessResponseObject(commonMessageService.countUnReadCntByUserId(accountId));
