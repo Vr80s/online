@@ -58,7 +58,8 @@ public class WechatMessageController {
         String timestamp = req.getParameter("timestamp");
         // 随机数
         String nonce = req.getParameter("nonce");
-
+        
+        System.out.println("wxToken:"+wxToken+",timestamp:"+timestamp+",nonce:"+nonce);
         String[] str = {wxToken, timestamp, nonce};
         Arrays.sort(str); // 字典序排序
         String bigStr = str[0] + str[1] + str[2];
