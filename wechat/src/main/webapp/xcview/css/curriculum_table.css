@@ -74,6 +74,7 @@ body{
     display:table;
     padding-top: 1.4rem !important;
     box-sizing: border-box;
+    -webkit-overflow-scrolling:touch;
 }
 
 .li_list0{
