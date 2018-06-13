@@ -306,9 +306,9 @@ function Autagain() {
 			//身份证号码
 			$('#AutList .doc_Idnum').val(result.cardNum);
 			//身份证图片  正面
-			$('#AutList .idFont_pic').html("<img src="+result.cardPositive+">");
+			/*$('#AutList .idFont_pic').html("<img src="+result.cardPositive+">");*/
 			//反面
-			$('#AutList .idBack_pic').html("<img src="+result.cardNegative+">");
+			/*$('#AutList .idBack_pic').html("<img src="+result.cardNegative+">");*/
 			//医师资格证
 			$('#AutList .teacher_pic').html("<img src="+result.qualificationCertificate+">");
 			//执业资格证
