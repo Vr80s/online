@@ -37,6 +37,10 @@ function confirmNotPass() {
             alertInfo('输入不通过理由!');
             return false;
         }
+        if (remark.length > 255) {
+            alertInfo('理由不能超过255个字');
+            return false;
+        }
         $.ajax({
             type: "POST",
             url: "/medical/doctor/apply/updateStatus",
