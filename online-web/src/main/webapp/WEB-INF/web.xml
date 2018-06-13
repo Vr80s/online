@@ -88,8 +88,13 @@
 	</error-page>
 	<error-page>
 		<error-code>500</error-code>
-		<location>/error/500.html</location>
+		<location>/web/html/500.html</location>
 	</error-page>
+    <error-page>
+		<error-code>400</error-code>
+		<location>/web/html/500.html</location>
+	</error-page>
+	
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
