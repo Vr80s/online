@@ -81,6 +81,10 @@ public class ClinicPageController extends AbstractFtlController {
         ModelAndView view = new ModelAndView("clinic/details");
 
         MedicalHospitalVo clinic = medicalHospitalBusinessServiceImpl.selectHospitalById(id);
+        if(clinic == null){
+            return to404();
+        }
+
         view.addObject("clinic", clinic);
 
         Page<MedicalDoctorVO> doctors = medicalDoctorBusinessService.selectDoctorPage(new Page<>(1, 4), null, id, null, null, null);
@@ -146,6 +150,9 @@ public class ClinicPageController extends AbstractFtlController {
         ModelAndView view = new ModelAndView("clinic/doctors");
 
         MedicalHospitalVo clinic = medicalHospitalBusinessServiceImpl.selectHospitalById(id);
+        if(clinic == null){
+            return to404();
+        }
         view.addObject("clinic", clinic);
 
         List<MedicalDoctorVO> recDoctors = medicalDoctorBusinessService.selectRecDoctor();

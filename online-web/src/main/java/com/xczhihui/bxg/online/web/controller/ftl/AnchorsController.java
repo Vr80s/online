@@ -1,4 +1,4 @@
-package com.xczhihui.bxg.online.web.controller.school;
+package com.xczhihui.bxg.online.web.controller.ftl;
 
 import java.io.IOException;
 import java.util.List;
@@ -196,6 +196,9 @@ public class AnchorsController extends AbstractFtlController {
          * 这个主播可能认证的是医馆，也可能认证的是医师
          */
         Map<String, Object> lecturerInfo = myInfoService.findHostInfoById(userId);
+        if(lecturerInfo.size()==0){
+            return to404();
+        }
         view.addObject("lecturerInfo", lecturerInfo);
 
         MedicalHospital mha = new MedicalHospital();
