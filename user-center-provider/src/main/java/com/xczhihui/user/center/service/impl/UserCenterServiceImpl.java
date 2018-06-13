@@ -88,6 +88,7 @@ public class UserCenterServiceImpl implements UserCenterService {
         String vhallId = VhallUtil.createUser(oeUser.getId(), oeUser.getName(), oeUser.getSmallHeadPhoto(), vhallPassword);
         oeUser.setVhallId(vhallId);
         oeUser.setVhallPass(vhallPassword);
+        oeUser.setVhallName(oeUser.getId());
         this.oeUserMapper.updateById(oeUser);
     }
 
