@@ -742,9 +742,16 @@ overflow-y: auto;
 .choosedAlbum{
 	background: #fff !important;
 }
-#auto_play{
-	  height: 16px;   /*高度*/
-	  width: 16px;
+
+#auto_play[type="checkbox"] {
+    -webkit-appearance: none;
+    background: #fff;
+    height: 13px;
+    vertical-align: middle;
+    width: 13px;
     float: left;
-    margin-right: 5px;
+    margin: 6px 5px 0 0;
+}
+#auto_play[type="checkbox"]{
+	 /*background: green;*/
 }
