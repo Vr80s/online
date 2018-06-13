@@ -133,7 +133,7 @@ $(function () {
             '<a href="javascript:;" class="hide" id="docOrHos">我是医师</a>' +
             '</li>' +
             '<li>' +
-            '<a class="studentCenterBox" href="javascript:;" target="_blank">学习中心</a>' +
+            '<a class="studentCenterBox" href="javascript:;">学习中心</a>' +
             '</li>' +
             '</ul></div></div>'
         };

@@ -32,7 +32,7 @@ var footers = {
     '<li data-id="five" data-url="/copyright.html" class="noline">版权声明</li>' +
     '</ul>' +
     '</div>' +
-    '<div class="trademark"><iframe src="http://aic.hainan.gov.cn:880/lz.ashx?vie=076144A08548ACE3DB843B1F0B84B9CF453FD165F150EE1CEAB6C9AC6FC81FDE8391B314E13A8C70D0B220C7176DE164" allowtransparency="true" scrolling="no" style="overflow:hidden;width:94px;height:32px;margin-right:10px;" frameborder="0"></iframe><a href="http://www.miibeian.gov.cn/" target="_blank" class="ml14" style="color: white;">琼ICP备17002789号-2</a>  Copyright &copy; 2017-2018  熊猫中医 All Rights Reserved<span style="margin-right:5px;"></span></div>' +
+    '<div class="trademark"><a href="http://www.miibeian.gov.cn/" target="_blank" class="ml14" style="color: white;">琼ICP备17002789号-2</a>  Copyright &copy; 2017-2018  熊猫中医 All Rights Reserved<span style="margin-right:5px;"></span><iframe src="http://aic.hainan.gov.cn:880/lz.ashx?vie=076144A08548ACE3DB843B1F0B84B9CF453FD165F150EE1CEAB6C9AC6FC81FDE8391B314E13A8C70D0B220C7176DE164" allowtransparency="true" scrolling="no" style="overflow:hidden;width:94px;height:32px;margin-right:10px;position: absolute;top: -13px;" frameborder="0"></iframe></div>' +
     '</div></div></footer></div>'
 }
 if (window.location.pathname.indexOf("/index.html") != -1 || window.location.pathname == '/') {

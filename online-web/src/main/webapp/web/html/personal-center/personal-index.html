@@ -197,16 +197,27 @@
 															{{else}}
 															<span class="classCategory">视频</span>
 															{{/if}}
-														{{else if item.type == 3}}
-														<span class="classCategory">直播</span>
+														{{else if item.type == 3 && item.lineState==1}}
+																<span class="classCategory">直播中</span>
+														{{else if item.type == 3 && item.lineState==3}}
+																<span class="classCategory">直播回放</span>
+														{{else if item.type == 3 && item.lineState==4}}
+																<span class="classCategory">即将直播</span>
 														{{else if item.type == 4}}
 														<span class="classCategory">线下课程</span>
 														{{/if}}
 														<div class="detail">
 															<p class="title" data-text="音频测试3" title="音频测试3">{{item.gradeName}}</p>
 															<p class="timeAndTeac">
-																<span class="teacher">{{item.lecturerName}}</span>
-																<span class="y"></span>
+																<span class="teacher z">{{item.lecturerName}}</span>
+																{{if item.type == 3}}
+																	{{if item.startDateStr.indexOf('.')==-1}}
+																	<span class="y"><img src="/web/images/myvideo-time.png" style="margin: -3px 3px 0 0;" />{{item.startDateStr}}</span>                        
+																	{{else}}
+																 	<span class="y"><img src="/web/images/date_month.png" style="margin: -3px 2px 0 0;" />{{item.startDateStr.replace(".", "月")}}日</span>
+																	{{/if}}
+																{{/if}}
+																
 															</p>
 															<p class="info clearfix">
 																<span>
@@ -262,7 +273,7 @@
 														{{else}}
 														<a style="cursor:pointer" href="/courses/{{item.id}}/info" target="_blank">														
 														{{/if}}
-													{{/if}}	
+													{{/if}}
 														<div class="img">
 															<img src="{{item.smallImgPath}}">
 														</div>
@@ -279,17 +290,29 @@
 															{{else}}
 															<span class="classCategory">视频</span>
 															{{/if}}
-														{{else if item.type == 3}}
-														<span class="classCategory">直播</span>
+														{{else if item.type == 3 && item.lineState==1}}
+																<span class="classCategory">直播中</span>
+														{{else if item.type == 3 && item.lineState==3}}
+																<span class="classCategory">直播回放</span>
+														{{else if item.type == 3 && item.lineState==4}}
+																<span class="classCategory">即将直播</span>
 														{{else if item.type == 4}}
 														<span class="classCategory">线下课程</span>
 														{{/if}}
 														<div class="detail">
 															<p class="title" data-text="音频测试3" title="音频测试3">{{item.gradeName}}</p>
 															<p class="timeAndTeac">
-																<span class="teacher">{{item.name}}</span>
+																<span class="teacher z">{{item.name}}</span>
 																{{if item.type==4}}
-																<span class="y">{{item.city}}</span>
+																<span class="y">{{item.city}}</span>															
+																{{/if}}
+																
+																{{if item.type == 3}}
+																	{{if item.startDateStr.indexOf('.')==-1}}
+																	<span class="y"><img src="/web/images/myvideo-time.png" style="margin: -3px 3px 0 0;" />{{item.startDateStr}}</span>                        
+																	{{else}}
+																 	<span class="y"><img src="/web/images/date_month.png" style="margin: -3px 2px 0 0;" />{{item.startDateStr.replace(".", "月")}}日</span>
+																	{{/if}}
 																{{/if}}
 															</p>
 															<p class="info clearfix">
@@ -364,8 +387,12 @@
 															{{else}}
 															<span class="classCategory">视频</span>
 															{{/if}}
-														{{else if item.type == 3}}
-														<span class="classCategory">直播</span>
+														{{else if item.type == 3 && item.lineState==1}}
+																<span class="classCategory">直播中</span>
+														{{else if item.type == 3 && item.lineState==3}}
+																<span class="classCategory">直播回放</span>
+														{{else if item.type == 3 && item.lineState==4}}
+																<span class="classCategory">即将直播</span>
 														{{else if item.type == 4}}
 														<span class="classCategory">线下课程</span>
 													
@@ -373,9 +400,16 @@
 														<div class="detail">
 															<p class="title" data-text="音频测试3" title="音频测试3">{{item.gradeName}}</p>
 															<p class="timeAndTeac">
-																<span class="teacher">{{item.name}}</span>
+																<span class="teacher z">{{item.name}}</span>
 																{{if item.type==4}}
 																<span class="y">{{item.city}}</span>
+																{{/if}}
+																{{if item.type == 3}}
+																	{{if item.startDateStr.indexOf('.')==-1}}
+																	<span class="y"><img src="/web/images/myvideo-time.png" style="margin: -3px 3px 0 0;" />{{item.startDateStr}}</span>                        
+																	{{else}}
+																 	<span class="y"><img src="/web/images/date_month.png" style="margin: -3px 2px 0 0;" />{{item.startDateStr.replace(".", "月")}}日</span>
+																	{{/if}}
 																{{/if}}
 															</p>
 															<p class="info clearfix">
@@ -942,10 +976,6 @@
 												<li>
 													<p>500熊猫币</p>
 													<p>¥ <span>50</span></p>
-												</li>
-												<li>
-													<p>1熊猫币</p>
-													<p>¥ <span>0.1</span></p>
 												</li>
 												<li>
 													<p>1000熊猫币</p>
