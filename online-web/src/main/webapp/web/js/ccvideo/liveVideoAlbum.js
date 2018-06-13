@@ -1,7 +1,8 @@
 /**
  * Created by fanwenqiang on 2016/11/2.
  */
-
+var  heightt= document.body.clientHeight-64;
+$(".album_list").css({"height":heightt})
 
 //应该搞第一个课程了
 var collectionId = $.getUrlParam("collectionId");
