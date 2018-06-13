@@ -474,7 +474,7 @@ a {
 	position: relative;
 	width: 260px;
 	float: left;
-	height: 253px;
+	height: 239px;
 }
 
 .course:nth-child(3n) {
@@ -494,9 +494,9 @@ a {
 
 .course .img {
 	text-align: center;
-	line-height: 161px;
+	line-height: 147px;
 	width: 260px;
-	height: 161px;
+	height: 147px;
 	background-color: #f0f0f0;
 	background-image: url(../../images/load26.gif);
 	background-position: center;
