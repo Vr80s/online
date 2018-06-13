@@ -144,7 +144,8 @@ public class LiveDao extends SimpleHibernateDao {
                 "    c.start_time,\n" +
                 "    '%Y年%m月%d日 %H:%i'\n" +
                 "  ) start_time,\n" +
-                "  c.direct_id,\n" +
+                "  c.direct_id,"
+                + "c.is_free, \n" +
                 "  c.type,\n" +
                 "  c.flowers_number,"
                 + "c.multimedia_type multimediaType, \n" +

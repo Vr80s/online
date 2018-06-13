@@ -10,10 +10,7 @@
                         <li data-id="five" data-url="/copyright.html" class="noline">版权声明</li>
                     </ul>
                 </div>
-                <div class="trademark">
-                    <a href="http://www.miibeian.gov.cn/" target="_blank" class="ml14" style="color: white;">琼ICP备17002789号-2</a>Copyright &copy; 2017-2018 熊猫中医 All Rights Reserved<span style="margin-right:5px;"></span>
-                    <!--<span id="cnzz_stat_icon_1273217042"><a href="http://www.cnzz.com/stat/website.php?web_id=1273217042" target="_blank" title="站长统计"><img border="0" hspace="0" vspace="0" src="http://icon.cnzz.com/img/pic1.gif" /></a></span>-->
-                </div>
+                <div class="trademark"><iframe src="http://aic.hainan.gov.cn:880/lz.ashx?vie=076144A08548ACE3DB843B1F0B84B9CF453FD165F150EE1CEAB6C9AC6FC81FDE8391B314E13A8C70D0B220C7176DE164" allowtransparency="true" scrolling="no" style="overflow:hidden;width:94px;height:32px;margin-right:10px;" frameborder="0"></iframe><a href="http://www.miibeian.gov.cn/" target="_blank" class="ml14" style="color: white;">琼ICP备17002789号-2 </a>Copyright &copy; 2017-2018 熊猫中医 All Rights Reserved<span style="margin-right:5px;"></span></div>
             </div>
         </div>
     </footer>

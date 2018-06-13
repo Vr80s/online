@@ -49,7 +49,7 @@
 				<div class="detail">
 					<p class="title" data-text="音频测试3" title="音频测试3">${courseItem.gradeName}</p>
 					<p class="timeAndTeac"><span>
-					讲师：<span class="teacher">${courseItem.name}</span>
+					讲师：<span class="teacher z">${courseItem.name}</span>
 					<#if courseItem.type == 4> 
 						<span class="y">${courseItem.city}</span>
 					</#if>

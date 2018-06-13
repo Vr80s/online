@@ -138,14 +138,19 @@ public class PageController {
         BxgUser user = UserLoginUtil.getLoginUser();
         CourseLecturVo clv = null;
         if (user != null) {
+        	
             clv = courseService.selectUserCurrentCourseStatus(courseId, user.getId());
             //0：收费 1：免费 2：已购买
 
+            //免费增加学习记录
+            if(clv.getWatchState() == 1) {
+            	watchHistoryServiceImpl.addLearnRecord(courseId, user.getId());
+            }
+            
             //只有直播中的直接跳转  --》  直播间
             if ((clv.getWatchState() == 1 || clv.getWatchState() == 2)
-                    && clv.getType() == 3
-                    && clv.getLineState() == 1) {
-
+                    && clv.getType() == 3  && clv.getLineState() == 1) {
+            	
                 mv = new ModelAndView("live_success_page");
 
                 mv.addObject("lecturerId", clv.getUserLecturerId());
@@ -167,8 +172,7 @@ public class PageController {
                 mv.addObject("host", host);
                 mv.addObject("rate", rate);
 
-                watchHistoryServiceImpl.addLearnRecord(courseId, user.getId());
-                watchHistoryServiceImpl.addWatchHistory(courseId, user.getId(), clv.getUserLecturerId(), null);
+                
             } else {
                 mv = new ModelAndView("redirect:/courses/" + courseId + "/info");
             }

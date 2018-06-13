@@ -112,7 +112,7 @@ $(function () {
             '</li>' +
 
 
-            '<li><a href="/App.html" class="appDown">APP下载</a></li>' +
+            '<li><a href="/App.html" class="appDown hide">APP下载</a></li>' +
 
             '<li>' +
 			'<a href="/web/html/want-anchor.html" class="want-anchor" target="_blank">我要当主播</a>' +
@@ -362,6 +362,7 @@ $(function () {
                     background: "url(" + path + ") no-repeat",
                     backgroundSize: "100% 100%"
                 });
+                $(".appDown").removeClass("hide");
                 $('#login').css("display", "none");
                 $(".loginGroup .logout").css("display", "none");
                 $(".loginGroup .login").css("display", "block");
