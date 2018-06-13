@@ -190,7 +190,7 @@ requestService("/xczh/course/liveDetails",{
 					});
 					$(".details_size").hide();
 //					$(".poson").css('right', '-2.1rem');
-					$(".div_input").css('width', '6rem');
+					$(".div_input").css('width', '13.2rem');
 					$(".coze_bottom_input").css('margin-left','0rem');
 					$(".give_a01").css('margin-left','0.5rem');
 					$(".give_a01").css('right','0.6rem');  //表情
@@ -220,12 +220,12 @@ requestService("/xczh/course/liveDetails",{
 //					点击聊天
 					$(".details_footer_width .li1").click(function() {
 						
-						// $(".div_input").css("width", "4.9rem");
-						// $("#mywords").css("width", "4.9rem");
-						// $(".coze_bottom input").css("width", "4.9rem");
+						// $(".div_input").css("width", "12rem");
+						// $("#mywords").css("width", "12rem");
+						// $(".coze_bottom input").css("width", "12rem");
 					});
 
-					 $("#mywords").css("width", "6rem");
+					 $("#mywords").css("width", "13.2rem");
 					 $("#face").hide();
 
 				} else {
@@ -235,7 +235,7 @@ requestService("/xczh/course/liveDetails",{
 					$(".history_span").text("直播中");
 
 					$("#mywords").click(function() {
-						$(".coze_bottom input").css("width", "4.9rem");
+						$(".coze_bottom input").css("width", "12rem");
 						$(".div_input").css("background", "none");
 					});
 					
@@ -244,7 +244,7 @@ requestService("/xczh/course/liveDetails",{
 						$(".send_gifts").hide();   /*礼物区域隐藏*/
 						$("#sendChat").hide();  /*发送按钮隐藏*/
 			   			$(".give_a01").hide();     /*表情隐藏*/
-			            $(".coze_bottom input").css("width","6rem");   /*改变聊天input长度*/
+			            $(".coze_bottom input").css("width","13.5rem");   /*改变聊天input长度*/
 			   			$(".give_a1").show();  /*礼物显示*/	
 					});
 					
@@ -253,7 +253,7 @@ requestService("/xczh/course/liveDetails",{
 						$(".send_gifts").hide();   /*礼物区域隐藏*/
 						$("#sendChat").hide();  /*发送按钮隐藏*/
 			   			$(".give_a01").hide();     /*表情隐藏*/
-			            $(".coze_bottom input").css("width","6rem");   /*改变聊天input长度*/
+			            $(".coze_bottom input").css("width","13.5rem");   /*改变聊天input长度*/
 			   			$(".give_a1").show();  /*礼物显示*/
 			   			$(".div_input").css("background","block");  /*input背景色隐藏*/
 					});
@@ -290,7 +290,7 @@ requestService("/xczh/course/liveDetails",{
 					$("#sendChat").click(function() {
 						$(".give_a01").hide(); /* 表情隐藏 */
 						$(this).hide(); /* 当前发送按钮隐藏 */
-						$(".coze_bottom input").css("width", "6rem");
+						$(".coze_bottom input").css("width", "13.5rem");
 						$(".give_a1").show(); /* 礼物显示 */
 
 					});
@@ -456,7 +456,7 @@ requestService(
 								+ "' class='liwu' style='font-size:0.6rem;color:#666;'>"
 								+ result[i].name
 								+ "</p><p  style='font-size:0.6rem;color:#666;'><span class='jiage' style='color:#999;'>"
-								+ "" + result[i].price + "</span><span style='font-size:0.4.9rem;color:#999;'>熊猫币</span></p></div></a></li>";
+								+ "" + result[i].price + "</span><span style='font-size:0.425rem;color:#999;'>熊猫币</span></p></div></a></li>";
 					} else {
 						html += "<li><a href='javascript: ;'><div class='gifts_div'><img src='"
 								+ result[i].smallimgPath
@@ -464,7 +464,7 @@ requestService(
 								+ result[i].id
 								+ "' class='liwu' style='font-size:0.6rem;color:#666;'>"
 								+ result[i].name
-								+ "</p><p style='font-size:0.6rem;color:#666;'><span class='jiage' style='color:#999;'>0</span><span style='font-size:0.4.9rem;color:#999;'>熊猫币</span></p></div></a></li>";
+								+ "</p><p style='font-size:0.6rem;color:#666;'><span class='jiage' style='color:#999;'>0</span><span style='font-size:0.425rem;color:#999;'>熊猫币</span></p></div></a></li>";
 					}
 				}
 				$(".gift_ul_li").html(html);
@@ -517,11 +517,11 @@ function refreshGiftRanking() {
 							html += "<div class='leaderboard_left'>\n";
 							html += "<img src='"
 									+ pLogo
-									+ "' alt='' style='width: 0.7rem;height:0.4rem' />";
+									+ "' alt='' style='width: 1.6rem;height:0.9rem' /><br />";
 							html += "<span>" + pName + "</span>";
 							/*html += "<div class='both'></div>";*/
 						} else {
-							html += "<div class='leaderboard_left' style='line-height: 0.24rem;'>\n";
+							html += "<div class='leaderboard_left' style='line-height: 1.8rem;'>\n";
 							html += "<span>" + pName + "</span>";
 						}
 						html += "<div class='both'></div>"+"</div>\n"

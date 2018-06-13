@@ -1,42 +1,41 @@
 .hide{
-	display: none;
+    display: none;
 }
 .coze_bottom{
-	background: #fff;
+    background: #fff;
 }
 .div_img{
-    width: 0.6rem !important;
+    width: 1.8rem !important;
     position: absolute;
-    top: 0.2rem;
-    left: 0.26rem;
+    top: 0.4rem;
+    left: 0;
     z-index: 1;
-    /*background: #e35b5b;*/
+    background: #F0F0F0;
     border-radius: 20px 0px 0px 20px;
-    height: 0.6rem;
 }
 .img_left{
-	width: 0.3rem !important;
+    width: 0.8rem !important;
    /* position: absolute;
     top: 0.6rem;
     left: 0.6rem;*/
     z-index: 1;
 }
 #myImage{
-	width: 100%;
+    width: 100%;
 }
 
 .coze_bottom input{
-	/*width: 11.5rem !important;
-	border: none;
-	margin-top: 0;
-	border-radius: 50px;*/
-	/*width: 11.8rem;*/
-	/* width: 13.5rem;
-	    border: none;
-	    margin-top: 0;
-	    border-radius: 50px;
-	    background: #F0F0F0; */
-    text-indent: 0.7rem;
+    /*width: 11.5rem !important;
+    border: none;
+    margin-top: 0;
+    border-radius: 50px;*/
+    /*width: 11.8rem;*/
+    width: 13.5rem;
+    border: none;
+    margin-top: 0;
+    border-radius: 50px;
+    background: #F0F0F0;
+    text-indent: 1.8rem;
 }
 
 .coze_bottom ::-webkit-input-placeholder { /* WebKit browsers */
@@ -53,62 +52,62 @@
 }
 
 .overfloaw_auto{
-	width: 100%;
-	height: 1.8rem;
-	overflow: auto;
+    width: 100%;
+    height: 1.8rem;
+    overflow: auto;
 }
 .overfloaw_auto_cen{
-	width: 21rem;
-	height: 1.8rem;
+    width: 21rem;
+    height: 1.8rem;
 }
 .div_input{
-	 /*width: 13rem;*/
-    width: 6rem;
-    height: 0.6rem;
-    line-height: 0.6rem;
-    /* border: 1px solid #ccc; */
+    /*width: 13rem;*/
+    width: 13.4rem;
+    height: 1.45rem;
+    line-height: 1.45rem;
+    /*border: 1px solid #ccc;*/
     outline: none;
     font-size: 0.7rem;
     text-indent: 0.3rem;
     color: #999;
     border-radius: 50px;
-    margin-top: 0.2rem;
+    margin-top: 0.35rem;
     background: #fff;
-    margin-left: 0.26rem;
 }
 .leaderboard_center img {
-    width: 0.8rem;
-    height: 0.8rem;
+    width: 1.65rem;
+    height: 1.65rem;
     float: left;
     margin-right: 0.4rem;
     border: 3px solid #ededed;
-    border-radius: 100px;
+    border-radius: 60px;
+    margin-top: 0.3rem;
 }
 .leaderboard_center{
-	margin-top: 0.24rem;
+    margin-top: 0.2rem;
 }
 .details_portrait{
-	width: 1.65rem;
-	height: 1.65rem;
+    width: 1.65rem;
+    height: 1.65rem;
 }
 .buy_center{
-	top: 4rem;
-	margin-top:0;
-	height: 5rem;
+    top: 4rem;
+    margin-top:0;
+    height: 5rem;
 }
 .look_main p{
-	margin-top:0;
+    margin-top:0;
 }
 
 
 .wendang_none{
-	display: none;
+    display: none;
 }
 .wendang_none img{
-	 width: 100%; 
+     width: 100%; 
 }
 .buy_bottom_bg{
-	position: fixed;
+    position: fixed;
 }
 div.pinch-zoom,
     div.pinch-zoom img{
@@ -118,33 +117,34 @@ div.pinch-zoom,
     
     
 .pinch-zoom-container{
-	/*height: 530px !important;*/
-	min-height: 1rem !important;
+    /*height: 530px !important;*/
+    min-height: 1rem !important;
 }
 
 
 .details_bottom{
-	/*top: 10.8rem;*/
+    /*top: 10.8rem;*/
 }
 .details_size{
-	margin-left: 0;
+    /*right: auto;
+    left: 0;*/
+    /*border-radius: 0px 6px 6px 0px;*/
+    margin-left: 0;
     background: url(/xcview/images/size_bg.png);
     background-size: 100% 100%;
-    min-width: 2.25rem;
-    padding: 0 !important;
-    height: 0.6rem;
-    line-height: 0.6rem;
+    min-width: 5.5rem;
+    padding: 0.2rem 0;
 }
 .details_size .img0{
-	width: 0.39rem;
-	margin-top: 0.2rem;
+    width: 0.74rem;
+    margin-top: 0.2rem;
 }
 .details_size .img1{
-	width: 0.34rem;
-	margin-top: 0.15rem;
+    width: 0.58rem;
+    margin-top: 0.1rem;
 }
 .video_img{
-	height: 3rem;
+    height: 3rem;
     width: 3rem;
     position: absolute;
     margin: 0 auto;
@@ -155,71 +155,71 @@ div.pinch-zoom,
     pointer-events: none;
 }
 .video_img img{
-	width: 100%;
-	text-align: center;
+    width: 100%;
+    text-align: center;
 }
 .send_gifts_p{
-	margin-left: 0.4rem;
+    margin-left: 0.4rem;
 }
 .balance_size{
-	float: right;
-	text-align: right;
-	margin-right: 0.4rem;
+    float: right;
+    text-align: right;
+    margin-right: 0.4rem;
 }
 .balance_size{
-	/*width: 2.5rem;*/
-	min-width: 1.5rem;
+    /*width: 2.5rem;*/
+    min-width: 1.5rem;
 }
 .balance_size img{
-	margin-top: 0.98rem;
+    margin-top: 0.98rem;
     float: right;
     width: 0.277rem;
     margin-left: 0.1rem;
     vertical-align: middle;
 }
 #xmbShowSpan{
-	display: inline-block;
-	margin-left: 0.08rem;
-	color: #666;
-	/*margin-right: 0.3rem;*/
+    display: inline-block;
+    margin-left: 0.3rem;
+    color: #666;
+    /*margin-right: 0.3rem;*/
 }
 .balance_size_span01{
-	display: inline-block;
-	margin-top: -0.9rem;
-	color: #666 !important;
+    display: inline-block;
+    margin-top: -0.9rem;
+    color: #666 !important;
 }
 .balance{
-	padding: 0.4rem 0;
+    padding: 0.4rem 0;
 }
 .import_hide{
-	z-index: 99999999999999;
+    z-index: 99999999999999;
 }
 .fx_bg{
-	/* width: 0.65rem;
-	height: 0.65rem;
-	background: url(/xcview/images/fx.png)no-repeat;
-	background-size: 100% 100%;
-	float: right;
-	margin-right: 0.3rem; */
+    width: 0.65rem;
+    height: 0.65rem;
+    background: url(/xcview/images/fx.png)no-repeat;
+    background-size: 100% 100%;
+    float: right;
+    margin-right: 0.3rem;
 }
 .history_img_right{
-	margin-top: 0.55rem;
+    margin-top: 0.55rem;
 }
 .fd_img{
-	width: 4rem;
+    width: 4rem;
     height: 5rem;
     margin: 0 auto;
     position: relative;
     margin-top: 3rem;
 }
 .fd_img img{
-	width: 4.5rem;
-	height: 4.525rem;
-	position: absolute;
-	bottom: 0;
+    width: 4.5rem;
+    height: 4.525rem;
+    position: absolute;
+    bottom: 0;
 }
 .fd_img p{
-	width: 7rem;
+    width: 7rem;
     text-align: center;
     margin-left: -1.7rem;
     position: absolute;
@@ -229,52 +229,53 @@ div.pinch-zoom,
     color: #BBBBBB;
 }
 #sendChat{
-    font-size: 0.4rem;
+    font-size: 0.55rem;
     position: absolute;
-    top: 0;
+    top: 0rem;
+    
     display: none;
-    /* margin-top: 0.35rem; */
-    height: 0.95rem;
-    line-height: 0.95rem;
+    margin-top: 0.35rem;
+    height: 1.45rem;
+    line-height: 1.45rem;
     color: #00BC12;
     background: none;
     font-weight: bold;
 }
 .send_img{
-	right: -1.55rem !important;
+    right: -1.8rem !important;
 }
 .facebox-mobile{
-	top: 0.95rem !important;
-    left: -5.4rem;
+    top: 1.2rem !important;
+    left: -12.9rem;
 }
 .facebox-mobiles{
-	left: -13.6rem;
+    left: -13.6rem;
 }
 .send_gifts .send_gifts_p{
-	font-size: 0.5rem;
+    font-size: 0.5rem;
 }
 .details01{
-	border-bottom: 1px solid #00bc12;
-	color: #00bc12 !important;
+    border-bottom: 1px solid #00bc12;
+    color: #00bc12 !important;
 }
 .give_footer a{
-	color: #fff !important;
+    color: #fff !important;
 }
 .give_footer{
-	border-top: 1px solid #e0e0e0;
+    border-top: 1px solid #e0e0e0;
 }
 .balance_send{
-	    width: 2.75rem;
+    width: 2.75rem;
     height: 1.1rem;
     line-height: 1.1rem;
     margin-top: 0rem;
-    width: 2.53rem;
-    height: 0.98rem;
-    line-height: 0.98rem;
+    width: 6.325rem;
+    height: 2.085rem;
+    line-height: 2.085rem;
     margin-right: 0;
     border-radius: 0;
-    font-size: 0.3rem;
-    /* margin-top: -0.025rem; */
+    font-size: 0.75rem;
+    margin-top: -0.025rem;
 }
 .fd_img_bg{
     width: 4rem;
@@ -285,14 +286,14 @@ div.pinch-zoom,
     background-size: 100% 100%;
 }
 .facebox-mobile0{
-	top: 1.2rem !important;
+    top: 1.2rem !important;
     left: -12.9rem;
 }
 
 
 /*弹框  视频迷路了，请试试其他视频。 */
 .history_bg_cen{
-	width: 11.55rem;
+    width: 11.55rem;
     height: 6.35rem;
     position: fixed;
     top: 50%;
@@ -303,187 +304,181 @@ div.pinch-zoom,
     border-radius: 6px;
 }
 .history_bg_bto{
-	margin: 0 auto;
+    margin: 0 auto;
     margin-top: 1.8rem;
     width: 100%;
     border-top: 1px solid #e5e5e5;
     line-height: 1.8rem;
 }
 .history_bg_bto div{
-	width: 100%;
+    width: 100%;
 }
 
 .vanish2{
-	display: none;
+    display: none;
 }
 .vanish4{
-	display: none;
+    display: none;
 }
 .details_footer_width ul li{
-	float: left;
+    float: left;
 }
 
 .history_bg_bto1{
-	float: right !important;
+    float: right !important;
 }
 
 
 .history_span{
-	width: 100%;
-    height: 0.88rem;
+    width: 74%; 
+    color: #666; 
+    font-size: 0.851rem;
     position: absolute;
-    top: 0;
-    left: 0;
-    font-size: 0.36rem;
-    text-align: center;
-    color: #333;
-    line-height: 0.88rem;
+    left: 2.1rem;
 }
 #share{
-	width: 0.42rem;
-    height: 0.38rem;
-    position: absolute;
-    z-index: 10;
-    top: 0.25rem;
-    right: 0rem;
-    margin-top: 0;
+    width: 1.8rem; 
+    color: #00bc12;
+    font-size: 0.8rem;
+    margin-right: 0.2rem;
 }
 
 .details_cen1{
-	position: fixed; 
-	width: 100%; 
-	background: #fff; 
-	border-bottom: 1px solid #f0f0f0; 
-	z-index: 9999;
+    position: fixed; 
+    width: 100%; 
+    background: #fff; 
+    border-bottom: 1px solid #f0f0f0; 
+    z-index: 9999;
 }
 #video{
-	width: 100%;
-    height: 4.24rem;
-    margin-top: 0.88rem;
+    width: 100%;
+    height: 7.6rem;
+    margin-top: 0.5rem;
     background: #000;
     opacity: 1;
-    /*background: red !important;*/
+    margin-top: 1.9rem;
 }
 .give_a01{
-	margin-top: -1.47rem;
-	margin-right: 0;
-	display: block;
-	position: absolute;
-	/*display: block !important;*/ 
-	margin-left: -1.3rem;
+    margin-top: -1.47rem;
+    margin-right: 0;
+    display: block;
+    position: absolute;
+    /*display: block !important;*/ 
+    margin-left: -1.3rem;
 }
 .give_a1_span02{
-	position: absolute;
-	right: -3.2rem;
-	width: 1.2rem;
-	height: 1.2rem;
-	display: block;
+    position: absolute;
+    right: -3.2rem;
+    width: 1.2rem;
+    height: 1.2rem;
+    display: block;
 }
 .give_a1{
-	float: right;
-	position: absolute;
-	right: -3.5rem;
+    float: right;
+    position: absolute;
+    right: -3.5rem;
 }
 .give_a1 .give_a1_img{
-	margin-left: -4.26rem;
-    width: 0.8rem;
-    margin-top: 0.1rem;
+    margin-left: -2.9rem;
+    width: 1.4rem;
+    margin-top: 0.4rem;
     display: block !important;
 }
 .give_a01{
     margin-left: -0.2rem;
+    display: inline-block;
     position: absolute;
-    right: 1.3rem;
-    top: 1.55rem;
+    right: -0.0653rem;
+    top: 1.98rem;
     display: none;
 }
 .coze_bottom_input{
-	width: 7.5rem;
+    width: 13.5rem;
     /*background: #00BCD4;*/
 }
 #face{
-	margin: 0;
+    margin: 0;
 }
 
 
 /*处理礼物模块*/
 .send_gifts .balance{
-	padding: 0;
-    height: 0.98rem;
+    padding: 0;
+    height: 2.085rem;
     border-top: 1px solid #f0f0f0;
 }
 .send_gifts{
-	height: 5.8rem;
-	/*height: 5rem;*/
-	bottom: 0;
+    height: 11.234rem;
+    /*height: 5rem;*/
+    bottom: 0;
 }
 .send_gifts ul{
-	/*background: #fff;*/
-    height: 3.8rem;
+    /*background: #fff;*/
+    height: 8.298rem;
     display: inline-block;
     padding: 0;
-    padding-top: 0.1rem;
+    padding-top: 0.451rem;
      /*background: url(/xcview/images/size_bg.png);*/
     background-size: 100% 100%;
 }
 .send_gifts ul li{
-	border-radius: 0px;
-	width: 1.86rem;
-    height: 1.86rem;
+    border-radius: 0px;
+    width: 3.404rem;
+    height: 3.404rem;
     padding: 0;
     position: relative;
-   	border: 1px solid #fefefe;
-   	margin-bottom: 0rem;
-   	margin-left: 0.4rem;
+    border: 1px solid #fefefe;
+    margin-bottom: 0rem;
+    margin-left: 0.4rem;
 }
 .send_gifts ul li a{
-	margin: 0 auto;
+    margin: 0 auto;
     display: table;
-    width: 1.86rem;
-    height: 1.86rem;
+    width: 3.404rem;
+    height: 3.404rem;
     text-align: -webkit-center;
 }
 .gift_p{
-	width: 100%;
+    width: 100%;
     position: absolute;
     bottom: 0rem;
     margin-left: 0rem; 
-    padding-bottom: 0.1rem;
+    padding-bottom: 0.3rem;
 }
 .gift_ul_li_li{
-	border: 1px solid #96e39d !important;
+    border: 1px solid #96e39d !important;
 }
 .balance_size{
-	    float: left;
-    font-size: 0.24rem;
+    float: left;
+    font-size: 0.6rem;
     color: #333;
     margin-top: 0;
-    height: 0.98rem;
-    line-height: 0.98rem;
+    height: 2.085rem;
+    line-height: 2.085rem;
 }
 .balance_size span{
-	    height: 0.98rem;
-    line-height: 0.98rem;
+    height: 2.45rem;
+    line-height: 2.45rem;
 }
 .send_gifts .gifts_div{
-	width: 1.5rem;
+    width: 2.5rem;
     /*height: 1.7rem;*/
 }
 
 .coze_cen_ri .span_name{
-	float: left;
-	color: #666;
-	font-size: 0.28rem;
-	margin-left: 0.2rem;
+    float: left;
+    color: #666;
+    font-size: 0.596rem;
+    margin-left: 0.2rem;
 }
 .coze_cen_bg_ri{
-	position: relative;
+    position: relative;
     /*width: 12rem;*/
     background: none;
     /* border: 0.01rem solid #ccc; */
     float: left;
     padding: 0;
-    font-size: 0.28rem;
+    font-size: 0.596rem;
     color: #333;
     border-radius: 0;
     /* font-family: "微软雅黑"; */
@@ -513,46 +508,49 @@ div.pinch-zoom,
     word-wrap: break-word;
 }
 .coze_cen .span_name{
-	float: left;
-	color: #666;
-	font-size: 0.553rem;
-	margin-left: 0.2rem;
+    float: left;
+    color: #666;
+    font-size: 0.553rem;
+    margin-left: 0.2rem;
 }
 
 
 .coze_bottom img{
-	margin-left: 0.3rem;
+    margin-left: 0.3rem;
 }
 
 
 .anchor_center01{
-	padding-top: 0.2rem;
+    padding-top: 0.638rem;
+    position1: fixed;
+    top1: 10.4rem;
+
 }
 .anchor_center{
-	overflow-y1: scroll;
-	max-height1: 14rem;
+    overflow-y1: scroll;
+    max-height1: 14rem;
 }
 
 
 .leaderboard_center img{
-	margin-top: 0rem;
+    margin-top: 0.6rem;
 }
 
 
 .leaderboard_center_size{
-	margin-top: 0rem;
+    margin-top: 0.656rem;
 }
 
 
 #zhiboxiangqing .div_span{
-	font-size: 0.51rem;
-	color: #666666;
+    font-size: 0.51rem;
+    color: #666666;
 }
 #zhiboxiangqing .div_span .span0{
-	margin-right: 1.042rem;
+    margin-right: 1.042rem;
 }
 .details_anchor0{
-	/*margin-top: 0.3rem;
+    /*margin-top: 0.3rem;
     height: 2.6rem;
     top: 0.1rem;
     position: fixed;
@@ -563,305 +561,299 @@ div.pinch-zoom,
 
 /*加关注开始  聊天*/
 .attention{
-	width: 100%;
-	height: 1.2rem;
-	background: #fff;
-	position: fixed;
-	top: 6rem;
-	left: 0;
-	z-index: 999;
+    width: 100%;
+    height: 2.553rem;
+    background: #fff;
+    position: fixed;
+    top: 11.1rem;
+    left: 0;
+    z-index: 999;
 }
 .attention .main_img{
-	width: 0.8rem;
-    height: 0.8rem;
-    border-radius: 100px;
+    width: 1.702rem;
+    height: 1.702rem;
+    border-radius: 50px;
     float: left;
-    margin-top: 0.2rem;
-    margin-left: 0.26rem;
-    margin-right: 0.24rem;
+    margin-top: 0.425rem;
+    margin-left: 0.553rem;
+    margin-right: 0.51rem;
 }
 
 .attention .main_img img{
-	width: 100%;
-	height: 100%;
-	border-radius: 100px;
+    width: 100%;
+    height: 100%;
+    border-radius: 50px;
 }
 .attention .main_title{
-	width: 3.8rem;
-	float: left;
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;	
+    width: 8rem;
+    float: left;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;    
 }
 .attention .main_title .p0{
-	width: 100%;
-    font-size: 0.28rem;
+    width: 100%;
+    font-size: 0.595rem;
     color: #333333;
-    margin-bottom: 0.16rem;
-    margin-top: 0.26rem;
+    margin-bottom: 0.2rem;
+    margin-top: 0.4rem;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
 }
 .attention .main_title .p1 span{
-	font-size: 0.24rem;
-	color: #666666;
+    font-size: 0.51rem;
+    color: #666666;
 }
 .attention .main_title .p1 .span0{
-	margin-right: 0.29rem;
+    margin-right: 1.042rem;
 }
 .attention .main_title .p1{
-	width: 100%;
+    width: 100%;
     height: 0.9rem;
-    line-height: 0.1rem;
-    margin-top: -0.2rem;
+    line-height: 0.5rem;
 }
 .add_follow{
-	width: 1.6rem;
-    height: 0.56rem;
-    line-height: 0.56rem;
+    width: 3.404rem;
+    height: 1.191rem;
+    line-height: 1.191rem;
     text-align: center;
-    /* border: 1px solid #00BC12; */
+    /*border: 1px solid #00BC12;*/
     float: left;
-    margin-top: 0.32rem;
+    margin-top: 0.68rem;
     border-radius: 100px;
-	
+    
 }
 .add_follow00{
-	background: #00BC12;
+    background: #00BC12;
 }
 .add_follows0{
-	background: #00BC12;
+    background: #00BC12;
 }
 .add_follows1{
-	background: #bbb;
+    background: #bbb;
 }
 
 .add_follow img{
-	width: 0.24rem;
-    /* width: 0.532rem; */
-    /* height: 0.511rem; */
+    width: 0.6rem;
+    /*width: 0.532rem;*/
+    /*height: 0.511rem;*/
     float: left;
-    margin-top: 0.16rem;
-    margin-left: 0.27rem;
+    margin-top: 0.3rem;
+    margin-left: 0.4rem;
     
 }
 .add_follow p{
-	font-size: 0.24rem;
+    font-size: 0.51rem;
     color: #fff;
-    display: block;
 }
 .attention .close{
-	height: 1.2rem;
-    line-height: 1.2rem;
+    /*width: ;*/
+    height: 2.553rem;
+    line-height: 2.553rem;
     float: right;
-    margin-right: 0.26rem;
-    font-size: 0.5rem;
+    margin-right: 0.553rem;
+    font-size: 1rem;
     color: #999;
 }
 
 
 .add_follow1{
-	width: 3.404rem;
-	height: 1.191rem;
-	line-height: 1.191rem;
-	text-align: center;
-	/*border: 1px solid #00BC12;*/
-	float: left;
-	margin-top: 0.68rem;
-	border-radius: 100px;
-	background: #00BC12;
+    width: 3.404rem;
+    height: 1.191rem;
+    line-height: 1.191rem;
+    text-align: center;
+    /*border: 1px solid #00BC12;*/
+    float: left;
+    margin-top: 0.68rem;
+    border-radius: 100px;
+    background: #00BC12;
 }
 .add_follow1 img{
-	width: 0.6rem;
-	/*width: 0.532rem;*/
+    width: 0.6rem;
+    /*width: 0.532rem;*/
     /*height: 0.511rem;*/
-	float: left;
-	margin-top: 0.3rem;
+    float: left;
+    margin-top: 0.3rem;
     margin-left: 0.4rem;
     
 }
 .add_follow1 p{
-	font-size: 0.51rem;
-	color: #fff;
+    font-size: 0.51rem;
+    color: #fff;
 }
 /*加关注结束*/
 
 
 .coze_cen_ri{
-	margin-bottom: 0;
+    margin-bottom: 0;
 }
 .grabble_img{
-	width: 0.24rem;
-    height: 0.42rem;
-    position: absolute;
-    left: 0.26rem;
-    top: 0.23rem;
-}
-.grabble_img img{
-	width: 100%;
-	height: 100%;
-	display: block;
+    width: 0.5rem;
+    height: 0.9rem;
+    background: url(../images/backicon.png) no-repeat;
+    background-size: 100% 100%;
+    margin-left: 0.56rem;
+    margin-top: 0.52rem;
 }
 .fx_bg{
-	width: 0.42rem;
-    height: 0.43rem;
-}
-.fx_bg img{
-	width: 0.42rem;
-    height: 0.43rem;
+    width: 0.894rem;
+    height: 0.915rem;
+    background: url(/xcview/images/share_img.png)no-repeat;
+    background-size: 100% 100%;
+    float: right;
+    margin-right: 0.3rem;
 }
 
 /*分享开始*/
 .share{
-	width: 100%;
-	height: 100%;
-	display: none;
+    width: 100%;
+    height: 100%;
+    display: none;
 }
 .share_bg{
-	width: 100%;
-	height: 100%;
-	background: #000;
-	opacity: 0.5;
-	position: fixed;
-	top: 0;
-	left: 0;
-	z-index: 10;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    opacity: 0.5;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
 }
 .share_main{
-	width: 14.851rem;
-	height: 8.426rem;
-	/*background: #fff;*/
-	margin: 0 auto;
-	position: fixed;
+    width: 14.851rem;
+    height: 8.426rem;
+    /*background: #fff;*/
+    margin: 0 auto;
+    position: fixed;
     left: 0.56rem;
-	bottom: 1.744rem;
-	z-index: 999999999;
+    bottom: 1.744rem;
+    z-index: 999999999;
 }
 .share_main_bg{
-	width: 100%;
-	height: 6.085rem;
-	background: rgba(255,255,255,0.80);
-	border-radius: 8px;
+    width: 100%;
+    height: 6.085rem;
+    background: rgba(255,255,255,0.80);
+    border-radius: 8px;
 }
 .share_to{
-	width: 100%;
-	text-align: center;
-	font-size: 0.681rem;
-	color: #333;
-	padding-top: 0.638rem;
+    width: 100%;
+    text-align: center;
+    font-size: 0.681rem;
+    color: #333;
+    padding-top: 0.638rem;
     margin-bottom: 0.5rem;
 }
 .share_cancel{
-	width: 100%;
-	height: 1.702rem;
-	line-height: 1.702rem;
-	text-align: center;
-	color: #333;
-	font-size: 0.638rem;
-	background: #fff;
-	border-radius: 8px;
-	margin-top: 0.638rem;
+    width: 100%;
+    height: 1.702rem;
+    line-height: 1.702rem;
+    text-align: center;
+    color: #333;
+    font-size: 0.638rem;
+    background: #fff;
+    border-radius: 8px;
+    margin-top: 0.638rem;
 }
 .share_main_bg ul li{
-	float: left;
-	margin-left: 3.3rem;
+    float: left;
+    margin-left: 3.3rem;
 }
 .share_main_bg ul li img{
-	width: 2.553rem;
-	height: 2.553rem;
+    width: 2.553rem;
+    height: 2.553rem;
 }
 .share_main_bg ul li p{
-	text-align: center;
-	width: 2.553rem;
-	font-size: 0.511rem;
-	color: #333333;
+    text-align: center;
+    width: 2.553rem;
+    font-size: 0.511rem;
+    color: #333333;
 }
 .weixin_ceng_bg{
-	z-index: 999999999;
+    z-index: 999999999;
 }
 /*分享结束*/
 
 /*添加礼物关闭按钮开始*/
 .send_gifts_ul .div{
-	    font-size: 0.3rem;
+    font-size: 0.6rem;
     color: #333;
     width: 100%;
-    height: 0.8rem;
-    line-height: 0.8rem;
+    height: 1.4rem;
+    line-height: 1.4rem;
     border-bottom: 1px solid #d2d2d2;
 }
 .send_gifts_ul .div .span0{
-	margin-left: 0.4rem;
+    margin-left: 0.4rem;
 }
 .send_gifts_ul .div .span1{
-	    float: right;
-    font-size: 0.5rem;
-    width: 0.8rem;
+    float: right;
+    font-size: 0.8rem;
+    width: 1.4rem;
     height: 100%;
     text-align: center;
     color: #999;
 }
 .send_gifts ul li a p{
-	font-size: 0.26rem !important;
+    font-size: 0.5rem !important;
 }
 /*添加礼物关闭按钮结束*/
 
 /*主讲人开始*/
 .details_anchor_attention .p1{
-	font-size: 0.596rem;
+    font-size: 0.596rem;
 }
 /*主讲人结束*/
 
 .mCustomScrollbar.mCS_no_scrollbar{
-	background: #F8F8F8;
+    background: #F8F8F8;
 }
 .important{
-	right: -2.2rem !important;
+    right: -2.2rem !important;
 }
 .importants{
-	right: -3.5rem !important;
+    right: -3.5rem !important;
 }
 .div_img .img_left{
-	margin-left: 0.2rem;
-    margin-top: 0.15rem;
+    margin-left: 0.6rem;
 }
 
 
 /*处理排行榜下划线位置--给的left值*/
 .leaderboard_list{
-	width: 97%;
-	/*margin-left: 0.26rem;*/
+    width: 97%;
+    margin-left: 0.5rem;
 }
 
 
 /*即将开始提示*/
 .video_end_top0{
-	position: absolute;
+    position: absolute;
     text-align: center;
     width: 100%;
-    height: 4.24rem;
+     height: 7.6rem;
     top: 0;
-    margin-top: 0.88rem;
+    margin-top: 1.9rem;
     z-index: 1;
     background: rgba(0,0,0,0.80);
     /*display: none;*/
 }
 .video_end_top0 p{
-	color: #fff;
-    font-size: 0.32rem;
-    margin-top: 1.5rem;
-    margin-bottom: 0.4rem;
+    color: #fff;
+    font-size: 0.68rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
 }
 .video_end_top0 .div{
-	background: #00BC12;
-	border-radius: 8px;
-	width: 3.063rem;
-	height: 1.191rem;
-	line-height: 1.191rem;
-	margin: 0 auto;
-	font-size: 0.595rem;
-	color: #fff;
+    background: #00BC12;
+    border-radius: 8px;
+    width: 3.063rem;
+    height: 1.191rem;
+    line-height: 1.191rem;
+    margin: 0 auto;
+    font-size: 0.595rem;
+    color: #fff;
 }
 
 
@@ -873,7 +865,7 @@ div.pinch-zoom,
 
 /*直播结束点击查看回放开始*/
 .video_end_top1{
-	position: absolute;
+    position: absolute;
     text-align: center;
     width: 100%;
      height: 7.6rem;
@@ -884,122 +876,117 @@ div.pinch-zoom,
     /*display: none;*/
 }
 .video_end_top1 p{
-	color: #fff;
-	font-size: 0.68rem;
+    color: #fff;
+    font-size: 0.68rem;
     margin-top: 2rem;
     margin-bottom: 1rem;
 }
 .video_end_top1 .div{
-	background: #00BC12;
-	border-radius: 8px;
-	width: 3.063rem;
-	height: 1.191rem;
-	line-height: 1.191rem;
-	margin: 0 auto;
-	font-size: 0.595rem;
-	color: #fff;
+    background: #00BC12;
+    border-radius: 8px;
+    width: 3.063rem;
+    height: 1.191rem;
+    line-height: 1.191rem;
+    margin: 0 auto;
+    font-size: 0.595rem;
+    color: #fff;
 }
 /*直播结束点击查看回放结束*/
 
 /*直播结束，正在生成回放提示开始*/
 .video_end_top2{
-	position: absolute;
+    position: absolute;
     text-align: center;
     width: 100%;
-    height: 4.24rem;
+     height: 7.6rem;
     top: 0;
-    margin-top: 0.88rem;
+    margin-top: 1.9rem;
     z-index: 1;
     background: rgba(0,0,0,0.80);
     /*display: none;*/
 }
 .video_end_top2 p{
-	color: #fff;
-    font-size: 0.32rem;
-    margin-top: 1.5rem;
-    margin-bottom: 0.4rem;
+    color: #fff;
+    font-size: 0.68rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
 }
 .video_end_top2 .div{
-	background: #00BC12;
-	border-radius: 8px;
-	width: 3.063rem;
-	height: 1.191rem;
-	line-height: 1.191rem;
-	margin: 0 auto;
-	font-size: 0.595rem;
-	color: #fff;
+    background: #00BC12;
+    border-radius: 8px;
+    width: 3.063rem;
+    height: 1.191rem;
+    line-height: 1.191rem;
+    margin: 0 auto;
+    font-size: 0.595rem;
+    color: #fff;
 }
 /*直播结束，正在生成回放提示结束*/
 
 /*直播已结束提示*/
 .video_end_top{
-	position: absolute;
+    position: absolute;
     text-align: center;
     width: 100%;
-    height: 4.24rem;
+     height: 7.6rem;
     top: 0;
-    margin-top: 0.88rem;
+    margin-top: 1.9rem;
     z-index: 1;
     background: rgba(0,0,0,0.80);
     display: none;
 }
 .video_end_top p{
-	color: #fff;
-    font-size: 0.32rem;
-    margin-top: 1.5rem;
-    margin-bottom: 0.4rem;
+    color: #fff;
+    font-size: 0.68rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
 }
 .video_end_top .div{
-	background: #00BC12;
+    background: #00BC12;
     border-radius: 8px;
-    width: 1.44rem;
-    height: 0.56rem;
-    line-height: 0.56rem;
+    width: 3.063rem;
+    height: 1.191rem;
+    line-height: 1.191rem;
     margin: 0 auto;
-    font-size: 0.28rem;
+    font-size: 0.595rem;
     color: #fff;
 }
 /*直播已结束提示*/
 
 /*直播结束查看回放*/
 .video_end_top1{
-	position: absolute;
+    position: absolute;
     text-align: center;
     width: 100%;
-    height: 4.24rem;
+     height: 7.6rem;
     top: 0;
-    margin-top: 0.88rem;
+    margin-top: 1.9rem;
     z-index: 1;
     background: rgba(0,0,0,0.80);
     /*display: none;*/
 }
 .video_end_top1 p{
-	    color: #fff;
-    font-size: 0.32rem;
-    margin-top: 1.5rem;
-    margin-bottom: 0.4rem;
+    color: #fff;
+    font-size: 0.68rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
 }
 .video_end_top1 .div{
-	background: none;
+    background: none;
     border-radius: 8px;
-    width: 0.8rem;
-    height: 0.8rem;
-    line-height: 0.8rem;
+    width: 3.489rem;
+    height: 2.191rem;
+    line-height: 1.191rem;
     margin: 0 auto;
     font-size: 0.595rem;
     color: #fff;
 }
 .video_end_top1 .div img{
-	width: 0.8rem;
+    width: 1.5rem;
 }
 /*直播结束查看回放*/
 
 .coze_bottom{
-	border-top: 1px solid #f0f0f0;
+    border-top: 1px solid #f0f0f0;
 }
 
-.facebox-mobile li{
-	padding: 0 !important;
-	margin-top: 0.25rem;
-    width: 1rem !important;
-}

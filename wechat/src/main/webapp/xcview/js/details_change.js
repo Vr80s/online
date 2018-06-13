@@ -526,7 +526,7 @@ $(document)
 									function() {
 										/* $("#mywords").css('width','13.65rem'); */
 										$(".coze_bottom").css("bottom",
-												"3.14rem");
+												"7.3rem");
 										$(".face_img01")
 												.css('background',
 														'url(/xcview/images/jianpan.png) no-repeat');
@@ -562,7 +562,7 @@ $(document)
 													"0rem");
 										} else {
 											$(".coze_bottom").css("bottom",
-													"3.14rem");
+													"7.3rem");
 
 											setTimeout(function() {
 												$(".facebox-mobile").show();
