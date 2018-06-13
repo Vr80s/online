@@ -22,6 +22,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.body.course.LineApplyBody;
 import com.xczhihui.bxg.online.web.controller.ftl.AbstractFtlController;
+import com.xczhihui.bxg.online.web.utils.HtmlUtil;
 import com.xczhihui.bxg.online.web.utils.ftl.ReplaceUrl;
 import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.common.util.enums.*;
@@ -331,7 +332,11 @@ public class SchoolController extends AbstractFtlController {
                 }
             }
         }
-
+        String description = "";
+        if(clv.getDescription()!=null){
+            description = HtmlUtil.getTextFromHtml(clv.getDescription());
+            description = description.length() < 100 ? description : description.substring(0, 99);
+        }
         //获取专辑
         List<CourseLecturVo> courses = courseService.selectCoursesByCollectionId(clv.getId());
         view.addObject("collectionList", courses);
@@ -340,6 +345,7 @@ public class SchoolController extends AbstractFtlController {
 
         //课程详情
         view.addObject("courseInfo", clv);
+        view.addObject("description", description);
 
         //常见问题。
         String path = req.getServletContext().getRealPath("/template");
