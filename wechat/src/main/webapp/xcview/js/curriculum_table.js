@@ -491,7 +491,7 @@ function queryDataByParams(params,data_type){
 							if(collection==1){
 								location.href = "/xcview/html/live_select_album.html?course_id="+courseId;
 							}else{
-								location.href = "/xcview/html/live_audio.html?my_study="+courseId;
+								location.href = "/xcview/html/live_select_album.html?course_id="+courseId;
 							}
 						}else if(type == 4){
 							location.href = "/xcview/html/school_class.html?course_id="+courseId;

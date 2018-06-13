@@ -72,10 +72,10 @@
 	<div class="main">
 		<h5>哎呀，页面出错啦，程序员小哥哥们正在努力维修中…</h5>
 		<div class="wrap-img">
-			<img src="/web/images/error-500.png"/ alt="报错">
+			<img src="/web/images/error-500.png" alt="报错"/>
 		</div>
 		<div class="wrap-jump">
-			<a href="/index.jsp" >返回首页</a>
+			<a href="/" >返回首页</a>
 			<a href="javascript:history.back(-1)" >返回上一页</a>
 		</div>
 	</div>
