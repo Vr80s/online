@@ -275,11 +275,11 @@ margin-left: 20px;
     color: #333;
     white-space: nowrap;
     text-overflow: ellipsis;
-    margin-bottom: 8px;
+    /*margin-bottom: 8px;*/
 }
 .save-class .course > a .detail .timeAndTeac {
     display: block;
-    margin: 2px 0;
+    margin: 5px 0;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -302,8 +302,8 @@ margin-left: 20px;
 }
 .save-class .course > a .detail .info .price {
     display: inline-block;
-    margin: 0 3px 0 0;
-    font-size: 14px;
+    /*margin: 0 3px 0 0;*/
+    font-size: 13px;
     color: #F97B49;
 }
 .save-class .course > a .detail span {
@@ -315,6 +315,7 @@ margin-left: 20px;
 .save-class .stuCount .studentCou{
 	float: right;
 	margin-top: 1px;
+	margin-left: 5px;
 }
 /*视频样式结束*/
 .sava-nodata{
