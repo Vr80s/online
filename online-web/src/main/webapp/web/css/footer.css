@@ -132,13 +132,13 @@ footer .footer-bodys p {
   line-height: 24px;
 }
 .indexFooter .footer-bodys .gate li {
-  color: #333;
+  /*color: #333;*/
 }
 .indexFooter .footer-bodys .gate .noline {
   border-right: none;
 }
 .indexFooter .footer-bodys .trademark {
-  color: #333;
+  /*color: #333;*/
 }
 .consult_center,
 .online_consult,
