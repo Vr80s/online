@@ -173,7 +173,12 @@
                     <#list reportDoctors as reportDoctor>
                         <div class="report_right_doctor clearfix">
                             <div class="report_right_name">
-                                <img src="${reportDoctor.headPortrait}" alt="医师头像">
+                                <#if reportDoctor.headPortrait??>
+                                    <img src="${reportDoctor.headPortrait}" alt="医师头像">
+                                <#else>
+                                    <img src="/web/images/defaultHead/18.png" alt="医师头像">
+                                </#if>
+
                                 <div class="report_right_name_p">
                                     <p class="p0"><a
                                             href="${webUrl}/doctors/${reportDoctor.doctorId}"
