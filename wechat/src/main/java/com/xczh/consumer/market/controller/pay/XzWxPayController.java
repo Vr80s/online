@@ -123,6 +123,7 @@ public class XzWxPayController {
 
         String ip = IpKit.getRealIp(req);
         String openId = req.getParameter("openId");
+        log.warn("openId: {}", openId);
         if (StringUtils.isBlank(openId)) {
             openId = getWxOpenId(accountId);
             if (StringUtils.isBlank(openId)) {
@@ -232,7 +233,14 @@ public class XzWxPayController {
         WxPayApiConfigKit.setThreadLocalWxPayApiConfig(apiConfig);
 
         String ip = IpKit.getRealIp(request);
-        String openId = getWxOpenId(accountId);
+        String openId = request.getParameter("openId");
+        log.warn("openId: {}", openId);
+        if (StringUtils.isBlank(openId)) {
+            openId = getWxOpenId(accountId);
+            if (StringUtils.isBlank(openId)) {
+                return ResponseObject.newErrorResponseObject("请尝试重新支付");
+            }
+        }
 
         String attach = PayMessage.getPayMessage(payMessage);
 
