@@ -123,12 +123,8 @@ public class XzWxPayController {
 
         String ip = IpKit.getRealIp(req);
         String openId = req.getParameter("openId");
-        log.warn("openId: {}", openId);
         if (StringUtils.isBlank(openId)) {
             openId = getWxOpenId(accountId);
-            if (StringUtils.isBlank(openId)) {
-                return ResponseObject.newErrorResponseObject("请尝试重新支付");
-            }
         }
 
         String attach = PayMessage.getPayMessage(payMessage);
@@ -234,12 +230,8 @@ public class XzWxPayController {
 
         String ip = IpKit.getRealIp(request);
         String openId = request.getParameter("openId");
-        log.warn("openId: {}", openId);
         if (StringUtils.isBlank(openId)) {
             openId = getWxOpenId(accountId);
-            if (StringUtils.isBlank(openId)) {
-                return ResponseObject.newErrorResponseObject("请尝试重新支付");
-            }
         }
 
         String attach = PayMessage.getPayMessage(payMessage);
@@ -359,7 +351,7 @@ public class XzWxPayController {
                 .setNotifyUrl(notify_url)
                 .setOutTradeNo(orderNo);
         if (orderFromI == 3) {
-            if (!StringUtils.isNotBlank("openId")) {
+            if (!StringUtils.isNotBlank(openId)) {
                 throw new RuntimeException("尝试下重新登录,或者关注公众号!");
             }
             Map<String, String> params = wxPayApiConfig.setOpenId(openId).setTradeType(WxPayApi.TradeType.JSAPI).build();
