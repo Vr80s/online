@@ -29,14 +29,6 @@ function stringnull(zifu) {
 
 }
 
-/**
- * 增加学习记录
- */
-RequestService("/learnWatch/add", "POST", {
-	courseId:collectionId,recordType:1
-}, function(data) {
-	console.log("增加学习记录");
-});
 
 //获取视频信息接口
 RequestService("/online/user/isAlive", "GET", null, function(data) { ///online/user/isAlive
@@ -86,7 +78,7 @@ RequestService("/online/user/isAlive", "GET", null, function(data) { ///online/u
 function getPlayCode(collectionId,courseId){
 	
 	/**
-	 * 记录最后播放到那个地方了
+	 * 记录最后播放的课程id是哪个
 	 */
     var key = userId+collectionId+"lastLive";
     localStorage.setItem(key,courseId);
@@ -124,7 +116,7 @@ function getPlayCode(collectionId,courseId){
 		autoPlay: false
 	}, function(data) {
 		if(data.success == true) {
-			localStorage.setItem("playRecording"+falgCollectionId,"playRecording"+falgId);
+			
 			var scr = data.resultObject.playCode;
 			$(".videoBody-video").append(scr);
 			$(".headerBody-title").html(data.resultObject.title);
@@ -135,16 +127,6 @@ function getPlayCode(collectionId,courseId){
 	});
 }
 
-var falgId =  localStorage.getItem("playRecording"+falgCollectionId);
-//如果点击立即学习的话，就从第一个开始播放
-if(ljxx != null && ljxx != undefined && "" != ljxx && falgId!=null &&
-		falgId != undefined && "" != falgId){
-	//从记录里面去下
-	var falgArray = falgId.split("_");
-	if(falgArray.length == 3){
-		courseId = falgArray[2];
-	}
-}
 /**
  * 请求专辑列表
  */
@@ -170,10 +152,15 @@ RequestService("/course/newGetCoursesByCollectionId",
 				"</div></li>");
 		}
 		$(".album_list ul").html(lalal);
-		//默认是第一个课程
+		
+		
+		/**
+		 * 获取专辑下的第一个课程id
+		 * 	如果点击的是立即学习（用户还没有学习过），默认从第一个课程开始播放
+		 */
 		if(!stringnull(courseId) && stringnull(ljxx)){
 			courseId = list[0].id;
-			// $(".wrap-sidebar ul li").removeClass("active-footer");
+		    
 			$(".album_list ul li").removeClass("choosedAlbum");
 			$(".album_list ul li").eq(0).addClass("choosedAlbum");
 		}
@@ -198,15 +185,15 @@ $(function() {
 	};
 });
 
-   /******************  从指定时间开始播放  **********************/
+/******************  从指定时间开始播放  **********************/
 
-var key = userId + collectionId;
-var recordingList = localStorage.getItem(key);
+var keyTime = userId + collectionId;
+var recordingListTime = localStorage.getItem(keyTime);
 var recording = 0;
 if (multimediaType!=null && multimediaType !=undefined && multimediaType ==2 && 
-		recordingList != null && recordingList != undefined  ) {
+		recordingListTime != null && recordingListTime != undefined  ) {
     var re = new RegExp("%", "i");
-    var fristArr = recordingList.split(re);
+    var fristArr = recordingListTime.split(re);
     var arr = [];
     for (var i = 0; i < fristArr.length; i++) {
         var arrI = fristArr[i];
@@ -231,13 +218,9 @@ if (multimediaType!=null && multimediaType !=undefined && multimediaType ==2 &&
 }
 
 
-
-
-
-
-
 /*********************** 帅气的cc视频自定义事件  **************************/
 
+var player ="";
 
 function getSWF(objectId) {
     if (window.document[ objectId ]) {
@@ -251,13 +234,10 @@ function getSWF(objectId) {
     }
 }
 
-var player ="";
-
 /*
  * 开始播放了
  */
 function custom_player_start(){
-	//alert("开始播放了");
 	if(recording>0){
 		player.seek(recording);
 	}
@@ -371,14 +351,13 @@ function on_cc_player_init(vid, objectId){
 
 
 /**
- * 记录播放到哪里了。我的天
+ * 记录播放到哪里了。
  * 获取当前播放时间（单位：秒）
  * @returns
  */
 var int=self.setInterval("clock()",2000)
 function clock(){
 	if(player!=""){//存放到缓存里面，怎么存。
-		//console.log(""+player.getPosition());
 		videoAlbumPositionRecording(player.getPosition());
 	}
 }
@@ -396,7 +375,8 @@ function videoAlbumPositionRecording(time){
 		}else if(recordingList.indexOf(courseKey)==-1){
 			recordingList+=value;
 		}else{
-			var re = new RegExp("%"+courseId+"(\\S*)%","i"); 
+			value = "%"+courseId+"="+time;
+			var re = new RegExp("%"+courseId+"[0-9.=]*[^%]","i"); 
 			recordingList = recordingList.replace(re,value);
 		}
 		localStorage.setItem(key,recordingList);

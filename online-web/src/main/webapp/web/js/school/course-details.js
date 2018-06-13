@@ -119,7 +119,6 @@ $(function () {
         var type = $this.attr("data-type");
         var collection = $this.attr("data-collection");
         var realCourseId = $this.attr("data-realCourseId");
-        //var collectionCourseId = $this.attr("data-collectionCourseId");
         var learning = $this.attr("data-learning");
         /**
          * 判断是否登录了
@@ -136,19 +135,36 @@ $(function () {
                         goOfflineApply(realCourseId);
                     }
                 }
-                if (type == 3) { //已报名
+                if (type == 3) { //直播课
+                	
+                	//直播课的学习记录在播放页面增加
+                	
                     window.location.href = "/web/livepage/" + realCourseId;
                 } else if (type == 1 || type == 2) {
                     if (collection == 1) {
-
+                    	/**
+                    	 * 获取专辑最后一个播放到哪里了
+                    	 */
                         var lastLiveKey = loginUserId + courseId + "lastLive";
                         var lastLiveCourseId = localStorage.getItem(lastLiveKey);
+                        
                         if (lastLiveCourseId != null && lastLiveCourseId != "" && lastLiveCourseId != undefined) { //继续学习
                             window.location.href = "/web/html/ccvideo/liveVideoAlbum.html?collectionId=" + realCourseId + "&courseId=" + lastLiveCourseId;
                         } else {
                             window.location.href = "/web/html/ccvideo/liveVideoAlbum.html?collectionId=" + realCourseId + "&ljxx=ljxx";
                         }
                     } else {
+                    	
+                    	/**
+                    	 * 增加学习记录
+                    	 */
+                    	RequestService("/learnWatch/add", "POST", {
+                    		courseId:realCourseId,recordType:1
+                    	}, function(data) {
+                    		console.log("增加学习记录");
+                    	});
+                    	
+                    	
                         window.location.href = "/web/html/ccvideo/video.html?courseId=" + realCourseId;
                     }
                 }
@@ -176,22 +192,17 @@ $(function () {
                 }
 
             })
-
         }
     }
 
 
 //判断进入条	
     /**
-     * 得到这个记录
+     * 得到这个记录，控制播放进度条
      */
     var key = loginUserId + courseId;
     var recordingList = localStorage.getItem(key);
 
-
-    /**
-     * 播放进度条
-     */
     if (collection == 0 && recordingList != null) {  //单个课程
         //秒转换为分钟
         var lookRecord = parseFloat(recordingList) / 60

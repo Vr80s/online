@@ -13,14 +13,8 @@ var userId= "";
  * 设置返回课程详情a标签
  */
 $("#return").attr("href","/courses/"+courseId+"/info");
-/**
- * 增加学习记录
- */
-RequestService("/learnWatch/add", "POST", {
-	courseId:courseId,recordType:1
-}, function(data) {
-	console.log("增加学习记录");
-},false);
+
+
 
 var menuid = "";
 var pageNumber = 1;
@@ -52,6 +46,7 @@ RequestService("/online/user/isAlive", "GET", null, function(data) { ///online/u
 			autoPlay: false
 		}, function(data) {
 			if(data.success == true) {
+				
 				/**
 				 * 增加观看记录
 				 */
@@ -61,6 +56,10 @@ RequestService("/online/user/isAlive", "GET", null, function(data) { ///online/u
 				}, function(data) {
 					console.log("添加观看记录");
 				},false);
+				
+				
+				
+				
 				
 				var scr = data.resultObject.playCode;
 				$(".videoBody-video").append(scr);
