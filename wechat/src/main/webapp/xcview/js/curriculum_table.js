@@ -488,10 +488,10 @@ function queryDataByParams(params,data_type){
 							requestService("/xczh/history/add",{courseId:courseId, recordType:1},function(data) {
 								 console.log("增加学习记录");
 							}) 
-							if(collection==1){
+							if(collection=="true"){
 								location.href = "/xcview/html/live_select_album.html?course_id="+courseId;
 							}else{
-								location.href = "/xcview/html/live_select_album.html?course_id="+courseId;
+								location.href = "/xcview/html/live_audio.html?my_study="+courseId;
 							}
 						}else if(type == 4){
 							location.href = "/xcview/html/school_class.html?course_id="+courseId;
