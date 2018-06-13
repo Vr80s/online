@@ -1171,9 +1171,10 @@ function jump_msg(index) {
         if (data.success == true) {
         	newsList(1);
         	Newsnumber();
-            var url = $(index).data('url');
-            if (url) {
-                window.open(url, "_blank");
+            var urlJump = $(index).data('url');
+            if (urlJump) {
+//              window.open(url, "_blank");
+                location.href=urlJump;
             }
         }
     });

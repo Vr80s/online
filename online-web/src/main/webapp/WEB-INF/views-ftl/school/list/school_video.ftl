@@ -29,9 +29,11 @@
 <!--左侧精品、免费、最新、养生课程-->		
 		<div class="wp">
 			<div class="wrap-left z">
-				<div class="wrap-banner">
-					<#include "../common/banner_common.ftl">
-				</div>
+				<#if bannerList?? && bannerList?size gt 0> 
+					<div class="wrap-banner">
+						<#include "../common/banner_common.ftl">
+					</div>		
+				</#if>
 <!-- 听课推荐 -->		
 
 	

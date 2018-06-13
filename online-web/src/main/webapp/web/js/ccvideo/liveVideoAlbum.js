@@ -279,9 +279,9 @@ if(auto_play != null && auto_play == "true"){
 $("#auto_play").click(function(){
 	var falg = $(this).is(':checked')
 	if(falg){
-		$(this).css("background","green");
+		$(this).css("background-image","url(/web/images/btn-ondown.png)");
 	}else{
-		$(this).css("background","#fff");
+		$(this).css("background-image","url(/web/images/btn-selete.png)");
 	}
 })
 
