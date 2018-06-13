@@ -81,7 +81,7 @@
                             <h4>${doctor.name}&nbsp;&nbsp;&nbsp;&nbsp;
                             ${doctor.province?default('')}&nbsp;${doctor.city?default('')}
                             </h4>
-                            <span>${doctor.title?default('暂无')}</span>
+                            <span>${doctor.title?default('')}</span>
                             <!--<p>科室： <span>中医内科/儿科/肿瘤科</span></p>-->
                         </div>
                     </li>
