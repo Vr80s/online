@@ -4,9 +4,10 @@
  * 进入购买成功后的页面
  */
 var courseId = getQueryString("courseId");
+// var watchState = getQueryString("watchState");
 
 /**
- * 根据课程id得到课程简单信息
+ * 根据课程id得到课程简单信息   watchState
  */
 
 var type ="";
@@ -15,11 +16,24 @@ var collection="";
 requestService("/xczh/course/details",{courseId:courseId}, function(data) {
 	 if (data.success) {
          var result = data.resultObject;
+         // var results = data.resultObject.watchState;
+         // var results = data.watchState;
 
          $(".purchase_details_title").find(".span1").html(result.gradeName);
          $(".purchase_details_title").find(".span0").html(result.name);
+
+
+         if(result.watchState==1){
+            $(".purchase_details_money").find(".span").html('免费');
+            $(".purchase_details_money .span_fize").hide();
+            $(".purchase_details_money .span").css("font-size","0.28rem");
+         }else if(result.watchState == 0){
+            $(".purchase_details_money").find(".span").html(result.currentPrice);
+         };
+
          
-         $(".purchase_details_money").find("span").html(result.currentPrice);
+         
+
          $("#smallImgPath").attr("src",result.smallImgPath + '?imageView2/2/w/212' );
          
          type= result.type;
