@@ -149,7 +149,7 @@ $(document).ready(function() {
 	/*
 	 * 点击发送时候的送礼物效果/充值事件
 	 */
-	$('.surprise-mouseover-ul li .surprise-presented').click(function(){
+	$('.surprise-mouseover-ul li .surprise-presented,.surprise-mouseover-ul li').click(function(){
 		
 		//回放状态不让发送
 		if(liveStatus == 3){
