@@ -480,18 +480,20 @@
 															<img src="{{item.create_head_img}}"/ alt="头像">
 														</div>
 														<p class="user-name">{{item.create_nick_name}}</p>
+														{{if item.answer_sum != 0}}
 														<div class="my-answer">
 															<span>回答</span>
 															<p>{{item.answer_sum}}</p>
 														</div>
+														{{/if}}
 													</div>
 													<div class="source-text y">
 														<p class="source-title">来自学科：{{item.name}}</p>
 														<div class="question-status-wrap">
 															{{if item.status==0}}
-															<span>待回答</span>
+															<span>未解决</span>
 															{{else if item.status==1}}
-															<span>待回答</span>
+															<span>未解决</span>
 															{{else if item.status==2}}
 															<span>已解决</span>
 															{{/if}}
@@ -578,18 +580,20 @@
 													<img src="{{item.create_head_img}}"/ alt="头像">
 												</div>
 												<p class="user-name">{{item.create_nick_name}}</p>
+												{{if item.answer_sum != 0}}
 												<div class="my-answer">
 													<span>回答</span>
 													<p>{{item.answer_sum}}</p>
 												</div>
+												{{/if}}
 											</div>
 											<div class="source-text y">
 												<p class="source-title">来自学科：{{item.name}}</p>
 												<div class="question-status-wrap">
 													{{if item.status==0}}
-													<span>待回答</span>
+													<span>未解决</span>
 													{{else if item.status==1}}
-													<span>回答中</span>
+													<span>未解决</span>
 													{{else if item.status==2}}
 													<span>已解决</span>
 													{{/if}}
