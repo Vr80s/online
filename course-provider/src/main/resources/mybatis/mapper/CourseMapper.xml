@@ -186,7 +186,7 @@
 		oc.course_number as courseNumber,
 		if(oc.sort_update_time &lt; now(),0,oc.recommend_sort) recommendSort,
 		IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) + IFNULL(oc.default_student_count, 0) learndCount,
-		
+
 		if(oc.live_status = 2,if(DATE_SUB(now(),INTERVAL 30 MINUTE)>=oc.start_time,6,if(
 			(DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time) or
     		   (DATE_ADD(now(),INTERVAL 1 HOUR)>=oc.start_time and now() &lt; oc.start_time),4,
@@ -295,7 +295,10 @@
 	<select id="selectLecturerAllCourse" resultType="com.xczhihui.course.vo.CourseLecturVo">
 		SELECT
 		  <include refid="relLearningCourseListByUserId"/>
-		    DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr
+		   if(oc.live_status=1,DATE_FORMAT(oc.start_time,'%H:%i'),if(oc.live_status=2,if(oc.start_time &lt;= DATE_ADD(DATE_ADD(str_to_date(DATE_FORMAT(NOW(),'%Y-%m-%d'),
+		 	'%Y-%m-%d %H:%i:%s'),INTERVAL 1 DAY),INTERVAL -1 SECOND),
+		 	DATE_FORMAT(oc.start_time,'%H:%i'),DATE_FORMAT(oc.start_time,'%m.%d')),
+		 	DATE_FORMAT(oc.start_time,'%m.%d') )) as startDateStr
 		FROM
 		oe_course oc
 		where oc.user_lecturer_id = #{userId} and oc.status = 1 and oc.is_delete=0
@@ -513,7 +516,12 @@
 	<select id="myCourseType" resultType="com.xczhihui.course.vo.CourseLecturVo">
 		SELECT
 			<include refid="relLearningCourseListByUserId"/>
-			'学习中心' as note
+			'学习中心' as note,
+		if(oc.live_status=1,DATE_FORMAT(oc.start_time,'%H:%i'),
+		if(oc.live_status=2,if(oc.start_time &lt;= DATE_ADD(DATE_ADD(str_to_date(DATE_FORMAT(NOW(),'%Y-%m-%d'),
+		'%Y-%m-%d %H:%i:%s'),INTERVAL 1 DAY),INTERVAL -1 SECOND),
+		DATE_FORMAT(oc.start_time,'%H:%i'),DATE_FORMAT(oc.start_time,'%m.%d')),
+		DATE_FORMAT(oc.start_time,'%m.%d') )) as startDateStr
 		FROM
 			oe_course as oc
 			inner join apply_r_grade_course argc on oc.`id`=argc.`course_id`  AND argc.`validity`>NOW()
@@ -653,7 +661,10 @@
 		 select * from (	
 			SELECT
 			    <include refid="relLearningCourseListByUserId"/>
-			    DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr,
+			     if(oc.live_status=1,DATE_FORMAT(oc.start_time,'%H:%i'),if(oc.live_status=2,if(oc.start_time &lt;= DATE_ADD(DATE_ADD(str_to_date(DATE_FORMAT(NOW(),'%Y-%m-%d'),
+					 	'%Y-%m-%d %H:%i:%s'),INTERVAL 1 DAY),INTERVAL -1 SECOND),
+					 	DATE_FORMAT(oc.start_time,'%H:%i'),DATE_FORMAT(oc.start_time,'%m.%d')),
+					 	DATE_FORMAT(oc.start_time,'%m.%d') )) as startDateStr,
 				if(now() > DATE_SUB(oc.start_time,INTERVAL 1 HOUR) and  oc.start_time > now()  ,1,0) as isLive
 			FROM
 			oe_course oc

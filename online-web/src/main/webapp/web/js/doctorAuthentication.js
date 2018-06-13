@@ -48,12 +48,12 @@ $(function(){
 		
 		
 		//判断身份证图片是否上传
-		if($('#doc_Distinguish #AutList .idFont_pic:has(img)').length < 1 || $('#doc_Distinguish #AutList .idBack_pic:has(img)').length < 1 ){
+		/*if($('#doc_Distinguish #AutList .idFont_pic:has(img)').length < 1 || $('#doc_Distinguish #AutList .idBack_pic:has(img)').length < 1 ){
 			$('#doc_Distinguish #AutList .idCard_pic .warning ').removeClass('hide');
 			return false;
 		}else{
 			$('#doc_Distinguish #AutList .idCard_pic .warning ').addClass('hide');
-		}
+		}*/
 		
 		
 		//教师资格证图片是否上传
@@ -153,8 +153,6 @@ $(function(){
 		RequestService("/doctor/apply", "post", {
 				name:name,
 				cardNum:cardNum,
-				cardPositive:cardPositive,
-				cardNegative:cardNegative,
 				qualificationCertificate:qualificationCertificate,
 				professionalCertificate:professionalCertificate,
 				headPortrait:headPortrait,

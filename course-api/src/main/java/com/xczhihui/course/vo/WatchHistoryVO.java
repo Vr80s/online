@@ -60,6 +60,8 @@ public class WatchHistoryVO implements Serializable {
 	public Double currentPrice;//现价
 
 	public Integer learndCount;
+
+	public String startDateStr;
     
     public String getUserId() {
         return userId;
@@ -244,5 +246,13 @@ public class WatchHistoryVO implements Serializable {
 
 	public void setLearndCount(Integer learndCount) {
 		this.learndCount = learndCount;
+	}
+
+	public String getStartDateStr() {
+		return startDateStr;
+	}
+
+	public void setStartDateStr(String startDateStr) {
+		this.startDateStr = startDateStr;
 	}
 }
