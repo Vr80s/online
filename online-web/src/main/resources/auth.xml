@@ -42,6 +42,7 @@
 	<uri>/online/questionlist/findVideoQuestion</uri>
 	<!--修改视频问题信息-->
 	<uri>/online/questionlist/updateQuestion</uri>
+	<uri>/online/questionlist/getMyQuestionList</uri>
 
 	<!--博文答提问时获取有权限学科以及学科下的标签-->
 	<uri>/online/menutag/getQuestionMenuTags</uri>
@@ -97,6 +98,8 @@
 	<uri>/medical/common/.*</uri>
 	<uri>/doctor/.*</uri>
 	<uri>/hospital/.*</uri>
+	<uri>/message/.*</uri>
+	<uri>/bbs/myReplies</uri>
 
 	<!--需要具有主播权限-->
 	<anchoruri>/anchor/.*</anchoruri>

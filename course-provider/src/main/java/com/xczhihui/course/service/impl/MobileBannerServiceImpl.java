@@ -137,7 +137,9 @@ public class MobileBannerServiceImpl extends ServiceImpl<MobileBannerMapper, Mob
 
     @Override
     public List<Map<String, Object>> realCourseList(List<OfflineCity> cityList, Integer pageSizeUp, Integer pageSizeDown,boolean onlyFree) {
-
+        if(cityList.size()==0){
+            cityList=null;
+        }
         List<CourseLecturVo> list = iMobileBannerMapper.realCourseList(cityList, pageSizeUp, pageSizeDown,onlyFree);
 
         List<Map<String, Object>> mapCourseList = new ArrayList<Map<String, Object>>();
@@ -155,20 +157,22 @@ public class MobileBannerServiceImpl extends ServiceImpl<MobileBannerMapper, Mob
             mapTj.put("courseList", listqg);
             mapCourseList.add(mapTj);
         }
-        for (OfflineCity oc : cityList) {
-            Map<String, Object> mapMenu = new HashMap<String, Object>();
-            List<CourseLecturVo> listMenu = new ArrayList<CourseLecturVo>();
-            if (list != null) {
-                for (CourseLecturVo courseLecturVo : list) {
-                    if (oc.getCityName().equals(courseLecturVo.getNote())) {
-                        listMenu.add(courseLecturVo);
+        if(cityList != null){
+            for (OfflineCity oc : cityList) {
+                Map<String, Object> mapMenu = new HashMap<String, Object>();
+                List<CourseLecturVo> listMenu = new ArrayList<CourseLecturVo>();
+                if (list != null) {
+                    for (CourseLecturVo courseLecturVo : list) {
+                        if (oc.getCityName().equals(courseLecturVo.getNote())) {
+                            listMenu.add(courseLecturVo);
+                        }
                     }
                 }
-            }
-            if (listMenu.size() > 0) {
-                mapMenu.put("title", oc.getCityName());
-                mapMenu.put("courseList", listMenu);
-                mapCourseList.add(mapMenu);
+                if (listMenu.size() > 0) {
+                    mapMenu.put("title", oc.getCityName());
+                    mapMenu.put("courseList", listMenu);
+                    mapCourseList.add(mapMenu);
+                }
             }
         }
         return mapCourseList;
