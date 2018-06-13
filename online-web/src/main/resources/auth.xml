@@ -97,6 +97,7 @@
 	<uri>/medical/common/.*</uri>
 	<uri>/doctor/.*</uri>
 	<uri>/hospital/.*</uri>
+	<uri>/message/.*</uri>
 
 	<!--需要具有主播权限-->
 	<anchoruri>/anchor/.*</anchoruri>
