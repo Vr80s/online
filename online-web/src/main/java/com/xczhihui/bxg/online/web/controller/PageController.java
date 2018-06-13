@@ -138,6 +138,7 @@ public class PageController {
         BxgUser user = UserLoginUtil.getLoginUser();
         CourseLecturVo clv = null;
         if (user != null) {
+        	
             clv = courseService.selectUserCurrentCourseStatus(courseId, user.getId());
             //0：收费 1：免费 2：已购买
 
@@ -169,6 +170,7 @@ public class PageController {
 
                 watchHistoryServiceImpl.addLearnRecord(courseId, user.getId());
                 watchHistoryServiceImpl.addWatchHistory(courseId, user.getId(), clv.getUserLecturerId(), null);
+                
             } else {
                 mv = new ModelAndView("redirect:/courses/" + courseId + "/info");
             }

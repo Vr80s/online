@@ -96,11 +96,9 @@ public class LiveServiceImpl extends OnlineBaseServiceImpl implements LiveServic
             Map<String, Object> paramMap = new HashMap<>();
             paramMap.put("userId", user.getId());
             paramMap.put("courseId", courseId);
-            List<Map<String, Object>> argc = dao.getNamedParameterJdbcTemplate()
-                    .queryForList("SELECT id FROM `apply_r_grade_course` argc WHERE argc.course_id = :courseId AND argc.`user_id`=:userId AND argc.`validity`>NOW()", paramMap);
+            List<Map<String, Object>> argc = dao.getNamedParameterJdbcTemplate().queryForList("SELECT id FROM `apply_r_grade_course` argc WHERE argc.course_id = :courseId AND argc.`user_id`=:userId AND argc.`validity`>NOW()", paramMap);
             if (argc.size() == 0) {
-                List<Map<String, Object>> selfCourse = dao.getNamedParameterJdbcTemplate()
-                        .queryForList("SELECT id FROM `oe_course` oc WHERE oc.id = :courseId AND oc.`user_lecturer_id`=:userId", paramMap);
+                List<Map<String, Object>> selfCourse = dao.getNamedParameterJdbcTemplate().queryForList("SELECT id FROM `oe_course` oc WHERE oc.id = :courseId AND oc.`user_lecturer_id`=:userId", paramMap);
                 if (selfCourse.size() == 0) {
                     ApplyGradeCourse applyGradeCourse = applyGradeCourseDao.findCollectionCourseByCourseIdAndUserId(courseId, user.getId());
                     if (applyGradeCourse == null) {
@@ -149,18 +147,15 @@ public class LiveServiceImpl extends OnlineBaseServiceImpl implements LiveServic
         }
         description = description.replaceAll("\n", "");
         OnlineUser u = (OnlineUser) UserLoginUtil.getLoginUser();
-        //ModelAndView mv = null;
-       /* if(liveStatus==1){
-            mv = new ModelAndView("live_success_page");
-        }else{
-            mv = new ModelAndView("live_success_other_page");
-        }*/
+ 
+        
         ModelAndView mv = null;
 
         mv = new ModelAndView("live_success_page");
-        if (liveStatus == 1 || liveStatus==3) { 							// 直播中  
-            mv = new ModelAndView("live_success_page");
-        } else if (liveStatus == 2) {		 //直播预告
+        if (liveStatus == 1 || liveStatus==3) { // 直播中  
+        	mv = new ModelAndView("live_success_page");
+
+        } else if (liveStatus == 2) {		    //直播预告
             mv = new ModelAndView("live_success_other_page");
         }
         mv.addObject("lecturerId", course.get("userLecturerId"));

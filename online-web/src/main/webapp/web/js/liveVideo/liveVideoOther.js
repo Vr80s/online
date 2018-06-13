@@ -16,14 +16,7 @@ $(function() {
 	 * @returns
 	 */
 	$("#return").attr("href","/courses/"+course_id+"/info");
-	/**
-	 * 增加学习记录
-	 */
-	RequestService("/learnWatch/add", "POST", {
-		courseId:courseId,recordType:1
-	}, function(data) {
-		console.log("添加观看记录");
-	},false);
+
 	
 	//直播间访问量增加
 	RequestService("/online/live/updateBrowseSum", "get", {

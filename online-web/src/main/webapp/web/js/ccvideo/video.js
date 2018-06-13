@@ -58,9 +58,6 @@ RequestService("/online/user/isAlive", "GET", null, function(data) { ///online/u
 				},false);
 				
 				
-				
-				
-				
 				var scr = data.resultObject.playCode;
 				$(".videoBody-video").append(scr);
 				$(".headerBody-title").html(data.resultObject.title);

@@ -41,22 +41,25 @@ RequestService("/online/user/isAlive", "GET", null, function(data) { ///online/u
 		RequestService("/online/live/getOpenCourseById", "get", {
 			courseId: collectionId
 		}, function(data) {
+			
+			var obj = data.resultObject;
+			
+			
 			if(!data.success){
 				location.href="/courses/"+collectionId+"/info";
 			}
-			$("#courseName").html(data.resultObject.courseName).attr("title", data.resultObject.courseName);
-			document.title = data.resultObject.courseName ;
+			$("#courseName").html(obj.courseName).attr("title", obj.courseName);
+			document.title = obj.courseName ;
 			
-			$(".headerBody .rightT i").html(data.resultObject.lecturer);
+			$(".headerBody .rightT i").html(obj.lecturer);
 			
 			//分享使用
-			courseName = data.resultObject.courseName;
-			smallImgPath = data.resultObject.smallImgPath;
-			description = data.resultObject.description;
-			
+			courseName = obj.courseName;
+			smallImgPath = obj.smallImgPath;
+			description = obj.description;
 			
 			//如果是音频的话，需要自己去设置哪里播放
-			multimediaType = data.resultObject.multimediaType;
+			multimediaType = obj.multimediaType;
 			
 		}, false);
 	} else {
@@ -83,15 +86,6 @@ function getPlayCode(collectionId,courseId){
     var key = userId+collectionId+"lastLive";
     localStorage.setItem(key,courseId);
 	
-    
-	RequestService("/learnWatch/add", "POST", {
-		collectionId:collectionId,
-		courseId:courseId,
-		recordType:2
-	}, function(data) {
-		console.log("添加观看记录");
-	},false);
-	
 	
 	var vId = $.getUrlParam("vId");
 	var menuid = "";
@@ -116,6 +110,21 @@ function getPlayCode(collectionId,courseId){
 		autoPlay: false
 	}, function(data) {
 		if(data.success == true) {
+			
+			
+			 /**
+		     * 增加观看记录
+		     * @param data
+		     * @returns
+		     */
+			RequestService("/learnWatch/add", "POST", {
+				collectionId:collectionId,
+				courseId:courseId,
+				recordType:2
+			}, function(data) {
+				console.log("添加观看记录");
+			},false);
+			
 			
 			var scr = data.resultObject.playCode;
 			$(".videoBody-video").append(scr);

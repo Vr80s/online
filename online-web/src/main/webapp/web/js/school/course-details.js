@@ -141,6 +141,19 @@ $(function () {
                 	
                     window.location.href = "/web/livepage/" + realCourseId;
                 } else if (type == 1 || type == 2) {
+                	
+                	
+                    if(watchState == 1){
+                      	/**
+                    	 * 增加学习记录
+                    	 */
+                    	RequestService("/learnWatch/add", "POST", {
+                    		courseId:realCourseId,recordType:1
+                    	}, function(data) {
+                    		console.log("增加学习记录");
+                    	});
+                    }
+                	
                     if (collection == 1) {
                     	/**
                     	 * 获取专辑最后一个播放到哪里了
@@ -154,16 +167,6 @@ $(function () {
                             window.location.href = "/web/html/ccvideo/liveVideoAlbum.html?collectionId=" + realCourseId + "&ljxx=ljxx";
                         }
                     } else {
-                    	
-                    	/**
-                    	 * 增加学习记录
-                    	 */
-                    	RequestService("/learnWatch/add", "POST", {
-                    		courseId:realCourseId,recordType:1
-                    	}, function(data) {
-                    		console.log("增加学习记录");
-                    	});
-                    	
                     	
                         window.location.href = "/web/html/ccvideo/video.html?courseId=" + realCourseId;
                     }

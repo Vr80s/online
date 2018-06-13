@@ -21,23 +21,14 @@ $(function() {
 	
 	
 	/**
-	 * 增加学习记录
-	 */
-	RequestService("/learnWatch/add", "POST", {
-		courseId:courseId,recordType:1
-	}, function(data) {
-		console.log("添加观看记录");
-	},false);
-	
-	/**
-	 * 增加观看记录
+	 * 增加/更新  观看记录
 	 */
 	RequestService("/learnWatch/add", "POST", {
 		courseId:courseId,
 		recordType:2
 	}, function(data) {
 		console.log("添加观看记录");
-	},false);
+	});
 	
 	
 	//获取直播间课程信息
@@ -46,33 +37,46 @@ $(function() {
 		planId: planId
 	}, function(data) {
 
+		var obj = data.resultObject;
+		/**
+		 * 课程是免费的话，增加学习记录啦
+		 * 增加学习记录
+		 */
+		if(obj.is_free){ //免费
+			RequestService("/learnWatch/add", "POST", {
+				courseId:courseId,recordType:1
+			}, function(data) {
+				console.log("增加学习记录");
+			});
+		}
+		
 		//分享使用
-		courseName = data.resultObject.courseName;
-		smallImgPath = data.resultObject.smallImgPath;
-		description = data.resultObject.description;
+		courseName = obj.courseName;
+		smallImgPath = obj.smallImgPath;
+		description = obj.description;
 		
 		
-		teacherId = data.resultObject.teacherId;
-		teacherName = data.resultObject.teacherName;
+		teacherId = obj.teacherId;
+		teacherName = obj.teacherName;
 		//讲师名字
-		$(".headMess .name").html(data.resultObject.teacherName);
-		teacherName = data.resultObject.teacherName;
+		$(".headMess .name").html(obj.teacherName);
+		teacherName = obj.teacherName;
 		//鲜花数
-//		$(".headMess .num").html(data.resultObject.flowers_number);
-		$(".headMess .learnd").html(data.resultObject.learn_count);
+//		$(".headMess .num").html(obj.flowers_number);
+		$(".headMess .learnd").html(obj.learn_count);
 		//课程名称
-		$("#courseName").html(data.resultObject.courseName);
-        $("#title-share").html(data.resultObject.courseName); 
-		$(".liveMess .lb span").html(data.resultObject.courseName);
+		$("#courseName").html(obj.courseName);
+        $("#title-share").html(obj.courseName); 
+		$(".liveMess .lb span").html(obj.courseName);
 		//教师头像
-		$(".headImg img").attr("src", data.resultObject.head_img);
+		$(".headImg img").attr("src", obj.head_img);
 		//开始结束时间
-		$(".liveMess .liveTime span").html('' + data.resultObject.start_time);
-		$(".liwu").html(data.resultObject.giftCount);
-		$(".dashang").html(data.resultObject.rewardTotal);
-		if(data.resultObject.broadcastState==1){
+		$(".liveMess .liveTime span").html('' + obj.start_time);
+		$(".liwu").html(obj.giftCount);
+		$(".dashang").html(obj.rewardTotal);
+		if(obj.broadcastState==1){
 			$("#liveStatus").html("【正在直播】");
-		}else if(data.resultObject.broadcastState==3){
+		}else if(obj.broadcastState==3){
 			$("#liveStatus").html("【直播回放】");
 		}
 	});
