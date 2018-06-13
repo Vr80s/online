@@ -85,6 +85,7 @@ var orderId = getQueryString('orderId');
                    $(".sex_show").html("未知");
                }
             }else{
+              $(".web_toast").removeClass("web_toasts");
                 // 提示错误信息  // 调接口失败
                 webToast(data.errorMessage,"middle",1500);
             }
@@ -98,6 +99,7 @@ $(".buttom").click(function(){
         var realName = $(".name input").val();
         var mobile = $(".tel input").val();
         if (!(/^1[345678]\d{9}$/.test(mobile))) {
+            $(".web_toast").removeClass("web_toasts");
             webToast("手机号格式不正确","middle",1500);
             return false;
         }
@@ -105,6 +107,7 @@ $(".buttom").click(function(){
 
         if (!(/^(?=.*\d)[a-z\d]{6,20}$/i.test(wechatNo))) {
             webToast("仅支持6-20字母、数字、下划线或减号","middle",1500);
+            $(".web_toast").addClass("web_toasts");
             return false;
         }
         var sex = "";
@@ -144,10 +147,13 @@ $(".buttom").click(function(){
                                 window.location.href = "purchase.html?orderId=" + orderId + "";
                            }
                         }else{
+                          $(".web_toast").removeClass("web_toasts");
                            webToast("课程信息有误","middle",1500);
+
                         }
                     })
                 }else{
+                  $(".web_toast").removeClass("web_toasts");
                     webToast(data.errorMessage,"middle",1500);
                 }
         });

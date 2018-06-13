@@ -126,7 +126,7 @@
 						          <#if courseItem.lineState  == 1  > 
 							        <span class="classCategory">直播中</span>
 								  <#elseif courseItem.lineState  == 2>
-								      <span class="classCategory">直播预告</span>
+								      
 								  <#elseif courseItem.lineState  == 3>
 								      <span class="classCategory">直播回放</span>
 								  <#elseif courseItem.lineState  == 4>
@@ -141,8 +141,14 @@
 									<p class="title" data-text="音频测试3" title="音频测试3">${courseItem.gradeName}</p>
 									<p class="timeAndTeac">
 									<span class="teacher z">${courseItem.name}</span>
-									<#if courseItem.type == 4> 
-										<span class="y">${courseItem.city}</span>
+									 <#if courseItem.type == 4>
+	                                    <span class="y">${courseItem.city}</span>
+	                               		 <#elseif courseItem.lineState?? && courseItem.lineState == 2>
+	                                	<#if courseItem.startDateStr?index_of(".")!=-1 >
+	                                		<span class="y"><img src="/web/images/date_month.png" style="margin: -3px 2px 0 0;" />${courseItem.startTime?string("MM月dd日")}</span>
+	                                	<#else>
+	                                	    <span class="y"><img src="/web/images/myvideo-time.png" style="margin: -3px 3px 0 0;" />${courseItem.startDateStr}</span>
+	                                	</#if>
 									</#if>
 									</p>
 									<p class="info clearfix">
@@ -203,7 +209,7 @@
 						          <#if courseItem.lineState  == 1  > 
 							        <span class="classCategory">直播中</span>
 								  <#elseif courseItem.lineState  == 2>
-								      <span class="classCategory">直播预告</span>
+								      
 								  <#elseif courseItem.lineState  == 3>
 								      <span class="classCategory">直播回放</span>
 								  <#elseif courseItem.lineState  == 4>

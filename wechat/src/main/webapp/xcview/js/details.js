@@ -83,6 +83,7 @@ requestService("/xczh/course/liveDetails",{
 				 */
 				$(".headImg").attr("src", result.headImg);
 				$(".guanz_headImg").attr("src", result.headImg);
+				$(".smallImgPath").attr("src", result.smallImgPath);
 				$(".main_title").find('.p0').html(result.heir);
 				
 				

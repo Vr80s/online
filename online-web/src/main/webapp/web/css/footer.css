@@ -90,6 +90,7 @@ footer .content .trademark {
   margin-top: 10px;
   text-align: center;
   color: white;
+  position: relative;
 }
 footer .content .trademark img {
   margin-top: -11px;

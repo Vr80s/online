@@ -402,7 +402,7 @@ function reportComment() {
 
 //回复评论
 function replyComment() {
-    var comment_detailed = $('#comment_detailed').val();
+    var comment_detailed = $('#littlt_return').val();
 
 
     if (comment_detailed == "") {
