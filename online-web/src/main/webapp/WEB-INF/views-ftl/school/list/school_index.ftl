@@ -123,6 +123,10 @@
                                 <#if courseItem.type == 4>
                                     <span class="y">${courseItem.city}</span>
                                 </#if>
+                                <!--超过24小时-->
+                                <!--<span><img src="/web/images/date_month.png" style="margin: -3px 2px 0 0;" />12月30日</span>-->
+                               	<!--24小时内--> 
+                                <!--<span><img src="/web/images/myvideo-time.png" style="margin: -3px 3px 0 0;" />2018-12-15 15:00:00</span>-->
                             </p>
                             <p class="info clearfix">
                                             <span>

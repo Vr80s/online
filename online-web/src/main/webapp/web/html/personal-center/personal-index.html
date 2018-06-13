@@ -197,8 +197,12 @@
 															{{else}}
 															<span class="classCategory">视频</span>
 															{{/if}}
-														{{else if item.type == 3}}
-														<span class="classCategory">直播</span>
+														{{else if item.type == 3 && item.lineState==1}}
+																<span class="classCategory">直播中</span>
+														{{else if item.type == 3 && item.lineState==3}}
+																<span class="classCategory">直播回放</span>
+														{{else if item.type == 3 && item.lineState==4}}
+																<span class="classCategory">即将直播</span>
 														{{else if item.type == 4}}
 														<span class="classCategory">线下课程</span>
 														{{/if}}
@@ -280,7 +284,13 @@
 															<span class="classCategory">视频</span>
 															{{/if}}
 														{{else if item.type == 3}}
-														<span class="classCategory">直播</span>
+															{{if item.lineState==1}}
+																<span class="classCategory">直播中</span>
+																{{else if lineState==3}}
+																<span class="classCategory">直播回放</span>
+																{{else if lineState==4}}
+																<span class="classCategory">即将直播</span>
+															{{/if}}
 														{{else if item.type == 4}}
 														<span class="classCategory">线下课程</span>
 														{{/if}}
@@ -365,7 +375,13 @@
 															<span class="classCategory">视频</span>
 															{{/if}}
 														{{else if item.type == 3}}
-														<span class="classCategory">直播</span>
+															{{if item.lineState==1}}
+																<span class="classCategory">直播中</span>
+																{{else if lineState==3}}
+																<span class="classCategory">直播回放</span>
+																{{else if lineState==4}}
+																<span class="classCategory">即将直播</span>
+															{{/if}}
 														{{else if item.type == 4}}
 														<span class="classCategory">线下课程</span>
 													

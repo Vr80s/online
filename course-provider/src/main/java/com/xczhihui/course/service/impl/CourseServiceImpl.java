@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +16,7 @@ import com.xczhihui.common.util.enums.PayStatus;
 import com.xczhihui.course.mapper.CourseMapper;
 import com.xczhihui.course.model.Course;
 import com.xczhihui.course.service.ICourseService;
+import com.xczhihui.course.util.XzStringUtils;
 import com.xczhihui.course.vo.CourseLecturVo;
 
 /**
@@ -40,7 +42,14 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 
     @Override
     public CourseLecturVo selectCourseDetailsById(Integer courseId) {
-        return iCourseMapper.selectCourseDetailsById(courseId);
+    	
+    	CourseLecturVo  cv = iCourseMapper.selectCourseDetailsById(courseId);
+    	if(cv!=null) {
+    		cv.setDescription(XzStringUtils.formatA(cv.getDescription()));
+    		cv.setLecturerDescription(XzStringUtils.formatA(cv.getLecturerDescription()));
+    	}
+    	
+        return cv;
     }
 
     @Override
@@ -108,7 +117,14 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 
     @Override
     public CourseLecturVo selectCourseMiddleDetailsById(Integer courseId) {
-        return iCourseMapper.selectCourseMidileDetailsById(courseId);
+    	
+    	CourseLecturVo  cv = iCourseMapper.selectCourseMidileDetailsById(courseId);
+    	if(cv!=null) {
+    		cv.setDescription(XzStringUtils.formatA(cv.getDescription()));
+    		cv.setLecturerDescription(XzStringUtils.formatA(cv.getLecturerDescription()));
+    	}
+    	
+        return cv;
     }
 
     @Override
@@ -135,22 +151,36 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     @Override
     public CourseLecturVo selectUserCurrentCourseStatus(Integer courseId,
                                                         String userId) {
-        return iCourseMapper.selectUserCurrentCourseStatus(courseId, userId);
+        
+    	
+    	CourseLecturVo  cv = iCourseMapper.selectUserCurrentCourseStatus(courseId, userId);
+    	if(cv!=null) {
+    		cv.setDescription(XzStringUtils.formatA(cv.getDescription()));
+    		cv.setLecturerDescription(XzStringUtils.formatA(cv.getLecturerDescription()));
+    	}
+    	return cv;
     }
 
     @Override
     public CourseLecturVo selectCurrentCourseStatus(Integer courseId) {
-        return iCourseMapper.selectCurrentCourseStatus(courseId);
+    	
+    	CourseLecturVo  cv = iCourseMapper.selectCurrentCourseStatus(courseId);
+    	if(cv!=null) {
+    		cv.setDescription(XzStringUtils.formatA(cv.getDescription()));
+    		cv.setLecturerDescription(XzStringUtils.formatA(cv.getLecturerDescription()));
+    	}
+    	
+        return cv;
     }
 
     @Override
     public String selectCourseDescription(Integer type, String typeId) {
-        return iCourseMapper.selectCourseDescription(type, typeId);
+       
+    	return XzStringUtils.formatA(iCourseMapper.selectCourseDescription(type, typeId));
     }
 
     @Override
     public Page<CourseLecturVo> myCourseType(Page<CourseLecturVo> page, String userId, Integer type) {
-
         List<CourseLecturVo> list = iCourseMapper.myCourseType(page, userId, type);
         return page.setRecords(list);
     }
