@@ -11,8 +11,7 @@
 			
 			
 			<div class="detail">
-			   <p class="title" data-text="音频测试3" title="音频测试3">
-			   <#if courseItem.type == 1  > 
+			    <#if courseItem.type == 1  > 
 			      <span class="classCategory">视频</span>
 			   <#elseif courseItem.type == 2>
 			      <span class="classCategory">音频</span>
@@ -29,8 +28,7 @@
 			   <#elseif courseItem.type == 4>
 			      <span class="classCategory">线下课程</span>
 			   </#if>
-				</p>
-				<p class="title">${courseItem.gradeName}</p>
+			   <p class="title" data-text="音频测试3" title="音频测试3">${courseItem.gradeName}</p>
 				<p class="timeAndTeac">
 				    <span class="teacher">${courseItem.name}</span>
 					<#if courseItem.type == 4> 
