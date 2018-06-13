@@ -47,11 +47,15 @@ function showDOrH() {
                 $('#docOrHos').text('我是医师');
                 $('#docOrHos').attr('href', '/web/html/anchors_resources.html')
                 $('#docOrHos').removeClass('hide');
+                $(".want-anchor").addClass("hide");
+                 $(".appDown").removeClass("hide");
             } else if (data.resultObject == 2) {
                 //医馆认证成功
                 $('#docOrHos').text('我是医馆');
                 $('#docOrHos').attr('href', '/web/html/ResidentHospital.html')
                 $('#docOrHos').removeClass('hide');
+                $(".want-anchor").addClass("hide");
+                 $(".appDown").removeClass("hide");
             }
             showAnchorWorkbench();
         } else if (data.success == false && data.errorMessage == "请登录！") {
@@ -120,11 +124,11 @@ $(function () {
             '</li>' +
 
 
-            '<li><a href="/App.html" class="appDown" target="_blank">APP下载</a></li>' +
+            '<li><a href="/App.html" class="appDown hide" target="_blank">APP下载</a></li>' +
 
             '<li>' +
             '</li>' +
-            '<li><div class="messageBox"><a href="javascript:;" data-id="mynews" class="message" target="_blank">消息</a><span class="messageCount" style="display: none;"><em style="background-color: #F97B49;height:20px;padding: 2px 6px;border-radius: 10px 10px 10px 10px;position: absolute;color:white;font-style:normal"></em></span></div></li><li><a href="/web/html/anchor/curriculum.html" class="hide" id="anchorWorkbench" target="_blank">主播工作台</a></li><li><a href="javascript:;" class="hide" id="docOrHos" target="_blank">我是医师</a></li><li><a href="javascript:;" class="studentCenterBox" target="_blank">学习中心</a></li>' +
+            '<li><div class="messageBox"><a href="javascript:;" data-id="mynews" class="message" target="_blank">消息</a><span class="messageCount" style="display: none;"><em style="background-color: #F97B49;height:20px;padding: 2px 6px;border-radius: 10px 10px 10px 10px;position: absolute;color:white;font-style:normal"></em></span></div></li><li><a href="/web/html/anchor/curriculum.html" class="hide" id="anchorWorkbench" target="_blank">主播工作台</a></li><li><a href="javascript:;" class="hide" id="docOrHos" target="_blank">我是医师</a></li><li><a href="/web/html/want-anchor.html" class="want-anchor" target="_blank">我要当主播</a></li><li><a href="javascript:;" class="studentCenterBox" target="_blank">学习中心</a></li>' +
             '</ul></div></div>',
             nav:
 
@@ -495,6 +499,7 @@ $(function () {
                     background: "url(" + path + ") no-repeat",
                     backgroundSize: "100% 100%"
                 });
+                $(".appDown").removeClass("hide");
                 $('#login').css("display", "none");
                 $(".loginGroup .logout").css("display", "none");
                 $(".loginGroup .login").css("display", "block");

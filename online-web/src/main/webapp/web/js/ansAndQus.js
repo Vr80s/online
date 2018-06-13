@@ -314,9 +314,9 @@ window.onload = function () {
             data: data.resultObject
         }));
         if(data.resultObject.length!=0){
-            $(".ansAndQusRight-top-title-noDate").css("display","none");
+            $(".ansAndQusRight-bottom").css("display","block");
         }else{
-            $(".ansAndQusRight-top-title-noDate").css("display","block");
+            $(".ansAndQusRight-bottom").css("display","none");
         }
         $(".ansAndQusRight-top-body").parent().on("click",function(){
             RequestService("/online/questionlist/updateBrowseSum", "POST", {id:$(this).attr("data-id")}, function (data) {
@@ -344,9 +344,9 @@ window.onload = function () {
 	    }, function (data1) {
 	    	$(".weeklyChartNoDate").css("display","none");
 	       if(data1.resultObject=="" || data1.resultObject==null){
-	           $(".weeklyChartNoDate").css("display","block");
+	           $(".ansAndQusRight-bottom2").css("display","none");
 	       }else{
-	           $(".weeklyChartNoDate").css("display","none");
+	           $(".ansAndQusRight-bottom2").css("display","block");
 	       		$(".weeklyChart").html(template.compile(weekly)({
 		            data: data1.resultObject
 		        }));
