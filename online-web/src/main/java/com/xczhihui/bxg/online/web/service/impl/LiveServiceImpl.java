@@ -118,17 +118,15 @@ public class LiveServiceImpl extends OnlineBaseServiceImpl implements LiveServic
         Map<String, Object> paramMap = new HashMap<String, Object>();
         BxgUser user = UserLoginUtil.getLoginUser();
         paramMap.put("courseId", courseId);
-        if (user == null) {
-            return new ModelAndView("redirect:/course/courses/" + courseId);
+        if (user == null) { //redirect:/courses/"+courseId+"/info
+            return new ModelAndView("redirect:/courses/"+courseId+"/info");
         } else {
             paramMap.put("userId", user.getId());
-            List<Map<String, Object>> argc = dao.getNamedParameterJdbcTemplate()
-                    .queryForList("SELECT id FROM `apply_r_grade_course` argc WHERE argc.course_id = :courseId AND argc.`user_id`=:userId AND argc.`validity`>NOW()", paramMap);
-            
+            List<Map<String, Object>> argc = dao.getNamedParameterJdbcTemplate() .queryForList("SELECT id FROM `apply_r_grade_course` argc WHERE argc.course_id = :courseId AND argc.`user_id`=:userId AND argc.`validity`>NOW()", paramMap);
             if (argc.size() == 0) {
                 ApplyGradeCourse applyGradeCourse = applyGradeCourseDao.findCollectionCourseByCourseIdAndUserId(Integer.valueOf(courseId), user.getId());
                 if (applyGradeCourse == null) {
-                    return new ModelAndView("redirect:/course/courses/" + courseId);
+                	 return new ModelAndView("redirect:/courses/"+courseId+"/info");
                 }
             }
         }

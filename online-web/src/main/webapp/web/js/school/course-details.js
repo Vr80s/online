@@ -137,20 +137,25 @@ $(function () {
                 }
                 if (type == 3) { //直播课
                 	
-                	//直播课的学习记录在播放页面增加
-                	
-                    window.location.href = "/web/livepage/" + realCourseId;
-                } else if (type == 1 || type == 2) {
                     if(watchState == 1){
-                      	/**
-                    	 * 增加学习记录
-                    	 */
                     	RequestService("/learnWatch/add", "POST", {
                     		courseId:realCourseId,recordType:1
                     	}, function(data) {
                     		console.log("增加学习记录");
-                    	});
+                    	},false);
+                    }	
+                	
+                    window.location.href = "/web/livepage/" + realCourseId;
+                } else if (type == 1 || type == 2) {
+                	
+                    if(watchState == 1){
+                    	RequestService("/learnWatch/add", "POST", {
+                    		courseId:realCourseId,recordType:1
+                    	}, function(data) {
+                    		console.log("增加学习记录");
+                    	},false);
                     }
+                    
                     if (collection == 1) {
                     	/**
                     	 * 获取专辑最后一个播放到哪里了

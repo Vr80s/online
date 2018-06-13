@@ -38,17 +38,6 @@ $(function() {
 	}, function(data) {
 
 		var obj = data.resultObject;
-		/**
-		 * 课程是免费的话，增加学习记录啦
-		 * 增加学习记录
-		 */
-		if(obj.is_free){ //免费
-			RequestService("/learnWatch/add", "POST", {
-				courseId:courseId,recordType:1
-			}, function(data) {
-				console.log("增加学习记录");
-			});
-		}
 		
 		//分享使用
 		courseName = obj.courseName;
