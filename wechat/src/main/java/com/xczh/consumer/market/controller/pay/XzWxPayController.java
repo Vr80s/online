@@ -122,7 +122,14 @@ public class XzWxPayController {
         WxPayApiConfigKit.setThreadLocalWxPayApiConfig(getApiConfig(appPay));
 
         String ip = IpKit.getRealIp(req);
-        String openId = getWxOpenId(accountId);
+        String openId = req.getParameter("openId");
+        log.warn("openId: {}", openId);
+        if (StringUtils.isBlank(openId)) {
+            openId = getWxOpenId(accountId);
+            if (StringUtils.isBlank(openId)) {
+                return ResponseObject.newErrorResponseObject("请尝试重新支付");
+            }
+        }
 
         String attach = PayMessage.getPayMessage(payMessage);
 
@@ -226,7 +233,14 @@ public class XzWxPayController {
         WxPayApiConfigKit.setThreadLocalWxPayApiConfig(apiConfig);
 
         String ip = IpKit.getRealIp(request);
-        String openId = getWxOpenId(accountId);
+        String openId = request.getParameter("openId");
+        log.warn("openId: {}", openId);
+        if (StringUtils.isBlank(openId)) {
+            openId = getWxOpenId(accountId);
+            if (StringUtils.isBlank(openId)) {
+                return ResponseObject.newErrorResponseObject("请尝试重新支付");
+            }
+        }
 
         String attach = PayMessage.getPayMessage(payMessage);
 
@@ -371,7 +385,7 @@ public class XzWxPayController {
     private String getWxOpenId(String userId) {
         try {
             WxcpClientUserWxMapping wxcpClientUserWxMapping = wxcpClientUserWxMappingService.getWxcpClientUserWxMappingByUserId(userId);
-            return wxcpClientUserWxMapping.getOpenid();
+            return wxcpClientUserWxMapping == null ? null : wxcpClientUserWxMapping.getOpenid();
         } catch (SQLException e) {
             e.printStackTrace();
         }
