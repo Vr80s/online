@@ -108,15 +108,12 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 
     @Override
     public CourseLecturVo selectCourseMiddleDetailsById(Integer courseId) {
-
         return iCourseMapper.selectCourseMidileDetailsById(courseId);
     }
 
     @Override
     public List<CourseLecturVo> selectUserConsoleCourseLiveByPage(
             Page<CourseLecturVo> page, String userId) {
-//		List<CourseLecturVo> records = iCourseMapper.selectUserConsoleCourseLiveByPage(page,userId);
-//		page.setRecords(records);
         return iCourseMapper.selectUserConsoleCourseLiveByPage(page, userId);
     }
 

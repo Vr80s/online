@@ -2,10 +2,7 @@ package com.xczhihui.bxg.online.web.controller.ftl;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -287,7 +284,7 @@ public class SchoolController extends AbstractFtlController {
      * @throws IOException
      */
     @RequestMapping(value = "{courseId}/{type}", method = RequestMethod.GET)
-    public ModelAndView info(HttpServletRequest req, HttpServletResponse res,
+    public ModelAndView info(HttpServletRequest req,
                              @PathVariable Integer courseId,
                              @PathVariable String type,
                              @RequestParam(required = false) String userId,
@@ -300,17 +297,23 @@ public class SchoolController extends AbstractFtlController {
         ModelAndView view = new ModelAndView("school/course_details");
         //显示详情呢、大纲、评论、常见问题呢
         //outline  comment    info   aq  selection
+        if(isNotCoursePage(type)){
+            return to404();
+        }
         view.addObject("type", type);
 
         view.addObject("webUrlParam", "/courses/" + courseId);
         //获取用户信息
         OnlineUser user = getCurrentUser();
         CourseLecturVo clv = courseService.selectCourseMiddleDetailsById(courseId);
+        if(clv == null){
+            return to404();
+        }
         //计算星级
         clv.setStartLevel(CourseUtil.criticizeStartLevel(clv.getStartLevel()));
         String strLevel = CourseUtil.criticizeStartLevel(clv.getStartLevel()) + "";
         view.addObject("startLevel", strLevel.replace(".", "_"));
-        if (user != null && clv != null) {
+        if (user != null) {
             /*
              * 收费课程判断有没有购买过
              * 免费课程判断有没有学习过
@@ -354,8 +357,7 @@ public class SchoolController extends AbstractFtlController {
             view.addObject("criticizesMap", map);
             
             //查询各种平均值
-            List<Integer> listComment = criticizeService.
-            		selectPcCourseCommentMeanCount(clv.getCollection(), courseId);
+            List<Integer> listComment = criticizeService.selectPcCourseCommentMeanCount(clv.getCollection(), courseId);
             view.addObject("listCommentCount", listComment);
         }
 
@@ -365,6 +367,12 @@ public class SchoolController extends AbstractFtlController {
         page.setSize(2);
         view.addObject("recommendCourse", courseService.selectRecommendSortAndRandCourse(page));
         return view;
+    }
+
+    private boolean isNotCoursePage(String type) {
+        //outline  comment    info   aq
+        final List typeList = Arrays.asList("outline","comment","info","aq");
+        return !typeList.contains(type);
     }
 
     /**
