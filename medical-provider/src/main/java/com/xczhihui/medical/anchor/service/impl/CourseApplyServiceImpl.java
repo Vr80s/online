@@ -303,7 +303,6 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
     public void updateCourseApplyResource() {
         List<CourseApplyResource> CourseApplyResources = courseApplyResourceMapper.selectAllCourseResourcesForUpdateDuration();
        
-        System.out.println("CourseApplyResources.size()"+CourseApplyResources.size());
         
         for (CourseApplyResource courseApplyResource : CourseApplyResources) {
             try {
