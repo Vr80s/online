@@ -37,6 +37,7 @@ public class SmsUtil {
     private static final String BUSINESS_LIMIT_CONTROL_CODE = "isv.BUSINESS_LIMIT_CONTROL";
     private static final String BUSINESS_LIMIT_CONTROL_DAY_MESSAGE = "触发天级流控Permits:10";
     private static final String BUSINESS_LIMIT_CONTROL_HOUR_MESSAGE = "触发小时级流控Permits:5";
+    private static final String BUSINESS_LIMIT_CONTROL_MINUTES_MESSAGE = "触发分钟级流控Permits:1";
 
     private static IAcsClient aliAcsClient;
 
@@ -129,7 +130,11 @@ public class SmsUtil {
                     if (BUSINESS_LIMIT_CONTROL_DAY_MESSAGE.equals(message)) {
                         acsResponse.setMessage("该业务今天短信额度超出限制");
                     } else if (BUSINESS_LIMIT_CONTROL_HOUR_MESSAGE.equals(message)) {
-                        acsResponse.setMessage("一小时内短信发送超限,请稍后重试");
+                        acsResponse.setMessage("一小时内短信发送超限,请稍后再试");
+                    } else if (BUSINESS_LIMIT_CONTROL_MINUTES_MESSAGE.equals(message)) {
+                        acsResponse.setMessage("一分钟内短信发送太频繁，请稍后再试");
+                    } else {
+                        acsResponse.setMessage("验证码发送失败");
                     }
                 }
                 logger.error("sms response code : {}, tel: {}", code, phoneNumber);
