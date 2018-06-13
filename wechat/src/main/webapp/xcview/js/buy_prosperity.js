@@ -27,12 +27,9 @@ requestService("/xczh/course/details",{courseId:courseId}, function(data) {
             $(".purchase_details_money").find(".span").html('免费');
             $(".purchase_details_money .span_fize").hide();
             $(".purchase_details_money .span").css("font-size","0.28rem");
-         }else if(result.watchState == 0){
+         }else{
             $(".purchase_details_money").find(".span").html(result.currentPrice);
          };
-
-         
-         
 
          $("#smallImgPath").attr("src",result.smallImgPath + '?imageView2/2/w/212' );
          

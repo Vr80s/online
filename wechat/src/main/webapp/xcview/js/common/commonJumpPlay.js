@@ -69,7 +69,7 @@ function common_jump_play(id, watchState, lineState) {
         });
         location.href = "/xcview/html/live_play.html?my_study=" + id;
     }
-//购买后的直播和即将直播跳直播间
+//购买后的直播和即将直播跳直播间   school_play.html?course_id=2207&type=1
           else if(watchState==2 && lineState==1){
          	 //增加学习记录
              requestService("/xczh/history/add",
@@ -79,7 +79,8 @@ function common_jump_play(id, watchState, lineState) {
              location.href="/xcview/html/details.html?courseId="+id      
              
           }else if(watchState==2 && lineState!=1){
-         	location.href="/xcview/html/live_play.html?my_study="+id;
+            // location.href="/xcview/html/live_play.html?my_study="+id;
+         	location.href="/xcview/html/school_play.html?course_id="+id;
           }
     	  
 }
