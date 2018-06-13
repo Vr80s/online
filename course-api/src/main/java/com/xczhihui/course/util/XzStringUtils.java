@@ -146,18 +146,27 @@ public class XzStringUtils {
 	
 	
 	
-	
-	
-	
-	
+	//将href外站的链接换为302跳转
+    public static String formatA(String value) {
+        if (value == null)
+            return null;
+        String pattern = "<a([\\w\\W]*?) href=['|\"]([\\w\\W]*?)['|\"]([\\w\\W]*?)>";
+        Pattern p = Pattern.compile(pattern, Pattern.CASE_INSENSITIVE);
+        Matcher m = p.matcher(value);
+        while (m.find()) {
+            String a = m.group();
+            //整段匹配不会出现错误
+            String _a = "<a" + " href='javascript:void(0)' >";
+            value = value.replace(a, _a);
+        }
+        return value;
+    }
 	
 	
 	
 	public static void main(String[] args) {
 		
 		System.out.println(checkNickName("54523"));
-		
-		
 		
 		
 	}
