@@ -35,7 +35,7 @@ public class AbstractFtlController extends AbstractController {
     }
 
     public ModelAndView to404() {
-        ModelAndView mv = new ModelAndView("redirect:/web/html/404.html");
+        ModelAndView mv = new ModelAndView("forward:/web/html/errors-pages.html");
         return mv;
     }
 }
