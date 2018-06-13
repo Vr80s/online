@@ -134,6 +134,7 @@ marquee {
   background: #1f1f1f;
   line-height: 64px;
   padding-right: 310px;
+  overflow: hidden;
 }
 .livePlayer .liveMess .lb {
   display: none;
@@ -682,7 +683,7 @@ overflow-y: auto;
 
 /*专辑视频播放列表部分的样式*/
 .album_list{
-	background: #333;
+	background: #272727;
     position: absolute;
     right: 0;
     top: 64px;
@@ -694,8 +695,8 @@ overflow-y: auto;
 	height: auto;
 }
 .album_list > ul > li{
-	height: 41.6px;
-	line-height: 40px;
+	height: 42px;
+	line-height: 42px;
 	color: #666;
 	font-size:14px;
 	padding: 0 10px;
@@ -741,13 +742,9 @@ overflow-y: auto;
 .choosedAlbum{
 	background: #fff !important;
 }
-#auto_play[type="checkbox"] {
-	  -webkit-appearance: none;  /*清除复选框默认样式*/
-	  background: #fff;   /*复选框的背景图，就是上图   url(../images/blue.png)*/
-	  height: 22px;   /*高度*/
-	  vertical-align: middle;
-	  width: 22px;
+#auto_play{
+	  height: 16px;   /*高度*/
+	  width: 16px;
+    float: left;
+    margin-right: 5px;
 }
-#auto_play[type="checkbox"]:checked {
-		  background-position: -48px 0;
-		}
