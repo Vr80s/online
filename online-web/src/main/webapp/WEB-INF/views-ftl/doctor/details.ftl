@@ -40,9 +40,11 @@
             <!--<img src=../images/doctor_detail/xunzhang.png alt="">-->
         </div>
         <div class="header_inf_right">
-            <span>${doctor.name}  </span><span>${doctor.title?default('暂无')}</span>
+            <span>${doctor.name}  </span><span>${doctor.title?default('')}</span>
             <div class="doctor_inf1">
-                <span class="zhiwu"><em></em>${doctor.title?default('暂无')}</span>
+            <#if doctor.title ??>    
+                <span class="zhiwu"><em></em>${doctor.title?default('')}</span>
+            </#if>   
             <#if doctor.medicalHospital ??>
                 <span class="yiguan"><em></em>${doctor.medicalHospital.name!''}</span>
             </#if>
@@ -83,13 +85,13 @@
                 </div>
                 <div class="hospital_inf">
                     <p>${doctor.medicalHospital.name}</p>
-                    <p>预约电话：<span>${doctor.medicalHospital.tel?default('暂无')}</span></p>
+                    <p>预约电话：<span>${doctor.medicalHospital.tel?default('')}</span></p>
                     <p>坐诊时间：<span
-                            style="vertical-align: text-top;display: inline-block;width: 455px;">${doctor.workTime?default('暂无')}</span>
+                            style="vertical-align: text-top;display: inline-block;width: 455px;">${doctor.workTime?default('')}</span>
                     </p>
                     <p>地 &nbsp;&nbsp;&nbsp;&nbsp; 址：
                         <span style="vertical-align: text-top;display: inline-block;width: 455px;">
-                                    <span>${doctor.medicalHospital.detailedAddress?default('暂无')}</span>
+                                    <span>${doctor.medicalHospital.detailedAddress?default('')}</span>
                                 </span>
                     </p>
                 </div>

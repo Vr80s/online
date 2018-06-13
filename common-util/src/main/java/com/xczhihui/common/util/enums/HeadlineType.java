@@ -24,7 +24,14 @@ public enum HeadlineType {
         this.text = text;
         this.code = code;
     }
-
+    public static String getHeadline(String code){
+        for (HeadlineType e : HeadlineType.values()) {
+            if(e.getCode().equals(code)){
+                return e.getText();
+            }
+        }
+        return null;
+    }
 
     public String getText() {
         return text;

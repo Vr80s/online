@@ -116,6 +116,9 @@ public class BBSController extends AbstractFtlController {
         BxgUser loginUser = UserLoginUtil.getLoginUser();
         postService.addBrowseRecord(id, loginUser == null ? null : loginUser.getId());
         PostVO postVO = postService.get(id);
+        if(postVO==null){
+            return to404();
+        }
         modelAndView.addObject("post", postVO);
         modelAndView.addObject("replies", postService.listByPostId(id, page));
         modelAndView.addObject("description", IStringUtil.getTop100Char(HtmlUtil.getTextFromHtml(postVO.getContent())));

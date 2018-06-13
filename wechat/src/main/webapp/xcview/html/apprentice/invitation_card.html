@@ -16,7 +16,7 @@
 	<!-- 报名头部开始 -->
 	<header>
 		<div class="header">
-			<div class="return" onclick="javascript:history.go(-1);"><img src="/xcview/images/back icon.png" alt="" /></div>
+			<div class="return" onclick="location.href ='inherited_introduction.html'"><img src="/xcview/images/back icon.png" alt="" /></div>
 			<div class="apply_title">邀请卡</div>
 			<!--<div class="header_news share">-->
 				<!--<img src="/xcview/images/share_img.png" alt="">-->
@@ -76,4 +76,24 @@ var description ="";
  },false);
 </script>
 <script type="text/javascript" src="/xcview/js/share/share.js?v=wechat_1.1.3"></script>
+
+<script> 
+// 控制手机物理键--返回
+window.onload = function(){
+  if(window.history && window.history.pushState) {  
+      $(window).on('popstate', function() {  
+          var hashLocation = location.hash;  
+          var hashSplit = hashLocation.split("#!/");  
+          var hashName = hashSplit[1];  
+          if(hashName !== '') {  
+              var hash = window.location.hash;  
+              if(hash === '') {  
+                  location.href ='/xcview/html/apprentice/inherited_introduction.html'  /*跳转链接*/
+              }  
+          }  
+      });  
+      window.history.pushState('forward', null, './invitation_card.html');  
+  }
+};
+</script>
 </html>

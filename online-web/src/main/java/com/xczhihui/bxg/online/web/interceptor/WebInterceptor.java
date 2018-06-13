@@ -21,10 +21,12 @@ public class WebInterceptor implements HandlerInterceptor {
 
     private static final String BASE_PATH_KEY = "webUrl";
     private static final String WEB_URL_PREFIX_TEMPLATE = "{0}://{1}{2}{3}";
-    private static final Map<String, Object> WEB_CACHE_MAP = new HashMap<String, Object>();
+    private static final String DEV_LOCAL = "dev-local";
 
     @Value("${env.flag}")
     private String envFlag;
+    @Value(("${web.url}"))
+    private String appWebUrl;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -35,12 +37,13 @@ public class WebInterceptor implements HandlerInterceptor {
     public void postHandle(HttpServletRequest request, HttpServletResponse response,
                            Object handler, ModelAndView modelAndView) throws Exception {
         if (modelAndView != null && modelAndView.getViewName().indexOf("redirect") == -1) {
-            if (!WEB_CACHE_MAP.containsKey(BASE_PATH_KEY)) {
+            String webUrl = appWebUrl;
+            if (DEV_LOCAL.equals(envFlag)) {
                 String contextPath = StringUtils.isNotBlank(request.getContextPath()) ? request.getContextPath() : "";
                 String port = request.getServerPort() != 80 && request.getServerPort() != 0 ? ":" + request.getServerPort() : "";
-                WEB_CACHE_MAP.put("webUrl", MessageFormat.format(WEB_URL_PREFIX_TEMPLATE, request.getScheme(), request.getServerName(), port, contextPath));
+                webUrl = MessageFormat.format(WEB_URL_PREFIX_TEMPLATE, request.getScheme(), request.getServerName(), port, contextPath);
             }
-            modelAndView.addObject(BASE_PATH_KEY, WEB_CACHE_MAP.get(BASE_PATH_KEY));
+            modelAndView.addObject(BASE_PATH_KEY, webUrl);
             modelAndView.addObject("envFlag", envFlag);
         }
     }

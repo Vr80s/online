@@ -33,4 +33,9 @@ public class AbstractFtlController extends AbstractController {
     public OnlineUser getOnlineUserNull(HttpServletRequest request){
         return (OnlineUser) UserLoginUtil.getLoginUser();
     }
+
+    public ModelAndView to404() {
+        ModelAndView mv = new ModelAndView("forward:/web/html/errors-pages.html");
+        return mv;
+    }
 }

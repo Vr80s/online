@@ -148,7 +148,7 @@
 <body>
 <div class="header">
     <div class="header_body">
-        <a href="/index"><img src="<%=request.getContextPath()%>/web/images/boxuegulogo-email.png"></a>
+        <a href="/"><img src="<%=request.getContextPath()%>/web/images/boxuegulogo-email.png"></a>
         <span>重置密码</span>
     </div>
 

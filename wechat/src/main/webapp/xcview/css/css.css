@@ -544,19 +544,19 @@ footer{
     margin-left: 0.4rem;
 }
 .history_span{
-	/* font-size: 0.851rem;
-	    display: table-cell;
-	    width: 80%;
-	    float: left;
-	    text-align: center;
-	    color: #666; */
+	font-size: 0.851rem;
+    display: table-cell;
+    width: 80%;
+    float: left;
+    text-align: center;
+    color: #666;
 }
 .history_span span{
-	/*margin-right: 1.8rem;*/
+	margin-right: 1.8rem;
 }
 .history_span01{
-	/*border-bottom: 0.05rem solid #666;
-	margin-left: 2rem;*/
+	border-bottom: 0.05rem solid #666;
+	margin-left: 2rem;
 }
 .history_span1{
 	font-size: 0.7rem;
@@ -943,15 +943,15 @@ footer{
 	width: 100%;
 }
 .grabble_img{
-	/* width: 0.5rem;
-	    height: 0.9rem;
-	    background: red;
-	    display: inline-block;
-	    float: left;
-	    background: url(../images/return.png) no-repeat;
-	    background-size: 100% 100%;
-	    margin-top: 0.4rem; 
-	    margin-left: 0.4rem; */
+	width: 0.5rem;
+    height: 0.9rem;
+    background: red;
+    display: inline-block;
+    float: left;
+    background: url(../images/return.png) no-repeat;
+    background-size: 100% 100%;
+    margin-top: 0.4rem; 
+    margin-left: 0.4rem;
 }
 .grabble_top input{
 	width: 12rem;
@@ -1173,8 +1173,8 @@ footer{
 }
 .details_footer{
 	width: 100%;
-    height: 0.8rem;
-    line-height: 0.8rem;
+    height: 1.675rem;
+    line-height: 1.675rem;
     border-top: 1px solid #f0f0f0;
 }
 .details_footer_width{
@@ -1186,7 +1186,7 @@ footer{
 }
 .details_footer_width ul li{
 	float: left;
-    font-size: 0.28rem;
+    font-size: 0.7rem;
     margin-left: 2.85rem;
     color: #000;
     margin-top: 0rem !important;
@@ -1372,35 +1372,34 @@ footer{
 	border-top: 0.01rem solid #ccc;
 	position: fixed;
     bottom: 0;
-    z-index: 99999;
+    z-index: 1;
 }
 .coze_bottom_input{
 	float: left;
-	/*margin-right: 0.5rem;*/
-    /*margin-left: 0.5rem;*/
+	margin-right: 0.5rem;
+    margin-left: 0.5rem;
 }
 .coze_bottom input{
-	    width: 6rem;
-    height: 0.6rem;
-    /* line-height: 1.45rem; */
-    border: none;
-    outline: none;
-    font-size: 0.28rem;
-    text-indent: 0.3rem;
-    color: #999;
-    border-radius: 9px;
-    /* margin-top: 0.35rem; */
-    background: #f0f0f0;
+	width: 11.9rem;
+	height: 1.45rem;
+	line-height: 1.45rem;
+	border: 1px solid #ccc;
+	outline: none;
+	font-size: 0.7rem;
+	text-indent: 0.3rem;
+	color: #999;
+	border-radius: 9px;
+	margin-top: 0.35rem;
 }
 .coze_bottom img{
-	width: 0.6rem;
+	width: 1.3rem;
 	margin-top: -0.1rem;
 }
 
 /* 礼物 */
 .animation{
-	width: 4rem;
-	height: 1rem;
+	width: 9.55rem;
+	height: 2.1rem;
    	background: #F97B49;
     margin-bottom:0.5rem;
    	z-index: 9;
@@ -1429,38 +1428,38 @@ footer{
 	height: 100%;
 }
 .animation_name{
-	    height: 0.8rem;
+	height: 1.0625rem;
     margin-left: 0.553rem;
     float: left;
-    width: 1.25rem;
+    width: 4rem;
     font-size: 0.6rem;
     margin-right: 0.15rem;
     margin-top: 0.2rem;
 }
 .animation_name p{
-	/*padding-top: 0.1rem;*/
+	padding-top: 0.1rem;
     width: 100%;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
 }
 .animation_name_p1{
-	font-size: 0.28rem;
+	font-size: 0.596rem;
 	color: #fff;
 }
 .animation_name_p2{
-	font-size: 0.22rem;
+	font-size: 0.468rem;
     color: #FFD800;
 }
 .animation_gift{
-	width: 1rem;
+	width: 2rem;
     overflow: hidden;
     text-align: center;
     float: right;
-    height: 1rem;
+    height: 2rem;
 }
 .animation_gift img{
-	width: 1rem;
+	width: 2rem;
     float: right;
     text-align: center;
     display: block;
@@ -1488,18 +1487,17 @@ footer{
     
 }
 .animation_span{
-   font-size: 0.52rem;
+    font-size: 1rem;
     color: #fff;
-    width: 1rem;
+    width: 2.5rem;
     float: right;
     margin-right: 0rem;
-    /* margin-top: 0.5rem; */
+    margin-top: 0.5rem;
     color: #FFD800;
     text-align: right;
-    margin-top: 0.2rem;
 }
 .animation_span span{
-	font-size: 0.52rem;
+	font-size: 1.106rem;
 	margin-left: 0.1rem;
 	text-shadow: 1px 1.5px 1px #999;
 	color: #FFD800;
@@ -1526,11 +1524,9 @@ footer{
 }
 
 .details_anchor_center{
-	width: 6.98rem;
-    line-height: 0.42rem;
+	width: 95%;
     margin: 0 auto;
-    font-size: 0.24rem;
-    text-align: justify;
+    padding-top: 0.4rem;
 }
 .details_portrait{
 	width: 1.95rem;
@@ -1607,9 +1603,10 @@ footer{
 }
 
 .anchor_center01{
-	width: 100%;
-    background: #fff;
-    padding: 0.2rem 0 0.2rem;
+	width:100%;
+	background: #fff;
+	padding: 0.8rem 0 0.8rem;
+	margin-top: 2.7rem;
 }
 .anchor_center02{
 	width: 100%;
@@ -1618,10 +1615,10 @@ footer{
 	padding-top: 4.2rem;
 }
 .anchor_center{
-	width: 6.98rem;
-	line-height:0.42rem;
+	width: 90%;
+	line-height:0.8rem;
     margin: 0 auto;
-    font-size: 0.24rem;
+    font-size: 0.59rem;
     text-align: justify;
 }
 .anchor_center p span{
@@ -1650,31 +1647,28 @@ footer{
 	
 }
 .leaderboard_list{
+	width: 95%;
 	margin: 0 auto;
-    border-bottom: 1px solid #f2f2f2;
-    padding-bottom: 0.24rem;
+	border-bottom: 0.02rem solid #d2d2d2;
+	padding-bottom: 0.4rem;
 }
 .leaderboard_left{
 	float: left;
-	margin-top: 0.24rem;
-    margin-left: 0.26rem;
+	margin-top: 0.7rem;
+    margin-left: 0.5rem;
     margin-right: 1rem;
-}
-.leaderboard_left img{
-	display: block;
 }
 .leaderboard_left span{
 	display: block;
     margin-top: 0.1rem;
-    font-size: 0.24rem;
-    /*margin-left: 0.28rem;*/
+    font-size: 0.55rem;
+    margin-left: 0.28rem;
     color: #666;
-    text-align: center;
 }
 .leaderboard_center{
-	width: 5rem;
+	width: 11rem;
 	float: left;
-	margin-top: 0.24rem;
+	margin-top: 0.4rem;
 }
 .leaderboard_center img{
 	width:1.975rem;
@@ -1685,17 +1679,14 @@ footer{
     border-radius: 60px;
 }
 .leaderboard_center_size .p1{
-	    font-size: 0.32rem;
-    color: #333;
-    margin-top: 0rem;
-    margin-bottom: 0.16rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+	font-size: 0.675rem;;
+	color: #333;
+	margin-top: 0.25rem;
+	margin-bottom: 0.25rem;
 }
 .leaderboard_center_size .p2{
-	font-size: 0.24rem;
-    color: #F97B49;
+	font-size: 0.55rem;
+	color: #F97B49;
 }
 .leaderboard_list_right{
 	float: right;
@@ -2116,7 +2107,7 @@ footer{
 }
 .give_a01{
 	margin-right: 0.5rem;
-	font-size:0.5rem;
+	font-size:0.7rem;
 	display:none;
 	color:#00bc12;
 	float: right;
@@ -2354,7 +2345,7 @@ footer{
     background: #fff;
     position: fixed;
     bottom: 2rem;
-    z-index: 999999;
+    z-index: 2;
     display: none;
     background-size: 100% 100%;
 	background: #fff;

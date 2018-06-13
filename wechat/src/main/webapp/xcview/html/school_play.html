@@ -22,7 +22,14 @@
 	    }
 	}	
 </script>
-    
+    <style>
+		.wrap1{
+			min-height: 1rem;
+		}
+		.wrap{
+			min-height: 1rem;
+		}
+    </style>
 <body style="background:#F8F8F8;">
 <div class="wp">
 	<div class="wrap-header">
@@ -106,8 +113,13 @@
 						{{if lineState == 2}}
 						<p style="width: 0.6rem;height: 0.32rem;font-size: 0.2rem;">预告</p>
 						{{/if}}
+						{{if lineState == 4}}
+						<p style="width: 0.6rem;height: 0.32rem;font-size: 0.2rem;">预告</p>
+						{{/if}}
 						{{if lineState == 3}}
 						<p style="width: 0.6rem;height: 0.32rem;font-size: 0.2rem;">回放</p>
+						{{/if}}{{if lineState == 5}}
+						<p style="width: 0.6rem;height: 0.32rem;font-size: 0.2rem;">预告</p>
 						{{/if}}
 					</li>
 				</ul>
@@ -131,9 +143,10 @@
 				<img src="../images/op_bg.png"/>	
 			</div>     
 		</div>
-		<div class="btn1" style="display: none;">
+		<!-- 点击收起隐藏 -->
+		<!-- <div class="btn1" style="display: none;">
 			<img src="../images/top.png"/>
-		</div>
+		</div> -->
 		<div class="line_xian" style="width: 100%; height: 1px;border-top: 1px solid #D8DDE6;">
 			
 		</div>
@@ -155,9 +168,10 @@
 			</div>     
 			
 		</div>
-		<div class="btn" style="display: none;">
+		<!-- 点击收起隐藏 -->
+		<!-- <div class="btn" style="display: none;">
 			<img src="../images/top.png"/>
-		</div>
+		</div> -->
 <!--详情结束-->
 
 	<!--评论-->
