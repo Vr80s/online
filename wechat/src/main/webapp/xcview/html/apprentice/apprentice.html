@@ -192,24 +192,4 @@
 	$("body").height(school_heights);*/
 </script>
 
-<script> 
-// 控制手机物理键--返回
-window.onload = function(){
-  if(window.history && window.history.pushState) {  
-      $(window).on('popstate', function() {  
-          var hashLocation = location.hash;  
-          var hashSplit = hashLocation.split("#!/");  
-          var hashName = hashSplit[1];  
-          if(hashName !== '') {  
-              var hash = window.location.hash;  
-              if(hash === '') {  
-                  location.href ='/xcview/html/apprentice/apprentice.html'  /*跳转链接*/
-              }  
-          }  
-      });  
-      //window.history.pushState('forward', null, '/xcview/html/apprentice/apprentice.html');  
-	alert(4444);
-  }
-};
-</script> 
 </html>

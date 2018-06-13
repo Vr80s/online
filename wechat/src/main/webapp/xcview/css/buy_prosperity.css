@@ -141,7 +141,7 @@ span,p{
 	font-size: 0.28rem;
 	color: #333333;
 }
-.purchase_details_money span{
+.purchase_details_money .span{
 
 	color: #F97B49;
 	font-size: 0.36rem;

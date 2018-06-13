@@ -14,8 +14,8 @@
 <link rel="stylesheet" href="/xcview/css/css.css?version=96a0f827c11110&version=96a0f827c0&version=96a0f827c0">
 
 
-<!--手机嵌入模板-->
-<script type="text/javascript" src="/xcview/js/common/layout.js"></script>
+<!-- 网页自适应JS代码引入 -->
+<script type="text/javascript" src="/xcview/js/common/js.js?version=b35e3bdc111ab&version=b35e3bdcab&version=b35e3bdcab"></script>
 <!-- 图片引入放大缩小 -->
 <script type="text/javascript" src="/xcview/js/common/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/underscore.js"></script>
@@ -44,7 +44,7 @@ $(function(){
 
 /*免费礼物文字大小*/
 .web_toast{
-	/*font-size: 0.5rem !important;*/
+	font-size: 0.5rem !important;
 }
 
 
@@ -53,6 +53,7 @@ $(function(){
 }
 #chatmsg{
 	padding-top: 0.4rem;
+    padding-bottom: 0.4rem;
 }
 /*  .cover{
 	display: none !important;
@@ -158,12 +159,14 @@ $(function(){
 		color: #fff;
 	}
 	.video_end_top2 .initiation{
-		font-size: 0.28rem;
+		font-size: 0.68rem;
 	    color: #fff;
 	    background: #00BC12;
 	    border-radius: 8px;
-	    padding: 0.1rem;
-	    width: 1.44rem;
+	    /* width: 1.44rem; */
+	    /* height: 0.56rem; */
+	    padding: 0.2rem;
+	    width: 3rem;
 	    margin: 0 auto;
 	}
 .mCustomScrollBox{
@@ -181,7 +184,7 @@ $(function(){
 }
 .coze{
 	position: absolute;
-    top: 5.6rem;
+    top: 10.5rem;
 }
 /* .coze_cen_ri:last-child{
 	margin-bottom: 2.5rem;
@@ -219,11 +222,11 @@ $(function(){
 			<div class="grabble_top">
 				
 				<div class="grabble_left" onclick="isLoginJump()">  <!--onclick="isLoginJump()" ---这是上一版的返回点击事件   --> <!-- onclick="window.history.go(-1);" 这版 -->   
-					<div class="grabble_img"><img src="../images/back icon.png" alt="" /></div>
+					<div class="grabble_img"></div>
 				</div>
 
 				<span class="history_span"></span>
-				<div class="history_img_right" id="share" style=""><div class="fx_bg"><img src="/xcview/images/share_img.png" alt="" /></div></div>
+				<div class="history_img_right" id="share" style=""><div class="fx_bg"></div></div>
 			</div>
 		</div>
 	</header>
@@ -326,7 +329,7 @@ $(function(){
 		</div>
 		<div class="both"></div>
 	</div>
-	<div class="footer_k footer_ks" style="height: 5.2rem;"></div>
+	<div class="footer_k footer_ks" style="height: 10.6rem;"></div>
 	<!-- 详情聊天开始 -->
 	
 	<div class="coze" style="height1: 14rem">
@@ -471,7 +474,7 @@ $(function(){
 
 		<div class="balance">
 			<div class="balance_size" onclick="location.href ='recharges.html'">
-				熊猫币<span id="xmbShowSpan" style="color: #F97B49;font-size: 0.36rem;">加载中...</span> <img src="/xcview/images/top_up_rights.png" alt="" style="margin-top: 0.37rem;float: right;width: 0.15rem;margin-left: 0.08rem;" />
+				熊猫币<span id="xmbShowSpan" style="color: #F97B49;font-size: 0.6rem;">加载中...</span> <img src="/xcview/images/top_up_rights.png" alt="" style="margin-top: 0.88rem;float: right;width: 0.3rem;margin-left: 0.2rem;" />
 			</div>
 			<div class="count" style="display: none !important;">
 				<div class="count_cen" style="width:5rem;margin-left: 0.4rem;">
@@ -503,7 +506,7 @@ $(function(){
 			<div class="main_img">
 				<img src="" alt="" class="guanz_headImg"/>
 			</div>
-			<div class="main_title" style="width: 4.3rem;">
+			<div class="main_title" style="width: 9.15rem;">
 				<p class="p0">测试（主播名）</p>
 				<p class="p1">
 					<span class="span0">关注<span class="n_guanzhu">0</span></span>
@@ -539,8 +542,8 @@ $(function(){
 		</div>
 		<!--关注结束-->
 
-		<div class="null_anchor" style="font-size: 0.24rem;display: none;background: #fff;margin-top: 1.7rem;padding: 0.2rem 0;text-indent: 0.6rem;">暂无主讲人介绍</div>
-		<div class="anchor_center01" style="margin-top: 2.1rem;">
+		<div class="null_anchor" style="font-size: 0.59rem;display: none;background: #fff;margin-top: 3.4rem;padding: 0.4rem 0;text-indent: 0.6rem;">暂无主讲人介绍</div>
+		<div class="anchor_center01" style="margin-top: 3.4rem;">
 			<div class="anchor_center">
 				
 			</div>
@@ -550,13 +553,13 @@ $(function(){
 	<!-- 详情主播结束 -->
 
 	<!-- 排行榜开始 -->
-	<div class="leaderboard" id="phbList" style="margin-top: 0.8rem;">
+	<div class="leaderboard" id="phbList" style="margin-top: 0.3rem;">
 		
 		<div class="no_git" style="display: none;">
 			<div class="no_git_pic">
 				
 			</div>
-			<p style="font-size: 0.24rem; color: #BBBBBB;padding: 0.2rem 0;text-align: center;">没人送礼物？快去打赏主播吧~</p>
+			<p style="font-size: 0.63rem; color: #BBBBBB;padding: 1.11rem 0;text-align: center;">没人送礼物？快去打赏主播吧~</p>
 		</div>
 	</div>
 	
@@ -676,7 +679,7 @@ $(function(){
 		        if(scrollTop/(contentH -viewH)>=0.95){ //到达底部100px时,加载新内容  
 		        // 这里加载数据..  
 
-		        // alert(132)
+		        alert(132);
 		        }  
 		     });  
 

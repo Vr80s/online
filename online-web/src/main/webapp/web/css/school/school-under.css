@@ -184,7 +184,7 @@ a:active{text-decoration:none;}/* 指正在点的链接*/
     overflow: hidden;
 }
 .main .content-class > div > a .detail .title {
-    max-width: 260px;
+    max-width: 240px;
     /* height: 30px; */
     display: inline-block;
     overflow: hidden;
@@ -202,7 +202,7 @@ a:active{text-decoration:none;}/* 指正在点的链接*/
     text-overflow: ellipsis;
 }
 .main .content-class > div > a .detail .timeAndTeac span {
-    font-size: 12px;
+    font-size: 13px;
     color: #999;
 }
 .main .content-class > div > a .detail .timeAndTeac .teacher{
@@ -215,10 +215,11 @@ a:active{text-decoration:none;}/* 指正在点的链接*/
 .main .content-class > div > a .detail .info > span:nth-child(1) {
     float: left;
 }
+.main .content-class > div > a .detail .info{
+	font-size: 13px;
+	}
 .main .content-class > div > a .detail .info .price {
     display: inline-block;
-    margin: 0 3px 0 0;
-    font-size: 16px;
     color: #F97B49;
 }
 .main .content-class > div > a .detail span {
@@ -229,7 +230,8 @@ a:active{text-decoration:none;}/* 指正在点的链接*/
 }
 .main .content-class .stuCount .studentCou{
 	float: right;
-	margin-top: 1px;
+	margin-top: 2px;
+	margin-left: 5px;
 }
 /*右侧,成为主播*/
 .wrap-docter{
