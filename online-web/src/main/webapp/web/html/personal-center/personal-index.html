@@ -211,6 +211,7 @@
 															<p class="timeAndTeac">
 																<span class="teacher">{{item.lecturerName}}</span>
 																<span class="y"></span>
+																
 															</p>
 															<p class="info clearfix">
 																<span>
@@ -283,14 +284,12 @@
 															{{else}}
 															<span class="classCategory">视频</span>
 															{{/if}}
-														{{else if item.type == 3}}
-															{{if item.lineState==1}}
+														{{else if item.type == 3 && item.lineState==1}}
 																<span class="classCategory">直播中</span>
-																{{else if lineState==3}}
+														{{else if item.type == 3 && item.lineState==3}}
 																<span class="classCategory">直播回放</span>
-																{{else if lineState==4}}
+														{{else if item.type == 3 && item.lineState==4}}
 																<span class="classCategory">即将直播</span>
-															{{/if}}
 														{{else if item.type == 4}}
 														<span class="classCategory">线下课程</span>
 														{{/if}}
@@ -299,7 +298,14 @@
 															<p class="timeAndTeac">
 																<span class="teacher">{{item.name}}</span>
 																{{if item.type==4}}
-																<span class="y">{{item.city}}</span>
+																<span class="y">{{item.city}}</span>															
+																{{/if}}
+																
+																{{if.item.type == 3}}
+																	{{else if item.startDateStr.indexOf('.')==-1}}
+																	<span class="y"><img src="/web/images/myvideo-time.png" style="margin: -3px 3px 0 0;" />{{item.item.startDateStr}}</span>                        
+																	{{else if item.startDateStr.indexOf(':')==-1}}
+																 	<span class="y"><img src="/web/images/date_month.png" style="margin: -3px 2px 0 0;" />{{item.item.startDateStr}}</span>
 																{{/if}}
 															</p>
 															<p class="info clearfix">
@@ -374,14 +380,12 @@
 															{{else}}
 															<span class="classCategory">视频</span>
 															{{/if}}
-														{{else if item.type == 3}}
-															{{if item.lineState==1}}
+														{{else if item.type == 3 && item.lineState==1}}
 																<span class="classCategory">直播中</span>
-																{{else if lineState==3}}
+														{{else if item.type == 3 && item.lineState==3}}
 																<span class="classCategory">直播回放</span>
-																{{else if lineState==4}}
+														{{else if item.type == 3 && item.lineState==4}}
 																<span class="classCategory">即将直播</span>
-															{{/if}}
 														{{else if item.type == 4}}
 														<span class="classCategory">线下课程</span>
 													
@@ -392,6 +396,12 @@
 																<span class="teacher">{{item.name}}</span>
 																{{if item.type==4}}
 																<span class="y">{{item.city}}</span>
+																{{/if}}
+																{{if.item.type == 3}}
+																	{{else if item.startDateStr.indexOf('.')==-1}}
+																	<span class="y"><img src="/web/images/myvideo-time.png" style="margin: -3px 3px 0 0;" />{{item.item.startDateStr}}</span>                        
+																	{{else if item.startDateStr.indexOf(':')==-1}}
+																 	<span class="y"><img src="/web/images/date_month.png" style="margin: -3px 2px 0 0;" />{{item.item.startDateStr}}</span>
 																{{/if}}
 															</p>
 															<p class="info clearfix">
