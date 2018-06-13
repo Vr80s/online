@@ -426,9 +426,9 @@ function commonLocalStorageRemoveItem(data) {
     localStorage.removeItem("openid");
 
     //删除  登录时用到的cookie
-    cookie.delete1("_uc_t_");
+    cookie.delete1("_ipandatcm_user_");
     //删除  第三方登录时用到的cookie
-    cookie.delete1("third_party_uc_t_");
+    cookie.delete1("_third_ipandatcm_user_");
 }
 
 
@@ -513,8 +513,8 @@ var cookie = {
 
 function getFlagStatus() {
     var falg = USER_NORMAL;
-    var user_cookie = cookie.get("_uc_t_");
-    var third_party_cookie = cookie.get("third_party_uc_t_");
+    var user_cookie = cookie.get("_ipandatcm_user_");
+    var third_party_cookie = cookie.get("_third_ipandatcm_user_");
     if (!stringnull(user_cookie)) {
         falg = USER_UN_LOGIN;
         if (stringnull(third_party_cookie)) {
@@ -543,7 +543,7 @@ function checkAuth(courseId, type) {
     }
 }
 
-var thirdPartyUCT = cookie.get("third_party_uc_t_");
+var thirdPartyUCT = cookie.get("_third_ipandatcm_user_");
 if (is_weixin() && !thirdPartyUCT) {//在微信里打开,没有授权时，先去微信授权
     location.href = "/xczh/wxlogin/middle?url=" + getCurrentUrl();
 }
@@ -563,7 +563,7 @@ function locationToOriginPage() {
  */
 var userId = localStorage.getItem("userId");
 if (!stringnull(userId)) {
-    var user_cookie = cookie.get("_uc_t_");
+    var user_cookie = cookie.get("_ipandatcm_user_");
     if (stringnull(user_cookie)) {//说明已经登录了
         /* 如果是微信公众号进入页面时，没有给他返回token。所以这里他在请求下呢  */
         var ccontrollerAddress = "/xczh/set/isLogined";
@@ -571,12 +571,11 @@ if (!stringnull(userId)) {
             if (data.success) {
                 commonLocalStorageSetItem(data);
             } else {
-                alert("网络异常");
+                // alert("网络异常");
             }
         }, false)
     }
 }
-
 
 /**
  * 公共的分享页面后的跳转

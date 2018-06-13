@@ -49,7 +49,7 @@ if (falg == USER_UN_LOGIN) {
     $("#p_name").html(login_enter);
 } else if (falg == USER_UN_BIND) {
 
-    var third_party_uc_t_ = cookie.get("third_party_uc_t_");
+    var third_party_uc_t_ = cookie.get("_third_ipandatcm_user_");
 
     //alert(third_party_uc_t_);
     //alert(decodeURI(third_party_uc_t_));
