@@ -42,7 +42,14 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 
     @Override
     public CourseLecturVo selectCourseDetailsById(Integer courseId) {
-        return iCourseMapper.selectCourseDetailsById(courseId);
+    	
+    	CourseLecturVo  cv = iCourseMapper.selectCourseDetailsById(courseId);
+    	if(cv!=null) {
+    		cv.setDescription(XzStringUtils.formatA(cv.getDescription()));
+    		cv.setLecturerDescription(XzStringUtils.formatA(cv.getLecturerDescription()));
+    	}
+    	
+        return cv;
     }
 
     @Override
@@ -110,7 +117,14 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 
     @Override
     public CourseLecturVo selectCourseMiddleDetailsById(Integer courseId) {
-        return iCourseMapper.selectCourseMidileDetailsById(courseId);
+    	
+    	CourseLecturVo  cv = iCourseMapper.selectCourseMidileDetailsById(courseId);
+    	if(cv!=null) {
+    		cv.setDescription(XzStringUtils.formatA(cv.getDescription()));
+    		cv.setLecturerDescription(XzStringUtils.formatA(cv.getLecturerDescription()));
+    	}
+    	
+        return cv;
     }
 
     @Override
