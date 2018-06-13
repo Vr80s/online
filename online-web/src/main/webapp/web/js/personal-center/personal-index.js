@@ -208,9 +208,10 @@ $(".clear-history").click(function(){
 
 function buyClass (pages){
 
- RequestService("/userCourse/purchasedCourseList", "POST",{
+ RequestService("/userCourse/myCourseType", "POST",{
  	pageNumber:pages,
- 	pageSize:8
+ 	pageSize:8,
+     type:1
  }, function (data) {
  		if(data.success==true){
  			$(".save-class .laod-buy").addClass("hide");
