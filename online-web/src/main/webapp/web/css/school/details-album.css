@@ -251,9 +251,19 @@ color: #999999;
 }
 .author-content img{
 	max-width: 820px;	
+	margin: 20px 0;
 }
 .author-content{
 	margin-top: 10px;
+}
+.author-content .author-text p{
+	line-height: 1.75em !important;
+}
+.author-content .author-text span{
+	line-height: 1.75em !important;
+}
+.author-content .class-text p{
+	line-height: 1.75em !important;
 }
 .impression-content{
 	width: 100%;
@@ -485,7 +495,7 @@ word-break:break-all;
     position: relative;
     width: 280px;
     float: left;
-    height: 239px;
+    height: 249px;
     margin-top: 20px;
 }
 .wrap-recommend .course:nth-child(4n){
@@ -502,9 +512,9 @@ word-break:break-all;
 }
 .wrap-recommend .course .img{
 	text-align: center;
-    line-height: 147px;
+    line-height: 157px;
     width: 280px;
-    height: 147px;
+    height: 157px;
     background-color: #f0f0f0;
     background-image: url(../../images/load26.gif);
     background-position: center;
