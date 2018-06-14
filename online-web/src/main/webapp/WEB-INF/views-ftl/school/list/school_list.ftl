@@ -64,8 +64,22 @@
 								</dl>
 							</li>
 						</#if>
-						<#if liveStatusEnum?? && liveStatusEnum?size gt 0>
+
+						<#if freeTypeEnum?? && freeTypeEnum?size gt 0>
 							<li>
+								<dl id="select-price">
+									<dt>收费 :</dt>
+									<#list freeTypeEnum as freeType>
+									<a href="${webUrl}${replaceUrl(webUrlParam,'isFree',freeType.id)}">
+										<dd subject ="isFree" data-id="${freeType.id}">${freeType.name}</dd>
+										</a>		
+									</#list>
+								</dl>
+							</li>
+						</#if>
+
+						<#if liveStatusEnum?? && liveStatusEnum?size gt 0>
+							<li id="select-status-hide" style="display:none">
 								<dl id="select-status">
 									<dt>状态 :</dt>
 									<a href="${webUrl}${replaceUrl(webUrlParam,'lineState',0)}">
@@ -79,20 +93,8 @@
 								</dl>
 							</li>
 						</#if>
-						<#if freeTypeEnum?? && freeTypeEnum?size gt 0>
-							<li>
-								<dl id="select-price">
-									<dt>收费 :</dt>
-									<#list freeTypeEnum as freeType>
-									<a href="${webUrl}${replaceUrl(webUrlParam,'isFree',freeType.id)}">
-										<dd subject ="isFree" data-id="${freeType.id}">${freeType.name}</dd>
-										</a>		
-									</#list>
-								</dl>
-							</li>
-						</#if>
 						<#if cityList?? && cityList?size gt 0>
-							<li>
+							<li id="select-address-hide" style="display:none">
 								<dl id="select-address">
 								    <a href="${webUrl}${replaceUrl(webUrlParam,'city',"")}">
 									<dt>城市 :</dt>

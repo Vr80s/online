@@ -222,29 +222,19 @@ public class SchoolController extends AbstractFtlController {
             view.addObject("courseList", mobileBannerService.searchCourseList(new Page<CourseLecturVo>(current, size), queryConditionVo));
         }
 
-        //Map<String,String> returnMap = new HashMap<String,String>();
-//        StringBuffer sb = new StringBuffer(webUrl + "/courses/list");
-        StringBuffer sb = new StringBuffer("/courses/list");
-        Enumeration em = req.getParameterNames();
-        if (em.hasMoreElements()) {
-            sb.append("?");
-        }
-        while (em.hasMoreElements()) {
-            String name = (String) em.nextElement();
-            String value = req.getParameter(name);
-            if (!"page".equals(name)) {
-                sb.append(name).append("=").append(value).append("&");
-            }
-        }
 
-        log.info("sb.toString()" + sb.substring(0, sb.length() - 1));
-        if (sb.indexOf("?") != -1) {
-            view.addObject("webUrlParam", sb.substring(0, sb.length() - 1));
-        } else {
-            view.addObject("webUrlParam", sb.toString());
-        }
-        //new ReplaceUrl()   替换url的方法
+        /**
+         * 
+         * 拼接url参数
+         */
+        StringBuffer sb = new StringBuffer("/courses/list");
+        String queryurl=req.getQueryString();  
+        if(null!=queryurl){  
+        	sb.append("?"+queryurl);  
+        } 
+        view.addObject("webUrlParam", sb.toString());
         view.addObject("replaceUrl", new ReplaceUrl());
+        
         /**
          * 判断如果是ajax请求的话，那么就不请求下面的分类列表了。
          * 	如果是页面跳转过来的话需要请求下呢。

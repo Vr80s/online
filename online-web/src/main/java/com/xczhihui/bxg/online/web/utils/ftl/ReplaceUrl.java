@@ -8,92 +8,66 @@ import freemarker.template.TemplateMethodModelEx;
 import freemarker.template.TemplateModelException;
 
 /**
- * 用户  a 标签跳转时表示处理url后缀
+ * ftl 定义调用java方法
+ * 
  * @author yangxuan
  *
  */
 public class ReplaceUrl implements TemplateMethodModelEx {  
   
     public ReplaceUrl() {  
-        //System.out.println("ToUpperCaseMethod构造函数被调用啦");  
+    	
     }  
 
 	@Override
 	public Object exec(List arg0) throws TemplateModelException {
 		
-		
+		/**
+		 * 列表页，url替换用到的方法
+		 */
 		if(arg0!=null && arg0.size() == 3 && !arg0.get(1).toString().equals("linkCondition")) {
-		   return 	replaceAccessTokenReg(arg0.get(0).toString(),arg0.get(1).toString(),
-				  arg0.get(2).toString());
+		   return 	replaceAccessTokenReg(arg0.get(0).toString(),arg0.get(1).toString(),arg0.get(2).toString());
 		}
+		
+		/**
+		 * banner连接更改用的方法
+		 */
 		if(arg0!=null && arg0.size() == 3 && arg0.get(1).toString().equals("linkCondition")) {
 			String urlParams = arg0.get(0).toString();
-			if(urlParams!=null && (urlParams.indexOf("course_id")!=-1
-				 || urlParams.indexOf("userLecturerId")!=-1)) {
+			if(urlParams!=null && (urlParams.indexOf("course_id")!=-1 || urlParams.indexOf("userLecturerId")!=-1)) {
 				return urlParams.substring(urlParams.indexOf("=")+1,urlParams.length());
 			}
 		}
 		return null;
 	}  
 	
-	
-	
-	
 	 /**
-	  *  
-	  * @param url
-	  * @param name
-	  * @param accessToken
+	  * 
+	  * @param url   
+	  * @param key
+	  * @param value
 	  * @return
 	  */
-	 public  String replaceAccessTokenReg(String url, String name, String accessToken) {
+	 public  String replaceAccessTokenReg(String url, String key, String value) {
 		 
-        if (StringUtils.isNotBlank(url) && StringUtils.isNotBlank(accessToken)) { 
-        	 if(url.indexOf(name)==-1 && url.indexOf("?")==-1) {
-             	url+="?"+name+"="+accessToken;
-             }else if(url.indexOf(name)==-1 && url.indexOf("?")!=-1){
-            	url+="&"+name+"="+accessToken;
+        if(StringUtils.isNotBlank(url) && StringUtils.isNotBlank(value)) { 
+        	 if(url.indexOf(key)==-1 && url.indexOf("?")==-1) {
+             	url+="?"+key+"="+value;
+             }else if(url.indexOf(key)==-1 && url.indexOf("?")!=-1){
+            	url+="&"+key+"="+value;
              }else {
-                url = url.replaceAll("(" + name + "=[^&]*)", name + "=" + accessToken);   
+                url = url.replaceAll("(" + key + "=[^&]*)", key + "=" + value);   
              }
-        }else if(StringUtils.isNotBlank(url) && !StringUtils.isNotBlank(accessToken)) {
-        	url = url.replaceAll("(" + name + "=[^&]*)", ""); 
+        	 
+        }else if(StringUtils.isNotBlank(url) && !StringUtils.isNotBlank(value)) {
+        	url = url.replaceAll("(" + key + "=[^&]*)", ""); 
         	if(url.length() == url.indexOf("?")+1 || url.length() == url.indexOf("&")+1) {
         		url = url.substring(0, url.length()-1);
         	}
         }
-        if(!StringUtils.isNotBlank(name) && !StringUtils.isNotBlank(accessToken)) {
+        if(!StringUtils.isNotBlank(key) && !StringUtils.isNotBlank(value)) {
         	url = url.substring(0, url.indexOf("?")+1);
         }
 	    return url;  
      }
-		
-		public static void main(String[] args) {
-//			String url="http://localhost/index.jsp?d=4";
-//			String name ="d";
-//			String accessToken = "789";
-//			
-//		  if (StringUtils.isNotBlank(url) && StringUtils.isNotBlank(accessToken)) { 
-////	        	 if(url.indexOf(name)==-1 && url.indexOf("?")==-1) {
-////	             	url+="?"+name+"="+accessToken;
-////	             }else if(url.indexOf(name)==-1 && url.indexOf("?")!=-1){
-////	            	 url+="&"+name+"="+accessToken;
-////	             }else {
-////	                 url = url.replaceAll("(" + name + "=[^&]*)", name + "=" + accessToken);   
-////	             }
-//			  url = url.replaceAll("(/?" + name + "=[^&]*)", name + "=" + accessToken);   
-//	        }
-//			System.out.println( url);
-//			System.out.println( url.length());
-//			System.out.println( url.indexOf("?"));
-			
-		  String str ="course_id=123";	
-	      System.out.println(str.substring(str.indexOf("=")+1,str.length()));
-	      
-			
-			
-			
-		}
-	
-    
 }   
