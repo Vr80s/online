@@ -189,7 +189,7 @@ public class XzAlipayController extends AliPayApiController {
         model.setTotalAmount(order.getActualPay() + "");
         model.setOutTradeNo(order.getOrderNo());
         model.setTimeoutExpress(TIMEOUT_EXPRESS);
-        model.setProductCode(APP_PRODUCT_CODE);
+        model.setProductCode(WAP_PRODUCT_CODE);
 
         PayMessage payMessage = new PayMessage();
         payMessage.setType(PayOrderType.COURSE_ORDER.getCode());
