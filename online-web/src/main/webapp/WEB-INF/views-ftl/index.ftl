@@ -373,7 +373,7 @@
 									</a>
 								</div>
 								<div class="zuozhe_inf">
-									<span><a href="/doctors/c654bcc007354244a6ba22cfd907f426" style="color: #0C0C0C;float: left;" target="_blank">${doctor.name} </a>
+									<span><a href="/doctors/${doctor.id}" style="color: #0C0C0C;float: left;" target="_blank">${doctor.name} </a>
 									<span class="address-show">
 									  ${doctor.province?default('')}&nbsp;${doctor.city?default('')}
 									 </span></span>
