@@ -138,7 +138,7 @@
 							      <span class="classCategory">线下课程</span>
 							   </#if>
 							   <div class="detail">
-									<p class="title" data-text="音频测试3" title="音频测试3">${courseItem.gradeName}</p>
+									<p class="title" data-text="音频测试3" title="${courseItem.gradeName}">${courseItem.gradeName}</p>
 									<p class="timeAndTeac">
 									<span class="teacher z">${courseItem.name}</span>
 									 <#if courseItem.type == 4>
@@ -223,7 +223,7 @@
 								
 								
 								<div class="detail">
-									<p class="title" data-text="音频测试3" title="音频测试3">${courseItem.gradeName}</p>
+									<p class="title" data-text="音频测试3" title="${courseItem.gradeName}">${courseItem.gradeName}</p>
 									<p class="timeAndTeac">
 									<span class="teacher z">${courseItem.name}</span>
 									<#if courseItem.type == 4> 
@@ -373,7 +373,7 @@
 									</a>
 								</div>
 								<div class="zuozhe_inf">
-									<span><a href="/doctors/c654bcc007354244a6ba22cfd907f426" style="color: #0C0C0C;float: left;" target="_blank">${doctor.name} </a>
+									<span><a href="/doctors/${doctor.id}" style="color: #0C0C0C;float: left;" target="_blank">${doctor.name} </a>
 									<span class="address-show">
 									  ${doctor.province?default('')}&nbsp;${doctor.city?default('')}
 									 </span></span>

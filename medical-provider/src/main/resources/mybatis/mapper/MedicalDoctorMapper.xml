@@ -481,7 +481,6 @@
 			on   md.id  =  mda.doctor_id
 	        WHERE md.deleted = 0
 	        AND md.status = 1
-	        AND mda.account_id is not null
         ORDER BY md.`recommend_sort`desc
         LIMIT #{offset},#{rows}
     </select>

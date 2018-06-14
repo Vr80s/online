@@ -119,7 +119,7 @@
                             <span class="classCategory">线下课程</span>
                         </#if>
                         <div class="detail">
-                            <p class="title" data-text="音频测试3" title="音频测试3">${courseItem.gradeName}</p>
+                            <p class="title" title="${courseItem.gradeName}">${courseItem.gradeName}</p>
                             <p class="timeAndTeac">
                                 <span class="teacher z">${courseItem.name}</span>
                                 <#if courseItem.type == 4>
