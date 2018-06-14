@@ -155,7 +155,13 @@
                             </div>
                         </div>
                     </#list>
-
+					<!--暂无评论显示背景图-->
+					<div class="nodata-box hide">
+						<div class="no-question-img">
+							<img src="/web/images/icon-nodata.png"/>
+						</div>
+						<p>暂无数据</p>	
+					</div>
                 </div>
             </div>
 
