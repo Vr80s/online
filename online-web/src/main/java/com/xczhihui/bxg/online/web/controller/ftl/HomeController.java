@@ -115,7 +115,7 @@ public class HomeController extends AbstractFtlController {
 
 
         /**
-         * 大家专栏
+         * 名医
          */
         view.addObject("doctorCourseList", medicalDoctorBusinessService.selectDoctorCouserByAccountId(0, 3));
 
