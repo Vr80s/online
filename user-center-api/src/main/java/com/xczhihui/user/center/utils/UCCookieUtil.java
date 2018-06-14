@@ -26,12 +26,12 @@ public class UCCookieUtil {
     /**
      * cookie名,用户判断第三方账户是否绑定了用户信息
      */
-    private final static String THIRD_PARTY_COOKIE_TOKEN_NAME = "third_party_uc_t_";
+    private final static String THIRD_PARTY_COOKIE_TOKEN_NAME = "_third_ipandatcm_user_";
 
     /**
      * 用户中心token cookie名
      */
-    private final static String COOKIE_TOKEN_NAME = "_uc_t_";
+    private final static String COOKIE_TOKEN_NAME = "_ipandatcm_user_";
 
     /**
      * 从cookie构造token

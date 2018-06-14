@@ -25,7 +25,7 @@ function time(o) {
  */
 var openId ="";var unionId ="";
 
-var third_party_uc_t_ = cookie.get("third_party_uc_t_");
+var third_party_uc_t_ = cookie.get("_third_ipandatcm_user_");
 if(stringnull(third_party_uc_t_)){
 	
 	third_party_uc_t_ = decodeURIComponent(third_party_uc_t_);	
