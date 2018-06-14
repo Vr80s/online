@@ -251,6 +251,9 @@ border-radius: 3px;
 	word-wrap:break-word; 
 word-break:break-all; 
 }
+.wrap p{
+	line-height: 0.42rem !important;
+}
 .wrap p img{
 	/*width: 100%;*/
 	max-width: 7rem;
@@ -357,6 +360,9 @@ word-break:break-all;
 .wrap1 p img{
 	/*width: 100%;*/
 	max-width: 7rem;
+}
+.wrap1 p{
+	line-height: 0.42rem !important;
 }
 .zhezhao1{
 	width: 100%;
