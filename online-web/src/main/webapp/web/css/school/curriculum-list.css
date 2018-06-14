@@ -31,12 +31,12 @@ a:active{text-decoration:none;}/* 指正在点的链接*/
 }
 .select-all li{
 	overflow: hidden;
-	height: 50px;
+	height: 48px;
 	border-bottom: 1px dashed #f0f0f0;
 }
 .select-all dl{
 	float: left;
-	line-height: 50px;
+	line-height: 48px;
 	margin-bottom: 0;
 }
 .select-all dt{
@@ -46,12 +46,12 @@ a:active{text-decoration:none;}/* 指正在点的链接*/
 	margin-right: 20px;
 	color: #999999;
 	font-weight: normal;
-	line-height: 50px;
+	line-height: 48px;
 }
 .select-all dd{
 	float: left;
 	margin-right: 50px;
-	line-height: 50px;
+	line-height: 48px;
 	cursor: pointer;
 	color: #333333;
 }
