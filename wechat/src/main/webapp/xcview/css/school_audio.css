@@ -252,6 +252,9 @@ line-height: 0.42rem;
 	/*width: 100%;*/
 	max-width: 7rem;
 }
+.wrap p{
+	line-height: 0.42rem !important;
+}
 .zhezhao{
 	width: 100%;
 	height: 0.5rem;
@@ -335,6 +338,9 @@ line-height: 0.42rem;
 .wrap1 p img{
 	/*width: 100%;*/
 	max-width: 7rem;
+}
+.wrap1 p{
+	line-height: 0.42rem !important;
 }
 .zhezhao1{
 	width: 100%;

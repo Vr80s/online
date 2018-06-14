@@ -340,7 +340,7 @@ color: #999999;
 	margin-top: 0.2rem;
 	/*text-indent: 2em;*/
 	text-align: justify;
-	line-height: 0.42rem;
+	line-height: 0.42rem !important;
 }
 .user_mywrite img{
 	/*width: 100%;*/
