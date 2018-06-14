@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -18,6 +19,7 @@ import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.bean.OnlineOrder;
 import com.xczh.consumer.market.service.OnlineOrderService;
 import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczhihui.common.util.enums.OrderStatus;
 import com.xczhihui.course.model.Order;
 import com.xczhihui.course.service.IOrderService;
 
@@ -73,6 +75,20 @@ public class MyOrderController {
         return ResponseObject.newSuccessResponseObject(order);
     }
 
+    @RequestMapping(value = "checkOrderPay", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseObject checkOrderPay(@RequestParam("orderId") String orderId) {
+        try {
+            Order order = orderService.getOrderById(orderId);
+            if (order != null && order.getOrderStatus() == OrderStatus.PAID.getCode()) {
+                return ResponseObject.newSuccessResponseObject(true);
+            }
+            return ResponseObject.newSuccessResponseObject(false);
+        } catch (Exception e) {
+            return ResponseObject.newSuccessResponseObject(false);
+        }
+    }
+
     /**
      * 消费记录
      *
@@ -94,12 +110,12 @@ public class MyOrderController {
             pageSize = Integer.valueOf(req.getParameter("pageSize"));
         }
         /*
-		 * 消费记录，目前分为两种： 一：购买课程、二、打赏
+         * 消费记录，目前分为两种： 一：购买课程、二、打赏
 		 *   购买课程的在订单表里面有记录，如果是打赏的里面没有记录。
 		 */
         Integer status = 1;
-		/*
-		 * 这个地方是不是应该查
+        /*
+         * 这个地方是不是应该查
 		 *  购买课程的消费记录应该以课程为单位进行搞
 		 * List<OnlineOrder> listOrder = onlineOrderService.consumptionList(status,userId, pageNumber,pageSize);
 		 */

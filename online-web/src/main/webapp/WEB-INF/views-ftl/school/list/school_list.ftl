@@ -82,9 +82,6 @@
 							<li id="select-status-hide" style="display:none">
 								<dl id="select-status">
 									<dt>状态 :</dt>
-									<a href="${webUrl}${replaceUrl(webUrlParam,'lineState',0)}">
-									<dd class="select-all" subject ="lineState" data-id="0">全部</dd>
-									</a>
 									<#list liveStatusEnum as liveStatus>
 										<a href="${replaceUrl(webUrlParam,'lineState',liveStatus.id)}">
 											<dd subject ="lineState" data-id="${liveStatus.id}">${liveStatus.name}</dd>

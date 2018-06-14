@@ -1,22 +1,40 @@
 <#assign defaultDoctorHeadImg="/web/images/defaultHead/18.png"/>
 <#macro workTime text>
     <#if text?? && text != '暂无' && text != ''>
-        <p>${text}</p>
+    <p>${text}</p>
     </#if>
 </#macro>
+<div class="head-top">
+    <div class="content">
+        <ul>
+            <li class="first-li"><span">全球中医传承平台</span"></li>
+            <li>
+                <div class="loginGroup">
+                    <div class="logout" style="display: block;">
+                        <a class="btn-login btn-link" data-toggle="modal"  data-target="#login"  data-backdrop="static">登录</a>
+                        <span>|</span>
+                        <a class="btn-register btn-link" href="/web/html/login.html?ways=register">注册</a></div>
+                </div>
+            </li>
+            <li><a href="/App.html" class="appDown hide">APP下载</a></li>
+            <li><a href="/web/html/want-anchor.html" class="want-anchor" target="_blank">我要当主播</a></li>
+            <li><a class="studentCenterBox" href="javascript:;">学习中心</a></li>
+        </ul>
+    </div>
+</div>
 <div class="header_body">
     <div class="header_right"><a href="/"><img
             src="/web/images/logos.png" alt="logo" style="float:left"></a>
     </div>
     <div class="header_left">
         <div class="path" style="width:95%">
-            <a href="/" class="home">首页</a>
-            <a href="/headline/1" class="headline">头条</a>
-            <a href="/courses/recommendation" class="classroom">学堂</a>
-            <a href="/doctors" class="doctor-tab">名医</a>
-            <a href="/clinics" class="hospital-tab">医馆</a>
-            <a href="/web/html/ansAndQus.html" class="ansAndQus">问道</a>
-            <a href="/bbs" class="bbs-tab">论坛</a>
+            <a href="${webUrl}/" class="home">首页</a>
+            <a href="${webUrl}/headline/1" class="headline">头条</a>
+            <a href="${webUrl}/courses/recommendation" class="classroom">学堂</a>
+            <a href="${webUrl}/doctors" class="doctor-tab">名医</a>
+            <a href="${webUrl}/clinics" class="hospital-tab">医馆</a>
+            <a href="${webUrl}/web/html/ansAndQus.html" class="ansAndQus">问道</a>
+            <a href="${webUrl}/bbs" class="bbs-tab">论坛</a>
         </div>
     </div>
 </div>

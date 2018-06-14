@@ -192,6 +192,11 @@ function viewCondition(paramsObj) {
 	
 	// 关键字
 	if (stringnull(paramsObj.queryKey)) {
+		
+		//
+		$("#defaultSearch").val(paramsObj.queryKey);
+		
+		//下面那个检索值
 		$("#search-text").val(paramsObj.queryKey);
 	}
 	
@@ -239,8 +244,9 @@ $("#select-style dd").each(function() {
 	    $this.parent().attr("href",urlFinalParams);
 	}
 });
+
 /*
- * 
+ *  显示隐藏
  */
 if (stringnull(paramsObj.courseType) && (paramsObj.courseType == 3)) {
 	$("#select-status-hide").show();
