@@ -78,7 +78,7 @@ $(function () {
      */
         //==========================================================================================
     var headersIndex = {
-            navtop: '<div class="head-top"><div class="content">' +
+            navtop: '<div class="content">' +
             '<ul>' +
 //         '<li class="first-li">' +
 //          '<a href="/web/html/aboutUs.html">关于我们</a>' +
@@ -135,7 +135,7 @@ $(function () {
             '<li>' +
             '<a class="studentCenterBox" href="javascript:;">学习中心</a>' +
             '</li>' +
-            '</ul></div></div>'
+            '</ul></div>'
         };
     //<!--网站公告-->
     var webNotice = '<div class="webSiteNotice" style="display:none;">' +
@@ -186,7 +186,7 @@ $(function () {
     }
 
     var header = $('header');
-    $(".header_body").before(template.compile(headersIndex.navtop));//首页头部顶部
+    $(".head-top").html(template.compile(headersIndex.navtop));//首页头部顶部
 
 
     if (home) {
