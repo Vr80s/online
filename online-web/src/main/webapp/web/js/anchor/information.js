@@ -69,7 +69,7 @@ $(function(){
         autoFloatEnabled: true,
         enableAutoSave:false,
         imagePopup:false,
-        maximumWords:10000       //允许的最大字符数
+        maximumWords:3000       //允许的最大字符数
     });
     
     
