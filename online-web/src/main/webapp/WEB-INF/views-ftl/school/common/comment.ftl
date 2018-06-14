@@ -163,15 +163,16 @@
                 </div>
                 <div class="input-write z">
                     <!--未登录-->
-                    <p class="reply_no_login hide">写下你的评论，请先<span>登陆</span>
+                    <p class="reply_no_login hide">写下你的评论，请先<span class="login_modal_show">登陆</span>
                     </p>
                     <!--已登陆-->
-                    <input class="hide reply_login" type="text" name="" value=""/>
+                    <input class="hide reply_login reply_content" type="text" name="" value=""/>
                 </div>
                 <!--未登录按钮-->
                 <button class="no-login y reply_no_login" type="button">回复</button>
                 <!--已登陆按钮-->
-                <button class="login y hide reply_login reply_criticize" type="button">回复</button>
+                <button class="login y hide reply_login reply_criticize"
+                 style="background:#f0f0f0;" disabled = true type="button">回复</button>
             </div>
         </div>
     </div>

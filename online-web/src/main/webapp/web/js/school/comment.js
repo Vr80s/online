@@ -33,23 +33,28 @@ $(".close-impression").click(function() {
 
 // 回复评论和点赞按钮加颜色
 $(".operation-reply-li").click(function() {
-			var criticizeId = $(this).parent(".operation-reply").attr(
-					"data-criticizeId");
-
-			var falg = true;
-			if ($(this).hasClass("selected")) {
-				$(this).removeClass("selected");
-				falg = false;
-			} else {
-				$(this).addClass("selected");
-			}
-			var paramsObj = {
-				criticizeId : criticizeId,
-				praise : falg
-			};
-			RequestService("/criticize/updatePraise", "post", paramsObj,
-					function(data) {
-						if (data.success) {
+	
+	if(!loginStatus){
+		$('#login').modal('show');
+		return;
+	}   
+	var criticizeId = $(this).parent(".operation-reply").attr("data-criticizeId");
+	
+	var falg = true;
+	if ($(this).hasClass("selected")) {
+		$(this).removeClass("selected");
+		falg = false;
+	} else {
+		$(this).addClass("selected");
+	}
+	var paramsObj = {
+		criticizeId : criticizeId,
+		praise : falg
+	};
+	
+	RequestService("/criticize/updatePraise", "post", paramsObj,
+			function(data) {
+				if (data.success) {
 //							var obj = $(".operation-reply li").eq(0).children(".praiseSum");
 //							var praiseSum = obj[0].innerText;
 //							if (falg) {
@@ -58,16 +63,16 @@ $(".operation-reply-li").click(function() {
 //								praiseSum = parseInt(praiseSum) - 1;
 //							}
 //							obj[0].innerText = praiseSum;
-//							alert("中");
-							location.reload();
-						} else {
-							alert("点赞失败");
-						}
-					})
-		})
+					location.reload();
+				} else {
+					showTip(data.errorMessage);
+				}
+	})
+})
 
 // 点击回复图标出现输入框
 $(".reply-icon").click(function() {
+	
 	if ($(this).hasClass("selected")) {
 		$(this).removeClass("selected");
 	} else {
@@ -80,8 +85,8 @@ $(".reply-icon").click(function() {
 		$(".reply_login").removeClass("hide");
 		$(".reply_no_login").addClass("hide");
 	} else {
-		$(".reply_login").removeClass("hide");
-		$(".reply_no_login").addClass("hide");
+		$(".reply_login").addClass("hide");
+		$(".reply_no_login").removeClass("hide");
 	}
 	if ($(this).hasClass("selected")) {
 		$(this).parents().siblings(".wrap-input").removeClass("hide");
@@ -90,32 +95,55 @@ $(".reply-icon").click(function() {
 	}
 })
 
+/**
+ * 点击回复中的小登录，弹出登录框
+ * @returns
+ */
+$(".login_modal_show").click(function(){
+	
+	 $('#login').modal('show');
+})
+
+
+
+$(".reply_content").keyup(function(){
+	var $this = $(this);
+	var commentContent = $(this).val();
+	var aaa = $this.parent().parent().children("button:last-child");
+	if (commentContent != null && commentContent != "" && commentContent.trim().length > 0) {
+		aaa.attr("disabled", false);
+		aaa.css("background",  "#00BC12");
+	}else{
+		aaa.attr("disabled", true);
+		aaa.css("background",  "#999");
+	}
+})
+
 // 提交回复
 $(".reply_criticize").click(function() {
-			var criticizeId = $(this).parent(".wrap-input").attr(
-					"data-criticizeId");
-			var criticizeContent = $(this).parent(".wrap-input").find("input")
-					.val();
-			if (criticizeContent == null || criticizeContent == undefined || criticizeContent == "") {
-				return;
+		var criticizeId = $(this).parent(".wrap-input").attr(
+				"data-criticizeId");
+		var criticizeContent = $(this).parent(".wrap-input").find("input")
+				.val();
+		if (criticizeContent == null || criticizeContent == undefined || criticizeContent == "") {
+			return;
+		}
+		var paramsObj = {
+			content : criticizeContent,
+			criticizeId : criticizeId,
+		}
+		if (collection == 1) {
+			paramsObj.collectionId = courseId;
+		}
+		RequestService("/criticize/saveReply", "post", paramsObj, function(
+				data) {
+			if (data.success) {
+				location.reload();
+			} else {
+				showTip("回复失败");
 			}
-			var paramsObj = {
-				content : criticizeContent,
-				criticizeId : criticizeId,
-			}
-			if (collection == 1) {
-				paramsObj.collectionId = courseId;
-			}
-			RequestService("/criticize/saveReply", "post", paramsObj, function(
-					data) {
-				if (data.success) {
-					//alert("回复成功");
-					location.reload();
-				} else {
-					alert("回复失败");
-				}
-			})
 		})
+})
 
 // 星星五星好评
 $('.impression-star img').each(function(index) {
@@ -299,7 +327,7 @@ $(".submission").click(function() {
 //			$(".wrap-modal").addClass("hide");
 			location.reload();
 		} else {
-			alert("不中啊");
+			showTip(data.errorMessage);
 		}
 	})
 });
