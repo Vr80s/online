@@ -183,7 +183,7 @@ public interface OeBxsArticleMapper extends BaseMapper<OeBxsArticle> {
      * @param size size
      * @return
      */
-    @Select({"SELECT md.name AS doctorName, md.`id` AS doctorId, mdai.head_portrait headPortrait, md.`province`, md.`city`,oba.title  " +
+    @Select({"SELECT md.name AS doctorName, md.`id` AS doctorId, mdai.head_portrait headPortrait, md.`province`, md.`city`,oba.title,oba.id  " +
             "        FROM" +
             "            `oe_bxs_article` oba" +
             "            JOIN `medical_doctor_special_column` mdsc" +
@@ -255,7 +255,7 @@ public interface OeBxsArticleMapper extends BaseMapper<OeBxsArticle> {
      * @param size size
      * @return
      */
-    @Select({"SELECT md.name AS doctorName, md.`id` AS doctorId, mdai.head_portrait headPortrait, md.`province`, md.`city`,oba.title " +
+    @Select({"SELECT md.name AS doctorName, md.`id` AS doctorId, mdai.head_portrait headPortrait, md.`province`, md.`city`,oba.title ,oba.id" +
             "        FROM" +
             "            `oe_bxs_article` oba" +
             "            JOIN `medical_doctor_special_column` mdsc" +

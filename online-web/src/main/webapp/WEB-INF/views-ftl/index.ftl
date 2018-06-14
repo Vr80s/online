@@ -103,9 +103,9 @@
 						<#list courseTypeList.listLive as courseItem>
 						<li class="course">
 							     <#if courseItem.type == 1 ||  courseItem.type == 2 ||  courseItem.type == 4 > 
-							 		    <a style="cursor:pointer" href="/courses/${courseItem.id}/info" target="_blank">
+							 		    <a style="cursor:pointer" href="${webUrl}/courses/${courseItem.id}/info" target="_blank">
 								 <#elseif courseItem.type == 3>
-							            <a style="cursor:pointer" href="/web/liveCoursePage/${courseItem.id}" target="_blank">
+							            <a style="cursor:pointer" href="${webUrl}/web/liveCoursePage/${courseItem.id}" target="_blank">
 								 </#if>
 							    
 								<div class="img"><img src="${courseItem.smallImgPath}"></div>
@@ -183,9 +183,9 @@
 						<li class="course">
 							    
 							    <#if courseItem.type == 1 ||  courseItem.type == 2 ||  courseItem.type == 4 > 
-							 		    <a style="cursor:pointer" href="/courses/${courseItem.id}/info" target="_blank">
+							 		    <a style="cursor:pointer" href="${webUrl}/courses/${courseItem.id}/info" target="_blank">
 								 <#elseif courseItem.type == 3>
-							            <a style="cursor:pointer" href="/web/liveCoursePage/${courseItem.id}" target="_blank">
+							            <a style="cursor:pointer" href="${webUrl}/web/liveCoursePage/${courseItem.id}" target="_blank">
 								 </#if>
 								
 								<div class="img"><img src="${courseItem.smallImgPath}"></div>
@@ -398,7 +398,7 @@
 						
 							<li class="doctorInfTpl clearfix">
 								<div class="touxiang">
-									<a href="/doctors/${hotSpecialColumnAuthor.doctorId}" style="color: #0C0C0C"target="_blank">
+									<a href="${webUrl}/doctors/${hotSpecialColumnAuthor.doctorId}" style="color: #0C0C0C"target="_blank">
 										 <#if hotSpecialColumnAuthor.headPortrait??>
 										    <img src="${hotSpecialColumnAuthor.headPortrait}" alt=""/>
 										 <#else> 
@@ -408,9 +408,10 @@
 								</div>
 								<div class="zuozhe_inf">
 									<span>
-									<a  href="/doctors/${hotSpecialColumnAuthor.doctorId}" style="color: #0C0C0C" 
-									target="_blank">${hotSpecialColumnAuthor.title}</a></span>
-									<p>${hotSpecialColumnAuthor.doctorName}</p>
+									<a  href="${webUrl}/doctors/${hotSpecialColumnAuthor.doctorId}" style="color: #0C0C0C"
+									target="_blank">${hotSpecialColumnAuthor.doctorName}</a></span>
+									<p><a  href="${webUrl}/headline/details/${hotSpecialColumnAuthor.id}" style="color: #0C0C0C"
+										   target="_blank">${hotSpecialColumnAuthor.title}</a></p>
 								</div>
 							</li>
 						    </#list>	
@@ -582,11 +583,9 @@
 							}))
 							subscribeInit();
 						});
-						//                            $("#yyStart").html($("#startTime").val())
 						rTips(data.resultObject);
 					} else {
 						$(".popover_order").css('display', 'none');
-						//				            rTips(data.errorMessage);
 						rTips();
 
 					}
