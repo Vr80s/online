@@ -172,7 +172,7 @@
                 <button class="no-login y reply_no_login" type="button">回复</button>
                 <!--已登陆按钮-->
                 <button class="login y hide reply_login reply_criticize"
-                 style="background:#f0f0f0;" disabled = true type="button">回复</button>
+                 style="background:#999;" disabled = true type="button">回复</button>
             </div>
         </div>
     </div>
