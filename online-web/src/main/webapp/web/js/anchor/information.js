@@ -167,8 +167,8 @@ function getPhysicianData(){
     var data = {};
     data.name = $.trim($('.physician_name').val());
     data.cardNum = $.trim($('.physician_card').val());
-    data.cardPositive = $.trim($('#cardPositiveImg img').attr('src'));
-    data.cardNegative = $.trim($('#cardNegativeImg img').attr('src'));
+    /*data.cardPositive = $.trim($('#cardPositiveImg img').attr('src'));
+    data.cardNegative = $.trim($('#cardNegativeImg img').attr('src'));*/
     data.qualificationCertificate = $.trim($('#qualificationCertificateImg img').attr('src'));
     data.professionalCertificate = $.trim($('#professionalCertificateImg img').attr('src'));
     return data;
@@ -204,7 +204,7 @@ function verifyPhysician(data){
     }else{
         $('.warning_physician_card_verify').addClass('hide');
     }
-    if(data.cardPositive == ''){
+    /*if(data.cardPositive == ''){
         $('.warning_cardPositiveImg').removeClass('hide');
         return false;
     }else{
@@ -215,7 +215,7 @@ function verifyPhysician(data){
         return false;
     }else{
         $('.warning_cardNegativeImg').addClass('hide');
-    }
+    }*/
     if(data.qualificationCertificate == ''){
         $('.warning_qualificationCertificateImg').removeClass('hide');
         return false;
