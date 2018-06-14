@@ -750,7 +750,7 @@ $(function() {
 					var myStudent = window.localStorage.myStudyCenter;
 
 					if(myStudent == 1) {
-						window.location.href = "/web/html/myStudyCenter.html";
+						window.location.href = "/web/html/personal-center/personal-index.html";
 						window.localStorage.myStudyCenter = null;
 					}
 					/*

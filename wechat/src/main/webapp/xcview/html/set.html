@@ -69,7 +69,7 @@
 	/*
 	 * 判断是否为游客，如果登录游客
 	 */
-/* 	var user_cookie = cookie.get("_uc_t_");
+/* 	var user_cookie = cookie.get("_ipandatcm_user_");
 	if(user_cookie == null || user_cookie == ''){
    		$(".set_main_close").hide()
 		$(".btn").hide()
@@ -102,7 +102,7 @@
 		if(close_falg == USER_UN_BIND){
 		
 			//删除  第三方登录时用到的cookie
-		    cookie.delete1("third_party_uc_t_");
+		    cookie.delete1("_third_ipandatcm_user_");
 			window.location.href="my_homepage.html";
 		}else{
 			 requestService("/xczh/set/logout",{

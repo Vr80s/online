@@ -1049,4 +1049,16 @@ overflow: hidden;
     color: #00BC12;
 }
 
+.nodata-box{
+	text-align: center;
+	color: #999999;
+	padding-top: 69px;	
+}
 
+
+
+.nodata-box .no-question-img{
+	margin: 0 auto 10px;
+    width: 63px;
+    height: 70px;
+}

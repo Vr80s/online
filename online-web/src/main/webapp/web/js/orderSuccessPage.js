@@ -164,7 +164,7 @@ $(function() {
 		}, function(data) {
 			if(data.resultObject == 1) {
 				$(".pay-result1").css("display", "none");
-				window.location.href = "/web/html/myStudyCenter.html?courseId=" + courseId;
+				window.location.href = "/web/html/personal-center/personal-index.html?courseId=" + courseId;
 			} else {
 				$(".pay-result1").css("display", "none");
 				$(".pay-result2").css("display", "block");
