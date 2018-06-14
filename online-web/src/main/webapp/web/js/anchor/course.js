@@ -88,7 +88,7 @@ $(function(){
             autoFloatEnabled: true,
             enableAutoSave:false,
             imagePopup:false,
-            maximumWords:10000       //允许的最大字符数
+            maximumWords:3000       //允许的最大字符数
         });
         var ue_cd = UE.getEditor('editor_cd',{
             toolbars:[['source', //源代码
@@ -130,7 +130,7 @@ $(function(){
             autoFloatEnabled: true,
             enableAutoSave:false,
             imagePopup:false,
-            maximumWords:10000       //允许的最大字符数
+            maximumWords:3000       //允许的最大字符数
         });
     }
     
@@ -186,7 +186,7 @@ $(function(){
             autoFloatEnabled: true,
             enableAutoSave:false,
             imagePopup:false,
-            maximumWords:10000       //允许的最大字符数
+            maximumWords:3000       //允许的最大字符数
         });
         var editor_collection_outline = UE.getEditor('editor_collection_outline',{
             toolbars:[['source', //源代码
@@ -228,7 +228,7 @@ $(function(){
             autoFloatEnabled: true,
             enableAutoSave:false,
             imagePopup:false,
-            maximumWords:10000       //允许的最大字符数
+            maximumWords:3000       //允许的最大字符数
         });
         var editor_collection_lecturer_description = UE.getEditor('editor_collection_lecturer_description',{
             toolbars:[['source', //源代码
@@ -270,7 +270,7 @@ $(function(){
             autoFloatEnabled: true,
             enableAutoSave:false,
             imagePopup:false,
-            maximumWords:10000       //允许的最大字符数
+            maximumWords:3000       //允许的最大字符数
         });
   }
 

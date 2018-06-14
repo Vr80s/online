@@ -271,7 +271,7 @@ word-break:break-all;
 line-height: 0.42rem;
 }
 .wrap p{
-	line-height: 0.4rem;
+	line-height: 0.4rem !important;
 }
 .wrap p img{
 	max-width: 7rem;
@@ -356,7 +356,7 @@ word-break:break-all;
 line-height: 0.42rem;
 }
 .wrap1 p{
-	line-height: 0.4rem;
+	line-height: 0.4rem !important;
 }
 .wrap1 p img{
 	max-width: 7rem;

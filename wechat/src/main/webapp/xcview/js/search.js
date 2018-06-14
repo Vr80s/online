@@ -27,7 +27,7 @@ requestService("/xczh/bunch/hotSearch",null,
 		
 		if(data.success==true){
 
-            if($(".search_hot_main").html(template('search1',{items:data.resultObject.hotSearch}))== 0 || $(".search_hot_main").html(template('search1',{items:data.resultObject.hotSearch}))== null){
+            if(data.resultObject.hotSearch == 0 || data.resultObject.hotSearch == '' || data.resultObject.hotSearch == null){
             	$(".search_hot").hide();
             }else{
             	 //			检索列表

@@ -7,6 +7,9 @@ body{
 }
 a:link{text-decoration:none; } 
 a:hover{text-decoration: none;}
+a:focus {
+outline: none;
+}
 ul{margin: 0;}
 p{margin-bottom: 0;}
 .cl{clear: both;}
@@ -244,8 +247,14 @@ p{margin-bottom: 0;}
 .wrap-class > div > a .detail .timeAndTeac span {
     font-size: 13px;
     color: #999;
+    width: 115px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
-
+.wrap-class > div > a .detail .timeAndTeac span:nth-child(2){
+   text-align: right;
+}
 .wrap-class > div > a .detail .info > span:nth-child(1) {
     float: left;
 }
@@ -274,6 +283,12 @@ p{margin-bottom: 0;}
 .anchor-introduce{
 	background: white;
 	padding: 30px 20px 20px;
+}
+.anchor-introduce p{
+	line-height: 1.75em;
+}
+.anchor-introduce img{
+	margin: 20px 0;
 }
 .anchor-hospital{
 	padding: 20px;

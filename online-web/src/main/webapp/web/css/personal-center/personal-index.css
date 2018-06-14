@@ -8,6 +8,9 @@ body{
 ul{margin: 0;}
 p{margin: 0;}
 a:hover{text-decoration: none;}
+a:focus {
+outline: none;
+}
 .z{float: left;}
 .y{float: right;}
 .wp{width: 1200px; margin: 0 auto;}

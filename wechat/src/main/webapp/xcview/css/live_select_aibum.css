@@ -379,7 +379,7 @@ overflow: hidden;
 word-break:break-all; 
 }
 .wrap p{
-	line-height: 0.42rem;
+	line-height: 0.42rem !important;
 }
 .wrap p img{
 	/*width: 100%;*/
@@ -467,7 +467,7 @@ word-break:break-all;
 word-break:break-all; 
 }
 .wrap1 p{
-	line-height: 0.42rem;
+	line-height: 0.42rem !important;
 }
 .wrap1 p img{
 	/*width: 100%;*/
