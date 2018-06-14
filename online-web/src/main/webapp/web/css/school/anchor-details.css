@@ -242,13 +242,10 @@ p{margin-bottom: 0;}
     text-overflow: ellipsis;
 }
 .wrap-class > div > a .detail .timeAndTeac span {
-    font-size: 12px;
+    font-size: 13px;
     color: #999;
 }
-.wrap-class > div > a .detail .timeAndTeac span {
-    font-size: 12px;
-    color: #999;
-}
+
 .wrap-class > div > a .detail .info > span:nth-child(1) {
     float: left;
 }
