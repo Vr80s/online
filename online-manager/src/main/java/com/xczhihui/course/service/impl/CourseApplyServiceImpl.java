@@ -18,13 +18,13 @@ import com.xczhihui.anchor.service.AnchorService;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.*;
 import com.xczhihui.common.support.cc.util.CCUtils;
+import com.xczhihui.common.util.RedisCacheKey;
 import com.xczhihui.common.util.TimeUtil;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.util.enums.ApplyStatus;
 import com.xczhihui.common.util.enums.CourseDismissal;
 import com.xczhihui.common.util.enums.CourseForm;
 import com.xczhihui.common.util.enums.Multimedia;
-import com.xczhihui.constant.RedisKeyConstant;
 import com.xczhihui.course.dao.CourseApplyDao;
 import com.xczhihui.course.dao.CourseDao;
 import com.xczhihui.course.enums.MessageTypeEnum;
@@ -183,9 +183,9 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
             //如果专辑课程已经更新完，需要标识
             if (course.getCourseNumber() != null && Integer.compare(courseApplyInfos.size(), course.getCourseNumber()) >= 0) {
                 courseDao.update(course);
-                messageRemindingService.deleteCourseMessageReminding(course, RedisKeyConstant.COLLECTION_COURSE_REMIND_KEY);
+                messageRemindingService.deleteCourseMessageReminding(course, RedisCacheKey.COLLECTION_COURSE_REMIND_KEY);
             } else {
-                messageRemindingService.saveCourseMessageReminding(course, RedisKeyConstant.COLLECTION_COURSE_REMIND_KEY);
+                messageRemindingService.saveCourseMessageReminding(course, RedisCacheKey.COLLECTION_COURSE_REMIND_KEY);
             }
             saveCollectionUpdateCollectionId(courseApplyId, course.getId());
         }
@@ -579,9 +579,9 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
 
     void savecourseMessageReminding(Course course) {
         if (course.getType().equals(CourseForm.LIVE.getCode())) {
-            messageRemindingService.saveCourseMessageReminding(course, RedisKeyConstant.LIVE_COURSE_REMIND_KEY);
+            messageRemindingService.saveCourseMessageReminding(course, RedisCacheKey.LIVE_COURSE_REMIND_KEY);
         } else if (course.getType().equals(CourseForm.OFFLINE.getCode())) {
-            messageRemindingService.saveCourseMessageReminding(course, RedisKeyConstant.OFFLINE_COURSE_REMIND_KEY);
+            messageRemindingService.saveCourseMessageReminding(course, RedisCacheKey.OFFLINE_COURSE_REMIND_KEY);
         }
     }
 }
