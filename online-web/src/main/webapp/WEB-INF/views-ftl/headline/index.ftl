@@ -200,9 +200,13 @@
                         </div>
                      	<div class="zuozhe_inf">
 							<span>
-							<a  href="/doctors/${hotSpecialColumnAuthor.doctorId}" style="color: #0C0C0C" 
-							target="_blank">${hotSpecialColumnAuthor.title}</a></span>
-							<p>${hotSpecialColumnAuthor.doctorName}</p>
+                                <a  href="${webUrl}/doctors/${hotSpecialColumnAuthor.doctorId}" style="color: #0C0C0C"
+                                    target="_blank">${hotSpecialColumnAuthor.doctorName}</a></span>
+                            <p><a  href="${webUrl}/headline/details/${hotSpecialColumnAuthor.id}" style="color: #0C0C0C"
+                                   target="_blank">${hotSpecialColumnAuthor.title}</a></p>
+							<#--<a  href="/doctors/${hotSpecialColumnAuthor.doctorId}" style="color: #0C0C0C" -->
+							<#--target="_blank">${hotSpecialColumnAuthor.title}</a></span>-->
+							<#--<p>${hotSpecialColumnAuthor.doctorName}</p>-->
 						</div>
                     </li>
                 </#list>

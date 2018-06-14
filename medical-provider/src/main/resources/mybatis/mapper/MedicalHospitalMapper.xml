@@ -52,6 +52,7 @@
 		mh.name,
 		mh.province,
 		mh.city,
+		mh.tel,
 		mh.detailed_address,
 		mh.score,
 		mh.authentication,

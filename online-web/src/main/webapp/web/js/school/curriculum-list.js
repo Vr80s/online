@@ -1,58 +1,4 @@
-$(function() {
-	// 分类
-	var selectKind = '<dd id="alldAdd">' + '<p class="wrap-border">'
-			+ '<span>分类 : </span>'
-			+ '<span class="select-text" subject = "" >筛选条件</span>'
-			+ '<span class="select-close" onclick="deleteKin()">x</span>'
-			+ '</p>' + '</dd>';
 
-	// $("#select-kind dd").click(function () {
-	// var copyThisA = $(this).text();
-	// if($(this).hasClass("selected")){
-	// $(this).removeClass("selected");
-	// $(this).siblings().removeClass("selected");
-	// $("#kindAdd").remove();
-	// }else{
-	// $(this).addClass("selected").siblings().removeClass("selected");
-	// if ($("#kindAdd").length > 0) {
-	// $("#kindAdd .select-text").html($(this).text());
-	// } else {
-	// $("#select-condition").append(selectKind);
-	// $("#alldAdd").attr("id","kindAdd");
-	// $("#kindAdd .select-text").html(copyThisA);
-	// }
-	// }
-	//            
-	// });
-	// 类型
-	 var selectStyle = '<dd id="allAdd">' + '<p class="wrap-border">'
-			+ '<span>类型 : </span>' + '<span class="select-text">筛选条件</span>'
-			+ '<span class="select-close" onclick="deleteStyle()">x</span>'
-			+ '</p>' + '</dd>';
-
-	 // 综合排序,最新,人气价格
-//	 $(".wrap-tab li").click(function(){
-//		 if($(this).hasClass("selected")){
-//			 	return;
-//		 }else{
-//			 $(".wrap-tab li").removeClass("selected").eq($(this).index()).addClass("selected");
-//			 $(".tab-price p").removeClass("selected");
-//			 $(".tab-top").removeClass("selected");
-//			 $(".tab-bottom").removeClass("selected");
-//		 }
-//	 });
-//	 
-//	 $(".tab-price").click(function(){
-//		 $(".tab-price p").addClass("selected");
-//		 if($(".tab-top").hasClass("selected")){
-//			 $(".tab-top").removeClass("selected");
-//			 $(".tab-bottom").addClass("selected");
-//		 }else{
-//			 $(".tab-top").addClass("selected")
-//			 $(".tab-bottom").removeClass("selected");
-//		 }
-//	 });
-});
 
 // 判断字段空值
 function stringnull(zifu) {
@@ -81,7 +27,13 @@ function getUrlParamsReturnJson() {
 var paramsObj = getUrlParamsReturnJson();
 
 
-
+/**
+ * 例子  
+ * @param url  		http://dev.ixincheng.com:10086/courses/list?courseType=3
+ * @param arg   	courseType
+ * @param arg_val   ""
+ * @returns			http://dev.ixincheng.com:10086/courses/list?courseType=
+ */
 function changeURLArg(url,arg,arg_val){
 	var pattern=arg+'=([^&]*)';
 	var replaceText=arg+'='+arg_val; 
@@ -101,9 +53,15 @@ function changeURLArg(url,arg,arg_val){
 
 /*
  * 显示所选中的条件
+ * 和选中状态
  */
 function viewConditionOption(obj) {
 
+	/**
+	 * 上面的选中状态
+	 */
+	obj.addClass("selected").siblings().removeClass("selected");
+	
 	var selectCondition = "";
 	var subject = obj.attr("subject");
 	var selectText = obj.text();
@@ -140,10 +98,6 @@ function viewConditionOption(obj) {
 			+ '<span class="select-close"><a href='+urlFinalParams+'><img src="/web/images/mynote-close-hover.png"></a></span>'
 			+ '</p>' + '</dd>';
 
-	/**
-	 * 上面的选中状态
-	 */
-	obj.addClass("selected").siblings().removeClass("selected");
 	
 	if ($("#selectCondition" + subject).length > 0) {
 		$("#selectCondition" + subject + " .select-text").html(obj.text());
@@ -182,8 +136,9 @@ function viewCondition(paramsObj) {
 		$("#select-kind dd").each(function() {
 			var selectValue = $(this).attr("data-id");
 			if (paramsObj.menuType == selectValue) {
-				// $(this).click();
+
 				viewConditionOption($(this));
+				
 				$("[name='menuType']").val(selectValue);
 				return;	
 			}
@@ -194,7 +149,7 @@ function viewCondition(paramsObj) {
 		$("#select-style dd").each(function() {
 			var courseType = $(this).attr("data-id");
 			if (paramsObj.courseType == courseType) {
-				// $(this).click();
+				
 				viewConditionOption($(this));
 				$("[name='courseType']").val(courseType);
 				return;
@@ -206,7 +161,6 @@ function viewCondition(paramsObj) {
 		$("#select-status dd").each(function() {
 			var lineState = $(this).attr("data-id");
 			if (paramsObj.lineState == lineState) {
-				// $(this).click();
 				viewConditionOption($(this));
 				$("[name='lineState']").val(lineState);
 				return;
@@ -218,7 +172,6 @@ function viewCondition(paramsObj) {
 		$("#select-price dd").each(function() {
 			var isFree = $(this).attr("data-id");
 			if (paramsObj.isFree == isFree) {
-				// $(this).click();
 				viewConditionOption($(this));
 				$("[name='isFree']").val(isFree);
 				return;
@@ -230,7 +183,6 @@ function viewCondition(paramsObj) {
 		$("#select-address dd").each(function() {
 			var city = $(this).attr("data-id");
 			if (paramsObj.city == city) {
-				// $(this).click();
 				viewConditionOption($(this));
 				$("[name='city']").val(city);
 				return;
@@ -240,6 +192,11 @@ function viewCondition(paramsObj) {
 	
 	// 关键字
 	if (stringnull(paramsObj.queryKey)) {
+		
+		//
+		$("#defaultSearch").val(paramsObj.queryKey);
+		
+		//下面那个检索值
 		$("#search-text").val(paramsObj.queryKey);
 	}
 	
@@ -261,28 +218,44 @@ function viewCondition(paramsObj) {
  */
 viewCondition(paramsObj);
 
-// 删除分类选项
-function deleteKin() {
-	$("#kindAdd").remove();
-	$("#select-kind dd").removeClass("selected");
+
+/**
+ * 选中后，这里还需要在处理下呢，如果
+ *   如果是视频、音频的话。干掉 城市和直播状态的条件
+ *   如果是直播的话。 干掉 城市的条件
+ *   如果是线下班的话。 干掉 直播状态的条件
+ */
+
+//
+$("#select-style dd").each(function() {
+	var $this =  $(this);
+	var courseType = $this.attr("data-id");
+	courseType = parseInt(courseType);
+	var urlFinalParams =$this.parent().attr("href");
+	if (1 == courseType || 2 == courseType) { //视频。音频
+		urlFinalParams = changeURLArg(urlFinalParams,"lineState","");
+		urlFinalParams = changeURLArg(urlFinalParams,"city","");
+	    $this.parent().attr("href",urlFinalParams);
+	}else if(3 == courseType){ //直播
+		urlFinalParams = changeURLArg(urlFinalParams,"city","");
+	    $this.parent().attr("href",urlFinalParams);
+	}else if(4 == courseType){ //线下课
+		urlFinalParams = changeURLArg(urlFinalParams,"lineState","");
+	    $this.parent().attr("href",urlFinalParams);
+	}
+});
+
+/*
+ *  显示隐藏
+ */
+if (stringnull(paramsObj.courseType) && (paramsObj.courseType == 3)) {
+	$("#select-status-hide").show();
+}else if (stringnull(paramsObj.courseType) && (paramsObj.courseType == 4)) {
+	$("#select-address-hide").show();
 }
-// 删除类型选项
-function deleteStyle() {
-	$("#styleAdd").remove();
-	$("#select-style dd").removeClass("selected");
-}
-// 删除状态选项
-function deleteStatus() {
-	$("#statusAdd").remove();
-	$("#select-status dd").removeClass("selected");
-}
-// 删除收费选项
-function deletePrice() {
-	$("#priceAdd").remove();
-	$("#select-price dd").removeClass("selected");
-}
-// 删除收费选项
-function deleteAddress() {
-	$("#addressAdd").remove();
-	$("#select-address dd").removeClass("selected");
-}
+
+
+
+
+
+
