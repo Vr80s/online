@@ -563,8 +563,14 @@ word-break:break-all;
 .wrap-recommend > div > a .detail .timeAndTeac span {
     font-size: 13px;
     color: #999;
+        width: 115px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
-
+.wrap-recommend > div > a .detail .timeAndTeac span:nth-child(2){
+    text-align: right;
+}
 .wrap-recommend > div > a .detail .info > span:nth-child(1) {
     float: left;
 }

@@ -204,6 +204,13 @@ a:active{text-decoration:none;}/* 指正在点的链接*/
 .main .content-class > div > a .detail .timeAndTeac span {
     font-size: 13px;
     color: #999;
+        width: 115px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.main .content-class > div > a .detail .timeAndTeac span:nth-child(2){
+    text-align: right;
 }
 .main .content-class > div > a .detail .timeAndTeac .teacher{
 	    display: inline-block;
