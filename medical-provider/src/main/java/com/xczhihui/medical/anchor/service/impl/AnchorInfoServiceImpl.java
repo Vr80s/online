@@ -8,6 +8,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import com.xczhihui.common.util.RedisCacheKey;
+import com.xczhihui.common.util.enums.AnchorType;
 import com.xczhihui.medical.exception.AnchorException;
 import com.xczhihui.common.support.cc.util.CCUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -94,12 +95,12 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService{
             CourseAnchor courseAnchor = courseAnchors.get(0);
 
             // 如果用户是医师 获取其医师信息
-            if(courseAnchor.getType() == 1){
+            if(courseAnchor.getType() == AnchorType.DOCTOR.getCode()){
                 courseAnchorVO = this.selectDoctorDetail(userId);
             }
 
             // 如果用户是医馆 获取其医馆信息
-            if(courseAnchor.getType() == 2){
+            if(courseAnchor.getType() == AnchorType.HOSPITAL.getCode()){
                 courseAnchorVO = this.selectHospitalDetail(userId);
             }
 
@@ -139,10 +140,6 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService{
             BeanUtils.copyProperties(target, courseAnchor);
             courseAnchor.setId(anchor.getId());
 
-//            EntityWrapper<CourseAnchor> ew = new EntityWrapper();
-//            ew.where("user_id={0}",target.getUserId());
-//            courseAnchorMapper.update(courseAnchor, ew);
-
             // 如果不选择精彩致辞，则表示取消之前的精彩致辞(这是不是删除用户的精彩致辞)
             if (target.getResourceId() == null){
                 courseAnchor.setResourceId(null);
@@ -155,12 +152,12 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService{
             courseAnchorMapper.updateById(courseAnchor);
 
             // 如果用户是医师 更新医师信息
-            if(anchor.getType() == 1){
+            if(anchor.getType() == AnchorType.DOCTOR.getCode() && StringUtils.isNotBlank(target.getHospitalId())){
                 this.updateDoctorDetail(target);
             }
 
             // 如果用户是医馆 更新其医馆信息
-            if(anchor.getType() == 2){
+            if(anchor.getType() == AnchorType.HOSPITAL.getCode()){
                 this.updateHospitalDetail(target);
             }
         }
@@ -271,17 +268,17 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService{
 
         // 更新用户的医师信息
         MedicalDoctor doctor = new MedicalDoctor();
-        doctor.setProvince(target.getProvince());
-        doctor.setCity(target.getCity());
+//        doctor.setProvince(target.getProvince());
+//        doctor.setCity(target.getCity());
         if(StringUtils.isNotBlank(target.getWorkTime())){
             doctor.setWorkTime(target.getWorkTime());
         }
-        if(StringUtils.isNotBlank(target.getTel())){
-            doctor.setTel(target.getTel());
-        }
-        if(StringUtils.isNotBlank(target.getDetailAddress())){
-            doctor.setDetailedAddress(target.getDetailAddress());
-        }
+//        if(StringUtils.isNotBlank(target.getTel())){
+//            doctor.setTel(target.getTel());
+//        }
+//        if(StringUtils.isNotBlank(target.getDetailAddress())){
+//            doctor.setDetailedAddress(target.getDetailAddress());
+//        }
         doctor.setUpdatePerson(target.getUserId());
         EntityWrapper<MedicalDoctor> medicalDoctorEntityWrapper = new EntityWrapper();
         medicalDoctorEntityWrapper.where("id={0}", doctorAccount.getDoctorId());
@@ -306,12 +303,12 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService{
         if(StringUtils.isBlank(target.getDetail())){
             throw new AnchorException("主播个人介绍不能为空");
         }
-        if(StringUtils.isBlank(target.getProvince())){
-            throw new AnchorException("主播省份不能为空");
-        }
-        if(StringUtils.isBlank(target.getCity())){
-            throw new AnchorException("主播省份不能为空");
-        }
+//        if(StringUtils.isBlank(target.getProvince())){
+//            throw new AnchorException("主播省份不能为空");
+//        }
+//        if(StringUtils.isBlank(target.getCity())){
+//            throw new AnchorException("主播省份不能为空");
+//        }
 
     }
 
@@ -360,6 +357,11 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService{
             hospital = hospitalMapper.selectById(hospitalDoctor.getHospitalId());
             if(hospital != null){
                 courseAnchorVO.setHospitalName(hospital.getName());
+                // 医师的预约电话是医馆的预约电话
+                courseAnchorVO.setTel(hospital.getTel());
+                courseAnchorVO.setProvince(hospital.getProvince());
+                courseAnchorVO.setCity(hospital.getCity());
+                courseAnchorVO.setDetailAddress(hospital.getDetailedAddress());
             }
 
         }
@@ -368,12 +370,6 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService{
         MedicalDoctor doctor = doctorMapper.selectById(doctorAccount.getDoctorId());
         if(doctor != null){
             courseAnchorVO.setWorkTime(doctor.getWorkTime());
-            courseAnchorVO.setProvince(doctor.getProvince());
-            courseAnchorVO.setCity(doctor.getCity());
-            courseAnchorVO.setDetailAddress(doctor.getDetailedAddress());
-
-            // 医师的预约电话是医馆的预约电话
-            courseAnchorVO.setTel(hospital.getTel());
         }
 
         return courseAnchorVO;

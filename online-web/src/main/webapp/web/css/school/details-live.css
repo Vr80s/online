@@ -8,6 +8,9 @@ body{
 ul{margin: 0;}
 p{margin: 0;}
 a:hover{text-decoration: none;}
+a:focus {
+outline: none;
+}
 .cl{clear: both;}
 .z{float: left;}
 .y{float: right;}

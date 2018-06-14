@@ -1,7 +1,11 @@
 /*分页 begin*/
-.page_list{width:75%;margin:5% auto;padding-left: 130px;}
-.page_list a{ text-decoration: none;font-size:75%;color:#2CB82C; display: block;float: left;width:30px;height:30px;line-height:30px;
+/*.page_list{width:75%;margin:5% auto;padding-left: 130px;}*/
+/*.page_list a{ text-decoration: none;font-size:75%;color:#2CB82C; display: block;float: left;width:30px;height:30px;line-height:30px;
+    margin-right: 10px;text-align: center;background-color: #fff;border:1px solid #dedede;}*/
+   .page_list{margin:5% auto;text-align: center;}
+    .page_list a{ text-decoration: none;font-size:75%;color:#2CB82C; display: inline-block;width:30px;height:30px;line-height:30px;
     margin-right: 10px;text-align: center;background-color: #fff;border:1px solid #dedede;}
+    
 .page_list a.top_page,.page_list a.end_page{width:30px;height:30px}
 .page_list a.page_prev,.page_list a.page_next{width:30px;height:30px}
 .page_list span.page_ellipsis{display: block;float: left;width:46px;height:46px;margin-right: 10px;background-position:5px -88px;border:none;}

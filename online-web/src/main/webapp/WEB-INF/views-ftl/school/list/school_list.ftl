@@ -64,21 +64,7 @@
 								</dl>
 							</li>
 						</#if>
-						<#if liveStatusEnum?? && liveStatusEnum?size gt 0>
-							<li>
-								<dl id="select-status">
-									<dt>状态 :</dt>
-									<a href="${webUrl}${replaceUrl(webUrlParam,'lineState',0)}">
-									<dd class="select-all" subject ="lineState" data-id="0">全部</dd>
-									</a>
-									<#list liveStatusEnum as liveStatus>
-										<a href="${replaceUrl(webUrlParam,'lineState',liveStatus.id)}">
-											<dd subject ="lineState" data-id="${liveStatus.id}">${liveStatus.name}</dd>
-										</a>
-									</#list>	
-								</dl>
-							</li>
-						</#if>
+
 						<#if freeTypeEnum?? && freeTypeEnum?size gt 0>
 							<li>
 								<dl id="select-price">
@@ -91,8 +77,21 @@
 								</dl>
 							</li>
 						</#if>
+
+						<#if liveStatusEnum?? && liveStatusEnum?size gt 0>
+							<li id="select-status-hide" style="display:none">
+								<dl id="select-status">
+									<dt>状态 :</dt>
+									<#list liveStatusEnum as liveStatus>
+										<a href="${replaceUrl(webUrlParam,'lineState',liveStatus.id)}">
+											<dd subject ="lineState" data-id="${liveStatus.id}">${liveStatus.name}</dd>
+										</a>
+									</#list>	
+								</dl>
+							</li>
+						</#if>
 						<#if cityList?? && cityList?size gt 0>
-							<li>
+							<li id="select-address-hide" style="display:none">
 								<dl id="select-address">
 								    <a href="${webUrl}${replaceUrl(webUrlParam,'city',"")}">
 									<dt>城市 :</dt>
@@ -198,7 +197,7 @@
 					
 							
 							<div class="detail">
-								<p class="title" data-text="音频测试3" title="音频测试3">${courseItem.gradeName}</p>
+								<p class="title" title="${courseItem.gradeName}">${courseItem.gradeName}</p>
 								<p class="timeAndTeac">
 									<span class="teacher z">${courseItem.name}</span>
 									 <#if courseItem.type == 4>

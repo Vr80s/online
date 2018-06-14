@@ -568,8 +568,14 @@ a {
 .course>a .detail .timeAndTeac span {
 	font-size: 13px;
 	color: #999;
+	    width: 115px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
-
+.course>a .detail .timeAndTeac span:nth-child(2){
+	text-align: right;
+}
 
 .course>a .detail .info>span:nth-child(1) {
 	float: left;

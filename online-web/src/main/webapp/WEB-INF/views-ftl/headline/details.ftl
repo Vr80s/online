@@ -103,7 +103,9 @@
                     <span>全部评论</span>
                     <span class="community-count">${appraises.total}条</span>
                 </div>
-                <div class="forum-communitybox">
+                
+                <#if appraises?? && appraises.records?size gt 0 >
+                	<div class="forum-communitybox">
                     <#list appraises.records as appraise>
                         <div class="forum-community-content">
                             <div class="forum-comment-content clearfix">
@@ -155,8 +157,16 @@
                             </div>
                         </div>
                     </#list>
-
                 </div>
+                <#else>
+                  <!--暂无评论显示背景图-->
+					<div class="nodata-box">
+						<div class="no-question-img">
+							<img src="/web/images/icon-nodata.png"/>
+						</div>
+						<p>暂无数据</p>	
+					</div>
+                </#if>
             </div>
 
 

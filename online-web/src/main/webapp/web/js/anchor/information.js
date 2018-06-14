@@ -28,7 +28,7 @@ $(function(){
         //初始化主播是的医馆信息
 		initAuthenticationHos();
     }
-   
+
 
     var anchor_details_editor = UE.getEditor('anchor_details_editor',{
         toolbars:[['source', //源代码
@@ -69,15 +69,15 @@ $(function(){
         autoFloatEnabled: true,
         enableAutoSave:false,
         imagePopup:false,
-        maximumWords:10000       //允许的最大字符数
+        maximumWords:3000       //允许的最大字符数
     });
-    
-    
-    
-    
-	
-	
-	
+
+
+
+
+
+
+
 	//每周坐诊点击生成数组数据
 var arr = [];
 //var workTime;
@@ -100,8 +100,8 @@ $('#u_workTime  li').click(function(){
     }
     console.log(workTime)
 })
-	
-	
+
+
 
 	//选择医师列表
 	$('#speech_select1').change(function(){
@@ -113,12 +113,12 @@ $('#u_workTime  li').click(function(){
 //		console.log(data)
     })
 })
-	
 
-	
-	
-	
-	
+
+
+
+
+
 });
 
 //初始化主播是医师信息
@@ -167,8 +167,8 @@ function getPhysicianData(){
     var data = {};
     data.name = $.trim($('.physician_name').val());
     data.cardNum = $.trim($('.physician_card').val());
-    data.cardPositive = $.trim($('#cardPositiveImg img').attr('src'));
-    data.cardNegative = $.trim($('#cardNegativeImg img').attr('src'));
+    /*data.cardPositive = $.trim($('#cardPositiveImg img').attr('src'));
+    data.cardNegative = $.trim($('#cardNegativeImg img').attr('src'));*/
     data.qualificationCertificate = $.trim($('#qualificationCertificateImg img').attr('src'));
     data.professionalCertificate = $.trim($('#professionalCertificateImg img').attr('src'));
     return data;
@@ -204,7 +204,7 @@ function verifyPhysician(data){
     }else{
         $('.warning_physician_card_verify').addClass('hide');
     }
-    if(data.cardPositive == ''){
+    /*if(data.cardPositive == ''){
         $('.warning_cardPositiveImg').removeClass('hide');
         return false;
     }else{
@@ -215,7 +215,7 @@ function verifyPhysician(data){
         return false;
     }else{
         $('.warning_cardNegativeImg').addClass('hide');
-    }
+    }*/
     if(data.qualificationCertificate == ''){
         $('.warning_qualificationCertificateImg').removeClass('hide');
         return false;
@@ -310,34 +310,34 @@ function isCardID(sId){
 
 //储存主播信息
 function saveAnchorInfo(){
-		
+
 	//基础信息验证通过了验证医师医馆对应的信息
 	if(localStorage.AccountStatus == 1){
 		var anchorInfo1 = getAnchorInfo();
 		if(verifyAnchorInfo(anchorInfo1)){
 		 	//验证通过之后进行
 		RequestService("/anchor/info", "post", anchorInfo1,function(data){
-    	
+
 //		console.log(data)
 			if(data.success == true){
 				showTip('修改成功')
 				setTimeout(function(){
 					$('.name_personage').click()
 				},2000)
-				
+
 			}
     	})
 		}
 	}
-	
-	
-	
+
+
+
 	if(localStorage.AccountStatus == 2){
 		var anchorInfo2 = getAnchorInfo2();
 		if(verifyAnchorInfo2(anchorInfo2)){
 		 	//验证通过之后进行
 		RequestService("/anchor/info", "post", anchorInfo2,function(data){
-    	
+
 //		console.log(data)
 			if(data.success == true){
 				showTip('修改成功')
@@ -348,7 +348,7 @@ function saveAnchorInfo(){
     	})
 		}
 	}
-	
+
     }
 
 
@@ -394,37 +394,37 @@ function verifyAnchorInfo(data){
     }else{
         $('.warning_anchor_name').addClass('hide');
     }
-    
+
     if(data.profilePhoto == '' || data.profilePhoto == null){
         $('.warning_profileImgphoto').removeClass('hide');
         return false;
     }else{
         $('.warning_profileImgphoto').addClass('hide');
     }
-    
+
 //   if(data.video == ''){
 //      $('.warning_anchor_Speech').removeClass('hide');
 //      return false;
 //  }else{
 //      $('.warning_anchor_Speech').addClass('hide');
 //  }
-    
+
     if(data.detail == ''){
         $('.warning_anchor_lecturer_description').removeClass('hide');
         return false;
     }else{
         $('.warning_anchor_lecturer_description').addClass('hide');
     }
-    
-    
+
+
     //医师入驻的医馆名字
-	if(data.hospitalId == '-1'){ 
+	if(data.hospitalId == '-1'){
 		$('.return_warning4').removeClass('hide');
 		return false;
 	}else{
        $('.return_warning4').addClass('hide');
     }
-	
+
 	//坐镇的时间
 	if(data.workTime == ''){
 		$('.return_warning7').removeClass('hide');
@@ -432,7 +432,7 @@ function verifyAnchorInfo(data){
 	}else{
 		$('.return_warning7').addClass('hide');
 	}
-//	
+//
 //	//医师所在省市填写
 	if(data.province == '-1' ||  data.city == '-1'){
 		$('.return_warning6').removeClass('hide');
@@ -456,29 +456,29 @@ function verifyAnchorInfo2(data){
     }else{
         $('.warning_anchor_name').addClass('hide');
     }
-    
+
     if(data.profilePhoto == '' || data.profilePhoto == null){
         $('.warning_profileImgphoto').removeClass('hide');
         return false;
     }else{
         $('.warning_profileImgphoto').addClass('hide');
     }
-//  
+//
 //   if(data.video == ''){
 //      $('.warning_anchor_Speech').removeClass('hide');
 //      return false;
 //  }else{
 //      $('.warning_anchor_Speech').addClass('hide');
 //  }
-    
+
     if(data.detail == ''){
         $('.warning_anchor_lecturer_description').removeClass('hide');
         return false;
     }else{
         $('.warning_anchor_lecturer_description').addClass('hide');
     }
-    
-    
+
+
 
 	if(data.tel == ''){
 		$('.return_warning8').text('预约电话不能为空');
@@ -499,7 +499,7 @@ function verifyAnchorInfo2(data){
 	}else {
 		 $('.return_warning6').addClass('hide');
 	}
-	
+
 	 if(data.detailAddress == ''){
         $('.return_warning5 ').removeClass('hide');
         return false;
@@ -525,16 +525,16 @@ function showAnchorInfo() {
 					$('#demo1 .choosePro option:selected').text(result.resultObject.province);
 					$('#demo1 .chooseCity option:selected').text(result.resultObject.city);
 					$('#u_hospital_tel').val(result.resultObject.tel);
-					
+
        			}
                 var anchor = result.resultObject;
       			console.log(anchor.name)
-               
+
                 $('#u_nickname').val(anchor.name);
                 $('#nickname').text(anchor.name);
                 $('#nickname').attr('title','');
                 $('#profilePhoto').attr('src', anchor.profilePhoto);
-   
+
 //              $('#intersting').html(anchor.video);
  				if(anchor.hospitalName){
                 	$('#hospitalName').html(anchor.hospitalName);

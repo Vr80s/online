@@ -2091,7 +2091,7 @@
 						<div class="one" style="margin-top: 0;">身份证号</div>
 						<div class="two anchor_idCard"></div>
 					</div>
-					<div class="name">
+					<!--<div class="name">
 						<div class="one">身份证</div>
 						<div class="two two_img">
 							<img src="" class="anchor_idCard_a" />
@@ -2099,7 +2099,7 @@
 						<div class="three">
 							<img src=""  class="anchor_idCard_b" />
 						</div>
-					</div>
+					</div>-->
 					<div class="name">
 						<div class="one">医师资格证</div>
 						<div class="two two_img">
@@ -2490,7 +2490,7 @@
 				</div>
 				<div class="name">
 					<div class="one" style="margin-top: 0;">昵称</div>
-					<div class="two nickname" id="nickname"></div>
+					<div class="two " id="nickname"></div>
 				</div>
 				<div class="name">
 					<div class="one">主播头像</div>
@@ -2522,7 +2522,7 @@
 				</div>
 				<div class="name physician">
 					<div class="one" style="margin-top: 0;">坐诊时间</div>
-					<div class="two">每周<span id="workTime"></span></div>
+					<div class="two"><span id="workTime"></span></div>
 				</div>
 				<div class="name">
 					<div class="one" style="margin-top: 0;">预约电话</div>
@@ -2582,20 +2582,15 @@
 					<div class="name">
 						<span><em>*</em>主播介绍</span>
 						<div class="" style="display: inline-block">
-							<script id="anchor_details_editor" type="text/plain" style="width:540px;height:160px;"></script>
-						</div>
+							<script id="anchor_details_editor" type="text/plain" style="width:540px;height:160px;"></script></div>
 						<p class="warning warning_anchor_lecturer_description hide">主播介绍不能为空</p>
 					</div>
 					
 					<!--主播是医师的时候的基础信息-->
 					<div id="doctor_baseInf" class="hide">
 					<div class="">
-						<span style="width: 89px;display: inline-block;margin-right: 12px;text-align: right;"><em  style="display: inline-block;color: #f40;">*</em>任职医馆</span>
-						<!--<input type="text" placeholder="请填写您的任职医馆" class="put1">-->
-						<!--<label for="workHos_select"></label>
-						<select id="workHos_select" class="selectpicker bla bla bli workHos_resource" data-live-search="true">
-							</optgroup>
-						</select>-->
+						<span style="width: 89px;display: inline-block;margin-right: 12px;text-align: right;">任职医馆</span>
+
 						<div style="display: inline-block;">
 							<label for="speech_select1"></label>
 						<select id="speech_select1" class="selectpicker bla bla bli workHos_select"  data-live-search="true"></select>
@@ -2604,7 +2599,7 @@
 						<p class="warning return_warning4 hide">任职医馆不能为空</p>
 					</div>
 					<div class="name workTime" >
-						<span><em>*</em>坐诊时间</span>
+						<span>坐诊时间</span>
 					<ul style="display: inline-block;vertical-align: middle;" id="u_workTime">
 						<li >一</li>
 						<li>二</li>
@@ -2618,7 +2613,7 @@
 					</div>
 					
 					<div class="name">
-						<span><em>*</em>预约电话</span>
+						<span>预约电话</span>
 						<input type="text"  disabled="disabled" class="appointmentTel" placeholder="请输入预约电话">
 					</div>
 					</div>
@@ -2632,12 +2627,12 @@
 							<p class="warning return_warning8 hide">预约电话不能为空</p>
 						</div>
 					</div>
-					
-					
-					
-					
+
+
+
+
 					<div class="name">
-						<span><em>*</em>城市</span>
+						<span><em class="cityem">*</em>城市</span>
 						<div id="demo1" class="citys">
 								<select name="province" class="choosePro" style="margin-bottom: 20px;">
 									<option value="">请选择省份</option>

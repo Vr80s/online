@@ -9,6 +9,9 @@ body {
   /*管理提示*/
   /*登录和注册*/
 }
+a:focus {
+outline: none;
+}
 html input:-webkit-autofill,
 body input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0px 1000px #f5f5f5 inset !important;

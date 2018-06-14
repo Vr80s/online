@@ -8,6 +8,9 @@ a:link{text-decoration:none; }  /* 指正常的未被访问过的链接*/
 a:visited{text-decoration:none; }/*指已经访问过的链接*/
 a:hover{text-decoration:none;}/*指鼠标在链接*/}
 a:active{text-decoration:none;}/* 指正在点的链接*/ 
+a:focus {
+outline: none;
+}
 .z{float: left;}
 .y{float: right;}
 .wp{width: 1200px; margin: 0 auto;}
@@ -231,8 +234,14 @@ a:active{text-decoration:none;}/* 指正在点的链接*/
 .main .content-class > div > a .detail .timeAndTeac span {
     font-size: 13px;
     color: #999;
+    width: 115px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
-
+.main .content-class > div > a .detail .timeAndTeac span:nth-child(2){
+    text-align: right;
+}
 .main .content-class > div > a .detail .info > span:nth-child(1) {
     float: left;
 }
