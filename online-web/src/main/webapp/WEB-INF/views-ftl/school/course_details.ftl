@@ -217,11 +217,11 @@
 	                </div>
 	                <div class="author-content">
 	                    <div class="author-text">
-	                    <#if courseInfo.lecturerDescription??>
-	                    	${courseInfo.lecturerDescription}
-	                    <#else>
-	                    	<p style="padding-top:20px;">暂无主讲人介绍</p>
-	                    </#if>
+		                    <#if courseInfo.lecturerDescription??>
+		                    	${courseInfo.lecturerDescription}
+		                    <#else>
+		                    	<p style="padding-top:20px;">暂无主讲人介绍</p>
+		                    </#if>
 	                    </div>
 	                </div>
 	                <div class="author-introduce" style="margin-top: 30px;">
