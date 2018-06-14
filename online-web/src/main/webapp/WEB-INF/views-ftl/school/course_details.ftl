@@ -221,15 +221,6 @@
 	                    	${courseInfo.lecturerDescription}
 	                    <#else>
 	                    	<p style="padding-top:20px;">暂无主讲人介绍</p>
-	                    <#--
-	                                                                        无数据时显示背景图
-	                        <div class="all-null course-null">
-	                            <div class="null-img">
-	                                <img src="/web/images/icon-nodata.png"/>
-	                            </div>
-	                            <p>暂无主讲人介绍</p>
-	                            -->
-	                        </div>
 	                    </#if>
 	                    </div>
 	                </div>
