@@ -22,7 +22,6 @@ import com.xczhihui.common.util.DateUtil;
 import com.xczhihui.common.util.RedisCacheKey;
 import com.xczhihui.common.util.SmsUtil;
 import com.xczhihui.common.util.TimeUtil;
-import com.xczhihui.constant.RedisKeyConstant;
 import com.xczhihui.course.dao.CollectionCourseApplyUpdateDateDao;
 import com.xczhihui.course.dao.CourseDao;
 import com.xczhihui.course.enums.MessageTypeEnum;
