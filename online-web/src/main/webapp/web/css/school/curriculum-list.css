@@ -276,8 +276,14 @@ a:active{text-decoration:none;}/* 指正在点的链接*/
 .main .wrap-video > div > a .detail .timeAndTeac span {
     font-size: 13px;
     color: #999;
+    width: 115px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
-
+.main .wrap-video > div > a .detail .timeAndTeac span:nth-child(2){
+   text-align: right;
+}
 .main .wrap-video > div > a .detail .info > span:nth-child(1) {
     float: left;
 }
