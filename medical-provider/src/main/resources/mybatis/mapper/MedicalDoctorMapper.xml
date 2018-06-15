@@ -35,6 +35,7 @@
         </if>
         <if test="department != null and department!=''">
             join medical_doctor_department mdd on md.id = mdd.doctor_id and mdd.`department_id`=#{department}
+        		and mdd.`deleted`=0
         </if>
         LEFT JOIN `medical_doctor_authentication_information` mdai
         ON md.`authentication_information_id` = mdai.`id`
