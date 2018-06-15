@@ -88,6 +88,7 @@ public class ClinicPageController extends AbstractFtlController {
         view.addObject("clinic", clinic);
 
         Page<MedicalDoctorVO> doctors = medicalDoctorBusinessService.selectDoctorPage(new Page<>(1, 4), null, id, null, null, null);
+        
         view.addObject("doctors", doctors);
 
         List<MedicalHospitalRecruitVO> recruits = medicalHospitalRecruitBusinessService.selectHospitalRecruitByHospitalId(id);

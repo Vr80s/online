@@ -65,6 +65,7 @@
 			<div class="col-sm-1">
 				<input type="hidden" name="education" id="oldEducation"  value="${MedicalEntryInformation.education}" >
 				<select   name="education"   id="education"  class="col-xs-12 col-sm-12 " disabled="disabled">
+					<option  value="0" >无</option>
 					<option  value="1" >小学</option>
 					<option  value="2" >初中</option>
 					<option  value="3" >高中</option>
