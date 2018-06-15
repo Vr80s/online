@@ -211,10 +211,12 @@
 															<p class="timeAndTeac">
 																<span class="teacher z">{{item.lecturerName}}</span>
 																{{if item.type == 3}}
-																	{{if item.startDateStr.indexOf('.')==-1}}
-																	<span class="y"><img src="/web/images/myvideo-time.png" style="margin: -3px 3px 0 0;" />{{item.startDateStr}}</span>                        
-																	{{else}}
-																 	<span class="y"><img src="/web/images/date_month.png" style="margin: -3px 2px 0 0;" />{{item.startDateStr.replace(".", "月")}}日</span>
+																	{{if item.lineState!=1}}
+																		{{if item.startDateStr.indexOf('.')==-1}}
+																		<span class="y"><img src="/web/images/myvideo-time.png" style="margin: -3px 3px 0 0;" />{{item.startDateStr}}</span>                        
+																		{{else}}
+																	 	<span class="y"><img src="/web/images/date_month.png" style="margin: -3px 2px 0 0;" />{{item.startDateStr.replace(".", "月")}}日</span>
+																		{{/if}}
 																	{{/if}}
 																{{/if}}
 																
@@ -308,10 +310,12 @@
 																{{/if}}
 																
 																{{if item.type == 3}}
-																	{{if item.startDateStr.indexOf('.')==-1}}
-																	<span class="y"><img src="/web/images/myvideo-time.png" style="margin: -3px 3px 0 0;" />{{item.startDateStr}}</span>                        
-																	{{else}}
-																 	<span class="y"><img src="/web/images/date_month.png" style="margin: -3px 2px 0 0;" />{{item.startDateStr.replace(".", "月")}}日</span>
+																	{{if item.lineState!=1}}
+																		{{if item.startDateStr.indexOf('.')==-1}}
+																		<span class="y"><img src="/web/images/myvideo-time.png" style="margin: -3px 3px 0 0;" />{{item.startDateStr}}</span>                        
+																		{{else}}
+																	 	<span class="y"><img src="/web/images/date_month.png" style="margin: -3px 2px 0 0;" />{{item.startDateStr.replace(".", "月")}}日</span>
+																		{{/if}}
 																	{{/if}}
 																{{/if}}
 															</p>
@@ -405,10 +409,12 @@
 																<span class="y">{{item.city}}</span>
 																{{/if}}
 																{{if item.type == 3}}
-																	{{if item.startDateStr.indexOf('.')==-1}}
-																	<span class="y"><img src="/web/images/myvideo-time.png" style="margin: -3px 3px 0 0;" />{{item.startDateStr}}</span>                        
-																	{{else}}
-																 	<span class="y"><img src="/web/images/date_month.png" style="margin: -3px 2px 0 0;" />{{item.startDateStr.replace(".", "月")}}日</span>
+																	{{if item.lineState!=1}}
+																		{{if item.startDateStr.indexOf('.')==-1}}
+																		<span class="y"><img src="/web/images/myvideo-time.png" style="margin: -3px 3px 0 0;" />{{item.startDateStr}}</span>                        
+																		{{else}}
+																	 	<span class="y"><img src="/web/images/date_month.png" style="margin: -3px 2px 0 0;" />{{item.startDateStr.replace(".", "月")}}日</span>
+																		{{/if}}
 																	{{/if}}
 																{{/if}}
 															</p>
