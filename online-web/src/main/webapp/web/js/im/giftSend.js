@@ -149,13 +149,12 @@ $(document).ready(function() {
 	/*
 	 * 点击发送时候的送礼物效果/充值事件
 	 */
-	$('.surprise-mouseover-ul li .surprise-presented,.surprise-mouseover-ul li').click(function(){
+	$('.surprise-presented').click(function(){
 		
 		//回放状态不让发送
 		if(liveStatus == 3){
 			return;
 		}
-		
 		var gid = $(this).attr("data-id");
 		var number = $(this).attr("data-number");
 		//判断余额是否足够
