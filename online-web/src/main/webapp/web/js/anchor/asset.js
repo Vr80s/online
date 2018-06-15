@@ -246,6 +246,9 @@ function saveBankCard() {
 	savedata.tel = $.trim($('.content_add #content_add_bank').val());
 	savedata.certId = $.trim($('.content_add #content_add_idCard').val());
 	if(verifyBankCard(savedata)) {
+		
+		$(".waring").addClass("hide");
+		
 		//  	showDel_bank();
 		//  	$('#sureDel_bank').click(function(){
 		RequestService("/anchor/asset/saveBankCard", "post", savedata, function(data) {
@@ -253,6 +256,9 @@ function saveBankCard() {
 				showTip(data.resultObject);
 				//	                hideDel_bank()
 				initBasaeAssetInfo();
+				
+				
+				
 			} else if(!data.success && data.code == 201) {
 				$('#addBankCard .confirm-content').text('您填写的身份信息与主播认证信息不一致，是否继续添加？')
 				showDel_bank()
@@ -264,6 +270,7 @@ function saveBankCard() {
 					}
 					falg = false;
 					savedata.code = 1;
+					$(".waring").addClass("hide");
 					RequestService("/anchor/asset/saveBankCard", "post", savedata, function(data) {
 						falg = true;
 						if(data.success) {
