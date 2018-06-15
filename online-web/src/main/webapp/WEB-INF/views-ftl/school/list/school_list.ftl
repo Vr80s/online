@@ -53,7 +53,7 @@
 							<li>
 								<dl id="select-style">
 									<dt>类型 :</dt>
-									<a href="${webUrl}${replaceUrl(webUrlParam,'courseType',0)}">
+									<a class="courseTypeAll" href="${webUrl}${replaceUrl(webUrlParam,'courseType',0)}">
 									<dd class="select-all" subject ="courseType" data-id="0">全部</dd>
 									</a>
 									<#list courseTypeEnum as courseType>

@@ -232,7 +232,7 @@ $("#select-style dd").each(function() {
 	var courseType = $this.attr("data-id");
 	courseType = parseInt(courseType);
 	var urlFinalParams =$this.parent().attr("href");
-	if (1 == courseType || 2 == courseType) { //视频。音频
+	if (0 == courseType || 1 == courseType || 2 == courseType) { //视频。音频
 		urlFinalParams = changeURLArg(urlFinalParams,"lineState","");
 		urlFinalParams = changeURLArg(urlFinalParams,"city","");
 	    $this.parent().attr("href",urlFinalParams);
@@ -244,6 +244,14 @@ $("#select-style dd").each(function() {
 	    $this.parent().attr("href",urlFinalParams);
 	}
 });
+
+if(stringnull(paramsObj.lineState)!=null){
+	var href = $(".courseTypeAll").attr("href");
+	if(stringnull(href)){
+		href = changeURLArg(href,"lineState","");
+		$(".courseTypeAll").attr("href",href);
+	}
+}
 
 /*
  *  显示隐藏
