@@ -1,6 +1,12 @@
 package com.xczhihui.medical.doctor.service.impl;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
@@ -42,6 +48,7 @@ import com.xczhihui.medical.hospital.model.MedicalHospitalAccount;
 import com.xczhihui.medical.hospital.model.MedicalHospitalDoctor;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalBusinessService;
 import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
+import com.xczhihui.utils.XzStringUtils;
 
 /**
  * ClassName: MedicalDoctorBusinessServiceImpl.java <br>
@@ -125,6 +132,8 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
                 departments.deleteCharAt(departments.length() - 1);
                 records.get(i).setDepartmentText(departments.toString());
             }
+            //筛选坐诊时间
+            records.get(i).setWorkTime(XzStringUtils.workTimeScreen(records.get(i).getWorkTime()));;
         }
         page.setRecords(records);
         return page;

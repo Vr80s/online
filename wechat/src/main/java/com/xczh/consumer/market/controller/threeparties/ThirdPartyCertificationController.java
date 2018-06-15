@@ -81,8 +81,7 @@ public class ThirdPartyCertificationController {
     @RequestMapping("thirdPartyBindIsNoMobile")
     @ResponseBody
     @Transactional
-    public ResponseObject thirdPartyBindThereAreMobile(HttpServletRequest req,
-                                                       HttpServletResponse res, @RequestParam("userName") String userName,
+    public ResponseObject thirdPartyBindThereAreMobile(HttpServletResponse res, @RequestParam("userName") String userName,
                                                        @RequestParam("unionId") String unionId,
                                                        @RequestParam("code") String code,
                                                        @RequestParam("type") Integer type) throws Exception {
@@ -152,8 +151,6 @@ public class ThirdPartyCertificationController {
     /**
      * 微博、qq绑定 未被注册的 --》增加用户信息，并且用户信息存在用默认的第三方登录的名字和头像 Description：
      *
-     * @param req
-     * @param res
      * @return void
      * @throws Exception
      * @author name：yangxuan <br>
@@ -162,8 +159,7 @@ public class ThirdPartyCertificationController {
     @RequestMapping("thirdPartyBindMobile")
     @ResponseBody
     @Transactional
-    public ResponseObject thirdPartyBindMobile(HttpServletRequest req,
-                                               HttpServletResponse res, @RequestParam("userName") String userName,
+    public ResponseObject thirdPartyBindMobile(@RequestParam("userName") String userName,
                                                @RequestParam("passWord") String passWord,
                                                @RequestParam("unionId") String unionId,
                                                @RequestParam("code") String code,
@@ -258,7 +254,7 @@ public class ThirdPartyCertificationController {
         }
         OeUserVO userVO = userCenterService.getUserVO(userName);
         if (userVO == null) {
-            userCenterService.regist(userName, passWord, nickName, UserOrigin.PC);
+            userCenterService.regist(userName, passWord, nickName, UserOrigin.ANDROID);
             userVO = userCenterService.getUserVO(userName);
         }
 

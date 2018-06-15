@@ -63,6 +63,7 @@ class TokenManager {
         token.setPassWord(user.getPassword());
         token.setUuid(user.getId());
         token.setHeadPhoto(user.getSmallHeadPhoto());
+        token.setVisitor(user.getVisitor());
 
         String userRedisKey = TICKET_PREFIX + REDIS_SPLIT_CHAR + ticket;
         this.cacheService.set(userRedisKey, token, expires);

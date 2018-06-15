@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.common.util.enums.DoctorType;
+import com.xczhihui.course.util.XzStringUtils;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.controller.AbstractController;
 import com.xczhihui.bxg.online.web.service.UserService;
@@ -262,6 +263,8 @@ public class DoctorController extends AbstractController {
         OnlineUser loginUser = getCurrentUser();
         UserDataVo currentUser = userService.getUserData(loginUser);
         String workTime = medicalDoctorBusinessService.getWorkTimeById(currentUser.getUid(), type);
+        //过滤下坐诊时间
+        workTime = XzStringUtils.workTimeScreen(workTime);
         return ResponseObject.newSuccessResponseObject(workTime);
     }
 

@@ -77,36 +77,38 @@
 </#if>
 
     <!--猜你喜欢-->
-    <div class="main-bottom">
-        <h4 class="video-title">猜你喜欢</h4>
+    <#if (recommendCourses?size>0) >
+        <div class="main-bottom">
+            <h4 class="video-title">猜你喜欢</h4>
 
-    <#list recommendCourses as course>
-        <div class="course clearfix">
-            <a style="cursor:pointer" href="/courses/${course.id}/info" target="_blank">
-                <div class="img">
-                    <img src="${course.bigImgPath}">
-                </div>
-                <!--<span class="classCategory">音频</span>-->
-                <div class="detail">
-                    <p class="title" data-text="音频测试3" title="音频测试3">${course.gradeName}</p>
-                    <p class="timeAndTeac"><span>讲师：<span class="teacher">${course.name}</span></span>
-                    </p>
-                    <p class="info clearfix">
-                        <span>
-                            <span class="price"><#if course.currentPrice gt 0>${course.currentPrice}
-                                <span>熊猫币</span><#else >
-                                免费</#if></span>
-                        </span>
-                        <span class="stuCount">
-                            <img src="/web/images/studentCount.png" alt="">
-                            <span class="studentCou">${course.learndCount!"0"}</span>
-                        </span>
-                    </p>
-                </div>
-            </a>
+        <#list recommendCourses as course>
+            <div class="course clearfix">
+                <a style="cursor:pointer" href="/courses/${course.id}/info" target="_blank">
+                    <div class="img">
+                        <img src="${course.bigImgPath}">
+                    </div>
+                    <!--<span class="classCategory">音频</span>-->
+                    <div class="detail">
+                        <p class="title" data-text="音频测试3" title="音频测试3">${course.gradeName}</p>
+                        <p class="timeAndTeac"><span>讲师：<span class="teacher">${course.name}</span></span>
+                        </p>
+                        <p class="info clearfix">
+                            <span>
+                                <span class="price"><#if course.currentPrice gt 0>${course.currentPrice}
+                                    <span>熊猫币</span><#else >
+                                    免费</#if></span>
+                            </span>
+                            <span class="stuCount">
+                                <img src="/web/images/studentCount.png" alt="">
+                                <span class="studentCou">${course.learndCount!"0"}</span>
+                            </span>
+                        </p>
+                    </div>
+                </a>
+            </div>
+        </#list>
         </div>
-    </#list>
-    </div>
+    </#if>
 </div>
 
 
