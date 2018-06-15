@@ -91,39 +91,13 @@ function on_click_msg(msg_id, msg_link) {
 
 $(function() {
 
-	/*$(document).ajaxSend(function(event, request, settings) {
-	    //pc端多端登录限制
-	    if((settings.url.indexOf("/online/user/isAlive")>=0)){
-	                $.ajax({
-	                type: "get",
-	                url: bath + "/online/user/loginStatus",
-	                async: false,
-	                success: function(data) {
-	                    console.log(data);
-	                    if(data.success === true) {
-	                        if(data.resultObject==0){
-	                            //alert("当前已登录");
-	                         }else if(data.resultObject==1){
-	                            //alert("未登录状态");
-	                        }else if(data.resultObject==2){
-	                            //alert("被顶掉！");
-	                            window.location.href=bath+"/otherDevice.html"
-	                        }
 
-	                    } else {
-
-	                    }
-	                }
-	            });
-	    }
-	});*/
-	
 	/**
 	 * Created by admin on 2016/9/14.
 	 */
 	//==========================================================================================
 	var headersIndex = {
-		navtop: '<div class="head-top"><div class="content">' +
+		navtop: '<div class="content">' +
 					'<ul>'+
 						'<li class="first-li">'+
 							'<a href="/" class="home">首页</a>' +
@@ -182,7 +156,6 @@ $(function() {
 						
 						// '<li><div class="messageBox"><a href="javascript:;" data-id="mynews" class="message">消息</a><span class="messageCount" style="display: none;"><em style="background-color: #2cb82c;padding: 0 2px;border-radius: 5px;position: absolute;color:white;font-style:normal"></em></span></div></li><li><div class="shoppingBox"><a href="javascript:;" data-id="" class="shoppingCar">购物车</a><span class="shopping" style="display: none;"><em style="background-color: #2cb82c;padding: 0 2px;border-radius: 5px;position: absolute;color:white;font-style:normal"></em></span></div></li><li><a href="javascript:;" class="studentCenterBox">学习中心</a></li><li><a href="javascript:;" class="hide" id="docOrHos">我是医师</a></li><li><a href="/web/html/anchor/curriculum.html" class="hide" id="anchorWorkbench">主播工作台</a></li>'+
 					'</ul>'+
-				'</div>'+
 			'</div>',
 		nav:
 			//        	开始
@@ -320,7 +293,7 @@ $(function() {
 
 	//var header = $('<header><div class="header_body"></div></header>');
 	var header = $('header');
-	$(header).find(".header_body").before(template.compile(headersIndex.navtop)); //首页头部顶部
+	$(".head-top").html(template.compile(headersIndex.navtop)); //首页头部顶部
 	
 	//$(header).find(".header_body").append(template.compile(headersIndex.nav)); //首页头部
 

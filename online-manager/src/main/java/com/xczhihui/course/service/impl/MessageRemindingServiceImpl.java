@@ -19,9 +19,9 @@ import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.common.support.service.CacheService;
 import com.xczhihui.common.support.service.impl.RedisCacheService;
 import com.xczhihui.common.util.DateUtil;
+import com.xczhihui.common.util.RedisCacheKey;
 import com.xczhihui.common.util.SmsUtil;
 import com.xczhihui.common.util.TimeUtil;
-import com.xczhihui.constant.RedisKeyConstant;
 import com.xczhihui.course.dao.CollectionCourseApplyUpdateDateDao;
 import com.xczhihui.course.dao.CourseDao;
 import com.xczhihui.course.enums.MessageTypeEnum;
@@ -82,12 +82,12 @@ public class MessageRemindingServiceImpl implements MessageRemindingService {
 
     @Override
     public void saveCourseMessageReminding(Course course, String redisKey) {
-        cacheService.set(redisKey + course.getId(), course);
+        cacheService.set(redisKey + RedisCacheKey.REDIS_SPLIT_CHAR + course.getId(), course);
     }
 
     @Override
     public void deleteCourseMessageReminding(Course course, String redisKey) {
-        cacheService.delete(redisKey + course.getId());
+        cacheService.delete(redisKey + RedisCacheKey.REDIS_SPLIT_CHAR + course.getId());
     }
 
     @Override
@@ -103,12 +103,12 @@ public class MessageRemindingServiceImpl implements MessageRemindingService {
 
     @Override
     public void offlineCourseMessageReminding() {
-        List<Course> courseMessageRemindingList = getCourseMessageRemindingList(RedisKeyConstant.OFFLINE_COURSE_REMIND_KEY);
+        List<Course> courseMessageRemindingList = getCourseMessageRemindingList(RedisCacheKey.OFFLINE_COURSE_REMIND_KEY);
         Date today = new Date();
         for (Course course : courseMessageRemindingList) {
             //之前的课程未提醒,需移除掉
             if (course.getStartTime() != null && today.after(course.getStartTime())) {
-                deleteCourseMessageReminding(course, RedisKeyConstant.OFFLINE_COURSE_REMIND_KEY);
+                deleteCourseMessageReminding(course, RedisCacheKey.OFFLINE_COURSE_REMIND_KEY);
             } else {
                 //开始时间是明天
                 if (TimeUtil.isTomorrow(course.getStartTime())) {
@@ -145,7 +145,7 @@ public class MessageRemindingServiceImpl implements MessageRemindingService {
 
     @Override
     public void collectionUpdateRemind() {
-        List<Course> courseMessageRemindingList = getCourseMessageRemindingList(RedisKeyConstant.COLLECTION_COURSE_REMIND_KEY);
+        List<Course> courseMessageRemindingList = getCourseMessageRemindingList(RedisCacheKey.COLLECTION_COURSE_REMIND_KEY);
         Date today = new Date();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(today);
@@ -155,7 +155,7 @@ public class MessageRemindingServiceImpl implements MessageRemindingService {
         for (Course course : courseMessageRemindingList) {
             List<Integer> dates = collectionCourseApplyUpdateDateDao.getUpdateDatesByCollectionId(course.getId());
             if (dates.isEmpty()) {
-                deleteCourseMessageReminding(course, RedisKeyConstant.COLLECTION_COURSE_REMIND_KEY);
+                deleteCourseMessageReminding(course, RedisCacheKey.COLLECTION_COURSE_REMIND_KEY);
             } else if (dates.contains(day)) {
                 List<OnlineUser> users = getUsersByCourseId(course.getId());
                 String courseName = course.getGradeName();
@@ -179,7 +179,7 @@ public class MessageRemindingServiceImpl implements MessageRemindingService {
 
     @Override
     public void liveCourseMessageReminding() {
-        List<Course> courseMessageRemindingList = getCourseMessageRemindingList(RedisKeyConstant.LIVE_COURSE_REMIND_KEY);
+        List<Course> courseMessageRemindingList = getCourseMessageRemindingList(RedisCacheKey.LIVE_COURSE_REMIND_KEY);
         for (Course course : courseMessageRemindingList) {
             if (course.getStartTime() != null) {
                 String time = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(course.getStartTime());
@@ -190,7 +190,7 @@ public class MessageRemindingServiceImpl implements MessageRemindingService {
                     long minute = seconds / 60;
                     if (minute <= 0) {
                         loggger.info("课程{}提醒未发送,开播时间{}", course.getId(), course.getStartTime());
-                        deleteCourseMessageReminding(course, RedisKeyConstant.LIVE_COURSE_REMIND_KEY);
+                        deleteCourseMessageReminding(course, RedisCacheKey.LIVE_COURSE_REMIND_KEY);
                     } else {
                         //发送提醒
                         List<OnlineUser> users = getUsersByCourseId(course.getId());
@@ -227,7 +227,7 @@ public class MessageRemindingServiceImpl implements MessageRemindingService {
                             }
                         }
                     }
-                    deleteCourseMessageReminding(course, RedisKeyConstant.LIVE_COURSE_REMIND_KEY);
+                    deleteCourseMessageReminding(course, RedisCacheKey.LIVE_COURSE_REMIND_KEY);
                 }
             }
         }
