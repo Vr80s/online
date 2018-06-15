@@ -13,6 +13,8 @@ import com.xczhihui.user.center.vo.Token;
  */
 public interface UserCenterService {
 
+    void regist(String loginName, String password, String nikeName, UserOrigin origin, Boolean visitor);
+
     /**
      * 注册一个用户，会对明文密码MD5；password属性必须是明文。
      *
@@ -99,4 +101,6 @@ public interface UserCenterService {
      * @return
      */
     boolean isDisabled(String userId);
+
+    Token login4visitor(String username);
 }

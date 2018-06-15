@@ -124,8 +124,11 @@
 	                                            <div class="replay-write">
 	                                            	<span class="replyName">${appraise.nickName}</span>
 	                                            	<span class="comment-time">${(appraise.replyCreateTime?string("yyyy-MM-dd hh:mm"))!}</span>
-	                                        		<div class="comment-info">${appraise.replyContent}</div>
-	                                       			
+	                                            	 <#if appraise.replyContent??>
+	                                            	 	<div class="comment-info">${appraise.replyContent}</div>
+	                                            	 	<#else>
+	                                        			<div class="comment-info">该评论已被删除！</div>
+	                                       			 </#if>
 	                                            </div>
 
 	                                        </div>
