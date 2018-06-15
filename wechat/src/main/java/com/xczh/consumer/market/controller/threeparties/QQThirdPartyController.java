@@ -60,8 +60,6 @@ public class QQThirdPartyController {
     @Autowired
     private IThreePartiesLoginService threePartiesLoginService;
     @Autowired
-    private CacheService cacheService;
-    @Autowired
     private UserCenterService userCenterAPI;
     protected HttpClient client = new HttpClient();
 

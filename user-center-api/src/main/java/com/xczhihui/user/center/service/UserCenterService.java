@@ -99,4 +99,6 @@ public interface UserCenterService {
      * @return
      */
     boolean isDisabled(String userId);
+
+    Token login4visitor(String username);
 }

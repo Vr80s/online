@@ -277,4 +277,16 @@ public class UserCenterServiceImpl implements UserCenterService {
         String val = cacheService.get(RedisCacheKey.USER_DISABLE_PREFIX + RedisCacheKey.REDIS_SPLIT_CHAR + userId);
         return org.apache.commons.lang3.StringUtils.isNotBlank(val);
     }
+
+    @Override
+    public Token login4visitor(String username) {
+        if(username == null||username.length()!=32){
+            throw new LoginRegException("提供的uuid不合法",true);
+        }
+        OeUserVO userVO = this.getUserVO(username);
+        if(userVO == null){
+            this.regist(username,username,"游客",UserOrigin.IOS);
+        }
+        return loginMobile(username,username,TokenExpires.TenDay);
+    }
 }
