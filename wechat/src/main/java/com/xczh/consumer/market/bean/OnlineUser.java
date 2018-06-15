@@ -224,6 +224,15 @@ public class OnlineUser extends BasicEntity implements Serializable, HttpSession
 
     private Integer code; //错误代码描述
 
+    private Boolean visitor;
+
+    public Boolean getVisitor() {
+        return visitor;
+    }
+
+    public void setVisitor(Boolean visitor) {
+        this.visitor = visitor;
+    }
 
     public String getTicket() {
         return ticket;

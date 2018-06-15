@@ -1,4 +1,4 @@
-package com.xczhihui.course.util;
+package com.xczhihui.utils;
 
 import java.math.BigDecimal;
 import java.util.regex.Matcher;

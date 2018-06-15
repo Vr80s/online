@@ -352,6 +352,7 @@ img {
 #forum .forum-content .forum-content-left .all-comment .forum-community-content .forum-comment-content .forum-comment-right {
     float: right;
     width: 740px;
+    margin-top: 15px;
 }
 
 #forum .forum-content .forum-content-left .all-comment .forum-community-content .forum-comment-content .forum-comment-right .comment-personAndTime .comment-person {

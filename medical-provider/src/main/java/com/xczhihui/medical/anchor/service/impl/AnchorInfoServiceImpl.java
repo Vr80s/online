@@ -41,6 +41,7 @@ import com.xczhihui.medical.hospital.model.MedicalHospital;
 import com.xczhihui.medical.hospital.model.MedicalHospitalAccount;
 import com.xczhihui.medical.hospital.model.MedicalHospitalDoctor;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalAuthenticationService;
+import com.xczhihui.utils.XzStringUtils;
 
 /**
  * 主播工作台资产业务接口实现层
@@ -113,7 +114,8 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService{
             }
 
         }
-
+        //过滤下时间
+        courseAnchorVO.setWorkTime(XzStringUtils.workTimeScreen(courseAnchorVO.getWorkTime()));
         return courseAnchorVO;
 
     }
