@@ -42,6 +42,8 @@ $(function(){
             }
             else if(data==8){
                 return data="<span name='zt'>博士后</span>";
+            }else {
+                return data="<span name='zt'>无</span>";
             }
         } },
 	{ "title": "籍贯", "class":"center","width":"6%", "sortable":false,"data": 'nativePlace'},
