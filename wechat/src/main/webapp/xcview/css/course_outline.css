@@ -17,13 +17,14 @@ a{
 
 /*头部开始*/
 header {
-    width: 100%;
+    width: 14.545rem;
     height: 1.872rem;
     line-height: 1.872rem;
     background: #fff;
     position: fixed;
     top: 0;
-    left: 0;
+    left: 50%;
+    margin-left: -7.2725rem;
     z-index: 9;
     border-bottom: 1px solid #d8dde6;
 }
@@ -62,11 +63,12 @@ header {
 
 /*中间内容开始*/
 .outline{
-	width: 100%;
-	height: 100%;
-	background: #fff;
-	padding-top: 0.766rem;
-	margin-top: 2.398rem;
+	width: 14.545rem;
+    height: 100%;
+    background: #fff;
+    padding-top: 0.766rem;
+    margin: 0 auto;
+    margin-top: 2.398rem;
 }
 .outline_main{
 	margin-top: ;
@@ -101,11 +103,12 @@ header {
 }
 .outline_cen_border{
 	width: 100%;
-	border-bottom: 1px solid #D8DDE6;
+	border-bottom: 1px solid #f0f0f0;
 }
 .outline_list{
-	width: 15.45rem;
-	float: right;
+	width: 13.954rem;
+    /* float: right; */
+    margin: 0 auto;
 }
 .outline_list_ul p{
 	font-size: 0.553rem;

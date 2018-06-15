@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>熊猫中医</title>
+	<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<!-- 页面css引入 -->
+	<link rel="stylesheet" href="/xcview/css/apprentice/apply.css">
+	<!--公用弹框 -->
+	<link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
+	<!--手机嵌入模板-->
+	<script type="text/javascript" src="/xcview/js/common/layout.js"></script>
+</head>
+<body>
+	<!-- 报名头部开始 -->
+	<header>
+		<div class="header">
+			<div class="return" onclick="location.href='/xcview/html/apprentice/inherited_introduction.html'"><img src="/xcview/images/back%20icon.png" alt="" /></div>
+			<div class="apply_title">报名</div>
+		</div>
+	</header>
+	<!-- 报名头部结束 -->
+
+	<!-- 中间内容开始 -->
+	<div class="fiexd"></div>
+	<div class="main">
+		<div class="main_bg">
+			<div class="name">
+				姓名
+				<input type="text" placeholder="请输入" />
+				<div class="both"></div>
+			</div>
+			<div class="tel">
+				手机号
+				<input type="tel" placeholder="请输入" />
+				<div class="both"></div>
+			</div>
+			<div class="age">
+				年龄
+				<input type="tel" placeholder="请输入" />
+				<div class="both"></div>
+			</div>
+			<div class="sex">
+				性别
+				<div class="sex_hide">
+					<img src="/xcview/images/right_jian.png" alt="" />
+				</div>
+				<p class="sex_show"></p>  <!-- 男女传值 -->
+				<div class="both"></div>
+			</div>
+			<div class="birthplace">
+				籍贯
+				<input type="text" placeholder="请输入" />
+				<div class="both"></div>
+			</div>
+			<div class="both"></div>
+			<div class="education">
+				学历
+				<div class="sex_hide">
+					<img src="/xcview/images/right_jian.png" alt="" />
+				</div>
+				<p class="education_show"></p>  <!-- 男女传值 -->
+				<div class="both"></div>
+			</div>
+			<div class="both"></div>
+		</div>
+		<div class="main_bg">
+			<div class="learning_experience">
+				<p>学习经历</p>
+				<!-- <input type="text" placeholder="请输入" /> -->
+				<textarea class="copyreader" contenteditable="true" placeholder="请输入" ></textarea>
+				<div class="both"></div>
+			</div>
+			<div class="both"></div>
+		</div>
+		<div class="main_bg">
+			<div class="practice_medicine">
+				<p>行医经历</p>
+				<!-- <input type="text" placeholder="请输入" /> -->
+				<textarea class="copyreader" contenteditable="true" placeholder="请输入" ></textarea>
+				<div class="both"></div>
+			</div>
+			<div class="both"></div>
+		</div>
+		<div class="main_bg">
+			<div class="study">
+				<p>学中医目的</p>
+				<!-- <input type="text" placeholder="请输入"  /> -->
+				<textarea class="copyreader" contenteditable="true" placeholder="请输入" ></textarea>
+				<div class="both"></div>
+			</div>
+			<div class="both"></div>
+		</div>
+		<div class="buttom opacity" data-able="1">提交报名申请</div>
+		<!-- <div class="buttom opacity" onclick="location.href ='information_registration.html'">提交报名申请</div> -->
+		<!-- <div class="buttom opacity" onclick="reportComment()">提交报名申请</div> -->
+		<div class="both"></div>
+	</div>
+	<!-- 点击性别出现弹窗开始 -->
+		<div class="popup">
+			<div class="popup_bg"></div>
+			<div class="popup_sex">
+				<div class="man" id="man">男</div>
+				<div class="she" id="she">女</div>
+			</div>
+		</div>
+	<!-- 点击性别出现弹窗结束 -->
+
+	<!-- 点击学历出现弹窗开始 -->
+		<div class="education_background">
+			<div class="education_background_bg"></div>
+			<div class="education_background_sex">
+				<div class="man edu" data-id="5" id="undergraduate">本科</div>
+				<div class="she edu" data-id="6" id="master">硕士</div>
+				<div class="she edu" data-id="7" id="doctor">博士</div>
+				<div class="she edu" data-id="0" id="not_have">无</div>
+			</div>
+		</div>
+	<!-- 点击学历出现弹窗结束 -->
+	<!-- 中间内容结束 -->
+</body>
+<script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/common.js?v=wechat_1.1.1"></script>
+<script type="text/javascript" src="/xcview/js/apprentice/apprentice-common.js"></script>
+<script type="text/javascript" src="/xcview/js/common/alertPopShow.js"></script>
+<script type="text/javascript" src="/xcview/js/apprentice/apply.js"></script>
+
+</html>

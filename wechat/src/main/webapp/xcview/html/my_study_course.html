@@ -1,0 +1,186 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<!--<title>消费明细</title>-->
+<title>熊猫中医</title>
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<!--手机嵌入模板-->
+<script type="text/javascript" src="/xcview/js/common/layout.js"></script>
+<link rel="stylesheet" href="/xcview/css/mui.min.css">
+<script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
+<link rel="stylesheet" href="/xcview/css/my_study_course.css" />
+<script type="text/javascript" src="/xcview/js/common/jquery.min-2.1.1.js"></script>
+<script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/common.js"></script>
+<script type="text/javascript" src="/xcview/js/common/template.js"></script>
+<script type="text/javascript" src="/xcview/js/my_study_course.js?wechat_1.1"></script>
+<!--刷新 -->
+
+<link rel="stylesheet" href="/xcview/css/mescroll.min.css">
+<script type="text/javascript" src="/xcview/js/common/mescroll.min.js"></script>
+<script>
+	// 判断横屏展示时的状态
+	window.onorientationchange=function(){
+	    if(window.orientation==90||window.orientation==-90){
+	        window.location.reload();  /*横屏状态刷新*/
+	    }else{
+	        window.location.reload();  /*竖屏状态刷新*/
+	    }
+	}	
+</script>
+<style>
+	.arror_return{
+		width: 0.24rem;
+	    height: 0.42rem;
+	    position: absolute;
+	    left: 0.26rem;
+	    top: 0.23rem;
+	}
+	.arror_return img{
+		width: 100%;
+	    height: 100%;
+	    display: block;
+	}
+	/*处理刷新效果*/
+	.mui-scroll-wrapper{
+		top: 0.7rem;
+	}
+	.mui-pull-top-pocket{
+		top: 0;
+	}
+	.mui-scroll-wrapper{
+		height: 100%;
+
+	}
+	.mui-pull-bottom-pocket .mui-pull{
+		bottom: 1rem;
+	}
+	.bought_main{
+		padding-bottom: 0.6rem;
+	}
+	.mui-pull-bottom-pocket .mui-pull{
+		bottom: 0rem;
+		height: 40px;
+		line-height: 40px;
+	}
+	.mui-pull-bottom-pocket{
+		position: relative;
+		bottom: 1rem;
+		height: 40px;
+		line-height: 40px;
+	}
+	.both{
+		clear: both;
+	}
+</style>
+</head>
+    
+<body style="background:#F8F8F8;">
+<div class="wp" >
+	<div class="wrap-header">
+		<div class="header">		
+			<p>我的课程</p>
+			<div class="arror_return z" onclick="window.location='/xcview/html/my_study.html'">
+				<img src="../images/back icon.png">
+			</div>
+		</div>
+	</div>
+<!--我的课程-->
+<div id="my_class_box">
+	<div id="refreshContainer" class="mui-content mui-scroll-wrapper">
+		<div class="mui-scroll">
+			<div class="data_my_class" style="margin-bottom: 1.3rem;">  <!--渲染存放盒子-->
+		<script type="text/html" id="data_my_class">
+		
+			<div class="wrap_class">
+					{{each items as item i}}
+					<div class="my_class_text" style="position: relative;">
+						{{if item.type == 1 || item.type == 2 }}
+						    {{if item.collection == true}}
+								<a class="live_select_album" data-id ="{{item.id}}" style="position: absolute;width: 100%; height: 100%;left: 0; z-index: 2;"></a>
+						    	{{else}}
+								<a class="live_audio" data-id ="{{item.id}}" style="position: absolute;width: 100%; height: 100%;left: 0; z-index: 2;"></a>
+						    {{/if}}
+<!--直播状态判断-->				
+						{{else if item.type == 3 && item.lineState==1}}  <!--直播中-->
+						<a href="javascript:;" data-ppd="{{item.id}}" class="paly_ing_all" style="position: absolute;width: 100%; height: 100%;left: 0; z-index: 2;"></a>	  
+						{{else if item.type == 3 && item.lineState==2}}	<!--预告-->
+						<a class="live_play" data-id ="{{item.id}}" href="live_play.html?my_study={{item.id}}" style="position: absolute;width: 100%; height: 100%;left: 0; z-index: 2;"></a>
+						{{else if item.type == 3 && item.lineState==3}}	<!--结束-->
+						<a class="live_play" data-id ="{{item.id}}" href="live_play.html?my_study={{item.id}}" style="position: absolute;width: 100%; height: 100%;left: 0; z-index: 2;"></a>
+						{{else if item.type == 3 && item.lineState==4}}	<!--即将直播-->
+						<a href="javascript:;" data-ppdnow="{{item.id}}" class="paly_ing_all_now" style="position: absolute;width: 100%; height: 100%;left: 0; z-index: 2;"></a>	  
+						{{else if item.type == 3 && item.lineState==5}}	<!--准备直播-->
+						<a class="live_play" data-id ="{{item.id}}" href="live_play.html?my_study={{item.id}}" style="position: absolute;width: 100%; height: 100%;left: 0; z-index: 2;"></a>
+						{{else if item.type == 3 && item.lineState==6}}	<!--异常直播-->
+						<a class="live_play" data-id ="{{item.id}}" href="live_play.html?my_study={{item.id}}" style="position: absolute;width: 100%; height: 100%;left: 0; z-index: 2;"></a>
+<!--直播状态判断结束-->				
+						{{else if item.type == 4}}
+						<a class="live_class" data-id ="{{item.id}}" href="live_class.html?my_study={{item.id}}" style="position: absolute;width: 100%; height: 100%;left: 0; z-index: 2;"></a>
+						{{/if}}
+						<div class="my_class_img z">
+							<img src="{{item.smallImgPath}}?imageView2/2/w/212" class="img"/>
+							<div class="little_img">
+								{{if item.type == 1}}
+									<img src="/xcview/images/tv_auto.png" alt="" />
+								{{else if item.type == 2}}
+									<img src="/xcview/images/frequency.png" alt=""/>
+								{{else if item.type == 3}}
+									<img src="/xcview/images/Sinatv_auto.png" alt=""/>
+								{{else if item.type == 4}}
+									<img src="/xcview/images/offline.png" alt=""/>
+								{{/if}}
+							</div>
+						</div>
+						<div class="" style="width: 4.5rem; float: left;">
+						
+						<p class="text_more">{{item.gradeName}}</span></p>
+						<p class="text_more"><span class="span">{{item.name}}</span></p>
+						
+						{{if item.type==1 && item.collection==true}}
+						<!--多少集-->
+						<p class="my_collection">共{{item.courseNumber}}集&nbsp;&nbsp;<!--<span>已更新16集</span>--></p>
+						{{else if item.type==2 && item.collection==true}}
+						<!--多少集-->
+						<p class="my_collection">共{{item.courseNumber}}集&nbsp;&nbsp;<!--<span>已更新16集</span>--></p>
+						{{else if item.lineState==1}}	
+						<!--直播中-->				
+						<!--<p class="paly_ing" data-id="{{item.id}}" style="position: relative;z-index: 6;"><a href="details.html?courseId={{item.id}}" >直播中</a></p>-->
+						<p class="paly_ing" style="position: relative;z-index: 6;"><span style="float: left;">直播时间：{{item.startTime.slice(0,16)}}</span><p class="zhibo_play">直播中</p></p>
+						{{else if item.type==4}}
+						<!--上课时间-->
+						<p class="my_collection">上课时间：<span>{{item.startTime.slice(0,16)}}</span></p>
+						<!--直播时间-->
+						{{else if item.type==3}}
+						<!--<p class="my_collection">直播时间：&nbsp;<span>2017.12.29&nbsp;&nbsp;12:27</span></p>-->	
+						<p class="my_collection">直播时间：<span>{{item.startTime.slice(0,16)}}</span></p>	
+						{{/if}}
+							
+						</div>
+					</div>
+					{{/each}}
+			</div>
+		
+	</script>
+		</div>
+		</div>
+	</div>
+</div>	
+<!--无课程时显示图片-->	
+<div class="wrap_noClass" style="display: none;">
+	<div class="noclassInfo">
+		
+	</div>
+	<p>一个课程都没有，快去学堂看看吧~</p>
+	<a href="home_page.html">去选课</a>
+</div>	
+	
+	
+</div>
+	
+</body>
+</html>

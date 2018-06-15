@@ -37,6 +37,13 @@
 	}
 	.user_mywrite{
 		margin-top:0;
+		line-height: 0.42rem;
+	}
+	.user_mywrite p{
+		line-height: 0.42rem !important;
+	}
+	.user_mywrite div{
+		line-height: 0.4rem;
 	}
 	.both{
 		clear: both;
@@ -55,12 +62,14 @@
 		width: 100%;
 		height: 1rem;
 		line-height: 1rem;
-		text-align: center;
+		/*text-align: center;*/
 		font-size: 0.28rem;
 		display: none;
 		color: #bbb;
 		background: #fff;
+		text-indent: 0.4rem;
 	}
+
 </style>
 
 </head>
@@ -70,7 +79,7 @@
 		<div class="user_mywrite" id="aaaaa"></div>	
 	</div>
 	<div class="no">暂无数据</div>
-	<div class="no_referral">暂无主讲人介绍</div>
+	<div class="no_referral" style="">暂无主讲人介绍</div>
 </div>
 <script src="/xcview/weihoujs/jquery.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/mui.min.js?v=11111111"></script>

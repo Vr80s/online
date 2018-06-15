@@ -9,10 +9,10 @@ var wwww1="";
 var collectionId = "";
 var name_title = "";
 
-
-
-//var type ="";
-
+//分享的信息
+var gradeName = "";
+var smallImgPath ="";
+var description ="";
 
     function getQueryString(key){
         var reg = new RegExp("(^|&)"+key+"=([^&]*)(&|$)");
@@ -101,8 +101,11 @@ function stripHTML(str){
                     //alert("最后一个");
                     var myvideo = $(".all_list_ul_li").next("li").attr('data-myvideo');
                     var courseId = $(".all_list_ul_li").next("li").attr('data-courseId');
+                    var courseName = $(".all_list_ul_li").next("li").attr('data-courseName');
                     var index = $(".all_list_ul_li").next("li").index();
                     localStorage.setItem('course'+collectionId, index);  /*存缓存列表*/
+                    var sortNo=getNo(index);
+                    localStorage.setItem('courseName'+collectionId, sortNo+" "+courseName);  /*存缓存列表*/
                     //初始化视频资源
                     window.location="/xcview/html/live_album.html?course_id="+courseId+"&direct_id="+myvideo+"&collection_id="+collectionId+"&name_title="+name_title+"&index="+index;
                     $('.all_list_ul li').eq(0).click();
@@ -111,8 +114,11 @@ function stripHTML(str){
                     //alert("第一个");
                     var myvideo = $(".all_list_ul_li").next("li").attr('data-myvideo');
                     var courseId = $(".all_list_ul_li").next("li").attr('data-courseId');
+                    var courseName = $(".all_list_ul_li").next("li").attr('data-courseName');
                     var index = $(".all_list_ul_li").next("li").index();
                     localStorage.setItem('course'+collectionId, index);  /*存缓存列表*/
+                    var sortNo=getNo(index);
+                    localStorage.setItem('courseName'+collectionId, sortNo+" "+courseName);  /*存缓存列表*/
                     //初始化视频资源
                     window.location="/xcview/html/live_album.html?course_id="+courseId+"&direct_id="+myvideo+"&collection_id="+collectionId+"&name_title="+name_title+"&index="+index;
                                  
@@ -122,8 +128,11 @@ function stripHTML(str){
 
                     var myvideo = $(".all_list_ul_li").next("li").attr('data-myvideo');
                     var courseId = $(".all_list_ul_li").next("li").attr('data-courseId');
+                    var courseName = $(".all_list_ul_li").next("li").attr('data-courseName');
                     var index = $(".all_list_ul_li").next("li").index();
                     localStorage.setItem('course'+collectionId, index);  /*存缓存列表*/
+                    var sortNo=getNo(index);
+                    localStorage.setItem('courseName'+collectionId, sortNo+" "+courseName);  /*存缓存列表*/
                     //初始化视频资源
                     window.location="/xcview/html/live_album.html?course_id="+courseId+"&direct_id="+myvideo+"&collection_id="+collectionId+"&name_title="+name_title+"&index="+index;
                              
@@ -156,7 +165,7 @@ function stripHTML(str){
         $("#speak_people").html(template('data_people',data.resultObject));
         $(".all_returned_num span").html(data.resultObject.criticizeCount);
     //  直播时间/主播名字
-        $("#wrap_playTime").html(template('data_name',data.resultObject));
+        // $("#wrap_playTime").html(template('data_name',data.resultObject));
         $("#wrap_playTime .title_name").html(name_title)
 
     //  简介/内容
@@ -230,13 +239,7 @@ function stripHTML(str){
         
     }
 })
-    function getNo(i){
-        i++;
-        if(i<10){
-            return "0"+i;
-        }
-        return i;
-    }
+    
 //判断普通浏览器时,去点微信分享  
     if(is_weixin()){
         $(".share_to_one").show()
@@ -286,8 +289,11 @@ function stripHTML(str){
 $('.all_list_ul').on('click','li',function(){
     var myvideo = $(this).attr('data-myvideo');
     var courseId = $(this).attr('data-courseId');
+    var courseName = $(this).attr('data-courseName');
     var index = $(this).index(); 
-    localStorage.setItem('course'+collectionId, index);   
+    localStorage.setItem('course'+collectionId, index);
+    var sortNo=getNo(index);
+    localStorage.setItem('courseName'+collectionId, sortNo+" "+courseName);
     //初始化视频资源                                                                                                                                    //判断跳转添加
     location.replace("/xcview/html/live_album.html?course_id="+courseId+"&direct_id="+myvideo+"&collection_id="+collectionId+"&name_title="+name_title+"&index="+index+"&type=2");
     
@@ -649,4 +655,10 @@ function on_cc_h5player_init(){
     oV.setAttribute("x5-playsinline","");
 }
 
-
+function getNo(i){
+    i++;
+    if(i<10){
+        return "0"+i;
+    }
+    return i;
+}

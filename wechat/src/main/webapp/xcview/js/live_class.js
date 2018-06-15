@@ -6,6 +6,12 @@ var criticize_id = "";
 var LecturerId="";
 var commentCode ="";
 
+//分享的信息
+var gradeName = "";
+var smallImgPath ="";
+var description ="";
+
+
 $(function(){
 function stripHTML(str){
 	var reTag = /<(?:.|\s)*?>/g;
@@ -87,7 +93,7 @@ function stripHTML(str){
 		}
 		
 		
-	});
+	},false);
 
     //传ID courseId为接口的课程ID，评论列表
     refresh();

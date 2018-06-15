@@ -25,7 +25,7 @@ function time(o) {
  */
 var openId ="";var unionId ="";
 
-var third_party_uc_t_ = cookie.get("third_party_uc_t_");
+var third_party_uc_t_ = cookie.get("_third_ipandatcm_user_");
 if(stringnull(third_party_uc_t_)){
 	
 	third_party_uc_t_ = decodeURIComponent(third_party_uc_t_);	
@@ -89,7 +89,7 @@ document.getElementById("btn").addEventListener("tap", function() {
 			vtype =1;
 			$("#password_div").show();
 		}else if(data.code == 401){ //隐藏密码框
-			vtype =2;
+			vtype =6;//
 			$("#password_div").hide();
 		}else if(data.code == 402){
 			webToast("此手机号绑定其他微信号","middle",1500);
@@ -155,8 +155,7 @@ $(".enter_btn").click(function(){
 			 * 添加 所有关于用户的缓存
 			 */
 			commonLocalStorageSetItem(data);
-		
-			window.history.back(); //返回上一页
+            locationToOriginPage();
 		} else {
 			webToast(data.errorMessage,"middle",1500);
 		}

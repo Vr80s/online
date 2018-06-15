@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import com.xczhihui.common.util.IStringUtil;
 import com.xczhihui.course.exception.FansException;
 import com.xczhihui.course.mapper.FocusMapper;
 import com.xczhihui.course.model.Focus;
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xczhihui.common.support.lock.Lock;
+import com.xczhihui.course.util.HtmlUtil;
 import com.xczhihui.course.vo.FocusVo;
 
 /**
@@ -38,10 +40,21 @@ public class FocusServiceImpl extends ServiceImpl<FocusMapper,Focus> implements 
 	public List<Integer> selectFocusAndFansCount(String userId) {
 		return focusMapper.selectFocusAndFansCount(userId);
 	}
+	
+	@Override
+	public List<Integer> selectFocusAndFansCountAndCriticizeCount(String userId) {
+		return focusMapper.selectFocusAndFansCountAndCriticizeCount(userId);
+	}
 
 	@Override
 	public List<FocusVo> selectFocusList(String userId) {
-		return focusMapper.selectFocusList(userId);
+		List<FocusVo> focusVos = focusMapper.selectFocusList(userId);
+		for (FocusVo focusVo : focusVos) {
+			if(focusVo.getDetail() != null){
+				focusVo.setDetail(IStringUtil.getTop100Char(HtmlUtil.getTextFromHtml(focusVo.getDetail())));
+			}
+		}
+		return focusVos;
 	}
 
 	@Override

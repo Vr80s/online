@@ -75,3 +75,9 @@ bbs pc端整合
     ALTER TABLE `oe_bxs_article` ADD `user_created` BIT(1)  NULL DEFAULT 0 COMMENT '是否是用户创建的';
     UPDATE article_type SET status = 1,sort = 1 WHERE id = 4;
     ALTER TABLE `oe_bxs_article` ADD `create_person` VARCHAR(32) NULL DEFAULT NULL COMMENT '创建者id';
+
+dev-2.1.0
+
+    正式环境微信模板配置，替换配置文件里的模板id
+
+    后台管理系统新增菜单 在 主播管理 下 新增 学员管理  菜单路径为anchor/student/index

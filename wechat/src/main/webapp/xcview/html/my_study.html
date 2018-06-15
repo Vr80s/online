@@ -30,6 +30,22 @@
 	    }
 	}	
 </script>
+
+<style>
+	.follow_people{
+		white-space: nowrap;
+	    overflow-x: auto;
+	    overflow-y: hidden;
+	}
+	#all_follow_people{
+		display: flex;
+	}
+	.follow_people ul li{
+		display: table-caption;
+    	padding-right: 0.49rem;
+    	margin-right: 0;
+	}
+</style>
 	
 	<!--公用弹框 -->
 <!--<link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
@@ -70,11 +86,16 @@
 		</ul>
 	</div>
 <!--我的课程-->
+<!-- <p class="my_class_title" data-key='{{items.type}}'>{{items.title}}</p> -->
 <div id="my_class_box">
 	<script type="text/html" id="data_my_class">
 		
 			<div class="wrap_class">
-				<p class="my_class_title">{{items.title}}</p>
+				{{if items.title=="我的课程"}}
+				<p class="my_class_title"><a href="my_study_course.html" style="color: #000;width: 100%;display: inline-block;">{{items.title}}<img src="/xcview/images/video_review.png" alt="" style="width: 0.15rem;margin-right: 0.26rem;float: right;margin-top: 0.08rem;"></a></p>
+				{{else}}
+				<p class="my_class_title"><a href="end_the_course.html" style="color: #000;width: 100%;display: inline-block;">{{items.title}}<img src="/xcview/images/video_review.png" alt="" style="width: 0.15rem;margin-right: 0.26rem;float: right;margin-top: 0.08rem;"></a></p>
+				{{/if}}
 					{{each items.courseList as item i}}
 					<div class="my_class_text" style="position: relative;">
 						{{if item.type == 1 || item.type == 2 }}
@@ -83,6 +104,8 @@
 						    	{{else}}
 								<a href="live_audio.html?my_study={{item.id}}" style="position: absolute;width: 100%; height: 100%;left: 0; z-index: 2;"></a>
 						    {{/if}}
+
+
 <!--直播状态判断-->				
 						{{else if item.type == 3 && item.lineState==1}}  <!--直播中-->
 						<a href="javascript:;" data-ppd="{{item.id}}" class="paly_ing_all" style="position: absolute;width: 100%; height: 100%;left: 0; z-index: 2;"></a>	  
@@ -163,7 +186,7 @@
 					{{each resultObject as p}}
 						<li onclick="location.href='live_personal.html?userLecturerId={{p.userId}}'">
 							<div class="img_people">
-								<img src="{{p.smallHeadPhoto}}?imageView2/2/w/100"/>
+								<img src="{{p.smallHeadPhoto}}?imageView2/2/w/100" onerror="nofind();"  />
 							</div>
 							<p>{{p.name}}</p>
 						</li>
@@ -175,6 +198,8 @@
 			<p>您还没有关注的主播~</p>
 		</div>
 	</div>
+
+
 	
 <!--底部开始-->
 	<div class="footer_perch"></div>
@@ -189,7 +214,7 @@
 				<p style="color: #00BC12;">学习</p>
 			</li>
 			<li>
-				<a href="discovery.html" class="footer_three" style="height: 0.42rem;margin-top: 0.13rem;background: url(../images/discovery_three.png) no-repeat center;background-size: 0.42rem 0.42rem;margin-bottom: 0.04rem;"></a>
+				<a href="/xcview/html/apprentice/apprentice.html" class="footer_three" style="height: 0.42rem;margin-top: 0.13rem;background: url(../images/discovery_three.png) no-repeat center;background-size: 0.42rem 0.42rem;margin-bottom: 0.04rem;"></a>
 				<p>发现</p>
 			</li>
 			<li>
@@ -204,35 +229,6 @@
 		<img src="/xcview/images/01_03.png" />
 	</div>
 	<!--底部旋转结束-->
-
 </div>
-	
-
 </body>
-<script>
-//			var kk=document.documentElement.clientWidth;
-//			if(kk>750){
-//				kk=750
-//			}
-//			
-//			document.documentElement.style.fontSize=kk/7.5+"px";
-			
-//$(".paly_ing").click(function(event){
-//alert("我是小div");
-////event.stopPropagation(); // 阻止事件冒泡
-//return false;
-// });
-		</script>
-		
-		
-		<script type="text/javascript">
-			/*window.onload = function(){
-				
-				$(".header_news").click(function(){
-					webToast("敬请期待...","middle",1500);
-				});
-				
-			};*/
-		</script>
-
 </html>

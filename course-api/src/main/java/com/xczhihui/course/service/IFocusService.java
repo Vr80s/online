@@ -7,7 +7,7 @@ import com.xczhihui.course.vo.FocusVo;
 public interface IFocusService {
 	/**
 	 * 
-	 * Description：查找我的粉丝总数我关注的主播总数
+	 * Description：查找粉丝数、关注的数
 	 * @param userId
 	 * @return
 	 * @return List<Integer>  list.get(0)我的粉丝总数  list.get(1)我关注的主播总数
@@ -15,6 +15,16 @@ public interface IFocusService {
 	 *
 	 */
 	List<Integer> selectFocusAndFansCount(String userId);
+	/**
+	 * 
+	 * Description：查找粉丝数、关注的数、和评论的数
+	 * @param userId
+	 * @return
+	 * @return List<Integer>  list.get(0)我的粉丝总数  list.get(1)我关注的主播总数
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 *
+	 */
+	List<Integer> selectFocusAndFansCountAndCriticizeCount(String userId);
 	/**
 	 * 
 	 * Description：我关注的主播集合

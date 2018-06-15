@@ -16,18 +16,21 @@ a{
 }
 body{
 	font-family: "Helvetica";
+	width: 7.5rem;
+    margin: 0  auto !important;
 }
 /*头部开始*/
 header {
-    width: 100%;
+    width: 7.5rem;
     height: 0.88rem;
     line-height: 0.88rem;
-    /*background: #ccc;*/
+    /* background: #ccc; */
     position: fixed;
     top: 0;
-    left: 0;
+    left: 50%;
     z-index: 9;
-    /*border-bottom: 1px solid #D8DDE6;*/
+    /* border-bottom: 1px solid #D8DDE6; */
+    margin-left: -3.75rem;
 }
 .header{
 	/*width: 14.851rem;*/
@@ -87,7 +90,7 @@ header {
 	line-height: 0.97rem;
 	margin: 0 auto;
 	/*background: #ddd;*/
-	border-bottom: 1px solid #D8DDE6;
+	border-bottom: 1px solid #f0f0f0;
 }
 .enter_one .img0{
 	width: 0.25rem;

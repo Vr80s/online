@@ -17,10 +17,10 @@ public interface OLCourseServiceI {
 	 * @author name：liutao
 	 *
 	 */
-	public List<CourseLecturVo> offLineClassList( List<OfflineCity> cityList)throws SQLException;
+	public List<CourseVo> offLineClassList( List<OfflineCity> cityList)throws SQLException;
 
 	
-	public List<CourseLecturVo> recommendCourseList(List<MenuVo> listmv) throws SQLException;
+	public List<CourseVo> recommendCourseList(List<MenuVo> listmv) throws SQLException;
 	/**
 	 * 
 	 * Description：查询
@@ -34,8 +34,9 @@ public interface OLCourseServiceI {
 	 * @return List<CourseLecturVo>
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 */
-	public List<CourseLecturVo> queryAllCourse(String menuType,Integer lineState,
+	public List<CourseVo> queryAllCourse(String menuType,Integer lineState,
 			Integer courseType, String isFree, String city,String queryKey,
 			Integer pageNumber, Integer pageSize) throws SQLException;
-	
+
+    List<CourseVo> queryAllCourse(String menuType, Integer lineState, Integer courseType, String isFree, String city, String queryKey, Integer pageNumber, Integer pageSize, Boolean onlyFree) throws SQLException;
 }

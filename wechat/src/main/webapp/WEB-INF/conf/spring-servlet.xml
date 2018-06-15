@@ -47,31 +47,6 @@
         <property name="checkoutTimeout" value="${c3p0.checkoutTimeout}"/>
     </bean>
 
-    <mvc:annotation-driven>
-        <!-- 处理responseBody 里面日期类型 -->
-        <mvc:message-converters>
-            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-                <property name="objectMapper">
-                    <bean class="com.fasterxml.jackson.databind.ObjectMapper">
-                        <property name="dateFormat">
-                            <bean class="java.text.SimpleDateFormat">
-                                <constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss"/>
-                            </bean>
-                        </property>
-                    </bean>
-                </property>
-            </bean>
-        </mvc:message-converters>
-    </mvc:annotation-driven>
-
-    <bean id="viewResolver"
-          class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="viewClass"
-                  value="org.springframework.web.servlet.view.JstlView"/>
-        <property name="prefix" value="/WEB-INF/views/"/>
-        <property name="suffix" value=".jsp"/>
-    </bean>
-
     <!--RedissonUtil配置-->
     <bean id="redissonUtil" class="com.xczhihui.common.support.lock.RedissonUtil">
         <property name="redisHost" value="${redis.host}"></property>
@@ -104,7 +79,8 @@
     <dubbo:registry protocol="zookeeper" address="${dubbo.zookepper.url}"/>
 
 
-    <dubbo:reference id="userCenterAPI" interface="com.xczhihui.bxg.user.center.service.UserCenterAPI" timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference id="userCenterService" interface="com.xczhihui.user.center.service.UserCenterService" timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference id="verificationCodeService" interface="com.xczhihui.user.center.service.VerificationCodeService" timeout="${dubbo.consumer.timeout}"/>
     <dubbo:reference id="userCoinServiceImpl" interface="com.xczhihui.online.api.service.UserCoinService" timeout="${dubbo.consumer.timeout}"/>
     <dubbo:reference id="giftServiceImpl" interface="com.xczhihui.online.api.service.GiftService" timeout="${dubbo.consumer.timeout}"/>
     <dubbo:reference id="enchashmentServiceImpl" interface="com.xczhihui.online.api.service.EnchashmentService" timeout="${dubbo.consumer.timeout}"/>
@@ -156,4 +132,16 @@
     <dubbo:reference interface="com.xczhihui.online.api.service.PayService" id="payService" timeout="${dubbo.consumer.timeout}"/>
     <!-- 热门搜索服务 -->
     <dubbo:reference interface="com.xczhihui.course.service.IMobileHotSearchService" id="mobileHotSearchServiceImpl" timeout="${dubbo.consumer.timeout}"/>
+    <!-- 微信公众号 -->
+    <dubbo:reference id="wxMpService" interface="me.chanjar.weixin.mp.api.WxMpService" timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference id="wxMpConfigStorage" interface="me.chanjar.weixin.mp.api.WxMpConfigStorage" timeout="${dubbo.consumer.timeout}"/>
+    <!-- 消息服务 -->
+    <dubbo:reference id="commonMessageService" interface="com.xczhihui.course.service.ICommonMessageService" timeout="${dubbo.consumer.timeout}">
+        <dubbo:method name="saveMessage" async="true"/>
+    </dubbo:reference>
+    <!-- 师承模块服务 -->
+    <dubbo:reference interface="com.xczhihui.medical.enrol.service.EnrolService" id="enrolServiceImpl" timeout="${dubbo.consumer.timeout}"/>
+	
+	 <!--线下课报名信息 -->
+    <dubbo:reference interface="com.xczhihui.course.service.ILineApplyService" id="lineApplyServiceImpl"  timeout="${dubbo.consumer.timeout}"/>
 </beans>

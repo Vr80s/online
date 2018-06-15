@@ -1,46 +1,49 @@
- {
-     "button":[
-     {
-           "name":"国医学堂",
-           "sub_button":[
-           {    
-               "type":"view",
-               "name":"学堂中心",
-               "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx81c7ce773415e00a&redirect_uri=https://m.ipandatcm.com/xczh/wxpublic/publicToRecommended&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect"
-               },
-            {
-               "type":"view",
-               "name":"学习中心",
-               "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx81c7ce773415e00a&redirect_uri=https://m.ipandatcm.com/xczh/wxpublic/publicToLearningCenter&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect"
-             },
-            {
-              "type":"view",
-               "name":"个人中心",
-               "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx81c7ce773415e00a&redirect_uri=https://m.ipandatcm.com/xczh/wxpublic/publicToPersonalCenter&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect"
-            }]
-       },
-      {
-           "name":"特色课程",
-           "sub_button":[
-           {    
-               "type":"view",
-               "name":"脉诊大全",
-               "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx81c7ce773415e00a&redirect_uri=https://m.ipandatcm.com/xczh/wxpublic/publicToMenuTypeList?menuType=200&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect"
-            },
-            {
-               "type":"view",
-               "name":"古籍经典",
-               "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx81c7ce773415e00a&redirect_uri=https://m.ipandatcm.com/xczh/wxpublic/publicToMenuTypeList?menuType=205&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect"
-             },
-            {
-              "type":"view",
-              "name":"针灸课程",
-              "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx81c7ce773415e00a&redirect_uri=https://m.ipandatcm.com/xczh/wxpublic/publicToMenuTypeList?menuType=201&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect"
-            }]
-       },
+{
+  "button": [
+    {
+      "name": "国医学堂",
+      "sub_button": [
         {
-           "type": "media_id", 
-           "name": "健康好文", 
-           "media_id": "J_yKCqyYzwWaAJjGf3mxH1aa1upoqOzZEzBF8z4BLes"
-        }]
- }
+          "type": "view",
+          "name": "学堂中心",
+          "url": "http://m.ipandatcm.com/xcview/html/home_page.html"
+        },
+        {
+          "type": "view",
+          "name": "学习中心",
+          "url": "http://m.ipandatcm.com/xcview/html/my_study.html"
+        },
+        {
+          "type": "view",
+          "name": "个人中心",
+          "url": "http://m.ipandatcm.com/xcview/html/my_homepage.html"
+        }
+      ]
+    },
+    {
+      "name": "特色课程",
+      "sub_button": [
+        {
+          "type": "view",
+          "name": "脉诊大全",
+          "url": "http://m.ipandatcm.com/xcview/html/curriculum_table.html?menuType=200"
+        },
+        {
+          "type": "view",
+          "name": "古籍经典",
+          "url": "http://m.ipandatcm.com/xcview/html/curriculum_table.html?menuType=205"
+        },
+        {
+          "type": "view",
+          "name": "针灸课程",
+          "url": "http://m.ipandatcm.com/xcview/html/curriculum_table.html?menuType=201"
+        }
+      ]
+    },
+    {
+      "type": "media_id",
+      "name": "健康好文",
+      "media_id": "J_yKCqyYzwWaAJjGf3mxH1aa1upoqOzZEzBF8z4BLes"
+    }
+  ]
+}

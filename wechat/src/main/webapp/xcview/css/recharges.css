@@ -28,6 +28,7 @@ header {
     top: 0;
     left: 0;
     z-index: 9;
+    /* margin-left: -7.275rem; */
 }
 .header {
     width: 14.851rem;

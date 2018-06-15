@@ -6,6 +6,7 @@ import com.xczh.consumer.market.service.OLCourseServiceI;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
+import com.xczhihui.common.util.enums.ProjectType;
 import com.xczhihui.course.model.MobileProject;
 import com.xczhihui.course.model.OfflineCity;
 import com.xczhihui.course.service.IMobileBannerService;
@@ -62,11 +63,11 @@ public class MobileClassifyController {
 		//课程分类
 		list.add(menuService.list());
 		//课程专题
-		Page<MobileProject> MobileProjectPage = new Page<>();
-		MobileProjectPage.setCurrent(1);
-		MobileProjectPage.setSize(100);
-		Page<MobileProject> mplist = mobileProjectService.selectMobileProjectPage(MobileProjectPage,2);
-		list.add(mplist.getRecords());
+//		Page<MobileProject> MobileProjectPage = new Page<>();
+//		MobileProjectPage.setCurrent(1);
+//		MobileProjectPage.setSize(100);
+		List<MobileProject> mplist = mobileProjectService.selectMobileProjectPage(ProjectType.PROJECT_CATEGORY.getCode());
+		list.add(mplist);
 		//课程类型
 		List<Map<String, Object>> getCourseTypeList = mobileProjectService.getCourseType();
 		list.add(getCourseTypeList);
@@ -82,34 +83,37 @@ public class MobileClassifyController {
 									  HttpServletResponse res)
 			throws Exception {
 
-		List<Object> list11 = new ArrayList<Object>();
+		List<Object> list = new ArrayList<Object>();
 		//课程分类
-		list11.add(menuService.list());
+		list.add(menuService.list());
 		//是否付费
 		List<Map<String, Object>> getPayStatusList = courseService.getPayStatusList();
-		list11.add(getPayStatusList);
+		list.add(getPayStatusList);
 		//课程类型
 		List<Map<String, Object>> getCourseTypeList = mobileProjectService.getCourseType();
-		list11.add(getCourseTypeList);
+		list.add(getCourseTypeList);
+		
 		//城市
 		Page<OfflineCity> OfflineCityPage = new Page<>();
 		OfflineCityPage.setCurrent(1);
 		OfflineCityPage.setSize(5);
 		List<OfflineCity> oclist = offlineCityService.selectOfflineCityPage(OfflineCityPage).getRecords();
-		if(oclist.size() == 5){
-			OfflineCity oc =new OfflineCity();
-			oc.setCityName("其他");
-			oclist.add(oc);
-		}
+	    if (oclist!=null && oclist.size() >0 ) {
+	        OfflineCity oc = new OfflineCity();
+	        oc.setCityName("其他");
+	        oclist.add(oc);
+	    }
 		for(OfflineCity city : oclist){
 			String name = city.getCityName();
 			city.setName(name);
 		}
-		list11.add(oclist);
+		list.add(oclist);
+		
 		//直播状态
 		List<Map<String, Object>> getLiveStatusList = courseService.getLiveStatusList();
-		list11.add(getLiveStatusList);
-		return ResponseObject.newSuccessResponseObject(list11);
+		list.add(getLiveStatusList);
+
+		return ResponseObject.newSuccessResponseObject(list);
 	}
 
 	

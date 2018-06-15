@@ -11,7 +11,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.xczh.consumer.market.dao.OLCourseMapper;
 import com.xczh.consumer.market.service.OLCourseServiceI;
 import com.xczh.consumer.market.utils.JdbcUtil;
-import com.xczh.consumer.market.vo.CourseLecturVo;
+import com.xczh.consumer.market.vo.CourseVo;
 import com.xczh.consumer.market.vo.MenuVo;
 import com.xczhihui.course.model.OfflineCity;
 import com.xczhihui.course.service.IOfflineCityService;
@@ -21,11 +21,8 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 
 	@Autowired
 	private OLCourseMapper wxcpCourseDao;
-	
 	@Autowired
 	private IOfflineCityService offlineCityService;
-	
-
 	
 	/***
 	 * 直播搜索页面的接口调整
@@ -35,7 +32,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 	 * @throws SQLException
 	 */
 	@Override
-    public List<CourseLecturVo> recommendCourseList( List<MenuVo> listmv) throws SQLException{
+    public List<CourseVo> recommendCourseList( List<MenuVo> listmv) throws SQLException{
 		
 		
 		//学习人数、当前价格、课程类型、课程图片、讲师名、课程名字
@@ -60,7 +57,6 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 
 		all.append(" from oe_course oc ,oe_user ou ");
 		all.append(" where  oc.user_lecturer_id = ou.id and oc.is_delete=0 and oc.status=1 order by recommendSort desc,oc.release_time desc  limit 0,6)");
-
 
 		all.append("  union all ");
 		
@@ -87,7 +83,6 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 		
 		
 		all.append("  union all ");
-		
 		
 		int i = 0;
 		for (MenuVo menuVo : listmv) {
@@ -117,18 +112,24 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 				all.append("  union all ");
 			}
 		}
-		System.out.println(all.toString());
 		
-		return wxcpCourseDao.query(JdbcUtil.getCurrentConnection(),all.toString(),new BeanListHandler<>(CourseLecturVo.class));
+		return wxcpCourseDao.query(JdbcUtil.getCurrentConnection(),all.toString(),new BeanListHandler<>(CourseVo.class));
 	}
 
 	@Override
-	public List<CourseLecturVo> queryAllCourse(String menuType,Integer lineState,
+	public List<CourseVo> queryAllCourse(String menuType, Integer lineState, Integer courseType, String isFree, String city, String queryKey, Integer pageNumber, Integer pageSize) throws SQLException {
+		return queryAllCourse(menuType,lineState,courseType,isFree,city,queryKey,pageNumber,pageSize,false);
+	}
+
+	@Override
+	public List<CourseVo> queryAllCourse(String menuType,Integer lineState,
 			Integer courseType, String isFree,String city, String queryKey,
-			Integer pageNumber, Integer pageSize) throws SQLException {
+			Integer pageNumber, Integer pageSize, Boolean onlyFree) throws SQLException {
 
 	    pageNumber = pageNumber == null ? 1 : pageNumber;
 		pageSize = pageSize == null ? 100000 : pageSize;
+		
+		
         StringBuffer  commonSql =new StringBuffer();
         //如果为模糊查询，排序规则为，课程名>分类>讲师名>课程,讲师简介
         if(org.apache.commons.lang.StringUtils.isNotBlank(queryKey)){
@@ -157,6 +158,10 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 		commonSql.append(" from oe_course oc,oe_menu as om ,oe_user ou ");
 		commonSql.append(" where  oc.user_lecturer_id = ou.id and om.id = oc.menu_id  and "
 				+ " oc.is_delete=0 and oc.status = 1   ");
+		
+		if(onlyFree){
+			commonSql.append(" and oc.is_free=1 ");
+		}
 		if(org.apache.commons.lang.StringUtils.isNotBlank(city)){
 			if(city.equals("其他")){
 				Page<OfflineCity> OfflineCityPage = new Page<>();
@@ -208,8 +213,10 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 		}
 		if(org.apache.commons.lang.StringUtils.isNotBlank(menuType)&&
 				!menuType.equals("goodCourse")&&!menuType.equals("newCourse")){
+			
 			commonSql.append(" AND oc.menu_id = '"+menuType+"' ");
 		}
+		
 		//判断是否有模糊查询
 		if(org.apache.commons.lang.StringUtils.isBlank(queryKey)){
 			if(org.apache.commons.lang.StringUtils.isNotBlank(menuType)){
@@ -231,6 +238,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 			}
 		}else{
 			commonSql.append(") ");
+			
 			commonSql.append(" union ");
 
 			commonSql.append(" (select oc.id,oc.grade_name as gradeName,oc.current_price*10 as currentPrice,"
@@ -257,6 +265,11 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 			commonSql.append(" from oe_course oc,oe_menu as om ,oe_user ou ");
 			commonSql.append(" where  oc.user_lecturer_id = ou.id and om.id = oc.menu_id  and "
 					+ " oc.is_delete=0 and oc.status = 1   ");
+
+			if(onlyFree){
+				commonSql.append(" and oc.is_free=1 ");
+			}
+
 			if(org.apache.commons.lang.StringUtils.isNotBlank(city)){
 				if(city.equals("其他")){
 					Page<OfflineCity> OfflineCityPage = new Page<>();
@@ -338,6 +351,11 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 			commonSql.append(" from oe_course oc,oe_menu as om ,oe_user ou ");
 			commonSql.append(" where  oc.user_lecturer_id = ou.id and om.id = oc.menu_id  and "
 					+ " oc.is_delete=0 and oc.status = 1   ");
+
+			if(onlyFree){
+				commonSql.append(" and oc.is_free=1 ");
+			}
+
 			if(org.apache.commons.lang.StringUtils.isNotBlank(city)){
 				if(city.equals("其他")){
 					Page<OfflineCity> OfflineCityPage = new Page<>();
@@ -420,6 +438,11 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 			commonSql.append(" from oe_course oc,oe_menu as om ,oe_user ou ");
 			commonSql.append(" where  oc.user_lecturer_id = ou.id and om.id = oc.menu_id  and "
 					+ " oc.is_delete=0 and oc.status = 1   ");
+
+			if(onlyFree){
+				commonSql.append(" and oc.is_free=1 ");
+			}
+
 			if(org.apache.commons.lang.StringUtils.isNotBlank(city)){
 				if(city.equals("其他")){
 					Page<OfflineCity> OfflineCityPage = new Page<>();
@@ -501,6 +524,11 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 			commonSql.append(" from oe_course oc,oe_menu as om ,oe_user ou ");
 			commonSql.append(" where  oc.user_lecturer_id = ou.id and om.id = oc.menu_id  and "
 					+ " oc.is_delete=0 and oc.status = 1   ");
+
+			if(onlyFree){
+				commonSql.append(" and oc.is_free=1 ");
+			}
+
 			if(org.apache.commons.lang.StringUtils.isNotBlank(city)){
 				if(city.equals("其他")){
 					Page<OfflineCity> OfflineCityPage = new Page<>();
@@ -564,13 +592,13 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 
 		}
 
-    	System.out.println("commonSql:"+commonSql.toString());
         return wxcpCourseDao.queryPage(JdbcUtil.getCurrentConnection(),commonSql.toString(),
-        		pageNumber,pageSize,CourseLecturVo.class);
+        		pageNumber,pageSize,CourseVo.class);
 	}
 
+
 	@Override
-	public List<CourseLecturVo> offLineClassList(List<OfflineCity> cityList) throws SQLException {
+	public List<CourseVo> offLineClassList(List<OfflineCity> cityList) throws SQLException {
 		String strsql="(select  o.id,o.grade_name as gradeName,o.current_price*10 as currentPrice,4 as type,"
 				+" o.smallimg_path as smallImgPath,o.lecturer as name,o.address as address,"
 				+" o.city as city,DATE_FORMAT(o.start_time,'%m.%d') as startDateStr,"
@@ -609,6 +637,6 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 					strsql+= " union all ";
 				}
 		}
-		return wxcpCourseDao.query(JdbcUtil.getCurrentConnection(),strsql,new BeanListHandler<>(CourseLecturVo.class));
+		return wxcpCourseDao.query(JdbcUtil.getCurrentConnection(),strsql,new BeanListHandler<>(CourseVo.class));
 	}
 }

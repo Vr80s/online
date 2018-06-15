@@ -22,6 +22,16 @@ public class PayMessage {
 
 	private BigDecimal value;
 
+	private Integer from;
+
+	public Integer getFrom() {
+		return from;
+	}
+
+	public void setFrom(Integer from) {
+		this.from = from;
+	}
+
 	public String getType() {
 		return type;
 	}

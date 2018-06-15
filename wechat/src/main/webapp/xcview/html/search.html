@@ -15,7 +15,9 @@
 <!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
 <!-- 网页自适应JS代码引入 -->
 
-<script src="/xcview/js/js.js?v=wechat_1.1.1"></script>
+<!--手机嵌入模板-->
+<script type="text/javascript" src="/xcview/js/common/layout.js"></script>
+<!-- <script src="/xcview/js/js.js?v=wechat_1.1.1"></script> -->
 <script>
 	// 判断横屏展示时的状态
 	window.onorientationchange=function(){
@@ -27,7 +29,14 @@
 	}	
 </script>
 <link rel="stylesheet" type="text/css" href="/xcview/css/search.css" />
-
+<style>
+	.search_hot{
+		margin-bottom: 0;
+	}
+	.search_history{
+		margin-top: 0.2rem;
+	}
+</style>
 </head>
 
 <body style="background: #F8F8F8;">
@@ -250,6 +259,13 @@
 		$("#header_input").click(function(){
 			$(".header_seek_main").css("display","none");
 		});
+
+		/*if($(".search_hot_main_one").html()==''){
+				$(".search_hot").hide();
+		}else{
+			alert(123);
+		};*/
+
 
 </script>
 

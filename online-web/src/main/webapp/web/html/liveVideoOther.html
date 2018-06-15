@@ -1,0 +1,112 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<meta charset="UTF-8">
+		<title>熊猫中医云课堂 - 线上中医教育</title>
+		<link rel="shortcut icon" href="../../favicon.ico" />
+		<meta name="keywords" content="中医教育,中医传承,中医线下教育,海口中医养生,国粹,传承,中医,中药,心承,熊猫中医" />
+		<meta name="description" content="熊猫中医是中医药的学习传承平台：学中医、懂中医、用中医，让中医服务于家庭、个人，让中国古代科学瑰宝为现代人类的健康保驾护航。" />
+		<meta name="renderer" content="webkit">
+		<link rel="stylesheet" href="/web/css/bootstrap.min.css">
+		<link rel="stylesheet" href="/web/css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="/web/css/mylogin.css" />
+		<link href="/web/css/header.css" rel="stylesheet" />
+		<link rel="stylesheet" href="/web/css/componet.css" />
+		<link rel="stylesheet" href="/web/font/iconfont.css">
+		<link rel="stylesheet" type="text/css" href="/web/css/liveVideo.css" />
+		<script src="/web/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/web/js/artTemplate.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="/web/js/bootstrap.js"></script>
+		<script src="/web/js/ajax.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/web/js/html5.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/web/js/jquery.qrcode.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/web/js/utf.js" type="text/javascript" charset="utf-8"></script>
+    	<script src="/web/js/im/strophe.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/web/js/im/giftSend.js" type="text/javascript" charset="utf-8"></script> 
+	</head>
+	<body>
+		<!--   直播区域    -->
+		<div class="livePlayer" style="position:relative;padding-right: 0px;">
+		<!--弹幕得div-->
+		<div id='boxDom' style="background-color:transparent;position:absolute;height:100%" ></div>
+			<div class="kick">
+				你已被移出直播间，下次请记得遵守课堂纪律。
+			</div>
+			<!---------提示遮罩层--------->
+			<div class="ms">
+				<div style="position: relative;width: 100%;height: 100%;">
+
+				</div>
+			</div>
+			<div class="dialog">
+				<p class="title"><i class="iconfont icon-tanhao"></i>提示</p>
+				<div class="cont">
+					<p class="c1">直播等待中</p>
+					<p class="qq">【直播通知QQ群：<span>1234567890</span>】</p>
+				</div>
+			</div>
+			<!---------提示遮罩层--------->
+			<div class="liveMess">
+			
+				<marquee class="lb">【正在直播】<span></span></marquee>
+						<div class="QR_code"></div>
+				
+				<span class="liveName">
+				<a href="#"  id="return"><img alt="" src="/web/images/video2/fanhui.png">
+				 返回课程详情</a>&nbsp;&nbsp;
+				 <span id="liveStatus"></span>
+				 <span id="courseName"></span>
+				 </span>
+				<div class="share">
+					<ul>
+						<li style="line-height:none;background:none;width:75px;">分享到：</li>
+						<li class="share_li1"><img src="/web/images/video2/weixin.png" alt="" /><div style="padding:5px;background-color: #fff;" class="share_li1_img"><div id="qrcodeCanvas1"></div></div></li>
+						<li class="share_li2"><img src="/web/images/video2/quan.png" alt="" /><div style="padding:5px;background-color: #fff;" class="share_li2_img"><div id="qrcodeCanvas2"></div></div></li>
+						<li style="background:none;"><a href="javascript:void(0)" id="weibo_share" target="_blank" ><img src="/web/images/video2/weibo.png" alt="" /></a></script></li>
+						<li style="background:none;"><a href="javascript:void(0)" id="qq_share" target="_blank" ><img src="/web/images/video2/Qq.png" alt="" /></a></li>
+				</ul>
+				</div>
+				<span class="liveTime">直播时间：<span></span></span>
+				<!-- <span class="liveMember"></span> -->
+				
+			</div>
+			<div id="livePlayer" style="width: 100%;">
+				<iframe id="vhall-video" src="" width="100%" height="100%" style="border-width:0;"></iframe>
+			</div>
+		</div>
+		<!-- right start -->
+</div>
+<script src="/web/js/liveVideo/liveVideoOther.js"></script>
+<script src="/web/js/common/video_share.js?v=ipandatcm_1.3"></script>
+</body>
+	<script>
+			$("body").append('<div class="modal" id="login" data-backdrop="static">' +
+				'<div class="modal-dialog login-module" role="document">' +
+				'<div class="cymylogin" style="height: 410px!important;">' +
+				'<div class="cymylogin-top clearfix">' +
+				'<div class="cymyloginclose" data-dismiss="modal" aria-label="Close" data-backdrop="static"></div>' +
+				'<div class="cymyloginlogo">欢迎登录&nbsp;&nbsp;熊猫中医云课堂</div>' +
+				'<div class="cymyloginhint cymlogin">' +
+				'</div></div>' +
+				'<div class="cymylogin-bottom form-login">' +
+				'<input type="text" class="cyinput1 form-control" autocomplete="off" maxlength="30" placeholder="请输入手机号"/>' +
+				'<div class="cymyloginclose1"></div>' +
+				'<input type="password" class="cyinput2 form-control" maxlength="18" placeholder="请输入6-18位密码"/>' +
+				'<div class="cymyloginclose2"></div>' +
+				'<button class="cymyloginbutton">登<em></em>录</button>' +
+				'<div class="cymyloginpassword">' +
+				'<a class="atOnceRegister" href="/web/html/login.html?ways=register">立即注册</a>' +
+				'<a class="atOnceResetPassword" href="/web/html/resetPassword.html">忘记密码?</a>' +
+				'</div>' +
+				'</div></div></div></div>');
+		</script>
+</html>
+<script src="/web/js/placeHolder.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$('input').placeholder();
+		/* var html = template('',html) */
+	});
+</script>

@@ -3,6 +3,8 @@ package com.xczhihui.course.mapper;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.course.model.MobileProject;
+import com.xczhihui.course.vo.MenuVo;
+
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -17,5 +19,7 @@ import java.util.List;
  */
 public interface MobileProjectMapper extends BaseMapper<MobileProject> {
 
-	 List<MobileProject> selectMobileProjectPage(@Param("page") Page<MobileProject> page, @Param("type") Integer type);
+	 List<MobileProject> selectMobileProjectPage(@Param("type") Integer type);
+
+	 List<MenuVo> selectMenuVo();
 }

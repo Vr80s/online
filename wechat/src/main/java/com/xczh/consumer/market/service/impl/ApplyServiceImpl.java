@@ -24,8 +24,6 @@ public class ApplyServiceImpl implements ApplyService {
 
     @Override
     public void saveOrUpdateBaseInfo(String userId,String realName, String phone) {
-
-
         try {
             Apply apply=  get(userId);
            if(apply!=null){
@@ -36,8 +34,6 @@ public class ApplyServiceImpl implements ApplyService {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-
     }
 
     @Override
@@ -60,7 +56,7 @@ public class ApplyServiceImpl implements ApplyService {
         String sql="select is_first isFirst,referee,occupation,wechat_no wechatNo,id,user_id userId,create_time createTime,real_name" +
                 " realName,school_id schoolId,sex,birthday,mobile,email,qq,student_number studentNumber,id_card_no idCardNo,is_old_user isOldUser from oe_apply where user_id=? ";
         try {
-        return    basicSimpleDao.query(JdbcUtil.getCurrentConnection(),sql,new BeanHandler<Apply>(Apply.class),userId);
+        return basicSimpleDao.query(JdbcUtil.getCurrentConnection(),sql,new BeanHandler<Apply>(Apply.class),userId);
         } catch (SQLException e) {
             e.printStackTrace();
         }

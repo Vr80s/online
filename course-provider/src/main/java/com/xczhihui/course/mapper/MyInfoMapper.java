@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.course.model.OnlineUser;
 import com.xczhihui.course.vo.OnlineUserVO;
 
@@ -86,9 +87,9 @@ public interface MyInfoMapper extends BaseMapper<OnlineUser> {
 	List<Map<String, Object>> hostInfoRec();
 
 	List<Map<String, Object>> findUserWallet(
-			@Param("pageNumber")Integer pageNumber,
-			@Param("pageSize")Integer pageSize,
+			@Param("page") Page<Map<String, Object>> page,
 			@Param("userId")String userId);
+
 	/**
 	 * 查看主播信息
 	 * @param userId

@@ -1,0 +1,778 @@
+*{margin: 0; padding: 0;}
+body{ 
+	font-family:"Microsoft Yahei", "Hiragino Sans GB", sans-serif !important; 
+	font-size: 14px;
+	background: #F8F8F8;
+	
+}
+a:link{text-decoration:none; } 
+a:hover{text-decoration: none;}
+a:focus {
+outline: none;
+}
+ul{margin: 0;}
+p{margin-bottom: 0;}
+.cl{clear: both;}
+.z{float: left;}
+.y{float: right;}
+.wp{width: 1200px; margin: 0 auto; color: #333333;}
+.selected{
+	color: #00BC12;
+}
+.wrap-top{
+	width: 100%;
+	padding: 20px 0;
+	background: white;
+	overflow: hidden;
+	margin-top: 20px;
+}
+.main-top{
+	width: 1200px; 
+	margin: 0 auto;
+	overflow: hidden;
+	position: relative;
+}
+.head-portrait{
+	width: 150px;
+	height: 150px;
+	border-radius: 50%;
+	position: relative;
+	margin-right: 25px;
+	overflow: hidden;
+}
+.head-portrait img{
+	width: 100%;
+	height: 100%;
+	display: block;
+}
+.main-top .icon-adopt{
+	position: absolute;
+	top: 110px;
+    left: 100px;
+	width: 40px;
+	height: 40px;
+	background: url(../../images/icon-adopt.png) no-repeat;
+}
+.anchor-status {
+	width: 800px;
+	overflow: hidden;
+	margin-top: 20px;
+}
+.anchor-status h2{
+	font-size: 20px;
+    margin: 0;
+    float: left;
+    font-weight: bold;
+}
+.anchor-status h4{
+	float: left;
+	margin: 0;
+    margin-top: 4px;
+    margin-left: 20px;
+    font-size: 16px;
+}
+.follow-box{
+	overflow: hidden;
+	padding: 16px 0;	
+}
+.follow-box li{
+	float: left;
+	margin-right: 15px;
+	color: #999999;
+}
+.anchor-status button{
+	width: 102px;
+	height: 36px;
+	background: #00BC12;
+	color: white;
+	border: 0;
+	border-radius: 4px;
+	outline: none;
+	border: 1px solid #00BC12;
+}
+.isAdd-follow img{
+	width: 22px;
+	height: 22px;
+	margin-right: 5px;
+}
+.anchor-status .isAdd-active{
+	color: #4c4c4c;
+	background: white;
+	border: 1px solid #dedede;
+}
+/*详情/评价/常见问题*/
+
+.main{
+	margin-top: 20px;
+
+	overflow: hidden;
+}
+.content-inf{
+	width: 860px;
+}
+.wrap-sidebar{
+	height: 60px;
+	width: 100%;
+	border-bottom: 1px solid #f0f0f0;
+	line-height: 60px;
+	overflow: hidden;
+	background: white;
+	
+}
+.wrap-sidebar ul li:nth-child(1){
+	/*padding: 0 65px;*/
+	margin-left: 0;
+
+}
+.wrap-sidebar ul li{
+	float: left;
+	padding-bottom: 10px ;
+	border-bottom: 3px solid transparent;
+	padding: 0 36px;
+
+	cursor: pointer;
+	height: 59px;
+	font-size: 16px;
+}
+.wrap-sidebar ul li a{
+	color: #333333;
+}
+.wrap-sidebar ul .active-footer{
+	border-bottom: 3px solid #00BC12;
+	color: #00BC12;
+}
+.wrap-sidebar ul .active-footer a{
+
+	color: #00BC12;
+}
+.sidebar-content{
+	background: white;
+	width: 100%;
+	padding:30px 20px 20px;
+	overflow: hidden;
+}
+.all-null{
+	text-align: center;
+	padding: 120px 0;
+	
+}
+.all-null p{
+	padding: 10px 0;
+	color: #999999;
+}
+/*课程视频*/
+/*视频样式*/
+.wrap-class .course {
+    position: relative;
+    width: 260px;
+    float: left;
+    height: 239px;
+    margin-left: 20px;
+    margin-top: 25px;
+}
+.wrap-class .course:nth-child(4n){
+    margin-right: 0px;
+}
+.wrap-class > div > a {
+    background: white;
+    width: 260px;
+    float: left;
+    margin-bottom: 15px;
+    -webkit-box-shadow: 1px 1px 2px 1px #ECECEC;
+    -moz-box-shadow: 1px 1px 2px 1px #ECECEC;
+    box-shadow: 1px 1px 2px 1px #ECECEC;
+}
+.wrap-class .course .img{
+	text-align: center;
+    line-height: 147px;
+    width: 260px;
+    height: 147px;
+    background-color: #f0f0f0;
+    background-image: url(../../images/load26.gif);
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}	  
+.wrap-class .course .img img{
+	 -webkit-transition: all ease-in-out 0.5s;
+    -moz-transition: all ease-in-out 0.5s;
+    -ms-transition: all ease-in-out 0.5s;
+    -o-transition: all ease-in-out 0.5s;
+}
+.wrap-class .course .img img:hover{
+	transform: scale(1.2);
+}
+.wrap-class .course .img img{
+	width: 100%;
+	height: 100%;
+}
+.wrap-class .course .classCategory {
+    height: 22px;
+    padding: 0 5px;
+    text-align: center;
+    line-height: 22px;
+    color: white;
+    background: #2cb82c url(../../images/index/label.png) no-repeat left top;
+    position: absolute;
+    right: 18px;
+    font-size: 12px;
+    top: -2px;
+}
+.wrap-class > div > a .detail {
+    width: 261px;
+    height: 90px;
+    padding: 10px 10px 15px;
+    border: 1px solid #e4e4e4;
+    border-top: none;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+.wrap-class > div > a .detail .title {
+    max-width: 240px;
+    /* height: 30px; */
+    display: inline-block;
+    overflow: hidden;
+    font-size: 14px;
+    color: #333;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.wrap-class > div > a .detail .timeAndTeac {
+    display: block;
+    margin: 5px 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.wrap-class > div > a .detail .timeAndTeac span {
+    font-size: 13px;
+    color: #999;
+    width: 115px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.wrap-class > div > a .detail .timeAndTeac span:nth-child(2){
+   text-align: right;
+}
+.wrap-class > div > a .detail .info > span:nth-child(1) {
+    float: left;
+}
+.wrap-class > div > a .detail .info .price {
+    display: inline-block;
+
+    font-size: 13px;
+    color: #F97B49;
+}
+.wrap-class > div > a .detail span {
+    color: #999;
+}
+.wrap-class > div > a .detail .info{
+	font-size: 13px;
+}
+.wrap-class > div > a .detail .info > span:nth-child(2) {
+    float: right;
+}
+.wrap-class .stuCount .studentCou{
+	float: right;
+	margin-top: 2px;
+	margin-left: 5px;
+}
+/*视频样式结束*/
+/*介绍*/
+.anchor-introduce{
+	background: white;
+	padding: 30px 20px 20px;
+}
+.anchor-introduce p{
+	line-height: 1.75em;
+}
+.anchor-introduce img{
+	margin: 20px 0;
+}
+.anchor-hospital{
+	padding: 20px;
+	background: white;
+	margin-top: 20px;
+	overflow: hidden;
+	
+}
+.anchor-hospital h5{
+	font-weight: bold;
+	font-size: 20px;
+	margin: 0 0 20px;
+}
+.hospital-img{
+	width: 270px;
+	height: 152px;
+}
+.hospital-img img{
+	width: 100%;
+	height: 100%;
+}
+.hospital-inf {
+	width: 530px;
+	color: #666666;
+}
+.hospital-status p{
+	margin-bottom: 10px;
+}
+.hospital-inf .address{
+	width: 70px;
+}
+.address-box .address span:nth-child(odd){
+	float: left;
+}
+.address-box .address span:nth-child(even){
+	float: right;
+}
+.address-box .address-text{
+	width: 455px;
+}
+.anchor-video{
+	width: 100%;
+	background: white;
+	padding: 20px;
+	margin-top: 20px;
+}
+.anchor-video h5{
+	font-weight: bold;
+	font-size: 20px;
+	margin: 0 0 20px;
+}
+.save-video{
+	width: 463px;
+	height: 260px;
+}
+/*评价*/
+.impression-content{
+	width: 100%;
+	position: relative;
+	border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 20px;
+}
+.impression-content .impression-list li{
+	list-style: none;
+	float: left;
+	font-size: 18px;
+	margin-right: 30px;
+}
+.impression-content .impression-list li img{
+	margin-top: -4px;
+	margin-left: 7px;
+	width: 120px;
+}
+.want-evaluate{
+	width: 92px;
+	height: 36px;
+	text-align: center;
+	line-height: 36px;
+	background: #00BC12;
+	color: white;
+	position: absolute;
+	top: -6px;
+    right: 0;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+}
+.impression-content .impression-write{
+	padding-top: 20px;
+	overflow: hidden;
+}
+.impression-content .impression-write li{
+	float: left;
+	padding: 10px;
+	background: #f0f0f0;
+	font-size: 12px;
+	margin-right: 20px;
+	line-height: 1;
+	border-radius: 4px;
+}
+.container-comment{
+	padding: 20px 0;
+	border-bottom: 1px solid #f0f0f0;
+	overflow: hidden;
+}
+.wrap-portrait{
+	width: 60px;
+	height: 90px;	
+}
+.header-img{
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	overflow: hidden;
+}
+.header-img img{
+	width: 100%;
+	height: 100%;
+}
+.wrap-portrait p{
+	width: 50px;
+	height: 18px;
+	text-align: center;
+	line-height: 18px;
+	font-size: 12px;
+	background: #00BC12;
+	color: white;
+	text-align: center;
+	margin: 10px 0 0 5px;
+	border-radius: 4px;
+}
+.right-comment{
+	width: 750px;
+	margin-top: 20px;
+	
+}
+.user-name li{
+	float: left;
+}
+.user-name li:nth-child(1){
+	font-weight: bold;
+}
+.user-name li:nth-child(2){
+	margin: 0 20px 0 5px;
+	color: #999999;
+}
+.user-name li:nth-child(3) img{
+	    width: 95px;
+    display: block;
+}
+.right-comment .write-text{
+	padding: 20px 0;
+word-wrap:break-word; 
+word-break:break-all;
+}
+.wrap-reply{
+	width: 750px;
+	background: #fafafa;
+	padding: 10px;
+	margin-bottom: 25px;
+}
+.header-reply{
+	width: 36px;
+	height: 36px;
+	border-radius: 50%;
+	overflow: hidden;
+}
+.header-reply img{
+	width: 100%;
+	height: 100%;
+}
+.content-reply{
+	width: 684px;
+	margin-top: 8px;
+}
+.name-reply li{
+	float: left;
+}
+.name-reply li:nth-child(1){
+	font-weight: bold;
+}
+.name-reply li:nth-child(2){
+	color: #666666;
+	margin-left: 5px;
+}
+.reply-text{
+	padding-top: 10px;
+	word-wrap:break-word; 
+	word-break:break-all;
+}
+.operation-reply{
+	float: right;
+	color: #989898;
+}
+.operation-reply li{
+	float: left;
+	cursor: pointer;
+}
+.operation-reply li:nth-child(2){
+	margin-left: 20px;
+}
+.wrap-input{
+	padding-top: 20px;
+	overflow: hidden;
+}
+.header-input{
+	width: 36px;
+	height: 36px;
+}
+.header-input img{
+	width: 100%;
+	height: 100%;
+}
+.input-write{
+	width: 592px;
+	height: 34px;
+	border: 1px solid #DEDEDE;
+	margin-left: 10px;
+	text-align: left;
+	line-height: 34px;
+	overflow: hidden;
+}
+.input-write p{
+	color: #999999;
+	padding-left: 10px;
+}
+.input-write p span{
+	color: #00BC12;
+	cursor: pointer;
+}
+.wrap-input .no-login{
+	background: rgba(0,188,18,0.30);
+	border-radius: 4px;
+	color: white;
+	width: 92px;
+	height: 36px;
+	border: 0;
+	outline: none;
+}
+.wrap-input .login{
+	background: #00BC12;
+	border-radius: 4px;
+	color: white;
+	width: 92px;
+	height: 36px;
+	border: 0;
+	outline: none;
+}
+.input-write input{
+	width: 100%;
+	height: 100%;
+	padding-left: 10px;
+	border: 0;
+	outline: none;
+}
+.more-evaluate{
+	text-align: center;
+	margin-top: 20px;
+}
+.more-evaluate button{
+	    width: 92px;
+    height: 36px;
+    background: #00bc12;
+    line-height: 36px;
+    border: 0;
+    outline: none;
+    color: #ffffff;
+    border-radius: 4px;
+}
+/*主播视频介绍*/
+.save-video embed {
+    width: 463px;
+    height: 260px;
+}
+/*右侧推荐课程*/
+.wrap-recommend{
+	width: 320px;
+
+	background: white;
+	padding: 20px;
+}
+.wrap-recommend h3{
+	margin-bottom: 0;
+    font-size: 16px;
+    margin-top: 0;
+}
+/*视频样式*/
+.wrap-recommend .course {
+    position: relative;
+    width: 280px;
+    float: left;
+    height: 239px;
+    margin-top: 20px;
+}
+.wrap-recommend .course:nth-child(4n){
+    margin-right: 0px;
+}
+.wrap-recommend > div > a {
+    background: white;
+    width: 280px;
+    float: left;
+    margin-bottom: 15px;
+    -webkit-box-shadow: 1px 1px 2px 1px #ECECEC;
+    -moz-box-shadow: 1px 1px 2px 1px #ECECEC;
+    box-shadow: 1px 1px 2px 1px #ECECEC;
+}
+.wrap-recommend .course .img{
+	text-align: center;
+    line-height: 147px;
+    width: 280px;
+    height: 147px;
+    background-color: #f0f0f0;
+    background-image: url(../../images/load26.gif);
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}	  
+.wrap-recommend .course .img img{
+	 -webkit-transition: all ease-in-out 0.5s;
+    -moz-transition: all ease-in-out 0.5s;
+    -ms-transition: all ease-in-out 0.5s;
+    -o-transition: all ease-in-out 0.5s;
+}
+.wrap-recommend .course .img img:hover{
+	transform: scale(1.2);
+}
+.wrap-recommend .course .img img{
+	width: 100%;
+	height: 100%;
+}
+.wrap-recommend .course .classCategory {
+    height: 22px;
+    padding: 0 5px;
+    text-align: center;
+    line-height: 22px;
+    color: white;
+    background: #2cb82c url(../../images/index/label.png) no-repeat left top;
+    position: absolute;
+    right: 18px;
+    font-size: 12px;
+    top: -2px;
+}
+.wrap-recommend > div > a .detail {
+    width: 281px;
+    height: 90px;
+    padding: 10px 10px 15px;
+    border: 1px solid #e4e4e4;
+    border-top: none;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+.wrap-recommend > div > a .detail .title {
+    max-width: 240px;
+    overflow: hidden;
+    font-size: 14px;
+    color: #333;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.wrap-recommend > div > a .detail .timeAndTeac {
+    display: block;
+    margin: 5px 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.wrap-recommend > div > a .detail .timeAndTeac span {
+    font-size: 13px;
+    color: #999;
+}
+
+.wrap-recommend > div > a .detail .info > span:nth-child(1) {
+    float: left;
+}
+.wrap-recommend > div > a .detail .info{
+	font-size: 13px;
+}
+.wrap-recommend > div > a .detail .info .price {
+    display: inline-block;
+    margin: 0 3px 0 0;
+    color: #F97B49;
+}
+.wrap-recommend > div > a .detail span {
+    color: #999;
+}
+.wrap-recommend > div > a .detail .info > span:nth-child(2) {
+    float: right;
+}
+.wrap-recommend .stuCount .studentCou{
+	float: right;
+	margin-top: 2px;
+	margin-left: 5px;
+}
+/*视频样式结束*/
+
+
+
+/*模态框*/
+.bg-modal{
+	position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background: rgb(0, 0, 0);
+    opacity: 0.3;
+    z-index: 888;	
+} 
+ .wrap-modal{
+ 	width: 400px;
+    padding: 20px 30px 30px;
+    background: white;
+    border-radius: 4px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    position: fixed;
+ } 
+ .wrap-modal .close-impression {
+ 	text-align: right;
+ 	padding-bottom: 10px;
+ 	cursor: pointer;
+ }
+.wrap-modal h4{
+	text-align: center;
+	margin: 0;
+	padding-bottom: 20px;
+	font-size: 20px;
+}
+
+.impression-comment{
+	margin-bottom: 20px;
+}
+.impression-comment span{
+	margin-left: 30px;
+	position: relative;
+	top: 2px;
+}
+.impression-comment p{
+	display: inline-block;
+	color: #666666;
+	margin-right: 30px;
+}
+.impression-comment img{
+	width: 30px;
+	cursor: pointer;
+}
+.impression-setlist{
+	margin-bottom: 10px;
+	overflow: hidden;
+}
+.impression-setlist li{
+	float: left;
+	margin-right: 20px;
+	padding: 5px 10px;
+	border-radius: 4px;
+	background: #f0f0f0;
+	margin-bottom: 10px;
+	border: 1px solid #f0f0f0;
+	cursor: pointer;
+}
+.impression-setlist .impression-active{
+	border: 1px solid #00BC12;
+	color: #00BC12;
+	background: #E9FFEB;
+	
+}
+.impression-text{
+	width: 340px;
+	height: 110px;
+	border: 1px solid #dedede;
+	outline: none;
+	resize: none;
+	padding: 5px;
+	margin-bottom: 20px;
+}
+.submission{
+	width: 120px;
+	height: 36px;
+	background: #00BC12;
+	color: white;
+	border: 0;
+	border-radius: 4px;
+	margin-left: 110px;
+	outline: none;
+}

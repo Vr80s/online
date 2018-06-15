@@ -1,0 +1,572 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+img{
+	border: 0;
+	border: none;
+}
+a{
+	text-decoration: none;
+}
+ul{
+	margin: 0;
+	padding: 0;
+}
+li{
+	list-style: none;
+	background: #f0f0f0;
+}
+
+.both{
+	clear: both;
+}
+/*简介头部开始*/
+header{
+	width: 7.5rem;
+	height: 3.02rem;
+	margin: 0 auto;
+	/* background: url(http://test-wx.xczhihui.com/xcview/images/anchorbg.png) no-repeat;
+	background-size: 100% 100%; */
+}
+.intro{
+	width: 7.5rem;
+	height: 0.88rem;
+	margin: 0 auto;
+}
+.special_img{
+	width: 7.5rem;
+    height: 3.02rem;
+    position: absolute;
+    top: 0;
+    /*left: 0;*/
+    z-index: -1;
+}
+.special_img img{
+	width: 100%;
+    height: 3.02rem;
+}
+.intro_top{
+	width: 2.24rem;
+    height: 0.88rem;
+    line-height: 0.42rem;
+    float: left;
+    padding-left: 0.26rem;
+    position: relative;
+}
+.intro_top img{
+	    width: 0.23rem;
+    /* height: 0.34rem; */
+    margin-left: 0.1rem;
+    margin-top: 0.3rem;
+}
+.intro_top_bg{
+	position: absolute;
+    width: 0.6rem;
+    height: 0.6rem;
+    background: #000;
+    opacity: 0.5;
+    border-radius: 100px;
+    top: 0.2rem;
+    left: 0.2rem;
+    z-index: -1;
+}
+.invitation_card{
+	width: 2rem;
+	height: 0.46rem;
+	background: #00bc12;
+	border-radius: 100px 0 0 100px;
+	float: right;
+	margin-top: 0.23rem;
+	line-height: 0.46rem;
+}
+.invitation_card_share{
+	width: 0.24rem;
+	height: 0.24rem;
+	float: left;
+	margin: 0.1rem 0.2rem;
+}
+.invitation_card_share img{
+	width: 0.24rem;
+	height: 0.24rem;
+	float: left;
+}
+.invitation_card_size{
+	font-size: 0.24rem;
+	color: #FFFFFF;
+	float: left;
+}
+/*简介头部结束*/
+
+/*中间内容开始*/
+.main{
+	width: 7.5rem;
+    margin: 0 auto;
+    margin-top: -0.7rem;
+}
+.head_portrait{
+	width: 1.4rem;
+	height: 1.4rem;
+	margin: 0 auto;
+	background: #fff;
+	margin-bottom: 0.2rem;
+    border-radius: 100px;
+}
+.head_portrait img{
+	width: 1.4rem;
+	height: 1.4rem;
+	box-shadow: 0 2px 4px 0 rgba(0,0,0,0.20);
+	border-radius: 100px;
+}
+.intro_title{
+	width: 6.98rem;
+	margin: 0 auto;
+	font-size: 0.3rem;
+	color: #333333;
+	text-align: center;
+	margin-bottom: 0.3rem;
+}
+.intro_title_size{
+	width: 6.98rem;
+	margin: 0 auto;
+	font-size: 0.26rem;
+	color: #666666;
+}
+.intro_border{
+	width: 100%;
+	height: 1px;
+	background: #f0f0f0;
+	margin: 0.3rem 0 0.36rem 0;
+}
+.intro_borders{
+	width: 100%;
+	height: 1px;
+	background: #f0f0f0;
+	margin: 0.3rem 0 0.3rem 0;
+}
+.apprentice{
+	display: flex;
+	margin: 0 0 0.32rem 0.26rem;
+}
+.number_enlightening{
+	font-size: 0.26rem;
+	color: #666666;
+}
+.number_people{
+	font-size: 0.26rem;
+	color: #F97B49;
+	margin: 0 0.1rem;
+}
+.hint{
+	font-size: 0.22rem;
+	color: #999999;
+}
+.schooling{
+	display: flex;
+	padding-left: 0.26rem;
+	margin-bottom: 0.2rem;
+}
+.schooling_size{
+	font-size: 0.26rem;
+	color: #666666;
+}
+.number_schooling{
+	font-size: 0.26rem;
+	color: #F97B49;
+	margin: 0 0.1rem;
+}
+.registered{
+	width: 100%;
+	height: 0.6rem;
+	line-height: 0.6rem;
+	font-size: 0.26rem;
+	color: #666666;
+}
+.registered span{
+	float: left;
+	margin-right: 0.55rem;
+	padding-left: 0.26rem;
+}
+.registered ul li{
+	width: 0.6rem;
+	height: 0.6rem;
+	border-radius: 100px;
+	float: left;
+	margin-right: 0.1rem;
+}
+.registered ul li:last-child{
+	margin-right: 0 !important;
+}
+.registered ul li img{
+	width: 0.6rem;
+	height: 0.6rem;
+	border-radius: 100px;
+	font-size: 0.2rem;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-indent: -0.21rem;
+}
+
+/*大师简介开始*/
+.master{
+	width: 100%;
+	margin-bottom: 0.4rem;
+}
+.master_title{
+	margin-bottom: 0.2rem;
+}
+.master_title .border{
+	width: 0.06rem;
+	height: 0.27rem;
+	background: #00bc12;
+	border-radius: 100px;
+	float: left;
+	margin-top: 0.06rem;
+    margin-right: 0.08rem;
+    margin-left: 0.26rem;
+}
+.master_title .title{
+	font-size: 0.28rem;
+	color: #333333;
+	float: left;
+}
+.master_center{
+	width: 6.98rem;
+	margin: 0 auto;
+	font-size: 0.26rem;
+	color: #666666;
+	line-height: 0.42rem;
+}
+/*大师简介结束*/
+
+/*拜师资格开始*/
+.apprentices{
+	width: 100%;
+	margin-bottom: 0.4rem;
+}
+.apprentices_title{
+	margin-bottom: 0.2rem;
+}
+.apprentices_title .border{
+	width: 0.06rem;
+	height: 0.27rem;
+	background: #00bc12;
+	border-radius: 100px;
+	float: left;
+	margin-top: 0.06rem;
+    margin-right: 0.08rem;
+    margin-left: 0.26rem;
+}
+.apprentices_title .title{
+	font-size: 0.28rem;
+	color: #333333;
+	float: left;
+}
+.apprentices_center{
+	width: 6.98rem;
+	margin: 0 auto;
+	font-size: 0.26rem;
+	color: #666666;
+	line-height: 0.42rem;
+}
+.apprentices_center img{
+	max-width: 6.98rem;
+}
+/*拜师资格结束*/
+
+/*弟子权益开始*/
+.disciple{
+	width: 100%;
+	margin-bottom: 0.4rem;
+}
+.disciple_title{
+	margin-bottom: 0.2rem;
+}
+.disciple_title .border{
+	width: 0.06rem;
+	height: 0.27rem;
+	background: #00bc12;
+	border-radius: 100px;
+	float: left;
+	margin-top: 0.06rem;
+    margin-right: 0.08rem;
+    margin-left: 0.26rem;
+}
+.disciple_title .title{
+	font-size: 0.28rem;
+	color: #333333;
+	float: left;
+}
+.disciple_center{
+	width: 6.98rem;
+	margin: 0 auto;
+	font-size: 0.26rem;
+	color: #666666;
+	line-height: 0.42rem;
+}
+.disciple_center img{
+	max-width: 6.98rem;
+}
+/*弟子权益结束*/
+
+/*拜师地址开始*/
+.site{
+	width: 100%;
+	margin-bottom: 0.4rem;
+}
+.site_title{
+	margin-bottom: 0.2rem;
+}
+.site_title .border{
+	width: 0.06rem;
+	height: 0.27rem;
+	background: #00bc12;
+	border-radius: 100px;
+	float: left;
+	margin-top: 0.06rem;
+    margin-right: 0.08rem;
+    margin-left: 0.26rem;
+}
+.site_title .title{
+	font-size: 0.28rem;
+	color: #333333;
+	float: left;
+}
+.site_center{
+	width: 6.98rem;
+	margin: 0 auto;
+	font-size: 0.26rem;
+	color: #666666;
+	line-height: 0.42rem;
+}
+.site_center p img{
+	max-width: 6.98rem;
+}
+/*拜师地址结束*/
+
+/*学习时间开始*/
+.learning_time{
+	width: 100%;
+	margin-bottom: 0.4rem;
+}
+.learning_time_title{
+	margin-bottom: 0.2rem;
+}
+.learning_time_title .border{
+	width: 0.06rem;
+	height: 0.27rem;
+	background: #00bc12;
+	border-radius: 100px;
+	float: left;
+	margin-top: 0.06rem;
+    margin-right: 0.08rem;
+    margin-left: 0.26rem;
+}
+.learning_time_title .title{
+	font-size: 0.28rem;
+	color: #333333;
+	float: left;
+}
+.learning_timecenter{
+	width: 6.98rem;
+	margin: 0 auto;
+	font-size: 0.26rem;
+	color: #666666;
+}
+.learning_timecenter p img{
+	max-width: 6.98rem;
+}
+/*学习时间结束*/
+
+/*学习地址开始*/
+.address_learning{
+	width: 100%;
+	margin-bottom: 0.4rem;
+}
+.address_learning_title{
+	margin-bottom: 0.2rem;
+}
+.address_learning_title .border{
+	width: 0.06rem;
+	height: 0.27rem;
+	background: #00bc12;
+	border-radius: 100px;
+	float: left;
+	margin-top: 0.06rem;
+    margin-right: 0.08rem;
+    margin-left: 0.26rem;
+}
+.address_learning_title .title{
+	font-size: 0.28rem;
+	color: #333333;
+	float: left;
+}
+.address_learning_center{
+	width: 6.98rem;
+	margin: 0 auto;
+	font-size: 0.26rem;
+	color: #666666;
+}
+.address_learning_center p img{
+	max-width: 6.98rem;
+}
+/*学习地址结束*/
+
+
+/*拜师学习流程开始*/
+.flow{
+	width: 100%;
+	margin-bottom: 0.4rem;
+}
+.flow_title{
+	margin-bottom: 0.2rem;
+}
+.flow_title .border{
+	width: 0.06rem;
+	height: 0.27rem;
+	background: #00bc12;
+	border-radius: 100px;
+	float: left;
+	margin-top: 0.06rem;
+    margin-right: 0.08rem;
+    margin-left: 0.26rem;
+}
+.flow_title .title{
+	font-size: 0.28rem;
+	color: #333333;
+	float: left;
+}
+.flow_center{
+	width: 6.98rem;
+	margin: 0 auto;
+	font-size: 0.26rem;
+	color: #666666;
+	margin-bottom: 0.4rem;
+}
+.flow_center img{
+	max-width: 6.98rem;
+}
+/*拜师学习流程结束*/
+
+/*联系人流程开始*/
+.contacts{
+	width: 100%;
+	margin-bottom: 0.4rem;
+}
+.contacts_title{
+	margin-bottom: 0.2rem;
+}
+.contacts_title .border{
+	width: 0.06rem;
+	height: 0.27rem;
+	background: #00bc12;
+	border-radius: 100px;
+	float: left;
+	margin-top: 0.06rem;
+    margin-right: 0.08rem;
+    margin-left: 0.26rem;
+}
+.contacts_title .title{
+	font-size: 0.28rem;
+	color: #333333;
+	float: left;
+}
+.contacts_center{
+	width: 6.98rem;
+	margin: 0 auto;
+	font-size: 0.26rem;
+	color: #666666;
+	line-height: 0.42rem;
+}
+.contacts_center img{
+	max-width: 6.98rem;
+}
+/*联系人结束*/
+
+/*招生简章开始*/
+.general{
+	width: 100%;
+	margin-bottom: 0.4rem;
+}
+.general_title{
+	margin-bottom: 0.2rem;
+}
+.general_title .border{
+	width: 0.06rem;
+	height: 0.27rem;
+	background: #00bc12;
+	border-radius: 100px;
+	float: left;
+	margin-top: 0.06rem;
+    margin-right: 0.08rem;
+    margin-left: 0.26rem;
+}
+.general .title{
+	font-size: 0.28rem;
+	color: #333333;
+	float: left;
+}
+.general_center{
+	width: 6.98rem;
+	margin: 0 auto;
+	font-size: 0.26rem;
+	color: #00bc12;
+}
+.download{
+	width: 1.95rem;
+	height: 0.62rem;
+	font-size: 0.26rem;
+	color: #666666;
+	background: #FFFFFF;
+	border: 1px solid #DEDEDE;
+	border-radius: 8px;
+	display: block;
+    line-height: 0.62rem;
+    text-align: center;
+    margin-left: 0.26rem;
+    margin-top: 0.3rem;
+}
+.show_height{
+	width: 100%;
+	height: 0.98rem;
+	opacity: 0;
+}
+.bottom_fiexd{
+	width:7.5rem;
+	height:0.98rem;
+	background:#fff;
+	position: fixed;
+	bottom: 0;
+    border-top: 1px solid #f0f0f0;
+}
+.general_border{
+	/* margin-top: 0.3rem;
+	margin-bottom: 0.13rem;
+	border: 1px solid #f0f0f0; */
+}
+/*招生简章结束*/
+.apply{
+	width: 6.98rem;
+	height: 0.72rem;
+	line-height: 0.72rem;
+	margin: 0 auto;
+	text-align: center;
+	font-size: 0.3rem;
+	color: #FFFFFF;
+	background: #00BC12;
+	border-radius: 100px;
+	margin-top: 0.13rem;
+}
+.applys{
+	width: 6.98rem;
+	height: 0.72rem;
+	line-height: 0.72rem;
+	margin: 0 auto;
+	text-align: center;
+	font-size: 0.3rem;
+	color: #FFFFFF;
+	background: #00BC12;
+	border-radius: 100px;
+	margin-bottom: 0.13rem;
+}
+/*中间内容结束*/

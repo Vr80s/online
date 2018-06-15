@@ -2,148 +2,112 @@ var status;
 /**
  * 获取目前cookie的值
  */
-var falg =authenticationCooKie();
+var falg = getFlagStatus();
 var opendId = getQueryString("openId");
-if(stringnull(opendId)){
-	localStorage.setItem("openid", opendId);
+if (stringnull(opendId)) {
+    localStorage.setItem("openid", opendId);
 }
-
-if(opendId == "ovE_owyUT1bUmVuGS7NDBPr8gy28"){
-	alert("雪灵专用---》falg"+falg);
-}
-
-//点击学习判断游客
-function go_study(){
-	if(opendId == "ovE_owyUT1bUmVuGS7NDBPr8gy28"){
-		alert("雪灵专用---》falg"+falg);
-	}
-	if (falg==1002){
-		location.href ="/xcview/html/cn_login.html";		
-	}else if (falg==1005) {
-		location.href ="/xcview/html/evpi.html";
-	}else{
-		location.href ="/xcview/html/my_study.html";			
-	}
-}
-
-
-
-
-/*
- * 更新下用户信息
- */
-if(falg == 1000){
-	requestService("/xczh/set/isLogined", null, function(data) {
-		if (data.success) {
-			commonLocalStorageSetItem(data);
-		}else{
-			location.href ="/xcview/html/cn_login.html";
-		}
-	},false)
-}
-
-//yx_新增
-//var openId = getQueryString("openId");
 var opendId = getQueryString("openId");
-if(stringnull(opendId)){
-	localStorage.setItem("openid", opendId);
+if (stringnull(opendId)) {
+    localStorage.setItem("openid", opendId);
 }
 
 function balance() {
-    requestService("/xczh/manager/home",{
-    },function(data) {
-        if(data.success==true){
-            $("#xmbNumber").text(parseInt(data.resultObject.xmbCount));
-            $("#courseNumber").text(data.resultObject.courseCount);
+    requestService("/xczh/manager/home", {}, function (data) {
+        if (data.success == true) {
+            var baseInfo = data.resultObject;
+
+            $("#xmbNumber").text(baseInfo.xmbCount);
+            $("#courseNumber").text(baseInfo.courseCount);
+            $("#attentionid").html(baseInfo.focusCount);
+            $("#fansid").html(baseInfo.fansCount);
             //用户头像
             //$(".header_img").html(template('userInfo',data.resultObject.user));
-            if(stringnull(data.resultObject.user)){
-            	 var item = data.resultObject.user;
-            	 $("#smallHeadPhoto").attr("src",item.smallHeadPhoto + '?imageView2/2/w/160');
-            	 $("#p_name").html(item.name);
+            if (stringnull(data.resultObject.user)) {
+                var item = data.resultObject.user;
+                $("#smallHeadPhoto").attr("src", item.smallHeadPhoto + '?imageView2/2/w/160');
+                $("#p_name").html(item.name);
+
             }
-        }else{        	           
-            webToast(data.errorMessage,"middle",1500);
+        } else {
+            webToast(data.errorMessage, "middle", 1500);
         }
     });
 }
-    //判断是否为游客并跳转登录界面
-    var isNouser='<div class="header_img_right y">主播工作台 &nbsp;></div>'+
-				'<div class="both"></div>'+
-				'<div style="border: 2px solid #fff;"><img src="../images/default_pic.png" alt="" class="img0" id="smallHeadPhoto" /></div>'+
-				'<p class="p"><span onclick="go_enter_dl()">登录</span> / <span onclick="go_cnlogin_zc()">注册</span></p>';
 
-	if (falg==1002){
-		//默认的图片
-		 $("#smallHeadPhoto").attr("src","../images/default_pic.png");
-		// 登录/注册
-		 var login_enter = "<span onclick='go_enter_dl()'>登录</span> / <span onclick='go_cnlogin_zc()'>注册</span>";
-    	 $("#p_name").html(login_enter);
-	}else if (falg==1005) {
-		
-		var third_party_uc_t_ = cookie.get("third_party_uc_t_");
-			
-		//alert(third_party_uc_t_);
-		//alert(decodeURI(third_party_uc_t_));
-		third_party_uc_t_ = decodeURIComponent(third_party_uc_t_);	
-		
-		var nickName = third_party_uc_t_.split(";")[2];
-		var headImg = third_party_uc_t_.split(";")[3];
-		
-		//显示微信的头像和信息
-		$("#smallHeadPhoto").attr("src",headImg);
-		// 登录/注册
-		var login_enter = "<span onclick='go_evpi_wxxx()'>"+nickName+"</span>";
-	    $("#p_name").html(login_enter);
-		
-	}else{
-		//人民币/熊猫币余额
-		balance();
-		//获取认证状态
-	    requestService("/xczh/medical/applyStatus",{
-	    },function(data) {
-	        if(data.success==true){
-	            status = data.resultObject;
+//判断是否为游客并跳转登录界面
+var isNouser = '<div class="header_img_right y">主播工作台 &nbsp;></div>' +
+    '<div class="both"></div>' +
+    '<div style="border: 2px solid #fff;"><img src="../images/default_pic.png" alt="" class="img0" id="smallHeadPhoto" /></div>' +
+    '<p class="p"><span onclick="go_enter_dl()">登录</span> / <span onclick="go_cnlogin_zc()">注册</span></p>';
 
-	        }else{
-	            webToast(data.errorMessage,"middle",1500);
-	        }
-	    });
-	}
+if (falg == USER_UN_LOGIN) {
+    //默认的图片
+    $("#smallHeadPhoto").attr("src", "../images/default_pic.png");
+    // 登录/注册
+    var login_enter = "<span onclick='go_enter_dl()'>登录</span> / <span onclick='go_cnlogin_zc()'>注册</span>";
+    $("#p_name").html(login_enter);
+} else if (falg == USER_UN_BIND) {
 
-	function go_enter_dl(){
-        window.location.href="enter.html";         
-	}
-	function go_cnlogin_zc(){
-        window.location.href="cn_login.html";         
-	}
-	function go_evpi_wxxx(){
-		 window.location.href="evpi.html";    
-	}
+    var third_party_uc_t_ = cookie.get("_third_ipandatcm_user_");
+
+    //alert(third_party_uc_t_);
+    //alert(decodeURI(third_party_uc_t_));
+    third_party_uc_t_ = decodeURIComponent(third_party_uc_t_);
+
+    var nickName = "";
+    var headImg = "";
+    if (third_party_uc_t_.split(";").length == 4) {
+        nickName = third_party_uc_t_.split(";")[2];
+        headImg = third_party_uc_t_.split(";")[3];
+    } else {
+        nickName = "熊猫中医";
+        headImg = "/web/images/defaultHead/xiongmao.png";
+    }
+    //显示微信的头像和信息
+    $("#smallHeadPhoto").attr("src", headImg);
+    // 登录/注册
+    var login_enter = "<span onclick='go_evpi_wxxx()'>" + nickName + "</span>";
+    $("#p_name").html(login_enter);
+
+} else {
+    //人民币/熊猫币余额
+    balance();
+    //获取认证状态
+    requestService("/xczh/medical/applyStatus", {}, function (data) {
+        if (data.success == true) {
+            status = data.resultObject;
+
+        } else {
+            webToast(data.errorMessage, "middle", 1500);
+        }
+    });
+}
+
+function go_enter_dl() {
+    window.location.href = "enter.html";
+}
+
+function go_cnlogin_zc() {
+    window.location.href = "cn_login.html";
+}
+
+function go_evpi_wxxx() {
+    window.location.href = "evpi.html";
+}
+
 ////判断是否为游客并跳转登录界面
-//var falg =authenticationCooKie();
 //已购
-function go_enter(){
-	if (falg==1002){
-			location.href ="/xcview/html/cn_login.html";		
-	}else if (falg==1005) {
-			location.href ="/xcview/html/evpi.html";
-	}else{
-		window.location='/xcview/html/bought.html'		
-	}
+function go_enter() {
+    window.location = '/xcview/html/bought.html'
 }
+
 //钱包
-function go_cnlogin(){
-	if (falg==1002){
-			location.href ="/xcview/html/cn_login.html";		
-	}else if (falg==1005) {
-			location.href ="/xcview/html/evpi.html";
-	}else{
-		window.location.href="/xcview/html/my_wallet.html";		
-	}
+function go_cnlogin() {
+    window.location.href = "/xcview/html/my_wallet.html";
 }
-		
-		
+
+
 //点击我要当主播
 //function myAnchor() {
 //  localStorage.setItem("judgeSkip", "my");
@@ -159,8 +123,8 @@ function go_cnlogin(){
 //}
 
 //去下载页面
-$(".my_anchor").click(function(){
-	location.href="down_load.html"
+$(".my_anchor").click(function () {
+    location.href = "down_load.html"
 })
 
 

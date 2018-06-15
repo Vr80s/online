@@ -83,26 +83,48 @@ if (sendTime == null) {
     }, false)
 }
 function createGiftList(gift) {
-    if(gift.messageType == 2){//直播开始了
-    	//当前时间 
-    	if(parseInt(sendTime) < parseInt(gift.sendTime)){
-        	console.log("开始直播了，建议再次刷新页面   >>>>");
-        	
-        	$(".video_end_top0").hide();
-        	$(".video_end_top").hide(); 
-        	
-        	//刷新页面 --》在观看
-        	location.reload();
-    	}
-    	return;
+    
+    if(gift.messageType == 5){ //回放生成失败
+        
+        if(parseInt(sendTime) < parseInt(gift.sendTime)){
+            
+            $(".video_end_top0").hide();
+            $(".video_end_top2").hide();
+            $(".video_end_top1").hide();
+            
+            $(".video_end_top").show();
+            console.info("回放生成失败");
+        }
+    }else if(gift.messageType == 4){ //回放生成 成功
+        
+        if(parseInt(sendTime) < parseInt(gift.sendTime)){
+            
+            $(".video_end_top0").hide();
+            $(".video_end_top2").hide();
+            $(".video_end_top1").show();
+            
+            console.info("回放生成成功");
+        }
+    }else if(gift.messageType == 2){//直播开始了
+        //当前时间 
+        if(parseInt(sendTime) < parseInt(gift.sendTime)){
+            console.log("开始直播了，建议再次刷新页面   >>>>");
+            
+            $(".video_end_top0").hide();
+            $(".video_end_top2").hide(); 
+            //刷新页面 --》在观看
+            location.reload();
+        }
+        return;
     }else if(gift.messageType == 3){ //直播结束了
-    	if(parseInt(sendTime) < parseInt(gift.sendTime)){
-	    	 console.log("直播结束了，去学习中心 >>>>");
-			 $("#video").html("");
-			 $(".video_end_top0").hide();
-			 $(".video_end_top").show(); 
-    	} 
-    	return;
+        if(parseInt(sendTime) < parseInt(gift.sendTime)){
+             console.log("直播结束了，去学习中心 >>>>");
+             $("#video").html("");
+             $(".video_end_top0").hide();
+             //生成回访中
+             $(".video_end_top2").show(); 
+        } 
+        return;
     }
     if(gift.courseId!=course_id)return;   //ios传值
     if (gift.messageType == 0 || gift.messageType == 1) {
@@ -124,7 +146,7 @@ function createGiftList(gift) {
         }
         if(Number.isInteger(gift.giftCount)){
             try {
-            	//显示礼物总数
+                //显示礼物总数
                 $("#liveGiftCount").html(gift.giftCount);           
             } catch (error) {
                 // 此处是负责例外处理的语句
@@ -161,13 +183,13 @@ function giftShow(gift, f,continuous) {
             + gift.senderInfo.userName    //userName  用户昵称
             + "</p><p class='animation_name_p2'>送出"
             + gift.giftInfo.name
-            + "</p></div><div class='animation_span'>×<span class=addnum"
-            + f + "  id='"+gift.senderInfo.userId+gift.giftInfo.giftId+"' xh='"+f+"' >1</span></div><div class='animation_gift'><img src='"
+            + "</p></div><div class='animation_span'>×<span class=addnum"                //展示区域.开始默认1，修改为字段  
+            + f + "  id='"+gift.senderInfo.userId+gift.giftInfo.giftId+"' xh='"+f+"' >"+gift.giftInfo.continuousCount+"</span></div><div class='animation_gift'><img src='"
             + gift.giftInfo.smallimgPath
             + "' alt='' /></div></div></li>");
         
         try {
-        	//显示礼物总数
+            //显示礼物总数
             $("#liveGiftCount").html(gift.giftCount);           
         } catch (error) {
             // 此处是负责例外处理的语句
@@ -197,18 +219,18 @@ function giftShow(gift, f,continuous) {
     gif[f].appendTo($(".chatmsg-box"))
     .css("left", "-9.55rem")//初始未知
     .animate({// 设置运动
-    	       "left": "0"
-//  	     },500,"linear",
-    	     },500,"linear",
+               "left": "0"
+//           },500,"linear",
+             },500,"linear",
     function(){
-    	 if (f == 1) {
-        $('.addnum'+f).html(gift.giftInfo.continuousCount);
+         if (f == 1) {
+        // $('.addnum'+f).html(gift.giftInfo.continuousCount);  由于点击连击的时候，数字倒数，就隐藏掉了，然后添加在默认展示区域
         $('.addnum'+f).data("sto",new Date().getTime());
     } else if (f == 2) {
-        $('.addnum'+f).html(gift.giftInfo.continuousCount);
+        // $('.addnum'+f).html(gift.giftInfo.continuousCount);
         $('.addnum'+f).data("sto",new Date().getTime());
     } else {
-        $('.addnum'+f).html(gift.giftInfo.continuousCount);
+        // $('.addnum'+f).html(gift.giftInfo.continuousCount);
         $('.addnum'+f).data("sto",new Date().getTime());
     }
     });
@@ -310,7 +332,7 @@ function countChange(count) {
         count = 2;
         return 16.1;
     } else if (count == 2) {
-        count = 3;
+        count = 1;
         return 13.8;
     } else {
         count = 1;
@@ -338,7 +360,7 @@ var addn = [];
 
 /*
  * 接受来自im 的即时通信消息
- * 	得到发送礼物的封装好的数据
+ *  得到发送礼物的封装好的数据
  */
 function onMessage(msg) {
 
@@ -392,7 +414,7 @@ $(document).ready(function() {
     $(".balance_send").click(function() {
         if ($(".gift_ul_li_li .gift_p .liwu").attr("giftId") == null) {
 //          alert("请先选择一个礼物!");
-			webToast("请先选择一个礼物!","middle",1500);
+            webToast("请先选择一个礼物!","middle",1500);
             return;
         }
         /*if (isNaN($("#giftCount").val())) {
@@ -430,16 +452,16 @@ $(document).ready(function() {
                             sendMsg(data.resultObject);
 
                             var str = "<div class='coze_cen_ri'> "+
-            				"<div class='coze_cen_bg_ri'>"+
-            					"<span class='span_name'>"+data.resultObject.senderInfo.userName+"：</span>赠送给主播1个<span style='color: #F97B49;'>"+data.resultObject.giftInfo.name+"</span>"+
-            				" </div> "+
-            			    "<div class='both'></div></div>";
+                            "<div class='coze_cen_bg_ri'>"+
+                                "<span class='span_name'>"+data.resultObject.senderInfo.userName+"：</span>赠送给主播1个<span style='color: #F97B49;'>"+data.resultObject.giftInfo.name+"</span>"+
+                            " </div> "+
+                            "<div class='both'></div></div>";
                             
                             
                             //将礼物发送到
                             var msg = null;
                             msg = VHALL_SDK.sendChat({
-                            	      text: "赠送给主播1个"+data.resultObject.giftInfo.name+""
+                                      text: "赠送给主播1个"+data.resultObject.giftInfo.name+""
                             });
                             $("#chatmsg").append(str);
                            
@@ -451,7 +473,7 @@ $(document).ready(function() {
                             // createGiftShow();
                             
                             setTimeout(function(){
-                       	    	  $(".chatmsg-box").mCustomScrollbar("scrollTo","bottom","0");
+                                  $(".chatmsg-box").mCustomScrollbar("scrollTo","bottom","0");
                             },50);
                             
                             
@@ -480,11 +502,11 @@ $(document).ready(function() {
 //          alert("余额不足");
             
 //          recharges.html?recharges_blck=2'
-			var courseId = getQueryString("courseId");
+            var courseId = getQueryString("courseId");
             location.href ='/xcview/html/recharges.html?recharges_blck=3&courseId='+courseId;
             
-//											$(".vanish02").show();
-//											setTimeout(function(){$(".vanish02").hide();},1500);
+//                                          $(".vanish02").show();
+//                                          setTimeout(function(){$(".vanish02").hide();},1500);
         }
     });
 
@@ -531,5 +553,5 @@ $(function () {
                 $("#gift"+i).remove();   /*注释以后,礼物就不会隐藏*/
             }
         }
-    },500)
+    },16)
 });

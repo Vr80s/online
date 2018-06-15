@@ -1,5 +1,15 @@
 
 /**
+ * 主要针对ios系统返回从浏览器缓存中去页面，没刷新页面
+ */
+window.onpageshow = function(event){
+	if (event.persisted) {
+	  window.location.reload();
+	}
+}
+
+
+/**
  * 保存openId
  */
 var openId = getQueryString("openId");
@@ -30,7 +40,7 @@ var all_history="";
 							"onclick='go_play_hos_collection("+item.courseId+","+item.collectionId+",this)'>";
 					str+="<p>"+item.lecturerName+"： "+item.collectionName+"</p>";
 				}else{
-					str+="<li onclick='go_play_hos("+item.type+","+item.lineState+","+item.collection+","+item.courseId+")'>";
+					str+="<li onclick='go_play_hos("+item.type+","+item.collection+","+item.courseId+")'>";
 					str+="<p>"+item.lecturerName+"： "+item.gradeName+"</p>";
 				}
 				
@@ -64,9 +74,9 @@ var all_history="";
 //已购课程/结束课程	
 
 //	var no_class='<p style="color: #a5a5a5;">暂无课程...</p>'
-	// requestService("/xczh/myinfo/list",{pageSize:5},function(data) {  备份之前接口
+	 requestService("/xczh/myinfo/list",{pageSize:5},function(data) {  //备份之前接口
 	// requestService("/xczh/myinfo/myCourseType",{pageNumber:1,pageSize:500,type:1},function(data) {    备份新接口
-	requestService("/xczh/myinfo/list",null,function(data) {
+	//requestService("/xczh/myinfo/list",null,function(data) {
 
 //			if(data.resultObject[0].courseList.startTime!="" || data.resultObject[0].courseList.startTime!=null){
 //				data.resultObject[0].courseList.startTime=data.resultObject[0].courseList.startTime.replace(/-/g,".")
@@ -79,6 +89,21 @@ var all_history="";
 				$("#my_class_box").hide()
 				$(".wrap_noClass").show();
 			}
+
+			/*$(".my_class_title").click(function(){
+				console.log(data.resultObject);
+				console.log(data.resultObject[0]['title']);
+				return false;
+				if(data.resultObject[0]){
+					window.location='/xcview/html/my_study_course.html'
+				}else{
+					window.location='/xcview/html/end_the_course.html'
+				};
+				if(data.resultObject[1]){
+					window.location='/xcview/html/end_the_course.html'
+				}
+
+			});*/
 			
 //点击播放视频后才开始记录播放历史	
 //直播中
@@ -100,6 +125,17 @@ var all_history="";
 	})
 	})	
 	
+/*requestService("/xczh/myinfo/myCourseType",{'pageSize':5,'pageNumber':1,'type':2},function(data) {
+	$(".my_class_title").click(function(){
+		if(data.resultObject.type==2){
+			window.location='/xcview/html/my_study_course.html'
+		}else{
+			window.location='/xcview/html/end_the_course.html'
+		};
+
+	});
+})*/
+
 //我关注的主播
 		requestService("/xczh/myinfo/myFocus",null,function(data) {
 			if(data.resultObject.length=='' || data.resultObject.length==0 ){
@@ -135,11 +171,9 @@ function go_play_hos_collection(course_id,collection_id,obj){
 /*
  * 搜索历史播放   点击事件
  */
-function go_play_hos(type,lineState,collection,id){
-	if(type ==3 && (lineState ==1 || lineState ==3 || lineState ==4)){ //直播间
-		location.href="details.html?courseId="+id
-	}else if(type ==3 && (lineState ==2 || lineState ==5)){ //预告的、回放的
-		location.href="live_play.html?my_study="+id
+function go_play_hos(type,collection,id){
+	if(type ==3){ //直播
+		location.href="/xczh/course/live/"+id
 	}else if((type ==1 || type ==2) && !collection){ //课程页面
 		location.href="live_audio.html?my_study="+id
 	}else if(type ==4){								 //线下培训班

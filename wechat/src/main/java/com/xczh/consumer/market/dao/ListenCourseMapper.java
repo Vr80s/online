@@ -1,7 +1,7 @@
 package com.xczh.consumer.market.dao;
 
 import com.xczh.consumer.market.utils.JdbcUtil;
-import com.xczh.consumer.market.vo.CourseLecturVo;
+import com.xczh.consumer.market.vo.CourseVo;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.springframework.stereotype.Repository;
 
@@ -21,7 +21,7 @@ public class ListenCourseMapper extends BasicSimpleDao {
 	 * @return
 	 * @throws SQLException
 	 */
-	public List<CourseLecturVo>  listenCourseList() throws SQLException{
+	public List<CourseVo>  listenCourseList() throws SQLException{
 		StringBuffer sql = new StringBuffer(" select  *  from ");
 		sql.append(" (select oc.id,oc.grade_name as gradeName,oc.current_price*10 as currentPrice,"
 				+ "oc.smallimg_path as smallImgPath,oc.lecturer as name,DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr,");
@@ -52,10 +52,10 @@ public class ListenCourseMapper extends BasicSimpleDao {
 		sql.append(" and oc.multimedia_type = 2 and oc.is_recommend = 0) o ");
 		sql.append(" ORDER BY o.is_recommend DESC,o.recommend_sort DESC,o.create_time DESC LIMIT 0,12 ");
 
-		return super.query(JdbcUtil.getCurrentConnection(), sql.toString(),new BeanListHandler<>(CourseLecturVo.class) );
+		return super.query(JdbcUtil.getCurrentConnection(), sql.toString(),new BeanListHandler<>(CourseVo.class) );
 	}
 
-	public List<CourseLecturVo>  listenCourseListBySort() throws SQLException{
+	public List<CourseVo>  listenCourseListBySort() throws SQLException{
 		StringBuffer sql = new StringBuffer(" ");
 		sql.append(" select oc.id,oc.grade_name as gradeName,oc.current_price*10 as currentPrice,"
 				+ "oc.smallimg_path as smallImgPath,oc.lecturer as name,DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr,");
@@ -71,7 +71,7 @@ public class ListenCourseMapper extends BasicSimpleDao {
 				+ "oc.is_delete=0 and oc.status = 1   ");
 		sql.append(" and oc.multimedia_type = 2  ");
 		sql.append(" order by oc.start_time desc limit 0,12 ");
-		return super.query(JdbcUtil.getCurrentConnection(), sql.toString(),new BeanListHandler<>(CourseLecturVo.class) );
+		return super.query(JdbcUtil.getCurrentConnection(), sql.toString(),new BeanListHandler<>(CourseVo.class) );
 	}
 	
 

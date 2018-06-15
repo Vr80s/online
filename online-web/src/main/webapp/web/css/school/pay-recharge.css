@@ -1,0 +1,118 @@
+*{margin: 0; padding: 0;}
+body{ 
+	font-family:"Microsoft Yahei", "Hiragino Sans GB", sans-serif !important; 
+	font-size: 14px;
+	background: #F8F8F8;
+	
+}
+a:link{text-decoration:none; } 
+a:hover{text-decoration: none;}
+a:focus {
+outline: none;
+}
+p{margin-bottom: 0;}
+.cl{clear: both;}
+.z{float: left;}
+.y{float: right;}
+.wp{width: 1200px; margin: 0 auto; color: #999999;}
+.main-top{
+	width: 100%;
+	background: white;
+	overflow: hidden;
+	margin-top: 20px;
+	padding-bottom: 30px;
+}
+.recharge-explain{
+	padding: 20px;
+	overflow: hidden;
+	border-bottom: 1px solid #f0f0f0;
+
+}
+.recharge-explain .explain{
+	color: #333333;
+}
+.recharge-explain .explain span{
+	color: #999999;
+	margin-left: 10px;
+}
+.recharge-explain .balance{
+	color: #666666;
+}
+.select-pay-money ul li{
+	float: left;
+	border: 1px solid #DEDEDE;
+	text-align: center;
+	margin: 20px 0 0 20px;
+	color: #666666;
+	padding: 10px 0;
+	width: 125px;
+	cursor: pointer;
+}
+.select-pay-money .select-money{
+	color: #F97B49;
+	border: 1px solid #F97B49;
+}
+.select-pay-money ul li p:nth-child(1){
+	margin-bottom: 7px;
+}
+.main-bottom{
+	width: 100%;
+	background: white;
+	padding: 30px;
+	box-sizing: border-box;
+	overflow: hidden;
+	margin-top: 20px;
+}
+.main-bottom h4{
+	color: #333333;	
+	margin: 0 0 20px;
+}
+.select-pay li{
+	width: 120px;
+	height: 50px;
+	border: 1px solid #DEDEDE;
+	color: #666666;
+	line-height: 50px;
+	position: relative;
+	float: left;
+	cursor: pointer;
+	margin-right: 20px;
+}
+.select-pay .pay-logo{
+	width: 30px;
+	height: 30px;
+	position: absolute;
+}
+.select-pay .pay-logo img{
+	width: 30px;
+	height: 30px;
+	display: block;
+	margin: 10px 0 0 18px;
+}
+.select-pay p{
+	text-align: center;
+	float: right;
+	margin-right: 18px;
+}
+.icon-sure {
+	width: 22px;
+	height: 22px;
+	background: url(../../images/sanjiao.png) no-repeat;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+
+}
+.select-pay .select-confirm{
+	border: 1px solid #F97B49;
+}
+.recharge-box button{
+	padding: 10px 60px;
+	color: white;
+	background: #F97B49;
+	border: 0;
+	outline: none;
+	font-size: 20px;
+	margin-top: 30px;
+	border-radius: 4px;
+}

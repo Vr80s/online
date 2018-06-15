@@ -110,7 +110,7 @@ public class AlipayPaymentRecordH5Mapper  extends BasicSimpleDao {
         sql.append(")                                   ");
 
 
-      return   super.update(
+      return super.update(
                 JdbcUtil.getCurrentConnection()	,
                 sql.toString()					,
                 record.getNotifyTime()				,

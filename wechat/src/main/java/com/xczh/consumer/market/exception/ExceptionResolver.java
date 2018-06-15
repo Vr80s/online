@@ -5,10 +5,6 @@ import java.io.StringWriter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.mail.MessagingException;
-
-import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczhihui.common.exception.IpandaTcmException;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -16,6 +12,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
+import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczhihui.common.exception.IpandaTcmException;
 import com.xczhihui.common.util.EmailUtil;
 
 /**
@@ -41,13 +39,9 @@ public class ExceptionResolver {
         pw.flush();
         sw.flush();
         //异常通知告警
-        if((ex instanceof IpandaTcmException)&&((IpandaTcmException) ex).isAlarm()){
-            try {
-                String subject = "业务异常";
-                EmailUtil.sendExceptionMailBySSL("wechat端",subject,printStackTraceToString(ex));
-            } catch (MessagingException e) {
-                e.printStackTrace();
-            }
+        if (!(ex instanceof IpandaTcmException) || ((IpandaTcmException) ex).isAlarm()) {
+            String subject = "业务异常";
+            EmailUtil.sendExceptionMailBySSL("wechat端", subject, printStackTraceToString(ex));
         }
         LOGGER.error("运行时异常.message:" + ex.getMessage());
         LOGGER.error("运行时异常.栈信息:" + sw.toString());

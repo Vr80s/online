@@ -79,26 +79,26 @@
 						<img src="../images/xing5.png"/>
 					
 						{{/if}}
-						<a href="javascript:;">{{criticizeCount}}评论</a>
-						<img class="jiantou" src="../images/video_review.png"/>
+						<a href="javascript:;">共{{criticizeCount}}条评价</a>
 					</li>
 				</ul>
 			</div>
+			<ul class="playTime z" onclick="window.location='live_personal.html?userLecturerId={{userLecturerId}}'" style="padding: 0.4rem 0 0 0;border: none;">
+			<!--<ul class="playTime z">-->
+				<li><img src="{{headImg}}" style="width:0.6rem;height:0.6rem;border-radius: 60px;"/><span style="margin-top: 0.15rem;">{{heir}}</span></li>
+				<li style="margin-top: 0.18rem;">
+					<!--<a href="live_personal.html?userLecturerId={{userLecturerId}}">-->
+					<a href="javascript: ;">
+						<img src="../images/video_review.png" style="width: 0.15rem; height: 0.25rem;"  />
+					</a>
+				</li>
+			</ul>
+			<div class="both"></div>
 		</script>
 	</div>
 	<!--主播/时间-->
 	<div class="wrap_playTime" id="wrap_playTime">
 		<script type="text/html" id="data_name">
-		<ul class="playTime z" onclick="window.location='live_personal.html?userLecturerId={{userLecturerId}}'">
-		<!--<ul class="playTime z">-->
-			<li><img src="../images/population.png"/><span>{{heir}}</span></li>
-			<li>
-				<!--<a href="live_personal.html?userLecturerId={{userLecturerId}}">-->
-				<a href="javascript: ;">
-					<img src="../images/video_review.png" style="width: 0.15rem; height: 0.25rem; margin-right: 0.26rem;"  />
-				</a>
-			</li>
-		</ul>
 		<ul class="playTime z">
 			<li style="float: left;">
 				<img style="margin-top: 0.03rem;" src="../images/Sinatv_time.png"/>
@@ -116,27 +116,25 @@
 		</script>
 	</div>
 <!--详情开始-->
-	<p class="my_details">详情</p>
-	
 	<!--主讲人-->
 		<div class="wrap_speak">		
 			<div class="main_speak">
-				<p></p>
+				<p class="border"></p>
 				<p>主讲人</p>
-				<p></p>
 			</div>		
 		</div>
 	<!--内容-->
 		<div class="wrap1">
 			<p></p> 
-			<div class="no_data1">暂无数据...</div>
+			<div class="no_data1">暂无主讲人介绍...</div>
 			<div class="zhezhao1" style="display: none;">
 				<img src="../images/op_bg.png"/>	
 			</div>     
 		</div>
-		<div class="btn1" style="display: none;">
+		<!-- 点击收起隐藏 -->
+		<!-- <div class="btn1" style="display: none;">
 			<img src="../images/top.png"/>
-		</div>
+		</div> -->
 		<div class="line_xian" style="width: 100%; height: 1px;border-top: 1px solid #D8DDE6;">
 			
 		</div>
@@ -144,32 +142,29 @@
 	<div class="wrap_synopsis">	
 		<div class="my_synopsis">
 			<ul>
-				<li class="z">
-					<p></p>
-				</li>
-				<li>简介</li>
-				<li class="y" style="float: right;">
-					<p></p>
-				</li>
+				<li class="border"></li>
+				<li>课程介绍</li>
 			</ul>
 		</div>		
 	</div>
 	<!--内容-->
 		<div class="wrap">
 			<p></p>
-			<div class="no_data">暂无数据...</div>
+			<div class="no_data">暂无课程介绍...</div>
 			<div class="zhezhao" style="display: none;">
 				<img src="../images/op_bg.png"/>	
 			</div>     
 			
 		</div>
-		<div class="btn" style="display: none;">
+		<!-- 点击收起隐藏 -->
+		<!-- <div class="btn" style="display: none;">
 			<img src="../images/top.png"/>
-		</div>
+		</div> -->
 <!--详情结束-->
 	<!--评论-->
 	<div class="wrap_comment_title" onclick="btn_allComment()">
-		<p>评论</p>
+		<p class="border"></p>
+		<p>评价</p>
 		<span>
 			<img src="../images/video_review.png" />
 		</span>
@@ -187,6 +182,12 @@
 					<div class="user_text">
 						<div class="wrap_userName">
 							<p class="z">{{item.onlineUser.name}}</p>
+							<!--购买者显示-->
+							{{if item.isBuy  }}
+							<div class="wrap_purchaser">
+								<p>已购</p>
+							</div>
+							{{/if}}
 							{{if item.starLevel == 1}}
 							<img class="z" src="../images/xing1_0.png"/>
 							{{else if item.starLevel == 1.5}}
@@ -208,7 +209,8 @@
 							{{/if}}
 
 						</div>
-						<!--很赞/干货很多-->
+					</div>
+					<!--很赞/干货很多-->
 						<div class="uesr_lable">
 							{{if item.criticizeLable !=null}}
 							<ul>
@@ -258,14 +260,6 @@
 
 							</ul>
 						</div>
-					</div>
-
-					<!--购买者显示-->
-					{{if item.isBuy  }}
-					<div class="wrap_purchaser">
-						<p>购买者</p>
-					</div>
-					{{/if}}
 				</div>
 
 			</div>
@@ -294,7 +288,6 @@
 					</a>
 				{{/if}}
 				{{if cutoff == 0}}
-					
 					{{if watchState==0}}
 					<!--<a class="left_price z" href="javascript:;">
 						<p><span>{{currentPrice}}</span>熊猫币</p>
@@ -308,38 +301,25 @@
 								立即报名
 							</a>
 							{{else}}
-							<a class="right_priceBtn y" href="javascript:;" onclick="btn_zj_mianfei()" data-zj="1">
-								进入学习
+							<a class="right_priceBtn y" href="javascript:;" onclick="btn_zj_mianfei()" data-zj="2">
+								立即学习
 							</a>
 						{{/if}}
 					{{else if watchState==2 || watchState==3}}
-					<!--<a class="left_price z" href="javascript:;">
-						<p><span>{{currentPrice}}</span>熊猫币</p>
-					</a>-->
 					<a class="right_priceBtn y" href="javascript:;" onclick="btn_zj_mianfei()" data-zj="2">
-						进入学习
+						已报名
 					</a>	
-
 					{{/if}}
 				{{else}}
 					{{if watchState==0}}
-					<!--<a class="left_price z" href="javascript:;">
-						<p><span>{{currentPrice}}</span>熊猫币</p>
-					</a>-->
 					<a class="right_priceBtn y" href="javascript:;" style="background: #b1b1b1;">
 						已结束报名
 					</a>
 					{{else if watchState==1}}
-					<!--<a class="left_price z" href="javascript:;">
-						<p><span>免费</span></p>
-					</a>-->
 					<a class="right_priceBtn y" href="javascript:;" style="background: #b1b1b1;">
 						已结束报名
 					</a>
 					{{else if watchState==2 || watchState==3}}
-					<!--<a class="left_price z" href="javascript:;">
-						<p><span>{{currentPrice}}</span>熊猫币</p>
-					</a>-->
 					<a class="right_priceBtn y" href="javascript:;" style="background: #b1b1b1;">
 						已结束报名
 					</a>
@@ -467,7 +447,7 @@
 
 </body>
 <script type="text/javascript" src="/xcview/js/common/jquery-1.8.3.min.js"></script>
-<script type="text/JavaScript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script type="text/JavaScript" src="//res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 <script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/common.js?v=wechat_1.1.1"></script>
 <script type="text/javascript" src="/xcview/js/common/template.js"></script>
@@ -482,10 +462,7 @@
 //		kk=750
 //	}
 //	document.documentElement.style.fontSize=kk/7.5+"px";
-		//分享的信息
-var gradeName = "";
-var smallImgPath ="";
-var description ="";
+
 </script>
 <!--详情点击隐藏和显示-->
 <script>
@@ -555,17 +532,5 @@ var description ="";
 			     $(".wrap1").removeClass("pp1");
 //			     $(".wrap1").attr("style");
 			 })
-
-
-
-
-
-
-
-
 	</script>
-	
-	
-
-
 </html>

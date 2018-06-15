@@ -1,0 +1,160 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+img{
+	border: 0;
+	border: none;
+}
+a{
+	text-decoration: none;
+}
+ul{
+	margin: 0;
+	padding: 0;
+}
+li{
+	list-style: none;
+	/*background: blue;*/
+}
+.both{
+	clear: both;
+}
+body{
+	background: #f8f8f8;
+}
+
+/*师承头部开始*/
+header{
+	position: fixed;
+	top: 0;
+	z-index: 1;
+}
+.apprentice_title{
+	width: 7.5rem;
+    height: 0.88rem;
+    background: #fff;
+    line-height: 0.88rem;
+    font-size: 0.36rem;
+    color: #333333;
+    text-align: center;
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    left: 50%;
+    margin-left: -3.75rem;
+    border-bottom: 1px solid #d8dde6;
+}
+/*师承头部结束*/
+
+/*中间内容开始*/
+.fiexd{
+	width: 100%;
+	height: 0.88rem;
+	opacity: 0;
+}
+.main{
+	width: 7.5rem;
+    /* background: #fff; */
+    position: relative;
+    top: 0rem;
+    overflow: scroll;
+    height: 100%;
+    -webkit-overflow-scrolling1: touch;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    margin: 0 auto;
+}
+.center{
+	width: 100%;
+	padding-bottom: 0.2rem;
+}
+.center ul li{
+	/*background: blue;*/
+	margin-bottom: 0.2rem;
+	background: #fff;
+}
+.apprentice_main{
+	width: 100%;
+	/*height: 4.06rem;*/
+	margin-bottom: 0.02rem;
+}
+.flat_patternmaking{
+	width: 100%;
+	height: 3.02rem;
+	margin-bottom: 0.2rem;
+	/*background: red;*/
+}
+.flat_patternmaking img{
+	width: 100%;
+	height: 3.02rem;
+	margin-bottom: 0.2rem;
+}
+.main_title{
+	/*height: 0.84rem;*/
+	font-size: 0.30rem;
+	padding-left: 0.26rem;
+    padding-right: 0.26rem;
+    color: #333;
+    padding-bottom: 0.2rem;
+}
+/*中间内容结束*/
+
+/*底部开始*/
+.footer_perch{
+	width: 100%;
+	height:1rem;
+	/*background: red;*/
+}
+.footer{
+	width: 7.5rem;
+    height: 1rem;
+    background: #fff;
+    /* background: red; */
+    position: fixed;
+    bottom: 0;
+    border-top: 1px solid #d8dde6;
+    left: 50%;
+    margin-left: -3.75rem;
+}
+.footer ul li{
+	width: 25%;
+	float: left;
+	text-align: center;
+}
+.footer ul li a{
+	display: block;
+	width: 0.486rem;
+	height: 0.4rem;
+	text-align: center;
+	margin: 0 auto;
+	margin-bottom: 0.06rem;
+	margin-top: 0.14rem;
+}
+.footer ul li p{
+	width: 100%;
+	/*height: 0.468rem;
+	line-height: 0.468rem;*/
+	color: #999;
+	font-size: 0.2rem;
+	text-align: center;
+}
+.footer_one{
+	background: url(/xcview/images/school_one.png) no-repeat center;
+	background-size: 0.48rem 0.37rem;
+}
+.footer_two{
+	background: url(/xcview/images/learn_two.png) no-repeat center;
+	background-size: 0.38rem 0.38rem;
+	
+}
+.footer_three{
+	background: url(/xcview/images/discovery_three.png) no-repeat center;
+	background-size: 0.4rem 0.41rem;
+}
+.footer_four{
+	background: url(/xcview/images/my_four.png) no-repeat center;
+	background-size: 0.38rem 0.4rem;
+}
+/*底部结束*/
+

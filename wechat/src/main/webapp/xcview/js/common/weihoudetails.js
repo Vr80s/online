@@ -57,7 +57,7 @@ function liaoTianArea(content,type){
 		}
 		$("#mywords").val('');
 	    setTimeout(function(){
-	    	  $(".chatmsg-box").mCustomScrollbar("scrollTo","bottom","0");
+	    	  $(".chatmsg-box").mCustomScrollbar("scrollTop","bottom","0");
      },50);
 }
 
@@ -119,12 +119,12 @@ $(document).ready(function() {
         
     	
     	$("#chatmsg").append(str);
-        $(".chatmsg-box").mCustomScrollbar('update').mCustomScrollbar("scrollTo","bottom");
+        $(".chatmsg-box").mCustomScrollbar('update').mCustomScrollbar("scrollTop","bottom");
     });     
     VHALL_SDK.on('questionMsg', function(msg) {
         console.log('问答', msg);
         //$("#question-msg").append(question_template(msg));
-        $(".question-msg-box").mCustomScrollbar('update').mCustomScrollbar('scrollTo', '99999');
+        $(".question-msg-box").mCustomScrollbar('update').mCustomScrollbar('scrollTop', '99999');
     });
     VHALL_SDK.on('ready', function() {
         if (VHALL_SDK.getRoominfo().type == 1) {
@@ -188,7 +188,7 @@ $(document).ready(function() {
 		" <div class='both'></div></div>";
     	
         $("#chatmsg").append(str);
-        $(".chatmsg-box").mCustomScrollbar('update').mCustomScrollbar("scrollTo","bottom");
+        $(".chatmsg-box").mCustomScrollbar('update').mCustomScrollbar("scrollTop","bottom");
     	
         console.log(msg);
         
@@ -225,7 +225,7 @@ $(document).ready(function() {
 			" <div class='both'></div></div>";
   	
         $("#chatmsg").append(str);
-        $(".chatmsg-box").mCustomScrollbar('update').mCustomScrollbar("scrollTo","bottom");
+        $(".chatmsg-box").mCustomScrollbar('update').mCustomScrollbar("scrollTop","bottom");
         console.log(msg);
         /**
          * 当有人进来房间的时候，学习人数加1
@@ -356,7 +356,7 @@ $(document).ready(function() {
             }
             $("#chatmsg").append(str);
             setTimeout(function(){
-            	$(".chatmsg-box").mCustomScrollbar('update').mCustomScrollbar("scrollTo","bottom","0");
+            	$(".chatmsg-box").mCustomScrollbar('update').mCustomScrollbar("scrollTop","bottom","0");
             },50);
         }
     });
@@ -391,9 +391,9 @@ $(document).ready(function() {
 			1 == res.curr_page 
 			? ($("#chatmsg").html(e), 
 					setTimeout(function() {
-				       $(".chatmsg-box").mCustomScrollbar("update").mCustomScrollbar("scrollTo", "999999")
+				       $(".chatmsg-box").mCustomScrollbar("update").mCustomScrollbar("scrollTop", "999999")
 					}, 50)) 
-			: ($("#chatmsg").prepend(e), $(".chartlist").mCustomScrollbar("update").mCustomScrollbar("scrollTo", "20px"))
+			: ($("#chatmsg").prepend(e), $(".chartlist").mCustomScrollbar("update").mCustomScrollbar("scrollTop", "20px"))
         }
     });
     /**
@@ -407,7 +407,7 @@ $(document).ready(function() {
             }
             $("#question-msg").append(str);
             setTimeout(function(){
-                $(".chatmsg-box").mCustomScrollbar('update').mCustomScrollbar('scrollTo', '999999');
+                $(".chatmsg-box").mCustomScrollbar('update').mCustomScrollbar('scrollTop', '999999');
             },50);
         }
     });
@@ -455,7 +455,7 @@ $(document).ready(function() {
  		}
  		$("#mywords").val('');
  	    setTimeout(function(){
- 	    	  $(".chatmsg-box").mCustomScrollbar("scrollTo","bottom","0");
+ 	    	  $(".chatmsg-box").mCustomScrollbar("scrollTop","bottom","0");
          },50);
     }
     

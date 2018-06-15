@@ -10,6 +10,11 @@ var select_jump_id="";
 var select_directId="";
 var select_collectionId="";
 var name_title="";
+
+//分享的信息
+var gradeName = "";
+var smallImgPath ="";
+var description ="";
 $(function(){
 	function stripHTML(str){
 	var reTag = /<(?:.|\s)*?>/g;
@@ -38,12 +43,13 @@ $(function(){
         //获取讲师id
         LecturerId=data.resultObject.userLecturerId;
 	//	课程名称/等级/评论
-		$("#speak_people").html(template('data_people',data.resultObject));
+        $("#speak_people").html(template('data_people',data.resultObject));
+		$(".data_name").html(template('data_name',data.resultObject));
        	$(".all_returned_num span").html(data.resultObject.criticizeCount);
        	name_title=$(".speak_title").text()
 		
 	//	直播时间/主播名字
-		$("#wrap_playTime").html(template('data_name',data.resultObject));
+		// $("#wrap_playTime").html(template('data_name',data.resultObject));
 
 	//	简介/内容
 		if(data.resultObject.description == null || data.resultObject.description == ''){
@@ -84,7 +90,7 @@ $(function(){
 		}
 		
 		
-	});
+	},false);
 //详情以及选集选项卡
 $(".my_details li").click(function(){
 	$(".my_details li span").removeClass("spanActive");
@@ -95,7 +101,8 @@ $(".my_details li").click(function(){
 })
 //评论刷新
     refresh();
-	
+
+
 	
 })
 //判断普通浏览器时,去点微信分享  
@@ -115,6 +122,7 @@ var collections="";
 
 		if(data.success && data.resultObject.length>0){
 			for(var i in data.resultObject){
+                data.resultObject[i].no=getNo(i);
 				select_id=data.resultObject[i].id;
 				select_directId=data.resultObject[i].directId;
 				data.resultObject[i].collectionId=courseId;
@@ -123,6 +131,14 @@ var collections="";
             collections=data.resultObject;  //获取所有专辑
 			$("#select_album").html(template('data_select_album',{items:data.resultObject}));		
 		}
+
+        //获取上次观看课程名
+        var lookCourseName = localStorage.getItem("courseName"+courseId);
+		if(lookCourseName!=null && lookCourseName!=""){
+            $('.play_top_size').html('上次播放至：'+lookCourseName);
+        }else {
+            $('.play_top_size').html('上次播放至：'+"01 "+course.gradeName);
+        }
 	})
 //点击视频默认第一个视频ID	
 	function btn_album_page(){                       
@@ -135,10 +151,12 @@ var collections="";
 		location.replace("live_album.html?course_id="+collection.id+"&direct_id="+collection.directId+"&collection_id="+courseId+"&name_title="+name_title+"&index="+courseIndex+"&type=2");
 	}
 //选集视频跳转
-function jump_album_my(e,selectId,selectDirectId){
+function jump_album_my(e,selectId,selectDirectId,courseName){
 	//alert(e.target)
 	var index = e.parentNode.value
-    localStorage.setItem('course'+courseId, index);                                                                                                         //判断跳转添加
+    localStorage.setItem('course'+courseId, index);
+    var sortNo=getNo(index);
+	localStorage.setItem('courseName'+courseId, sortNo+" "+courseName);                                                                                                      //判断跳转添加
 	location.replace("live_album.html?course_id="+selectId+"&direct_id="+selectDirectId+"&collection_id="+courseId+"&name_title="+name_title+"&index="+index+"&type=2");
 }
 function refresh(){
@@ -299,6 +317,14 @@ function refresh(){
 
     });
 }
+
+function getNo(i){
+        i++;
+        if(i<10){
+            return "0"+i;
+        }
+        return i;
+    }
 //评论
 function reportComment() {
     //判断浮层是否已选

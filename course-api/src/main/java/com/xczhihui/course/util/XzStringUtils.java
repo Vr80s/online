@@ -4,8 +4,6 @@ import java.math.BigDecimal;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.baomidou.mybatisplus.toolkit.StringUtils;
-
 public class XzStringUtils {
 
 	public static String delHTMLTag(String htmlStr) {
@@ -35,7 +33,6 @@ public class XzStringUtils {
 		if(htmlStr!=null && !"".equals(htmlStr)
 				&& !"null".equals(htmlStr)) { //过滤掉空格
 			htmlStr = htmlStr.replaceAll("&nbsp;", "");
-			System.out.println(htmlStr);
 		}
 		return htmlStr.trim(); // 返回文本字符串
 	}
@@ -111,12 +108,13 @@ public class XzStringUtils {
 	 *         email: 15936216273@163.com
 	 *
 	 */
-	public static boolean checkNickName(String passWord) {
+	public static boolean checkNickName(String nickName) {
 		boolean flag = false;
 		try {
-			String check = "^([_A-Za-z0-9-\u4e00-\u9fa5]{4,20})$";
+			// /^[A-Za-z0-9_\-\u4e00-\u9fa5]+$/;//支持中文、字母、数字、'-'、'_'的组合，4-20个字符
+			String check = "^([_A-Za-z0-9-\u4e00-\u9fa5]{1,20})$";
 			Pattern regex = Pattern.compile(check);
-			Matcher matcher = regex.matcher(passWord);
+			Matcher matcher = regex.matcher(nickName);
 			flag = matcher.matches();
 		} catch (Exception e) {
 			flag = false;
@@ -124,6 +122,47 @@ public class XzStringUtils {
 		return flag;
 	}
 
+	
+	/**
+	 * 校验微信号
+	 * @param wechatNo
+	 * @return
+	 */
+	 public static boolean checkWechatNo(String wechatNo) {
+    	boolean flag = false;
+		try {
+			 // 校验微信号正则
+	        String judge = "^[a-zA-Z]{1}[-_a-zA-Z0-9]{5,19}+$";
+	        Pattern pat = Pattern.compile(judge);
+	        Matcher mat = pat.matcher(wechatNo);
+	        flag = mat.matches();
+		} catch (Exception e) {
+			flag = false;
+		}
+	    return flag;
+	 }
+	
+	
+	
+	//将href外站的链接换为302跳转
+    public static String formatA(String value) {
+        if (value == null)
+            return null;
+        String pattern = "<a([\\w\\W]*?) href=['|\"]([\\w\\W]*?)['|\"]([\\w\\W]*?)>";
+        Pattern p = Pattern.compile(pattern, Pattern.CASE_INSENSITIVE);
+        Matcher m = p.matcher(value);
+        while (m.find()) {
+            String a = m.group();
+            //整段匹配不会出现错误
+            String _a = "<a" + " href='javascript:void(0)' >";
+            value = value.replace(a, _a);
+        }
+        return value;
+    }
+	
+	
+	
+	
 	public static String formatDuring(long mss) {
 		long days = mss / (1000 * 60 * 60 * 24);
 		long hours = (mss % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60);
@@ -154,4 +193,27 @@ public class XzStringUtils {
 		return b1.divide(b2, scale, BigDecimal.ROUND_HALF_UP).doubleValue();
 	}
 
+	/**You can't specify target table 'medical_doctor_department' for update in FROM clause
+	 * 字符串增加  每周  ***** 全天
+	 * @param str
+	 * @return
+	 */
+	public static String workTimeScreen(String line) {
+		if(line!=null) {
+			String regex = ".*(下午|上午|周|点|早|晚|暂无).*";
+			Pattern datePattern = Pattern.compile(regex);  
+			Matcher dateMatcher = datePattern.matcher(line);  
+	        if(!dateMatcher.matches()){
+	        	line = "每周"+line+"全天";
+	        }
+			return line;
+		}
+		return null;
+	}
+	public static void main(String[] args) {
+		System.out.println(workTimeScreen("一"));
+		
+	}
+	
+	
 }

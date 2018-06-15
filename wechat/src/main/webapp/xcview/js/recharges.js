@@ -152,11 +152,11 @@ function  goPay() {
           }
           jmpPayPage("/xczh/alipay/rechargePay",payType,"actualPay="+actualPay,null);
     }else if(payType==3){ //微信支付
-        var openId=   localStorage.getItem("openid");
+        var openId= localStorage.getItem("openid");
         var orderForm = 3;
         if(is_weixn()){
             if(!stringnull(openId)){  // 再去重cookie中获取
-            	var third_party_uc_t_ = cookie.get("third_party_uc_t_");
+            	var third_party_uc_t_ = cookie.get("_third_ipandatcm_user_");
             	if(stringnull(third_party_uc_t_)){
             		third_party_uc_t_ = decodeURIComponent(third_party_uc_t_);	
             		openId = third_party_uc_t_.split(";")[0];

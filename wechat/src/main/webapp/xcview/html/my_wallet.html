@@ -67,8 +67,10 @@
 		    bottom: 0rem;
 		    height: 40px;
 		    line-height: 40px;
+			margin-top: -0.05rem;
+    		background: #fff;
+
 		}
-		
 		.mui-scroll{
 			padding-left: 0.3rem;
     		background: #fff;
@@ -83,25 +85,18 @@
 			margin-top: 0;
 			padding-top: 0.25rem;
 		}
-		.record_main_div{
-			/*padding-top: 0.25rem;*/
-		}
-		
-		
 		#refreshContainer .mui-block:first-child{
 			display: none !important;
 		}
-		
 		.record_main_div .record_course:last-child{
 			border-bottom: none;
+			border-bottom: 1px solid #D8DDE6 !important;
 		}
 	</style>
-	
 </head>
 <!--公用-->
 <!--y--float:right;  z--float:left;  both--clear:both;-->
 <body style="background:#F8F8F8;">
-	
 	<!--头部开始-->
 	<header class="header_class">
 		<div class="header_img" onclick="location.href='my_homepage.html'">
@@ -112,7 +107,6 @@
 		</div>
 	</header>
 	<!--头部结束-->
-	
 		<!--余额开始-->
 			<div class="balance_top"></div>
 			<div class="balance_div" style="width: 100%;height: 3.5rem;position: fixed;top: 0.85rem;z-index: 99999999999999999999;background: #F8F8F8;">
@@ -127,14 +121,10 @@
 			
 			<!--交易记录开始-->
 			<div class="record">
-							
-							
-							
+						
 				<div class="record_main">
 						
-					
 					<div id="refreshContainer" class="mui-content mui-scroll-wrapper">
-						
 						
 						<div class="mui-scroll">
 							<div class="record_title">
@@ -180,10 +170,6 @@
 				<div class="both"></div>
 			</div>
 			<!--交易记录结束-->
-	
-	
-
-	
 	<div id="wrapper" style="display: none;">
 		<div id="scroller">
 	        <div id="tabSlider2" class="tabSlider"> 
@@ -276,8 +262,6 @@
 	
 	</div>
 	
-	
-	
 	<!--添加银行卡弹框开始-->
 	<div class="bank_card">
 		<div class="bank_card_bg"></div>
@@ -301,36 +285,12 @@
 <script type="text/javascript" src="/xcview/js/common/alertPopShow.js"></script>
 <script type="text/javascript" src="/xcview/js/my_wallet.js?v=wechat_1.1"></script>
 
-
-
 <script>
 	
 	//		处理充值高度
 		var school_height=$(window).height()-$(".balance_div").height()-$(".header_class").height();
 		$(".mui-scroll-wrapper").height(school_height);
 		
-		
-//		alert(school_height);
-		/*var school_height=$(".mui-scroll-wrapper").height();
-		$(".record").height(school_height);*/
 </script>
-
-
-<script type="text/javascript">
-/*	window.onload = function(){
-//		点击人民币提现   出现添加银行卡提示             withdraws.html--提现页   点击提现之前已经添加过银行卡直接到提现页
-		$(".balance .div02").click(function(){
-			$(".bank_card").show();
-		});
-		
-		$(".bank_card_main_fixed .div0").click(function(){
-			$(".bank_card").hide();
-		});
-		$(".bank_card_main_fixed .div1").click(function(){
-			$(".bank_card").hide();
-		});
-	};*/
-</script>
-
-
 </html>
+

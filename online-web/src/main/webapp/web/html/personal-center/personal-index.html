@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IEedge" />
+		<meta charset="UTF-8">
+		<title>个人中心 - 熊猫中医</title>
+		<link rel="shortcut icon" href="/favicon.ico" />
+		<meta name="keywords" content="中医教育,中医传承,中医线下教育,海口中医养生,国粹,传承,中医,中药,心承,熊猫中医" />
+		<meta name="description" content="熊猫中医云课堂为。课程大纲全新优化，内容有广度、有深度，顶尖讲师全程直播授课。专注整合优势教学资源、打造适合在线学习并能保证教学结果的优质教学产品，同时打造和运营一整套教育生态软件体系，为用户提供满足自身成长和发展要求的有效服务。" />
+		<meta name="renderer" content="webkit">
+		<meta name="baidu-site-verification" content="UHaAQAeAQF" />
+		<!--头部/底部样式-->
+		<link rel="stylesheet" href="/web/html/personal-center/center-header/header.css" />
+		<link rel="stylesheet" href="/web/css/footer.css" />
+		<!--两种字体图标-->
+		<link rel="stylesheet" href="/web/font/iconfont.css" />
+		<link rel="stylesheet" href="/web/fonts/style.css" />
+		<!--两种字体图标-->
+		<!--分页样式-->
+		<link rel="stylesheet" href="/web/css/componet.css" />
+		<link rel="stylesheet" href="/web/css/componet-pages.css" />
+		<!--分页样式-->
+		<!--头像预览CSS-->
+		<link rel="stylesheet" href="/web/html/preview-head/preview-head.css">		
+		<link rel="stylesheet" href="/web/css/style.css" />
+		<!--头像预览CSS-->
+		
+		<!--登陆的样式-->
+		<link rel="stylesheet" href="/web/css/mylogin.css" />
+		<link href="/web/css/bootstrap.min.css" rel="stylesheet">
+
+		<link rel="stylesheet" href="/web/css/personal-center/personal-index.css">		
+	
+	</head>
+
+	<body>
+			<div class="wp">
+				<div class="main-left z">			
+<!--头像设置开始-->
+					<div id="doctor_in_inf">
+						<!--左侧按钮部分-->
+						<div class="news_nav">
+							<div class="picModal" title="上传头像" data-toggle="modal" data-target="#upload">
+								<i class="iconfont icon-xiangji"></i>
+							</div>
+	
+							<ul class="hos_left_list">
+								<li class="doctor_inf">
+									<img src="" alt="">
+									<!--<div class="pic" style="width: 80px;height: 80px;border-radius: 50%;"></div>-->
+									<h4></h4>
+									<!--<p style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;padding: 0 20px;"></p>-->
+								</li>				
+							</ul>
+						</div>
+					</div>
+					<!--头像预览裁剪-->
+					<div class="mask"></div>
+					<div id="headImg" class="clearfix">
+						<div class="container1 clearfix">
+							<div class="img-title">
+								<p>头像设置</p><i class="iconfont icon-guanbi imgClose"></i></div>
+							<div class="img-box1">
+								<a href="javascript:void(0)" class="upload-img">
+									<p onclick="fileClick()"><span>+</span>选择图片</p>
+								</a>
+			
+								<p>只支持BMP,PNG,JPEG,JPG,大小不超过1M</p>
+							</div>
+							<div class="imageBox">
+								<div class="thumbBox"></div>
+								<div class="spinner" style="display: none"></div>
+							</div>
+							<div class="action clearfix">
+								<div class="upload_pictures_bottom_upload" style="width: 0;height: 0;"></div>
+								<div class="new-contentarea tc">
+									<div class="bbox clearfix">
+										<span>滚动鼠标可调整头像大小</span>
+										<a href="javascript:void(0)" class="upload-img reclick">
+											<p onclick="fileClick()">重新上传</p>
+										</a>
+									</div>
+									<input type="file" class="" name="upload-file" id="upload-file" accept=".bmp,.png,.jpeg,.jpg" accept="image/gif,image/jpeg,image/jpg,image/png"/>
+								</div>
+								<span class="btn-upload bbtn">确定</span>
+								<a href="javascript:;" class="btn-quit bbtn">取消</a>
+							</div>
+							<div class="cropped">
+								<div class="cropTitle">预览</div>
+								<div class="cropped-con"></div>
+							</div>
+						</div>
+					</div>
+				<!--头像预览裁剪-->	
+<!--头像设置结束-->
+<!--左边nav开始-->
+					<div id="left-tab">
+					<!-- Contenedor -->
+						<ul id="accordion" class="accordion">
+							<li data-menu="menu1-1">
+								<div class="link"><i class="icomoon-icon-xuexi"></i>学习中心<span class="" aria-hidden="true"></span></div>
+								<ul class="submenu">
+									<li><a href="javascript:;" data-menu="menu1-1">我的课程</a></li>
+									<li><a href="javascript:;" data-load="load-anchor" data-menu="menu1-2">关注的主播</a></li>
+								</ul>
+							</li>
+							<li data-menu="menu2-1">
+								<div class="link"><i class="icomoon-icon-wenda"></i>问答与论坛<span class="" aria-hidden="true"></span></div>
+								<ul class="submenu tte">
+									<li><a href="javascript:;" data-menu="menu2-1">我的问答</a></li>
+									<li><a href="javascript:;" data-menu="menu2-2">我的论坛</a></li>
+								</ul>
+							</li>
+							<li  data-menu="menu3">
+								<div class="link" data-menu="menu3" data-load="load-order"><i class="icomoon-icon-dingdan"></i>我的订单</div>
+								<ul class="submenu">
+									<!--<li><a href="javascript:;">课程收益</a></li>
+									<li><a href="javascript:;">礼物收益</a></li>-->
+								</ul>
+							</li>
+							<li id="wallet-btn" data-menu="menu4">
+								<div class="link" data-menu="menu4" data-load="load-money"><i class="icomoon-icon-zichan"></i>我的钱包</div>
+								<ul class="submenu">
+									<!--<li><a href="javascript:;">认证信息</a></li>
+									<li><a href="javascript:;">主播信息</a></li>-->
+								</ul>
+							</li>
+							<li id="data-btn" data-menu="menu5">
+								<div class="link jump-data" data-menu="menu5" data-load="load-data"><i class="icomoon-icon-ziliao"></i>个人资料</div>
+								<ul class="submenu">
+									<!--<li><a href="javascript:;">认证信息</a></li>
+									<li><a href="javascript:;">主播信息</a></li>-->
+								</ul>
+							</li>
+							<li data-menu="menu6">
+								<div class="link" data-menu="menu6" data-load="load-news"><i class="iconfont icon-ziyuan" style="font-size: 13px;top: 23px;"></i>消息</div>
+								<ul class="submenu">
+									<!--<li><a href="javascript:;">认证信息</a></li>
+									<li><a href="javascript:;">主播信息</a></li>-->
+								</ul>
+							</li>
+							<li data-menu="menu7">
+								<div class="link" data-menu="menu7"><i class="iconfont icon-yijianfankui"style="top: 21px;"></i>意见反馈</div>
+								<ul class="submenu">
+									<!--<li><a href="javascript:;">认证信息</a></li>
+									<li><a href="javascript:;">主播信息</a></li>-->
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</div>
+<!--右侧内容盒子-->				
+					<div class="main-right y">
+						<!-- 右侧内容的盒子 -->
+						<div id="right-content">
+						<!--学习中心-->
+							<div class="content" >
+								<!--我的课程-->
+								<div class="mune1-1">
+									<div class="my-class-nav">
+										<ul>
+											<li class="class-active" data-btn="load-history">播放历史</li>
+											<li data-btn="load-buy">已购课程</li>
+											<li data-btn="load-end">已结束课程</li>
+										</ul>
+									</div>
+									<!--播放历史-->
+									<div class="save-class">
+										<button type="button" class="clear-history hide">清除记录</button>
+										<div id="history-template">
+											<script type="text/template" id="content-history">
+												{{each items as item i}}																							
+												<div class="course clearfix">
+													{{if item.type == 1 || item.type == 2 || item.type == 4 }}
+													<a style="cursor:pointer" href="/courses/{{item.id}}/info" target="_blank">
+													{{else if item.type == 3}}
+														{{if item.lineState == 1 || item.lineState == 4}}
+														 <a style="cursor:pointer" href="/web/liveCoursePage/{{item.id}}" target="_blank">		
+														{{else}}
+														<a style="cursor:pointer" href="/courses/{{item.id}}/info" target="_blank">														
+														{{/if}}
+													{{/if}}					
+														<div class="img">
+															<img src="{{item.smallimgPath}}"/>
+														</div>
+											
+														{{if item.type == 1}}
+															{{if item.collection == true}}
+															<span class="classCategory">音频专辑</span>
+															{{else}}
+															<span class="classCategory">音频</span>
+															{{/if}}
+														{{else if item.type == 2}}
+															{{if item.collection == true}}
+															<span class="classCategory">视频专辑</span>
+															{{else}}
+															<span class="classCategory">视频</span>
+															{{/if}}
+														{{else if item.type == 3 && item.lineState==1}}
+																<span class="classCategory">直播中</span>
+														{{else if item.type == 3 && item.lineState==3}}
+																<span class="classCategory">直播回放</span>
+														{{else if item.type == 3 && item.lineState==4}}
+																<span class="classCategory">即将直播</span>
+														{{else if item.type == 4}}
+														<span class="classCategory">线下课程</span>
+														{{/if}}
+														<div class="detail">
+															<p class="title" title="{{item.gradeName}}">{{item.gradeName}}</p>
+															<p class="timeAndTeac">
+																<span class="teacher z">{{item.lecturerName}}</span>
+																{{if item.type == 3}}
+																	{{if item.lineState!=1}}
+																		{{if item.startDateStr.indexOf('.')==-1}}
+																		<span class="y"><img src="/web/images/myvideo-time.png" style="margin: -3px 3px 0 0;" />{{item.startDateStr}}</span>                        
+																		{{else}}
+																	 	<span class="y"><img src="/web/images/date_month.png" style="margin: -3px 2px 0 0;" />{{item.startDateStr.replace(".", "月")}}日</span>
+																		{{/if}}
+																	{{/if}}
+																{{/if}}
+																
+															</p>
+															<p class="info clearfix">
+																<span>
+																	{{if item.watchState==0}}
+																	<span class="price">{{item.currentPrice}}</span>
+																	<span>熊猫币</span>
+																	
+																	{{else if item.watchState==1}}
+																	<span class="price">免费</span>
+																	{{/if}}
+																</span>
+																<span class="stuCount">
+																	<img src="/web/images/studentCount.png" alt="">
+																	<span class="studentCou">{{item.learndCount}}</span>
+																</span>
+															</p>
+														</div>
+													</a>
+												</div>
+												{{/each}}
+											</script>	
+										</div>
+										<!--无视频时背景图-->
+										<div class="sava-nodata nodata-history hide"></div>	
+											<div class="cl"></div>	
+											<!--分页部分start-->
+											<div class="history_pages pages hide" style="margin-top: 20px;">  <!--如需要复制分页doctors_pages要改类名并在JS里对应-->
+												<div id="history_doctors" class="pagination-pages"></div>	<!--如需要复制分页Pagination_doctors要改类名并在JS里对应-->
+												<div class="searchPage">
+													<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+													<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
+													<a href="javascript:;" class="page-btn">确定</a>
+												</div>
+											</div>
+											<!--分页部分end-->
+									</div>
+									<!--已购课程-->
+									<div class="save-class hide">
+										<div class="loadImg laod-buy">
+											<img class="loadingImg" src="/web/images/ansandqus/loading.gif" alt="" />
+											<p class="loadingWord">加载中</p>
+										</div>
+										
+										<div id="buy-template">
+											<script type="text/template" id="purchased-class">
+												{{each items as item i}}
+												<div class="course clearfix">
+													{{if item.type == 1 || item.type == 2 || item.type == 4 }}
+													<a style="cursor:pointer" href="/courses/{{item.id}}/info" target="_blank">
+													{{else if item.type == 3}}
+														{{if item.lineState == 1 || item.lineState == 4}}
+														 <a style="cursor:pointer" href="/web/liveCoursePage/{{item.id}}" target="_blank">		
+														{{else}}
+														<a style="cursor:pointer" href="/courses/{{item.id}}/info" target="_blank">														
+														{{/if}}
+													{{/if}}
+														<div class="img">
+															<img src="{{item.smallImgPath}}">
+														</div>
+													
+														{{if item.type == 1}}
+															{{if item.collection == true}}
+															<span class="classCategory">音频专辑</span>
+															{{else}}
+															<span class="classCategory">音频</span>
+															{{/if}}
+														{{else if item.type == 2}}
+															{{if item.collection == true}}
+															<span class="classCategory">视频专辑</span>
+															{{else}}
+															<span class="classCategory">视频</span>
+															{{/if}}
+														{{else if item.type == 3 && item.lineState==1}}
+																<span class="classCategory">直播中</span>
+														{{else if item.type == 3 && item.lineState==3}}
+																<span class="classCategory">直播回放</span>
+														{{else if item.type == 3 && item.lineState==4}}
+																<span class="classCategory">即将直播</span>
+														{{else if item.type == 4}}
+														<span class="classCategory">线下课程</span>
+														{{/if}}
+														<div class="detail">
+															<p class="title" title="{{item.gradeName}}">{{item.gradeName}}</p>
+															<p class="timeAndTeac">
+																<span class="teacher z">{{item.name}}</span>
+																{{if item.type==4}}
+																<span class="y">{{item.city}}</span>															
+																{{/if}}
+																
+																{{if item.type == 3}}
+																	{{if item.lineState!=1}}
+																		{{if item.startDateStr.indexOf('.')==-1}}
+																		<span class="y"><img src="/web/images/myvideo-time.png" style="margin: -3px 3px 0 0;" />{{item.startDateStr}}</span>                        
+																		{{else}}
+																	 	<span class="y"><img src="/web/images/date_month.png" style="margin: -3px 2px 0 0;" />{{item.startDateStr.replace(".", "月")}}日</span>
+																		{{/if}}
+																	{{/if}}
+																{{/if}}
+															</p>
+															<p class="info clearfix">
+																<span>
+																	{{if item.watchState==0}}
+																	<span class="price">{{item.currentPrice}}</span>
+																	<span>熊猫币</span>
+																	
+																	{{else if item.watchState==1}}
+																	<span class="price">免费</span>
+																	{{/if}}
+																</span>
+																<span class="stuCount">
+																	<img src="/web/images/studentCount.png" alt="">
+																	<span class="studentCou">{{item.learndCount}}</span>
+																</span>
+															</p>
+														</div>
+													</a>
+												</div>
+												{{/each}}
+											</script>	
+										
+										</div>
+										<!--无视频时背景图-->
+										<div class="sava-nodata nodata-buyclass"></div>	
+										<div class="cl"></div>
+										<!--分页部分start-->
+											<div class="buy_pages pages hide" style="margin-top: 20px;">  <!--如需要复制分页doctors_pages要改类名并在JS里对应-->
+												<div id="buy_doctors" class="pagination-pages"></div>	<!--如需要复制分页Pagination_doctors要改类名并在JS里对应-->
+												<div class="searchPage">
+													<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+													<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
+													<a href="javascript:;" class="page-btn">确定</a>
+												</div>
+											</div>
+											<!--分页部分end-->
+											
+										
+									</div>
+									<!--结束课程-->
+									<div class="save-class hide">
+										<div class="loadImg laod-end">
+											<img class="loadingImg" src="/web/images/ansandqus/loading.gif" alt="" />
+											<p class="loadingWord">加载中</p>
+										</div>
+										<div id="end-template">
+											<script type="text/template" id="end-class">
+												{{each items as item i}}
+												<div class="course clearfix">
+													{{if item.type == 1 || item.type == 2 || item.type == 4 }}
+													<a style="cursor:pointer" href="/courses/{{item.id}}/info" target="_blank">
+													{{else if item.type == 3}}
+														{{if item.lineState == 1 || item.lineState == 4}}
+														 <a style="cursor:pointer" href="/web/liveCoursePage/{{item.id}}" target="_blank">		
+														{{else}}
+														<a style="cursor:pointer" href="/courses/{{item.id}}/info" target="_blank">														
+														{{/if}}
+													{{/if}}	
+														<div class="img">
+															<img src="{{item.smallImgPath}}">
+														</div>
+														{{if item.type == 1}}
+															{{if item.collection == true}}
+															<span class="classCategory">音频专辑</span>
+															{{else}}
+															<span class="classCategory">音频</span>
+															{{/if}}
+														{{else if item.type == 2}}
+															{{if item.collection == true}}
+															<span class="classCategory">视频专辑</span>
+															{{else}}
+															<span class="classCategory">视频</span>
+															{{/if}}
+														{{else if item.type == 3 && item.lineState==1}}
+																<span class="classCategory">直播中</span>
+														{{else if item.type == 3 && item.lineState==3}}
+																<span class="classCategory">直播回放</span>
+														{{else if item.type == 3 && item.lineState==4}}
+																<span class="classCategory">即将直播</span>
+														{{else if item.type == 4}}
+														<span class="classCategory">线下课程</span>
+													
+														{{/if}}
+														<div class="detail">
+															<p class="title" title="{{item.gradeName}}">{{item.gradeName}}</p>
+															<p class="timeAndTeac">
+																<span class="teacher z">{{item.name}}</span>
+																{{if item.type==4}}
+																<span class="y">{{item.city}}</span>
+																{{/if}}
+																{{if item.type == 3}}
+																	{{if item.lineState!=1}}
+																		{{if item.startDateStr.indexOf('.')==-1}}
+																		<span class="y"><img src="/web/images/myvideo-time.png" style="margin: -3px 3px 0 0;" />{{item.startDateStr}}</span>                        
+																		{{else}}
+																	 	<span class="y"><img src="/web/images/date_month.png" style="margin: -3px 2px 0 0;" />{{item.startDateStr.replace(".", "月")}}日</span>
+																		{{/if}}
+																	{{/if}}
+																{{/if}}
+															</p>
+															<p class="info clearfix">
+																<span>
+																	{{if item.watchState==0}}
+																	<span class="price">{{item.currentPrice}}</span>
+																	<span>熊猫币</span>
+																	
+																	{{else if item.watchState==1}}
+																	<span class="price">免费</span>
+																	{{/if}}
+																</span>
+																<span class="stuCount">
+																	<img src="/web/images/studentCount.png" alt="">
+																	<span class="studentCou">{{item.learndCount}}</span>
+																</span>
+															</p>
+														</div>
+													</a>
+												</div>
+												{{/each}}
+											</script>
+										</div>
+										<!--无视频时背景图-->
+										<div class="sava-nodata nodata-endclass"></div>	
+										<div class="cl"></div>
+										<!--分页部分start-->
+											<div class="end_pages pages hide" style="margin-top: 20px;">  <!--如需要复制分页doctors_pages要改类名并在JS里对应-->
+												<div id="end_doctors" class="pagination-pages"></div>	<!--如需要复制分页Pagination_doctors要改类名并在JS里对应-->
+												<div class="searchPage">
+													<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+													<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
+													<a href="javascript:;" class="page-btn">确定</a>
+												</div>
+											</div>
+											<!--分页部分end-->
+									</div>
+								</div>
+								<!--关注的主播-->
+								<div class="mune1-2 hide">
+									<div class="my-class-nav">
+										<h5 class="anchor-follow">关注的主播</h5>
+									</div>	
+									<div class="loadImg laod-anchor">
+											<img class="loadingImg" src="/web/images/ansandqus/loading.gif" alt="" />
+											<p class="loadingWord">加载中</p>
+									</div>
+									<div class="anchor-list">
+										<div id="anchor-template">
+										
+											<script type="text/template" id="anchor-box">
+											{{each items as item i}}
+											<div class="anchor-wrap">
+												<a href="{{webUrl}}/anchors/{{item.userId}}/info" target="_blank" style="width: 100%; height: 100%;">
+												<div class="head-doctor z">
+													<img src="{{item.smallHeadPhoto}}"/>
+												</div>
+												<div class="doctor-details y">
+													<h5>{{item.name}}</h5>
+													<p class="doctor-text">
+														{{item.detail}}
+													</p>
+												</div>
+												</a>
+											</div>	
+											{{/each}}
+											</script>
+										</div>
+										<!--暂无关注的主播-->	
+										<div class="no-follow-anchor hide">
+											<div class="no-follow-img">
+												<img src="../../images/icon-nodata.png"/>
+											</div>
+											<p>暂无关注的主播</p>
+										</div>
+									</div>												
+								
+								</div>	
+							</div>
+						<!--问答与论坛-->
+							<div class="content hide" id="aaa">
+								<!--我的问答-->
+								<div class="mune2-1">
+									<div class="question-forum">
+										<ul>
+											<li class="mune-active" id="btnQuestion">我的提问</li>
+											<li data-name="showText">我的回答</li>
+										</ul>
+									</div>
+									<!--我的提问-->									
+									<div class="question-wrap">
+
+									
+										<div id="quiz-template">
+											<script type="text/template" id="quiz-box">
+												{{each items as item i}}
+												<div class="question-list-wrap">
+													<div class="head-name-who z">
+														<div class="head-img">
+															<img src="{{item.create_head_img}}"/ alt="头像">
+														</div>
+														<p class="user-name">{{item.create_nick_name}}</p>
+														{{if item.answer_sum != 0}}
+														<div class="my-answer">
+															<span>回答</span>
+															<p>{{item.answer_sum}}</p>
+														</div>
+														{{/if}}
+													</div>
+													<div class="source-text y">
+														<p class="source-title">来自学科：{{item.name}}</p>
+														<div class="question-status-wrap">
+															{{if item.status==0}}
+															<span>未解决</span>
+															{{else if item.status==1}}
+															<span>未解决</span>
+															{{else if item.status==2}}
+															<span>已解决</span>
+															{{/if}}
+															<p onclick="previewNumber(this)" data-id="{{item.id}}"><a href="/web/qusDetail/{{item.id}}">{{item.title}}</a></p>
+														</div>
+														<div class="list-Answer-right-text dot6" >
+															{{item.content}}
+														</div>
+															{{if item.picture.length>0}}
+														<div class="show-img showPicture">
+															<ul>
+																{{each item.picture as pic j}}
+																<li><img src="{{pic}}"></li>
+																{{/each}}
+															</ul>
+														</div>
+														{{/if}}
+
+														<div class="time-status cl">
+															<ul>
+																<li>
+	
+																	<span>{{item.create_time}}</span>
+																</li>
+																<li>
+																	<span><i class="iconfont icon-biaoqian"></i>
+																		{{each item.tag as j}}
+																			{{j}}
+																		{{/each}}
+																	</span>
+																</li>
+																<li>
+																	
+																	<span><i class="iconfont icon-yulan icon-set"></i>{{item.browse_sum}}</span>
+																</li>
+															</ul>
+														</div>
+														<!--回复的内容/点赞-->
+														{{if item.askAnswerVo != null}}
+														<div class="reply-wrap y">
+															<div class="reply-user-head z">
+																<img src="{{item.askAnswerVo.create_head_img}}"/>
+															</div>
+															<div class="reply-user-text y">
+																<h5>{{item.askAnswerVo.create_nick_name}}</h5>
+																<p>
+																	{{item.askAnswerVo.content}}
+																</p>
+																<ul>
+																	<li>{{item.askAnswerVo.create_time}}</li>
+																	<li class="select-down" onclick="selectDown(this)" data-answerid="{{item.askAnswerVo.id}}">
+																		{{if item.askAnswerVo.praise==true}}
+																		<i class="iconfont icon-zan select-active"></i>
+																		{{else ifitem.askAnswerVo.praise==false}}
+																		<i class="iconfont icon-zan"></i>
+																		{{/if}}
+																		<p style="display: inline-block;">{{item.askAnswerVo.praise_sum}}</p>
+																	</li>
+																</ul>
+															</div>
+														</div>
+														{{/if}}
+													</div>
+												</div>
+												{{/each}}
+											</script>
+										</div>
+										<!--无我的提问时的背景图-->
+										<div class="no-question-box hide">
+											<div class="no-question-img">
+												<img src="../../images/icon-nodata.png"/>
+											</div>
+											<p>暂无提问</p>	
+										</div>
+									</div>
+									<!--我的回答-->
+									<div class="question-wrap hide" id="answer">
+										<!--我的回答-->
+										<script type="text/template" id="answer-box">
+											{{each items as item i}}
+										<div class="question-list-wrap">
+											<div class="head-name-who z">
+												<div class="head-img">
+													<img src="{{item.create_head_img}}"/ alt="头像">
+												</div>
+												<p class="user-name">{{item.create_nick_name}}</p>
+												{{if item.answer_sum != 0}}
+												<div class="my-answer">
+													<span>回答</span>
+													<p>{{item.answer_sum}}</p>
+												</div>
+												{{/if}}
+											</div>
+											<div class="source-text y">
+												<p class="source-title">来自学科：{{item.name}}</p>
+												<div class="question-status-wrap">
+													{{if item.status==0}}
+													<span>未解决</span>
+													{{else if item.status==1}}
+													<span>未解决</span>
+													{{else if item.status==2}}
+													<span>已解决</span>
+													{{/if}}
+													<p onclick="anwserNumber(this)" data-id="{{item.id}}"><a href="/web/qusDetail/{{item.id}}">{{item.title}}</a></p>
+												</div>
+												<div class="list-Answer-right-text dot5" >
+														{{item.content}}
+												</div>
+												{{if item.picture.length>0}}
+												<div class="show-img">
+													<ul>
+														{{each item.picture as pic j}}
+															<li><img src="{{pic}}"></li>
+														{{/each}}
+													</ul>
+												</div>
+												{{/if}}
+												<div class="time-status cl">
+													<ul>
+														<li>
+															<span>{{item.create_time}}</span>
+														</li>
+														<li>
+															<span><i class="iconfont icon-biaoqian"></i>
+															{{each item.tags as t}}
+																{{t}}
+															{{/each}}
+															</span>
+														</li>
+														<li>
+															
+															<span><i class="iconfont icon-yulan icon-set"></i>{{item.browse_sum}}</span>
+														</li>
+													</ul>
+												</div>
+												<!--回复的内容/点赞-->
+												<div class="reply-wrap y">
+													<div class="reply-user-head z">
+														<img src="{{item.askAnswerVo.create_head_img}}"/>
+													</div>
+													<div class="reply-user-text y">
+														<h5>{{item.askAnswerVo.create_nick_name}}</h5>
+														<p>
+															{{item.askAnswerVo.content}}
+														</p>
+														<ul>
+															<li>{{item.askAnswerVo.create_time}}</li>
+														
+															<li class="select-down" onclick="selectDown(this)" data-answerid="{{item.askAnswerVo.id}}">
+																{{if item.askAnswerVo.praise==true}}
+																<i class="iconfont icon-zan select-active"></i>
+																{{else ifitem.askAnswerVo.praise==false}}
+																<i class="iconfont icon-zan"></i>
+																{{/if}}
+																<p style="display: inline-block;">{{item.askAnswerVo.praise_sum}}</p>
+															</li>
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+										{{/each}}
+										</script>
+										<div class="no-answer-box hide">
+											<div class="no-answer-img">
+												<img src="../../images/icon-nodata.png"/>
+											</div>
+											<p>暂无回答</p>	
+										</div>
+									</div>
+								</div>
+								<!--我的论坛-->
+								<div class="mune2-2 hide">
+									<div class="forum-wrap">
+										<ul>
+											<li class="mune-active">我的帖子</li>
+											<li>我的回复</li>
+										</ul>
+									</div>
+									<!--我的帖子-->
+									<div class="reply-post-wrap">
+										<div class="post-box" id="post-template">
+											<script type="text/template" id="post-model">
+												<table border="0" cellspacing="0" cellpadding="0">
+													<tr class="thead-title">
+														<th>主题</th>
+														<th>所属板块</th>
+														<th>最后回复时间</th>
+													</tr>
+													{{each items as item i}}
+													<tr class="table-centent">
+														<td><a href="/bbs/{{item.id}}">{{item.title}}</a></td>
+														<td>{{item.labelName}}</td>
+														<td>{{item.initTime}}</td>
+													</tr>
+													{{/each}}
+												</table>
+											</script>
+										
+										</div>
+											<!--分页部分start-->
+											<div class="post_pages pages hide" style="margin-top: 20px;">  <!--如需要复制分页doctors_pages要改类名并在JS里对应-->
+												<div id="post_doctors" class="pagination-pages"></div>	<!--如需要复制分页Pagination_doctors要改类名并在JS里对应-->
+												<div class="searchPage">
+													<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+													<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
+													<a href="javascript:;" class="page-btn">确定</a>
+												</div>
+											</div>
+											<!--分页部分end-->
+										<!--暂无帖子-->
+										<div class="no-post-box hide">
+											<div class="no-post-img">
+												<img src="../../images/icon-nodata.png"/>
+											</div>
+											<p>暂无帖子</p>
+										</div>
+									</div>
+									<!--我的回复-->
+									<div class="reply-post-wrap hide">
+										<div class="reply-box" id="reply-template">
+											<script type="text/template" id="reply-model">
+												<div class="reply-status">
+													<ul>
+														<li>主题</li>
+														<li>所属板块</li>
+														<li>最后回复时间</li>
+													</ul>
+												</div>
+												{{each items as item i}}
+												<div class="reply-tltle">
+													<ul>
+														<li><a href="/bbs/{{item.postId}}">{{item.postTitle}}</a></li>
+														<li>{{item.labelName}}</li>
+														<li>{{item.initTime}}</li>
+													</ul>
+													<p>{{item.content}}</p>
+												</div>
+												{{/each}}
+											</script>
+										</div>
+										<!--分页部分start-->
+											<div class="reply_pages pages hide" style="margin-top: 20px;">  <!--如需要复制分页doctors_pages要改类名并在JS里对应-->
+												<div id="reply_doctors" class="pagination-pages"></div>	<!--如需要复制分页Pagination_doctors要改类名并在JS里对应-->
+												<div class="searchPage">
+													<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+													<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
+													<a href="javascript:;" class="page-btn">确定</a>
+												</div>
+											</div>
+											<!--分页部分end-->
+										<!--暂无回复-->
+										<div class="no-reply-box hide">
+											<div class="no-reply-img">
+												<img src="../../images/icon-nodata.png"/>
+											</div>
+											<p>暂无回复</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						<!--我的订单-->
+							<div class="content hide" >
+								<div class="order-wrap">
+									<div class="order-box">
+										<ul>
+											<li class="mune-active all-order"  data-orderStatus=" ">
+												<span class="glyphicon glyphicon-triangle-bottom triangle-bottom" aria-hidden="true"></span>
+												<span class="select-write">全部订单</span>
+												<p class="all-change" style="display: none;">
+														<span data-order="0" class="select-order">全部订单</span>
+														<span data-order="1">近三个月内订单</span>
+														<span data-order="2">今年内订单</span>
+														<span data-order="3" id="set-year"></span>
+												</p>
+
+											</li>
+											<li data-orderStatus="0"><span>待支付</span></li>
+											<li data-orderStatus="1"><span>已完成</span></li>
+											<li data-orderStatus="2"><span>已失效</span></li>
+										</ul>
+									</div>
+									<!--全部订单-->
+									<div class="all-order-wrap">
+										<div class="loadImg laod-order">
+											<img class="loadingImg" src="/web/images/ansandqus/loading.gif" alt="" />
+											<p class="loadingWord">加载中</p>
+										</div>
+										<div id="order-template">
+											<script type="text/template" id="order-content">
+											{{each items as item i}}
+												<div class="order-model">							
+													<div class="order-status">
+														<ul>
+															<li><span>{{item.create_time}}</span></li>
+															<li style="width: 230px;" title="{{item.order_no}}">订单编号：<span>{{item.order_no}}</span></li>
+															<li>订单金额（熊猫币）</li>
+															<li>实付金额</li>
+															<li>订单状态</li>
+															<li>操作</li>
+														</ul>
+													</div>
+													{{each item.orderDetail as t}}
+													<div class="order-left z">
+														<div class="order-class-img z">
+															<a href="/courses/{{t.id}}/info">
+																<img src="{{t.smallimg_path}}"/>
+															</a>
+														</div>
+														<p>{{t.grade_name}}</p>
+														<p>{{t.lecturer}}</p>
+													</div>
+													<div class="order-right y">
+														<ul>
+															<li>{{t.price}}</li>
+															<li><span>{{t.actualPay}}</span></li>
+															{{if item.order_status==0}}
+															<li>未支付</li>
+															<li>
+																<p><a href="/order/pay?orderId={{item.id}}" target="_blank" style="color: #333333;">立即支付</a></p>
+																<p onclick="deleteBtnOrder(this)" data-delete="1" data-number="{{item.order_no}}">取消订单</p>
+															</li>
+															{{else if item.order_status==1}}
+															<li>已完成</li>
+														
+															{{else if item.order_status==2}}
+															<li>已失效</li>
+															<li>
+																
+																<p style="line-height: 59px;" onclick="deleteBtnOrder(this)" data-delete="0" data-number="{{item.order_no}}">删除订单</p>
+															</li>
+															{{/if}}
+														</ul>
+													</div>
+													{{/each}}
+												</div>
+											{{/each}}
+											</script>
+										</div>
+									
+										<!--暂无订单-->
+										<div class="no-order-box all-no-order hide">
+											<div class="no-order-img">
+												<img src="../../images/icon-nodata.png"/>
+											</div>
+											<p>暂无订单</p>
+										</div>
+										<!--分页部分start-->
+										<div class="order_pages pages hide" style="margin-top: 20px;">  <!--如需要复制分页doctors_pages要改类名并在JS里对应-->
+											<div id="order_doctors" class="pagination-pages"></div>	<!--如需要复制分页Pagination_doctors要改类名并在JS里对应-->
+											<div class="searchPage">
+												<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+												<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
+												<a href="javascript:;" class="page-btn">确定</a>
+											</div>
+										</div>
+										<!--分页部分end-->
+									</div>
+								</div>
+
+							</div>
+						<!--我的钱包-->
+							<div class="content hide" >
+								<div class="wallet-wrap">
+									<!--交易记录-->
+									<div class="wallet-trade">
+										<div class="main-wallet-top">
+											<ul>
+												<li>熊猫币余额（熊猫币）：</li>
+												<li class="balance-gold"></li>
+												<li>
+													<button type="button">充值</button>
+												</li>
+											</ul>
+										</div>
+										<div class="main-wallet-bottom">
+											<div class="wallel-content-list">
+												<p class="title-wallet">交易记录</p>
+												<div class="loadImg laod-money">
+													<img class="loadingImg" src="/web/images/ansandqus/loading.gif" alt="" />
+													<p class="loadingWord">加载中</p>
+												</div>
+												<table border="0" cellspacing="0" cellpadding="0" class="table-wallet-list" id="trade-template">
+													<script type="text/template" id="trade-box">
+													<tr>
+														<th>订单号</th>
+														<th>金额（熊猫币）</th>
+														<th>用途</th>
+														<th>交易时间</th>
+														<th>交易方式</th>
+													</tr>
+
+														{{each items as item i}}
+													<tr>
+														<td>180320181450MHJCx394</td>
+														<td>{{item.money}}</td>
+														
+														{{if item.type==1}}
+														<td>赠送礼物给{{item.receiver}}</td>
+														{{else if item.type==2}}
+														<td>购买课程【{{item.courseName}}】</td>
+														{{else if item.type==3}}
+														<td>充值{{item.money}}熊猫币</td>
+														{{else if item.type==4}}
+														<td>购买课程【{{item.courseName}}】</td>
+														{{/if}}
+														
+														<td>{{item.gmtCreate}}</td>
+														<td>{{item.payType}}</td>
+													</tr>
+														{{/each}}
+													</script>
+												</table>
+												<!--暂无交易记录-->
+												<div class="no-order-box all-money-order hide" style="padding-top: 100px;">
+													<div class="no-order-img">
+														<img src="../../images/nodealHos.png"/>
+													</div>
+													<p>暂无交易记录</p>
+												</div>
+												<!--分页部分start-->
+												<div class="money_pages pages hide" style="margin-top: 20px;">  <!--如需要复制分页doctors_pages要改类名并在JS里对应-->
+													<div id="money_doctors" class="pagination-pages"></div>	<!--如需要复制分页Pagination_doctors要改类名并在JS里对应-->
+													<div class="searchPage">
+														<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+														<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
+														<a href="javascript:;" class="page-btn">确定</a>
+													</div>
+												</div>
+												<!--分页部分end-->
+											</div>
+										</div>
+									</div>
+									<!--充值-->
+									<div class="recharge-wrap hide">
+										<div class="recharge-explain">
+												<p class="z explain">选择充值额度<span>兑换比例说明：1元=10熊猫币</span></p>
+												<p class="y balance">余额：<span></span>熊猫币</p>
+										</div>
+										<div class="select-pay-money">
+											<ul>
+												<li class="select-money">
+													<p>100熊猫币</p>
+													<p>¥ <span>10</span></p>
+												</li>
+												<li>
+													<p>500熊猫币</p>
+													<p>¥ <span>50</span></p>
+												</li>
+												<li>
+													<p>1000熊猫币</p>
+													<p>¥ <span>100</span></p>
+												</li>
+												<li>
+													<p>2000熊猫币</p>
+													<p>¥ <span>200</span></p>
+												</li>
+												<li>
+													<p>5000熊猫币</p>
+													<p>¥ <span>500</span></p>
+												</li>
+											</ul>
+										</div>
+										<div class="main-bottom">
+											<h4>选择支付方式</h4>
+											<ul class="select-pay">
+												<li class="select-confirm" data-payType="0">
+													<div class="pay-logo">
+														<img src="../../images/live/alipay.png">
+													</div>
+													<p>支付宝</p>
+													<span class="icon-sure"></span>
+												</li>
+												<li data-payType="1">
+													<div class="pay-logo">
+														<img src="../../images/weixin.png">
+													</div>
+													<p>微信</p>
+													<span class="icon-sure hide"></span>
+												</li>
+											</ul>
+										</div>
+										<div class="recharge-box">
+											<button type="button" class="order-pay">立即充值</button>
+										</div>
+									</div>
+									
+								</div>
+								<!--<div class="hide">内容4-2</div>-->
+							</div>
+						<!--个人资料-->
+							<div class="content hide" >
+								<div class="personal-data-wrap">
+									<div class="data-title">
+										<ul>
+											<li>个人信息</li>
+										</ul>
+									</div>
+									<div class="data-information">
+										<div class="data-mune">
+											<div class="data-left-name">
+												<span>*</span>
+												用户名
+											</div>
+											<input class="nickname" type="" name="" id="" value="" />	
+											<span class="warning-name hide">用户名格式不能为空 !</span>
+										</div>
+										
+										<div class="data-mune">
+											<div class="data-left-name">
+												账号
+											</div>
+											<input class="account-number" type="" name="" id="" value="" />
+											<a href="/web/html/resetPassword.html" class="mypassword-g">修改密码&nbsp;&gt;</a>
+										</div>
+										<div class="data-mune">
+											<div class="data-left-name">
+												邮箱
+											</div>
+											<input class="emailname" type="" name="" id="" value="" />
+											<span class="warning-email hide" style="color: red;">邮箱格式不正确</span>
+										</div>	
+										<div class="data-mune">
+											<div class="data-left-name">
+												身份信息
+											</div>
+											<select class="identity-select" id="identity-select"></select>	
+											<span class="identity-null hide" style="color: red;">请选择身份信息</span>
+												
+											
+										</div>
+										<div class="data-mune">
+											<div class="data-left-name">
+												职业信息
+											</div>
+											<input type="" name="" id="" value="" class="profession" />
+										</div>
+										<div class="data-mune sex-select-all">
+											<div class="data-left-name">
+												性别
+											</div>
+											
+											<label>
+												<div class="radio-cover select-man">
+													<em></em>
+												</div>								
+												<input class="sex-select" type="radio" name="sex" id="myradio-man" value="1" />
+												<span>男</span>
+											</label>
+											<label>
+												<input class="sex-select" type="radio" name="sex" id="myradio-woman" value="0" />
+												<div class="radio-cover">
+													<em></em>
+												</div>								
+												<span>女</span>
+											</label>
+										</div>	
+										<div class="data-mune">
+											<div class="data-left-name">
+												所在地区
+											</div>
+
+											<div class="address-info" style="display: inline-block;">				 
+										        <select class="province">
+										        <option value="volvo">--选择省--</option>
+										        </select>
+										   
+										        <select class="city">
+										        <option value="volvo" >--选择市--</option>
+										        </select>
+										        
+										  
+										        <select class="district">
+										        <option value="volvo">--选择区/县--</option> 
+										        </select>	        
+
+									       </div>
+
+										</div>
+										
+									</div>
+									<!--保存资料-->
+										<div class="save-data">
+											<button type="button">保存</button>
+										</div>
+								</div>
+							</div>
+
+						<!--消息-->
+							<div class="content hide" >
+								<div class="news-wrap">
+									<div class="mune-news">
+										<p>我的消息</p>
+										<span class="news-tip hide"></span>
+									</div>
+									<div class="main-news">	
+										<button type="button" class="sign-read">全部标记为已读</button>
+										<div class="loadImg load-news">
+											<img class="loadingImg" src="/web/images/ansandqus/loading.gif" alt="" />
+											<p class="loadingWord">加载中</p>
+										</div>
+										<ul id="news-template">
+										<script type="text/template" id="news-box">
+											
+											{{each items as item i}}
+												{{if item.readStatus==0}}
+												<li class="weidu" onclick="jump_msg(this)" data-id="{{item.id}}" data-url='{{item.url}}'>
+													<div class="message-box">
+														<span class="icon-tip"></span>
+														{{item.context}}
+
+														<span class="news-time">{{item.createTime}}</span>
+														
+													</div>
+													<p class="delete-news" style="display: none;"><img src="../../images/qxCloser.png"/></p>
+												</li>
+												{{else if item.readStatus==1}}
+												<li onclick="jump_msg(this)" data-id="{{item.id}}" data-url='{{item.url}}'>
+													<div class="message-box" style="cursor: pointer;">
+														{{item.context}}
+														<span class="news-time">{{item.createTime}}</span>
+													</div>
+													<p class="delete-news" style="display: none;" data-delete="{{item.id}}" onclick="deleteNews(this)"><img src="../../images/alter-close.png"/></p>
+												</li>
+												{{/if}}
+											{{/each}}
+										</script>
+										</ul>
+									</div>
+									<!--暂无消息-->
+									<div class="no-order-box all-news-order hide" style="padding-top: 128px;">
+										<div class="no-order-img" style="width: 153px; height: 117px;">
+											<img src="../../images/news_null.png"/>
+										</div>
+										<p>暂无消息</p>
+									</div>
+									<!--分页部分start-->
+									<div class="news_pages pages hide">  <!--如需要复制分页doctors_pages要改类名并在JS里对应-->
+										<div id="news_doctors" class="pagination-pages"></div>	<!--如需要复制分页Pagination_doctors要改类名并在JS里对应-->
+										<div class="searchPage">
+											<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+											<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
+											<a href="javascript:;" class="page-btn">确定</a>
+										</div>
+									</div>
+									<!--分页部分end-->
+								</div>	
+							</div>
+						<!--意见反馈-->	
+							<div class="content hide" >
+								<div class="feedback-wrap">
+									<p class="mune-opinion">意见反馈</p>
+									<div class="opinion-title">
+										<label>
+											<span>*</span>
+											标题
+											<input type="text" placeholder="5~50字之间" class="text-title" />
+										</label>
+										<span class="error-msg" style="color: red;display: none;"></span>
+									</div>
+									<div class="opinion-title" style="padding-top: 0;">
+										<label>
+											<span style="color: white;">*</span>
+											描述
+											<textarea class="textarea-miaoshu" name="" rows="" cols="" placeholder="1000以内" maxlength="1000"></textarea>
+										</label>
+									</div>
+									<button type="button">提交</button>
+								</div>
+								<!--<div class="hide">内容4-2</div>-->
+							</div>
+						</div>
+					</div>
+			</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+<!-- 身份信息模板 -->
+ <script type="text/template" id="SFinfor">
+<option value="volvo">请输入身份信息</option> 
+{{each item as item i}}
+<option value="{{item.id}}" data_key="{{item.key}}">{{item.value}}</option> 
+{{/each}}
+</script> 
+			
+			
+			
+		
+			
+			
+			
+			
+		<script src="/web/js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script>
+		<!--点击显示更多内容-->
+		<script src="/web/js/jquery.dotdotdot.js" type="text/javascript" charset="utf-8"></script>
+		<!--分页部分start-->
+		<script src="/web/js/anchor/pages/jquery.pagination-course.js"></script>
+		<!--分页部分start-->
+		<!--公共弹窗-->
+		<script src="/web/js/common_msg.js"></script>
+		<script type="text/javascript" src="/web/js/artTemplate.js"></script>	
+		<script src="/web/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+		
+		<!--公共头部和底部-->
+		<script src="/web/js/ajax.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/web/html/personal-center/center-header/header.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="/web/js/footer.js"></script>
+		<!--公共头部和底部结束-->
+		
+		<!--头像预览JS-->
+		<script type="text/javascript" src="/web/js/cropbox.js"></script>
+		<script src="/web/html/preview-head/preview-head.js"></script>
+		<!--头像预览需要的JS-->
+		<!--省市区三联动-->
+		<script src="/web/js/common/data.provinces2.js?version=dbc884cefd"></script>
+		<script src="/web/js/common/provinces-selector.js?version=2456a78031"></script>
+		<!--省市区三联动-->
+		
+		
+		<script src="/web/js/personal-center/personal-index.js" type="text/javascript" charset="utf-8"></script>	
+	
+	</body>	
+		
+		
+</html>

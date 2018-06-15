@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xczhihui.medical.anchor.mapper.CourseApplyResourceMapper">
+
+	<select id="selectAllCourseResources" resultType="com.xczhihui.medical.anchor.vo.CourseApplyResourceVO">
+		SELECT
+		*
+		FROM
+		`course_apply_resource` car
+		WHERE car.`user_id` =  #{userId}
+		and car.multimedia_type = #{multimediaType}
+		AND car.`is_delete` = 0
+		ORDER BY car.`create_time` DESC
+	</select>
+
+	<select id="selectCourseResourceByPage" resultType="com.xczhihui.medical.anchor.vo.CourseApplyResourceVO">
+		SELECT
+		  car.*,
+		  cai.id caiId
+		FROM
+		  `course_apply_resource` car
+		  LEFT JOIN `course_apply_info` cai
+		  ON car.id=cai.`resource_id`
+		WHERE car.`user_id` =  #{userId}
+		and car.`is_delete` = 0
+		GROUP BY car.id
+		ORDER BY car.`create_time` DESC
+	</select>
+
+	<select id="selectAllCourseResourcesForUpdateDuration" resultType="com.xczhihui.medical.anchor.model.CourseApplyResource">
+		SELECT
+		  car.id,car.`resource`,
+		  car.title,
+  			car.`create_time`
+		FROM
+		  `course_apply_resource` car
+		WHERE car.`is_delete` = 0
+		AND (car.`length` IS NULL)
+		ORDER BY car.`create_time` ASC
+	</select>
+
+	<delete id="deleteCourseApplyResource">
+		UPDATE
+		`course_apply_resource` car
+		SET car.`is_delete`=1
+		WHERE car.`user_id`=#{userId}
+		AND car.id=#{resourceId}
+	</delete>
+	
+	
+		<!-- 根据资源查找课程存在的多个课程    -->
+	<select id="selectCourseListByVideoRecourse" resultType="java.lang.Integer">
+       SELECT
+           id 
+		FROM
+			oe_course where direct_id = '${directId}'
+	</select>	
+	
+	<!--   批量更新时长     -->
+	<update id="updateBatchCourseLength" parameterType="java.util.List" >
+		update oe_course set course_length = ${videoLength}
+		   where id in
+		<foreach collection="list" item="item" separator="," open="(" close=")">
+			#{item}
+		</foreach>
+	</update>
+	
+	
+	
+	
+	
+</mapper>

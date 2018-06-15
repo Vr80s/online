@@ -1,0 +1,405 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+img{
+	border: 0;
+	border: none;
+}
+a{
+	text-decoration: none;
+}
+ul{
+	margin: 0;
+	padding: 0;
+}
+li{
+	list-style: none;
+	background: blue;
+}
+.both{
+	clear: both;
+}
+
+/*中间内容开始*/
+.generate_card{
+    width: 6rem;
+    height: 10.06rem;
+    background: red;
+    position: fixed;
+    top: 50%;
+    left: 50px;
+    margin-top: -5.03rem;
+    margin-left: -0.27rem;
+    border-radius: 16px;
+    background: url(/xcview/images/generate_card.png) no-repeat;
+    background-size: 100% 100%;
+}
+.generate_card_main{
+    width: 5.4rem;
+    height: 1.2rem;
+    margin: 0 auto;
+    margin-top: 0.5rem;
+    margin-bottom: 0.3rem;
+}
+.head_portrait{
+    width: 1.2rem;
+    height: 1.2rem;
+    border-radius: 100px;
+    float: left;
+}
+.head_portrait img{
+    width: 1.2rem;
+    height: 1.2rem;
+    border-radius: 100px;
+}
+.title{
+    width: 4rem;
+    font-size: 0.28rem;
+    color: #555555;
+    float: left;
+    margin-top: 0.26rem;
+    margin-left: 0.2rem;
+    overflow: hidden;
+    height: 0.9rem;
+}
+.synopsis{
+    width: 5.2rem;
+    min-height: 0.82rem;
+    max-height: 3.82rem;
+    margin: 0 auto;
+    border: 10px solid #FFFDF3;
+}
+.synopsis_shadow{
+    width: 4.8rem;
+    min-height: 0.22rem;
+    max-height: 3.22rem;
+    margin: 0 auto;
+    box-shadow: 2px -2px 4px 0 rgba(0,0,0,0.10);
+    background: #fff;
+    margin-top: 0.11rem;
+    padding: 0.2rem;
+    font-size: .22rem;
+    color: #30455A;
+}
+.generate_card_center{
+    width: 100%;
+    height: 3.84rem;
+    position: relative;
+}
+.generate_card_bottom{
+    width: 5.4rem;
+    height: 3.84rem;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: 0.6rem;
+    margin-left: -2.5rem;
+}
+.registration_time{
+    width: 100%;
+    margin-top: 0.2rem;
+    margin-bottom: 0.2rem;
+}
+.registration_time .time{
+    margin-bottom: 0.06rem;
+    font-size: .24rem;
+    color: #CD6021;
+}
+.registration_time .date{
+    font-size: .26rem;
+    color: #555555;
+}
+
+.apply{
+    width: 100%;
+    margin-top: 0.2rem;
+    margin-bottom: 0.2rem;
+}
+.apply .site{
+    margin-bottom: 0.06rem;
+    font-size: .24rem;
+    color: #CD6021;
+}
+.apply .specific_address{
+    font-size: .26rem;
+    color: #555555;
+}
+
+.recruit_tuition{
+    width: 2.6rem;
+    float: left;
+}
+
+.recruit{
+    width: 100%;
+    margin-top: 0.15rem;
+    margin-bottom: 0.2rem;
+}
+.recruit .number_people{
+    margin-bottom: 0.06rem;
+    font-size: .24rem;
+    color: #CD6021;
+}
+.recruit .people{
+    font-size: .28rem;
+    color: #555555;
+}
+
+.tuition{
+    width: 100%;
+    margin-top: 0.2rem;
+    margin-bottom: 0.2rem;
+}
+.tuition .tuitions{
+    margin-bottom: 0.06rem;
+    font-size: .24rem;
+    color: #CD6021;
+}
+.tuition .yuan{
+    font-size: .28rem;
+    color: #555555;
+}
+
+.code{
+    float: right;
+}
+.code_img{
+    width: 1.4rem;
+    height: 1.4rem;
+    margin: 0 auto;
+}
+.code_img img{
+    width: 1.4rem;
+    height: 1.4rem;
+}
+.code_img canvas{
+    width: 100% !important;
+}
+.code_size{
+    font-size: .2rem;
+    color: #555555;
+    text-align: center;
+    margin-top: 0.1rem;
+}
+/*中间内容结束*/
+
+
+
+/*修改后*/
+/* canvas{
+    display: none;
+} */
+.generate_card{
+    display: none1;
+    z-index: -1;
+}
+.myimg{
+    position: fixed;
+    top: 50%;
+    left: 50px;
+    /* margin-top: -6.7rem;
+    margin-left: -1rem; */
+    /*display: none;*/
+    /*margin-top: -5.03rem;*/
+    /*margin-left: -0.27rem;*/
+    /*margin-left: 1.73rem;*/
+    /* width: 6rem;
+    height: 10.06rem; */
+    /*background: red;*/
+    opacity: 1;
+    /*display: none;*/
+
+    margin-left: 0.68rem;
+    margin-top: -6.03rem;
+}
+
+.myimg img{
+    pointer-events1: none;
+    vertical-align1: sub;
+}
+
+.generate_card{
+    width: 7.5rem;
+    height: 12.56rem;
+    /* width: 12rem;
+        height: 20.12rem; */
+    margin-left: 0.68rem;
+    margin-top: -6.03rem;
+}
+.generate_card_bottom{
+    width: 6.4rem;
+    /*background: palevioletred;*/
+    margin-left: -3rem;
+    margin-top: 0.8rem;
+}
+.code{
+    /*margin-right: 0.26rem;*/
+}
+.head_portrait{
+    width: 1.4rem;
+    height: 1.4rem;
+}
+.head_portrait img{
+    width: 1.4rem;
+    height: 1.4rem;
+}
+.generate_card_main{
+    width: 6.7rem;
+    height: 1.4rem;
+}
+.title{
+    width: 5.05rem;
+    font-size: 0.34rem;
+    margin-top: 0.28rem;
+    font-weight: 800;
+    /*color: #333;*/
+}
+
+.synopsis{
+    width: 6.5rem;
+    max-height: 5.82rem;
+}
+.synopsis_shadow{
+    width: 5.8rem;
+    max-height: 3.85rem;
+    font-size: 0.3rem;
+    margin-bottom: 0.1rem;
+    overflow: hidden;
+}
+.recruit{
+    margin-top: 0;
+    margin-bottom: 0.1rem;
+}
+.tuition{
+    margin-top: 0;
+}
+.registration_time .time{
+    font-size: 0.3rem;
+    /*color: #30455A;*/
+}
+.registration_time .date{
+    font-size: 0.32rem;
+    /*color: #333;*/
+    font-weight: 800;
+}
+.apply .site{
+    font-size: 0.3rem;
+    /*color: #30455A;*/
+}
+.apply .specific_address{
+    font-size: 0.32rem;
+    height: 0.86rem;
+    /*color: #333;*/
+    font-weight: 800;
+    overflow: hidden;
+}
+.recruit .number_people{
+    font-size: 0.3rem;
+    /*color: #30455A;*/
+}
+.recruit .people{
+    font-size: 0.32rem;
+    /*color: #333;*/
+    font-weight: 800;
+}
+.tuition .tuitions{
+    font-size: 0.3rem;
+
+}
+.tuition .yuan{
+    font-size: 0.34rem;
+    /*color: #333;*/
+    font-weight: 800;
+}
+.code_size{
+    font-size: 0.26rem;
+}
+.fontsize{
+    width: 100%;
+    height: 1.3rem;
+    line-height: 1.3rem;
+    text-align: center;
+    font-size: 0.3rem;
+    color: #fff;
+    /*background: red;*/
+    position: fixed;
+    bottom: 0;
+}
+.code_img{
+    width: 1.6rem;
+    height: 1.6rem;
+}
+
+.code_img img{
+    width: 1.6rem;
+    height: 1.6rem;
+}
+.code_img canvas{
+    width: 100% !important;
+}
+
+.invitation{
+    position: relative;
+}
+.invitation_title{
+    width:100%;
+    height:0.88rem;
+    line-height:0.88rem;
+    background: #fff;
+    text-align: center;
+    font-size: 0.42rem;
+    color: #333333;
+}
+.ruturn{
+    width: 0.24rem;
+    height: 0.42rem;
+    position: absolute;
+    left: 0.26rem;
+    top: -0.25rem;
+}
+.ruturn img{
+
+}
+.invitation_share{
+    width: 0.42rem;
+    height: 0.43rem;
+    position: absolute;
+    z-index: 10;
+    top: -0.25rem;
+    right: 0.26rem;
+}
+.invitation_share img{
+    width: 0.42rem;
+    height: 0.43rem;
+}
+.weixin_ceng {
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+.weixin_ceng_bg {
+    width: 100%;
+    height: 100%;
+    background: #000;
+    opacity: 0.5;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 999999999999999;
+}
+.weixin_img {
+    /* background: red; */
+    position: fixed;
+    z-index: 99999999999;
+    top: 0rem;
+    right: 0;
+}
+
+.weixin_img img {
+    position: absolute;
+    top: 0rem;
+    right: 0.26rem;
+    width: 3rem;
+    z-index: 99999999999;
+}

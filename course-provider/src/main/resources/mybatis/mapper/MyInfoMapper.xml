@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xczhihui.course.mapper.MyInfoMapper">
 
-
 	<!-- 查找主播的详情    主播详细信息和精彩致辞在course_anchor表中  -->
 	<select id="findHostInfoById" resultType="java.util.Map">
 	    select 
@@ -11,7 +10,10 @@
 		    ca.profile_photo as small_head_photo,
 		    ca.video,
 		    ca.detail,
-		    ca.type as type
+		    ca.type as type,
+		    if(ca.type = 1, (select md.work_time from medical_doctor md where id = 
+		       (select doctor_id from medical_doctor_account as mda where mda.account_id = #{userId}) ),null) 
+		       as  workTime
 		 from  oe_user ou 
 		 inner join  course_anchor ca on  ou.id = ca.user_id
 		 where ou.id = #{userId}
@@ -38,7 +40,7 @@
    				 	and ood.course_id in (select id from oe_course as oc where oc.user_lecturer_id =#{userId} )  )
 		UNION ALL
 	  (	select  (select course.grade_name from oe_course course where course.id = ogs.live_id) as gradeName,
-	      	 CONCAT('+',format(uci.value,2)) as value,max(ogs.create_time) as createTime,'直播礼物' as label,"熊猫币" as unit  
+	      	 CONCAT('+',format(sum(uci.value),2)) as value,max(ogs.create_time) as createTime,'直播礼物' as label,"熊猫币" as unit  
 	    from user_coin_increase uci
 	    	inner join oe_gift_statement ogs on uci.correlation_id = ogs.id
 	   			 where uci.change_type = 3  and value > 0 
@@ -78,30 +80,42 @@
    <select id="findUserWallet" resultType="java.util.Map">
 		
 	   select	* from  (			
-		  ( select  '1' as type,'赠送礼物' as subject ,format(ucc.value,0) as totalAmount,ucc.create_time as gmtCreate,"熊猫币" as unit
-		  from user_coin_consumption as ucc  where  ucc.change_type = 8 and user_id=#{userId}	 )
+		  ( select  '1' as type,'赠送礼物' as subject ,format(ucc.value,0) as totalAmount,ucc.create_time as gmtCreate,"熊猫币" as unit,
+				ca.`name` as receiver,'' as courseName,format(ucc.value,0) as money,ucc.correlation_id as orderId,
+			if(ogs.pay_type=0,'支付宝',if(ogs.pay_type=1,'微信',if(ogs.pay_type=2,'网银','熊猫币'))) as payType
+		  from user_coin_consumption as ucc,oe_gift_statement as ogs,course_anchor as ca
+			where  ucc.correlation_id=ogs.id AND ca.user_id=ogs.receiver AND ucc.change_type = 8 and ucc.user_id=#{userId}	 )
 			UNION ALL
-		
-		  ( select  '2' as type,'购买课程' as subject ,format(ucc.value,0) as totalAmount,ucc.create_time as gmtCreate,"熊猫币" as unit
-		  from user_coin_consumption as ucc  where  ucc.change_type = 10 and user_id=#{userId}	 )	
-			
+
+		  ( select  '2' as type,'购买课程' as subject ,format(ucc.value,0) as totalAmount,ucc.create_time as gmtCreate,"熊猫币" as unit,
+				'' as receiver,oc.grade_name as courseName,format(ucc.value,0) as money,ucc.correlation_id as orderId,
+			if(oo.pay_type=0,'支付宝',if(oo.pay_type=1,'微信',if(oo.pay_type=2,'苹果内购',if(oo.pay_type=3,'熊猫币',if(oo.pay_type=4,'线下支付','其他支付'))))) as payType
+		  from user_coin_consumption as ucc, oe_order oo,oe_order_detail ood,oe_course oc
+			where  ucc.correlation_id=oo.order_no AND oo.id=ood.order_id AND ood.course_id=oc.id AND ucc.change_type = 10 and ucc.user_id=#{userId}	 )
+
 			UNION ALL
-			
-		  ( select  '3' as type,'充值' as subject ,CONCAT('+',format(uci.value,0)) as totalAmount,uci.create_time as gmtCreate,"熊猫币" as unit 
-		  from user_coin_increase as uci  where  uci.change_type = 1  and user_id=#{userId} )
-		  
+
+		  ( select  '3' as type,'充值' as subject ,CONCAT('+',format(uci.value,0)) as totalAmount,uci.create_time as gmtCreate,"熊猫币" as unit ,
+				'' as receiver,'' as courseName,format(uci.value,0) as money,uci.correlation_id as orderId,
+			if(uci.pay_type=0,'支付宝',if(uci.pay_type=1,'微信','苹果内购')) as payType
+		  from user_coin_increase as uci
+			where  uci.change_type = 1  and uci.user_id=#{userId} )
+
 		  	UNION ALL
-		  	
-		  
-		  ( select  '4' as type,'购买课程' as subject,CONCAT('-',format(argc.cost,2)) as totalAmount,argc.create_time as gmtCreate,"人民币" as unit 
-			  from  oe_order_detail ood 
+
+
+		  ( select  '4' as type,'购买课程' as subject,CONCAT('-',format(argc.cost,2)) as totalAmount,argc.create_time as gmtCreate,"人民币" as unit ,
+				'' as receiver,oc.grade_name as courseName,format(argc.cost,2) as money,oo.order_no as orderId,
+			if(oo.pay_type=0,'支付宝',if(oo.pay_type=1,'微信',if(oo.pay_type=2,'苹果内购',if(oo.pay_type=3,'熊猫币',if(oo.pay_type=4,'线下支付','其他支付'))))) as payType
+			  from  oe_order_detail ood
 				INNER  JOIN apply_r_grade_course as argc on  ood.id =argc.order_no
 				INNER  JOIN oe_order as oo on ood.order_id =oo.id
+				INNER  JOIN oe_course as oc on oc.id =ood.course_id
       			WHERE  oo.pay_type in (0,1) and argc.user_id =#{userId}  )
 		  
-		 ) as tixian  order by tixian.gmtCreate desc  limit #{pageNumber},#{pageSize}
+		 ) as tixian  order by tixian.gmtCreate desc
 	 
-	</select>	
+	</select>
 	
 	
 	<!-- 修改用户信息  个人资料信息  -->
@@ -179,7 +193,7 @@
 		    from 
 		    course_anchor ca 
 		         join oe_user  ou on ca.user_id = ou.id
-		         where ca.deleted = 0 
+		         where   ca.status = 1 and ca.deleted = 0
 		    AND ou.is_delete = 0
 		    AND ca.is_recommend = 1  ORDER BY ca.recommend_sort DESC 
 		</select>	

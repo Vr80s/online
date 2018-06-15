@@ -4,18 +4,19 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
-import com.xczhihui.course.exception.UserInfoException;
-import com.xczhihui.course.model.OnlineUser;
-import com.xczhihui.course.service.IMyInfoService;
-import com.xczhihui.course.util.XzStringUtils;
-import com.xczhihui.course.vo.OnlineUserVO;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xczhihui.common.util.enums.UserSex;
+import com.xczhihui.course.exception.UserInfoException;
 import com.xczhihui.course.mapper.MyInfoMapper;
+import com.xczhihui.course.model.OnlineUser;
+import com.xczhihui.course.service.IMyInfoService;
+import com.xczhihui.course.util.XzStringUtils;
+import com.xczhihui.course.vo.OnlineUserVO;
 
 /**
  * <p>
@@ -54,10 +55,17 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper,OnlineUser> impl
 			throw new UserInfoException("性别不合法,0 女  1男   2 未知");
 		}
 		
-		if(StringUtils.isNotBlank(user.getName()) 
+		//过滤掉可能出现的表情字符
+		if(StringUtils.isNotBlank(user.getName())) {
+			String name = user.getName();
+			user.setName(name);
+		}
+		
+		if(StringUtils.isNotBlank(user.getName()) && XzStringUtils.checkNickName(user.getName())
 				&&(user.getName().length()>20)){
 			throw new UserInfoException("昵称最多允许输入20个字符");
 		}
+		
 		if(StringUtils.isNotBlank(user.getEmail()) && 
 				 (user.getEmail().length()>32 || user.getEmail().length()<5)){
 			throw new UserInfoException("邮件长度在5-32之间");
@@ -82,14 +90,19 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper,OnlineUser> impl
 	}
 
 	@Override
-	public List<Map<String, Object>> findUserWallet(
-			Integer pageNumber,Integer pageSize, String id) {
-		List<Map<String, Object>>  page1 = 	myInfoMapper.findUserWallet(pageNumber,pageSize,id);
-		return page1;
+	public Page<Map<String, Object>> findUserWallet(
+			Page<Map<String, Object>> page, String id) {
+		List<Map<String, Object>>  page1 = 	myInfoMapper.findUserWallet(page,id);
+		return page.setRecords(page1);
 	}
 
 	@Override
 	public Map<String, Object> findHostInfoById(String userId) {
+		Map<String, Object> map =  myInfoMapper.findHostInfoById(userId);
+		if(map!=null  && map.get("workTime")!=null) {
+			String workTime = "每周"+map.get("workTime")+"全天";
+			map.put("workTime", workTime);
+		}
 		return myInfoMapper.findHostInfoById(userId);
 	}
 }

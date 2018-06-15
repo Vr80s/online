@@ -28,14 +28,14 @@ var courseHead = "";
 var roomNumber = "";
 var lineState = 1;
 var result = "";
+var playBackType = 1;
+
 // 统一提交的方法
 requestService("/xczh/course/liveDetails",{
 			courseId : course_id
 		},
 		function(data) {
 			if (data.success) {
-
-
 				// 修改title
 				document.setTitle = function(t) {
 			        document.title = t;
@@ -83,6 +83,7 @@ requestService("/xczh/course/liveDetails",{
 				 */
 				$(".headImg").attr("src", result.headImg);
 				$(".guanz_headImg").attr("src", result.headImg);
+				$(".smallImgPath").attr("src", result.smallImgPath);
 				$(".main_title").find('.p0').html(result.heir);
 				
 				
@@ -128,11 +129,19 @@ requestService("/xczh/course/liveDetails",{
 					$(".add_follow").addClass("add_follows0");
 					$(".add_follow").removeClass("add_follows1");
 				}
+
+				// 0表示生成中，1表示生成成功，2表示生成失败 3 直播状态不是已结束
+				// 判断结束状态--提示
+				playBackType = result.playBackType;
+
+				if(playBackType == 0){
+					$(".history_span").text("即将直播");
+				}
+
+
+
 				
 				lineState = result.lineState;
-
-
-
 				/**
 				 * 直播状态1.直播中，2预告，3直播结束 4 即将直播
 				 */
@@ -140,20 +149,24 @@ requestService("/xczh/course/liveDetails",{
 					$(".history_span").text("直播回放");
 					
 					$(".coze_center .coze_cen_ri:last-child").css("margin-bottom","0");
-					$(".coze_bottom").addClass("coze_bottom_hide");
+					//$(".coze_bottom").addClass("coze_bottom_hide");
 
 					$(".mCustomScrollbar").css("padding-bottom","0");
+
+					$(".cover").show();  /*回放时添加遮盖层*/
+					$(".give_a1_img").attr("src","/xcview/images/gafts.png");
+					//alert(123);
 				}else if(lineState == 4){
 					$(".history_span").text("即将直播");
 				}
 				if (lineState == 3 || lineState == 4) { // 隐藏送礼
 
 					$("title").text("熊猫中医");
-					$("#mywords").css("width", "12rem");
-					$("#face").css("top", "1.45rem");
-					$("#face").css('left', '0.06rem');
+					
+					/*$("#face").css("top", "1.45rem");
+					$("#face").css('left', '0.06rem');*/
 
-					$(".give_a1").hide();
+					// $(".give_a1").hide();
 					$(".give_a1_img").hide();
 					$(".give_a1_span02").hide();
 					$(".poson").css('right', '0rem');
@@ -166,7 +179,9 @@ requestService("/xczh/course/liveDetails",{
 					$("#sendChat").addClass('important');  //发送按钮 添加class
 					
 					$(".give_a01").show();
-					$("#sendChat").show();
+					$(".give_a1 .give_a1_img").css("margin-left","-2.6rem");
+
+					// $("#sendChat").show();
 //					点击输入框
 					$("#mywords").click(function() {
 						$(".give_a1").hide();
@@ -206,10 +221,13 @@ requestService("/xczh/course/liveDetails",{
 //					点击聊天
 					$(".details_footer_width .li1").click(function() {
 						
-						$(".div_input").css("width", "12rem");
-						$("#mywords").css("width", "12rem");
-						$(".coze_bottom input").css("width", "12rem");
+						// $(".div_input").css("width", "12rem");
+						// $("#mywords").css("width", "12rem");
+						// $(".coze_bottom input").css("width", "12rem");
 					});
+
+					 $("#mywords").css("width", "13.2rem");
+					 $("#face").hide();
 
 				} else {
 
@@ -349,19 +367,14 @@ function timer(startTime,currentTime){
 		
 // 聊天--关注开始
 
-$(".add_follow").click(
-		function() {
+$(".add_follow").click(function() {
 			// 评论id
 			// lecturerId = $(this).attr("data-lecturerId");
-
 			// 这个主播的粉丝数
 			var n_fensi = $(".n_fensi").html();
-
 			var src = $(this).find('img').attr('src');
 			var type = 1;
-
 			var htmlstr = $(".add_follow").find('p').html();
-
 			if (htmlstr == "已关注") { // 增加关注
 				type = 2;
 			} else {
@@ -380,6 +393,16 @@ $(".add_follow").click(
 						$(".add_follow").addClass("add_follows0");
 						$(".add_follow").removeClass("add_follows1");
 						$(".n_fensi").html(parseInt(n_fensi) - 1);
+						
+						//n_guanzhu
+						
+						 //判断是不是自己关注自己了
+			            var userId = localStorage.getItem("userId");
+			            if(teacherId == userId){
+			            	 var $span = $(".n_guanzhu");
+			            	 var left_p = $span.html();
+			            	 $span.html(parseInt(left_p)-1);
+			            }
 					} else {
 						
 						$(".add_follow").find('img').attr('src','../images/yigz.png');
@@ -390,6 +413,13 @@ $(".add_follow").click(
 						
 						// 粉丝数
 						$(".n_fensi").html(parseInt(n_fensi) + 1);
+						
+						var userId = localStorage.getItem("userId");
+				        if(teacherId == userId){
+			            	 var $span = $(".n_guanzhu");
+			            	 var left_p = $span.html();
+			            	 $span.html(parseInt(left_p)+1);
+				        }
 					}
 				}
 			})

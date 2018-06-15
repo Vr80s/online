@@ -88,7 +88,7 @@ img{display: block;}
 }
 .play_list ul li{
 	padding: 0.2rem 0;
-	border-bottom: 1px solid #D8DDE6;
+	border-bottom: 1px solid #f0f0f0;
 	overflow: hidden;
 }
 .play_list ul li p{
@@ -141,7 +141,7 @@ text-align: right;
 .history_modal p{
 	font-size: 0.32rem;
     padding: 0.6rem 0 0.43rem;
-    border-bottom: 0.01rem solid #D8DDE6;
+    border-bottom: 0.01rem solid #f0f0f0;
 }
 .history_modal ul li{
 	text-align: center;
@@ -149,7 +149,7 @@ text-align: right;
 }
 .history_modal ul li:nth-child(1){
 	width: 2.4rem;
-	border-right: 0.01rem solid #D8DDE6;
+	border-right: 0.01rem solid #f0f0f0;
 	float: left;
 }
 .history_modal ul li:nth-child(2){
@@ -175,7 +175,7 @@ text-align: right;
 	    width: 100%;
     padding: 0.2rem 0.26rem 0.2rem 0;
     box-sizing: border-box;
-	border-bottom: 0.01rem solid #D8DDE6;
+	border-bottom: 0.01rem solid #f0f0f0;
 	    overflow: hidden;
     
 }
@@ -225,13 +225,16 @@ color: #999999;
     color: #999;
 }
 .zhibo_play{
-		    border: 1px solid #F97B49;
-border-radius: 3px;
+	border-radius: 3px;
     font-size: 0.22rem;
     padding: 0rem 0.1rem;
-    color: #F97B49 !important;
+    color: #fff !important;
     display: inline-block;
     margin-left: 0.1rem;
+    background: #F97B49;
+    position: absolute;
+    top: 0.2rem;
+    left: 1.1rem;
 }
 .paly_ing a{
 	/*color: white;*/
@@ -319,12 +322,12 @@ color: #BBBBBB;
 }
 /*底部开始*/
 .footer_perch{
-	width: 100%;
+	width: 7.5rem;
 	height:1rem;
 	/*background: red;*/
 }
 .footer{
-	width: 100%;
+	width: 7.5rem;
 	height: 1rem;
 	background: #fff;
 	/*background: red;*/

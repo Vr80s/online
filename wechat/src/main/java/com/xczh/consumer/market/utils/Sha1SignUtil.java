@@ -15,8 +15,7 @@ public class Sha1SignUtil {
     public static String SHA1(Map<String,Object> maps) throws DigestException {  
         //获取信息摘要 - 参数字典排序后字符串  
         String decrypt = getOrderByLexicographic(maps);
-        System.out.println(decrypt);
-        try {  
+        try {
             //指定sha1算法  
             MessageDigest digest = MessageDigest.getInstance("SHA-1");  
             digest.update(decrypt.getBytes());  
@@ -97,7 +96,6 @@ public class Sha1SignUtil {
     	map.put("url", "http://mp.weixin.qq.com");
     	
     	//jsapi_ticketsM4AOVdWfPE4DxkXGEs8VMCPGGVi4C3VM0P37wVUCFvkVAy_90u5h9nbSlYy3-Sl-HhTdfl2fzFy1AOcHKP7qgnoncestrWm3WZYTPz0wzccnWtimestamp1414587457urlhttp://mp.weixin.qq.com
-    	System.out.println(SHA1(map));
 	}
     
     

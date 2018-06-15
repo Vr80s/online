@@ -1,0 +1,203 @@
+			body{
+	background: #F8F8F8;
+}
+.both{
+	clear: both;
+}
+.main{
+	width: 1200px;
+	height: 569px;
+	background: #fff;
+	margin: 0 auto;
+	margin-top: 20px;
+}
+.title{
+	width: 70%;
+	height: 62px;
+	line-height: 62px;
+	font-size: 16px;
+	color: #333333;
+	padding-left: 50px;
+}
+.hint{
+	width: 100%;
+	height: 70px;
+	background: #FFF6F3;
+
+}
+.hint .img{
+	width: 30px;
+	height: 30px;
+	float: left;
+	margin: 0 10px;
+	margin-top: 20px;
+}
+.hint .img img{
+	width: 30px;
+	height: 30px;
+}
+.hint .size{
+	width: 1000px;
+	height: 70px;
+	line-height: 70px;
+	font-size: 14px;
+	color: #333333;
+	float: left;
+}
+.center{
+	margin-left: 71px;
+	position: relative;
+	margin-top: 70px;
+}
+.name{
+	margin-bottom: 30px;
+}
+.name .xx{
+	width: 10px;
+    float: left;
+    text-align: right;
+    height: 30px;
+	line-height: 42px;
+    color: #F97B49;
+    margin-left: 12px;
+}
+.name .names{
+	width: 33px;
+    float: left;
+    margin-right: 20px;
+    text-align: right;
+    height: 36px;
+	line-height: 36px;
+	font-size: 14px;
+	color: #333;
+}
+.name .input input{
+	width: 280px;
+    height: 36px;
+    border: 1px solid #f0f0f0;
+    outline: none;
+    padding-left: 5px;
+}
+
+.tel{
+	margin-bottom: 30px;
+}
+.tel .xx{
+	width: 10px;
+    float: left;
+    text-align: right;
+    height: 30px;
+	line-height: 42px;
+    color: #F97B49;
+}
+.tel .tels{
+	width: 47px;
+    float: left;
+    margin-right: 20px;
+    text-align: right;
+    height: 36px;
+	line-height: 36px;
+	font-size: 14px;
+	color: #333;
+}
+.tel .input input{
+	width: 280px;
+    height: 36px;
+    border: 1px solid #f0f0f0;
+    outline: none;
+    padding-left: 5px;
+}
+
+.weixin{
+	margin-bottom: 30px;
+}
+.weixin .xx{
+	width: 10px;
+    float: left;
+    text-align: right;
+    height: 30px;
+	line-height: 42px;
+    color: #F97B49;
+}
+.weixin .weixins{
+	width: 47px;
+    float: left;
+    margin-right: 20px;
+    text-align: right;
+    height: 36px;
+	line-height: 36px;
+	font-size: 14px;
+	color: #333;
+}
+.weixin .input input{
+	width: 280px;
+    height: 36px;
+    border: 1px solid #f0f0f0;
+    outline: none;
+    padding-left: 5px;
+}
+
+.sex{
+	margin-bottom: 30px;
+}
+.sex .xx{
+	width: 10px;
+    float: left;
+    text-align: right;
+    height: 30px;
+	line-height: 42px;
+    color: #F97B49;
+    margin-left: 12px;
+}
+.sex .sexs{
+	width: 33px;
+    float: left;
+    margin-right: 20px;
+    text-align: right;
+    height: 36px;
+	line-height: 36px;
+	font-size: 14px;
+	color: #333;
+}
+.sex .select select{
+	width: 280px;
+    height: 36px;
+    border: 1px solid #f0f0f0;
+    color: #999;
+    outline: none;
+    padding-left: 5px;
+}
+/*右边展示*/
+.mian-right{
+	width: 350px;
+    height: 200px;
+    float: left;
+    position: absolute;
+    top: -29px;
+    right: 200px;
+}
+
+.mian-right p{
+	font-size: 14px;
+color: #666666;
+line-height: 1;
+}
+
+.mian-right img{
+	width: 175px;
+	height: 280px;
+}
+
+
+.button{
+    width: 120px;
+    height:  36px;
+    line-height:  36px;
+    background: #00BC12;
+    border-radius: 4px;
+    text-align:  center;
+    font-size: 14px;
+    color: #FFFFFF;
+    margin-left: 148px;
+    cursor: pointer;
+}
