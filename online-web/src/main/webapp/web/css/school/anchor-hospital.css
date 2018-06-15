@@ -375,6 +375,8 @@ p{margin-bottom: 0;}
 .header-img{
 	width: 60px;
 	height: 60px;
+	border-radius: 50%;
+	overflow: hidden;
 }
 .header-img img{
 	width: 100%;
@@ -425,6 +427,8 @@ word-break:break-all;
 .header-reply{
 	width: 36px;
 	height: 36px;
+	border-radius: 50%;
+	overflow: hidden;
 }
 .header-reply img{
 	width: 100%;
@@ -451,6 +455,7 @@ word-break:break-all;
 }
 .operation-reply{
 	float: right;
+	color: #989898;
 }
 .operation-reply li{
 	float: left;

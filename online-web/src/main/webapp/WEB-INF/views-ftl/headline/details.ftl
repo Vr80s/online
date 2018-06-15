@@ -113,34 +113,44 @@
                                 <div class="forum-comment-right">
                                     <div class="comment-personAndTime">
                                         <span class="comment-person">${appraise.name}</span>
-                                        <em></em>
+                                        <!--<em></em>-->
                                         <span class="comment-time">${(appraise.createTime?string("yyyy-MM-dd hh:mm"))!}</span>
                                     </div>
                                     <div class="comment-info">${appraise.content}</div>
                                     <#if appraise.nickName??>
-                                        <div class="comment-info">
-                                            <div class="img"><img src="${appraise.replySmallHeadPhoto}"/></div>
-                                            <span
-                                                    class="replyName">${appraise.nickName}</span>
-                                            <span class="comment-time">${(appraise.replyCreateTime?string("yyyy-MM-dd hh:mm"))!}</span>
-                                        </div>
-                                        <div class="comment-info">${appraise.replyContent}</div>
+                                    	<div class="background-replay">                               	
+	                                        <div class="comment-info">
+	                                            <div class="img" style="margin: 10px 12px 0 15px;"><img src="${appraise.replySmallHeadPhoto}"/></div>
+	                                            <div class="replay-write">
+	                                            	<span class="replyName">${appraise.nickName}</span>
+	                                            	<span class="comment-time">${(appraise.replyCreateTime?string("yyyy-MM-dd hh:mm"))!}</span>
+	                                        		<div class="comment-info">${appraise.replyContent}</div>
+	                                       			
+	                                            </div>
+
+	                                        </div>
+	                                        
+                                    	</div>
                                     </#if>
                                     <div class="reply-comment">
-                                        <i class="iconfont icon-huifu"></i>
+                                        <!--<i class="iconfont icon-huifu"></i>-->
                                         回复
                                     </div>
                                     <#if appraise.isMySelf==true>
                                         <div class="reply-delete" data-commentId="${appraise.id}">
-                                            <i class="iconfont icon-shanchu"></i>
+                                            <!--<i class="iconfont icon-shanchu"></i>-->
                                             删除
                                         </div>
                                     </#if>
 
                                     <div class="replay-box">
-                                        <p class="replyPerson">回复 ${appraise.name}：</p>
-                                        <img class="pinglunSanjiao" src="/web/images/ansandqus/sanjiao02.png">
-                                        <input class="reply-input"/>
+                                        <!--<p class="replyPerson">回复 ${appraise.name}：</p>-->
+                                        <#if userSmallHeadPhoto=="">
+                                        	<img class="pinglunSanjiao" src="/web/images/defaultHead/18.png">
+                                        	<#else>
+                                       		 <img class="pinglunSanjiao" src="${userSmallHeadPhoto}">
+                                         </#if>
+                                        <input class="reply-input" placeholder="写下您的评论..."/>
                                         <div class="emptyHit">
                                             <i class="iconfont icon-tanhao"></i>
                                             请输入内容
@@ -394,7 +404,7 @@
         $(".reply-delete").each(function () {
             $(this).click(function () {
                 var commentId = $(this).attr("data-commentId");
-                comfirmBox.open("评论", "确定要删除吗？", function (closefn) {
+                comfirmBox.open("删除评论", "确定删除该条评论？", function (closefn) {
                     RequestService('/bxs/article/deleteAppraiseId', "POST", {
                         appraiseId: commentId
                     }, function (data) {
@@ -424,11 +434,11 @@
                 $(this).parent().parent().hide();
             })
         });
-        $(".reply-input").focus(function () {
-            var indentLength = $(this).parent().find(".replyPerson").width();
-            $(".reply-input").css("textIndent", indentLength + "px");
-            $(".replay-box .emptyHit").hide();
-        });
+//      $(".reply-input").focus(function () {
+//          var indentLength = $(this).parent().find(".replyPerson").width();
+//          $(".reply-input").css("textIndent", indentLength + "px");
+//          $(".replay-box .emptyHit").hide();
+//      });
         $(".reply").each(function () {
             var forumThs = $(this);
             forumThs.click(function () {

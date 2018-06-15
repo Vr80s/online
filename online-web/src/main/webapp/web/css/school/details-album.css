@@ -400,11 +400,12 @@ word-break:break-all;
 }
 .operation-reply{
 	float: right;
+	color: #989898;
+	
 }
 .operation-reply li{
 	float: left;
 	cursor: pointer;
-	color: #989898;
 }
 .operation-reply li:nth-child(2){
 	margin-left: 20px;
