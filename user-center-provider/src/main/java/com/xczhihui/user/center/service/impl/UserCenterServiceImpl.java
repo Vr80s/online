@@ -59,7 +59,7 @@ public class UserCenterServiceImpl implements UserCenterService {
     }
 
     @Override
-    public void regist(String loginName, String password, String nikeName, UserOrigin origin) {
+    public void regist(String loginName, String password, String nikeName, UserOrigin origin, Boolean visitor) {
         if (!StringUtils.hasText(loginName) || !StringUtils.hasText(password)) {
             throw new LoginRegException("用户名、密码不允许为空！");
         }
@@ -78,9 +78,15 @@ public class UserCenterServiceImpl implements UserCenterService {
         oeUser.setStatus(0);
         oeUser.setDelete(false);
         oeUser.setCreateTime(new Date());
+        oeUser.setVisitor(visitor);
         iOeUserService.addOeUser(oeUser);
         saveUserCoin(oeUser.getId());
         updateVhallInfo(oeUser);
+    }
+
+    @Override
+    public void regist(String loginName, String password, String nikeName, UserOrigin origin) {
+        regist(loginName,password,nikeName,origin,Boolean.FALSE);
     }
 
     private void updateVhallInfo(OeUser oeUser) {
@@ -285,7 +291,7 @@ public class UserCenterServiceImpl implements UserCenterService {
         }
         OeUserVO userVO = this.getUserVO(username);
         if(userVO == null){
-            this.regist(username,username,"游客",UserOrigin.IOS);
+            this.regist(username,username,"游客",UserOrigin.IOS,Boolean.TRUE);
         }
         return loginMobile(username,username,TokenExpires.TenDay);
     }

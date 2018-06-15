@@ -147,6 +147,7 @@ public class XzUserController {
         OeUserVO user = userCenterService.getUserVO(username);
         o.setUserCenterId(user.getId());
         o.setPassword(user.getPassword());
+        o.setVisitor(user.getVisitor());
         //把这个票给前端
         o.setTicket(t.getTicket());
         UCCookieUtil.writeTokenCookie(res, t);

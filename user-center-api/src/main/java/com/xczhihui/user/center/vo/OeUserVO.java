@@ -83,5 +83,6 @@ public class OeUserVO implements Serializable {
      * 地区的名字
      */
 	private String countyName;
+	private Boolean visitor;
 
 }
