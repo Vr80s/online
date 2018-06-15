@@ -111,18 +111,16 @@ public class XzUserController {
         //存储在redis中了，有效期为10天。
         Token t = userCenterService.loginMobile(username, password, TokenExpires.TenDay);
 
-        OnlineUser o = onlineUserService.findUserByLoginName(username);
+        OnlineUser ou = onlineUserService.findUserByLoginName(username);
 
         //把用户中心的数据给他   这里im都要用到
-        OeUserVO user = userCenterService.getUserVO(username);
-        o.setUserCenterId(user.getId());
-        o.setPassword(user.getPassword());
+        ou.setUserCenterId(ou.getId());
         //把这个票给前端
-        o.setTicket(t.getTicket());
+        ou.setTicket(t.getTicket());
         UCCookieUtil.writeTokenCookie(res, t);
         UCCookieUtil.clearThirdPartyCookie(res);
 
-        return ResponseObject.newSuccessResponseObject(o);
+        return ResponseObject.newSuccessResponseObject(ou);
     }
 
     /**
@@ -141,19 +139,16 @@ public class XzUserController {
         //存储在redis中了，有效期为10天。
         Token t = userCenterService.login4visitor(username);
 
-        OnlineUser o = onlineUserService.findUserByLoginName(username);
+        OnlineUser ou = onlineUserService.findUserByLoginName(username);
 
         //把用户中心的数据给他   这里im都要用到
-        OeUserVO user = userCenterService.getUserVO(username);
-        o.setUserCenterId(user.getId());
-        o.setPassword(user.getPassword());
-        o.setVisitor(user.getVisitor());
+        ou.setUserCenterId(ou.getId());
         //把这个票给前端
-        o.setTicket(t.getTicket());
+        ou.setTicket(t.getTicket());
         UCCookieUtil.writeTokenCookie(res, t);
         UCCookieUtil.clearThirdPartyCookie(res);
 
-        return ResponseObject.newSuccessResponseObject(o);
+        return ResponseObject.newSuccessResponseObject(ou);
     }
 
     /**

@@ -31,7 +31,7 @@ public class OnlineUserMapper extends BasicSimpleDao {
      */
     public OnlineUser findUserByLoginName(String loginName) throws SQLException {
         StringBuffer sql = new StringBuffer();
-        sql.append(" select id,name,login_name as loginName,password,sex,mobile,email,is_delete as isDelete, ");
+        sql.append(" select id,name,login_name as loginName,password,sex,mobile,email,is_delete as isDelete, visitor, ");
         sql.append(" small_head_photo as smallHeadPhoto,big_head_photo as bigHeadPhoto,status as status, ");
         sql.append(" create_person as createPerson,create_time as createTime,last_login_date as lastLoginDate, ");
         sql.append(" last_login_ip as lastLoginIp,visit_sum as visitSum,stay_time as stayTime,info,jobyears, ");
