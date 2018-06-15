@@ -356,8 +356,9 @@ img {
 
 #forum .forum-content .forum-content-left .all-comment .forum-community-content .forum-comment-content .forum-comment-right .comment-personAndTime .comment-person {
     font-size: 14px;
-    color: #2cb82c;
+    color: #3e3e3e;
     display: inline-block;
+    font-weight: 600;
 }
 
 #forum .forum-content .forum-content-left .all-comment .forum-community-content .forum-comment-content .forum-comment-right .comment-personAndTime em {
@@ -376,7 +377,10 @@ img {
     font-size: 14px;
     color: #999;
 }
-
+.background-replay{
+	background: #fafafa;
+    margin-top: 20px;
+}
 #forum .forum-content .forum-content-left .all-comment .forum-community-content .forum-comment-content .forum-comment-right .comment-info {
     font-size: 14px;
     color: #666;
@@ -387,18 +391,29 @@ img {
 }
 
 #forum .forum-content .forum-content-left .all-comment .forum-community-content .forum-comment-content .forum-comment-right .comment-info .replyName {
-    color: #2cb82c;
+    color: #3e3e3e;
+    margin-right: 15px;
+    font-weight: 600;
 }
+.background-replay .replay-write{
 
+    padding-top: 17px;
+    width: 500px;
+
+
+    padding-left: 71px;
+    padding-bottom: 10px;
+
+}
 #forum .forum-content .forum-content-left .all-comment .forum-community-content .forum-comment-content .forum-comment-right .reply-comment,
 #forum .forum-content .forum-content-left .all-comment .forum-community-content .forum-comment-content .forum-comment-right .reply-delete {
-    display: none;
+    /*display: none;*/
     position: absolute;
     right: 0px;
     top: 35px;
     font-size: 12px;
-    color: #999;
     cursor: pointer;
+    color: #00b6ff;
 }
 
 #forum .forum-content .forum-content-left .all-comment .forum-community-content .forum-comment-content .forum-comment-right .reply-comment i,
@@ -413,7 +428,7 @@ img {
 #forum .forum-content .forum-content-left .all-comment .forum-community-content .forum-comment-content .forum-comment-right .reply-delete:hover,
 #forum .forum-content .forum-content-left .all-comment .forum-community-content .forum-comment-content .forum-comment-right .reply-comment:hover i,
 #forum .forum-content .forum-content-left .all-comment .forum-community-content .forum-comment-content .forum-comment-right .reply-delete:hover i {
-    color: #2cb82c;
+    /*color: #2cb82c;*/
 }
 
 #forum .forum-content .forum-content-left .all-comment .forum-community-content .forum-comment-content .forum-comment-right .reply-delete {
@@ -444,9 +459,12 @@ img {
 }
 
 #forum .forum-content .forum-content-left .all-comment .forum-community-content .forum-comment-content .forum-comment-right .replay-box .pinglunSanjiao {
-    position: absolute;
-    top: -5px;
-    left: 103px;
+   position: absolute;
+    top: 0px;
+    left: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
 }
 
 #forum .forum-content .forum-content-left .all-comment .forum-community-content .forum-comment-content .forum-comment-right .replay-box .replyPerson {
@@ -459,13 +477,13 @@ img {
 
 #forum .forum-content .forum-content-left .all-comment .forum-community-content .forum-comment-content .forum-comment-right .replay-box .reply-input {
     outline: none;
-    width: 770px;
+    width: 695px;
     height: 40px;
     line-height: 40px;
     padding: 0 15px;
-    background-color: #fafafa;
     border: 1px solid #eee;
     font-size: 12px;
+    float: right;
 }
 
 #forum .forum-content .forum-content-left .all-comment .forum-community-content .forum-comment-content .forum-comment-right .replay-box .reply-btn {

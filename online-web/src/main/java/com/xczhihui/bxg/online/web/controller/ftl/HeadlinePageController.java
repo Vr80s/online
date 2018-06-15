@@ -137,6 +137,11 @@ public class HeadlinePageController extends AbstractFtlController {
 
         Page<OeBxsAppraise> appraises = oeBxsArticleService.selectArticleAppraiseById(new Page(current, size), id, userId);
         view.addObject("appraises", appraises);
+        if(onlineUser!=null){
+            view.addObject("userSmallHeadPhoto", onlineUser.getSmallHeadPhoto());
+        }else {
+            view.addObject("userSmallHeadPhoto", "");
+        }
         String typeId = article.getTypeId();
         if (typeId == null) {
             view.addObject("writing", medicalDoctorWritingService.findByArticleId(id));
