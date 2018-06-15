@@ -228,12 +228,12 @@
 				</#list>	
 				 <!-- 使用该标签 -->	
 					<div class="cl" style="overflow: hidden;"></div>
-				 
 				 <#if (webUrlParam?contains('?'))>
 				 	<@cast.page pageNo=courseList.current totalPage=courseList.pages showPages=5 callUrl="${webUrl}${webUrlParam}&page="/>
 				 <#else>
 					 <@cast.page pageNo=courseList.current totalPage=courseList.pages showPages=5 callUrl="${webUrl}${webUrlParam}?page="/>
 				 </#if>
+				
 				</div>
 				
 				<#else>

@@ -228,11 +228,25 @@ public class SchoolController extends AbstractFtlController {
          * 拼接url参数
          */
         StringBuffer sb = new StringBuffer("/courses/list");
-        String queryurl=req.getQueryString();  
-        if(null!=queryurl){  
-        	sb.append("?"+queryurl);  
-        } 
-        view.addObject("webUrlParam", sb.toString());
+        Enumeration em = req.getParameterNames();
+        if (em.hasMoreElements()) {
+            sb.append("?");
+        }
+        while (em.hasMoreElements()) {
+            String name = (String) em.nextElement();
+            String value = req.getParameter(name);
+            if (!"page".equals(name)) {
+                sb.append(name).append("=").append(value).append("&");
+            }
+        }
+        log.info("sb.toString()" + sb.substring(0, sb.length() - 1));
+        if (sb.indexOf("?") != -1) {
+            view.addObject("webUrlParam", sb.substring(0, sb.length() - 1));
+        } else {
+            view.addObject("webUrlParam", sb.toString());
+        }
+        
+        //new ReplaceUrl()   替换url的方法
         view.addObject("replaceUrl", new ReplaceUrl());
         
         /**

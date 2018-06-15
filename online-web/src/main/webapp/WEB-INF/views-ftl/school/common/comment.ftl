@@ -210,4 +210,8 @@
       <@cast.page pageNo=criticizesMap.current totalPage=criticizesMap.pages showPages=5 callUrl="${webUrlParam}/comment?pageNumber=" />
  </#if>	 -->
 <!-- 这里觉的需要分页呢  -->
+
 <@cast.page pageNo=criticizesMap.current totalPage=criticizesMap.pages showPages=5 callUrl="${webUrlParam}/comment?pageNumber=" />
+
+
+
