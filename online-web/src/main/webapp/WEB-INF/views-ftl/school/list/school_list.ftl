@@ -200,9 +200,9 @@
 								<p class="title" title="${courseItem.gradeName}">${courseItem.gradeName}</p>
 								<p class="timeAndTeac">
 									<span class="teacher z">${courseItem.name}</span>
-									 <#if courseItem.type == 4>
+									<#if courseItem.type == 4>
 	                                    <span class="y">${courseItem.city}</span>
-	                               		 <#elseif courseItem.lineState?? && courseItem.lineState == 2>
+	                               	<#elseif courseItem.lineState?? && courseItem.lineState != 1>
 	                                	<#if courseItem.startDateStr?index_of(".")!=-1 >
 	                                		<span class="y"><img src="/web/images/date_month.png" style="margin: -3px 2px 0 0;" />${courseItem.startTime?string("MM月dd日")}</span>
 	                                	<#else>
