@@ -44,6 +44,9 @@
 		'%Y-%m-%d %H:%i:%s'),INTERVAL 1 DAY),INTERVAL -1 SECOND),
 		DATE_FORMAT(oc.start_time,'%H:%i'),DATE_FORMAT(oc.start_time,'%m.%d')),
 		DATE_FORMAT(oc.start_time,'%m.%d') )) as startDateStr,
+		if(oc.live_status = 2,if((DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time ) or
+                             (DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now() &lt; oc.start_time ),4,
+                  if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now() &lt; oc.start_time,5,oc.live_status)),oc.live_status) as lineState,
 		IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) + IFNULL(oc.default_student_count, 0) learndCount,
 		  oc.smallimg_path AS smallimgPath,
 		  oc.current_price*10 AS currentPrice,
