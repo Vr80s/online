@@ -86,9 +86,11 @@
                 <div class="hospital_inf">
                     <p>${doctor.medicalHospital.name}</p>
                     <p>预约电话：<span>${doctor.medicalHospital.tel?default('')}</span></p>
-                    <p>坐诊时间：<span
-                            style="vertical-align: text-top;display: inline-block;width: 455px;">${doctor.workTime?default('')}</span>
-                    </p>
+                    <#if doctor.workTime??>
+	                    <p>坐诊时间：<span  style="vertical-align: text-top;display: inline-block;width: 455px;">
+							${doctor.workTime?default('')}</span>
+	                    </p>
+                    </#if>
                     <p>地 &nbsp;&nbsp;&nbsp;&nbsp; 址：
                         <span style="vertical-align: text-top;display: inline-block;width: 455px;">
                                     <span>${doctor.medicalHospital.detailedAddress?default('')}</span>
