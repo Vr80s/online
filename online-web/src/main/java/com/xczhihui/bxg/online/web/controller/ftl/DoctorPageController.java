@@ -19,6 +19,7 @@ import com.xczhihui.bxg.online.web.utils.HtmlUtil;
 import com.xczhihui.bxg.online.web.vo.BannerVo;
 import com.xczhihui.common.util.enums.DoctorType;
 import com.xczhihui.course.service.ICourseService;
+import com.xczhihui.course.util.XzStringUtils;
 import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.medical.department.model.MedicalDepartment;
 import com.xczhihui.medical.department.service.IMedicalDepartmentService;
@@ -100,20 +101,9 @@ public class DoctorPageController extends AbstractFtlController {
         if(doctor == null){
             return to404();
         }
-//        if(doctor!=null  && doctor.getWorkTime()!=null) {
-//        	String workTime = doctor.getWorkTime();
-//        	
-//        	if(workTime.indexOf("上午")!=-1) {
-//        		
-//        	}else if(workTime.indexOf("下午")!=-1) {
-//        		
-//        	}else if() {
-//        		
-//        	}
-//        	
-//			String workTime = "每周"+doctor.getWorkTime()+"全天";
-//			doctor.setWorkTime(workTime);
-//		}
+        
+		doctor.setWorkTime(XzStringUtils.workTimeScreen(doctor.getWorkTime()));
+		
         view.addObject("doctor", doctor);
 
         Page page = new Page<>();

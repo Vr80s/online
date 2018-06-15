@@ -86,7 +86,7 @@
                 <div class="hospital_inf">
                     <p>${doctor.medicalHospital.name}</p>
                     <p>预约电话：<span>${doctor.medicalHospital.tel?default('')}</span></p>
-                    <#if doctor.workTime??>
+                    <#if doctor.workTime?? && doctor.workTime!='暂无' >
 	                    <p>坐诊时间：<span  style="vertical-align: text-top;display: inline-block;width: 455px;">
 							${doctor.workTime?default('')}</span>
 	                    </p>
