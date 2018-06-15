@@ -200,7 +200,7 @@ public class XzStringUtils {
 	 */
 	public static String workTimeScreen(String line) {
 		if(line!=null) {
-			String regex = ".*(下午|上午|周|点|早|晚).*";
+			String regex = ".*(下午|上午|周|点|早|晚|暂无).*";
 			Pattern datePattern = Pattern.compile(regex);  
 			Matcher dateMatcher = datePattern.matcher(line);  
 	        if(!dateMatcher.matches()){
