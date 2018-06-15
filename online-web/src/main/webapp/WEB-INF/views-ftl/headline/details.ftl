@@ -145,7 +145,11 @@
 
                                     <div class="replay-box">
                                         <!--<p class="replyPerson">回复 ${appraise.name}：</p>-->
-                                        <img class="pinglunSanjiao" src="${userSmallHeadPhoto}">
+                                        <#if userSmallHeadPhoto=="">
+                                        	<img class="pinglunSanjiao" src="/web/images/defaultHead/18.png">
+                                        	<#else>
+                                       		 <img class="pinglunSanjiao" src="${userSmallHeadPhoto}">
+                                         </#if>
                                         <input class="reply-input" placeholder="写下您的评论..."/>
                                         <div class="emptyHit">
                                             <i class="iconfont icon-tanhao"></i>
