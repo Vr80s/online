@@ -662,13 +662,14 @@ textarea::-webkit-input-placeholder {
 }
 /*评论主播弹出框*/
 .bg_modal{
-	width: 100%;
+	width: 7.5rem;
 	height: 100%;
 	position: fixed;
 	display: none;
     top: 0;
-    left: 0;
+    /*left: 0;*/
 	background: rgba(0,0,0,.1);
+	z-index: 999999;
 }
 .wrapAll_comment{
 	width: 7.5rem;
@@ -679,7 +680,7 @@ textarea::-webkit-input-placeholder {
 	bottom: 0;
 	left: 50%;
 	margin-left: -3.75rem;
-	z-index: 5;
+	z-index: 9999991;
 	padding: 0.3rem 0.26rem 0.3rem;
 }
 .set_title{
