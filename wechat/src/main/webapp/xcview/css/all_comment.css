@@ -115,7 +115,7 @@ margin-top: 0.1rem;
 	height: 0.98rem;
 	/*background: skyblue;*/
 	float: left;
-	border-radius: 50%;
+	border-radius: 100px;
 }
 .user_header img{
 	width: 100%;
