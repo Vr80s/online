@@ -112,14 +112,7 @@ function loadBanner2List(){
 
 }
 
- //条件搜索
- function search(){
 
-     searchButton(banner2Table,searchJson);
-     searchJson.pop();
-     searchJson.pop();
-
-}
 
 //新增框
  $(".add_bx").click(function(){
