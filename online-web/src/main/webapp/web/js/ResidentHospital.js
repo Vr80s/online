@@ -1042,7 +1042,6 @@ RequestService("/hospital/announcement","GET",{
 		}
 		announcementList=data.resultObject.records;
 		if(data.resultObject.pages > 1) {
-			debugger //分页判断
 	        $(".notices_pages").removeClass("hide");
 	        $(".notices_pages .searchPage .allPage").text(data.resultObject.pages);
 	        $("#Pagination_notices").pagination(data.resultObject.pages, {
