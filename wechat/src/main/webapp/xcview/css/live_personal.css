@@ -912,7 +912,7 @@ color: #888888;
 /*固定导航--渐变title开始*/
 #header {
 	position: fixed;
-    width: 100%;
+    width: 7.5rem;
     top: 0px;
 	color: #000;
     z-index: 999999;
@@ -982,7 +982,7 @@ header.home img {
 	opacity:0;
 }
 #mainMenuBar {
-	width:100%;
+	width:7.5rem;
 	background-color:white;
 	z-index:999999;
 }

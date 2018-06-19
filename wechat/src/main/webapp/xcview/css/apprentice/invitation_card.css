@@ -23,7 +23,7 @@ li{
 body{
 	width: 7.5rem;
     height: 100%;
-    /* background: #000; */
+     background: #f0f0f0; 
     margin: 0 auto;
 }
 
@@ -58,12 +58,13 @@ header{
     top: 0rem;
 }
 .apply_title{
-	width: 100%;
+	width: 7.5rem;
 	height: 0.88rem;
 	line-height: 0.88rem;
 	font-size: 0.36rem;
 	color: #333333;
 	text-align: center;
+    background: #fff;
 }
 .header_news {
     width: 0.42rem;

@@ -179,7 +179,9 @@ $(document).ready(function() {
 	}), VHALL_SDK.on("ready", function() {
 		VHALL_SDK.vhall_get_history_notice(), 1 == VHALL_SDK.getRoominfo().type ? (VHALL_SDK.vhall_get_live_history_chat_msg(), 1 == VHALL_SDK.getRoominfo().openQuestion && VHALL_SDK.vhall_get_live_history_question_msg()) : VHALL_SDK.vhall_get_record_history_chat_msg()
 	}), VHALL_SDK.on("error", function(t) {
+		
 		alert("发生错误: " + JSON.stringify(t))
+	
 	}), VHALL_SDK.on("userOnline", function(t) {
 		//用户上线
 		console.log(t);
