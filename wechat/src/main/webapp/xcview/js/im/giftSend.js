@@ -330,13 +330,13 @@ function createGiftShow() {
 function countChange(count) {
     if (count == 3) {
         count = 2;
-        return 16.1;
+        return 8.5;
     } else if (count == 2) {
         count = 1;
-        return 13.8;
+        return 7.3;
     } else {
         count = 1;
-        return 11.5;
+        return 6.1;
     }
 }
 
