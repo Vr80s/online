@@ -13,14 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.aliyuncs.exceptions.ClientException;
 import com.xczhihui.bxg.online.common.domain.Course;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.common.support.service.CacheService;
 import com.xczhihui.common.support.service.impl.RedisCacheService;
 import com.xczhihui.common.util.DateUtil;
 import com.xczhihui.common.util.RedisCacheKey;
-import com.xczhihui.common.util.SmsUtil;
 import com.xczhihui.common.util.TimeUtil;
 import com.xczhihui.course.dao.CollectionCourseApplyUpdateDateDao;
 import com.xczhihui.course.dao.CourseDao;
@@ -218,13 +216,6 @@ public class MessageRemindingServiceImpl implements MessageRemindingService {
                                     .detailId(String.valueOf(course.getId()))
                                     .build(user.getId(), routeType, null)
                             );
-                            //TODO 下一版本删除, 使用上面的方式发送
-                            try {
-                                SmsUtil.sendSmsSubscribe(user.getLoginName(),
-                                        course.getGradeName(), null, minute + "", false);
-                            } catch (ClientException e) {
-                                loggger.error("课程{},手机号{}短信提醒发送失败",course.getId(), user.getLoginName());
-                            }
                         }
                     }
                     deleteCourseMessageReminding(course, RedisCacheKey.LIVE_COURSE_REMIND_KEY);
