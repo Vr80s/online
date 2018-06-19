@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczh.consumer.market.utils.cc.APIServiceFunction;
+import com.xczhihui.common.support.cc.util.APIServiceFunction;
 
 /**
  * 直播控制器
@@ -59,6 +59,7 @@ public class CcVideoController {
         paramsMap.put("player_height", setScale + "");
         paramsMap.put("format", "json");
         long time = System.currentTimeMillis();
+
         String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time, "K45btKhytR527yfTAjEp6z4fb3ajgu66");
         String responsestr = APIServiceFunction.HttpRetrieve("http://spark.bokecc.com/api/video/playcode?" + requestURL);
         LOGGER.info(responsestr);

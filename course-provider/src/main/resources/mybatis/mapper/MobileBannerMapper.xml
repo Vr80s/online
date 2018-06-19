@@ -540,8 +540,8 @@
 		    <include refid="selectLiveCourse"/>
 		    '在线课程' as note
 		  <include refid="commonCondition"/>
-			and	oc.type=1
-			order by  oc.live_status,recommendSort DESC,oc.start_time DESC LIMIT 0,#{pageSize}
+			and	oc.type  != 3 
+			order by  recommendSort DESC,oc.start_time DESC LIMIT 0,#{pageSize}
         )
         union all
         ( 
