@@ -132,6 +132,11 @@ function h5PcConversions(falg, courserId) {
             browser.versions.iPhone || browser.versions.iPad)) {
 
         var front_area = getServerHost();
+        // 如果是微信浏览器--就保持手机的状态
+        if(is_weixin()){
+            return true;
+        }
+
         if (falg) {//ture
             location.href = front_area + "/courses/" + courserId + "/info"
         } else {
