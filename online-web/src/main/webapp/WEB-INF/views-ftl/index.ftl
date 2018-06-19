@@ -262,7 +262,7 @@
 									<a href="${webUrl}/doctors/${doctor.id}" target="_blank"></a>
 									<img src="${doctor.headPortrait!defaultDoctorHeadImg}" alt="${doctor.name}">
 									<h5>${doctor.name}&nbsp;<span>${doctor.title?default('')}</span></h5>
-									<#if doctor.workTime != "暂无">
+									<#if doctor.workTime?? && doctor.workTime != "暂无">
 										<p>${doctor.workTime?default('')}</p>
 	                      			</#if>
 	                      			<p>${doctor.province}&nbsp;${doctor.city}&nbsp; </p>
