@@ -58,9 +58,12 @@ RequestService("/online/user/isAlive", "GET", null, function(data) { ///online/u
 				},false);
 				
 				
-				var scr = data.resultObject.playCode;
-				$(".videoBody-video").append(scr);
-				$(".headerBody-title").html(data.resultObject.title);
+				var playCodeStr = data.resultObject;
+	            var playCodeObj = JSON.parse(playCodeStr);
+	            console.log(playCodeObj.video.playcode);
+	            
+				$(".videoBody-video").html(playCodeObj.video.playcode);
+			
 				
 			} else if(data.success == false) {
 				
@@ -95,8 +98,9 @@ RequestService("/online/live/getOpenCourseById", "get", {
 	$(".headerBody .rightT p").html(obj.courseName).attr("title", obj.courseName);
 	document.title = data.resultObject.courseName ;
 	$(".headerBody .rightT i").html(obj.lecturer);
-
-
+	
+	$(".headerBody-title").html(obj.courseName);
+	
 	//如果是音频的话，需要自己去设置哪里播放
     multimediaType = obj.multimediaType;
 	

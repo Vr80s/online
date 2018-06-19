@@ -52,7 +52,7 @@ RequestService("/online/user/isAlive", "GET", null, function(data) { ///online/u
 			$("#courseName").html(obj.courseName).attr("title", obj.courseName);
 			document.title = obj.courseName ;
 			
-			$(".headerBody .rightT i").html(obj.lecturer);
+			$(".headerBody .rightT i").html(obj.lecturer); 
 			
 			//分享使用
 			courseName = obj.courseName;
@@ -111,8 +111,6 @@ function getPlayCode(collectionId,courseId){
 		autoPlay: false
 	}, function(data) {
 		if(data.success == true) {
-			
-			
 			 /**
 		     * 增加观看记录
 		     * @param data
@@ -127,9 +125,11 @@ function getPlayCode(collectionId,courseId){
 			},false);
 			
 			
-			var scr = data.resultObject.playCode;
-			$(".videoBody-video").append(scr);
-			$(".headerBody-title").html(data.resultObject.title);
+			var playCodeStr = data.resultObject;
+            var playCodeObj = JSON.parse(playCodeStr);
+            console.log(playCodeObj.video.playcode);
+			
+			$(".videoBody-video").append(playCodeObj.video.playcode);
 		} else if(data.success == false) {
 			//弹出错误信息
 			alert(data.errorMessage);
@@ -269,13 +269,14 @@ function custom_player_ready(){
 }
 
 
+/**
+ * 选中并变为蓝色
+ */
 var auto_play = $.getUrlParam("auto_play");
-if(auto_play != null && auto_play == "true"){
-
+if(stringnull(auto_play)){
 	$("#auto_play").attr("checked","true");
-	$("#auto_play").css("background","green");
+	$("#auto_play").css("background-image","url(/web/images/btn-ondown.png)");
 }
-
 
 $("#auto_play").click(function(){
 	var falg = $(this).is(':checked')
@@ -316,8 +317,6 @@ function custom_player_stop(){
 				}else{
 					nextCourseId = $nextNode.attr("data-id");
 				}
-				
-		
 				location.href = "/web/html/ccvideo/liveVideoAlbum.html"+"?collectionId="+collectionId+"&courseId="+nextCourseId+"&auto_play="+falg;
 			}
 		})

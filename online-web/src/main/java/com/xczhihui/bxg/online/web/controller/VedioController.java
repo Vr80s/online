@@ -96,7 +96,6 @@ public class VedioController extends AbstractController{
 		
 		//获取登录用户     -- 判断是否登录
 		BxgUser loginUser = UserLoginUtil.getLoginUser();
-
 		CourseLecturVo cv = null;
 		if(collectionId!=null && collectionId!=0) {
 			 cv = courseServiceImpl.selectUserCurrentCourseStatus(collectionId,loginUser.getId());
@@ -107,19 +106,15 @@ public class VedioController extends AbstractController{
 		if (cv!=null && cv.getWatchState() == 0) { 
 			return ResponseObject.newErrorResponseObject("请先购买此课程哈!");
 		}
+		String multimediaType = "1";
 		
-		Map<String, String> paramsMap = new HashMap<String, String>();
-		paramsMap.put("courseId", courseId);
-		if (width != null) {
-			paramsMap.put("player_width", width);
+		if(cv.getType()==2) { //multimediaType 1 视频 2 音频
+			multimediaType = "2";
 		}
-		if (height != null) {
-			paramsMap.put("player_height", height);
-		}
-		if (autoPlay != null) {
-			paramsMap.put("auto_play", autoPlay);
-		}
-		return ResponseObject.newSuccessResponseObject(service.getCCVideoInfo(paramsMap));
+		String responsestr=  CCUtils.getPlayCodeRequest(cv.getDirectId(),
+				autoPlay,width,height,multimediaType,null);
+		
+		return ResponseObject.newSuccessResponseObject(responsestr);
 	}
 
 }
