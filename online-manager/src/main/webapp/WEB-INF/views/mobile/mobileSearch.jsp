@@ -463,11 +463,19 @@
 	<ul class="nav nav-tab vertical-tab" role="tablist" id="vtab">
 		<li role="presentation" class="active">
 			<a href="#home" aria-controls="home" class="zykgl_bx" title="1"  role="tab"
-			   data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">搜索框</a>
+			   data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">课程-搜索框</a>
 		</li>
 		<li role="presentation">
 			<a href="#home" aria-controls="home" class="zykgl_bx" title="2" role="tab"
-			   data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">热门搜索</a>
+			   data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">课程-热门搜索</a>
+		</li>
+		<li role="presentation">
+			<a href="#home" aria-controls="home" class="zykgl_bx" title="3" role="tab"
+			   data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">医师-搜索框</a>
+		</li>
+		<li role="presentation">
+			<a href="#home" aria-controls="home" class="zykgl_bx" title="4" role="tab"
+			   data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">医师-热门搜索</a>
 		</li>
 
 	</ul>
