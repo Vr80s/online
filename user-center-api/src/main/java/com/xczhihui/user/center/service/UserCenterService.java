@@ -103,4 +103,6 @@ public interface UserCenterService {
     boolean isDisabled(String userId);
 
     Token login4visitor(String username);
+
+    Token fastLogin(String loginName, String token, TokenExpires day);
 }
