@@ -13,6 +13,7 @@ import java.util.Map;
  **/
 public enum DoctorType {
 
+	HOT(0,"热门中医"),
     MQNZY(1, "名青年中医"),
     MLZY(2, "名老中医"),
     SSMZZY(3, "少数民族中医"),

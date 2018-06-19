@@ -755,3 +755,8 @@ overflow-y: auto;
 #auto_play[type="checkbox"]{
 	 /*background: green;*/
 }
+
+.videoBody-top embed{
+	width:100%;
+}
+

@@ -9,6 +9,7 @@ var	description = "零基础也能学中医！许多学员推荐“古籍经典�
 
 var multimediaType = 1;
 var userId= "";
+var directId = "";
 /**
  * 设置返回课程详情a标签
  */
@@ -33,6 +34,36 @@ $(".loadImg").css("display", "block");
 function timeChange(num) {
 	return '' + num + "分钟";
 };
+
+
+//获取课程名字和讲师姓名
+RequestService("/online/live/getOpenCourseById", "get", {
+	courseId: courseId
+}, function(data) {
+	if(!data.success){
+		location.href="/courses/"+courseId+"/info";
+	}
+	
+	var obj =  data.resultObject;''
+	
+	//分享使用
+	courseName = obj.courseName;
+	smallImgPath = obj.smallImgPath;
+	description = obj.description;
+
+	//数据渲染
+	$(".headerBody .rightT p").html(obj.courseName).attr("title", obj.courseName);
+	document.title = data.resultObject.courseName ;
+	$(".headerBody .rightT i").html(obj.lecturer);
+	
+	$(".headerBody-title").html(obj.courseName);
+	
+	//如果是音频的话，需要自己去设置哪里播放
+    multimediaType = obj.multimediaType;
+    directId = obj.direct_id;
+}, false);
+
+
 //获取视频信息接口
 RequestService("/online/user/isAlive", "GET", null, function(data) { ///online/user/isAlive
 	if(data.success === true) {
@@ -43,6 +74,8 @@ RequestService("/online/user/isAlive", "GET", null, function(data) { ///online/u
             courseId: courseId,
 			width: awidth,
 			height: aheight,
+			directId:directId,
+			multimediaType:multimediaType,
 			autoPlay: false
 		}, function(data) {
 			if(data.success == true) {
@@ -78,34 +111,6 @@ RequestService("/online/user/isAlive", "GET", null, function(data) { ///online/u
 		location.href="/courses/"+courseId+"/info";
 	}
 },false);
-
-//获取课程名字和讲师姓名
-RequestService("/online/live/getOpenCourseById", "get", {
-	courseId: courseId
-}, function(data) {
-	if(!data.success){
-		location.href="/courses/"+courseId+"/info";
-	}
-	
-	var obj =  data.resultObject;''
-	
-	//分享使用
-	courseName = obj.courseName;
-	smallImgPath = obj.smallImgPath;
-	description = obj.description;
-
-	//数据渲染
-	$(".headerBody .rightT p").html(obj.courseName).attr("title", obj.courseName);
-	document.title = data.resultObject.courseName ;
-	$(".headerBody .rightT i").html(obj.lecturer);
-	
-	$(".headerBody-title").html(obj.courseName);
-	
-	//如果是音频的话，需要自己去设置哪里播放
-    multimediaType = obj.multimediaType;
-	
-}, false);
-
 
 
 

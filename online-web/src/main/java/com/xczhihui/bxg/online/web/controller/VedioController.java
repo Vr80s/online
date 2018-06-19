@@ -91,7 +91,8 @@ public class VedioController extends AbstractController{
 	@RequestMapping(value = "getPlayCodeByCourseId", method = RequestMethod.GET)
 	public ResponseObject getVidoInfo(HttpServletRequest req, 
 			String courseId, String width, String height,
-			String autoPlay,
+			String autoPlay,String directId,
+			String multimediaType,
 			@RequestParam(required=false)Integer collectionId) {
 		
 		//获取登录用户     -- 判断是否登录
@@ -101,17 +102,17 @@ public class VedioController extends AbstractController{
 			 cv = courseServiceImpl.selectUserCurrentCourseStatus(collectionId,loginUser.getId());
 		}else {
 			cv = courseServiceImpl.selectUserCurrentCourseStatus(
-			  Integer.parseInt(courseId),loginUser.getId());
+			Integer.parseInt(courseId),loginUser.getId());
 		}
 		if (cv!=null && cv.getWatchState() == 0) { 
+		
 			return ResponseObject.newErrorResponseObject("请先购买此课程哈!");
 		}
-		String multimediaType = "1";
+//		if(cv.getType()==2) { //multimediaType 1 视频 2 音频
+//			multimediaType = "2";
+//		}
 		
-		if(cv.getType()==2) { //multimediaType 1 视频 2 音频
-			multimediaType = "2";
-		}
-		String responsestr=  CCUtils.getPlayCodeRequest(cv.getDirectId(),
+		String responsestr=  CCUtils.getPlayCodeRequest(directId,
 				autoPlay,width,height,multimediaType,null);
 		
 		return ResponseObject.newSuccessResponseObject(responsestr);

@@ -335,7 +335,6 @@
 	</sql>
 	
 	<sql id="commonQuerySortOrder">
-	    order by
 		<!-- 综合 -->
 		<choose>
 	        <when test="queryVo.sortOrder == 1 " >
@@ -364,9 +363,6 @@
 	</sql>
 	
 	
-	
-	
-	
 	<!-- 没有关键字的查询 -->
 	<select id="searchCourseList" resultType="com.xczhihui.course.vo.CourseLecturVo">
 	   select 
@@ -384,37 +380,9 @@
 	     <include refid="commonSearchCondition"/>
 	     <include refid="onlyFreeCondition"/>
 
-	     <!-- 排序条件  -->
-	     <choose>  
-	        <!-- 课程分类  -->
-	        <!-- 精品课程排序 -->
-	        <when test="queryVo.menuType == 'goodCourse'" >
-	             order by recommendSort desc,oc.release_time desc
-            </when> 
-             <!--  最新课程排序 -->
-            <when test="queryVo.menuType == 'newCourse' ">  
-	             order by oc.release_time desc
-	        </when> 
-	        <when test="queryVo.menuType != null and queryVo.menuType != '' "> 
-	              <include refid="commonQuerySortOrder"/> 
-	        </when>     
-             <!-- 课程类型  --> 
-             <!-- 直播课程 -->
-             <when test="queryVo.courseType == 3">  
-	               <include refid="commonQuerySortOrder"/>
-	               ,recent 
-             </when>
-               <!--  线下课 -->
-             <when test="queryVo.courseType == 4 ">  
-	             order by oc.start_time desc
-	         </when> 
-             <otherwise>
-             	<include refid="commonQuerySortOrder"/>   
-	             ,oc.release_time desc
-	         </otherwise>   
-         </choose>  
+	     order by  
+	  	 <include refid="commonQuerySortOrder"/> 	
 	</select>
-	
 	
 	
 	<!-- 有关键字的查询 -->
