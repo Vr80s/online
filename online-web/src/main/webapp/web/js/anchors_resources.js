@@ -45,7 +45,11 @@ $(function () {
             $(".select_box").eq($(this).index()).find('.changeStaBtn').click();
         }
         //图标颜色变化
-        $(".left_range").removeClass("ino_color").eq($(this).index()).addClass("ino_color")
+        $(".left_range").removeClass("ino_color").eq($(this).index()).addClass("ino_color");
+        
+		//小箭头
+ 		$(".select_list .arrow_jt").attr("src","/web/images/icon-select-right.png")
+
 
     })
 
@@ -66,20 +70,19 @@ $(function () {
         event.stopPropagation();
         $(".select_list .littleBox p").removeClass("activeP");
         $(this).addClass("activeP");
-        $(".wrap_box .little_box").hide().eq($(this).index()).show();
-        $(".select_box").hide()
+        $(".contentWrap .little_box").hide().eq($(this).index()).show();
     })
 
     //		下拉小箭头设置
     $(".select-ud").click(function () {
         if ($(this).attr("id") == "open_list") {
             $(this).removeAttr("id")
-            $(".select_list .arrow_jt").addClass("glyphicon-triangle-left")
-            $(".select_list .arrow_jt").removeClass("glyphicon-triangle-bottom")
+            $(".select_list .arrow_jt").attr("src","/web/images/icon-select-right.png")
+
         } else {
             $(this).attr("id", "open_list")
-            $(".select_list .arrow_jt").addClass("glyphicon-triangle-bottom")
-            $(".select_list .arrow_jt").removeClass("glyphicon-triangle-left")
+             $(".select_list .arrow_jt").attr("src","/web/images/icon-select-down.png")
+
         }
     })
 
@@ -295,8 +298,189 @@ $(function () {
 
         $(".btn-upload").css("color", "white");
     })
+//---------------------------------头像上传部分结束,动态开始---------------------------------  
+//	图片区域
 
-    //---------------------------------头像上传部分结束，专栏部分开始-------------------------------------------------
+//	图片上传  
+    $(".open-photo").click(function(){
+    	if($(".video-wrap").hasClass("hide")==false){
+      		comfirmBox.open("标题","确定放弃视频编辑吗？",function(closefn){
+      			$('#photo_picIpt').click();
+      			closeVideo();
+				closefn();
+				return
+			});
+    	}else if($(".consilia-wrap").hasClass("hide")==false){
+    		comfirmBox.open("标题","确定放弃医案编辑吗？",function(closefn){
+    			$('#photo_picIpt').click();
+    			closeConsilia();
+    			closefn();
+    			return
+			});
+    	}else{
+    		$('#photo_picIpt').click();
+    	}
+    })
+    function activityUpPhoto(baseurl, imgname) {
+        RequestService("/medical/common/upload", "post", {
+            image: baseurl,
+        }, function (data) {
+        		$(".photo-wrap").removeClass("hide");
+        	  var addPhoto='<li>'+
+					'<img src="' + data.resultObject + '" alt="照片" />'+
+					'<p><img class="img-number" src="/web/images/delete-img.png" alt="删除照片" title="删除照片" /></p>'+
+				'</li>';
+				$('.save-photo ul').append(addPhoto); 
+				photoNumber();
+        })
+    }
+    $('#photo_picIpt').on('change', function () {
+    	if($(".save-photo .img-number").length==9){
+    		showTip("最多发表9张图片");
+    		return false;
+    	}
+        if (this.files[0].size > 2097152) {
+            $('#tip').text('上传图片不能大于2M');
+            $('#tip').toggle();
+            setTimeout(function () {
+                $('#tip').toggle();
+            }, 2000)
+            return false;
+        }
+        if (!(this.files[0].type.indexOf('image') == 0 && this.files[0].type && /\.(?:jpg|png|gif)$/.test(this.files[0].name))) {
+            $('#tip').text('图片格式不正确');
+            $('#tip').toggle();
+            setTimeout(function () {
+                $('#tip').toggle();
+            }, 2000)
+            return false;
+        }
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            activityUpPhoto(reader.result, 'open-photo');
+        }
+        reader.readAsDataURL(this.files[0])
+        $('#photo_picIpt').val("");
+    })
+ //图片数量
+	function photoNumber(){
+			var photoNumber=$(".save-photo .img-number").length;
+			$(".photo-number p span").html(photoNumber);
+	} 
+	//删除图片
+	$('.save-photo').on('click', 'p', function() {
+		$(this).parent().remove();
+		if($(".save-photo ul li").length==0){
+			$(".photo-wrap").addClass("hide")
+		}
+		photoNumber()
+	})
+	
+//  关闭图片模块
+	$(".photo-number").click(function(){
+		closeImages();
+	})
+//	关闭视频
+	$(".close-video").click(function(){
+		closeVideo();
+	})
+//	关闭医案
+	$(".close-consilia").click(function(){
+		closeConsilia()
+	})
+	function closeImages(){
+		$(".save-photo ul").html("");
+		$(".photo-wrap").addClass("hide");
+	}
+	function closeVideo(){
+		$(".video-cover-pic").html(defaultPicter);
+		$(".video-wrap").addClass("hide");
+		$(".video-title input").val("");
+	}
+	function closeConsilia(){
+		$(".consilia-wrap").addClass("hide");
+	}
+	
+//	视频区域
+//点击视频
+$(".vedio-nav").click(function(){
+	if($(".photo-wrap").hasClass("hide")==false){
+    		comfirmBox.open("标题","确定放弃图片编辑吗？",function(closefn){
+    			closeImages();
+    			$(".video-wrap").removeClass("hide");
+				closefn();
+			});
+    	}else if($(".consilia-wrap").hasClass("hide")==false){
+    		comfirmBox.open("标题","确定放弃医案编辑吗？",function(closefn){
+				closeConsilia()
+				$(".video-wrap").removeClass("hide");
+				closefn();
+			});
+    	}else{
+    			$(".video-wrap").removeClass("hide");
+				$(".video-title input").val("");
+    	}
+})
+//	封面
+ function videoUpdown(baseurl, imgname) {
+        RequestService("/medical/common/upload", "post", {
+            image: baseurl,
+        }, function (data) {
+            $('.video-cover  .' + imgname + '').html('<img src="' + data.resultObject + '" >');
+        })
+    }
+    $('#video_picIpt').on('change', function () {
+        if (this.files[0].size > 2097152) {
+            $('#tip').text('上传图片不能大于2M');
+            $('#tip').toggle();
+            setTimeout(function () {
+                $('#tip').toggle();
+            }, 2000)
+//			showTip("上传图片不能大于2M");
+            return false;
+        }
+        if (!(this.files[0].type.indexOf('image') == 0 && this.files[0].type && /\.(?:jpg|png|gif)$/.test(this.files[0].name))) {
+            $('#tip').text('图片格式不正确');
+            $('#tip').toggle();
+            setTimeout(function () {
+                $('#tip').toggle();
+            }, 2000)
+            return false;
+        }
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            videoUpdown(reader.result, 'video-cover-pic');
+        }
+        reader.readAsDataURL(this.files[0])
+    });
+// 医案区域   
+$(".consilia-nav").click(function(){
+	if($(".photo-wrap").hasClass("hide")==false){
+    		comfirmBox.open("标题","确定放弃视频图片吗？",function(closefn){
+    			closeImages();
+    			$(".consilia-wrap").removeClass("hide");
+				closefn();
+			});
+    	}else if($(".video-wrap").hasClass("hide")==false){
+    		comfirmBox.open("标题","确定放弃视频编辑吗？",function(closefn){
+      			closeVideo()
+      			$(".consilia-wrap").removeClass("hide");
+				closefn();
+			});
+    	}else{
+    			$(".consilia-wrap").removeClass("hide");
+
+    	}
+})
+$(".consilia-status-nav li").click(function(){
+	$(".consilia-status-nav li").removeClass("active");
+	$(this).addClass("active");
+});
+
+
+
+
+//---------------------------------头像上传部分结束，专栏部分开始-------------------------------------------------
 
     var ue = UE.getEditor('column-content', {
         toolbars: [

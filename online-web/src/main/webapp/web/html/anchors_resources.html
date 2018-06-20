@@ -28,7 +28,9 @@
 		<link rel="stylesheet" href="/web/css/index-9a525196fb.css" type="text/css">
 		<link href="/web/bootstrap-select/bootstrap.min.css" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="/web/bootstrap-select/bootstrap-select.css">
+		<!--字体图标引用-->
 		<link rel="stylesheet" href="/web/css/iconfont/iconfont.css" />
+		<link rel="stylesheet" href="/web/fonts/style.css" />
 		<!--分页部分start-->
 		<link rel="stylesheet" href="/web/css/componet.css" />
 		<link rel="stylesheet" href="/web/css/componet-pages.css" />
@@ -209,18 +211,25 @@
 				<!--左边点击nav-->
 				<div class="select_list z">
 					<ul style="padding: 0;">
-						<!--<li class="active select-ud">
-							<span class="glyphicon glyphicon-book left_range ino_color" aria-hidden="true"></span><span>课程<span class="glyphicon glyphicon-triangle-left arrow_jt" aria-hidden="true"></span></span>
-							<div class="littleBox">
-								<p class="activeP">课程</p>
-								<p>直播</p>
-								<p>排课</p>
-								<p>资源</p>
-							</div>
-						</li>-->
-						<!--<li class="setTop"><span class="glyphicon glyphicon-user left_range" aria-hidden="true"></span><span>主播工作台</span></li>-->
-						<!--<li class="setTop "><span class="glyphicon glyphicon-user left_range" aria-hidden="true"></span><span>收徒</span></li>-->
+						
+						<li class="setTop"><i class="icomoon-icon-dongtai left_range"></i><span>我的动态</span></li>
+						<li class="setTop "><span class="glyphicon glyphicon-user left_range" aria-hidden="true"></span><span>轮播图设置</span></li>
 						<li class="setTop docSuccessBtn" data-name="doc_hos" id="docJoinHos"><span class="icon iconfont icon-02_dianpuguanli left_range" aria-hidden="true"></span><span>医馆</span></li>
+						<li class="select-ud">
+							<span class="glyphicon glyphicon-book left_range" aria-hidden="true"></span>
+							<span>
+									师承收徒
+									<img class="arrow_jt" src="/web/images/icon-select-right.png"/>
+							</span>
+
+							<div class="littleBox">
+								<p class="activeP">跟师直播</p>
+								<p>我的弟子</p>
+								<p>问答解惑</p>
+								<p>师承管理</p>
+								<p>收徒设置</p>
+							</div>
+						</li>
 						<li class="setTop" id="nav-colume" data-name="doc_zhuanlan"><span class="glyphicon glyphicon-file left_range" aria-hidden="true"></span><span>专栏</span></li>
 						<li class="setTop" id="nav-work" data-name="doc_book"><span class="glyphicon glyphicon-copyright-mark left_range" aria-hidden="true"></span><span>著作</span></li>
 						<li class="setTop" id="nav-media" data-name="doc_media"><span class="glyphicon glyphicon-film left_range" aria-hidden="true"></span><span>媒体报道</span></li>
@@ -231,10 +240,104 @@
 			</div>
 			<!--右边内容-->
 			<div class="contentWrap y">
-				<!--课程-->
-				<!--<div class="select_box">主播工作台</div>-->
-				<!--收徒-->
-				<!--<div class="select_box">收徒</div>-->
+				<!--我的动态-->
+				<div class="select_box" style="background: #f8f8f8;">
+					<div class="activity-wrap">
+						<textarea class="publish-activity" name="" rows="" cols="" placeholder="发布动态"></textarea>
+						<button type="button" class="btn-deliver">发布动态</button>
+						<ul class="activity-nav">
+							<li>
+								<span class="open-photo" style="width: 70px; height: 24px;">
+									<img src="/web/images/icon-photo.png" alt="图片" />
+									<p>图片</p>
+								</span>
+								<input type="file" placeholder="请填写您的专栏标题" style="visibility: hidden;display: inline-block;width: 1px;" id="photo_picIpt" />
+							</li>
+							<li class="vedio-nav">
+								<img src="/web/images/icon-video.png" alt="视频" />
+								<span class="write-left">视频</span>
+							</li>
+							<li class="consilia-nav">
+								<img src="/web/images/icon-text.png" alt="医案" />
+								<span class="write-left">医案</span>
+							</li>
+						</ul>
+						<div class="main-nav-box">
+							<!--图片区域-->
+							<div class="photo-wrap hide">
+								<div class="photo-number">
+									<p>图片（<span>0</span>/9）</p>
+									<img src="/web/images/alter-close.png"/>
+								</div>
+								<div class="save-photo">
+									<ul>
+
+									</ul>
+								</div>
+							</div>
+							<!--视频区域-->
+							<div class="video-wrap hide">
+								<div class="video-tip">
+									<img class="close-video" src="/web/images/alter-close.png" alt="关闭视频" title="关闭视频" />
+									<span class="video-btn" onclick="$('#video-up').click()">
+										<p>上传普通视频</p>
+									</span>
+									<input type="file" placeholder="请填写您的专栏标题" style="visibility: hidden;display: inline-block;width: 1px;" id="video-up" />
+									<span class="video-prompt">请上传时长在15分钟以内的视频，请勿上传色情、反动等违规视频</span>
+								</div>
+								<div class="video-title-wrap">
+									<div class="video-title">
+										<span style="color: #666666;margin-right: 10px;">标题</span>
+										<input type="" name="" id="" value="" placeholder="好的标题可以让大家更感兴趣" />
+									</div>
+								</div>
+								<div class="video-cover-wrap">
+									<div class="video-cover">
+										<span style="vertical-align: top;color: #666666;margin-right: 10px;">封面</span>
+										<span class="video-cover-pic" onclick="$('#video_picIpt').click()">
+											<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>
+											<p style="text-align: center;color: #999;font-size: 14px;">暂无医馆封面图片</p>
+										</span>
+										<span class="up_tip" style="display: inline-block;vertical-align: middle;color: #999999;">
+											<p>文件小于2M</p>
+											<p>支持JPG/PNG等格式图片</p>
+										</span>
+										<input type="file" placeholder="请填写您的专栏标题" style="visibility: hidden;display: inline-block;" id="video_picIpt" accept="image/gif,image/jpeg,image/jpg,image/png">
+										<p class="warning hide">请上传封面图</p>
+									</div>
+								</div>
+							</div>
+							<!--医案区域-->
+							<div class="consilia-wrap hide">
+								<div class="consilia-status-nav">
+									<img class="close-consilia" src="/web/images/alter-close.png" alt="关闭医案" title="关闭医案" />
+									<ul>
+										<li class="active">添加医案</li>
+										<li>添加专栏</li>
+										<li>添加媒体报道</li>
+									</ul>
+								</div>
+								<div class="consilia-search-wrap">
+									<span>标题</span>
+									<div class="search-input y">
+										<img src="/web/images/search-btn.png" alt="搜索" title="搜索" />
+										<input type="" name="" id="" value="" />
+									</div>
+								</div>
+								<p class="consilia-result">共搜索出“<span>针灸</span>”全部结果约<span>20</span>条</p>
+								<div class="result-list">
+									<p class="result-list-title">封面<span>标题</span></p>
+									<!--暂停-->
+									<!--<ul>
+										<li></li>
+									</ul>-->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--轮播图设置-->
+				<div class="select_box">轮播图设置</div>
 				<!--医馆-->
 				<div class="select_box docSuccessBox" id="hospital">
 					<div class="zhuanlan_top">
@@ -323,7 +426,25 @@
 						</div>
 					</div>
 				</div>
-				<!--专栏-->
+				<!--收徒-->
+				<div class="select_box">
+					<div class="little_box" style="display: block;">
+						跟师直播
+					</div>
+					<div class="little_box">
+						我的弟子
+					</div>
+					<div class="little_box">
+						问答解惑
+					</div>
+					<div class="little_box">
+						师承管理
+					</div>
+					<div class="little_box">
+						收徒设置
+					</div>
+				</div>
+				<!--医案专栏-->
 				<div class="select_box" id="zhuanlan">
 					<div class="zhuanlan_top">
 						<span class="title">专栏</span>
