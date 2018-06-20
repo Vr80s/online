@@ -97,14 +97,14 @@ public class DoctorController{
 
 	@RequestMapping(value = "list")
     public ResponseObject list(@RequestParam(value = "page", required = false) 
-    		Integer current, Integer size, 
+    		Integer pageNumber, Integer pageSize, 
     		DoctorQueryVo dqv) {
     	
-        current = current == null ? 1 : current;
-        size = size == null ? 10 : size;
+		pageNumber = pageNumber == null ? 1 : pageNumber;
+		pageSize = pageSize == null ? 10 : pageSize;
         
         Page<MedicalDoctorVO> doctors = medicalDoctorBusinessService.
-        		selectDoctorListByQueryKey(new Page<MedicalDoctorVO>(current, size),dqv);
+        		selectDoctorListByQueryKey(new Page<MedicalDoctorVO>(pageNumber, pageSize),dqv);
        
         return ResponseObject.newSuccessResponseObject(doctors.getRecords());
     }

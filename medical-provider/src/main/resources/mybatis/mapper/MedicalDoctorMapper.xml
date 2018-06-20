@@ -492,13 +492,12 @@
      <!-- 多条件查询医师  -->
      
      <select id="selectDoctorListByQueryKey" resultType="com.xczhihui.medical.doctor.vo.MedicalDoctorVO">
-       
         SELECT
 	        md.*,
 	        md.`work_time` workTime,
 	        mdai.head_portrait headPortrait,
-	        mh.`name` hospitalName
-
+	        mh.`name` hospitalName,
+ 			mh.`detailed_address` hospitalAddress
         FROM
         medical_doctor md
         <if test="dqv.field != null and dqv.field!=''">
