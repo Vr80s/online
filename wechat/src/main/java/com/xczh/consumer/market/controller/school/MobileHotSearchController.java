@@ -47,4 +47,20 @@ public class MobileHotSearchController {
 
         return ResponseObject.newSuccessResponseObject(mapAll);
     }
+
+    /**
+     * 热门医师搜索列表
+     */
+    @RequestMapping("hotDoctorSearch")
+    @ResponseBody
+    public ResponseObject hotDoctorSearchList(HttpServletRequest req,
+                                              HttpServletResponse res)
+            throws Exception {
+        Map<String, Object> mapAll = new HashMap<String, Object>();
+        //默认搜索框
+        mapAll.put("defaultSearch", mobileHotSearchService.HotSearchList(3));
+        //热门搜索
+        mapAll.put("hotSearch", mobileHotSearchService.HotSearchList(4));
+        return ResponseObject.newSuccessResponseObject(mapAll);
+    }
 }

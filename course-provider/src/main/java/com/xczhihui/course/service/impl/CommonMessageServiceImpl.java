@@ -225,13 +225,11 @@ public class CommonMessageServiceImpl implements ICommonMessageService {
         String detailId = baseMessage.getDetailId();
         if (appPushMessage != null) {
             String content = appPushMessage.getContent();
-            int badge = countUnReadCntByUserId(userId);
             String url = MultiUrlHelper.getUrl(baseMessage.getRouteType(), MultiUrlHelper.URL_TYPE_APP);
             if (StringUtils.isNotBlank(url)) {
                 url = MessageFormat.format(url, detailId);
             }
             Map<String, Object> customParams = new HashMap<>(5);
-            customParams.put("unReadCnt", badge);
             customParams.put("url", url);
 
             XgMessage xgMessage = new XgMessage();
@@ -244,7 +242,7 @@ public class CommonMessageServiceImpl implements ICommonMessageService {
 
             XgMessageIOS xgMessageIOS = new XgMessageIOS();
             xgMessageIOS.setAlert(content);
-            xgMessageIOS.setBadge(badge);
+            xgMessageIOS.setBadge(1);
             xgMessageIOS.setSound(PushConst.IOS_SOUND_FILE);
             xgMessageIOS.setCustom(customParams);
             JSONObject iosRet = iosXgPushService.pushSingleAccount(PushConst.DEVICE_ALL, userId, xgMessageIOS, env.isProd() ? PushConst.IOSENV_PROD : PushConst.IOSENV_DEV);
