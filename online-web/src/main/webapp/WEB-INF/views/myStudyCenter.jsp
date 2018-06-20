@@ -1,4 +1,4 @@
-<%@include file="../../web/html/personal-center/personal-index.html" %>
+<%@include file="../../my" %>
 <script>
   var courseId="<%=request.getAttribute("courseId")%>";
 </script>

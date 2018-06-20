@@ -610,7 +610,7 @@
 					var id = "personcenter";
 					var personcenterSt = window.localStorage.personcenter;
 					window.localStorage.personcenter = $(evt.target).attr("data-id");
-					if(window.location.pathname == "/web/html/personal-center/personal-index.html#menu1-1") {
+					if(window.location.pathname == "/my#menu1-1") {
 						if($(this).attr("data")) {
 							RequestService("/online/user/logout", "GET", {}, function(data) {
 								location.href = "/index.html";
@@ -629,7 +629,7 @@
 							});
 						} else {
 							var pathS = window.location.href;
-							location.href = "/web/html/personal-center/personal-index.html#menu1-1";
+							location.href = "/my#menu1-1";
 							RequestService("/online/user/isAlive", "GET", null, function(data) { ///online/user/isAlive
 								if(data.success) {
 									if(data.resultObject.smallHeadPhoto != "/web/images/defaultHeadImg.jpg") {

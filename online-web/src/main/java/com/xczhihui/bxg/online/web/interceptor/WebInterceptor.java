@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
  *
  * @author hejiwei
  */
+@Component
 public class WebInterceptor implements HandlerInterceptor {
 
     private static final String BASE_PATH_KEY = "webUrl";

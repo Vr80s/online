@@ -193,7 +193,7 @@ window.onload = function() {
 		'{{/each}}';
 	var step =
 		'<a class="save" style="cursor:pointer"  >提交订单</a>' +
-		// '<a class="getRedeem" href="/web/html/personal-center/personal-index.html?location=fcode">我有课程兑换码，前去兑换</a>' +
+		// '<a class="getRedeem" href="/my?location=fcode">我有课程兑换码，前去兑换</a>' +
 		'{{if course_type==0}}' +
 		'{{if isOldUser==0}}' +
 		'<p>应付金额：<span class="js"></span></p>' +

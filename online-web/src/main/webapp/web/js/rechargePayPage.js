@@ -148,7 +148,7 @@ $(function() {
 	});
 	//支付结果页面1
 	$(".pay-success-btn").click(function() {
-		location.href="/web/html/personal-center/personal-index.html#menu1-1"
+		location.href="/my#menu1-1"
 		localStorage.setItem("personcenter","mymoney ");
 		localStorage.setItem("findStyle","profile ");
 	});

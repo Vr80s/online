@@ -20,8 +20,7 @@
     
     <context:component-scan
             base-package="com.xczhihui.bxg.online.**.dao,com.xczhihui.bxg.online.**.service,
-            com.xczhihui.common.support.**, com.xczhihui.bxg.online.web.support.*,
-			com.xczhihui.bxg.online.web.config"/>
+            com.xczhihui.common.support.**, com.xczhihui.bxg.online.web.support.*,com.xczhihui.bxg.online.web.config"/>
 
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
           destroy-method="close">

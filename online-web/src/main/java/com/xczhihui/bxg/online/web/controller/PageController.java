@@ -30,7 +30,7 @@ import com.xczhihui.course.vo.CourseLecturVo;
  * @date 2016-8-1 14:38:06
  */
 @Controller
-@RequestMapping(value = "/web")
+@RequestMapping
 public class PageController {
 
     @Autowired
@@ -56,28 +56,21 @@ public class PageController {
     @Autowired
     public IWatchHistoryService watchHistoryServiceImpl;
 
-    @RequestMapping(value = "/courseDetail/{courserId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/web/courseDetail/{courserId}", method = RequestMethod.GET)
     public ModelAndView courseDetail(@PathVariable String courserId, HttpServletRequest request, HttpServletResponse response) {
         ModelAndView mav = new ModelAndView("CourseDetail");
         mav.addObject("courserId", courserId);
         return mav;
     }
 
-    @RequestMapping(value = "/storyDetail/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/web/storyDetail/{id}", method = RequestMethod.GET)
     public ModelAndView storyDetail(@PathVariable String id, HttpServletRequest request, HttpServletResponse response) {
         ModelAndView mav = new ModelAndView("StoryDetail");
         mav.addObject("id", id);
         return mav;
     }
 
-    @RequestMapping(value = "/qusDetail/{qid}", method = RequestMethod.GET)
-    public ModelAndView qusDetail(@PathVariable String qid, HttpServletRequest request, HttpServletResponse response) {
-        ModelAndView mav = new ModelAndView("QusDetail");
-        mav.addObject("qid", qid);
-        return mav;
-    }
-
-    @RequestMapping(value = "/jumpMethod/{qid}/{type}/{loginname}", method = RequestMethod.GET)
+    @RequestMapping(value = "/web/jumpMethod/{qid}/{type}/{loginname}", method = RequestMethod.GET)
     public void jumpMethod(@PathVariable String qid, @PathVariable Integer type, @PathVariable String loginname, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = managerUserService.findUserByLoginName(loginname);
         //如果浏览器中获取有用户登录，接着在库里面查询此用户是管理员还是普通用户
@@ -103,7 +96,7 @@ public class PageController {
      * @param response
      * @return
      */
-    @RequestMapping(value = "/livepage/{courseId}/{roomId}/{planId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/web/livepage/{courseId}/{roomId}/{planId}", method = RequestMethod.GET)
     public ModelAndView livepage(@PathVariable String courseId, @PathVariable String roomId,
                                  @PathVariable String planId, HttpServletRequest request, HttpServletResponse response) {
         ModelAndView mv = liveService.livepage(courseId, request, response);
@@ -118,7 +111,7 @@ public class PageController {
      * @param response
      * @return
      */
-    @RequestMapping(value = "/livepage/{courseId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/web/livepage/{courseId}", method = RequestMethod.GET)
     public ModelAndView livepage(@PathVariable String courseId, HttpServletRequest request, HttpServletResponse response) {
         ModelAndView mv = liveService.livepage(courseId, request, response);
         return mv;
@@ -131,26 +124,25 @@ public class PageController {
      * @param courseId
      * @return
      */
-    @RequestMapping(value = "/liveCoursePage/{courseId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/web/liveCoursePage/{courseId}", method = RequestMethod.GET)
     public ModelAndView liveCoursePage(@PathVariable Integer courseId) {
 
         ModelAndView mv = null;
         BxgUser user = UserLoginUtil.getLoginUser();
         CourseLecturVo clv = null;
         if (user != null) {
-        	
+
             clv = courseService.selectUserCurrentCourseStatus(courseId, user.getId());
             //0：收费 1：免费 2：已购买
 
             //免费增加学习记录
-            if(clv.getWatchState() == 1) {
-            	watchHistoryServiceImpl.addLearnRecord(courseId, user.getId());
+            if (clv.getWatchState() == 1) {
+                watchHistoryServiceImpl.addLearnRecord(courseId, user.getId());
             }
-            
+
             //只有直播中的直接跳转  --》  直播间
             if ((clv.getWatchState() == 1 || clv.getWatchState() == 2)
-                    && clv.getType() == 3  && clv.getLineState() == 1) {
-            	
+                    && clv.getType() == 3 && clv.getLineState() == 1) {
                 mv = new ModelAndView("live_success_page");
 
                 mv.addObject("lecturerId", clv.getUserLecturerId());
@@ -172,7 +164,7 @@ public class PageController {
                 mv.addObject("host", host);
                 mv.addObject("rate", rate);
 
-                
+
             } else {
                 mv = new ModelAndView("redirect:/courses/" + courseId + "/info");
             }
@@ -182,6 +174,16 @@ public class PageController {
         }
 
         return mv;
+    }
+
+    /**
+     * 跳转至个人中心
+     *
+     * @return
+     */
+    @RequestMapping(value = "my", method = RequestMethod.GET)
+    public void my(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getRequestDispatcher("/web/html/personal-center/personal-index.html").forward(request, response);
     }
 
 

@@ -64,17 +64,6 @@ window.onload = function() {
 		'</div>' +
 		'</div></div>' +
 		'<div class="richText clearfix">' +
-		//		'<form method="post" id="xzform">' +
-		//		'<input type="hidden" name="question_id"  value="{{items.id}}" />' +
-		//		'<textarea id="editor" placeholder="在这里发表你的见解吧" autofocus maxlength="7000" name="content" style="width:746px;height:243px"></textarea>' +
-		//		'<input type="hidden" name="text" id="formtext" value="" />' +
-		//		'<input type="hidden" name="copyright" id="formright" value="false" />' +
-		//		'<div class="quanli">' +
-		//		'<div class="warning text-warn">请输入回答</div><div class="holdRright "></div><span>保留作者权利</span><img class="holdRightImg" src="../images/ansandqus/holdRightImg.png" alt=""/>' +
-		//		'<div class="rights-reserved-content1"><img src="../images/personcenter/baoliuTip.png" class="jian">用户在熊猫中医上发表的全部原创内容（包括但不限于提问，问答和评论），著作权均归用户本人所有。用户可授权第三方以任何方式使用，不需要得到熊猫中医的同意。</div>' +
-		//		'</div>' +
-		//		'<button class="releaseAns" data-id="{{items.id}}" type="button" style="border:0;">发布回答</button>' +
-		//		'</form>' +
 		'</div>' +
 		'</div>';
 
@@ -524,35 +513,16 @@ window.onload = function() {
 				"paddingBottom": "0px"
 			})
 		}
-//		$(".studentNameTiaozhuang").click(function() {
-//			var tag = $(this).html();
-//			window.localStorage.xueke = tag;
-//			window.localStorage.xuekeid = relative_mentId;
-//			window.open(bath + "/web/html/ansAndQus.html");
-//		});
-
-//		$(".biaoqian").click(function() {
-//				var tag = $(this).html();
-//				window.localStorage.biaoqian = tag;
-//				window.open(bath + '/web/html/ansAndQus.html');
-//			})
 			//保留作者权利
 		$(".tipMessage").click(function() {
 				$(".rights-reserved-content1").toggle()
 			})
-			//		$(".holdRright").click(function(){
-			//			$(".holdRightImg").toggle();
-			//		})
 		$(".holdRightImg").click(function(event) {
 			event.stopPropagation();
 			$(".rights-reserved-content1").toggle()
 		})
 		$(document).click(function() {
-				//			var e=e||event;
-				//			if(e.target.className!="holdRightImg"){
-				//			}else{
 				$(".rights-reserved-content1").hide()
-					//			}
 			})
 			//删除
 		$(".qingjian").unbind().click(function() {
@@ -565,7 +535,6 @@ window.onload = function() {
 					questionId: id
 				}, function(data) {
 					$(".payment-modal-close").trigger("click");
-//					location.href = "/web/html/ansAndQus.html"
 					if(data.resultObject=="操作成功！"){
 						window.location.reload();
 					}else{
@@ -713,7 +682,6 @@ window.onload = function() {
 			$("#xzform").unbind().submit(function() {
 				$("#xzform").ajaxSubmit(function(data) {
 					if(data.success == true) {
-						//					location.href=''+bath+"/web/html/ansAndQus.html";
 						$(".simditor-body").html("<p><br></p>");
 						$(".simditor-placeholder").css("display", "block");
 						$(".holdRright").removeClass("select");

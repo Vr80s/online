@@ -149,7 +149,7 @@ $(function() {
 							if(title.indexOf($(".qusTitle").val()!=-1)){
 								title=title.replace($(".qusTitle").val(),"<span style='color:#2cb82c;'>"+$(".qusTitle").val()+"</span>");
 							}
-							var url=''+bath+'/web/qusDetail/' +data.resultObject[i].id;
+							var url=''+bath+'/questions/' +data.resultObject[i].id;
 							var $p=$("<p  data-qusId='"+data.resultObject[i].id+"' data-url='"+url+"'><span class='sameT'>"+title+"</span><span class='sameA'>"+data.resultObject[i].answer_sum+"个回答</span></p>")
 							$(".sameQues").append($p);
 						}
@@ -207,7 +207,7 @@ $(function() {
 			$("#form").submit(function(){
 				$("#form").ajaxSubmit(function(data){
 					if(data.success==true){
-						location.href=''+bath+"/web/html/ansAndQus.html";
+						location.href=''+bath+"/questions";
 					}
 					return false;
 				})

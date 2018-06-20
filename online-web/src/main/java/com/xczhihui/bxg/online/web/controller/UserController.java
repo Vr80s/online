@@ -104,6 +104,9 @@ public class UserController extends OnlineBaseController {
     @ResponseBody
     public OnlineResponse isAlive(HttpServletRequest request) {
         BxgUser loginUser = UserLoginUtil.getLoginUser();
+        if(loginUser == null){
+            return OnlineResponse.newErrorOnlineResponse("未登录");
+        }
         return OnlineResponse.newSuccessOnlineResponse(service.isAlive(loginUser.getLoginName()));
     }
 

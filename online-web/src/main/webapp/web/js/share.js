@@ -18,7 +18,7 @@ $(function(){
     $(".pay-success-btn").click(function(){
         RequestService("/online/user/isAlive", "GET", "", function (data) {
             if(data.resultObject.shareCode=="" ||data.resultObject.shareCode==null){
-                window.location.href="/web/html/personal-center/personal-index.html?share=0";
+                window.location.href="/my?share=0";
             }else{
                 window.location.href="http://"+location.hostname+ourl;
             }

@@ -276,7 +276,7 @@ $(function() {
 		'</div>' +
 		'<div class="headRight">' +
 		'<div class="right1">' +
-		'<a class="title" href="/web/qusDetail/{{$value.id}}" target="_blank" title="{{$value.title}}" data-quesid="{{$value.id}}">{{$value.title}}</a>' +
+		'<a class="title" href="/questions/{{$value.id}}" target="_blank" title="{{$value.title}}" data-quesid="{{$value.id}}">{{$value.title}}</a>' +
 		'<p class="text dot5" title="{{$value.content}}">{{kongge($value.content)}}</p>' +
 		'</div>' +
 		'<div class="right2 clearfix">' +

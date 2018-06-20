@@ -134,7 +134,7 @@ $(function() {
 
 //暂无记录背景图
 var noDataImg= '<div class="no-data-img">'+
-					'<img src="../../images/icon-nodata.png"/>'+
+					'<img src="/web/images/icon-nodata.png"/>'+
 				'</div>'+
 				'<p>暂无记录</p>';
 				
