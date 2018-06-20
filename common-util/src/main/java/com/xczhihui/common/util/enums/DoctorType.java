@@ -13,6 +13,7 @@ import java.util.Map;
  **/
 public enum DoctorType {
 
+	
     MQNZY(1, "名青年中医"),
     MLZY(2, "名老中医"),
     SSMZZY(3, "少数民族中医"),
@@ -40,6 +41,22 @@ public enum DoctorType {
         }
         return list;
     }
+    
+    public static List<Map> getDoctorTypeListAddHot(){
+        List<Map> list = new ArrayList<Map>();
+        Map mh = new HashMap<>();
+        mh.put("code",0);
+        mh.put("value","热门医师");
+        list.add(mh);
+        for (DoctorType e : DoctorType.values()) {
+            Map m = new HashMap();
+            m.put("code",e.getCode());
+            m.put("value",e.getText());
+            list.add(m);
+        }
+        return list;
+    }
+    
 
     public static String getDoctorTypeText(int code){
         for (DoctorType e : DoctorType.values()) {

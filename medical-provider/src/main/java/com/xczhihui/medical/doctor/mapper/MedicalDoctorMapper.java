@@ -10,6 +10,7 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.medical.department.vo.MedicalDepartmentVO;
 import com.xczhihui.medical.doctor.model.MedicalDoctor;
+import com.xczhihui.medical.doctor.vo.DoctorQueryVo;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 import com.xczhihui.medical.doctor.vo.MedicalWritingVO;
 import com.xczhihui.medical.field.vo.MedicalFieldVO;
@@ -92,4 +93,6 @@ public interface MedicalDoctorMapper extends BaseMapper<MedicalDoctor> {
     List<MedicalDoctorVO> selectRandomDoctorByType(@Param("type") String type, @Param("offset") int offset, @Param("row") int row);
 
 	List<MedicalDoctorVO> selectDoctorCouserByAccountId(@Param("offset")Integer offset,@Param("rows")Integer rows);
+
+	List<MedicalDoctorVO> selectDoctorListByQueryKey(@Param("page")Page<MedicalDoctorVO> page, @Param("dqv")DoctorQueryVo dqv);
 }

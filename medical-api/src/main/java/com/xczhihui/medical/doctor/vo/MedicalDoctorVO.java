@@ -138,7 +138,7 @@ public class MedicalDoctorVO implements Serializable{
 	private String gradeName;
 	private String courseId;
 	
-	
+	private String hospitalAddress;
 
 	public String getDepartmentText() {
 		return departmentText;
@@ -361,6 +361,15 @@ public class MedicalDoctorVO implements Serializable{
 
 	public void setCourseId(String courseId) {
 		this.courseId = courseId;
+	}
+
+	
+	public String getHospitalAddress() {
+		return hospitalAddress;
+	}
+
+	public void setHospitalAddress(String hospitalAddress) {
+		this.hospitalAddress = hospitalAddress;
 	}
 
 	@Override

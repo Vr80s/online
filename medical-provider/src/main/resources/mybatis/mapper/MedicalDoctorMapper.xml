@@ -26,7 +26,8 @@
         md.*,
         md.`work_time` workTime,
         mdai.head_portrait headPortrait,
-        mh.`name` hospitalName
+        mh.`name` hospitalName,
+        mh.`detailed_address` hospitalAddress
 
         FROM
         medical_doctor md
@@ -55,7 +56,7 @@
         <if test="name != null and name!=''">
             and md.name like concat('%',#{name},'%')
         </if>
-        ORDER BY CONVERT(md.`name` USING gbk) ASC
+        ORDER BY md.recommend_sort desc,CONVERT(md.`name` USING gbk) ASC
     </select>
 
     <select id="selectDoctorById" resultType="com.xczhihui.medical.doctor.vo.MedicalDoctorVO">
@@ -484,6 +485,68 @@
 	        AND md.status = 1
         ORDER BY md.`recommend_sort`desc
         LIMIT #{offset},#{rows}
+    </select>
+    
+    
+    
+     <!-- 多条件查询医师  -->
+     
+     <select id="selectDoctorListByQueryKey" resultType="com.xczhihui.medical.doctor.vo.MedicalDoctorVO">
+       
+        SELECT
+	        md.*,
+	        md.`work_time` workTime,
+	        mdai.head_portrait headPortrait,
+	        mh.`name` hospitalName
+
+        FROM
+        medical_doctor md
+        <if test="dqv.field != null and dqv.field!=''">
+            join medical_doctor_field mdf on md.id = mdf.doctor_id and mdf.`field_id`=#{dqv.field}
+        </if>
+        <if test="dqv.departmentId != null and dqv.departmentId!=''">
+            join medical_doctor_department mdd on md.id = mdd.doctor_id and mdd.`department_id`=#{dqv.departmentId}
+        		and mdd.`deleted`=0
+        </if>
+        LEFT JOIN `medical_doctor_authentication_information` mdai
+        ON md.`authentication_information_id` = mdai.`id`
+        LEFT JOIN `medical_hospital_doctor` mhd
+        ON mhd.`doctor_id` = md.`id`
+        AND mhd.`deleted`=0
+        LEFT JOIN `medical_hospital` mh
+        ON mhd.`hospital_id` = mh.`id`
+        WHERE md.deleted = 0
+        AND md.status = 1
+        <if test="dqv.type != null and dqv.type != ''">
+            and md.type = #{dqv.type}
+        </if>
+        <if test="dqv.hospitalId != null and dqv.hospitalId!=''">
+            and mh.id = #{dqv.hospitalId}
+        </if>
+        <if test="dqv.queryKey != null and dqv.queryKey!='' ">
+            and ( 
+	            md.name like concat('%',#{dqv.queryKey},'%')
+	            or  
+	            md.title like concat('%',#{dqv.queryKey},'%')
+	            or
+	            mh.`name` like concat('%',#{dqv.queryKey},'%')
+	            or
+	            mh.`detailed_address` like concat('%',#{dqv.queryKey},'%')
+            )
+        </if>
+        <choose>
+        	<!-- 推荐排序-->
+	        <when test="dqv.sortType == 1 " >
+	            order by  md.recommend_sort desc,CONVERT(md.`name` USING gbk) ASC
+	        </when> 
+			<!-- 人气最高 -->
+	        <when test="dqv.sortType == 2 ">
+	            order by    md.recommend_sort desc,CONVERT(md.`name` USING gbk) ASC
+	        </when> 
+	        <otherwise>
+               order by  md.recommend_sort desc,CONVERT(md.`name` USING gbk) ASC
+	        </otherwise>   
+	    </choose>   
     </select>
     
 </mapper>
