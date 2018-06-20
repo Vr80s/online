@@ -33,6 +33,7 @@ import com.xczhihui.medical.doctor.model.MedicalDoctorAuthenticationInformation;
 import com.xczhihui.medical.doctor.model.MedicalDoctorDepartment;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorDepartmentService;
+import com.xczhihui.medical.doctor.vo.DoctorQueryVo;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorAuthenticationInformationVO;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 import com.xczhihui.medical.doctor.vo.MedicalWritingVO;
@@ -696,6 +697,14 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
 	@Override
 	public List<MedicalDoctorVO> selectDoctorCouserByAccountId(Integer pageNumber, Integer pageSize) {
         return  medicalDoctorMapper.selectDoctorCouserByAccountId(pageNumber,pageSize);
+	}
+
+	@Override
+	public Page<MedicalDoctorVO> selectDoctorListByQueryKey(Page<MedicalDoctorVO> page, 
+			DoctorQueryVo dqv) {
+		
+		List<MedicalDoctorVO> records =  medicalDoctorMapper.selectDoctorListByQueryKey(page,dqv);
+		return page.setRecords(records);
 	}
 
 }

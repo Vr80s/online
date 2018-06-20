@@ -23,6 +23,7 @@ import com.xczhihui.medical.department.service.IMedicalDepartmentService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorArticleService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorWritingService;
+import com.xczhihui.medical.doctor.vo.DoctorQueryVo;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 
 /**
@@ -47,7 +48,6 @@ public class DoctorController{
      */
     @RequestMapping("category")
     public ResponseObject category() {
-    	
 
         Page<MedicalDoctorVO> page = new Page<>();
         page.setCurrent(1);
@@ -55,21 +55,22 @@ public class DoctorController{
         
         Map<String,Object> mapAll = new HashMap<String,Object>();
         
-        
         Map<String,Object> map = new HashMap<String,Object>();
         Page<MedicalDoctorVO> doctors0 = medicalDoctorBusinessService.selectDoctorPage(page, null, null, null, null, null);
-       
         if(doctors0!=null && doctors0.getSize()>0) {
-	    	  map.put("type", "");
+	    	  map.put("type", 0);
 	          map.put("text", "热门中医");
 	          map.put("doctors", doctors0.getRecords());
+	          mapAll.put("HOT", map);
         }
-      
+        /**
+         * 循环枚举进行查询
+         */
         List<Map> listMap = DoctorType.getDoctorTypeList();
-        
         for (int i = 0; i < listMap.size(); i++) {
         	Map  maps = listMap.get(i);
         	Integer code = (Integer) maps.get("code");
+        	String text =  (String) maps.get("text");
         	
         	Page<MedicalDoctorVO> doctors = medicalDoctorBusinessService.selectDoctorPage(page, 
         			 code, null, null, null, null);
@@ -77,65 +78,36 @@ public class DoctorController{
         		Map<String,Object> mapDoctors = new HashMap<String,Object>();
         		
         		
+        		Map<String,Object> map1 = new HashMap<String,Object>();
+    	        map1.put("code", code);
+    	        map1.put("text", text);
+    	        map1.put("doctors", doctors.getRecords());
+    	        if(code != null && code.equals(1)) {
+    	        	  mapAll.put("MQNZY", map1);
+    	        }else if(code != null && code.equals(2)) {
+    	        	 mapAll.put("SSMZZY", map1);
+    	        }else if(code != null && code.equals(3)) {
+    	        	 mapAll.put("GYDS", map1);
+    	        }else if(code != null && code.equals(4)) {
+    	        	 mapAll.put("GZY", map1);
+    	        }
         	}
-        	
 		}
-        
-        
-        Map<String,Object> map1 = new HashMap<String,Object>();
-        Page<MedicalDoctorVO> doctors1 = medicalDoctorBusinessService.selectDoctorPage(page, 
-        		DoctorType.MQNZY.getCode(), null, null, null, null);
-        map1.put("code", DoctorType.MQNZY.getCode());
-        map1.put("text", DoctorType.MQNZY.getText());
-        map1.put("doctors", doctors1.getRecords());
-        
-        
-        Map<String,Object> map2 = new HashMap<String,Object>();
-        Page<MedicalDoctorVO> doctors2 = medicalDoctorBusinessService.selectDoctorPage(page, DoctorType.MLZY.getCode(), null, null, null, null);
-        map2.put("code", DoctorType.MLZY.getCode());
-        map2.put("text",  DoctorType.MLZY.getText());
-        map2.put("doctors", doctors2.getRecords());
-        
-        
-        Map<String,Object> map3 = new HashMap<String,Object>();
-        Page<MedicalDoctorVO> doctors3 = medicalDoctorBusinessService.selectDoctorPage(page, DoctorType.SSMZZY.getCode(), null, null, null, null);
-        map3.put("code", DoctorType.SSMZZY.getCode());
-        map3.put("text", DoctorType.SSMZZY.getText());
-        map3.put("doctors", doctors3.getRecords());
-        
-        
-        Map<String,Object> map4 = new HashMap<String,Object>();
-        Page<MedicalDoctorVO> doctors4 = medicalDoctorBusinessService.selectDoctorPage(page, DoctorType.GYDS.getCode(), null, null, null, null);
-        map4.put("code", DoctorType.GYDS.getCode());
-        map4.put("text", DoctorType.GYDS.getText());
-        map4.put("doctors", doctors4.getRecords());
-        
-        Map<String,Object> map5 = new HashMap<String,Object>();
-        Page<MedicalDoctorVO> doctors5 = medicalDoctorBusinessService.selectDoctorPage(page, DoctorType.GZY.getCode(), null, null, null, null);
-        map5.put("code", DoctorType.GZY.getCode());
-        map5.put("text", DoctorType.GZY.getText());
-        map5.put("doctors", doctors5.getRecords());
-        
-        mapAll.put("HOT", map);
-        mapAll.put("MQNZY", map1);
-        mapAll.put("SSMZZY", map2);
-        mapAll.put("GYDS", map3);
-        mapAll.put("GZY", map4);
-        
         return ResponseObject.newSuccessResponseObject(mapAll);
     }
 
 
-    @SuppressWarnings("unchecked")
 	@RequestMapping(value = "list")
     public ResponseObject list(@RequestParam(value = "page", required = false) 
-    		Integer current, Integer size, Integer type, 
-    	    String hospitalId, String name, 
-    	    String field, String departmentId) {
-        current = current == null ? 1 : current;
-        size = size == null ? 10 : size;
-
-        Page<MedicalDoctorVO> doctors = medicalDoctorBusinessService.selectDoctorPage(new Page(current, size), type, hospitalId, name, field, departmentId);
+    		Integer pageNumber, Integer pageSize, 
+    		DoctorQueryVo dqv) {
+    	
+		pageNumber = pageNumber == null ? 1 : pageNumber;
+		pageSize = pageSize == null ? 10 : pageSize;
+        
+        Page<MedicalDoctorVO> doctors = medicalDoctorBusinessService.
+        		selectDoctorListByQueryKey(new Page<MedicalDoctorVO>(pageNumber, pageSize),dqv);
+       
         return ResponseObject.newSuccessResponseObject(doctors.getRecords());
     }
     /**
@@ -143,12 +115,12 @@ public class DoctorController{
 	 */
 	@RequestMapping("screen")
 	public ResponseObject schoolClass(HttpServletRequest req,
-									  HttpServletResponse res)
+		  HttpServletResponse res)
 			throws Exception {
 
         Map<String,Object> mapAll = new HashMap<String,Object>();
 		//名医类型
-		List<Map> getDoctorTypeList = DoctorType.getDoctorTypeList();
+		List<Map> getDoctorTypeList = DoctorType.getDoctorTypeListAddHot();
 		mapAll.put("doctorTypes", getDoctorTypeList);
 		//科室
 		Page page = new Page(0, Integer.MAX_VALUE);
