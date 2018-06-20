@@ -119,6 +119,11 @@ public class DoctorController{
 		pageNumber = pageNumber == null ? 1 : pageNumber;
 		pageSize = pageSize == null ? 10 : pageSize;
         
+		if() {
+			
+		}
+		
+		
         Page<MedicalDoctorVO> doctors = medicalDoctorBusinessService.
         		selectDoctorListByQueryKey(new Page<MedicalDoctorVO>(pageNumber, pageSize),dqv);
        
