@@ -1,9 +1,15 @@
 package com.xczhihui.user.dao;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
@@ -145,5 +151,32 @@ public class OnlineUserDao extends HibernateDao<OnlineUser> {
         List<Map<String, Object>> list = this.getNamedParameterJdbcTemplate()
                 .getJdbcOperations().queryForList(sql);
         return list;
+    }
+
+    public Integer countUser() {
+        MapSqlParameterSource sqlParameterSource = new MapSqlParameterSource();
+        return this.getNamedParameterJdbcTemplate().query("select count(id) as cnt from oe_user", sqlParameterSource, new ResultSetExtractor<Integer>() {
+            @Override
+            public Integer extractData(ResultSet rs) throws SQLException, DataAccessException {
+                while (rs.next()) {
+                    return rs.getInt("cnt");
+                }
+                return 0;
+            }
+        });
+    }
+
+    public List<OnlineUser> findByPage(int offset, int size) {
+        MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
+        mapSqlParameterSource.addValue("offset", offset).addValue("size", size);
+        String sql = "select * from oe_user order by create_time desc limit :offset,:size";
+        return this.getNamedParameterJdbcTemplate().query(sql, mapSqlParameterSource, BeanPropertyRowMapper.newInstance(OnlineUser.class));
+    }
+
+    public List<OnlineUser> findByUsername(List<String> usernameList) {
+        MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
+        mapSqlParameterSource.addValue("usernameList", usernameList);
+        String sql = "select * from oe_user where login_name in (:usernameList)";
+        return this.getNamedParameterJdbcTemplate().query(sql, mapSqlParameterSource, BeanPropertyRowMapper.newInstance(OnlineUser.class));
     }
 }

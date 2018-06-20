@@ -1,5 +1,6 @@
 package com.xczh.consumer.market.controller.user;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,8 +25,9 @@ public class MessageController {
     public ResponseObject list(@Account String accountId, @RequestParam(name = "page", defaultValue = "1") int page, @RequestParam(defaultValue = "10") int size) {
         Page<Message> messages = commonMessageService.list(page, size, accountId);
         messages.getRecords().forEach(message -> {
-                    message.setUrl(MultiUrlHelper.getUrl(message.getRouteType(), MultiUrlHelper.URL_TYPE_APP, message.getDetailId()));
-                    message.setTitle(Message.SYSTEM_MESSAGE_TITLE);
+                    message.setUrl(MultiUrlHelper.getUrl(message.getRouteType(),
+                            MultiUrlHelper.URL_TYPE_APP, message.getDetailId(), message.getOuterLink()));
+                    message.setTitle(StringUtils.isNotBlank(message.getTitle()) ? message.getTitle() : Message.SYSTEM_MESSAGE_TITLE);
                 }
         );
         commonMessageService.updateReadStatus(null, accountId);

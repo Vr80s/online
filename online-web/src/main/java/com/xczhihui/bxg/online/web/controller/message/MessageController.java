@@ -26,7 +26,7 @@ public class MessageController extends AbstractController {
     public ResponseObject list(@RequestParam(defaultValue = "1") int page,
                                @RequestParam(defaultValue = "10") int size) {
         Page<Message> list = commonMessageService.list(page, size, getUserId());
-        list.getRecords().forEach(message -> message.setUrl(MultiUrlHelper.getUrl(message.getRouteType(), MultiUrlHelper.URL_TYPE_WEB, message.getDetailId())));
+        list.getRecords().forEach(message -> message.setUrl(MultiUrlHelper.getUrl(message.getRouteType(), MultiUrlHelper.URL_TYPE_WEB, message.getDetailId(), message.getOuterLink())));
         return ResponseObject.newSuccessResponseObject(list);
     }
 

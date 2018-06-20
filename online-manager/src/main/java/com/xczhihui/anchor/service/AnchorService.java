@@ -1,5 +1,7 @@
 package com.xczhihui.anchor.service;
 
+import java.util.List;
+
 import com.xczhihui.anchor.vo.AnchorIncomeVO;
 import com.xczhihui.bxg.online.common.domain.CourseAnchor;
 import com.xczhihui.common.util.bean.Page;
@@ -65,4 +67,14 @@ public interface AnchorService {
      * @param learned 是否上课
      */
     void updateLearned(String id, boolean learned);
+
+    /**
+     * 主播类型
+     *
+     * @param type type
+     * @return
+     */
+    List<CourseAnchor> list(Integer type);
+
+    CourseAnchor findByUserId(String userId);
 }

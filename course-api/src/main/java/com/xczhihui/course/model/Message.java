@@ -63,6 +63,9 @@ public class Message implements Serializable {
     @TableField("detail_id")
     private String detailId;
 
+    @TableField("outer_link")
+    private String outerLink;
+
     @TableField(exist = false)
     private String url;
 
@@ -176,5 +179,13 @@ public class Message implements Serializable {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getOuterLink() {
+        return outerLink;
+    }
+
+    public void setOuterLink(String outerLink) {
+        this.outerLink = outerLink;
     }
 }
