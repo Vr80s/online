@@ -50,9 +50,6 @@ public class CourseController {
     private OnlineWebService onlineWebService;
 
     @Autowired
-    private ILineApplyService lineApplyService;
-
-    @Autowired
     private IMobileBannerService mobileBannerService;
     
 

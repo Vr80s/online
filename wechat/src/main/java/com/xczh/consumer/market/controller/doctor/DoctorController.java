@@ -65,7 +65,7 @@ public class DoctorController{
         Map<String,Object> map = new HashMap<String,Object>();
         Page<MedicalDoctorVO> doctors0 = medicalDoctorBusinessService.selectDoctorPage(page, null, null, null, null, null);
         if(doctors0!=null && doctors0.getSize()>0) {
-	    	  map.put("type", 0);
+	    	  map.put("code", 0);
 	          map.put("text", "热门中医");
 	          map.put("doctors", doctors0.getRecords());
 	          mapAll.put("HOT", map);
