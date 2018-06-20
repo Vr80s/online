@@ -7,6 +7,7 @@ import com.xczhihui.medical.department.model.MedicalDepartment;
 import com.xczhihui.medical.department.vo.MedicalDepartmentVO;
 import com.xczhihui.medical.doctor.model.MedicalDoctor;
 import com.xczhihui.medical.doctor.model.MedicalDoctorAccount;
+import com.xczhihui.medical.doctor.vo.DoctorQueryVo;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 import com.xczhihui.medical.doctor.vo.MedicalWritingVO;
 import com.xczhihui.medical.doctor.vo.OeBxsArticleVO;
@@ -161,4 +162,6 @@ public interface IMedicalDoctorBusinessService {
 	 * @return
 	 */
     List<MedicalDoctorVO>  selectDoctorCouserByAccountId(Integer pageNumber, Integer pageSize);
+
+	public Page<MedicalDoctorVO> selectDoctorListByQueryKey(Page<MedicalDoctorVO> page, DoctorQueryVo dqv);
 }

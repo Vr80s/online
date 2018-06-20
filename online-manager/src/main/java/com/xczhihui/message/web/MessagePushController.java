@@ -1,8 +1,8 @@
 package com.xczhihui.message.web;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,28 +11,27 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.xczhihui.anchor.service.AnchorService;
+import com.xczhihui.bxg.online.common.domain.CourseAnchor;
 import com.xczhihui.bxg.online.common.domain.MessageRecord;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.util.bean.ResponseObject;
-import com.xczhihui.common.web.UserVo;
-import com.xczhihui.course.enums.MessageTypeEnum;
 import com.xczhihui.course.enums.RouteTypeEnum;
-import com.xczhihui.course.params.BaseMessage;
+import com.xczhihui.course.service.CourseService;
 import com.xczhihui.course.service.ICommonMessageService;
+import com.xczhihui.course.vo.CourseVo;
+import com.xczhihui.course.vo.MenuVo;
+import com.xczhihui.menu.service.CommonMenuService;
+import com.xczhihui.message.body.MessageBody;
 import com.xczhihui.message.service.MessageService;
 import com.xczhihui.message.vo.MessageVo;
-import com.xczhihui.support.shiro.ManagerUserUtil;
 import com.xczhihui.user.service.UserService;
-import com.xczhihui.utils.Group;
-import com.xczhihui.utils.Groups;
 import com.xczhihui.utils.TableVo;
-import com.xczhihui.utils.Tools;
 
 /**
  * 消息管理控制器
@@ -58,6 +57,12 @@ public class MessagePushController {
 
     @Autowired
     private ICommonMessageService commonMessageService;
+    @Autowired
+    private CommonMenuService commonMenuService;
+    @Autowired
+    private AnchorService anchorService;
+    @Autowired
+    private CourseService courseService;
 
     /**
      * 跳转到页面
@@ -67,22 +72,11 @@ public class MessagePushController {
     @RequestMapping(value = "/index")
     public ModelAndView index() {
         ModelAndView mav = new ModelAndView("message/messagePush");
+        List<MenuVo> list = commonMenuService.list();
+        mav.addObject("menus", list);
+        mav.addObject("courses", courseService.listByMenuId(list.get(0).getId()));
+        mav.addObject("anchors", anchorService.list(1));
         return mav;
-    }
-
-    /**
-     * 返回所有用户信息
-     *
-     * @param request 请求对象
-     * @return 所有用户信息
-     */
-    @RequestMapping(value = "userlist")
-    @ResponseBody
-    public ResponseObject findUsers(HttpServletRequest request) {
-        ResponseObject responseObj = new ResponseObject();
-        List<UserVo> users = userService.findAll();
-        responseObj.setResultObject(users);
-        return responseObj;
     }
 
     /**
@@ -97,75 +91,37 @@ public class MessagePushController {
         int pageSize = tableVo.getiDisplayLength();
         int index = tableVo.getiDisplayStart();
         int pageNumber = index / pageSize + 1;
-        String params = tableVo.getsSearch();
-        Groups groups = Tools.filterGroup(params);
         MessageVo searchMessageVo = new MessageVo();
 
-        Page<MessageVo> page = messageService.findPageMessages(searchMessageVo, pageNumber,
+        Page<MessageRecord> page = messageService.findPageMessages(searchMessageVo, pageNumber,
                 pageSize);
-        int total = page.getTotalCount();
-        tableVo.setAaData(page.getItems());
-        tableVo.setiTotalDisplayRecords(total);
-        tableVo.setiTotalRecords(total);
-        return tableVo;
-    }
-
-    /**
-     * 批量删除常量
-     *
-     * @param ids id列表
-     * @return 响应对象
-     */
-    @RequestMapping(value = "deleteBatch", method = RequestMethod.POST)
-    @ResponseBody
-    public Object deleteBatch(String ids) {
-        ResponseObject responseObj = new ResponseObject();
-        try {
-            String[] idArr = ids.split(",");
-            messageService.deleteBatch(idArr);
-            responseObj.setSuccess(true);
-            responseObj.setErrorMessage("操作成功");
-        } catch (Exception e) {
-            this.logger.error(e.getMessage());
-            responseObj.setSuccess(false);
-            responseObj.setErrorMessage("操作失败");
-        }
-        return responseObj;
-    }
-
-    /**
-     * 加载制定菜单下的视频
-     *
-     * @param userId  用户编号
-     * @param tableVo 表格对象
-     * @return 表格对象
-     */
-    @RequestMapping(value = "load/user/{userId}/messages")
-    @ResponseBody
-    public TableVo loadVideoByMenu(@PathVariable String userId, TableVo tableVo) {
-        if (StringUtils.isNotEmpty(userId)) {
-            int pageSize = tableVo.getiDisplayLength();
-            int index = tableVo.getiDisplayStart();
-            int pageNumber = index / pageSize + 1;
-            String params = tableVo.getsSearch();
-            Groups groups = Tools.filterGroup(params);
-            String vNameOrCreater = "";
-            for (Group g : groups.getGroupList()) {
-                if ("vNameOrCreater".equals(g.getPropertyName())) {
-                    vNameOrCreater = g.getPropertyValue1().toString();
+        List<MessageRecord> records = page.getItems().stream().map(messageVo -> {
+            String routeType = messageVo.getRouteType();
+            if (StringUtils.isNotBlank(routeType)) {
+                String detailId = messageVo.getDetailId();
+                if (StringUtils.isNotBlank(detailId)) {
+                    if (routeType.equals(RouteTypeEnum.COMMON_COURSE_DETAIL_PAGE.name())) {
+                        CourseVo course = courseService.getCourseById(Integer.parseInt(detailId));
+                        if (course != null) {
+                            messageVo.setCourse(course.getCourseName());
+                        }
+                    } else if (routeType.equals(RouteTypeEnum.ANCHOR_INDEX.name())) {
+                        CourseAnchor courseAnchor = anchorService.findByUserId(detailId);
+                        if (courseAnchor != null) {
+                            messageVo.setCourse(courseAnchor.getName());
+                        }
+                    }
+                }
+                if (StringUtils.isNotBlank(messageVo.getUrl()) && routeType.equals(RouteTypeEnum.H5.name())) {
+                    messageVo.setCourse(messageVo.getUrl());
                 }
             }
-            UserVo userVo = new UserVo();
-            userVo.setId(userId);
-            Page<MessageVo> page = messageService.findPageMessagesByUser(userVo, vNameOrCreater, pageNumber,
-                    pageSize);
-
-            int total = page.getTotalCount();
-            tableVo.setAaData(page.getItems());
-            tableVo.setiTotalDisplayRecords(total);
-            tableVo.setiTotalRecords(total);
-        }
-
+            return messageVo;
+        }).collect(Collectors.toList());
+        int total = page.getTotalCount();
+        tableVo.setAaData(records);
+        tableVo.setiTotalDisplayRecords(total);
+        tableVo.setiTotalRecords(total);
         return tableVo;
     }
 
@@ -178,12 +134,35 @@ public class MessagePushController {
      */
     @RequestMapping(value = "delete/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseObject deleteById(@PathVariable String id, HttpServletRequest request) {
+    public ResponseObject deleteById(@PathVariable Integer id, HttpServletRequest request) {
         ResponseObject responseObj = new ResponseObject();
+        try {
+            messageService.deleteMessageRecord(id);
+            responseObj.setSuccess(true);
+            responseObj.setErrorMessage("操作成功");
+            return responseObj;
+        } catch (Exception e) {
+            this.logger.error(e.getMessage());
+        }
+        responseObj.setSuccess(false);
+        responseObj.setErrorMessage("操作失败");
+        return responseObj;
+    }
 
+    /**
+     * 删除消息
+     *
+     * @param id      编号
+     * @param request 请求对象
+     * @return 响应对象
+     */
+    @RequestMapping(value = "updateStatus/{id}", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseObject updateStatus(@PathVariable String id, HttpServletRequest request) {
+        ResponseObject responseObj = new ResponseObject();
         try {
             if (StringUtils.isNotEmpty(id)) {
-                messageService.deleteById(id);
+                messageService.updateStatus(id);
                 responseObj.setSuccess(true);
                 responseObj.setErrorMessage("操作成功");
                 return responseObj;
@@ -196,44 +175,37 @@ public class MessagePushController {
         return responseObj;
     }
 
-    /**
-     * 保存消息推送信息
-     *
-     * @param messageVo 消息对象
-     * @return 响应对象
-     * @throws InvocationTargetException
-     * @throws IllegalAccessException
-     */
-    @RequestMapping(value = "save")
+    @RequestMapping(value = "doctorAnchor", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseObject save(HttpServletRequest request, MessageVo messageVo) throws IllegalAccessException, InvocationTargetException {
-        ResponseObject responseObj = new ResponseObject();
-        String userIdList = messageVo.getUserIdList();
-        String[] strs = userIdList.split(",");
-        for (int i = 0, len = strs.length; i < len; i++) {
-            String userId = strs[i];
-            commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.SYSYTEM.getVal())
-                    .buildWeb(messageVo.getContext())
-                    .build(userId, RouteTypeEnum.NONE, ManagerUserUtil.getId()));
+    public ResponseObject getDoctorAnchor() {
+        return ResponseObject.newSuccessResponseObject(anchorService.list(1));
+    }
+
+    @RequestMapping(value = "course", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseObject findCourseByMenuId(@RequestParam String menuId) {
+        return ResponseObject.newSuccessResponseObject(courseService.listByMenuId(menuId));
+    }
+
+    @RequestMapping(value = "save", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseObject saveMessage(HttpServletRequest request) {
+        MessageBody messageBody = new MessageBody();
+        messageBody.setContent(request.getParameter("content"));
+        messageBody.setDetailId(request.getParameter("detailId"));
+        messageBody.setPushTime(request.getParameter("pushTime"));
+        messageBody.setRouteType(request.getParameter("routeType"));
+        messageBody.setTitle(request.getParameter("title"));
+        messageBody.setUrl(request.getParameter("url"));
+        messageBody.setPushType(Integer.parseInt(request.getParameter("pushType")));
+        if (request.getContentType().contains("multipart/form-data")) {
+            MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
+            Iterator<String> fileNames = multipartHttpServletRequest.getFileNames();
+            if (fileNames.hasNext()) {
+                messageBody.setPushUserFile(multipartHttpServletRequest.getFile(fileNames.next()));
+            }
         }
-        if (strs.length == 0) {
-            responseObj.setSuccess(false);
-            responseObj.setErrorMessage("没有用户，请重试！");
-            return responseObj;
-        }
-        MessageRecord messageRecord = new MessageRecord();
-        messageRecord.setContext(messageVo.getContext());
-        messageRecord.setCreateTime(new Date());
-        messageRecord.setCreatePerson(ManagerUserUtil.getName());
-        messageRecord.setPushTime(messageVo.getPushTime());
-        messageRecord.setPushType(messageVo.getPushType());
-        messageRecord.setPushAction(messageVo.getPushAction());
-        messageRecord.setUrl(messageVo.getUrl());
-        messageRecord.setPushCount(0);
-        messageRecord.setUserCount(strs.length);
-        messageService.saveMessageRecord(messageRecord);
-        responseObj.setSuccess(true);
-        responseObj.setErrorMessage("操作成功");
-        return responseObj;
+        messageService.savePushMessageRecord(messageBody);
+        return ResponseObject.newSuccessResponseObject();
     }
 }

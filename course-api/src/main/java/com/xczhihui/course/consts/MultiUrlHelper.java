@@ -1,8 +1,12 @@
 package com.xczhihui.course.consts;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.apache.commons.lang3.StringUtils;
 
 import com.google.common.collect.ImmutableMap;
 import com.xczhihui.course.enums.RouteTypeEnum;
@@ -39,6 +43,8 @@ public class MultiUrlHelper {
             URL_TYPE_WEB, WEB_COURSE_DETAIL,
             URL_TYPE_MOBILE, "/xcview/html/live_audio.html?my_study={0}");
 
+    private static Map<String, String> courseDetailUrlMap =
+            ImmutableMap.of(URL_TYPE_APP, APP_COURSE_DETAIL, URL_TYPE_WEB, WEB_COURSE_DETAIL);
 
     private static Map<String, String> doctorApproveUrlMap = ImmutableMap.of(
             URL_TYPE_APP, "xczh://ipandatcm.com/anchorApprove?type=1",
@@ -82,6 +88,11 @@ public class MultiUrlHelper {
     private static Map<String, String> questionMap = ImmutableMap.of(
             URL_TYPE_WEB, "/questions/{0}"
     );
+    private static Map<String, String> anchorIndexMap = ImmutableMap.of(
+            URL_TYPE_APP, "xczh://ipandatcm.com/anchorIndex?id={0}",
+            URL_TYPE_WEB, "/anchors/{0}/courses");
+    private static Map<String, String> h5Map = ImmutableMap.of(
+            URL_TYPE_APP, "xczh://ipandatcm.com/h5?url={0}");
 
     static {
         urlMap.put(RouteTypeEnum.COLLECTION_COURSE_DETAIL_PAGE.name(), collectionCourseDetailUrlMap);
@@ -99,23 +110,35 @@ public class MultiUrlHelper {
         urlMap.put(RouteTypeEnum.AUDIO_COURSE_LIST.name(), audioCourseListMap);
         urlMap.put(RouteTypeEnum.ARTICLE_DETAIL.name(), articleMap);
         urlMap.put(RouteTypeEnum.QUESTION_DETAIL.name(), questionMap);
+        urlMap.put(RouteTypeEnum.ANCHOR_INDEX.name(), anchorIndexMap);
+        urlMap.put(RouteTypeEnum.H5.name(), h5Map);
+        urlMap.put(RouteTypeEnum.COMMON_COURSE_DETAIL_PAGE.name(), courseDetailUrlMap);
     }
 
-    public static String getUrl(String routeType, String source) {
-        Map<String, String> urlMap = MultiUrlHelper.urlMap.get(routeType);
-        if (urlMap != null) {
-            return urlMap.get(source);
-        } else {
-            return "";
-        }
-    }
-
-    public static String getUrl(String routeType, String source, String detailId) {
+    public static String getUrl(String routeType, String source, String detailId, String link) {
         String url = null;
         if (routeType != null && !routeType.equals(RouteTypeEnum.NONE.name())) {
-            url = MultiUrlHelper.getUrl(routeType, source);
-            if (url != null && detailId != null) {
-                url = MessageFormat.format(url, detailId);
+            Map<String, String> urlMap = MultiUrlHelper.urlMap.get(routeType);
+            if (routeType.equals(RouteTypeEnum.H5.name())) {
+                if (StringUtils.isBlank(link)) {
+                    return "";
+                }
+                if (URL_TYPE_WEB.equals(source) || URL_TYPE_MOBILE.equals(source)) {
+                    return link;
+                } else {
+                    String format = urlMap.get(source);
+                    try {
+                        return MessageFormat.format(format, URLEncoder.encode(link, "UTF-8"));
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                        return "";
+                    }
+                }
+            } else {
+                url = urlMap.get(source);
+                if (url != null && detailId != null) {
+                    url = MessageFormat.format(url, detailId);
+                }
             }
         }
         return url;

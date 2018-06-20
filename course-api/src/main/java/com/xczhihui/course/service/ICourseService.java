@@ -73,7 +73,8 @@ public interface ICourseService {
      */
     public Page<CourseLecturVo> selectLecturerAllCourse(Page<CourseLecturVo> page, String lecturerId);
 
-    Page<CourseLecturVo> selectLecturerAllCourse(Page<CourseLecturVo> page, String lecturerId, boolean onlyFree);
+    Page<CourseLecturVo> selectLecturerAllCourse(Page<CourseLecturVo> page, 
+    		String lecturerId,Integer type, boolean onlyFree);
 
     /**
      * Description：查找用户控制台的课程数据
@@ -231,4 +232,5 @@ public interface ICourseService {
      * @return
      */
     Page<Map<String, Object>> selectOfflineCourseByAnchorId(String anchorId);
+
 }

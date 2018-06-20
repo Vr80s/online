@@ -331,9 +331,17 @@ public class MobileShareController {
                 res.sendRedirect(returnOpenidUri + WechatShareLinkType.LIVE_PERSONAL.getLink()+shareId);
             }else if(ShareType.APPRENTICE_SHARE.getCode().equals(shareType)) {
             	res.sendRedirect(returnOpenidUri + WechatShareLinkType.APPRENTICE.getLink()+shareId);
-            }else {
+            
+            }else if(ShareType.DOCDOT_SHARE.getCode().equals(shareType)){
             	
-            	res.sendRedirect(returnOpenidUri +WechatShareLinkType.HOME_PAGE.getLink());
+            	res.sendRedirect(returnOpenidUri +WechatShareLinkType.DOCDOT_SHARE.getLink());
+            }else if(ShareType.ACTICLE_SHARE.getCode().equals(shareType)){
+            	
+            	res.sendRedirect(returnOpenidUri +WechatShareLinkType.ACTICLE_SHARE.getLink());
+            	
+            }else if(ShareType.MEDICAL_CASES.getCode().equals(shareType)){
+            	
+            	res.sendRedirect(returnOpenidUri +WechatShareLinkType.MEDICAL_CASES.getLink());
             }
         } catch (Exception e) {
             e.printStackTrace();

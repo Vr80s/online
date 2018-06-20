@@ -11,44 +11,26 @@ import java.util.Map;
  * @author name：yuxin <br>email: yuruixin@ixincheng.com
  * @Date: 2018/2/27 0027 下午 6:47
  **/
-public enum DoctorType {
+public enum AnchorPermissionType {
 
-	
-    MQNZY(1, "名青年中医"),
-    MLZY(2, "名老中医"),
-    SSMZZY(3, "少数民族中医"),
-    GYDS(4, "国医大师"),
-    GZY(5, "家传中医")
-    ;
+    NO_PERMISSION(0, "无权限"),
+    DOCTOR_PASS(1, "医师认证通过"),
+    HOSPITAL_PASS(2, "医馆认证通过"),
+    PERMISSION_DISABLE(3, "主播权限被禁用");
 
     // 成员变量
     private String text;
     private int code;
 
     // 构造方法
-    private DoctorType(int code, String text) {
+    private AnchorPermissionType(int code, String text) {
         this.text = text;
         this.code = code;
     }
 
     public static List<Map> getDoctorTypeList(){
         List<Map> list = new ArrayList<Map>();
-        for (DoctorType e : DoctorType.values()) {
-            Map m = new HashMap();
-            m.put("code",e.getCode());
-            m.put("value",e.getText());
-            list.add(m);
-        }
-        return list;
-    }
-    
-    public static List<Map> getDoctorTypeListAddHot(){
-        List<Map> list = new ArrayList<Map>();
-        Map mh = new HashMap<>();
-        mh.put("code",0);
-        mh.put("value","热门医师");
-        list.add(mh);
-        for (DoctorType e : DoctorType.values()) {
+        for (AnchorPermissionType e : AnchorPermissionType.values()) {
             Map m = new HashMap();
             m.put("code",e.getCode());
             m.put("value",e.getText());
@@ -59,7 +41,7 @@ public enum DoctorType {
     
 
     public static String getDoctorTypeText(int code){
-        for (DoctorType e : DoctorType.values()) {
+        for (AnchorPermissionType e : AnchorPermissionType.values()) {
             if(e.getCode() == code){
                 return e.getText();
             }

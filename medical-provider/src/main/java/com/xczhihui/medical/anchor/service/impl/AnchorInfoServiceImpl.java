@@ -8,6 +8,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import com.xczhihui.common.util.RedisCacheKey;
+import com.xczhihui.common.util.enums.AnchorPermissionType;
 import com.xczhihui.common.util.enums.AnchorType;
 import com.xczhihui.medical.exception.AnchorException;
 import com.xczhihui.common.support.cc.util.CCUtils;
@@ -373,7 +374,6 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService{
         if(doctor != null){
             courseAnchorVO.setWorkTime(doctor.getWorkTime());
         }
-
         return courseAnchorVO;
 
     }
@@ -408,14 +408,30 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService{
         courseAnchor.setUserId(userId);
         CourseAnchor ca = courseAnchorMapper.selectOne(courseAnchor);
         if(ca == null){
-        	return 0;
+        	return AnchorPermissionType.NO_PERMISSION.getCode();
         }else if(ca!=null && !ca.getStatus()){ //被禁用
-        	return 3;
+        	return AnchorPermissionType.PERMISSION_DISABLE.getCode();
         }
         return ca.getType();
     }
     
-    
-    
+    @Override
+    public Map<String,Object> anchorPermissionStatusByDoctorId(String doctorId) {
+
+    	Map<String,Object> map = new HashMap<String,Object>();
+    	Integer falg = 0;
+    	//是否存在此账户
+        MedicalDoctorAccount doctorAccount = doctorAccountMapper.getByDoctorId(doctorId);
+        if(doctorAccount==null) {
+        	falg = AnchorPermissionType.NO_PERMISSION.getCode();
+        	map.put("userId", null);
+        }else {
+        	falg =  this.anchorPermissionStatus(doctorAccount.getAccountId());
+        	map.put("userId", doctorAccount.getAccountId());
+        }
+        map.put("status", falg);
+        
+    	return map;
+    }
 
 }

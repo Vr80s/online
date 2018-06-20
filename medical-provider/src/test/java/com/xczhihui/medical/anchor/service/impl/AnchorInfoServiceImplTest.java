@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.xczhihui.medical.anchor.service.IAnchorInfoService;
 import com.xczhihui.medical.anchor.vo.CourseAnchorVO;
 
+import ch.qos.logback.classic.net.SyslogAppender;
 import test.BaseJunit4Test;
 
 public class AnchorInfoServiceImplTest extends BaseJunit4Test {
@@ -58,6 +59,16 @@ public class AnchorInfoServiceImplTest extends BaseJunit4Test {
         service.update(courseAnchor);
     }
 
+    
+    /**
+     * 医师状态
+     */
+    @Test
+    public void testStatus(){
+
+    	System.out.println(service.anchorPermissionStatusByDoctorId("14c2192523c5438f9a10d17994a1c6a3").toString());
+
+    }
 
 
 }

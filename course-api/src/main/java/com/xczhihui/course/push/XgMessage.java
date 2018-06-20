@@ -197,7 +197,7 @@ public class XgMessage {
             json.put("content", this.content);
             json.put("accept_time", acceptTimeToJsonArray());
         }
-        json.put("custocontent", this.custom);
+        json.put("custom_content", this.custom);
         return json.toString();
     }
 }

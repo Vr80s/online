@@ -54,7 +54,7 @@ public class DeprecatedMessageController extends AbstractController {
     public ResponseObject getMessageList(HttpSession s, Integer type, Integer pageSize, Integer pageNumber) {
         OnlineUser u = getCurrentUser();
         Page<MessageVo> page = messageService.findMessagePage(u, type, pageSize, pageNumber);
-        page.getItems().forEach(messageVo -> messageVo.setUrl(MultiUrlHelper.getUrl(messageVo.getRouteType(), MultiUrlHelper.URL_TYPE_WEB, messageVo.getDetailId())));
+        page.getItems().forEach(messageVo -> messageVo.setUrl(MultiUrlHelper.getUrl(messageVo.getRouteType(), MultiUrlHelper.URL_TYPE_WEB, messageVo.getDetailId(), null)));
         return ResponseObject.newSuccessResponseObject(page);
     }
 

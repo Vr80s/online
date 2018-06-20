@@ -7,6 +7,7 @@ import com.xczhihui.bxg.online.common.domain.Message;
 import com.xczhihui.bxg.online.common.domain.MessageRecord;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.web.UserVo;
+import com.xczhihui.message.body.MessageBody;
 import com.xczhihui.message.vo.MessageVo;
 import com.xczhihui.utils.Group;
 import com.xczhihui.utils.Groups;
@@ -83,7 +84,7 @@ public interface MessageService {
      * @param pageSize   页大小
      * @return 分页对象
      */
-    Page<MessageVo> findPageMessages(MessageVo vo, int pageNumber,
+    Page<MessageRecord> findPageMessages(MessageVo vo, int pageNumber,
                                      int pageSize);
 
     /**
@@ -103,4 +104,20 @@ public interface MessageService {
      * @param messageRecord 消息信息
      */
     void saveMessageRecord(MessageRecord messageRecord);
+
+    /**
+     * 保存推送消息的记录
+     *
+     * @param messageBody
+     */
+    void savePushMessageRecord(MessageBody messageBody);
+
+    /**
+     * 保存定时推送消息
+     */
+    void saveCronPushMessage();
+
+    void deleteMessageRecord(Integer id);
+
+    void updateStatus(String id);
 }

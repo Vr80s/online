@@ -1,10 +1,6 @@
 package com.xczhihui.course.service.impl;
 
-import java.text.MessageFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONObject;
@@ -77,6 +73,19 @@ public class CommonMessageServiceImpl implements ICommonMessageService {
         pushAppMessage(baseMessage);
         pushWeixinMessage(baseMessage);
         sendSMS(baseMessage);
+    }
+
+    @Override
+    public void saveBatchMessage(BaseMessage baseMessage) {
+        List<String> userIds = baseMessage.getUserIds();
+        if (baseMessage.getAppPushMessage() != null) {
+            batchAppPush(userIds, baseMessage);
+        }
+        List<Message> messages = new ArrayList<>();
+        for (String userId : userIds) {
+            messages.add(getMessage(baseMessage, userId));
+        }
+        messageMapper.batchInsert(messages);
     }
 
     @Override
@@ -204,9 +213,9 @@ public class CommonMessageServiceImpl implements ICommonMessageService {
                 WechatUser wechatUser = wechatUserMapper.findByUserId(baseMessage.getUserId());
                 if (wechatUser != null && StringUtils.isNotBlank(wechatUser.getOpenid())) {
                     wxMpTemplateMessage.setTemplateId(weixinMessage.getCode());
-                    String url = MultiUrlHelper.getUrl(baseMessage.getRouteType(), MultiUrlHelper.URL_TYPE_MOBILE);
+                    String url = MultiUrlHelper.getUrl(baseMessage.getRouteType(), MultiUrlHelper.URL_TYPE_MOBILE, baseMessage.getDetailId(), null);
                     if (StringUtils.isNotBlank(url)) {
-                        wxMpTemplateMessage.setUrl(mobileDomain + MessageFormat.format(url, baseMessage.getDetailId()));
+                        wxMpTemplateMessage.setUrl(mobileDomain + url);
                     }
                     wxMpTemplateMessage.setToUser(wechatUser.getOpenid());
                     try {
@@ -224,54 +233,88 @@ public class CommonMessageServiceImpl implements ICommonMessageService {
         String userId = baseMessage.getUserId();
         String detailId = baseMessage.getDetailId();
         if (appPushMessage != null) {
-            String content = appPushMessage.getContent();
-            int badge = countUnReadCntByUserId(userId);
-            String url = MultiUrlHelper.getUrl(baseMessage.getRouteType(), MultiUrlHelper.URL_TYPE_APP);
-            if (StringUtils.isNotBlank(url)) {
-                url = MessageFormat.format(url, detailId);
-            }
-            Map<String, Object> customParams = new HashMap<>(5);
-            customParams.put("unReadCnt", badge);
-            customParams.put("url", url);
+            commonPush(userId, baseMessage);
+        }
+    }
 
-            XgMessage xgMessage = new XgMessage();
-            xgMessage.setType(PushConst.MESSAGE_TYPE_ANDROID_UT_MESSAGE);
-            xgMessage.setContent(content);
-            xgMessage.setTitle(PushConst.TITLE);
-            xgMessage.setCustom(customParams);
-            //安卓推送
-            JSONObject androidRet = androidXgPushService.pushSingleAccount(PushConst.DEVICE_ALL, userId, xgMessage);
+    private void commonPush(String userId, BaseMessage baseMessage) {
+        SubMessage appPushMessage = baseMessage.getAppPushMessage();
+        String content = appPushMessage.getContent();
+        String url = MultiUrlHelper.getUrl(baseMessage.getRouteType(), MultiUrlHelper.URL_TYPE_APP, baseMessage.getDetailId(), null);
+        Map<String, Object> customParams = new HashMap<>(5);
+        customParams.put("url", url);
 
-            XgMessageIOS xgMessageIOS = new XgMessageIOS();
-            xgMessageIOS.setAlert(content);
-            xgMessageIOS.setBadge(badge);
-            xgMessageIOS.setSound(PushConst.IOS_SOUND_FILE);
-            xgMessageIOS.setCustom(customParams);
-            JSONObject iosRet = iosXgPushService.pushSingleAccount(PushConst.DEVICE_ALL, userId, xgMessageIOS, env.isProd() ? PushConst.IOSENV_PROD : PushConst.IOSENV_DEV);
+        XgMessage xgMessage = new XgMessage();
+        xgMessage.setType(PushConst.MESSAGE_TYPE_ANDROID_UT_MESSAGE);
+        xgMessage.setContent(content);
+        xgMessage.setTitle(StringUtils.isNotBlank(baseMessage.getTitle()) ? baseMessage.getTitle() : PushConst.TITLE);
+        xgMessage.setCustom(customParams);
+        //安卓推送
+        JSONObject androidRet = androidXgPushService.pushSingleAccount(PushConst.DEVICE_ALL, userId, xgMessage);
 
-            if (androidRet != null && androidRet.getInt("ret_code") != 0 && iosRet != null && iosRet.getInt("ret_code") != 0) {
-                LOGGER.error(androidRet.toString());
-                LOGGER.error(iosRet.toString());
-            }
+        XgMessageIOS xgMessageIOS = new XgMessageIOS();
+        xgMessageIOS.setAlert(content);
+        xgMessageIOS.setBadge(1);
+        xgMessageIOS.setSound(PushConst.IOS_SOUND_FILE);
+        xgMessageIOS.setCustom(customParams);
+        JSONObject iosRet = iosXgPushService.pushSingleAccount(PushConst.DEVICE_ALL, userId, xgMessageIOS, env.isProd() ? PushConst.IOSENV_PROD : PushConst.IOSENV_DEV);
+
+        if (androidRet != null && androidRet.getInt("ret_code") != 0 && iosRet != null && iosRet.getInt("ret_code") != 0) {
+            LOGGER.error(androidRet.toString());
+            LOGGER.error(iosRet.toString());
+        }
+    }
+
+    private void batchAppPush(List<String> userIds, BaseMessage baseMessage) {
+        SubMessage appPushMessage = baseMessage.getAppPushMessage();
+        String content = appPushMessage.getContent();
+        String url = MultiUrlHelper.getUrl(baseMessage.getRouteType(), MultiUrlHelper.URL_TYPE_APP, baseMessage.getDetailId(), null);
+        Map<String, Object> customParams = new HashMap<>(5);
+        customParams.put("url", url);
+
+        XgMessage xgMessage = new XgMessage();
+        xgMessage.setType(PushConst.MESSAGE_TYPE_ANDROID_UT_MESSAGE);
+        xgMessage.setContent(content);
+        xgMessage.setTitle(StringUtils.isNotBlank(baseMessage.getTitle()) ? baseMessage.getTitle() : PushConst.TITLE);
+        xgMessage.setCustom(customParams);
+        //安卓推送
+        JSONObject androidRet = androidXgPushService.pushAccountList(PushConst.DEVICE_ALL, userIds, xgMessage);
+
+        XgMessageIOS xgMessageIOS = new XgMessageIOS();
+        xgMessageIOS.setAlert(content);
+        xgMessageIOS.setBadge(1);
+        xgMessageIOS.setSound(PushConst.IOS_SOUND_FILE);
+        xgMessageIOS.setCustom(customParams);
+        JSONObject iosRet = iosXgPushService.pushAccountList(PushConst.DEVICE_ALL, userIds, xgMessageIOS, env.isProd() ? PushConst.IOSENV_PROD : PushConst.IOSENV_DEV);
+
+        if (androidRet != null && androidRet.getInt("ret_code") != 0 && iosRet != null && iosRet.getInt("ret_code") != 0) {
+            LOGGER.error(androidRet.toString());
+            LOGGER.error(iosRet.toString());
         }
     }
 
     private void insertMessage(BaseMessage baseMessage) {
         if (baseMessage.getWebMessage() != null) {
-            Message message = new Message();
-            message.setId(CodeUtil.getRandomUUID());
-            message.setContext(baseMessage.getWebMessage().getContent());
-            message.setCreateTime(new Date());
-            message.setDeleted(false);
-            message.setOnline(false);
-            message.setReadStatus((short) 0);
-            message.setStatus(MessageStatusEnum.ENABLE.getVal());
-            message.setType(baseMessage.getType());
-            message.setRouteType(baseMessage.getRouteType());
-            message.setDetailId(baseMessage.getDetailId());
-            message.setCreatePerson(baseMessage.getCreatePerson());
-            message.setUserId(baseMessage.getUserId());
-            messageMapper.insert(message);
+            messageMapper.insert(getMessage(baseMessage, baseMessage.getUserId()));
         }
+    }
+
+    private Message getMessage(BaseMessage baseMessage, String userId) {
+        Message message = new Message();
+        message.setId(CodeUtil.getRandomUUID());
+        message.setContext(baseMessage.getWebMessage().getContent());
+        message.setCreateTime(new Date());
+        message.setDeleted(false);
+        message.setOnline(false);
+        message.setReadStatus((short) 0);
+        message.setStatus(MessageStatusEnum.ENABLE.getVal());
+        message.setType(baseMessage.getType());
+        message.setRouteType(baseMessage.getRouteType());
+        message.setDetailId(baseMessage.getDetailId());
+        message.setCreatePerson(baseMessage.getCreatePerson());
+        message.setUserId(userId);
+        message.setOuterLink(baseMessage.getLink());
+        message.setTitle(StringUtils.isNotBlank(baseMessage.getTitle()) ? baseMessage.getTitle() : Message.SYSTEM_MESSAGE_TITLE);
+        return message;
     }
 }
