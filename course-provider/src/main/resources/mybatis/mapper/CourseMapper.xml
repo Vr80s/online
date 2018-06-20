@@ -303,6 +303,19 @@
 		oe_course oc
 		where oc.user_lecturer_id = #{userId} and oc.status = 1 and oc.is_delete=0
 		<include refid="onlyFreeCondition"/>
+		
+         <if test="type == 1">
+           and  oc.multimedia_type = 1
+         </if>
+         <if test="type == 2">
+           and  oc.multimedia_type = 2
+         </if>
+         <if test="type == 3">
+           and  oc.type = 1
+         </if>
+         <if test="type == 4">
+           and  oc.type = 3
+         </if>
 		order by release_time desc
 	</select>
 
@@ -685,4 +698,26 @@
 			oc.user_lecturer_id = ou.user_id
 			where oc.id =#{courseId}
 	</select>	
+	
+	
+	
+	
+    <!-- 通过id得到主播的所有课程页面 -->
+	<select id="doctorCourseList" resultType="com.xczhihui.course.vo.CourseLecturVo">
+		SELECT
+		  <include refid="relLearningCourseListByUserId"/>
+		   if(oc.live_status=1,DATE_FORMAT(oc.start_time,'%H:%i'),if(oc.live_status=2,if(oc.start_time &lt;= DATE_ADD(DATE_ADD(str_to_date(DATE_FORMAT(NOW(),'%Y-%m-%d'),
+		 	'%Y-%m-%d %H:%i:%s'),INTERVAL 1 DAY),INTERVAL -1 SECOND),
+		 	DATE_FORMAT(oc.start_time,'%H:%i'),DATE_FORMAT(oc.start_time,'%m.%d')),
+		 	DATE_FORMAT(oc.start_time,'%m.%d') )) as startDateStr
+		FROM
+			oe_course oc
+		where oc.user_lecturer_id = #{userId} 
+			
+			and oc.status = 1 and oc.is_delete=0
+		
+		<include refid="onlyFreeCondition"/>
+		order by release_time desc
+	</select>
+	
 </mapper>

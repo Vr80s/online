@@ -38,8 +38,5 @@ public class MedicalDoctorBusinessServiceImplTest  extends BaseJunit4Test {
 	      List<MedicalDoctorVO> list = iMedicalDoctorBusinessService.selectDoctorCouserByAccountId(0,3);
 	      System.out.println(list.size());
 	  }
-    
-    
-    
 
 }

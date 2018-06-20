@@ -88,12 +88,13 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 
     @Override
     public Page<CourseLecturVo> selectLecturerAllCourse(Page<CourseLecturVo> page, String lecturerId) {
-        return selectLecturerAllCourse(page,lecturerId,false);
+        return selectLecturerAllCourse(page,lecturerId,null,false);
     }
 
     @Override
-    public Page<CourseLecturVo> selectLecturerAllCourse(Page<CourseLecturVo> page, String lecturerId,boolean onlyFree) {
-        List<CourseLecturVo> records = iCourseMapper.selectLecturerAllCourse(page, lecturerId,onlyFree);
+    public Page<CourseLecturVo> selectLecturerAllCourse(Page<CourseLecturVo> page, String lecturerId,
+    		Integer type,boolean onlyFree) {
+        List<CourseLecturVo> records = iCourseMapper.selectLecturerAllCourse(page, lecturerId,type,onlyFree);
         return page.setRecords(records);
     }
 
@@ -242,4 +243,5 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         List<Map<String, Object>> results = iCourseMapper.selectOfflineCourseByAnchorId(page, anchorId);
         return page.setRecords(results);
     }
+
 }

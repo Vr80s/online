@@ -41,8 +41,6 @@ public class HostController {
 
     private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(HostController.class);
 
-    @Autowired
-    private OnlineUserService onlineUserService;
 
     @Autowired
     @Qualifier("focusServiceRemote")
@@ -131,7 +129,6 @@ public class HostController {
 
     /**
      * Description：用户主页    -- 课程列表
-     *
      * @return ResponseObject
      * @throws Exception
      * @author name：yangxuan <br>email: 15936216273@163.com
@@ -139,14 +136,14 @@ public class HostController {
     @RequestMapping("hostPageCourse")
     @ResponseBody
     public ResponseObject userHomePageCourseList(@RequestParam("lecturerId") String lecturerId,
-                                                 @RequestParam("pageNumber") Integer pageNumber,
-                                                 @RequestParam("pageSize") Integer pageSize) throws Exception {
-
+                         @RequestParam("pageNumber") Integer pageNumber,
+                         @RequestParam("pageSize") Integer pageSize) throws Exception {
         Page<CourseLecturVo> page = new Page<>();
         page.setCurrent(pageNumber);
         page.setSize(pageSize);
         try {
-            Page<CourseLecturVo> list = courseService.selectLecturerAllCourse(page, lecturerId,IOSVersionInterceptor.onlyThread.get());
+            Page<CourseLecturVo> list = courseService.selectLecturerAllCourse(page,
+            		lecturerId,null,IOSVersionInterceptor.onlyThread.get());
             return ResponseObject.newSuccessResponseObject(list);
         } catch (Exception e) {
             e.printStackTrace();

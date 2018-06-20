@@ -11,18 +11,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.xczh.consumer.market.interceptor.IOSVersionInterceptor;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.enums.DoctorSortOrderType;
 import com.xczhihui.common.util.enums.DoctorType;
 import com.xczhihui.course.service.ICourseService;
+import com.xczhihui.course.vo.CourseLecturVo;
+import com.xczhihui.medical.anchor.service.IAnchorInfoService;
 import com.xczhihui.medical.department.model.MedicalDepartment;
 import com.xczhihui.medical.department.service.IMedicalDepartmentService;
-import com.xczhihui.medical.doctor.service.IMedicalDoctorArticleService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
-import com.xczhihui.medical.doctor.service.IMedicalDoctorWritingService;
 import com.xczhihui.medical.doctor.vo.DoctorQueryVo;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 
@@ -39,8 +39,15 @@ public class DoctorController{
 
     @Autowired
     private IMedicalDoctorBusinessService medicalDoctorBusinessService;
+    
     @Autowired
     private IMedicalDepartmentService medicalDepartmentService;
+    
+    @Autowired
+    private ICourseService courseService;
+    
+    @Autowired
+    private IAnchorInfoService anchorInfoService;
 
     /**
      * 医师分类页面
@@ -130,4 +137,67 @@ public class DoctorController{
         mapAll.put("sortTypes", DoctorSortOrderType.getDoctorSortOrderTypeList());
 		return ResponseObject.newSuccessResponseObject(mapAll);
 	}
+	
+	
+	/**
+     * Description：医师主页    -- 课程列表
+     * @return ResponseObject
+     * @throws Exception
+     * @author name：yangxuan <br>email: 15936216273@163.com
+     */
+    @RequestMapping("doctorCourse")
+    public ResponseObject doctorCourseList(@RequestParam("userId") String userId,
+                         Integer pageNumber,Integer pageSize,
+                         @RequestParam(value = "type",required = false)Integer type) throws Exception {
+    	
+    	pageNumber = pageNumber == null ? 1 : pageNumber;
+		pageSize = pageSize == null ? 10 : pageSize;
+    	
+        Page<CourseLecturVo> page = new Page<>();
+        page.setCurrent(pageNumber);
+        page.setSize(pageSize);
+        try {
+        	Page<CourseLecturVo> list = courseService.selectLecturerAllCourse
+        			(page, userId,type,IOSVersionInterceptor.onlyThread.get());
+            return ResponseObject.newSuccessResponseObject(list.getRecords());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseObject.newErrorResponseObject("网络开小差");
+        }
+    }
+	
+    /**
+     * Description：医师 最近的一次直播
+     * @return ResponseObject
+     * @throws Exception
+     * @author name：yangxuan <br>email: 15936216273@163.com
+     */
+    @RequestMapping("recentlyLive")
+    public ResponseObject recentlyLive(@RequestParam("userId") String userId)
+    		throws Exception {
+    	
+    	CourseLecturVo cv = courseService.selectLecturerRecentCourse(userId, 
+    			 IOSVersionInterceptor.onlyThread.get());
+    	return ResponseObject.newSuccessResponseObject(cv);    
+    }
+    
+    
+    
+	/**
+     * Description：医师 主播状态
+     * @return ResponseObject
+     * @throws Exception
+     * @author name：yangxuan <br>email: 15936216273@163.com
+     */
+    @RequestMapping("doctorStatus")
+    public ResponseObject doctorStatus(@RequestParam("doctorId") String doctorId)
+    		throws Exception {
+    	
+    	return ResponseObject.newSuccessResponseObject(anchorInfoService.anchorPermissionStatusByDoctorId(doctorId));    
+    }
+    
+    
+    
+    
+    
 }

@@ -1,5 +1,7 @@
 package com.xczhihui.medical.anchor.service;
 
+import java.util.Map;
+
 import com.xczhihui.medical.anchor.vo.CourseAnchorVO;
 
 /**
@@ -31,4 +33,13 @@ public interface IAnchorInfoService {
      * @return
      */
 	Integer anchorPermissionStatus(String userId);
+
+	/**
+	 * 通过医师id查看主播认证状态
+	 * 		0 未认证   1 医师   2 医馆   3 禁用
+	 * 		如果认证通过的话，医师对应的用户id
+	 * @param DoctorId
+	 * @return
+	 */
+	Map<String,Object> anchorPermissionStatusByDoctorId(String DoctorId);
 }

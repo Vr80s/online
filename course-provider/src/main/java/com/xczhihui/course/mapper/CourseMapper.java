@@ -39,7 +39,9 @@ public interface CourseMapper extends BaseMapper<Course> {
 
     CourseLecturVo selectLecturerRecentCourse(@Param("userId") String userId, @Param("onlyFree") boolean onlyFree);
 
-    List<CourseLecturVo> selectLecturerAllCourse(@Param("page") Page<CourseLecturVo> page, @Param("userId") String id, @Param("onlyFree") boolean onlyFree);
+    List<CourseLecturVo> selectLecturerAllCourse(@Param("page") Page<CourseLecturVo> page, 
+    		@Param("userId") String id,@Param("type") Integer type, 
+    		@Param("onlyFree") boolean onlyFree);
 
     List<CourseLecturVo> selectUserConsoleCourse(@Param("userId") String userId);
 
@@ -139,4 +141,7 @@ public interface CourseMapper extends BaseMapper<Course> {
             " where oc.user_lecturer_id = #{anchorId} and type = 3 and is_delete = 0 " +
             " order by oc.create_time desc"})
     List<Map<String, Object>> selectOfflineCourseByAnchorId(Page<Map<String, Object>> page, @Param("anchorId") String anchorId);
+
+    
+	List<CourseLecturVo> doctorCourseList(Page<CourseLecturVo> page, String doctorId, Integer type, Boolean falg);
 }
