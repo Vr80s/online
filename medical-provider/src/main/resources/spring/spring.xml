@@ -109,6 +109,12 @@
     <!-- 师承模块 -->
     <dubbo:service interface="com.xczhihui.medical.enrol.service.EnrolService"
                    ref="enrolServiceImpl" timeout="${dubbo.provider.timeout}"/>
+    <!-- 医师模块 -->
+    <dubbo:service interface="com.xczhihui.medical.doctor.service.IMedicalDoctorAccountService"
+                   ref="medicalDoctorAccountServiceImpl" timeout="${dubbo.provider.timeout}"/>
+    <!-- 医师动态模块 -->
+    <dubbo:service interface="com.xczhihui.medical.doctor.service.IMedicalDoctorPostsService"
+                   ref="medicalDoctorPostsServiceImpl" timeout="${dubbo.provider.timeout}"/>
 
     <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig"></bean>
 
