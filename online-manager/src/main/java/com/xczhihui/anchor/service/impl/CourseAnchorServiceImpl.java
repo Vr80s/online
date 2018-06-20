@@ -59,6 +59,20 @@ public class CourseAnchorServiceImpl extends OnlineBaseServiceImpl implements
     }
 
     @Override
+    public List<CourseAnchor> list(Integer type) {
+        return anchorDao.listByType(type);
+    }
+
+    @Override
+    public CourseAnchor findByUserId(String userId) {
+        List<CourseAnchor> courseAnchors = anchorDao.findByUserId(userId);
+        if (courseAnchors != null && !courseAnchors.isEmpty()) {
+            return courseAnchors.get(0);
+        }
+        return null;
+    }
+
+    @Override
     public CourseAnchor findCourseAnchorById(Integer id) {
         return anchorDao.findCourseAnchorById(id);
     }

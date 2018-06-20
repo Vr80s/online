@@ -3,217 +3,277 @@ package com.xczhihui.bxg.online.common.domain;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.annotations.Type;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 /**
- * 学员消息
- * @author duanqh
+ * 后台推送消息
  *
+ * @author duanqh
  */
 @Entity
 @Table(name = "oe_message_record")
-public class MessageRecord  implements Serializable{
-	
-	private static final long serialVersionUID = 1L;
+public class MessageRecord implements Serializable {
 
-	/**
-	 * 唯一标识
-	 */
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+    private static final long serialVersionUID = 1L;
 
-	/**
-	 * 创建人ID
-	 */
-	@Column(name = "create_person")
-	private String createPerson;
+    /**
+     * 唯一标识
+     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-	/**
-	 * 创建时间
-	 */
-	@Column(name = "create_time")
-	private Date createTime;
+    /**
+     * 创建人ID
+     */
+    @Column(name = "create_person")
+    private String createPerson;
 
-
-	/**
-	 * 消息内容
-	 */
-	@Type(type="text")
-	@Column(name = "context")
-	private String context;
-
-	/**
-	 * 学科
-	 */
-	@Column(name = "subject")
-	private String subject;
-
-	/**
-	 * 课程
-	 */
-	@Column(name = "course")
-	private String course;
-	
-	/**
-	 * 班级
-	 */
-	@Column(name = "grade")
-	private String grade;
-	
-	/**
-	 * 发送用户数
-	 */
-	@Column(name = "user_count")
-	private Integer userCount;
+    /**
+     * 创建时间
+     */
+    @Column(name = "create_time")
+    private Date createTime;
 
 
-	/**
-	 * 推送时间
-	 */
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-	@Column(name = "push_time")
-	private Date pushTime;
+    /**
+     * 消息内容
+     */
+    @Type(type = "text")
+    @Column(name = "context")
+    private String context;
 
-	/**
-	 * 推送次数
-	 */
-	@Column(name = "push_count")
-	private Integer pushCount;
+    /**
+     * 学科
+     */
+    @Column(name = "subject")
+    private String subject;
 
-	/**
-	 * 推送类型
-	 */
-	@Column(name = "push_Type")
-	private Integer pushType;
+    /**
+     * 课程
+     */
+    @Column(name = "course")
+    private String course;
 
-	/**
-	 * 后续动作
-	 */
-	@Column(name = "push_action")
-	private Integer pushAction;
+    /**
+     * 班级
+     */
+    @Column(name = "grade")
+    private String grade;
 
-	/**
-	 * url地址
-	 */
-	@Column(name = "url")
-	private String url;
-	
-	public String getContext() {
-		return context;
-	}
+    /**
+     * 发送用户数
+     */
+    @Column(name = "user_count")
+    private Integer userCount;
 
-	public void setContext(String context) {
-		this.context = context;
-	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
+    /**
+     * 推送时间
+     */
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @Column(name = "push_time")
+    private Date pushTime;
 
-	public Integer getId() {
-		return id;
-	}
+    /**
+     * 推送次数
+     */
+    @Column(name = "push_count")
+    private Integer pushCount;
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    /**
+     * 推送类型
+     */
+    @Column(name = "push_Type")
+    private Integer pushType;
 
-	public String getCreatePerson() {
-		return createPerson;
-	}
+    /**
+     * 后续动作
+     */
+    @Column(name = "push_action")
+    private Integer pushAction;
 
-	public void setCreatePerson(String createPerson) {
-		this.createPerson = createPerson;
-	}
+    /**
+     * url地址
+     */
+    @Column(name = "url")
+    private String url;
 
-	public Date getCreateTime() {
-		return createTime;
-	}
+    @Column(name = "route_type")
+    private String routeType;
 
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
+    @Column(name = "detail_id")
+    private String detailId;
 
-	public String getSubject() {
-		return subject;
-	}
+    @Column(name = "push_user_mobiles", columnDefinition = "text")
+    private String pushUserMobiles;
 
-	public void setSubject(String subject) {
-		this.subject = subject;
-	}
+    private Integer status;
 
-	public String getCourse() {
-		return course;
-	}
+    @Column(name = "is_delete")
+    private Boolean deleted;
 
-	public void setCourse(String course) {
-		this.course = course;
-	}
+    private String title;
 
-	public String getGrade() {
-		return grade;
-	}
+    public String getContext() {
+        return context;
+    }
 
-	public void setGrade(String grade) {
-		this.grade = grade;
-	}
+    public void setContext(String context) {
+        this.context = context;
+    }
 
-	public Integer getUserCount() {
-		return userCount;
-	}
+    public static long getSerialversionuid() {
+        return serialVersionUID;
+    }
 
-	public void setUserCount(Integer userCount) {
-		this.userCount = userCount;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public Date getPushTime() {
-		return pushTime;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public void setPushTime(Date pushTime) {
-		this.pushTime = pushTime;
-	}
+    public String getCreatePerson() {
+        return createPerson;
+    }
 
-	public Integer getPushCount() {
-		return pushCount;
-	}
+    public void setCreatePerson(String createPerson) {
+        this.createPerson = createPerson;
+    }
 
-	public void setPushCount(Integer pushCount) {
-		this.pushCount = pushCount;
-	}
+    public Date getCreateTime() {
+        return createTime;
+    }
 
-	public Integer getPushType() {
-		return pushType;
-	}
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
 
-	public void setPushType(Integer pushType) {
-		this.pushType = pushType;
-	}
+    public String getSubject() {
+        return subject;
+    }
 
-	public Integer getPushAction() {
-		return pushAction;
-	}
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
 
-	public void setPushAction(Integer pushAction) {
-		this.pushAction = pushAction;
-	}
+    public String getCourse() {
+        return course;
+    }
 
-	public String getUrl() {
-		return url;
-	}
+    public void setCourse(String course) {
+        this.course = course;
+    }
 
-	public void setUrl(String url) {
-		this.url = url;
-	}
+    public String getGrade() {
+        return grade;
+    }
+
+    public void setGrade(String grade) {
+        this.grade = grade;
+    }
+
+    public Integer getUserCount() {
+        return userCount;
+    }
+
+    public void setUserCount(Integer userCount) {
+        this.userCount = userCount;
+    }
+
+    public Date getPushTime() {
+        return pushTime;
+    }
+
+    public void setPushTime(Date pushTime) {
+        this.pushTime = pushTime;
+    }
+
+    public Integer getPushCount() {
+        return pushCount;
+    }
+
+    public void setPushCount(Integer pushCount) {
+        this.pushCount = pushCount;
+    }
+
+    public Integer getPushType() {
+        return pushType;
+    }
+
+    public void setPushType(Integer pushType) {
+        this.pushType = pushType;
+    }
+
+    public Integer getPushAction() {
+        return pushAction;
+    }
+
+    public void setPushAction(Integer pushAction) {
+        this.pushAction = pushAction;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getRouteType() {
+        return routeType;
+    }
+
+    public void setRouteType(String routeType) {
+        this.routeType = routeType;
+    }
+
+    public String getDetailId() {
+        return detailId;
+    }
+
+    public void setDetailId(String detailId) {
+        this.detailId = detailId;
+    }
+
+    public String getPushUserMobiles() {
+        return pushUserMobiles;
+    }
+
+    public void setPushUserMobiles(String pushUserMobiles) {
+        this.pushUserMobiles = pushUserMobiles;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 }

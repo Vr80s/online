@@ -10,6 +10,8 @@ public enum RouteTypeEnum {
     OFFLINE_COURSE_DETAIL_PAGE,
     //音视频课程详情页
     VIDEO_AUDIO_COURSE_DETAIL_PAGE,
+    //课程详情页，不区分课程类型
+    COMMON_COURSE_DETAIL_PAGE,
     //医师认证页
     DOCTOR_APPROVE_PAGE,
     //医馆认证页
@@ -24,5 +26,7 @@ public enum RouteTypeEnum {
     //不跳转
     NONE,
     ARTICLE_DETAIL,
-    QUESTION_DETAIL
+    QUESTION_DETAIL,
+    ANCHOR_INDEX,
+    H5
 }

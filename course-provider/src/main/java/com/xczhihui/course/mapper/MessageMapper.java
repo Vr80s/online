@@ -58,9 +58,16 @@ public interface MessageMapper extends BaseMapper<Message> {
      * 分页查询消息数据
      *
      * @param offset 偏移量
-     * @param size 分页大小
+     * @param size   分页大小
      * @return
      */
     @Select({"select * from oe_message where type != 2 and is_delete = 0 limit #{offset},#{size}"})
     List<Message> list(@Param("offset") int offset, @Param("size") int size);
+
+    /**
+     * 批量插入消息
+     *
+     * @param messages
+     */
+    void batchInsert(List<Message> messages);
 }

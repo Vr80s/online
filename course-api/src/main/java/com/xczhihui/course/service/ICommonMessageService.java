@@ -1,7 +1,5 @@
 package com.xczhihui.course.service;
 
-import java.util.Map;
-
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.course.model.Message;
 import com.xczhihui.course.model.Notice;
@@ -18,6 +16,12 @@ public interface ICommonMessageService {
      * @param message 消息
      */
     void saveMessage(BaseMessage message);
+
+    /**
+     * 批量发送消息
+     * @param message
+     */
+    void saveBatchMessage(BaseMessage message);
 
     /**
      * 查看用户消息列表

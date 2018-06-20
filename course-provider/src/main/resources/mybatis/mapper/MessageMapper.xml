@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xczhihui.course.mapper.MessageMapper">
+
+    <insert id="batchInsert" keyProperty="id">
+        INSERT INTO oe_message
+        (id, user_id,context, type, status,is_delete, create_person, create_time, readstatus, detail_id, route_type, outer_link)
+        VALUES
+        <foreach collection="list" item="message" index="index" separator="," >
+            (#{message.id},#{message.userId},#{message.context},#{message.type},
+            #{message.status},#{message.deleted}, #{message.createPerson}, #{message.createTime}, #{message.readStatus},
+            #{message.detailId}, #{message.routeType}, #{message.outerLink})
+        </foreach>
+    </insert>
+</mapper>

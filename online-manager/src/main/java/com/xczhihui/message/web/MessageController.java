@@ -166,7 +166,7 @@ public class MessageController {
                 searchMessageVo.setTime_end(String.valueOf(g.getPropertyValue1()));
             }
         }
-        Page<MessageVo> page = messageService.findPageMessages(searchMessageVo, pageNumber,
+        Page<MessageRecord> page = messageService.findPageMessages(searchMessageVo, pageNumber,
                 pageSize);
 
         int total = page.getTotalCount();
