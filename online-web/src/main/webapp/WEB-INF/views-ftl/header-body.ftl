@@ -34,7 +34,7 @@
             <a href="${webUrl}/courses/recommendation" class="classroom">学堂</a>
             <a href="${webUrl}/doctors" class="doctor-tab">名医</a>
             <a href="${webUrl}/clinics" class="hospital-tab">医馆</a>
-            <a href="${webUrl}/web/html/ansAndQus.html" class="ansAndQus">问道</a>
+            <a href="${webUrl}/questions" class="ansAndQus">问道</a>
             <a href="${webUrl}/bbs" class="bbs-tab">论坛</a>
         </div>
     </div>

@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="en" xmlns=http://www.w3.org/1999/xhtml xmlns:bd=http://www.baidu.com/2010/xbdml>
 <head>
@@ -80,7 +82,6 @@
         <div class='ansAndQusRight-bottom'>
             <p class='ansAndQusRight-top-title'>热门问答</p>
             <div class='ansAndQusRight-hot'>
-
 
             </div>
         </div>

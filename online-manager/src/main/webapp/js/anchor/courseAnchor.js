@@ -13,9 +13,6 @@ function hahaha(obj){
 	
 
 $(function() {
-	
-	
-
     createDatePicker($(".datetime-picker"),"yy-mm-dd");
     document.onkeydown = function (event) {
         if (event.keyCode == 13) {
@@ -67,8 +64,9 @@ $(function() {
             "mRender": function (data, display, row) {
                 var str = '<div class="hidden-sm hidden-xs action-buttons">' ;
                 if (row.status) {
+                       str += '<a class="blue" href="javascript:void(-1);" title="快速登录" onclick="fastLogin(this);"><i class="ace-icon fa fa-circle-o-notch fa-spin fa-3x fa-fw bigger-130"></i></a>';
                        str += '<a class="blue" href="javascript:void(-1);" title="关闭主播权限" onclick="editPermissions(this);"><i class="ace-icon fa fa-ban bigger-130"></i></a>';
-                       } else {
+                } else {
                        str += '<a class="blue" href="javascript:void(-1);" title="打开主播权限" onclick="editPermissions(this);"><i class="ace-icon fa fa-check-square-o bigger-130"></i></a>';
                 }
                 str += '<a class="blue" href="javascript:void(-1);" title="设置分成比例" onclick="toEdit(this,1);"><i class="ace-icon fa fa-pencil bigger-130"></i></a>';
@@ -303,6 +301,11 @@ function editPermissions(obj){
     ajaxRequest(basePath+"/anchor/courseAnchor/editPermissions",{"id":row.id},function(){
             freshTable(P_courseTable);
     });
+}
+function fastLogin(obj){
+    var oo = $(obj).parent().parent().parent();
+    var row = P_courseTable.fnGetData(oo);
+    window.open(basePath + '/anchor/courseAnchor/fastLogin/' + row.loginName,'_blank')
 }
 
 function getLocalTime(nS) {

@@ -259,7 +259,7 @@ $(function () {
                 localStorage.myStudyCenter = "1";
                 $('#login').modal('show');
             } else {
-              location.href = "/web/html/personal-center/personal-index.html#menu1-1";
+              location.href = "/my#menu1-1";
             }
         })
     });
@@ -281,8 +281,8 @@ $(function () {
                 $("#login").modal("show");
             } else {
                 window.localStorage.personcenter = $(this).attr("data-id");
-                location.href = "/web/html/personal-center/personal-index.html#menu6";
-//				window.open("/web/html/personal-center/personal-index.html#menu6");
+                location.href = "/my#menu6";
+//				window.open("/my#menu6");
 							$("#accordion .link[data-menu='menu6']").click();
             }
         })
@@ -514,7 +514,7 @@ $(function () {
                     var myStudent = window.localStorage.myStudyCenter;
 
                     if (myStudent == 1) {
-                        window.location.href = "/web/html/personal-center/personal-index.html";
+                        window.location.href = "/my";
                         window.localStorage.myStudyCenter = null;
                     }
                     /*
@@ -564,16 +564,16 @@ $(function () {
                     } else {
                     	
 						if(window.localStorage.personcenter=="mydata"){
-							window.open("/web/html/personal-center/personal-index.html#menu5");
+							window.open("/my#menu5");
 							$("#accordion .link[data-menu='menu5']").click();						
 						}else if(window.localStorage.personcenter=="idea"){
-							window.open("/web/html/personal-center/personal-index.html#menu7");
+							window.open("/my#menu7");
 							$("#accordion .link[data-menu='menu7']").click();	
 						}else if(window.localStorage.personcenter=="mymoney"){
-							window.open("/web/html/personal-center/personal-index.html#menu4");
+							window.open("/my#menu4");
 							$("#accordion .link[data-menu='menu4']").click();	
 						}else if(window.localStorage.personcenter=="mytiezi"){
-							window.open("/web/html/personal-center/personal-index.html#menu2-2");
+							window.open("/my#menu2-2");
 							$("#accordion .link[data-menu='menu2-2']").click();	
 						}
                         RequestService("/online/user/isAlive", "GET", null, function (data) {///online/user/isAlive

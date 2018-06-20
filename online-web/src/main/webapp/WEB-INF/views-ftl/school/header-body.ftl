@@ -6,7 +6,7 @@
                 <a href="/headline/1" class="forum">头条</a>
                 <a href="/doctors" class="doctor">名医</a>
                 <a href="/clinics" class="hospital">医馆</a>
-                <a href="/web/html/ansAndQus.html" class="ansAndQus">问道</a>
+                <a href="/questions" class="ansAndQus">问道</a>
                 <a href="/bbs">论坛</a>
             </li>
             <li>

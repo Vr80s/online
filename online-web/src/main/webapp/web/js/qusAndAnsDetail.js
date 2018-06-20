@@ -32,7 +32,7 @@ window.onload = function() {
 	var relative_mentId; //相关课程的Id
 	var tags; //相似问题的标签
 	var lastAnsNoData = "<div class='lastAnsNoData'>" +
-		"<img src='../images/ansandqus/my_nodata.png'/>" +
+		"<img src='/web/images/ansandqus/my_nodata.png'/>" +
 		"<p>暂无数据</p>" +
 		"</div>"
 	var myAnswer =
@@ -68,13 +68,13 @@ window.onload = function() {
 		'<div class="quesTitle-left">' +
 		'{{if items.collectStatu==true}}' +
 		'<div class="shouBox colorGr" style="border:1px solid #6acd6a">' +
-//		'<img class="shoucangImg" src="../images/ansandqus/star.png"/>' +
+//		'<img class="shoucangImg" src="/web/images/ansandqus/star.png"/>' +
 		'<i class="iconfont icon-shoucang"></i>'+
 		'<span class="shoucang">已收藏</span>' +
 		'</div>' +
 		'{{else}}' +
 		'<div class="shouBox">' +
-//		'<img class="shoucangImg" src="../images/ansandqus/star_normal.png"/>' +
+//		'<img class="shoucangImg" src="/web/images/ansandqus/star_normal.png"/>' +
 		'<i class="iconfont icon-shoucang"></i>'+
 		'<span class="shoucang">收藏</span>' +
 		'</div>' +
@@ -116,8 +116,8 @@ window.onload = function() {
 		'<input type="hidden" name="text" id="formtext" value="" />' +
 		'<input type="hidden" name="copyright" id="formright" value="false" />' +
 		'<div class="quanli">' +
-		'<div class="warning text-warn">请输入回答</div><div class="holdRright "></div><span>保留作者权利</span><img class="holdRightImg" src="../images/ansandqus/holdRightImg.png" alt=""/>' +
-		'<div class="rights-reserved-content1"><img src="../images/personcenter/baoliuTip.png" class="jian">用户在熊猫中医上发表的全部原创内容（包括但不限于提问，问答和评论），著作权均归用户本人所有。用户可授权第三方以任何方式使用，不需要得到熊猫中医的同意。</div>' +
+		'<div class="warning text-warn">请输入回答</div><div class="holdRright "></div><span>保留作者权利</span><img class="holdRightImg" src="/web/images/ansandqus/holdRightImg.png" alt=""/>' +
+		'<div class="rights-reserved-content1"><img src="/web/images/personcenter/baoliuTip.png" class="jian">用户在熊猫中医上发表的全部原创内容（包括但不限于提问，问答和评论），著作权均归用户本人所有。用户可授权第三方以任何方式使用，不需要得到熊猫中医的同意。</div>' +
 		'</div>' +
 		'<button class="releaseAns" data-id="{{items.id}}" type="button" style="border:0;">发布回答</button>' +
 		'</form>' +
@@ -137,7 +137,7 @@ window.onload = function() {
 		'</div>' +
 		'<div class="good-answer-label clearfix">' +
 		'<span class="anwTime">{{#timeTypeChange($value.create_time)}}' +
-		'<span class="sanjiao02"><img src="../images/ansandqus/sanjiao02.png"/></span>' +
+		'<span class="sanjiao02"><img src="/web/images/ansandqus/sanjiao02.png"/></span>' +
 		'</span>' +
 		'<span class="answer-comment" data-pinglunid="{{$value.id}}" data-sum="{{$value.comment_sum}}">评论({{$value.comment_sum}})' +
 		'</span>' +
@@ -148,9 +148,9 @@ window.onload = function() {
 		'<span class="hit-zan colorgren colorbg" data-pariseId="{{$value.id}}" ><span class="xz1" style="margin-right:0px;">已赞(</span><span class="praise-sum">{{$value.praise_sum}}</span><span class="houzhui">)</span></span>' +
 		'{{/if}}' +
 		'{{if $value.accused == false &&  $value.creator != true}}' +
-		'<span class="tousuBox xiuzhu" data-id="{{$value.id}}"><img src="../images/ansandqus/sakdetial_bad.png"/><span class="complaint" data-type="1">投诉</span></span>' +
+		'<span class="tousuBox xiuzhu" data-id="{{$value.id}}"><img src="/web/images/ansandqus/sakdetial_bad.png"/><span class="complaint" data-type="1">投诉</span></span>' +
 		'{{else if  $value.creator != true}}' +
-		'<span data-id="{{$value.id}}" style="cursor: auto"><img style="cursor: auto" src="../images/ansandqus/sakdetial_bad.png"/><span style="cursor: auto" class="complaint " data-type="1">已投诉</span></span>' +
+		'<span data-id="{{$value.id}}" style="cursor: auto"><img style="cursor: auto" src="/web/images/ansandqus/sakdetial_bad.png"/><span style="cursor: auto" class="complaint " data-type="1">已投诉</span></span>' +
 		'{{/if}}' +
 		'{{if $value.accepted == true}}' +
 		'<span class="bestAnsBox box3"><span class="best-answer colorgren box3" style="margin-right:0px;cursor:pointer;" data-id="{{$value.id}}">已采纳为最佳回答</span></span></span>' +
@@ -158,17 +158,17 @@ window.onload = function() {
 		'<span class="bestAnsBox box2"><span class="best-answer box2" style="margin-right:0px;cursor:pointer;" data-id="{{$value.id}}">采纳为最佳回答</span></span></span>' +
 		'{{/if}}' +
 		'{{if $value.copyright==true}}' +
-		'<span class="reserve"><span class="rights-reserved"><img src="../images/ansandqus/sakdetial_equal.png" alt=""/>作者保留权利</span>' +
-		'<div class="rights-reserved-content"><img src="../images/personcenter/baoliuTip.png" class="jian">用户在熊猫中医上发表的全部原创内容（包括但不限于提问，问答和评论），著作权均归用户本人所有。用户可授权第三方以任何方式使用，不需要得到熊猫中医的同意。</div>' +
+		'<span class="reserve"><span class="rights-reserved"><img src="/web/images/ansandqus/sakdetial_equal.png" alt=""/>作者保留权利</span>' +
+		'<div class="rights-reserved-content"><img src="/web/images/personcenter/baoliuTip.png" class="jian">用户在熊猫中医上发表的全部原创内容（包括但不限于提问，问答和评论），著作权均归用户本人所有。用户可授权第三方以任何方式使用，不需要得到熊猫中医的同意。</div>' +
 		'{{/if}}' +
 		'</span>' +
 		'{{if $value.creator}}' +
 		'{{if $value.accepted == true}}' +
 		'<span class="complaint ansTopRight qingjian1" data-delectId="{{$value.id}}" data-isaccept="1" data-create="{{$value.create_person}}">' +
-		'<img src="../images/ansandqus/sakdetial_delect.png"/>删除</span>' +
+		'<img src="/web/images/ansandqus/sakdetial_delect.png"/>删除</span>' +
 		'{{else}}' +
 		'<span class="complaint ansTopRight qingjian1" data-delectId="{{$value.id}}" data-isaccept="0" data-create="{{$value.create_person}}">' +
-		'<img src="../images/ansandqus/sakdetial_delect.png"/>删除</span>' +
+		'<img src="/web/images/ansandqus/sakdetial_delect.png"/>删除</span>' +
 		'{{/if}}' +
 		'{{/if}}' +
 		'<div class="good-answer-comment" style="display:none;">' +
@@ -198,7 +198,7 @@ window.onload = function() {
 		'<span class="hit-zan"  data-pariseId="{{$val.id}}"><span class="xz1" style="margin-right:0px;">点赞(</span><span class="praise-sum">{{$val.praise_sum}}</span><span class="houzhui">)</span></span>' +
 		'{{/if}}' +
 		'<span class="reply-btn" data-targetId="{{$val.user_id}}" data-create_nick_name="{{$val.create_nick_name}}">回复' +
-		'<span class="sanjiaoInput"><img src="../images/ansandqus/sanjia01.png"/></span>' +
+		'<span class="sanjiaoInput"><img src="/web/images/ansandqus/sanjia01.png"/></span>' +
 		'</span>' +
 		'{{if $val.delete_button}}' +
 		'<span class="reply-delete" data-deleteId="{{$val.id}}" data-create="{{$val.create_person}}">删除</span>' +
@@ -239,14 +239,14 @@ window.onload = function() {
 	/*相似问题*/
 	template.helper('ahref', function(num) {
 		if(num != "") {
-			return '' + bath + '/web/qusDetail/' + num;
+			return '' + bath + '/questions/' + num;
 		} else {
 			return 'javascript:;';
 		}
 	});
 	var simliar = ' <p class="rel-course">相似问题</p>' +
 		"<div class='relAnsNoData'>" +
-		"<img src='../images/ansandqus/my_nodata.png'/>" +
+		"<img src='/web/images/ansandqus/my_nodata.png'/>" +
 		"<p>暂无数据</p>" +
 		"</div>" +
 		'{{each items as i}}' +
@@ -271,7 +271,7 @@ window.onload = function() {
 		'</span>' +
 		'</div>' +
 		"<div class='relativeAnsNoData'>" +
-		"<img src='../images/ansandqus/my_nodata.png'/>" +
+		"<img src='/web/images/ansandqus/my_nodata.png'/>" +
 		"<p>暂无数据</p>" +
 		"</div>" +
 		'<div class="relative-course-bottom slide-box clearfix">' +
@@ -365,7 +365,7 @@ window.onload = function() {
 		"</p>" +
 		"{{else}}" +
 		"{{if data.hasRight == true}}" +
-		"<span class='bianji' type='1' bianjiId={{data.askAnswer.id}}><img src='../images/video2/bianji.png'/>编辑</span>" +
+		"<span class='bianji' type='1' bianjiId={{data.askAnswer.id}}><img src='/web/images/video2/bianji.png'/>编辑</span>" +
 		"<span class='pre bj1'>{{#data.askAnswer.content}}</span>" +
 		"{{else}}" +
 		"<span class='pre bj2'>{{#data.askAnswer.content}}</span>" +
@@ -689,7 +689,6 @@ window.onload = function() {
 						$("#gfhf").unbind().submit(function() {
 							$("#gfhf").ajaxSubmit(function(data) {
 								if(data.success == true) {
-									//					location.href=''+bath+"/web/html/ansAndQus.html";
 									$(".fwb  .simditor-body").html("<p><br></p>");
 									$(".fwb  .simditor-placeholder").css("display", "block");
 									$(".fwb .warning1").css("display", "none");
@@ -746,12 +745,12 @@ window.onload = function() {
 				var tag = $(this).html();
 				window.localStorage.xueke = tag;
 				window.localStorage.xuekeid = relative_mentId;
-				window.open(bath + "/web/html/ansAndQus.html");
+				window.open(bath + "/questions");
 			});
 			$(".biaoqian").click(function() {
 					var tag = $(this).html();
 					window.localStorage.biaoqian = tag;
-					window.open(bath + '/web/html/ansAndQus.html');
+					window.open(bath + '/questions');
 				})
 				//保留作者权利
 			$(".tipMessage").click(function() {
@@ -787,7 +786,7 @@ window.onload = function() {
 								questionId: id
 							}, function(data) {
 								$(".payment-modal-close").trigger("click");
-								location.href = "/web/html/ansAndQus.html"
+								location.href = "/questions"
 							});
 						})
 						$("#quxiaoshoucang .modalFooter .notBtn").click(function() {
@@ -892,7 +891,7 @@ window.onload = function() {
 								RequestService('/online/menutag/saveAccuse', 'POST', data3, function(data) {
 									if(data.success = true) {
 										$(".payment-modal .payment-modal-close").trigger("click");
-										$(".wenqiang").html("<img src='../images/ansandqus/sakdetial_bad.png'/>已投诉");
+										$(".wenqiang").html("<img src='/web/images/ansandqus/sakdetial_bad.png'/>已投诉");
 										tousuTrue();
 										$(".wenqiang").find("img").css("cursor", "auto");
 										$(".wenqiang").css("cursor", "auto");
@@ -939,10 +938,10 @@ window.onload = function() {
 				var replyNoHiddenLength = $(this).prev().innerWidth() + 10;
 				$(this).css("paddingLeft", replyNoHiddenLength + "px");
 				$(this).parent("").siblings(".user-content-line").find(".sanjiaoInput").css("display", "block");
-				$(this).parent("").siblings(".user-content-line").find(".sanjiaoInput img").attr("src", "../images/ansandqus/sanjia03.png");
+				$(this).parent("").siblings(".user-content-line").find(".sanjiaoInput img").attr("src", "/web/images/ansandqus/sanjia03.png");
 			})
 			$(".writeReply").blur(function() {
-					$(this).parent("").siblings(".user-content-line").find(".sanjiaoInput img").attr("src", "../images/ansandqus/sanjia01.png");
+					$(this).parent("").siblings(".user-content-line").find(".sanjiaoInput img").attr("src", "/web/images/ansandqus/sanjia01.png");
 				})
 				//表单提交
 			$(".quanli .holdRright,.quanli span").click(function() {
@@ -998,7 +997,6 @@ window.onload = function() {
 							$("#xzform").unbind().submit(function() {
 								$("#xzform").ajaxSubmit(function(data) {
 									if(data.success == true) {
-										//					location.href=''+bath+"/web/html/ansAndQus.html";
 										$(".richText .simditor-body").html("<p><br></p>");
 										$(".richText .simditor-placeholder").css("display", "block");
 										$(".holdRright").removeClass("select");
@@ -1031,7 +1029,7 @@ window.onload = function() {
 										sc.text("收藏");
 										$(".shouBox").removeClass("colorGr");
 										$(".shouBox").css("border", "1px solid #e4e4e4");
-										$(".shoucangImg").attr("src", "../images/ansandqus/star_normal.png")
+										$(".shoucangImg").attr("src", "/web/images/ansandqus/star_normal.png")
 										$(".payment-modal-close").trigger("click");
 									}
 								});
@@ -1044,7 +1042,7 @@ window.onload = function() {
 							RequestService('/ask/answer/collection?question_id=' + qid, "POST", null, function(data) {
 								if(data.resultObject == true) {
 									sc.text("已收藏");
-									$(".shoucangImg").attr("src", "../images/ansandqus/star.png")
+									$(".shoucangImg").attr("src", "/web/images/ansandqus/star.png")
 									$(".shouBox").addClass("colorGr");
 									$(".shouBox").css("border", "1px solid #6acd6a");
 								}
@@ -1271,7 +1269,7 @@ window.onload = function() {
 												if(data.resultObject.praise == true) {
 													$this.find(".xz1").text("已赞(");
 													$this.parent().find(".praise-sum").text(data.resultObject.sum);
-													/*$this.parent().find(".hitImg").attr("src", "../images/ansandqus/sakdetial_good_click.png")*/
+													/*$this.parent().find(".hitImg").attr("src", "/web/images/ansandqus/sakdetial_good_click.png")*/
 													$this.addClass("colorgren colorbg");
 													$this.parent().find(".praise-sum").addClass("colorgren");
 													$this.parent().find(".houzhui").addClass("colorgren");
@@ -1279,7 +1277,7 @@ window.onload = function() {
 														if($(this).attr("data-pariseId") == quest_id) {
 															$(this).find(".xz1").text("已赞(");
 															$(this).children(".praise-sum").text(data.resultObject.sum);
-															/*$(this).parent().children(".hitImg").attr("src", "../images/ansandqus/sakdetial_good_click.png")*/
+															/*$(this).parent().children(".hitImg").attr("src", "/web/images/ansandqus/sakdetial_good_click.png")*/
 															$(this).addClass("colorgren colorbg");
 															$(this).children(".praise-sum").addClass("colorgren");
 															$(this).parent().children(".houzhui").addClass("colorgren");
@@ -1289,7 +1287,7 @@ window.onload = function() {
 												} else {
 													$this.find(".xz1").text("点赞(");
 													$this.parent().find(".praise-sum").text(data.resultObject.sum);
-													/*$this.parent().find(".hitImg").attr("src", "../images/ansandqus/sakdetial_good.png")*/
+													/*$this.parent().find(".hitImg").attr("src", "/web/images/ansandqus/sakdetial_good.png")*/
 													$this.removeClass("colorgren colorbg");
 													$this.parent().find(".praise-sum").removeClass("colorgren");
 													$this.parent().find(".houzhui").removeClass("colorgren");
@@ -1297,7 +1295,7 @@ window.onload = function() {
 														if($(this).attr("data-pariseId") == quest_id) {
 															$(this).find(".xz1").text("点赞(");
 															$(this).children(".praise-sum").text(data.resultObject.sum);
-															/*$(this).parent().children(".hitImg").attr("src", "../images/ansandqus/sakdetial_good.png")*/
+															/*$(this).parent().children(".hitImg").attr("src", "/web/images/ansandqus/sakdetial_good.png")*/
 															$(this).removeClass("colorgren colorbg");
 															$(this).children(".praise-sum").removeClass("colorgren");
 															$(this).parent().children(".houzhui").removeClass("colorgren");
@@ -1335,10 +1333,10 @@ window.onload = function() {
 
 								})
 								$(".reply-btn").hover(function() {
-									$(this).css("background", "url(../images/ansandqus/replay_hover.png) no-repeat left center");
+									$(this).css("background", "url(/web/images/ansandqus/replay_hover.png) no-repeat left center");
 									$(this).css("color", "#2cb82c");
 								}, function() {
-									$(this).css("background", "url(../images/ansandqus/reply.png) no-repeat left center");
+									$(this).css("background", "url(/web/images/ansandqus/reply.png) no-repeat left center");
 									$(this).css("color", "#999");
 								})
 								$(".writeReply").focus(function() {
@@ -1346,10 +1344,10 @@ window.onload = function() {
 									$(".emptyHit1").css("display","none");
 									$(this).css("paddingLeft", replyNoHiddenLength + "px");
 									$(this).parent("").siblings(".user-content-line").find(".sanjiaoInput").css("display", "block");
-									$(this).parent("").siblings(".user-content-line").find(".sanjiaoInput img").attr("src", "../images/ansandqus/sanjia03.png");
+									$(this).parent("").siblings(".user-content-line").find(".sanjiaoInput img").attr("src", "/web/images/ansandqus/sanjia03.png");
 								})
 								$(".writeReply").blur(function() {
-										$(this).parent("").siblings(".user-content-line").find(".sanjiaoInput img").attr("src", "../images/ansandqus/sanjia01.png");
+										$(this).parent("").siblings(".user-content-line").find(".sanjiaoInput img").attr("src", "/web/images/ansandqus/sanjia01.png");
 									})
 									//回复评论
 								$(".reply-ok").unbind().click(function() {
@@ -1607,7 +1605,7 @@ window.onload = function() {
 							if(data.resultObject.praise == true) {
 								$this.find(".xz1").text("已赞(");
 								$this.children(".praise-sum").text(data.resultObject.sum);
-								/*$this.parent().children(".hitImg").attr("src", "../images/ansandqus/sakdetial_good_click.png")*/
+								/*$this.parent().children(".hitImg").attr("src", "/web/images/ansandqus/sakdetial_good_click.png")*/
 								$this.addClass("colorgren colorbg");;
 								$this.parent().children(".praise-sum").addClass("colorgren");
 								$this.parent().children(".houzhui").addClass("colorgren");
@@ -1615,7 +1613,7 @@ window.onload = function() {
 										if($(this).attr("data-pariseId") == quest_id) {
 											$(this).find(".xz1").text("已赞(");
 											$(this).children(".praise-sum").text(data.resultObject.sum);
-											/*$(this).parent().children(".hitImg").attr("src", "../images/ansandqus/sakdetial_good_click.png")*/
+											/*$(this).parent().children(".hitImg").attr("src", "/web/images/ansandqus/sakdetial_good_click.png")*/
 											$(this).addClass("colorgren colorbg");
 											$(this).children(".praise-sum").addClass("colorgren");
 											$(this).parent().children(".houzhui").addClass("colorgren");
@@ -1626,7 +1624,7 @@ window.onload = function() {
 							} else {
 								$this.find(".xz1").text("点赞(");
 								$this.parent().children(".praise-sum").text(data.resultObject.sum);
-								/*$this.parent().children(".hitImg").attr("src", "../images/amsandqus/sakdetial_good.png")*/
+								/*$this.parent().children(".hitImg").attr("src", "/web/images/amsandqus/sakdetial_good.png")*/
 								$this.removeClass("colorgren colorbg");
 								$this.children(".praise-sum").removeClass("colorgren");
 								$this.parent().children(".houzhui").removeClass("colorgren");
@@ -1634,7 +1632,7 @@ window.onload = function() {
 										if($(this).attr("data-pariseId") == quest_id) {
 											$(this).find(".xz1").text("点赞(");
 											$(this).children(".praise-sum").text(data.resultObject.sum);
-											/*$(this).parent().children(".hitImg").attr("src", "../images/ansandqus/sakdetial_good.png")*/
+											/*$(this).parent().children(".hitImg").attr("src", "/web/images/ansandqus/sakdetial_good.png")*/
 											$(this).removeClass("colorgren colorbg");
 											$(this).children(".praise-sum").removeClass("colorgren");
 											$(this).parent().children(".houzhui").removeClass("colorgren");
@@ -1881,7 +1879,7 @@ window.onload = function() {
 												if(data.resultObject.praise == true) {
 													$this.find(".xz1").text("已赞(");
 													$this.parent().find(".praise-sum").text(data.resultObject.sum);
-													/*$this.parent().find(".hitImg").attr("src", "../images/ansandqus/sakdetial_good_click.png")*/
+													/*$this.parent().find(".hitImg").attr("src", "/web/images/ansandqus/sakdetial_good_click.png")*/
 													$this.addClass("colorgren colorbg");;
 													$this.parent().find(".praise-sum").addClass("colorgren");
 													$this.parent().find(".houzhui").addClass("colorgren");
@@ -1889,7 +1887,7 @@ window.onload = function() {
 															if($(this).attr("data-pariseId") == quest_id) {
 																$(this).find(".xz1").text("已赞(");
 																$(this).children(".praise-sum").text(data.resultObject.sum);
-																/*$(this).parent().children(".hitImg").attr("src", "../images/ansandqus/sakdetial_good_click.png")*/
+																/*$(this).parent().children(".hitImg").attr("src", "/web/images/ansandqus/sakdetial_good_click.png")*/
 																$(this).addClass("colorgren colorbg");
 																$(this).children(".praise-sum").addClass("colorgren");
 																$(this).parent().children(".houzhui").addClass("colorgren");
@@ -1900,7 +1898,7 @@ window.onload = function() {
 												} else {
 													$this.find(".xz1").text("点赞(");
 													$this.parent().find(".praise-sum").text(data.resultObject.sum);
-													/*$this.parent().find(".hitImg").attr("src", "../images/ansandqus/sakdetial_good.png")*/
+													/*$this.parent().find(".hitImg").attr("src", "/web/images/ansandqus/sakdetial_good.png")*/
 													$this.removeClass("colorgren colorbg");
 													$this.parent().find(".praise-sum").removeClass("colorgren");
 													$this.parent().find(".houzhui").removeClass("colorgren");
@@ -1908,7 +1906,7 @@ window.onload = function() {
 															if($(this).attr("data-pariseId") == quest_id) {
 																$(this).find(".xz1").text("点赞(");
 																$(this).children(".praise-sum").text(data.resultObject.sum);
-																/*$(this).parent().children(".hitImg").attr("src", "../images/ansandqus/sakdetial_good.png")*/
+																/*$(this).parent().children(".hitImg").attr("src", "/web/images/ansandqus/sakdetial_good.png")*/
 																$(this).removeClass("colorgren colorbg");
 																$(this).children(".praise-sum").removeClass("colorgren");
 																$(this).parent().children(".houzhui").removeClass("colorgren");
@@ -1947,10 +1945,10 @@ window.onload = function() {
 									});
 								})
 								$(".reply-btn").hover(function() {
-									$(this).css("background", "url(../images/ansandqus/replay_hover.png) no-repeat left center");
+									$(this).css("background", "url(/web/images/ansandqus/replay_hover.png) no-repeat left center");
 									$(this).css("color", "#2cb82c");
 								}, function() {
-									$(this).css("background", "url(../images/ansandqus/reply.png) no-repeat left center");
+									$(this).css("background", "url(/web/images/ansandqus/reply.png) no-repeat left center");
 									$(this).css("color", "#999");
 								})
 								$(".writeReply").focus(function() {
@@ -1958,10 +1956,10 @@ window.onload = function() {
 									$(".emptyHit1").css("display","none");
 									$(this).css("paddingLeft", replyNoHiddenLength + "px");
 									$(this).parent("").siblings(".user-content-line").find(".sanjiaoInput").css("display", "block");
-									$(this).parent("").siblings(".user-content-line").find(".sanjiaoInput img").attr("src", "../images/ansandqus/sanjia03.png");
+									$(this).parent("").siblings(".user-content-line").find(".sanjiaoInput img").attr("src", "/web/images/ansandqus/sanjia03.png");
 								})
 								$(".writeReply").blur(function() {
-										$(this).parent("").siblings(".user-content-line").find(".sanjiaoInput img").attr("src", "../images/ansandqus/sanjia01.png");
+										$(this).parent("").siblings(".user-content-line").find(".sanjiaoInput img").attr("src", "/web/images/ansandqus/sanjia01.png");
 									})
 									//回复评论
 								$(".reply-ok").unbind().click(function() {
@@ -2210,7 +2208,7 @@ window.onload = function() {
 							if(data.resultObject.praise == true) {
 								$this.find(".xz1").text("已赞(");
 								$this.parent().children(".praise-sum").text(data.resultObject.sum);
-								/*$this.parent().children(".hitImg").attr("src", "../images/ansandqus/sakdetial_good_click.png")*/
+								/*$this.parent().children(".hitImg").attr("src", "/web/images/ansandqus/sakdetial_good_click.png")*/
 								$this.addClass("colorgren colorbg");;
 								$this.parent().children(".praise-sum").addClass("colorgren");
 								$this.parent().children(".houzhui").addClass("colorgren");
@@ -2218,7 +2216,7 @@ window.onload = function() {
 										if($(this).attr("data-pariseId") == quest_id) {
 											$(this).find(".xz1").text("已赞(");
 											$(this).children(".praise-sum").text(data.resultObject.sum);
-											/*	$(this).parent().children(".hitImg").attr("src", "../images/ansandqus/sakdetial_good_click.png")*/
+											/*	$(this).parent().children(".hitImg").attr("src", "/web/images/ansandqus/sakdetial_good_click.png")*/
 											$(this).addClass("colorgren colorbg");
 											$(this).children(".praise-sum").addClass("colorgren");
 											$(this).parent().children(".houzhui").addClass("colorgren");
@@ -2229,7 +2227,7 @@ window.onload = function() {
 							} else {
 								$this.find(".xz1").text("点赞(");
 								$this.parent().children(".praise-sum").text(data.resultObject.sum);
-								/*$this.parent().children(".hitImg").attr("src", "../images/ansandqus/sakdetial_good.png")*/
+								/*$this.parent().children(".hitImg").attr("src", "/web/images/ansandqus/sakdetial_good.png")*/
 								$this.removeClass("colorgren colorbg");
 								$this.parent().children(".praise-sum").removeClass("colorgren");
 								$this.parent().children(".houzhui").removeClass("colorgren");
@@ -2237,7 +2235,7 @@ window.onload = function() {
 										if($(this).attr("data-pariseId") == quest_id) {
 											$(this).find(".xz1").text("点赞(");
 											$(this).children(".praise-sum").text(data.resultObject.sum);
-											/*$(this).parent().children(".hitImg").attr("src", "../images/ansandqus/sakdetial_good.png")*/
+											/*$(this).parent().children(".hitImg").attr("src", "/web/images/ansandqus/sakdetial_good.png")*/
 											$(this).removeClass("colorgren colorbg");
 											$(this).children(".praise-sum").removeClass("colorgren");
 											$(this).parent().children(".houzhui").removeClass("colorgren");
@@ -2273,7 +2271,7 @@ window.onload = function() {
 									$this.css("cursor", "pointer");
 									$this.parent().find().addClass("box3").removeClass("box2");
 									$this.parent().addClass("box3").removeClass("box2");
-									$this.parent().find("img").attr("src", "../images/ansandqus/sakdetial_right_click.png");
+									$this.parent().find("img").attr("src", "/web/images/ansandqus/sakdetial_right_click.png");
 									$this.parent().parent().children(".qingjian1").attr("data-isaccept", "1");
 									$(".best-answer").each(function() {
 										if($this.attr("data-id") == $(this).attr("data-id")) {
@@ -2286,7 +2284,7 @@ window.onload = function() {
 												"display": "inline",
 												"cursor": "pointer"
 											});
-											$(this).parent().find("img").attr("src", "../images/ansandqus/sakdetial_right_click.png");
+											$(this).parent().find("img").attr("src", "/web/images/ansandqus/sakdetial_right_click.png");
 											$(this).parent().css("display", "inline");
 											$(this).parent().parent().children(".qingjian1").attr("data-isaccept", "1");
 
@@ -2308,14 +2306,14 @@ window.onload = function() {
 									$this.text('采纳为最佳回答').removeClass("colorgren box3");;
 									$this.parent().find().addClass("box2").removeClass("box3");
 									$this.parent().addClass("box2").removeClass("box3");
-									$this.parent().find("img").attr("src", "../images/ansandqus/sakdetial_right.png");
+									$this.parent().find("img").attr("src", "/web/images/ansandqus/sakdetial_right.png");
 									$this.parent().parent().children(".qingjian1").attr("data-isaccept", "0");
 									$(".best-answer").each(function() {
 										if($this.attr("data-id") == $(this).attr("data-id")) {
 											$(this).text('采纳为最佳回答').removeClass("colorgren box3");
 											$(this).parent().find().addClass("box2").removeClass("box3");
 											$(this).parent().addClass("box2").removeClass("box3");
-											$(this).parent().find("img").attr("src", "../images/ansandqus/sakdetial_right.png");
+											$(this).parent().find("img").attr("src", "/web/images/ansandqus/sakdetial_right.png");
 											$(this).parent().parent().children(".qingjian1").attr("data-isaccept", "0");
 										}
 									});
@@ -2341,10 +2339,10 @@ window.onload = function() {
 				$(this).css("paddingLeft", replyNoHiddenLength + "px");
 				$("emptyHit").css("display","none");
 				$(this).parent("").siblings(".user-content-line").find(".sanjiaoInput").css("display", "block");
-				$(this).parent("").siblings(".user-content-line").find(".sanjiaoInput img").attr("src", "../images/ansandqus/sanjia03.png");
+				$(this).parent("").siblings(".user-content-line").find(".sanjiaoInput img").attr("src", "/web/images/ansandqus/sanjia03.png");
 			})
 			$(".writeReply").blur(function() {
-					$(this).parent("").siblings(".user-content-line").find(".sanjiaoInput img").attr("src", "../images/ansandqus/sanjia01.png");
+					$(this).parent("").siblings(".user-content-line").find(".sanjiaoInput img").attr("src", "/web/images/ansandqus/sanjia01.png");
 				})
 				//计算总页数
 			if(data.resultObject.totalPageCount > 1) { //分页判断

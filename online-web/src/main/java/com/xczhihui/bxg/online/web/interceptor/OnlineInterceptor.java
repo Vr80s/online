@@ -14,6 +14,7 @@ import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -36,44 +37,25 @@ import com.xczhihui.user.center.vo.Token;
  * @author name：yuxin <br>email: yuruixin@ixincheng.com
  * @Date: 2018/4/26 0026 上午 10:56
  **/
+@Component
 public class OnlineInterceptor implements HandlerInterceptor {
 
+    private static final String AJAX_REQUEST_FLAG = "XMLHttpRequest";
+    private static final String AJAX_REQUEST_HEADER_FLAG = "X-Requested-With";
     private SimpleHibernateDao dao;
 
     @Autowired
     private UserCenterService userCenterService;
 
-    @Autowired
-    private UserService userService;
-
-    private List<String> checkuris = new ArrayList<String>();
-    private List<String> checkanchoruris = new ArrayList<String>();
-    private List<String> checkanonuris = new ArrayList<String>();
-    private List<String> checkanonanchoruris = new ArrayList<String>();
+    private List<String> openuris = new ArrayList<String>();
 
     public OnlineInterceptor() {
         try {
             URL controller = this.getClass().getClassLoader().getResource("auth.xml");
             Document doc = new SAXReader().read(controller.openStream());
-            List<Element> uris = doc.selectNodes("//checkuris/uri");
+            List<Element> uris = doc.selectNodes("//openuris/uri");
             for (Element e : uris) {
-                checkuris.add(e.getStringValue());
-            }
-            //新增主播校验2018-02-06
-            List<Element> anchoruris = doc.selectNodes("//checkuris/anchoruri");
-            for (Element e : anchoruris) {
-                checkuris.add(e.getStringValue());
-                checkanchoruris.add(e.getStringValue());
-            }
-            //新增无需登录鉴权2018-02-06
-            List<Element> anonuris = doc.selectNodes("//checkuris/anonuri");
-            for (Element e : anonuris) {
-                checkanonuris.add(e.getStringValue());
-            }
-            //新增无需主播鉴权2018-02-06
-            List<Element> anonanchoruris = doc.selectNodes("//checkuris/anonanchoruri");
-            for (Element e : anonuris) {
-                checkanonanchoruris.add(e.getStringValue());
+                openuris.add(e.getStringValue());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -91,69 +73,32 @@ public class OnlineInterceptor implements HandlerInterceptor {
         }
 
         //没登录，但是调用了必须登录才可以调的接口
-        boolean b = (token == null) && checkUris(request.getRequestURI());
+        boolean isOpen = openUris(request.getRequestURI());
+        boolean b = (token == null) && !isOpen;
         if (b) {
-            Gson gson = new GsonBuilder().create();
-            response.setCharacterEncoding("utf-8");
-            response.setContentType("application/json");
-            response.getWriter().write(gson.toJson(ResponseObject.newErrorResponseObject("请登录！")));
-            return false;
-        } else {
-            OnlineUser user = getUser(token);
-            //设置当前用户
-            com.xczhihui.bxg.online.web.controller.AbstractController.setCurrentUser(user);
-        }
-
-        //已经登录，但是调用了主播角色才可以调的接口
-        if (checkAnchoruris(request.getRequestURI())) {
-            BxgUser user = UserLoginUtil.getLoginUser();
-            Boolean anchor = userService.isAnchor(user.getLoginName());
-            if (!anchor) {
-                response.sendRedirect("/");
-                return false;
-                /*Gson gson = new GsonBuilder().create();
+            if(isAjax(request)){
+                Gson gson = new GsonBuilder().create();
                 response.setCharacterEncoding("utf-8");
-				response.setContentType("application/json");
-				response.getWriter().write(gson.toJson(ResponseObject.newErrorResponseObject("不具有主播权限或权限被禁用！")));
-				return false;*/
+                response.setContentType("application/json");
+                response.getWriter().write(gson.toJson(ResponseObject.newErrorResponseObject("请登录！")));
+            }else{
+                response.sendRedirect("/web/html/login.html");
             }
+            return false;
         }
-
+        OnlineUser user = null;
+        if(token != null){
+            user = getUser(token);
+        }
+        //设置当前用户
+        com.xczhihui.bxg.online.web.controller.AbstractController.setCurrentUser(user);
         return true;
     }
 
-    private boolean checkUris(String uri) {
-        if (!checkanonUris(uri)) {
-            for (int i = 0; i < checkuris.size(); i++) {
-                String checkuri = checkuris.get(i);
-                Pattern pattern = Pattern.compile(checkuri);
-                Matcher matcher = pattern.matcher(uri);
-                if (matcher.matches()) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    private boolean checkAnchoruris(String uri) {
-        if (!checkanonanchorUris(uri)) {
-            for (int i = 0; i < checkanchoruris.size(); i++) {
-                String checkuri = checkanchoruris.get(i);
-                Pattern pattern = Pattern.compile(checkuri);
-                Matcher matcher = pattern.matcher(uri);
-                if (matcher.matches()) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    private boolean checkanonUris(String uri) {
-        for (int i = 0; i < checkanonuris.size(); i++) {
-            String checkanonuri = checkanonuris.get(i);
-            Pattern pattern = Pattern.compile(checkanonuri);
+    private boolean openUris(String uri) {
+        for (int i = 0; i < openuris.size(); i++) {
+            String openuri = openuris.get(i);
+            Pattern pattern = Pattern.compile(openuri);
             Matcher matcher = pattern.matcher(uri);
             if (matcher.matches()) {
                 return true;
@@ -162,17 +107,6 @@ public class OnlineInterceptor implements HandlerInterceptor {
         return false;
     }
 
-    private boolean checkanonanchorUris(String uri) {
-        for (int i = 0; i < checkanonanchoruris.size(); i++) {
-            String checkanonanchoruri = checkanonanchoruris.get(i);
-            Pattern pattern = Pattern.compile(checkanonanchoruri);
-            Matcher matcher = pattern.matcher(uri);
-            if (matcher.matches()) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     private OnlineUser getUser(Token t) {
         if (t == null) {
@@ -195,5 +129,10 @@ public class OnlineInterceptor implements HandlerInterceptor {
     @Resource(name = "simpleHibernateDao")
     public void setDao(SimpleHibernateDao dao) {
         this.dao = dao;
+    }
+
+    private boolean isAjax(HttpServletRequest request) {
+        return AJAX_REQUEST_FLAG.equalsIgnoreCase(request
+                .getHeader(AJAX_REQUEST_HEADER_FLAG));
     }
 }
