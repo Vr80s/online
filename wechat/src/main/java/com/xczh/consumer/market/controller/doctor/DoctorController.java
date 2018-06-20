@@ -74,6 +74,8 @@ public class DoctorController{
         	Page<MedicalDoctorVO> doctors = medicalDoctorBusinessService.selectDoctorPage(page, 
         			 code, null, null, null, null);
         	if(doctors!=null && doctors.getSize() >0) {
+        		Map<String,Object> mapDoctors = new HashMap<String,Object>();
+        		
         		
         	}
         	
