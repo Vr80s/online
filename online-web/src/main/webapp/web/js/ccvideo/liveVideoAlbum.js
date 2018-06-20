@@ -259,12 +259,19 @@ function getSWF(objectId) {
     }
 }
 
+
 /*
  * 开始播放了
  */
 function custom_player_start(){
 	if(recording>0){
-		player.seek(recording);
+		//获取视频片长（单位：秒）
+		var duration = player.getDuration();
+		
+		if(recording<=(duration-5)){
+			//定位至指定时间，参数time（单位：秒）
+			player.seek(recording);
+		}
 	}
 }
 
