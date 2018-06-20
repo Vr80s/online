@@ -1,0 +1,257 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+img{
+    border: 0;
+}
+li{
+    list-style: none;
+}
+a{
+    text-decoration: none;
+}
+body{
+    font-family: "Helvetica";
+}
+.both{
+    clear: both;
+}
+.opacity_height{
+    width: 100%;
+    height: 0.88rem;
+    opacity: 0;
+}
+header{
+    width: 7.5rem;
+    height: 0.88rem;
+    background: #fff;
+    position: fixed;
+    top: 0;
+    left: 50%;
+    margin-left: -3.75rem;
+    z-index: 99991;
+}
+.header{
+    width: 100%;
+    height: 100%;
+}
+.header_seek{
+    width: 13.5rem;
+    height: 0.6rem;
+    line-height: 0.6rem;
+    background: #F0F0F0;
+    border-radius: 100px;
+    position: relative;
+    text-indent: 0.25rem;
+    margin-top: 0.14rem;
+    width: 7rem !important;
+    margin: 0 auto;
+    margin-top: 0.14rem;
+}
+.header_seek_main{
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 0.26em;
+    color: #999999;
+}
+.header_seek_main img{
+    width: 0.36rem;
+    height: 0.36rem;
+    vertical-align: -webkit-baseline-middle;
+    vertical-align: text-bottom;
+    margin-right: 0.1rem;
+    display: inline-block;
+    margin-top: 0.1rem;
+}
+.header_news{
+    width: 0.893rem;
+    height: 0.808rem;
+    position: relative;
+    float: right;
+}
+.header_news img{
+    width: 0.893rem;
+    height: 0.808rem;
+    margin-top: 0.2rem;
+}
+.header_news_rudio{
+    position: absolute;
+    top: -0.1rem;
+    right: -0.4rem;
+    width: 0.681rem;
+    height: 0.681rem;
+    line-height: 0.7rem;
+    background: #F97B49;
+    font-size: 0.426rem;
+    text-align: center;
+    color: #fff;
+    border-radius: 60px;
+    display: none;
+}
+
+/*中间内容开始*/
+.hot_search{
+    width: 7.5rem;
+    margin: 0 auto;
+    margin-top: 0.3rem;
+    margin-bottom: 0.3rem;
+}
+.hot_search_title{
+    width: 1.05rem;
+    font-size: 0.26rem;
+    color: #999999;
+    margin-right: 0.3rem;
+    margin-left: 0.26rem;
+
+    float: left;
+}
+.hot_search span{
+    font-size: 0.26rem;
+    color: #63C66D;
+    margin-right: 0.2rem;
+    float: left;
+}
+.main{
+    width: 7.5rem;
+    margin: 0 auto;
+}
+.physicians{
+    width: 100%;
+    background: #fff;
+    margin-bottom: 0.2rem;
+    overflow: hidden;
+}
+.physician_title{
+    font-size: 0.3rem;
+    color: #333;
+    margin-left: 0.26rem;
+    padding-top: 0.3rem;
+    /*padding-bottom: 0.2rem;*/
+}
+.physician_title img{
+    width: 0.15rem;
+    margin-right: 0.26rem;
+    float: right;
+    margin-top: 0.08rem;
+}
+.physician_cen:first-child{
+    padding-top: 0 !important;
+}
+.physician_cen{
+    width: 7.24rem;
+    height: 1.4rem;
+    float: right;
+    border-bottom: 1px solid #F0F0F0;
+    padding-top: 0.2rem;
+}
+
+.physician_cen:last-child{
+    border-bottom: none;
+}
+
+.head_portrait{
+    width: 1.2rem;
+    height: 1.2rem;
+    float: left;
+    margin-right: 0.2rem;
+    border-radius: 100px;
+}
+.head_portrait img{
+    width: 1.2rem;
+    height: 1.2rem;
+    border-radius: 100px;
+}
+.physician .referral{
+    width: 100%;
+    height: 1.4rem;
+}
+.referral_title{
+    margin-top: 0.12rem;
+    margin-bottom: 0.2rem;
+    width: 5.8rem;
+    /*background: red;*/
+    float: right;
+    height: 0.42rem;
+    line-height: 0.42rem;
+}
+.referral_title .name{
+    font-size: 0.3rem;
+    color: #333333;
+    float: left;
+    margin-right: 0.2rem;
+}
+.referral_title .duty{
+    font-size: 0.24rem;
+    color: #999999;
+    float: left;
+}
+.hospital{
+    width: 5.8rem;
+    /*background: red;*/
+    float: right;
+    height: 0.33rem;
+    line-height: 0.33rem;
+    /* font-size: 0.2rem; */
+    font-size: 0.24rem;
+    color: #999999;
+}
+/*中间内容结束*/
+
+
+/*底部开始*/
+.footer_perch{
+    width: 100%;
+    height: 0.98rem;
+}
+.footer{
+    width: 7.5rem;
+    height: 1rem;
+    background: #fff;
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    z-index: 9999999999;
+    border-top: 1px solid #d8dde6;
+    margin-left: -3.75rem;
+}
+.footer ul li{
+    width: 0.78rem;
+    float: left;
+    text-align: center;
+    margin-left: 0.6rem;
+}
+.footer ul li a{
+    display: block;
+    text-align: center;
+    margin: 0 auto;
+    margin-bottom: 0.06rem;
+    margin-top: 0.14rem;
+    width: 0.486rem;
+    height: 0.42rem;
+}
+.footer ul li p{
+    width: 100%;
+    color: #999;
+    font-size: 0.2rem;
+    text-align: center;
+}
+.school{
+    background: url(/xcview/images/school_one.png) no-repeat center;
+    background-size: 0.38rem 0.4rem;
+}
+.study{
+    background: url(/xcview/images/learn_two.png) no-repeat center;
+    background-size: 0.4rem 0.4rem;
+}
+.discovery{
+    background: url(/xcview/images/discovery_three.png) no-repeat center;
+    background-size: 0.42rem 0.42rem;
+}
+.my{
+    background: url(/xcview/images/my_four.png) no-repeat center;
+    background-size: 0.38rem 0.42rem;
+}
+/*底部结束*/
+
