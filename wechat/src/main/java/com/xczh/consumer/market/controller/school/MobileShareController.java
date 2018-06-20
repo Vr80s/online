@@ -22,7 +22,6 @@ import com.xczh.consumer.market.dao.OnlineUserMapper;
 import com.xczh.consumer.market.service.OnlineCourseService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.service.OnlineWebService;
-import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
 import com.xczh.consumer.market.utils.ConfigUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.vo.CourseVo;
@@ -63,7 +62,6 @@ public class MobileShareController {
     private OnlineWebService onlineWebService;
     @Autowired
     private OnlineUserService onlineUserService;
-
 
     @Value("${webdomain}")
     private String webdomain;

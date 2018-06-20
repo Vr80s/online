@@ -142,6 +142,7 @@ public interface CourseMapper extends BaseMapper<Course> {
             " order by oc.create_time desc"})
     List<Map<String, Object>> selectOfflineCourseByAnchorId(Page<Map<String, Object>> page, @Param("anchorId") String anchorId);
 
+	Integer selectLiveCountByUserIdAndType(@Param("userId")String userId, @Param("type")Integer type);
+
     
-	List<CourseLecturVo> doctorCourseList(Page<CourseLecturVo> page, String doctorId, Integer type, Boolean falg);
 }

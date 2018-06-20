@@ -233,4 +233,13 @@ public interface ICourseService {
      */
     Page<Map<String, Object>> selectOfflineCourseByAnchorId(String anchorId);
 
+    
+    /**
+     * 查看用户的课程类型数量
+     * @param userId
+     * @param type
+     * @return
+     */
+	public Integer selectLiveCountByUserIdAndType(String userId,Integer type);
+
 }

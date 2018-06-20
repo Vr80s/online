@@ -305,5 +305,42 @@ public class CourseController {
         }
         response.sendRedirect(liveCourseUrl4Wechat);
     }
-
+    
+    /**
+	 * 用户课程类型数量
+	 * @param userId
+	 * @param type
+	 * @return
+	 * @throws Exception
+	 */
+    @RequestMapping("courseTypeNumber")
+    public ResponseObject courseTypeNumber(
+            @RequestParam(value = "userId") String userId,
+            Integer type)
+            throws Exception {
+        Integer count = courseServiceImpl.selectLiveCountByUserIdAndType(userId,type);
+        return ResponseObject.newSuccessResponseObject(count);
+    }
+    
+    /**
+	 * 随机为你推荐推荐值最高的10个课程里面最高的四个
+	 * @param userId
+	 * @param type
+	 * @return
+	 * @throws Exception
+	 */
+    @RequestMapping("recommendSortAndRand")
+    public ResponseObject recommendSortAndRand(Integer pageSize)
+            throws Exception {
+    	
+    	pageSize = (pageSize == null ? 4 : pageSize);
+    	
+    	  //推荐课程   -- 从推荐值最高的课程里面查询啦啦啦啦。
+        Page<CourseLecturVo> page = new Page<CourseLecturVo>();
+        page.setCurrent(0);
+        page.setSize(pageSize);
+        
+        return ResponseObject.newSuccessResponseObject(
+        		courseServiceImpl.selectRecommendSortAndRandCourse(page));
+    }
 }
