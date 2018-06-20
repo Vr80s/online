@@ -144,4 +144,9 @@
 	
 	 <!--线下课报名信息 -->
     <dubbo:reference interface="com.xczhihui.course.service.ILineApplyService" id="lineApplyServiceImpl"  timeout="${dubbo.consumer.timeout}"/>
+    
+     <!--科室-->
+    <dubbo:reference interface="com.xczhihui.medical.department.service.IMedicalDepartmentService"   id="medicalDepartmentServiceImpl" timeout="${dubbo.consumer.timeout}"/>
+    
+    
 </beans>

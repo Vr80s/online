@@ -193,8 +193,9 @@ public class XzStringUtils {
 		return b1.divide(b2, scale, BigDecimal.ROUND_HALF_UP).doubleValue();
 	}
 
+	
 	/**You can't specify target table 'medical_doctor_department' for update in FROM clause
-	 * 字符串增加  每周  ***** 全天
+	 * 字符串增加   每周  ***** 全天
 	 * @param str
 	 * @return
 	 */
