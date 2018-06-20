@@ -12,11 +12,14 @@ package com.xczhihui.common.util.enums;
 public enum ShareType {
 
     	//	1：课程分享2：主播分享 3：专辑（及其子课程）分享
-	
 		COURSE_SHARE(1, "课程分享"),
 		HOST_SHARE(2, "主播分享"),
 		ALBUM_SHARE(3, "专辑（及其子课程）分享"),
-		APPRENTICE_SHARE(4, "师承分享");
+		APPRENTICE_SHARE(4, "师承分享"),
+		DOCDOT_SHARE(5, "医师分享"),
+		ACTICLE_SHARE(6, "文章分享"),
+		MEDICAL_CASES(7, "医案分享");
+	
 		/**
 	     * 描述
 	     **/
