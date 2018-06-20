@@ -9,7 +9,7 @@ window.onload = function () {
 	addSelectedMenu();
     template.helper('href', function (num) {
         if (num != "") {
-            return '' + bath + '/web/qusDetail/' + num;
+            return '' + bath + '/questions/' + num;
         } else {
             return 'javascript:;';
         }
@@ -28,20 +28,6 @@ window.onload = function () {
 //		}
     })
     var ansAndQusRight =
-        /*"<div class='ansAndQusRight-top'>" +
-        "<div class='ansAndQusRight-top-back'>" +
-        "<p><img src='../images/ansandqus/ask.png'/></p>" +
-        "<p>找不到想要的答案？</p>" +
-        "<a href='javascript:;' class='goQuiz'>我要提问</a>" +
-        "</div>" +
-        "</div>" +*/
-       /* "<div class='ansAndQusRight-bottom'>" +
-        "<div class='ansAndQusRight-hot'>" +
-        "<p class='ansAndQusRight-top-title'>热门问答</p>" +
-        "<div class='ansAndQusRight-top-title-noDate'>" +
-        "<img src='../images/ansandqus/my_nodata.png'/>" +
-        "<p>暂无数据</p>" +
-        "</div>" +*/
         "{{each data as h}}" +
         "<div>" +
         "<a href='{{#href(h.id)}}' data-id='{{h.id}}' target='_blank'><span class='ansAndQusRight-top-body' data-text='{{h.title}}'title='{{h.title}}'>{{h.title}}</span>" +
@@ -49,17 +35,6 @@ window.onload = function () {
         "<p class='ansAndQusRight-top-sum' data-sum='{{h.answer_sum}}'>回答({{h.answer_sum}})</p>"+
         "</div>" +
         "{{/each}}"
-        /*"</div>" +*/
-    /*    "<div class='weekly'>" +
-        "<p class='weekly-title'>周回答排行榜</p>" +
-        "<div class='weeklyChart'>" +
-        "</div>" +
-        "</div>" +*/
-       /* "<div class='weeklyChartNoDate'>" +
-        "<img src='../images/ansandqus/my_nodata.png'/>" +
-        "<p>暂无数据</p>" +
-        "</div>"+
-        "</div>";*/
     var weekly =
         "{{each data as w}}" +
         "<div class='weekly-body'>" +
@@ -221,19 +196,19 @@ window.onload = function () {
                 list.title = "";
                 list.tag = "";
                 list.pageNumber = 1;
-            	location.href = encodeURI("ansAndQus.html?page=" + list.pageNumber + "&title=" + list.title + "&menuId=" + list.menuId + "&tag=" + list.tag + "&status=-1");
+            	location.href = encodeURI("/questions?page=" + list.pageNumber + "&title=" + list.title + "&menuId=" + list.menuId + "&tag=" + list.tag + "&status=-1");
         	}else if($(this).attr("data-type") == 1){
         		list.menuId = -1;
                 list.title = "";
                 list.tag = encodeURIComponent($.trim($(this).text()));
                 list.pageNumber = 1;
-            	location.href = encodeURI("ansAndQus.html?page=" + list.pageNumber + "&title=" + list.title + "&menuId=" + list.menuId + "&tag=" + list.tag + "&status=-1");
+            	location.href = encodeURI("/questions?page=" + list.pageNumber + "&title=" + list.title + "&menuId=" + list.menuId + "&tag=" + list.tag + "&status=-1");
         	}else{
         		list.menuId = -1;
                 list.title = "";
                 list.tag = "";
                 list.pageNumber = 1;
-            	location.href = "ansAndQus.html?page=" + list.pageNumber + "&title=" + list.title + "&menuId=" + list.menuId + "&tag=" + list.tag + "&status=-1";
+            	location.href = "/questions?page=" + list.pageNumber + "&title=" + list.title + "&menuId=" + list.menuId + "&tag=" + list.tag + "&status=-1";
         	}
         	$(".ansAndQus-Title span:first").click();
         })
@@ -258,7 +233,7 @@ window.onload = function () {
                     list.title = "";
                     list.tag = encodeURIComponent($.trim(target.text()));
                     list.pageNumber = 1;
-            		location.href = encodeURI("ansAndQus.html?page=" + list.pageNumber + "&title=" + list.title + "&menuId=" + list.menuId + "&tag=" + list.tag + "&status=-1");
+            		location.href = encodeURI("/questions?page=" + list.pageNumber + "&title=" + list.title + "&menuId=" + list.menuId + "&tag=" + list.tag + "&status=-1");
                 }
             } else if(target.hasClass("select-type-ul-dv-d") ){
             	return false;
@@ -283,7 +258,7 @@ window.onload = function () {
                     list.tag = "";
                     list.pageNumber = 1;
                     $(".search-ansAndQus input").val("");
-            	location.href = encodeURI("ansAndQus.html?page=" + list.pageNumber + "&title=" + list.title + "&menuId=" + list.menuId + "&tag=" + list.tag + "&status=-1");
+            	location.href = encodeURI("/questions?page=" + list.pageNumber + "&title=" + list.title + "&menuId=" + list.menuId + "&tag=" + list.tag + "&status=-1");
                 }
             }
         });
@@ -305,7 +280,7 @@ window.onload = function () {
             urlParam.pageNumber = 1;
             urlParam.menuId = menuId;
             list.title = "";
-            location.href = encodeURI("ansAndQus.html?page=" + list.pageNumber + "&title=" + list.title + "&menuId=" + list.menuId + "&tag=" + list.tag + "&status=-1");
+            location.href = encodeURI("/questions?page=" + list.pageNumber + "&title=" + list.title + "&menuId=" + list.menuId + "&tag=" + list.tag + "&status=-1");
 
         });
     });
@@ -326,9 +301,7 @@ window.onload = function () {
         $(".goQuiz").on("click", function () {
             RequestService("/online/user/isAlive", "GET", null, function (data) { ///online/user/isAlive
                 if (data.success) {
-//					$(".goQuiz").attr("href","quiz.html");
                     location.href = "quiz.html"
-//					$(".goQuiz").attr("href","javascript:;");
                 } else {
                     var pathS = window.location.href;
                     localStorage.username = null;
@@ -415,8 +388,6 @@ window.onload = function () {
         $(this).parent().find("span").addClass("hide");
         $(document).keydown(function (e) {
             if (e.which == 13) {
-//              if ($.trim($(".search-ansAndQus input").val()) != "") {
-//              	location.href = encodeURI("ansAndQus.html?page=1" + "&title=" + encodeURIComponent($.trim($(".search-ansAndQus input").val())) + "&menuId=-1" + "&tag=" + "" + "&status=-1");
                     $(".search-ansAndQus i").click()
 //              }
             }
@@ -474,14 +445,14 @@ window.onload = function () {
                 if (data.resultObject.currentPage == 1) {
                     $("#Pagination").pagination(data.resultObject.totalPageCount, {
                         callback: function (page) { //翻页功能
-                        	location.href = encodeURI("ansAndQus.html?page=" + (page + 1) + "&title=" + list.title + "&menuId=" + list.menuId + "&tag=" + list.tag + "&status=" + list.status);
+                        	location.href = encodeURI("/questions?page=" + (page + 1) + "&title=" + list.title + "&menuId=" + list.menuId + "&tag=" + list.tag + "&status=" + list.status);
                         }
                     });
 				
                 }else{
                 	$("#Pagination").pagination(data.resultObject.totalPageCount, {
                         callback: function (page) { //翻页功能
-                        	location.href = encodeURI("ansAndQus.html?page=" + (page + 1) + "&title=" + list.title + "&menuId=" + list.menuId + "&tag=" + list.tag + "&status=" + list.status);
+                        	location.href = encodeURI("/questions?page=" + (page + 1) + "&title=" + list.title + "&menuId=" + list.menuId + "&tag=" + list.tag + "&status=" + list.status);
                         }
                   });
                 }
@@ -496,7 +467,7 @@ window.onload = function () {
                     $(".ansAndQus-left-list").html(template.compile(searchkongbai));
                     $(".searchkongbaiBody").html(list.title);
                     $(".returnAnsAndQus").click(function(){
-                    location.href = "ansAndQus.html?page=1" + "&title=" + "" + "&menuId=-1" + "&tag=" + "" + "&status=-1";
+                    location.href = "/questions?page=1" + "&title=" + "" + "&menuId=-1" + "&tag=" + "" + "&status=-1";
                     })
                 } else {
                     $(".ansAndQus-left-list").html(template.compile(kongbai));
@@ -521,7 +492,7 @@ window.onload = function () {
                     });
                 });*/
                 $(".list-questions-right-tag").click(function () {
-                    location.href = encodeURI("ansAndQus.html?page=1" + "&title=" + "" + "&menuId=-1" + "&tag=" + encodeURIComponent($(this).text()) + "&status=-1");
+                    location.href = encodeURI("/questions?page=1" + "&title=" + "" + "&menuId=-1" + "&tag=" + encodeURIComponent($(this).text()) + "&status=-1");
                 });
                 $(".subject-table").click(function () {
                     if ($(this).attr("data-id") == 0) {
@@ -533,7 +504,7 @@ window.onload = function () {
                     list.tag = "";
                     list.status = -1;
                     list.pageNumber = 1;
-                    location.href = encodeURI("ansAndQus.html?page=" + list.pageNumber + "&title=" + list.title + "&menuId=" + list.menuId + "&tag=" + list.tag + "&status=" + list.status);
+                    location.href = encodeURI("/questions?page=" + list.pageNumber + "&title=" + list.title + "&menuId=" + list.menuId + "&tag=" + list.tag + "&status=" + list.status);
                     
                 });
                 $(".ansAndQus-left-list").closeloading();
@@ -644,7 +615,7 @@ window.onload = function () {
             $(this).addClass("selectedBtn");
             list.status = $(this).attr("data-status");
             list.pageNumber = 1;
-            location.href = encodeURI("ansAndQus.html?page=" + list.pageNumber + "&title=" + encodeURIComponent(list.title) + "&menuId=" + list.menuId + "&tag=" + encodeURIComponent(list.tag) + "&status=" + list.status);
+            location.href = encodeURI("/questions?page=" + list.pageNumber + "&title=" + encodeURIComponent(list.title) + "&menuId=" + list.menuId + "&tag=" + encodeURIComponent(list.tag) + "&status=" + list.status);
         }
     });
    
@@ -666,7 +637,7 @@ window.onload = function () {
             list.title = $(".search-ansAndQus input").val();
             list.pageNumber = 1;
             list.status = $.getUrlParam('status');
-           	location.href = encodeURI("ansAndQus.html?page=" + list.pageNumber + "&title=" + encodeURIComponent(list.title) + "&menuId=" + list.menuId + "&tag=" + list.tag + "&status="+list.status +"");
+           	location.href = encodeURI("/questions?page=" + list.pageNumber + "&title=" + encodeURIComponent(list.title) + "&menuId=" + list.menuId + "&tag=" + list.tag + "&status="+list.status +"");
     	}
     	
         if ($.trim($(".search-ansAndQus input").val()) != "") {
@@ -675,7 +646,7 @@ window.onload = function () {
             list.title = $(".search-ansAndQus input").val();
             list.pageNumber = 1;
             list.status = $.getUrlParam('status');
-           	location.href = encodeURI("ansAndQus.html?page=" + list.pageNumber + "&title=" + encodeURIComponent(list.title) + "&menuId=" + list.menuId + "&tag=" + list.tag + "&status="+list.status+"");
+           	location.href = encodeURI("/questions?page=" + list.pageNumber + "&title=" + encodeURIComponent(list.title) + "&menuId=" + list.menuId + "&tag=" + list.tag + "&status="+list.status+"");
         }
     });
     //点击标签搜索
@@ -684,7 +655,7 @@ window.onload = function () {
         list.menuId = -1;
         list.tag = $(this).text();
         list.pageNumber = 1;
-       	location.href = encodeURI("ansAndQus.html?page=1" + "&title=" + "" + "&menuId=-1" + "&tag=" + encodeURIComponent(list.tag) + "&status=-1");
+       	location.href = encodeURI("/questions?page=1" + "&title=" + "" + "&menuId=-1" + "&tag=" + encodeURIComponent(list.tag) + "&status=-1");
                    
     });
 }

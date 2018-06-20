@@ -39,7 +39,7 @@
 <body>
 <div class="wp">
     <div class="route">
-        <a href="/web/html/personal-center/personal-index.html">个人中心</a>&gt;<span>我的帖子</span>
+        <a href="/my">个人中心</a>&gt;<span>我的帖子</span>
     </div>
 
     <div class="wrap-myPost">

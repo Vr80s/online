@@ -1,6 +1,6 @@
 template.helper('ahref', function(num) {
 	if(num != "") {
-		return '' + bath + '/web/qusDetail/' + num;
+		return '' + bath + '/questions/' + num;
 	} else {
 		return 'javascript:;';
 	}
@@ -328,12 +328,12 @@ function createPage() {
 			var tag=$(this).html();
 			window.localStorage.xueke=tag;
 			window.localStorage.xuekeid=$(this).parent().attr("data-mentid");
-			window.open(bath+"/web/html/ansAndQus.html");
+			window.open(bath+"/questions");
 		})
 		$(".biaoqian").click(function(){
 			var tag=$(this).html();
 			window.localStorage.biaoqian=tag;
-			window.open(bath+"/web/html/ansAndQus.html");
+			window.open(bath+"/questions");
 		})
 		$(".title .play-a-lick").click(function(){
 			var url=$(this).attr("data-url");

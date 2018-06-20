@@ -86,7 +86,7 @@ public class MultiUrlHelper {
             URL_TYPE_WEB, "/headline/details/{0}"
     );
     private static Map<String, String> questionMap = ImmutableMap.of(
-            URL_TYPE_WEB, "/web/qusDetail/{0}"
+            URL_TYPE_WEB, "/questions/{0}"
     );
     private static Map<String, String> anchorIndexMap = ImmutableMap.of(
             URL_TYPE_APP, "xczh://ipandatcm.com/anchorIndex?id={0}",

@@ -14,7 +14,7 @@
     
     <context:property-placeholder location="classpath:config.properties"/>
     <context:component-scan base-package="com.xczhihui.bxg.online.*.controller"/>
-    <context:component-scan base-package="com.xczhihui.bxg.online.web.base.common"/>
+    <context:component-scan base-package="com.xczhihui.bxg.online.web.base.common,com.xczhihui.bxg.online.config"/>
     <!-- 定时器-->
     <task:annotation-driven/>
 
@@ -23,27 +23,6 @@
         <property name="maxUploadSize" value="1073741824"/><!--1024M -->
         <property name="defaultEncoding" value="UTF-8"/>
     </bean>
-
-    <mvc:annotation-driven>
-        <mvc:message-converters>
-            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-                <property name="supportedMediaTypes">
-                    <list>
-                        <value>text/json;charset=UTF-8</value>
-                    </list>
-                </property>
-                <property name="objectMapper">
-                    <bean class="com.fasterxml.jackson.databind.ObjectMapper">
-                        <property name="dateFormat">
-                            <bean class="java.text.SimpleDateFormat">
-                                <constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss"/>
-                            </bean>
-                        </property>
-                    </bean>
-                </property>
-            </bean>
-        </mvc:message-converters>
-    </mvc:annotation-driven>
 
     <bean id="handlerExceptionResolver"  class="com.xczhihui.bxg.online.web.exception.ExceptionResolver">
         <property name="exceptionMappings">
@@ -103,19 +82,19 @@
     <mvc:resources mapping="/online/live/image/**" location="file:/online/live/image/"/>
     <mvc:default-servlet-handler/>
 
-    <mvc:interceptors>
+   <!-- <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
             <bean id="onlineInterceptor" class="com.xczhihui.bxg.online.web.interceptor.OnlineInterceptor"/>
         </mvc:interceptor>
 
-        <!-- 对web请求的相关处理-->
+        &lt;!&ndash; 对web请求的相关处理&ndash;&gt;
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
             <bean id="webInterceptor" class="com.xczhihui.bxg.online.web.interceptor.WebInterceptor"/>
         </mvc:interceptor>
-        <!-- 对web请求的相关处理-->
-    </mvc:interceptors>
+        &lt;!&ndash; 对web请求的相关处理&ndash;&gt;
+    </mvc:interceptors>-->
 
 
     <bean id="attachmentCenterController" class="com.xczhihui.common.web.controller.AttachmentCenterController"/>

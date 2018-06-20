@@ -21,10 +21,10 @@ if(appUniqueId != null && appUniqueId !=''){
     appUniqueId = sessionStorage.getItem("appUniqueId");
 }
 if(token != null && token != ''){
-    data.appUniqueId = appUniqueId;
+    data.token = token;
 }
 if(appUniqueId != null && appUniqueId !=''){
-    data.token = token;
+    data.appUniqueId = appUniqueId;
 }
 if(wv != null && wv !=''){
     sessionStorage.setItem("wv",wv);

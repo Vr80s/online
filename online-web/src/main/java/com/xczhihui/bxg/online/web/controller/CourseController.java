@@ -190,30 +190,6 @@ public class CourseController extends AbstractController {
     }
 
     /**
-     * 获取当前课程下学员评价
-     *
-     * @param courseId 课程id
-     * @return
-     */
-    @RequestMapping(value = "/findStudentCriticize")
-    public ResponseObject findStudentCriticize(Integer courseId, Integer pageNumber, Integer pageSize) {
-//        return  ResponseObject.newSuccessResponseObject(service.findUserCriticize(courseId, pageNumber, pageSize));
-        return null;
-    }
-
-    /**
-     * 获取好评的数量
-     *
-     * @param courseId 课程ID
-     * @return
-     */
-    @RequestMapping(value = "/getGoodCriticizSum")
-    public ResponseObject getGoodCriticizSum(Integer courseId) {
-        return null;
-//        return  ResponseObject.newSuccessResponseObject(service.getGoodCriticizSum(courseId));
-    }
-
-    /**
      * 获取课程目录
      *
      * @param courseId

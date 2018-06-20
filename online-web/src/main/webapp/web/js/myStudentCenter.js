@@ -1162,7 +1162,7 @@ window.onload = function () {
                                     if (data.success == true) {
                                         if (data.resultObject == "操作成功!") {
                                             $(".tips1").hide();
-                                            window.location.href = "/web/html/personal-center/personal-index.html?order=0";
+                                            window.location.href = "/my?order=0";
                                         }
                                     }
                                 });
@@ -1184,7 +1184,7 @@ window.onload = function () {
                                     if (data.success == true) {
                                         if (data.resultObject == "操作成功!") {
                                             $(".tips2").hide();
-                                            window.location.href = "/web/html/personal-center/personal-index.html?order=0";
+                                            window.location.href = "/my?order=0";
                                         }
                                     }
                                 });

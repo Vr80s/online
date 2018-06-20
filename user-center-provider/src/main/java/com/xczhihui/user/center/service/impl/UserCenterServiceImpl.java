@@ -1,6 +1,7 @@
 package com.xczhihui.user.center.service.impl;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 
 import org.slf4j.Logger;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import com.xczhihui.common.support.cc.util.Md5Encrypt;
 import com.xczhihui.common.util.CodeUtil;
 import com.xczhihui.common.util.RandomUtil;
 import com.xczhihui.common.util.RedisCacheKey;
@@ -295,4 +297,22 @@ public class UserCenterServiceImpl implements UserCenterService {
         }
         return loginMobile(username,username,TokenExpires.TenDay);
     }
+
+
+    @Override
+    public Token fastLogin(String loginName, String token, TokenExpires tokenExpires) {
+        if (StringUtils.hasText(loginName) && StringUtils.hasText(token)) {
+            OeUser user = this.oeUserMapper.selectByLoginName(loginName);
+            if(user==null){
+                throw new LoginRegException("用户不存在");
+            }
+            String fastLoginToken = Md5Encrypt.getFastLoginToken(loginName, user.getPassword());
+            if (!fastLoginToken.equals(token)) {
+                throw new LoginRegException("token验证失败");
+            }
+            return this.tokenManager.createToken(user, tokenExpires.getExpires());
+        }
+        return null;
+    }
+
 }

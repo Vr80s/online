@@ -3,6 +3,7 @@ package com.xczhihui.bxg.online.web.controller;
 import java.io.IOException;
 import java.util.Base64;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -10,12 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.ServletRequestUtils;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.xczhihui.bxg.online.common.base.controller.OnlineBaseController;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
+import com.xczhihui.bxg.online.common.domain.User;
 import com.xczhihui.bxg.online.web.base.common.OnlineResponse;
 import com.xczhihui.bxg.online.web.base.utils.UserLoginUtil;
 import com.xczhihui.bxg.online.web.service.UserService;
@@ -101,6 +104,9 @@ public class UserController extends OnlineBaseController {
     @ResponseBody
     public OnlineResponse isAlive(HttpServletRequest request) {
         BxgUser loginUser = UserLoginUtil.getLoginUser();
+        if(loginUser == null){
+            return OnlineResponse.newErrorOnlineResponse("未登录");
+        }
         return OnlineResponse.newSuccessOnlineResponse(service.isAlive(loginUser.getLoginName()));
     }
 
@@ -216,5 +222,18 @@ public class UserController extends OnlineBaseController {
     @ResponseBody
     public ResponseObject listCities(String provinceId) {
         return ResponseObject.newSuccessResponseObject(service.listCities(provinceId));
+    }
+
+    /**
+     * Description：快速登录（方便后台管理）
+     * creed: Talk is cheap,show me the code
+     * @author name：yuxin
+     * @Date: 2018/6/19 0019 下午 5:29
+     **/
+    @RequestMapping(value = "/fastLogin/{loginName}/{token}", method = RequestMethod.GET)
+    public void fastLogin(@PathVariable String token, @PathVariable String loginName, HttpServletResponse response) throws ServletException, IOException {
+        Token t = userCenterService.fastLogin(loginName, token, TokenExpires.Day);
+        UCCookieUtil.writeTokenCookie(response, t);
+        response.sendRedirect("/");
     }
 }

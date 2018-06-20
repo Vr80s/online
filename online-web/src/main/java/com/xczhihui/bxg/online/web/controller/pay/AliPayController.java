@@ -181,7 +181,7 @@ public class AliPayController extends AliPayApiController {
             if (verify_result) {
                 logger.info("return_url 验证成功");
                 Order order = orderService.getOrderByOrderNo(map.get("out_trade_no"));
-                String page = "/web/html/personal-center/personal-index.html#menu4";
+                String page = "/my#menu4";
                 if(order != null){
                     page = "/order/pay/success?orderId="+order.getId();
                 }

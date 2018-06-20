@@ -114,7 +114,7 @@
                             //点击跳转充值记录
                             localStorage.setItem("personcenter", "mymoney ");
                             localStorage.setItem("findStyle", "profile ");
-                            location.href = "/web/html/personal-center/personal-index.html#menu4"
+                            location.href = "/my#menu4"
                         }
                         $(".tank span").html(m + "s");
                     }, 1000);

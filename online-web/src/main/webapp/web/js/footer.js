@@ -266,7 +266,7 @@ $("#answerForm .myanswer-btn").click(function (evt) { //根据data-modalzt弹出
                         $("#answerForm").modal("hide");
                         $(".file2_t").css("display", "none");
                         if ($(".pages").css("display") == "none") {
-                            if (window.location.pathname == "/web/html/personal-center/personal-index.html#menu1-1") {
+                            if (window.location.pathname == "/my#menu1-1") {
                                 $(".tabnavigator .tabbar").trigger("tabChange", {
                                     data: "view-stack-answer"
                                 });

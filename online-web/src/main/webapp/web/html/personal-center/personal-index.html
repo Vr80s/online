@@ -487,7 +487,7 @@
 										<!--暂无关注的主播-->	
 										<div class="no-follow-anchor hide">
 											<div class="no-follow-img">
-												<img src="../../images/icon-nodata.png"/>
+												<img src="/web/images/icon-nodata.png"/>
 											</div>
 											<p>暂无关注的主播</p>
 										</div>
@@ -535,7 +535,7 @@
 															{{else if item.status==2}}
 															<span>已解决</span>
 															{{/if}}
-															<p onclick="previewNumber(this)" data-id="{{item.id}}"><a href="/web/qusDetail/{{item.id}}">{{item.title}}</a></p>
+															<p onclick="previewNumber(this)" data-id="{{item.id}}"><a href="/questions/{{item.id}}">{{item.title}}</a></p>
 														</div>
 														<div class="list-Answer-right-text dot6" >
 															{{item.content}}
@@ -602,7 +602,7 @@
 										<!--无我的提问时的背景图-->
 										<div class="no-question-box hide">
 											<div class="no-question-img">
-												<img src="../../images/icon-nodata.png"/>
+												<img src="/web/images/icon-nodata.png"/>
 											</div>
 											<p>暂无提问</p>	
 										</div>
@@ -635,7 +635,7 @@
 													{{else if item.status==2}}
 													<span>已解决</span>
 													{{/if}}
-													<p onclick="anwserNumber(this)" data-id="{{item.id}}"><a href="/web/qusDetail/{{item.id}}">{{item.title}}</a></p>
+													<p onclick="anwserNumber(this)" data-id="{{item.id}}"><a href="/questions/{{item.id}}">{{item.title}}</a></p>
 												</div>
 												<div class="list-Answer-right-text dot5" >
 														{{item.content}}
@@ -697,7 +697,7 @@
 										</script>
 										<div class="no-answer-box hide">
 											<div class="no-answer-img">
-												<img src="../../images/icon-nodata.png"/>
+												<img src="/web/images/icon-nodata.png"/>
 											</div>
 											<p>暂无回答</p>	
 										</div>
@@ -745,7 +745,7 @@
 										<!--暂无帖子-->
 										<div class="no-post-box hide">
 											<div class="no-post-img">
-												<img src="../../images/icon-nodata.png"/>
+												<img src="/web/images/icon-nodata.png"/>
 											</div>
 											<p>暂无帖子</p>
 										</div>
@@ -786,7 +786,7 @@
 										<!--暂无回复-->
 										<div class="no-reply-box hide">
 											<div class="no-reply-img">
-												<img src="../../images/icon-nodata.png"/>
+												<img src="/web/images/icon-nodata.png"/>
 											</div>
 											<p>暂无回复</p>
 										</div>
@@ -875,7 +875,7 @@
 										<!--暂无订单-->
 										<div class="no-order-box all-no-order hide">
 											<div class="no-order-img">
-												<img src="../../images/icon-nodata.png"/>
+												<img src="/web/images/icon-nodata.png"/>
 											</div>
 											<p>暂无订单</p>
 										</div>
@@ -948,7 +948,7 @@
 												<!--暂无交易记录-->
 												<div class="no-order-box all-money-order hide" style="padding-top: 100px;">
 													<div class="no-order-img">
-														<img src="../../images/nodealHos.png"/>
+														<img src="/web/images/nodealHos.png"/>
 													</div>
 													<p>暂无交易记录</p>
 												</div>
@@ -1000,14 +1000,14 @@
 											<ul class="select-pay">
 												<li class="select-confirm" data-payType="0">
 													<div class="pay-logo">
-														<img src="../../images/live/alipay.png">
+														<img src="/web/images/live/alipay.png">
 													</div>
 													<p>支付宝</p>
 													<span class="icon-sure"></span>
 												</li>
 												<li data-payType="1">
 													<div class="pay-logo">
-														<img src="../../images/weixin.png">
+														<img src="/web/images/weixin.png">
 													</div>
 													<p>微信</p>
 													<span class="icon-sure hide"></span>
@@ -1146,7 +1146,7 @@
 														<span class="news-time">{{item.createTime}}</span>
 														
 													</div>
-													<p class="delete-news" style="display: none;"><img src="../../images/qxCloser.png"/></p>
+													<p class="delete-news" style="display: none;"><img src="/web/images/qxCloser.png"/></p>
 												</li>
 												{{else if item.readStatus==1}}
 												<li onclick="jump_msg(this)" data-id="{{item.id}}" data-url='{{item.url}}'>
@@ -1154,7 +1154,7 @@
 														{{item.context}}
 														<span class="news-time">{{item.createTime}}</span>
 													</div>
-													<p class="delete-news" style="display: none;" data-delete="{{item.id}}" onclick="deleteNews(this)"><img src="../../images/alter-close.png"/></p>
+													<p class="delete-news" style="display: none;" data-delete="{{item.id}}" onclick="deleteNews(this)"><img src="/web/images/alter-close.png"/></p>
 												</li>
 												{{/if}}
 											{{/each}}
@@ -1164,7 +1164,7 @@
 									<!--暂无消息-->
 									<div class="no-order-box all-news-order hide" style="padding-top: 128px;">
 										<div class="no-order-img" style="width: 153px; height: 117px;">
-											<img src="../../images/news_null.png"/>
+											<img src="/web/images/news_null.png"/>
 										</div>
 										<p>暂无消息</p>
 									</div>
