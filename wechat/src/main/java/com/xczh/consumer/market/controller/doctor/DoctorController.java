@@ -77,13 +77,12 @@ public class DoctorController{
         for (int i = 0; i < listMap.size(); i++) {
         	Map  maps = listMap.get(i);
         	Integer code = (Integer) maps.get("code");
-        	String text =  (String) maps.get("text");
+        	String text =  (String) maps.get("value");
         	
         	Page<MedicalDoctorVO> doctors = medicalDoctorBusinessService.selectDoctorPage(page, 
         			 code, null, null, null, null);
         	if(doctors!=null && doctors.getSize() >0) {
         		Map<String,Object> mapDoctors = new HashMap<String,Object>();
-        		
         		
         		Map<String,Object> map1 = new HashMap<String,Object>();
     	        map1.put("code", code);
@@ -92,18 +91,26 @@ public class DoctorController{
     	        if(code != null && code.equals(1)) {
     	        	  mapAll.put("MQNZY", map1);
     	        }else if(code != null && code.equals(2)) {
-    	        	 mapAll.put("SSMZZY", map1);
+    	        	  mapAll.put("MLZY", map1);
     	        }else if(code != null && code.equals(3)) {
-    	        	 mapAll.put("GYDS", map1);
+    	        	  mapAll.put("SSMZZY", map1);
     	        }else if(code != null && code.equals(4)) {
-    	        	 mapAll.put("GZY", map1);
-    	        }
+    	        	  mapAll.put("GYDS", map1);
+    	        }else if(code != null && code.equals(5)) {
+  	        	      mapAll.put("GZY", map1);
+    	        }  
         	}
 		}
         return ResponseObject.newSuccessResponseObject(mapAll);
     }
 
-
+    /**
+     * 搜索列表接口
+     * @param pageNumber
+     * @param pageSize
+     * @param dqv
+     * @return
+     */
 	@RequestMapping(value = "list")
     public ResponseObject list(@RequestParam(value = "page", required = false) 
     		Integer pageNumber, Integer pageSize, 
@@ -182,7 +189,6 @@ public class DoctorController{
     }
     
     
-    
 	/**
      * Description：医师 主播状态
      * @return ResponseObject
@@ -195,9 +201,4 @@ public class DoctorController{
     	
     	return ResponseObject.newSuccessResponseObject(anchorInfoService.anchorPermissionStatusByDoctorId(doctorId));    
     }
-    
-    
-    
-    
-    
 }

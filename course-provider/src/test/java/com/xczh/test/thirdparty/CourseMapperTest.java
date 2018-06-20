@@ -43,7 +43,11 @@ public class CourseMapperTest extends BaseJunit4Test {
 		
 	}
 	
-	
+	@Test
+	public void cccc(){
+		Integer count = courseService.selectLiveCountByUserIdAndType("603606b2804a476380f78c72b460c71b",null);
+        System.out.println(count);
+	}
 	
 
 }

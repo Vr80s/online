@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xczhihui.medical.doctor.mapper.MedicalDoctorPostsMapper">
+
+    <select id="selectMedicalDoctorPostsPage"  resultType="com.xczhihui.medical.doctor.model.MedicalDoctorPosts">
+        SELECT
+        *
+        FROM medical_doctor_posts mdp
+        WHERE mdp.deleted = 0 and mdp.status = 1 and mdp.doctor_id=#{doctorId}
+        <if test="type != null">
+            and mdp.type = #{type}
+        </if>
+        ORDER BY mdp.create_time desc
+
+    </select>
+
+    <insert id="addMedicalDoctorPosts" parameterType="com.xczhihui.medical.doctor.model.MedicalDoctorPosts">
+        INSERT INTO medical_doctor_posts
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="medicalDoctorPosts.content != null">
+                content,
+            </if>
+            <if test="medicalDoctorPosts.type != null">
+                type,
+            </if>
+            <if test="medicalDoctorPosts.pictures != null">
+                pictures,
+            </if>
+            <if test="medicalDoctorPosts.video != null">
+                video,
+            </if>
+            <if test="medicalDoctorPosts.coverImg != null">
+                cover_img,
+            </if>
+            <if test="medicalDoctorPosts.title != null">
+                title,
+            </if>
+            <if test="medicalDoctorPosts.deleted != null">
+                deleted,
+            </if>
+            <if test="medicalDoctorPosts.status != null">
+                status,
+            </if>
+            <if test="medicalDoctorPosts.createTime != null">
+                create_time,
+            </if>
+            <if test="medicalDoctorPosts.doctorId != null">
+                doctor_id,
+            </if>
+            <if test="medicalDoctorPosts.updateTime != null">
+                update_time,
+            </if>
+            <if test="medicalDoctorPosts.courseId != null">
+                course_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="medicalDoctorPosts.content != null">
+                #{medicalDoctorPosts.content},
+            </if>
+            <if test="medicalDoctorPosts.type != null">
+                #{medicalDoctorPosts.type},
+            </if>
+            <if test="medicalDoctorPosts.pictures != null">
+                #{medicalDoctorPosts.pictures},
+            </if>
+            <if test="medicalDoctorPosts.video != null">
+                #{medicalDoctorPosts.video},
+            </if>
+            <if test="medicalDoctorPosts.coverImg != null">
+                #{medicalDoctorPosts.coverImg},
+            </if>
+            <if test="medicalDoctorPosts.title != null">
+                #{medicalDoctorPosts.title},
+            </if>
+            <if test="medicalDoctorPosts.deleted != null">
+                #{medicalDoctorPosts.deleted},
+            </if>
+            <if test="medicalDoctorPosts.status != null">
+                #{medicalDoctorPosts.status},
+            </if>
+            <if test="medicalDoctorPosts.createTime != null">
+                #{medicalDoctorPosts.createTime},
+            </if>
+            <if test="medicalDoctorPosts.doctorId != null">
+                #{medicalDoctorPosts.doctorId},
+            </if>
+            <if test="medicalDoctorPosts.updateTime != null">
+                #{medicalDoctorPosts.updateTime},
+            </if>
+            <if test="medicalDoctorPosts.courseId != null">
+                #{medicalDoctorPosts.courseId},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateMedicalDoctorPosts" parameterType="com.xczhihui.medical.doctor.model.MedicalDoctorPosts">
+        UPDATE
+        medical_doctor_posts mdp
+        SET
+        <if test="medicalDoctorPosts.content != null">
+            mdp.content = #{medicalDoctorPosts.content},
+        </if>
+        <if test="medicalDoctorPosts.type != null">
+            mdp.type = #{medicalDoctorPosts.type},
+        </if>
+        <if test="medicalDoctorPosts.pictures != null">
+            mdp.pictures = #{medicalDoctorPosts.pictures},
+        </if>
+        <if test="medicalDoctorPosts.video != null">
+            mdp.video = #{medicalDoctorPosts.video},
+        </if>
+        <if test="medicalDoctorPosts.coverImg != null">
+            mdp.cover_img = #{medicalDoctorPosts.coverImg},
+        </if>
+        <if test="medicalDoctorPosts.title != null">
+            mdp.title = #{medicalDoctorPosts.title},
+        </if>
+        <if test="medicalDoctorPosts.deleted != null">
+            mdp.deleted = #{medicalDoctorPosts.deleted},
+        </if>
+        <if test="medicalDoctorPosts.status != null">
+            mdp.status = #{medicalDoctorPosts.status},
+        </if>
+        <if test="medicalDoctorPosts.createTime != null">
+            mdp.create_time = #{medicalDoctorPosts.createTime},
+        </if>
+        <if test="medicalDoctorPosts.doctorId != null">
+            mdp.doctor_id = #{medicalDoctorPosts.doctorId},
+        </if>
+        <if test="medicalDoctorPosts.courseId != null">
+            mdp.course_id = #{medicalDoctorPosts.courseId},
+        </if>
+        mdp.`update_time` = NOW()
+        WHERE mdp.id = #{medicalDoctorPosts.id}
+    </update>
+
+    <update id="deleteMedicalDoctorPosts">
+        UPDATE
+        medical_doctor_posts mdp
+        SET
+        mdp.`deleted` = 1
+        WHERE mdp.id = #{id}
+    </update>
+
+</mapper>

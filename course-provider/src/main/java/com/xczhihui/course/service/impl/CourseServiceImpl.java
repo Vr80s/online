@@ -244,4 +244,11 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         return page.setRecords(results);
     }
 
+	@Override
+	public Integer selectLiveCountByUserIdAndType(String userId, Integer type) {
+		
+		
+		return iCourseMapper.selectLiveCountByUserIdAndType(userId,type);
+	}
+
 }
