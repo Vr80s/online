@@ -158,7 +158,7 @@ public class EnchashmentServiceImpl extends OnlineBaseServiceImpl implements
                     .buildAppPush(content)
                     .buildSms(smsCode, params)
                     .buildWeb(content)
-                    .buildWeixin(success ? enchashmentPassWeixinCode : enchashmentNotPassSmsCode, weixinParams)
+                    .buildWeixin(success ? enchashmentPassWeixinCode : enchashmentNotPassWeixinCode, weixinParams)
                     .build(e.getUserId(), RouteTypeEnum.NONE, operator));
         } catch (Exception e1) {
             e1.printStackTrace();

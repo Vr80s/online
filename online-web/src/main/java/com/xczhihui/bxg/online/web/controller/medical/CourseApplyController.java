@@ -367,6 +367,7 @@ public class CourseApplyController extends AbstractController {
             String userId = user.getId();
             logger.warn("userId:{}, courseApplyId:{}", userId, courseApplyId);
             List<FocusVo> focusVos = focusService.selectFansList(userId);
+            logger.warn("size: {}", focusVos.size());
             if (!focusVos.isEmpty()) {
                 Course course = courseService.findByApplyId(courseApplyId);
                 Date startTime = course.getStartTime();

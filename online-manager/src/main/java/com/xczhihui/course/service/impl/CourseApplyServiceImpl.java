@@ -60,6 +60,8 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
             "【课程审核通知】您申请的{0}课程" + "《{1}》已通过系统审核," + TextStyleUtil.LEFT_TAG + "去看看>>" + TextStyleUtil.RIGHT_TAG;
     private static final String WEB_LIVE_COURSE_APPLY_SUCCESS_MESSAGE_TIPS =
             APP_LIVE_COURSE_APPLY_SUCCESS_MESSAGE_TIPS;
+    private static final String WEIXIN_LIVE_COURSE_APPLY_SUCCESS_MESSAGE_TIPS =
+            "【课程审核通知】您申请的{0}课程" + "《{1}》已通过系统审核";
 
 
     private static final String SMS_NOT_LIVE_COURSE_APPLY_SUCCESS_MESSAGE_TIPS =
@@ -70,6 +72,8 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
             "【课程审核通知】您申请的{0}课程《{1}》已通过系统审核，可以上架啦！" + TextStyleUtil.LEFT_TAG + "去看看>>" + TextStyleUtil.RIGHT_TAG;
     private static final String WEB_NOT_LIVE_COURSE_APPLY_SUCCESS_MESSAGE_TIPS =
             APP_NOT_LIVE_COURSE_APPLY_SUCCESS_MESSAGE_TIPS;
+    private static final String WEIXIN_NOT_LIVE_COURSE_APPLY_SUCCESS_MESSAGE_TIPS =
+            "【课程审核通知】您申请的{0}课程《{1}》已通过系统审核，可以上架啦！";
 
     private static final String APP_PUSH_COURSE_APPLY_FAIL_MESSAGE_TIPS =
             "您申请的{0}课程《{1}》未通过系统审核，原因：{2}。如有疑问请联系客服0898-32881934。";
@@ -240,7 +244,7 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
             params.put("courseName", title);
 
             Map<String, String> weixinParams = new HashMap<>(3);
-            weixinParams.put("first", TextStyleUtil.clearStyle(content.replace("去看看>>", "")));
+            weixinParams.put("first", MessageFormat.format(isLiveCourse ? WEIXIN_LIVE_COURSE_APPLY_SUCCESS_MESSAGE_TIPS : WEIXIN_NOT_LIVE_COURSE_APPLY_SUCCESS_MESSAGE_TIPS, typeText, title));
             weixinParams.put("keyword1", title);
             weixinParams.put("keyword2", course.getStartTime() == null ? "无" : TimeUtil.getYearMonthDayHHmm(course.getStartTime()));
             commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.COURSE.getVal())
