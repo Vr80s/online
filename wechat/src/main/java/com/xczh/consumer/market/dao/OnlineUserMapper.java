@@ -79,112 +79,6 @@ public class OnlineUserMapper extends BasicSimpleDao {
 
 
     /**
-     * 添加用户
-     *
-     * @param user
-     * @throws SQLException
-     */
-    public void addOnlineUser(OnlineUser user) throws SQLException {
-        StringBuilder sql = new StringBuilder();
-        sql.append(" insert into oe_user(id,name,login_name,mobile,is_delete,small_head_photo,create_person, ");
-        sql.append(" status,visit_sum,stay_time,menu_id,user_type,origin,sex,create_time,type,parent_id, ");
-        sql.append(" vhall_id,vhall_pass,vhall_name,union_id,password,region_id,region_area_id,region_city_id, ");
-        sql.append(" province_name,city_name) ");
-        sql.append(" values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ");
-        super.update(JdbcUtil.getCurrentConnection(), sql.toString(),
-                user.getId(), user.getName(), user.getLoginName(),
-                user.getMobile(), user.isDelete(), user.getSmallHeadPhoto(),
-                user.getCreatePerson(), user.getStatus(), user.getVisitSum(),
-                user.getStayTime(), user.getMenuId(), user.getUserType(),
-                user.getOrigin(), user.getSex(), user.getCreateTime(),
-                user.getType(), user.getParentId(), user.getVhallId(),
-                user.getVhallPass(), user.getVhallName(), user.getUnionId(),
-                user.getPassword(), user.getDistrict(), user.getProvince(),
-                user.getCity(), user.getProvinceName(), user.getCityName());
-    }
-
-    /**
-     * 获取验证码列表
-     *
-     * @return
-     * @throws SQLException
-     */
-    public List<VerificationCode> getListVerificationCode(String username)
-            throws SQLException {
-        StringBuilder sql = new StringBuilder();
-        sql.append(" select id ,phone,vcode,vtype,is_delete as isDelete,create_person as createPerson,create_time as createTime ");
-        sql.append(" from oe_verification_code where phone=? and vtype='1' ");
-        Object params[] = {username};
-        return this.query(JdbcUtil.getCurrentConnection(), sql.toString(),
-                new BeanListHandler<>(VerificationCode.class), params);
-    }
-
-    public List<VerificationCode> getListVerificationCode(String username,
-                                                          Integer vType) throws SQLException {
-        StringBuilder sql = new StringBuilder();
-        sql.append(" select id ,phone,vcode,vtype,is_delete as isDelete,create_person as createPerson,create_time as createTime ");
-        sql.append(" from oe_verification_code where phone=? and vtype=? ");
-        Object params[] = {username, vType};
-        return this.query(JdbcUtil.getCurrentConnection(), sql.toString(),
-                new BeanListHandler<>(VerificationCode.class), params);
-    }
-
-    /**
-     * 删除验证码
-     *
-     * @param id
-     */
-    public void deleteVerificationCodeById(Integer id) throws SQLException {
-        String sql = " delete from oe_verification_code where id = ? ";
-        Object params[] = {id};
-        super.update(JdbcUtil.getCurrentConnection(), sql.toString(), params);
-    }
-
-    /**
-     * 获取配置参数
-     *
-     * @return
-     * @throws SQLException
-     */
-    public List<SystemVariate> getListSystemVariate() throws SQLException {
-        StringBuffer sql = new StringBuffer();
-        sql.append(" select t1.id,t1.create_person as createPerson,t1.create_time as createTime,t1.is_delete as isDelete, ");
-        sql.append(" t1.description,t1.display_order as displayOrder,t1.name,t1.parent_id as parentId,t1.value from system_variate t1,system_variate t2 ");
-        sql.append(" where t1.parent_id=t2.id and t2.name= 'message_provider' ");
-        return this.query(JdbcUtil.getCurrentConnection(), sql.toString(),
-                new BeanListHandler<>(SystemVariate.class));
-    }
-
-    /**
-     * 保存验证码
-     *
-     * @throws SQLException
-     */
-    public void insertVerificationCode(VerificationCode code)
-            throws SQLException {
-        StringBuffer sql = new StringBuffer("");
-        sql.append(" insert into oe_verification_code(phone,vcode,vtype,is_delete,create_person,create_time)");
-        sql.append(" VALUES(?,?,?,?,?,?) ");
-        Object params[] = {code.getPhone(), code.getVcode(), code.getVtype(),
-                code.isDelete(), code.getCreatePerson(), code.getCreateTime()};
-        this.update(JdbcUtil.getCurrentConnection(), sql.toString(), params);
-    }
-
-    /**
-     * 更新验证码
-     *
-     * @throws SQLException
-     */
-    public void updateVerificationCode(VerificationCode code)
-            throws SQLException {
-        StringBuffer sql = new StringBuffer(
-                "update oe_verification_code set vcode = ? ,create_time = ? where id = ? ");
-        Object params[] = {code.getVcode(), code.getCreateTime(), code.getId()};
-        super.update(JdbcUtil.getCurrentConnection(), sql.toString(), params);
-    }
-
-
-    /**
      * Description：更新用户中心提交的数据
      *
      * @return void
@@ -260,18 +154,6 @@ public class OnlineUserMapper extends BasicSimpleDao {
         }
     }
 
-    /**
-     * 更新用户share_code
-     *
-     * @throws SQLException
-     */
-    public void updateVhallIdOnlineUser(String vhallId, String vhallPass,
-                                        String vahllName, String userid) throws SQLException {
-        String sql = " update oe_user set vhall_id = ?,vhall_pass =?,vhall_name =? where id = ? ";
-        Object[] params = {vhallId, vhallPass, vahllName, userid};
-        this.update(JdbcUtil.getCurrentConnection(), sql.toString(), params);
-    }
-
 
     /**
      * 更新用户的登录名  -- 手机号
@@ -286,70 +168,6 @@ public class OnlineUserMapper extends BasicSimpleDao {
     }
 
 
-    public void updateOnlineUserAddPwdAndUserName(OnlineUser u) throws SQLException {
-
-        StringBuilder sb = new StringBuilder("");
-        sb.append("update oe_user set ");
-
-
-        if (StringUtils.hasText(u.getLoginName())) {
-            sb.append(" login_name ='" + u.getLoginName() + "',");
-        }
-
-        if (StringUtils.hasText(u.getLoginName())) {
-            sb.append(" mobile ='" + u.getMobile() + "',");
-        }
-
-        if (StringUtils.hasText(u.getLoginName())) {
-            sb.append(" name ='" + u.getName() + "',");
-        }
-
-        if (StringUtils.hasText(u.getLoginName())) {
-            sb.append(" password ='" + u.getPassword() + "',");
-        }
-
-        if (u.getSex() != 2) {
-            sb.append(" sex ='" + u.getSex() + "',");
-        }
-
-        if (StringUtils.hasText(u.getUnionId())) {
-            sb.append(" union_id ='" + u.getUnionId() + "',");
-        }
-
-        if (StringUtils.hasText(u.getSmallHeadPhoto())) {
-            sb.append(" small_head_photo ='" + u.getSmallHeadPhoto() + "',");
-        }
-
-        if (StringUtils.hasText(u.getOrigin())) {
-            sb.append(" origin ='" + u.getOrigin() + "',");
-        }
-
-
-        if (StringUtils.hasText(u.getSmallHeadPhoto())) {
-            sb.append(" small_head_photo ='" + u.getSmallHeadPhoto() + "',");
-        }
-
-        if (StringUtils.hasText(u.getOrigin())) {
-            sb.append(" origin ='" + u.getOrigin() + "',");
-        }
-
-        if (StringUtils.hasText(u.getDistrict())) {
-            sb.append(" region_id = '" + u.getDistrict() + "',");
-            sb.append(" region_area_id = '" + u.getProvince() + "',");
-            sb.append(" region_city_id = '" + u.getCity() + "',");
-            sb.append(" province_name = '" + u.getProvinceName() + "',");
-            sb.append(" city_name = '" + u.getCityName() + "',");
-        }
-
-        String sql = sb.toString();
-        if (sql.indexOf(",") != -1) {
-            sql = sql.substring(0, sb.length() - 1);
-            sql += " where id = ? ";
-
-            Object[] params = {u.getId()};
-            this.update(JdbcUtil.getCurrentConnection(), sql.toString(), params);
-        }
-    }
 
     /**
      * Description：查找主播的详情    主播详细信息和精彩致辞在course_anchor表中
@@ -370,12 +188,6 @@ public class OnlineUserMapper extends BasicSimpleDao {
         return this.query(JdbcUtil.getCurrentConnection(), sql.toString(), new MapHandler(), params);
     }
 
-    public void emptyAccount(String userName) throws SQLException {
-        StringBuilder sb = new StringBuilder("");
-        sb.append("delete from  oe_user where login_name = ?");
-        Object[] params = {userName};
-        this.update(JdbcUtil.getCurrentConnection(), sb.toString(), params);
-    }
 
     public void updateShareCode(String id, String shareCode) {
         String sql = "update oe_user set share_code = ? where id = ?";

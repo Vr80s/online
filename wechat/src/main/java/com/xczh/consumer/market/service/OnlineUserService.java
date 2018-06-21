@@ -50,17 +50,6 @@ public interface OnlineUserService {
      */
     void updateUserCenterData(OnlineUser user, Map<String, String> map) throws SQLException;
 
-    /**
-     * 通过用户id更改 用户所对应的微吼信息
-     *
-     * @param weihouId
-     * @param password
-     * @param userName
-     * @param id
-     * @throws SQLException
-     */
-    void updateVhallIdOnlineUser(String weihouId, String password, String userName,
-                                 String id) throws SQLException;
 
     /**
      * Description：更新登录名（手机号）
@@ -72,8 +61,6 @@ public interface OnlineUserService {
     void updateUserLoginName(OnlineUser o) throws SQLException;
 
 
-    void updateOnlineUserAddPwdAndUserName(OnlineUser ou) throws Exception;
-
     /**
      * Description：查找主播信息
      *
@@ -84,8 +71,6 @@ public interface OnlineUserService {
      */
     Map<String, Object> findHostById(String lecturerId) throws SQLException;
 
-    void emptyAccount(String userName) throws SQLException;
-
     /**
      * Description：验证手机号是否已经注册
      *
@@ -95,6 +80,11 @@ public interface OnlineUserService {
      */
     void verifyPhone(String username) throws SQLException;
 
+    /**
+     * 保存微信信息
+     * @param code
+     * @return
+     */
     WxcpClientUserWxMapping saveWxInfo(String code);
 
     /**

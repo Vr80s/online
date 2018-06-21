@@ -17,9 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczh.consumer.market.interceptor.IOSVersionInterceptor;
-import com.xczh.consumer.market.service.OLCourseServiceI;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczh.consumer.market.vo.CourseVo;
 import com.xczhihui.common.util.enums.BannerType;
 import com.xczhihui.common.util.enums.PagingFixedType;
 import com.xczhihui.common.util.enums.ProjectType;
@@ -42,10 +40,9 @@ import com.xczhihui.course.vo.QueryConditionVo;
 @Controller
 @RequestMapping("/xczh/recommend")
 public class MobileRecommendController {
+	
     private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(MobileRecommendController.class);
 
-    @Autowired
-    private OLCourseServiceI wxcpCourseService;
 
     @Autowired
     private IMobileBannerService mobileBannerService;

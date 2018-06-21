@@ -1,10 +1,9 @@
 package com.xczh.consumer.market.service;
 
-import com.xczh.consumer.market.vo.MenuVo;
-
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Map;
+
+import com.xczh.consumer.market.vo.MenuVo;
 
 /**
  * @Author liutao【jvmtar@gmail.com】
@@ -14,5 +13,4 @@ public interface MenuService {
 
     List<MenuVo> list()throws SQLException;
 
-    List<MenuVo> offlineCity()throws SQLException;
 }

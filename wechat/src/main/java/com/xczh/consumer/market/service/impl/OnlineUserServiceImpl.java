@@ -19,7 +19,6 @@ import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.wxpay.consts.WxPayConst;
 import com.xczhihui.common.util.CodeUtil;
 import com.xczhihui.common.util.enums.UserOrigin;
-import com.xczhihui.online.api.service.UserCoinService;
 import com.xczhihui.user.center.service.UserCenterService;
 import com.xczhihui.user.center.utils.CookieUtil;
 import com.xczhihui.user.center.vo.OeUserVO;
@@ -41,8 +40,6 @@ public class OnlineUserServiceImpl implements OnlineUserService {
     public WxcpClientUserWxMappingMapper wxcpClientUserWxMappingMapper;
     @Autowired
     private UserCenterService userCenterService;
-    @Autowired
-    private UserCoinService userCoinService;
     @Autowired
     private WxMpService wxMpService;
     @Autowired
@@ -75,11 +72,11 @@ public class OnlineUserServiceImpl implements OnlineUserService {
         if (user == null) {
             //向用户中心注册
             userCenterService.regist(mobile, password, mobile, UserOrigin.PC);
-            String shareCode = CookieUtil.getCookieValue(req, "_usercode_");
+            //String shareCode = CookieUtil.getCookieValue(req, "_usercode_");
             user = onlineUserDao.findUserByLoginName(mobile);
-            if (StringUtils.isNotBlank(shareCode)) {
-                onlineUserDao.updateShareCode(user.getId(), shareCode);
-            }
+            //if (StringUtils.isNotBlank(shareCode)) {
+            //    onlineUserDao.updateShareCode(user.getId(), shareCode);
+            //}
         }
         return user;
     }
@@ -89,21 +86,10 @@ public class OnlineUserServiceImpl implements OnlineUserService {
         onlineUserDao.updateUserCenter(user, map);
     }
 
-    @Override
-    public void updateVhallIdOnlineUser(String weihouId, String password, String userName,
-                                        String id) throws SQLException {
-        onlineUserDao.updateVhallIdOnlineUser(weihouId, password, userName, id);
-    }
 
     @Override
     public void updateUserLoginName(OnlineUser o) throws SQLException {
         onlineUserDao.updateUserLoginName(o);
-    }
-
-
-    @Override
-    public void updateOnlineUserAddPwdAndUserName(OnlineUser ou) throws Exception {
-        onlineUserDao.updateOnlineUserAddPwdAndUserName(ou);
     }
 
     @Override
@@ -112,10 +98,6 @@ public class OnlineUserServiceImpl implements OnlineUserService {
         return onlineUserDao.findHostById(lecturerId);
     }
 
-    @Override
-    public void emptyAccount(String userName) throws SQLException {
-        onlineUserDao.emptyAccount(userName);
-    }
 
     @Override
     public void verifyPhone(String username) throws SQLException {
