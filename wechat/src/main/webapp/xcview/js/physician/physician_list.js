@@ -278,7 +278,6 @@ function submit(){
 	}
 }
 
-
 function queryDataByParams(params,data_type){
 	
 	requestService("/xczh/doctors/list",params,function(data){
@@ -316,8 +315,8 @@ function queryDataByParams(params,data_type){
 				           "<div class='li_list_one_right'>" +
 					           "<p class='p00'>" +
 					           "<span class='span'>"+item.name+"</span>" +
-					           "<span class='duty'>"+item.name+"</span></p>" +
-					           "<p class='site'>"+item.name+"</p>"+
+					           "<span class='duty'>"+(item.title = item.title==null ? "" : item.title)+"</span></p>" +
+					           "<p class='site'>"+(item.hospitalAddress = item.hospitalAddress==null ? "" : item.hospitalAddress)+"</p>"+
 				            "</div>" +
 				         "</div>" +
 				     "</div>";

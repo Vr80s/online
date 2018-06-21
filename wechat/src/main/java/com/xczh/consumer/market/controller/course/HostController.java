@@ -91,8 +91,6 @@ public class HostController {
         }
 
         lecturerInfo.put("richHostDetailsUrl", returnOpenidUri + "/xcview/html/person_fragment.html?type=4&typeId=" + lecturerId);
-       
-        
         
         mapAll.put("lecturerInfo", lecturerInfo);          //讲师基本信息
         MedicalHospital mha = null;
