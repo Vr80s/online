@@ -49,4 +49,8 @@ public interface MobileBannerMapper extends BaseMapper<MobileBanner> {
 
     List<CourseLecturVo> selectUnshelveRecommenCourse(@Param("pageSize") Integer pageSize);
 
+    
+    List<CourseLecturVo> realTest1();
+    
+    List<CourseLecturVo> realTest2(@Param("name") String name);
 }
