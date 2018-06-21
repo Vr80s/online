@@ -416,7 +416,6 @@
 	</select>
 	
 	
-	
 	<!-- 有关键字的查询 -->
 	<select id="searchQueryKeyCourseList" resultType="com.xczhihui.course.vo.CourseLecturVo">
       select * from (

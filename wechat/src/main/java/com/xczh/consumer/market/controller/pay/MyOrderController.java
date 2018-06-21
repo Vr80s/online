@@ -114,11 +114,6 @@ public class MyOrderController {
 		 *   购买课程的在订单表里面有记录，如果是打赏的里面没有记录。
 		 */
         Integer status = 1;
-        /*
-         * 这个地方是不是应该查
-		 *  购买课程的消费记录应该以课程为单位进行搞
-		 * List<OnlineOrder> listOrder = onlineOrderService.consumptionList(status,userId, pageNumber,pageSize);
-		 */
         return ResponseObject.newSuccessResponseObject(
                 onlineOrderService.listPayRecord(accountId, pageNumber, pageSize));
     }

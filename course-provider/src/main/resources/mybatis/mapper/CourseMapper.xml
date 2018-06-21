@@ -86,7 +86,6 @@
 		   (SELECT ROUND(AVG(cc.overall_level), 1) FROM oe_criticize cc where cc.is_delete = 0 and cc.course_id = oc.id and cc.overall_level !=0 )
 		)  as startLevel,
 		
-		
 		oc.lecturer as name,
 		oc.lecturer_description as lecturerDescription,
 		ou.profile_photo as headImg,

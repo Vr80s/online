@@ -2,6 +2,9 @@ package com.xczhihui.medical.doctor.vo;
 
 import java.io.Serializable;
 
+import com.baomidou.mybatisplus.toolkit.StringUtils;
+
+
 public class DoctorQueryVo  implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -19,6 +22,12 @@ public class DoctorQueryVo  implements Serializable {
 	
 	private String hospitalId;
 	
+	private Integer departmentFalg;
+	
+	
+	public void bulid() {
+		this.setDepartmentFalg(departmentFalg);
+	}
 
 	public String getType() {
 		return type;
@@ -67,6 +76,25 @@ public class DoctorQueryVo  implements Serializable {
 
 	public void setHospitalId(String hospitalId) {
 		this.hospitalId = hospitalId;
+	}
+	
+	public Integer getDepartmentFalg() {
+		return departmentFalg;
+	}
+
+	public void setDepartmentFalg(Integer departmentFalg) {
+		String department = this.getDepartmentId();
+		String queryKey = this.getQueryKey();
+		
+		if(StringUtils.isNotEmpty(department) && StringUtils.isEmpty(queryKey)){
+			this.departmentFalg = 1;
+		}else if(StringUtils.isEmpty(department) && StringUtils.isNotEmpty(queryKey)){
+			this.departmentFalg = 2;
+		}else if(StringUtils.isNotEmpty(department) &&  StringUtils.isNotEmpty(queryKey)) {
+			this.departmentFalg = 3;
+		}else if(StringUtils.isEmpty(department) && StringUtils.isEmpty(queryKey)){
+			this.departmentFalg = 4;
+		}
 	}
 
 	@Override

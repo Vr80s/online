@@ -497,16 +497,26 @@
 	        md.`work_time` workTime,
 	        mdai.head_portrait headPortrait,
 	        mh.`name` hospitalName,
- 			mh.`detailed_address` hospitalAddress
+ 			mh.`detailed_address` hospitalAddress,
+ 		    if(mda.account_id IS NOT NULL,(select count(*) from oe_focus of 
+   			   inner join course_anchor as ou on of.lecturer_id = ou.user_id
+				  where of.user_id = mda.account_id
+					and ou.status = 1  and ou.deleted =0),0) as focusCount
         FROM
         medical_doctor md
         <if test="dqv.field != null and dqv.field!=''">
             join medical_doctor_field mdf on md.id = mdf.doctor_id and mdf.`field_id`=#{dqv.field}
         </if>
-        <if test="dqv.departmentId != null and dqv.departmentId!=''">
+        
+        <if test=" dqv.departmentFalg != null and  ( dqv.departmentFalg == 1  or dqv.departmentFalg == 3 )">
             join medical_doctor_department mdd on md.id = mdd.doctor_id and mdd.`department_id`=#{dqv.departmentId}
         		and mdd.`deleted`=0
         </if>
+        
+        <if test=" dqv.departmentFalg != null and  dqv.departmentFalg == 2 ">
+            join medical_doctor_department mdd on md.id = mdd.doctor_id and mdd.`deleted`=0
+        </if>
+        
         LEFT JOIN `medical_doctor_authentication_information` mdai
         ON md.`authentication_information_id` = mdai.`id`
         LEFT JOIN `medical_hospital_doctor` mhd
@@ -514,13 +524,16 @@
         AND mhd.`deleted`=0
         LEFT JOIN `medical_hospital` mh
         ON mhd.`hospital_id` = mh.`id`
+        LEFT JOIN `medical_doctor_account` mda
+        ON mda.`doctor_id` = md.`id`
+        
         WHERE md.deleted = 0
         AND md.status = 1
-        <if test="dqv.type != null and dqv.type != ''">
+        <if test='dqv.type != null and dqv.type != "" and dqv.type != "0" '>
             and md.type = #{dqv.type}
         </if>
         <if test="dqv.hospitalId != null and dqv.hospitalId!=''">
-            and mh.id = #{dqv.hospitalId}
+            and mh.id =   #{dqv.hospitalId}
         </if>
         <if test="dqv.queryKey != null and dqv.queryKey!='' ">
             and ( 
@@ -531,6 +544,11 @@
 	            mh.`name` like concat('%',#{dqv.queryKey},'%')
 	            or
 	            mh.`detailed_address` like concat('%',#{dqv.queryKey},'%')
+	            
+	            <if test=" dqv.departmentFalg != null and  ( dqv.departmentFalg == 2  or dqv.departmentFalg == 3 )">
+			        or  mdd.`department_id` in ( select id from medical_department where 
+		               	 name like concat('%',#{dqv.queryKey},'%'))
+        		</if>
             )
         </if>
         <choose>
@@ -538,12 +556,12 @@
 	        <when test="dqv.sortType == 1 " >
 	            order by  md.recommend_sort desc,CONVERT(md.`name` USING gbk) ASC
 	        </when> 
-			<!-- 人气最高 -->
+			<!-- 人气最高,按照 -->
 	        <when test="dqv.sortType == 2 ">
-	            order by    md.recommend_sort desc,CONVERT(md.`name` USING gbk) ASC
+	            order by  focusCount desc,md.recommend_sort desc,CONVERT(md.`name` USING gbk) ASC
 	        </when> 
 	        <otherwise>
-               order by  md.recommend_sort desc,CONVERT(md.`name` USING gbk) ASC
+                order by  md.recommend_sort desc,CONVERT(md.`name` USING gbk) ASC
 	        </otherwise>   
 	    </choose>   
     </select>
