@@ -72,10 +72,10 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
             APP_NOT_LIVE_COURSE_APPLY_SUCCESS_MESSAGE_TIPS;
 
     private static final String APP_PUSH_COURSE_APPLY_FAIL_MESSAGE_TIPS =
-            "您申请的{0}课程《{1}》未通过系统审核，原因：{2}。如有疑问请联系客服0898-32881833。";
+            "您申请的{0}课程《{1}》未通过系统审核，原因：{2}。如有疑问请联系客服0898-32881934。";
     private static final String APP_COURSE_APPLY_FAIL_MESSAGE_TIPS =
             "【课程审核通知】您申请的{0}课程《{1}》未通过系统审核，" +
-                    "原因：{2}。如有疑问请联系客服0898-32881833。";
+                    "原因：{2}。如有疑问请联系客服0898-32881934。";
     private static final String WEB_COURSE_APPLY_FAIL_MESSAGE_TIPS =
             APP_COURSE_APPLY_FAIL_MESSAGE_TIPS;
 
@@ -240,7 +240,7 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
             params.put("courseName", title);
 
             Map<String, String> weixinParams = new HashMap<>(3);
-            weixinParams.put("first", TextStyleUtil.clearStyle(content));
+            weixinParams.put("first", TextStyleUtil.clearStyle(content.replace("去看看>>", "")));
             weixinParams.put("keyword1", title);
             weixinParams.put("keyword2", course.getStartTime() == null ? "无" : TimeUtil.getYearMonthDayHHmm(course.getStartTime()));
             commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.COURSE.getVal())
@@ -302,6 +302,7 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
         Integer courseForm = courseApplyInfo.getCourseForm();
         RouteTypeEnum routeTypeEnum = RouteTypeEnum.NONE;
         String reason = CourseDismissal.getDismissal(courseApplyInfo.getDismissal());
+        String detailReason = reason + (courseApplyInfo.getDismissalRemark() != null ? ("," + courseApplyInfo.getDismissalRemark()) : "");
         if (courseForm.equals(1)) {
             n = "直播";
             routeTypeEnum = RouteTypeEnum.LIVE_COURSE_LIST;
@@ -318,11 +319,10 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
             routeTypeEnum = RouteTypeEnum.OFFLINE_COURSE_LIST;
         }
 
-        String content = MessageFormat.format(WEB_COURSE_APPLY_FAIL_MESSAGE_TIPS, n, title, reason);
+        String content = MessageFormat.format(WEB_COURSE_APPLY_FAIL_MESSAGE_TIPS, n, title, detailReason);
         Map<String, String> params = new HashMap<>();
         params.put("type", n);
         params.put("courseName", title);
-        params.put("reason", reason);
 
         Map<String, String> weixinParams = new HashMap<>(4);
         weixinParams.put("first", TextStyleUtil.clearStyle(content));
@@ -332,7 +332,7 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
         commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.COURSE.getVal())
                 .buildWeb(content)
                 .buildSms(courseApplyNotPassCode, params)
-                .buildAppPush(MessageFormat.format(APP_PUSH_COURSE_APPLY_FAIL_MESSAGE_TIPS, n, title, reason))
+                .buildAppPush(MessageFormat.format(APP_PUSH_COURSE_APPLY_FAIL_MESSAGE_TIPS, n, title, detailReason))
                 .buildWeixin(weixinCourseApplyNotPassCode, weixinParams)
                 .build(courseApplyInfo.getUserId(), routeTypeEnum, createPerson)
         );

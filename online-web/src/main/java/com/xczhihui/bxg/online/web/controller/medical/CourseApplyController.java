@@ -48,8 +48,8 @@ import com.xczhihui.medical.anchor.vo.CourseApplyResourceVO;
 public class CourseApplyController extends AbstractController {
     private static final Logger logger = LoggerFactory.getLogger(CourseApplyController.class);
 
-    private static final String WEB_COURSE_ONLINE_MESSAGE_TIPS = "{0}您好，{1}老师" + TextStyleUtil.LEFT_TAG + "《{2}》"
-            + TextStyleUtil.RIGHT_TAG + "{3}，准时开始！";
+    private static final String WEB_COURSE_ONLINE_MESSAGE_TIPS = "{0}您好，您关注的{1}老师有新课程-" + TextStyleUtil.LEFT_TAG + "《{2}》"
+            + TextStyleUtil.RIGHT_TAG + "上架了，快去看看吧";
     private static final String APP_PUSH_COURSE_ONLINE_MESSAGE_TIPS = "春天来了，我们认为你需要这个~";
 
     @Autowired
@@ -370,11 +370,11 @@ public class CourseApplyController extends AbstractController {
                 Course course = courseService.findByApplyId(courseApplyId);
                 Date startTime = course.getStartTime();
                 String content = MessageFormat.format(WEB_COURSE_ONLINE_MESSAGE_TIPS, user.getName(),
-                        course.getLecturer(), course.getGradeName(), startTime == null ? "无" : TimeUtil.getYearMonthDayHHmm(startTime));
+                        course.getLecturer(), course.getGradeName());
                 Map<String, String> weixinParams = new HashMap<>(4);
                 weixinParams.put("first", TextStyleUtil.clearStyle(content));
                 weixinParams.put("keyword1", course.getGradeName());
-                weixinParams.put("keyword2", startTime == null ? "无" : TimeUtil.getYearMonthDayHHmm(startTime));
+                weixinParams.put("keyword2", startTime == null ? "" : TimeUtil.getYearMonthDayHHmm(startTime));
                 weixinParams.put("remark", "点击查看");
                 for (FocusVo focusVo : focusVos) {
                     String fansId = focusVo.getUserId();

@@ -259,6 +259,7 @@ public class CommonMessageServiceImpl implements ICommonMessageService {
         xgMessageIOS.setCustom(customParams);
         JSONObject iosRet = iosXgPushService.pushSingleAccount(PushConst.DEVICE_ALL, userId, xgMessageIOS, env.isProd() ? PushConst.IOSENV_PROD : PushConst.IOSENV_DEV);
 
+        LOGGER.warn("userId: {}, url:{}, content:{}", userId, url, content);
         if (androidRet != null && androidRet.getInt("ret_code") != 0 && iosRet != null && iosRet.getInt("ret_code") != 0) {
             LOGGER.error(androidRet.toString());
             LOGGER.error(iosRet.toString());

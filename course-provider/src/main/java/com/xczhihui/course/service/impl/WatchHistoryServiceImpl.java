@@ -1,21 +1,33 @@
 package com.xczhihui.course.service.impl;
 
+import java.text.MessageFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xczhihui.common.util.CodeUtil;
+import com.xczhihui.common.util.TimeUtil;
+import com.xczhihui.course.enums.MessageTypeEnum;
+import com.xczhihui.course.mapper.CourseMapper;
 import com.xczhihui.course.mapper.WatchHistoryMapper;
+import com.xczhihui.course.model.Course;
 import com.xczhihui.course.model.WatchHistory;
+import com.xczhihui.course.params.BaseMessage;
+import com.xczhihui.course.service.ICommonMessageService;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.course.service.IWatchHistoryService;
+import com.xczhihui.course.util.CourseUtil;
 import com.xczhihui.course.util.DateDistance;
 import com.xczhihui.course.util.DateUtil;
+import com.xczhihui.course.util.TextStyleUtil;
 import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.course.vo.WatchHistoryVO;
 
@@ -29,6 +41,9 @@ import com.xczhihui.course.vo.WatchHistoryVO;
  */
 @Service
 public class WatchHistoryServiceImpl extends ServiceImpl<WatchHistoryMapper, WatchHistory> implements IWatchHistoryService {
+    private static final String APPLY_SUCCESS_TIPS = "恭喜您成功购买课程《{0}》~";
+    @Value("${weixin.course.apply.code}")
+    private String weixinApplySuccessMessageCode;
 
     private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(WatchHistoryServiceImpl.class);
 
@@ -37,6 +52,10 @@ public class WatchHistoryServiceImpl extends ServiceImpl<WatchHistoryMapper, Wat
 
     @Autowired
     private ICourseService courseServiceImpl;
+    @Autowired
+    private ICommonMessageService commonMessageService;
+    @Autowired
+    private CourseMapper courseMapper;
 
     @Override
     public Page<WatchHistoryVO> selectWatchHistory(Page<WatchHistoryVO> page,
@@ -68,7 +87,10 @@ public class WatchHistoryServiceImpl extends ServiceImpl<WatchHistoryMapper, Wat
     @Override
     public void addLearnRecord(Integer courseId, String userId) {
         String id = CodeUtil.getRandomUUID();
-        watchHistoryMapper.insertApplyRGradeCourse(id, courseId, userId);
+        int i = watchHistoryMapper.insertApplyRGradeCourse(id, courseId, userId);
+        if (i > 0) {
+            saveApplySuccessMessage(courseId);
+        }
     }
 
     @Override
@@ -96,6 +118,32 @@ public class WatchHistoryServiceImpl extends ServiceImpl<WatchHistoryMapper, Wat
         	}
             //更新观看记录
             this.addWatchHistory(courseId,userId,course.getUserLecturerId(),collectionId);
+        }
+    }
+
+    protected void saveApplySuccessMessage(Integer courseId) {
+        try {
+            Course course = courseMapper.selectById(courseId);
+            String messageId = CodeUtil.getRandomUUID();
+            String courseName = course.getGradeName();
+            Date startTime = course.getStartTime();
+            String content = MessageFormat.format(APPLY_SUCCESS_TIPS, courseName);
+            String userId = course.getUserLecturerId();
+            Map<String, String> weixinParams = new HashMap<>(3);
+            weixinParams.put("first", TextStyleUtil.clearStyle(content));
+            weixinParams.put("keyword1", courseName);
+            weixinParams.put("keyword2", startTime != null ? TimeUtil.getYearMonthDayHHmm(startTime) : "");
+            weixinParams.put("remark", "点击查看");
+
+            commonMessageService.saveMessage(
+                    new BaseMessage.Builder(MessageTypeEnum.COURSE.getVal())
+                            .buildWeb(content)
+                            .buildWeixin(weixinApplySuccessMessageCode, weixinParams)
+                            .detailId(String.valueOf(courseId))
+                            .build(userId, CourseUtil.getRouteType(course.getCollection(), course.getType()), userId));
+        } catch (Exception e) {
+            LOGGER.error("报名成功时，推送消息异常: courseId: {}", courseId);
+            e.printStackTrace();
         }
     }
 }
