@@ -119,6 +119,10 @@ public class DoctorController{
 		pageNumber = pageNumber == null ? 1 : pageNumber;
 		pageSize = pageSize == null ? 10 : pageSize;
 		
+		/*
+		 * 构造下查询bean
+		 */
+		dqv.bulid();
 		
         Page<MedicalDoctorVO> doctors = medicalDoctorBusinessService.
         		selectDoctorListByQueryKey(new Page<MedicalDoctorVO>(pageNumber, pageSize),dqv);

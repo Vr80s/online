@@ -507,10 +507,16 @@
         <if test="dqv.field != null and dqv.field!=''">
             join medical_doctor_field mdf on md.id = mdf.doctor_id and mdf.`field_id`=#{dqv.field}
         </if>
-        <if test="dqv.departmentId != null and dqv.departmentId!=''">
+        
+        <if test=" dqv.departmentFalg != null and  ( dqv.departmentFalg == 1  or dqv.departmentFalg == 3 )">
             join medical_doctor_department mdd on md.id = mdd.doctor_id and mdd.`department_id`=#{dqv.departmentId}
         		and mdd.`deleted`=0
         </if>
+        
+        <if test=" dqv.departmentFalg != null and  dqv.departmentFalg == 2 ">
+            join medical_doctor_department mdd on md.id = mdd.doctor_id and mdd.`deleted`=0
+        </if>
+        
         LEFT JOIN `medical_doctor_authentication_information` mdai
         ON md.`authentication_information_id` = mdai.`id`
         LEFT JOIN `medical_hospital_doctor` mhd
@@ -538,6 +544,11 @@
 	            mh.`name` like concat('%',#{dqv.queryKey},'%')
 	            or
 	            mh.`detailed_address` like concat('%',#{dqv.queryKey},'%')
+	            
+	            <if test=" dqv.departmentFalg != null and  ( dqv.departmentFalg == 2  or dqv.departmentFalg == 3 )">
+			        or  mdd.`department_id` in ( select id from medical_department where 
+		               	 name like concat('%',#{dqv.queryKey},'%'))
+        		</if>
             )
         </if>
         <choose>
