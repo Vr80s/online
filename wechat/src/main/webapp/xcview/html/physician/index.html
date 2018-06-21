@@ -31,8 +31,12 @@
 			<div class="header_seek" onClick="location.href='/xcview/html/physician/search.html?search_back=1'" style="width: 6.26rem;"> 
 				<div class="header_seek_main">
 					<img src="/xcview/images/sousuo0.png" alt="" />
-					<span class="header_seek_main_span">
-						<span>是不是傻</span>
+					<span class="header_seek_main_span" id="defaultSearch">
+						<script type="text/html" id="defaultSearchs">
+							{{each items as item i}}
+								<span>{{item.name}}</span>
+							{{/each}}
+						</script>
 					</span>
 					
 				</div>
@@ -47,145 +51,203 @@
 	<!--头部搜索结束-->
 
 	<!-- 中间内容开始 -->
-
+	<!-- hotSearch -->
 	<div class="hot_search">
 		<p class="hot_search_title">热门搜索</p>
+		<div class="" id="hotSearch">
+			<script type="text/html" id="hotSearchs">
+				{{each items as item i}}
+					<span>{{item.name}}</span>
+				{{/each}}
+			</script>
+		</div>
+		<!-- <span>儿科</span>
 		<span>儿科</span>
-		<span>儿科</span>
-		<span>儿科</span>
+		<span>儿科</span> -->
 		<div class="both"></div>
 	</div>
 	
 
 	<div class="main">
-		<div class="physicians">
-			<div class="physician_title" >热门医师<img src="/xcview/images/video_review.png" alt=""></div>
-			<div class="physician_cen">
-				<div class="head_portrait">
-					<img src="/xcview/images/regards.png" alt="" />
-				</div>
-				<div class="referral">
-					<div class="referral_title">
-						<div class="name">张三丰</div>
-						<div class="duty">主任医师，国家级名老中医专家</div>
-					</div>
-					<div class="hospital">北京市鼓楼中医院</div>
-					<div class="both"></div>
-				</div>
+		<!-- 热门中医 -->
+		<div class="physicians hot_title"> 
+			<div class="" id="hot_title">
+				<script type="text/html" id="hot_titles">
+				<div class="physician_title" code="{{code}}"> <span>{{text}}</span> <img src="/xcview/images/video_review.png" alt="" /></div>
+				</script>
 			</div>
-			<div class="physician_cen">
-				<div class="head_portrait">
-					<img src="/xcview/images/regards.png" alt="" />
-				</div>
-				<div class="referral">
-					<div class="referral_title">
-						<div class="name">张三丰</div>
-						<div class="duty">主任医师，国家级名老中医专家</div>
+			<div class="" id="hot">
+				<script type="text/html" id="hot_id">
+				{{each items as item i}}
+				<div class="physician_cen" data-id="{{item.id}}">
+					<div class="head_portrait">
+						<img src="{{item.headPortrait}}" alt="" />
 					</div>
-					<div class="hospital">北京市鼓楼中医院</div>
+					<div class="referral">
+						<div class="referral_title">
+							<div class="name">{{item.name}}</div>
+							<div class="duty">{{item.title}}</div>
+						</div>
+						<div class="hospital">{{item.hospitalAddress}}</div>
+						<div class="both"></div>
+					</div>
 					<div class="both"></div>
 				</div>
-			</div>
-			<div class="physician_cen">
-				<div class="head_portrait">
-					<img src="/xcview/images/regards.png" alt="" />
-				</div>
-				<div class="referral">
-					<div class="referral_title">
-						<div class="name">张三丰</div>
-						<div class="duty">主任医师，国家级名老中医专家</div>
-					</div>
-					<div class="hospital">北京市鼓楼中医院</div>
-					<div class="both"></div>
-				</div>
+				{{/each}}
+				</script>
 			</div>
 		</div>
 
-		<div class="physicians">
-			<div class="physician_title" >国医大师<img src="/xcview/images/video_review.png" alt=""></div>
-			<div class="physician_cen">
-				<div class="head_portrait">
-					<img src="/xcview/images/regards.png" alt="" />
-				</div>
-				<div class="referral">
-					<div class="referral_title">
-						<div class="name">张三丰</div>
-						<div class="duty">主任医师，国家级名老中医专家</div>
-					</div>
-					<div class="hospital">北京市鼓楼中医院</div>
-					<div class="both"></div>
-				</div>
+		<!-- 名青年中医 -->
+		<div class="physicians mqnzy">
+			<div class="" id="mqnzy_title">
+				<script type="text/html" id="mqnzy_titles">
+				<div class="physician_title" code="{{code}}"> <span>{{text}}</span> <img src="/xcview/images/video_review.png" alt="" /></div>
+				</script>
 			</div>
-			<div class="physician_cen">
-				<div class="head_portrait">
-					<img src="/xcview/images/regards.png" alt="" />
-				</div>
-				<div class="referral">
-					<div class="referral_title">
-						<div class="name">张三丰</div>
-						<div class="duty">主任医师，国家级名老中医专家</div>
+			<div class="" id="mqnzy">
+				<script type="text/html" id="mqnzy_id">
+				{{each items as item i}}
+				<div class="physician_cen" data-id="{{item.id}}">
+					<div class="head_portrait">
+						<img src="{{item.headPortrait}}" alt="" />
 					</div>
-					<div class="hospital">北京市鼓楼中医院</div>
+					<div class="referral">
+						<div class="referral_title">
+							<div class="name">{{item.name}}</div>
+							<div class="duty">{{item.title}}</div>
+						</div>
+						<div class="hospital">{{item.hospitalAddress}}</div>
+						<div class="both"></div>
+					</div>
 					<div class="both"></div>
 				</div>
-			</div>
-			<div class="physician_cen">
-				<div class="head_portrait">
-					<img src="/xcview/images/regards.png" alt="" />
-				</div>
-				<div class="referral">
-					<div class="referral_title">
-						<div class="name">张三丰</div>
-						<div class="duty">主任医师，国家级名老中医专家</div>
-					</div>
-					<div class="hospital">北京市鼓楼中医院</div>
-					<div class="both"></div>
-				</div>
+				{{/each}}
+				</script>
 			</div>
 		</div>
 
-		<div class="physicians">
-			<div class="physician_title" >名中医<img src="/xcview/images/video_review.png" alt=""></div>
-			<div class="physician_cen">
-				<div class="head_portrait">
-					<img src="/xcview/images/regards.png" alt="" />
-				</div>
-				<div class="referral">
-					<div class="referral_title">
-						<div class="name">张三丰</div>
-						<div class="duty">主任医师，国家级名老中医专家</div>
-					</div>
-					<div class="hospital">北京市鼓楼中医院</div>
-					<div class="both"></div>
-				</div>
+		<!-- 名老中医 -->
+		<div class="physicians mlzy">
+			<div class="" id="mlzy_title">
+				<script type="text/html" id="mlzy_titles">
+				<div class="physician_title" code="{{code}}"> <span>{{text}}</span> <img src="/xcview/images/video_review.png" alt="" /></div>
+				</script>
 			</div>
-			<div class="physician_cen">
-				<div class="head_portrait">
-					<img src="/xcview/images/regards.png" alt="" />
-				</div>
-				<div class="referral">
-					<div class="referral_title">
-						<div class="name">张三丰</div>
-						<div class="duty">主任医师，国家级名老中医专家</div>
+
+			<div class="" id="mlzy">
+				<script type="text/html" id="mlzy_id">
+				{{each items as item i}}
+				<div class="physician_cen" data-id="{{item.id}}">
+					<div class="head_portrait">
+						<img src="{{item.headPortrait}}" alt="" />
 					</div>
-					<div class="hospital">北京市鼓楼中医院</div>
+					<div class="referral">
+						<div class="referral_title">
+							<div class="name">{{item.name}}</div>
+							<div class="duty">{{item.title}}</div>
+						</div>
+						<div class="hospital">{{item.hospitalAddress}}</div>
+						<div class="both"></div>
+					</div>
 					<div class="both"></div>
 				</div>
-			</div>
-			<div class="physician_cen">
-				<div class="head_portrait">
-					<img src="/xcview/images/regards.png" alt="" />
-				</div>
-				<div class="referral">
-					<div class="referral_title">
-						<div class="name">张三丰</div>
-						<div class="duty">主任医师，国家级名老中医专家</div>
-					</div>
-					<div class="hospital">北京市鼓楼中医院</div>
-					<div class="both"></div>
-				</div>
+				{{/each}}
+				</script>
 			</div>
 		</div>
+
+		<!-- 少数民族中医 -->
+		<div class="physicians ssmzzy">
+			<div class="" id="ssmzzy_title">
+				<script type="text/html" id="ssmzzy_titles">
+				<div class="physician_title" code="{{code}}"> <span>{{text}}</span> <img src="/xcview/images/video_review.png" alt="" /></div>
+				</script>
+			</div>
+
+			<div class="" id="ssmzzy">
+				<script type="text/html" id="ssmzzy_id">
+				{{each items as item i}}
+				<div class="physician_cen" data-id="{{item.id}}">
+					<div class="head_portrait">
+						<img src="{{item.headPortrait}}" alt="" />
+					</div>
+					<div class="referral">
+						<div class="referral_title">
+							<div class="name">{{item.name}}</div>
+							<div class="duty">{{item.title}}</div>
+						</div>
+						<div class="hospital">{{item.hospitalAddress}}</div>
+						<div class="both"></div>
+					</div>
+					<div class="both"></div>
+				</div>
+				{{/each}}
+				</script>
+			</div>
+		</div>
+
+		<!-- 国医大师 -->
+		<div class="physicians gyds">
+			<div class="" id="gyds_title">
+				<script type="text/html" id="gyds_titles">
+				<div class="physician_title" code="{{code}}"> <span>{{text}}</span> <img src="/xcview/images/video_review.png" alt="" /></div>
+				</script>
+			</div>
+
+			<div class="" id="gyds">
+				<script type="text/html" id="gyds_id">
+				{{each items as item i}}
+				<div class="physician_cen" data-id="{{item.id}}">
+					<div class="head_portrait">
+						<img src="{{item.headPortrait}}" alt="" />
+					</div>
+					<div class="referral">
+						<div class="referral_title">
+							<div class="name">{{item.name}}</div>
+							<div class="duty">{{item.title}}</div>
+						</div>
+						<div class="hospital">{{item.hospitalAddress}}</div>
+						<div class="both"></div>
+					</div>
+					<div class="both"></div>
+				</div>
+				{{/each}}
+				</script>
+			</div>
+		</div>
+
+		<!-- 家传中医 -->
+		<div class="physicians gzy">
+			<div class="" id="gzy_title">
+				<script type="text/html" id="gzy_titles">
+				<div class="physician_title" code="{{code}}"> <span>{{text}}</span> <img src="/xcview/images/video_review.png" alt="" /></div>
+				</script>
+			</div>
+
+			<div class="" id="gzy">
+				<script type="text/html" id="gzy_id">
+				{{each items as item i}}
+				<div class="physician_cen" data-id="{{item.id}}">
+					<div class="head_portrait">
+						<img src="{{item.headPortrait}}" alt="" />
+					</div>
+					<div class="referral">
+						<div class="referral_title">
+							<div class="name">{{item.name}}</div>
+							<div class="duty">{{item.title}}</div>
+						</div>
+						<div class="hospital">{{item.hospitalAddress}}</div>
+						<div class="both"></div>
+					</div>
+					<div class="both"></div>
+				</div>
+				{{/each}}
+				</script>
+			</div>
+		</div>
+
+
 	</div>
 	<!-- 中间内容结束 -->
 		
@@ -218,10 +280,11 @@
 	<!--底部结束-->
 	
 </body>
-<!-- <script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
-<script type="text/javascript" src="/xcview/js/common/common.js?v=wechat_1.1.1"></script> -->
-<!-- <script type="text/javascript" src="/xcview/js/common/template.js"></script> -->   <!--数据模板引入-->
+<script type="text/javascript" src="/xcview/js/common/common.js?v=wechat_1.1.1"></script> 
+<script type="text/javascript" src="/xcview/js/common/template.js"></script>    <!--数据模板引入-->
+<script type="text/javascript" src="/xcview/js/physician/index.js"></script> 
 
 
 </html>
