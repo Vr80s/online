@@ -1,5 +1,6 @@
 package com.xczh.consumer.market.controller.doctor;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -60,15 +61,15 @@ public class DoctorController{
         page.setCurrent(1);
         page.setSize(3);
         
-        Map<String,Object> mapAll = new HashMap<String,Object>();
+        List<Map<String,Object>> list = new ArrayList<Map<String,Object>>();
         
-        Map<String,Object> map = new HashMap<String,Object>();
         Page<MedicalDoctorVO> doctors0 = medicalDoctorBusinessService.selectDoctorPage(page, null, null, null, null, null);
         if(doctors0!=null && doctors0.getSize()>0) {
-	    	  map.put("code", 0);
+        	  Map<String,Object> map = new HashMap<String,Object>(); 
+        	  map.put("code", 0);
 	          map.put("text", "热门中医");
 	          map.put("doctors", doctors0.getRecords());
-	          mapAll.put("HOT", map);
+	          list.add(map);
         }
         /**
          * 循环枚举进行查询
@@ -82,26 +83,15 @@ public class DoctorController{
         	Page<MedicalDoctorVO> doctors = medicalDoctorBusinessService.selectDoctorPage(page, 
         			 code, null, null, null, null);
         	if(doctors!=null && doctors.getSize() >0) {
-        		Map<String,Object> mapDoctors = new HashMap<String,Object>();
         		
         		Map<String,Object> map1 = new HashMap<String,Object>();
     	        map1.put("code", code);
     	        map1.put("text", text);
     	        map1.put("doctors", doctors.getRecords());
-    	        if(code != null && code.equals(1)) {
-    	        	  mapAll.put("MQNZY", map1);
-    	        }else if(code != null && code.equals(2)) {
-    	        	  mapAll.put("MLZY", map1);
-    	        }else if(code != null && code.equals(3)) {
-    	        	  mapAll.put("SSMZZY", map1);
-    	        }else if(code != null && code.equals(4)) {
-    	        	  mapAll.put("GYDS", map1);
-    	        }else if(code != null && code.equals(5)) {
-  	        	      mapAll.put("GZY", map1);
-    	        }  
+    	        list.add(map1);
         	}
 		}
-        return ResponseObject.newSuccessResponseObject(mapAll);
+        return ResponseObject.newSuccessResponseObject(list);
     }
 
     /**

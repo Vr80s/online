@@ -178,6 +178,29 @@
 	</select>
 	
 	
+		<!-- 线下课 -->
+	<select id="realTest1" resultType="com.xczhihui.course.vo.CourseLecturVo">
+	  select 
+	    <include refid="selectRealCourse"/>
+	    '全国课程' as note
+		from oe_course oc 
+		WHERE oc.is_delete=0 and oc.status=1 and oc.type = 3
+		<include refid="onlyFreeCondition"/>
+	    ORDER BY recommendSort desc,oc.start_time DESC LIMIT 0,#{pageSizeUp}
+	</select>
+	
+    <select id="realTest2" resultType="com.xczhihui.course.vo.CourseLecturVo">
+		select 
+		 <include refid="selectRealCourse"/>
+	    oc.city as note
+		from  oe_course oc 
+			WHERE oc.is_delete=0 and oc.status=1 and oc.type = 3 and oc.city = #{name}
+			<include refid="onlyFreeCondition"/>
+			ORDER BY recommendSort desc,oc.start_time DESC LIMIT 0,#{pageSizeDown}
+	</select>
+	
+	
+	
 	
 	<sql id="selectLiveCourse">
 	     oc.id,
