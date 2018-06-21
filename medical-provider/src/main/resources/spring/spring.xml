@@ -115,6 +115,12 @@
     <!-- 医师动态模块 -->
     <dubbo:service interface="com.xczhihui.medical.doctor.service.IMedicalDoctorPostsService"
                    ref="medicalDoctorPostsServiceImpl" timeout="${dubbo.provider.timeout}"/>
+    <!-- 医师动态评论模块 -->
+    <dubbo:service interface="com.xczhihui.medical.doctor.service.IMedicalDoctorPostsCommentService"
+                   ref="medicalDoctorPostsCommentServiceImpl" timeout="${dubbo.provider.timeout}"/>
+    <!-- 医师动态点赞模块 -->
+    <dubbo:service interface="com.xczhihui.medical.doctor.service.IMedicalDoctorPostsLikeService"
+                   ref="medicalDoctorPostsLikeServiceImpl" timeout="${dubbo.provider.timeout}"/>
 
     <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig"></bean>
 

@@ -319,18 +319,19 @@ header{
     margin-left: -3.75rem;
 }
 .footer ul li{
-	width: 25%;
-	float: left;
-	text-align: center;
+	width: 0.78rem;
+    float: left;
+    text-align: center;
+    margin-left: 0.6rem;
 }
 .footer ul li a{
 	display: block;
 	width: 0.486rem;
-	height: 0.4rem;
+	height: 0.42rem;
 	text-align: center;
 	margin: 0 auto;
 	margin-bottom: 0.06rem;
-	margin-top: 0.13rem;
+	margin-top: 0.14rem;
 }
 .footer ul li p{
 	width: 100%;
@@ -346,7 +347,7 @@ header{
 }
 .footer_two{
 	background: url(../images/learn_two.png) no-repeat center;
-	background-size: 0.38rem 0.38rem;
+	background-size: 0.4rem 0.4rem;
 	
 }
 .footer_three{

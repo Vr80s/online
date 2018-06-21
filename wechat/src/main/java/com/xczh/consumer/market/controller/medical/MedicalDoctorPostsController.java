@@ -40,9 +40,9 @@ public class MedicalDoctorPostsController {
     /**
      * 医师动态列表
      */
-    @RequestMapping("doctorDynasmicsList")
+    @RequestMapping("doctorDynamicsList")
     @ResponseBody
-    public ResponseObject doctorDynasmicsList(@Account String accountId, @RequestParam("pageNumber") Integer pageNumber,
+    public ResponseObject doctorDynamicsList(@Account String accountId, @RequestParam("pageNumber") Integer pageNumber,
                                               @RequestParam("pageSize") Integer pageSize,
                                               @RequestParam("type") Integer type){
         Page<MedicalDoctorPosts> page = new Page<>();
@@ -56,9 +56,9 @@ public class MedicalDoctorPostsController {
     /**
      * 添加医师动态
      */
-    @RequestMapping("addDoctorDynasmics")
+    @RequestMapping("addDoctorDynamics")
     @ResponseBody
-    public ResponseObject addDoctorDynasmics(@Account String accountId, MedicalDoctorPosts medicalDoctorPosts,
+    public ResponseObject addDoctorDynamics(@Account String accountId, MedicalDoctorPosts medicalDoctorPosts,
                                              @RequestParam(value = "coverImg",required = false) MultipartFile coverImg)
             throws Exception {
 
@@ -80,9 +80,9 @@ public class MedicalDoctorPostsController {
     /**
      * 编辑医师动态
      */
-    @RequestMapping("updateDoctorDynasmics")
+    @RequestMapping("updateDoctorDynamics")
     @ResponseBody
-    public ResponseObject updateDoctorDynasmics(@Account String accountId,MedicalDoctorPosts medicalDoctorPosts,
+    public ResponseObject updateDoctorDynamics(@Account String accountId,MedicalDoctorPosts medicalDoctorPosts,
                                                 @RequestParam(value = "coverImg",required = false) MultipartFile coverImg)
             throws Exception {
         String cover_img="";
@@ -101,9 +101,9 @@ public class MedicalDoctorPostsController {
     /**
      * 删除医师动态
      */
-    @RequestMapping("deleteDoctorDynasmics")
+    @RequestMapping("deleteDoctorDynamics")
     @ResponseBody
-    public ResponseObject deleteDoctorDynasmics(@RequestParam("id") Integer id){
+    public ResponseObject deleteDoctorDynamics(@RequestParam("id") Integer id){
         medicalDoctorPostsService.deleteMedicalDoctorPosts(id);
         return ResponseObject.newSuccessResponseObject("删除成功");
     }
