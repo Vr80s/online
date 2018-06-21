@@ -202,13 +202,13 @@
 	<div class="btn_show">
 		<div class="btn_show_bg btn_show_main_close" style="display: block1;"></div>
 		<div class="btn_show_main div_right0" >
-			<div class="all_classify_right"><span class="screen_close"><img src="../images/screen_close.png" /></span>筛选</div>
+			<div class="all_classify_right"><span class="screen_close"><img src="/xcview/images/screen_close.png" /></span>筛选</div>
 			<div class="all_mold all_mold0">
 				<div class="all_classify_right_type">医师分类</div>
 				<div class="all_right_type all_right_type_ones" id="draw_type_list">
 					<script type="text/html" id="type_list">
 						{{each items as item i}}
-							<div class="all_right_type_one" title="{{item.id}}">{{item.name}}</div>
+							<div class="all_right_type_one" title="{{item.id}}">{{item.value}}</div>
 						{{/each}}		
 				    </script>	
 				</div>
@@ -378,14 +378,14 @@ $(".find_nav_list").on('touchmove', function (e) {
 	
 	//根据上面的参数进行定义---》获取分类的ID跳转滑到对应的tap页
 	
-	for (var int = 0; int < menuTypeArray.length; int++) {
+	/*for (var int = 0; int < menuTypeArray.length; int++) {
 		if(menuTypeArray[int].id == matching){
 			$("#pagenavi1 li").removeClass("find_nav_cur");
 			var index = int+2;
 			$("#pagenavi1 li:nth-child("+index+")").addClass("find_nav_cur");
 		 	break;
 		}
-	}
+	}*/
 	
    
     
@@ -533,22 +533,6 @@ $(".find_nav_list").on('touchmove', function (e) {
 				}
 			});
 			
-			
-			//付费
-			$(".all_mold1 .all_right_type_one").click(function(){
-				/*$(".all_mold1 .all_right_type_one").removeClass("all_right_type_one_add");
-				$(this).addClass("all_right_type_one_add");*/
-				
-				if(!$(this).hasClass("all_right_type_one_add")){
-					$(".all_mold1 .all_right_type_one").removeClass("all_right_type_one_add");
-		  			$(this).addClass("all_right_type_one_add");
-			 	}else{
-			    	$(this).removeClass("all_right_type_one_add");
-				}
-				
-			});
-
-			
 			$(".all_mold2 .all_right_type_one").click(function(){
 				var index=$(this).index();
 				/*$(".all_mold2 .all_right_type_one").removeClass("all_right_type_one_add");
@@ -580,31 +564,6 @@ $(".find_nav_list").on('touchmove', function (e) {
 					$(".all_mold3 .all_right_type_one").removeClass("all_right_type_one_add");
 				}  
 				
-				
-			});
-			//点击选择城市  --》清空直播状态的赛选
-			$(".all_mold3 .all_right_type_one").click(function(){
-				/*$(".all_mold3 .all_right_type_one").removeClass("all_right_type_one_add");
-				$(this).addClass("all_right_type_one_add");*/
-				
- 				if(!$(this).hasClass("all_right_type_one_add")){
-					$(".all_mold3 .all_right_type_one").removeClass("all_right_type_one_add");
-		  			$(this).addClass("all_right_type_one_add");
-			 	}else{
-			    	$(this).removeClass("all_right_type_one_add");
-				} 
-				
-			});
-			
-			//点击选择直播状态  --》清空城市的赛选
-			
-			$(".all_mold4 .all_right_type_one").click(function(){
- 				if(!$(this).hasClass("all_right_type_one_add")){
-					$(".all_mold4 .all_right_type_one").removeClass("all_right_type_one_add");
-		  			$(this).addClass("all_right_type_one_add");
-			 	}else{
-			    	$(this).removeClass("all_right_type_one_add");
-				}
 			});
 			
 //			点击重置   --> 清空浏览器上面的url,刷新页面
@@ -612,36 +571,7 @@ $(".find_nav_list").on('touchmove', function (e) {
 				
 			    location.href = "/xcview/html/physician/physician_list.html";
 			});
-			
-			
 		};
-		
-//顶部搜索框的提示添加
-// 		var historyTip='';
-// 		var modile = localStorage.hisArr;
-// 		if(stringnull(modile)){
-// 			historyTip=localStorage.hisArr.split(',')
-// 			$('.header_seek').append('<span>' + historyTip[0] + '</span>');
-// 		}
-//		console.log(historyTip[0])
-	</script>
-	
-		<!-- 手机物理返回--暂做隐藏 -->
-		<script>
-		/**
-	 * 监听浏览器---》回退事件
-	 
-		var counter = 0;
-		if (window.history && window.history.pushState) {
-		     $(window).on('popstate', function () {
-		                    window.history.pushState('forward', null, '#');
-		                    window.history.forward(1);
-		
-		                     location.href ='/xcview/html/search.html'
-		   });
-		}
-		//window.history.pushState('forward', null, '#'); 在IE中必须得有这两行
-		window.history.forward(1);*/
 	</script>
 	
 </html>

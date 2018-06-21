@@ -68,185 +68,30 @@
 	</div>
 	
 
-	<div class="main">
+	<div class="main" id="hot_title">
 		<!-- 热门中医 -->
-		<div class="physicians hot_title"> 
-			<div class="" id="hot_title">
-				<script type="text/html" id="hot_titles">
-				<div class="physician_title" code="{{code}}"> <span>{{text}}</span> <img src="/xcview/images/video_review.png" alt="" /></div>
-				</script>
-			</div>
-			<div class="" id="hot">
-				<script type="text/html" id="hot_id">
-				{{each items as item i}}
-				<div class="physician_cen" data-id="{{item.id}}">
-					<div class="head_portrait">
-						<img src="{{item.headPortrait}}" alt="" />
-					</div>
-					<div class="referral">
-						<div class="referral_title">
-							<div class="name">{{item.name}}</div>
-							<div class="duty">{{item.title}}</div>
+		<script type="text/html" id="gzy_id">
+			{{each items as item i}}
+				<div class="physicians">
+					<div class="physician_title">{{item.text}}<img src="/xcview/images/video_review.png" alt=""></div>
+					{{each item.doctors as item i}}   
+					<div class="physician_cen">
+						<div class="head_portrait">
+							<img src="{{item.headPortrait}}" alt="" />
 						</div>
-						<div class="hospital">{{item.hospitalAddress}}</div>
-						<div class="both"></div>
-					</div>
-					<div class="both"></div>
-				</div>
-				{{/each}}
-				</script>
-			</div>
-		</div>
-
-		<!-- 名青年中医 -->
-		<div class="physicians mqnzy">
-			<div class="" id="mqnzy_title">
-				<script type="text/html" id="mqnzy_titles">
-				<div class="physician_title" code="{{code}}"> <span>{{text}}</span> <img src="/xcview/images/video_review.png" alt="" /></div>
-				</script>
-			</div>
-			<div class="" id="mqnzy">
-				<script type="text/html" id="mqnzy_id">
-				{{each items as item i}}
-				<div class="physician_cen" data-id="{{item.id}}">
-					<div class="head_portrait">
-						<img src="{{item.headPortrait}}" alt="" />
-					</div>
-					<div class="referral">
-						<div class="referral_title">
-							<div class="name">{{item.name}}</div>
-							<div class="duty">{{item.title}}</div>
+						<div class="referral">
+							<div class="referral_title">
+								<div class="name">{{item.name}}</div>
+								<div class="duty">{{item.title}}</div>
+							</div>
+							<div class="hospital">{{item.hospitalAddress}}</div>
+							<div class="both"></div>
 						</div>
-						<div class="hospital">{{item.hospitalAddress}}</div>
-						<div class="both"></div>
 					</div>
-					<div class="both"></div>
+					{{/each}}
 				</div>
-				{{/each}}
-				</script>
-			</div>
-		</div>
-
-		<!-- 名老中医 -->
-		<div class="physicians mlzy">
-			<div class="" id="mlzy_title">
-				<script type="text/html" id="mlzy_titles">
-				<div class="physician_title" code="{{code}}"> <span>{{text}}</span> <img src="/xcview/images/video_review.png" alt="" /></div>
-				</script>
-			</div>
-
-			<div class="" id="mlzy">
-				<script type="text/html" id="mlzy_id">
-				{{each items as item i}}
-				<div class="physician_cen" data-id="{{item.id}}">
-					<div class="head_portrait">
-						<img src="{{item.headPortrait}}" alt="" />
-					</div>
-					<div class="referral">
-						<div class="referral_title">
-							<div class="name">{{item.name}}</div>
-							<div class="duty">{{item.title}}</div>
-						</div>
-						<div class="hospital">{{item.hospitalAddress}}</div>
-						<div class="both"></div>
-					</div>
-					<div class="both"></div>
-				</div>
-				{{/each}}
-				</script>
-			</div>
-		</div>
-
-		<!-- 少数民族中医 -->
-		<div class="physicians ssmzzy">
-			<div class="" id="ssmzzy_title">
-				<script type="text/html" id="ssmzzy_titles">
-				<div class="physician_title" code="{{code}}"> <span>{{text}}</span> <img src="/xcview/images/video_review.png" alt="" /></div>
-				</script>
-			</div>
-
-			<div class="" id="ssmzzy">
-				<script type="text/html" id="ssmzzy_id">
-				{{each items as item i}}
-				<div class="physician_cen" data-id="{{item.id}}">
-					<div class="head_portrait">
-						<img src="{{item.headPortrait}}" alt="" />
-					</div>
-					<div class="referral">
-						<div class="referral_title">
-							<div class="name">{{item.name}}</div>
-							<div class="duty">{{item.title}}</div>
-						</div>
-						<div class="hospital">{{item.hospitalAddress}}</div>
-						<div class="both"></div>
-					</div>
-					<div class="both"></div>
-				</div>
-				{{/each}}
-				</script>
-			</div>
-		</div>
-
-		<!-- 国医大师 -->
-		<div class="physicians gyds">
-			<div class="" id="gyds_title">
-				<script type="text/html" id="gyds_titles">
-				<div class="physician_title" code="{{code}}"> <span>{{text}}</span> <img src="/xcview/images/video_review.png" alt="" /></div>
-				</script>
-			</div>
-
-			<div class="" id="gyds">
-				<script type="text/html" id="gyds_id">
-				{{each items as item i}}
-				<div class="physician_cen" data-id="{{item.id}}">
-					<div class="head_portrait">
-						<img src="{{item.headPortrait}}" alt="" />
-					</div>
-					<div class="referral">
-						<div class="referral_title">
-							<div class="name">{{item.name}}</div>
-							<div class="duty">{{item.title}}</div>
-						</div>
-						<div class="hospital">{{item.hospitalAddress}}</div>
-						<div class="both"></div>
-					</div>
-					<div class="both"></div>
-				</div>
-				{{/each}}
-				</script>
-			</div>
-		</div>
-
-		<!-- 家传中医 -->
-		<div class="physicians gzy">
-			<div class="" id="gzy_title">
-				<script type="text/html" id="gzy_titles">
-				<div class="physician_title" code="{{code}}"> <span>{{text}}</span> <img src="/xcview/images/video_review.png" alt="" /></div>
-				</script>
-			</div>
-
-			<div class="" id="gzy">
-				<script type="text/html" id="gzy_id">
-				{{each items as item i}}
-				<div class="physician_cen" data-id="{{item.id}}">
-					<div class="head_portrait">
-						<img src="{{item.headPortrait}}" alt="" />
-					</div>
-					<div class="referral">
-						<div class="referral_title">
-							<div class="name">{{item.name}}</div>
-							<div class="duty">{{item.title}}</div>
-						</div>
-						<div class="hospital">{{item.hospitalAddress}}</div>
-						<div class="both"></div>
-					</div>
-					<div class="both"></div>
-				</div>
-				{{/each}}
-				</script>
-			</div>
-		</div>
-
+			{{/each}}
+		</script>
 
 	</div>
 	<!-- 中间内容结束 -->

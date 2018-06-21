@@ -8,9 +8,9 @@ if(stringnull(openId)){
  * 从列表页返回
  */
 var before_url = document.referrer;
-if(before_url.indexOf("home_page.html")!=-1){
+if(before_url.indexOf("/xcview/html/physician/index.html")!=-1){
 	sessionStorage.setItem("curriculum_blck",1);
-}else if(before_url.indexOf("search.html")!=-1){
+}else if(before_url.indexOf("/xcview/html/physician/search.html")!=-1){
 	sessionStorage.setItem("curriculum_blck",2);
 }
 /**
@@ -25,8 +25,8 @@ function goto_back(){
 		location.href="search.html?search_back=2";
 	}*/
 	
-	//去学堂
-	location.href="home_page.html";
+	//去中医师主页
+	location.href="/xcview/html/physician/index.html";
 }
 
 /**
@@ -59,11 +59,12 @@ $(".header_seek").click(function(){
 
 
 /*
- * 赛选条件渲染
+ * 筛选条件渲染
  */
-requestService("/xczh/classify/listScreen",null,function(data){
+requestService("/xczh/doctors/screen",null,function(data){
 	if(data.success==true){
-		$('#draw_type_list').html(template('type_list',{items:data.resultObject[0]}));
+		// 筛选医师分类
+		$('#draw_type_list').html(template('type_list',{items:data.resultObject.doctorTypes}));
 		/**
 		 * 动态生成分类
 		 */
@@ -71,30 +72,27 @@ requestService("/xczh/classify/listScreen",null,function(data){
 		/**
 		 * 动态生成滑动的效果
 		 */
-		
-		// $(".no_class").addClass("no_class"+index+"");
 
 		var box01List = "<li class='li_list'><div class='li_list_main' id='draw_all_query_list'></div><div class='no_class no_class_one no_class_ones no_class0'><img src='/xcview/images/no_class.png'/><p>课程正在赶来的路上...</p></div></li>"; //代表全部的
 
-		for (var int = 0; int < data.resultObject[0].length; int++) {
-			var obj = data.resultObject[0][int];
+		for (var int = 0; int < data.resultObject.doctorTypes.doctorTypes; int++) {
+			var obj = data.resultObject.doctorTypes[int];
 			var index=int+1;
-			pagenavi1 +="<li><a href='javascript: ;' data-title ="+index+" title="+obj.id+">"+obj.name+"</a></li>";		
-			// box01List+="<li class='li_list'><div class='li_list_main' data-title ="+index+" id='query_list"+obj.id+"'></div><div class='no_class no_class"+index+"'><img src='../images/no_class.png'/><p>课程正在赶来的路上...</p></div><div class='size_show size_show"+index+"' style='font-size:0.2rem;'>我是加载中</div></li>"		
-			box01List+="<li class='li_list'><div class='li_list_main' data-title ="+index+" id='query_list"+obj.id+"'></div><div class='no_class no_class"+index+"'><img src='/xcview/images/no_class.png'/><p>课程正在赶来的路上...</p></div></li>"		
-			// box01List+="<li class='li_list'><div class='li_list_main' data-title ="+index+" id='query_list"+obj.id+"'></div><div class='no_class no_class"+index+"'><img src='../images/no_class.png'/><p>课程正在赶来的路上...</p></div><div class='um-win um-win"+index+"'><div class='um-content'><div class='spinner'><div class='spinner-container container1'><div class='circle1'></div><div class='circle2'></div><div class='circle3'></div><div class='circle4'></div></div><div class='spinner-container container2'><div class='circle1'></div><div class='circle2'></div><div class='circle3'></div><div class='circle4'></div></div><div class='spinner-container container3'><div class='circle1'></div><div class='circle2'></div><div class='circle3'></div><div class='circle4'></div></div></div></div><div class='um-footer'></div></div></li>"		
+			pagenavi1 +="<li><a href='javascript: ;' data-title ="+index+" title="+obj.code+">"+obj.value+"</a></li>";				
+			box01List+="<li class='li_list'><div class='li_list_main' data-title ="+index+" id='query_list"+obj.code+"'></div><div class='no_class no_class"+index+"'><img src='/xcview/images/no_class.png'/><p>课程正在赶来的路上...</p></div></li>"			
 		}
 		pagenavi1 +="<li class='sideline' style='left: 0px; width: 96px;'></li>";
 		$(".box01_list").html(box01List);
 		$("#pagenavi1").html(pagenavi1);
-		$('#draw_isfree_list').html(template('isfree_list',{items:data.resultObject[1]}));
-		$('#draw_course_big_list').html(template('course_big_list',{items:data.resultObject[2]}));
-		$('#draw_city_list').html(template('city_list',{items:data.resultObject[3]}));
-		$('#draw_live_status_list').html(template('live_status_list',{items:data.resultObject[4]}));
+		alert(obj);
+		
+		// 筛选科室分类
+		$('#draw_course_big_list').html(template('course_big_list',{items:data.resultObject.departments}));
 		
 		menuTypeArray = data.resultObject[0];
 		courseTypeArray = data.resultObject[2];
 		cityTypeArray = data.resultObject[3];
+
 	}else{
 		alert("条件筛选errot!");
 	}
@@ -360,31 +358,11 @@ function submit(){
 	}
 }
 
-// 测试加载中
-/*var load = {
-	start: function (){
-		var index = $(".find_nav_cur a").attr("data-title");
-		$(".um-win").hide();
-		$(".um-win"+index).show();
-	},
-	end: function(){
-		var index = $(".find_nav_cur a").attr("data-title");
-		$(".um-win"+index).hide();
-	}
-}*/
+
 function queryDataByParams(params,data_type){
 
-	// 测试加载中
-	// load.start();
-	
-	// 
 	requestService("/xczh/recommend/queryAllCourse",params,function(data){
 		if(data.success==true){
-			//createListInfo(data,data_type)
-			
-			 // 测试加载中
-			 //load.end();
-			
 			 if(stringnull(data_type)){
 					var id = "#query_list"+data_type;
 				}else{
@@ -553,112 +531,8 @@ if (urlAttribute=='' || urlAttribute== null) {
 	
 } else{
 	$('.header_seek_main .span_hide').hide();
-//	$('.header_seek_main').append('<span style='margin-left: 0.38rem;margin-top: -0.6rem;'>' + urlAttribute + '</span>');
 	$('.header_seek_main').append('<span>' + urlAttribute + '</span>');
 	
 }
 
-
-/**
- * ************************************ 页面刷新下刷新事件
- * **************************************************
- */
-//mui.init();
-//mui.init({
-//	pullRefresh: {
-//		container: '#refreshContainer',
-//		down: {
-//			callback: pulldownRefresh
-//		},
-//		up: {
-//			contentrefresh: '正在加载...',
-//			callback: pullupRefresh
-//		}
-//	}
-//});
-//
-///**
-// * 下拉刷新
-// */
-//function pulldownRefresh() {
-//    num = 1;
-//    
-//    
-//  
-//    
-//    setTimeout(function() {
-//        //refresh(num,10,'down');
-//    	
-//    	    var menuType = $("[class='find_nav_cur'] a").attr("title");
-//    	    
-//    	    
-//    		paramsObj.pageNumber = num;
-//	    	paramsObj.pageSize = 10;
-//	    	paramsObj.downUp = "down";
-//    	    
-//    	    if((menuType ==0 && matching == 'goodCourse') || (menuType ==0 && matching == 'newCourse')){
-//    	    	paramsObj.menuType= matching;
-//    	    	queryDataByParams(paramsObj);
-//    	    }else if(menuType!=0){
-//    	    	paramsObj.menuType= menuType;
-//    	        queryDataByParams(paramsObj,menuType);
-//    	    }else{
-//    	    	//删除这个条件
-//    	    	delete paramsObj.menuType;
-//    	    	queryDataByParams(paramsObj);
-//    	    }
-//    	
-//    }, 500);
-//};
-//var count = 0;
-///**
-// * 上拉加载具体业务实现
-// */
-//function pullupRefresh() {
-//    num++;
-//    setTimeout(function() {
-//    	
-//	    var menuType = $("[class='find_nav_cur'] a").attr("title");
-//	    paramsObj.pageNumber = num;
-//    	paramsObj.pageSize = 10;
-//    	paramsObj.downUp = "up";
-//   	    
-//   	    if((menuType ==0 && matching == 'goodCourse') || (menuType ==0 && matching == 'newCourse')){
-//   	    	paramsObj.menuType= matching;
-//   	    	queryDataByParams(paramsObj);
-//   	    }else if(menuType!=0){
-//   	    	paramsObj.menuType= menuType;
-//   	        queryDataByParams(paramsObj,menuType);
-//   	    }else{
-//   	    	//删除这个条件
-//   	    	delete paramsObj.menuType;
-//   	    	queryDataByParams(paramsObj);
-//   	    }
-//    	
-//    	//queryDataByParams(num,10,'up');
-//    }, 500);
-//}
-
-
-
-    
-//从分类跳转过来并在搜索框获取文字显示
-
-//  var top_nav=getQueryString('menuType')
-//  if(top_nav == 208){
-// 		$('.header_seek').append('<span>' + "脉诊大全"+ '</span>');	
-//  }else if(top_nav == 205){
-// 		$('.header_seek').append('<span>' + "各家综合" + '</span>');		
-//  }else if(top_nav == 204){
-// 		$('.header_seek').append('<span>' + "古籍经典" + '</span>');		
-//  }else if(top_nav == 203){
-// 		$('.header_seek').append('<span>' + "药膳食疗" + '</span>');		
-//  }else if(top_nav == 202){
-// 		$('.header_seek').append('<span>' + "美容养生" + '</span>');		
-//  }else if(top_nav == 202){
-// 		$('.header_seek').append('<span>' + "各式推拿" + '</span>');		
-//  }else if(top_nav == 200){
-// 		$('.header_seek').append('<span>' + "针灸疗法" + '</span>');		
-//  }
-//JQ预加载分界线----------------------------------------------------------------
 
