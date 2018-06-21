@@ -33,7 +33,7 @@
             <a href="${webUrl}/courses/real" class="under" target="_blank">线下课</a>
             <a href="${webUrl}/courses/live" class="broadcast" target="_blank">直播</a>
             <a href="${webUrl}/courses/listen" class="listen" target="_blank"">听课</a>
-            <a href="${webUrl}/App.html" class="download-app" target="_blank">下载APP</a>
+            <a href="${webUrl}/app" class="download-app" target="_blank">下载APP</a>
         </div>
     </div>
     <form action="/courses/list" method="get" autocomplete="off">

@@ -158,7 +158,7 @@ $(function() {
 									'<a class="btn-register btn-link" href="/web/html/login.html?ways=register">注册</a>' +
 								'</div>' +
 						'</li>' +
-						'<li><a href="/App.html" class="appDown">APP下载</a></li>' +
+						'<li><a href="/app" class="appDown">APP下载</a></li>' +
 //						'<li><a href="/web/html/want-anchor.html" class="" target="_blank">我要当主播</a></li>' +
 //						'<li>' +
 //							'<div class="messageBox">'+

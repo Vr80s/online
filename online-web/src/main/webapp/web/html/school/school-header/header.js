@@ -161,7 +161,7 @@ $(function() {
 					'<a href="/courses/real" class="under" target="_blank">线下课</a>' +
 					'<a href="/courses/live" class="broadcast" target="_blank">直播</a>' +
 					'<a href="/courses/listen" class="listen" target="_blank">听课</a>' +
-					'<a href="/App.html" class="download-app" target="_blank">下载APP</a>' +
+					'<a href="/app" class="download-app" target="_blank">下载APP</a>' +
 				'</div>' +
 			' </div>' +
 			

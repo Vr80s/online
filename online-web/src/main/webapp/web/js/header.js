@@ -124,7 +124,7 @@ $(function () {
             '</li>' +
 
 
-            '<li><a href="/App.html" class="appDown hide" target="_blank">APP下载</a></li>' +
+            '<li><a href="/app" class="appDown hide" target="_blank">APP下载</a></li>' +
 
             '<li>' +
             '</li>' +
