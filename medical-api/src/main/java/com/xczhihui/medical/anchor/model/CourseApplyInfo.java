@@ -10,6 +10,7 @@ import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * <p>
@@ -20,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
  * @since 2018-01-19
  */
 @TableName("course_apply_info")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class CourseApplyInfo extends Model<CourseApplyInfo> {
 
     private static final long serialVersionUID = 1L;

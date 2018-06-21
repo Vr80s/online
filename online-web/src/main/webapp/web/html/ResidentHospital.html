@@ -29,7 +29,7 @@
 		<link rel="stylesheet" href="/web/css/style.css" />
 		<link rel="stylesheet" href="/web/css/index-9a525196fb.css" type="text/css">
 		<link rel="stylesheet" href="/web/css/iconfont/iconfont.css" />
-		 
+
 		<script src="/web/js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript" src="/web/js/artTemplate.js"></script>
 		<script type="text/javascript" src="/web/js/jquery.SuperSlide.2.1.1.js"></script>
@@ -50,13 +50,13 @@
 		<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.config.js"></script>
 		<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.all.min.js"></script>
 		<script type="text/javascript" charset="utf-8" src="/ueditor/lang/zh-cn/zh-cn.js"></script>
-		
+
 		<!--<style type="text/css">
 			.border_hide_null{
 				border: 1px solid red !important;
 			}
 		</style>-->
-		
+
 	</head>
 
 	<body>
@@ -67,7 +67,7 @@
 	<p class="confirm-content">确定删除这条医师？</p>
 	<button id="sureDel" class="confirm-sure">确定</button><button id="cancalDel" >取消</button>
 </div>
-	
+
 		<div id="tip" style="display: none;">
 			您已完成了医馆注册，不能进行医师注册!
 		</div>
@@ -110,7 +110,7 @@
 							</li>
 							<li class="hide" id="news_Administration_tabBtn">
 								<a href="#Notice_Administration" data-name="newAdm" aria-controls="doc_Distinguish" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span>公告管理</a>
-							</li>							
+							</li>
 						</ul>
 					</div>
 
@@ -184,8 +184,8 @@
 										<div style="display: inline-block;vertical-align: top;">
 											<script id="editor2" type="text/plain" style="width:540px;height:160px;"></script>
 										</div>
-										
-										
+
+
 										<p class="warning hide" style="padding-left: 0px;">医馆介绍不能为空</p>
 									</div>
 
@@ -216,7 +216,7 @@
 										<select name="" id="citys" onchange="doCityAndCountyRelation()">
 
 										</select>
-										
+
 										<select name="" id="county" onchange="onchangeCountyEdit()">
 
 										</select>
@@ -309,37 +309,37 @@
 								<span>医馆认证审核中，3个工作日内完成<em style="color: red;font-style: normal;">（如提交信息有误可重新提交）</em></span>
 								<button>重新认证</button>
 							</div>
-							
+
 							<div class="bottomContent_inf text-left">
 								<span>医馆认证失败<em style="color: red;font-style: normal;">（提交信息有误）</em></span>
 								<button>重新认证</button>
 							</div>
-							
+
 							<div>
 								<span><em>*</em> 所属公司</span>
 								<span class="company_name">江苏国医馆有限公司</span>
 							</div>
-							
+
 							<div>
 								<span ><em>*</em>  统一社会信用代码</span>
 								<span class="license_num">340111600148959</span>
 							</div>
-							
-							
+
+
 							<div class="teacher_picUpdata">
 								<span style="vertical-align: top;"><em>*</em>营业执照</span>
 								<span class="teacher_pic">
 									<img src="/web/images/hospital/hospital_pic.png" alt="" />
 								</span>
 							</div>
-							
-														
+
+
 							<div>
 								<span><em>*</em>药品经营许可证号</span>
-							
+
 								<span class="medicine_license_num">粤BA0200006</span>
 							</div>
-							
+
 							<div class="zhicheng_picUpdata">
 								<span style="vertical-align: top;"><em>*</em>药品经营许可证</span>
 								<span class="zhicheng_pic">
@@ -351,7 +351,7 @@
 
 							</div>
 						</div>
-	
+
 							<!--医师管理-->
 							<div role="tabpanel" class="tab-pane" id="doc_Administration">
 								<!--<div class="topTitle">
@@ -362,15 +362,15 @@
 									<input type="text" name="" id="" placeholder="搜索医师名字添加" class="search_teacher_ipt" /><button class="search_teacher_btn">搜索</button>
 									<button class="add_newTeacher">新医师</button>
 								</div>
-	
+
 								<div class="bottomContent " id="doc_Administration_bottom">
-	
+
 									<div>
 										<span><em>*</em> 医师姓名</span>
 										<input type="text" placeholder="真实姓名，需与身份证一致" maxlength="20" class="doc_name" />
 										<span class="name_warn warning hide" style="margin-left: 0px;"> 医师姓名不能为空</span>
 									</div>
-	
+
 									<div class="touxiang_picUpdata">
 										<span style="vertical-align: top;"><em>*</em>  医师真实头像</span>
 										<span class="touxiang_pic" onclick="$('#touxiang_pic_ipt').click()">
@@ -386,13 +386,13 @@
 										<input type="file" name="pic" id="touxiang_pic_ipt" style="position: absolute;visibility: hidden;" accept="image/gif,image/jpeg,image/jpg,image/png"/>
 										<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传真实头像</p>
 									</div>
-	
+
 									<div class="zhicheng_name">
 										<span><em>*</em> 医师职称</span>
 										<input type="text" placeholder="请输入您的职称" maxlength="15" class="doc_zhicheng" />
 										<span class="warning hide" style="margin-left: 0px;"> 医师职称不能为空</span>
 									</div>
-	
+
 									<div class="zhicheng_picUpdata">
 										<span style="vertical-align: top;"><em>*</em> 职称证明</span>
 										<span class="zhicheng_pic" style="padding-left: 0px !important;" onclick="$('#zhicheng_pic_ipt').click()">
@@ -407,7 +407,7 @@
 										<input type="file" name="pic" id="zhicheng_pic_ipt" style="position: absolute;visibility: hidden;" accept="image/gif,image/jpeg,image/jpg,image/png" />
 										<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传职称证明</p>
 									</div>
-	
+
 									<div class="keshi">
 										<span><em>*</em> 科室</span>
 										<ul id="shanChangList">
@@ -424,13 +424,13 @@
 										</ul>
 										<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请选择科室</p>
 									</div>
-	
+
 									<div class="shanchang_name">
 										<span><em>*</em> 擅长</span>
 										<input type="text" placeholder="请输入您的擅长领域" maxlength="50" class="doc_shanchangIpt" />
 										<span class="warning hide" style="margin-left: 0px;"> 擅长领域不能为空</span>
 									</div>
-	
+
 									<div class="personIntroduct">
 										<span><em>*</em>  医师介绍</span>
 										<!--<textarea name="" rows="" cols="" maxlength="500" placeholder="请输入500字以内医师介绍" style="resize: none;" class="doc_introduct"></textarea>-->
@@ -439,16 +439,16 @@
 										</div>
 										<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请输入医师介绍</p>
 									</div>
-	
+
 									<div class="baocun new-doctorbtn">
 										<input type="submit" value="保存" id="submit" />
 									</div>
 									<div class="wrap-save hide" style="margin-left: 120px;">
 										<input type="submit" value="保存" id="doctor-save" />
 									</div>
-	
+
 								</div>
-	
+
 								<!--医师管理部分列表-->
 								<div class="doc_Administration_bottom2" id="doc_Administration_bottom2">
 									<table>
@@ -470,19 +470,19 @@
 												<td>
 													施今墨
 												</td>
-	
+
 												<td>
 													主任医师
 												</td>
-	
+
 												<td>
 													胃病、针灸、养生食疗
 												</td>
-	
+
 												<td>
 													上线
 												</td>
-	
+
 												<td>
 													<a href="javascript:;" class="preview">预览</a>
 													<a href="javascript:;" class="downLine">下线</a>
@@ -496,19 +496,19 @@
 												<td>
 													施今墨
 												</td>
-	
+
 												<td>
 													主任医师
 												</td>
-	
+
 												<td>
 													胃病、针灸、养生食疗
 												</td>
-	
+
 												<td>
 													上线
 												</td>
-	
+
 												<td>
 													<a href="javascript:;">预览</a>
 													<a href="javascript:;">下线</a>
@@ -565,16 +565,16 @@
 											</tr>-->
 										</tbody>
 									</table>
-									
+
 									<!--医师管理列表没有数据默认样式-->
 									<div id="noDocList" class="hide" style="padding-top:100px;text-align:center">
 										<img src="/web/images/nosearch.png" alt="" />
 										<!--<p style="font-size:16px;color:#999;margin-top:35px">抱歉，没有找到“<span id="searchName" style="color:#00BC12">'+docName+'</span>”相关医师</p>-->
 										<p style="font-size:16px;color:#999;margin-top:35px">抱歉，没有找到相关医师</p>
-										
+
 									</div>
-									
-									
+
+
 									<!--分页部分start-->
 									<div class="doctors_pages pages hide" style="margin-top: 20px;">  <!--如需要复制分页doctors_pages要改类名并在JS里对应-->
 										<div id="Pagination_doctors" class="pagination-pages"></div>	<!--如需要复制分页Pagination_doctors要改类名并在JS里对应-->
@@ -586,11 +586,11 @@
 									</div>
 									<!--分页部分end-->
 								</div>
-	
+
 							</div>
-	
+
 							<!--招聘管理-->
-							<div role="tabpanel" class="tab-pane" id="recruit_Administration">								
+							<div role="tabpanel" class="tab-pane" id="recruit_Administration">
 									<div class="recruit-wrap-title wrap-title">
 										<p>招聘管理</p>
 										<button class="recruit-btn-newjob">新职位</button>
@@ -629,7 +629,7 @@
 														{{if item.status == true}}
 															<td>已发布</td>
 														{{else}}
-															<td>已关闭</td>														
+															<td>已关闭</td>
 														{{/if}}
 														<td>{{item.publicTime}}</td>
 														<td>
@@ -643,14 +643,14 @@
 																<a href="javascript:;" class="recruit_delete_btn" data-deleteId="{{item.id}}" onclick="delete_recruit_btn(this)">删除</a>
 																{{/if}}
 														</td>
-													</tr>	
+													</tr>
 													{{/each}}
 													</script>
 												</tbody>
 											</table>
 										<!--无数据时的背景图-->
 										<div class="notice_notext_two">
-											<img src="../images/notext_icon.png" alt="无数据">
+											<img src="/web/images/notext_icon.png" alt="无数据">
 											<p>暂无招聘信息</p>
 										</div>
 										<!--分页部分start-->
@@ -663,7 +663,7 @@
 											</div>
 										</div>
 										<!--分页部分end-->
-										</div>		
+										</div>
 									</div>
 								<!--新职位-->
 								<div class="recruit-box-newjob" id="recruit-box-newjob" style="display: none;">
@@ -689,37 +689,37 @@
 									</div>
 									<div class="recruit-newjob-duty">
 										<span style="float: left;"><em>*</em>岗位职责</span>
-										<div class="recruit-textarea-duty">				
+										<div class="recruit-textarea-duty">
 											<textarea class="recruit-textarea recruit-textarea-isdata" maxlength="500" name="" rows="" cols="" placeholder="请填写岗位职责 (500字以内)"></textarea>
-											<span class="warning hide warning-textarea-isdata" style="margin-left: 0px;">岗位职责不能为空</span>	
+											<span class="warning hide warning-textarea-isdata" style="margin-left: 0px;">岗位职责不能为空</span>
 										</div>
 									</div>
-									
+
 									<div class="recruit-newjob-duty">
 										<span style="float: left;"><em>*</em>职位要求</span>
-										<div class="recruit-textarea-duty">				
+										<div class="recruit-textarea-duty">
 											<textarea class="recruit-textarea recruit-textarea-duty-isdata" maxlength="500" name="" rows="" cols="" placeholder="请填写职位要求 (500字以内)"></textarea>
-											<span class="warning hide warningtextarea-duty-isdata" style="margin-left: 0px;">职位要求不能为空</span>	
+											<span class="warning hide warningtextarea-duty-isdata" style="margin-left: 0px;">职位要求不能为空</span>
 										</div>
 										<div class="recruit-save-up">
 												<button class="recruit-save-btn recruit-save-btn-menuone recruit-save-up-toggle" data-id="true">保存并发布</button>
 												<button class="recruit-save-btn recruit-save-btn-menuone recruit-save-toggle" data-id="false">保存</button>
 										</div>
 										<div class="recruit-edit-save-up-wrap hide" style="margin-left: 122px;">
-												<button class="recruit-save-btn recruit-edit-save recruit-edit-btn">保存</button>	
+												<button class="recruit-save-btn recruit-edit-save recruit-edit-btn">保存</button>
 										</div>
 									</div>
 								</div>
 							</div>
-						
-							
+
+
 							<!--公告管理-->
 							<div role="tabpanel" class="tab-pane" id="Notice_Administration">
 								<div class="Notice_top">
 									<span class="title">公告</span>
 									<button>新公告</button>
 								</div>
-								
+
 								<div class="Notice_bottom hide" id="Notice_bottom">
 									<div class="neirong">
 										<span><em>*</em> 公告内容</span>
@@ -727,12 +727,12 @@
 										<p class="warning warning-notice" style="display: none;padding-left: 0;">公告内容不能为空</p>
 										<p class="word-number">剩余100字</p>
 									</div>
-	
+
 									<div class="baocun" style="padding-left: 116px;">
 										<button type="submit" value="发布" id="notice-release-btn">发布</button>
 									</div>
 								</div>
-								
+
 								<div class="Notice_bottom2" id="Notice_bottom2">
 									<table>
 										<thead>
@@ -752,7 +752,7 @@
 												</td>
 												<td>
 													{{item.content}}
-												</td>											
+												</td>
 												<td>
 													{{item.createTime}}
 												</td>
@@ -767,11 +767,11 @@
 									</table>
 									<!--无数据时的背景图-->
 									<div class="notice_notext_icon">
-										<img src="../images/notext_icon.png" alt="无数据">
+										<img src="/web/images/notext_icon.png" alt="无数据">
 										<p>暂无公告</p>
 									</div>
-									
-									
+
+
 									<!--分页部分start-->
 									<div class="notices_pages pages hide" style="margin-top: 20px;">  <!--如需要复制分页doctors_pages要改类名并在JS里对应-->
 										<div id="Pagination_notices" class="pagination-pages"></div>	<!--如需要复制分页Pagination_doctors要改类名并在JS里对应-->
@@ -782,25 +782,25 @@
 										</div>
 									</div>
 									<!--分页部分end-->
-					
-									
+
+
 								</div>
 							</div>
 					</div>
 				</div>
 
 			</div>
-	
+
 				<!--医师隐藏的模态框部分-->
 				<div class="bottomContent " id="doc_Administration_bottom3" style="visibility: hidden;">
-	
+
 					<div style="position: relative;">
 						<span><em>*</em> 医师姓名</span>
 						<input type="text" placeholder="真实姓名，需与身份证一致" maxlength="15" class="doc_name">
 						<span class="name_warn warning hide" style="margin-left: 0px;"> 医师姓名不能为空</span>
 						<span class="close_doc_inf">关闭</span>
 					</div>
-	
+
 					<div class="touxiang_picUpdata">
 						<span style="vertical-align: top;"><em>*</em>  医师真实头像</span>
 						<span class="touxiang_pic" onclick="$('#touxiang_pic_ipt').click()">
@@ -816,13 +816,13 @@
 						<input type="file" name="pic" id="touxiang_pic_ipt" style="position: absolute;visibility: hidden;" accept="image/gif,image/jpeg,image/jpg,image/png" />
 						<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传真实头像</p>
 					</div>
-	
+
 					<div class="zhicheng_name">
 						<span><em>*</em> 医师职称</span>
 						<input type="text" placeholder="请输入您的职称" maxlength="15" class="doc_zhicheng">
 						<span class="warning hide" style="margin-left: 0px;"> 医师职称不能为空</span>
 					</div>
-	
+
 					<div class="zhicheng_picUpdata">
 						<span style="vertical-align: top;"><em>*</em> 职称证明</span>
 						<span class="zhicheng_pic" onclick="$('#zhicheng_pic_ipt').click()">
@@ -837,25 +837,25 @@
 						<input type="file" name="pic" id="zhicheng_pic_ipt" style="position: absolute;visibility: hidden;" accept="image/gif,image/jpeg,image/jpg,image/png" />
 						<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传职称证明</p>
 					</div>
-	
+
 					<div class="keshi">
 						<span><em>*</em> 科室</span>
 						<ul id="shanChangList2">
 							<!--<li data-id="0f4df242c3294902a87b8bc0a0ffe4d8">科室3</li>
-	
+
 							<li data-id="3dde4a0a3c6b4d4cbef7a2c501eee373">科室1</li>
-	
+
 							<li data-id="bd252be6ecf24eb9965d5c8f88aa3747">科室2</li>-->
 						</ul>
 						<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请选择科室</p>
 					</div>
-	
+
 					<div class="shanchang_name">
 						<span><em>*</em> 擅长</span>
 						<input type="text" placeholder="请输入您的擅长领域" maxlength="50" class="doc_shanchangIpt">
 						<span class="warning hide" style="margin-left: 0px;"> 擅长领域不能为空</span>
 					</div>
-	
+
 					<div class="personIntroduct">
 						<span><em>*</em>  医师介绍</span>
 						<!--<textarea name="" rows="" cols="" maxlength="500" placeholder="请输入500字以内医师介绍" style="resize: none;" class="doc_introduct"></textarea>-->
@@ -864,27 +864,27 @@
 						</div>
 						<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请输入医师介绍</p>
 					</div>
-	
+
 					<div class="baocun">
 						<input type="submit" value="保存" id="submit">
 					</div>
-	
+
 				</div>
-	
+
 				<!--医师信息 预览效果-->
 				<div class="bottomContent hide" id="doc_Administration_bottom4">
 							<!--TODO-->
-					
+
 				</div>
 				<!--招聘管理预览效果-->
 				<div class="recruit_preview_bg"></div>
 				<div class="recruit_preview_box">
 					<div class="recruit_preview_content">
 						<p class="recruit_preview_title">预览</p>
-						<img src="../images/rili_close.png"/>
+						<img src="/web/images/rili_close.png"/>
 					</div>
-					
-					<div class="recruit_preview_bigBox">			
+
+					<div class="recruit_preview_bigBox">
 						<div class="recruit_wrap_h1" id="recruit_wrap_mune1">
 							<span class="recruit_preview_h1"><em>*</em>招聘职位</span>
 							<p>招前端阿里十年经验</p>
@@ -896,22 +896,22 @@
 						<div class="recruit_wrap_h1" id="recruit_wrap_mune3">
 							<span class="recruit_preview_h1"><em>*</em>岗位职责</span>
 							<p>
-								
+
 							</p>
 						</div>
 						<div class="recruit_wrap_h1" id="recruit_wrap_mune4">
 							<span class="recruit_preview_h1"><em>*</em>职位要求</span>
 							<p>
 							</p>
-						</div>		
+						</div>
 					</div>
 				</div>
-				<!--招聘管理预览效果结束-->				
+				<!--招聘管理预览效果结束-->
 				<!--公告管理预览效果-->
 				<div class="notice_namage_see">
 					<div class="notice_preview_content">
 						<p class="recruit_preview_title">预览</p>
-						<img src="../images/rili_close.png"/>
+						<img src="/web/images/rili_close.png"/>
 					</div>
 					<div class="recruit_preview_bigBox">
 						<div class="recruit_wrap_h1">
@@ -995,12 +995,12 @@
 		<button onclick="hosAgainAut()">重新认证</button>
 	</div>
 	{{/if}}
-	
+
 	<!--<div class="bottomContent_inf text-left">
 		<span>已于{{createTime}}通过认证,享有入驻医馆的功能<em style="color: red;font-style: normal;"></em></span>
 		<button>去看看</button>
 	</div>-->
-	
+
 	<div>
 		<span><em>*</em> 医馆名称</span>
 		<span class="company_name">{{name}}</span>
@@ -1019,7 +1019,7 @@
 	<div class="teacher_picUpdata">
 		<span style="vertical-align: top;"><em>*</em>营业执照</span>
 		<span class="teacher_pic">
-	
+
 			<img src={{businessLicensePicture}} alt="" />
 		</span>
 	</div>
@@ -1033,7 +1033,7 @@
 	<div class="zhicheng_picUpdata">
 		<span style="vertical-align: top;"><em>*</em>药品经营许可证</span>
 		<span class="zhicheng_pic">
-		
+
 			<img src={{licenseForPharmaceuticalTradingPicture}} alt="" />
 		</span>
 	</div>
@@ -1085,7 +1085,7 @@
 		</td>
 		{{/if}}
 		<td>
-			
+
 			{{if item.status}}
 			<a href="javascript:;" class="preview" data-id={{item.id}}>预览</a>
 			<a href="javascript:;" class="downLine" data-id={{item.id}}  data-status=0 class="upRoDown">下线</a>
@@ -1096,7 +1096,7 @@
 			<!--<a href="javascript:;" class="edit" data-id={{item.id}}>编辑</a>-->
 			<a href="javascript:;" class="delete" data-id={{item.id}}>删除</a>
 			{{/if}}
-			
+
 		</td>
 	</tr>
 	{{/each}}
@@ -1105,7 +1105,7 @@
 
 <!--医馆内部的医师状态模板-->
 <script type="text/template" id="docStatusTpl">
-	
+
 	<div style="position: relative;">
 		<span><em>*</em> 医师姓名</span>
 		<span class="docName" style="font-size: 14px;">{{name}}</span>
@@ -1159,10 +1159,10 @@
 		</ul>
 		<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请选择科室</p>
 	</div>
-	
+
 	<div>
 		<span><em>*</em> 擅长</span>
-	
+
 		<span style="font-size: 14px;">{{fieldText}}</span>
 	</div>
 
@@ -1218,7 +1218,7 @@
             autoFloatEnabled: true,
             enableAutoSave:false,
             imagePopup:false,
-            maximumWords:10000   
+            maximumWords:10000
 	});
 
 	var ue = UE.getEditor('editor2', {
@@ -1264,8 +1264,8 @@
             imagePopup:false,
             maximumWords:10000       //允许的最大字符数
 	});
-	
-	
+
+
 
 	function getContent() {
 		var arr = [];
@@ -1286,12 +1286,12 @@
 			return this._bkGetActionUrl.call(this, action);
 		}
 	}
-	
-	
-	
+
+
+
 </script>
 <!--公共弹窗-->
-<script src="../js/common_msg.js"></script>
+<script src="/web/js/common_msg.js"></script>
 
 <script type="text/javascript" src="/web/js/footer.js"></script>
 <script src="/web/js/placeHolder.js"></script>

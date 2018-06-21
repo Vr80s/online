@@ -45,7 +45,7 @@
     <uri>/bbs</uri>
     <uri>/bbs/[0-9]{1,}</uri>
 
-    <uri>/App.html</uri>
+    <uri>/app</uri>
     <uri>/online/verificationCode/.*</uri>
     <uri>/online/user/.*</uri>
 

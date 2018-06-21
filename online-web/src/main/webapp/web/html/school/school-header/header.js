@@ -52,7 +52,7 @@ function showDOrH() {
 			} else if(data.resultObject == 2) {
 				//医馆认证成功
 				$('#docOrHos').text('我是医馆');
-				$('#docOrHos').attr('href', '/web/html/ResidentHospital.html')
+				$('#docOrHos').attr('href', '/clinics/my')
 				$('#docOrHos').removeClass('hide');
 				$(".want-anchor").addClass('hide'); //我要当主播
 			}
@@ -144,7 +144,7 @@ $(function() {
 //							'</div>'+
 //						'</li>'+
 						'<li>'+
-							'<a href="/web/html/anchor/curriculum.html" class="hide" id="anchorWorkbench">主播工作台</a>'+
+							'<a href="/anchor/my" class="hide" id="anchorWorkbench">主播工作台</a>'+
 						'</li>'+
 						'<li>'+
 							'<a href="javascript:;" class="hide" id="docOrHos">我是医师</a>'+
@@ -154,7 +154,7 @@ $(function() {
 							'<a href="javascript:;" class="studentCenterBox">学习中心</a>'+
 						'</li>'+
 						
-						// '<li><div class="messageBox"><a href="javascript:;" data-id="mynews" class="message">消息</a><span class="messageCount" style="display: none;"><em style="background-color: #2cb82c;padding: 0 2px;border-radius: 5px;position: absolute;color:white;font-style:normal"></em></span></div></li><li><div class="shoppingBox"><a href="javascript:;" data-id="" class="shoppingCar">购物车</a><span class="shopping" style="display: none;"><em style="background-color: #2cb82c;padding: 0 2px;border-radius: 5px;position: absolute;color:white;font-style:normal"></em></span></div></li><li><a href="javascript:;" class="studentCenterBox">学习中心</a></li><li><a href="javascript:;" class="hide" id="docOrHos">我是医师</a></li><li><a href="/web/html/anchor/curriculum.html" class="hide" id="anchorWorkbench">主播工作台</a></li>'+
+						// '<li><div class="messageBox"><a href="javascript:;" data-id="mynews" class="message">消息</a><span class="messageCount" style="display: none;"><em style="background-color: #2cb82c;padding: 0 2px;border-radius: 5px;position: absolute;color:white;font-style:normal"></em></span></div></li><li><div class="shoppingBox"><a href="javascript:;" data-id="" class="shoppingCar">购物车</a><span class="shopping" style="display: none;"><em style="background-color: #2cb82c;padding: 0 2px;border-radius: 5px;position: absolute;color:white;font-style:normal"></em></span></div></li><li><a href="javascript:;" class="studentCenterBox">学习中心</a></li><li><a href="javascript:;" class="hide" id="docOrHos">我是医师</a></li><li><a href="/anchor/my" class="hide" id="anchorWorkbench">主播工作台</a></li>'+
 					'</ul>'+
 			'</div>',
 		nav:

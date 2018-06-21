@@ -56,31 +56,31 @@ public class MultiUrlHelper {
             URL_TYPE_MOBILE, "");
     private static Map<String, String> workTableUrlMap = ImmutableMap.of(
             URL_TYPE_APP, "xczh://ipandatcm.com/anchorWorkTable",
-            URL_TYPE_WEB, "/web/html/anchor/curriculum.html#menu=2-1",
+            URL_TYPE_WEB, "/anchor/my#menu=2-1",
             URL_TYPE_MOBILE, "");
     private static Map<String, String> anchorCNYMap = ImmutableMap.of(
             URL_TYPE_APP, "xczh://ipandatcm.com/anchorCNY?type=1",
-            URL_TYPE_WEB, "/web/html/anchor/curriculum.html#menu=2-1",
+            URL_TYPE_WEB, "/anchor/my#menu=2-1",
             URL_TYPE_MOBILE, "");
     private static Map<String, String> courseListMap = ImmutableMap.of(
             URL_TYPE_APP, "xczh://ipandatcm.com/courseList?tab=0",
-            URL_TYPE_WEB, "/web/html/anchor/curriculum.html?tab=0#menu=1-1",
+            URL_TYPE_WEB, "/anchor/my?tab=0#menu=1-1",
             URL_TYPE_MOBILE, "");
     private static Map<String, String> liveCourseListMap = ImmutableMap.of(
             URL_TYPE_APP, "xczh://ipandatcm.com/courseList?tab=1",
-            URL_TYPE_WEB, "/web/html/anchor/curriculum.html?tab=1#menu=1-1",
+            URL_TYPE_WEB, "/anchor/my?tab=1#menu=1-1",
             URL_TYPE_MOBILE, "");
     private static Map<String, String> videoCourseListMap = ImmutableMap.of(
             URL_TYPE_APP, "xczh://ipandatcm.com/courseList?tab=2",
-            URL_TYPE_WEB, "/web/html/anchor/curriculum.html?tab=2#menu=1-1",
+            URL_TYPE_WEB, "/anchor/my?tab=2#menu=1-1",
             URL_TYPE_MOBILE, "");
     private static Map<String, String> offlineCourseListMap = ImmutableMap.of(
             URL_TYPE_APP, "xczh://ipandatcm.com/courseList?tab=3",
-            URL_TYPE_WEB, "/web/html/anchor/curriculum.html?tab=3#menu=1-1",
+            URL_TYPE_WEB, "/anchor/my?tab=3#menu=1-1",
             URL_TYPE_MOBILE, "");
     private static Map<String, String> audioCourseListMap = ImmutableMap.of(
             URL_TYPE_APP, "xczh://ipandatcm.com/courseList?tab=4",
-            URL_TYPE_WEB, "/web/html/anchor/curriculum.html?tab=4#menu=1-1",
+            URL_TYPE_WEB, "/anchor/my?tab=4#menu=1-1",
             URL_TYPE_MOBILE, "");
     private static Map<String, String> articleMap = ImmutableMap.of(
             URL_TYPE_WEB, "/headline/details/{0}"

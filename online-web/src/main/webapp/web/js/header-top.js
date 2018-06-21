@@ -50,7 +50,7 @@ function showDOrH() {
             } else if (data.resultObject == 2) {
                 //医馆认证成功
                 $('#docOrHos').text('我是医馆');
-                $('#docOrHos').attr('href', '/web/html/ResidentHospital.html')
+                $('#docOrHos').attr('href', '/clinics/my')
                 $('#docOrHos').removeClass('hide');
                 $(".want-anchor").addClass("hide");
                 $(".appDown").removeClass("hide");
@@ -127,7 +127,7 @@ $(function () {
             '</li>' +
            
             '<li>' +
-            '<a href="/web/html/anchor/curriculum.html" class="hide" id="anchorWorkbench">主播工作台</a>' +
+            '<a href="/anchor/my" class="hide" id="anchorWorkbench">主播工作台</a>' +
            ' </li>' +
             '<li>' +
             '<a href="javascript:;" class="hide" id="docOrHos">我是医师</a>' +

@@ -186,5 +186,45 @@ public class PageController {
         request.getRequestDispatcher("/web/html/personal-center/personal-index.html").forward(request, response);
     }
 
+    /**
+     * 跳转至主播工作台
+     *
+     * @return
+     */
+    @RequestMapping(value = "anchor/my", method = RequestMethod.GET)
+    public void anchor(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getRequestDispatcher("/web/html/anchor/curriculum.html").forward(request, response);
+    }
+
+    /**
+     * 跳转至医师工作台
+     *
+     * @return
+     */
+    @RequestMapping(value = "doctors/my", method = RequestMethod.GET)
+    public void doctor(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//        request.getRequestDispatcher("/web/html/personal-center/personal-index.html").forward(request, response);
+    }
+
+    /**
+     * 跳转至医馆工作台
+     *
+     * @return
+     */
+    @RequestMapping(value = "clinics/my", method = RequestMethod.GET)
+    public void clinic(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getRequestDispatcher("/web/html/ResidentHospital.html").forward(request, response);
+    }
+
+    /**
+     * 跳转至App.html
+     *
+     * @return
+     */
+    @RequestMapping(value = "app", method = RequestMethod.GET)
+    public void app(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getRequestDispatcher("/App.html").forward(request, response);
+    }
+
 
 }
