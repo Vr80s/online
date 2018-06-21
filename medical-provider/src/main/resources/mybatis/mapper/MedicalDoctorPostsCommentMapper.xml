@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xczhihui.medical.doctor.mapper.MedicalDoctorPostsCommentMapper">
+
+    <select id="selectMedicalDoctorPostsCommentList"  resultType="com.xczhihui.medical.doctor.model.MedicalDoctorPostsComment">
+        SELECT
+        mdpc.*,
+        ou.name as userName,
+        ous.name as replyUserName
+        FROM medical_doctor_posts_comment mdpc
+        JOIN `oe_user` ou
+			ON mdpc.`user_id` = ou.`id`
+		left join `oe_user` ous
+			ON  mdpc.reply_user_id = ous.`id`
+        WHERE mdpc.deleted = 0
+        ORDER BY mdpc.create_time asc
+
+    </select>
+
+    <insert id="addMedicalDoctorPostsComment" parameterType="com.xczhihui.medical.doctor.model.MedicalDoctorPostsComment">
+        INSERT INTO medical_doctor_posts_comment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="medicalDoctorPostsComment.postsId != null">
+                posts_id,
+            </if>
+            <if test="medicalDoctorPostsComment.content != null">
+                content,
+            </if>
+            <if test="medicalDoctorPostsComment.userId != null">
+                user_id,
+            </if>
+            <if test="medicalDoctorPostsComment.commentId != null">
+                comment_id,
+            </if>
+            <if test="medicalDoctorPostsComment.createTime != null">
+                create_time,
+            </if>
+            <if test="medicalDoctorPostsComment.deleted != null">
+                deleted,
+            </if>
+            <if test="medicalDoctorPostsComment.replyUserId != null">
+                reply_user_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="medicalDoctorPostsComment.postsId != null">
+                #{medicalDoctorPostsComment.postsId},
+            </if>
+            <if test="medicalDoctorPostsComment.content != null">
+                #{medicalDoctorPostsComment.content},
+            </if>
+            <if test="medicalDoctorPostsComment.userId != null">
+                #{medicalDoctorPostsComment.userId},
+            </if>
+            <if test="medicalDoctorPostsComment.commentId != null">
+                #{medicalDoctorPostsComment.commentId},
+            </if>
+            <if test="medicalDoctorPostsComment.createTime != null">
+                #{medicalDoctorPostsComment.createTime},
+            </if>
+            <if test="medicalDoctorPostsComment.deleted != null">
+                #{medicalDoctorPostsComment.deleted},
+            </if>
+            <if test="medicalDoctorPostsComment.replyUserId != null">
+                #{medicalDoctorPostsComment.replyUserId},
+            </if>
+        </trim>
+    </insert>
+
+
+
+    <update id="deleteMedicalDoctorPostsComment">
+        UPDATE
+        medical_doctor_posts_comment mdpc
+        SET
+        mdpc.`deleted` = 1
+        WHERE mdpc.id = #{id}
+    </update>
+
+    <select id="getMedicalDoctorPostsCommentById"  resultType="com.xczhihui.medical.doctor.model.MedicalDoctorPostsComment">
+        SELECT
+          *
+        FROM medical_doctor_posts_comment mdpc
+        WHERE mdpc.deleted = 0 and mdpc.id = #{id}
+
+    </select>
+
+</mapper>

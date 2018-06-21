@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+	<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<head>
+<meta charset="UTF-8">
+<title>熊猫中医</title>
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+
+<link rel="stylesheet" type="text/css" href="/xcview/css/physician/index.css?v=wechat_1.1.1"/>
+<!--手机嵌入模板-->
+<script type="text/javascript" src="/xcview/js/common/layout.js"></script>
+<script>
+	// 判断横屏展示时的状态
+	window.onorientationchange=function(){
+	    if(window.orientation==90||window.orientation==-90){
+	        window.location.reload();  /*横屏状态刷新*/
+	    }else{
+	        window.location.reload();  /*竖屏状态刷新*/
+	    }
+	}	
+</script>
+</head>
+<body style="background: #F8F8F8;">
+	<!--头部搜索开始-->
+	<header>
+		<div class="header">
+			<div class="header_seek" onClick="location.href='/xcview/html/physician/search.html?search_back=1'" style="width: 6.26rem;"> 
+				<div class="header_seek_main">
+					<img src="/xcview/images/sousuo0.png" alt="" />
+					<span class="header_seek_main_span" id="defaultSearch">
+						<script type="text/html" id="defaultSearchs">
+							{{each items as item i}}
+								<span>{{item.name}}</span>
+							{{/each}}
+						</script>
+					</span>
+					
+				</div>
+			</div>
+			<div class="header_news" style="display: none;">
+				<img src="/xcview/images/system_messages.png" alt="" />
+				<div class="header_news_rudio">1</div>
+			</div>
+		</div>
+	</header>
+	<div class="opacity_height"></div>
+	<!--头部搜索结束-->
+
+	<!-- 中间内容开始 -->
+	<!-- hotSearch -->
+	<div class="hot_search">
+		<p class="hot_search_title">热门搜索</p>
+		<div class="" id="hotSearch">
+			<script type="text/html" id="hotSearchs">
+				{{each items as item i}}
+					<span>{{item.name}}</span>
+				{{/each}}
+			</script>
+		</div>
+		<!-- <span>儿科</span>
+		<span>儿科</span>
+		<span>儿科</span> -->
+		<div class="both"></div>
+	</div>
+	
+
+	<div class="main" id="hot_title">
+		<!-- 热门中医 -->
+		<script type="text/html" id="gzy_id">
+			{{each items as item i}}
+				<div class="physicians">
+					<div class="physician_title">{{item.text}}<img src="/xcview/images/video_review.png" alt=""></div>
+					{{each item.doctors as item i}}   
+					<div class="physician_cen">
+						<div class="head_portrait">
+							<img src="{{item.headPortrait}}" alt="" />
+						</div>
+						<div class="referral">
+							<div class="referral_title">
+								<div class="name">{{item.name}}</div>
+								<div class="duty">{{item.title}}</div>
+							</div>
+							<div class="hospital">{{item.hospitalAddress}}</div>
+							<div class="both"></div>
+						</div>
+					</div>
+					{{/each}}
+				</div>
+			{{/each}}
+		</script>
+
+	</div>
+	<!-- 中间内容结束 -->
+		
+	<!--底部开始-->
+	<div class="footer_perch" style="1display: none;"></div>
+	<div class="footer" style="display: none1;">
+		<ul>
+			<li>
+				<a href="" class="physician" style="width: 0.42rem;height: 0.42rem;background: url(/xcview/images/physician_nav.png) no-repeat center;background-size: 0.42rem 0.42rem;margin-top: 0.14rem;"></a>
+				<p style="color: #00BC12;">中医师</p>
+			</li>
+			<li>
+				<a href="" class="school" style="background: url(/xcview/images/school_one.png) no-repeat center;background-size: 0.48rem 0.37rem;margin-top: 0.14rem;"></a>
+				<p>学堂</p>
+			</li>
+			<li>
+				<a href="javascript:;" class="study" onclick="go_study()" style="margin-top: 0.14rem;"></a>
+				<p>学习</p>
+			</li>
+			<li>
+				<a href="/xcview/html/apprentice/apprentice.html" class="discovery" style="background-size: 0.42rem 0.42rem;height: 0.42rem;    margin-top: 0.14rem;"></a>
+				<p>发现</p>
+			</li>
+			<li>
+				<a href="/xcview/html/my_homepage.html" class="my"></a>
+				<p>我的</p>
+			</li>
+		</ul>
+	</div>
+	<!--底部结束-->
+	
+</body>
+<script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/common.js?v=wechat_1.1.1"></script> 
+<script type="text/javascript" src="/xcview/js/common/template.js"></script>    <!--数据模板引入-->
+<script type="text/javascript" src="/xcview/js/physician/index.js"></script> 
+
+
+</html>

@@ -210,3 +210,24 @@
 	width: 3.39rem !important;
 	height: 3.25rem !important;
 }
+
+/*修改学堂跳转*/
+.footer ul li{
+    width: 0.78rem;
+    float: left;
+    text-align: center;
+    margin-left: 0.6rem;
+}
+.footer ul li a{
+    height: 0.42rem;
+    margin-top: 0.14rem;
+}
+.footer_two{
+    background-size: 0.4rem 0.4rem;
+}
+.footer_four{
+    background-size: 0.38rem 0.42rem;
+}
+
+
+

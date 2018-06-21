@@ -337,18 +337,19 @@ color: #BBBBBB;
 	border-top: 1px solid #d8dde6;
 }
 .footer ul li{
-	width: 25%;
-	float: left;
-	text-align: center;
+	width: 0.78rem;
+    float: left;
+    text-align: center;
+    margin-left: 0.6rem;
 }
 .footer ul li a{
 	display: block;
-	width: 0.486rem;
-	height: 0.4rem;
-	text-align: center;
-	margin: 0 auto;
-	margin-bottom: 0.06rem;
-	margin-top: 0.14rem;
+    text-align: center;
+    margin: 0 auto;
+    margin-bottom: 0.06rem;
+    margin-top: 0.14rem;
+    width: 0.486rem;
+    height: 0.42rem;
 }
 .footer ul li p{
 	width: 100%;
@@ -373,7 +374,7 @@ color: #BBBBBB;
 }
 .footer_four{
 	background: url(../images/my_four.png) no-repeat center;
-	background-size: 0.38rem 0.4rem;
+	background-size: 0.38rem 0.42rem;
 }
 /*底部结束*/
 /*底部旋转开始*/
