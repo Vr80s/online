@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xczhihui.medical.doctor.mapper.MedicalDoctorPostsLikeMapper">
+
+    <select id="getMedicalDoctorPostsLikeList"  resultType="com.xczhihui.medical.doctor.model.MedicalDoctorPostsLike">
+        SELECT
+        mdpl.*,
+        ou.name as userName
+        FROM medical_doctor_posts_like mdpl
+        JOIN `oe_user` ou
+			ON mdpl.`user_id` = ou.`id`
+        WHERE mdpl.posts_id = #{postsId}
+        ORDER BY mdpl.create_time asc
+
+    </select>
+
+    <insert id="addMedicalDoctorPostsLike" >
+        INSERT INTO medical_doctor_posts_like
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="postsId != null">
+                posts_id,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="postsId != null">
+                #{postsId},
+            </if>
+            <if test="userId != null">
+                #{userId},
+            </if>
+        </trim>
+    </insert>
+
+    <delete id="deleteMedicalDoctorPostsLike">
+        delete from
+        medical_doctor_posts_like
+        WHERE id = #{id}
+    </delete>
+
+</mapper>
