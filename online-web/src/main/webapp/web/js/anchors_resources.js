@@ -421,7 +421,7 @@ $(".vedio-nav").click(function(){
 				$(".video-title input").val("");
     	}
 })
-//	封面
+//	视频封面
  function videoUpdown(baseurl, imgname) {
         RequestService("/medical/common/upload", "post", {
             image: baseurl,
@@ -472,10 +472,114 @@ $(".consilia-nav").click(function(){
 
     	}
 })
+//添加医案/添加专栏/添加媒体
 $(".consilia-status-nav li").click(function(){
 	$(".consilia-status-nav li").removeClass("active");
 	$(this).addClass("active");
 });
+//搜索出来的结果选择要发布的内容
+$(".select-text").click(function(){
+	if($(this).find("img").length!=0){
+		$(".select-text").html("").css({"border-color":"#bbb9b9"});
+
+	}else{
+		$(".select-text").html("").css({"border-color":"#bbb9b9"});
+		$(this).append('<img src="/web/images/submit.png"/>').css({"border-color":"#35b658"});	
+	}
+	
+})
+
+//动态消息
+//控制阅读更多
+				var $dot5 = $('.news-text-save');
+                $dot5.each(function () {
+                    if ($(this).height() > 95) {
+                        $(this).attr("data-txt", $(this).attr("data-text"));
+                        $(this).height(95);
+                        $(this).append('<span class="qq" style="margin-right:60px"> <a class="toggle" href="###" style="color:#2cb82c"><span class="opens" style="font-size:16px;">阅读全文<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></span><span class="closes">收起<span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span></span></a></span>');
+                    }
+                    var $dot4 = $(this);
+
+                    function createDots() {
+                        $dot4.dotdotdot({
+                            after: 'span.qq'
+                        });
+                    }
+                    function destroyDots() {
+                        $dot4.trigger('destroy');
+                    }
+
+                    createDots();
+                    $dot4.on(
+                        'click',
+                        'a.toggle',
+                        function () {
+                            $dot4.toggleClass('opened');
+
+                            if ($dot4.hasClass('opened')) {
+                                destroyDots();
+                            } else {
+                                createDots();
+                            }
+                            return false;
+                        }
+                    );
+                });
+                //控制阅读更多
+
+
+
+
+
+//---------------------------------动态部分结束，轮播部分开始-------------------------------------------------
+
+//上传轮播图
+ function bannerUpdown(baseurl, imgname) {
+        RequestService("/medical/common/upload", "post", {
+            image: baseurl,
+        }, function (data) {
+            $('.right-banner  .' + imgname + '').html('<img src="' + data.resultObject + '" >');
+        })
+    }
+    $('#banner_picIpt').on('change', function () {
+        if (this.files[0].size > 2097152) {
+            $('#tip').text('上传图片不能大于2M');
+            $('#tip').toggle();
+            setTimeout(function () {
+                $('#tip').toggle();
+            }, 2000)
+//			showTip("上传图片不能大于2M");
+            return false;
+        }
+        if (!(this.files[0].type.indexOf('image') == 0 && this.files[0].type && /\.(?:jpg|png|gif)$/.test(this.files[0].name))) {
+            $('#tip').text('图片格式不正确');
+            $('#tip').toggle();
+            setTimeout(function () {
+                $('#tip').toggle();
+            }, 2000)
+            return false;
+        }
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            bannerUpdown(reader.result, 'banner-box');
+        }
+        reader.readAsDataURL(this.files[0])
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
