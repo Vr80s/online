@@ -1,6 +1,7 @@
 
 
 var curriculum_blck = getQueryString("search_back");
+
 sessionStorage.setItem("search_back",curriculum_blck);
 
 /**
@@ -15,29 +16,23 @@ function goto_back(){
 	}
 }
 
-
 $(function(){
 //搜索历史开始
 requestService("/xczh/bunch/hotDoctorSearch",null, 
     function(data) {
-		
 		if(data.success==true){
-
             if(data.resultObject.hotSearch == 0 || data.resultObject.hotSearch == '' || data.resultObject.hotSearch == null){
             	$(".search_hot").hide();
             }else{
-            	 //			检索列表
+            	 //检索列表
 	 	    	$(".search_hot_main").html(template('search1',{items:data.resultObject.hotSearch}))
-
             };
-
 // 	    	<!--给inpiu默认值-->
  	    	$(".div_span_input").html(template('shipin',{items:data.resultObject.defaultSearch}))
+ 	    	
 			if(data.resultObject.defaultSearch!=null&&data.resultObject.defaultSearch.length>0){
-				localStorage.setItem("defaultKey", data.resultObject.defaultSearch[0].name);
+				localStorage.setItem("defaultKey_doctor", data.resultObject.defaultSearch[0].name);
 			}
-   	    	
-// 	    	localStorage.setItem("defaultKey", data.resultObject.defaultSearch);
 		}
 },false) 
 //搜索历史结束

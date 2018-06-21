@@ -35,7 +35,7 @@
 	
 	<!-- 我的关注列表  -->
 	<select id="selectFocusList" resultType="com.xczhihui.course.vo.FocusVo">
-	   select of.lecturer_id as userId,ou.name as name,ou.profile_photo as smallHeadPhoto, ou.`detail`
+	   select of.lecturer_id as userId,ou.name as name,ou.profile_photo as smallHeadPhoto, ou.`detail`,ou.type
 		from oe_focus as of
 		inner join course_anchor as ou on of.lecturer_id = ou.user_id
 		where of.user_id =#{userId} 

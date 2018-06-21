@@ -54,9 +54,6 @@ requestService("/xczh/doctors/screen",null,function(data){
 		departmentIdArray = bigObj.departments;
 		sortTypeArray = bigObj.sortTypes;
 
-		if(typeArray!=null && typeArray.length>0){
-			typeArray[0].code=-1;
-		}
 		
 		/**
 		 * 动态生成分类
@@ -65,13 +62,13 @@ requestService("/xczh/doctors/screen",null,function(data){
 		/**
 		 * 动态生成滑动的效果
 		 */
-		var box01List = "<li class='li_list'><div class='li_list_main' id='draw_all_query_list'></div><div class='no_class no_class_one no_class_ones no_class0'><img src='/xcview/images/no_class.png'/><p>课程正在赶来的路上...</p></div></li>"; //代表全部的
+		var box01List = "<li class='li_list'><div class='li_list_main' id='draw_all_query_list'></div><div class='no_class no_class_one no_class_ones no_class0'><img src='/xcview/images/no_class.png'/><p>医师正在签约的路上...</p></div></li>"; //代表全部的
 
 		for (var int = 0; int < typeArray.length; int++) {
 			var obj = typeArray[int];
 			var index=int+1;
 			pagenavi1 +="<li><a href='javascript: ;' data-title ="+index+" title="+obj.code+">"+obj.value+"</a></li>";				
-			box01List+="<li class='li_list'><div class='li_list_main' data-title ="+index+" id='query_list"+obj.code+"'></div><div class='no_class no_class"+index+"'><img src='/xcview/images/no_class.png'/><p>课程正在赶来的路上...</p></div></li>"			
+			box01List+="<li class='li_list'><div class='li_list_main' data-title ="+index+" id='query_list"+obj.code+"'></div><div class='no_class no_class"+index+"'><img src='/xcview/images/no_class.png'/><p>医师正在签约的路上...</p></div></li>"			
 		}
 		pagenavi1 +="<li class='sideline' style='left: 0px; width: 96px;'></li>";
 		
@@ -87,7 +84,6 @@ requestService("/xczh/doctors/screen",null,function(data){
 		
 		//智能筛选分类
 		$('#draw_sorttype_list').html(template('sorttype_list',{items:sortTypeArray}));
-		
 	}else{
 		alert("条件筛选errot!");
 	}
@@ -110,8 +106,6 @@ function createParamsAndQuery(type,departmentId,sortType,queryKey){
 	 * 筛选条件拼接字符串
 	 */
 	var saisuanstr ="";
-	
-	
 	/**
 	 * 左滑右滑选中
 	 */
@@ -286,15 +280,9 @@ function submit(){
 
 
 function queryDataByParams(params,data_type){
-	var falg = false;
-	if(params.type==-1){
-		params.type=0;
-		falg = true;
-	}
+	
 	requestService("/xczh/doctors/list",params,function(data){
-			 if(falg){
-				params.type=-1;
-			 }
+			
 		     var id = "#draw_all_query_list";
 		     if(data.success==true){
 			

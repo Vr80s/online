@@ -62,11 +62,10 @@ public class DoctorController{
         page.setSize(3);
         
         List<Map<String,Object>> list = new ArrayList<Map<String,Object>>();
-        
         Page<MedicalDoctorVO> doctors0 = medicalDoctorBusinessService.selectDoctorPage(page, null, null, null, null, null);
         if(doctors0!=null && doctors0.getSize()>0) {
         	  Map<String,Object> map = new HashMap<String,Object>(); 
-        	  map.put("code", 0);
+        	  map.put("code", -1);
 	          map.put("text", "热门中医");
 	          map.put("doctors", doctors0.getRecords());
 	          list.add(map);

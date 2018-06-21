@@ -529,7 +529,7 @@
         
         WHERE md.deleted = 0
         AND md.status = 1
-        <if test='dqv.type != null and dqv.type != "" and dqv.type != "0" '>
+        <if test='dqv.type != null and dqv.type != "" and dqv.type != "-1" '>
             and md.type = #{dqv.type}
         </if>
         <if test="dqv.hospitalId != null and dqv.hospitalId!=''">
