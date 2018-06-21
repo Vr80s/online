@@ -1,24 +1,26 @@
 package com.xczhihui.medical.doctor.service.impl;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.UUID;
+import java.io.IOException;
+import java.util.*;
 import java.util.stream.Collectors;
 
+import javax.annotation.PostConstruct;
+
 import org.apache.commons.lang3.StringUtils;
+import org.apache.solr.client.solrj.SolrQuery;
+import org.apache.solr.client.solrj.SolrServerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.toolkit.CollectionUtils;
+import com.xczhihui.common.solr.utils.SolrPages;
+import com.xczhihui.common.solr.utils.SolrUtils;
 import com.xczhihui.common.util.enums.HeadlineType;
 import com.xczhihui.medical.department.mapper.MedicalDepartmentMapper;
 import com.xczhihui.medical.department.model.MedicalDepartment;
@@ -33,11 +35,7 @@ import com.xczhihui.medical.doctor.model.MedicalDoctorAuthenticationInformation;
 import com.xczhihui.medical.doctor.model.MedicalDoctorDepartment;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorDepartmentService;
-import com.xczhihui.medical.doctor.vo.DoctorQueryVo;
-import com.xczhihui.medical.doctor.vo.MedicalDoctorAuthenticationInformationVO;
-import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
-import com.xczhihui.medical.doctor.vo.MedicalWritingVO;
-import com.xczhihui.medical.doctor.vo.OeBxsArticleVO;
+import com.xczhihui.medical.doctor.vo.*;
 import com.xczhihui.medical.exception.MedicalException;
 import com.xczhihui.medical.field.vo.MedicalFieldVO;
 import com.xczhihui.medical.headline.mapper.OeBxsArticleMapper;
@@ -85,6 +83,25 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
     private MedicalDepartmentMapper departmentMapper;
     @Autowired
     private IMedicalDoctorDepartmentService medicalDoctorDepartmentService;
+
+    @Value("${solr.url}")
+    private String url;
+    @Value("${solr.heiht.pre}")
+    private String pre;
+    @Value("${solr.heiht.post}")
+    private String post;
+    @Value("${solr.core}")
+    private String core;
+
+    private SolrUtils solrUtils;
+
+    @PostConstruct
+    public void initDoctorsSolr() throws IOException, SolrServerException {
+        solrUtils = new SolrUtils(url,core,pre,post);
+        List<MedicalDoctorSolrVO> medicalDoctorSolrVOS = selectDoctors4Solr();
+        solrUtils.init(medicalDoctorSolrVOS);
+        logger.warn("医师数据初始化完成，共{}条",medicalDoctorSolrVOS.size());
+    }
 
     @Override
     public Page<MedicalDoctorVO> selectDoctorPage(Page<MedicalDoctorVO> page, Integer type, String hospitalId, String name, String field, String departmentId) {
@@ -134,7 +151,8 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
                 records.get(i).setDepartmentText(departments.toString());
             }
             //筛选坐诊时间
-            records.get(i).setWorkTime(XzStringUtils.workTimeScreen(records.get(i).getWorkTime()));;
+            records.get(i).setWorkTime(XzStringUtils.workTimeScreen(records.get(i).getWorkTime()));
+            ;
         }
         page.setRecords(records);
         return page;
@@ -608,18 +626,17 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
         return medicalDoctorMapper.selectRandomDoctorByType(type, offset, size);
     }
 
-    
+
     @Override
-    public List<MedicalDoctorVO>  selectDoctorRecommendList4Random(Integer type,
-    		Integer pageNumber,Integer pageSize) {
-    	
-    	List<MedicalDoctorVO> records =medicalDoctorMapper.
-    			selectDoctorRecommendList4Random(type,pageNumber,pageSize);
+    public List<MedicalDoctorVO> selectDoctorRecommendList4Random(Integer type,
+                                                                  Integer pageNumber, Integer pageSize) {
+
+        List<MedicalDoctorVO> records = medicalDoctorMapper.
+                selectDoctorRecommendList4Random(type, pageNumber, pageSize);
         return records;
     }
 
-    
-    
+
     /**
      * 参数校验
      *
@@ -694,17 +711,68 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
         }
     }
 
-	@Override
-	public List<MedicalDoctorVO> selectDoctorCouserByAccountId(Integer pageNumber, Integer pageSize) {
-        return  medicalDoctorMapper.selectDoctorCouserByAccountId(pageNumber,pageSize);
-	}
+    @Override
+    public List<MedicalDoctorVO> selectDoctorCouserByAccountId(Integer pageNumber, Integer pageSize) {
+        return medicalDoctorMapper.selectDoctorCouserByAccountId(pageNumber, pageSize);
+    }
 
-	@Override
-	public Page<MedicalDoctorVO> selectDoctorListByQueryKey(Page<MedicalDoctorVO> page, 
-			DoctorQueryVo dqv) {
-		
-		List<MedicalDoctorVO> records =  medicalDoctorMapper.selectDoctorListByQueryKey(page,dqv);
-		return page.setRecords(records);
-	}
+    @Override
+    public Page<MedicalDoctorVO> selectDoctorListByQueryKey(Page<MedicalDoctorVO> page,
+                                                            DoctorQueryVo dqv) {
 
+        List<MedicalDoctorVO> records = medicalDoctorMapper.selectDoctorListByQueryKey(page, dqv);
+        return page.setRecords(records);
+    }
+
+
+    @Override
+    public List<MedicalDoctorSolrVO> selectDoctors4Solr() {
+        List<MedicalDoctorSolrVO> medicalDoctorSolrVOs = medicalDoctorMapper.selectDoctorList4Solr();
+        medicalDoctorSolrVOs.forEach(medicalDoctorSolrVO -> {
+            List<MedicalFieldVO> medicalFields = medicalDoctorMapper.selectMedicalFieldsByDoctorId(medicalDoctorSolrVO.getId());
+            List<String> departmentName = new ArrayList<>();
+            List<String> departmentId = new ArrayList<>();
+            medicalFields.forEach(medicalFieldVO -> {
+                departmentName.add(medicalFieldVO.getName());
+                departmentId.add(medicalFieldVO.getId());
+            });
+            medicalDoctorSolrVO.setDepartmentId(departmentId);
+            medicalDoctorSolrVO.setDepartmentName(departmentName);
+        });
+        return medicalDoctorSolrVOs;
+    }
+
+    @Override
+    public MedicalDoctorSolrVO selectDoctor4SolrById(String id) {
+        MedicalDoctorSolrVO medicalDoctorSolrVO = medicalDoctorMapper.selectDoctor4Solr(id);
+        List<MedicalFieldVO> medicalFields = medicalDoctorMapper.selectMedicalFieldsByDoctorId(medicalDoctorSolrVO.getId());
+        List<String> departmentName = new ArrayList<>();
+        List<String> departmentId = new ArrayList<>();
+        medicalFields.forEach(medicalFieldVO -> {
+            departmentName.add(medicalFieldVO.getName());
+            departmentId.add(medicalFieldVO.getId());
+        });
+        medicalDoctorSolrVO.setDepartmentId(departmentId);
+        medicalDoctorSolrVO.setDepartmentName(departmentName);
+        return medicalDoctorSolrVO;
+    }
+
+    @Override
+    public Page<MedicalDoctorSolrVO> selectDoctorListByQueryKey(Page page, DoctorQueryVo dqv) throws IOException, SolrServerException {
+        Map<String, SolrQuery.ORDER> sortedMap = new HashMap<>();
+
+        String searchStr = getSearchStr(dqv);
+        SolrPages doctors = solrUtils.getByPage(searchStr.toString(), page.getCurrent(), page.getSize(), MedicalDoctorSolrVO.class, sortedMap);
+        page.setTotal(doctors.getTotal());
+        page.setRecords(doctors.getList());
+        return page;
+    }
+
+    private String getSearchStr(DoctorQueryVo dqv){
+        StringBuilder searchStr = new StringBuilder();
+        if(StringUtils.isNotBlank(dqv.getQueryKey())){
+            searchStr.append("name:"+dqv.getQueryKey());
+            searchStr.append(" OR ")
+        }
+    }
 }

@@ -1,16 +1,16 @@
 package com.xczhihui.medical.doctor.service;
 
+import java.io.IOException;
 import java.util.List;
+
+import org.apache.solr.client.solrj.SolrServerException;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.medical.department.model.MedicalDepartment;
 import com.xczhihui.medical.department.vo.MedicalDepartmentVO;
 import com.xczhihui.medical.doctor.model.MedicalDoctor;
 import com.xczhihui.medical.doctor.model.MedicalDoctorAccount;
-import com.xczhihui.medical.doctor.vo.DoctorQueryVo;
-import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
-import com.xczhihui.medical.doctor.vo.MedicalWritingVO;
-import com.xczhihui.medical.doctor.vo.OeBxsArticleVO;
+import com.xczhihui.medical.doctor.vo.*;
 import com.xczhihui.medical.field.vo.MedicalFieldVO;
 import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
 
@@ -163,5 +163,9 @@ public interface IMedicalDoctorBusinessService {
 	 */
     List<MedicalDoctorVO>  selectDoctorCouserByAccountId(Integer pageNumber, Integer pageSize);
 
-	public Page<MedicalDoctorVO> selectDoctorListByQueryKey(Page<MedicalDoctorVO> page, DoctorQueryVo dqv);
+	public Page<MedicalDoctorVO> selectDoctorListByQueryKey(Page<MedicalDoctorVO> page, DoctorQueryVo dqv) throws IOException, SolrServerException;
+
+    List<MedicalDoctorSolrVO> selectDoctors4Solr();
+
+    MedicalDoctorSolrVO selectDoctor4SolrById(String id);
 }

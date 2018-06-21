@@ -486,37 +486,37 @@
         ORDER BY md.`recommend_sort`desc
         LIMIT #{offset},#{rows}
     </select>
-    
-    
-    
-     <!-- 多条件查询医师  -->
-     
-     <select id="selectDoctorListByQueryKey" resultType="com.xczhihui.medical.doctor.vo.MedicalDoctorVO">
+
+
+
+    <!-- 多条件查询医师  -->
+
+    <select id="selectDoctorListByQueryKey" resultType="com.xczhihui.medical.doctor.vo.MedicalDoctorVO">
         SELECT
-	        md.*,
-	        md.`work_time` workTime,
-	        mdai.head_portrait headPortrait,
-	        mh.`name` hospitalName,
- 			mh.`detailed_address` hospitalAddress,
- 		    if(mda.account_id IS NOT NULL,(select count(*) from oe_focus of 
-   			   inner join course_anchor as ou on of.lecturer_id = ou.user_id
-				  where of.user_id = mda.account_id
-					and ou.status = 1  and ou.deleted =0),0) as focusCount
+        md.*,
+        md.`work_time` workTime,
+        mdai.head_portrait headPortrait,
+        mh.`name` hospitalName,
+        mh.`detailed_address` hospitalAddress,
+        if(mda.account_id IS NOT NULL,(select count(*) from oe_focus of
+        inner join course_anchor as ou on of.lecturer_id = ou.user_id
+        where of.user_id = mda.account_id
+        and ou.status = 1  and ou.deleted =0),0) as focusCount
         FROM
         medical_doctor md
         <if test="dqv.field != null and dqv.field!=''">
             join medical_doctor_field mdf on md.id = mdf.doctor_id and mdf.`field_id`=#{dqv.field}
         </if>
-        
+
         <if test=" dqv.departmentFalg != null and  ( dqv.departmentFalg == 1  or dqv.departmentFalg == 3 )">
             join medical_doctor_department mdd on md.id = mdd.doctor_id and mdd.`department_id`=#{dqv.departmentId}
-        		and mdd.`deleted`=0
+            and mdd.`deleted`=0
         </if>
-        
+
         <if test=" dqv.departmentFalg != null and  dqv.departmentFalg == 2 ">
             join medical_doctor_department mdd on md.id = mdd.doctor_id and mdd.`deleted`=0
         </if>
-        
+
         LEFT JOIN `medical_doctor_authentication_information` mdai
         ON md.`authentication_information_id` = mdai.`id`
         LEFT JOIN `medical_hospital_doctor` mhd
@@ -526,7 +526,7 @@
         ON mhd.`hospital_id` = mh.`id`
         LEFT JOIN `medical_doctor_account` mda
         ON mda.`doctor_id` = md.`id`
-        
+
         WHERE md.deleted = 0
         AND md.status = 1
         <if test='dqv.type != null and dqv.type != "" and dqv.type != "0" '>
@@ -536,34 +536,107 @@
             and mh.id =   #{dqv.hospitalId}
         </if>
         <if test="dqv.queryKey != null and dqv.queryKey!='' ">
-            and ( 
-	            md.name like concat('%',#{dqv.queryKey},'%')
-	            or  
-	            md.title like concat('%',#{dqv.queryKey},'%')
-	            or
-	            mh.`name` like concat('%',#{dqv.queryKey},'%')
-	            or
-	            mh.`detailed_address` like concat('%',#{dqv.queryKey},'%')
-	            
-	            <if test=" dqv.departmentFalg != null and  ( dqv.departmentFalg == 2  or dqv.departmentFalg == 3 )">
-			        or  mdd.`department_id` in ( select id from medical_department where 
-		               	 name like concat('%',#{dqv.queryKey},'%'))
-        		</if>
+            and (
+            md.name like concat('%',#{dqv.queryKey},'%')
+            or
+            md.title like concat('%',#{dqv.queryKey},'%')
+            or
+            mh.`name` like concat('%',#{dqv.queryKey},'%')
+            or
+            mh.`detailed_address` like concat('%',#{dqv.queryKey},'%')
+
+            <if test=" dqv.departmentFalg != null and  ( dqv.departmentFalg == 2  or dqv.departmentFalg == 3 )">
+                or  mdd.`department_id` in ( select id from medical_department where
+                name like concat('%',#{dqv.queryKey},'%'))
+            </if>
             )
         </if>
         <choose>
-        	<!-- 推荐排序-->
-	        <when test="dqv.sortType == 1 " >
-	            order by  md.recommend_sort desc,CONVERT(md.`name` USING gbk) ASC
-	        </when> 
-			<!-- 人气最高,按照 -->
-	        <when test="dqv.sortType == 2 ">
-	            order by  focusCount desc,md.recommend_sort desc,CONVERT(md.`name` USING gbk) ASC
-	        </when> 
-	        <otherwise>
+            <!-- 推荐排序-->
+            <when test="dqv.sortType == 1 " >
                 order by  md.recommend_sort desc,CONVERT(md.`name` USING gbk) ASC
-	        </otherwise>   
-	    </choose>   
+            </when>
+            <!-- 人气最高,按照 -->
+            <when test="dqv.sortType == 2 ">
+                order by  focusCount desc,md.recommend_sort desc,CONVERT(md.`name` USING gbk) ASC
+            </when>
+            <otherwise>
+                order by  md.recommend_sort desc,CONVERT(md.`name` USING gbk) ASC
+            </otherwise>
+        </choose>
     </select>
-    
+
+
+    <!-- 医师查询-solr初始数据  -->
+    <select id="selectDoctorList4Solr" resultType="com.xczhihui.medical.doctor.vo.MedicalDoctorSolrVO">
+        SELECT
+        md.id,
+        md.`type`,
+        mdai.`head_portrait` headPortrait,
+        md.`name`,
+        md.`field_text` fieldText,
+        md.`title`,
+        mh.`name`,
+        mh.`province`,
+        mh.`city`,
+        mh.`detailed_address` detailedAddress,
+        md.recommend_sort recommendSort,
+        IF(mda.account_id IS NOT NULL,(SELECT COUNT(*) FROM oe_focus of
+        INNER JOIN course_anchor AS ou ON of.lecturer_id = ou.user_id
+        WHERE of.user_id = mda.account_id
+        AND ou.status = 1  AND ou.deleted =0),0) AS focusCount
+        FROM
+        medical_doctor md
+        JOIN
+        `medical_doctor_authentication_information` mdai
+        ON md.`authentication_information_id` = mdai.`id`
+        LEFT JOIN
+        `medical_hospital_doctor` mhd
+        ON mhd.`doctor_id` = md.`id` AND mhd.`deleted` = 0
+        LEFT JOIN
+        `medical_hospital` mh
+        ON mhd.`hospital_id` = mh.`id` AND mh.`deleted` = 0 AND mh.`status` = 1
+        LEFT JOIN
+        `medical_doctor_account` mda
+        ON mda.`doctor_id` = md.`id`
+        WHERE md.deleted = 0
+        AND md.status = 1
+    </select>
+    <!-- 医师查询-solr初始数据  -->
+    <select id="selectDoctor4Solr" resultType="com.xczhihui.medical.doctor.vo.MedicalDoctorSolrVO">
+        SELECT
+        md.id,
+        md.`type`,
+        mdai.`head_portrait` headPortrait,
+        md.`name`,
+        md.`field_text` fieldText,
+        md.`title`,
+        mh.`name`,
+        mh.`province`,
+        mh.`city`,
+        mh.`detailed_address` detailedAddress,
+        md.recommend_sort recommendSort,
+        IF(mda.account_id IS NOT NULL,(SELECT COUNT(*) FROM oe_focus of
+        INNER JOIN course_anchor AS ou ON of.lecturer_id = ou.user_id
+        WHERE of.user_id = mda.account_id
+        AND ou.status = 1  AND ou.deleted =0),0) AS focusCount
+        FROM
+        medical_doctor md
+        JOIN
+        `medical_doctor_authentication_information` mdai
+        ON md.`authentication_information_id` = mdai.`id`
+        LEFT JOIN
+        `medical_hospital_doctor` mhd
+        ON mhd.`doctor_id` = md.`id` AND mhd.`deleted` = 0
+        LEFT JOIN
+        `medical_hospital` mh
+        ON mhd.`hospital_id` = mh.`id` AND mh.`deleted` = 0 AND mh.`status` = 1
+        LEFT JOIN
+        `medical_doctor_account` mda
+        ON mda.`doctor_id` = md.`id`
+        WHERE md.deleted = 0
+        AND md.status = 1
+        AND md.id = #{id}
+    </select>
+
 </mapper>

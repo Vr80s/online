@@ -37,8 +37,11 @@ public class MedicalDoctorServiceImplTest extends BaseJunit4Test {
         MedicalDoctor target = new MedicalDoctor();
         MedicalHospitalVo vo = service.getHospital("2c9acf816166484a01616653235b0013");
         System.out.println("----------------------" + vo.toString());
+    }
 
-
+    @Test
+    public void testSolrInit(){
+        System.out.println("start");
     }
 
 }
