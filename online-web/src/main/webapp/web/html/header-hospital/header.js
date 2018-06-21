@@ -191,26 +191,6 @@ $(function() {
 				'<span>医馆管理</span>'+
 				'</a>' +
 			'</div>' +
-//			'<div class="header_left">' +
-//				'<div class="path" style="width:95%">' +
-//					'<a href="/courses/recommendation" class="recommend" target="_blank">推荐</a>' +
-//					'<a href="/courses/real" class="under" target="_blank">线下课</a>' +
-//					'<a href="/web/html/school/courses/live" class="broadcast" target="_blank">直播</a>' +
-//					'<a href="/web/html/school/school-video.html" class="listen" target="_blank">听课</a>' +
-//					'<a href="/App.html" class="download-app" target="_blank">下载APP</a>' +
-//				'</div>' +
-//			' </div>' +
-//			'<div class="search-wrap">'+
-//				'<div class="search-icon">'+
-//					'<img src="/web/images/search.png" alt="搜索">' +
-//				'</div>'+
-//				'<div class="search-input">' +
-//					'<input type="text" name="" id="" value="" />' +
-//				'</div>' +
-//				'<div class="search-button">' +
-//					'<button type="button">搜索</button>' +
-//				'</div>' +
-//			'</div>'+
 			'</div>',
 		login: '<div class="modal" id="login" data-backdrop="static">' +
 			'<div class="modal-dialog login-module" role="document">' +
@@ -230,13 +210,6 @@ $(function() {
 			'<a class="atOnceRegister" href="/web/html/login.html?ways=register">立即注册</a>' +
 			'<a class="atOnceResetPassword" href="/web/html/resetPassword.html">忘记密码？</a>' +
 			'</div>' +
-			/* ' <div class="other-login-box">'+
-			 ' <span>其它方式登录</span>'+
-			 '<div class="other-login-ways clearfix">'+
-			 '<div class="qq-login"></div>'+
-			 ' <div class="weixin-login"></div>'+
-			 '</div>'+
-			 '</div>'+*/
 			'</div></div></div></div>',
 		oldStudent: '<div class="oldModal" id="old">' +
 			'<div class="oldBody">' +
