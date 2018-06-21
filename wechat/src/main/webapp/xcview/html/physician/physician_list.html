@@ -102,48 +102,11 @@
 					<img src="/xcview/images/sousuo0.png" alt="">
 					<span class="span_hide"></span>
 				</div>
-				<!--<span class="header_seek_main_span">
-						<script type="text/html" id="header_seek_main">
-						{{each items as item i}}
-							<span>{{item.queryKey}}</span>
-						{{/each}}
-	           	 		</script>
-				</span>		-->		
-				
 			</div>
 		</div>
 	</header>
 	<!--头部结束-->
 
-	<!-- <div class="um-win" id="index">
-	    <div class="um-content">
-	        <div class="spinner">
-	            <div class="spinner-container container1">
-	                <div class="circle1"></div>
-	                <div class="circle2"></div>
-	                <div class="circle3"></div>
-	                <div class="circle4"></div>
-	            </div>
-	            <div class="spinner-container container2">
-	                <div class="circle1"></div>
-	                <div class="circle2"></div>
-	                <div class="circle3"></div>
-	                <div class="circle4"></div>
-	            </div>
-	            <div class="spinner-container container3">
-	                <div class="circle1"></div>
-	                <div class="circle2"></div>
-	                <div class="circle3"></div>
-	                <div class="circle4"></div>
-	            </div>
-	        </div>
-	    </div>
-	
-	    <div class="um-footer">
-	
-	    </div>
-	</div> -->
-	
 	<div class="top_border">
 		<div class="screen_size">
        		<img src="/xcview/images/shu_top.png" class="img0">
@@ -154,6 +117,8 @@
 			<div class="find_nav" style="display: none1;">
 			    <div class="find_nav_left">
 			        <div class="find_nav_list" style="left: 0px;">
+			            
+			            <!-- find_nav_cur  -->
 			            <ul id="pagenavi1">
 			            </ul>
 			        </div>
@@ -170,31 +135,6 @@
 	
 	<div id="slider1" class="swipe" style="overflow: hidden; visibility: visible; list-style: none; position: relative;">
 		<ul class="box01_list" style="position: relative; transition: left 0ms ease-out; width: 19200px; left: 0px;">
-			
-			<li class="li_list">
-				<div class="li_list_main">
-				</div>
-			</li>
-			<li class="li_list">
-				<div class="li_list_main">
-				</div>
-			</li>
-			<li class="li_list">
-				<div class="li_list_main">
-				</div>
-			</li>
-			<li class="li_list">
-				<div class="li_list_main">
-				</div>
-			</li>
-			<li class="li_list">
-				<div class="li_list_main">
-				</div>
-			</li>
-			<li class="li_list">
-				<div class="li_list_main">
-				</div>
-			</li>
 		</ul>
 
 	</div>
@@ -205,35 +145,19 @@
 			<div class="all_classify_right"><span class="screen_close"><img src="/xcview/images/screen_close.png" /></span>筛选</div>
 			<div class="all_mold all_mold0">
 				<div class="all_classify_right_type">医师分类</div>
-				<div class="all_right_type all_right_type_ones" id="draw_type_list">
-					<script type="text/html" id="type_list">
+				<div class="all_right_type all_right_type_ones" id="draw_doctortype_list">
+					<script type="text/html" id="doctortype_list">
 						{{each items as item i}}
-							<div class="all_right_type_one" title="{{item.id}}">{{item.value}}</div>
+							<div class="all_right_type_one" title="{{item.code}}">{{item.value}}</div>
 						{{/each}}		
 				    </script>	
 				</div>
 				<div class="both"></div>
 			</div>
-			<!-- <div class="all_mold all_mold1">
-				<div class="all_classify_right_type">付费</div>
-				<div class="all_right_type" id="draw_isfree_list">
-					<script type="text/html" id="isfree_list">
-						{{each items as item i}}
-							<div class="all_right_type_one" title="{{item.id}}">{{item.name}}</div>
-						{{/each}}		
-				    </script>
-					<div class="both"></div>
-				</div>
-			</div> -->
-			<div class="all_mold all_mold2">
+			<div class="all_mold all_mold1">
 				<div class="all_classify_right_type">科室</div>
-				<div class="all_right_type" id="draw_course_big_list">
-					<!-- <div class="all_right_type_one">视频课程</div>
-					<div class="all_right_type_one">直播课程</div>
-					<div class="all_right_type_one">音频课程</div>
-					<div class="all_right_type_one">线下课程</div> -->
-					
-					<script type="text/html" id="course_big_list">
+				<div class="all_right_type" id="draw_department_list">
+					<script type="text/html" id="department_list">
 						{{each items as item i}}
 							<div class="all_right_type_one" title="{{item.id}}">{{item.name}}</div>
 						{{/each}}		
@@ -242,28 +166,19 @@
 					<div class="both"></div>
 				</div>
 			</div>
-			<!-- <div class="all_mold all_mold3" style="display: none;margin-bottom: 1rem;">
-				<div class="all_classify_right_type">城市</div>
-				<div class="all_right_type all_right_type_twos" id="draw_city_list">
-					<script type="text/html" id="city_list">
-						{{each items as item i}}
-							<div class="all_right_type_one" title="{{item.id}}">{{item.name}}</div>
-						{{/each}}		
-				    </script>
-				</div>
-				<div class="both"></div>
-			</div> -->
-			<!-- <div class="all_mold all_mold4" style="display: none;margin-bottom: 1rem;">
-				<div class="all_classify_right_type">直播状态</div>
-				<div class="all_right_type" id="draw_live_status_list">
-					<script type="text/html" id="live_status_list">
+			
+			<div class="all_mold all_mold2">
+				<div class="all_classify_right_type">智能排序</div>
+				<div class="all_right_type" id="draw_sorttype_list">
+					<script type="text/html" id="sorttype_list">
 						{{each items as item i}}
 							<div class="all_right_type_one" title="{{item.id}}">{{item.name}}</div>
 						{{/each}}		
 				    </script>
 					<div class="both"></div>
 				</div>
-			</div> -->
+			</div>
+			
 			<div class="" style="width: 100%;height: 0.89rem;display: none;"></div>
 			<div class="all_bottom">
 				<div class="all_bottom_btn0">重置</div>
@@ -377,18 +292,15 @@ $(".find_nav_list").on('touchmove', function (e) {
 	var begin='';
 	
 	//根据上面的参数进行定义---》获取分类的ID跳转滑到对应的tap页
-	
-	/*for (var int = 0; int < menuTypeArray.length; int++) {
-		if(menuTypeArray[int].id == matching){
+	for (var int = 0; int < typeArray.length; int++) {
+		if(typeArray[int].code == matching){
 			$("#pagenavi1 li").removeClass("find_nav_cur");
 			var index = int+2;
 			$("#pagenavi1 li:nth-child("+index+")").addClass("find_nav_cur");
 		 	break;
 		}
-	}*/
+	}
 	
-   
-    
 	var list = $("#pagenavi1 li");
 	for(var i = 0; i < list.length; i++) {
 		var liClassName = list[i].className;
@@ -397,9 +309,6 @@ $(".find_nav_list").on('touchmove', function (e) {
 			break;
 		}
     }
-//	alert(begin);
-	
-//	alert(fnl_x);
 	
 	var fnl_x=-1;
 	var tt=new TouchSlider({
@@ -520,55 +429,41 @@ $(".find_nav_list").on('touchmove', function (e) {
 				submit();
 			});
 			
-//			点击筛选下面的内容框
+//			//医师类型点击
 			$(".all_mold0 .all_right_type_one").click(function(){
 				if(!$(this).hasClass("all_right_type_one_add")){
 					$(".all_mold0 .all_right_type_one").removeClass("all_right_type_one_add");
 		  			$(this).addClass("all_right_type_one_add");
 			 	}else{
 			    	$(this).removeClass("all_right_type_one_add");
-			    	
-			    	//设置为null,并且
 			    	sessionStorage.setItem("type_index","type_index");
 				}
 			});
 			
+			//科室点击
+			$(".all_mold1 .all_right_type_one").click(function(){
+				if(!$(this).hasClass("all_right_type_one_add")){
+					$(".all_mold1 .all_right_type_one").removeClass("all_right_type_one_add");
+		  			$(this).addClass("all_right_type_one_add");
+			 	}else{
+			    	$(this).removeClass("all_right_type_one_add");
+				}
+			});
+			
+			//智能排序点击
 			$(".all_mold2 .all_right_type_one").click(function(){
-				var index=$(this).index();
-				/*$(".all_mold2 .all_right_type_one").removeClass("all_right_type_one_add");
-				$(this).addClass("all_right_type_one_add");*/
+				
 				if(!$(this).hasClass("all_right_type_one_add")){
 					$(".all_mold2 .all_right_type_one").removeClass("all_right_type_one_add");
 		  			$(this).addClass("all_right_type_one_add");
-		  			
 			 	}else{
-			 		
 			    	$(this).removeClass("all_right_type_one_add");
 				}
-			 	
-			 	
-  			 	if(index==2 && $("#draw_course_big_list .all_right_type_one_add").attr("title")){   //通过title获取  有没有这个title
-					$(".all_mold4").show();
-				}else{
-					$(".all_mold4").hide();
-					
-					//清空直播状态
-					$(".all_mold4 .all_right_type_one").removeClass("all_right_type_one_add");
-				}
-				if(index==3 && $("#draw_course_big_list").children(".all_right_type_one").eq(3).hasClass("all_right_type_one_add")){
-					$(".all_mold3").show();
-				}else{
-					$(".all_mold3").hide();	
-					
-					//清空城市
-					$(".all_mold3 .all_right_type_one").removeClass("all_right_type_one_add");
-				}  
-				
 			});
+			
 			
 //			点击重置   --> 清空浏览器上面的url,刷新页面
 			$(".all_bottom_btn0").click(function(){
-				
 			    location.href = "/xcview/html/physician/physician_list.html";
 			});
 		};

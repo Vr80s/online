@@ -108,7 +108,6 @@ public class DoctorController{
     	
 		pageNumber = pageNumber == null ? 1 : pageNumber;
 		pageSize = pageSize == null ? 10 : pageSize;
-		
 		/*
 		 * 构造下查询bean
 		 */
