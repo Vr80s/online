@@ -365,6 +365,7 @@ public class CourseApplyController extends AbstractController {
     private void sendCourseOnlineMessage(String courseApplyId, OnlineUser user) {
         try {
             String userId = user.getId();
+            logger.warn("userId:{}, courseApplyId:{}", userId, courseApplyId);
             List<FocusVo> focusVos = focusService.selectFansList(userId);
             if (!focusVos.isEmpty()) {
                 Course course = courseService.findByApplyId(courseApplyId);

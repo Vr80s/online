@@ -277,7 +277,7 @@ public class MessageServiceImpl extends OnlineBaseServiceImpl implements
         dao.update(messageRecord);
         if (messageRecord.getPushType() == 0) {
             int page = 1;
-            int size = 500;
+            int size = 100;
             while (true) {
                 int offset = (page - 1) * size;
                 List<OnlineUser> onlineUsers = onlineUserDao.findByPage(offset, size);

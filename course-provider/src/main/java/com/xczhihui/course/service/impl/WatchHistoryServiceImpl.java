@@ -89,7 +89,7 @@ public class WatchHistoryServiceImpl extends ServiceImpl<WatchHistoryMapper, Wat
         String id = CodeUtil.getRandomUUID();
         int i = watchHistoryMapper.insertApplyRGradeCourse(id, courseId, userId);
         if (i > 0) {
-            saveApplySuccessMessage(courseId);
+            saveApplySuccessMessage(courseId, userId);
         }
     }
 
@@ -121,14 +121,13 @@ public class WatchHistoryServiceImpl extends ServiceImpl<WatchHistoryMapper, Wat
         }
     }
 
-    protected void saveApplySuccessMessage(Integer courseId) {
+    protected void saveApplySuccessMessage(Integer courseId, String userId) {
         try {
             Course course = courseMapper.selectById(courseId);
             String messageId = CodeUtil.getRandomUUID();
             String courseName = course.getGradeName();
             Date startTime = course.getStartTime();
             String content = MessageFormat.format(APPLY_SUCCESS_TIPS, courseName);
-            String userId = course.getUserLecturerId();
             Map<String, String> weixinParams = new HashMap<>(3);
             weixinParams.put("first", TextStyleUtil.clearStyle(content));
             weixinParams.put("keyword1", courseName);
