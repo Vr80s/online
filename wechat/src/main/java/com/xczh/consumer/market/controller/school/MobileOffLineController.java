@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczh.consumer.market.interceptor.IOSVersionInterceptor;
+import com.xczh.consumer.market.utils.APPUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.enums.BannerType;
 import com.xczhihui.common.util.enums.PagingFixedType;
@@ -51,13 +54,13 @@ public class MobileOffLineController {
 
     @RequestMapping("offLine")
     @ResponseBody
-    public ResponseObject offLine() throws Exception {
+    public ResponseObject offLine(HttpServletRequest request) throws Exception {
         Integer current = 1;
         Integer size = 100;
         Map<String, Object> mapAll = new HashMap<String, Object>();
         //线下课banner
         Page<MobileBanner> MobileBannerPage = new Page<>();
-        MobileBannerPage.setRecords(mobileBannerService.selectMobileBannerPage(BannerType.REAL.getCode(),IOSVersionInterceptor.onlyThread.get()));
+        MobileBannerPage.setRecords(mobileBannerService.selectMobileBannerPage(BannerType.REAL.getCode(), IOSVersionInterceptor.onlyThread.get(), APPUtil.getMobileSource(request)));
         mapAll.put("banner", MobileBannerPage);
         //城市
         Page<OfflineCity> OfflineCityPage = new Page<>();

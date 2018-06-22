@@ -24,30 +24,11 @@ function getValueByStr(search, name) {
 /*
  * 点击banner跳转
  */
-function bannerJump(type, params) {
-    if (!stringnull(params)) {
-        console.error("banner参数不可以是空的");
-        return;
-    }
-    //1：活动页、2：专题页、3：课程:4：主播:5：课程列表
-    if (type == 1 || type == 2) {
-        console.error("暂时不支持活动和专题");
-        return;
-    } else if (type == 3) {
-
-        var courseId = getValueByStr(params, "course_id");
-        //课程跳转
-        common_jump_all(courseId);
-
-    } else if (type == 4) {
-        //主播跳转
-        var userLecturerId = getValueByStr(params, "userLecturerId");
-        location.href = "/xcview/html/live_personal.html?userLecturerId=" + userLecturerId;
-    } else if (type == 5) {
-        location.href = "/xcview/html/curriculum_table.html?" + params;
+function bannerJump(target) {
+    if (!target) {
+        return ;
     } else {
-        console.error("banner类型有误");
-        return;
+        location.href = target;
     }
 }
 
@@ -129,7 +110,7 @@ function recommendSchool() {
                 for (var int = 0; int < result.length; int++) {
                     var wb = result[int];
                     str += "<div class='swiper-slide swiper-banner swiper-banner-btn'>" +
-                        "<img src='" + wb.imgPath + "?imageView2/2/w/750' date_type='" + wb.linkType + "' data_id='" + wb.id + "' data_url='" + wb.url + "'>" +
+                        "<img src='" + wb.imgPath + "?imageView2/2/w/750' data_target='" + wb.target + "' data_id='" + wb.id + "' data_url='" + wb.url + "'>" +
                         "</div>";
                 }
                 $("#wrapper-box").html(str);
@@ -152,9 +133,9 @@ function recommendSchool() {
                 clickBanner(data_id);
                 //页面跳转
                 var data_url = $(this).find("img").attr("data_url");
-                var date_type = $(this).find("img").attr("date_type");
+                var data_target = $(this).find("img").attr('data_target');
 
-                bannerJump(date_type, data_url);
+                bannerJump(data_target);
                 // location.href=data_img;
             })
             //swiper轮播结束
@@ -226,7 +207,7 @@ function lineWork() {
                     for (var int = 0; int < result_class.length; int++) {
                         var wb = result_class[int];
                         str_class += "<div class='swiper-slide swiper-banner swiper-banner-class'>" +
-                            "<img src='" + wb.imgPath + "?imageView2/2/w/750' date_type='" + wb.linkType + "' data_id='" + wb.id + "' data_url='" + wb.url + "'>" +
+                            "<img src='" + wb.imgPath + "?imageView2/2/w/750' data_target='" + wb.target + "' data_id='" + wb.id + "' data_url='" + wb.url + "'>" +
                             "</div>";
                     }
                     $("#wrapper-box-class").html(str_class);
@@ -250,8 +231,9 @@ function lineWork() {
 
                 //页面跳转
                 var data_url = $(this).find("img").attr("data_url");
-                var date_type = $(this).find("img").attr("date_type");
-                bannerJump(date_type, data_url);
+                var data_target = $(this).find("img").attr('data_target');
+
+                bannerJump(data_target);
 
 
             })
@@ -294,7 +276,7 @@ function liveSchool() {
                 for (var int = 0; int < result_play.length; int++) {
                     var wb = result_play[int];
                     str_play += "<div class='swiper-slide swiper-banner swiper-banner-play'>" +
-                        "<img src='" + wb.imgPath + "?imageView2/2/w/750'  date_type='" + wb.linkType + "' data_id='" + wb.id + "' data_url='" + wb.url + "' style='width: 7.5rem;height:3.2rem;' />" +
+                        "<img src='" + wb.imgPath + "?imageView2/2/w/750'  data_target='" + wb.target + "' data_id='" + wb.id + "' data_url='" + wb.url + "' style='width: 7.5rem;height:3.2rem;' />" +
                         "</div>";
                 }
                 $("#wrapper-box-play").html(str_play);
@@ -315,8 +297,9 @@ function liveSchool() {
                 clickBanner(data_id);
                 //页面跳转
                 var data_url = $(this).find("img").attr("data_url");
-                var date_type = $(this).find("img").attr("date_type");
-                bannerJump(date_type, data_url);
+                var data_target = $(this).find("img").attr('data_target');
+
+                bannerJump(data_target);
             })
             //swiper轮播结束
             if (data.success == true) {
@@ -343,7 +326,7 @@ function listenSchool() {
                 for (var int = 0; int < result_listen.length; int++) {
                     var wb = result_listen[int];
                     str_listen += "<div class='swiper-slide swiper-banner swiper-banner-listen'>" +
-                        "<img src='" + wb.imgPath + "?imageView2/2/w/750' date_type='" + wb.linkType + "' data_id='" + wb.id + "' data_url='" + wb.url + "' >" +
+                        "<img src='" + wb.imgPath + "?imageView2/2/w/750' data_target='" + wb.target + "' data_id='" + wb.id + "' data_url='" + wb.url + "' >" +
                         "</div>";
                 }
                 $("#wrapper-box-listen").html(str_listen);
@@ -364,8 +347,9 @@ function listenSchool() {
                 clickBanner(data_id);
                 //页面跳转
                 var data_url = $(this).find("img").attr("data_url");
-                var date_type = $(this).find("img").attr("date_type");
-                bannerJump(date_type, data_url);
+                var data_target = $(this).find("img").attr('data_target');
+
+                bannerJump(data_target);
             })
             //swiper轮播结束
             if (data.resultObject.listenCourseList.length == 0 || data.resultObject.listenCourseList.length == null) {

@@ -60,7 +60,7 @@ public class CourseAnchorServiceImpl extends OnlineBaseServiceImpl implements
 
     @Override
     public List<CourseAnchor> list(Integer type) {
-        return anchorDao.listByType(type);
+        return anchorDao.listSimpleAnchorByType(type);
     }
 
     @Override

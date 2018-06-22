@@ -1,7 +1,9 @@
 package com.xczh.consumer.market.controller.course;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,14 +22,10 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.service.OnlineWebService;
 import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczhihui.common.util.SmsUtil;
 import com.xczhihui.common.util.WeihouInterfacesListUtil;
-import com.xczhihui.common.util.enums.CourseType;
-import com.xczhihui.course.model.Course;
-import com.xczhihui.course.service.ICourseService;
-import com.xczhihui.course.service.IFocusService;
-import com.xczhihui.course.service.ILineApplyService;
-import com.xczhihui.course.service.IMobileBannerService;
-import com.xczhihui.course.service.IWatchHistoryService;
+import com.xczhihui.common.util.enums.VCodeType;
+import com.xczhihui.course.service.*;
 import com.xczhihui.course.util.CourseUtil;
 import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.medical.anchor.service.ICourseApplyService;
@@ -52,7 +50,7 @@ public class CourseController {
 
     @Autowired
     private IMobileBannerService mobileBannerService;
-    
+
 
     @Autowired
     public IWatchHistoryService watchHistoryServiceImpl;
@@ -293,18 +291,19 @@ public class CourseController {
     /**
      * Description：根据直播状态跳转不同页面
      * creed: Talk is cheap,show me the code
+     *
      * @author name：yuxin
      * @Date: 2018/6/5 0005 下午 8:23
      **/
     @RequestMapping("live/{courseId}")
-    public void liveCourse(@PathVariable("courseId")String courseId,
-    		@Account String accountId,
-    		HttpServletResponse response) throws IOException {
-    	
-        String liveCourseUrl4Wechat = courseServiceImpl.getLiveCourseUrl4Wechat(accountId,courseId);
+    public void liveCourse(@PathVariable("courseId") String courseId,
+                           @Account String accountId,
+                           HttpServletResponse response) throws IOException {
+
+        String liveCourseUrl4Wechat = courseServiceImpl.getLiveCourseUrl4Wechat(accountId, courseId);
         //添加学习记录
-        if(liveCourseUrl4Wechat!=null && liveCourseUrl4Wechat.indexOf("details.html")!=-1) {
-        	watchHistoryServiceImpl.addLookHistory(Integer.parseInt(courseId), accountId, 2, null);
+        if (liveCourseUrl4Wechat != null && liveCourseUrl4Wechat.indexOf("details.html") != -1) {
+            watchHistoryServiceImpl.addLookHistory(Integer.parseInt(courseId), accountId, 2, null);
         }
         response.sendRedirect(liveCourseUrl4Wechat);
     }

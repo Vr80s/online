@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczh.consumer.market.interceptor.IOSVersionInterceptor;
+import com.xczh.consumer.market.utils.APPUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.enums.BannerType;
 import com.xczhihui.common.util.enums.PagingFixedType;
@@ -51,7 +52,7 @@ public class MobileLiveController {
         Map<String, Object> mapAll = new HashMap<String, Object>();
         //直播banner
         Page<MobileBanner> mobileBannerPage = new Page<>();
-        mobileBannerPage.setRecords(mobileBannerService.selectMobileBannerPage(BannerType.LIVE.getCode(),IOSVersionInterceptor.onlyThread.get()));
+        mobileBannerPage.setRecords(mobileBannerService.selectMobileBannerPage(BannerType.LIVE.getCode(),IOSVersionInterceptor.onlyThread.get(), APPUtil.getMobileSource(req)));
         mapAll.put("banner", mobileBannerPage);
         List<Map<String, Object>> mapCourseList = mobileBannerService.liveCourseList(
                 PagingFixedType.LIVE_PAGETYPE_UP.getValue(),

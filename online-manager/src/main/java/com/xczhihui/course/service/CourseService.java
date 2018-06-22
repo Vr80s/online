@@ -400,4 +400,13 @@ public interface CourseService {
      * @param i
      */
     void updatePlaybackState(Integer courseId, int i);
+
+    /**
+     * 课程简单信息列表
+     * @param pageNumber
+     * @param pageSize
+     * @return
+     */
+    List<CourseVo> listSimpleCourse(int pageNumber,
+                                    int pageSize);
 }

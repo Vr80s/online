@@ -1688,4 +1688,9 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
         }
         dao.update(course);
     }
+
+    @Override
+    public List<CourseVo> listSimpleCourse(int offset, int pageSize) {
+        return courseDao.listSimpleCourse(offset, pageSize);
+    }
 }

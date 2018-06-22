@@ -294,24 +294,11 @@ public class AnchorDao extends HibernateDao<CourseAnchor> {
         return inconme == 0 ? "0.00" : df.format(inconme);
     }
 
-    public List<CourseAnchor> listByType(Integer type) {
+    public List<CourseAnchor> listSimpleAnchorByType(Integer type) {
         Map<String, Object> paramMap = new HashMap<>(1);
-        String sql = "SELECT ca.id,\n"
-                + "  ca.`name`,\n"
-                + "  ca.`user_id` as userId,\n"
-                + "  ou.`login_name` loginName,\n"
-                + "  ca.`type`,\n"
-                + "  ca.`vod_divide`,\n"
-                + "  ca.`live_divide`,\n"
-                + "  ca.`offline_divide`,\n"
-                + "  ca.`gift_divide`,\n"
-                + "  ca.`is_recommend` isRecommend,\n"
-                + " (SELECT count(*) from course_apply_info cai where cai.user_id=ca.user_id and cai.is_delete=0) as courseCount,"
-                + "  ca.`status`  \n" + "FROM\n"
-                + "  `course_anchor` ca \n" + "  JOIN `oe_user` ou \n"
-                + "    ON ca.`user_id` = ou.`id` \n"
-                + "WHERE ca.`deleted` = 0 \n"
-                + "  AND ou.`is_delete` = 0 AND ca.status = 1 and ca.type = :type";
+        String sql = "SELECT ca.id,ca.`name`, ca.`user_id` as userId"
+                + " FROM `course_anchor` ca "
+                + " WHERE ca.`deleted` = 0 AND ca.status = 1 and ca.type = :type";
         paramMap.put("type", type);
         return this.findEntitiesByJdbc(CourseAnchor.class, sql, paramMap);
     }

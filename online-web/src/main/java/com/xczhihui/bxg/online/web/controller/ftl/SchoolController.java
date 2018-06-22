@@ -26,6 +26,8 @@ import com.xczhihui.bxg.online.web.utils.HtmlUtil;
 import com.xczhihui.bxg.online.web.utils.ftl.ReplaceUrl;
 import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.common.util.enums.*;
+import com.xczhihui.course.consts.MultiUrlHelper;
+import com.xczhihui.course.enums.RouteTypeEnum;
 import com.xczhihui.course.model.OfflineCity;
 import com.xczhihui.course.service.*;
 import com.xczhihui.course.util.CourseUtil;
@@ -88,7 +90,7 @@ public class SchoolController extends AbstractFtlController {
         /**
          * banner图
          */
-        view.addObject("bannerList", mobileBannerService.selectMobileBannerPage(BannerType.RECOMMENDATION.getCode()));
+        view.addObject("bannerList", mobileBannerService.selectMobileBannerPage(BannerType.RECOMMENDATION.getCode(), MultiUrlHelper.URL_TYPE_WEB));
         /**
          * 默认搜索、热门搜索
          */
@@ -131,7 +133,7 @@ public class SchoolController extends AbstractFtlController {
         view.addObject("replaceUrl", new ReplaceUrl());
 
         // 线下课banner
-        view.addObject("bannerList", mobileBannerService.selectMobileBannerPage(BannerType.REAL.getCode()));
+        view.addObject("bannerList", mobileBannerService.selectMobileBannerPage(BannerType.REAL.getCode(), MultiUrlHelper.URL_TYPE_WEB));
         // 线下培训班课程
         Page<OfflineCity> OfflineCity = new Page<>();
         OfflineCity.setCurrent(1);
@@ -158,7 +160,7 @@ public class SchoolController extends AbstractFtlController {
         view.addObject("replaceUrl", new ReplaceUrl());
 
         // 直播课banner
-        view.addObject("bannerList", mobileBannerService.selectMobileBannerPage(BannerType.LIVE.getCode()));
+        view.addObject("bannerList", mobileBannerService.selectMobileBannerPage(BannerType.LIVE.getCode(), MultiUrlHelper.URL_TYPE_WEB));
 
         // 直播课程
         view.addObject("courseTypeList",
@@ -183,7 +185,7 @@ public class SchoolController extends AbstractFtlController {
 
 
         // 听课banner
-        view.addObject("bannerList", mobileBannerService.selectMobileBannerPage(BannerType.LISTEN.getCode()));
+        view.addObject("bannerList", mobileBannerService.selectMobileBannerPage(BannerType.LISTEN.getCode(), MultiUrlHelper.URL_TYPE_WEB));
         // 听课
         view.addObject("courseList", courseService.listenCourseList());
         // 名医推荐

@@ -1,14 +1,13 @@
 package com.xczhihui.course.model;
 
+import java.io.Serializable;
+import java.util.Date;
+
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
 
-import java.io.Serializable;
-import java.util.Date;
-
 /**
- * 
  * ClassName: Course.java <br>
  * Description: <br>
  * Create by: name：yangxuan <br>email: 15936216273@163.com <br>
@@ -19,173 +18,206 @@ public class MobileBanner extends Model<MobileBanner> {
 
     private static final long serialVersionUID = 1L;
 
-	private String id;
+    private String id;
 
-	/**
-	 *名称
-	 */
-	@TableField("name")
-	private String name;
+    /**
+     * 名称
+     */
+    @TableField("name")
+    private String name;
 
-	/**
-	 *图片地址
-	 */
-	@TableField("url")
-	private String url;
+    /**
+     * 图片地址
+     */
+    @TableField("url")
+    private String url;
 
-	/**
-	 *点击量
-	 */
-	@TableField("click_sum")
-	private Integer clickSum;
+    /**
+     * 点击量
+     */
+    @TableField("click_sum")
+    private Integer clickSum;
 
-	/**
-	 *创建人id
-	 */
-	@TableField("create_person")
-	private String createPerson;
+    /**
+     * 创建人id
+     */
+    @TableField("create_person")
+    private String createPerson;
 
-	/**
-	 *创建时间
-	 */
-	@TableField("create_time")
-	private java.util.Date createTime;
+    /**
+     * 创建时间
+     */
+    @TableField("create_time")
+    private java.util.Date createTime;
 
-	/**
-	 *状态，0禁用，1启用
-	 */
-	@TableField("status")
-	private Integer status;
+    /**
+     * 状态，0禁用，1启用
+     */
+    @TableField("status")
+    private Integer status;
 
-	/**
-	 *排序
-	 */
-	@TableField("seq")
-	private Integer seq;
+    /**
+     * 排序
+     */
+    @TableField("seq")
+    private Integer seq;
 
-	/**
-	 *图片链接地址
-	 */
-	@TableField("img_path")
-	private String imgPath;
+    /**
+     * 图片链接地址
+     */
+    @TableField("img_path")
+    private String imgPath;
 
-	/**
-	 *连接类型：1：活动页、2：专题页、3：课程:4：主播:5：课程列表（带筛选条件）
-	 */
-	@TableField("link_type")
-	private Integer linkType;
+    /**
+     * 连接类型：1：活动页、2：专题页、3：课程:4：主播:5：课程列表（带筛选条件）
+     */
+    @TableField("link_type")
+    private Integer linkType;
 
-	/**
-	 *连接条件
-	 */
-	@TableField("link_condition")
-	private String linkCondition;
+    /**
+     * 连接条件
+     */
+    @TableField("link_condition")
+    private String linkCondition;
 
-	/**
-	 *  1 推荐 2 线下课程 3 直播 4 听课
-	 */
-	@TableField("banner_type")
-	private Integer bannerType;
+    /**
+     * 1 推荐 2 线下课程 3 直播 4 听课
+     */
+    @TableField("banner_type")
+    private Integer bannerType;
 
+    @TableField("route_type")
+    private String routeType;
 
-	@Override
-	protected Serializable pkVal() {
-		return null;
-	}
+    @TableField("link_param")
+    private String linkParam;
 
-	public String getId() {
-		return id;
-	}
+    //路由链接
+    @TableField(exist = false)
+    private String target;
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    @Override
+    protected Serializable pkVal() {
+        return null;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public String getUrl() {
-		return url;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setUrl(String url) {
-		this.url = url;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public Integer getClickSum() {
-		return clickSum;
-	}
+    public String getUrl() {
+        return url;
+    }
 
-	public void setClickSum(Integer clickSum) {
-		this.clickSum = clickSum;
-	}
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
-	public String getCreatePerson() {
-		return createPerson;
-	}
+    public Integer getClickSum() {
+        return clickSum;
+    }
 
-	public void setCreatePerson(String createPerson) {
-		this.createPerson = createPerson;
-	}
+    public void setClickSum(Integer clickSum) {
+        this.clickSum = clickSum;
+    }
 
-	public Date getCreateTime() {
-		return createTime;
-	}
+    public String getCreatePerson() {
+        return createPerson;
+    }
 
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
+    public void setCreatePerson(String createPerson) {
+        this.createPerson = createPerson;
+    }
 
-	public Integer getStatus() {
-		return status;
-	}
+    public Date getCreateTime() {
+        return createTime;
+    }
 
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
 
-	public Integer getSeq() {
-		return seq;
-	}
+    public Integer getStatus() {
+        return status;
+    }
 
-	public void setSeq(Integer seq) {
-		this.seq = seq;
-	}
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
 
-	public String getImgPath() {
-		return imgPath;
-	}
+    public Integer getSeq() {
+        return seq;
+    }
 
-	public void setImgPath(String imgPath) {
-		this.imgPath = imgPath;
-	}
+    public void setSeq(Integer seq) {
+        this.seq = seq;
+    }
 
-	public Integer getLinkType() {
-		return linkType;
-	}
+    public String getImgPath() {
+        return imgPath;
+    }
 
-	public void setLinkType(Integer linkType) {
-		this.linkType = linkType;
-	}
+    public void setImgPath(String imgPath) {
+        this.imgPath = imgPath;
+    }
 
-	public String getLinkCondition() {
-		return linkCondition;
-	}
+    public Integer getLinkType() {
+        return linkType;
+    }
 
-	public void setLinkCondition(String linkCondition) {
-		this.linkCondition = linkCondition;
-	}
+    public void setLinkType(Integer linkType) {
+        this.linkType = linkType;
+    }
 
-	public Integer getBannerType() {
-		return bannerType;
-	}
+    public String getLinkCondition() {
+        return linkCondition;
+    }
 
-	public void setBannerType(Integer bannerType) {
-		this.bannerType = bannerType;
-	}
+    public void setLinkCondition(String linkCondition) {
+        this.linkCondition = linkCondition;
+    }
+
+    public Integer getBannerType() {
+        return bannerType;
+    }
+
+    public void setBannerType(Integer bannerType) {
+        this.bannerType = bannerType;
+    }
+
+    public String getRouteType() {
+        return routeType;
+    }
+
+    public void setRouteType(String routeType) {
+        this.routeType = routeType;
+    }
+
+    public String getLinkParam() {
+        return linkParam;
+    }
+
+    public void setLinkParam(String linkParam) {
+        this.linkParam = linkParam;
+    }
+
+    public String getTarget() {
+        return target;
+    }
+
+    public void setTarget(String target) {
+        this.target = target;
+    }
 }

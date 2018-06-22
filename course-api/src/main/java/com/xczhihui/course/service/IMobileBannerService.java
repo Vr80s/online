@@ -14,7 +14,7 @@ import com.xczhihui.course.vo.QueryConditionVo;
 
 public interface IMobileBannerService {
 
-    List<MobileBanner> selectMobileBannerPage(Integer type, boolean onlyFree);
+    List<MobileBanner> selectMobileBannerPage(Integer type, boolean onlyFree, String source);
 
     /**
      * Description：app端banner列表
@@ -23,7 +23,7 @@ public interface IMobileBannerService {
      * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
      * @Date: 2018/5/10 11:25
      **/
-    public List<MobileBanner> selectMobileBannerPage(Integer type);
+    public List<MobileBanner> selectMobileBannerPage(Integer type, String source);
 
     /**
      * Description：增加点击次数
