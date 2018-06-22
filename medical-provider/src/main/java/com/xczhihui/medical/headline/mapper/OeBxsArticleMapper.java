@@ -49,12 +49,15 @@ public interface OeBxsArticleMapper extends BaseMapper<OeBxsArticle> {
      * @param userId 用户id
      * @return 列表数据
      */
-    @Select({"select oba.id, oba.`title`, oba.`content`, oba.`update_time` as updateTime," +
+    @Select({"<script> select oba.id, oba.`title`, oba.`content`, oba.`update_time` as updateTime," +
             " oba.`img_path` as imgPath, oba.status as status, oba.user_id as author, oba.url as url" +
             " from `oe_bxs_article` oba" +
             " where oba.`is_delete`=0 AND oba.create_person = #{userId} and type_id = '7'" +
-            " order by oba.create_time desc"})
-    List<OeBxsArticleVO> listReport(Page<OeBxsArticleVO> page, @Param("userId") String userId);
+            " <if test='keyQuery!=null'> "+
+            " and  oba.title like #{keyQuery} "+
+            " </if> "+
+            " order by oba.create_time desc </script>"})
+    List<OeBxsArticleVO> listReport(Page<OeBxsArticleVO> page, @Param("userId") String userId, @Param("keyQuery") String keyQuery);
 
     /**
      * 查询媒体报道
@@ -78,12 +81,15 @@ public interface OeBxsArticleMapper extends BaseMapper<OeBxsArticle> {
      * @param userId 用户id
      * @return 列表数据
      */
-    @Select({"select oba.id, oba.`title`, oba.`content`, oba.`update_time` as updateTime," +
+    @Select({"<script> select oba.id, oba.`title`, oba.`content`, oba.`update_time` as updateTime," +
             " oba.`img_path` as imgPath, oba.status as status, oba.user_id as author, oba.url as url" +
             " from `oe_bxs_article` oba" +
             " where oba.`is_delete`=0 and oba.create_person = #{userId} and oba.type_id = '4'" +
-            " order by oba.create_time desc"})
-    List<OeBxsArticleVO> listSpecialColumn(Page<OeBxsArticleVO> page, @Param("userId") String userId);
+            " <if test='keyQuery!=null'> "+
+            " and  oba.title like #{keyQuery} "+
+            " </if> "+
+            " order by oba.create_time desc </script>"})
+    List<OeBxsArticleVO> listSpecialColumn(Page<OeBxsArticleVO> page, @Param("userId") String userId, @Param("keyQuery") String keyQuery);
 
     /**
      * 查询专栏
