@@ -16,7 +16,12 @@ li{
 	height: 100%;
 	margin: 0 auto;
 }
-
+.hide{
+	display: none !important;
+}
+.show{
+	display: block !important;
+}
 
 /*头部开始*/
 .wrap-header {
@@ -48,6 +53,7 @@ li{
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+     display: none;
 }
 .arror_return {
     width: 0.24rem;
@@ -181,3 +187,111 @@ li{
 }
 /*主播信息结束*/
 
+/*固定头部选项卡开始*/
+#mainMenuBar {
+    width: 7.5rem;
+    background-color: white;
+    z-index: 999999;
+}
+.anchor_navigation {
+    width: 100%;
+    height: 0.8rem;
+    line-height: 0.8rem;
+    background: #fff;
+    border-bottom: 1px solid #F0F0F0;
+}
+.anchor_navigation ul {
+    position: relative;
+    height: 0.8rem;
+}
+.anchor_navigation ul .li {
+    width: 2.3rem;
+    height: 0.8rem;
+    line-height: 0.8rem;
+    font-size: 0.28rem;
+    color: #666666;
+    float: left;
+    margin: 0 0.15rem;
+    text-align: center;
+}
+.li_color {
+    color: #00bc12 !important;
+}
+.anchor_navigation ul .li_course {
+    margin: 0 0rem;
+}
+.anchor_navigation .border {
+    position: absolute;
+    bottom: 0;
+    left: 0.9rem;
+    width: 0.52rem;
+    height: 0.04rem;
+    background: #00bc12;
+    border-radius: 100px;
+}
+.stick {
+    position: fixed;
+    top: 0.9rem;
+}
+.li_data img{
+	width: 0.106rem;
+    height: 0.088rem;
+    position: absolute;
+    top: 0.38rem;
+    left: 1.95rem;
+    /*display: none;*/
+}
+.dynamic_opacity{
+	width: 2.3rem;
+    height: 0.8rem;
+    position: absolute;
+    top: 0;
+    left: 0.15rem;
+    opacity: 0.2;
+    background: red;
+    z-index: 2;
+}
+
+/*固定头部选项卡结束*/
+
+/*点击全部动态=显示筛看开始*/
+
+.screen_show{
+	width: 7.5rem;
+	margin: 0 auto;
+	position: relative;
+	display: none;
+}
+.screen_show_bg{
+	width: 100%;
+	height: 100%;
+	background: #000;
+	opacity: 0.2;
+	position: fixed;
+	z-index: 1;
+}
+.screen_show_main{
+	width: 7.5rem;
+    height: 1.72rem;
+    margin: 0 auto;
+    background: #fff;
+    padding-top: 0.3rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+}
+.screen_show_main ul li{
+	float: left;
+	width: 1.6rem;
+	height: 0.64rem;
+	line-height: 0.64rem;
+	background: rgba(240,240,240,0.90);
+	border-radius: 4px;
+	font-size: 0.26rem;
+	color: #333333;
+	text-align: center;
+	margin-left: 0.225rem;
+    margin-bottom: 0.2rem;
+}
+/*点击全部动态=显示筛看结束*/

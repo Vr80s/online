@@ -17,7 +17,6 @@
 <script type="text/javascript" src="/xcview/js/common/layout.js"></script>
 
 <script src="/xcview/js/physician/zepto1.14.min.js"></script>
-<script src="/xcview/js/physician/rems.js"></script>
 <script src="/xcview/js/physician/swiper-4.2.6.min.js"></script>
 
 <script>
@@ -124,10 +123,54 @@
 		</div>
 		<!-- 主播信息结束 -->
 
+		<!-- 选项卡开始 -->
+		<div id="mainMenuBarAnchor"></div>
+		<div class="anchor_navigation" id="mainMenuBar">
+			<ul>
+				<li class="li li_data li_color">全部动态<img src="/xcview/images/drop_down.png" alt="" class="hide0" /></li>
+				<li class="li li_course">直播间</li>
+				<li class="li li_evaluate">介绍</li>
+				<div class="border" style="left: 1.04rem;"></div>
+				<div class="dynamic_opacity"></div>
+			</ul>
+		</div>
+		<!-- 选项卡结束 -->
+
+		<!-- 点击全部动态=显示筛看开始 -->
+		<div class="screen_show">
+			<div class="screen_show_bg"></div>
+			<div class="screen_show_main">
+				<ul>
+					<li class="">全部</li>
+					<li class="">直播</li>
+					<li class="">课程</li>
+					<li class="">医案</li>
+					<li class="">文章</li>
+					<li class="">其他</li>
+				</ul>
+			</div>
+		</div>
+		<!-- 点击全部动态=显示筛看结束 -->
+
+
+
 	</div>
 	<!-- 中间内容开始 -->
 	
 	<!-- 中间内容结束 -->
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+
 	
 </body>
 <script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
@@ -145,7 +188,6 @@
 	    /*$(".attention").find('img').attr('src','/xcview/images/weigz.png');
         $(".pay_attention").html("加关注");
         $(".attention").css("background","#00bc12");*/
-
 	};
 </script>
 
@@ -173,7 +215,7 @@ $(window).bind("scroll", function() {
     }
 });
 </script>
-<!-- 头部固定 -->
+<!-- 头部固定开始 -->
 <script>
  $(document).ready(function() {
      var $window = $(window),
@@ -194,8 +236,9 @@ $(window).bind("scroll", function() {
      });
  });
 </script>
+<!-- 头部固定结束 -->
 
-
+<!-- 头部轮播js开始 -->
 <script>
 	var mySwiper = new Swiper('.swiper-container', {
 		autoplay: true, //可选选项，自动滑动
@@ -205,4 +248,62 @@ $(window).bind("scroll", function() {
 		},
 	})
 </script>
+<!-- 头部轮播结束 -->
+
+
+<script type="text/javascript">
+	// 导航  固定和点击切换事件
+	window.onload = function(){
+		$(".li_data").click(function(){
+			$(".anchor_navigation .border").css("left","1.04rem");
+			$(".li_data").addClass("li_color");
+			$(".li_course").removeClass("li_color");
+			$(".li_evaluate").removeClass("li_color");
+			$(".li_data_hide").removeClass("hide");
+			$(".li_course_hide").addClass("hide");
+			$(".li_evaluate_hide").addClass("hide");
+			$(".li_data img").removeClass("hide");
+			$(".dynamic_opacity").removeClass("hide");  /*移除点击全部动态筛选*/
+		});
+		$(".li_course").click(function(){
+			$(".anchor_navigation .border").css("left","3.5rem");
+			$(".li_data").removeClass("li_color");
+			$(".li_course").addClass("li_color");
+			$(".li_evaluate").removeClass("li_color");
+			$(".li_data_hide").addClass("hide");
+			$(".li_course_hide").removeClass("hide");
+			$(".li_evaluate_hide").addClass("hide");
+			$(".li_data img").addClass("hide");
+			$(".dynamic_opacity").addClass("hide");
+			$(".screen_show").hide();  /*隐藏筛选*/
+		});
+		$(".li_evaluate").click(function(){
+			$(".anchor_navigation .border").css("left","5.94rem");
+			$(".li_data").removeClass("li_color");
+			$(".li_course").removeClass("li_color");
+			$(".li_evaluate").addClass("li_color");
+			$(".li_data_hide").addClass("hide");
+			$(".li_course_hide").addClass("hide");
+			$(".li_evaluate_hide").removeClass("hide");
+			$(".li_data img").addClass("hide");
+			$(".dynamic_opacity").addClass("hide");
+			$(".screen_show").hide();  /*隐藏筛选*/
+		});
+
+		// 点击显示全部动态筛选  
+		$(".dynamic_opacity").click(function(){
+			$(".screen_show").show();
+			$("body").css("position","fixed");
+		});
+		$(".screen_show_bg").click(function(){
+			$(".screen_show").hide();
+			// $(".dynamic_opacity").hide();
+		});
+
+
+	};
+</script>
+
+
+
 </html>
