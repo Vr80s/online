@@ -5,7 +5,7 @@ var userLecturerId ="";
 var criticize_id = "";
 $(function(){
 
-//	评论弹窗
+//	评价弹窗
 	$(".wrap_input").on('click',function(){
 		$(".bg_modal").show();
 		$(".wrapAll_comment").show();
@@ -71,7 +71,7 @@ $(function(){
     refresh(num,10,'down');
 });
 
-//刷新评论列表
+//刷新评价列表
 function refresh(pageNumber,pageSize,downOrUp){
     requestService("/xczh/criticize/getCriticizeList",{
         userId : userLecturerId,
@@ -81,7 +81,7 @@ function refresh(pageNumber,pageSize,downOrUp){
 
         //	判断是下拉刷新还是上拉加载
         if(downOrUp=='down'){
-            //  	判断有无评论显示默认图片
+            //  	判断有无评价显示默认图片
             if(data.resultObject.items.length==0){
                 $(".quie_pic").show()
             }else{
@@ -102,7 +102,7 @@ function refresh(pageNumber,pageSize,downOrUp){
         //	回复弹窗
 
             mui("#refreshContainer").on('tap', '.btn_littleReturn', function (event) {
-            //评论id
+            //评价id
             criticize_id=this.id;
             $(".bg_userModal").show();
             $(".wrapLittle_comment").show();
@@ -114,7 +114,7 @@ function refresh(pageNumber,pageSize,downOrUp){
         });
         //点赞
         mui("#refreshContainer").on('tap', '.btn_click_zan', function (event) {
-            //评论id
+            //评价id
             criticize_id=$(this).attr("data-id");
             var p = $(this).find('span').html();
             var src = $(this).find('img').attr('src');
@@ -128,7 +128,7 @@ function refresh(pageNumber,pageSize,downOrUp){
                 updatePraise(criticize_id,true);
             }
         });
-        //评论内容为空时，按钮为灰色
+        //评价内容为空时，按钮为灰色
         if($('#comment_detailed').val()==""){
             $(".report_btn").css("opacity","0.3");
         }else{
@@ -159,7 +159,7 @@ function refresh(pageNumber,pageSize,downOrUp){
 
     });
 }
-//评论
+//评价
 function reportComment() {
     var comment_detailed = $('#comment_detailed').val();
     if(comment_detailed==""){
@@ -179,20 +179,20 @@ function reportComment() {
         content:comment_detailed,
         userId : userLecturerId
     },function(data) {
-        //	课程名称/等级/评论
+        //	课程名称/等级/评价
         if(data.success==true){
-            webToast("评论成功","middle",1500);
+            webToast("评价成功","middle",1500);
             $(".wrapAll_comment").hide();
             $(".bg_modal").hide();
             document.getElementById("comment_detailed").value="";
             refresh(1,10,'down')
         }else{
-            webToast("评论失败","middle",1500);
+            webToast("评价失败","middle",1500);
         }
     });
 }
 
-//回复评论
+//回复评价
 function replyComment() {
     var comment_detailed = $('#littlt_return').val();
     if(comment_detailed==""){
@@ -215,7 +215,7 @@ function replyComment() {
         content:comment_detailed,
         criticizeId : criticize_id
     },function(data) {
-        //	课程名称/等级/评论
+        //	课程名称/等级/评价
         if(data.success==true){
             webToast("回复成功","middle",1500);
             $(".bg_userModal").hide();
@@ -234,7 +234,7 @@ function updatePraise(id,isPraise) {
         praise: isPraise,
         criticizeId: id
     }, function (data) {
-        //	课程名称/等级/评论
+        //	课程名称/等级/评价
     });
 }
 

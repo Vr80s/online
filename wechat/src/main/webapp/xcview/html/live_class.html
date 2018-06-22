@@ -155,7 +155,7 @@
 			<img src="../images/top.png"/>
 		</div> -->
 <!--详情结束-->
-	<!--评论-->
+	<!--评价-->
 	<div class="wrap_comment_title" onclick="btn_allComment()">
 		<p class="border"></p>
 		<p>评价</p>
@@ -172,7 +172,7 @@
 					<div class="user_header">
 						<img src="{{item.onlineUser.smallHeadPhoto}}"/>
 					</div>
-					<!--右边评论-->
+					<!--右边评价-->
 					<div class="user_text">
 						<div class="wrap_userName">
 							<p class="z">{{item.onlineUser.name}}</p>
@@ -236,7 +236,7 @@
 							<!--<p class="returned_text"></p>-->
 						</div>
 						{{/if}}
-						<!--回复时间/点赞/评论按钮-->
+						<!--回复时间/点赞/评价按钮-->
 						<div class="wrap_returned_btn">
 							<ul>
 								<li>{{item.createTime.slice(0,16)}}</li>
@@ -260,42 +260,42 @@
 		</script>
 	</div>
 	
-	<!--无评论显示的图片-->
+	<!--无评价显示的图片-->
 	<div class="quie_pic">
 		<img src="../images/no_comment.png"/>	
 		<p>还没有评价？快来抢沙发呀~</p>
 	</div>
 	<div class="" style="width: 7.5rem;height: 1.2rem;opacity: 0;"></div>
-			<!--底下评论输入框-->
+			<!--底下评价输入框-->
 			<div class="wrap_user_input">
 				<div class="wrap_input z">
 					<img src="../images/inp_retured.png"/>
-					<span>来点儿神聊</span>
+					<span>来点神聊</span>
 				</div>
 			</div>
 
-	<!--评论用户弹出框-->
+	<!--评价用户弹出框-->
 	<div class="bg_userModal"></div>
 	<div class="wrapLittle_comment">
-		<p class="detailed_comments little_comment">详细评论</p>
+		<p class="detailed_comments little_comment">详细评价</p>
 		<div class="text_write_box">
-			<textarea id="littlt_return" name="" rows="" cols="" placeholder="写评价，给主播评论一下"></textarea>
+			<textarea id="littlt_return" name="" rows="" cols="" placeholder="写评价，给主播评价一下"></textarea>
 		</div>
-		<!--表情/提交评论-->
+		<!--表情/提交评价-->
 		<ul class="brow_btn">
 			<li>
 				<img src="../images/brow.png"/>
 			</li>
-			<li onclick="replyComment()">发表评论</li>
+			<li onclick="replyComment()">发表评价</li>
 		</ul>
 	</div>
-	<!--评论弹出框-->
+	<!--评价弹出框-->
 	<div class="bg_modal"></div>
 
 	<div class="wrapAll_comment">
 		<script type="text/html" id="id_show_xingxing">
 
-		<p class="set_title">发布评论</p>
+		<p class="set_title">发布评价</p>
 		{{if items==1}}
 		<!--星星五星好评-->
 		<div class="my_impression1 cl mar_bot">
@@ -335,17 +335,17 @@
 			<li value="4">喜欢</li>
 			<li value="5">买对了</li>
 		</ul>
-		<p class="detailed_comments">详细评论</p>
+		<p class="detailed_comments">详细评价</p>
 			{{/if}}
 		<div class="text_write_box">
-			<textarea name="" id="comment_detailed" rows="" cols="" placeholder="写评价，给主播评论一下"></textarea>
+			<textarea name="" id="comment_detailed" rows="" cols="" placeholder="写评价，给主播评价一下"></textarea>
 		</div>
-		<!--表情/提交评论-->
+		<!--表情/提交评价-->
 		<ul class="brow_btn">
 			<li style="display: none;">
 				<img src="../images/brow.png"/>
 			</li>
-			<li class="report_btn" onclick="reportComment()">发表评论</li>
+			<li class="report_btn" onclick="reportComment()">发表评价</li>
 		</ul>
 		</script>
 	</div>

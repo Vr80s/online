@@ -40,7 +40,7 @@ function chZJ(videoId, multimediaType) {
 
 $(function () {
 
-//	评论弹窗
+//	评价弹窗
     $(".wrap_input").on('click', function () {
         $(".bg_modal").show();
         $(".wrapAll_comment").show();
@@ -59,7 +59,7 @@ $(function () {
     } else {
         $(".return_btn").css("opacity", "1");
     }
-    //评论按钮颜色
+    //评价按钮颜色
     $('#comment_detailed').keyup(function () {
         if ($('#comment_detailed').val() == "") {
             $(".report_btn").css("opacity", "0.3");
@@ -106,7 +106,7 @@ $(function () {
         // $("#wrap_wrapPersonal").html(template('data_number',data.resultObject));
 // 打开页面判断是否已关注
     $(".add_follow").click(function(){
-        //评论id
+        //评价id
         lecturerId = $(this).attr("data-lecturerId");
         var p = $(".right_personal").find('span').html();
 
@@ -292,14 +292,14 @@ function btn_class() {
     location.href = "course_list.html?lecturerId=" + userLecturerId;
 }
 
-//刷新评论列表
+//刷新评价列表
 function refresh() {
     requestService("/xczh/criticize/getCriticizeList", {
         userId: userLecturerId,
         pageNumber: 1,
         pageSize: 20000
     }, function (data) {
-        //  	判断有无评论显示默认图片
+        //  	判断有无评价显示默认图片
         if (data.resultObject.items.length == 0) {
             $(".quie_pic").show();
             $(".quie_pic").css("padding-bottom","0");
@@ -311,11 +311,11 @@ function refresh() {
             $(".quie_pic").hide();
             $(".wrap_all_returned").css("padding-bottom","1.2rem");
         }
-        //	课程名称/等级/评论
+        //	课程名称/等级/评价
         $(".wrap_all_returned").html(template('wrap_people_comment', {items: data.resultObject.items}));
         //	回复弹窗
         $(".wrap_returned_btn .btn_littleReturn").click(function () {
-            //评论id
+            //评价id
             criticize_id = this.id;
             //btn_user_allComment();
             $(".bg_userModal").show();
@@ -328,7 +328,7 @@ function refresh() {
         });
         //点赞
         $(".btn_click_zan").click(function () {
-            //评论id
+            //评价id
             criticize_id = $(this).attr("data-id");
             // btn_user_allComment();
             
@@ -351,7 +351,7 @@ function refresh() {
     });
 }
 
-//评论
+//评价
 function reportComment() {
     var comment_detailed = $('#comment_detailed').val();
 
@@ -382,25 +382,25 @@ function reportComment() {
         content: comment_detailed,
         userId: userLecturerId
     }, function (data) {
-        //	课程名称/等级/评论
+        //	课程名称/等级/评价
         if (data.success == true) {
-            webToast("评论成功", "middle", 1500);
+            webToast("评价成功", "middle", 1500);
             //	直播时间/主播名字
             $(".wrapAll_comment").hide();
             $(".bg_modal").hide();
             document.getElementById("comment_detailed").value = "";
             refresh();
-            //评论数加1
+            //评价数加1
             var cc = $('#criticizeCount').text();
             $('#criticizeCount').text(parseInt(cc) + 1);
 
         } else {
-            webToast("评论失败", "middle", 1500);
+            webToast("评价失败", "middle", 1500);
         }
     });
 }
 
-//回复评论
+//回复评价
 function replyComment() {
     var comment_detailed = $('#littlt_return').val();
 
@@ -427,7 +427,7 @@ function replyComment() {
         content: comment_detailed,
         criticizeId: criticize_id
     }, function (data) {
-        //	课程名称/等级/评论
+        //	课程名称/等级/评价
         if (data.success == true) {
             webToast("回复成功", "middle", 1500);
             //	直播时间/主播名字
@@ -435,7 +435,7 @@ function replyComment() {
             $(".wrapLittle_comment").hide();
             document.getElementById("littlt_return").value = "";
             refresh();
-            //评论数加1
+            //评价数加1
             var cc = $('#criticizeCount').text();
             $('#criticizeCount').text(parseInt(cc) + 1);
         } else {
@@ -450,7 +450,7 @@ function updatePraise(id, isPraise) {
         praise: isPraise,
         criticizeId: id
     }, function (data) {
-        //	课程名称/等级/评论
+        //	课程名称/等级/评价
     });
 }
 

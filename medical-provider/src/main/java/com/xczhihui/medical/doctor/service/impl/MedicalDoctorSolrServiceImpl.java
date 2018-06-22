@@ -163,7 +163,7 @@ public class MedicalDoctorSolrServiceImpl implements IMedicalDoctorSolrService {
             query.append(searchDepartmentKey);
         }
         String searchTypeKey;
-        if(StringUtils.isNotBlank(dqv.getType())){
+        if(StringUtils.isNotBlank(dqv.getType()) && !"-1".equals(dqv.getType())){
             searchTypeKey = "type:"+dqv.getType();
             if(query.length()>0){
                 query.append(SolrConstant.AND);

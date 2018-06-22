@@ -83,7 +83,7 @@
                     <li>
                         <a href="${webUrl}/doctors/${doctor.id}">
                         <span class="about_doctor_pic">
-                                <img src="${doctor.headPortrait}!defaultDoctorHeadImg" alt="暂无图片">
+                                <img src="${doctor.headPortrait!defaultDoctorHeadImg}" alt="暂无图片">
                             </span>
                         <p>${doctor.name}</p>
                         </a>
