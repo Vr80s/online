@@ -191,7 +191,7 @@ requestService("/xczh/course/liveDetails",{
 					});
 					$(".details_size").hide();
 //					$(".poson").css('right', '-2.1rem');
-					$(".div_input").css('width', '13.2rem');
+					$(".div_input").css('width', '12rem');
 					$(".coze_bottom_input").css('margin-left','0rem');
 					$(".give_a01").css('margin-left','0.5rem');
 					$(".give_a01").css('right','0.6rem');  //表情
@@ -226,7 +226,12 @@ requestService("/xczh/course/liveDetails",{
 						// $(".coze_bottom input").css("width", "12rem");
 					});
 
-					 $("#mywords").css("width", "13.2rem");
+						// 回放底部input状态
+					 $("#mywords").css("width", "13.5rem");
+					 $(".div_img").css("margin-left", "0rem");
+					 $(".give_a1_img").css("margin-left", "-2.9rem");
+					 $(".coze_bottom_input").css("margin-left", "0.35rem");
+
 					 $("#face").hide();
 
 				} else {
