@@ -35,7 +35,7 @@
 		<link rel="stylesheet" href="/web/css/componet.css" />
 		<link rel="stylesheet" href="/web/css/componet-pages.css" />
 		<!--分页部分end-->
-		
+		<link rel="stylesheet" href="/web/css/anchor/jedate.css?v=ipandatcm_1.2.1">
 		<script src="/web/js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript" src="/web/js/artTemplate.js"></script>
 		<script type="text/javascript" src="/web/js/jquery.SuperSlide.2.1.1.js"></script>
@@ -444,23 +444,59 @@
 							</div>
 						</div>
 					
-						<!--点赞-->
+						<!--点赞/底下评论-->
 						<div class="reply-fabulous-wrap">
 							<div class="fabulous-box">
 								<span class="glyphicon glyphicon-thumbs-up fabulous" aria-hidden="true"></span>
 								<span>海南彭于晏，海南彭于晏，海南彭于晏</span>
 							</div>
+							<!--底下评论-->
+							<div class="reply-teacher-wrap">
+								<div class="reply-teacher">
+									<p><span>辣椒小姐 </span>: 老师身材依旧</p>
+									<!--<p><span>麦克 </span> 回复 <span>辣椒小姐 </span>: 老师身材依旧</p>-->
+									<ul>
+										<li class="anchor-reply">回复</li>
+										<li>删除</li>
+									</ul> 
+								</div>
+								<!--回复-->
+								<div class="reply-user-wrap hide">
+									<div class="reply-bottom-wrap z">
+										<span style="display: inline-block;">回复辣椒小姐：</span>
+										<input type="text" />
+									</div>
+									<div class="reply-finish y">
+										<button type="button">回复</button>
+									</div>
+								</div>
+								<!--回复结束-->								
+							</div>
+							<div class="reply-teacher-wrap">
+								<div class="reply-teacher">
+									<!--<p><span>辣椒小姐 </span>: 老师身材依旧</p>-->
+									<p><span>麦克 </span> 回复 <span>辣椒小姐 </span>: 老师身材依旧</p>
+									<ul>
+										<li class="anchor-reply">回复</li>
+										<li>删除</li>
+									</ul> 
+								</div>
+								<!--回复-->
+								<div class="reply-user-wrap hide">
+									<div class="reply-bottom-wrap z">
+										<span style="display: inline-block;">回复小姐姐：</span>
+										<input type="text" />
+									</div>
+									<div class="reply-finish y">
+										<button type="button">回复</button>
+									</div>
+								</div>
+								<!--回复结束-->								
+							</div>
+						<!--底下评论-->
 						</div>
-					
-					
-					
-					
-					
-					
-					
-					
 					</div>
-					
+					<!--动态消息结束-->
 				</div>
 				<!--轮播图设置-->
 				<div class="select_box" style="padding-bottom: 0;">
@@ -468,7 +504,7 @@
 						<span>轮播图设置</span>
 						<button type="button">添加轮播图</button>
 					</div>
-					<div class="banner-list-wrap hide">
+					<div class="banner-list-wrap">
 						<table>
 							<tr>
 								<th>图片</th>
@@ -489,7 +525,8 @@
 							</tr>	
 						</table>
 					</div>
-					<div class="banner-set-wrap">
+					<div class="banner-set-wrap hide">
+						<!--添加图片-->
 						<div class="add-banner">
 							<p class="left-title z"><span>*</span>轮播图</p>
 							<div class="right-banner z">
@@ -499,6 +536,36 @@
 								</span>
 								<input type="file" style="visibility: hidden;display: inline-block;" id="banner_picIpt" />
 							</div>
+						</div>
+						<!--链接类型-->
+						<div class="banner-link-wrap">
+							<p class="left-title z"><span>*</span>链接类型</p>
+							<ul>
+								<li><p><em></em></p>直播</li>
+								<li><p><em></em></p>课程</li>
+								<li><p><em></em></p>医案</li>
+								<li><p><em></em></p>专栏文章</li>
+							</ul>
+						</div>
+						<!--链接到-->
+						<div class="banner-url-wrap">
+							<p class="left-title" style="display: inline-block;"><span>*</span>链接到</p>
+							<select name="">
+								<option value="null-url" style="color: #999999;">请选择课程</option>
+								<option value="">1</option>
+							</select>
+						</div>
+						<!--期限-->
+						<div class="banner-date-wrap">
+							<p class="left-title" style="display: inline-block;"><span>*</span>期限</p>
+							<input type="" name="" id="" value="" placeholder="开课时间" id="start-time" />
+							<span style="margin: 0 10px;">至</span>
+							<input type="" name="" id="" value="" placeholder="结束时间" id="end-time" />
+						</div>
+						<!--提交-->
+						<div class="banner-submission-wrap">
+							<p class="left-title" style="display: inline-block;"><span></span></p>
+							<button type="button">提交</button>
 						</div>
 					</div>
 				</div>
@@ -1160,10 +1227,26 @@
 	
 	<!--点击显示更多内容-->
 	<script src="/web/js/jquery.dotdotdot.js" type="text/javascript" charset="utf-8"></script>	
+	<script type="text/javascript" src="/web/layer-v2.1/layer/layer.js"></script>
+	<!--时间插件引入-->
+	<script src="/web/js/anchor/jquery.jedate.min.js" type="text/javascript" charset="UTF-8"></script>
+	
 	<script type="text/javascript" src="/web/js/footer.js"></script>
 	<script src="/web/js/placeHolder.js"></script>
 	<script type="text/javascript" src="/web/js/cropbox.js"></script>
 	<!--<script src="/web/js/provinces.js"></script>-->
 	<script src="/web/js/anchors_resources.js?v=ipandatcm_1.2.1" type="text/javascript" charset="UTF-8"></script>
-
+	<script>
+		//时间插件调用
+		$(function(){
+			var data = new Date();
+			var year = data.getFullYear();
+	 		var month = data.getMonth() + 1;
+	 		var day = data.getDate();
+	
+			$("#start-time").jeDate({
+		        format: "YYYY-MM-DD hh:mm:ss"
+		   });
+		});
+	</script>
 </html>

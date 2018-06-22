@@ -525,14 +525,36 @@ $(".select-text").click(function(){
                         }
                     );
                 });
-                //控制阅读更多
+//控制阅读更多
 
-
+//input框前面回复文字设置
+$(".anchor-reply").click(function(){
+	var btnReply=$(this).parent().parent().siblings(".reply-user-wrap");
+//		
+	if(btnReply.hasClass("hide")){
+		btnReply.removeClass("hide");
+	}else{
+		btnReply.addClass("hide");
+	}
+	var inputWidth=btnReply.find(".reply-bottom-wrap").width()-btnReply.find("span").width();
+	btnReply.find("input").css({"width":inputWidth-10+"px"})
+})
 
 
 
 //---------------------------------动态部分结束，轮播部分开始-------------------------------------------------
-
+//新增轮播图按钮切换页面
+$(".banner-set-top button").click(function(){
+	if($(this).text()=="添加轮播图"){
+		$(".banner-list-wrap").addClass("hide");
+		$(".banner-set-wrap").removeClass("hide");
+		$(this).text("返回");
+	}else{
+		$(".banner-list-wrap").removeClass("hide");
+		$(".banner-set-wrap").addClass("hide");
+		$(this).text("添加轮播图");
+	}
+})
 //上传轮播图
  function bannerUpdown(baseurl, imgname) {
         RequestService("/medical/common/upload", "post", {
@@ -566,8 +588,11 @@ $(".select-text").click(function(){
         reader.readAsDataURL(this.files[0])
     });
 
-
-
+//选择链接类型
+	$(".banner-link-wrap li").click(function(){
+		$(".banner-link-wrap li em").removeClass("active");
+		$(this).find("em").addClass("active");
+	})
 
 
 

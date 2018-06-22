@@ -515,6 +515,7 @@ outline: none;
 	color: white;
 	border: 0;
 	float: right;
+	outline: none;
 }
 
 
@@ -662,10 +663,72 @@ outline: none;
 	font-size: 16px;
 	margin-right: 7px;
 }
+.reply-teacher-wrap{
+	width: 880px;
+	margin: 0 auto;
+	padding: 20px 0;
+	border-bottom: 1px solid #eeeeee;
+	overflow: hidden;
+}
+.reply-teacher-wrap:last-child{
+	border-bottom: 0;
+}
+.reply-teacher{
+	overflow: hidden;
+}
+.reply-teacher span{
+	color: #666666;
+}
+.reply-teacher p{
+	width: 750px;
+	margin-bottom: 0;
+	float: left;
+}
+.reply-teacher ul {
+	float: right;
+	margin-bottom: 0;
+}
+.reply-teacher ul li{
+	float: left;
+	color: #188EEE;
+	margin-left: 22px;
+}
+.reply-user-wrap{
+	width: 880px;
+	margin-top: 20px;
+	overflow: hidden;
+	
+}
+.reply-bottom-wrap{
+	width: 768px;
+	height: 36px;
+	border: 1px solid #dedede;
+	background: white;
+	padding: 0 10px;
+	box-sizing: border-box;
+	overflow: hidden;
+}
+.reply-bottom-wrap input{
+	border: 0;
+	outline: none;
+    margin-top: -3px;
+	box-sizing: border-box;
+}
+.reply-bottom-wrap span{
+	line-height: 36px;
+	display: inline-block;
 
-
-
-
+}
+.reply-user-wrap .reply-finish button{
+	width: 92px;
+	height: 36px;
+	background: #00BC12;
+	border-radius: 4px;
+	color: white;
+	line-height: 36px;
+	border: 0;
+	outline: none;
+}
 
 
 /*轮播图设置*/
@@ -728,6 +791,10 @@ outline: none;
 .banner-list-wrap tr td a{
 	color: #188EEE;
 }
+.add-banner{
+	overflow: hidden;
+	margin-top: 20px;
+}
 .right-banner{
 	background: #f0f0f0;
 	width: 260px;
@@ -737,19 +804,85 @@ outline: none;
 	width: 100%;
 	height: 100%;
 }
+.left-title{
+	width: 92px;
+	text-align: right;
+	margin-right: 20px;
+	margin-bottom: 0;
+}
+.left-title span{
+	color: red;
+}
+.banner-link-wrap{
+	overflow: hidden;
+	margin-top: 20px;
+}
+.banner-link-wrap ul{
+	float: left;
+	margin: 0;
+}
+.banner-link-wrap ul li{
+	float: left;
+	margin-right: 30px;
+	cursor: pointer;
+}
+.banner-link-wrap ul li p{
+	width: 14px;
+	height: 14px;
+	display: inline-block;
+    border: 1px solid #dedede;
+    margin: 0 7px 0 0;
+    border-radius: 50%;
+    position: relative;
+    top: 2px;
+}
+.banner-link-wrap ul li p em{
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	position: absolute;
+	top: 2px;
+	left: 2px;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
+.banner-link-wrap ul li p .active{
+	background: #00bc12;
+}
+.banner-url-wrap{
+	overflow: hidden;
+	margin-top: 20px;
+}
+.banner-url-wrap select{
+	width: 280px;
+	height: 36px;
+	border: 1px solid #dedede;
+	outline: none;
+}
+.banner-date-wrap{
+	overflow: hidden;
+	margin-top: 20px;
+}
+.banner-date-wrap input{
+	width: 120px;
+	height: 36px;
+	border: 1px solid #dedede;
+	outline: none;
+	padding-left: 5px;
+}
+.banner-submission-wrap{
+	overflow: hidden;
+	margin-top: 20px;
+}
+.banner-submission-wrap button{
+	width: 120px;
+	height: 36px;
+	background: #00BC12;
+	border-radius: 4px;
+	line-height: 36px;
+	color: white;
+	border: 0;
+	outline: none;
+}
 
 
 
