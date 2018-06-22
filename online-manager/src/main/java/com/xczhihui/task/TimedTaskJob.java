@@ -1,7 +1,9 @@
 package com.xczhihui.task;
 
+import java.io.IOException;
 import java.util.Date;
 
+import org.apache.solr.client.solrj.SolrServerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Component;
 import com.aliyuncs.exceptions.ClientException;
 import com.xczhihui.course.service.CourseService;
 import com.xczhihui.course.service.MessageRemindingService;
+import com.xczhihui.medical.service.DoctorSolrService;
 
 /**
  * @ClassName: TimedTaskJob
@@ -24,6 +27,8 @@ public class TimedTaskJob {
     private CourseService courseService;
     @Autowired
     private MessageRemindingService messageRemindingService;
+    @Autowired
+    private DoctorSolrService doctorSolrService;
 
     public void courSerecommendAging() {
         System.out.println("work done----------" + new Date());
@@ -44,5 +49,16 @@ public class TimedTaskJob {
     @Scheduled(cron = "0 0 8 * * ?")
     public void remindCollectionUpdate() {
         messageRemindingService.collectionUpdateRemind();
+    }
+
+    /**
+     * Description：每天凌晨两点更新solr数据
+     * creed: Talk is cheap,show me the code
+     * @author name：yuxin
+     * @Date: 2018/6/22 0022 上午 11:27
+     **/
+    @Scheduled(cron = "0 0 2 * * ?")
+    public void initSolrData() throws IOException, SolrServerException {
+        doctorSolrService.initDoctorsSolrData();
     }
 }

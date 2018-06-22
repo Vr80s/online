@@ -105,11 +105,11 @@ $(".buttom").click(function(){
         }
         var wechatNo = $(".age input").val();
 
-        if (!(/^(?=.*\d)[a-z\d]{6,20}$/i.test(wechatNo))) {
+        /*if (!(/^(?=.*\d)[a-z\d]{6,20}$/i.test(wechatNo))) {
             webToast("仅支持6-20字母、数字、下划线或减号","middle",1500);
             $(".web_toast").addClass("web_toasts");
             return false;
-        }
+        }*/
         var sex = "";
         if($(".sex_show").html()=='女'){
             sex = 0;

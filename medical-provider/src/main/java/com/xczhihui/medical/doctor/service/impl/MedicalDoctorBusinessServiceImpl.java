@@ -608,18 +608,18 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
         return medicalDoctorMapper.selectRandomDoctorByType(type, offset, size);
     }
 
-    
+
     @Override
     public List<MedicalDoctorVO>  selectDoctorRecommendList4Random(Integer type,
-    		Integer pageNumber,Integer pageSize) {
-    	
-    	List<MedicalDoctorVO> records =medicalDoctorMapper.
-    			selectDoctorRecommendList4Random(type,pageNumber,pageSize);
+                                                                   Integer pageNumber,Integer pageSize) {
+
+        List<MedicalDoctorVO> records =medicalDoctorMapper.
+                selectDoctorRecommendList4Random(type,pageNumber,pageSize);
         return records;
     }
 
-    
-    
+
+
     /**
      * 参数校验
      *
@@ -694,17 +694,17 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
         }
     }
 
-	@Override
-	public List<MedicalDoctorVO> selectDoctorCouserByAccountId(Integer pageNumber, Integer pageSize) {
+    @Override
+    public List<MedicalDoctorVO> selectDoctorCouserByAccountId(Integer pageNumber, Integer pageSize) {
         return  medicalDoctorMapper.selectDoctorCouserByAccountId(pageNumber,pageSize);
-	}
+    }
 
-	@Override
-	public Page<MedicalDoctorVO> selectDoctorListByQueryKey(Page<MedicalDoctorVO> page, 
-			DoctorQueryVo dqv) {
-		
-		List<MedicalDoctorVO> records =  medicalDoctorMapper.selectDoctorListByQueryKey(page,dqv);
-		return page.setRecords(records);
-	}
+    @Override
+    public Page<MedicalDoctorVO> selectDoctorListByQueryKey(Page<MedicalDoctorVO> page,
+                                                            DoctorQueryVo dqv) {
+
+        List<MedicalDoctorVO> records =  medicalDoctorMapper.selectDoctorListByQueryKey(page,dqv);
+        return page.setRecords(records);
+    }
 
 }

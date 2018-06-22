@@ -8,27 +8,28 @@
         <relativePath>../</relativePath>
     </parent>
 
-    <artifactId>medical-api</artifactId>
+    <artifactId>common-solr</artifactId>
     <packaging>jar</packaging>
-    <version>2.2.0-SNAPSHOT</version>
 
-    <name>medical-api</name>
+    <name>common-solr</name>
     <url>http://www.ixincheng.com</url>
 
-    <properties>
-        <mybaitsplus.version>2.1.4</mybaitsplus.version>
-    </properties>
     <dependencies>
+        <!--solr全文搜索-->
         <dependency>
-            <groupId>com.xczhihui</groupId>
-            <artifactId>common-solr</artifactId>
-            <version>2.2.0-SNAPSHOT</version>
+            <groupId>org.apache.solr</groupId>
+            <artifactId>solr-solrj</artifactId>
+            <version>6.5.1</version>
         </dependency>
-        <!-- Mybatis-Plus -->
         <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus</artifactId>
-            <version>${mybaitsplus.version}</version>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>4.3.6.RELEASE</version>
         </dependency>
         <!--lombok-->
         <dependency>
@@ -36,12 +37,9 @@
             <artifactId>lombok</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.xczhihui</groupId>
-            <artifactId>common-exception</artifactId>
+            <groupId>com.belerweb</groupId>
+            <artifactId>pinyin4j</artifactId>
+            <version>RELEASE</version>
         </dependency>
     </dependencies>
 </project>

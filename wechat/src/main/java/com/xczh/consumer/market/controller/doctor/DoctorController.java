@@ -1,5 +1,6 @@
 package com.xczh.consumer.market.controller.doctor;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.solr.client.solrj.SolrServerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,7 +26,9 @@ import com.xczhihui.medical.anchor.service.IAnchorInfoService;
 import com.xczhihui.medical.department.model.MedicalDepartment;
 import com.xczhihui.medical.department.service.IMedicalDepartmentService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorSolrService;
 import com.xczhihui.medical.doctor.vo.DoctorQueryVo;
+import com.xczhihui.medical.doctor.vo.MedicalDoctorSolrVO;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 
 /**
@@ -49,6 +53,9 @@ public class DoctorController{
     
     @Autowired
     private IAnchorInfoService anchorInfoService;
+
+    @Autowired
+    private IMedicalDoctorSolrService medicalDoctorSolrService;
 
     /**
      * 医师分类页面
@@ -103,7 +110,7 @@ public class DoctorController{
 	@RequestMapping(value = "list")
     public ResponseObject list(@RequestParam(value = "page", required = false) 
     		Integer pageNumber, Integer pageSize, 
-    		DoctorQueryVo dqv) {
+    		DoctorQueryVo dqv) throws IOException, SolrServerException {
     	
 		pageNumber = pageNumber == null ? 1 : pageNumber;
 		pageSize = pageSize == null ? 10 : pageSize;
@@ -112,9 +119,9 @@ public class DoctorController{
 		 */
 		dqv.bulid();
 		
-        Page<MedicalDoctorVO> doctors = medicalDoctorBusinessService.
-        		selectDoctorListByQueryKey(new Page<MedicalDoctorVO>(pageNumber, pageSize),dqv);
-       
+//        Page<MedicalDoctorVO> doctors = medicalDoctorBusinessService.selectDoctorListByQueryKey(new Page<MedicalDoctorVO>(pageNumber, pageSize),dqv);
+        Page<MedicalDoctorSolrVO> doctors = medicalDoctorSolrService.selectDoctorListBySolr(new Page<>(pageNumber, pageSize),dqv);
+
         return ResponseObject.newSuccessResponseObject(doctors.getRecords());
     }
     /**

@@ -1,11 +1,13 @@
 package com.xczhihui.medical.web;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.solr.client.solrj.SolrServerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -23,6 +25,7 @@ import com.xczhihui.common.web.controller.AbstractController;
 import com.xczhihui.medical.enums.MedicalExceptionEnum;
 import com.xczhihui.medical.exception.MedicalException;
 import com.xczhihui.medical.service.DoctorService;
+import com.xczhihui.medical.service.DoctorSolrService;
 import com.xczhihui.utils.Group;
 import com.xczhihui.utils.Groups;
 import com.xczhihui.utils.TableVo;
@@ -40,6 +43,8 @@ public class DoctorController extends AbstractController {
     protected final static String CLOUD_CLASS_PATH_PREFIX = "/medical/";
     @Autowired
     private DoctorService doctorService;
+    @Autowired
+    private DoctorSolrService doctorSolrService;
 
     @Value("${web.url}")
     private String weburl;
@@ -479,5 +484,17 @@ public class DoctorController extends AbstractController {
         List<MedicalDoctor> medicalHospitals = doctorService
                 .getMedicalDoctor(writingsId);
         return medicalHospitals;
+    }
+
+    /**
+     * 获取所有医师 名字 的 接口
+     *
+     * @return
+     */
+    @RequestMapping(value = "initDoctorsSolrData")
+    @ResponseBody
+    public ResponseObject initDoctorsSolrData() throws IOException, SolrServerException {
+        doctorSolrService.initDoctorsSolrData();
+        return ResponseObject.newSuccessResponseObject("医师数据初始化成功");
     }
 }
