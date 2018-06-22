@@ -532,13 +532,13 @@
 <div id="dialogAddBanner2Div"></div>
 <div id="addBanner2Dialog" class="hide">
     <form id="addBanner2-form" class="form-horizontal" method="post" action="" style="margin-top: 15px;">
-        <div class="form-group" style="margin-top: 18px;">
-            <label class="col-sm-3 control-label no-padding-right" for="add_context"><font color="red">*</font>推送标题:
-            </label>
-            <div class="col-sm-6">
-                <input name="title" id="add_title" class="clearfix {required:true,maxlength:30}"/>
-            </div>
-        </div>
+        <%--<div class="form-group" style="margin-top: 18px;">--%>
+            <%--<label class="col-sm-3 control-label no-padding-right" for="add_context"><font color="red">*</font>推送标题:--%>
+            <%--</label>--%>
+            <%--<div class="col-sm-6">--%>
+                <%--<input name="title" id="add_title" class="clearfix {required:true,maxlength:30}"/>--%>
+            <%--</div>--%>
+        <%--</div>--%>
         <div class="form-group" style="margin-top: 18px;">
             <label class="col-sm-3 control-label no-padding-right" for="add_context"><font color="red">*</font>推送内容:
             </label>
@@ -563,7 +563,7 @@
                 <label><input name="pushType" type="radio" value="0" checked/>所有人 </label>
                 <label><input name="pushType" type="radio" value="1"/>指定用户</label>
                 <div class="J-input-user" style="display: none">
-                    <label>推送对象导入:<a href="/template/inputUser.xls">模板</a> </label>
+                    <label>推送对象导入:<a href="/template/inputUser.xls">点击下载模板</a> </label>
                     <div>
                         <input type="file" name="pushUserFile" accept=".xls" id="J-pushUserFile">
                     </div>

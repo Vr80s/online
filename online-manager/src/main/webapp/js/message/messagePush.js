@@ -59,16 +59,16 @@ $(function () {
 //列表展示
 function loadBanner2List() {
     var dataFields = [
-        {
-            "title": "推送标题",
-            "class": "center",
-            "width": "8%",
-            "sortable": false,
-            "data": 'title',
-            "mRender": function (data, display, row) {
-                return data;
-            }
-        },
+        // {
+        //     "title": "推送标题",
+        //     "class": "center",
+        //     "width": "8%",
+        //     "sortable": false,
+        //     "data": 'title',
+        //     "mRender": function (data, display, row) {
+        //         return data;
+        //     }
+        // },
         {
             "title": "推送内容",
             "class": "center",
@@ -106,7 +106,7 @@ function loadBanner2List() {
             "sortable": false,
             "data": 'routeType',
             "mRender": function (data, display, row) {
-                return row.routeType ? (row.routeType == 'H5' ? '外部链接' : (row.routeType == 'COMMON_COURSE_DETAIL_PAGE' ? '课程' : '主播')) : "无";
+                return (row.routeType && row.routeType !== 'NONE') ? (row.routeType === 'H5' ? '外部链接' : (row.routeType === 'COMMON_COURSE_DETAIL_PAGE' ? '课程' : '主播')) : "无";
             }
         },
         {
