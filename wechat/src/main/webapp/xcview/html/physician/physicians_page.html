@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+	<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<head>
+<meta charset="UTF-8">
+<title>熊猫中医</title>
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+
+<!-- <link rel="stylesheet" type="text/css" href="/xcview/css/physician/index.css?v=wechat_1.1.1"/> -->
+<link rel="stylesheet" type="text/css" href="/xcview/css/physician/physicians_page.css?v=wechat_1.1.1"/>
+<link rel="stylesheet" href="/xcview/css/physician/swiper-4.2.6.min.css" />
+<!--手机嵌入模板-->
+<script type="text/javascript" src="/xcview/js/common/layout.js"></script>
+
+<script src="/xcview/js/physician/zepto1.14.min.js"></script>
+<script src="/xcview/js/physician/rems.js"></script>
+<script src="/xcview/js/physician/swiper-4.2.6.min.js"></script>
+
+<script>
+	// 判断横屏展示时的状态
+	window.onorientationchange=function(){
+	    if(window.orientation==90||window.orientation==-90){
+	        window.location.reload();  /*横屏状态刷新*/
+	    }else{
+	        window.location.reload();  /*竖屏状态刷新*/
+	    }
+	}	
+</script>
+<style>
+	/*轮播开始*/
+	.swiper-container{
+		width: 7.5rem !important;
+		height: 3.02rem !important;
+	}
+	.swiper-slide{
+		 width: 7.5rem !important;
+	}
+	.swiper-slide img{
+		 width: 7.5rem;
+	}
+	.swiper-pagination {
+		text-align: right;
+	}
+	.swiper-container-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet:last-child{
+		margin-right: 0.26rem;
+	}
+	.swiper-slide img{
+		width: 100%;
+    	height: 100%;
+	}
+	.swiper-pagination-bullet-active{
+		background: #00bc12;
+	}
+	.swiper-container-horizontal>.swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction{
+		bottom: 0;
+	}
+	/*轮播结束*/
+</style>
+
+</head>
+<body style="background: #F8F8F8;">
+	<div class="physicians_page_main">
+		
+		<!-- 头部开始 -->
+		<div class="wrap-header" id="header">
+			<div class="header">		
+				<p>我是医师名字</p>
+				<div class="arror_return">
+					<img src="/xcview/images/anchorj.png"/>
+				</div>
+				<div class="header_news">
+					<img src="/xcview/images/anchorf.png" alt="">
+				</div>
+			</div>
+		</div>
+		<!-- 头部结束 -->
+
+		<!-- 轮播开始 -->
+		<!--顶部轮播-->
+		<div class="swiper-container top_swiper" onclick="location.href ='broadcastRoom.html'">
+			<div class="swiper-wrapper">
+				<div class="swiper-slide pic01">
+					<img src="/xcview/images/xianxia_03.jpg" alt="" />
+				</div>
+				<div class="swiper-slide pic02">
+					<img src="/xcview/images/xianxia_03.jpg" alt="" />
+				</div>
+				<div class="swiper-slide pic03">
+					<img src="/xcview/images/xianxia_03.jpg" alt="" />
+				</div>
+			</div>
+			<div class="swiper-pagination"></div>
+
+		</div>
+		<!-- 轮播结束 -->
+
+		<!-- 主播信息开始 -->
+		<div class="referral">
+			<div class="head_portrait">
+				<img src="/xcview/images/xianxia_03.jpg" alt="" />
+			</div>
+			<div class="message">
+				<div class="message_name">
+					<div class="name">我是名字</div>
+					<div class="message_characteristic">我的师傅</div>
+					<div class="both"></div>
+				</div>
+				<div class="message_face">
+					<span class="disciple"><span class="disciple_fize">弟子</span>25</span>
+					<span class="fans"><span class="fans_size">粉丝</span>110</span>
+					<div class="both"></div>
+				</div>
+				
+			</div>
+			<div class="attention">
+				<img src="/xcview/images/weigz.png" alt="" />
+				<div class="pay_attention">加关注</div>
+			</div>
+			<div class="both"></div>
+		</div>
+		<!-- 主播信息结束 -->
+
+	</div>
+	<!-- 中间内容开始 -->
+	
+	<!-- 中间内容结束 -->
+	
+</body>
+<script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/common.js?v=wechat_1.1.1"></script> 
+<script type="text/javascript" src="/xcview/js/common/template.js"></script>    <!--数据模板引入-->
+
+<script>
+	window.onload = function(){
+		$(".attention").click(function(){
+            $(".attention").find('img').attr('src','/xcview/images/yigz.png');
+            $(".pay_attention").html("已关注");
+            $(".attention").css("background","#bbb");
+	    });	
+	    /*$(".attention").find('img').attr('src','/xcview/images/weigz.png');
+        $(".pay_attention").html("加关注");
+        $(".attention").css("background","#00bc12");*/
+
+	};
+</script>
+
+
+<!-- 导航渐变 -->
+<script>
+$(window).bind("scroll", function() {
+    var $header = $("#header");
+    var t = 200,
+        m = Math.min(document.documentElement.scrollTop || document.body.scrollTop, t) / t;
+    $header.css("background", "rgba(255, 255, 255, " + m + ")");
+
+    // 判断滚动条显示隐藏title
+	var top = $(document).scrollTop();
+    if(top < 40){
+    	$(".header p").hide();
+    	$(".arror_return img").attr("src","/xcview/images/anchorj.png");
+    	$(".header_news img").attr("src","/xcview/images/anchorf.png");
+    	$("#header").css("border-bottom","0px solid #d8dde6");
+    }else if(top > 40){
+    	$(".arror_return img").attr("src","/xcview/images/back icon.png");
+    	$(".header_news img").attr("src","/xcview/images/share_img.png");
+    	$(".header p").show();
+    	$("#header").css("border-bottom","1px solid #d8dde6");
+    }
+});
+</script>
+<!-- 头部固定 -->
+<script>
+ $(document).ready(function() {
+     var $window = $(window),
+         $mainMenuBar = $('#mainMenuBar'),
+         $mainMenuBarAnchor = $('#mainMenuBarAnchor');
+     $window.scroll(function() {
+         //scrollTop()方法返回或设置匹配元素的滚动条的垂直位置
+         var window_top = $window.scrollTop();
+         //javascript用offsetTop();jquery用offset().top;
+         var div_top = $mainMenuBarAnchor.offset().top;
+         if (window_top > div_top) {
+             $mainMenuBar.addClass('stick');
+             $mainMenuBarAnchor.height($mainMenuBar.height());
+         } else {
+             $mainMenuBar.removeClass('stick');
+             $mainMenuBarAnchor.height(0);
+         }
+     });
+ });
+</script>
+
+
+<script>
+	var mySwiper = new Swiper('.swiper-container', {
+		autoplay: true, //可选选项，自动滑动
+		loop: true,
+		pagination: {
+			el: '.swiper-pagination',
+		},
+	})
+</script>
+</html>
