@@ -146,24 +146,33 @@ public class DoctorController{
      * @author name：yangxuan <br>email: 15936216273@163.com
      */
     @RequestMapping("doctorCourse")
-    public ResponseObject doctorCourseList(@RequestParam("userId") String userId,
-                         Integer pageNumber,Integer pageSize,
-                         @RequestParam(value = "type",required = false)Integer type) throws Exception {
+    public ResponseObject doctorCourseList(@RequestParam("userId") String userId) throws Exception {
     	
-    	pageNumber = pageNumber == null ? 1 : pageNumber;
-		pageSize = pageSize == null ? 10 : pageSize;
+//    	pageNumber = pageNumber == null ? 1 : pageNumber;
+//		pageSize = pageSize == null ? 10 : pageSize;
     	
+		List<Map<String,Object>> alllist = new ArrayList<Map<String,Object>>();
+		
+		Map<String,Object> map1 = new HashMap<String,Object>();
+		map1.put("text", "跟师直播");
+		map1.put("code", 5);
+		map1.put("courseList",null);
+		alllist.add(map1);
+		
         Page<CourseLecturVo> page = new Page<>();
-        page.setCurrent(pageNumber);
-        page.setSize(pageSize);
-        try {
-        	Page<CourseLecturVo> list = courseService.selectLecturerAllCourse
-        			(page, userId,type,IOSVersionInterceptor.onlyThread.get());
-            return ResponseObject.newSuccessResponseObject(list.getRecords());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseObject.newErrorResponseObject("网络开小差");
-        }
+        page.setCurrent(1);
+        page.setSize(6);
+        
+    	Page<CourseLecturVo> list = courseService.selectLecturerAllCourse
+    			(page, userId,3,IOSVersionInterceptor.onlyThread.get());
+    	
+    	Map<String,Object> map = new HashMap<String,Object>();
+    	map.put("text", "直播课程");
+    	map.put("code", 2);
+    	map.put("courseList", list.getRecords());
+    	alllist.add(map);
+    	
+        return ResponseObject.newSuccessResponseObject(alllist);
     }
 	
     /**
