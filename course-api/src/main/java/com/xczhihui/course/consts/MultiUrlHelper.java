@@ -1,5 +1,7 @@
 package com.xczhihui.course.consts;
 
+import static com.xczhihui.course.enums.RouteTypeEnum.HOSPITAL_APPROVE_PAGE;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.MessageFormat;
@@ -112,7 +114,7 @@ public class MultiUrlHelper {
         urlMap.put(RouteTypeEnum.OFFLINE_COURSE_DETAIL_PAGE.name(), offlineCourseDetailUrlMap);
         urlMap.put(RouteTypeEnum.VIDEO_AUDIO_COURSE_DETAIL_PAGE.name(), videoAudioCourseDetailUrlMap);
         urlMap.put(RouteTypeEnum.DOCTOR_APPROVE_PAGE.name(), doctorApproveUrlMap);
-        urlMap.put(RouteTypeEnum.HOSPITAL_APPROVE_PAGE.name(), hospitalApproveUrlMap);
+        urlMap.put(HOSPITAL_APPROVE_PAGE.name(), hospitalApproveUrlMap);
         urlMap.put(RouteTypeEnum.ANCHOR_WORK_TABLE_PAGE.name(), workTableUrlMap);
         urlMap.put(RouteTypeEnum.ANCHOR_PROPERTY_MONEY_PAGE.name(), anchorCNYMap);
         urlMap.put(RouteTypeEnum.COURSE_LIST_PAGE.name(), courseListMap);
@@ -165,6 +167,8 @@ public class MultiUrlHelper {
             } else if (routeTypeEnum.getParamType() == DETAIL || routeTypeEnum.getParamType() == NONE_PARAM) {
                 if (params != null) {
                     url = MessageFormat.format(format, params);
+                } else {
+                    url = format;
                 }
             } else if (routeTypeEnum.getParamType() == LIST_FILTER) {
                 if (StringUtils.isNotBlank(params)) {

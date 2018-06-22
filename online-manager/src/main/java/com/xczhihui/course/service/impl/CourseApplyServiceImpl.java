@@ -82,6 +82,8 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
                     "原因：{2}。如有疑问请联系客服0898-32881934。";
     private static final String WEB_COURSE_APPLY_FAIL_MESSAGE_TIPS =
             APP_COURSE_APPLY_FAIL_MESSAGE_TIPS;
+    private static final String WEIXIN_COURSE_APPLY_FAIL_MESSAGE_TIPS =
+            "很遗憾，您发布的<<{0}>>课程未通过系统审核, 原因：{1}。如有疑问请联系客服0898-32881934。";
 
     @Value("${sms.live.course.apply.pass.code}")
     private String liveCourseApplyPassCode;
@@ -325,10 +327,10 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
         params.put("courseName", title);
 
         Map<String, String> weixinParams = new HashMap<>(4);
-        weixinParams.put("first", TextStyleUtil.clearStyle(content));
+        weixinParams.put("first", MessageFormat.format(WEIXIN_COURSE_APPLY_FAIL_MESSAGE_TIPS, title, detailReason));
         weixinParams.put("keyword1", title);
-        weixinParams.put("keyword2", courseApplyInfo.getStartTime() == null ? "无" : TimeUtil.getYearMonthDayHHmm(courseApplyInfo.getStartTime()));
-        weixinParams.put("remark", "");
+        weixinParams.put("keyword2", "未通过审核");
+        weixinParams.put("remark", "请按要求修改后再提交申请，感谢您的支持。");
         commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.COURSE.getVal())
                 .buildWeb(content)
                 .buildSms(courseApplyNotPassCode, params)
