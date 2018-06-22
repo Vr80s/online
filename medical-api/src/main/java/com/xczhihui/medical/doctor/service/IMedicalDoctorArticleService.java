@@ -19,7 +19,7 @@ public interface IMedicalDoctorArticleService {
      * @param userId 用户id
      * @return 列表数据
      */
-    Page<OeBxsArticleVO> listSpecialColumn(int page, String userId);
+    Page<OeBxsArticleVO> listSpecialColumn(int page,int size, String userId,String keyQuery);
 
     /**
      * 创建专栏
@@ -71,7 +71,7 @@ public interface IMedicalDoctorArticleService {
      * @param userId 用户id
      * @return 列表数据
      */
-    Page<OeBxsArticleVO> listReport(int page, String userId);
+    Page<OeBxsArticleVO> listReport(int page,int size, String userId,String keyQuery);
 
     /**
      * 创建媒体报道

@@ -3,6 +3,7 @@ package com.xczhihui.bxg.online.web.controller.medical;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -67,9 +68,12 @@ public class DoctorArticleController extends AbstractFtlController {
     }
 
     @RequestMapping(value = "specialColumn", method = RequestMethod.GET)
-    public ResponseObject listSpecialColumn(@RequestParam(defaultValue = "1") int page) {
+    public ResponseObject listSpecialColumn(@RequestParam(defaultValue = "1") int page,@RequestParam(defaultValue = "10") int size,@RequestParam(required = false) String keyQuery) {
         String userId = getUserId();
-        return ResponseObject.newSuccessResponseObject(medicalDoctorArticleService.listSpecialColumn(page, userId));
+        if (StringUtils.isNotBlank(keyQuery)) {
+            keyQuery="%"+keyQuery+"%";
+        }
+        return ResponseObject.newSuccessResponseObject(medicalDoctorArticleService.listSpecialColumn(page,size, userId,keyQuery));
     }
 
     @RequestMapping(value = "specialColumn/{id}/{status}", method = RequestMethod.PUT)
@@ -120,9 +124,12 @@ public class DoctorArticleController extends AbstractFtlController {
     }
 
     @RequestMapping(value = "report", method = RequestMethod.GET)
-    public ResponseObject listReport(@RequestParam(defaultValue = "1") int page) {
+    public ResponseObject listReport(@RequestParam(defaultValue = "1") int page,@RequestParam(defaultValue = "10") int size,@RequestParam(required = false) String keyQuery) {
         String userId = getUserId();
-        return ResponseObject.newSuccessResponseObject(medicalDoctorArticleService.listReport(page, userId));
+        if (StringUtils.isNotBlank(keyQuery)) {
+            keyQuery="%"+keyQuery+"%";
+        }
+        return ResponseObject.newSuccessResponseObject(medicalDoctorArticleService.listReport(page,size, userId,keyQuery));
     }
 
     @RequestMapping(value = "report/{id}/{status}", method = RequestMethod.PUT)

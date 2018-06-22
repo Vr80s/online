@@ -32,9 +32,9 @@ public class MedicalDoctorArticleServiceImpl implements IMedicalDoctorArticleSer
     private MedicalSpecialColumnMapper medicalSpecialColumnMapper;
 
     @Override
-    public Page<OeBxsArticleVO> listSpecialColumn(int page, String doctorId) {
-        Page<OeBxsArticleVO> oeBxsArticleVOPage = new Page<>(page, 10);
-        return oeBxsArticleVOPage.setRecords(oeBxsArticleMapper.listSpecialColumn(oeBxsArticleVOPage, doctorId));
+    public Page<OeBxsArticleVO> listSpecialColumn(int page,int size, String doctorId,String keyQuery) {
+        Page<OeBxsArticleVO> oeBxsArticleVOPage = new Page<>(page, size);
+        return oeBxsArticleVOPage.setRecords(oeBxsArticleMapper.listSpecialColumn(oeBxsArticleVOPage, doctorId,keyQuery));
     }
 
     @Override
@@ -99,9 +99,9 @@ public class MedicalDoctorArticleServiceImpl implements IMedicalDoctorArticleSer
     }
 
     @Override
-    public Page<OeBxsArticleVO> listReport(int page, String doctorId) {
-        Page<OeBxsArticleVO> oeBxsArticleVOPage = new Page<>(page, 10);
-        oeBxsArticleVOPage.setRecords(oeBxsArticleMapper.listReport(oeBxsArticleVOPage, doctorId));
+    public Page<OeBxsArticleVO> listReport(int page,int size, String doctorId,String keyQuery) {
+        Page<OeBxsArticleVO> oeBxsArticleVOPage = new Page<>(page, size);
+        oeBxsArticleVOPage.setRecords(oeBxsArticleMapper.listReport(oeBxsArticleVOPage, doctorId,keyQuery));
         return oeBxsArticleVOPage;
     }
 
