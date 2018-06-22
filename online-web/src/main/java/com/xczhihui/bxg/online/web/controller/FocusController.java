@@ -82,7 +82,7 @@ public class FocusController extends AbstractController{
         /*
          * 这里建议获取下粉丝数和关注数
          */
-        List<Integer> listff = focusService.selectFocusAndFansCountAndCriticizeCount(lecturerId);
+        List<Integer> listff = focusService.selectFocusAndFansCount(lecturerId);
         map.put("fansCount", listff.get(0));           //粉丝总数
         map.put("focusCount", listff.get(1));           //关注总数
 		return ResponseObject.newSuccessResponseObject(map);
