@@ -127,7 +127,7 @@
 		<div id="mainMenuBarAnchor"></div>
 		<div class="anchor_navigation" id="mainMenuBar">
 			<ul>
-				<li class="li li_data li_color">全部动态<img src="/xcview/images/drop_down.png" alt="" class="hide0" /></li>
+				<li class="li li_data li_color"><span>全部动态</span><img src="/xcview/images/drop_down.png" alt="" class="hide0" /></li>
 				<li class="li li_course">直播间</li>
 				<li class="li li_evaluate">介绍</li>
 				<div class="border" style="left: 1.04rem;"></div>
@@ -141,7 +141,7 @@
 			<div class="screen_show_bg"></div>
 			<div class="screen_show_main">
 				<ul>
-					<li class="">全部</li>
+					<li class="">全部动态</li>
 					<li class="">直播</li>
 					<li class="">课程</li>
 					<li class="">医案</li>
@@ -264,6 +264,7 @@ $(window).bind("scroll", function() {
 			$(".li_evaluate_hide").addClass("hide");
 			$(".li_data img").removeClass("hide");
 			$(".dynamic_opacity").removeClass("hide");  /*移除点击全部动态筛选*/
+			$("body").removeClass("body");
 		});
 		$(".li_course").click(function(){
 			$(".anchor_navigation .border").css("left","3.5rem");
@@ -276,6 +277,7 @@ $(window).bind("scroll", function() {
 			$(".li_data img").addClass("hide");
 			$(".dynamic_opacity").addClass("hide");
 			$(".screen_show").hide();  /*隐藏筛选*/
+			$("body").removeClass("body");
 		});
 		$(".li_evaluate").click(function(){
 			$(".anchor_navigation .border").css("left","5.94rem");
@@ -288,21 +290,51 @@ $(window).bind("scroll", function() {
 			$(".li_data img").addClass("hide");
 			$(".dynamic_opacity").addClass("hide");
 			$(".screen_show").hide();  /*隐藏筛选*/
+			$("body").removeClass("body");
 		});
 
 		// 点击显示全部动态筛选  
 		$(".dynamic_opacity").click(function(){
 			$(".screen_show").show();
-			$("body").css("position","fixed");
+			$("body").addClass("body");
 		});
 		$(".screen_show_bg").click(function(){
 			$(".screen_show").hide();
-			// $(".dynamic_opacity").hide();
+			$("body").removeClass("body");
 		});
+
+		// 循环点击筛选全部动态
+		var aBtn=$('.screen_show_main ul li');
+		for(i=0;i<aBtn.length;i++){
+            $(aBtn[i]).click(function(){
+              for(i=0;i<aBtn.length;i++){
+                $(aBtn[i]).removeClass('active');
+              }
+              $(this).addClass('active');
+              $(".li_data span").html($(this).html());
+
+              	// 替换文字后，改变3角形的位置
+                var mobile = $(".li_data span").html();		
+				if(mobile.length<3){
+					$(".li_data img").css("left","1.7rem");
+				}else{
+					$(".li_data img").css("left","1.95rem");
+				};
+				$(".screen_show").hide();
+			  
+              
+            })
+
+        };
+        $(aBtn[0]).click();
+
+
 
 
 	};
 </script>
+
+
 
 
 

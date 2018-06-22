@@ -8,6 +8,9 @@ img{
 li{
 	list-style: none;
 }
+.body{
+	position: fixed;
+}
 .both{
 	clear: both;
 }
@@ -293,5 +296,8 @@ li{
 	text-align: center;
 	margin-left: 0.225rem;
     margin-bottom: 0.2rem;
+}
+.active{
+	color: #00bc12 !important;
 }
 /*点击全部动态=显示筛看结束*/
