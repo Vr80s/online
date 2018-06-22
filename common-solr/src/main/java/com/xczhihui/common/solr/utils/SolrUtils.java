@@ -76,6 +76,8 @@ public class SolrUtils {
                 query.addSort(key, sortMap.get(key));
             }
         }
+        //显示匹配度得分
+        query.set("fl", "*,score");
         QueryResponse response = solrClient.query(query);
         // 查询结果集
         SolrDocumentList results = response.getResults();

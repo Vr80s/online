@@ -22,6 +22,8 @@ public class MedicalDoctorSolrVO implements Serializable {
     @Field
     private String name;
     @Field
+    private String namePinyin;
+    @Field
     private String title;
     @Field
     private String description;

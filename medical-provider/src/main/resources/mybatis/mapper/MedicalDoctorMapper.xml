@@ -571,12 +571,13 @@
     <select id="selectDoctorList4Solr" resultType="com.xczhihui.medical.doctor.vo.MedicalDoctorSolrVO">
         SELECT
         md.id,
+        md.description,
         md.`type`,
         mdai.`head_portrait` headPortrait,
         md.`name`,
         md.`field_text` fieldText,
         md.`title`,
-        mh.`name`,
+        mh.`name` hospitalName,
         mh.`province`,
         mh.`city`,
         mh.`detailed_address` detailedAddress,
@@ -601,42 +602,9 @@
         ON mda.`doctor_id` = md.`id`
         WHERE md.deleted = 0
         AND md.status = 1
-    </select>
-    <!-- 医师查询-solr初始数据  -->
-    <select id="selectDoctor4Solr" resultType="com.xczhihui.medical.doctor.vo.MedicalDoctorSolrVO">
-        SELECT
-        md.id,
-        md.`type`,
-        mdai.`head_portrait` headPortrait,
-        md.`name`,
-        md.`field_text` fieldText,
-        md.`title`,
-        mh.`name`,
-        mh.`province`,
-        mh.`city`,
-        mh.`detailed_address` detailedAddress,
-        md.recommend_sort recommendSort,
-        IF(mda.account_id IS NOT NULL,(SELECT COUNT(*) FROM oe_focus of
-        INNER JOIN course_anchor AS ou ON of.lecturer_id = ou.user_id
-        WHERE of.user_id = mda.account_id
-        AND ou.status = 1  AND ou.deleted =0),0) AS focusCount
-        FROM
-        medical_doctor md
-        JOIN
-        `medical_doctor_authentication_information` mdai
-        ON md.`authentication_information_id` = mdai.`id`
-        LEFT JOIN
-        `medical_hospital_doctor` mhd
-        ON mhd.`doctor_id` = md.`id` AND mhd.`deleted` = 0
-        LEFT JOIN
-        `medical_hospital` mh
-        ON mhd.`hospital_id` = mh.`id` AND mh.`deleted` = 0 AND mh.`status` = 1
-        LEFT JOIN
-        `medical_doctor_account` mda
-        ON mda.`doctor_id` = md.`id`
-        WHERE md.deleted = 0
-        AND md.status = 1
-        AND md.id = #{id}
+        <if test="doctorId != null and doctorId!=''">
+            AND md.id = #{doctorId}
+        </if>
     </select>
 
 </mapper>

@@ -97,7 +97,6 @@ public interface MedicalDoctorMapper extends BaseMapper<MedicalDoctor> {
 
     List<MedicalDoctorVO> selectDoctorListByQueryKey(@Param("page") Page<MedicalDoctorVO> page, @Param("dqv") DoctorQueryVo dqv);
 
-    List<MedicalDoctorSolrVO> selectDoctorList4Solr();
+    List<MedicalDoctorSolrVO> selectDoctorList4Solr(@Param("doctorId") String doctorId);
 
-    MedicalDoctorSolrVO selectDoctor4Solr(String id);
 }
