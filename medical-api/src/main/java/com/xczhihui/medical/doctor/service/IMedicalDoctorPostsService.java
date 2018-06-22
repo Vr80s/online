@@ -45,4 +45,12 @@ public interface IMedicalDoctorPostsService {
      */
     void deleteMedicalDoctorPosts(Integer id);
 
+    /**
+     * 置顶/取消置顶
+     * @param id 医师动态id
+     * @param stick 置顶状态
+     * @return
+     */
+    void updateStickMedicalDoctorPosts(Integer id,Boolean stick);
+
 }

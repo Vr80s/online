@@ -45,4 +45,12 @@ public interface MedicalDoctorPostsMapper extends BaseMapper<MedicalDoctorPosts>
      */
     void deleteMedicalDoctorPosts(@Param("id") Integer id);
 
+    /**
+     * 置顶/取消置顶
+     * @param id 医师动态id
+     * @param stick 置顶状态
+     * @return
+     */
+    void updateStickMedicalDoctorPosts(@Param("id") Integer id,@Param("stick") Boolean stick);
+
 }
