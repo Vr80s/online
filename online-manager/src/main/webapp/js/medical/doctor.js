@@ -1140,6 +1140,16 @@ function updateRec(obj){
         }
     });
 };
+$(".refresh-data").click(function(){
+    ajaxRequest(basePath+"/medical/doctor/initDoctorsSolrData",null,function(data){
+        if(data.success){//如果失败
+            layer.msg(data.resultObject);
+        }else{
+            layer.msg(data.errorMessage);
+        }
+    });
+});
+
 $(".rec_P").click(function(){
     var ids = new Array();
     var trs = $(".dataTable tbody input[type='checkbox']:checked");

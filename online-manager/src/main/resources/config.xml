@@ -148,4 +148,6 @@
                      timeout="${dubbo.consumer.timeout}"/>
     <dubbo:reference id="orderPayServiceImpl" interface="com.xczhihui.online.api.service.OrderPayService"
                    timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference id="medicalDoctorSolrServiceImpl" interface="com.xczhihui.medical.doctor.service.IMedicalDoctorSolrService"
+                   timeout="${dubbo.consumer.timeout}"/>
 </beans>

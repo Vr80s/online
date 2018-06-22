@@ -154,14 +154,14 @@ public interface IMedicalDoctorBusinessService {
      * @param pageSize
      * @return
      */
-	List<MedicalDoctorVO> selectDoctorRecommendList4Random(Integer type, Integer pageNumber, Integer pageSize);
-	/**
-	 * 查找名医关联下医师所包含的课程
-	 * @param pageNumber
-	 * @param pageSize
-	 * @return
-	 */
+    List<MedicalDoctorVO> selectDoctorRecommendList4Random(Integer type, Integer pageNumber, Integer pageSize);
+    /**
+     * 查找名医关联下医师所包含的课程
+     * @param pageNumber
+     * @param pageSize
+     * @return
+     */
     List<MedicalDoctorVO>  selectDoctorCouserByAccountId(Integer pageNumber, Integer pageSize);
 
-	public Page<MedicalDoctorVO> selectDoctorListByQueryKey(Page<MedicalDoctorVO> page, DoctorQueryVo dqv);
+    public Page<MedicalDoctorVO> selectDoctorListByQueryKey(Page<MedicalDoctorVO> page, DoctorQueryVo dqv);
 }
