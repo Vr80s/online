@@ -301,3 +301,112 @@ li{
 	color: #00bc12 !important;
 }
 /*点击全部动态=显示筛看结束*/
+
+/*中间内容开始*/
+/*其他*/
+.rests_nav{
+	width: 7.5rem;
+	min-height: 1rem;
+	background: #fff;
+	margin: 0 auto;
+	padding: 0.3rem 0;
+}
+.rests_nav_span{
+	width: 6.98rem;
+    margin: 0 auto;
+    height: 0.42rem;
+    margin-bottom: 0.2rem;
+}
+.rests_nav_span .title{
+	font-size: 0.3rem;
+    color: #333333;
+    display: -webkit-box;
+    float: left;
+}
+.rests_nav_span .stick_img{
+	font-size: 0.26rem;
+    color: #F97B49;
+    float: right;
+    display: -webkit-box;
+}
+.rests_nav_span .stick_img img{
+	width: 0.2rem;
+	height: 0.24rem;
+	margin-right: 0.097rem;
+}
+#ccvideo{
+	width: 6.98rem;
+    height: 3.94rem;
+    background: red;
+    margin: 0 auto;
+    margin-bottom: 0.304rem;
+}
+#ccvideo video{
+	width: 6.98rem !important;
+    height: 3.94rem !important;
+}
+.rests_nav_bottom{
+	width: 6.98rem;
+	margin: 0 auto;
+	margin-bottom: 0.2rem;
+}
+.rests_nav_bottom .time{
+	font-size: 0.24rem;
+	color: #999999;
+	float: left;
+}
+.rests_nav_bottom .img{
+	float: right;
+}
+.rests_nav_bottom img{
+	width: 0.32rem;
+    height: 0.31rem;
+    float: left;
+}
+.rests_nav_bottom .zan_img{
+	margin-right: 0.5rem;
+}
+.number_people{
+	width: 7.5rem;
+	margin: 0 auto;
+}
+.number_people_bg{
+	width: 6.98rem;
+	/*min-height: 1rem;*/
+	margin: 0 auto;
+	background: #FAFAFA;
+	border: 1px solid #F0F0F0;
+	border-radius: 4px;
+}
+.number_people_zan{
+	width: 0.32rem;
+    height: 0.31rem;
+    margin-right: 0.1rem;
+}
+.number_people_fize{
+    display: flex;
+    padding: 0.2rem;
+}
+.number_people_fize span{
+	font-size: 0.26rem;
+	color: #666666;
+}
+.evaluate_main {
+	padding: 0.1rem 0.2rem;
+	border-top: 1px solid #F0F0F0;
+	display: flex;
+}
+.evaluate_main .name{
+	font-size: 0.26rem;
+	color: #666666;
+}
+.evaluate_cen{
+	font-size: 0.26rem;
+	color: #333333;
+}
+
+
+
+
+
+/*中间内容结束*/
