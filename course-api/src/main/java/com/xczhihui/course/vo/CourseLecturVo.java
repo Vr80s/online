@@ -201,6 +201,10 @@ public class CourseLecturVo implements Serializable {
     private Boolean isDelete; // false 没有删除  true 删除
 
     private Integer recommendSort; // 推荐值
+    
+    private Integer dirtyNumber; //已更新多少集
+    
+    private String  dirtyDate; //更新时间
 
     /**
      * 是否提交线下课报名表单
@@ -711,4 +715,23 @@ public class CourseLecturVo implements Serializable {
     public void setSubmitted(boolean submitted) {
         this.submitted = submitted;
     }
+
+	public Integer getDirtyNumber() {
+		return dirtyNumber;
+	}
+
+	public void setDirtyNumber(Integer dirtyNumber) {
+		this.dirtyNumber = dirtyNumber;
+	}
+
+	public String getDirtyDate() {
+		return dirtyDate;
+	}
+
+	public void setDirtyDate(String dirtyDate) {
+		this.dirtyDate = dirtyDate;
+	}
+    
+    
+    
 }

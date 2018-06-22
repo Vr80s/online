@@ -86,6 +86,12 @@
 		   (SELECT ROUND(AVG(cc.overall_level), 1) FROM oe_criticize cc where cc.is_delete = 0 and cc.course_id = oc.id and cc.overall_level !=0 )
 		)  as startLevel,
 		
+	    IF(oc.collection = 1,
+   		 ( SELECT count(*) FROM  `oe_course` oc  JOIN `collection_course` cc
+				ON oc.id = cc.`course_id` WHERE cc.`collection_id` = #{courseId} )
+	      ,0
+		)  as dirtyNumber,
+		
 		oc.lecturer as name,
 		oc.lecturer_description as lecturerDescription,
 		ou.profile_photo as headImg,
@@ -157,6 +163,13 @@
 	      ,
 		   (SELECT ROUND(AVG(cc.overall_level), 1) FROM oe_criticize cc where cc.is_delete = 0 and cc.course_id = oc.id and cc.overall_level !=0 )
 		)  as startLevel,
+		
+	    IF(oc.collection = 1,
+   		 ( SELECT count(*) FROM  `oe_course` oc  JOIN `collection_course` cc
+				ON oc.id = cc.`course_id` WHERE cc.`collection_id` = #{courseId} )
+	      ,0
+		)  as dirtyNumber,	
+		
 		
 		oc.lecturer as name,
 		oc.lecturer_description as lecturerDescription,
@@ -273,6 +286,19 @@
 		ON oc.id = cc.`course_id`
 		WHERE cc.`collection_id` = #{collectionId} order by cc.collection_course_sort
 	</select>
+	
+	
+	<!-- 查找这个专辑下的课程数 -->
+	<select id="selectCoursesNumberByCollectionId" resultType="java.lang.Integer">
+		SELECT
+	    	count(*)
+		FROM
+		`oe_course` oc
+		JOIN `collection_course` cc
+		ON oc.id = cc.`course_id`
+		WHERE cc.`collection_id` = #{collectionId}
+	</select>
+	
 
 	<!-- 查找讲师距离当前时间最近一次的课程   1.直播中，2预告，3直播结束 -->
 	<select id="selectLecturerRecentCourse" resultType="com.xczhihui.course.vo.CourseLecturVo">

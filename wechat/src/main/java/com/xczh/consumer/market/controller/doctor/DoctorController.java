@@ -148,9 +148,6 @@ public class DoctorController{
     @RequestMapping("doctorCourse")
     public ResponseObject doctorCourseList(@RequestParam("userId") String userId) throws Exception {
     	
-//    	pageNumber = pageNumber == null ? 1 : pageNumber;
-//		pageSize = pageSize == null ? 10 : pageSize;
-    	
 		List<Map<String,Object>> alllist = new ArrayList<Map<String,Object>>();
 		
 		Map<String,Object> map1 = new HashMap<String,Object>();
@@ -165,13 +162,11 @@ public class DoctorController{
         
     	Page<CourseLecturVo> list = courseService.selectLecturerAllCourse
     			(page, userId,3,IOSVersionInterceptor.onlyThread.get());
-    	
     	Map<String,Object> map = new HashMap<String,Object>();
     	map.put("text", "直播课程");
     	map.put("code", 2);
     	map.put("courseList", list.getRecords());
     	alllist.add(map);
-    	
         return ResponseObject.newSuccessResponseObject(alllist);
     }
 	
