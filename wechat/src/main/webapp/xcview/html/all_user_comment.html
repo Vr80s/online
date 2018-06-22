@@ -77,7 +77,7 @@
 		<div class="wp">
 			<div class="wrap-header">
 				<div class="header">		
-					<p>主播评论</p>
+					<p>主播评价</p>
 					<div class="arror_return z" onclick="javascript:history.go(-1);">
 						<img src="../images/back icon.png"/>
 					</div>
@@ -85,7 +85,7 @@
 				</div>
 			</div>
 			
-		<!--评论开始-->
+		<!--评价开始-->
 			<div id="refreshContainer" class="mui-content mui-scroll-wrapper">
 				<div class="mui-scroll">
 			<div class="wrap_all_returned" style="margin-bottom: 1.3rem;">  <!--渲染存放盒子-->
@@ -97,7 +97,7 @@
 				<div class="user_header">
 					<img src="{{item.onlineUser.smallHeadPhoto}}" onerror="nofinds();"/>
 				</div>
-				<!--右边评论-->
+				<!--右边评价-->
 				<div class="user_text">
 					<div class="wrap_userName">
 						<p class="z">{{item.onlineUser.name}}</p>
@@ -163,7 +163,7 @@
 						<!--<p class="returned_text"></p>-->
 					</div>
                     {{/if}}
-					<!--回复时间/点赞/评论按钮-->
+					<!--回复时间/点赞/评价按钮-->
 					<div class="wrap_returned_btn">
 						<ul>
 							<li>{{item.createTime.slice(0,16)}}</li>
@@ -188,12 +188,12 @@
 	</div>
 	</div>
 	</div>
-	<!--无评论显示的图片-->
+	<!--无评价显示的图片-->
 	<div class="quie_pic">
 		<img src="../images/no_comment_hui.png"/>	
 		<p>还没有评价？快来抢沙发呀~</p>
 	</div>		
-	<!--底下评论输入框-->	
+	<!--底下评价输入框-->	
 	<div class="wrap_user_input">
 		<div class="wrap_input z">
 			<img src="../images/inp_retured.png"/>
@@ -201,41 +201,41 @@
 		</div>
 		<!--<div class="all_returned_num y">
 			<img src="../images/returned.png"/>
-			<p>评论999+</p>
+			<p>评价999+</p>
 		</div>-->
 	</div>
 
 
-	<!--评论用户弹出框-->
+	<!--评价用户弹出框-->
 	<div class="bg_userModal"></div>
 	<div class="wrapLittle_comment">
-		<p class="detailed_comments little_comment">详细评论</p>
+		<p class="detailed_comments little_comment">详细评价</p>
 		<div class="text_write_box">
-			<textarea id="littlt_return" name="" rows="" cols="" placeholder="写评价，给主播评论一下"></textarea>
+			<textarea id="littlt_return" name="" rows="" cols="" placeholder="写评价，给主播评价一下"></textarea>
 		</div>
-		<!--表情/提交评论-->
+		<!--表情/提交评价-->
 		<ul class="brow_btn">
 			<li style="display: none;">
 				<img src="../images/brow.png"/>
 			</li>
-			<li class="return_btn" onclick="replyComment()">发表评论</li>
+			<li class="return_btn" onclick="replyComment()">发表评价</li>
 		</ul>
 	</div>	
-	<!--评论弹出框-->
+	<!--评价弹出框-->
 	<div class="bg_modal"></div>
 	
 	<div class="wrapAll_comment">
-		<p class="set_title">发布评论</p>
-		<p class="detailed_comments">详细评论</p>
+		<p class="set_title">发布评价</p>
+		<p class="detailed_comments">详细评价</p>
 		<div class="text_write_box">
-			<textarea name="" id="comment_detailed" rows="" cols="" placeholder="写评价，给主播评论一下"></textarea>
+			<textarea name="" id="comment_detailed" rows="" cols="" placeholder="写评价，给主播评价一下"></textarea>
 		</div>
-		<!--表情/提交评论-->
+		<!--表情/提交评价-->
 		<ul class="brow_btn">
 			<li style="display: none;">
 				<img src="../images/brow.png"/>
 			</li>
-			<li class="report_btn" onclick="reportComment()">发表评论</li>
+			<li class="report_btn" onclick="reportComment()">发表评价</li>
 		</ul>
 	</div>
 			

@@ -20,7 +20,7 @@ $(function(){
 	refresh(1,10,'down');
 });
 
-//刷新评论列表
+//刷新评价列表
 function refresh(pageNumber,pageSize,downOrUp){
     requestService("/xczh/criticize/getCriticizeList",{
         courseId : course_id,
@@ -31,7 +31,7 @@ function refresh(pageNumber,pageSize,downOrUp){
 
         //	判断是下拉刷新还是上拉加载
         if(downOrUp=='down'){
-            //  	判断有无评论显示默认图片
+            //  	判断有无评价显示默认图片
             if(data.resultObject.items.length==0){
                 $(".quie_pic").show()
             }else{
@@ -51,12 +51,12 @@ function refresh(pageNumber,pageSize,downOrUp){
 
         }
 
-        //判断是否是第一次评论
+        //判断是否是第一次评价
         $(".wrapAll_comment").html(template('id_show_xingxing',{items:data.resultObject.commentCode}));
         commentCode = data.resultObject.commentCode;
         //	回复弹窗
             mui("#refreshContainer").on('tap', '.btn_littleReturn', function (event) {
-            //评论id
+            //评价id
             criticize_id=this.id;
             $(".bg_userModal").show();
             $(".wrapLittle_comment").show();
@@ -67,7 +67,7 @@ function refresh(pageNumber,pageSize,downOrUp){
             $(".wrapLittle_comment").hide();
         });
 
-        //	评论弹窗
+        //	评价弹窗
         $(".wrap_input").on('click',function(){
             $(".bg_modal").show();
             $(".wrapAll_comment").show();
@@ -128,7 +128,7 @@ function refresh(pageNumber,pageSize,downOrUp){
 
         //点赞
             mui("#refreshContainer").on('tap', '.btn_click_zan', function (event) {
-            //评论id
+            //评价id
             criticize_id=$(this).attr("data-id");
             var p = $(this).find('span').html();
             var src = $(this).find('img').attr('src');
@@ -156,7 +156,7 @@ function refresh(pageNumber,pageSize,downOrUp){
             }else{
                 $(".return_btn").css("opacity","1");
             }
-        //控制评论按钮颜色
+        //控制评价按钮颜色
             $('.my_impression1').click(function(){
                 var list=document.getElementsByClassName("active_color");
                 if(my_impression1==""||my_impression2==""||my_impression3==""||list.length<=0||$('#comment_detailed').val()==""){
@@ -218,7 +218,7 @@ function refresh(pageNumber,pageSize,downOrUp){
 
     });
 }
-//评论
+//评价
 function reportComment() {
     var comment_detailed = $('#comment_detailed').val();
     //判断浮层是否已选，内容是否不为空
@@ -273,22 +273,22 @@ function reportComment() {
     }
     
     requestService("/xczh/criticize/saveCriticize",paramsCriticize,function(data) {
-        //	课程名称/等级/评论
+        //	课程名称/等级/评价
         if(data.success==true){
-            webToast("评论成功","middle",1500);
+            webToast("评价成功","middle",1500);
             $(".wrapAll_comment").hide();
             $(".bg_modal").hide();
             document.getElementById("comment_detailed").value="";
             del();
             refresh(1,10,'down')
         }else{
-            webToast("评论失败","middle",1500);
+            webToast("评价失败","middle",1500);
         }
 
     },false);
 }
 
-//回复评论
+//回复评价
 function replyComment() {
     var comment_detailed = $('#littlt_return').val();
 
@@ -320,7 +320,7 @@ function replyComment() {
     
 // 手机自带表情添加判断结束
     requestService("/xczh/criticize/saveReply",paramsReply,function(data) {
-        //	课程名称/等级/评论
+        //	课程名称/等级/评价
         if(data.success==true){
             webToast("回复成功","middle",1500);
             $(".bg_userModal").hide();
@@ -341,11 +341,11 @@ function updatePraise(id,isPraise) {
         praise: isPraise,
         criticizeId: id
     }, function (data) {
-        //	课程名称/等级/评论
+        //	课程名称/等级/评价
     },false);
 }
 
-//清空评论状态
+//清空评价状态
 function del(){
     //星星
     var star='../images/xing1.png';
