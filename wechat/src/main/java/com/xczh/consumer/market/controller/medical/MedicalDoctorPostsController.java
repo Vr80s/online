@@ -1,6 +1,7 @@
 package com.xczh.consumer.market.controller.medical;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.service.OLAttachmentCenterService;
 import com.xczh.consumer.market.utils.ResponseObject;
@@ -12,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,10 +31,7 @@ public class MedicalDoctorPostsController {
     @Autowired
     private IMedicalDoctorPostsService medicalDoctorPostsService;
     @Autowired
-    private IMedicalDoctorAccountService medicalDoctorAccountService;
-    @Autowired
     private OLAttachmentCenterService service;
-
 
     private static final org.slf4j.Logger LOGGER = LoggerFactory
             .getLogger(MedicalDoctorPostsController.class);
@@ -40,30 +39,28 @@ public class MedicalDoctorPostsController {
     /**
      * 医师动态列表
      */
-    @RequestMapping("doctorDynamicsList")
+    @RequestMapping(value="doctorDynamicsList", method = RequestMethod.GET)
     @ResponseBody
     public ResponseObject doctorDynamicsList(@Account String accountId, @RequestParam("pageNumber") Integer pageNumber,
                                               @RequestParam("pageSize") Integer pageSize,
-                                              @RequestParam("type") Integer type){
+                                              @RequestParam(required = false) Integer type){
         Page<MedicalDoctorPosts> page = new Page<>();
         page.setCurrent(pageNumber);
         page.setSize(pageSize);
-        MedicalDoctorAccount mha = medicalDoctorAccountService.getByUserId(accountId);
-        Page<MedicalDoctorPosts> list = medicalDoctorPostsService.selectMedicalDoctorPostsPage(page,type,mha.getDoctorId());
+        Page<MedicalDoctorPosts> list = medicalDoctorPostsService.selectMedicalDoctorPostsPage(page,type,accountId);
         return ResponseObject.newSuccessResponseObject(list);
     }
 
     /**
      * 添加医师动态
      */
-    @RequestMapping("addDoctorDynamics")
+    @RequestMapping(value="addDoctorDynamics", method = RequestMethod.POST)
     @ResponseBody
     public ResponseObject addDoctorDynamics(@Account String accountId, MedicalDoctorPosts medicalDoctorPosts,
                                              @RequestParam(value = "coverImg",required = false) MultipartFile coverImg)
             throws Exception {
 
-        MedicalDoctorAccount mha = medicalDoctorAccountService.getByUserId(accountId);
-        medicalDoctorPosts.setDoctorId(mha.getDoctorId());
+        medicalDoctorPosts.setDoctorId(accountId);
         String cover_img="";
         if(coverImg!=null){
             //封面图片
@@ -80,7 +77,7 @@ public class MedicalDoctorPostsController {
     /**
      * 编辑医师动态
      */
-    @RequestMapping("updateDoctorDynamics")
+    @RequestMapping(value="updateDoctorDynamics", method = RequestMethod.POST)
     @ResponseBody
     public ResponseObject updateDoctorDynamics(@Account String accountId,MedicalDoctorPosts medicalDoctorPosts,
                                                 @RequestParam(value = "coverImg",required = false) MultipartFile coverImg)
@@ -101,11 +98,25 @@ public class MedicalDoctorPostsController {
     /**
      * 删除医师动态
      */
-    @RequestMapping("deleteDoctorDynamics")
+    @RequestMapping(value="deleteDoctorDynamics", method = RequestMethod.POST)
     @ResponseBody
     public ResponseObject deleteDoctorDynamics(@RequestParam("id") Integer id){
         medicalDoctorPostsService.deleteMedicalDoctorPosts(id);
         return ResponseObject.newSuccessResponseObject("删除成功");
+    }
+
+    /**
+     * 医师动态置顶/取消置顶
+     */
+    @RequestMapping(value="updateStickDoctorDynamics", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseObject updateStickDoctorDynamics(@RequestParam("id") Integer id,@RequestParam("stick") Boolean stick){
+        medicalDoctorPostsService.updateStickMedicalDoctorPosts(id,stick);
+        if(stick){
+            return ResponseObject.newSuccessResponseObject("置顶成功");
+        }else {
+            return ResponseObject.newSuccessResponseObject("取消置顶成功");
+        }
     }
 
 }

@@ -43,4 +43,9 @@ public class MedicalDoctorPostsServiceImpl extends ServiceImpl<MedicalDoctorPost
     public void deleteMedicalDoctorPosts(Integer id) {
         medicalDoctorPostsMapper.deleteMedicalDoctorPosts(id);
     }
+
+    @Override
+    public void updateStickMedicalDoctorPosts(Integer id, Boolean stick) {
+        medicalDoctorPostsMapper.updateStickMedicalDoctorPosts(id,stick);
+    }
 }
