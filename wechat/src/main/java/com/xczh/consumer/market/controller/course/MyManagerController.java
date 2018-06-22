@@ -133,7 +133,7 @@ public class MyManagerController {
 
             map.put("tokenVaild", 1);
             //新增关注数和粉丝数的显示
-            List<Integer> listff = focusServiceRemote.selectFocusAndFansCountAndCriticizeCount(userId);
+            List<Integer> listff = focusServiceRemote.selectFocusAndFansCount(userId);
 
             map.put("fansCount", listff.get(0));           //粉丝总数
             map.put("focusCount", listff.get(1));           //关注总数
