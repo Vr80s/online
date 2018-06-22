@@ -19,6 +19,8 @@
 <script src="/xcview/js/physician/zepto1.14.min.js"></script>
 <script src="/xcview/js/physician/swiper-4.2.6.min.js"></script>
 
+<script type="text/javascript" src="/xcview/js/common/jquery.min-2.1.1.js"></script>
+
 <script>
 	// 判断横屏展示时的状态
 	window.onorientationchange=function(){
@@ -29,6 +31,7 @@
 	    }
 	}	
 </script>
+
 <style>
 	/*轮播开始*/
 	.swiper-container{
@@ -141,12 +144,12 @@
 			<div class="screen_show_bg"></div>
 			<div class="screen_show_main">
 				<ul>
-					<li class="">全部动态</li>
-					<li class="">直播</li>
-					<li class="">课程</li>
-					<li class="">医案</li>
-					<li class="">文章</li>
-					<li class="">其他</li>
+					<li class="filtrate_all">全部动态</li>
+					<li class="filtrate_sinatv">直播</li>
+					<li class="filtrate_course">课程</li>
+					<li class="filtrate_consilia">医案</li>
+					<li class="filtrate_essay">文章</li>
+					<li class="filtrate_rests">其他</li>
 				</ul>
 			</div>
 		</div>
@@ -154,11 +157,11 @@
 	</div>
 	<!-- 中间内容开始 -->
 	<div class="the_dynamic">
-		<!-- 其他 -->
+		<!-- 其他一 -->
 		<div class="rests_nav">
 			<div class="rests_nav_span">
-				<span class="title">余老师讲课风采</span>
 				<span class="stick_img"><img src="/xcview/images/stick.png" alt="" />置顶</span>
+				<span class="title">余老师讲课风采</span>
 			</div>
 			<div id="ccvideo">
 				<video>
@@ -174,63 +177,270 @@
 				<div class="number_people_bg">
 					<div class="number_people_fize"><img src="/xcview/images/zan01.png" alt="" class="number_people_zan" /><span>你傻啊，我不傻，你傻</span></div>
 					<!-- 评价内容 -->
-					<div class="evaluate_main"><span class="name">辣椒小姐：</span><span class="evaluate_cen">我是内容</span></div>
+					<div class="evaluate_main">
+						<!-- <div class=""> -->
+							<span class="name">辣椒小姐：</span>
+							<span class="evaluate_cen">我是内容</span>
+						<!-- </div> -->
+						<div class="both"></div>
+						<div class="response">
+							<span class="my">麦克</span>
+							<span class="response_cen">回复</span>
+							<span class="she">傻瓜：</span>
+							<span class="response_center">我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻</span>
+						</div>
+
+					</div>
 				</div>
 			</div>
+		</div>
 
+		<!-- 医案 -->
+		<div class="consilia_nav">
+			<div class="consilia_nav_span">
+				<span class="stick_img">#医案#</span>
+				<span class="title">朱xx，男，53岁</span>
+			</div>
+			<div class="consilia_nav_main">
+				得控制，体温在38℃~39℃之间。初期热无定，不恶
+				得控制，体温在38℃~39℃之间。初期热无定，不恶
+				得控制，体温在38℃~39℃之间。初期热无定，不恶
+				得控制，体温在38℃~39℃之间。初期热无定，不恶
+				得控制，体温在38℃~39℃之间。初期热无定，不恶
+				得控制，体温在38℃~39℃之间。初期热无定，不恶
+				得控制，体温在38℃~39℃之间。初期热无定，不恶
+				得控制，体温在38℃~39℃之间。初期热无定，不恶
+			</div>
+			<div class="consilia_nav_btn"><span>收起</span></div>
+			<div class="consilia_nav_cen">
+				<img src="/xcview/images/xianxia_03.jpg" alt="" />
+				<div class="consilia_nav_cen_size">得控制，体温在38℃~39℃之间。初期热无定，不恶得控制，体温在38℃~39℃之间。初期热无定，不恶</div>
+			</div>
+			<div class="both"></div>
+			<div class="consilia_nav_bottom">
+				<span class="time">6小时前<span class="basis_tips">医案</span></span>
+				<span class="img"><img src="/xcview/images/zan01.png" alt="" class="zan_img" /><img src="/xcview/images/returned.png" alt="" class="consilia_evaluate_img" /></span>
+				<div class="both"></div>
+			</div>
+			<div class="consilia_number_people">
+				<div class="consilia_number_people_bg">
+					<div class="consilia_number_people_fize"><img src="/xcview/images/zan01.png" alt="" class="consilia_number_people_zan" /><span>你傻啊，我不傻，你傻</span></div>
+					<!-- 评价内容 -->
+					<div class="consilia_evaluate_main">
+						<!-- <div class=""> -->
+							<span class="name">辣椒小姐：</span>
+							<span class="consilia_evaluate_cen">我是内容</span>
+						<!-- </div> -->
+						<div class="both"></div>
+						<div class="consilia_response">
+							<span class="my">麦克</span>
+							<span class="consilia_response_cen">回复</span>
+							<span class="she">傻瓜：</span>
+							<span class="consilia_response_center">我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻</span>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- 其他二 -->
+		<div class="essay_pack_up">
+			<div class="essay_main">得控制，体温在38℃~39℃之间。初期热无定，不恶得控制，体温在38℃~39℃之间。初期热无定，不恶得控制，体温在38℃~39℃之间。初期热无定，不恶得控制，体温在38℃~39℃之间。初期热无定，不恶得控制，体温在38℃~39℃之间。初期热无定，不恶得控制，体温在38℃~39℃之间。初期热无定，不恶得控制，体温在38℃~39℃之间。初期热无定，不恶得控制，体温在38℃~39℃之间。初期热无定，不恶</div>
+			<div class="essay_pack_up_btn"><span>收起</span></div>
+			<div class="essay_nav_bottom">
+				<span class="time">2018.5.30 18:00</span>
+				<span class="img"><img src="/xcview/images/zan01.png" alt="" class="zan_img" /><img src="/xcview/images/returned.png" alt="" class="essay_evaluate_img" /></span>
+				<div class="both"></div>
+			</div>
+			<div class="essay_number_people">
+				<div class="essay_number_people_bg">
+					<div class="essay_number_people_fize"><img src="/xcview/images/zan01.png" alt="" class="essay_number_people_zan" /><span>你傻啊，我不傻，你傻</span></div>
+					<!-- 评价内容 -->
+					<div class="essay_evaluate_main">
+						<!-- <div class=""> -->
+							<span class="name">辣椒小姐：</span>
+							<span class="essay_evaluate_cen">我是内容</span>
+						<!-- </div> -->
+						<div class="both"></div>
+						<div class="essay_response">
+							<span class="my">麦克</span>
+							<span class="essay_response_cen">回复</span>
+							<span class="she">傻瓜：</span>
+							<span class="essay_response_center">我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻</span>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- 文章 -->
+		<div class="article_nav">
+			<div class="article_nav_span">
+				<span class="title">这里有防护卵巢早衰的秘诀 | 余大夫小偏方</span>
+			</div>
+			<div class="article_nav_cen">
+				<img src="/xcview/images/xianxia_03.jpg" alt="" />
+				<div class="article_nav_cen_size">得控制，体温在38℃~39℃之间。初期热无定，不恶得控制，体温在38℃~39℃之间。初期热无定，不恶</div>
+			</div>
+			<div class="both"></div>
+			<div class="article_nav_bottom">
+				<span class="time">2018.5.30 18:00<span class="basis_tips">文章</span></span>
+				<span class="img"><img src="/xcview/images/zan01.png" alt="" class="zan_img" /><img src="/xcview/images/returned.png" alt="" class="article_evaluate_img" /></span>
+				<div class="both"></div>
+			</div>
+			<div class="article_number_people">
+				<div class="article_number_people_bg">
+					<div class="article_number_people_fize"><img src="/xcview/images/zan01.png" alt="" class="article_number_people_zan" /><span>你傻啊，我不傻，你傻</span></div>
+					<!-- 评价内容 -->
+					<div class="article_evaluate_main">
+						<!-- <div class=""> -->
+							<span class="name">辣椒小姐：</span>
+							<span class="article_evaluate_cen">我是内容</span>
+						<!-- </div> -->
+						<div class="both"></div>
+						<div class="article_response">
+							<span class="my">麦克</span>
+							<span class="article_response_cen">回复</span>
+							<span class="she">傻瓜：</span>
+							<span class="article_response_center">我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻</span>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- 其他三 -->
+		<div class="paper_nav">
+			<div class="paper_nav_span">
+				<span class="stick_img">#盐蒸橘子治咳嗽#<span class="title">得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制</span></span>
+				
+			</div>
+			<div class="paper_nav_cen">
+				<img src="/xcview/images/xianxia_03.jpg" alt="" />
+				<img src="/xcview/images/xianxia_03.jpg" alt="" />
+				<img src="/xcview/images/xianxia_03.jpg" alt="" />
+				<div class="both"></div>  <!-- 清除浮动 -->
+			</div>
+			<div class="both"></div>
+			<div class="paper_nav_bottom">
+				<span class="time">6小时前</span>
+				<span class="img"><img src="/xcview/images/zan01.png" alt="" class="zan_img" /><img src="/xcview/images/returned.png" alt="" class="paper_evaluate_img" /></span>
+				<div class="both"></div>
+			</div>
+			<div class="paper_number_people">
+				<div class="paper_number_people_bg">
+					<div class="paper_number_people_fize"><img src="/xcview/images/zan01.png" alt="" class="paper_number_people_zan" /><span>你傻啊，我不傻，你傻</span></div>
+					<!-- 评价内容 -->
+					<div class="paper_evaluate_main">
+						<!-- <div class=""> -->
+							<span class="name">辣椒小姐：</span>
+							<span class="paper_evaluate_cen">我是内容</span>
+						<!-- </div> -->
+						<div class="both"></div>
+						<div class="paper_response">
+							<span class="my">麦克</span>
+							<span class="paper_response_cen">回复</span>
+							<span class="she">傻瓜：</span>
+							<span class="paper_response_center">我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻</span>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- 课程 -->
+		<div class="course_nav">
+			<div class="course_nav_span">
+				<span class="title">最好的课程，只需9.9</span>
+			</div>
+			<div class="course_nav_cen">
+				<img src="/xcview/images/xianxia_03.jpg" alt="" />
+				<div class="course_nav_cen_size">最好的课程，只需9.9</div>
+				<div class="course_nav_rate"><span>99</span>熊猫币</div>
+				<!-- <div class="course_nav_rate">免费</div> -->
+			</div>
+			<div class="both"></div>
+			<div class="course_nav_bottom">
+				<span class="time">6小时前<span class="basis_tips">线下课</span></span>
+				<span class="img"><img src="/xcview/images/zan01.png" alt="" class="zan_img" /><img src="/xcview/images/returned.png" alt="" class="course_evaluate_img" /></span>
+				<div class="both"></div>
+			</div>
+			<div class="course_number_people">
+				<div class="course_number_people_bg">
+					<div class="course_number_people_fize"><img src="/xcview/images/zan01.png" alt="" class="course_number_people_zan" /><span>你傻啊，我不傻，你傻</span></div>
+					<!-- 评价内容 -->
+					<div class="course_evaluate_main">
+						<!-- <div class=""> -->
+							<span class="name">辣椒小姐：</span>
+							<span class="course_evaluate_cen">我是内容</span>
+						<!-- </div> -->
+						<div class="both"></div>
+						<div class="course_response">
+							<span class="my">麦克</span>
+							<span class="course_response_cen">回复</span>
+							<span class="she">傻瓜：</span>
+							<span class="course_response_center">我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻</span>
+						</div>
+
+					</div>
+				</div>
+			</div>
 		</div>
 
 		<!-- 直播 -->
 		<div class="sinatv_nav">
-			
+			<div class="sinatv_nav_span">
+				<span class="title">6月12日10:00直播，免费</span>
+			</div>
+			<div class="sinatv_nav_cen">
+				<img src="/xcview/images/xianxia_03.jpg" alt="" />
+				<div class="sinatv_nav_cen_size">跟着中医学养娃-杭州大夫育儿十讲</div>
+				<!-- <div class="sinatv_nav_rate"><span>99</span>熊猫币</div> -->
+				<div class="sinatv_nav_rate"><span>免费</span></div>
+			</div>
+			<div class="both"></div>
+			<div class="sinatv_nav_bottom">
+				<span class="time">2018.5.30 18:00<span class="basis_tips">直播课</span></span>
+				<span class="img"><img src="/xcview/images/zan01.png" alt="" class="zan_img" /><img src="/xcview/images/returned.png" alt="" class="sinatv_evaluate_img" /></span>
+				<div class="both"></div>
+			</div>
+			<div class="sinatv_number_people">
+				<div class="sinatv_number_people_bg">
+					<div class="sinatv_number_people_fize"><img src="/xcview/images/zan01.png" alt="" class="sinatv_number_people_zan" /><span>你傻啊，我不傻，你傻</span></div>
+					<!-- 评价内容 -->
+					<div class="sinatv_evaluate_main">
+						<!-- <div class=""> -->
+							<span class="name">辣椒小姐：</span>
+							<span class="sinatv_evaluate_cen">我是内容</span>
+						<!-- </div> -->
+						<div class="both"></div>
+						<div class="sinatv_response">
+							<span class="my">麦克</span>
+							<span class="sinatv_response_cen">回复</span>
+							<span class="she">傻瓜：</span>
+							<span class="sinatv_response_center">我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻</span>
+						</div>
+
+					</div>
+				</div>
+			</div>
 		</div>
 
-		<!-- 课程 -->
-		<div class="course_nav"></div>
-
-		<!-- 医案 -->
-		<div class="consilia_nav"></div>
-
-		<!-- 文章 -->
-		<div class="article_nav"></div>
-
-		
 
 	</div>
 	<!-- 中间内容结束 -->
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
 
 	
 </body>
-<script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
+<!-- <script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script> -->
+<script type="text/javascript" src="/xcview/js/common/jquery-1.8.3.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/common.js?v=wechat_1.1.1"></script> 
 <script type="text/javascript" src="/xcview/js/common/template.js"></script>    <!--数据模板引入-->
-
-<script>
-	window.onload = function(){
-		$(".attention").click(function(){
-            $(".attention").find('img').attr('src','/xcview/images/yigz.png');
-            $(".pay_attention").html("已关注");
-            $(".attention").css("background","#bbb");
-	    });	
-	    /*$(".attention").find('img').attr('src','/xcview/images/weigz.png');
-        $(".pay_attention").html("加关注");
-        $(".attention").css("background","#00bc12");*/
-	};
-</script>
-
 
 <!-- 导航渐变 -->
 <script>
@@ -294,6 +504,26 @@ $(window).bind("scroll", function() {
 <script type="text/javascript">
 	// 导航  固定和点击切换事件
 	window.onload = function(){
+		// 点击收起放到最上边--不然影响其他事件
+		// 医案  收起
+		$(".consilia_nav_btn").toggle(function(){
+	    	$(".consilia_nav_btn span").html('收起');
+		    $(".consilia_nav_main").removeClass("add");
+	  	},function(){
+		    $(".consilia_nav_btn span").html('展开');
+		    $(".consilia_nav_main").addClass("add");
+	    });
+
+	    // 其他二收起
+	    $(".essay_pack_up_btn").toggle(function(){
+	    	$(".essay_pack_up_btn span").html('收起');
+		    $(".essay_main").removeClass("essay_pack_up_add");
+	  	},function(){
+		    $(".essay_pack_up_btn span").html('展开');
+		    $(".essay_main").addClass("essay_pack_up_add");
+	    });
+
+
 		$(".li_data").click(function(){
 			$(".anchor_navigation .border").css("left","1.04rem");
 			$(".li_data").addClass("li_color");
@@ -352,7 +582,7 @@ $(window).bind("scroll", function() {
               }
               $(this).addClass('active');
               $(".li_data span").html($(this).html());
-
+              $("body").removeClass("body");
               	// 替换文字后，改变3角形的位置
                 var mobile = $(".li_data span").html();		
 				if(mobile.length<3){
@@ -361,21 +591,87 @@ $(window).bind("scroll", function() {
 					$(".li_data img").css("left","1.95rem");
 				};
 				$(".screen_show").hide();
-			  
-              
             })
-
         };
         $(aBtn[0]).click();
 
+        // 点击动态筛选里面的内容  
+        // 点击全部动态
+        $(".filtrate_all").click(function(){
+            $(".rests_nav").removeClass("hide");  //其他1
+            $(".consilia_nav").removeClass("hide");  // 医案  
+            $(".essay_pack_up").removeClass("hide");  //其他2 
+            $(".article_nav").removeClass("hide");  //文章 
+            $(".rests_nav").removeClass("hide");  //其他3  
+            $(".course_nav").removeClass("hide");  //课程 
+            $(".sinatv_nav").removeClass("hide");  //直播 
+	    });	
+        //点击直播
+	    $(".filtrate_sinatv").click(function(){
+            $(".rests_nav").addClass("hide");  //其他1
+            $(".consilia_nav").addClass("hide");  // 医案  
+            $(".essay_pack_up").addClass("hide");  //其他2 
+            $(".article_nav").addClass("hide");  //文章 
+            $(".paper_nav").addClass("hide");  //其他3  
+            $(".course_nav").addClass("hide");  //课程 
+            $(".sinatv_nav").removeClass("hide");  //直播 
+	    });
+	    //点击课程 
+	    $(".filtrate_course").click(function(){
+            $(".rests_nav").addClass("hide");  //其他1
+            $(".consilia_nav").addClass("hide");  // 医案  
+            $(".essay_pack_up").addClass("hide");  //其他2 
+            $(".article_nav").addClass("hide");  //文章 
+            $(".paper_nav").addClass("hide");  //其他3  
+            $(".course_nav").removeClass("hide");  //课程 
+            $(".sinatv_nav").addClass("hide");  //直播 
+	    });	
+	    //点击医案
+	    $(".filtrate_consilia").click(function(){
+            $(".rests_nav").addClass("hide");  //其他1
+            $(".consilia_nav").removeClass("hide");  // 医案  
+            $(".essay_pack_up").addClass("hide");  //其他2 
+            $(".article_nav").addClass("hide");  //文章 
+            $(".paper_nav").addClass("hide");  //其他3  
+            $(".course_nav").addClass("hide");  //课程 
+            $(".sinatv_nav").addClass("hide");  //直播 
+	    });	
+	    //点击文章 
+	    $(".filtrate_essay").click(function(){
+            $(".rests_nav").addClass("hide");  //其他1
+            $(".consilia_nav").addClass("hide");  // 医案  
+            $(".essay_pack_up").addClass("hide");  //其他2 
+            $(".article_nav").removeClass("hide");  //文章 
+            $(".paper_nav").addClass("hide");  //其他3  
+            $(".course_nav").addClass("hide");  //课程 
+            $(".sinatv_nav").addClass("hide");  //直播 
+	    });	
+	    //点击其他
+	    $(".filtrate_rests").click(function(){
+            $(".rests_nav").removeClass("hide");  //其他1
+            $(".consilia_nav").addClass("hide");  // 医案  
+            $(".essay_pack_up").removeClass("hide");  //其他2 
+            $(".article_nav").addClass("hide");  //文章 
+            $(".paper_nav").removeClass("hide");  //其他3  
+            $(".course_nav").addClass("hide");  //课程 
+            $(".sinatv_nav").addClass("hide");  //直播 
+	    });	
 
+        // 点击关注
+        $(".attention").click(function(){
+            $(".attention").find('img').attr('src','/xcview/images/yigz.png');
+            $(".pay_attention").html("已关注");
+            $(".attention").css("background","#bbb");
+	    });	
+	    /*$(".attention").find('img').attr('src','/xcview/images/weigz.png');
+        $(".pay_attention").html("加关注");
+        $(".attention").css("background","#00bc12");*/
 
+        // 点赞 
+        $(".rests_nav .zan_img").click(function(){
+            $(this).attr('src','/xcview/images/zan001.png');
+	    });	
 
 	};
 </script>
-
-
-
-
-
 </html>
