@@ -212,7 +212,7 @@ $(".add_bx").click(function () {
                     return false;
                 }
                 if (!link.match(reg)) {
-                    alertInfo("不合法的url格式");
+                    alertInfo("不合法的url格式(正确格式如:https://www.hao123.com/)");
                     return false;
                 }
             }
@@ -264,7 +264,7 @@ $(".add_bx").click(function () {
 function updateStatus(obj) {
     var oo = $(obj).parent().parent().parent();
     var row = banner2Table.fnGetData(oo); // get datarow
-    confirmInfo('确认立即发送该消息吗?', function() {
+    confirmInfo('确认后消息会提前推送，确认立即发送该消息吗? ', function() {
         ajaxRequest(basePath + "/message/messagePush/updateStatus/" + row.id, null, function (data) {
             freshTable(banner2Table);
         });

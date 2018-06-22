@@ -135,7 +135,6 @@ public class MessageRemindingServiceImpl implements MessageRemindingService {
                                 .build(user.getId(), CourseUtil.getRouteType(course.getCollection(), course.getType()), null);
                         commonMessageService.saveMessage(baseMessage);
                     }
-
                 }
             }
         }
@@ -166,7 +165,7 @@ public class MessageRemindingServiceImpl implements MessageRemindingService {
                         .buildAppPush(MessageFormat.format(APP_PUSH_COLLECTION_COURSE_REMIND, courseName, dateStr))
                         .buildSms(sendCourseUpdateRemindCode, params)
                         .detailId(String.valueOf(course.getId()))
-                        .build(course.getUserLecturerId(), RouteTypeEnum.ANCHOR_WORK_TABLE_PAGE, null);
+                        .build(course.getUserLecturerId(), RouteTypeEnum.NONE, null);
                 commonMessageService.saveMessage(baseMessage);
             }
         }

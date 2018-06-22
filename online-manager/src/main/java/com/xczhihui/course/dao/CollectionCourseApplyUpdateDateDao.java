@@ -15,7 +15,7 @@ public class CollectionCourseApplyUpdateDateDao extends SimpleHibernateDao {
         mapSqlParameterSource.addValue("collectionId", collectionId);
         String sql = "SELECT date FROM collection_course_apply_update_date WHERE collection_id = :collectionId";
         List<Integer> dates = this.getNamedParameterJdbcTemplate()
-                .query(sql, mapSqlParameterSource, (rs, rowNum) -> rs.getInt(0));
+                .queryForList(sql, mapSqlParameterSource, Integer.class);
         return dates;
     }
 }

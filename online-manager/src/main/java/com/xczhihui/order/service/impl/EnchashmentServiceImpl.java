@@ -142,14 +142,14 @@ public class EnchashmentServiceImpl extends OnlineBaseServiceImpl implements
             if (success) {
                 weixinParams.put("first", "申请单号：" + orderNo);
                 weixinParams.put("keyword1", TimeUtil.getYearMonthDayHHmm(e.getTime()));
-                weixinParams.put("keyword2", e.getEnchashmentSum().stripTrailingZeros().toPlainString());
+                weixinParams.put("keyword2", e.getEnchashmentSum().stripTrailingZeros().toPlainString() + "(元)");
                 weixinParams.put("keyword3", "银行卡");
                 weixinParams.put("keyword4", e.getStatus() == ApplyStatus.PASS.getCode() ? "提现申请已审核通过，1-3个工作日内完成打款操作，请耐心等候，谢谢！" : "您的提现金额已打入您指定的账户，预计72小时内到账。");
                 weixinParams.put("keyword5", "");
                 weixinParams.put("remark", "");
             } else {
                 weixinParams.put("first", "您好，您的提现申请审核失败~");
-                weixinParams.put("keyword1", e.getEnchashmentSum().stripTrailingZeros().toPlainString());
+                weixinParams.put("keyword1", e.getEnchashmentSum().stripTrailingZeros().toPlainString() + "(元)");
                 weixinParams.put("keyword2", e.getOrderNo());
                 weixinParams.put("keyword3", reason + "，如有疑问，请联系客服0898-32881934。");
                 weixinParams.put("remark", "");
