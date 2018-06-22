@@ -44,7 +44,7 @@ public class HostController extends AbstractController{
 		Map<String,Object> mapAll = new HashMap<String,Object>();
 		Map<String,Object> lecturerInfo = myInfoService.findHostInfoById(lecturerId);
 		mapAll.put("lecturerInfo", lecturerInfo);          //讲师基本信息
-		List<Integer> listff =   focusService.selectFocusAndFansCountAndCriticizeCount(lecturerId);
+		List<Integer> listff =   focusService.selectFocusOrFansCountOrCriticizeCount(lecturerId);
 		mapAll.put("fansCount", listff.get(0));       	   //粉丝总数
 		mapAll.put("focusCount", listff.get(1));   	  	   //关注总数
 		mapAll.put("criticizeCount", listff.get(2));   	   //总数评论总数

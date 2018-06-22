@@ -40,9 +40,6 @@ requestService("/xczh/bunch/hotSearch",null,
 			if(data.resultObject.defaultSearch!=null&&data.resultObject.defaultSearch.length>0){
 				localStorage.setItem("defaultKey", data.resultObject.defaultSearch[0].name);
 			}
-   	    	
- 	    	
- 	    	
 // 	    	localStorage.setItem("defaultKey", data.resultObject.defaultSearch);
  	    	
 		}

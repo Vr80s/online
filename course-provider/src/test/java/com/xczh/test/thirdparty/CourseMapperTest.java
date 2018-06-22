@@ -1,5 +1,7 @@
 package com.xczh.test.thirdparty;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -7,7 +9,6 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.xczhihui.common.util.enums.PagingFixedType;
 import com.xczhihui.course.mapper.CourseMapper;
 import com.xczhihui.course.mapper.MobileBannerMapper;
 import com.xczhihui.course.model.OfflineCity;
@@ -33,9 +34,12 @@ public class CourseMapperTest extends BaseJunit4Test {
 	public MobileBannerMapper mobileBannerMapper;
 	
 	
-   @Autowired
-    private IMobileBannerService mobileBannerService;
-
+	  @Autowired
+	    private MobileBannerMapper iMobileBannerMapper;
+	  
+	  @Autowired
+	    private  IMobileBannerService  mobileBannerService;
+	  
     @Autowired
     private IOfflineCityService offlineCityService;
 	
@@ -71,35 +75,71 @@ public class CourseMapperTest extends BaseJunit4Test {
 	public void ddd(){
 		
 		
-		System.out.println("start:"+System.currentTimeMillis());
 		
         Page<OfflineCity> OfflineCity = new Page<>();
         OfflineCity.setCurrent(1);
         OfflineCity.setSize(4);
 	    Page<OfflineCity> ocl = offlineCityService.selectOfflineRecommendedCityPage(OfflineCity);
 	    
-	    //城市  城市中的课程
-	    List<Map<String, Object>> mapCourseList = mobileBannerService.realCourseList(ocl.getRecords(), PagingFixedType.PC_REAL_PAGETYPE_UP.getValue(),
-	            PagingFixedType.PC_REAL_PAGETYPE_DOWN.getValue(), false);
-	
-	    System.out.println("end:"+System.currentTimeMillis());
-	
 	}
 	
 	@Test
 	public void eee(){
 		
-		System.out.println("start:"+System.currentTimeMillis());
+		
         Page<OfflineCity> OfflineCity = new Page<>();
         OfflineCity.setCurrent(1);
         OfflineCity.setSize(4);
 	    Page<OfflineCity> ocl = offlineCityService.selectOfflineRecommendedCityPage(OfflineCity);
+	    System.out.println("start:-------------"+System.currentTimeMillis());
+	    long start = System.currentTimeMillis();
 	    mobileBannerMapper.realTest1();
 	    for (int i = 0; i < ocl.getRecords().size(); i++) {
 	    	mobileBannerMapper.realTest2(ocl.getRecords().get(i).getCityName());
 		}
 	    System.out.println("end:"+System.currentTimeMillis());
-	
+	    System.out.println("cha:---------------"+(System.currentTimeMillis()-start));
+	    
+	    
+	    System.out.println("start1=================:"+System.currentTimeMillis());
+	    long start1 = System.currentTimeMillis();
+	    
+	    List<CourseLecturVo> list = iMobileBannerMapper.realCourseList(ocl.getRecords(), 4, 4,false);
+        List<Map<String, Object>> mapCourseList = new ArrayList<Map<String, Object>>();
+        Map<String, Object> mapTj = new HashMap<String, Object>();
+        List<CourseLecturVo> listqg = new ArrayList<CourseLecturVo>();
+        if (list != null) {
+            for (CourseLecturVo courseLecturVo : list) {
+                if ("全国课程".equals(courseLecturVo.getNote())) {
+                    listqg.add(courseLecturVo);
+                }
+            }
+        }
+        if (listqg.size() > 0) {
+            mapTj.put("title", "全国课程");
+            mapTj.put("courseList", listqg);
+            mapCourseList.add(mapTj);
+        }
+        if(ocl.getRecords() != null){
+            for (OfflineCity oc : ocl.getRecords()) {
+                Map<String, Object> mapMenu = new HashMap<String, Object>();
+                List<CourseLecturVo> listMenu = new ArrayList<CourseLecturVo>();
+                if (list != null) {
+                    for (CourseLecturVo courseLecturVo : list) {
+                        if (oc.getCityName().equals(courseLecturVo.getNote())) {
+                            listMenu.add(courseLecturVo);
+                        }
+                    }
+                }
+                if (listMenu.size() > 0) {
+                    mapMenu.put("title", oc.getCityName());
+                    mapMenu.put("courseList", listMenu);
+                    mapCourseList.add(mapMenu);
+                }
+            }
+        }
+	    System.out.println("end1:"+System.currentTimeMillis());
+	    System.out.println("cha1===================:"+(System.currentTimeMillis()-start1));
 	}
 	
 

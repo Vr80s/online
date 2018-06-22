@@ -13,7 +13,7 @@
 		left join `oe_user` ous
 			ON  mdpc.reply_user_id = ous.`id`
         WHERE mdpc.deleted = 0
-        ORDER BY mdpc.create_time asc
+        ORDER BY mdpc.create_time desc
 
     </select>
 

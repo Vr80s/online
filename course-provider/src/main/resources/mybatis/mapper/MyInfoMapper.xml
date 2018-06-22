@@ -189,7 +189,8 @@
 			select 
 		    	ca.profile_photo as headPortrait,
 		    	ca.name,
-				ca.user_id as userId
+				ca.user_id as userId,
+				ca.type as type
 		    from 
 		    course_anchor ca 
 		         join oe_user  ou on ca.user_id = ou.id

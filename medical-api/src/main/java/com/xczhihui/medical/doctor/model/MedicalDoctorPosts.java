@@ -82,6 +82,36 @@ public class MedicalDoctorPosts extends Model<MedicalDoctorPosts> {
 	 */
 	@TableField("course_id")
 	private Integer courseId;
+	/**
+	 * 是否置顶1:置顶0:取消置顶
+	 */
+	@TableField("stick")
+	private Boolean stick;
+	/**
+	 * 现价
+	 */
+	@TableField(exist = false)
+	private double currentPrice;
+	/**
+	 *课程名
+	 */
+	@TableField(exist = false)
+	private String gradeName;
+	/**
+	 * 课程小图
+	 */
+	@TableField(exist = false)
+	private String smallImgPath;
+	/**
+	 * 0 不是专辑 1 是专辑
+	 */
+	@TableField(exist = false)
+	private Integer collection;
+	/**
+	 * 课程类型 1：视频 2：音频 3：直播 4：线下培训班
+	 */
+	@TableField(exist = false)
+	private Integer courseType;
 
 	@Override
 	protected Serializable pkVal() {
@@ -192,6 +222,54 @@ public class MedicalDoctorPosts extends Model<MedicalDoctorPosts> {
 		this.courseId = courseId;
 	}
 
+	public Boolean getStick() {
+		return stick;
+	}
+
+	public void setStick(Boolean stick) {
+		this.stick = stick;
+	}
+
+	public double getCurrentPrice() {
+		return currentPrice;
+	}
+
+	public void setCurrentPrice(double currentPrice) {
+		this.currentPrice = currentPrice;
+	}
+
+	public String getGradeName() {
+		return gradeName;
+	}
+
+	public void setGradeName(String gradeName) {
+		this.gradeName = gradeName;
+	}
+
+	public String getSmallImgPath() {
+		return smallImgPath;
+	}
+
+	public void setSmallImgPath(String smallImgPath) {
+		this.smallImgPath = smallImgPath;
+	}
+
+	public Integer getCollection() {
+		return collection;
+	}
+
+	public void setCollection(Integer collection) {
+		this.collection = collection;
+	}
+
+	public Integer getCourseType() {
+		return courseType;
+	}
+
+	public void setCourseType(Integer courseType) {
+		this.courseType = courseType;
+	}
+
 	@Override
 	public String toString() {
 		return "MedicalDoctorPosts{" +
@@ -208,6 +286,7 @@ public class MedicalDoctorPosts extends Model<MedicalDoctorPosts> {
 				", doctorId='" + doctorId + '\'' +
 				", updateTime=" + updateTime +
 				", courseId=" + courseId +
+				", stick=" + stick +
 				'}';
 	}
 }

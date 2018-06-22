@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -126,13 +127,15 @@ public class EnchashmentServiceImpl extends OnlineBaseServiceImpl implements
                 // 驳回---将提现金额重回打入用户账户
                 success = false;
                 updateUserCoinForEnchashment(e);
-                reason = EnchashmentDismissal.getDismissal(e.getDismissal()) + "--" + e.getDismissalRemark();
+                reason = EnchashmentDismissal.getDismissal(e.getDismissal());
+                if (StringUtils.isNotBlank(e.getDismissalRemark())) {
+                    reason = reason + "," + e.getDismissalRemark();
+                }
                 content = "编号："
                         + orderNo
                         + "提现申请已被驳回，驳回原因："
-                        + reason;
+                        + reason + ",如有疑问请联系客服0898-32881934";
                 smsCode = enchashmentNotPassSmsCode;
-                params.put("reason", EnchashmentDismissal.getDismissal(e.getDismissal()));
             }
 
             Map<String, String> weixinParams = new HashMap<>();
@@ -141,12 +144,12 @@ public class EnchashmentServiceImpl extends OnlineBaseServiceImpl implements
                 weixinParams.put("keyword1", TimeUtil.getYearMonthDayHHmm(e.getTime()));
                 weixinParams.put("keyword2", e.getEnchashmentSum().toString());
                 weixinParams.put("keyword3", "银行卡");
-                weixinParams.put("keyword4", "72小时内到账");
+                weixinParams.put("keyword4", "具体到账时间以银行为准");
                 weixinParams.put("keyword5", "");
                 weixinParams.put("remark", "");
             } else {
                 weixinParams.put("first", content);
-                weixinParams.put("keyword1", e.getEnchashmentSum().toString());
+                weixinParams.put("keyword1", e.getEnchashmentSum().stripTrailingZeros().toPlainString());
                 weixinParams.put("keyword2", e.getOrderNo());
                 weixinParams.put("keyword3", reason);
                 weixinParams.put("remark", "");
@@ -155,8 +158,8 @@ public class EnchashmentServiceImpl extends OnlineBaseServiceImpl implements
                     .buildAppPush(content)
                     .buildSms(smsCode, params)
                     .buildWeb(content)
-                    .buildWeixin(success ? enchashmentPassWeixinCode : enchashmentNotPassSmsCode, weixinParams)
-                    .build(e.getUserId(), RouteTypeEnum.ANCHOR_PROPERTY_MONEY_PAGE, operator));
+                    .buildWeixin(success ? enchashmentPassWeixinCode : enchashmentNotPassWeixinCode, weixinParams)
+                    .build(e.getUserId(), RouteTypeEnum.NONE, operator));
         } catch (Exception e1) {
             e1.printStackTrace();
         }
@@ -221,5 +224,4 @@ public class EnchashmentServiceImpl extends OnlineBaseServiceImpl implements
         uci.setIosBrokerageValue(BigDecimal.ZERO);
         dao.save(uci);
     }
-
 }

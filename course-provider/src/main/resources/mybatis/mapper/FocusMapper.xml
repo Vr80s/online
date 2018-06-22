@@ -3,7 +3,8 @@
 <mapper namespace="com.xczhihui.course.mapper.FocusMapper">
 	
 	<!-- 返回的map 第一个是我的粉丝总数      第二个是我的关注总数    第三个是评论总数    -->
-	<select id="selectFocusAndFansCountAndCriticizeCount" resultType="java.lang.Integer">
+	<select id="selectFocusOrFansCountOrCriticizeCount" resultType="java.lang.Integer">
+	    
 	    ( select count(*)  from oe_focus of 
     		inner join oe_user as ou on of.user_id =ou.id
 				where of.lecturer_id =#{userId}
@@ -14,13 +15,14 @@
 				where of.user_id =#{userId}
 					and ou.status = 1  and ou.deleted =0  )
 		  UNION ALL   
-		  ( select count(*) from oe_criticize cc  
+		( select count(*) from oe_criticize cc  
 		  	inner join course_anchor as ou on cc.user_id =ou.user_id 
 		  	where cc.user_id = #{userId} and cc.create_person is not null and ou.status = 1  and ou.deleted =0 
-		  ) 
+		) 
 	</select>
 	
-	 <select id="selectFocusAndFansCount" resultType="java.lang.Integer">
+	<!-- 返回的map 第一个是我的粉丝总数      第二个是我的关注总数  -->
+	<select id="selectFocusAndFansCount" resultType="java.lang.Integer">
 	    ( select count(*)  from oe_focus of 
 		    inner join oe_user as ou on of.user_id =ou.id
 				where of.lecturer_id =#{userId}
@@ -32,10 +34,27 @@
 					and ou.status = 1  and ou.deleted =0  )
 	</select>
 	
+	<!--  我的关注总数  -->
+    <select id="selectFocusCount" resultType="java.lang.Integer">
+	    select count(*)  from oe_focus of 
+   			 inner join course_anchor as ou on of.lecturer_id = ou.user_id
+				where of.user_id =#{userId}
+					and ou.status = 1  and ou.deleted =0 
+	</select>
+	
+	<!--  我的粉丝总数  -->
+	<select id="selectFansCount" resultType="java.lang.Integer">
+	    select count(*)  from oe_focus of 
+    		inner join oe_user as ou on of.user_id =ou.id
+				where of.lecturer_id =#{userId}
+					and ou.status = 0  and ou.is_delete =0 
+	</select>
+	
+	
 	
 	<!-- 我的关注列表  -->
 	<select id="selectFocusList" resultType="com.xczhihui.course.vo.FocusVo">
-	   select of.lecturer_id as userId,ou.name as name,ou.profile_photo as smallHeadPhoto, ou.`detail`
+	   select of.lecturer_id as userId,ou.name as name,ou.profile_photo as smallHeadPhoto, ou.`detail`,ou.type
 		from oe_focus as of
 		inner join course_anchor as ou on of.lecturer_id = ou.user_id
 		where of.user_id =#{userId} 
@@ -46,13 +65,13 @@
 	<select id="selectFansList" resultType="com.xczhihui.course.vo.FocusVo">
 	      select of.user_id as userId,ou.name as name,ou.small_head_photo as smallHeadPhoto
 		from oe_focus as of 
-		inner join oe_user as ou on  of.lecturer_id = ou.id
+		inner join oe_user as ou on  of.user_id = ou.id
 		where of.lecturer_id =#{userId}  and  ou.status = 0  and ou.is_delete =0 
 	</select>
 	
 	<!-- 是否关注  0 未关注 大于 关注 -->
 	<select id="isFoursLecturer" resultType="java.lang.Integer">
-	   select count(*) from oe_focus where user_id =#{userId}  and  lecturer_id =#{lecturerId} 
+	   select count(*) from oe_focus where user_id =#{userId}  and  lecturer_id =#{lecturerId}
 	</select>
 	<!-- 根据id和 -->
 	<select id="findFoursByUserIdAndlecturerId" resultType="com.xczhihui.course.model.Focus" >

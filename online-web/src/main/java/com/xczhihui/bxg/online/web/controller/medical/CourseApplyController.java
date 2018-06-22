@@ -8,6 +8,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.xczhihui.medical.doctor.model.MedicalDoctorPosts;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,8 +50,8 @@ import com.xczhihui.medical.anchor.vo.CourseApplyResourceVO;
 public class CourseApplyController extends AbstractController {
     private static final Logger logger = LoggerFactory.getLogger(CourseApplyController.class);
 
-    private static final String WEB_COURSE_ONLINE_MESSAGE_TIPS = "{0}您好，{1}老师" + TextStyleUtil.LEFT_TAG + "《{2}》"
-            + TextStyleUtil.RIGHT_TAG + "{3}，准时开始！";
+    private static final String WEB_COURSE_ONLINE_MESSAGE_TIPS = "{0}您好，您关注的{1}老师有新课程-" + TextStyleUtil.LEFT_TAG + "《{2}》"
+            + TextStyleUtil.RIGHT_TAG + "上架了，快去看看吧";
     private static final String APP_PUSH_COURSE_ONLINE_MESSAGE_TIPS = "春天来了，我们认为你需要这个~";
 
     @Autowired
@@ -62,6 +64,8 @@ public class CourseApplyController extends AbstractController {
     private ICommonMessageService commonMessageService;
     @Autowired
     private ILineApplyService lineApplyService;
+    @Autowired
+    private IMedicalDoctorPostsService medicalDoctorPostsService;
     @Value("${weixin.course.remind.code}")
     private String weixinTemplateMessageRemindCode;
 
@@ -317,6 +321,8 @@ public class CourseApplyController extends AbstractController {
         responseObj.setSuccess(true);
         if (state == 1) {
             sendCourseOnlineMessage(courseApplyId, user);
+            //添加医师动态
+            addCourseDoctorDynamics(courseApplyId, user);
             responseObj.setResultObject("上架成功");
         } else {
             responseObj.setResultObject("下架成功");
@@ -365,16 +371,18 @@ public class CourseApplyController extends AbstractController {
     private void sendCourseOnlineMessage(String courseApplyId, OnlineUser user) {
         try {
             String userId = user.getId();
+            logger.warn("userId:{}, courseApplyId:{}", userId, courseApplyId);
             List<FocusVo> focusVos = focusService.selectFansList(userId);
+            logger.warn("size: {}", focusVos.size());
             if (!focusVos.isEmpty()) {
                 Course course = courseService.findByApplyId(courseApplyId);
                 Date startTime = course.getStartTime();
                 String content = MessageFormat.format(WEB_COURSE_ONLINE_MESSAGE_TIPS, user.getName(),
-                        course.getLecturer(), course.getGradeName(), startTime == null ? "无" : TimeUtil.getYearMonthDayHHmm(startTime));
+                        course.getLecturer(), course.getGradeName());
                 Map<String, String> weixinParams = new HashMap<>(4);
                 weixinParams.put("first", TextStyleUtil.clearStyle(content));
                 weixinParams.put("keyword1", course.getGradeName());
-                weixinParams.put("keyword2", startTime == null ? "无" : TimeUtil.getYearMonthDayHHmm(startTime));
+                weixinParams.put("keyword2", startTime == null ? "" : TimeUtil.getYearMonthDayHHmm(startTime));
                 weixinParams.put("remark", "点击查看");
                 for (FocusVo focusVo : focusVos) {
                     String fansId = focusVo.getUserId();
@@ -393,5 +401,26 @@ public class CourseApplyController extends AbstractController {
             logger.error("send course online error. courseApplyId: {}", courseApplyId);
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 添加医师动态-课程
+     *
+     * @param courseApplyId
+     * @param user
+     * @author name：wangyishuai
+     * @Date: 2018/6/21 20:37
+     */
+    private void addCourseDoctorDynamics(String courseApplyId, OnlineUser user) {
+        String userId = user.getId();
+        Course course = courseService.findByApplyId(courseApplyId);
+        MedicalDoctorPosts mdp = new MedicalDoctorPosts();
+        mdp.setContent(course.getGradeName()+","+course.getSubtitle());
+        mdp.setType(5);
+        mdp.setTitle(course.getGradeName()+","+course.getSubtitle());
+        mdp.setCoverImg(course.getBigImgPath());
+        mdp.setDoctorId(userId);
+        mdp.setCourseId(course.getId());
+        medicalDoctorPostsService.addMedicalDoctorPosts(mdp);
     }
 }

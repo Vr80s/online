@@ -30,6 +30,7 @@ import com.xczhihui.course.service.IMobileBannerService;
 import com.xczhihui.course.service.IWatchHistoryService;
 import com.xczhihui.course.util.CourseUtil;
 import com.xczhihui.course.vo.CourseLecturVo;
+import com.xczhihui.medical.anchor.service.ICourseApplyService;
 
 /**
  * 点播控制器 ClassName: BunchPlanController.java <br>
@@ -66,6 +67,9 @@ public class CourseController {
     @Value("${returnOpenidUri}")
     private String returnOpenidUri;
 
+    @Autowired
+    private ICourseApplyService courseApplyService;
+    
     /**
      * Description：用户当前课程状态   User current course status.
      * 用户判断用户是否购买了这个课程
@@ -126,14 +130,15 @@ public class CourseController {
         //设置星星级别
         cv.setStartLevel(CourseUtil.criticizeStartLevel(cv.getStartLevel()));
 
-        //if(StringUtils.isNotBlank(cv.getDescription())){
         cv.setRichCourseDetailsUrl(returnOpenidUri + "/xcview/html/person_fragment.html?type=1&typeId=" + courseId);
-        //}
 
-        //if(StringUtils.isNotBlank(cv.getLecturerDescription())){
         cv.setRichHostDetailsUrl(returnOpenidUri + "/xcview/html/person_fragment.html?type=3&typeId=" + courseId);
-        //}
-
+        
+        //专辑查看更新时间
+        if(cv.getCollection()) {
+        	cv.setDirtyDate(courseApplyService.getCollectionUpdateDateText(courseId));
+        }
+        
         /**
          * 这里需要判断是否购买过了
          */
@@ -185,14 +190,15 @@ public class CourseController {
         //判断星级
         cv.setStartLevel(CourseUtil.criticizeStartLevel(cv.getStartLevel()));
 
-        //if(StringUtils.isNotBlank(cv.getDescription())){
         cv.setRichCourseDetailsUrl(returnOpenidUri + "/xcview/html/person_fragment.html?type=1&typeId=" + courseId);
-        //}
 
-        //if(StringUtils.isNotBlank(cv.getLecturerDescription())){
         cv.setRichHostDetailsUrl(returnOpenidUri + "/xcview/html/person_fragment.html?type=2&typeId=" + courseId);
-        //}
 
+        //专辑查看更新时间
+        if(cv.getCollection()) {
+        	cv.setDirtyDate(courseApplyService.getCollectionUpdateDateText(courseId));
+        }
+        
         //判断点钱在线人数
         if (cv.getType() != null && cv.getLineState() != null && cv.getType() == 1 && cv.getLineState() == 1) { //表示的是直播中
             Integer lendCount = cv.getLearndCount() + WeihouInterfacesListUtil.getCurrentOnlineNumber(cv.getDirectId());

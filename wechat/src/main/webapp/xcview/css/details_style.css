@@ -6,6 +6,7 @@
 }
 .div_img{
     width: 1.8rem !important;
+    height: 1.45rem;
     position: absolute;
     top: 0.4rem;
     left: 0;
@@ -234,7 +235,7 @@ div.pinch-zoom,
     top: 0rem;
     
     display: none;
-    margin-top: 0.35rem;
+    margin-top: 0.4rem;
     height: 1.45rem;
     line-height: 1.45rem;
     color: #00BC12;

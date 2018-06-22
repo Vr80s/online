@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -43,7 +44,7 @@ public class MedicalDoctorPostsCommentController {
     /**
      * 医师动态评论列表
      */
-    @RequestMapping("doctorDynamicsCommentList")
+    @RequestMapping(value="doctorDynamicsCommentList", method = RequestMethod.GET)
     @ResponseBody
     public ResponseObject doctorDynamicsCommentList(@RequestParam("postsId") Integer postsId){
         List<MedicalDoctorPostsComment> list = medicalDoctorPostsCommentService.selectMedicalDoctorPostsCommentList(postsId);
@@ -53,7 +54,7 @@ public class MedicalDoctorPostsCommentController {
     /**
      * 添加医师动态评论
      */
-    @RequestMapping("addDoctorDynamicsComment")
+    @RequestMapping(value="addDoctorDynamicsComment", method = RequestMethod.POST)
     @ResponseBody
     public ResponseObject addDoctorDynamicsComment(@Account String accountId,MedicalDoctorPostsComment medicalDoctorPostsComment){
 
@@ -64,7 +65,7 @@ public class MedicalDoctorPostsCommentController {
     /**
      * 删除医师动态评论
      */
-    @RequestMapping("deleteDoctorDynamicsComment")
+    @RequestMapping(value="deleteDoctorDynamicsComment", method = RequestMethod.POST)
     @ResponseBody
     public ResponseObject deleteDoctorDynamicsComment(@RequestParam("id") Integer id){
         medicalDoctorPostsCommentService.deleteMedicalDoctorPostsComment(id);
@@ -74,7 +75,7 @@ public class MedicalDoctorPostsCommentController {
     /**
      * 医师动态点赞列表
      */
-    @RequestMapping("doctorDynamicsLikeList")
+    @RequestMapping(value="doctorDynamicsLikeList", method = RequestMethod.GET)
     @ResponseBody
     public ResponseObject doctorDynamicsLikeList(@RequestParam("postsId") Integer postsId){
         List<MedicalDoctorPostsLike> list = medicalDoctorPostsLikeService.getMedicalDoctorPostsLikeList(postsId);
@@ -84,7 +85,7 @@ public class MedicalDoctorPostsCommentController {
     /**
      * 添加医师动态点赞
      */
-    @RequestMapping("addDoctorDynamicsLike")
+    @RequestMapping(value="addDoctorDynamicsLike", method = RequestMethod.POST)
     @ResponseBody
     public ResponseObject addDoctorDynamicsLike(@Account String accountId,@RequestParam("postsId") Integer postsId){
         medicalDoctorPostsLikeService.addMedicalDoctorPostsLike(postsId,accountId);
@@ -94,7 +95,7 @@ public class MedicalDoctorPostsCommentController {
     /**
      * 删除医师动态点赞
      */
-    @RequestMapping("deleteDoctorDynamicsLike")
+    @RequestMapping(value="deleteDoctorDynamicsLike", method = RequestMethod.POST)
     @ResponseBody
     public ResponseObject deleteDoctorDynamicsLike(@RequestParam("id") Integer id){
         medicalDoctorPostsLikeService.deleteMedicalDoctorPostsLike(id);

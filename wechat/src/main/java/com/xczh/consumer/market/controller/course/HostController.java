@@ -91,8 +91,6 @@ public class HostController {
         }
 
         lecturerInfo.put("richHostDetailsUrl", returnOpenidUri + "/xcview/html/person_fragment.html?type=4&typeId=" + lecturerId);
-       
-        
         
         mapAll.put("lecturerInfo", lecturerInfo);          //讲师基本信息
         MedicalHospital mha = null;
@@ -106,7 +104,7 @@ public class HostController {
         }
         //认证的主播 还是 医馆
         mapAll.put("hospital", mha);
-        List<Integer> listff = focusServiceRemote.selectFocusAndFansCountAndCriticizeCount(lecturerId);
+        List<Integer> listff = focusServiceRemote.selectFocusOrFansCountOrCriticizeCount(lecturerId);
         mapAll.put("fansCount", listff.get(0));           //粉丝总数
         mapAll.put("focusCount", listff.get(1));           //关注总数
         mapAll.put("criticizeCount", listff.get(2));       //总数评论总数

@@ -211,7 +211,7 @@ public class AnchorsController extends AbstractFtlController {
         //认证的主播 还是 医馆
         view.addObject("hospital", mha);
 
-        List<Integer> listff = focusServiceRemote.selectFocusAndFansCountAndCriticizeCount(userId);
+        List<Integer> listff = focusServiceRemote.selectFocusOrFansCountOrCriticizeCount(userId);
         view.addObject("fansCount", listff.get(0));           //粉丝总数
         view.addObject("focusCount", listff.get(1));           //关注总数
         view.addObject("criticizeCount", listff.get(2));       //总数评论总数

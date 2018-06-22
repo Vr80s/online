@@ -73,7 +73,7 @@
 		<script type="text/html" id="gzy_id">
 			{{each items as item i}}
 				<div class="physicians">
-					<div class="physician_title">{{item.text}}<img src="/xcview/images/video_review.png" alt=""></div>
+					<div class="physician_title" code="{{item.code}}">{{item.text}}<img src="/xcview/images/video_review.png" alt=""></div>
 					{{each item.doctors as item i}}   
 					<div class="physician_cen">
 						<div class="head_portrait">
@@ -101,11 +101,11 @@
 	<div class="footer" style="display: none1;">
 		<ul>
 			<li>
-				<a href="" class="physician" style="width: 0.42rem;height: 0.42rem;background: url(/xcview/images/physician_nav.png) no-repeat center;background-size: 0.42rem 0.42rem;margin-top: 0.14rem;"></a>
+				<a href="/xcview/html/physician/index.html" class="physician" style="width: 0.42rem;height: 0.42rem;background: url(/xcview/images/physician_nav.png) no-repeat center;background-size: 0.42rem 0.42rem;margin-top: 0.14rem;"></a>
 				<p style="color: #00BC12;">中医师</p>
 			</li>
 			<li>
-				<a href="" class="school" style="background: url(/xcview/images/school_one.png) no-repeat center;background-size: 0.48rem 0.37rem;margin-top: 0.14rem;"></a>
+				<a href="/xcview/html/home_page.html" class="school" style="background: url(/xcview/images/school_one.png) no-repeat center;background-size: 0.48rem 0.37rem;margin-top: 0.14rem;"></a>
 				<p>学堂</p>
 			</li>
 			<li>

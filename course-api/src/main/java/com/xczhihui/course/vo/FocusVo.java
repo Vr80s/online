@@ -12,5 +12,6 @@ public class FocusVo implements Serializable {
     private String name;                //名字
     private String smallHeadPhoto;        //头像
     private String detail;        //详情
+    private Integer type;        //详情
 
 }
