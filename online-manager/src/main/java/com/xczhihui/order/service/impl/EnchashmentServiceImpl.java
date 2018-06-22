@@ -144,12 +144,12 @@ public class EnchashmentServiceImpl extends OnlineBaseServiceImpl implements
                 weixinParams.put("keyword1", TimeUtil.getYearMonthDayHHmm(e.getTime()));
                 weixinParams.put("keyword2", e.getEnchashmentSum().toString());
                 weixinParams.put("keyword3", "银行卡");
-                weixinParams.put("keyword4", "72小时内到账");
+                weixinParams.put("keyword4", "具体到账时间以银行为准");
                 weixinParams.put("keyword5", "");
                 weixinParams.put("remark", "");
             } else {
                 weixinParams.put("first", content);
-                weixinParams.put("keyword1", e.getEnchashmentSum().toString());
+                weixinParams.put("keyword1", e.getEnchashmentSum().stripTrailingZeros().toPlainString());
                 weixinParams.put("keyword2", e.getOrderNo());
                 weixinParams.put("keyword3", reason);
                 weixinParams.put("remark", "");
@@ -224,5 +224,4 @@ public class EnchashmentServiceImpl extends OnlineBaseServiceImpl implements
         uci.setIosBrokerageValue(BigDecimal.ZERO);
         dao.save(uci);
     }
-
 }
