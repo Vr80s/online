@@ -1,13 +1,10 @@
 package com.xczh.consumer.market.controller.medical;
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.service.OLAttachmentCenterService;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczhihui.medical.doctor.model.MedicalDoctorAccount;
 import com.xczhihui.medical.doctor.model.MedicalDoctorPosts;
-import com.xczhihui.medical.doctor.service.IMedicalDoctorAccountService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsService;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
