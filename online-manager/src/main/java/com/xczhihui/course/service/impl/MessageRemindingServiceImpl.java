@@ -155,22 +155,19 @@ public class MessageRemindingServiceImpl implements MessageRemindingService {
             if (dates.isEmpty()) {
                 deleteCourseMessageReminding(course, RedisCacheKey.COLLECTION_COURSE_REMIND_KEY);
             } else if (dates.contains(day)) {
-                List<OnlineUser> users = getUsersByCourseId(course.getId());
                 String courseName = course.getGradeName();
                 String address = course.getAddress();
                 String dateStr = dates.stream().map(DateUtil::getDayOfWeek).collect(Collectors.joining(","));
                 Map<String, String> params = new HashMap<>(1);
                 params.put("courseName", courseName);
-                for (OnlineUser user : users) {
-                    String commonContent = MessageFormat.format(WEB_COLLECTION_COURSE_REMIND, courseName, dateStr);
-                    BaseMessage baseMessage = new BaseMessage.Builder(MessageTypeEnum.COURSE.getVal())
-                            .buildWeb(commonContent)
-                            .buildAppPush(MessageFormat.format(APP_PUSH_COLLECTION_COURSE_REMIND, courseName, dateStr))
-                            .buildSms(sendCourseUpdateRemindCode, params)
-                            .detailId(String.valueOf(course.getId()))
-                            .build(user.getId(), RouteTypeEnum.ANCHOR_WORK_TABLE_PAGE, null);
-                    commonMessageService.saveMessage(baseMessage);
-                }
+                String commonContent = MessageFormat.format(WEB_COLLECTION_COURSE_REMIND, courseName, dateStr);
+                BaseMessage baseMessage = new BaseMessage.Builder(MessageTypeEnum.COURSE.getVal())
+                        .buildWeb(commonContent)
+                        .buildAppPush(MessageFormat.format(APP_PUSH_COLLECTION_COURSE_REMIND, courseName, dateStr))
+                        .buildSms(sendCourseUpdateRemindCode, params)
+                        .detailId(String.valueOf(course.getId()))
+                        .build(course.getUserLecturerId(), RouteTypeEnum.ANCHOR_WORK_TABLE_PAGE, null);
+                commonMessageService.saveMessage(baseMessage);
             }
         }
     }
