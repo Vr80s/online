@@ -315,6 +315,7 @@ function btn_zj_mianfei() {
                 	var obj =  data.resultObject;
                  	if(data.success ){
                  		if(!obj.submitted){
+                            
                  			window.location.href = "line_class.html?orderId=" + orderId+"&courseId="+courseId;
                  		}else{
                             window.location.href = "purchase.html?orderId=" + orderId;
