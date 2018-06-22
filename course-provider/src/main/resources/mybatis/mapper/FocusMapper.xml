@@ -65,13 +65,13 @@
 	<select id="selectFansList" resultType="com.xczhihui.course.vo.FocusVo">
 	      select of.user_id as userId,ou.name as name,ou.small_head_photo as smallHeadPhoto
 		from oe_focus as of 
-		inner join oe_user as ou on  of.lecturer_id = ou.id
+		inner join oe_user as ou on  of.user_id = ou.id
 		where of.lecturer_id =#{userId}  and  ou.status = 0  and ou.is_delete =0 
 	</select>
 	
 	<!-- 是否关注  0 未关注 大于 关注 -->
 	<select id="isFoursLecturer" resultType="java.lang.Integer">
-	   select count(*) from oe_focus where user_id =#{userId}  and  lecturer_id =#{lecturerId} 
+	   select count(*) from oe_focus where user_id =#{userId}  and  lecturer_id =#{lecturerId}
 	</select>
 	<!-- 根据id和 -->
 	<select id="findFoursByUserIdAndlecturerId" resultType="com.xczhihui.course.model.Focus" >

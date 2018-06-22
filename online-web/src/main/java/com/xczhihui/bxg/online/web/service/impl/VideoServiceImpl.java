@@ -37,10 +37,6 @@ public class VideoServiceImpl extends OnlineBaseServiceImpl implements VideoServ
 
     private static final Logger logger = LoggerFactory.getLogger(VideoServiceImpl.class);
 
-    private static final String APPLY_SUCCESS_TIPS = "恭喜您成功报名课程《{0}》~";
-    @Value("${weixin.course.apply.code}")
-    private String weixinApplySuccessMessageCode;
-
     @Autowired
     private VideoDao videoDao;
     @Autowired
@@ -66,35 +62,6 @@ public class VideoServiceImpl extends OnlineBaseServiceImpl implements VideoServ
     @Override
     public List<Map<String, Object>> getPurchasedUser(String id) {
         return videoDao.getPurchasedUser(id);
-    }
-
-    /**
-     * 暂时不用
-     * */
-    protected void saveApplySuccessMessage(CourseApplyVo courseApplyVo) {
-        try {
-            String messageId = CodeUtil.getRandomUUID();
-            String courseId = String.valueOf(courseApplyVo.getId());
-            String courseName = courseApplyVo.getCourseName();
-            Date startTime = courseApplyVo.getStartTime();
-            String content = MessageFormat.format(APPLY_SUCCESS_TIPS, courseName);
-            String userId = courseApplyVo.getUserLecturerId();
-            Map<String, String> weixinParams = new HashMap<>(3);
-            weixinParams.put("first", TextStyleUtil.clearStyle(content));
-            weixinParams.put("keyword1", courseName);
-            weixinParams.put("keyword2", startTime != null ? TimeUtil.getYearMonthDayHHmm(startTime) : "");
-            weixinParams.put("remark", "点击查看");
-
-            commonMessageService.saveMessage(
-                    new BaseMessage.Builder(MessageTypeEnum.COURSE.getVal())
-                            .buildWeb(content)
-                            .buildWeixin(weixinApplySuccessMessageCode, weixinParams)
-                            .detailId(courseId)
-                            .build(userId, CourseUtil.getRouteType(courseApplyVo.getCollection(), courseApplyVo.getType()), userId));
-        } catch (Exception e) {
-            logger.error("报名成功时，推送消息异常: courseId: {}", courseApplyVo.getId());
-            e.printStackTrace();
-        }
     }
 
     @Override

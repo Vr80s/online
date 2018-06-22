@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -126,13 +127,15 @@ public class EnchashmentServiceImpl extends OnlineBaseServiceImpl implements
                 // 驳回---将提现金额重回打入用户账户
                 success = false;
                 updateUserCoinForEnchashment(e);
-                reason = EnchashmentDismissal.getDismissal(e.getDismissal()) + "--" + e.getDismissalRemark();
+                reason = EnchashmentDismissal.getDismissal(e.getDismissal());
+                if (StringUtils.isNotBlank(e.getDismissalRemark())) {
+                    reason = reason + "," + e.getDismissalRemark();
+                }
                 content = "编号："
                         + orderNo
                         + "提现申请已被驳回，驳回原因："
-                        + reason;
+                        + reason + ",如有疑问请联系客服0898-32881934";
                 smsCode = enchashmentNotPassSmsCode;
-                params.put("reason", EnchashmentDismissal.getDismissal(e.getDismissal()));
             }
 
             Map<String, String> weixinParams = new HashMap<>();
@@ -155,8 +158,8 @@ public class EnchashmentServiceImpl extends OnlineBaseServiceImpl implements
                     .buildAppPush(content)
                     .buildSms(smsCode, params)
                     .buildWeb(content)
-                    .buildWeixin(success ? enchashmentPassWeixinCode : enchashmentNotPassSmsCode, weixinParams)
-                    .build(e.getUserId(), RouteTypeEnum.ANCHOR_PROPERTY_MONEY_PAGE, operator));
+                    .buildWeixin(success ? enchashmentPassWeixinCode : enchashmentNotPassWeixinCode, weixinParams)
+                    .build(e.getUserId(), RouteTypeEnum.NONE, operator));
         } catch (Exception e1) {
             e1.printStackTrace();
         }
