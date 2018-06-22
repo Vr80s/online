@@ -55,7 +55,7 @@ public class MedicalDoctorSolrServiceImpl implements IMedicalDoctorSolrService {
     @PostConstruct
     public void initDoctorsSolr() throws IOException, SolrServerException {
         solrUtils = new SolrUtils(url,core,pre,post);
-//        this.initDoctorsSolrData();
+        this.initDoctorsSolrData();
     }
 
     @Override
