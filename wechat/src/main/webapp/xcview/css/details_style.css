@@ -1,21 +1,21 @@
-.hide{
+﻿.hide{
     display: none;
 }
 .coze_bottom{
     background: #fff;
 }
 .div_img{
-    width: 1.8rem !important;
-    height: 1.45rem;
+    width: 0.6rem !important;
     position: absolute;
-    top: 0.4rem;
-    left: 0;
+    top: 0.2rem;
+    left: 0.26rem;
     z-index: 1;
-    background: #F0F0F0;
+    /*background: #e35b5b;*/
     border-radius: 20px 0px 0px 20px;
+    height: 0.6rem;
 }
 .img_left{
-    width: 0.8rem !important;
+    width: 0.3rem !important;
    /* position: absolute;
     top: 0.6rem;
     left: 0.6rem;*/
@@ -31,12 +31,12 @@
     margin-top: 0;
     border-radius: 50px;*/
     /*width: 11.8rem;*/
-    width: 13.5rem;
-    border: none;
-    margin-top: 0;
-    border-radius: 50px;
-    background: #F0F0F0;
-    text-indent: 1.8rem;
+    /* width: 13.5rem;
+        border: none;
+        margin-top: 0;
+        border-radius: 50px;
+        background: #F0F0F0; */
+    text-indent: 0.7rem;
 }
 
 .coze_bottom ::-webkit-input-placeholder { /* WebKit browsers */
@@ -62,30 +62,30 @@
     height: 1.8rem;
 }
 .div_input{
-    /*width: 13rem;*/
-    width: 13.4rem;
-    height: 1.45rem;
-    line-height: 1.45rem;
-    /*border: 1px solid #ccc;*/
+     /*width: 13rem;*/
+    width: 6rem;
+    height: 0.6rem;
+    line-height: 0.6rem;
+    /* border: 1px solid #ccc; */
     outline: none;
     font-size: 0.7rem;
     text-indent: 0.3rem;
     color: #999;
     border-radius: 50px;
-    margin-top: 0.35rem;
+    margin-top: 0.2rem;
     background: #fff;
+    margin-left: 0.26rem;
 }
 .leaderboard_center img {
-    width: 1.65rem;
-    height: 1.65rem;
+    width: 0.8rem;
+    height: 0.8rem;
     float: left;
     margin-right: 0.4rem;
     border: 3px solid #ededed;
-    border-radius: 60px;
-    margin-top: 0.3rem;
+    border-radius: 100px;
 }
 .leaderboard_center{
-    margin-top: 0.2rem;
+    margin-top: 0.24rem;
 }
 .details_portrait{
     width: 1.65rem;
@@ -120,6 +120,8 @@ div.pinch-zoom,
 .pinch-zoom-container{
     /*height: 530px !important;*/
     min-height: 1rem !important;
+    width: 7.5rem;
+    margin: 0 auto;
 }
 
 
@@ -127,22 +129,21 @@ div.pinch-zoom,
     /*top: 10.8rem;*/
 }
 .details_size{
-    /*right: auto;
-    left: 0;*/
-    /*border-radius: 0px 6px 6px 0px;*/
     margin-left: 0;
     background: url(/xcview/images/size_bg.png);
     background-size: 100% 100%;
-    min-width: 5.5rem;
-    padding: 0.2rem 0;
+    min-width: 2.25rem;
+    padding: 0 !important;
+    height: 0.6rem;
+    line-height: 0.6rem;
 }
 .details_size .img0{
-    width: 0.74rem;
+    width: 0.39rem;
     margin-top: 0.2rem;
 }
 .details_size .img1{
-    width: 0.58rem;
-    margin-top: 0.1rem;
+    width: 0.34rem;
+    margin-top: 0.15rem;
 }
 .video_img{
     height: 3rem;
@@ -180,7 +181,7 @@ div.pinch-zoom,
 }
 #xmbShowSpan{
     display: inline-block;
-    margin-left: 0.3rem;
+    margin-left: 0.08rem;
     color: #666;
     /*margin-right: 0.3rem;*/
 }
@@ -196,12 +197,12 @@ div.pinch-zoom,
     z-index: 99999999999999;
 }
 .fx_bg{
-    width: 0.65rem;
+    /* width: 0.65rem;
     height: 0.65rem;
     background: url(/xcview/images/fx.png)no-repeat;
     background-size: 100% 100%;
     float: right;
-    margin-right: 0.3rem;
+    margin-right: 0.3rem; */
 }
 .history_img_right{
     margin-top: 0.55rem;
@@ -230,24 +231,23 @@ div.pinch-zoom,
     color: #BBBBBB;
 }
 #sendChat{
-    font-size: 0.55rem;
+    font-size: 0.4rem;
     position: absolute;
-    top: 0rem;
-    
+    top: 0;
     display: none;
-    margin-top: 0.4rem;
-    height: 1.45rem;
-    line-height: 1.45rem;
+    /* margin-top: 0.35rem; */
+    height: 0.95rem;
+    line-height: 0.95rem;
     color: #00BC12;
     background: none;
     font-weight: bold;
 }
 .send_img{
-    right: -1.8rem !important;
+    right: -1.55rem !important;
 }
 .facebox-mobile{
-    top: 1.2rem !important;
-    left: -12.9rem;
+    top: 0.95rem !important;
+    left: -5.5rem;
 }
 .facebox-mobiles{
     left: -13.6rem;
@@ -266,17 +266,17 @@ div.pinch-zoom,
     border-top: 1px solid #e0e0e0;
 }
 .balance_send{
-    width: 2.75rem;
+        width: 2.75rem;
     height: 1.1rem;
     line-height: 1.1rem;
     margin-top: 0rem;
-    width: 6.325rem;
-    height: 2.085rem;
-    line-height: 2.085rem;
+    width: 2.53rem;
+    height: 0.98rem;
+    line-height: 0.98rem;
     margin-right: 0;
     border-radius: 0;
-    font-size: 0.75rem;
-    margin-top: -0.025rem;
+    font-size: 0.3rem;
+    /* margin-top: -0.025rem; */
 }
 .fd_img_bg{
     width: 4rem;
@@ -331,33 +331,44 @@ div.pinch-zoom,
 
 
 .history_span{
-    width: 74%; 
-    color: #666; 
-    font-size: 0.851rem;
+    width: 100%;
+    height: 0.88rem;
     position: absolute;
-    left: 2.1rem;
+    top: 0;
+    left: 0;
+    font-size: 0.36rem;
+    text-align: center;
+    color: #333;
+    line-height: 0.88rem;
 }
 #share{
-    width: 1.8rem; 
-    color: #00bc12;
-    font-size: 0.8rem;
-    margin-right: 0.2rem;
+    width: 0.42rem;
+    height: 0.38rem;
+    position: absolute;
+    z-index: 10;
+    top: 0.25rem;
+    right: 0rem;
+    margin-top: 0;
 }
 
 .details_cen1{
-    position: fixed; 
-    width: 100%; 
-    background: #fff; 
-    border-bottom: 1px solid #f0f0f0; 
+    position: fixed;
+    width: 7.5rem;
+    background: #fff;
+    border-bottom: 1px solid #f0f0f0;
     z-index: 9999;
+    /*background: red;*/
+    margin: 0 auto;
+    left: 50%;
+    margin-left: -3.75rem;
 }
 #video{
     width: 100%;
-    height: 7.6rem;
-    margin-top: 0.5rem;
+    height: 4.24rem;
+    margin-top: 0.88rem;
     background: #000;
     opacity: 1;
-    margin-top: 1.9rem;
+    /*background: red !important;*/
 }
 .give_a01{
     margin-top: -1.47rem;
@@ -380,21 +391,20 @@ div.pinch-zoom,
     right: -3.5rem;
 }
 .give_a1 .give_a1_img{
-    margin-left: -2.9rem;
-    width: 1.4rem;
-    margin-top: 0.4rem;
+    margin-left: -4.17rem;
+    width: 0.7rem;
+    margin-top: 0.14rem;
     display: block !important;
 }
 .give_a01{
     margin-left: -0.2rem;
-    display: inline-block;
     position: absolute;
-    right: -0.0653rem;
-    top: 1.98rem;
+    right: 1.3rem;
+    top: 1.53rem;
     display: none;
 }
 .coze_bottom_input{
-    width: 13.5rem;
+    width: 7.5rem;
     /*background: #00BCD4;*/
 }
 #face{
@@ -405,27 +415,27 @@ div.pinch-zoom,
 /*处理礼物模块*/
 .send_gifts .balance{
     padding: 0;
-    height: 2.085rem;
+    height: 0.98rem;
     border-top: 1px solid #f0f0f0;
 }
 .send_gifts{
-    height: 11.234rem;
+    height: 5.8rem;
     /*height: 5rem;*/
     bottom: 0;
 }
 .send_gifts ul{
     /*background: #fff;*/
-    height: 8.298rem;
+    height: 3.8rem;
     display: inline-block;
     padding: 0;
-    padding-top: 0.451rem;
+    padding-top: 0.1rem;
      /*background: url(/xcview/images/size_bg.png);*/
     background-size: 100% 100%;
 }
 .send_gifts ul li{
     border-radius: 0px;
-    width: 3.404rem;
-    height: 3.404rem;
+    width: 1.86rem;
+    height: 1.86rem;
     padding: 0;
     position: relative;
     border: 1px solid #fefefe;
@@ -435,8 +445,8 @@ div.pinch-zoom,
 .send_gifts ul li a{
     margin: 0 auto;
     display: table;
-    width: 3.404rem;
-    height: 3.404rem;
+    width: 1.86rem;
+    height: 1.86rem;
     text-align: -webkit-center;
 }
 .gift_p{
@@ -444,32 +454,32 @@ div.pinch-zoom,
     position: absolute;
     bottom: 0rem;
     margin-left: 0rem; 
-    padding-bottom: 0.3rem;
+    padding-bottom: 0.1rem;
 }
 .gift_ul_li_li{
     border: 1px solid #96e39d !important;
 }
 .balance_size{
-    float: left;
-    font-size: 0.6rem;
+        float: left;
+    font-size: 0.24rem;
     color: #333;
     margin-top: 0;
-    height: 2.085rem;
-    line-height: 2.085rem;
+    height: 0.98rem;
+    line-height: 0.98rem;
 }
 .balance_size span{
-    height: 2.45rem;
-    line-height: 2.45rem;
+        height: 0.98rem;
+    line-height: 0.98rem;
 }
 .send_gifts .gifts_div{
-    width: 2.5rem;
+    width: 1.5rem;
     /*height: 1.7rem;*/
 }
 
 .coze_cen_ri .span_name{
     float: left;
     color: #666;
-    font-size: 0.596rem;
+    font-size: 0.28rem;
     margin-left: 0.2rem;
 }
 .coze_cen_bg_ri{
@@ -479,7 +489,7 @@ div.pinch-zoom,
     /* border: 0.01rem solid #ccc; */
     float: left;
     padding: 0;
-    font-size: 0.596rem;
+    font-size: 0.28rem;
     color: #333;
     border-radius: 0;
     /* font-family: "微软雅黑"; */
@@ -522,10 +532,7 @@ div.pinch-zoom,
 
 
 .anchor_center01{
-    padding-top: 0.638rem;
-    position1: fixed;
-    top1: 10.4rem;
-
+    padding-top: 0.2rem;
 }
 .anchor_center{
     overflow-y1: scroll;
@@ -534,12 +541,12 @@ div.pinch-zoom,
 
 
 .leaderboard_center img{
-    margin-top: 0.6rem;
+    margin-top: 0rem;
 }
 
 
 .leaderboard_center_size{
-    margin-top: 0.656rem;
+    margin-top: 0rem;
 }
 
 
@@ -562,31 +569,32 @@ div.pinch-zoom,
 
 /*加关注开始  聊天*/
 .attention{
-    width: 100%;
-    height: 2.553rem;
+    width: 7.5rem;
+    height: 1.2rem;
     background: #fff;
     position: fixed;
-    top: 11.1rem;
-    left: 0;
+    top: 6rem;
+    left: 50%;
+    margin-left: -3.75rem;
     z-index: 999;
 }
 .attention .main_img{
-    width: 1.702rem;
-    height: 1.702rem;
-    border-radius: 50px;
+    width: 0.8rem;
+    height: 0.8rem;
+    border-radius: 100px;
     float: left;
-    margin-top: 0.425rem;
-    margin-left: 0.553rem;
-    margin-right: 0.51rem;
+    margin-top: 0.2rem;
+    margin-left: 0.26rem;
+    margin-right: 0.24rem;
 }
 
 .attention .main_img img{
     width: 100%;
     height: 100%;
-    border-radius: 50px;
+    border-radius: 100px;
 }
 .attention .main_title{
-    width: 8rem;
+    width: 3.8rem;
     float: left;
     overflow: hidden;
     white-space: nowrap;
@@ -594,34 +602,35 @@ div.pinch-zoom,
 }
 .attention .main_title .p0{
     width: 100%;
-    font-size: 0.595rem;
+    font-size: 0.28rem;
     color: #333333;
-    margin-bottom: 0.2rem;
-    margin-top: 0.4rem;
+    margin-bottom: 0.16rem;
+    margin-top: 0.26rem;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
 }
 .attention .main_title .p1 span{
-    font-size: 0.51rem;
+    font-size: 0.24rem;
     color: #666666;
 }
 .attention .main_title .p1 .span0{
-    margin-right: 1.042rem;
+    margin-right: 0.29rem;
 }
 .attention .main_title .p1{
     width: 100%;
     height: 0.9rem;
-    line-height: 0.5rem;
+    line-height: 0.1rem;
+    margin-top: -0.2rem;
 }
 .add_follow{
-    width: 3.404rem;
-    height: 1.191rem;
-    line-height: 1.191rem;
+    width: 1.6rem;
+    height: 0.56rem;
+    line-height: 0.56rem;
     text-align: center;
-    /*border: 1px solid #00BC12;*/
+    /* border: 1px solid #00BC12; */
     float: left;
-    margin-top: 0.68rem;
+    margin-top: 0.32rem;
     border-radius: 100px;
     
 }
@@ -636,25 +645,25 @@ div.pinch-zoom,
 }
 
 .add_follow img{
-    width: 0.6rem;
-    /*width: 0.532rem;*/
-    /*height: 0.511rem;*/
+    width: 0.24rem;
+    /* width: 0.532rem; */
+    /* height: 0.511rem; */
     float: left;
-    margin-top: 0.3rem;
-    margin-left: 0.4rem;
+    margin-top: 0.16rem;
+    margin-left: 0.27rem;
     
 }
 .add_follow p{
-    font-size: 0.51rem;
+    font-size: 0.24rem;
     color: #fff;
+    display: block;
 }
 .attention .close{
-    /*width: ;*/
-    height: 2.553rem;
-    line-height: 2.553rem;
+    height: 1.2rem;
+    line-height: 1.2rem;
     float: right;
-    margin-right: 0.553rem;
-    font-size: 1rem;
+    margin-right: 0.26rem;
+    font-size: 0.5rem;
     color: #999;
 }
 
@@ -690,20 +699,24 @@ div.pinch-zoom,
     margin-bottom: 0;
 }
 .grabble_img{
-    width: 0.5rem;
-    height: 0.9rem;
-    background: url(../images/backicon.png) no-repeat;
-    background-size: 100% 100%;
-    margin-left: 0.56rem;
-    margin-top: 0.52rem;
+    width: 0.24rem;
+    height: 0.42rem;
+    position: absolute;
+    left: 0.26rem;
+    top: 0.23rem;
+}
+.grabble_img img{
+    width: 100%;
+    height: 100%;
+    display: block;
 }
 .fx_bg{
-    width: 0.894rem;
-    height: 0.915rem;
-    background: url(/xcview/images/share_img.png)no-repeat;
-    background-size: 100% 100%;
-    float: right;
-    margin-right: 0.3rem;
+    width: 0.42rem;
+    height: 0.43rem;
+}
+.fx_bg img{
+    width: 0.42rem;
+    height: 0.43rem;
 }
 
 /*分享开始*/
@@ -723,52 +736,53 @@ div.pinch-zoom,
     z-index: 10;
 }
 .share_main{
-    width: 14.851rem;
-    height: 8.426rem;
-    /*background: #fff;*/
+    width: 6.98rem;
+    height: 2.86rem;
+    /* background: #fff; */
     margin: 0 auto;
     position: fixed;
-    left: 0.56rem;
-    bottom: 1.744rem;
+    left: 0.25rem;
+    bottom: 1.3rem;
     z-index: 999999999;
 }
 .share_main_bg{
     width: 100%;
-    height: 6.085rem;
+    height: 2.86rem;
     background: rgba(255,255,255,0.80);
     border-radius: 8px;
 }
 .share_to{
     width: 100%;
     text-align: center;
-    font-size: 0.681rem;
+    font-size: 0.32rem;
     color: #333;
-    padding-top: 0.638rem;
-    margin-bottom: 0.5rem;
+    padding-top: 0.3rem;
+    margin-bottom: 0.3rem;
 }
 .share_cancel{
     width: 100%;
-    height: 1.702rem;
-    line-height: 1.702rem;
+    height: 0.8rem;
+    line-height: 0.8rem;
     text-align: center;
     color: #333;
-    font-size: 0.638rem;
+    font-size: 0.3rem;
     background: #fff;
     border-radius: 8px;
-    margin-top: 0.638rem;
+    margin-top: 0.2rem;
 }
 .share_main_bg ul li{
     float: left;
-    margin-left: 3.3rem;
+    margin-left: 1.55rem;
 }
 .share_main_bg ul li img{
-    width: 2.553rem;
-    height: 2.553rem;
+    width: 1.2rem;
+    height: 1.2rem;
+    margin-bottom: 0.1rem;
 }
 .share_main_bg ul li p{
     text-align: center;
-    width: 2.553rem;
-    font-size: 0.511rem;
+    width: 1.2rem;
+    font-size: 0.24rem;
     color: #333333;
 }
 .weixin_ceng_bg{
@@ -778,26 +792,26 @@ div.pinch-zoom,
 
 /*添加礼物关闭按钮开始*/
 .send_gifts_ul .div{
-    font-size: 0.6rem;
+        font-size: 0.3rem;
     color: #333;
     width: 100%;
-    height: 1.4rem;
-    line-height: 1.4rem;
+    height: 0.8rem;
+    line-height: 0.8rem;
     border-bottom: 1px solid #d2d2d2;
 }
 .send_gifts_ul .div .span0{
     margin-left: 0.4rem;
 }
 .send_gifts_ul .div .span1{
-    float: right;
-    font-size: 0.8rem;
-    width: 1.4rem;
+        float: right;
+    font-size: 0.5rem;
+    width: 0.8rem;
     height: 100%;
     text-align: center;
     color: #999;
 }
 .send_gifts ul li a p{
-    font-size: 0.5rem !important;
+    font-size: 0.26rem !important;
 }
 /*添加礼物关闭按钮结束*/
 
@@ -817,14 +831,15 @@ div.pinch-zoom,
     right: -3.5rem !important;
 }
 .div_img .img_left{
-    margin-left: 0.6rem;
+    margin-left: 0.2rem;
+    margin-top: 0.15rem;
 }
 
 
 /*处理排行榜下划线位置--给的left值*/
 .leaderboard_list{
     width: 97%;
-    margin-left: 0.5rem;
+    /*margin-left: 0.26rem;*/
 }
 
 
@@ -833,18 +848,18 @@ div.pinch-zoom,
     position: absolute;
     text-align: center;
     width: 100%;
-     height: 7.6rem;
+    height: 4.24rem;
     top: 0;
-    margin-top: 1.9rem;
+    margin-top: 0.88rem;
     z-index: 1;
     background: rgba(0,0,0,0.80);
     /*display: none;*/
 }
 .video_end_top0 p{
     color: #fff;
-    font-size: 0.68rem;
-    margin-top: 2rem;
-    margin-bottom: 1rem;
+    font-size: 0.32rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.4rem;
 }
 .video_end_top0 .div{
     background: #00BC12;
@@ -899,18 +914,18 @@ div.pinch-zoom,
     position: absolute;
     text-align: center;
     width: 100%;
-     height: 7.6rem;
+    height: 4.24rem;
     top: 0;
-    margin-top: 1.9rem;
+    margin-top: 0.88rem;
     z-index: 1;
     background: rgba(0,0,0,0.80);
     /*display: none;*/
 }
 .video_end_top2 p{
     color: #fff;
-    font-size: 0.68rem;
-    margin-top: 2rem;
-    margin-bottom: 1rem;
+    font-size: 0.32rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.4rem;
 }
 .video_end_top2 .div{
     background: #00BC12;
@@ -929,27 +944,27 @@ div.pinch-zoom,
     position: absolute;
     text-align: center;
     width: 100%;
-     height: 7.6rem;
+    height: 4.24rem;
     top: 0;
-    margin-top: 1.9rem;
+    margin-top: 0.88rem;
     z-index: 1;
     background: rgba(0,0,0,0.80);
     display: none;
 }
 .video_end_top p{
     color: #fff;
-    font-size: 0.68rem;
-    margin-top: 2rem;
-    margin-bottom: 1rem;
+    font-size: 0.32rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.4rem;
 }
 .video_end_top .div{
     background: #00BC12;
     border-radius: 8px;
-    width: 3.063rem;
-    height: 1.191rem;
-    line-height: 1.191rem;
+    width: 1.44rem;
+    height: 0.56rem;
+    line-height: 0.56rem;
     margin: 0 auto;
-    font-size: 0.595rem;
+    font-size: 0.28rem;
     color: #fff;
 }
 /*直播已结束提示*/
@@ -959,31 +974,31 @@ div.pinch-zoom,
     position: absolute;
     text-align: center;
     width: 100%;
-     height: 7.6rem;
+    height: 4.24rem;
     top: 0;
-    margin-top: 1.9rem;
+    margin-top: 0.88rem;
     z-index: 1;
     background: rgba(0,0,0,0.80);
     /*display: none;*/
 }
 .video_end_top1 p{
-    color: #fff;
-    font-size: 0.68rem;
-    margin-top: 2rem;
-    margin-bottom: 1rem;
+        color: #fff;
+    font-size: 0.32rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.4rem;
 }
 .video_end_top1 .div{
     background: none;
     border-radius: 8px;
-    width: 3.489rem;
-    height: 2.191rem;
-    line-height: 1.191rem;
+    width: 0.8rem;
+    height: 0.8rem;
+    line-height: 0.8rem;
     margin: 0 auto;
     font-size: 0.595rem;
     color: #fff;
 }
 .video_end_top1 .div img{
-    width: 1.5rem;
+    width: 0.8rem;
 }
 /*直播结束查看回放*/
 
@@ -991,3 +1006,8 @@ div.pinch-zoom,
     border-top: 1px solid #f0f0f0;
 }
 
+.facebox-mobile li{
+    padding: 0 !important;
+    margin-top: 0.25rem;
+    width: 1rem !important;
+}

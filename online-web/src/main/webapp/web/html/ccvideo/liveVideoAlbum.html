@@ -98,13 +98,13 @@
 	$('.showAlbum_list').click(function() {
 		showAlbum = !showAlbum;
 		if(showAlbum) {
-					$('.album_list').animate({marginRight:"-310px"},500)
-					$('.livePlayer').animate({paddingRight:"0px"},500)
-					$('.animation').animate({right:"0px"},500)
+			$('.album_list').stop().animate({marginRight:"-310px"},100);
+			$('.livePlayer').stop().animate({paddingRight:"0px"},100);
+			$('.animation').stop().animate({right:"0px"},100);
 		} else {
-					$('.album_list').animate({marginRight:"0px"},500)
-					$('.livePlayer').animate({paddingRight:"310px"},500)
-					$('.animation').animate({right:"311px"},500)
+			$('.album_list').stop().animate({marginRight:"0px"},100);
+			$('.livePlayer').stop().animate({paddingRight:"310px"},100);
+			$('.animation').stop().animate({right:"311px"},100);
 		}
 	})
 	$('.album_list > ul > li').click(function(){

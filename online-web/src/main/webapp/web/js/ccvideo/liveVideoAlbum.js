@@ -19,6 +19,7 @@ var	description = "零基础也能学中医！许多学员推荐“古籍经典�
 
 var userId= "";
 var multimediaType = 1;
+var directId = "";
 
 //判断字段空值
 function stringnull(zifu) {
@@ -52,7 +53,7 @@ RequestService("/online/user/isAlive", "GET", null, function(data) { ///online/u
 			$("#courseName").html(obj.courseName).attr("title", obj.courseName);
 			document.title = obj.courseName ;
 			
-			$(".headerBody .rightT i").html(obj.lecturer);
+			$(".headerBody .rightT i").html(obj.lecturer); 
 			
 			//分享使用
 			courseName = obj.courseName;
@@ -61,7 +62,7 @@ RequestService("/online/user/isAlive", "GET", null, function(data) { ///online/u
 			
 			//如果是音频的话，需要自己去设置哪里播放
 			multimediaType = obj.multimediaType;
-			
+			directId = obj.direct_id;
 		}, false);
 	} else {
 		/**
@@ -96,7 +97,15 @@ function getPlayCode(collectionId,courseId){
 	//获取当前屏幕高度
 	var allwidth = parseInt($(".videoBody-top").width());
 	//当前屏幕左半部分宽度
-	var awidth = parseInt($(".videoBody-top").width() - 290);
+	var aaa = document.body.clientWidth; //网页可见区域宽
+//	var aaa1 = document.body.offsetWidth; //document.body.offsetWidth
+//	var aaa2 = document.body.scrollWidth;
+//	var aaa3 =  window.screen.width;
+	
+	var lala = $(".album_list").width();
+	
+	var awidth = parseInt(aaa - lala);
+	
 	var aheight = parseInt($(window).height() - $(".header").height() - 65);
 	$(".videoBody-top").height(aheight);
 	$(".videoBody-menuList").height(aheight);
@@ -108,11 +117,11 @@ function getPlayCode(collectionId,courseId){
         courseId: courseId,
 		width: awidth,
 		height: aheight,
+		multimediaType:multimediaType,
+		directId:directId,
 		autoPlay: false
 	}, function(data) {
 		if(data.success == true) {
-			
-			
 			 /**
 		     * 增加观看记录
 		     * @param data
@@ -127,9 +136,14 @@ function getPlayCode(collectionId,courseId){
 			},false);
 			
 			
-			var scr = data.resultObject.playCode;
-			$(".videoBody-video").append(scr);
-			$(".headerBody-title").html(data.resultObject.title);
+			var playCodeStr = data.resultObject;
+            var playCodeObj = JSON.parse(playCodeStr);
+            console.log(playCodeObj.video.playcode);
+			$(".videoBody-video").html(playCodeObj.video.playcode);
+			
+			
+			
+			
 		} else if(data.success == false) {
 			//弹出错误信息
 			alert(data.errorMessage);
@@ -151,6 +165,7 @@ RequestService("/course/newGetCoursesByCollectionId",
 			
 			if(courseId == obj.id ){
 				li = "<li class='choosedAlbum' data-id = "+obj.id+">";
+				directId = list[0].directId;
 			}else{
 				li = "<li data-id = "+obj.id+">"
 			}
@@ -170,7 +185,7 @@ RequestService("/course/newGetCoursesByCollectionId",
 		 */
 		if(!stringnull(courseId) && stringnull(ljxx)){
 			courseId = list[0].id;
-		    
+			directId = list[0].directId;
 			$(".album_list ul li").removeClass("choosedAlbum");
 			$(".album_list ul li").eq(0).addClass("choosedAlbum");
 		}
@@ -244,12 +259,19 @@ function getSWF(objectId) {
     }
 }
 
+
 /*
  * 开始播放了
  */
 function custom_player_start(){
 	if(recording>0){
-		player.seek(recording);
+		//获取视频片长（单位：秒）
+		var duration = player.getDuration();
+		
+		if(recording<=(duration-5)){
+			//定位至指定时间，参数time（单位：秒）
+			player.seek(recording);
+		}
 	}
 }
 
@@ -269,13 +291,14 @@ function custom_player_ready(){
 }
 
 
+/**
+ * 选中并变为蓝色
+ */
 var auto_play = $.getUrlParam("auto_play");
-if(auto_play != null && auto_play == "true"){
-
+if(null == auto_play || "true" == auto_play){
 	$("#auto_play").attr("checked","true");
-	$("#auto_play").css("background","green");
+	$("#auto_play").css("background-image","url(/web/images/btn-ondown.png)");
 }
-
 
 $("#auto_play").click(function(){
 	var falg = $(this).is(':checked')
@@ -316,8 +339,6 @@ function custom_player_stop(){
 				}else{
 					nextCourseId = $nextNode.attr("data-id");
 				}
-				
-		
 				location.href = "/web/html/ccvideo/liveVideoAlbum.html"+"?collectionId="+collectionId+"&courseId="+nextCourseId+"&auto_play="+falg;
 			}
 		})

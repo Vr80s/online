@@ -9,6 +9,7 @@ var	description = "零基础也能学中医！许多学员推荐“古籍经典�
 
 var multimediaType = 1;
 var userId= "";
+var directId = "";
 /**
  * 设置返回课程详情a标签
  */
@@ -33,48 +34,7 @@ $(".loadImg").css("display", "block");
 function timeChange(num) {
 	return '' + num + "分钟";
 };
-//获取视频信息接口
-RequestService("/online/user/isAlive", "GET", null, function(data) { ///online/user/isAlive
-	if(data.success === true) {
-		
-		userId = data.resultObject.id;
-		
-		RequestService("/online/vedio/getPlayCodeByCourseId", "GET", {
-            courseId: courseId,
-			width: awidth,
-			height: aheight,
-			autoPlay: false
-		}, function(data) {
-			if(data.success == true) {
-				
-				/**
-				 * 增加观看记录
-				 */
-				RequestService("/learnWatch/add", "POST", {
-					courseId:courseId,
-					recordType:2
-				}, function(data) {
-					console.log("添加观看记录");
-				},false);
-				
-				
-				var scr = data.resultObject.playCode;
-				$(".videoBody-video").append(scr);
-				$(".headerBody-title").html(data.resultObject.title);
-				
-			} else if(data.success == false) {
-				
-				//弹出错误信息
-				alert(data.errorMessage);
-			}
-		});
-	} else {
-		/**
-		 * 如果用户没有登录直接就搞走呗
-		 */
-		location.href="/courses/"+courseId+"/info";
-	}
-},false);
+
 
 //获取课程名字和讲师姓名
 RequestService("/online/live/getOpenCourseById", "get", {
@@ -95,13 +55,62 @@ RequestService("/online/live/getOpenCourseById", "get", {
 	$(".headerBody .rightT p").html(obj.courseName).attr("title", obj.courseName);
 	document.title = data.resultObject.courseName ;
 	$(".headerBody .rightT i").html(obj.lecturer);
-
-
+	
+	$(".headerBody-title").html(obj.courseName);
+	
 	//如果是音频的话，需要自己去设置哪里播放
     multimediaType = obj.multimediaType;
-	
+    directId = obj.direct_id;
 }, false);
 
+
+//获取视频信息接口
+RequestService("/online/user/isAlive", "GET", null, function(data) { ///online/user/isAlive
+	if(data.success === true) {
+		
+		userId = data.resultObject.id;
+		
+		RequestService("/online/vedio/getPlayCodeByCourseId", "GET", {
+            courseId: courseId,
+			width: awidth,
+			height: aheight,
+			directId:directId,
+			multimediaType:multimediaType,
+			autoPlay: false
+		}, function(data) {
+			if(data.success == true) {
+				
+				/**
+				 * 增加观看记录
+				 */
+				RequestService("/learnWatch/add", "POST", {
+					courseId:courseId,
+					recordType:2
+				}, function(data) {
+					console.log("添加观看记录");
+				},false);
+				
+				
+				var playCodeStr = data.resultObject;
+	            var playCodeObj = JSON.parse(playCodeStr);
+	            console.log(playCodeObj.video.playcode);
+	            
+				$(".videoBody-video").html(playCodeObj.video.playcode);
+			
+				
+			} else if(data.success == false) {
+				
+				//弹出错误信息
+				alert(data.errorMessage);
+			}
+		});
+	} else {
+		/**
+		 * 如果用户没有登录直接就搞走呗
+		 */
+		location.href="/courses/"+courseId+"/info";
+	}
+},false);
 
 
 

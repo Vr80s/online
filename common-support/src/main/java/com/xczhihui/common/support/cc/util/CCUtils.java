@@ -1,14 +1,20 @@
 package com.xczhihui.common.support.cc.util;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.xczhihui.common.support.cc.bean.CategoryBean;
 import com.xczhihui.common.support.cc.config.Config;
 import com.xczhihui.common.support.config.OnlineConfig;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
-
-import java.util.*;
 
 public class CCUtils {
 
@@ -155,4 +161,53 @@ public class CCUtils {
 		playCode+="	</object>";
 		return playCode;
 	}
+	
+	
+	public static String getPlayCodeRequest(String videoId,String audioStr,
+			String playerwidth,String playerheight,
+			String multimedia_type,String smallImgPath){
+		
+	    Map<String, String> paramsMap = new HashMap<String, String>();
+        paramsMap.put("userid", "B5E673E55C702C42");
+        paramsMap.put("videoid", videoId);
+        paramsMap.put("auto_play", "false");
+        if(playerwidth!=null) {
+        	 paramsMap.put("player_width", playerwidth);
+        }
+        if(playerheight!=null) {
+        	 BigDecimal decimal = new BigDecimal(playerheight);
+             BigDecimal setScale = decimal.setScale(0, BigDecimal.ROUND_HALF_DOWN);
+             paramsMap.put("player_height", setScale + "");
+        }
+        paramsMap.put("format", "json");
+        long time = System.currentTimeMillis();
+        String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time, "K45btKhytR527yfTAjEp6z4fb3ajgu66");
+        String responsestr = APIServiceFunction.HttpRetrieve("http://spark.bokecc.com/api/video/playcode?" + requestURL);
+        if (responsestr.contains("\"error\":")) {
+            //return ResponseObject.newErrorResponseObject("视频走丢了，请试试其他视频。");
+            throw new RuntimeException("视频走丢了，请试试其他视频。");
+        }
+        //如果是音频的话需要这样暂时替换下
+        if ("2".equals(multimedia_type)) {
+            responsestr = responsestr.replaceAll("playertype=1", "playertype=1&mediatype=2");
+        }
+        //背景图片
+        if(null!=smallImgPath) {
+            responsestr = responsestr.replaceAll("playertype=1", "playertype=1&img_path=" + smallImgPath);
+        }
+		return responsestr;
+	}
+	
+	
+	
+	public static void main(String[] args) {
+		
+		//System.out.println(CCUtils.responsestr("0CE2BB6FD1FDFB8B9C33DC5901307461", null, null, null, "1", null));
+	}
+	
+	
+	
+	
+	
+	
 }
