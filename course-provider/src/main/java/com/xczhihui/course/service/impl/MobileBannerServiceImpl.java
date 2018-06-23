@@ -5,12 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Param;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.xczhihui.course.consts.MultiUrlHelper;
 import com.xczhihui.course.mapper.MobileBannerMapper;
 import com.xczhihui.course.model.MobileBanner;
 import com.xczhihui.course.model.OfflineCity;
@@ -34,16 +35,25 @@ public class MobileBannerServiceImpl extends ServiceImpl<MobileBannerMapper, Mob
     private MobileBannerMapper iMobileBannerMapper;
 
     @Override
-    public List<MobileBanner> selectMobileBannerPage(Integer type, boolean onlyFree) {
-        if(onlyFree){
-            return  new ArrayList<>();
+    public List<MobileBanner> selectMobileBannerPage(Integer type, boolean onlyFree, String source) {
+        if (onlyFree) {
+            return new ArrayList<>();
         }
-        return selectMobileBannerPage(type);
+        return selectMobileBannerPage(type, source);
     }
 
     @Override
-    public List<MobileBanner> selectMobileBannerPage(Integer type) {
+    public List<MobileBanner> selectMobileBannerPage(Integer type, String source) {
         List<MobileBanner> records = iMobileBannerMapper.selectMobileBannerPage(type);
+        records.forEach(mobileBanner -> {
+            String routeType = mobileBanner.getRouteType();
+            if (StringUtils.isNotBlank(routeType)) {
+                String url = MultiUrlHelper.getUrl(routeType, source, mobileBanner.getLinkParam());
+                mobileBanner.setTarget(url);
+            } else {
+                mobileBanner.setTarget("");
+            }
+        });
         return records;
     }
 
@@ -55,9 +65,9 @@ public class MobileBannerServiceImpl extends ServiceImpl<MobileBannerMapper, Mob
     @Override
     public List<Map<String, Object>> recommendCourseList(List<MenuVo> menuList, Integer pageSizeUp, Integer pageSizeDown, boolean onlyFree) {
 
-        List<CourseLecturVo> listAll = iMobileBannerMapper.recommendCourseList(menuList, 
-        		pageSizeUp, pageSizeDown,
-        		onlyFree);
+        List<CourseLecturVo> listAll = iMobileBannerMapper.recommendCourseList(menuList,
+                pageSizeUp, pageSizeDown,
+                onlyFree);
 
         List<Map<String, Object>> mapCourseList = new ArrayList<Map<String, Object>>();
 
@@ -73,7 +83,7 @@ public class MobileBannerServiceImpl extends ServiceImpl<MobileBannerMapper, Mob
                 listTj.add(courseLecturVo);
             }
             if ("免费课程".equals(courseLecturVo.getNote())) {
-            	listMf.add(courseLecturVo);
+                listMf.add(courseLecturVo);
             }
             if ("最新课程".equals(courseLecturVo.getNote())) {
                 listNw.add(courseLecturVo);
@@ -87,9 +97,9 @@ public class MobileBannerServiceImpl extends ServiceImpl<MobileBannerMapper, Mob
             mapCourseList.add(mapTj);
         }
         if (listMf.size() > 0) {
-        	mapMf.put("menuType", "freeCourse");
-        	mapMf.put("title", "免费课程");
-        	mapMf.put("courseList", listMf);
+            mapMf.put("menuType", "freeCourse");
+            mapMf.put("title", "免费课程");
+            mapMf.put("courseList", listMf);
             mapCourseList.add(mapMf);
         }
         if (listNw.size() > 0) {
@@ -98,8 +108,7 @@ public class MobileBannerServiceImpl extends ServiceImpl<MobileBannerMapper, Mob
             mapNw.put("courseList", listNw);
             mapCourseList.add(mapNw);
         }
-        
-        
+
 
         //定义好这
         for (MenuVo menuVo : menuList) {
@@ -131,16 +140,16 @@ public class MobileBannerServiceImpl extends ServiceImpl<MobileBannerMapper, Mob
     }
 
     @Override
-    public List<Map<String, Object>> realCourseList(List<OfflineCity> cityList, Integer pageSizeUp, Integer pageSizeDown){
-        return realCourseList(cityList,pageSizeUp,pageSizeDown,false);
+    public List<Map<String, Object>> realCourseList(List<OfflineCity> cityList, Integer pageSizeUp, Integer pageSizeDown) {
+        return realCourseList(cityList, pageSizeUp, pageSizeDown, false);
     }
 
     @Override
-    public List<Map<String, Object>> realCourseList(List<OfflineCity> cityList, Integer pageSizeUp, Integer pageSizeDown,boolean onlyFree) {
-        if(cityList.size()==0){
-            cityList=null;
+    public List<Map<String, Object>> realCourseList(List<OfflineCity> cityList, Integer pageSizeUp, Integer pageSizeDown, boolean onlyFree) {
+        if (cityList.size() == 0) {
+            cityList = null;
         }
-        List<CourseLecturVo> list = iMobileBannerMapper.realCourseList(cityList, pageSizeUp, pageSizeDown,onlyFree);
+        List<CourseLecturVo> list = iMobileBannerMapper.realCourseList(cityList, pageSizeUp, pageSizeDown, onlyFree);
 
         List<Map<String, Object>> mapCourseList = new ArrayList<Map<String, Object>>();
         Map<String, Object> mapTj = new HashMap<String, Object>();
@@ -157,7 +166,7 @@ public class MobileBannerServiceImpl extends ServiceImpl<MobileBannerMapper, Mob
             mapTj.put("courseList", listqg);
             mapCourseList.add(mapTj);
         }
-        if(cityList != null){
+        if (cityList != null) {
             for (OfflineCity oc : cityList) {
                 Map<String, Object> mapMenu = new HashMap<String, Object>();
                 List<CourseLecturVo> listMenu = new ArrayList<CourseLecturVo>();
@@ -180,13 +189,13 @@ public class MobileBannerServiceImpl extends ServiceImpl<MobileBannerMapper, Mob
 
     @Override
     public List<Map<String, Object>> liveCourseList(Integer pageSizeUp, Integer pageSizeDown) {
-        return liveCourseList(pageSizeUp,pageSizeDown,false);
+        return liveCourseList(pageSizeUp, pageSizeDown, false);
     }
 
     @Override
-    public List<Map<String, Object>> liveCourseList(Integer pageSizeUp, Integer pageSizeDown,boolean onlyFree) {
+    public List<Map<String, Object>> liveCourseList(Integer pageSizeUp, Integer pageSizeDown, boolean onlyFree) {
 
-        List<CourseLecturVo> list = iMobileBannerMapper.liveCourseList(pageSizeUp, pageSizeDown,onlyFree);
+        List<CourseLecturVo> list = iMobileBannerMapper.liveCourseList(pageSizeUp, pageSizeDown, onlyFree);
 
         //直播 中的课程
         List<Map<String, Object>> mapCourseList = new ArrayList<Map<String, Object>>();
@@ -257,13 +266,13 @@ public class MobileBannerServiceImpl extends ServiceImpl<MobileBannerMapper, Mob
 
     @Override
     public Page<CourseLecturVo> searchQueryKeyCourseList(Page<CourseLecturVo> page, QueryConditionVo queryConditionVo) {
-        List<CourseLecturVo> list = iMobileBannerMapper.searchQueryKeyCourseList(page, queryConditionVo,false);
+        List<CourseLecturVo> list = iMobileBannerMapper.searchQueryKeyCourseList(page, queryConditionVo, false);
         return page.setRecords(list);
     }
 
     @Override
     public Page<CourseLecturVo> searchQueryKeyCourseList(Page<CourseLecturVo> page, QueryConditionVo queryConditionVo, boolean onlyFree) {
-        List<CourseLecturVo> list = iMobileBannerMapper.searchQueryKeyCourseList(page, queryConditionVo,onlyFree);
+        List<CourseLecturVo> list = iMobileBannerMapper.searchQueryKeyCourseList(page, queryConditionVo, onlyFree);
         return page.setRecords(list);
     }
 

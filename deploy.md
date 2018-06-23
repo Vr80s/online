@@ -81,3 +81,15 @@ dev-2.1.0
     正式环境微信模板配置，替换配置文件里的模板id
 
     后台管理系统新增菜单 在 主播管理 下 新增 学员管理  菜单路径为anchor/student/index
+
+2.2.0
+===
+
+    处理banner中老的数据，登陆后台管理后，使用postman 以post方式调用:
+    测试环境:
+            http://test-www.ixincheng.com:28080/operate/mobileBanner/clean
+            http://test-www.ixincheng.com:28080/operate/banner2/updateOldData
+
+    正式环境环境:
+                http://www.ipandatcm.com:28080/operate/mobileBanner/clean
+                http://www.ipandatcm.com:28080/operate/banner2/updateOldData

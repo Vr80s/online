@@ -1,5 +1,7 @@
 package com.xczhihui.course.consts;
 
+import static com.xczhihui.course.enums.RouteTypeEnum.HOSPITAL_APPROVE_PAGE;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.MessageFormat;
@@ -17,6 +19,11 @@ import com.xczhihui.course.enums.RouteTypeEnum;
  * @author hejiwei
  */
 public class MultiUrlHelper {
+
+    public static final int NONE_PARAM = 0;
+    public static final int DETAIL = 1;
+    public static final int LIST_FILTER = 2;
+    public static final int OUTER_LINK = 3;
 
     public static final String URL_TYPE_APP = "app";
     public static final String URL_TYPE_WEB = "web";
@@ -44,15 +51,17 @@ public class MultiUrlHelper {
             URL_TYPE_MOBILE, "/xcview/html/live_audio.html?my_study={0}");
 
     private static Map<String, String> courseDetailUrlMap =
-            ImmutableMap.of(URL_TYPE_APP, APP_COURSE_DETAIL, URL_TYPE_WEB, WEB_COURSE_DETAIL);
+            ImmutableMap.of(URL_TYPE_APP, APP_COURSE_DETAIL,
+                    URL_TYPE_WEB, WEB_COURSE_DETAIL,
+                    URL_TYPE_MOBILE, "/xczh/page/course/{0}");
 
     private static Map<String, String> doctorApproveUrlMap = ImmutableMap.of(
             URL_TYPE_APP, "xczh://ipandatcm.com/anchorApprove?type=1",
-            URL_TYPE_WEB, "/web/html/anchors_resources.html",
+            URL_TYPE_WEB, "/web/html/ResidentDoctor.html",
             URL_TYPE_MOBILE, "");
     private static Map<String, String> hospitalApproveUrlMap = ImmutableMap.of(
             URL_TYPE_APP, "xczh://ipandatcm.com/anchorApprove?type=2",
-            URL_TYPE_WEB, "/web/html/anchors_resources.html",
+            URL_TYPE_WEB, "/web/html/ResidentHospital.html",
             URL_TYPE_MOBILE, "");
     private static Map<String, String> workTableUrlMap = ImmutableMap.of(
             URL_TYPE_APP, "xczh://ipandatcm.com/anchorWorkTable",
@@ -90,9 +99,14 @@ public class MultiUrlHelper {
     );
     private static Map<String, String> anchorIndexMap = ImmutableMap.of(
             URL_TYPE_APP, "xczh://ipandatcm.com/anchorIndex?id={0}",
-            URL_TYPE_WEB, "/anchors/{0}/courses");
+            URL_TYPE_WEB, "/anchors/{0}/courses",
+            URL_TYPE_MOBILE, "/xcview/html/live_personal.html?userLecturerId={0}");
     private static Map<String, String> h5Map = ImmutableMap.of(
             URL_TYPE_APP, "xczh://ipandatcm.com/h5?url={0}");
+    private static Map<String, String> publicCourseListMap = ImmutableMap.of(
+            URL_TYPE_APP, "xczh://ipandatcm.com/publicCourseList?",
+            URL_TYPE_WEB, "/courses/list?",
+            URL_TYPE_MOBILE, "/xcview/html/curriculum_table.html?");
 
     static {
         urlMap.put(RouteTypeEnum.COLLECTION_COURSE_DETAIL_PAGE.name(), collectionCourseDetailUrlMap);
@@ -100,7 +114,7 @@ public class MultiUrlHelper {
         urlMap.put(RouteTypeEnum.OFFLINE_COURSE_DETAIL_PAGE.name(), offlineCourseDetailUrlMap);
         urlMap.put(RouteTypeEnum.VIDEO_AUDIO_COURSE_DETAIL_PAGE.name(), videoAudioCourseDetailUrlMap);
         urlMap.put(RouteTypeEnum.DOCTOR_APPROVE_PAGE.name(), doctorApproveUrlMap);
-        urlMap.put(RouteTypeEnum.HOSPITAL_APPROVE_PAGE.name(), hospitalApproveUrlMap);
+        urlMap.put(HOSPITAL_APPROVE_PAGE.name(), hospitalApproveUrlMap);
         urlMap.put(RouteTypeEnum.ANCHOR_WORK_TABLE_PAGE.name(), workTableUrlMap);
         urlMap.put(RouteTypeEnum.ANCHOR_PROPERTY_MONEY_PAGE.name(), anchorCNYMap);
         urlMap.put(RouteTypeEnum.COURSE_LIST_PAGE.name(), courseListMap);
@@ -113,31 +127,54 @@ public class MultiUrlHelper {
         urlMap.put(RouteTypeEnum.ANCHOR_INDEX.name(), anchorIndexMap);
         urlMap.put(RouteTypeEnum.H5.name(), h5Map);
         urlMap.put(RouteTypeEnum.COMMON_COURSE_DETAIL_PAGE.name(), courseDetailUrlMap);
+        urlMap.put(RouteTypeEnum.PUBLIC_COURSE_LIST_PAGE.name(), publicCourseListMap);
     }
 
     public static String getUrl(String routeType, String source, String detailId, String link) {
-        String url = null;
+        if (StringUtils.isNotBlank(detailId)) {
+            return getUrl(routeType, source, detailId);
+        } else {
+            return getUrl(routeType, source, link);
+        }
+    }
+
+    public static String getUrl(String routeType, String source, String params) {
+        String url = "";
         if (routeType != null && !routeType.equals(RouteTypeEnum.NONE.name())) {
+            RouteTypeEnum routeTypeEnum = RouteTypeEnum.valueOf(routeType);
             Map<String, String> urlMap = MultiUrlHelper.urlMap.get(routeType);
-            if (routeType.equals(RouteTypeEnum.H5.name())) {
-                if (StringUtils.isBlank(link)) {
-                    return "";
+            if (urlMap == null) {
+                return url;
+            }
+            String format = urlMap.get(source);
+            if (StringUtils.isBlank(format)) {
+                return url;
+            }
+            if (routeTypeEnum.getParamType() == OUTER_LINK) {
+                if (StringUtils.isBlank(params)) {
+                    return url;
                 }
                 if (URL_TYPE_WEB.equals(source) || URL_TYPE_MOBILE.equals(source)) {
-                    return link;
+                    return params;
                 } else {
-                    String format = urlMap.get(source);
                     try {
-                        return MessageFormat.format(format, URLEncoder.encode(link, "UTF-8"));
+                        url = MessageFormat.format(format, URLEncoder.encode(params, "UTF-8"));
                     } catch (UnsupportedEncodingException e) {
                         e.printStackTrace();
-                        return "";
+                        return url;
                     }
                 }
-            } else {
-                url = urlMap.get(source);
-                if (url != null && detailId != null) {
-                    url = MessageFormat.format(url, detailId);
+            } else if (routeTypeEnum.getParamType() == DETAIL || routeTypeEnum.getParamType() == NONE_PARAM) {
+                if (params != null) {
+                    url = MessageFormat.format(format, params);
+                } else {
+                    url = format;
+                }
+            } else if (routeTypeEnum.getParamType() == LIST_FILTER) {
+                if (StringUtils.isNotBlank(params)) {
+                    url = format + params;
+                } else {
+                    url = format;
                 }
             }
         }

@@ -24,7 +24,7 @@ import com.xczhihui.course.vo.CourseVo;
 public class CourseDao extends HibernateDao<Course> {
     public Page<CourseVo> findCloudClassCoursePage(CourseVo courseVo,
                                                    int pageNumber, int pageSize) {
-        Map<String, Object> paramMap = new HashMap<String, Object>();
+              Map<String, Object> paramMap = new HashMap<String, Object>();
         StringBuilder sql = new StringBuilder(
                 "SELECT \n"
                         + "  oc.id AS id,\n"
@@ -290,5 +290,13 @@ public class CourseDao extends HibernateDao<Course> {
         params.put("courseId", courseId);
         return this.getNamedParameterJdbcTemplate().query(sql, params,
                 BeanPropertyRowMapper.newInstance(OnlineUser.class));
+    }
+
+    public List<CourseVo> listSimpleCourse(int offset, int size) {
+        MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
+        mapSqlParameterSource.addValue("offset", offset).addValue("size", size);
+        String sql = "select id, grade_name as courseName" +
+                " from oe_course where status = 1 and is_delete = 0 order by create_time desc limit :offset,:size;";
+        return this.getNamedParameterJdbcTemplate().queryForList(sql, mapSqlParameterSource, CourseVo.class);
     }
 }

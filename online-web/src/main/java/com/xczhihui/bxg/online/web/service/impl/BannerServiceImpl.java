@@ -4,6 +4,8 @@ import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.web.service.BannerService;
 import com.xczhihui.bxg.online.web.vo.BannerVo;
+import com.xczhihui.course.consts.MultiUrlHelper;
+
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -28,7 +30,11 @@ public class BannerServiceImpl extends OnlineBaseServiceImpl implements BannerSe
         pageSize = pageSize == null ? 20 : pageSize;
         Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("type",type);
-        Page<BannerVo> page = dao.findPageByHQL("from Banner where 1=1 and isDelete=0 and type = :type and status=1 order by sort ", paramMap, pageNumber, pageSize);
+        Page<BannerVo> page = dao.findPageBySQL("select id, img_path as imgPath, description, img_href as imgHref, route_type as routeType, link_param as linkParam " +
+                " from oe_banner2 where is_delete=0 and type = :type and status=1 order by sort ", paramMap, BannerVo.class, pageNumber, pageSize);
+        page.getItems().forEach(bannerVo -> {
+            bannerVo.setImgHref(MultiUrlHelper.getUrl(bannerVo.getRouteType(), MultiUrlHelper.URL_TYPE_WEB, bannerVo.getLinkParam()));
+        });
         return page.getItems();
     }
 

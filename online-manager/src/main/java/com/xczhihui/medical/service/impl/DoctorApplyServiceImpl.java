@@ -413,7 +413,7 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
                     .buildAppPush(content)
                     .buildSms(smsAnchorApprovePassCode, params)
                     .buildWeixin(weixinAnchorApprovePassCode, weixinParams)
-                    .build(courseAnchor.getUserId(), RouteTypeEnum.DOCTOR_APPROVE_PAGE, ManagerUserUtil.getId()));
+                    .build(courseAnchor.getUserId(), RouteTypeEnum.ANCHOR_WORK_TABLE_PAGE, ManagerUserUtil.getId()));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -431,7 +431,6 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
         String content = MessageFormat.format(APPROVE_NOT_PASS_MESSAGE, type, reason);
         Map<String, String> params = new HashMap<>();
         params.put("type", type);
-        params.put("reason", reason);
         commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.SYSYTEM.getVal())
                 .buildWeb(content)
                 .buildAppPush(content)

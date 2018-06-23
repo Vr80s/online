@@ -4,132 +4,165 @@ import com.xczhihui.bxg.online.common.base.vo.OnlineBaseVo;
 
 public class MobileBannerVo extends OnlineBaseVo {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	private String id;
-	private String name;
-	private String url;
-	private String imgPath;
-	private Integer clickSum;
-	private String createPerson;
-	private java.util.Date createTime;
-	private Integer status;
-	private Integer seq;
-	private String createPersonName;
+    private String id;
+    private String name;
+    private String url;
+    private String imgPath;
+    private Integer clickSum;
+    private String createPerson;
+    private java.util.Date createTime;
+    private Integer status;
+    private Integer seq;
+    private String createPersonName;
 
-	private Integer linkType;
-	private String linkCondition;
-	private Integer bannerType;
+    private Integer linkType;
+    private String linkCondition;
+    private Integer bannerType;
+    private String linkParam;
+    private String routeType;
+    private String linkDesc;
 
-	public String getId() {
-		return id;
-	}
+    private String menuId;
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getUrl() {
-		return url;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setUrl(String url) {
-		this.url = url;
-	}
+    public String getUrl() {
+        return url;
+    }
 
-	public Integer getClickSum() {
-		return clickSum;
-	}
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
-	public void setClickSum(Integer clickSum) {
-		this.clickSum = clickSum;
-	}
+    public Integer getClickSum() {
+        return clickSum;
+    }
 
-	@Override
-	public String getCreatePerson() {
-		return createPerson;
-	}
+    public void setClickSum(Integer clickSum) {
+        this.clickSum = clickSum;
+    }
 
-	@Override
-	public void setCreatePerson(String createPerson) {
-		this.createPerson = createPerson;
-	}
+    @Override
+    public String getCreatePerson() {
+        return createPerson;
+    }
 
-	@Override
-	public java.util.Date getCreateTime() {
-		return createTime;
-	}
+    @Override
+    public void setCreatePerson(String createPerson) {
+        this.createPerson = createPerson;
+    }
 
-	@Override
-	public void setCreateTime(java.util.Date createTime) {
-		this.createTime = createTime;
-	}
+    @Override
+    public java.util.Date getCreateTime() {
+        return createTime;
+    }
 
-	public Integer getStatus() {
-		return status;
-	}
+    @Override
+    public void setCreateTime(java.util.Date createTime) {
+        this.createTime = createTime;
+    }
 
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
+    public Integer getStatus() {
+        return status;
+    }
 
-	public Integer getSeq() {
-		return seq;
-	}
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
 
-	public void setSeq(Integer seq) {
-		this.seq = seq;
-	}
+    public Integer getSeq() {
+        return seq;
+    }
 
-	public String getImgPath() {
-		return imgPath;
-	}
+    public void setSeq(Integer seq) {
+        this.seq = seq;
+    }
 
-	public void setImgPath(String imgPath) {
-		this.imgPath = imgPath;
-	}
+    public String getImgPath() {
+        return imgPath;
+    }
 
-	public String getCreatePersonName() {
-		return createPersonName;
-	}
+    public void setImgPath(String imgPath) {
+        this.imgPath = imgPath;
+    }
 
-	public void setCreatePersonName(String createPersonName) {
-		this.createPersonName = createPersonName;
-	}
+    public String getCreatePersonName() {
+        return createPersonName;
+    }
 
-	public Integer getLinkType() {
-		return linkType;
-	}
+    public void setCreatePersonName(String createPersonName) {
+        this.createPersonName = createPersonName;
+    }
 
-	public void setLinkType(Integer linkType) {
-		this.linkType = linkType;
-	}
+    public Integer getLinkType() {
+        return linkType;
+    }
 
-	public String getLinkCondition() {
-		return linkCondition;
-	}
+    public void setLinkType(Integer linkType) {
+        this.linkType = linkType;
+    }
 
-	public void setLinkCondition(String linkCondition) {
-		this.linkCondition = linkCondition;
-	}
+    public String getLinkCondition() {
+        return linkCondition;
+    }
 
-	public Integer getBannerType() {
-		return bannerType;
-	}
+    public void setLinkCondition(String linkCondition) {
+        this.linkCondition = linkCondition;
+    }
 
-	public void setBannerType(Integer bannerType) {
-		this.bannerType = bannerType;
-	}
+    public Integer getBannerType() {
+        return bannerType;
+    }
 
+    public void setBannerType(Integer bannerType) {
+        this.bannerType = bannerType;
+    }
+
+    public String getLinkParam() {
+        return linkParam;
+    }
+
+    public void setLinkParam(String linkParam) {
+        this.linkParam = linkParam;
+    }
+
+    public String getRouteType() {
+        return routeType;
+    }
+
+    public void setRouteType(String routeType) {
+        this.routeType = routeType;
+    }
+
+    public String getLinkDesc() {
+        return linkDesc;
+    }
+
+    public void setLinkDesc(String linkDesc) {
+        this.linkDesc = linkDesc;
+    }
+
+    public String getMenuId() {
+        return menuId;
+    }
+
+    public void setMenuId(String menuId) {
+        this.menuId = menuId;
+    }
 }

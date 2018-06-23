@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczh.consumer.market.interceptor.IOSVersionInterceptor;
+import com.xczh.consumer.market.utils.APPUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.enums.BannerType;
 import com.xczhihui.common.util.enums.PagingFixedType;
@@ -58,13 +59,13 @@ public class MobileRecommendController {
      */
     @RequestMapping("recommendTop")
     @ResponseBody
-    public ResponseObject recommendTop() throws Exception {
+    public ResponseObject recommendTop(HttpServletRequest request) throws Exception {
 //		Integer current = 1;
 //		Integer size = 100;
         Map<String, Object> mapAll = new HashMap<String, Object>();
         //课程banner
         Page<MobileBanner> MobileBannerPage = new Page<>();
-        MobileBannerPage.setRecords(mobileBannerService.selectMobileBannerPage(BannerType.RECOMMENDATION.getCode(),IOSVersionInterceptor.onlyThread.get()));
+        MobileBannerPage.setRecords(mobileBannerService.selectMobileBannerPage(BannerType.RECOMMENDATION.getCode(), IOSVersionInterceptor.onlyThread.get(), APPUtil.getMobileSource(request)));
         mapAll.put("banner", MobileBannerPage);
 
         //课程专题
@@ -123,35 +124,34 @@ public class MobileRecommendController {
 //        List<CourseVo> list = wxcpCourseService.queryAllCourse(menuType, lineState, courseType, isFree, city, queryKey, pageNumber, pageSize,IOSVersionInterceptor.onlyThread.get());
 //        return ResponseObject.newSuccessResponseObject(list);
 //    }
-    
-	  @RequestMapping("queryAllCourse")
-	  @ResponseBody
-	  public ResponseObject queryAllCourse(
-			QueryConditionVo queryConditionVo,
-	  		Integer pageNumber, Integer pageSize)
-	          throws Exception {
-	      
-		  pageNumber = pageNumber == null ? 1 : pageNumber;
-		  pageSize = pageSize == null ? 10 : pageSize;
-		  
-	      if(queryConditionVo.getMenuType()!=null && "0".equals(queryConditionVo.getMenuType())) {
-	         queryConditionVo.setMenuType(null);
-	      }
-	      if(queryConditionVo.getLineState()!=null && queryConditionVo.getLineState() == 0) {
-	        queryConditionVo.setLineState(null);
-	      }
-		  
-	      Page<CourseLecturVo> page = new Page<CourseLecturVo>(pageNumber, pageSize);
-	       // 课程列表
-	      if (StringUtils.isNotBlank(queryConditionVo.getQueryKey())) {
-	            queryConditionVo.setQueryKey("%" + queryConditionVo.getQueryKey() + "%");
-	            page= mobileBannerService.searchQueryKeyCourseList(page, queryConditionVo,IOSVersionInterceptor.onlyThread.get());
-	      } else {
-	    	    page =mobileBannerService.searchCourseList(page, queryConditionVo, IOSVersionInterceptor.onlyThread.get());
-	      }
-	      return ResponseObject.newSuccessResponseObject(page.getRecords());
-	  }
-    
+    @RequestMapping("queryAllCourse")
+    @ResponseBody
+    public ResponseObject queryAllCourse(
+            QueryConditionVo queryConditionVo,
+            Integer pageNumber, Integer pageSize)
+            throws Exception {
+
+        pageNumber = pageNumber == null ? 1 : pageNumber;
+        pageSize = pageSize == null ? 10 : pageSize;
+
+        if (queryConditionVo.getMenuType() != null && "0".equals(queryConditionVo.getMenuType())) {
+            queryConditionVo.setMenuType(null);
+        }
+        if (queryConditionVo.getLineState() != null && queryConditionVo.getLineState() == 0) {
+            queryConditionVo.setLineState(null);
+        }
+
+        Page<CourseLecturVo> page = new Page<CourseLecturVo>(pageNumber, pageSize);
+        // 课程列表
+        if (StringUtils.isNotBlank(queryConditionVo.getQueryKey())) {
+            queryConditionVo.setQueryKey("%" + queryConditionVo.getQueryKey() + "%");
+            page = mobileBannerService.searchQueryKeyCourseList(page, queryConditionVo, IOSVersionInterceptor.onlyThread.get());
+        } else {
+            page = mobileBannerService.searchCourseList(page, queryConditionVo, IOSVersionInterceptor.onlyThread.get());
+        }
+        return ResponseObject.newSuccessResponseObject(page.getRecords());
+    }
+
 
     /**
      * banner点击量

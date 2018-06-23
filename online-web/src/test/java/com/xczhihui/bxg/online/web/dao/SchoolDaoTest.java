@@ -12,6 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.common.util.enums.BannerType;
 import com.xczhihui.common.util.enums.PagingFixedType;
+import com.xczhihui.course.consts.MultiUrlHelper;
 import com.xczhihui.course.model.MobileBanner;
 import com.xczhihui.course.model.OfflineCity;
 import com.xczhihui.course.service.ICourseService;
@@ -61,7 +62,7 @@ public class SchoolDaoTest extends TestCase {
      */
     @Test
     public void selectMobileBannerPage() throws Exception {
-    	List<MobileBanner>  list = mobileBannerService.selectMobileBannerPage(BannerType.RECOMMENDATION.getCode());
+    	List<MobileBanner>  list = mobileBannerService.selectMobileBannerPage(BannerType.RECOMMENDATION.getCode(), MultiUrlHelper.URL_TYPE_WEB);
     	System.out.println(list.size());
     }
 

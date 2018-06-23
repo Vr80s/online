@@ -8,11 +8,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import com.xczhihui.course.service.CourseService;
-import com.xczhihui.user.service.OnlineUserService;
-import com.xczhihui.utils.Groups;
-import com.xczhihui.utils.TableVo;
-import com.xczhihui.utils.Tools;
 import org.aspectj.util.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,21 +17,27 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.xczhihui.bxg.online.common.domain.Course;
+import com.xczhihui.bxg.online.common.domain.Menu;
+import com.xczhihui.bxg.online.common.domain.ScoreType;
+import com.xczhihui.bxg.online.common.domain.TeachMethod;
 import com.xczhihui.common.support.domain.Attachment;
 import com.xczhihui.common.support.service.AttachmentCenterService;
 import com.xczhihui.common.support.service.AttachmentType;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.common.util.enums.CourseStatus;
 import com.xczhihui.common.web.controller.AbstractController;
-import com.xczhihui.bxg.online.common.domain.Course;
-import com.xczhihui.bxg.online.common.domain.Menu;
-import com.xczhihui.bxg.online.common.domain.ScoreType;
-import com.xczhihui.bxg.online.common.domain.TeachMethod;
+import com.xczhihui.course.service.CourseService;
 import com.xczhihui.course.vo.CourseVo;
 import com.xczhihui.course.vo.LecturerVo;
 import com.xczhihui.course.vo.MenuVo;
 import com.xczhihui.support.shiro.ManagerUserUtil;
+import com.xczhihui.user.service.OnlineUserService;
 import com.xczhihui.utils.Group;
+import com.xczhihui.utils.Groups;
+import com.xczhihui.utils.TableVo;
+import com.xczhihui.utils.Tools;
 
 /**
  * 课程管理控制层实现类
@@ -198,7 +199,6 @@ public class CourseController extends AbstractController {
     }
 
 
-
     /**
      * 查看
      *
@@ -253,7 +253,6 @@ public class CourseController extends AbstractController {
         courseService.deleteCourseById(id);
         return ResponseObject.newSuccessResponseObject("操作成功！");
     }
-
 
 
     @RequestMapping(value = "deletes", method = RequestMethod.POST)
@@ -453,7 +452,8 @@ public class CourseController extends AbstractController {
         return responseObject;
     }
 
-    /** 更改默认人数
+    /**
+     * 更改默认人数
      * Description：
      * creed: Talk is cheap,show me the code
      *
@@ -499,7 +499,4 @@ public class CourseController extends AbstractController {
         responseObj.setSuccess(true);
         return responseObj;
     }
-
-    
-
 }

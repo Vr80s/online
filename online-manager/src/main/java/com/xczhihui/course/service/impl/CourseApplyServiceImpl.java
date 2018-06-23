@@ -69,7 +69,7 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
     private static final String APP_PUSH_NOT_LIVE_COURSE_APPLY_SUCCESS_MESSAGE_TIPS =
             "您申请的{0}课程《{1}》已通过系统审核，可以上架啦！";
     private static final String APP_NOT_LIVE_COURSE_APPLY_SUCCESS_MESSAGE_TIPS =
-            "【课程审核通知】您申请的{0}课程《{1}》已通过系统审核，可以上架啦！" + TextStyleUtil.LEFT_TAG + "去看看>>" + TextStyleUtil.RIGHT_TAG;
+            "【课程审核通知】您申请的{0}课程《{1}》已通过系统审核，可以上架啦！";
     private static final String WEB_NOT_LIVE_COURSE_APPLY_SUCCESS_MESSAGE_TIPS =
             APP_NOT_LIVE_COURSE_APPLY_SUCCESS_MESSAGE_TIPS;
     private static final String WEIXIN_NOT_LIVE_COURSE_APPLY_SUCCESS_MESSAGE_TIPS =
@@ -82,6 +82,8 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
                     "原因：{2}。如有疑问请联系客服0898-32881934。";
     private static final String WEB_COURSE_APPLY_FAIL_MESSAGE_TIPS =
             APP_COURSE_APPLY_FAIL_MESSAGE_TIPS;
+    private static final String WEIXIN_COURSE_APPLY_FAIL_MESSAGE_TIPS =
+            "很遗憾，您发布的<<{0}>>课程未通过系统审核, 原因：{1}。如有疑问请联系客服0898-32881934。";
 
     @Value("${sms.live.course.apply.pass.code}")
     private String liveCourseApplyPassCode;
@@ -218,7 +220,7 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
             boolean isLiveCourse = false;
             String title = course.getGradeName();
             Integer courseType = course.getType();
-            RouteTypeEnum routeTypeEnum;
+            RouteTypeEnum routeTypeEnum = RouteTypeEnum.NONE;
 
             if (courseType.equals(1)) {
                 typeText = "直播";
@@ -228,14 +230,14 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
                 if (courseType.equals(2)) {
                     if (course.getMultimediaType() == 1) {
                         typeText = "视频";
-                        routeTypeEnum = RouteTypeEnum.VIDEO_COURSE_LIST;
+//                        routeTypeEnum = RouteTypeEnum.VIDEO_COURSE_LIST;
                     } else {
                         typeText = "音频";
-                        routeTypeEnum = RouteTypeEnum.AUDIO_COURSE_LIST;
+//                        routeTypeEnum = RouteTypeEnum.AUDIO_COURSE_LIST;
                     }
                 } else {
                     typeText = "线下";
-                    routeTypeEnum = RouteTypeEnum.OFFLINE_COURSE_LIST;
+//                    routeTypeEnum = RouteTypeEnum.OFFLINE_COURSE_LIST;
                 }
             }
             String content = MessageFormat.format(isLiveCourse ? WEB_LIVE_COURSE_APPLY_SUCCESS_MESSAGE_TIPS : WEB_NOT_LIVE_COURSE_APPLY_SUCCESS_MESSAGE_TIPS, typeText, title);
@@ -306,33 +308,29 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
         Integer courseForm = courseApplyInfo.getCourseForm();
         RouteTypeEnum routeTypeEnum = RouteTypeEnum.NONE;
         String reason = CourseDismissal.getDismissal(courseApplyInfo.getDismissal());
-        String detailReason = reason + (courseApplyInfo.getDismissalRemark() != null ? ("," + courseApplyInfo.getDismissalRemark()) : "");
+        String detailReason = reason + (StringUtils.isNotBlank(courseApplyInfo.getDismissalRemark())  ? ("," + courseApplyInfo.getDismissalRemark()) : "");
         if (courseForm.equals(1)) {
             n = "直播";
-            routeTypeEnum = RouteTypeEnum.LIVE_COURSE_LIST;
         } else if (courseForm.equals(2)) {
             if (courseApplyInfo.getMultimediaType().equals(1)) {
                 n = "视频";
-                routeTypeEnum = RouteTypeEnum.VIDEO_COURSE_LIST;
             } else {
                 n = "音频";
-                routeTypeEnum = RouteTypeEnum.AUDIO_COURSE_LIST;
             }
         } else if (courseForm.equals(3)) {
             n = "线下";
-            routeTypeEnum = RouteTypeEnum.OFFLINE_COURSE_LIST;
         }
 
         String content = MessageFormat.format(WEB_COURSE_APPLY_FAIL_MESSAGE_TIPS, n, title, detailReason);
-        Map<String, String> params = new HashMap<>();
+        Map<String, String> params = new HashMap<>(2);
         params.put("type", n);
         params.put("courseName", title);
 
         Map<String, String> weixinParams = new HashMap<>(4);
-        weixinParams.put("first", TextStyleUtil.clearStyle(content));
+        weixinParams.put("first", MessageFormat.format(WEIXIN_COURSE_APPLY_FAIL_MESSAGE_TIPS, title, detailReason));
         weixinParams.put("keyword1", title);
-        weixinParams.put("keyword2", courseApplyInfo.getStartTime() == null ? "无" : TimeUtil.getYearMonthDayHHmm(courseApplyInfo.getStartTime()));
-        weixinParams.put("remark", "");
+        weixinParams.put("keyword2", "未通过审核");
+        weixinParams.put("remark", "请按要求修改后再提交申请，感谢您的支持。");
         commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.COURSE.getVal())
                 .buildWeb(content)
                 .buildSms(courseApplyNotPassCode, params)

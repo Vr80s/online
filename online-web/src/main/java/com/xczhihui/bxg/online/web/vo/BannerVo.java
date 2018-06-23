@@ -8,6 +8,8 @@ import com.xczhihui.bxg.online.common.base.vo.OnlineBaseVo;
  * @author Rongcai Kang
  */
 public class BannerVo extends OnlineBaseVo {
+
+    private Integer id;
     /**
      * 图片路径
      */
@@ -22,6 +24,27 @@ public class BannerVo extends OnlineBaseVo {
      */
     private String imgHref;
 
+    private String url;
+
+    private String routeType;
+
+    private String linkParam;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
     public String getImgPath() {
         return imgPath;
@@ -45,5 +68,21 @@ public class BannerVo extends OnlineBaseVo {
 
     public void setImgHref(String imgHref) {
         this.imgHref = imgHref;
+    }
+
+    public String getRouteType() {
+        return routeType;
+    }
+
+    public void setRouteType(String routeType) {
+        this.routeType = routeType;
+    }
+
+    public String getLinkParam() {
+        return linkParam;
+    }
+
+    public void setLinkParam(String linkParam) {
+        this.linkParam = linkParam;
     }
 }
