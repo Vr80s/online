@@ -21,6 +21,10 @@
 
 <script type="text/javascript" src="/xcview/js/common/jquery.min-2.1.1.js"></script>
 
+<!-- 表情包聊天引入 -->
+<link href="/xcview/css/webiaoqing.css" rel="stylesheet" type="text/css">
+
+
 <script>
 	// 判断横屏展示时的状态
 	window.onorientationchange=function(){
@@ -434,6 +438,31 @@
 	</div>
 	<!-- 中间内容结束 -->
 
+	<!-- 表情包开始 -->
+	<article id="form_article" contenteditable="true" onkeydown="myInput.listen(this, event);"></article>
+
+	<div class="page_emotion box_swipe" id="page_emotion">
+		<dl id="list_emotion" class="list_emotion pt_10"></dl><!-- 表情框 -->
+		<dt><ol id="nav_emotion" class="nav_emotion"></ol></dt><!-- 分页提示点 -->
+	</div>
+	<script>
+		$(function(){
+			var say = '说点什么...';
+			if ($("#form_article").html() === "") {
+				$("#form_article").html(say);
+			}
+			$("#form_article").click(function(){
+	            if($("#form_article").html() == say){
+	               	$("#form_article").html("");
+	            }
+		    });
+		    $("#page_emotion  dd").click(function(){
+	            $("#form_article").html( $("#form_article").html().replace(say, '') );
+		    });
+		});
+	</script>
+	<!-- 表情包结束 -->
+
 	
 </body>
 <!-- <script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script> -->
@@ -674,4 +703,8 @@ $(window).bind("scroll", function() {
 
 	};
 </script>
+
+
+<script src="/xcview/js/physician/jquery_min.js" ></script>
+<script src="/xcview/js/webiaoqin.js" ></script>
 </html>
