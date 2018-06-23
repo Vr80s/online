@@ -726,14 +726,15 @@ div.pinch-zoom,
     display: none;
 }
 .share_bg{
-    width: 100%;
+    width: 7.5rem;
     height: 100%;
     background: #000;
     opacity: 0.5;
     position: fixed;
     top: 0;
-    left: 0;
+    left: 50%;
     z-index: 10;
+    margin-left: -3.75rem;
 }
 .share_main{
     width: 6.98rem;
@@ -741,9 +742,10 @@ div.pinch-zoom,
     /* background: #fff; */
     margin: 0 auto;
     position: fixed;
-    left: 0.25rem;
+    left: 50%;
     bottom: 1.3rem;
     z-index: 999999999;
+    margin-left: -3.49rem;
 }
 .share_main_bg{
     width: 100%;
