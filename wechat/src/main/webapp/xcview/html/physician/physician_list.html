@@ -26,10 +26,31 @@
 	}	
 </script>
 <style type="text/css">
-	.header_seek span{
-		margin-top: -0.6rem;
-		margin-left: 0.58rem;
-    	font-size: 0.26rem;
+	.span_list{
+		margin-top: -0.57rem;
+	    /*margin-left: 0.58rem;*/
+	    font-size: 0.26rem;
+	    text-indent: 0;
+	    margin-left: 1rem;
+	    height: 0.46rem;
+	    line-height: 0.46rem;
+	    color: #fff;
+	    display: -webkit-inline-box;
+	    background: #999999;
+	    border-radius: 8px;
+	    padding: 0 0.2rem;
+	    overflow: hidden;
+	    white-space: nowrap;
+	    text-overflow: ellipsis;
+	    max-width: 6rem;
+	    float: left;
+	    position: absolute;
+	    top: 0.8rem;
+	    left: 0.5rem;
+	    z-index: 99999999999999999999999999;
+	}
+	.right_span{
+		margin-left: 0.1rem;
 	}
 
 	<--可以放到css里-->
@@ -86,6 +107,13 @@
     margin-top: 0.12rem;
     margin-bottom: 0.2rem;
 }
+.insert_span{
+	overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 4rem;
+    min-width: 0.1rem;
+}
 </style>
 </head>
 <body style="background: #F8F8F8;">
@@ -100,7 +128,8 @@
 				<div class="header_seek_main" style="width: 0;">
 					<!--<img src="/xcview/images/sousuo0.png" alt="" onclick="queryByKey()">-->
 					<img src="/xcview/images/sousuo0.png" alt="">
-					<span class="span_hide"></span>
+						<span class="span_hide"></span>
+					
 				</div>
 			</div>
 		</div>
@@ -464,6 +493,10 @@ $(".find_nav_list").on('touchmove', function (e) {
 			
 //			点击重置   --> 清空浏览器上面的url,刷新页面
 			$(".all_bottom_btn0").click(function(){
+			    location.href = "/xcview/html/physician/physician_list.html";
+			});
+
+			$(".span_list").click(function(){
 			    location.href = "/xcview/html/physician/physician_list.html";
 			});
 		};

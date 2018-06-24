@@ -39,7 +39,7 @@ var sortTypeArray = new Array();
 $(".header_seek").click(function(){
 	
 	location.href='/xcview/html/physician/search.html?search_back=2';
-})
+});
 
 
 /*
@@ -370,7 +370,8 @@ if (urlAttribute=='' || urlAttribute== null) {
 	
 } else{
 	$('.header_seek_main .span_hide').hide();
-	$('.header_seek_main').append('<span>' + urlAttribute + '</span>');
+	// $('.header_seek_main').append('<span class=span_list>' + urlAttribute +'<span class=right_span>×</span></span>');
+	$('.header').append('<span class=span_list><div class=insert_span>' + urlAttribute +'</div><span class=right_span>×</span><span class=both></span></span>');
 	
 }
 
