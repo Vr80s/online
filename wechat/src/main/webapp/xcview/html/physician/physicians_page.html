@@ -22,8 +22,9 @@
 <script type="text/javascript" src="/xcview/js/common/jquery.min-2.1.1.js"></script>
 
 <!-- 表情包聊天引入 -->
-<link href="/xcview/css/webiaoqing.css" rel="stylesheet" type="text/css">
-
+<link href="/xcview/html/physician/css/webiaoqing.css" rel="stylesheet" type="text/css">
+<script src="/xcview/html/physician/js/jquery_min.js" ></script>
+<script src="/xcview/html/physician/js/webiaoqin.js" ></script>
 
 <script>
 	// 判断横屏展示时的状态
@@ -69,7 +70,7 @@
 
 </head>
 <body style="background: #F8F8F8;">
-	<div class="physicians_page_main">
+	<div class="physicians_page_main comment_hide">
 		
 		<!-- 头部开始 -->
 		<div class="wrap-header" id="header">
@@ -163,11 +164,11 @@
 	<div class="the_dynamic">
 		<!-- 其他一 -->
 		<div class="rests_nav">
-			<div class="rests_nav_span">
+			<div class="rests_nav_span comment_hide">
 				<span class="stick_img"><img src="/xcview/images/stick.png" alt="" />置顶</span>
 				<span class="title">余老师讲课风采</span>
 			</div>
-			<div id="ccvideo">
+			<div id="ccvideo" class="comment_hide">
 				<video>
 					
 				</video>
@@ -201,11 +202,11 @@
 
 		<!-- 医案 -->
 		<div class="consilia_nav">
-			<div class="consilia_nav_span">
+			<div class="consilia_nav_span comment_hide">
 				<span class="stick_img">#医案#</span>
 				<span class="title">朱xx，男，53岁</span>
 			</div>
-			<div class="consilia_nav_main">
+			<div class="consilia_nav_main comment_hide">
 				得控制，体温在38℃~39℃之间。初期热无定，不恶
 				得控制，体温在38℃~39℃之间。初期热无定，不恶
 				得控制，体温在38℃~39℃之间。初期热无定，不恶
@@ -216,7 +217,7 @@
 				得控制，体温在38℃~39℃之间。初期热无定，不恶
 			</div>
 			<div class="consilia_nav_btn"><span>收起</span></div>
-			<div class="consilia_nav_cen">
+			<div class="consilia_nav_cen comment_hide">
 				<img src="/xcview/images/xianxia_03.jpg" alt="" />
 				<div class="consilia_nav_cen_size">得控制，体温在38℃~39℃之间。初期热无定，不恶得控制，体温在38℃~39℃之间。初期热无定，不恶</div>
 			</div>
@@ -250,7 +251,7 @@
 
 		<!-- 其他二 -->
 		<div class="essay_pack_up">
-			<div class="essay_main">得控制，体温在38℃~39℃之间。初期热无定，不恶得控制，体温在38℃~39℃之间。初期热无定，不恶得控制，体温在38℃~39℃之间。初期热无定，不恶得控制，体温在38℃~39℃之间。初期热无定，不恶得控制，体温在38℃~39℃之间。初期热无定，不恶得控制，体温在38℃~39℃之间。初期热无定，不恶得控制，体温在38℃~39℃之间。初期热无定，不恶得控制，体温在38℃~39℃之间。初期热无定，不恶</div>
+			<div class="essay_main comment_hide">得控制，体温在38℃~39℃之间。初期热无定，不恶得控制，体温在38℃~39℃之间。初期热无定，不恶得控制，体温在38℃~39℃之间。初期热无定，不恶得控制，体温在38℃~39℃之间。初期热无定，不恶得控制，体温在38℃~39℃之间。初期热无定，不恶得控制，体温在38℃~39℃之间。初期热无定，不恶得控制，体温在38℃~39℃之间。初期热无定，不恶得控制，体温在38℃~39℃之间。初期热无定，不恶</div>
 			<div class="essay_pack_up_btn"><span>收起</span></div>
 			<div class="essay_nav_bottom">
 				<span class="time">2018.5.30 18:00</span>
@@ -281,10 +282,10 @@
 
 		<!-- 文章 -->
 		<div class="article_nav">
-			<div class="article_nav_span">
+			<div class="article_nav_span comment_hide">
 				<span class="title">这里有防护卵巢早衰的秘诀 | 余大夫小偏方</span>
 			</div>
-			<div class="article_nav_cen">
+			<div class="article_nav_cen comment_hide">
 				<img src="/xcview/images/xianxia_03.jpg" alt="" />
 				<div class="article_nav_cen_size">得控制，体温在38℃~39℃之间。初期热无定，不恶得控制，体温在38℃~39℃之间。初期热无定，不恶</div>
 			</div>
@@ -358,10 +359,10 @@
 
 		<!-- 课程 -->
 		<div class="course_nav">
-			<div class="course_nav_span">
+			<div class="course_nav_span comment_hide">
 				<span class="title">最好的课程，只需9.9</span>
 			</div>
-			<div class="course_nav_cen">
+			<div class="course_nav_cen comment_hide">
 				<img src="/xcview/images/xianxia_03.jpg" alt="" />
 				<div class="course_nav_cen_size">最好的课程，只需9.9</div>
 				<div class="course_nav_rate"><span>99</span>熊猫币</div>
@@ -397,10 +398,10 @@
 
 		<!-- 直播 -->
 		<div class="sinatv_nav">
-			<div class="sinatv_nav_span">
+			<div class="sinatv_nav_span comment_hide">
 				<span class="title">6月12日10:00直播，免费</span>
 			</div>
-			<div class="sinatv_nav_cen">
+			<div class="sinatv_nav_cen comment_hide">
 				<img src="/xcview/images/xianxia_03.jpg" alt="" />
 				<div class="sinatv_nav_cen_size">跟着中医学养娃-杭州大夫育儿十讲</div>
 				<!-- <div class="sinatv_nav_rate"><span>99</span>熊猫币</div> -->
@@ -439,31 +440,23 @@
 	<!-- 中间内容结束 -->
 
 	<!-- 表情包开始 -->
-	<article id="form_article" contenteditable="true" onkeydown="myInput.listen(this, event);"></article>
+
+	<div class="comment">
+		<div class="">
+			<img src="/xcview/images/face.png" alt="" class="face" />
+			<!-- <textarea id="form_article" contenteditable="true" onkeydown="myInput.listen(this, event);"></textarea> -->
+			<article id="form_article" contenteditable="true" onkeydown="myInput.listen(this, event);"></article>
+			<h3>发送</h3>
+		</div>
+	</div>
+	
 
 	<div class="page_emotion box_swipe" id="page_emotion">
 		<dl id="list_emotion" class="list_emotion pt_10"></dl><!-- 表情框 -->
 		<dt><ol id="nav_emotion" class="nav_emotion"></ol></dt><!-- 分页提示点 -->
 	</div>
-	<script>
-		$(function(){
-			var say = '说点什么...';
-			if ($("#form_article").html() === "") {
-				$("#form_article").html(say);
-			}
-			$("#form_article").click(function(){
-	            if($("#form_article").html() == say){
-	               	$("#form_article").html("");
-	            }
-		    });
-		    $("#page_emotion  dd").click(function(){
-	            $("#form_article").html( $("#form_article").html().replace(say, '') );
-		    });
-		});
-	</script>
-	<!-- 表情包结束 -->
 
-	
+	<!-- 表情包结束 -->
 </body>
 <!-- <script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script> -->
 <script type="text/javascript" src="/xcview/js/common/jquery-1.8.3.min.js"></script>
@@ -700,11 +693,106 @@ $(window).bind("scroll", function() {
         $(".rests_nav .zan_img").click(function(){
             $(this).attr('src','/xcview/images/zan001.png');
 	    });	
-
 	};
 </script>
+<script>
+		$(function(){
+			var say = '说点什么...';
+			if ($("#form_article").html() === "") {
+				$("#form_article").html(say);
+			}
+			$("#form_article").click(function(){
+	            if($("#form_article").html() == say){
+	               	$("#form_article").html("");
+	            }
+		    });
+		    $("#page_emotion dd").click(function(){
+	            $("#form_article").html( $("#form_article").html().replace(say, '') );
+		    });
 
 
-<script src="/xcview/js/physician/jquery_min.js" ></script>
-<script src="/xcview/js/webiaoqin.js" ></script>
+		    // 点击底部评论textarea开始
+		    /*$(".face").click(function(){
+	            $(".comment").css("bottom","2.8rem");
+	            $("#page_emotion").css("bottom","0");
+	            $(".face").attr("src","/xcview/images/jianpan.png");
+		    });	*/
+			$(".face").toggle(function(){
+		    	$(".comment").css("bottom","2.8rem");
+	            $("#page_emotion").css("bottom","0");
+	            $(".face").attr("src","/xcview/images/jianpan.png");
+		  	},function(){
+			    $(".comment").css("bottom","0rem");
+	            $("#page_emotion").css("bottom","-2.8rem");
+	            $(".face").attr("src","/xcview/images/face.png");
+		    });
+	    // 点击底部评论textarea结束
+
+	    // 点击发送开始
+	    $(".comment h3").click(function(){
+	    	$(".face").attr("src","/xcview/images/face.png");
+	    	$("#page_emotion").css("bottom","-2.8rem");
+	    	$(".comment").css("bottom","0");
+	    	$(".comment").hide();
+		});
+
+	    // 点击其他内容区域隐藏评论区域
+		$(".comment_hide").click(function(){
+	    	$(".face").attr("src","/xcview/images/face.png");
+	    	$("#page_emotion").css("bottom","-2.8rem");
+	    	$(".comment").hide();
+		});
+
+		// 点击其他--评论显示底部评论区域
+		$(".rests_nav .evaluate_img").click(function(){
+	    	$(".face").attr("src","/xcview/images/face.png");
+	    	$("#page_emotion").css("bottom","-2.8rem");
+	    	$(".comment").show();
+		});
+
+		// 点击医案--评论显示底部评论区域
+		$(".consilia_nav .consilia_evaluate_img").click(function(){
+	    	$(".face").attr("src","/xcview/images/face.png");
+	    	$("#page_emotion").css("bottom","-2.8rem");
+	    	$(".comment").show();
+		});
+
+		// 点击其他二--评论显示底部评论区域
+		$(".essay_pack_up .essay_evaluate_img").click(function(){
+	    	$(".face").attr("src","/xcview/images/face.png");
+	    	$("#page_emotion").css("bottom","-2.8rem");
+	    	$(".comment").show();
+		});	
+
+		// 点击文章--评论显示底部评论区域
+		$(".article_nav .article_evaluate_img").click(function(){
+	    	$(".face").attr("src","/xcview/images/face.png");
+	    	$("#page_emotion").css("bottom","-2.8rem");
+	    	$(".comment").show();
+		});
+
+		// 点击其他三--评论显示底部评论区域
+		$(".paper_nav .paper_evaluate_img").click(function(){
+	    	$(".face").attr("src","/xcview/images/face.png");
+	    	$("#page_emotion").css("bottom","-2.8rem");
+	    	$(".comment").show();
+		});	
+
+		// 点击课程--评论显示底部评论区域
+		$(".course_nav .course_evaluate_img").click(function(){
+	    	$(".face").attr("src","/xcview/images/face.png");
+	    	$("#page_emotion").css("bottom","-2.8rem");
+	    	$(".comment").show();
+		});	
+
+		// 点击课程--评论显示底部评论区域
+		$(".sinatv_nav .sinatv_evaluate_img").click(function(){
+	    	$(".face").attr("src","/xcview/images/face.png");
+	    	$("#page_emotion").css("bottom","-2.8rem");
+	    	$(".comment").show();
+		});		
+
+	    // 点击发送结束
+		});
+	</script>
 </html>
