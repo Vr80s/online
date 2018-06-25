@@ -322,7 +322,7 @@ public class CourseApplyController extends AbstractController {
         if (state == 1) {
             sendCourseOnlineMessage(courseApplyId, user);
             //添加医师动态
-            addCourseDoctorDynamics(courseApplyId, user);
+            addCourseDoctorPosts(courseApplyId, user);
             responseObj.setResultObject("上架成功");
         } else {
             responseObj.setResultObject("下架成功");
@@ -411,7 +411,7 @@ public class CourseApplyController extends AbstractController {
      * @author name：wangyishuai
      * @Date: 2018/6/21 20:37
      */
-    private void addCourseDoctorDynamics(String courseApplyId, OnlineUser user) {
+    private void addCourseDoctorPosts(String courseApplyId, OnlineUser user) {
         String userId = user.getId();
         Course course = courseService.findByApplyId(courseApplyId);
         MedicalDoctorPosts mdp = new MedicalDoctorPosts();
