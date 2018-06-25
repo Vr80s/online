@@ -1,6 +1,5 @@
 package com.xczhihui.medical.doctor.service;
 
-import com.xczhihui.medical.doctor.model.MedicalDoctorPostsComment;
 import com.xczhihui.medical.doctor.model.MedicalDoctorPostsLike;
 
 import java.util.List;
