@@ -144,5 +144,15 @@ public interface CourseMapper extends BaseMapper<Course> {
 
 	Integer selectLiveCountByUserIdAndType(@Param("userId")String userId, @Param("type")Integer type);
 
-    
+    /**
+     * 查询医师所有的课程
+     * @param type 类型
+     * @param anchorId 主播id
+     * @return
+     */
+    @Select({"select oc.id, oc.grade_name as courseName " +
+            " from oe_course oc" +
+                    " where oc.user_lecturer_id = #{anchorId} and (#{type} is null OR type = #{type}) and is_delete = 0 and status = 1" +
+                    " order by oc.create_time desc"})
+    List<Map<String, Object>> selectCourseByType(@Param("type") Integer type, @Param("anchorId") String anchorId);
 }

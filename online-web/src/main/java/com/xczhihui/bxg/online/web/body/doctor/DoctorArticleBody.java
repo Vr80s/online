@@ -27,6 +27,11 @@ public class DoctorArticleBody {
 
     private String url;
 
+    /**
+     * 4 -> 专栏 8 -> 医案
+     */
+    private Integer typeId;
+
     public OeBxsArticle build(HeadlineType headlineType, String author) {
         OeBxsArticle oeBxsArticle = new OeBxsArticle();
         oeBxsArticle.setUserId(author);
@@ -92,5 +97,13 @@ public class DoctorArticleBody {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public Integer getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(Integer typeId) {
+        this.typeId = typeId;
     }
 }

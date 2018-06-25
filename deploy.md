@@ -93,3 +93,17 @@ dev-2.1.0
     正式环境环境:
                 http://www.ipandatcm.com:28080/operate/mobileBanner/clean
                 http://www.ipandatcm.com:28080/operate/banner2/updateOldData
+
+    CREATE TABLE `doctor_banner` (
+      `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+      `img_url` varchar(255) DEFAULT NULL COMMENT '封面图url',
+      `type` int(255) DEFAULT NULL COMMENT '1:课程 2: 直播 3: 医案 4:专栏',
+      `route_type` varchar(255) DEFAULT NULL COMMENT '路由类型',
+      `link_param` varchar(255) DEFAULT NULL,
+      `start_time` datetime DEFAULT NULL COMMENT '开始时间',
+      `end_time` datetime DEFAULT NULL COMMENT '结束时间',
+      `create_time` datetime DEFAULT NULL COMMENT '结束时间',
+      `status` bit(1) DEFAULT b'0' COMMENT '是否上架',
+      `user_id` varchar(32) NOT NULL COMMENT '用户id',
+      PRIMARY KEY (`id`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
