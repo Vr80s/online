@@ -289,7 +289,7 @@
         </div>
         <!--右侧推荐课程-->
         <div class="wrap-recommend y">
-            <h3 data-id="${courseInfo.courseLength}">推荐课程</h3>
+            <h3>推荐课程</h3>
         <#if recommendCourse?? && recommendCourse?size gt 0 >
             <#include "common/recommend_course.ftl">
         </#if>
@@ -311,7 +311,9 @@
     <#if criticizesMap??> 
          var commentCode = ${criticizesMap.commentCode};
 	</#if>	
-	var courseLength = "${criticizesMap.courseLength}";
+	<#if courseInfo.courseLength??> 
+		var courseLength = "${courseInfo.courseLength}";
+	</#if>	
     //    console.info("type：" + type + ";watchState：" + watchState + ";courseId：" + courseId);
     //    console.info("userId：" + userId + ";collection：" + collection+",commentCode:"+commentCode);
 </script>
