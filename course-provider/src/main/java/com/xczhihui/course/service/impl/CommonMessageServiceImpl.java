@@ -257,7 +257,7 @@ public class CommonMessageServiceImpl implements ICommonMessageService {
         xgMessageIOS.setBadge(1);
         xgMessageIOS.setSound(PushConst.IOS_SOUND_FILE);
         xgMessageIOS.setCustom(customParams);
-        JSONObject iosRet = iosXgPushService.pushSingleAccount(PushConst.DEVICE_ALL, userId, xgMessageIOS, env.isProd() ? PushConst.IOSENV_PROD : PushConst.IOSENV_DEV);
+        JSONObject iosRet = iosXgPushService.pushSingleAccount(PushConst.DEVICE_ALL, userId, xgMessageIOS, PushConst.IOSENV_PROD);
 
         LOGGER.warn("userId: {}, url:{}, content:{}", userId, url, content);
         if (androidRet != null && androidRet.getInt("ret_code") != 0 && iosRet != null && iosRet.getInt("ret_code") != 0) {
@@ -286,7 +286,7 @@ public class CommonMessageServiceImpl implements ICommonMessageService {
         xgMessageIOS.setBadge(1);
         xgMessageIOS.setSound(PushConst.IOS_SOUND_FILE);
         xgMessageIOS.setCustom(customParams);
-        JSONObject iosRet = iosXgPushService.pushAccountList(PushConst.DEVICE_ALL, userIds, xgMessageIOS, env.isProd() ? PushConst.IOSENV_PROD : PushConst.IOSENV_DEV);
+        JSONObject iosRet = iosXgPushService.pushAccountList(PushConst.DEVICE_ALL, userIds, xgMessageIOS, PushConst.IOSENV_PROD);
 
         if (androidRet != null && androidRet.getInt("ret_code") != 0 && iosRet != null && iosRet.getInt("ret_code") != 0) {
             LOGGER.error(androidRet.toString());
