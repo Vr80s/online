@@ -156,7 +156,6 @@ public class EnchashmentServiceImpl extends OnlineBaseServiceImpl implements
             }
             commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.SYSYTEM.getVal())
                     .buildAppPush(content)
-                    .buildSms(smsCode, params)
                     .buildWeb(content)
                     .buildWeixin(success ? enchashmentPassWeixinCode : enchashmentNotPassWeixinCode, weixinParams)
                     .build(e.getUserId(), RouteTypeEnum.NONE, operator));
