@@ -65,7 +65,7 @@ public class MyTask extends SimpleHibernateDao {
      * @Date: 下午 12:17 2018/2/2 0002
      **/
     @Scheduled(cron = "0 0/10 * * * ?")
-    public void dealConstrueTask() {
+    public void updateCourseExceptionTask() {
         courseService.updateCourseException();
     }
 
