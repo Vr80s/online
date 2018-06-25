@@ -142,6 +142,7 @@ public class MessageRemindingServiceImpl implements MessageRemindingService {
 
     @Override
     public void collectionUpdateRemind() {
+        loggger.warn("cron start============");
         List<Course> courseMessageRemindingList = getCourseMessageRemindingList(RedisCacheKey.COLLECTION_COURSE_REMIND_KEY);
         Date today = new Date();
         Calendar calendar = Calendar.getInstance();
