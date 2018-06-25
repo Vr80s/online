@@ -37,13 +37,13 @@ public class WechatChannelUtil {
     @Autowired
     private AttachmentCenterService service;
 
-    public static QrCodeVo getQrCodeVo(Integer qrSceneId, String token) throws Exception {
+    public static QrCodeVo getQrCodeVo(Integer qrSceneId, String access_token) throws Exception {
 
         QrCodeVo qr = new QrCodeVo();
 
-        JSONObject jsonObjectToken = JSONObject.fromObject(token);
-        String access_token = (String) jsonObjectToken.get("access_token");
-        Integer expires_in = (Integer) jsonObjectToken.get("expires_in");
+//        JSONObject jsonObjectToken = JSONObject.fromObject(token);
+//        String access_token = (String) jsonObjectToken.get("access_token");
+//        Integer expires_in = (Integer) jsonObjectToken.get("expires_in");
 
         if (!StringUtils.isNotBlank(access_token)) {
             throw new RuntimeException("获取token有误");
