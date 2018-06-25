@@ -6,8 +6,6 @@ import java.util.Map;
 
 import org.junit.Test;
 
-import com.xczh.consumer.market.utils.cc.APIServiceFunction;
-
 /**
  * 测试cc视频的接口
  * ClassName: TestCCVideo.java <br>
@@ -43,10 +41,10 @@ public class TestCCVideo {
 		paramsMap.put("playerheight", "120");
 		paramsMap.put("format", "json");
 		long time = System.currentTimeMillis();
-		String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time,"K45btKhytR527yfTAjEp6z4fb3ajgu66");
-		System.out.println(requestURL);
-		String responsestr = APIServiceFunction.HttpRetrieve("http://spark.bokecc.com/api/video/playcode?" + requestURL);
-		System.out.println(responsestr);
+//		String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time,"K45btKhytR527yfTAjEp6z4fb3ajgu66");
+//		System.out.println(requestURL);
+//		String responsestr = APIServiceFunction.HttpRetrieve("http://spark.bokecc.com/api/video/playcode?" + requestURL);
+//		System.out.println(responsestr);
 		
 	}
 	
@@ -64,10 +62,10 @@ public class TestCCVideo {
 		paramsMap.put("videoid", "070F3FC7BEAF701F9C33DC5901307461");
 		paramsMap.put("format", "json");
 		long time = System.currentTimeMillis();
-		String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time,"K45btKhytR527yfTAjEp6z4fb3ajgu66");
-		System.out.println(requestURL);
-		String responsestr = APIServiceFunction.HttpRetrieve("http://spark.bokecc.com/api/video/v3?" + requestURL);
-		System.out.println(responsestr);
+//		String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time,"K45btKhytR527yfTAjEp6z4fb3ajgu66");
+//		System.out.println(requestURL);
+//		String responsestr = APIServiceFunction.HttpRetrieve("http://spark.bokecc.com/api/video/v3?" + requestURL);
+//		System.out.println(responsestr);
 	}
 
 	/**
@@ -83,15 +81,12 @@ public class TestCCVideo {
 		paramsMap.put("userid", "B5E673E55C702C42");
 		paramsMap.put("videoid", "070F3FC7BEAF701F9C33DC5901307461");
 		
-		
-		
-		
 		paramsMap.put("format", "json");
 		long time = System.currentTimeMillis();
-		String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time,"K45btKhytR527yfTAjEp6z4fb3ajgu66");
-		System.out.println(requestURL);
-		String responsestr = APIServiceFunction.HttpRetrieve("http://spark.bokecc.com/api/video/v3?" + requestURL);
-		System.out.println(responsestr);
+//		String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time,"K45btKhytR527yfTAjEp6z4fb3ajgu66");
+//		System.out.println(requestURL);
+//		String responsestr = APIServiceFunction.HttpRetrieve("http://spark.bokecc.com/api/video/v3?" + requestURL);
+//		System.out.println(responsestr);
 	}
 	
 	

@@ -164,14 +164,12 @@ public class QQThirdPartyController {
      * @throws Exception
      * @author name：yangxuan <br>email: 15936216273@163.com
      */
-    @SuppressWarnings("unused")
     @RequestMapping(value = "appEvokeQQRedirect")
     @ResponseBody
     public ResponseObject appEvokeQQRedirect(HttpServletRequest request,
-                                             HttpServletResponse res,
-                                             @RequestParam("accessToken") String accessToken,
-                                             @RequestParam("openId") String openId,
-                                             @RequestParam("model") String model) throws Exception {
+             HttpServletResponse res,@RequestParam("accessToken") String accessToken,
+             @RequestParam("openId") String openId,@RequestParam("model") String model) throws Exception {
+    	
         String userId = request.getParameter("userId");
         if (StringUtils.isNotBlank(userId)) {
             OnlineUser ou = onlineUserService.findUserById(userId);
@@ -185,22 +183,22 @@ public class QQThirdPartyController {
         }
 
         Map<String, String> mapRequest = new HashMap<>();
-
         mapRequest.put("type", ThirdPartyType.QQ.getCode() + "");
 
         if (accessToken == null) {
             return ResponseObject.newErrorResponseObject("获取QQ：accessToken 有误");
         } else {
             QQClientUserMapping qqUser = threePartiesLoginService.selectQQClientUserMappingByOpenId(openId);
-
             if (qqUser == null) {   //保存qq用户
                 UserInfoBean userInfoBean = this.getUserInfo(accessToken, openId);
 
                 QQClientUserMapping qq = new QQClientUserMapping();
+                
                 qq.setId(CodeUtil.getRandomUUID());
                 qq.setOpenId(openId);
                 // 防止表情名字
                 String nickname = userInfoBean.getNickname();
+                
                 qq.setNickname(nickname);
                 qq.setGender(userInfoBean.getGender());
                 qq.setLevel(userInfoBean.getLevel());
@@ -209,7 +207,8 @@ public class QQThirdPartyController {
                 qq.setFigureurl(userInfoBean.getAvatar().getAvatarURL30());
                 qq.setFigureurl1(userInfoBean.getAvatar().getAvatarURL50());
                 qq.setFigureurl2(userInfoBean.getAvatar().getAvatarURL100());
-                //qq.setUnionId(unionId);
+                
+                
                 //用户id不等于null时，就判定用户第三方登录是通过手机号来绑定 第三方登录信息的
                 if (StringUtils.isNotBlank(userId)) {  // 绑定成功
                     qq.setUserId(userId);
