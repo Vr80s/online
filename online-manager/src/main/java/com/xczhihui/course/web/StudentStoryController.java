@@ -177,7 +177,7 @@ public class StudentStoryController {
                 //存在base64编码的数据，才进行64Toimage转换以及上传
                 if (group.split("base64,").length > 1) {
                     String str = group.split("base64,")[1];
-                    byte[] b = org.apache.commons.codec.binary.Base64.decodeBase64(str);
+                    byte[] b = org.apache.commons.codec.binary.Base64.decodeBase64(str.getBytes());
                     Attachment a = att.addAttachment(ManagerUserUtil.getId(), AttachmentType.ONLINE, "1.png", b, "image/png");
                     content = content.replace(group, a.getUrl());
                 }
