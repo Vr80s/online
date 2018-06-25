@@ -76,7 +76,7 @@
 		</div>
 		<div class="wrap-jump">
 			<a href="/" >返回首页</a>
-			<a href="javascript:history.back(-1)" >返回上一页</a>
+			<a href="javascript:void(0);"  onclick="letGo()">返回上一页</a>
 		</div>
 	</div>
 <script src="/web/js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script>
@@ -85,5 +85,26 @@
 <script src="/web/js/ajax.js" type="text/javascript" charset="utf-8"></script>
 <script src="/web/js/header.js?v=ipandatcm_1.3" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" src="/web/js/footer.js?v=ipandatcm_1.3"></script>	
-	</body>
+
+<script type="text/javascript">
+	
+//判断字段空值
+function stringnull(zifu) {
+    if (zifu == "" || zifu == null || zifu == undefined || zifu == "undefined"
+        || zifu == "null") {
+        return false;
+    }
+    return true;
+
+}
+ function letGo(){
+   var referrer = document.referrer;
+   var go = window.history.go(-1);
+   
+   !stringnull(go) ?  stringnull(referrer) ?  window.location.href = referrer : window.location.href = '/' :  window.history.go(-1);  
+ }
+
+</script>
+
+</body>
 </html>
