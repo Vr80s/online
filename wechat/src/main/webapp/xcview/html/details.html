@@ -69,6 +69,8 @@ $(function(){
  }  */
  .chatmsg-box{
  	overflow: scroll;
+ 	width: 7.5rem;
+    margin: 0 auto;
  }
  .mCSB_scrollTools .mCSB_dragger{
  	opacity: 0;
@@ -121,12 +123,12 @@ $(function(){
 	}
 	/*这是隐藏回放发送聊天层*/
 	.cover{
-		height: 2.125rem;
+		height: 0.98rem;
 	    width: 100%;
 	    /*background: red;*/
 	    position: fixed;
 	    bottom: 0;
-	    z-index: 99991;
+	    z-index: 999999;
 	    left: 0;
 	    display: none;
 	    opacity: 0;
@@ -153,7 +155,7 @@ $(function(){
 	}
 	
 	.video_end_top0 .initiation{
-		font-size: 0.68rem;
+		font-size: 0.32rem;
 		color: #fff;
 	}
 	.video_end_top1 .initiation{
@@ -244,6 +246,9 @@ $(function(){
 
 .facebox-mobile .qqFace-mobile{
 	max-width: 7.5rem;
+}
+.img_doc{
+	transform: scale(1, 1) translate(0px, 0px) !important;
 }
 </style>
 </head>
@@ -381,7 +386,7 @@ $(function(){
 		</div>
 		<div class="both"></div>
 	</div>
-	<div class="footer_k footer_ks" style="height: 5.2rem;"></div>
+	<div class="footer_k footer_ks"></div>
 	<!-- 详情聊天开始 -->
 	
 	<div class="coze" style="height1: 14rem">
@@ -605,7 +610,7 @@ $(function(){
 	<!-- 详情主播结束 -->
 
 	<!-- 排行榜开始 -->
-	<div class="leaderboard" id="phbList" style="margin-top: 0.8rem;">
+	<div class="leaderboard" id="phbList" style="margin-top: 3.6rem;">
 		
 		<div class="no_git" style="display: none;">
 			<div class="no_git_pic">
@@ -617,7 +622,7 @@ $(function(){
 	
 	<!-- 排行榜结束 -->
 	<!-- 文档开始 -->
-	<div class="document" style="margin-top: 0.47rem;">
+	<div class="document" style="margin-top: 3.74rem;">
 		<!-- <div class="fd_img">
 			<div class="fd_img_bg"></div>
 			<p>此课程还没课件</p>
@@ -774,7 +779,17 @@ $(function(){
 			// 课件获取高度
 			var school_height=$(window).height()-$(".details_cen1").height();
 			$(".pinch-zoom-container").height(school_height);
+
+			$("#doc").addClass("img_doc");
 		});
+
+		$("#doc img").click(function(){
+			// 课件获取高度  img_doc
+			$("#doc").removeClass("img_doc");
+            // $(".course_nav").addClass("hide");
+		});
+
+
 
 		
 

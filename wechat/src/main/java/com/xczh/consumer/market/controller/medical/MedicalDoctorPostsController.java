@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+
 /**
  * Description：医师控制器
  * creed: Talk is cheap,show me the code
@@ -56,15 +58,9 @@ public class MedicalDoctorPostsController {
     public ResponseObject addDoctorDynamics(@Account String accountId, MedicalDoctorPosts medicalDoctorPosts,
                                              @RequestParam(value = "coverImg",required = false) MultipartFile coverImg)
             throws Exception {
-
         medicalDoctorPosts.setDoctorId(accountId);
-        String cover_img="";
         if(coverImg!=null){
-            //封面图片
-            String projectName = "other";
-            String fileType = "1"; //图片类型了
-            cover_img = service.upload(accountId,
-                    projectName, coverImg.getOriginalFilename(), coverImg.getContentType(), coverImg.getBytes(), fileType, null);
+            String cover_img = getFilePath(coverImg,accountId);
             medicalDoctorPosts.setCoverImg(cover_img);
         }
         medicalDoctorPostsService.addMedicalDoctorPosts(medicalDoctorPosts);
@@ -79,13 +75,8 @@ public class MedicalDoctorPostsController {
     public ResponseObject updateDoctorDynamics(@Account String accountId,MedicalDoctorPosts medicalDoctorPosts,
                                                 @RequestParam(value = "coverImg",required = false) MultipartFile coverImg)
             throws Exception {
-        String cover_img="";
         if(coverImg!=null){
-            //封面图片
-            String projectName = "other";
-            String fileType = "1"; //图片类型了
-            cover_img = service.upload(accountId,
-                    projectName, coverImg.getOriginalFilename(), coverImg.getContentType(), coverImg.getBytes(), fileType, null);
+            String cover_img = getFilePath(coverImg,accountId);
             medicalDoctorPosts.setCoverImg(cover_img);
         }
         medicalDoctorPostsService.updateMedicalDoctorPosts(medicalDoctorPosts);
@@ -114,6 +105,14 @@ public class MedicalDoctorPostsController {
         }else {
             return ResponseObject.newSuccessResponseObject("取消置顶成功");
         }
+    }
+    /**
+     * 上传图片返回路径
+     */
+    private String getFilePath(MultipartFile imgFile,String accountId) throws IOException {
+            String filePath = service.upload(accountId,"other", imgFile.getOriginalFilename(),
+                    imgFile.getContentType(), imgFile.getBytes(), "1", null);
+        return filePath;
     }
 
 }

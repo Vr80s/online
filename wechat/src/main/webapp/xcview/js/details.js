@@ -171,7 +171,7 @@ requestService("/xczh/course/liveDetails",{
 					$(".give_a1_span02").hide();
 					$(".poson").css('right', '0rem');
 					$(".poson").css('margin-left', '0.4rem');
-					$(".div_img").css('margin-left', '0.35rem');   //左侧  图片笔
+					//$(".div_img").css('margin-left', '0.35rem');   //左侧  图片笔
 					$("#face").css('position', 'absolute');  //表情
 					$("#face").css('top', '0');   //表情
 					$("#face").css('left', '-0.05rem');  //表情
@@ -179,7 +179,7 @@ requestService("/xczh/course/liveDetails",{
 					$("#sendChat").addClass('important');  //发送按钮 添加class
 					
 					$(".give_a01").show();
-					$(".give_a1 .give_a1_img").css("margin-left","-2.6rem");
+					//$(".give_a1 .give_a1_img").css("margin-left","-2.6rem");
 
 					// $("#sendChat").show();
 //					点击输入框

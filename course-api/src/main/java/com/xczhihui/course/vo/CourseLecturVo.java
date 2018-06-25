@@ -4,6 +4,8 @@ package com.xczhihui.course.vo;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.xczhihui.course.util.XzStringUtils;
+
 
 /**
  * Created by admin on 2016/7/27.
@@ -163,10 +165,6 @@ public class CourseLecturVo implements Serializable {
     private Boolean collection;
 
     private Integer courseNumber;
-
-//	  oc.subtitle as subtitle,
-//	  IFNULL((select count(*) from oe_criticize cc  where cc.status = 1 and cc.course_id = oc.id ),0) as criticizeCount,
-//	  '2' as startLevel,
 
     private String subtitle; //副标题
 
@@ -338,6 +336,10 @@ public class CourseLecturVo implements Serializable {
     }
 
     public void setDescription(String description) {
+    	
+    	//过滤掉课程中的连接
+    	description = XzStringUtils.formatA(description);
+    	
         setCourseDescription(description);
         this.description = description;
     }
@@ -516,6 +518,9 @@ public class CourseLecturVo implements Serializable {
     }
 
     public void setLecturerDescription(String lecturerDescription) {
+    	//过滤掉课程中的连接
+    	lecturerDescription = XzStringUtils.formatA(lecturerDescription);
+    	
         this.lecturerDescription = lecturerDescription;
     }
 
@@ -540,6 +545,7 @@ public class CourseLecturVo implements Serializable {
     }
 
     public void setSubtitle(String subtitle) {
+    		
         this.subtitle = subtitle;
     }
 
@@ -566,6 +572,10 @@ public class CourseLecturVo implements Serializable {
     }
 
     public void setCourseOutline(String courseOutline) {
+    	
+    	//过滤掉课程中的连接
+    	courseOutline = XzStringUtils.formatA(courseOutline);
+    	
         this.courseOutline = courseOutline;
     }
 

@@ -103,12 +103,12 @@
 			
 			{{if collection == true}}
 			<ul class="playTime z">
-				<li><img src="../images/outline_bg.png"/ style="margin-top: 0.03rem;"><span>共{{courseNumber}}集</span></li>
+				<li><span style="margin-left: 0;width: 5.5rem;padding: 0;"><img src="../images/outline_bg.png"/ style="margin-top: 0.03rem;margin-right:0.1rem;" />共{{courseNumber}}集，已更新{{dirtyNumber}}集 每{{dirtyDate}}更新</span></li>
 				<li onclick="window.location='course_outline.html?courseId={{id}}'">
 					<a href="javascript: ;">
 
 						<img src="../images/video_review.png" style="width: 0.15rem; height: 0.25rem; margin-right: 0.26rem; float: right;"  />
-						<span class="look_text">查看大纲</span>
+						<span class="look_text" style="padding: 0;">查看大纲</span>
 					</a>
 				</li>
 			</ul>

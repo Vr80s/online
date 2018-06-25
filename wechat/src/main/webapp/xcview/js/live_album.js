@@ -105,7 +105,7 @@ function stripHTML(str){
                     var index = $(".all_list_ul_li").next("li").index();
                     localStorage.setItem('course'+collectionId, index);  /*存缓存列表*/
                     var sortNo=getNo(index);
-                    localStorage.setItem('courseName'+collectionId, sortNo+" "+courseName);  /*存缓存列表*/
+                    localStorage.setItem('courseName'+collectionId, courseName);  /*存缓存列表*/
                     //初始化视频资源
                     window.location="/xcview/html/live_album.html?course_id="+courseId+"&direct_id="+myvideo+"&collection_id="+collectionId+"&name_title="+name_title+"&index="+index;
                     $('.all_list_ul li').eq(0).click();
@@ -118,7 +118,7 @@ function stripHTML(str){
                     var index = $(".all_list_ul_li").next("li").index();
                     localStorage.setItem('course'+collectionId, index);  /*存缓存列表*/
                     var sortNo=getNo(index);
-                    localStorage.setItem('courseName'+collectionId, sortNo+" "+courseName);  /*存缓存列表*/
+                    localStorage.setItem('courseName'+collectionId, courseName);  /*存缓存列表*/
                     //初始化视频资源
                     window.location="/xcview/html/live_album.html?course_id="+courseId+"&direct_id="+myvideo+"&collection_id="+collectionId+"&name_title="+name_title+"&index="+index;
                                  
@@ -132,7 +132,7 @@ function stripHTML(str){
                     var index = $(".all_list_ul_li").next("li").index();
                     localStorage.setItem('course'+collectionId, index);  /*存缓存列表*/
                     var sortNo=getNo(index);
-                    localStorage.setItem('courseName'+collectionId, sortNo+" "+courseName);  /*存缓存列表*/
+                    localStorage.setItem('courseName'+collectionId, courseName);  /*存缓存列表*/
                     //初始化视频资源
                     window.location="/xcview/html/live_album.html?course_id="+courseId+"&direct_id="+myvideo+"&collection_id="+collectionId+"&name_title="+name_title+"&index="+index;
                              
@@ -293,7 +293,7 @@ $('.all_list_ul').on('click','li',function(){
     var index = $(this).index(); 
     localStorage.setItem('course'+collectionId, index);
     var sortNo=getNo(index);
-    localStorage.setItem('courseName'+collectionId, sortNo+" "+courseName);
+    localStorage.setItem('courseName'+collectionId, courseName);
     //初始化视频资源                                                                                                                                    //判断跳转添加
     location.replace("/xcview/html/live_album.html?course_id="+courseId+"&direct_id="+myvideo+"&collection_id="+collectionId+"&name_title="+name_title+"&index="+index+"&type=2");
     

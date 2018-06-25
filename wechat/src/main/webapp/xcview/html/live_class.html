@@ -151,9 +151,9 @@
 			</div>     
 		</div>
 		<!-- 隐藏点击收起 -->
-		<!-- <div class="btn1" style="display: none !important;">
+		<div class="btn1" style="display: none !important;">
 			<img src="../images/top.png"/>
-		</div> -->
+		</div>
 <!--详情结束-->
 	<!--评价-->
 	<div class="wrap_comment_title" onclick="btn_allComment()">
@@ -484,7 +484,7 @@ $('.btn').prepend('<a href="#">点击收起</a>');
 			    $(".zhezhao1").show();
 			    $(".btn1 img").attr("src","../images/bot0.png")
 			  },function(){
-			  	$(".zhezhao1").gide();
+			  	$(".zhezhao1").hide();
 			    $(".btn1 img").attr("src","../images/top.png")  
 			    $(".btn1 a").html('点击收起');
 			     $(".wrap1").removeClass("pp1");

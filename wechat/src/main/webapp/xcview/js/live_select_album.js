@@ -137,7 +137,8 @@ var collections="";
 		if(lookCourseName!=null && lookCourseName!=""){
             $('.play_top_size').html('上次播放至：'+lookCourseName);
         }else {
-            $('.play_top_size').html('上次播放至：'+"01 "+course.gradeName);
+            // $('.play_top_size').html('上次播放至：'+"01 "+course.gradeName);
+            $('.play_top_size').html('上次播放至：'+course.gradeName);
         }
 	})
 //点击视频默认第一个视频ID	
@@ -156,7 +157,7 @@ function jump_album_my(e,selectId,selectDirectId,courseName){
 	var index = e.parentNode.value
     localStorage.setItem('course'+courseId, index);
     var sortNo=getNo(index);
-	localStorage.setItem('courseName'+courseId, sortNo+" "+courseName);                                                                                                      //判断跳转添加
+	localStorage.setItem('courseName'+courseId, courseName);                                                                                                      //判断跳转添加
 	location.replace("live_album.html?course_id="+selectId+"&direct_id="+selectDirectId+"&collection_id="+courseId+"&name_title="+name_title+"&index="+index+"&type=2");
 }
 function refresh(){

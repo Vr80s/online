@@ -6,7 +6,6 @@ import java.util.Map;
 
 import org.junit.Test;
 
-
 /**
  * 测试cc视频的接口
  * ClassName: TestCCVideo.java <br>
@@ -81,9 +80,6 @@ public class TestCCVideo {
 		Map<String, String> paramsMap = new HashMap<String, String>();
 		paramsMap.put("userid", "B5E673E55C702C42");
 		paramsMap.put("videoid", "070F3FC7BEAF701F9C33DC5901307461");
-		
-		
-		
 		
 		paramsMap.put("format", "json");
 		long time = System.currentTimeMillis();
