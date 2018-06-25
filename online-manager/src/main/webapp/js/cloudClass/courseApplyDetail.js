@@ -1,19 +1,30 @@
 function pass(){
-
-    $.ajax({
-        type:'post',
-        url:basePath+'/cloudclass/courseApply/pass?courseApplyId='+courseApplyId,
-        dataType:'json',
-        async:false,
-        success:function(data){
-
-            alertInfo(data.errorMessage,function(){
-                if(data.success){
-                    window.location.reload();
-                }
-            });
-        }
-    }) ;
+	var falg  = false;
+	if(!falg){
+		falg = true;
+		$.ajax({
+	        type:'post',
+	        url:basePath+'/cloudclass/courseApply/pass?courseApplyId='+courseApplyId,
+	        dataType:'json',
+	        async:false,
+	        success:function(data){
+	        	if(data.success){
+	        		falg = false;
+	        		alertInfo(data.errorMessage,function(){
+	  	                if(data.success){
+	  	                    window.location.reload();
+	  	                }
+	  	            });
+	        	}else{
+	        		alertInfo(data.errorMessage,function(){
+	  	                if(!data.success){
+	  	                    window.location.reload();
+	  	                }
+	  	            });
+	        	}
+	        }
+	    }) ;
+	}
 }
 function notPass(){
 
