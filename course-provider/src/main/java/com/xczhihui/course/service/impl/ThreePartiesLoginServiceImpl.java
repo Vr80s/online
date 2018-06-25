@@ -38,20 +38,17 @@ public class ThreePartiesLoginServiceImpl extends ServiceImpl<QQClientUserMappin
 
 	@Override
 	public void saveQQClientUserMapping(QQClientUserMapping qqClientUserMapping) {
-		// TODO Auto-generated method stub
 		qqClientUserMappingMapper.insert(qqClientUserMapping);
 	}
 	
 	
 	@Override
 	public WeiboClientUserMapping selectWeiboClientUserMappingByUid(String uid) {
-		// TODO Auto-generated method stub
 		return weiboClientUserMappingMapper.selectWeiboClientUserMappingByUid(uid);
 	}
 
 	@Override
 	public QQClientUserMapping selectQQClientUserMappingByOpenId(String openId) {
-		// TODO Auto-generated method stub
 		return qqClientUserMappingMapper.selectQQClientUserMappingByOpenId(openId);
 	}
 

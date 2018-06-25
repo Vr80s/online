@@ -88,7 +88,7 @@ public class CoreMessageServiceImpl implements CoreMessageService {
                     * 保存用户微信信息
         		    */
                     JSONObject jsonObject = serviceToken(fromUserName);
-                    String qr_scene = (String)jsonObject.get("qr_scene");
+                    Integer qr_scene = (Integer)jsonObject.get("qr_scene");
                     String qr_scene_str = (String) jsonObject.get("qr_scene_str");	
                     
                     LOGGER.info("获取的微信数据~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + jsonObject.toString());

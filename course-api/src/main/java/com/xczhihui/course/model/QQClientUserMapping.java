@@ -75,7 +75,6 @@ public class QQClientUserMapping extends  Model<QQClientUserMapping>{
           this.setFigureurl(userInfoBean.getAvatar().getAvatarURL30());
           this.setFigureurl1(userInfoBean.getAvatar().getAvatarURL50());
           this.setFigureurl2(userInfoBean.getAvatar().getAvatarURL100());
-		
 	}
 	
     public String getId() {

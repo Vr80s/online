@@ -167,11 +167,11 @@ public class WxcpClientUserWxMapping implements Serializable {
          this.setHeadimgurl(headimgurl_);
          this.setUnionid((String) jsonObject.get("unionid"));
          this.setSubscribe(String.valueOf(jsonObject.get("subscribe")));
-         this.setSubscribe_time(DateUtil.parseDate((String)jsonObject.get("subscribe_time"), DateUtil.FORMAT_CHINA_DAY_TIME));
+         this.setSubscribe_time(DateUtil.parseDate((Integer)jsonObject.get("subscribe_time")+"", DateUtil.FORMAT_CHINA_DAY_TIME));
          this.setRemark((String) jsonObject.get("remark"));
-         this.setGroupid((String)jsonObject.get("groupid"));
+         this.setGroupid((Integer)jsonObject.get("groupid")+"");
          this.setSubscribe_scene((String) jsonObject.get("subscribe_scene"));
-         this.setQr_scene((String)jsonObject.get("qr_scene"));
+         this.setQr_scene((Integer)jsonObject.get("qr_scene")+"");
          this.setQr_scene_str((String) jsonObject.get("qr_scene_str"));
          
     }
@@ -200,17 +200,13 @@ public class WxcpClientUserWxMapping implements Serializable {
     
     public void bulidUpdate(JSONObject jsonObject) {
     	
-	    this.setGroupid((String)jsonObject.get("groupid"));
+	    this.setGroupid((Integer)jsonObject.get("groupid")+"");
 	    this.setSubscribe(String.valueOf(jsonObject.get("subscribe")));
         this.setSubscribe_scene((String) jsonObject.get("subscribe_scene"));
-        this.setQr_scene((String)jsonObject.get("qr_scene"));
+        this.setQr_scene((Integer)jsonObject.get("qr_scene")+"");
         this.setQr_scene_str((String) jsonObject.get("qr_scene_str"));
         this.setLast_update_time(new Date());
    }
-    
-    
-    
-    
     
     public String getWx_id() {
         return wx_id;
