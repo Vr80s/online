@@ -11,8 +11,14 @@ $(function(){
         pageSize:10,
         doctorId:"b8e9430bd4334d749f06d2f0050dd66e"
     }, function (data) {
-        var obj =  data.resultObject;
-        $(".rests_nav").html(template('wrap_doctor_dynamics',{items:data.resultObject.records}));
+        var obj = data.resultObject.records;
+        for(var i=0;i<obj.length;i++){
+        	if(obj[i].pictures!=null&&obj[i].pictures!=""){
+                var pics=obj[i].pictures.split(",");
+                obj[i].pics=pics;
+			}
+		}
+        $(".rests_nav").html(template('wrap_doctor_dynamics',{items:obj}));
 
 
     });

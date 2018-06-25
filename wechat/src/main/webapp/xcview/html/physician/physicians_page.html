@@ -166,16 +166,84 @@
 		<div class="rests_nav">
 			<script type="text/html" id="wrap_doctor_dynamics">
 				{{each items as item i}}
-			<div class="rests_nav_span comment_hide">
-				<span class="stick_img"><img src="/xcview/images/stick.png" alt="" />置顶</span>
-				<span class="title">{{item.title}}</span>
-			</div>
-			<div id="ccvideo" class="comment_hide">
-				<img src="{{item.coverImg}}" alt="" />
-				<!--<video>
-					
-				</video>-->
-			</div>
+				{{if item.type == 1}}
+				<!-- 普通动态-->
+				<div class="essay_main comment_hide">{{item.content}}</div>
+				<div class="essay_pack_up_btn"><span>收起</span></div>
+				<div class="both"></div>
+				{{else if item.type == 2}}
+				<!-- 动态图片-->
+				<div class="paper_nav_span">
+					<span class="stick_img">#盐蒸橘子治咳嗽#<span class="title">{{item.content}}</span></span>
+				</div>
+				{{if item.pics.length>0}}
+				<div class="paper_nav_cen">
+				{{each item.pics as pic }}
+				<img src="{{pic}}" alt="" />
+				{{/each}}
+				</div>
+				{{/if}}
+				<div class="both"></div>
+				{{else if item.type == 3}}
+				<!-- 视频-->
+				<div class="rests_nav_span comment_hide">
+					<span class="stick_img"><img src="/xcview/images/stick.png" alt="" />置顶</span>
+					<span class="title">{{item.title}}</span>
+				</div>
+				<div id="ccvideo" class="comment_hide">
+					<video>
+
+					</video>
+				</div>
+				{{else if item.type == 4}}
+				<!-- 文章-->
+				<div class="article_nav_span comment_hide">
+					<span class="title">{{item.title}}</span>
+				</div>
+				<div class="article_nav_cen comment_hide">
+					<img src="{{item.smallImgPath}}" alt="" />
+					<div class="article_nav_cen_size">得控制，体温在38℃~39℃之间。初期热无定，不恶得控制，体温在38℃~39℃之间。初期热无定，不恶</div>
+				</div>
+				<div class="both"></div>
+				{{else if item.type == 5}}
+				<div class="course_nav_span comment_hide">
+					<span class="title">{{item.title}}</span>
+				</div>
+				<div class="course_nav_cen comment_hide">
+					<img src="{{item.smallImgPath}}" alt="" />
+					<div class="course_nav_cen_size">{{item.content}}</div>
+					{{if item.currentPrice==0}}
+					<div class="course_nav_rate">免费</div>
+					{{else}}
+					<div class="course_nav_rate"><span>{{item.currentPrice}}</span>熊猫币</div>
+					{{/if}}
+
+					<!-- <div class="course_nav_rate">免费</div> -->
+				</div>
+				<div class="both"></div>
+				{{else if item.type == 10}}
+				<!-- 医案-->
+				<div class="consilia_nav_span comment_hide">
+					<span class="stick_img">#医案#</span>
+					<span class="title">朱xx，男，53岁</span>
+				</div>
+				<div class="consilia_nav_main comment_hide">
+					得控制，体温在38℃~39℃之间。初期热无定，不恶
+					得控制，体温在38℃~39℃之间。初期热无定，不恶
+					得控制，体温在38℃~39℃之间。初期热无定，不恶
+					得控制，体温在38℃~39℃之间。初期热无定，不恶
+					得控制，体温在38℃~39℃之间。初期热无定，不恶
+					得控制，体温在38℃~39℃之间。初期热无定，不恶
+					得控制，体温在38℃~39℃之间。初期热无定，不恶
+					得控制，体温在38℃~39℃之间。初期热无定，不恶
+				</div>
+				<div class="consilia_nav_btn"><span>收起</span></div>
+				<div class="consilia_nav_cen comment_hide">
+					<img src="/xcview/images/xianxia_03.jpg" alt="" />
+					<div class="consilia_nav_cen_size">得控制，体温在38℃~39℃之间。初期热无定，不恶得控制，体温在38℃~39℃之间。初期热无定，不恶</div>
+				</div>
+				<div class="both"></div>
+				{{/if}}
 			<div class="rests_nav_bottom">
 				<span class="time">6小时前</span>
 				<span class="img"><img src="/xcview/images/zan01.png" alt="" class="zan_img" /><img src="/xcview/images/returned.png" alt="" class="evaluate_img" /></span>
