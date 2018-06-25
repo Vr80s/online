@@ -32,7 +32,6 @@ public class ThreePartiesLoginServiceImpl extends ServiceImpl<QQClientUserMappin
 	@Override
 	public void saveWeiboClientUserMapping(
 			WeiboClientUserMapping weiboClientUserMapping) {
-		// TODO Auto-generated method stub
 		weiboClientUserMappingMapper.insert(weiboClientUserMapping);
 	}
 
@@ -64,34 +63,27 @@ public class ThreePartiesLoginServiceImpl extends ServiceImpl<QQClientUserMappin
 
 	@Override
 	public void updateQQInfoAddUserId(QQClientUserMapping qq) {
-		// TODO Auto-generated method stub
 		qqClientUserMappingMapper.updateById(qq);
 	}
 
 	@Override
 	public void updateWeiboInfoAddUserId(WeiboClientUserMapping weibo) {
-		// TODO Auto-generated method stub
 		weiboClientUserMappingMapper.updateById(weibo);
 	}
 
 	@Override
 	public QQClientUserMapping selectQQClientUserMappingByUnionId(String unionId) {
-		// TODO Auto-generated method stub
 		return qqClientUserMappingMapper.selectQQClientUserMappingByUnionId(unionId);
 	}
 	
 	
 	@Override
 	public Map<String,Object> selectUserBindingInfo(String userId) {
-		
-		// TODO Auto-generated method stub
 		return qqClientUserMappingMapper.selectUserBindingInfo(userId);
 	}
 
 	@Override
 	public void deleteAccount(String id) {
-		// TODO Auto-generated method stub
-		
 		qqClientUserMappingMapper.deleteAccount(id);
 		weiboClientUserMappingMapper.deleteAccount(id);
 	}

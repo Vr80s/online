@@ -1,20 +1,17 @@
 package com.xczhihui.course.service.impl;
 
-import com.baomidou.mybatisplus.plugins.Page;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xczhihui.common.util.enums.CourseType;
 import com.xczhihui.course.mapper.MobileProjectMapper;
 import com.xczhihui.course.model.MobileProject;
 import com.xczhihui.course.service.IMobileProjectService;
 import com.xczhihui.course.vo.MenuVo;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * <p>
