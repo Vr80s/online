@@ -22,7 +22,7 @@ import com.xczhihui.bxg.online.web.interceptor.WebInterceptor;
 /**
  * @author hejiwei
  */
-@ComponentScan(basePackages = "com.xczhihui.bxg.online")
+@ComponentScan(basePackages = "com.xczhihui.bxg.online.web.interceptor")
 @EnableWebMvc
 @Configuration
 public class MvcConfig extends WebMvcConfigurerAdapter {

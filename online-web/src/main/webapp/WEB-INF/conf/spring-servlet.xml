@@ -10,8 +10,7 @@
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
 		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.0.xsd">
 
-   
-    
+
     <context:property-placeholder location="classpath:config.properties"/>
     <context:component-scan base-package="com.xczhihui.bxg.online.*.controller"/>
     <context:component-scan base-package="com.xczhihui.bxg.online.web.base.common,com.xczhihui.bxg.online.config"/>
@@ -24,7 +23,7 @@
         <property name="defaultEncoding" value="UTF-8"/>
     </bean>
 
-    <bean id="handlerExceptionResolver"  class="com.xczhihui.bxg.online.web.exception.ExceptionResolver">
+    <bean id="handlerExceptionResolver" class="com.xczhihui.bxg.online.web.exception.ExceptionResolver">
         <property name="exceptionMappings">
             <props>
                 <prop key="java.lang.Throwable">common/500</prop>
@@ -70,32 +69,18 @@
                 <prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop>
                 <prop key="date_format">yyyy-MM-dd</prop>
                 <prop key="number_format">#.##</prop>
-                
-                <prop key ="template_exception_handler">com.xczhihui.bxg.online.web.exception.FreemarkerExceptionHandler</prop>  
-                
+
+                <prop key="template_exception_handler">
+                    com.xczhihui.bxg.online.web.exception.FreemarkerExceptionHandler
+                </prop>
+
             </props>
         </property>
     </bean>
 
     <bean id="fmXmlEscape" class="freemarker.template.utility.XmlEscape"/>
 
-    <mvc:resources mapping="/online/live/image/**" location="file:/online/live/image/"/>
     <mvc:default-servlet-handler/>
-
-   <!-- <mvc:interceptors>
-        <mvc:interceptor>
-            <mvc:mapping path="/**"/>
-            <bean id="onlineInterceptor" class="com.xczhihui.bxg.online.web.interceptor.OnlineInterceptor"/>
-        </mvc:interceptor>
-
-        &lt;!&ndash; 对web请求的相关处理&ndash;&gt;
-        <mvc:interceptor>
-            <mvc:mapping path="/**"/>
-            <bean id="webInterceptor" class="com.xczhihui.bxg.online.web.interceptor.WebInterceptor"/>
-        </mvc:interceptor>
-        &lt;!&ndash; 对web请求的相关处理&ndash;&gt;
-    </mvc:interceptors>-->
-
 
     <bean id="attachmentCenterController" class="com.xczhihui.common.web.controller.AttachmentCenterController"/>
 
