@@ -3022,11 +3022,14 @@ $(function(){
 	    	$("#accordion li[data-name='menu=1-1'] .submenu").css('display','block')
     	}
 
-		if(location.hash == "#menu=2-1"){
-	    	$("#accordion li[data-name='menu=2-1']").click();
-	    	$("#accordion li[data-name='menu=2-1']").addClass('open');
-	    	$("#accordion li[data-name='menu=2-1'] .submenu").css('display','block')
-    	}
+    if (location.hash == "#menu=2-1" || location.hash == "#menu=2-2") {
+        $("#accordion li[data-name='menu=2-1']").click();
+        $("#accordion li[data-name='menu=2-1']").addClass('open');
+        $("#accordion li[data-name='menu=2-1'] .submenu").css('display', 'block');
+        if (location.search && location.search.indexOf('isCNY=1') != -1) {
+            $('.rmbMoney').trigger('click');
+        }
+    }
 		if(location.hash == "#menu=3-1" || location.hash == "#menu=3-2"){
 	    	$("#accordion li[data-name='menu=3-1']").click();
 	    	$("#accordion li[data-name='menu=3-1']").addClass('open');

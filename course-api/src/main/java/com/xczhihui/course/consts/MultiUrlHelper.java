@@ -69,7 +69,7 @@ public class MultiUrlHelper {
             URL_TYPE_MOBILE, "");
     private static Map<String, String> anchorCNYMap = ImmutableMap.of(
             URL_TYPE_APP, "xczh://ipandatcm.com/anchorCNY?type=1",
-            URL_TYPE_WEB, "/anchor/my#menu=2-1",
+            URL_TYPE_WEB, "/anchor/my?isCNY=1#menu=2-1",
             URL_TYPE_MOBILE, "");
     private static Map<String, String> courseListMap = ImmutableMap.of(
             URL_TYPE_APP, "xczh://ipandatcm.com/courseList?tab=0",
