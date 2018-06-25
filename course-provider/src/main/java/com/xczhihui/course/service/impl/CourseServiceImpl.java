@@ -44,10 +44,6 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     public CourseLecturVo selectCourseDetailsById(Integer courseId) {
     	
     	CourseLecturVo  cv = iCourseMapper.selectCourseDetailsById(courseId);
-    	if(cv!=null) {
-    		cv.setDescription(XzStringUtils.formatA(cv.getDescription()));
-    		cv.setLecturerDescription(XzStringUtils.formatA(cv.getLecturerDescription()));
-    	}
     	
         return cv;
     }
@@ -120,10 +116,6 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     public CourseLecturVo selectCourseMiddleDetailsById(Integer courseId) {
     	
     	CourseLecturVo  cv = iCourseMapper.selectCourseMidileDetailsById(courseId);
-    	if(cv!=null) {
-    		cv.setDescription(XzStringUtils.formatA(cv.getDescription()));
-    		cv.setLecturerDescription(XzStringUtils.formatA(cv.getLecturerDescription()));
-    	}
     	
         return cv;
     }
@@ -152,13 +144,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     @Override
     public CourseLecturVo selectUserCurrentCourseStatus(Integer courseId,
                                                         String userId) {
-        
-    	
     	CourseLecturVo  cv = iCourseMapper.selectUserCurrentCourseStatus(courseId, userId);
-    	if(cv!=null) {
-    		cv.setDescription(XzStringUtils.formatA(cv.getDescription()));
-    		cv.setLecturerDescription(XzStringUtils.formatA(cv.getLecturerDescription()));
-    	}
     	return cv;
     }
 
@@ -166,11 +152,6 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     public CourseLecturVo selectCurrentCourseStatus(Integer courseId) {
     	
     	CourseLecturVo  cv = iCourseMapper.selectCurrentCourseStatus(courseId);
-    	if(cv!=null) {
-    		cv.setDescription(XzStringUtils.formatA(cv.getDescription()));
-    		cv.setLecturerDescription(XzStringUtils.formatA(cv.getLecturerDescription()));
-    	}
-    	
         return cv;
     }
 
