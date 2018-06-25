@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.xczhihui.bxg.online.web.service.OnlineUserCenterService;
 import com.xczhihui.medical.doctor.model.MedicalDoctorPosts;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsService;
 import org.slf4j.Logger;
@@ -68,6 +69,8 @@ public class CourseApplyController extends AbstractController {
     private IMedicalDoctorPostsService medicalDoctorPostsService;
     @Value("${weixin.course.remind.code}")
     private String weixinTemplateMessageRemindCode;
+    @Autowired
+    private OnlineUserCenterService onlineUserCenterService;
 
     /**
      * Description：分页获取课程申请列表
@@ -377,24 +380,26 @@ public class CourseApplyController extends AbstractController {
             if (!focusVos.isEmpty()) {
                 Course course = courseService.findByApplyId(courseApplyId);
                 Date startTime = course.getStartTime();
-                String content = MessageFormat.format(WEB_COURSE_ONLINE_MESSAGE_TIPS, user.getName(),
-                        course.getLecturer(), course.getGradeName());
-                Map<String, String> weixinParams = new HashMap<>(4);
-                weixinParams.put("first", TextStyleUtil.clearStyle(content));
-                weixinParams.put("keyword1", course.getGradeName());
-                weixinParams.put("keyword2", startTime == null ? "" : TimeUtil.getYearMonthDayHHmm(startTime));
-                weixinParams.put("remark", "点击查看");
+                String content;
+                Map<String, String> weixinParams;
                 for (FocusVo focusVo : focusVos) {
                     String fansId = focusVo.getUserId();
-                    //不给自己推送
-//                    if (!fansId.equals(userId)) {
-                    commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.SYSYTEM.getVal())
-                            .buildAppPush(APP_PUSH_COURSE_ONLINE_MESSAGE_TIPS)
-                            .buildWeb(content)
-                            .buildWeixin(weixinTemplateMessageRemindCode, weixinParams)
-                            .detailId(String.valueOf(course.getId()))
-                            .build(focusVo.getUserId(), CourseUtil.getRouteType(course.getCollection(), course.getType()), userId));
-//                    }
+                    OnlineUser onlineUser = onlineUserCenterService.getUser(fansId);
+                    if (onlineUser != null) {
+                        content = MessageFormat.format(WEB_COURSE_ONLINE_MESSAGE_TIPS, onlineUser.getName(),
+                                course.getLecturer(), course.getGradeName());
+                        weixinParams = new HashMap<>(4);
+                        weixinParams.put("first", TextStyleUtil.clearStyle(content));
+                        weixinParams.put("keyword1", course.getGradeName());
+                        weixinParams.put("keyword2", startTime == null ? "" : TimeUtil.getYearMonthDayHHmm(startTime));
+                        weixinParams.put("remark", "点击查看");
+                        commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.SYSYTEM.getVal())
+                                .buildAppPush(APP_PUSH_COURSE_ONLINE_MESSAGE_TIPS)
+                                .buildWeb(content)
+                                .buildWeixin(weixinTemplateMessageRemindCode, weixinParams)
+                                .detailId(String.valueOf(course.getId()))
+                                .build(fansId, CourseUtil.getRouteType(course.getCollection(), course.getType()), userId));
+                    }
                 }
             }
         } catch (Exception e) {
