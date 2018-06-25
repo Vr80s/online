@@ -299,8 +299,89 @@ $(function () {
         $(".btn-upload").css("color", "white");
     })
 //---------------------------------头像上传部分结束,动态开始---------------------------------  
-//	图片区域
+//选择图片/视频/医案后的动态文字长度判断
+//function  checkTextarea(){
+//		if($.trim($(".publish-activity").val())==""){
+//			$(".activity-error").removeClass("hide");
+//			return false;
+//		}else{
+//			$(".activity-error").addClass("hide");
+//			return true;
+//		}
+//}
 
+var allImages=[],
+    activityType;
+function checkContent(){
+//	普通动态
+	if($(".photo-wrap").hasClass("hide")==true && $(".video-wrap").hasClass("hide")==true && $(".consilia-wrap").hasClass("hide")==true){
+		if($.trim($(".publish-activity").val())==""){
+			$(".activity-error").removeClass("hide");
+			return false;
+		}else{
+			$(".activity-error").addClass("hide");
+			activityType=1;
+			return true;
+		}
+//	图片动态
+	}else if($(".photo-wrap").hasClass("hide")==false && $(".video-wrap").hasClass("hide")==true && $(".consilia-wrap").hasClass("hide")==true){
+			$(".save-photo ul li .insertImg").each(function(){
+				allImages.push($(".save-photo ul li .insertImg").attr("src"));
+				activityType=2;
+			})
+			return allImages;
+//	视频动态
+	}else if($(".photo-wrap").hasClass("hide")==true && $(".video-wrap").hasClass("hide")==false && $(".consilia-wrap").hasClass("hide")==true){
+		if($.trim($(".video-title input").val())==""){
+			$(".video-error").removeClass("hide");
+			return false;
+		}else{
+			$(".video-error").addClass("hide");
+			return true;
+		}
+	
+//	医案
+	}else if($(".photo-wrap").hasClass("hide")==true && $(".video-wrap").hasClass("hide")==true && $(".consilia-wrap").hasClass("hide")==false){
+		
+	
+	}
+//	医案
+}
+
+
+//点击发布动态
+$(".btn-deliver").click(function(){
+	if(checkContent()){
+		RequestService("/doctor/dynamics/addDoctorDynamics", "post", {
+			'type':activityType,
+			'content':$.trim($(".publish-activity").val()),
+			'pictures':allImages,
+			'title':$.trim($(".video-title input").val())
+		} , function (data) {
+        	if(success==true){
+        		showTip("发布成功");
+        		closeImages();	//关闭图片
+        		clearTextarea(); //清空动态
+        	}
+        })
+
+	}
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//	图片区域
 //	图片上传  
     $(".open-photo").click(function(){
     	if($(".video-wrap").hasClass("hide")==false){
@@ -327,7 +408,7 @@ $(function () {
         }, function (data) {
         		$(".photo-wrap").removeClass("hide");
         	  var addPhoto='<li>'+
-					'<img src="' + data.resultObject + '" alt="照片" />'+
+					'<img class="insertImg" src="' + data.resultObject + '" alt="照片" />'+
 					'<p><img class="img-number" src="/web/images/delete-img.png" alt="删除照片" title="删除照片" /></p>'+
 				'</li>';
 				$('.save-photo ul').append(addPhoto); 
@@ -371,7 +452,7 @@ $(function () {
 	$('.save-photo').on('click', 'p', function() {
 		$(this).parent().remove();
 		if($(".save-photo ul li").length==0){
-			$(".photo-wrap").addClass("hide")
+			closeImages();
 		}
 		photoNumber()
 	})
@@ -391,6 +472,7 @@ $(function () {
 	function closeImages(){
 		$(".save-photo ul").html("");
 		$(".photo-wrap").addClass("hide");
+		allImages=[];
 	}
 	function closeVideo(){
 		$(".video-cover-pic").html(defaultPicter);
@@ -400,7 +482,9 @@ $(function () {
 	function closeConsilia(){
 		$(".consilia-wrap").addClass("hide");
 	}
-	
+	function clearTextarea(){
+		$(".publish-activity").val("");
+	}
 //	视频区域
 //点击视频
 $(".vedio-nav").click(function(){

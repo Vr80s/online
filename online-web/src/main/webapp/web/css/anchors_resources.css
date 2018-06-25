@@ -188,6 +188,9 @@ resize: none;
 padding: 8px;
 outline: none;
 }
+.comment-wrong{
+	color: red;
+}
 .activity-nav{
 	margin: 20px 0 0;
 	overflow: hidden;
