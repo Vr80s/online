@@ -174,7 +174,7 @@ public class VerificationCodeServiceImpl implements VerificationCodeService {
                 throw new RuntimeException("动态码超时，请重新发送！");
             }
         } else {
-            throw new RuntimeException("动态码超时，请重新发送！");
+            throw new RuntimeException("动态码不正确！");
         }
         return true;
     }
