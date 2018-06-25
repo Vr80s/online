@@ -111,18 +111,13 @@ public class EnchashmentServiceImpl extends OnlineBaseServiceImpl implements
             String content = "";
             String reason = "";
             String orderNo = e.getOrderNo();
-            String smsCode = "";
             boolean success = true;
-            Map<String, String> params = new HashMap<>(2);
-            params.put("orderNo", orderNo);
 
             // 若为打款
             if (e.getStatus() == ApplyStatus.PASS.getCode()) {
                 content = "编号：" + orderNo + "提现申请已通过审核,1-3个工作日内发放成功！";
-                smsCode = enchashmentPassSmsCode;
             } else if (e.getStatus() == ApplyStatus.GRANT.getCode()) {
                 content = "编号：" + orderNo + "提现申请已打款，72小时内到账，请注意查收！";
-                smsCode = enchashmentGrantSmsCode;
             } else if (e.getStatus() == ApplyStatus.NOT_PASS.getCode()) {
                 // 驳回---将提现金额重回打入用户账户
                 success = false;
@@ -135,7 +130,6 @@ public class EnchashmentServiceImpl extends OnlineBaseServiceImpl implements
                         + orderNo
                         + "提现申请已被驳回，驳回原因："
                         + reason + ",如有疑问请联系客服0898-32881934";
-                smsCode = enchashmentNotPassSmsCode;
             }
 
             Map<String, String> weixinParams = new HashMap<>();

@@ -51,7 +51,7 @@ import com.xczhihui.medical.anchor.vo.CourseApplyResourceVO;
 public class CourseApplyController extends AbstractController {
     private static final Logger logger = LoggerFactory.getLogger(CourseApplyController.class);
 
-    private static final String WEB_COURSE_ONLINE_MESSAGE_TIPS = "{0}您好，您关注的{1}老师有新课程-" + TextStyleUtil.LEFT_TAG + "《{2}》"
+    private static final String WEB_COURSE_ONLINE_MESSAGE_TIPS = "【课程上架通知】{0}您好，您关注的{1}老师有新课程-" + TextStyleUtil.LEFT_TAG + "《{2}》"
             + TextStyleUtil.RIGHT_TAG + "上架了，快去看看吧";
     private static final String APP_PUSH_COURSE_ONLINE_MESSAGE_TIPS = "春天来了，我们认为你需要这个~";
 
