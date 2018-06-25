@@ -63,7 +63,6 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
     @Autowired
     private CCUtils CCUtils;
     
-
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
     /**
@@ -423,11 +422,12 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         }*/
         //删除之前申请
         courseApplyInfoMapper.deleteCourseApplyById(collectionApplyInfo.getId());
+        //删除更新时间
+        collectionCourseApplyUpdateDateMapper.deleteByCollectionApplyId(collectionApplyInfo.getId());
+        
         //记录原申请id
         collectionApplyInfo.setOldApplyInfoId(collectionApplyInfoId);
         collectionApplyInfo.setId(null);
-        //删除更新时间
-        collectionCourseApplyUpdateDateMapper.deleteByCollectionApplyId(collectionApplyInfo.getId());
         courseApplyService.saveCollectionApply(collectionApplyInfo);
     }
 

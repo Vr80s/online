@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.qq.connect.javabeans.qzone.UserInfoBean;
+import com.xczhihui.common.util.CodeUtil;
 
 @TableName("qq_client_user_mapping")
 public class QQClientUserMapping extends  Model<QQClientUserMapping>{
@@ -62,20 +63,18 @@ public class QQClientUserMapping extends  Model<QQClientUserMapping>{
 	
 	public QQClientUserMapping(UserInfoBean userInfoBean,String openId) {
 		
-//		  qq.setId(CodeUtil.getRandomUUID());
-//          qq.setOpenId(openId);
-//          // 防止表情名字
-//          String nickname = userInfoBean.getNickname();
-//          
-//          qq.setNickname(nickname);
-//          qq.setGender(userInfoBean.getGender());
-//          qq.setLevel(userInfoBean.getLevel());
-//          qq.setVip(userInfoBean.isVip());
-//          qq.setYellowYearVip(userInfoBean.isYellowYearVip());
-//          qq.setFigureurl(userInfoBean.getAvatar().getAvatarURL30());
-//          qq.setFigureurl1(userInfoBean.getAvatar().getAvatarURL50());
-//          qq.setFigureurl2(userInfoBean.getAvatar().getAvatarURL100());
-		
+		  this.setId(CodeUtil.getRandomUUID());
+		  this.setOpenId(openId);
+          // 防止表情名字
+          String nickname = userInfoBean.getNickname();
+          this.setNickname(nickname);
+          this.setGender(userInfoBean.getGender());
+          this.setLevel(userInfoBean.getLevel());
+          this.setVip(userInfoBean.isVip());
+          this.setYellowYearVip(userInfoBean.isYellowYearVip());
+          this.setFigureurl(userInfoBean.getAvatar().getAvatarURL30());
+          this.setFigureurl1(userInfoBean.getAvatar().getAvatarURL50());
+          this.setFigureurl2(userInfoBean.getAvatar().getAvatarURL100());
 	}
 	
     public String getId() {

@@ -76,7 +76,7 @@
 		<div class="wrap-header" id="header">
 			<div class="header">		
 				<p>我是医师名字</p>
-				<div class="arror_return">
+				<div class="arror_return" onclick="javascript:history.back(-1);" >
 					<img src="/xcview/images/anchorj.png"/>
 				</div>
 				<div class="header_news">
@@ -164,6 +164,8 @@
 	<div class="the_dynamic">
 		<!-- 其他一 -->
 		<div class="rests_nav">
+			<script type="text/html" id="wrap_doctor_dynamics">
+				{{each items as item i}}
 			<div class="rests_nav_span comment_hide">
 				<span class="stick_img"><img src="/xcview/images/stick.png" alt="" />置顶</span>
 				<span class="title">余老师讲课风采</span>
@@ -198,6 +200,8 @@
 					</div>
 				</div>
 			</div>
+			{{/each}}
+			</script>
 		</div>
 
 		<!-- 医案 -->
@@ -463,6 +467,7 @@
 <script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/common.js?v=wechat_1.1.1"></script> 
 <script type="text/javascript" src="/xcview/js/common/template.js"></script>    <!--数据模板引入-->
+<script type="text/javascript" src="/xcview/js/physician/physician_dynamics.js"></script>
 
 <!-- 导航渐变 -->
 <script>

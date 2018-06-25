@@ -1,6 +1,17 @@
 package com.xczh.consumer.market.bean;
 
 import java.io.Serializable;
+import java.util.Date;
+import java.util.UUID;
+
+import org.apache.commons.lang.StringUtils;
+
+import com.xczh.consumer.market.utils.DateUtil;
+import com.xczh.consumer.market.wxpay.consts.WxPayConst;
+import com.xczhihui.common.util.CodeUtil;
+
+import me.chanjar.weixin.mp.bean.result.WxMpUser;
+import net.sf.json.JSONObject;
 
 
 /**
@@ -8,7 +19,6 @@ import java.io.Serializable;
  *
  * @author yanghui
  **/
-@SuppressWarnings("serial")
 public class WxcpClientUserWxMapping implements Serializable {
 
     /**
@@ -131,6 +141,73 @@ public class WxcpClientUserWxMapping implements Serializable {
     private java.util.Date last_update_time;
 
 
+    
+    
+    public WxcpClientUserWxMapping() {
+    	
+    }
+    
+    public WxcpClientUserWxMapping(JSONObject jsonObject) {
+    	
+         this.setWx_id(UUID.randomUUID().toString().replace("-", ""));
+         this.setWx_public_id(WxPayConst.gzh_appid);
+         this.setWx_public_name(WxPayConst.appid4name);
+         this.setOpenid((String) jsonObject.get("openid"));
+         this.setNickname((String) jsonObject.get("nickname"));
+         this.setSex(String.valueOf(jsonObject.get("sex")));
+         this.setLanguage((String) jsonObject.get("language"));
+         this.setCity((String) jsonObject.get("city"));
+         this.setProvince((String) jsonObject.get("province"));
+         this.setCountry((String) jsonObject.get("country"));
+
+         String headimgurl_ = (String) jsonObject.get("headimgurl");
+         if (!StringUtils.isNotBlank(headimgurl_)) {
+             headimgurl_ = WxPayConst.webdomain + "/web/images/defaultHead/18.png";
+         }
+         this.setHeadimgurl(headimgurl_);
+         this.setUnionid((String) jsonObject.get("unionid"));
+         this.setSubscribe(String.valueOf(jsonObject.get("subscribe")));
+         this.setSubscribe_time(DateUtil.parseDate((Integer)jsonObject.get("subscribe_time")+"", DateUtil.FORMAT_CHINA_DAY_TIME));
+         this.setRemark((String) jsonObject.get("remark"));
+         this.setGroupid((Integer)jsonObject.get("groupid")+"");
+         this.setSubscribe_scene((String) jsonObject.get("subscribe_scene"));
+         this.setQr_scene((Integer)jsonObject.get("qr_scene")+"");
+         this.setQr_scene_str((String) jsonObject.get("qr_scene_str"));
+         
+    }
+    
+    public WxcpClientUserWxMapping(WxMpUser wxMpUser) {
+        
+        this.setWx_id(CodeUtil.getRandomUUID());
+        this.setWx_public_id(WxPayConst.gzh_appid);
+        this.setWx_public_name(WxPayConst.appid4name);
+        
+        this.setOpenid(wxMpUser.getOpenId());
+        this.setNickname(wxMpUser.getNickname());
+        this.setSex(String.valueOf(wxMpUser.getSex()));
+        this.setLanguage(wxMpUser.getLanguage());
+        this.setCity(wxMpUser.getCity());
+        this.setProvince(wxMpUser.getProvince());
+        this.setCountry(wxMpUser.getCountry());
+        this.setUnionid(wxMpUser.getUnionId());
+    	
+        if (!StringUtils.isNotBlank(headimgurl)) {
+            headimgurl = WxPayConst.webdomain + "/web/images/defaultHead/18.png";
+        }
+        this.setHeadimgurl(headimgurl);
+    }
+    
+    
+    public void bulidUpdate(JSONObject jsonObject) {
+    	
+	    this.setGroupid((Integer)jsonObject.get("groupid")+"");
+	    this.setSubscribe(String.valueOf(jsonObject.get("subscribe")));
+        this.setSubscribe_scene((String) jsonObject.get("subscribe_scene"));
+        this.setQr_scene((Integer)jsonObject.get("qr_scene")+"");
+        this.setQr_scene_str((String) jsonObject.get("qr_scene_str"));
+        this.setLast_update_time(new Date());
+   }
+    
     public String getWx_id() {
         return wx_id;
     }

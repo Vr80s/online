@@ -543,7 +543,7 @@
 											<option value ="2">名老中医</option>
 											<option value="3">少数民族中医</option>
 											<option value="4">国医大师</option>
-											<option value="5">古中医</option>
+											<option value="5">家传中医</option>
 						               </select>
 			                            <input type="hidden" value="search_type" class="propertyName"/>
 			                        </div>
@@ -699,7 +699,7 @@
 					<option value ="2">名老中医</option>
 					<option value="3">少数民族中医</option>
 					<option value="4">国医大师</option>
-					<option value="5">古中医</option>
+					<option value="5">家传中医</option>
 				</select>
 			</div>
 		</div>
@@ -839,7 +839,7 @@
 					<option value ="2">名老中医</option>
 					<option value="3">少数民族中医</option>
 					<option value="4">国医大师</option>
-					<option value="5">古中医</option>
+					<option value="5">家传中医</option>
 				</select>
 			</div>
 		</div>

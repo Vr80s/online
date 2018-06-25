@@ -85,8 +85,11 @@
                 <#if courseInfo.collection >
                     <ul>
                         <li>更新时间</li>
-                        <li>共${courseInfo.courseNumber}集, 已更新${collectionListSize!'0'}集<#if updateDateText??>
-                            (每${updateDateText}更新)</#if></li>
+                        <li>共${courseInfo.courseNumber}集, 已更新${collectionListSize!'0'}集
+						<#if updateDateText?? &&  updateDateText!=''>
+                            (每${updateDateText}更新)
+						</#if>
+						</li>
                     <#-- <li>共16集，已更新13集（每周三、周五更新）</li> -->
                     </ul>
                 </#if>

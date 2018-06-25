@@ -1,9 +1,11 @@
-package com.xczh.consumer.market.controller.medical;
+package com.xczhihui.bxg.online.web.controller.medical;
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.xczh.consumer.market.auth.Account;
-import com.xczh.consumer.market.service.OLAttachmentCenterService;
-import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczhihui.bxg.online.common.domain.OnlineUser;
+import com.xczhihui.common.support.domain.Attachment;
+import com.xczhihui.common.support.service.AttachmentCenterService;
+import com.xczhihui.common.util.JsonUtil;
+import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.medical.doctor.model.MedicalDoctorAccount;
 import com.xczhihui.medical.doctor.model.MedicalDoctorPosts;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorAccountService;
@@ -17,22 +19,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
+import static com.xczhihui.bxg.online.web.controller.AbstractController.getCurrentUser;
 
 /**
  * Description：医师控制器
  * creed: Talk is cheap,show me the code
  * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
- * @Date: 2018/6/20 14:48
+ * @Date: 2018/6/25 11:32
  **/
 @Controller
-@RequestMapping("/xczh/medical")
+@RequestMapping("/doctor/dynamics")
 public class MedicalDoctorPostsController {
 
     @Autowired
     private IMedicalDoctorPostsService medicalDoctorPostsService;
     @Autowired
-    private OLAttachmentCenterService service;
+    private AttachmentCenterService service;
     @Autowired
     private IMedicalDoctorAccountService medicalDoctorAccountService;
 
@@ -46,8 +48,8 @@ public class MedicalDoctorPostsController {
     @RequestMapping(value="doctorDynamicsList", method = RequestMethod.GET)
     @ResponseBody
     public ResponseObject doctorDynamicsList(@RequestParam("pageNumber") Integer pageNumber,
-                                              @RequestParam("pageSize") Integer pageSize,
-                                              @RequestParam(required = false) Integer type,@RequestParam("doctorId") String doctorId){
+                                             @RequestParam("pageSize") Integer pageSize,
+                                             @RequestParam(required = false) Integer type, @RequestParam("doctorId") String doctorId){
         Page<MedicalDoctorPosts> page = new Page<>();
         page.setCurrent(pageNumber);
         page.setSize(pageSize);
@@ -60,13 +62,15 @@ public class MedicalDoctorPostsController {
      */
     @RequestMapping(value="addDoctorDynamics", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseObject addDoctorDynamics(@Account String accountId, MedicalDoctorPosts medicalDoctorPosts,
+    public ResponseObject addDoctorDynamics( MedicalDoctorPosts medicalDoctorPosts,
                                              @RequestParam(value = "coverImg",required = false) MultipartFile coverImg)
             throws Exception {
-        MedicalDoctorAccount mha = medicalDoctorAccountService.getByUserId(accountId);
+        // 获取当前用户ID
+        String userId = getCurrentUser().getId();
+        MedicalDoctorAccount mha = medicalDoctorAccountService.getByUserId(userId);
         medicalDoctorPosts.setDoctorId(mha.getDoctorId());
         if(coverImg!=null){
-            String cover_img = getFilePath(coverImg,accountId);
+            String cover_img = getFilePath(coverImg,userId);
             medicalDoctorPosts.setCoverImg(cover_img);
         }
         medicalDoctorPostsService.addMedicalDoctorPosts(medicalDoctorPosts);
@@ -78,11 +82,13 @@ public class MedicalDoctorPostsController {
      */
     @RequestMapping(value="updateDoctorDynamics", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseObject updateDoctorDynamics(@Account String accountId,MedicalDoctorPosts medicalDoctorPosts,
+    public ResponseObject updateDoctorDynamics(MedicalDoctorPosts medicalDoctorPosts,
                                                 @RequestParam(value = "coverImg",required = false) MultipartFile coverImg)
             throws Exception {
+        // 获取当前用户ID
+        String userId = getCurrentUser().getId();
         if(coverImg!=null){
-            String cover_img = getFilePath(coverImg,accountId);
+            String cover_img = getFilePath(coverImg,userId);
             medicalDoctorPosts.setCoverImg(cover_img);
         }
         medicalDoctorPostsService.updateMedicalDoctorPosts(medicalDoctorPosts);
@@ -115,10 +121,11 @@ public class MedicalDoctorPostsController {
     /**
      * 上传图片返回路径
      */
-    private String getFilePath(MultipartFile imgFile,String accountId) throws IOException {
-            String filePath = service.upload(accountId,"other", imgFile.getOriginalFilename(),
-                    imgFile.getContentType(), imgFile.getBytes(), "1", null);
-        return filePath;
+    private String getFilePath(MultipartFile imgFile,String accountId) throws Exception {
+            String upload = service.upload(accountId,"other", imgFile.getOriginalFilename(),
+                    imgFile.getContentType(), imgFile.getBytes(), "1");
+        Attachment att = JsonUtil.getBaseGson().fromJson(upload, Attachment.class);
+        return att.getUrl();
     }
 
 }

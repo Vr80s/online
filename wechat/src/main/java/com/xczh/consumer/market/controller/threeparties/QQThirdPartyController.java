@@ -105,21 +105,8 @@ public class QQThirdPartyController {
                     // 利用获取到的accessToken 去获取当前用户的openid --------- end
                     UserInfo qzoneUserInfo = new UserInfo(accessToken, openID);
                     UserInfoBean userInfoBean = qzoneUserInfo.getUserInfo();
-                    QQClientUserMapping qq = new QQClientUserMapping();
-
-                    qq.setId(CodeUtil.getRandomUUID());
-                    qq.setOpenId(openID);
-                    //防止表情名字
-                    String nickname = userInfoBean.getNickname();
-                    qq.setNickname(nickname);
-                    qq.setGender(userInfoBean.getGender());
-                    qq.setLevel(userInfoBean.getLevel());
-                    qq.setVip(userInfoBean.isVip());
-                    qq.setYellowYearVip(userInfoBean.isYellowYearVip());
-                    qq.setFigureurl(userInfoBean.getAvatar().getAvatarURL30());
-                    qq.setFigureurl1(userInfoBean.getAvatar().getAvatarURL50());
-                    qq.setFigureurl2(userInfoBean.getAvatar().getAvatarURL100());
-                    qq.setUnionId(unionId);
+                    
+                    QQClientUserMapping qq = new QQClientUserMapping(userInfoBean,openID);
 
                     threePartiesLoginService.saveQQClientUserMapping(qq);
 
@@ -151,7 +138,6 @@ public class QQThirdPartyController {
             e.printStackTrace();
             //重定向到推荐首页
             res.sendRedirect(returnOpenidUri + "/xcview/html/home_page.html");
-            //throw new RuntimeException(e.getMessage());
         }
     }
 
@@ -192,22 +178,7 @@ public class QQThirdPartyController {
             if (qqUser == null) {   //保存qq用户
                 UserInfoBean userInfoBean = this.getUserInfo(accessToken, openId);
 
-                QQClientUserMapping qq = new QQClientUserMapping();
-                
-                qq.setId(CodeUtil.getRandomUUID());
-                qq.setOpenId(openId);
-                // 防止表情名字
-                String nickname = userInfoBean.getNickname();
-                
-                qq.setNickname(nickname);
-                qq.setGender(userInfoBean.getGender());
-                qq.setLevel(userInfoBean.getLevel());
-                qq.setVip(userInfoBean.isVip());
-                qq.setYellowYearVip(userInfoBean.isYellowYearVip());
-                qq.setFigureurl(userInfoBean.getAvatar().getAvatarURL30());
-                qq.setFigureurl1(userInfoBean.getAvatar().getAvatarURL50());
-                qq.setFigureurl2(userInfoBean.getAvatar().getAvatarURL100());
-                
+                QQClientUserMapping qq = new QQClientUserMapping(userInfoBean,openId);
                 
                 //用户id不等于null时，就判定用户第三方登录是通过手机号来绑定 第三方登录信息的
                 if (StringUtils.isNotBlank(userId)) {  // 绑定成功

@@ -236,7 +236,7 @@ public class WechatMaterialController extends AbstractController {
 	@ResponseBody
 	public ResponseObject uploadImg(String content) {
 		String str = content.split("base64,")[1];
-		byte[] b = org.apache.commons.codec.binary.Base64.decodeBase64(str);
+		byte[] b = org.apache.commons.codec.binary.Base64.decodeBase64(str.getBytes());
 		Attachment a = att.addAttachment(ManagerUserUtil.getId(),
 				AttachmentType.ONLINE, "1.png", b, "image/png");
 		if (a.getError() != 0) {

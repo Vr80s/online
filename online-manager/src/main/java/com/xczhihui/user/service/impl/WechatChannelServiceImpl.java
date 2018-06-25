@@ -122,8 +122,7 @@ public class WechatChannelServiceImpl extends OnlineBaseServiceImpl implements
         WechatChannel.setMobile(WechatChannelVo.getMobile());
 
         WechatChannel.setCityId(Integer.parseInt(WechatChannelVo.getCity()));
-        WechatChannel.setProvinceId(Integer.parseInt(WechatChannelVo
-                .getProvince()));
+        WechatChannel.setProvinceId(Integer.parseInt(WechatChannelVo.getProvince()));
         WechatChannel.setAreaId(Integer.parseInt(WechatChannelVo.getArea()));
 
         WechatChannel.setCity(WechatChannelVo.getRealCitys());
@@ -153,7 +152,6 @@ public class WechatChannelServiceImpl extends OnlineBaseServiceImpl implements
         WechatChannel.setCustomQrCodeUrl(qcv.getCustomQrCodeUrl());
 
         System.out.println("qcv:" + qcv.toString());
-
         //再次查找下，存放二维码信息
         WechatChannel lalala = dao.findOneEntitiyByProperty(WechatChannel.class, "id", (Integer) s);
         lalala.setQrCodeImg(qcv.getWechatUrl());
