@@ -845,7 +845,6 @@
 		</div>
 		<div class="space-4"></div>
 
-
 		<div class="form-group" style="margin-top: 18px;" >
 			<label class="col-sm-3 control-label no-padding-right" ><font color="red">*</font>所在省市: </label>
 			<div class="col-sm-3">
