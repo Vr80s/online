@@ -6,13 +6,19 @@ if(stringnull(openId)){
 
 $(function(){
 
-    requestGetService("/xczh/medical/doctorDynamicsList", {
+    requestGetService("/xczh/medical/doctorPostsList", {
         pageNumber: 1,
         pageSize:10,
-        doctorId:"603606b2804a476380f78c72b460c71b",
-		type:1
+        doctorId:"b8e9430bd4334d749f06d2f0050dd66e"
     }, function (data) {
-        var obj =  data.resultObject;
+        var obj = data.resultObject.records;
+        for(var i=0;i<obj.length;i++){
+        	if(obj[i].pictures!=null&&obj[i].pictures!=""){
+                var pics=obj[i].pictures.split(",");
+                obj[i].pics=pics;
+			}
+		}
+        $(".rests_nav").html(template('wrap_doctor_dynamics',{items:obj}));
 
 
     });
