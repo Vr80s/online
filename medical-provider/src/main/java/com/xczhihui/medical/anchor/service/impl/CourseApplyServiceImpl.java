@@ -63,7 +63,6 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
     @Autowired
     private CCUtils CCUtils;
     
-
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
     /**
