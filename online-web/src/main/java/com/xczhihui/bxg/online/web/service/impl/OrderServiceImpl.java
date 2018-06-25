@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.google.common.collect.ImmutableMap;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.dao.CourseDao;
@@ -42,7 +41,7 @@ public class OrderServiceImpl extends OnlineBaseServiceImpl implements OrderServ
 
     protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    private static final String APPLY_SUCCESS_TIPS = "恭喜您成功购买课程《{0}》~";
+    private static final String APPLY_SUCCESS_TIPS = "恭喜您成功购买课程" + TextStyleUtil.LEFT_TAG + "《{0}》~" + TextStyleUtil.RIGHT_TAG;
     @Value("${weixin.course.pay.code}")
     private String weixinPayMessageCode;
 
