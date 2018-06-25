@@ -123,7 +123,6 @@ var comfirmBox = {
 		    $(".wxc-conetent-text").html(content);
 		    $(".wxc-confirm").click(function(){
 		        fn(comfirmBox.close);
-		        $(".wxc-confirm").unbind("click")
 		    })
 		    $('#wxc-wrap').show();
 			$(".wxc-bgcolor").show();
@@ -134,7 +133,8 @@ var comfirmBox = {
 	//确认框关闭
 	close : function (){
 	    $('#wxc-wrap').hide();
-		$(".wxc-bgcolor").hide()
+		$(".wxc-bgcolor").hide();
+		$(".wxc-confirm").unbind("click")
 	}
 }
 //用前先初始化
