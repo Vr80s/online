@@ -22,11 +22,11 @@ import com.xczhihui.common.solr.utils.HanyuPinyinHelper;
 import com.xczhihui.common.solr.utils.SolrConstant;
 import com.xczhihui.common.solr.utils.SolrPages;
 import com.xczhihui.common.solr.utils.SolrUtils;
+import com.xczhihui.medical.department.vo.MedicalDepartmentVO;
 import com.xczhihui.medical.doctor.mapper.MedicalDoctorMapper;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorSolrService;
 import com.xczhihui.medical.doctor.vo.DoctorQueryVo;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorSolrVO;
-import com.xczhihui.medical.field.vo.MedicalFieldVO;
 
 /**
  * ClassName: MedicalDoctorBusinessServiceImpl.java <br>
@@ -106,12 +106,12 @@ public class MedicalDoctorSolrServiceImpl implements IMedicalDoctorSolrService {
             medicalDoctorSolrVO.setRecommendSort(-Integer.MAX_VALUE);
         }
 
-        List<MedicalFieldVO> medicalFields = medicalDoctorMapper.selectMedicalFieldsByDoctorId(medicalDoctorSolrVO.getId());
+        List<MedicalDepartmentVO> medicalDepartments = medicalDoctorMapper.selectMedicalDepartmentsByDoctorId(medicalDoctorSolrVO.getId());
         List<String> departmentName = new ArrayList<>();
         List<String> departmentId = new ArrayList<>();
-        medicalFields.forEach(medicalFieldVO -> {
-            departmentName.add(medicalFieldVO.getName());
-            departmentId.add(medicalFieldVO.getId());
+        medicalDepartments.forEach(medicalDepartmentsVO -> {
+            departmentName.add(medicalDepartmentsVO.getName());
+            departmentId.add(medicalDepartmentsVO.getId());
         });
         medicalDoctorSolrVO.setDepartmentId(departmentId);
         medicalDoctorSolrVO.setDepartmentName(departmentName);

@@ -1,10 +1,12 @@
 package com.xczhihui.bxg.online.web.controller.ftl;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.solr.client.solrj.SolrServerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,7 +29,10 @@ import com.xczhihui.medical.department.vo.MedicalDepartmentVO;
 import com.xczhihui.medical.doctor.model.MedicalDoctorAccount;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorArticleService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorSolrService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorWritingService;
+import com.xczhihui.medical.doctor.vo.DoctorQueryVo;
+import com.xczhihui.medical.doctor.vo.MedicalDoctorSolrVO;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 import com.xczhihui.medical.doctor.vo.OeBxsArticleVO;
 
@@ -44,6 +49,8 @@ public class DoctorPageController extends AbstractFtlController {
 
     @Autowired
     private IMedicalDoctorBusinessService medicalDoctorBusinessService;
+    @Autowired
+    private IMedicalDoctorSolrService medicalDoctorSolrService;
     @Autowired
     private BannerService bannerService;
     @Autowired
@@ -137,12 +144,15 @@ public class DoctorPageController extends AbstractFtlController {
     }
 
     @RequestMapping(value = "list", method = RequestMethod.GET)
-    public ModelAndView list(@RequestParam(value = "page", required = false) Integer current, Integer size, Integer type, String hospitalId, String name, String field, String departmentId) {
+    public ModelAndView list(@RequestParam(value = "page", required = false) Integer current, Integer size, String name, DoctorQueryVo dqv ) throws IOException, SolrServerException {
         ModelAndView view = new ModelAndView("doctor/list");
         current = current == null ? 1 : current;
         size = size == null ? 10 : size;
+        dqv.setQueryKey(name);
+//        Page<MedicalDoctorVO> doctors = medicalDoctorBusinessService.selectDoctorPage(new Page(current, size), type, hospitalId, name, field, departmentId);
 
-        Page<MedicalDoctorVO> doctors = medicalDoctorBusinessService.selectDoctorPage(new Page(current, size), type, hospitalId, name, field, departmentId);
+        Page<MedicalDoctorSolrVO> doctors = medicalDoctorSolrService.selectDoctorListBySolr(new Page(current, size),dqv);
+
         view.addObject("doctors", doctors);
 
         List<MedicalDoctorVO> recDoctors = medicalDoctorBusinessService.selectRecDoctor();
@@ -158,28 +168,28 @@ public class DoctorPageController extends AbstractFtlController {
         StringBuilder title = new StringBuilder();
         StringBuilder keywords = new StringBuilder();
         Map echoMap = new HashMap();
-        if (StringUtils.isNotBlank(name)) {
-            title.append(name + "-");
-            keywords.append(name + ",");
+        if (StringUtils.isNotBlank(dqv.getQueryKey())) {
+            title.append(dqv.getQueryKey() + "-");
+            keywords.append(dqv.getQueryKey() + ",");
 
-            echoMap.put("name", name);
+            echoMap.put("name", dqv.getQueryKey());
         }
-        if (type != null) {
-            String dt = DoctorType.getDoctorTypeText(type);
+        if (StringUtils.isNotBlank(dqv.getType())) {
+            String dt = DoctorType.getDoctorTypeText(Integer.valueOf(dqv.getType()));
             title.append(dt + "-");
             keywords.append(dt + ",");
 
-            echoMap.put("type", type);
+            echoMap.put("type", Integer.valueOf(dqv.getType()));
             echoMap.put("typeText", dt);
         }
-        if (StringUtils.isNotBlank(departmentId)) {
-            MedicalDepartment department = medicalDoctorBusinessService.getDepartmentById(departmentId);
+        if (StringUtils.isNotBlank(dqv.getDepartmentId())) {
+            MedicalDepartment department = medicalDoctorBusinessService.getDepartmentById(dqv.getDepartmentId());
             if (department != null) {
                 String departmentName = department.getName();
                 title.append(departmentName + "-");
                 keywords.append(departmentName + ",");
 
-                echoMap.put("departmentId", departmentId);
+                echoMap.put("departmentId", dqv.getDepartmentId());
                 echoMap.put("departmentText", departmentName);
             }
         }
