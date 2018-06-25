@@ -9,7 +9,7 @@ import com.xczhihui.course.vo.CourseLecturVo;
 
 public interface ICourseService {
 
-    public Page<CourseLecturVo> selectCoursePage(Page<CourseLecturVo> page);
+    Page<CourseLecturVo> selectCoursePage(Page<CourseLecturVo> page);
 
 
     /**
@@ -19,7 +19,7 @@ public interface ICourseService {
      * @return CourseLecturVo
      * @author name：yangxuan <br>email: 15936216273@163.com
      */
-    public CourseLecturVo selectCourseDetailsById(Integer courseId);
+    CourseLecturVo selectCourseDetailsById(Integer courseId);
 
 
     /**
@@ -28,7 +28,7 @@ public interface ICourseService {
      * @return List<CourseLecturVo>
      * @author name：yangxuan <br>email: 15936216273@163.com
      */
-    public List<CourseLecturVo> selectLearningCourseListByUserId(Integer pageSize, String userId);
+    List<CourseLecturVo> selectLearningCourseListByUserId(Integer pageSize, String userId);
 
     /**
      * Description：查询用户已购买课程的数量
@@ -36,7 +36,7 @@ public interface ICourseService {
      * @return Integer
      * @author name：yangxuan <br>email: 15936216273@163.com
      */
-    public Integer selectMyFreeCourseListCount(String userId);
+    Integer selectMyFreeCourseListCount(String userId);
 
     /**
      * Description：分页查询用于已购买课程列表
@@ -59,7 +59,7 @@ public interface ICourseService {
      * @return CourseLecturVo
      * @author name：yangxuan <br>email: 15936216273@163.com
      */
-    public CourseLecturVo selectLecturerRecentCourse(String lecturerId);
+    CourseLecturVo selectLecturerRecentCourse(String lecturerId);
 
     CourseLecturVo selectLecturerRecentCourse(String lecturerId, boolean onlyFreee);
 
@@ -71,10 +71,10 @@ public interface ICourseService {
      * @return Page<CourseLecturVo>
      * @author name：yangxuan <br>email: 15936216273@163.com
      */
-    public Page<CourseLecturVo> selectLecturerAllCourse(Page<CourseLecturVo> page, String lecturerId);
+    Page<CourseLecturVo> selectLecturerAllCourse(Page<CourseLecturVo> page, String lecturerId);
 
-    Page<CourseLecturVo> selectLecturerAllCourse(Page<CourseLecturVo> page, 
-    		String lecturerId,Integer type, boolean onlyFree);
+    Page<CourseLecturVo> selectLecturerAllCourse(Page<CourseLecturVo> page,
+                                                 String lecturerId, Integer type, boolean onlyFree);
 
     /**
      * Description：查找用户控制台的课程数据
@@ -83,7 +83,7 @@ public interface ICourseService {
      * @return List<CourseLecturVo>
      * @author name：yangxuan <br>email: 15936216273@163.com
      */
-    public List<CourseLecturVo> selectUserConsoleCourse(String id);
+    List<CourseLecturVo> selectUserConsoleCourse(String id);
 
     /**
      * Description：猜你喜欢接口，传递一个分页参数，随机取出这些数据
@@ -97,11 +97,11 @@ public interface ICourseService {
                                                      Integer menuId);
 
 
-    public Page<CourseLecturVo> selectAppCourseApplyPage(Page<CourseLecturVo> page,
-                                                         String id, Integer courseFrom, Integer multimediaType);
+    Page<CourseLecturVo> selectAppCourseApplyPage(Page<CourseLecturVo> page,
+                                                  String id, Integer courseFrom, Integer multimediaType);
 
 
-    public CourseLecturVo selectCourseMiddleDetailsById(Integer courseId);
+    CourseLecturVo selectCourseMiddleDetailsById(Integer courseId);
 
     /**
      * Description：查看主播控制台的---》直播间的分页
@@ -111,7 +111,7 @@ public interface ICourseService {
      * @return List<CourseLecturVo>
      * @author name：yangxuan <br>email: 15936216273@163.com
      */
-    public List<CourseLecturVo> selectUserConsoleCourseLiveByPage(Page<CourseLecturVo> page, String id);
+    List<CourseLecturVo> selectUserConsoleCourseLiveByPage(Page<CourseLecturVo> page, String id);
 
     /**
      * Description：查询听课列表
@@ -120,7 +120,7 @@ public interface ICourseService {
      * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
      * @Date: 2018/2/28 20:52
      **/
-    public List<CourseLecturVo> listenCourseList();
+    List<CourseLecturVo> listenCourseList();
 
     List<CourseLecturVo> listenCourseList(boolean onlyFree);
 
@@ -131,7 +131,7 @@ public interface ICourseService {
      * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
      * @Date: 2018/3/1 10:49
      **/
-    public List<CourseLecturVo> findLiveListInfo();
+    List<CourseLecturVo> findLiveListInfo();
 
     /**
      * Description：用户当前课程状态   User current course status. 用户登录了
@@ -141,8 +141,8 @@ public interface ICourseService {
      * @return CourseLecturVo
      * @author name：yangxuan <br>email: 15936216273@163.com
      */
-    public CourseLecturVo selectUserCurrentCourseStatus(Integer courseId,
-                                                        String id);
+    CourseLecturVo selectUserCurrentCourseStatus(Integer courseId,
+                                                 String id);
 
     /**
      * Description：课程状态   User current course status. 用户没有登录
@@ -151,10 +151,10 @@ public interface ICourseService {
      * @return CourseLecturVo
      * @author name：yangxuan <br>email: 15936216273@163.com
      */
-    public CourseLecturVo selectCurrentCourseStatus(Integer courseId);
+    CourseLecturVo selectCurrentCourseStatus(Integer courseId);
 
 
-    public String selectCourseDescription(Integer type, String typeId);
+    String selectCourseDescription(Integer type, String typeId);
 
     /**
      * 我的课程类别查询  type 1 查询我的课程  2 查询已结束课程
@@ -165,7 +165,7 @@ public interface ICourseService {
      * @param type
      * @return
      */
-    public Page<CourseLecturVo> myCourseType(Page<CourseLecturVo> page, String id, Integer type);
+    Page<CourseLecturVo> myCourseType(Page<CourseLecturVo> page, String id, Integer type);
 
     /**
      * Description：获取直播状态列表
@@ -174,7 +174,7 @@ public interface ICourseService {
      * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
      * @Date: 2018/5/10 14:33
      **/
-    public List<Map<String, Object>> getLiveStatusList();
+    List<Map<String, Object>> getLiveStatusList();
 
     /**
      * 是否付费
@@ -184,7 +184,7 @@ public interface ICourseService {
      * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
      * @Date: 2018/5/10 14:42
      **/
-    public List<Map<String, Object>> getPayStatusList();
+    List<Map<String, Object>> getPayStatusList();
 
 
     /**
@@ -221,7 +221,7 @@ public interface ICourseService {
      * @param i
      * @return
      */
-    public CourseLecturVo selectCourseStatusDeleteUserLecturerId(Integer courseId);
+    CourseLecturVo selectCourseStatusDeleteUserLecturerId(Integer courseId);
 
     String getLiveCourseUrl4Wechat(String userId, String courseId);
 
@@ -233,13 +233,15 @@ public interface ICourseService {
      */
     Page<Map<String, Object>> selectOfflineCourseByAnchorId(String anchorId);
 
-    
+
     /**
      * 查看用户的课程类型数量
+     *
      * @param userId
      * @param type
      * @return
      */
-	public Integer selectLiveCountByUserIdAndType(String userId,Integer type);
+    Integer selectLiveCountByUserIdAndType(String userId, Integer type);
 
+    List<Map<String, Object>> list(Integer type, String userId);
 }

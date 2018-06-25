@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,7 +31,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 
     @Autowired
     private CourseMapper iCourseMapper;
-    
+
 
     @Override
     public Page<CourseLecturVo> selectCoursePage(Page<CourseLecturVo> page) {
@@ -42,9 +41,9 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 
     @Override
     public CourseLecturVo selectCourseDetailsById(Integer courseId) {
-    	
-    	CourseLecturVo  cv = iCourseMapper.selectCourseDetailsById(courseId);
-    	
+
+        CourseLecturVo cv = iCourseMapper.selectCourseDetailsById(courseId);
+
         return cv;
     }
 
@@ -73,24 +72,24 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     }
 
     @Override
-    public CourseLecturVo selectLecturerRecentCourse(String lecturerId){
-        return selectLecturerRecentCourse(lecturerId,false);
+    public CourseLecturVo selectLecturerRecentCourse(String lecturerId) {
+        return selectLecturerRecentCourse(lecturerId, false);
     }
 
     @Override
     public CourseLecturVo selectLecturerRecentCourse(String lecturerId, boolean onlyFreee) {
-        return iCourseMapper.selectLecturerRecentCourse(lecturerId,onlyFreee);
+        return iCourseMapper.selectLecturerRecentCourse(lecturerId, onlyFreee);
     }
 
     @Override
     public Page<CourseLecturVo> selectLecturerAllCourse(Page<CourseLecturVo> page, String lecturerId) {
-        return selectLecturerAllCourse(page,lecturerId,null,false);
+        return selectLecturerAllCourse(page, lecturerId, null, false);
     }
 
     @Override
     public Page<CourseLecturVo> selectLecturerAllCourse(Page<CourseLecturVo> page, String lecturerId,
-    		Integer type,boolean onlyFree) {
-        List<CourseLecturVo> records = iCourseMapper.selectLecturerAllCourse(page, lecturerId,type,onlyFree);
+                                                        Integer type, boolean onlyFree) {
+        List<CourseLecturVo> records = iCourseMapper.selectLecturerAllCourse(page, lecturerId, type, onlyFree);
         return page.setRecords(records);
     }
 
@@ -114,9 +113,9 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 
     @Override
     public CourseLecturVo selectCourseMiddleDetailsById(Integer courseId) {
-    	
-    	CourseLecturVo  cv = iCourseMapper.selectCourseMidileDetailsById(courseId);
-    	
+
+        CourseLecturVo cv = iCourseMapper.selectCourseMidileDetailsById(courseId);
+
         return cv;
     }
 
@@ -144,21 +143,21 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     @Override
     public CourseLecturVo selectUserCurrentCourseStatus(Integer courseId,
                                                         String userId) {
-    	CourseLecturVo  cv = iCourseMapper.selectUserCurrentCourseStatus(courseId, userId);
-    	return cv;
+        CourseLecturVo cv = iCourseMapper.selectUserCurrentCourseStatus(courseId, userId);
+        return cv;
     }
 
     @Override
     public CourseLecturVo selectCurrentCourseStatus(Integer courseId) {
-    	
-    	CourseLecturVo  cv = iCourseMapper.selectCurrentCourseStatus(courseId);
+
+        CourseLecturVo cv = iCourseMapper.selectCurrentCourseStatus(courseId);
         return cv;
     }
 
     @Override
     public String selectCourseDescription(Integer type, String typeId) {
-       
-    	return XzStringUtils.formatA(iCourseMapper.selectCourseDescription(type, typeId));
+
+        return XzStringUtils.formatA(iCourseMapper.selectCourseDescription(type, typeId));
     }
 
     @Override
@@ -198,23 +197,23 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         return iCourseMapper.selectByMenuIdExcludeSelf(menuId, courseId);
     }
 
-	@Override
-	public CourseLecturVo selectCourseStatusDeleteUserLecturerId(Integer courseId) {
-		return iCourseMapper.selectCourseStatusDeleteUserLecturerId(courseId);
-	}
+    @Override
+    public CourseLecturVo selectCourseStatusDeleteUserLecturerId(Integer courseId) {
+        return iCourseMapper.selectCourseStatusDeleteUserLecturerId(courseId);
+    }
 
     @Override
     @Transactional(readOnly = false)
-    public String getLiveCourseUrl4Wechat(String userId,String courseId) {
+    public String getLiveCourseUrl4Wechat(String userId, String courseId) {
         Integer lineStatus = iCourseMapper.getLineStatus(courseId);
         //直播中、直播结束、即将直播
-        if(lineStatus == 1 || lineStatus == 3 || lineStatus == 4){
-        	/**
-        	 * 增加播放记录
-        	 */
-        	return "/xcview/html/details.html?courseId="+courseId;
+        if (lineStatus == 1 || lineStatus == 3 || lineStatus == 4) {
+            /**
+             * 增加播放记录
+             */
+            return "/xcview/html/details.html?courseId=" + courseId;
         }
-        return "/xcview/html/live_play.html?my_study="+courseId;
+        return "/xcview/html/live_play.html?my_study=" + courseId;
     }
 
     @Override
@@ -225,11 +224,13 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         return page.setRecords(results);
     }
 
-	@Override
-	public Integer selectLiveCountByUserIdAndType(String userId, Integer type) {
-		
-		
-		return iCourseMapper.selectLiveCountByUserIdAndType(userId,type);
-	}
+    @Override
+    public Integer selectLiveCountByUserIdAndType(String userId, Integer type) {
+        return iCourseMapper.selectLiveCountByUserIdAndType(userId, type);
+    }
 
+    @Override
+    public List<Map<String, Object>> list(Integer type, String userId) {
+        return iCourseMapper.selectCourseByType(type, userId);
+    }
 }

@@ -19,7 +19,7 @@ public interface IMedicalDoctorArticleService {
      * @param userId 用户id
      * @return 列表数据
      */
-    Page<OeBxsArticleVO> listSpecialColumn(int page,int size, String userId,String keyQuery);
+    Page<OeBxsArticleVO> listSpecialColumn(int page,int size, String userId,String keyQuery, String type);
 
     /**
      * 创建专栏
@@ -183,4 +183,12 @@ public interface IMedicalDoctorArticleService {
     List<Map<String, Object>> listHotSpecialColumnAuthorByArticleId(int articleId);
 
     List<Map<String, Object>> listSpecialAuthorContent(int size);
+
+    /**
+     * 根据类型与用户id查询全部上架状态的文章
+     * @param type 文章类型
+     * @param userId 用户id
+     * @return
+     */
+    List<OeBxsArticleVO> list(String type, String userId);
 }

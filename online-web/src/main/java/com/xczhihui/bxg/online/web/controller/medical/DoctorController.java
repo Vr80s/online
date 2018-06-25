@@ -3,20 +3,20 @@ package com.xczhihui.bxg.online.web.controller.medical;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.common.util.enums.DoctorType;
+import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.course.util.XzStringUtils;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.controller.AbstractController;
 import com.xczhihui.bxg.online.web.service.UserService;
 import com.xczhihui.bxg.online.web.vo.UserDataVo;
 import com.xczhihui.medical.doctor.model.MedicalDoctor;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorArticleService;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorBannerService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 import com.xczhihui.medical.doctor.vo.MedicalWritingVO;
@@ -30,6 +30,10 @@ public class DoctorController extends AbstractController {
     private IMedicalDoctorBusinessService medicalDoctorBusinessService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private IMedicalDoctorArticleService medicalDoctorArticleService;
+    @Autowired
+    private ICourseService courseService;
 
     /**
      * Description：获取医师分页信息
@@ -314,4 +318,13 @@ public class DoctorController extends AbstractController {
         return ResponseObject.newSuccessResponseObject(medicalDoctorBusinessService.getHospital(currentUser.getUid()));
     }
 
+    @RequestMapping(value = "article/list", method = RequestMethod.GET)
+    public ResponseObject listArticle(@RequestParam String type) {
+        return ResponseObject.newSuccessResponseObject(medicalDoctorArticleService.list(type, getUserId()));
+    }
+
+    @RequestMapping(value = "course/list", method = RequestMethod.GET)
+    public ResponseObject listCourse(@RequestParam(required = false) Integer type) {
+        return ResponseObject.newSuccessResponseObject(courseService.list(type, getUserId()));
+    }
 }
