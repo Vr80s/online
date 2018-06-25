@@ -97,5 +97,10 @@
             <version>2.1.1-beta2-2</version>
         </dependency>
         
+         <dependency>
+            <groupId>com.xczhihui</groupId>
+            <artifactId>common-util</artifactId>
+        </dependency>
+        
     </dependencies>
 </project>

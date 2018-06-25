@@ -205,33 +205,9 @@ public class WeChatThirdPartyController {
             WxcpClientUserWxMapping m = wxcpClientUserWxMappingService
                     .getWxcpClientUserByUnionId(unionid);
             if (null == m) {
-                String openid = wxMpUser.getOpenId();
-                String nickname = wxMpUser.getNickname();
-                String sex = String.valueOf(wxMpUser.getSex());
-                String language = wxMpUser.getLanguage();
-                String city = wxMpUser.getCity();
-                String province = wxMpUser.getProvince();
-                String country = wxMpUser.getCountry();
-                String headimgurl = wxMpUser.getHeadImgUrl();
-                WxcpClientUserWxMapping wxcpClientUserWxMapping = new WxcpClientUserWxMapping();
-                wxcpClientUserWxMapping.setWx_id(CodeUtil.getRandomUUID());
-                wxcpClientUserWxMapping.setWx_public_id(wxMpConfigStorage.getAppId());
-                wxcpClientUserWxMapping
-                        .setWx_public_name(WxPayConst.appid4name);
-                wxcpClientUserWxMapping.setOpenid(openid);
-
-                wxcpClientUserWxMapping.setNickname(nickname);
-                wxcpClientUserWxMapping.setSex(sex);
-                wxcpClientUserWxMapping.setLanguage(language);
-                wxcpClientUserWxMapping.setCity(city);
-                wxcpClientUserWxMapping.setProvince(province);
-                wxcpClientUserWxMapping.setCountry(country);
-                wxcpClientUserWxMapping.setUnionid(unionid);
-
-                if (!StringUtils.isNotBlank(headimgurl)) {
-                    headimgurl = webdomain + "/web/images/defaultHead/18.png";
-                }
-                wxcpClientUserWxMapping.setHeadimgurl(headimgurl);
+           
+                WxcpClientUserWxMapping wxcpClientUserWxMapping = new WxcpClientUserWxMapping(wxMpUser);
+                
                 wxcpClientUserWxMappingService.insert(wxcpClientUserWxMapping);
 
                 if (StringUtils.isNotBlank(userId)) { // 绑定成功
