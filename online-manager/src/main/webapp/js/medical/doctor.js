@@ -1074,7 +1074,7 @@ function drawMenusPage(data){
 
 
 function doctorType(data){
-    if(data == 1){//1.名青年中医2.名老中医3.少数民族中医4.国医大师5.古中医
+    if(data == 1){//1.名青年中医2.名老中医3.少数民族中医4.国医大师5.家传中医
         return "名青年中医";
     }else if(data == 2){
         return "名老中医";
@@ -1083,7 +1083,7 @@ function doctorType(data){
     }else if(data == 4){
         return "国医大师";
     }else if(data == 5){
-        return "古中医";
+        return "家传中医";
     }
 }
 
