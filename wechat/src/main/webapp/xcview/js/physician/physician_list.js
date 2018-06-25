@@ -308,7 +308,7 @@ function queryDataByParams(params,data_type){
 					var item = data.resultObject[int];
 					
 					data1+="<div class='li_list_div' >"+
-				       "<div class='li_list_one' data-courseId = "+item.id+" >"+
+				       "<div class='li_list_one' data-doctorId = "+item.id+" >"+
 					       "<div class='li_list_one_left'>" +
 					         "<img src='"+item.headPortrait+"?imageView2/2/w/212' class='one' />"  +
 					      "</div>" +
@@ -328,8 +328,8 @@ function queryDataByParams(params,data_type){
 			  * 点击页面进行跳转
 			  */		
 			 $(".li_list_div .li_list_one").click(function(){
-				
-				
+				 var id = $(this).attr("data-doctorId");
+				 window.location.href = "/xcview/html/physician/physicians_page.html?doctor=" + id + "";
 			})
 		}else{
 			$(".no_class").show();
