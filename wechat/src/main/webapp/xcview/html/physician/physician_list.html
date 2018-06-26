@@ -208,7 +208,7 @@
 				</div>
 			</div>
 			
-			<div class="" style="width: 100%;height: 0.89rem;display1: none;"></div>
+			<div class="" style="width: 100%;height: 0.89rem;display: none;"></div>
 			<div class="all_bottom">
 				<div class="all_bottom_btn0">重置</div>
 				<div class="all_bottom_btn1">确认</div>
@@ -428,6 +428,9 @@ $(".find_nav_list").on('touchmove', function (e) {
 				$(".btn_show_main").removeClass('div_right');
 				$(".all_bottom").addClass('all_bottom_move');
 				$(".all_bottom").removeClass('all_bottom_move_close');
+
+				$('.li_list').prop('scrollTop','0');
+				$('.li_list').css('overflow','hidden');
 				
 			});
 //			点击黑色区域
@@ -437,6 +440,7 @@ $(".find_nav_list").on('touchmove', function (e) {
 				$(".btn_show_bg").hide();
 				$(".all_bottom").addClass('all_bottom_move_close');
 				$(".all_bottom").removeClass('all_bottom_move');
+				$('.li_list').css('overflow','scroll');
 			});
 //			点击筛选旁边返回
 			$(".screen_close").click(function(){
@@ -445,6 +449,7 @@ $(".find_nav_list").on('touchmove', function (e) {
 				$(".btn_show_bg").hide();
 				$(".all_bottom").addClass('all_bottom_move_close');
 				$(".all_bottom").removeClass('all_bottom_move');
+				$('.li_list').css('overflow','scroll');
 			});
 			
 			$(".all_bottom_btn1").click(function(){
@@ -454,6 +459,7 @@ $(".find_nav_list").on('touchmove', function (e) {
 				$(".btn_show_bg").hide();
 				$(".all_bottom").addClass('all_bottom_move_close');
 				$(".all_bottom").removeClass('all_bottom_move');
+				$('.li_list').css('overflow','scroll');
 			
 				submit();
 			});
@@ -494,6 +500,7 @@ $(".find_nav_list").on('touchmove', function (e) {
 //			点击重置   --> 清空浏览器上面的url,刷新页面
 			$(".all_bottom_btn0").click(function(){
 			    location.href = "/xcview/html/physician/physician_list.html";
+			    $('.li_list').css('overflow','scroll');
 			});
 
 			$(".span_list").click(function(){
