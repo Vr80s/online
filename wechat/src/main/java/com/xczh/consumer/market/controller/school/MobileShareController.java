@@ -33,6 +33,7 @@ import com.xczhihui.common.util.enums.TokenExpires;
 import com.xczhihui.common.util.enums.WechatShareLinkType;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.course.vo.CourseLecturVo;
+import com.xczhihui.course.vo.ShareInfoVo;
 import com.xczhihui.user.center.service.UserCenterService;
 import com.xczhihui.user.center.utils.UCCookieUtil;
 import com.xczhihui.user.center.vo.Token;
@@ -50,8 +51,7 @@ public class MobileShareController {
 
     @Autowired
     private OnlineCourseService onlineCourseService;
-    @Value("${returnOpenidUri}")
-    private String returnOpenidUri;
+
     @Autowired
     private OnlineUserMapper onlineUserMapper;
     @Autowired
@@ -65,9 +65,13 @@ public class MobileShareController {
 
     @Value("${webdomain}")
     private String webdomain;
+    
+    @Value("${returnOpenidUri}")
+    private String returnOpenidUri;
 
     private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(MobileShareController.class);
 
+    
     /**
      *	app---> 课程、主播分享
      */
@@ -77,42 +81,24 @@ public class MobileShareController {
             @RequestParam(value="shareId")String shareId,
             @RequestParam(value="shareType")Integer shareType)
             throws Exception{
-        try {
-            if(ShareType.COURSE_SHARE.getCode() == shareType ||
-                    ShareType.ALBUM_SHARE.getCode()== shareType){ // 课程分享
-
-                CourseVo courseLectur = onlineCourseService.courseShare(Integer.parseInt(shareId));
-                if(courseLectur==null){
-                    return ResponseObject.newErrorResponseObject("课程信息有误");
-                }
-                courseLectur.setGradeName("中医好课程:"+courseLectur.getGradeName());
-                if(courseLectur.getDescription()!=null){
-                    String description = courseLectur.getDescription();
-                    description = XzStringUtils.delHTMLTag(description);
-                    courseLectur.setDescription(description);
-                }
-                courseLectur.setLink(returnOpenidUri+"/wx_share.html?shareType="+shareType+"&shareId="+Integer.parseInt(shareId));
-                return ResponseObject.newSuccessResponseObject(courseLectur);
-            }else {			 //  主播分享
-                LecturVo lectur = onlineCourseService.lectureShare(shareId);
-                if(lectur==null){
-                    return ResponseObject.newErrorResponseObject("主播信息有误");
-                }
-				/*
-				 * 课程名增加一个中医好课程
-				 */
-                lectur.setName("中医好主播:"+lectur.getName());
-                if(lectur.getDescription()!=null){
-                    String description = lectur.getDescription();
-                    description = XzStringUtils.delHTMLTag(description);
-                    lectur.setDescription(description);
-                }
-                lectur.setLink(returnOpenidUri+"/wx_share.html?shareType=2&shareId="+shareId);
-                return ResponseObject.newSuccessResponseObject(lectur);
-            }
+    	
+    	
+    	//如果异常默认用这个
+    	ShareInfoVo sv = new ShareInfoVo();
+    	sv.setName("熊猫中医");
+    	sv.setDescription("熊猫中医是中医药的学习传承平台：学中医、懂中医、用中医，让中医服务于家庭、个人，让中国古代科学瑰宝为现代人类的健康保驾护航。");
+    	sv.setHeadImg(webdomain + "/web/images/defaultHead/18.png");
+    	sv.setLink(returnOpenidUri +WechatShareLinkType.DOCDOT_SHARE.getLink());
+    	try {
+    		
+        	sv  = courseServiceImpl.selectShareInfoByType(shareType,shareId);
+        	//构造下分享出去的参数
+        	sv.build(returnOpenidUri);
+        	return ResponseObject.newSuccessResponseObject(sv);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseObject.newErrorResponseObject("请求有误");
+            
+            return ResponseObject.newSuccessResponseObject(sv);
         }
     }
 
@@ -258,11 +244,10 @@ public class MobileShareController {
              */
             ConfigUtil cfg = new ConfigUtil(req.getSession());
             String returnOpenidUri = cfg.getConfig("returnOpenidUri");
+            
+            //课程分享啦
             if(ShareType.COURSE_SHARE.getCode().equals(shareType)
-            		|| ShareType.ALBUM_SHARE.getCode().equals(shareType)){ //课程分享啦
-
-                LOGGER.info("shareType:"+shareType);
-                LOGGER.info("shareId:+"+shareId);
+            		|| ShareType.ALBUM_SHARE.getCode().equals(shareType)){ 
 
                 Integer courseId = Integer.parseInt(shareId);
                 com.xczhihui.course.vo.CourseLecturVo  cv=null;

@@ -14,7 +14,6 @@ public enum WechatShareLinkType {
 	
 	    //首页
 		HOME_PAGE("/xcview/html/home_page.html", "首页"),
-	
 	  
 		/*************    课程的分享页面  开始       ***************/
 		

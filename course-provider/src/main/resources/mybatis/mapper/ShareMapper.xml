@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xczhihui.course.mapper.CourseMapper">
+	
+	<!-- 统一下分享的详情方法 -->
+	
+	<!-- 1,3 课程     2 主播      4 医师     5.6 文章 -->
+	<select id="selectShareInfoByType" resultType="com.xczhihui.course.vo.ShareInfoVo">
+	    
+	    <if test="type != null and (type == 1  or type == 3 )">
+		   select c.id, c.grade_name as gradeName,c.grade_name as name,c.smallimg_path as headImg,
+		       c.smallimg_path as smallImgPath,c.course_detail as description,#{type} as type
+		    from oe_course c  where c.id = #{shareId}  and c.is_delete=0 
+		</if>
+		
+		<if test="type != null and type == 2 ">
+			select ca.user_id as id,ca.name as name,ca.profile_photo as headImg,
+			    ca.detail as description,#{type} as type from oe_user ou,course_anchor ca 
+			where  ou.id = ca.user_id and ou.id =#{shareId}
+			  and ou.is_delete=0 and ou.status = 0   
+		</if>
+		
+		<if test="type != null and type == 4 ">
+			SELECT md.id, md.name,md.description,
+				mdai.head_portrait headImg,#{type} as type
+        	FROM
+	            medical_doctor md
+	             LEFT JOIN `medical_doctor_authentication_information` mdai
+	       		 ON md.`authentication_information_id` = mdai.`id`
+	        WHERE md.deleted = 0
+	              AND md.status = 1
+	              AND md.id = #{shareId}
+		</if>
+		
+		<if test="type != null and (type == 5  or type == 6 )">
+			select id,title as name,content as description,
+			img_Path as headImg,#{type} as type
+			 from oe_bxs_article 
+			 	where id = #{shareId} 
+			 	and is_delete=0 and status = 1
+		</if>
+	</select>
+</mapper>

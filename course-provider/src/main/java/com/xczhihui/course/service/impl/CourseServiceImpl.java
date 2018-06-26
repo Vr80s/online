@@ -17,6 +17,7 @@ import com.xczhihui.course.mapper.CourseMapper;
 import com.xczhihui.course.model.Course;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.course.vo.CourseLecturVo;
+import com.xczhihui.course.vo.ShareInfoVo;
 
 /**
  * <p>
@@ -233,4 +234,10 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     public List<Map<String, Object>> list(Integer type, String userId) {
         return iCourseMapper.selectCourseByType(type, userId);
     }
+
+	@Override
+	public ShareInfoVo selectShareInfoByType(int type, String id) {
+		
+		 return iCourseMapper.selectShareInfoByType(type, id);
+	}
 }
