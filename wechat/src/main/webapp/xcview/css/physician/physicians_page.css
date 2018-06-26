@@ -8,6 +8,9 @@ img{
 li{
 	list-style: none;
 }
+a{
+	text-decoration: none;
+}
 .body{
 	position: fixed;
 }
@@ -25,7 +28,12 @@ li{
 .show{
 	display: block !important;
 }
-
+p{
+	font-size: 0.28rem;
+}
+.z{
+	float: left;
+}
 /*头部开始*/
 .wrap-header {
     width: 100%;
@@ -1382,5 +1390,434 @@ li{
 	margin-left: 0.2rem;
 }
 /*文章结束*/
+
+
+/*直播间开始*/
+.broadcastroom{
+	width: 7.5rem;
+	height: 100%;
+	margin: 0 auto;
+	margin-bottom: 0.2rem;
+	display: none;
+}
+.broadcastroom_video{
+	width: 100%;
+	height: 3.927rem;
+	background: #fff;
+	position: relative;
+	padding: 0.2rem 0;
+}
+.surface_plot{
+	width: 6.98rem;
+	height: 3.927rem;
+	margin: 0 auto;
+	display: block;
+}
+.broadcastroom_bg{
+	width: 6.98rem;
+	height: 3.927rem;
+	position: absolute;
+	top: 0.2rem;
+    left: 0.26rem;
+	z-index: 1;
+	background: rgba(0,0,0,0.50);
+}
+.living_broadcastroom{
+	/*display: none;*/
+}
+.broadcastroom_button{
+	width: 1.2rem;
+	display: block;
+	position: absolute;
+	left: 3.15rem;
+	top: 1.2rem;
+	z-index: 2;
+	/*margin-top: 1rem;*/
+}
+.broadcastroom_hint{
+	width: 100%;
+	font-size: 0.3rem;
+	color: #FFFFFF;
+	text-align: center;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	position: absolute;
+    bottom: 1rem;
+    z-index: 3;
+}
+.broadcastroom_hint_title{
+	width: 6.3rem;
+	font-size: 0.3rem;
+	color: #FFFFFF;
+	text-align: center;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	margin: 0 auto
+}
+
+/*倒计时*/
+.count_down{
+	position: absolute;
+    top: 1.69rem;
+    z-index: 2;
+    width: 100%;
+    /*display: none;*/
+}
+#box1 {
+	width: 6.98rem;
+	font-size: 0.3rem;
+	color: #FFFFFF;
+	text-align: center;
+	margin: 0 auto;
+}
+.count_down_title{
+	width: 6.3rem;
+	margin: 0 auto;
+	margin-top: 0.4rem;
+	font-size: 0.3rem;
+	color: #FFFFFF;
+	text-align: center;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+/*暂无直播*/
+.no_live{
+	width: 3.2rem;
+    height: 3.2rem;
+    margin: 0 auto;
+    margin-top: 0.2rem;
+}
+.no_live_img{
+	width: 2rem;
+	display: block;
+	margin: 0 auto;
+}
+.no_live_hint{
+	font-size: 0.26rem;
+	color: #999999;
+	text-align: center;
+	margin-top: 0.3rem;
+	margin-bottom: 0.2rem;
+}
+.no_live_click{
+	font-size: 0.26rem;
+	color: #00BC12;
+	text-align: center;
+}
+/*直播间结束*/
+
+/*为您推荐课程开始*/
+.wrap_vedio {
+    width: 100%;
+    padding: 0.3rem 0.26rem;
+    box-sizing: border-box;
+    background: white;
+    overflow: hidden;
+    margin-top: 0.2rem;
+}
+.wrap_vedio .border {
+    display: inline-block;
+    width: 0.06rem;
+    height: 0.28rem;
+    border-radius: 100px;
+    background: #00bc12;
+    float: left;
+    margin-right: 0.08rem;
+    margin-top: 0.05rem;
+}
+.wrap_vedio_btn {
+    margin-top: 0.2rem;
+}
+.wrap_vedio_btn li {
+    margin-bottom: 0.4rem;
+    width: 3.39rem;
+    height: 3.2rem;
+}
+.wrap_vedio_btn li .wrap_img_pic {
+    width: 3.39rem;
+    height: 1.92rem;
+    position: relative;
+}
+.wrap_vedio_btn li .wrap_img_pic img {
+    width: 3.39rem;
+    height: 1.92rem;
+}
+
+.wrap_vedio_btn li .wrap_img_pic .img_little {
+    width: 0.3rem;
+    height: 0.3rem;
+    position: absolute;
+    top: 0.1rem;
+    left: 0.1rem;
+}
+.wrap_vedio_btn li .speak_text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 0.16rem 0 0 0;
+}
+.wrap_vedio_btn li .speak_name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 0.05rem 0;
+    color: #999;
+    font-size: 0.22rem;
+}
+.on_line_status .money_status{
+	font-size: 0.24rem;
+    color: #999999;
+}
+.on_line_status .money_status span {
+    color: #F97B49;
+}
+.on_line_status{
+	color: #999;
+}
+.more_people img {
+    width: 0.24rem;
+    height: 0.24rem;
+    float: left;
+    margin: 0.04rem 0.05rem 0 0.1rem;
+}
+.more_people span {
+    font-size: 0.24rem;
+}
+.wrap_vedio_btn li .speak_text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 0.16rem 0 0 0;
+}
+.wrap_vedio_btn li:nth-child(odd) {
+    float: left;
+}
+
+.wrap_vedio_btn li:nth-child(even) {
+    float: right;
+}
+.master_course_span{
+	font-size: 0.24rem;
+    color: #999999;
+    float: left;
+    margin-left: 0.1rem;
+    margin-top: 0.03rem;
+}
+.zhibo_play {
+    border-radius: 0 0 0 3px;
+    float: left;
+    font-size: 0.22rem;
+    padding: 0rem 0.1rem;
+    color: #fff !important;
+    margin-top: -0.02rem;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: #f97b49;
+}
+.broadcastroom_show{
+	display: none;
+}
+/*为您推荐课程结束*/
+
+
+/*介绍开始*/
+.message_referral{
+	display: none;
+}
+
+.message_referral_main{
+	width: 100%;
+	height: 100%;
+	background: #fff;
+	padding-bottom: 0.3rem;
+	border-bottom: 1px solid #F0F0F0;
+}
+.wrap_synopsis {
+    width: 100%;
+    background: white;
+    overflow: hidden;
+    padding-top: 0.2rem;
+}
+.my_synopsis {
+    /* width: 2.36rem; */
+    height: 0.43rem;
+    /* margin: 0 auto; */
+}
+.my_synopsis ul li{
+	font-size: 0.28rem;
+	color: #333333;
+}
+.my_synopsis ul .border {
+    width: 0.06rem;
+    height: 0.28rem;
+    background: #00bc12;
+    float: left;
+    margin: 0.05rem 0.12rem 0 0.26rem;
+    border-radius: 100px;
+}
+.message_referral_cen{
+	font-size: 0.28rem;
+	color: #575757;
+	width: 6.98rem;
+    margin: 0 auto;
+    margin-top: 0.2rem;
+}
+
+
+.message_referral_main_time{
+	width: 100%;
+	height: 100%;
+	background: #fff;
+	padding-bottom: 0.3rem;
+	border-bottom: 1px solid #F0F0F0;
+}
+.wrap_synopsis_time {
+    width: 100%;
+    background: white;
+    overflow: hidden;
+    padding-top: 0.2rem;
+}
+.my_synopsis_time {
+    /* width: 2.36rem; */
+    height: 0.43rem;
+    /* margin: 0 auto; */
+}
+.my_synopsis_time ul li{
+	font-size: 0.28rem;
+	color: #333333;
+}
+.my_synopsis_time ul li img{
+	width: 0.28rem;
+}
+.my_synopsis_time ul .border {
+    width: 0.06rem;
+    height: 0.28rem;
+    background: #00bc12;
+    float: left;
+    margin: 0.05rem 0.12rem 0 0.26rem;
+    border-radius: 100px;
+}
+.message_referral_center{
+	font-size: 0.28rem;
+	color: #575757;
+	width: 6.98rem;
+    margin: 0 auto;
+    margin-top: 0.2rem;
+}
+
+.my_synopsis_time ul li span{
+	font-size: 0.24rem;
+	color: #999999;
+	margin-left: 0.18rem;
+}
+.message_referral_center a{
+	color: #188EEE;
+}
+
+.self_introduction{
+	width: 100%;
+	height: 100%;
+	background: #fff;
+	padding-bottom: 0.3rem;
+	border-bottom: 1px solid #F0F0F0;
+}
+.self_introduction_main {
+    width: 100%;
+    background: white;
+    overflow: hidden;
+    padding-top: 0.2rem;
+}
+.self_introduction_ul {
+    /* width: 2.36rem; */
+    height: 0.43rem;
+    /* margin: 0 auto; */
+}
+.self_introduction_ul ul li{
+	font-size: 0.28rem;
+	color: #333333;
+}
+.self_introduction_ul ul .border {
+    width: 0.06rem;
+    height: 0.28rem;
+    background: #00bc12;
+    float: left;
+    margin: 0.05rem 0.12rem 0 0.26rem;
+    border-radius: 100px;
+}
+.self_introduction_cen{
+	font-size: 0.28rem;
+	color: #575757;
+	width: 6.98rem;
+    margin: 0 auto;
+    margin-top: 0.2rem;
+}
+table {
+	border: 0;
+	border-spacing: 0;
+    border-collapse: collapse;
+    width: 6.98rem;
+    margin: 0 auto;
+    margin-top: 0.2rem;
+    border-top: 1px solid #DEDEDE !important;
+    border-left: 1px solid #DEDEDE !important;
+    border-right: 1px solid #DEDEDE !important;
+}
+table tr td {
+	font-size: 0.26rem;
+	color: #FFFFFF;
+	text-align: center;
+	height: 0.8rem;
+	border: none;
+}
+table tr th {
+	height: 0.72rem;
+	text-align: center;
+	font-size: 0.26rem;
+	color: #FFFFFF;
+	background-image: linear-gradient(0deg, #5DCA5A 0%, #54BF52 100%);
+	border: none;
+}
+table tr td img{
+	width: 0.28rem;
+}
+.am th{
+	background: none;
+	font-size: 0.26rem;
+	color: #666666;
+	border-bottom: 1px solid #DEDEDE !important;
+}
+.am td{
+	border-bottom: 1px solid #DEDEDE !important;
+}
+.am td:first-child{
+	border-left: 1px solid #DEDEDE !important;
+	color: #666666;
+}
+.am td:last-child{
+	border-right: 1px solid #DEDEDE !important;
+}
+.pm th{
+	background: none;
+	font-size: 0.26rem;
+	color: #666666;
+	border-bottom: 1px solid #DEDEDE !important;
+}
+.pm td{
+	border-bottom: 1px solid #DEDEDE !important;
+}
+.pm td:first-child{
+	border-left: 1px solid #DEDEDE !important;
+	color: #666666;
+}
+.pm td:last-child{
+	border-right: 1px solid #DEDEDE !important;
+}
+
+/*介绍结束*/
 
 /*中间内容结束*/

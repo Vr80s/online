@@ -21,6 +21,12 @@
 
 <script type="text/javascript" src="/xcview/js/common/jquery.min-2.1.1.js"></script>
 
+<!-- 介绍数据引入 -->
+<script type="text/javascript" src="/xcview/js/physician/referral.js"></script>
+
+<!-- 直播间数据引入 -->
+<script type="text/javascript" src="/xcview/js/physician/broadcastroom.js"></script>
+
 <!-- 表情包聊天引入 -->
 <link href="/xcview/html/physician/css/webiaoqing.css" rel="stylesheet" type="text/css">
 <script src="/xcview/html/physician/js/jquery_min.js" ></script>
@@ -164,86 +170,15 @@
 	<div class="the_dynamic">
 		<!-- 其他一 -->
 		<div class="rests_nav">
-			<script type="text/html" id="wrap_doctor_dynamics">
-				{{each items as item i}}
-				{{if item.type == 1}}
-				<!-- 普通动态-->
-				<div class="essay_main comment_hide">{{item.content}}</div>
-				<div class="essay_pack_up_btn"><span>收起</span></div>
-				<div class="both"></div>
-				{{else if item.type == 2}}
-				<!-- 动态图片-->
-				<div class="paper_nav_span">
-					<span class="stick_img">#盐蒸橘子治咳嗽#<span class="title">{{item.content}}</span></span>
-				</div>
-				{{if item.pics.length>0}}
-				<div class="paper_nav_cen">
-				{{each item.pics as pic }}
-				<img src="{{pic}}" alt="" />
-				{{/each}}
-				</div>
-				{{/if}}
-				<div class="both"></div>
-				{{else if item.type == 3}}
-				<!-- 视频-->
-				<div class="rests_nav_span comment_hide">
-					<span class="stick_img"><img src="/xcview/images/stick.png" alt="" />置顶</span>
-					<span class="title">{{item.title}}</span>
-				</div>
-				<div id="ccvideo" class="comment_hide">
-					<video>
-
-					</video>
-				</div>
-				{{else if item.type == 4}}
-				<!-- 文章-->
-				<div class="article_nav_span comment_hide">
-					<span class="title">{{item.title}}</span>
-				</div>
-				<div class="article_nav_cen comment_hide">
-					<img src="{{item.smallImgPath}}" alt="" />
-					<div class="article_nav_cen_size">得控制，体温在38℃~39℃之间。初期热无定，不恶得控制，体温在38℃~39℃之间。初期热无定，不恶</div>
-				</div>
-				<div class="both"></div>
-				{{else if item.type == 5}}
-				<div class="course_nav_span comment_hide">
-					<span class="title">{{item.title}}</span>
-				</div>
-				<div class="course_nav_cen comment_hide">
-					<img src="{{item.smallImgPath}}" alt="" />
-					<div class="course_nav_cen_size">{{item.content}}</div>
-					{{if item.currentPrice==0}}
-					<div class="course_nav_rate">免费</div>
-					{{else}}
-					<div class="course_nav_rate"><span>{{item.currentPrice}}</span>熊猫币</div>
-					{{/if}}
-
-					<!-- <div class="course_nav_rate">免费</div> -->
-				</div>
-				<div class="both"></div>
-				{{else if item.type == 10}}
-				<!-- 医案-->
-				<div class="consilia_nav_span comment_hide">
-					<span class="stick_img">#医案#</span>
-					<span class="title">朱xx，男，53岁</span>
-				</div>
-				<div class="consilia_nav_main comment_hide">
-					得控制，体温在38℃~39℃之间。初期热无定，不恶
-					得控制，体温在38℃~39℃之间。初期热无定，不恶
-					得控制，体温在38℃~39℃之间。初期热无定，不恶
-					得控制，体温在38℃~39℃之间。初期热无定，不恶
-					得控制，体温在38℃~39℃之间。初期热无定，不恶
-					得控制，体温在38℃~39℃之间。初期热无定，不恶
-					得控制，体温在38℃~39℃之间。初期热无定，不恶
-					得控制，体温在38℃~39℃之间。初期热无定，不恶
-				</div>
-				<div class="consilia_nav_btn"><span>收起</span></div>
-				<div class="consilia_nav_cen comment_hide">
-					<img src="/xcview/images/xianxia_03.jpg" alt="" />
-					<div class="consilia_nav_cen_size">得控制，体温在38℃~39℃之间。初期热无定，不恶得控制，体温在38℃~39℃之间。初期热无定，不恶</div>
-				</div>
-				<div class="both"></div>
-				{{/if}}
+			<div class="rests_nav_span comment_hide">
+				<span class="stick_img"><img src="/xcview/images/stick.png" alt="" />置顶</span>
+				<span class="title">余老师讲课风采</span>
+			</div>
+			<div id="ccvideo" class="comment_hide">
+				<video>
+					
+				</video>
+			</div>
 			<div class="rests_nav_bottom">
 				<span class="time">6小时前</span>
 				<span class="img"><img src="/xcview/images/zan01.png" alt="" class="zan_img" /><img src="/xcview/images/returned.png" alt="" class="evaluate_img" /></span>
@@ -269,12 +204,10 @@
 					</div>
 				</div>
 			</div>
-			{{/each}}
-			</script>
 		</div>
 
 		<!-- 医案 -->
-		<!--<div class="consilia_nav">
+		<div class="consilia_nav">
 			<div class="consilia_nav_span comment_hide">
 				<span class="stick_img">#医案#</span>
 				<span class="title">朱xx，男，53岁</span>
@@ -303,12 +236,12 @@
 			<div class="consilia_number_people">
 				<div class="consilia_number_people_bg">
 					<div class="consilia_number_people_fize"><img src="/xcview/images/zan01.png" alt="" class="consilia_number_people_zan" /><span>你傻啊，我不傻，你傻</span></div>
-					&lt;!&ndash; 评价内容 &ndash;&gt;
+					<!-- 评价内容 -->
 					<div class="consilia_evaluate_main">
-						&lt;!&ndash; <div class=""> &ndash;&gt;
+						<!-- <div class=""> -->
 							<span class="name">辣椒小姐：</span>
 							<span class="consilia_evaluate_cen">我是内容</span>
-						&lt;!&ndash; </div> &ndash;&gt;
+						<!-- </div> -->
 						<div class="both"></div>
 						<div class="consilia_response">
 							<span class="my">麦克</span>
@@ -320,10 +253,10 @@
 					</div>
 				</div>
 			</div>
-		</div>-->
+		</div>
 
 		<!-- 其他二 -->
-		<!--<div class="essay_pack_up">
+		<div class="essay_pack_up">
 			<div class="essay_main comment_hide">得控制，体温在38℃~39℃之间。初期热无定，不恶得控制，体温在38℃~39℃之间。初期热无定，不恶得控制，体温在38℃~39℃之间。初期热无定，不恶得控制，体温在38℃~39℃之间。初期热无定，不恶得控制，体温在38℃~39℃之间。初期热无定，不恶得控制，体温在38℃~39℃之间。初期热无定，不恶得控制，体温在38℃~39℃之间。初期热无定，不恶得控制，体温在38℃~39℃之间。初期热无定，不恶</div>
 			<div class="essay_pack_up_btn"><span>收起</span></div>
 			<div class="essay_nav_bottom">
@@ -334,12 +267,12 @@
 			<div class="essay_number_people">
 				<div class="essay_number_people_bg">
 					<div class="essay_number_people_fize"><img src="/xcview/images/zan01.png" alt="" class="essay_number_people_zan" /><span>你傻啊，我不傻，你傻</span></div>
-					&lt;!&ndash; 评价内容 &ndash;&gt;
+					<!-- 评价内容 -->
 					<div class="essay_evaluate_main">
-						&lt;!&ndash; <div class=""> &ndash;&gt;
+						<!-- <div class=""> -->
 							<span class="name">辣椒小姐：</span>
 							<span class="essay_evaluate_cen">我是内容</span>
-						&lt;!&ndash; </div> &ndash;&gt;
+						<!-- </div> -->
 						<div class="both"></div>
 						<div class="essay_response">
 							<span class="my">麦克</span>
@@ -351,10 +284,10 @@
 					</div>
 				</div>
 			</div>
-		</div>-->
+		</div>
 
 		<!-- 文章 -->
-		<!--<div class="article_nav">
+		<div class="article_nav">
 			<div class="article_nav_span comment_hide">
 				<span class="title">这里有防护卵巢早衰的秘诀 | 余大夫小偏方</span>
 			</div>
@@ -371,12 +304,12 @@
 			<div class="article_number_people">
 				<div class="article_number_people_bg">
 					<div class="article_number_people_fize"><img src="/xcview/images/zan01.png" alt="" class="article_number_people_zan" /><span>你傻啊，我不傻，你傻</span></div>
-					&lt;!&ndash; 评价内容 &ndash;&gt;
+					<!-- 评价内容 -->
 					<div class="article_evaluate_main">
-						&lt;!&ndash; <div class=""> &ndash;&gt;
+						<!-- <div class=""> -->
 							<span class="name">辣椒小姐：</span>
 							<span class="article_evaluate_cen">我是内容</span>
-						&lt;!&ndash; </div> &ndash;&gt;
+						<!-- </div> -->
 						<div class="both"></div>
 						<div class="article_response">
 							<span class="my">麦克</span>
@@ -388,10 +321,10 @@
 					</div>
 				</div>
 			</div>
-		</div>-->
+		</div>
 
 		<!-- 其他三 -->
-		<!--<div class="paper_nav">
+		<div class="paper_nav">
 			<div class="paper_nav_span">
 				<span class="stick_img">#盐蒸橘子治咳嗽#<span class="title">得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制</span></span>
 				
@@ -400,7 +333,7 @@
 				<img src="/xcview/images/xianxia_03.jpg" alt="" />
 				<img src="/xcview/images/xianxia_03.jpg" alt="" />
 				<img src="/xcview/images/xianxia_03.jpg" alt="" />
-				<div class="both"></div>  &lt;!&ndash; 清除浮动 &ndash;&gt;
+				<div class="both"></div>  <!-- 清除浮动 -->
 			</div>
 			<div class="both"></div>
 			<div class="paper_nav_bottom">
@@ -411,12 +344,12 @@
 			<div class="paper_number_people">
 				<div class="paper_number_people_bg">
 					<div class="paper_number_people_fize"><img src="/xcview/images/zan01.png" alt="" class="paper_number_people_zan" /><span>你傻啊，我不傻，你傻</span></div>
-					&lt;!&ndash; 评价内容 &ndash;&gt;
+					<!-- 评价内容 -->
 					<div class="paper_evaluate_main">
-						&lt;!&ndash; <div class=""> &ndash;&gt;
+						<!-- <div class=""> -->
 							<span class="name">辣椒小姐：</span>
 							<span class="paper_evaluate_cen">我是内容</span>
-						&lt;!&ndash; </div> &ndash;&gt;
+						<!-- </div> -->
 						<div class="both"></div>
 						<div class="paper_response">
 							<span class="my">麦克</span>
@@ -428,10 +361,10 @@
 					</div>
 				</div>
 			</div>
-		</div>-->
+		</div>
 
 		<!-- 课程 -->
-		<!--<div class="course_nav">
+		<div class="course_nav">
 			<div class="course_nav_span comment_hide">
 				<span class="title">最好的课程，只需9.9</span>
 			</div>
@@ -439,7 +372,7 @@
 				<img src="/xcview/images/xianxia_03.jpg" alt="" />
 				<div class="course_nav_cen_size">最好的课程，只需9.9</div>
 				<div class="course_nav_rate"><span>99</span>熊猫币</div>
-				&lt;!&ndash; <div class="course_nav_rate">免费</div> &ndash;&gt;
+				<!-- <div class="course_nav_rate">免费</div> -->
 			</div>
 			<div class="both"></div>
 			<div class="course_nav_bottom">
@@ -450,12 +383,12 @@
 			<div class="course_number_people">
 				<div class="course_number_people_bg">
 					<div class="course_number_people_fize"><img src="/xcview/images/zan01.png" alt="" class="course_number_people_zan" /><span>你傻啊，我不傻，你傻</span></div>
-					&lt;!&ndash; 评价内容 &ndash;&gt;
+					<!-- 评价内容 -->
 					<div class="course_evaluate_main">
-						&lt;!&ndash; <div class=""> &ndash;&gt;
+						<!-- <div class=""> -->
 							<span class="name">辣椒小姐：</span>
 							<span class="course_evaluate_cen">我是内容</span>
-						&lt;!&ndash; </div> &ndash;&gt;
+						<!-- </div> -->
 						<div class="both"></div>
 						<div class="course_response">
 							<span class="my">麦克</span>
@@ -467,17 +400,17 @@
 					</div>
 				</div>
 			</div>
-		</div>-->
+		</div>
 
 		<!-- 直播 -->
-		<!--<div class="sinatv_nav">
+		<div class="sinatv_nav">
 			<div class="sinatv_nav_span comment_hide">
 				<span class="title">6月12日10:00直播，免费</span>
 			</div>
 			<div class="sinatv_nav_cen comment_hide">
 				<img src="/xcview/images/xianxia_03.jpg" alt="" />
 				<div class="sinatv_nav_cen_size">跟着中医学养娃-杭州大夫育儿十讲</div>
-				&lt;!&ndash; <div class="sinatv_nav_rate"><span>99</span>熊猫币</div> &ndash;&gt;
+				<!-- <div class="sinatv_nav_rate"><span>99</span>熊猫币</div> -->
 				<div class="sinatv_nav_rate"><span>免费</span></div>
 			</div>
 			<div class="both"></div>
@@ -489,12 +422,12 @@
 			<div class="sinatv_number_people">
 				<div class="sinatv_number_people_bg">
 					<div class="sinatv_number_people_fize"><img src="/xcview/images/zan01.png" alt="" class="sinatv_number_people_zan" /><span>你傻啊，我不傻，你傻</span></div>
-					&lt;!&ndash; 评价内容 &ndash;&gt;
+					<!-- 评价内容 -->
 					<div class="sinatv_evaluate_main">
-						&lt;!&ndash; <div class=""> &ndash;&gt;
+						<!-- <div class=""> -->
 							<span class="name">辣椒小姐：</span>
 							<span class="sinatv_evaluate_cen">我是内容</span>
-						&lt;!&ndash; </div> &ndash;&gt;
+						<!-- </div> -->
 						<div class="both"></div>
 						<div class="sinatv_response">
 							<span class="my">麦克</span>
@@ -506,11 +439,519 @@
 					</div>
 				</div>
 			</div>
-		</div>-->
+		</div>
 
 
 	</div>
 	<!-- 中间内容结束 -->
+
+	<!-- 直播间开始 -->
+	<div class="broadcastroom">
+		<div class="broadcastroom_video">
+			<!-- 封面图和背景色 -->
+			<div class="fixation_reminder" style="display: none;">
+				<img src="/xcview/images/banner01.png" alt="" class="surface_plot" />
+				<div class="broadcastroom_bg"></div>
+			</div>
+
+			<!-- 直播中提示 -->
+			<div class="living_broadcastroom" style="display: none;">
+				<img src="/xcview/images/play_btn.png" alt="" class="broadcastroom_button" />
+				<div class="broadcastroom_hint">
+					<div class="broadcastroom_hint_title">正在直播：标幽赋的前世今生乙豆君伤寒论讲…</div>
+				</div>
+			</div>
+
+			<!-- 直播倒计时提示 -->
+			<div class="count_down" style="display: none;">
+				<div id="box1"></div>
+				<div class="count_down_title">标幽赋的前世今生</div>
+			</div>
+
+			<!-- 暂无直播 -->
+			<div class="no_live">
+				<img src="/xcview/images/soldout.png" alt="" class="no_live_img" />
+				<div class="no_live_hint">抱歉，该医师暂未发布直播</div>
+				<div class="no_live_click" onclick="location.href ='/xcview/html/home_page.html'">去学堂寻找感兴趣的课程</div>
+			</div>
+		</div>
+
+		<!-- 为您推荐课程开始 -->
+		<div class="wrap_vedio" style="padding-bottom: 0;" id="recommended" style="">
+			<div class="">
+				<!-- <span class="border"></span> -->
+				<span style="font-size: 0.28rem;float: left;">为您推荐</span>
+				<div class="both"></div>
+			</div>
+			<ul class="wrap_vedio_btn" id="wrap_vedio_btn">				
+				<li style="position: relative;">
+            		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;"></a>
+            			
+					<p class="wrap_img_pic">
+						<img src="http://test-file.ipandatcm.com/18625153916/0022426186be-2c9aec356231d035016231eb7b0b00001529912356541.png?imageView2/2/w/339">  <!--大背景图-->
+						<img src="/xcview/images/Sinatv_auto.png" alt="" class="img_little">
+					</p>
+					<p class="speak_text">6.25直播ios哈哈哈</p>
+					<p class="speak_name">默默</p>
+					<div class="on_line_status">
+						<!--价格-->
+						
+						<p class="money_status z">
+							<span>免费</span>
+						</p>
+						
+						<!--人数-->
+						<p class="more_people z">
+							<img src="/xcview/images/population.png">
+							<span>3</span>
+						</p>
+						<!--日历-->
+							<p class="zhibo_play">直播中</p>
+					</div>
+				</li>		
+				<li style="position: relative;">
+					<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" onclick="common_jump_school(1,1,1,2402)"></a>
+        				
+					<p class="wrap_img_pic">
+						<img src="http://test-file.ipandatcm.com/18625113319/1429f0a63659-2c9aec356231d035016231eb7b0b00001529897599142.png?imageView2/2/w/339">  <!--大背景图-->
+							<img src="/xcview/images/tv_auto.png" alt="" class="img_little">
+					</p>
+					<p class="speak_text">6.25视频专辑哈哈哈</p>
+					<p class="speak_name">默默</p>
+					<div class="on_line_status">
+						<!--价格-->
+						
+						<p class="money_status z">
+							<span>免费</span>
+						</p>
+						
+						<!--人数-->
+						<p class="more_people z">
+							<img src="/xcview/images/population.png">
+							<span>3</span>
+						</p>
+						<!--日历-->
+						
+					</div>
+				</li>		
+				<li style="position: relative;">
+            			<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" onclick="common_jump_school(1,4,0,2276)"></a>
+					
+					<p class="wrap_img_pic">
+						<img src="http://test-file.ipandatcm.com/18614192137/0e18f196c74e-2c9aec356231d035016231eb7b0b00001528975297567.png?imageView2/2/w/339">  <!--大背景图-->
+							<img src="/xcview/images/offline.png" alt="" class="img_little">
+					</p>
+					<p class="speak_text">6.14444444线下课免费</p>
+					<p class="speak_name">默默</p>
+					<div class="on_line_status">
+						<!--价格-->
+						<p class="money_status z">
+							<span>免费</span>
+						</p>
+						
+						<!--人数-->
+						<p class="more_people z">
+							<img src="/xcview/images/population.png">
+							<span>5</span>
+						</p>
+						<!--日历-->
+						
+						<!--地址-->
+						<p class="more_people">
+							<img style="width: 0.19rem; height: 0.24rem;" src="/xcview/images/location_four.png">
+							<span style="margin-top: -0.01rem;display: block;">北京</span>
+						</p>
+						
+					</div>
+				</li>
+				<li style="position: relative;">
+					<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;"></a>
+					<p class="wrap_img_pic">
+						<img src="http://test-file.ipandatcm.com/18613205948/b82237ed8569-2c9aec356231d035016231eb7b0b00001528894788241.png?imageView2/2/w/339">  <!--大背景图-->
+						
+						<img src="/xcview/images/frequency.png" alt="" class="img_little">
+					</p>
+					<p class="speak_text">6.13音频专辑收费</p>
+					<p class="speak_name">默默</p>
+					<div class="on_line_status">
+						<!--价格-->
+						<p class="money_status z">
+							<span>1</span>
+							熊猫币
+						</p>
+						<!--人数-->
+						<p class="more_people z">
+							<img src="/xcview/images/population.png">
+							<span>9</span>
+						</p>
+						<!--日历-->
+					</div>
+				</li>
+			</ul>
+		</div>
+		<!-- 为您推荐课程结束 -->
+
+		<!-- 直播间展示开始 -->
+		<div class="broadcastroom_show" style="display:none;">
+			<!-- 跟师课程开始 -->
+			<div class="wrap_vedio" style="padding-bottom: 0;" id="master_course">
+				<div class="">
+					<span class="border"></span>
+					<span style="font-size: 0.28rem;float: left;">跟师直播</span>
+					<span class="master_course_span">只有弟子能跟师直播学习</span>
+					<div class="both"></div>
+				</div>
+				<ul class="wrap_vedio_btn" id="wrap_vedio_btn">				
+					<li style="position: relative;">
+	            		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;"></a>
+	            			
+						<p class="wrap_img_pic">
+							<img src="http://test-file.ipandatcm.com/18625153916/0022426186be-2c9aec356231d035016231eb7b0b00001529912356541.png?imageView2/2/w/339">  <!--大背景图-->
+							<img src="/xcview/images/Sinatv_auto.png" alt="" class="img_little">
+						</p>
+						<p class="speak_text">6.25直播ios哈哈哈</p>
+						<p class="speak_name">默默</p>
+						<div class="on_line_status">
+							<!--价格-->
+							<p class="money_status z">
+								<span>免费</span>
+							</p>
+							<!--人数-->
+							<p class="more_people z">
+								<img src="/xcview/images/Sinatv_time.png">
+								<span>2018.6.1 10:00</span>
+							</p>
+						</div>
+					</li>
+					<li style="position: relative;">
+	            		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;"></a>
+	            			
+						<p class="wrap_img_pic">
+							<img src="http://test-file.ipandatcm.com/18625153916/0022426186be-2c9aec356231d035016231eb7b0b00001529912356541.png?imageView2/2/w/339">  <!--大背景图-->
+							<img src="/xcview/images/Sinatv_auto.png" alt="" class="img_little">
+						</p>
+						<p class="speak_text">6.25直播ios哈哈哈</p>
+						<p class="speak_name">默默</p>
+						<div class="on_line_status">
+							<!--价格-->
+							<p class="money_status z">
+								<span>免费</span>
+							</p>
+							<!--人数-->
+							<p class="more_people z">
+								<img src="/xcview/images/Sinatv_time.png">
+								<span>2018.6.1 10:00</span>
+							</p>
+						</div>
+					</li>
+					<li style="position: relative;">
+	            		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;"></a>
+	            			
+						<p class="wrap_img_pic">
+							<img src="http://test-file.ipandatcm.com/18625153916/0022426186be-2c9aec356231d035016231eb7b0b00001529912356541.png?imageView2/2/w/339">  <!--大背景图-->
+							<img src="/xcview/images/Sinatv_auto.png" alt="" class="img_little">
+						</p>
+						<p class="speak_text">6.25直播ios哈哈哈</p>
+						<p class="speak_name">默默</p>
+						<div class="on_line_status">
+							<!--价格-->
+							<p class="money_status z">
+								<span>免费</span>
+							</p>
+							<!--人数-->
+							<p class="more_people z">
+								<img src="/xcview/images/Sinatv_time.png">
+								<span>2018.6.1 10:00</span>
+							</p>
+						</div>
+					</li>
+					<li style="position: relative;">
+	            		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;"></a>
+	            			
+						<p class="wrap_img_pic">
+							<img src="http://test-file.ipandatcm.com/18625153916/0022426186be-2c9aec356231d035016231eb7b0b00001529912356541.png?imageView2/2/w/339">  <!--大背景图-->
+							<img src="/xcview/images/Sinatv_auto.png" alt="" class="img_little">
+						</p>
+						<p class="speak_text">6.25直播ios哈哈哈</p>
+						<p class="speak_name">默默</p>
+						<div class="on_line_status">
+							<!--价格-->
+							<p class="money_status z">
+								<span>免费</span>
+							</p>
+							<!--人数-->
+							<p class="more_people z">
+								<img src="/xcview/images/Sinatv_time.png">
+								<span>2018.6.1 10:00</span>
+							</p>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<!-- 跟师课程结束 -->
+
+			<!-- 直播课程开始 -->
+			<div class="wrap_vedio" style="padding-bottom: 0;" id="live_lesson">
+				<div class="">
+					<span class="border"></span>
+					<span style="font-size: 0.28rem;float: left;">直播课程</span>
+					<div class="both"></div>
+				</div>
+				<ul class="wrap_vedio_btn" id="wrap_vedio_btn">				
+					<li style="position: relative;">
+	            		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;"></a>
+	            			
+						<p class="wrap_img_pic">
+							<img src="http://test-file.ipandatcm.com/18625153916/0022426186be-2c9aec356231d035016231eb7b0b00001529912356541.png?imageView2/2/w/339">  <!--大背景图-->
+							<img src="/xcview/images/Sinatv_auto.png" alt="" class="img_little">
+						</p>
+						<p class="speak_text">6.25直播ios哈哈哈</p>
+						<p class="speak_name">默默</p>
+						<div class="on_line_status">
+							<!--价格-->
+							
+							<p class="money_status z">
+								<span>免费</span>
+							</p>
+							
+							<!--人数-->
+							<p class="more_people z">
+								<img src="/xcview/images/population.png">
+								<span>3</span>
+							</p>
+							<!--日历-->
+								<p class="zhibo_play">直播中</p>
+						</div>
+					</li>		
+					<li style="position: relative;">
+						<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" onclick="common_jump_school(1,1,1,2402)"></a>
+	        				
+						<p class="wrap_img_pic">
+							<img src="http://test-file.ipandatcm.com/18625113319/1429f0a63659-2c9aec356231d035016231eb7b0b00001529897599142.png?imageView2/2/w/339">  <!--大背景图-->
+								<img src="/xcview/images/tv_auto.png" alt="" class="img_little">
+						</p>
+						<p class="speak_text">6.25视频专辑哈哈哈</p>
+						<p class="speak_name">默默</p>
+						<div class="on_line_status">
+							<!--价格-->
+							
+							<p class="money_status z">
+								<span>免费</span>
+							</p>
+							
+							<!--人数-->
+							<p class="more_people z">
+								<img src="/xcview/images/population.png">
+								<span>3</span>
+							</p>
+							<!--日历-->
+							
+						</div>
+					</li>		
+					<li style="position: relative;">
+	            			<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" onclick="common_jump_school(1,4,0,2276)"></a>
+						
+						<p class="wrap_img_pic">
+							<img src="http://test-file.ipandatcm.com/18614192137/0e18f196c74e-2c9aec356231d035016231eb7b0b00001528975297567.png?imageView2/2/w/339">  <!--大背景图-->
+								<img src="/xcview/images/offline.png" alt="" class="img_little">
+						</p>
+						<p class="speak_text">6.14444444线下课免费</p>
+						<p class="speak_name">默默</p>
+						<div class="on_line_status">
+							<!--价格-->
+							<p class="money_status z">
+								<span>免费</span>
+							</p>
+							
+							<!--人数-->
+							<p class="more_people z">
+								<img src="/xcview/images/population.png">
+								<span>5</span>
+							</p>
+							<!--日历-->
+							
+							<!--地址-->
+							<p class="more_people">
+								<img style="width: 0.19rem; height: 0.24rem;" src="../images/location_four.png">
+								<span style="margin-top: -0.01rem;display: block;">北京</span>
+							</p>
+							
+						</div>
+					</li>
+					<li style="position: relative;">
+						<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;"></a>
+						<p class="wrap_img_pic">
+							<img src="http://test-file.ipandatcm.com/18613205948/b82237ed8569-2c9aec356231d035016231eb7b0b00001528894788241.png?imageView2/2/w/339">  <!--大背景图-->
+							
+							<img src="/xcview/images/frequency.png" alt="" class="img_little">
+						</p>
+						<p class="speak_text">6.13音频专辑收费</p>
+						<p class="speak_name">默默</p>
+						<div class="on_line_status">
+							<!--价格-->
+							<p class="money_status z">
+								<span>1</span>
+								熊猫币
+							</p>
+							<!--人数-->
+							<p class="more_people z">
+								<img src="/xcview/images/population.png">
+								<span>9</span>
+							</p>
+							<!--日历-->
+						</div>
+					</li>		
+					<li style="position: relative;">
+						
+	            			<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" onclick="common_jump_all(2014)"></a>
+	            			
+						<p class="wrap_img_pic">
+							<img src="http://test-file.ipandatcm.com/18525162038/d9747db7a002-2c9aec356231d035016231eb7b0b00001527236438589.png?imageView2/2/w/339">  <!--大背景图-->
+							<img src="/xcview/images/Sinatv_auto.png" alt="" class="img_little">
+						</p>
+						<p class="speak_text">5.25直播预告10分外收</p>
+						<p class="speak_name">默默</p>
+						<div class="on_line_status">
+							<!--价格-->
+							
+							<p class="money_status z">
+								<span>1</span>
+								熊猫币
+							</p>
+							
+							<!--人数-->
+							<p class="more_people z">
+								<img src="/xcview/images/population.png">
+								<span>5</span>
+							</p>
+							<!--日历-->
+								<p class="more_people">
+									<img src="/xcview/images/learn.png">
+									<span>05.25</span>
+								</p>
+						</div>
+					</li>	
+				</ul>
+			</div>
+			<!-- 直播课程结束 -->
+		</div>
+		<!-- 直播间展示结束 -->
+
+	</div>
+	<!-- 直播间结束 -->
+
+	<!-- 介绍开始 -->
+	<div class="message_referral">
+		<div class="message_referral_main">
+			<div class="wrap_synopsis">	
+				<div class="my_synopsis">
+					<ul>
+						<li class="border"></li>
+						<li>主治</li>
+					</ul>
+				</div>		
+			</div>
+			<div class="message_referral_cen">脑血管、肝病、肾病、泌尿系统疾病、癫痫病等内科、妇科疑难杂症</div>
+			<div class="both"></div>
+		</div>
+
+		<div class="message_referral_main_time">
+			<div class="wrap_synopsis_time">	
+				<div class="my_synopsis_time">
+					<ul>
+						<li class="border"></li>
+						<li>出诊医馆及时间<span>(<img src="/xcview/images/default.png" alt="" />出诊时间)</span></li>
+					</ul>
+				</div>		
+			</div>
+			<div class="message_referral_center">坐诊医馆：北京同仁堂王府井中医院</div>
+			<div class="message_referral_center">预约电话：<a href="tel:010-92837657">010-92837657</a></div>
+			<div class="message_referral_center">医馆地址：北京市东城区长安街168号</div>
+			<div class="both"></div>
+
+			
+
+
+			<table border="1" align="center" bgcolor="" border="0" cellpadding="0" cellspacing="0">
+			    <tr>
+			    	<th></th>
+			    	<th>周一</th>
+			    	<th>周二</th>
+			    	<th>周三</th>
+			    	<th>周四</th>
+			    	<th>周五</th>
+			    	<th>周六</th>
+			    	<th>周日</th>
+			    </tr>
+			    <tr class="am">
+			        <th>上午</th>
+			        <td><img src="/xcview/images/default.png" alt="" /></td>
+			        <td><img src="/xcview/images/default.png" alt="" /></td>
+			        <td><img src="/xcview/images/default.png" alt="" /></td>
+			        <td><img src="/xcview/images/default.png" alt="" /></td>
+			        <td><img src="/xcview/images/default.png" alt="" /></td>
+			        <td><img src="/xcview/images/default.png" alt="" /></td>
+			        <td><img src="/xcview/images/default.png" alt="" /></td>
+			    </tr>
+			    <tr class="pm">
+			        <th>下午</th>
+			        <td><img src="/xcview/images/default.png" alt="" /></td>
+			        <td><img src="/xcview/images/default.png" alt="" /></td>
+			        <td><img src="/xcview/images/default.png" alt="" /></td>
+			        <td><img src="/xcview/images/default.png" alt="" /></td>
+			        <td><img src="/xcview/images/default.png" alt="" /></td>
+			        <td><img src="/xcview/images/default.png" alt="" /></td>
+			        <td><img src="/xcview/images/default.png" alt="" /></td>
+			    </tr>
+			</table>
+
+
+			<!-- <table id="kecheng_list" class="">
+				<thead><tr><td>封面图</td><td>课程名称</td><td>价格</td><td>时长</td><td>类型</td><td>资源类型</td><td>审核状态</td><td>课程状态</td><td>操作</td></tr></thead>
+			<tbody id="course_list">
+				<tr>
+					<td>
+						<img src="http://test-file.ipandatcm.com/18625204215/8c590b472ff5-c3d652f6c33d452faec863facbc67b2b1529930535278.png" alt="">
+					</td>
+					<td>直播课提醒测试</td>
+					<td>0</td>
+					<td>无</td>
+					<td>
+						<span>直播</span>
+					</td>
+					<td>
+						<span>无</span>
+					</td>
+					<td>
+						<span>已通过</span>
+					</td>
+					<td>
+						<span>未上架</span>
+					</td>
+					<td>
+						<a href="javascript:;" onclick="confirmCourseSale(1,2143)">上架</a>
+						<a href="javascript:;" onclick="editCourse(2143,true)">编辑</a>
+					</td>
+				</tr>
+				
+				</tbody>
+			</table> -->
+		</div>
+
+		<div class="self_introduction">
+			<div class="self_introduction_main">	
+				<div class="self_introduction_ul">
+					<ul>
+						<li class="border"></li>
+						<li>个人介绍</li>
+					</ul>
+				</div>		
+			</div>
+			<div class="self_introduction_cen">余瀛鳌教授1955年毕业于上海第二医学院，1955年12月参加卫生部全国第一届西医学习中医研究班学习，1958年5月结业后留中国中医研究院工作至今，从事于中医内科及中医临床文献的研究。出身于世医名家，1956年自中央卫生部顾问秦伯未先生主师，兼得其父余无言先生亲授。多年来致力于若干疾病的通治方研究，著作很多，主编的《中医大辞典》、《新安医集丛刊》、《中国科学技术典藉通汇。医学卷》、《现代名中医灯寨选》等均获重要奖项。在学术、临床方面均有较深的造诣。</div>
+			<div class="both"></div>
+		</div>
+	</div>
+	<!-- 介绍结束 -->
 
 	<!-- 表情包开始 -->
 
@@ -536,7 +977,6 @@
 <script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/common.js?v=wechat_1.1.1"></script> 
 <script type="text/javascript" src="/xcview/js/common/template.js"></script>    <!--数据模板引入-->
-<script type="text/javascript" src="/xcview/js/physician/physician_dynamics.js"></script>
 
 <!-- 导航渐变 -->
 <script>
@@ -631,6 +1071,9 @@ $(window).bind("scroll", function() {
 			$(".li_data img").removeClass("hide");
 			$(".dynamic_opacity").removeClass("hide");  /*移除点击全部动态筛选*/
 			$("body").removeClass("body");
+			$(".broadcastroom").hide();  //直播间隐藏
+			$(".the_dynamic").show();   //全部动态隐藏
+			$(".message_referral").hide();   //介绍结束
 		});
 		$(".li_course").click(function(){
 			$(".anchor_navigation .border").css("left","3.5rem");
@@ -644,6 +1087,10 @@ $(window).bind("scroll", function() {
 			$(".dynamic_opacity").addClass("hide");
 			$(".screen_show").hide();  /*隐藏筛选*/
 			$("body").removeClass("body");
+			$(".the_dynamic").hide();  /*全部动态隐藏*/
+			$(".broadcastroom").show();   /*直播间打开*/
+			$(".message_referral").hide();  //介绍结束
+			// $(".broadcastroom").show();
 		});
 		$(".li_evaluate").click(function(){
 			$(".anchor_navigation .border").css("left","5.94rem");
@@ -657,6 +1104,10 @@ $(window).bind("scroll", function() {
 			$(".dynamic_opacity").addClass("hide");
 			$(".screen_show").hide();  /*隐藏筛选*/
 			$("body").removeClass("body");
+			$(".broadcastroom").hide();  //直播间隐藏
+			$(".the_dynamic").hide();   //全部动态隐藏
+			$(".message_referral").show();  //介绍结束
+			
 		});
 
 		// 点击显示全部动态筛选  
@@ -869,4 +1320,36 @@ $(window).bind("scroll", function() {
 	    // 点击发送结束
 		});
 	</script>
+
+<!-- 直播间倒计时代码开始 -->  
+<script>
+$(function() {
+    setInterval(timer, 1000);
+    function timer() {
+        //设置结束的时间
+        var endtime = new Date("2020/04/22 00:00:00");
+        //设置当前时间
+        var now = new Date();
+        //得到结束与当前时间差 ： 毫秒
+        var t = endtime.getTime() - now.getTime();
+        if (t > 0) {
+            //得到剩余天数
+            // var tian = Math.floor(t / 1000 / 60 / 60 / 24);
+            //得到还剩余的小时数（不满一天的小时）
+            var h = Math.floor(t / 1000 / 60 / 60 % 24);
+            //得到分钟数
+            var m = Math.floor(t / 1000 / 60 % 60);
+            //得到的秒数
+            var s = Math.floor(t / 1000 % 60);
+            var str = "直播倒计时 " + h + "：" + m + "：" + s;
+            $("#box1").html(str);
+        } else {
+            clearInterval(timer1); //这里可以添加倒计时结束后需要执行的事件 
+            alert("倒计时结束后执行");
+        }
+    }
+});
+</script>
+<!-- 直播间倒计时代码结束 -->
+
 </html>
