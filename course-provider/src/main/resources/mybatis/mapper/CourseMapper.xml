@@ -287,18 +287,6 @@
 		WHERE cc.`collection_id` = #{collectionId} order by cc.collection_course_sort
 	</select>
 	
-	
-	<!-- 查找这个专辑下的课程数 -->
-	<select id="selectCoursesNumberByCollectionId" resultType="java.lang.Integer">
-		SELECT
-	    	count(*)
-		FROM
-		`oe_course` oc
-		JOIN `collection_course` cc
-		ON oc.id = cc.`course_id`
-		WHERE cc.`collection_id` = #{collectionId}
-	</select>
-	
 
 	<!-- 查找讲师距离当前时间最近一次的课程   1.直播中，2预告，3直播结束 -->
 	<select id="selectLecturerRecentCourse" resultType="com.xczhihui.course.vo.CourseLecturVo">
@@ -746,8 +734,41 @@
          <if test="type == 4">
            and  oc.type = 3
          </if>	
-	</select>	
-	
-	
+	</select>
+
+	<select id="selectCourses4Solr" resultType="com.xczhihui.course.vo.CourseSolrVO">
+		SELECT
+			oc.id,
+			oc.course_detail courseDetail,
+			oc.grade_name AS gradeName,
+			oc.subtitle,
+			oc.multimedia_type multimediaType,
+			oc.live_status lineState,
+			oc.current_price*10 AS currentPrice,
+			oc.smallimg_path AS smallImgPath,
+			oc.lecturer AS NAME,
+			oc.collection AS collection,
+			oc.start_time AS startTime,
+			IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) + IFNULL(oc.default_student_count, 0) learndCount,
+			oc.is_free AS watchState,
+			oc.city AS city,
+			oc.release_time,
+			oc.recommend_sort recommendSort,
+			IF(oc.type =3,4,IF(oc.type = 1,3,IF(oc.multimedia_type=1,1,2))) AS TYPE,
+			oc.create_time,
+			oc.is_recommend,
+			oc.start_time AS startTime,
+			ca.detail anchorDetail,
+			om.name menuName,
+			om.id menuType
+			   FROM oe_course oc
+				  INNER JOIN oe_user ou  ON   oc.user_lecturer_id = ou.id
+				  INNER JOIN oe_menu AS om  ON om.id = oc.menu_id
+				  INNER JOIN course_anchor ca ON ca.user_id = ou.id
+			   WHERE oc.is_delete=0 AND oc.status = 1 and oc.id=607
+			<if test="courseForm != null">
+				AND oc.id = #{courseId}
+			</if>
+	</select>
 	
 </mapper>

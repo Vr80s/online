@@ -2,83 +2,28 @@ package com.xczhihui.course.vo;
 
 import java.io.Serializable;
 
-public class QueryConditionVo  implements Serializable {
+import lombok.Data;
 
-	private static final long serialVersionUID = 1L;
+@Data
+public class QueryConditionVo implements Serializable {
 
-	private String city;
+    private static final long serialVersionUID = 1L;
 
-	private Integer isFree;
+    private String city;
 
-	private Integer lineState;
-	
-	private Integer courseType;
-   
-	private String menuType;
-	
-	private String queryKey;
-	
-	private Integer sortOrder;
-	
+    private Integer isFree;
 
-	public String getCity() {
-		return city;
-	}
+    private Integer lineState;
 
-	public void setCity(String city) {
-		this.city = city;
-	}
+    private Integer courseType;
 
-	public Integer getIsFree() {
-		return isFree;
-	}
+    private String menuType;
 
-	public void setIsFree(Integer isFree) {
-		this.isFree = isFree;
-	}
+    private String queryKey;
 
-	public Integer getLineState() {
-		return lineState;
-	}
+    private Integer sortOrder;
 
-	public void setLineState(Integer lineState) {
-		this.lineState = lineState;
-	}
+    private Integer type;
+    private Integer multimediaType;
 
-	public Integer getCourseType() {
-		return courseType;
-	}
-
-	public void setCourseType(Integer courseType) {
-		this.courseType = courseType;
-	}
-
-
-	public String getQueryKey() {
-		return queryKey;
-	}
-
-	public void setQueryKey(String queryKey) {
-		this.queryKey = queryKey;
-	}
-
-
-	public String getMenuType() {
-		return menuType;
-	}
-
-	public void setMenuType(String menuType) {
-		this.menuType = menuType;
-	}
-
-	public Integer getSortOrder() {
-		return sortOrder;
-	}
-
-	public void setSortOrder(Integer sortOrder) {
-		this.sortOrder = sortOrder;
-	}
-	
-	
-	
 }

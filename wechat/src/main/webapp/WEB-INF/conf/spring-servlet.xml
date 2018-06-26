@@ -160,4 +160,7 @@
     <dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorSolrService"   id="medicalDoctorSolrServiceImpl" timeout="${dubbo.consumer.timeout}"/>
     <dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorArticleService"   id="medicalDoctorArticleServiceImpl" timeout="${dubbo.consumer.timeout}"/>
     <dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorBannerService"   id="medicalDoctorBannerServiceImpl" timeout="${dubbo.consumer.timeout}"/>
+
+    <!--课程搜索-->
+    <dubbo:reference interface="com.xczhihui.course.service.ICourseSolrService"   id="courseSolrServiceImpl" timeout="${dubbo.consumer.timeout}"/>
 </beans>

@@ -19,17 +19,19 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.xczh.consumer.market.interceptor.IOSVersionInterceptor;
 import com.xczh.consumer.market.utils.APPUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczhihui.common.util.enums.BannerType;
-import com.xczhihui.common.util.enums.PagingFixedType;
-import com.xczhihui.common.util.enums.ProjectType;
+import com.xczhihui.common.util.enums.*;
 import com.xczhihui.course.model.MobileBanner;
 import com.xczhihui.course.model.MobileProject;
+import com.xczhihui.course.service.ICourseSolrService;
 import com.xczhihui.course.service.IMobileBannerService;
 import com.xczhihui.course.service.IMobileProjectService;
 import com.xczhihui.course.service.IMyInfoService;
 import com.xczhihui.course.vo.CourseLecturVo;
+import com.xczhihui.course.vo.CourseSolrVO;
 import com.xczhihui.course.vo.MenuVo;
 import com.xczhihui.course.vo.QueryConditionVo;
+
+import javassist.bytecode.analysis.MultiType;
 
 /**
  * 推荐控制器 ClassName: MobileRecommendController.java <br>
@@ -53,6 +55,8 @@ public class MobileRecommendController {
 
     @Autowired
     private IMyInfoService myInfoService;
+    @Autowired
+    private ICourseSolrService courseSolrService;
 
     /**
      * 推荐  包含的信息:banner  ,推荐导航, 名师推荐
@@ -60,8 +64,6 @@ public class MobileRecommendController {
     @RequestMapping("recommendTop")
     @ResponseBody
     public ResponseObject recommendTop(HttpServletRequest request) throws Exception {
-//		Integer current = 1;
-//		Integer size = 100;
         Map<String, Object> mapAll = new HashMap<String, Object>();
         //课程banner
         Page<MobileBanner> MobileBannerPage = new Page<>();
@@ -113,23 +115,9 @@ public class MobileRecommendController {
      * 类型
      * 城市
      */
-//    @RequestMapping("queryAllCourse")
-//    @ResponseBody
-//    public ResponseObject queryAllCourse(String menuType, 
-//    		String city,String isFree,
-//    		Integer lineState, Integer courseType,
-//    		String queryKey,
-//    		Integer pageNumber, Integer pageSize)
-//            throws Exception {
-//        List<CourseVo> list = wxcpCourseService.queryAllCourse(menuType, lineState, courseType, isFree, city, queryKey, pageNumber, pageSize,IOSVersionInterceptor.onlyThread.get());
-//        return ResponseObject.newSuccessResponseObject(list);
-//    }
     @RequestMapping("queryAllCourse")
     @ResponseBody
-    public ResponseObject queryAllCourse(
-            QueryConditionVo queryConditionVo,
-            Integer pageNumber, Integer pageSize)
-            throws Exception {
+    public ResponseObject queryAllCourse( QueryConditionVo queryConditionVo, Integer pageNumber, Integer pageSize) throws Exception {
 
         pageNumber = pageNumber == null ? 1 : pageNumber;
         pageSize = pageSize == null ? 10 : pageSize;
@@ -140,15 +128,29 @@ public class MobileRecommendController {
         if (queryConditionVo.getLineState() != null && queryConditionVo.getLineState() == 0) {
             queryConditionVo.setLineState(null);
         }
-
-        Page<CourseLecturVo> page = new Page<CourseLecturVo>(pageNumber, pageSize);
-        // 课程列表
-        if (StringUtils.isNotBlank(queryConditionVo.getQueryKey())) {
-            queryConditionVo.setQueryKey("%" + queryConditionVo.getQueryKey() + "%");
-            page = mobileBannerService.searchQueryKeyCourseList(page, queryConditionVo, IOSVersionInterceptor.onlyThread.get());
-        } else {
-            page = mobileBannerService.searchCourseList(page, queryConditionVo, IOSVersionInterceptor.onlyThread.get());
+        if (queryConditionVo.getCourseType() != null) {
+            if(queryConditionVo.getCourseType().equals(CourseType.VIDEO.getId())){
+                queryConditionVo.setType(CourseForm.VOD.getCode());
+                queryConditionVo.setMultimediaType(Multimedia.VIDEO.getCode());
+            }else if(queryConditionVo.getCourseType().equals(CourseType.AUDIO.getId())){
+                queryConditionVo.setType(CourseForm.VOD.getCode());
+                queryConditionVo.setMultimediaType(Multimedia.AUDIO.getCode());
+            }else if(queryConditionVo.getCourseType().equals(CourseType.LIVE.getId())){
+                queryConditionVo.setType(CourseForm.LIVE.getCode());
+            }else if(queryConditionVo.getCourseType().equals(CourseType.OFFLINE.getId())){
+                queryConditionVo.setType(CourseForm.OFFLINE.getCode());
+            }
         }
+
+        Page<CourseSolrVO> page = new Page<CourseSolrVO>(pageNumber, pageSize);
+        page = courseSolrService.selectCourseListBySolr(page, queryConditionVo);
+         // 课程列表
+//        if (StringUtils.isNotBlank(queryConditionVo.getQueryKey())) {
+//            queryConditionVo.setQueryKey("%" + queryConditionVo.getQueryKey() + "%");
+//            page = mobileBannerService.searchQueryKeyCourseList(page, queryConditionVo, IOSVersionInterceptor.onlyThread.get());
+//        } else {
+//            page = mobileBannerService.searchCourseList(page, queryConditionVo, IOSVersionInterceptor.onlyThread.get());
+//        }
         return ResponseObject.newSuccessResponseObject(page.getRecords());
     }
 

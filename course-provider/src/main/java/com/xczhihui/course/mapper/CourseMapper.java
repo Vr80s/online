@@ -10,6 +10,7 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.course.model.Course;
 import com.xczhihui.course.vo.CourseLecturVo;
+import com.xczhihui.course.vo.CourseSolrVO;
 
 /**
  * <p>
@@ -155,4 +156,6 @@ public interface CourseMapper extends BaseMapper<Course> {
                     " where oc.user_lecturer_id = #{anchorId} and (#{type} is null OR type = #{type}) and is_delete = 0 and status = 1" +
                     " order by oc.create_time desc"})
     List<Map<String, Object>> selectCourseByType(@Param("type") Integer type, @Param("anchorId") String anchorId);
+
+    List<CourseSolrVO> selectCourses4Solr(String courseId);
 }
