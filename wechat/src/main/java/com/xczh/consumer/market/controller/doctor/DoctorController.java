@@ -22,7 +22,6 @@ import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.enums.DoctorSortOrderType;
 import com.xczhihui.common.util.enums.DoctorType;
 import com.xczhihui.course.service.ICourseService;
-import com.xczhihui.course.service.IMyInfoService;
 import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.medical.anchor.service.IAnchorInfoService;
 import com.xczhihui.medical.department.model.MedicalDepartment;
@@ -60,9 +59,6 @@ public class DoctorController{
 
     @Autowired
     private IMedicalDoctorSolrService medicalDoctorSolrService;
-    
-    @Autowired
-    private  IMyInfoService  myInfoService;
     
     
     @Value("${returnOpenidUri}")
@@ -234,10 +230,12 @@ public class DoctorController{
     	 * 医师详情
     	 */
     	Map<String,Object> map = medicalDoctorBusinessService.selectDoctorWorkTimeAndDetailsById(doctorId);
-    	//html片段
-    	map.put("doctorDetailsUrl", returnOpenidUri + "/xcview/html/person_fragment.html?type=5&typeId=" + doctorId);
-    	MedicalHospital mha  = medicalHospitalApplyService.getMedicalHospitalByDoctorId(doctorId);
-    	map.put("hospital", mha);
+    	if(map!=null) {
+        	//html片段
+        	map.put("doctorDetailsUrl", returnOpenidUri + "/xcview/html/person_fragment.html?type=5&typeId=" + doctorId);
+        	MedicalHospital mha  = medicalHospitalApplyService.getMedicalHospitalByDoctorId(doctorId);
+        	map.put("hospital", mha);
+    	}
         return ResponseObject.newSuccessResponseObject(map);  
     }
     

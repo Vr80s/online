@@ -100,10 +100,13 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper,OnlineUser> impl
 	public Map<String, Object> findHostInfoById(String userId) {
 		Map<String, Object> map =  myInfoMapper.findHostInfoById(userId);
 		if(map!=null && map.get("workTime")!=null) {
-			if(XzStringUtils.isContainChinese( map.get("workTime").toString())) {
-				String workTime = "每周"+map.get("workTime")+"全天";
-				map.put("workTime", workTime);
-			}
+//			if(XzStringUtils.isContainChinese( map.get("workTime").toString())) {
+//				String workTime = "每周"+map.get("workTime")+"全天";
+//				map.put("workTime", workTime);
+//			}
+			
+			XzStringUtils.workTimeScreen(map.get("workTime").toString());
+			
 		}
 		return myInfoMapper.findHostInfoById(userId);
 	}

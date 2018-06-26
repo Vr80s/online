@@ -612,8 +612,9 @@
     
     <select id="selectDoctorWorkTimeAndDetailsById" resultType="java.util.Map">
         SELECT
+        	md.id 
             md.`work_time`      workTime,
-            md.detailed_address detailedAddress
+            md.description
         FROM
             medical_doctor md
         WHERE md.deleted = 0
