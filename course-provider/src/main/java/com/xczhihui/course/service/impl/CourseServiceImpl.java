@@ -240,4 +240,9 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 		
 		 return iCourseMapper.selectShareInfoByType(type, id);
 	}
+
+	@Override
+	public Course findSimpleInfoById(int id) {
+	    return iCourseMapper.findSimpleInfoById(id);
+	}
 }

@@ -248,4 +248,6 @@ public interface ICourseService {
 
 
     ShareInfoVo selectShareInfoByType(Integer type, String id);
+
+    Course findSimpleInfoById(int id);
 }
