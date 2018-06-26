@@ -311,7 +311,9 @@
     <#if criticizesMap??> 
          var commentCode = ${criticizesMap.commentCode};
 	</#if>	
-    var courseLength = ${courseInfo.courseLength};
+	<#if courseInfo.courseLength??> 
+		var courseLength = "${courseInfo.courseLength}";
+	</#if>	
     //    console.info("type：" + type + ";watchState：" + watchState + ";courseId：" + courseId);
     //    console.info("userId：" + userId + ";collection：" + collection+",commentCode:"+commentCode);
 </script>

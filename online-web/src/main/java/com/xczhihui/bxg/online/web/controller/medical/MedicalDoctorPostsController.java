@@ -28,7 +28,7 @@ import static com.xczhihui.bxg.online.web.controller.AbstractController.getCurre
  * @Date: 2018/6/25 11:32
  **/
 @Controller
-@RequestMapping("/doctor/dynamics")
+@RequestMapping("/doctor/posts")
 public class MedicalDoctorPostsController {
 
     @Autowired
@@ -45,9 +45,9 @@ public class MedicalDoctorPostsController {
     /**
      * 医师动态列表
      */
-    @RequestMapping(value="doctorDynamicsList", method = RequestMethod.GET)
+    @RequestMapping(value="doctorPostsList", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseObject doctorDynamicsList(@RequestParam("pageNumber") Integer pageNumber,
+    public ResponseObject doctorPostsList(@RequestParam("pageNumber") Integer pageNumber,
                                              @RequestParam("pageSize") Integer pageSize,
                                              @RequestParam(required = false) Integer type, @RequestParam("doctorId") String doctorId){
         Page<MedicalDoctorPosts> page = new Page<>();
@@ -60,19 +60,13 @@ public class MedicalDoctorPostsController {
     /**
      * 添加医师动态
      */
-    @RequestMapping(value="addDoctorDynamics", method = RequestMethod.POST)
+    @RequestMapping(value="addDoctorPosts", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseObject addDoctorDynamics( MedicalDoctorPosts medicalDoctorPosts,
-                                             @RequestParam(value = "coverImg",required = false) MultipartFile coverImg)
-            throws Exception {
+    public ResponseObject addDoctorPosts( MedicalDoctorPosts medicalDoctorPosts){
         // 获取当前用户ID
         String userId = getCurrentUser().getId();
         MedicalDoctorAccount mha = medicalDoctorAccountService.getByUserId(userId);
         medicalDoctorPosts.setDoctorId(mha.getDoctorId());
-        if(coverImg!=null){
-            String cover_img = getFilePath(coverImg,userId);
-            medicalDoctorPosts.setCoverImg(cover_img);
-        }
         medicalDoctorPostsService.addMedicalDoctorPosts(medicalDoctorPosts);
         return ResponseObject.newSuccessResponseObject("添加成功");
     }
@@ -80,17 +74,12 @@ public class MedicalDoctorPostsController {
     /**
      * 编辑医师动态
      */
-    @RequestMapping(value="updateDoctorDynamics", method = RequestMethod.POST)
+    @RequestMapping(value="updateDoctorPosts", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseObject updateDoctorDynamics(MedicalDoctorPosts medicalDoctorPosts,
-                                                @RequestParam(value = "coverImg",required = false) MultipartFile coverImg)
+    public ResponseObject updateDoctorPosts(MedicalDoctorPosts medicalDoctorPosts)
             throws Exception {
         // 获取当前用户ID
         String userId = getCurrentUser().getId();
-        if(coverImg!=null){
-            String cover_img = getFilePath(coverImg,userId);
-            medicalDoctorPosts.setCoverImg(cover_img);
-        }
         medicalDoctorPostsService.updateMedicalDoctorPosts(medicalDoctorPosts);
         return ResponseObject.newSuccessResponseObject("编辑成功");
     }
@@ -98,9 +87,9 @@ public class MedicalDoctorPostsController {
     /**
      * 删除医师动态
      */
-    @RequestMapping(value="deleteDoctorDynamics", method = RequestMethod.POST)
+    @RequestMapping(value="deleteDoctorPosts", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseObject deleteDoctorDynamics(@RequestParam("id") Integer id){
+    public ResponseObject deleteDoctorPosts(@RequestParam("id") Integer id){
         medicalDoctorPostsService.deleteMedicalDoctorPosts(id);
         return ResponseObject.newSuccessResponseObject("删除成功");
     }
@@ -108,9 +97,9 @@ public class MedicalDoctorPostsController {
     /**
      * 医师动态置顶/取消置顶
      */
-    @RequestMapping(value="updateStickDoctorDynamics", method = RequestMethod.POST)
+    @RequestMapping(value="updateStickDoctorPosts", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseObject updateStickDoctorDynamics(@RequestParam("id") Integer id,@RequestParam("stick") Boolean stick){
+    public ResponseObject updateStickDoctorPosts(@RequestParam("id") Integer id,@RequestParam("stick") Boolean stick){
         medicalDoctorPostsService.updateStickMedicalDoctorPosts(id,stick);
         if(stick){
             return ResponseObject.newSuccessResponseObject("置顶成功");

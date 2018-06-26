@@ -15,7 +15,8 @@ public enum HeadlineType {
     DJZL("4", "大家专栏"),
     ZDFG("5", "制度法规"),
     HWZX("6", "海外资讯"),
-    MYBD("7", "名医报道");
+    MYBD("7", "名医报道"),
+    YA("8", "医案");
 
     private String text;
     private String code;
@@ -48,6 +49,4 @@ public enum HeadlineType {
     public void setCode(String code) {
         this.code = code;
     }
-
-
 }

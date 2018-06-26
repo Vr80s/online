@@ -3,12 +3,19 @@ package com.xczh.consumer.market.controller.pay;
 import static com.xczhihui.pay.alipay.controller.AliPayApiController.BUY_COIN_TEXT;
 import static com.xczhihui.pay.alipay.controller.AliPayApiController.BUY_COURSE_TEXT;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import java.text.MessageFormat;
+import java.util.Base64;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -22,6 +29,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
 import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.bean.WxcpClientUserWxMapping;
 import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
@@ -39,7 +51,12 @@ import com.xczhihui.online.api.service.PayService;
 import com.xczhihui.pay.ext.kit.HttpKit;
 import com.xczhihui.pay.ext.kit.IpKit;
 import com.xczhihui.pay.ext.kit.PaymentKit;
-import com.xczhihui.pay.weixin.api.*;
+import com.xczhihui.pay.util.MatrixToImageWriter;
+import com.xczhihui.pay.weixin.api.H5ScencInfo;
+import com.xczhihui.pay.weixin.api.WxPayApi;
+import com.xczhihui.pay.weixin.api.WxPayApiConfig;
+import com.xczhihui.pay.weixin.api.WxPayApiConfigKit;
+import com.xczhihui.pay.weixin.api.WxPayBean;
 
 
 /**
@@ -184,6 +201,18 @@ public class XzWxPayController {
                 param.put("signType", "MD5");
                 param.put("paySign", PaymentKit.createSign(param, WxPayApiConfigKit.getWxPayApiConfig().getPaternerKey()));
                 return ResponseObject.newSuccessResponseObject(param);
+            }else if(orderFromI == 6) {
+            	Map<String, String> param = new HashMap<>();
+            	
+            	String qrCodeUrl = result.get("code_url");
+            	
+            	param.put("codeimg", encodeQrcode(qrCodeUrl));
+            	param.put("orderNo", order.getOrderNo());
+            	param.put("courseName", order.getCourseNames());
+            	param.put("price", actualPay+"");
+            	param.put("orderId", order.getId());
+            	
+            	return ResponseObject.newSuccessResponseObject(param);
             }
             return ResponseObject.newSuccessResponseObject(result);
         }
@@ -301,6 +330,10 @@ public class XzWxPayController {
         return ResponseObject.newErrorResponseObject("请求错误");
     }
 
+    
+    
+    
+    
     @RequestMapping(value = "pay_notify")
     @ResponseBody
     public String wxNotify(HttpServletRequest req, HttpServletResponse res)
@@ -370,6 +403,9 @@ public class XzWxPayController {
         } else if (orderFromI == 5) {
             Map<String, String> params = wxPayApiConfig.setTradeType(WxPayApi.TradeType.APP).build();
             return params;
+        } else if (orderFromI == 6) {
+        	Map<String, String> params = wxPayApiConfig.setTradeType(WxPayApi.TradeType.NATIVE).build();
+            return params;
         }
         return null;
     }
@@ -383,4 +419,36 @@ public class XzWxPayController {
         }
         return null;
     }
+    
+    private String encodeQrcode(String urlCode) throws WriterException {
+        int width = 300; // 二维码图片宽度
+        int height = 300; // 二维码图片高度
+
+        Hashtable<EncodeHintType, String> hints = new Hashtable<EncodeHintType, String>();
+        hints.put(EncodeHintType.CHARACTER_SET, StandardCharsets.UTF_8.name());// 内容所使用字符集编码
+
+        BitMatrix bitMatrix = new MultiFormatWriter().encode(urlCode, BarcodeFormat.QR_CODE, width, height, hints);
+        BufferedImage image = MatrixToImageWriter.toBufferedImage(bitMatrix);
+
+        ByteArrayOutputStream out = null;
+        // 输出二维码图片流
+        try {
+            out = new ByteArrayOutputStream();
+            ImageIO.write(image, "png", Base64.getEncoder().wrap(out));
+            return "data:image/png;base64," + out.toString(StandardCharsets.UTF_8.name());
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (out != null) {
+                try {
+                    out.close();
+                    out = null;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return "";
+    }
+    
 }

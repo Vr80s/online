@@ -115,9 +115,9 @@ public class EnchashmentServiceImpl extends OnlineBaseServiceImpl implements
 
             // 若为打款
             if (e.getStatus() == ApplyStatus.PASS.getCode()) {
-                content = "编号：" + orderNo + "提现申请已通过审核,1-3个工作日内发放成功！";
+                content = "【提现通知】编号：" + orderNo + "提现申请已审核通过,1-3个工作日内完成打款操作，请耐心等候，谢谢!";
             } else if (e.getStatus() == ApplyStatus.GRANT.getCode()) {
-                content = "编号：" + orderNo + "提现申请已打款，72小时内到账，请注意查收！";
+                content = "【提现通知】编号：" + orderNo + "您的提现金额已打入您指定的账户，预计72小时内到账。";
             } else if (e.getStatus() == ApplyStatus.NOT_PASS.getCode()) {
                 // 驳回---将提现金额重回打入用户账户
                 success = false;
@@ -126,7 +126,7 @@ public class EnchashmentServiceImpl extends OnlineBaseServiceImpl implements
                 if (StringUtils.isNotBlank(e.getDismissalRemark())) {
                     reason = reason + "," + e.getDismissalRemark();
                 }
-                content = "编号："
+                content = "【提现通知】编号："
                         + orderNo
                         + "提现申请已被驳回，驳回原因："
                         + reason + ",如有疑问请联系客服0898-32881934";
