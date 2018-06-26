@@ -193,24 +193,59 @@ public class XzStringUtils {
 		return b1.divide(b2, scale, BigDecimal.ROUND_HALF_UP).doubleValue();
 	}
 
+	/**
+	 * 判断字符串中是否包含中文
+	 * @param str
+	 * 待校验字符串
+	 * @return 是否为中文
+	 * @warn 不能校验是否为中文标点符号 
+	 */
+	public static boolean isContainChinese(String str) {
+		 Pattern p = Pattern.compile("[\u4e00-\u9fa5]");
+		 Matcher m = p.matcher(str);
+		 if (m.find()) {
+		  return true;
+		 }
+		 return false;
+	}
+	
+	
 	/**You can't specify target table 'medical_doctor_department' for update in FROM clause
 	 * 字符串增加  每周  ***** 全天
 	 * @param str
 	 * @return
 	 */
 	public static String workTimeScreen(String line) {
+		return workTimeScreen(line,true);
+	}
+	
+	public static String workTimeScreen(String line,Boolean coOrdinate) {
 		if(line!=null) {
-			String regex = ".*(下午|上午|周|点|早|晚|暂无).*";
-			Pattern datePattern = Pattern.compile(regex);  
-			Matcher dateMatcher = datePattern.matcher(line);  
-	        if(!dateMatcher.matches()){
-	        	line = "每周"+line+"全天";
-	        }
-			return line;
+			//中文的话，过滤下
+			if(isContainChinese(line)) {
+				String regex = ".*(下午|上午|周|点|早|晚|暂无).*";
+				Pattern datePattern = Pattern.compile(regex);  
+				Matcher dateMatcher = datePattern.matcher(line);  
+		        if(!dateMatcher.matches()){
+		        	line = "每周"+line+"全天";
+		        }
+				return line;
+			}else { //坐标
+				
+				if(!coOrdinate) { //把坐标过滤成每周  --》
+					//TODO
+					
+					return line;
+				}
+			}
 		}
 		return null;
 	}
+	
 
+	
+	
+	
 	public static void main(String[] args) {
 		System.out.println(workTimeScreen("一"));
 		

@@ -80,6 +80,8 @@ public interface IMyInfoService {
 	 * @return
 	 */
 	Map<String,Object> findHostInfoById(String userId);
+
+	Map<String, Object> findHostInfoById(String userId, Boolean falg);
 	
 	
 }
