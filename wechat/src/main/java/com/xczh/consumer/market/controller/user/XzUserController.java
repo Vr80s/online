@@ -16,13 +16,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczhihui.common.util.XzStringUtils;
 import com.xczhihui.common.util.enums.TokenExpires;
 import com.xczhihui.common.util.enums.VCodeType;
-import com.xczhihui.course.util.XzStringUtils;
 import com.xczhihui.user.center.service.UserCenterService;
 import com.xczhihui.user.center.service.VerificationCodeService;
 import com.xczhihui.user.center.utils.UCCookieUtil;
-import com.xczhihui.user.center.vo.OeUserVO;
 import com.xczhihui.user.center.vo.Token;
 
 @Controller

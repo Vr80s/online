@@ -1,7 +1,11 @@
 package com.xczh.consumer.market.controller.course;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,12 +25,12 @@ import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczhihui.common.util.XzStringUtils;
 import com.xczhihui.common.util.enums.OrderFrom;
 import com.xczhihui.common.util.enums.VCodeType;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.course.service.IFocusService;
 import com.xczhihui.course.service.IMyInfoService;
-import com.xczhihui.course.util.XzStringUtils;
 import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.medical.anchor.service.IAnchorInfoService;
 import com.xczhihui.medical.anchor.service.IUserBankService;

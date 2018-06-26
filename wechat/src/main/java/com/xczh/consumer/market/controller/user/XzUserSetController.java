@@ -23,14 +23,13 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.bean.OnlineUser;
-import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.service.OLAttachmentCenterService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.WeihouInterfacesListUtil;
+import com.xczhihui.common.util.XzStringUtils;
 import com.xczhihui.common.util.enums.VCodeType;
 import com.xczhihui.course.service.IMyInfoService;
-import com.xczhihui.course.util.XzStringUtils;
 import com.xczhihui.course.vo.OnlineUserVO;
 import com.xczhihui.online.api.service.CityService;
 import com.xczhihui.online.api.service.CommonApiService;

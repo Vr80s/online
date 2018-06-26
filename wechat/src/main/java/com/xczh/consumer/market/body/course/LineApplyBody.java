@@ -4,10 +4,10 @@ import java.util.Date;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.xczhihui.common.util.XzStringUtils;
 import com.xczhihui.common.util.enums.UserSex;
 import com.xczhihui.course.exception.LineApplyException;
 import com.xczhihui.course.model.LineApply;
-import com.xczhihui.course.util.XzStringUtils;
 
 /**
  * @author hejiwei

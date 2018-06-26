@@ -1,10 +1,12 @@
 package com.xczh.consumer.market.service.impl;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,13 +16,10 @@ import com.xczh.consumer.market.bean.WxcpClientUserWxMapping;
 import com.xczh.consumer.market.controller.user.XzUserController;
 import com.xczh.consumer.market.service.CoreMessageService;
 import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
-import com.xczh.consumer.market.utils.DateUtil;
 import com.xczh.consumer.market.utils.MessageConstant;
 import com.xczh.consumer.market.utils.MessageUtil;
 import com.xczh.consumer.market.wxmessage.resp.Article;
 import com.xczh.consumer.market.wxmessage.resp.NewsMessage;
-import com.xczh.consumer.market.wxmessage.resp.TextMessage;
-import com.xczh.consumer.market.wxpay.consts.WxPayConst;
 import com.xczh.consumer.market.wxpay.util.CommonUtil;
 
 import me.chanjar.weixin.mp.api.WxMpService;
