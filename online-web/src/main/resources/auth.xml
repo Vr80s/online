@@ -49,4 +49,8 @@
     <uri>/online/verificationCode/.*</uri>
     <uri>/online/user/.*</uri>
 
+    <uri>/web/alipay/return_url</uri>
+    <uri>/web/alipay/notify_url</uri>
+    <uri>/web/wxPay/pay_notify</uri>
+
 </openuris>
