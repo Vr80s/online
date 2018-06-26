@@ -247,5 +247,5 @@ public interface ICourseService {
     List<Map<String, Object>> list(Integer type, String userId);
 
 
-    ShareInfoVo selectShareInfoByType(int i, String id);
+    ShareInfoVo selectShareInfoByType(Integer type, String id);
 }

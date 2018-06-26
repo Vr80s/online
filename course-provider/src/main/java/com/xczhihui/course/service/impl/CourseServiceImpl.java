@@ -236,7 +236,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     }
 
 	@Override
-	public ShareInfoVo selectShareInfoByType(int type, String id) {
+	public ShareInfoVo selectShareInfoByType(Integer type, String id) {
 		
 		 return iCourseMapper.selectShareInfoByType(type, id);
 	}
