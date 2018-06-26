@@ -219,8 +219,10 @@ public class MedicalDoctorArticleServiceImpl implements IMedicalDoctorArticleSer
     }
 
     @Override
-    public List<OeBxsArticleVO> list(String type, String userId) {
-        return oeBxsArticleMapper.list(type, userId);
+    public Page<OeBxsArticleVO> list(String type, String userId, String keyword) {
+        //TODO 前端不分页,这里写死分页参数
+        Page<OeBxsArticleVO> page = new Page<>(1, 1000);
+        return page.setRecords(oeBxsArticleMapper.list(type, userId, keyword, page));
     }
 
     @Override
