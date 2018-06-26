@@ -1,6 +1,7 @@
 package com.xczhihui.medical.doctor.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.medical.department.model.MedicalDepartment;
@@ -164,4 +165,7 @@ public interface IMedicalDoctorBusinessService {
     List<MedicalDoctorVO>  selectDoctorCouserByAccountId(Integer pageNumber, Integer pageSize);
 
     public Page<MedicalDoctorVO> selectDoctorListByQueryKey(Page<MedicalDoctorVO> page, DoctorQueryVo dqv);
+
+	public Map<String, Object> selectDoctorWorkTimeAndDetailsById(String doctorId);
+
 }

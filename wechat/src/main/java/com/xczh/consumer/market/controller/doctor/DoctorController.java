@@ -64,6 +64,7 @@ public class DoctorController{
     @Autowired
     private  IMyInfoService  myInfoService;
     
+    
     @Value("${returnOpenidUri}")
     private String returnOpenidUri;
     
@@ -227,40 +228,17 @@ public class DoctorController{
      * @author name：yangxuan <br>email: 15936216273@163.com
      */
     @RequestMapping("introduction")
-    public ResponseObject introduction(@RequestParam("userId") String userId)
+    public ResponseObject introduction(@RequestParam("doctorId") String doctorId)
     		throws Exception {
-    	
-    	
-        Map<String, Object> mapAll = new HashMap<String, Object>();
-        /**
-         * 得到讲师   主要是房间号，缩略图的信息、讲师的精彩简介
-         *
-         * 这个主播可能认证的是医馆，也可能认证的是医师
-         */
-        Map<String, Object> lecturerInfo = myInfoService.findHostInfoById(userId);
-        if (lecturerInfo == null) {
-            return ResponseObject.newErrorResponseObject("获取医师信息有误");
-        }
-
-        lecturerInfo.put("richHostDetailsUrl", returnOpenidUri + "/xcview/html/person_fragment.html?type=4&typeId=" + userId);
-        
-        //讲师介绍
-        mapAll.put("lecturerInfo", lecturerInfo);         
-        
-        MedicalHospital mha = null;
-        //type  1.医师2.医馆
-        if (lecturerInfo.get("type").toString().equals("1")) {
-            mha = medicalHospitalApplyService.getMedicalHospitalByMiddleUserId(userId);
-        } else if (lecturerInfo.get("type").toString().equals("2")) {
-            mha = medicalHospitalApplyService.getMedicalHospitalByUserId(userId);
-        }
-        
-        //讲师所在医馆信息
-        mapAll.put("mha", mha);  
-        
-        return ResponseObject.newSuccessResponseObject(mapAll);  
+    	/*
+    	 * 医师详情
+    	 */
+    	Map<String,Object> map = medicalDoctorBusinessService.selectDoctorWorkTimeAndDetailsById(doctorId);
+    	//html片段
+    	map.put("doctorDetailsUrl", returnOpenidUri + "/xcview/html/person_fragment.html?type=5&typeId=" + doctorId);
+    	MedicalHospital mha  = medicalHospitalApplyService.getMedicalHospitalByDoctorId(doctorId);
+    	map.put("hospital", mha);
+        return ResponseObject.newSuccessResponseObject(map);  
     }
-    
-    
     
 }

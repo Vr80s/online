@@ -606,5 +606,21 @@
             AND md.id = #{doctorId}
         </if>
     </select>
+    
+    
+    <!-- 通过医师信息的到坐诊时间和医师详情  -->
+    
+    <select id="selectDoctorWorkTimeAndDetailsById" resultType="java.util.Map">
+        SELECT
+            md.`work_time`      workTime,
+            md.detailed_address detailedAddress
+        FROM
+            medical_doctor md
+        WHERE md.deleted = 0
+              AND md.status = 1
+              AND md.id = #{doctorId}
+    </select>
+    
+    
 
 </mapper>

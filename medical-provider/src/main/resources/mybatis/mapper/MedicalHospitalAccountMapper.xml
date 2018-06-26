@@ -35,4 +35,13 @@
     <select id="getAccountIdByHospitalId" resultType="java.lang.String">
         SELECT mha.`account_id` FROM `medical_hospital_account` mha WHERE mha.`doctor_id` = #{hospitalId}
     </select>
+    
+    
+     <!--  通过医师id查找医馆信息    根据医师id查找医馆信息  -->
+     <select id="getMedicalHospitalByDoctorId" parameterType="string" resultType="com.xczhihui.medical.hospital.model.MedicalHospital">
+       select mh.*,(select picture from medical_hospital_picture where hospital_id = mh.id order by version limit 0,1 ) as headPortrait
+        from  medical_hospital mh where mh.deleted =0 and mh.status = 1 and  mh.id =
+  			 ( select hospital_id from medical_hospital_doctor  where doctor_id = #{userId}  )
+     </select>
+    
 </mapper>

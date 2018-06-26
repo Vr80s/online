@@ -2,6 +2,7 @@ package com.xczhihui.medical.doctor.mapper;
 
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -98,5 +99,7 @@ public interface MedicalDoctorMapper extends BaseMapper<MedicalDoctor> {
     List<MedicalDoctorVO> selectDoctorListByQueryKey(@Param("page") Page<MedicalDoctorVO> page, @Param("dqv") DoctorQueryVo dqv);
 
     List<MedicalDoctorSolrVO> selectDoctorList4Solr(@Param("doctorId") String doctorId);
+
+	Map<String, Object> selectDoctorWorkTimeAndDetailsById(@Param("doctorId")String doctorId);
 
 }

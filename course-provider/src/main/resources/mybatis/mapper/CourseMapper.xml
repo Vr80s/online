@@ -536,6 +536,9 @@
 		<if test="type != null and type == 4 ">
 			( select ca.detail as details from course_anchor ca  where ca.user_id =  #{typeId} )
 		</if>
+		<if test="type != null and type == 5 ">
+			( select md.detailed_address as details from medical_doctor md  where md.`id` =  #{typeId} )
+		</if>
 		as common_details
 	</select>
 

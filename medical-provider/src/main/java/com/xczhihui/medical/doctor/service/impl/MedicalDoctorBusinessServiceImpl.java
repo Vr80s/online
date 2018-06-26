@@ -707,4 +707,8 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
         return page.setRecords(records);
     }
 
+	@Override
+	public Map<String, Object> selectDoctorWorkTimeAndDetailsById(String doctorId) {
+		return medicalDoctorMapper.selectDoctorWorkTimeAndDetailsById(doctorId);
+	}
 }

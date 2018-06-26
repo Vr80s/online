@@ -57,4 +57,11 @@ public interface IMedicalHospitalApplyService {
      * @author name：yangxuan <br>email: 15936216273@163.com
      */
     MedicalHospitalAccount getByUserId(String userId);
+
+    /**
+     * 通过医师信息得到医馆信息
+     * @param doctorId
+     * @return
+     */
+	MedicalHospital getMedicalHospitalByDoctorId(String doctorId);
 }

@@ -44,4 +44,6 @@ public interface MedicalHospitalAccountMapper extends BaseMapper<MedicalHospital
 	MedicalHospitalAccount getMedicalHospitalStatusByUserId(String string);
 
     String getAccountIdByHospitalId(String id);
+
+	MedicalHospital getMedicalHospitalByDoctorId(String doctorId);
 }
