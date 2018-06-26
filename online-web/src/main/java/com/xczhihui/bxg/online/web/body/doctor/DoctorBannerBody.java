@@ -36,7 +36,7 @@ public class DoctorBannerBody {
         doctorBanner.setStatus(this.status);
         doctorBanner.setType(this.type);
         doctorBanner.setLinkParam(linkParam);
-        doctorBanner.setRouteType(DoctorBannerEnum.getByType(type).name());
+        doctorBanner.setRouteType(DoctorBannerEnum.getByType(type).getRouteType());
         return doctorBanner;
     }
 

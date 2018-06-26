@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Select;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.medical.doctor.model.DoctorBanner;
+import com.xczhihui.medical.doctor.vo.DoctorBannerVO;
 
 /**
  * @author hejiwei
@@ -27,6 +28,18 @@ public interface MedicalDoctorBannerMapper extends BaseMapper<DoctorBanner> {
             " where user_id = #{userId}" +
             " order by create_time desc"})
     List<DoctorBanner> list(@Param("userId") String userId, Page<DoctorBanner> page);
+
+    /**
+     * 查询医师轮播图列表
+     *
+     * @param userId 用户id
+     * @return
+     */
+    @Select({"select img_url as imgUrl,link_param as linkParam, route_type as routeType, user_id as userId " +
+            "             from doctor_banner " +
+            "             where  status =1 and (start_time is null or end_time is null or (start_time <= current_date() and end_time >= current_date()))" +
+            "             order by create_time desc limit 3"})
+    List<DoctorBannerVO> listByUserId(@Param("userId") String userId);
 
     /**
      * 查询上架的轮播图数量

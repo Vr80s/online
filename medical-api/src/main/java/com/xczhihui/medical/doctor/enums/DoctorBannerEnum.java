@@ -24,4 +24,12 @@ public enum DoctorBannerEnum {
         }
         throw new IllegalArgumentException("轮播图类型错误");
     }
+
+    public int getType() {
+        return type;
+    }
+
+    public String getRouteType() {
+        return routeType;
+    }
 }

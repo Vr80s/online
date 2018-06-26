@@ -1,14 +1,17 @@
 package com.xczhihui.medical.doctor.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.xczhihui.common.util.DateUtil;
 import com.xczhihui.medical.doctor.mapper.MedicalDoctorBannerMapper;
 import com.xczhihui.medical.doctor.model.DoctorBanner;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBannerService;
+import com.xczhihui.medical.doctor.vo.DoctorBannerVO;
 import com.xczhihui.medical.exception.MedicalException;
 
 /**
@@ -78,5 +81,10 @@ public class MedicalDoctorBannerServiceImpl implements IMedicalDoctorBannerServi
             throw new MedicalException("非法请求");
         }
         return doctorBanner;
+    }
+
+    @Override
+    public List<DoctorBannerVO> listByUserId(String userId) {
+        return medicalDoctorBannerMapper.listByUserId(userId);
     }
 }

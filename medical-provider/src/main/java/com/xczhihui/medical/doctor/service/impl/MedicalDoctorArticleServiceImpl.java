@@ -222,4 +222,9 @@ public class MedicalDoctorArticleServiceImpl implements IMedicalDoctorArticleSer
     public List<OeBxsArticleVO> list(String type, String userId) {
         return oeBxsArticleMapper.list(type, userId);
     }
+
+    @Override
+    public OeBxsArticleVO get(int id) {
+        return oeBxsArticleMapper.get(id);
+    }
 }

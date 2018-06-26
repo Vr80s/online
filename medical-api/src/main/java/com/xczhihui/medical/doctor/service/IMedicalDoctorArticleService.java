@@ -19,7 +19,7 @@ public interface IMedicalDoctorArticleService {
      * @param userId 用户id
      * @return 列表数据
      */
-    Page<OeBxsArticleVO> listSpecialColumn(int page,int size, String userId,String keyQuery, String type);
+    Page<OeBxsArticleVO> listSpecialColumn(int page, int size, String userId, String keyQuery, String type);
 
     /**
      * 创建专栏
@@ -71,7 +71,7 @@ public interface IMedicalDoctorArticleService {
      * @param userId 用户id
      * @return 列表数据
      */
-    Page<OeBxsArticleVO> listReport(int page,int size, String userId,String keyQuery);
+    Page<OeBxsArticleVO> listReport(int page, int size, String userId, String keyQuery);
 
     /**
      * 创建媒体报道
@@ -186,9 +186,18 @@ public interface IMedicalDoctorArticleService {
 
     /**
      * 根据类型与用户id查询全部上架状态的文章
-     * @param type 文章类型
+     *
+     * @param type   文章类型
      * @param userId 用户id
      * @return
      */
     List<OeBxsArticleVO> list(String type, String userId);
+
+    /**
+     * 获取文章详情数据
+     *
+     * @param id id
+     * @return
+     */
+    OeBxsArticleVO get(int id);
 }

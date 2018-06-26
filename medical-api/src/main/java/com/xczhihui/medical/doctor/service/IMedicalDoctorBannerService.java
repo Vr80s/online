@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.medical.doctor.model.DoctorBanner;
+import com.xczhihui.medical.doctor.vo.DoctorBannerVO;
 
 /**
  * 医师主页轮播图服务
@@ -53,4 +54,12 @@ public interface IMedicalDoctorBannerService {
      * @return
      */
     DoctorBanner get(int id, String userId);
+
+    /**
+     * 查询医师的banner列表
+     *
+     * @param userId userId
+     * @return
+     */
+    List<DoctorBannerVO> listByUserId(String userId);
 }

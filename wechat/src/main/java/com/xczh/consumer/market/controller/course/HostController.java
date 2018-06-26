@@ -4,7 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.LoggerFactory;
@@ -19,11 +21,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.interceptor.IOSVersionInterceptor;
+import com.xczh.consumer.market.utils.APPUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczhihui.course.consts.MultiUrlHelper;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.course.service.IFocusService;
 import com.xczhihui.course.service.IMyInfoService;
 import com.xczhihui.course.vo.CourseLecturVo;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorBannerService;
+import com.xczhihui.medical.doctor.vo.DoctorBannerVO;
 import com.xczhihui.medical.hospital.model.MedicalHospital;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalApplyService;
 
@@ -43,20 +49,17 @@ public class HostController {
     @Autowired
     @Qualifier("focusServiceRemote")
     private IFocusService focusServiceRemote;
-
     @Autowired
     private IMedicalHospitalApplyService medicalHospitalApplyService;
-
     @Autowired
     private ICourseService courseService;
-    
     @Autowired
-    private  IMyInfoService  myInfoService;
-    
-    
+    private IMyInfoService myInfoService;
+    @Autowired
+    private IMedicalDoctorBannerService medicalDoctorBannerService;
+
     @Value("${returnOpenidUri}")
     private String returnOpenidUri;
-
 
 
     /**
@@ -74,9 +77,9 @@ public class HostController {
     public ResponseObject userHomePage(@Account(optional = true) Optional<String> accountIdOpt,
                                        HttpServletResponse res,
                                        @RequestParam("lecturerId") String lecturerId) throws Exception {
-        
-    	LOGGER.info("lecturerId-->id" + lecturerId);
-        
+
+        LOGGER.info("lecturerId-->id" + lecturerId);
+
         Map<String, Object> mapAll = new HashMap<String, Object>();
         /**
          * 得到讲师   主要是房间号，缩略图的信息、讲师的精彩简介
@@ -89,7 +92,7 @@ public class HostController {
         }
 
         lecturerInfo.put("richHostDetailsUrl", returnOpenidUri + "/xcview/html/person_fragment.html?type=4&typeId=" + lecturerId);
-        
+
         mapAll.put("lecturerInfo", lecturerInfo);          //讲师基本信息
         MedicalHospital mha = null;
 
@@ -125,8 +128,45 @@ public class HostController {
         return ResponseObject.newSuccessResponseObject(mapAll);
     }
 
+    @RequestMapping("doctor")
+    @ResponseBody
+    public ResponseObject homeV2(@Account(optional = true) Optional<String> accountIdOpt,
+                                 HttpServletResponse res,
+                                 @RequestParam("lecturerId") String lecturerId, HttpServletRequest request) throws Exception {
+        Map<String, Object> mapAll = new HashMap<String, Object>();
+        Map<String, Object> lecturerInfo = myInfoService.findHostInfoById(lecturerId);
+        if (lecturerInfo == null ) {
+            return ResponseObject.newErrorResponseObject("获取医师信息有误");
+        }
+        List<Integer> listff = focusServiceRemote.selectFocusOrFansCountOrCriticizeCount(lecturerId);
+        mapAll.put("lecturerInfo", lecturerInfo);
+        mapAll.put("fansCount", listff.get(0));
+        mapAll.put("focusCount", listff.get(1));
+        MedicalHospital mha = null;
+        //1.医师2.医馆
+        if (lecturerInfo.get("type").toString().equals("1")) {
+            mha = medicalHospitalApplyService.getMedicalHospitalByMiddleUserId(lecturerId);
+        } else if (lecturerInfo.get("type").toString().equals("2")) {
+            mha = medicalHospitalApplyService.getMedicalHospitalByUserId(lecturerId);
+        }
+        if (accountIdOpt.isPresent()) {
+            Integer isFours = focusServiceRemote.isFoursLecturer(accountIdOpt.get(), lecturerId);
+            mapAll.put("isFours", isFours);
+        } else {
+            mapAll.put("isFours", 0);
+        }
+        mapAll.put("hospital", mha);
+        List<DoctorBannerVO> list = medicalDoctorBannerService.listByUserId(lecturerId);
+        mapAll.put("banners", list.stream()
+                .peek(doctorBannerVO ->
+                        doctorBannerVO.setUrl(MultiUrlHelper.getUrl(doctorBannerVO.getRouteType(), APPUtil.getMobileSource(request), doctorBannerVO.getLinkParam())))
+                .collect(Collectors.toList()));
+        return ResponseObject.newSuccessResponseObject(mapAll);
+    }
+
     /**
      * Description：用户主页    -- 课程列表
+     *
      * @return ResponseObject
      * @throws Exception
      * @author name：yangxuan <br>email: 15936216273@163.com
@@ -134,14 +174,14 @@ public class HostController {
     @RequestMapping("hostPageCourse")
     @ResponseBody
     public ResponseObject userHomePageCourseList(@RequestParam("lecturerId") String lecturerId,
-                         @RequestParam("pageNumber") Integer pageNumber,
-                         @RequestParam("pageSize") Integer pageSize) throws Exception {
+                                                 @RequestParam("pageNumber") Integer pageNumber,
+                                                 @RequestParam("pageSize") Integer pageSize) throws Exception {
         Page<CourseLecturVo> page = new Page<>();
         page.setCurrent(pageNumber);
         page.setSize(pageSize);
         try {
             Page<CourseLecturVo> list = courseService.selectLecturerAllCourse(page,
-            		lecturerId,null,IOSVersionInterceptor.onlyThread.get());
+                    lecturerId, null, IOSVersionInterceptor.onlyThread.get());
             return ResponseObject.newSuccessResponseObject(list);
         } catch (Exception e) {
             e.printStackTrace();
