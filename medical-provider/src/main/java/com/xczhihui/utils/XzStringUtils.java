@@ -210,6 +210,7 @@ public class XzStringUtils {
 		}
 		return null;
 	}
+
 	public static void main(String[] args) {
 		System.out.println(workTimeScreen("一"));
 		

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.solr.client.solrj.SolrServerException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,6 +22,7 @@ import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.enums.DoctorSortOrderType;
 import com.xczhihui.common.util.enums.DoctorType;
 import com.xczhihui.course.service.ICourseService;
+import com.xczhihui.course.service.IMyInfoService;
 import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.medical.anchor.service.IAnchorInfoService;
 import com.xczhihui.medical.department.model.MedicalDepartment;
@@ -30,6 +32,8 @@ import com.xczhihui.medical.doctor.service.IMedicalDoctorSolrService;
 import com.xczhihui.medical.doctor.vo.DoctorQueryVo;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorSolrVO;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
+import com.xczhihui.medical.hospital.model.MedicalHospital;
+import com.xczhihui.medical.hospital.service.IMedicalHospitalApplyService;
 
 /**
  * Description：医师页面
@@ -56,6 +60,15 @@ public class DoctorController{
 
     @Autowired
     private IMedicalDoctorSolrService medicalDoctorSolrService;
+    
+    @Autowired
+    private  IMyInfoService  myInfoService;
+    
+    @Value("${returnOpenidUri}")
+    private String returnOpenidUri;
+    
+    @Autowired
+    private IMedicalHospitalApplyService medicalHospitalApplyService;
 
     /**
      * 医师分类页面
@@ -205,4 +218,49 @@ public class DoctorController{
     	
     	return ResponseObject.newSuccessResponseObject(anchorInfoService.anchorPermissionStatusByDoctorId(doctorId));    
     }
+    
+    
+	/**
+     * Description：医师 介绍
+     * @return ResponseObject
+     * @throws Exception
+     * @author name：yangxuan <br>email: 15936216273@163.com
+     */
+    @RequestMapping("introduction")
+    public ResponseObject introduction(@RequestParam("userId") String userId)
+    		throws Exception {
+    	
+    	
+        Map<String, Object> mapAll = new HashMap<String, Object>();
+        /**
+         * 得到讲师   主要是房间号，缩略图的信息、讲师的精彩简介
+         *
+         * 这个主播可能认证的是医馆，也可能认证的是医师
+         */
+        Map<String, Object> lecturerInfo = myInfoService.findHostInfoById(userId);
+        if (lecturerInfo == null) {
+            return ResponseObject.newErrorResponseObject("获取医师信息有误");
+        }
+
+        lecturerInfo.put("richHostDetailsUrl", returnOpenidUri + "/xcview/html/person_fragment.html?type=4&typeId=" + userId);
+        
+        //讲师介绍
+        mapAll.put("lecturerInfo", lecturerInfo);         
+        
+        MedicalHospital mha = null;
+        //type  1.医师2.医馆
+        if (lecturerInfo.get("type").toString().equals("1")) {
+            mha = medicalHospitalApplyService.getMedicalHospitalByMiddleUserId(userId);
+        } else if (lecturerInfo.get("type").toString().equals("2")) {
+            mha = medicalHospitalApplyService.getMedicalHospitalByUserId(userId);
+        }
+        
+        //讲师所在医馆信息
+        mapAll.put("mha", mha);  
+        
+        return ResponseObject.newSuccessResponseObject(mapAll);  
+    }
+    
+    
+    
 }

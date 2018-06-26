@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.LoggerFactory;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.interceptor.IOSVersionInterceptor;
-import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.course.service.IFocusService;
@@ -104,6 +102,8 @@ public class HostController {
         }
         //认证的主播 还是 医馆
         mapAll.put("hospital", mha);
+        
+        
         List<Integer> listff = focusServiceRemote.selectFocusOrFansCountOrCriticizeCount(lecturerId);
         mapAll.put("fansCount", listff.get(0));           //粉丝总数
         mapAll.put("focusCount", listff.get(1));           //关注总数

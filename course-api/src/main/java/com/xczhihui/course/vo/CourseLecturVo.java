@@ -91,7 +91,7 @@ public class CourseLecturVo implements Serializable {
     /**
      * 课程时长
      */
-    private String courseLength;
+    private Double courseLength;
 
     /**
      * 观看人数
@@ -308,11 +308,11 @@ public class CourseLecturVo implements Serializable {
     }
 
 
-    public String getCourseLength() {
+    public Double getCourseLength() {
 		return courseLength;
 	}
 
-	public void setCourseLength(String courseLength) {
+	public void setCourseLength(Double courseLength) {
 		this.courseLength = courseLength;
 	}
 
