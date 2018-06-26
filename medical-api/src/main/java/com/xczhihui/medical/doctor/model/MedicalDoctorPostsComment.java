@@ -63,7 +63,7 @@ public class MedicalDoctorPostsComment extends Model<MedicalDoctorPostsComment> 
 	@TableField(exist = false)
 	private String userName;
 	/**
-	 * 评论用户
+	 * 回复用户
 	 */
 	@TableField(exist = false)
 	private String replyUserName;

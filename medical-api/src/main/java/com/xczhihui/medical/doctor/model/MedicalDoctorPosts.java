@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotations.TableName;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Description：医师动态表
@@ -112,6 +113,16 @@ public class MedicalDoctorPosts extends Model<MedicalDoctorPosts> {
 	 */
 	@TableField(exist = false)
 	private Integer courseType;
+	/**
+	 * 评论
+	 */
+	@TableField(exist = false)
+	private List<MedicalDoctorPostsComment> doctorPostsCommentList;
+	/**
+	 * 点赞
+	 */
+	@TableField(exist = false)
+	private List<MedicalDoctorPostsLike> doctorPostsLikeList;
 
 	@Override
 	protected Serializable pkVal() {
@@ -268,6 +279,22 @@ public class MedicalDoctorPosts extends Model<MedicalDoctorPosts> {
 
 	public void setCourseType(Integer courseType) {
 		this.courseType = courseType;
+	}
+
+	public List<MedicalDoctorPostsComment> getDoctorPostsCommentList() {
+		return doctorPostsCommentList;
+	}
+
+	public void setDoctorPostsCommentList(List<MedicalDoctorPostsComment> doctorPostsCommentList) {
+		this.doctorPostsCommentList = doctorPostsCommentList;
+	}
+
+	public List<MedicalDoctorPostsLike> getDoctorPostsLikeList() {
+		return doctorPostsLikeList;
+	}
+
+	public void setDoctorPostsLikeList(List<MedicalDoctorPostsLike> doctorPostsLikeList) {
+		this.doctorPostsLikeList = doctorPostsLikeList;
 	}
 
 	@Override

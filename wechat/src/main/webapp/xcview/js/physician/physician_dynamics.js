@@ -5,14 +5,34 @@ if(stringnull(openId)){
 }*/
 
 $(function(){
-
+    var loginUserId = localStorage.getItem("userId");
     requestGetService("/xczh/medical/doctorPostsList", {
         pageNumber: 1,
         pageSize:10,
         doctorId:"b8e9430bd4334d749f06d2f0050dd66e"
     }, function (data) {
         var obj = data.resultObject.records;
+        var now = new Date();
+
+        now.setDate(now.getDate()+1);
         for(var i=0;i<obj.length;i++){
+            var likes ="";
+            //定义时间
+        	obj[i].now=now;
+        	//判断是否点赞
+            obj[i].isPraise=false;
+            //封装点赞列表
+            var likeList = obj[i].doctorPostsLikeList;
+            if(likeList!=null&&likeList.length>0){
+            	for(var j=0;j<likeList.length;j++){
+            		if(loginUserId!=undefined&&loginUserId==likeList[j].userId){
+                        obj[i].isPraise=true;
+					}
+                    likes += likeList[j].userName+",";
+				}
+                obj[i].likes = likes.substr(0,likes.length-1);
+			}
+			//封装图片
         	if(obj[i].pictures!=null&&obj[i].pictures!=""){
                 var pics=obj[i].pictures.split(",");
                 obj[i].pics=pics;
@@ -23,7 +43,19 @@ $(function(){
 
     });
 
-
+    $('.zan_img').each(function(){
+        $(this).click(function() {
+            var src = $(this).find('img').attr('src');
+            var postsId = $(this).attr('data-id');
+            if(src.indexOf("zan001")>-1){
+                $(this).find('img').attr('src','../images/zan01.png');
+                updatePraise(criticize_id,false);
+            }else{
+                $(this).find('img').attr('src','../images/zan001.png');
+                updatePraise(criticize_id,true);
+            }
+        })
+    })
 
 });
 /**
@@ -33,6 +65,37 @@ function goto_back(){
 
 	//去中医师主页
 	location.href="/xcview/html/physician/index.html";
+}
+
+/**
+ * 点赞
+ */
+function postsLike(postsId) {
+    requestService("/xczh/medical/addDoctorPostsLike",{
+        postsId:postsId
+    },function(data) {
+        if(data.success==true){
+            $(this).find('img').attr('src','../images/zan001.png');
+            alert(data.resultObject);
+        }else{
+            alert(data.errorMessage);
+        }
+    });
+}
+/**
+ * 取消点赞
+ */
+function postsLike(postsId) {
+    requestService("/xczh/medical/addDoctorPostsLike",{
+        postsId:postsId
+    },function(data) {
+        if(data.success==true){
+            $(this).find('img').attr('src','../images/zan001.png');
+            alert(data.resultObject);
+        }else{
+            alert(data.errorMessage);
+        }
+    });
 }
 
 

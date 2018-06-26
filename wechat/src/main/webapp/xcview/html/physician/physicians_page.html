@@ -206,12 +206,13 @@
 				</div>
 				<div class="both"></div>
 				{{else if item.type == 5}}
+				<!-- 课程-->
 				<div class="course_nav_span comment_hide">
 					<span class="title">{{item.title}}</span>
 				</div>
 				<div class="course_nav_cen comment_hide">
 					<img src="{{item.smallImgPath}}" alt="" />
-					<div class="course_nav_cen_size">{{item.content}}</div>
+					<div class="course_nav_cen_size">{{item.gradeName}}</div>
 					{{if item.currentPrice==0}}
 					<div class="course_nav_rate">免费</div>
 					{{else}}
@@ -245,27 +246,48 @@
 				<div class="both"></div>
 				{{/if}}
 			<div class="rests_nav_bottom">
+				{{if item.createTime < item.now}}
 				<span class="time">6小时前</span>
+				{{else}}
+				<span class="time">{{item.createTime}}</span>
+				{{/if}}
+
+				{{if item.isPraise}}
+				<span class="img"><img src="/xcview/images/zan001.png" alt="" class="zan_img" data-id="{{item.id}}"/><img src="/xcview/images/returned.png" alt="" class="evaluate_img" /></span>
+				{{else}}
 				<span class="img"><img src="/xcview/images/zan01.png" alt="" class="zan_img" /><img src="/xcview/images/returned.png" alt="" class="evaluate_img" /></span>
+				{{/if}}
+
 				<div class="both"></div>
 			</div>
 			<div class="number_people">
 				<div class="number_people_bg">
-					<div class="number_people_fize"><img src="/xcview/images/zan01.png" alt="" class="number_people_zan" /><span>你傻啊，我不傻，你傻</span></div>
+					{{if item.isPraise}}
+					<div class="number_people_fize"><img src="/xcview/images/zan001.png" alt="" class="number_people_zan" onclick="postsLike('{{item.id}}')"/><span>{{item.likes}}</span></div>
+					{{else}}
+					<div class="number_people_fize"><img src="/xcview/images/zan01.png" alt="" class="number_people_zan" onclick="postsLike('{{item.id}}')"/><span>{{item.likes}}</span></div>
+					{{/if}}
+
 					<!-- 评价内容 -->
 					<div class="evaluate_main">
 						<!-- <div class=""> -->
-							<span class="name">辣椒小姐：</span>
-							<span class="evaluate_cen">我是内容</span>
+						{{if item.doctorPostsCommentList!==null&&item.doctorPostsCommentList.length>0}}
+						{{each item.doctorPostsCommentList as postsComment}}
+						{{if postsComment.commentId == null}}
+							<span class="name">{{postsComment.userName}}：</span>
+							<span class="evaluate_cen">{{postsComment.content}}</span>
+						{{else}}
 						<!-- </div> -->
 						<div class="both"></div>
 						<div class="response">
-							<span class="my">麦克</span>
+							<span class="my">{{postsComment.replyUserName}}</span>
 							<span class="response_cen">回复</span>
-							<span class="she">傻瓜：</span>
-							<span class="response_center">我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻</span>
+							<span class="she">{{postsComment.userName}}：</span>
+							<span class="response_center">{{postsComment.content}}</span>
 						</div>
-
+						{{/if}}
+					{{/each}}
+					{{/if}}
 					</div>
 				</div>
 			</div>
