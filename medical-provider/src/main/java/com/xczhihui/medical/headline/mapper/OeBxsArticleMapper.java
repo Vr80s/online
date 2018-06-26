@@ -274,7 +274,7 @@ public interface OeBxsArticleMapper extends BaseMapper<OeBxsArticle> {
             "        ORDER BY oba.`create_time` DESC limit #{size}"})
     List<Map<String, Object>> listSpecialAuthorContent(int size);
 
-    @Select({"select oba.id, oba.`title`" +
+    @Select({"select oba.id, oba.`title`, img_path as imgPath " +
             " from `oe_bxs_article` oba" +
             " where oba.`is_delete`=0 and oba.create_person = #{userId} and (#{type} is null OR oba.type_id = #{type}) and status = 1" +
             " order by oba.create_time desc"})
