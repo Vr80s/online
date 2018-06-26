@@ -612,8 +612,8 @@
     
     <select id="selectDoctorWorkTimeAndDetailsById" resultType="java.util.Map">
         SELECT
-        	md.id 
-            md.`work_time`      workTime,
+        	md.id,
+            md.`work_time` workTime,
             md.description
         FROM
             medical_doctor md
@@ -621,7 +621,4 @@
               AND md.status = 1
               AND md.id = #{doctorId}
     </select>
-    
-    
-
 </mapper>

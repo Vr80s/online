@@ -27,8 +27,8 @@ public class MedicalDoctorPostsLikeServiceImpl extends ServiceImpl<MedicalDoctor
     }
 
     @Override
-    public void deleteMedicalDoctorPostsLike(Integer id) {
-        medicalDoctorPostsLikeMapper.deleteMedicalDoctorPostsLike(id);
+    public void deleteMedicalDoctorPostsLike(Integer id,String userId) {
+        medicalDoctorPostsLikeMapper.deleteMedicalDoctorPostsLike(id,userId);
     }
 
     @Override

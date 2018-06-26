@@ -95,7 +95,7 @@ public class MedicalDoctorPostsCommentController {
     @RequestMapping(value="deleteDoctorPostsLike", method = RequestMethod.POST)
     @ResponseBody
     public ResponseObject deleteDoctorPostsLike(@RequestParam("id") Integer id){
-        medicalDoctorPostsLikeService.deleteMedicalDoctorPostsLike(id);
+        //medicalDoctorPostsLikeService.deleteMedicalDoctorPostsLike(id);
         return ResponseObject.newSuccessResponseObject("取消成功");
     }
 

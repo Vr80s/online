@@ -27,7 +27,7 @@ public interface IMedicalDoctorPostsLikeService {
      * @param id   医师动态点赞 id
      * @return
      */
-    void deleteMedicalDoctorPostsLike(Integer id);
+    void deleteMedicalDoctorPostsLike(Integer id,String userId);
 
     /**
      * 获取医师动态点赞列表
