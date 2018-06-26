@@ -43,9 +43,9 @@ public class MedicalDoctorPostsController {
     /**
      * 医师动态列表
      */
-    @RequestMapping(value="doctorDynamicsList", method = RequestMethod.GET)
+    @RequestMapping(value="doctorPostsList", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseObject doctorDynamicsList(@RequestParam("pageNumber") Integer pageNumber,
+    public ResponseObject doctorPostsList(@RequestParam("pageNumber") Integer pageNumber,
                                               @RequestParam("pageSize") Integer pageSize,
                                               @RequestParam(required = false) Integer type,@RequestParam("doctorId") String doctorId){
         Page<MedicalDoctorPosts> page = new Page<>();
@@ -58,9 +58,9 @@ public class MedicalDoctorPostsController {
     /**
      * 添加医师动态
      */
-    @RequestMapping(value="addDoctorDynamics", method = RequestMethod.POST)
+    @RequestMapping(value="addDoctorPosts", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseObject addDoctorDynamics(@Account String accountId, MedicalDoctorPosts medicalDoctorPosts,
+    public ResponseObject addDoctorPosts(@Account String accountId, MedicalDoctorPosts medicalDoctorPosts,
                                              @RequestParam(value = "coverImg",required = false) MultipartFile coverImg)
             throws Exception {
         MedicalDoctorAccount mha = medicalDoctorAccountService.getByUserId(accountId);
@@ -76,9 +76,9 @@ public class MedicalDoctorPostsController {
     /**
      * 编辑医师动态
      */
-    @RequestMapping(value="updateDoctorDynamics", method = RequestMethod.POST)
+    @RequestMapping(value="updateDoctorPosts", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseObject updateDoctorDynamics(@Account String accountId,MedicalDoctorPosts medicalDoctorPosts,
+    public ResponseObject updateDoctorPosts(@Account String accountId,MedicalDoctorPosts medicalDoctorPosts,
                                                 @RequestParam(value = "coverImg",required = false) MultipartFile coverImg)
             throws Exception {
         if(coverImg!=null){
@@ -92,9 +92,9 @@ public class MedicalDoctorPostsController {
     /**
      * 删除医师动态
      */
-    @RequestMapping(value="deleteDoctorDynamics", method = RequestMethod.POST)
+    @RequestMapping(value="deleteDoctorPosts", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseObject deleteDoctorDynamics(@RequestParam("id") Integer id){
+    public ResponseObject deleteDoctorPosts(@RequestParam("id") Integer id){
         medicalDoctorPostsService.deleteMedicalDoctorPosts(id);
         return ResponseObject.newSuccessResponseObject("删除成功");
     }
@@ -102,9 +102,9 @@ public class MedicalDoctorPostsController {
     /**
      * 医师动态置顶/取消置顶
      */
-    @RequestMapping(value="updateStickDoctorDynamics", method = RequestMethod.POST)
+    @RequestMapping(value="updateStickDoctorPosts", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseObject updateStickDoctorDynamics(@RequestParam("id") Integer id,@RequestParam("stick") Boolean stick){
+    public ResponseObject updateStickDoctorPosts(@RequestParam("id") Integer id,@RequestParam("stick") Boolean stick){
         medicalDoctorPostsService.updateStickMedicalDoctorPosts(id,stick);
         if(stick){
             return ResponseObject.newSuccessResponseObject("置顶成功");

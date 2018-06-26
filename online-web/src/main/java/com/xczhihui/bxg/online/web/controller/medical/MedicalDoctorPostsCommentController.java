@@ -24,7 +24,7 @@ import static com.xczhihui.bxg.online.web.controller.AbstractController.getCurre
  * @Date: 2018/6/25 11:36
  **/
 @Controller
-@RequestMapping("/doctor/dynamics")
+@RequestMapping("/doctor/posts")
 public class MedicalDoctorPostsCommentController {
 
     @Autowired
@@ -38,9 +38,9 @@ public class MedicalDoctorPostsCommentController {
     /**
      * 医师动态评论列表
      */
-    @RequestMapping(value="doctorDynamicsCommentList", method = RequestMethod.GET)
+    @RequestMapping(value="doctorPostsCommentList", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseObject doctorDynamicsCommentList(@RequestParam("postsId") Integer postsId){
+    public ResponseObject doctorPostsCommentList(@RequestParam("postsId") Integer postsId){
         List<MedicalDoctorPostsComment> list = medicalDoctorPostsCommentService.selectMedicalDoctorPostsCommentList(postsId);
         return ResponseObject.newSuccessResponseObject(list);
     }
@@ -48,9 +48,9 @@ public class MedicalDoctorPostsCommentController {
     /**
      * 添加医师动态评论
      */
-    @RequestMapping(value="addDoctorDynamicsComment", method = RequestMethod.POST)
+    @RequestMapping(value="addDoctorPostsComment", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseObject addDoctorDynamicsComment(MedicalDoctorPostsComment medicalDoctorPostsComment){
+    public ResponseObject addDoctorPostsComment(MedicalDoctorPostsComment medicalDoctorPostsComment){
         // 获取当前用户ID
         String userId = getCurrentUser().getId();
         medicalDoctorPostsCommentService.addMedicalDoctorPostsComment(medicalDoctorPostsComment,userId);
@@ -60,9 +60,9 @@ public class MedicalDoctorPostsCommentController {
     /**
      * 删除医师动态评论
      */
-    @RequestMapping(value="deleteDoctorDynamicsComment", method = RequestMethod.POST)
+    @RequestMapping(value="deleteDoctorPostsComment", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseObject deleteDoctorDynamicsComment(@RequestParam("id") Integer id){
+    public ResponseObject deleteDoctorPostsComment(@RequestParam("id") Integer id){
         medicalDoctorPostsCommentService.deleteMedicalDoctorPostsComment(id);
         return ResponseObject.newSuccessResponseObject("删除成功");
     }
@@ -70,9 +70,9 @@ public class MedicalDoctorPostsCommentController {
     /**
      * 医师动态点赞列表
      */
-    @RequestMapping(value="doctorDynamicsLikeList", method = RequestMethod.GET)
+    @RequestMapping(value="doctorPostsLikeList", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseObject doctorDynamicsLikeList(@RequestParam("postsId") Integer postsId){
+    public ResponseObject doctorPostsLikeList(@RequestParam("postsId") Integer postsId){
         List<MedicalDoctorPostsLike> list = medicalDoctorPostsLikeService.getMedicalDoctorPostsLikeList(postsId);
         return ResponseObject.newSuccessResponseObject(list);
     }
@@ -80,9 +80,9 @@ public class MedicalDoctorPostsCommentController {
     /**
      * 添加医师动态点赞
      */
-    @RequestMapping(value="addDoctorDynamicsLike", method = RequestMethod.POST)
+    @RequestMapping(value="addDoctorPostsLike", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseObject addDoctorDynamicsLike(@RequestParam("postsId") Integer postsId){
+    public ResponseObject addDoctorPostsLike(@RequestParam("postsId") Integer postsId){
         // 获取当前用户ID
         String userId = getCurrentUser().getId();
         medicalDoctorPostsLikeService.addMedicalDoctorPostsLike(postsId,userId);
@@ -92,9 +92,9 @@ public class MedicalDoctorPostsCommentController {
     /**
      * 删除医师动态点赞
      */
-    @RequestMapping(value="deleteDoctorDynamicsLike", method = RequestMethod.POST)
+    @RequestMapping(value="deleteDoctorPostsLike", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseObject deleteDoctorDynamicsLike(@RequestParam("id") Integer id){
+    public ResponseObject deleteDoctorPostsLike(@RequestParam("id") Integer id){
         medicalDoctorPostsLikeService.deleteMedicalDoctorPostsLike(id);
         return ResponseObject.newSuccessResponseObject("取消成功");
     }

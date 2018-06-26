@@ -166,15 +166,84 @@
 		<div class="rests_nav">
 			<script type="text/html" id="wrap_doctor_dynamics">
 				{{each items as item i}}
-			<div class="rests_nav_span comment_hide">
-				<span class="stick_img"><img src="/xcview/images/stick.png" alt="" />置顶</span>
-				<span class="title">余老师讲课风采</span>
-			</div>
-			<div id="ccvideo" class="comment_hide">
-				<video>
-					
-				</video>
-			</div>
+				{{if item.type == 1}}
+				<!-- 普通动态-->
+				<div class="essay_main comment_hide">{{item.content}}</div>
+				<div class="essay_pack_up_btn"><span>收起</span></div>
+				<div class="both"></div>
+				{{else if item.type == 2}}
+				<!-- 动态图片-->
+				<div class="paper_nav_span">
+					<span class="stick_img">#盐蒸橘子治咳嗽#<span class="title">{{item.content}}</span></span>
+				</div>
+				{{if item.pics.length>0}}
+				<div class="paper_nav_cen">
+				{{each item.pics as pic }}
+				<img src="{{pic}}" alt="" />
+				{{/each}}
+				</div>
+				{{/if}}
+				<div class="both"></div>
+				{{else if item.type == 3}}
+				<!-- 视频-->
+				<div class="rests_nav_span comment_hide">
+					<span class="stick_img"><img src="/xcview/images/stick.png" alt="" />置顶</span>
+					<span class="title">{{item.title}}</span>
+				</div>
+				<div id="ccvideo" class="comment_hide">
+					<video>
+
+					</video>
+				</div>
+				{{else if item.type == 4}}
+				<!-- 文章-->
+				<div class="article_nav_span comment_hide">
+					<span class="title">{{item.title}}</span>
+				</div>
+				<div class="article_nav_cen comment_hide">
+					<img src="{{item.smallImgPath}}" alt="" />
+					<div class="article_nav_cen_size">得控制，体温在38℃~39℃之间。初期热无定，不恶得控制，体温在38℃~39℃之间。初期热无定，不恶</div>
+				</div>
+				<div class="both"></div>
+				{{else if item.type == 5}}
+				<div class="course_nav_span comment_hide">
+					<span class="title">{{item.title}}</span>
+				</div>
+				<div class="course_nav_cen comment_hide">
+					<img src="{{item.smallImgPath}}" alt="" />
+					<div class="course_nav_cen_size">{{item.content}}</div>
+					{{if item.currentPrice==0}}
+					<div class="course_nav_rate">免费</div>
+					{{else}}
+					<div class="course_nav_rate"><span>{{item.currentPrice}}</span>熊猫币</div>
+					{{/if}}
+
+					<!-- <div class="course_nav_rate">免费</div> -->
+				</div>
+				<div class="both"></div>
+				{{else if item.type == 10}}
+				<!-- 医案-->
+				<div class="consilia_nav_span comment_hide">
+					<span class="stick_img">#医案#</span>
+					<span class="title">朱xx，男，53岁</span>
+				</div>
+				<div class="consilia_nav_main comment_hide">
+					得控制，体温在38℃~39℃之间。初期热无定，不恶
+					得控制，体温在38℃~39℃之间。初期热无定，不恶
+					得控制，体温在38℃~39℃之间。初期热无定，不恶
+					得控制，体温在38℃~39℃之间。初期热无定，不恶
+					得控制，体温在38℃~39℃之间。初期热无定，不恶
+					得控制，体温在38℃~39℃之间。初期热无定，不恶
+					得控制，体温在38℃~39℃之间。初期热无定，不恶
+					得控制，体温在38℃~39℃之间。初期热无定，不恶
+				</div>
+				<div class="consilia_nav_btn"><span>收起</span></div>
+				<div class="consilia_nav_cen comment_hide">
+					<img src="/xcview/images/xianxia_03.jpg" alt="" />
+					<div class="consilia_nav_cen_size">得控制，体温在38℃~39℃之间。初期热无定，不恶得控制，体温在38℃~39℃之间。初期热无定，不恶</div>
+				</div>
+				<div class="both"></div>
+				{{/if}}
 			<div class="rests_nav_bottom">
 				<span class="time">6小时前</span>
 				<span class="img"><img src="/xcview/images/zan01.png" alt="" class="zan_img" /><img src="/xcview/images/returned.png" alt="" class="evaluate_img" /></span>
@@ -205,7 +274,7 @@
 		</div>
 
 		<!-- 医案 -->
-		<div class="consilia_nav">
+		<!--<div class="consilia_nav">
 			<div class="consilia_nav_span comment_hide">
 				<span class="stick_img">#医案#</span>
 				<span class="title">朱xx，男，53岁</span>
@@ -234,12 +303,12 @@
 			<div class="consilia_number_people">
 				<div class="consilia_number_people_bg">
 					<div class="consilia_number_people_fize"><img src="/xcview/images/zan01.png" alt="" class="consilia_number_people_zan" /><span>你傻啊，我不傻，你傻</span></div>
-					<!-- 评价内容 -->
+					&lt;!&ndash; 评价内容 &ndash;&gt;
 					<div class="consilia_evaluate_main">
-						<!-- <div class=""> -->
+						&lt;!&ndash; <div class=""> &ndash;&gt;
 							<span class="name">辣椒小姐：</span>
 							<span class="consilia_evaluate_cen">我是内容</span>
-						<!-- </div> -->
+						&lt;!&ndash; </div> &ndash;&gt;
 						<div class="both"></div>
 						<div class="consilia_response">
 							<span class="my">麦克</span>
@@ -251,10 +320,10 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div>-->
 
 		<!-- 其他二 -->
-		<div class="essay_pack_up">
+		<!--<div class="essay_pack_up">
 			<div class="essay_main comment_hide">得控制，体温在38℃~39℃之间。初期热无定，不恶得控制，体温在38℃~39℃之间。初期热无定，不恶得控制，体温在38℃~39℃之间。初期热无定，不恶得控制，体温在38℃~39℃之间。初期热无定，不恶得控制，体温在38℃~39℃之间。初期热无定，不恶得控制，体温在38℃~39℃之间。初期热无定，不恶得控制，体温在38℃~39℃之间。初期热无定，不恶得控制，体温在38℃~39℃之间。初期热无定，不恶</div>
 			<div class="essay_pack_up_btn"><span>收起</span></div>
 			<div class="essay_nav_bottom">
@@ -265,12 +334,12 @@
 			<div class="essay_number_people">
 				<div class="essay_number_people_bg">
 					<div class="essay_number_people_fize"><img src="/xcview/images/zan01.png" alt="" class="essay_number_people_zan" /><span>你傻啊，我不傻，你傻</span></div>
-					<!-- 评价内容 -->
+					&lt;!&ndash; 评价内容 &ndash;&gt;
 					<div class="essay_evaluate_main">
-						<!-- <div class=""> -->
+						&lt;!&ndash; <div class=""> &ndash;&gt;
 							<span class="name">辣椒小姐：</span>
 							<span class="essay_evaluate_cen">我是内容</span>
-						<!-- </div> -->
+						&lt;!&ndash; </div> &ndash;&gt;
 						<div class="both"></div>
 						<div class="essay_response">
 							<span class="my">麦克</span>
@@ -282,10 +351,10 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div>-->
 
 		<!-- 文章 -->
-		<div class="article_nav">
+		<!--<div class="article_nav">
 			<div class="article_nav_span comment_hide">
 				<span class="title">这里有防护卵巢早衰的秘诀 | 余大夫小偏方</span>
 			</div>
@@ -302,12 +371,12 @@
 			<div class="article_number_people">
 				<div class="article_number_people_bg">
 					<div class="article_number_people_fize"><img src="/xcview/images/zan01.png" alt="" class="article_number_people_zan" /><span>你傻啊，我不傻，你傻</span></div>
-					<!-- 评价内容 -->
+					&lt;!&ndash; 评价内容 &ndash;&gt;
 					<div class="article_evaluate_main">
-						<!-- <div class=""> -->
+						&lt;!&ndash; <div class=""> &ndash;&gt;
 							<span class="name">辣椒小姐：</span>
 							<span class="article_evaluate_cen">我是内容</span>
-						<!-- </div> -->
+						&lt;!&ndash; </div> &ndash;&gt;
 						<div class="both"></div>
 						<div class="article_response">
 							<span class="my">麦克</span>
@@ -319,10 +388,10 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div>-->
 
 		<!-- 其他三 -->
-		<div class="paper_nav">
+		<!--<div class="paper_nav">
 			<div class="paper_nav_span">
 				<span class="stick_img">#盐蒸橘子治咳嗽#<span class="title">得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制得控制</span></span>
 				
@@ -331,7 +400,7 @@
 				<img src="/xcview/images/xianxia_03.jpg" alt="" />
 				<img src="/xcview/images/xianxia_03.jpg" alt="" />
 				<img src="/xcview/images/xianxia_03.jpg" alt="" />
-				<div class="both"></div>  <!-- 清除浮动 -->
+				<div class="both"></div>  &lt;!&ndash; 清除浮动 &ndash;&gt;
 			</div>
 			<div class="both"></div>
 			<div class="paper_nav_bottom">
@@ -342,12 +411,12 @@
 			<div class="paper_number_people">
 				<div class="paper_number_people_bg">
 					<div class="paper_number_people_fize"><img src="/xcview/images/zan01.png" alt="" class="paper_number_people_zan" /><span>你傻啊，我不傻，你傻</span></div>
-					<!-- 评价内容 -->
+					&lt;!&ndash; 评价内容 &ndash;&gt;
 					<div class="paper_evaluate_main">
-						<!-- <div class=""> -->
+						&lt;!&ndash; <div class=""> &ndash;&gt;
 							<span class="name">辣椒小姐：</span>
 							<span class="paper_evaluate_cen">我是内容</span>
-						<!-- </div> -->
+						&lt;!&ndash; </div> &ndash;&gt;
 						<div class="both"></div>
 						<div class="paper_response">
 							<span class="my">麦克</span>
@@ -359,10 +428,10 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div>-->
 
 		<!-- 课程 -->
-		<div class="course_nav">
+		<!--<div class="course_nav">
 			<div class="course_nav_span comment_hide">
 				<span class="title">最好的课程，只需9.9</span>
 			</div>
@@ -370,7 +439,7 @@
 				<img src="/xcview/images/xianxia_03.jpg" alt="" />
 				<div class="course_nav_cen_size">最好的课程，只需9.9</div>
 				<div class="course_nav_rate"><span>99</span>熊猫币</div>
-				<!-- <div class="course_nav_rate">免费</div> -->
+				&lt;!&ndash; <div class="course_nav_rate">免费</div> &ndash;&gt;
 			</div>
 			<div class="both"></div>
 			<div class="course_nav_bottom">
@@ -381,12 +450,12 @@
 			<div class="course_number_people">
 				<div class="course_number_people_bg">
 					<div class="course_number_people_fize"><img src="/xcview/images/zan01.png" alt="" class="course_number_people_zan" /><span>你傻啊，我不傻，你傻</span></div>
-					<!-- 评价内容 -->
+					&lt;!&ndash; 评价内容 &ndash;&gt;
 					<div class="course_evaluate_main">
-						<!-- <div class=""> -->
+						&lt;!&ndash; <div class=""> &ndash;&gt;
 							<span class="name">辣椒小姐：</span>
 							<span class="course_evaluate_cen">我是内容</span>
-						<!-- </div> -->
+						&lt;!&ndash; </div> &ndash;&gt;
 						<div class="both"></div>
 						<div class="course_response">
 							<span class="my">麦克</span>
@@ -398,17 +467,17 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div>-->
 
 		<!-- 直播 -->
-		<div class="sinatv_nav">
+		<!--<div class="sinatv_nav">
 			<div class="sinatv_nav_span comment_hide">
 				<span class="title">6月12日10:00直播，免费</span>
 			</div>
 			<div class="sinatv_nav_cen comment_hide">
 				<img src="/xcview/images/xianxia_03.jpg" alt="" />
 				<div class="sinatv_nav_cen_size">跟着中医学养娃-杭州大夫育儿十讲</div>
-				<!-- <div class="sinatv_nav_rate"><span>99</span>熊猫币</div> -->
+				&lt;!&ndash; <div class="sinatv_nav_rate"><span>99</span>熊猫币</div> &ndash;&gt;
 				<div class="sinatv_nav_rate"><span>免费</span></div>
 			</div>
 			<div class="both"></div>
@@ -420,12 +489,12 @@
 			<div class="sinatv_number_people">
 				<div class="sinatv_number_people_bg">
 					<div class="sinatv_number_people_fize"><img src="/xcview/images/zan01.png" alt="" class="sinatv_number_people_zan" /><span>你傻啊，我不傻，你傻</span></div>
-					<!-- 评价内容 -->
+					&lt;!&ndash; 评价内容 &ndash;&gt;
 					<div class="sinatv_evaluate_main">
-						<!-- <div class=""> -->
+						&lt;!&ndash; <div class=""> &ndash;&gt;
 							<span class="name">辣椒小姐：</span>
 							<span class="sinatv_evaluate_cen">我是内容</span>
-						<!-- </div> -->
+						&lt;!&ndash; </div> &ndash;&gt;
 						<div class="both"></div>
 						<div class="sinatv_response">
 							<span class="my">麦克</span>
@@ -437,7 +506,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div>-->
 
 
 	</div>

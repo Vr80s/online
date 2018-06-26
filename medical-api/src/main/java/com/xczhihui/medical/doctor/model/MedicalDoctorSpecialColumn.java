@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 
 /**
- * 医师-专栏关联表
+ * 医师-专栏/医案关联表
  *
  * @author hejiwei
  */

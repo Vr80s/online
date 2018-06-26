@@ -53,9 +53,9 @@ public interface OeBxsArticleMapper extends BaseMapper<OeBxsArticle> {
             " oba.`img_path` as imgPath, oba.status as status, oba.user_id as author, oba.url as url" +
             " from `oe_bxs_article` oba" +
             " where oba.`is_delete`=0 AND oba.create_person = #{userId} and type_id = '7'" +
-            " <if test='keyQuery!=null'> "+
-            " and  oba.title like #{keyQuery} "+
-            " </if> "+
+            " <if test='keyQuery!=null'> " +
+            " and  oba.title like #{keyQuery} " +
+            " </if> " +
             " order by oba.create_time desc </script>"})
     List<OeBxsArticleVO> listReport(Page<OeBxsArticleVO> page, @Param("userId") String userId, @Param("keyQuery") String keyQuery);
 
@@ -82,28 +82,28 @@ public interface OeBxsArticleMapper extends BaseMapper<OeBxsArticle> {
      * @return 列表数据
      */
     @Select({"<script> select oba.id, oba.`title`, oba.`content`, oba.`update_time` as updateTime," +
-            " oba.`img_path` as imgPath, oba.status as status, oba.user_id as author, oba.url as url" +
+            " oba.`img_path` as imgPath, oba.status as status, oba.user_id as author, oba.url as url, oba.type_id as typeId " +
             " from `oe_bxs_article` oba" +
-            " where oba.`is_delete`=0 and oba.create_person = #{userId} and oba.type_id = '4'" +
-            " <if test='keyQuery!=null'> "+
-            " and  oba.title like #{keyQuery} "+
-            " </if> "+
+            " where oba.`is_delete`=0 and oba.create_person = #{userId} and oba.type_id = #{type}" +
+            " <if test='keyQuery!=null'> " +
+            " and  oba.title like #{keyQuery} " +
+            " </if> " +
             " order by oba.create_time desc </script>"})
-    List<OeBxsArticleVO> listSpecialColumn(Page<OeBxsArticleVO> page, @Param("userId") String userId, @Param("keyQuery") String keyQuery);
+    List<OeBxsArticleVO> listSpecialColumn(Page<OeBxsArticleVO> page, @Param("userId") String userId, @Param("keyQuery") String keyQuery, @Param("type") String type);
 
     /**
-     * 查询专栏
+     * 查询专栏/医案
      *
      * @param id id
      * @return 专栏数据
      */
     @Select({"select oba.id, oba.`title`, oba.`content`, oba.`update_time` as updateTime," +
-            " oba.`img_path` as imgPath, oba.status as status, oba.user_id as author, oba.url as url" +
+            " oba.`img_path` as imgPath, oba.status as status, oba.user_id as author, oba.url as url, oba.type_id as typeId" +
             "   from" +
             "       `oe_bxs_article` oba" +
             "       LEFT JOIN `medical_doctor_special_column` mdsc" +
             "       ON oba.`id` = mdsc.`article_id` " +
-            "   where oba.id = #{id} and oba.`is_delete`=0 AND"})
+            "   where oba.id = #{id} and oba.`is_delete`=0"})
     OeBxsArticleVO getSpecialColumnById(@Param("id") String id);
 
     /**
@@ -252,9 +252,8 @@ public interface OeBxsArticleMapper extends BaseMapper<OeBxsArticle> {
             " where oba.`is_delete`=0 and oba.status = 1 and oba.sort > 0 and (oba.recommend_time is null or oba.recommend_time > now()) " +
             " order by oba.sort desc, oba.create_time desc"})
     List<OeBxsArticleVO> listPublicWritings(Page<OeBxsArticleVO> page);
-    
-    
-    
+
+
     /**
      * 获取专栏作者
      *
@@ -274,5 +273,10 @@ public interface OeBxsArticleMapper extends BaseMapper<OeBxsArticle> {
             "           group by md.`id` " +
             "        ORDER BY oba.`create_time` DESC limit #{size}"})
     List<Map<String, Object>> listSpecialAuthorContent(int size);
-    
+
+    @Select({"select oba.id, oba.`title`" +
+            " from `oe_bxs_article` oba" +
+            " where oba.`is_delete`=0 and oba.create_person = #{userId} and (#{type} is null OR oba.type_id = #{type}) and status = 1" +
+            " order by oba.create_time desc"})
+    List<OeBxsArticleVO> list(@Param("type") String type, @Param("userId") String userId);
 }

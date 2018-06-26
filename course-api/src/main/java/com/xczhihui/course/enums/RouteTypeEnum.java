@@ -16,6 +16,8 @@ public enum RouteTypeEnum {
     VIDEO_AUDIO_COURSE_DETAIL_PAGE(1),
     //课程详情页，不区分课程类型
     COMMON_COURSE_DETAIL_PAGE(1),
+    SPECIAL_COLUMN_DETAIL(1),
+    DOCTOR_CASE_DETAIL(1),
     //医师认证页
     DOCTOR_APPROVE_PAGE(0),
     //医馆认证页

@@ -1,16 +1,15 @@
 package com.xczhihui.bxg.online.web.controller.medical;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import com.xczhihui.common.util.bean.ResponseObject;
-import com.xczhihui.common.util.enums.HeadlineType;
 import com.xczhihui.bxg.online.web.body.doctor.DoctorArticleBody;
 import com.xczhihui.bxg.online.web.controller.ftl.AbstractFtlController;
+import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.common.util.enums.HeadlineType;
 import com.xczhihui.medical.doctor.model.MedicalDoctor;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorArticleService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
@@ -35,7 +34,13 @@ public class DoctorArticleController extends AbstractFtlController {
         String userId = getUserId();
         String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(userId);
         String doctorName = medicalDoctorBusinessService.get(doctorId).getName();
-        OeBxsArticle bxsArticle = doctorArticleBody.build(HeadlineType.DJZL, doctorName);
+        OeBxsArticle bxsArticle;
+        Integer type = doctorArticleBody.getTypeId();
+        if (type == null || type == Integer.parseInt(HeadlineType.DJZL.getCode())) {
+            bxsArticle = doctorArticleBody.build(HeadlineType.DJZL, doctorName);
+        } else {
+            bxsArticle = doctorArticleBody.build(HeadlineType.YA, doctorName);
+        }
         bxsArticle.setCreatePerson(userId);
         medicalDoctorArticleService.saveSpecialColumn(doctorId, bxsArticle);
         return ResponseObject.newSuccessResponseObject();
@@ -68,12 +73,13 @@ public class DoctorArticleController extends AbstractFtlController {
     }
 
     @RequestMapping(value = "specialColumn", method = RequestMethod.GET)
-    public ResponseObject listSpecialColumn(@RequestParam(defaultValue = "1") int page,@RequestParam(defaultValue = "10") int size,@RequestParam(required = false) String keyQuery) {
+    public ResponseObject listSpecialColumn(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10") int size,
+                                            @RequestParam(required = false) String keyQuery, @RequestParam(defaultValue = "4") String type) {
         String userId = getUserId();
         if (StringUtils.isNotBlank(keyQuery)) {
-            keyQuery="%"+keyQuery+"%";
+            keyQuery = "%" + keyQuery + "%";
         }
-        return ResponseObject.newSuccessResponseObject(medicalDoctorArticleService.listSpecialColumn(page,size, userId,keyQuery));
+        return ResponseObject.newSuccessResponseObject(medicalDoctorArticleService.listSpecialColumn(page, size, userId, keyQuery, type));
     }
 
     @RequestMapping(value = "specialColumn/{id}/{status}", method = RequestMethod.PUT)
@@ -124,12 +130,12 @@ public class DoctorArticleController extends AbstractFtlController {
     }
 
     @RequestMapping(value = "report", method = RequestMethod.GET)
-    public ResponseObject listReport(@RequestParam(defaultValue = "1") int page,@RequestParam(defaultValue = "10") int size,@RequestParam(required = false) String keyQuery) {
+    public ResponseObject listReport(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10") int size, @RequestParam(required = false) String keyQuery) {
         String userId = getUserId();
         if (StringUtils.isNotBlank(keyQuery)) {
-            keyQuery="%"+keyQuery+"%";
+            keyQuery = "%" + keyQuery + "%";
         }
-        return ResponseObject.newSuccessResponseObject(medicalDoctorArticleService.listReport(page,size, userId,keyQuery));
+        return ResponseObject.newSuccessResponseObject(medicalDoctorArticleService.listReport(page, size, userId, keyQuery));
     }
 
     @RequestMapping(value = "report/{id}/{status}", method = RequestMethod.PUT)

@@ -32,9 +32,9 @@ public class MedicalDoctorArticleServiceImpl implements IMedicalDoctorArticleSer
     private MedicalSpecialColumnMapper medicalSpecialColumnMapper;
 
     @Override
-    public Page<OeBxsArticleVO> listSpecialColumn(int page,int size, String doctorId,String keyQuery) {
+    public Page<OeBxsArticleVO> listSpecialColumn(int page, int size, String doctorId, String keyQuery, String type) {
         Page<OeBxsArticleVO> oeBxsArticleVOPage = new Page<>(page, size);
-        return oeBxsArticleVOPage.setRecords(oeBxsArticleMapper.listSpecialColumn(oeBxsArticleVOPage, doctorId,keyQuery));
+        return oeBxsArticleVOPage.setRecords(oeBxsArticleMapper.listSpecialColumn(oeBxsArticleVOPage, doctorId, keyQuery, type));
     }
 
     @Override
@@ -66,7 +66,7 @@ public class MedicalDoctorArticleServiceImpl implements IMedicalDoctorArticleSer
 
     @Override
     public OeBxsArticleVO getSpecialColumn(String id) {
-        OeBxsArticleVO report = oeBxsArticleMapper.getReportById(id);
+        OeBxsArticleVO report = oeBxsArticleMapper.getSpecialColumnById(id);
         if (report == null) {
             throw new IllegalArgumentException("专栏已删除");
         }
@@ -99,9 +99,9 @@ public class MedicalDoctorArticleServiceImpl implements IMedicalDoctorArticleSer
     }
 
     @Override
-    public Page<OeBxsArticleVO> listReport(int page,int size, String doctorId,String keyQuery) {
+    public Page<OeBxsArticleVO> listReport(int page, int size, String doctorId, String keyQuery) {
         Page<OeBxsArticleVO> oeBxsArticleVOPage = new Page<>(page, size);
-        oeBxsArticleVOPage.setRecords(oeBxsArticleMapper.listReport(oeBxsArticleVOPage, doctorId,keyQuery));
+        oeBxsArticleVOPage.setRecords(oeBxsArticleMapper.listReport(oeBxsArticleVOPage, doctorId, keyQuery));
         return oeBxsArticleVOPage;
     }
 
@@ -213,8 +213,13 @@ public class MedicalDoctorArticleServiceImpl implements IMedicalDoctorArticleSer
         return oeBxsArticleVOPage.setRecords(oeBxsArticleMapper.listPublicWritings(oeBxsArticleVOPage));
     }
 
-	@Override
-	public List<Map<String, Object>> listSpecialAuthorContent(int size) {
-		return oeBxsArticleMapper.listSpecialAuthorContent(size);
-	}
+    @Override
+    public List<Map<String, Object>> listSpecialAuthorContent(int size) {
+        return oeBxsArticleMapper.listSpecialAuthorContent(size);
+    }
+
+    @Override
+    public List<OeBxsArticleVO> list(String type, String userId) {
+        return oeBxsArticleMapper.list(type, userId);
+    }
 }
