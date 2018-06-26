@@ -12,7 +12,7 @@
 			ON mdpc.`user_id` = ou.`id`
 		left join `oe_user` ous
 			ON  mdpc.reply_user_id = ous.`id`
-        WHERE mdpc.deleted = 0
+        WHERE mdpc.deleted = 0 and mdpc.posts_id=#{postsId}
         ORDER BY mdpc.create_time desc
 
     </select>
