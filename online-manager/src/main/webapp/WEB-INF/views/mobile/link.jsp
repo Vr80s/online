@@ -59,11 +59,11 @@
 				<!-- 文件记录 -->
 				
 				
-				
 				<!-- 常见问题上传记录   -->
+				<p style="font-size:14px;font-weight: bold;">历史上传记录：</p>
 				<c:forEach var="item" items="${record}">
 					 <%-- <option value="${record.path}">${excel_file_record.cityName}</option> --%>
-					 <a href="/link/word/download?filename=${item.path}">${item.name}</a>
+					 <a href="/link/word/download?filename=${item.path}"  style="padding-left:20px;color:#428bca;">${item.name}</a>
 			    </c:forEach>
 				
         </div>
