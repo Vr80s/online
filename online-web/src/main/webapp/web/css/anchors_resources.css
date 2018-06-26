@@ -279,6 +279,7 @@ outline: none;
 	display: inline-block;
 	cursor: pointer;
 	font-size: 16px;
+	margin-bottom: 0;
 }
 .video-btn p:hover{
 	color: #00bc12;
@@ -293,8 +294,28 @@ outline: none;
 	color: #999999;
 }
 .video-title-wrap{
-	margin: 10px 0 20px;
+	margin: 20px 0 20px;
 }
+/*视频上传*/
+.resource_uploading{
+	position: relative;
+	display: none;
+	width: 400px;
+	margin-top: 20px;
+}
+#cancalUpdata1{
+	position: absolute;
+	top: 0;
+	width: 80px;
+	left: 420px;
+}
+#continueUpload{
+	position: absolute;
+	top: 0;
+	width: 80px;
+	left: 420px;
+}
+/*视频上传结束*/
 .video-title input{
 	border: 1px solid #F0F0F0;
 	width: 280px;

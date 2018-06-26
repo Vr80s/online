@@ -280,11 +280,37 @@
 							<div class="video-wrap hide">
 								<div class="video-tip">
 									<img class="close-video" src="/web/images/alter-close.png" alt="关闭视频" title="关闭视频" />
+									
+									
+								<input id="ccName" name="ccName" type="text" style="display: none;color:#999999;font-size: 14px;border: none;" />
+								<input id="videoId" name="videoId" type="text" style="display: none;color:#999999;font-size: 14px;border: none;" />
+								<input id="ccId" name="ccId" type="text" style="display: none;color:#999999;font-size: 14px;border: none;" />
+	
+									
+									
 									<span class="video-btn" onclick="$('#video-up').click()">
 										<p>上传普通视频</p>
 									</span>
-									<input type="file" placeholder="请填写您的专栏标题" style="visibility: hidden;display: inline-block;width: 1px;" id="video-up" />
+									<!--<input type="file" placeholder="请填写您的专栏标题" style="visibility: hidden;display: inline-block;width: 1px;" id="video-up" />-->
 									<span class="video-prompt">请上传时长在15分钟以内的视频，请勿上传色情、反动等违规视频</span>
+									<form id="addResource">
+										<input id="video-up" style="display: none;margin-top: 20px;" type="file" value="点击上传资源" name="file" style="cursor:pointer;" onchange="uploadFile()" accept=".wmv,.wm,.asf,.asx,.rm,.rmvb,.ra,.ram,.mpg,.mpeg,.mpe,.vob,.dat,.mov,.3gp,.mp4,.mp4v,.m4v,.mkv,.avi,.flv,.f4v,.mts"/>
+									</form>
+									<span class="comment-wrong video-null hide">！视频不能为空</span>
+									
+									<div class="resource_uploading">
+										<span id="uploadProgress">
+											<div class="progress progress-striped active">
+												<div class="progress-bar progress-bar-success progress-resource" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+													<span class="sr-only">90% 完成（成功）</span>
+												</div>
+											</div>
+										</span>
+										<a id="cancalUpdata1" onclick="cancalUpdata1()" style="cursor:pointer;">取消上传</a>
+										<a id="continueUpload" onclick="continueUpload()" style="display:none;cursor:pointer;">继续上传</a>
+									</div>
+								
+								
 								</div>
 								<div class="video-title-wrap">
 									<div class="video-title">
@@ -305,7 +331,7 @@
 											<p>支持JPG/PNG等格式图片</p>
 										</span>
 										<input type="file" placeholder="请填写您的专栏标题" style="visibility: hidden;display: inline-block;" id="video_picIpt" accept="image/gif,image/jpeg,image/jpg,image/png">
-										<p class="warning hide">请上传封面图</p>
+										<p class="comment-wrong video-fengmian-error hide" style="padding-left: 40px;">！请上传封面</p>
 									</div>
 								</div>
 							</div>
@@ -1236,9 +1262,13 @@
 	<script type="text/javascript" src="/web/js/footer.js"></script>
 	<script src="/web/js/placeHolder.js"></script>
 	<script type="text/javascript" src="/web/js/cropbox.js"></script>
+	<!--视频上传文件-->
+	
+	<script type="text/javascript" src="/web/js/MD5/browser-md5-file.js"></script>
 	<!--<script src="/web/js/provinces.js"></script>-->
 	<script src="/web/js/anchors_resources.js?v=ipandatcm_1.2.1" type="text/javascript" charset="UTF-8"></script>
 	<script>
+	
 		//时间插件调用
 		$(function(){
 			var data = new Date();
