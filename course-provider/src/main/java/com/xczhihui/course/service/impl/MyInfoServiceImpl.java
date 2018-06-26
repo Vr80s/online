@@ -10,12 +10,12 @@ import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.xczhihui.common.util.XzStringUtils;
 import com.xczhihui.common.util.enums.UserSex;
 import com.xczhihui.course.exception.UserInfoException;
 import com.xczhihui.course.mapper.MyInfoMapper;
 import com.xczhihui.course.model.OnlineUser;
 import com.xczhihui.course.service.IMyInfoService;
-import com.xczhihui.course.util.XzStringUtils;
 import com.xczhihui.course.vo.OnlineUserVO;
 
 /**
@@ -94,7 +94,7 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper,OnlineUser> impl
 			Page<Map<String, Object>> page, String id) {
 		List<Map<String, Object>>  page1 = 	myInfoMapper.findUserWallet(page,id);
 		return page.setRecords(page1);
-	}
+	}	
 
 	@Override
 	public Map<String, Object> findHostInfoById(String userId) {

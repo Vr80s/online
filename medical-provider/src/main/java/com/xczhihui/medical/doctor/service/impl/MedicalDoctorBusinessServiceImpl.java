@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.toolkit.CollectionUtils;
+import com.xczhihui.common.util.XzStringUtils;
 import com.xczhihui.common.util.enums.HeadlineType;
 import com.xczhihui.medical.department.mapper.MedicalDepartmentMapper;
 import com.xczhihui.medical.department.model.MedicalDepartment;
@@ -49,7 +50,6 @@ import com.xczhihui.medical.hospital.model.MedicalHospitalAccount;
 import com.xczhihui.medical.hospital.model.MedicalHospitalDoctor;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalBusinessService;
 import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
-import com.xczhihui.utils.XzStringUtils;
 
 /**
  * ClassName: MedicalDoctorBusinessServiceImpl.java <br>

@@ -4,7 +4,7 @@ package com.xczhihui.course.vo;
 import java.io.Serializable;
 import java.util.Date;
 
-import com.xczhihui.course.util.XzStringUtils;
+import com.xczhihui.common.util.XzStringUtils;
 
 
 /**

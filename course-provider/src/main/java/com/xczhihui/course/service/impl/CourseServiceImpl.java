@@ -10,12 +10,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.xczhihui.common.util.XzStringUtils;
 import com.xczhihui.common.util.enums.LiveStatus;
 import com.xczhihui.common.util.enums.PayStatus;
 import com.xczhihui.course.mapper.CourseMapper;
 import com.xczhihui.course.model.Course;
 import com.xczhihui.course.service.ICourseService;
-import com.xczhihui.course.util.XzStringUtils;
 import com.xczhihui.course.vo.CourseLecturVo;
 
 /**
