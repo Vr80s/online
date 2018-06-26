@@ -276,9 +276,10 @@ public interface OeBxsArticleMapper extends BaseMapper<OeBxsArticle> {
 
     @Select({"select oba.id, oba.`title`, img_path as imgPath " +
             " from `oe_bxs_article` oba" +
-            " where oba.`is_delete`=0 and oba.create_person = #{userId} and (#{type} is null OR oba.type_id = #{type}) and status = 1" +
+            " where oba.`is_delete`=0 and oba.create_person = #{userId} and (#{type} is null OR oba.type_id = #{type})" +
+            " and (#{keyword} is null OR title like #{keyword}) and status = 1" +
             " order by oba.create_time desc"})
-    List<OeBxsArticleVO> list(@Param("type") String type, @Param("userId") String userId);
+    List<OeBxsArticleVO> list(@Param("type") String type, @Param("userId") String userId, @Param("keyword") String keyword, Page<OeBxsArticleVO> page);
 
     @Select({"select id, title, content, create_time as createTime, img_Path as imgPath from oe_bxs_article where id = #{id} and is_delete=0 and status = 1"})
     OeBxsArticleVO get(int id);
