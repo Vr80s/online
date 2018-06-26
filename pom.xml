@@ -22,6 +22,7 @@
         <shrio-version>1.2.4</shrio-version>
         <dom4j-version>1.4-dev-8</dom4j-version>
         <commons-dbutils-version>1.6</commons-dbutils-version>
+        <root-version>2.2.0-SNAPSHOT</root-version>
     </properties>
 
     <!-- 待聚合模块 -->
@@ -41,6 +42,62 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>com.xczhihui</groupId>
+                <artifactId>common-exception</artifactId>
+                <version>${root-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.xczhihui</groupId>
+                <artifactId>user-center-api</artifactId>
+                <version>${root-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.xczhihui</groupId>
+                <artifactId>common-util</artifactId>
+                <version>${root-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.xczhihui</groupId>
+                <artifactId>common-support</artifactId>
+                <version>${root-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.xczhihui</groupId>
+                <artifactId>common-pay</artifactId>
+                <version>${root-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.xczhihui</groupId>
+                <artifactId>common-solr</artifactId>
+                <version>${root-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.xczhihui</groupId>
+                <artifactId>common-web</artifactId>
+                <version>${root-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.xczhihui</groupId>
+                <artifactId>online-api</artifactId>
+                <version>${root-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.xczhihui</groupId>
+                <artifactId>online-common</artifactId>
+                <version>${root-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.xczhihui</groupId>
+                <artifactId>medical-api</artifactId>
+                <version>${root-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.xczhihui</groupId>
+                <artifactId>course-api</artifactId>
+                <version>${root-version}</version>
+            </dependency>
+
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
