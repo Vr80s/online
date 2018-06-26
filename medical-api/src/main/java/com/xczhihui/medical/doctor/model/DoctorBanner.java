@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * @author hejiwei
@@ -25,9 +26,11 @@ public class DoctorBanner implements Serializable {
     @TableField("link_param")
     private String linkParam;
 
+    @JsonFormat(pattern = "yyyy.MM.dd")
     @TableField("start_time")
     private Date startTime;
 
+    @JsonFormat(pattern = "yyyy.MM.dd")
     @TableField("end_time")
     private Date endTime;
 
@@ -41,6 +44,9 @@ public class DoctorBanner implements Serializable {
 
     @TableField("route_type")
     private String routeType;
+
+    @TableField(exist = false)
+    private String linkDesc;
 
     public Integer getId() {
         return id;
@@ -120,5 +126,13 @@ public class DoctorBanner implements Serializable {
 
     public void setRouteType(String routeType) {
         this.routeType = routeType;
+    }
+
+    public String getLinkDesc() {
+        return linkDesc;
+    }
+
+    public void setLinkDesc(String linkDesc) {
+        this.linkDesc = linkDesc;
     }
 }

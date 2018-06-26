@@ -274,13 +274,20 @@ public interface OeBxsArticleMapper extends BaseMapper<OeBxsArticle> {
             "        ORDER BY oba.`create_time` DESC limit #{size}"})
     List<Map<String, Object>> listSpecialAuthorContent(int size);
 
-    @Select({"select oba.id, oba.`title`, img_path as imgPath " +
+    @Select({"select oba.id, oba.`title`, img_path as imgPath" +
             " from `oe_bxs_article` oba" +
             " where oba.`is_delete`=0 and oba.create_person = #{userId} and (#{type} is null OR oba.type_id = #{type})" +
             " and (#{keyword} is null OR title like #{keyword}) and status = 1" +
             " order by oba.create_time desc"})
     List<OeBxsArticleVO> list(@Param("type") String type, @Param("userId") String userId, @Param("keyword") String keyword, Page<OeBxsArticleVO> page);
 
-    @Select({"select id, title, content, create_time as createTime, img_Path as imgPath from oe_bxs_article where id = #{id} and is_delete=0 and status = 1"})
+    @Select({"select id, title, content, create_time as createTime, img_Path as imgPath, user_id as author, type_id as typeId" +
+            " from oe_bxs_article" +
+            " where id = #{id} and is_delete=0 and status = 1"})
     OeBxsArticleVO get(int id);
+
+    @Select({"select id, title" +
+            " from oe_bxs_article" +
+            " where id = #{id}"})
+    OeBxsArticleVO getSimpleInfo(int id);
 }

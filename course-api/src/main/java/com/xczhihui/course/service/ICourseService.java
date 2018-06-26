@@ -246,6 +246,12 @@ public interface ICourseService {
 
     List<Map<String, Object>> list(Integer type, String userId);
 
-
     ShareInfoVo selectShareInfoByType(int i, String id);
+
+    /**
+     * 查询课程的简单信息
+     * @param id id
+     * @return
+     */
+    Course findSimpleInfoById(int id);
 }

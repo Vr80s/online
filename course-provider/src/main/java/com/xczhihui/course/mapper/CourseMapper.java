@@ -157,7 +157,14 @@ public interface CourseMapper extends BaseMapper<Course> {
                     " order by oc.create_time desc"})
     List<Map<String, Object>> selectCourseByType(@Param("type") Integer type, @Param("anchorId") String anchorId);
 
-    
-	ShareInfoVo selectShareInfoByType(@Param("type") Integer type,
-			@Param("shareId")String shareId);
+    ShareInfoVo selectShareInfoByType(@Param("type") Integer type,
+                                      @Param("shareId") String shareId);
+
+    /**
+     * 查询课程的简单信息
+     * @param id id
+     * @return
+     */
+    @Select({"select id, grade_name as gradeName from oe_course where id = #{id}"})
+    Course findSimpleInfoById(@Param("id") int id);
 }

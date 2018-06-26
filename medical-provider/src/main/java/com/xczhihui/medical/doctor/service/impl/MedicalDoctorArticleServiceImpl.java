@@ -229,4 +229,9 @@ public class MedicalDoctorArticleServiceImpl implements IMedicalDoctorArticleSer
     public OeBxsArticleVO get(int id) {
         return oeBxsArticleMapper.get(id);
     }
+
+    @Override
+    public OeBxsArticleVO getSimpleInfo(int id) {
+        return oeBxsArticleMapper.getSimpleInfo(id);
+    }
 }
