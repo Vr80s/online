@@ -1,6 +1,12 @@
 package com.xczhihui.medical.service.impl;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +14,16 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.dubbo.common.utils.CollectionUtils;
-import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
-import com.xczhihui.bxg.online.common.domain.*;
+import com.xczhihui.bxg.online.common.domain.MedicalDoctor;
+import com.xczhihui.bxg.online.common.domain.MedicalDoctorAuthenticationInformation;
+import com.xczhihui.bxg.online.common.domain.MedicalDoctorAuthorArticle;
+import com.xczhihui.bxg.online.common.domain.MedicalDoctorReport;
+import com.xczhihui.bxg.online.common.domain.MedicalDoctorWritings;
+import com.xczhihui.bxg.online.common.domain.MedicalHospital;
+import com.xczhihui.bxg.online.common.domain.MedicalHospitalDoctor;
+import com.xczhihui.common.util.DateUtil;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.medical.dao.DoctorDao;
 import com.xczhihui.medical.enums.MedicalExceptionEnum;
 import com.xczhihui.medical.exception.MedicalException;
@@ -494,4 +507,26 @@ public class DoctorServiceImpl extends OnlineBaseServiceImpl implements
 		return voList;
 	}
 
+	
+	@Override
+	public void updateRecommendSort(String id, Integer recommendSort, String recommendTime) {
+		String hqlPre = "from MedicalDoctor where  deleted=0 and status=1 and id = ? ";
+		MedicalDoctor medicalDoctor = dao.findByHQLOne(hqlPre, new Object[]{id});
+        if (medicalDoctor != null) {
+            if (recommendTime != null && !recommendTime.equals("")) {
+            	medicalDoctor.setSortUpdateTime(DateUtil.parseDate(recommendTime, "yyyy-MM-dd HH:mm:ss"));
+            } else {
+            	medicalDoctor.setSortUpdateTime(null);
+            }
+            medicalDoctor.setRecommendSort(recommendSort);
+            dao.update(medicalDoctor);
+        }
+	}
+
+	@Override
+	public void updateDefaultSort() {
+		String sql = " UPDATE  oe_course  SET recommend_sort=0 WHERE sort_update_time<= now()";
+        Map<String, Object> params = new HashMap<String, Object>();
+        dao.getNamedParameterJdbcTemplate().update(sql, params);
+	}
 }

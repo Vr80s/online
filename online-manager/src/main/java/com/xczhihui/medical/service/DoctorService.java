@@ -128,4 +128,8 @@ public interface DoctorService {
 	public List<MedicalDoctor> getMedicalDoctor(String writingsId);
 
 	List<MedicalDoctor> getAllMedicalDoctorList();
+
+	public void updateRecommendSort(String id, Integer recommendSort, String recommendTime);
+
+	public void updateDefaultSort();
 }

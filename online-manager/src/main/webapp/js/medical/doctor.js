@@ -44,6 +44,11 @@ $(function(){
 	{ "title": "创建日期", "class":"center","width":"8%","sortable":false,"data": 'createTime','mRender':function(data){
                 return getLocalTime(data);}
             },
+    { "title": "推荐值", "class":"center","width":"8%","sortable":false,"data": 'recommendSort','mRender':function(data){
+    	 if(data==null)return "";
+         return data;
+    }
+    },        
     { "title": "状态", "class":"center","width":"6%","sortable":false,"data": 'status',"mRender":function (data) {
     	if(data==1){
     		return "<span name='zt'>已启用</span>";
@@ -56,6 +61,7 @@ $(function(){
 	    	if(row.status){ // 启用状态或者禁用状态
 				if(row.sourceId === null&&row.createPerson === null){
                     return '<div class="hidden-sm hidden-xs action-buttons">'+
+                        '<a class="blue" href="javascript:void(-1);" title="设置推荐值" onclick="updateRecommendSort(this,1)"><i class="ace-icon fa fa-sort-amount-desc bigger-130"></i></a>'+
                         '<a class="blue" href="javascript:void(-1);" title="查看" onclick="previewDialog(this,1)"><i class="ace-icon fa fa-search bigger-130"></i></a>'+
                         '<a class="blue" href="javascript:void(-1);" title="科室" onclick="openDepartmentManage(this)"><i class="glyphicon glyphicon-bookmark"></i></a>'+
                         '<a class="blue" href="javascript:void(-1);" title="医馆" onclick="openHospitalManage(this)"><i class="glyphicon glyphicon-home"></i></a>'+
@@ -64,6 +70,7 @@ $(function(){
 
                 }else{
                     return '<div class="hidden-sm hidden-xs action-buttons">'+
+                        '<a class="blue" href="javascript:void(-1);" title="设置推荐值" onclick="updateRecommendSort(this,1)"><i class="ace-icon fa fa-sort-amount-desc bigger-130"></i></a>'+ 
                         '<a class="blue" href="javascript:void(-1);" title="查看" onclick="previewDialog(this,1)"><i class="ace-icon fa fa-search bigger-130"></i></a>'+
                         '<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this,1)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'+
                         '<a class="blue" href="javascript:void(-1);" title="禁用" onclick="updateStatus(this,1);"><i class="ace-icon fa fa-ban bigger-130"></i></a> '
@@ -347,6 +354,47 @@ $(function(){
 	$("#add-currentPrice").hide();*/
 	createDatetimePicker2($(".datetime-picker"),"yy-mm-dd","HH:mm:ss");
 });
+
+
+
+/**
+ * Description：设置推荐值
+ * @Date: 2018/3/9 14:11
+ **/
+function updateRecommendSort(obj,key){
+    var row="";
+    var oo = $(obj).parent().parent().parent();
+    if(key==1){
+        row = P_courseTable.fnGetData(oo);
+	}else{
+        row = _courseRecTable.fnGetData(oo); // get datarow
+	}
+    $("#UpdateRecommendSort_id").val(row.id);
+    var dialog = openDialog("UpdateRecommendSortDialog","dialogUpdateRecommendSortDiv","修改推荐值",350,300,true,"确定",function(){
+        if($("#UpdateRecommendSortFrom").valid()){
+            mask();
+            $("#UpdateRecommendSortFrom").attr("action", basePath+"/medical/doctor/updateRecommendSort");
+            $("#UpdateRecommendSortFrom").ajaxSubmit(function(data){
+                data = getJsonData(data);
+                unmask();
+                if(data.success){
+                	$("#recommendSort").val("");
+                    $("#recommendTime").val("");
+                    $("#UpdateRecommendSortDialog").dialog("close");
+                    layer.msg(data.resultObject);
+                    if(key==1){
+                        freshTable(P_courseTable);
+                    }else{
+                        freshTable(_courseRecTable);
+                    }
+                }else{
+                    alertInfo(data.errorMessage);
+                }
+            });
+        }
+    });
+};
+
 
 
 
