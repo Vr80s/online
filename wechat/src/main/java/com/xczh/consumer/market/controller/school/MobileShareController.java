@@ -89,20 +89,20 @@ public class MobileShareController {
     	
     	
     	//如果异常默认用这个
-    	ShareInfoVo sv = new ShareInfoVo();
-    	sv.setName("熊猫中医");
-    	sv.setDescription("熊猫中医是中医药的学习传承平台：学中医、懂中医、用中医，让中医服务于家庭、个人，让中国古代科学瑰宝为现代人类的健康保驾护航。");
-    	sv.setHeadImg(webdomain + "/web/images/defaultHead/18.png");
-    	sv.setLink(returnOpenidUri +WechatShareLinkType.DOCDOT_SHARE.getLink());
     	try {
-    		
-        	sv  = courseServiceImpl.selectShareInfoByType(shareType,shareId);
+    		ShareInfoVo sv  = courseServiceImpl.selectShareInfoByType(shareType,shareId);
         	//构造下分享出去的参数
         	sv.build(returnOpenidUri);
         	
         	return ResponseObject.newSuccessResponseObject(sv);
         } catch (Exception e) {
             e.printStackTrace();
+            
+            ShareInfoVo sv = new ShareInfoVo();
+        	sv.setName("熊猫中医");
+        	sv.setDescription("熊猫中医是中医药的学习传承平台：学中医、懂中医、用中医，让中医服务于家庭、个人，让中国古代科学瑰宝为现代人类的健康保驾护航。");
+        	sv.setHeadImg(webdomain + "/web/images/defaultHead/18.png");
+        	sv.setLink(returnOpenidUri +WechatShareLinkType.DOCDOT_SHARE.getLink());
             return ResponseObject.newSuccessResponseObject(sv);
         }
     }
