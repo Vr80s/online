@@ -87,7 +87,7 @@ public class MedicalDoctorPostsCommentController {
     public ResponseObject addDoctorPostsLike(@RequestParam("postsId") Integer postsId){
         // 获取当前用户ID
         String userId = getCurrentUser().getId();
-        medicalDoctorPostsLikeService.addMedicalDoctorPostsLike(postsId,userId, flag);
+        medicalDoctorPostsLikeService.addMedicalDoctorPostsLike(postsId,userId, 0);
         List<MedicalDoctorPostsLike> list = medicalDoctorPostsLikeService.getMedicalDoctorPostsLikeList(postsId);
         return ResponseObject.newSuccessResponseObject(list);
     }
