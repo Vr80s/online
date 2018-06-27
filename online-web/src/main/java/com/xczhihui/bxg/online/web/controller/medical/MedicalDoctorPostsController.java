@@ -48,7 +48,7 @@ public class MedicalDoctorPostsController {
     /**
      * 医师动态列表
      */
-    @RequestMapping(value="doctorPostsList", method = RequestMethod.GET)
+    @RequestMapping( method = RequestMethod.GET)
     @ResponseBody
     public ResponseObject doctorPostsList(@RequestParam("pageNumber") Integer pageNumber,
                                              @RequestParam("pageSize") Integer pageSize,
@@ -82,7 +82,7 @@ public class MedicalDoctorPostsController {
     /**
      * 编辑医师动态
      */
-    @RequestMapping(value="updateDoctorPosts", method = RequestMethod.POST)
+    @RequestMapping( method = RequestMethod.POST)
     @ResponseBody
     public ResponseObject updateDoctorPosts(MedicalDoctorPosts medicalDoctorPosts)
             throws Exception {
