@@ -4,13 +4,13 @@ public class DoctorTypeVo {
 
 	
 	private Integer code;
-	private String text;
+	private String value;
 	
 	
 	
 	public DoctorTypeVo(Integer code, String text) {
 		this.code = code;
-		this.text = text;
+		this.value = text;
 	}
 	public Integer getCode() {
 		return code;
@@ -18,13 +18,11 @@ public class DoctorTypeVo {
 	public void setCode(Integer code) {
 		this.code = code;
 	}
-	public String getText() {
-		return text;
+	public String getValue() {
+		return value;
 	}
-	public void setText(String text) {
-		this.text = text;
+	public void setValue(String value) {
+		this.value = value;
 	}
-	
-	
 	
 }

@@ -291,8 +291,8 @@ public class XzStringUtils {
 		String affternoon1 =  change(affternoonArr,2);
 		String day1 =  change(day,3);
 		
-		return (day1!="" ? day1+"," : day1)+(morning1!="" ? morning1+"," : morning1)
-				+affternoon1;
+		return (morning1!="" ? morning1+"," : morning1)+(affternoon1!="" ? affternoon1+"," : affternoon1)
+				+day1;
 	}
 	
 	public static void main(String[] args) {
