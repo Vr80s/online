@@ -14,10 +14,7 @@ import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsService;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import static com.xczhihui.bxg.online.web.controller.AbstractController.getCurrentUser;
@@ -65,7 +62,7 @@ public class MedicalDoctorPostsController {
     /**
      * 添加医师动态
      */
-    @RequestMapping(value="addDoctorPosts", method = RequestMethod.POST)
+    @RequestMapping( method = RequestMethod.POST)
     @ResponseBody
     public ResponseObject addDoctorPosts( MedicalDoctorPosts medicalDoctorPosts){
         // 获取当前用户ID
@@ -82,7 +79,7 @@ public class MedicalDoctorPostsController {
     /**
      * 编辑医师动态
      */
-    @RequestMapping( method = RequestMethod.POST)
+    @RequestMapping( method = RequestMethod.PUT)
     @ResponseBody
     public ResponseObject updateDoctorPosts(MedicalDoctorPosts medicalDoctorPosts)
             throws Exception {
@@ -95,9 +92,9 @@ public class MedicalDoctorPostsController {
     /**
      * 删除医师动态
      */
-    @RequestMapping(value="deleteDoctorPosts", method = RequestMethod.POST)
+    @RequestMapping(value="{id}", method = RequestMethod.DELETE)
     @ResponseBody
-    public ResponseObject deleteDoctorPosts(@RequestParam("id") Integer id){
+    public ResponseObject deleteDoctorPosts(@PathVariable("id") Integer id){
         medicalDoctorPostsService.deleteMedicalDoctorPosts(id);
         return ResponseObject.newSuccessResponseObject("删除成功");
     }
@@ -105,9 +102,9 @@ public class MedicalDoctorPostsController {
     /**
      * 医师动态置顶/取消置顶
      */
-    @RequestMapping(value="updateStickDoctorPosts", method = RequestMethod.POST)
+    @RequestMapping(value="{id}/{stick}", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseObject updateStickDoctorPosts(@RequestParam("id") Integer id,@RequestParam("stick") Boolean stick){
+    public ResponseObject updateStickDoctorPosts(@PathVariable("id") Integer id,@PathVariable("stick") Boolean stick){
         medicalDoctorPostsService.updateStickMedicalDoctorPosts(id,stick);
         if(stick){
             return ResponseObject.newSuccessResponseObject("置顶成功");

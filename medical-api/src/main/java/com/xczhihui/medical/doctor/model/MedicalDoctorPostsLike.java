@@ -33,6 +33,11 @@ public class MedicalDoctorPostsLike extends Model<MedicalDoctorPostsLike> {
 	@TableField("user_id")
 	private String userId;
 	/**
+	 * 1已删除0未删除
+	 */
+	@TableField("deleted")
+	private Boolean deleted;
+	/**
 	 * 创建时间
 	 */
 	@TableField("create_time")
@@ -42,7 +47,11 @@ public class MedicalDoctorPostsLike extends Model<MedicalDoctorPostsLike> {
 	 */
 	@TableField(exist = false)
 	private String userName;
-
+	/**
+	 * 是否点赞
+	 */
+	@TableField(exist = false)
+	private Boolean isPraise=false;
 
 	@Override
 	protected Serializable pkVal() {
@@ -87,5 +96,21 @@ public class MedicalDoctorPostsLike extends Model<MedicalDoctorPostsLike> {
 
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+
+	public Boolean getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
+	}
+
+	public Boolean getPraise() {
+		return isPraise;
+	}
+
+	public void setPraise(Boolean praise) {
+		isPraise = praise;
 	}
 }

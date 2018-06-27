@@ -15,14 +15,14 @@ import java.util.List;
 import static com.xczhihui.bxg.online.web.controller.AbstractController.getCurrentUser;
 
 /**
- * Description：医师动态评论控制器
+ * Description：医师动态点赞控制器
  * creed: Talk is cheap,show me the code
  * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
  * @Date: 2018/6/25 11:36
  **/
 @Controller
 @RequestMapping("/doctor/posts")
-public class MedicalDoctorPostsCommentController {
+public class MedicalDoctorPostsLikeController {
 
     @Autowired
     private IMedicalDoctorPostsCommentService medicalDoctorPostsCommentService;
@@ -30,48 +30,48 @@ public class MedicalDoctorPostsCommentController {
     private IMedicalDoctorPostsLikeService medicalDoctorPostsLikeService;
 
     private static final org.slf4j.Logger LOGGER = LoggerFactory
-            .getLogger(MedicalDoctorPostsCommentController.class);
+            .getLogger(MedicalDoctorPostsLikeController.class);
 
     /**
-     * 医师动态评论列表
+     * 医师动态点赞列表
      */
-    @RequestMapping(value="{postsId}/comment", method = RequestMethod.GET)
+    @RequestMapping(value="{postsId}/like", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseObject doctorPostsCommentList(@PathVariable("postsId") Integer postsId){
+    public ResponseObject doctorPostsLikeList(@PathVariable("postsId") Integer postsId){
         // 获取当前用户ID
         String userId = getCurrentUser().getId();
-        List<MedicalDoctorPostsComment> list = medicalDoctorPostsCommentService.selectMedicalDoctorPostsCommentList(postsId,userId);
+        List<MedicalDoctorPostsLike> list = medicalDoctorPostsLikeService.getMedicalDoctorPostsLikeList(postsId,userId);
         return ResponseObject.newSuccessResponseObject(list);
     }
 
     /**
-     * 添加医师动态评论
+     * 添加医师动态点赞
      */
-    @RequestMapping(value="{postsId}/comment",method = RequestMethod.POST)
+    @RequestMapping(value="{postsId}/like/{flag}", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseObject addDoctorPostsComment(MedicalDoctorPostsComment medicalDoctorPostsComment){
+    public ResponseObject addDoctorPostsLike(@PathVariable("postsId") Integer postsId,@PathVariable("flag") Integer flag){
         // 获取当前用户ID
         String userId = getCurrentUser().getId();
-        medicalDoctorPostsCommentService.addMedicalDoctorPostsComment(medicalDoctorPostsComment,userId);
-        List<MedicalDoctorPostsComment> list = medicalDoctorPostsCommentService.selectMedicalDoctorPostsCommentList(medicalDoctorPostsComment.getPostsId(),userId);
+        if(flag==0){
+            medicalDoctorPostsLikeService.deleteMedicalDoctorPostsLike(postsId,userId);
+        }else {
+            medicalDoctorPostsLikeService.addMedicalDoctorPostsLike(postsId,userId,flag);
+        }
+        List<MedicalDoctorPostsLike> list = medicalDoctorPostsLikeService.getMedicalDoctorPostsLikeList(postsId,userId);
         return ResponseObject.newSuccessResponseObject(list);
     }
 
     /**
-     * 删除医师动态评论
+     * 删除医师动态点赞
      */
-    @RequestMapping(value="{id}/comment/{postsId}", method = RequestMethod.DELETE)
+    @RequestMapping(value="deleteDoctorPostsLike", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseObject deleteDoctorPostsComment(@PathVariable("id") Integer id,@PathVariable("postsId") Integer postsId){
+    public ResponseObject deleteDoctorPostsLike(@RequestParam("postsId") Integer postsId){
         // 获取当前用户ID
         String userId = getCurrentUser().getId();
-        medicalDoctorPostsCommentService.deleteMedicalDoctorPostsComment(id);
-        List<MedicalDoctorPostsComment> list = medicalDoctorPostsCommentService.selectMedicalDoctorPostsCommentList(postsId,userId);
+        medicalDoctorPostsLikeService.deleteMedicalDoctorPostsLike(postsId,userId);
+        List<MedicalDoctorPostsLike> list = medicalDoctorPostsLikeService.getMedicalDoctorPostsLikeList(postsId,userId);
         return ResponseObject.newSuccessResponseObject(list);
     }
-
-
-
-
 
 }

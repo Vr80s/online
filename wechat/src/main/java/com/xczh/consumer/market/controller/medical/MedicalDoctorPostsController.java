@@ -55,7 +55,7 @@ public class MedicalDoctorPostsController {
     }
 
     /**
-     * 添加医师动态
+     * 添加医师动态    --del
      */
     @RequestMapping(value="addDoctorPosts", method = RequestMethod.POST)
     @ResponseBody
@@ -73,7 +73,7 @@ public class MedicalDoctorPostsController {
     }
 
     /**
-     * 编辑医师动态
+     * 编辑医师动态    --del
      */
     @RequestMapping(value="updateDoctorPosts", method = RequestMethod.POST)
     @ResponseBody
@@ -89,7 +89,7 @@ public class MedicalDoctorPostsController {
     }
 
     /**
-     * 删除医师动态
+     * 删除医师动态   --del
      */
     @RequestMapping(value = "{id}",method = RequestMethod.DELETE)
     @ResponseBody
@@ -101,7 +101,7 @@ public class MedicalDoctorPostsController {
     /**
      * 医师动态置顶/取消置顶
      */
-    @RequestMapping(value = "{id}/{stick}", method = RequestMethod.POST)
+    @RequestMapping(value = "{id}/{stick}", method = RequestMethod.PUT)
     @ResponseBody
     public ResponseObject updateStickDoctorPosts(@PathVariable("id") Integer id,@PathVariable("stick") Boolean stick){
         medicalDoctorPostsService.updateStickMedicalDoctorPosts(id,stick);

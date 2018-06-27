@@ -104,7 +104,7 @@ function sendComment(){
         alert("内容不能为空");
         return false;
     }
-    requestService("/xczh/medical/addDoctorPostsComment",{
+    requestService("/doctor/posts/"+getPostsIdByComment+"/comment",{
         postsId:getPostsIdByComment,
         commentId:postsCommentId,
         content:article
@@ -121,7 +121,6 @@ function sendComment(){
                     "<span class=\"she\">"+postsCommentUserName+"：</span> <span class=\"response_center\">"+article+"</span>" +
                     "</div>");
             }
-
 
             // 回复/删除
             $(".evaluateDiv").click(function(){
@@ -152,7 +151,7 @@ function sendComment(){
  * 点赞
  */
 function postsLike(obj,postsId) {
-    requestService("/xczh/medical/addDoctorPostsLike",{
+    requestService("/doctor/posts/"+postsId+"/like/"+1,{
         postsId:postsId
     },function(data) {
         if(data.success==true){
@@ -170,7 +169,7 @@ function postsLike(obj,postsId) {
  * 取消点赞
  */
 function delPostsLike(obj,postsId) {
-    requestService("/xczh/medical/deleteDoctorPostsLike",{
+    requestService("/doctor/posts/"+postsId+"/like/"+0,{
         postsId:postsId
     },function(data) {
         if(data.success==true){
@@ -187,7 +186,7 @@ function delPostsLike(obj,postsId) {
 }
 //获取点赞列表
 function getPostsLikeList(postsId) {
-    requestGetService("/xczh/medical/doctorPostsLikeList", {
+    requestGetService("/doctor/posts/"+postsId+"/like", {
         postsId: postsId
     }, function (data) {
         if(data.success ){

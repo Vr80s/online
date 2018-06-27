@@ -32,7 +32,14 @@ public class MedicalDoctorPostsLikeServiceImpl extends ServiceImpl<MedicalDoctor
     }
 
     @Override
-    public List<MedicalDoctorPostsLike> getMedicalDoctorPostsLikeList(Integer postsId) {
-        return medicalDoctorPostsLikeMapper.getMedicalDoctorPostsLikeList(postsId);
+    public List<MedicalDoctorPostsLike> getMedicalDoctorPostsLikeList(Integer postsId,String accountId) {
+        List<MedicalDoctorPostsLike> list = medicalDoctorPostsLikeMapper.getMedicalDoctorPostsLikeList(postsId);
+        list.forEach(MedicalDoctorPostsLike -> {
+            String userId = MedicalDoctorPostsLike.getUserId();
+            if(userId.equals(accountId)){
+                MedicalDoctorPostsLike.setPraise(true);
+            }
+        });
+        return list;
     }
 }
