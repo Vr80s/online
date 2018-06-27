@@ -304,35 +304,40 @@ public class XzStringUtils {
 	
     // 将全是数字的字符串转换成中文数字表示的方法  
     public static String change(List<String> list,Integer type) {  
-    	if(list == null || list.size()<0) {
-    		return "";
-    	}
-    	String str = "";
-    	for (int i = 0; i < list.size(); i++) {
-    		str+=list.get(i);
-		}
-        String chinese = "";  
-        str = String.valueOf(Integer.parseInt(str));  
-        // 将数字转换成中文数字  
-        for (int i = 0; i < str.length(); i++) {  
-            int index = str.charAt(i) - 48;
-            if(i == str.length()-1) {
-            	chinese += map.get(index);  
-            }else {
-            	chinese += map.get(index)+"、";  
+    	try {
+    		if(list == null || list.size() <= 0) {
+        		return "";
+        	}
+        	String str = "";
+        	for (int i = 0; i < list.size(); i++) {
+        		str+=list.get(i);
+    		}
+            String chinese = "";  
+            str = String.valueOf(Integer.parseInt(str));  
+            // 将数字转换成中文数字  
+            for (int i = 0; i < str.length(); i++) {  
+                int index = str.charAt(i) - 48;
+                if(i == str.length()-1) {
+                	chinese += map.get(index);  
+                }else {
+                	chinese += map.get(index)+"、";  
+                }
+            }  
+            
+            if(type.equals(1)) {
+            	chinese ="每周"+chinese+"上午";
             }
-        }  
-        
-        if(type.equals(1)) {
-        	chinese ="每周"+chinese+"上午";
-        }
-        if(type.equals(2)) {
-        	chinese ="每周"+chinese+"下午";
-        }
-        if(type.equals(3)) {
-        	chinese ="每周"+chinese+"全天";
-        }
-        return chinese;  
+            if(type.equals(2)) {
+            	chinese ="每周"+chinese+"下午";
+            }
+            if(type.equals(3)) {
+            	chinese ="每周"+chinese+"全天";
+            }
+            return chinese;  
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "";
+		}
     }
     
 
