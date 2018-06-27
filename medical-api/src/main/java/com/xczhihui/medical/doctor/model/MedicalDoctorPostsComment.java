@@ -67,7 +67,11 @@ public class MedicalDoctorPostsComment extends Model<MedicalDoctorPostsComment> 
 	 */
 	@TableField(exist = false)
 	private String replyUserName;
-
+	/**
+	 * 回复用户
+	 */
+	@TableField(exist = false)
+	private Boolean isSelf=false;
 	@Override
 	protected Serializable pkVal() {
 		return this.id;
@@ -151,5 +155,13 @@ public class MedicalDoctorPostsComment extends Model<MedicalDoctorPostsComment> 
 
 	public void setReplyUserId(String replyUserId) {
 		this.replyUserId = replyUserId;
+	}
+
+	public Boolean getSelf() {
+		return isSelf;
+	}
+
+	public void setSelf(Boolean self) {
+		isSelf = self;
 	}
 }

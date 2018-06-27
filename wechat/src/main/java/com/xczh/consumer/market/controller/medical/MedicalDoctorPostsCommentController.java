@@ -9,10 +9,7 @@ import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsLikeService;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,7 +20,7 @@ import java.util.List;
  * @Date: 2018/6/21 10:20
  **/
 @Controller
-@RequestMapping("/xczh/medical")
+@RequestMapping("/doctor/posts")
 public class MedicalDoctorPostsCommentController {
 
     @Autowired
@@ -37,9 +34,9 @@ public class MedicalDoctorPostsCommentController {
     /**
      * 医师动态评论列表
      */
-    @RequestMapping(value="doctorPostsCommentList", method = RequestMethod.GET)
+    @RequestMapping(value="{postsId}", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseObject doctorPostsCommentList(@RequestParam("postsId") Integer postsId){
+    public ResponseObject doctorPostsCommentList(@PathVariable("postsId") Integer postsId){
         List<MedicalDoctorPostsComment> list = medicalDoctorPostsCommentService.selectMedicalDoctorPostsCommentList(postsId);
         return ResponseObject.newSuccessResponseObject(list);
     }
@@ -47,52 +44,58 @@ public class MedicalDoctorPostsCommentController {
     /**
      * 添加医师动态评论
      */
-    @RequestMapping(value="addDoctorPostsComment", method = RequestMethod.POST)
+    @RequestMapping( method = RequestMethod.POST)
     @ResponseBody
     public ResponseObject addDoctorPostsComment(@Account String accountId,MedicalDoctorPostsComment medicalDoctorPostsComment){
 
         medicalDoctorPostsCommentService.addMedicalDoctorPostsComment(medicalDoctorPostsComment,accountId);
-        return ResponseObject.newSuccessResponseObject("添加成功");
+        List<MedicalDoctorPostsComment> list = medicalDoctorPostsCommentService.selectMedicalDoctorPostsCommentList(medicalDoctorPostsComment.getPostsId());
+        return ResponseObject.newSuccessResponseObject(list);
     }
 
     /**
      * 删除医师动态评论
      */
-    @RequestMapping(value="deleteDoctorPostsComment", method = RequestMethod.POST)
+    @RequestMapping(value = "{id}/{postsId}",method = RequestMethod.DELETE)
     @ResponseBody
-    public ResponseObject deleteDoctorPostsComment(@RequestParam("id") Integer id){
+    public ResponseObject deleteDoctorPostsComment(@PathVariable("id") Integer id,@PathVariable("postsId") Integer postsId){
         medicalDoctorPostsCommentService.deleteMedicalDoctorPostsComment(id);
-        return ResponseObject.newSuccessResponseObject("删除成功");
+        List<MedicalDoctorPostsComment> list = medicalDoctorPostsCommentService.selectMedicalDoctorPostsCommentList(postsId);
+        return ResponseObject.newSuccessResponseObject(list);
     }
 
     /**
      * 医师动态点赞列表
      */
-    @RequestMapping(value="doctorPostsLikeList", method = RequestMethod.GET)
+    @RequestMapping(value="{postsId}/like", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseObject doctorPostsLikeList(@RequestParam("postsId") Integer postsId){
+    public ResponseObject doctorPostsLikeList(@PathVariable("postsId") Integer postsId){
         List<MedicalDoctorPostsLike> list = medicalDoctorPostsLikeService.getMedicalDoctorPostsLikeList(postsId);
         return ResponseObject.newSuccessResponseObject(list);
     }
 
     /**
-     * 添加医师动态点赞
+     * 医师动态点赞
+     * 1
+     * 0
      */
-    @RequestMapping(value="addDoctorPostsLike", method = RequestMethod.POST)
+    @RequestMapping(value="{id}/like/{flag}", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseObject addDoctorPostsLike(@Account String accountId,@RequestParam("postsId") Integer postsId){
-        medicalDoctorPostsLikeService.addMedicalDoctorPostsLike(postsId,accountId);
-        return ResponseObject.newSuccessResponseObject("点赞成功");
+    public ResponseObject addDoctorPostsLike(@Account String accountId,@PathVariable("postsId") Integer postsId,@PathVariable("flag") Integer flag){
+        medicalDoctorPostsLikeService.addMedicalDoctorPostsLike(postsId,accountId,flag);
+        List<MedicalDoctorPostsLike> list = medicalDoctorPostsLikeService.getMedicalDoctorPostsLikeList(postsId);
+        return ResponseObject.newSuccessResponseObject(list);
     }
 
-    /**
-     * 删除医师动态点赞
-     */
-    @RequestMapping(value="deleteDoctorPostsLike", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseObject deleteDoctorPostsLike(@Account String accountId,@RequestParam("postsId") Integer postsId){
-        medicalDoctorPostsLikeService.deleteMedicalDoctorPostsLike(postsId,accountId);
-        return ResponseObject.newSuccessResponseObject("取消成功");
-    }
+//    /**
+//     * 删除医师动态点赞
+//     */
+//    @RequestMapping(value="deleteDoctorPostsLike", method = RequestMethod.POST)
+//    @ResponseBody
+//    public ResponseObject deleteDoctorPostsLike(@Account String accountId,@RequestParam("postsId") Integer postsId){
+//        medicalDoctorPostsLikeService.deleteMedicalDoctorPostsLike(postsId,accountId);
+//        List<MedicalDoctorPostsLike> list = medicalDoctorPostsLikeService.getMedicalDoctorPostsLikeList(postsId);
+//        return ResponseObject.newSuccessResponseObject(list);
+//    }
 
 }

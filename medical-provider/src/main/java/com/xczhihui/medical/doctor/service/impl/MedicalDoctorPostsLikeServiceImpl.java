@@ -22,8 +22,8 @@ public class MedicalDoctorPostsLikeServiceImpl extends ServiceImpl<MedicalDoctor
     private MedicalDoctorPostsLikeMapper medicalDoctorPostsLikeMapper;
 
     @Override
-    public void addMedicalDoctorPostsLike(Integer postsId,String userId) {
-        medicalDoctorPostsLikeMapper.addMedicalDoctorPostsLike(postsId,userId);
+    public void addMedicalDoctorPostsLike(Integer postsId, String userId, Integer flag) {
+        medicalDoctorPostsLikeMapper.addMedicalDoctorPostsLike(postsId,userId,flag);
     }
 
     @Override

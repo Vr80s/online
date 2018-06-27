@@ -31,13 +31,30 @@ public class MedicalDoctorPostsServiceImpl extends ServiceImpl<MedicalDoctorPost
     private MedicalDoctorPostsLikeMapper medicalDoctorPostsLikeMapper;
 
     @Override
-    public Page<MedicalDoctorPosts> selectMedicalDoctorPostsPage(Page<MedicalDoctorPosts> page, Integer type, String doctorId) {
+    public Page<MedicalDoctorPosts> selectMedicalDoctorPostsPage(Page<MedicalDoctorPosts> page, Integer type, String doctorId,String accountId) {
         List<MedicalDoctorPosts> list = medicalDoctorPostsMapper.selectMedicalDoctorPostsPage(page,type,doctorId);
         //评论列表和点赞列表
         list.forEach(MedicalDoctorPosts -> {
             Integer postsId = MedicalDoctorPosts.getId();
             List<MedicalDoctorPostsComment> commentList = medicalDoctorPostsCommentMapper.selectMedicalDoctorPostsCommentList(postsId);
             List<MedicalDoctorPostsLike> likeList = medicalDoctorPostsLikeMapper.getMedicalDoctorPostsLikeList(postsId);
+            commentList.forEach(MedicalDoctorPostsComment ->{
+                if(MedicalDoctorPostsComment.getReplyUserId()!=null){
+                    if(MedicalDoctorPostsComment.getReplyUserId().equals(accountId)){
+                        MedicalDoctorPostsComment.setSelf(true);
+                    }
+                }else {
+                    if(MedicalDoctorPostsComment.getUserId().equals(accountId)){
+                        MedicalDoctorPostsComment.setSelf(true);
+                    }
+                }
+            });
+            likeList.forEach(MedicalDoctorPostsLike -> {
+                String userId = MedicalDoctorPostsLike.getUserId();
+                if(userId.equals(accountId)){
+                    MedicalDoctorPosts.setPraise(true);
+                }
+            });
             MedicalDoctorPosts.setDoctorPostsCommentList(commentList);
             MedicalDoctorPosts.setDoctorPostsLikeList(likeList);
         });

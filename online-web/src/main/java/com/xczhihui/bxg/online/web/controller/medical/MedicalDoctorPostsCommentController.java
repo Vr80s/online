@@ -54,7 +54,8 @@ public class MedicalDoctorPostsCommentController {
         // 获取当前用户ID
         String userId = getCurrentUser().getId();
         medicalDoctorPostsCommentService.addMedicalDoctorPostsComment(medicalDoctorPostsComment,userId);
-        return ResponseObject.newSuccessResponseObject("添加成功");
+        List<MedicalDoctorPostsComment> list = medicalDoctorPostsCommentService.selectMedicalDoctorPostsCommentList(medicalDoctorPostsComment.getPostsId());
+        return ResponseObject.newSuccessResponseObject(list);
     }
 
     /**
@@ -62,8 +63,9 @@ public class MedicalDoctorPostsCommentController {
      */
     @RequestMapping(value="deleteDoctorPostsComment", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseObject deleteDoctorPostsComment(@RequestParam("id") Integer id){
+    public ResponseObject deleteDoctorPostsComment(@RequestParam("id") Integer id,@RequestParam("postsId") Integer postsId){
         medicalDoctorPostsCommentService.deleteMedicalDoctorPostsComment(id);
+        List<MedicalDoctorPostsComment> list = medicalDoctorPostsCommentService.selectMedicalDoctorPostsCommentList(postsId);
         return ResponseObject.newSuccessResponseObject("删除成功");
     }
 
@@ -85,8 +87,9 @@ public class MedicalDoctorPostsCommentController {
     public ResponseObject addDoctorPostsLike(@RequestParam("postsId") Integer postsId){
         // 获取当前用户ID
         String userId = getCurrentUser().getId();
-        medicalDoctorPostsLikeService.addMedicalDoctorPostsLike(postsId,userId);
-        return ResponseObject.newSuccessResponseObject("点赞成功");
+        medicalDoctorPostsLikeService.addMedicalDoctorPostsLike(postsId,userId, flag);
+        List<MedicalDoctorPostsLike> list = medicalDoctorPostsLikeService.getMedicalDoctorPostsLikeList(postsId);
+        return ResponseObject.newSuccessResponseObject(list);
     }
 
     /**
@@ -94,8 +97,11 @@ public class MedicalDoctorPostsCommentController {
      */
     @RequestMapping(value="deleteDoctorPostsLike", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseObject deleteDoctorPostsLike(@RequestParam("id") Integer id){
-        //medicalDoctorPostsLikeService.deleteMedicalDoctorPostsLike(id);
+    public ResponseObject deleteDoctorPostsLike(@RequestParam("postsId") Integer postsId){
+        // 获取当前用户ID
+        String userId = getCurrentUser().getId();
+        medicalDoctorPostsLikeService.deleteMedicalDoctorPostsLike(postsId,userId);
+        List<MedicalDoctorPostsLike> list = medicalDoctorPostsLikeService.getMedicalDoctorPostsLikeList(postsId);
         return ResponseObject.newSuccessResponseObject("取消成功");
     }
 

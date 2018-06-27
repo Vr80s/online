@@ -19,7 +19,7 @@ public interface IMedicalDoctorPostsService {
      * @param doctorId 医师
      * @return 列表数据
      */
-     Page<MedicalDoctorPosts> selectMedicalDoctorPostsPage(Page<MedicalDoctorPosts> page, Integer type, String doctorId);
+     Page<MedicalDoctorPosts> selectMedicalDoctorPostsPage(Page<MedicalDoctorPosts> page, Integer type, String doctorId,String accountId);
 
     /**
      * 添加医师动态

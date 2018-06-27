@@ -179,14 +179,14 @@
 				<div class="both"></div>
 				{{else if item.type == 2}}
 				<!-- 动态图片-->
-				<div class="paper_nav_span">
+				<div class="paper_nav_span comment_hide">
 					<span class="stick_img">#盐蒸橘子治咳嗽#<span class="title">{{item.content}}</span></span>
 				</div>
 				{{if item.pics.length>0}}
-				<div class="paper_nav_cen">
-				{{each item.pics as pic }}
-				<img src="{{pic}}" alt="" />
-				{{/each}}
+				<div class="paper_nav_cen comment_hide">
+					{{each item.pics as pic }}
+					<img src="{{pic}}" alt="" />
+					{{/each}}
 				</div>
 				{{/if}}
 				<div class="both"></div>
@@ -251,65 +251,70 @@
 				</div>
 				<div class="both"></div>
 				{{/if}}
-			<div class="rests_nav_bottom">
-				{{if item.createTime < item.now}}
-				<span class="time">6小时前</span>
-				{{else}}
-				<span class="time">{{item.createTime}}</span>
-				{{/if}}
-
-				{{if item.isPraise}}
-				<span class="img"><img src="/xcview/images/zan001.png" alt="" class="zan_img" data-id="{{item.id}}"/><img src="/xcview/images/returned.png" alt="" class="evaluate_img" /></span>
-				{{else}}
-				<span class="img"><img src="/xcview/images/zan01.png" alt="" class="zan_img" /><img src="/xcview/images/returned.png" alt="" class="evaluate_img" /></span>
-				{{/if}}
-
-				<div class="both"></div>
-			</div>
-			<div class="number_people">
-				<div class="number_people_bg">
-					{{if item.isPraise}}
-					<div class="number_people_fize"><img src="/xcview/images/zan001.png" alt="" class="number_people_zan" onclick="postsLike('{{item.id}}')"/><span>{{item.likes}}</span></div>
+				<div class="rests_nav_bottom ">
+					{{if item.createTime < item.now}}
+					<span class="time">6小时前</span>
 					{{else}}
-					<div class="number_people_fize"><img src="/xcview/images/zan01.png" alt="" class="number_people_zan" onclick="postsLike('{{item.id}}')"/><span>{{item.likes}}</span></div>
+					<span class="time">{{item.createTime}}</span>
 					{{/if}}
 
-					<!-- 评价内容 -->
-					<div class="evaluate_main">
-						<!-- <div class=""> -->
-						{{if item.doctorPostsCommentList!==null&&item.doctorPostsCommentList.length>0}}
-						{{each item.doctorPostsCommentList as postsComment}}
-						{{if postsComment.commentId == null}}
+					{{if item.isPraise}}
+					<span class="img"><img src="/xcview/images/zan001.png" alt="" class="zan_img" data-id="{{item.id}}"/><img src="/xcview/images/returned.png" alt="" class="evaluate_img" data-id="{{item.id}}"/></span>
+					{{else}}
+					<span class="img"><img src="/xcview/images/zan01.png" alt="" class="zan_img" data-id="{{item.id}}"/><img src="/xcview/images/returned.png" alt="" class="evaluate_img" data-id="{{item.id}}"/></span>
+					{{/if}}
+
+					<div class="both"></div>
+				</div>
+				<div class="number_people ">
+					<div class="number_people_bg" id="{{item.id}}">
+						{{if item.isPraise}}
+						<div class="number_people_fize"><img src="/xcview/images/zan001.png" alt="" class="number_people_zan" /><span class="likes">{{item.likes}}</span></div>
+						{{else}}
+						<div class="number_people_fize"><img src="/xcview/images/zan01.png" alt="" class="number_people_zan" /><span class="likes">{{item.likes}}</span></div>
+						{{/if}}
+
+						<!-- 评价内容 -->
+						<div class="evaluate_main evaluate{{item.id}}">
+							<!-- <div class=""> -->
+							{{if item.doctorPostsCommentList!==null&&item.doctorPostsCommentList.length>0}}
+							{{each item.doctorPostsCommentList as postsComment}}
+							{{if postsComment.commentId == null}}
+							<div class="evaluateDiv" data-id="{{postsComment.id}}" data-postsId="{{item.id}}" data-userId="{{postsComment.userId}}" data-userName="{{postsComment.userName}}">
 							<span class="name">{{postsComment.userName}}：</span>
 							<span class="evaluate_cen">{{postsComment.content}}</span>
-						{{else}}
-						<!-- </div> -->
-						<div class="both"></div>
-						<div class="response">
-							<span class="my">{{postsComment.replyUserName}}</span>
-							<span class="response_cen">回复</span>
-							<span class="she">{{postsComment.userName}}：</span>
-							<span class="response_center">{{postsComment.content}}</span>
+							</div>
+							<div class="both"></div>
+							{{else}}
+							<!-- </div> -->
+							<div class="both"></div>
+							<div class="response evaluateDiv" data-id="{{postsComment.id}}" data-postsId="{{item.id}}" data-replyUserId="{{postsComment.replyUserId}}">
+								<span class="my">{{postsComment.replyUserName}}</span>
+								<span class="response_cen">回复</span>
+								<span class="she">{{postsComment.userName}}：</span>
+								<span class="response_center">{{postsComment.content}}</span>
+							</div>
+							{{/if}}
+							{{/each}}
+							{{/if}}
 						</div>
-						{{/if}}
-					{{/each}}
-					{{/if}}
 					</div>
 				</div>
-			</div>
+				{{/each}}
+			</script>
 		</div>
 
 
 
 		<!-- 直播 -->
-		<div class="sinatv_nav">
+		<!--<div class="sinatv_nav">
 			<div class="sinatv_nav_span comment_hide">
 				<span class="title">6月12日10:00直播，免费</span>
 			</div>
 			<div class="sinatv_nav_cen comment_hide">
 				<img src="/xcview/images/xianxia_03.jpg" alt="" />
 				<div class="sinatv_nav_cen_size">跟着中医学养娃-杭州大夫育儿十讲</div>
-				<!-- <div class="sinatv_nav_rate"><span>99</span>熊猫币</div> -->
+				&lt;!&ndash; <div class="sinatv_nav_rate"><span>99</span>熊猫币</div> &ndash;&gt;
 				<div class="sinatv_nav_rate"><span>免费</span></div>
 			</div>
 			<div class="both"></div>
@@ -321,12 +326,12 @@
 			<div class="sinatv_number_people">
 				<div class="sinatv_number_people_bg">
 					<div class="sinatv_number_people_fize"><img src="/xcview/images/zan01.png" alt="" class="sinatv_number_people_zan" /><span>你傻啊，我不傻，你傻</span></div>
-					<!-- 评价内容 -->
+					&lt;!&ndash; 评价内容 &ndash;&gt;
 					<div class="sinatv_evaluate_main">
-						<!-- <div class=""> -->
+						&lt;!&ndash; <div class=""> &ndash;&gt;
 							<span class="name">辣椒小姐：</span>
 							<span class="sinatv_evaluate_cen">我是内容</span>
-						<!-- </div> -->
+						&lt;!&ndash; </div> &ndash;&gt;
 						<div class="both"></div>
 						<div class="sinatv_response">
 							<span class="my">麦克</span>
@@ -338,7 +343,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div>-->
 
 
 	</div>
@@ -862,7 +867,7 @@
 			<img src="/xcview/images/face.png" alt="" class="face" />
 			<!-- <textarea id="form_article" contenteditable="true" onkeydown="myInput.listen(this, event);"></textarea> -->
 			<article id="form_article" contenteditable="true" onkeydown="myInput.listen(this, event);"></article>
-			<h3>发送</h3>
+			<h3 onclick="sendComment()">发送</h3>
 		</div>
 	</div>
 	
@@ -879,379 +884,379 @@
 <script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/common.js?v=wechat_1.1.1"></script> 
 <script type="text/javascript" src="/xcview/js/common/template.js"></script>    <!--数据模板引入-->
+<script type="text/javascript" src="/xcview/js/physician/physician_dynamics.js"></script>    <!--数据模板引入-->
+	<!-- 导航渐变 -->
+	<script>
+		$(window).bind("scroll", function() {
+			var $header = $("#header");
+			var t = 200,
+				m = Math.min(document.documentElement.scrollTop || document.body.scrollTop, t) / t;
+			$header.css("background", "rgba(255, 255, 255, " + m + ")");
 
-<!-- 导航渐变 -->
-<script>
-$(window).bind("scroll", function() {
-    var $header = $("#header");
-    var t = 200,
-        m = Math.min(document.documentElement.scrollTop || document.body.scrollTop, t) / t;
-    $header.css("background", "rgba(255, 255, 255, " + m + ")");
-
-    // 判断滚动条显示隐藏title
-	var top = $(document).scrollTop();
-    if(top < 40){
-    	$(".header p").hide();
-    	$(".arror_return img").attr("src","/xcview/images/anchorj.png");
-    	$(".header_news img").attr("src","/xcview/images/anchorf.png");
-    	$("#header").css("border-bottom","0px solid #d8dde6");
-    }else if(top > 40){
-    	$(".arror_return img").attr("src","/xcview/images/back icon.png");
-    	$(".header_news img").attr("src","/xcview/images/share_img.png");
-    	$(".header p").show();
-    	$("#header").css("border-bottom","1px solid #d8dde6");
-    }
-});
-</script>
-<!-- 头部固定开始 -->
-<script>
- $(document).ready(function() {
-     var $window = $(window),
-         $mainMenuBar = $('#mainMenuBar'),
-         $mainMenuBarAnchor = $('#mainMenuBarAnchor');
-     $window.scroll(function() {
-         //scrollTop()方法返回或设置匹配元素的滚动条的垂直位置
-         var window_top = $window.scrollTop();
-         //javascript用offsetTop();jquery用offset().top;
-         var div_top = $mainMenuBarAnchor.offset().top;
-         if (window_top > div_top) {
-             $mainMenuBar.addClass('stick');
-             $mainMenuBarAnchor.height($mainMenuBar.height());
-         } else {
-             $mainMenuBar.removeClass('stick');
-             $mainMenuBarAnchor.height(0);
-         }
-     });
- });
-</script>
-<!-- 头部固定结束 -->
-
-<!-- 头部轮播js开始 -->
-<script>
-	var mySwiper = new Swiper('.swiper-container', {
-		autoplay: true, //可选选项，自动滑动
-		loop: true,
-		pagination: {
-			el: '.swiper-pagination',
-		},
-	})
-</script>
-<!-- 头部轮播结束 -->
-
-
-<script type="text/javascript">
-	// 导航  固定和点击切换事件
-	window.onload = function(){
-		// 点击收起放到最上边--不然影响其他事件
-		// 医案  收起
-		$(".consilia_nav_btn").toggle(function(){
-	    	$(".consilia_nav_btn span").html('收起');
-		    $(".consilia_nav_main").removeClass("add");
-	  	},function(){
-		    $(".consilia_nav_btn span").html('展开');
-		    $(".consilia_nav_main").addClass("add");
-	    });
-
-	    // 其他二收起
-	    $(".essay_pack_up_btn").toggle(function(){
-	    	$(".essay_pack_up_btn span").html('收起');
-		    $(".essay_main").removeClass("essay_pack_up_add");
-	  	},function(){
-		    $(".essay_pack_up_btn span").html('展开');
-		    $(".essay_main").addClass("essay_pack_up_add");
-	    });
-
-
-		$(".li_data").click(function(){
-			$(".anchor_navigation .border").css("left","1.04rem");
-			$(".li_data").addClass("li_color");
-			$(".li_course").removeClass("li_color");
-			$(".li_evaluate").removeClass("li_color");
-			$(".li_data_hide").removeClass("hide");
-			$(".li_course_hide").addClass("hide");
-			$(".li_evaluate_hide").addClass("hide");
-			$(".li_data img").removeClass("hide");
-			$(".dynamic_opacity").removeClass("hide");  /*移除点击全部动态筛选*/
-			$("body").removeClass("body");
-			$(".broadcastroom").hide();  //直播间隐藏
-			$(".the_dynamic").show();   //全部动态隐藏
-			$(".message_referral").hide();   //介绍结束
+			// 判断滚动条显示隐藏title
+			var top = $(document).scrollTop();
+			if(top < 40){
+				$(".header p").hide();
+				$(".arror_return img").attr("src","/xcview/images/anchorj.png");
+				$(".header_news img").attr("src","/xcview/images/anchorf.png");
+				$("#header").css("border-bottom","0px solid #d8dde6");
+			}else if(top > 40){
+				$(".arror_return img").attr("src","/xcview/images/back icon.png");
+				$(".header_news img").attr("src","/xcview/images/share_img.png");
+				$(".header p").show();
+				$("#header").css("border-bottom","1px solid #d8dde6");
+			}
 		});
-		$(".li_course").click(function(){
-			$(".anchor_navigation .border").css("left","3.5rem");
-			$(".li_data").removeClass("li_color");
-			$(".li_course").addClass("li_color");
-			$(".li_evaluate").removeClass("li_color");
-			$(".li_data_hide").addClass("hide");
-			$(".li_course_hide").removeClass("hide");
-			$(".li_evaluate_hide").addClass("hide");
-			$(".li_data img").addClass("hide");
-			$(".dynamic_opacity").addClass("hide");
-			$(".screen_show").hide();  /*隐藏筛选*/
-			$("body").removeClass("body");
-			$(".the_dynamic").hide();  /*全部动态隐藏*/
-			$(".broadcastroom").show();   /*直播间打开*/
-			$(".message_referral").hide();  //介绍结束
-			// $(".broadcastroom").show();
+	</script>
+	<!-- 头部固定开始 -->
+	<script>
+		$(document).ready(function() {
+			var $window = $(window),
+				$mainMenuBar = $('#mainMenuBar'),
+				$mainMenuBarAnchor = $('#mainMenuBarAnchor');
+			$window.scroll(function() {
+				//scrollTop()方法返回或设置匹配元素的滚动条的垂直位置
+				var window_top = $window.scrollTop();
+				//javascript用offsetTop();jquery用offset().top;
+				var div_top = $mainMenuBarAnchor.offset().top;
+				if (window_top > div_top) {
+					$mainMenuBar.addClass('stick');
+					$mainMenuBarAnchor.height($mainMenuBar.height());
+				} else {
+					$mainMenuBar.removeClass('stick');
+					$mainMenuBarAnchor.height(0);
+				}
+			});
 		});
-		$(".li_evaluate").click(function(){
-			$(".anchor_navigation .border").css("left","5.94rem");
-			$(".li_data").removeClass("li_color");
-			$(".li_course").removeClass("li_color");
-			$(".li_evaluate").addClass("li_color");
-			$(".li_data_hide").addClass("hide");
-			$(".li_course_hide").addClass("hide");
-			$(".li_evaluate_hide").removeClass("hide");
-			$(".li_data img").addClass("hide");
-			$(".dynamic_opacity").addClass("hide");
-			$(".screen_show").hide();  /*隐藏筛选*/
-			$("body").removeClass("body");
-			$(".broadcastroom").hide();  //直播间隐藏
-			$(".the_dynamic").hide();   //全部动态隐藏
-			$(".message_referral").show();  //介绍结束
-			
-		});
+	</script>
+	<!-- 头部固定结束 -->
 
-		// 点击显示全部动态筛选  
-		$(".dynamic_opacity").click(function(){
-			$(".screen_show").show();
-			$("body").addClass("body");
-		});
-		$(".screen_show_bg").click(function(){
-			$(".screen_show").hide();
-			$("body").removeClass("body");
-		});
+	<!-- 头部轮播js开始 -->
+	<script>
+		var mySwiper = new Swiper('.swiper-container', {
+			autoplay: true, //可选选项，自动滑动
+			loop: true,
+			pagination: {
+				el: '.swiper-pagination',
+			},
+		})
+	</script>
+	<!-- 头部轮播结束 -->
 
-		// 循环点击筛选全部动态
-		var aBtn=$('.screen_show_main ul li');
-		for(i=0;i<aBtn.length;i++){
-            $(aBtn[i]).click(function(){
-              for(i=0;i<aBtn.length;i++){
-                $(aBtn[i]).removeClass('active');
-              }
-              $(this).addClass('active');
-              $(".li_data span").html($(this).html());
-              $("body").removeClass("body");
-              	// 替换文字后，改变3角形的位置
-                var mobile = $(".li_data span").html();		
-				if(mobile.length<3){
-					$(".li_data img").css("left","1.7rem");
-				}else{
-					$(".li_data img").css("left","1.95rem");
-				};
+
+	<script type="text/javascript">
+		// 导航  固定和点击切换事件
+		window.onload = function(){
+			// 点击收起放到最上边--不然影响其他事件
+			// 医案  收起
+			/*$(".consilia_nav_btn").toggle(function(){
+				$(".consilia_nav_btn span").html('收起');
+				$(".consilia_nav_main").removeClass("add");
+			  },function(){
+				$(".consilia_nav_btn span").html('展开');
+				$(".consilia_nav_main").addClass("add");
+			});*/
+
+			// 其他二收起
+			/*$(".essay_pack_up_btn").toggle(function(){
+				$(".essay_pack_up_btn span").html('收起');
+				$(".essay_main").removeClass("essay_pack_up_add");
+			  },function(){
+				$(".essay_pack_up_btn span").html('展开');
+				$(".essay_main").addClass("essay_pack_up_add");
+			});*/
+
+
+			$(".li_data").click(function(){
+				$(".anchor_navigation .border").css("left","1.04rem");
+				$(".li_data").addClass("li_color");
+				$(".li_course").removeClass("li_color");
+				$(".li_evaluate").removeClass("li_color");
+				$(".li_data_hide").removeClass("hide");
+				$(".li_course_hide").addClass("hide");
+				$(".li_evaluate_hide").addClass("hide");
+				$(".li_data img").removeClass("hide");
+				$(".dynamic_opacity").removeClass("hide");  /*移除点击全部动态筛选*/
+				$("body").removeClass("body");
+				$(".broadcastroom").hide();  //直播间隐藏
+				$(".the_dynamic").show();   //全部动态隐藏
+				$(".message_referral").hide();   //介绍结束
+			});
+			$(".li_course").click(function(){
+				$(".anchor_navigation .border").css("left","3.5rem");
+				$(".li_data").removeClass("li_color");
+				$(".li_course").addClass("li_color");
+				$(".li_evaluate").removeClass("li_color");
+				$(".li_data_hide").addClass("hide");
+				$(".li_course_hide").removeClass("hide");
+				$(".li_evaluate_hide").addClass("hide");
+				$(".li_data img").addClass("hide");
+				$(".dynamic_opacity").addClass("hide");
+				$(".screen_show").hide();  /*隐藏筛选*/
+				$("body").removeClass("body");
+				$(".the_dynamic").hide();  /*全部动态隐藏*/
+				$(".broadcastroom").show();   /*直播间打开*/
+				$(".message_referral").hide();  //介绍结束
+				// $(".broadcastroom").show();
+			});
+			$(".li_evaluate").click(function(){
+				$(".anchor_navigation .border").css("left","5.94rem");
+				$(".li_data").removeClass("li_color");
+				$(".li_course").removeClass("li_color");
+				$(".li_evaluate").addClass("li_color");
+				$(".li_data_hide").addClass("hide");
+				$(".li_course_hide").addClass("hide");
+				$(".li_evaluate_hide").removeClass("hide");
+				$(".li_data img").addClass("hide");
+				$(".dynamic_opacity").addClass("hide");
+				$(".screen_show").hide();  /*隐藏筛选*/
+				$("body").removeClass("body");
+				$(".broadcastroom").hide();  //直播间隐藏
+				$(".the_dynamic").hide();   //全部动态隐藏
+				$(".message_referral").show();  //介绍结束
+
+			});
+
+			// 点击显示全部动态筛选
+			$(".dynamic_opacity").click(function(){
+				$(".screen_show").show();
+				$("body").addClass("body");
+			});
+			$(".screen_show_bg").click(function(){
 				$(".screen_show").hide();
-            })
-        };
-        $(aBtn[0]).click();
+				$("body").removeClass("body");
+			});
 
-        // 点击动态筛选里面的内容  
-        // 点击全部动态
-        $(".filtrate_all").click(function(){
-            $(".rests_nav").removeClass("hide");  //其他1
-            $(".consilia_nav").removeClass("hide");  // 医案  
-            $(".essay_pack_up").removeClass("hide");  //其他2 
-            $(".article_nav").removeClass("hide");  //文章 
-            $(".rests_nav").removeClass("hide");  //其他3  
-            $(".course_nav").removeClass("hide");  //课程 
-            $(".sinatv_nav").removeClass("hide");  //直播 
-	    });	
-        //点击直播
-	    $(".filtrate_sinatv").click(function(){
-            $(".rests_nav").addClass("hide");  //其他1
-            $(".consilia_nav").addClass("hide");  // 医案  
-            $(".essay_pack_up").addClass("hide");  //其他2 
-            $(".article_nav").addClass("hide");  //文章 
-            $(".paper_nav").addClass("hide");  //其他3  
-            $(".course_nav").addClass("hide");  //课程 
-            $(".sinatv_nav").removeClass("hide");  //直播 
-	    });
-	    //点击课程 
-	    $(".filtrate_course").click(function(){
-            $(".rests_nav").addClass("hide");  //其他1
-            $(".consilia_nav").addClass("hide");  // 医案  
-            $(".essay_pack_up").addClass("hide");  //其他2 
-            $(".article_nav").addClass("hide");  //文章 
-            $(".paper_nav").addClass("hide");  //其他3  
-            $(".course_nav").removeClass("hide");  //课程 
-            $(".sinatv_nav").addClass("hide");  //直播 
-	    });	
-	    //点击医案
-	    $(".filtrate_consilia").click(function(){
-            $(".rests_nav").addClass("hide");  //其他1
-            $(".consilia_nav").removeClass("hide");  // 医案  
-            $(".essay_pack_up").addClass("hide");  //其他2 
-            $(".article_nav").addClass("hide");  //文章 
-            $(".paper_nav").addClass("hide");  //其他3  
-            $(".course_nav").addClass("hide");  //课程 
-            $(".sinatv_nav").addClass("hide");  //直播 
-	    });	
-	    //点击文章 
-	    $(".filtrate_essay").click(function(){
-            $(".rests_nav").addClass("hide");  //其他1
-            $(".consilia_nav").addClass("hide");  // 医案  
-            $(".essay_pack_up").addClass("hide");  //其他2 
-            $(".article_nav").removeClass("hide");  //文章 
-            $(".paper_nav").addClass("hide");  //其他3  
-            $(".course_nav").addClass("hide");  //课程 
-            $(".sinatv_nav").addClass("hide");  //直播 
-	    });	
-	    //点击其他
-	    $(".filtrate_rests").click(function(){
-            $(".rests_nav").removeClass("hide");  //其他1
-            $(".consilia_nav").addClass("hide");  // 医案  
-            $(".essay_pack_up").removeClass("hide");  //其他2 
-            $(".article_nav").addClass("hide");  //文章 
-            $(".paper_nav").removeClass("hide");  //其他3  
-            $(".course_nav").addClass("hide");  //课程 
-            $(".sinatv_nav").addClass("hide");  //直播 
-	    });	
+			// 循环点击筛选全部动态
+			var aBtn=$('.screen_show_main ul li');
+			for(i=0;i<aBtn.length;i++){
+				$(aBtn[i]).click(function(){
+					for(i=0;i<aBtn.length;i++){
+						$(aBtn[i]).removeClass('active');
+					}
+					$(this).addClass('active');
+					$(".li_data span").html($(this).html());
+					$("body").removeClass("body");
+					// 替换文字后，改变3角形的位置
+					var mobile = $(".li_data span").html();
+					if(mobile.length<3){
+						$(".li_data img").css("left","1.7rem");
+					}else{
+						$(".li_data img").css("left","1.95rem");
+					};
+					$(".screen_show").hide();
+				})
+			};
+			$(aBtn[0]).click();
 
-        // 点击关注
-        $(".attention").click(function(){
-            $(".attention").find('img').attr('src','/xcview/images/yigz.png');
-            $(".pay_attention").html("已关注");
-            $(".attention").css("background","#bbb");
-	    });	
-	    /*$(".attention").find('img').attr('src','/xcview/images/weigz.png');
-        $(".pay_attention").html("加关注");
-        $(".attention").css("background","#00bc12");*/
+			// 点击动态筛选里面的内容
+			// 点击全部动态
+			$(".filtrate_all").click(function(){
+				$(".rests_nav").removeClass("hide");  //其他1
+				$(".consilia_nav").removeClass("hide");  // 医案
+				$(".essay_pack_up").removeClass("hide");  //其他2
+				$(".article_nav").removeClass("hide");  //文章
+				$(".rests_nav").removeClass("hide");  //其他3
+				$(".course_nav").removeClass("hide");  //课程
+				$(".sinatv_nav").removeClass("hide");  //直播
+			});
+			//点击直播
+			$(".filtrate_sinatv").click(function(){
+				$(".rests_nav").addClass("hide");  //其他1
+				$(".consilia_nav").addClass("hide");  // 医案
+				$(".essay_pack_up").addClass("hide");  //其他2
+				$(".article_nav").addClass("hide");  //文章
+				$(".paper_nav").addClass("hide");  //其他3
+				$(".course_nav").addClass("hide");  //课程
+				$(".sinatv_nav").removeClass("hide");  //直播
+			});
+			//点击课程
+			$(".filtrate_course").click(function(){
+				$(".rests_nav").addClass("hide");  //其他1
+				$(".consilia_nav").addClass("hide");  // 医案
+				$(".essay_pack_up").addClass("hide");  //其他2
+				$(".article_nav").addClass("hide");  //文章
+				$(".paper_nav").addClass("hide");  //其他3
+				$(".course_nav").removeClass("hide");  //课程
+				$(".sinatv_nav").addClass("hide");  //直播
+			});
+			//点击医案
+			$(".filtrate_consilia").click(function(){
+				$(".rests_nav").addClass("hide");  //其他1
+				$(".consilia_nav").removeClass("hide");  // 医案
+				$(".essay_pack_up").addClass("hide");  //其他2
+				$(".article_nav").addClass("hide");  //文章
+				$(".paper_nav").addClass("hide");  //其他3
+				$(".course_nav").addClass("hide");  //课程
+				$(".sinatv_nav").addClass("hide");  //直播
+			});
+			//点击文章
+			$(".filtrate_essay").click(function(){
+				$(".rests_nav").addClass("hide");  //其他1
+				$(".consilia_nav").addClass("hide");  // 医案
+				$(".essay_pack_up").addClass("hide");  //其他2
+				$(".article_nav").removeClass("hide");  //文章
+				$(".paper_nav").addClass("hide");  //其他3
+				$(".course_nav").addClass("hide");  //课程
+				$(".sinatv_nav").addClass("hide");  //直播
+			});
+			//点击其他
+			$(".filtrate_rests").click(function(){
+				$(".rests_nav").removeClass("hide");  //其他1
+				$(".consilia_nav").addClass("hide");  // 医案
+				$(".essay_pack_up").removeClass("hide");  //其他2
+				$(".article_nav").addClass("hide");  //文章
+				$(".paper_nav").removeClass("hide");  //其他3
+				$(".course_nav").addClass("hide");  //课程
+				$(".sinatv_nav").addClass("hide");  //直播
+			});
 
-        // 点赞 
-        $(".rests_nav .zan_img").click(function(){
-            $(this).attr('src','/xcview/images/zan001.png');
-	    });	
-	};
-</script>
-<script>
+			// 点击关注
+			$(".attention").click(function(){
+				$(".attention").find('img').attr('src','/xcview/images/yigz.png');
+				$(".pay_attention").html("已关注");
+				$(".attention").css("background","#bbb");
+			});
+			/*$(".attention").find('img').attr('src','/xcview/images/weigz.png');
+			$(".pay_attention").html("加关注");
+			$(".attention").css("background","#00bc12");*/
+
+			// 点赞
+			$(".rests_nav .zan_img").click(function(){
+				$(this).attr('src','/xcview/images/zan001.png');
+			});
+		};
+	</script>
+	<script>
 		$(function(){
 			var say = '说点什么...';
 			if ($("#form_article").html() === "") {
 				$("#form_article").html(say);
 			}
 			$("#form_article").click(function(){
-	            if($("#form_article").html() == say){
-	               	$("#form_article").html("");
-	            }
-		    });
-		    $("#page_emotion dd").click(function(){
-	            $("#form_article").html( $("#form_article").html().replace(say, '') );
-		    });
+				if($("#form_article").html() == say){
+					$("#form_article").html("");
+				}
+			});
+			$("#page_emotion dd").click(function(){
+				$("#form_article").html( $("#form_article").html().replace(say, '') );
+			});
 
 
-		    // 点击底部评论textarea开始
-		    /*$(".face").click(function(){
-	            $(".comment").css("bottom","2.8rem");
-	            $("#page_emotion").css("bottom","0");
-	            $(".face").attr("src","/xcview/images/jianpan.png");
-		    });	*/
+			// 点击底部评论textarea开始
+			/*$(".face").click(function(){
+				$(".comment").css("bottom","2.8rem");
+				$("#page_emotion").css("bottom","0");
+				$(".face").attr("src","/xcview/images/jianpan.png");
+			});	*/
 			$(".face").toggle(function(){
-		    	$(".comment").css("bottom","2.8rem");
-	            $("#page_emotion").css("bottom","0");
-	            $(".face").attr("src","/xcview/images/jianpan.png");
-		  	},function(){
-			    $(".comment").css("bottom","0rem");
-	            $("#page_emotion").css("bottom","-2.8rem");
-	            $(".face").attr("src","/xcview/images/face.png");
-		    });
-	    // 点击底部评论textarea结束
+				$(".comment").css("bottom","2.8rem");
+				$("#page_emotion").css("bottom","0");
+				$(".face").attr("src","/xcview/images/jianpan.png");
+			},function(){
+				$(".comment").css("bottom","0rem");
+				$("#page_emotion").css("bottom","-2.8rem");
+				$(".face").attr("src","/xcview/images/face.png");
+			});
+			// 点击底部评论textarea结束
 
-	    // 点击发送开始
-	    $(".comment h3").click(function(){
-	    	$(".face").attr("src","/xcview/images/face.png");
-	    	$("#page_emotion").css("bottom","-2.8rem");
-	    	$(".comment").css("bottom","0");
-	    	$(".comment").hide();
-		});
+			// 点击发送开始
+			$(".comment h3").click(function(){
+				$(".face").attr("src","/xcview/images/face.png");
+				$("#page_emotion").css("bottom","-2.8rem");
+				$(".comment").css("bottom","0");
+				$(".comment").hide();
+			});
 
-	    // 点击其他内容区域隐藏评论区域
-		$(".comment_hide").click(function(){
-	    	$(".face").attr("src","/xcview/images/face.png");
-	    	$("#page_emotion").css("bottom","-2.8rem");
-	    	$(".comment").hide();
-		});
+			// 点击其他内容区域隐藏评论区域
+			$(".comment_hide").click(function(){
+				$(".face").attr("src","/xcview/images/face.png");
+				$("#page_emotion").css("bottom","-2.8rem");
+				$(".comment").hide();
+			});
 
-		// 点击其他--评论显示底部评论区域
-		$(".rests_nav .evaluate_img").click(function(){
-	    	$(".face").attr("src","/xcview/images/face.png");
-	    	$("#page_emotion").css("bottom","-2.8rem");
-	    	$(".comment").show();
-		});
+			// 点击其他--评论显示底部评论区域
+			$(".rests_nav .evaluate_img").click(function(){
+				$(".face").attr("src","/xcview/images/face.png");
+				$("#page_emotion").css("bottom","-2.8rem");
+				$(".comment").show();
+			});
 
-		// 点击医案--评论显示底部评论区域
-		$(".consilia_nav .consilia_evaluate_img").click(function(){
-	    	$(".face").attr("src","/xcview/images/face.png");
-	    	$("#page_emotion").css("bottom","-2.8rem");
-	    	$(".comment").show();
-		});
+			// 点击医案--评论显示底部评论区域
+			$(".consilia_nav .consilia_evaluate_img").click(function(){
+				$(".face").attr("src","/xcview/images/face.png");
+				$("#page_emotion").css("bottom","-2.8rem");
+				$(".comment").show();
+			});
 
-		// 点击其他二--评论显示底部评论区域
-		$(".essay_pack_up .essay_evaluate_img").click(function(){
-	    	$(".face").attr("src","/xcview/images/face.png");
-	    	$("#page_emotion").css("bottom","-2.8rem");
-	    	$(".comment").show();
-		});	
+			// 点击其他二--评论显示底部评论区域
+			$(".essay_pack_up .essay_evaluate_img").click(function(){
+				$(".face").attr("src","/xcview/images/face.png");
+				$("#page_emotion").css("bottom","-2.8rem");
+				$(".comment").show();
+			});
 
-		// 点击文章--评论显示底部评论区域
-		$(".article_nav .article_evaluate_img").click(function(){
-	    	$(".face").attr("src","/xcview/images/face.png");
-	    	$("#page_emotion").css("bottom","-2.8rem");
-	    	$(".comment").show();
-		});
+			// 点击文章--评论显示底部评论区域
+			$(".article_nav .article_evaluate_img").click(function(){
+				$(".face").attr("src","/xcview/images/face.png");
+				$("#page_emotion").css("bottom","-2.8rem");
+				$(".comment").show();
+			});
 
-		// 点击其他三--评论显示底部评论区域
-		$(".paper_nav .paper_evaluate_img").click(function(){
-	    	$(".face").attr("src","/xcview/images/face.png");
-	    	$("#page_emotion").css("bottom","-2.8rem");
-	    	$(".comment").show();
-		});	
+			// 点击其他三--评论显示底部评论区域
+			$(".paper_nav .paper_evaluate_img").click(function(){
+				$(".face").attr("src","/xcview/images/face.png");
+				$("#page_emotion").css("bottom","-2.8rem");
+				$(".comment").show();
+			});
 
-		// 点击课程--评论显示底部评论区域
-		$(".course_nav .course_evaluate_img").click(function(){
-	    	$(".face").attr("src","/xcview/images/face.png");
-	    	$("#page_emotion").css("bottom","-2.8rem");
-	    	$(".comment").show();
-		});	
+			// 点击课程--评论显示底部评论区域
+			$(".course_nav .course_evaluate_img").click(function(){
+				$(".face").attr("src","/xcview/images/face.png");
+				$("#page_emotion").css("bottom","-2.8rem");
+				$(".comment").show();
+			});
 
-		// 点击课程--评论显示底部评论区域
-		$(".sinatv_nav .sinatv_evaluate_img").click(function(){
-	    	$(".face").attr("src","/xcview/images/face.png");
-	    	$("#page_emotion").css("bottom","-2.8rem");
-	    	$(".comment").show();
-		});		
+			// 点击课程--评论显示底部评论区域
+			$(".sinatv_nav .sinatv_evaluate_img").click(function(){
+				$(".face").attr("src","/xcview/images/face.png");
+				$("#page_emotion").css("bottom","-2.8rem");
+				$(".comment").show();
+			});
 
-	    // 点击发送结束
+			// 点击发送结束
 		});
 	</script>
 
-<!-- 直播间倒计时代码开始 -->  
-<script>
-$(function() {
-    setInterval(timer, 1000);
-    function timer() {
-        //设置结束的时间
-        var endtime = new Date("2020/04/22 00:00:00");
-        //设置当前时间
-        var now = new Date();
-        //得到结束与当前时间差 ： 毫秒
-        var t = endtime.getTime() - now.getTime();
-        if (t > 0) {
-            //得到剩余天数
-            // var tian = Math.floor(t / 1000 / 60 / 60 / 24);
-            //得到还剩余的小时数（不满一天的小时）
-            var h = Math.floor(t / 1000 / 60 / 60 % 24);
-            //得到分钟数
-            var m = Math.floor(t / 1000 / 60 % 60);
-            //得到的秒数
-            var s = Math.floor(t / 1000 % 60);
-            var str = "直播倒计时 " + h + "：" + m + "：" + s;
-            $("#box1").html(str);
-        } else {
-            clearInterval(timer1); //这里可以添加倒计时结束后需要执行的事件 
-            alert("倒计时结束后执行");
-        }
-    }
-});
-</script>
-<!-- 直播间倒计时代码结束 -->
+	<!-- 直播间倒计时代码开始 -->
+	<script>
+		$(function() {
+			setInterval(timer, 1000);
+			function timer() {
+				//设置结束的时间
+				var endtime = new Date("2020/04/22 00:00:00");
+				//设置当前时间
+				var now = new Date();
+				//得到结束与当前时间差 ： 毫秒
+				var t = endtime.getTime() - now.getTime();
+				if (t > 0) {
+					//得到剩余天数
+					// var tian = Math.floor(t / 1000 / 60 / 60 / 24);
+					//得到还剩余的小时数（不满一天的小时）
+					var h = Math.floor(t / 1000 / 60 / 60 % 24);
+					//得到分钟数
+					var m = Math.floor(t / 1000 / 60 % 60);
+					//得到的秒数
+					var s = Math.floor(t / 1000 % 60);
+					var str = "直播倒计时 " + h + "：" + m + "：" + s;
+					$("#box1").html(str);
+				} else {
+					clearInterval(timer1); //这里可以添加倒计时结束后需要执行的事件
+					alert("倒计时结束后执行");
+				}
+			}
+		});
+	</script>
+	<!-- 直播间倒计时代码结束 -->
 
 </html>
