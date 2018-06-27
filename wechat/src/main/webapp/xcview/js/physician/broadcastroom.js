@@ -127,17 +127,13 @@ requestService("/xczh/doctors/doctorStatus", {doctorId:doctorId},function (data)
 										
 									};
 
-
 									var str = data.resultObject.workTime; //这是一字符串 
 									var ss = str.split(",");
 									// 先把所有的隐藏
-									$(".aaa img").hide();
+									$(".apm img").hide();
 									for (var i = 0; i < ss.length; i++) {
-										$(".aaa_"+ss[i]+" img").show();
+										$(".apm_"+ss[i]+" img").show();
 									};
-
-									
-
 									
 
 							    }
