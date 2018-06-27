@@ -477,6 +477,11 @@
     <div class="tab-content vertical-tab-content">
         <div role="tabpanel" class="tab-pane active" id="home">
         	<div class="mainrighttab tabresourse bordernone" id="courseDiv">
+				<p class="col-xs-4" style="padding: 0;">
+					<button class="btn btn-sm btn-success refresh-data" title="更新课程数据">
+						<i class="glyphicon glyphicon-refresh"></i> 更新课程数据
+					</button>
+				</p>
 			<div class="searchDivClass" id="searchDiv">
 			        <div class="profile-info-row" >
 			            <table frame=void >

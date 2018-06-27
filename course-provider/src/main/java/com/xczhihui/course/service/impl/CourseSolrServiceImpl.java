@@ -68,23 +68,34 @@ public class CourseSolrServiceImpl implements ICourseSolrService {
     }
 
     @Override
+    public void initCourseSolrDataById(Integer id) throws IOException, SolrServerException {
+        CourseSolrVO courseSolrVO = selectDoctor4SolrById(id);
+        if(courseSolrVO != null){
+            solrUtils.addBean(courseSolrVO);
+            logger.warn("课程数据更新完成，共{}条",courseSolrVO.toString());
+        }
+    }
+
+    @Override
     public List<CourseSolrVO> selectCourses4Solr() {
         List<CourseSolrVO> courseSolrVOs = iCourseMapper.selectCourses4Solr(null);
         courseSolrVOs.forEach(courseSolrVO -> handleMedicalCoursesolrVO(courseSolrVO));
         return courseSolrVOs;
     }
 
-
     @Override
-    public void deleteCoursesSolrDataById(String courseId) throws IOException, SolrServerException {
+    public void deleteCoursesSolrDataById(Integer courseId) throws IOException, SolrServerException {
         solrUtils.deleteById(courseId);
         logger.warn("课程数据删除:{}",courseId);
     }
 
 
     @Override
-    public CourseSolrVO selectDoctor4SolrById(String id) {
+    public CourseSolrVO selectDoctor4SolrById(Integer id) {
         List<CourseSolrVO> courseSolrVOS = iCourseMapper.selectCourses4Solr(id);
+        if(courseSolrVOS.size() == 0){
+            return null;
+        }
         CourseSolrVO courseSolrVO = courseSolrVOS.get(0);
         handleMedicalCoursesolrVO(courseSolrVO);
         return courseSolrVO;

@@ -13,11 +13,13 @@ public interface ICourseSolrService {
 
     void initCoursesSolrData() throws IOException, SolrServerException;
 
+    void initCourseSolrDataById(Integer id) throws IOException, SolrServerException;
+
     List<CourseSolrVO> selectCourses4Solr();
 
-    void deleteCoursesSolrDataById(String courseId) throws IOException, SolrServerException;
+    void deleteCoursesSolrDataById(Integer courseId) throws IOException, SolrServerException;
 
-    CourseSolrVO selectDoctor4SolrById(String id);
+    CourseSolrVO selectDoctor4SolrById(Integer id);
 
     Page<CourseSolrVO> selectCourseListBySolr(Page page, QueryConditionVo queryConditionVo) throws IOException, SolrServerException;
 }

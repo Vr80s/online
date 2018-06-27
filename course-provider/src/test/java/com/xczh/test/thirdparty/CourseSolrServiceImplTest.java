@@ -25,6 +25,10 @@ public class CourseSolrServiceImplTest extends BaseJunit4Test {
     public void testInit() {
         System.out.println("start");
     }
+    @Test
+    public void testInitById() throws IOException, SolrServerException {
+        iCourseSolrService.initCourseSolrDataById(607);
+    }
 
     @Test
     public void testQuery() throws IOException, SolrServerException {

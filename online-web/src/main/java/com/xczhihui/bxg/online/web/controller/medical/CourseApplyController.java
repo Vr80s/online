@@ -1,5 +1,6 @@
 package com.xczhihui.bxg.online.web.controller.medical;
 
+import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -9,8 +10,11 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import com.xczhihui.bxg.online.web.service.OnlineUserCenterService;
+import com.xczhihui.course.service.ICourseSolrService;
 import com.xczhihui.medical.doctor.model.MedicalDoctorPosts;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsService;
+
+import org.apache.solr.client.solrj.SolrServerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,6 +75,8 @@ public class CourseApplyController extends AbstractController {
     private String weixinTemplateMessageRemindCode;
     @Autowired
     private OnlineUserCenterService onlineUserCenterService;
+    @Autowired
+    private ICourseSolrService courseSolrService;
 
     /**
      * Description：分页获取课程申请列表
@@ -317,7 +323,7 @@ public class CourseApplyController extends AbstractController {
      * @Date: 上午 9:18 2018/1/23 0023
      **/
     @RequestMapping(value = "changeSaleState", method = RequestMethod.POST)
-    public ResponseObject changeSaleState(HttpServletRequest request, String courseApplyId, Integer state) {
+    public ResponseObject changeSaleState(Integer courseId, String courseApplyId, Integer state) throws IOException, SolrServerException {
         ResponseObject responseObj = new ResponseObject();
         OnlineUser user = getCurrentUser();
         courseApplyService.updateSaleState(user.getId(), courseApplyId, state);
@@ -326,8 +332,10 @@ public class CourseApplyController extends AbstractController {
             sendCourseOnlineMessage(courseApplyId, user);
             //添加医师动态
             addCourseDoctorPosts(courseApplyId, user);
+            courseSolrService.initCourseSolrDataById(courseId);
             responseObj.setResultObject("上架成功");
         } else {
+            courseSolrService.deleteCoursesSolrDataById(courseId);
             responseObj.setResultObject("下架成功");
         }
         return responseObj;

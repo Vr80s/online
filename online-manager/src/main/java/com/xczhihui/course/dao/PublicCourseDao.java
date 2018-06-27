@@ -25,7 +25,7 @@ public class PublicCourseDao extends HibernateDao<Course> {
 						+ "    4,if(DATE_ADD(now(),INTERVAL 2 HOUR)>=c.start_time and now() < c.start_time,5,c.live_status))),c.live_status) "
 						+ "			     AS liveStatus, "
 						+ " ABS(timestampdiff(second,current_timestamp,c.start_time)) as recent,"
-						+ " if(c.sort_update_time< now(),0,c.recommend_sort) recommendSort, "
+						+ " c.recommend_sort recommendSort, "
 						+ "c.grade_name as courseName ,c.sort_update_time as sortUpdateTime,ou.login_name as lecturerName ,m.name as menuName,c.`course_pwd` coursePwd "
 						+ ",c.live_source as liveSource,c.release_time as releaseTime,c.status as status,c.direct_id as directId  \n"
 						+ " from oe_course c  LEFT JOIN\n"
@@ -57,8 +57,7 @@ public class PublicCourseDao extends HibernateDao<Course> {
 		}
 		sql.append(" order by c.status desc,recommendSort desc,recent ");
 
-		return this.findPageBySQL(sql.toString(), paramMap, CourseVo.class,
-				pageNumber, pageSize);
+		return this.findPageBySQL(sql.toString(), paramMap, CourseVo.class, pageNumber, pageSize);
 	}
 
 	public void updateCourseDirectId(Course course) {

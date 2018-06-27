@@ -7,18 +7,11 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.*;
-import com.xczhihui.common.support.cc.bean.CategoryBean;
-import com.xczhihui.common.support.cc.config.Config;
-import com.xczhihui.common.support.cc.util.APIServiceFunction;
 import com.xczhihui.common.support.cc.util.CCUtils;
-import com.xczhihui.common.support.config.OnlineConfig;
 import com.xczhihui.common.util.DateUtil;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.util.enums.CourseForm;
@@ -28,7 +21,6 @@ import com.xczhihui.common.util.enums.PlayBackType;
 import com.xczhihui.course.dao.CourseDao;
 import com.xczhihui.course.dao.CourseSubscribeDao;
 import com.xczhihui.course.service.CourseService;
-import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.course.vo.CourseVo;
 import com.xczhihui.course.vo.LecturerVo;
 import com.xczhihui.course.vo.MenuVo;
@@ -51,13 +43,9 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
     private CourseDao courseDao;
     @Autowired
     private CourseSubscribeDao courseSubscribeDao;
-    //由后台配置的点播视频
-    private static String CNAME = "video-on-demand-background";
 
     @Autowired
     private OnlineUserService onlineUserService;
-    @Autowired
-    private OnlineConfig onlineConfig;
     @Autowired
     private CCUtils CCUtils;
 
@@ -79,52 +67,6 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
         return page;
 
     }
-
-    @Override
-    public Page<CourseVo> findCourseRecPage(CourseVo courseVo, int pageNumber, int pageSize) {
-        Page<CourseVo> page = courseDao.findCloudClassCourseRecPage(courseVo, pageNumber, pageSize);
-        return page;
-
-    }
-
-
-    /**
-     * 根据菜单编号，查找对应的课程列表
-     *
-     * @param number     菜单编号
-     * @param pageNumber 当前是第几页，默认1
-     * @param pageSize   每页显示多少行，默认20
-     * @return Example 分页列表
-     */
-    @Override
-    public List<CourseLecturVo> getCourseAndLecturerlist(Integer number, Integer courseType, Integer pageNumber, Integer pageSize) {
-
-        List<CourseLecturVo> courseLecturVos = null;
-        //先根据菜单编号获取相关课程信息
-        List<Course> courses = this.findCourseListByNumber("", number, courseType, pageNumber, pageSize);
-        if (!CollectionUtils.isEmpty(courses)) {
-            courseLecturVos = new ArrayList<>();
-            for (Course course : courses) {
-                //根据教师ID号查找老师信息
-                CourseLecturVo courseLecturVo = new CourseLecturVo();
-                courseLecturVo.setId(course.getId());
-                courseLecturVo.setGradeName(course.getGradeName());
-                courseLecturVo.setCourseType(Integer.valueOf(course.getCourseType()));
-                courseLecturVo.setLiveTime(course.getLiveTime());
-                courseLecturVo.setSmallImgPath(course.getSmallImgPath());
-                courseLecturVo.setDetailImgPath(course.getDetailImgPath());
-                courseLecturVo.setBigImgPath(course.getBigImgPath());
-                courseLecturVo.setDescription(course.getDescription());
-                courseLecturVo.setCreateTime(course.getCreateTime());
-                courseLecturVo.setGraduateTime(course.getGraduateTime());
-                courseLecturVo.setCloudClassroom(course.getCloudClassroom());
-                //  courseLecturVo.setName(lecturer.getName());
-                courseLecturVos.add(courseLecturVo);
-            }
-        }
-        return courseLecturVos;
-    }
-
 
     /**
      * 根据菜单编号，查找对应的课程列表
@@ -152,7 +94,6 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
         }
         Page<Course> page = dao.findPageByHQL(sql, paramMap, pageNumber, pageSize);
         return this.sort(page.getItems());
-        // return  page.getItems();
     }
 
 
@@ -197,7 +138,7 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
     public List<Course> sort(List<Course> couVo) {
         List<Course> firstVo = new ArrayList<Course>();
         List<Course> secondVo = new ArrayList<Course>();
-        long currentTime = new Date().getTime();//毫秒
+        long currentTime = System.currentTimeMillis();//毫秒
         for (Course vo : couVo) {
             if (vo.getLiveTime().getTime() > currentTime) {
                 firstVo.add(vo);
@@ -233,7 +174,6 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
             params.put("firstMenuNumber", firstMenuNumber);
             sql = "SELECT s.id as number ,s.`name` as name from menu_coursetype mc,score_type  s WHERE s.id<>0 and mc.course_type_id=s.id and mc.menu_id =:firstMenuNumber";
         }
-        //String sql="SELECT number,name FROM oe_menu where name!='全部'and number<>:firstMenuNumber and SUBSTR(number FROM 1 FOR 4)=:firstMenuNumber";
         return dao.findEntitiesByJdbc(MenuVo.class, sql, params);
     }
 
@@ -244,23 +184,6 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
         String sql = "SELECT id,name FROM oe_lecturer where is_delete=0 ";
         dao.findEntitiesByJdbc(MenuVo.class, sql, params);
         return dao.findEntitiesByJdbc(LecturerVo.class, sql, params);
-    }
-
-    @Override
-    public List<CourseVo> findByMenuId(String menuId, String courseTypeId) {
-        String sql = "select id,"
-                + " grade_name as courseName,"
-                + " class_template as classTemplate,"
-                + " course_type courseType,"
-                + " grade_student_sum gradeStudentSum,"
-                + " (select count(1) from oe_plan_template opt where opt.course_id = oe_course.id ) teachingDays  "
-                + " from oe_course where menu_id=:menuId and course_type = 0 ";//职业课
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("menuId", menuId);
-        sql += " and course_type_id=:courseTypeId ";
-        params.put("courseTypeId", courseTypeId);
-        sql += " and is_delete=0 ";
-        return dao.findEntitiesByJdbc(CourseVo.class, sql, params);
     }
 
     @Override
@@ -292,7 +215,6 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
     @Override
     public void addCourse(CourseVo courseVo) {
         checkName(courseVo.getId(), courseVo.getCourseName(), null);
-        // TODO Auto-generated method stub
         Map<String, Object> params = new HashMap<String, Object>();
         String sql = "SELECT IFNULL(MAX(sort),0) as sort FROM oe_course ";
         List<Course> temp = dao.findEntitiesByJdbc(Course.class, sql, params);
@@ -406,16 +328,8 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
 
     @Override
     public List<CourseVo> findCourseById(Integer id) {
-        // TODO Auto-generated method stub
         Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("courseId", id);
-//		String sql = "SELECT oc.id as id,oc.grade_name as courseName,oc.class_template as classTemplate,oc.subtitle,oc.lecturer,om.name as xMenuName,st.name as scoreTypeName,oc.multimedia_type multimediaType,oc.start_time startTime,oc.end_time endTime,oc.address,"
-//				+ "tm.name as teachMethodName,oc.course_length as courseLength,oc.learnd_count as learndCount,oc.course_pwd as coursePwd,oc.grade_qq gradeQQ,oc.default_student_count defaultStudentCount,"
-//				+ "oc.create_time as createTime,oc.status as status ,oc.is_free as isFree,oc.original_cost as originalCost,"
-//				+ "oc.current_price as currentPrice,oc.description as description ,oc.cloud_classroom as cloudClassroom ,"
-//				+ "oc.menu_id as menuId,oc.course_type_id as courseTypeId,oc.courseType as courseType,oc.qqno,oc.grade_student_sum as classRatedNum,oc.user_lecturer_id as userLecturerId,oc.smallimg_path as smallimgPath FROM oe_course oc "
-//				+ "LEFT JOIN oe_menu om ON om.id = oc.menu_id LEFT JOIN score_type st ON st.id = oc.course_type_id "
-//				+ "LEFT JOIN teach_method tm ON tm.id = oc.courseType WHERE oc.id = :courseId";
         String sql = "SELECT \n" +
                 "  oc.id AS id,\n" +
                 "  oc.grade_name AS courseName,\n" +
@@ -571,35 +485,23 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
 
 
     @Override
-    public void updateStatus(Integer id) {
-        // TODO Auto-generated method stub
-
+    public boolean updateStatus(Integer id) {
         String hql = "from Course where 1=1 and isDelete=0 and id = ?";
         Course course = dao.findByHQLOne(hql, new Object[]{id});
         course.setReleaseTime(new Date());
+        boolean status = true;
         if (course.getStatus() != null && "1".equals(course.getStatus())) {
             course.setStatus("0");
+            status = false;
         } else {
-             /*if(course.getType()!=null&&1==course.getType()){
-        		 String hqlo ="from Course where  isDelete=0 and status =1 and type=1";
-        		 List<Course> temps=dao.findByHQL(hqlo, new Object[] {});
-        		 if(temps.size()>=4){
-        				throw new RuntimeException ("只能启用4条数据！");
-        		 }
-        	 }*/
             course.setStatus("1");
         }
-
         dao.update(course);
+        return status;
     }
 
     @Override
     public void deleteCourseById(Integer id) {
-        // TODO Auto-generated method stub
-//		 String hql="update Course set isDelete = 1 where  id = ?";
-//         Course course= dao.findByHQLOne(hql,new Object[] {id});
-//         course.setDelete(true);
-//         dao.update(course);
         //校验是否被引用
         String hqlPre = "from Grade where  isDelete=0 and courseId = ?";
         Grade grade = dao.findByHQLOne(hqlPre, new Object[]{id.toString()});
@@ -612,7 +514,6 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
 
     @Override
     public void updateSortUp(Integer id) {
-        // TODO Auto-generated method stub
         String hqlPre = "from Course where  isDelete=0 and id = ?";
         Course coursePre = dao.findByHQLOne(hqlPre, new Object[]{id});
         Integer coursePreSort = coursePre.getSort();
@@ -626,34 +527,10 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
 
         dao.update(coursePre);
         dao.update(courseNext);
-
-
     }
-
-    @Override
-    public void updateSortUpForReal(Integer id) {
-        // TODO Auto-generated method stub
-        String hqlPre = "from Course where  isDelete=0 and id = ?";
-        Course coursePre = dao.findByHQLOne(hqlPre, new Object[]{id});
-        Integer coursePreSort = coursePre.getSort();
-
-        String hqlNext = "from Course where sort > (select sort from Course where id= ? ) and type=3 and isDelete=0 order by sort asc";
-        Course courseNext = dao.findByHQLOne(hqlNext, new Object[]{id});
-        Integer courseNextSort = courseNext.getSort();
-
-        coursePre.setSort(courseNextSort);
-        courseNext.setSort(coursePreSort);
-
-        dao.update(coursePre);
-        dao.update(courseNext);
-
-
-    }
-
 
     @Override
     public void updateSortDown(Integer id) {
-        // TODO Auto-generated method stub
         String hqlPre = "from Course where  isDelete=0 and id = ?";
         Course coursePre = dao.findByHQLOne(hqlPre, new Object[]{id});
         Integer coursePreSort = coursePre.getSort();
@@ -668,25 +545,6 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
         dao.update(courseNext);
 
     }
-
-    @Override
-    public void updateSortDownForReal(Integer id) {
-        // TODO Auto-generated method stub
-        String hqlPre = "from Course where  isDelete=0 and id = ?";
-        Course coursePre = dao.findByHQLOne(hqlPre, new Object[]{id});
-        Integer coursePreSort = coursePre.getSort();
-        String hqlNext = "from Course where sort < (select sort from Course where id= ? ) and type = 3 and isDelete=0 order by sort desc";
-        Course courseNext = dao.findByHQLOne(hqlNext, new Object[]{id});
-        Integer courseNextSort = courseNext.getSort();
-
-        coursePre.setSort(courseNextSort);
-        courseNext.setSort(coursePreSort);
-
-        dao.update(coursePre);
-        dao.update(courseNext);
-
-    }
-
 
     @Override
     public void deletes(String[] ids) {
@@ -759,7 +617,7 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
             retn.put("lecturerDescription", c.getLecturerDescription());
             retn.put("gradeName", c.getGradeName());
             retn.put("descriptionShow", c.getDescriptionShow().toString());
-			/*2017-08-14---yuruixin*/
+            /*2017-08-14---yuruixin*/
             String imgStr = c.getBigImgPath();
             String img0 = null;
             String img1 = null;
@@ -786,7 +644,6 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
 
     @Override
     public List<ScoreType> getScoreType() {
-        // TODO Auto-generated method stub
         return courseDao.getScoreType();
     }
 
@@ -875,7 +732,6 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
 
     @Override
     public boolean updateRec(String[] ids, int isRecommend) {
-        // TODO Auto-generated method stub
         List<String> ids2 = new ArrayList();
         //如果是要推荐 那么就验证 推荐数量是否大于4
         if (isRecommend == 1) {
@@ -891,7 +747,6 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
 
                         Course course = iterator.next();
                         if (course.getId() == Integer.parseInt(ids[i])) {//如果存在就把他剔除掉从list中
-                            //							list2.add(course);
                             j = 1;
                         }
                     }
@@ -900,8 +755,6 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
                         ids2.add(ids[i]);
                     }
                 }
-
-//				list.removeAll(list2);
             } else {
                 for (int i = 0; i < ids.length; i++) {
                     ids2.add(ids[i]);
@@ -910,7 +763,6 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
             //已经存在的数量 +  即将添加的数量
             if ((list.size() + ids2.size()) > 12) {
                 //取消推荐数目限制
-//            	return false;
             }
         } else {//如果是取消推荐
             for (int i = 0; i < ids.length; i++) {
@@ -939,8 +791,6 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
 
     @Override
     public boolean updateCityRec(String[] ids, int isRecommend) {
-        // TODO Auto-generated method stub
-
         for (String id : ids) {
             if (id == "" || id == null) {
                 continue;
@@ -957,8 +807,6 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
 
     @Override
     public void updateSortUpRec(Integer id) {
-
-        // TODO Auto-generated method stub
         String hqlPre = "from Course where  isDelete=0 and id = ?";
         Course coursePre = dao.findByHQLOne(hqlPre, new Object[]{id});
         Integer coursePreSort = coursePre.getRecommendSort();
@@ -977,7 +825,6 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
 
     @Override
     public void updateCitySortUp(Integer id) {
-        // TODO Auto-generated method stub
         String hqlPre = "from OffLineCity where  isDelete=0 and id = ?";
         OffLineCity coursePre = dao.findByHQLOne(hqlPre, new Object[]{id});
 
@@ -1000,7 +847,6 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
 
     @Override
     public void updateCitySortDown(Integer id) {
-        // TODO Auto-generated method stub
         String hqlPre = "from OffLineCity where  isDelete=0 and id = ?";
         OffLineCity coursePre = dao.findByHQLOne(hqlPre, new Object[]{id});
 
@@ -1027,7 +873,6 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
 
     @Override
     public void updateSortDownRec(Integer id) {
-        // TODO Auto-generated method stub
         String hqlPre = "from Course where  isDelete=0 and id = ?";
         Course coursePre = dao.findByHQLOne(hqlPre, new Object[]{id});
         Integer coursePreSort = coursePre.getRecommendSort();
@@ -1047,13 +892,7 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
     @Override
     public List<Course> findByName(String name) {
         List<Course> courses = dao.findEntitiesByProperty(Course.class, "gradeName", name);
-		/*if(course!=null&&!course.isDelete()){
-			return course;
-		}else{
-			return null;	
-		}*/
         return courses;
-
     }
 
     @Override
@@ -1066,7 +905,6 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
 
     @Override
     public Object lectereListByCourseIdAndRoleType(int roleType, String courseId) {
-        // TODO Auto-generated method stub
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("roleType", roleType);
         params.put("courseId", courseId);
@@ -1100,7 +938,6 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
     @Override
     public void saveTeachers(String gradeId, String courseId, String userName,
                              List<String> roleTypes) {
-        // TODO Auto-generated method stub
         Map<String, Object> param = new HashMap<String, Object>();
         String sql = "DELETE FROM course_r_lecturer WHERE course_id=:courseId ";
         param.put("courseId", courseId);
@@ -1150,312 +987,7 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
     }
 
     @Override
-    public void deleteCourseByExamineId(Integer examineId, boolean falg) {
-        String hqlPre = "from Course where  examine_id = ?";
-        Course course = dao.findByHQLOne(hqlPre, new Object[]{examineId});
-        if (course != null) {
-            course.setDelete(falg);
-            dao.update(course);
-        }
-    }
-
-
-    @Override
-    public void updateCategoryInfo(String courseId) throws Exception {
-        List<CategoryBean> cs = CCUtils.getAllCategories();
-        createCourseCategories(courseId, cs);
-        Thread.sleep(1000);
-        cs = CCUtils.getAllCategories();
-        createChapterCategories(courseId, cs);
-    }
-
-    @Override
-    public String updateCourseVideoInfo(String id) {
-
-        Map<String, String> vs = new HashMap<String, String>();
-        Map<String, String> cs = new HashMap<String, String>();
-
-        Map<String, Object> paramMap = new HashMap<String, Object>();
-        Course c = dao.get(Integer.valueOf(id), Course.class);
-
-        String msg = "";
-
-        String sql = "SELECT sp.id,sp.`name` FROM oe_course ke,oe_chapter zhang,oe_chapter jie,oe_chapter zsd,oe_video sp " +
-                " WHERE sp.chapter_id=zsd.id AND zsd.parent_id=jie.id AND jie.parent_id=zhang.id AND zhang.parent_id=ke.id " +
-                " AND ke.id=:id AND zhang.is_delete=0 AND jie.is_delete=0 AND zsd.is_delete=0 AND sp.is_delete=0 AND sp.video_id IS NULL ";
-        paramMap.put("id", id);
-
-        List<Map<String, Object>> vsmp = dao.getNamedParameterJdbcTemplate().queryForList(sql, paramMap);
-        if (vsmp.size() <= 0) {
-            return "ok";
-        }
-
-        for (Map<String, Object> map : vsmp) {
-            vs.put(String.valueOf(map.get("id")), String.valueOf(map.get("name")));
-        }
-
-
-        List<String> categories = new ArrayList<String>();
-        List<CategoryBean> allCategories = CCUtils.getAllCategories();
-        for (CategoryBean categoryBean : allCategories) {
-            if (categoryBean.getName().equals(c.getGradeName())) {
-                List<CategoryBean> subs = categoryBean.getSubs();
-                for (CategoryBean sub : subs) {
-                    categories.add(sub.getId());
-                }
-                break;
-            }
-        }
-//		categories.clear();
-//		categories.add("5C3F061265D9303B");
-        for (String categoryid : categories) {
-            for (int i = 1; i < 999999; i++) {
-                Map<String, String> paramsMap = new HashMap<String, String>();
-                paramsMap.put("categoryid", categoryid);
-                paramsMap.put("userid", onlineConfig.ccuserId);
-                paramsMap.put("num_per_page", "100");
-                paramsMap.put("page", i + "");
-                paramsMap.put("format", "json");
-                long time = System.currentTimeMillis();
-                String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time, onlineConfig.ccApiKey);
-                String responsestr = APIServiceFunction.HttpRetrieve(Config.api_category_videos + "?" + requestURL);
-
-                if (responsestr.contains("\"error\":")) {
-                    throw new RuntimeException("该课程有视频正在做转码处理<br>请过半小时之后再操作。");
-                }
-
-                Gson g = new GsonBuilder().create();
-                Map<String, Object> mp = g.fromJson(responsestr, Map.class);
-                Map<String, Object> root = (Map<String, Object>) mp.get("videos");
-                ArrayList<Object> videos = (ArrayList<Object>) root.get("video");
-
-                if (videos == null || videos.size() <= 0) {
-                    break;
-                }
-
-                for (Object object : videos) {
-                    Map<String, Object> video = (Map<String, Object>) object;
-
-                    String duration = video.get("duration").toString();
-                    double d = Double.valueOf(duration);
-                    String m = String.valueOf((int) d / 60);
-                    String s = String.valueOf((int) d % 60);
-                    m = m.length() == 1 ? "0" + m : m;
-                    s = s.length() == 1 ? "0" + s : s;
-                    String ms = m + ":" + s;
-
-                    String vid = video.get("id").toString();
-                    String title = video.get("title").toString();
-
-                    if (cs.containsKey(title)) {
-                        double oldduration = Double.valueOf(cs.get(title).split("_#_")[2]);
-                        if (d > oldduration) {
-                            cs.put(title, vid + "_#_" + ms + "_#_" + duration);
-                        }
-                    } else {
-                        cs.put(title, vid + "_#_" + ms + "_#_" + duration);
-                    }
-                }
-
-                try {
-                    Thread.sleep(200);
-                } catch (InterruptedException e) {
-                }
-            }
-        }
-
-        for (Map.Entry<String, String> video : vs.entrySet()) {
-            String vinfo = cs.get(video.getValue());
-            if (vinfo != null) {
-                String vid = vinfo.split("_#_")[0];
-                String ms = vinfo.split("_#_")[1];
-                sql = "update oe_video set video_id='" + vid + "',video_time='" + ms + "' where id='" + video.getKey() + "' ";
-                dao.getNamedParameterJdbcTemplate().update(sql, paramMap);
-            } else {
-                msg += (video.getValue() + "<br>");
-            }
-        }
-
-        if (msg.length() > 0) {
-            return "同步成功，但以下视频还未上传：<br>" + msg + "请使用客户端上传后再次同步";
-        }
-        return "ok";
-    }
-
-    public void createCourseCategories(String courseId, List<CategoryBean> cs) throws Exception {
-        String name = null;
-        List<Map<String, Object>> lst = dao.getNamedParameterJdbcTemplate().getJdbcOperations()
-                .queryForList("select o.grade_name from oe_course o where o.is_delete=0 and (o.type=2 or o.type=0) and id=" + courseId);
-        if (lst != null && lst.size() > 0) {
-            name = lst.get(0).get("grade_name").toString();
-        }
-
-        boolean b = false;
-        for (CategoryBean bean : cs) {
-            if (name.equals(bean.getName())) {
-                b = true;
-                break;
-            }
-        }
-        if (!b) {
-            Map<String, String> paramsMap = new HashMap<String, String>();
-            paramsMap.put("userid", onlineConfig.ccuserId);
-            paramsMap.put("name", name);
-            paramsMap.put("format", "json");
-            long time = System.currentTimeMillis();
-            String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time, onlineConfig.ccApiKey);
-            String responsestr = APIServiceFunction.HttpRetrieve("http://spark.bokecc.com/api/category/create?" + requestURL);
-            if (responsestr.contains("error")) {
-                throw new RuntimeException("创建一级CC分类失败！");
-            }
-            Gson g = new GsonBuilder().create();
-            Map<String, Object> mp = g.fromJson(responsestr, Map.class);
-            Map<String, Object> category = (Map<String, Object>) mp.get("category");
-        }
-    }
-
-    public void createChapterCategories(String courseId, List<CategoryBean> cs) throws Exception {
-
-        List<Map<String, Object>> lst = dao.getNamedParameterJdbcTemplate().getJdbcOperations()
-                .queryForList("select o.grade_name,z.`name` from oe_course o,oe_chapter z "
-                        + "where z.parent_id=o.id and z.`level`=2 and o.is_delete=0 and z.is_delete=0 and (o.type=2 or o.type=0) and o.id=" + courseId);
-
-        for (Map<String, Object> map : lst) {
-            String grade_name = map.get("grade_name").toString();
-            String name = map.get("name").toString();
-
-            for (CategoryBean bean : cs) {
-                if (grade_name.equals(bean.getName())) {
-                    boolean b = false;
-                    for (CategoryBean sub : bean.getSubs()) {
-                        if (sub.getName().equals(name)) {
-                            b = true;
-                            break;
-                        }
-                    }
-                    if (!b) {
-                        Map<String, String> paramsMap = new HashMap<String, String>();
-                        paramsMap.put("userid", onlineConfig.ccuserId);
-                        paramsMap.put("name", name);
-                        paramsMap.put("super_categoryid", bean.getId());
-                        paramsMap.put("format", "json");
-                        long time = System.currentTimeMillis();
-                        String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time, onlineConfig.ccApiKey);
-                        String responsestr = APIServiceFunction.HttpRetrieve("http://spark.bokecc.com/api/category/create?" + requestURL);
-                        if (responsestr.contains("error")) {
-                            throw new RuntimeException("创建二级CC分类失败！");
-                        }
-                        Gson g = new GsonBuilder().create();
-                        Map<String, Object> mp = g.fromJson(responsestr, Map.class);
-                        Map<String, Object> category = (Map<String, Object>) mp.get("category");
-                        Thread.sleep(500);
-                    }
-                }
-            }
-        }
-    }
-
-    @Override
-    public String updateCourseVideo(String id) {
-
-        Map<String, String> vs1 = new HashMap<String, String>();
-        Map<String, String> cs = new HashMap<String, String>();
-
-        Map<String, Object> paramMap = new HashMap<String, Object>();
-        Course c = dao.get(Integer.valueOf(id), Course.class);
-
-        String msg = "";
-
-        String sql = "SELECT oc.`grade_name` FROM `oe_course` oc WHERE oc.id=:id";
-        paramMap.put("id", id);
-        List<String> courseNames = dao.getNamedParameterJdbcTemplate().queryForList(sql, paramMap, String.class);
-        String courseName = courseNames.get(0);
-
-        List<String> categories = new ArrayList<String>();
-        List<CategoryBean> allCategories = CCUtils.getAllCategories();
-        for (CategoryBean categoryBean : allCategories) {
-            if (categoryBean.getName().equals(CNAME)) {
-                categories.add(categoryBean.getId());
-                break;
-            }
-        }
-        for (String categoryid : categories) {
-            for (int i = 1; i < 999999; i++) {
-                Map<String, String> paramsMap = new HashMap<String, String>();
-                paramsMap.put("categoryid", categoryid);
-                paramsMap.put("userid", onlineConfig.ccuserId);
-                paramsMap.put("num_per_page", "100");
-                paramsMap.put("page", i + "");
-                paramsMap.put("format", "json");
-                long time = System.currentTimeMillis();
-                String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time, onlineConfig.ccApiKey);
-                String responsestr = APIServiceFunction.HttpRetrieve(Config.api_category_videos + "?" + requestURL);
-
-                if (responsestr.contains("\"error\":")) {
-                    throw new RuntimeException("该课程有视频正在做转码处理<br>请过半小时之后再操作。");
-                }
-
-                Gson g = new GsonBuilder().create();
-                Map<String, Object> mp = g.fromJson(responsestr, Map.class);
-                Map<String, Object> root = (Map<String, Object>) mp.get("videos");
-                ArrayList<Object> videos = (ArrayList<Object>) root.get("video");
-
-                if (videos == null || videos.size() <= 0) {
-                    break;
-                }
-
-                for (Object object : videos) {
-                    Map<String, Object> video = (Map<String, Object>) object;
-
-                    String duration = video.get("duration").toString();
-//					double d = Double.valueOf(duration);
-//					int totalM = (int)d/(60);
-//					int h = totalM/60;
-//					double m = Double.valueOf(totalM-h*60) / 60;
-//					DecimalFormat df   = new DecimalFormat("######0.00");
-//					m = Double.valueOf(df.format(m));
-                    String hm = String.valueOf(Double.valueOf(duration).intValue() / 60);
-//					String hm = String.valueOf(h + m);
-
-                    String vid = video.get("id").toString();
-                    String title = video.get("title").toString();
-
-//					if (cs.containsKey(title)) {
-//						double oldduration = Double.valueOf(cs.get(title).split("_#_")[2]);
-//						if (d > oldduration) {
-//							cs.put(title, vid + "_#_" + hm + "_#_" + duration);
-//						}
-//					} else {
-                    cs.put(title, vid + "_#_" + hm + "_#_" + duration);
-//					}
-                }
-
-                try {
-                    Thread.sleep(200);
-                } catch (InterruptedException e) {
-                }
-            }
-        }
-
-        String vinfo = cs.get(courseName);
-        if (vinfo != null) {
-            String vid = vinfo.split("_#_")[0];
-            String ms = vinfo.split("_#_")[1];
-            sql = "update oe_course set direct_id='" + vid + "',course_length='" + ms + "' where id=" + id + "";
-            dao.getNamedParameterJdbcTemplate().update(sql, paramMap);
-        } else {
-            msg += (courseName + "<br>");
-        }
-
-        if (msg.length() > 0) {
-            return "以下视频还未上传：<br>" + msg + "请使用客户端上传后再次同步";
-        }
-        return "ok";
-    }
-
-    @Override
     public void addCourseCity(String city) {
-        // TODO Auto-generated method stub
         /**
          * 添加前，看存在此城市，如果存在那么就不添加
          */
@@ -1488,24 +1020,8 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
     }
 
     @Override
-    public OffLineCity findCourseCityByName(Integer cityId) {
-        String hqlPre = "from OffLineCity where id  = '" + cityId + "'";
-        ;
-        OffLineCity object = dao.findByHQLOne(hqlPre, new Object[]{});
-        return object;
-    }
-
-    @Override
-    public void deleteCourseCityByName(String city) {
-        String savesql = " delete from oe_offline_city where city_name = '" + city + "'";
-        Map<String, Object> params = new HashMap<String, Object>();
-        dao.getNamedParameterJdbcTemplate().update(savesql, params);
-    }
-
-    @Override
     public Page<OffLineCity> getCourseCityList(OffLineCity searchVo, Integer pageNumber, Integer pageSize) {
         String sql = "select  *  from  oe_offline_city where  is_delete = 0 and status = 1 ";
-        //List<OffLineCity> list= dao.findByHQL(hqlPre);
         if (searchVo.getCityName() != null && !"".equals(searchVo.getCityName())) {
             sql += " and city_name = '" + searchVo.getCityName() + "'";
         }
@@ -1517,9 +1033,6 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
 
     @Override
     public void updateCourseCityStatus(Integer courseId) {
-        // TODO Auto-generated method stub
-
-
         String hql = "from Course where 1=1 and isDelete=0 and id = ?";
         Course course = dao.findByHQLOne(hql, new Object[]{courseId});
 
@@ -1562,7 +1075,6 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
 
     @Override
     public void updateCourseCity(OffLineCity offLineCity) {
-        // TODO Auto-generated method stub
         String savesql = " update  oe_offline_city  set icon = '" + offLineCity.getIcon() + "' where id = '" + offLineCity.getId() + "' ";
         Map<String, Object> params = new HashMap<String, Object>();
         dao.getNamedParameterJdbcTemplate().update(savesql, params);
@@ -1612,10 +1124,26 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
     }
 
     @Override
-    public void updateDefaultSort() {
-        String sql = " UPDATE  oe_course  SET recommend_sort=0 WHERE sort_update_time<= now()";
+    public List<Integer> updateDefaultSort() {
+        List<Integer> updateRecommendIds = getUpdateRecommendId();
+        updateRecommendIds.forEach(id->updateDefaultSort(id));
+        return updateRecommendIds;
+    }
+
+    @Override
+    public void updateDefaultSort(Integer id) {
+        String sql = " UPDATE  oe_course  SET recommend_sort=0 WHERE id = :id";
         Map<String, Object> params = new HashMap<String, Object>();
+        params.put("id",id);
         dao.getNamedParameterJdbcTemplate().update(sql, params);
+    }
+
+    @Override
+    public List<Integer> getUpdateRecommendId(){
+        String sql = "SELECT id FROM oe_course WHERE sort_update_time<= NOW() AND recommend_sort != 0";
+        List<Integer> ids = dao.getNamedParameterJdbcTemplate().getJdbcOperations()
+                .queryForList(sql,Integer.class);
+        return ids;
     }
 
     public String createWebinar(Course entity) {
@@ -1689,8 +1217,4 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
         dao.update(course);
     }
 
-    @Override
-    public List<CourseVo> listSimpleCourse(int offset, int pageSize) {
-        return courseDao.listSimpleCourse(offset, pageSize);
-    }
 }

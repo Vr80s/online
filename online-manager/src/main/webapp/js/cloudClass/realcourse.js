@@ -171,6 +171,15 @@ $(function(){
     });
 });
 
+$(".refresh-data").click(function(){
+    ajaxRequest(basePath+"/cloudclass/course/initCoursesSolrData",null,function(data){
+        if(data.success){//如果失败
+            layer.msg(data.resultObject);
+        }else{
+            layer.msg(data.errorMessage);
+        }
+    });
+});
 /**
  * 城市列表上移
  * @param obj

@@ -157,5 +157,5 @@ public interface CourseMapper extends BaseMapper<Course> {
                     " order by oc.create_time desc"})
     List<Map<String, Object>> selectCourseByType(@Param("type") Integer type, @Param("anchorId") String anchorId);
 
-    List<CourseSolrVO> selectCourses4Solr(String courseId);
+    List<CourseSolrVO> selectCourses4Solr(@Param("courseId") Integer courseId);
 }

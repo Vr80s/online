@@ -736,7 +736,7 @@ function verifyCourse(course){
 }
 
 
-function confirmCourseSale(state,courseId){
+function confirmCourseSale(state,courseApplyId,courseId){
     var title="课程上架";
     var content="确认上架该课程？";
     if(state==0){
@@ -747,7 +747,7 @@ function confirmCourseSale(state,courseId){
         $.ajax({
             type: "post",
             url: bath + "/anchor/course/changeSaleState",
-            data:"courseApplyId="+courseId+"&state="+state,
+            data:"courseApplyId="+courseApplyId+"&courseId="+courseId+"&state="+state,
             async: false,
             success: function(data) {
                 closefn();

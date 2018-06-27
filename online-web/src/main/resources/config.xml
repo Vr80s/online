@@ -315,6 +315,9 @@
     <!--医师搜索 -->
     <dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorSolrService" id="medicalDoctorSolrServiceImpl"
                      timeout="${dubbo.consumer.timeout}"/>
+    <!--课程搜索 -->
+    <dubbo:reference interface="com.xczhihui.course.service.ICourseSolrService" id="courseSolrServiceImpl"
+                     timeout="${dubbo.consumer.timeout}"/>
 
     <!--医师动态评论-->
     <dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorPostsCommentService"   id="medicalDoctorPostsCommentServiceImpl" timeout="${dubbo.consumer.timeout}"/>

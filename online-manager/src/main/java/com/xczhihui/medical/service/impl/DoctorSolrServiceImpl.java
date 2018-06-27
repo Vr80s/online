@@ -26,4 +26,5 @@ public class DoctorSolrServiceImpl implements DoctorSolrService {
         medicalDoctorSolrService.initDoctorsSolrData();
     }
 
+
 }

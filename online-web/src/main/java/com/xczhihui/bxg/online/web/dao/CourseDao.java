@@ -59,8 +59,8 @@ public class CourseDao extends SimpleHibernateDao {
         StringBuffer sqlSb = new StringBuffer();
         sqlSb.append(" SELECT \n" +
                 "  cou.id,\n" +
-                " if(cou.sort_update_time< now(),0,cou.recommend_sort) recommendSort," +
-                "  IF(if(cou.sort_update_time< now(),0,cou.recommend_sort) > 0, TRUE, FALSE) is_recommend,\n" +
+                " cou.recommend_sort recommendSort," +
+                "  IF(cou.recommend_sort > 0, TRUE, FALSE) is_recommend,\n" +
                 "  cou.type,\n" +
                 "  cou.direct_id,\n" +
                 "  cou.grade_name,\n" +
@@ -232,8 +232,8 @@ public class CourseDao extends SimpleHibernateDao {
                 "  cou.id,\n" +
                 "  cou.type,\n" +
                 "  cou.direct_id,\n" +
-                " if(cou.sort_update_time< now(),0,cou.recommend_sort) recommendSort," +
-                "  IF(if(cou.sort_update_time< now(),0,cou.recommend_sort) >0,TRUE,FALSE) is_recommend,\n" +
+                " cou.recommend_sort recommendSort," +
+                "  IF(cou.recommend_sort >0,TRUE,FALSE) is_recommend,\n" +
                 "  cou.grade_name,\n" +
                 "  cou.smallimg_path AS smallImgPath,\n" +
                 "  cou.multimedia_type multimediaType,\n" +
@@ -796,7 +796,7 @@ public class CourseDao extends SimpleHibernateDao {
                 "  c.lecturer teacherName,\n" +
                 "  c.smallimg_path AS smallimgPath,\n" +
                 "  c.multimedia_type multimediaType,\n" +
-                " if(c.sort_update_time< now(),0,c.recommend_sort) recommendSort,"+
+                " c.recommend_sort recommendSort,"+
                 "  IFNULL(\n" +
                 "    (SELECT \n" +
                 "      COUNT(*) \n" +

@@ -51,7 +51,7 @@ public class CourseDao extends HibernateDao<Course> {
                         + "  oc.course_type_id AS courseTypeId,\n"
                         + "  oc.courseType AS courseType,\n"
                         + "  COUNT(og.id) AS countGradeNum,\n"
-                        + " if(oc.sort_update_time< now(),0,oc.recommend_sort) recommendSort,"
+                        + " oc.recommend_sort recommendSort,"
                         + "  oc.release_time as releaseTime,\n"
                         + "  oc.start_time as startTime,\n"
                         + "  oc.end_time as endTime,\n"

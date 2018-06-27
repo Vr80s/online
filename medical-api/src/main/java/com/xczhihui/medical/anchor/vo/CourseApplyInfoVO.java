@@ -21,6 +21,7 @@ public class CourseApplyInfoVO implements Serializable{
      * 课程申请信息表
      */
 	private Integer id;
+	private Integer courseId;
     /**
      * 标题
      */
@@ -427,6 +428,14 @@ public class CourseApplyInfoVO implements Serializable{
 
 	public void setLiveStatus(Integer liveStatus) {
 		this.liveStatus = liveStatus;
+	}
+
+	public Integer getCourseId() {
+		return courseId;
+	}
+
+	public void setCourseId(Integer courseId) {
+		this.courseId = courseId;
 	}
 
 	@Override

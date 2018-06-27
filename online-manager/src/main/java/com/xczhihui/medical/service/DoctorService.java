@@ -44,7 +44,7 @@ public interface DoctorService {
 	 * 
 	 * @return
 	 */
-	public void updateStatus(String id);
+	public boolean updateStatus(String id);
 
 	/**
 	 * 逻辑删除

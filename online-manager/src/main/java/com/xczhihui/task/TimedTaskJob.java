@@ -2,14 +2,18 @@ package com.xczhihui.task;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.solr.client.solrj.SolrServerException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import com.aliyuncs.exceptions.ClientException;
 import com.xczhihui.course.service.CourseService;
+import com.xczhihui.course.service.ICourseSolrService;
 import com.xczhihui.course.service.MessageRemindingService;
 import com.xczhihui.medical.service.DoctorSolrService;
 
@@ -23,17 +27,35 @@ import com.xczhihui.medical.service.DoctorSolrService;
 @Component
 public class TimedTaskJob {
 
+    private Logger logger = LoggerFactory.getLogger(TimedTaskJob.class);
+
     @Autowired
     private CourseService courseService;
     @Autowired
     private MessageRemindingService messageRemindingService;
     @Autowired
     private DoctorSolrService doctorSolrService;
+    @Autowired
+    private ICourseSolrService courseSolrService;
 
-    public void courSerecommendAging() {
+    /**
+     * Description：课程推荐值更新
+     * creed: Talk is cheap,show me the code
+     * @author name：yuxin
+     * @Date: 2018/6/27 0027 下午 3:29
+     **/
+    @Scheduled(cron = "0 0/1 * * * ? ")
+    public void courseRecommendAging() {
         System.out.println("work done----------" + new Date());
-        courseService.updateDefaultSort();
-
+        List<Integer> ids = courseService.updateDefaultSort();
+        ids.forEach(id -> {
+            try {
+                courseSolrService.initCourseSolrDataById(id);
+            } catch (Exception e) {
+                logger.error("课程信息同步至solr有误,{}",id);
+                logger.error(e.getMessage());
+            }
+        });
     }
 
     @Scheduled(cron = "0 0/1 * * * ?")
@@ -60,5 +82,6 @@ public class TimedTaskJob {
     @Scheduled(cron = "0 0 2 * * ?")
     public void initSolrData() throws IOException, SolrServerException {
         doctorSolrService.initDoctorsSolrData();
+        courseSolrService.initCoursesSolrData();
     }
 }

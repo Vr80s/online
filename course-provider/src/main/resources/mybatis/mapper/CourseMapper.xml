@@ -196,7 +196,7 @@
 		if(oc.is_free =0,0,1) as watchState,
 		oc.collection as collection,
 		oc.course_number as courseNumber,
-		if(oc.sort_update_time &lt; now(),0,oc.recommend_sort) recommendSort,
+		oc.recommend_sort recommendSort,
 		IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) + IFNULL(oc.default_student_count, 0) learndCount,
 
 		if(oc.live_status = 2,if(DATE_SUB(now(),INTERVAL 30 MINUTE)>=oc.start_time,6,if(
@@ -579,7 +579,7 @@
 		if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
 		'2' as courseType,
 		oc.release_time,
-		if(oc.sort_update_time< now(),0,oc.recommend_sort) recommendSort,
+		oc.recommend_sort recommendSort,
 		oc.start_time as startTime,oc.create_time
 		from oe_course oc ,oe_user ou
 		]]>
@@ -596,7 +596,7 @@
 		 c.original_cost as originalCost,c.current_price*10 as currentPrice,
 		 if(c.is_free =0,0,1) as watchState,
 		 if(c.type =3,4,IF(c.type = 1,3,if(c.multimedia_type=1,1,2))) as type,
-		 if(c.sort_update_time< now(),0,c.recommend_sort) recommendSort,
+		 c.recommend_sort recommendSort,
 		 c.start_time as startTime,
 		 c.collection as collection,
 		 (SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0)
@@ -621,7 +621,7 @@
 		c.original_cost as originalCost,c.current_price*10 as currentPrice,
 		if(c.is_free =0,0,1) as watchState,
 		if(c.type =3,4,IF(c.type = 1,3,if(c.multimedia_type=1,1,2))) as type,
-		if(c.sort_update_time< now(),0,c.recommend_sort) recommendSort,
+		c.recommend_sort recommendSort,
 		c.start_time as startTime,
 		c.collection as collection,
 		(SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0)
@@ -644,7 +644,7 @@
 		c.original_cost as originalCost,c.current_price*10 as currentPrice,
 		if(c.is_free =0,0,1) as watchState,
 		if(c.type =3,4,IF(c.type = 1,3,if(c.multimedia_type=1,1,2))) as type,
-		if(c.sort_update_time< now(),0,c.recommend_sort) recommendSort,
+		c.recommend_sort recommendSort,
 		c.start_time as startTime,
 		c.collection as collection,
 		(SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0)
@@ -667,7 +667,7 @@
 		c.original_cost as originalCost,c.current_price*10 as currentPrice,
 		if(c.is_free =0,0,1) as watchState,
 		if(c.type =3,4,IF(c.type = 1,3,if(c.multimedia_type=1,1,2))) as type,
-		if(c.sort_update_time< now(),0,c.recommend_sort) recommendSort,
+		0,c.recommend_sort recommendSort,
 		c.start_time as startTime,
 		c.collection as collection,
 		(SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0)
@@ -767,7 +767,7 @@
 				  INNER JOIN oe_user ou  ON   oc.user_lecturer_id = ou.id
 				  INNER JOIN oe_menu AS om  ON om.id = oc.menu_id
 			   WHERE oc.is_delete=0 AND oc.status = 1
-			<if test="courseForm != null">
+			<if test="courseId != null">
 				AND oc.id = #{courseId}
 			</if>
 	</select>
