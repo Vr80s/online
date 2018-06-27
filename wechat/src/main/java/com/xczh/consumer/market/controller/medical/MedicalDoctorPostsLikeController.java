@@ -49,11 +49,7 @@ public class MedicalDoctorPostsLikeController {
     @RequestMapping(value="{postsId}/like/{flag}", method = RequestMethod.POST)
     @ResponseBody
     public ResponseObject addOrDeleteDoctorPostsLike(@Account String accountId,@PathVariable("postsId") Integer postsId,@PathVariable("flag") Integer flag){
-        if(flag==0){
-            medicalDoctorPostsLikeService.deleteMedicalDoctorPostsLike(postsId,accountId);
-        }else {
-            medicalDoctorPostsLikeService.addMedicalDoctorPostsLike(postsId,accountId,flag);
-        }
+        medicalDoctorPostsLikeService.addMedicalDoctorPostsLike(postsId,accountId,flag);
         Map<String, Object> map = medicalDoctorPostsLikeService.getMedicalDoctorPostsLikeList(postsId,accountId);
         return ResponseObject.newSuccessResponseObject(map);
     }

@@ -6,6 +6,7 @@ import com.xczhihui.common.support.domain.Attachment;
 import com.xczhihui.common.support.service.AttachmentCenterService;
 import com.xczhihui.common.util.JsonUtil;
 import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.medical.anchor.model.CourseApplyResource;
 import com.xczhihui.medical.anchor.service.ICourseApplyService;
 import com.xczhihui.medical.doctor.model.MedicalDoctorAccount;
 import com.xczhihui.medical.doctor.model.MedicalDoctorPosts;
@@ -71,7 +72,12 @@ public class MedicalDoctorPostsController {
         medicalDoctorPosts.setDoctorId(mha.getDoctorId());
         medicalDoctorPostsService.addMedicalDoctorPosts(medicalDoctorPosts);
         if(!medicalDoctorPosts.getVideo().equals("")){
-            //courseApplyService.saveCourseApplyResource(courseApplyResource);
+            CourseApplyResource car = new CourseApplyResource();
+            car.setTitle(medicalDoctorPosts.getContent());
+            car.setResource(medicalDoctorPosts.getVideo());
+            car.setMultimediaType(1);
+            car.setUserId(userId);
+            courseApplyService.saveCourseApplyResource(car);
         }
         return ResponseObject.newSuccessResponseObject("添加成功");
     }

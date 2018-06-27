@@ -32,6 +32,15 @@
                 #{userId},
             </if>
         </trim>
+        on duplicate key update
+        <choose>
+            <when test="flag == 1">
+                deleted = FALSE
+            </when>
+            <otherwise>
+                deleted = TRUE
+            </otherwise>
+        </choose>
     </insert>
 
     <delete id="deleteMedicalDoctorPostsLike">

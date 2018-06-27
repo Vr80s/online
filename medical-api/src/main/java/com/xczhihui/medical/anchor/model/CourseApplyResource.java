@@ -61,6 +61,11 @@ public class CourseApplyResource extends Model<CourseApplyResource> {
      */
 	@TableField("update_time")
 	private Date updateTime;
+	/**
+	 * 资源来源:1资源2动态
+	 */
+	@TableField("source_type")
+	private Integer sourceType;
 
 	private String length;
 
@@ -134,6 +139,14 @@ public class CourseApplyResource extends Model<CourseApplyResource> {
 
 	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
+	}
+
+	public Integer getSourceType() {
+		return sourceType;
+	}
+
+	public void setSourceType(Integer sourceType) {
+		this.sourceType = sourceType;
 	}
 
 	@Override
