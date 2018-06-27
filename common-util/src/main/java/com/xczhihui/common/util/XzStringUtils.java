@@ -1,11 +1,17 @@
 package com.xczhihui.common.util;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class XzStringUtils {
 
+	 //创建数字和中文数字一一对应的映射  
+    private static HashMap<Integer, String> map;  
+	
 	public static String delHTMLTag(String htmlStr) {
 		String regEx_script = "<script[^>]*?>[\\s\\S]*?<\\/script>"; // 定义script的正则表达式
 		String regEx_style = "<style[^>]*?>[\\s\\S]*?<\\/style>"; // 定义style的正则表达式
@@ -221,7 +227,6 @@ public class XzStringUtils {
 	
 	public static String workTimeScreen(String line,Boolean coOrdinate) {
 		if(line!=null) {
-			
 			//中文的话，过滤下
 			if(isContainChinese(line)) {
 				String regex = ".*(下午|上午|周|点|早|晚|暂无).*";
@@ -231,20 +236,127 @@ public class XzStringUtils {
 		        	line = "每周"+line+"全天";
 		        }
 				return line;
-			}else { //坐标
-				
-				if(!coOrdinate) { //把坐标过滤成每周  --》
-					
-					
-					
-					return line;
-				}
+			}else { 
+				return workTimeConverter(line);
 			}
 		}
 		return null;
 	}
 	
-	public static void main(String[] args) {
-		System.out.println(workTimeScreen("一"));
+	
+	public static String workTimeConverter(String str) {
+		
+		String [] array = str.split(",");
+		List<String> day = new ArrayList<String>();
+		List<String> morningArr = new ArrayList<String>();
+		List<String> affternoonArr =new ArrayList<String>();
+		
+		for (int i = 0; i < array.length; i++) {
+			String item = array[i];
+			Integer index = item.indexOf(".");
+			String itemStart = item.substring(0, index);
+			String itemEnd = item.substring(index+1, item.length());
+			
+			if(itemEnd.equals("1")) {
+				morningArr.add(itemStart);
+			}
+			if(itemEnd.equals("2")) {
+				affternoonArr.add(itemStart);
+			}
+		}
+		
+		for (int i = 0; i < morningArr.size(); i++) {
+			for (int j = 0; j < affternoonArr.size(); j++) {
+				if(morningArr.get(i).equals(affternoonArr.get(j))) { 
+					day.add(morningArr.get(i));
+				}
+			}
+		}
+		morningArr.removeAll(day);
+		affternoonArr.removeAll(day);
+		
+		//全天： 1,2
+		//上午：3
+		//下午：4
+		initMap();  
+		//上午
+//		System.out.println(change(day,1));  
+//		//下午
+//		System.out.println(change(morningArr,2));  
+//		//全天
+//		System.out.println(change(affternoonArr,3));  
+		
+		String day1 =  change(day,1);
+		String morning1 =  change(morningArr,2);
+		String affternoon1 =  change(affternoonArr,3);
+		
+		return day1+morning1+affternoon1;
 	}
+	
+	
+    // 将全是数字的字符串转换成中文数字表示的方法  
+    public static String change(List<String> list,Integer type) {  
+    	if(list == null || list.size()<0) {
+    		return "";
+    	}
+    	String str = "";
+    	for (int i = 0; i < list.size(); i++) {
+    		str+=list.get(i);
+		}
+        String chinese = "";  
+        str = String.valueOf(Integer.parseInt(str));  
+        // 将数字转换成中文数字  
+        for (int i = 0; i < str.length(); i++) {  
+            int index = str.charAt(i) - 48;
+            if(i == str.length()-1) {
+            	chinese += map.get(index);  
+            }else {
+            	chinese += map.get(index)+"、";  
+            }
+        }  
+        
+        if(type.equals(1)) {
+        	chinese ="每周"+chinese+"上午";
+        }
+        if(type.equals(2)) {
+        	chinese ="每周"+chinese+"下午";
+        }
+        if(type.equals(3)) {
+        	chinese ="每周"+chinese+"全天";
+        }
+        return chinese;  
+    }
+    
+	public static void main(String[] args) {
+		
+		String str = "1.1,1.2,2.1,2.2,3.1,4.2";
+		
+	}
+	
+	
+	 // 判断输入的字符串是否全是数字  
+    public static boolean isNum(String str) {  
+        boolean flag = true;  
+        try {  
+            Integer.parseInt(str);  
+        } catch (Exception e) {  
+            flag = false;  
+            System.out.println("用户输入的字符不是数字");  
+        }  
+  
+        return flag;  
+    }  
+  
+    // 给map赋值，使数字和中文数字意义对应  
+    public static void initMap() {  
+        map = new HashMap<Integer, String>();  
+        map.put(1, "一");  
+        map.put(2, "二");  
+        map.put(3, "三");  
+        map.put(4, "四");  
+        map.put(5, "五");  
+        map.put(6, "六");  
+        map.put(7, "日");  
+    }  
+    
 }
