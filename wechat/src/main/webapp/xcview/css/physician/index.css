@@ -182,6 +182,10 @@ header{
     color: #333333;
     float: left;
     margin-right: 0.2rem;
+    max-width: 1.6rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .referral_title .duty{
     font-size: 0.24rem;
@@ -197,6 +201,7 @@ header{
     color: #999999;
     padding-right: 0.26rem;
     padding-bottom: 0.2rem;
+    word-break:break-all;
 }
 /*中间内容结束*/
 

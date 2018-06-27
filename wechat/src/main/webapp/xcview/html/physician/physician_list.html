@@ -172,6 +172,17 @@
 		<div class="btn_show_bg btn_show_main_close" style="display: block1;"></div>
 		<div class="btn_show_main div_right0" >
 			<div class="all_classify_right"><span class="screen_close"><img src="/xcview/images/screen_close.png" /></span>筛选</div>
+			<div class="all_mold all_mold2">
+				<div class="all_classify_right_type">智能排序</div>
+				<div class="all_right_type" id="draw_sorttype_list">
+					<script type="text/html" id="sorttype_list">
+						{{each items as item i}}
+							<div class="all_right_type_one" title="{{item.id}}">{{item.name}}</div>
+						{{/each}}		
+				    </script>
+					<div class="both"></div>
+				</div>
+			</div>
 			<div class="all_mold all_mold0">
 				<div class="all_classify_right_type">医师分类</div>
 				<div class="all_right_type all_right_type_ones" id="draw_doctortype_list">
@@ -196,17 +207,7 @@
 				</div>
 			</div>
 			
-			<div class="all_mold all_mold2">
-				<div class="all_classify_right_type">智能排序</div>
-				<div class="all_right_type" id="draw_sorttype_list">
-					<script type="text/html" id="sorttype_list">
-						{{each items as item i}}
-							<div class="all_right_type_one" title="{{item.id}}">{{item.name}}</div>
-						{{/each}}		
-				    </script>
-					<div class="both"></div>
-				</div>
-			</div>
+			
 			
 			<div class="" style="width: 100%;height: 0.89rem;display1: none;"></div>
 			<div class="all_bottom">
