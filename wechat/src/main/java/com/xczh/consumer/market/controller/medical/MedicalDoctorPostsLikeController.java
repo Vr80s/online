@@ -2,9 +2,6 @@ package com.xczh.consumer.market.controller.medical;
 
 import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczhihui.medical.doctor.model.MedicalDoctorPostsComment;
-import com.xczhihui.medical.doctor.model.MedicalDoctorPostsLike;
-import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsCommentService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsLikeService;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -28,8 +24,6 @@ import java.util.Optional;
 @RequestMapping("/doctor/posts")
 public class MedicalDoctorPostsLikeController {
 
-    @Autowired
-    private IMedicalDoctorPostsCommentService medicalDoctorPostsCommentService;
     @Autowired
     private IMedicalDoctorPostsLikeService medicalDoctorPostsLikeService;
 
