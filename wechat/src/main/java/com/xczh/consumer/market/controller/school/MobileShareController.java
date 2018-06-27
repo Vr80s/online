@@ -21,7 +21,6 @@ import com.xczh.consumer.market.bean.WxcpClientUserWxMapping;
 import com.xczh.consumer.market.dao.OnlineUserMapper;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.service.OnlineWebService;
-import com.xczh.consumer.market.utils.ConfigUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.wxpay.consts.WxPayConst;
 import com.xczhihui.common.util.enums.ShareType;
@@ -50,7 +49,6 @@ import com.xczhihui.user.center.vo.Token;
 public class MobileShareController {
 
 
-	
     @Autowired
     private OnlineUserMapper onlineUserMapper;
     @Autowired
@@ -87,17 +85,15 @@ public class MobileShareController {
             @RequestParam(value="shareType")Integer shareType)
             throws Exception{
     	
-    	
-    	//如果异常默认用这个
     	try {
     		ShareInfoVo sv  = courseServiceImpl.selectShareInfoByType(shareType,shareId);
         	//构造下分享出去的参数
         	sv.build(returnOpenidUri);
-        	
         	return ResponseObject.newSuccessResponseObject(sv);
         } catch (Exception e) {
             e.printStackTrace();
             
+            //如果异常默认用这个
             ShareInfoVo sv = new ShareInfoVo();
         	sv.setName("熊猫中医");
         	sv.setDescription("熊猫中医是中医药的学习传承平台：学中医、懂中医、用中医，让中医服务于家庭、个人，让中国古代科学瑰宝为现代人类的健康保驾护航。");
