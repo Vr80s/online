@@ -112,14 +112,5 @@ public class MedicalDoctorPostsController {
             return ResponseObject.newSuccessResponseObject("取消置顶成功");
         }
     }
-    /**
-     * 上传图片返回路径
-     */
-    private String getFilePath(MultipartFile imgFile,String accountId) throws Exception {
-            String upload = service.upload(accountId,"other", imgFile.getOriginalFilename(),
-                    imgFile.getContentType(), imgFile.getBytes(), "1");
-        Attachment att = JsonUtil.getBaseGson().fromJson(upload, Attachment.class);
-        return att.getUrl();
-    }
 
 }

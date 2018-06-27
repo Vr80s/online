@@ -3,13 +3,15 @@ package com.xczh.consumer.market.controller.medical;
 import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.medical.doctor.model.MedicalDoctorPostsComment;
-import com.xczhihui.medical.doctor.model.MedicalDoctorPostsLike;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsCommentService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsLikeService;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,8 +28,6 @@ public class MedicalDoctorPostsCommentController {
 
     @Autowired
     private IMedicalDoctorPostsCommentService medicalDoctorPostsCommentService;
-    @Autowired
-    private IMedicalDoctorPostsLikeService medicalDoctorPostsLikeService;
 
     private static final org.slf4j.Logger LOGGER = LoggerFactory
             .getLogger(MedicalDoctorPostsCommentController.class);
@@ -48,8 +48,8 @@ public class MedicalDoctorPostsCommentController {
      */
     @RequestMapping(value="{postsId}/comment" ,method = RequestMethod.POST)
     @ResponseBody
-    public ResponseObject addDoctorPostsComment(@Account String accountId,MedicalDoctorPostsComment medicalDoctorPostsComment){
-
+    public ResponseObject addDoctorPostsComment(@Account String accountId,MedicalDoctorPostsComment medicalDoctorPostsComment, @PathVariable("postsId") Integer postsId){
+        medicalDoctorPostsComment.setPostsId(postsId);
         medicalDoctorPostsCommentService.addMedicalDoctorPostsComment(medicalDoctorPostsComment,accountId);
         List<MedicalDoctorPostsComment> list = medicalDoctorPostsCommentService.selectMedicalDoctorPostsCommentList(medicalDoctorPostsComment.getPostsId(),accountId);
         return ResponseObject.newSuccessResponseObject(list);
@@ -65,39 +65,5 @@ public class MedicalDoctorPostsCommentController {
         List<MedicalDoctorPostsComment> list = medicalDoctorPostsCommentService.selectMedicalDoctorPostsCommentList(postsId,accountId);
         return ResponseObject.newSuccessResponseObject(list);
     }
-
-    /**
-     * 医师动态点赞列表
-     */
-    /*@RequestMapping(value="{postsId}/like", method = RequestMethod.GET)
-    @ResponseBody
-    public ResponseObject doctorPostsLikeList(@PathVariable("postsId") Integer postsId){
-        List<MedicalDoctorPostsLike> list = medicalDoctorPostsLikeService.getMedicalDoctorPostsLikeList(postsId);
-        return ResponseObject.newSuccessResponseObject(list);
-    }*/
-
-    /**
-     * 医师动态点赞
-     * 1
-     * 0
-     */
-    /*@RequestMapping(value="{postsId}/like/{flag}", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseObject addDoctorPostsLike(@Account String accountId,@PathVariable("postsId") Integer postsId,@PathVariable("flag") Integer flag){
-        medicalDoctorPostsLikeService.addMedicalDoctorPostsLike(postsId,accountId,flag);
-        List<MedicalDoctorPostsLike> list = medicalDoctorPostsLikeService.getMedicalDoctorPostsLikeList(postsId);
-        return ResponseObject.newSuccessResponseObject(list);
-    }*/
-
-//    /**
-//     * 删除医师动态点赞
-//     */
-//    @RequestMapping(value="deleteDoctorPostsLike", method = RequestMethod.POST)
-//    @ResponseBody
-//    public ResponseObject deleteDoctorPostsLike(@Account String accountId,@RequestParam("postsId") Integer postsId){
-//        medicalDoctorPostsLikeService.deleteMedicalDoctorPostsLike(postsId,accountId);
-//        List<MedicalDoctorPostsLike> list = medicalDoctorPostsLikeService.getMedicalDoctorPostsLikeList(postsId);
-//        return ResponseObject.newSuccessResponseObject(list);
-//    }
 
 }

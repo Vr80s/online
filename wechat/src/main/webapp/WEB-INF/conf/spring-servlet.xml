@@ -160,4 +160,5 @@
     <dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorSolrService"   id="medicalDoctorSolrServiceImpl" timeout="${dubbo.consumer.timeout}"/>
     <dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorArticleService"   id="medicalDoctorArticleServiceImpl" timeout="${dubbo.consumer.timeout}"/>
     <dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorBannerService"   id="medicalDoctorBannerServiceImpl" timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference interface="com.xczhihui.medical.headline.service.IOeBxsAppraiseService"   id="oeBxsAppraiseServiceImpl" timeout="${dubbo.consumer.timeout}"/>
 </beans>

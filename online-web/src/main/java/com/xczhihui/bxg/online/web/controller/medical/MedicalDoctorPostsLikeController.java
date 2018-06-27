@@ -1,8 +1,6 @@
 package com.xczhihui.bxg.online.web.controller.medical;
 
 import com.xczhihui.common.util.bean.ResponseObject;
-import com.xczhihui.medical.doctor.model.MedicalDoctorPostsComment;
-import com.xczhihui.medical.doctor.model.MedicalDoctorPostsLike;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsCommentService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsLikeService;
 import org.slf4j.LoggerFactory;
@@ -10,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Map;
 
 import static com.xczhihui.bxg.online.web.controller.AbstractController.getCurrentUser;

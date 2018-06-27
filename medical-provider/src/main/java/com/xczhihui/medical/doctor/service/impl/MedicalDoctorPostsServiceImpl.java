@@ -8,6 +8,7 @@ import com.xczhihui.medical.doctor.mapper.MedicalDoctorPostsMapper;
 import com.xczhihui.medical.doctor.model.MedicalDoctorPosts;
 import com.xczhihui.medical.doctor.model.MedicalDoctorPostsComment;
 import com.xczhihui.medical.doctor.model.MedicalDoctorPostsLike;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsCommentService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,9 +27,9 @@ public class MedicalDoctorPostsServiceImpl extends ServiceImpl<MedicalDoctorPost
     @Autowired
     private MedicalDoctorPostsMapper medicalDoctorPostsMapper;
     @Autowired
-    private MedicalDoctorPostsCommentMapper medicalDoctorPostsCommentMapper;
-    @Autowired
     private MedicalDoctorPostsLikeMapper medicalDoctorPostsLikeMapper;
+    @Autowired
+    private IMedicalDoctorPostsCommentService medicalDoctorPostsCommentService;
 
     @Override
     public Page<MedicalDoctorPosts> selectMedicalDoctorPostsPage(Page<MedicalDoctorPosts> page, Integer type, String doctorId,String accountId) {
@@ -36,19 +37,8 @@ public class MedicalDoctorPostsServiceImpl extends ServiceImpl<MedicalDoctorPost
         //评论列表和点赞列表
         list.forEach(MedicalDoctorPosts -> {
             Integer postsId = MedicalDoctorPosts.getId();
-            List<MedicalDoctorPostsComment> commentList = medicalDoctorPostsCommentMapper.selectMedicalDoctorPostsCommentList(postsId);
+            List<MedicalDoctorPostsComment> commentList = medicalDoctorPostsCommentService.selectMedicalDoctorPostsCommentList(postsId,accountId);
             List<MedicalDoctorPostsLike> likeList = medicalDoctorPostsLikeMapper.getMedicalDoctorPostsLikeList(postsId);
-            commentList.forEach(MedicalDoctorPostsComment ->{
-                if(MedicalDoctorPostsComment.getReplyUserId()!=null){
-                    if(MedicalDoctorPostsComment.getReplyUserId().equals(accountId)){
-                        MedicalDoctorPostsComment.setSelf(true);
-                    }
-                }else {
-                    if(MedicalDoctorPostsComment.getUserId().equals(accountId)){
-                        MedicalDoctorPostsComment.setSelf(true);
-                    }
-                }
-            });
             likeList.forEach(MedicalDoctorPostsLike -> {
                 String userId = MedicalDoctorPostsLike.getUserId();
                 if(userId.equals(accountId)){
