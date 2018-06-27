@@ -76,16 +76,81 @@
 		display: none;
 	}
 	 .stick_img img {
-		width: 0.2rem !important;
+		width: 0.21rem !important;
 		height: 0.24rem !important;
 		margin-right: 0.097rem !important;
 	}
 	.stick_img {
-		font-size: 0.3rem !important;
 		color: #F97B49 !important;
-		float: left !important;
-		display: -webkit-box !important;
-		margin-right: 0.1rem !important;
+	    float: left !important;
+	    display: -webkit-box !important;
+	    margin-right: 0.1rem !important;
+	    font-size: 0.24rem !important;
+	    border: 1px solid #f97b49;
+	    border-radius: 4px;
+	    padding: 0 0.1rem;
+	    line-height: 0.35rem;
+	}
+
+	.evaluateDiv{
+		word-break:break-all;
+	}
+	.course_nav_span .title{
+		margin-bottom: 0.2rem;
+	}
+
+	.stick_img_stick{
+		color: #F97B49;
+	    float: left;
+	    display: -webkit-box;
+	    margin-right: 0.1rem;
+	    font-size: 0.24rem;
+	    border: 1px solid #f97b49;
+	    border-radius: 4px;
+	    padding: 0 0.1rem;
+	    line-height: 0.35rem;
+	}
+	.stick_img_stick img {
+	    width: 0.21rem !important;
+	    height: 0.24rem !important;
+	    margin-right: 0.097rem !important;
+	}
+	.course_nav_span{
+		height: 100%;
+	}
+	/*课程*/
+	.course_hide{
+		background: red;
+	    padding: 0.3rem 0;
+	    margin: 0.2rem 0;
+	}
+	.comment_hide{
+		font-size: 0.3rem;
+    	color: #333333;
+	}
+
+	/*文章*/
+	.article_hide{
+		background: blue;
+	    padding: 0.3rem 0;
+	    margin: 0.2rem 0;
+	}
+	.paper_nav_span{
+		height: 100%;
+	}
+
+	/*动态图片*/
+	.trends_hide{
+		background: blue;
+	    padding: 0.3rem 0;
+	    margin: 0.2rem 0;
+	}
+
+	/*普通动态*/
+	.panel_hide{
+		background: yellow;
+	    padding: 0.3rem 0;
+	    margin: 0.2rem 0;
 	}
 
 </style>
@@ -190,21 +255,27 @@
 				{{each items as item i}}
 				{{if item.type == 1}}
 				<!-- 普通动态-->
-				<span class="stick_img"><img src="/xcview/images/stick.png" alt="" />置顶</span>
-				<div class="essay_main comment_hide">{{item.content}}</div>
-				<div class="essay_pack_up_btn"><span>收起</span></div>
-				<div class="both"></div>
+				<div class="panel_hide">
+					<div class="essay_main comment_hide"><span class="stick_img"><img src="/xcview/images/stick.png" alt="" />置顶</span>{{item.content}}</div>
+					<div class="essay_pack_up_btn"><span>收起</span></div>
+					<div class="both"></div>
+				</div>
+				
 				{{else if item.type == 2}}
 				<!-- 动态图片-->
-				<div class="paper_nav_span comment_hide">
-					<span class="stick_img"><img src="/xcview/images/stick.png" alt="" />置顶</span>
-					<span class="stick_img">#盐蒸橘子治咳嗽#<span class="title">{{item.content}}</span></span>
-				</div>
-				{{if item.pics.length>0}}
-				<div class="paper_nav_cen comment_hide">
-					{{each item.pics as pic }}
-					<img src="{{pic}}" alt="" />
-					{{/each}}
+				<div class="trends_hide">
+					<div class="paper_nav_span comment_hide">
+						<span class="stick_img_stick"><img src="/xcview/images/stick.png" alt="" />置顶</span>
+						<span style="color: #F97B49;font-size:0.3rem;">#盐蒸橘子治咳嗽#</span>{{item.content}}
+						
+					</div>
+					{{if item.pics.length>0}}
+					<div class="paper_nav_cen comment_hide">
+						{{each item.pics as pic }}
+						<img src="{{pic}}" alt="" />
+						{{/each}}
+						<div class="both"></div>
+					</div>
 				</div>
 				{{/if}}
 				<div class="both"></div>
@@ -221,33 +292,40 @@
 				</div>
 				{{else if item.type == 4}}
 				<!-- 文章-->
-				<div class="article_nav_span comment_hide">
-					<span class="stick_img"><img src="/xcview/images/stick.png" alt="" />置顶</span>
-					<span class="title">{{item.title}}</span>
+				<div class="article_hide">
+					<div class="article_nav_span comment_hide">
+						<span class="stick_img_stick"><img src="/xcview/images/stick.png" alt="" />置顶</span>
+							{{item.title}}
+					</div>
+					<div class="article_nav_cen comment_hide">
+						<img src="{{item.smallImgPath}}" alt="" />
+						<div class="article_nav_cen_size">得控制，体温在38℃~39℃之间。初期热无定，不恶得控制，体温在38℃~39℃之间。初期热无定，不恶</div>
+					</div>
+					<div class="both"></div>
 				</div>
-				<div class="article_nav_cen comment_hide">
-					<img src="{{item.smallImgPath}}" alt="" />
-					<div class="article_nav_cen_size">得控制，体温在38℃~39℃之间。初期热无定，不恶得控制，体温在38℃~39℃之间。初期热无定，不恶</div>
-				</div>
-				<div class="both"></div>
 				{{else if item.type == 5}}
 				<!-- 课程-->
-				<div class="course_nav_span comment_hide">
-					<span class="stick_img"><img src="/xcview/images/stick.png" alt="" />置顶</span>
-					<span class="title">{{item.title}}</span>
-				</div>
-				<div class="course_nav_cen comment_hide">
-					<img src="{{item.smallImgPath}}" alt="" />
-					<div class="course_nav_cen_size">{{item.gradeName}}</div>
-					{{if item.currentPrice==0}}
-					<div class="course_nav_rate">免费</div>
-					{{else}}
-					<div class="course_nav_rate"><span>{{item.currentPrice}}</span>熊猫币</div>
-					{{/if}}
+				<div class="course_hide">
+					<div class="course_nav_span comment_hide" style="font-size: 0.3rem;color: #333333;">
+						<span class="stick_img_stick"><img src="/xcview/images/stick.png" alt="" />置顶</span>
+						{{item.title}}
+						
+						<div class="both"></div>
+					</div>
+					<div class="both"></div>
+					<div class="course_nav_cen comment_hide">
+						<img src="{{item.smallImgPath}}" alt="" />
+						<div class="course_nav_cen_size">{{item.gradeName}}</div>
+						{{if item.currentPrice==0}}
+						<div class="course_nav_rate">免费</div>
+						{{else}}
+						<div class="course_nav_rate"><span>{{item.currentPrice}}</span>熊猫币</div>
+						{{/if}}
 
-					<!-- <div class="course_nav_rate">免费</div> -->
+						<!-- <div class="course_nav_rate">免费</div> -->
+					</div>
+					<div class="both"></div>
 				</div>
-				<div class="both"></div>
 				{{else if item.type == 10}}
 				<!-- 医案-->
 				<div class="consilia_nav_span comment_hide">
@@ -302,8 +380,8 @@
 							{{each item.doctorPostsCommentList as postsComment}}
 							{{if postsComment.commentId == null}}
 							<div class="evaluateDiv" data-id="{{postsComment.id}}" data-postsId="{{item.id}}" data-userId="{{postsComment.userId}}" data-userName="{{postsComment.userName}}">
-							<span class="name">{{postsComment.userName}}：</span>
-							<span class="evaluate_cen">{{postsComment.content}}</span>
+							
+							<span class="evaluate_cen"><span class="name">{{postsComment.userName}}：</span>{{postsComment.content}}</span>
 							</div>
 							<div class="both"></div>
 							{{else}}
@@ -324,6 +402,13 @@
 				{{/each}}
 			</script>
 		</div>
+
+		<!-- 删除样式开始 -->
+			<div class="remove">
+				<div class="remove_bg"></div>
+				<div class=""></div>
+			</div>
+		<!-- 删除样式结束 -->
 
 
 
@@ -851,22 +936,22 @@ $(window).bind("scroll", function() {
 	window.onload = function(){
 		// 点击收起放到最上边--不然影响其他事件
 		// 医案  收起
-		/*$(".consilia_nav_btn").toggle(function(){
+		$(".consilia_nav_btn").toggle(function(){
 	    	$(".consilia_nav_btn span").html('收起');
 		    $(".consilia_nav_main").removeClass("add");
 	  	},function(){
 		    $(".consilia_nav_btn span").html('展开');
 		    $(".consilia_nav_main").addClass("add");
-	    });*/
+	    });
 
 	    // 其他二收起
-	    /*$(".essay_pack_up_btn").toggle(function(){
+	    $(".essay_pack_up_btn").toggle(function(){
 	    	$(".essay_pack_up_btn span").html('收起');
 		    $(".essay_main").removeClass("essay_pack_up_add");
 	  	},function(){
 		    $(".essay_pack_up_btn span").html('展开');
 		    $(".essay_main").addClass("essay_pack_up_add");
-	    });*/
+	    });
 
 
 		$(".li_data").click(function(){
