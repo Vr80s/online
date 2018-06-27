@@ -1,5 +1,7 @@
 package com.xczhihui.course.service.impl;
 
+import static com.xczhihui.common.util.RedisCacheKey.LIVE_COURSE_REMIND_LAST_TIME_KEY;
+
 import java.text.MessageFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -18,6 +20,7 @@ import com.xczhihui.anchor.service.AnchorService;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.*;
 import com.xczhihui.common.support.cc.util.CCUtils;
+import com.xczhihui.common.support.service.CacheService;
 import com.xczhihui.common.util.RedisCacheKey;
 import com.xczhihui.common.util.TimeUtil;
 import com.xczhihui.common.util.bean.Page;
@@ -115,6 +118,8 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
     private MessageRemindingService messageRemindingService;
     @Autowired
     private ICommonMessageService commonMessageService;
+    @Autowired
+    private CacheService cacheService;
 
     @Value("${vhall.user.id}")
     private String liveVhallUserId;
@@ -519,6 +524,7 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
         if (course.getId() != null) {
             // 若course有id，说明该申请来自一个已经审核通过的课程，则更新
             dao.update(course);
+            cacheService.delete(LIVE_COURSE_REMIND_LAST_TIME_KEY + RedisCacheKey.REDIS_SPLIT_CHAR + course.getId());
         } else {
             // 当前时间
             course.setCreateTime(new Date());

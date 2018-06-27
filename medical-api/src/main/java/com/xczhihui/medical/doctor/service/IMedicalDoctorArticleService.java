@@ -191,7 +191,7 @@ public interface IMedicalDoctorArticleService {
      * @param userId 用户id
      * @return
      */
-    List<OeBxsArticleVO> list(String type, String userId);
+    Page<OeBxsArticleVO> list(String type, String userId, String keyword);
 
     /**
      * 获取文章详情数据
@@ -200,4 +200,11 @@ public interface IMedicalDoctorArticleService {
      * @return
      */
     OeBxsArticleVO get(int id);
+
+    /**
+     * 获取文章的简单信息
+     * @param id id
+     * @return
+     */
+    OeBxsArticleVO getSimpleInfo(int id);
 }

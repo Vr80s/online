@@ -2,6 +2,7 @@ package com.xczhihui.bxg.online.web.controller.medical;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -322,8 +323,13 @@ public class DoctorController extends AbstractController {
     }
 
     @RequestMapping(value = "article/list", method = RequestMethod.GET)
-    public ResponseObject listArticle(@RequestParam String type) {
-        return ResponseObject.newSuccessResponseObject(medicalDoctorArticleService.list(type, getUserId()));
+    public ResponseObject listArticle(@RequestParam String type, @RequestParam(required = false) String keyword) {
+        if (StringUtils.isNotBlank(StringUtils.trim(keyword))) {
+            keyword = "%" + keyword + "%";
+        } else {
+            keyword = null;
+        }
+        return ResponseObject.newSuccessResponseObject(medicalDoctorArticleService.list(type, getUserId(), keyword));
     }
 
     @RequestMapping(value = "course/list", method = RequestMethod.GET)

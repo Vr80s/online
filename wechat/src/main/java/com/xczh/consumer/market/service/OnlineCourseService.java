@@ -43,8 +43,7 @@ public interface OnlineCourseService {
 	 * @return CourseLecturVo
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 */
-	CourseVo courseShare(Integer courseId)
-			throws SQLException;
+	CourseVo courseShare(Integer courseId)throws SQLException;
 	/**
 	 *
 	 * Description：主播分享
@@ -52,7 +51,6 @@ public interface OnlineCourseService {
 	 * @return LecturVo
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 */
-	LecturVo lectureShare(String lecturerId)
-			throws SQLException;
+	LecturVo lectureShare(String lecturerId)throws SQLException;
 	
 }

@@ -19,9 +19,8 @@ function getQueryString(name) {
  * 返回当前页面的名字：
  * 比如/asdasf/asfaewf/agaegr/trer/rhh.html?y=1
  *    /asdasf/asfaewf/agaegr/trer/rhh.html   
- * 
+ *    
  * 返回 rhh.html
- * 
  */
 function getCurrentViewHtml(){
 	var url = window.location.href;
@@ -34,86 +33,103 @@ function getCurrentViewHtml(){
 	}
 	return url;
 }
+
+var obj = {};
+
 /**
- * 根据分享所处的当前页面 截取得到分享id： 
+ * 根据分享所处的当前页面 截取得到分享id：  
+ * 1：课程  2：主播  3:单个专辑  4：师承  5： 医师  6 文章  7 医案
  * @param viewHtml   当前页面
  * @returns {Number}  
  */
-function getShareId(){
+function getShareIdAndType(){
+	
 	var viewHtml = getCurrentViewHtml();
 	if(viewHtml == "live_personal.html"){
-		
-		return getQueryString("userLecturerId");
+		obj.shareId = getQueryString("userLecturerId");
+		obj.shareType = 2;
 	}else if(viewHtml == "live_audio.html" || 
 			viewHtml == "live_play.html" ||
 			viewHtml == "live_class.html"){
-		
-		return getQueryString("my_study");
+		obj.shareId = getQueryString("my_study");
+		obj.shareType = 1;
 	}else if(viewHtml == "school_audio.html"|| 
 			viewHtml == "school_play.html"|| 
 			viewHtml == "school_class.html"|| 
 			viewHtml == "live_select_album.html"){
 		
-		return getQueryString("course_id");
+		obj.shareId = getQueryString("course_id");
+		obj.shareType = 1;
 	}else if(viewHtml == "live_album.html"){
 	
-		return getQueryString("collection_id");
-	
+		obj.shareId = getQueryString("course_id");
+		obj.shareType = 3;
+		
 	}else if(viewHtml == "inherited_introduction.html"){
 		
-		return  getQueryString("merId");
+		obj.shareId = getQueryString("merId");
+		obj.shareType = 4;
+		
 		
 	}else if(viewHtml == "invitation_card.html"){
 		
-		return  sessionStorage.getItem("merId");
-	}
-
-}
-
-
-/**
- * 根据分享所处的当前页面 得到分享类型： 
- * @returns {Number}  1：课程  2：主播  3:单个专辑   4：邀请卡
- */
-function getShareType(){
-	var viewHtml = getCurrentViewHtml();
-	if(viewHtml == "live_personal.html"){
-		return 2;
-	}else if(viewHtml == "live_album.html"){ //
-		return 3;
-	}else if(viewHtml == "inherited_introduction.html" || viewHtml == "invitation_card.html"){ //邀请卡	
-		return 4;
-	}else{
-		return 1;
+		obj.shareId = getQueryString("merId");
+		obj.shareType = 4;
+		
+	}else if(viewHtml == "physicians_page.html"){
+		
+		obj.shareId = getQueryString("doctor");
+		obj.shareType = 5;
+		
 	}
 }
+getShareIdAndType();
 
-//目前是写死的，应该是固定着的
-//var gradeName = "你好,心承智慧";
-//var smallImgPath ="http://attachment-center.ixincheng.com:38080/data/attachment/online/2017/12/13/17/4b4eb1300a90449d8d1cb975cce35def.png";
-//var description ="你好,心承智慧";
-
-
-
-
-var shareType = getShareType();
-var shareId = getShareId();
-
-//title :shareType == 1 ? '中医好课程:'  + gradeName  : '中医好主播:' + gradeName,     /*分享标题(可选)*/
-var title = "";
-$(function () {
-	
-	if(shareType == 1 || shareType == 3){
-		title = '中医好课程:'  + gradeName;
-	}else if(shareType == 2){
-		title = '中医好主播:'  + gradeName;
-	}else if(shareType == 4){
-		title =  gradeName;
-	}
-})
+var shareType = obj.shareType;
+var shareId =obj.shareId;
 
 var domain = window.location.protocol+"//"+document.domain;
 var link = domain+"/wx_share.html?shareType="+shareType+"&shareId="+shareId;
+var title = "";
+var shareDescription = "";
+var shareSmallImgPath = "";
+
+/**
+ * 获取分享信息
+ * @param data
+ * @returns
+ */
+if(!stringnull(gradeName) || !stringnull(description) ||
+		!stringnull(smallImgPath) ){
+	
+	requestService("/xczh/share/courseShare", {shareType:shareType,shareId:shareId}, function(data) {
+		if (data.success) {
+			var shareInfo  = data.resultObject;
+
+			title = shareInfo.name;
+			shareSmallImgPath = shareInfo.headImg;
+			shareDescription = shareInfo.description;
+			link = shareInfo.link;
+		}	
+	},false)
+	
+	
+}else{
+	
+	$(function () {
+		if(shareType == 1 || shareType == 3){
+			title = '中医好课程:'  + gradeName;
+		}else if(shareType == 2){
+			title = '中医好主播:'  + gradeName;
+		}else if(shareType == 4){
+			title =  gradeName;
+		}
+	})
+	
+	shareSmallImgPath = smallImgPath;
+	shareDescription = description;
+}
+
 
 //点击分享share
 if(is_weixin()){
@@ -124,94 +140,25 @@ if(is_weixin()){
 	});
 	
 }else{
-	
-$(".header_news").click(function(){
-	shareType = getShareType();
-	shareId = getShareId();
-	
-	
-    $(".share").show();	
-});
 
-$(".share_cancel").click(function(){
-	$(".share").hide();
-});
-
-$(".share_cancel").click(function(){
-	$(".weixin_ceng").hide();
-});
-
-
-
-
-
-}
-
-/*$(".weixin_ceng_bg").click(function(){
-		$(".weixin_ceng").hide();
+	$(".share_cancel").click(function(){
+		$(".share").hide();
 	});
-$(".weixin_img img").click(function(){
-	$(".weixin_ceng").hide();
-});*/
+	
+	$(".share_cancel").click(function(){
+		$(".weixin_ceng").hide();
+	});	
+		
+		
+	$(".header_news").click(function(){
+		
+	    $(".share").show();	
+	});
+}
 
 $(".weixin_ceng").click(function(){
 	$(".weixin_ceng").hide();
 });
-
-
-
-
-//微博分享 
-$('#weiboShare').click(function(e){
-	    var  p = {
-	        url: link,/*获取URL，可加上来自分享到QQ标识，方便统计*/
-	        title :shareType == 1 ? '中医好课程:'  + gradeName  : '中医好主播:' + gradeName,/*分享标题(可选)*/
-	        pic : smallImgPath /*分享图片(可选)*/
-	    };
-	    var s = [];
-	    for (var i in p) {
-	        s.push(i + '=' + encodeURIComponent(p[i] || ''));
-	    }
-	    var _src = "http://service.weibo.com/share/share.php?" + s.join('&') ;
-	    window.open(_src);
-});
-
-//qq分享 
-$('#qqShare').click(function(e){
-	
-	    var  p = {
-	        url:link,/*获取URL，可加上来自分享到QQ标识，方便统计*/
-	        desc: '熊猫中医', /*分享理由(风格应模拟用户对话),支持多分享语随机展现（使用|分隔）*/
-	        title :shareType == 1 ? '中医好课程:'  + gradeName  : '中医好主播:' + gradeName,/*分享标题(可选)*/
-	        summary : description,/*分享描述(可选)*/
-	        pics : smallImgPath  /*分享图片(可选)*/
-	    };
-	    var s = [];
-	    for (var i in p) {
-	        s.push(i + '=' + encodeURIComponent(p[i] || ''));
-	    }
-	    var _src = "http://connect.qq.com/widget/shareqq/index.html?" + s.join('&') ;
-	    window.open(_src);
-});
-
-//qq空间分享 
-$('#qqShare0').click(function(e){
-	
-	    var  p = {
-		        url:link,/*获取URL，可加上来自分享到QQ标识，方便统计*/
-		        desc: '熊猫中医', /*分享理由(风格应模拟用户对话),支持多分享语随机展现（使用|分隔）*/
-		        title :shareType == 1 ? '中医好课程:'  + gradeName  : '中医好主播:' + gradeName,/*分享标题(可选)*/
-		        summary : description,/*分享描述(可选)*/
-		        pics : smallImgPath  /*分享图片(可选)*/
-		 };
-	    var s = [];
-	    for (var i in p) {
-	        s.push(i + '=' + encodeURIComponent(p[i] || ''));
-	    }
-	    var _src = "https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?" + s.join('&') ;
-	    window.open(_src);
-});
-
 
 
 /**************** 微信分享 *************************/
@@ -274,13 +221,10 @@ if(is_weixn()){
 	    ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
 	});
 	
-//    title : gradeName,/*分享标题(可选)*/
-//    summary : description,/*分享描述(可选)*/
-//    pics : smallImgPath  /*分享图片(可选)*/
-	
 	wx.ready(function () {
 		
-		 var d1 = description.replace(/&nbsp;/g,"");
+		 var d1 = shareDescription.replace(/&nbsp;/g,"");
+		 
 		 //如果聊天记录里面点击过来的话，点击返回--》回调聊天窗口
 		if(shareBack == 1){
 			 if (typeof window.addEventListener != "undefined") {
@@ -298,7 +242,7 @@ if(is_weixn()){
 			title :title,     /*分享标题(可选)*/
 		    desc: d1, // 分享描述
 		    link:link, // 分享链接
-		    imgUrl: smallImgPath, // 分享图标
+		    imgUrl: shareSmallImgPath, // 分享图标
 		    type: '', // 分享类型,music、video或link，不填默认为link
 		    dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
 		    success: function () {
@@ -318,7 +262,7 @@ if(is_weixn()){
 		wx.onMenuShareTimeline({
 			title :title,/*分享标题(可选)*/
 		    link:link, // 分享链接
-		    imgUrl: smallImgPath, // 分享图标
+		    imgUrl: shareSmallImgPath, // 分享图标
 		    success: function () {
 		        // 用户确认分享后执行的回调函数
 		    	$(".weixin_ceng").hide();
@@ -337,7 +281,7 @@ if(is_weixn()){
 			title :title,/*分享标题(可选)*/
 		    desc: d1, // 分享描述
 		    link:link, // 分享链接
-		    imgUrl: smallImgPath, // 分享图标
+		    imgUrl: shareSmallImgPath, // 分享图标
 		    success: function () {
 		       // 用户确认分享后执行的回调函数
 		    	$(".weixin_ceng").hide();
@@ -356,7 +300,7 @@ if(is_weixn()){
 			title :title,/*分享标题(可选)*/
 		    desc: d1, // 分享描述
 		    link:link, // 分享链接
-		    imgUrl: smallImgPath, // 分享图标
+		    imgUrl: shareSmallImgPath, // 分享图标
 			success: function () {
 				 // 用户确认分享后执行的回调函数
 		    	$(".weixin_ceng").hide();
@@ -372,3 +316,66 @@ if(is_weixn()){
 		});
 	})    
 }
+
+
+
+////微博分享 
+//$('#weiboShare').click(function(e){
+//	    var  p = {
+//	        url: link,/*获取URL，可加上来自分享到QQ标识，方便统计*/
+//	        title :shareType == 1 ? '中医好课程:'  + gradeName  : '中医好主播:' + gradeName,/*分享标题(可选)*/
+//	        pic : smallImgPath /*分享图片(可选)*/
+//	    };
+//	    var s = [];
+//	    for (var i in p) {
+//	        s.push(i + '=' + encodeURIComponent(p[i] || ''));
+//	    }
+//	    var _src = "http://service.weibo.com/share/share.php?" + s.join('&') ;
+//	    window.open(_src);
+//});
+//
+////qq分享 
+//$('#qqShare').click(function(e){
+//	
+//	    var  p = {
+//	        url:link,/*获取URL，可加上来自分享到QQ标识，方便统计*/
+//	        desc: '熊猫中医', /*分享理由(风格应模拟用户对话),支持多分享语随机展现（使用|分隔）*/
+//	        title :shareType == 1 ? '中医好课程:'  + gradeName  : '中医好主播:' + gradeName,/*分享标题(可选)*/
+//	        summary : description,/*分享描述(可选)*/
+//	        pics : smallImgPath  /*分享图片(可选)*/
+//	    };
+//	    var s = [];
+//	    for (var i in p) {
+//	        s.push(i + '=' + encodeURIComponent(p[i] || ''));
+//	    }
+//	    var _src = "http://connect.qq.com/widget/shareqq/index.html?" + s.join('&') ;
+//	    window.open(_src);
+//});
+//
+////qq空间分享 
+//$('#qqShare0').click(function(e){
+//	
+//	    var  p = {
+//		        url:link,/*获取URL，可加上来自分享到QQ标识，方便统计*/
+//		        desc: '熊猫中医', /*分享理由(风格应模拟用户对话),支持多分享语随机展现（使用|分隔）*/
+//		        title :shareType == 1 ? '中医好课程:'  + gradeName  : '中医好主播:' + gradeName,/*分享标题(可选)*/
+//		        summary : description,/*分享描述(可选)*/
+//		        pics : smallImgPath  /*分享图片(可选)*/
+//		 };
+//	    var s = [];
+//	    for (var i in p) {
+//	        s.push(i + '=' + encodeURIComponent(p[i] || ''));
+//	    }
+//	    var _src = "https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?" + s.join('&') ;
+//	    window.open(_src);
+//});
+
+
+
+
+
+
+
+
+
+

@@ -6,6 +6,7 @@ import java.util.Map;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.course.model.Course;
 import com.xczhihui.course.vo.CourseLecturVo;
+import com.xczhihui.course.vo.ShareInfoVo;
 
 public interface ICourseService {
 
@@ -244,4 +245,9 @@ public interface ICourseService {
     Integer selectLiveCountByUserIdAndType(String userId, Integer type);
 
     List<Map<String, Object>> list(Integer type, String userId);
+
+
+    ShareInfoVo selectShareInfoByType(Integer type, String id);
+
+    Course findSimpleInfoById(int id);
 }

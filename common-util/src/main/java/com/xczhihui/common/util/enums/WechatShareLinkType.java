@@ -14,7 +14,6 @@ public enum WechatShareLinkType {
 	
 	    //首页
 		HOME_PAGE("/xcview/html/home_page.html", "首页"),
-	
 	  
 		/*************    课程的分享页面  开始       ***************/
 		
@@ -35,7 +34,7 @@ public enum WechatShareLinkType {
 		APPRENTICE("/xcview/html/apprentice/inherited_introduction.html?merId=","师承"),
 		
 		
-		DOCDOT_SHARE("/xcview/html/home_page.html", "医师页面"),
+		DOCDOT_SHARE("/xcview/html/physician/physicians_page.html?doctor=", "医师页面"),
 		ACTICLE_SHARE("/xcview/html/home_page.html", "文章"),
 		MEDICAL_CASES("/xcview/html/home_page.html","医案");
 		
