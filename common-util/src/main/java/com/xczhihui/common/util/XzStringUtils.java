@@ -226,7 +226,7 @@ public class XzStringUtils {
 	}
 	
 	public static String workTimeScreen(String line,Boolean coOrdinate) {
-		if(line!=null) {
+		if(line!=null && !"".equals(line) ) {
 			//中文的话，过滤下
 			if(isContainChinese(line)) {
 				String regex = ".*(下午|上午|周|点|早|晚|暂无).*";
@@ -280,11 +280,11 @@ public class XzStringUtils {
 		//下午：4
 		initMap();  
 		//上午
-		System.out.println(change(day,1));  
-		//下午
-		System.out.println(change(morningArr,2));  
-		//全天
-		System.out.println(change(affternoonArr,3));  
+//		System.out.println(change(day,1));  
+//		//下午
+//		System.out.println(change(morningArr,2));  
+//		//全天
+//		System.out.println(change(affternoonArr,3));  
 		
 		
 		String morning1 =  change(morningArr,1);

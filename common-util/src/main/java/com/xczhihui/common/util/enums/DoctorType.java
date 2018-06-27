@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.xczhihui.common.util.bean.DoctorTypeVo;
+
 /**
  * Description：中医类型
  * creed: Talk is cheap,show me the code
@@ -42,17 +44,17 @@ public enum DoctorType {
         return list;
     }
     
-    public static List<Map> getDoctorTypeListAddHot(){
-        List<Map> list = new ArrayList<Map>();
-        Map mh = new HashMap<>();
-        mh.put("code",-1);
-        mh.put("value","热门医师");
-        list.add(mh);
+    public static List<DoctorTypeVo> getDoctorTypeListAddHot(){
+    	
+        List<DoctorTypeVo> list = new ArrayList<DoctorTypeVo>();
+        DoctorTypeVo dtv = new DoctorTypeVo(-1,"热门医师");
+        list.add(dtv);
         for (DoctorType e : DoctorType.values()) {
-            Map m = new HashMap();
-            m.put("code",e.getCode());
-            m.put("value",e.getText());
-            list.add(m);
+//            Map m = new HashMap();
+//            m.put("code",e.getCode());
+//            m.put("value",e.getText());
+        	DoctorTypeVo dtv1 = new DoctorTypeVo(e.getCode(),e.getText());
+            list.add(dtv1);
         }
         return list;
     }
