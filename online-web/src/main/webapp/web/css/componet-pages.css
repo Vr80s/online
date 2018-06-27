@@ -133,7 +133,7 @@
 .pages1 .pagination-pagess .pagination .pagination-break {
   padding: 8px 5px;
   border: none;
-  border-left: 1px solid #e6e6e6;
+  /*border-left: 1px solid #e6e6e6;*/
   background: none;
   cursor: default;
 }

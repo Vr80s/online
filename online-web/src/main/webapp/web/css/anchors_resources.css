@@ -463,9 +463,12 @@ outline: none;
 	background: white;
 	overflow: hidden;
 }
-/*展示更多样式*/
 .list-Answer-right-text {
-    font-size: 16px;
+    margin-bottom: 20px;
+}
+/*展示更多样式*/
+.comment-text{
+	font-size: 16px;
     color: #666;
     word-break: break-all;
     word-wrap: break-word;
@@ -686,6 +689,9 @@ outline: none;
 .fabulous-box .fabulous{
 	font-size: 16px;
 	margin-right: 7px;
+}
+.fabulous-box .active{
+	color: #00bc12;
 }
 .reply-teacher-wrap{
 	width: 880px;
