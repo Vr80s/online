@@ -10,7 +10,7 @@ import com.xczhihui.common.util.enums.ShareType;
 
 public class ShareInfoVo implements Serializable {
 
-    private String id;              //主键id
+    private String shareId;              //主键id
     private String gradeName;       //标题
     private String name;            //标题
     private String smallImgPath;    //头像
@@ -23,7 +23,7 @@ public class ShareInfoVo implements Serializable {
     public void build(String returnOpenidUri) {
     	
     	Integer type  = this.getType();
-    	String id  = this.getId();
+    	String id  = this.getShareId();
     	String name =  this.getName();
     	String gradeName = this.getGradeName();
     	String details = this.getDescription();
@@ -49,11 +49,11 @@ public class ShareInfoVo implements Serializable {
     
     }
     
-	public String getId() {
-		return id;
+	public String getShareId() {
+		return shareId;
 	}
-	public void setId(String id) {
-		this.id = id;
+	public void setShareId(String shareId) {
+		this.shareId = shareId;
 	}
 	public String getGradeName() {
 		return gradeName;
