@@ -34,6 +34,8 @@ public class RedisCacheKey {
 
     public static final String MESSAGE_PUSH_KEY = "message:push:";
 
+    public static final String APPRAISE_PRAISE_KEY = "appraise:praise:";
+
 
     public static String getGiftCacheKey(String str) {
         return GIFT_CACHE__PREFIX + REDIS_SPLIT_CHAR + str;
