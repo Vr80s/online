@@ -35,7 +35,7 @@ public class TimedTaskJob {
     
     
     //0 0/30 * * * ?
-    @Scheduled(cron = "0 0/5 * * * ?")
+    @Scheduled(cron = "0 0/30 * * * ?")
     public void courSerecommendAging() {
     	//课程有效期设置
         courseService.updateDefaultSort();
