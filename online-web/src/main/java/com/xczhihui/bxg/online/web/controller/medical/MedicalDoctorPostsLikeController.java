@@ -43,33 +43,17 @@ public class MedicalDoctorPostsLikeController {
     }
 
     /**
-     * 添加医师动态点赞
+     * 添加/删除医师动态点赞
      */
     @RequestMapping(value="{postsId}/like/{flag}", method = RequestMethod.POST)
     @ResponseBody
     public ResponseObject addDoctorPostsLike(@PathVariable("postsId") Integer postsId,@PathVariable("flag") Integer flag){
         // 获取当前用户ID
         String userId = getCurrentUser().getId();
-        if(flag==0){
-            medicalDoctorPostsLikeService.deleteMedicalDoctorPostsLike(postsId,userId);
-        }else {
-            medicalDoctorPostsLikeService.addMedicalDoctorPostsLike(postsId,userId,flag);
-        }
+        medicalDoctorPostsLikeService.addMedicalDoctorPostsLike(postsId,userId,flag);
         Map<String, Object> map = medicalDoctorPostsLikeService.getMedicalDoctorPostsLikeList(postsId,userId);
         return ResponseObject.newSuccessResponseObject(map);
     }
 
-    /**
-     * 删除医师动态点赞
-     */
-    @RequestMapping(value="deleteDoctorPostsLike", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseObject deleteDoctorPostsLike(@RequestParam("postsId") Integer postsId){
-        // 获取当前用户ID
-        String userId = getCurrentUser().getId();
-        medicalDoctorPostsLikeService.deleteMedicalDoctorPostsLike(postsId,userId);
-        Map<String, Object> map  = medicalDoctorPostsLikeService.getMedicalDoctorPostsLikeList(postsId,userId);
-        return ResponseObject.newSuccessResponseObject(map);
-    }
 
 }

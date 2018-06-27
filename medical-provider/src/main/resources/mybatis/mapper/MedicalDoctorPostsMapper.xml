@@ -19,7 +19,7 @@
         LEFT JOIN oe_course oc
         ON oc.id = mdp.course_id
         LEFT JOIN oe_bxs_article oba
-        ON oba.id = mdp.course_id
+        ON oba.id = mdp.article_id
         WHERE mdp.deleted = 0 and mdp.status = 1 and mdp.doctor_id=#{doctorId}
         <if test="type != null">
             and mdp.type = #{type}
