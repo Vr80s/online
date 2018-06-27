@@ -3,6 +3,7 @@ package com.xczhihui.medical.doctor.service;
 import com.xczhihui.medical.doctor.model.MedicalDoctorPostsLike;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Description：医师动态点赞 service
@@ -36,7 +37,7 @@ public interface IMedicalDoctorPostsLikeService {
      * @param postsId   医师动态id
      * @return
      */
-    List<MedicalDoctorPostsLike> getMedicalDoctorPostsLikeList(Integer postsId,String userId);
+    Map<String, Object> getMedicalDoctorPostsLikeList(Integer postsId, String userId);
 
 
 }

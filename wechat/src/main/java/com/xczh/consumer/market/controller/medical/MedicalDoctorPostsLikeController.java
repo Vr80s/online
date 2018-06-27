@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -42,8 +43,8 @@ public class MedicalDoctorPostsLikeController {
     @ResponseBody
     public ResponseObject doctorPostsLikeList(@Account(optional = true) Optional<String> accountIdOpt, @PathVariable("postsId") Integer postsId){
         String  userId = accountIdOpt.isPresent() ? accountIdOpt.get() : "";
-        List<MedicalDoctorPostsLike> list = medicalDoctorPostsLikeService.getMedicalDoctorPostsLikeList(postsId,userId);
-        return ResponseObject.newSuccessResponseObject(list);
+        Map<String, Object> map  = medicalDoctorPostsLikeService.getMedicalDoctorPostsLikeList(postsId,userId);
+        return ResponseObject.newSuccessResponseObject(map);
     }
 
     /**
@@ -59,8 +60,8 @@ public class MedicalDoctorPostsLikeController {
         }else {
             medicalDoctorPostsLikeService.addMedicalDoctorPostsLike(postsId,accountId,flag);
         }
-        List<MedicalDoctorPostsLike> list = medicalDoctorPostsLikeService.getMedicalDoctorPostsLikeList(postsId,accountId);
-        return ResponseObject.newSuccessResponseObject(list);
+        Map<String, Object> map = medicalDoctorPostsLikeService.getMedicalDoctorPostsLikeList(postsId,accountId);
+        return ResponseObject.newSuccessResponseObject(map);
     }
 
 }

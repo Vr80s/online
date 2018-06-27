@@ -190,7 +190,7 @@ function getPostsLikeList(postsId) {
         postsId: postsId
     }, function (data) {
         if(data.success ){
-            var likes = data.resultObject;
+            var likes = data.resultObject.list;
             var like="";
             if(likes!=null&&likes.length>0){
                 for(var j=0;j<likes.length;j++){

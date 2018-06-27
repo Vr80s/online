@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 import static com.xczhihui.bxg.online.web.controller.AbstractController.getCurrentUser;
 
@@ -40,8 +41,8 @@ public class MedicalDoctorPostsLikeController {
     public ResponseObject doctorPostsLikeList(@PathVariable("postsId") Integer postsId){
         // 获取当前用户ID
         String userId = getCurrentUser().getId();
-        List<MedicalDoctorPostsLike> list = medicalDoctorPostsLikeService.getMedicalDoctorPostsLikeList(postsId,userId);
-        return ResponseObject.newSuccessResponseObject(list);
+        Map<String, Object> map  = medicalDoctorPostsLikeService.getMedicalDoctorPostsLikeList(postsId,userId);
+        return ResponseObject.newSuccessResponseObject(map);
     }
 
     /**
@@ -57,8 +58,8 @@ public class MedicalDoctorPostsLikeController {
         }else {
             medicalDoctorPostsLikeService.addMedicalDoctorPostsLike(postsId,userId,flag);
         }
-        List<MedicalDoctorPostsLike> list = medicalDoctorPostsLikeService.getMedicalDoctorPostsLikeList(postsId,userId);
-        return ResponseObject.newSuccessResponseObject(list);
+        Map<String, Object> map = medicalDoctorPostsLikeService.getMedicalDoctorPostsLikeList(postsId,userId);
+        return ResponseObject.newSuccessResponseObject(map);
     }
 
     /**
@@ -70,8 +71,8 @@ public class MedicalDoctorPostsLikeController {
         // 获取当前用户ID
         String userId = getCurrentUser().getId();
         medicalDoctorPostsLikeService.deleteMedicalDoctorPostsLike(postsId,userId);
-        List<MedicalDoctorPostsLike> list = medicalDoctorPostsLikeService.getMedicalDoctorPostsLikeList(postsId,userId);
-        return ResponseObject.newSuccessResponseObject(list);
+        Map<String, Object> map  = medicalDoctorPostsLikeService.getMedicalDoctorPostsLikeList(postsId,userId);
+        return ResponseObject.newSuccessResponseObject(map);
     }
 
 }
