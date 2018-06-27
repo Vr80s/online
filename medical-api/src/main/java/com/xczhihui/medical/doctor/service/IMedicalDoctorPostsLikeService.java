@@ -36,7 +36,7 @@ public interface IMedicalDoctorPostsLikeService {
      * @param postsId   医师动态id
      * @return
      */
-    List<MedicalDoctorPostsLike> getMedicalDoctorPostsLikeList(Integer postsId);
+    List<MedicalDoctorPostsLike> getMedicalDoctorPostsLikeList(Integer postsId,String userId);
 
 
 }
