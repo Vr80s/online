@@ -280,17 +280,25 @@ public class XzStringUtils {
 		//下午：4
 		initMap();  
 		//上午
-//		System.out.println(change(day,1));  
-//		//下午
-//		System.out.println(change(morningArr,2));  
-//		//全天
-//		System.out.println(change(affternoonArr,3));  
+		System.out.println(change(day,1));  
+		//下午
+		System.out.println(change(morningArr,2));  
+		//全天
+		System.out.println(change(affternoonArr,3));  
 		
-		String day1 =  change(day,1);
-		String morning1 =  change(morningArr,2);
-		String affternoon1 =  change(affternoonArr,3);
 		
-		return day1+morning1+affternoon1;
+		String morning1 =  change(morningArr,1);
+		String affternoon1 =  change(affternoonArr,2);
+		String day1 =  change(day,3);
+		
+		return (day1!="" ? day1+"," : day1)+(morning1!="" ? morning1+"," : morning1)
+				+affternoon1;
+	}
+	
+	public static void main(String[] args) {
+		
+		String str = "1.1,2.1,2.2,3.1,4.2";
+		System.out.println(workTimeConverter(str));
 	}
 	
 	
@@ -327,11 +335,7 @@ public class XzStringUtils {
         return chinese;  
     }
     
-	public static void main(String[] args) {
-		
-		String str = "1.1,1.2,2.1,2.2,3.1,4.2";
-		
-	}
+
 	
 	
 	 // 判断输入的字符串是否全是数字  
