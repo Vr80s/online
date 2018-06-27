@@ -8,13 +8,13 @@
 	<select id="selectShareInfoByType" resultType="com.xczhihui.course.vo.ShareInfoVo">
 	    
 	    <if test="type != null and (type == 1  or type == 3 )">
-		   select c.id as shareId, c.grade_name as gradeName,c.grade_name as name,c.smallimg_path as headImg,
+		   select c.id as shareId,c.grade_name as gradeName,c.grade_name as name,c.smallimg_path as headImg,
 		       c.smallimg_path as smallImgPath,c.course_detail as description,#{type} as type
 		    from oe_course c  where c.id = #{shareId}  and c.is_delete=0 
 		</if>
 		
 		<if test="type != null and type == 2 ">
-			select ca.user_id as as shareId,ca.name as name,ca.profile_photo as headImg,ca.name as gradeName,
+			select ca.user_id as shareId,ca.name as name,ca.profile_photo as headImg,ca.name as gradeName,
 			 ca.profile_photo as smallImgPath,ca.detail as description,#{type} as type 
 			 from oe_user ou,course_anchor ca 
 			where  ou.id = ca.user_id and ou.id =#{shareId}
