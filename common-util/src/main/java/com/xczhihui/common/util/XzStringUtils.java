@@ -221,6 +221,7 @@ public class XzStringUtils {
 	
 	public static String workTimeScreen(String line,Boolean coOrdinate) {
 		if(line!=null) {
+			
 			//中文的话，过滤下
 			if(isContainChinese(line)) {
 				String regex = ".*(下午|上午|周|点|早|晚|暂无).*";
@@ -233,7 +234,8 @@ public class XzStringUtils {
 			}else { //坐标
 				
 				if(!coOrdinate) { //把坐标过滤成每周  --》
-					//TODO
+					
+					
 					
 					return line;
 				}
@@ -242,14 +244,7 @@ public class XzStringUtils {
 		return null;
 	}
 	
-
-	
-	
-	
 	public static void main(String[] args) {
 		System.out.println(workTimeScreen("一"));
-		
 	}
-	
-	
 }

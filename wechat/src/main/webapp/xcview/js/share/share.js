@@ -73,14 +73,18 @@ function getShareIdAndType(){
 		
 	}else if(viewHtml == "invitation_card.html"){
 		
-		obj.shareId = getQueryString("merId");
+		obj.shareId = sessionStorage.getItem("merId");
+		obj.shareType = 4;
+		
+	}else if(viewHtml == "inherited_introduction.html"){
+		
+		obj.shareId = getQueryString("doctor");
 		obj.shareType = 4;
 		
 	}else if(viewHtml == "physicians_page.html"){
 		
 		obj.shareId = getQueryString("doctor");
 		obj.shareType = 5;
-		
 	}
 }
 getShareIdAndType();
@@ -112,8 +116,6 @@ if(!stringnull(gradeName) || !stringnull(description) ||
 			link = shareInfo.link;
 		}	
 	},false)
-	
-	
 }else{
 	
 	$(function () {
