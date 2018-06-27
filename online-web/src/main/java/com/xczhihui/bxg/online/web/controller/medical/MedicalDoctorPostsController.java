@@ -6,6 +6,7 @@ import com.xczhihui.common.support.domain.Attachment;
 import com.xczhihui.common.support.service.AttachmentCenterService;
 import com.xczhihui.common.util.JsonUtil;
 import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.medical.anchor.service.ICourseApplyService;
 import com.xczhihui.medical.doctor.model.MedicalDoctorAccount;
 import com.xczhihui.medical.doctor.model.MedicalDoctorPosts;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorAccountService;
@@ -37,6 +38,8 @@ public class MedicalDoctorPostsController {
     private AttachmentCenterService service;
     @Autowired
     private IMedicalDoctorAccountService medicalDoctorAccountService;
+    @Autowired
+    private ICourseApplyService courseApplyService;
 
 
     private static final org.slf4j.Logger LOGGER = LoggerFactory
@@ -50,10 +53,12 @@ public class MedicalDoctorPostsController {
     public ResponseObject doctorPostsList(@RequestParam("pageNumber") Integer pageNumber,
                                              @RequestParam("pageSize") Integer pageSize,
                                              @RequestParam(required = false) Integer type, @RequestParam("doctorId") String doctorId){
+        // 获取当前用户ID
+        String userId = getCurrentUser().getId();
         Page<MedicalDoctorPosts> page = new Page<>();
         page.setCurrent(pageNumber);
         page.setSize(pageSize);
-        Page<MedicalDoctorPosts> list = medicalDoctorPostsService.selectMedicalDoctorPostsPage(page,type,doctorId);
+        Page<MedicalDoctorPosts> list = medicalDoctorPostsService.selectMedicalDoctorPostsPage(page,type,doctorId,userId);
         return ResponseObject.newSuccessResponseObject(list);
     }
 
@@ -68,6 +73,9 @@ public class MedicalDoctorPostsController {
         MedicalDoctorAccount mha = medicalDoctorAccountService.getByUserId(userId);
         medicalDoctorPosts.setDoctorId(mha.getDoctorId());
         medicalDoctorPostsService.addMedicalDoctorPosts(medicalDoctorPosts);
+        if(!medicalDoctorPosts.getVideo().equals("")){
+            //courseApplyService.saveCourseApplyResource(courseApplyResource);
+        }
         return ResponseObject.newSuccessResponseObject("添加成功");
     }
 

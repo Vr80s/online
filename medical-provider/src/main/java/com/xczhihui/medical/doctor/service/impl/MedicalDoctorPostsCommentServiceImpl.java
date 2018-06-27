@@ -29,7 +29,7 @@ public class MedicalDoctorPostsCommentServiceImpl extends ServiceImpl<MedicalDoc
 
     @Override
     public void addMedicalDoctorPostsComment(MedicalDoctorPostsComment medicalDoctorPostsComment,String userId) {
-        if(medicalDoctorPostsComment.getCommentId()!=null){
+        if(medicalDoctorPostsComment.getCommentId()!=null && !medicalDoctorPostsComment.getCommentId().equals("")){
             MedicalDoctorPostsComment mdpc = medicalDoctorPostsCommentMapper.getMedicalDoctorPostsCommentById(medicalDoctorPostsComment.getCommentId());
             medicalDoctorPostsComment.setUserId(mdpc.getUserId());
             medicalDoctorPostsComment.setReplyUserId(userId);

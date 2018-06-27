@@ -123,6 +123,11 @@ public class MedicalDoctorPosts extends Model<MedicalDoctorPosts> {
 	 */
 	@TableField(exist = false)
 	private List<MedicalDoctorPostsLike> doctorPostsLikeList;
+	/**
+	 * 是否点赞
+	 */
+	@TableField(exist = false)
+	private Boolean isPraise=false;
 
 	@Override
 	protected Serializable pkVal() {
@@ -295,6 +300,14 @@ public class MedicalDoctorPosts extends Model<MedicalDoctorPosts> {
 
 	public void setDoctorPostsLikeList(List<MedicalDoctorPostsLike> doctorPostsLikeList) {
 		this.doctorPostsLikeList = doctorPostsLikeList;
+	}
+
+	public Boolean getPraise() {
+		return isPraise;
+	}
+
+	public void setPraise(Boolean praise) {
+		isPraise = praise;
 	}
 
 	@Override

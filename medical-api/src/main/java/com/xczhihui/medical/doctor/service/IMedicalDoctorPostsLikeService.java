@@ -17,9 +17,10 @@ public interface IMedicalDoctorPostsLikeService {
      *
      * @param postsId   医师动态id
      * @param userId   用户id
+     * @param flag
      * @return
      */
-    void addMedicalDoctorPostsLike(Integer postsId,String userId);
+    void addMedicalDoctorPostsLike(Integer postsId, String userId, Integer flag);
 
     /**
      * 删除医师动态点赞

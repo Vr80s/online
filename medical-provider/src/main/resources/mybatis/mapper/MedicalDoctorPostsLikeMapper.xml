@@ -10,7 +10,7 @@
         JOIN `oe_user` ou
 			ON mdpl.`user_id` = ou.`id`
         WHERE mdpl.posts_id = #{postsId}
-        ORDER BY mdpl.create_time asc
+        ORDER BY mdpl.create_time desc
 
     </select>
 
