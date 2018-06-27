@@ -49,9 +49,10 @@ public class MedicalDoctorPostsCommentController {
      */
     @RequestMapping(value="{postsId}/comment",method = RequestMethod.POST)
     @ResponseBody
-    public ResponseObject addDoctorPostsComment(MedicalDoctorPostsComment medicalDoctorPostsComment){
+    public ResponseObject addDoctorPostsComment(MedicalDoctorPostsComment medicalDoctorPostsComment,@PathVariable("postsId") Integer postsId){
         // 获取当前用户ID
         String userId = getCurrentUser().getId();
+        medicalDoctorPostsComment.setPostsId(postsId);
         medicalDoctorPostsCommentService.addMedicalDoctorPostsComment(medicalDoctorPostsComment,userId);
         List<MedicalDoctorPostsComment> list = medicalDoctorPostsCommentService.selectMedicalDoctorPostsCommentList(medicalDoctorPostsComment.getPostsId(),userId);
         return ResponseObject.newSuccessResponseObject(list);

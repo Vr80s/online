@@ -72,6 +72,19 @@
 		bottom: 0;
 	}
 	/*轮播结束*/
+	 .stick_img img {
+		width: 0.2rem !important;
+		height: 0.24rem !important;
+		margin-right: 0.097rem !important;
+	}
+	.stick_img {
+		font-size: 0.3rem !important;
+		color: #F97B49 !important;
+		float: left !important;
+		display: -webkit-box !important;
+		margin-right: 0.1rem !important;
+	}
+
 </style>
 
 </head>
@@ -174,12 +187,14 @@
 				{{each items as item i}}
 				{{if item.type == 1}}
 				<!-- 普通动态-->
+				<span class="stick_img"><img src="/xcview/images/stick.png" alt="" />置顶</span>
 				<div class="essay_main comment_hide">{{item.content}}</div>
 				<div class="essay_pack_up_btn"><span>收起</span></div>
 				<div class="both"></div>
 				{{else if item.type == 2}}
 				<!-- 动态图片-->
 				<div class="paper_nav_span comment_hide">
+					<span class="stick_img"><img src="/xcview/images/stick.png" alt="" />置顶</span>
 					<span class="stick_img">#盐蒸橘子治咳嗽#<span class="title">{{item.content}}</span></span>
 				</div>
 				{{if item.pics.length>0}}
@@ -204,6 +219,7 @@
 				{{else if item.type == 4}}
 				<!-- 文章-->
 				<div class="article_nav_span comment_hide">
+					<span class="stick_img"><img src="/xcview/images/stick.png" alt="" />置顶</span>
 					<span class="title">{{item.title}}</span>
 				</div>
 				<div class="article_nav_cen comment_hide">
@@ -214,6 +230,7 @@
 				{{else if item.type == 5}}
 				<!-- 课程-->
 				<div class="course_nav_span comment_hide">
+					<span class="stick_img"><img src="/xcview/images/stick.png" alt="" />置顶</span>
 					<span class="title">{{item.title}}</span>
 				</div>
 				<div class="course_nav_cen comment_hide">
@@ -231,6 +248,7 @@
 				{{else if item.type == 10}}
 				<!-- 医案-->
 				<div class="consilia_nav_span comment_hide">
+					<span class="stick_img"><img src="/xcview/images/stick.png" alt="" />置顶</span>
 					<span class="stick_img">#医案#</span>
 					<span class="title">朱xx，男，53岁</span>
 				</div>
