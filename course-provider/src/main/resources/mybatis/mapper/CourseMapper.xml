@@ -741,6 +741,7 @@
 			oc.id,
 			oc.course_detail courseDetail,
 			oc.grade_name AS gradeName,
+			oc.smallimg_path AS smallImgPath,
 			oc.subtitle,
 			oc.multimedia_type multimediaType,
 			oc.live_status lineState,
@@ -755,17 +756,17 @@
 			oc.release_time,
 			oc.recommend_sort recommendSort,
 			IF(oc.type =3,4,IF(oc.type = 1,3,IF(oc.multimedia_type=1,1,2))) AS TYPE,
+			oc.type AS courseForm,
 			oc.create_time,
 			oc.is_recommend,
 			oc.start_time AS startTime,
-			ca.detail anchorDetail,
+			oc.lecturer_description anchorDetail,
 			om.name menuName,
 			om.id menuType
 			   FROM oe_course oc
 				  INNER JOIN oe_user ou  ON   oc.user_lecturer_id = ou.id
 				  INNER JOIN oe_menu AS om  ON om.id = oc.menu_id
-				  INNER JOIN course_anchor ca ON ca.user_id = ou.id
-			   WHERE oc.is_delete=0 AND oc.status = 1 and oc.id=607
+			   WHERE oc.is_delete=0 AND oc.status = 1
 			<if test="courseForm != null">
 				AND oc.id = #{courseId}
 			</if>

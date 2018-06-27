@@ -23,7 +23,7 @@ public class QueryConditionVo implements Serializable {
 
     private Integer sortOrder;
 
-    private Integer type;
+    private Integer courseForm;
     private Integer multimediaType;
 
 }

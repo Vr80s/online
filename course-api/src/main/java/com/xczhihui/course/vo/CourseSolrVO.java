@@ -45,8 +45,13 @@ public class CourseSolrVO implements Serializable {
     @Field
     private Integer type;
     @Field
+    private Integer courseForm;
+    @Field
     private Integer multimediaType;
     @Field
     private Integer lineState;
+    @Field
+    private String smallImgPath;
 
+    private String startDateStr;
 }

@@ -30,7 +30,7 @@ public class CourseSolrServiceImplTest extends BaseJunit4Test {
     public void testQuery() throws IOException, SolrServerException {
         QueryConditionVo queryConditionVo = new QueryConditionVo();
         queryConditionVo.setMultimediaType(1);
-        queryConditionVo.setType(1);
+        queryConditionVo.setCourseForm(1);
         queryConditionVo.setQueryKey("针灸");
         queryConditionVo.setLineState(1);
         queryConditionVo.setIsFree(1);

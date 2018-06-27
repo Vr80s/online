@@ -1,6 +1,8 @@
 package com.xczhihui.course.service.impl;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +23,6 @@ import com.xczhihui.common.solr.utils.SolrConstant;
 import com.xczhihui.common.solr.utils.SolrPages;
 import com.xczhihui.common.solr.utils.SolrUtils;
 import com.xczhihui.common.util.enums.CourseForm;
-import com.xczhihui.common.util.enums.CourseType;
 import com.xczhihui.course.mapper.CourseMapper;
 import com.xczhihui.course.service.ICourseSolrService;
 import com.xczhihui.course.vo.CourseSolrVO;
@@ -108,14 +109,71 @@ public class CourseSolrServiceImpl implements ICourseSolrService {
         Map<String, SolrQuery.ORDER> sortedMap = new HashMap<>();
         sortedMap.put("score", SolrQuery.ORDER.desc);
         sortedMap.put("recommendSort", SolrQuery.ORDER.desc);
-        if(CourseForm.LIVE.getCode() == queryConditionVo.getType().intValue() || CourseForm.OFFLINE.getCode() == queryConditionVo.getType().intValue()){
+        if(queryConditionVo.getCourseForm()!=null && (CourseForm.LIVE.getCode() == queryConditionVo.getCourseForm() || CourseForm.OFFLINE.getCode() == queryConditionVo.getCourseForm())){
             sortedMap.put("startTime", SolrQuery.ORDER.desc);
         }
 
-        SolrPages Courses = solrUtils.getByPage(searchStr, page.getCurrent(), page.getSize(), CourseSolrVO.class, sortedMap);
-        page.setTotal(Courses.getTotal());
-        page.setRecords(Courses.getList());
+        SolrPages courses = solrUtils.getByPage(searchStr, page.getCurrent(), page.getSize(), CourseSolrVO.class, sortedMap);
+        page.setTotal(courses.getTotal());
+        page.setRecords(courses.getList());
+
+        handleCourses4Result(page.getRecords());
         return page;
+    }
+
+    static void handleCourses4Result(List<CourseSolrVO> courses) {
+        courses.forEach(course->{
+            if(course.getCourseForm().equals(CourseForm.LIVE.getCode())){
+                course.setStartDateStr(handleTimeShow(course.getLineState(),course.getStartTime()));
+                course.setLineState(handleLineState(course.getLineState(),course.getStartTime()));
+            }
+        });
+    }
+
+    /** 
+     * Description：1直播中， 2预告，3直播结束
+     * 当状态为预告时，若距离开播小于十分钟则返回4 即将直播
+     * 当状态为预告时，若距离开播大于十分钟，小于两小时则返回5 准备直播
+     *
+     * creed: Talk is cheap,show me the code
+     * @author name：yuxin
+     * @Date: 2018/6/27 0027 下午 2:38
+     **/
+    static Integer handleLineState(Integer liveStatus, Date startTime) {
+        long m = startTime.getTime() - System.currentTimeMillis();
+        if(liveStatus == 1||liveStatus==3){
+            return liveStatus;
+        }else if(m>2*60*60*1000){
+            return 2;
+        }else if(m>10*60*1000){
+            return 5;
+        }else {
+            return 4;
+        }
+    }
+
+    /**
+     * Description：当天未结束直播课程的开始时间，显示格式：HH:mm
+     *              其他所有直播课程的开始时间，显示格式：MM.dd
+     * creed: Talk is cheap,show me the code
+     * @author name：yuxin
+     * @Date: 2018/6/27 0027 下午 2:56
+     **/
+    static String handleTimeShow(Integer liveStatus, Date startTime) {
+        //当前时间
+        Date now = new Date();
+        SimpleDateFormat sf = new SimpleDateFormat("yyyyMMdd");
+        //获取今天的日期
+        String nowDay = sf.format(now);
+        //对比的时间
+        String day = sf.format(startTime);
+        boolean today = day.equals(nowDay);
+        if(liveStatus!=3 && today){
+            sf = new SimpleDateFormat("HH:mm");
+        }else{
+            sf = new SimpleDateFormat("MM.dd");
+        }
+        return sf.format(startTime);
     }
 
     private static String getSearchStr(QueryConditionVo queryConditionVo){
@@ -143,8 +201,8 @@ public class CourseSolrServiceImpl implements ICourseSolrService {
         }
 
         String searchCourseType;
-        if(queryConditionVo.getType() != null){
-            searchCourseType = "type:"+queryConditionVo.getType();
+        if(queryConditionVo.getCourseForm() != null){
+            searchCourseType = "courseForm:"+queryConditionVo.getCourseForm();
             if(query.length()>0){
                 query.append(SolrConstant.AND);
             }
@@ -189,6 +247,5 @@ public class CourseSolrServiceImpl implements ICourseSolrService {
 
         return query.toString();
     }
-
 
 }
