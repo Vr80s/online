@@ -525,7 +525,7 @@ public class DoctorServiceImpl extends OnlineBaseServiceImpl implements
 
 	@Override
 	public void updateDefaultSort() {
-		String sql = " UPDATE  oe_course  SET recommend_sort=0 WHERE sort_update_time<= now()";
+		String sql = " UPDATE  medical_doctor  SET recommend_sort=0 WHERE sort_update_time<= now()";
         Map<String, Object> params = new HashMap<String, Object>();
         dao.getNamedParameterJdbcTemplate().update(sql, params);
 	}
