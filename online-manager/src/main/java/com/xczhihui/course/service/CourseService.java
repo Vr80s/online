@@ -1,7 +1,10 @@
 package com.xczhihui.course.service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.solr.client.solrj.SolrServerException;
 
 import com.xczhihui.bxg.online.common.domain.*;
 import com.xczhihui.common.util.bean.Page;
@@ -334,5 +337,7 @@ public interface CourseService {
      * @param i
      */
     void updatePlaybackState(Integer courseId, int i);
+
+    void initCourseSolrDataById(Integer courseId) throws IOException, SolrServerException;
 
 }

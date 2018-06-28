@@ -130,6 +130,7 @@ public class MedicalDoctorSolrServiceImpl implements IMedicalDoctorSolrService {
         }
         sortedMap.put("score", SolrQuery.ORDER.desc);
         sortedMap.put(sort, SolrQuery.ORDER.desc);
+        sortedMap.put("createTime", SolrQuery.ORDER.desc);
 
         SolrPages doctors = solrUtils.getByPage(searchStr, page.getCurrent(), page.getSize(), MedicalDoctorSolrVO.class, sortedMap);
         page.setTotal(doctors.getTotal());

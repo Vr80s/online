@@ -1,11 +1,13 @@
 package com.xczhihui.course.web;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.solr.client.solrj.SolrServerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -187,9 +189,12 @@ public class PublicCourseController {
      **/
     @RequestMapping(value = "changeCallback")
     @ResponseBody
-    public ResponseObject changeCallback(ChangeCallbackVo changeCallbackVo) throws IllegalAccessException, InvocationTargetException {
+    public ResponseObject changeCallback(ChangeCallbackVo changeCallbackVo) throws IllegalAccessException, InvocationTargetException, IOException, SolrServerException {
     	ResponseObject responseObj = new ResponseObject();
-    	publicCourseService.updateLiveStatus(changeCallbackVo);
+		Integer courseId = publicCourseService.updateLiveStatus(changeCallbackVo);
+		if(courseId != null){
+			courseService.initCourseSolrDataById(courseId);
+		}
     	responseObj.setSuccess(true);
     	responseObj.setResultObject(changeCallbackVo);
     	return responseObj;

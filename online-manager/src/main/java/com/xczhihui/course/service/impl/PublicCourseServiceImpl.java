@@ -1,23 +1,25 @@
 package com.xczhihui.course.service.impl;
 
+import java.io.IOException;
 import java.util.*;
 
-import com.xczhihui.course.dao.CourseDao;
 import com.xczhihui.course.dao.CourseSubscribeDao;
 import com.xczhihui.course.dao.PublicCourseDao;
 import com.xczhihui.course.service.CourseService;
+import com.xczhihui.course.service.ICourseSolrService;
 import com.xczhihui.course.service.PublicCourseService;
 import com.xczhihui.course.util.Task;
 import com.xczhihui.user.service.OnlineUserService;
 import com.xczhihui.utils.subscribe.Subscribe;
 import com.xczhihui.vhall.VhallUtil;
+
+import org.apache.solr.client.solrj.SolrServerException;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.xczhihui.common.util.DateUtil;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.util.enums.ImInformLiveStatusType;
 import com.xczhihui.online.api.service.LiveCallbackService;
@@ -44,8 +46,6 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
 
     @Autowired
     private OnlineUserService onlineUserService;
-    @Autowired
-    private CourseDao courseDao;
     @Autowired
     private LiveCallbackService liveCallbackService;
 
@@ -346,7 +346,7 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
     }
 
 	@Override
-	public void updateLiveStatus(ChangeCallbackVo changeCallbackVo) {
+	public Integer updateLiveStatus(ChangeCallbackVo changeCallbackVo) {
 
 		String hql = "from Course where direct_id = ?";
 		Course course = dao.findByHQLOne(hql,new Object[] { changeCallbackVo.getWebinarId() });
@@ -416,8 +416,10 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
 				paramsEnd.put("record_count", maxRecord);
 				dao.getNamedParameterJdbcTemplate().update(end, paramsEnd);
 			}
+			return course.getId();
 		}
-	}
+        return null;
+    }
 
     @Override
     public Course findCourseVoByLiveExanmineId(Integer id) {
@@ -476,4 +478,5 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
     		return 600000; //10分钟
     	}
     }
+
 }

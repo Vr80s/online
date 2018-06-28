@@ -424,6 +424,7 @@
   <field name="city" type="text_ik"/>
   <field name="collection" type="boolean"/>
   <field name="courseDetail" type="text_ik"/>
+  <field name="courseOutline" type="text_ik"/>
   <field name="courseForm" type="tint"/>
   <field name="currentPrice" type="tdouble"/>
   <field name="gradeName" type="text_ik"/>

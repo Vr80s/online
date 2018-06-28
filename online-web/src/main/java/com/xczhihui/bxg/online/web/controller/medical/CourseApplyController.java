@@ -332,12 +332,11 @@ public class CourseApplyController extends AbstractController {
             sendCourseOnlineMessage(courseApplyId, user);
             //添加医师动态
             addCourseDoctorPosts(courseApplyId, user);
-            courseSolrService.initCourseSolrDataById(courseId);
             responseObj.setResultObject("上架成功");
         } else {
-            courseSolrService.deleteCoursesSolrDataById(courseId);
             responseObj.setResultObject("下架成功");
         }
+        courseSolrService.initCourseSolrDataById(courseId);
         return responseObj;
     }
 

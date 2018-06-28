@@ -762,7 +762,8 @@
 			oc.start_time AS startTime,
 			oc.lecturer_description anchorDetail,
 			om.name menuName,
-			om.id menuType
+			om.id menuType,
+			oc.course_outline courseOutline
 			   FROM oe_course oc
 				  INNER JOIN oe_user ou  ON   oc.user_lecturer_id = ou.id
 				  INNER JOIN oe_menu AS om  ON om.id = oc.menu_id

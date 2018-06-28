@@ -224,12 +224,8 @@ public class CourseController extends AbstractController {
     @RequestMapping(value = "updateStatus", method = RequestMethod.POST)
     @ResponseBody
     public ResponseObject updateStatus(Integer id) throws IOException, SolrServerException {
-        boolean status = courseService.updateStatus(id);
-        if(status){
-            courseSolrService.initCourseSolrDataById(id);
-        }else{
-            courseSolrService.deleteCoursesSolrDataById(id);
-        }
+        courseService.updateStatus(id);
+        courseSolrService.initCourseSolrDataById(id);
         return ResponseObject.newSuccessResponseObject("操作成功！");
     }
 

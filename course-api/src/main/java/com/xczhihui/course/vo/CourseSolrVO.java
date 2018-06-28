@@ -27,6 +27,8 @@ public class CourseSolrVO implements Serializable {
     @Field
     private String courseDetail;
     @Field
+    private String courseOutline;
+    @Field
     private String anchorDetail;
     @Field
     private String menuName;

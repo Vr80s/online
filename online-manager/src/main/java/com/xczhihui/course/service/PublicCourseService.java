@@ -1,7 +1,10 @@
 package com.xczhihui.course.service;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+
+import org.apache.solr.client.solrj.SolrServerException;
 
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.domain.Course;
@@ -36,7 +39,7 @@ public interface PublicCourseService {
 	public void updateCourseDirectId(Course course)
 			throws IllegalAccessException, InvocationTargetException;
 
-	void updateLiveStatus(ChangeCallbackVo changeCallbackVo);
+	Integer updateLiveStatus(ChangeCallbackVo changeCallbackVo);
 
 	/**
 	 * Description：通过申请id得到课程id

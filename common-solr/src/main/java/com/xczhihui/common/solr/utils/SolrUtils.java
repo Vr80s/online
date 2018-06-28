@@ -8,14 +8,14 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Description：solr工具类
@@ -25,7 +25,7 @@ import org.apache.solr.common.SolrDocumentList;
  **/
 public class SolrUtils {
 
-    private static final Log logger = LogFactory.getLog(SolrUtils.class);
+    private static final Logger logger = LoggerFactory.getLogger(SolrUtils.class);
     private SolrClient solrClient;
     private String pre;
     private String post;
@@ -78,6 +78,8 @@ public class SolrUtils {
         }
         //显示匹配度得分
         query.set("fl", "*,score");
+        logger.info("solr query:{}",searchStr);
+        logger.info("solr :{}",query.toString());
         QueryResponse response = solrClient.query(query);
         // 查询结果集
         SolrDocumentList results = response.getResults();

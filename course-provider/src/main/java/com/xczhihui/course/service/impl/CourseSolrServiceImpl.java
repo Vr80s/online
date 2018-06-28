@@ -72,7 +72,10 @@ public class CourseSolrServiceImpl implements ICourseSolrService {
         CourseSolrVO courseSolrVO = selectDoctor4SolrById(id);
         if(courseSolrVO != null){
             solrUtils.addBean(courseSolrVO);
-            logger.warn("课程数据更新完成，共{}条",courseSolrVO.toString());
+            logger.warn("课程数据更新完成，{}",courseSolrVO.toString());
+        }else{
+            deleteCoursesSolrDataById(id);
+            logger.warn("课程数据删除完成，{}",id);
         }
     }
 
@@ -123,6 +126,7 @@ public class CourseSolrServiceImpl implements ICourseSolrService {
         if(queryConditionVo.getCourseForm()!=null && (CourseForm.LIVE.getCode() == queryConditionVo.getCourseForm() || CourseForm.OFFLINE.getCode() == queryConditionVo.getCourseForm())){
             sortedMap.put("startTime", SolrQuery.ORDER.desc);
         }
+        sortedMap.put("releaseTime", SolrQuery.ORDER.desc);
 
         SolrPages courses = solrUtils.getByPage(searchStr, page.getCurrent(), page.getSize(), CourseSolrVO.class, sortedMap);
         page.setTotal(courses.getTotal());

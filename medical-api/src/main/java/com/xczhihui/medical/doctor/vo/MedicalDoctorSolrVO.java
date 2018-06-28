@@ -1,6 +1,7 @@
 package com.xczhihui.medical.doctor.vo;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 
@@ -43,6 +44,8 @@ public class MedicalDoctorSolrVO implements Serializable {
     private List<String> departmentId;
     @Field
     private String fieldText;
+    @Field
+    private Date createTime;
 
 
 }

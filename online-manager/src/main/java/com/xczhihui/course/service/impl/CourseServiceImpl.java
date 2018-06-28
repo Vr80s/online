@@ -1,7 +1,9 @@
 package com.xczhihui.course.service.impl;
 
+import java.io.IOException;
 import java.util.*;
 
+import org.apache.solr.client.solrj.SolrServerException;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,7 @@ import com.xczhihui.common.util.enums.PlayBackType;
 import com.xczhihui.course.dao.CourseDao;
 import com.xczhihui.course.dao.CourseSubscribeDao;
 import com.xczhihui.course.service.CourseService;
+import com.xczhihui.course.service.ICourseSolrService;
 import com.xczhihui.course.vo.CourseVo;
 import com.xczhihui.course.vo.LecturerVo;
 import com.xczhihui.course.vo.MenuVo;
@@ -51,6 +54,8 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
 
     @Autowired
     private LiveCallbackService liveCallbackService;
+    @Autowired
+    private ICourseSolrService courseSolrService;
 
     @Value("${env.flag}")
     private String envFlag;
@@ -1217,4 +1222,9 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
         dao.update(course);
     }
 
+
+    @Override
+    public void initCourseSolrDataById(Integer courseId) throws IOException, SolrServerException {
+        courseSolrService.initCourseSolrDataById(courseId);
+    }
 }

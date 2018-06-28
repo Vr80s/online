@@ -421,6 +421,7 @@
 
   <!--医师相关字段 start-->
   <field name="city" type="text_ik"/>
+  <field name="createTime" type="tdate"/>
   <field name="departmentName" type="text_iks"/>
   <field name="departmentId" type="strings"/>
   <field name="description" type="text_ik"/>
