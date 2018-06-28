@@ -79,9 +79,15 @@ public class OeBxsAppraiseServiceImpl extends ServiceImpl<OeBxsAppraiseMapper, O
     @Override
     public int updatePraiseCnt(String id, boolean praise) {
         if (praise) {
-            return oeBxsAppraiseMapper.incrAppraisePraiseCnt(id);
+            oeBxsAppraiseMapper.incrAppraisePraiseCnt(id);
         } else {
-            return oeBxsAppraiseMapper.decrAppraisePraiseCnt(id);
+            oeBxsAppraiseMapper.decrAppraisePraiseCnt(id);
+        }
+        OeBxsAppraise oeBxsAppraise = oeBxsAppraiseMapper.selectById(id);
+        if (oeBxsAppraise != null) {
+            return oeBxsAppraise.getPraiseCnt();
+        } else {
+            return 0;
         }
     }
 

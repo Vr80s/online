@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.common.collect.ImmutableMap;
 import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.body.article.AppraiseBody;
 import com.xczh.consumer.market.service.CacheService;
@@ -70,8 +71,7 @@ public class ArticleController {
         if (!result) {
             return ResponseObject.newErrorResponseObject(praise ? "已点过赞了~" : "赞已取消过了~");
         } else {
-            oeBxsAppraiseService.updatePraiseCnt(id, praise);
-            return ResponseObject.newErrorResponseObject(praise ? "点赞成功" : "成功取消赞");
+            return ResponseObject.newSuccessResponseObject(ImmutableMap.of("praiseSum", oeBxsAppraiseService.updatePraiseCnt(id, praise)));
         }
     }
 }
