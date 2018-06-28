@@ -455,6 +455,16 @@
 	</div>
 	<!-- 中间内容结束 -->
 
+	<!-- 点击回复出现删除复制开始 -->
+	<div class="remove_copy">
+		<div class="remove_copy_bg"></div>
+		<div class="remove_copy_main" style="height: 1rem;">
+			<!-- <div class="copy" >复制</div> -->
+			<div class="remove">删除</div>
+		</div>
+	</div>
+	<!-- 点击回复出现删除复制结束 -->
+
 	<!-- 直播间开始 -->
 	<div class="broadcastroom">
 		<div class="broadcastroom_video">
@@ -802,26 +812,29 @@
 			    	<th>周六</th>
 			    	<th>周日</th>
 			    </tr>
+
 			    <tr class="am">
 			        <th>上午</th>
-			        <td class="apm apm_1.1 am_monday"><img src="/xcview/images/default.png" alt="" /></td>
-			        <td class="apm apm_2.1 am_tuesday"><img src="/xcview/images/default.png" alt="" /></td>
-			        <td class="apm apm_3.1 am_wednesday"><img src="/xcview/images/default.png" alt="" /></td>
-			        <td class="apm apm_4.1 am_thursday"><img src="/xcview/images/default.png" alt="" /></td>
-			        <td class="apm apm_5.1 am_friday"><img src="/xcview/images/default.png" alt="" /></td>
-			        <td class="apm apm_6.1 am_saturday"><img src="/xcview/images/default.png" alt="" /></td>
-			        <td class="apm apm_7.1 am_sunday"><img src="/xcview/images/default.png" alt="" /></td>
+			        <td class="am_monday"><img src="/xcview/images/default.png" alt="" /></td>
+			        <td class="am_tuesday"><img src="/xcview/images/default.png" alt="" /></td>
+			        <td class="am_wednesday"><img src="/xcview/images/default.png" alt="" /></td>
+			        <td class="am_thursday"><img src="/xcview/images/default.png" alt="" /></td>
+			        <td class="am_friday"><img src="/xcview/images/default.png" alt="" /></td>
+			        <td class="am_saturday"><img src="/xcview/images/default.png" alt="" /></td>
+			        <td class="am_sunday"><img src="/xcview/images/default.png" alt="" /></td>
 			    </tr>
 			    <tr class="pm">
 			        <th>下午</th>
-			        <td class="apm apm_1.2 pm_mondays"><img src="/xcview/images/default.png" alt="" /></td>
-			        <td class="apm apm_2.2 pm_tuesdays"><img src="/xcview/images/default.png" alt="" /></td>
-			        <td class="apm apm_3.2 pm_wednesdays"><img src="/xcview/images/default.png" alt="" /></td>
-			        <td class="apm apm_4.2 pm_thursdays"><img src="/xcview/images/default.png" alt="" /></td>
-			        <td class="apm apm_5.2 pm_fridays"><img src="/xcview/images/default.png" alt="" /></td>
-			        <td class="apm apm_6.2 pm_saturdays"><img src="/xcview/images/default.png" alt="" /></td>
-			        <td class="apm apm_7.2 pm_sundays"><img src="/xcview/images/default.png" alt="" /></td>
+			        <td class="pm_mondays"><img src="/xcview/images/default.png" alt="" /></td>
+			        <td class="pm_tuesdays"><img src="/xcview/images/default.png" alt="" /></td>
+			        <td class="pm_wednesdays"><img src="/xcview/images/default.png" alt="" /></td>
+			        <td class="pm_thursdays"><img src="/xcview/images/default.png" alt="" /></td>
+			        <td class="pm_fridays"><img src="/xcview/images/default.png" alt="" /></td>
+			        <td class="pm_saturdays"><img src="/xcview/images/default.png" alt="" /></td>
+			        <td class="pm_sundays"><img src="/xcview/images/default.png" alt="" /></td>
 			    </tr>
+
+
 			</table>
 		</div>
 
@@ -866,7 +879,7 @@
 <script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/common.js?v=wechat_1.1.1"></script> 
 <script type="text/javascript" src="/xcview/js/common/template.js"></script>    <!--数据模板引入-->
-<script type="text/javascript" src="/xcview/js/physician/physician_dynamics.js"></script>    <!--数据模板引入-->
+<script type="text/javascript" src="/xcview/js/physician/physician_dynamics.js"></script>    <!--全部动态引入-->
 
 <!-- 直播间数据引入 -->
 <script type="text/javascript" src="/xcview/js/physician/broadcastroom.js"></script>
@@ -1213,6 +1226,13 @@ $(window).bind("scroll", function() {
 
     // 点击发送结束
 	});
+</script>
+
+<!-- 点击复制 -->
+<script type="text/javascript">
+    $(".remove_copy_bg").click(function(){
+    	$(".remove_copy").hide();
+    });
 </script>
 
 </html>

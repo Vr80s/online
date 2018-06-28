@@ -57,15 +57,4 @@ public class MessageController extends AbstractController {
     public ResponseObject listNotice() {
         return ResponseObject.newSuccessResponseObject(commonMessageService.getNewestNotice());
     }
-
-    /**
-     * 用于处理老的消息数据
-     *
-     * @return
-     */
-    @RequestMapping(value = "clean", method = RequestMethod.POST)
-    public ResponseObject cleanMessage() {
-        commonMessageService.updateMessage();
-        return ResponseObject.newSuccessResponseObject();
-    }
 }
