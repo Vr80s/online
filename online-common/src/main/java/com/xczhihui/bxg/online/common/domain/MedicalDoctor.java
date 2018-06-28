@@ -86,6 +86,11 @@ public class MedicalDoctor implements Serializable {
 
 	@Column(name="field_text")
 	private String fieldText;
+	
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="sort_update_time")
+	private Date sortUpdateTime;
 
 	@Transient
 	private String department;
@@ -319,4 +324,12 @@ public class MedicalDoctor implements Serializable {
 		this.workTime = workTime;
 	}
 
+	public Date getSortUpdateTime() {
+		return sortUpdateTime;
+	}
+
+	public void setSortUpdateTime(Date sortUpdateTime) {
+		this.sortUpdateTime = sortUpdateTime;
+	}
+	
 }

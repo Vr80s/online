@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import com.aliyuncs.exceptions.ClientException;
 import com.xczhihui.course.service.CourseService;
 import com.xczhihui.course.service.MessageRemindingService;
+import com.xczhihui.medical.service.DoctorService;
 import com.xczhihui.medical.service.DoctorSolrService;
 
 /**
@@ -29,11 +30,17 @@ public class TimedTaskJob {
     private MessageRemindingService messageRemindingService;
     @Autowired
     private DoctorSolrService doctorSolrService;
-
+    @Autowired
+    private DoctorService doctorService;
+    
+    
+    //0 0/30 * * * ?
+    @Scheduled(cron = "0 0/30 * * * ?")
     public void courSerecommendAging() {
-        System.out.println("work done----------" + new Date());
+    	//课程有效期设置
         courseService.updateDefaultSort();
-
+        //医师有效期设置
+        doctorService.updateDefaultSort();
     }
 
     @Scheduled(cron = "0 0/1 * * * ?")

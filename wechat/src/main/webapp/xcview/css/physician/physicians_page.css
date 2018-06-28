@@ -331,15 +331,16 @@ p{
     display: -webkit-box;
     float: left;
 }
+
 .rests_nav_span .stick_img{
-	font-size: 0.24rem;
-    color: #F97B49;
-    float: left;
-    display: -webkit-box;
-    border: 1px solid #f97b49;
-    border-radius: 4px;
-    padding: 0.05rem;
-    margin-right: 0.1rem;
+	/* font-size: 0.24rem;
+	    color: #F97B49;
+	    float: left;
+	    display: -webkit-box;
+	    border: 1px solid #f97b49;
+	    border-radius: 4px;
+	    padding: 0.05rem;
+	    margin-right: 0.1rem; */
 }
 .rests_nav_span .stick_img img{
 	width: 0.2rem;
