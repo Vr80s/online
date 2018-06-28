@@ -73,9 +73,10 @@ public class MedicalDoctorPostsController {
         medicalDoctorPostsService.addMedicalDoctorPosts(medicalDoctorPosts);
         if(!medicalDoctorPosts.getVideo().equals("")){
             CourseApplyResource car = new CourseApplyResource();
-            car.setTitle(medicalDoctorPosts.getContent());
+            car.setTitle(medicalDoctorPosts.getTitle());
             car.setResource(medicalDoctorPosts.getVideo());
             car.setMultimediaType(1);
+            car.setSourceType(2);
             car.setUserId(userId);
             courseApplyService.saveCourseApplyResource(car);
         }
