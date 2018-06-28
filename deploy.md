@@ -107,3 +107,6 @@ dev-2.1.0
       `user_id` varchar(32) NOT NULL COMMENT '用户id',
       PRIMARY KEY (`id`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+    处理老的反馈数据中的回复
+    update oe_message o1, oe_message o2 set o1.`replytext` = o2.`context`where o1.type = 2 and o1.id = o2.pid;

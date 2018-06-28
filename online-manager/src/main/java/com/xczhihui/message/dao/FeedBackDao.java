@@ -18,7 +18,7 @@ import java.util.Map;
 
 /**
  * 意见反馈
- * 
+ *
  * @author duanqh
  *
  */
@@ -27,7 +27,7 @@ public class FeedBackDao extends HibernateDao<Menu> {
 
 	/**
 	 * 查询意见反馈分页
-	 * 
+	 *
 	 * @param groups
 	 *            组列表
 	 * @param page
@@ -49,7 +49,7 @@ public class FeedBackDao extends HibernateDao<Menu> {
 
 	/**
 	 * 返回指定页面的消息推送
-	 * 
+	 *
 	 * @param vo
 	 *            查询对象
 	 * @param orderByName
@@ -66,18 +66,18 @@ public class FeedBackDao extends HibernateDao<Menu> {
 		StringBuilder sql = new StringBuilder(
 				"select om.id as id,om.user_id as userId,om.title as title,om.type as type,om.context as context," +
 						"om.status as status,om.create_person as createPerson,om.create_time as createTime,om.lasttime as lastTime," +
-						" om.pid as pid,om.readstatus as readstatus,om.answerStatus as answerStatus from oe_message om LEFT JOIN oe_user ou ON ou.id=om.user_id " +
-						"where 1=1 and om.is_delete = 0 and om.type = 2 ");
+						" om.pid as pid,om.readstatus as readstatus,om.answerStatus as answerStatus, ou.login_name as username, om.replytext as replyText from oe_message om LEFT JOIN oe_user ou ON ou.id=om.user_id " +
+						"where om.type = 2 and om.is_delete = 0 ");
 		if (StringUtils.isNotEmpty(vo.getTitle())) {
 			paramMap.put("title", "%" + vo.getTitle() + "%");
 			sql.append("and om.title like :title ");
 		}
-		
+
 		if (StringUtils.isNotEmpty(vo.getContext())) {
 			paramMap.put("context", "%" + vo.getContext() + "%");
 			sql.append("and om.context like :context ");
 		}
-		
+
 		if (StringUtils.isNotEmpty(vo.getUserName())) {
 			paramMap.put("userName", "%" + vo.getUserName() + "%");
 			sql.append("and ou.login_name like :userName ");
@@ -96,9 +96,9 @@ public class FeedBackDao extends HibernateDao<Menu> {
 			paramMap.put("endTime",
 					TimeUtil.parseDate(vo.getTime_end() + " 23:59:59"));
 		}
-		
-		
-		
+
+
+
 		sql.append(" order by om.create_time desc,om.answerStatus ");
 		return this.findPageBySQL(sql.toString(), paramMap,
 				Message.class, pageNumber, pageSize);
@@ -106,7 +106,7 @@ public class FeedBackDao extends HibernateDao<Menu> {
 
 	/**
 	 * 根据ID查询消息对象
-	 * 
+	 *
 	 * @param feedId
 	 *            消息对象ID
 	 * @return 消息对象
