@@ -92,12 +92,6 @@ public class OnlineUserServiceImpl implements OnlineUserService {
         onlineUserDao.updateUserLoginName(o);
     }
 
-    @Override
-    public Map<String, Object> findHostById(String lecturerId)
-            throws SQLException {
-        return onlineUserDao.findHostById(lecturerId);
-    }
-
 
     @Override
     public void verifyPhone(String username) throws SQLException {

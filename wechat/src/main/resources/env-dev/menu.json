@@ -3,6 +3,13 @@
     {
       "name": "国医学堂",
       "sub_button": [
+      	
+      	{
+          "type": "view",
+          "name": "医师中心",
+          "url": "http://test-wx.xczhihui.com/xcview/html/physician/index.html"
+        },
+      	
         {
           "type": "view",
           "name": "学堂中心",

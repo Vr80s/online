@@ -331,15 +331,16 @@ p{
     display: -webkit-box;
     float: left;
 }
+
 .rests_nav_span .stick_img{
-	font-size: 0.24rem;
-    color: #F97B49;
-    float: left;
-    display: -webkit-box;
-    border: 1px solid #f97b49;
-    border-radius: 4px;
-    padding: 0.05rem;
-    margin-right: 0.1rem;
+	/* font-size: 0.24rem;
+	    color: #F97B49;
+	    float: left;
+	    display: -webkit-box;
+	    border: 1px solid #f97b49;
+	    border-radius: 4px;
+	    padding: 0.05rem;
+	    margin-right: 0.1rem; */
 }
 .rests_nav_span .stick_img img{
 	width: 0.2rem;
@@ -1622,8 +1623,28 @@ p{
 .broadcastroom_show{
 	display: none;
 }
+.on_line_status .p4 {
+    margin-top: 0.03rem;
+    margin-left: 0.1rem;
+    
+}
+.on_line_status .p4 img {
+    width: 0.24rem;
+    vertical-align: middle;
+    margin-right: 0.02rem;
+    float: left;
+}
+.on_line_status .p3 img{
+	width: 0.24rem;
+	float: left;
+	margin-right: 0.05rem;
+	margin-left: 0.1rem;
+}
+.on_line_status .p3 span{
+	display: inherit;
+}
 /*为您推荐课程结束*/
-
+    
 
 /*介绍开始*/
 .message_referral{
@@ -1708,6 +1729,7 @@ p{
 	width: 6.98rem;
     margin: 0 auto;
     margin-top: 0.2rem;
+    word-break:break-all;
 }
 
 .my_synopsis_time ul li span{
@@ -1755,6 +1777,7 @@ p{
 	width: 6.98rem;
     margin: 0 auto;
     margin-top: 0.2rem;
+    line-height: 0.42rem !important;
 }
 table {
 	border: 0;
@@ -1794,6 +1817,9 @@ table tr td img{
 .am td{
 	border-bottom: 1px solid #DEDEDE !important;
 }
+.am td img{
+	/*display: */
+}
 .am td:first-child{
 	border-left: 1px solid #DEDEDE !important;
 	color: #666666;
@@ -1821,3 +1847,50 @@ table tr td img{
 /*介绍结束*/
 
 /*中间内容结束*/
+/*点击回复出现删除复制开始*/
+.remove_copy{
+	width: 100%;
+	height: 100%;
+	/* position: fixed;
+	top: 0;
+	z-index: 1; */
+	display: none;
+}
+.remove_copy_bg{
+	width: 7.5rem;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	opacity: 0.3;
+	z-index: 999999;
+    background: #000;
+}
+.remove_copy_main{
+	width: 6rem;
+    height: 1rem;
+    margin: 0 auto;
+    background: #fff;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 9999991;
+    margin-top: -0.5rem;
+    margin-left: -3rem;
+    border-radius: 4px;
+}
+.copy{
+	width: 100%;
+	height: 1rem;
+	line-height: 1rem;
+	font-size: 0.3rem;
+	text-indent: 0.4rem;
+	border-bottom: 1px solid #f0f0f0;
+}
+.remove{
+	width: 100%;
+	height: 1rem;
+	line-height: 1rem;
+	font-size: 0.3rem;
+	text-indent: 0.4rem;
+}
+/*点击回复出现删除复制结束*/

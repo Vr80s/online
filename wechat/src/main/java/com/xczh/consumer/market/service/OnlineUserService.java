@@ -61,15 +61,6 @@ public interface OnlineUserService {
     void updateUserLoginName(OnlineUser o) throws SQLException;
 
 
-    /**
-     * Description：查找主播信息
-     *
-     * @param lecturerId
-     * @return Map<String,Object>
-     * @throws SQLException
-     * @author name：yangxuan <br>email: 15936216273@163.com
-     */
-    Map<String, Object> findHostById(String lecturerId) throws SQLException;
 
     /**
      * Description：验证手机号是否已经注册

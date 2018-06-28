@@ -56,9 +56,6 @@ public class WeChatThirdPartyController {
     @Autowired
     private WxMpService wxMpService;
 
-    @Autowired
-    private WxMpConfigStorage wxMpConfigStorage;
-
     @Value("${returnOpenidUri}")
     private String returnOpenidUri;
 
@@ -142,8 +139,7 @@ public class WeChatThirdPartyController {
                     wxw.setClient_id(userId);
                     wxcpClientUserWxMappingService.update(wxw);
                     attrs.addAttribute("type", 2);
-                    return new RedirectView(returnOpenidUri
-                            + "/xcview/html/lickacc_mobile.html");
+                    return new RedirectView(returnOpenidUri+ "/xcview/html/lickacc_mobile.html");
                 } else {
                     attrs.addAttribute("openId", openId).addAttribute("unionId", wxw.getUnionid())
                             .addAttribute("jump_type", 1);

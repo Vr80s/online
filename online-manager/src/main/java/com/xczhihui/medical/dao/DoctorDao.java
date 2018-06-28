@@ -47,7 +47,7 @@ public class DoctorDao extends HibernateDao<MedicalDoctor> {
             sql.append(" and m.status = :status ");
         }
 
-        sql.append(" ORDER BY m.status DESC,\n"
+        sql.append(" ORDER BY m.status DESC,m.recommend_sort desc, \n"
                 + "  m.create_time DESC ");
 
         Page<MedicalDoctor> medicalDoctors = this.findPageBySQL(sql.toString(),

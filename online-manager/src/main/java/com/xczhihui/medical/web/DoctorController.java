@@ -45,8 +45,6 @@ public class DoctorController extends AbstractController {
     @Autowired
     private DoctorService doctorService;
     @Autowired
-    private DoctorSolrService doctorSolrService;
-    @Autowired
     private IMedicalDoctorSolrService medicalDoctorSolrService;
 
     @Value("${web.url}")
@@ -502,7 +500,27 @@ public class DoctorController extends AbstractController {
     @RequestMapping(value = "initDoctorsSolrData")
     @ResponseBody
     public ResponseObject initDoctorsSolrData() throws IOException, SolrServerException {
-        doctorSolrService.initDoctorsSolrData();
+        medicalDoctorSolrService.initDoctorsSolrData();
         return ResponseObject.newSuccessResponseObject("医师数据初始化成功");
     }
+    
+    
+    /**
+     * Description：设置推荐值
+     * creed: Talk is cheap,show me the code
+     * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
+     * @Date: 2018/3/9 14:13
+     **/
+    @RequestMapping(value = "updateRecommendSort", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseObject updateRecommendSort(String id, Integer recommendSort, String recommendTime) {
+        ResponseObject responseObject = new ResponseObject();
+
+        doctorService.updateRecommendSort(id, recommendSort, recommendTime);
+        responseObject.setSuccess(true);
+        responseObject.setResultObject("修改成功!");
+        return responseObject;
+    }
+
+    
 }

@@ -2,18 +2,21 @@ package com.xczhihui.medical.doctor.enums;
 
 public enum DoctorBannerEnum {
 
-    COURSE_DETAIL(1, "COMMON_COURSE_DETAIL_PAGE"),
-    LIVE_COURSE_DETAIL(2, "COMMON_COURSE_DETAIL_PAGE"),
-    SPECIAL_COLUMN(3, "SPECIAL_COLUMN_DETAIL"),
-    DOCTOR_CASE(4, "DOCTOR_CASE_DETAIL");
+    COURSE_DETAIL(1, "COMMON_COURSE_DETAIL_PAGE", "课程"),
+    LIVE_COURSE_DETAIL(2, "COMMON_COURSE_DETAIL_PAGE", "直播"),
+    SPECIAL_COLUMN(3, "SPECIAL_COLUMN_DETAIL", "专栏文章"),
+    DOCTOR_CASE(4, "DOCTOR_CASE_DETAIL", "医案");
 
     private int type;
 
     private String routeType;
 
-    DoctorBannerEnum(int type, String routeType) {
+    private String desc;
+
+    DoctorBannerEnum(int type, String routeType, String desc) {
         this.type = type;
         this.routeType = routeType;
+        this.desc = desc;
     }
 
     public static DoctorBannerEnum getByType(int type) {
@@ -31,5 +34,9 @@ public enum DoctorBannerEnum {
 
     public String getRouteType() {
         return routeType;
+    }
+
+    public String getDesc() {
+        return desc;
     }
 }

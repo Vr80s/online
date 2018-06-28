@@ -56,7 +56,15 @@ public interface ICriticizeService extends IService<Criticize> {
 
     Map<String, Object> updatePraise(Boolean isPraise, String criticizeId, String userId);
 
+    
+    /**
+     * 判断有没有学习过这个课程：大于0 学习过，小于0 没有学习过
+     * @param userId
+     * @param courseId
+     * @return
+     */
 	Integer hasCourse(String userId, Integer courseId);
+	
 	/**
 	 * 查看课程评论中要显示的各种统计数据：list长度为 7 
 	 *    size:0  节目内容  1 主播演绎  2.很赞 3 干货很多 4超值推荐 5喜欢 6买对了

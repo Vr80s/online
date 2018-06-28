@@ -29,7 +29,12 @@ public class RedisCacheKey {
     public static final String OFFLINE_COURSE_REMIND_KEY = "course:remind:offline";
     public static final String COLLECTION_COURSE_REMIND_KEY = "course:remind:collection";
 
+    public static final String LIVE_COURSE_REMIND_LAST_TIME_KEY = "course:live:lastTime";
+
+
     public static final String MESSAGE_PUSH_KEY = "message:push:";
+
+    public static final String APPRAISE_PRAISE_KEY = "appraise:praise:";
 
 
     public static String getGiftCacheKey(String str) {

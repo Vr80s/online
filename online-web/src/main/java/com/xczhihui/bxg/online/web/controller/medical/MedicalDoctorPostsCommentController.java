@@ -8,10 +8,7 @@ import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsLikeService;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -38,65 +35,44 @@ public class MedicalDoctorPostsCommentController {
     /**
      * 医师动态评论列表
      */
-    @RequestMapping(value="doctorPostsCommentList", method = RequestMethod.GET)
+    @RequestMapping(value="{postsId}/comment", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseObject doctorPostsCommentList(@RequestParam("postsId") Integer postsId){
-        List<MedicalDoctorPostsComment> list = medicalDoctorPostsCommentService.selectMedicalDoctorPostsCommentList(postsId);
+    public ResponseObject doctorPostsCommentList(@PathVariable("postsId") Integer postsId){
+        // 获取当前用户ID
+        String userId = getCurrentUser().getId();
+        List<MedicalDoctorPostsComment> list = medicalDoctorPostsCommentService.selectMedicalDoctorPostsCommentList(postsId,userId);
         return ResponseObject.newSuccessResponseObject(list);
     }
 
     /**
      * 添加医师动态评论
      */
-    @RequestMapping(value="addDoctorPostsComment", method = RequestMethod.POST)
+    @RequestMapping(value="{postsId}/comment",method = RequestMethod.POST)
     @ResponseBody
-    public ResponseObject addDoctorPostsComment(MedicalDoctorPostsComment medicalDoctorPostsComment){
+    public ResponseObject addDoctorPostsComment(MedicalDoctorPostsComment medicalDoctorPostsComment,@PathVariable("postsId") Integer postsId){
         // 获取当前用户ID
         String userId = getCurrentUser().getId();
+        medicalDoctorPostsComment.setPostsId(postsId);
         medicalDoctorPostsCommentService.addMedicalDoctorPostsComment(medicalDoctorPostsComment,userId);
-        return ResponseObject.newSuccessResponseObject("添加成功");
+        List<MedicalDoctorPostsComment> list = medicalDoctorPostsCommentService.selectMedicalDoctorPostsCommentList(medicalDoctorPostsComment.getPostsId(),userId);
+        return ResponseObject.newSuccessResponseObject(list);
     }
 
     /**
      * 删除医师动态评论
      */
-    @RequestMapping(value="deleteDoctorPostsComment", method = RequestMethod.POST)
+    @RequestMapping(value="{id}/comment/{postsId}", method = RequestMethod.DELETE)
     @ResponseBody
-    public ResponseObject deleteDoctorPostsComment(@RequestParam("id") Integer id){
+    public ResponseObject deleteDoctorPostsComment(@PathVariable("id") Integer id,@PathVariable("postsId") Integer postsId){
+        // 获取当前用户ID
+        String userId = getCurrentUser().getId();
         medicalDoctorPostsCommentService.deleteMedicalDoctorPostsComment(id);
-        return ResponseObject.newSuccessResponseObject("删除成功");
-    }
-
-    /**
-     * 医师动态点赞列表
-     */
-    @RequestMapping(value="doctorPostsLikeList", method = RequestMethod.GET)
-    @ResponseBody
-    public ResponseObject doctorPostsLikeList(@RequestParam("postsId") Integer postsId){
-        List<MedicalDoctorPostsLike> list = medicalDoctorPostsLikeService.getMedicalDoctorPostsLikeList(postsId);
+        List<MedicalDoctorPostsComment> list = medicalDoctorPostsCommentService.selectMedicalDoctorPostsCommentList(postsId,userId);
         return ResponseObject.newSuccessResponseObject(list);
     }
 
-    /**
-     * 添加医师动态点赞
-     */
-    @RequestMapping(value="addDoctorPostsLike", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseObject addDoctorPostsLike(@RequestParam("postsId") Integer postsId){
-        // 获取当前用户ID
-        String userId = getCurrentUser().getId();
-        medicalDoctorPostsLikeService.addMedicalDoctorPostsLike(postsId,userId);
-        return ResponseObject.newSuccessResponseObject("点赞成功");
-    }
 
-    /**
-     * 删除医师动态点赞
-     */
-    @RequestMapping(value="deleteDoctorPostsLike", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseObject deleteDoctorPostsLike(@RequestParam("id") Integer id){
-        //medicalDoctorPostsLikeService.deleteMedicalDoctorPostsLike(id);
-        return ResponseObject.newSuccessResponseObject("取消成功");
-    }
+
+
 
 }

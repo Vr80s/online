@@ -7,7 +7,9 @@ import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsLikeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Description：医师动态点赞 服务实现类
@@ -22,8 +24,8 @@ public class MedicalDoctorPostsLikeServiceImpl extends ServiceImpl<MedicalDoctor
     private MedicalDoctorPostsLikeMapper medicalDoctorPostsLikeMapper;
 
     @Override
-    public void addMedicalDoctorPostsLike(Integer postsId,String userId) {
-        medicalDoctorPostsLikeMapper.addMedicalDoctorPostsLike(postsId,userId);
+    public void addMedicalDoctorPostsLike(Integer postsId, String userId, Integer flag) {
+        medicalDoctorPostsLikeMapper.addMedicalDoctorPostsLike(postsId,userId,flag);
     }
 
     @Override
@@ -32,7 +34,18 @@ public class MedicalDoctorPostsLikeServiceImpl extends ServiceImpl<MedicalDoctor
     }
 
     @Override
-    public List<MedicalDoctorPostsLike> getMedicalDoctorPostsLikeList(Integer postsId) {
-        return medicalDoctorPostsLikeMapper.getMedicalDoctorPostsLikeList(postsId);
+    public Map<String, Object> getMedicalDoctorPostsLikeList(Integer postsId,String accountId) {
+        Map<String, Object> mapAll = new HashMap<String, Object>();
+        List<MedicalDoctorPostsLike> list = medicalDoctorPostsLikeMapper.getMedicalDoctorPostsLikeList(postsId);
+        boolean praise = false;
+        for(int i=0;i<list.size();i++){
+            String userId = list.get(i).getUserId();
+            if(userId.equals(accountId)){
+                praise=true;
+            }
+        }
+        mapAll.put("list", list);
+        mapAll.put("praise", praise);
+        return mapAll;
     }
 }

@@ -18,7 +18,7 @@ public interface IMedicalDoctorPostsCommentService {
      * @param postsId   医师动态评论id
      * @return 列表数据
      */
-     List<MedicalDoctorPostsComment> selectMedicalDoctorPostsCommentList(Integer postsId);
+     List<MedicalDoctorPostsComment> selectMedicalDoctorPostsCommentList(Integer postsId,String userId);
 
     /**
      * 添加医师动态评论

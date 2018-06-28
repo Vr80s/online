@@ -63,9 +63,4 @@ public interface ICommonMessageService {
      * @return
      */
     Notice getNewestNotice();
-
-    /**
-     * 处理老的消息数据的结构
-     */
-    void updateMessage();
 }

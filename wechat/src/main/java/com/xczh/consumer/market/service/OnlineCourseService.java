@@ -35,24 +35,4 @@ public interface OnlineCourseService {
 	 */
 	void updateLiveSourceType(Integer courseId)throws SQLException ;
 	
-
-	/**
-	 *
-	 * Description：课程分享
-	 * @param courseId
-	 * @return CourseLecturVo
-	 * @author name：yangxuan <br>email: 15936216273@163.com
-	 */
-	CourseVo courseShare(Integer courseId)
-			throws SQLException;
-	/**
-	 *
-	 * Description：主播分享
-	 * @param lecturerId
-	 * @return LecturVo
-	 * @author name：yangxuan <br>email: 15936216273@163.com
-	 */
-	LecturVo lectureShare(String lecturerId)
-			throws SQLException;
-	
 }

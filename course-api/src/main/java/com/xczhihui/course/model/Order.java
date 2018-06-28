@@ -1,13 +1,15 @@
 package com.xczhihui.course.model;
 
-import com.baomidou.mybatisplus.activerecord.Model;
-import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.annotations.TableName;
-import lombok.Data;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+
+import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableName;
+import com.xczhihui.course.vo.OnlineCourseVo;
+
+import lombok.Data;
 
 /**
  * <p>
@@ -96,6 +98,9 @@ public class Order extends Model<Order> {
 	private String courseNames;
 	@TableField(exist = false)
 	private List<Integer> courseIds;
+	
+	@TableField(exist = false)
+	private List<OnlineCourseVo> allCourse;
 
 
 	public Boolean getDelete() {

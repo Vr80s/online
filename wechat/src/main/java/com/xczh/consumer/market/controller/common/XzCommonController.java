@@ -53,9 +53,6 @@ public class XzCommonController {
     private CommonApiService commonApiService;
 
     @Autowired
-    private OnlineUserService onlineUserService;
-
-    @Autowired
     private ICourseService courseServiceImpl;
 
     @Autowired

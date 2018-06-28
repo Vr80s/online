@@ -429,7 +429,7 @@ public class CourseApplyController extends AbstractController {
         MedicalDoctorPosts mdp = new MedicalDoctorPosts();
         mdp.setContent(course.getGradeName()+","+course.getSubtitle());
         mdp.setType(5);
-        mdp.setTitle(course.getGradeName()+","+course.getSubtitle());
+        mdp.setTitle(course.getGradeName());
         mdp.setCoverImg(course.getBigImgPath());
         mdp.setDoctorId(userId);
         mdp.setCourseId(course.getId());

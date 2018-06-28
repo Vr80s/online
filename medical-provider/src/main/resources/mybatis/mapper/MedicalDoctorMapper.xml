@@ -120,7 +120,6 @@
                 ON md.`authentication_information_id` = mdai.`id`
         WHERE md.deleted = 0
               AND md.status = 1
-              AND md.recommend = 1
         ORDER BY md.recommend_sort DESC
         LIMIT 0, 8
     </select>
@@ -396,7 +395,6 @@
                 ON mhd.`hospital_id` = mh.`id`
         WHERE md.deleted = 0
               AND md.status = 1
-              AND md.`recommend` = 0
               AND md.type = #{type}
     </select>
     <select id="selectDoctorList4Random" resultType="com.xczhihui.medical.doctor.vo.MedicalDoctorVO">
@@ -416,7 +414,6 @@
         ON mhd.`hospital_id` = mh.`id`
         WHERE md.deleted = 0
         AND md.status = 1
-        AND md.`recommend`=0
         <if test="type != null and type != ''">
             and md.type = #{type}
         </if>
@@ -436,7 +433,6 @@
                 ON mhd.`hospital_id` = mh.`id`
         WHERE md.deleted = 0
               AND md.status = 1
-              AND md.`recommend` = 1
               AND md.type = #{type}
     </select>
     <select id="selectDoctorRecommendList4Random" resultType="com.xczhihui.medical.doctor.vo.MedicalDoctorVO">
@@ -456,7 +452,6 @@
 	        ON mhd.`hospital_id` = mh.`id`
 	        WHERE md.deleted = 0
 	        AND md.status = 1
-	        AND md.`recommend`=1
 	        <if test="type != null and type != ''">
 	            and md.type = #{type}
 	        </if>
@@ -615,7 +610,10 @@
         SELECT
         	md.id,
             md.`work_time` workTime,
-            md.description
+            IFNULL((select ca.detail from course_anchor ca 
+            	inner join  medical_doctor_account  mda on 
+			  mda.account_id = ca.user_id  where mda.doctor_id = #{doctorId}),
+		     md.description)	as description
         FROM
             medical_doctor md
         WHERE md.deleted = 0

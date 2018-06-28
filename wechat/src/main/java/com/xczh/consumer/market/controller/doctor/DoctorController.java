@@ -144,8 +144,7 @@ public class DoctorController{
 
         Map<String,Object> mapAll = new HashMap<String,Object>();
 		//名医类型
-		List<Map> getDoctorTypeList = DoctorType.getDoctorTypeListAddHot();
-		mapAll.put("doctorTypes", getDoctorTypeList);
+		mapAll.put("doctorTypes", DoctorType.getDoctorTypeListAddHot());
 		//科室
 		Page page = new Page(0, Integer.MAX_VALUE);
         Page<MedicalDepartment> departments = medicalDepartmentService.page(page);

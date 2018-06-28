@@ -1,5 +1,6 @@
 package com.xczhihui.course.dao;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -276,7 +277,7 @@ public class CourseDao extends HibernateDao<Course> {
                 BeanPropertyRowMapper.newInstance(Course.class));
     }
 
-    public List<OnlineUser> getUsersByCourseId(Integer courseId) {
+    public List<OnlineUser> getUsersByCourseId(Integer courseId, Date lastTime) {
         String sql = "SELECT \n" +
                 "  ou.*,\n" +
                 "  argc.`course_id` \n" +
@@ -284,10 +285,11 @@ public class CourseDao extends HibernateDao<Course> {
                 "  `apply_r_grade_course` argc \n" +
                 "  JOIN `oe_user` ou \n" +
                 "    ON argc.`user_id` = ou.`id` \n" +
-                "WHERE argc.`course_id` = :courseId \n" +
+                "WHERE argc.`course_id` = :courseId and (:lastTime is null OR argc.create_time > :lastTime) \n" +
                 "GROUP BY ou.id ";
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("courseId", courseId);
+        params.put("lastTime", lastTime);
         return this.getNamedParameterJdbcTemplate().query(sql, params,
                 BeanPropertyRowMapper.newInstance(OnlineUser.class));
     }

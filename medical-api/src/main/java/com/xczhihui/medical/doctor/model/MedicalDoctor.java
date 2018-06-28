@@ -121,6 +121,14 @@ public class MedicalDoctor extends Model<MedicalDoctor> {
      */
 	@TableField("update_person")
 	private String updatePerson;
+	
+	
+	/**
+     * 更新人id
+     */
+	@TableField("sort_update_time")
+	private String sortUpdateTime;
+	
 
 	/**
      * 版本
@@ -457,6 +465,14 @@ public class MedicalDoctor extends Model<MedicalDoctor> {
 	@Override
 	protected Serializable pkVal() {
 		return this.id;
+	}
+	
+	public String getSortUpdateTime() {
+		return sortUpdateTime;
+	}
+
+	public void setSortUpdateTime(String sortUpdateTime) {
+		this.sortUpdateTime = sortUpdateTime;
 	}
 
 	@Override

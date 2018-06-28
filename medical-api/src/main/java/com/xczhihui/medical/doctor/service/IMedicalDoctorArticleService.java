@@ -200,4 +200,11 @@ public interface IMedicalDoctorArticleService {
      * @return
      */
     OeBxsArticleVO get(int id);
+
+    /**
+     * 获取文章的简单信息
+     * @param id id
+     * @return
+     */
+    OeBxsArticleVO getSimpleInfo(int id);
 }

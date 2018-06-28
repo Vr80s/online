@@ -18,7 +18,7 @@ public class CourseApply  extends BaseJunit4Test {
 	@Test
 	public void test() {
 		
-		courseApplyService.saveCollectionUpdateCollectionId(1000, 1000);
+		//courseApplyService.saveCollectionUpdateCollectionId(1000, 1000);
 		
 		System.out.println("这是一首简单的小情歌");
 	}

@@ -15,11 +15,12 @@ import com.aliyuncs.exceptions.ClientException;
 import com.xczhihui.course.service.CourseService;
 import com.xczhihui.course.service.ICourseSolrService;
 import com.xczhihui.course.service.MessageRemindingService;
-import com.xczhihui.medical.service.DoctorSolrService;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorSolrService;
+import com.xczhihui.medical.service.DoctorService;
 
 /**
  * @ClassName: TimedTaskJob
- * @Description: 定时恢复推荐值
+ * @Description: 定时任务
  * @Author: wangyishuai
  * @email: 15210815880@163.com
  * @CreateDate: 2018/3/14 15:47
@@ -34,17 +35,20 @@ public class TimedTaskJob {
     @Autowired
     private MessageRemindingService messageRemindingService;
     @Autowired
-    private DoctorSolrService doctorSolrService;
-    @Autowired
     private ICourseSolrService courseSolrService;
+    @Autowired
+    private IMedicalDoctorSolrService medicalDoctorSolrService;
+    @Autowired
+    private DoctorService doctorService;
 
     /**
      * Description：课程推荐值更新
      * creed: Talk is cheap,show me the code
+     *
      * @author name：yuxin
      * @Date: 2018/6/27 0027 下午 3:29
      **/
-    @Scheduled(cron = "0 0/1 * * * ? ")
+    @Scheduled(cron = "0 0/30 * * * ? ")
     public void courseRecommendAging() {
         System.out.println("work done----------" + new Date());
         List<Integer> ids = courseService.updateDefaultSort();
@@ -52,10 +56,24 @@ public class TimedTaskJob {
             try {
                 courseSolrService.initCourseSolrDataById(id);
             } catch (Exception e) {
-                logger.error("课程信息同步至solr有误,{}",id);
+                logger.error("课程信息同步至solr有误,{}", id);
                 logger.error(e.getMessage());
             }
         });
+    }
+
+    @Scheduled(cron = "0 0/30 * * * ?")
+    public void doctorRecommendAging() {
+        List<String> ids = doctorService.updateDefaultSort();
+        ids.forEach(id -> {
+            try {
+                medicalDoctorSolrService.initDoctorsSolrDataById(id);
+            } catch (Exception e) {
+                logger.error("医师信息同步至solr有误,{}", id);
+                logger.error(e.getMessage());
+            }
+        });
+
     }
 
     @Scheduled(cron = "0 0/1 * * * ?")
@@ -68,7 +86,7 @@ public class TimedTaskJob {
         messageRemindingService.offlineCourseMessageReminding();
     }
 
-    @Scheduled(cron = "0 0 0/1 * * ?")
+    @Scheduled(cron = "0 0 8 * * ?")
     public void remindCollectionUpdate() {
         messageRemindingService.collectionUpdateRemind();
     }
@@ -76,12 +94,13 @@ public class TimedTaskJob {
     /**
      * Description：每天凌晨两点更新solr数据
      * creed: Talk is cheap,show me the code
+     *
      * @author name：yuxin
      * @Date: 2018/6/22 0022 上午 11:27
      **/
     @Scheduled(cron = "0 0 2 * * ?")
     public void initSolrData() throws IOException, SolrServerException {
-        doctorSolrService.initDoctorsSolrData();
+        medicalDoctorSolrService.initDoctorsSolrData();
         courseSolrService.initCoursesSolrData();
     }
 }

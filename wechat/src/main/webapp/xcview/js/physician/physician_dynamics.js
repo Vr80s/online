@@ -1,19 +1,20 @@
 	
-/*var openId = getQueryString("openId");
-if(stringnull(openId)){
-    localStorage.setItem("openid",openId);
-}*/
-
+var doctorId = getQueryString("doctor");
+var loginUserId="";
+var loginUserName="";
+var getPostsIdByComment="";
+var postsCommentId="";
+var postsCommentUserName="";
 $(function(){
-    var loginUserId = localStorage.getItem("userId");
-    requestGetService("/xczh/medical/doctorPostsList", {
+    loginUserId = localStorage.getItem("userId");
+    loginUserName = localStorage.getItem("name");
+    requestGetService("/doctor/posts", {
         pageNumber: 1,
         pageSize:10,
         doctorId:"b8e9430bd4334d749f06d2f0050dd66e"
     }, function (data) {
         var obj = data.resultObject.records;
         var now = new Date();
-
         now.setDate(now.getDate()+1);
         for(var i=0;i<obj.length;i++){
             var likes ="";
@@ -40,42 +41,140 @@ $(function(){
 		}
         $(".rests_nav").html(template('wrap_doctor_dynamics',{items:obj}));
 
+		//点赞
+        $('.zan_img').click(function() {
+            var src = $(this).attr('src');
+            var postsId = $(this).attr('data-id');
+            if(src.indexOf("zan001")>-1){
+
+                delPostsLike(this,postsId);
+            }else{
+
+                postsLike(this,postsId);
+            }
+        })
+		//评论
+        $(".rests_nav .evaluate_img").click(function(){
+            $(".face").attr("src","/xcview/images/face.png");
+            $("#page_emotion").css("bottom","-2.8rem");
+            $(".comment").show();
+            getPostsIdByComment = $(this).attr('data-id');
+            postsCommentId = "";
+        });
+		// 点击其他内容区域隐藏评论区域
+        $(".comment_hide").click(function(){
+            $(".face").attr("src","/xcview/images/face.png");
+            $("#page_emotion").css("bottom","-2.8rem");
+            $(".comment").hide();
+        });
+
+        // 回复/删除
+        $(".evaluateDiv").click(function(){
+            postsCommentId = $(this).attr('data-id');
+            postsCommentUserName = $(this).attr('data-userName');
+            getPostsIdByComment = $(this).attr('data-postsId');
+            var userId = $(this).attr('data-userId');
+            var replyUserId = $(this).attr('data-replyUserId');
+            if(replyUserId!=undefined&&replyUserId!=""){
+                userId=replyUserId;
+            }
+            if(userId!=loginUserId){
+                $(".face").attr("src","/xcview/images/face.png");
+                $("#page_emotion").css("bottom","-2.8rem");
+                $(".comment").show();
+            }else {
+                // alert("删除");  
+                $(".remove_copy").show();
+                /*$(".copy").click(function(){
+                    copyUrl2();
+                });
+                function copyUrl2()
+                {
+                var Url2 = $(".response_center").text();
+                Url2.select(); // 选择对象
+                document.execCommand("Copy"); // 执行浏览器复制命令
+                alert("已复制好，可贴粘。");
+                }*/
+
+                
+
+                
+
+            }
+
+        });
 
     });
 
-    $('.zan_img').each(function(){
-        $(this).click(function() {
-            var src = $(this).find('img').attr('src');
-            var postsId = $(this).attr('data-id');
-            if(src.indexOf("zan001")>-1){
-                $(this).find('img').attr('src','../images/zan01.png');
-                updatePraise(criticize_id,false);
-            }else{
-                $(this).find('img').attr('src','../images/zan001.png');
-                updatePraise(criticize_id,true);
-            }
-        })
-    })
+
+
+
 
 });
 /**
- * 返回上一页
+ * 评论
  */
-function goto_back(){
+function sendComment(){
+    var article = $("#form_article").html();
+    if($("#form_article").html()==""){
+        alert("内容不能为空");
+        return false;
+    }
+    requestService("/doctor/posts/"+getPostsIdByComment+"/comment",{
+        postsId:getPostsIdByComment,
+        commentId:postsCommentId,
+        content:article
+    },function(data) {
+        if(data.success==true){
+            var evaluatePostsId = "evaluate"+getPostsIdByComment;
+            if(postsCommentId==""){
+                $("."+evaluatePostsId+"").prepend("<div class='evaluateDiv' data-id='' data-postsId="+getPostsIdByComment+" data-userId="+loginUserId+" >" +
+                    "<span class='name'>"+loginUserName+"：</span><span class=\"evaluate_cen\">"+article+"</span></div><div class=\"both\"></div>");
+            }else {
+                $("."+evaluatePostsId+"").prepend("<div class=\"both\"></div><div class='response evaluateDiv' data-id="+postsCommentId+"" +
+                    " data-postsId="+getPostsIdByComment+" data-replyUserId="+loginUserId+"> " +
+                    "<span class=\"my\">"+loginUserName+"</span> <span class=\"response_cen\">回复</span> " +
+                    "<span class=\"she\">"+postsCommentUserName+"：</span> <span class=\"response_center\">"+article+"</span>" +
+                    "</div>");
+            }
 
-	//去中医师主页
-	location.href="/xcview/html/physician/index.html";
+            // 回复/删除
+            $(".evaluateDiv").click(function(){
+                postsCommentId = $(this).attr('data-id');
+                getPostsIdByComment = $(this).attr('data-postsId');
+                var userId = $(this).attr('data-userId');
+                var replyUserId = $(this).attr('data-replyUserId');
+                if(replyUserId!=undefined&&replyUserId!=""){
+                    userId=replyUserId;
+                }
+                if(userId!=loginUserId){
+                    $(".face").attr("src","/xcview/images/face.png");
+                    $("#page_emotion").css("bottom","-2.8rem");
+                    $(".comment").show();
+                }else {
+                    alert("删除");
+                }
+
+            });
+            alert(data.resultObject);
+        }else{
+            alert(data.errorMessage);
+        }
+    });
 }
 
 /**
  * 点赞
  */
-function postsLike(postsId) {
-    requestService("/xczh/medical/addDoctorPostsLike",{
+function postsLike(obj,postsId) {
+    requestService("/doctor/posts/"+postsId+"/like/"+1,{
         postsId:postsId
     },function(data) {
         if(data.success==true){
-            $(this).find('img').attr('src','../images/zan001.png');
+            $(obj).attr('src','/xcview/images/zan001.png');
+            $("#"+postsId+"").children("div").find("img").attr('src','/xcview/images/zan001.png');
+            //重新获取点赞列表
+            getPostsLikeList(postsId,data.resultObject.list);
             alert(data.resultObject);
         }else{
             alert(data.errorMessage);
@@ -85,84 +184,268 @@ function postsLike(postsId) {
 /**
  * 取消点赞
  */
-function postsLike(postsId) {
-    requestService("/xczh/medical/addDoctorPostsLike",{
+function delPostsLike(obj,postsId) {
+    requestService("/doctor/posts/"+postsId+"/like/"+0,{
         postsId:postsId
     },function(data) {
         if(data.success==true){
-            $(this).find('img').attr('src','../images/zan001.png');
+            $(obj).attr('src','/xcview/images/zan01.png');
+            $("#"+postsId+"").children("div").find("img").attr('src','/xcview/images/zan01.png');
+            //重新获取点赞列表
+            getPostsLikeList(postsId,data.resultObject.list);
+
             alert(data.resultObject);
         }else{
             alert(data.errorMessage);
         }
     });
 }
+//获取点赞列表
+function getPostsLikeList(postsId,list) {
 
-
-
-
-function queryDataByParams(params,data_type){
-
-	requestService("/xczh/doctors/list",params,function(data){
-
-		     var id = "#draw_all_query_list";
-		     if(data.success==true){
-
-		    	if(stringnull(data_type)){
-				   id = "#query_list"+data_type;
-				}
-		    	var data1 ="";
-				$(id).html(data1);
-
-		    	// 判断有无数据显示隐藏背景图
-				var index = $(".find_nav_cur a").attr("data-title");
-				if(data.resultObject.length<=0){
-					$(".li_list_main").css("background","#f8f8f8");
-					$(".no_class").hide();
-					$(".no_class"+index).show();
-				}else{
-					$(".li_list_main").css("background","#fff");
-					$(".no_class").hide();
-				}
-
-
-
-				for (var int = 0; int < data.resultObject.length; int++) {
-					var item = data.resultObject[int];
-
-					data1+="<div class='li_list_div' >"+
-				       "<div class='li_list_one' data-courseId = "+item.id+" >"+
-					       "<div class='li_list_one_left'>" +
-					         "<img src='"+item.headPortrait+"?imageView2/2/w/212' class='one' />"  +
-					      "</div>" +
-				           "<div class='li_list_one_right'>" +
-					           "<p class='p00'>" +
-					           "<span class='span'>"+item.name+"</span>" +
-					           "<span class='duty'>"+(item.title = item.title==null ? "" : item.title)+"</span></p>" +
-					           "<p class='site'>"+(item.hospitalAddress = item.hospitalAddress==null ? "" : item.hospitalAddress)+"</p>"+
-				            "</div>" +
-				         "</div>" +
-				     "</div>";
-				}
-
-			 $(id).html(data1);
-
-			 /**
-			  * 点击页面进行跳转
-			  */
-			 $(".li_list_div .li_list_one").click(function(){
-
-
-			})
-		}else{
-			$(".no_class").show();
-			$(".li_list_main").css("background","#f8f8f8");
-			alert("查询数据结果error!");
-		}
-	})
+    var likes = list;
+    var like="";
+    if(likes!=null&&likes.length>0){
+        for(var j=0;j<likes.length;j++){
+            like += likes[j].userName+",";
+        }
+        $("#"+postsId+"").children("div").find(".likes").html(like.substr(0,like.length-1));
+    }else {
+        $("#"+postsId+"").children("div").find(".likes").html("");
+    }
 }
 
 
+/* --------------直播间------------- */
+/*直播间开始*/
+// 一、获取是否医师权限。二、获取完权限，获取课程。三、获取完课程判断类型。
+// 点击直播间回放和直播中状态跳转发礼物直播间
+function detailsId(){
+    location.href = "/xcview/html/details.html?courseId=" + id
+};
 
+// 定义无直播状态方法--为您推荐，默认图
+function defaultId(){
+    requestService("/xczh/course/recommendSortAndRand", null,function (data) {
+        if (data.success == true) {
+            // 为您推荐
+            $('#broadcastroom_course').html(template('broadcastroom_id', {items: data.resultObject}));
+        }
+    });
+}
+// 定义获取当前页面id
+// var doctorId = getQueryString('doctor');
+
+requestService("/xczh/doctors/doctorStatus", {doctorId:doctorId},function (data) {  //一、获取是否医师权限。
+    if (data.success == true) {
+        // 0 无权限 1 医师认证通过 2 医馆认证通过 3 医师认证被禁用
+        var status = data.resultObject.status;
+        if (status == 0 || status == 3) {
+                $(".no_live").css("display","block");
+                $("#recommended").css("display","block");
+                $(".living_broadcastroom").css("display","none");  /*封面图隐藏*/
+                $("#live_lesson").css("display","none");  /*直播课程*/
+                defaultId();
+        }else{
+            userId = data.resultObject.userId;
+            var type = 3;
+            requestService("/xczh/course/courseTypeNumber", {  //二、获取完权限，获取课程。
+                userId : userId,
+                type : type
+                },function (data) {
+                    if (data.success) {
+                        var number = data.resultObject;
+                        if (number > 0) {   //三、获取完课程判断类型。
+                            requestService("/xczh/doctors/recentlyLive", {userId:userId},function (data) {  
+                                if (data.success == true) {
+                                    // 直播状态
+                                    //直播课程状态：lineState  1直播中， 2预告，3直播结束 ， 4 即将直播 ，5 准备直播 ，6 异常直播
+                                    $('#living_broadcastroom').html(template('living_broadcastroom_id', {items: data.resultObject}));
+                                
+                                    function timer() {
+                                        //设置结束的时间
+                                        var startTime = data.resultObject.startTime;
+                                        // var endtime = new Date("2020/04/22 00:00:00");
+                                        var endtime = new Date(startTime);
+                                        //设置当前时间
+                                        var now = new Date();
+                                        //得到结束与当前时间差 ： 毫秒
+                                        var t = endtime.getTime() - now.getTime();
+                                        if (t > 0) {
+                                            //得到剩余天数
+                                            // var tian = Math.floor(t / 1000 / 60 / 60 / 24);
+                                            //得到还剩余的小时数（不满一天的小时）
+                                            var h = Math.floor(t / 1000 / 60 / 60 % 24);
+                                            if(h<10){
+                                                h="0"+h;
+                                            }
+                                            //得到分钟数
+                                            var m = Math.floor(t / 1000 / 60 % 60);
+                                            if(m<10){
+                                                m="0"+m;
+                                            }
+                                            //得到的秒数
+                                            var s = Math.floor(t / 1000 % 60);
+                                            if(s<10){
+                                                s="0"+s;
+                                            }
+                                            var str = "直播倒计时 " + h + "：" + m + "：" + s;
+                                            $("#box1").html(str);
+                                        } /*else {
+                                            //clearInterval(timer1); //这里可以添加倒计时结束后需要执行的事件 
+                                            //alert("倒计时结束后执行");
+                                        }*/
+                                    }
+                                    setInterval(timer, 1000);
+
+                                    }
+                                });
+
+                                requestService("/xczh/course/liveDetails", {userId:userId},function (data) {  
+                                    if (data.success == true) {
+                                        // 直播状态
+                                        //直播课程状态：lineState  1直播中， 2预告，3直播结束 ， 4 即将直播 ，5 准备直播 ，6 异常直播
+                                        $('#living_broadcastroom').html(template('living_broadcastroom_id', {items: data.resultObject}));
+                                    }
+                                });
+
+                                // 直播课程
+                                requestService("/xczh/doctors/doctorCourse", {userId:userId},function (data) {  
+                                    if (data.success == true) {
+                                        // 直播课程
+                                        $('#live_streaming').html(template('live_streaming_id', {items: data.resultObject[1].courseList}));
+                                    }
+                                });
+                            }else{
+                                $(".no_live").css("display","block");     /*默认背景图*/
+                                $("#recommended").css("display","block"); /*显示为您推荐*/
+                                $(".living_broadcastroom").css("display","none");  /*封面图隐藏*/
+                                $("#live_lesson").css("display","none");  /*直播课程*/
+                                defaultId();
+                            };
+
+                        }
+
+                            /*介绍开始*/
+                            // doctorIds = data.resultObject.doctorId;
+                            requestService("/xczh/doctors/introduction", {doctorId:getQueryString('doctor')},function (data) {
+                                if (data.success == true) {
+                                    // 介绍
+                                    $('#message_referral').html(template('message_referral_id', {items: data.resultObject.hospital}));
+                                    // $('#message_referral').html(template('self_introduction_id', {items: data.resultObject}));
+                                    
+                                    // 个人介绍
+                                    if(data.resultObject.description == null || data.resultObject.description == ''){
+                                        
+                                        $(".self_introduction").hide();
+                                    }else{
+
+                                        $(".self_introduction_cen").html(data.resultObject.description);
+                                        
+                                    };
+
+                                    str=','+ data.resultObject.workTime +','; //这是一字符串 
+                                    //var strs= new Array(); //定义一数组 
+                                    //strs=str.split(","); //字符分割 
+                                    /*for (i=0;i<strs.length ;i++ ) { 
+                                        alert(strs[i]+"<br/>"); //分割后的字符输出 
+                                    };*/
+
+                                    // alert(str);
+
+                                    // 上午
+                                    if(str.indexOf(',1.1,') >=0){
+                                        $(".am_monday img").show();
+                                    }else{
+                                        $(".am_monday img").hide();
+                                    }
+                                    if(str.indexOf(",2.1,") >=0){
+                                        $(".am_tuesday img").show();
+                                    }else{
+                                        $(".am_tuesday img").hide();
+                                    }
+                                    if(str.indexOf(",3.1,") >=0){
+                                        $(".am_wednesday img").show();
+                                    }else{
+                                        $(".am_wednesday img").hide();
+                                    }
+                                    if(str.indexOf(",4.1,") >=0){
+                                        $(".am_thursday img").show();
+                                    }else{
+                                        $(".am_thursday img").hide();
+                                    }
+
+                                    if(str.indexOf(",5.1,") >=0){
+                                        $(".am_friday img").show();
+                                    }else{
+                                        $(".am_friday img").hide();
+                                    }
+
+                                    if(str.indexOf(",6.1,") >=0){
+                                        $(".am_saturday img").show();
+                                    }else{
+                                        $(".am_saturday img").hide();
+                                    }
+
+                                    if(str.indexOf(",7.1,") >=0){
+                                        $(".am_sunday img").show();
+                                    }else{
+                                        $(".am_sunday img").hide();
+                                    }
+
+
+                                    // 下午
+                                    if(str.indexOf(',1.2,') >=0){
+                                        $(".pm_mondays img").show();
+                                    }else{
+                                        $(".pm_mondays img").hide();
+                                    }
+                                    if(str.indexOf(",2.2,") >=0){
+                                        $(".pm_tuesdays img").show();
+                                    }else{
+                                        $(".pm_tuesdays img").hide();
+                                    }
+                                    if(str.indexOf(",3.2,") >=0){
+                                        $(".pm_wednesdays img").show();
+                                    }else{
+                                        $(".pm_wednesdays img").hide();
+                                    }
+                                    if(str.indexOf(",4.2,") >=0){
+                                        $(".pm_thursdays img").show();
+                                    }else{
+                                        $(".pm_thursdays img").hide();
+                                    }
+                                    if(str.indexOf(",5.2,") >=0){
+                                        $(".pm_fridays img").show();
+                                    }else{
+                                        $(".pm_fridays img").hide();
+                                    }
+                                    if(str.indexOf(",6.2,") >=0){
+                                        $(".pm_saturdays img").show();
+                                    }else{
+                                        $(".pm_saturdays img").hide();
+                                    }
+                                    if(str.indexOf(",7.2,") >=0){
+                                        $(".pm_sundays img").show();
+                                    }else{
+                                        $(".pm_sundays img").hide();
+                                    }
+                                                                    
+
+                                }
+                            });
+                            /*介绍结束*/
+
+                    });
+                    
+            }
+
+    }
+
+
+
+
+});
+/*直播间结束*/
 
 

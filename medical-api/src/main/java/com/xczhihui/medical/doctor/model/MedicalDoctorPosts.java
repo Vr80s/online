@@ -84,6 +84,11 @@ public class MedicalDoctorPosts extends Model<MedicalDoctorPosts> {
 	@TableField("course_id")
 	private Integer courseId;
 	/**
+	 * 文章id
+	 */
+	@TableField("article_id")
+	private Integer articleId;
+	/**
 	 * 是否置顶1:置顶0:取消置顶
 	 */
 	@TableField("stick")
@@ -109,6 +114,11 @@ public class MedicalDoctorPosts extends Model<MedicalDoctorPosts> {
 	@TableField(exist = false)
 	private Integer collection;
 	/**
+	 * 上课时间
+	 */
+	@TableField(exist = false)
+	private Date startTime;
+	/**
 	 * 课程类型 1：视频 2：音频 3：直播 4：线下培训班
 	 */
 	@TableField(exist = false)
@@ -123,6 +133,32 @@ public class MedicalDoctorPosts extends Model<MedicalDoctorPosts> {
 	 */
 	@TableField(exist = false)
 	private List<MedicalDoctorPostsLike> doctorPostsLikeList;
+	/**
+	 * 是否点赞
+	 */
+	@TableField(exist = false)
+	private Boolean isPraise=false;
+
+	/**
+	 * 文章内容
+	 */
+	@TableField(exist = false)
+	private String articleContent;
+	/**
+	 * 文章类型
+	 */
+	@TableField(exist = false)
+	private Integer typeId;
+	/**
+	 * 文章标题
+	 */
+	@TableField(exist = false)
+	private String articleTitle;
+	/**
+	 * 文章封面
+	 */
+	@TableField(exist = false)
+	private String articleImgPath;
 
 	@Override
 	protected Serializable pkVal() {
@@ -295,6 +331,62 @@ public class MedicalDoctorPosts extends Model<MedicalDoctorPosts> {
 
 	public void setDoctorPostsLikeList(List<MedicalDoctorPostsLike> doctorPostsLikeList) {
 		this.doctorPostsLikeList = doctorPostsLikeList;
+	}
+
+	public Boolean getPraise() {
+		return isPraise;
+	}
+
+	public void setPraise(Boolean praise) {
+		isPraise = praise;
+	}
+
+	public Integer getArticleId() {
+		return articleId;
+	}
+
+	public void setArticleId(Integer articleId) {
+		this.articleId = articleId;
+	}
+
+	public Date getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
+	}
+
+	public String getArticleContent() {
+		return articleContent;
+	}
+
+	public void setArticleContent(String articleContent) {
+		this.articleContent = articleContent;
+	}
+
+	public Integer getTypeId() {
+		return typeId;
+	}
+
+	public void setTypeId(Integer typeId) {
+		this.typeId = typeId;
+	}
+
+	public String getArticleTitle() {
+		return articleTitle;
+	}
+
+	public void setArticleTitle(String articleTitle) {
+		this.articleTitle = articleTitle;
+	}
+
+	public String getArticleImgPath() {
+		return articleImgPath;
+	}
+
+	public void setArticleImgPath(String articleImgPath) {
+		this.articleImgPath = articleImgPath;
 	}
 
 	@Override

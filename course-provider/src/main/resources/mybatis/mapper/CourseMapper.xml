@@ -288,7 +288,7 @@
 	</select>
 	
 
-	<!-- 查找讲师距离当前时间最近一次的课程   1.直播中，2预告，3直播结束 -->
+	<!-- live_status 1.直播中，2预告，3直播结束 -->
 	<select id="selectLecturerRecentCourse" resultType="com.xczhihui.course.vo.CourseLecturVo">
 		SELECT
 			<include refid="relLearningCourseListByUserId"/>
@@ -300,7 +300,7 @@
 			and oc.status=1 
 			and oc.type = 1
 			<include refid="onlyFreeCondition"/>
-			order by recent limit 0,1
+			order by oc.live_status,learndCount desc limit 0,1
 	</select>
 
 

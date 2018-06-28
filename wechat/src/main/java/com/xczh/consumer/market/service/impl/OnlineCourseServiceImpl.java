@@ -2,21 +2,14 @@ package com.xczh.consumer.market.service.impl;
 
 import java.sql.SQLException;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.xczh.consumer.market.dao.BasicSimpleDao;
-import com.xczh.consumer.market.dao.OnlineCourseMapper;
 import com.xczh.consumer.market.service.OnlineCourseService;
 import com.xczh.consumer.market.utils.JdbcUtil;
-import com.xczh.consumer.market.vo.CourseVo;
-import com.xczh.consumer.market.vo.LecturVo;
 
 @Service
 public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCourseService {
-
-	@Autowired
-	private OnlineCourseMapper courseMapper;
 
 	/**
 	 * 修改直播课程的浏览数
@@ -37,13 +30,4 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 		super.update(JdbcUtil.getCurrentConnection(), sql, courseId);
 	}
 
-	@Override
-	public CourseVo courseShare(Integer courseId) throws SQLException {
-		return courseMapper.courseShare(courseId);
-	}
-
-	@Override
-	public LecturVo lectureShare(String lecturerId) throws SQLException {
-		return courseMapper.lectureShare(lecturerId);
-	}
 }

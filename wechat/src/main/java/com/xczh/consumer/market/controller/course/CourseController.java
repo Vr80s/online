@@ -17,10 +17,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczh.consumer.market.auth.Account;
-import com.xczh.consumer.market.service.OnlineWebService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.WeihouInterfacesListUtil;
 import com.xczhihui.course.service.*;
+import com.xczhihui.course.service.ICourseService;
+import com.xczhihui.course.service.ICriticizeService;
+import com.xczhihui.course.service.IFocusService;
+import com.xczhihui.course.service.IMobileBannerService;
+import com.xczhihui.course.service.IWatchHistoryService;
 import com.xczhihui.course.util.CourseUtil;
 import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.medical.anchor.service.ICourseApplyService;
@@ -41,9 +45,6 @@ public class CourseController {
     private ICourseService courseServiceImpl;
 
     @Autowired
-    private OnlineWebService onlineWebService;
-
-    @Autowired
     private IMobileBannerService mobileBannerService;
 
     @Autowired
@@ -53,16 +54,18 @@ public class CourseController {
     @Qualifier("focusServiceRemote")
     private IFocusService focusServiceRemote;
 
-    @Autowired
-    private ICourseApplyService courseApplyService;
-
     @Value("${gift.im.room.postfix}")
     private String postfix;
 
     @Value("${returnOpenidUri}")
     private String returnOpenidUri;
 
-
+    @Autowired
+    private ICourseApplyService courseApplyService;
+    
+    @Autowired
+    private ICriticizeService criticizeService;
+    
     /**
      * Description：用户当前课程状态   User current course status.
      * 用户判断用户是否购买了这个课程
@@ -81,13 +84,16 @@ public class CourseController {
         if (accountIdOpt.isPresent()) {
             String accountId = accountIdOpt.get();
             cv = courseServiceImpl.selectUserCurrentCourseStatus(courseId, accountId);
-            //如果是免费的  判断是否学习过
-            if (cv != null && cv.getWatchState() == 1) {
-                // 如果购买过返回true 如果没有购买返回false
-                if (onlineWebService.getLiveUserCourse(courseId, accountId)) {
+            /*
+             * 如果是免费的  判断是否学习过
+			 */
+            if (cv != null && cv.getWatchState() == 1) { // 免费课程
+            	Integer falg = criticizeService.hasCourse(accountId, courseId);
+                if (falg>0) { // 如果购买过返回true 如果没有购买返回false
                     cv.setLearning(1);
                 }
             }
+            
         } else {
             cv = courseServiceImpl.selectCurrentCourseStatus(courseId);
         }
@@ -134,18 +140,16 @@ public class CourseController {
             if (isFours != 0) {
                 cv.setIsFocus(1);
             }
-            /**
-             * 如果用户不等于null,且是主播点击的话，就认为是免费的
-             */
-            Boolean falg = onlineWebService.getLiveUserCourse(courseId, accountId);
+            
+            Integer falg = criticizeService.hasCourse(accountId, courseId);
             //如果是付费课程，判断这个课程是否已经被购买了
             if (cv.getWatchState() == 0) { // 付费课程
-                if (falg) {
+                if (falg > 0) {
                     cv.setWatchState(2);
                 }
                 //如果是免费的  判断是否学习过
-            } else if (cv.getWatchState() == 1) { // 付费课程
-                if (falg) {
+            } else if (cv.getWatchState() == 1) { // 免费课程
+                if (falg > 0) {
                     cv.setLearning(1);
                 }
             }
@@ -198,18 +202,21 @@ public class CourseController {
                 cv.setIsFocus(1);
             }
 
-            Boolean falg = onlineWebService.getLiveUserCourse(courseId, accountId);
+            Integer falg = criticizeService.hasCourse(accountId, courseId);
             //如果是付费课程，判断这个课程是否已经被购买了
             if (cv.getWatchState() == 0) { // 付费课程
-                if (falg) {
+                if (falg > 0) {
                     cv.setWatchState(2);
                 }
                 //如果是免费的  判断是否学习过
-            } else if (cv.getWatchState() == 1) { // 付费课程
-                if (falg) {
+            } else if (cv.getWatchState() == 1) { // 免费课程
+                if (falg > 0) {
                     cv.setLearning(1);
                 }
             }
+            
+            
+            
         }
         return ResponseObject.newSuccessResponseObject(cv);
     }
