@@ -20,13 +20,13 @@ import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.bean.WxcpClientUserWxMapping;
 import com.xczh.consumer.market.dao.OnlineUserMapper;
 import com.xczh.consumer.market.service.OnlineUserService;
-import com.xczh.consumer.market.service.OnlineWebService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.wxpay.consts.WxPayConst;
 import com.xczhihui.common.util.enums.ShareType;
 import com.xczhihui.common.util.enums.TokenExpires;
 import com.xczhihui.common.util.enums.WechatShareLinkType;
 import com.xczhihui.course.service.ICourseService;
+import com.xczhihui.course.service.ICriticizeService;
 import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.course.vo.ShareInfoVo;
 import com.xczhihui.medical.doctor.model.MedicalDoctor;
@@ -56,7 +56,7 @@ public class MobileShareController {
     @Autowired
     private ICourseService courseServiceImpl;
     @Autowired
-    private OnlineWebService onlineWebService;
+    private ICriticizeService criticizeService;
     @Autowired
     private OnlineUserService onlineUserService;
     
@@ -86,9 +86,11 @@ public class MobileShareController {
             throws Exception{
     	
     	try {
+    		
     		ShareInfoVo sv  = courseServiceImpl.selectShareInfoByType(shareType,shareId);
         	//构造下分享出去的参数
         	sv.build(returnOpenidUri);
+        	
         	return ResponseObject.newSuccessResponseObject(sv);
         } catch (Exception e) {
             e.printStackTrace();
@@ -98,7 +100,7 @@ public class MobileShareController {
         	sv.setName("熊猫中医");
         	sv.setDescription("熊猫中医是中医药的学习传承平台：学中医、懂中医、用中医，让中医服务于家庭、个人，让中国古代科学瑰宝为现代人类的健康保驾护航。");
         	sv.setHeadImg(webdomain + "/web/images/defaultHead/18.png");
-        	sv.setLink(returnOpenidUri +WechatShareLinkType.DOCDOT_SHARE.getLink());
+        	sv.setLink(returnOpenidUri +WechatShareLinkType.INDEX_PAGE.getLink());
             return ResponseObject.newSuccessResponseObject(sv);
         }
     }
@@ -157,8 +159,8 @@ public class MobileShareController {
                  
                 //课程虽然被下架。但判断此用户是否购买过啊    
                 }else if(courseLecturVo.getStatus() == 0 &&  accountIdOpt.isPresent()) { 
-                	Boolean falg = onlineWebService.getLiveUserCourse(courseId, accountIdOpt.get());
-                    if(!falg) {
+                	Integer falg = criticizeService.hasCourse(accountIdOpt.get(), courseId);
+                    if(falg>0) {
                         res.sendRedirect(returnOpenidUri +WechatShareLinkType.UNSHELVE.getLink());
                         return;
                     }
@@ -204,7 +206,7 @@ public class MobileShareController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			
-			res.sendRedirect(returnOpenidUri +WechatShareLinkType.HOME_PAGE.getLink());
+			res.sendRedirect(returnOpenidUri +WechatShareLinkType.INDEX_PAGE.getLink());
 		}
     }
 
@@ -300,7 +302,7 @@ public class MobileShareController {
         } catch (Exception e) {
             e.printStackTrace();
             
-            res.sendRedirect(returnOpenidUri +WechatShareLinkType.HOME_PAGE.getLink());
+            res.sendRedirect(returnOpenidUri +WechatShareLinkType.INDEX_PAGE.getLink());
         }
     }
 
@@ -381,7 +383,7 @@ public class MobileShareController {
     
     public String shareCoursePage(String shareId,Integer shareType,OnlineUser ou) {
     	
-    	String coursePage =  WechatShareLinkType.HOME_PAGE.getLink();
+    	String coursePage =  WechatShareLinkType.INDEX_PAGE.getLink();
     	
     	Integer courseId = Integer.parseInt(shareId);
         CourseLecturVo  cv=null;
@@ -393,7 +395,7 @@ public class MobileShareController {
         }
         
         if(cv==null){
-        	coursePage = WechatShareLinkType.HOME_PAGE.getLink();
+        	coursePage = WechatShareLinkType.INDEX_PAGE.getLink();
         }
 
         if(ou == null) {

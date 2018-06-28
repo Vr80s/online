@@ -12,8 +12,13 @@ package com.xczhihui.common.util.enums;
 public enum WechatShareLinkType {
 
 	
-	    //首页
-		HOME_PAGE("/xcview/html/home_page.html", "首页"),
+		INDEX_PAGE("/xcview/html/physician/index.html", "首页"),
+
+		EVPI("/xcview/html/evpi.html", "完善信息"),
+		
+		BING_PHOME("/xcview/html/evpi.html", "绑定手机号页面"),
+		
+		
 	  
 		/*************    课程的分享页面  开始       ***************/
 		

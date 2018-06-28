@@ -180,8 +180,6 @@ function  goPay() {
     if(payType==1){ //熊猫币支付
 		requestService("/xczh/iap/appleIapPayOrder", {order_no:orderNo}, function(data) {
    		    var params = data.resultObject;
-   		    
-   		    
             if(data.success){
             	location.href="/xcview/html/buy_prosperity.html?courseId="+allCourse[0].id;
             }else{
@@ -193,14 +191,17 @@ function  goPay() {
     	 * 支付宝在字符前判断此订单中的课程用户是否已经购买过了
     	 */
     	requestService("/xczh/order/orderIsExitCourseIsBuy", {orderId:getQueryString("orderId")}, function(data) {
-    		 var params = data.resultObject;
+    		 
+    		var params = data.resultObject;
     		 if(data.success){
              	 if(is_weixn()){
              		  //去另一个页面引导用户去外部浏览器打开
                       location.href = "/xcview/html/wechat_alipay.html?type=1&orderId="+getQueryString("orderId")+"&redirectUrl="+getgetRedirectUrl(allCourse,true);
                       return;
+                  }else{
+                	  //外部浏览器
+                	  jmpPayPage("/xczh/alipay/pay",payType,"orderId="+getQueryString("orderId"),null);
                   }
-                  jmpPayPage("/xczh/alipay/pay",payType,"orderId="+getQueryString("orderId"),null);
              }else{
                alert(data.errorMessage);
              }

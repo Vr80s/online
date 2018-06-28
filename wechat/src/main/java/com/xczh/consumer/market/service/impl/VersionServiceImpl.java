@@ -40,31 +40,4 @@ public class VersionServiceImpl implements VersionService {
         }
         return null;
     }
-    
-    @Override
-    public VersionInfoVo getNewVersion() {
-        try {
-            List<VersionInfoVo> list=basicSimpleDao.queryPage(JdbcUtil.getCurrentConnection(),
-            		"select *,version,down_url as  downUrl,is_must_update as isMustUpdate,filename "
-            		+ " from app_version_info where `status`=1 and is_delete=0  ORDER BY sort desc ",1,1,VersionInfoVo.class,null);
-            if(list.size()==1){
-                return list.get(0);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-
-	@Override
-	public void insertTipOff(String content, String courseId, String label,
-			String teacherId, String userId, String imgStrs) throws SQLException {
-		// TODO Auto-generated method stub
-		String sql = "insert into oe_tip_off (content,course_id,label,user_id,img_evidence,teacher_id,insert_time) "
-				+ " values (?,?,?,?,?,?,?) ";
-		Object params[] = { content, courseId, label,
-				userId, imgStrs,teacherId,new Date()};
-		basicSimpleDao.update(JdbcUtil.getCurrentConnection(), sql, params);
-	}
 }

@@ -69,8 +69,9 @@ public class WeiBoThirdPartyController {
     private String returnOpenidUri;
 
     /**
-     * Description：h5 --》微博回调接口  -- 回调了接口后需要请求
-     *
+     * 暂无使用
+     * 
+     * Description：h5 --》微博回调接口     
      * @param req
      * @param res
      * @return ResponseObject

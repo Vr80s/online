@@ -2,6 +2,10 @@ package com.xczhihui.course.mapper;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.xczhihui.course.model.Order;
+import com.xczhihui.course.vo.OnlineCourseVo;
+
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
@@ -35,4 +39,6 @@ public interface OrderMapper extends BaseMapper<Order> {
 
     @Select("SELECT id FROM `oe_order` oo WHERE oo.`order_no` = #{orderNo}")
     Order selectByOrderNo(String orderNo);
+
+	List<OnlineCourseVo> getCourseByOrderId(@Param("orderId")String orderId);
 }

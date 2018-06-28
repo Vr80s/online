@@ -3,9 +3,6 @@ package com.xczh.consumer.market.controller.pay;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -16,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.xczh.consumer.market.auth.Account;
-import com.xczh.consumer.market.bean.OnlineOrder;
-import com.xczh.consumer.market.service.OnlineOrderService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.enums.OrderStatus;
 import com.xczhihui.course.model.Order;
@@ -26,8 +21,8 @@ import com.xczhihui.course.service.IOrderService;
 @Controller
 @RequestMapping("/xczh/order")
 public class MyOrderController {
-    @Autowired
-    private OnlineOrderService onlineOrderService;
+
+	
     @Autowired
     private IOrderService orderService;
 
@@ -64,17 +59,19 @@ public class MyOrderController {
     @RequestMapping(value = "getByOrderId")
     @ResponseBody
     public ResponseObject getOnlineOrderByOrderId(@Account String accountId,
-                                                  @RequestParam("orderId") String orderId) throws Exception {
-        /**
-         * 返回给前台熊猫币
-         */
-        OnlineOrder order = (OnlineOrder) onlineOrderService.getNewOrderAndCourseInfoByOrderId(orderId).getResultObject();
-        if (order != null) {
-            order.setActualPay(order.getActualPay() * rate);
+            @RequestParam("orderId") String orderId) throws Exception {
+        Order order = orderService.getOrderIncludeCourseInfoByOrderId(orderId);
+        if(order!=null) {
+        	order.setActualPay(order.getActualPay()*10);
         }
         return ResponseObject.newSuccessResponseObject(order);
     }
 
+    /**
+     * 判断订单是否支付成功
+     * @param orderId
+     * @return
+     */
     @RequestMapping(value = "checkOrderPay", method = RequestMethod.GET)
     @ResponseBody
     public ResponseObject checkOrderPay(@RequestParam("orderId") String orderId) {
@@ -90,69 +87,31 @@ public class MyOrderController {
     }
 
     /**
-     * 消费记录
-     *
-     * @param req
-     * @param res
-     * @return
-     * @throws Exception
-     */
-    @RequestMapping(value = "consumptionList")
-    @ResponseBody
-    public ResponseObject consumptionList(@Account String accountId, HttpServletRequest req,
-                                          HttpServletResponse res) throws Exception {
-        int pageNumber = 0;
-        if (null != req.getParameter("pageNumber")) {
-            pageNumber = Integer.valueOf(req.getParameter("pageNumber"));
-        }
-        int pageSize = 0;
-        if (null != req.getParameter("pageSize")) {
-            pageSize = Integer.valueOf(req.getParameter("pageSize"));
-        }
-        /*
-         * 消费记录，目前分为两种： 一：购买课程、二、打赏
-		 *   购买课程的在订单表里面有记录，如果是打赏的里面没有记录。
-		 */
-        Integer status = 1;
-        return ResponseObject.newSuccessResponseObject(
-                onlineOrderService.listPayRecord(accountId, pageNumber, pageSize));
-    }
-
-    /**
-     * 消费记录详情
-     *
-     * @param req
-     * @param res
-     * @param params
-     * @return
-     * @throws Exception
-     */
-    @RequestMapping(value = "consumptionItem")
-    @ResponseBody
-    public ResponseObject consumptionItem(HttpServletRequest req,
-                                          HttpServletResponse res) throws Exception {
-        return ResponseObject.newSuccessResponseObject(onlineOrderService.listPayRecordItem(req.getParameter("orderNo").toString()));
-    }
-
-    /**
-     * 判断此用户在下单的时候是否已经购买过这个订单中的课程
-     *
-     * @param req
-     * @param res
-     * @param params
+     * 查看此订单是否已经支付,并提示信息
+     * @param orderId
      * @return
      * @throws Exception
      */
     @RequestMapping(value = "orderIsExitCourseIsBuy")
     @ResponseBody
-    public ResponseObject orderIsExitCourseIsBuy(HttpServletRequest req,
-                                                 HttpServletResponse res, Map<String, String> params) throws Exception {
-        String orderId = req.getParameter("orderId");
-        OnlineOrder onlineOrder = onlineOrderService.getOrderByOrderId(orderId);
-        if (null == orderId || null == onlineOrder) {
-            return ResponseObject.newErrorResponseObject("参数异常");
+    public ResponseObject orderIsExitCourseIsBuy(
+    		String orderId) throws Exception {
+        
+    	ResponseObject ro  = new ResponseObject();
+    	
+    	// 支付状态 0:未支付 1:已支付 2:已关闭 
+    	Order order =  orderService.getOrderById(orderId);
+        if(order!=null && order.getOrderStatus()!=null && order.getOrderStatus().equals(OrderStatus.PAID.getCode())) {
+        	ro.setSuccess(false);
+        	ro.setErrorMessage("已支付,请您查看已购课程");
+        	return ro;
+        }else if(order!=null && order.getOrderStatus()!=null && order.getOrderStatus().equals(OrderStatus.CLOSED.getCode())){
+        	ro.setSuccess(false);
+        	ro.setErrorMessage("已关闭,请您在PC端查看订单");
+        	return ro;
         }
-        ResponseObject ro = onlineOrderService.orderIsExitCourseIsBuy(orderId, onlineOrder.getUserId());
-        return ro;
+        ro.setSuccess(true);
+    	ro.setErrorMessage("请继续支付");
+    	return ro;
     }
 }

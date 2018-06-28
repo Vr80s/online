@@ -19,6 +19,7 @@ import com.xczhihui.course.model.Order;
 import com.xczhihui.course.model.OrderDetail;
 import com.xczhihui.course.service.IOrderDetailService;
 import com.xczhihui.course.service.IOrderService;
+import com.xczhihui.course.vo.OnlineCourseVo;
 
 /**
  * <p>
@@ -33,6 +34,10 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
     @Autowired
     private CourseMapper courseMapper;
+    
+    @Autowired
+    private OrderMapper orderMapper;
+    
     @Autowired
     private IOrderDetailService orderDetailService;
 
@@ -175,4 +180,17 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
         return order;
     }
+    
+    @Override
+    public Order getOrderIncludeCourseInfoByOrderId(String orderId) {
+        Order order = this.baseMapper.selectById(orderId);
+        if (order == null) {
+            throw new OrderException("订单不存在 id: " + orderId);
+        }
+        List<OnlineCourseVo> lists = orderMapper.getCourseByOrderId(order.getId());
+        order.setAllCourse(lists);
+        return order;
+    }
+    
+    
 }

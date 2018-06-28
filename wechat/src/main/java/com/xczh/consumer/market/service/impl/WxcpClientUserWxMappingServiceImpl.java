@@ -109,7 +109,6 @@ public class WxcpClientUserWxMappingServiceImpl implements WxcpClientUserWxMappi
 
 	@Override
 	public void deleteAccount(String userId) throws SQLException {
-		// TODO Auto-generated method stub
 		wxcpClientUserWxMappingMapper.deleteAccount(userId);
 	}
 	

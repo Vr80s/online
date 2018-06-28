@@ -13,15 +13,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.service.OLAttachmentCenterService;
-import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.enums.CourseForm;
+import com.xczhihui.course.service.IMyInfoService;
 import com.xczhihui.medical.anchor.model.CourseApplyInfo;
 import com.xczhihui.medical.anchor.service.IAnchorInfoService;
 import com.xczhihui.medical.anchor.service.ICourseApplyService;
@@ -45,8 +49,8 @@ public class CourseApplyController {
     private OLAttachmentCenterService service;
 
     @Autowired
-    private OnlineUserService onlineUserService;
-
+    private IMyInfoService myInfoService;
+    
     @Autowired
     private IAnchorInfoService anchorInfoService;
 
@@ -70,7 +74,8 @@ public class CourseApplyController {
         CourseAnchorVO ca = anchorInfoService.detail(accountId);
         courseApplyInfo.setLecturer(ca.getName());
 
-        Map<String, Object> lecturerInfo = onlineUserService.findHostById(accountId);
+        
+        Map<String, Object> lecturerInfo = myInfoService.findHostInfoById(accountId,false);
         if (lecturerInfo.get("detail") != null && !"".equals(lecturerInfo.get("detail"))) {
             String detail = lecturerInfo.get("detail").toString();
             courseApplyInfo.setLecturerDescription(detail);

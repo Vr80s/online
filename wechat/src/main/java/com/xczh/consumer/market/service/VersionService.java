@@ -11,11 +11,13 @@ import com.xczh.consumer.market.vo.VersionInfoVo;
 public interface VersionService {
 
 
+	
+	/**
+	 * 查看最新的app版本
+	 * @param type   app类型：1 IOS  2 安卓
+	 * @return
+	 */
     VersionInfoVo getNewVersion(Integer type);
 
-	void insertTipOff(String content, String courseId, String label,
-			String teacherId, String userId, String imgStrs) throws SQLException;
-
-	VersionInfoVo getNewVersion();
 
 }
