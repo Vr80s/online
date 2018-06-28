@@ -125,14 +125,7 @@ public interface ICourseService {
 
     List<CourseLecturVo> listenCourseList(boolean onlyFree);
 
-    /**
-     * Description：查询直播课程列表
-     * creed: Talk is cheap,show me the code
-     *
-     * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
-     * @Date: 2018/3/1 10:49
-     **/
-    List<CourseLecturVo> findLiveListInfo();
+   
 
     /**
      * Description：用户当前课程状态   User current course status. 用户登录了

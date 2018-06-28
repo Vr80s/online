@@ -57,7 +57,7 @@ public class MobileListenCourseController {
         mapAll.put("banner", mobileBannerPage);
 
         //听课课程列表
-        List<CourseLecturVo> listenCourseList = courseService.listenCourseList(IOSVersionInterceptor.onlyThread.get());
+        List<CourseLecturVo> listenCourseList = mobileBannerService.listenCourseList(IOSVersionInterceptor.onlyThread.get());
         mapAll.put("listenCourseList", listenCourseList);
         return ResponseObject.newSuccessResponseObject(mapAll);
     }

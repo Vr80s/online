@@ -315,4 +315,10 @@ public class MobileBannerServiceImpl extends ServiceImpl<MobileBannerMapper, Mob
 
         return iMobileBannerMapper.selectUnshelveRecommenCourse(pageSize);
     }
+
+    @Override
+    public List<CourseLecturVo> listenCourseList(boolean onlyFree) {
+        return iMobileBannerMapper.listenCourseList(onlyFree);
+    }
+
 }

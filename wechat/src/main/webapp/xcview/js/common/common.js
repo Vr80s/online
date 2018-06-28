@@ -186,7 +186,7 @@ function ajaxRequest(url, param,type, callback, ac) {
     if (ac == null)
         ac = true;// 默认异步
 	if(document.location.host.indexOf('dev.ixincheng.com')!=-1){
-		//url = "/apis"+url;
+		url = "/apis"+url;
 	}
     mui.ajax({
         url: url,
@@ -240,6 +240,7 @@ function isLoginJump() {
             before_address.indexOf("home_page.html") != -1 ||   //学堂
             before_address.indexOf("my_study.html") != -1 ||   //学习
             before_address.indexOf("live_play.html") != -1 ||   //直播展示页后面播放页
+            before_address.indexOf("/xcview/html/physician/physicians_page.html") != -1 ||   //医师页面
             before_address.indexOf("live_personal.html") != -1) {  //主播页
 
             history.back(-1);

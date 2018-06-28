@@ -11,7 +11,7 @@ $(function(){
     requestGetService("/doctor/posts", {
         pageNumber: 1,
         pageSize:10,
-        doctorId:"b8e9430bd4334d749f06d2f0050dd66e"
+        doctorId:doctorId
     }, function (data) {
         var obj = data.resultObject.records;
         var now = new Date();

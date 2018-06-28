@@ -74,7 +74,7 @@
 					{{each item.doctors as item i}}   
 					<div class="physician_cen" data-id="{{item.id}}">
 						<div class="head_portrait">
-							<img src="{{item.headPortrait}}" alt="" />
+							<img src="{{item.headPortrait}}" alt="" onerror="nofind();"  />
 						</div>
 						<div class="referral">
 							<div class="referral_title">

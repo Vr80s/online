@@ -126,5 +126,15 @@ public interface IMobileBannerService {
      * @return
      */
     public List<CourseLecturVo> selectUnshelveRecommenCourse(Integer pageSize);
+    
+    
+    /**
+     * Description：查询直播课程列表
+     * creed: Talk is cheap,show me the code
+     *
+     * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
+     * @Date: 2018/3/1 10:49
+     **/
+    List<CourseLecturVo> listenCourseList(boolean onlyFree);
 
 }
