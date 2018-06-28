@@ -6,7 +6,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -80,7 +79,6 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
         return page;
     }
 
-
     /**
      * 查找用户报名后的所有的课程 (根据付费以及免费条件搜索)
      *
@@ -143,18 +141,6 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
         CourseVo courseVo = coursedao.getCourseById(courseId, request);
         File f = new File(path + File.separator + "/course_common_problem.html");
         courseVo.setCommonProblem(FileUtil.readAsString(f));
-
-        //20180508 杨宣 需求变动
-        //如果此课程存在,再根据课程ID 查找此课程下的老师
-//        if(courseVo != null){
-//            OnlineUser onlineUser = coursedao.getLecturer(courseVo.getUserLecturerId());
-//            if(onlineUser!=null){
-//                // 20170105---杨宣,这里不这样搞了
-////                if(ou!=null && courseVo.getUserLecturerId().equals(ou.getId())){
-////                    courseVo.setSelfCourse(true);
-////                }
-//            }
-//        }
         return courseVo;
     }
 
@@ -173,8 +159,6 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
             OnlineUser onlineUser = coursedao.getLecturer(courseVo.getUserLecturerId());
             courseVo.setTeacherName(onlineUser.getName());
         }
-
-
         return courseVo;
     }
 
@@ -243,36 +227,6 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
     public String checkCouseInfo(String orderId) {
         coursedao.checkCouseInfo(orderId);
         return "开始报名";
-    }
-
-    /**
-     * 获取课程目录
-     *
-     * @param courseId
-     * @return
-     */
-    @Override
-    public List<Map<String, Object>> getCourseCatalog(Integer courseId) {
-        return coursedao.getCourseCatalog(courseId);
-    }
-
-
-    /**
-     * 根据课程ID号，查找对应的课程对象
-     *
-     * @param courseId 课程id
-     * @return Example 分页列表
-     */
-    @Override
-    public CourseVo getCourseByCourseId(Integer courseId) {
-        //根据当前课程ID，查找对应的课程信息
-        CourseVo courseVo = coursedao.findCourseOrderById(courseId);
-        return courseVo;
-    }
-
-    @Override
-    public void updateSentById(Integer id) {
-        coursedao.updateSentById(id);
     }
 
     @Override

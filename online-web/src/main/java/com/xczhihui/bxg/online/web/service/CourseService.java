@@ -115,18 +115,7 @@ public interface CourseService {
      */
     public   String   checkCouseInfo(String  orderNo);
 
-    /**
-     * 获取课程目录
-     * @param courseId
-     * @return
-     */
-    public List<Map<String, Object>> getCourseCatalog(Integer courseId);
-
 	public Object getOpenCourseById(Integer courserId, String ispreview,HttpServletRequest request);
-
-	public CourseVo getCourseByCourseId(Integer courseId);
-
-	void updateSentById(Integer id);
 
     /**
      * 预约

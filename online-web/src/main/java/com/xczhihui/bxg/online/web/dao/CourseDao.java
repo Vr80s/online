@@ -572,51 +572,6 @@ public class CourseDao extends SimpleHibernateDao {
     }
 
     /**
-     * 获取课程目录
-     *
-     * @param courseId
-     * @return
-     */
-    public List<Map<String, Object>> getCourseCatalog(Integer courseId) {
-
-        List<Map<String, Object>> returnmap = new ArrayList<Map<String, Object>>();
-
-        //查询所有章节知识点
-        String sql = "SELECT id,name,parent_id,level FROM oe_chapter "
-                + "WHERE is_delete=0 AND course_id=? AND level>1 ORDER BY sort";
-        List<Map<String, Object>> chapters = videoDao.getNamedParameterJdbcTemplate()
-                .getJdbcOperations().queryForList(sql, courseId);
-
-        //组装树形结构
-        for (Map<String, Object> zhangmap : chapters) {
-            //循环章
-            if (((Integer) zhangmap.get("level")) == 2) {
-                List<Map<String, Object>> zhangsons = new ArrayList<Map<String, Object>>();
-                //循环取节>>>>>
-                for (Map<String, Object> jiemap : chapters) {
-                    if (jiemap.get("parent_id").equals(zhangmap.get("id"))) {
-                        List<Map<String, Object>> jiesons = new ArrayList<Map<String, Object>>();
-                        //循环取知识点>>>>>
-                        for (Map<String, Object> zhishidianmap : chapters) {
-                            if (zhishidianmap.get("parent_id").equals(jiemap.get("id"))) {
-                                jiesons.add(zhishidianmap);
-                            }
-                        }
-                        jiemap.put("chapterSons", jiesons);
-                        //<<<<<循环取知识点
-                        zhangsons.add(jiemap);
-                    }
-                }
-                zhangmap.put("chapterSons", zhangsons);
-                //<<<<<循环取节
-                returnmap.add(zhangmap);
-            }
-        }
-        return returnmap;
-    }
-
-
-    /**
      * 获取当前用户买的最新课程信息
      */
     public List<Map<String, Object>> findNewestCourse(String orderNo) {

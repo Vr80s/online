@@ -189,16 +189,6 @@ public class CourseController extends AbstractController {
 
     }
 
-    /**
-     * 获取课程目录
-     *
-     * @param courseId
-     * @return
-     */
-    @RequestMapping(value = "/getCourseCatalog")
-    public ResponseObject getCourseCatalog(Integer courseId) {
-        return ResponseObject.newSuccessResponseObject(service.getCourseCatalog(courseId));
-    }
 
     /**
      * 预约
