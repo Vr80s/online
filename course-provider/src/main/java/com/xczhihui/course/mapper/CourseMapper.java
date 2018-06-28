@@ -68,8 +68,6 @@ public interface CourseMapper extends BaseMapper<Course> {
 
     List<CourseLecturVo> listenCourseList(@Param("onlyFree") boolean onlyFree);
 
-    List<CourseLecturVo> findLiveListInfo();
-
     /**
      * Description：用户当前课程状态   User current course status. 用户登录了
      *

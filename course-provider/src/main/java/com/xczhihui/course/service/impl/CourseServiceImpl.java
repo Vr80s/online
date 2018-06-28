@@ -137,11 +137,6 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     }
 
     @Override
-    public List<CourseLecturVo> findLiveListInfo() {
-        return iCourseMapper.findLiveListInfo();
-    }
-
-    @Override
     public CourseLecturVo selectUserCurrentCourseStatus(Integer courseId,
                                                         String userId) {
         CourseLecturVo cv = iCourseMapper.selectUserCurrentCourseStatus(courseId, userId);

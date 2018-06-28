@@ -42,8 +42,8 @@
 		where  ou.status = 1
 		and ou.deleted =0
 		and oc.is_delete=0
-		and oc.status=1
 	</sql>
+	
 	<sql id="onlyFreeCondition">
 		<if test="onlyFree" >
 			and oc.is_free = 1
@@ -156,8 +156,8 @@
 		  select 
 		  <include refid="selectRealCourse"/>
 		    '全国课程' as note
-			from oe_course oc 
-			WHERE oc.is_delete=0 and oc.status=1 and oc.type = 3
+			<include refid="commonCondition"/>
+			and oc.type = 3
 			<include refid="onlyFreeCondition"/>
 		    ORDER BY recommendSort desc,oc.start_time DESC LIMIT 0,#{pageSizeUp}
         )
@@ -168,8 +168,8 @@
 	               select 
 					 <include refid="selectRealCourse"/>
 				    oc.city as note
-					from  oe_course oc 
-					WHERE oc.is_delete=0 and oc.status=1 and oc.type = 3 and oc.city = #{city.cityName}
+					<include refid="commonCondition"/>
+					and oc.type = 3 and oc.city = #{city.cityName}
 					<include refid="onlyFreeCondition"/>
 					ORDER BY recommendSort desc,oc.start_time DESC LIMIT 0,#{pageSizeDown}
 	    		 )
@@ -177,25 +177,6 @@
      	 </if>     
 	</select>
 	
-	
-		<!-- 线下课 -->
-	<select id="realTest1" resultType="com.xczhihui.course.vo.CourseLecturVo">
-	  select 
-	    <include refid="selectRealCourse"/>
-	    '全国课程' as note
-		from oe_course oc 
-		WHERE oc.is_delete=0 and oc.status=1 and oc.type = 3
-	    ORDER BY recommendSort desc,oc.start_time DESC LIMIT 0,4
-	</select>
-	
-    <select id="realTest2" resultType="com.xczhihui.course.vo.CourseLecturVo">
-		select 
-		 <include refid="selectRealCourse"/>
-	    oc.city as note
-		from  oe_course oc 
-			WHERE oc.is_delete=0 and oc.status=1 and oc.type = 3 and oc.city = #{name}
-			ORDER BY recommendSort desc,oc.start_time DESC LIMIT 0,4
-	</select>
 	
 	
 	
@@ -272,7 +253,15 @@
     </select>    
 	
 	
-	
+    <!--  查看听课列表  -->
+	<select id="listenCourseList" resultType="com.xczhihui.course.vo.CourseLecturVo">
+		  select 
+			  <include refid="selectRecommenCourse"/>
+			  <include refid="commonCondition"/>
+			  and oc.multimedia_type = 2
+			<include refid="onlyFreeCondition"/>
+			order by recommendSort desc,oc.release_time desc LIMIT 0,12
+	</select>
 	
 	<!-- 搜索结果(字段)查询  -->
 	<sql id="commonSearchField">
@@ -538,7 +527,6 @@
 		    <include refid="selectLiveCourse"/>
 		    '线下课程' as note
 		  <include refid="commonCondition"/>
-		  	and  oc.type = 3
 		    ORDER BY recommendSort desc,oc.start_time DESC LIMIT 0,#{pageSize}
         )
     </select>  
