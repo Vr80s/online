@@ -248,7 +248,7 @@ public class CourseSolrServiceImpl implements ICourseSolrService {
         }
 
         String searchCity;
-        if(queryConditionVo.getCity() != null){
+        if(StringUtils.isNotBlank(queryConditionVo.getCity())){
             searchCity = "city:"+queryConditionVo.getCity();
             if(query.length()>0){
                 query.append(SolrConstant.AND);

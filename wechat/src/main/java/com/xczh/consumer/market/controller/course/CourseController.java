@@ -1,12 +1,9 @@
 package com.xczh.consumer.market.controller.course;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.LoggerFactory;
@@ -22,9 +19,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.service.OnlineWebService;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczhihui.common.util.SmsUtil;
 import com.xczhihui.common.util.WeihouInterfacesListUtil;
-import com.xczhihui.common.util.enums.VCodeType;
 import com.xczhihui.course.service.*;
 import com.xczhihui.course.util.CourseUtil;
 import com.xczhihui.course.vo.CourseLecturVo;
@@ -51,7 +46,6 @@ public class CourseController {
     @Autowired
     private IMobileBannerService mobileBannerService;
 
-
     @Autowired
     public IWatchHistoryService watchHistoryServiceImpl;
 
@@ -59,42 +53,38 @@ public class CourseController {
     @Qualifier("focusServiceRemote")
     private IFocusService focusServiceRemote;
 
+    @Autowired
+    private ICourseApplyService courseApplyService;
+
     @Value("${gift.im.room.postfix}")
     private String postfix;
 
     @Value("${returnOpenidUri}")
     private String returnOpenidUri;
 
-    @Autowired
-    private ICourseApplyService courseApplyService;
-    
+
     /**
      * Description：用户当前课程状态   User current course status.
      * 用户判断用户是否购买了这个课程
      *
-     * @param res
      * @return ResponseObject
      * @throws Exception
      * @author name：yangxuan <br>
      * email: 15936216273@163.com
      */
     @RequestMapping("userCurrentCourseStatus")
-    public ResponseObject userCurrentCourseStatus(@Account(optional = true) Optional<String> accountIdOpt,
-                                                  HttpServletResponse res,
-                                                  @RequestParam("courseId") Integer courseId)
+    public ResponseObject userCurrentCourseStatus(@Account(optional = true) Optional<String> accountIdOpt, @RequestParam("courseId") Integer courseId)
             throws Exception {
-        /**
-         * 这里需要判断是否购买过了
-         */
+
+        // 这里需要判断是否购买过了
         CourseLecturVo cv = null;
         if (accountIdOpt.isPresent()) {
             String accountId = accountIdOpt.get();
             cv = courseServiceImpl.selectUserCurrentCourseStatus(courseId, accountId);
-            /*
-             * 如果是免费的  判断是否学习过
-			 */
-            if (cv != null && cv.getWatchState() == 1) { // 免费课程
-                if (onlineWebService.getLiveUserCourse(courseId, accountId)) { // 如果购买过返回true 如果没有购买返回false
+            //如果是免费的  判断是否学习过
+            if (cv != null && cv.getWatchState() == 1) {
+                // 如果购买过返回true 如果没有购买返回false
+                if (onlineWebService.getLiveUserCourse(courseId, accountId)) {
                     cv.setLearning(1);
                 }
             }
@@ -108,16 +98,13 @@ public class CourseController {
     /**
      * Description：课程详情（展示页面）页面
      *
-     * @param req
-     * @param res
      * @return ResponseObject
      * @throws Exception
      * @author name：yangxuan <br>
      * email: 15936216273@163.com
      */
     @RequestMapping("details")
-    public ResponseObject details(@Account(optional = true) Optional<String> accountIdOpt, HttpServletRequest req,
-                                  HttpServletResponse res, @RequestParam("courseId") Integer courseId)
+    public ResponseObject details(@Account(optional = true) Optional<String> accountIdOpt, @RequestParam("courseId") Integer courseId)
             throws Exception {
 
         CourseLecturVo cv = courseServiceImpl.selectCourseMiddleDetailsById(courseId);
@@ -131,12 +118,12 @@ public class CourseController {
         cv.setRichCourseDetailsUrl(returnOpenidUri + "/xcview/html/person_fragment.html?type=1&typeId=" + courseId);
 
         cv.setRichHostDetailsUrl(returnOpenidUri + "/xcview/html/person_fragment.html?type=3&typeId=" + courseId);
-        
+
         //专辑查看更新时间
-        if(cv.getCollection()) {
-        	cv.setDirtyDate(courseApplyService.getCollectionUpdateDateText(courseId));
+        if (cv.getCollection()) {
+            cv.setDirtyDate(courseApplyService.getCollectionUpdateDateText(courseId));
         }
-        
+
         /**
          * 这里需要判断是否购买过了
          */
@@ -169,16 +156,13 @@ public class CourseController {
     /**
      * Description：课程详情（播放页面）页面
      *
-     * @param req
-     * @param res
      * @return ResponseObject
      * @throws Exception
      * @author name：yangxuan <br>
      * email: 15936216273@163.com
      */
     @RequestMapping("liveDetails")
-    public ResponseObject liveDetails(@Account(optional = true) Optional<String> accountIdOpt, HttpServletRequest req,
-                                      HttpServletResponse res, @RequestParam("courseId") Integer courseId)
+    public ResponseObject liveDetails(@Account(optional = true) Optional<String> accountIdOpt, @RequestParam("courseId") Integer courseId)
             throws Exception {
 
         CourseLecturVo cv = courseServiceImpl.selectCourseDetailsById(courseId);
@@ -193,12 +177,12 @@ public class CourseController {
         cv.setRichHostDetailsUrl(returnOpenidUri + "/xcview/html/person_fragment.html?type=2&typeId=" + courseId);
 
         //专辑查看更新时间
-        if(cv.getCollection()) {
-        	cv.setDirtyDate(courseApplyService.getCollectionUpdateDateText(courseId));
+        if (cv.getCollection()) {
+            cv.setDirtyDate(courseApplyService.getCollectionUpdateDateText(courseId));
         }
-        
-        //判断点钱在线人数
-        if (cv.getType() != null && cv.getLineState() != null && cv.getType() == 1 && cv.getLineState() == 1) { //表示的是直播中
+
+        //判断当前在线人数
+        if (cv.getType() != null && cv.getLineState() != null && cv.getType() == 1 && cv.getLineState() == 1) {
             Integer lendCount = cv.getLearndCount() + WeihouInterfacesListUtil.getCurrentOnlineNumber(cv.getDirectId());
             cv.setLearndCount(lendCount);
         }
@@ -270,7 +254,6 @@ public class CourseController {
     /**
      * Description：下架课程推荐
      *
-     * @param courseId
      * @return ResponseObject
      * @throws Exception
      * @author name：yangxuan <br>
@@ -307,42 +290,41 @@ public class CourseController {
         }
         response.sendRedirect(liveCourseUrl4Wechat);
     }
-    
+
     /**
-	 * 用户课程类型数量
-	 * @param userId
-	 * @param type
-	 * @return
-	 * @throws Exception
-	 */
+     * 用户课程类型数量
+     *
+     * @param userId
+     * @param type
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("courseTypeNumber")
     public ResponseObject courseTypeNumber(
             @RequestParam(value = "userId") String userId,
             Integer type)
             throws Exception {
-        Integer count = courseServiceImpl.selectLiveCountByUserIdAndType(userId,type);
+        Integer count = courseServiceImpl.selectLiveCountByUserIdAndType(userId, type);
         return ResponseObject.newSuccessResponseObject(count);
     }
-    
+
     /**
-	 * 随机为你推荐推荐值最高的10个课程里面最高的四个
-	 * @param userId
-	 * @param type
-	 * @return
-	 * @throws Exception
-	 */
+     * 随机为你推荐推荐值最高的10个课程里面最高的四个
+     *
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("recommendSortAndRand")
     public ResponseObject recommendSortAndRand(Integer pageSize)
             throws Exception {
-    	
-    	pageSize = (pageSize == null ? 4 : pageSize);
-    	
-    	  //推荐课程   -- 从推荐值最高的课程里面查询啦啦啦啦。
+
+        pageSize = (pageSize == null ? 4 : pageSize);
+
+        //推荐课程   -- 从推荐值最高的课程里面查询啦啦啦啦。
         Page<CourseLecturVo> page = new Page<CourseLecturVo>();
         page.setCurrent(0);
         page.setSize(pageSize);
-        
-        return ResponseObject.newSuccessResponseObject(
-        		courseServiceImpl.selectRecommendSortAndRandCourse(page));
+
+        return ResponseObject.newSuccessResponseObject(courseServiceImpl.selectRecommendSortAndRandCourse(page));
     }
 }

@@ -418,7 +418,8 @@
   <field name="_root_" type="string" docValues="false" indexed="true" stored="false"/>
   <field name="_text_" type="text_general" multiValued="true" indexed="true" stored="false"/>
   <field name="_version_" type="long" indexed="false" stored="false"/>
-  
+
+  <!--医师相关字段 start-->
   <field name="city" type="text_ik"/>
   <field name="departmentName" type="text_iks"/>
   <field name="departmentId" type="strings"/>
@@ -435,7 +436,8 @@
   <field name="recommendSort" type="tint"/>
   <field name="title" type="text_ik"/>
   <field name="type" type="tint"/>
-  
+  <!--医师相关字段 end-->
+
   <dynamicField name="*_txt_en_split_tight" type="text_en_splitting_tight" indexed="true" stored="true"/>
   <dynamicField name="*_descendent_path" type="descendent_path" indexed="true" stored="true"/>
   <dynamicField name="*_ancestor_path" type="ancestor_path" indexed="true" stored="true"/>
