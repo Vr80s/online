@@ -1,0 +1,5 @@
+# 允许收录
+User-agent: *
+Disallow:
+Disallow: /my
+Disallow: /anchor/my

@@ -1,3 +1,0 @@
-# 禁止所有爬虫爬取
-User-agent: * 
-Disallow: /
