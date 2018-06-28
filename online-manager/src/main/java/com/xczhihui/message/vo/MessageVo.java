@@ -165,6 +165,8 @@ public class MessageVo {
      */
     private String url;
 
+    private String replyText;
+
     public String getLoginName() {
         return loginName;
     }
@@ -453,5 +455,13 @@ public class MessageVo {
 
     public void setAnchorName(String anchorName) {
         this.anchorName = anchorName;
+    }
+
+    public String getReplyText() {
+        return replyText;
+    }
+
+    public void setReplyText(String replyText) {
+        this.replyText = replyText;
     }
 }

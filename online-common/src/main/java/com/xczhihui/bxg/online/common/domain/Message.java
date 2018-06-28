@@ -1,157 +1,179 @@
 package com.xczhihui.bxg.online.common.domain;
 
-import com.xczhihui.common.support.domain.BasicEntity;
-import org.hibernate.annotations.Type;
+import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import java.io.Serializable;
-import java.util.Date;
+import javax.persistence.Transient;
+
+import org.hibernate.annotations.Type;
+
+import com.xczhihui.common.support.domain.BasicEntity;
 
 /**
  * 学员消息
- * @author duanqh
  *
+ * @author duanqh
  */
 @Entity
 @Table(name = "oe_message")
-public class Message extends BasicEntity implements Serializable{
-	
-	private static final long serialVersionUID = 1L;
+public class Message extends BasicEntity implements Serializable {
 
-	/**
-	 * 用户id
-	 */
-	@Column(name = "user_id", length = 32)
-	private String userId;
+    private static final long serialVersionUID = 1L;
 
-	/**
-	 * 消息标题
-	 */
-	@Column(name = "title", length = 50)
-	private String title;
+    /**
+     * 用户id
+     */
+    @Column(name = "user_id", length = 32)
+    private String userId;
 
-	/**
-	 * 消息内容
-	 */
-	@Type(type="text")
-	@Column(name = "context")
-	private String context;
-	
-	/**
-	 * 消息类型：0.系统消息(站内推送消息;)  1.课程消息 2.用户意见反馈  3.问答消息  4.评论消息
-	 *
-	 */
-	@Column(name = "type")
-	private Integer type;
+    /**
+     * 消息标题
+     */
+    @Column(name = "title", length = 50)
+    private String title;
 
-	/**
-	 * 消息状态：1.已发送;
-	 */
-	@Column(name = "status")
-	private Short status;
+    /**
+     * 消息内容
+     */
+    @Type(type = "text")
+    @Column(name = "context")
+    private String context;
 
+    /**
+     * 消息类型：0.系统消息(站内推送消息;)  1.课程消息 2.用户意见反馈  3.问答消息  4.评论消息
+     */
+    @Column(name = "type")
+    private Integer type;
+
+    /**
+     * 消息状态：1.已发送;
+     */
+    @Column(name = "status")
+    private Short status;
 
 
-	/**
-	 * 管理员回复时间
-	 */
-	@Column(name = "lasttime")
-	private Date lastTime;
+    /**
+     * 管理员回复时间
+     */
+    @Column(name = "lasttime")
+    private Date lastTime;
 
-	/**
-	 * 读取状态：0.未读取  1.已读取;
-	 */
-	@Column(name = "readstatus")
-	private Short readstatus;
+    /**
+     * 读取状态：0.未读取  1.已读取;
+     */
+    @Column(name = "readstatus")
+    private Short readstatus;
 
-	/**
-	 * 意见反馈编号
-	 */
-	@Column(name = "pid")
-	private String pid;
+    /**
+     * 意见反馈编号
+     */
+    @Column(name = "pid")
+    private String pid;
 
-	/**
-	 * 反馈状态 0:未反馈 1:已反馈
-	 */
-	@Column(name = "answerStatus")
-	private Short answerStatus;
+    @Column(name = "replytext")
+    private String replyText;
 
-	public Short getAnswerStatus() {
-		return answerStatus;
-	}
+    /**
+     * 反馈状态 0:未反馈 1:已反馈
+     */
+    @Column(name = "answerStatus")
+    private Short answerStatus;
 
-	public void setAnswerStatus(Short answerStatus) {
-		this.answerStatus = answerStatus;
-	}
+    @Transient
+    private String userName;
 
-	public String getPid() {
-		return pid;
-	}
+    public Short getAnswerStatus() {
+        return answerStatus;
+    }
 
-	public void setPid(String pid) {
-		this.pid = pid;
-	}
+    public void setAnswerStatus(Short answerStatus) {
+        this.answerStatus = answerStatus;
+    }
 
-	public String getUserId() {
-		return userId;
-	}
+    public String getPid() {
+        return pid;
+    }
 
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
+    public void setPid(String pid) {
+        this.pid = pid;
+    }
 
-	public String getTitle() {
-		return title;
-	}
+    public String getUserId() {
+        return userId;
+    }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
-	public String getContext() {
-		return context;
-	}
+    public String getTitle() {
+        return title;
+    }
 
-	public void setContext(String context) {
-		this.context = context;
-	}
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-	public Integer getType() {
-		return type;
-	}
+    public String getContext() {
+        return context;
+    }
 
-	public void setType(Integer type) {
-		this.type = type;
-	}
+    public void setContext(String context) {
+        this.context = context;
+    }
 
-	public Short getStatus() {
-		return status;
-	}
+    public Integer getType() {
+        return type;
+    }
 
-	public void setStatus(Short status) {
-		this.status = status;
-	}
+    public void setType(Integer type) {
+        this.type = type;
+    }
 
-	public Short getReadstatus() {
-		return readstatus;
-	}
-	public void setReadstatus(Short readstatus) {
-		this.readstatus = readstatus;
-	}
+    public Short getStatus() {
+        return status;
+    }
 
-	public Date getLastTime() {
-		return lastTime;
-	}
+    public void setStatus(Short status) {
+        this.status = status;
+    }
 
-	public void setLastTime(Date lastTime) {
-		this.lastTime = lastTime;
-	}
+    public Short getReadstatus() {
+        return readstatus;
+    }
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
+    public void setReadstatus(Short readstatus) {
+        this.readstatus = readstatus;
+    }
 
+    public Date getLastTime() {
+        return lastTime;
+    }
 
+    public void setLastTime(Date lastTime) {
+        this.lastTime = lastTime;
+    }
+
+    public static long getSerialversionuid() {
+        return serialVersionUID;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getReplyText() {
+        return replyText;
+    }
+
+    public void setReplyText(String replyText) {
+        this.replyText = replyText;
+    }
 }
