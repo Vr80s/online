@@ -8,10 +8,17 @@ var postsCommentUserName="";
 $(function(){
     loginUserId = localStorage.getItem("userId");
     loginUserName = localStorage.getItem("name");
+    //doctorPostsList(null);
+
+});
+
+//动态列表
+function doctorPostsList(type) {
     requestGetService("/doctor/posts", {
         pageNumber: 1,
         pageSize:10,
-        doctorId:"b8e9430bd4334d749f06d2f0050dd66e"
+        type:type,
+        doctorId:"14c2192523c5438f9a10d17994a1c6a3"
     }, function (data) {
         var obj = data.resultObject.records;
         var now = new Date();
@@ -19,41 +26,45 @@ $(function(){
         for(var i=0;i<obj.length;i++){
             var likes ="";
             //定义时间
-        	obj[i].now=now;
-        	//判断是否点赞
+            obj[i].now=now;
+            //判断是否点赞
             obj[i].isPraise=false;
             //封装点赞列表
             var likeList = obj[i].doctorPostsLikeList;
             if(likeList!=null&&likeList.length>0){
-            	for(var j=0;j<likeList.length;j++){
-            		if(loginUserId!=undefined&&loginUserId==likeList[j].userId){
+                for(var j=0;j<likeList.length;j++){
+                    if(loginUserId!=undefined&&loginUserId==likeList[j].userId){
                         obj[i].isPraise=true;
-					}
+                    }
                     likes += likeList[j].userName+",";
-				}
+                }
                 obj[i].likes = likes.substr(0,likes.length-1);
-			}
-			//封装图片
-        	if(obj[i].pictures!=null&&obj[i].pictures!=""){
+            }
+            //封装图片
+            if(obj[i].pictures!=null&&obj[i].pictures!=""){
                 var pics=obj[i].pictures.split(",");
                 obj[i].pics=pics;
-			}
-		}
+            }
+        }
         $(".rests_nav").html(template('wrap_doctor_dynamics',{items:obj}));
+        for(var i=0;i<obj.length;i++){
+            //cc视频
+            if(obj[i].video!=null&&obj[i].video!=""){
+                ccVideo(obj[i].video,1,obj[i].id);
+            }
+        }
 
-		//点赞
+        //点赞
         $('.zan_img').click(function() {
             var src = $(this).attr('src');
             var postsId = $(this).attr('data-id');
             if(src.indexOf("zan001")>-1){
-
                 delPostsLike(this,postsId);
             }else{
-
                 postsLike(this,postsId);
             }
         })
-		//评论
+        //评论
         $(".rests_nav .evaluate_img").click(function(){
             $(".face").attr("src","/xcview/images/face.png");
             $("#page_emotion").css("bottom","-2.8rem");
@@ -61,7 +72,7 @@ $(function(){
             getPostsIdByComment = $(this).attr('data-id');
             postsCommentId = "";
         });
-		// 点击其他内容区域隐藏评论区域
+        // 点击其他内容区域隐藏评论区域
         $(".comment_hide").click(function(){
             $(".face").attr("src","/xcview/images/face.png");
             $("#page_emotion").css("bottom","-2.8rem");
@@ -75,6 +86,7 @@ $(function(){
             getPostsIdByComment = $(this).attr('data-postsId');
             var userId = $(this).attr('data-userId');
             var replyUserId = $(this).attr('data-replyUserId');
+            var data_postsId = $(this).attr('data-postsId');
             if(replyUserId!=undefined&&replyUserId!=""){
                 userId=replyUserId;
             }
@@ -83,8 +95,19 @@ $(function(){
                 $("#page_emotion").css("bottom","-2.8rem");
                 $(".comment").show();
             }else {
-                // alert("删除");  
+                // alert("删除");
                 $(".remove_copy").show();
+                $(".remove").click(function () {
+                    ajaxRequest("/doctor/posts/"+data_postsId+"/comment/"+postsCommentId,null,"DELETE",function(data) {
+                        if(data.success==true){
+                            $(".remove_copy").hide();
+                            $(".evaluate"+data_postsId).find("."+postsCommentId).remove();
+                            alert("删除成功");
+                        }else{
+                            alert("删除失败");
+                        }
+                    });
+                })
                 /*$(".copy").click(function(){
                     copyUrl2();
                 });
@@ -96,21 +119,16 @@ $(function(){
                 alert("已复制好，可贴粘。");
                 }*/
 
-                
-
-                
-
             }
-
         });
-
     });
+}
 
-
-
-
-
-});
+function postsType(obj) {
+    var type = $(obj).attr("value");
+    doctorPostsList(type);
+    //alert(type)
+}
 /**
  * 评论
  */
@@ -127,11 +145,12 @@ function sendComment(){
     },function(data) {
         if(data.success==true){
             var evaluatePostsId = "evaluate"+getPostsIdByComment;
+            var getNewPostsCommentId = data.resultObject[0].id;
             if(postsCommentId==""){
-                $("."+evaluatePostsId+"").prepend("<div class='evaluateDiv' data-id='' data-postsId="+getPostsIdByComment+" data-userId="+loginUserId+" >" +
+                $("."+evaluatePostsId+"").prepend("<div class="+'evaluateDiv '+getNewPostsCommentId+" data-id="+getNewPostsCommentId+" data-postsId="+getPostsIdByComment+" data-userId="+loginUserId+" >" +
                     "<span class='name'>"+loginUserName+"：</span><span class=\"evaluate_cen\">"+article+"</span></div><div class=\"both\"></div>");
             }else {
-                $("."+evaluatePostsId+"").prepend("<div class=\"both\"></div><div class='response evaluateDiv' data-id="+postsCommentId+"" +
+                $("."+evaluatePostsId+"").prepend("<div class=\"both\"></div><div class="+'response evaluateDiv '+getNewPostsCommentId+" data-id="+getNewPostsCommentId+"" +
                     " data-postsId="+getPostsIdByComment+" data-replyUserId="+loginUserId+"> " +
                     "<span class=\"my\">"+loginUserName+"</span> <span class=\"response_cen\">回复</span> " +
                     "<span class=\"she\">"+postsCommentUserName+"：</span> <span class=\"response_center\">"+article+"</span>" +
@@ -139,6 +158,7 @@ function sendComment(){
             }
 
             // 回复/删除
+            $(".evaluateDiv").unbind( "click" );
             $(".evaluateDiv").click(function(){
                 postsCommentId = $(this).attr('data-id');
                 getPostsIdByComment = $(this).attr('data-postsId');
@@ -152,7 +172,18 @@ function sendComment(){
                     $("#page_emotion").css("bottom","-2.8rem");
                     $(".comment").show();
                 }else {
-                    alert("删除");
+                    $(".remove_copy").show();
+                    $(".remove").click(function () {
+                        ajaxRequest("/doctor/posts/"+getPostsIdByComment+"/comment/"+postsCommentId,null,"DELETE",function(data) {
+                            if(data.success==true){
+                                $(".remove_copy").hide();
+                                $(".evaluate"+getPostsIdByComment).find("."+postsCommentId).remove();
+                                alert("删除成功");
+                            }else{
+                                alert("删除失败");
+                            }
+                        });
+                    })
                 }
 
             });
@@ -213,6 +244,33 @@ function getPostsLikeList(postsId,list) {
     }else {
         $("#"+postsId+"").children("div").find(".likes").html("");
     }
+}
+
+/**
+ * videoId : 视频播放id
+ * multimediaType:媒体类型  视频 1 音频 2
+ */
+function ccVideo(videoId, multimediaType,id) {
+    var playerwidth = window.screen.width; //	屏幕分辨率的宽：window.screen.width
+    var playerheight = 8.95 * 21.8; //	屏幕分辨率的高：window.screen.height
+    console.log(playerwidth);
+    var dataParams = {
+        playerwidth: playerwidth,
+        playerheight: playerheight,
+        videoId: videoId,
+        multimedia_type: multimediaType
+    }
+    requestService("/xczh/ccvideo/palyCode",
+        dataParams, function (data) {
+            if (data.success) {
+                var playCodeStr = data.resultObject;
+                var playCodeObj = JSON.parse(playCodeStr);
+                console.log(playCodeObj.video.playcode);
+                //$("#ccvideo").html(playCodeObj.video.playcode)
+                $("#ccvideo"+id).html(playCodeObj.video.playcode);
+            } else {
+            }
+        }, false);
 }
 
 

@@ -236,12 +236,12 @@
 			<div class="screen_show_bg"></div>
 			<div class="screen_show_main">
 				<ul>
-					<li class="filtrate_all">全部动态</li>
-					<li class="filtrate_sinatv">直播</li>
-					<li class="filtrate_course">课程</li>
-					<li class="filtrate_consilia">医案</li>
-					<li class="filtrate_essay">文章</li>
-					<li class="filtrate_rests">其他</li>
+					<li class="filtrate_all" value="" onclick="postsType(this)">全部动态</li>
+					<li class="filtrate_sinatv" value="1" onclick="postsType(this)">直播</li>
+					<li class="filtrate_course" value="2" onclick="postsType(this)">课程</li>
+					<li class="filtrate_consilia" value="3" onclick="postsType(this)">医案</li>
+					<li class="filtrate_essay"value="4" onclick="postsType(this)">文章</li>
+					<li class="filtrate_rests"value="5" onclick="postsType(this)">其他</li>
 				</ul>
 			</div>
 		</div>
@@ -256,7 +256,9 @@
 				{{if item.type == 1}}
 				<!-- 普通动态-->
 				<div class="panel_hide">
+					{{if item.stick}}
 					<div class="essay_main comment_hide"><span class="stick_img"><img src="/xcview/images/stick.png" alt="" />置顶</span>{{item.content}}</div>
+					{{/if}}
 					<div class="essay_pack_up_btn"><span>收起</span></div>
 					<div class="both"></div>
 				</div>
@@ -265,8 +267,10 @@
 				<!-- 动态图片-->
 				<div class="trends_hide">
 					<div class="paper_nav_span comment_hide">
+						{{if item.stick}}
 						<span class="stick_img_stick"><img src="/xcview/images/stick.png" alt="" />置顶</span>
-						<span style="color: #F97B49;font-size:0.3rem;">#盐蒸橘子治咳嗽#</span>{{item.content}}
+						{{/if}}
+						{{item.content}}
 						
 					</div>
 					{{if item.pics.length>0}}
@@ -282,24 +286,26 @@
 				{{else if item.type == 3}}
 				<!-- 视频-->
 				<div class="rests_nav_span comment_hide">
+					{{if item.stick}}
 					<span class="stick_img"><img src="/xcview/images/stick.png" alt="" />置顶</span>
-					<span class="title">{{item.title}}</span>
+					{{/if}}
+					<span class="title">{{item.content}}</span>
 				</div>
-				<div id="ccvideo" class="comment_hide">
-					<video>
+				<div id="ccvideo{{item.id}}" class="comment_hide">
 
-					</video>
 				</div>
-				{{else if item.type == 4}}
+				{{else if item.typeId != null && item.typeId != 8}}
 				<!-- 文章-->
 				<div class="article_hide">
 					<div class="article_nav_span comment_hide">
+						{{if item.stick}}
 						<span class="stick_img_stick"><img src="/xcview/images/stick.png" alt="" />置顶</span>
-							{{item.title}}
+						{{/if}}
+							{{item.content}}
 					</div>
 					<div class="article_nav_cen comment_hide">
-						<img src="{{item.smallImgPath}}" alt="" />
-						<div class="article_nav_cen_size">得控制，体温在38℃~39℃之间。初期热无定，不恶得控制，体温在38℃~39℃之间。初期热无定，不恶</div>
+						<img src="{{item.articleImgPath}}" alt="" />
+						<div class="article_nav_cen_size">{{item.articleContent}}</div>
 					</div>
 					<div class="both"></div>
 				</div>
@@ -307,7 +313,9 @@
 				<!-- 课程-->
 				<div class="course_hide">
 					<div class="course_nav_span comment_hide" style="font-size: 0.3rem;color: #333333;">
+						{{if item.stick}}
 						<span class="stick_img_stick"><img src="/xcview/images/stick.png" alt="" />置顶</span>
+						{{/if}}
 						{{item.title}}
 						
 						<div class="both"></div>
@@ -326,12 +334,14 @@
 					</div>
 					<div class="both"></div>
 				</div>
-				{{else if item.type == 10}}
+				{{else if item.typeId != null && item.typeId == 8}}
 				<!-- 医案-->
 				<div class="consilia_nav_span comment_hide">
+					{{if item.stick}}
 					<span class="stick_img"><img src="/xcview/images/stick.png" alt="" />置顶</span>
+					{{/if}}
 					<span class="stick_img">#医案#</span>
-					<span class="title">朱xx，男，53岁</span>
+					<span class="title">{{item.articleTitle}}</span>
 				</div>
 				<div class="consilia_nav_main comment_hide">
 					得控制，体温在38℃~39℃之间。初期热无定，不恶
@@ -345,16 +355,45 @@
 				</div>
 				<div class="consilia_nav_btn"><span>收起</span></div>
 				<div class="consilia_nav_cen comment_hide">
-					<img src="/xcview/images/xianxia_03.jpg" alt="" />
-					<div class="consilia_nav_cen_size">得控制，体温在38℃~39℃之间。初期热无定，不恶得控制，体温在38℃~39℃之间。初期热无定，不恶</div>
+					<img src="{{item.articleImgPath}}" alt="" />
+					<div class="consilia_nav_cen_size">{{item.articleContent}}</div>
 				</div>
 				<div class="both"></div>
 				{{/if}}
 				<div class="rests_nav_bottom ">
 					{{if item.createTime < item.now}}
-					<span class="time">6小时前</span>
+					<span class="time">6小时前
+
+					{{if item.typeId==8}}
+						<span class="basis_tips">医案</span>
+					{{else if item.articleId!= null}}
+						<span class="basis_tips">文章</span>
+					{{else if item.courseId != null && item.courseType == 1}}
+						<span class="basis_tips">线上课</span>
+					{{else if item.courseId != null && item.courseType == 2}}
+						<span class="basis_tips">线上课</span>
+					{{else if item.courseId != null && item.courseType == 3}}
+						<span class="basis_tips">直播课</span>
+					{{else if item.courseId != null && item.courseType == 4}}
+						<span class="basis_tips">线下课</span>
+					{{/if}}
+					</span>
 					{{else}}
-					<span class="time">{{item.createTime}}</span>
+					<span class="time">{{item.createTime}}
+					{{if item.typeId==8}}
+						<span class="basis_tips">医案</span>
+					{{else if item.articleId!= null}}
+						<span class="basis_tips">文章</span>
+					{{else if item.courseId != null && item.courseType == 1}}
+						<span class="basis_tips">线上课</span>
+					{{else if item.courseId != null && item.courseType == 2}}
+						<span class="basis_tips">线上课</span>
+					{{else if item.courseId != null && item.courseType == 3}}
+						<span class="basis_tips">直播课</span>
+					{{else if item.courseId != null && item.courseType == 4}}
+						<span class="basis_tips">线下课</span>
+					{{/if}}
+					</span>
 					{{/if}}
 
 					{{if item.isPraise}}
@@ -379,7 +418,7 @@
 							{{if item.doctorPostsCommentList!==null&&item.doctorPostsCommentList.length>0}}
 							{{each item.doctorPostsCommentList as postsComment}}
 							{{if postsComment.commentId == null}}
-							<div class="evaluateDiv" data-id="{{postsComment.id}}" data-postsId="{{item.id}}" data-userId="{{postsComment.userId}}" data-userName="{{postsComment.userName}}">
+							<div class="evaluateDiv {{postsComment.id}}" data-id="{{postsComment.id}}" data-postsId="{{item.id}}" data-userId="{{postsComment.userId}}" data-userName="{{postsComment.userName}}">
 							
 							<span class="evaluate_cen"><span class="name">{{postsComment.userName}}：</span>{{postsComment.content}}</span>
 							</div>
@@ -387,7 +426,7 @@
 							{{else}}
 							<!-- </div> -->
 							<div class="both"></div>
-							<div class="response evaluateDiv" data-id="{{postsComment.id}}" data-postsId="{{item.id}}" data-replyUserId="{{postsComment.replyUserId}}">
+							<div class="response evaluateDiv {{postsComment.id}}" data-id="{{postsComment.id}}" data-postsId="{{item.id}}" data-replyUserId="{{postsComment.replyUserId}}">
 								<span class="my">{{postsComment.replyUserName}}</span>
 								<span class="response_cen">回复</span>
 								<span class="she">{{postsComment.userName}}：</span>
@@ -875,7 +914,7 @@
 	<!-- 表情包结束 -->
 </body>
 <!-- <script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script> -->
-<script type="text/javascript" src="/xcview/js/common/jquery-1.8.3.min.js"></script>
+<script src="/xcview/weihoujs/jquery.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/common.js?v=wechat_1.1.1"></script> 
 <script type="text/javascript" src="/xcview/js/common/template.js"></script>    <!--数据模板引入-->
@@ -1052,7 +1091,7 @@ $(window).bind("scroll", function() {
         // 点击动态筛选里面的内容  
         // 点击全部动态
         $(".filtrate_all").click(function(){
-            $(".rests_nav").removeClass("hide");  //其他1
+            //$(".rests_nav").removeClass("hide");  //其他1
             $(".consilia_nav").removeClass("hide");  // 医案  
             $(".essay_pack_up").removeClass("hide");  //其他2 
             $(".article_nav").removeClass("hide");  //文章 
@@ -1062,7 +1101,7 @@ $(window).bind("scroll", function() {
 	    });	
         //点击直播
 	    $(".filtrate_sinatv").click(function(){
-            $(".rests_nav").addClass("hide");  //其他1
+            //$(".rests_nav").addClass("hide");  //其他1
             $(".consilia_nav").addClass("hide");  // 医案  
             $(".essay_pack_up").addClass("hide");  //其他2 
             $(".article_nav").addClass("hide");  //文章 
@@ -1072,7 +1111,7 @@ $(window).bind("scroll", function() {
 	    });
 	    //点击课程 
 	    $(".filtrate_course").click(function(){
-            $(".rests_nav").addClass("hide");  //其他1
+            //$(".rests_nav").addClass("hide");  //其他1
             $(".consilia_nav").addClass("hide");  // 医案  
             $(".essay_pack_up").addClass("hide");  //其他2 
             $(".article_nav").addClass("hide");  //文章 
@@ -1082,7 +1121,7 @@ $(window).bind("scroll", function() {
 	    });	
 	    //点击医案
 	    $(".filtrate_consilia").click(function(){
-            $(".rests_nav").addClass("hide");  //其他1
+            //$(".rests_nav").addClass("hide");  //其他1
             $(".consilia_nav").removeClass("hide");  // 医案  
             $(".essay_pack_up").addClass("hide");  //其他2 
             $(".article_nav").addClass("hide");  //文章 
@@ -1092,7 +1131,7 @@ $(window).bind("scroll", function() {
 	    });	
 	    //点击文章 
 	    $(".filtrate_essay").click(function(){
-            $(".rests_nav").addClass("hide");  //其他1
+            //$(".rests_nav").addClass("hide");  //其他1
             $(".consilia_nav").addClass("hide");  // 医案  
             $(".essay_pack_up").addClass("hide");  //其他2 
             $(".article_nav").removeClass("hide");  //文章 
