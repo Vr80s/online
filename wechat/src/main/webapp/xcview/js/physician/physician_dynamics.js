@@ -48,6 +48,13 @@ function doctorPostsList(type) {
         }
         $(".rests_nav").html(template('wrap_doctor_dynamics',{items:obj}));
         for(var i=0;i<obj.length;i++){
+            //
+            /*if(obj[i].doctorPostsCommentList.length==0 && obj[i].doctorPostsLikeList.length==0){
+                $("#"+obj[i].id).hide();
+            }*/
+            /*if(obj[i].doctorPostsCommentList.length>0 && obj[i].doctorPostsLikeList.length==0){
+                $("#"+obj[i].id).find(".number_people_fize").hide();
+            }*/
             //cc视频
             if(obj[i].video!=null&&obj[i].video!=""){
                 ccVideo(obj[i].video,1,obj[i].id);
@@ -205,6 +212,7 @@ function postsLike(obj,postsId) {
             $(obj).attr('src','/xcview/images/zan001.png');
             $("#"+postsId+"").children("div").find("img").attr('src','/xcview/images/zan001.png');
             //重新获取点赞列表
+
             getPostsLikeList(postsId,data.resultObject.list);
             alert(data.resultObject);
         }else{

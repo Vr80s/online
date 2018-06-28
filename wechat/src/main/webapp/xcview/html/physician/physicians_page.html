@@ -256,9 +256,10 @@
 				{{if item.type == 1}}
 				<!-- 普通动态-->
 				<div class="panel_hide">
-					{{if item.stick}}
-					<div class="essay_main comment_hide"><span class="stick_img"><img src="/xcview/images/stick.png" alt="" />置顶</span>{{item.content}}</div>
-					{{/if}}
+					<div class="essay_main comment_hide">
+                        {{if item.stick}}<span class="stick_img"><img src="/xcview/images/stick.png" alt="" />置顶</span>
+                        {{/if}}
+                        {{item.content}}</div>
 					<div class="essay_pack_up_btn"><span>收起</span></div>
 					<div class="both"></div>
 				</div>
@@ -411,7 +412,6 @@
 						{{else}}
 						<div class="number_people_fize"><img src="/xcview/images/zan01.png" alt="" class="number_people_zan" /><span class="likes">{{item.likes}}</span></div>
 						{{/if}}
-
 						<!-- 评价内容 -->
 						<div class="evaluate_main evaluate{{item.id}}">
 							<!-- <div class=""> -->
@@ -437,6 +437,7 @@
 							{{/if}}
 						</div>
 					</div>
+
 				</div>
 				{{/each}}
 			</script>
