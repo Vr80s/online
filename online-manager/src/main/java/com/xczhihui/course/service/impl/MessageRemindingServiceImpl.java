@@ -174,7 +174,7 @@ public class MessageRemindingServiceImpl implements MessageRemindingService {
                         .buildAppPush(MessageFormat.format(APP_PUSH_COLLECTION_COURSE_REMIND, courseName, dateStr))
                         .buildSms(sendCourseUpdateRemindCode, params)
                         .detailId(String.valueOf(course.getId()))
-                        .build(course.getUserLecturerId(), RouteTypeEnum.NONE, null);
+                        .build(course.getUserLecturerId(), RouteTypeEnum.COLLECTION_COURSE_LIST_ONLY_WEB, null);
                 commonMessageService.saveMessage(baseMessage);
             }
         }
