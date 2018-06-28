@@ -53,4 +53,12 @@ public interface IMedicalDoctorPostsService {
      */
     void updateStickMedicalDoctorPosts(Integer id,Boolean stick);
 
+    /**
+     * 获取医师动态
+     *
+     * @param id 医师动态id
+     * @return
+     */
+    MedicalDoctorPosts getMedicalDoctorPostsById(Integer id);
+
 }
