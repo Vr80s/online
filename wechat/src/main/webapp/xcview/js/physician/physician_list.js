@@ -310,7 +310,7 @@ function queryDataByParams(params,data_type){
 					data1+="<div class='li_list_div' >"+
 				       "<div class='li_list_one' data-doctorId = "+item.id+" >"+
 					       "<div class='li_list_one_left'>" +
-					         "<img src='"+item.headPortrait+"?imageView2/2/w/212' class='one' />"  +
+					         "<img src='"+item.headPortrait+"?imageView2/2/w/212' class='one' onerror="nofind();" />"  +
 					      "</div>" +
 				           "<div class='li_list_one_right'>" +
 					           "<p class='p00'>" +
