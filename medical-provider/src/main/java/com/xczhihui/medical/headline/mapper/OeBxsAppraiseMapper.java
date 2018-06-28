@@ -59,7 +59,8 @@ public interface OeBxsAppraiseMapper extends BaseMapper<OeBxsAppraise> {
     @Select({"select oba.id, oba.content, oba.reply_comment_id as replyCommentId, oba.create_time as createTime, oba.user_id as userId," +
             " oba.praise_cnt as praiseCnt, oba.is_delete as deleted, ou.name, ou.small_head_photo as smallHeadPhoto" +
             " from oe_bxs_appraise oba left join oe_user ou on oba.user_id = ou.id" +
-            " where oba.article_id = #{aid} and oba.is_delete = 0"})
+            " where oba.article_id = #{aid} and oba.is_delete = 0" +
+            " order by oba.create_time desc"})
     List<AppraiseVO> listByArticleId(@Param("aid") Integer aid, Page<AppraiseVO> page);
 
     @Select({"<script>select oba.id, oba.content, oba.reply_comment_id as replyCommentId, oba.create_time as createTime, oba.user_id as userId," +
