@@ -28,7 +28,8 @@
 		  cai.`course_length` courseLength,
 		  cai.`course_form` courseForm,
 		  cai.`status` applyStatus,
-		  oc.`status`
+		  oc.`status`,
+		  oc.id courseId
 		FROM
 		  `course_apply_info` cai
 		  LEFT JOIN

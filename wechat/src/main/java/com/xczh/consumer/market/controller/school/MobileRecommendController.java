@@ -5,9 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,15 +17,14 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.xczh.consumer.market.interceptor.IOSVersionInterceptor;
 import com.xczh.consumer.market.utils.APPUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczhihui.common.util.enums.BannerType;
-import com.xczhihui.common.util.enums.PagingFixedType;
-import com.xczhihui.common.util.enums.ProjectType;
+import com.xczhihui.common.util.enums.*;
 import com.xczhihui.course.model.MobileBanner;
 import com.xczhihui.course.model.MobileProject;
+import com.xczhihui.course.service.ICourseSolrService;
 import com.xczhihui.course.service.IMobileBannerService;
 import com.xczhihui.course.service.IMobileProjectService;
 import com.xczhihui.course.service.IMyInfoService;
-import com.xczhihui.course.vo.CourseLecturVo;
+import com.xczhihui.course.vo.CourseSolrVO;
 import com.xczhihui.course.vo.MenuVo;
 import com.xczhihui.course.vo.QueryConditionVo;
 
@@ -53,6 +50,8 @@ public class MobileRecommendController {
 
     @Autowired
     private IMyInfoService myInfoService;
+    @Autowired
+    private ICourseSolrService courseSolrService;
 
     /**
      * 推荐  包含的信息:banner  ,推荐导航, 名师推荐
@@ -60,8 +59,6 @@ public class MobileRecommendController {
     @RequestMapping("recommendTop")
     @ResponseBody
     public ResponseObject recommendTop(HttpServletRequest request) throws Exception {
-//		Integer current = 1;
-//		Integer size = 100;
         Map<String, Object> mapAll = new HashMap<String, Object>();
         //课程banner
         Page<MobileBanner> MobileBannerPage = new Page<>();
@@ -83,10 +80,8 @@ public class MobileRecommendController {
      */
     @RequestMapping("recommendCourse")
     @ResponseBody
-    public ResponseObject recommendBunch(HttpServletRequest req,
-                                         HttpServletResponse res)
-            throws Exception {
-        /**
+    public ResponseObject recommendBunch() throws Exception {
+        /*
          * 精品课程 按照推荐值来排序。
          * 最新课程 课程的时间排序
          * 针灸课程
@@ -113,43 +108,39 @@ public class MobileRecommendController {
      * 类型
      * 城市
      */
-//    @RequestMapping("queryAllCourse")
-//    @ResponseBody
-//    public ResponseObject queryAllCourse(String menuType, 
-//    		String city,String isFree,
-//    		Integer lineState, Integer courseType,
-//    		String queryKey,
-//    		Integer pageNumber, Integer pageSize)
-//            throws Exception {
-//        List<CourseVo> list = wxcpCourseService.queryAllCourse(menuType, lineState, courseType, isFree, city, queryKey, pageNumber, pageSize,IOSVersionInterceptor.onlyThread.get());
-//        return ResponseObject.newSuccessResponseObject(list);
-//    }
     @RequestMapping("queryAllCourse")
     @ResponseBody
-    public ResponseObject queryAllCourse(
-            QueryConditionVo queryConditionVo,
-            Integer pageNumber, Integer pageSize)
-            throws Exception {
+    public ResponseObject queryAllCourse( QueryConditionVo queryConditionVo, Integer pageNumber, Integer pageSize) throws Exception {
 
         pageNumber = pageNumber == null ? 1 : pageNumber;
-        pageSize = pageSize == null ? 10 : pageSize;
+        pageSize = pageSize == null ? Integer.MAX_VALUE : pageSize;
+        handleQueryConditionVo(queryConditionVo);
 
+        Page<CourseSolrVO> page = new Page<>(pageNumber, pageSize);
+        page = courseSolrService.selectCourseListBySolr(page, queryConditionVo);
+        return ResponseObject.newSuccessResponseObject(page.getRecords());
+    }
+
+    private void handleQueryConditionVo(QueryConditionVo queryConditionVo) {
         if (queryConditionVo.getMenuType() != null && "0".equals(queryConditionVo.getMenuType())) {
             queryConditionVo.setMenuType(null);
         }
         if (queryConditionVo.getLineState() != null && queryConditionVo.getLineState() == 0) {
             queryConditionVo.setLineState(null);
         }
-
-        Page<CourseLecturVo> page = new Page<CourseLecturVo>(pageNumber, pageSize);
-        // 课程列表
-        if (StringUtils.isNotBlank(queryConditionVo.getQueryKey())) {
-            queryConditionVo.setQueryKey("%" + queryConditionVo.getQueryKey() + "%");
-            page = mobileBannerService.searchQueryKeyCourseList(page, queryConditionVo, IOSVersionInterceptor.onlyThread.get());
-        } else {
-            page = mobileBannerService.searchCourseList(page, queryConditionVo, IOSVersionInterceptor.onlyThread.get());
+        if (queryConditionVo.getCourseType() != null) {
+            if(queryConditionVo.getCourseType().equals(CourseType.VIDEO.getId())){
+                queryConditionVo.setCourseForm(CourseForm.VOD.getCode());
+                queryConditionVo.setMultimediaType(Multimedia.VIDEO.getCode());
+            }else if(queryConditionVo.getCourseType().equals(CourseType.AUDIO.getId())){
+                queryConditionVo.setCourseForm(CourseForm.VOD.getCode());
+                queryConditionVo.setMultimediaType(Multimedia.AUDIO.getCode());
+            }else if(queryConditionVo.getCourseType().equals(CourseType.LIVE.getId())){
+                queryConditionVo.setCourseForm(CourseForm.LIVE.getCode());
+            }else if(queryConditionVo.getCourseType().equals(CourseType.OFFLINE.getId())){
+                queryConditionVo.setCourseForm(CourseForm.OFFLINE.getCode());
+            }
         }
-        return ResponseObject.newSuccessResponseObject(page.getRecords());
     }
 
 
@@ -158,12 +149,8 @@ public class MobileRecommendController {
      */
     @RequestMapping("clickBanner")
     @ResponseBody
-    public ResponseObject clickBanner(HttpServletRequest req,
-                                      HttpServletResponse res, @RequestParam("id") String id)
-            throws Exception {
-
+    public ResponseObject clickBanner(@RequestParam("id") String id) throws Exception {
         mobileBannerService.addClickNum(id);
-
         return ResponseObject.newSuccessResponseObject("点击量+1");
     }
 }

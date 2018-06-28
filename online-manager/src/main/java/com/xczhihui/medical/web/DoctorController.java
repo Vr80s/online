@@ -22,6 +22,7 @@ import com.xczhihui.bxg.online.common.domain.MedicalHospital;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.common.web.controller.AbstractController;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorSolrService;
 import com.xczhihui.medical.enums.MedicalExceptionEnum;
 import com.xczhihui.medical.exception.MedicalException;
 import com.xczhihui.medical.service.DoctorService;
@@ -45,6 +46,8 @@ public class DoctorController extends AbstractController {
     private DoctorService doctorService;
     @Autowired
     private DoctorSolrService doctorSolrService;
+    @Autowired
+    private IMedicalDoctorSolrService medicalDoctorSolrService;
 
     @Value("${web.url}")
     private String weburl;
@@ -226,8 +229,13 @@ public class DoctorController extends AbstractController {
      */
     @RequestMapping(value = "updateStatus", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseObject updateStatus(String id) {
-        doctorService.updateStatus(id);
+    public ResponseObject updateStatus(String id) throws IOException, SolrServerException {
+        boolean status = doctorService.updateStatus(id);
+        if(status){
+            medicalDoctorSolrService.initDoctorsSolrDataById(id);
+        }else{
+            medicalDoctorSolrService.deleteDoctorsSolrDataById(id);
+        }
         return ResponseObject.newSuccessResponseObject("操作成功！");
     }
 

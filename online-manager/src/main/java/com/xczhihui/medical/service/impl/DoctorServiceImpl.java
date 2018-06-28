@@ -69,20 +69,19 @@ public class DoctorServiceImpl extends OnlineBaseServiceImpl implements
 	}
 
 	@Override
-	public void updateStatus(String id) {
-		// TODO Auto-generated method stub
-
+	public boolean updateStatus(String id) {
 		String hql = "from MedicalDoctor where 1=1 and deleted=0 and id = ?";
 		MedicalDoctor MedicalDoctor = dao
 				.findByHQLOne(hql, new Object[] { id });
-
+		boolean status = true;
 		if (MedicalDoctor.getStatus()) {
 			MedicalDoctor.setStatus(false);
+			status = false;
 		} else {
 			MedicalDoctor.setStatus(true);
 		}
-
 		dao.update(MedicalDoctor);
+		return status;
 	}
 
 	@Override

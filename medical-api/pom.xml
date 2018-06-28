@@ -23,6 +23,10 @@
             <groupId>com.xczhihui</groupId>
             <artifactId>common-solr</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.xczhihui</groupId>
+            <artifactId>common-exception</artifactId>
+        </dependency>
         <!-- Mybatis-Plus -->
         <dependency>
             <groupId>com.baomidou</groupId>
@@ -37,10 +41,6 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.xczhihui</groupId>
-            <artifactId>common-exception</artifactId>
         </dependency>
     </dependencies>
 </project>

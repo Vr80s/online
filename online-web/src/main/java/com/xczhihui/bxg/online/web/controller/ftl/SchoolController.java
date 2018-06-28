@@ -5,10 +5,9 @@ import java.io.IOException;
 import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.collections.MapUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.solr.client.solrj.SolrServerException;
 import org.aspectj.util.FileUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,17 +20,16 @@ import org.springframework.web.servlet.ModelAndView;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.body.course.LineApplyBody;
-import com.xczhihui.bxg.online.web.controller.ftl.AbstractFtlController;
 import com.xczhihui.bxg.online.web.utils.HtmlUtil;
 import com.xczhihui.bxg.online.web.utils.ftl.ReplaceUrl;
 import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.common.util.enums.*;
 import com.xczhihui.course.consts.MultiUrlHelper;
-import com.xczhihui.course.enums.RouteTypeEnum;
 import com.xczhihui.course.model.OfflineCity;
 import com.xczhihui.course.service.*;
 import com.xczhihui.course.util.CourseUtil;
 import com.xczhihui.course.vo.CourseLecturVo;
+import com.xczhihui.course.vo.CourseSolrVO;
 import com.xczhihui.course.vo.MenuVo;
 import com.xczhihui.course.vo.QueryConditionVo;
 import com.xczhihui.medical.anchor.service.ICourseApplyService;
@@ -67,6 +65,9 @@ public class SchoolController extends AbstractFtlController {
     @Autowired
     private ILineApplyService lineApplyService;
 
+    @Autowired
+    private ICourseSolrService courseSolrService;
+
     @Value("${web.url}")
     private String webUrl;
 
@@ -81,7 +82,6 @@ public class SchoolController extends AbstractFtlController {
     @RequestMapping(value = "recommendation", method = RequestMethod.GET)
     public ModelAndView recommendation() {
         ModelAndView view = new ModelAndView("school/list/school_index");
-
 
         //控制banner图跳转方法
         view.addObject("replaceUrl", new ReplaceUrl());
@@ -183,7 +183,6 @@ public class SchoolController extends AbstractFtlController {
         //控制banner图跳转方法
         view.addObject("replaceUrl", new ReplaceUrl());
 
-
         // 听课banner
         view.addObject("bannerList", mobileBannerService.selectMobileBannerPage(BannerType.LISTEN.getCode(), MultiUrlHelper.URL_TYPE_WEB));
         // 听课
@@ -199,36 +198,19 @@ public class SchoolController extends AbstractFtlController {
      * @return
      */
     @RequestMapping(value = "list", method = RequestMethod.GET)
-    public ModelAndView list(HttpServletRequest req,
-                             @RequestParam(value = "page", required = false)
-                                     Integer current, Integer size,
-                             QueryConditionVo queryConditionVo) {
+    public ModelAndView list(HttpServletRequest req, @RequestParam(value = "page", required = false) Integer current, Integer size, QueryConditionVo queryConditionVo) throws IOException, SolrServerException {
 
         ModelAndView view = new ModelAndView("school/list/school_list");
 
         current = current == null ? 1 : current;
         size = size == null ? 12 : size;
+        handleQueryConditionVo(queryConditionVo);
 
-        if (queryConditionVo.getMenuType() != null && "0".equals(queryConditionVo.getMenuType())) {
-            queryConditionVo.setMenuType(null);
-        }
-        if (queryConditionVo.getLineState() != null && queryConditionVo.getLineState() == 0) {
-            queryConditionVo.setLineState(null);
-        }
+        Page<CourseSolrVO> page = new Page<>(current, size);
+        page = courseSolrService.selectCourseListBySolr(page, queryConditionVo);
+        view.addObject("courseList", page);
 
-        // 课程列表
-        if (StringUtils.isNotBlank(queryConditionVo.getQueryKey())) {
-            queryConditionVo.setQueryKey("%" + queryConditionVo.getQueryKey() + "%");
-            view.addObject("courseList", mobileBannerService.searchQueryKeyCourseList(new Page<CourseLecturVo>(current, size), queryConditionVo));
-        } else {
-            view.addObject("courseList", mobileBannerService.searchCourseList(new Page<CourseLecturVo>(current, size), queryConditionVo));
-        }
-
-
-        /**
-         * 
-         * 拼接url参数
-         */
+        //拼接url参数
         StringBuffer sb = new StringBuffer("/courses/list");
         Enumeration em = req.getParameterNames();
         if (em.hasMoreElements()) {
@@ -247,10 +229,10 @@ public class SchoolController extends AbstractFtlController {
         } else {
             view.addObject("webUrlParam", sb.toString());
         }
-        
+
         //new ReplaceUrl()   替换url的方法
         view.addObject("replaceUrl", new ReplaceUrl());
-        
+
         /**
          * 判断如果是ajax请求的话，那么就不请求下面的分类列表了。
          * 	如果是页面跳转过来的话需要请求下呢。
@@ -271,10 +253,10 @@ public class SchoolController extends AbstractFtlController {
         OfflineCityPage.setCurrent(1);
         OfflineCityPage.setSize(5);
         List<OfflineCity> oclist = offlineCityService.selectOfflineCityPage(OfflineCityPage).getRecords();
-        if (oclist!=null && oclist.size() >0 ) {
-	        OfflineCity oc = new OfflineCity();
-	        oc.setCityName("其他");
-	        oclist.add(oc);
+        if (oclist != null && oclist.size() > 0) {
+            OfflineCity oc = new OfflineCity();
+            oc.setCityName("其他");
+            oclist.add(oc);
         }
         for (OfflineCity city : oclist) {
             String name = city.getCityName();
@@ -300,11 +282,11 @@ public class SchoolController extends AbstractFtlController {
 
         pageNumber = pageNumber == null ? 1 : pageNumber;
         pageSize = pageSize == null ? 5 : pageSize;
-        
+
         ModelAndView view = new ModelAndView("school/course_details");
         //显示详情呢、大纲、评论、常见问题呢
         //outline  comment    info   aq  selection
-        if(isNotCoursePage(type)){
+        if (isNotCoursePage(type)) {
             return to404();
         }
         view.addObject("type", type);
@@ -313,7 +295,7 @@ public class SchoolController extends AbstractFtlController {
         //获取用户信息
         OnlineUser user = getCurrentUser();
         CourseLecturVo clv = courseService.selectCourseMiddleDetailsById(courseId);
-        if(clv == null){
+        if (clv == null) {
             return to404();
         }
         //计算星级
@@ -339,7 +321,7 @@ public class SchoolController extends AbstractFtlController {
             }
         }
         String description = "";
-        if(clv.getDescription()!=null){
+        if (clv.getDescription() != null) {
             description = HtmlUtil.getTextFromHtml(clv.getDescription());
             description = description.length() < 100 ? description : description.substring(0, 99);
         }
@@ -359,7 +341,7 @@ public class SchoolController extends AbstractFtlController {
         view.addObject("commonProblem", FileUtil.readAsString(f));
 
         //课程评价
-        if(type!=null && type.equals("comment")) {
+        if (type != null && type.equals("comment")) {
             Map<String, Object> map = null;
             if (courseId != null) {
                 map = criticizeService.getCourseCriticizes(new Page<>(pageNumber, pageSize), courseId, user != null ? user.getId() : null);
@@ -367,7 +349,7 @@ public class SchoolController extends AbstractFtlController {
                 map = criticizeService.getAnchorCriticizes(new Page<>(pageNumber, pageSize), userId, user != null ? user.getId() : null);
             }
             view.addObject("criticizesMap", map);
-            
+
             //查询各种平均值
             List<Integer> listComment = criticizeService.selectPcCourseCommentMeanCount(clv.getCollection(), courseId);
             view.addObject("listCommentCount", listComment);
@@ -383,7 +365,7 @@ public class SchoolController extends AbstractFtlController {
 
     private boolean isNotCoursePage(String type) {
         //outline  comment    info   aq
-        final List typeList = Arrays.asList("outline","comment","info","aq");
+        final List typeList = Arrays.asList("outline", "comment", "info", "aq");
         return !typeList.contains(type);
     }
 
@@ -426,5 +408,27 @@ public class SchoolController extends AbstractFtlController {
         modelAndView.addObject("sex", MapUtils.getString(lineApply, "sex", ""));
         modelAndView.addObject("courseId", courseId);
         return modelAndView;
+    }
+
+    private void handleQueryConditionVo(QueryConditionVo queryConditionVo) {
+        if (queryConditionVo.getMenuType() != null && "0".equals(queryConditionVo.getMenuType())) {
+            queryConditionVo.setMenuType(null);
+        }
+        if (queryConditionVo.getLineState() != null && queryConditionVo.getLineState() == 0) {
+            queryConditionVo.setLineState(null);
+        }
+        if (queryConditionVo.getCourseType() != null) {
+            if (queryConditionVo.getCourseType().equals(CourseType.VIDEO.getId())) {
+                queryConditionVo.setCourseForm(CourseForm.VOD.getCode());
+                queryConditionVo.setMultimediaType(Multimedia.VIDEO.getCode());
+            } else if (queryConditionVo.getCourseType().equals(CourseType.AUDIO.getId())) {
+                queryConditionVo.setCourseForm(CourseForm.VOD.getCode());
+                queryConditionVo.setMultimediaType(Multimedia.AUDIO.getCode());
+            } else if (queryConditionVo.getCourseType().equals(CourseType.LIVE.getId())) {
+                queryConditionVo.setCourseForm(CourseForm.LIVE.getCode());
+            } else if (queryConditionVo.getCourseType().equals(CourseType.OFFLINE.getId())) {
+                queryConditionVo.setCourseForm(CourseForm.OFFLINE.getCode());
+            }
+        }
     }
 }

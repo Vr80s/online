@@ -1,6 +1,7 @@
 package com.xczhihui.course.web;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +9,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.solr.client.solrj.SolrServerException;
 import org.aspectj.util.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,6 +31,7 @@ import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.common.util.enums.CourseStatus;
 import com.xczhihui.common.web.controller.AbstractController;
 import com.xczhihui.course.service.CourseService;
+import com.xczhihui.course.service.ICourseSolrService;
 import com.xczhihui.course.vo.CourseVo;
 import com.xczhihui.course.vo.LecturerVo;
 import com.xczhihui.course.vo.MenuVo;
@@ -58,6 +61,8 @@ public class CourseController extends AbstractController {
 
     @Autowired
     private OnlineUserService onlineUserService;
+    @Autowired
+    private ICourseSolrService courseSolrService;
 
     @RequestMapping(value = "index")
     public String index(HttpServletRequest request) {
@@ -193,7 +198,6 @@ public class CourseController extends AbstractController {
     @RequestMapping(value = "getSecoundMenu", method = RequestMethod.POST)
     @ResponseBody
     public Object getSecoundMenu(String firstMenuNumber) {
-        //System.out.println("firstMenuNumber:"+firstMenuNumber);
         List<MenuVo> menuVo = courseService.getsecoundMenus(firstMenuNumber);
         return menuVo;
     }
@@ -205,7 +209,6 @@ public class CourseController extends AbstractController {
      * @param id
      * @return
      */
-    //@RequiresPermissions("course:menu:course")
     @RequestMapping(value = "findCourseById", method = RequestMethod.GET)
     @ResponseBody
     public List<CourseVo> findCourseById(Integer id) {
@@ -220,8 +223,9 @@ public class CourseController extends AbstractController {
      */
     @RequestMapping(value = "updateStatus", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseObject updateStatus(Integer id) {
+    public ResponseObject updateStatus(Integer id) throws IOException, SolrServerException {
         courseService.updateStatus(id);
+        courseSolrService.initCourseSolrDataById(id);
         return ResponseObject.newSuccessResponseObject("操作成功！");
     }
 
@@ -399,32 +403,6 @@ public class CourseController extends AbstractController {
         return courseService.getCourselist(search);
     }
 
-    /**
-     * 同步CC视频分类
-     *
-     * @return
-     * @throws Exception
-     */
-    @RequestMapping(value = "updateCategoryInfo", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseObject updateCategoryInfo(String courseId) throws Exception {
-        courseService.updateCategoryInfo(courseId);
-        return ResponseObject.newSuccessResponseObject("操作成功！");
-    }
-
-    /**
-     * 同步课程视频信息（无章节知识点版）
-     *
-     * @param id
-     * @return
-     */
-    @RequestMapping(value = "updateCourseVideo", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseObject updateCourseVideo(String id) {
-
-
-        return ResponseObject.newSuccessResponseObject(courseService.updateCourseVideo(id));
-    }
 
     @RequestMapping(value = "courseInfoDetail")
     public String courseInfoDetail(HttpServletRequest request, Integer id) {
@@ -443,10 +421,10 @@ public class CourseController extends AbstractController {
      **/
     @RequestMapping(value = "updateRecommendSort", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseObject updateRecommendSort(Integer id, Integer recommendSort, String recommendTime) {
+    public ResponseObject updateRecommendSort(Integer id, Integer recommendSort, String recommendTime) throws IOException, SolrServerException {
         ResponseObject responseObject = new ResponseObject();
-
         courseService.updateRecommendSort(id, recommendSort, recommendTime);
+        courseSolrService.initCourseSolrDataById(id);
         responseObject.setSuccess(true);
         responseObject.setResultObject("修改成功!");
         return responseObject;
@@ -462,9 +440,10 @@ public class CourseController extends AbstractController {
      **/
     @RequestMapping(value = "updatedefaultStudent", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseObject updatedefaultStudent(Integer id, Integer recommendSort) {
+    public ResponseObject updatedefaultStudent(Integer id, Integer recommendSort) throws IOException, SolrServerException {
         ResponseObject responseObject = new ResponseObject();
         courseService.updatedefaultStudent(id, recommendSort);
+        courseSolrService.initCourseSolrDataById(id);
         responseObject.setSuccess(true);
         responseObject.setResultObject("修改成功!");
         return responseObject;
@@ -498,5 +477,12 @@ public class CourseController extends AbstractController {
         courseService.updateCitySortDown(id);
         responseObj.setSuccess(true);
         return responseObj;
+    }
+
+    @RequestMapping("initCoursesSolrData")
+    @ResponseBody
+    public ResponseObject initCoursesSolrData() throws IOException, SolrServerException {
+        courseSolrService.initCoursesSolrData();
+        return ResponseObject.newSuccessResponseObject("课程数据刷新成功");
     }
 }

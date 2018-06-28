@@ -33,86 +33,84 @@ import com.xczhihui.course.service.IOfflineCityService;
 @Controller
 @RequestMapping("/xczh/classify")
 public class MobileClassifyController {
-	
-	@Autowired
-	private MenuService menuService;
 
-	@Autowired
-	private IMobileProjectService mobileProjectService;
+    @Autowired
+    private MenuService menuService;
 
-	@Autowired
-	private IOfflineCityService offlineCityService;
+    @Autowired
+    private IMobileProjectService mobileProjectService;
 
-	@Autowired
-	private ICourseService courseService;
+    @Autowired
+    private IOfflineCityService offlineCityService;
 
-	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(MobileClassifyController.class);
+    @Autowired
+    private ICourseService courseService;
 
-	/**
-	 * 分类
-	 */
-	@RequestMapping("schoolClass")
-	@ResponseBody
-	public ResponseObject schoolClass(HttpServletRequest req,
-									  HttpServletResponse res)
-			throws Exception {
+    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(MobileClassifyController.class);
 
-		List<Object> list = new ArrayList<Object>();
-		//课程分类
-		list.add(menuService.list());
-		//课程专题
+    /**
+     * 分类
+     */
+    @RequestMapping("schoolClass")
+    @ResponseBody
+    public ResponseObject schoolClass(HttpServletRequest req,
+                                      HttpServletResponse res)
+            throws Exception {
+
+        List<Object> list = new ArrayList<Object>();
+        //课程分类
+        list.add(menuService.list());
+        //课程专题
 //		Page<MobileProject> MobileProjectPage = new Page<>();
 //		MobileProjectPage.setCurrent(1);
 //		MobileProjectPage.setSize(100);
-		List<MobileProject> mplist = mobileProjectService.selectMobileProjectPage(ProjectType.PROJECT_CATEGORY.getCode());
-		list.add(mplist);
-		//课程类型
-		List<Map<String, Object>> getCourseTypeList = mobileProjectService.getCourseType();
-		list.add(getCourseTypeList);
-		return ResponseObject.newSuccessResponseObject(list);
-	}
+        List<MobileProject> mplist = mobileProjectService.selectMobileProjectPage(ProjectType.PROJECT_CATEGORY.getCode());
+        list.add(mplist);
+        //课程类型
+        List<Map<String, Object>> getCourseTypeList = mobileProjectService.getCourseType();
+        list.add(getCourseTypeList);
+        return ResponseObject.newSuccessResponseObject(list);
+    }
 
-	/**
-	 * 列表筛选
-	 */
-	@RequestMapping("listScreen")
-	@ResponseBody
-	public ResponseObject listScreen(HttpServletRequest req,
-									  HttpServletResponse res)
-			throws Exception {
+    /**
+     * 列表筛选
+     */
+    @RequestMapping("listScreen")
+    @ResponseBody
+    public ResponseObject listScreen() throws Exception {
 
-		List<Object> list = new ArrayList<Object>();
-		//课程分类
-		list.add(menuService.list());
-		//是否付费
-		List<Map<String, Object>> getPayStatusList = courseService.getPayStatusList();
-		list.add(getPayStatusList);
-		//课程类型
-		List<Map<String, Object>> getCourseTypeList = mobileProjectService.getCourseType();
-		list.add(getCourseTypeList);
-		
-		//城市
-		Page<OfflineCity> OfflineCityPage = new Page<>();
-		OfflineCityPage.setCurrent(1);
-		OfflineCityPage.setSize(5);
-		List<OfflineCity> oclist = offlineCityService.selectOfflineCityPage(OfflineCityPage).getRecords();
-	    if (oclist!=null && oclist.size() >0 ) {
-	        OfflineCity oc = new OfflineCity();
-	        oc.setCityName("其他");
-	        oclist.add(oc);
-	    }
-		for(OfflineCity city : oclist){
-			String name = city.getCityName();
-			city.setName(name);
-		}
-		list.add(oclist);
-		
-		//直播状态
-		List<Map<String, Object>> getLiveStatusList = courseService.getLiveStatusList();
-		list.add(getLiveStatusList);
+        List<Object> list = new ArrayList<Object>();
+        //课程分类
+        list.add(menuService.list());
+        //是否付费
+        List<Map<String, Object>> getPayStatusList = courseService.getPayStatusList();
+        list.add(getPayStatusList);
+        //课程类型
+        List<Map<String, Object>> getCourseTypeList = mobileProjectService.getCourseType();
+        list.add(getCourseTypeList);
 
-		return ResponseObject.newSuccessResponseObject(list);
-	}
+        //城市
+        Page<OfflineCity> OfflineCityPage = new Page<>();
+        OfflineCityPage.setCurrent(1);
+        OfflineCityPage.setSize(5);
+        List<OfflineCity> oclist = offlineCityService.selectOfflineCityPage(OfflineCityPage).getRecords();
+        if (oclist != null && oclist.size() > 0) {
+            OfflineCity oc = new OfflineCity();
+            oc.setCityName("其他");
+            oclist.add(oc);
+        }
+        for (OfflineCity city : oclist) {
+            String name = city.getCityName();
+            city.setName(name);
+        }
+        list.add(oclist);
 
-	
+        //直播状态
+        List<Map<String, Object>> getLiveStatusList = courseService.getLiveStatusList();
+        list.add(getLiveStatusList);
+
+        return ResponseObject.newSuccessResponseObject(list);
+    }
+
+
 }

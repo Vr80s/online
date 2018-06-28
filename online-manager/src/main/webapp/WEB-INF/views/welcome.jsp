@@ -68,7 +68,7 @@
 		<h2>欢迎访问熊猫中医直播教育管理系统!</h2>	
 	<!--左边图片-->
 	<div class="yaocai z">
-		<img src="../../images/welcome/扁鹊.jpg"/ alt="药材">
+		<img src="../../images/welcome/扁鹊.jpg" alt="药材">
 	</div>
 	<!--右边内容-->
 	<div class="main y">

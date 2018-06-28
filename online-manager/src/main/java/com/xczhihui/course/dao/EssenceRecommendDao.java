@@ -37,7 +37,7 @@ public class EssenceRecommendDao extends HibernateDao<Course> {
 						+ "  oc.menu_id AS menuId,\n"
 						+ "  oc.course_type_id AS courseTypeId,\n"
 						+ "  oc.courseType AS courseType,\n"
-						+ "  if(oc.sort_update_time< now(),0,oc.recommend_sort) recommendSort, "
+						+ "  oc.recommend_sort recommendSort, "
 						+ "  oc.release_time,\n"
 						+ "  oc.sort_update_time as sortUpdateTime,\n"
 						+ "  oc.course_type AS serviceType,\n"
