@@ -120,9 +120,9 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
      * @param doctorApply 更新的数据封装类
      */
     @Override
-    public void updateStatus(MedicalDoctorApply doctorApply) {
+    public String updateStatus(MedicalDoctorApply doctorApply) {
         if (doctorApply == null) {
-            return;
+            return null;
         }
         if (StringUtils.isBlank(doctorApply.getId())) {
             throw new RuntimeException("请选择要修改的目标");
@@ -144,7 +144,7 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
         RLock lock = redissonUtil.getRedisson().getLock(
                 MedicalDoctorApplyConst.LOCK_PREFIX + apply.getId());
         boolean getLock = false;
-
+        String doctorId = null;
         try {
 
             if (getLock = lock.tryLock(3, 10, TimeUnit.SECONDS)) {
@@ -169,7 +169,7 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
                 switch (status) {
                     // 当status = 1 即认证通过
                     case 1:
-                        this.authenticationPassHandle(apply);
+                        doctorId = this.authenticationPassHandle(apply);
                         break;
                     // 当status = 0 即认证被拒
                     case 0:
@@ -195,14 +195,14 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
         } finally {
 
             if (!getLock) {
-                return;
+                return doctorId;
             }
 
             lock.unlock();
 
             logger.info("--------------  redisson release lock");
         }
-
+        return doctorId;
     }
 
     @Override
@@ -305,7 +305,7 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
     /**
      * 处理认证通过逻辑
      */
-    private void authenticationPassHandle(MedicalDoctorApply apply) {
+    private String authenticationPassHandle(MedicalDoctorApply apply) {
 
         // 判断用户是否已经认证医馆（医师 医馆只能认证一个）
         MedicalHospitalAccount hospitalAccount = hospitalAccountDao
@@ -323,10 +323,8 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
                 .findByAccountId(apply.getUserId());
         // 判断用户是否已经是医师 如果是，则表示其重新认证
         if (doctorAccount != null) {
-
             this.applyAgain(apply, doctorAccount.getDoctorId());
-
-            return;
+            return null;
         }
 
         Date now = new Date();
@@ -385,6 +383,8 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
         anchorDao.save(courseAnchor);
 
         sendApprovePassMessage(courseAnchor, apply.getCreateTime());
+
+        return doctorId;
     }
 
     /**

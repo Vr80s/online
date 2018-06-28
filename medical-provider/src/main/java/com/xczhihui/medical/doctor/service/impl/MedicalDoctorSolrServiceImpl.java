@@ -67,9 +67,11 @@ public class MedicalDoctorSolrServiceImpl implements IMedicalDoctorSolrService {
 
     @Override
     public void initDoctorsSolrDataById(String doctorId) throws IOException, SolrServerException {
-        MedicalDoctorSolrVO medicalDoctorSolrVO = selectDoctor4SolrById(doctorId);
-        solrUtils.addBean(medicalDoctorSolrVO);
-        logger.warn("医师数据更新:{}",medicalDoctorSolrVO.toString());
+        if(StringUtils.isNotBlank(doctorId)){
+            MedicalDoctorSolrVO medicalDoctorSolrVO = selectDoctor4SolrById(doctorId);
+            solrUtils.addBean(medicalDoctorSolrVO);
+            logger.warn("医师数据更新:{}",medicalDoctorSolrVO.toString());
+        }
     }
 
     @Override

@@ -69,13 +69,15 @@ public class CourseSolrServiceImpl implements ICourseSolrService {
 
     @Override
     public void initCourseSolrDataById(Integer id) throws IOException, SolrServerException {
-        CourseSolrVO courseSolrVO = selectDoctor4SolrById(id);
-        if(courseSolrVO != null){
-            solrUtils.addBean(courseSolrVO);
-            logger.warn("课程数据更新完成，{}",courseSolrVO.toString());
-        }else{
-            deleteCoursesSolrDataById(id);
-            logger.warn("课程数据删除完成，{}",id);
+        if(id != null){
+            CourseSolrVO courseSolrVO = selectDoctor4SolrById(id);
+            if(courseSolrVO != null){
+                solrUtils.addBean(courseSolrVO);
+                logger.warn("课程数据更新完成，{}",courseSolrVO.toString());
+            }else{
+                deleteCoursesSolrDataById(id);
+                logger.warn("课程数据删除完成，{}",id);
+            }
         }
     }
 

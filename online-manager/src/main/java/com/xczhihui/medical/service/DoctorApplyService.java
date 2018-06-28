@@ -26,11 +26,11 @@ public interface DoctorApplyService {
 
 	/**
 	 * 更新医师入驻申请状态
-	 * 
-	 * @param doctorApply
-	 *            更新的数据封装类
-	 */
-	void updateStatus(MedicalDoctorApply doctorApply);
+	 *
+     * @param doctorApply
+     *            更新的数据封装类
+     */
+	String updateStatus(MedicalDoctorApply doctorApply);
 
 	/**
 	 * 根据id查询医师入驻申请状态

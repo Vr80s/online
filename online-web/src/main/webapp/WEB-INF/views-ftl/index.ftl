@@ -265,7 +265,7 @@
 									<#if doctor.workTime?? && doctor.workTime != "暂无">
 										<p>${doctor.workTime?default('')}</p>
 	                      			</#if>
-	                      			<p>${doctor.province}&nbsp;${doctor.city}&nbsp; </p>
+	                      			<p>${doctor.province?default('')}&nbsp;${doctor.city?default('')}&nbsp; </p>
 								</li>
 							</#list>
 						</ul>
