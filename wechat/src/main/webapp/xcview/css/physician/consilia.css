@@ -372,4 +372,72 @@ header{
 /*点击分享按钮结束*/
 
 
+/*回复评价开始*/
+.bg_userModal {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    display: none;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,.1);
+}
+.wrapLittle_comment {
+    width: 7.5rem;
+    position: fixed;
+    height: 4.45rem;
+    display: none;
+    background: white;
+    box-sizing: border-box;
+    bottom: 0;
+    left: 50%;
+    margin-left: -3.75rem;
+    z-index: 5;
+    padding: 0.3rem 0.26rem 0.6rem;
+}
+.little_comment {
+    padding-bottom: 0.2rem;
+}
+.detailed_comments {
+    font-size: 0.26rem;
+    color: #888888;
+    clear: both;
+    /* padding-top: 0.4rem; */
+}
+.text_write_box {
+    width: 100%;
+    height: 2rem;
+    border: 1px solid #dedede;
+    padding: 0.1rem;
+    box-sizing: border-box;
+    margin: 0.1rem 0 0.3rem;
+}
+.text_write_box textarea {
+    resize: none;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    outline: none;
+    font-size: 0.26rem;
+}
+.brow_btn li:nth-child(odd) {
+    float: left;
+    width: 0.42rem;
+    height: 0.42rem;
+}
+.brow_btn li:nth-child(odd) img {
+    width: 100%;
+    height: 100%;
+}
+.brow_btn li:nth-child(even) {
+    float: right;
+    border-radius: 0.08rem;
+    padding: 0.08rem 0.2rem;
+    background: #00BC12;
+    color: white;
+    font-size: 0.28rem;
+}
+/*回复评价结束*/
+
+
 
