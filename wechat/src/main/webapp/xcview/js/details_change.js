@@ -77,7 +77,7 @@ $(document)
 								$(".details1").hide();
 								$(".document").hide();
 								$(".leaderboard").hide();
-
+								$("#footer_ks").css("height","2.4rem");
 								$(this).parent().addClass('details01');
 								$(".li2").parent().removeClass('details01');
 								$(".li3").parent().removeClass('details01');
@@ -115,6 +115,8 @@ $(document)
 														"url(/xcview/images/face.png) no-repeat");
 										$(".face_img01").css("background-size",
 												"100% 100%");
+
+										$("#footer_ks").css("height","5.4rem");
 									});
 					$(".li3")
 							.click(
@@ -143,6 +145,8 @@ $(document)
 														"url(/xcview/images/face.png) no-repeat");
 										$(".face_img01").css("background-size",
 												"100% 100%");
+
+										$("#footer_ks").css("height","2.4rem");
 
 										// 刷新礼物排行榜
 										refreshGiftRanking();
@@ -189,6 +193,7 @@ $(document)
 														"url(/xcview/images/face.png) no-repeat");
 										$(".face_img01").css("background-size",
 												"100% 100%");
+										$("#footer_ks").css("height","2.4rem");
 									});
 					$(".li1").click();
 
