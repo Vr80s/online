@@ -38,8 +38,7 @@
 	<sql id="commonCondition">
 		from  oe_course oc
 		inner join course_anchor as ou on oc.user_lecturer_id = ou.user_id
-		where 
-	    and oc.status = 1
+		where  oc.status = 1
 		and ou.deleted =0
 		and oc.is_delete=0
 	</sql>
