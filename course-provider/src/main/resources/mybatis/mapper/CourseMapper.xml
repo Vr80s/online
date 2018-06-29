@@ -591,9 +591,30 @@
 				if(now() > DATE_SUB(oc.start_time,INTERVAL 1 HOUR) and  oc.start_time > now()  ,1,0) as isLive
 			FROM
 			oe_course oc
-			where  oc.is_delete=0 and oc.status=1  ORDER BY recommend_sort desc limit 0,10
+			where  oc.is_delete=0 and oc.status=1  
+			ORDER BY recommend_sort desc limit 0,10
 		 ) as recommendSort order by rand()
 	</select>
+	
+	
+	<!-- 通过课程类型查找，通过学习人数排名 -->
+	<select id="selectCourseByLearndCount" resultType="com.xczhihui.course.vo.CourseLecturVo">
+		SELECT
+		    <include refid="relLearningCourseListByUserId"/>
+		     if(oc.live_status=1,DATE_FORMAT(oc.start_time,'%H:%i'),if(oc.live_status=2,if(oc.start_time &lt;= DATE_ADD(DATE_ADD(str_to_date(DATE_FORMAT(NOW(),'%Y-%m-%d'),
+				 	'%Y-%m-%d %H:%i:%s'),INTERVAL 1 DAY),INTERVAL -1 SECOND),
+				 	DATE_FORMAT(oc.start_time,'%H:%i'),DATE_FORMAT(oc.start_time,'%m.%d')),
+				 	DATE_FORMAT(oc.start_time,'%m.%d') )) as startDateStr,
+			 if(now() > DATE_SUB(oc.start_time,INTERVAL 1 HOUR) and  oc.start_time > now()  ,1,0) as isLive
+		FROM
+		oe_course oc
+		 where  oc.is_delete=0 and oc.status=1  
+		<if test="type != null and type == 1 ">
+		    and  oc.type = #{type}
+	    </if>
+		ORDER BY learndCount desc
+	</select>
+	
 	
 	
 	<!-- 查询这个课程是否删除、或者被禁用  -->
