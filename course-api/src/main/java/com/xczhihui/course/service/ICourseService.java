@@ -243,4 +243,12 @@ public interface ICourseService {
     ShareInfoVo selectShareInfoByType(Integer type, String id);
 
     Course findSimpleInfoById(int id);
+
+    /**
+     * 随机查询推荐课程   
+     * @param page  分页参数查询多少条
+     * @param type  等于null时，查所有。  1 直播  2 视频音频  3 线下课
+     * @return
+     */
+	List<CourseLecturVo> selectCourseByLearndCount(Page<CourseLecturVo> page, Integer type);
 }

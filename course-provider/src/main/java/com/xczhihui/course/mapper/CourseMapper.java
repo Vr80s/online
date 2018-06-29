@@ -103,7 +103,13 @@ public interface CourseMapper extends BaseMapper<Course> {
     List<CourseLecturVo> myCourseType(@Param("page") Page<CourseLecturVo> page, @Param("userId") String userId,
                                       @Param("type") Integer type);
 
-    List<CourseLecturVo> selectRecommendSortAndRandCourse(@Param("page") Page<CourseLecturVo> page);
+    /**
+     * 随机学习人数最高的
+     * @param type null 所有推荐     1 直播  2 视频  3 线下课
+     * @return
+     */
+    List<CourseLecturVo> selectCourseByLearndCount(@Param("page") Page<CourseLecturVo> page,
+    		@Param("type") Integer type);
 
     /**
      * 查询4条该课程分类下的其他课程
@@ -169,5 +175,9 @@ public interface CourseMapper extends BaseMapper<Course> {
      */
     @Select({"select id, grade_name as gradeName from oe_course where id = #{id}"})
     Course findSimpleInfoById(@Param("id") int id);
+
+    
+    
+	List<CourseLecturVo> selectRecommendSortAndRandCourse(@Param("page")Page<CourseLecturVo> page);
 
 }

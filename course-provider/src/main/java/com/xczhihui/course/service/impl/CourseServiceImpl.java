@@ -174,8 +174,15 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         return list;
     }
 
+    
+    @Override
+    public List<CourseLecturVo> selectCourseByLearndCount(Page<CourseLecturVo> page,Integer type) {
+        return iCourseMapper.selectCourseByLearndCount(page,type);
+    }
+    
     @Override
     public List<CourseLecturVo> selectRecommendSortAndRandCourse(Page<CourseLecturVo> page) {
+    	
         return iCourseMapper.selectRecommendSortAndRandCourse(page);
     }
 

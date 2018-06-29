@@ -134,7 +134,7 @@ public class HostController {
                                  HttpServletResponse res,
                                  @RequestParam("lecturerId") String lecturerId, HttpServletRequest request) throws Exception {
         Map<String, Object> mapAll = new HashMap<String, Object>();
-        Map<String, Object> lecturerInfo = myInfoService.findHostInfoById(lecturerId);
+        Map<String, Object> lecturerInfo = myInfoService.findDoctorInfoById(lecturerId);
         if (lecturerInfo == null ) {
             return ResponseObject.newErrorResponseObject("获取医师信息有误");
         }
@@ -142,20 +142,12 @@ public class HostController {
         mapAll.put("lecturerInfo", lecturerInfo);
         mapAll.put("fansCount", listff.get(0));
         mapAll.put("focusCount", listff.get(1));
-        MedicalHospital mha = null;
-        //1.医师2.医馆
-        if (lecturerInfo.get("type").toString().equals("1")) {
-            mha = medicalHospitalApplyService.getMedicalHospitalByMiddleUserId(lecturerId);
-        } else if (lecturerInfo.get("type").toString().equals("2")) {
-            mha = medicalHospitalApplyService.getMedicalHospitalByUserId(lecturerId);
-        }
         if (accountIdOpt.isPresent()) {
             Integer isFours = focusServiceRemote.isFoursLecturer(accountIdOpt.get(), lecturerId);
             mapAll.put("isFours", isFours);
         } else {
             mapAll.put("isFours", 0);
         }
-        mapAll.put("hospital", mha);
         List<DoctorBannerVO> list = medicalDoctorBannerService.listByUserId(lecturerId);
         mapAll.put("banners", list.stream()
                 .peek(doctorBannerVO ->

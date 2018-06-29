@@ -19,6 +19,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.WeihouInterfacesListUtil;
+import com.xczhihui.common.util.enums.CourseType;
 import com.xczhihui.course.service.*;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.course.service.ICriticizeService;
@@ -332,6 +333,6 @@ public class CourseController {
         page.setCurrent(0);
         page.setSize(pageSize);
 
-        return ResponseObject.newSuccessResponseObject(courseServiceImpl.selectRecommendSortAndRandCourse(page));
+        return ResponseObject.newSuccessResponseObject(courseServiceImpl.selectCourseByLearndCount(page,1));
     }
 }

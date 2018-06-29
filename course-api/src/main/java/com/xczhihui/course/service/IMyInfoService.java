@@ -83,5 +83,5 @@ public interface IMyInfoService {
 
 	Map<String, Object> findHostInfoById(String userId, Boolean falg);
 	
-	
+	Map<String, Object> findDoctorInfoById(String userId);
 }
