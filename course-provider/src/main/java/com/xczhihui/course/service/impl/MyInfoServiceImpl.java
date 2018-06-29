@@ -30,7 +30,7 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper,OnlineUser> impl
 
 	@Autowired
 	private MyInfoMapper myInfoMapper;
-	
+
 	@Override
 	public List<BigDecimal> selectCollegeCourseXmbNumber(String userId) {
 		// TODO Auto-generated method stub
@@ -110,5 +110,14 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper,OnlineUser> impl
 		}
 		return map;
 	}
-	
+
+	@Override
+	public Map<String, Object> findDoctorInfoById(String userId) {
+		Map<String, Object> doctorInfo = myInfoMapper.findDoctorInfoById(userId);
+		if (doctorInfo != null) {
+			doctorInfo.put("user_id", userId);
+		}
+		return doctorInfo;
+	}
+
 }

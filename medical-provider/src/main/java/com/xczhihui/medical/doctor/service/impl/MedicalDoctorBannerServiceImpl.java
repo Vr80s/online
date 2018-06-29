@@ -1,13 +1,14 @@
 package com.xczhihui.medical.doctor.service.impl;
 
-import java.util.Date;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.xczhihui.common.util.DateUtil;
 import com.xczhihui.medical.doctor.mapper.MedicalDoctorBannerMapper;
 import com.xczhihui.medical.doctor.model.DoctorBanner;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBannerService;
@@ -22,6 +23,7 @@ public class MedicalDoctorBannerServiceImpl implements IMedicalDoctorBannerServi
 
     private static final Object UPDATE_STATUS_LOCK = new Object();
     private static final int MAX_ONSHELF_BANNER_COUNT = 3;
+    private static final Logger logger = LoggerFactory.getLogger(MedicalDoctorBannerServiceImpl.class);
 
     @Autowired
     private MedicalDoctorBannerMapper medicalDoctorBannerMapper;
@@ -86,5 +88,10 @@ public class MedicalDoctorBannerServiceImpl implements IMedicalDoctorBannerServi
     @Override
     public List<DoctorBannerVO> listByUserId(String userId) {
         return medicalDoctorBannerMapper.listByUserId(userId);
+    }
+
+    @Override
+    public Integer updateAllUnShelves() {
+        return medicalDoctorBannerMapper.updateAllUnShelves();
     }
 }
