@@ -111,20 +111,21 @@ function createParamsAndQuery(type,departmentId,sortType,queryKey){
 	 */
 	var typeAll = $("[class='find_nav_cur'] a").attr("title");
 	if(parseInt(typeAll) == 0){
+		
 		$(".all_right_type_ones").find(".all_right_type_one").removeClass("all_right_type_one_add");
+	
 	}else{
 		//从新赋值
 		if(stringnull(type)){
 			paramsObj.type = type;
 			for (var int = 0; int < typeArray.length; int++) {
 				var array_element = typeArray[int];
-				if(type == array_element.id){
+				if(type == array_element.code){
 					
 					/**
 					 *上方tab选中 
 					 */
 					$(".all_right_type_ones").find(".all_right_type_one").removeClass("all_right_type_one_add");
-					
 					
 					/**
 					 * 医师类型tab选中
@@ -136,7 +137,7 @@ function createParamsAndQuery(type,departmentId,sortType,queryKey){
 							 return;
 						 }
 					});
-					saisuanstr += array_element.name+"-";
+					saisuanstr += array_element.value+"-";
 					break;
 				}
 			} 

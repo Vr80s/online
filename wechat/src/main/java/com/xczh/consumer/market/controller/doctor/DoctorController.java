@@ -174,7 +174,7 @@ public class DoctorController{
 		
         Page<CourseLecturVo> page = new Page<>();
         page.setCurrent(1);
-        page.setSize(6);
+        page.setSize(Integer.MAX_VALUE);
         
     	Page<CourseLecturVo> list = courseService.selectLecturerAllCourse
     			(page, userId,3,IOSVersionInterceptor.onlyThread.get());
