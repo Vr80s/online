@@ -8,7 +8,6 @@ var postsCommentUserName="";
 $(function(){
     loginUserId = localStorage.getItem("userId");
     loginUserName = localStorage.getItem("name");
-    //doctorPostsList(null);
 
 });
 
@@ -18,7 +17,7 @@ function doctorPostsList(type) {
         pageNumber: 1,
         pageSize:10,
         type:type,
-        doctorId:"14c2192523c5438f9a10d17994a1c6a3"
+        doctorId:doctorId
     }, function (data) {
         var obj = data.resultObject.records;
         var now = new Date();
@@ -48,13 +47,16 @@ function doctorPostsList(type) {
         }
         $(".rests_nav").html(template('wrap_doctor_dynamics',{items:obj}));
         for(var i=0;i<obj.length;i++){
-            //
-            /*if(obj[i].doctorPostsCommentList.length==0 && obj[i].doctorPostsLikeList.length==0){
+            //没有点赞时隐藏小手
+            if(obj[i].doctorPostsCommentList.length==0 && obj[i].doctorPostsLikeList.length==0){
                 $("#"+obj[i].id).hide();
-            }*/
-            /*if(obj[i].doctorPostsCommentList.length>0 && obj[i].doctorPostsLikeList.length==0){
                 $("#"+obj[i].id).find(".number_people_fize").hide();
-            }*/
+                $("#"+obj[i].id).find(".evaluate_main").hide();
+            } else if(obj[i].doctorPostsCommentList.length>0 && obj[i].doctorPostsLikeList.length==0){
+                $("#"+obj[i].id).find(".number_people_fize").hide();
+            } else if(obj[i].doctorPostsCommentList.length==0 && obj[i].doctorPostsLikeList.length>0){
+                $("#"+obj[i].id).find(".evaluate_main").hide();
+            }
             //cc视频
             if(obj[i].video!=null&&obj[i].video!=""){
                 ccVideo(obj[i].video,1,obj[i].id);
@@ -104,11 +106,18 @@ function doctorPostsList(type) {
             }else {
                 // alert("删除");
                 $(".remove_copy").show();
+                $(".remove").unbind( "click" );
                 $(".remove").click(function () {
                     ajaxRequest("/doctor/posts/"+data_postsId+"/comment/"+postsCommentId,null,"DELETE",function(data) {
                         if(data.success==true){
                             $(".remove_copy").hide();
                             $(".evaluate"+data_postsId).find("."+postsCommentId).remove();
+
+                            if($("#"+data_postsId).children(".number_people_fize").children("span").is(":empty") &&data.resultObject.length==0){
+                                $("#"+data_postsId).hide();
+                            }else if(!$("#"+data_postsId).children(".number_people_fize").children("span").is(":empty") && data.resultObject.length==0){
+                                $("#"+data_postsId).find(".evaluate_main").hide();
+                            }
                             alert("删除成功");
                         }else{
                             alert("删除失败");
@@ -153,15 +162,20 @@ function sendComment(){
         if(data.success==true){
             var evaluatePostsId = "evaluate"+getPostsIdByComment;
             var getNewPostsCommentId = data.resultObject[0].id;
+            $("#"+getPostsIdByComment).show();
+            $("#"+getPostsIdByComment).find(".evaluate_main").show();
             if(postsCommentId==""){
-                $("."+evaluatePostsId+"").prepend("<div class="+'evaluateDiv '+getNewPostsCommentId+" data-id="+getNewPostsCommentId+" data-postsId="+getPostsIdByComment+" data-userId="+loginUserId+" >" +
+                $("."+evaluatePostsId+"").prepend("<div class='evaluateDiv' data-id="+getNewPostsCommentId+" data-postsId="+getPostsIdByComment+" data-userId="+loginUserId+" >" +
                     "<span class='name'>"+loginUserName+"：</span><span class=\"evaluate_cen\">"+article+"</span></div><div class=\"both\"></div>");
+                $("."+evaluatePostsId+"").find("").attr("class");
+                $("div[data-id="+getNewPostsCommentId+"]").addClass(""+getNewPostsCommentId+"");
             }else {
-                $("."+evaluatePostsId+"").prepend("<div class=\"both\"></div><div class="+'response evaluateDiv '+getNewPostsCommentId+" data-id="+getNewPostsCommentId+"" +
+                $("."+evaluatePostsId+"").prepend("<div class=\"both\"></div><div class='response evaluateDiv 'data-id="+getNewPostsCommentId+"" +
                     " data-postsId="+getPostsIdByComment+" data-replyUserId="+loginUserId+"> " +
                     "<span class=\"my\">"+loginUserName+"</span> <span class=\"response_cen\">回复</span> " +
                     "<span class=\"she\">"+postsCommentUserName+"：</span> <span class=\"response_center\">"+article+"</span>" +
                     "</div>");
+                $("div[data-id="+getNewPostsCommentId+"]").addClass(""+getNewPostsCommentId+"");
             }
 
             // 回复/删除
@@ -180,11 +194,17 @@ function sendComment(){
                     $(".comment").show();
                 }else {
                     $(".remove_copy").show();
+                    $(".remove").unbind( "click" );
                     $(".remove").click(function () {
                         ajaxRequest("/doctor/posts/"+getPostsIdByComment+"/comment/"+postsCommentId,null,"DELETE",function(data) {
                             if(data.success==true){
                                 $(".remove_copy").hide();
                                 $(".evaluate"+getPostsIdByComment).find("."+postsCommentId).remove();
+                                if($("#"+getPostsIdByComment).children(".number_people_fize").children("span").is(":empty") &&data.resultObject.length==0){
+                                    $("#"+getPostsIdByComment).hide();
+                                }else if(!$("#"+getPostsIdByComment).children(".number_people_fize").children("span").is(":empty") && data.resultObject.length==0){
+                                    $("#"+getPostsIdByComment).find(".evaluate_main").hide();
+                                }
                                 alert("删除成功");
                             }else{
                                 alert("删除失败");
@@ -212,6 +232,8 @@ function postsLike(obj,postsId) {
             $(obj).attr('src','/xcview/images/zan001.png');
             $("#"+postsId+"").children("div").find("img").attr('src','/xcview/images/zan001.png');
             //重新获取点赞列表
+            $("#"+postsId).show();
+            $("#"+postsId).find(".number_people_fize").show();
 
             getPostsLikeList(postsId,data.resultObject.list);
             alert(data.resultObject);
@@ -232,7 +254,11 @@ function delPostsLike(obj,postsId) {
             $("#"+postsId+"").children("div").find("img").attr('src','/xcview/images/zan01.png');
             //重新获取点赞列表
             getPostsLikeList(postsId,data.resultObject.list);
-
+            if($("#"+postsId).children(".evaluate_main").children("div").length==0 && data.resultObject.list.length==0){
+                $("#"+postsId).hide();
+            }else if(data.resultObject.list.length==0){
+                $("#"+postsId).find(".number_people_fize").hide();
+            }
             alert(data.resultObject);
         }else{
             alert(data.errorMessage);
