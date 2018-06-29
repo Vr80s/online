@@ -126,10 +126,10 @@ $('.path .hospital').addClass('select');
 		
 		
 		var data={};
-		data.hosName = $.trim($('.hos_base_inf .doc_zhicheng').val());
-		data.hosIntroduct = $.trim($('.hos_base_inf .personIntroduct textarea').val());
+		data.name = $.trim($('.hos_base_inf .doc_zhicheng').val());
+		//data.hosIntroduct = $.trim($('.hos_base_inf .personIntroduct textarea').val());
 		data.contactor = $.trim($('.hos_base_inf .doc_shanchang').val());
-		data.WeChat =  $.trim($('.hos_base_inf .hos_weixin').val());
+		//data.weChat =  $.trim($('.hos_base_inf .hos_weixin').val());
 		data.email = $.trim($('.hos_base_inf .doc_hospital').val());
 		data.province = $('#hos_Administration .hos_base_inf #choosePro  option:selected').text();
 		data.city = $('#hos_Administration .hos_base_inf  #citys option:selected').text();
