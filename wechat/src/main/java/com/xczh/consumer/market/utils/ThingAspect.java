@@ -72,11 +72,4 @@ public class ThingAspect {
         }
     }
 
-/*    @After("recordLog()")
-    public void after() {
-    }*/
-
-    private void printLog(String str){
-        System.out.println(str);
-    }
 }

@@ -286,7 +286,7 @@ public class HibernateDao<T> extends SimpleHibernateDao {
 				}
 				String[] strings = StringUtil.split(tem, ".");
 				if (strings == null || strings.length == 0) {
-					System.out.println("查询参数错误，请查证！");
+					logger.error("查询参数错误，请查证！");
 				}
 				Class<?> temClass = baseClass;
 				Field value = null;
@@ -372,7 +372,7 @@ public class HibernateDao<T> extends SimpleHibernateDao {
 			tem = order.getField();
 			String[] strings = StringUtil.split(tem, ".");
 			if (strings == null || strings.length == 0) {
-				System.out.println("查询参数错误，请查证！");
+				logger.error("查询参数错误，请查证！");
 			}
 			Class<?> temClass = baseClass;
 			Field value = null;
@@ -450,7 +450,7 @@ public class HibernateDao<T> extends SimpleHibernateDao {
 				String[] strings = StringUtil.split(tem, ".");
 
 				if (strings == null || strings.length == 0) {
-					System.out.println("查询参数错误，请查证！");
+					logger.error("查询参数错误，请查证！");
 				}
 				Class<?> temClass = baseClass;
 				Field value = null;
@@ -683,7 +683,7 @@ public class HibernateDao<T> extends SimpleHibernateDao {
 			List<String> Alias1, StringBuffer whereBufferHou,
 			List<Object> values) {
 		if (groups.getGroupList() == null) {
-			System.out.println("groups的GroupList不能为空！");
+			logger.error("groups的GroupList不能为空！");
 		} else {
 			if (groups.getChildGroups2() != null
 					&& groups.getChildGroups2().size() > 0
@@ -743,7 +743,7 @@ public class HibernateDao<T> extends SimpleHibernateDao {
 
 		String[] strings = StringUtil.split(group.getPropertyName(), ".");
 		if (strings == null || strings.length == 0) {
-			System.out.println("查询参数错误，请查证！");
+			logger.error("查询参数错误，请查证！");
 		}
 		Class<?> temClass = baseClass;
 		Field value = null;
@@ -796,7 +796,7 @@ public class HibernateDao<T> extends SimpleHibernateDao {
 					temClass = searchAnnotation.Class();
 					temName = alisStr;
 				} else {
-					System.out.println("多对多关系必须要配置好注解searchAnnotation的别名");
+					logger.error("多对多关系必须要配置好注解searchAnnotation的别名");
 				}
 			} else if (ReflectionUtils.isInherit(temClass, BasicEntity.class,
 					false)) {// 如果是类
@@ -861,7 +861,7 @@ public class HibernateDao<T> extends SimpleHibernateDao {
 					break;
 				}
 			} else {
-				System.out.println("拼接处的name不能以对象结尾，统一要以基本类型结尾！");
+				logger.error("拼接处的name不能以对象结尾，统一要以基本类型结尾！");
 			}
 		}
 
@@ -1027,7 +1027,7 @@ public class HibernateDao<T> extends SimpleHibernateDao {
 			StringBuffer whereBufferQian, List<String> Alias1,
 			StringBuffer whereBufferHou, List<Object> values) {
 		if (groups.getGroupList() == null) {
-			System.out.println("groups的GroupList不能为空！");
+			logger.error("groups的GroupList不能为空！");
 		} else {
 			if (groups.getChildGroups2() != null
 					&& !groups.getChildGroups2().isEmpty()
@@ -1132,7 +1132,7 @@ public class HibernateDao<T> extends SimpleHibernateDao {
 					break;
 				}
 			} else {
-				System.out.println("拼接处的name不能以对象结尾，统一要以基本类型结尾！");
+				logger.error("拼接处的name不能以对象结尾，统一要以基本类型结尾！");
 			}
 		}
 
@@ -1145,7 +1145,7 @@ public class HibernateDao<T> extends SimpleHibernateDao {
 		if (group.getPropertyValue1() == null
 				&& !(group.getMatchType() == PropertyFilter.MatchType.NULL || group
 						.getMatchType() == PropertyFilter.MatchType.NOTNULL)) {
-			System.out.println("传入值为空，但并不是查询NULL OR NOT NULL 请查证！");
+			logger.error("传入值为空，但并不是查询NULL OR NOT NULL 请查证！");
 		} else if (group.getPropertyValue1() != null
 				&& !"".equals(group.getPropertyValue1())) {
 			// 是in 或not in
@@ -1165,7 +1165,7 @@ public class HibernateDao<T> extends SimpleHibernateDao {
 			} else if (group.getMatchType() == PropertyFilter.MatchType.BETWEEN) {
 				// 如果是bwt
 				if (group.getPropertyValue2() == null) {
-					System.out.println("第二个参数不能为空");
+					logger.error("第二个参数不能为空");
 				}
 				if (group.getPropertyValue1().getClass() == Date.class
 						|| group.isDate()
@@ -1174,7 +1174,7 @@ public class HibernateDao<T> extends SimpleHibernateDao {
 					values.add(group.getPropertyValue2());
 					whereBufferHou.append(" ? and ? ");
 				} else {
-					System.out.println("BETWEEN 规定只能用于时间，数字请用大于小于进行");
+					logger.error("BETWEEN 规定只能用于时间，数字请用大于小于进行");
 				}
 
 			} else {

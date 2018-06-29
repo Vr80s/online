@@ -546,12 +546,7 @@ public class HttpUtil {
 		UserAgent userAgent = UserAgent.parseUserAgentString(req.getHeader("User-Agent"));  
         Browser browser = userAgent.getBrowser();  
         OperatingSystem os = userAgent.getOperatingSystem();
-        System.out.println("browser.getName():"+browser.getName());//浏览器名字   
-        System.out.println("os.getName():"+os.getName()); //操作系统名字
-       /* Pattern pattern = Pattern.compile(";\\s?(\\S*?\\s?\\S*?)\\s?(Build)?/"); 
-        Matcher matcher =pattern.matcher(req.getHeader("User-Agent"));    */
-        String model =getMobileType(req.getHeader("User-Agent"));  
-        System.out.println("model:"+model);//手机型号    
+        String model =getMobileType(req.getHeader("User-Agent"));
         map.put("browserName", browser.getName());
         map.put("systemName", os.getName());
         map.put("model", model);

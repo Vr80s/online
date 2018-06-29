@@ -14,6 +14,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -34,6 +37,7 @@ import com.xczhihui.vhall.bean.Webinar;
  */
 public class VhallUtil {
 
+	private static Logger logger = LoggerFactory.getLogger(VhallUtil.class);
 	private static String ACCOUNT = "v19624388";
 	private static String PWD = "xinchengzhihui";
 	private static String AUTO_TYPE = "1";
@@ -76,7 +80,6 @@ public class VhallUtil {
 		if ("success".equals(m.get("msg"))) {
 			Map<String, String> map = json2Map(m.get("data"));
 			String vhallId = map.get("user_id");
-			System.out.println(json + ":" + u.getLoginName() + ":" + password);
 			return vhallId;
 		}
 		return null;
@@ -128,7 +131,6 @@ public class VhallUtil {
 		if ("success".equals(m.get("msg"))) {
 			Map<String, String> map = json2Map(m.get("data"));
 			String vhallId = map.get("user_id");
-			System.out.println(json + ":" + u.getLoginName() + ":" + password);
 			return vhallId;
 		}
 		return null;
@@ -137,8 +139,6 @@ public class VhallUtil {
 	/**
 	 * Description：创建一个直播
 	 * 
-	 * @param u
-	 * @param password
 	 * @return
 	 * @return String
 	 * @author name：yuxin <br>
@@ -174,12 +174,10 @@ public class VhallUtil {
 		}
 
 		String json = HttpUtil.sendPostRequest(WEBINAR_CREATE, parameters);
-		System.out.println(json);
 		Map<String, String> m = json2Map(json);
 
 		JSONObject js = JSONObject.parseObject(json);
 		if ("200".equals(js.get("code"))) {
-			System.out.println(js.toJSONString());
 			return js.get("data").toString();
 		}
 		return null;
@@ -224,7 +222,6 @@ public class VhallUtil {
 		}
 
 		String json = HttpUtil.sendPostRequest(WEBINAR_UPDATE, parameters);
-		System.out.println(json);
 		Map<String, String> m = json2Map(json);
 		if ("200".equals(m.get("code"))) {
 			return m.get("data");
@@ -254,10 +251,8 @@ public class VhallUtil {
 		}
 
 		String json = HttpUtil.sendPostRequest(WEBINAR_START, parameters);
-		System.out.println(json);
 		Map<String, String> m = json2Map(json);
 		if ("200".equals(m.get("code"))) {
-			System.out.println(m.get("data"));
 			return m.get("data");
 		}
 		return null;
@@ -266,9 +261,6 @@ public class VhallUtil {
 	/**
 	 * Description：设置封面
 	 * 
-	 * @param auth_type
-	 * @param account
-	 * @param password
 	 * @param webinar_id
 	 * @param image
 	 * @return
@@ -347,7 +339,7 @@ public class VhallUtil {
 			dos.close();
 			fis.close();
 
-			System.out.println("status code: " + conn.getResponseCode());
+			logger.info("status code: " + conn.getResponseCode());
 			InputStream in = conn.getInputStream();
 			int ch;
 			StringBuilder sb2 = new StringBuilder();
@@ -355,7 +347,7 @@ public class VhallUtil {
 				sb2.append((char) ch);
 			}
 			resStr = sb2.toString();
-			System.out.println(resStr);
+			logger.info(resStr);
 			conn.disconnect();
 
 		} catch (Exception e) {
@@ -383,7 +375,6 @@ public class VhallUtil {
 			uc.setDoInput(true);// 设置是否要从 URL 连接读取数据,默认为true
 			uc.connect();
 			InputStream iputstream = uc.getInputStream();
-			System.out.println("file size is:" + uc.getContentLength());// 打印文件长度
 			byte[] buffer = new byte[4 * 1024];
 			int byteRead = -1;
 			while ((byteRead = (iputstream.read(buffer))) != -1) {
@@ -393,10 +384,8 @@ public class VhallUtil {
 			iputstream.close();
 			oputstream.close();
 		} catch (Exception e) {
-			System.out.println("读取失败！");
 			e.printStackTrace();
 		}
-		System.out.println("生成文件路径：" + savePath + "/" + uname);
 		return savePath + "/" + uname;
 	}
 
@@ -425,10 +414,8 @@ public class VhallUtil {
 		parameters.put("private_key", private_key);
 
 		String json = HttpUtil.sendPostRequest(CALLBACK_URL, parameters);
-		System.out.println(json);
 		Map<String, String> m = json2Map(json);
 		if ("200".equals(m.get("code"))) {
-			System.out.println(m.get("data"));
 			return m.get("data");
 		}
 		return null;
@@ -437,9 +424,6 @@ public class VhallUtil {
 	/**
 	 * Description：修改用户权限
 	 * 
-	 * @param webinarId
-	 * @param callback_url
-	 * @param private_key
 	 * @return
 	 * @return String
 	 * @author name：yuxin <br>
@@ -459,17 +443,15 @@ public class VhallUtil {
 		parameters.put("assign", assign);
 
 		String json = HttpUtil.sendPostRequest(CHANGE_USER_POWER, parameters);
-		System.out.println(json);
 		Map<String, String> m = json2Map(json);
 		if ("200".equals(m.get("code"))) {
-			System.out.println("修改用户权限" + m.get("msg"));
+			logger.warn("修改用户权限" + m.get("msg"));
 		}
 	}
 
 	/**
 	 * Description：查看回放信息 --》来判断这个回放是否有效，来判断这个直播是否应该下架
 	 * 
-	 * @param userId
 	 * @return
 	 * @return String
 	 * @author name：yangxuan <br>
@@ -489,8 +471,6 @@ public class VhallUtil {
 		parameters.put("webinar_id", videoId);
 		String json = HttpUtil.sendPostRequest(record_list, parameters);
 		JSONObject js = JSONObject.parseObject(json);
-
-		System.out.println(js.toJSONString());
 
 		if (("success".equals(js.get("msg")) || "成功".equals(js.get("msg")))
 				&& Integer.parseInt(js.get("code").toString()) == 200) {
@@ -522,10 +502,10 @@ public class VhallUtil {
 					generating_statusFlag++;
 				}
 			}
-			System.out.println("回放时长：countDuration:" + countDuration);
-			
-			
-			System.out.println("回放个数count:"+count+
+			logger.info("回放时长：countDuration:" + countDuration);
+
+
+			logger.info("回放个数count:"+count+
 					",回访生产失败标记failure_statusFlag:"+failure_statusFlag+
 					",回访生产失败标记generating_statusFlag:"+generating_statusFlag);
 			
@@ -542,13 +522,5 @@ public class VhallUtil {
 			return PlayBackType.GENERATION_FAILURE.getCode();
 		}
 	}
-	
-	public static void main(String[] args) {
-		
-		
-		System.out.println(recordList("604723495"));
-		
-	}
-	
 	
 }

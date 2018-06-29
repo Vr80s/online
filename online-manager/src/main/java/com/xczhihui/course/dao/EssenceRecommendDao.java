@@ -85,7 +85,6 @@ public class EssenceRecommendDao extends HibernateDao<Course> {
 		}
 		sql.append(" order by oc.status desc,recommendSort desc,oc.release_time desc ");
 
-		System.out.println(sql);
 		Page<CourseVo> courseVos = this.findPageBySQL(sql.toString(), paramMap,
 				CourseVo.class, pageNumber, pageSize);
 		return courseVos;

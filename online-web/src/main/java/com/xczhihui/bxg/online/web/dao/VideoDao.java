@@ -245,10 +245,6 @@ public class VideoDao extends SimpleHibernateDao {
                          */
                         if (c.getOverallLevel() != null && !"".equals(c.getOverallLevel()) && c.getOverallLevel() != 0) {
 
-                            System.out.println("c.getOverallLevel():" + c.getOverallLevel());
-                            System.out.println("c.getContentLevel():" + c.getContentLevel());
-                            System.out.println("c.getDeductiveLevel():" + c.getDeductiveLevel());
-
                             BigDecimal totalAmount = new BigDecimal(c.getOverallLevel() != null ? c.getOverallLevel() : 0);
                             totalAmount = totalAmount.add(new BigDecimal(c.getContentLevel() != null ? c.getContentLevel() : 0));
                             totalAmount = totalAmount.add(new BigDecimal(c.getDeductiveLevel() != null ? c.getDeductiveLevel() : 0));
@@ -256,7 +252,6 @@ public class VideoDao extends SimpleHibernateDao {
                             String startLevel = "0";
                             try {
                                 startLevel = divCount(totalAmount.doubleValue(), 3d, 1);
-                                System.out.println("startLevel:" + startLevel);
                                 c.setStarLevel(Float.valueOf(startLevel));
                             } catch (IllegalAccessException e) {
                                 e.printStackTrace();

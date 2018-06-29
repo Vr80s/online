@@ -37,7 +37,6 @@ public class Zzq {
             while((str = br.readLine()) != null) {
                 sb.append(str+"\n");
                 j++;
-                System.out.println(str);
             }
 
             br.close();

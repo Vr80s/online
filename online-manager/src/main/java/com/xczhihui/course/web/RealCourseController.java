@@ -172,7 +172,6 @@ public class RealCourseController extends AbstractController {
     @RequestMapping(value = "getSecoundMenu", method = RequestMethod.POST)
     @ResponseBody
     public Object getSecoundMenu(String firstMenuNumber) {
-        //System.out.println("firstMenuNumber:"+firstMenuNumber);
         List<MenuVo> menuVo = courseService.getsecoundMenus(firstMenuNumber);
         return menuVo;
     }

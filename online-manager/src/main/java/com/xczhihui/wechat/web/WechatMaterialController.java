@@ -48,8 +48,6 @@ public class WechatMaterialController extends AbstractController {
 
 	@RequestMapping(value = "material")
 	public String index(HttpServletRequest request) {
-		
-		System.out.println("[=[===========");
 		return WechatMaterial_PATH_PREFIX + "/materialList";
 	}
 

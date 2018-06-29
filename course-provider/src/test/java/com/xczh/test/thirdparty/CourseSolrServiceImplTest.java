@@ -23,8 +23,8 @@ public class CourseSolrServiceImplTest extends BaseJunit4Test {
 
     @Test
     public void testInit() {
-        System.out.println("start");
     }
+
     @Test
     public void testInitById() throws IOException, SolrServerException {
         iCourseSolrService.initCourseSolrDataById(607);
@@ -41,7 +41,6 @@ public class CourseSolrServiceImplTest extends BaseJunit4Test {
         queryConditionVo.setMenuType("1");
 
         Page<CourseSolrVO> courseSolrVOPage = iCourseSolrService.selectCourseListBySolr(new Page(1, 10), queryConditionVo);
-        System.out.println(courseSolrVOPage.getTotal());
     }
 
 }

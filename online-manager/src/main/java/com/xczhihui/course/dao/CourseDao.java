@@ -186,7 +186,6 @@ public class CourseDao extends HibernateDao<Course> {
         }
 
         sql.append(" group by oc.id  order by oc.status desc,oc.recommend_sort desc,oc.release_time desc ");
-        System.out.println(sql.toString());
         return this.findPageBySQL(sql.toString(), paramMap, CourseVo.class,
                 pageNumber, pageSize);
 

@@ -23,7 +23,6 @@ public class MedicalDoctorServiceImplTest extends BaseJunit4Test {
 
     @Test
     public void testSolrInit(){
-        System.out.println("start");
     }
 
     @Test
@@ -32,7 +31,6 @@ public class MedicalDoctorServiceImplTest extends BaseJunit4Test {
         DoctorQueryVo dqv = new DoctorQueryVo();
         dqv.setQueryKey("会针灸的于心");
         Page<MedicalDoctorSolrVO> medicalDoctorSolrVOPage = service.selectDoctorListBySolr(page, dqv);
-        System.out.println();
     }
 
     @Test

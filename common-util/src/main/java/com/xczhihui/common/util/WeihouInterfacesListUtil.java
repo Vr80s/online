@@ -94,10 +94,7 @@ public class WeihouInterfacesListUtil {
 		parameters.put("third_user_id", videoId);
 		String json = HttpUtil.sendPostRequest(whUrl, parameters);
 		JSONObject js = JSONObject.parseObject(json);
-		//System.out.println(js.toJSONString());
 		if("200".equals(js.get("code"))){
-			//JSONObject jsData =JSONObject.parseObject(js.get("data").toString());
-			System.out.println(js.toJSONString());
 			if(js.get("data")!=null){
 				return Integer.parseInt(js.get("data").toString());
 			}
@@ -130,10 +127,7 @@ public class WeihouInterfacesListUtil {
 		parameters.put("webinar_id", videoId);
 		String json = HttpUtil.sendPostRequest(whUrl, parameters);
 		JSONObject js = JSONObject.parseObject(json);
-		//System.out.println(js.toJSONString());
 		if("200".equals(js.get("code"))){
-			//JSONObject jsData =JSONObject.parseObject(js.get("data").toString());
-			System.out.println(js.toJSONString());
 			if(js.get("data")!=null){
 				return Integer.parseInt(js.get("data").toString());
 			}
@@ -173,12 +167,10 @@ public class WeihouInterfacesListUtil {
 	public static boolean currentonLinenumberConditions(Date recordDate){
 		boolean falg = false;
 		Calendar c = new GregorianCalendar();
-		//System.out.println("系统当前时间      ："+df.FORMAT(date));
 		c.setTime(recordDate);//设置参数时间
 		c.add(Calendar.SECOND,+30);//把日期往后增加SECOND 秒.整数往后推,负数往前移动
 		recordDate = c.getTime();
-		System.out.println(recordDate.getTime());
-		if(recordDate.getTime()<new Date().getTime()){
+		if(recordDate.getTime()<System.currentTimeMillis()){
 			falg = true;
 		}
 		return falg;
@@ -249,10 +241,8 @@ public class WeihouInterfacesListUtil {
 		String json = HttpUtil.sendPostRequest(whUrl, parameters);
 		//Map<String, String> m =json2Map(json);
 		JSONObject js = JSONObject.parseObject(json);
-		System.out.println(js.toJSONString());
 		if("成功".equals(js.get("msg"))){
 			JSONObject jsData =JSONObject.parseObject(js.get("data").toString());
-			System.out.println(jsData.toJSONString());
 			return jsData;
 		}
 		return null;
@@ -285,7 +275,6 @@ public class WeihouInterfacesListUtil {
 		if("success".equals(js.get("msg")) && 
 				Integer.parseInt(js.get("code").toString()) == 200){
 			JSONObject jsData =JSONObject.parseObject(js.get("data").toString());
-			System.out.println(jsData.toJSONString());
 			String vhallId = jsData.get("user_id").toString();
 			return vhallId;
 		}else if(Integer.parseInt(js.get("code").toString()) == 10804){
@@ -321,7 +310,6 @@ public class WeihouInterfacesListUtil {
 		JSONObject js = JSONObject.parseObject(json);
 		if("success".equals(js.get("msg")) && "200".equals(js.get("code").toString())){
 			JSONObject jsData =JSONObject.parseObject(js.get("data").toString());
-			System.out.println(jsData.toJSONString());
 			String vhallId = jsData.get("user_id").toString();
 			return vhallId;
 		}else if(Integer.parseInt(js.get("code").toString()) == 10804){
@@ -365,10 +353,8 @@ public class WeihouInterfacesListUtil {
 		if("success".equals(js.get("msg")) && 
 				Integer.parseInt(js.get("code").toString()) == 200){
 			
-			System.out.println(js.toJSONString());
 			return "";
 		}else{
-			System.out.println(js.toJSONString());
 		}
 		
 		return null;
@@ -392,10 +378,8 @@ public class WeihouInterfacesListUtil {
 		if("success".equals(js.get("msg")) && 
 				Integer.parseInt(js.get("code").toString()) == 200){
 			
-			System.out.println(js.toJSONString());
 			return "";
 		}else{
-			System.out.println(js.toJSONString());
 		}
 		return null;
 	}
@@ -417,10 +401,8 @@ public class WeihouInterfacesListUtil {
 		if("success".equals(js.get("msg")) && 
 				Integer.parseInt(js.get("code").toString()) == 200){
 			
-			System.out.println(js.toJSONString());
 			return "";
 		}else{
-			System.out.println(js.toJSONString());
 		}
 		return null;
 	}

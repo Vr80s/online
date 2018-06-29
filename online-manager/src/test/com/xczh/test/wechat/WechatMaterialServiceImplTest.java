@@ -25,7 +25,6 @@ public class WechatMaterialServiceImplTest extends BaseJunit4Test {
      */
     @Test
     public void testSaveQQInfo(){
-    	System.out.println("=====================");
     	WechatMaterial wm = new WechatMaterial();
     	wm.setId(1);
     	wm.setTitle("yangxuan");
@@ -52,6 +51,5 @@ public class WechatMaterialServiceImplTest extends BaseJunit4Test {
     	wmm.setUrl("==============");
     	wmm.setMediaType(1);
     	wechatMaterialService.addWechatMediaManager(wmm);
-    	System.out.println("=====================");
     }
 }

@@ -10,6 +10,8 @@ import com.xczhihui.medical.doctor.vo.DoctorQueryVo;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import test.BaseJunit4Test;
 
@@ -22,6 +24,7 @@ import java.util.Map;
  */
 public class MedicalDepartmentServiceImplTest extends BaseJunit4Test {
 
+	private static Logger logger = LoggerFactory.getLogger(MedicalDepartmentServiceImplTest.class);
     @Autowired
     private IMedicalDoctorDepartmentService service;
     
@@ -35,7 +38,7 @@ public class MedicalDepartmentServiceImplTest extends BaseJunit4Test {
     @Test
     public void testGetDoctorDepartment(){
         List<MedicalDepartment> result = service.selectByUserId("402880e860c4ebe30160c51302660000");
-        result.forEach(doctorDepartment -> System.out.println("-------------------" + doctorDepartment.toString()));
+        result.forEach(doctorDepartment -> logger.info("-------------------" + doctorDepartment.toString()));
     }
     
     
@@ -51,8 +54,8 @@ public class MedicalDepartmentServiceImplTest extends BaseJunit4Test {
     	dqv.bulid();
     	Page<MedicalDoctorVO> doctors = medicalDoctorBusinessService.
         		selectDoctorListByQueryKey(new Page<MedicalDoctorVO>(10, 1),dqv);
-    	
-    	System.out.println(doctors.getTotal());
+
+		logger.info("{}",doctors.getTotal());
     }
 
     
@@ -63,8 +66,8 @@ public class MedicalDepartmentServiceImplTest extends BaseJunit4Test {
     @Test
     public void testGetDoctorDepartment2(){
 
-    	
-    	 System.out.println(" start："+ System.currentTimeMillis() );
+
+		logger.info(" start："+ System.currentTimeMillis() );
     	
     	 Page<MedicalDoctorVO> page = new Page<>();
          page.setCurrent(1);
@@ -111,25 +114,9 @@ public class MedicalDepartmentServiceImplTest extends BaseJunit4Test {
      	        }  
          	}
  		}
-         
-        System.out.println(" end："+ System.currentTimeMillis() ); 
-         
-    }
-    
-    
-    /**
-     * 获取医师所在的科室
-     */
-    @Test
-    public void testGetDoctorDepartment3(){
 
-    	
-    	 System.out.println(" start："+ System.currentTimeMillis() );
-    	
-         
-        System.out.println(" end："+ System.currentTimeMillis() ); 
+		logger.info(" end："+ System.currentTimeMillis() );
          
     }
-    
     
 }

@@ -173,7 +173,6 @@ public class AnchorDao extends HibernateDao<CourseAnchor> {
             String userId = courseAnchorIncome.getId();
             setCourseIncome(courseAnchorIncome, userId);
             setGiftIncome(courseAnchorIncome, userId);
-            System.out.println(userId);
             setBalance(courseAnchorIncome, userId);
             setEnchashmentTotal(courseAnchorIncome, userId);
             setEnchashmentCount(courseAnchorIncome, userId);

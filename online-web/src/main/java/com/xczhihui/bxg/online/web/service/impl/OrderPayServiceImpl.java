@@ -77,7 +77,6 @@ public class OrderPayServiceImpl extends OnlineBaseServiceImpl implements OrderP
 				sql = "insert into  apply_r_grade_course(id,course_id,grade_id,apply_id,is_payment,create_person,user_id,create_time,cost,student_number,order_no)"
 						+ " values('"+id+"',"+order.getCourse_id()+","+gradeId+",'"+0+"',2,'"+order.getCreate_person()+"','"+order.getUser_id()+"',now(),"+order.getActual_pay()+","
 						+ " '"+0+"',"+"'"+order.getOrderDetailId()+"')";
-				System.out.println(sql);
 				orderDao.getNamedParameterJdbcTemplate().update(sql, paramMap);
 
 				/*

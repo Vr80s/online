@@ -111,12 +111,8 @@ public class HttpsRequest implements IServiceRequest {
         Util.log("API，POST过去的数据是：");
         Util.log(postDataXML);
         
-        System.out.println("HttpsRequest->sendPost->0\r\n\t"+postDataXML);
         postDataXML = postDataXML.replace("com.xczh.consumer.market.wxpay.entity.PayInfo", "xml");
         
-        System.out.println("HttpsRequest->sendPost->0\r\n\t"+postDataXML);
-//        
-        System.out.println("HttpsRequest->sendPost->1\r\n\t"+postDataXML);
         //得指明使用UTF-8编码，否则到API服务器XML的中文不能被成功识别
         StringEntity postEntity = new StringEntity(postDataXML, "UTF-8");
         httpPost.addHeader("Content-Type", "text/xml");
@@ -200,8 +196,7 @@ public class HttpsRequest implements IServiceRequest {
 	        se.setContentEncoding(new org.apache.http.message.BasicHeader(org.apache.http.protocol.HTTP.CONTENT_TYPE, APPLICATION_JSON));
 	        httpPost.setEntity(se);					
 		}
-		System.out.println("sendPost2=\r\n" + sParam);
-		
+
         Util.log("API，POST过去的数据是：");
         Util.log(sParam);
 		
@@ -330,12 +325,9 @@ public class HttpsRequest implements IServiceRequest {
         		if(strRootDir.charAt(strRootDir.length()-1) != File.separatorChar) {
                     strRootDir += File.separator;
                 }
-        		System.out.println("sslPost->strRootDir->" + strRootDir );
         		String path=strRootDir + "ROOT/WEB-INF/classes" + File.separator + "config.properties";
-        		System.out.println("sslPost->path->" + path );
         		ConfigUtil cfg = new ConfigUtil(path);
         		apiclient_cert= cfg.getConfig("wechatpay.cert.path");
-        		System.out.println("sslPost->apiclient_cert->" + apiclient_cert );
         	}
         	if(apiclient_cert==null || apiclient_cert.trim().length() == 0) {
                 return "";
@@ -367,14 +359,11 @@ public class HttpsRequest implements IServiceRequest {
             httpost.addHeader("Cache-Control", "max-age=0");
             httpost.addHeader("User-Agent", "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.0) ");
             httpost.setEntity(new StringEntity(data, "UTF-8"));
-            System.out.println("executing request" + httpost.getRequestLine());
 
             CloseableHttpResponse response = httpclient.execute(httpost);
             try {
                 HttpEntity entity = response.getEntity();
-                System.out.println(response.getStatusLine());
                 if (entity != null) {
-                    System.out.println("Response content length: " + entity.getContentLength());
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(entity.getContent(),"UTF-8"));
                     String text;
                     while ((text = bufferedReader.readLine()) != null) {
@@ -403,23 +392,18 @@ public class HttpsRequest implements IServiceRequest {
         try {  
             // 创建httpget.    
             HttpGet httpget = new HttpGet("http://www.ixincheng.com/api/chapter/findChapterInfo?courseId=299&userId=2c9aec345d59c9f6015d59caa6440000");  
-            System.out.println("executing request " + httpget.getURI());  
-            // 执行get请求.    
+            // 执行get请求.
             CloseableHttpResponse response = httpclient.execute(httpget);  
             try {  
                 // 获取响应实体    
                 HttpEntity entity = response.getEntity();  
-                System.out.println("--------------------------------------");  
-                // 打印响应状态    
-                System.out.println(response.getStatusLine());  
-                if (entity != null) {  
+                if (entity != null) {
                     // 打印响应内容长度    
-                    System.out.println("Response content length: " + entity.getContentLength());  
+                    log.i("Response content length: " + entity.getContentLength());
                     // 打印响应内容    
-                    System.out.println("Response content: " + EntityUtils.toString(entity));  
+                    log.i("Response content: " + EntityUtils.toString(entity));
                 }  
-                System.out.println("------------------------------------");  
-            } finally {  
+            } finally {
                 response.close();  
             }  
         } catch (ClientProtocolException e) {  

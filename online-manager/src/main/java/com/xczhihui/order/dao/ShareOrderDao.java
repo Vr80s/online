@@ -84,68 +84,6 @@ public class ShareOrderDao extends SimpleHibernateDao {
 		return ms;
 	}
 
-	// public Page<ShareOrderVo> findShareOrderPage(ShareOrderVo shareOrderVo,
-	// int pageNumber, int pageSize){
-	// Map<String,Object> paramMap=new HashMap<String,Object>();
-	// StringBuilder sql=new StringBuilder(" SELECT " +
-	// "	oe.id createPerson, " +
-	// "	oe.name createPersonName, " +
-	// "	oe.sex, " +
-	// "	oe.mobile, " +
-	// "	oe.email, " +
-	// "	oe.create_time, " +
-	// "	oe.parent_id, " +
-	// "	oe2.`name` shareUserName, " +
-	// "	(select count(1) from oe_user ou where ou.parent_id = oe.id) shareCount,"
-	// +//#总共发展人数
-	// "	(select IFNULL(sum(t2.subsidies),0) from oe_share_order t2 where t2.target_user_id = oe.id ) totalShareMoney, "
-	// +//#累计佣金
-	// "	0 getShareMoney " +
-	// " FROM " +
-	// "	oe_user oe " +
-	// " LEFT JOIN oe_user oe2 ON oe2.id = oe.parent_id where 1=1");
-	//
-	// if(shareOrderVo.getStartTime() !=null){
-	// sql.append(" and oe.create_time >=:startTime");
-	// paramMap.put("startTime", shareOrderVo.getStartTime());
-	// }
-	//
-	// if(shareOrderVo.getStopTime() !=null){
-	// sql.append(" and DATE_FORMAT(oe.create_time,'%Y-%m-%d') <=:stopTime");
-	// paramMap.put("stopTime", shareOrderVo.getStopTime());
-	// }
-	//
-	// if(shareOrderVo.getMobile()!=null){
-	//
-	// sql.append(" and oe.mobile like :mobile ");
-	// paramMap.put("mobile", "%"+shareOrderVo.getMobile()+"%");
-	// }
-	//
-	// if(shareOrderVo.getEmail()!=null){
-	// sql.append(" and oe.email like :email ");
-	// paramMap.put("email", "%"+shareOrderVo.getEmail()+"%");
-	// }
-	//
-	// if(shareOrderVo.getCreatePersonName()!=null){
-	// sql.append(" and oe.name like :createPersonName ");
-	// paramMap.put("createPersonName", "%" + shareOrderVo.getCreatePersonName()
-	// + "%");
-	// }
-	//
-	// if(shareOrderVo.getShareUserName()!=null){
-	// sql.append(" and oe2.name like :shareUserName ");
-	// paramMap.put("shareUserName", "%" + shareOrderVo.getShareUserName() +
-	// "%");
-	// }
-	//
-	// sql.append(" order by oe.create_time desc ");
-	// //System.out.println("sql:"+sql.toString());
-	// //先取出该取得用户
-	// Page<ShareOrderVo> ms = this.findPageBySQL(sql.toString(), paramMap,
-	// ShareOrderVo.class, pageNumber, pageSize);
-	// return ms;
-	// }
-
 	public Page<ShareOrderVo> findShareOrderDetailPage(
 			ShareOrderVo shareOrderVo, int pageNumber, int pageSize) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
@@ -195,7 +133,6 @@ public class ShareOrderDao extends SimpleHibernateDao {
 
 		sql.append(" order by oso.order_no desc,oso.level asc ");
 
-		// System.out.println("sql2:"+sql.toString());
 		// 先取出该取得用户
 		Page<ShareOrderVo> ms = this.findPageBySQL(sql.toString(), paramMap,
 				ShareOrderVo.class, pageNumber, pageSize);

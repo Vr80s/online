@@ -141,8 +141,6 @@ public class WechatChannelServiceImpl extends OnlineBaseServiceImpl implements
         Serializable s = wechatChannelDao.getHibernateTemplate().save(
                 WechatChannel);
 
-        System.out.println("llallalallala" + s);
-
         String token = wxMpService.getAccessToken();
 
         // 生产二维码图片
@@ -151,7 +149,6 @@ public class WechatChannelServiceImpl extends OnlineBaseServiceImpl implements
         WechatChannel.setQrCodeImg(qcv.getWechatUrl());
         WechatChannel.setCustomQrCodeUrl(qcv.getCustomQrCodeUrl());
 
-        System.out.println("qcv:" + qcv.toString());
         //再次查找下，存放二维码信息
         WechatChannel lalala = dao.findOneEntitiyByProperty(WechatChannel.class, "id", (Integer) s);
         lalala.setQrCodeImg(qcv.getWechatUrl());

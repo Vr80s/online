@@ -106,7 +106,6 @@ public class VhallUtil {
 		if("success".equals(m.get("msg"))){
 			Map<String, String> map =json2Map(m.get("data"));
 			String vhallId = map.get("user_id");
-//			System.out.println(json+":"+u.getLoginName()+":"+password);
 			return vhallId;
 		}
 		return null;
@@ -170,7 +169,6 @@ public class VhallUtil {
 		parameters.put("webinar_id", webinarId);
 		
 		String json = HttpUtil.sendPostRequest(WEBINAR_START, parameters);
-		System.out.println(json);
 		Map<String, String> m =json2Map(json);
 		if("200".equals(m.get("code"))){
 			return m.get("data");
@@ -191,7 +189,6 @@ public class VhallUtil {
 		parameters.put("name", "嘉宾1");
 
 		String json = HttpUtil.sendPostRequest(WEBINAR_GUEST_START, parameters);
-		System.out.println(json);
 		Map<String, String> m =json2Map(json);
 		if("200".equals(m.get("code"))){
 			return m.get("data");
@@ -276,7 +273,6 @@ public class VhallUtil {
 			dos.close();
 			fis.close();
 			
-			System.out.println("status code: "+conn.getResponseCode());
             InputStream in = conn.getInputStream();
             int ch;
             StringBuilder sb2 = new StringBuilder();
