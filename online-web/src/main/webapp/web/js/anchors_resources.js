@@ -1,4 +1,14 @@
+var getAnchorsId;
 $(function () {
+	
+ 	RequestService("medical/common/getDoctorByUserId", "get", null, function (data) {
+        	if (data.success==true) {
+        		getAnchorsId=data.resultObject.doctorId
+        		newsList(1,getAnchorsId);
+        	} else{
+        		showTip("获取医师ID失败");
+        	}
+        });
     $("#docOrHos").css({"color": "#2cb82c"})
     //	确定,取消弹窗初始化
     comfirmBox.init();
@@ -300,6 +310,7 @@ $(function () {
     })
 //---------------------------------头像上传部分结束,动态开始---------------------------------  
 
+
 function isBlank(str){
 	return str == "" || str == null;
 }
@@ -390,7 +401,7 @@ var activityType;
 	        	if(data.success==true){
 	        		showTip("发布成功");
 	        		$(this).removeAttr("diabled");
-	        		newsList(1);
+	        		newsList(1,getAnchorsId);
 	        		closeImages();		//关闭图片
 	        		closeConsilia();	//关闭文章
 	        		closeVideo();		//关闭视频并重置
@@ -682,12 +693,12 @@ var activityType;
 
 template.config("escape", false);
 //	动态列表
-	newsList(1)
-	function newsList(pages){
+	
+	function newsList(pages,getAnchorsId){
 	 RequestService("/doctor/posts", "GET", {
             "pageNumber" : pages,
             "pageSize" : 10,
-            "doctorId" :"14c2192523c5438f9a10d17994a1c6a3"
+            "doctorId" :getAnchorsId
         }, function (data) {
         	if(data.success==true){
         		var posts=data.resultObject.records;
@@ -715,7 +726,8 @@ template.config("escape", false);
                         current_page: pages - 1,  //传的页数的参数
                         callback: function (page) {
                             //翻页功能
-                            newsList(page + 1);
+                            //newsList(page + 1);
+                            newsList(page + 1,getAnchorsId);
                         }
                     });
                 } else {
@@ -778,7 +790,8 @@ template.config("escape", false);
 			RequestService("/doctor/posts/"+id, "delete", null , function (data) {
 	        	if(data.success == true){
 	        		showTip(data.resultObject);
-	        		newsList(1);
+	        		//newsList(1);
+	        		newsList(1,getAnchorsId);
 	        	}else{
 	        		showTip(data.resultObject);
 	        	}
@@ -823,7 +836,8 @@ template.config("escape", false);
         	if (data.success=true) {
         		showTip(data.resultObject);
         		$(".edit-content").addClass("hide");
-        		newsList(1);
+        		//newsList(1);
+        		newsList(1,getAnchorsId);
         		editVersion();
         	} else{
         		showTip(data.resultObject);
@@ -2046,8 +2060,16 @@ template.config("escape", false);
 
 //医馆部分
 //点击变色效果
-$('.hospital_worktime ul li ').click(function () {
-    if ($(this).hasClass('color')) {
+//$('.hospital_worktime ul li ').click(function () {
+//  if ($(this).hasClass('color')) {
+//      $(this).removeClass('color')
+//  } else {
+//      $(this).addClass('color');
+//  }
+//
+//})
+$('.hospital_worktime ul li').click(function () {
+    if ($(this).find("img").hasClass('color')) {
         $(this).removeClass('color')
     } else {
         $(this).addClass('color');
