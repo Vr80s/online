@@ -814,14 +814,12 @@ template.config("escape", false);
 //	编辑内容后点击完成
 	function editFinish(){
 		$(".edit-content button").click(function(){
-		var id=$(this).attr("data-id"),
-			type=$(this).attr("data-type"),
-			content=$(this).siblings("textarea").val();
-		 RequestService("/doctor/posts", "PUT", {
-         "id":id,
-         "type":type,
-         "content":content
-        }, function (data) {
+		    var data = {};
+            data.id=$(this).attr("data-id"),
+                data.type=$(this).attr("data-type"),
+                data.content=$(this).siblings("textarea").val();
+
+		RequestJsonService("/doctor/posts", "PUT",JSON.stringify(data) , function (data) {
         	if (data.success=true) {
         		showTip(data.resultObject);
         		$(".edit-content").addClass("hide");

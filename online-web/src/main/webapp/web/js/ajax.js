@@ -8,37 +8,44 @@ var bath = "";
         bath = "/apis"+bath;
     }
 })();
-
+var RequestJsonService = function(url, type, params, callBack, async){
+    ajaxService(url, type, params, callBack, async,"application/json");
+}
 var RequestService = function(url, type, params, callBack, async) {
-	$.ajax({
-		url: bath + url,
-		type: type,
-		data: params,
-		async: async === undefined ? true : async,
-		cache: false, //清除缓存
-		success: function(data) {
-			if(callBack) {
-				callBack(data);
-			}
-			$("*[data-txt]").hover(function(e) {
-				//var eve = e || window.event;
-				var string = $(this).data('txt');
-				if($(this).attr("data-maxlengts")) {
-					var mylength = $(this).attr("data-maxlengts");
-				} else {
-					var mylength = 10;
-				}
-				if(string.length >= mylength) {
-					layer.tips(string, $(this), {
-						tips: [1, '#f8f8f8'],
-						area: ['auto', 'auto']
-					});
-				}
-			}, function() {
-				layer.closeAll()
-			});
-		}
-	});
+    ajaxService(url, type, params, callBack, async,"application/x-www-form-urlencoded");
+};
+
+var ajaxService = function(url, type, params, callBack, async,contentType) {
+    $.ajax({
+        url: bath + url,
+        type: type,
+        data: params,
+        contentType: contentType,
+        async: async === undefined ? true : async,
+        cache: false, //清除缓存
+        success: function(data) {
+            if(callBack) {
+                callBack(data);
+            }
+            $("*[data-txt]").hover(function(e) {
+                //var eve = e || window.event;
+                var string = $(this).data('txt');
+                if($(this).attr("data-maxlengts")) {
+                    var mylength = $(this).attr("data-maxlengts");
+                } else {
+                    var mylength = 10;
+                }
+                if(string.length >= mylength) {
+                    layer.tips(string, $(this), {
+                        tips: [1, '#f8f8f8'],
+                        area: ['auto', 'auto']
+                    });
+                }
+            }, function() {
+                layer.closeAll()
+            });
+        }
+    });
 };
 //数组去重
 Array.prototype.unique3 = function () {
