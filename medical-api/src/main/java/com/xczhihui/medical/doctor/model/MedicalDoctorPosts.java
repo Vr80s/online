@@ -119,6 +119,11 @@ public class MedicalDoctorPosts extends Model<MedicalDoctorPosts> {
 	@TableField(exist = false)
 	private Date startTime;
 	/**
+	 * 线下课地址
+	 */
+	@TableField(exist = false)
+	private String courseAddress;
+	/**
 	 * 课程类型 1：视频 2：音频 3：直播 4：线下培训班
 	 */
 	@TableField(exist = false)
@@ -387,6 +392,14 @@ public class MedicalDoctorPosts extends Model<MedicalDoctorPosts> {
 
 	public void setArticleImgPath(String articleImgPath) {
 		this.articleImgPath = articleImgPath;
+	}
+
+	public String getCourseAddress() {
+		return courseAddress;
+	}
+
+	public void setCourseAddress(String courseAddress) {
+		this.courseAddress = courseAddress;
 	}
 
 	@Override
