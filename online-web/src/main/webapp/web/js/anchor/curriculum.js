@@ -1235,6 +1235,5 @@ var selectSetId;
 			}
 		})	
 $("#selectClass").on("change",function(){
-	console.log($("#selectClass").val())
 	traineeList(1,$("#selectClass").val());
 })

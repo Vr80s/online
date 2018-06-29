@@ -597,7 +597,7 @@ outline: none;
 	font-size: 16px;
 	color: #333333;
 }
-.save-consilia-wrap .consilia-right-text p{
+.save-consilia-wrap .consilia-right-text .consilia-text{
 	height: 42px;
 	width: 100%;
 	line-height: 21px;
@@ -649,6 +649,14 @@ outline: none;
 	margin: 10px 0 0;
 	color: #999999;
 	
+}
+.class-right-text .class-address{
+	margin: 10px 0 0;	
+	color: #999999;
+	 max-width: 645px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 /*时间/状态/删除/编辑内容/置顶*/
 .status-operation-wrap{
@@ -843,6 +851,14 @@ outline: none;
 .left-title span{
 	color: red;
 }
+.banner-all-tip{
+	clear: both;
+    color: red;
+    margin-left: 116px;
+    margin: 10px 0 0 116px;
+    padding-top: 10px;
+}  
+  
 .banner-link-wrap{
 	overflow: hidden;
 	margin-top: 20px;
@@ -879,7 +895,7 @@ outline: none;
 	background: #00bc12;
 }
 .banner-url-wrap{
-	overflow: hidden;
+	/*overflow: hidden;*/
 	margin-top: 20px;
 }
 .banner-url-wrap select{
@@ -893,7 +909,7 @@ outline: none;
 	margin-top: 20px;
 }
 .banner-date-wrap input{
-	width: 120px;
+	width: 153px;
 	height: 36px;
 	border: 1px solid #dedede;
 	outline: none;
