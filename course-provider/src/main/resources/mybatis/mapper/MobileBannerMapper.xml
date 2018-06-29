@@ -257,6 +257,7 @@
 	<select id="listenCourseList" resultType="com.xczhihui.course.vo.CourseLecturVo">
 		  select 
 			  <include refid="selectRecommenCourse"/>
+			  '听课' as note
 			  <include refid="commonCondition"/>
 			  and oc.multimedia_type = 2
 			<include refid="onlyFreeCondition"/>
