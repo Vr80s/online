@@ -316,7 +316,8 @@ function queryDataByParams(params,data_type){
 					           "<p class='p00'>" +
 					           "<span class='span'>"+item.name+"</span>" +
 					           "<span class='duty'>"+(item.title = item.title==null ? "" : item.title)+"</span></p>" +
-					           "<p class='site'>"+(item.hospitalAddress = item.hospitalAddress==null ? "" : item.hospitalAddress)+"</p>"+
+					           // "<p class='site'>"+(item.hospitalAddress = item.hospitalAddress==null ? "" : item.hospitalAddress)+"</p>"+
+					           "<p class='site'>"+(item.detailedAddress = item.detailedAddress==null ? "" : item.detailedAddress)+"</p>"+
 				            "</div>" +
 				         "</div>" +
 				     "</div>";
@@ -371,7 +372,8 @@ if (urlAttribute=='' || urlAttribute== null) {
 } else{
 	$('.header_seek_main .span_hide').hide();
 	// $('.header_seek_main').append('<span class=span_list>' + urlAttribute +'<span class=right_span>×</span></span>');
-	$('.header').append('<span class=span_list><div class=insert_span>' + urlAttribute +'</div><span class=right_span>×</span><span class=both></span></span>');
+	// $('.header').append('<span class=span_list><div class=insert_span>' + urlAttribute +'</div><span class=right_span>×</span><span class=both></span></span>');
+	$('.header').append('<span class=span_list><div class=insert_span>' + urlAttribute +'</div><span class=both></span></span>');
 	
 }
 

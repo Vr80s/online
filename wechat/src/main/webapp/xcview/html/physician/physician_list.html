@@ -48,17 +48,16 @@ window.onload = function(){
 <style type="text/css">
 	.span_list{
 		margin-top: -0.57rem;
-	    /*margin-left: 0.58rem;*/
 	    font-size: 0.26rem;
 	    text-indent: 0;
 	    margin-left: 1rem;
 	    height: 0.46rem;
 	    line-height: 0.46rem;
-	    color: #fff;
+	    color: #000;
 	    display: -webkit-inline-box;
-	    background: #999999;
+	    /*background: #999999;*/
 	    border-radius: 8px;
-	    padding: 0 0.2rem;
+	    /*padding: 0 0.2rem;*/
 	    overflow: hidden;
 	    white-space: nowrap;
 	    text-overflow: ellipsis;
@@ -123,7 +122,7 @@ window.onload = function(){
     white-space: nowrap;
     display: block;
     height: 0.42rem;
-    line-height: 0.42rem !important;
+    /*line-height: 0.42rem !important;*/
     margin-top: 0.12rem;
     margin-bottom: 0.2rem;
 }
@@ -131,7 +130,8 @@ window.onload = function(){
 	overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    max-width: 4rem;
+    /*max-width: 4rem;*/
+    max-width: 5.5rem;
     min-width: 0.1rem;
 }
 </style>
@@ -525,7 +525,8 @@ $(".find_nav_list").on('touchmove', function (e) {
 			});
 
 			$(".span_list").click(function(){
-			    location.href = "/xcview/html/physician/physician_list.html";
+			    // location.href = "/xcview/html/physician/physician_list.html";
+			    location.href='/xcview/html/physician/search.html?search_back=2';
 			});
 		};
 	</script>
