@@ -2,10 +2,8 @@ package com.xczhihui.course.service.impl;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.regex.Pattern;
 
 import javax.annotation.PostConstruct;
 
@@ -39,6 +37,7 @@ import com.xczhihui.course.vo.QueryConditionVo;
 @Service
 public class CourseSolrServiceImpl implements ICourseSolrService {
     private final Logger logger = LoggerFactory.getLogger(getClass());
+    private final static Pattern pattern = Pattern.compile("^[-\\+]?[\\d]*$");
 
     @Autowired
     private CourseMapper iCourseMapper;
@@ -122,8 +121,19 @@ public class CourseSolrServiceImpl implements ICourseSolrService {
     public Page<CourseSolrVO> selectCourseListBySolr(Page page, QueryConditionVo queryConditionVo) throws IOException, SolrServerException {
         String searchStr = getSearchStr(queryConditionVo);
         searchStr = searchStr.equals("") ? "*:*" : searchStr;
-        Map<String, SolrQuery.ORDER> sortedMap = new HashMap<>();
+        Map<String, SolrQuery.ORDER> sortedMap = new LinkedHashMap<>();
+        if(queryConditionVo.getSortOrder()==null){
+        }else if(queryConditionVo.getSortOrder()==2){
+            sortedMap.put("releaseTime", SolrQuery.ORDER.desc);
+        }else if(queryConditionVo.getSortOrder()==3){
+            sortedMap.put("learndCount", SolrQuery.ORDER.desc);
+        }else if(queryConditionVo.getSortOrder()==4){
+            sortedMap.put("currentPrice", SolrQuery.ORDER.asc);
+        }else if(queryConditionVo.getSortOrder()==5){
+            sortedMap.put("currentPrice", SolrQuery.ORDER.desc);
+        }
         sortedMap.put("score", SolrQuery.ORDER.desc);
+
         sortedMap.put("recommendSort", SolrQuery.ORDER.desc);
         if(queryConditionVo.getCourseForm()!=null && (CourseForm.LIVE.getCode() == queryConditionVo.getCourseForm() || CourseForm.OFFLINE.getCode() == queryConditionVo.getCourseForm())){
             sortedMap.put("startTime", SolrQuery.ORDER.desc);
@@ -209,7 +219,7 @@ public class CourseSolrServiceImpl implements ICourseSolrService {
         }
 
         String searchMenuType;
-        if(StringUtils.isNotBlank(queryConditionVo.getMenuType())){
+        if(StringUtils.isNotBlank(queryConditionVo.getMenuType())&&isInteger(queryConditionVo.getMenuType())){
             searchMenuType = "menuType:"+queryConditionVo.getMenuType();
             if(query.length()>0){
                 query.append(SolrConstant.AND);
@@ -263,6 +273,10 @@ public class CourseSolrServiceImpl implements ICourseSolrService {
         }
 
         return query.toString();
+    }
+
+    public static boolean isInteger(String str) {
+        return pattern.matcher(str).matches();
     }
 
 }

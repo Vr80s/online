@@ -41,7 +41,7 @@ public class CourseSolrVO implements Serializable {
     @Field
     private String city;
     @Field
-    private Date releaseTime;
+    private Long releaseTime;
     @Field
     private Integer recommendSort;
     @Field

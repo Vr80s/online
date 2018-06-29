@@ -647,7 +647,7 @@
 		IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) + IFNULL(oc.default_student_count, 0) learndCount,
 		oc.is_free AS watchState,
 		oc.city AS city,
-		oc.release_time,
+		UNIX_TIMESTAMP(oc.release_time) releaseTime,
 		oc.recommend_sort recommendSort,
 		IF(oc.type =3,4,IF(oc.type = 1,3,IF(oc.multimedia_type=1,1,2))) AS TYPE,
 		oc.type AS courseForm,

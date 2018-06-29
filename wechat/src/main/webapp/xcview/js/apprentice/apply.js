@@ -37,10 +37,18 @@ function verifyParams (){
         ||isBlank(apply.goal)){
         $(".buttom").css("opacity","0.5");
         return false;
-    }else{
-        $(".buttom").css("opacity","1");
-        return true;
     }
+    
+    //验证手机号
+//    if (!(/^1[346578]\d{9}$/.test(apply.tel)) && apply.tel.trim().length == 11) {
+//        webToast("请输入正确的手机号", "middle", 1500);
+//        $(".buttom").css("opacity","0.5");
+//        return false;
+//    }
+    
+    $(".buttom").css("opacity","1");
+    return true;
+    
 }
 window.onload = function(){
     // 姓名

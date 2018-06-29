@@ -34,12 +34,12 @@
 			</div>
 			<div class="tel">
 				手机号
-				<input type="tel" placeholder="请输入" />
+				<input type="tel" placeholder="请输入"  maxlength="11" onkeyup="value=value.replace(/[^\d]/g,'')"/>
 				<div class="both"></div>
 			</div>
 			<div class="age">
 				年龄
-				<input type="tel" placeholder="请输入" />
+				<input type="tel" placeholder="请输入" maxlength="3" onkeyup="value=value.replace(/[^\d]/g,'')"/>
 				<div class="both"></div>
 			</div>
 			<div class="sex">

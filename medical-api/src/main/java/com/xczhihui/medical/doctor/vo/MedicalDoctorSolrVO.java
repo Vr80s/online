@@ -45,7 +45,7 @@ public class MedicalDoctorSolrVO implements Serializable {
     @Field
     private String fieldText;
     @Field
-    private Date createTime;
+    private Long createTime;
 
 
 }
