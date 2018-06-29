@@ -148,22 +148,6 @@ function replyComment() {
 }
 
 
-// 删除自己的评论开始-----
-requestService("/xczh/article/appraise", {
-
-    content: comment_detailed,
-    articleId: 385,
-    replyId: criticize_id
-}, function (data) {
-    //	课程名称/等级/评价
-    if (data.success == true) {
-        
-    }
-});
-
-
-
-
 });
 
 
