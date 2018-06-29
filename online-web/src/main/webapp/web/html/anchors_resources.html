@@ -464,7 +464,7 @@
 											<p class="class-time">{{item.startTime}}</p>
 											{{else if item.courseType == 4}}
 											<p class="class-time">{{item.startTime}}</p>
-											<p class="class-address">地址：</p>
+											<p class="class-address">地址：{{item.courseAddress}}</p>
 											{{/if}}
 											
 										</div>
@@ -540,9 +540,9 @@
 										<div class="reply-user-wrap hide">
 											<div class="reply-bottom-wrap z">
 												{{if comment.commentId != null && comment.commentId != ""}}
-												<span style="display: inline-block;">回复{{comment.replyUserName}}：</span>
+												<span style="display: inline-block;cursor: pointer;">回复{{comment.replyUserName}}：</span>
 												{{else}}
-												<span style="display: inline-block;">回复{{comment.userName}}：</span>
+												<span style="display: inline-block;cursor: pointer;">回复{{comment.userName}}：</span>
 												{{/if}}
 												<input type="text" />
 											</div>
@@ -809,7 +809,7 @@
 							<p class="hosTel_warn warning hide">医馆电话不能为空</p>
 						</div>
 
-						<div class="hospital_worktime">
+						<!--<div class="hospital_worktime">
 							<span><em>*</em>  每周坐诊</span>
 							<ul>
 								<li>一</li>
@@ -821,7 +821,45 @@
 								<li>日</li>
 							</ul>
 							<p class="hospital_worktime_warn warning hide">请选择坐诊时间</p>
+						</div>-->
+
+						<div class="hospital_worktime">
+							<span><em>*</em>  每周坐诊</span>
+							<table cellspacing="0" cellpadding="0">
+								<tr>
+									<th></th>
+									<th>周一</th>
+									<th>周二</th>
+									<th>周三</th>
+									<th>周四</th>
+									<th>周五</th>
+									<th>周六</th>
+									<th>周日</th>
+								</tr>
+								<tr>
+									<td>上午</td>
+									<td><p><img src="/web/images/right_15.png"/></p></td>
+									<td><p></p></td>
+									<td><p></p></td>
+									<td><p></p></td>
+									<td><p></p></td>
+									<td><p></p></td>
+									<td><p></p></td>
+								</tr>
+								<tr>
+									<td>下午</td>
+									<td><p></p></td>
+									<td><p></p></td>
+									<td><p></p></td>
+									<td><p></p></td>
+									<td><p></p></td>
+									<td><p></p></td>
+									<td><p></p></td>
+								</tr>
+							</table>
 						</div>
+
+
 
 						<div class="baocun">
 							<input type="submit" value="保存" id="submit" />
