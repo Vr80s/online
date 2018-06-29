@@ -357,7 +357,10 @@ requestService("/xczh/doctors/doctorStatus", {doctorId:doctorId},function (data)
                     if (data.success) {
                         var number = data.resultObject;
                         if (number > 0) {   //三、获取完课程判断类型。
-                            requestService("/xczh/doctors/recentlyLive", {userId:userId,},function (data) {  
+                            requestService("/xczh/doctors/recentlyLive", {
+                                userId:userId,
+                                pageSize: 1000
+                            },function (data) {  
                                 if (data.success == true) {
                                     // 直播状态
                                     //直播课程状态：lineState  1直播中， 2预告，3直播结束 ， 4 即将直播 ，5 准备直播 ，6 异常直播
@@ -435,6 +438,21 @@ requestService("/xczh/doctors/doctorStatus", {doctorId:doctorId},function (data)
                                     $('#message_referral').html(template('message_referral_id', {items: data.resultObject.hospital}));
                                     // $('#message_referral').html(template('self_introduction_id', {items: data.resultObject}));
                                     
+
+                                    if (data.resultObject.hospital.name = null) {
+                                        $(".clinic").addClass("hide");
+                                    }
+                                    if (data.resultObject.hospital.tel = null) {
+                                        $(".tel").addClass("hide");
+                                    }
+                                    if (data.resultObject.hospital.detailedAddress = null) {
+                                        $(".house_address").addClass("hide");
+                                    }
+                                    /*if (data.resultObject.lecturerInfo = null && data.resultObject.lecturerInfo.workTime = null) {
+                                        $(".hid_wtime").addClass("hide");
+                                    }*/
+
+
                                     // 个人介绍
                                     if(data.resultObject.description == null || data.resultObject.description == ''){
                                         
@@ -454,6 +472,9 @@ requestService("/xczh/doctors/doctorStatus", {doctorId:doctorId},function (data)
 
                                     // alert(str);
 
+                                    if(str.indexOf(',1,') <=0){
+                                        $("table").hide();
+                                    }
                                     // 上午
                                     if(str.indexOf(',1.1,') >=0){
                                         $(".am_monday img").show();
