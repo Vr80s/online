@@ -86,7 +86,7 @@ function on_click_msg(msg_id, msg_link) {
 //$("<script src='http://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js'></script>").appendTo('head');
 
 //$("<meta http-equiv='X-UA-Compatible' content='IE=edge' > ").appendTo('head');
-
+var anchorsId;
 $(function() {
 
 	/*$(document).ajaxSend(function(event, request, settings) {
@@ -697,7 +697,7 @@ $(function() {
 		function login(data, autoLogin) {
 			RequestService("/online/user/login", "POST", data, function(result) { //登录/index.html   /online/user/login
 				if(result.success === true || result.success == undefined) {
-
+					anchorsId=result.resultObject.id
 					window.localStorage.userName = data.username;
 					window.location.reload();
 					var myStudent = window.localStorage.myStudyCenter;

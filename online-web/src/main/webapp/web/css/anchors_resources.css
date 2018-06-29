@@ -279,6 +279,7 @@ outline: none;
 	display: inline-block;
 	cursor: pointer;
 	font-size: 16px;
+	margin-bottom: 0;
 }
 .video-btn p:hover{
 	color: #00bc12;
@@ -293,8 +294,28 @@ outline: none;
 	color: #999999;
 }
 .video-title-wrap{
-	margin: 10px 0 20px;
+	margin: 20px 0 20px;
 }
+/*视频上传*/
+.resource_uploading{
+	position: relative;
+	display: none;
+	width: 400px;
+	margin-top: 20px;
+}
+#cancalUpdata1{
+	position: absolute;
+	top: 0;
+	width: 80px;
+	left: 420px;
+}
+#continueUpload{
+	position: absolute;
+	top: 0;
+	width: 80px;
+	left: 420px;
+}
+/*视频上传结束*/
 .video-title input{
 	border: 1px solid #F0F0F0;
 	width: 280px;
@@ -442,9 +463,12 @@ outline: none;
 	background: white;
 	overflow: hidden;
 }
-/*展示更多样式*/
 .list-Answer-right-text {
-    font-size: 16px;
+    margin-bottom: 20px;
+}
+/*展示更多样式*/
+.comment-text{
+	font-size: 16px;
     color: #666;
     word-break: break-all;
     word-wrap: break-word;
@@ -573,7 +597,7 @@ outline: none;
 	font-size: 16px;
 	color: #333333;
 }
-.save-consilia-wrap .consilia-right-text p{
+.save-consilia-wrap .consilia-right-text .consilia-text{
 	height: 42px;
 	width: 100%;
 	line-height: 21px;
@@ -626,6 +650,14 @@ outline: none;
 	color: #999999;
 	
 }
+.class-right-text .class-address{
+	margin: 10px 0 0;	
+	color: #999999;
+	 max-width: 645px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
 /*时间/状态/删除/编辑内容/置顶*/
 .status-operation-wrap{
 	overflow: hidden;
@@ -665,6 +697,9 @@ outline: none;
 .fabulous-box .fabulous{
 	font-size: 16px;
 	margin-right: 7px;
+}
+.fabulous-box .active{
+	color: #00bc12;
 }
 .reply-teacher-wrap{
 	width: 880px;
@@ -816,6 +851,14 @@ outline: none;
 .left-title span{
 	color: red;
 }
+.banner-all-tip{
+	clear: both;
+    color: red;
+    margin-left: 116px;
+    margin: 10px 0 0 116px;
+    padding-top: 10px;
+}  
+  
 .banner-link-wrap{
 	overflow: hidden;
 	margin-top: 20px;
@@ -852,7 +895,7 @@ outline: none;
 	background: #00bc12;
 }
 .banner-url-wrap{
-	overflow: hidden;
+	/*overflow: hidden;*/
 	margin-top: 20px;
 }
 .banner-url-wrap select{
@@ -866,7 +909,7 @@ outline: none;
 	margin-top: 20px;
 }
 .banner-date-wrap input{
-	width: 120px;
+	width: 153px;
 	height: 36px;
 	border: 1px solid #dedede;
 	outline: none;
