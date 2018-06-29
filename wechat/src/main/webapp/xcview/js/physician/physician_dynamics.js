@@ -163,6 +163,11 @@ function sendComment(){
             var evaluatePostsId = "evaluate"+getPostsIdByComment;
             var getNewPostsCommentId = data.resultObject[0].id;
             $("#"+getPostsIdByComment).show();
+            if(!$("#"+getPostsIdByComment).children(".number_people_fize").children("span").is(":empty")){
+                $("#"+getPostsIdByComment).find(".number_people_fize").show();
+            } else {
+                $("#"+getPostsIdByComment).find(".number_people_fize").hide();
+            }
             $("#"+getPostsIdByComment).find(".evaluate_main").show();
             if(postsCommentId==""){
                 $("."+evaluatePostsId+"").prepend("<div class='evaluateDiv' data-id="+getNewPostsCommentId+" data-postsId="+getPostsIdByComment+" data-userId="+loginUserId+" >" +
@@ -233,6 +238,9 @@ function postsLike(obj,postsId) {
             $("#"+postsId+"").children("div").find("img").attr('src','/xcview/images/zan001.png');
             //重新获取点赞列表
             $("#"+postsId).show();
+            if($("#"+postsId).children(".evaluate_main").children("div").length==0 ){
+                $("#"+postsId).find(".evaluate_main").hide();
+            }
             $("#"+postsId).find(".number_people_fize").show();
 
             getPostsLikeList(postsId,data.resultObject.list);

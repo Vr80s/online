@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.xczhihui.bxg.online.web.service.OnlineUserCenterService;
 import com.xczhihui.course.service.ICourseSolrService;
+import com.xczhihui.medical.doctor.model.MedicalDoctorAccount;
 import com.xczhihui.medical.doctor.model.MedicalDoctorPosts;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorAccountService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsService;
 
 import org.apache.solr.client.solrj.SolrServerException;
@@ -77,6 +79,8 @@ public class CourseApplyController extends AbstractController {
     private OnlineUserCenterService onlineUserCenterService;
     @Autowired
     private ICourseSolrService courseSolrService;
+    @Autowired
+    private IMedicalDoctorAccountService medicalDoctorAccountService;
 
     /**
      * Description：分页获取课程申请列表
@@ -425,13 +429,14 @@ public class CourseApplyController extends AbstractController {
      */
     private void addCourseDoctorPosts(String courseApplyId, OnlineUser user) {
         String userId = user.getId();
+        MedicalDoctorAccount mha = medicalDoctorAccountService.getByUserId(userId);
         Course course = courseService.findByApplyId(courseApplyId);
         MedicalDoctorPosts mdp = new MedicalDoctorPosts();
         mdp.setContent(course.getGradeName()+","+course.getSubtitle());
         mdp.setType(5);
         mdp.setTitle(course.getGradeName());
         mdp.setCoverImg(course.getBigImgPath());
-        mdp.setDoctorId(userId);
+        mdp.setDoctorId(mha.getDoctorId());
         mdp.setCourseId(course.getId());
         medicalDoctorPostsService.addMedicalDoctorPosts(mdp);
     }
