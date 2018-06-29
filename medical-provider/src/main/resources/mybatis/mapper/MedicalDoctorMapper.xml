@@ -581,7 +581,7 @@
         INNER JOIN course_anchor AS ou ON of.lecturer_id = ou.user_id
         WHERE of.user_id = mda.account_id
         AND ou.status = 1  AND ou.deleted =0),0) AS focusCount,
-        md.`create_time` createTime
+        UNIX_TIMESTAMP(md.`create_time`) createTime
         FROM
         medical_doctor md
         JOIN

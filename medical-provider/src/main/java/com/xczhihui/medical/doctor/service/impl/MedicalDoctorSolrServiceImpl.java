@@ -1,10 +1,7 @@
 package com.xczhihui.medical.doctor.service.impl;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import javax.annotation.PostConstruct;
 
@@ -123,15 +120,14 @@ public class MedicalDoctorSolrServiceImpl implements IMedicalDoctorSolrService {
     public Page<MedicalDoctorSolrVO> selectDoctorListBySolr(Page page, DoctorQueryVo dqv) throws IOException, SolrServerException {
         String searchStr = getSearchStr(dqv);
         searchStr = searchStr.equals("") ? "*:*" : searchStr;
-        Map<String, SolrQuery.ORDER> sortedMap = new HashMap<>();
-        String sort;
+        Map<String, SolrQuery.ORDER> sortedMap = new LinkedHashMap<>();
         if(dqv.getSortType()!=null && dqv.getSortType().equals(2)){
-            sort = "focusCount";
-        }else{
-            sort = "recommendSort";
+            sortedMap.put("focusCount", SolrQuery.ORDER.desc);
+        }else if(dqv.getSortType()!=null && dqv.getSortType().equals(2)){
+            sortedMap.put("recommendSort", SolrQuery.ORDER.desc);
         }
         sortedMap.put("score", SolrQuery.ORDER.desc);
-        sortedMap.put(sort, SolrQuery.ORDER.desc);
+        sortedMap.put("recommendSort", SolrQuery.ORDER.desc);
         sortedMap.put("createTime", SolrQuery.ORDER.desc);
 
         SolrPages doctors = solrUtils.getByPage(searchStr, page.getCurrent(), page.getSize(), MedicalDoctorSolrVO.class, sortedMap);
