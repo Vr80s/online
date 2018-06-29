@@ -312,8 +312,9 @@ function ccVideo(videoId, multimediaType,id) {
 /*直播间开始*/
 // 一、获取是否医师权限。二、获取完权限，获取课程。三、获取完课程判断类型。
 // 点击直播间回放和直播中状态跳转发礼物直播间
-function detailsId(){
-    location.href = "/xcview/html/details.html?courseId=" + id
+function detailsId(id){
+    // var id = data.resultObject.courseList.id;
+    location.href = "/xcview/html/details.html?courseId=" + id;
 };
 
 // 定义无直播状态方法--为您推荐，默认图
@@ -348,7 +349,7 @@ requestService("/xczh/doctors/doctorStatus", {doctorId:doctorId},function (data)
                     if (data.success) {
                         var number = data.resultObject;
                         if (number > 0) {   //三、获取完课程判断类型。
-                            requestService("/xczh/doctors/recentlyLive", {userId:userId},function (data) {  
+                            requestService("/xczh/doctors/recentlyLive", {userId:userId,},function (data) {  
                                 if (data.success == true) {
                                     // 直播状态
                                     //直播课程状态：lineState  1直播中， 2预告，3直播结束 ， 4 即将直播 ，5 准备直播 ，6 异常直播

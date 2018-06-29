@@ -144,7 +144,7 @@
 
 	/*动态图片*/
 	.trends_hide{
-		background: blue;
+		/*background: blue;*/
 	    /*padding: 0.3rem 0;*/
 	    margin: 0.2rem 0;
 	}
@@ -453,49 +453,6 @@
 				<div class=""></div>
 			</div>
 		<!-- 删除样式结束 -->
-
-
-
-		<!-- 直播 -->
-		<!--<div class="sinatv_nav">
-			<div class="sinatv_nav_span comment_hide">
-				<span class="title">6月12日10:00直播，免费</span>
-			</div>
-			<div class="sinatv_nav_cen comment_hide">
-				<img src="/xcview/images/xianxia_03.jpg" alt="" />
-				<div class="sinatv_nav_cen_size">跟着中医学养娃-杭州大夫育儿十讲</div>
-				&lt;!&ndash; <div class="sinatv_nav_rate"><span>99</span>熊猫币</div> &ndash;&gt;
-				<div class="sinatv_nav_rate"><span>免费</span></div>
-			</div>
-			<div class="both"></div>
-			<div class="sinatv_nav_bottom">
-				<span class="time">2018.5.30 18:00<span class="basis_tips">直播课</span></span>
-				<span class="img"><img src="/xcview/images/zan01.png" alt="" class="zan_img" /><img src="/xcview/images/returned.png" alt="" class="sinatv_evaluate_img" /></span>
-				<div class="both"></div>
-			</div>
-			<div class="sinatv_number_people">
-				<div class="sinatv_number_people_bg">
-					<div class="sinatv_number_people_fize"><img src="/xcview/images/zan01.png" alt="" class="sinatv_number_people_zan" /><span>你傻啊，我不傻，你傻</span></div>
-					&lt;!&ndash; 评价内容 &ndash;&gt;
-					<div class="sinatv_evaluate_main">
-						&lt;!&ndash; <div class=""> &ndash;&gt;
-							<span class="name">辣椒小姐：</span>
-							<span class="sinatv_evaluate_cen">我是内容</span>
-						&lt;!&ndash; </div> &ndash;&gt;
-						<div class="both"></div>
-						<div class="sinatv_response">
-							<span class="my">麦克</span>
-							<span class="sinatv_response_cen">回复</span>
-							<span class="she">傻瓜：</span>
-							<span class="sinatv_response_center">我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻我说你傻</span>
-						</div>
-
-					</div>
-				</div>
-			</div>
-		</div>-->
-
-
 	</div>
 	<!-- 中间内容结束 -->
 
@@ -513,7 +470,6 @@
 	<div class="broadcastroom">
 		<div class="broadcastroom_video">
 			
-
 			<!-- 直播中提示 -->
 			<div class="living_broadcastroom" id="living_broadcastroom">
 				<script type="text/html" id="living_broadcastroom_id">			
@@ -524,8 +480,8 @@
 					</div>
 
 					{{if items.lineState == 1}}
-						<img src="/xcview/images/play_btn.png" alt="" class="broadcastroom_button" onclick="detailsId()" />
-						<div class="broadcastroom_hint" onclick="detailsId()">
+						<img src="/xcview/images/play_btn.png" alt="" class="broadcastroom_button" onclick="detailsId({{items.id}})" />
+						<div class="broadcastroom_hint" onclick="detailsId({{items.id}})">
 							<div class="broadcastroom_hint_title">正在直播：{{items.gradeName}}</div>
 						</div>
 					{{else if items.lineState == 2 || items.lineState == 4 || items.lineState == 5}}
@@ -534,8 +490,8 @@
 							<div class="count_down_title">{{items.gradeName}}</div>
 						</div>
 					{{else if items.lineState == 3}}
-						<img src="/xcview/images/play_btn.png" alt="" class="broadcastroom_button" onclick="detailsId()" />
-						<div class="broadcastroom_hint" onclick="detailsId()">
+						<img src="/xcview/images/play_btn.png" alt="" class="broadcastroom_button" onclick="detailsId({{items.id}})" />
+						<div class="broadcastroom_hint" onclick="detailsId({{items.id}})">
 							<div class="broadcastroom_hint_title">直播回放：{{items.gradeName}}</div>
 						</div>
 					{{/if}}
@@ -923,10 +879,16 @@
 <script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/common.js?v=wechat_1.1.1"></script> 
 <script type="text/javascript" src="/xcview/js/common/template.js"></script>    <!--数据模板引入-->
+
+<!-- 直播课跳转 -->
+<script type="text/javascript" src="/xcview/js/common/commonJumpPlay.js"></script>
+
 <script type="text/javascript" src="/xcview/js/physician/physician_dynamics.js"></script>    <!--全部动态引入-->
 
 <!-- 直播间数据引入 -->
 <script type="text/javascript" src="/xcview/js/physician/broadcastroom.js"></script>
+
+
 
 
 <!-- 导航渐变 -->
