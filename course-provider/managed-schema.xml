@@ -436,7 +436,7 @@
   <field name="multimediaType" type="tint"/>
   <field name="name" type="text_ik"/>
   <field name="recommendSort" type="tint"/>
-  <field name="releaseTime" type="tdate"/>
+  <field name="releaseTime" type="tlong"/>
   <field name="smallImgPath" type="string"/>
   <field name="startTime" type="tdate"/>
   <field name="subtitle" type="text_ik"/>
