@@ -1,7 +1,7 @@
 var getAnchorsId;
 $(function () {
 	
- 	RequestService("medical/common/getDoctorByUserId", "get", null, function (data) {
+ 	RequestService("/medical/common/getDoctorByUserId", "get", null, function (data) {
         	if (data.success==true) {
         		getAnchorsId=data.resultObject.doctorId
         		newsList(1,getAnchorsId);
@@ -775,7 +775,7 @@ template.config("escape", false);
 		RequestService("/doctor/posts/"+id+"/"+stick, "post",null, function (data) {
         	if(data.success == true){
         		showTip(data.resultObject);
-        		newsList(1);
+        		newsList(1,getAnchorsId);;
         	}else{
         		showTip(data.resultObject);
         	}
@@ -2068,13 +2068,12 @@ template.config("escape", false);
 //  }
 //
 //})
-$('.hospital_worktime ul li').click(function () {
-    if ($(this).find("img").hasClass('color')) {
-        $(this).removeClass('color')
+$('.hospital_worktime td p').click(function () {
+    if ($(this).find("img").length != 0) {
+        $(this).find("img").remove();
     } else {
-        $(this).addClass('color');
+        $(this).html('<img src="/web/images/right_15.png"/>');
     }
-
 })
 
 var hosList = [];
