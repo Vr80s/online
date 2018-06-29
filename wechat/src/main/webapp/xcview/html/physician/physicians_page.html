@@ -120,9 +120,10 @@
 	}
 	/*课程*/
 	.course_hide{
-		background: red;
+		background: #fff;
 	    padding: 0.3rem 0;
 	    margin: 0.2rem 0;
+	    margin-bottom: 0;
 	}
 	.comment_hide{
 		font-size: 0.3rem;
@@ -131,26 +132,33 @@
 
 	/*文章*/
 	.article_hide{
-		background: blue;
-	    padding: 0.3rem 0;
+		padding: 0.3rem 0;
 	    margin: 0.2rem 0;
+	    background: #fff;
+	    margin-bottom: 0;
 	}
 	.paper_nav_span{
 		height: 100%;
+		text-indent: 0.26rem;
 	}
 
 	/*动态图片*/
 	.trends_hide{
 		background: blue;
-	    padding: 0.3rem 0;
+	    /*padding: 0.3rem 0;*/
 	    margin: 0.2rem 0;
 	}
 
 	/*普通动态*/
 	.panel_hide{
-		background: yellow;
+		background: #fff;
 	    padding: 0.3rem 0;
 	    margin: 0.2rem 0;
+	    margin-bottom: 0;
+	}
+
+	.rests_nav{
+		background: none;
 	}
 
 </style>
@@ -292,7 +300,7 @@
 					{{/if}}
 					<span class="title">{{item.content}}</span>
 				</div>
-				<div id="ccvideo{{item.id}}" class="comment_hide">
+				<div id="ccvideo{{item.id}}" class="comment_hide ccvideo">
 
 				</div>
 				{{else if item.typeId != null && item.typeId != 8}}
