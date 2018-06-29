@@ -53,4 +53,11 @@ public interface MedicalDoctorPostsMapper extends BaseMapper<MedicalDoctorPosts>
      */
     void updateStickMedicalDoctorPosts(@Param("id") Integer id,@Param("stick") Boolean stick);
 
+    /**
+     * 获取医师动态
+     * @param id 医师动态id
+     * @return
+     */
+    MedicalDoctorPosts getMedicalDoctorPostsById(@Param("id") Integer id);
+
 }

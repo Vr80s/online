@@ -3012,6 +3012,11 @@
 <script>	
 //页面进入之后左侧tab定位
 $(function(){
+    function getParam(name) {
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r!=null) return unescape(r[2]); return null;
+    }
 		if(!location.hash){
         	location.hash = "#menu=1-1";
 		}
@@ -3020,6 +3025,13 @@ $(function(){
 	    	$("#accordion li[data-name='menu=1-1']").click();
 	    	$("#accordion li[data-name='menu=1-1']").addClass('open');
 	    	$("#accordion li[data-name='menu=1-1'] .submenu").css('display','block')
+            if (hash == "#menu=1-1") {
+                var courseType = getParam("courseType");
+                if (courseType) {
+                    $('#course_type').val(courseType);
+                    $('#course_type').trigger('change');
+                }
+            }
     	}
 
     if (location.hash == "#menu=2-1" || location.hash == "#menu=2-2") {

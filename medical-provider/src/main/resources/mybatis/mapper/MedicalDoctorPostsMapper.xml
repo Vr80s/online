@@ -21,8 +21,20 @@
         LEFT JOIN oe_bxs_article oba
         ON oba.id = mdp.article_id
         WHERE mdp.deleted = 0 and mdp.status = 1 and mdp.doctor_id=#{doctorId}
-        <if test="type != null">
-            and mdp.type = #{type}
+        <if test="type ==1 ">
+            and oc.type = 1
+        </if>
+        <if test="type ==2 ">
+            and mdp.course_id is not null
+        </if>
+        <if test="type ==3 ">
+            and oba.type_id = 8
+        </if>
+        <if test="type ==4 ">
+            and oba.type_id != 8
+        </if>
+        <if test="type ==5 ">
+            and (mdp.type = 1 or mdp.type = 2 or mdp.type = 3)
         </if>
         ORDER BY mdp.stick desc,mdp.create_time desc
 
@@ -173,5 +185,13 @@
         mdp.`stick` = #{stick}
         WHERE mdp.id = #{id}
     </update>
+
+    <select id="getMedicalDoctorPostsById" resultType="com.xczhihui.medical.doctor.model.MedicalDoctorPosts">
+        SELECT *
+        from
+          medical_doctor_posts
+        WHERE id = #{id}
+
+    </select>
 
 </mapper>

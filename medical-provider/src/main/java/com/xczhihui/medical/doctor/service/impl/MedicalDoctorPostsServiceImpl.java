@@ -71,4 +71,10 @@ public class MedicalDoctorPostsServiceImpl extends ServiceImpl<MedicalDoctorPost
     public void updateStickMedicalDoctorPosts(Integer id, Boolean stick) {
         medicalDoctorPostsMapper.updateStickMedicalDoctorPosts(id,stick);
     }
+
+    @Override
+    public MedicalDoctorPosts getMedicalDoctorPostsById(Integer id) {
+        MedicalDoctorPosts mdp = medicalDoctorPostsMapper.getMedicalDoctorPostsById(id);
+        return mdp;
+    }
 }

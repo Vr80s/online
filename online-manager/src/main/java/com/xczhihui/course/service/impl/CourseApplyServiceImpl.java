@@ -225,7 +225,7 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
             boolean isLiveCourse = false;
             String title = course.getGradeName();
             Integer courseType = course.getType();
-            RouteTypeEnum routeTypeEnum = RouteTypeEnum.NONE;
+            RouteTypeEnum routeTypeEnum;
 
             if (courseType.equals(1)) {
                 typeText = "直播";
@@ -235,14 +235,14 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
                 if (courseType.equals(2)) {
                     if (course.getMultimediaType() == 1) {
                         typeText = "视频";
-//                        routeTypeEnum = RouteTypeEnum.VIDEO_COURSE_LIST;
+                        routeTypeEnum = RouteTypeEnum.VIDEO_COURSE_LIST_ONLY_WEB;
                     } else {
                         typeText = "音频";
-//                        routeTypeEnum = RouteTypeEnum.AUDIO_COURSE_LIST;
+                        routeTypeEnum = RouteTypeEnum.AUDIO_COURSE_LIST_ONLY_WEB;
                     }
                 } else {
                     typeText = "线下";
-//                    routeTypeEnum = RouteTypeEnum.OFFLINE_COURSE_LIST;
+                    routeTypeEnum = RouteTypeEnum.OFFLINE_COURSE_LIST_ONLY_WEB;
                 }
             }
             String content = MessageFormat.format(isLiveCourse ? WEB_LIVE_COURSE_APPLY_SUCCESS_MESSAGE_TIPS : WEB_NOT_LIVE_COURSE_APPLY_SUCCESS_MESSAGE_TIPS, typeText, title);
@@ -313,16 +313,20 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
         Integer courseForm = courseApplyInfo.getCourseForm();
         RouteTypeEnum routeTypeEnum = RouteTypeEnum.NONE;
         String reason = CourseDismissal.getDismissal(courseApplyInfo.getDismissal());
-        String detailReason = reason + (StringUtils.isNotBlank(courseApplyInfo.getDismissalRemark())  ? ("," + courseApplyInfo.getDismissalRemark()) : "");
+        String detailReason = reason + (StringUtils.isNotBlank(courseApplyInfo.getDismissalRemark()) ? ("," + courseApplyInfo.getDismissalRemark()) : "");
         if (courseForm.equals(1)) {
+            routeTypeEnum = RouteTypeEnum.LIVE_COURSE_LIST_ONLY_WEB;
             n = "直播";
         } else if (courseForm.equals(2)) {
             if (courseApplyInfo.getMultimediaType().equals(1)) {
+                routeTypeEnum = RouteTypeEnum.VIDEO_COURSE_LIST_ONLY_WEB;
                 n = "视频";
             } else {
+                routeTypeEnum = RouteTypeEnum.AUDIO_COURSE_LIST_ONLY_WEB;
                 n = "音频";
             }
         } else if (courseForm.equals(3)) {
+            routeTypeEnum = RouteTypeEnum.OFFLINE_COURSE_LIST_ONLY_WEB;
             n = "线下";
         }
 

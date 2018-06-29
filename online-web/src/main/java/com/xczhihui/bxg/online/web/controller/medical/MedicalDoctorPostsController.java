@@ -120,4 +120,14 @@ public class MedicalDoctorPostsController {
         }
     }
 
+    /**
+     * 获取医师动态
+     */
+    @RequestMapping(value="{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseObject getDoctorPostsById(@PathVariable("id") Integer id){
+        MedicalDoctorPosts mdp = medicalDoctorPostsService.getMedicalDoctorPostsById(id);
+        return ResponseObject.newSuccessResponseObject(mdp);
+    }
+
 }

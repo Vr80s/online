@@ -81,16 +81,28 @@ public class MultiUrlHelper {
             URL_TYPE_MOBILE, "");
     private static Map<String, String> videoCourseListMap = ImmutableMap.of(
             URL_TYPE_APP, "xczh://ipandatcm.com/courseList?tab=2",
-            URL_TYPE_WEB, "/anchor/my?tab=2#menu=1-1",
+            URL_TYPE_WEB, "/anchor/my?courseType=2#menu=1-1",
             URL_TYPE_MOBILE, "");
     private static Map<String, String> offlineCourseListMap = ImmutableMap.of(
             URL_TYPE_APP, "xczh://ipandatcm.com/courseList?tab=3",
-            URL_TYPE_WEB, "/anchor/my?tab=3#menu=1-1",
+            URL_TYPE_WEB, "/anchor/my?courseType=3#menu=1-1",
             URL_TYPE_MOBILE, "");
     private static Map<String, String> audioCourseListMap = ImmutableMap.of(
             URL_TYPE_APP, "xczh://ipandatcm.com/courseList?tab=4",
-            URL_TYPE_WEB, "/anchor/my?tab=4#menu=1-1",
+            URL_TYPE_WEB, "/anchor/my?courseType=4#menu=1-1",
             URL_TYPE_MOBILE, "");
+
+    private static Map<String, String> liveCourseListOnlyWebMap = ImmutableMap.of(
+            URL_TYPE_WEB, "/anchor/my?courseType=1#menu=1-1");
+    private static Map<String, String> videoCourseListOnlyWebMap = ImmutableMap.of(
+            URL_TYPE_WEB, "/anchor/my?courseType=2#menu=1-1");
+    private static Map<String, String> offlineCourseListOnlyWebMap = ImmutableMap.of(
+            URL_TYPE_WEB, "/anchor/my?courseType=3#menu=1-1");
+    private static Map<String, String> audioCourseListOnlyWebMap = ImmutableMap.of(
+            URL_TYPE_WEB, "/anchor/my?courseType=4#menu=1-1");
+    private static Map<String, String> collectionCourseListOnlyWebMap = ImmutableMap.of(
+            URL_TYPE_WEB, "/anchor/my#menu=1-2");
+
     private static Map<String, String> articleMap = ImmutableMap.of(
             URL_TYPE_WEB, "/headline/details/{0}"
     );
@@ -130,6 +142,14 @@ public class MultiUrlHelper {
         urlMap.put(RouteTypeEnum.VIDEO_COURSE_LIST.name(), videoCourseListMap);
         urlMap.put(RouteTypeEnum.OFFLINE_COURSE_LIST.name(), offlineCourseListMap);
         urlMap.put(RouteTypeEnum.AUDIO_COURSE_LIST.name(), audioCourseListMap);
+
+        //带有only_web结尾的是为了兼容，有些跳转APP无落地页,只跳web端页面做的处理
+        urlMap.put(RouteTypeEnum.LIVE_COURSE_LIST_ONLY_WEB.name(), liveCourseListOnlyWebMap);
+        urlMap.put(RouteTypeEnum.VIDEO_COURSE_LIST_ONLY_WEB.name(), videoCourseListOnlyWebMap);
+        urlMap.put(RouteTypeEnum.OFFLINE_COURSE_LIST_ONLY_WEB.name(), offlineCourseListOnlyWebMap);
+        urlMap.put(RouteTypeEnum.AUDIO_COURSE_LIST_ONLY_WEB.name(), audioCourseListOnlyWebMap);
+        urlMap.put(RouteTypeEnum.COLLECTION_COURSE_LIST_ONLY_WEB.name(), collectionCourseListOnlyWebMap);
+
         urlMap.put(RouteTypeEnum.ARTICLE_DETAIL.name(), articleMap);
         urlMap.put(RouteTypeEnum.QUESTION_DETAIL.name(), questionMap);
         urlMap.put(RouteTypeEnum.ANCHOR_INDEX.name(), anchorIndexMap);
