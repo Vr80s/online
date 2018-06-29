@@ -274,7 +274,7 @@
 						{{item.content}}
 						
 					</div>
-					{{if item.pics.length>0}}
+					{{if item.pictures !=null && item.pics.length>0}}
 					<div class="paper_nav_cen comment_hide">
 						{{each item.pics as pic }}
 						<img src="{{pic}}" alt="" />
@@ -330,6 +330,9 @@
 						{{else}}
 						<div class="course_nav_rate"><span>{{item.currentPrice}}</span>熊猫币</div>
 						{{/if}}
+						{{if item.courseType==3}}
+						<div class="course_nav_cen_size">{{item.startTime}}</div>
+						{{/if}}
 
 						<!-- <div class="course_nav_rate">免费</div> -->
 					</div>
@@ -345,14 +348,7 @@
 					<span class="title">{{item.articleTitle}}</span>
 				</div>
 				<div class="consilia_nav_main comment_hide">
-					得控制，体温在38℃~39℃之间。初期热无定，不恶
-					得控制，体温在38℃~39℃之间。初期热无定，不恶
-					得控制，体温在38℃~39℃之间。初期热无定，不恶
-					得控制，体温在38℃~39℃之间。初期热无定，不恶
-					得控制，体温在38℃~39℃之间。初期热无定，不恶
-					得控制，体温在38℃~39℃之间。初期热无定，不恶
-					得控制，体温在38℃~39℃之间。初期热无定，不恶
-					得控制，体温在38℃~39℃之间。初期热无定，不恶
+
 				</div>
 				<div class="consilia_nav_btn"><span>收起</span></div>
 				<div class="consilia_nav_cen comment_hide">
