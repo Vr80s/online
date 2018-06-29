@@ -10,7 +10,26 @@
 <meta name="description" content="" />
 <meta name="wap-font-scale" content="no">
 <!-- 网页自适应JS代码引入 -->
-
+<script> 
+// 控制手机物理键--返回
+window.onload = function(){
+  if(window.history && window.history.pushState) {  
+      $(window).on('popstate', function() {  
+          var hashLocation = location.hash;  
+          var hashSplit = hashLocation.split("#!/");  
+          var hashName = hashSplit[1];  
+          if(hashName !== '') {  
+              var hash = window.location.hash;  
+              if(hash === '') {  
+                  // alert("你点击了返回键");  
+                  location.href ='/xcview/html/search.html'  /*跳转链接*/
+              }  
+          }  
+      });  
+      //window.history.pushState('forward', null, '/xcview/html/curriculum_table.html');    //引号里写当前页面地址,刷新当前页'
+  }
+};
+</script> 
 <!--手机嵌入模板-->
 <script type="text/javascript" src="/xcview/js/common/layout.js"></script>
 <link rel="stylesheet" href="/xcview/css/mui.min.css">
@@ -25,6 +44,7 @@
 	    }
 	}	
 </script>
+
 <style type="text/css">
 	.header_seek span{
 		margin-top: -0.6rem;
@@ -657,29 +677,6 @@ $(".find_nav_list").on('touchmove', function (e) {
 // 		}
 //		console.log(historyTip[0])
 	</script>
-
-<script> 
-// 控制手机物理键--返回
-window.onload = function(){
-  if(window.history && window.history.pushState) {  
-      $(window).on('popstate', function() {  
-          var hashLocation = location.hash;  
-          var hashSplit = hashLocation.split("#!/");  
-          var hashName = hashSplit[1];  
-          if(hashName !== '') {  
-              var hash = window.location.hash;  
-              if(hash === '') {  
-                  // alert("你点击了返回键");  
-                  location.href ='/xcview/html/search.html'  /*跳转链接*/
-              }  
-          }  
-      });  
-      window.history.pushState('forward', null, '/xcview/html/curriculum_table.html');    //引号里写当前页面地址,刷新当前页'
-  }
-};
-</script> 
-	
-	
 	
 </html>
 
