@@ -148,7 +148,6 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		if(mda!=null && mda.size()>0) {
 			String sql_ys = "DELETE FROM medical_doctor WHERE id = ?";
 			MedicalDoctorAccount  mdad =  mda.get(0);
-			System.out.println(mdad.toString());
 			dao.getNamedParameterJdbcTemplate().getJdbcOperations().update(sql_ys, new Object[] {mdad.getDoctorId()});
 		}
 		String medical_hospital_account =  "select * from medical_hospital_account where account_id = '" +userId+"'";
@@ -157,7 +156,6 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		if(mha!=null && mha.size()>0) {
 			String sql_yg = "DELETE FROM medical_hospital WHERE id = ?";
 			MedicalHospitalAccount  mha_d =  mha.get(0);
-			System.out.println(mha_d.toString());
 			dao.getNamedParameterJdbcTemplate().getJdbcOperations().update(sql_yg, new Object[] {mha_d.getDoctorId()});
 		}
 		/**

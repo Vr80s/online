@@ -41,14 +41,9 @@ public class WechatChannelUtil {
 
         QrCodeVo qr = new QrCodeVo();
 
-//        JSONObject jsonObjectToken = JSONObject.fromObject(token);
-//        String access_token = (String) jsonObjectToken.get("access_token");
-//        Integer expires_in = (Integer) jsonObjectToken.get("expires_in");
-
         if (!StringUtils.isNotBlank(access_token)) {
             throw new RuntimeException("获取token有误");
         }
-        System.out.println("accessToken:" + access_token);
         /*
          * 生产临时的和永久的参数是不一样的哦。
          * 
@@ -59,7 +54,6 @@ public class WechatChannelUtil {
         String url = QR_CODE_TICKET.replace("APPSECRET", access_token);
         String params = "{\"action_name\": \"QR_LIMIT_SCENE\", \"action_info\": {\"scene\": {\"scene_id\": " + qrSceneId + "}}}";
         String Ticket = HttpUtil.doHttpsPost(url, params);
-        System.out.println(Ticket);
 
         JSONObject jsonObject = JSONObject.fromObject(Ticket);
         String qr_ticket = (String) jsonObject.get("ticket");
@@ -74,29 +68,6 @@ public class WechatChannelUtil {
         return qr;
     }
 
-
-    /**
-     * 通过获得的二维码票据  --》得到二维码
-     * Description：
-     *
-     * @return void
-     * @throws Exception
-     * @author name：yangxuan <br>email: 15936216273@163.com
-     */
-//	@Test
-//	public void testEWM() throws Exception {
-//		//String token =SingleAccessToken.getInstance().getAccessToken().getToken();
-//		//System.out.println(token);
-//		String url = QR_CODE_IMG.replace("TICKETS", "gQFZ8DwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyMVJyZVpidTFlRWkxUldKTzFxY1cAAgR64MpaAwQAjScA");
-//		String hehe = HttpUtil.doGet(url);
-//		System.out.println(hehe);
-//		
-//		//把这个二维码，我们自己也存储下啦。哈哈
-//		//byte[] bs123 = Base64Utils.decodeFromString(hehe);
-//		generateImage(hehe,"D://1.jpg");
-//		
-//		
-//	}
     public static boolean generateImage(String imgStr, String imgFile) throws Exception {
         // 对字节数组字符串进行Base64解码并生成图片
         if (imgStr == null) // 图像数据为空

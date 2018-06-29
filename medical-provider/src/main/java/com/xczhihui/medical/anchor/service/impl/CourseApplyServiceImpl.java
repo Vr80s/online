@@ -176,9 +176,6 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
             List<Integer> ids = new ArrayList<>();
             ids.add(courseApplyInfo.getId());
             getApplyIdsByChildId(courseApplyInfo.getId(), ids);
-            for (int i = 0; i < ids.size(); i++) {
-                System.out.println(ids.get(i));
-            }
             Integer cCount = courseApplyInfoMapper.selectCourseForValidate(courseApplyInfo.getTitle(), ids);
             if (cCount > 0) {
                 throw new AnchorWorkException("课程标题被占用");

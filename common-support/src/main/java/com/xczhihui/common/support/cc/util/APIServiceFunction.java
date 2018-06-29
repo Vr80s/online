@@ -146,10 +146,7 @@ public class APIServiceFunction {
 			connection.connect();
 			// 获取所有响应头字段
 			Map<String, List<String>> map = connection.getHeaderFields();
-			// 遍历所有的响应头字段
-			for (String key : map.keySet()) {
-				System.out.println(key + "--->" + map.get(key));
-			}
+
 			// 定义 BufferedReader输入流来读取URL的响应
 			in = new BufferedReader(new InputStreamReader(
 					connection.getInputStream()));
@@ -158,7 +155,6 @@ public class APIServiceFunction {
 				result += line;
 			}
 		} catch (Exception e) {
-			System.out.println("发送GET请求出现异常！" + e);
 			e.printStackTrace();
 		}
 		// 使用finally块来关闭输入流
@@ -192,7 +188,6 @@ public class APIServiceFunction {
 			accessFile = new RandomAccessFile(file, "r");
 			accessFile.seek(chunkStart);
 			int readLength = accessFile.read(chunks, 0, chunksLen);
-			System.out.println("read Length: " + readLength);
 			accessFile.close();
 			return chunks;
 		} finally {
@@ -221,7 +216,6 @@ public class APIServiceFunction {
 			e1.printStackTrace();
 		}
 		if(bufferOut == null) {
-			System.out.println("---------------read file chunk error-----------------");
 			return "read file error";
 		}
 		HttpURLConnection conn = null;
@@ -240,7 +234,6 @@ public class APIServiceFunction {
 			conn.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + BOUNDARY);
 			// content-range
 			conn.setRequestProperty("Content-Range", "bytes " + chunkStart + "-" + chunkEnd + "/" + file.length());
-			System.out.println("bytes " + chunkStart + "-" + chunkEnd + "/" + file.length());
 
 			DataOutputStream out = new DataOutputStream(conn.getOutputStream());
 			StringBuilder sb = new StringBuilder();
@@ -270,7 +263,6 @@ public class APIServiceFunction {
 			conn.disconnect();
 			return resultBuf.toString();
 		} catch (Exception e) {
-			System.out.println("发送POST请求出现异常！" + e);
 			e.printStackTrace();
 		} finally {
 			if (conn != null)

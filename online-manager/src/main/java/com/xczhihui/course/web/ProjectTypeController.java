@@ -92,8 +92,6 @@ public class ProjectTypeController {
 			throws InvocationTargetException, IllegalAccessException {
 		ResponseObject responseObj = new ResponseObject();
 
-		System.out.println(project.getName());
-		System.out.println(project.getIcon());
 		if (project.getName() == null) {
 			throw new IllegalArgumentException("请输入课程类别名称");
 		}

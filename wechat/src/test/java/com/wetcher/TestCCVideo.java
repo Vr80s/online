@@ -16,13 +16,6 @@ import org.junit.Test;
 public class TestCCVideo {
 
 
-	@Test
-	public void testTime(){
-		System.out.println(String.valueOf(new Date().getTime() / 1000));
-		System.out.println(System.currentTimeMillis() / 1000);
-	}
-
-	
 	/**
 	 * 获取播放代码
 	 * Description：
@@ -40,12 +33,6 @@ public class TestCCVideo {
 		paramsMap.put("playerwidth", "100");
 		paramsMap.put("playerheight", "120");
 		paramsMap.put("format", "json");
-		long time = System.currentTimeMillis();
-//		String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time,"K45btKhytR527yfTAjEp6z4fb3ajgu66");
-//		System.out.println(requestURL);
-//		String responsestr = APIServiceFunction.HttpRetrieve("http://spark.bokecc.com/api/video/playcode?" + requestURL);
-//		System.out.println(responsestr);
-		
 	}
 	
 	/**
@@ -62,10 +49,6 @@ public class TestCCVideo {
 		paramsMap.put("videoid", "070F3FC7BEAF701F9C33DC5901307461");
 		paramsMap.put("format", "json");
 		long time = System.currentTimeMillis();
-//		String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time,"K45btKhytR527yfTAjEp6z4fb3ajgu66");
-//		System.out.println(requestURL);
-//		String responsestr = APIServiceFunction.HttpRetrieve("http://spark.bokecc.com/api/video/v3?" + requestURL);
-//		System.out.println(responsestr);
 	}
 
 	/**
@@ -83,10 +66,6 @@ public class TestCCVideo {
 		
 		paramsMap.put("format", "json");
 		long time = System.currentTimeMillis();
-//		String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time,"K45btKhytR527yfTAjEp6z4fb3ajgu66");
-//		System.out.println(requestURL);
-//		String responsestr = APIServiceFunction.HttpRetrieve("http://spark.bokecc.com/api/video/v3?" + requestURL);
-//		System.out.println(responsestr);
 	}
 	
 	

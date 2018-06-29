@@ -37,19 +37,10 @@ public class Zzqhs {
             while((str = br.readLine()) != null) {
                 sb.append(str+"\n");
                 j++;
-//                System.out.println(str);
             }
 
             br.close();
             reader.close();
-
-            // write string to file
-//            FileWriter writer = new FileWriter(writeFile,true);
-//            BufferedWriter bw = new BufferedWriter(writer);
-//            bw.write(sb.toString());
-//
-//            bw.close();
-//            writer.close();
         }
         catch(FileNotFoundException e) {
             e.printStackTrace();

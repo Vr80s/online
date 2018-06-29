@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -24,6 +26,7 @@ import com.xczhihui.course.service.IOfflineCityService;
 import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.course.vo.MenuVo;
 import com.xczhihui.course.vo.QueryConditionVo;
+import com.xczhihui.quene.TestRedisQuene;
 
 import junit.framework.TestCase;
 
@@ -33,7 +36,7 @@ import junit.framework.TestCase;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:config.xml" })
 public class SchoolDaoTest extends TestCase {
-
+	private static Logger logger = LoggerFactory.getLogger(TestRedisQuene.class);
     
 	@Autowired
 	private IMobileBannerService mobileBannerService;
@@ -63,7 +66,6 @@ public class SchoolDaoTest extends TestCase {
     @Test
     public void selectMobileBannerPage() throws Exception {
     	List<MobileBanner>  list = mobileBannerService.selectMobileBannerPage(BannerType.RECOMMENDATION.getCode(), MultiUrlHelper.URL_TYPE_WEB);
-    	System.out.println(list.size());
     }
 
     /**
@@ -73,7 +75,6 @@ public class SchoolDaoTest extends TestCase {
     @Test
     public void mobileProjectService() throws Exception {
     	List<MenuVo>  list = mobileProjectService.selectMenuVo();
-    	System.out.println(list.size());
     }
     
     /**
@@ -83,7 +84,6 @@ public class SchoolDaoTest extends TestCase {
     @Test
     public void doctorList() throws Exception {
     	List<Map<String, Object>>  list = myInfoService.hostInfoRec();
-    	System.out.println(list.size());
     }
 
     /**
@@ -96,13 +96,11 @@ public class SchoolDaoTest extends TestCase {
          * 课程分类   -- 暂时固定
          */
 		List<MenuVo> listMenu  = mobileProjectService.selectMenuVo();
-        System.out.println(listMenu.size());
 		/**
          * 课程列表
          */
 		int pageSize = 3;
 		List<Map<String, Object>>   listCourse =  mobileBannerService.recommendCourseList(listMenu,pageSize);
-		System.out.println(listCourse.size());
     }
     
     /**
@@ -120,7 +118,6 @@ public class SchoolDaoTest extends TestCase {
 		 List<Map<String, Object>>   listCourse =  mobileBannerService.realCourseList(ocl.getRecords(),PagingFixedType.PC_REAL_PAGETYPE_UP.getValue(),
 				 PagingFixedType.PC_REAL_PAGETYPE_DOWN.getValue());
 		 
-		 System.out.println(listCourse.size());
     }
     
     /**
@@ -133,7 +130,6 @@ public class SchoolDaoTest extends TestCase {
 		 List<Map<String, Object>>   listCourse =
 				 mobileBannerService.liveCourseList(PagingFixedType.PC_LIVE_PAGETYPE.getValue());
 		 
-		 System.out.println(listCourse.size());
     }
     
     /**
@@ -144,7 +140,6 @@ public class SchoolDaoTest extends TestCase {
     public void listen() throws Exception {
 
 		 List<CourseLecturVo>   listCourse =  courseService.listenCourseList();
-		 System.out.println(listCourse.size());
     }
     
     /**
@@ -161,7 +156,6 @@ public class SchoolDaoTest extends TestCase {
     	qcv.setQueryKey("我爱你");
     	 
     	List<CourseLecturVo> listCourse = mobileBannerService.searchQueryKeyCourseList(qcv);
-		System.out.println(listCourse.size());
     }
     
     
@@ -170,9 +164,9 @@ public class SchoolDaoTest extends TestCase {
 
     	
     	CourseLecturVo  courseLecturVo = courseService.selectCourseStatusDeleteUserLecturerId(565);
-    	System.out.println("courseLecturVo.getStatus()："+courseLecturVo.getStatus());
-    	System.out.println("courseLecturVo.getisDelete()："+courseLecturVo.getIsDelete());
-    	System.out.println("courseLecturVo.getUserLecturerId()："+courseLecturVo.getUserLecturerId());
+    	logger.info("courseLecturVo.getStatus()："+courseLecturVo.getStatus());
+    	logger.info("courseLecturVo.getisDelete()："+courseLecturVo.getIsDelete());
+    	logger.info("courseLecturVo.getUserLecturerId()："+courseLecturVo.getUserLecturerId());
     }
     
     

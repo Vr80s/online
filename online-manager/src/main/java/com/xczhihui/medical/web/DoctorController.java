@@ -297,10 +297,8 @@ public class DoctorController extends AbstractController {
         String doctorId = request.getParameter("doctorId");
         String mdaiId = request.getParameter("mdaiId");
 
-        System.out.println("doctorId:" + doctorId + ",mdaiId:" + mdaiId);
-        /*
-         * 这里需要传递两个参数 一个是医师id，一个是医师基本信息id
-		 */
+
+        // 这里需要传递两个参数 一个是医师id，一个是医师基本信息id
         request.setAttribute("doctorId", doctorId);
         request.setAttribute("mdaiId", mdaiId);
 

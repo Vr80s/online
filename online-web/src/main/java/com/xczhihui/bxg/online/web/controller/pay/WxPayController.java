@@ -126,13 +126,13 @@ public class WxPayController extends WxPayApiController {
         String return_code = resultMap.get("return_code");
         String return_msg = resultMap.get("return_msg");
         if (!PaymentKit.codeIsOK(return_code)) {
-            System.out.println(xmlResult);
+            log.info(xmlResult);
             m.addObject("errorMsg" + return_msg);
             return m;
         }
         String result_code = resultMap.get("result_code");
         if (!PaymentKit.codeIsOK(result_code)) {
-            System.out.println(xmlResult);
+            log.info(xmlResult);
             m.addObject("errorMsg" + return_msg);
             return m;
         }
@@ -145,7 +145,7 @@ public class WxPayController extends WxPayApiController {
         m.addObject("courseName", order.getCourseNames());
         m.addObject("price", totalAmount);
         m.addObject("orderId", order.getId());
-        System.out.println(qrCodeUrl);
+        log.info(qrCodeUrl);
         return m;
     }
 

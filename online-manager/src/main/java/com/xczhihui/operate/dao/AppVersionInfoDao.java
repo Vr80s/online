@@ -30,8 +30,6 @@ public class AppVersionInfoDao extends SimpleHibernateDao {
 		}
 		sql.append(" order by avi.status desc,avi.sort desc ");
 
-		System.out.println("sql:::::" + sql.toString());
-
 		Page<AppVersionInfo> ms = this.findPageBySQL(sql.toString(), paramMap,
 				AppVersionInfo.class, pageNumber, pageSize);
 		return ms;

@@ -351,8 +351,6 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
 		String hql = "from Course where direct_id = ?";
 		Course course = dao.findByHQLOne(hql,new Object[] { changeCallbackVo.getWebinarId() });
 
-		System.out.println("course livestate " + course);
-		System.out.println("change CallbackVo" + changeCallbackVo.toString());
 		String startOrEnd = "";
 		Integer type = 0;
 		if (course != null) {
@@ -369,7 +367,6 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
 				Date startTime = course.getStartTime();
 				Date currentTime = new Date();
 				Integer taskTime = timeDifference(startTime,currentTime);
-				System.out.println("taskTime:"+taskTime);
 				Timer timer = new Timer();
 				Task task = new Task(changeCallbackVo.getWebinarId(),course.getId(),courseService);
 				timer.schedule(task, taskTime);
@@ -377,15 +374,9 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
 			default:
 				break;
 			}
-			/*
-			 * 更改直播开始结束时间,更改直播当前状态
-			 */
+			 // 更改直播开始结束时间,更改直播当前状态
 			dao.update(course);
-			/*
-			 * 发送直播开始通知广播
-			 */
-			System.out.println("{}{}{}{}{}{}-----》调用im广播的方法---》"+ course.getId() + ",type:" + type);
-
+			 // 发送直播开始通知广播
 			liveCallbackService.liveCallbackImRadio(course.getId() + "", type);
 			
 			if (startOrEnd != "") {
@@ -461,7 +452,6 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
 	    // 计算差多少分钟
 	    long min = diff % nd % nh / nm;
     	
-	    System.out.println(day + "天" + hour + "小时" + min + "分钟");
     	if(min>30) {
     		hour++;
     	}

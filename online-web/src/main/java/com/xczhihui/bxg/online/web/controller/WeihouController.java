@@ -92,9 +92,7 @@ public class WeihouController {
 			map.put("roomid", roomNumber);   //视频id
 			map.put("account",user.getId());       //用户帐号
 			map.put("username",user.getName());      //用户名
-			System.out.println(map.toString());
 			String sing = getSign(map);
-			System.out.println(sing);
 			map.put("sign",sing);
 			return ResponseObject.newSuccessResponseObject(map);
 		}
@@ -114,7 +112,6 @@ public class WeihouController {
         }
         sb.append(WeihouInterfacesListUtil.APP_SECRET_KEY);
         
-        System.out.println("sb.toString():"+sb.toString());
         return getMD5(sb.toString());
 	}
 	

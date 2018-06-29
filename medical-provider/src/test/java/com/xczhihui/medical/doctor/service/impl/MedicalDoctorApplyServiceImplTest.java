@@ -25,7 +25,6 @@ public class MedicalDoctorApplyServiceImplTest extends BaseJunit4Test {
     public void testGetLastOne(){
         MedicalDoctorApply lastOne =
                 doctorApplyService.getLastOne("402880e860c4ebe30160c51302660000");
-        System.out.println("----------------------------" + lastOne.toString());
     }
 
     /**

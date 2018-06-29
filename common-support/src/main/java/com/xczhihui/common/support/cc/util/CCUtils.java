@@ -122,7 +122,6 @@ public class CCUtils {
 		String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time,onlineConfig.ccApiKey);
 		String responsestr = APIServiceFunction.HttpRetrieve(Config.api_video_v3+"?" + requestURL);
 		Gson g = new GsonBuilder().create();
-		System.out.println(responsestr);
 		Map<String, Object> fromJson = g.fromJson(responsestr, Map.class);
 		Map<String, Object> obj = (Map<String, Object>) fromJson.get("video");
 		String duration = obj.get("duration").toString();
@@ -197,17 +196,5 @@ public class CCUtils {
         }
 		return responsestr;
 	}
-	
-	
-	
-	public static void main(String[] args) {
-		
-		//System.out.println(CCUtils.responsestr("0CE2BB6FD1FDFB8B9C33DC5901307461", null, null, null, "1", null));
-	}
-	
-	
-	
-	
-	
-	
+
 }

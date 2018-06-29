@@ -209,15 +209,10 @@ public class CityServiceImpl  extends OnlineBaseServiceImpl implements CityServi
 		if (StringUtils.isNotBlank(udm.getDetailedAddress()) && !orginUdm.getDetailedAddress().equals(udm.getDetailedAddress())) {
 			sql.append(" detailed_address ='" + udm.getDetailedAddress() + "',");
 		}
-		/*if (StringUtils.isNotBlank(udm.getPostalCode()) && !orginUdm.getPostalCode().equals(udm.getPostalCode())) {
-			sql.append(" postal_code ='" + udm.getPostalCode() + "',");
-		}*/
 		String sb = sql.toString();
 		if (sb.indexOf(",") != -1) {
 			sb = sb.substring(0, sb.length() - 1);
 			sb += " where id = :id";
-			System.out.println("udm.getId:"+udm.getId());
-			System.out.println("user center update " + sb);
 			Map<String, Object> params = new HashMap<String, Object>();
 			params.put("id",udm.getId());
 			dao.getNamedParameterJdbcTemplate().update(sb,params);
@@ -292,9 +287,7 @@ public class CityServiceImpl  extends OnlineBaseServiceImpl implements CityServi
 		String sql = "select id,user_id as userId,provinces,city,county,street,consignee,phone,detailed_address as detailedAddress"
 				+ ",is_acquiescence as isAcquiescence, postal_code as postalCode,create_time as createTime from "
 				+ " user_address_manager where user_id = '"+id+"' and is_acquiescence = 1 limit 1";
-		/*Map<String,Object> params=new HashMap<String,Object>();
-		params.put("id", id);*/
-		
+
 		List<UserAddressManagerVo>  listUam =  dao.getNamedParameterJdbcTemplate().query(sql,new HashMap<>(),BeanPropertyRowMapper.newInstance(UserAddressManagerVo.class));
 		
 		if(listUam!=null &&listUam.size()>0){
@@ -302,7 +295,6 @@ public class CityServiceImpl  extends OnlineBaseServiceImpl implements CityServi
 		}else{
 			return null;
 		}
-		//UserAddressManagerVo um= dao.getNamedParameterJdbcTemplate().queryForObject(sql,params,new BeanPropertyRowMapper<UserAddressManagerVo>(UserAddressManagerVo.class));
 	}
 
 }

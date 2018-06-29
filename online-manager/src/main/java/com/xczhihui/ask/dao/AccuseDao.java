@@ -109,7 +109,6 @@ public class AccuseDao extends SimpleHibernateDao {
 		sql.append(")  t");
 
 		sql.append(" order by t.create_time desc");
-		// System.out.println(sql.toString());
 		Page<AccuseVo> ms = this.findPageBySQL(sql.toString(), paramMap,
 				AccuseVo.class, pageNumber, pageSize);
 

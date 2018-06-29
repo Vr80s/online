@@ -31,6 +31,5 @@ public class SolrTest {
         Map<String, SolrQuery.ORDER> sortMap = new HashMap<>();
         String searchStr = "name:";
         SolrPages pages = solrUtils.getByPage(searchStr, 1, 10, MedicalDoctorSolrVO.class, sortMap);
-        System.out.println();
     }
 }
