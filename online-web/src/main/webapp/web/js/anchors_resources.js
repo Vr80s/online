@@ -383,7 +383,7 @@ var activityType;
 		data.coverImg = $(".video-cover-pic img").attr("src");	
 		var imgs = [];
 		$(".save-photo ul li .insertImg").each(function(){
-			imgs.push($(".save-photo ul li .insertImg").attr("src"));
+			imgs.push($(this).attr("src"));
 		})
 		data.pictures = imgs.join(",");
 		data.video = $("#ccId").val();
@@ -711,9 +711,9 @@ template.config("escape", false);
         					posts[i].pictures=posts[i].pictures.split(",");
         				}
         			}
-        			$("#comment-text-wrap").html(template("newsTemplate", {items:posts}))
+        			
         		}
-        		
+        		$("#comment-text-wrap").html(template("newsTemplate", {items:posts}))
               	controllerText();   //获取文本后的展示更多            
 //            	 分页
               	 if (data.resultObject.pages > 1) { //分页判断
@@ -988,7 +988,7 @@ template.config("escape", false);
 
 	function bannerList(pages){
 		RequestService("/doctor/banner", "GET", {
-			"page":1,
+			"page":pages,
 			"pageSize":10
 		} , function (data) {
 	    	if(data.success==true){
@@ -2068,15 +2068,30 @@ template.config("escape", false);
 //  }
 //
 //})
-$('.hospital_worktime td p').click(function () {
-    if ($(this).find("img").length != 0) {
-        $(this).find("img").remove();
-    } else {
-        $(this).html('<img src="/web/images/right_15.png"/>');
-    }
+var sittingArr;
+var workTime;
+$('.hospital_worktime td p').click(function () {	
+	if($(this).find("img").hasClass("hide")){
+		$(this).find("img").removeClass("hide").addClass("active");
+	}else{
+		$(this).find("img").addClass("hide").removeClass("active");
+	}	
 })
+function getSitting(){
+	sittingArr=[];
+	$(".hospital_worktime tr p .active").each(function(){		
+			sittingArr.push($(this).attr("data-type"));					
+	})
+	workTime=sittingArr.join(",");
+}
+
+
+
+
+
 
 var hosList = [];
+var hosID;
 //医师认证状态和认证信息显示
 RequestService("/doctor/apply/listHospital/0", "get", null, function (data) {
     //列表渲染
@@ -2159,7 +2174,8 @@ function clearHosList() {
     //电话清空
     $('#hospital .hosTel').val('');
     //坐诊时间
-    $('#hospital .hospital_worktime ul li').removeClass('color keshiColor');
+//  $('#hospital .hospital_worktime ul li').removeClass('color keshiColor');
+	$('#hospital .hospital_worktime td p img').remove();
 
 }
 
@@ -2183,30 +2199,31 @@ $('#fengmian_picIpt').on('change', function () {
 })
 
 //每周坐诊点击生成数组数据
-var arr = [];
-var workTime;
-$('.hospital_worktime  ul li').click(function () {
-    if ($(this).hasClass('keshiColor')) {
-        //删除第二次选中的
-        for (var i = 0; i < arr.length; i++) {
-            if ($(this).text() == arr[i]) {
-                arr.splice(i, 1)
-            }
-        }
-        //			console.log(arr.toString())
-        workTime = arr.toString();
-        $(this).removeClass('keshiColor');
-    } else {
-        $(this).addClass('keshiColor');
-        arr.push($(this).text());
-        //			console.log(arr.toString())
-        workTime = arr.toString();
-    }
-    console.log(workTime)
-})
+//var arr = [];
+//var workTime;
+//$('.hospital_worktime  ul li').click(function () {
+//  if ($(this).hasClass('keshiColor')) {
+//      //删除第二次选中的
+//      for (var i = 0; i < arr.length; i++) {
+//          if ($(this).text() == arr[i]) {
+//              arr.splice(i, 1)
+//          }
+//      }
+//
+//      workTime = arr.toString();
+//      $(this).removeClass('keshiColor');
+//  } else {
+//      $(this).addClass('keshiColor');
+//      arr.push($(this).text());
+//
+//      workTime = arr.toString();
+//  }
+//  console.log(workTime)
+//})
 
 //医师入住医馆信息上传
 $('#hospital_bottom #submit').click(function () {
+	getSitting()
     //任职医馆的验证
     //任职医馆验证
     if (hosID == '' || hosID == '-1') {
@@ -2218,7 +2235,7 @@ $('#hospital_bottom #submit').click(function () {
 
 
     //坐诊时间验证
-    if ($('#hospital_bottom .hospital_worktime .keshiColor').length == 0) {
+    if ($('.hospital_worktime tr p .active').length == 0) {
         $('#hospital_bottom .hospital_worktime_warn  ').removeClass('hide');
         return false;
     } else {
@@ -2292,14 +2309,22 @@ $('#docJoinHos').click(function () {
             //坐诊时间渲染
             var workArr = data.resultObject.visitTime.split(",");
 
-            var j;
-            for (var i = 0; i < $('.hospital_worktime ul li ').length; i++) {
+				
+			var selectTime;
+			var sureType=[];
+			var saveData;
+			
+			$('.hospital_worktime tr p img').each(function(){
+					selectTime=$(this).attr("data-type");
+					sureType.push(selectTime)
+			})
+			for (var i = 0; i < sureType.length; i++) {
                 for (j = 0; j < workArr.length; j++) {
-                    if ($('.hospital_worktime ul li').eq(i).text() == workArr[j] && !$('.hospital_worktime ul li').eq(i).hasClass('color keshiColor')) {
-                        $('.hospital_worktime ul li').eq(i).click();
+                    if (sureType[i] == workArr[j] && !$('.hospital_worktime tr p img').eq(i).hasClass("active")) {
+                        $('.hospital_worktime tr p').eq(i).click();
                     }
                 }
-            }
+         	}				
         }
 
     });
