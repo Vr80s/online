@@ -6,6 +6,8 @@ import java.util.*;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -41,7 +43,7 @@ import com.xczhihui.vhall.bean.Webinar;
  */
 @Service("courseService")
 public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseService {
-
+    Logger logger = LoggerFactory.getLogger(CourseServiceImpl.class);
     @Autowired
     private CourseDao courseDao;
     @Autowired
@@ -1209,14 +1211,14 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
 
         if (i == PlayBackType.GENERATION_FAILURE.getCode()) { //回放生产失败
             course.setStatus("0");
-            System.out.println("回放生产失败");
+            logger.info("回放生产失败");
             liveCallbackService.liveCallbackImRadio(course.getId() + "",
                     ImInformLiveStatusType.PLAYBACK_FAILURE.getCode());
         } else if (i == PlayBackType.GENERATION_SUCCESS.getCode()) { //回放生产成功
             course.setStatus("1");
             liveCallbackService.liveCallbackImRadio(course.getId() + "",
                     ImInformLiveStatusType.PLAYBACK_SUCCES.getCode());
-            System.out.println("回放生产成功");
+            logger.info("回放生产成功");
 
         }
         dao.update(course);

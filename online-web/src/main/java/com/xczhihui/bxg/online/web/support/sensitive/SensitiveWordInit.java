@@ -155,7 +155,6 @@ public class SensitiveWordInit {
                 while ((txt = bufferedReader.readLine()) != null) {
                     set.add(txt);
                 }
-                System.out.println(set);
             } else {
                 throw new Exception("敏感词库文件不存在");
             }

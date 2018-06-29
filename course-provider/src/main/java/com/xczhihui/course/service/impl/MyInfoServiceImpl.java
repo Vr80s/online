@@ -106,7 +106,6 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper,OnlineUser> impl
 		Map<String, Object> map =  myInfoMapper.findHostInfoById(userId);
 		
 		if(map!=null && map.get("workTime")!=null && StringUtils.isNotBlank(map.get("workTime").toString())) {
-			System.out.println("123"+map.get("workTime").toString()+"123");
 			map.put("workTime", XzStringUtils.workTimeScreen(map.get("workTime").toString(),falg));
 		}
 		return myInfoMapper.findHostInfoById(userId);

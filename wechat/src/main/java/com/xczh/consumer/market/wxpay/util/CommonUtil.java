@@ -132,7 +132,6 @@ public class CommonUtil {
             }
         }
 
-        System.out.println("CommonUtil->getSign=\r\n\t" + bf);
         String sign = MD5SignUtil.Sign(bf.toString(), WxPayConst.gzh_ApiKey);
         return sign;
     }
@@ -194,7 +193,6 @@ public class CommonUtil {
 
             for (int i = 0; i < infoIds.size(); i++) {
                 Entry<String, String> item = infoIds.get(i);
-                // System.out.println(item.getKey());
                 if (item.getKey() != "") {
 
                     String key = item.getKey();
@@ -349,15 +347,9 @@ public class CommonUtil {
         return sParaTemp;
     }
 
-    //send red pack request；
     public static Map<String, String> sendTrans(WxcpWxTrans wxTrans) throws Exception {
 
         Map<String, String> sParaTemp = createWxTransOrderSign(wxTrans);
-        //System.out.println("sign_1="+sParaTemp.get("sign"));
-        //sParaTemp.put("sign",null);
-        //String sign = CommonUtil.getSign(sParaTemp);
-        //sParaTemp.put("sign",sign);
-        //System.out.println("sign_2="+sParaTemp.get("sign"));
 
         XMLUtil xmlUtil = new XMLUtil();
         xmlUtil.xstream().alias("xml", wxTrans.getClass());

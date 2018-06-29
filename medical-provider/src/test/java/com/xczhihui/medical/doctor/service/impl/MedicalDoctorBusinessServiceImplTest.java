@@ -24,9 +24,7 @@ public class MedicalDoctorBusinessServiceImplTest  extends BaseJunit4Test {
 //    @Transactional   //标明此方法需使用事务
 //    @Rollback(false)  //标明使用完此方法后事务不回滚,true时为回滚
     public void test1(){
-        System.out.println("测试iMedicalHospitalBusinessService");
         MedicalDoctorVO medicalDoctor = iMedicalDoctorBusinessService.selectDoctorById("3476f961251b4094b020b560b8fddf48");
-        System.out.println(medicalDoctor.toString());
     }
     
     
@@ -34,9 +32,7 @@ public class MedicalDoctorBusinessServiceImplTest  extends BaseJunit4Test {
     
       @Test
 	  public void test2(){
-	      System.out.println("测试iMedicalHolistspitallBusinessService");
 	      List<MedicalDoctorVO> list = iMedicalDoctorBusinessService.selectDoctorCouserByAccountId(0,3);
-	      System.out.println(list.size());
 	  }
 
 }

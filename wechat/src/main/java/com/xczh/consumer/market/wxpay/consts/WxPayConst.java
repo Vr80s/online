@@ -3,15 +3,14 @@ package com.xczh.consumer.market.wxpay.consts;
 import java.io.InputStream;
 import java.util.Properties;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-//import com.xczh.consumer.market.wxpay.PublicCommon;
 @Component
 public class WxPayConst {
 
-	// ??private static String notifyUrl =
-	// "";/*??PublicCommon.getHost()+??*///"http://wx.ixincheng.com/bxg/wxpay/wxNotify";
-
+	private static Logger logger = LoggerFactory.getLogger(WxPayConst.class);
 	public static String appid4name = "熊猫中医";
 
 	public static String gzh_appid;
@@ -53,10 +52,10 @@ public class WxPayConst {
 			
 			webdomain = properties.getProperty("webdomain");
 
-			System.out.println("读取配置信息成功！");
+			logger.info("读取配置信息成功！");
 		} catch (Exception e) {
+			logger.error("读取配置信息失败！");
 			e.printStackTrace();
-			System.out.println("读取配置信息失败！");
 		} finally {
 			if (in != null) {
 				try {

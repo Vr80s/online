@@ -31,11 +31,6 @@ public class XzStringUtils {
 		Matcher m_html = p_html.matcher(htmlStr);
 		htmlStr = m_html.replaceAll(""); // 过滤html标签
 
-//		if(StringUtils.isNotBlank(htmlStr)){  //过滤掉空格
-//			htmlStr = htmlStr.replaceAll("&nbsp;", "");
-//			System.out.println(htmlStr);
-//		}
-		
 		if(htmlStr!=null && !"".equals(htmlStr)
 				&& !"null".equals(htmlStr)) { //过滤掉空格
 			htmlStr = htmlStr.replaceAll("&nbsp;", "");
@@ -275,18 +270,7 @@ public class XzStringUtils {
 		morningArr.removeAll(day);
 		affternoonArr.removeAll(day);
 		
-		//全天： 1,2
-		//上午：3
-		//下午：4
-		initMap();  
-		//上午
-//		System.out.println(change(day,1));  
-//		//下午
-//		System.out.println(change(morningArr,2));  
-//		//全天
-//		System.out.println(change(affternoonArr,3));  
-		
-		
+		initMap();
 		String morning1 =  change(morningArr,1);
 		String affternoon1 =  change(affternoonArr,2);
 		String day1 =  change(day,3);
@@ -294,13 +278,7 @@ public class XzStringUtils {
 		return (morning1!="" ? morning1+"," : morning1)+(affternoon1!="" ? affternoon1+"," : affternoon1)
 				+day1;
 	}
-	
-	public static void main(String[] args) {
-		
-		String str = "1.1,2.1,2.2,3.1,4.2";
-		System.out.println(workTimeConverter(str));
-	}
-	
+
 	
     // 将全是数字的字符串转换成中文数字表示的方法  
     public static String change(List<String> list,Integer type) {  
@@ -339,19 +317,15 @@ public class XzStringUtils {
 			return "";
 		}
     }
-    
 
-	
-	
-	 // 判断输入的字符串是否全是数字  
+	 // 判断输入的字符串是否全是数字
     public static boolean isNum(String str) {  
         boolean flag = true;  
         try {  
             Integer.parseInt(str);  
         } catch (Exception e) {  
             flag = false;  
-            System.out.println("用户输入的字符不是数字");  
-        }  
+        }
   
         return flag;  
     }  

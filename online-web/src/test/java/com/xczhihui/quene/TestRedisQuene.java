@@ -1,7 +1,10 @@
 package com.xczhihui.quene;
 
-public class TestRedisQuene {
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+public class TestRedisQuene {
+    private static Logger logger = LoggerFactory.getLogger(TestRedisQuene.class);
     public static byte[] redisKey = "KEY-yuxin".getBytes();
     static{
         try {
@@ -19,17 +22,16 @@ public class TestRedisQuene {
         while(msg != null){
             byte[] bytes = JedisUtil.rpop(redisKey);
             if(bytes==null){
-                System.out.println("取完了");
+                logger.info("取完了");
                 return;
             }
             msg = (Message) ObjectUtil.bytesToObject(bytes);
             double d = Math.random();//生成一个0~1的随机数
-            System.out.println(d);
             if(d>0.5){//模拟失败场景
                 JedisUtil.lpush(redisKey, ObjectUtil.objectToBytes(msg));
-                System.out.println("reset==="+msg.getId());
+                logger.info("reset==="+msg.getId());
             }else{
-                System.out.println(msg.getId()+"   "+msg.getContent());
+                logger.info(msg.getId()+"   "+msg.getContent());
             }
         }
     }

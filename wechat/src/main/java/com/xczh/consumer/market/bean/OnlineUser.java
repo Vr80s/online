@@ -701,7 +701,6 @@ public class OnlineUser extends BasicEntity implements Serializable, HttpSession
     @SuppressWarnings("unchecked")
     @Override
     public void valueBound(HttpSessionBindingEvent event) {
-        System.out.println("进入了....");
         HttpSession session = event.getSession();
 
         Map<OnlineUser, HttpSession> userMap = (Map<OnlineUser, HttpSession>) session.getServletContext().getAttribute("userMap");

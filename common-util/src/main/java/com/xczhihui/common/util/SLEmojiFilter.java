@@ -121,15 +121,6 @@ public class SLEmojiFilter {
 		return sb.toString();
 	}
 	
-	public static void main(String[] args) throws UnsupportedEncodingException {
-		
-		String str  = emojiConvert1("11");
-		
-		System.out.println(str);
-	}
-	
-	
-	
 	/**
 	 * @Description 还原utf8数据库中保存的含转换后emoji表情的字符串
 	 * @param str

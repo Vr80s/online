@@ -39,30 +39,9 @@ public class TestProvinces extends BaseJunit4Test {
         //获得输出流
         OutputStreamWriter bos =new OutputStreamWriter(fos);
         BufferedWriter bw = new BufferedWriter(bos);
-        //遍历输出
-        String a = "";
-       /* for (int i=0;i<list.size();i++) {
-            Map map=(Map)list.get(i);
-            a+=map.toString();
-        }*/
-        
-        System.out.println(json);
         bw.write(json.toString());
         bw.flush();
         bw.close();
-		
-//		DirectoryInfo di = new DirectoryInfo(path);
-//		FileInfo fi = new FileInfo(path);
-//		if (fi.Exists) fi.Delete();
-//		StreamWriter swList = File.CreateText(path);                
-//		foreach(Map<String, Object> a in list)
-//		{
-//			swList.WriteLine(a);
-//		}
-//		swList.Close();
-		
-		
 	}
-	
 
 }

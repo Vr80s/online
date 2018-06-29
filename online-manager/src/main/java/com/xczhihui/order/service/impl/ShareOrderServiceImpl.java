@@ -73,7 +73,6 @@ public class ShareOrderServiceImpl extends OnlineBaseServiceImpl implements
 			sql += " and oso.order_no = :orderNo  ";
 			paramMap.put("orderNo", shareOrderVo.getOrderNo());
 		}
-		System.out.println("查询语句" + sql);
 		List list = shareOrderDao.getNamedParameterJdbcTemplate().queryForList(
 				sql, paramMap);
 		return list;

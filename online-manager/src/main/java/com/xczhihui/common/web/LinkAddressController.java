@@ -8,12 +8,14 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.xczhihui.common.service.CommonService;
 import org.apache.commons.io.FileUtils;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -41,6 +43,7 @@ import com.xczhihui.utils.TimeUtil;
 @RequestMapping("/link/word")
 public class LinkAddressController {
 
+	private static Logger logger = LoggerFactory.getLogger(LinkAddressController.class);
 	@Autowired
 	private AttachmentCenterService service;
 
@@ -77,7 +80,6 @@ public class LinkAddressController {
 	 * 下载链接操作文档
 	 * 
 	 * @param request
-	 * @param response
 	 * @return
 	 * @throws Exception
 	 */
@@ -88,18 +90,14 @@ public class LinkAddressController {
 			throws Exception {
 
 		// excel 保留最近10次的上传记录
-
 		Map<String, Object> map = new HashMap<String, Object>();
-		System.out.println("request.getServletContext().getRealPath"
-				+ request.getServletContext().getRealPath("/template/"));
-		// /WEB-INF/template
 		// 上传文件路径
 		String filePath = request.getServletContext().getRealPath(
 				"/WEB-INF/template");
 		// 如果文件不为空，写入上传路径
 		if (!file.isEmpty()) {
 			// 上传文件名
-			String filename = file.getOriginalFilename();
+			String filename;
 			// 删除原来的
 			deleteFile(filePath + File.separator + "链接地址添加文档.docx");
 			filename = "链接地址添加文档.docx";
@@ -119,7 +117,6 @@ public class LinkAddressController {
 			map.put("error", "上传失败");
 			return map;
 		}
-		// res.sendRedirect("http://localhost:28080/home#/operate/mobileBanner/index");
 	}
 
 	@RequestMapping(value = "/download")
@@ -127,11 +124,9 @@ public class LinkAddressController {
 			@RequestParam("filename") String filename, Model model)
 			throws Exception {
 
-		System.out.println("filename:" + filename);
 		// 下载文件路径
 		String path = request.getServletContext().getRealPath(
 				"/WEB-INF/template");
-		System.out.println("下载文件路径" + path);
 		File file = new File(path + File.separator + filename);
 		HttpHeaders headers = new HttpHeaders();
 		// 下载显示的文件名，解决中文名称乱码问题
@@ -157,14 +152,14 @@ public class LinkAddressController {
 		// 如果文件路径所对应的文件存在，并且是一个文件，则直接删除
 		if (file.exists() && file.isFile()) {
 			if (file.delete()) {
-				System.out.println("删除单个文件" + fileName + "成功！");
+				logger.info("删除单个文件" + fileName + "成功！");
 				return true;
 			} else {
-				System.out.println("删除单个文件" + fileName + "失败！");
+				logger.info("删除单个文件" + fileName + "失败！");
 				return false;
 			}
 		} else {
-			System.out.println("删除单个文件失败：" + fileName + "不存在！");
+			logger.info("删除单个文件失败：" + fileName + "不存在！");
 			return false;
 		}
 	}

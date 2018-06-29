@@ -20,7 +20,6 @@ public class MD5SignUtil {
 		String signStr = "";
 
 		signStr = content + "&key=" + key;
-		System.out.println("MD5SignUtil->Sign=\r\n\t"+signStr);
 		return MD5Util.MD5(signStr).toUpperCase();
 
 	}

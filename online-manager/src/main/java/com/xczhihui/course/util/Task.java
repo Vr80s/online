@@ -34,7 +34,7 @@ public class Task extends TimerTask {
         logger.info("定时时间到了：判断回放是否生产成功");
         logger.info(courseId + "courseId  {}{}{}{}  videoId：" + videoId);
         Integer result = VhallUtil.recordList(videoId);
-        System.out.println("回放状态：" + PlayBackType.getTypeText(result));
+        logger.info("回放状态：" + PlayBackType.getTypeText(result));
         //回放生产成功
         courseService.updatePlaybackState(courseId, result);
         try {

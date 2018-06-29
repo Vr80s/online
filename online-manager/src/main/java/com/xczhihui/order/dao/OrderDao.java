@@ -84,7 +84,6 @@ public class OrderDao extends SimpleHibernateDao {
 			paramMap.put("order_from", orderVo.getOrderFrom());
 		}
 
-		// System.out.println("查询语句："+sql.toString());
 		sql.append(" GROUP BY oo.order_no  order by oo.create_time desc ");
 		Page<OrderVo> ms = this.findPageBySQL(sql.toString(), paramMap,
 				OrderVo.class, pageNumber, pageSize);

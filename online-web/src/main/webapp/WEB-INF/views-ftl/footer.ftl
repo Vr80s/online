@@ -31,3 +31,4 @@ $(".gate li").click(function () {
     top.document.location.href = $(this).attr("data-url");
 });
 </script>
+<script src="/web/js/common/link-submit.js" type="text/javascript" charset="utf-8"></script>

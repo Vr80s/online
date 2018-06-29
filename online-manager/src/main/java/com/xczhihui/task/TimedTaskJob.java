@@ -50,7 +50,6 @@ public class TimedTaskJob {
      **/
     @Scheduled(cron = "0 0/30 * * * ? ")
     public void courseRecommendAging() {
-        System.out.println("work done----------" + new Date());
         List<Integer> ids = courseService.updateDefaultSort();
         ids.forEach(id -> {
             try {

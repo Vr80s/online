@@ -92,10 +92,6 @@ public class HttpUtil {
             conn.connect();
             // 获取所有响应头字段
             Map<String, List<String>> map = conn.getHeaderFields();
-            // 遍历所有的响应头字段
-            for (String key : map.keySet()) {
-                System.out.println(key + "--->" + map.get(key));
-            }
             // 定义BufferedReader输入流来读取URL的响应
             in = new BufferedReader(
                     new InputStreamReader(conn.getInputStream(), DEFAULT_ENCODING));
@@ -104,7 +100,6 @@ public class HttpUtil {
                 result.append(line);
             }
         } catch (Exception e) {
-            System.out.println("发送GET请求出现异常！" + e);
             e.printStackTrace();
         }
         // 使用finally块来关闭输入流
@@ -159,7 +154,6 @@ public class HttpUtil {
                 result.append(line);
             }
         } catch (Exception e) {
-            System.out.println("发送POST请求出现异常！" + e);
             e.printStackTrace();
         }
         // 使用finally块来关闭输出流、输入流

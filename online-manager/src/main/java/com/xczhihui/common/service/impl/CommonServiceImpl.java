@@ -147,7 +147,6 @@ public class CommonServiceImpl extends OnlineBaseServiceImpl implements
 			map.put("excel_error", "未获取到excel文件中内容");
 			return map;
 		}
-		System.out.println("listob.size():" + listob.size());
 
 		Integer falg = 0;
 		String errorFalg = "";
@@ -177,7 +176,6 @@ public class CommonServiceImpl extends OnlineBaseServiceImpl implements
 				}
 				String problemIndexV = obj.get(1).toString();
 				String answerIndexV = obj1.get(1).toString();
-				System.out.println(problemIndexV + "=========" + answerIndexV);
 				if (!org.apache.commons.lang.StringUtils
 						.isNotBlank(problemIndexV)
 						|| problemIndexV.length() > 500) {
@@ -198,7 +196,6 @@ public class CommonServiceImpl extends OnlineBaseServiceImpl implements
 			map.put("excel_error", errorFalg);
 			return map;
 		}
-		System.out.println("falg:" + falg);
 
 		List<SystemVariate> listOld = systemVariateService
 				.getSystemVariatesByName("common_problems");

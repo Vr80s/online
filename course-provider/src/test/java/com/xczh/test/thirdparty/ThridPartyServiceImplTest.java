@@ -39,8 +39,7 @@ public class ThridPartyServiceImplTest extends BaseJunit4Test {
         qq.setFigureurl2("11111");
         qq.setUnionId("1111");
     	threePartiesLoginService.saveQQClientUserMapping(qq);
-    	System.out.println("----------------------------" + qq.toString());
-    	
+
     }
     
     @Test
@@ -51,7 +50,6 @@ public class ThridPartyServiceImplTest extends BaseJunit4Test {
     	qq1.setUserId("");
     	threePartiesLoginService.updateQQInfoAddUserId(qq1);
     	
-        System.out.println("----------------------------" + qq1.toString());
     }
     
     /**
@@ -64,19 +62,8 @@ public class ThridPartyServiceImplTest extends BaseJunit4Test {
     public void testSelectQQInfo(){
 
     	QQClientUserMapping qq1 = threePartiesLoginService.selectQQClientUserMappingByOpenId("111");
-    	System.out.println("----------------------------" + qq1.toString());
-    	
+
      	QQClientUserMapping qq2 = threePartiesLoginService.selectQQClientUserMappingByUnionId("1");
-    	System.out.println("----------------------------" + qq2.toString());
-    	
-    	
-    	/*QQClientUserMapping qq3 = threePartiesLoginService.selectQQClientUserMappingByUserId("123456", "111");
-    	if(qq3!=null){
-    		System.out.println("----------------------------" + qq2.toString());
-    	}else{
-    		System.out.println("----------------------------没有查找出数据");
-    	}*/
-    	
     }
 
     /**
@@ -115,34 +102,22 @@ public class ThridPartyServiceImplTest extends BaseJunit4Test {
     	weibo.setId("123");
     	threePartiesLoginService.saveWeiboClientUserMapping(weibo);
     	
-    	System.out.println(weibo);
     }
   
     @Test
     public void testSelectWeiboInfo(){
     	WeiboClientUserMapping weibo1 =threePartiesLoginService.selectWeiboClientUserMappingByUid("123456");
-    	System.out.println("----------------------------" + weibo1.toString());
-    /*	WeiboClientUserMapping weibo2 =threePartiesLoginService.selectWeiboClientUserMappingByUserId("123", "123456");
-    	if(weibo2!=null){
-    		System.out.println("----------------------------" + weibo2.toString());
-    	}else{
-    		System.out.println("----------------------------没有查找出数据");
-    	}*/
-    	
     }
     @Test
     public void testUpdateWeiboInfo(){
     	WeiboClientUserMapping weibo1 =threePartiesLoginService.selectWeiboClientUserMappingByUid("123456");
     	weibo1.setUserId("");
     	threePartiesLoginService.updateWeiboInfoAddUserId(weibo1);
-        System.out.println("----------------------------" + weibo1.toString());
     }
     
     @Test
     public void testQueryMethod(){
-    	
     	Map<String,Object> map = threePartiesLoginService.selectUserBindingInfo("");
-        System.out.println("----------------------------" + map.toString());
     }
 
 }

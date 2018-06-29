@@ -23,7 +23,6 @@ public class MedicalHospitalApplyServiceImplTest extends BaseJunit4Test {
     public void testGetLastOne(){
         MedicalHospitalApply lastOne =
                 service.getLastOne("4af72e6511a94a7ba9f7ed2aaf41ac5d");
-        System.out.println("----------------------------" + lastOne.toString());
     }
 
     /**

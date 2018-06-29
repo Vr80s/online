@@ -206,7 +206,6 @@ public class BarrierServiceImpl extends OnlineBaseServiceImpl implements
 
 	@Override
 	public BarrierVo getBarrierDetail(BarrierVo barrierVo) {
-		// System.out.println("ID："+barrierVo.getId());
 		Barrier barrier = dao.findOneEntitiyByProperty(Barrier.class, "id",
 				barrierVo.getId());
 
@@ -305,7 +304,6 @@ public class BarrierServiceImpl extends OnlineBaseServiceImpl implements
 		}
 
 		sql.append("GROUP BY oq.question_type ");
-		// System.out.println("所有的问题数量："+sql.toString());
 		return dao.getNamedParameterJdbcTemplate().queryForList(sql.toString(),
 				paramMap);
 	}

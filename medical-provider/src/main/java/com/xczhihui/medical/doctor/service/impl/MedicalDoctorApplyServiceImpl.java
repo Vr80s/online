@@ -94,7 +94,6 @@ public class MedicalDoctorApplyServiceImpl extends ServiceImpl<MedicalDoctorAppl
         if(result.equals(CommonEnum.DOCTOR_APPLY_REJECT.getCode()) ||
                 result.equals(CommonEnum.NOT_DOCTOR_AND_HOSPITAL.getCode()) ||
                 result.equals(CommonEnum.HOSPITAL_APPLY_REJECT.getCode())){
-            System.out.println("插入新数据");
             this.addMedicalDoctorApply(target);
         }
     }

@@ -21,9 +21,6 @@ public class MedicalCommonServiceImplTest extends BaseJunit4Test {
     @Test
     public void testIsDoctorOrHospital(){
         Integer integer = commonService.isDoctorOrHospital("2c9acf816166484a01616653235b0013");
-
-        System.out.println("====================================" + integer);
-
     }
 
 }
