@@ -62,4 +62,11 @@ public interface IMedicalDoctorBannerService {
      * @return
      */
     List<DoctorBannerVO> listByUserId(String userId);
+
+    /**
+     * 定期下架banner
+     *
+     * @return
+     */
+    Integer updateAllUnShelves();
 }
