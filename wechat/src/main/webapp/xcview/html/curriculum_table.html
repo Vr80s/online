@@ -657,24 +657,27 @@ $(".find_nav_list").on('touchmove', function (e) {
 // 		}
 //		console.log(historyTip[0])
 	</script>
-	
-		<!-- 手机物理返回--暂做隐藏 -->
-		<script>
-		/**
-	 * 监听浏览器---》回退事件
-	 
-		var counter = 0;
-		if (window.history && window.history.pushState) {
-		     $(window).on('popstate', function () {
-		                    window.history.pushState('forward', null, '#');
-		                    window.history.forward(1);
-		
-		                     location.href ='/xcview/html/search.html'
-		   });
-		}
-		//window.history.pushState('forward', null, '#'); 在IE中必须得有这两行
-		window.history.forward(1);*/
-	</script>
+
+<script> 
+// 控制手机物理键--返回
+window.onload = function(){
+  if(window.history && window.history.pushState) {  
+      $(window).on('popstate', function() {  
+          var hashLocation = location.hash;  
+          var hashSplit = hashLocation.split("#!/");  
+          var hashName = hashSplit[1];  
+          if(hashName !== '') {  
+              var hash = window.location.hash;  
+              if(hash === '') {  
+                  // alert("你点击了返回键");  
+                  location.href ='/xcview/html/search.html'  /*跳转链接*/
+              }  
+          }  
+      });  
+      window.history.pushState('forward', null, '/xcview/html/curriculum_table.html');    //引号里写当前页面地址,刷新当前页'
+  }
+};
+</script> 
 	
 	
 	

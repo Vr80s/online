@@ -425,14 +425,25 @@
 								{{/if}}
 								<!--视频-->
 								{{if item.type==3}}
-									<div class="save-video-wrap" data-video="{{item.video}}">
+									<div class="save-video-box">
+									
+										<div class="save-video-wrap" data-video="{{item.video}}">
+											
+										</div>
+										
 										
 									</div>
 								{{/if}}
 								<!--医案/文章-->
 								{{if item.type==4}}
 									<div class="save-consilia-wrap">
-										<a href="" style="width: 100%;">
+										{{if item.articleId != null}}
+											{{if item.typeId != 8}}
+												<a href="/headline/details/{{item.articleId}}" style="width: 100%;">
+											{{else}}
+												<a href="javascript:;" style="width: 100%;">
+											{{/if}}
+										{{/if}}
 											<div class="consilia-img z">
 												<img src="{{item.articleImgPath}}" alt="文章_医案图片" />
 											</div>
@@ -446,7 +457,7 @@
 								<!--直播/线下课/线上课-->
 								{{if item.type==5}}
 								<div class="save-class-wrap">
-									<a href="" style="width: 100%;">
+									<a href="/courses/{{item.courseId}}/info" style="width: 100%;">
 										<div class="class-img z">
 											<img src="/web/images/shanghai.jpg" alt="视频封面" />
 										</div>
@@ -464,7 +475,7 @@
 											<p class="class-time">{{item.startTime}}</p>
 											{{else if item.courseType == 4}}
 											<p class="class-time">{{item.startTime}}</p>
-											<p class="class-address">地址：</p>
+											<p class="class-address">地址：{{item.courseAddress}}</p>
 											{{/if}}
 											
 										</div>
@@ -485,12 +496,16 @@
 											{{else if item.courseType == 1 || item.courseType == 2}}
 												<p>线上课</p>
 											{{/if}}
-											{{else if item.articleId != null}}
-												<p>文章</p>
-											{{else if item.typeId != null}}
-												<p>医案</p>
 										{{/if}}
-									
+										
+										{{if item.articleId != null}}
+											{{if item.typeId != 8}}
+											<p>文章</p>
+											{{else}}
+											<p>医案</p>
+											{{/if}}
+										{{/if}}
+								
 									</div>
 									<div class="operation-right y">
 										<ul>
@@ -540,9 +555,9 @@
 										<div class="reply-user-wrap hide">
 											<div class="reply-bottom-wrap z">
 												{{if comment.commentId != null && comment.commentId != ""}}
-												<span style="display: inline-block;">回复{{comment.replyUserName}}：</span>
+												<span style="display: inline-block;cursor: pointer;">回复{{comment.replyUserName}}：</span>
 												{{else}}
-												<span style="display: inline-block;">回复{{comment.userName}}：</span>
+												<span style="display: inline-block;cursor: pointer;">回复{{comment.userName}}：</span>
 												{{/if}}
 												<input type="text" />
 											</div>
@@ -809,7 +824,7 @@
 							<p class="hosTel_warn warning hide">医馆电话不能为空</p>
 						</div>
 
-						<div class="hospital_worktime">
+						<!--<div class="hospital_worktime">
 							<span><em>*</em>  每周坐诊</span>
 							<ul>
 								<li>一</li>
@@ -821,7 +836,45 @@
 								<li>日</li>
 							</ul>
 							<p class="hospital_worktime_warn warning hide">请选择坐诊时间</p>
+						</div>-->
+
+						<div class="hospital_worktime">
+							<span><em>*</em>  每周坐诊</span>
+							<table cellspacing="0" cellpadding="0">
+								<tr>
+									<th></th>
+									<th>周一</th>
+									<th>周二</th>
+									<th>周三</th>
+									<th>周四</th>
+									<th>周五</th>
+									<th>周六</th>
+									<th>周日</th>
+								</tr>
+								<tr>
+									<td>上午</td>
+									<td><p><img src="/web/images/right_15.png"/></p></td>
+									<td><p></p></td>
+									<td><p></p></td>
+									<td><p></p></td>
+									<td><p></p></td>
+									<td><p></p></td>
+									<td><p></p></td>
+								</tr>
+								<tr>
+									<td>下午</td>
+									<td><p></p></td>
+									<td><p></p></td>
+									<td><p></p></td>
+									<td><p></p></td>
+									<td><p></p></td>
+									<td><p></p></td>
+									<td><p></p></td>
+								</tr>
+							</table>
 						</div>
+
+
 
 						<div class="baocun">
 							<input type="submit" value="保存" id="submit" />

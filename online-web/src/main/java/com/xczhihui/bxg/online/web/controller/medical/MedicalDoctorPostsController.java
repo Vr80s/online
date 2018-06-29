@@ -26,7 +26,7 @@ import static com.xczhihui.bxg.online.web.controller.AbstractController.getCurre
  * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
  * @Date: 2018/6/25 11:32
  **/
-@Controller
+@RestController
 @RequestMapping("/doctor/posts")
 public class MedicalDoctorPostsController {
 
@@ -47,7 +47,6 @@ public class MedicalDoctorPostsController {
      * 医师动态列表
      */
     @RequestMapping( method = RequestMethod.GET)
-    @ResponseBody
     public ResponseObject doctorPostsList(@RequestParam("pageNumber") Integer pageNumber,
                                              @RequestParam("pageSize") Integer pageSize,
                                              @RequestParam(required = false) Integer type, @RequestParam("doctorId") String doctorId){
@@ -64,14 +63,13 @@ public class MedicalDoctorPostsController {
      * 添加医师动态
      */
     @RequestMapping( method = RequestMethod.POST)
-    @ResponseBody
     public ResponseObject addDoctorPosts( MedicalDoctorPosts medicalDoctorPosts){
         // 获取当前用户ID
         String userId = getCurrentUser().getId();
         MedicalDoctorAccount mha = medicalDoctorAccountService.getByUserId(userId);
         medicalDoctorPosts.setDoctorId(mha.getDoctorId());
         medicalDoctorPostsService.addMedicalDoctorPosts(medicalDoctorPosts);
-        if(!medicalDoctorPosts.getVideo().equals("")){
+        if(medicalDoctorPosts.getVideo()!= null && !medicalDoctorPosts.getVideo().equals("")){
             CourseApplyResource car = new CourseApplyResource();
             car.setTitle(medicalDoctorPosts.getTitle());
             car.setResource(medicalDoctorPosts.getVideo());
@@ -87,9 +85,7 @@ public class MedicalDoctorPostsController {
      * 编辑医师动态
      */
     @RequestMapping( method = RequestMethod.PUT)
-    @ResponseBody
-    public ResponseObject updateDoctorPosts(MedicalDoctorPosts medicalDoctorPosts)
-            throws Exception {
+    public ResponseObject updateDoctorPosts(@RequestBody MedicalDoctorPosts medicalDoctorPosts){
         // 获取当前用户ID
         String userId = getCurrentUser().getId();
         medicalDoctorPostsService.updateMedicalDoctorPosts(medicalDoctorPosts);
@@ -100,7 +96,6 @@ public class MedicalDoctorPostsController {
      * 删除医师动态
      */
     @RequestMapping(value="{id}", method = RequestMethod.DELETE)
-    @ResponseBody
     public ResponseObject deleteDoctorPosts(@PathVariable("id") Integer id){
         medicalDoctorPostsService.deleteMedicalDoctorPosts(id);
         return ResponseObject.newSuccessResponseObject("删除成功");
@@ -110,7 +105,6 @@ public class MedicalDoctorPostsController {
      * 医师动态置顶/取消置顶
      */
     @RequestMapping(value="{id}/{stick}", method = RequestMethod.POST)
-    @ResponseBody
     public ResponseObject updateStickDoctorPosts(@PathVariable("id") Integer id,@PathVariable("stick") Boolean stick){
         medicalDoctorPostsService.updateStickMedicalDoctorPosts(id,stick);
         if(stick){
@@ -124,7 +118,6 @@ public class MedicalDoctorPostsController {
      * 获取医师动态
      */
     @RequestMapping(value="{id}", method = RequestMethod.GET)
-    @ResponseBody
     public ResponseObject getDoctorPostsById(@PathVariable("id") Integer id){
         MedicalDoctorPosts mdp = medicalDoctorPostsService.getMedicalDoctorPostsById(id);
         return ResponseObject.newSuccessResponseObject(mdp);
