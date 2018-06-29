@@ -248,7 +248,7 @@
 						<button type="button" class="btn-deliver">发布动态</button>
 						<ul class="activity-nav">
 							<li>
-								<span class="open-photo" style="width: 70px; height: 24px;">
+								<span class="open-photo" style="display: inline-block; height: 24px;">
 									<img src="/web/images/icon-photo.png" alt="图片" />
 									<p>图片</p>
 								</span>
@@ -280,11 +280,37 @@
 							<div class="video-wrap hide">
 								<div class="video-tip">
 									<img class="close-video" src="/web/images/alter-close.png" alt="关闭视频" title="关闭视频" />
+									
+									
+								<input id="ccName" name="ccName" type="text" style="display: none;color:#999999;font-size: 14px;border: none;" />
+								<input id="videoId" name="videoId" type="text" style="display: none;color:#999999;font-size: 14px;border: none;" />
+								<input id="ccId" name="ccId" type="text" style="display: none;color:#999999;font-size: 14px;border: none;" />
+	
+									
+									
 									<span class="video-btn" onclick="$('#video-up').click()">
 										<p>上传普通视频</p>
 									</span>
-									<input type="file" placeholder="请填写您的专栏标题" style="visibility: hidden;display: inline-block;width: 1px;" id="video-up" />
+									<!--<input type="file" placeholder="请填写您的专栏标题" style="visibility: hidden;display: inline-block;width: 1px;" id="video-up" />-->
 									<span class="video-prompt">请上传时长在15分钟以内的视频，请勿上传色情、反动等违规视频</span>
+									<form id="addResource">
+										<input id="video-up" style="display: none;margin-top: 20px;" type="file" value="点击上传资源" name="file" style="cursor:pointer;" onchange="uploadFile()" accept=".wmv,.wm,.asf,.asx,.rm,.rmvb,.ra,.ram,.mpg,.mpeg,.mpe,.vob,.dat,.mov,.3gp,.mp4,.mp4v,.m4v,.mkv,.avi,.flv,.f4v,.mts"/>
+									</form>
+									<span class="comment-wrong video-null hide">！视频不能为空</span>
+									
+									<div class="resource_uploading">
+										<span id="uploadProgress">
+											<div class="progress progress-striped active">
+												<div class="progress-bar progress-bar-success progress-resource" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+													<span class="sr-only">90% 完成（成功）</span>
+												</div>
+											</div>
+										</span>
+										<a id="cancalUpdata1" onclick="cancalUpdata1()" style="cursor:pointer;">取消上传</a>
+										<a id="continueUpload" onclick="continueUpload()" style="display:none;cursor:pointer;">继续上传</a>
+									</div>
+								
+								
 								</div>
 								<div class="video-title-wrap">
 									<div class="video-title">
@@ -305,7 +331,7 @@
 											<p>支持JPG/PNG等格式图片</p>
 										</span>
 										<input type="file" placeholder="请填写您的专栏标题" style="visibility: hidden;display: inline-block;" id="video_picIpt" accept="image/gif,image/jpeg,image/jpg,image/png">
-										<p class="warning hide">请上传封面图</p>
+										<p class="comment-wrong video-fengmian-error hide" style="padding-left: 40px;">！请上传封面</p>
 									</div>
 								</div>
 							</div>
@@ -314,218 +340,344 @@
 								<div class="consilia-status-nav">
 									<img class="close-consilia" src="/web/images/alter-close.png" alt="关闭医案" title="关闭医案" />
 									<ul>
-										<li class="active">添加医案</li>
-										<li>添加专栏</li>
-										<li>添加媒体报道</li>
+										<li class="add-consilia active" data-type = "8">添加医案</li>
+										<li data-type = "4">添加专栏</li>
+										<li data-type = "7">添加媒体报道</li>
 									</ul>
 								</div>
 								<div class="consilia-search-wrap">
 									<span>标题</span>
 									<div class="search-input y">
 										<img src="/web/images/search-btn.png" alt="搜索" title="搜索" />
-										<input type="" name="" id="" value="" />
+										<input type="" name="" id="" value="" placeholder="搜索医案标题" />
 									</div>
 								</div>
-								<p class="consilia-result">共搜索出“<span>针灸</span>”全部结果约<span>20</span>条</p>
+								<p class="consilia-result hide">共搜索出“<span class="search-keyword"></span>”全部结果约 <span class="number-search"></span> 条</p>
+								<p class="comment-wrong article-null hide">！请至少选择一篇文章</p>
 								<div class="result-list">
-									<table border="0">
+									<table border="0" class="hide">
+										
 										<tr>
 											<th>封面图</th>
 											<th>标题</th>
 											<th>选择</th>
 										</tr>
-										<tr>
-											<td>
-												<img class="fengmian-select" src="/web/images/Android.png" alt="封面图" />
-											</td>
-											<td>中医药席卷全球成独特风景，发展热情被彻底点燃了啊哈哈哈哈哈哈</td>
-											<td>
-												<div class="select-text">
-													
-												</div>
-											</td>
-										</tr>
-										<tr>
-											<td>
-												<img class="fengmian-select" src="/web/images/Android.png" alt="封面图" />
-											</td>
-											<td>中医药席卷全球成独特风景，发展热情被彻底点燃了啊哈哈哈哈哈哈</td>
-											<td>
-												<div class="select-text">
-
-												</div>
-											</td>
-										</tr>
+										
+										<tbody id="all-article-list">
+											<script type="text/template" id="template-list">
+											{{each items as item i}}
+											<tr>
+												<td>
+													<img class="fengmian-select" src="{{item.imgPath}}" alt="封面图" />
+												</td>
+												<td>{{item.title}}</td>
+												<td>
+													<div class="select-text" data-id="{{item.id}}">
+														
+													</div>
+												</td>
+											</tr>
+											{{/each}}
+											</script>
+										</tbody>
+											
 									</table>
 								</div>
 							</div>
 						</div>
 					</div>
 					<!--动态消息-->
-					<div class="main-list-news">
-						<div class="list-Answer-right-text news-text-save">
-							<p class="zhiding">
-								<img src="/web/images/zhiding.png" title="置顶" alt="置顶" />
-								<span>置顶</span>
-							</p>
-							我的动态我的动态我的动态我的动态我的动态我的动态我的动态我的动态我的动态
-							我的动态我的动态我的动态我的动态我的动态我的动态我的动态我的动态我的动态我的动态我的动态我的动态我的动态
-							我的动态我的动态我的动态我的动态我的动态我的动态我的动态我的动态我的动态我的动态我的动态我的动态我的动态我的动态
-							我的动态我的动态我的动态我的动态我的动态我的动态我的动态我的动态我的动态我的动态我的动态我的动态
-							态我的动态我的动态我的动态我的动态我的动态我的动态我的动态我的动态我的动态我的动态我的动态
-							我的动态我的动态我的动态我的动态我的动态我的动态我的动态我的动态我的动态我的动态我的动态我的动态我的动态我的动态
-							我的动态我的动态我的动态我的动态我的动态我的动态态我的动态我的动态我的动态我的动态我的动态我的动态我的动态我的动态我的动态我的动态我的动态
-							我的动态我的动态我的动态我的动态我的动态我的动态我的动态我的动态我的动态我的动态我的动态我的动态我的动态我的动态
-							我的动态我的动态我的动态我的动态我的动态我的动态
-						</div>
-						<!--编辑内容-->
-						<div class="edit-content">
-							<textarea name="" rows="" cols=""></textarea>
-							<button type="button">完成</button>
-						</div>
-						<!--视频-->
-						<div class="save-video-wrap hide">
-							<img src="/web/images/shanghai.jpg"/ style="width: 920px; height: 520px;">
-						</div>
-						<!--照片-->
-						<div class="save-photo-wrap hide">
-							<ul>
-								<li>
-									<img src="/web/images/shanghai.jpg" alt="日常生活照" />
-								</li>
-							</ul>
-						</div>
-						<!--医案/文章-->
-						<div class="save-consilia-wrap hide">
-							<a href="" style="width: 100%;">
-								<div class="consilia-img z">
-									<img src="/web/images/shanghai.jpg" alt="文章_医案图片" />
+					<div class="news-all-box" id="comment-text-wrap">
+						<script type="text/template" id="newsTemplate">	
+						{{each items as item i}}
+							<div class="main-list-news">
+								<div class="news-text-save" style="overflow: hidden;">
+									{{if item.stick == true}}	
+										<p class="zhiding">
+											<img src="/web/images/zhiding.png" title="置顶" alt="置顶" />
+											<span>置顶</span>
+										</p>
+									{{/if}}
+									{{if item.type == 3}}
+										<p style="font-size: 16px;">{{item.title}}</p>
+									{{/if}}
+									<div class="comment-text show-text">
+											{{item.content}}
+									</div>								
 								</div>
-								<div class="consilia-right-text y">
-										<h5>这里有防护卵巢早衰的秘诀 | 余大夫小偏方</h5>
-										<p>
-											有一天门诊俩了一位福建患者，说是朋友介绍来的，专门来北京找我看病，西医诊断她有一天门诊俩了一
-											位福建患者，说是朋友介绍来的，专门来北京找我看病，西医诊断她有一天门诊俩了一位福建患者，
-											位福建患者，说是朋友介绍来的，专门来北京找我看病，西医诊断她有一天门诊俩了一位福建患者，
-											位福建患者，说是朋友介绍来的，专门来北京找我看病，西医诊断她有一天门诊俩了一位福建患者，
-										</p>	
+							
+								<!--编辑内容-->
+								<div class="edit-content hide">
+									<textarea name="" rows="" cols=""></textarea>
+									<button type="button" data-id="{{item.id}}" data-type="{{item.type}}">完成</button>
 								</div>
-							</a>
-						</div>
-						<!--直播/线下课-->
-						<div class="save-class-wrap">
-							<a href="" style="width: 100%;">
-								<div class="class-img z">
-									<img src="/web/images/shanghai.jpg" alt="视频封面" />
+								<!--照片-->
+								{{if item.type==2}}
+									<div class="save-photo-wrap">
+										<ul>
+											{{each item.pictures as picture}}
+											<li>
+												<img src="{{picture}}" alt="日常生活照" />
+											</li>
+											{{/each}}
+										</ul>
+									</div>
+								{{/if}}
+								<!--视频-->
+								{{if item.type==3}}
+									<div class="save-video-wrap" data-video="{{item.video}}">
+										
+									</div>
+								{{/if}}
+								<!--医案/文章-->
+								{{if item.type==4}}
+									<div class="save-consilia-wrap">
+										<a href="" style="width: 100%;">
+											<div class="consilia-img z">
+												<img src="{{item.articleImgPath}}" alt="文章_医案图片" />
+											</div>
+											<div class="consilia-right-text y">
+													<h5>{{item.articleTitle}}</h5>
+													<div class="consilia-text">{{item.articleContent}}</div>	
+											</div>
+										</a>
+									</div>
+								{{/if}}
+								<!--直播/线下课/线上课-->
+								{{if item.type==5}}
+								<div class="save-class-wrap">
+									<a href="" style="width: 100%;">
+										<div class="class-img z">
+											<img src="/web/images/shanghai.jpg" alt="视频封面" />
+										</div>
+										<div class="class-right-text y">
+											
+											<h5>{{item.gradeName}}</h5>
+											<!--收费/免费-->
+											{{if item.currentPrice == 0}}
+											<p class="class-price"><span>免费</span></p>
+											{{else}}
+											<p class="class-price"><span>{{item.currentPrice}}</span>熊猫币</p>
+											{{/if}}
+											<!--直播-->
+											{{if item.courseType == 3}}
+											<p class="class-time">{{item.startTime}}</p>
+											{{else if item.courseType == 4}}
+											<p class="class-time">{{item.startTime}}</p>
+											<p class="class-address">地址：</p>
+											{{/if}}
+											
+										</div>
+									</a>
 								</div>
-								<div class="class-right-text y">
-									<h5>跟着中医学养娃—杭州老师育儿十讲</h5>
-									<!--收费-->
-									<p class="class-price"><span>99</span>熊猫币</p>
-									<!--免费-->
-									<!--<p class="class-price"><span>免费</span></p>-->
-									<!--线下课-->
-									<p class="class-time">2018.6.12 10:00</p>
+								{{/if}}
+
+								<!--时间/状态/删除/编辑内容/置顶-->
+								<div class="status-operation-wrap">
+									<div class="time-status z">
+										
+										<span>{{item.createTime}}</span>
+										{{if item.courseId != null}}
+											{{if item.courseType == 4}}
+												<p>线下课</p>
+											{{else if item.courseType == 3}}
+												<p>直播课</p>
+											{{else if item.courseType == 1 || item.courseType == 2}}
+												<p>线上课</p>
+											{{/if}}
+											{{else if item.articleId != null}}
+												<p>文章</p>
+											{{else if item.typeId != null}}
+												<p>医案</p>
+										{{/if}}
+									
+									</div>
+									<div class="operation-right y">
+										<ul>
+											{{if item.stick == false}}
+												<li class="host-top" data-id="{{item.id}}" data-stick="true">置顶</li>
+											{{/if}}
+											{{if item.stick == true}}
+												<li class="host-top" data-id="{{item.id}}" data-stick="false">取消置顶</li>
+											{{/if}}
+											<li class="delete-activity" data-id="{{item.id}}" >删除</li>
+											<li class="edit-version" data-id="{{item.id}}">编辑内容</li>
+											<!--<li>取消编辑</li>-->
+										</ul>
+									</div>
 								</div>
-							</a>
-						</div>
-						<!--时间/状态/删除/编辑内容/置顶-->
-						<div class="status-operation-wrap">
-							<div class="time-status z">
-								<span>10小时前</span>
-								<p>直播中</p>
-							</div>
-							<div class="operation-right y">
-								<ul>
-									<li>置顶</li>
-									<!--<li>取消置顶</li>-->
-									<li>删除</li>
-									<li>编辑内容</li>
-									<!--<li>取消编辑</li>-->
-								</ul>
-							</div>
-						</div>
 					
-						<!--点赞/底下评论-->
-						<div class="reply-fabulous-wrap">
-							<div class="fabulous-box">
-								<span class="glyphicon glyphicon-thumbs-up fabulous" aria-hidden="true"></span>
-								<span>海南彭于晏，海南彭于晏，海南彭于晏</span>
+								<!--点赞/底下评论-->
+								{{if item.doctorPostsLikeList.length !=0 || item.doctorPostsCommentList.length != 0}}
+								<div class="reply-fabulous-wrap">
+									{{if item.doctorPostsLikeList.length != 0}}
+										<div class="fabulous-box">
+											{{if item.praise == true}}
+											<span class="glyphicon glyphicon-thumbs-up fabulous active" aria-hidden="true" data-id="{{item.id}}"></span>
+											{{else}}
+											<span class="glyphicon glyphicon-thumbs-up fabulous" aria-hidden="true" data-id="{{item.id}}"></span>
+											{{/if}}
+											{{each item.doctorPostsLikeList as user i}}
+											<span>{{user.userName}}</span>
+											{{/each}}
+										</div>
+									{{/if}}
+									<!--底下评论-->
+									{{each item.doctorPostsCommentList as comment i}}
+									<div class="reply-teacher-wrap">
+										<div class="reply-teacher">
+											{{if comment.commentId != null && comment.commentId != ""}}
+												<p><span>{{comment.replyUserName}} </span> 回复 <span>{{comment.userName}} </span>: {{comment.content}}</p>
+											{{else}}
+												<p><span>{{comment.userName}}</span>: {{comment.content}}</p>
+											{{/if}}
+											<ul>
+												<li class="anchor-reply">回复</li>
+												<li class="detele-reply" data-id="{{comment.postsId}}" data-comid="{{comment.id}}">删除</li>
+											</ul> 
+										</div>
+										<!--回复-->
+										<div class="reply-user-wrap hide">
+											<div class="reply-bottom-wrap z">
+												{{if comment.commentId != null && comment.commentId != ""}}
+												<span style="display: inline-block;">回复{{comment.replyUserName}}：</span>
+												{{else}}
+												<span style="display: inline-block;">回复{{comment.userName}}：</span>
+												{{/if}}
+												<input type="text" />
+											</div>
+											<div class="reply-finish y">
+												<button type="button" data-id="{{comment.postsId}}" data-comid="{{comment.id}}">回复</button>
+											</div>
+										</div>
+										<!--回复结束-->								
+									</div>
+									{{/each}}
+									<!--底下评论结束-->
+								</div>
+								{{/if}}
+									<!--动态消息结束-->
 							</div>
-							<!--底下评论-->
+							{{/each}}
+						</script>
+					</div>
+					<!--刷新点赞人数-->
+					<script type="text/template" id="fabulous-template">
+							{{if like.praise}}
+								<span class="glyphicon glyphicon-thumbs-up fabulous active" aria-hidden="true" data-id="{{like.postId}}"></span>
+							{{else}}
+								<span class="glyphicon glyphicon-thumbs-up fabulous" aria-hidden="true" data-id="{{like.postId}}"></span>
+							{{/if}}
+							{{each like.list as item i}}
+								<span>{{item.userName}}</span>
+							{{/each}}
+					</script>
+					<!--刷新回复-->
+					<script type="text/template" id="reply-template">
+						{{each replyList.list as reply i}}
 							<div class="reply-teacher-wrap">
 								<div class="reply-teacher">
-									<p><span>辣椒小姐 </span>: 老师身材依旧</p>
-									<!--<p><span>麦克 </span> 回复 <span>辣椒小姐 </span>: 老师身材依旧</p>-->
+									{{if reply.commentId != null && reply.commentId != ""}}
+										<p><span>{{reply.replyUserName}} </span> 回复 <span>{{reply.userName}} </span>: {{reply.content}}</p>
+									{{else}}
+										<p><span>{{reply.userName}}</span>: {{reply.content}}</p>
+									{{/if}}
 									<ul>
 										<li class="anchor-reply">回复</li>
-										<li>删除</li>
+										<li class="detele-reply" data-id="{{reply.postsId}}" data-comid="{{reply.id}}">删除</li>
 									</ul> 
 								</div>
 								<!--回复-->
 								<div class="reply-user-wrap hide">
 									<div class="reply-bottom-wrap z">
-										<span style="display: inline-block;">回复辣椒小姐：</span>
+										{{if reply.commentId != null && reply.commentId != ""}}
+										<span style="display: inline-block;">回复{{reply.replyUserName}}：</span>
+										{{else}}
+										<span style="display: inline-block;">回复{{reply.userName}}：</span>
+										{{/if}}
 										<input type="text" />
 									</div>
 									<div class="reply-finish y">
-										<button type="button">回复</button>
+										<button type="button" data-id="{{reply.postsId}}" data-comid="{{reply.id}}">回复</button>
 									</div>
 								</div>
-								<!--回复结束-->								
 							</div>
-							<div class="reply-teacher-wrap">
-								<div class="reply-teacher">
-									<!--<p><span>辣椒小姐 </span>: 老师身材依旧</p>-->
-									<p><span>麦克 </span> 回复 <span>辣椒小姐 </span>: 老师身材依旧</p>
-									<ul>
-										<li class="anchor-reply">回复</li>
-										<li>删除</li>
-									</ul> 
-								</div>
-								<!--回复-->
-								<div class="reply-user-wrap hide">
-									<div class="reply-bottom-wrap z">
-										<span style="display: inline-block;">回复小姐姐：</span>
-										<input type="text" />
-									</div>
-									<div class="reply-finish y">
-										<button type="button">回复</button>
-									</div>
-								</div>
-								<!--回复结束-->								
-							</div>
-						<!--底下评论-->
+						{{/each}}
+					</script>
+				<!--分页部分start-->
+					<div class="activity_pages pages hide" style="padding-bottom: 20px; background: white;">  <!--如需要复制分页doctors_pages要改类名并在JS里对应-->
+						<div id="Pagination_activity" class="pagination-pages"></div>	<!--如需要复制分页Pagination_doctors要改类名并在JS里对应-->
+						<div class="searchPage">
+							<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+							<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
+							<a href="javascript:;" class="page-btn">确定</a>
 						</div>
 					</div>
-					<!--动态消息结束-->
+				<!--分页部分end-->
+				<!--没有数据时的展示-->
+							<div class="comment-nodata banner-dongtai hide" style="background: white; padding: 135px 0;">
+								<img src="../images/notext_icon.png" alt="无数据">
+								<p>暂无数据</p>
+							</div>
 				</div>
+				
+				
+				
+				
 				<!--轮播图设置-->
 				<div class="select_box" style="padding-bottom: 0;">
 					<div class="banner-set-top">
 						<span>轮播图设置</span>
 						<button type="button">添加轮播图</button>
 					</div>
-					<div class="banner-list-wrap">
-						<table>
-							<tr>
-								<th>图片</th>
-								<th>连接到</th>
-								<th>期限</th>
-								<th>状态</th>
-								<th>操作</th>
-							</tr>
-							<tr>
-								<td><img src="/web/images/5.jpg"/></td>
-								<td>课程：中医药席卷全球成独特风暴啊哈哈哈</td>
-								<td>2018.5.1-2088.8.9</td>
-								<td>已上架</td>
-								<td>
-									<a href="" style="margin-right: 20px;">下架</a>
-									<a href="">编辑</a>
-								</td>
-							</tr>	
-						</table>
+					<div class="banner-main">					
+						<div class="banner-list-wrap" id="banner-list-content">
+							<script type="text/template" id="banner-template">
+								<table>
+									<tr>
+										<th>图片</th>
+										<th>连接到</th>
+										<th>期限</th>
+										<th>状态</th>
+										<th>操作</th>
+									</tr>
+									{{each items as item i}}
+									<tr>
+										<td><img src="{{item.imgUrl}}"/></td>
+										<td>{{item.linkDesc}}</td>
+										<td>{{item.startTime}}-{{item.endTime}}</td>
+										{{if item.status==true}}
+										<td>已上架</td>
+										{{else}}
+										<td>未上架</td>
+										{{/if}}		
+										<td>
+											{{if item.status==true}}
+											<a href="javascript:;" class="is-release" style="margin-right: 20px;" data-status="0" data-id="{{item.id}}">下架</a>
+											{{else}}
+											<a href="javascript:;" class="is-release" style="margin-right: 20px;" data-status="1" data-id="{{item.id}}">上架</a>
+											{{/if}}		
+											<a href="javascript:;" class="" onclick="editBanner({{i}})">编辑</a>
+										</td>
+									</tr>	
+									{{/each}}
+								</table>
+							</script>
+						</div>
+							<!--分页部分start-->
+						<div class="banner_pages pages hide" style="padding-bottom: 20px; background: white;">  <!--如需要复制分页doctors_pages要改类名并在JS里对应-->
+							<div id="Pagination_banner" class="pagination-pages"></div>	<!--如需要复制分页Pagination_doctors要改类名并在JS里对应-->
+							<div class="searchPage">
+								<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+								<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
+								<a href="javascript:;" class="page-btn">确定</a>
+							</div>
+						</div>
+						<!--没有数据时的展示-->
+						<div class="comment-nodata banner-nulldata hide">
+							<img src="../images/notext_icon.png" alt="无数据">
+							<p>暂无数据</p>
+						</div>						
 					</div>
 					<div class="banner-set-wrap hide">
 						<!--添加图片-->
@@ -538,31 +690,47 @@
 								</span>
 								<input type="file" style="visibility: hidden;display: inline-block;" id="banner_picIpt" />
 							</div>
+							<p class="banner-all-tip banner-fengmian hide">！请上传封面图</p>
 						</div>
 						<!--链接类型-->
 						<div class="banner-link-wrap">
 							<p class="left-title z"><span>*</span>链接类型</p>
 							<ul>
-								<li><p><em></em></p>直播</li>
-								<li><p><em></em></p>课程</li>
-								<li><p><em></em></p>医案</li>
-								<li><p><em></em></p>专栏文章</li>
+								<li class="type1"><p><em data-type="1"></em></p>课程</li>
+								<li class="type2"><p><em data-type="2"></em></p>直播</li>
+								<li class="type4"><p><em data-type="4"></em></p>医案</li>
+								<li class="type3"><p><em data-type="3"></em></p>专栏文章</li>
 							</ul>
+							<p class="banner-all-tip banner-error-style hide">！请选择类型</p>
 						</div>
 						<!--链接到-->
 						<div class="banner-url-wrap">
 							<p class="left-title" style="display: inline-block;"><span>*</span>链接到</p>
-							<select name="">
-								<option value="null-url" style="color: #999999;">请选择课程</option>
-								<option value="">1</option>
-							</select>
+							<form id="resetSelect" style="display: inline-block;">
+								<label for="posts_resource_select"></label>
+								<select id="posts_resource_select" class="selectpicker bla bla bli posts_resource" data-live-search="true">
+									<optgroup></optgroup>
+							</select><!--
+								<select name="" id="select-link">
+										<option value="" style="color: #999999;">请选择课程</option>
+										<script type="text/template" id="template-class-type">
+										{{each items as item i}}
+										<option value="{{item.id}}">{{item.title}}</option>
+										{{/each}}
+									</script>
+								</select>-->
+							</form>
+							<p class="banner-all-tip banner-error-link hide">！请选择链接类型</p>
+						
 						</div>
 						<!--期限-->
 						<div class="banner-date-wrap">
 							<p class="left-title" style="display: inline-block;"><span>*</span>期限</p>
-							<input type="" name="" id="" value="" placeholder="开课时间" id="start-time" />
+							<input type="" name="" value="" placeholder="开课时间" id="start-time" />
 							<span style="margin: 0 10px;">至</span>
-							<input type="" name="" id="" value="" placeholder="结束时间" id="end-time" />
+							<input type="" name="" value="" placeholder="结束时间" id="end-time" />
+							<p class="banner-all-tip banner-error-time hide">！请选择时间</p>
+						
 						</div>
 						<!--提交-->
 						<div class="banner-submission-wrap">
@@ -570,6 +738,7 @@
 							<button type="button">提交</button>
 						</div>
 					</div>
+				
 				</div>
 				<!--医馆-->
 				<div class="select_box docSuccessBox" id="hospital">
@@ -1236,19 +1405,27 @@
 	<script type="text/javascript" src="/web/js/footer.js"></script>
 	<script src="/web/js/placeHolder.js"></script>
 	<script type="text/javascript" src="/web/js/cropbox.js"></script>
+	<!--视频上传文件-->
+	
+	<script type="text/javascript" src="/web/js/MD5/browser-md5-file.js"></script>
 	<!--<script src="/web/js/provinces.js"></script>-->
 	<script src="/web/js/anchors_resources.js?v=ipandatcm_1.2.1" type="text/javascript" charset="UTF-8"></script>
 	<script>
+	
 		//时间插件调用
 		$(function(){
 			var data = new Date();
 			var year = data.getFullYear();
 	 		var month = data.getMonth() + 1;
 	 		var day = data.getDate();
-	
+//	
 			$("#start-time").jeDate({
 		        format: "YYYY-MM-DD hh:mm:ss"
 		   });
+		   $("#end-time").jeDate({
+		        format: "YYYY-MM-DD hh:mm:ss"
+		   });
+
 		});
 	</script>
 </html>

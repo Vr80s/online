@@ -5,6 +5,7 @@ import java.util.Base64;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.xczhihui.medical.doctor.model.MedicalDoctorAccount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.ServletRequestUtils;
@@ -66,6 +67,18 @@ public class CommonController extends AbstractController {
         // 获取当前用户
         OnlineUser loginUser = getCurrentUser();
         Integer result = commonService.isDoctorOrHospital(loginUser.getId());
+        commonService.isHospitalStatus(loginUser.getId());
         return ResponseObject.newSuccessResponseObject(result);
+    }
+
+    /**
+     * 通过用户获取医师信息
+     */
+    @RequestMapping(value = "/getDoctorByUserId", method = RequestMethod.GET)
+    public ResponseObject getDoctorByUserId(HttpServletRequest request) throws ServletRequestBindingException, IOException {
+        // 获取当前用户
+        OnlineUser loginUser = getCurrentUser();
+        MedicalDoctorAccount medicalDoctorAccount = commonService.isDoctorStatus(loginUser.getId());
+        return ResponseObject.newSuccessResponseObject(medicalDoctorAccount);
     }
 }
