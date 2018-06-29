@@ -425,14 +425,25 @@
 								{{/if}}
 								<!--视频-->
 								{{if item.type==3}}
-									<div class="save-video-wrap" data-video="{{item.video}}">
+									<div class="save-video-box">
+									
+										<div class="save-video-wrap" data-video="{{item.video}}">
+											
+										</div>
+										
 										
 									</div>
 								{{/if}}
 								<!--医案/文章-->
 								{{if item.type==4}}
 									<div class="save-consilia-wrap">
-										<a href="" style="width: 100%;">
+										{{if item.articleId != null}}
+											{{if item.typeId != 8}}
+												<a href="/headline/details/{{item.articleId}}" style="width: 100%;">
+											{{else}}
+												<a href="javascript:;" style="width: 100%;">
+											{{/if}}
+										{{/if}}
 											<div class="consilia-img z">
 												<img src="{{item.articleImgPath}}" alt="文章_医案图片" />
 											</div>
@@ -446,7 +457,7 @@
 								<!--直播/线下课/线上课-->
 								{{if item.type==5}}
 								<div class="save-class-wrap">
-									<a href="" style="width: 100%;">
+									<a href="/courses/{{item.courseId}}/info" style="width: 100%;">
 										<div class="class-img z">
 											<img src="/web/images/shanghai.jpg" alt="视频封面" />
 										</div>
@@ -485,12 +496,16 @@
 											{{else if item.courseType == 1 || item.courseType == 2}}
 												<p>线上课</p>
 											{{/if}}
-											{{else if item.articleId != null}}
-												<p>文章</p>
-											{{else if item.typeId != null}}
-												<p>医案</p>
 										{{/if}}
-									
+										
+										{{if item.articleId != null}}
+											{{if item.typeId != 8}}
+											<p>文章</p>
+											{{else}}
+											<p>医案</p>
+											{{/if}}
+										{{/if}}
+								
 									</div>
 									<div class="operation-right y">
 										<ul>
