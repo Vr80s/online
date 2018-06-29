@@ -108,7 +108,7 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper,OnlineUser> impl
 		if(map!=null && map.get("workTime")!=null && StringUtils.isNotBlank(map.get("workTime").toString())) {
 			map.put("workTime", XzStringUtils.workTimeScreen(map.get("workTime").toString(),falg));
 		}
-		return myInfoMapper.findHostInfoById(userId);
+		return map;
 	}
 	
 }
