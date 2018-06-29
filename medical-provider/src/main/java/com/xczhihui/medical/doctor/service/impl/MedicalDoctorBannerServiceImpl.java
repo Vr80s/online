@@ -41,7 +41,7 @@ public class MedicalDoctorBannerServiceImpl implements IMedicalDoctorBannerServi
         oldBanner.setStartTime(doctorBanner.getStartTime());
         oldBanner.setEndTime(doctorBanner.getEndTime());
         oldBanner.setRouteType(doctorBanner.getRouteType());
-        medicalDoctorBannerMapper.updateById(oldBanner);
+        medicalDoctorBannerMapper.updateAllColumnById(oldBanner);
     }
 
     @Override

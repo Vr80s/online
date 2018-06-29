@@ -26,11 +26,11 @@ public class DoctorBanner implements Serializable {
     @TableField("link_param")
     private String linkParam;
 
-    @JsonFormat(pattern = "yyyy.MM.dd")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")
     @TableField("start_time")
     private Date startTime;
 
-    @JsonFormat(pattern = "yyyy.MM.dd")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")
     @TableField("end_time")
     private Date endTime;
 

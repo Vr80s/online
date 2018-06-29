@@ -1037,7 +1037,7 @@ template.config("escape", false);
 			        	showTip("操作成功");
 			        	bannerList(1)
 			        }else{
-			        	showTip("操作失败");
+                        showTip(data.errorMessage ? data.errorMessage : "操作失败");
 			        }
 			    })
 		})
@@ -1067,13 +1067,20 @@ template.config("escape", false);
 			$(".banner-error-link").addClass("hide");
 		}
 //		选取时间
-		if(isBlank(data.startTime) || isBlank(data.endTime)){
+		if((isBlank(data.startTime) && !isBlank(data.endTime)) || (!isBlank(data.startTime) && isBlank(data.endTime))){
 			$(".banner-error-time").removeClass("hide");
 			return false;
-		}else if(data.startTime>data.endTime){
-			showTip("开始时间不能大于结束时间");
-			$(".banner-error-time").addClass("hide");
-			return false;
+		}else if(!isBlank(data.startTime) && !isBlank(data.endTime)){
+		    if (data.startTime>data.endTime) {
+                showTip("开始时间不能大于结束时间");
+                $(".banner-error-time").addClass("hide");
+                return false;
+            }
+            if (data.endTime < new Date()) {
+		        showTip("结束时间不能小于当前时间");
+                $(".banner-error-time").addClass("hide");
+                return false;
+            }
 		}
 		else{
 			$(".banner-error-time").addClass("hide");
@@ -1087,25 +1094,32 @@ template.config("escape", false);
 			var data={
 				"imgUrl":$(".right-banner .banner-box img").attr("src"),
 				"type":$(".banner-link-wrap li .active").attr("data-type"),
-				"linkParam":$("#select-link").val(),
+				"linkParam":$("#posts_resource_select").val(),
 				"startTime":$("#start-time").val(),
 				"endTime":$("#end-time").val()
-			}			
+			};
+			var id =  $("#J-banner-submit").data('id');
+			var method = "POST";
+			var url = bath + "/doctor/banner";
+			if (id) {
+			    method = "PUT";
+			    url = url  + "/" + id;
+            }
 			if(RecruitBanner(data)){
 				   $.ajax({
-		                type: "POST",
-		                url: bath + "/doctor/banner",
+		                type: method,
+		                url: url,
 		                data: JSON.stringify(data),
 		                contentType: "application/json",
 		                success: function (data) {
 		                	$this.attr("disabled","disabled");
 		                    if (data.success == true) {
 								bannerList(1);
-								showTip("创建成功");
+								showTip(id ? "更新成功" : "创建成功");
 								resetBanner();
 								$(".banner-set-top button").click();
 		                    } else {
-								showTip("创建失败");
+								showTip("保存失败");
 		                    }
 		                }
 	            });
@@ -2634,33 +2648,39 @@ function echoMedia(index) {
 			$(".result-list table .select-text img").remove();    //清空勾选搜索到的列表
 	}
 
-//-----------------------------------------------轮播图设置-----------------------------
+//轮播图设置====================
 var resetInputVal='<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>'+
-				  '<p style="text-align: center;color: #999;font-size: 14px;">点击上传封面图片</p>'
+    '<p style="text-align: center;color: #999;font-size: 14px;">点击上传封面图片</p>'
 var resetSelect='<option value="" style="color: #999999;">请选择课程</option>'
 
 var list;
 //	点击编辑
-	function editBanner(index){
-		resetBanner()
-		eachBanner(index)
-		$(".banner-set-top button").click();
-	}
+function editBanner(index){
+    resetBanner()
+    eachBanner(index)
+    $(".banner-set-top button").click();
+}
 //	重置轮播图设置
-	function resetBanner(){
-		$(".banner-box").html(resetInputVal);
-		$(".right-banner input").val("");
-		$(".banner-link-wrap li em").removeClass("active");
-		$("#select-link").html(resetSelect);
-		$("#start-time").val("");
-		$("#end-time").val("");		
-	}
+function resetBanner(){
+    $(".banner-box").html(resetInputVal);
+    $(".right-banner input").val("");
+    $(".banner-link-wrap li em").removeClass("active");
+    // $("#select-link").html(resetSelect);
+    $("#start-time").val("");
+    $("#end-time").val("");
+    $("#posts_resource_select").html(resetSelect);
+    $('.selectpicker').selectpicker('refresh')
+    $("#J-banner-submit").data('id', "");
+}
 
 //	回显轮播图设置
-	function eachBanner(index){
-		var bannerSet=list[index];
-		 $(".banner-box").html("<img src=" + bannerSet.imgUrl + " />");
-		 $(".type"+bannerSet.type).click();
-		 $("#start-time").val(bannerSet.startTime);
-		 $("#end-time").val(bannerSet.endTime);
-	}
+function eachBanner(index){
+    var bannerSet=list[index];
+    $(".banner-box").html("<img src=" + bannerSet.imgUrl + " />");
+    $(".type"+bannerSet.type).click();
+    $("#start-time").val(bannerSet.startTime);
+    $("#end-time").val(bannerSet.endTime);
+    $("#J-banner-submit").data('id', bannerSet.id);
+    $("#posts_resource_select").val(bannerSet.linkParam);
+    $('.selectpicker').selectpicker('refresh')
+}

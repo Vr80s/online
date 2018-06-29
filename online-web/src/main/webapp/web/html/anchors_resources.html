@@ -678,7 +678,14 @@
 									{{/each}}
 								</table>
 							</script>
+							<!--没有数据时的展示-->
+							<div class="comment-nodata banner-nulldata hide">
+								<img src="../images/notext_icon.png" alt="无数据">
+								<p>暂无数据</p>
+							</div>
 						</div>
+
+
 							<!--分页部分start-->
 						<div class="banner_pages pages hide" style="padding-bottom: 20px; background: white;">  <!--如需要复制分页doctors_pages要改类名并在JS里对应-->
 							<div id="Pagination_banner" class="pagination-pages"></div>	<!--如需要复制分页Pagination_doctors要改类名并在JS里对应-->
@@ -688,11 +695,7 @@
 								<a href="javascript:;" class="page-btn">确定</a>
 							</div>
 						</div>
-						<!--没有数据时的展示-->
-						<div class="comment-nodata banner-nulldata hide">
-							<img src="../images/notext_icon.png" alt="无数据">
-							<p>暂无数据</p>
-						</div>						
+
 					</div>
 					<div class="banner-set-wrap hide">
 						<!--添加图片-->
@@ -741,7 +744,7 @@
 						<!--期限-->
 						<div class="banner-date-wrap">
 							<p class="left-title" style="display: inline-block;"><span>*</span>期限</p>
-							<input type="" name="" value="" placeholder="开课时间" id="start-time" />
+							<input type="" name="" value="" placeholder="开始时间" id="start-time" />
 							<span style="margin: 0 10px;">至</span>
 							<input type="" name="" value="" placeholder="结束时间" id="end-time" />
 							<p class="banner-all-tip banner-error-time hide">！请选择时间</p>
@@ -750,7 +753,7 @@
 						<!--提交-->
 						<div class="banner-submission-wrap">
 							<p class="left-title" style="display: inline-block;"><span></span></p>
-							<button type="button">提交</button>
+							<button type="button" id="J-banner-submit" data-id="">提交</button>
 						</div>
 					</div>
 				
@@ -1473,10 +1476,10 @@
 	 		var day = data.getDate();
 //	
 			$("#start-time").jeDate({
-		        format: "YYYY-MM-DD hh:mm:ss"
+		        format: "YYYY-MM-DD hh:mm"
 		   });
 		   $("#end-time").jeDate({
-		        format: "YYYY-MM-DD hh:mm:ss"
+		        format: "YYYY-MM-DD hh:mm"
 		   });
 
 		});
