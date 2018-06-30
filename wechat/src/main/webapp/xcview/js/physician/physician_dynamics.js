@@ -163,6 +163,11 @@ function sendComment(){
             var evaluatePostsId = "evaluate"+getPostsIdByComment;
             var getNewPostsCommentId = data.resultObject[0].id;
             $("#"+getPostsIdByComment).show();
+            if(!$("#"+getPostsIdByComment).children(".number_people_fize").children("span").is(":empty")){
+                $("#"+getPostsIdByComment).find(".number_people_fize").show();
+            } else {
+                $("#"+getPostsIdByComment).find(".number_people_fize").hide();
+            }
             $("#"+getPostsIdByComment).find(".evaluate_main").show();
             if(postsCommentId==""){
                 $("."+evaluatePostsId+"").prepend("<div class='evaluateDiv' data-id="+getNewPostsCommentId+" data-postsId="+getPostsIdByComment+" data-userId="+loginUserId+" >" +
@@ -233,6 +238,9 @@ function postsLike(obj,postsId) {
             $("#"+postsId+"").children("div").find("img").attr('src','/xcview/images/zan001.png');
             //重新获取点赞列表
             $("#"+postsId).show();
+            if($("#"+postsId).children(".evaluate_main").children("div").length==0 ){
+                $("#"+postsId).find(".evaluate_main").hide();
+            }
             $("#"+postsId).find(".number_people_fize").show();
 
             getPostsLikeList(postsId,data.resultObject.list);
@@ -312,8 +320,9 @@ function ccVideo(videoId, multimediaType,id) {
 /*直播间开始*/
 // 一、获取是否医师权限。二、获取完权限，获取课程。三、获取完课程判断类型。
 // 点击直播间回放和直播中状态跳转发礼物直播间
-function detailsId(){
-    location.href = "/xcview/html/details.html?courseId=" + id
+function detailsId(id){
+    // var id = data.resultObject.courseList.id;
+    location.href = "/xcview/html/details.html?courseId=" + id;
 };
 
 // 定义无直播状态方法--为您推荐，默认图
@@ -348,7 +357,10 @@ requestService("/xczh/doctors/doctorStatus", {doctorId:doctorId},function (data)
                     if (data.success) {
                         var number = data.resultObject;
                         if (number > 0) {   //三、获取完课程判断类型。
-                            requestService("/xczh/doctors/recentlyLive", {userId:userId},function (data) {  
+                            requestService("/xczh/doctors/recentlyLive", {
+                                userId:userId,
+                                pageSize: 1000
+                            },function (data) {  
                                 if (data.success == true) {
                                     // 直播状态
                                     //直播课程状态：lineState  1直播中， 2预告，3直播结束 ， 4 即将直播 ，5 准备直播 ，6 异常直播
@@ -426,6 +438,21 @@ requestService("/xczh/doctors/doctorStatus", {doctorId:doctorId},function (data)
                                     $('#message_referral').html(template('message_referral_id', {items: data.resultObject.hospital}));
                                     // $('#message_referral').html(template('self_introduction_id', {items: data.resultObject}));
                                     
+
+                                    if (data.resultObject.hospital.name = null) {
+                                        $(".clinic").addClass("hide");
+                                    }
+                                    if (data.resultObject.hospital.tel = null) {
+                                        $(".tel").addClass("hide");
+                                    }
+                                    if (data.resultObject.hospital.detailedAddress = null) {
+                                        $(".house_address").addClass("hide");
+                                    }
+                                    /*if (data.resultObject.lecturerInfo = null && data.resultObject.lecturerInfo.workTime = null) {
+                                        $(".hid_wtime").addClass("hide");
+                                    }*/
+
+
                                     // 个人介绍
                                     if(data.resultObject.description == null || data.resultObject.description == ''){
                                         
@@ -445,6 +472,9 @@ requestService("/xczh/doctors/doctorStatus", {doctorId:doctorId},function (data)
 
                                     // alert(str);
 
+                                    if(str.indexOf(',1,') <=0){
+                                        $("table").hide();
+                                    }
                                     // 上午
                                     if(str.indexOf(',1.1,') >=0){
                                         $(".am_monday img").show();

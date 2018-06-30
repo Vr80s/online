@@ -317,13 +317,18 @@ p{
 	min-height: 1rem;
 	background: #fff;
 	margin: 0 auto;
-	padding: 0.3rem 0;
+	/*padding: 0.3rem 0;*/
 }
 .rests_nav_span{
-	width: 6.98rem;
+	width: 7.5rem;
     margin: 0 auto;
     height: 0.42rem;
-    margin-bottom: 0.2rem;
+    margin-top: 0.2rem;
+    background: #fff;
+}
+.ccvideo{
+	padding: 0.2rem 0;
+    background: #fff;
 }
 .rests_nav_span .title{
 	font-size: 0.3rem;
@@ -359,14 +364,16 @@ p{
     height: 3.94rem !important;
 }
 .rests_nav_bottom{
-	width: 6.98rem;
+	width: 7.5rem;
 	margin: 0 auto;
-	margin-bottom: 0.2rem;
+	padding-bottom: 0.2rem;
+	background: #fff;
 }
 .rests_nav_bottom .time{
 	font-size: 0.24rem;
 	color: #999999;
 	float: left;
+	margin-left: 0.26rem;
 }
 .rests_nav_bottom .img{
 	float: right;
@@ -375,13 +382,16 @@ p{
 	width: 0.32rem;
     height: 0.31rem;
     float: left;
+    margin-right: 0.26rem;
 }
 .rests_nav_bottom .zan_img{
 	margin-right: 0.5rem;
 }
 .number_people{
 	width: 7.5rem;
-	margin: 0 auto;
+    margin: 0 auto;
+    background: #fff;
+    padding-bottom: 0.28rem;
 }
 .number_people_bg{
 	width: 6.98rem;
@@ -734,10 +744,11 @@ p{
 	margin-bottom: 0.2rem;
 }
 .paper_nav_span{
-	width: 6.98rem;
+	width: 7.5rem;
     margin: 0 auto;
     height: 0.42rem;
-    margin-bottom: 0.2rem;
+    background: #fff;
+    padding: 0.2rem 0;
 }
 .paper_nav_span .title{
 	font-size: 0.3rem;
@@ -1032,7 +1043,7 @@ p{
 	border: 1px solid #F0F0F0;
 	border-radius: 4px;
 	margin: 0 auto;
-	margin-bottom: 0.3rem;
+	/*margin-bottom: 0.3rem;*/
 }
 .course_nav_cen img{
 	width: 2.49rem;
@@ -1368,7 +1379,7 @@ p{
 	border: 1px solid #F0F0F0;
 	border-radius: 4px;
 	margin: 0 auto;
-	margin-bottom: 0.3rem;
+	/*margin-bottom: 0.3rem;*/
 }
 .article_nav_cen img{
 	width: 2.49rem;
