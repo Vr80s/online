@@ -267,6 +267,7 @@
     </profiles>
 
     <build>
+        <finalName>online-manager</finalName>
         <plugins>
             <!-- 设置源文件编码方 -->
             <plugin>
