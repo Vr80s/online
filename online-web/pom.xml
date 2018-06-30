@@ -368,7 +368,7 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.1.0</version>
                 <configuration>
-                    <warName>${project.artifactId}-${project.version}</warName>
+                    <warName>${project.artifactId}</warName>
                     <filters>
                         <filter>src/main/resources/${env}/config.properties</filter>
                     </filters>
@@ -388,7 +388,7 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${project.build.directory}/${project.artifactId}-${project.version}</outputDirectory>
+                            <outputDirectory>${project.build.directory}/${project.artifactId}</outputDirectory>
                             <resources>
                                 <resource>
                                     <directory>src/main/resources/${env}/</directory>
