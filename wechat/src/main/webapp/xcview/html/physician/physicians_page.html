@@ -147,6 +147,7 @@
 		/*background: blue;*/
 	    /*padding: 0.3rem 0;*/
 	    margin: 0.2rem 0;
+	    margin-bottom: 0;
 	}
 
 	/*普通动态*/
@@ -283,11 +284,13 @@
 						
 					</div>
 					{{if item.pictures !=null && item.pics.length>0}}
-					<div class="paper_nav_cen comment_hide">
-						{{each item.pics as pic }}
-						<img src="{{pic}}" alt="" />
-						{{/each}}
-						<div class="both"></div>
+					<div class="paper_nav_cen_div">
+						<div class="paper_nav_cen comment_hide">
+							{{each item.pics as pic }}
+							<img src="{{pic}}" alt="" />
+							{{/each}}
+							<div class="both"></div>
+						</div>
 					</div>
 				</div>
 				{{/if}}
@@ -804,7 +807,7 @@
 			<div class="message_referral_center house_address">医馆地址：{{items.detailedAddress}}</div>
 			<div class="both"></div>
 
-			<table border="1" align="center" bgcolor="" border="0" cellpadding="0" cellspacing="0">
+			<table border="1" align="center" bgcolor="" border="0" cellpadding="0" cellspacing="0" class="table">
 			    <tr>
 			    	<th></th>
 			    	<th>周一</th>
@@ -815,29 +818,26 @@
 			    	<th>周六</th>
 			    	<th>周日</th>
 			    </tr>
-
 			    <tr class="am">
 			        <th>上午</th>
-			        <td class="am_monday"><img src="/xcview/images/default.png" alt="" /></td>
-			        <td class="am_tuesday"><img src="/xcview/images/default.png" alt="" /></td>
-			        <td class="am_wednesday"><img src="/xcview/images/default.png" alt="" /></td>
-			        <td class="am_thursday"><img src="/xcview/images/default.png" alt="" /></td>
-			        <td class="am_friday"><img src="/xcview/images/default.png" alt="" /></td>
-			        <td class="am_saturday"><img src="/xcview/images/default.png" alt="" /></td>
-			        <td class="am_sunday"><img src="/xcview/images/default.png" alt="" /></td>
+			        <td class="apm apm1_1 am_monday"><img src="/xcview/images/default.png" alt="" /></td>
+			        <td class="apm apm2_1 am_tuesday"><img src="/xcview/images/default.png" alt="" /></td>
+			        <td class="apm apm3_1 am_wednesday"><img src="/xcview/images/default.png" alt="" /></td>
+			        <td class="apm apm4_1 am_thursday"><img src="/xcview/images/default.png" alt="" /></td>
+			        <td class="apm apm5_1 am_friday"><img src="/xcview/images/default.png" alt="" /></td>
+			        <td class="apm apm6_1 am_saturday"><img src="/xcview/images/default.png" alt="" /></td>
+			        <td class="apm apm7_1 am_sunday"><img src="/xcview/images/default.png" alt="" /></td>
 			    </tr>
 			    <tr class="pm">
 			        <th>下午</th>
-			        <td class="pm_mondays"><img src="/xcview/images/default.png" alt="" /></td>
-			        <td class="pm_tuesdays"><img src="/xcview/images/default.png" alt="" /></td>
-			        <td class="pm_wednesdays"><img src="/xcview/images/default.png" alt="" /></td>
-			        <td class="pm_thursdays"><img src="/xcview/images/default.png" alt="" /></td>
-			        <td class="pm_fridays"><img src="/xcview/images/default.png" alt="" /></td>
-			        <td class="pm_saturdays"><img src="/xcview/images/default.png" alt="" /></td>
-			        <td class="pm_sundays"><img src="/xcview/images/default.png" alt="" /></td>
+			        <td class="apm apm1_2 pm_mondays"><img src="/xcview/images/default.png" alt="" /></td>
+			        <td class="apm apm2_2 pm_tuesdays"><img src="/xcview/images/default.png" alt="" /></td>
+			        <td class="apm apm3_2 pm_wednesdays"><img src="/xcview/images/default.png" alt="" /></td>
+			        <td class="apm apm4_2 pm_thursdays"><img src="/xcview/images/default.png" alt="" /></td>
+			        <td class="apm apm5_2 pm_fridays"><img src="/xcview/images/default.png" alt="" /></td>
+			        <td class="apm apm6_2 pm_saturdays"><img src="/xcview/images/default.png" alt="" /></td>
+			        <td class="apm apm7_2 pm_sundays"><img src="/xcview/images/default.png" alt="" /></td>
 			    </tr>
-
-
 			</table>
 		</div>
 
@@ -853,13 +853,19 @@
 			<div class="self_introduction_cen"></div>
 			<div class="both"></div>
 		</div>
+
+		<div class="baseImagenumber" style="display: none;">
+			<img src="/xcview/images/no_deal.png" />
+			<p>暂无医师介绍</p>
+		</div>
 		</script>
 
 	</div>
 	<!-- 介绍结束 -->
 
-	<!-- 表情包开始 -->
+	
 
+	<!-- 表情包开始 -->
 	<div class="comment">
 		<div class="">
 			<img src="/xcview/images/face.png" alt="" class="face" />
@@ -869,12 +875,10 @@
 		</div>
 	</div>
 	
-
 	<div class="page_emotion box_swipe" id="page_emotion">
 		<dl id="list_emotion" class="list_emotion pt_10"></dl><!-- 表情框 -->
 		<dt><ol id="nav_emotion" class="nav_emotion"></ol></dt><!-- 分页提示点 -->
 	</div>
-
 	<!-- 表情包结束 -->
 </body>
 <!-- <script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script> -->

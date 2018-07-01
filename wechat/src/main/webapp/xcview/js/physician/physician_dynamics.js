@@ -347,6 +347,7 @@ requestService("/xczh/doctors/doctorStatus", {doctorId:doctorId},function (data)
                 $(".living_broadcastroom").css("display","none");  /*封面图隐藏*/
                 $("#live_lesson").css("display","none");  /*直播课程*/
                 defaultId();
+                
         }else{
             userId = data.resultObject.userId;
             var type = 3;
@@ -362,6 +363,7 @@ requestService("/xczh/doctors/doctorStatus", {doctorId:doctorId},function (data)
                                 pageSize: 1000
                             },function (data) {  
                                 if (data.success == true) {
+                                    
                                     // 直播状态
                                     //直播课程状态：lineState  1直播中， 2预告，3直播结束 ， 4 即将直播 ，5 准备直播 ，6 异常直播
                                     $('#living_broadcastroom').html(template('living_broadcastroom_id', {items: data.resultObject}));
@@ -439,20 +441,18 @@ requestService("/xczh/doctors/doctorStatus", {doctorId:doctorId},function (data)
                                     // $('#message_referral').html(template('self_introduction_id', {items: data.resultObject}));
                                     
 
-                                    if (data.resultObject.hospital.name = null) {
+                                    if (data.resultObject.hospital.name == null) {
                                         $(".clinic").addClass("hide");
                                     }
-                                    if (data.resultObject.hospital.tel = null) {
+                                    if (data.resultObject.hospital.tel == null) {
                                         $(".tel").addClass("hide");
                                     }
-                                    if (data.resultObject.hospital.detailedAddress = null) {
+                                    if (data.resultObject.hospital.detailedAddress == null) {
                                         $(".house_address").addClass("hide");
                                     }
                                     /*if (data.resultObject.lecturerInfo = null && data.resultObject.lecturerInfo.workTime = null) {
                                         $(".hid_wtime").addClass("hide");
                                     }*/
-
-
                                     // 个人介绍
                                     if(data.resultObject.description == null || data.resultObject.description == ''){
                                         
@@ -460,98 +460,29 @@ requestService("/xczh/doctors/doctorStatus", {doctorId:doctorId},function (data)
                                     }else{
 
                                         $(".self_introduction_cen").html(data.resultObject.description);
-                                        
                                     };
 
-                                    str=','+ data.resultObject.workTime +','; //这是一字符串 
-                                    //var strs= new Array(); //定义一数组 
-                                    //strs=str.split(","); //字符分割 
-                                    /*for (i=0;i<strs.length ;i++ ) { 
-                                        alert(strs[i]+"<br/>"); //分割后的字符输出 
-                                    };*/
+                                    if(data.resultObject.workTime == null || data.resultObject.workTime == ''){
+                                        
+                                        $(".table").hide();
+                                    }else{
 
-                                    // alert(str);
+                                        str=data.resultObject.workTime; //这是一字符串 
+                                        var apm = str.replace('.', '_');
+                                        var apms = apm.split(",");
+                                        // 先把所有的隐藏
+                                        $(".apm img").hide();
+                                        for (var i = 0; i < apms.length; i++) {
+                                            $(".apm"+apms[i]+" img").show();
+                                            // alert("apm"+apms[i]+"")
+                                        };
+                                    };
 
-                                    if(str.indexOf(',1,') <=0){
-                                        $("table").hide();
-                                    }
-                                    // 上午
-                                    if(str.indexOf(',1.1,') >=0){
-                                        $(".am_monday img").show();
-                                    }else{
-                                        $(".am_monday img").hide();
-                                    }
-                                    if(str.indexOf(",2.1,") >=0){
-                                        $(".am_tuesday img").show();
-                                    }else{
-                                        $(".am_tuesday img").hide();
-                                    }
-                                    if(str.indexOf(",3.1,") >=0){
-                                        $(".am_wednesday img").show();
-                                    }else{
-                                        $(".am_wednesday img").hide();
-                                    }
-                                    if(str.indexOf(",4.1,") >=0){
-                                        $(".am_thursday img").show();
-                                    }else{
-                                        $(".am_thursday img").hide();
-                                    }
+                                    if (data.resultObject.hospital.name == null && data.resultObject.hospital.tel == null && data.resultObject.hospital.detailedAddress == null && data.resultObject.description == null && data.resultObject.description == '') {
+                                        alert(123);
+                                        $(".baseImagenumber").show();
 
-                                    if(str.indexOf(",5.1,") >=0){
-                                        $(".am_friday img").show();
-                                    }else{
-                                        $(".am_friday img").hide();
-                                    }
-
-                                    if(str.indexOf(",6.1,") >=0){
-                                        $(".am_saturday img").show();
-                                    }else{
-                                        $(".am_saturday img").hide();
-                                    }
-
-                                    if(str.indexOf(",7.1,") >=0){
-                                        $(".am_sunday img").show();
-                                    }else{
-                                        $(".am_sunday img").hide();
-                                    }
-
-
-                                    // 下午
-                                    if(str.indexOf(',1.2,') >=0){
-                                        $(".pm_mondays img").show();
-                                    }else{
-                                        $(".pm_mondays img").hide();
-                                    }
-                                    if(str.indexOf(",2.2,") >=0){
-                                        $(".pm_tuesdays img").show();
-                                    }else{
-                                        $(".pm_tuesdays img").hide();
-                                    }
-                                    if(str.indexOf(",3.2,") >=0){
-                                        $(".pm_wednesdays img").show();
-                                    }else{
-                                        $(".pm_wednesdays img").hide();
-                                    }
-                                    if(str.indexOf(",4.2,") >=0){
-                                        $(".pm_thursdays img").show();
-                                    }else{
-                                        $(".pm_thursdays img").hide();
-                                    }
-                                    if(str.indexOf(",5.2,") >=0){
-                                        $(".pm_fridays img").show();
-                                    }else{
-                                        $(".pm_fridays img").hide();
-                                    }
-                                    if(str.indexOf(",6.2,") >=0){
-                                        $(".pm_saturdays img").show();
-                                    }else{
-                                        $(".pm_saturdays img").hide();
-                                    }
-                                    if(str.indexOf(",7.2,") >=0){
-                                        $(".pm_sundays img").show();
-                                    }else{
-                                        $(".pm_sundays img").hide();
-                                    }
+                                    };
                                                                     
 
                                 }
