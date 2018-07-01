@@ -129,7 +129,7 @@
 
     <!-- dubbo -->
     <dubbo:application name="${dubbo.app.name}"/>
-    <dubbo:registry protocol="zookeeper" address="${dubbo.zookepper.url}"/>
+    <dubbo:registry protocol="zookeeper" address="${dubbo.zookepper.url}" file="${catalina.home}/dubbo-registry/dubbo-registry.properties"/>
     <dubbo:reference id="userCenterService" interface="com.xczhihui.user.center.service.UserCenterService"
                      timeout="${dubbo.consumer.timeout}"/>
     <dubbo:reference id="userCoinService" interface="com.xczhihui.online.api.service.UserCoinService"
