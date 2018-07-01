@@ -43,7 +43,7 @@
 	<!--头部结束-->
 	<!-- 中间内容开始 -->
 	<div class="consilia_main">
-		<div class="consilia_main_center">
+		<!-- <div class="consilia_main_center">
 			<h2>全国名中医潘敏求 宁失亿万身家只为做“良医”</h2>
 			<div class="article">
 				<div class="article_main">
@@ -56,12 +56,28 @@
 				</div>
 			</div>
 			<div class="both"></div>
-			<div class="consilia_center">
-				<div class="consilia_textarea">朱××，男,53岁。我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容</div>
-				<img src="/xcview/images/banner01.png" alt="" />
-				<div class="consilia_textarea">朱××，男,53岁。我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容</div>
+		</div> -->
+
+		<div class="consilia_main_center" id="consilia_main_center">
+			<script type="text/html" id="consilia_main_center_id">
+			<h2>{{items.title}}</h2>
+			<div class="article">
+				<div class="article_main">
+					<div class="article_border_left"></div>
+					<div class="article_time">
+						<div class="">{{items.author}}</div>
+					</div>
+					<div class="article_border_right"></div>
+					<div class="both"></div>
+				</div>
 			</div>
+			<div class="both"></div>
+			<div class="consilia_center">
+				<div class="consilia_textarea">{{items.content}}</div>
+			</div>
+			</script>
 		</div>
+
 
 		<!-- 评价开始 -->
 		<div class="evaluation_start">
@@ -71,81 +87,58 @@
 			</div>
 
 			<div class="wrap_all_returned">
+				<script type="text/html" id="broadcastroom_id">
+				{{each items as item i}} 
 				<div class="wrap_people_comment">
 					<div class="wrap_comment_text">
 						<!--头像-->
 						<div class="user_header">
-							<img src="http://test-file.ipandatcm.com/18517173216/e7ba7039b66c6bf8.jpg" onerror="nofinds();">
+							<img src="{{item.author.smallHeadPhoto}}" onerror="nofinds();">
 						</div>
 						<!--右边评价-->
 						<div class="user_text">
 							<div class="wrap_userName">
-								<p class="z">13641222350</p>
+								<p class="z">{{item.author.name}}</p>
 							</div>
 						</div>
 						<!--回复的内容-->
 						<p class="write_text">
-							你是不是傻
+							{{item.content}}
 						</p>
 						<!--被回复的内容灰色部分-->
-						<div class="uesr_returned">
-							<p class="returned_id z">13641222350：<span style="color: #333;">你好啊</span></p>
-							<!--<p class="returned_text"></p>-->
-						</div>
+						{{if item.reply != null}}
+							<div class="uesr_returned">
+								<p class="returned_id z">{{item.reply.author.name}}：<span style="color: #333333;">{{item.reply.content}}</span></p>
+							</div>
+						{{/if}}
+
+						
 						<!--回复时间/点赞/评价按钮-->
 						<div class="wrap_returned_btn">
 							<ul>
-								<li>2018.06.25</li>
-								<li class="btn_littleReturn " style="margin-left: 0.3rem;" id="a146484009904f71ac3fed0cbf892159">
+								<li>{{item.createTime.slice(0,16)}}</li>
+								<li class="btn_littleReturn " style="margin-left: 0.3rem;" id="{{item.id}}">
 									<img src="/xcview/images/returned.png">
 								</li>
-								<li class="btn_click_zan">
-									
-									<img src="/xcview/images/zan01.png">&nbsp;<span id="zan01">0</span>
+								<li class="btn_click_zan"  data-id ="{{item.id}}"  >
+									{{if item.praised }}
+									<img src="/xcview/images/zan001.png"/>&nbsp;<span id="zan001">{{item.praiseCnt}}</span>
+									{{else}}
+									<img src="/xcview/images/zan01.png"/>&nbsp;<span id="zan01">{{item.praiseCnt}}</span>
+									{{/if}}
 								</li>
 
 							</ul>
 						</div>
 					</div>
 				</div>
-				<div class="wrap_people_comment">
-					<div class="wrap_comment_text">
-						<!--头像-->
-						<div class="user_header">
-							<img src="http://test-file.ipandatcm.com/18517173216/e7ba7039b66c6bf8.jpg" onerror="nofinds();">
-						</div>
-						<!--右边评价-->
-						<div class="user_text">
-							<div class="wrap_userName">
-								<p class="z">13641222350</p>
-							</div>
-						</div>
-						<!--回复的内容-->
-						<p class="write_text">
-							你是不是傻
-						</p>
-						<!--被回复的内容灰色部分-->
-						<div class="uesr_returned">
-							<p class="returned_id z">13641222350：<span style="color: #333;">你好啊</span></p>
-							<!--<p class="returned_text"></p>-->
-						</div>
-						<!--回复时间/点赞/评价按钮-->
-						<div class="wrap_returned_btn">
-							<ul>
-								<li>2018.06.25</li>
-								<li class="btn_littleReturn " style="margin-left: 0.3rem;" id="a146484009904f71ac3fed0cbf892159">
-									<img src="/xcview/images/returned.png">
-								</li>
-								<li class="btn_click_zan">
-									
-									<img src="/xcview/images/zan01.png">&nbsp;<span id="zan01">0</span>
-								</li>
+				{{/each}}
+            	</script>
 
-							</ul>
-						</div>
-					</div>
-				</div>
+
+				
 			</div>
+			
 
 		</div>
 		<div class="opacity_height"></div>
@@ -157,11 +150,31 @@
 			</div>
 		</div>
 
+
+		<!-- 回复评价信息开始 -->
+		<!--评价用户弹出框-->
+		<div class="bg_userModal"></div>
+		<div class="wrapLittle_comment">
+			<p class="detailed_comments little_comment">详细评价</p>
+			<div class="text_write_box">
+				<textarea id="littlt_return" name="" rows="" cols="" placeholder="写评价，回复一下"></textarea>
+			</div>
+			<!--表情/提交评价-->
+			<ul class="brow_btn">
+				<li style="display: none;">
+					<img src="/xcview/images/brow.png"/>
+				</li>
+				<li class="return_btn">发表评价</li>
+			</ul>
+		</div>
+		<!-- 回复评价信息结束 -->
+
+		<!-- 评价信息 -->
 		<div class="bg_modal"></div>
-		<div class="wrapAll_comment"><p class="set_title">发布评价</p>
+		<div class="wrapAll_comment"><p class="set_title" >发布评价</p>
 			
 		<div class="text_write_box">
-			<textarea name="" id="comment_detailed" rows="" cols="" placeholder="写评价，给主播评价一下"></textarea>
+			<textarea name="" id="comment_detailed" rows="" cols="" placeholder="写评价，给医案评价一下"></textarea>
 		</div>
 		<!--表情/提交评价-->
 		<ul class="brow_btn">
@@ -187,6 +200,8 @@
 <script type="text/javascript" src="/xcview/js/common/common.js?v=wechat_1.1.1"></script> 
 <script type="text/javascript" src="/xcview/js/common/template.js"></script>    <!--数据模板引入-->
 <script type="text/javascript" src="/xcview/js/physician/index.js"></script> 
+
+<script type="text/javascript" src="/xcview/js/physician/article.js"></script> 
 
 
 <script>
@@ -228,4 +243,6 @@
         });
 	};
 </script>
+<!-- 公用弹框 -->
+<script type="text/javascript" src="/xcview/js/common/alertPopShow.js?v=wechat_1.1.1"></script>
 </html>
