@@ -582,12 +582,12 @@ $(window).bind("scroll", function() {
 
     // 判断滚动条显示隐藏title
 	var top = $(document).scrollTop();
-    if(top < 40){
+    if(top < 140){
     	$(".header p").hide();
     	$(".arror_return img").attr("src","/xcview/images/anchorj.png");
     	$(".header_news img").attr("src","/xcview/images/anchorf.png");
     	$("#header").css("border-bottom","0px solid #d8dde6");
-    }else if(top > 40){
+    }else if(top > 140){
     	$(".arror_return img").attr("src","/xcview/images/back icon.png");
     	$(".header_news img").attr("src","/xcview/images/share_img.png");
     	$(".header p").show();
