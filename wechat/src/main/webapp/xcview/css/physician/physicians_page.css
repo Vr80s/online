@@ -1268,7 +1268,7 @@ p{
 .article_nav_span{
 	width: 6.98rem;
     margin: 0 auto;
-    height: 0.42rem;
+    /*height: 0.42rem;*/
     margin-bottom: 0.2rem;
 }
 .article_nav_span .title{
