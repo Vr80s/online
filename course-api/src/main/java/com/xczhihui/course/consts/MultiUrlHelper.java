@@ -54,6 +54,10 @@ public class MultiUrlHelper {
             ImmutableMap.of(URL_TYPE_APP, APP_COURSE_DETAIL,
                     URL_TYPE_WEB, WEB_COURSE_DETAIL,
                     URL_TYPE_MOBILE, "/xczh/page/course/{0}");
+    private static Map<String, String> learningCourseDetailUrlMap =
+            ImmutableMap.of(URL_TYPE_APP, "xczh://ipandatcm.com/learningCourseDetail?id={0}",
+                    URL_TYPE_WEB, WEB_COURSE_DETAIL,
+                    URL_TYPE_MOBILE, "/xczh/page/course/{0}");
 
     private static Map<String, String> doctorApproveUrlMap = ImmutableMap.of(
             URL_TYPE_APP, "xczh://ipandatcm.com/anchorApprove?type=1",
@@ -155,6 +159,7 @@ public class MultiUrlHelper {
         urlMap.put(RouteTypeEnum.ANCHOR_INDEX.name(), anchorIndexMap);
         urlMap.put(RouteTypeEnum.H5.name(), h5Map);
         urlMap.put(RouteTypeEnum.COMMON_COURSE_DETAIL_PAGE.name(), courseDetailUrlMap);
+        urlMap.put(RouteTypeEnum.COMMON_LEARNING_COURSE_DETAIL_PAGE.name(), learningCourseDetailUrlMap);
         urlMap.put(RouteTypeEnum.PUBLIC_COURSE_LIST_PAGE.name(), publicCourseListMap);
         urlMap.put(RouteTypeEnum.SPECIAL_COLUMN_DETAIL.name(), specialColumnMap);
         urlMap.put(RouteTypeEnum.DOCTOR_CASE_DETAIL.name(), doctorCaseMap);
