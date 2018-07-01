@@ -441,13 +441,13 @@ requestService("/xczh/doctors/doctorStatus", {doctorId:doctorId},function (data)
                                     // $('#message_referral').html(template('self_introduction_id', {items: data.resultObject}));
                                     
 
-                                    if (data.resultObject.hospital.name == null) {
+                                    if (data.resultObject.hospital.name = null) {
                                         $(".clinic").addClass("hide");
                                     }
-                                    if (data.resultObject.hospital.tel == null) {
+                                    if (data.resultObject.hospital.tel = null) {
                                         $(".tel").addClass("hide");
                                     }
-                                    if (data.resultObject.hospital.detailedAddress == null) {
+                                    if (data.resultObject.hospital.detailedAddress = null) {
                                         $(".house_address").addClass("hide");
                                     }
                                     /*if (data.resultObject.lecturerInfo = null && data.resultObject.lecturerInfo.workTime = null) {
