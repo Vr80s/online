@@ -74,7 +74,7 @@ public class DoctorArticleController extends AbstractFtlController {
 
     @RequestMapping(value = "specialColumn", method = RequestMethod.GET)
     public ResponseObject listSpecialColumn(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10") int size,
-                                            @RequestParam(required = false) String keyQuery, @RequestParam(defaultValue = "4") String type) {
+                                            @RequestParam(required = false) String keyQuery, @RequestParam(required = false) String type) {
         String userId = getUserId();
         if (StringUtils.isNotBlank(keyQuery)) {
             keyQuery = "%" + keyQuery + "%";
