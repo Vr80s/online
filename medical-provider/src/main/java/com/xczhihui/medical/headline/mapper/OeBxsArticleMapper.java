@@ -75,7 +75,7 @@ public interface OeBxsArticleMapper extends BaseMapper<OeBxsArticle> {
 
 
     /**
-     * 查询医师关联的专栏
+     * 查询医师关联的专栏/医案
      *
      * @param page   分页参数
      * @param userId 用户id
@@ -84,7 +84,7 @@ public interface OeBxsArticleMapper extends BaseMapper<OeBxsArticle> {
     @Select({"<script> select oba.id, oba.`title`, oba.`content`, oba.`update_time` as updateTime," +
             " oba.`img_path` as imgPath, oba.status as status, oba.user_id as author, oba.url as url, oba.type_id as typeId " +
             " from `oe_bxs_article` oba" +
-            " where oba.`is_delete`=0 and oba.create_person = #{userId} and oba.type_id = #{type}" +
+            " where oba.`is_delete`=0 and oba.create_person = #{userId} and ((#{type} is null and (oba.type_id = '4' OR oba.type_id = '8')) OR oba.type_id = #{type})" +
             " <if test='keyQuery!=null'> " +
             " and  oba.title like #{keyQuery} " +
             " </if> " +
