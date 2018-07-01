@@ -1,5 +1,7 @@
 package com.xczhihui.bxg.online.web.service.impl;
 
+import static com.xczhihui.course.enums.RouteTypeEnum.COMMON_LEARNING_COURSE_DETAIL_PAGE;
+
 import java.text.MessageFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -27,7 +29,6 @@ import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.course.enums.MessageTypeEnum;
 import com.xczhihui.course.params.BaseMessage;
 import com.xczhihui.course.service.ICommonMessageService;
-import com.xczhihui.course.util.CourseUtil;
 import com.xczhihui.course.util.TextStyleUtil;
 
 /**
@@ -91,7 +92,7 @@ public class OrderServiceImpl extends OnlineBaseServiceImpl implements OrderServ
                                     .buildWeb(content)
                                     .buildWeixin(weixinPayMessageCode, weixinParams)
                                     .detailId(courseId)
-                                    .build(userId, CourseUtil.getRouteType(collection, type), userId));
+                                    .build(userId, COMMON_LEARNING_COURSE_DETAIL_PAGE, userId));
                 }
             }
             logger.info("发送课程消息通知" + orderNo);

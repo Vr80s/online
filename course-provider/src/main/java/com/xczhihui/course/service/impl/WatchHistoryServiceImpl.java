@@ -1,5 +1,7 @@
 package com.xczhihui.course.service.impl;
 
+import static com.xczhihui.course.enums.RouteTypeEnum.COMMON_LEARNING_COURSE_DETAIL_PAGE;
+
 import java.text.MessageFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -24,7 +26,6 @@ import com.xczhihui.course.params.BaseMessage;
 import com.xczhihui.course.service.ICommonMessageService;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.course.service.IWatchHistoryService;
-import com.xczhihui.course.util.CourseUtil;
 import com.xczhihui.course.util.DateDistance;
 import com.xczhihui.course.util.DateUtil;
 import com.xczhihui.course.util.TextStyleUtil;
@@ -139,7 +140,7 @@ public class WatchHistoryServiceImpl extends ServiceImpl<WatchHistoryMapper, Wat
                             .buildWeb(content)
                             .buildWeixin(weixinApplySuccessMessageCode, weixinParams)
                             .detailId(String.valueOf(courseId))
-                            .build(userId, CourseUtil.getRouteType(course.getCollection(), course.getType()), userId));
+                            .build(userId, COMMON_LEARNING_COURSE_DETAIL_PAGE, userId));
         } catch (Exception e) {
             LOGGER.error("报名成功时，推送消息异常: courseId: {}", courseId);
             e.printStackTrace();
