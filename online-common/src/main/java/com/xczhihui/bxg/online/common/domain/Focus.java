@@ -3,161 +3,161 @@ package com.xczhihui.bxg.online.common.domain;
 
 import javax.persistence.*;
 
-import static javax.persistence.GenerationType.AUTO;
-import static javax.persistence.GenerationType.IDENTITY;
-import static javax.persistence.GenerationType.TABLE;
-
 /**
  */
 @Entity
 @Table(name = "oe_focus")
 public class Focus implements java.io.Serializable {
 
-	// Fields
+    // Fields
 
-	private String id;
-	private String lecturerId;
-	private String userId;
-	private String userName;
-	private String userHeadImg;
-	private Integer courseId;
-	private String lecturerName;
-	private String lecturerHeadImg;
-	private Integer roomNumber;
-
-
-	private String fansCount;       //粉丝数
+    private String id;
+    private String lecturerId;
+    private String userId;
+    private String userName;
+    private String userHeadImg;
+    private Integer courseId;
+    private String lecturerName;
+    private String lecturerHeadImg;
+    private Integer roomNumber;
 
 
-	private Integer isFocus;	    //是否关注  0：未关注  1:已关注
+    private String fansCount;       //粉丝数
 
-	// Constructors
 
-	/** default constructor */
-	public Focus() {
-	}
+    private Integer isFocus;        //是否关注  0：未关注  1:已关注
 
-	/** full constructor */
-	public Focus(String lecturerId, String userId, String userName, String userHeadImg, Integer courseId,
-			String lecturerName, String lecturerHeadImg, Integer roomNumber) {
-		this.lecturerId = lecturerId;
-		this.userId = userId;
-		this.userName = userName;
-		this.userHeadImg = userHeadImg;
-		this.courseId = courseId;
-		this.lecturerName = lecturerName;
-		this.lecturerHeadImg = lecturerHeadImg;
-		this.roomNumber = roomNumber;
-	}
+    // Constructors
 
-	// Property accessors
-	@Id
-	@Column(name = "id", unique = true, nullable = false, length = 32)
-	public String getId() {
-		return this.id;
-	}
+    /**
+     * default constructor
+     */
+    public Focus() {
+    }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    /**
+     * full constructor
+     */
+    public Focus(String lecturerId, String userId, String userName, String userHeadImg, Integer courseId,
+                 String lecturerName, String lecturerHeadImg, Integer roomNumber) {
+        this.lecturerId = lecturerId;
+        this.userId = userId;
+        this.userName = userName;
+        this.userHeadImg = userHeadImg;
+        this.courseId = courseId;
+        this.lecturerName = lecturerName;
+        this.lecturerHeadImg = lecturerHeadImg;
+        this.roomNumber = roomNumber;
+    }
 
-	@Column(name = "lecturer_id", length = 32)
+    // Property accessors
+    @Id
+    @Column(name = "id", unique = true, nullable = false, length = 32)
+    public String getId() {
+        return this.id;
+    }
 
-	public String getLecturerId() {
-		return this.lecturerId;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public void setLecturerId(String lecturerId) {
-		this.lecturerId = lecturerId;
-	}
+    @Column(name = "lecturer_id", length = 32)
 
-	@Column(name = "user_id", length = 32)
+    public String getLecturerId() {
+        return this.lecturerId;
+    }
 
-	public String getUserId() {
-		return this.userId;
-	}
+    public void setLecturerId(String lecturerId) {
+        this.lecturerId = lecturerId;
+    }
 
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
+    @Column(name = "user_id", length = 32)
 
-	@Column(name = "user_name")
+    public String getUserId() {
+        return this.userId;
+    }
 
-	public String getUserName() {
-		return this.userName;
-	}
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+    @Column(name = "user_name")
 
-	@Column(name = "user_head_img")
+    public String getUserName() {
+        return this.userName;
+    }
 
-	public String getUserHeadImg() {
-		return this.userHeadImg;
-	}
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
-	public void setUserHeadImg(String userHeadImg) {
-		this.userHeadImg = userHeadImg;
-	}
+    @Column(name = "user_head_img")
 
-	@Column(name = "course_id")
+    public String getUserHeadImg() {
+        return this.userHeadImg;
+    }
 
-	public Integer getCourseId() {
-		return this.courseId;
-	}
+    public void setUserHeadImg(String userHeadImg) {
+        this.userHeadImg = userHeadImg;
+    }
 
-	public void setCourseId(Integer courseId) {
-		this.courseId = courseId;
-	}
+    @Column(name = "course_id")
 
-	@Column(name = "lecturer_name")
+    public Integer getCourseId() {
+        return this.courseId;
+    }
 
-	public String getLecturerName() {
-		return this.lecturerName;
-	}
+    public void setCourseId(Integer courseId) {
+        this.courseId = courseId;
+    }
 
-	public void setLecturerName(String lecturerName) {
-		this.lecturerName = lecturerName;
-	}
+    @Column(name = "lecturer_name")
 
-	@Column(name = "lecturer_head_img")
+    public String getLecturerName() {
+        return this.lecturerName;
+    }
 
-	public String getLecturerHeadImg() {
-		return this.lecturerHeadImg;
-	}
+    public void setLecturerName(String lecturerName) {
+        this.lecturerName = lecturerName;
+    }
 
-	public void setLecturerHeadImg(String lecturerHeadImg) {
-		this.lecturerHeadImg = lecturerHeadImg;
-	}
+    @Column(name = "lecturer_head_img")
 
-	@Column(name = "room_number")
+    public String getLecturerHeadImg() {
+        return this.lecturerHeadImg;
+    }
 
-	public Integer getRoomNumber() {
-		return this.roomNumber;
-	}
+    public void setLecturerHeadImg(String lecturerHeadImg) {
+        this.lecturerHeadImg = lecturerHeadImg;
+    }
 
-	public void setRoomNumber(Integer roomNumber) {
-		this.roomNumber = roomNumber;
-	}
+    @Column(name = "room_number")
 
-	@Transient
-	@Column(insertable = false,updatable = false)
-	public String getFansCount() {
-		return fansCount;
-	}
+    public Integer getRoomNumber() {
+        return this.roomNumber;
+    }
 
-	public void setFansCount(String fansCount) {
-		this.fansCount = fansCount;
-	}
+    public void setRoomNumber(Integer roomNumber) {
+        this.roomNumber = roomNumber;
+    }
 
-	@Column(insertable = false,updatable = false)
-	@Transient
-	public Integer getIsFocus() {
-		return isFocus;
-	}
+    @Transient
+    @Column(insertable = false, updatable = false)
+    public String getFansCount() {
+        return fansCount;
+    }
 
-	public void setIsFocus(Integer isFocus) {
-		this.isFocus = isFocus;
-	}
+    public void setFansCount(String fansCount) {
+        this.fansCount = fansCount;
+    }
+
+    @Column(insertable = false, updatable = false)
+    @Transient
+    public Integer getIsFocus() {
+        return isFocus;
+    }
+
+    public void setIsFocus(Integer isFocus) {
+        this.isFocus = isFocus;
+    }
 }

@@ -3,9 +3,6 @@ package com.xczhihui.bxg.online.common.domain;
 
 import javax.persistence.*;
 
-import static javax.persistence.GenerationType.AUTO;
-import static javax.persistence.GenerationType.IDENTITY;
-
 /**
  * AlipayPaymentRecord entity. @author MyEclipse Persistence Tools
  */
@@ -13,278 +10,280 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Table(name = "alipay_payment_record")
 public class AlipayPaymentRecord implements java.io.Serializable {
 
-	// Fields
-
-
-	private Integer id;
-	private String tradeNo;
-	private String appId;
-	private String outTradeNo;
-	private String outBizNo;
-	private String buyerId;
-	private String sellerId;
-	private String tradeStatus;
-	private String totalAmount;
-	private String receiptAmount;
-	private String invoiceAmount;
-	private String buyerPayAmount;
-	private String pointAmount;
-	private String refundFee;
-	private String subject;
-	private String body;
-	private String gmtCreate;
-	private String gmtPayment;
-	private String gmtRefund;
-	private String gmtClose;
-	private String fundBillList;
-	private String voucherDetailList;
-	private String passbackParams;
-	private String userId;
+    // Fields
+
+
+    private Integer id;
+    private String tradeNo;
+    private String appId;
+    private String outTradeNo;
+    private String outBizNo;
+    private String buyerId;
+    private String sellerId;
+    private String tradeStatus;
+    private String totalAmount;
+    private String receiptAmount;
+    private String invoiceAmount;
+    private String buyerPayAmount;
+    private String pointAmount;
+    private String refundFee;
+    private String subject;
+    private String body;
+    private String gmtCreate;
+    private String gmtPayment;
+    private String gmtRefund;
+    private String gmtClose;
+    private String fundBillList;
+    private String voucherDetailList;
+    private String passbackParams;
+    private String userId;
+
+    // Constructors
+
+    /**
+     * default constructor
+     */
+    public AlipayPaymentRecord() {
+    }
 
-	// Constructors
 
-	/** default constructor */
-	public AlipayPaymentRecord() {
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    public Integer getId() {
+        return id;
+    }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name = "id", nullable = false)
-	public Integer getId() {
-		return id;
-	}
+    @Column(name = "trade_no", unique = true, nullable = false, length = 64)
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public String getTradeNo() {
+        return this.tradeNo;
+    }
 
-	@Column(name = "trade_no", unique = true, nullable = false, length = 64)
+    public void setTradeNo(String tradeNo) {
+        this.tradeNo = tradeNo;
+    }
 
-	public String getTradeNo() {
-		return this.tradeNo;
-	}
+    @Column(name = "app_id", length = 32)
 
-	public void setTradeNo(String tradeNo) {
-		this.tradeNo = tradeNo;
-	}
+    public String getAppId() {
+        return this.appId;
+    }
 
-	@Column(name = "app_id", length = 32)
+    public void setAppId(String appId) {
+        this.appId = appId;
+    }
 
-	public String getAppId() {
-		return this.appId;
-	}
+    @Column(name = "out_trade_no", length = 64)
 
-	public void setAppId(String appId) {
-		this.appId = appId;
-	}
+    public String getOutTradeNo() {
+        return this.outTradeNo;
+    }
 
-	@Column(name = "out_trade_no", length = 64)
+    public void setOutTradeNo(String outTradeNo) {
+        this.outTradeNo = outTradeNo;
+    }
 
-	public String getOutTradeNo() {
-		return this.outTradeNo;
-	}
+    @Column(name = "out_biz_no", length = 64)
 
-	public void setOutTradeNo(String outTradeNo) {
-		this.outTradeNo = outTradeNo;
-	}
+    public String getOutBizNo() {
+        return this.outBizNo;
+    }
 
-	@Column(name = "out_biz_no", length = 64)
+    public void setOutBizNo(String outBizNo) {
+        this.outBizNo = outBizNo;
+    }
 
-	public String getOutBizNo() {
-		return this.outBizNo;
-	}
+    @Column(name = "buyer_id", length = 16)
 
-	public void setOutBizNo(String outBizNo) {
-		this.outBizNo = outBizNo;
-	}
+    public String getBuyerId() {
+        return this.buyerId;
+    }
 
-	@Column(name = "buyer_id", length = 16)
+    public void setBuyerId(String buyerId) {
+        this.buyerId = buyerId;
+    }
 
-	public String getBuyerId() {
-		return this.buyerId;
-	}
+    @Column(name = "seller_id", length = 30)
 
-	public void setBuyerId(String buyerId) {
-		this.buyerId = buyerId;
-	}
+    public String getSellerId() {
+        return this.sellerId;
+    }
 
-	@Column(name = "seller_id", length = 30)
+    public void setSellerId(String sellerId) {
+        this.sellerId = sellerId;
+    }
 
-	public String getSellerId() {
-		return this.sellerId;
-	}
+    @Column(name = "trade_status", length = 32)
 
-	public void setSellerId(String sellerId) {
-		this.sellerId = sellerId;
-	}
+    public String getTradeStatus() {
+        return this.tradeStatus;
+    }
 
-	@Column(name = "trade_status", length = 32)
+    public void setTradeStatus(String tradeStatus) {
+        this.tradeStatus = tradeStatus;
+    }
 
-	public String getTradeStatus() {
-		return this.tradeStatus;
-	}
+    @Column(name = "total_amount", length = 100)
 
-	public void setTradeStatus(String tradeStatus) {
-		this.tradeStatus = tradeStatus;
-	}
+    public String getTotalAmount() {
+        return this.totalAmount;
+    }
 
-	@Column(name = "total_amount", length = 100)
+    public void setTotalAmount(String totalAmount) {
+        this.totalAmount = totalAmount;
+    }
 
-	public String getTotalAmount() {
-		return this.totalAmount;
-	}
+    @Column(name = "receipt_amount", length = 100)
 
-	public void setTotalAmount(String totalAmount) {
-		this.totalAmount = totalAmount;
-	}
+    public String getReceiptAmount() {
+        return this.receiptAmount;
+    }
 
-	@Column(name = "receipt_amount", length = 100)
+    public void setReceiptAmount(String receiptAmount) {
+        this.receiptAmount = receiptAmount;
+    }
 
-	public String getReceiptAmount() {
-		return this.receiptAmount;
-	}
+    @Column(name = "invoice_amount", length = 100)
 
-	public void setReceiptAmount(String receiptAmount) {
-		this.receiptAmount = receiptAmount;
-	}
+    public String getInvoiceAmount() {
+        return this.invoiceAmount;
+    }
 
-	@Column(name = "invoice_amount", length = 100)
+    public void setInvoiceAmount(String invoiceAmount) {
+        this.invoiceAmount = invoiceAmount;
+    }
 
-	public String getInvoiceAmount() {
-		return this.invoiceAmount;
-	}
+    @Column(name = "buyer_pay_amount", length = 100)
 
-	public void setInvoiceAmount(String invoiceAmount) {
-		this.invoiceAmount = invoiceAmount;
-	}
+    public String getBuyerPayAmount() {
+        return this.buyerPayAmount;
+    }
 
-	@Column(name = "buyer_pay_amount", length = 100)
+    public void setBuyerPayAmount(String buyerPayAmount) {
+        this.buyerPayAmount = buyerPayAmount;
+    }
 
-	public String getBuyerPayAmount() {
-		return this.buyerPayAmount;
-	}
+    @Column(name = "point_amount", length = 100)
 
-	public void setBuyerPayAmount(String buyerPayAmount) {
-		this.buyerPayAmount = buyerPayAmount;
-	}
+    public String getPointAmount() {
+        return this.pointAmount;
+    }
 
-	@Column(name = "point_amount", length = 100)
+    public void setPointAmount(String pointAmount) {
+        this.pointAmount = pointAmount;
+    }
 
-	public String getPointAmount() {
-		return this.pointAmount;
-	}
+    @Column(name = "refund_fee", length = 100)
 
-	public void setPointAmount(String pointAmount) {
-		this.pointAmount = pointAmount;
-	}
+    public String getRefundFee() {
+        return this.refundFee;
+    }
 
-	@Column(name = "refund_fee", length = 100)
+    public void setRefundFee(String refundFee) {
+        this.refundFee = refundFee;
+    }
 
-	public String getRefundFee() {
-		return this.refundFee;
-	}
+    @Column(name = "subject", length = 256)
 
-	public void setRefundFee(String refundFee) {
-		this.refundFee = refundFee;
-	}
+    public String getSubject() {
+        return this.subject;
+    }
 
-	@Column(name = "subject", length = 256)
+    public void setSubject(String suject) {
+        this.subject = suject;
+    }
 
-	public String getSubject() {
-		return this.subject;
-	}
+    @Column(name = "body", length = 400)
 
-	public void setSubject(String suject) {
-		this.subject = suject;
-	}
+    public String getBody() {
+        return this.body;
+    }
 
-	@Column(name = "body", length = 400)
+    public void setBody(String body) {
+        this.body = body;
+    }
 
-	public String getBody() {
-		return this.body;
-	}
+    @Column(name = "gmt_create", length = 100)
 
-	public void setBody(String body) {
-		this.body = body;
-	}
+    public String getGmtCreate() {
+        return this.gmtCreate;
+    }
 
-	@Column(name = "gmt_create", length = 100)
+    public void setGmtCreate(String gmtCreate) {
+        this.gmtCreate = gmtCreate;
+    }
 
-	public String getGmtCreate() {
-		return this.gmtCreate;
-	}
+    @Column(name = "gmt_payment", length = 100)
 
-	public void setGmtCreate(String gmtCreate) {
-		this.gmtCreate = gmtCreate;
-	}
+    public String getGmtPayment() {
+        return this.gmtPayment;
+    }
 
-	@Column(name = "gmt_payment", length = 100)
+    public void setGmtPayment(String gmtPayment) {
+        this.gmtPayment = gmtPayment;
+    }
 
-	public String getGmtPayment() {
-		return this.gmtPayment;
-	}
+    @Column(name = "gmt_refund", length = 100)
 
-	public void setGmtPayment(String gmtPayment) {
-		this.gmtPayment = gmtPayment;
-	}
+    public String getGmtRefund() {
+        return this.gmtRefund;
+    }
 
-	@Column(name = "gmt_refund", length = 100)
+    public void setGmtRefund(String gmtRefund) {
+        this.gmtRefund = gmtRefund;
+    }
 
-	public String getGmtRefund() {
-		return this.gmtRefund;
-	}
+    @Column(name = "gmt_close", length = 100)
 
-	public void setGmtRefund(String gmtRefund) {
-		this.gmtRefund = gmtRefund;
-	}
+    public String getGmtClose() {
+        return this.gmtClose;
+    }
 
-	@Column(name = "gmt_close", length = 100)
+    public void setGmtClose(String gmtClose) {
+        this.gmtClose = gmtClose;
+    }
 
-	public String getGmtClose() {
-		return this.gmtClose;
-	}
+    @Column(name = "fund_bill_list", length = 512)
 
-	public void setGmtClose(String gmtClose) {
-		this.gmtClose = gmtClose;
-	}
+    public String getFundBillList() {
+        return this.fundBillList;
+    }
 
-	@Column(name = "fund_bill_list", length = 512)
+    public void setFundBillList(String fundBillList) {
+        this.fundBillList = fundBillList;
+    }
 
-	public String getFundBillList() {
-		return this.fundBillList;
-	}
+    @Column(name = "voucher_detail_list", length = 512)
 
-	public void setFundBillList(String fundBillList) {
-		this.fundBillList = fundBillList;
-	}
+    public String getVoucherDetailList() {
+        return this.voucherDetailList;
+    }
 
-	@Column(name = "voucher_detail_list", length = 512)
+    public void setVoucherDetailList(String voucherDetailList) {
+        this.voucherDetailList = voucherDetailList;
+    }
 
-	public String getVoucherDetailList() {
-		return this.voucherDetailList;
-	}
+    @Column(name = "passback_params", length = 512)
 
-	public void setVoucherDetailList(String voucherDetailList) {
-		this.voucherDetailList = voucherDetailList;
-	}
+    public String getPassbackParams() {
+        return this.passbackParams;
+    }
 
-	@Column(name = "passback_params", length = 512)
+    public void setPassbackParams(String passbackParams) {
+        this.passbackParams = passbackParams;
+    }
 
-	public String getPassbackParams() {
-		return this.passbackParams;
-	}
+    @Column(name = "user_id", length = 32)
+    public String getUserId() {
+        return userId;
+    }
 
-	public void setPassbackParams(String passbackParams) {
-		this.passbackParams = passbackParams;
-	}
-
-	@Column(name = "user_id", length = 32)
-	public String getUserId() {
-		return userId;
-	}
-
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 }

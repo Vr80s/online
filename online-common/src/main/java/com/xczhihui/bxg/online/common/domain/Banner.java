@@ -58,6 +58,10 @@ public class Banner extends BasicEntity2 implements Serializable {
     @Column(name = "link_param")
     private String linkParam;
 
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
     public Integer getType() {
         return type;
     }
@@ -88,10 +92,6 @@ public class Banner extends BasicEntity2 implements Serializable {
 
     public void setSort(Integer sort) {
         this.sort = sort;
-    }
-
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
     }
 
     public String getImgHref() {

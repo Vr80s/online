@@ -5,8 +5,9 @@ import java.util.Date;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.annotations.Type;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 
 /**
@@ -108,7 +109,7 @@ public class MedicalHospital implements Serializable {
     /**
      * 启用时间
      */
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")
     @Column(name = "enable_time")
     private Date enableTime;
 

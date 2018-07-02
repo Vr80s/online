@@ -2,11 +2,11 @@ package com.xczhihui.bxg.online.common.domain;/**
  * Created by admin on 2016/8/29.
  */
 
-import com.xczhihui.common.support.domain.BasicEntity;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+
+import com.xczhihui.common.support.domain.BasicEntity;
 
 /**
  * 学校信息实体类
@@ -25,7 +25,7 @@ public class School extends BasicEntity {
     private String cityId;
 
     /**
-     *学校名称
+     * 学校名称
      */
     @Column(name = "name")
     private String name;
@@ -35,7 +35,12 @@ public class School extends BasicEntity {
      */
     @Column(name = "sort")
     private Integer sort;
+    /**
+     * 是否禁用状态:true:启用 false:禁用
+     */
 
+    @Column(name = "status")
+    private boolean status;
 
     public boolean isStatus() {
         return status;
@@ -68,12 +73,5 @@ public class School extends BasicEntity {
     public void setCityId(String cityId) {
         this.cityId = cityId;
     }
-
-    /**
-     * 是否禁用状态:true:启用 false:禁用
-     */
-
-    @Column(name = "status")
-    private boolean status;
 
 }

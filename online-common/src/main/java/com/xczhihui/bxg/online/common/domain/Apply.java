@@ -2,14 +2,14 @@ package com.xczhihui.bxg.online.common.domain;/**
  * Created by admin on 2016/8/30.
  */
 
-import com.xczhihui.common.support.domain.BasicEntity;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import java.util.Date;
+import com.xczhihui.common.support.domain.BasicEntity;
 
 /**
  * 报名表信息实体类
@@ -19,7 +19,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "oe_apply")
-public class Apply  extends BasicEntity {
+public class Apply extends BasicEntity {
 
 
     /**
@@ -32,7 +32,7 @@ public class Apply  extends BasicEntity {
      * 学号
      */
     @Column(name = "student_number")
-    private String  studentNumber;
+    private String studentNumber;
 
     /**
      * qq号
@@ -41,13 +41,13 @@ public class Apply  extends BasicEntity {
     private String qq;
 
     /**
-     *email
+     * email
      */
     @Column(name = "email")
     private String email;
 
     /**
-     *email
+     * email
      */
     @Column(name = "sex")
     private Integer sex;
@@ -117,22 +117,22 @@ public class Apply  extends BasicEntity {
      */
     @Column(name = "is_old_user")
     private Integer isOldUser;
-    
+
     /**
      * 推荐人
      */
     @Column(name = "referee")
     private String referee;
-    
+
     @Column(name = "wechat_no")
     private String wechatNo;
-    
+
     /**
      * 否是第一次参加
      */
     @Column(name = "is_first")
     private Boolean isFirst;
-    
+
     /**
      * 否是第一次参加
      */
@@ -259,36 +259,36 @@ public class Apply  extends BasicEntity {
         this.studentNumber = studentNumber;
     }
 
-	public String getReferee() {
-		return referee;
-	}
+    public String getReferee() {
+        return referee;
+    }
 
-	public void setReferee(String referee) {
-		this.referee = referee;
-	}
+    public void setReferee(String referee) {
+        this.referee = referee;
+    }
 
-	public Boolean getIsFirst() {
-		return isFirst;
-	}
+    public Boolean getIsFirst() {
+        return isFirst;
+    }
 
-	public void setIsFirst(Boolean isFirst) {
-		this.isFirst = isFirst;
-	}
+    public void setIsFirst(Boolean isFirst) {
+        this.isFirst = isFirst;
+    }
 
-	public String getWechatNo() {
-		return wechatNo;
-	}
+    public String getWechatNo() {
+        return wechatNo;
+    }
 
-	public void setWechatNo(String wechatNo) {
-		this.wechatNo = wechatNo;
-	}
+    public void setWechatNo(String wechatNo) {
+        this.wechatNo = wechatNo;
+    }
 
-	public String getOccupation() {
-		return occupation;
-	}
+    public String getOccupation() {
+        return occupation;
+    }
 
-	public void setOccupation(String occupation) {
-		this.occupation = occupation;
-	}
+    public void setOccupation(String occupation) {
+        this.occupation = occupation;
+    }
 
 }

@@ -3,16 +3,10 @@ package com.xczhihui.bxg.online.common.domain;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 
-/** 
+/**
  * ClassName: GiftStatementVo.java <br>
  * Description:礼物流水表 <br>
  * Create by: name：yuxin <br>email: yuruixin@ixincheng.com <br>
@@ -20,185 +14,185 @@ import javax.persistence.Transient;
  */
 @Entity
 @Table(name = "oe_gift_statement")
-public class GiftStatement implements Serializable{
+public class GiftStatement implements Serializable {
 
-	/**
-	 * Copyright © 2017 xinchengzhihui. All rights reserved.
-	 */
-	private static final long serialVersionUID = 380595710822938948L;
+    /**
+     * Copyright © 2017 xinchengzhihui. All rights reserved.
+     */
+    private static final long serialVersionUID = 380595710822938948L;
 
-	/**
-	 * 唯一标识
-	 */
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+    /**
+     * 唯一标识
+     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-	/**
-	 * 创建时间
-	 */
-	@Column(name = "create_time")
-	private Date createTime;
+    /**
+     * 创建时间
+     */
+    @Column(name = "create_time")
+    private Date createTime;
 
-	@Column(name = "channel")
+    @Column(name = "channel")
     private int channel;
-    
-	@Column(name = "gift_id")
+
+    @Column(name = "gift_id")
     private String giftId;
-	
-	@Column(name = "gift_name")
-	private String giftName;
-    
-	@Column(name = "count")
+
+    @Column(name = "gift_name")
+    private String giftName;
+
+    @Column(name = "count")
     private int count;
-    
-	@Column(name = "price")
-    private Double price ;
-    
-	@Column(name = "giver")
+
+    @Column(name = "price")
+    private Double price;
+
+    @Column(name = "giver")
     private String giver;
-    
-	@Column(name = "receiver")
+
+    @Column(name = "receiver")
     private String receiver;
-    
-	@Column(name = "live_id")
+
+    @Column(name = "live_id")
     private String liveId;
-    
-	@Column(name = "pay_type")
+
+    @Column(name = "pay_type")
     private int payType;
-    
-	@Column(name = "client_type")
+
+    @Column(name = "client_type")
     private int clientType;
-	
-	@Transient
-	private String receiverName;
-	
-	@Transient
-	private String giverName;
-	@Transient
-	private Integer continuousCount;
-	@Transient
-	private String giftImg;
 
-	public String getGiftImg() {
-		return giftImg;
-	}
+    @Transient
+    private String receiverName;
 
-	public void setGiftImg(String giftImg) {
-		this.giftImg = giftImg;
-	}
+    @Transient
+    private String giverName;
+    @Transient
+    private Integer continuousCount;
+    @Transient
+    private String giftImg;
 
-	public String getReceiverName() {
-		return receiverName;
-	}
+    public String getGiftImg() {
+        return giftImg;
+    }
 
-	public void setReceiverName(String receiverName) {
-		this.receiverName = receiverName;
-	}
+    public void setGiftImg(String giftImg) {
+        this.giftImg = giftImg;
+    }
 
-	public int getChannel() {
-		return channel;
-	}
+    public String getReceiverName() {
+        return receiverName;
+    }
 
-	public void setChannel(int channel) {
-		this.channel = channel;
-	}
+    public void setReceiverName(String receiverName) {
+        this.receiverName = receiverName;
+    }
 
-	public String getGiftId() {
-		return giftId;
-	}
+    public int getChannel() {
+        return channel;
+    }
 
-	public void setGiftId(String giftId) {
-		this.giftId = giftId;
-	}
+    public void setChannel(int channel) {
+        this.channel = channel;
+    }
 
-	public int getCount() {
-		return count;
-	}
+    public String getGiftId() {
+        return giftId;
+    }
 
-	public void setCount(int count) {
-		this.count = count;
-	}
+    public void setGiftId(String giftId) {
+        this.giftId = giftId;
+    }
 
-	public Double getPrice() {
-		return price;
-	}
+    public int getCount() {
+        return count;
+    }
 
-	public void setPrice(Double price) {
-		this.price = price;
-	}
+    public void setCount(int count) {
+        this.count = count;
+    }
 
-	public String getGiver() {
-		return giver;
-	}
+    public Double getPrice() {
+        return price;
+    }
 
-	public void setGiver(String giver) {
-		this.giver = giver;
-	}
+    public void setPrice(Double price) {
+        this.price = price;
+    }
 
-	public String getReceiver() {
-		return receiver;
-	}
+    public String getGiver() {
+        return giver;
+    }
 
-	public void setReceiver(String receiver) {
-		this.receiver = receiver;
-	}
+    public void setGiver(String giver) {
+        this.giver = giver;
+    }
 
-	public String getLiveId() {
-		return liveId;
-	}
+    public String getReceiver() {
+        return receiver;
+    }
 
-	public void setLiveId(String liveId) {
-		this.liveId = liveId;
-	}
+    public void setReceiver(String receiver) {
+        this.receiver = receiver;
+    }
 
-	public int getPayType() {
-		return payType;
-	}
+    public String getLiveId() {
+        return liveId;
+    }
 
-	public void setPayType(int payType) {
-		this.payType = payType;
-	}
+    public void setLiveId(String liveId) {
+        this.liveId = liveId;
+    }
 
-	public int getClientType() {
-		return clientType;
-	}
+    public int getPayType() {
+        return payType;
+    }
 
-	public void setClientType(int clientType) {
-		this.clientType = clientType;
-	}
+    public void setPayType(int payType) {
+        this.payType = payType;
+    }
 
-	public String getGiftName() {
-		return giftName;
-	}
+    public int getClientType() {
+        return clientType;
+    }
 
-	public void setGiftName(String giftName) {
-		this.giftName = giftName;
-	}
+    public void setClientType(int clientType) {
+        this.clientType = clientType;
+    }
 
-	public Integer getId() {
-		return id;
-	}
+    public String getGiftName() {
+        return giftName;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public void setGiftName(String giftName) {
+        this.giftName = giftName;
+    }
 
-	public Date getCreateTime() {
-		return createTime;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public Integer getContinuousCount() {
-		return continuousCount;
-	}
+    public Date getCreateTime() {
+        return createTime;
+    }
 
-	public void setContinuousCount(Integer continuousCount) {
-		this.continuousCount = continuousCount;
-	}
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Integer getContinuousCount() {
+        return continuousCount;
+    }
+
+    public void setContinuousCount(Integer continuousCount) {
+        this.continuousCount = continuousCount;
+    }
 
 }
 

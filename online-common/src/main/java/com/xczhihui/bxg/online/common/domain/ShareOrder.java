@@ -2,192 +2,189 @@ package com.xczhihui.bxg.online.common.domain;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import org.hibernate.annotations.GenericGenerator;
 
 /**
- *  分销佣金表
- *  @author wgw
+ * 分销佣金表
+ *
+ * @author wgw
  */
 @Entity
 @Table(name = "oe_share_order")
 public class ShareOrder {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
 
-	@Column(name = "buy_user_id")
-	private String buyUserId;
-	
-	@Column(name = "sort")
+    @Column(name = "buy_user_id")
+    private String buyUserId;
+
+    @Column(name = "sort")
     private Integer sort;
-	
-	@Column(name = "order_no")
+
+    @Column(name = "order_no")
     private String orderNo;
-	
-	@Column(name = "target_user_id")
+
+    @Column(name = "target_user_id")
     private String targetUserId;
-	
-	@Column(name = "course_id")
+
+    @Column(name = "course_id")
     private Integer courseId;
-	
-	@Column(name = "course_name")
+
+    @Column(name = "course_name")
     private String courseName;
-	
-	@Column(name = "actual_pay")
+
+    @Column(name = "actual_pay")
     private Double actualPay;
-	
-	@Column(name = "pay_time")
+
+    @Column(name = "pay_time")
     private java.util.Date payTime;
-	
-	@Column(name = "level")
+
+    @Column(name = "level")
     private Integer level;
-	
-	@Column(name = "subsidies")
+
+    @Column(name = "subsidies")
     private Double subsidies;
-	
-	@Column(name = "order_status")
+
+    @Column(name = "order_status")
     private Integer orderStatus;
-	
-	@Column(name = "share_order_no")
-	private String shareOrderNo;
-	
-	
-	@GenericGenerator(name = "idGenerator", strategy = "uuid")
-	@GeneratedValue(generator = "idGenerator")
-	@Id
-	private String id;
 
-	@Column(name = "is_delete")
-	private boolean isDelete;
+    @Column(name = "share_order_no")
+    private String shareOrderNo;
 
-	@Column(name = "create_time")
-	private Date createTime;
 
-	public String getId() {
-		return id;
-	}
+    @GenericGenerator(name = "idGenerator", strategy = "uuid")
+    @GeneratedValue(generator = "idGenerator")
+    @Id
+    private String id;
 
-	public String getBuyUserId() {
-		return buyUserId;
-	}
+    @Column(name = "is_delete")
+    private boolean isDelete;
 
-	public void setBuyUserId(String buyUserId) {
-		this.buyUserId = buyUserId;
-	}
+    @Column(name = "create_time")
+    private Date createTime;
 
-	public Integer getSort() {
-		return sort;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public void setSort(Integer sort) {
-		this.sort = sort;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public String getOrderNo() {
-		return orderNo;
-	}
+    public String getBuyUserId() {
+        return buyUserId;
+    }
 
-	public void setOrderNo(String orderNo) {
-		this.orderNo = orderNo;
-	}
+    public void setBuyUserId(String buyUserId) {
+        this.buyUserId = buyUserId;
+    }
 
-	public String getTargetUserId() {
-		return targetUserId;
-	}
+    public Integer getSort() {
+        return sort;
+    }
 
-	public void setTargetUserId(String targetUserId) {
-		this.targetUserId = targetUserId;
-	}
+    public void setSort(Integer sort) {
+        this.sort = sort;
+    }
 
-	public Integer getCourseId() {
-		return courseId;
-	}
+    public String getOrderNo() {
+        return orderNo;
+    }
 
-	public void setCourseId(Integer courseId) {
-		this.courseId = courseId;
-	}
+    public void setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
+    }
 
-	public String getCourseName() {
-		return courseName;
-	}
+    public String getTargetUserId() {
+        return targetUserId;
+    }
 
-	public void setCourseName(String courseName) {
-		this.courseName = courseName;
-	}
+    public void setTargetUserId(String targetUserId) {
+        this.targetUserId = targetUserId;
+    }
 
-	public Double getActualPay() {
-		return actualPay;
-	}
+    public Integer getCourseId() {
+        return courseId;
+    }
 
-	public void setActualPay(Double actualPay) {
-		this.actualPay = actualPay;
-	}
+    public void setCourseId(Integer courseId) {
+        this.courseId = courseId;
+    }
 
-	public java.util.Date getPayTime() {
-		return payTime;
-	}
+    public String getCourseName() {
+        return courseName;
+    }
 
-	public void setPayTime(java.util.Date payTime) {
-		this.payTime = payTime;
-	}
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
 
-	public Integer getLevel() {
-		return level;
-	}
+    public Double getActualPay() {
+        return actualPay;
+    }
 
-	public void setLevel(Integer level) {
-		this.level = level;
-	}
+    public void setActualPay(Double actualPay) {
+        this.actualPay = actualPay;
+    }
 
-	public Double getSubsidies() {
-		return subsidies;
-	}
+    public java.util.Date getPayTime() {
+        return payTime;
+    }
 
-	public void setSubsidies(Double subsidies) {
-		this.subsidies = subsidies;
-	}
+    public void setPayTime(java.util.Date payTime) {
+        this.payTime = payTime;
+    }
 
-	public Integer getOrderStatus() {
-		return orderStatus;
-	}
+    public Integer getLevel() {
+        return level;
+    }
 
-	public void setOrderStatus(Integer orderStatus) {
-		this.orderStatus = orderStatus;
-	}
+    public void setLevel(Integer level) {
+        this.level = level;
+    }
 
-	public boolean isDelete() {
-		return isDelete;
-	}
+    public Double getSubsidies() {
+        return subsidies;
+    }
 
-	public void setDelete(boolean isDelete) {
-		this.isDelete = isDelete;
-	}
+    public void setSubsidies(Double subsidies) {
+        this.subsidies = subsidies;
+    }
 
-	public Date getCreateTime() {
-		return createTime;
-	}
+    public Integer getOrderStatus() {
+        return orderStatus;
+    }
 
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
+    public void setOrderStatus(Integer orderStatus) {
+        this.orderStatus = orderStatus;
+    }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public boolean isDelete() {
+        return isDelete;
+    }
 
-	public String getShareOrderNo() {
-		return shareOrderNo;
-	}
+    public void setDelete(boolean isDelete) {
+        this.isDelete = isDelete;
+    }
 
-	public void setShareOrderNo(String shareOrderNo) {
-		this.shareOrderNo = shareOrderNo;
-	}
-	
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getShareOrderNo() {
+        return shareOrderNo;
+    }
+
+    public void setShareOrderNo(String shareOrderNo) {
+        this.shareOrderNo = shareOrderNo;
+    }
+
 }

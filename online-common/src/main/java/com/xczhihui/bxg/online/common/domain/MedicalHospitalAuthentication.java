@@ -1,13 +1,15 @@
 package com.xczhihui.bxg.online.common.domain;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.util.Date;
 
 /**
  * 医馆认证信息表
+ *
  * @author zhuwenbao
  */
 @Entity(name = "medical_hospital_authentication")

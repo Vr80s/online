@@ -3,12 +3,7 @@ package com.xczhihui.bxg.online.common.domain;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Lob;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import org.hibernate.annotations.Type;
 
@@ -16,43 +11,43 @@ import com.xczhihui.common.support.domain.BasicEntity2;
 
 @Entity
 @Table(name = "wechat_material")
-public class WechatMaterial extends BasicEntity2 implements Serializable{
-	
-	
-	private static final long serialVersionUID = 8080612633895343818L;
-	
-	@Column(name = "title")
+public class WechatMaterial extends BasicEntity2 implements Serializable {
+
+
+    private static final long serialVersionUID = 8080612633895343818L;
+
+    @Column(name = "title")
     private String title;
 
-	@Column(name = "thumb_media_id")
+    @Column(name = "thumb_media_id")
     private String thumbMediaId;
 
-	@Column(name = "author")
+    @Column(name = "author")
     private String author;
 
-	@Column(name = "digest")
+    @Column(name = "digest")
     private String digest;
 
-	@Column(name = "show_cover_pic")
+    @Column(name = "show_cover_pic")
     private Boolean showCoverPic;
 
-	@Column(name = "content_source_url")
+    @Column(name = "content_source_url")
     private String contentSourceUrl;
 
-	@Column(name = "material_type")
+    @Column(name = "material_type")
     private Integer materialType;
 
-	@Column(name = "update_time")
+    @Column(name = "update_time")
     private Date updateTime;
 
-	@Column(name = "associat_menu")
+    @Column(name = "associat_menu")
     private String associatMenu;
 
 
-	@Lob
-	@Basic(fetch = FetchType.LAZY)
-	@Type(type="text")
-	@Column(name = "content")
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
+    @Type(type = "text")
+    @Column(name = "content")
     private String content;
 
 

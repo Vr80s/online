@@ -1,10 +1,10 @@
 package com.xczhihui.bxg.online.common.domain;
 
-import com.xczhihui.common.support.domain.BasicEntity;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+
+import com.xczhihui.common.support.domain.BasicEntity;
 
 /**
  * 学员信息与班级管理中间表的实体类
@@ -14,7 +14,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "apply_r_grade_course")
-public class ApplyGradeCourse   extends BasicEntity {
+public class ApplyGradeCourse extends BasicEntity {
 
 
     @Column(name = "course_id")
@@ -28,7 +28,7 @@ public class ApplyGradeCourse   extends BasicEntity {
 
     @Column(name = "is_payment")
     private String isPayment;
-    
+
     @Column(name = "user_id")
     private String userId;
 
@@ -36,7 +36,7 @@ public class ApplyGradeCourse   extends BasicEntity {
      * 学号
      */
     @Column(name = "student_number")
-    private String  studentNumber;
+    private String studentNumber;
 
     /**
      * 课程费用
@@ -92,13 +92,13 @@ public class ApplyGradeCourse   extends BasicEntity {
         this.studentNumber = studentNumber;
     }
 
-	public String getUserId() {
-		return userId;
-	}
+    public String getUserId() {
+        return userId;
+    }
 
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-    
-    
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+
 }

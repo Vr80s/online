@@ -10,18 +10,18 @@ import com.xczhihui.common.support.domain.BasicEntity2;
 
 @Entity
 @Table(name = "wechat_media_manager")
-public class WechatMediaManager extends BasicEntity2 implements Serializable{
-	
+public class WechatMediaManager extends BasicEntity2 implements Serializable {
 
-	private static final long serialVersionUID = 8080612633895345817L;
-	
-	@Column(name = "media_id")
+
+    private static final long serialVersionUID = 8080612633895345817L;
+
+    @Column(name = "media_id")
     private String mediaId;
 
-	@Column(name = "media_type")
+    @Column(name = "media_type")
     private Integer mediaType;
 
-	@Column(name = "url")
+    @Column(name = "url")
     private String url;
 
 

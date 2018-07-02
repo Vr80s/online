@@ -336,6 +336,35 @@ public class Course extends BasicEntity2 implements Serializable {
     private String playCode;
     @Transient
     private String courseMenu;
+    /**
+     * 课程密码
+     */
+    //TODO
+    @Column(name = "course_pwd")
+    private String coursePwd;
+    @Column(name = "online_course")
+    private int onlineCourse;
+    @Column(name = "collection")
+    private Boolean collection;
+    @Column(name = "lecturer")
+    private String lecturer;
+    @Type(type = "text")
+    @Column(name = "lecturer_description")
+    private String lecturerDescription;
+    private String subtitle;
+    @Transient
+    private Integer collectionCourseSort;
+    /**
+     * 直播源类型  0:来自pc直播,1:来自app 直播
+     */
+    @Column(name = "live_source_type")
+    private boolean liveSourceType;
+    @Transient
+    private List<Course> courseInfoList;
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
 
     public String getCourseMenu() {
         return courseMenu;
@@ -368,36 +397,6 @@ public class Course extends BasicEntity2 implements Serializable {
     public void setAddress(String address) {
         this.address = address;
     }
-
-    /**
-     * 课程密码
-     */
-    //TODO
-    @Column(name = "course_pwd")
-    private String coursePwd;
-
-    @Column(name = "online_course")
-    private int onlineCourse;
-
-    @Column(name = "collection")
-    private Boolean collection;
-    @Column(name = "lecturer")
-    private String lecturer;
-    @Type(type = "text")
-    @Column(name = "lecturer_description")
-    private String lecturerDescription;
-    private String subtitle;
-    @Transient
-    private Integer collectionCourseSort;
-
-    /**
-     * 直播源类型  0:来自pc直播,1:来自app 直播
-     */
-    @Column(name = "live_source_type")
-    private boolean liveSourceType;
-
-    @Transient
-    private List<Course> courseInfoList;
 
     public Integer getCourseNumber() {
         return courseNumber;
@@ -509,10 +508,6 @@ public class Course extends BasicEntity2 implements Serializable {
 
     public void setGradeName(String gradeName) {
         this.gradeName = gradeName;
-    }
-
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
     }
 
     public Date getLiveTime() {
@@ -632,6 +627,10 @@ public class Course extends BasicEntity2 implements Serializable {
         return isFree;
     }
 
+    public void setFree(boolean isFree) {
+        this.isFree = isFree;
+    }
+
     public void setIsFree(boolean isFree) {
         this.isFree = isFree;
     }
@@ -642,10 +641,6 @@ public class Course extends BasicEntity2 implements Serializable {
 
     public void setClassTemplate(String classTemplate) {
         this.classTemplate = classTemplate;
-    }
-
-    public void setFree(boolean isFree) {
-        this.isFree = isFree;
     }
 
     public Integer getIsRecommend() {

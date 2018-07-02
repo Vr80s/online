@@ -130,8 +130,7 @@ public class User implements Serializable {
         return salt;
     }
 
-    
-    
+
     public void setSalt(String salt) {
         this.salt = salt;
     }

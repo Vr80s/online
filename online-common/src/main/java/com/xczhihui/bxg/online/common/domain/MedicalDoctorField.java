@@ -1,66 +1,66 @@
 package com.xczhihui.bxg.online.common.domain;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+
+import javax.persistence.*;
 
 
 /**
  * The persistent class for the medical_doctor_field database table.
- * 
  */
 @Entity
-@Table(name="medical_doctor_field")
-@NamedQuery(name="MedicalDoctorField.findAll", query="SELECT m FROM MedicalDoctorField m")
+@Table(name = "medical_doctor_field")
+@NamedQuery(name = "MedicalDoctorField.findAll", query = "SELECT m FROM MedicalDoctorField m")
 public class MedicalDoctorField implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	private String id;
+    @Id
+    private String id;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="create_time")
-	private Date createTime;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "create_time")
+    private Date createTime;
 
-	@Column(name="doctor_id")
-	private String doctorId;
+    @Column(name = "doctor_id")
+    private String doctorId;
 
-	@Column(name="field_id")
-	private String fieldId;
+    @Column(name = "field_id")
+    private String fieldId;
 
-	public MedicalDoctorField() {
-	}
+    public MedicalDoctorField() {
+    }
 
-	public String getId() {
-		return this.id;
-	}
+    public String getId() {
+        return this.id;
+    }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public Date getCreateTime() {
-		return this.createTime;
-	}
+    public Date getCreateTime() {
+        return this.createTime;
+    }
 
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
 
-	public String getDoctorId() {
-		return this.doctorId;
-	}
+    public String getDoctorId() {
+        return this.doctorId;
+    }
 
-	public void setDoctorId(String doctorId) {
-		this.doctorId = doctorId;
-	}
+    public void setDoctorId(String doctorId) {
+        this.doctorId = doctorId;
+    }
 
-	public String getFieldId() {
-		return this.fieldId;
-	}
+    public String getFieldId() {
+        return this.fieldId;
+    }
 
-	public void setFieldId(String fieldId) {
-		this.fieldId = fieldId;
-	}
+    public void setFieldId(String fieldId) {
+        this.fieldId = fieldId;
+    }
 
 }

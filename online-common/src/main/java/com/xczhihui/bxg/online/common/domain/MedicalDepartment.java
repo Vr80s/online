@@ -1,159 +1,159 @@
 package com.xczhihui.bxg.online.common.domain;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+
+import javax.persistence.*;
 
 
 /**
  * The persistent class for the medical_field database table.
- * 
  */
 @Entity
-@Table(name="medical_department")
+@Table(name = "medical_department")
 public class MedicalDepartment implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	private String id;
+    @Id
+    private String id;
 
-	@Column(name="create_person")
-	private String createPerson;
+    @Column(name = "create_person")
+    private String createPerson;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="create_time")
-	private Date createTime;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "create_time")
+    private Date createTime;
 
-	private boolean deleted;
+    private boolean deleted;
 
-	private String name;
+    private String name;
 
-	@Column(name="parent_id")
-	private String parentId;
+    @Column(name = "parent_id")
+    private String parentId;
 
-	private String remark;
+    private String remark;
 
-	private boolean status;
+    private boolean status;
 
-	@Column(name="update_person")
-	private String updatePerson;
+    @Column(name = "update_person")
+    private String updatePerson;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="update_time")
-	private Date updateTime;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "update_time")
+    private Date updateTime;
 
-	private String version;
-	
-	private Integer sort;
+    private String version;
 
-	@Transient
-	private Boolean has;
+    private Integer sort;
 
-	public MedicalDepartment() {
-	}
+    @Transient
+    private Boolean has;
 
-	public Boolean getHas() {
-		return has;
-	}
+    public MedicalDepartment() {
+    }
 
-	public void setHas(Boolean has) {
-		this.has = has;
-	}
+    public Boolean getHas() {
+        return has;
+    }
 
-	public String getId() {
-		return this.id;
-	}
+    public void setHas(Boolean has) {
+        this.has = has;
+    }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public String getId() {
+        return this.id;
+    }
 
-	public String getCreatePerson() {
-		return this.createPerson;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public void setCreatePerson(String createPerson) {
-		this.createPerson = createPerson;
-	}
+    public String getCreatePerson() {
+        return this.createPerson;
+    }
 
-	public Date getCreateTime() {
-		return this.createTime;
-	}
+    public void setCreatePerson(String createPerson) {
+        this.createPerson = createPerson;
+    }
 
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
+    public Date getCreateTime() {
+        return this.createTime;
+    }
 
-	public boolean getDeleted() {
-		return this.deleted;
-	}
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
 
-	public void setDeleted(boolean deleted) {
-		this.deleted = deleted;
-	}
+    public boolean getDeleted() {
+        return this.deleted;
+    }
 
-	public String getName() {
-		return this.name;
-	}
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getName() {
+        return this.name;
+    }
 
-	public String getParentId() {
-		return this.parentId;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setParentId(String parentId) {
-		this.parentId = parentId;
-	}
+    public String getParentId() {
+        return this.parentId;
+    }
 
-	public String getRemark() {
-		return this.remark;
-	}
+    public void setParentId(String parentId) {
+        this.parentId = parentId;
+    }
 
-	public void setRemark(String remark) {
-		this.remark = remark;
-	}
+    public String getRemark() {
+        return this.remark;
+    }
 
-	public boolean getStatus() {
-		return this.status;
-	}
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
 
-	public void setStatus(boolean status) {
-		this.status = status;
-	}
+    public boolean getStatus() {
+        return this.status;
+    }
 
-	public String getUpdatePerson() {
-		return this.updatePerson;
-	}
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
 
-	public void setUpdatePerson(String updatePerson) {
-		this.updatePerson = updatePerson;
-	}
+    public String getUpdatePerson() {
+        return this.updatePerson;
+    }
 
-	public Date getUpdateTime() {
-		return this.updateTime;
-	}
+    public void setUpdatePerson(String updatePerson) {
+        this.updatePerson = updatePerson;
+    }
 
-	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
-	}
+    public Date getUpdateTime() {
+        return this.updateTime;
+    }
 
-	public String getVersion() {
-		return this.version;
-	}
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
 
-	public void setVersion(String version) {
-		this.version = version;
-	}
+    public String getVersion() {
+        return this.version;
+    }
 
-	public Integer getSort() {
-		return sort;
-	}
+    public void setVersion(String version) {
+        this.version = version;
+    }
 
-	public void setSort(Integer sort) {
-		this.sort = sort;
-	}
+    public Integer getSort() {
+        return sort;
+    }
+
+    public void setSort(Integer sort) {
+        this.sort = sort;
+    }
 
 }
