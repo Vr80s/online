@@ -1871,18 +1871,23 @@ table tr td img{
 	border-right: 1px solid #DEDEDE !important;
 }
 .baseImagenumber{
-	width: 5rem;
+	width: 100%;
 	height: 5rem;
 	background: #fff;
 	display: none;
 }
 .baseImagenumber img{
 	width: 2rem;
-	height: 2rem;
+    height: 2rem;
+    margin: 0 auto;
+    display: inherit;
+    padding-top: 1.5rem;
 }
 .baseImagenumber p{
 	font-size: 0.3rem;
-	color: #333;
+    color: #999;
+    text-align: center;
+    margin-top: 0.2rem;
 }
 /*介绍结束*/
 
