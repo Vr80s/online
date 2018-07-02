@@ -6,7 +6,7 @@ import java.io.Serializable;
  * @author yuruixin
  * @create 2018-01-22
  **/
-public class RankingUserVO implements Serializable{
+public class RankingUserVO implements Serializable {
 
     private String userId;
     private String name;

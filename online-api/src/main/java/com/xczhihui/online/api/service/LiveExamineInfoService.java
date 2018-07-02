@@ -1,11 +1,11 @@
 package com.xczhihui.online.api.service;
 
+import java.util.List;
+
 import com.xczhihui.online.api.dto.ProgressDto;
 import com.xczhihui.online.api.vo.ExamineProgressVo;
 import com.xczhihui.online.api.vo.LiveExamineInfo;
 import com.xczhihui.online.api.vo.LiveExamineInfoVo;
-
-import java.util.List;
 
 /**
  * @Author liutao【jvmtar@gmail.com】
@@ -19,6 +19,7 @@ public interface LiveExamineInfoService {
 
     /**
      * 申诉次数
+     *
      * @param examineId
      * @return
      */
@@ -28,6 +29,7 @@ public interface LiveExamineInfoService {
 
     /**
      * 审核进度
+     *
      * @param examineId
      * @return
      */
@@ -35,6 +37,7 @@ public interface LiveExamineInfoService {
 
     /**
      * 审核详情
+     *
      * @param examineId
      * @return
      */
@@ -44,12 +47,13 @@ public interface LiveExamineInfoService {
 
     int getPreLiveCount(String userId);
 
-    
+
     /**
      * Description：此处的取消审核，就直接把数据删掉了
+     *
      * @param examineId
      * @return void
      * @author name：yangxuan <br>email: 15936216273@163.com
      */
-	void cancelAudit(String examineId);
+    void cancelAudit(String examineId);
 }

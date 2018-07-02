@@ -16,119 +16,112 @@ import com.xczhihui.online.api.vo.UserAddressManagerVo;
 public interface CityService {
 
 
-	/**
-	 * 
-	 * Description：得到中国下面的所有省份、市
-	 * @return
-	 * @throws SQLException
-	 * @return List<Map<String,Object>>
-	 * @author name：yangxuan <br>email: 15936216273@163.com
-	 *
-	 */
-	public List<Map<String, Object>> getAllProvinceCity()throws SQLException;
-	/**
-	 * 
-	 * Description：得到中国下面的所有省、市、区
-	 * @return
-	 * @throws SQLException
-	 * @return List<Map<String,Object>>
-	 * @author name：yangxuan <br>email: 15936216273@163.com
-	 *
-	 */
-	public	List<Map<String, Object>> getAllProvinceCityCounty()throws SQLException;
-	
-	/**
-	 * 
-	 * Description：
-	 * @return
-	 * @return List<UserAddressManagerVo>
-	 * @author name：yangxuan <br>email: 15936216273@163.com
-	 *
-	 */
-	public List<UserAddressManagerVo> getAddressAll(String id)throws SQLException;
+    /**
+     * Description：得到中国下面的所有省份、市
+     *
+     * @return List<Map<String,Object>>
+     * @throws SQLException
+     * @author name：yangxuan <br>email: 15936216273@163.com
+     */
+    public List<Map<String, Object>> getAllProvinceCity() throws SQLException;
 
-	/**
-	 * 保存地址
-	 * Description：
-	 * @param udm
-	 * @return
-	 * @return ResponseObject
-	 * @author name：yangxuan <br>email: 15936216273@163.com
-	 *
-	 */
-	public void saveAddress(UserAddressManagerVo udm) throws SQLException;
+    /**
+     * Description：得到中国下面的所有省、市、区
+     *
+     * @return List<Map<String,Object>>
+     * @throws SQLException
+     * @author name：yangxuan <br>email: 15936216273@163.com
+     */
+    public List<Map<String, Object>> getAllProvinceCityCounty() throws SQLException;
+
+    /**
+     * Description：
+     *
+     * @return List<UserAddressManagerVo>
+     * @author name：yangxuan <br>email: 15936216273@163.com
+     */
+    public List<UserAddressManagerVo> getAddressAll(String id) throws SQLException;
+
+    /**
+     * 保存地址
+     * Description：
+     *
+     * @param udm
+     * @return ResponseObject
+     * @author name：yangxuan <br>email: 15936216273@163.com
+     */
+    public void saveAddress(UserAddressManagerVo udm) throws SQLException;
+
     /**
      * 修改地址
      * Description：
+     *
      * @param udm
-     * @return
      * @return ResponseObject
      * @author name：yangxuan <br>email: 15936216273@163.com
-     *
      */
-	public void updateAddress(UserAddressManagerVo udm)throws SQLException;
+    public void updateAddress(UserAddressManagerVo udm) throws SQLException;
+
     /**
      * 更改此地址为默认地址
      * Description：
+     *
      * @param udm
-     * @return
      * @return ResponseObject
      * @author name：yangxuan <br>email: 15936216273@163.com
      */
-	public void updateIsAcquies(String newId, String userId)throws SQLException;
+    public void updateIsAcquies(String newId, String userId) throws SQLException;
 
-	/**
-	 * 
-	 * Description：通过id得到地址信息
-	 * @param id
-	 * @return
-	 * @throws SQLException
-	 * @return UserAddressManagerVo
-	 * @author name：yangxuan <br>email: 15936216273@163.com
-	 *
-	 */
-	public UserAddressManagerVo findAddressById(String id)throws SQLException;
-	/**
-	 * 通过用户id 得到单个默认的地址
-	 * Description：
-	 * @param id
-	 * @return
-	 * @throws SQLException
-	 * @return UserAddressManagerVo
-	 * @author name：yangxuan <br>email: 15936216273@163.com
-	 */
-	public UserAddressManagerVo findAddressByUserIdAndAcq(String userId) throws SQLException;
+    /**
+     * Description：通过id得到地址信息
+     *
+     * @param id
+     * @return UserAddressManagerVo
+     * @throws SQLException
+     * @author name：yangxuan <br>email: 15936216273@163.com
+     */
+    public UserAddressManagerVo findAddressById(String id) throws SQLException;
 
-	/**
-	 * 通过用户id和地址id删除这个记录
-	 * Description：
-	 * @param id
-	 * @param userId
-	 * @return void
-	 * @author name：yangxuan <br>email: 15936216273@163.com
-	 */
-	public void deleteAddressById(String id, String userId) throws SQLException;
+    /**
+     * 通过用户id 得到单个默认的地址
+     * Description：
+     *
+     * @param id
+     * @return UserAddressManagerVo
+     * @throws SQLException
+     * @author name：yangxuan <br>email: 15936216273@163.com
+     */
+    public UserAddressManagerVo findAddressByUserIdAndAcq(String userId) throws SQLException;
 
-	
+    /**
+     * 通过用户id和地址id删除这个记录
+     * Description：
+     *
+     * @param id
+     * @param userId
+     * @return void
+     * @author name：yangxuan <br>email: 15936216273@163.com
+     */
+    public void deleteAddressById(String id, String userId) throws SQLException;
 
-	public Map<String, Object> getSingProvinceByCode(String code) throws SQLException;
 
-	public Map<String, Object> getSingCityByCodeAndPid(String code, int pid)
-			throws SQLException;
+    public Map<String, Object> getSingProvinceByCode(String code) throws SQLException;
 
-	public Map<String, Object> getSingDistrictByCodeAndPid(String code, int pid)
-			throws SQLException;
-	
-	public Integer []  getCodeByName(String proince, String city)throws SQLException;
-	/**
-	 * 
-	 * Description：通过用户id得到用户的默认地址
-	 * @param id
-	 * @return
-	 * @return UserAddressManagerVo
-	 * @author name：yangxuan <br>email: 15936216273@163.com
-	 *
-	 */
-	public UserAddressManagerVo findAcquiescenceAddressById(String id);
+    public Map<String, Object> getSingCityByCodeAndPid(String code, int pid)
+            throws SQLException;
+
+    public Map<String, Object> getSingDistrictByCodeAndPid(String code, int pid)
+            throws SQLException;
+
+    public Integer[] getCodeByName(String proince, String city) throws SQLException;
+
+    /**
+     * Description：通过用户id得到用户的默认地址
+     *
+     * @param id
+     * @return UserAddressManagerVo
+     * @author name：yangxuan <br>email: 15936216273@163.com
+     */
+    public UserAddressManagerVo findAcquiescenceAddressById(String id);
 
 }

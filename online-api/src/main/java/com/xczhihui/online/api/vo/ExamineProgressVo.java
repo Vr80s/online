@@ -8,12 +8,31 @@ import java.util.List;
  * @author liutao
  * @create 2017-09-19 14:35
  **/
-public class ExamineProgressVo implements Serializable{
+public class ExamineProgressVo implements Serializable {
 
-  public  class Progress implements Serializable{
+    private List<Progress> progressList;
+    private LiveExamineInfoVo liveExamineInfoVo;
+
+    public List<Progress> getProgressList() {
+        return progressList;
+    }
+
+    public void setProgressList(List<Progress> progressList) {
+        this.progressList = progressList;
+    }
+
+    public LiveExamineInfoVo getLiveExamineInfoVo() {
+        return liveExamineInfoVo;
+    }
+
+    public void setLiveExamineInfoVo(LiveExamineInfoVo liveExamineInfoVo) {
+        this.liveExamineInfoVo = liveExamineInfoVo;
+    }
+
+    public class Progress implements Serializable {
         String name;
         Date examinTime;
-        Boolean showAppeal=false;
+        Boolean showAppeal = false;
 
         public String getName() {
             return name;
@@ -38,25 +57,5 @@ public class ExamineProgressVo implements Serializable{
         public void setShowAppeal(Boolean showAppeal) {
             this.showAppeal = showAppeal;
         }
-    }
-
-    private List<Progress> progressList;
-    private LiveExamineInfoVo liveExamineInfoVo;
-
-
-    public List<Progress> getProgressList() {
-        return progressList;
-    }
-
-    public void setProgressList(List<Progress> progressList) {
-        this.progressList = progressList;
-    }
-
-    public LiveExamineInfoVo getLiveExamineInfoVo() {
-        return liveExamineInfoVo;
-    }
-
-    public void setLiveExamineInfoVo(LiveExamineInfoVo liveExamineInfoVo) {
-        this.liveExamineInfoVo = liveExamineInfoVo;
     }
 }

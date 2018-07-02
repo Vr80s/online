@@ -2,7 +2,7 @@ package com.xczhihui.online.api.vo;
 
 import java.util.Date;
 
-public class UserAddressManagerVo implements java.io.Serializable{
+public class UserAddressManagerVo implements java.io.Serializable {
     private String id;
 
     private String provinces;
@@ -22,14 +22,14 @@ public class UserAddressManagerVo implements java.io.Serializable{
     private Date createTime;
 
     private Integer isAcquiescence;
-    
+
     private String userId;
 
     private String postalCode;
-    
-    
+
+
     private String pcc;//省市区空格分割
-    
+
     public String getId() {
         return id;
     }
@@ -118,21 +118,21 @@ public class UserAddressManagerVo implements java.io.Serializable{
         this.userId = userId == null ? null : userId.trim();
     }
 
-	public String getPostalCode() {
-		return postalCode;
-	}
+    public String getPostalCode() {
+        return postalCode;
+    }
 
-	public void setPostalCode(String postalCode) {
-		this.postalCode = postalCode;
-	}
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
+    }
 
-	public String getPcc() {
-		return pcc;
-	}
+    public String getPcc() {
+        return pcc;
+    }
 
-	public void setPcc(String pcc) {
-		this.pcc = pcc;
-	}
-    
-    
+    public void setPcc(String pcc) {
+        this.pcc = pcc;
+    }
+
+
 }
