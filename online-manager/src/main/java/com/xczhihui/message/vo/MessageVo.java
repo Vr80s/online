@@ -166,6 +166,7 @@ public class MessageVo {
     private String url;
 
     private String replyText;
+    private String[] userIds; // 用户列表
 
     public String getLoginName() {
         return loginName;
@@ -188,18 +189,16 @@ public class MessageVo {
         return lastTimeStr;
     }
 
+    public void setLastTimeStr(String lastTimeStr) {
+        this.lastTimeStr = lastTimeStr;
+    }
+
     public void setLastTimeStr() {
         if (lastTime != null) {
             lastTimeStr = DateUtil.formatDate(lastTime,
                     DateUtil.FORMAT_DAY_TIME);
         }
     }
-
-    public void setLastTimeStr(String lastTimeStr) {
-        this.lastTimeStr = lastTimeStr;
-    }
-
-    private String[] userIds; // 用户列表
 
     public String[] getUserIds() {
         return userIds;
@@ -221,6 +220,10 @@ public class MessageVo {
         return userName;
     }
 
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
     public Short getAnswerStatus() {
         return answerStatus;
     }
@@ -235,10 +238,6 @@ public class MessageVo {
 
     public void setAnswerName(String answerName) {
         this.answerName = answerName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 
     public String getUserId() {
@@ -283,6 +282,10 @@ public class MessageVo {
 
     public String getCreateTimeStr() {
         return createTimeStr;
+    }
+
+    public void setCreateTimeStr(String createTimeStr) {
+        this.createTimeStr = createTimeStr;
     }
 
     public void setCreateTimeStr() {
@@ -331,10 +334,6 @@ public class MessageVo {
 
     public void setStatusStr(String statusStr) {
         this.statusStr = statusStr;
-    }
-
-    public void setCreateTimeStr(String createTimeStr) {
-        this.createTimeStr = createTimeStr;
     }
 
     public Integer getRowId() {

@@ -1,7 +1,7 @@
 package com.xczhihui.medical.service;
 
-import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.domain.MedicalHospitalRecruit;
+import com.xczhihui.common.util.bean.Page;
 
 /**
  * 医馆招聘

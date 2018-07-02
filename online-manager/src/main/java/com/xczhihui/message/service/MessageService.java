@@ -85,7 +85,7 @@ public interface MessageService {
      * @return 分页对象
      */
     Page<MessageRecord> findPageMessages(MessageVo vo, int pageNumber,
-                                     int pageSize);
+                                         int pageSize);
 
     /**
      * 查询指定用户的推送消息

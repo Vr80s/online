@@ -8,10 +8,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.dubbo.common.utils.CollectionUtils;
-import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.MedicalHospital;
 import com.xczhihui.bxg.online.common.domain.MedicalHospitalPicture;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.medical.dao.HospitalDao;
 import com.xczhihui.medical.enums.MedicalExceptionEnum;
 import com.xczhihui.medical.exception.MedicalException;
@@ -65,9 +65,9 @@ public class HospitalServiceImpl extends OnlineBaseServiceImpl implements Hospit
         String hql = "from MedicalHospital where 1=1 and deleted=0 and id = ?";
         MedicalHospital medicalHospital = dao.findByHQLOne(hql, new Object[]{id});
         medicalHospital.setStatus(!medicalHospital.getStatus());
-        if(medicalHospital.getStatus()){
+        if (medicalHospital.getStatus()) {
             medicalHospital.setEnableTime(new Date());
-        }else {
+        } else {
             medicalHospital.setEnableTime(null);
         }
         dao.update(medicalHospital);

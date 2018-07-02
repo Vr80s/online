@@ -44,29 +44,26 @@ import com.xczhihui.vhall.bean.Webinar;
 @Service("courseService")
 public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseService {
     Logger logger = LoggerFactory.getLogger(CourseServiceImpl.class);
-    @Autowired
-    private CourseDao courseDao;
-    @Autowired
-    private CourseSubscribeDao courseSubscribeDao;
-
-    @Autowired
-    private OnlineUserService onlineUserService;
-    @Autowired
-    private CCUtils CCUtils;
-
-    @Autowired
-    private LiveCallbackService liveCallbackService;
-    @Autowired
-    private ICourseSolrService courseSolrService;
-
-    @Value("${env.flag}")
-    private String envFlag;
-    @Value("${vhall.user.id}")
-    private String liveVhallUserId;
     @Value("${vhall.callback.url}")
     String vhall_callback_url;
     @Value("${vhall.private.key}")
     String vhall_private_key;
+    @Autowired
+    private CourseDao courseDao;
+    @Autowired
+    private CourseSubscribeDao courseSubscribeDao;
+    @Autowired
+    private OnlineUserService onlineUserService;
+    @Autowired
+    private CCUtils CCUtils;
+    @Autowired
+    private LiveCallbackService liveCallbackService;
+    @Autowired
+    private ICourseSolrService courseSolrService;
+    @Value("${env.flag}")
+    private String envFlag;
+    @Value("${vhall.user.id}")
+    private String liveVhallUserId;
 
     @Override
     public Page<CourseVo> findCoursePage(CourseVo courseVo, int pageNumber, int pageSize) {
@@ -642,7 +639,7 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
             retn.put("smallImgPath", img0);
             retn.put("smallImgPath1", img1);
             retn.put("smallImgPath2", img2);
-			/*2017-08-14---yuruixin*/
+            /*2017-08-14---yuruixin*/
             return retn;
         }
         return null;
@@ -1133,7 +1130,7 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
     @Override
     public List<Integer> updateDefaultSort() {
         List<Integer> updateRecommendIds = getUpdateRecommendId();
-        updateRecommendIds.forEach(id->updateDefaultSort(id));
+        updateRecommendIds.forEach(id -> updateDefaultSort(id));
         return updateRecommendIds;
     }
 
@@ -1141,15 +1138,15 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
     public void updateDefaultSort(Integer id) {
         String sql = " UPDATE  oe_course  SET recommend_sort=0 WHERE id = :id";
         Map<String, Object> params = new HashMap<String, Object>();
-        params.put("id",id);
+        params.put("id", id);
         dao.getNamedParameterJdbcTemplate().update(sql, params);
     }
 
     @Override
-    public List<Integer> getUpdateRecommendId(){
+    public List<Integer> getUpdateRecommendId() {
         String sql = "SELECT id FROM oe_course WHERE sort_update_time<= NOW() AND recommend_sort != 0";
         List<Integer> ids = dao.getNamedParameterJdbcTemplate().getJdbcOperations()
-                .queryForList(sql,Integer.class);
+                .queryForList(sql, Integer.class);
         return ids;
     }
 

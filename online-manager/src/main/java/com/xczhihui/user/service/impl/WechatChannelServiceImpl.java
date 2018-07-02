@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.WechatChannel;
-import com.xczhihui.common.util.HttpUtil;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.support.shiro.ManagerUserUtil;
 import com.xczhihui.user.dao.WechatChannelDao;
@@ -33,13 +32,12 @@ import me.chanjar.weixin.mp.api.WxMpService;
 public class WechatChannelServiceImpl extends OnlineBaseServiceImpl implements
         WechatChannelService {
 
-    @Autowired
-    private WechatChannelDao wechatChannelDao;
-
     @Value("${wechatpay.h5.appid}")
     public String appid;
     @Value("${wechatpay.h5.secret}")
     public String appsecret;
+    @Autowired
+    private WechatChannelDao wechatChannelDao;
     @Autowired
     private WxMpService wxMpService;
 

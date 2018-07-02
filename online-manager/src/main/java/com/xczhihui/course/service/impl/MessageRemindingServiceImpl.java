@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.xczhihui.anchor.dao.AnchorDao;
 import com.xczhihui.anchor.service.AnchorService;
 import com.xczhihui.bxg.online.common.domain.Course;
 import com.xczhihui.bxg.online.common.domain.CourseAnchor;
@@ -34,7 +33,6 @@ import com.xczhihui.course.service.ICommonMessageService;
 import com.xczhihui.course.service.MessageRemindingService;
 import com.xczhihui.course.util.CourseUtil;
 import com.xczhihui.course.util.TextStyleUtil;
-import com.xczhihui.user.dao.OnlineUserDao;
 
 /**
  * Description: <br>
@@ -45,17 +43,16 @@ import com.xczhihui.user.dao.OnlineUserDao;
 @Service
 public class MessageRemindingServiceImpl implements MessageRemindingService {
 
-    private Logger loggger = LoggerFactory.getLogger(this.getClass());
-
     private static final String APP_PUSH_LIVE_COURSE_REMIND = "{0}老师叫你去上课了！您报名的《{1}》直播还有{2}分钟就要开始了，别忘了准时观看";
     private static final String WEB_LIVE_COURSE_REMIND = "【上课提醒】{0}老师叫你去上课了！您报名的《{1}》直播还有{2}分钟就要开始了，别忘了准时观看";
-
     private static final String APP_PUSH_OFFLINE_COURSE_REMIND = "您报名的《{0}》将于明天{1}在{2}开始，别忘了准时参加！";
     private static final String WEB_OFFLINE_COURSE_REMIND = "【上课提醒】您报名的《{0}》将于明天{1}在{2}开始，别忘了准时参加！";
-
     private static final String APP_PUSH_COLLECTION_COURSE_REMIND = "您的专辑课程《{0}》需要更新啦~更新时间为每{1}";
     private static final String WEB_COLLECTION_COURSE_REMIND = "【课程更新提示】您的专辑课程《{0}》需要更新啦~更新时间为每{1}";
-
+    CacheService cacheService;
+    @Autowired
+    CourseDao courseDao;
+    private Logger loggger = LoggerFactory.getLogger(this.getClass());
     @Value("${sms.live.course.remind.code}")
     private String sendLiveRemindCode;
     @Value("${sms.offline.course.remind.code}")
@@ -64,14 +61,8 @@ public class MessageRemindingServiceImpl implements MessageRemindingService {
     private String sendCourseUpdateRemindCode;
     @Value("${weixin.course.remind.code}")
     private String weixinTemplateMessageRemindCode;
-
     @Value("${mobile.domain}")
     private String mobileDomain;
-
-    CacheService cacheService;
-
-    @Autowired
-    CourseDao courseDao;
     @Autowired
     private CollectionCourseApplyUpdateDateDao collectionCourseApplyUpdateDateDao;
     @Autowired

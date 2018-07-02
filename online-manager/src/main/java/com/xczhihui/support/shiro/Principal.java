@@ -36,10 +36,6 @@ public class Principal implements java.security.Principal {
         return username != null ? username.hashCode() : 0;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getId() {
         return id;
     }
@@ -59,5 +55,9 @@ public class Principal implements java.security.Principal {
     @Override
     public String getName() {
         return username;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

@@ -2,26 +2,23 @@ package com.xczhihui.order.service;
 
 import java.util.List;
 
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.order.vo.OrderVo;
 
 public interface OrderService {
 
-	public Page<OrderVo> findOrderPage(OrderVo orderVo, Integer pageNumber,
-			Integer pageSize);
+    public Page<OrderVo> findOrderPage(OrderVo orderVo, Integer pageNumber,
+                                       Integer pageSize);
 
-	/**
-	 * 逻辑批量删除
-	 * 
-	 * @return void
-	 */
-	public void deletes(String[] ids);
+    /**
+     * 逻辑批量删除
+     *
+     * @return void
+     */
+    public void deletes(String[] ids);
 
-	public List getOrderPreferenty(String orderNo);
+    public List getOrderPreferenty(String orderNo);
 
     String createOrder(OnlineUser onlineUser, String courseId, Double coursePrice, String orderForm);
 }

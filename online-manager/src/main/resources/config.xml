@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns="http://www.springframework.org/schema/beans"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
        xmlns:task="http://www.springframework.org/schema/task"
+       xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
         http://www.springframework.org/schema/context
@@ -129,7 +129,8 @@
 
     <!-- dubbo -->
     <dubbo:application name="${dubbo.app.name}"/>
-    <dubbo:registry protocol="zookeeper" address="${dubbo.zookepper.url}" file="${catalina.home}/dubbo-registry/dubbo-registry.properties"/>
+    <dubbo:registry protocol="zookeeper" address="${dubbo.zookepper.url}"
+                    file="${catalina.home}/dubbo-registry/dubbo-registry.properties"/>
     <dubbo:reference id="userCenterService" interface="com.xczhihui.user.center.service.UserCenterService"
                      timeout="${dubbo.consumer.timeout}"/>
     <dubbo:reference id="userCoinService" interface="com.xczhihui.online.api.service.UserCoinService"
@@ -147,9 +148,10 @@
     <dubbo:reference id="wxMpService" interface="me.chanjar.weixin.mp.api.WxMpService"
                      timeout="${dubbo.consumer.timeout}"/>
     <dubbo:reference id="orderPayServiceImpl" interface="com.xczhihui.online.api.service.OrderPayService"
-                   timeout="${dubbo.consumer.timeout}"/>
-    <dubbo:reference id="medicalDoctorSolrServiceImpl" interface="com.xczhihui.medical.doctor.service.IMedicalDoctorSolrService"
-                   timeout="${dubbo.consumer.timeout}"/>
+                     timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference id="medicalDoctorSolrServiceImpl"
+                     interface="com.xczhihui.medical.doctor.service.IMedicalDoctorSolrService"
+                     timeout="${dubbo.consumer.timeout}"/>
     <dubbo:reference id="courseSolrServiceImpl" interface="com.xczhihui.course.service.ICourseSolrService"
-                   timeout="${dubbo.consumer.timeout}"/>
+                     timeout="${dubbo.consumer.timeout}"/>
 </beans>

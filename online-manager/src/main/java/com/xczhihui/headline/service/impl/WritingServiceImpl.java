@@ -9,10 +9,10 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Service;
 
-import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.MedicalDoctorWritings;
 import com.xczhihui.bxg.online.common.domain.MedicalWritings;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.headline.dao.ArticleDao;
 import com.xczhihui.headline.dao.WritingDao;
 import com.xczhihui.headline.service.WritingService;

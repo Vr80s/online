@@ -1,63 +1,56 @@
 package com.xczhihui.course.service.impl;
 
-import java.io.IOException;
 import java.util.*;
 
-import com.xczhihui.course.dao.CourseSubscribeDao;
-import com.xczhihui.course.dao.PublicCourseDao;
-import com.xczhihui.course.service.CourseService;
-import com.xczhihui.course.service.ICourseSolrService;
-import com.xczhihui.course.service.PublicCourseService;
-import com.xczhihui.course.util.Task;
-import com.xczhihui.user.service.OnlineUserService;
-import com.xczhihui.utils.subscribe.Subscribe;
-import com.xczhihui.vhall.VhallUtil;
-
-import org.apache.solr.client.solrj.SolrServerException;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.xczhihui.common.util.bean.Page;
-import com.xczhihui.common.util.enums.ImInformLiveStatusType;
-import com.xczhihui.online.api.service.LiveCallbackService;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.Course;
 import com.xczhihui.bxg.online.common.domain.Lecturer;
 import com.xczhihui.bxg.online.common.domain.Menu;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
+import com.xczhihui.common.util.bean.Page;
+import com.xczhihui.common.util.enums.ImInformLiveStatusType;
+import com.xczhihui.course.dao.CourseSubscribeDao;
+import com.xczhihui.course.dao.PublicCourseDao;
+import com.xczhihui.course.service.CourseService;
+import com.xczhihui.course.service.PublicCourseService;
+import com.xczhihui.course.util.Task;
 import com.xczhihui.course.vo.ChangeCallbackVo;
 import com.xczhihui.course.vo.CourseVo;
 import com.xczhihui.course.vo.MenuVo;
+import com.xczhihui.online.api.service.LiveCallbackService;
 import com.xczhihui.support.shiro.ManagerUserUtil;
+import com.xczhihui.user.service.OnlineUserService;
+import com.xczhihui.utils.subscribe.Subscribe;
+import com.xczhihui.vhall.VhallUtil;
 import com.xczhihui.vhall.bean.Webinar;
 
 @Service("publicCourseServiceImpl")
 public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements PublicCourseService {
 
+    @Value("${vhall.callback.url}")
+    String vhall_callback_url;
+    @Value("${vhall.private.key}")
+    String vhall_private_key;
     @Autowired
     private PublicCourseDao publicCourseDao;
     @Autowired
     private CourseService courseService;
     @Autowired
     private CourseSubscribeDao courseSubscribeDao;
-
     @Autowired
     private OnlineUserService onlineUserService;
     @Autowired
     private LiveCallbackService liveCallbackService;
-
-
     @Value("${env.flag}")
     private String envFlag;
     @Value("${vhall.user.id}")
     private String liveVhallUserId;
-    @Value("${vhall.callback.url}")
-    String vhall_callback_url;
-    @Value("${vhall.private.key}")
-    String vhall_private_key;
 
     @Override
     public List<Menu> getMenus() {
@@ -148,7 +141,7 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
         }
 
 		/*entity.setLecturerId(courseVo.getLecturerId());//教师ID
-		entity.setTeacherImgPath(courseVo.getTeacherImgPath());//教师头像
+        entity.setTeacherImgPath(courseVo.getTeacherImgPath());//教师头像
 */
         entity.setUserLecturerId(courseVo.getUserLecturerId());
         //新增课程密码
@@ -345,70 +338,70 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
         return webinarId;
     }
 
-	@Override
-	public Integer updateLiveStatus(ChangeCallbackVo changeCallbackVo) {
+    @Override
+    public Integer updateLiveStatus(ChangeCallbackVo changeCallbackVo) {
 
-		String hql = "from Course where direct_id = ?";
-		Course course = dao.findByHQLOne(hql,new Object[] { changeCallbackVo.getWebinarId() });
+        String hql = "from Course where direct_id = ?";
+        Course course = dao.findByHQLOne(hql, new Object[]{changeCallbackVo.getWebinarId()});
 
-		String startOrEnd = "";
-		Integer type = 0;
-		if (course != null) {
-			switch (changeCallbackVo.getEvent()) {
-			case "start":
-				startOrEnd = "start_time";
-				course.setLiveStatus(1);
-				type = ImInformLiveStatusType.LIVE_START.getCode();
-				break;
-			case "stop":
-				startOrEnd = "end_time";
-				course.setLiveStatus(3);
-				type = ImInformLiveStatusType.LIVE_END.getCode();
-				Date startTime = course.getStartTime();
-				Date currentTime = new Date();
-				Integer taskTime = timeDifference(startTime,currentTime);
-				Timer timer = new Timer();
-				Task task = new Task(changeCallbackVo.getWebinarId(),course.getId(),courseService);
-				timer.schedule(task, taskTime);
-				break;
-			default:
-				break;
-			}
-			 // 更改直播开始结束时间,更改直播当前状态
-			dao.update(course);
-			 // 发送直播开始通知广播
-			liveCallbackService.liveCallbackImRadio(course.getId() + "", type);
-			
-			if (startOrEnd != "") {
-				String findSql = "select record_count  from oe_live_time_record where live_id = :live_id order by record_count desc limit 1";
-				Map<String, Object> find = new HashMap<String, Object>();
-				find.put("live_id", course.getDirectId());
-				List<Integer> list = dao.getNamedParameterJdbcTemplate().queryForList(findSql, find, Integer.class);
+        String startOrEnd = "";
+        Integer type = 0;
+        if (course != null) {
+            switch (changeCallbackVo.getEvent()) {
+                case "start":
+                    startOrEnd = "start_time";
+                    course.setLiveStatus(1);
+                    type = ImInformLiveStatusType.LIVE_START.getCode();
+                    break;
+                case "stop":
+                    startOrEnd = "end_time";
+                    course.setLiveStatus(3);
+                    type = ImInformLiveStatusType.LIVE_END.getCode();
+                    Date startTime = course.getStartTime();
+                    Date currentTime = new Date();
+                    Integer taskTime = timeDifference(startTime, currentTime);
+                    Timer timer = new Timer();
+                    Task task = new Task(changeCallbackVo.getWebinarId(), course.getId(), courseService);
+                    timer.schedule(task, taskTime);
+                    break;
+                default:
+                    break;
+            }
+            // 更改直播开始结束时间,更改直播当前状态
+            dao.update(course);
+            // 发送直播开始通知广播
+            liveCallbackService.liveCallbackImRadio(course.getId() + "", type);
 
-				Integer maxRecord = 0;
-				if (list != null && list.size() > 0) {
-					maxRecord = list.get(0);
-					maxRecord++;
-				}
-				/**
-				 * 并且记录当前视频id开播的次数：
-				 */
-				String end = "insert into  oe_live_time_record (course_id,live_id,"
-						+ startOrEnd
-						+ ",record_count)  "
-						+ "values (:course_id,:live_id,:"
-						+ startOrEnd
-						+ ",:record_count)";
+            if (startOrEnd != "") {
+                String findSql = "select record_count  from oe_live_time_record where live_id = :live_id order by record_count desc limit 1";
+                Map<String, Object> find = new HashMap<String, Object>();
+                find.put("live_id", course.getDirectId());
+                List<Integer> list = dao.getNamedParameterJdbcTemplate().queryForList(findSql, find, Integer.class);
 
-				Map<String, Object> paramsEnd = new HashMap<String, Object>();
-				paramsEnd.put("course_id", course.getId());
-				paramsEnd.put("live_id", course.getDirectId());
-				paramsEnd.put("" + startOrEnd + "", new Date());
-				paramsEnd.put("record_count", maxRecord);
-				dao.getNamedParameterJdbcTemplate().update(end, paramsEnd);
-			}
-			return course.getId();
-		}
+                Integer maxRecord = 0;
+                if (list != null && list.size() > 0) {
+                    maxRecord = list.get(0);
+                    maxRecord++;
+                }
+                /**
+                 * 并且记录当前视频id开播的次数：
+                 */
+                String end = "insert into  oe_live_time_record (course_id,live_id,"
+                        + startOrEnd
+                        + ",record_count)  "
+                        + "values (:course_id,:live_id,:"
+                        + startOrEnd
+                        + ",:record_count)";
+
+                Map<String, Object> paramsEnd = new HashMap<String, Object>();
+                paramsEnd.put("course_id", course.getId());
+                paramsEnd.put("live_id", course.getDirectId());
+                paramsEnd.put("" + startOrEnd + "", new Date());
+                paramsEnd.put("record_count", maxRecord);
+                dao.getNamedParameterJdbcTemplate().update(end, paramsEnd);
+            }
+            return course.getId();
+        }
         return null;
     }
 
@@ -428,45 +421,46 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
 
     /**
      * 设置多长时间去查看回放是否生产
+     *
      * @param startTime   直播开始
      * @param currentTime 当前
      * @return
      */
-    public Integer timeDifference(Date startTime,Date currentTime) {
+    public Integer timeDifference(Date startTime, Date currentTime) {
 
 
-    	long start = startTime.getTime();
-    	long current = currentTime.getTime();
-    	
-    	
-    	long nd = 1000 * 24 * 60 * 60;
-	    long nh = 1000 * 60 * 60;
-	    long nm = 1000 * 60;
-	    // long ns = 1000;
-	    // 获得两个时间的毫秒时间差异
-	    long diff = current-start;
-	    // 计算差多少天
-	    long day = diff / nd;
-	    // 计算差多少小时
-	    long hour = diff % nd / nh;
-	    // 计算差多少分钟
-	    long min = diff % nd % nh / nm;
-    	
-    	if(min>30) {
-    		hour++;
-    	}
-    	
-    	if(hour==0 || hour==1) {
-    		return 30000; //30秒
-    	}else if(hour==2){
-    		return 60000; //一分钟
-    	}else if( hour==3){
-    		return 120000; //二分钟
-    	}else if( hour==4){
-    		return 240000; //4分钟
-    	}else {
-    		return 600000; //10分钟
-    	}
+        long start = startTime.getTime();
+        long current = currentTime.getTime();
+
+
+        long nd = 1000 * 24 * 60 * 60;
+        long nh = 1000 * 60 * 60;
+        long nm = 1000 * 60;
+        // long ns = 1000;
+        // 获得两个时间的毫秒时间差异
+        long diff = current - start;
+        // 计算差多少天
+        long day = diff / nd;
+        // 计算差多少小时
+        long hour = diff % nd / nh;
+        // 计算差多少分钟
+        long min = diff % nd % nh / nm;
+
+        if (min > 30) {
+            hour++;
+        }
+
+        if (hour == 0 || hour == 1) {
+            return 30000; //30秒
+        } else if (hour == 2) {
+            return 60000; //一分钟
+        } else if (hour == 3) {
+            return 120000; //二分钟
+        } else if (hour == 4) {
+            return 240000; //4分钟
+        } else {
+            return 600000; //10分钟
+        }
     }
 
 }

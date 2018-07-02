@@ -6,12 +6,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.xczhihui.operate.service.InformationService;
-import com.xczhihui.support.shiro.ManagerUserUtil;
-import com.xczhihui.utils.Group;
-import com.xczhihui.utils.Groups;
-import com.xczhihui.utils.TableVo;
-import com.xczhihui.utils.Tools;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,18 +17,23 @@ import com.xczhihui.common.support.domain.SystemVariate;
 import com.xczhihui.common.support.service.SystemVariateService;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.operate.service.InformationService;
 import com.xczhihui.operate.vo.InformationVo;
 import com.xczhihui.operate.vo.TypeVo;
+import com.xczhihui.support.shiro.ManagerUserUtil;
+import com.xczhihui.utils.Group;
+import com.xczhihui.utils.Groups;
+import com.xczhihui.utils.TableVo;
+import com.xczhihui.utils.Tools;
 
 @Controller
 @RequestMapping(value = "/operate/information")
 public class InformationController {
 
     @Autowired
-    private InformationService informationService;
-
-    @Autowired
     SystemVariateService systemVariateService;
+    @Autowired
+    private InformationService informationService;
 
     /**
      * @return

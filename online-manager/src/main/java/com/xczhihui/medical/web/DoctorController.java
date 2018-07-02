@@ -26,7 +26,6 @@ import com.xczhihui.medical.doctor.service.IMedicalDoctorSolrService;
 import com.xczhihui.medical.enums.MedicalExceptionEnum;
 import com.xczhihui.medical.exception.MedicalException;
 import com.xczhihui.medical.service.DoctorService;
-import com.xczhihui.medical.service.DoctorSolrService;
 import com.xczhihui.utils.Group;
 import com.xczhihui.utils.Groups;
 import com.xczhihui.utils.TableVo;
@@ -229,9 +228,9 @@ public class DoctorController extends AbstractController {
     @ResponseBody
     public ResponseObject updateStatus(String id) throws IOException, SolrServerException {
         boolean status = doctorService.updateStatus(id);
-        if(status){
+        if (status) {
             medicalDoctorSolrService.initDoctorsSolrDataById(id);
-        }else{
+        } else {
             medicalDoctorSolrService.deleteDoctorsSolrDataById(id);
         }
         return ResponseObject.newSuccessResponseObject("操作成功！");
@@ -501,11 +500,12 @@ public class DoctorController extends AbstractController {
         medicalDoctorSolrService.initDoctorsSolrData();
         return ResponseObject.newSuccessResponseObject("医师数据初始化成功");
     }
-    
-    
+
+
     /**
      * Description：设置推荐值
      * creed: Talk is cheap,show me the code
+     *
      * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
      * @Date: 2018/3/9 14:13
      **/
@@ -520,5 +520,5 @@ public class DoctorController extends AbstractController {
         return responseObject;
     }
 
-    
+
 }

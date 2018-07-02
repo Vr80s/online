@@ -7,8 +7,8 @@ import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
-import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.dao.HibernateDao;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.headline.vo.ArticleVo;
 
 /**
@@ -61,9 +61,9 @@ public class ArticleDao extends HibernateDao<ArticleVo> {
             paramMap.put("stopTime", articleVo.getStopTime());
         }
         if (articleVo.getSort() != null) {
-            if(articleVo.getSort()==1){
+            if (articleVo.getSort() == 1) {
                 sql.append(" and article.recommend_time> now()");
-            }else {
+            } else {
                 sql.append(" and (article.recommend_time is null or article.recommend_time< now()) ");
             }
         }

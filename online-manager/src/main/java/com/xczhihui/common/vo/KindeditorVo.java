@@ -2,34 +2,34 @@ package com.xczhihui.common.vo;
 
 public class KindeditorVo {
 
-	private int error;
+    private int error;
 
-	private String url;
+    private String url;
 
-	private String message;
+    private String message;
 
-	public String getUrl() {
-		return url;
-	}
+    public String getUrl() {
+        return url;
+    }
 
-	public void setUrl(String url) {
-		this.url = url;
-	}
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
-	public String getMessage() {
-		return message;
-	}
+    public String getMessage() {
+        return message;
+    }
 
-	public void setMessage(String message) {
-		this.message = message;
-	}
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
-	public int getError() {
-		return error;
-	}
+    public int getError() {
+        return error;
+    }
 
-	public void setError(int error) {
-		this.error = error;
-	}
+    public void setError(int error) {
+        this.error = error;
+    }
 
 }

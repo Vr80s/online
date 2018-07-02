@@ -28,7 +28,6 @@ import com.xczhihui.common.support.service.AttachmentCenterService;
 import com.xczhihui.common.support.service.AttachmentType;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.util.bean.ResponseObject;
-import com.xczhihui.common.util.enums.CourseStatus;
 import com.xczhihui.common.web.controller.AbstractController;
 import com.xczhihui.course.service.CourseService;
 import com.xczhihui.course.service.ICourseSolrService;

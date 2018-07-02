@@ -43,13 +43,11 @@ import com.xczhihui.vhall.VhallUtil;
 @Service
 public class DoctorApplyServiceImpl implements DoctorApplyService {
 
-    private final Logger logger = LoggerFactory.getLogger(getClass());
-
     private static final String APPROVE_PASS_MESSAGE = "您的{0}申请已于{1}通过认证，现在您已经是一名主播了，" +
             "快去发布课程吧~如需帮助请联系客服0898-32881934。" + TextStyleUtil.LEFT_TAG + "去看看>>" + TextStyleUtil.RIGHT_TAG;
     private static final String APPROVE_NOT_PASS_MESSAGE = "您的{0}认证未能通过，原因: {1}，如有疑问请联系客服0898-32881934。"
             + TextStyleUtil.LEFT_TAG + "查看详情" + TextStyleUtil.RIGHT_TAG;
-
+    private final Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired
     private DoctorApplyDao doctorApplyDao;
     @Autowired

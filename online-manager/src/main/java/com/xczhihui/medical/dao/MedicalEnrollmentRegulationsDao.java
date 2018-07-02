@@ -1,15 +1,15 @@
 package com.xczhihui.medical.dao;
 
-import com.xczhihui.bxg.online.common.domain.MedicalEnrollmentRegulations;
-import com.xczhihui.bxg.online.common.domain.MedicalEntryInformation;
-import com.xczhihui.common.dao.HibernateDao;
-import com.xczhihui.common.util.bean.Page;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.stereotype.Repository;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.stereotype.Repository;
+
+import com.xczhihui.bxg.online.common.domain.MedicalEnrollmentRegulations;
+import com.xczhihui.common.dao.HibernateDao;
+import com.xczhihui.common.util.bean.Page;
 
 /**
  * 师承管理DAO
@@ -22,6 +22,7 @@ public class MedicalEnrollmentRegulationsDao extends HibernateDao<MedicalEnrollm
     /**
      * Description： 师承分页列表
      * creed: Talk is cheap,show me the code
+     *
      * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
      * @Date: 2018/5/22 13:56
      **/
@@ -36,19 +37,19 @@ public class MedicalEnrollmentRegulationsDao extends HibernateDao<MedicalEnrollm
                 "mer.tuition as tuition," +
                 "mer.count_limit as countLimit," +
                 "mer.deadline as deadline," +
-                "mer.learning_process as learningProcess,"+
+                "mer.learning_process as learningProcess," +
                 "mer.start_time as startTime," +
                 "mer.end_time as endTime," +
                 "mer.study_address as studyAddress," +
-                "mer.rights_and_interests as rightsAndInterests,"+
-                "mer.qualification as qualification,"+
-                "mer.ceremony_address as ceremonyAddress,"+
-                "mer.regulations as regulations,"+
-                "mer.entry_form_attachment as entryFormAttachment,"+
-                "mer.update_time as updateTime,"+
-                "mer.updator as updator,"+
-                "mer.status as status,"+
-                " (select count(*) from medical_entry_information mei where mei.mer_id = mer.id) as countPeople, "+
+                "mer.rights_and_interests as rightsAndInterests," +
+                "mer.qualification as qualification," +
+                "mer.ceremony_address as ceremonyAddress," +
+                "mer.regulations as regulations," +
+                "mer.entry_form_attachment as entryFormAttachment," +
+                "mer.update_time as updateTime," +
+                "mer.updator as updator," +
+                "mer.status as status," +
+                " (select count(*) from medical_entry_information mei where mei.mer_id = mer.id) as countPeople, " +
                 " md.name as doctorName " +
                 " FROM" +
                 " medical_enrollment_regulations mer ,medical_doctor md " +
@@ -57,13 +58,15 @@ public class MedicalEnrollmentRegulationsDao extends HibernateDao<MedicalEnrollm
                 paramMap, MedicalEnrollmentRegulations.class, pageNumber, pageSize);
         return list;
     }
+
     /**
      * Description：通过id进行查找
      * creed: Talk is cheap,show me the code
+     *
      * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
      * @Date: 2018/5/22 13:56
      **/
-    public MedicalEnrollmentRegulations findById(Integer id ) {
+    public MedicalEnrollmentRegulations findById(Integer id) {
         Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("id", id);
         StringBuilder sql = new StringBuilder("SELECT * " +
@@ -81,10 +84,11 @@ public class MedicalEnrollmentRegulationsDao extends HibernateDao<MedicalEnrollm
     /**
      * Description：查看详情
      * creed: Talk is cheap,show me the code
+     *
      * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
      * @Date: 2018/5/22 13:56
      **/
-    public MedicalEnrollmentRegulations enrollmentRegulationsDetail(Integer id ) {
+    public MedicalEnrollmentRegulations enrollmentRegulationsDetail(Integer id) {
         Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("id", id);
         StringBuilder sql = new StringBuilder("SELECT mer.id as id,mer.doctor_id as doctorId," +
@@ -95,23 +99,23 @@ public class MedicalEnrollmentRegulationsDao extends HibernateDao<MedicalEnrollm
                 "mer.tuition as tuition," +
                 "mer.count_limit as countLimit," +
                 "mer.deadline as deadline," +
-                "mer.learning_process as learningProcess,"+
+                "mer.learning_process as learningProcess," +
                 "mer.start_time as startTime," +
                 "mer.end_time as endTime," +
                 "mer.study_address as studyAddress," +
-                "mer.rights_and_interests as rightsAndInterests,"+
-                "mer.qualification as qualification,"+
-                "mer.ceremony_address as ceremonyAddress,"+
-                "mer.regulations as regulations,"+
-                "mer.entry_form_attachment as entryFormAttachment,"+
-                "mer.create_time as createTime,"+
-                "mer.creator as creator,"+
-                "mer.update_time as updateTime,"+
-                "mer.updator as updator,"+
-                "mer.status as status,"+
-                "mer.poster_img as posterImg,"+
-                "mer.contact_way as contactWay,"+
-                " (select count(*) from medical_entry_information mei where mei.mer_id = mer.id) as countPeople, "+
+                "mer.rights_and_interests as rightsAndInterests," +
+                "mer.qualification as qualification," +
+                "mer.ceremony_address as ceremonyAddress," +
+                "mer.regulations as regulations," +
+                "mer.entry_form_attachment as entryFormAttachment," +
+                "mer.create_time as createTime," +
+                "mer.creator as creator," +
+                "mer.update_time as updateTime," +
+                "mer.updator as updator," +
+                "mer.status as status," +
+                "mer.poster_img as posterImg," +
+                "mer.contact_way as contactWay," +
+                " (select count(*) from medical_entry_information mei where mei.mer_id = mer.id) as countPeople, " +
                 " md.name as doctorName " +
                 " FROM" +
                 " medical_enrollment_regulations mer ,medical_doctor md " +

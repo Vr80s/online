@@ -1,18 +1,20 @@
 package com.xczhihui.medical.dao;
 
-import com.xczhihui.bxg.online.common.domain.MedicalEntryInformation;
-import com.xczhihui.common.dao.HibernateDao;
-import com.xczhihui.common.util.bean.Page;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.stereotype.Repository;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.stereotype.Repository;
+
+import com.xczhihui.bxg.online.common.domain.MedicalEntryInformation;
+import com.xczhihui.common.dao.HibernateDao;
+import com.xczhihui.common.util.bean.Page;
+
 /**
  * Description：师承-报名
  * creed: Talk is cheap,show me the code
+ *
  * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
  * @Date: 2018/5/21 18:00
  **/
@@ -39,10 +41,11 @@ public class MedicalEntryInformationDao extends HibernateDao<MedicalEntryInforma
     /**
      * Description：查看详情
      * creed: Talk is cheap,show me the code
+     *
      * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
      * @Date: 2018/5/22 13:56
      **/
-    public MedicalEntryInformation entryInformationDetail(Integer id ) {
+    public MedicalEntryInformation entryInformationDetail(Integer id) {
         Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("id", id);
         StringBuilder sql = new StringBuilder("SELECT * " +
@@ -56,7 +59,6 @@ public class MedicalEntryInformationDao extends HibernateDao<MedicalEntryInforma
         }
         return null;
     }
-
 
 
 }

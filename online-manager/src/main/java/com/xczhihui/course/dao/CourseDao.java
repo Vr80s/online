@@ -25,7 +25,7 @@ import com.xczhihui.course.vo.CourseVo;
 public class CourseDao extends HibernateDao<Course> {
     public Page<CourseVo> findCloudClassCoursePage(CourseVo courseVo,
                                                    int pageNumber, int pageSize) {
-              Map<String, Object> paramMap = new HashMap<String, Object>();
+        Map<String, Object> paramMap = new HashMap<String, Object>();
         StringBuilder sql = new StringBuilder(
                 "SELECT \n"
                         + "  oc.id AS id,\n"

@@ -2,13 +2,6 @@ package com.xczhihui.course.web;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.xczhihui.course.service.CourseRecommendService;
-import com.xczhihui.course.vo.CourseVo;
-import com.xczhihui.support.shiro.ManagerUserUtil;
-import com.xczhihui.utils.Group;
-import com.xczhihui.utils.Groups;
-import com.xczhihui.utils.TableVo;
-import com.xczhihui.utils.Tools;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +10,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.course.service.CourseRecommendService;
 import com.xczhihui.course.vo.CourseRecommendVo;
+import com.xczhihui.course.vo.CourseVo;
+import com.xczhihui.support.shiro.ManagerUserUtil;
+import com.xczhihui.utils.Group;
+import com.xczhihui.utils.Groups;
+import com.xczhihui.utils.TableVo;
+import com.xczhihui.utils.Tools;
 
 @Controller
 @RequestMapping(value = "/cloudClass/courseRecommend")

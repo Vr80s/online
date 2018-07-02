@@ -1,13 +1,14 @@
 package com.xczhihui.medical.service.impl;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.xczhihui.bxg.online.common.domain.MedicalEnrollmentRegulations;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.medical.dao.MedicalEnrollmentRegulationsDao;
 import com.xczhihui.medical.service.MedicalEnrollmentRegulationsService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * @ClassName: MedicalEntryInformationImpl
@@ -24,7 +25,7 @@ public class MedicalEnrollmentRegulationsImpl implements MedicalEnrollmentRegula
 
     @Override
     public Page<MedicalEnrollmentRegulations> findEnrollmentRegulationsPage(MedicalEnrollmentRegulations edicalEnrollmentRegulations, int pageNumber, int pageSize) {
-        Page<MedicalEnrollmentRegulations> list = medicalEnrollmentRegulationsDao.findEnrollmentRegulationsPage(edicalEnrollmentRegulations,pageNumber,pageSize);
+        Page<MedicalEnrollmentRegulations> list = medicalEnrollmentRegulationsDao.findEnrollmentRegulationsPage(edicalEnrollmentRegulations, pageNumber, pageSize);
         return list;
     }
 
@@ -54,7 +55,7 @@ public class MedicalEnrollmentRegulationsImpl implements MedicalEnrollmentRegula
     public void updateStatus(Integer id) {
         String hql = "from MedicalEnrollmentRegulations where 1=1 and id = ?";
         MedicalEnrollmentRegulations medicalEnrollmentRegulations = medicalEnrollmentRegulationsDao
-                .findByHQLOne(hql, new Object[] { id });
+                .findByHQLOne(hql, new Object[]{id});
         if (medicalEnrollmentRegulations.isStatus()) {
             medicalEnrollmentRegulations.setStatus(false);
         } else {

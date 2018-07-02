@@ -33,14 +33,13 @@ import com.xczhihui.support.shiro.ManagerUserUtil;
 public class FeedbackServiceImpl extends OnlineBaseServiceImpl implements
         FeedbackService {
 
-    @Autowired
-    private ICommonMessageService commonMessageService;
-
     /**
      * 意见反馈Dao层
      */
     @Autowired
     public FeedBackDao dao;
+    @Autowired
+    private ICommonMessageService commonMessageService;
 
     @SuppressWarnings("unchecked")
     @Override

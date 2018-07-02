@@ -5,9 +5,9 @@ import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
-import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.domain.MedicalHospitalRecruit;
 import com.xczhihui.common.dao.HibernateDao;
+import com.xczhihui.common.util.bean.Page;
 
 @Repository
 public class HospitalRecruitDao extends HibernateDao<MedicalHospitalRecruit> {
