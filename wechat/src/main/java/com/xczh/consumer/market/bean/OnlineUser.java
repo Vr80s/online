@@ -18,23 +18,19 @@ import javax.servlet.http.HttpSessionBindingListener;
  */
 public class OnlineUser extends BasicEntity implements Serializable, HttpSessionBindingListener {
 
-    private static final long serialVersionUID = 1L;
-
     /**
      * 女
      */
     public static final int SEX_FEMALE = 0;
-
     /**
      * 男
      */
     public static final int SEX_MALE = 1;
-
     /**
      * 未知
      */
     public static final int SEX_UNKNOWN = 2;
-
+    private static final long serialVersionUID = 1L;
     private String userCenterId;
 
     /**
@@ -226,6 +222,10 @@ public class OnlineUser extends BasicEntity implements Serializable, HttpSession
 
     private Boolean visitor;
 
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
     public Boolean getVisitor() {
         return visitor;
     }
@@ -294,6 +294,10 @@ public class OnlineUser extends BasicEntity implements Serializable, HttpSession
         return isPerfectInformation;
     }
 
+    public void setIsPerfectInformation(Boolean isPerfectInformation) {
+        this.isPerfectInformation = isPerfectInformation;
+    }
+
     public String getBigHeadPhoto() {
         return bigHeadPhoto;
     }
@@ -348,10 +352,6 @@ public class OnlineUser extends BasicEntity implements Serializable, HttpSession
 
     public void setStayTime(Integer stayTime) {
         this.stayTime = stayTime;
-    }
-
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
     }
 
     public Integer getOccupation() {
@@ -418,15 +418,17 @@ public class OnlineUser extends BasicEntity implements Serializable, HttpSession
         this.target = target;
     }
 
-
     public boolean isApply() {
         return isApply;
+    }
+
+    public void setApply(boolean isApply) {
+        this.isApply = isApply;
     }
 
     public void setIsApply(boolean isApply) {
         this.isApply = isApply;
     }
-
 
     public String getFullAddress() {
         return fullAddress;
@@ -442,10 +444,6 @@ public class OnlineUser extends BasicEntity implements Serializable, HttpSession
 
     public void setApplyId(String applyId) {
         this.applyId = applyId;
-    }
-
-    public void setApply(boolean isApply) {
-        this.isApply = isApply;
     }
 
     public String getQq() {
@@ -492,6 +490,10 @@ public class OnlineUser extends BasicEntity implements Serializable, HttpSession
         return refId;
     }
 
+    public void setRefId(String refId) {
+        this.refId = refId;
+    }
+
     public String getParentId() {
         return parentId;
     }
@@ -508,10 +510,6 @@ public class OnlineUser extends BasicEntity implements Serializable, HttpSession
         this.shareCode = shareCode;
     }
 
-    public void setRefId(String refId) {
-        this.refId = refId;
-    }
-
     public Date getChangeTime() {
         return changeTime;
     }
@@ -522,10 +520,6 @@ public class OnlineUser extends BasicEntity implements Serializable, HttpSession
 
     public Boolean isPerfectInformation() {
         return isPerfectInformation;
-    }
-
-    public void setIsPerfectInformation(Boolean isPerfectInformation) {
-        this.isPerfectInformation = isPerfectInformation;
     }
 
     public String getOrigin() {

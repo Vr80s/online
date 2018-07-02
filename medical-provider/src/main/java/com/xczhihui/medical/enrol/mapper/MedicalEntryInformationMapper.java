@@ -9,7 +9,7 @@ import com.xczhihui.medical.enrol.model.MedicalEntryInformation;
 
 /**
  * <p>
-  *  Mapper 接口
+ * Mapper 接口
  * </p>
  *
  * @author yuxin

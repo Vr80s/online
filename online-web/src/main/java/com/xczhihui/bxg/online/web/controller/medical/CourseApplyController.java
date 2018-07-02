@@ -9,13 +9,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.xczhihui.bxg.online.web.service.OnlineUserCenterService;
-import com.xczhihui.course.service.ICourseSolrService;
-import com.xczhihui.medical.doctor.model.MedicalDoctorAccount;
-import com.xczhihui.medical.doctor.model.MedicalDoctorPosts;
-import com.xczhihui.medical.doctor.service.IMedicalDoctorAccountService;
-import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsService;
-
 import org.apache.solr.client.solrj.SolrServerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,12 +21,14 @@ import com.xczhihui.bxg.online.common.domain.Course;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.controller.AbstractController;
 import com.xczhihui.bxg.online.web.service.CourseService;
+import com.xczhihui.bxg.online.web.service.OnlineUserCenterService;
 import com.xczhihui.common.util.TimeUtil;
 import com.xczhihui.common.util.VhallUtil;
 import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.course.enums.MessageTypeEnum;
 import com.xczhihui.course.params.BaseMessage;
 import com.xczhihui.course.service.ICommonMessageService;
+import com.xczhihui.course.service.ICourseSolrService;
 import com.xczhihui.course.service.IFocusService;
 import com.xczhihui.course.service.ILineApplyService;
 import com.xczhihui.course.util.CourseUtil;
@@ -45,6 +40,10 @@ import com.xczhihui.medical.anchor.model.CourseApplyResource;
 import com.xczhihui.medical.anchor.service.ICourseApplyService;
 import com.xczhihui.medical.anchor.vo.CourseApplyInfoVO;
 import com.xczhihui.medical.anchor.vo.CourseApplyResourceVO;
+import com.xczhihui.medical.doctor.model.MedicalDoctorAccount;
+import com.xczhihui.medical.doctor.model.MedicalDoctorPosts;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorAccountService;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsService;
 
 
 /**
@@ -92,7 +91,7 @@ public class CourseApplyController extends AbstractController {
     @RequestMapping(value = "/getCourseApplyList", method = RequestMethod.GET)
     public ResponseObject getCourseApplyList(Integer current, Integer size, Integer courseForm, Integer multimediaType, String title) {
         Page<CourseApplyInfoVO> page = new Page<>();
-        if(size == null){
+        if (size == null) {
             size = Integer.MAX_VALUE;
             current = 1;
         }
@@ -432,7 +431,7 @@ public class CourseApplyController extends AbstractController {
         MedicalDoctorAccount mha = medicalDoctorAccountService.getByUserId(userId);
         Course course = courseService.findByApplyId(courseApplyId);
         MedicalDoctorPosts mdp = new MedicalDoctorPosts();
-        mdp.setContent(course.getGradeName()+","+course.getSubtitle());
+        mdp.setContent(course.getGradeName() + "," + course.getSubtitle());
         mdp.setType(5);
         mdp.setTitle(course.getGradeName());
         mdp.setCoverImg(course.getBigImgPath());

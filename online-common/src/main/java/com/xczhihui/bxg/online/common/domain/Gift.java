@@ -3,17 +3,12 @@ package com.xczhihui.bxg.online.common.domain;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 
 /**
- *  礼物实体类
+ * 礼物实体类
+ *
  * @author Rongcai Kang
  */
 @Entity
@@ -21,180 +16,180 @@ import javax.persistence.Transient;
 public class Gift implements Serializable {
 
 
-	/**
-	 * Copyright © 2017 xinchengzhihui. All rights reserved.
-	 */
-	private static final long serialVersionUID = 2911600425496674665L;
+    /**
+     * Copyright © 2017 xinchengzhihui. All rights reserved.
+     */
+    private static final long serialVersionUID = 2911600425496674665L;
 
-	@Column(name = "name")
+    @Column(name = "name")
     private String name;
-    
-	@Column(name = "smallimg_path")
+
+    @Column(name = "smallimg_path")
     private String smallimgPath;
-    
-	@Column(name = "status")
+
+    @Column(name = "status")
     private String status;
-    
-	@Column(name = "price")
-    private Double price ;
-    
-	@Column(name = "is_free")
+
+    @Column(name = "price")
+    private Double price;
+
+    @Column(name = "is_free")
     private Boolean isFree;
-    
-	@Column(name = "is_continuous")
+
+    @Column(name = "is_continuous")
     private Boolean isContinuous;
-    
-	@Column(name = "continuous_count")
+
+    @Column(name = "continuous_count")
     private int countinuousCount;
 
-	@Column(name = "sort")
-	private Integer sort;
+    @Column(name = "sort")
+    private Integer sort;
 
-	@Column(name = "brokerage")
-	private double brokerage;
+    @Column(name = "brokerage")
+    private double brokerage;
 
-	/**
-	 * 唯一标识
-	 */
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+    /**
+     * 唯一标识
+     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-	/**
-	 * 实体是否删除
-	 */
-	@Column(name = "is_delete")
-	private boolean isDelete;
+    /**
+     * 实体是否删除
+     */
+    @Column(name = "is_delete")
+    private boolean isDelete;
 
-	/**
-	 * 创建人ID
-	 */
-	@Column(name = "create_person")
-	private String createPerson;
+    /**
+     * 创建人ID
+     */
+    @Column(name = "create_person")
+    private String createPerson;
 
-	/**
-	 * 创建时间
-	 */
-	@Column(name = "create_time")
-	private Date createTime;
+    /**
+     * 创建时间
+     */
+    @Column(name = "create_time")
+    private Date createTime;
 
-	
-	@Transient
-	private Integer giftId;
-	
-	
-	public Integer getId() {
-		return id;
-	}
 
-	public void setId(Integer id) {
-		setGiftId(id);
-		this.id = id;
-	}
+    @Transient
+    private Integer giftId;
 
-	public boolean isDelete() {
-		return isDelete;
-	}
 
-	public void setDelete(boolean isDelete) {
-		this.isDelete = isDelete;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public String getCreatePerson() {
-		return createPerson;
-	}
+    public void setId(Integer id) {
+        setGiftId(id);
+        this.id = id;
+    }
 
-	public void setCreatePerson(String createPerson) {
-		this.createPerson = createPerson;
-	}
+    public boolean isDelete() {
+        return isDelete;
+    }
 
-	public Date getCreateTime() {
-		return createTime;
-	}
+    public void setDelete(boolean isDelete) {
+        this.isDelete = isDelete;
+    }
 
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
+    public String getCreatePerson() {
+        return createPerson;
+    }
 
-	public double getBrokerage() {
-		return brokerage;
-	}
+    public void setCreatePerson(String createPerson) {
+        this.createPerson = createPerson;
+    }
 
-	public void setBrokerage(double brokerage) {
-		this.brokerage = brokerage;
-	}
+    public Date getCreateTime() {
+        return createTime;
+    }
 
-	public Integer getSort() {
-		return sort;
-	}
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
 
-	public void setSort(Integer sort) {
-		this.sort = sort;
-	}
+    public double getBrokerage() {
+        return brokerage;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setBrokerage(double brokerage) {
+        this.brokerage = brokerage;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public Integer getSort() {
+        return sort;
+    }
 
-	public String getSmallimgPath() {
-		return smallimgPath;
-	}
+    public void setSort(Integer sort) {
+        this.sort = sort;
+    }
 
-	public void setSmallimgPath(String smallimgPath) {
-		this.smallimgPath = smallimgPath;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getStatus() {
-		return status;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
+    public String getSmallimgPath() {
+        return smallimgPath;
+    }
 
-	public Double getPrice() {
-		return price;
-	}
+    public void setSmallimgPath(String smallimgPath) {
+        this.smallimgPath = smallimgPath;
+    }
 
-	public void setPrice(Double price) {
-		this.price = price;
-	}
+    public String getStatus() {
+        return status;
+    }
 
-	public Boolean getIsFree() {
-		return isFree;
-	}
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
-	public void setIsFree(Boolean isFree) {
-		this.isFree = isFree;
-	}
+    public Double getPrice() {
+        return price;
+    }
 
-	public Boolean getIsContinuous() {
-		return isContinuous;
-	}
+    public void setPrice(Double price) {
+        this.price = price;
+    }
 
-	public void setIsContinuous(Boolean isContinuous) {
-		this.isContinuous = isContinuous;
-	}
+    public Boolean getIsFree() {
+        return isFree;
+    }
 
-	public int getCountinuousCount() {
-		return countinuousCount;
-	}
+    public void setIsFree(Boolean isFree) {
+        this.isFree = isFree;
+    }
 
-	public void setCountinuousCount(int countinuousCount) {
-		this.countinuousCount = countinuousCount;
-	}
+    public Boolean getIsContinuous() {
+        return isContinuous;
+    }
 
-	public Integer getGiftId() {
-		return getId();
-	}
+    public void setIsContinuous(Boolean isContinuous) {
+        this.isContinuous = isContinuous;
+    }
 
-	public void setGiftId(Integer giftId) {
-		this.giftId = giftId;
-	}
-	
-	
+    public int getCountinuousCount() {
+        return countinuousCount;
+    }
+
+    public void setCountinuousCount(int countinuousCount) {
+        this.countinuousCount = countinuousCount;
+    }
+
+    public Integer getGiftId() {
+        return getId();
+    }
+
+    public void setGiftId(Integer giftId) {
+        this.giftId = giftId;
+    }
+
+
 }

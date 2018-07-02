@@ -3,10 +3,17 @@ package com.xczhihui.utils;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 public class TimeUtil {
+
+    private static final DateFormat FORMAT = new SimpleDateFormat("yyyy-MM-dd");
+    private static final DateFormat FORMAT_HH_MM_SS = new SimpleDateFormat(
+            "yyyy-MM-dd hh:mm:ss");
+    private static final DateFormat FORMAT_HH_MM = new SimpleDateFormat(
+            "yyyy-MM-dd hh:mm");
+    private static final DateFormat FORMAT_HHMM_UNDERLINE = new SimpleDateFormat(
+            "yyyy_MM_dd_hh_mm_ss");
 
     public static String formatTime(String ms) {
         int a = Integer.parseInt(ms);
@@ -16,14 +23,6 @@ public class TimeUtil {
 
         return hms;
     }
-
-    private static final DateFormat FORMAT = new SimpleDateFormat("yyyy-MM-dd");
-    private static final DateFormat FORMAT_HH_MM_SS = new SimpleDateFormat(
-            "yyyy-MM-dd hh:mm:ss");
-    private static final DateFormat FORMAT_HH_MM = new SimpleDateFormat(
-            "yyyy-MM-dd hh:mm");
-    private static final DateFormat FORMAT_HHMM_UNDERLINE = new SimpleDateFormat(
-            "yyyy_MM_dd_hh_mm_ss");
 
     /**
      * 格式化成时期对象

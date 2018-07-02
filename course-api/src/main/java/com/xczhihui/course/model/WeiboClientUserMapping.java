@@ -11,140 +11,137 @@ import com.baomidou.mybatisplus.annotations.TableName;
 
 /**
  * 熊猫中医在线网站用户。
+ *
  * @author Haicheng Jiang
  */
 @TableName("weibo_client_user_mapping")
-public class WeiboClientUserMapping extends  Model<WeiboClientUserMapping>{
-	
-	private static final long serialVersionUID = 1L;
-	
-	@TableField("id")
+public class WeiboClientUserMapping extends Model<WeiboClientUserMapping> {
+
+    private static final long serialVersionUID = 1L;
+
+    @TableField("id")
     private String id;
 
-	@TableField("uid")
+    @TableField("uid")
     private String uid;
-	
-	@TableField("user_id")
+
+    @TableField("user_id")
     private String userId;
 
-	@TableField("screen_name")
+    @TableField("screen_name")
     private String screenName;
 
-	@TableField("name")
+    @TableField("name")
     private String name;
 
-	@TableField("province")
+    @TableField("province")
     private Integer province;
 
-	@TableField("city")
+    @TableField("city")
     private Integer city;
 
-	@TableField("location")
+    @TableField("location")
     private String location;
 
-	@TableField("description")
+    @TableField("description")
     private String description;
 
-	@TableField("url")
+    @TableField("url")
     private String url;
 
-	@TableField("profile_image_url")
+    @TableField("profile_image_url")
     private String profileImageUrl;
 
-	@TableField("profile_url")
+    @TableField("profile_url")
     private String profileUrl;
 
-	@TableField("user_domain")
+    @TableField("user_domain")
     private String userDomain;
-    
-	@TableField("gender")
+
+    @TableField("gender")
     private String gender;
 
-	@TableField("followers_count")
+    @TableField("followers_count")
     private Integer followersCount;
 
-	@TableField("friends_count")
+    @TableField("friends_count")
     private Integer friendsCount;
 
-	@TableField("statuses_count")
+    @TableField("statuses_count")
     private Integer statusesCount;
 
-	@TableField("favourites_count")
+    @TableField("favourites_count")
     private Integer favouritesCount;
 
-	@TableField("created_at")
+    @TableField("created_at")
     private String createdAt;
 
-	@TableField("verified")
+    @TableField("verified")
     private String verified;
 
-	@TableField("remark")
+    @TableField("remark")
     private String remark;
 
-	@TableField("lang")
+    @TableField("lang")
     private String lang;
 
-	@TableField("weihao")
+    @TableField("weihao")
     private String weihao;
-    
-	@TableField("create_time")
+
+    @TableField("create_time")
     private Date createTime;
-    
-	public WeiboClientUserMapping(){
-		
-	}
-	
-	public WeiboClientUserMapping(JSONObject json) {
-		 if (json != null) {
-			 try {
-				uid = json.getString("idstr");
-		        screenName = json.getString("screen_name");
-		        name = json.getString("name");
-		        province = json.getInt("province");
-		        city = json.getInt("city");
-		        location = json.getString("location");
-		        description = json.getString("description");
-		        url = json.getString("url");
-		        profileImageUrl = json.getString("profile_image_url");
-		        userDomain = json.getString("domain");
-		        gender = json.getString("gender");
-		        followersCount = json.getInt("followers_count");
-		        friendsCount = json.getInt("friends_count");
-		        favouritesCount = json.getInt("favourites_count");
-		        statusesCount = json.getInt("statuses_count");
-		        createdAt = json.getString("created_at");
-		        verified = json.getString("verified");
-		        if (!json.getString("remark").isEmpty()) {
-		          remark = json.getString("remark");
-		        }
-		        lang = json.getString("lang");
-		        weihao = json.getString("weihao");
-			} catch (Exception jsone) {
-				jsone.printStackTrace();
-			}
-	        
-		}
-	}
+
+    public WeiboClientUserMapping() {
+
+    }
+
+    public WeiboClientUserMapping(JSONObject json) {
+        if (json != null) {
+            try {
+                uid = json.getString("idstr");
+                screenName = json.getString("screen_name");
+                name = json.getString("name");
+                province = json.getInt("province");
+                city = json.getInt("city");
+                location = json.getString("location");
+                description = json.getString("description");
+                url = json.getString("url");
+                profileImageUrl = json.getString("profile_image_url");
+                userDomain = json.getString("domain");
+                gender = json.getString("gender");
+                followersCount = json.getInt("followers_count");
+                friendsCount = json.getInt("friends_count");
+                favouritesCount = json.getInt("favourites_count");
+                statusesCount = json.getInt("statuses_count");
+                createdAt = json.getString("created_at");
+                verified = json.getString("verified");
+                if (!json.getString("remark").isEmpty()) {
+                    remark = json.getString("remark");
+                }
+                lang = json.getString("lang");
+                weihao = json.getString("weihao");
+            } catch (Exception jsone) {
+                jsone.printStackTrace();
+            }
+
+        }
+    }
 
 
-	public String getId() {
+    public String getId() {
         return id;
     }
-    
 
-	public String getUserId() {
-		return userId;
-	}
-
-
-
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-
-
-	public void setId(String id) {
+    public void setId(String id) {
         this.id = id == null ? null : id.trim();
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getUid() {
@@ -229,14 +226,14 @@ public class WeiboClientUserMapping extends  Model<WeiboClientUserMapping>{
 
 
     public String getUserDomain() {
-		return userDomain;
-	}
+        return userDomain;
+    }
 
-	public void setUserDomain(String userDomain) {
-		this.userDomain = userDomain;
-	}
+    public void setUserDomain(String userDomain) {
+        this.userDomain = userDomain;
+    }
 
-	public String getWeihao() {
+    public String getWeihao() {
         return weihao;
     }
 
@@ -315,37 +312,37 @@ public class WeiboClientUserMapping extends  Model<WeiboClientUserMapping>{
     public void setLang(String lang) {
         this.lang = lang == null ? null : lang.trim();
     }
-    
+
 
     public Date getCreateTime() {
-		return createTime;
-	}
+        return createTime;
+    }
 
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
-	
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
 
-	@Override
-	public String toString() {
-		return "WeiboClientUserMapping [id=" + id + ", uid=" + uid
-				+ ", userId=" + userId + ", screenName=" + screenName
-				+ ", name=" + name + ", province=" + province + ", city="
-				+ city + ", location=" + location + ", description="
-				+ description + ", url=" + url + ", profileImageUrl="
-				+ profileImageUrl + ", profileUrl=" + profileUrl
-				+ ", userDomain=" + userDomain + ", gender=" + gender
-				+ ", followersCount=" + followersCount + ", friendsCount="
-				+ friendsCount + ", statusesCount=" + statusesCount
-				+ ", favouritesCount=" + favouritesCount + ", createdAt="
-				+ createdAt + ", verified=" + verified + ", remark=" + remark
-				+ ", lang=" + lang + ", weihao=" + weihao + ", createTime="
-				+ createTime + "]";
-	}
 
-	@Override
-	protected Serializable pkVal() {
-		// TODO Auto-generated method stub
-		return this.id;
-	}
+    @Override
+    public String toString() {
+        return "WeiboClientUserMapping [id=" + id + ", uid=" + uid
+                + ", userId=" + userId + ", screenName=" + screenName
+                + ", name=" + name + ", province=" + province + ", city="
+                + city + ", location=" + location + ", description="
+                + description + ", url=" + url + ", profileImageUrl="
+                + profileImageUrl + ", profileUrl=" + profileUrl
+                + ", userDomain=" + userDomain + ", gender=" + gender
+                + ", followersCount=" + followersCount + ", friendsCount="
+                + friendsCount + ", statusesCount=" + statusesCount
+                + ", favouritesCount=" + favouritesCount + ", createdAt="
+                + createdAt + ", verified=" + verified + ", remark=" + remark
+                + ", lang=" + lang + ", weihao=" + weihao + ", createTime="
+                + createTime + "]";
+    }
+
+    @Override
+    protected Serializable pkVal() {
+        // TODO Auto-generated method stub
+        return this.id;
+    }
 }

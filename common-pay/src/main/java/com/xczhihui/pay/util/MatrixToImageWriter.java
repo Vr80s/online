@@ -11,6 +11,7 @@ import com.google.zxing.common.BitMatrix;
 
 /**
  * 二维码的生成需要借助MatrixToImageWriter类，该类是由Google提供的，可以将该类直接拷贝到源码中使用
+ *
  * @Author Fudong.Sun【】
  * @Date 2016/11/9 10:45
  */

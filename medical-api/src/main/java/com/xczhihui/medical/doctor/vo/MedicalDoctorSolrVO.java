@@ -1,9 +1,7 @@
 package com.xczhihui.medical.doctor.vo;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
-
 
 import org.apache.solr.client.solrj.beans.Field;
 

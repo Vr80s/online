@@ -4,213 +4,211 @@ import java.util.List;
 
 public class TreeNode {
 
-	private String id;
+    private String id;
 
-	private String pId = "";
+    private String pId = "";
 
-	private String temp = "";
+    private String temp = "";
 
-	private String name;
+    private String name;
 
-	private String actName;
+    private String actName;
 
-	private Integer level;
+    private Integer level;
 
-	private String courseId;
+    private String courseId;
 
-	private String targetId;
+    private String targetId;
 
-	private String moveType;
+    private String moveType;
 
-	// 要统计的数字 用来存放评价数、或笔记数的
-	private Integer cntNum;
+    // 要统计的数字 用来存放评价数、或笔记数的
+    private Integer cntNum;
 
-	// 是否打开节点
-	private boolean open = false;
+    // 是否打开节点
+    private boolean open = false;
 
-	// 是否是父节点
-	private boolean isParent = false;
+    // 是否是父节点
+    private boolean isParent = false;
 
-	// 复选框是否选择
-	private boolean checked = false;
+    // 复选框是否选择
+    private boolean checked = false;
 
-	// 是否展示复选框
-	private boolean nocheck = false;
+    // 是否展示复选框
+    private boolean nocheck = false;
 
-	// 是否是根节点
-	private boolean islast = false;
+    // 是否是根节点
+    private boolean islast = false;
 
-	// 是否可选
-	private boolean chkDisabled = false;
+    // 是否可选
+    private boolean chkDisabled = false;
 
-	private String icon;
+    private String icon;
+    private String type;
+    private String contenttype;
+    private List children;
 
-	public boolean isIslast() {
-		return islast;
-	}
+    public boolean isIslast() {
+        return islast;
+    }
 
-	public void setIslast(boolean islast) {
-		this.islast = islast;
-	}
+    public void setIslast(boolean islast) {
+        this.islast = islast;
+    }
 
-	private String type;
-	private String contenttype;
+    public Integer getLevel() {
+        return level;
+    }
 
-	private List children;
+    public void setLevel(Integer level) {
+        this.level = level;
+    }
 
-	public Integer getLevel() {
-		return level;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public void setLevel(Integer level) {
-		this.level = level;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public String getId() {
-		return id;
-	}
+    public String getpId() {
+        return pId;
+    }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public void setpId(String pId) {
+        this.pId = pId;
+    }
 
-	public String getpId() {
-		return pId;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setpId(String pId) {
-		this.pId = pId;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getTemp() {
+        return temp;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setTemp(String temp) {
+        this.temp = temp;
+    }
 
-	public String getTemp() {
-		return temp;
-	}
+    public void setParent(boolean isParent) {
+        this.isParent = isParent;
+    }
 
-	public void setTemp(String temp) {
-		this.temp = temp;
-	}
+    public boolean isOpen() {
+        return open;
+    }
 
-	public void setParent(boolean isParent) {
-		this.isParent = isParent;
-	}
+    public void setOpen(boolean open) {
+        this.open = open;
+    }
 
-	public boolean isOpen() {
-		return open;
-	}
+    public boolean getIsParent() {
+        return isParent;
+    }
 
-	public void setOpen(boolean open) {
-		this.open = open;
-	}
+    public void setIsParent(boolean isParent) {
+        this.isParent = isParent;
+    }
 
-	public boolean getIsParent() {
-		return isParent;
-	}
+    public boolean getChecked() {
+        return checked;
+    }
 
-	public void setIsParent(boolean isParent) {
-		this.isParent = isParent;
-	}
+    public void setChecked(boolean checked) {
+        this.checked = checked;
+    }
 
-	public boolean getChecked() {
-		return checked;
-	}
+    public boolean getNocheck() {
+        return nocheck;
+    }
 
-	public void setChecked(boolean checked) {
-		this.checked = checked;
-	}
+    public void setNocheck(boolean nocheck) {
+        this.nocheck = nocheck;
+    }
 
-	public boolean getNocheck() {
-		return nocheck;
-	}
+    public List getChildren() {
+        return children;
+    }
 
-	public void setNocheck(boolean nocheck) {
-		this.nocheck = nocheck;
-	}
+    public void setChildren(List children) {
+        this.children = children;
+    }
 
-	public List getChildren() {
-		return children;
-	}
+    public String getType() {
+        return type;
+    }
 
-	public void setChildren(List children) {
-		this.children = children;
-	}
+    public void setType(String type) {
+        this.type = type;
+    }
 
-	public String getType() {
-		return type;
-	}
+    public String getContenttype() {
+        return contenttype;
+    }
 
-	public void setType(String type) {
-		this.type = type;
-	}
+    public void setContenttype(String contenttype) {
+        this.contenttype = contenttype;
+    }
 
-	public String getContenttype() {
-		return contenttype;
-	}
+    public String getCourseId() {
+        return courseId;
+    }
 
-	public void setContenttype(String contenttype) {
-		this.contenttype = contenttype;
-	}
+    public void setCourseId(String courseId) {
+        this.courseId = courseId;
+    }
 
-	public String getCourseId() {
-		return courseId;
-	}
+    public String getTargetId() {
+        return targetId;
+    }
 
-	public void setCourseId(String courseId) {
-		this.courseId = courseId;
-	}
+    public void setTargetId(String targetId) {
+        this.targetId = targetId;
+    }
 
-	public String getTargetId() {
-		return targetId;
-	}
+    public String getMoveType() {
+        return moveType;
+    }
 
-	public void setTargetId(String targetId) {
-		this.targetId = targetId;
-	}
+    public void setMoveType(String moveType) {
+        this.moveType = moveType;
+    }
 
-	public String getMoveType() {
-		return moveType;
-	}
+    public String getActName() {
+        return actName;
+    }
 
-	public void setMoveType(String moveType) {
-		this.moveType = moveType;
-	}
+    public void setActName(String actName) {
+        this.actName = actName;
+    }
 
-	public String getActName() {
-		return actName;
-	}
+    public boolean isChkDisabled() {
+        return chkDisabled;
+    }
 
-	public void setActName(String actName) {
-		this.actName = actName;
-	}
+    public void setChkDisabled(boolean chkDisabled) {
+        this.chkDisabled = chkDisabled;
+    }
 
-	public boolean isChkDisabled() {
-		return chkDisabled;
-	}
+    public Integer getCntNum() {
+        return cntNum;
+    }
 
-	public void setChkDisabled(boolean chkDisabled) {
-		this.chkDisabled = chkDisabled;
-	}
+    public void setCntNum(Integer cntNum) {
+        this.cntNum = cntNum;
+    }
 
-	public Integer getCntNum() {
-		return cntNum;
-	}
+    public String getIcon() {
+        return icon;
+    }
 
-	public void setCntNum(Integer cntNum) {
-		this.cntNum = cntNum;
-	}
-
-	public String getIcon() {
-		return icon;
-	}
-
-	public void setIcon(String icon) {
-		this.icon = icon;
-	}
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
 }

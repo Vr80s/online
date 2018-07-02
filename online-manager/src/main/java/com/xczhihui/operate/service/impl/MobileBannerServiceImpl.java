@@ -8,7 +8,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.xczhihui.anchor.dao.AnchorDao;
 import com.xczhihui.anchor.service.AnchorService;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.Course;
@@ -17,7 +16,6 @@ import com.xczhihui.bxg.online.common.domain.MobileBanner;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.course.dao.CourseDao;
 import com.xczhihui.course.enums.RouteTypeEnum;
-import com.xczhihui.course.vo.CourseVo;
 import com.xczhihui.operate.dao.MobileBannerDao;
 import com.xczhihui.operate.service.MobileBannerService;
 import com.xczhihui.operate.vo.MobileBannerVo;
@@ -91,7 +89,7 @@ public class MobileBannerServiceImpl extends OnlineBaseServiceImpl implements
     public boolean updateStatus(MobileBannerVo mobileBannerVo) {
         String sql = "SELECT count(1) FROM oe_course_mobile_banner t WHERE t.status = 1 ";
         /*
-		 * if(dao.queryForInt(sql) >= 5){ throw new
+         * if(dao.queryForInt(sql) >= 5){ throw new
 		 * RuntimeException("最多启用五个banner!"); }
 		 */
         sql = " UPDATE oe_course_mobile_banner "
@@ -112,7 +110,7 @@ public class MobileBannerServiceImpl extends OnlineBaseServiceImpl implements
 
     @Override
     public void updateSortUp(String id) {
-		/*String sqlPre = "select seq from oe_course_mobile_banner where status = 1 and id = ? ";// 先取出他自己的顺序
+        /*String sqlPre = "select seq from oe_course_mobile_banner where status = 1 and id = ? ";// 先取出他自己的顺序
 		Integer mobileBannerPreSort = dao.queryForInt(sqlPre,
 				new Object[] { id });
 

@@ -7,14 +7,14 @@ package com.xczhihui.online.api.service;
  * Create Time: 2017年8月16日<br>
  */
 public interface RechargesService {
-	
 
-	/**
-	 * Description：获取所有的充值面额
-	 * @return
-	 * @return List<Gift>
-	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
-	 **/
-	public Object getRecharges();
-	
+
+    /**
+     * Description：获取所有的充值面额
+     *
+     * @return List<Gift>
+     * @author name：yuxin <br>email: yuruixin@ixincheng.com
+     **/
+    public Object getRecharges();
+
 }

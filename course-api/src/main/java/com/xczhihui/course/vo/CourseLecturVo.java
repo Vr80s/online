@@ -199,10 +199,10 @@ public class CourseLecturVo implements Serializable {
     private Boolean isDelete; // false 没有删除  true 删除
 
     private Integer recommendSort; // 推荐值
-    
+
     private Integer dirtyNumber; //已更新多少集
-    
-    private String  dirtyDate; //更新时间
+
+    private String dirtyDate; //更新时间
 
     /**
      * 是否提交线下课报名表单
@@ -309,14 +309,14 @@ public class CourseLecturVo implements Serializable {
 
 
     public Double getCourseLength() {
-		return courseLength;
-	}
+        return courseLength;
+    }
 
-	public void setCourseLength(Double courseLength) {
-		this.courseLength = courseLength;
-	}
+    public void setCourseLength(Double courseLength) {
+        this.courseLength = courseLength;
+    }
 
-	public Integer getLearndCount() {
+    public Integer getLearndCount() {
         return learndCount;
     }
 
@@ -337,10 +337,10 @@ public class CourseLecturVo implements Serializable {
     }
 
     public void setDescription(String description) {
-    	
-    	//过滤掉课程中的连接
-    	description = XzStringUtils.formatA(description);
-    	
+
+        //过滤掉课程中的连接
+        description = XzStringUtils.formatA(description);
+
         setCourseDescription(description);
         this.description = description;
     }
@@ -411,6 +411,10 @@ public class CourseLecturVo implements Serializable {
 
     public Integer getGiftCount() {
         return giftCount;
+    }
+
+    public void setGiftCount(Integer giftCount) {
+        this.giftCount = giftCount;
     }
 
     public String getImRoomId() {
@@ -493,7 +497,6 @@ public class CourseLecturVo implements Serializable {
         this.userLecturerId = userLecturerId;
     }
 
-
     public Integer getId() {
         return id;
     }
@@ -510,18 +513,14 @@ public class CourseLecturVo implements Serializable {
         this.fansCount = fansCount;
     }
 
-    public void setGiftCount(Integer giftCount) {
-        this.giftCount = giftCount;
-    }
-
     public String getLecturerDescription() {
         return lecturerDescription;
     }
 
     public void setLecturerDescription(String lecturerDescription) {
-    	//过滤掉课程中的连接
-    	lecturerDescription = XzStringUtils.formatA(lecturerDescription);
-    	
+        //过滤掉课程中的连接
+        lecturerDescription = XzStringUtils.formatA(lecturerDescription);
+
         this.lecturerDescription = lecturerDescription;
     }
 
@@ -546,7 +545,7 @@ public class CourseLecturVo implements Serializable {
     }
 
     public void setSubtitle(String subtitle) {
-    		
+
         this.subtitle = subtitle;
     }
 
@@ -573,10 +572,10 @@ public class CourseLecturVo implements Serializable {
     }
 
     public void setCourseOutline(String courseOutline) {
-    	
-    	//过滤掉课程中的连接
-    	courseOutline = XzStringUtils.formatA(courseOutline);
-    	
+
+        //过滤掉课程中的连接
+        courseOutline = XzStringUtils.formatA(courseOutline);
+
         this.courseOutline = courseOutline;
     }
 
@@ -727,22 +726,21 @@ public class CourseLecturVo implements Serializable {
         this.submitted = submitted;
     }
 
-	public Integer getDirtyNumber() {
-		return dirtyNumber;
-	}
+    public Integer getDirtyNumber() {
+        return dirtyNumber;
+    }
 
-	public void setDirtyNumber(Integer dirtyNumber) {
-		this.dirtyNumber = dirtyNumber;
-	}
+    public void setDirtyNumber(Integer dirtyNumber) {
+        this.dirtyNumber = dirtyNumber;
+    }
 
-	public String getDirtyDate() {
-		return dirtyDate;
-	}
+    public String getDirtyDate() {
+        return dirtyDate;
+    }
 
-	public void setDirtyDate(String dirtyDate) {
-		this.dirtyDate = dirtyDate;
-	}
-    
-    
-    
+    public void setDirtyDate(String dirtyDate) {
+        this.dirtyDate = dirtyDate;
+    }
+
+
 }

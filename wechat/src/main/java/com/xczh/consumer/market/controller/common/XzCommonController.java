@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.bean.OnlineUser;
-import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.service.VersionService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.VersionCompareUtil;
@@ -84,7 +83,7 @@ public class XzCommonController {
     @RequestMapping(value = "/richTextDetails")
     @ResponseBody
     public ResponseObject richTextDetails(@RequestParam("type") Integer type,
-        @RequestParam("typeId") String typeId) throws Exception {
+                                          @RequestParam("typeId") String typeId) throws Exception {
 
         return ResponseObject.newSuccessResponseObject(courseServiceImpl.selectCourseDescription(type, typeId));
     }

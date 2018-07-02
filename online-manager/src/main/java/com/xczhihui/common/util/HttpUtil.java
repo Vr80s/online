@@ -1,6 +1,5 @@
 package com.xczhihui.common.util;
 
-import javax.net.ssl.HttpsURLConnection;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -8,11 +7,12 @@ import java.net.URLEncoder;
 import java.util.Iterator;
 import java.util.Map;
 
+import javax.net.ssl.HttpsURLConnection;
+
 /**
  * 和HTTP相关的操作
  *
  * @author
- *
  */
 public class HttpUtil {
 
@@ -87,7 +87,7 @@ public class HttpUtil {
             StringBuffer params = new StringBuffer();
             if (parameters != null) {
                 for (Iterator<String> iter = parameters.keySet().iterator(); iter
-                        .hasNext();) {
+                        .hasNext(); ) {
                     String name = iter.next();
                     String value = parameters.get(name);
                     params.append(boundary + "\r\n");
@@ -162,7 +162,7 @@ public class HttpUtil {
             InputStream in = urlConn.getInputStream();
             ByteArrayOutputStream os = new ByteArrayOutputStream();
             byte[] buf = new byte[1024];
-            for (int i = 0; (i = in.read(buf)) > 0;) {
+            for (int i = 0; (i = in.read(buf)) > 0; ) {
                 os.write(buf, 0, i);
             }
             in.close();
@@ -204,7 +204,7 @@ public class HttpUtil {
         StringBuffer params = new StringBuffer();
         if (parameters != null) {
             for (Iterator<String> iter = parameters.keySet().iterator(); iter
-                    .hasNext();) {
+                    .hasNext(); ) {
                 String name = iter.next();
                 String value = parameters.get(name);
                 if (value == null) {
@@ -242,7 +242,7 @@ public class HttpUtil {
                     conn.getInputStream());
             ByteArrayOutputStream out = new ByteArrayOutputStream();
             byte[] buf = new byte[1024];
-            for (int i = 0; (i = in.read(buf)) > 0;) {
+            for (int i = 0; (i = in.read(buf)) > 0; ) {
                 out.write(buf, 0, i);
             }
             out.flush();
@@ -342,7 +342,7 @@ public class HttpUtil {
             InputStream in = urlConn.getInputStream();
             ByteArrayOutputStream os = new ByteArrayOutputStream();
             byte[] buf = new byte[1024];
-            for (int i = 0; (i = in.read(buf)) > 0;) {
+            for (int i = 0; (i = in.read(buf)) > 0; ) {
                 os.write(buf, 0, i);
             }
             in.close();
@@ -351,18 +351,17 @@ public class HttpUtil {
             throw new RuntimeException(e.getMessage(), e);
         }
     }
+
     /**
-     *
      * Description：
-     * @param reqUrl		请求的url
+     *
+     * @param reqUrl        请求的url
      * @param parameters    要传递的参数
      * @param fileParamName 文件的参数名 ： 接收端要识别的
-     * @param filename		名字后缀名
-     * @param data			文件转换的二进制数组
-     * @return
+     * @param filename      名字后缀名
+     * @param data          文件转换的二进制数组
      * @return String
      * @author name：yangxuan <br>email: 15936216273@163.com
-     *
      */
     public static String uploadFile(String reqUrl,
                                     Map<String, String> parameters,
@@ -387,21 +386,20 @@ public class HttpUtil {
             }
         }
     }
+
     /**
-     *
      * Description：上传文件
+     *
      * @param requestUrl
      * @param requestMethod
      * @param output
-     * @return
-     * @throws IOException
      * @return StringBuffer
+     * @throws IOException
      * @author name：yangxuan <br>email: 15936216273@163.com
-     *
      */
     public static HttpsURLConnection httpsUploadFile(String requestUrl,
                                                      Map<String, String> parameters,
-                                                     String attachment,String filename,byte [] data) throws IOException {
+                                                     String attachment, String filename, byte[] data) throws IOException {
         /**
          * 类 URL 表示一个统一资源定位符，它是指向互联网“资源的指针”。资源可以是简单的文件或者目录也可以是对更为复杂的而对象的引用。
          */
@@ -429,7 +427,7 @@ public class HttpUtil {
 
             StringBuffer params = new StringBuffer();
             if (parameters != null) {
-                for (Iterator<String> iter = parameters.keySet().iterator(); iter.hasNext();) {
+                for (Iterator<String> iter = parameters.keySet().iterator(); iter.hasNext(); ) {
                     String name = iter.next();
                     String value = parameters.get(name);
                     params.append(boundary + "\r\n");
@@ -485,6 +483,7 @@ public class HttpUtil {
             }
         }
     }
+
     private static HttpsURLConnection _sendHttpsPost(String reqUrl,
                                                      String parameters) {
         HttpsURLConnection urlConn = null;
@@ -505,6 +504,7 @@ public class HttpUtil {
         }
         return urlConn;
     }
+
     private static String _getHttpsContent(HttpsURLConnection urlConn) {
         InputStream in = null;
         BufferedReader rd = null;

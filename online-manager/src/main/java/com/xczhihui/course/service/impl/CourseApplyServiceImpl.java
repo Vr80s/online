@@ -87,19 +87,20 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
             APP_COURSE_APPLY_FAIL_MESSAGE_TIPS;
     private static final String WEIXIN_COURSE_APPLY_FAIL_MESSAGE_TIPS =
             "很遗憾，您发布的<<{0}>>课程未通过系统审核, 原因：{1}。如有疑问请联系客服0898-32881934。";
-
+    @Value("${vhall.callback.url}")
+    String vhall_callback_url;
+    @Value("${vhall.private.key}")
+    String vhall_private_key;
     @Value("${sms.live.course.apply.pass.code}")
     private String liveCourseApplyPassCode;
     @Value("${sms.not.live.course.apply.pass.code}")
     private String notLiveCourseApplyPassCode;
     @Value("${sms.course.apply.not.pass.code}")
     private String courseApplyNotPassCode;
-
     @Value("${weixin.course.apply.pass.code}")
     private String weixinCourseApplyPassCode;
     @Value("${weixin.course.apply.not.pass.code}")
     private String weixinCourseApplyNotPassCode;
-
     @Autowired
     private CourseApplyDao courseApplyDao;
     @Autowired
@@ -120,13 +121,8 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
     private ICommonMessageService commonMessageService;
     @Autowired
     private CacheService cacheService;
-
     @Value("${vhall.user.id}")
     private String liveVhallUserId;
-    @Value("${vhall.callback.url}")
-    String vhall_callback_url;
-    @Value("${vhall.private.key}")
-    String vhall_private_key;
 
     @Override
     public Page<CourseApplyInfo> findCoursePage(

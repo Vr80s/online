@@ -1,12 +1,12 @@
 package com.xczhihui.course.vo;
 
-import com.alibaba.fastjson.JSONObject;
-
 import java.math.BigDecimal;
+
+import com.alibaba.fastjson.JSONObject;
 
 /**
  * <p>
- * 
+ * <p>
  * </p>
  *
  * @author yuxin
@@ -18,51 +18,51 @@ public class PayMessage {
 
     private String type;
 
-	private String userId;
+    private String userId;
 
-	private BigDecimal value;
+    private BigDecimal value;
 
-	private Integer from;
+    private Integer from;
 
-	public Integer getFrom() {
-		return from;
-	}
+    public static PayMessage getPayMessage(String payMessage) {
+        return JSONObject.parseObject(payMessage.replace("|", "\""), PayMessage.class);
+    }
 
-	public void setFrom(Integer from) {
-		this.from = from;
-	}
+    public static String getPayMessage(PayMessage payMessage) {
+        return JSONObject.toJSON(payMessage).toString().replaceAll("\"", "|");
+    }
 
-	public String getType() {
-		return type;
-	}
+    public Integer getFrom() {
+        return from;
+    }
 
-	public void setType(String type) {
-		this.type = type;
-	}
+    public void setFrom(Integer from) {
+        this.from = from;
+    }
 
-	public String getUserId() {
-		return userId;
-	}
+    public String getType() {
+        return type;
+    }
 
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
+    public void setType(String type) {
+        this.type = type;
+    }
 
-	public BigDecimal getValue() {
-		return value;
-	}
+    public String getUserId() {
+        return userId;
+    }
 
-	public void setValue(BigDecimal value) {
-		this.value = value;
-	}
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
-	public static PayMessage getPayMessage(String payMessage){
-		return JSONObject.parseObject(payMessage.replace("|", "\""),PayMessage.class);
-	}
+    public BigDecimal getValue() {
+        return value;
+    }
 
-	public static String getPayMessage(PayMessage payMessage){
-		return JSONObject.toJSON(payMessage).toString().replaceAll("\"", "|");
-	}
+    public void setValue(BigDecimal value) {
+        this.value = value;
+    }
 
 
 }

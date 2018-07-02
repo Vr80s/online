@@ -228,16 +228,16 @@ public class MedicalEnrollmentRegulations extends Model<MedicalEnrollmentRegulat
         return tuition;
     }
 
+    public void setTuition(String tuition) {
+        this.tuition = tuition;
+    }
+
     public String getContactWay() {
         return contactWay;
     }
 
     public void setContactWay(String contactWay) {
         this.contactWay = contactWay;
-    }
-
-    public void setTuition(String tuition) {
-        this.tuition = tuition;
     }
 
     public String getCountLimit() {

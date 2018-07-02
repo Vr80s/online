@@ -1,14 +1,13 @@
 package com.xczhihui.course.model;
 
 import java.io.Serializable;
-
 import java.util.Date;
 
 import com.baomidou.mybatisplus.activerecord.Model;
 
 /**
  * <p>
- * 
+ * <p>
  * </p>
  *
  * @author yuxin
@@ -21,155 +20,155 @@ public class Reply extends Model<Reply> {
     /**
      * 评论回复表
      */
-	private String id;
-	private Boolean isDelete;
-	private String createPerson;
-	private Date createTime;
-	private Integer sort;
-	private Integer status;
+    private String id;
+    private Boolean isDelete;
+    private String createPerson;
+    private Date createTime;
+    private Integer sort;
+    private Integer status;
     /**
      * 回复内容
      */
-	private String replyContent;
+    private String replyContent;
     /**
      * 回复人id
      */
-	private String replyUser;
+    private String replyUser;
     /**
      * 评论id
      */
-	private String criticizeId;
+    private String criticizeId;
 
-	private OnlineUser onlineUser;
-	private String name;
-	private String loginName;
-	
+    private OnlineUser onlineUser;
+    private String name;
+    private String loginName;
 
-	public String getLoginName() {
-		return loginName;
-	}
 
-	public void setLoginName(String loginName) {
-		if(this.onlineUser==null){
-			this.onlineUser = new OnlineUser();
-		}
-		this.onlineUser.setId(this.getReplyUser());
-		this.onlineUser.setLoginName(loginName);
-		this.loginName = loginName;
-	}
-	
-	
-	public OnlineUser getOnlineUser() {
-		return onlineUser;
-	}
+    public String getLoginName() {
+        return loginName;
+    }
 
-	public void setOnlineUser(OnlineUser onlineUser) {
-		this.onlineUser = onlineUser;
-	}
+    public void setLoginName(String loginName) {
+        if (this.onlineUser == null) {
+            this.onlineUser = new OnlineUser();
+        }
+        this.onlineUser.setId(this.getReplyUser());
+        this.onlineUser.setLoginName(loginName);
+        this.loginName = loginName;
+    }
 
-	public String getName() {
-		return name;
-	}
 
-	public void setName(String name) {
-		this.onlineUser = new OnlineUser();
-		onlineUser.setName(name);
-		this.name = name;
-	}
+    public OnlineUser getOnlineUser() {
+        return onlineUser;
+    }
 
-	public String getId() {
-		return id;
-	}
+    public void setOnlineUser(OnlineUser onlineUser) {
+        this.onlineUser = onlineUser;
+    }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public Boolean getDelete() {
-		return isDelete;
-	}
+    public void setName(String name) {
+        this.onlineUser = new OnlineUser();
+        onlineUser.setName(name);
+        this.name = name;
+    }
 
-	public void setDelete(Boolean isDelete) {
-		this.isDelete = isDelete;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public String getCreatePerson() {
-		return createPerson;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public void setCreatePerson(String createPerson) {
-		this.createPerson = createPerson;
-	}
+    public Boolean getDelete() {
+        return isDelete;
+    }
 
-	public Date getCreateTime() {
-		return createTime;
-	}
+    public void setDelete(Boolean isDelete) {
+        this.isDelete = isDelete;
+    }
 
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
+    public String getCreatePerson() {
+        return createPerson;
+    }
 
-	public Integer getSort() {
-		return sort;
-	}
+    public void setCreatePerson(String createPerson) {
+        this.createPerson = createPerson;
+    }
 
-	public void setSort(Integer sort) {
-		this.sort = sort;
-	}
+    public Date getCreateTime() {
+        return createTime;
+    }
 
-	public Integer getStatus() {
-		return status;
-	}
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
 
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
+    public Integer getSort() {
+        return sort;
+    }
 
-	public String getReplyContent() {
-		return replyContent;
-	}
+    public void setSort(Integer sort) {
+        this.sort = sort;
+    }
 
-	public void setReplyContent(String replyContent) {
-		this.replyContent = replyContent;
-	}
+    public Integer getStatus() {
+        return status;
+    }
 
-	public String getReplyUser() {
-		return replyUser;
-	}
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
 
-	public void setReplyUser(String replyUser) {
-		if(this.onlineUser==null){
-			this.onlineUser = new OnlineUser();
-		}
-		this.onlineUser.setId(replyUser);
-		this.replyUser = replyUser;
-	}
+    public String getReplyContent() {
+        return replyContent;
+    }
 
-	public String getCriticizeId() {
-		return criticizeId;
-	}
+    public void setReplyContent(String replyContent) {
+        this.replyContent = replyContent;
+    }
 
-	public void setCriticizeId(String criticizeId) {
-		this.criticizeId = criticizeId;
-	}
+    public String getReplyUser() {
+        return replyUser;
+    }
 
-	@Override
-	protected Serializable pkVal() {
-		return this.id;
-	}
+    public void setReplyUser(String replyUser) {
+        if (this.onlineUser == null) {
+            this.onlineUser = new OnlineUser();
+        }
+        this.onlineUser.setId(replyUser);
+        this.replyUser = replyUser;
+    }
 
-	@Override
-	public String toString() {
-		return "OeReply{" +
-			", id=" + id +
-			", isDelete=" + isDelete +
-			", createPerson=" + createPerson +
-			", createTime=" + createTime +
-			", sort=" + sort +
-			", status=" + status +
-			", replyContent=" + replyContent +
-			", replyUser=" + replyUser +
-			", criticizeId=" + criticizeId +
-			"}";
-	}
+    public String getCriticizeId() {
+        return criticizeId;
+    }
+
+    public void setCriticizeId(String criticizeId) {
+        this.criticizeId = criticizeId;
+    }
+
+    @Override
+    protected Serializable pkVal() {
+        return this.id;
+    }
+
+    @Override
+    public String toString() {
+        return "OeReply{" +
+                ", id=" + id +
+                ", isDelete=" + isDelete +
+                ", createPerson=" + createPerson +
+                ", createTime=" + createTime +
+                ", sort=" + sort +
+                ", status=" + status +
+                ", replyContent=" + replyContent +
+                ", replyUser=" + replyUser +
+                ", criticizeId=" + criticizeId +
+                "}";
+    }
 }

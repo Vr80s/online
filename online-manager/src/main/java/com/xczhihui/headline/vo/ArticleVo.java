@@ -99,6 +99,10 @@ public class ArticleVo extends OnlineBaseVo {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date recommendTime;
 
+    public static long getSerialversionuid() {
+        return serialVersionUID;
+    }
+
     public String getReportDoctor() {
         return reportDoctor;
     }
@@ -267,10 +271,6 @@ public class ArticleVo extends OnlineBaseVo {
 
     public void setTagName(String tagName) {
         this.tagName = tagName;
-    }
-
-    public static long getSerialversionuid() {
-        return serialVersionUID;
     }
 
     public String getAuthor() {

@@ -52,11 +52,7 @@ import com.xczhihui.pay.ext.kit.HttpKit;
 import com.xczhihui.pay.ext.kit.IpKit;
 import com.xczhihui.pay.ext.kit.PaymentKit;
 import com.xczhihui.pay.util.MatrixToImageWriter;
-import com.xczhihui.pay.weixin.api.H5ScencInfo;
-import com.xczhihui.pay.weixin.api.WxPayApi;
-import com.xczhihui.pay.weixin.api.WxPayApiConfig;
-import com.xczhihui.pay.weixin.api.WxPayApiConfigKit;
-import com.xczhihui.pay.weixin.api.WxPayBean;
+import com.xczhihui.pay.weixin.api.*;
 
 
 /**
@@ -67,17 +63,15 @@ import com.xczhihui.pay.weixin.api.WxPayBean;
 @Controller
 @RequestMapping("/xczh/pay")
 public class XzWxPayController {
+    @Autowired
+    WxPayBean wxPayBean;
     private Logger log = LoggerFactory.getLogger(this.getClass());
-
     @Autowired
     private IOrderService orderService;
     @Autowired
     private WxcpClientUserWxMappingService wxcpClientUserWxMappingService;
     @Autowired
     private PayService payService;
-    @Autowired
-    WxPayBean wxPayBean;
-
     @Value("${rate}")
     private int rate;
     @Value("${minimum_amount}")
@@ -108,7 +102,7 @@ public class XzWxPayController {
 
     /**
      * Description：微信支付-购课
-     *  orderFrom 3:微信 4：h5 5 app
+     * orderFrom 3:微信 4：h5 5 app
      * creed: Talk is cheap,show me the code
      *
      * @author name：yuxin <br>email: yuruixin@ixincheng.com
@@ -133,7 +127,7 @@ public class XzWxPayController {
             appPay = true;
             //app端目前仅安卓端调用
             payMessage.setFrom(OrderFrom.ANDROID.getCode());
-        }else{
+        } else {
             payMessage.setFrom(OrderFrom.H5.getCode());
         }
         WxPayApiConfigKit.setThreadLocalWxPayApiConfig(getApiConfig(appPay));
@@ -152,7 +146,7 @@ public class XzWxPayController {
         }
 
         String xmlResult = WxPayApi.pushOrder(false, payParams);
-        log.warn("xmlResult:{}",xmlResult);
+        log.warn("xmlResult:{}", xmlResult);
         Map<String, String> result = PaymentKit.xmlToMap(xmlResult);
 
         String return_code = result.get("return_code");
@@ -201,18 +195,18 @@ public class XzWxPayController {
                 param.put("signType", "MD5");
                 param.put("paySign", PaymentKit.createSign(param, WxPayApiConfigKit.getWxPayApiConfig().getPaternerKey()));
                 return ResponseObject.newSuccessResponseObject(param);
-            }else if(orderFromI == 6) {
-            	Map<String, String> param = new HashMap<>();
-            	
-            	String qrCodeUrl = result.get("code_url");
-            	
-            	param.put("codeimg", encodeQrcode(qrCodeUrl));
-            	param.put("orderNo", order.getOrderNo());
-            	param.put("courseName", order.getCourseNames());
-            	param.put("price", actualPay+"");
-            	param.put("orderId", order.getId());
-            	
-            	return ResponseObject.newSuccessResponseObject(param);
+            } else if (orderFromI == 6) {
+                Map<String, String> param = new HashMap<>();
+
+                String qrCodeUrl = result.get("code_url");
+
+                param.put("codeimg", encodeQrcode(qrCodeUrl));
+                param.put("orderNo", order.getOrderNo());
+                param.put("courseName", order.getCourseNames());
+                param.put("price", actualPay + "");
+                param.put("orderId", order.getId());
+
+                return ResponseObject.newSuccessResponseObject(param);
             }
             return ResponseObject.newSuccessResponseObject(result);
         }
@@ -248,7 +242,7 @@ public class XzWxPayController {
             appPay = true;
             //app端目前仅安卓端调用
             payMessage.setFrom(OrderFrom.ANDROID.getCode());
-        }else{
+        } else {
             payMessage.setFrom(OrderFrom.H5.getCode());
         }
         WxPayApiConfig apiConfig = getApiConfig(appPay);
@@ -273,7 +267,7 @@ public class XzWxPayController {
         }
 
         String xmlResult = WxPayApi.pushOrder(false, payParams);
-        log.warn("xmlResult:{}",xmlResult);
+        log.warn("xmlResult:{}", xmlResult);
         Map<String, String> result = PaymentKit.xmlToMap(xmlResult);
 
         String return_code = result.get("return_code");
@@ -330,10 +324,7 @@ public class XzWxPayController {
         return ResponseObject.newErrorResponseObject("请求错误");
     }
 
-    
-    
-    
-    
+
     @RequestMapping(value = "pay_notify")
     @ResponseBody
     public String wxNotify(HttpServletRequest req, HttpServletResponse res)
@@ -360,9 +351,9 @@ public class XzWxPayController {
             if (("SUCCESS").equals(resultCode)) {
                 StringBuilder sb = new StringBuilder();
                 for (Map.Entry<String, String> entry : params.entrySet()) {
-                    sb.append(entry.getKey() + " = " + entry.getValue()+";");
+                    sb.append(entry.getKey() + " = " + entry.getValue() + ";");
                 }
-                log.warn("wechat服务微信支付回调:{}",sb.toString());
+                log.warn("wechat服务微信支付回调:{}", sb.toString());
                 payService.wxPayBusiness(params);
                 //发送通知等
                 Map<String, String> xml = new HashMap<String, String>();
@@ -404,7 +395,7 @@ public class XzWxPayController {
             Map<String, String> params = wxPayApiConfig.setTradeType(WxPayApi.TradeType.APP).build();
             return params;
         } else if (orderFromI == 6) {
-        	Map<String, String> params = wxPayApiConfig.setTradeType(WxPayApi.TradeType.NATIVE).build();
+            Map<String, String> params = wxPayApiConfig.setTradeType(WxPayApi.TradeType.NATIVE).build();
             return params;
         }
         return null;
@@ -419,7 +410,7 @@ public class XzWxPayController {
         }
         return null;
     }
-    
+
     private String encodeQrcode(String urlCode) throws WriterException {
         int width = 300; // 二维码图片宽度
         int height = 300; // 二维码图片高度
@@ -450,5 +441,5 @@ public class XzWxPayController {
         }
         return "";
     }
-    
+
 }

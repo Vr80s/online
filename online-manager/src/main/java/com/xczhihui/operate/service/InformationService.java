@@ -8,21 +8,21 @@ import com.xczhihui.operate.vo.TypeVo;
 
 public interface InformationService {
 
-	public Page<InformationVo> findInformationPage(InformationVo informationVo,
-			Integer pageNumber, Integer pageSize);
+    public Page<InformationVo> findInformationPage(InformationVo informationVo,
+                                                   Integer pageNumber, Integer pageSize);
 
-	public void addInfo(InformationVo info) throws IllegalAccessException,
-			InvocationTargetException;
+    public void addInfo(InformationVo info) throws IllegalAccessException,
+            InvocationTargetException;
 
-	public void deletes(String[] _ids);
+    public void deletes(String[] _ids);
 
-	public String updateStatus(Integer id);
+    public String updateStatus(Integer id);
 
-	public void updateSortUp(Integer id);
+    public void updateSortUp(Integer id);
 
-	public void updateSortDown(Integer id);
+    public void updateSortDown(Integer id);
 
-	public void updateInfo(InformationVo info);
+    public void updateInfo(InformationVo info);
 
-	public void updateTypes(TypeVo vo);
+    public void updateTypes(TypeVo vo);
 }

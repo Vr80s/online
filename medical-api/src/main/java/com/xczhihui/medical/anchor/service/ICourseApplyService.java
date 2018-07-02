@@ -1,5 +1,7 @@
 package com.xczhihui.medical.anchor.service;
 
+import java.util.List;
+
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
 import com.xczhihui.medical.anchor.model.CourseApplyInfo;
@@ -7,11 +9,9 @@ import com.xczhihui.medical.anchor.model.CourseApplyResource;
 import com.xczhihui.medical.anchor.vo.CourseApplyInfoVO;
 import com.xczhihui.medical.anchor.vo.CourseApplyResourceVO;
 
-import java.util.List;
-
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author yuxin
@@ -28,6 +28,7 @@ public interface ICourseApplyService extends IService<CourseApplyInfo> {
     /**
      * Description：保存课程申请
      * creed: Talk is cheap,show me the code
+     *
      * @author name：yuxin <br>email: yuruixin@ixincheng.com
      * @Date: 下午 10:27 2018/2/1 0001
      **/
@@ -38,16 +39,18 @@ public interface ICourseApplyService extends IService<CourseApplyInfo> {
     /**
      * Description：保存合辑课程申请
      * creed: Talk is cheap,show me the code
+     *
      * @author name：yuxin <br>email: yuruixin@ixincheng.com
      * @Date: 下午 10:27 2018/2/1 0001
      **/
     void saveCollectionApply(CourseApplyInfo courseApplyInfo);
 
-    void saveCollectionApply4Lock(String lockKey,CourseApplyInfo courseApplyInfo);
+    void saveCollectionApply4Lock(String lockKey, CourseApplyInfo courseApplyInfo);
 
     /**
      * Description：获取所有资源
      * creed: Talk is cheap,show me the code
+     *
      * @author name：yuxin <br>email: yuruixin@ixincheng.com
      * @Date: 下午 10:26 2018/2/1 0001
      **/
@@ -58,16 +61,18 @@ public interface ICourseApplyService extends IService<CourseApplyInfo> {
     /**
      * Description：保存资源
      * creed: Talk is cheap,show me the code
+     *
      * @author name：yuxin <br>email: yuruixin@ixincheng.com
      * @Date: 下午 10:26 2018/2/1 0001
      **/
     void saveCourseApplyResource(CourseApplyResource courseApplyResource);
 
-    void saveCourseApplyResource4Lock(String lockKey,CourseApplyResource courseApplyResource);
+    void saveCourseApplyResource4Lock(String lockKey, CourseApplyResource courseApplyResource);
 
     /**
      * Description：获取资源播放代码
      * creed: Talk is cheap,show me the code
+     *
      * @author name：yuxin <br>email: yuruixin@ixincheng.com
      * @Date: 下午 10:26 2018/2/1 0001
      **/
@@ -76,6 +81,7 @@ public interface ICourseApplyService extends IService<CourseApplyInfo> {
     /**
      * Description：上/下架
      * creed: Talk is cheap,show me the code
+     *
      * @author name：yuxin <br>email: yuruixin@ixincheng.com
      * @Date: 下午 10:25 2018/2/1 0001
      **/
@@ -84,6 +90,7 @@ public interface ICourseApplyService extends IService<CourseApplyInfo> {
     /**
      * Description：定时更新课程时间
      * creed: Talk is cheap,show me the code
+     *
      * @author name：yuxin <br>email: yuruixin@ixincheng.com
      * @Date: 下午 2:19 2018/2/2 0002
      **/

@@ -1,11 +1,11 @@
 package com.xczhihui.pay.util;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringReader;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilder;
@@ -15,12 +15,13 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringReader;
-import java.util.HashMap;
-import java.util.Map;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 /**
  * xpath解析xml
@@ -70,6 +71,14 @@ public class XmlHelper {
         return xmlHelper;
     }
 
+    private static DocumentBuilderFactory getDocumentBuilderFactory() {
+        return XmlHelper.XmlHelperHolder.documentBuilderFactory;
+    }
+
+    private static XPathFactory getXPathFactory() {
+        return XmlHelper.XmlHelperHolder.xPathFactory;
+    }
+
     private Object evalXPath(String expression, Object item, QName returnType) {
         item = null == item ? doc : item;
         try {
@@ -81,6 +90,7 @@ public class XmlHelper {
 
     /**
      * 获取String
+     *
      * @param expression 路径
      * @return String
      */
@@ -90,6 +100,7 @@ public class XmlHelper {
 
     /**
      * 获取Boolean
+     *
      * @param expression 路径
      * @return String
      */
@@ -99,6 +110,7 @@ public class XmlHelper {
 
     /**
      * 获取Number
+     *
      * @param expression 路径
      * @return {Number}
      */
@@ -108,6 +120,7 @@ public class XmlHelper {
 
     /**
      * 获取某个节点
+     *
      * @param expression 路径
      * @return {Node}
      */
@@ -117,6 +130,7 @@ public class XmlHelper {
 
     /**
      * 获取子节点
+     *
      * @param expression 路径
      * @return NodeList
      */
@@ -124,10 +138,10 @@ public class XmlHelper {
         return (NodeList) evalXPath(expression, null, XPathConstants.NODESET);
     }
 
-
     /**
      * 获取String
-     * @param node 节点
+     *
+     * @param node       节点
      * @param expression 相对于node的路径
      * @return String
      */
@@ -137,7 +151,8 @@ public class XmlHelper {
 
     /**
      * 获取
-     * @param node 节点
+     *
+     * @param node       节点
      * @param expression 相对于node的路径
      * @return String
      */
@@ -147,7 +162,8 @@ public class XmlHelper {
 
     /**
      * 获取
-     * @param node 节点
+     *
+     * @param node       节点
      * @param expression 相对于node的路径
      * @return {Number}
      */
@@ -157,7 +173,8 @@ public class XmlHelper {
 
     /**
      * 获取某个节点
-     * @param node 节点
+     *
+     * @param node       节点
      * @param expression 路径
      * @return {Node}
      */
@@ -167,7 +184,8 @@ public class XmlHelper {
 
     /**
      * 获取子节点
-     * @param node 节点
+     *
+     * @param node       节点
      * @param expression 相对于node的路径
      * @return NodeList
      */
@@ -177,6 +195,7 @@ public class XmlHelper {
 
     /**
      * 针对没有嵌套节点的简单处理
+     *
      * @return map集合
      */
     public Map<String, String> toMap() {
@@ -192,14 +211,6 @@ public class XmlHelper {
         // 含有空白符会生成一个#text参数
         params.remove("#text");
         return params;
-    }
-
-    private static DocumentBuilderFactory getDocumentBuilderFactory(){
-        return XmlHelper.XmlHelperHolder.documentBuilderFactory;
-    }
-
-    private static XPathFactory getXPathFactory() {
-        return  XmlHelper.XmlHelperHolder.xPathFactory;
     }
 
     /**

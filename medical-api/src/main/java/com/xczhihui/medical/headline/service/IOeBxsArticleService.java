@@ -1,14 +1,15 @@
 package com.xczhihui.medical.headline.service;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
 import com.xczhihui.medical.headline.model.OeBxsAppraise;
 import com.xczhihui.medical.headline.model.OeBxsArticle;
-import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author yuxin

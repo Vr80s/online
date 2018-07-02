@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.baomidou.mybatisplus.plugins.Page;
@@ -48,7 +47,6 @@ public class MyInfoController {
 
     @Autowired
     private OnlineUserService onlineUserService;
-
 
 
     @Value("${gift.im.room.postfix}")
@@ -124,7 +122,7 @@ public class MyInfoController {
     @RequestMapping("updateFocus")
     public ResponseObject updateFocus(HttpServletRequest req,
                                       @RequestParam("lecturerId") String lecturerId,
-                                      @RequestParam("type") Integer type, 
+                                      @RequestParam("type") Integer type,
                                       @Account String accountId)
             throws Exception {
         OnlineUser onlineLecturer = onlineUserService.findUserById(lecturerId);
@@ -132,9 +130,9 @@ public class MyInfoController {
             return ResponseObject.newErrorResponseObject("操作失败");
         }
         String lockId = lecturerId + accountId;
-        ifocusService.updateFocus(lockId, 
-        		lecturerId,accountId, type);
-       
+        ifocusService.updateFocus(lockId,
+                lecturerId, accountId, type);
+
         return ResponseObject.newSuccessResponseObject("操作成功");
     }
 
@@ -165,7 +163,7 @@ public class MyInfoController {
     }
 
     @RequestMapping("showWallet")
-    public ResponseObject showWallet(String iversion){
+    public ResponseObject showWallet(String iversion) {
         return ResponseObject.newSuccessResponseObject(!version.equals(iversion));
     }
 

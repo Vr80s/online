@@ -1,391 +1,389 @@
 package com.xczhihui.medical.doctor.vo;
 
+import java.io.Serializable;
+import java.util.List;
+
 import com.baomidou.mybatisplus.toolkit.StringUtils;
 import com.xczhihui.medical.department.model.MedicalDepartment;
 import com.xczhihui.medical.field.vo.MedicalFieldVO;
 import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
 
-import java.io.Serializable;
-import java.util.List;
-
 /**
  * <p>
- * 
+ * <p>
  * </p>
  *
  * @author yuxin
  * @since 2017-12-09
  */
-public class MedicalDoctorVO implements Serializable{
+public class MedicalDoctorVO implements Serializable {
 
     /**
      * 医师表
      */
-	private String id;
+    private String id;
 
-	/**
+    /**
      * 姓名
      */
-	private String name;
+    private String name;
 
-	/**
+    /**
      * 职称
      */
-	private String title;
+    private String title;
 
-	/**
+    /**
      * 医师简介
      */
-	private String description;
+    private String description;
 
-	/**
+    /**
      * 联系电话
      */
-	private String tel;
+    private String tel;
 
-	/**
+    /**
      * 用户表id
      */
-	private String userId;
+    private String userId;
 
-	/**
+    /**
      * 医师类别：1.名青年中医2.名老中医3.少数民族中医4.国医大师5.古中医
      */
-	private String type;
+    private String type;
 
-	/**
+    /**
      * 省
      */
-	private String province;
+    private String province;
 
-	/**
+    /**
      * 市
      */
-	private String city;
+    private String city;
 
-	/**
+    /**
      * 详细地址
      */
-	private String detailedAddress;
+    private String detailedAddress;
 
-	/**
+    /**
      * 坐诊时间
      */
-	private String workTime;
+    private String workTime;
 
-	/**
+    /**
      * 认证信息id
      */
-	private String authenticationInformationId;
+    private String authenticationInformationId;
 
-	/**
-	 * 头像
-	 */
-	private String headPortrait;
+    /**
+     * 头像
+     */
+    private String headPortrait;
 
-	/**
-	 * 医馆id
-	 */
-	private String hospitalId;
+    /**
+     * 医馆id
+     */
+    private String hospitalId;
 
-	/**
-	 * 医馆名
-	 */
-	private String hospitalName;
+    /**
+     * 医馆名
+     */
+    private String hospitalName;
 
-	/**
-	 * 签名
-	 */
-	private String signature;
+    /**
+     * 签名
+     */
+    private String signature;
 
-	/**
-	 * 领域
-	 */
-	private List<MedicalFieldVO> fields;
+    /**
+     * 领域
+     */
+    private List<MedicalFieldVO> fields;
 
-	private MedicalHospitalVo medicalHospital;
+    private MedicalHospitalVo medicalHospital;
 
-	/**
-	 * 擅长
-	 */
-	private String fieldText;
+    /**
+     * 擅长
+     */
+    private String fieldText;
 
-	private String departmentText;
-	
-	/**
-	 * 认证信息
-	 */
-	private MedicalDoctorAuthenticationInformationVO medicalDoctorAuthenticationInformation;
+    private String departmentText;
 
-	/**
-	 * 科室
-	 */
-	private List<MedicalDepartment> departments;
+    /**
+     * 认证信息
+     */
+    private MedicalDoctorAuthenticationInformationVO medicalDoctorAuthenticationInformation;
 
-	/**
-	 * 身份证号
-	 */
-	private String cardNum;
-	
-	
-	/*
-	 * 课程名字和课程id拼接得到的
-	 *    gradeName +  "concatGradeNameId"  +id
-	 *    方法映射出来的时候就把其进行分解
-	 */
-	private String concatGradeNameId;
-	
-	private String gradeName;
-	private String courseId;
-	
-	private String hospitalAddress;
+    /**
+     * 科室
+     */
+    private List<MedicalDepartment> departments;
 
-	public String getDepartmentText() {
-		return departmentText;
-	}
+    /**
+     * 身份证号
+     */
+    private String cardNum;
 
-	public void setDepartmentText(String departmentText) {
-		this.departmentText = departmentText;
-	}
 
-	public String getCardNum() {
-		return cardNum;
-	}
+    /*
+     * 课程名字和课程id拼接得到的
+     *    gradeName +  "concatGradeNameId"  +id
+     *    方法映射出来的时候就把其进行分解
+     */
+    private String concatGradeNameId;
 
-	public void setCardNum(String cardNum) {
-		this.cardNum = cardNum;
-	}
+    private String gradeName;
+    private String courseId;
 
-	public List<MedicalDepartment> getDepartments() {
-		return departments;
-	}
+    private String hospitalAddress;
 
-	public void setDepartments(List<MedicalDepartment> departments) {
-		this.departments = departments;
-	}
+    public String getDepartmentText() {
+        return departmentText;
+    }
 
-	public String getSignature() {
-		return signature;
-	}
+    public void setDepartmentText(String departmentText) {
+        this.departmentText = departmentText;
+    }
 
-	public void setSignature(String signature) {
-		this.signature = signature;
-	}
+    public String getCardNum() {
+        return cardNum;
+    }
 
-	public String getId() {
-		return id;
-	}
+    public void setCardNum(String cardNum) {
+        this.cardNum = cardNum;
+    }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public List<MedicalDepartment> getDepartments() {
+        return departments;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setDepartments(List<MedicalDepartment> departments) {
+        this.departments = departments;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getSignature() {
+        return signature;
+    }
 
-	public String getTitle() {
-		return title;
-	}
+    public void setSignature(String signature) {
+        this.signature = signature;
+    }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public String getTel() {
-		return tel;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setTel(String tel) {
-		this.tel = tel;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public String getUserId() {
-		return userId;
-	}
+    public String getTitle() {
+        return title;
+    }
 
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-	public String getType() {
-		return type;
-	}
+    public String getTel() {
+        return tel;
+    }
 
-	public void setType(String type) {
-		this.type = type;
-	}
+    public void setTel(String tel) {
+        this.tel = tel;
+    }
 
-	public String getProvince() {
-		return province;
-	}
+    public String getUserId() {
+        return userId;
+    }
 
-	public void setProvince(String province) {
-		this.province = province;
-	}
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
-	public String getCity() {
-		return city;
-	}
+    public String getType() {
+        return type;
+    }
 
-	public void setCity(String city) {
-		this.city = city;
-	}
+    public void setType(String type) {
+        this.type = type;
+    }
 
-	public String getDetailedAddress() {
-		return detailedAddress;
-	}
+    public String getProvince() {
+        return province;
+    }
 
-	public void setDetailedAddress(String detailedAddress) {
-		this.detailedAddress = detailedAddress;
-	}
+    public void setProvince(String province) {
+        this.province = province;
+    }
 
-	public String getWorkTime() {
-		return workTime;
-	}
+    public String getCity() {
+        return city;
+    }
 
-	public void setWorkTime(String workTime) {
-		this.workTime = workTime;
-	}
+    public void setCity(String city) {
+        this.city = city;
+    }
 
-	public String getAuthenticationInformationId() {
-		return authenticationInformationId;
-	}
+    public String getDetailedAddress() {
+        return detailedAddress;
+    }
 
-	public void setAuthenticationInformationId(String authenticationInformationId) {
-		this.authenticationInformationId = authenticationInformationId;
-	}
+    public void setDetailedAddress(String detailedAddress) {
+        this.detailedAddress = detailedAddress;
+    }
 
-	public String getHeadPortrait() {
-		return headPortrait;
-	}
+    public String getWorkTime() {
+        return workTime;
+    }
 
-	public void setHeadPortrait(String headPortrait) {
-		this.headPortrait = headPortrait;
-	}
+    public void setWorkTime(String workTime) {
+        this.workTime = workTime;
+    }
 
-	public String getHospitalId() {
-		return hospitalId;
-	}
+    public String getAuthenticationInformationId() {
+        return authenticationInformationId;
+    }
 
-	public void setHospitalId(String hospitalId) {
-		this.hospitalId = hospitalId;
-	}
+    public void setAuthenticationInformationId(String authenticationInformationId) {
+        this.authenticationInformationId = authenticationInformationId;
+    }
 
-	public String getHospitalName() {
-		return hospitalName;
-	}
+    public String getHeadPortrait() {
+        return headPortrait;
+    }
 
-	public void setHospitalName(String hospitalName) {
-		this.hospitalName = hospitalName;
-	}
+    public void setHeadPortrait(String headPortrait) {
+        this.headPortrait = headPortrait;
+    }
 
-	public List<MedicalFieldVO> getFields() {
-		return fields;
-	}
+    public String getHospitalId() {
+        return hospitalId;
+    }
 
-	public void setFields(List<MedicalFieldVO> fields) {
-		this.fields = fields;
-	}
+    public void setHospitalId(String hospitalId) {
+        this.hospitalId = hospitalId;
+    }
 
-	public MedicalHospitalVo getMedicalHospital() {
-		return medicalHospital;
-	}
+    public String getHospitalName() {
+        return hospitalName;
+    }
 
-	public void setMedicalHospital(MedicalHospitalVo medicalHospitalVo) {
-		this.medicalHospital = medicalHospitalVo;
-	}
+    public void setHospitalName(String hospitalName) {
+        this.hospitalName = hospitalName;
+    }
 
-	public MedicalDoctorAuthenticationInformationVO getMedicalDoctorAuthenticationInformation() {
-		return medicalDoctorAuthenticationInformation;
-	}
+    public List<MedicalFieldVO> getFields() {
+        return fields;
+    }
 
-	public void setMedicalDoctorAuthenticationInformation(MedicalDoctorAuthenticationInformationVO medicalDoctorAuthenticationInformation) {
-		this.medicalDoctorAuthenticationInformation = medicalDoctorAuthenticationInformation;
-	}
+    public void setFields(List<MedicalFieldVO> fields) {
+        this.fields = fields;
+    }
 
-	public String getFieldText() {
-		return fieldText;
-	}
+    public MedicalHospitalVo getMedicalHospital() {
+        return medicalHospital;
+    }
 
-	public void setFieldText(String fieldText) {
-		this.fieldText = fieldText;
-	}
+    public void setMedicalHospital(MedicalHospitalVo medicalHospitalVo) {
+        this.medicalHospital = medicalHospitalVo;
+    }
 
-	public String getDescription() {
-		if(description == null) {
+    public MedicalDoctorAuthenticationInformationVO getMedicalDoctorAuthenticationInformation() {
+        return medicalDoctorAuthenticationInformation;
+    }
+
+    public void setMedicalDoctorAuthenticationInformation(MedicalDoctorAuthenticationInformationVO medicalDoctorAuthenticationInformation) {
+        this.medicalDoctorAuthenticationInformation = medicalDoctorAuthenticationInformation;
+    }
+
+    public String getFieldText() {
+        return fieldText;
+    }
+
+    public void setFieldText(String fieldText) {
+        this.fieldText = fieldText;
+    }
+
+    public String getDescription() {
+        if (description == null) {
             return null;
         }
-		description = description.replace("\n\n","<br/>");
-		description = description.replace("\n","<br/>");
-		return description;
-	}
-	
+        description = description.replace("\n\n", "<br/>");
+        description = description.replace("\n", "<br/>");
+        return description;
+    }
 
-	public String getConcatGradeNameId() {
-		return concatGradeNameId;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public void setConcatGradeNameId(String concatGradeNameId) {
-		if(StringUtils.isNotEmpty(concatGradeNameId)) {
-			String [] array = concatGradeNameId.split("concatGradeNameId");
-			if(array!=null && array.length == 2) {
-				this.setCourseId(array[0]);
-				this.setGradeName(array[1]);
-			}
-		}
-		this.concatGradeNameId = concatGradeNameId;
-	}
+    public String getConcatGradeNameId() {
+        return concatGradeNameId;
+    }
 
-	
-	
-	public String getGradeName() {
-		return gradeName;
-	}
+    public void setConcatGradeNameId(String concatGradeNameId) {
+        if (StringUtils.isNotEmpty(concatGradeNameId)) {
+            String[] array = concatGradeNameId.split("concatGradeNameId");
+            if (array != null && array.length == 2) {
+                this.setCourseId(array[0]);
+                this.setGradeName(array[1]);
+            }
+        }
+        this.concatGradeNameId = concatGradeNameId;
+    }
 
-	public void setGradeName(String gradeName) {
-		this.gradeName = gradeName;
-	}
 
-	public String getCourseId() {
-		return courseId;
-	}
+    public String getGradeName() {
+        return gradeName;
+    }
 
-	public void setCourseId(String courseId) {
-		this.courseId = courseId;
-	}
+    public void setGradeName(String gradeName) {
+        this.gradeName = gradeName;
+    }
 
-	
-	public String getHospitalAddress() {
-		return hospitalAddress;
-	}
+    public String getCourseId() {
+        return courseId;
+    }
 
-	public void setHospitalAddress(String hospitalAddress) {
-		this.hospitalAddress = hospitalAddress;
-	}
+    public void setCourseId(String courseId) {
+        this.courseId = courseId;
+    }
 
-	@Override
-	public String toString() {
-		return "MedicalDoctorVo{" +
-			", id=" + id +
-			", name=" + name +
-			", title=" + title +
-			", description=" + description +
-			", tel=" + tel +
-			", userId=" + userId +
-			", type=" + type +
-			", province=" + province +
-			", city=" + city +
-			", detailedAddress=" + detailedAddress +
-			", authenticationInformationId=" + authenticationInformationId +
-			"}";
-	}
+
+    public String getHospitalAddress() {
+        return hospitalAddress;
+    }
+
+    public void setHospitalAddress(String hospitalAddress) {
+        this.hospitalAddress = hospitalAddress;
+    }
+
+    @Override
+    public String toString() {
+        return "MedicalDoctorVo{" +
+                ", id=" + id +
+                ", name=" + name +
+                ", title=" + title +
+                ", description=" + description +
+                ", tel=" + tel +
+                ", userId=" + userId +
+                ", type=" + type +
+                ", province=" + province +
+                ", city=" + city +
+                ", detailedAddress=" + detailedAddress +
+                ", authenticationInformationId=" + authenticationInformationId +
+                "}";
+    }
 }

@@ -1,14 +1,15 @@
 package com.xczhihui.medical.field.service.impl;
 
+import org.springframework.stereotype.Service;
+
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xczhihui.medical.field.mapper.MedicalFieldMapper;
 import com.xczhihui.medical.field.model.MedicalField;
 import com.xczhihui.medical.field.service.IMedicalFieldService;
-import org.springframework.stereotype.Service;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author yuxin
@@ -16,5 +17,5 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class MedicalFieldServiceImpl extends ServiceImpl<MedicalFieldMapper, MedicalField> implements IMedicalFieldService {
-	
+
 }

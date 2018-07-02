@@ -1,23 +1,23 @@
 package com.xczhihui.user.center.service.impl;
 
-import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import java.util.Date;
+import java.util.List;
 
-import com.xczhihui.user.center.mapper.ItcastUserMapper;
-import com.xczhihui.user.center.mapper.OeUserMapper;
-import com.xczhihui.user.center.model.ItcastUser;
-import com.xczhihui.user.center.model.OeUser;
-import com.xczhihui.user.center.service.IOeUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
+import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.xczhihui.user.center.mapper.ItcastUserMapper;
+import com.xczhihui.user.center.mapper.OeUserMapper;
+import com.xczhihui.user.center.model.ItcastUser;
+import com.xczhihui.user.center.model.OeUser;
+import com.xczhihui.user.center.service.IOeUserService;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author yuxin
@@ -26,16 +26,15 @@ import java.util.List;
 @Service
 public class OeUserServiceImpl extends ServiceImpl<OeUserMapper, OeUser> implements IOeUserService {
 
+    Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     private ItcastUserMapper itcastUserMapper;
-
-    Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Override
     public void updateUsersInit() throws Exception {
         List<ItcastUser> itcastUsers = itcastUserMapper.selectAll();
         itcastUsers.forEach(itcastUser -> {
-            logger.info("更新用户{}",itcastUser.getLoginName());
+            logger.info("更新用户{}", itcastUser.getLoginName());
             updateUserInit(itcastUser);
         });
     }
@@ -43,9 +42,9 @@ public class OeUserServiceImpl extends ServiceImpl<OeUserMapper, OeUser> impleme
     @Override
     public void updateUserInit(ItcastUser itcastUser) {
         OeUser ou = this.baseMapper.selectByLoginName(itcastUser.getLoginName());
-        if(ou==null){
-            logger.error("用户{}无对应信息,",itcastUser.getLoginName());
-        }else{
+        if (ou == null) {
+            logger.error("用户{}无对应信息,", itcastUser.getLoginName());
+        } else {
             ou.setPassword(itcastUser.getPassword());
             ou.setSalt(itcastUser.getSalt());
             this.baseMapper.updateById(ou);
@@ -81,6 +80,6 @@ public class OeUserServiceImpl extends ServiceImpl<OeUserMapper, OeUser> impleme
 
     @Override
     public void updateLoginName(String oldLoginName, String newLoginName) {
-        this.baseMapper.updateLoginName(oldLoginName,newLoginName);
+        this.baseMapper.updateLoginName(oldLoginName, newLoginName);
     }
 }

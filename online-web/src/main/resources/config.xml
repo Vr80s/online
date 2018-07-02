@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns="http://www.springframework.org/schema/beans"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 	        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
 	        http://www.springframework.org/schema/context
@@ -17,7 +17,7 @@
     		http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
     <context:property-placeholder location="classpath:config.properties"/>
-    
+
     <context:component-scan
             base-package="com.xczhihui.bxg.online.**.dao,com.xczhihui.bxg.online.**.service,
             com.xczhihui.common.support.**, com.xczhihui.bxg.online.web.support.*,com.xczhihui.bxg.online.web.config"/>
@@ -150,7 +150,8 @@
 
     <!-- dubbo -->
     <dubbo:application name="${dubbo.app.name}"/>
-    <dubbo:registry protocol="zookeeper" address="${dubbo.zookepper.url}"  file="${catalina.home}/dubbo-registry/dubbo-registry.properties"  />
+    <dubbo:registry protocol="zookeeper" address="${dubbo.zookepper.url}"
+                    file="${catalina.home}/dubbo-registry/dubbo-registry.properties"/>
     <dubbo:protocol name="dubbo" host="${dubbo.protocol.host}" port="${dubbo.protocol.port}"/>
 
     <!--=============================================生产者start============================================-->
@@ -304,25 +305,31 @@
     <dubbo:reference interface="com.xczhihui.course.service.ILineApplyService" id="lineApplyServiceImpl"
                      timeout="${dubbo.consumer.timeout}"/>
     <!--医师-->
-    <dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorAccountService"   id="medicalDoctorAccountServiceImpl" timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorAccountService"
+                     id="medicalDoctorAccountServiceImpl" timeout="${dubbo.consumer.timeout}"/>
     <!--医师动态 -->
-    <dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorPostsService" id="medicalDoctorPostsServiceImpl"
+    <dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorPostsService"
+                     id="medicalDoctorPostsServiceImpl"
                      timeout="${dubbo.consumer.timeout}"/>
     <!--医师banner -->
-    <dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorBannerService" id="medicalDoctorBannerServiceImpl"
+    <dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorBannerService"
+                     id="medicalDoctorBannerServiceImpl"
                      timeout="${dubbo.consumer.timeout}"/>
 
     <!--医师搜索 -->
-    <dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorSolrService" id="medicalDoctorSolrServiceImpl"
+    <dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorSolrService"
+                     id="medicalDoctorSolrServiceImpl"
                      timeout="${dubbo.consumer.timeout}"/>
     <!--课程搜索 -->
     <dubbo:reference interface="com.xczhihui.course.service.ICourseSolrService" id="courseSolrServiceImpl"
                      timeout="${dubbo.consumer.timeout}"/>
 
     <!--医师动态评论-->
-    <dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorPostsCommentService"   id="medicalDoctorPostsCommentServiceImpl" timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorPostsCommentService"
+                     id="medicalDoctorPostsCommentServiceImpl" timeout="${dubbo.consumer.timeout}"/>
     <!--医师动态点赞-->
-    <dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorPostsLikeService"   id="medicalDoctorPostsLikeServiceImpl" timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorPostsLikeService"
+                     id="medicalDoctorPostsLikeServiceImpl" timeout="${dubbo.consumer.timeout}"/>
 
     <!--=============================================消费者end============================================-->
 

@@ -7,7 +7,7 @@ import java.util.Date;
  * @author liutao
  * @create 2017-09-18 11:45
  **/
-public class LiveExamineInfoVo implements Serializable{
+public class LiveExamineInfoVo implements Serializable {
 
     private String id;
     private String logo;
@@ -24,13 +24,13 @@ public class LiveExamineInfoVo implements Serializable{
     private String liveStatus;
     private String content;
     private String courseId;
-    
+
     private Date endTime;
-    
-    private String imRoomId; 
-    
+
+    private String imRoomId;
+
     private Date tureTime;
-    
+
     public String getContent() {
         return content;
     }
@@ -151,29 +151,29 @@ public class LiveExamineInfoVo implements Serializable{
         this.courseId = courseId;
     }
 
-	public Date getEndTime() {
-		return endTime;
-	}
+    public Date getEndTime() {
+        return endTime;
+    }
 
-	public void setEndTime(Date endTime) {
-		this.endTime = endTime;
-	}
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
+    }
 
-	public String getImRoomId() {
-		return imRoomId;
-	}
+    public String getImRoomId() {
+        return imRoomId;
+    }
 
-	public void setImRoomId(String imRoomId) {
-		this.imRoomId = imRoomId;
-	}
+    public void setImRoomId(String imRoomId) {
+        this.imRoomId = imRoomId;
+    }
 
-	public Date getTureTime() {
-		return tureTime;
-	}
+    public Date getTureTime() {
+        return tureTime;
+    }
 
-	public void setTureTime(Date tureTime) {
-		this.tureTime = tureTime;
-	}
-    
-    
+    public void setTureTime(Date tureTime) {
+        this.tureTime = tureTime;
+    }
+
+
 }

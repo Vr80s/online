@@ -2,197 +2,195 @@ package com.xczhihui.user.vo;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-
 public class WechatChannelVo {
 
-	private Integer id;
+    private Integer id;
 
-	private String name;
+    private String name;
 
-	private String contact;
+    private String contact;
 
-	private String mobile;
+    private String mobile;
 
-	private String city;
+    private String city;
 
-	private String province;
+    private String province;
 
-	private String qrCodeImg;
+    private String qrCodeImg;
 
-	private Date createTime;
+    private Date createTime;
 
-	private Boolean isDelete;
+    private Boolean isDelete;
 
-	private String status;
+    private String status;
 
-	private String createPerson;
+    private String createPerson;
 
-	private Integer sort;
+    private Integer sort;
 
-	private String area;
+    private String area;
 
-	private String realCounty;
+    private String realCounty;
 
-	private String realCitys;
+    private String realCitys;
 
-	private String realProvince;
+    private String realProvince;
 
-	// province:120000
-	// realProvince:天津市
-	// city:120100
-	// realCitys:天津市
-	// area:120101
-	// realCounty:和平区
-	
-	
-	private String customQrCodeUrl;
-	private String customCaoliaoQrcode;
+    // province:120000
+    // realProvince:天津市
+    // city:120100
+    // realCitys:天津市
+    // area:120101
+    // realCounty:和平区
 
 
-	public Integer getId() {
-		return id;
-	}
+    private String customQrCodeUrl;
+    private String customCaoliaoQrcode;
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
-	public String getName() {
-		return name;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public void setName(String name) {
-		this.name = name == null ? null : name.trim();
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public String getContact() {
-		return contact;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setContact(String contact) {
-		this.contact = contact == null ? null : contact.trim();
-	}
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
+    }
 
-	public String getMobile() {
-		return mobile;
-	}
+    public String getContact() {
+        return contact;
+    }
 
-	public void setMobile(String mobile) {
-		this.mobile = mobile == null ? null : mobile.trim();
-	}
+    public void setContact(String contact) {
+        this.contact = contact == null ? null : contact.trim();
+    }
 
-	public String getCity() {
-		return city;
-	}
+    public String getMobile() {
+        return mobile;
+    }
 
-	public void setCity(String city) {
-		this.city = city == null ? null : city.trim();
-	}
+    public void setMobile(String mobile) {
+        this.mobile = mobile == null ? null : mobile.trim();
+    }
 
-	public String getProvince() {
-		return province;
-	}
+    public String getCity() {
+        return city;
+    }
 
-	public void setProvince(String province) {
-		this.province = province == null ? null : province.trim();
-	}
+    public void setCity(String city) {
+        this.city = city == null ? null : city.trim();
+    }
 
-	public String getQrCodeImg() {
-		return qrCodeImg;
-	}
+    public String getProvince() {
+        return province;
+    }
 
-	public void setQrCodeImg(String qrCodeImg) {
-		this.qrCodeImg = qrCodeImg == null ? null : qrCodeImg.trim();
-	}
+    public void setProvince(String province) {
+        this.province = province == null ? null : province.trim();
+    }
 
-	public Date getCreateTime() {
-		return createTime;
-	}
+    public String getQrCodeImg() {
+        return qrCodeImg;
+    }
 
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
+    public void setQrCodeImg(String qrCodeImg) {
+        this.qrCodeImg = qrCodeImg == null ? null : qrCodeImg.trim();
+    }
 
-	public Boolean getIsDelete() {
-		return isDelete;
-	}
+    public Date getCreateTime() {
+        return createTime;
+    }
 
-	public void setIsDelete(Boolean isDelete) {
-		this.isDelete = isDelete;
-	}
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
 
-	public String getStatus() {
-		return status;
-	}
+    public Boolean getIsDelete() {
+        return isDelete;
+    }
 
-	public void setStatus(String status) {
-		this.status = status == null ? null : status.trim();
-	}
+    public void setIsDelete(Boolean isDelete) {
+        this.isDelete = isDelete;
+    }
 
-	public String getCreatePerson() {
-		return createPerson;
-	}
+    public String getStatus() {
+        return status;
+    }
 
-	public void setCreatePerson(String createPerson) {
-		this.createPerson = createPerson == null ? null : createPerson.trim();
-	}
+    public void setStatus(String status) {
+        this.status = status == null ? null : status.trim();
+    }
 
-	public Integer getSort() {
-		return sort;
-	}
+    public String getCreatePerson() {
+        return createPerson;
+    }
 
-	public void setSort(Integer sort) {
-		this.sort = sort;
-	}
+    public void setCreatePerson(String createPerson) {
+        this.createPerson = createPerson == null ? null : createPerson.trim();
+    }
 
-	public String getArea() {
-		return area;
-	}
+    public Integer getSort() {
+        return sort;
+    }
 
-	public void setArea(String area) {
-		this.area = area;
-	}
+    public void setSort(Integer sort) {
+        this.sort = sort;
+    }
 
-	public String getRealCounty() {
-		return realCounty;
-	}
+    public String getArea() {
+        return area;
+    }
 
-	public void setRealCounty(String realCounty) {
-		this.realCounty = realCounty;
-	}
+    public void setArea(String area) {
+        this.area = area;
+    }
 
-	public String getRealCitys() {
-		return realCitys;
-	}
+    public String getRealCounty() {
+        return realCounty;
+    }
 
-	public void setRealCitys(String realCitys) {
-		this.realCitys = realCitys;
-	}
+    public void setRealCounty(String realCounty) {
+        this.realCounty = realCounty;
+    }
 
-	public String getRealProvince() {
-		return realProvince;
-	}
+    public String getRealCitys() {
+        return realCitys;
+    }
 
-	public void setRealProvince(String realProvince) {
-		this.realProvince = realProvince;
-	}
+    public void setRealCitys(String realCitys) {
+        this.realCitys = realCitys;
+    }
 
-	public String getCustomQrCodeUrl() {
-		return customQrCodeUrl;
-	}
+    public String getRealProvince() {
+        return realProvince;
+    }
 
-	public void setCustomQrCodeUrl(String customQrCodeUrl) {
-		this.customQrCodeUrl = customQrCodeUrl;
-	}
+    public void setRealProvince(String realProvince) {
+        this.realProvince = realProvince;
+    }
 
-	public String getCustomCaoliaoQrcode() {
-		return customCaoliaoQrcode;
-	}
+    public String getCustomQrCodeUrl() {
+        return customQrCodeUrl;
+    }
 
-	public void setCustomCaoliaoQrcode(String customCaoliaoQrcode) {
-		this.customCaoliaoQrcode = customCaoliaoQrcode;
-	}
+    public void setCustomQrCodeUrl(String customQrCodeUrl) {
+        this.customQrCodeUrl = customQrCodeUrl;
+    }
 
-	
+    public String getCustomCaoliaoQrcode() {
+        return customCaoliaoQrcode;
+    }
+
+    public void setCustomCaoliaoQrcode(String customCaoliaoQrcode) {
+        this.customCaoliaoQrcode = customCaoliaoQrcode;
+    }
+
+
 }

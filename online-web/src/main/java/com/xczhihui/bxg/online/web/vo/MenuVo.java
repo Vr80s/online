@@ -1,13 +1,12 @@
 package com.xczhihui.bxg.online.web.vo;
 
-import com.xczhihui.bxg.online.common.base.vo.OnlineBaseVo;
-import com.xczhihui.bxg.online.common.domain.Menu;
-
-import javax.persistence.Column;
 import java.util.List;
+
+import com.xczhihui.bxg.online.common.base.vo.OnlineBaseVo;
 
 /**
  * 菜单web端调用的结果封装类
+ *
  * @author Rongcai Kang
  */
 public class MenuVo extends OnlineBaseVo {

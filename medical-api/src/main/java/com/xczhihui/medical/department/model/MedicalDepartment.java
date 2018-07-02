@@ -1,13 +1,13 @@
 package com.xczhihui.medical.department.model;
 
+import java.io.Serializable;
+
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
 
-import java.io.Serializable;
-
 /**
  * <p>
- * 
+ * <p>
  * </p>
  *
  * @author yuxin
@@ -21,40 +21,40 @@ public class MedicalDepartment extends Model<MedicalDepartment> {
     /**
      * 科室表
      */
-	private String id;
+    private String id;
     /**
      * 科室名称
      */
-	private String name;
+    private String name;
 
 
-	public String getId() {
-		return id;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
 
-	@Override
-	protected Serializable pkVal() {
-		return this.id;
-	}
+    @Override
+    protected Serializable pkVal() {
+        return this.id;
+    }
 
-	@Override
-	public String toString() {
-		return "MedicalDepartment{" +
-			", id=" + id +
-			", name=" + name +
-			"}";
-	}
+    @Override
+    public String toString() {
+        return "MedicalDepartment{" +
+                ", id=" + id +
+                ", name=" + name +
+                "}";
+    }
 }

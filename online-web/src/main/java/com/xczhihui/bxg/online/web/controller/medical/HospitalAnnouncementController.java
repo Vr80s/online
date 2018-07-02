@@ -3,15 +3,13 @@ package com.xczhihui.bxg.online.web.controller.medical;
 import static com.xczhihui.common.util.bean.ResponseObject.newErrorResponseObject;
 import static com.xczhihui.common.util.bean.ResponseObject.newSuccessResponseObject;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.hibernate.validator.constraints.Length;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.online.web.controller.ftl.AbstractFtlController;
+import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.medical.hospital.model.MedicalHospitalAnnouncement;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalAnnouncementService;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalBusinessService;

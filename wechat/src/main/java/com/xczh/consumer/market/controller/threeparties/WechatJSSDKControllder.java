@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.Sha1SignUtil;
-import com.xczh.consumer.market.wxpay.consts.WxPayConst;
 import com.xczh.consumer.market.wxpay.util.CommonUtil;
 
 import me.chanjar.weixin.mp.api.WxMpConfigStorage;

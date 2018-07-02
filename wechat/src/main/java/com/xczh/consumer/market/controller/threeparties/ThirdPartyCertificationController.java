@@ -18,12 +18,7 @@ import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.XzStringUtils;
-import com.xczhihui.common.util.enums.CommonEnumsType;
-import com.xczhihui.common.util.enums.ThirdPartyType;
-import com.xczhihui.common.util.enums.TokenExpires;
-import com.xczhihui.common.util.enums.UserOrigin;
-import com.xczhihui.common.util.enums.UserUnitedStateType;
-import com.xczhihui.common.util.enums.VCodeType;
+import com.xczhihui.common.util.enums.*;
 import com.xczhihui.course.model.QQClientUserMapping;
 import com.xczhihui.course.model.WeiboClientUserMapping;
 import com.xczhihui.course.service.IMyInfoService;
@@ -52,27 +47,21 @@ public class ThirdPartyCertificationController {
             .getLogger(ThirdPartyCertificationController.class);
 
     public HttpClient client = new HttpClient();
-
+    // 手机端登录使用
+    @Value("${mobile.authorizeURL}")
+    public String weiboMobileAuthorizeURL;
     @Autowired
     private OnlineUserService onlineUserService;
-
     @Autowired
     private IThreePartiesLoginService threePartiesLoginService;
-
     @Autowired
     private WxcpClientUserWxMappingService wxcpClientUserWxMappingService;
-
     @Autowired
     private UserCenterService userCenterService;
     @Autowired
     private VerificationCodeService verificationCodeService;
-    
     @Autowired
     private IMyInfoService myInfoService;
-
-    // 手机端登录使用
-    @Value("${mobile.authorizeURL}")
-    public String weiboMobileAuthorizeURL;
 
     /**
      * Description：微信、微博、qq绑定 已经注册的手机号
@@ -94,15 +83,15 @@ public class ThirdPartyCertificationController {
                                                        @RequestParam("unionId") String unionId,
                                                        @RequestParam("code") String code,
                                                        @RequestParam("type") Integer type) throws Exception {
-        
-    	OnlineUser ou = onlineUserService.findUserByLoginName(userName);
+
+        OnlineUser ou = onlineUserService.findUserByLoginName(userName);
         if (ou == null) {
             return ResponseObject.newErrorResponseObject("该手机号暂未注册,请输入密码");
         }
         if (ou.getStatus() == 1) {
             return ResponseObject.newErrorResponseObject("账号已被系统禁用");
         }
-        
+
         try {
             verificationCodeService.checkCode(userName, VCodeType.BIND, code);
         } catch (Exception e) {
@@ -201,18 +190,18 @@ public class ThirdPartyCertificationController {
         if (userVO == null) {
             userCenterService.regist(userName, passWord, "", UserOrigin.ANDROID);
             userVO = userCenterService.getUserVO(userName);
-        }else {
-        	return ResponseObject.newErrorResponseObject("该手机号已经注册不用重新输入密码");
+        } else {
+            return ResponseObject.newErrorResponseObject("该手机号已经注册不用重新输入密码");
         }
-        
+
         OnlineUserVO ouv = new OnlineUserVO();
         ouv.setId(userVO.getId());
-        
+
         switch (type) {
             case 1: // 微信
                 WxcpClientUserWxMapping m = wxcpClientUserWxMappingService
                         .getWxcpClientUserByUnionId(unionId);
-                
+
                 if ("1".equals(m.getSex())) { // 用户的性别，值为1时是男性，值为2时是女性，值为0时是未知
                     sex = 1;
                 } else if ("2".equals(m.getSex())) {
@@ -223,14 +212,14 @@ public class ThirdPartyCertificationController {
                 ouv.setSex(sex);
                 ouv.setName(m.getNickname()); // 微信名字
                 ouv.setSmallHeadPhoto(m.getHeadimgurl());// 微信头像
-                
+
                 m.setClient_id(userVO.getId());
                 wxcpClientUserWxMappingService.update(m);
                 break;
             case 2: // qq
                 QQClientUserMapping qq = threePartiesLoginService
                         .selectQQClientUserMappingByUnionId(unionId);
-                
+
                 if ("男".equals(qq.getGender())) { // 性别。 如果获取不到则默认返回"男"
                     sex = 1;
                 } else {
@@ -239,7 +228,7 @@ public class ThirdPartyCertificationController {
                 ouv.setSex(sex);
                 ouv.setName(qq.getNickname()); // qq名字
                 ouv.setSmallHeadPhoto(qq.getFigureurl1()); // qq头像
-                
+
                 qq.setUserId(userVO.getId());
                 threePartiesLoginService.updateQQInfoAddUserId(qq);
                 break;
@@ -265,7 +254,7 @@ public class ThirdPartyCertificationController {
                 LOGGER.info("第三方登录类型有误");
                 break;
         }
-        
+
         //更新用户信息
         myInfoService.updateUserSetInfo(ouv);
         //完善信息后，返回用户信息和token
@@ -274,7 +263,7 @@ public class ThirdPartyCertificationController {
         user.setTicket(t.getTicket());
         user.setUserCenterId(userVO.getId());
         user.setPassword(userVO.getPassword());
-        
+
         return ResponseObject.newSuccessResponseObject(user);
     }
 

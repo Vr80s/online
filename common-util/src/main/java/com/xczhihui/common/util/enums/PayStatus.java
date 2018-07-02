@@ -13,25 +13,28 @@ import java.util.Map;
  * @CreateDate: 2018/5/10 15:10
  **/
 public enum PayStatus {
-    FREE(1,"免费"),
-    PAY(0,"付费");
+    FREE(1, "免费"),
+    PAY(0, "付费");
 
     private int id;
     private String name;
+
     PayStatus(int id, String name) {
         this.id = id;
         this.name = name;
     }
-    public static List<Map<String, Object>> getPayStatusList(){
+
+    public static List<Map<String, Object>> getPayStatusList() {
         List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
         for (PayStatus e : PayStatus.values()) {
             Map m = new HashMap();
-            m.put("id",e.getId());
-            m.put("name",e.getName());
+            m.put("id", e.getId());
+            m.put("name", e.getName());
             list.add(m);
         }
         return list;
     }
+
     public int getId() {
         return id;
     }

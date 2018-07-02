@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xczhihui.medical.doctor.mapper.MedicalDoctorPostsMapper">
 
-    <select id="selectMedicalDoctorPostsPage"  resultType="com.xczhihui.medical.doctor.model.MedicalDoctorPosts">
+    <select id="selectMedicalDoctorPostsPage" resultType="com.xczhihui.medical.doctor.model.MedicalDoctorPosts">
         SELECT
         mdp.*,
         oc.grade_name AS gradeName,
@@ -190,7 +190,7 @@
     <select id="getMedicalDoctorPostsById" resultType="com.xczhihui.medical.doctor.model.MedicalDoctorPosts">
         SELECT *
         from
-          medical_doctor_posts
+        medical_doctor_posts
         WHERE id = #{id}
 
     </select>

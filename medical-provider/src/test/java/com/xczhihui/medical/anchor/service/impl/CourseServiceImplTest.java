@@ -22,21 +22,21 @@ public class CourseServiceImplTest extends BaseJunit4Test {
     private Logger logger = LoggerFactory.getLogger(CourseServiceImplTest.class);
     @Autowired
     private ICourseApplyService service;
-    
-    
+
+
     @Autowired
     private CourseApplyResourceMapper courseApplyResourceMapper;
-    
+
     @Test
     public void updateCourseApplyResource() throws Exception {
         service.updateCourseApplyResource();
     }
-    
-    @Test
-	public void TestSelectCourseListByVideoRecourse(){
 
-		List<Integer> list  =courseApplyResourceMapper.selectCourseListByVideoRecourse("123");
-	}
-    
+    @Test
+    public void TestSelectCourseListByVideoRecourse() {
+
+        List<Integer> list = courseApplyResourceMapper.selectCourseListByVideoRecourse("123");
+    }
+
 
 }

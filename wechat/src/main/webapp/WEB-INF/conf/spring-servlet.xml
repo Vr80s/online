@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns="http://www.springframework.org/schema/beans"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
             http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
             http://www.springframework.org/schema/context
@@ -76,94 +76,145 @@
 
 
     <dubbo:application name="${dubbo.app.name}"/>
-    <dubbo:registry protocol="zookeeper" address="${dubbo.zookepper.url}"  file="${catalina.home}/dubbo-registry/dubbo-registry.properties"/>
+    <dubbo:registry protocol="zookeeper" address="${dubbo.zookepper.url}"
+                    file="${catalina.home}/dubbo-registry/dubbo-registry.properties"/>
 
 
-    <dubbo:reference id="userCenterService" interface="com.xczhihui.user.center.service.UserCenterService" timeout="${dubbo.consumer.timeout}"/>
-    <dubbo:reference id="verificationCodeService" interface="com.xczhihui.user.center.service.VerificationCodeService" timeout="${dubbo.consumer.timeout}"/>
-    <dubbo:reference id="userCoinServiceImpl" interface="com.xczhihui.online.api.service.UserCoinService" timeout="${dubbo.consumer.timeout}"/>
-    <dubbo:reference id="giftServiceImpl" interface="com.xczhihui.online.api.service.GiftService" timeout="${dubbo.consumer.timeout}"/>
-    <dubbo:reference id="enchashmentServiceImpl" interface="com.xczhihui.online.api.service.EnchashmentService" timeout="${dubbo.consumer.timeout}"/>
-    <dubbo:reference id="cityServiceImpl" interface="com.xczhihui.online.api.service.CityService" timeout="${dubbo.consumer.timeout}"/>
-    <dubbo:reference id="liveExamineInfoServiceImpl" interface="com.xczhihui.online.api.service.LiveExamineInfoService" timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference id="userCenterService" interface="com.xczhihui.user.center.service.UserCenterService"
+                     timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference id="verificationCodeService" interface="com.xczhihui.user.center.service.VerificationCodeService"
+                     timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference id="userCoinServiceImpl" interface="com.xczhihui.online.api.service.UserCoinService"
+                     timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference id="giftServiceImpl" interface="com.xczhihui.online.api.service.GiftService"
+                     timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference id="enchashmentServiceImpl" interface="com.xczhihui.online.api.service.EnchashmentService"
+                     timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference id="cityServiceImpl" interface="com.xczhihui.online.api.service.CityService"
+                     timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference id="liveExamineInfoServiceImpl" interface="com.xczhihui.online.api.service.LiveExamineInfoService"
+                     timeout="${dubbo.consumer.timeout}"/>
     <!-- 新增公共的接口 -->
-    <dubbo:reference id="commonApiServiceImpl" interface="com.xczhihui.online.api.service.CommonApiService" timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference id="commonApiServiceImpl" interface="com.xczhihui.online.api.service.CommonApiService"
+                     timeout="${dubbo.consumer.timeout}"/>
     <!-- 医馆 --> <!-- 医馆招聘 --> <!--医师-->
-    <dubbo:reference id="medicalHospitalBusinessServiceImpl" interface="com.xczhihui.medical.hospital.service.IMedicalHospitalBusinessService" timeout="${dubbo.consumer.timeout}"/>
-    <dubbo:reference id="medicalHospitalRecruitBusinessServiceImpl" interface="com.xczhihui.medical.hospital.service.IMedicalHospitalRecruitBusinessService" timeout="${dubbo.consumer.timeout}"/>
-    <dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService" id="medicalDoctorBusinessServiceImpl" timeout="${dubbo.consumer.timeout}"/>
-    <dubbo:reference interface="com.xczhihui.course.service.ICourseService" id="courseServiceImpl" timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference id="medicalHospitalBusinessServiceImpl"
+                     interface="com.xczhihui.medical.hospital.service.IMedicalHospitalBusinessService"
+                     timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference id="medicalHospitalRecruitBusinessServiceImpl"
+                     interface="com.xczhihui.medical.hospital.service.IMedicalHospitalRecruitBusinessService"
+                     timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService"
+                     id="medicalDoctorBusinessServiceImpl" timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference interface="com.xczhihui.course.service.ICourseService" id="courseServiceImpl"
+                     timeout="${dubbo.consumer.timeout}"/>
     <!--学堂-->
-    <dubbo:reference interface="com.xczhihui.course.service.IMobileBannerService" id="mobileBannerServiceImpl" timeout="${dubbo.consumer.timeout}"/>
-    <dubbo:reference interface="com.xczhihui.course.service.IMobileProjectService" id="mobileProjectServiceImpl" timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference interface="com.xczhihui.course.service.IMobileBannerService" id="mobileBannerServiceImpl"
+                     timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference interface="com.xczhihui.course.service.IMobileProjectService" id="mobileProjectServiceImpl"
+                     timeout="${dubbo.consumer.timeout}"/>
     <!--观看记录 -->
-    <dubbo:reference interface="com.xczhihui.course.service.IWatchHistoryService" id="watchHistoryServiceImpl" timeout="${dubbo.consumer.timeout}"/>
-    <dubbo:reference interface="com.xczhihui.course.service.IOfflineCityService" id="offlineCityServiceImpl" timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference interface="com.xczhihui.course.service.IWatchHistoryService" id="watchHistoryServiceImpl"
+                     timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference interface="com.xczhihui.course.service.IOfflineCityService" id="offlineCityServiceImpl"
+                     timeout="${dubbo.consumer.timeout}"/>
     <!-- 我的关注，我的粉丝service -->
-    <dubbo:reference interface="com.xczhihui.course.service.IFocusService" id="focusServiceRemote" timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference interface="com.xczhihui.course.service.IFocusService" id="focusServiceRemote"
+                     timeout="${dubbo.consumer.timeout}"/>
     <!--医师入驻-->
-    <dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorApplyService" id="medicalDoctorApplyServiceImpl" timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorApplyService"
+                     id="medicalDoctorApplyServiceImpl" timeout="${dubbo.consumer.timeout}"/>
     <!--医馆入驻-->
-    <dubbo:reference interface="com.xczhihui.medical.hospital.service.IMedicalHospitalApplyService" id="medicalHospitalApplyServiceImpl" timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference interface="com.xczhihui.medical.hospital.service.IMedicalHospitalApplyService"
+                     id="medicalHospitalApplyServiceImpl" timeout="${dubbo.consumer.timeout}"/>
     <!--主播课程-->
-    <dubbo:reference interface="com.xczhihui.medical.anchor.service.ICourseApplyService" id="courseApplyServiceImpl" timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference interface="com.xczhihui.medical.anchor.service.ICourseApplyService" id="courseApplyServiceImpl"
+                     timeout="${dubbo.consumer.timeout}"/>
     <!--医师医馆公共服务-->
-    <dubbo:reference interface="com.xczhihui.medical.common.service.ICommonService" id="commonServiceImpl" timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference interface="com.xczhihui.medical.common.service.ICommonService" id="commonServiceImpl"
+                     timeout="${dubbo.consumer.timeout}"/>
     <!--用户银行卡-->
-    <dubbo:reference interface="com.xczhihui.medical.anchor.service.IUserBankService" id="userBankServiceImpl" timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference interface="com.xczhihui.medical.anchor.service.IUserBankService" id="userBankServiceImpl"
+                     timeout="${dubbo.consumer.timeout}"/>
     <!-- 我的信息管理类 -->
-    <dubbo:reference interface="com.xczhihui.course.service.IMyInfoService" id="myInfoServiceImpl" timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference interface="com.xczhihui.course.service.IMyInfoService" id="myInfoServiceImpl"
+                     timeout="${dubbo.consumer.timeout}"/>
     <!-- 支付服务后回调服务 -->
-    <dubbo:reference interface="com.xczhihui.online.api.service.OrderPayService" id="orderPayServiceImpl" timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference interface="com.xczhihui.online.api.service.OrderPayService" id="orderPayServiceImpl"
+                     timeout="${dubbo.consumer.timeout}"/>
     <!-- 微博、qq第三方登录数据存储接口 -->
-    <dubbo:reference interface="com.xczhihui.course.service.IThreePartiesLoginService" id="threePartiesLoginServiceImpl" timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference interface="com.xczhihui.course.service.IThreePartiesLoginService" id="threePartiesLoginServiceImpl"
+                     timeout="${dubbo.consumer.timeout}"/>
     <!-- 熊猫币购买接口 -->
-    <dubbo:reference interface="com.xczhihui.online.api.service.XmbBuyCouserService" id="xmbBuyCouserServiceImpl" timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference interface="com.xczhihui.online.api.service.XmbBuyCouserService" id="xmbBuyCouserServiceImpl"
+                     timeout="${dubbo.consumer.timeout}"/>
     <!--主播详情-->
-    <dubbo:reference interface="com.xczhihui.medical.anchor.service.IAnchorInfoService" id="anchorInfoServiceImpl" timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference interface="com.xczhihui.medical.anchor.service.IAnchorInfoService" id="anchorInfoServiceImpl"
+                     timeout="${dubbo.consumer.timeout}"/>
     <!-- 附件服务 -->
-    <dubbo:reference interface="com.xczhihui.common.support.service.AttachmentCenterService" id="attachmentCenterService" timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference interface="com.xczhihui.common.support.service.AttachmentCenterService"
+                     id="attachmentCenterService" timeout="${dubbo.consumer.timeout}"/>
     <!--订单服务-->
-    <dubbo:reference interface="com.xczhihui.course.service.IOrderService" id="orderService" timeout="${dubbo.consumer.timeout}"/>
- 	<!--充值服务 -->
-    <dubbo:reference interface="com.xczhihui.online.api.service.RechargesService" id="rechargesService" timeout="${dubbo.consumer.timeout}"/>
-    <dubbo:reference interface="com.xczhihui.course.service.ICriticizeService" id="criticizeServiceImpl" timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference interface="com.xczhihui.course.service.IOrderService" id="orderService"
+                     timeout="${dubbo.consumer.timeout}"/>
+    <!--充值服务 -->
+    <dubbo:reference interface="com.xczhihui.online.api.service.RechargesService" id="rechargesService"
+                     timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference interface="com.xczhihui.course.service.ICriticizeService" id="criticizeServiceImpl"
+                     timeout="${dubbo.consumer.timeout}"/>
     <!-- 支付成功回调服务 -->
-    <dubbo:reference interface="com.xczhihui.online.api.service.PayService" id="payService" timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference interface="com.xczhihui.online.api.service.PayService" id="payService"
+                     timeout="${dubbo.consumer.timeout}"/>
     <!-- 热门搜索服务 -->
-    <dubbo:reference interface="com.xczhihui.course.service.IMobileHotSearchService" id="mobileHotSearchServiceImpl" timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference interface="com.xczhihui.course.service.IMobileHotSearchService" id="mobileHotSearchServiceImpl"
+                     timeout="${dubbo.consumer.timeout}"/>
     <!-- 微信公众号 -->
-    <dubbo:reference id="wxMpService" interface="me.chanjar.weixin.mp.api.WxMpService" timeout="${dubbo.consumer.timeout}"/>
-    <dubbo:reference id="wxMpConfigStorage" interface="me.chanjar.weixin.mp.api.WxMpConfigStorage" timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference id="wxMpService" interface="me.chanjar.weixin.mp.api.WxMpService"
+                     timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference id="wxMpConfigStorage" interface="me.chanjar.weixin.mp.api.WxMpConfigStorage"
+                     timeout="${dubbo.consumer.timeout}"/>
     <!-- 消息服务 -->
-    <dubbo:reference id="commonMessageService" interface="com.xczhihui.course.service.ICommonMessageService" timeout="${dubbo.consumer.timeout}">
+    <dubbo:reference id="commonMessageService" interface="com.xczhihui.course.service.ICommonMessageService"
+                     timeout="${dubbo.consumer.timeout}">
         <dubbo:method name="saveMessage" async="true"/>
     </dubbo:reference>
     <!-- 师承模块服务 -->
-    <dubbo:reference interface="com.xczhihui.medical.enrol.service.EnrolService" id="enrolServiceImpl" timeout="${dubbo.consumer.timeout}"/>
-	
-	 <!--线下课报名信息 -->
-    <dubbo:reference interface="com.xczhihui.course.service.ILineApplyService" id="lineApplyServiceImpl"  timeout="${dubbo.consumer.timeout}"/>
-    
-     <!--科室-->
-    <dubbo:reference interface="com.xczhihui.medical.department.service.IMedicalDepartmentService"   id="medicalDepartmentServiceImpl" timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference interface="com.xczhihui.medical.enrol.service.EnrolService" id="enrolServiceImpl"
+                     timeout="${dubbo.consumer.timeout}"/>
+
+    <!--线下课报名信息 -->
+    <dubbo:reference interface="com.xczhihui.course.service.ILineApplyService" id="lineApplyServiceImpl"
+                     timeout="${dubbo.consumer.timeout}"/>
+
+    <!--科室-->
+    <dubbo:reference interface="com.xczhihui.medical.department.service.IMedicalDepartmentService"
+                     id="medicalDepartmentServiceImpl" timeout="${dubbo.consumer.timeout}"/>
 
     <!--医师-->
-    <dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorAccountService"   id="medicalDoctorAccountServiceImpl" timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorAccountService"
+                     id="medicalDoctorAccountServiceImpl" timeout="${dubbo.consumer.timeout}"/>
     <!--医师动态-->
-    <dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorPostsService"   id="medicalDoctorPostsServiceImpl" timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorPostsService"
+                     id="medicalDoctorPostsServiceImpl" timeout="${dubbo.consumer.timeout}"/>
     <!--医师动态评论-->
-    <dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorPostsCommentService"   id="medicalDoctorPostsCommentServiceImpl" timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorPostsCommentService"
+                     id="medicalDoctorPostsCommentServiceImpl" timeout="${dubbo.consumer.timeout}"/>
     <!--医师动态点赞-->
-    <dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorPostsLikeService"   id="medicalDoctorPostsLikeServiceImpl" timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorPostsLikeService"
+                     id="medicalDoctorPostsLikeServiceImpl" timeout="${dubbo.consumer.timeout}"/>
     <!--医师搜索-->
-    <dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorSolrService"   id="medicalDoctorSolrServiceImpl" timeout="${dubbo.consumer.timeout}"/>
-    <dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorArticleService"   id="medicalDoctorArticleServiceImpl" timeout="${dubbo.consumer.timeout}"/>
-    <dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorBannerService"   id="medicalDoctorBannerServiceImpl" timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorSolrService"
+                     id="medicalDoctorSolrServiceImpl" timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorArticleService"
+                     id="medicalDoctorArticleServiceImpl" timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorBannerService"
+                     id="medicalDoctorBannerServiceImpl" timeout="${dubbo.consumer.timeout}"/>
 
     <!--课程搜索-->
-    <dubbo:reference interface="com.xczhihui.course.service.ICourseSolrService"   id="courseSolrServiceImpl" timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference interface="com.xczhihui.course.service.ICourseSolrService" id="courseSolrServiceImpl"
+                     timeout="${dubbo.consumer.timeout}"/>
 
-    <dubbo:reference interface="com.xczhihui.medical.headline.service.IOeBxsAppraiseService"   id="oeBxsAppraiseServiceImpl" timeout="${dubbo.consumer.timeout}"/>
+    <dubbo:reference interface="com.xczhihui.medical.headline.service.IOeBxsAppraiseService"
+                     id="oeBxsAppraiseServiceImpl" timeout="${dubbo.consumer.timeout}"/>
 
 </beans>

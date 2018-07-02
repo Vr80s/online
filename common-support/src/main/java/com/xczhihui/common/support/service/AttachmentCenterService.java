@@ -1,7 +1,6 @@
 package com.xczhihui.common.support.service;
 
 import com.xczhihui.common.support.domain.Attachment;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 附件中心
@@ -26,11 +25,11 @@ public interface AttachmentCenterService {
      * 添加一个附件
      *
      * @param createUserId 上传者ID
-     * @param projectName         类型，dual双元，univ院校，online在线，kcenter知识中心
+     * @param projectName  类型，dual双元，univ院校，online在线，kcenter知识中心
      * @param fileName     文件名
      * @param contentType  文件类型
      * @param fileData     文件二进制数据
-     * @param fileType         1图片（直接src="xxx.png"形式），2附件（aid形式）
+     * @param fileType     1图片（直接src="xxx.png"形式），2附件（aid形式）
      * @return
      * @throws Exception
      */

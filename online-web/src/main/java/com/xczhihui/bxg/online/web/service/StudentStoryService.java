@@ -1,10 +1,9 @@
 package com.xczhihui.bxg.online.web.service;
 
-import com.xczhihui.bxg.online.web.vo.BannerVo;
-import com.xczhihui.bxg.online.web.vo.StudentStoryVo;
-
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+
+import com.xczhihui.bxg.online.web.vo.StudentStoryVo;
 
 /**
  * 学员故事服务层
@@ -23,6 +22,7 @@ public interface StudentStoryService {
 
     /**
      * 根据编号返回实体
+     *
      * @param id
      * @return
      */

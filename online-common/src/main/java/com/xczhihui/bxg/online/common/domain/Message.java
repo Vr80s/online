@@ -85,6 +85,10 @@ public class Message extends BasicEntity implements Serializable {
     @Transient
     private String userName;
 
+    public static long getSerialversionuid() {
+        return serialVersionUID;
+    }
+
     public Short getAnswerStatus() {
         return answerStatus;
     }
@@ -155,10 +159,6 @@ public class Message extends BasicEntity implements Serializable {
 
     public void setLastTime(Date lastTime) {
         this.lastTime = lastTime;
-    }
-
-    public static long getSerialversionuid() {
-        return serialVersionUID;
     }
 
     public String getUserName() {

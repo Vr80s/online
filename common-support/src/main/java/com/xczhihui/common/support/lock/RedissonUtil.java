@@ -1,15 +1,16 @@
 package com.xczhihui.common.support.lock;
 
+import javax.annotation.PostConstruct;
+
 import org.redisson.Redisson;
 import org.redisson.config.Config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
-
 /**
  * Redisson
+ *
  * @author zhuwenbao
  */
 @Component
@@ -29,7 +30,7 @@ public class RedissonUtil {
      * RedissonUtil执行完构造方法后执行该方法
      */
     @PostConstruct
-    private void init(){
+    private void init() {
 
         try {
             config.useSingleServer().setAddress(new StringBuilder().append(redisHost)
@@ -39,7 +40,7 @@ public class RedissonUtil {
 
             logger.info("----------Redisson init successfully in {} : {}", redisHost, redisPort);
 
-        }catch (Exception e){
+        } catch (Exception e) {
 
             logger.error("----------Redisson init unsuccessfully", e);
 

@@ -64,11 +64,10 @@ public class DateUtil {
 
     /**
      * Description：在传入的时间上加上一年 返回类型：yyyy-MM-dd HH:mm:ss
-     * 
-     * @return
+     *
      * @return String
      * @author name：yangxuan <br>
-     *         email: 15936216273@163.com
+     * email: 15936216273@163.com
      */
     public static String dateAddYear(Date date) {
         Calendar calendar = Calendar.getInstance();

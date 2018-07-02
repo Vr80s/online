@@ -14,7 +14,7 @@
 	                }, 2000)
 	            } else if ($('.login').css('display') == 'block' && data.resultObject == 1) {
 	                //注册医师成功
-	                window.location.href = "/web/html/anchors_resources.html";
+	                window.location.href = "/doctors/my";
 	            } else if ($('.login').css('display') == 'block' && data.resultObject == 7) {
 	                //登录了并且都没有注册过
 	                window.location.href = "/web/html/ResidentDoctor.html";

@@ -111,6 +111,20 @@ public class Criticize extends Model<Criticize> {
 
     @TableField(exist = false)
     private String smallHeadPhoto;
+    @TableField(exist = false)
+    private String loginName;
+    @TableField(exist = false)
+    private String replyName;
+    @TableField(exist = false)
+    private String replyLoginName;
+    @TableField(exist = false)
+    private String replyContent;
+    @TableField(exist = false)
+    private Date replyCreateTime;
+    @TableField(exist = false)
+    private String replySmallHeadPhoto;
+    @TableField(exist = false)
+    private List<String> labels;
 
     public String getSmallHeadPhoto() {
         return smallHeadPhoto;
@@ -123,27 +137,6 @@ public class Criticize extends Model<Criticize> {
         this.onlineUser.setSmallHeadPhoto(smallHeadPhoto);
         this.smallHeadPhoto = smallHeadPhoto;
     }
-
-    @TableField(exist = false)
-    private String loginName;
-
-    @TableField(exist = false)
-    private String replyName;
-
-    @TableField(exist = false)
-    private String replyLoginName;
-
-    @TableField(exist = false)
-    private String replyContent;
-
-    @TableField(exist = false)
-    private Date replyCreateTime;
-
-    @TableField(exist = false)
-    private String replySmallHeadPhoto;
-
-    @TableField(exist = false)
-    private List<String> labels;
 
     public String getLoginName() {
         return loginName;

@@ -3,10 +3,10 @@ package com.xczhihui.medical.hospital.service.impl;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import test.BaseJunit4Test;
-
 import com.xczhihui.medical.hospital.model.MedicalHospitalApply;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalApplyService;
+
+import test.BaseJunit4Test;
 
 /**
  * 医馆入驻测试类
@@ -20,7 +20,7 @@ public class MedicalHospitalApplyServiceImplTest extends BaseJunit4Test {
      * 获取用户申请的最后一条信息
      */
     @Test
-    public void testGetLastOne(){
+    public void testGetLastOne() {
         MedicalHospitalApply lastOne =
                 service.getLastOne("4af72e6511a94a7ba9f7ed2aaf41ac5d");
     }
@@ -29,7 +29,7 @@ public class MedicalHospitalApplyServiceImplTest extends BaseJunit4Test {
      * 添加医师入驻申请信息
      */
     @Test
-    public void testAdd(){
+    public void testAdd() {
         MedicalHospitalApply target = new MedicalHospitalApply();
 
         target.setUserId("402880e860c4ebe30160c51302660000");

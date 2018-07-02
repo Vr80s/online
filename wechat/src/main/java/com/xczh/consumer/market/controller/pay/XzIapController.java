@@ -42,20 +42,37 @@ import com.xczhihui.online.api.service.XmbBuyCouserService;
 public class XzIapController {
 
     private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(XzIapController.class);
+    /**
+     * 重写X509TrustManager
+     */
+    private static TrustManager myX509TrustManager = new X509TrustManager() {
 
+        @Override
+        public X509Certificate[] getAcceptedIssuers() {
+            return null;
+        }
+
+        @Override
+        public void checkServerTrusted(X509Certificate[] chain, String authType)
+                throws CertificateException {
+
+        }
+
+        @Override
+        public void checkClientTrusted(X509Certificate[] chain, String authType)
+                throws CertificateException {
+
+        }
+    };
     // 购买凭证验证地址
     @Value("${iphone.iap.url}")
     private String certificateUrl;
-
     @Value("${rate}")
     private Integer rate;
-
     @Autowired
     private iphoneIpaService iphoneIpaService;
-
     @Autowired
     private XmbBuyCouserService xmbBuyCouserService;
-
     @Autowired
     private VersionService versionService;
 
@@ -96,8 +113,8 @@ public class XzIapController {
             url = certificateUrl;
 
         } else {
-			/*
-			 * 正式环境需要区分下：
+            /*
+             * 正式环境需要区分下：
 			 *  是否在审核中，审核中需要是沙箱环境，审核后我们上线需要是正式环境
 			 *  需要注意的一点，如果ios进行上架后，后台需要立即更新这个状态app版本状态
 			 */
@@ -166,7 +183,6 @@ public class XzIapController {
         }
     }
 
-
     /**
      * 安卓、ios、h5 扣减熊猫币,购买课程
      */
@@ -229,29 +245,6 @@ public class XzIapController {
             return null;
         }
     }
-
-    /**
-     * 重写X509TrustManager
-     */
-    private static TrustManager myX509TrustManager = new X509TrustManager() {
-
-        @Override
-        public X509Certificate[] getAcceptedIssuers() {
-            return null;
-        }
-
-        @Override
-        public void checkServerTrusted(X509Certificate[] chain, String authType)
-                throws CertificateException {
-
-        }
-
-        @Override
-        public void checkClientTrusted(X509Certificate[] chain, String authType)
-                throws CertificateException {
-
-        }
-    };
 
     enum IapType {
 

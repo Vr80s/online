@@ -19,6 +19,7 @@ public interface ICommonMessageService {
 
     /**
      * 批量发送消息
+     *
      * @param message
      */
     void saveBatchMessage(BaseMessage message);

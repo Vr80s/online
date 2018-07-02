@@ -69,28 +69,28 @@ public class Style {
         return this.styleId;
     }
 
-    public void setRingRaw(String ringRaw) {
-        this.ringRaw = ringRaw;
-    }
-
     public String getRingRaw() {
         return this.ringRaw;
     }
 
-    public void setIconRes(String iconRes) {
-        this.iconRes = iconRes;
+    public void setRingRaw(String ringRaw) {
+        this.ringRaw = ringRaw;
     }
 
     public String getIconRes() {
         return this.iconRes;
     }
 
-    public void setSmallIcon(String smallIcon) {
-        this.smallIcon = smallIcon;
+    public void setIconRes(String iconRes) {
+        this.iconRes = iconRes;
     }
 
     public String getSmallIcon() {
         return this.smallIcon;
+    }
+
+    public void setSmallIcon(String smallIcon) {
+        this.smallIcon = smallIcon;
     }
 
     public boolean isValid() {

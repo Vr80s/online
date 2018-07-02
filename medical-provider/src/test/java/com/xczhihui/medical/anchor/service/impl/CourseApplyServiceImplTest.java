@@ -1,12 +1,11 @@
 package com.xczhihui.medical.anchor.service.impl;
 
-import com.xczhihui.medical.anchor.service.IAnchorInfoService;
-import com.xczhihui.medical.anchor.service.ICourseApplyService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import test.BaseJunit4Test;
 
-import static org.junit.Assert.*;
+import com.xczhihui.medical.anchor.service.ICourseApplyService;
+
+import test.BaseJunit4Test;
 
 /**
  * Description: <br>
@@ -18,6 +17,7 @@ public class CourseApplyServiceImplTest extends BaseJunit4Test {
 
     @Autowired
     private ICourseApplyService service;
+
     @Test
     public void updateCourseApplyResource() throws Exception {
         service.updateCourseApplyResource();

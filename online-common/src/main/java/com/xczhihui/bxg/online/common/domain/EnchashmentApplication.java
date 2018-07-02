@@ -1,243 +1,225 @@
 package com.xczhihui.bxg.online.common.domain;
 
 import java.io.Serializable;
-
-import javax.persistence.*;
-
 import java.math.BigDecimal;
 import java.util.Date;
+
+import javax.persistence.*;
 
 
 /**
  * The persistent class for the enchashment_application database table.
- * 
  */
 @Entity
-@Table(name="enchashment_application")
+@Table(name = "enchashment_application")
 public class EnchashmentApplication implements Serializable {
-	private static final long serialVersionUID = 1L;
-
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer id;
-
-	@Column(name="client_type")
-	private Integer clientType;
-	@Column(name="cause_type")
-	private Integer causeType;
-
-	@Column(name="enchashment_account")
-	private String enchashmentAccount;
-	
-	@Column(name="real_name")
-	private String realName;
-	
-	@Column(name="phone")
-	private String phone;
-
-	@Column(name="enchashment_account_type")
-	private Integer enchashmentAccountType;
-
-	@Column(name="enchashment_status")
-	private Integer enchashmentStatus;
-
-	@Column(name="enchashment_sum")
-	private BigDecimal enchashmentSum;
-
-	private String operator;
-
-	@Column(name="tickling_time")
-	private Date ticklingTime;
-
-	private Date time;
-
-	@Column(name="user_id")
-	private String userId;
-	
-	@Column(name="enchashment_remark")
-	private String enchashmentRemark;
-	
-	@Column(name="operate_remark")
-	private String operateRemark;
-	@Transient
-	private java.util.Date startTime;
-	@Transient
+    private static final long serialVersionUID = 1L;
+    /**
+     * 杨宣新加。存放的是  提现到xxx账户
+     */
+    @Transient
+    public String newRemark;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    @Column(name = "client_type")
+    private Integer clientType;
+    @Column(name = "cause_type")
+    private Integer causeType;
+    @Column(name = "enchashment_account")
+    private String enchashmentAccount;
+    @Column(name = "real_name")
+    private String realName;
+    @Column(name = "phone")
+    private String phone;
+    @Column(name = "enchashment_account_type")
+    private Integer enchashmentAccountType;
+    @Column(name = "enchashment_status")
+    private Integer enchashmentStatus;
+    @Column(name = "enchashment_sum")
+    private BigDecimal enchashmentSum;
+    private String operator;
+    @Column(name = "tickling_time")
+    private Date ticklingTime;
+    private Date time;
+    @Column(name = "user_id")
+    private String userId;
+    @Column(name = "enchashment_remark")
+    private String enchashmentRemark;
+    @Column(name = "operate_remark")
+    private String operateRemark;
+    @Transient
+    private java.util.Date startTime;
+    @Transient
     private java.util.Date stopTime;
-	@Transient
-	private String loginName;
-	@Column(name="enable_enchashment_balance")
-	private BigDecimal enableEnchashmentBalance;
-    
-	/**
-	 * 杨宣新加。存放的是  提现到xxx账户
-	 */
-	@Transient
-	public String newRemark; 
-    
+    @Transient
+    private String loginName;
+    @Column(name = "enable_enchashment_balance")
+    private BigDecimal enableEnchashmentBalance;
 
-	public java.util.Date getStartTime() {
-		return startTime;
-	}
 
-	public void setStartTime(java.util.Date startTime) {
-		this.startTime = startTime;
-	}
+    public EnchashmentApplication() {
+    }
 
-	public java.util.Date getStopTime() {
-		return stopTime;
-	}
+    public java.util.Date getStartTime() {
+        return startTime;
+    }
 
-	public void setStopTime(java.util.Date stopTime) {
-		this.stopTime = stopTime;
-	}
+    public void setStartTime(java.util.Date startTime) {
+        this.startTime = startTime;
+    }
 
-	public EnchashmentApplication() {
-	}
+    public java.util.Date getStopTime() {
+        return stopTime;
+    }
 
-	public Integer getId() {
-		return this.id;
-	}
+    public void setStopTime(java.util.Date stopTime) {
+        this.stopTime = stopTime;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public Integer getId() {
+        return this.id;
+    }
 
-	public Integer getClientType() {
-		return this.clientType;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public void setClientType(Integer clientType) {
-		this.clientType = clientType;
-	}
+    public Integer getClientType() {
+        return this.clientType;
+    }
 
-	public String getEnchashmentAccount() {
-		return this.enchashmentAccount;
-	}
+    public void setClientType(Integer clientType) {
+        this.clientType = clientType;
+    }
 
-	public void setEnchashmentAccount(String enchashmentAccount) {
-		this.enchashmentAccount = enchashmentAccount;
-	}
+    public String getEnchashmentAccount() {
+        return this.enchashmentAccount;
+    }
 
-	public Integer getEnchashmentAccountType() {
-		return this.enchashmentAccountType;
-	}
+    public void setEnchashmentAccount(String enchashmentAccount) {
+        this.enchashmentAccount = enchashmentAccount;
+    }
 
-	public void setEnchashmentAccountType(Integer enchashmentAccountType) {
-		this.enchashmentAccountType = enchashmentAccountType;
-	}
+    public Integer getEnchashmentAccountType() {
+        return this.enchashmentAccountType;
+    }
 
-	public Integer getEnchashmentStatus() {
-		return this.enchashmentStatus;
-	}
+    public void setEnchashmentAccountType(Integer enchashmentAccountType) {
+        this.enchashmentAccountType = enchashmentAccountType;
+    }
 
-	public void setEnchashmentStatus(Integer enchashmentStatus) {
-		this.enchashmentStatus = enchashmentStatus;
-	}
+    public Integer getEnchashmentStatus() {
+        return this.enchashmentStatus;
+    }
 
-	public BigDecimal getEnchashmentSum() {
-		return this.enchashmentSum;
-	}
+    public void setEnchashmentStatus(Integer enchashmentStatus) {
+        this.enchashmentStatus = enchashmentStatus;
+    }
 
-	public void setEnchashmentSum(BigDecimal enchashmentSum) {
-		this.enchashmentSum = enchashmentSum;
-	}
+    public BigDecimal getEnchashmentSum() {
+        return this.enchashmentSum;
+    }
 
-	public String getOperator() {
-		return this.operator;
-	}
+    public void setEnchashmentSum(BigDecimal enchashmentSum) {
+        this.enchashmentSum = enchashmentSum;
+    }
 
-	public void setOperator(String operator) {
-		this.operator = operator;
-	}
+    public String getOperator() {
+        return this.operator;
+    }
 
-	public Date getTicklingTime() {
-		return this.ticklingTime;
-	}
+    public void setOperator(String operator) {
+        this.operator = operator;
+    }
 
-	public void setTicklingTime(Date ticklingTime) {
-		this.ticklingTime = ticklingTime;
-	}
+    public Date getTicklingTime() {
+        return this.ticklingTime;
+    }
 
-	public Date getTime() {
-		return this.time;
-	}
+    public void setTicklingTime(Date ticklingTime) {
+        this.ticklingTime = ticklingTime;
+    }
 
-	public void setTime(Date time) {
-		this.time = time;
-	}
+    public Date getTime() {
+        return this.time;
+    }
 
-	public String getUserId() {
-		return this.userId;
-	}
+    public void setTime(Date time) {
+        this.time = time;
+    }
 
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
+    public String getUserId() {
+        return this.userId;
+    }
 
-	public String getRealName() {
-		return realName;
-	}
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
-	public void setRealName(String realName) {
-		this.realName = realName;
-	}
+    public String getRealName() {
+        return realName;
+    }
 
-	public String getPhone() {
-		return phone;
-	}
+    public void setRealName(String realName) {
+        this.realName = realName;
+    }
 
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
+    public String getPhone() {
+        return phone;
+    }
 
-	public String getEnchashmentRemark() {
-		return enchashmentRemark;
-	}
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
-	public void setEnchashmentRemark(String enchashmentRemark) {
-		this.enchashmentRemark = enchashmentRemark;
-	}
+    public String getEnchashmentRemark() {
+        return enchashmentRemark;
+    }
 
-	public String getOperateRemark() {
-		return operateRemark;
-	}
+    public void setEnchashmentRemark(String enchashmentRemark) {
+        this.enchashmentRemark = enchashmentRemark;
+    }
 
-	public void setOperateRemark(String operateRemark) {
-		this.operateRemark = operateRemark;
-	}
+    public String getOperateRemark() {
+        return operateRemark;
+    }
 
-	public String getLoginName() {
-		return loginName;
-	}
+    public void setOperateRemark(String operateRemark) {
+        this.operateRemark = operateRemark;
+    }
 
-	public void setLoginName(String loginName) {
-		this.loginName = loginName;
-	}
+    public String getLoginName() {
+        return loginName;
+    }
 
-	public BigDecimal getEnableEnchashmentBalance() {
-		return enableEnchashmentBalance;
-	}
+    public void setLoginName(String loginName) {
+        this.loginName = loginName;
+    }
 
-	public void setEnableEnchashmentBalance(BigDecimal enableEnchashmentBalance) {
-		this.enableEnchashmentBalance = enableEnchashmentBalance;
-	}
+    public BigDecimal getEnableEnchashmentBalance() {
+        return enableEnchashmentBalance;
+    }
 
-	public Integer getCauseType() {
-		return causeType;
-	}
+    public void setEnableEnchashmentBalance(BigDecimal enableEnchashmentBalance) {
+        this.enableEnchashmentBalance = enableEnchashmentBalance;
+    }
 
-	public void setCauseType(Integer causeType) {
-		this.causeType = causeType;
-	}
+    public Integer getCauseType() {
+        return causeType;
+    }
 
-	public String getNewRemark() {
-		return newRemark;
-	}
+    public void setCauseType(Integer causeType) {
+        this.causeType = causeType;
+    }
 
-	public void setNewRemark(String newRemark) {
-		this.newRemark = newRemark;
-	}
+    public String getNewRemark() {
+        return newRemark;
+    }
 
-	
-	
+    public void setNewRemark(String newRemark) {
+        this.newRemark = newRemark;
+    }
+
+
 }

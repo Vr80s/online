@@ -2,27 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xczhihui.medical.headline.mapper.OeBxsAppraiseMapper">
 
-	<select id="selectArticleAppraiseById" resultType="com.xczhihui.medical.headline.model.OeBxsAppraise">
-		SELECT
-		  ba.id,
-		  ba.content,
-		  ba.create_time,
-		  u.name,
-		  u.small_head_photo smallHeadPhoto,
-		  ba.user_id,
-		  us.name nickName,
-		  us.small_head_photo replySmallHeadPhoto,
-		  IF(ba.user_id = #{userId}, 1, 0) isMySelf,
-		  if(ba.reply_comment_id!="",(select content from oe_bxs_appraise where id=ba.reply_comment_id),"") replyContent,
-		  if(ba.reply_comment_id!="",(select create_time from oe_bxs_appraise where id=ba.reply_comment_id),"") replyCreateTime
-		FROM
-		  oe_bxs_appraise ba
-		  LEFT JOIN oe_user us
-			ON ba.target_user_id = us.id,
-		  oe_user u
-		WHERE ba.user_id = u.id
-		  AND ba.is_delete = 0
-		  AND ba.article_id = #{id}
-		ORDER BY ba.create_time DESC
-	</select>
+    <select id="selectArticleAppraiseById" resultType="com.xczhihui.medical.headline.model.OeBxsAppraise">
+        SELECT
+        ba.id,
+        ba.content,
+        ba.create_time,
+        u.name,
+        u.small_head_photo smallHeadPhoto,
+        ba.user_id,
+        us.name nickName,
+        us.small_head_photo replySmallHeadPhoto,
+        IF(ba.user_id = #{userId}, 1, 0) isMySelf,
+        if(ba.reply_comment_id!="",(select content from oe_bxs_appraise where id=ba.reply_comment_id),"") replyContent,
+        if(ba.reply_comment_id!="",(select create_time from oe_bxs_appraise where id=ba.reply_comment_id),"")
+        replyCreateTime
+        FROM
+        oe_bxs_appraise ba
+        LEFT JOIN oe_user us
+        ON ba.target_user_id = us.id,
+        oe_user u
+        WHERE ba.user_id = u.id
+        AND ba.is_delete = 0
+        AND ba.article_id = #{id}
+        ORDER BY ba.create_time DESC
+    </select>
 </mapper>

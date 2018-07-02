@@ -1,7 +1,6 @@
 package com.xczhihui.task;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.solr.client.solrj.SolrServerException;

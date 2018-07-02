@@ -2,6 +2,7 @@ package com.xczhihui.bxg.online.common.consts;
 
 /**
  * 医馆入驻常量
+ *
  * @author zhuwenbao
  */
 public class MedicalHospitalApplyConst {

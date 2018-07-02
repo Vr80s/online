@@ -2,7 +2,6 @@ package com.xczhihui.medical.hospital.service.impl;
 
 import java.util.*;
 
-import com.xczhihui.medical.exception.MedicalException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +12,7 @@ import com.baomidou.mybatisplus.toolkit.CollectionUtils;
 import com.xczhihui.medical.doctor.mapper.MedicalDoctorAuthenticationInformationMapper;
 import com.xczhihui.medical.doctor.model.MedicalDoctor;
 import com.xczhihui.medical.doctor.model.MedicalDoctorAuthenticationInformation;
+import com.xczhihui.medical.exception.MedicalException;
 import com.xczhihui.medical.field.mapper.MedicalFieldMapper;
 import com.xczhihui.medical.field.model.MedicalField;
 import com.xczhihui.medical.field.vo.MedicalFieldVO;

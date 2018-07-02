@@ -8,81 +8,82 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
 @Entity
 @Table(name = "live_examine_info")
-public class LiveExamineInfo  implements Serializable{
-	
-	@Id
-	private String id;
+public class LiveExamineInfo implements Serializable {
 
-	@Column(name = "title")
+    @Id
+    private String id;
+
+    @Column(name = "title")
     private String title;
 
-	@Column(name = "content")
+    @Column(name = "content")
     private String content;
 
-	@Column(name = "type")
+    @Column(name = "type")
     private String type;
 
-	@Column(name = "see_mode")
+    @Column(name = "see_mode")
     private String seeMode;
 
-	@Column(name = "start_time")
+    @Column(name = "start_time")
     private Date startTime;
 
-	@Column(name = "when_long")
+    @Column(name = "when_long")
     private String whenLong;
 
-	@Column(name = "user_id")
+    @Column(name = "user_id")
     private String userId;
 
-	@Column(name = "examine_status")
+    @Column(name = "examine_status")
     private String examineStatus;
 
-	@Column(name = "is_free")
+    @Column(name = "is_free")
     private String isFree;
 
-	@Column(name = "password")
+    @Column(name = "password")
     private String password;
 
-	@Column(name = "price")
+    @Column(name = "price")
     private BigDecimal price;
 
-	@Column(name = "logo")
+    @Column(name = "logo")
     private String logo;
-	
-	
-	//is_push_notice  is_send_phone_message    reviewer_time  reviewer_person  
 
-	@Column(name = "is_push_notice")
-	private  Boolean isPushNotice;  
-	
-	@Column(name = "is_send_phone_message")
-	private Boolean isSendPhoneMessage;
-	
-	@Column(name = "audit_person")
+
+    //is_push_notice  is_send_phone_message    reviewer_time  reviewer_person
+
+    @Column(name = "is_push_notice")
+    private Boolean isPushNotice;
+
+    @Column(name = "is_send_phone_message")
+    private Boolean isSendPhoneMessage;
+
+    @Column(name = "audit_person")
     private String auditPerson;
-	
-	@Column(name = "audit_time")
+
+    @Column(name = "audit_time")
     private Date auditTime;
-	/**
-	 * 实体是否删除
-	 */
-	@Column(name = "is_delete")
-	private 	Boolean isDelete;
-	
-	@Column(name = "end_time")
+    /**
+     * 实体是否删除
+     */
+    @Column(name = "is_delete")
+    private Boolean isDelete;
+
+    @Column(name = "end_time")
     private Date endTime;
 
-	public String getId() {
-		return id;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public String getTitle() {
+    public String getTitle() {
         return title;
     }
 
@@ -177,55 +178,55 @@ public class LiveExamineInfo  implements Serializable{
     public void setLogo(String logo) {
         this.logo = logo == null ? null : logo.trim();
     }
-	
 
-	public String getAuditPerson() {
-		return auditPerson;
-	}
 
-	public void setAuditPerson(String auditPerson) {
-		this.auditPerson = auditPerson;
-	}
+    public String getAuditPerson() {
+        return auditPerson;
+    }
 
-	public Date getAuditTime() {
-		return auditTime;
-	}
+    public void setAuditPerson(String auditPerson) {
+        this.auditPerson = auditPerson;
+    }
 
-	public void setAuditTime(Date auditTime) {
-		this.auditTime = auditTime;
-	}
+    public Date getAuditTime() {
+        return auditTime;
+    }
 
-	public Boolean getIsPushNotice() {
-		return isPushNotice;
-	}
+    public void setAuditTime(Date auditTime) {
+        this.auditTime = auditTime;
+    }
 
-	public void setIsPushNotice(Boolean isPushNotice) {
-		this.isPushNotice = isPushNotice;
-	}
+    public Boolean getIsPushNotice() {
+        return isPushNotice;
+    }
 
-	public Boolean getIsSendPhoneMessage() {
-		return isSendPhoneMessage;
-	}
+    public void setIsPushNotice(Boolean isPushNotice) {
+        this.isPushNotice = isPushNotice;
+    }
 
-	public void setIsSendPhoneMessage(Boolean isSendPhoneMessage) {
-		this.isSendPhoneMessage = isSendPhoneMessage;
-	}
+    public Boolean getIsSendPhoneMessage() {
+        return isSendPhoneMessage;
+    }
 
-	public Boolean getIsDelete() {
-		return isDelete;
-	}
+    public void setIsSendPhoneMessage(Boolean isSendPhoneMessage) {
+        this.isSendPhoneMessage = isSendPhoneMessage;
+    }
 
-	public void setIsDelete(Boolean isDelete) {
-		this.isDelete = isDelete;
-	}
+    public Boolean getIsDelete() {
+        return isDelete;
+    }
 
-	public Date getEndTime() {
-		return endTime;
-	}
+    public void setIsDelete(Boolean isDelete) {
+        this.isDelete = isDelete;
+    }
 
-	public void setEndTime(Date endTime) {
-		this.endTime = endTime;
-	}
-	
-	
+    public Date getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
+    }
+
+
 }

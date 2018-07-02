@@ -2,19 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xczhihui.medical.doctor.mapper.MedicalDoctorPostsLikeMapper">
 
-    <select id="getMedicalDoctorPostsLikeList"  resultType="com.xczhihui.medical.doctor.model.MedicalDoctorPostsLike">
+    <select id="getMedicalDoctorPostsLikeList" resultType="com.xczhihui.medical.doctor.model.MedicalDoctorPostsLike">
         SELECT
         mdpl.*,
         ou.name as userName
         FROM medical_doctor_posts_like mdpl
         JOIN `oe_user` ou
-			ON mdpl.`user_id` = ou.`id`
+        ON mdpl.`user_id` = ou.`id`
         WHERE mdpl.deleted = 0 and mdpl.posts_id = #{postsId}
         ORDER BY mdpl.create_time desc
 
     </select>
 
-    <insert id="addMedicalDoctorPostsLike" >
+    <insert id="addMedicalDoctorPostsLike">
         INSERT INTO medical_doctor_posts_like
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="postsId != null">

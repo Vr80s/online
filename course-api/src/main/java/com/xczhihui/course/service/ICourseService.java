@@ -125,7 +125,6 @@ public interface ICourseService {
 
     List<CourseLecturVo> listenCourseList(boolean onlyFree);
 
-   
 
     /**
      * Description：用户当前课程状态   User current course status. 用户登录了
@@ -245,10 +244,11 @@ public interface ICourseService {
     Course findSimpleInfoById(int id);
 
     /**
-     * 随机查询推荐课程   
-     * @param page  分页参数查询多少条
-     * @param type  等于null时，查所有。  1 直播  2 视频音频  3 线下课
+     * 随机查询推荐课程
+     *
+     * @param page 分页参数查询多少条
+     * @param type 等于null时，查所有。  1 直播  2 视频音频  3 线下课
      * @return
      */
-	List<CourseLecturVo> selectCourseByLearndCount(Page<CourseLecturVo> page, Integer type);
+    List<CourseLecturVo> selectCourseByLearndCount(Page<CourseLecturVo> page, Integer type);
 }

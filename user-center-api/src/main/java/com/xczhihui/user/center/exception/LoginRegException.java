@@ -1,12 +1,13 @@
 package com.xczhihui.user.center.exception;
 
-import com.xczhihui.common.exception.IpandaTcmException;
-
 import java.io.Serializable;
+
+import com.xczhihui.common.exception.IpandaTcmException;
 
 /**
  * Description：登录注册相关异常异常
  * creed: Talk is cheap,show me the code
+ *
  * @author name：yuxin <br>email: yuruixin@ixincheng.com
  * @Date: 2018/4/25 0025 上午 9:06
  **/

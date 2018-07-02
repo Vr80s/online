@@ -4,34 +4,36 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class TestRedisQuene {
-    private static Logger logger = LoggerFactory.getLogger(TestRedisQuene.class);
     public static byte[] redisKey = "KEY-yuxin".getBytes();
-    static{
+    private static Logger logger = LoggerFactory.getLogger(TestRedisQuene.class);
+
+    static {
         try {
             init();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     public static void main(String[] args) throws Exception {
         pop();
     }
 
     private static void pop() throws Exception {
-        Message msg = new Message(1,null);
-        while(msg != null){
+        Message msg = new Message(1, null);
+        while (msg != null) {
             byte[] bytes = JedisUtil.rpop(redisKey);
-            if(bytes==null){
+            if (bytes == null) {
                 logger.info("取完了");
                 return;
             }
             msg = (Message) ObjectUtil.bytesToObject(bytes);
             double d = Math.random();//生成一个0~1的随机数
-            if(d>0.5){//模拟失败场景
+            if (d > 0.5) {//模拟失败场景
                 JedisUtil.lpush(redisKey, ObjectUtil.objectToBytes(msg));
-                logger.info("reset==="+msg.getId());
-            }else{
-                logger.info(msg.getId()+"   "+msg.getContent());
+                logger.info("reset===" + msg.getId());
+            } else {
+                logger.info(msg.getId() + "   " + msg.getContent());
             }
         }
     }

@@ -4,6 +4,7 @@ import java.util.Date;
 
 /**
  * 试卷封装实体类
+ *
  * @Author Rongcai.Kang
  * @Date 2017/02/13 10:51
  */
@@ -12,7 +13,7 @@ public class PaperVo {
     /**
      * 试卷id
      */
-    private  String  id ;
+    private String id;
 
     /**
      * 试卷名字
@@ -37,7 +38,7 @@ public class PaperVo {
     /**
      * 试卷总题数
      */
-    private  Integer amount;
+    private Integer amount;
 
     /**
      * 试卷发布时间

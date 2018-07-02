@@ -1,11 +1,11 @@
 package com.xczhihui.course.model;
 
+import java.io.Serializable;
+import java.util.Date;
+
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
-
-import java.io.Serializable;
-import java.util.Date;
 
 /**
  * @ClassName: MobileProject
@@ -20,49 +20,49 @@ public class MobileProject extends Model<MobileProject> {
     private Integer id;
 
     /**
-     *创建人
+     * 创建人
      */
     @TableField("create_person")
     private String createPerson;
 
     /**
-     *创建时间
+     * 创建时间
      */
     @TableField("create_time")
     private Date createTime;
 
     /**
-     *是否删除
+     * 是否删除
      */
     @TableField("is_delete")
     private boolean isDelete;
 
     /**
-     *名称
+     * 名称
      */
     @TableField("name")
     private String name;
 
     /**
-     *图标
+     * 图标
      */
     @TableField("icon")
     private String icon;
 
     /**
-     *排序
+     * 排序
      */
     @TableField("sort")
     private Integer sort;
 
     /**
-     *状态
+     * 状态
      */
     @TableField("status")
     private Integer status;
 
     /**
-     *备注
+     * 备注
      */
     @TableField("remark")
     private String remark;
@@ -74,13 +74,13 @@ public class MobileProject extends Model<MobileProject> {
     private Integer linkType;
 
     /**
-     *连接地址
+     * 连接地址
      */
     @TableField("link_condition")
     private String linkCondition;
 
     /**
-     *1 推荐 2 分类
+     * 1 推荐 2 分类
      */
     @TableField("type")
     private Integer type;

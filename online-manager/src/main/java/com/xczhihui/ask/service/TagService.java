@@ -6,8 +6,8 @@ package com.xczhihui.ask.service;
 
 import java.util.List;
 
-import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.ask.vo.TagVo;
+import com.xczhihui.common.util.bean.Page;
 
 /**
  * 标签业务层接口类
@@ -17,23 +17,22 @@ import com.xczhihui.ask.vo.TagVo;
  */
 public interface TagService {
 
-	/**
-	 * 
-	 * @return
-	 */
-	public List<TagVo> findTagVo(TagVo tagVo);
+    /**
+     * @return
+     */
+    public List<TagVo> findTagVo(TagVo tagVo);
 
-	public Page<TagVo> findPage(TagVo searchVo, int currentPage, int pageSize);
+    public Page<TagVo> findPage(TagVo searchVo, int currentPage, int pageSize);
 
-	public String addTag(TagVo tagVo);
+    public String addTag(TagVo tagVo);
 
-	public String deletes(String[] _ids);
+    public String deletes(String[] _ids);
 
-	public void updateStatus(String id);
+    public void updateStatus(String id);
 
-	public void updateDirectionUp(String id);
+    public void updateDirectionUp(String id);
 
-	public void updateDirectionDown(String id);
+    public void updateDirectionDown(String id);
 
-	public void updateTag(TagVo tagVo);
+    public void updateTag(TagVo tagVo);
 }

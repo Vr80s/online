@@ -84,10 +84,11 @@ public class CourseOrderController extends AbstractController {
         Order order = orderService.createOrder(getUserId(), id, OrderFrom.PC.getCode());
         return ResponseObject.newSuccessResponseObject(order.getId());
     }
-    
-    
+
+
     /**
      * 创建订单，并且重定向到支付页面
+     *
      * @param id
      * @return
      */

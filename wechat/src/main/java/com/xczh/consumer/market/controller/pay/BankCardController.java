@@ -30,10 +30,9 @@ import com.xczhihui.medical.anchor.vo.UserBank;
 @RequestMapping("/xczh/medical")
 public class BankCardController {
 
+    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(BankCardController.class);
     @Autowired
     private IUserBankService userBankService;
-
-    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(BankCardController.class);
 
     /**
      * 添加银行卡

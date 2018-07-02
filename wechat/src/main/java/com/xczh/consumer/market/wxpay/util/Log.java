@@ -13,40 +13,40 @@ public class Log {
     //打印日志
     private Logger logger;
 
-    public Log(Logger log){
+    public Log(Logger log) {
         logger = log;
     }
 
-    public void t(String s){
+    public void t(String s) {
         logger.trace(s);
     }
 
-    public void d(String s){
+    public void d(String s) {
         logger.debug(s);
     }
 
-    public void i(String s){
+    public void i(String s) {
         logger.info(s);
     }
 
-    public void w(String s){
+    public void w(String s) {
         logger.warn(s);
     }
 
-    public void e(String s){
+    public void e(String s) {
         logger.error(s);
     }
 
-    public void log(String type,String s){
-        if(type.equals(Log.LOG_TYPE_TRACE)){
+    public void log(String type, String s) {
+        if (type.equals(Log.LOG_TYPE_TRACE)) {
             t(s);
-        }else if(type.equals(Log.LOG_TYPE_DEBUG)){
+        } else if (type.equals(Log.LOG_TYPE_DEBUG)) {
             d(s);
-        }else if(type.equals(Log.LOG_TYPE_INFO)){
+        } else if (type.equals(Log.LOG_TYPE_INFO)) {
             i(s);
-        }else if(type.equals(Log.LOG_TYPE_WARN)){
+        } else if (type.equals(Log.LOG_TYPE_WARN)) {
             w(s);
-        }else if(type.equals(Log.LOG_TYPE_ERROR)){
+        } else if (type.equals(Log.LOG_TYPE_ERROR)) {
             e(s);
         }
     }

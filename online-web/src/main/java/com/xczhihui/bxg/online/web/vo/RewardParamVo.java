@@ -4,32 +4,33 @@ import java.io.Serializable;
 
 /**
  * 打赏需要传的参数
+ *
  * @author
  * @create 2017-08-22 9:52
  **/
-public class RewardParamVo implements Serializable{
+public class RewardParamVo implements Serializable {
 
-    private  String rewardId;
-    private  String giver;
-    private  Double price;
-    private  String receiver;
-    private  String liveId;
-    private  String clientType;
+    private String rewardId;
+    private String giver;
+    private Double price;
+    private String receiver;
+    private String liveId;
+    private String clientType;
     //回传参数业务类型 1:打赏 2 普通订单 3 充值代币
-    private String passbackParamBizType="1";
+    private String passbackParamBizType = "1";
     private String userId;
     private String subject;
-    
-    
+
+
     public Double getPrice() {
-		return price;
-	}
+        return price;
+    }
 
-	public void setPrice(Double price) {
-		this.price = price;
-	}
+    public void setPrice(Double price) {
+        this.price = price;
+    }
 
-	public String getSubject() {
+    public String getSubject() {
         return subject;
     }
 
@@ -46,14 +47,14 @@ public class RewardParamVo implements Serializable{
     }
 
     public String getRewardId() {
-		return rewardId;
-	}
+        return rewardId;
+    }
 
-	public void setRewardId(String rewardId) {
-		this.rewardId = rewardId;
-	}
+    public void setRewardId(String rewardId) {
+        this.rewardId = rewardId;
+    }
 
-	public String getGiver() {
+    public String getGiver() {
         return giver;
     }
 

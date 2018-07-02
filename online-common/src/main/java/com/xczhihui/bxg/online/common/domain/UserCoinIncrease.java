@@ -4,16 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 
 /**
@@ -90,6 +81,13 @@ public class UserCoinIncrease implements Serializable {
     private String orderNoRecharge;
     @Column(name = "balance_type")
     private Integer balanceType;
+    @Transient
+    private java.util.Date startTime;
+    @Transient
+    private java.util.Date stopTime;
+
+    public UserCoinIncrease() {
+    }
 
     public Integer getBalanceType() {
         return balanceType;
@@ -97,14 +95,6 @@ public class UserCoinIncrease implements Serializable {
 
     public void setBalanceType(Integer balanceType) {
         this.balanceType = balanceType;
-    }
-
-    @Transient
-    private java.util.Date startTime;
-    @Transient
-    private java.util.Date stopTime;
-
-    public UserCoinIncrease() {
     }
 
     public String getOrderNoRecharge() {

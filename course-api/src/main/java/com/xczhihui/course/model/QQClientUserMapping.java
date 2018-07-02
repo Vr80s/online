@@ -10,73 +10,73 @@ import com.qq.connect.javabeans.qzone.UserInfoBean;
 import com.xczhihui.common.util.CodeUtil;
 
 @TableName("qq_client_user_mapping")
-public class QQClientUserMapping extends  Model<QQClientUserMapping>{
-   
-	private static final long serialVersionUID = 1L;
-	
-	@TableField("id")
-	private String id;
+public class QQClientUserMapping extends Model<QQClientUserMapping> {
 
-	@TableField("user_id")
+    private static final long serialVersionUID = 1L;
+
+    @TableField("id")
+    private String id;
+
+    @TableField("user_id")
     private String userId;
-	
-	@TableField("open_id")
+
+    @TableField("open_id")
     private String openId;
 
-	@TableField("nickname")
+    @TableField("nickname")
     private String nickname;
 
-	@TableField("figureurl")
+    @TableField("figureurl")
     private String figureurl;
 
-	@TableField("figureurl_1")
+    @TableField("figureurl_1")
     private String figureurl1;
 
-	@TableField("figureurl_2")
+    @TableField("figureurl_2")
     private String figureurl2;
 
-	@TableField("gender")
+    @TableField("gender")
     private String gender;
 
-	@TableField("vip")
+    @TableField("vip")
     private Boolean vip;
 
-	@TableField("level")
+    @TableField("level")
     private Integer level;
 
-	@TableField("is_yellow_year_vip")
+    @TableField("is_yellow_year_vip")
     private Boolean yellowYearVip;
 
-	@TableField("remark")
+    @TableField("remark")
     private String remark;
 
-	@TableField("create_time")
+    @TableField("create_time")
     private Date createTime;
-	
-	@TableField("union_id")
+
+    @TableField("union_id")
     private String unionId;
 
-	
-	public QQClientUserMapping() {
-		
-	}
-	
-	public QQClientUserMapping(UserInfoBean userInfoBean,String openId) {
-		
-		  this.setId(CodeUtil.getRandomUUID());
-		  this.setOpenId(openId);
-          // 防止表情名字
-          String nickname = userInfoBean.getNickname();
-          this.setNickname(nickname);
-          this.setGender(userInfoBean.getGender());
-          this.setLevel(userInfoBean.getLevel());
-          this.setVip(userInfoBean.isVip());
-          this.setYellowYearVip(userInfoBean.isYellowYearVip());
-          this.setFigureurl(userInfoBean.getAvatar().getAvatarURL30());
-          this.setFigureurl1(userInfoBean.getAvatar().getAvatarURL50());
-          this.setFigureurl2(userInfoBean.getAvatar().getAvatarURL100());
-	}
-	
+
+    public QQClientUserMapping() {
+
+    }
+
+    public QQClientUserMapping(UserInfoBean userInfoBean, String openId) {
+
+        this.setId(CodeUtil.getRandomUUID());
+        this.setOpenId(openId);
+        // 防止表情名字
+        String nickname = userInfoBean.getNickname();
+        this.setNickname(nickname);
+        this.setGender(userInfoBean.getGender());
+        this.setLevel(userInfoBean.getLevel());
+        this.setVip(userInfoBean.isVip());
+        this.setYellowYearVip(userInfoBean.isYellowYearVip());
+        this.setFigureurl(userInfoBean.getAvatar().getAvatarURL30());
+        this.setFigureurl1(userInfoBean.getAvatar().getAvatarURL50());
+        this.setFigureurl2(userInfoBean.getAvatar().getAvatarURL100());
+    }
+
     public String getId() {
         return id;
     }
@@ -136,32 +136,32 @@ public class QQClientUserMapping extends  Model<QQClientUserMapping>{
 
 
     public Integer getLevel() {
-		return level;
-	}
+        return level;
+    }
 
-	public void setLevel(Integer level) {
-		this.level = level;
-	}
+    public void setLevel(Integer level) {
+        this.level = level;
+    }
 
 
     public Boolean getVip() {
-		return vip;
-	}
+        return vip;
+    }
 
-	public void setVip(Boolean vip) {
-		this.vip = vip;
-	}
+    public void setVip(Boolean vip) {
+        this.vip = vip;
+    }
 
 
-	public Boolean getYellowYearVip() {
-		return yellowYearVip;
-	}
+    public Boolean getYellowYearVip() {
+        return yellowYearVip;
+    }
 
-	public void setYellowYearVip(Boolean yellowYearVip) {
-		this.yellowYearVip = yellowYearVip;
-	}
+    public void setYellowYearVip(Boolean yellowYearVip) {
+        this.yellowYearVip = yellowYearVip;
+    }
 
-	public String getRemark() {
+    public String getRemark() {
         return remark;
     }
 
@@ -176,40 +176,39 @@ public class QQClientUserMapping extends  Model<QQClientUserMapping>{
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
-    
 
-	public String getUserId() {
-		return userId;
-	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-	
-	public String getUnionId() {
-		return unionId;
-	}
+    public String getUserId() {
+        return userId;
+    }
 
-	public void setUnionId(String unionId) {
-		this.unionId = unionId;
-	}
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
-	
-	
-	@Override
-	public String toString() {
-		return "QQClientUserMapping [id=" + id + ", userId=" + userId
-				+ ", openId=" + openId + ", nickname=" + nickname
-				+ ", figureurl=" + figureurl + ", figureurl1=" + figureurl1
-				+ ", figureurl2=" + figureurl2 + ", gender=" + gender
-				+ ", vip=" + vip + ", level=" + level + ", yellowYearVip="
-				+ yellowYearVip + ", remark=" + remark + ", createTime="
-				+ createTime + ", unionId=" + unionId + "]";
-	}
+    public String getUnionId() {
+        return unionId;
+    }
 
-	@Override
-	protected Serializable pkVal() {
-		// TODO Auto-generated method stub
-		return this.id;
-	}
+    public void setUnionId(String unionId) {
+        this.unionId = unionId;
+    }
+
+
+    @Override
+    public String toString() {
+        return "QQClientUserMapping [id=" + id + ", userId=" + userId
+                + ", openId=" + openId + ", nickname=" + nickname
+                + ", figureurl=" + figureurl + ", figureurl1=" + figureurl1
+                + ", figureurl2=" + figureurl2 + ", gender=" + gender
+                + ", vip=" + vip + ", level=" + level + ", yellowYearVip="
+                + yellowYearVip + ", remark=" + remark + ", createTime="
+                + createTime + ", unionId=" + unionId + "]";
+    }
+
+    @Override
+    protected Serializable pkVal() {
+        // TODO Auto-generated method stub
+        return this.id;
+    }
 }

@@ -2,22 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xczhihui.medical.doctor.mapper.MedicalDoctorPostsCommentMapper">
 
-    <select id="selectMedicalDoctorPostsCommentList"  resultType="com.xczhihui.medical.doctor.model.MedicalDoctorPostsComment">
+    <select id="selectMedicalDoctorPostsCommentList"
+            resultType="com.xczhihui.medical.doctor.model.MedicalDoctorPostsComment">
         SELECT
         mdpc.*,
         ou.name as userName,
         ous.name as replyUserName
         FROM medical_doctor_posts_comment mdpc
         JOIN `oe_user` ou
-			ON mdpc.`user_id` = ou.`id`
-		left join `oe_user` ous
-			ON  mdpc.reply_user_id = ous.`id`
+        ON mdpc.`user_id` = ou.`id`
+        left join `oe_user` ous
+        ON mdpc.reply_user_id = ous.`id`
         WHERE mdpc.deleted = 0 and mdpc.posts_id=#{postsId}
         ORDER BY mdpc.create_time desc
 
     </select>
 
-    <insert id="addMedicalDoctorPostsComment" parameterType="com.xczhihui.medical.doctor.model.MedicalDoctorPostsComment">
+    <insert id="addMedicalDoctorPostsComment"
+            parameterType="com.xczhihui.medical.doctor.model.MedicalDoctorPostsComment">
         INSERT INTO medical_doctor_posts_comment
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="medicalDoctorPostsComment.postsId != null">
@@ -68,7 +70,6 @@
     </insert>
 
 
-
     <update id="deleteMedicalDoctorPostsComment">
         UPDATE
         medical_doctor_posts_comment mdpc
@@ -77,9 +78,10 @@
         WHERE mdpc.id = #{id}
     </update>
 
-    <select id="getMedicalDoctorPostsCommentById"  resultType="com.xczhihui.medical.doctor.model.MedicalDoctorPostsComment">
+    <select id="getMedicalDoctorPostsCommentById"
+            resultType="com.xczhihui.medical.doctor.model.MedicalDoctorPostsComment">
         SELECT
-          *
+        *
         FROM medical_doctor_posts_comment mdpc
         WHERE mdpc.deleted = 0 and mdpc.id = #{id}
 

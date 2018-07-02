@@ -41,9 +41,9 @@ public interface CourseMapper extends BaseMapper<Course> {
 
     CourseLecturVo selectLecturerRecentCourse(@Param("userId") String userId, @Param("onlyFree") boolean onlyFree);
 
-    List<CourseLecturVo> selectLecturerAllCourse(@Param("page") Page<CourseLecturVo> page, 
-    		@Param("userId") String id,@Param("type") Integer type, 
-    		@Param("onlyFree") boolean onlyFree);
+    List<CourseLecturVo> selectLecturerAllCourse(@Param("page") Page<CourseLecturVo> page,
+                                                 @Param("userId") String id, @Param("type") Integer type,
+                                                 @Param("onlyFree") boolean onlyFree);
 
     List<CourseLecturVo> selectUserConsoleCourse(@Param("userId") String userId);
 
@@ -105,11 +105,12 @@ public interface CourseMapper extends BaseMapper<Course> {
 
     /**
      * 随机学习人数最高的
+     *
      * @param type null 所有推荐     1 直播  2 视频  3 线下课
      * @return
      */
     List<CourseLecturVo> selectCourseByLearndCount(@Param("page") Page<CourseLecturVo> page,
-    		@Param("type") Integer type);
+                                                   @Param("type") Integer type);
 
     /**
      * 查询4条该课程分类下的其他课程
@@ -148,18 +149,19 @@ public interface CourseMapper extends BaseMapper<Course> {
             " order by oc.create_time desc"})
     List<Map<String, Object>> selectOfflineCourseByAnchorId(Page<Map<String, Object>> page, @Param("anchorId") String anchorId);
 
-	Integer selectLiveCountByUserIdAndType(@Param("userId")String userId, @Param("type")Integer type);
+    Integer selectLiveCountByUserIdAndType(@Param("userId") String userId, @Param("type") Integer type);
 
     /**
      * 查询医师所有的课程
-     * @param type 类型
+     *
+     * @param type     类型
      * @param anchorId 主播id
      * @return
      */
     @Select({"select oc.id, oc.grade_name as courseName " +
             " from oe_course oc" +
-                    " where oc.user_lecturer_id = #{anchorId} and (#{type} is null OR type = #{type}) and is_delete = 0 and status = 1" +
-                    " order by oc.create_time desc"})
+            " where oc.user_lecturer_id = #{anchorId} and (#{type} is null OR type = #{type}) and is_delete = 0 and status = 1" +
+            " order by oc.create_time desc"})
     List<Map<String, Object>> selectCourseByType(@Param("type") Integer type, @Param("anchorId") String anchorId);
 
 
@@ -170,14 +172,14 @@ public interface CourseMapper extends BaseMapper<Course> {
 
     /**
      * 查询课程的简单信息
+     *
      * @param id id
      * @return
      */
     @Select({"select id, grade_name as gradeName from oe_course where id = #{id}"})
     Course findSimpleInfoById(@Param("id") int id);
 
-    
-    
-	List<CourseLecturVo> selectRecommendSortAndRandCourse(@Param("page")Page<CourseLecturVo> page);
+
+    List<CourseLecturVo> selectRecommendSortAndRandCourse(@Param("page") Page<CourseLecturVo> page);
 
 }

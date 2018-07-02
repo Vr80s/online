@@ -1,4 +1,3 @@
-
 package com.xczhihui.bxg.online.web.vo;
 
 import java.util.Date;

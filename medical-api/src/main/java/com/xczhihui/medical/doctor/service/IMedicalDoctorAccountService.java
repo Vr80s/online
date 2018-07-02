@@ -6,7 +6,7 @@ import com.xczhihui.medical.doctor.model.MedicalDoctorAccount;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author yuxin
@@ -17,6 +17,7 @@ public interface IMedicalDoctorAccountService extends IService<MedicalDoctorAcco
     /**
      * Description：通过用户信息直接得到医师信息
      * creed: Talk is cheap,show me the code
+     *
      * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
      * @Date: 2018/6/20 18:18
      **/

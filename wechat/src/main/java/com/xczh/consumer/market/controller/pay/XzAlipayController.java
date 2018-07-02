@@ -46,9 +46,8 @@ import com.xczhihui.pay.alipay.controller.AliPayApiController;
 @RequestMapping("/xczh/alipay")
 public class XzAlipayController extends AliPayApiController {
 
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
     private static String ALIPAY_NOTIFY_URL = "/xczh/alipay/alipayNotifyUrl";
-
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     private AliPayBean aliPayBean;
     @Autowired
@@ -261,9 +260,9 @@ public class XzAlipayController extends AliPayApiController {
             Map<String, String> params = AliPayApi.toMap(request);
             StringBuilder sb = new StringBuilder();
             for (Map.Entry<String, String> entry : params.entrySet()) {
-                sb.append(entry.getKey() + " = " + entry.getValue()+";");
+                sb.append(entry.getKey() + " = " + entry.getValue() + ";");
             }
-            logger.warn("wechat服务支付宝支付回调:{}",sb.toString());
+            logger.warn("wechat服务支付宝支付回调:{}", sb.toString());
             boolean verify_result = AlipaySignature.rsaCheckV1(params, aliPayBean.getPublicKey(), "UTF-8", "RSA2");
             if (verify_result) {
                 payService.aliPayBusiness(params);

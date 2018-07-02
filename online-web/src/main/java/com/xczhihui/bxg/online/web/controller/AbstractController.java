@@ -12,12 +12,12 @@ public class AbstractController {
 
     private static final ThreadLocal<OnlineUser> CURRENT_USER = new ThreadLocal<OnlineUser>();
 
-    public static void setCurrentUser(OnlineUser user) {
-        CURRENT_USER.set(user);
-    }
-
     public static OnlineUser getCurrentUser() {
         return CURRENT_USER.get();
+    }
+
+    public static void setCurrentUser(OnlineUser user) {
+        CURRENT_USER.set(user);
     }
 
     public String getUserId() {

@@ -11,11 +11,11 @@ public enum MessageTypeEnum {
     ASK_QUESTION(3),
     REPLY(4);
 
+    private int val;
+
     MessageTypeEnum(int val) {
         this.val = val;
     }
-
-    private int val;
 
     public int getVal() {
         return val;

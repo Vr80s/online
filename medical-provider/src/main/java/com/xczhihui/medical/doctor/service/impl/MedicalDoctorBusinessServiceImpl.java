@@ -1,12 +1,6 @@
 package com.xczhihui.medical.doctor.service.impl;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
@@ -34,11 +28,7 @@ import com.xczhihui.medical.doctor.model.MedicalDoctorAuthenticationInformation;
 import com.xczhihui.medical.doctor.model.MedicalDoctorDepartment;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorDepartmentService;
-import com.xczhihui.medical.doctor.vo.DoctorQueryVo;
-import com.xczhihui.medical.doctor.vo.MedicalDoctorAuthenticationInformationVO;
-import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
-import com.xczhihui.medical.doctor.vo.MedicalWritingVO;
-import com.xczhihui.medical.doctor.vo.OeBxsArticleVO;
+import com.xczhihui.medical.doctor.vo.*;
 import com.xczhihui.medical.exception.MedicalException;
 import com.xczhihui.medical.field.vo.MedicalFieldVO;
 import com.xczhihui.medical.headline.mapper.OeBxsArticleMapper;
@@ -134,7 +124,8 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
                 records.get(i).setDepartmentText(departments.toString());
             }
             //筛选坐诊时间
-            records.get(i).setWorkTime(XzStringUtils.workTimeScreen(records.get(i).getWorkTime()));;
+            records.get(i).setWorkTime(XzStringUtils.workTimeScreen(records.get(i).getWorkTime()));
+            ;
         }
         page.setRecords(records);
         return page;
@@ -610,14 +601,13 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
 
 
     @Override
-    public List<MedicalDoctorVO>  selectDoctorRecommendList4Random(Integer type,
-                                                                   Integer pageNumber,Integer pageSize) {
+    public List<MedicalDoctorVO> selectDoctorRecommendList4Random(Integer type,
+                                                                  Integer pageNumber, Integer pageSize) {
 
-        List<MedicalDoctorVO> records =medicalDoctorMapper.
-                selectDoctorRecommendList4Random(type,pageNumber,pageSize);
+        List<MedicalDoctorVO> records = medicalDoctorMapper.
+                selectDoctorRecommendList4Random(type, pageNumber, pageSize);
         return records;
     }
-
 
 
     /**
@@ -696,21 +686,21 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
 
     @Override
     public List<MedicalDoctorVO> selectDoctorCouserByAccountId(Integer pageNumber, Integer pageSize) {
-        return  medicalDoctorMapper.selectDoctorCouserByAccountId(pageNumber,pageSize);
+        return medicalDoctorMapper.selectDoctorCouserByAccountId(pageNumber, pageSize);
     }
 
     @Override
     public Page<MedicalDoctorVO> selectDoctorListByQueryKey(Page<MedicalDoctorVO> page,
                                                             DoctorQueryVo dqv) {
 
-        List<MedicalDoctorVO> records =  medicalDoctorMapper.selectDoctorListByQueryKey(page,dqv);
+        List<MedicalDoctorVO> records = medicalDoctorMapper.selectDoctorListByQueryKey(page, dqv);
         return page.setRecords(records);
     }
 
-	@Override
-	public Map<String, Object> selectDoctorWorkTimeAndDetailsById(String doctorId) {
-		
-		
-		return medicalDoctorMapper.selectDoctorWorkTimeAndDetailsById(doctorId);
-	}
+    @Override
+    public Map<String, Object> selectDoctorWorkTimeAndDetailsById(String doctorId) {
+
+
+        return medicalDoctorMapper.selectDoctorWorkTimeAndDetailsById(doctorId);
+    }
 }

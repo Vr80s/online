@@ -86,9 +86,9 @@ public class EnrolServiceImpl implements EnrolService {
         m.setMerId(merId);
         MedicalEntryInformation medicalEntryInformation = medicalEntryInformationMapper.selectOne(m);
         MedicalEntryInformationVO medicalEntryInformationVO = new MedicalEntryInformationVO();
-        if(medicalEntryInformation!=null){
-            BeanUtils.copyProperties(medicalEntryInformation,medicalEntryInformationVO);
-        }else{
+        if (medicalEntryInformation != null) {
+            BeanUtils.copyProperties(medicalEntryInformation, medicalEntryInformationVO);
+        } else {
             medicalEntryInformationVO = null;
         }
         return medicalEntryInformationVO;
@@ -106,9 +106,9 @@ public class EnrolServiceImpl implements EnrolService {
     @Override
     public MedicalEnrollmenRtegulationsCardInfoVO getMedicalEnrollmentRegulationsCardInfoById(int id, String userId, String returnOpenidUri) {
         MedicalEnrollmenRtegulationsCardInfoVO merci = medicalEnrollmentRegulationsMapper.getMedicalEnrollmentRegulationsCardInfoById(id);
-        String profilePicture  = medicalEnrollmentRegulationsMapper.selectUserPhoto4CardInfo(userId);
+        String profilePicture = medicalEnrollmentRegulationsMapper.selectUserPhoto4CardInfo(userId);
         merci.setProfilePicture(profilePicture);
-        merci.setEnrolShareUrl(returnOpenidUri+ENROL_URL+id);
+        merci.setEnrolShareUrl(returnOpenidUri + ENROL_URL + id);
         return merci;
     }
 
@@ -117,35 +117,35 @@ public class EnrolServiceImpl implements EnrolService {
         if (medicalEnrollmentRegulations == null) {
             throw new MedicalException("该招生不存在或已结束");
         }
-        if(!isMobileNO(medicalEntryInformationVO.getTel())){
+        if (!isMobileNO(medicalEntryInformationVO.getTel())) {
             throw new MedicalException("手机号有误");
         }
-        if(!isAge(medicalEntryInformationVO.getAge())){
+        if (!isAge(medicalEntryInformationVO.getAge())) {
             throw new MedicalException("年龄有误");
         }
-        if(medicalEntryInformationVO.getName()==null){
+        if (medicalEntryInformationVO.getName() == null) {
             throw new MedicalException("姓名不为空");
-        }else if(medicalEntryInformationVO.getName().length()>32){
+        } else if (medicalEntryInformationVO.getName().length() > 32) {
             throw new MedicalException("姓名最多32个字");
         }
-        if(medicalEntryInformationVO.getNativePlace() ==null){
+        if (medicalEntryInformationVO.getNativePlace() == null) {
             throw new MedicalException("籍贯不为空");
-        }else if(medicalEntryInformationVO.getNativePlace().length()>100){
+        } else if (medicalEntryInformationVO.getNativePlace().length() > 100) {
             throw new MedicalException("籍贯最多100个字");
         }
-        if(medicalEntryInformationVO.getEducationExperience() ==null){
+        if (medicalEntryInformationVO.getEducationExperience() == null) {
             throw new MedicalException("学习经历不为空");
-        }else if(medicalEntryInformationVO.getEducationExperience().length()>1000){
+        } else if (medicalEntryInformationVO.getEducationExperience().length() > 1000) {
             throw new MedicalException("学习经历最多1000个字");
         }
-        if(medicalEntryInformationVO.getMedicalExperience() ==null){
+        if (medicalEntryInformationVO.getMedicalExperience() == null) {
             throw new MedicalException("行医经历不为空");
-        }else if(medicalEntryInformationVO.getMedicalExperience().length()>1000){
+        } else if (medicalEntryInformationVO.getMedicalExperience().length() > 1000) {
             throw new MedicalException("行医经历最多1000个字");
         }
-        if(medicalEntryInformationVO.getGoal() ==null){
+        if (medicalEntryInformationVO.getGoal() == null) {
             throw new MedicalException("学习目标不为空");
-        }else if(medicalEntryInformationVO.getGoal().length()>1000){
+        } else if (medicalEntryInformationVO.getGoal().length() > 1000) {
             throw new MedicalException("学习目标最多1000个字");
         }
     }
@@ -156,7 +156,7 @@ public class EnrolServiceImpl implements EnrolService {
     }
 
     private boolean isAge(int age) {
-        if(100>age && age>0){
+        if (100 > age && age > 0) {
             return true;
         }
         return false;

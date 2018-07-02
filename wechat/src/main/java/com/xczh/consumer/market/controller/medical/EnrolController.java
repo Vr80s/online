@@ -30,28 +30,28 @@ public class EnrolController {
     @Value("${returnOpenidUri}")
     private String returnOpenidUri;
 
-    @RequestMapping(value="enrollmentRegulations",method = RequestMethod.GET)
-    public ResponseObject getEnrollmentRegulationsList(int page, int size){
-        return ResponseObject.newSuccessResponseObject(enrolService.getEnrollmentRegulationsList( page,size));
+    @RequestMapping(value = "enrollmentRegulations", method = RequestMethod.GET)
+    public ResponseObject getEnrollmentRegulationsList(int page, int size) {
+        return ResponseObject.newSuccessResponseObject(enrolService.getEnrollmentRegulationsList(page, size));
     }
 
-    @RequestMapping(value="enrollmentRegulations/{id}",method = RequestMethod.GET)
-    public ResponseObject enrollmentRegulations(@Account String accountId, @PathVariable int id, HttpServletRequest req){
-        return ResponseObject.newSuccessResponseObject(enrolService.getMedicalEnrollmentRegulationsById(id,accountId));
+    @RequestMapping(value = "enrollmentRegulations/{id}", method = RequestMethod.GET)
+    public ResponseObject enrollmentRegulations(@Account String accountId, @PathVariable int id, HttpServletRequest req) {
+        return ResponseObject.newSuccessResponseObject(enrolService.getMedicalEnrollmentRegulationsById(id, accountId));
     }
 
-    @RequestMapping(value="enrollmentRegulations/{id}/cardInfo",method = RequestMethod.GET)
-    public ResponseObject enrollmentRegulationsCardInfo(@Account String accountId,@PathVariable int id, HttpServletRequest req){
-        return ResponseObject.newSuccessResponseObject(enrolService.getMedicalEnrollmentRegulationsCardInfoById(id,accountId,returnOpenidUri));
+    @RequestMapping(value = "enrollmentRegulations/{id}/cardInfo", method = RequestMethod.GET)
+    public ResponseObject enrollmentRegulationsCardInfo(@Account String accountId, @PathVariable int id, HttpServletRequest req) {
+        return ResponseObject.newSuccessResponseObject(enrolService.getMedicalEnrollmentRegulationsCardInfoById(id, accountId, returnOpenidUri));
     }
 
-    @RequestMapping(value="medicalEntryInformation/{merId}",method = RequestMethod.GET)
-    public ResponseObject medicalEntryInformation(@Account String accountId,@PathVariable int merId, HttpServletRequest req){
-        return ResponseObject.newSuccessResponseObject(enrolService.getMedicalEntryInformationByUserIdAndERId(merId,accountId));
+    @RequestMapping(value = "medicalEntryInformation/{merId}", method = RequestMethod.GET)
+    public ResponseObject medicalEntryInformation(@Account String accountId, @PathVariable int merId, HttpServletRequest req) {
+        return ResponseObject.newSuccessResponseObject(enrolService.getMedicalEntryInformationByUserIdAndERId(merId, accountId));
     }
 
-    @RequestMapping(value="medicalEntryInformation",method = RequestMethod.POST)
-    public ResponseObject saveMedicalEntryInformation(@Account String accountId,MedicalEntryInformationVO medicalEntryInformationVO, HttpServletRequest req){
+    @RequestMapping(value = "medicalEntryInformation", method = RequestMethod.POST)
+    public ResponseObject saveMedicalEntryInformation(@Account String accountId, MedicalEntryInformationVO medicalEntryInformationVO, HttpServletRequest req) {
         medicalEntryInformationVO.setUserId(accountId);
         enrolService.saveMedicalEntryInformation(medicalEntryInformationVO);
         return ResponseObject.newSuccessResponseObject("报名成功");

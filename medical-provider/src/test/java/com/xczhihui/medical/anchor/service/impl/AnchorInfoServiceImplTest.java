@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.xczhihui.medical.anchor.service.IAnchorInfoService;
 import com.xczhihui.medical.anchor.vo.CourseAnchorVO;
 
-import ch.qos.logback.classic.net.SyslogAppender;
 import test.BaseJunit4Test;
 
 public class AnchorInfoServiceImplTest extends BaseJunit4Test {
@@ -19,7 +18,7 @@ public class AnchorInfoServiceImplTest extends BaseJunit4Test {
      * 获取主播详情
      */
     @Test
-    public void testDetail(){
+    public void testDetail() {
 
         CourseAnchorVO courseAnchor = service.detail("402880e860c4ebe30160c51302660000");
 //        CourseAnchorVO courseAnchor = service.detail("23908ae85dad4541ba7ecf53fc52aab2");
@@ -31,7 +30,7 @@ public class AnchorInfoServiceImplTest extends BaseJunit4Test {
      * 获取主播认证信息
      */
     @Test
-    public void testAUthInfo(){
+    public void testAUthInfo() {
 
 //        Object o = service.authInfo("402880e860c4ebe30160c51302660000");
         Object o = service.authInfo("23908ae85dad4541ba7ecf53fc52aab2");
@@ -43,7 +42,7 @@ public class AnchorInfoServiceImplTest extends BaseJunit4Test {
      * 更新主播详情
      */
     @Test
-    public void testUpdate(){
+    public void testUpdate() {
 
         CourseAnchorVO courseAnchor = new CourseAnchorVO();
 //        courseAnchor.setUserId("23908ae85dad4541ba7ecf53fc52aab2");

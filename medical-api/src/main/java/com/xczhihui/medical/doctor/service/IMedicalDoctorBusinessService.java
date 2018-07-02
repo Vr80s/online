@@ -150,22 +150,25 @@ public interface IMedicalDoctorBusinessService {
 
     /**
      * 查询名医，除推荐值最高的
+     *
      * @param type
      * @param pageNumber
      * @param pageSize
      * @return
      */
     List<MedicalDoctorVO> selectDoctorRecommendList4Random(Integer type, Integer pageNumber, Integer pageSize);
+
     /**
      * 查找名医关联下医师所包含的课程
+     *
      * @param pageNumber
      * @param pageSize
      * @return
      */
-    List<MedicalDoctorVO>  selectDoctorCouserByAccountId(Integer pageNumber, Integer pageSize);
+    List<MedicalDoctorVO> selectDoctorCouserByAccountId(Integer pageNumber, Integer pageSize);
 
     public Page<MedicalDoctorVO> selectDoctorListByQueryKey(Page<MedicalDoctorVO> page, DoctorQueryVo dqv);
 
-	public Map<String, Object> selectDoctorWorkTimeAndDetailsById(String doctorId);
+    public Map<String, Object> selectDoctorWorkTimeAndDetailsById(String doctorId);
 
 }

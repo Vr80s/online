@@ -121,16 +121,16 @@ public class MessageRecord implements Serializable {
 
     private String title;
 
+    public static long getSerialversionuid() {
+        return serialVersionUID;
+    }
+
     public String getContext() {
         return context;
     }
 
     public void setContext(String context) {
         this.context = context;
-    }
-
-    public static long getSerialversionuid() {
-        return serialVersionUID;
     }
 
     public Integer getId() {

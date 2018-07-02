@@ -86,7 +86,7 @@ public class HostController {
          *
          * 这个主播可能认证的是医馆，也可能认证的是医师
          */
-        Map<String, Object> lecturerInfo = myInfoService.findHostInfoById(lecturerId,false);
+        Map<String, Object> lecturerInfo = myInfoService.findHostInfoById(lecturerId, false);
         if (lecturerInfo == null) {
             return ResponseObject.newErrorResponseObject("获取医师信息有误");
         }
@@ -105,8 +105,8 @@ public class HostController {
         }
         //认证的主播 还是 医馆
         mapAll.put("hospital", mha);
-        
-        
+
+
         List<Integer> listff = focusServiceRemote.selectFocusOrFansCountOrCriticizeCount(lecturerId);
         mapAll.put("fansCount", listff.get(0));           //粉丝总数
         mapAll.put("focusCount", listff.get(1));           //关注总数
@@ -135,7 +135,7 @@ public class HostController {
                                  @RequestParam("lecturerId") String lecturerId, HttpServletRequest request) throws Exception {
         Map<String, Object> mapAll = new HashMap<String, Object>();
         Map<String, Object> lecturerInfo = myInfoService.findDoctorInfoById(lecturerId);
-        if (lecturerInfo == null ) {
+        if (lecturerInfo == null) {
             return ResponseObject.newErrorResponseObject("获取医师信息有误");
         }
         List<Integer> listff = focusServiceRemote.selectFocusOrFansCountOrCriticizeCount(lecturerId);

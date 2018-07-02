@@ -1,13 +1,12 @@
 package com.xczhihui.medical.anchor.service;
 
-import com.baomidou.mybatisplus.plugins.Page;
-import com.xczhihui.medical.anchor.vo.CourseApplyInfoVO;
-
 import java.util.Map;
+
+import com.baomidou.mybatisplus.plugins.Page;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author yuxin

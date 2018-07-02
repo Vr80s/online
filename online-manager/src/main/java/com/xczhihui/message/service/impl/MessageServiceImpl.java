@@ -129,7 +129,7 @@ public class MessageServiceImpl extends OnlineBaseServiceImpl implements
 
     @Override
     public Page<MessageRecord> findPageMessages(MessageVo vo, int pageNumber,
-                                            int pageSize) {
+                                                int pageSize) {
         Map<String, Object> paramMap = new HashMap<String, Object>();
         StringBuilder sql = new StringBuilder(
                 "select * from oe_message_record where (is_delete is null or is_delete = 0)");

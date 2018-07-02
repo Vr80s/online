@@ -66,6 +66,11 @@ public class OeBxsArticleVO implements Serializable {
     private String buyLink;
 
     private String type;
+    private List<MedicalDoctorVO> medicalDoctors;
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
 
     public String getAuthor() {
         return author;
@@ -74,8 +79,6 @@ public class OeBxsArticleVO implements Serializable {
     public void setAuthor(String author) {
         this.author = author;
     }
-
-    private List<MedicalDoctorVO> medicalDoctors;
 
     public List<MedicalDoctorVO> getMedicalDoctors() {
         return medicalDoctors;
@@ -91,10 +94,6 @@ public class OeBxsArticleVO implements Serializable {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
-    }
-
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
     }
 
     public Integer getId() {

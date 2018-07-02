@@ -3,9 +3,9 @@ package com.xczhihui.course.vo;
 import java.io.Serializable;
 import java.util.Date;
 
-public class OnlineUserVO implements Serializable{
-	
-	
+public class OnlineUserVO implements Serializable {
+
+
     private String id;
 
     private String name;
@@ -81,7 +81,7 @@ public class OnlineUserVO implements Serializable{
     private String vhallPass;
 
     private String vhallName;
-    
+
     private String regionId;
 
     private String regionAreaId;
@@ -91,7 +91,7 @@ public class OnlineUserVO implements Serializable{
     private String provinceName;
 
     private String cityName;
-    
+
     private String countyName;
 
     private String individualitySignature;
@@ -100,7 +100,6 @@ public class OnlineUserVO implements Serializable{
 
     private String gag;
 
-  
 
     private String description;
 
@@ -488,33 +487,33 @@ public class OnlineUserVO implements Serializable{
         this.description = description == null ? null : description.trim();
     }
 
-	@Override
-	public String toString() {
-		return "OnlineUserVO [id=" + id + ", name=" + name + ", loginName="
-				+ loginName + ", password=" + password + ", sex=" + sex
-				+ ", mobile=" + mobile + ", email=" + email + ", isDelete="
-				+ isDelete + ", smallHeadPhoto=" + smallHeadPhoto
-				+ ", bigHeadPhoto=" + bigHeadPhoto + ", createPerson="
-				+ createPerson + ", createTime=" + createTime + ", status="
-				+ status + ", lastLoginIp=" + lastLoginIp + ", lastLoginDate="
-				+ lastLoginDate + ", visitSum=" + visitSum + ", stayTime="
-				+ stayTime + ", info=" + info + ", jobyears=" + jobyears
-				+ ", occupation=" + occupation + ", occupationOther="
-				+ occupationOther + ", target=" + target + ", isApply="
-				+ isApply + ", fullAddress=" + fullAddress + ", menuId="
-				+ menuId + ", unionId=" + unionId + ", userType=" + userType
-				+ ", refId=" + refId + ", parentId=" + parentId
-				+ ", shareCode=" + shareCode + ", changeTime=" + changeTime
-				+ ", origin=" + origin + ", type=" + type + ", isLecturer="
-				+ isLecturer + ", roomNumber=" + roomNumber + ", vhallId="
-				+ vhallId + ", vhallPass=" + vhallPass + ", vhallName="
-				+ vhallName + ", regionId=" + regionId + ", regionAreaId="
-				+ regionAreaId + ", regionCityId=" + regionCityId
-				+ ", provinceName=" + provinceName + ", cityName=" + cityName
-				+ ", countyName=" + countyName + ", individualitySignature="
-				+ individualitySignature + ", blacklist=" + blacklist
-				+ ", gag=" + gag + ", description=" + description + "]";
-	}
-    
-    
+    @Override
+    public String toString() {
+        return "OnlineUserVO [id=" + id + ", name=" + name + ", loginName="
+                + loginName + ", password=" + password + ", sex=" + sex
+                + ", mobile=" + mobile + ", email=" + email + ", isDelete="
+                + isDelete + ", smallHeadPhoto=" + smallHeadPhoto
+                + ", bigHeadPhoto=" + bigHeadPhoto + ", createPerson="
+                + createPerson + ", createTime=" + createTime + ", status="
+                + status + ", lastLoginIp=" + lastLoginIp + ", lastLoginDate="
+                + lastLoginDate + ", visitSum=" + visitSum + ", stayTime="
+                + stayTime + ", info=" + info + ", jobyears=" + jobyears
+                + ", occupation=" + occupation + ", occupationOther="
+                + occupationOther + ", target=" + target + ", isApply="
+                + isApply + ", fullAddress=" + fullAddress + ", menuId="
+                + menuId + ", unionId=" + unionId + ", userType=" + userType
+                + ", refId=" + refId + ", parentId=" + parentId
+                + ", shareCode=" + shareCode + ", changeTime=" + changeTime
+                + ", origin=" + origin + ", type=" + type + ", isLecturer="
+                + isLecturer + ", roomNumber=" + roomNumber + ", vhallId="
+                + vhallId + ", vhallPass=" + vhallPass + ", vhallName="
+                + vhallName + ", regionId=" + regionId + ", regionAreaId="
+                + regionAreaId + ", regionCityId=" + regionCityId
+                + ", provinceName=" + provinceName + ", cityName=" + cityName
+                + ", countyName=" + countyName + ", individualitySignature="
+                + individualitySignature + ", blacklist=" + blacklist
+                + ", gag=" + gag + ", description=" + description + "]";
+    }
+
+
 }

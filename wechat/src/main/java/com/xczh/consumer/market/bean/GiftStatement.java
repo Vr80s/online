@@ -8,7 +8,7 @@ import java.util.Date;
  * @author liutao
  * @create 2017-08-21 20:20
  **/
-public class GiftStatement implements Serializable{
+public class GiftStatement implements Serializable {
 
     // Fields
 
@@ -26,32 +26,30 @@ public class GiftStatement implements Serializable{
     private Integer clientType;
     private Integer status;
     private Integer continuousCount;
-    
+
     private String giftImg;
 
     // Constructors
 
-    public Integer getContinuousCount() {
-		return continuousCount;
-	}
-
-	public void setContinuousCount(Integer continuousCount) {
-		this.continuousCount = continuousCount;
-	}
-
-	/** default constructor */
+    /**
+     * default constructor
+     */
     public GiftStatement() {
     }
 
-    /** minimal constructor */
+    /**
+     * minimal constructor
+     */
     public GiftStatement(Timestamp createTime) {
         this.createTime = createTime;
     }
 
-    /** full constructor */
+    /**
+     * full constructor
+     */
     public GiftStatement(Integer channel, String giftId, String giftName, Timestamp createTime, Double price,
-                           Integer count, String giver, String receiver, String liveId, Integer payType, Integer clientType,
-                           Integer status) {
+                         Integer count, String giver, String receiver, String liveId, Integer payType, Integer clientType,
+                         Integer status) {
         this.channel = channel;
         this.giftId = giftId;
         this.giftName = giftName;
@@ -64,6 +62,14 @@ public class GiftStatement implements Serializable{
         this.payType = payType;
         this.clientType = clientType;
         this.status = status;
+    }
+
+    public Integer getContinuousCount() {
+        return continuousCount;
+    }
+
+    public void setContinuousCount(Integer continuousCount) {
+        this.continuousCount = continuousCount;
     }
 
     // Property accessors
@@ -183,14 +189,13 @@ public class GiftStatement implements Serializable{
         this.status = status;
     }
 
-	public String getGiftImg() {
-		return giftImg;
-	}
+    public String getGiftImg() {
+        return giftImg;
+    }
 
-	public void setGiftImg(String giftImg) {
-		this.giftImg = giftImg;
-	}
-    
-    
-    
+    public void setGiftImg(String giftImg) {
+        this.giftImg = giftImg;
+    }
+
+
 }

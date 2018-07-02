@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.controller.AbstractController;
-import com.xczhihui.user.center.service.VerificationCodeService;
 import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.common.util.enums.OrderFrom;
 import com.xczhihui.common.util.enums.VCodeType;
 import com.xczhihui.online.api.service.EnchashmentService;
+import com.xczhihui.user.center.service.VerificationCodeService;
 
 
 /**

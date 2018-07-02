@@ -46,22 +46,6 @@ public enum UserUnitedStateType {
         this.code = code;
     }
 
-    public int getCode() {
-        return code;
-    }
-
-    public void setCode(int code) {
-        this.code = code;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
     public static UserUnitedStateType valueOf(int value) {
         switch (value) {
             case 1000:
@@ -87,5 +71,21 @@ public enum UserUnitedStateType {
             default:
                 return null;
         }
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 }

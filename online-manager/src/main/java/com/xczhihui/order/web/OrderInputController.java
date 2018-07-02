@@ -6,15 +6,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.xczhihui.common.support.config.OnlineConfig;
-import com.xczhihui.common.util.enums.OrderFrom;
-import com.xczhihui.order.service.OrderInputService;
-import com.xczhihui.order.vo.OrderInputVo;
-import com.xczhihui.support.shiro.ManagerUserUtil;
-import com.xczhihui.utils.Group;
-import com.xczhihui.utils.Groups;
-import com.xczhihui.utils.TableVo;
-import com.xczhihui.utils.Tools;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -29,8 +20,17 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.xczhihui.common.support.config.OnlineConfig;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.common.util.enums.OrderFrom;
+import com.xczhihui.order.service.OrderInputService;
+import com.xczhihui.order.vo.OrderInputVo;
+import com.xczhihui.support.shiro.ManagerUserUtil;
+import com.xczhihui.utils.Group;
+import com.xczhihui.utils.Groups;
+import com.xczhihui.utils.TableVo;
+import com.xczhihui.utils.Tools;
 
 /**
  * 线下订单录入
@@ -171,6 +171,7 @@ public class OrderInputController {
     /**
      * Description：设置订单有效期
      * creed: Talk is cheap,show me the code
+     *
      * @author name：yuxin
      * @Date: 2018/6/8 0008 上午 10:05
      **/
@@ -178,7 +179,7 @@ public class OrderInputController {
     @ResponseBody
     public ResponseObject setValidity(String ids, String days) {
         // 生成订单
-        service.updateValidity(ids.split(","),days);
+        service.updateValidity(ids.split(","), days);
         return ResponseObject.newSuccessResponseObject("有效期设置成功");
     }
 }

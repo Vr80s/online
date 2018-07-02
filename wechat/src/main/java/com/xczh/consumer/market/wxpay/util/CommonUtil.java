@@ -10,7 +10,6 @@ import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 
-import com.qq.connect.utils.QQConnectConfig;
 import com.xczh.consumer.market.bean.WxcpWxTrans;
 import com.xczh.consumer.market.wxpay.SignAbledBean;
 import com.xczh.consumer.market.wxpay.consts.WxPayConst;
@@ -21,6 +20,8 @@ import com.xczh.consumer.market.wxpay.entity.SendRedPack;
  * 微信支付相关通过用工具
  */
 public class CommonUtil {
+
+    static SimpleDateFormat dateFormate = new SimpleDateFormat("yyyyMMddHHmmss");
 
     public static String CreateNoncestr(int length) {
         String chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -57,7 +58,6 @@ public class CommonUtil {
         }
         return res;
     }
-
 
     public static String FormatQueryParaMap(HashMap<String, String> parameters) throws SDKRuntimeException {
         String buff = "";
@@ -174,7 +174,6 @@ public class CommonUtil {
         return bf.toString();
     }
 
-
     public static String FormatBizQueryParaMap(HashMap<String, String> paraMap,
                                                boolean urlencode)
             throws SDKRuntimeException {
@@ -247,6 +246,7 @@ public class CommonUtil {
     /**
      * 获取微信用户信息：通过uniondid机制
      * TODO 此处因引入的微信公众号中间件，有些字段（subscribe_scene）未更新，所以保留以下方式调用
+     *
      * @param accessToken
      * @param openid
      * @return
@@ -276,8 +276,6 @@ public class CommonUtil {
 
         return map;
     }
-
-    static SimpleDateFormat dateFormate = new SimpleDateFormat("yyyyMMddHHmmss");
 
     /**
      * 生成微信特定格式时间戳

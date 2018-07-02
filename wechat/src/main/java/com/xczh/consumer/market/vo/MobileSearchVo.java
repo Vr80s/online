@@ -5,92 +5,93 @@ import java.util.Date;
 
 /**
  * 移动端搜索实体类
+ *
  * @author wangyishuai
  */
 
-public class MobileSearchVo  implements Serializable {
+public class MobileSearchVo implements Serializable {
 
-	private int id;
+    private int id;
 
-	private boolean isDelete;
+    private boolean isDelete;
 
-	private String createPerson;
+    private String createPerson;
 
-	private Date createTime;
+    private Date createTime;
 
-    private String  name;
-
-
-	private Integer status;
+    private String name;
 
 
-	private Integer searchType;
+    private Integer status;
 
 
-	private Integer seq;
+    private Integer searchType;
 
 
-	public String getName() {
-		return name;
-	}
+    private Integer seq;
 
-	public void setName(String name) {
-		this.name = name;
-	}
 
-	public Integer getStatus() {
-		return status;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public Integer getSearchType() {
-		return searchType;
-	}
+    public Integer getStatus() {
+        return status;
+    }
 
-	public void setSearchType(Integer searchType) {
-		this.searchType = searchType;
-	}
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
 
-	public Integer getSeq() {
-		return seq;
-	}
+    public Integer getSearchType() {
+        return searchType;
+    }
 
-	public void setSeq(Integer seq) {
-		this.seq = seq;
-	}
+    public void setSearchType(Integer searchType) {
+        this.searchType = searchType;
+    }
 
-	public int getId() {
-		return id;
-	}
+    public Integer getSeq() {
+        return seq;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public void setSeq(Integer seq) {
+        this.seq = seq;
+    }
 
-	public boolean isDelete() {
-		return isDelete;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public void setDelete(boolean delete) {
-		isDelete = delete;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public String getCreatePerson() {
-		return createPerson;
-	}
+    public boolean isDelete() {
+        return isDelete;
+    }
 
-	public void setCreatePerson(String createPerson) {
-		this.createPerson = createPerson;
-	}
+    public void setDelete(boolean delete) {
+        isDelete = delete;
+    }
 
-	public Date getCreateTime() {
-		return createTime;
-	}
+    public String getCreatePerson() {
+        return createPerson;
+    }
 
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
+    public void setCreatePerson(String createPerson) {
+        this.createPerson = createPerson;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
 }

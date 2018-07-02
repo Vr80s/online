@@ -21,11 +21,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.online.web.service.UserService;
 import com.xczhihui.common.support.dao.SimpleHibernateDao;
-import com.xczhihui.common.support.domain.BxgUser;
 import com.xczhihui.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.online.web.base.utils.UserLoginUtil;
 import com.xczhihui.user.center.service.UserCenterService;
 import com.xczhihui.user.center.utils.UCCookieUtil;
 import com.xczhihui.user.center.vo.Token;
@@ -76,18 +73,18 @@ public class OnlineInterceptor implements HandlerInterceptor {
         boolean isOpen = openUris(request.getRequestURI());
         boolean b = (token == null) && !isOpen;
         if (b) {
-            if(isAjax(request)){
+            if (isAjax(request)) {
                 Gson gson = new GsonBuilder().create();
                 response.setCharacterEncoding("utf-8");
                 response.setContentType("application/json");
                 response.getWriter().write(gson.toJson(ResponseObject.newErrorResponseObject("请登录！")));
-            }else{
+            } else {
                 response.sendRedirect("/web/html/login.html");
             }
             return false;
         }
         OnlineUser user = null;
-        if(token != null){
+        if (token != null) {
             user = getUser(token);
         }
         //设置当前用户

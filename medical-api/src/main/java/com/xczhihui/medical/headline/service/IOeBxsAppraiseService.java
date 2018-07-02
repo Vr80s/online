@@ -1,7 +1,6 @@
 package com.xczhihui.medical.headline.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import com.baomidou.mybatisplus.service.IService;
 import com.xczhihui.medical.headline.model.OeBxsAppraise;
@@ -44,16 +43,17 @@ public interface IOeBxsAppraiseService extends IService<OeBxsAppraise> {
     /**
      * 文章id查询评论列表
      *
-     * @param articleId    文章id
+     * @param articleId 文章id
      * @param accountId 用户id
-     * @param page         当前页
-     * @param pageSize     分页数量
+     * @param page      当前页
+     * @param pageSize  分页数量
      * @return
      */
     List<AppraiseVO> listByArticleId(Integer articleId, String accountId, int page, int pageSize);
 
     /**
      * 赞评论
+     *
      * @param userId
      * @param appraiseId
      * @return
@@ -62,6 +62,7 @@ public interface IOeBxsAppraiseService extends IService<OeBxsAppraise> {
 
     /**
      * 取消赞评论
+     *
      * @param userId
      * @param appraiseId
      * @return

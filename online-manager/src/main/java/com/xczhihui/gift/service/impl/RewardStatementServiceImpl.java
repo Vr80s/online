@@ -1,13 +1,13 @@
 package com.xczhihui.gift.service.impl;
 
-import com.xczhihui.gift.dao.RewardStatementDao;
-import com.xczhihui.gift.service.RewardStatementService;
-import com.xczhihui.gift.vo.RewardStatementVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
+import com.xczhihui.common.util.bean.Page;
+import com.xczhihui.gift.dao.RewardStatementDao;
+import com.xczhihui.gift.service.RewardStatementService;
+import com.xczhihui.gift.vo.RewardStatementVo;
 
 /**
  * ClassName: RewardStatementServiceImpl.java <br>
@@ -18,19 +18,19 @@ import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
  */
 @Service("rewardStatementService")
 public class RewardStatementServiceImpl extends OnlineBaseServiceImpl implements
-		RewardStatementService {
+        RewardStatementService {
 
-	@Autowired
-	private RewardStatementDao rewardStatementDao;
+    @Autowired
+    private RewardStatementDao rewardStatementDao;
 
-	@Override
-	public Page<RewardStatementVo> findRewardPage(
-			RewardStatementVo rewardStatementVo, int pageNumber, int pageSize) {
-		Page<RewardStatementVo> page = rewardStatementDao
-				.findRewardStatementPage(rewardStatementVo, pageNumber,
-						pageSize);
-		return page;
+    @Override
+    public Page<RewardStatementVo> findRewardPage(
+            RewardStatementVo rewardStatementVo, int pageNumber, int pageSize) {
+        Page<RewardStatementVo> page = rewardStatementDao
+                .findRewardStatementPage(rewardStatementVo, pageNumber,
+                        pageSize);
+        return page;
 
-	}
+    }
 
 }

@@ -9,73 +9,74 @@ import javax.persistence.Table;
 import com.xczhihui.common.support.domain.BasicEntity2;
 
 /**
- *  礼物实体类
+ * 礼物实体类
+ *
  * @author Rongcai Kang
  */
 @Entity
 @Table(name = "oe_reward")
 public class Reward extends BasicEntity2 implements Serializable {
 
-    
-	/**
-	 * Copyright © 2017 xinchengzhihui. All rights reserved.
-	 */
-	private static final long serialVersionUID = 4893522843043397812L;
 
-	@Column(name = "status")
+    /**
+     * Copyright © 2017 xinchengzhihui. All rights reserved.
+     */
+    private static final long serialVersionUID = 4893522843043397812L;
+
+    @Column(name = "status")
     private boolean status;
-    
-	@Column(name = "price")
-    private Double price ;
-    
-	@Column(name = "is_freedom")
+
+    @Column(name = "price")
+    private Double price;
+
+    @Column(name = "is_freedom")
     private Boolean isFreedom;
-    
-	@Column(name = "brokerage")
+
+    @Column(name = "brokerage")
     private double brokerage;
-	
-	@Column(name = "sort")
-	private int sort;
 
-	public int getSort() {
-		return sort;
-	}
+    @Column(name = "sort")
+    private int sort;
 
-	public void setSort(int sort) {
-		this.sort = sort;
-	}
+    public int getSort() {
+        return sort;
+    }
 
-	public boolean isStatus() {
-		return status;
-	}
+    public void setSort(int sort) {
+        this.sort = sort;
+    }
 
-	public void setStatus(boolean status) {
-		this.status = status;
-	}
+    public boolean isStatus() {
+        return status;
+    }
 
-	public Double getPrice() {
-		return price;
-	}
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
 
-	public void setPrice(Double price) {
-		this.price = price;
-	}
+    public Double getPrice() {
+        return price;
+    }
 
-	public Boolean getIsFreeDom() {
-		return isFreedom;
-	}
+    public void setPrice(Double price) {
+        this.price = price;
+    }
 
-	public void setIsFreeDom(Boolean isFreeDom) {
-		this.isFreedom = isFreeDom;
-	}
+    public Boolean getIsFreeDom() {
+        return isFreedom;
+    }
 
-	public double getBrokerage() {
-		return brokerage;
-	}
+    public void setIsFreeDom(Boolean isFreeDom) {
+        this.isFreedom = isFreeDom;
+    }
 
-	public void setBrokerage(double brokerage) {
-		this.brokerage = brokerage;
-	}
-	
-	
+    public double getBrokerage() {
+        return brokerage;
+    }
+
+    public void setBrokerage(double brokerage) {
+        this.brokerage = brokerage;
+    }
+
+
 }

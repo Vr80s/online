@@ -2,12 +2,12 @@ package com.xczhihui.course.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.course.model.WatchHistory;
 import com.xczhihui.course.vo.WatchHistoryVO;
-
-import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>

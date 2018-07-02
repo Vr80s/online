@@ -12,19 +12,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.online.web.controller.ftl.AbstractFtlController;
 import com.xczhihui.bxg.online.web.service.BannerService;
-import com.xczhihui.bxg.online.web.service.LiveService;
-import com.xczhihui.bxg.online.web.service.MenuService;
-import com.xczhihui.bxg.online.web.service.OtherlinkService;
-import com.xczhihui.bxg.online.web.service.StudentStoryService;
 import com.xczhihui.bxg.online.web.utils.HtmlUtil;
-import com.xczhihui.bxg.online.web.vo.OpenCourseVo;
 import com.xczhihui.common.util.enums.PagingFixedType;
-import com.xczhihui.course.model.MobileBanner;
 import com.xczhihui.course.service.IMobileBannerService;
-import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorArticleService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
@@ -32,7 +23,6 @@ import com.xczhihui.medical.headline.model.OeBxsArticle;
 import com.xczhihui.medical.headline.service.IOeBxsArticleService;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalBusinessService;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalRecruitBusinessService;
-import com.xczhihui.medical.hospital.vo.MedicalHospitalRecruitVO;
 import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
 
 @Controller

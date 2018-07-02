@@ -1,14 +1,16 @@
 package com.xczhihui.medical.doctor.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.xczhihui.medical.doctor.model.MedicalDoctorApply;
 import com.xczhihui.medical.doctor.model.MedicalDoctorApplyDepartment;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorApplyService;
-import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import test.BaseJunit4Test;
 
-import java.util.ArrayList;
-import java.util.List;
+import test.BaseJunit4Test;
 
 /**
  * 医师入驻测试类
@@ -22,7 +24,7 @@ public class MedicalDoctorApplyServiceImplTest extends BaseJunit4Test {
      * 获取用户申请的最后一条信息
      */
     @Test
-    public void testGetLastOne(){
+    public void testGetLastOne() {
         MedicalDoctorApply lastOne =
                 doctorApplyService.getLastOne("402880e860c4ebe30160c51302660000");
     }
@@ -31,7 +33,7 @@ public class MedicalDoctorApplyServiceImplTest extends BaseJunit4Test {
      * 添加医师入驻申请信息
      */
     @Test
-    public void testAdd(){
+    public void testAdd() {
         MedicalDoctorApply target = new MedicalDoctorApply();
 
         target.setUserId("402880e860c4ebe30160c51302660000");

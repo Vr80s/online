@@ -1,12 +1,13 @@
 package com.xczhihui.bxg.online.web.vo;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 /**
  * 分享用户封装类
+ *
  * @Author Rongcai.Kang
  * @Date 2016/12/9 10:52
  */
@@ -15,12 +16,12 @@ public class ShareUserVo implements Serializable {
     /**
      * 用户昵称
      */
-    private String  name;
+    private String name;
 
     /**
      * 用户名
      */
-    private String  login_name;
+    private String login_name;
     /**
      * 注册时间
      */
@@ -57,7 +58,7 @@ public class ShareUserVo implements Serializable {
     }
 
     public Integer getBuyCouseCount() {
-        return buyCouseCount==null ? 0 :buyCouseCount;
+        return buyCouseCount == null ? 0 : buyCouseCount;
     }
 
     public void setBuyCouseCount(Integer buyCouseCount) {

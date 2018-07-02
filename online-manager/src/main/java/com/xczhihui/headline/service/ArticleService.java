@@ -10,7 +10,7 @@ import com.xczhihui.headline.vo.TagVo;
 public interface ArticleService {
 
     Page<ArticleVo> findArticlePage(ArticleVo searchVo, int currentPage,
-                                   int pageSize);
+                                    int pageSize);
 
     List<ArticleTypeVo> getArticleTypes();
 
@@ -33,6 +33,7 @@ public interface ArticleService {
     /**
      * Description：
      * creed: Talk is cheap,show me the code
+     *
      * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
      * @Date: 2018/4/18 10:03
      **/

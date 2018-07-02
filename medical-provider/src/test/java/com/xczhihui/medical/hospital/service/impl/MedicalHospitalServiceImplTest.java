@@ -1,12 +1,13 @@
 package com.xczhihui.medical.hospital.service.impl;
 
-import com.baomidou.mybatisplus.plugins.Page;
-import com.xczhihui.medical.doctor.model.MedicalDoctor;
-import com.xczhihui.medical.hospital.model.MedicalHospital;
-import com.xczhihui.medical.hospital.service.IMedicalHospitalBusinessService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import com.baomidou.mybatisplus.plugins.Page;
+import com.xczhihui.medical.hospital.model.MedicalHospital;
+import com.xczhihui.medical.hospital.service.IMedicalHospitalBusinessService;
+
 import test.BaseJunit4Test;
 
 public class MedicalHospitalServiceImplTest extends BaseJunit4Test {
@@ -18,7 +19,7 @@ public class MedicalHospitalServiceImplTest extends BaseJunit4Test {
      * 删除医馆的医师
      */
     @Test
-    public void testDelete(){
+    public void testDelete() {
 
         service.deleteDoctor("402880e860c4ebe30160c51302660000", "ae5492665cb5412cac65e553626c7694");
     }
@@ -27,7 +28,7 @@ public class MedicalHospitalServiceImplTest extends BaseJunit4Test {
      * 更新医馆信息
      */
     @Test
-    public void testUpdate(){
+    public void testUpdate() {
 
         MedicalHospital medicalHospital = new MedicalHospital();
 
@@ -41,7 +42,7 @@ public class MedicalHospitalServiceImplTest extends BaseJunit4Test {
      * 更新医馆的医师
      */
     @Test
-    public void testGetDoctors(){
+    public void testGetDoctors() {
 
         // 分页信息
         Page page = new Page<>();

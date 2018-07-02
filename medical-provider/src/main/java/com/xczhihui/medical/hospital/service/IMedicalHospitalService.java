@@ -1,13 +1,12 @@
 package com.xczhihui.medical.hospital.service;
 
 
-import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
 import com.xczhihui.medical.hospital.model.MedicalHospital;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author yuxin

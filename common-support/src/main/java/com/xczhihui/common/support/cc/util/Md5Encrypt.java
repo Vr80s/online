@@ -39,9 +39,9 @@ public class Md5Encrypt {
         }
     }
 
-    public static String getFastLoginToken(String loginName,String password){
+    public static String getFastLoginToken(String loginName, String password) {
         LocalDate today = LocalDate.now();
-        return md5(loginName+today+password);
+        return md5(loginName + today + password);
     }
 
 }

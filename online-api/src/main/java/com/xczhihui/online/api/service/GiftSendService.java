@@ -1,10 +1,10 @@
 package com.xczhihui.online.api.service;
 
-import com.xczhihui.common.util.enums.OrderFrom;
-
 import java.util.Map;
 
-/** 
+import com.xczhihui.common.util.enums.OrderFrom;
+
+/**
  * ClassName: GiftService.java <br>
  * Description: 礼物打赏赠送逻辑层<br>
  * Create by: name：yuxin <br>email: yuruixin@ixincheng.com <br>
@@ -12,5 +12,5 @@ import java.util.Map;
  */
 public interface GiftSendService {
 
-    Map<String,Object> addGiftStatement4Lock(String lockKey, String giverId, String receiverId, String giftId, OrderFrom orderFrom, int count, String liveId);
+    Map<String, Object> addGiftStatement4Lock(String lockKey, String giverId, String receiverId, String giftId, OrderFrom orderFrom, int count, String liveId);
 }

@@ -9,39 +9,6 @@ package com.xczhihui.utils;
 public class BankUtil {
 
 
-    //传入卡号 得到银行名称
-    public static String getNameOfBank(String idCard) {
-        int index = -1;
-
-        if(idCard==null || idCard.length()<16 || idCard.length()>19){
-            return "";
-        }
-
-        //6位Bin号
-        String cardbin_6 = idCard.substring(0, 6);
-        for (int i = 0; i < bankBin.length; i++) {
-            if (cardbin_6.equals(bankBin[i])) {
-                index = i;
-            }
-        }
-        if (index != -1) {
-            return bankName[index];
-        }
-
-        //8位Bin号
-        String cardbin_8 = idCard.substring(0, 8);
-        for (int i = 0; i < bankBin.length; i++) {
-            if (cardbin_8.equals(bankBin[i])) {
-                index = i;
-            }
-        }
-        if (index != -1) {
-            return bankName[index];
-        }
-
-        return "";
-    }
-
     //BIN号
     private final static String[] bankBin = {
             "621098", "622150", "622151", "622181", "622188", "955100", "621095", "620062", "621285", "621798", "621799",
@@ -165,9 +132,7 @@ public class BankUtil {
             "623103", "622339", "620500", "621024", "622289", "622389", "628300", "625516", "621516", "622859", "622869", "623075",
             "622895", "623125", "622947", "621561", "623095", "621073", "623109", "621361", "623033", "623207", "622891", "621363",
             "623189", "623510", "622995", "621053", "621230", "621229", "622218", "628267", "621392", "621481", "621310", "621396",
-            "623251", "628351" };
-
-
+            "623251", "628351"};
     //"发卡行.卡种名称",
     private static final String[] bankName = {
             "邮储银行·绿卡通", "邮储银行·绿卡银联标准卡", "邮储银行·绿卡银联标准卡", "邮储银行·绿卡专用卡", "邮储银行·绿卡银联标准卡",
@@ -384,7 +349,40 @@ public class BankUtil {
             "天津滨海农村商业银行·四海通e芯卡", "武汉农村商业银行·汉卡", "武汉农村商业银行·汉卡", "武汉农村商业银行·中国旅游卡", "江南农村商业银行·阳湖卡(银联卡)", "江南农村商业银行·天天红火卡",
             "江南农村商业银行·借记IC卡", "海口联合农村商业银行·海口联合农村商业银行合卡", "湖北嘉鱼吴江村镇银行·垂虹卡", "福建建瓯石狮村镇银行·玉竹卡", "浙江平湖工银村镇银行·金平卡", "重庆璧山工银村镇银行·翡翠卡",
             "重庆农村商业银行·银联标准贷记卡", "重庆农村商业银行·公务卡", "南阳村镇银行·玉都卡", "晋中市榆次融信村镇银行·魏榆卡", "三水珠江村镇银行·珠江太阳卡", "东营莱商村镇银行·绿洲卡", "建设银行·单位结算卡",
-            "玉溪市商业银行·红塔卡" };
+            "玉溪市商业银行·红塔卡"};
+
+    //传入卡号 得到银行名称
+    public static String getNameOfBank(String idCard) {
+        int index = -1;
+
+        if (idCard == null || idCard.length() < 16 || idCard.length() > 19) {
+            return "";
+        }
+
+        //6位Bin号
+        String cardbin_6 = idCard.substring(0, 6);
+        for (int i = 0; i < bankBin.length; i++) {
+            if (cardbin_6.equals(bankBin[i])) {
+                index = i;
+            }
+        }
+        if (index != -1) {
+            return bankName[index];
+        }
+
+        //8位Bin号
+        String cardbin_8 = idCard.substring(0, 8);
+        for (int i = 0; i < bankBin.length; i++) {
+            if (cardbin_8.equals(bankBin[i])) {
+                index = i;
+            }
+        }
+        if (index != -1) {
+            return bankName[index];
+        }
+
+        return "";
+    }
 
 }
 

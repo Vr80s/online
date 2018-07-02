@@ -1,13 +1,14 @@
 package com.xczhihui.bxg.online.web.vo;
 
 
-import com.xczhihui.bxg.online.common.base.vo.OnlineBaseVo;
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.xczhihui.bxg.online.common.base.vo.OnlineBaseVo;
 
 /**
  * 学员故事VO
+ *
  * @author Rongcai Kang
  */
 public class StudentStoryVo extends OnlineBaseVo {
@@ -33,8 +34,16 @@ public class StudentStoryVo extends OnlineBaseVo {
         return menu;
     }
 
+    public void setMenu(String menu) {
+        this.menu = menu;
+    }
+
     public Integer getMenuId() {
         return menuId;
+    }
+
+    public void setMenuId(Integer menuId) {
+        this.menuId = menuId;
     }
 
     public String getOtherName() {
@@ -51,14 +60,6 @@ public class StudentStoryVo extends OnlineBaseVo {
 
     public void setUseOtherName(Boolean useOtherName) {
         this.useOtherName = useOtherName;
-    }
-
-    public void setMenuId(Integer menuId) {
-        this.menuId = menuId;
-    }
-
-    public void setMenu(String menu) {
-        this.menu = menu;
     }
 
     public String getCompany() {

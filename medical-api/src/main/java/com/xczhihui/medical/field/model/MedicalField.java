@@ -1,13 +1,13 @@
 package com.xczhihui.medical.field.model;
 
+import java.io.Serializable;
+
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
 
-import java.io.Serializable;
-
 /**
  * <p>
- * 
+ * <p>
  * </p>
  *
  * @author yuxin
@@ -21,11 +21,11 @@ public class MedicalField extends Model<MedicalField> {
     /**
      * 医疗领域表
      */
-	private String id;
+    private String id;
     /**
      * 领域名称
      */
-	private String name;
+    private String name;
     /**
      * 父领域id
      */
@@ -63,39 +63,38 @@ public class MedicalField extends Model<MedicalField> {
      * 版本
      */
 //	private String version;
+
     /**
      * 备注
      */
 //	private String remark;
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
 
-	public String getId() {
-		return id;
-	}
+    @Override
+    protected Serializable pkVal() {
+        return this.id;
+    }
 
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-
-	@Override
-	protected Serializable pkVal() {
-		return this.id;
-	}
-
-	@Override
-	public String toString() {
-		return "MedicalFieldVo{" +
-			", id=" + id +
-			", name=" + name +
+    @Override
+    public String toString() {
+        return "MedicalFieldVo{" +
+                ", id=" + id +
+                ", name=" + name +
 //			", parentId=" + parentId +
 //			", deleted=" + deleted +
 //			", status=" + status +
@@ -105,6 +104,6 @@ public class MedicalField extends Model<MedicalField> {
 //			", updatePerson=" + updatePerson +
 //			", version=" + version +
 //			", remark=" + remark +
-			"}";
-	}
+                "}";
+    }
 }

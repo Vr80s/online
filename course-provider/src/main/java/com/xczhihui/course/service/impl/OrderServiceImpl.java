@@ -34,10 +34,10 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
     @Autowired
     private CourseMapper courseMapper;
-    
+
     @Autowired
     private OrderMapper orderMapper;
-    
+
     @Autowired
     private IOrderDetailService orderDetailService;
 
@@ -180,7 +180,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
         return order;
     }
-    
+
     @Override
     public Order getOrderIncludeCourseInfoByOrderId(String orderId) {
         Order order = this.baseMapper.selectById(orderId);
@@ -191,6 +191,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         order.setAllCourse(lists);
         return order;
     }
-    
-    
+
+
 }

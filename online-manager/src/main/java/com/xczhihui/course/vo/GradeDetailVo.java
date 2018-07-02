@@ -1,229 +1,225 @@
 package com.xczhihui.course.vo;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import java.util.Date;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * Created by admin on 2016/8/2.
  */
 public class GradeDetailVo {
 
-	/**
-	 * 课程ID号
-	 */
-	private Integer id;
-	/**
-	 * 班级名
-	 */
-	private String name;
+    /**
+     * 课程ID号
+     */
+    private Integer id;
+    /**
+     * 班级名
+     */
+    private String name;
 
-	/**
-	 * 课程名
-	 */
-	private String courseName;
+    /**
+     * 课程名
+     */
+    private String courseName;
 
-	/**
-	 * 学科
-	 */
-	private String menuId;
+    /**
+     * 学科
+     */
+    private String menuId;
 
-	/**
-	 * 课程类别
-	 */
-	private String scoreTypeId;
+    /**
+     * 课程类别
+     */
+    private String scoreTypeId;
 
-	/**
-	 * 授课方式
-	 */
-	private String teachMethodId;
+    /**
+     * 授课方式
+     */
+    private String teachMethodId;
 
-	/**
-	 * 开课时间
-	 */
+    /**
+     * 开课时间
+     */
 
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-	private Date curriculumTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date curriculumTime;
 
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-	private Date stopTime;
-	/**
-	 * 班级状态
-	 */
-	private Integer status;
-	/**
-	 * 剩余席位书
-	 */
-	private Integer seat;
-	/**
-	 * 课程名称
-	 */
-	private String couseName;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date stopTime;
+    /**
+     * 班级状态
+     */
+    private Integer status;
+    /**
+     * 剩余席位书
+     */
+    private Integer seat;
+    /**
+     * 课程名称
+     */
+    private String couseName;
 
-	/**
-	 * 班级状态 :0禁用 1启用
-	 */
-	private Integer gradeStatus;
+    /**
+     * 班级状态 :0禁用 1启用
+     */
+    private Integer gradeStatus;
+    /**
+     * 联系QQ
+     */
+    private String qqno;
+    /**
+     * 联系QQ
+     */
+    private Integer sort;
+    /**
+     * 课程id号
+     */
+    private Integer course_id;
+    private Integer defaultStudentCount;
+    @JsonFormat(pattern = "yyyy-M-d", timezone = "GMT+8")
+    private Date createTime;
 
-	public String getScoreTypeId() {
-		return scoreTypeId;
-	}
+    public String getScoreTypeId() {
+        return scoreTypeId;
+    }
 
-	public void setScoreTypeId(String scoreTypeId) {
-		this.scoreTypeId = scoreTypeId;
-	}
+    public void setScoreTypeId(String scoreTypeId) {
+        this.scoreTypeId = scoreTypeId;
+    }
 
-	/**
-	 * 联系QQ
-	 */
-	private String qqno;
+    public Integer getId() {
+        return id;
+    }
 
-	/**
-	 * 联系QQ
-	 */
-	private Integer sort;
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	/**
-	 * 课程id号
-	 */
-	private Integer course_id;
+    public String getName() {
+        return name;
+    }
 
-	private Integer defaultStudentCount;
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	@JsonFormat(pattern = "yyyy-M-d", timezone = "GMT+8")
-	private Date createTime;
+    public Date getCurriculumTime() {
+        return curriculumTime;
+    }
 
-	public Integer getId() {
-		return id;
-	}
+    public void setCurriculumTime(Date curriculumTime) {
+        this.curriculumTime = curriculumTime;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public Integer getStatus() {
+        return status;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public Integer getSeat() {
+        return seat;
+    }
 
-	public Date getCurriculumTime() {
-		return curriculumTime;
-	}
+    public void setSeat(Integer seat) {
+        this.seat = seat;
+    }
 
-	public void setCurriculumTime(Date curriculumTime) {
-		this.curriculumTime = curriculumTime;
-	}
+    public String getCouseName() {
+        return couseName;
+    }
 
-	public Integer getStatus() {
-		return status;
-	}
+    public void setCouseName(String couseName) {
+        this.couseName = couseName;
+    }
 
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
+    public Integer getGradeStatus() {
+        return gradeStatus;
+    }
 
-	public Integer getSeat() {
-		return seat;
-	}
+    public void setGradeStatus(Integer gradeStatus) {
+        this.gradeStatus = gradeStatus;
+    }
 
-	public void setSeat(Integer seat) {
-		this.seat = seat;
-	}
+    public Date getStopTime() {
+        return stopTime;
+    }
 
-	public String getCouseName() {
-		return couseName;
-	}
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    public void setStopTime(Date stopTime) {
+        this.stopTime = stopTime;
+    }
 
-	public void setCouseName(String couseName) {
-		this.couseName = couseName;
-	}
+    public String getQqno() {
+        return qqno;
+    }
 
-	public Integer getGradeStatus() {
-		return gradeStatus;
-	}
+    public void setQqno(String qqno) {
+        this.qqno = qqno;
+    }
 
-	public void setGradeStatus(Integer gradeStatus) {
-		this.gradeStatus = gradeStatus;
-	}
+    public Integer getSort() {
+        return sort;
+    }
 
-	public Date getStopTime() {
-		return stopTime;
-	}
+    public void setSort(Integer sort) {
+        this.sort = sort;
+    }
 
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-	public void setStopTime(Date stopTime) {
-		this.stopTime = stopTime;
-	}
+    public String getCourseName() {
+        return courseName;
+    }
 
-	public String getQqno() {
-		return qqno;
-	}
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
 
-	public void setQqno(String qqno) {
-		this.qqno = qqno;
-	}
+    public Integer getCourse_id() {
+        return course_id;
+    }
 
-	public Integer getSort() {
-		return sort;
-	}
+    public void setCourse_id(Integer course_id) {
+        this.course_id = course_id;
+    }
 
-	public void setSort(Integer sort) {
-		this.sort = sort;
-	}
+    public Date getCreateTime() {
+        return createTime;
+    }
 
-	public String getCourseName() {
-		return courseName;
-	}
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
 
-	public void setCourseName(String courseName) {
-		this.courseName = courseName;
-	}
+    public String getMenuId() {
+        return menuId;
+    }
 
-	public Integer getCourse_id() {
-		return course_id;
-	}
+    public void setMenuId(String menuId) {
+        this.menuId = menuId;
+    }
 
-	public void setCourse_id(Integer course_id) {
-		this.course_id = course_id;
-	}
+    public String getTeachMethodId() {
+        return teachMethodId;
+    }
 
-	public Date getCreateTime() {
-		return createTime;
-	}
+    public void setTeachMethodId(String teachMethodId) {
+        this.teachMethodId = teachMethodId;
+    }
 
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
+    public Integer getDefaultStudentCount() {
+        return defaultStudentCount;
+    }
 
-	public String getMenuId() {
-		return menuId;
-	}
-
-	public void setMenuId(String menuId) {
-		this.menuId = menuId;
-	}
-
-	public String getTeachMethodId() {
-		return teachMethodId;
-	}
-
-	public void setTeachMethodId(String teachMethodId) {
-		this.teachMethodId = teachMethodId;
-	}
-
-	public Integer getDefaultStudentCount() {
-		return defaultStudentCount;
-	}
-
-	public void setDefaultStudentCount(Integer defaultStudentCount) {
-		this.defaultStudentCount = defaultStudentCount;
-	}
+    public void setDefaultStudentCount(Integer defaultStudentCount) {
+        this.defaultStudentCount = defaultStudentCount;
+    }
 
 }

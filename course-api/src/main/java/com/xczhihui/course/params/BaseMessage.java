@@ -38,6 +38,58 @@ public class BaseMessage implements Serializable {
     private BaseMessage() {
     }
 
+    public SubMessage getSmsMessage() {
+        return smsMessage;
+    }
+
+    public SubMessage getAppPushMessage() {
+        return appPushMessage;
+    }
+
+    public SubMessage getWebMessage() {
+        return webMessage;
+    }
+
+    public SubMessage getAppMessage() {
+        return appMessage;
+    }
+
+    public SubMessage getWeixinMessage() {
+        return weixinMessage;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public String getCreatePerson() {
+        return createPerson;
+    }
+
+    public String getRouteType() {
+        return routeType;
+    }
+
+    public String getDetailId() {
+        return detailId;
+    }
+
+    public List<String> getUserIds() {
+        return userIds;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
     public static class Builder {
         private BaseMessage baseMessage;
 
@@ -96,57 +148,5 @@ public class BaseMessage implements Serializable {
             this.baseMessage.title = title;
             return this.baseMessage;
         }
-    }
-
-    public SubMessage getSmsMessage() {
-        return smsMessage;
-    }
-
-    public SubMessage getAppPushMessage() {
-        return appPushMessage;
-    }
-
-    public SubMessage getWebMessage() {
-        return webMessage;
-    }
-
-    public SubMessage getAppMessage() {
-        return appMessage;
-    }
-
-    public SubMessage getWeixinMessage() {
-        return weixinMessage;
-    }
-
-    public int getType() {
-        return type;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public String getCreatePerson() {
-        return createPerson;
-    }
-
-    public String getRouteType() {
-        return routeType;
-    }
-
-    public String getDetailId() {
-        return detailId;
-    }
-
-    public List<String> getUserIds() {
-        return userIds;
-    }
-
-    public String getLink() {
-        return link;
-    }
-
-    public String getTitle() {
-        return title;
     }
 }

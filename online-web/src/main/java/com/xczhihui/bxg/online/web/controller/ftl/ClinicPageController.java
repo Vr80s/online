@@ -18,7 +18,6 @@ import com.xczhihui.bxg.online.web.service.BannerService;
 import com.xczhihui.bxg.online.web.vo.BannerVo;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.course.vo.CourseLecturVo;
-import com.xczhihui.medical.doctor.model.MedicalDoctorAccount;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 import com.xczhihui.medical.field.model.MedicalField;
@@ -81,14 +80,14 @@ public class ClinicPageController extends AbstractFtlController {
         ModelAndView view = new ModelAndView("clinic/details");
 
         MedicalHospitalVo clinic = medicalHospitalBusinessServiceImpl.selectHospitalById(id);
-        if(clinic == null){
+        if (clinic == null) {
             return to404();
         }
 
         view.addObject("clinic", clinic);
 
         Page<MedicalDoctorVO> doctors = medicalDoctorBusinessService.selectDoctorPage(new Page<>(1, 4), null, id, null, null, null);
-        
+
         view.addObject("doctors", doctors);
 
         List<MedicalHospitalRecruitVO> recruits = medicalHospitalRecruitBusinessService.selectHospitalRecruitByHospitalId(id);
@@ -151,7 +150,7 @@ public class ClinicPageController extends AbstractFtlController {
         ModelAndView view = new ModelAndView("clinic/doctors");
 
         MedicalHospitalVo clinic = medicalHospitalBusinessServiceImpl.selectHospitalById(id);
-        if(clinic == null){
+        if (clinic == null) {
             return to404();
         }
         view.addObject("clinic", clinic);

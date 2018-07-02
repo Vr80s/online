@@ -4,6 +4,7 @@ package com.xczhihui.common.util.enums;
  * Description：主播类型
  * 1医师2医馆
  * creed: Talk is cheap,show me the code
+ *
  * @author name：yuxin <br>email: yuruixin@ixincheng.com
  * @Date: 下午 3:39 2018/1/29 0029
  **/

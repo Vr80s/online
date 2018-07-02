@@ -13,11 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -42,24 +38,20 @@ import com.xczhihui.medical.anchor.vo.CourseAnchorVO;
 @RequestMapping("/xczh/medical")
 public class CourseApplyController {
 
+    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(CourseApplyController.class);
     @Autowired
     private ICourseApplyService courseApplyService;
-
     @Autowired
     private OLAttachmentCenterService service;
-
     @Autowired
     private IMyInfoService myInfoService;
-    
     @Autowired
     private IAnchorInfoService anchorInfoService;
-
-    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(CourseApplyController.class);
 
     /**
      * 创建直播
      */
-    @RequestMapping(value="addCourseApply", method = RequestMethod.POST)
+    @RequestMapping(value = "addCourseApply", method = RequestMethod.POST)
     @ResponseBody
     public ResponseObject addCourseApply(@Account String accountId, HttpServletRequest req,
                                          HttpServletResponse res,
@@ -74,8 +66,8 @@ public class CourseApplyController {
         CourseAnchorVO ca = anchorInfoService.detail(accountId);
         courseApplyInfo.setLecturer(ca.getName());
 
-        
-        Map<String, Object> lecturerInfo = myInfoService.findHostInfoById(accountId,false);
+
+        Map<String, Object> lecturerInfo = myInfoService.findHostInfoById(accountId, false);
         if (lecturerInfo.get("detail") != null && !"".equals(lecturerInfo.get("detail"))) {
             String detail = lecturerInfo.get("detail").toString();
             courseApplyInfo.setLecturerDescription(detail);

@@ -18,7 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.online.web.controller.ftl.AbstractFtlController;
 import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.course.service.ICriticizeService;
@@ -196,7 +195,7 @@ public class AnchorsController extends AbstractFtlController {
          * 这个主播可能认证的是医馆，也可能认证的是医师
          */
         Map<String, Object> lecturerInfo = myInfoService.findHostInfoById(userId);
-        if(lecturerInfo.size()==0){
+        if (lecturerInfo.size() == 0) {
             return to404();
         }
         view.addObject("lecturerInfo", lecturerInfo);

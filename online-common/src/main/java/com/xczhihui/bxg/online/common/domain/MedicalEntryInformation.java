@@ -1,14 +1,15 @@
 package com.xczhihui.bxg.online.common.domain;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 /**
  * @ClassName: MedicalEnrollmentRegulations
- * @Description:  师承-报名
+ * @Description: 师承-报名
  * @Author: wangyishuai
  * @email: 15210815880@163.com
  * @CreateDate: 2018/5/21 15:06
@@ -25,79 +26,79 @@ public class MedicalEntryInformation implements Serializable {
     /**
      * 师承模块开发
      */
-    @Column(name="mer_id")
+    @Column(name = "mer_id")
     private Integer merId;
     /**
      * 姓名
      */
-    @Column(name="name")
+    @Column(name = "name")
     private String name;
     /**
      * 年龄
      */
-    @Column(name="age")
+    @Column(name = "age")
     private Integer age;
     /**
      * 男1 女0 未知2
      */
-    @Column(name="sex")
+    @Column(name = "sex")
     private Integer sex;
     /**
      * 省-市
      */
-    @Column(name="native_place")
+    @Column(name = "native_place")
     private String nativePlace;
     /**
      * 1小学、2初中、3高中、4大专、5本科、6研究生、7博士生、8博士后
      */
-    @Column(name="education")
+    @Column(name = "education")
     private Integer education;
     /**
      * 学习经历
      */
-    @Column(name="education_experience")
+    @Column(name = "education_experience")
     private String educationExperience;
     /**
      * 行医经历
      */
-    @Column(name="medical_experience")
+    @Column(name = "medical_experience")
     private String medicalExperience;
     /**
      * 学中医的目标
      */
-    @Column(name="goal")
+    @Column(name = "goal")
     private String goal;
     /**
      * 手机号
      */
-    @Column(name="tel")
+    @Column(name = "tel")
     private String tel;
     /**
      * 微信号
      */
-    @Column(name="wechat")
+    @Column(name = "wechat")
     private String wechat;
     /**
      * 用户id
      */
-    @Column(name="user_id")
+    @Column(name = "user_id")
     private String userId;
     /**
      * 创建时间
      */
     @Temporal(TemporalType.TIMESTAMP)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    @Column(name="create_time")
+    @Column(name = "create_time")
     private Date createTime;
     /**
      * 是否删除
      */
-    @Column(name="deleted")
+    @Column(name = "deleted")
     private boolean deleted;
     /**
      * 是否为徒弟
      */
-    @Column(name="apprentice")
+    @Column(name = "apprentice")
     private Integer apprentice;
 
     /**

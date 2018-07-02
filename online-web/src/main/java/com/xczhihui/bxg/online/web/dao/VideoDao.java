@@ -4,29 +4,15 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
-import javax.servlet.http.HttpServletRequest;
-
-import com.xczhihui.common.util.enums.CourseForm;
-
-import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.Restrictions;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.stereotype.Repository;
-import org.springframework.util.StringUtils;
 
+import com.xczhihui.bxg.online.common.domain.Criticize;
+import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.common.support.dao.SimpleHibernateDao;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.online.api.vo.CriticizeVo;
-import com.xczhihui.bxg.online.common.domain.Course;
-import com.xczhihui.bxg.online.common.domain.Criticize;
-import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.online.web.vo.ChapterLevelVo;
-import com.xczhihui.bxg.online.web.vo.CourseApplyVo;
-import com.xczhihui.bxg.online.web.vo.UserVideoVo;
 
 /**
  * 视频相关功能数据访问层
@@ -36,6 +22,52 @@ import com.xczhihui.bxg.online.web.vo.UserVideoVo;
  */
 @Repository
 public class VideoDao extends SimpleHibernateDao {
+
+    /**
+     * Description：求平均值，并且把小数点的都截取到5，或者大于5的
+     *
+     * @param value1
+     * @param value2
+     * @param scale
+     * @return String
+     * @throws IllegalAccessException
+     * @author name：yangxuan <br>email: 15936216273@163.com
+     */
+    public static String divCount(double value1, double value2, int scale) throws IllegalAccessException {
+        //如果精确范围小于0，抛出异常信息
+        if (scale < 0) {
+            throw new IllegalAccessException("精确度不能小于0");
+        }
+
+        BigDecimal b1 = new BigDecimal(Double.valueOf(value1));
+        BigDecimal b2 = new BigDecimal(Double.valueOf(value2));
+        /**
+         * 得到平均数，保留以为小数
+         */
+        BigDecimal b3 = b1.divide(b2, 1, BigDecimal.ROUND_HALF_UP);
+
+        return criticizeStartLevel(b3.doubleValue()).toString();
+    }
+
+    public static Double criticizeStartLevel(Double startLevel) {
+
+        if (startLevel != null && startLevel != 0) { // 不等于0
+            String b = startLevel.toString();
+            if (b.length() > 1
+                    && !b.substring(b.length() - 1, b.length()).equals("0")) { // 不等于整数
+                String[] arr = b.split("\\.");
+                Integer tmp = Integer.parseInt(arr[1]);
+                if (tmp >= 5) {
+                    return (double) (Integer.parseInt(arr[0]) + 1);
+                } else {
+                    return Double.valueOf(arr[0] + "." + 5);
+                }
+            } else {
+                return startLevel;
+            }
+        }
+        return startLevel;
+    }
 
     /**
      * 根据节Id查询所有知识点
@@ -184,7 +216,7 @@ public class VideoDao extends SimpleHibernateDao {
             pageSize = pageSize == null ? 10 : pageSize;
             /**
              * 购买者这里怎么显示了啊。好尴尬了，不能用多个循环吧，不然会卡点呢
-             * 	 或者是购买成功	
+             * 	 或者是购买成功
              *
              * 一个专辑下存在多个课程，然后课程
              */
@@ -267,54 +299,6 @@ public class VideoDao extends SimpleHibernateDao {
         }
         return null;
     }
-
-    /**
-     * Description：求平均值，并且把小数点的都截取到5，或者大于5的
-     *
-     * @param value1
-     * @param value2
-     * @param scale
-     * @return String
-     * @throws IllegalAccessException
-     * @author name：yangxuan <br>email: 15936216273@163.com
-     */
-    public static String divCount(double value1, double value2, int scale) throws IllegalAccessException {
-        //如果精确范围小于0，抛出异常信息  
-        if (scale < 0) {
-            throw new IllegalAccessException("精确度不能小于0");
-        }
-
-        BigDecimal b1 = new BigDecimal(Double.valueOf(value1));
-        BigDecimal b2 = new BigDecimal(Double.valueOf(value2));
-        /**
-         * 得到平均数，保留以为小数
-         */
-        BigDecimal b3 = b1.divide(b2, 1, BigDecimal.ROUND_HALF_UP);
-
-        return criticizeStartLevel(b3.doubleValue()).toString();
-    }
-
-
-    public static Double criticizeStartLevel(Double startLevel) {
-
-        if (startLevel != null && startLevel != 0) { // 不等于0
-            String b = startLevel.toString();
-            if (b.length() > 1
-                    && !b.substring(b.length() - 1, b.length()).equals("0")) { // 不等于整数
-                String[] arr = b.split("\\.");
-                Integer tmp = Integer.parseInt(arr[1]);
-                if (tmp >= 5) {
-                    return (double) (Integer.parseInt(arr[0]) + 1);
-                } else {
-                    return Double.valueOf(arr[0] + "." + 5);
-                }
-            } else {
-                return startLevel;
-            }
-        }
-        return startLevel;
-    }
-
 
     /**
      * Description：通过课程id得到这个专辑的信息

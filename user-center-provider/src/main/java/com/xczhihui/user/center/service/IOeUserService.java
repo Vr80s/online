@@ -6,7 +6,7 @@ import com.xczhihui.user.center.model.OeUser;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author yuxin

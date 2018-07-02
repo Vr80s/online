@@ -10,119 +10,119 @@ import com.xczhihui.bxg.online.common.base.vo.OnlineBaseVo;
  * Create Time: 2017年8月15日<br>
  */
 public class WechatMaterialVo extends OnlineBaseVo {
-	
-	/**
-	 * Copyright © 2017 xinchengzhihui. All rights reserved.
-	 */
-	private static final long serialVersionUID = -5842036551442937318L;
 
-	/**
-	 * 礼物ID
-	 */
-	private int id;
+    /**
+     * Copyright © 2017 xinchengzhihui. All rights reserved.
+     */
+    private static final long serialVersionUID = -5842036551442937318L;
 
-	private String name;
+    /**
+     * 礼物ID
+     */
+    private int id;
 
-	private String createPerson;
+    private String name;
 
-	private String smallimgPath;
+    private String createPerson;
 
-	private String status;
+    private String smallimgPath;
 
-	private Double price;
+    private String status;
 
-	private Boolean isFree;
+    private Double price;
 
-	private Boolean isContinuous;
+    private Boolean isFree;
 
-	private int continuousCount;
+    private Boolean isContinuous;
 
-	private double brokerage;
+    private int continuousCount;
 
-	public double getBrokerage() {
-		return brokerage;
-	}
+    private double brokerage;
 
-	public void setBrokerage(double brokerage) {
-		this.brokerage = brokerage;
-	}
+    public double getBrokerage() {
+        return brokerage;
+    }
 
-	public int getId() {
-		return id;
-	}
+    public void setBrokerage(double brokerage) {
+        this.brokerage = brokerage;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	@Override
-	public String getCreatePerson() {
-		return createPerson;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	@Override
-	public void setCreatePerson(String createPerson) {
-		this.createPerson = createPerson;
-	}
+    @Override
+    public String getCreatePerson() {
+        return createPerson;
+    }
 
-	public String getStatus() {
-		return status;
-	}
+    @Override
+    public void setCreatePerson(String createPerson) {
+        this.createPerson = createPerson;
+    }
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
+    public String getStatus() {
+        return status;
+    }
 
-	public Double getPrice() {
-		return price;
-	}
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
-	public void setPrice(Double price) {
-		this.price = price;
-	}
+    public Double getPrice() {
+        return price;
+    }
 
-	public Boolean getIsFree() {
-		return isFree;
-	}
+    public void setPrice(Double price) {
+        this.price = price;
+    }
 
-	public void setIsFree(Boolean isFree) {
-		this.isFree = isFree;
-	}
+    public Boolean getIsFree() {
+        return isFree;
+    }
 
-	public Boolean getIsContinuous() {
-		return isContinuous;
-	}
+    public void setIsFree(Boolean isFree) {
+        this.isFree = isFree;
+    }
 
-	public void setIsContinuous(Boolean isContinuous) {
-		this.isContinuous = isContinuous;
-	}
+    public Boolean getIsContinuous() {
+        return isContinuous;
+    }
 
-	public int getCountinuousCount() {
-		return continuousCount;
-	}
+    public void setIsContinuous(Boolean isContinuous) {
+        this.isContinuous = isContinuous;
+    }
 
-	public void setContinuousCount(int continuousCount) {
-		this.continuousCount = continuousCount;
-	}
+    public int getCountinuousCount() {
+        return continuousCount;
+    }
 
-	public String getSmallimgPath() {
-		return smallimgPath;
-	}
+    public String getSmallimgPath() {
+        return smallimgPath;
+    }
 
-	public void setSmallimgPath(String smallimgPath) {
-		this.smallimgPath = smallimgPath;
-	}
+    public void setSmallimgPath(String smallimgPath) {
+        this.smallimgPath = smallimgPath;
+    }
 
-	public int getContinuousCount() {
-		return continuousCount;
-	}
+    public int getContinuousCount() {
+        return continuousCount;
+    }
+
+    public void setContinuousCount(int continuousCount) {
+        this.continuousCount = continuousCount;
+    }
 
 }

@@ -1,11 +1,11 @@
 package com.xczhihui.medical.doctor.model;
 
+import java.io.Serializable;
+import java.util.Date;
+
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
-
-import java.io.Serializable;
-import java.util.Date;
 
 /**
  * <p>
@@ -23,67 +23,67 @@ public class MedicalDoctorApplyField extends Model<MedicalDoctorApplyField> {
     /**
      * 医师申请表医疗领域关系表
      */
-	private String id;
+    private String id;
 
-	/**
+    /**
      * 医师认证申请id
      */
-	@TableField("doctor_apply_id")
-	private String doctorApplyId;
+    @TableField("doctor_apply_id")
+    private String doctorApplyId;
 
-	/**
+    /**
      * 医疗领域id
      */
-	@TableField("field_id")
-	private String fieldId;
+    @TableField("field_id")
+    private String fieldId;
 
     /**
      * 创建时间
      */
-	@TableField("create_time")
-	private Date createTime;
+    @TableField("create_time")
+    private Date createTime;
 
-	@Override
-	protected Serializable pkVal() {
-		return this.id;
-	}
+    public MedicalDoctorApplyField(String fieldId) {
+        this.fieldId = fieldId;
+    }
 
-	public String getId() {
-		return id;
-	}
+    public MedicalDoctorApplyField() {
+    }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    @Override
+    protected Serializable pkVal() {
+        return this.id;
+    }
 
-	public String getDoctorApplyId() {
-		return doctorApplyId;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public void setDoctorApplyId(String doctorApplyId) {
-		this.doctorApplyId = doctorApplyId;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public String getFieldId() {
-		return fieldId;
-	}
+    public String getDoctorApplyId() {
+        return doctorApplyId;
+    }
 
-	public void setFieldId(String fieldId) {
-		this.fieldId = fieldId;
-	}
+    public void setDoctorApplyId(String doctorApplyId) {
+        this.doctorApplyId = doctorApplyId;
+    }
 
-	public Date getCreateTime() {
-		return createTime;
-	}
+    public String getFieldId() {
+        return fieldId;
+    }
 
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
+    public void setFieldId(String fieldId) {
+        this.fieldId = fieldId;
+    }
 
-	public MedicalDoctorApplyField(String fieldId) {
-		this.fieldId = fieldId;
-	}
+    public Date getCreateTime() {
+        return createTime;
+    }
 
-	public MedicalDoctorApplyField() {
-	}
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
 }

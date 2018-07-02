@@ -25,14 +25,14 @@ public enum TokenExpires {
     TwentyDay(Day.getExpires() * 20),
     Year(Day.getExpires() * 365);
 
-    TokenExpires(int expires) {
-        this.expires = expires;
-    }
-
     /**
      * 过期时间的秒数。
      */
     private int expires;
+
+    TokenExpires(int expires) {
+        this.expires = expires;
+    }
 
     /**
      * 过期时间的秒数。

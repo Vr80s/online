@@ -11,6 +11,6 @@ import javax.servlet.http.HttpServletRequest;
  */
 public interface CoreMessageService {
 
-	
-	 public String processRequest(HttpServletRequest request);
+
+    public String processRequest(HttpServletRequest request);
 }

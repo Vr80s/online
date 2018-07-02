@@ -3,8 +3,8 @@ package com.xczhihui.gift.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
+import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.gift.dao.GiftStatementDao;
 import com.xczhihui.gift.service.GiftStatementService;
 import com.xczhihui.gift.vo.GiftStatementVo;
@@ -16,15 +16,15 @@ import com.xczhihui.gift.vo.GiftStatementVo;
  */
 @Service("giftStatementService")
 public class GiftStatementServiceImpl extends OnlineBaseServiceImpl implements
-		GiftStatementService {
+        GiftStatementService {
 
-	@Autowired
-	private GiftStatementDao giftStatementDao;
+    @Autowired
+    private GiftStatementDao giftStatementDao;
 
-	@Override
-	public Page<GiftStatementVo> findGiftPage(GiftStatementVo giftStatementVo,
-			int pageNumber, int pageSize) {
-		return giftStatementDao.findGiftStatementPage(giftStatementVo,
-				pageNumber, pageSize);
-	}
+    @Override
+    public Page<GiftStatementVo> findGiftPage(GiftStatementVo giftStatementVo,
+                                              int pageNumber, int pageSize) {
+        return giftStatementDao.findGiftStatementPage(giftStatementVo,
+                pageNumber, pageSize);
+    }
 }

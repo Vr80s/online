@@ -23,8 +23,6 @@ import com.xczh.consumer.market.bean.WxcpClientUserWxMapping;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczh.consumer.market.wxpay.consts.WxPayConst;
-import com.xczhihui.common.util.CodeUtil;
 import com.xczhihui.common.util.enums.ThirdPartyType;
 import com.xczhihui.common.util.enums.TokenExpires;
 import com.xczhihui.common.util.enums.UserUnitedStateType;
@@ -32,7 +30,6 @@ import com.xczhihui.user.center.service.UserCenterService;
 import com.xczhihui.user.center.utils.UCCookieUtil;
 import com.xczhihui.user.center.vo.Token;
 
-import me.chanjar.weixin.mp.api.WxMpConfigStorage;
 import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.bean.result.WxMpOAuth2AccessToken;
 import me.chanjar.weixin.mp.bean.result.WxMpUser;
@@ -139,7 +136,7 @@ public class WeChatThirdPartyController {
                     wxw.setClient_id(userId);
                     wxcpClientUserWxMappingService.update(wxw);
                     attrs.addAttribute("type", 2);
-                    return new RedirectView(returnOpenidUri+ "/xcview/html/lickacc_mobile.html");
+                    return new RedirectView(returnOpenidUri + "/xcview/html/lickacc_mobile.html");
                 } else {
                     attrs.addAttribute("openId", openId).addAttribute("unionId", wxw.getUnionid())
                             .addAttribute("jump_type", 1);
@@ -182,13 +179,13 @@ public class WeChatThirdPartyController {
             /**
              * 判断这个用户是否已经判断了其他微信号了
              */
-            WxcpClientUserWxMapping   wcwm =   wxcpClientUserWxMappingService.getWxcpClientUserWxMappingByUserId(userId);
-            if(wcwm!=null) {
-            	 return ResponseObject.newErrorResponseObject("用户已绑定过微信号");
+            WxcpClientUserWxMapping wcwm = wxcpClientUserWxMappingService.getWxcpClientUserWxMappingByUserId(userId);
+            if (wcwm != null) {
+                return ResponseObject.newErrorResponseObject("用户已绑定过微信号");
             }
         }
-        
-        
+
+
         Map<String, String> mapRequest = new HashMap<String, String>();
         mapRequest.put("type", ThirdPartyType.WECHAT.getCode() + "");
         try {
@@ -201,9 +198,9 @@ public class WeChatThirdPartyController {
             WxcpClientUserWxMapping m = wxcpClientUserWxMappingService
                     .getWxcpClientUserByUnionId(unionid);
             if (null == m) {
-           
+
                 WxcpClientUserWxMapping wxcpClientUserWxMapping = new WxcpClientUserWxMapping(wxMpUser);
-                
+
                 wxcpClientUserWxMappingService.insert(wxcpClientUserWxMapping);
 
                 if (StringUtils.isNotBlank(userId)) { // 绑定成功
@@ -221,8 +218,8 @@ public class WeChatThirdPartyController {
             } else if (StringUtils.isNotBlank(m.getClient_id())) { // 绑定了用户信息
 
                 if (StringUtils.isNotBlank(userId)) { // 这里说明人家这个已经绑定过其他信息了。我的天
-                    mapRequest .put("code", UserUnitedStateType.MOBILE_UNBOUNDED.getCode() + "");
-                    return ResponseObject.newSuccessResponseObject(mapRequest,UserUnitedStateType.MOBILE_UNBOUNDED.getCode());
+                    mapRequest.put("code", UserUnitedStateType.MOBILE_UNBOUNDED.getCode() + "");
+                    return ResponseObject.newSuccessResponseObject(mapRequest, UserUnitedStateType.MOBILE_UNBOUNDED.getCode());
                 }
 
                 OnlineUser ou = onlineUserService
@@ -282,18 +279,18 @@ public class WeChatThirdPartyController {
     @RequestMapping("middle/callback")
     public void getCurrentWechatOpenIdCallback(HttpServletResponse res, @RequestParam String code, @RequestParam String url)
             throws Exception {
-        LOGGER.warn("middle/callback:code={}",code);
+        LOGGER.warn("middle/callback:code={}", code);
         WxcpClientUserWxMapping wxw = onlineUserService.saveWxInfo(code);
         if (StringUtils.isNotBlank(wxw.getClient_id())) {
             OnlineUser ou = onlineUserService.findUserById(wxw.getClient_id());
-            if(ou != null) { 
-            	 Token t = userCenterService.loginThirdPart(ou.getLoginName(), TokenExpires.TenDay);
-                 // 把用户中心的数据给他 这里im都要用到
-                 ou.setUserCenterId(ou.getId());
-                 ou.setTicket(t.getTicket());
-                 UCCookieUtil.writeTokenCookie(res, t);
-            }else { //之前的bug引起的,需要用户在完善一次信息
-            	wxw.setClient_id(null);
+            if (ou != null) {
+                Token t = userCenterService.loginThirdPart(ou.getLoginName(), TokenExpires.TenDay);
+                // 把用户中心的数据给他 这里im都要用到
+                ou.setUserCenterId(ou.getId());
+                ou.setTicket(t.getTicket());
+                UCCookieUtil.writeTokenCookie(res, t);
+            } else { //之前的bug引起的,需要用户在完善一次信息
+                wxw.setClient_id(null);
                 wxcpClientUserWxMappingService.update(wxw);
             }
         }

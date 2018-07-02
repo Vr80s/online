@@ -35,6 +35,24 @@ public enum VCodeType {
         this.smsCode = smsCode;
     }
 
+    public static boolean contains(Integer type) {
+        for (VCodeType typeEnum : VCodeType.values()) {
+            if (typeEnum.getCode() == type) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static VCodeType getType(int code) {
+        for (VCodeType type : values()) {
+            if (type.getCode() == code) {
+                return type;
+            }
+        }
+        throw new IllegalArgumentException("验证码参数类型错误");
+    }
+
     public String getText() {
         return text;
     }
@@ -51,29 +69,11 @@ public enum VCodeType {
         this.code = code;
     }
 
-    public static boolean contains(Integer type) {
-        for (VCodeType typeEnum : VCodeType.values()) {
-            if (typeEnum.getCode() == type) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     public String getSmsCode() {
         return smsCode;
     }
 
     public void setSmsCode(String smsCode) {
         this.smsCode = smsCode;
-    }
-
-    public static VCodeType getType(int code) {
-        for (VCodeType type : values()) {
-            if (type.getCode() == code) {
-                return type;
-            }
-        }
-        throw new IllegalArgumentException("验证码参数类型错误");
     }
 }

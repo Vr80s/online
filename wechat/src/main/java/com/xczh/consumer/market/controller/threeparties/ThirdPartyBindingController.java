@@ -38,16 +38,13 @@ public class ThirdPartyBindingController {
 
 
     public HttpClient client = new HttpClient();
-
-    @Autowired
-    private IThreePartiesLoginService threePartiesLoginService;
-
-    @Autowired
-    private WxcpClientUserWxMappingService wxcpClientUserWxMappingService;
-
     //手机端登录使用
     @Value("${mobile.authorizeURL}")
     public String weiboMobileAuthorizeURL;
+    @Autowired
+    private IThreePartiesLoginService threePartiesLoginService;
+    @Autowired
+    private WxcpClientUserWxMappingService wxcpClientUserWxMappingService;
 
     /**
      * Description：获取当前用户的绑定信息

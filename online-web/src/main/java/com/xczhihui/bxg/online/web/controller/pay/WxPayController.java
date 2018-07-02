@@ -31,13 +31,13 @@ import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
+import com.xczhihui.bxg.online.web.base.utils.UserLoginUtil;
 import com.xczhihui.bxg.online.web.base.utils.WebUtil;
 import com.xczhihui.bxg.online.web.utils.MatrixToImageWriter;
 import com.xczhihui.common.util.IStringUtil;
 import com.xczhihui.common.util.OrderNoUtil;
 import com.xczhihui.common.util.enums.OrderFrom;
 import com.xczhihui.common.util.enums.PayOrderType;
-import com.xczhihui.bxg.online.web.base.utils.UserLoginUtil;
 import com.xczhihui.course.model.Order;
 import com.xczhihui.course.service.IOrderService;
 import com.xczhihui.course.vo.PayMessage;
@@ -54,20 +54,18 @@ import com.xczhihui.pay.weixin.api.WxPayApiConfig.PayModel;
 @RequestMapping("/web/wxPay")
 public class WxPayController extends WxPayApiController {
 
-    private Logger log = LoggerFactory.getLogger(this.getClass());
     public static final String BUY_COURSE_TEXT = "购买课程{0}";
     public static final String BUY_COIN_TEXT = "充值熊猫币:{0}个";
-
+    String notify_url;
+    private Logger log = LoggerFactory.getLogger(this.getClass());
     @Autowired
     private WxPay4PcBean wxPayBean;
     @Autowired
     private IOrderService orderService;
     @Autowired
     private PayService payService;
-
     @Value("${rate}")
     private int rate;
-    String notify_url;
 
     @Override
     @ModelAttribute

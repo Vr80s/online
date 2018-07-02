@@ -3,13 +3,13 @@ package com.xczhihui.course.vo;
 import java.io.Serializable;
 import java.util.Date;
 
-public class QQClientUserMappingVO implements Serializable{
+public class QQClientUserMappingVO implements Serializable {
     private String id;
 
     private String userId;
-    
+
     private String openId;
-    
+
 
     private String nickname;
 
@@ -147,12 +147,12 @@ public class QQClientUserMappingVO implements Serializable{
         this.createTime = createTime;
     }
 
-	public String getUserId() {
-		return userId;
-	}
+    public String getUserId() {
+        return userId;
+    }
 
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-    
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
 }

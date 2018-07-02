@@ -28,9 +28,7 @@ import com.xczhihui.online.api.service.UserCoinService;
 @Service("payService")
 public class PayServiceImpl implements PayService {
 
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
     private static String SUCCESS = "TRADE_SUCCESS";
-
     @Autowired
     public OrderService orderService;
     @Autowired
@@ -39,6 +37,7 @@ public class PayServiceImpl implements PayService {
     public UserCoinService userCoinService;
     @Autowired
     public IPaymentRecordService paymentRecordService;
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Override
     public void aliPayBusiness(Map<String, String> params) throws Exception {
@@ -48,20 +47,20 @@ public class PayServiceImpl implements PayService {
         if (apr != null) {
             if (SUCCESS.equals(apr.getTradeStatus())) {
                 String type = payMessage.getType();
-                this.business(type, apr.getOutTradeNo(), apr.getTradeNo(), payMessageStr,Payment.ALIPAY);
+                this.business(type, apr.getOutTradeNo(), apr.getTradeNo(), payMessageStr, Payment.ALIPAY);
             } else {
                 StringBuilder sb = new StringBuilder();
                 for (Map.Entry<String, String> entry : params.entrySet()) {
-                    sb.append(entry.getKey() + " = " + entry.getValue()+";");
+                    sb.append(entry.getKey() + " = " + entry.getValue() + ";");
                 }
-                logger.error("alipay支付失败:{}",sb.toString());
+                logger.error("alipay支付失败:{}", sb.toString());
             }
         } else {
             StringBuilder sb = new StringBuilder();
             for (Map.Entry<String, String> entry : params.entrySet()) {
-                sb.append(entry.getKey() + " = " + entry.getValue()+";");
+                sb.append(entry.getKey() + " = " + entry.getValue() + ";");
             }
-            logger.error("alipay该支付记录已存在:{}",sb.toString());
+            logger.error("alipay该支付记录已存在:{}", sb.toString());
         }
     }
 
@@ -77,9 +76,9 @@ public class PayServiceImpl implements PayService {
         } else {
             StringBuilder sb = new StringBuilder();
             for (Map.Entry<String, String> entry : params.entrySet()) {
-                sb.append(entry.getKey() + " = " + entry.getValue()+";");
+                sb.append(entry.getKey() + " = " + entry.getValue() + ";");
             }
-            logger.error("wxpay该支付记录已存在:{}",sb.toString());
+            logger.error("wxpay该支付记录已存在:{}", sb.toString());
         }
     }
 

@@ -5,7 +5,7 @@ import com.xczhihui.course.model.Reply;
 
 /**
  * <p>
-  *  Mapper 接口
+ * Mapper 接口
  * </p>
  *
  * @author yuxin

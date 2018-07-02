@@ -2,12 +2,13 @@ package com.xczhihui.bxg.online.common.domain;/**
  * Created by admin on 2016/9/7.
  */
 
-import com.xczhihui.common.support.domain.BasicEntity;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import java.util.Date;
+
+import com.xczhihui.common.support.domain.BasicEntity;
 
 /**
  * 学员跟踪记录表实体
@@ -23,7 +24,7 @@ public class TrackRecord extends BasicEntity {
      * 学员ID号
      */
     @Column(name = "apply_id")
-    private String  applyId;
+    private String applyId;
 
     /**
      * 记录的顺序
@@ -40,20 +41,20 @@ public class TrackRecord extends BasicEntity {
     /**
      * 记录时间
      */
-    @Column(name="record_time")
+    @Column(name = "record_time")
     private Date recordTime;
 
     /**
      * 记录内容
      */
-    @Column(name="record_content")
+    @Column(name = "record_content")
     private String recordContent;
 
     /**
      * 讲师Id号
      */
     @Column(name = "lecturer_id")
-    private Integer  lecturerId;
+    private Integer lecturerId;
 
     @Column(name = "grade_id")
     private Integer gradeId;

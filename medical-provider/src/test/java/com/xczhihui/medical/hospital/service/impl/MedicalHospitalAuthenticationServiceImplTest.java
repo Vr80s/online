@@ -1,10 +1,12 @@
 package com.xczhihui.medical.hospital.service.impl;
 
-import com.xczhihui.medical.hospital.model.MedicalHospitalAuthentication;
-import com.xczhihui.medical.hospital.service.IMedicalHospitalAuthenticationService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import com.xczhihui.medical.hospital.model.MedicalHospitalAuthentication;
+import com.xczhihui.medical.hospital.service.IMedicalHospitalAuthenticationService;
+
 import test.BaseJunit4Test;
 
 /**
@@ -19,7 +21,7 @@ public class MedicalHospitalAuthenticationServiceImplTest extends BaseJunit4Test
      * 获取医师的认证信息
      */
     @Test
-    public void testGet(){
+    public void testGet() {
 
         MedicalHospitalAuthentication information =
                 service.selectHospitalAuthentication("402880e860c4ebe30160c51302660000");

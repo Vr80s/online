@@ -1,14 +1,13 @@
 package com.xczhihui.bxg.online.web.controller.medical;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.online.web.body.hospital.HospitalRecruitBody;
 import com.xczhihui.bxg.online.web.controller.ftl.AbstractFtlController;
+import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalBusinessService;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalRecruitBusinessService;
 

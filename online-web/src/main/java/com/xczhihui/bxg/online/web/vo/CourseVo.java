@@ -8,29 +8,26 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * Created by rongcai Kang on 2016/7/27.
- *
- *
  */
 
-public class CourseVo{
-
+public class CourseVo {
 
 
     private Integer id;
 
     /**
-     *报名状态
+     * 报名状态
      */
     private boolean isFree;
 
     /**
-     *推荐状态 false:不推荐  true:推荐
+     * 推荐状态 false:不推荐  true:推荐
      */
-    private  boolean isRecommend;
+    private boolean isRecommend;
     /**
-     *课程名称
+     * 课程名称
      */
-    private String  courseName;
+    private String courseName;
 
     /**
      * 课程详情图
@@ -95,7 +92,8 @@ public class CourseVo{
     /**
      * 课程大纲
      */
-    private String courseOutline;;
+    private String courseOutline;
+    ;
 
 
     /**
@@ -111,12 +109,12 @@ public class CourseVo{
     /**
      * 学科id号
      */
-    private Integer  menu_id;
+    private Integer menu_id;
 
     /**
      * 学科名称
      */
-    private String  name;
+    private String name;
 
     /**
      * 课程下视频总数
@@ -131,25 +129,25 @@ public class CourseVo{
     /**
      * 课程下未开始学习视频总数
      */
-    private  Integer unStudy;
+    private Integer unStudy;
 
     /**
      * 是否报名 true:已报名  false:未报名
      */
-    private Boolean isApply=false;
+    private Boolean isApply = false;
 
     /**
      * 课程咨询qq号
      */
-    private String  qqno;
-    private String  coursePwd;
+    private String qqno;
+    private String coursePwd;
 
 
     /**
      * 优惠价格
      */
-    private  String  preferentyMoney;
-    private  String  multimediaType;
+    private String preferentyMoney;
+    private String multimediaType;
 
     private String directId;
 
@@ -160,7 +158,7 @@ public class CourseVo{
 
     @JsonFormat(pattern = "yyyy.MM.dd HH:mm", timezone = "GMT+8")
     private Date start_time;
-    
+
     @JsonFormat(pattern = "yyyy.MM.dd", timezone = "GMT+8")
     private Date startTime;
 
@@ -181,9 +179,9 @@ public class CourseVo{
      * 0:职业课  1:微课
      */
     private Integer course_type;
-    
+
     private Integer type;
-    
+
     /**
      * 成为分享大使课的id
      */
@@ -192,22 +190,22 @@ public class CourseVo{
     private String direct_id;
 
     /**
-     *是否发送过订阅短信提醒
+     * 是否发送过订阅短信提醒
      */
     private Boolean isSent;
     private Boolean collection;
 
     private String userLecturerId;
-    
+
     private Integer giftCount;
     private Integer onlineCourse;
-    
-    
+
+
     private Integer liveStatus; //直播状态1.直播中，2预告，3直播结束
 
     private boolean isAvailable;//是否有效
-    
-    
+
+
     private boolean isSelfCourse; //是否自己的课程
 
     private Integer courseNumber;
@@ -219,6 +217,17 @@ public class CourseVo{
      * 推荐排序
      */
     private Integer recommendSort;
+
+    public static String getWeekOfDate(Date dt) {
+        String[] weekDays = {"星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"};
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(dt);
+        int w = cal.get(Calendar.DAY_OF_WEEK) - 1;
+        if (w < 0) {
+            w = 0;
+        }
+        return weekDays[w];
+    }
 
     public String getAddress() {
         return address;
@@ -267,8 +276,7 @@ public class CourseVo{
     public void setSelfCourse(boolean isSelfCourse) {
         this.isSelfCourse = isSelfCourse;
     }
-    
-    
+
     public boolean isAvailable() {
         return isAvailable;
     }
@@ -278,12 +286,12 @@ public class CourseVo{
     }
 
     public String getCoursePwd() {
-		return coursePwd;
-	}
+        return coursePwd;
+    }
 
-	public void setCoursePwd(String coursePwd) {
-		this.coursePwd = coursePwd;
-	}
+    public void setCoursePwd(String coursePwd) {
+        this.coursePwd = coursePwd;
+    }
 
     public String getDirectId() {
         return directId;
@@ -294,89 +302,78 @@ public class CourseVo{
     }
 
     public Integer getOnlineCourse() {
-		return onlineCourse;
-	}
+        return onlineCourse;
+    }
 
-	public void setOnlineCourse(Integer onlineCourse) {
-		this.onlineCourse = onlineCourse;
-	}
+    public void setOnlineCourse(Integer onlineCourse) {
+        this.onlineCourse = onlineCourse;
+    }
 
-	public Integer getGiftCount() {
-		return giftCount;
-	}
+    public Integer getGiftCount() {
+        return giftCount;
+    }
 
-	public void setGiftCount(Integer giftCount) {
-		this.giftCount = giftCount;
-	}
+    public void setGiftCount(Integer giftCount) {
+        this.giftCount = giftCount;
+    }
 
-	public String getMultimediaType() {
-		return multimediaType;
-	}
+    public String getMultimediaType() {
+        return multimediaType;
+    }
 
-	public void setMultimediaType(String multimediaType) {
-		this.multimediaType = multimediaType;
-	}
+    public void setMultimediaType(String multimediaType) {
+        this.multimediaType = multimediaType;
+    }
 
-	public String getTeacherDescription() {
-		return teacherDescription;
-	}
+    public String getTeacherDescription() {
+        return teacherDescription;
+    }
 
-	public void setTeacherDescription(String teacherDescription) {
-		this.teacherDescription = teacherDescription;
-	}
+    public void setTeacherDescription(String teacherDescription) {
+        this.teacherDescription = teacherDescription;
+    }
 
-	public String getWeek() {
-		return week;
-	}
+    public String getWeek() {
+        return week;
+    }
 
-	public void setWeek(String week) {
-		this.week = week;
-	}
+    public void setWeek(String week) {
+        this.week = week;
+    }
 
-	public Date getStart_time() {
-		return start_time;
-	}
+    public Date getStart_time() {
+        return start_time;
+    }
 
-	public void setStart_time(Date start_time) {
-		this.start_time = start_time;
-	}
+    public void setStart_time(Date start_time) {
+        this.start_time = start_time;
+    }
 
-	public void setStartTime(Date startTime) {
-        if(startTime!=null){
-            setWeek(getWeekOfDate(startTime));
-        }
-		this.startTime = startTime;
-	}
+    public String getUserLecturerId() {
+        return userLecturerId;
+    }
 
-	public void setEndTime(Date endTime) {
-		this.endTime = endTime;
-	}
+    public void setUserLecturerId(String userLecturerId) {
+        this.userLecturerId = userLecturerId;
+    }
 
-	public String getUserLecturerId() {
-		return userLecturerId;
-	}
+    public Boolean getIsSent() {
+        return isSent;
+    }
 
-	public void setUserLecturerId(String userLecturerId) {
-		this.userLecturerId = userLecturerId;
-	}
+    public void setIsSent(Boolean isSent) {
+        this.isSent = isSent;
+    }
 
-	public Boolean getIsSent() {
-		return isSent;
-	}
+    public String getDirect_id() {
+        return direct_id;
+    }
 
-	public void setIsSent(Boolean isSent) {
-		this.isSent = isSent;
-	}
+    public void setDirect_id(String direct_id) {
+        this.direct_id = direct_id;
+    }
 
-	public String getDirect_id() {
-		return direct_id;
-	}
-
-	public void setDirect_id(String direct_id) {
-		this.direct_id = direct_id;
-	}
-
-	public Integer getCount() {
+    public Integer getCount() {
         return count;
     }
 
@@ -408,8 +405,6 @@ public class CourseVo{
         this.detailImgPath = detailImgPath;
     }
 
-
-
     public String getDescription() {
         return description;
     }
@@ -417,7 +412,6 @@ public class CourseVo{
     public void setDescription(String description) {
         this.description = description;
     }
-
 
     public String getCourseName() {
         return courseName;
@@ -453,7 +447,7 @@ public class CourseVo{
 
     public String getTeacherName() {
 
-        return teacherName == null ? "暂无讲师" :teacherName;
+        return teacherName == null ? "暂无讲师" : teacherName;
     }
 
     public void setTeacherName(String teacherName) {
@@ -548,7 +542,6 @@ public class CourseVo{
         this.menu_id = menu_id;
     }
 
-
     public String getName() {
         return name;
     }
@@ -589,13 +582,13 @@ public class CourseVo{
         this.unStudy = unStudy;
     }
 
-	public String getOriginalCost() {
-		return originalCost;
-	}
+    public String getOriginalCost() {
+        return originalCost;
+    }
 
-	public void setOriginalCost(String originalCost) {
-		this.originalCost = originalCost;
-	}
+    public void setOriginalCost(String originalCost) {
+        this.originalCost = originalCost;
+    }
 
     public Integer getDescription_show() {
         return description_show;
@@ -621,37 +614,48 @@ public class CourseVo{
         this.course_type = course_type;
     }
 
-	public String getShareCourseId() {
-		return shareCourseId;
-	}
+    public String getShareCourseId() {
+        return shareCourseId;
+    }
 
-	public void setShareCourseId(String shareCourseId) {
-		this.shareCourseId = shareCourseId;
-	}
+    public void setShareCourseId(String shareCourseId) {
+        this.shareCourseId = shareCourseId;
+    }
 
-	public Integer getType() {
-		return type;
-	}
+    public Integer getType() {
+        return type;
+    }
 
-	public void setType(Integer type) {
-		this.type = type;
-	}
+    public void setType(Integer type) {
+        this.type = type;
+    }
 
-	public Date getStartTime() {
-		return startTime;
-	}
+    public Date getStartTime() {
+        return startTime;
+    }
 
-	public Date getEndTime() {
-		return endTime;
-	}
+    public void setStartTime(Date startTime) {
+        if (startTime != null) {
+            setWeek(getWeekOfDate(startTime));
+        }
+        this.startTime = startTime;
+    }
 
-	public Integer getLiveStatus() {
-		return liveStatus;
-	}
+    public Date getEndTime() {
+        return endTime;
+    }
 
-	public void setLiveStatus(Integer liveStatus) {
-		this.liveStatus = liveStatus;
-	}
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
+    }
+
+    public Integer getLiveStatus() {
+        return liveStatus;
+    }
+
+    public void setLiveStatus(Integer liveStatus) {
+        this.liveStatus = liveStatus;
+    }
 
     public Integer getRecommendSort() {
         return recommendSort;
@@ -659,16 +663,5 @@ public class CourseVo{
 
     public void setRecommendSort(Integer recommendSort) {
         this.recommendSort = recommendSort;
-    }
-
-    public static String getWeekOfDate(Date dt) {
-        String[] weekDays = {"星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"};
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(dt);
-        int w = cal.get(Calendar.DAY_OF_WEEK) - 1;
-        if (w < 0) {
-            w = 0;
-        }
-        return weekDays[w];
     }
 }

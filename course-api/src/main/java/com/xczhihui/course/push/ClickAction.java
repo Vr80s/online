@@ -17,6 +17,19 @@ public class ClickAction {
     private int confirmOnPackageDownloadUrl;
     private String packageName;
 
+    public ClickAction() {
+        this.url = "";
+        this.actionType = 1;
+        this.activity = "";
+
+        this.atyAttrIntentFlag = 0;
+        this.atyAttrPendingIntentFlag = 0;
+
+        this.packageDownloadUrl = "";
+        this.confirmOnPackageDownloadUrl = 1;
+        this.packageName = "";
+    }
+
     public void setActionType(int actionType) {
         this.actionType = actionType;
     }
@@ -110,18 +123,5 @@ public class ClickAction {
             return true;
         }
         return true;
-    }
-
-    public ClickAction() {
-        this.url = "";
-        this.actionType = 1;
-        this.activity = "";
-
-        this.atyAttrIntentFlag = 0;
-        this.atyAttrPendingIntentFlag = 0;
-
-        this.packageDownloadUrl = "";
-        this.confirmOnPackageDownloadUrl = 1;
-        this.packageName = "";
     }
 }

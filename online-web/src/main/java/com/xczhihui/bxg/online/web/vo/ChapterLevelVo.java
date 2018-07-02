@@ -6,6 +6,7 @@ import java.util.Map;
 
 /**
  * 章、节、知识点、视频级别菜单
+ *
  * @Author Fudong.Sun【】
  * @Date 2016/12/1 11:27
  */
@@ -50,7 +51,7 @@ public class ChapterLevelVo {
     }
 
     public Boolean isLearn() {
-        return isLearn==null ? false : isLearn;
+        return isLearn == null ? false : isLearn;
     }
 
     public void setIsLearn(Boolean isLearn) {

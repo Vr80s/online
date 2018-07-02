@@ -49,6 +49,7 @@ import com.xczhihui.user.center.vo.Token;
 public class MobileShareController {
 
 
+    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(MobileShareController.class);
     @Autowired
     private OnlineUserMapper onlineUserMapper;
     @Autowired
@@ -59,91 +60,84 @@ public class MobileShareController {
     private ICriticizeService criticizeService;
     @Autowired
     private OnlineUserService onlineUserService;
-    
     @Autowired
     private IMedicalDoctorBusinessService medicalDoctorBusinessService;
-    
     @Autowired
     private IMedicalDoctorArticleService medicalDoctorArticleService;
-
     @Value("${webdomain}")
     private String webdomain;
-    
     @Value("${returnOpenidUri}")
     private String returnOpenidUri;
 
-    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(MobileShareController.class);
-
-    
     /**
-     *	app---> 课程、主播分享
+     * app---> 课程、主播分享
      */
     @RequestMapping("courseShare")
     @ResponseBody
     public ResponseObject courseShare(
-            @RequestParam(value="shareId")String shareId,
-            @RequestParam(value="shareType")Integer shareType)
-            throws Exception{
-    	
-    	try {
-    		
-    		ShareInfoVo sv  = courseServiceImpl.selectShareInfoByType(shareType,shareId);
-        	//构造下分享出去的参数
-        	sv.build(returnOpenidUri);
-        	
-        	return ResponseObject.newSuccessResponseObject(sv);
+            @RequestParam(value = "shareId") String shareId,
+            @RequestParam(value = "shareType") Integer shareType)
+            throws Exception {
+
+        try {
+
+            ShareInfoVo sv = courseServiceImpl.selectShareInfoByType(shareType, shareId);
+            //构造下分享出去的参数
+            sv.build(returnOpenidUri);
+
+            return ResponseObject.newSuccessResponseObject(sv);
         } catch (Exception e) {
             e.printStackTrace();
-            
+
             //如果异常默认用这个
             ShareInfoVo sv = new ShareInfoVo();
-        	sv.setName("熊猫中医");
-        	sv.setDescription("熊猫中医是中医药的学习传承平台：学中医、懂中医、用中医，让中医服务于家庭、个人，让中国古代科学瑰宝为现代人类的健康保驾护航。");
-        	sv.setHeadImg(webdomain + "/web/images/defaultHead/18.png");
-        	sv.setLink(returnOpenidUri +WechatShareLinkType.INDEX_PAGE.getLink());
+            sv.setName("熊猫中医");
+            sv.setDescription("熊猫中医是中医药的学习传承平台：学中医、懂中医、用中医，让中医服务于家庭、个人，让中国古代科学瑰宝为现代人类的健康保驾护航。");
+            sv.setHeadImg(webdomain + "/web/images/defaultHead/18.png");
+            sv.setLink(returnOpenidUri + WechatShareLinkType.INDEX_PAGE.getLink());
             return ResponseObject.newSuccessResponseObject(sv);
         }
     }
 
     /**
      * Description：用户点击my_share.html页面后，进入到这个方法，
-     *   根据用户点击的不同浏览器来进行重定向。
-     *   根据课程和主播是否有效判断是否跳转到其他页面啦
+     * 根据用户点击的不同浏览器来进行重定向。
+     * 根据课程和主播是否有效判断是否跳转到其他页面啦
+     *
      * @param req
      * @param res
      * @param params
-     * @return
-     * @throws Exception
      * @return ResponseObject
+     * @throws Exception
      * @author name：yangxuan <br>email: 15936216273@163.com
      */
     @RequestMapping("shareBrowserDifferentiation")
     public void shareBrowserDifferentiation(HttpServletRequest req,
-            HttpServletResponse res,
-            @RequestParam(value="shareId")String shareId,
-            @RequestParam(value="shareType")Integer shareType,
-            @RequestParam(value="wxOrbrower")String wxOrbrower, 
-            @Account(optional = true) Optional<String> accountIdOpt)throws Exception{
-     
-    	try {
-    		/**
+                                            HttpServletResponse res,
+                                            @RequestParam(value = "shareId") String shareId,
+                                            @RequestParam(value = "shareType") Integer shareType,
+                                            @RequestParam(value = "wxOrbrower") String wxOrbrower,
+                                            @Account(optional = true) Optional<String> accountIdOpt) throws Exception {
+
+        try {
+            /**
              * 这里有个问题就是。如果去分享页面的话
              */
-            LOGGER.info("shareId:"+shareId+",shareType:"+shareType);
-            
-            
-            String shareIdAndType = shareId+"_"+shareType;
-            
+            LOGGER.info("shareId:" + shareId + ",shareType:" + shareType);
+
+
+            String shareIdAndType = shareId + "_" + shareType;
+
             //课程分享
-            if(ShareType.COURSE_SHARE.getCode().equals(shareType) 
-            		|| ShareType.ALBUM_SHARE.getCode().equals(shareType)){ 
-                
-            	Integer courseId = Integer.parseInt(shareId);
-                CourseLecturVo  courseLecturVo =
+            if (ShareType.COURSE_SHARE.getCode().equals(shareType)
+                    || ShareType.ALBUM_SHARE.getCode().equals(shareType)) {
+
+                Integer courseId = Integer.parseInt(shareId);
+                CourseLecturVo courseLecturVo =
                         courseServiceImpl.selectCourseStatusDeleteUserLecturerId(courseId);
-                if(courseLecturVo == null) {
-                	 res.sendRedirect(returnOpenidUri +WechatShareLinkType.UNSHELVE.getLink());
-                     return;
+                if (courseLecturVo == null) {
+                    res.sendRedirect(returnOpenidUri + WechatShareLinkType.UNSHELVE.getLink());
+                    return;
                 }
                 /**
                  *  判断课程是否下架  和  用户是否登录
@@ -151,92 +145,91 @@ public class MobileShareController {
                 boolean status = (courseLecturVo.getStatus() == 0 && !accountIdOpt.isPresent());
                 boolean iSdelete = courseLecturVo.getIsDelete();
                 boolean exitUserId = StringUtils.isBlank(courseLecturVo.getUserLecturerId());
-                
+
                 //课程下架了 或者被删除 或者 主播不登录空
-                if(status || iSdelete || exitUserId) {
-                    res.sendRedirect(returnOpenidUri +WechatShareLinkType.UNSHELVE.getLink());
+                if (status || iSdelete || exitUserId) {
+                    res.sendRedirect(returnOpenidUri + WechatShareLinkType.UNSHELVE.getLink());
                     return;
-                 
-                //课程虽然被下架。但判断此用户是否购买过啊    
-                }else if(courseLecturVo.getStatus() == 0 &&  accountIdOpt.isPresent()) { 
-                	Integer falg = criticizeService.hasCourse(accountIdOpt.get(), courseId);
-                    if(falg>0) {
-                        res.sendRedirect(returnOpenidUri +WechatShareLinkType.UNSHELVE.getLink());
+
+                    //课程虽然被下架。但判断此用户是否购买过啊
+                } else if (courseLecturVo.getStatus() == 0 && accountIdOpt.isPresent()) {
+                    Integer falg = criticizeService.hasCourse(accountIdOpt.get(), courseId);
+                    if (falg > 0) {
+                        res.sendRedirect(returnOpenidUri + WechatShareLinkType.UNSHELVE.getLink());
                         return;
                     }
                 }
-                
-            //主播分享    
-            }else if(ShareType.HOST_SHARE.getCode().equals(shareType)){ 
-                
-            	OnlineUser o = onlineUserService.findUserById(shareId);
-                if(o == null) {
-                	res.sendRedirect(returnOpenidUri +WechatShareLinkType.UNSHELVE.getLink());
-                	return;
+
+                //主播分享
+            } else if (ShareType.HOST_SHARE.getCode().equals(shareType)) {
+
+                OnlineUser o = onlineUserService.findUserById(shareId);
+                if (o == null) {
+                    res.sendRedirect(returnOpenidUri + WechatShareLinkType.UNSHELVE.getLink());
+                    return;
                 }
-            
-            //没有找到，并且删除或者 禁用     
-            }else if(ShareType.DOCDOT_SHARE.getCode().equals(shareType)) {
-            	MedicalDoctor md = medicalDoctorBusinessService.get(shareId);
-            	if(md==null || md.getDeleted() || !md.getStatus() ) {
-            		res.sendRedirect(returnOpenidUri +WechatShareLinkType.UNSHELVE.getLink());
-                	return;
-            	}
-            }else if(ShareType.ACTICLE_SHARE.getCode().equals(shareType)) {
-            	 OeBxsArticleVO oeBxsArticleVO = medicalDoctorArticleService.get(Integer.parseInt(shareId));
-            	 if(oeBxsArticleVO == null) {
-                 	res.sendRedirect(returnOpenidUri +WechatShareLinkType.UNSHELVE.getLink());
-                 	return;
-                 }
-            	
-            }else if(ShareType.MEDICAL_CASES.getCode().equals(shareType)) {
-            	 OeBxsArticleVO oeBxsArticleVO = medicalDoctorArticleService.get(Integer.parseInt(shareId));
-            	 if(oeBxsArticleVO == null) {
-                 	res.sendRedirect(returnOpenidUri +WechatShareLinkType.UNSHELVE.getLink());
-                 	return;
-                 }
+
+                //没有找到，并且删除或者 禁用
+            } else if (ShareType.DOCDOT_SHARE.getCode().equals(shareType)) {
+                MedicalDoctor md = medicalDoctorBusinessService.get(shareId);
+                if (md == null || md.getDeleted() || !md.getStatus()) {
+                    res.sendRedirect(returnOpenidUri + WechatShareLinkType.UNSHELVE.getLink());
+                    return;
+                }
+            } else if (ShareType.ACTICLE_SHARE.getCode().equals(shareType)) {
+                OeBxsArticleVO oeBxsArticleVO = medicalDoctorArticleService.get(Integer.parseInt(shareId));
+                if (oeBxsArticleVO == null) {
+                    res.sendRedirect(returnOpenidUri + WechatShareLinkType.UNSHELVE.getLink());
+                    return;
+                }
+
+            } else if (ShareType.MEDICAL_CASES.getCode().equals(shareType)) {
+                OeBxsArticleVO oeBxsArticleVO = medicalDoctorArticleService.get(Integer.parseInt(shareId));
+                if (oeBxsArticleVO == null) {
+                    res.sendRedirect(returnOpenidUri + WechatShareLinkType.UNSHELVE.getLink());
+                    return;
+                }
             }
-            
-            if(StringUtils.isNotBlank(wxOrbrower) && "wx".equals(wxOrbrower)){
-                String strLinkHome 	= "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+WxPayConst.gzh_appid+"&redirect_uri="+returnOpenidUri+"/xczh/share/viewUser?shareIdAndType="+shareIdAndType+"&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect".replace("appid=APPID", "appid="+ WxPayConst.gzh_appid);
+
+            if (StringUtils.isNotBlank(wxOrbrower) && "wx".equals(wxOrbrower)) {
+                String strLinkHome = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + WxPayConst.gzh_appid + "&redirect_uri=" + returnOpenidUri + "/xczh/share/viewUser?shareIdAndType=" + shareIdAndType + "&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect".replace("appid=APPID", "appid=" + WxPayConst.gzh_appid);
                 res.sendRedirect(strLinkHome);
-            }else if(StringUtils.isNotBlank(wxOrbrower) && "brower".equals(wxOrbrower)){
-                res.sendRedirect(returnOpenidUri +"/xczh/share/viewUser?shareIdAndType="+shareIdAndType+"&wxOrbrower=brower");//
+            } else if (StringUtils.isNotBlank(wxOrbrower) && "brower".equals(wxOrbrower)) {
+                res.sendRedirect(returnOpenidUri + "/xczh/share/viewUser?shareIdAndType=" + shareIdAndType + "&wxOrbrower=brower");//
             }
-		} catch (Exception e) {
-			e.printStackTrace();
-			
-			res.sendRedirect(returnOpenidUri +WechatShareLinkType.INDEX_PAGE.getLink());
-		}
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            res.sendRedirect(returnOpenidUri + WechatShareLinkType.INDEX_PAGE.getLink());
+        }
     }
 
     /**
-     *
      * Description：真正的分享后，响应给用户的页面
+     *
      * @param req
      * @param res
-     * @throws Exception
      * @return void
+     * @throws Exception
      * @author name：yangxuan <br>email: 15936216273@163.com
-     *
      */
     @RequestMapping("viewUser")
     public void viewUser(HttpServletRequest req, HttpServletResponse res,
-    		@Account(optional = true) Optional<String> accountIdOpt) throws Exception{
+                         @Account(optional = true) Optional<String> accountIdOpt) throws Exception {
 
         LOGGER.info("WX return code:" + req.getParameter("code"));
 
         try {
-        	
-        	//获取分享页面转发过来的参数
-        	String wxOrbrower = req.getParameter("wxOrbrower");
+
+            //获取分享页面转发过来的参数
+            String wxOrbrower = req.getParameter("wxOrbrower");
             String shareIdAndType = req.getParameter("shareIdAndType");
             String code = req.getParameter("code");
-            
+
             String shareId = null;
             Integer shareType = 0;
-            if(StringUtils.isNotBlank(shareIdAndType)){
-                String [] idAndType =shareIdAndType.split("_");
+            if (StringUtils.isNotBlank(shareIdAndType)) {
+                String[] idAndType = shareIdAndType.split("_");
                 shareId = idAndType[0];
                 shareType = Integer.parseInt(idAndType[1]);
             }
@@ -245,76 +238,77 @@ public class MobileShareController {
              * 判断微信环境还是普通浏览器环境
              * 判断用户是否登录过，是否还有效
              */
-            OnlineUser ou =null;
-            if("wx".equals(wxOrbrower)){
-            	
+            OnlineUser ou = null;
+            if ("wx".equals(wxOrbrower)) {
+
                 WxcpClientUserWxMapping wxw = onlineUserService.saveWxInfo(code);
-				/**
-				 * 判断此微信用户是否  存在或者绑定过手机号没
-				 */
-                
+                /**
+                 * 判断此微信用户是否  存在或者绑定过手机号没
+                 */
+
                 //绑定过
-                if(wxw!=null && StringUtils.isNotBlank(wxw.getClient_id())){
-                	//获取用户信息
+                if (wxw != null && StringUtils.isNotBlank(wxw.getClient_id())) {
+                    //获取用户信息
                     ou = onlineUserMapper.findUserById(wxw.getClient_id());
-                    if(!accountIdOpt.isPresent()){
-                        Token t = userCenterService.loginThirdPart(ou.getLoginName(),TokenExpires.TenDay);
+                    if (!accountIdOpt.isPresent()) {
+                        Token t = userCenterService.loginThirdPart(ou.getLoginName(), TokenExpires.TenDay);
                         ou.setTicket(t.getTicket());
                         UCCookieUtil.writeTokenCookie(res, t);
                     }
-                }else {
-                	 UCCookieUtil.writeThirdPartyCookie(res,onlineUserService.buildThirdFlag(wxw));
+                } else {
+                    UCCookieUtil.writeThirdPartyCookie(res, onlineUserService.buildThirdFlag(wxw));
                 }
             } else {
                 ou = accountIdOpt.isPresent() ? onlineUserService.findUserById(accountIdOpt.get()) : null;
             }
-            
-            //课程分享啦
-            if(ShareType.COURSE_SHARE.getCode().equals(shareType)
-            		|| ShareType.ALBUM_SHARE.getCode().equals(shareType)){ 
 
-            	String coursepage = shareCoursePage(shareId,shareType,ou);
-            	res.sendRedirect(coursepage);
-            
-            //主播分享 
-            }else if(ShareType.HOST_SHARE.getCode().equals(shareType)){ 
-                res.sendRedirect(returnOpenidUri + WechatShareLinkType.LIVE_PERSONAL.getLink()+shareId);
-            
-            //师承分享     
-            }else if(ShareType.APPRENTICE_SHARE.getCode().equals(shareType)) {
-            	res.sendRedirect(returnOpenidUri + WechatShareLinkType.APPRENTICE.getLink()+shareId);
-            
-            //医师分享     	
-            }else if(ShareType.DOCDOT_SHARE.getCode().equals(shareType)){
-            	
-            	res.sendRedirect(returnOpenidUri +WechatShareLinkType.DOCDOT_SHARE.getLink()+shareId);
-            
-            //文章分享     	
-            }else if(ShareType.ACTICLE_SHARE.getCode().equals(shareType)){
-            	
-            	res.sendRedirect(returnOpenidUri +WechatShareLinkType.ACTICLE_SHARE.getLink());
-            
-            //医案分享 	
-            }else if(ShareType.MEDICAL_CASES.getCode().equals(shareType)){
-            	
-            	res.sendRedirect(returnOpenidUri +WechatShareLinkType.MEDICAL_CASES.getLink());
+            //课程分享啦
+            if (ShareType.COURSE_SHARE.getCode().equals(shareType)
+                    || ShareType.ALBUM_SHARE.getCode().equals(shareType)) {
+
+                String coursepage = shareCoursePage(shareId, shareType, ou);
+                res.sendRedirect(coursepage);
+
+                //主播分享
+            } else if (ShareType.HOST_SHARE.getCode().equals(shareType)) {
+                res.sendRedirect(returnOpenidUri + WechatShareLinkType.LIVE_PERSONAL.getLink() + shareId);
+
+                //师承分享
+            } else if (ShareType.APPRENTICE_SHARE.getCode().equals(shareType)) {
+                res.sendRedirect(returnOpenidUri + WechatShareLinkType.APPRENTICE.getLink() + shareId);
+
+                //医师分享
+            } else if (ShareType.DOCDOT_SHARE.getCode().equals(shareType)) {
+
+                res.sendRedirect(returnOpenidUri + WechatShareLinkType.DOCDOT_SHARE.getLink() + shareId);
+
+                //文章分享
+            } else if (ShareType.ACTICLE_SHARE.getCode().equals(shareType)) {
+
+                res.sendRedirect(returnOpenidUri + WechatShareLinkType.ACTICLE_SHARE.getLink());
+
+                //医案分享
+            } else if (ShareType.MEDICAL_CASES.getCode().equals(shareType)) {
+
+                res.sendRedirect(returnOpenidUri + WechatShareLinkType.MEDICAL_CASES.getLink());
             }
         } catch (Exception e) {
             e.printStackTrace();
-            
-            res.sendRedirect(returnOpenidUri +WechatShareLinkType.INDEX_PAGE.getLink());
+
+            res.sendRedirect(returnOpenidUri + WechatShareLinkType.INDEX_PAGE.getLink());
         }
     }
 
     /**
      * 通过连接我们的二维码来获取用户信息啦，
+     *
      * @param req
      * @param res
      * @throws Exception
      */
     @RequestMapping("xcCustomQrCode")
     public void xcCustomQrCode(HttpServletRequest req,
-                               HttpServletResponse res)throws Exception{
+                               HttpServletResponse res) throws Exception {
 
         /**
          * 这里有个问题就是。如果去分享页面的话
@@ -323,30 +317,29 @@ public class MobileShareController {
         String wxOrbrower = req.getParameter("wxOrbrower");  //来自哪里的浏览器
         String realUrl = URLEncoder.encode(searchUrl, "UTF-8");
 
-        LOGGER.info("啦啦啦，我是卖报的小画家：searchUrl:"+searchUrl+"==="+",wxOrbrower:"+wxOrbrower);
-		/*
-		 * 这里需要判断下是不是微信浏览器
+        LOGGER.info("啦啦啦，我是卖报的小画家：searchUrl:" + searchUrl + "===" + ",wxOrbrower:" + wxOrbrower);
+        /*
+         * 这里需要判断下是不是微信浏览器
 		 */
-        if(StringUtils.isNotBlank(wxOrbrower) && "wx".equals(wxOrbrower)){
-            String strLinkHome 	= "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+WxPayConst.gzh_appid+"&redirect_uri="+returnOpenidUri+"/xczh/share/xcCustomQrCodeViewUser?realUrl="+realUrl+"&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect".replace("appid=APPID", "appid="+ WxPayConst.gzh_appid);
+        if (StringUtils.isNotBlank(wxOrbrower) && "wx".equals(wxOrbrower)) {
+            String strLinkHome = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + WxPayConst.gzh_appid + "&redirect_uri=" + returnOpenidUri + "/xczh/share/xcCustomQrCodeViewUser?realUrl=" + realUrl + "&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect".replace("appid=APPID", "appid=" + WxPayConst.gzh_appid);
             res.sendRedirect(strLinkHome);
-        }else if(StringUtils.isNotBlank(wxOrbrower) && "brower".equals(wxOrbrower)){
-            res.sendRedirect(returnOpenidUri +"/xczh/share/xcCustomQrCodeViewUser?realUrl="+realUrl+"&wxOrbrower=brower");//
+        } else if (StringUtils.isNotBlank(wxOrbrower) && "brower".equals(wxOrbrower)) {
+            res.sendRedirect(returnOpenidUri + "/xczh/share/xcCustomQrCodeViewUser?realUrl=" + realUrl + "&wxOrbrower=brower");//
         }
     }
 
     /**
-     *
      * Description：真正的分享后，响应给用户的页面
+     *
      * @param req
      * @param res
-     * @throws Exception
      * @return void
+     * @throws Exception
      * @author name：yangxuan <br>email: 15936216273@163.com
-     *
      */
     @RequestMapping("xcCustomQrCodeViewUser")
-    public void xcCustomQrCodeViewUser(HttpServletRequest req, HttpServletResponse res, @Account(optional = true) Optional<String> accountIdOpt) throws Exception{
+    public void xcCustomQrCodeViewUser(HttpServletRequest req, HttpServletResponse res, @Account(optional = true) Optional<String> accountIdOpt) throws Exception {
 
         LOGGER.info("WX return code:" + req.getParameter("code"));
         try {
@@ -354,97 +347,97 @@ public class MobileShareController {
             String realUrl = req.getParameter("realUrl");
             String wxOrbrower = req.getParameter("wxOrbrower");
 
-            LOGGER.info("code:" +code+"realUrl:" +realUrl+"wxOrbrower:" +wxOrbrower);
-            OnlineUser ou =null;
-            if(!StringUtils.isNotBlank(wxOrbrower)){ //微信浏览器
+            LOGGER.info("code:" + code + "realUrl:" + realUrl + "wxOrbrower:" + wxOrbrower);
+            OnlineUser ou = null;
+            if (!StringUtils.isNotBlank(wxOrbrower)) { //微信浏览器
                 WxcpClientUserWxMapping wxw = onlineUserService.saveWxInfo(code);
 				/*
 				 * 判断此微信用户是否已经存在与我们的账户系统中不
 				 */
-                if(StringUtils.isNotBlank(wxw.getClient_id())){ //说明这个用户已经绑定过了
+                if (StringUtils.isNotBlank(wxw.getClient_id())) { //说明这个用户已经绑定过了
                     /**
                      * 判断这个用户session是否有效了，如果有效就不用登录了
                      */
                     ou = onlineUserMapper.findUserById(wxw.getClient_id());
-                    if(!accountIdOpt.isPresent()){ //直接跳转到分享页面
+                    if (!accountIdOpt.isPresent()) { //直接跳转到分享页面
                         //这里不用判断用户有没有登录了。没哟登录帮他登录
                         Token t = userCenterService.loginThirdPart(ou.getLoginName(), TokenExpires.TenDay);
                         ou.setTicket(t.getTicket());
                         UCCookieUtil.writeTokenCookie(res, t);
                     }
                 }
-                UCCookieUtil.writeThirdPartyCookie(res,onlineUserService.buildThirdFlag(wxw));
+                UCCookieUtil.writeThirdPartyCookie(res, onlineUserService.buildThirdFlag(wxw));
             }
             res.sendRedirect(realUrl);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    
-    public String shareCoursePage(String shareId,Integer shareType,OnlineUser ou) {
-    	
-    	String coursePage =  WechatShareLinkType.INDEX_PAGE.getLink();
-    	
-    	Integer courseId = Integer.parseInt(shareId);
-        CourseLecturVo  cv=null;
+
+    public String shareCoursePage(String shareId, Integer shareType, OnlineUser ou) {
+
+        String coursePage = WechatShareLinkType.INDEX_PAGE.getLink();
+
+        Integer courseId = Integer.parseInt(shareId);
+        CourseLecturVo cv = null;
         //判断这个课程类型啦
-        if(ou!=null){  //说明已经登录了
-            cv= courseServiceImpl.selectUserCurrentCourseStatus(courseId,ou.getId());
-        }else{
-            cv= courseServiceImpl.selectCurrentCourseStatus(courseId);
-        }
-        
-        if(cv==null){
-        	coursePage = WechatShareLinkType.INDEX_PAGE.getLink();
+        if (ou != null) {  //说明已经登录了
+            cv = courseServiceImpl.selectUserCurrentCourseStatus(courseId, ou.getId());
+        } else {
+            cv = courseServiceImpl.selectCurrentCourseStatus(courseId);
         }
 
-        if(ou == null) {
-            if(cv.getType()==1 || cv.getType()==2){
+        if (cv == null) {
+            coursePage = WechatShareLinkType.INDEX_PAGE.getLink();
+        }
+
+        if (ou == null) {
+            if (cv.getType() == 1 || cv.getType() == 2) {
                 //视频音频购买
-            	coursePage =  WechatShareLinkType.SCHOOL_AUDIO.getLink();
-            }else if(cv.getType()==3){
+                coursePage = WechatShareLinkType.SCHOOL_AUDIO.getLink();
+            } else if (cv.getType() == 3) {
                 //直播购买
-            	coursePage =  WechatShareLinkType.SCHOOL_PLAY.getLink();
-            }else{
+                coursePage = WechatShareLinkType.SCHOOL_PLAY.getLink();
+            } else {
                 //线下课购买
-            	coursePage =  WechatShareLinkType.SCHOOL_CLASS.getLink();
+                coursePage = WechatShareLinkType.SCHOOL_CLASS.getLink();
             }
-        }else {
-            if(cv.getWatchState() == 0){
-                if(cv.getType()==1 || cv.getType()==2){
+        } else {
+            if (cv.getWatchState() == 0) {
+                if (cv.getType() == 1 || cv.getType() == 2) {
                     //视频音频购买
-                	coursePage =  WechatShareLinkType.SCHOOL_AUDIO.getLink();
-                }else if(cv.getType()==3){
+                    coursePage = WechatShareLinkType.SCHOOL_AUDIO.getLink();
+                } else if (cv.getType() == 3) {
                     //直播购买
-                	coursePage =  WechatShareLinkType.SCHOOL_PLAY.getLink();
-                }else{
+                    coursePage = WechatShareLinkType.SCHOOL_PLAY.getLink();
+                } else {
                     //线下课购买
-                	coursePage =  WechatShareLinkType.SCHOOL_CLASS.getLink();
+                    coursePage = WechatShareLinkType.SCHOOL_CLASS.getLink();
                 }
-            }else if(cv.getWatchState()==1 || cv.getWatchState() == 2){
-                if(cv.getType()==1||cv.getType()==2){
-                    if(cv.getCollection()){
+            } else if (cv.getWatchState() == 1 || cv.getWatchState() == 2) {
+                if (cv.getType() == 1 || cv.getType() == 2) {
+                    if (cv.getCollection()) {
                         //专辑视频音频播放页
-                    	coursePage =  WechatShareLinkType.LIVE_SELECT_ALBUM.getLink();
-                    }else{
-                        if(ShareType.ALBUM_SHARE.getCode().equals(shareType)) { //跳转到总专辑那个地方
-                        	coursePage =  WechatShareLinkType.SCHOOL_AUDIO.getLink();
-                        }else {
+                        coursePage = WechatShareLinkType.LIVE_SELECT_ALBUM.getLink();
+                    } else {
+                        if (ShareType.ALBUM_SHARE.getCode().equals(shareType)) { //跳转到总专辑那个地方
+                            coursePage = WechatShareLinkType.SCHOOL_AUDIO.getLink();
+                        } else {
                             //单个视频音频播放
-                        	coursePage =  WechatShareLinkType.LIVE_AUDIO.getLink();
+                            coursePage = WechatShareLinkType.LIVE_AUDIO.getLink();
                         }
                     }
-                }else if(cv.getType()==3){
+                } else if (cv.getType() == 3) {
                     //播放页面
-                	coursePage =  WechatShareLinkType.LIVE_PLAY.getLink();
-                }else{
+                    coursePage = WechatShareLinkType.LIVE_PLAY.getLink();
+                } else {
                     //线下课页面
-                	coursePage =  WechatShareLinkType.LIVE_CLASS.getLink();
+                    coursePage = WechatShareLinkType.LIVE_CLASS.getLink();
                 }
             }
         }
-        return returnOpenidUri+coursePage+shareId;
+        return returnOpenidUri + coursePage + shareId;
     }
-    
-    
+
+
 }

@@ -15,17 +15,16 @@ import org.springframework.web.servlet.ModelAndView;
  * @author hejiwei
  */
 @Component
-public class IOSVersionInterceptor implements HandlerInterceptor{
+public class IOSVersionInterceptor implements HandlerInterceptor {
 
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
-    private static String IVERSION = "iversion";
     public static ThreadLocal<Boolean> onlyThread = new ThreadLocal<Boolean>() {
         @Override
         protected Boolean initialValue() {
             return Boolean.FALSE;
         }
     };
-
+    private static String IVERSION = "iversion";
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
     @Value("${ios.check.version}")
     private String version;
 
@@ -35,13 +34,13 @@ public class IOSVersionInterceptor implements HandlerInterceptor{
         if (StringUtils.isBlank(iversion)) {
             iversion = request.getParameter(IVERSION);
         }
-        if(version.equals(iversion)){
+        if (version.equals(iversion)) {
             onlyThread.set(Boolean.TRUE);
-        }else{
+        } else {
             onlyThread.set(Boolean.FALSE);
         }
-        logger.info(version+":"+iversion+version.equals(iversion));
-        logger.info("tl:"+onlyThread.get());
+        logger.info(version + ":" + iversion + version.equals(iversion));
+        logger.info("tl:" + onlyThread.get());
         return true;
     }
 

@@ -208,14 +208,14 @@ public class CourseController extends AbstractController {
 
     @RequestMapping(value = "/courses")
     public ModelAndView courses(Integer courseId) throws ClientException {
-        ModelAndView m = new ModelAndView("redirect:/courses/"+courseId+"/info");
+        ModelAndView m = new ModelAndView("redirect:/courses/" + courseId + "/info");
         return m;
     }
 
 
     @RequestMapping(value = "/courses/{courseId}")
     public ModelAndView coursesJump(@PathVariable Integer courseId) throws ClientException {
-        ModelAndView m = new ModelAndView("redirect:/courses/"+courseId+"/info");
+        ModelAndView m = new ModelAndView("redirect:/courses/" + courseId + "/info");
         return m;
     }
 

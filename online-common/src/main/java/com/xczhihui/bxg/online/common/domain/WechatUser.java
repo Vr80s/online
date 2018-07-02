@@ -3,97 +3,93 @@ package com.xczhihui.bxg.online.common.domain;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "wxcp_client_user_wx_mapping")
-public class WechatUser implements Serializable{
-	
-	private static final long serialVersionUID = 8080612633895345828L;
-	
-	@Id
-	@Column(name = "wx_id", nullable = false)
+public class WechatUser implements Serializable {
+
+    private static final long serialVersionUID = 8080612633895345828L;
+
+    @Id
+    @Column(name = "wx_id", nullable = false)
     private String wxId;
 
-	@Column(name = "client_id")
+    @Column(name = "client_id")
     private String clientId;
 
-	@Column(name = "subscribe")
+    @Column(name = "subscribe")
     private String subscribe;
 
-	@Column(name = "openid")
+    @Column(name = "openid")
     private String openid;
 
-	@Column(name = "openname")
+    @Column(name = "openname")
     private String openname;
 
-	@Column(name = "nickname")
+    @Column(name = "nickname")
     private String nickname;
 
-	@Column(name = "sex")
+    @Column(name = "sex")
     private String sex;
 
-	@Column(name = "city")
+    @Column(name = "city")
     private String city;
 
-	@Column(name = "country")
+    @Column(name = "country")
     private String country;
 
-	@Column(name = "province")
+    @Column(name = "province")
     private String province;
 
-	@Column(name = "language")
+    @Column(name = "language")
     private String language;
 
-	@Column(name = "headimgurl")
+    @Column(name = "headimgurl")
     private String headimgurl;
 
-	@Column(name = "subscribe_time")
+    @Column(name = "subscribe_time")
     private Date subscribeTime;
 
-	@Column(name = "unionid")
+    @Column(name = "unionid")
     private String unionid;
 
-	@Column(name = "remark")
+    @Column(name = "remark")
     private String remark;
 
-	@Column(name = "groupid")
+    @Column(name = "groupid")
     private String groupid;
 
-	@Column(name = "wx_public_id")
+    @Column(name = "wx_public_id")
     private String wxPublicId;
 
-	@Column(name = "wx_public_name")
+    @Column(name = "wx_public_name")
     private String wxPublicName;
 
-	@Column(name = "tagid_list")
+    @Column(name = "tagid_list")
     private String tagidList;
 
-	@Column(name = "subscribe_scene")
+    @Column(name = "subscribe_scene")
     private String subscribeScene;
 
-	@Column(name = "qr_scene")
+    @Column(name = "qr_scene")
     private String qrScene;
 
-	@Column(name = "qr_scene_str")
+    @Column(name = "qr_scene_str")
     private String qrSceneStr;
 
-	@Column(name = "create_time")
-	private Date createTime;
-	
-	@Column(name = "last_update_time")
-	private Date lastUpdateTime;
-	
-	@Transient
-	private String channelName;
+    @Column(name = "create_time")
+    private Date createTime;
 
-	@Transient
-	private String loginName;
-	
+    @Column(name = "last_update_time")
+    private Date lastUpdateTime;
+
+    @Transient
+    private String channelName;
+
+    @Transient
+    private String loginName;
+
     public String getWxId() {
         return wxId;
     }
@@ -270,38 +266,37 @@ public class WechatUser implements Serializable{
         this.qrSceneStr = qrSceneStr == null ? null : qrSceneStr.trim();
     }
 
-	public Date getCreateTime() {
-		return createTime;
-	}
+    public Date getCreateTime() {
+        return createTime;
+    }
 
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
 
-	public Date getLastUpdateTime() {
-		return lastUpdateTime;
-	}
+    public Date getLastUpdateTime() {
+        return lastUpdateTime;
+    }
 
-	public void setLastUpdateTime(Date lastUpdateTime) {
-		this.lastUpdateTime = lastUpdateTime;
-	}
+    public void setLastUpdateTime(Date lastUpdateTime) {
+        this.lastUpdateTime = lastUpdateTime;
+    }
 
-	public String getChannelName() {
-		return channelName;
-	}
+    public String getChannelName() {
+        return channelName;
+    }
 
-	public void setChannelName(String channelName) {
-		this.channelName = channelName;
-	}
+    public void setChannelName(String channelName) {
+        this.channelName = channelName;
+    }
 
-	public String getLoginName() {
-		return loginName;
-	}
+    public String getLoginName() {
+        return loginName;
+    }
 
-	public void setLoginName(String loginName) {
-		this.loginName = loginName;
-	}
-    
-    
-    
+    public void setLoginName(String loginName) {
+        this.loginName = loginName;
+    }
+
+
 }

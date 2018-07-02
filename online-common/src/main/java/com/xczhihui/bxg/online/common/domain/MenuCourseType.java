@@ -1,24 +1,25 @@
 package com.xczhihui.bxg.online.common.domain;
 
-import com.xczhihui.common.support.domain.BasicEntity;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import com.xczhihui.common.support.domain.BasicEntity;
+
 /**
  * 学科-课程类别中间表实体类
- *  @author Rongcai Kang
+ *
+ * @author Rongcai Kang
  */
 @Entity
 @Table(name = "menu_coursetype")
-public class MenuCourseType  extends BasicEntity {
+public class MenuCourseType extends BasicEntity {
 
     /**
      * 学科id
      */
     @Column(name = "menu_id")
-    private Integer  menuId;
+    private Integer menuId;
 
     /**
      * 课程类别id

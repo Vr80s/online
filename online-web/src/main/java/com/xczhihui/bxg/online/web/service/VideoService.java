@@ -3,8 +3,6 @@ package com.xczhihui.bxg.online.web.service;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import com.xczhihui.bxg.online.common.domain.Criticize;
 import com.xczhihui.common.util.bean.Page;
 

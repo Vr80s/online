@@ -1,10 +1,10 @@
 package com.xczh.consumer.market.wxpay.util;
 
-import org.slf4j.LoggerFactory;
-
 import java.io.*;
 import java.lang.reflect.Field;
 import java.util.Map;
+
+import org.slf4j.LoggerFactory;
 
 public class Util {
 
@@ -18,7 +18,7 @@ public class Util {
      * @throws Exception
      */
     public static void reflect(Object o) throws Exception {
-    	
+
         Class cls = o.getClass();
         Field[] fields = cls.getDeclaredFields();
         for (int i = 0; i < fields.length; i++) {
@@ -29,7 +29,7 @@ public class Util {
     }
 
     public static byte[] readInput(InputStream in) throws IOException {
-    	
+
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         int len = 0;
         byte[] buffer = new byte[1024];
@@ -42,7 +42,7 @@ public class Util {
     }
 
     public static String inputStreamToString(InputStream is) throws IOException {
-    	
+
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         int i;
         while ((i = is.read()) != -1) {
@@ -51,25 +51,25 @@ public class Util {
         return baos.toString();
     }
 
-    public static InputStream getStringStream(String sInputString) 
-    		throws UnsupportedEncodingException {
-    	
+    public static InputStream getStringStream(String sInputString)
+            throws UnsupportedEncodingException {
+
         ByteArrayInputStream tInputStringStream = null;
         if (sInputString != null && !"".equals(sInputString.trim())) {
             tInputStringStream = new ByteArrayInputStream(sInputString.getBytes("UTF-8"));
         }
-        
+
         return tInputStringStream;
     }
 
-    public static String getStringFromMap(Map<String, Object> map, 
-    		String key, 
-    		String defaultValue) {
-    	
+    public static String getStringFromMap(Map<String, Object> map,
+                                          String key,
+                                          String defaultValue) {
+
         if (key == "" || key == null) {
             return defaultValue;
         }
-        
+
         String result = (String) map.get(key);
         if (result == null) {
             return defaultValue;
@@ -79,37 +79,39 @@ public class Util {
     }
 
     public static int getIntFromMap(Map<String, Object> map, String key) {
-    	
+
         if (key == "" || key == null) {
             return 0;
         }
         if (map.get(key) == null) {
             return 0;
         }
-        
+
         return Integer.parseInt((String) map.get(key));
     }
 
     /**
      * 打log接口
+     *
      * @param log 要打印的log字符串
      * @return 返回log
      */
-    public static String log(Object log){
-    	
+    public static String log(Object log) {
+
         logger.i(log.toString());
         return log.toString();
     }
 
     /**
      * 读取本地的xml数据，一般用来自测用
+     *
      * @param localPath 本地xml文件路径
      * @return 读到的xml字符串
      */
     public static String getLocalXMLString(String localPath) throws IOException {
-    	
+
         return Util.inputStreamToString(Util.class.getResourceAsStream(localPath));
     }
-    
+
 }
 

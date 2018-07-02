@@ -1,11 +1,11 @@
 package com.xczhihui.online.api.service;
 
-import com.xczhihui.common.util.enums.OrderFrom;
-
 import java.math.BigDecimal;
 
+import com.xczhihui.common.util.enums.OrderFrom;
 
-/** 
+
+/**
  * ClassName: EnchashmentService.java <br>
  * Description: 提现相关业务层<br>
  * Create by: name：yuxin <br>email: yuruixin@ixincheng.com <br>
@@ -13,20 +13,22 @@ import java.math.BigDecimal;
  */
 public interface EnchashmentService {
 
-	/**
-	 * Description：结算
-	 * creed: Talk is cheap,show me the code
-	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
-	 * @Date: 下午 7:04 2018/1/27 0027
-	 **/
-	public void saveSettlement(String userId, int amount,OrderFrom orderFrom);
+    /**
+     * Description：结算
+     * creed: Talk is cheap,show me the code
+     *
+     * @author name：yuxin <br>email: yuruixin@ixincheng.com
+     * @Date: 下午 7:04 2018/1/27 0027
+     **/
+    public void saveSettlement(String userId, int amount, OrderFrom orderFrom);
 
-	/**
-	 * Description：提现
-	 * creed: Talk is cheap,show me the code
-	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
-	 * @Date: 下午 5:17 2018/1/29 0029
-	 **/
-	void saveEnchashmentApplyInfo(String userId, BigDecimal enchashmentSum, int bankCardId, OrderFrom orderFrom);
+    /**
+     * Description：提现
+     * creed: Talk is cheap,show me the code
+     *
+     * @author name：yuxin <br>email: yuruixin@ixincheng.com
+     * @Date: 下午 5:17 2018/1/29 0029
+     **/
+    void saveEnchashmentApplyInfo(String userId, BigDecimal enchashmentSum, int bankCardId, OrderFrom orderFrom);
 
 }

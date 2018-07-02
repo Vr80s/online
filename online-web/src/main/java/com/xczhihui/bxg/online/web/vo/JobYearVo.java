@@ -7,35 +7,35 @@ package com.xczhihui.bxg.online.web.vo;
  */
 public class JobYearVo {
 
-	private String id;//工作id
-	
-	private String key;
-	
-	private String value;//工作名字-value
+    private String id;//工作id
 
-	public String getId() {
-		return id;
-	}
+    private String key;
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    private String value;//工作名字-value
 
-	public String getKey() {
-		return key;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public void setKey(String key) {
-		this.key = key;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public String getValue() {
-		return value;
-	}
+    public String getKey() {
+        return key;
+    }
 
-	public void setValue(String value) {
-		this.value = value;
-	}
+    public void setKey(String key) {
+        this.key = key;
+    }
 
-	
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+
 }

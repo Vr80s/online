@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import com.qiniu.http.Response;
@@ -21,10 +20,10 @@ import com.xczhihui.common.support.dao.SimpleHibernateDao;
 import com.xczhihui.common.support.domain.Attachment;
 import com.xczhihui.common.support.service.AttachmentCenterService;
 import com.xczhihui.common.support.service.AttachmentType;
-import com.xczhihui.common.util.enums.AttachmentBusinessType;
 import com.xczhihui.common.util.CodeUtil;
 import com.xczhihui.common.util.HttpUtil;
 import com.xczhihui.common.util.JsonUtil;
+import com.xczhihui.common.util.enums.AttachmentBusinessType;
 
 /**
  * 附件上传统一处理

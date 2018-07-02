@@ -27,14 +27,13 @@ import com.xczhihui.user.center.vo.Token;
 @Controller
 @RequestMapping(value = "/xczh/user")
 public class XzUserController {
+    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(XzUserController.class);
     @Autowired
     private OnlineUserService onlineUserService;
     @Autowired
     private UserCenterService userCenterService;
     @Autowired
     private VerificationCodeService verificationCodeService;
-
-    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(XzUserController.class);
 
     /**
      * Description：发送短信验证码

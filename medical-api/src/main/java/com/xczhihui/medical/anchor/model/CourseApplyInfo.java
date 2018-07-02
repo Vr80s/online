@@ -193,6 +193,10 @@ public class CourseApplyInfo extends Model<CourseApplyInfo> {
 
     private String version;
 
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
     public String getVersion() {
         return version;
     }
@@ -215,10 +219,6 @@ public class CourseApplyInfo extends Model<CourseApplyInfo> {
 
     public void setOldApplyInfoId(Integer oldApplyInfoId) {
         this.oldApplyInfoId = oldApplyInfoId;
-    }
-
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
     }
 
     public List<CourseApplyInfo> getCourseApplyInfos() {

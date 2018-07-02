@@ -1,692 +1,712 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xczhihui.course.mapper.CourseMapper">
-	<resultMap type="com.xczhihui.course.vo.CourseLecturVo"
-		id="courseBaseResult">
-		<id column="id" property="id" />
-		<id column="description" property="description" />
-		<id column="detailimg_path" property="detailImgPath" />
-		<id column="grade_name" property="gradeName" />
-		<id column="live_time" property="liveTime" />
-		<id column="smallimg_path" property="smallImgPath" />
-		<id column="learnd_count" property="learndCount" />
-		<id column="current_price" property="currentPrice" />
-		<id column="course_length" property="courseLength" />
-		<id column="is_free" property="isFree" />
-		<id column="start_time" property="startTime" />
-		<id column="end_time" property="endTime" />
-		<id column="direct_id" property="directId" />
-		<id column="type" property="type" />
-		<id column="user_lecturer_id" property="userLecturerId" />
-		<id column="multimedia_type" property="multimediaType" />
-		<id column="address" property="address" />
-		<id column="city" property="city" />
-	</resultMap>
+    <resultMap type="com.xczhihui.course.vo.CourseLecturVo"
+               id="courseBaseResult">
+        <id column="id" property="id"/>
+        <id column="description" property="description"/>
+        <id column="detailimg_path" property="detailImgPath"/>
+        <id column="grade_name" property="gradeName"/>
+        <id column="live_time" property="liveTime"/>
+        <id column="smallimg_path" property="smallImgPath"/>
+        <id column="learnd_count" property="learndCount"/>
+        <id column="current_price" property="currentPrice"/>
+        <id column="course_length" property="courseLength"/>
+        <id column="is_free" property="isFree"/>
+        <id column="start_time" property="startTime"/>
+        <id column="end_time" property="endTime"/>
+        <id column="direct_id" property="directId"/>
+        <id column="type" property="type"/>
+        <id column="user_lecturer_id" property="userLecturerId"/>
+        <id column="multimedia_type" property="multimediaType"/>
+        <id column="address" property="address"/>
+        <id column="city" property="city"/>
+    </resultMap>
 
-	<sql id="onlyFreeCondition">
-		<if test="onlyFree" >
-			and oc.is_free = 1
-		</if>
-	</sql>
-	<!-- 查询所有的课程 -->
-	<select id="selectCoursePage" resultMap="courseBaseResult">
-		SELECT
-		oc.*
-		FROM
-		oe_course oc
-	</select>
-	<!-- 根据课程id 仅仅查找课程信息 -->
-	<select id="selectCourseById" resultMap="courseBaseResult">
-		SELECT
-		oc.*
-		FROM
-		oe_course oc where oc.id = #{courseId}
-	</select>
+    <sql id="onlyFreeCondition">
+        <if test="onlyFree">
+            and oc.is_free = 1
+        </if>
+    </sql>
+    <!-- 查询所有的课程 -->
+    <select id="selectCoursePage" resultMap="courseBaseResult">
+        SELECT
+        oc.*
+        FROM
+        oe_course oc
+    </select>
+    <!-- 根据课程id 仅仅查找课程信息 -->
+    <select id="selectCourseById" resultMap="courseBaseResult">
+        SELECT
+        oc.*
+        FROM
+        oe_course oc where oc.id = #{courseId}
+    </select>
 
-	<!-- 课程详情 此详情包括了  不包括礼物等信息   selectCourseDetailsById -->
-	<select id="selectCourseMidileDetailsById" resultType="com.xczhihui.course.vo.CourseLecturVo">
-		SELECT
-		oc.id as id,
-		oc.grade_name as gradeName,
-		oc.smallimg_path as smallImgPath,
-		oc.start_time as startTime,
-		oc.end_time as endTime,
-		oc.user_lecturer_id as userLecturerId,
-		if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
-		if(oc.is_free =0,0,1) as watchState,
-				if(date_add(now(),INTERVAL 1 DAY)>= oc.start_time,1,0)  as cutoff,
-		
-		if(oc.collection=0,oc.direct_id,(select o.direct_id from oe_course o join collection_course cc on
-        o.id =cc.course_id where cc.collection_id =oc.id  ORDER BY cc.collection_course_sort asc limit 1 ))  as directId,
-        
-		oc.collection as collection,
-		oc.course_number as courseNumber,
-		oc.course_detail as description,
-		oc.course_outline as courseOutline,
-		
-		if(oc.live_status = 2,if((DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time ) or 
-		                             (DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now() &lt; oc.start_time ),4,
-                    if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now() &lt; oc.start_time,5,oc.live_status)),oc.live_status) as lineState,
+    <!-- 课程详情 此详情包括了  不包括礼物等信息   selectCourseDetailsById -->
+    <select id="selectCourseMidileDetailsById" resultType="com.xczhihui.course.vo.CourseLecturVo">
+        SELECT
+        oc.id as id,
+        oc.grade_name as gradeName,
+        oc.smallimg_path as smallImgPath,
+        oc.start_time as startTime,
+        oc.end_time as endTime,
+        oc.user_lecturer_id as userLecturerId,
+        if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
+        if(oc.is_free =0,0,1) as watchState,
+        if(date_add(now(),INTERVAL 1 DAY)>= oc.start_time,1,0) as cutoff,
 
-		oc.address as address,
-		oc.city as city,
-		oc.subtitle as subtitle,
-		oc.course_length as courseLength,
-		oc.current_price*10 as currentPrice,
-		
-		IF(oc.collection = 1,( select count(*) from oe_criticize cc where cc.is_delete = 0 and cc.create_person is not null
-		  and ( cc.course_id in  ( select cc1.course_id from collection_course cc1 where cc1.collection_id = oc.id) or cc.course_id = oc.id  )) ,
-		      (select count(*) from oe_criticize cc where cc.is_delete = 0 and cc.course_id = oc.id and cc.create_person is not null )
-		) as  criticizeCount,
-		
-	    IF(oc.collection = 1,
-   		   (SELECT ROUND(AVG(cc.overall_level), 1) FROM oe_criticize cc where cc.is_delete = 0  and cc.overall_level !=0
-   		    and ( cc.course_id in ( select cc1.course_id from collection_course cc1 where cc1.collection_id = oc.id ) or cc.course_id = oc.id ) )
-	      ,
-		   (SELECT ROUND(AVG(cc.overall_level), 1) FROM oe_criticize cc where cc.is_delete = 0 and cc.course_id = oc.id and cc.overall_level !=0 )
-		)  as startLevel,
-		
-	    IF(oc.collection = 1,
-   		 ( SELECT count(*) FROM  `oe_course` oc  JOIN `collection_course` cc
-				ON oc.id = cc.`course_id` WHERE cc.`collection_id` = #{courseId} )
-	      ,0
-		)  as dirtyNumber,
-		
-		oc.lecturer as name,
-		oc.lecturer_description as lecturerDescription,
-		ou.profile_photo as headImg,
-		ou.user_id as userId,
-		ou.name as heir,
-		oc.live_source_type as liveSourceType,
-		if(oc.live_status = 3,ifnull(oc.play_back_type,1),3) as playBackType
-			FROM
-		oe_course as oc
-		inner join course_anchor as ou on oc.user_lecturer_id = ou.user_id
-		where oc.id = #{courseId} and oc.is_delete=0
-	</select>
+        if(oc.collection=0,oc.direct_id,(select o.direct_id from oe_course o join collection_course cc on
+        o.id =cc.course_id where cc.collection_id =oc.id ORDER BY cc.collection_course_sort asc limit 1 )) as directId,
 
+        oc.collection as collection,
+        oc.course_number as courseNumber,
+        oc.course_detail as description,
+        oc.course_outline as courseOutline,
 
-	<!-- 课程详情 此详情包括了，课程的很多种状态，包括了一些用户信息 -->
-	
-	<select id="selectCourseDetailsById" resultType="com.xczhihui.course.vo.CourseLecturVo">
-		SELECT
-		oc.id as id,
-		oc.grade_name as gradeName,
-		oc.smallimg_path as smallImgPath,
-		oc.start_time as startTime,
-		oc.end_time as endTime,
-		oc.user_lecturer_id as userLecturerId,
-		if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
-				if(date_add(now(),INTERVAL 1 DAY)>= oc.start_time,1,0)  as cutoff,
-		if(oc.is_free =0,0,1) as watchState,
-		if(oc.type =1,(select vhall_id from oe_user where id = oc.user_lecturer_id),0) as vhallId,
-		ou.name as vhallName,
-		if(oc.type =1,ifnull((SELECT SUM(ogs.price) FROM user_coin_increase uci  JOIN oe_gift_statement ogs  
-		 ON uci.correlation_id = ogs.id WHERE uci.change_type = 3  AND ogs.live_id = oc.id ),0),0) as giftCount,
-		 
-		if(oc.type=1,ifnull(( select count(*)  from oe_focus of inner join oe_user as ou on of.user_id =ou.id
-				where of.lecturer_id =oc.user_lecturer_id and ou.status = 0  and ou.is_delete =0),0),0) as fansCount,
-		
-	    if(oc.type=1,ifnull(( select count(*)  from oe_focus of  inner join course_anchor as ou on of.lecturer_id = ou.user_id
-				where of.user_id =oc.user_lecturer_id and ou.status = 1  and ou.deleted =0  ),0),0) as focusCount,
-		
-		oc.course_length as courseLength,
-		oc.collection as collection,
-		oc.course_number as courseNumber,
-		oc.course_detail as description,
-		oc.course_outline as courseOutline,
-		
-		if(oc.live_status = 2,if((DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time ) or 
-                             (DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now() &lt; oc.start_time ),4,
-                  if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now() &lt; oc.start_time,5,oc.live_status)),oc.live_status) as lineState,
-		
-		
-			(SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)
-		 + IFNULL(oc.default_student_count, 0)) as  learndCount,
-		
-		
-		oc.address as address,
-		oc.city as city,
-		oc.direct_id as directId,
-		oc.subtitle as subtitle,
-		oc.current_price*10 as currentPrice,
-		
-	    IF(oc.collection = 1,( select count(*) from oe_criticize cc where cc.is_delete = 0 and cc.create_person is not null
-		  and ( cc.course_id in  ( select cc1.course_id from collection_course cc1 where cc1.collection_id = oc.id) or cc.course_id = oc.id  )) ,
-		      (select count(*) from oe_criticize cc where cc.is_delete = 0 and cc.course_id = oc.id and cc.create_person is not null )
-		) as  criticizeCount,
-	
+        if(oc.live_status = 2,if((DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time ) or
+        (DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now() &lt; oc.start_time ),4,
+        if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now() &lt;
+        oc.start_time,5,oc.live_status)),oc.live_status) as lineState,
 
-	    IF(oc.collection = 1,
-   		   (SELECT ROUND(AVG(cc.overall_level), 1) FROM oe_criticize cc where cc.is_delete = 0  and cc.overall_level >0
-   		    and ( cc.course_id in ( select cc1.course_id from collection_course cc1 where cc1.collection_id = oc.id ) or cc.course_id = oc.id ) )
-	      ,
-		   (SELECT ROUND(AVG(cc.overall_level), 1) FROM oe_criticize cc where cc.is_delete = 0 and cc.course_id = oc.id and cc.overall_level !=0 )
-		)  as startLevel,
-		
-	    IF(oc.collection = 1,
-   		 ( SELECT count(*) FROM  `oe_course` oc  JOIN `collection_course` cc
-				ON oc.id = cc.`course_id` WHERE cc.`collection_id` = #{courseId} )
-	      ,0
-		)  as dirtyNumber,	
-		
-		
-		oc.lecturer as name,
-		oc.lecturer_description as lecturerDescription,
-		ou.profile_photo as headImg,
-		ou.name as heir,
-		oc.live_source_type as liveSourceType,
-		if(oc.live_status = 3,ifnull(oc.play_back_type,1),3) as playBackType
-			FROM
-		oe_course as oc
-		inner join course_anchor as ou on oc.user_lecturer_id = ou.user_id
-		where oc.id = #{courseId} and oc.is_delete=0 
-	</select>
+        oc.address as address,
+        oc.city as city,
+        oc.subtitle as subtitle,
+        oc.course_length as courseLength,
+        oc.current_price*10 as currentPrice,
 
-     
-     
-	<sql id="relLearningCourseListByUserId">
-	   	oc.id as id,
-		oc.grade_name as gradeName,
-		oc.smallimg_path as smallImgPath,
-		oc.start_time as startTime,
-		oc.end_time as endTime,
-		oc.user_lecturer_id as userLecturerId,
-		if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
-		if(oc.is_free =0,0,1) as watchState,
-		oc.collection as collection,
-		oc.course_number as courseNumber,
-		if(oc.sort_update_time &lt; now(),0,oc.recommend_sort) recommendSort,
-		IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) + IFNULL(oc.default_student_count, 0) learndCount,
+        IF(oc.collection = 1,( select count(*) from oe_criticize cc where cc.is_delete = 0 and cc.create_person is not
+        null
+        and ( cc.course_id in ( select cc1.course_id from collection_course cc1 where cc1.collection_id = oc.id) or
+        cc.course_id = oc.id )) ,
+        (select count(*) from oe_criticize cc where cc.is_delete = 0 and cc.course_id = oc.id and cc.create_person is
+        not null )
+        ) as criticizeCount,
 
-		if(oc.live_status = 2,if(DATE_SUB(now(),INTERVAL 30 MINUTE)>=oc.start_time,6,if(
-			(DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time) or
-    		   (DATE_ADD(now(),INTERVAL 1 HOUR)>=oc.start_time and now() &lt; oc.start_time),4,
-    		      if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now()&lt;oc.start_time,5,oc.live_status))),oc.live_status) as lineState, 
-		
-		oc.current_price*10 as currentPrice,
-		oc.live_source_type as liveSourceType,
-		oc.lecturer as name,
-		oc.city as city,
-	    oc.address as address,
-	    if(oc.live_status = 3,ifnull(oc.play_back_type,1),3) as playBackType,
-	</sql>
+        IF(oc.collection = 1,
+        (SELECT ROUND(AVG(cc.overall_level), 1) FROM oe_criticize cc where cc.is_delete = 0 and cc.overall_level !=0
+        and ( cc.course_id in ( select cc1.course_id from collection_course cc1 where cc1.collection_id = oc.id ) or
+        cc.course_id = oc.id ) )
+        ,
+        (SELECT ROUND(AVG(cc.overall_level), 1) FROM oe_criticize cc where cc.is_delete = 0 and cc.course_id = oc.id and
+        cc.overall_level !=0 )
+        ) as startLevel,
+
+        IF(oc.collection = 1,
+        ( SELECT count(*) FROM `oe_course` oc JOIN `collection_course` cc
+        ON oc.id = cc.`course_id` WHERE cc.`collection_id` = #{courseId} )
+        ,0
+        ) as dirtyNumber,
+
+        oc.lecturer as name,
+        oc.lecturer_description as lecturerDescription,
+        ou.profile_photo as headImg,
+        ou.user_id as userId,
+        ou.name as heir,
+        oc.live_source_type as liveSourceType,
+        if(oc.live_status = 3,ifnull(oc.play_back_type,1),3) as playBackType
+        FROM
+        oe_course as oc
+        inner join course_anchor as ou on oc.user_lecturer_id = ou.user_id
+        where oc.id = #{courseId} and oc.is_delete=0
+    </select>
 
 
+    <!-- 课程详情 此详情包括了，课程的很多种状态，包括了一些用户信息 -->
 
-	<!-- 查找用户的 学习中心      直播中，直播预告、课程 是我的课程，已结束课程是：直播结束和线下排序班 -->
-	<select id="selectLearningCourseListByUserId" resultType="com.xczhihui.course.vo.CourseLecturVo">
-	
-	    (
-			SELECT
-				<include refid="relLearningCourseListByUserId"/>
-			'我的课程' as note
-			FROM
-				oe_course as oc
-				inner join apply_r_grade_course argc on oc.`id`=argc.`course_id` AND argc.`validity`>NOW()
-			where
-				argc.user_id=#{userId}
-				and oc.is_delete=0 group by oc.id order by
-				argc.create_time desc limit 0,#{pageSize}
-		)		
+    <select id="selectCourseDetailsById" resultType="com.xczhihui.course.vo.CourseLecturVo">
+        SELECT
+        oc.id as id,
+        oc.grade_name as gradeName,
+        oc.smallimg_path as smallImgPath,
+        oc.start_time as startTime,
+        oc.end_time as endTime,
+        oc.user_lecturer_id as userLecturerId,
+        if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
+        if(date_add(now(),INTERVAL 1 DAY)>= oc.start_time,1,0) as cutoff,
+        if(oc.is_free =0,0,1) as watchState,
+        if(oc.type =1,(select vhall_id from oe_user where id = oc.user_lecturer_id),0) as vhallId,
+        ou.name as vhallName,
+        if(oc.type =1,ifnull((SELECT SUM(ogs.price) FROM user_coin_increase uci JOIN oe_gift_statement ogs
+        ON uci.correlation_id = ogs.id WHERE uci.change_type = 3 AND ogs.live_id = oc.id ),0),0) as giftCount,
 
-		UNION ALL
+        if(oc.type=1,ifnull(( select count(*) from oe_focus of inner join oe_user as ou on of.user_id =ou.id
+        where of.lecturer_id =oc.user_lecturer_id and ou.status = 0 and ou.is_delete =0),0),0) as fansCount,
 
-		( 
-			SELECT
-				<include refid="relLearningCourseListByUserId"/>
-			'已结束课程' as note
-			FROM
-				oe_course as oc
-				inner join apply_r_grade_course argc on oc.`id`=argc.`course_id` AND argc.`validity`>NOW()
-				where
-			   ( oc.type = 3 and  now() >= oc.end_time  and argc.user_id=#{userId}  and  oc.is_delete=0 ) or 
-		       ( oc.type = 1 and oc.live_status = 3  and argc.user_id=#{userId}  and  oc.is_delete=0 )
-            group by oc.id order by oc.end_time desc  limit 0,#{pageSize}
-        )    
-            
-	</select>
+        if(oc.type=1,ifnull(( select count(*) from oe_focus of inner join course_anchor as ou on of.lecturer_id =
+        ou.user_id
+        where of.user_id =oc.user_lecturer_id and ou.status = 1 and ou.deleted =0 ),0),0) as focusCount,
 
-	<!-- 得到已购买课程的数量 （不包括免费的课程） -->
-	<select id="selectMyFreeCourseListCount" resultType="java.lang.Integer">
-		SELECT
-		count(*)
-		FROM
-		oe_course as oc
-		inner join apply_r_grade_course argc on oc.`id`=argc.`course_id` AND argc.`validity`>NOW()
-		where argc.user_id=#{userId}
-		and oc.is_delete=0  and oc.is_free = 0
-	</select>
-	
-	
-	<!-- 得到已经购买的课程排序 -->
-	<select id="selectMyPurchasedCourseList" resultType="com.xczhihui.course.vo.CourseLecturVo">
-		SELECT
-           <include refid="relLearningCourseListByUserId"/>
-		   DATE_FORMAT(oc.start_time,'%Y-%m-%d %H:%i') as startDateStr
-		FROM
-			oe_course as oc
-			inner join apply_r_grade_course argc on oc.`id`=argc.`course_id` AND argc.`validity`>NOW()
-			where argc.user_id=#{userId}
-			and oc.is_delete=0 and oc.is_free = 0 group by oc.id
-			order by argc.create_time desc
-	</select>
+        oc.course_length as courseLength,
+        oc.collection as collection,
+        oc.course_number as courseNumber,
+        oc.course_detail as description,
+        oc.course_outline as courseOutline,
 
-	<select id="selectCoursesByCollectionId" resultType="com.xczhihui.course.vo.CourseLecturVo">
-		SELECT
-		oc.id,
-		oc.subtitle as subtitle,
-		oc.`grade_name` gradeName,
-		format(oc.`course_length`,2) courseLength,
-		oc.`direct_id`  directId,
-		oc.lecturer as name
-		FROM
-		`oe_course` oc
-		JOIN `collection_course` cc
-		ON oc.id = cc.`course_id`
-		WHERE cc.`collection_id` = #{collectionId} order by cc.collection_course_sort
-	</select>
-	
-	
-	<!-- 查找这个专辑下的课程数 -->
-	<select id="selectCoursesNumberByCollectionId" resultType="java.lang.Integer">
-		SELECT
-	    	count(*)
-		FROM
-		`oe_course` oc
-		JOIN `collection_course` cc
-		ON oc.id = cc.`course_id`
-		WHERE cc.`collection_id` = #{collectionId}
-	</select>
-	
-
-	<!-- live_status 1.直播中，2预告，3直播结束 -->
-	<select id="selectLecturerRecentCourse" resultType="com.xczhihui.course.vo.CourseLecturVo">
-		SELECT
-			<include refid="relLearningCourseListByUserId"/>
-		    ABS(timestampdiff(second,current_timestamp,oc.start_time)) as recent
-		FROM
-			oe_course oc
-			where oc.user_lecturer_id = #{userId} 
-			and oc.is_delete=0 
-			and oc.status=1 
-			and oc.type = 1
-			<include refid="onlyFreeCondition"/>
-			order by oc.live_status,learndCount desc limit 0,1
-	</select>
+        if(oc.live_status = 2,if((DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time ) or
+        (DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now() &lt; oc.start_time ),4,
+        if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now() &lt;
+        oc.start_time,5,oc.live_status)),oc.live_status) as lineState,
 
 
-	<!-- 通过主播id得到主播的所有课程页面 -->
-	<select id="selectLecturerAllCourse" resultType="com.xczhihui.course.vo.CourseLecturVo">
-		SELECT
-		  <include refid="relLearningCourseListByUserId"/>
-		   if(oc.live_status=1,DATE_FORMAT(oc.start_time,'%H:%i'),if(oc.live_status=2,if(oc.start_time &lt;= DATE_ADD(DATE_ADD(str_to_date(DATE_FORMAT(NOW(),'%Y-%m-%d'),
-		 	'%Y-%m-%d %H:%i:%s'),INTERVAL 1 DAY),INTERVAL -1 SECOND),
-		 	DATE_FORMAT(oc.start_time,'%H:%i'),DATE_FORMAT(oc.start_time,'%m.%d')),
-		 	DATE_FORMAT(oc.start_time,'%m.%d') )) as startDateStr
-		FROM
-		oe_course oc
-		where oc.user_lecturer_id = #{userId} and oc.status = 1 and oc.is_delete=0
-		<include refid="onlyFreeCondition"/>
-		
-         <if test="type == 1">
-           and  oc.multimedia_type = 1
-         </if>
-         <if test="type == 2">
-           and  oc.multimedia_type = 2
-         </if>
-         <if test="type == 3">
-           and  oc.type = 1
-         </if>
-         <if test="type == 4">
-           and  oc.type = 3
-         </if>
-		order by release_time desc
-	</select>
+        (SELECT IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)
+        + IFNULL(oc.default_student_count, 0)) as learndCount,
 
 
-	<!-- 未来一周内要直播的课程、最近发布的五个课程 ，条件中判断了是否为存在最近一小时的直播 -->
-	<select id="selectUserConsoleCourse" resultType="com.xczhihui.course.vo.CourseLecturVo">
-		(
-		SELECT
-			<include refid="relLearningCourseListByUserId"/>
-			ou.profile_photo as headImg,
-			oc.direct_id as directId,
-			oc.status as status,
-			if(now() > DATE_SUB(oc.start_time,INTERVAL 1 HOUR) and  oc.start_time > now()  ,1,0) as isLive,
-			1 as applyStatus,
-			'直播间' as note
-		FROM
-			oe_course oc
-			inner join course_anchor as ou on oc.user_lecturer_id = ou.user_id
-			where
-			oc.user_lecturer_id = #{userId} and oc.is_delete=0 and oc.status=1
-			and
-		    oc.type =1
-		    and 
-		    (
-		      ( oc.live_status = 1 ) 
-		      or
-		      ( DATE_ADD(CURDATE(), INTERVAL 7 DAY) >= date(oc.start_time)  and oc.start_time > CURDATE()
-			  and oc.live_status = 2 ) 
-		    )
-			order by oc.start_time asc limit 5 
-		)
-		UNION ALL
-		(
-		SELECT
-			<include refid="relLearningCourseListByUserId"/>
-			ou.profile_photo as headImg,
-			oc.direct_id as directId,
-			oc.status as status,
-			'0' as isLive,
-			1 as applyStatus,
-			'我的课程' as note
-		FROM
-			oe_course oc
-			inner join course_anchor as ou on oc.user_lecturer_id = ou.user_id
-			where oc.user_lecturer_id = #{userId}  and oc.is_delete=0  and oc.status=1
-			order by oc.release_time  desc,oc.start_time asc limit 5
-		)
-	</select>
-	
-	
-	<!-- 主播控制台  直播间分页  -->
-	<select id="selectUserConsoleCourseLiveByPage" resultType="com.xczhihui.course.vo.CourseLecturVo">
-		SELECT
-			<include refid="relLearningCourseListByUserId"/>
-			if(now() > DATE_SUB(oc.start_time,INTERVAL 1 HOUR) and  oc.start_time > now()  ,1,0) as isLive,
-			oc.direct_id as directId,
-			'直播间' as note
-		FROM
-			oe_course oc
-			where
-			oc.user_lecturer_id = #{userId}
-			and
-			DATE_SUB(CURDATE(), INTERVAL 7 DAY) &lt;= date(oc.start_time)
-			and oc.type =1 and oc.live_status = 2 and oc.is_delete=0 
-			order by oc.start_time desc
-	</select>
-	
-	
+        oc.address as address,
+        oc.city as city,
+        oc.direct_id as directId,
+        oc.subtitle as subtitle,
+        oc.current_price*10 as currentPrice,
+
+        IF(oc.collection = 1,( select count(*) from oe_criticize cc where cc.is_delete = 0 and cc.create_person is not
+        null
+        and ( cc.course_id in ( select cc1.course_id from collection_course cc1 where cc1.collection_id = oc.id) or
+        cc.course_id = oc.id )) ,
+        (select count(*) from oe_criticize cc where cc.is_delete = 0 and cc.course_id = oc.id and cc.create_person is
+        not null )
+        ) as criticizeCount,
+
+
+        IF(oc.collection = 1,
+        (SELECT ROUND(AVG(cc.overall_level), 1) FROM oe_criticize cc where cc.is_delete = 0 and cc.overall_level >0
+        and ( cc.course_id in ( select cc1.course_id from collection_course cc1 where cc1.collection_id = oc.id ) or
+        cc.course_id = oc.id ) )
+        ,
+        (SELECT ROUND(AVG(cc.overall_level), 1) FROM oe_criticize cc where cc.is_delete = 0 and cc.course_id = oc.id and
+        cc.overall_level !=0 )
+        ) as startLevel,
+
+        IF(oc.collection = 1,
+        ( SELECT count(*) FROM `oe_course` oc JOIN `collection_course` cc
+        ON oc.id = cc.`course_id` WHERE cc.`collection_id` = #{courseId} )
+        ,0
+        ) as dirtyNumber,
+
+
+        oc.lecturer as name,
+        oc.lecturer_description as lecturerDescription,
+        ou.profile_photo as headImg,
+        ou.name as heir,
+        oc.live_source_type as liveSourceType,
+        if(oc.live_status = 3,ifnull(oc.play_back_type,1),3) as playBackType
+        FROM
+        oe_course as oc
+        inner join course_anchor as ou on oc.user_lecturer_id = ou.user_id
+        where oc.id = #{courseId} and oc.is_delete=0
+    </select>
+
+
+    <sql id="relLearningCourseListByUserId">
+        oc.id as id,
+        oc.grade_name as gradeName,
+        oc.smallimg_path as smallImgPath,
+        oc.start_time as startTime,
+        oc.end_time as endTime,
+        oc.user_lecturer_id as userLecturerId,
+        if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
+        if(oc.is_free =0,0,1) as watchState,
+        oc.collection as collection,
+        oc.course_number as courseNumber,
+        if(oc.sort_update_time &lt; now(),0,oc.recommend_sort) recommendSort,
+        IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) + IFNULL(oc.default_student_count,
+        0) learndCount,
+
+        if(oc.live_status = 2,if(DATE_SUB(now(),INTERVAL 30 MINUTE)>=oc.start_time,6,if(
+        (DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time) or
+        (DATE_ADD(now(),INTERVAL 1 HOUR)>=oc.start_time and now() &lt; oc.start_time),4,
+        if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now()&lt;oc.start_time,5,oc.live_status))),oc.live_status)
+        as lineState,
+
+        oc.current_price*10 as currentPrice,
+        oc.live_source_type as liveSourceType,
+        oc.lecturer as name,
+        oc.city as city,
+        oc.address as address,
+        if(oc.live_status = 3,ifnull(oc.play_back_type,1),3) as playBackType,
+    </sql>
+
+
+    <!-- 查找用户的 学习中心      直播中，直播预告、课程 是我的课程，已结束课程是：直播结束和线下排序班 -->
+    <select id="selectLearningCourseListByUserId" resultType="com.xczhihui.course.vo.CourseLecturVo">
+
+        (
+        SELECT
+        <include refid="relLearningCourseListByUserId"/>
+        '我的课程' as note
+        FROM
+        oe_course as oc
+        inner join apply_r_grade_course argc on oc.`id`=argc.`course_id` AND argc.`validity`>NOW()
+        where
+        argc.user_id=#{userId}
+        and oc.is_delete=0 group by oc.id order by
+        argc.create_time desc limit 0,#{pageSize}
+        )
+
+        UNION ALL
+
+        (
+        SELECT
+        <include refid="relLearningCourseListByUserId"/>
+        '已结束课程' as note
+        FROM
+        oe_course as oc
+        inner join apply_r_grade_course argc on oc.`id`=argc.`course_id` AND argc.`validity`>NOW()
+        where
+        ( oc.type = 3 and now() >= oc.end_time and argc.user_id=#{userId} and oc.is_delete=0 ) or
+        ( oc.type = 1 and oc.live_status = 3 and argc.user_id=#{userId} and oc.is_delete=0 )
+        group by oc.id order by oc.end_time desc limit 0,#{pageSize}
+        )
+
+    </select>
+
+    <!-- 得到已购买课程的数量 （不包括免费的课程） -->
+    <select id="selectMyFreeCourseListCount" resultType="java.lang.Integer">
+        SELECT
+        count(*)
+        FROM
+        oe_course as oc
+        inner join apply_r_grade_course argc on oc.`id`=argc.`course_id` AND argc.`validity`>NOW()
+        where argc.user_id=#{userId}
+        and oc.is_delete=0 and oc.is_free = 0
+    </select>
+
+
+    <!-- 得到已经购买的课程排序 -->
+    <select id="selectMyPurchasedCourseList" resultType="com.xczhihui.course.vo.CourseLecturVo">
+        SELECT
+        <include refid="relLearningCourseListByUserId"/>
+        DATE_FORMAT(oc.start_time,'%Y-%m-%d %H:%i') as startDateStr
+        FROM
+        oe_course as oc
+        inner join apply_r_grade_course argc on oc.`id`=argc.`course_id` AND argc.`validity`>NOW()
+        where argc.user_id=#{userId}
+        and oc.is_delete=0 and oc.is_free = 0 group by oc.id
+        order by argc.create_time desc
+    </select>
+
+    <select id="selectCoursesByCollectionId" resultType="com.xczhihui.course.vo.CourseLecturVo">
+        SELECT
+        oc.id,
+        oc.subtitle as subtitle,
+        oc.`grade_name` gradeName,
+        format(oc.`course_length`,2) courseLength,
+        oc.`direct_id` directId,
+        oc.lecturer as name
+        FROM
+        `oe_course` oc
+        JOIN `collection_course` cc
+        ON oc.id = cc.`course_id`
+        WHERE cc.`collection_id` = #{collectionId} order by cc.collection_course_sort
+    </select>
+
+
+    <!-- 查找这个专辑下的课程数 -->
+    <select id="selectCoursesNumberByCollectionId" resultType="java.lang.Integer">
+        SELECT
+        count(*)
+        FROM
+        `oe_course` oc
+        JOIN `collection_course` cc
+        ON oc.id = cc.`course_id`
+        WHERE cc.`collection_id` = #{collectionId}
+    </select>
+
+
+    <!-- live_status 1.直播中，2预告，3直播结束 -->
+    <select id="selectLecturerRecentCourse" resultType="com.xczhihui.course.vo.CourseLecturVo">
+        SELECT
+        <include refid="relLearningCourseListByUserId"/>
+        ABS(timestampdiff(second,current_timestamp,oc.start_time)) as recent
+        FROM
+        oe_course oc
+        where oc.user_lecturer_id = #{userId}
+        and oc.is_delete=0
+        and oc.status=1
+        and oc.type = 1
+        <include refid="onlyFreeCondition"/>
+        order by oc.live_status,learndCount desc limit 0,1
+    </select>
+
+
+    <!-- 通过主播id得到主播的所有课程页面 -->
+    <select id="selectLecturerAllCourse" resultType="com.xczhihui.course.vo.CourseLecturVo">
+        SELECT
+        <include refid="relLearningCourseListByUserId"/>
+        if(oc.live_status=1,DATE_FORMAT(oc.start_time,'%H:%i'),if(oc.live_status=2,if(oc.start_time &lt;=
+        DATE_ADD(DATE_ADD(str_to_date(DATE_FORMAT(NOW(),'%Y-%m-%d'),
+        '%Y-%m-%d %H:%i:%s'),INTERVAL 1 DAY),INTERVAL -1 SECOND),
+        DATE_FORMAT(oc.start_time,'%H:%i'),DATE_FORMAT(oc.start_time,'%m.%d')),
+        DATE_FORMAT(oc.start_time,'%m.%d') )) as startDateStr
+        FROM
+        oe_course oc
+        where oc.user_lecturer_id = #{userId} and oc.status = 1 and oc.is_delete=0
+        <include refid="onlyFreeCondition"/>
+
+        <if test="type == 1">
+            and oc.multimedia_type = 1
+        </if>
+        <if test="type == 2">
+            and oc.multimedia_type = 2
+        </if>
+        <if test="type == 3">
+            and oc.type = 1
+        </if>
+        <if test="type == 4">
+            and oc.type = 3
+        </if>
+        order by release_time desc
+    </select>
+
+
+    <!-- 未来一周内要直播的课程、最近发布的五个课程 ，条件中判断了是否为存在最近一小时的直播 -->
+    <select id="selectUserConsoleCourse" resultType="com.xczhihui.course.vo.CourseLecturVo">
+        (
+        SELECT
+        <include refid="relLearningCourseListByUserId"/>
+        ou.profile_photo as headImg,
+        oc.direct_id as directId,
+        oc.status as status,
+        if(now() > DATE_SUB(oc.start_time,INTERVAL 1 HOUR) and oc.start_time > now() ,1,0) as isLive,
+        1 as applyStatus,
+        '直播间' as note
+        FROM
+        oe_course oc
+        inner join course_anchor as ou on oc.user_lecturer_id = ou.user_id
+        where
+        oc.user_lecturer_id = #{userId} and oc.is_delete=0 and oc.status=1
+        and
+        oc.type =1
+        and
+        (
+        ( oc.live_status = 1 )
+        or
+        ( DATE_ADD(CURDATE(), INTERVAL 7 DAY) >= date(oc.start_time) and oc.start_time > CURDATE()
+        and oc.live_status = 2 )
+        )
+        order by oc.start_time asc limit 5
+        )
+        UNION ALL
+        (
+        SELECT
+        <include refid="relLearningCourseListByUserId"/>
+        ou.profile_photo as headImg,
+        oc.direct_id as directId,
+        oc.status as status,
+        '0' as isLive,
+        1 as applyStatus,
+        '我的课程' as note
+        FROM
+        oe_course oc
+        inner join course_anchor as ou on oc.user_lecturer_id = ou.user_id
+        where oc.user_lecturer_id = #{userId} and oc.is_delete=0 and oc.status=1
+        order by oc.release_time desc,oc.start_time asc limit 5
+        )
+    </select>
+
+
+    <!-- 主播控制台  直播间分页  -->
+    <select id="selectUserConsoleCourseLiveByPage" resultType="com.xczhihui.course.vo.CourseLecturVo">
+        SELECT
+        <include refid="relLearningCourseListByUserId"/>
+        if(now() > DATE_SUB(oc.start_time,INTERVAL 1 HOUR) and oc.start_time > now() ,1,0) as isLive,
+        oc.direct_id as directId,
+        '直播间' as note
+        FROM
+        oe_course oc
+        where
+        oc.user_lecturer_id = #{userId}
+        and
+        DATE_SUB(CURDATE(), INTERVAL 7 DAY) &lt;= date(oc.start_time)
+        and oc.type =1 and oc.live_status = 2 and oc.is_delete=0
+        order by oc.start_time desc
+    </select>
+
+
     <!-- 猜你喜欢，随机的取出同分类的两个课程 -->
-	<select id="selectMenuTypeAndRandCourse" resultType="com.xczhihui.course.vo.CourseLecturVo">
-		SELECT
-		    <include refid="relLearningCourseListByUserId"/>
-			DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr,
-			if(now() > DATE_SUB(oc.start_time,INTERVAL 1 HOUR) and  oc.start_time > now()  ,1,0) as isLive
-		FROM
-		oe_course oc
-		where  oc.is_delete=0 and oc.status=1  and oc.id != #{courseId}  and
-		oc.menu_id= (select menu_id from oe_course where id =#{courseId} limit 1)  order by rand()
-	</select>
-	
-	
-	<!--  app端我的课程   全部、直播、视频、线下课、音频  -->
+    <select id="selectMenuTypeAndRandCourse" resultType="com.xczhihui.course.vo.CourseLecturVo">
+        SELECT
+        <include refid="relLearningCourseListByUserId"/>
+        DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr,
+        if(now() > DATE_SUB(oc.start_time,INTERVAL 1 HOUR) and oc.start_time > now() ,1,0) as isLive
+        FROM
+        oe_course oc
+        where oc.is_delete=0 and oc.status=1 and oc.id != #{courseId} and
+        oc.menu_id= (select menu_id from oe_course where id =#{courseId} limit 1) order by rand()
+    </select>
+
+
+    <!--  app端我的课程   全部、直播、视频、线下课、音频  -->
     <select id="selectAppCourseApplyPage" resultType="com.xczhihui.course.vo.CourseLecturVo">
-		select 
-			cai.img_path as  smallImgPath,
-			cai.title as gradeName,
-			cai.user_id as userLecturerId,
-			FLOOR(cai.`price` * 10) as currentPrice,
-			if(cai.price>0,0,1) as watchState,
-			if(cai.course_form=1,3,if(cai.course_form=3,4,if(cai.multimedia_type=1,1,2))) as type,
-		    if(oc.start_time is null,cai.start_time,oc.start_time) as startTime,
-			cai.end_time as endTime,
-		    cai.course_number as courseNumber,
-		    cai.address as address,
-		    cai.city as city,
-			cai.`status` as applyStatus,
-			cai.collection as collection,
-			oc.id as id,
-			oc.status as status,
-		    oc.live_source_type as liveSourceType,
-		    if(cai.course_form = 1 and oc.live_status is null,4,oc.live_status) as  sortLineState,
-		    if(oc.id is not null,(select ca.name from course_anchor ca where ca.user_id =  oc.user_lecturer_id),cai.lecturer) as name,
-		    if(oc.start_time is null,(DATE_FORMAT(cai.create_time,'%Y-%m-%d %H:%i')),
-		        (DATE_FORMAT(oc.start_time,'%Y-%m-%d %H:%i'))) as startDateStr,
-		        
-		    if(oc.live_status = 2,if(DATE_SUB(now(),INTERVAL 30 MINUTE)>=oc.start_time,6,if(
-			 (DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time) or
-    		   (DATE_ADD(now(),INTERVAL 1 HOUR)>=oc.start_time and now() &lt; oc.start_time),4,
-    		      if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now()&lt;oc.start_time,5,oc.live_status))),oc.live_status) as lineState, 
-    		 
-    		 
-			if(cai.`status`=1,(SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) + IFNULL(oc.default_student_count,0)),0) as  learndCount,
-			oc.direct_id as directId,
-			if(now() > DATE_SUB(oc.start_time,INTERVAL 1 HOUR) and  oc.start_time > now()  ,1,0) as isLive,
-			if(oc.live_status = 3,ifnull(oc.play_back_type,1),3) as playBackType
-		 from 
-		    course_apply_info cai  
-		    LEFT JOIN  oe_course as oc on cai.id = oc.apply_id
-		    where cai.user_id = #{userId} and cai.is_delete=0
-		<if test="courseForm != null">
-			AND cai.`course_form` = #{courseForm}
-		</if>
-		<if test="multimediaType != null">
-			AND cai.`multimedia_type` = #{multimediaType}
-		</if>
-		 <choose>
+        select
+        cai.img_path as smallImgPath,
+        cai.title as gradeName,
+        cai.user_id as userLecturerId,
+        FLOOR(cai.`price` * 10) as currentPrice,
+        if(cai.price>0,0,1) as watchState,
+        if(cai.course_form=1,3,if(cai.course_form=3,4,if(cai.multimedia_type=1,1,2))) as type,
+        if(oc.start_time is null,cai.start_time,oc.start_time) as startTime,
+        cai.end_time as endTime,
+        cai.course_number as courseNumber,
+        cai.address as address,
+        cai.city as city,
+        cai.`status` as applyStatus,
+        cai.collection as collection,
+        oc.id as id,
+        oc.status as status,
+        oc.live_source_type as liveSourceType,
+        if(cai.course_form = 1 and oc.live_status is null,4,oc.live_status) as sortLineState,
+        if(oc.id is not null,(select ca.name from course_anchor ca where ca.user_id = oc.user_lecturer_id),cai.lecturer)
+        as name,
+        if(oc.start_time is null,(DATE_FORMAT(cai.create_time,'%Y-%m-%d %H:%i')),
+        (DATE_FORMAT(oc.start_time,'%Y-%m-%d %H:%i'))) as startDateStr,
+
+        if(oc.live_status = 2,if(DATE_SUB(now(),INTERVAL 30 MINUTE)>=oc.start_time,6,if(
+        (DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time) or
+        (DATE_ADD(now(),INTERVAL 1 HOUR)>=oc.start_time and now() &lt; oc.start_time),4,
+        if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now()&lt;oc.start_time,5,oc.live_status))),oc.live_status)
+        as lineState,
+
+
+        if(cai.`status`=1,(SELECT IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) +
+        IFNULL(oc.default_student_count,0)),0) as learndCount,
+        oc.direct_id as directId,
+        if(now() > DATE_SUB(oc.start_time,INTERVAL 1 HOUR) and oc.start_time > now() ,1,0) as isLive,
+        if(oc.live_status = 3,ifnull(oc.play_back_type,1),3) as playBackType
+        from
+        course_apply_info cai
+        LEFT JOIN oe_course as oc on cai.id = oc.apply_id
+        where cai.user_id = #{userId} and cai.is_delete=0
+        <if test="courseForm != null">
+            AND cai.`course_form` = #{courseForm}
+        </if>
+        <if test="multimediaType != null">
+            AND cai.`multimedia_type` = #{multimediaType}
+        </if>
+        <choose>
             <when test="courseForm != null and  courseForm == 1">
-               order by cai.create_time desc
+                order by cai.create_time desc
             </when>
             <otherwise>
-               order by cai.create_time desc
+                order by cai.create_time desc
             </otherwise>
-         </choose>
-	</select>
+        </choose>
+    </select>
 
 
-   <sql id="relCurrentCourseStatus">
-   		oc.id as id,
-		oc.start_time as startTime,
-		oc.end_time as endTime,
-		if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
-		oc.user_lecturer_id as userLecturerId,
-		oc.collection as collection,
-		if(oc.live_status = 2,if((DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time ) or 
-		                             (DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now() &lt; oc.start_time ),4,
-                    if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now() &lt; oc.start_time,5,oc.live_status)),oc.live_status) as lineState,
-		oc.current_price*10 as currentPrice,
-		oc.live_source_type as liveSourceType,
-		oc.course_detail as description,
-		oc.direct_id as directId,
-		ou.name as vhallName,
-		
-		if(oc.live_status = 3,ifnull(oc.play_back_type,1),3) as playBackType,
-   </sql>	
-   	
+    <sql id="relCurrentCourseStatus">
+        oc.id as id,
+        oc.start_time as startTime,
+        oc.end_time as endTime,
+        if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
+        oc.user_lecturer_id as userLecturerId,
+        oc.collection as collection,
+        if(oc.live_status = 2,if((DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time ) or
+        (DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now() &lt; oc.start_time ),4,
+        if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now() &lt;
+        oc.start_time,5,oc.live_status)),oc.live_status) as lineState,
+        oc.current_price*10 as currentPrice,
+        oc.live_source_type as liveSourceType,
+        oc.course_detail as description,
+        oc.direct_id as directId,
+        ou.name as vhallName,
 
-   <!-- 用户当前课程状态   User current course status. 用户没有登录   -->
-   <select id="selectCurrentCourseStatus" resultType="com.xczhihui.course.vo.CourseLecturVo">
-       SELECT
-          <include refid="relCurrentCourseStatus"/>
-		  oc.is_free as watchState
-		FROM
-			oe_course as oc
-			inner join course_anchor as ou on oc.user_lecturer_id = ou.user_id
-			where oc.id = #{courseId}    and oc.is_delete=0
-	</select>	
-	
-	 <!-- 用户当前课程状态   User current course status. 用户登录了  -->
-	 <select id="selectUserCurrentCourseStatus" resultType="com.xczhihui.course.vo.CourseLecturVo">
-		    SELECT
-			  <include refid="relCurrentCourseStatus"/>
-				if(oc.is_free =0, if((select count(*) from apply_r_grade_course as args 
-      			   where  args.course_id = oc.id  and  args.user_id = #{userId} AND args.`validity`>NOW()
-      			   and args.is_delete=0 ) >0 ,2, 0),1)as watchState
-			FROM
-				oe_course as oc
-			inner join course_anchor as ou on oc.user_lecturer_id = ou.user_id
-				where oc.id = #{courseId} and oc.is_delete=0
-	</select>
-	
-	<!-- 单独获取详情    selectCourseDescription -->
-	<select id="selectCourseDescription" resultType="java.lang.String">
-		select details from 		
-	    <if test="type != null and type == 1 ">
-			( select oc.course_detail as details from oe_course as oc where oc.id = #{typeId} )
-		</if>
-		<if test="type != null and type == 2 ">
-			( select oc.lecturer_description as details from oe_course as oc where oc.id = #{typeId} )
-		</if>
-		<if test="type != null and type == 3 ">
-			( select oc.lecturer_description as details from oe_course as oc where oc.id = #{typeId} )
-		</if>
-		<if test="type != null and type == 4 ">
-			( select ca.detail as details from course_anchor ca  where ca.user_id =  #{typeId} )
-		</if>
-		<if test="type != null and type == 5 ">
-			( select md.detailed_address as details from medical_doctor md  where md.`id` =  #{typeId} )
-		</if>
-		as common_details
-	</select>
+        if(oc.live_status = 3,ifnull(oc.play_back_type,1),3) as playBackType,
+    </sql>
 
 
-	<select id="selectCourseIdByCollectionId" resultType="integer">
-		SELECT
-		oc.id
-		FROM
-		`oe_course` oc
-		JOIN `collection_course` cc
-		ON oc.id = cc.`course_id`
-		WHERE oc.`is_delete`=0 AND cc.`collection_id` = #{collectionId}
-	</select>
-	
+    <!-- 用户当前课程状态   User current course status. 用户没有登录   -->
+    <select id="selectCurrentCourseStatus" resultType="com.xczhihui.course.vo.CourseLecturVo">
+        SELECT
+        <include refid="relCurrentCourseStatus"/>
+        oc.is_free as watchState
+        FROM
+        oe_course as oc
+        inner join course_anchor as ou on oc.user_lecturer_id = ou.user_id
+        where oc.id = #{courseId} and oc.is_delete=0
+    </select>
+
+    <!-- 用户当前课程状态   User current course status. 用户登录了  -->
+    <select id="selectUserCurrentCourseStatus" resultType="com.xczhihui.course.vo.CourseLecturVo">
+        SELECT
+        <include refid="relCurrentCourseStatus"/>
+        if(oc.is_free =0, if((select count(*) from apply_r_grade_course as args
+        where args.course_id = oc.id and args.user_id = #{userId} AND args.`validity`>NOW()
+        and args.is_delete=0 ) >0 ,2, 0),1)as watchState
+        FROM
+        oe_course as oc
+        inner join course_anchor as ou on oc.user_lecturer_id = ou.user_id
+        where oc.id = #{courseId} and oc.is_delete=0
+    </select>
+
+    <!-- 单独获取详情    selectCourseDescription -->
+    <select id="selectCourseDescription" resultType="java.lang.String">
+        select details from
+        <if test="type != null and type == 1 ">
+            ( select oc.course_detail as details from oe_course as oc where oc.id = #{typeId} )
+        </if>
+        <if test="type != null and type == 2 ">
+            ( select oc.lecturer_description as details from oe_course as oc where oc.id = #{typeId} )
+        </if>
+        <if test="type != null and type == 3 ">
+            ( select oc.lecturer_description as details from oe_course as oc where oc.id = #{typeId} )
+        </if>
+        <if test="type != null and type == 4 ">
+            ( select ca.detail as details from course_anchor ca where ca.user_id = #{typeId} )
+        </if>
+        <if test="type != null and type == 5 ">
+            ( select md.detailed_address as details from medical_doctor md where md.`id` = #{typeId} )
+        </if>
+        as common_details
+    </select>
+
+
+    <select id="selectCourseIdByCollectionId" resultType="integer">
+        SELECT
+        oc.id
+        FROM
+        `oe_course` oc
+        JOIN `collection_course` cc
+        ON oc.id = cc.`course_id`
+        WHERE oc.`is_delete`=0 AND cc.`collection_id` = #{collectionId}
+    </select>
+
     <!-- 分页查询我的课程和已结束课程  -->
-	<select id="myCourseType" resultType="com.xczhihui.course.vo.CourseLecturVo">
-		SELECT
-			<include refid="relLearningCourseListByUserId"/>
-			'学习中心' as note,
-		if(oc.live_status=1,DATE_FORMAT(oc.start_time,'%H:%i'),
-		if(oc.live_status=2,if(oc.start_time &lt;= DATE_ADD(DATE_ADD(str_to_date(DATE_FORMAT(NOW(),'%Y-%m-%d'),
-		'%Y-%m-%d %H:%i:%s'),INTERVAL 1 DAY),INTERVAL -1 SECOND),
-		DATE_FORMAT(oc.start_time,'%H:%i'),DATE_FORMAT(oc.start_time,'%m.%d')),
-		DATE_FORMAT(oc.start_time,'%m.%d') )) as startDateStr
-		FROM
-			oe_course as oc
-			inner join apply_r_grade_course argc on oc.`id`=argc.`course_id`  AND argc.`validity`>NOW()
-		where
-		<if test="type != null and type == 1">
-			argc.user_id=#{userId}
-			and oc.is_delete=0 group by oc.id order by
-			argc.create_time desc 
-		</if>
-		<if test="type != null and type == 2">
-			( oc.type = 3 and  now() >= oc.end_time  and argc.user_id=#{userId}  and  oc.is_delete=0 ) or 
-      			( oc.type = 1 and oc.live_status = 3  and argc.user_id=#{userId}  and  oc.is_delete=0 )
-       		group by oc.id order by oc.end_time desc 
-		</if>
-	</select>
-	
-	<!-- 推荐 课程，通推荐值最高的10个里面随机取两个-->
-	<select id="selectRecommendSortAndRandCourse" resultType="com.xczhihui.course.vo.CourseLecturVo">
-		 select * from (	
-			SELECT
-			    <include refid="relLearningCourseListByUserId"/>
-			     if(oc.live_status=1,DATE_FORMAT(oc.start_time,'%H:%i'),if(oc.live_status=2,if(oc.start_time &lt;= DATE_ADD(DATE_ADD(str_to_date(DATE_FORMAT(NOW(),'%Y-%m-%d'),
-					 	'%Y-%m-%d %H:%i:%s'),INTERVAL 1 DAY),INTERVAL -1 SECOND),
-					 	DATE_FORMAT(oc.start_time,'%H:%i'),DATE_FORMAT(oc.start_time,'%m.%d')),
-					 	DATE_FORMAT(oc.start_time,'%m.%d') )) as startDateStr,
-				if(now() > DATE_SUB(oc.start_time,INTERVAL 1 HOUR) and  oc.start_time > now()  ,1,0) as isLive
-			FROM
-			oe_course oc
-			where  oc.is_delete=0 and oc.status=1  
-			ORDER BY recommend_sort desc limit 0,10
-		 ) as recommendSort order by rand()
-	</select>
-	
-	
-	<!-- 通过课程类型查找，通过学习人数排名 -->
-	<select id="selectCourseByLearndCount" resultType="com.xczhihui.course.vo.CourseLecturVo">
-		SELECT
-		    <include refid="relLearningCourseListByUserId"/>
-		     if(oc.live_status=1,DATE_FORMAT(oc.start_time,'%H:%i'),if(oc.live_status=2,if(oc.start_time &lt;= DATE_ADD(DATE_ADD(str_to_date(DATE_FORMAT(NOW(),'%Y-%m-%d'),
-				 	'%Y-%m-%d %H:%i:%s'),INTERVAL 1 DAY),INTERVAL -1 SECOND),
-				 	DATE_FORMAT(oc.start_time,'%H:%i'),DATE_FORMAT(oc.start_time,'%m.%d')),
-				 	DATE_FORMAT(oc.start_time,'%m.%d') )) as startDateStr,
-			 if(now() > DATE_SUB(oc.start_time,INTERVAL 1 HOUR) and  oc.start_time > now()  ,1,0) as isLive
-		FROM
-		oe_course oc
-		 where  oc.is_delete=0 and oc.status=1  
-		<if test="type != null and type == 1 ">
-		    and  oc.type = #{type}
-	    </if>
-		ORDER BY learndCount desc
-	</select>
-	
-	
-	
-	<!-- 查询这个课程是否删除、或者被禁用  -->
-	<select id="selectCourseStatusDeleteUserLecturerId" resultType="com.xczhihui.course.vo.CourseLecturVo">
-       SELECT
-          oc.is_delete as isDelete,
-          oc.status as status,
-          ou.user_id as userLecturerId
-		FROM
-			oe_course as oc
-			left join course_anchor as ou on 
-			oc.user_lecturer_id = ou.user_id
-			where oc.id =#{courseId}
-	</select>	
-	
-	<!-- 查询用户不同课程类型的数量 -->
-	
-	<select id="selectLiveCountByUserIdAndType" resultType="java.lang.Integer">
-       SELECT
-          count(*)
-		FROM
-		   oe_course as oc  where oc.is_delete=0 and oc.status=1  and oc.user_lecturer_id = #{userId} 
-		<if test="type == 1">
-           and  oc.multimedia_type = 1
-         </if>
-         <if test="type == 2">
-           and  oc.multimedia_type = 2
-         </if>
-         <if test="type == 3">
-           and  oc.type = 1
-         </if>
-         <if test="type == 4">
-           and  oc.type = 3
-         </if>	
-	</select>
+    <select id="myCourseType" resultType="com.xczhihui.course.vo.CourseLecturVo">
+        SELECT
+        <include refid="relLearningCourseListByUserId"/>
+        '学习中心' as note,
+        if(oc.live_status=1,DATE_FORMAT(oc.start_time,'%H:%i'),
+        if(oc.live_status=2,if(oc.start_time &lt;= DATE_ADD(DATE_ADD(str_to_date(DATE_FORMAT(NOW(),'%Y-%m-%d'),
+        '%Y-%m-%d %H:%i:%s'),INTERVAL 1 DAY),INTERVAL -1 SECOND),
+        DATE_FORMAT(oc.start_time,'%H:%i'),DATE_FORMAT(oc.start_time,'%m.%d')),
+        DATE_FORMAT(oc.start_time,'%m.%d') )) as startDateStr
+        FROM
+        oe_course as oc
+        inner join apply_r_grade_course argc on oc.`id`=argc.`course_id` AND argc.`validity`>NOW()
+        where
+        <if test="type != null and type == 1">
+            argc.user_id=#{userId}
+            and oc.is_delete=0 group by oc.id order by
+            argc.create_time desc
+        </if>
+        <if test="type != null and type == 2">
+            ( oc.type = 3 and now() >= oc.end_time and argc.user_id=#{userId} and oc.is_delete=0 ) or
+            ( oc.type = 1 and oc.live_status = 3 and argc.user_id=#{userId} and oc.is_delete=0 )
+            group by oc.id order by oc.end_time desc
+        </if>
+    </select>
 
-	<select id="selectCourses4Solr" resultType="com.xczhihui.course.vo.CourseSolrVO">
-		SELECT
-		oc.id,
-		oc.course_detail courseDetail,
-		oc.grade_name AS gradeName,
-		oc.smallimg_path AS smallImgPath,
-		oc.subtitle,
-		oc.multimedia_type multimediaType,
-		oc.live_status lineState,
-		oc.current_price*10 AS currentPrice,
-		oc.smallimg_path AS smallImgPath,
-		oc.lecturer AS NAME,
-		oc.collection AS collection,
-		oc.start_time AS startTime,
-		IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) + IFNULL(oc.default_student_count, 0) learndCount,
-		oc.is_free AS watchState,
-		oc.city AS city,
-		UNIX_TIMESTAMP(oc.release_time) releaseTime,
-		oc.recommend_sort recommendSort,
-		IF(oc.type =3,4,IF(oc.type = 1,3,IF(oc.multimedia_type=1,1,2))) AS TYPE,
-		oc.type AS courseForm,
-		oc.create_time,
-		oc.is_recommend,
-		oc.start_time AS startTime,
-		oc.lecturer_description anchorDetail,
-		om.name menuName,
-		om.id menuType,
-		oc.course_outline courseOutline
-		FROM oe_course oc
-		INNER JOIN oe_user ou  ON   oc.user_lecturer_id = ou.id
-		INNER JOIN oe_menu AS om  ON om.id = oc.menu_id
-		WHERE oc.is_delete=0 AND oc.status = 1
-		<if test="courseId != null">
-			AND oc.id = #{courseId}
-		</if>
-	</select>
-	
-	
+    <!-- 推荐 课程，通推荐值最高的10个里面随机取两个-->
+    <select id="selectRecommendSortAndRandCourse" resultType="com.xczhihui.course.vo.CourseLecturVo">
+        select * from (
+        SELECT
+        <include refid="relLearningCourseListByUserId"/>
+        if(oc.live_status=1,DATE_FORMAT(oc.start_time,'%H:%i'),if(oc.live_status=2,if(oc.start_time &lt;=
+        DATE_ADD(DATE_ADD(str_to_date(DATE_FORMAT(NOW(),'%Y-%m-%d'),
+        '%Y-%m-%d %H:%i:%s'),INTERVAL 1 DAY),INTERVAL -1 SECOND),
+        DATE_FORMAT(oc.start_time,'%H:%i'),DATE_FORMAT(oc.start_time,'%m.%d')),
+        DATE_FORMAT(oc.start_time,'%m.%d') )) as startDateStr,
+        if(now() > DATE_SUB(oc.start_time,INTERVAL 1 HOUR) and oc.start_time > now() ,1,0) as isLive
+        FROM
+        oe_course oc
+        where oc.is_delete=0 and oc.status=1
+        ORDER BY recommend_sort desc limit 0,10
+        ) as recommendSort order by rand()
+    </select>
+
+
+    <!-- 通过课程类型查找，通过学习人数排名 -->
+    <select id="selectCourseByLearndCount" resultType="com.xczhihui.course.vo.CourseLecturVo">
+        SELECT
+        <include refid="relLearningCourseListByUserId"/>
+        if(oc.live_status=1,DATE_FORMAT(oc.start_time,'%H:%i'),if(oc.live_status=2,if(oc.start_time &lt;=
+        DATE_ADD(DATE_ADD(str_to_date(DATE_FORMAT(NOW(),'%Y-%m-%d'),
+        '%Y-%m-%d %H:%i:%s'),INTERVAL 1 DAY),INTERVAL -1 SECOND),
+        DATE_FORMAT(oc.start_time,'%H:%i'),DATE_FORMAT(oc.start_time,'%m.%d')),
+        DATE_FORMAT(oc.start_time,'%m.%d') )) as startDateStr,
+        if(now() > DATE_SUB(oc.start_time,INTERVAL 1 HOUR) and oc.start_time > now() ,1,0) as isLive
+        FROM
+        oe_course oc
+        where oc.is_delete=0 and oc.status=1
+        <if test="type != null and type == 1 ">
+            and oc.type = #{type}
+        </if>
+        ORDER BY learndCount desc
+    </select>
+
+
+    <!-- 查询这个课程是否删除、或者被禁用  -->
+    <select id="selectCourseStatusDeleteUserLecturerId" resultType="com.xczhihui.course.vo.CourseLecturVo">
+        SELECT
+        oc.is_delete as isDelete,
+        oc.status as status,
+        ou.user_id as userLecturerId
+        FROM
+        oe_course as oc
+        left join course_anchor as ou on
+        oc.user_lecturer_id = ou.user_id
+        where oc.id =#{courseId}
+    </select>
+
+    <!-- 查询用户不同课程类型的数量 -->
+
+    <select id="selectLiveCountByUserIdAndType" resultType="java.lang.Integer">
+        SELECT
+        count(*)
+        FROM
+        oe_course as oc where oc.is_delete=0 and oc.status=1 and oc.user_lecturer_id = #{userId}
+        <if test="type == 1">
+            and oc.multimedia_type = 1
+        </if>
+        <if test="type == 2">
+            and oc.multimedia_type = 2
+        </if>
+        <if test="type == 3">
+            and oc.type = 1
+        </if>
+        <if test="type == 4">
+            and oc.type = 3
+        </if>
+    </select>
+
+    <select id="selectCourses4Solr" resultType="com.xczhihui.course.vo.CourseSolrVO">
+        SELECT
+        oc.id,
+        oc.course_detail courseDetail,
+        oc.grade_name AS gradeName,
+        oc.smallimg_path AS smallImgPath,
+        oc.subtitle,
+        oc.multimedia_type multimediaType,
+        oc.live_status lineState,
+        oc.current_price*10 AS currentPrice,
+        oc.smallimg_path AS smallImgPath,
+        oc.lecturer AS NAME,
+        oc.collection AS collection,
+        oc.start_time AS startTime,
+        IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) + IFNULL(oc.default_student_count,
+        0) learndCount,
+        oc.is_free AS watchState,
+        oc.city AS city,
+        UNIX_TIMESTAMP(oc.release_time) releaseTime,
+        oc.recommend_sort recommendSort,
+        IF(oc.type =3,4,IF(oc.type = 1,3,IF(oc.multimedia_type=1,1,2))) AS TYPE,
+        oc.type AS courseForm,
+        oc.create_time,
+        oc.is_recommend,
+        oc.start_time AS startTime,
+        oc.lecturer_description anchorDetail,
+        om.name menuName,
+        om.id menuType,
+        oc.course_outline courseOutline
+        FROM oe_course oc
+        INNER JOIN oe_user ou ON oc.user_lecturer_id = ou.id
+        INNER JOIN oe_menu AS om ON om.id = oc.menu_id
+        WHERE oc.is_delete=0 AND oc.status = 1
+        <if test="courseId != null">
+            AND oc.id = #{courseId}
+        </if>
+    </select>
+
+
 </mapper>

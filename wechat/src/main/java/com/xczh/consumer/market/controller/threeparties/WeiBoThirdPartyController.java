@@ -52,6 +52,9 @@ public class WeiBoThirdPartyController {
     private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(WeiBoThirdPartyController.class);
 
     public HttpClient client = new HttpClient();
+    //手机端登录使用
+    @Value("${mobile.authorizeURL}")
+    public String weiboMobileAuthorizeURL;
     @Autowired
     private OnlineUserService onlineUserService;
     @Autowired
@@ -60,18 +63,14 @@ public class WeiBoThirdPartyController {
     private CacheService cacheService;
     @Autowired
     private UserCenterService userCenterService;
-
-    //手机端登录使用
-    @Value("${mobile.authorizeURL}")
-    public String weiboMobileAuthorizeURL;
-
     @Value("${returnOpenidUri}")
     private String returnOpenidUri;
 
     /**
      * 暂无使用
-     * 
-     * Description：h5 --》微博回调接口     
+     * <p>
+     * Description：h5 --》微博回调接口
+     *
      * @param req
      * @param res
      * @return ResponseObject
@@ -176,8 +175,8 @@ public class WeiBoThirdPartyController {
                 if (ou == null) {
                     return ResponseObject.newErrorResponseObject("获取用户信息有误");
                 }
-                WeiboClientUserMapping wbcm =  threePartiesLoginService.selectWeiboClientUserMappingByUserId(userId);
-                if (wbcm!=null) {
+                WeiboClientUserMapping wbcm = threePartiesLoginService.selectWeiboClientUserMappingByUserId(userId);
+                if (wbcm != null) {
                     return ResponseObject.newErrorResponseObject("用户已绑定过微博号");
                 }
             }

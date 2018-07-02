@@ -28,10 +28,11 @@ public class SolrPages implements Serializable {
 
     /**
      * 分页
-     * @param list       列表数据
-     * @param total 总记录数
-     * @param size   每页记录数
-     * @param current   当前页数
+     *
+     * @param list    列表数据
+     * @param total   总记录数
+     * @param size    每页记录数
+     * @param current 当前页数
      */
     public SolrPages(List<?> list, int total, int size, int current) {
         this.list = list;

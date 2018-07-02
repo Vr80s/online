@@ -1,14 +1,12 @@
 package com.xczhihui.bxg.online.web.service.impl;
 
-import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
-import com.xczhihui.bxg.online.common.domain.ApplyGradeCourse;
-import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.online.web.dao.ApplyGradeCourseDao;
-import com.xczhihui.bxg.online.web.dao.LiveDao;
-import com.xczhihui.bxg.online.web.service.LiveService;
-import com.xczhihui.bxg.online.web.vo.OpenCourseVo;
-import com.xczhihui.common.support.domain.BxgUser;
-import com.xczhihui.bxg.online.web.base.utils.UserLoginUtil;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +14,15 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
+import com.xczhihui.bxg.online.common.domain.ApplyGradeCourse;
+import com.xczhihui.bxg.online.common.domain.OnlineUser;
+import com.xczhihui.bxg.online.web.base.utils.UserLoginUtil;
+import com.xczhihui.bxg.online.web.dao.ApplyGradeCourseDao;
+import com.xczhihui.bxg.online.web.dao.LiveDao;
+import com.xczhihui.bxg.online.web.service.LiveService;
+import com.xczhihui.bxg.online.web.vo.OpenCourseVo;
+import com.xczhihui.common.support.domain.BxgUser;
 
 /**
  * 公开直播课业务层接口实现类
@@ -38,8 +39,7 @@ public class LiveServiceImpl extends OnlineBaseServiceImpl implements LiveServic
 
     @Autowired
     private ApplyGradeCourseDao applyGradeCourseDao;
-    
-    
+
 
     @Value("${env.flag}")
     private String env;
@@ -119,14 +119,14 @@ public class LiveServiceImpl extends OnlineBaseServiceImpl implements LiveServic
         BxgUser user = UserLoginUtil.getLoginUser();
         paramMap.put("courseId", courseId);
         if (user == null) { //redirect:/courses/"+courseId+"/info
-            return new ModelAndView("redirect:/courses/"+courseId+"/info");
+            return new ModelAndView("redirect:/courses/" + courseId + "/info");
         } else {
             paramMap.put("userId", user.getId());
-            List<Map<String, Object>> argc = dao.getNamedParameterJdbcTemplate() .queryForList("SELECT id FROM `apply_r_grade_course` argc WHERE argc.course_id = :courseId AND argc.`user_id`=:userId AND argc.`validity`>NOW()", paramMap);
+            List<Map<String, Object>> argc = dao.getNamedParameterJdbcTemplate().queryForList("SELECT id FROM `apply_r_grade_course` argc WHERE argc.course_id = :courseId AND argc.`user_id`=:userId AND argc.`validity`>NOW()", paramMap);
             if (argc.size() == 0) {
                 ApplyGradeCourse applyGradeCourse = applyGradeCourseDao.findCollectionCourseByCourseIdAndUserId(Integer.valueOf(courseId), user.getId());
                 if (applyGradeCourse == null) {
-                	 return new ModelAndView("redirect:/courses/"+courseId+"/info");
+                    return new ModelAndView("redirect:/courses/" + courseId + "/info");
                 }
             }
         }
@@ -145,15 +145,15 @@ public class LiveServiceImpl extends OnlineBaseServiceImpl implements LiveServic
         }
         description = description.replaceAll("\n", "");
         OnlineUser u = (OnlineUser) UserLoginUtil.getLoginUser();
- 
-        
+
+
         ModelAndView mv = null;
 
         mv = new ModelAndView("live_success_page");
-        if (liveStatus == 1 || liveStatus==3) { // 直播中  
-        	mv = new ModelAndView("live_success_page");
+        if (liveStatus == 1 || liveStatus == 3) { // 直播中
+            mv = new ModelAndView("live_success_page");
 
-        } else if (liveStatus == 2) {		    //直播预告
+        } else if (liveStatus == 2) {            //直播预告
             mv = new ModelAndView("live_success_other_page");
         }
         mv.addObject("lecturerId", course.get("userLecturerId"));
@@ -186,7 +186,6 @@ public class LiveServiceImpl extends OnlineBaseServiceImpl implements LiveServic
     public List<OpenCourseVo> getOpenCourse(Integer num, String id) {
         return dao.getOpenCourse(num, id);
     }
-
 
 
 }

@@ -2,12 +2,12 @@ package com.xczhihui.course.vo;
 
 import java.io.Serializable;
 
-public class WeiboClientUserMappingVO implements Serializable{
-	
+public class WeiboClientUserMappingVO implements Serializable {
+
     private String id;
 
     private String userId;
-    
+
     private String uid;
 
     private String screenName;
@@ -29,7 +29,7 @@ public class WeiboClientUserMappingVO implements Serializable{
     private String profileUrl;
 
     private String userDomain;
-    
+
     private String gender;
 
     private Integer followersCount;
@@ -49,10 +49,8 @@ public class WeiboClientUserMappingVO implements Serializable{
     private String lang;
 
     private String weihao;
-    
-    
-    
-    
+
+
     public String getId() {
         return id;
     }
@@ -143,14 +141,14 @@ public class WeiboClientUserMappingVO implements Serializable{
 
 
     public String getUserDomain() {
-		return userDomain;
-	}
+        return userDomain;
+    }
 
-	public void setUserDomain(String userDomain) {
-		this.userDomain = userDomain;
-	}
+    public void setUserDomain(String userDomain) {
+        this.userDomain = userDomain;
+    }
 
-	public String getWeihao() {
+    public String getWeihao() {
         return weihao;
     }
 
@@ -230,12 +228,12 @@ public class WeiboClientUserMappingVO implements Serializable{
         this.lang = lang == null ? null : lang.trim();
     }
 
-	public String getUserId() {
-		return userId;
-	}
+    public String getUserId() {
+        return userId;
+    }
 
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-    
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
 }

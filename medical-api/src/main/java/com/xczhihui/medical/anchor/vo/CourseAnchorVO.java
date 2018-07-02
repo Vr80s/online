@@ -1,8 +1,8 @@
 package com.xczhihui.medical.anchor.vo;
 
-import lombok.Data;
-
 import java.io.Serializable;
+
+import lombok.Data;
 
 @Data
 public class CourseAnchorVO implements Serializable {

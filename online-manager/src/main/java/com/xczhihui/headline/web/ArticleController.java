@@ -78,7 +78,7 @@ public class ArticleController extends AbstractController {
         }
         Group isRecommend = groups.findByName("search_isRecommend");
         if (isRecommend != null) {
-            if(Integer.parseInt(isRecommend.getPropertyValue1().toString())!=3){
+            if (Integer.parseInt(isRecommend.getPropertyValue1().toString()) != 3) {
                 searchVo.setSort(Integer.parseInt(isRecommend.getPropertyValue1().toString()));
             }
         }

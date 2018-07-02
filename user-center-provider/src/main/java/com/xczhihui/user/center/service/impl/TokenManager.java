@@ -18,10 +18,9 @@ import com.xczhihui.user.center.vo.Token;
  **/
 class TokenManager {
 
-    private CacheService cacheService;
-
     // Token的缺省有效期
     private final int DEFAULT_EXPIRES = CacheService.ONE_HOUR;
+    private CacheService cacheService;
 
     TokenManager(CacheService cacheService) {
         this.cacheService = cacheService;

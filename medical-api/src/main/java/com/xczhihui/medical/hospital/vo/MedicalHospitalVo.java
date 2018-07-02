@@ -1,294 +1,296 @@
 package com.xczhihui.medical.hospital.vo;
 
-import com.xczhihui.medical.field.vo.MedicalFieldVO;
-
 import java.io.Serializable;
 import java.util.List;
 
+import com.xczhihui.medical.field.vo.MedicalFieldVO;
+
 /**
  * <p>
- * 
+ * <p>
  * </p>
  *
  * @author yuxin
  * @since 2017-12-09
  */
-public class MedicalHospitalVo implements Serializable{
+public class MedicalHospitalVo implements Serializable {
 
     /**
      * 医馆表
      */
-	private String id;
+    private String id;
     /**
      * 经纬度
      */
-	private String lal;
+    private String lal;
     /**
      * 医馆名称
      */
-	private String name;
+    private String name;
     /**
      * 医馆简介
      */
-	private String description;
+    private String description;
     /**
      * 联系电话
      */
-	private String tel;
+    private String tel;
 
-	private String email;
+    private String email;
     /**
      * 邮编
      */
-	private Integer postCode;
+    private Integer postCode;
     /**
      * 省
      */
-	private String province;
+    private String province;
     /**
-	 * 市
-	 */
-	private String city;
-	/**
-	 * 市
-	 */
-	private String county;
+     * 市
+     */
+    private String city;
+    /**
+     * 市
+     */
+    private String county;
     /**
      * 详细地址
      */
-	private String detailedAddress;
+    private String detailedAddress;
 
-	/**
-	 * 是否已认证
-	 */
-	private Boolean authentication;
-	/**
-	 * 分值
-	 */
-	private Double score;
+    /**
+     * 是否已认证
+     */
+    private Boolean authentication;
+    /**
+     * 分值
+     */
+    private Double score;
 
-	private List<MedicalHospitalPictureVO> medicalHospitalPictures;
+    private List<MedicalHospitalPictureVO> medicalHospitalPictures;
 
-	private List<MedicalFieldVO> fields;
-	
-	//坐诊时间
-	private String visitTime;
-	
-	/**
-	 * 认证类别   1 医师认证   2 医馆认证
-	 */
-	private Integer certificationType;
+    private List<MedicalFieldVO> fields;
 
-	/**
-	 * 医馆封面图
-	 */
-	private String frontImg;
+    //坐诊时间
+    private String visitTime;
 
-	/**
-	 * 微信
-	 */
-	private String wechat;
+    /**
+     * 认证类别   1 医师认证   2 医馆认证
+     */
+    private Integer certificationType;
 
-	/**
-	 * 头像
-	 */
-	private String headPortrait;
+    /**
+     * 医馆封面图
+     */
+    private String frontImg;
 
-	/**
-	 * 联系人名称
-	 */
-	private String contactor;
+    /**
+     * 微信
+     */
+    private String wechat;
 
-	public String getContactor() {
-		return contactor;
-	}
+    /**
+     * 头像
+     */
+    private String headPortrait;
 
-	public void setContactor(String contactor) {
-		this.contactor = contactor;
-	}
+    /**
+     * 联系人名称
+     */
+    private String contactor;
 
-	public String getHeadPortrait() {
-		return headPortrait;
-	}
+    public String getContactor() {
+        return contactor;
+    }
 
-	public void setHeadPortrait(String headPortrait) {
-		this.headPortrait = headPortrait;
-	}
+    public void setContactor(String contactor) {
+        this.contactor = contactor;
+    }
 
-	public String getWechat() {
-		return wechat;
-	}
+    public String getHeadPortrait() {
+        return headPortrait;
+    }
 
-	public void setWechat(String wechat) {
-		this.wechat = wechat;
-	}
+    public void setHeadPortrait(String headPortrait) {
+        this.headPortrait = headPortrait;
+    }
 
-	public String getId() {
-		return id;
-	}
+    public String getWechat() {
+        return wechat;
+    }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public void setWechat(String wechat) {
+        this.wechat = wechat;
+    }
 
-	public String getLal() {
-		return lal;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public void setLal(String lal) {
-		this.lal = lal;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getLal() {
+        return lal;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setLal(String lal) {
+        this.lal = lal;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getTel() {
-		return tel;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setTel(String tel) {
-		this.tel = tel;
-	}
+    public String getTel() {
+        return tel;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public void setTel(String tel) {
+        this.tel = tel;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public Integer getPostCode() {
-		return postCode;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public void setPostCode(Integer postCode) {
-		this.postCode = postCode;
-	}
+    public Integer getPostCode() {
+        return postCode;
+    }
 
-	public String getProvince() {
-		return province;
-	}
+    public void setPostCode(Integer postCode) {
+        this.postCode = postCode;
+    }
 
-	public void setProvince(String province) {
-		this.province = province;
-	}
+    public String getProvince() {
+        return province;
+    }
 
-	public String getCity() {
-		return city;
-	}
+    public void setProvince(String province) {
+        this.province = province;
+    }
 
-	public void setCity(String city) {
-		this.city = city;
-	}
+    public String getCity() {
+        return city;
+    }
 
-	public String getDetailedAddress() {
-		return detailedAddress;
-	}
+    public void setCity(String city) {
+        this.city = city;
+    }
 
-	public void setDetailedAddress(String detailedAddress) {
-		this.detailedAddress = detailedAddress;
-	}
+    public String getDetailedAddress() {
+        return detailedAddress;
+    }
 
-	public Boolean getAuthentication() {
-		return authentication;
-	}
+    public void setDetailedAddress(String detailedAddress) {
+        this.detailedAddress = detailedAddress;
+    }
 
-	public void setAuthentication(Boolean authentication) {
-		this.authentication = authentication;
-	}
+    public Boolean getAuthentication() {
+        return authentication;
+    }
 
-	public Double getScore() {
-		return score;
-	}
+    public void setAuthentication(Boolean authentication) {
+        this.authentication = authentication;
+    }
 
-	public void setScore(Double score) {
-		this.score = score;
-	}
+    public Double getScore() {
+        return score;
+    }
 
-	public List<MedicalHospitalPictureVO> getMedicalHospitalPictures() {
-		return medicalHospitalPictures;
-	}
+    public void setScore(Double score) {
+        this.score = score;
+    }
 
-	public void setMedicalHospitalPictures(List<MedicalHospitalPictureVO> medicalHospitalPictures) {
-		this.medicalHospitalPictures = medicalHospitalPictures;
-	}
+    public List<MedicalHospitalPictureVO> getMedicalHospitalPictures() {
+        return medicalHospitalPictures;
+    }
 
-	public List<MedicalFieldVO> getFields() {
-		return fields;
-	}
+    public void setMedicalHospitalPictures(List<MedicalHospitalPictureVO> medicalHospitalPictures) {
+        this.medicalHospitalPictures = medicalHospitalPictures;
+    }
 
-	public void setFields(List<MedicalFieldVO> fields) {
-		this.fields = fields;
-	}
+    public List<MedicalFieldVO> getFields() {
+        return fields;
+    }
 
-	public String getDescription() {
-		if(description == null) {
+    public void setFields(List<MedicalFieldVO> fields) {
+        this.fields = fields;
+    }
+
+    public String getDescription() {
+        if (description == null) {
             return null;
         }
-		description = description.replace("\n\n","<br/>");
-		description = description.replace("\n","<br/>");
-		return description;
-	}
-	
-	public String getVisitTime() {
-		return visitTime;
-	}
+        description = description.replace("\n\n", "<br/>");
+        description = description.replace("\n", "<br/>");
+        return description;
+    }
 
-	public void setVisitTime(String visitTime) {
-		this.visitTime = visitTime;
-	}
-	/**
-	 * 认证类别   1 医师认证   2 医馆认证
-	 */
-	public Integer getCertificationType() {
-		return certificationType;
-	}
-	/**
-	 * 认证类别   1 医师认证   2 医馆认证
-	 */
-	public void setCertificationType(Integer certificationType) {
-		this.certificationType = certificationType;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public String getFrontImg() {
-		return frontImg;
-	}
+    public String getVisitTime() {
+        return visitTime;
+    }
 
-	public void setFrontImg(String frontImg) {
-		this.frontImg = frontImg;
-	}
+    public void setVisitTime(String visitTime) {
+        this.visitTime = visitTime;
+    }
 
-	public String getCounty() {
-		return county;
-	}
+    /**
+     * 认证类别   1 医师认证   2 医馆认证
+     */
+    public Integer getCertificationType() {
+        return certificationType;
+    }
 
-	public void setCounty(String county) {
-		this.county = county;
-	}
+    /**
+     * 认证类别   1 医师认证   2 医馆认证
+     */
+    public void setCertificationType(Integer certificationType) {
+        this.certificationType = certificationType;
+    }
 
-	@Override
-	public String toString() {
-		return "MedicalHospitalVo{" +
-			", id=" + id +
-			", lal=" + lal +
-			", name=" + name +
-			", description=" + description +
-			", tel=" + tel +
-			", email=" + email +
-			", postCode=" + postCode +
-			", province=" + province +
-			", city=" + city +
-			", detailedAddress=" + detailedAddress +
-			"}";
-	}
+    public String getFrontImg() {
+        return frontImg;
+    }
+
+    public void setFrontImg(String frontImg) {
+        this.frontImg = frontImg;
+    }
+
+    public String getCounty() {
+        return county;
+    }
+
+    public void setCounty(String county) {
+        this.county = county;
+    }
+
+    @Override
+    public String toString() {
+        return "MedicalHospitalVo{" +
+                ", id=" + id +
+                ", lal=" + lal +
+                ", name=" + name +
+                ", description=" + description +
+                ", tel=" + tel +
+                ", email=" + email +
+                ", postCode=" + postCode +
+                ", province=" + province +
+                ", city=" + city +
+                ", detailedAddress=" + detailedAddress +
+                "}";
+    }
 }

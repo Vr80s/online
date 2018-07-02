@@ -1,12 +1,12 @@
 package com.xczhihui.online.api.vo;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.xczhihui.common.util.enums.Payment;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.xczhihui.common.util.enums.Payment;
 
 /**
  * Created by rongcai  Kang  on 2016/11/8.
@@ -23,7 +23,7 @@ public class OrderVo implements Serializable {
      */
     private String preferenty_way;
     /**
-     *优惠金额
+     * 优惠金额
      */
     private String preferenty_money;
     /**
@@ -39,12 +39,12 @@ public class OrderVo implements Serializable {
     /**
      * 购买者
      */
-    private String  purchaser;
+    private String purchaser;
 
     /**
      * 课程名称
      */
-    private String  course_name;
+    private String course_name;
 
     /**
      * 创建人登录名
@@ -59,7 +59,7 @@ public class OrderVo implements Serializable {
     /**
      * 原价
      */
-    private String  original_cost;
+    private String original_cost;
 
     /**
      * 课程图片
@@ -69,16 +69,34 @@ public class OrderVo implements Serializable {
     /**
      * 支付账号
      */
-    private  String   pay_account;
+    private String pay_account;
 
     /**
      * 当前登录用户
      */
-    private String  user_id;
-    private String  orderDetailId;
-    private String  orderId;
+    private String user_id;
+    private String orderDetailId;
+    private String orderId;
 
     private Payment payment;
+    /**
+     * 创建时间
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")
+//    @JsonFormat(pattern = "yyyy-mm-dd hh:mm:ss", timezone = "GMT+8")
+    private Date create_time;
+    /**
+     * 订单来源 1.pc 2.h5 3.android 4.ios 5.线下 6.工作人员
+     */
+    private Integer order_from;
+    /**
+     * 订单详情：订单中包含的所有课程
+     */
+    private List<Map<String, Object>> orderDetail;
+    /**
+     * 班级id
+     */
+    private String class_id;
 
     public Payment getPayment() {
         return payment;
@@ -103,27 +121,6 @@ public class OrderVo implements Serializable {
     public void setOrderDetailId(String orderDetailId) {
         this.orderDetailId = orderDetailId;
     }
-
-    /**
-     * 创建时间
-     */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")
-//    @JsonFormat(pattern = "yyyy-mm-dd hh:mm:ss", timezone = "GMT+8")
-    private Date create_time;
-    
-    /**
-	 * 订单来源 1.pc 2.h5 3.android 4.ios 5.线下 6.工作人员
-	 */
-    private Integer order_from;
-
-    /**
-     * 订单详情：订单中包含的所有课程
-     */
-    private List<Map<String,Object>> orderDetail;
-    /**
-     * 班级id
-     */
-    private String class_id;
 
     public String getOrder_no() {
         return order_no;
@@ -245,13 +242,13 @@ public class OrderVo implements Serializable {
         this.user_id = user_id;
     }
 
-	public Integer getOrder_from() {
-		return order_from;
-	}
+    public Integer getOrder_from() {
+        return order_from;
+    }
 
-	public void setOrder_from(Integer order_from) {
-		this.order_from = order_from;
-	}
+    public void setOrder_from(Integer order_from) {
+        this.order_from = order_from;
+    }
 
     public List<Map<String, Object>> getOrderDetail() {
         return orderDetail;
@@ -261,13 +258,13 @@ public class OrderVo implements Serializable {
         this.orderDetail = orderDetail;
     }
 
-	public String getClass_id() {
-		return class_id;
-	}
+    public String getClass_id() {
+        return class_id;
+    }
 
-	public void setClass_id(String class_id) {
-		this.class_id = class_id;
-	}
+    public void setClass_id(String class_id) {
+        this.class_id = class_id;
+    }
 
     @Override
     public String toString() {

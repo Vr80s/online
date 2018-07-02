@@ -11,6 +11,6 @@ import com.xczh.consumer.market.vo.MenuVo;
  */
 public interface MenuService {
 
-    List<MenuVo> list()throws SQLException;
+    List<MenuVo> list() throws SQLException;
 
 }

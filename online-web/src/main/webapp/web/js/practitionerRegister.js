@@ -9,7 +9,7 @@ $(function () {
         if (data.success == true) {
             if (data.resultObject == 1) {
                 //医师认证成功 医师认证中 医师认证拒绝 跳转到认证状态页面
-                window.location.href = "/web/html/anchors_resources.html";
+                window.location.href = "/doctors/my";
             } else if (data.resultObject == 2) {
                 //医馆认证成功 提示不能进行医师认证
                 $('#tip').text('您已完成了医馆注册，不能进行医师注册！');

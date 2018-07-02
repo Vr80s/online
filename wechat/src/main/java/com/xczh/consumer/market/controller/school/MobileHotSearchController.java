@@ -26,10 +26,9 @@ import com.xczhihui.course.service.IMobileHotSearchService;
 @RequestMapping("/xczh/bunch")
 public class MobileHotSearchController {
 
+    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(MobileHotSearchController.class);
     @Autowired
     private IMobileHotSearchService mobileHotSearchService;
-
-    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(MobileHotSearchController.class);
 
     /**
      * 热门搜索列表

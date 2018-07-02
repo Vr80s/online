@@ -2,11 +2,11 @@ package com.xczhihui.bxg.online.common.domain;/**
  * Created by admin on 2016/8/29.
  */
 
-import com.xczhihui.common.support.domain.BasicEntity;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+
+import com.xczhihui.common.support.domain.BasicEntity;
 
 /**
  * 常见问题实体类信息
@@ -16,7 +16,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "question")
-public class Question  extends BasicEntity {
+public class Question extends BasicEntity {
 
     /**
      * 课程id号

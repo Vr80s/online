@@ -2,8 +2,6 @@ package com.xczhihui.bxg.online.common.base.service.impl;
 
 import javax.annotation.Resource;
 
-import org.springframework.stereotype.Service;
-
 import com.xczhihui.bxg.online.common.base.service.OnlineBaseService;
 import com.xczhihui.common.support.dao.SimpleHibernateDao;
 

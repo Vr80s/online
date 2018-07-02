@@ -16,7 +16,7 @@ public interface OeBxsAppraisePraiseMapper extends BaseMapper<OeBxsAppraisePrais
     /**
      * 保存点赞数据
      *
-     * @param userId 点赞用户id
+     * @param userId     点赞用户id
      * @param appraiseId 评论id
      * @param praiseTime 点赞时间
      * @return

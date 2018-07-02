@@ -10,19 +10,23 @@ package com.xczhihui.bxg.online.web.vo;/**
  */
 public class UserVo {
     /**
+     * 地区
+     */
+    public String countyName;
+    /**
      * 用户id号
      */
-    private  String  userId;
+    private String userId;
     /**
      * 昵称
      */
     private String nickName;
     /**
-     *个性签名
+     * 个性签名
      */
     private String autograph;
     /**
-     *e登录帐号
+     * e登录帐号
      */
     private String loginName;
     /**
@@ -48,7 +52,7 @@ public class UserVo {
     /**
      * 报名id号
      */
-    private  String  province;
+    private String province;
     /**
      * 学校id号
      */
@@ -61,16 +65,10 @@ public class UserVo {
      * 专业
      */
     private String target;
-
     /**
      * 详细地址
      */
     private String fullAddress;
-    
-    /**
-     * 地区
-     */
-    public String countyName;
 
     public String getUserId() {
         return userId;
@@ -184,14 +182,13 @@ public class UserVo {
         this.fullAddress = fullAddress;
     }
 
-	public String getCountyName() {
-		return countyName;
-	}
+    public String getCountyName() {
+        return countyName;
+    }
 
-	public void setCountyName(String countyName) {
-		this.countyName = countyName;
-	}
-    
-    
-    
+    public void setCountyName(String countyName) {
+        this.countyName = countyName;
+    }
+
+
 }

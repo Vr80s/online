@@ -31,6 +31,12 @@ public class ExceptionResolver extends SimpleMappingExceptionResolver {
 
     private Logger log = LoggerFactory.getLogger(this.getClass());
 
+    public static String printStackTraceToString(Throwable t) {
+        StringWriter sw = new StringWriter();
+        t.printStackTrace(new PrintWriter(sw, true));
+        return sw.getBuffer().toString();
+    }
+
     @Override
     protected ModelAndView doResolveException(HttpServletRequest request,
                                               HttpServletResponse response, Object handler, Exception ex) {
@@ -64,11 +70,5 @@ public class ExceptionResolver extends SimpleMappingExceptionResolver {
             log.warn(e.getMessage(), e);
         }
         return mv;
-    }
-
-    public static String printStackTraceToString(Throwable t) {
-        StringWriter sw = new StringWriter();
-        t.printStackTrace(new PrintWriter(sw, true));
-        return sw.getBuffer().toString();
     }
 }

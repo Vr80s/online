@@ -1,15 +1,15 @@
 package com.xczhihui.medical.hospital.model;
 
+import java.io.Serializable;
+import java.util.Date;
+
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
 
-import java.io.Serializable;
-import java.util.Date;
-
 /**
  * <p>
- * 
+ * <p>
  * </p>
  *
  * @author yuxin
@@ -23,91 +23,89 @@ public class MedicalHospitalAccount extends Model<MedicalHospitalAccount> {
     /**
      * 医馆帐号关系表
      */
-	private String id;
+    private String id;
     /**
      * 医馆id
      */
-	@TableField("doctor_id")
-	private String doctorId;
+    @TableField("doctor_id")
+    private String doctorId;
     /**
      * 帐号id
      */
-	@TableField("account_id")
-	private String accountId;
+    @TableField("account_id")
+    private String accountId;
     /**
      * 创建时间
      */
-	@TableField("create_time")
-	private Date createTime;
+    @TableField("create_time")
+    private Date createTime;
 
-	@TableField(exist = false)
-	private Boolean  status;
-	
-	@TableField(exist = false)
-	private Boolean deleted;
+    @TableField(exist = false)
+    private Boolean status;
+
+    @TableField(exist = false)
+    private Boolean deleted;
 
 
-	public String getId() {
-		return id;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public String getDoctorId() {
-		return doctorId;
-	}
+    public String getDoctorId() {
+        return doctorId;
+    }
 
-	public void setDoctorId(String doctorId) {
-		this.doctorId = doctorId;
-	}
+    public void setDoctorId(String doctorId) {
+        this.doctorId = doctorId;
+    }
 
-	public String getAccountId() {
-		return accountId;
-	}
+    public String getAccountId() {
+        return accountId;
+    }
 
-	public void setAccountId(String accountId) {
-		this.accountId = accountId;
-	}
+    public void setAccountId(String accountId) {
+        this.accountId = accountId;
+    }
 
-	public Date getCreateTime() {
-		return createTime;
-	}
+    public Date getCreateTime() {
+        return createTime;
+    }
 
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
 
-	@Override
-	protected Serializable pkVal() {
-		return this.id;
-	}
+    @Override
+    protected Serializable pkVal() {
+        return this.id;
+    }
 
-	
-	
-	public Boolean getStatus() {
-		return status;
-	}
 
-	public void setStatus(Boolean status) {
-		this.status = status;
-	}
+    public Boolean getStatus() {
+        return status;
+    }
 
-	public Boolean getDeleted() {
-		return deleted;
-	}
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
 
-	public void setDeleted(Boolean deleted) {
-		this.deleted = deleted;
-	}
+    public Boolean getDeleted() {
+        return deleted;
+    }
 
-	@Override
-	public String toString() {
-		return "MedicalHospitalAccount [id=" + id + ", doctorId=" + doctorId + ", accountId=" + accountId
-				+ ", createTime=" + createTime + ", status=" + status + ", deleted=" + deleted + "]";
-	}
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
+    }
 
-	
-	
+    @Override
+    public String toString() {
+        return "MedicalHospitalAccount [id=" + id + ", doctorId=" + doctorId + ", accountId=" + accountId
+                + ", createTime=" + createTime + ", status=" + status + ", deleted=" + deleted + "]";
+    }
+
+
 }

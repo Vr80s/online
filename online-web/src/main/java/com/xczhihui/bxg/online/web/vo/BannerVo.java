@@ -5,6 +5,7 @@ import com.xczhihui.bxg.online.common.base.vo.OnlineBaseVo;
 
 /**
  * banner图web端调用的结果封装类
+ *
  * @author Rongcai Kang
  */
 public class BannerVo extends OnlineBaseVo {
@@ -19,7 +20,6 @@ public class BannerVo extends OnlineBaseVo {
      */
     private String description;
     /**
-     *
      * 图片跳转路径
      */
     private String imgHref;

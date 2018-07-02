@@ -15,6 +15,7 @@ import org.springframework.util.StringUtils;
 import com.xczhihui.bxg.online.common.domain.ApplyGradeCourse;
 import com.xczhihui.bxg.online.common.domain.Course;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
+import com.xczhihui.bxg.online.web.base.utils.UserLoginUtil;
 import com.xczhihui.bxg.online.web.vo.CourseApplyVo;
 import com.xczhihui.bxg.online.web.vo.CourseDescriptionVo;
 import com.xczhihui.bxg.online.web.vo.CourseLecturVo;
@@ -23,7 +24,6 @@ import com.xczhihui.common.support.dao.SimpleHibernateDao;
 import com.xczhihui.common.support.domain.BxgUser;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.util.enums.CourseForm;
-import com.xczhihui.bxg.online.web.base.utils.UserLoginUtil;
 
 /**
  * 课程底层实现类
@@ -598,9 +598,9 @@ public class CourseDao extends SimpleHibernateDao {
         String courseTableName = "1".equals(ispreview) ? "oe_course_preview" : "oe_course";
         String course_type = "1".equals(ispreview) ? "" : "c.course_type,";
         if (courseId != null) {
-        	
+
             String sql = " select " + course_type + " c.id, c.is_recommend, c.is_free, c.grade_name as courseName ,"
-            		+ "c.description,c.current_price,c.original_cost,c.multimedia_type multimediaType," +
+                    + "c.description,c.current_price,c.original_cost,c.multimedia_type multimediaType," +
 //            			"IF(c.live_status='1', 2, IF(c.live_status='2', 1, 3)) AS broadcastState, "+
                     " if(c.is_free=1,(SELECT count(*) FROM apply_r_grade_course where course_id=c.id)," +
                     " (select  sum(ifnull(student_count,0))+sum(ifnull(default_student_count,0)) from  oe_grade  where course_id=?  and is_delete=0 and status=1)) learnd_count,c.course_length," +
@@ -751,7 +751,7 @@ public class CourseDao extends SimpleHibernateDao {
                 "  c.lecturer teacherName,\n" +
                 "  c.smallimg_path AS smallimgPath,\n" +
                 "  c.multimedia_type multimediaType,\n" +
-                " c.recommend_sort recommendSort,"+
+                " c.recommend_sort recommendSort," +
                 "  IFNULL(\n" +
                 "    (SELECT \n" +
                 "      COUNT(*) \n" +

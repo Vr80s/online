@@ -1,15 +1,17 @@
 package com.xczhihui.bxg.online.common.domain;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import org.hibernate.annotations.Type;
-
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.*;
+
+import org.hibernate.annotations.Type;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 /**
  * @ClassName: MedicalEnrollmentRegulations
- * @Description:  师承-招生简章
+ * @Description: 师承-招生简章
  * @Author: wangyishuai
  * @email: 15210815880@163.com
  * @CreateDate: 2018/5/21 15:06
@@ -28,144 +30,144 @@ public class MedicalEnrollmentRegulations implements Serializable {
     /**
      * 医师id
      */
-    @Column(name="doctor_id")
+    @Column(name = "doctor_id")
     private String doctorId;
     /**
      * 标题
      */
-    @Column(name="title")
+    @Column(name = "title")
     private String title;
     /**
      * 封面
      */
-    @Column(name="cover_img")
+    @Column(name = "cover_img")
     private String coverImg;
     /**
      * 宣传语
      */
-    @Column(name="propaganda")
+    @Column(name = "propaganda")
     private String propaganda;
     /**
      * 老师超短介绍
      */
-    @Column(name="doctor_introduction")
+    @Column(name = "doctor_introduction")
     private String doctorIntroduction;
     /**
      * 学费
      */
-    @Column(name="tuition")
+    @Column(name = "tuition")
     private String tuition;
     /**
      * 招生人数
      */
-    @Column(name="count_limit")
+    @Column(name = "count_limit")
     private String countLimit;
     /**
      * 报名截止时间
      */
     @JsonFormat(pattern = "yyyy.MM.dd", timezone = "GMT+8")
-    @Column(name="deadline")
+    @Column(name = "deadline")
     private Date deadline;
     /**
      * 学习流程
      */
     @Basic(fetch = FetchType.LAZY)
-    @Type(type="text")
-    @Column(name="learning_process")
+    @Type(type = "text")
+    @Column(name = "learning_process")
     private String learningProcess;
     /**
      * 学习开始时间
      */
     @JsonFormat(pattern = "yyyy.MM.dd", timezone = "GMT+8")
-    @Column(name="start_time")
+    @Column(name = "start_time")
     private Date startTime;
     /**
      * 学习截至时间
      */
     @JsonFormat(pattern = "yyyy.MM.dd", timezone = "GMT+8")
-    @Column(name="end_time")
+    @Column(name = "end_time")
     private Date endTime;
     /**
      * 学习地址（省-市-区-详细地址）
      */
-    @Column(name="study_address")
+    @Column(name = "study_address")
     private String studyAddress;
     /**
      * 弟子权益
      */
     @Basic(fetch = FetchType.LAZY)
-    @Type(type="text")
-    @Column(name="rights_and_interests")
+    @Type(type = "text")
+    @Column(name = "rights_and_interests")
     private String rightsAndInterests;
     /**
      * 拜师资格
      */
     @Basic(fetch = FetchType.LAZY)
-    @Type(type="text")
-    @Column(name="qualification")
+    @Type(type = "text")
+    @Column(name = "qualification")
     private String qualification;
     /**
      * 拜师地址
      */
     @Basic(fetch = FetchType.LAZY)
-    @Type(type="text")
-    @Column(name="ceremony_address")
+    @Type(type = "text")
+    @Column(name = "ceremony_address")
     private String ceremonyAddress;
     /**
      * 招生简章
      */
     @Basic(fetch = FetchType.LAZY)
-    @Type(type="text")
-    @Column(name="regulations")
+    @Type(type = "text")
+    @Column(name = "regulations")
     private String regulations;
     /**
      * 报名表附件
      */
-    @Column(name="entry_form_attachment")
+    @Column(name = "entry_form_attachment")
     private String entryFormAttachment;
     /**
      * 创建时间
      */
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
-    @Column(name="create_time")
+    @Column(name = "create_time")
     private Date createTime;
     /**
      * 创建者
      */
-    @Column(name="creator")
+    @Column(name = "creator")
     private String creator;
     /**
      * 更新时间
      */
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
-    @Column(name="update_time")
+    @Column(name = "update_time")
     private Date updateTime;
     /**
      * 更新人
      */
-    @Column(name="updator")
+    @Column(name = "updator")
     private String updator;
     /**
      * 1启用0禁用
      */
-    @Column(name="status")
+    @Column(name = "status")
     private boolean status;
     /**
      * 1已删除0未删除
      */
-    @Column(name="deleted")
+    @Column(name = "deleted")
     private boolean deleted;
     /**
      * 海报
      */
-    @Column(name="poster_img")
+    @Column(name = "poster_img")
     private String posterImg;
     /**
      * 联系人信息
      */
     @Basic(fetch = FetchType.LAZY)
-    @Type(type="text")
-    @Column(name="contact_way")
+    @Type(type = "text")
+    @Column(name = "contact_way")
     private String contactWay;
     /**
      * 报名人数

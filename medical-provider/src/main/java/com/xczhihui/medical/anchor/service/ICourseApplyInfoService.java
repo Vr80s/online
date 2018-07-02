@@ -5,7 +5,7 @@ import com.xczhihui.medical.anchor.model.CourseApplyInfo;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author yuxin

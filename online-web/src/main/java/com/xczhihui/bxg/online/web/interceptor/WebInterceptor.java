@@ -1,8 +1,6 @@
 package com.xczhihui.bxg.online.web.interceptor;
 
 import java.text.MessageFormat;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

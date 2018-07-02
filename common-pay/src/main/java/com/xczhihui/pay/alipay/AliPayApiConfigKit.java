@@ -10,24 +10,25 @@ import com.xczhihui.pay.ext.kit.StrKit;
  * 2017年5月20日
  */
 public class AliPayApiConfigKit {
-	private static final ThreadLocal<String> TL = new ThreadLocal<String>();
-	
-	private static final Map<String, AliPayApiConfig> CFG_MAP = new ConcurrentHashMap<String, AliPayApiConfig>();
-	private static final String DEFAULT_CFG_KEY = "_default_ijpay_key_";
-	
-	/**
-	 * 添加支付宝支付配置，每个appId只需添加一次，相同appId将被覆盖
-	 * @param aliPayApiConfig 支付宝支付配置
-	 * @return {AliPayApiConfig} 支付宝支付配置
-	 */
-	public static AliPayApiConfig putApiConfig(AliPayApiConfig aliPayApiConfig) {
+    private static final ThreadLocal<String> TL = new ThreadLocal<String>();
+
+    private static final Map<String, AliPayApiConfig> CFG_MAP = new ConcurrentHashMap<String, AliPayApiConfig>();
+    private static final String DEFAULT_CFG_KEY = "_default_ijpay_key_";
+
+    /**
+     * 添加支付宝支付配置，每个appId只需添加一次，相同appId将被覆盖
+     *
+     * @param aliPayApiConfig 支付宝支付配置
+     * @return {AliPayApiConfig} 支付宝支付配置
+     */
+    public static AliPayApiConfig putApiConfig(AliPayApiConfig aliPayApiConfig) {
         if (CFG_MAP.size() == 0) {
-        	CFG_MAP.put(DEFAULT_CFG_KEY, aliPayApiConfig);
+            CFG_MAP.put(DEFAULT_CFG_KEY, aliPayApiConfig);
         }
         return CFG_MAP.put(aliPayApiConfig.getAppId(), aliPayApiConfig);
     }
-	
-	public static AliPayApiConfig setThreadLocalAliPayApiConfig(AliPayApiConfig aliPayApiConfig) {
+
+    public static AliPayApiConfig setThreadLocalAliPayApiConfig(AliPayApiConfig aliPayApiConfig) {
         return putApiConfig(aliPayApiConfig);
     }
 
@@ -49,7 +50,7 @@ public class AliPayApiConfigKit {
     public static void removeThreadLocalAppId() {
         TL.remove();
     }
-	
+
     public static String getAppId() {
         String appId = TL.get();
         if (StrKit.isBlank(appId)) {
@@ -64,7 +65,7 @@ public class AliPayApiConfigKit {
     }
 
     public static AliPayApiConfig getApiConfig(String appId) {
-    	AliPayApiConfig cfg = CFG_MAP.get(appId);
+        AliPayApiConfig cfg = CFG_MAP.get(appId);
         if (cfg == null)
             throw new IllegalStateException("需事先调用 AliPayApiConfigKit.putApiConfig(aliPayApiConfig) 将 appId对应的 aliPayApiConfig 对象存入，" +
                     "才可以使用 AliPayApiConfigKit.getAliPayApiConfig() 的系列方法");

@@ -2,11 +2,20 @@ package com.xczhihui.bxg.online.web.service.impl;/**
  * Created by admin on 2016/9/19.
  */
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.common.domain.User;
 import com.xczhihui.bxg.online.web.base.utils.MysqlUtils;
 import com.xczhihui.bxg.online.web.base.utils.TimeUtil;
+import com.xczhihui.bxg.online.web.base.utils.UserLoginUtil;
 import com.xczhihui.bxg.online.web.dao.ASKQuestionListDao;
 import com.xczhihui.bxg.online.web.dao.AskAnswerDao;
 import com.xczhihui.bxg.online.web.dao.CourseDao;
@@ -16,14 +25,7 @@ import com.xczhihui.bxg.online.web.vo.AskAnswerVo;
 import com.xczhihui.bxg.online.web.vo.AskQuestionVo;
 import com.xczhihui.bxg.online.web.vo.CourseVo;
 import com.xczhihui.common.util.bean.Page;
-import com.xczhihui.bxg.online.web.base.utils.UserLoginUtil;
 import com.xczhihui.user.center.vo.Token;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 /**
  * 提问列表页业务层实现类
@@ -42,7 +44,7 @@ public class AskQuestionListServiceImpl extends OnlineBaseServiceImpl implements
     @Autowired
     private CourseDao courseDao;
     @Autowired
-    private UserCenterDao  userDao;
+    private UserCenterDao userDao;
 
     /**
      * 获取问题列表信息
@@ -88,17 +90,16 @@ public class AskQuestionListServiceImpl extends OnlineBaseServiceImpl implements
                 } else {
                     if (u != null) {
                         //看当前用户是否针对当前学科有权限，如果有，可以看到回答信息，否则必须购买才可以看到
-                        OnlineUser user=questionListDao.findOneEntitiyByProperty(OnlineUser.class, "loginName", u.getLoginName());
-                        if(user.getMenuId().intValue()==askQuestionVo.getMent_id().intValue()) {
+                        OnlineUser user = questionListDao.findOneEntitiyByProperty(OnlineUser.class, "loginName", u.getLoginName());
+                        if (user.getMenuId().intValue() == askQuestionVo.getMent_id().intValue()) {
                             //获取当前提问下的问题信息()
                             AskAnswerVo askAnswerVo = questionListDao.findAskAnswerByQuestionId(askQuestionVo.getId(), u);
                             if (askAnswerVo != null) {
                                 askQuestionVo.setAskAnswerVo(askAnswerVo); //将当前问题的回答信息存入提问结果中
                             }
-                        }else
-                        {
+                        } else {
                             //查看当前用户是否购买此学科下的课程
-                            boolean payStatus = courseDao.checkUserToPay(u.getId(),askQuestionVo.getMent_id());
+                            boolean payStatus = courseDao.checkUserToPay(u.getId(), askQuestionVo.getMent_id());
                             if (payStatus) {
                                 //获取当前提问下的问题信息()
                                 AskAnswerVo askAnswerVo = questionListDao.findAskAnswerByQuestionId(askQuestionVo.getId(), u);
@@ -118,6 +119,7 @@ public class AskQuestionListServiceImpl extends OnlineBaseServiceImpl implements
 
     /**
      * 获取问题数据，根据问题ID号
+     *
      * @param questionId 问题ID号
      */
     @Override
@@ -145,13 +147,13 @@ public class AskQuestionListServiceImpl extends OnlineBaseServiceImpl implements
                  * 其次，当前登录用户没有当前学科的权限，用户购买此学科下的课程，他也可以看到回答信息
                  */
                 if (!questionVo.isShowAnswer()) {
-                       OnlineUser u=questionListDao.findOneEntitiyByProperty(OnlineUser.class, "id", loginUser.getId());
-                       if(questionVo.getMent_id().equals(u.getMenuId())){
-                           questionVo.setIsShowAnswer(true);
-                       }else{
-                           boolean payStatus = courseDao.checkUserToPay(loginUser.getId(), questionVo.getMent_id());
-                           questionVo.setIsShowAnswer(payStatus);
-                       }
+                    OnlineUser u = questionListDao.findOneEntitiyByProperty(OnlineUser.class, "id", loginUser.getId());
+                    if (questionVo.getMent_id().equals(u.getMenuId())) {
+                        questionVo.setIsShowAnswer(true);
+                    } else {
+                        boolean payStatus = courseDao.checkUserToPay(loginUser.getId(), questionVo.getMent_id());
+                        questionVo.setIsShowAnswer(payStatus);
+                    }
                 }
             }
             //查看此问题是否被投诉
@@ -210,7 +212,7 @@ public class AskQuestionListServiceImpl extends OnlineBaseServiceImpl implements
     public String saveQuestion(AskQuestionVo qu, HttpServletRequest request) {
         //获取当前登录用户信息
         OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser();
-        loginUser =  userDao.get(loginUser.getId(),OnlineUser.class);
+        loginUser = userDao.get(loginUser.getId(), OnlineUser.class);
         if (loginUser != null) {
             qu.setCreate_nick_name(loginUser.getName());
             qu.setCreate_head_img(loginUser.getSmallHeadPhoto());
@@ -284,7 +286,7 @@ public class AskQuestionListServiceImpl extends OnlineBaseServiceImpl implements
     @Override
     public String deleteQuestionById(OnlineUser u, String questionId, User user) {
         //再删除问题信息
-        questionListDao.deleteQuestionById(questionId, u,user);
+        questionListDao.deleteQuestionById(questionId, u, user);
         //先去删除回答及评论信息
         answerDao.deleteAnswerById(u, "", questionId, user);
 
@@ -292,31 +294,31 @@ public class AskQuestionListServiceImpl extends OnlineBaseServiceImpl implements
     }
 
     /**
-     *
-     * @param videoId  视频id
-     * @param type : 1、全部问题  2、我的问题
+     * @param videoId    视频id
+     * @param type       : 1、全部问题  2、我的问题
      * @param pageNumber
      * @param pageSize
      * @return
      */
     @Override
     public Page<AskQuestionVo> findVideoQuestion(String videoId, Integer type, Integer pageNumber, Integer pageSize, HttpServletRequest request) {
-         //获取当前登录用户信息
-         OnlineUser u = (OnlineUser) UserLoginUtil.getLoginUser();
-         if(u != null){
-             return  questionListDao.findVideoQuestion(videoId,type,pageNumber,pageSize,u);
-         }
-         return  null;
+        //获取当前登录用户信息
+        OnlineUser u = (OnlineUser) UserLoginUtil.getLoginUser();
+        if (u != null) {
+            return questionListDao.findVideoQuestion(videoId, type, pageNumber, pageSize, u);
+        }
+        return null;
     }
 
 
     /**
      * 修改问题信息内容
+     *
      * @param questionVo
      */
     @Override
-    public void updateQuestion(AskQuestionVo  questionVo){
-         questionListDao.updateQuestion(questionVo);
+    public void updateQuestion(AskQuestionVo questionVo) {
+        questionListDao.updateQuestion(questionVo);
     }
 
     @Override
@@ -325,7 +327,7 @@ public class AskQuestionListServiceImpl extends OnlineBaseServiceImpl implements
         title = MysqlUtils.replaceESC(title);
         tag = MysqlUtils.replaceESC(tag);
         //获取所有问题信息
-        Page<AskQuestionVo> askQuestionVos = questionListDao.findMyListQuestion(u.getId(),pageNumber, pageSize, menuId, status, tag, title, text, content);
+        Page<AskQuestionVo> askQuestionVos = questionListDao.findMyListQuestion(u.getId(), pageNumber, pageSize, menuId, status, tag, title, text, content);
         //如果存在提问信息,再循环获取当前问题下点赞数最多的一条回答信息
         if (!CollectionUtils.isEmpty(askQuestionVos.getItems())) {
             //获取当前用户，判断登录用户是否与当前问题的提问者一致，如果一致，则是本人提问，可以删除，否则，反之
@@ -350,17 +352,16 @@ public class AskQuestionListServiceImpl extends OnlineBaseServiceImpl implements
                 } else {
                     if (u != null) {
                         //看当前用户是否针对当前学科有权限，如果有，可以看到回答信息，否则必须购买才可以看到
-                        OnlineUser user=questionListDao.findOneEntitiyByProperty(OnlineUser.class, "loginName", u.getLoginName());
-                        if(user.getMenuId().intValue()==askQuestionVo.getMent_id().intValue()) {
+                        OnlineUser user = questionListDao.findOneEntitiyByProperty(OnlineUser.class, "loginName", u.getLoginName());
+                        if (user.getMenuId().intValue() == askQuestionVo.getMent_id().intValue()) {
                             //获取当前提问下的问题信息()
                             AskAnswerVo askAnswerVo = questionListDao.findAskAnswerByQuestionId(askQuestionVo.getId(), u);
                             if (askAnswerVo != null) {
                                 askQuestionVo.setAskAnswerVo(askAnswerVo); //将当前问题的回答信息存入提问结果中
                             }
-                        }else
-                        {
+                        } else {
                             //查看当前用户是否购买此学科下的课程
-                            boolean payStatus = courseDao.checkUserToPay(u.getId(),askQuestionVo.getMent_id());
+                            boolean payStatus = courseDao.checkUserToPay(u.getId(), askQuestionVo.getMent_id());
                             if (payStatus) {
                                 //获取当前提问下的问题信息()
                                 AskAnswerVo askAnswerVo = questionListDao.findAskAnswerByQuestionId(askQuestionVo.getId(), u);

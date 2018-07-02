@@ -34,14 +34,13 @@ import com.xczhihui.course.vo.CourseLecturVo;
 public class PageController {
 
     @Autowired
+    public IWatchHistoryService watchHistoryServiceImpl;
+    @Autowired
     private ManagerUserService managerUserService;
     @Autowired
     private LiveService liveService;
-
     @Autowired
     private ICourseService courseService;
-
-
     @Value("${env.flag}")
     private String env;
     @Value("${rate}")
@@ -52,9 +51,6 @@ public class PageController {
     private String boshService;//im服务地址
     @Value("${gift.im.host}")
     private String host;
-
-    @Autowired
-    public IWatchHistoryService watchHistoryServiceImpl;
 
     @RequestMapping(value = "/web/courseDetail/{courserId}", method = RequestMethod.GET)
     public ModelAndView courseDetail(@PathVariable String courserId, HttpServletRequest request, HttpServletResponse response) {
@@ -203,7 +199,7 @@ public class PageController {
      */
     @RequestMapping(value = "doctors/my", method = RequestMethod.GET)
     public void doctor(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        request.getRequestDispatcher("/web/html/personal-center/personal-index.html").forward(request, response);
+        request.getRequestDispatcher("/web/html/anchors_resources.html").forward(request, response);
     }
 
     /**

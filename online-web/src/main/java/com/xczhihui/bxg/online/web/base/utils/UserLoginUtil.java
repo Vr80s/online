@@ -9,6 +9,7 @@ import com.xczhihui.common.support.domain.BxgUser;
 /**
  * Description：取当前登录用户,兼容之前调用方式
  * creed: Talk is cheap,show me the code
+ *
  * @author name：yuxin
  * @Date: 2018/6/5 0005 上午 10:20
  **/

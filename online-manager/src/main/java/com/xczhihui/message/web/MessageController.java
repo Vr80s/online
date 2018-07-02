@@ -19,7 +19,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.xczhihui.bxg.online.common.domain.*;
+import com.xczhihui.bxg.online.common.domain.Course;
+import com.xczhihui.bxg.online.common.domain.Grade;
+import com.xczhihui.bxg.online.common.domain.Menu;
+import com.xczhihui.bxg.online.common.domain.MessageRecord;
 import com.xczhihui.common.service.CommonService;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.util.bean.ResponseObject;
@@ -49,19 +52,21 @@ import com.xczhihui.utils.Tools;
 @Controller
 @RequestMapping("message")
 public class MessageController {
+    /**
+     * PATH属性
+     */
+    private static final String PATH = "message/";
     protected Logger logger = LoggerFactory.getLogger(this.getClass());
     /**
      * 消息服务
      */
     @Autowired
     private MessageService messageService;
-
     /**
      * 用户服务
      */
     @Autowired
     private UserService userService;
-
     /**
      * 公共服务
      */
@@ -72,14 +77,8 @@ public class MessageController {
      */
     @Autowired
     private CourseService courseService;
-
     @Autowired
     private ICommonMessageService commonMessageService;
-
-    /**
-     * PATH属性
-     */
-    private static final String PATH = "message/";
 
     /**
      * 跳转到页面

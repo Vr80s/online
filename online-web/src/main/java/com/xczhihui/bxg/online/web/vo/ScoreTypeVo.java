@@ -1,7 +1,8 @@
 package com.xczhihui.bxg.online.web.vo;
 
 /**
- *  课程类别结果封装类
+ * 课程类别结果封装类
+ *
  * @author Rongcai Kang
  */
 public class ScoreTypeVo {

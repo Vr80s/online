@@ -28,11 +28,9 @@ public class MultiUrlHelper {
     public static final String URL_TYPE_APP = "app";
     public static final String URL_TYPE_WEB = "web";
     public static final String URL_TYPE_MOBILE = "mobile";
-
-    private static Map<String, Map<String, String>> urlMap = new HashMap<>();
     private static final String APP_COURSE_DETAIL = "xczh://ipandatcm.com/courseDetail?id={0}";
     private static final String WEB_COURSE_DETAIL = "/courses/{0}/info";
-
+    private static Map<String, Map<String, String>> urlMap = new HashMap<>();
     private static Map<String, String> collectionCourseDetailUrlMap = ImmutableMap.of(
             URL_TYPE_APP, APP_COURSE_DETAIL,
             URL_TYPE_WEB, WEB_COURSE_DETAIL,

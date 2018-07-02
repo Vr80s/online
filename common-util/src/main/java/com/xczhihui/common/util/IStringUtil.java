@@ -32,13 +32,14 @@ public final class IStringUtil {
         return text;
     }
 
-    public static String getUuid(){
+    public static String getUuid() {
         return UUID.randomUUID().toString().replace("-", "");
     }
 
     /**
      * Description：获取指定位数的随机字符串(包含小写字母、大写字母、数字,0<length)
      * creed: Talk is cheap,show me the code
+     *
      * @author name：yuxin <br>email: yuruixin@ixincheng.com
      * @Date: 2018/4/19 0019 下午 6:41
      **/

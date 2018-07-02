@@ -20,6 +20,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Description：solr工具类
  * creed: Talk is cheap,show me the code
+ *
  * @author name：yuxin
  * @Date: 2018/6/21 0021 下午 3:36
  **/
@@ -30,15 +31,16 @@ public class SolrUtils {
     private String pre;
     private String post;
 
-    public SolrUtils(String solrUrl,String coreName,String pre,String post) {
+    public SolrUtils(String solrUrl, String coreName, String pre, String post) {
         this.pre = pre;
         this.post = post;
-        solrClient = SolrClientFactory.getSolrClient(solrUrl,coreName);
+        solrClient = SolrClientFactory.getSolrClient(solrUrl, coreName);
     }
 
     /**
      * Description：添加单个文档
      * creed: Talk is cheap,show me the code
+     *
      * @author name：yuxin
      * @Date: 2018/6/16 0016 下午 5:57
      **/
@@ -50,6 +52,7 @@ public class SolrUtils {
     /**
      * Description：根据id删除
      * creed: Talk is cheap,show me the code
+     *
      * @author name：yuxin
      * @Date: 2018/6/16 0016 下午 5:54
      **/
@@ -61,6 +64,7 @@ public class SolrUtils {
     /**
      * Description：关键字分页查询
      * creed: Talk is cheap,show me the code
+     *
      * @author name：yuxin
      * @Date: 2018/6/16 0016 下午 7:27
      **/
@@ -78,8 +82,8 @@ public class SolrUtils {
         }
         //显示匹配度得分
         query.set("fl", "*,score");
-        logger.info("solr query:{}",searchStr);
-        logger.info("solr :{}",query.toString());
+        logger.info("solr query:{}", searchStr);
+        logger.info("solr :{}", query.toString());
         QueryResponse response = solrClient.query(query);
         // 查询结果集
         SolrDocumentList results = response.getResults();
@@ -93,17 +97,18 @@ public class SolrUtils {
     /**
      * Description：带高亮的关键字查询
      * creed: Talk is cheap,show me the code
+     *
      * @author name：yuxin
      * @Date: 2018/6/16 0016 下午 7:25
      **/
-    public <T> SolrPages getHighterByPage(String searchStr, int pageNum, int pageSize, Class<T> clzz, Map<String, SolrQuery.ORDER> sortMap,List<String> hlFields) throws IOException, SolrServerException {
+    public <T> SolrPages getHighterByPage(String searchStr, int pageNum, int pageSize, Class<T> clzz, Map<String, SolrQuery.ORDER> sortMap, List<String> hlFields) throws IOException, SolrServerException {
         String preTag = pre;
         String postTag = post;
 
         SolrQuery query = new SolrQuery();
         //排序字段
         for (String key : sortMap.keySet()) {
-                query.addSort(key, sortMap.get(key));
+            query.addSort(key, sortMap.get(key));
         }
         // 查询内容
         query.setQuery(searchStr)
@@ -193,9 +198,10 @@ public class SolrUtils {
         }
     }
 
-     /**
+    /**
      * Description：
      * creed: Talk is cheap,show me the code
+     *
      * @author name：yuxin
      * @Date: 2018/6/16 0016 下午 5:32
      **/

@@ -2,6 +2,7 @@ package com.xczhihui.bxg.online.web.vo;
 
 /**
  * 试卷内容的结果封装类
+ *
  * @author Rongcai Kang
  */
 public class BarrierQuestionVo {
@@ -26,7 +27,7 @@ public class BarrierQuestionVo {
     /**
      * 选项图片
      */
-    private String  options_picture;
+    private String options_picture;
 
     /**
      * 题目本身分数
@@ -49,17 +50,16 @@ public class BarrierQuestionVo {
     /**
      * 是否正确:0错误 1:正确
      */
-    private  Integer is_right;
-    
+    private Integer is_right;
+    private String barrier_id;
+
     public String getBarrier_id() {
-		return barrier_id;
-	}
+        return barrier_id;
+    }
 
-	public void setBarrier_id(String barrier_id) {
-		this.barrier_id = barrier_id;
-	}
-
-	private String barrier_id;
+    public void setBarrier_id(String barrier_id) {
+        this.barrier_id = barrier_id;
+    }
 
     public String getId() {
         return id;

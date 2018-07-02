@@ -1,16 +1,16 @@
 package com.xczhihui.bxg.online.web.vo;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 /**
  * Created by rongcai  Kang  on 2016/11/8.
  */
-public class OrderVo   implements Serializable {
+public class OrderVo implements Serializable {
 
     private String id;
     /**
@@ -22,7 +22,7 @@ public class OrderVo   implements Serializable {
      */
     private String preferenty_way;
     /**
-     *优惠金额
+     * 优惠金额
      */
     private String preferenty_money;
     /**
@@ -38,12 +38,12 @@ public class OrderVo   implements Serializable {
     /**
      * 购买者
      */
-    private String  purchaser;
+    private String purchaser;
 
     /**
      * 课程名称
      */
-    private String  course_name;
+    private String course_name;
 
     /**
      * 创建人登录名
@@ -58,7 +58,7 @@ public class OrderVo   implements Serializable {
     /**
      * 原价
      */
-    private String  original_cost;
+    private String original_cost;
 
     /**
      * 课程图片
@@ -68,12 +68,12 @@ public class OrderVo   implements Serializable {
     /**
      * 支付账号
      */
-    private  String   pay_account;
+    private String pay_account;
 
     /**
      * 当前登录用户
      */
-    private String  user_id;
+    private String user_id;
 
     /**
      * 创建时间
@@ -81,16 +81,16 @@ public class OrderVo   implements Serializable {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")
 //    @JsonFormat(pattern = "yyyy-mm-dd hh:mm:ss", timezone = "GMT+8")
     private Date create_time;
-    
+
     /**
-	 * 订单来源，0官网（本系统），1分销系统，2线下（刷数据）
-	 */
+     * 订单来源，0官网（本系统），1分销系统，2线下（刷数据）
+     */
     private Integer order_from;
 
     /**
      * 订单详情：订单中包含的所有课程
      */
-    private List<Map<String,Object>> orderDetail;
+    private List<Map<String, Object>> orderDetail;
     /**
      * 班级id
      */
@@ -216,13 +216,13 @@ public class OrderVo   implements Serializable {
         this.user_id = user_id;
     }
 
-	public Integer getOrder_from() {
-		return order_from;
-	}
+    public Integer getOrder_from() {
+        return order_from;
+    }
 
-	public void setOrder_from(Integer order_from) {
-		this.order_from = order_from;
-	}
+    public void setOrder_from(Integer order_from) {
+        this.order_from = order_from;
+    }
 
     public List<Map<String, Object>> getOrderDetail() {
         return orderDetail;
@@ -232,11 +232,11 @@ public class OrderVo   implements Serializable {
         this.orderDetail = orderDetail;
     }
 
-	public String getClass_id() {
-		return class_id;
-	}
+    public String getClass_id() {
+        return class_id;
+    }
 
-	public void setClass_id(String class_id) {
-		this.class_id = class_id;
-	}
+    public void setClass_id(String class_id) {
+        this.class_id = class_id;
+    }
 }

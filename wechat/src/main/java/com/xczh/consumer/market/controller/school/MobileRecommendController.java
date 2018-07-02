@@ -38,7 +38,7 @@ import com.xczhihui.course.vo.QueryConditionVo;
 @Controller
 @RequestMapping("/xczh/recommend")
 public class MobileRecommendController {
-	
+
     private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(MobileRecommendController.class);
 
 
@@ -110,7 +110,7 @@ public class MobileRecommendController {
      */
     @RequestMapping("queryAllCourse")
     @ResponseBody
-    public ResponseObject queryAllCourse( QueryConditionVo queryConditionVo, Integer pageNumber, Integer pageSize) throws Exception {
+    public ResponseObject queryAllCourse(QueryConditionVo queryConditionVo, Integer pageNumber, Integer pageSize) throws Exception {
 
         pageNumber = pageNumber == null ? 1 : pageNumber;
         pageSize = pageSize == null ? Integer.MAX_VALUE : pageSize;
@@ -129,15 +129,15 @@ public class MobileRecommendController {
             queryConditionVo.setLineState(null);
         }
         if (queryConditionVo.getCourseType() != null) {
-            if(queryConditionVo.getCourseType().equals(CourseType.VIDEO.getId())){
+            if (queryConditionVo.getCourseType().equals(CourseType.VIDEO.getId())) {
                 queryConditionVo.setCourseForm(CourseForm.VOD.getCode());
                 queryConditionVo.setMultimediaType(Multimedia.VIDEO.getCode());
-            }else if(queryConditionVo.getCourseType().equals(CourseType.AUDIO.getId())){
+            } else if (queryConditionVo.getCourseType().equals(CourseType.AUDIO.getId())) {
                 queryConditionVo.setCourseForm(CourseForm.VOD.getCode());
                 queryConditionVo.setMultimediaType(Multimedia.AUDIO.getCode());
-            }else if(queryConditionVo.getCourseType().equals(CourseType.LIVE.getId())){
+            } else if (queryConditionVo.getCourseType().equals(CourseType.LIVE.getId())) {
                 queryConditionVo.setCourseForm(CourseForm.LIVE.getCode());
-            }else if(queryConditionVo.getCourseType().equals(CourseType.OFFLINE.getId())){
+            } else if (queryConditionVo.getCourseType().equals(CourseType.OFFLINE.getId())) {
                 queryConditionVo.setCourseForm(CourseForm.OFFLINE.getCode());
             }
         }

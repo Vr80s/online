@@ -15,7 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.xczhihui.anchor.service.AnchorService;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.util.bean.ResponseObject;
-import com.xczhihui.common.util.enums.CourseStatus;
 import com.xczhihui.course.service.CourseService;
 import com.xczhihui.course.vo.CourseVo;
 import com.xczhihui.course.vo.MenuVo;

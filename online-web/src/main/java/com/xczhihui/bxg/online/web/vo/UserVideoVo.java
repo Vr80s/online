@@ -2,8 +2,8 @@ package com.xczhihui.bxg.online.web.vo;
 
 /**
  * 用户视频分装类
- * @author Rongcai Kang
  *
+ * @author Rongcai Kang
  */
 public class UserVideoVo {
 
@@ -17,7 +17,7 @@ public class UserVideoVo {
      */
     private String video_id;
     /**
-     *用户id
+     * 用户id
      */
     private String user_id;
 

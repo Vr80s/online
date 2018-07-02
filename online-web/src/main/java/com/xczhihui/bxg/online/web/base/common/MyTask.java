@@ -1,17 +1,16 @@
 package com.xczhihui.bxg.online.web.base.common;
 
-import com.xczhihui.common.support.dao.SimpleHibernateDao;
-import com.xczhihui.bxg.online.web.dao.OrderDao;
-import com.xczhihui.bxg.online.web.service.CourseService;
-import com.xczhihui.bxg.online.web.service.MessageService;
-import com.xczhihui.medical.anchor.service.ICourseApplyService;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+
+import com.xczhihui.bxg.online.web.dao.OrderDao;
+import com.xczhihui.bxg.online.web.service.CourseService;
+import com.xczhihui.common.support.dao.SimpleHibernateDao;
+import com.xczhihui.medical.anchor.service.ICourseApplyService;
 
 /**
  * Created by admin on 2016/11/11.

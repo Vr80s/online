@@ -4,6 +4,7 @@ package com.xczhihui.common.util.enums;
  * Description：支付订单类型
  * 1主播2权限禁用0非主播
  * creed: Talk is cheap,show me the code
+ *
  * @author name：yuxin <br>email: yuruixin@ixincheng.com
  * @Date: 下午 3:39 2018/1/29 0029
  **/

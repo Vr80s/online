@@ -33,10 +33,8 @@ import com.xczhihui.utils.PageVo;
 @Service("userService")
 public class UserServiceImpl implements UserService {
 
-    protected Logger logger = LoggerFactory.getLogger(this.getClass());
-
     private final static String pwd = "123456";
-
+    protected Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     private UserDao userDao;
     @Autowired

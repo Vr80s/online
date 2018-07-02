@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.xczhihui.bxg.online.common.base.controller.OnlineBaseController;
-import com.xczhihui.user.center.service.VerificationCodeService;
 import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.common.util.enums.VCodeType;
+import com.xczhihui.user.center.service.VerificationCodeService;
 
 @RestController
 @RequestMapping(value = "/online/verificationCode")

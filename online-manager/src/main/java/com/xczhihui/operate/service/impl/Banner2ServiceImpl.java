@@ -51,7 +51,7 @@ public class Banner2ServiceImpl extends OnlineBaseServiceImpl implements
         banner.setCreateTime(new Date()); // 当前时间
         banner.setDelete(false); // 是否被删除
         banner.setImgHref(banner2Vo.getImgHref());
-         // 图片的外链
+        // 图片的外链
         banner.setImgPath(banner2Vo.getImgPath());// 图片的地址
         banner.setSort(sort);
         banner.setStatus(0);// 默认禁用

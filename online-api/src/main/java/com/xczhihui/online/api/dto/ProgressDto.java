@@ -7,7 +7,7 @@ import java.util.Date;
  * @author liutao
  * @create 2017-09-19 14:51
  **/
-public class ProgressDto implements Serializable{
+public class ProgressDto implements Serializable {
 
     private Date reviewerTime;
     private String againstReason;

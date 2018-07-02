@@ -1,9 +1,11 @@
 package com.xczhihui.bxg.online.web.utils.alipay.util.httpClient;
 
 
-import com.xczhihui.bxg.online.web.utils.alipay.config.AlipayConfig;
-import org.apache.commons.httpclient.Header;
 import java.io.UnsupportedEncodingException;
+
+import org.apache.commons.httpclient.Header;
+
+import com.xczhihui.bxg.online.web.utils.alipay.config.AlipayConfig;
 
 /* *
  *类名：HttpResponse
@@ -26,12 +28,12 @@ public class HttpResponse {
     /**
      * String类型的result
      */
-    private String   stringResult;
+    private String stringResult;
 
     /**
      * btye类型的result
      */
-    private byte[]   byteResult;
+    private byte[] byteResult;
 
     public Header[] getResponseHeaders() {
         return responseHeaders;

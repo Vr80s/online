@@ -22,12 +22,12 @@ public class MedicalDoctorServiceImplTest extends BaseJunit4Test {
     private IMedicalDoctorSolrService service;
 
     @Test
-    public void testSolrInit(){
+    public void testSolrInit() {
     }
 
     @Test
     public void testSolrQuery() throws IOException, SolrServerException {
-        Page page = new Page(1,10);
+        Page page = new Page(1, 10);
         DoctorQueryVo dqv = new DoctorQueryVo();
         dqv.setQueryKey("会针灸的于心");
         Page<MedicalDoctorSolrVO> medicalDoctorSolrVOPage = service.selectDoctorListBySolr(page, dqv);

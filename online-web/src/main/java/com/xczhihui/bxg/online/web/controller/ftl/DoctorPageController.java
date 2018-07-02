@@ -105,12 +105,12 @@ public class DoctorPageController extends AbstractFtlController {
         ModelAndView view = new ModelAndView("doctor/details");
 
         MedicalDoctorVO doctor = medicalDoctorBusinessService.selectDoctorById(id);
-        if(doctor == null){
+        if (doctor == null) {
             return to404();
         }
-        
-		doctor.setWorkTime(XzStringUtils.workTimeScreen(doctor.getWorkTime()));
-		
+
+        doctor.setWorkTime(XzStringUtils.workTimeScreen(doctor.getWorkTime()));
+
         view.addObject("doctor", doctor);
 
         Page page = new Page<>();
@@ -144,14 +144,14 @@ public class DoctorPageController extends AbstractFtlController {
     }
 
     @RequestMapping(value = "list", method = RequestMethod.GET)
-    public ModelAndView list(@RequestParam(value = "page", required = false) Integer current, Integer size, String name, DoctorQueryVo dqv ) throws IOException, SolrServerException {
+    public ModelAndView list(@RequestParam(value = "page", required = false) Integer current, Integer size, String name, DoctorQueryVo dqv) throws IOException, SolrServerException {
         ModelAndView view = new ModelAndView("doctor/list");
         current = current == null ? 1 : current;
         size = size == null ? 10 : size;
         dqv.setQueryKey(name);
 //        Page<MedicalDoctorVO> doctors = medicalDoctorBusinessService.selectDoctorPage(new Page(current, size), type, hospitalId, name, field, departmentId);
 
-        Page<MedicalDoctorSolrVO> doctors = medicalDoctorSolrService.selectDoctorListBySolr(new Page(current, size),dqv);
+        Page<MedicalDoctorSolrVO> doctors = medicalDoctorSolrService.selectDoctorListBySolr(new Page(current, size), dqv);
 
         view.addObject("doctors", doctors);
 

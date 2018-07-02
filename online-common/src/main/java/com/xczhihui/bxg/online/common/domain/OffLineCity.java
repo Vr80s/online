@@ -1,109 +1,106 @@
 package com.xczhihui.bxg.online.common.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import com.xczhihui.common.support.domain.BasicEntity2;
 
-import java.io.Serializable;
-import java.lang.Integer;
-
 /**
  * 菜单实体类
+ *
  * @author Rongcai Kang
  */
 @Entity
 @Table(name = "oe_offline_city")
 public class OffLineCity extends BasicEntity2 implements Serializable {
 
-	private static final long serialVersionUID = 6249862612548452415L;
-	/**
-	 * 专题名
-	 */
-	@Column(name = "city_name")
-	private String cityName;
-	/**
-	 * 专题图标
-	 */
-	@Column(name = "icon")
-	private String icon;
-	
-	/**
-	 * 专题排序
-	 */
-	@Column(name = "sort")
-	private Integer sort;
-	
-	/**
-	 * 是否推荐
-	 */
-	@Column(name = "is_recommend")
-	private Integer isRecommend;
-	
-	/**
-	 * 禁用状态
-	 */
-	@Column(name = "status")
-	private Integer status;
-	/**
-	 * 备注
-	 */
-	@Column(name = "remark")
-	private String remark;
+    private static final long serialVersionUID = 6249862612548452415L;
+    /**
+     * 专题名
+     */
+    @Column(name = "city_name")
+    private String cityName;
+    /**
+     * 专题图标
+     */
+    @Column(name = "icon")
+    private String icon;
 
-	
+    /**
+     * 专题排序
+     */
+    @Column(name = "sort")
+    private Integer sort;
 
-	public String getCityName() {
-		return cityName;
-	}
+    /**
+     * 是否推荐
+     */
+    @Column(name = "is_recommend")
+    private Integer isRecommend;
 
-	public void setCityName(String cityName) {
-		this.cityName = cityName;
-	}
+    /**
+     * 禁用状态
+     */
+    @Column(name = "status")
+    private Integer status;
+    /**
+     * 备注
+     */
+    @Column(name = "remark")
+    private String remark;
 
-	public Integer getIsRecommend() {
-		return isRecommend;
-	}
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
 
-	public void setIsRecommend(Integer isRecommend) {
-		this.isRecommend = isRecommend;
-	}
+    public String getCityName() {
+        return cityName;
+    }
 
-	public Integer getSort() {
-		return sort;
-	}
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
+    }
 
-	public void setSort(Integer sort) {
-		this.sort = sort;
-	}
+    public Integer getIsRecommend() {
+        return isRecommend;
+    }
 
-	public static long getSerialVersionUID() {
-		return serialVersionUID;
-	}
+    public void setIsRecommend(Integer isRecommend) {
+        this.isRecommend = isRecommend;
+    }
 
+    public Integer getSort() {
+        return sort;
+    }
 
-	public Integer getStatus() {
-		return status;
-	}
+    public void setSort(Integer sort) {
+        this.sort = sort;
+    }
 
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
+    public Integer getStatus() {
+        return status;
+    }
 
-	public String getRemark() {
-		return remark;
-	}
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
 
-	public void setRemark(String remark) {
-		this.remark = remark;
-	}
+    public String getRemark() {
+        return remark;
+    }
 
-	public String getIcon() {
-		return icon;
-	}
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
 
-	public void setIcon(String icon) {
-		this.icon = icon;
-	}
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
 }

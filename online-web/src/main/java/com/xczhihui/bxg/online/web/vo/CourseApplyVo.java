@@ -133,10 +133,13 @@ public class CourseApplyVo {
         return isFree;
     }
 
+    public void setFree(boolean free) {
+        isFree = free;
+    }
+
     public void setIsFree(boolean isFree) {
         this.isFree = isFree;
     }
-
 
     public String getBigImgPath() {
         return bigImgPath;
@@ -208,9 +211,5 @@ public class CourseApplyVo {
 
     public void setStartTime(Date startTime) {
         this.startTime = startTime;
-    }
-
-    public void setFree(boolean free) {
-        isFree = free;
     }
 }

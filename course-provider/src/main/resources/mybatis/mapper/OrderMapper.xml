@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xczhihui.course.mapper.OrderMapper">
-	
-	
-	<!-- 通过订单id查找对应的课程 -->
-	<select id="getCourseByOrderId" resultType="com.xczhihui.course.vo.OnlineCourseVo">
-		SELECT
-			course.id,
-			course.grade_name AS gradeName,
-			course.default_student_count,
-			de.actual_pay AS actualPay,
-			course.collection AS collection,
-			course.current_price * 10 AS currentPrice,
-			IF(course.type = 1,1,IF( course.type = 3, 4, IF ( course.multimedia_type = 1, 2, 3 ) )) AS type,
-			course.live_status AS lineState,
-			course.start_time AS startTime,
-			course.end_time AS endTime,
-			course.lecturer AS teacherName,
-			ou.id AS userId,
-			course.smallimg_path AS smallimgPath 
-		FROM
-			oe_order_detail AS de,
-			oe_course AS course,
-			oe_user AS ou 
-		WHERE
-			de.course_id = course.id 
-			AND course.user_lecturer_id = ou.id 
-			AND de.order_id = #{orderId}
-	</select>
+
+
+    <!-- 通过订单id查找对应的课程 -->
+    <select id="getCourseByOrderId" resultType="com.xczhihui.course.vo.OnlineCourseVo">
+        SELECT
+        course.id,
+        course.grade_name AS gradeName,
+        course.default_student_count,
+        de.actual_pay AS actualPay,
+        course.collection AS collection,
+        course.current_price * 10 AS currentPrice,
+        IF(course.type = 1,1,IF( course.type = 3, 4, IF ( course.multimedia_type = 1, 2, 3 ) )) AS type,
+        course.live_status AS lineState,
+        course.start_time AS startTime,
+        course.end_time AS endTime,
+        course.lecturer AS teacherName,
+        ou.id AS userId,
+        course.smallimg_path AS smallimgPath
+        FROM
+        oe_order_detail AS de,
+        oe_course AS course,
+        oe_user AS ou
+        WHERE
+        de.course_id = course.id
+        AND course.user_lecturer_id = ou.id
+        AND de.order_id = #{orderId}
+    </select>
 </mapper>

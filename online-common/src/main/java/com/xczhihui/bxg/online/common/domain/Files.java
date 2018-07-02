@@ -8,40 +8,42 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.xczhihui.common.support.domain.BasicEntity;
+
 /**
- *  文件实体类
+ * 文件实体类
+ *
  * @author yxd
  */
 @Entity
 @Table(name = "oe_files")
-public class Files extends BasicEntity implements Serializable{
-	
-	@Column(name = "chapter_id")//章节表ID
+public class Files extends BasicEntity implements Serializable {
+
+    @Column(name = "chapter_id")//章节表ID
     private String chapterId;
-	@Column(name = "name")//名称
+    @Column(name = "name")//名称
     private String name;
-	@Column(name = "version")//版本
+    @Column(name = "version")//版本
     private String version;
-	@Column(name = "suffix")//后缀
+    @Column(name = "suffix")//后缀
     private String suffix;
-	@Column(name = "type")//文件类型
+    @Column(name = "type")//文件类型
     private Integer type;
-	@Column(name = "file_url")//文件路径
+    @Column(name = "file_url")//文件路径
     private String fileUrl;
-	@Column(name = "sort")//排序
+    @Column(name = "sort")//排序
     private Integer sort;
-	@Column(name = "status")//状态
+    @Column(name = "status")//状态
     private Integer status;
-	@Column(name = "course_id")//课程id
+    @Column(name = "course_id")//课程id
     private Integer courseId;
-	@Column(name = "description")//描述
-    private String  description;
-	
-	@Transient
-	private String fileUrlOld;
-	@Transient
-	private String chapterName;
- 
+    @Column(name = "description")//描述
+    private String description;
+
+    @Transient
+    private String fileUrlOld;
+    @Transient
+    private String chapterName;
+
     public String getChapterId() {
         return chapterId;
     }
@@ -89,7 +91,7 @@ public class Files extends BasicEntity implements Serializable{
     public void setFileUrl(String fileUrl) {
         this.fileUrl = fileUrl == null ? null : fileUrl.trim();
     }
-   
+
     public Integer getSort() {
         return sort;
     }
@@ -111,32 +113,32 @@ public class Files extends BasicEntity implements Serializable{
     }
 
     public void setCourseId(Integer courseId) {
-        this.courseId = courseId ;
+        this.courseId = courseId;
     }
 
-	public String getDescription() {
-		return description;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public String getFileUrlOld() {
-		return fileUrlOld;
-	}
+    public String getFileUrlOld() {
+        return fileUrlOld;
+    }
 
-	public void setFileUrlOld(String fileUrlOld) {
-		this.fileUrlOld = fileUrlOld;
-	}
+    public void setFileUrlOld(String fileUrlOld) {
+        this.fileUrlOld = fileUrlOld;
+    }
 
-	public String getChapterName() {
-		return chapterName;
-	}
+    public String getChapterName() {
+        return chapterName;
+    }
 
-	public void setChapterName(String chapterName) {
-		this.chapterName = chapterName;
-	}
-    
-    
+    public void setChapterName(String chapterName) {
+        this.chapterName = chapterName;
+    }
+
+
 }

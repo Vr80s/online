@@ -10,51 +10,51 @@ import com.xczhihui.common.support.domain.BasicEntity2;
 
 @Entity
 @Table(name = "oe_wechat_channel")
-public class WechatChannel extends BasicEntity2 implements Serializable{
-    
-	private static final long serialVersionUID = 80806126338955818L;
+public class WechatChannel extends BasicEntity2 implements Serializable {
 
-	@Column(name = "name")
+    private static final long serialVersionUID = 80806126338955818L;
+
+    @Column(name = "name")
     private String name;
 
-	@Column(name = "contact")
+    @Column(name = "contact")
     private String contact;
 
-	@Column(name = "mobile")
+    @Column(name = "mobile")
     private String mobile;
 
-	@Column(name = "qr_code_img")
+    @Column(name = "qr_code_img")
     private String qrCodeImg;
 
-	@Column(name = "status")
+    @Column(name = "status")
     private String status;
 
-	@Column(name = "sort")
+    @Column(name = "sort")
     private Integer sort;
 
-	@Column(name = "area")
+    @Column(name = "area")
     private String area;
-	
-	@Column(name = "city")
+
+    @Column(name = "city")
     private String city;
 
-	@Column(name = "province")
+    @Column(name = "province")
     private String province;
-	
-	
-	@Column(name = "area_id")
+
+
+    @Column(name = "area_id")
     private Integer areaId;
-	
-	@Column(name = "city_id")
+
+    @Column(name = "city_id")
     private Integer cityId;
 
-	@Column(name = "province_id")
+    @Column(name = "province_id")
     private Integer provinceId;
-	
-	@Column(name = "custom_qr_code_url")
+
+    @Column(name = "custom_qr_code_url")
     private String customQrCodeUrl;
-	
-	@Column(name = "custom_caoliao_qrcode")
+
+    @Column(name = "custom_caoliao_qrcode")
     private String customCaoliaoQrcode;
 
 
@@ -124,54 +124,53 @@ public class WechatChannel extends BasicEntity2 implements Serializable{
         this.sort = sort;
     }
 
-	public String getArea() {
-		return area;
-	}
+    public String getArea() {
+        return area;
+    }
 
-	public void setArea(String area) {
-		this.area = area;
-	}
+    public void setArea(String area) {
+        this.area = area;
+    }
 
-	public Integer getAreaId() {
-		return areaId;
-	}
+    public Integer getAreaId() {
+        return areaId;
+    }
 
-	public void setAreaId(Integer areaId) {
-		this.areaId = areaId;
-	}
+    public void setAreaId(Integer areaId) {
+        this.areaId = areaId;
+    }
 
-	public Integer getCityId() {
-		return cityId;
-	}
+    public Integer getCityId() {
+        return cityId;
+    }
 
-	public void setCityId(Integer cityId) {
-		this.cityId = cityId;
-	}
+    public void setCityId(Integer cityId) {
+        this.cityId = cityId;
+    }
 
-	public Integer getProvinceId() {
-		return provinceId;
-	}
+    public Integer getProvinceId() {
+        return provinceId;
+    }
 
-	public void setProvinceId(Integer provinceId) {
-		this.provinceId = provinceId;
-	}
+    public void setProvinceId(Integer provinceId) {
+        this.provinceId = provinceId;
+    }
 
-	public String getCustomQrCodeUrl() {
-		return customQrCodeUrl;
-	}
+    public String getCustomQrCodeUrl() {
+        return customQrCodeUrl;
+    }
 
-	public void setCustomQrCodeUrl(String customQrCodeUrl) {
-		this.customQrCodeUrl = customQrCodeUrl;
-	}
+    public void setCustomQrCodeUrl(String customQrCodeUrl) {
+        this.customQrCodeUrl = customQrCodeUrl;
+    }
 
-	public String getCustomCaoliaoQrcode() {
-		return customCaoliaoQrcode;
-	}
+    public String getCustomCaoliaoQrcode() {
+        return customCaoliaoQrcode;
+    }
 
-	public void setCustomCaoliaoQrcode(String customCaoliaoQrcode) {
-		this.customCaoliaoQrcode = customCaoliaoQrcode;
-	}
-	
-	
-	
+    public void setCustomCaoliaoQrcode(String customCaoliaoQrcode) {
+        this.customCaoliaoQrcode = customCaoliaoQrcode;
+    }
+
+
 }

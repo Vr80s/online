@@ -20,7 +20,6 @@ import com.xczh.consumer.market.wxpay.consts.WxPayConst;
 import com.xczhihui.common.util.CodeUtil;
 import com.xczhihui.common.util.enums.UserOrigin;
 import com.xczhihui.user.center.service.UserCenterService;
-import com.xczhihui.user.center.utils.CookieUtil;
 import com.xczhihui.user.center.vo.OeUserVO;
 import com.xczhihui.user.center.vo.ThirdFlag;
 

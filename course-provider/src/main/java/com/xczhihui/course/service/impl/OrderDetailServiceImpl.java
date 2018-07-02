@@ -1,16 +1,17 @@
 package com.xczhihui.course.service.impl;
 
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xczhihui.course.mapper.OrderDetailMapper;
 import com.xczhihui.course.model.OrderDetail;
 import com.xczhihui.course.service.IOrderDetailService;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author yuxin
@@ -20,7 +21,7 @@ import java.util.List;
 public class OrderDetailServiceImpl extends ServiceImpl<OrderDetailMapper, OrderDetail> implements IOrderDetailService {
 
     @Override
-    public void saveOrderDetail(OrderDetail orderDetail){
+    public void saveOrderDetail(OrderDetail orderDetail) {
         this.baseMapper.insert(orderDetail);
     }
 

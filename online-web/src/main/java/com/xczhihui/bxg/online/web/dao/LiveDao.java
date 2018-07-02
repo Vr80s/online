@@ -244,7 +244,7 @@ public class LiveDao extends SimpleHibernateDao {
                     "    ON c.user_lecturer_id = ou.id \n" +
                     "WHERE c.type = 1 \n" +
                     "  AND c.is_delete = 0 \n" +
-                    "  AND c.status = 1 \n" + 
+                    "  AND c.status = 1 \n" +
                     "ORDER BY broadcastState asc, recommendSort desc," +
                     "  c.start_time desc");
         } else {

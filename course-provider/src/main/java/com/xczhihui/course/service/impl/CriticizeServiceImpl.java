@@ -42,6 +42,34 @@ public class CriticizeServiceImpl extends ServiceImpl<CriticizeMapper, Criticize
     @Autowired
     private CourseMapper iCourseMapper;
 
+    /**
+     * Description：求平均值，并且把小数点的都截取到5，或者大于5的
+     * creed: Talk is cheap,show me the code
+     *
+     * @author name：yuxin <br>email: yuruixin@ixincheng.com
+     * @Date: 2018/4/18 0018 上午 11:47
+     **/
+    public static Double getCriticizeStartLevel(Criticize criticize) {
+        BigDecimal totalAmount = new BigDecimal(criticize.getOverallLevel());
+        totalAmount = totalAmount.add(new BigDecimal(criticize.getContentLevel()));
+        totalAmount = totalAmount.add(new BigDecimal(criticize.getDeductiveLevel()));
+
+        // 得到平均数，保留一位小数
+        BigDecimal startLevel = totalAmount.divide(new BigDecimal(3), 1, BigDecimal.ROUND_HALF_UP);
+        String b = startLevel.toString();
+        if (b.length() > 1 && !b.substring(b.length() - 1, b.length()).equals("0")) {
+            String[] arr = b.split("\\.");
+            Integer tmp = Integer.parseInt(arr[1]);
+            if (tmp >= 5) {
+                return (double) (Integer.parseInt(arr[0]) + 1);
+            } else {
+                return Double.valueOf(arr[0] + "." + 5);
+            }
+        } else {
+            return startLevel.doubleValue();
+        }
+    }
+
     @Override
     public Map<String, Object> getCourseCriticizes(Page<Criticize> page, Integer courseId, String userId) throws UnsupportedEncodingException {
         return getCriticizes(page, null, courseId, userId);
@@ -105,13 +133,11 @@ public class CriticizeServiceImpl extends ServiceImpl<CriticizeMapper, Criticize
         return returnMap;
     }
 
-
     @Override
     public Integer hasCourse(String userId, Integer courseId) {
 
         return this.baseMapper.hasCourse(courseId, userId);
     }
-
 
     public String saveCriticize(String userId, String anchorUserId, Integer courseId, String content, String criticizeId, String createPerson) throws UnsupportedEncodingException {
         Criticize criticize = getCriticize(userId, anchorUserId, courseId, content, criticizeId, createPerson);
@@ -166,34 +192,6 @@ public class CriticizeServiceImpl extends ServiceImpl<CriticizeMapper, Criticize
             criticize.setBuy(false);
         }
         return criticize;
-    }
-
-    /**
-     * Description：求平均值，并且把小数点的都截取到5，或者大于5的
-     * creed: Talk is cheap,show me the code
-     *
-     * @author name：yuxin <br>email: yuruixin@ixincheng.com
-     * @Date: 2018/4/18 0018 上午 11:47
-     **/
-    public static Double getCriticizeStartLevel(Criticize criticize) {
-        BigDecimal totalAmount = new BigDecimal(criticize.getOverallLevel());
-        totalAmount = totalAmount.add(new BigDecimal(criticize.getContentLevel()));
-        totalAmount = totalAmount.add(new BigDecimal(criticize.getDeductiveLevel()));
-
-        // 得到平均数，保留一位小数
-        BigDecimal startLevel = totalAmount.divide(new BigDecimal(3), 1, BigDecimal.ROUND_HALF_UP);
-        String b = startLevel.toString();
-        if (b.length() > 1 && !b.substring(b.length() - 1, b.length()).equals("0")) {
-            String[] arr = b.split("\\.");
-            Integer tmp = Integer.parseInt(arr[1]);
-            if (tmp >= 5) {
-                return (double) (Integer.parseInt(arr[0]) + 1);
-            } else {
-                return Double.valueOf(arr[0] + "." + 5);
-            }
-        } else {
-            return startLevel.doubleValue();
-        }
     }
 
     private void verifyCriticizes(Criticize criticize) {

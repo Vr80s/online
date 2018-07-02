@@ -1,7 +1,6 @@
 package com.xczhihui.user.center.service.impl;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.Date;
 
 import org.slf4j.Logger;
@@ -88,7 +87,7 @@ public class UserCenterServiceImpl implements UserCenterService {
 
     @Override
     public void regist(String loginName, String password, String nikeName, UserOrigin origin) {
-        regist(loginName,password,nikeName,origin,Boolean.FALSE);
+        regist(loginName, password, nikeName, origin, Boolean.FALSE);
     }
 
     private void updateVhallInfo(OeUser oeUser) {
@@ -288,14 +287,14 @@ public class UserCenterServiceImpl implements UserCenterService {
 
     @Override
     public Token login4visitor(String username) {
-        if(username == null||username.length()!=32){
-            throw new LoginRegException("提供的uuid不合法",true);
+        if (username == null || username.length() != 32) {
+            throw new LoginRegException("提供的uuid不合法", true);
         }
         OeUserVO userVO = this.getUserVO(username);
-        if(userVO == null){
-            this.regist(username,username,"游客",UserOrigin.IOS,Boolean.TRUE);
+        if (userVO == null) {
+            this.regist(username, username, "游客", UserOrigin.IOS, Boolean.TRUE);
         }
-        return loginMobile(username,username,TokenExpires.TenDay);
+        return loginMobile(username, username, TokenExpires.TenDay);
     }
 
 
@@ -303,7 +302,7 @@ public class UserCenterServiceImpl implements UserCenterService {
     public Token fastLogin(String loginName, String token, TokenExpires tokenExpires) {
         if (StringUtils.hasText(loginName) && StringUtils.hasText(token)) {
             OeUser user = this.oeUserMapper.selectByLoginName(loginName);
-            if(user==null){
+            if (user == null) {
                 throw new LoginRegException("用户不存在");
             }
             String fastLoginToken = Md5Encrypt.getFastLoginToken(loginName, user.getPassword());

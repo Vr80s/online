@@ -2,7 +2,6 @@ package test;
 
 
 import org.junit.runner.RunWith;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class) //使用junit4进行测试
@@ -13,6 +12,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 //这里的事务关联到配置文件中的事务控制器（transactionManager = "transactionManager"），同时//指定自动回滚（defaultRollback = true）。这样做操作的数据才不会污染数据库！
 //@TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
 //------------
-public class BaseJunit4ServerTest{
+public class BaseJunit4ServerTest {
 
 }

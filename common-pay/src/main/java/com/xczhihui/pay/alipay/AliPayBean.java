@@ -46,7 +46,6 @@ public class AliPayBean {
     }
 
 
-
     public String getDomain() {
         return domain;
     }

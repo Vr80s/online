@@ -42,34 +42,37 @@ public class CriticizeVo implements Serializable {
 
     private String response;
 
-    private  Date  response_time;
+    private Date response_time;
     /**
      * 视频名称
      */
     private String videoName;
-    
-  /**
-   * 杨宣新增
-   */
+
+    /**
+     * 杨宣新增
+     */
     //节目内容
     private Float contentLevel;
-  	
-  	//主播演绎
+
+    //主播演绎
     private Float deductiveLevel;
-  	
-  	//评价标签  1.很赞 2 干货很多 3超值推荐 4喜欢 5买对了
+
+    //评价标签  1.很赞 2 干货很多 3超值推荐 4喜欢 5买对了
     private String criticizeLable;
-    
+
     //总体印象
     private Float overallLevel;
-    
+
     //是否购买
     private Boolean isBuy;
-    
+
     //是否是专辑评论
     private Integer collectionId;
-    
-    
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
     public String getId() {
         return id;
     }
@@ -174,10 +177,6 @@ public class CriticizeVo implements Serializable {
         this.smallPhoto = smallPhoto;
     }
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
     public String getVideoName() {
         return videoName;
     }
@@ -210,55 +209,53 @@ public class CriticizeVo implements Serializable {
         this.response_time = response_time;
     }
 
-	public Float getContentLevel() {
-		return contentLevel;
-	}
+    public Float getContentLevel() {
+        return contentLevel;
+    }
 
-	public void setContentLevel(Float contentLevel) {
-		this.contentLevel = contentLevel;
-	}
+    public void setContentLevel(Float contentLevel) {
+        this.contentLevel = contentLevel;
+    }
 
-	public Float getDeductiveLevel() {
-		return deductiveLevel;
-	}
+    public Float getDeductiveLevel() {
+        return deductiveLevel;
+    }
 
-	public void setDeductiveLevel(Float deductiveLevel) {
-		this.deductiveLevel = deductiveLevel;
-	}
+    public void setDeductiveLevel(Float deductiveLevel) {
+        this.deductiveLevel = deductiveLevel;
+    }
 
-	public String getCriticizeLable() {
-		return criticizeLable;
-	}
+    public String getCriticizeLable() {
+        return criticizeLable;
+    }
 
-	public void setCriticizeLable(String criticizeLable) {
-		this.criticizeLable = criticizeLable;
-	}
+    public void setCriticizeLable(String criticizeLable) {
+        this.criticizeLable = criticizeLable;
+    }
 
-	public Float getOverallLevel() {
-		return overallLevel;
-	}
+    public Float getOverallLevel() {
+        return overallLevel;
+    }
 
-	public void setOverallLevel(Float overallLevel) {
-		this.overallLevel = overallLevel;
-	}
+    public void setOverallLevel(Float overallLevel) {
+        this.overallLevel = overallLevel;
+    }
 
-	public Boolean getIsBuy() {
-		return isBuy;
-	}
+    public Boolean getIsBuy() {
+        return isBuy;
+    }
 
-	public void setIsBuy(Boolean isBuy) {
-		this.isBuy = isBuy;
-	}
+    public void setIsBuy(Boolean isBuy) {
+        this.isBuy = isBuy;
+    }
 
-	public Integer getCollectionId() {
-		return collectionId;
-	}
+    public Integer getCollectionId() {
+        return collectionId;
+    }
 
-	public void setCollectionId(Integer collectionId) {
-		this.collectionId = collectionId;
-	}
+    public void setCollectionId(Integer collectionId) {
+        this.collectionId = collectionId;
+    }
 
-	
-	
-	
+
 }

@@ -8,6 +8,15 @@ public class Configuration extends Properties {
 
     private static Configuration instance = null;
 
+    public Configuration() {
+//        InputStream in = ClassLoader.getSystemClassLoader().getResourceAsStream("config.xml");
+//        try {
+//            this.loadFromXML(in);
+//            in.close();
+//        } catch (IOException e) {
+//        }
+    }
+
     public static synchronized Configuration getInstance() {
         if (instance == null) {
             instance = new Configuration();
@@ -47,14 +56,5 @@ public class Configuration extends Properties {
     public byte getByte(String name, byte defaultValue) {
         String val = this.getProperty(name);
         return (val == null || val.isEmpty()) ? defaultValue : Byte.parseByte(val);
-    }
-
-    public Configuration() {
-//        InputStream in = ClassLoader.getSystemClassLoader().getResourceAsStream("config.xml");
-//        try {
-//            this.loadFromXML(in);
-//            in.close();
-//        } catch (IOException e) {
-//        }
     }
 }

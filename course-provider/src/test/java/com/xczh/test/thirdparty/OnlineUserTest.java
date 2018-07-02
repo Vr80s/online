@@ -12,18 +12,16 @@ import test.BaseJunit4Test;
  */
 public class OnlineUserTest extends BaseJunit4Test {
 
-	@Autowired
-	public OnlineUserMapper onlineUserMapper;
-	
+    @Autowired
+    public OnlineUserMapper onlineUserMapper;
+
     /**
      * 测试观看记录了
      */
-	@Test
-    public void queryOnlineUserInfo(){
-    	
-		
-		
-		
+    @Test
+    public void queryOnlineUserInfo() {
+
+
     }
 
 }

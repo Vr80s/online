@@ -5,24 +5,23 @@ import javax.servlet.ServletContextListener;
 
 /**
  * logback初始化监听器。
- * 
- * @author liyong
  *
+ * @author liyong
  */
 public class LogbackConfigListener implements ServletContextListener {
 
-	static{
-		//设置dubbo使用slf4j来记录日志
-		System.setProperty("dubbo.application.logger","slf4j");
-	}
+    static {
+        //设置dubbo使用slf4j来记录日志
+        System.setProperty("dubbo.application.logger", "slf4j");
+    }
 
-	@Override
+    @Override
     public void contextInitialized(ServletContextEvent event) {
-		LogbackWebConfigurer.initLogging(event.getServletContext());
-	}
+        LogbackWebConfigurer.initLogging(event.getServletContext());
+    }
 
-	@Override
+    @Override
     public void contextDestroyed(ServletContextEvent event) {
-		LogbackWebConfigurer.shutdownLogging(event.getServletContext());
-	}
+        LogbackWebConfigurer.shutdownLogging(event.getServletContext());
+    }
 }

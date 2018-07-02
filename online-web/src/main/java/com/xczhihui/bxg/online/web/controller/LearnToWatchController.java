@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.bxg.online.web.base.utils.UserLoginUtil;
-import com.xczhihui.bxg.online.web.service.CourseService;
 import com.xczhihui.common.support.domain.BxgUser;
 import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.course.service.IWatchHistoryService;
