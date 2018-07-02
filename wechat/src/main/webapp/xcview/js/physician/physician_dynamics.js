@@ -5,6 +5,7 @@ var loginUserName="";
 var getPostsIdByComment="";
 var postsCommentId="";
 var postsCommentUserName="";
+var doctorPostsType ="";
 $(function(){
     loginUserId = localStorage.getItem("userId");
     loginUserName = localStorage.getItem("name");
@@ -12,20 +13,16 @@ $(function(){
 });
 
 //动态列表
-function doctorPostsList(type) {
+function doctorPostsList(num,downOrUp,doctorPostsType) {
     requestGetService("/doctor/posts", {
-        pageNumber: 1,
+        pageNumber: num,
         pageSize:10,
-        type:type,
+        type:doctorPostsType,
         doctorId:doctorId
     }, function (data) {
         var obj = data.resultObject.records;
-        var now = new Date();
-        now.setDate(now.getDate()+1);
         for(var i=0;i<obj.length;i++){
             var likes ="";
-            //定义时间
-            obj[i].now=now;
             //判断是否点赞
             obj[i].isPraise=false;
             //封装点赞列表
@@ -49,7 +46,29 @@ function doctorPostsList(type) {
                 obj[i].articleContent = obj[i].articleContent.replace(/<.*?>/ig,"");
             }
         }
-        $(".rests_nav").html(template('wrap_doctor_dynamics',{items:obj}));
+
+        //	判断是下拉刷新还是上拉加载
+        if(downOrUp=='down'){
+            //  	判断有无评价显示默认图片
+            /*if(data.resultObject.items.length==0){
+                $(".quie_pic").show()
+            }else{
+                $(".quie_pic").hide()
+            }*/
+            $(".rests_nav").html(template('wrap_doctor_dynamics',{items:obj}));
+            mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);
+            mui('#refreshContainer').pullRefresh().refresh(true);
+            mui("#refreshContainer").off();
+        }else if(obj.length==0){
+            mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
+            mui("#refreshContainer").off();
+        }else{
+            $(".rests_nav").append(template('wrap_doctor_dynamics',{items:obj}));
+            mui("#refreshContainer").off();
+            mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);
+
+        }
+
         for(var i=0;i<obj.length;i++){
             //没有点赞时隐藏小手
             if(obj[i].doctorPostsCommentList.length==0 && obj[i].doctorPostsLikeList.length==0){
@@ -68,7 +87,7 @@ function doctorPostsList(type) {
         }
 
         //点赞
-        $('.zan_img').click(function() {
+        mui("#refreshContainer").on('tap', '.zan_img', function (event) {
             var src = $(this).attr('src');
             var postsId = $(this).attr('data-id');
             if(src.indexOf("zan001")>-1){
@@ -76,9 +95,9 @@ function doctorPostsList(type) {
             }else{
                 postsLike(this,postsId);
             }
-        })
+        });
         //评论
-        $(".rests_nav .evaluate_img").click(function(){
+        mui("#refreshContainer").on('tap', '.rests_nav .evaluate_img', function (event) {
             $(".face").attr("src","/xcview/images/face.png");
             $("#page_emotion").css("bottom","-2.8rem");
             $(".comment").show();
@@ -86,14 +105,14 @@ function doctorPostsList(type) {
             postsCommentId = "";
         });
         // 点击其他内容区域隐藏评论区域
-        $(".comment_hide").click(function(){
+        mui("#refreshContainer").on('tap', '.comment_hide', function (event) {
             $(".face").attr("src","/xcview/images/face.png");
             $("#page_emotion").css("bottom","-2.8rem");
             $(".comment").hide();
         });
 
         // 回复/删除
-        $(".evaluateDiv").click(function(){
+        mui("#refreshContainer").on('tap', '.evaluateDiv', function (event) {
             postsCommentId = $(this).attr('data-id');
             postsCommentUserName = $(this).attr('data-userName');
             getPostsIdByComment = $(this).attr('data-postsId');
@@ -128,25 +147,14 @@ function doctorPostsList(type) {
                         }
                     });
                 })
-                /*$(".copy").click(function(){
-                    copyUrl2();
-                });
-                function copyUrl2()
-                {
-                var Url2 = $(".response_center").text();
-                Url2.select(); // 选择对象
-                document.execCommand("Copy"); // 执行浏览器复制命令
-                alert("已复制好，可贴粘。");
-                }*/
-
             }
         });
     });
 }
 
 function postsType(obj) {
-    var type = $(obj).attr("value");
-    doctorPostsList(type);
+    doctorPostsType = $(obj).attr("value");
+    doctorPostsList(num,'down',doctorPostsType);
     //alert(type)
 }
 /**
@@ -324,6 +332,43 @@ function articleDetails(id) {
 //医案跳转
 function consiliaDetails(id) {
     location.href = "/xcview/html/physician/consilia.html?articleId=" + id;
+}
+
+//动态刷新
+var num = 1;
+mui.init();
+mui.init({
+    pullRefresh: {
+        container: '#refreshContainer',
+        down: {
+            callback: pulldownRefresh
+        },
+        up: {
+            contentrefresh: '正在加载...',
+            callback: pullupRefresh
+        }
+    }
+});
+
+/**
+ * 下拉刷新
+ */
+function pulldownRefresh() {
+    num = 1;
+    setTimeout(function() {
+        doctorPostsList(num,'down',doctorPostsType);
+        mui('#refreshContainer').pullRefresh().endPulldownToRefresh(); //refresh completed
+    }, 500);
+};
+var count = 0;
+/**
+ * 上拉加载具体业务实现
+ */
+function pullupRefresh() {
+    num++;
+    setTimeout(function() {
+        doctorPostsList(num,'up',doctorPostsType);
+    }, 500);
 }
 
 /* --------------直播间------------- */
