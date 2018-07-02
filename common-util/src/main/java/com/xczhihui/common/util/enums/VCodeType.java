@@ -18,7 +18,7 @@ public enum VCodeType {
     NEW_PHONE(4, "新的手机号获取验证码", "SMS_135775476"),
 
     //提现 短信验证
-    WITHDRAWAL(5, "提现短信验证", "SMS_135770462"),
+    WITHDRAWAL(5, "提现短信验证", "SMS_138078372"),
     //三方登陆后绑定手机号
     BIND(6, "绑定手机号", "SMS_135765541");
 
