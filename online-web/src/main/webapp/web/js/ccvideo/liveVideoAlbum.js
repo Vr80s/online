@@ -298,14 +298,20 @@ var auto_play = $.getUrlParam("auto_play");
 if(null == auto_play || "true" == auto_play){
 	$("#auto_play").attr("checked","true");
 	$("#auto_play").css("background-image","url(/web/images/btn-ondown.png)");
+	$(".show-bg").css("background-image","url(/web/images/btn-ondown.png)");
+	$(".show-bg").css("background-size","100% 100%");
 }
 
 $("#auto_play").click(function(){
 	var falg = $(this).is(':checked')
 	if(falg){
 		$(this).css("background-image","url(/web/images/btn-ondown.png)");
+		$(".show-bg").css("background-image","url(/web/images/btn-ondown.png)");
+		$(".show-bg").css("background-size","100% 100%");
 	}else{
 		$(this).css("background-image","url(/web/images/btn-selete.png)");
+		$(".show-bg").css("background-image","url(/web/images/btn-selete.png)");
+		$(".show-bg").css("background-size","100% 100%");
 	}
 })
 

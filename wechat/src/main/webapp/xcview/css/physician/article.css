@@ -129,7 +129,7 @@ header{
     margin: 0 auto;
     background: #fff;
     position: absolute;
-    z-index: 999;
+    z-index: 0;
     left: 50%;
     margin-left: -1.3rem;
 }
@@ -345,6 +345,7 @@ header{
     background: rgba(0,0,0,.1);
     margin-left: -3.75rem;
     display: none;
+    z-index: 2;
 }
 
 .wrapAll_comment {
@@ -437,6 +438,7 @@ header{
     top: 0;
     left: 0;
     background: rgba(0,0,0,.1);
+    z-index: 1;
 }
 .wrapLittle_comment {
     width: 7.5rem;
