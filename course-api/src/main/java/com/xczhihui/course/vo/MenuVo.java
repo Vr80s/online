@@ -9,7 +9,7 @@ import java.io.Serializable;
  * @author liutao
  * @create 2017-09-18 1:09
  **/
-public class MenuVo implements Serializable{
+public class MenuVo implements Serializable {
 
     private Integer id;
     private String name;

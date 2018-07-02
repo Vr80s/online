@@ -6,219 +6,183 @@ import java.util.Date;
 
 /**
  * 课程信息
+ *
  * @author zhangshixiong
  */
-public class OnlineCourseVo implements Serializable{
-	
-	
-	private Integer id;
-	
-	private Integer courseId;
-	
+public class OnlineCourseVo implements Serializable {
+
+
+    public Integer type; //
+    public Integer lineState; //瑞鑫加的直播状态  直播状态 1.直播中，2预告，3直播结束
+    private Integer id;
+    private Integer courseId;
     private String userId;
     /**
-     *报名状态
+     * 报名状态
      */
     private boolean isFree;
     /**
-     *推荐状态 false:不推荐  true:推荐
+     * 推荐状态 false:不推荐  true:推荐
      */
-    private  boolean isRecommend;
+    private boolean isRecommend;
     /**
-     *课程名称
+     * 课程名称
      */
-    private String  courseName;
-
+    private String courseName;
     /**
      * 课程详情图
      */
     private String detailImgPath;
-
     /**
      * 课程描述
      */
     private String description;
-
     /**
      * 课程当前价格
      */
     private String currentPrice;
-
     /**
      * 课程原价
      */
     private String originalCost;
-
     /**
      * 课程时长
      */
     private Double courseLength;
-
     /**
      * 已经学习人数
      */
     private String learndCount;
-
     /**
      * 主讲老师
      */
     private String teacherName;
-
     /**
      * 课程类别
      */
     private String scoreName;
-
     /**
      * 课程大图
      */
     private String bigImgPath;
-
     /**
      * 云课堂链接
      */
     private String cloudClassroom;
-
     /**
      * 小图
      */
     private String smallImgPath;
-
+    ;
     /**
      * 主讲老师
      */
     private String teacherNames;
-
     /**
      * 课程大纲
      */
-    private String courseOutline;;
-
-
+    private String courseOutline;
     /**
      * 常见问题
      */
     private String commonProblem;
-
     /**
      * 课程详情内容
      */
     private String courseDetail;
-
     /**
      * 学科id号
      */
-    private Integer  menu_id;
-
+    private Integer menu_id;
     /**
      * 学科名称
      */
-    private String  name;
-
+    private String name;
     /**
      * 课程下视频总数
      */
     private Integer count;
-
     /**
      * 课程下已学习视频总数
      */
     private Integer learndVideo;
-
     /**
      * 课程下未开始学习视频总数
      */
-    private  Integer unStudy;
-
+    private Integer unStudy;
     /**
      * 是否报名 true:已报名  false:未报名
      */
-    private Boolean isApply=false;
-
+    private Boolean isApply = false;
     /**
      * 课程咨询qq号
-     * 
      */
-    private String  qqno;
-
-
+    private String qqno;
     /**
      * 优惠价格
      */
-    private  String  preferentyMoney;
-
+    private String preferentyMoney;
     /**
      * 当前下单时间
      */
     private Timestamp create_time;
-
     /**
      * 课程跳转是否展示课程介绍页 0:不展示  1:展示
      */
     private Integer description_show;
-
     /**
      * 0:职业课  1:微课
      */
     private Integer course_type;
-    
     /**
      * 成为分享大使课的id
      */
     private String shareCourseId;
-    
     private String gradeName;
-    
     private int defaultStudentCount;
-    
-    
-    public Integer type; //
-    
-    public Integer lineState; //瑞鑫加的直播状态  直播状态 1.直播中，2预告，3直播结束
-
     private String actualPay;//实付金额
-    
+
     private Date startTime;
-    
+
     private Date endTime;
-    
+
 
     private String onlineCourse; //直播 线下课
 
     private String address; //线下课程地址
-    
+
     private String city; //所在城市 
-    
-    private Integer cutoff =0;	// 0 已截止  1 未截止
-    
-    private Boolean collection; 	//是否为专辑 false不是 true 是
 
-    
+    private Integer cutoff = 0;    // 0 已截止  1 未截止
+
+    private Boolean collection;    //是否为专辑 false不是 true 是
+
+
     public String getActualPay() {
-		return actualPay;
-	}
+        return actualPay;
+    }
 
-	public void setActualPay(String actualPay) {
-		this.actualPay = actualPay;
-	}
+    public void setActualPay(String actualPay) {
+        this.actualPay = actualPay;
+    }
 
-	public int getDefaultStudentCount() {
-		return defaultStudentCount;
-	}
+    public int getDefaultStudentCount() {
+        return defaultStudentCount;
+    }
 
-	public void setDefaultStudentCount(int defaultStudentCount) {
-		this.defaultStudentCount = defaultStudentCount;
-	}
+    public void setDefaultStudentCount(int defaultStudentCount) {
+        this.defaultStudentCount = defaultStudentCount;
+    }
 
-	public String getGradeName() {
-		return gradeName;
-	}
+    public String getGradeName() {
+        return gradeName;
+    }
 
-	public void setGradeName(String gradeName) {
-		this.gradeName = gradeName;
-	}
+    public void setGradeName(String gradeName) {
+        this.gradeName = gradeName;
+    }
 
-	public Integer getCount() {
+    public Integer getCount() {
         return count;
     }
 
@@ -249,7 +213,6 @@ public class OnlineCourseVo implements Serializable{
     public void setDetailImgPath(String detailImgPath) {
         this.detailImgPath = detailImgPath;
     }
-
 
 
     public String getDescription() {
@@ -295,7 +258,7 @@ public class OnlineCourseVo implements Serializable{
 
     public String getTeacherName() {
 
-        return teacherName == null ? "暂无讲师" :teacherName;
+        return teacherName == null ? "暂无讲师" : teacherName;
     }
 
     public void setTeacherName(String teacherName) {
@@ -339,7 +302,7 @@ public class OnlineCourseVo implements Serializable{
     }
 
     public void setId(Integer id) {
-    	setCourseId(id);
+        setCourseId(id);
         this.id = id;
     }
 
@@ -432,13 +395,13 @@ public class OnlineCourseVo implements Serializable{
         this.unStudy = unStudy;
     }
 
-	public String getOriginalCost() {
-		return originalCost;
-	}
+    public String getOriginalCost() {
+        return originalCost;
+    }
 
-	public void setOriginalCost(String originalCost) {
-		this.originalCost = originalCost;
-	}
+    public void setOriginalCost(String originalCost) {
+        this.originalCost = originalCost;
+    }
 
     public Integer getDescription_show() {
         return description_show;
@@ -464,61 +427,61 @@ public class OnlineCourseVo implements Serializable{
         this.course_type = course_type;
     }
 
-	public String getShareCourseId() {
-		return shareCourseId;
-	}
+    public String getShareCourseId() {
+        return shareCourseId;
+    }
 
-	public void setShareCourseId(String shareCourseId) {
-		this.shareCourseId = shareCourseId;
-	}
+    public void setShareCourseId(String shareCourseId) {
+        this.shareCourseId = shareCourseId;
+    }
 
-	public Integer getCourseId() {
-		return courseId;
-	}
+    public Integer getCourseId() {
+        return courseId;
+    }
 
-	public void setCourseId(Integer courseId) {
-		this.courseId = courseId;
-	}
+    public void setCourseId(Integer courseId) {
+        this.courseId = courseId;
+    }
 
-	public String getUserId() {
-		return userId;
-	}
+    public String getUserId() {
+        return userId;
+    }
 
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
-	public Integer getType() {
-		return type;
-	}
+    public Integer getType() {
+        return type;
+    }
 
-	public void setType(Integer type) {
-		this.type = type;
-	}
+    public void setType(Integer type) {
+        this.type = type;
+    }
 
-	public Integer getLineState() {
-		return lineState;
-	}
+    public Integer getLineState() {
+        return lineState;
+    }
 
-	public void setLineState(Integer lineState) {
-		this.lineState = lineState;
-	}
+    public void setLineState(Integer lineState) {
+        this.lineState = lineState;
+    }
 
-	public Date getStartTime() {
-		return startTime;
-	}
+    public Date getStartTime() {
+        return startTime;
+    }
 
-	public void setStartTime(Date startTime) {
-		this.startTime = startTime;
-	}
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
+    }
 
-	public Date getEndTime() {
-		return endTime;
-	}
+    public Date getEndTime() {
+        return endTime;
+    }
 
-	public void setEndTime(Date endTime) {
-		this.endTime = endTime;
-	}
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
+    }
 
     public String getOnlineCourse() {
         return onlineCourse;
@@ -536,29 +499,29 @@ public class OnlineCourseVo implements Serializable{
         this.address = address;
     }
 
-	public String getCity() {
-		return city;
-	}
+    public String getCity() {
+        return city;
+    }
 
-	public void setCity(String city) {
-		this.city = city;
-	}
+    public void setCity(String city) {
+        this.city = city;
+    }
 
-	public Integer getCutoff() {
-		return cutoff;
-	}
+    public Integer getCutoff() {
+        return cutoff;
+    }
 
-	public void setCutoff(Integer cutoff) {
-		this.cutoff = cutoff;
-	}
+    public void setCutoff(Integer cutoff) {
+        this.cutoff = cutoff;
+    }
 
-	public Boolean getCollection() {
-		return collection;
-	}
+    public Boolean getCollection() {
+        return collection;
+    }
 
-	public void setCollection(Boolean collection) {
-		this.collection = collection;
-	}
-	
-    
+    public void setCollection(Boolean collection) {
+        this.collection = collection;
+    }
+
+
 }

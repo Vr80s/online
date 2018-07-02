@@ -1,14 +1,13 @@
 package com.xczhihui.course.model;
 
+import java.io.Serializable;
+import java.util.Date;
+
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
 
-import java.io.Serializable;
-import java.util.Date;
-
 /**
- * 
  * ClassName: Course.java <br>
  * Description: <br>
  * Create by: name：yangxuan <br>email: 15936216273@163.com <br>
@@ -20,41 +19,41 @@ public class WatchHistory extends Model<WatchHistory> {
     private static final long serialVersionUID = 1L;
 
     private Long id;
-    
+
     /**
-   	 *用户	user_Id
-   	 */
-   	@TableField("user_Id")
+     * 用户	user_Id
+     */
+    @TableField("user_Id")
     private String userId;
     /**
-   	 *讲师	lecturer_Id
-   	 */
-   	@TableField("lecturer_Id")
+     * 讲师	lecturer_Id
+     */
+    @TableField("lecturer_Id")
     private String lecturerId;
     /**
-   	 *课程	course_Id
-   	 */
-   	@TableField("course_Id")
+     * 课程	course_Id
+     */
+    @TableField("course_Id")
     private Integer courseId;
     /**
-   	 *创建时间	create_time
-   	 */
-   	@TableField("create_time")
+     * 创建时间	create_time
+     */
+    @TableField("create_time")
     private Date createTime;
-   	
-   	/**
-   	 * 是否删除
-   	 */
-   	@TableField("is_delete" )
-	private  boolean isDelete;
-   	
-   	/**
-   	 * 专辑id
-   	 */
-   	@TableField("collectionId" )
-	private  Integer collectionId;
 
-   	
+    /**
+     * 是否删除
+     */
+    @TableField("is_delete")
+    private boolean isDelete;
+
+    /**
+     * 专辑id
+     */
+    @TableField("collectionId")
+    private Integer collectionId;
+
+
     public Long getId() {
         return id;
     }
@@ -95,26 +94,25 @@ public class WatchHistory extends Model<WatchHistory> {
         this.createTime = createTime;
     }
 
-	public boolean isDelete() {
-		return isDelete;
-	}
+    public boolean isDelete() {
+        return isDelete;
+    }
 
-	public void setDelete(boolean isDelete) {
-		this.isDelete = isDelete;
-	}
+    public void setDelete(boolean isDelete) {
+        this.isDelete = isDelete;
+    }
 
-	
-	
-	public Integer getCollectionId() {
-		return collectionId;
-	}
 
-	public void setCollectionId(Integer collectionId) {
-		this.collectionId = collectionId;
-	}
+    public Integer getCollectionId() {
+        return collectionId;
+    }
 
-	@Override
-	protected Serializable pkVal() {
-		return null;
-	}
+    public void setCollectionId(Integer collectionId) {
+        this.collectionId = collectionId;
+    }
+
+    @Override
+    protected Serializable pkVal() {
+        return null;
+    }
 }

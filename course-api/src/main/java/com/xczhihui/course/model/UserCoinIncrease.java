@@ -1,18 +1,18 @@
 package com.xczhihui.course.model;
 
 import java.io.Serializable;
-
-import com.baomidou.mybatisplus.enums.IdType;
 import java.math.BigDecimal;
 import java.util.Date;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableField;
+
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.IdType;
 
 /**
  * <p>
- * 
+ * <p>
  * </p>
  *
  * @author yuxin
@@ -26,302 +26,302 @@ public class UserCoinIncrease extends Model<UserCoinIncrease> {
     /**
      * 用户-代币增加明细表id
      */
-	@TableId(value="id", type= IdType.AUTO)
-	private Integer id;
+    @TableId(value = "id", type = IdType.AUTO)
+    private Integer id;
     /**
      * 用户id
      */
-	@TableField("user_id")
-	private String userId;
+    @TableField("user_id")
+    private String userId;
     /**
      * 用户-代币账户表id
      */
-	@TableField("user_coin_id")
-	private Integer userCoinId;
+    @TableField("user_coin_id")
+    private Integer userCoinId;
     /**
      * 1.充值2.平台赠送3.礼物4打赏5.平台提现驳回退回6.结算7.卖课所得
      */
-	@TableField("change_type")
-	private Integer changeType;
+    @TableField("change_type")
+    private Integer changeType;
     /**
      * 变动数量
      */
-	private BigDecimal value;
+    private BigDecimal value;
     /**
      * 变动充值余额
      */
-	private BigDecimal balance;
+    private BigDecimal balance;
     /**
      * 变动赠送余额
      */
-	@TableField("balance_give")
-	private BigDecimal balanceGive;
+    @TableField("balance_give")
+    private BigDecimal balanceGive;
     /**
      * 变动主播用户收到的礼物打赏余额
      */
-	@TableField("balance_reward_gift")
-	private BigDecimal balanceRewardGift;
+    @TableField("balance_reward_gift")
+    private BigDecimal balanceRewardGift;
     /**
      * 变动人民币余额
      */
-	private BigDecimal rmb;
+    private BigDecimal rmb;
     /**
      * 当变动类型为礼物打赏或购课时，平台抽成金额
      */
-	@TableField("brokerage_value")
-	private BigDecimal brokerageValue;
+    @TableField("brokerage_value")
+    private BigDecimal brokerageValue;
     /**
      * 当变动类型为支付时：支付类型 0.支付宝1.微信2.苹果
      */
-	@TableField("pay_type")
-	private Integer payType;
+    @TableField("pay_type")
+    private Integer payType;
     /**
      * 变动账户类型：1.用户熊猫币余额2.主播熊猫币余额3.主播人民币余额
      */
-	@TableField("balance_type")
-	private Integer balanceType;
+    @TableField("balance_type")
+    private Integer balanceType;
 
     /**
      * 7.卖课所得
      */
-	@TableField("correlation_id")
-	private String correlationId;
-	private String version;
-	@TableField("create_time")
-	private Date createTime;
-	@TableField("update_time")
-	private Date updateTime;
+    @TableField("correlation_id")
+    private String correlationId;
+    private String version;
+    @TableField("create_time")
+    private Date createTime;
+    @TableField("update_time")
+    private Date updateTime;
     /**
      * 1有效0无效
      */
-	private Boolean status;
+    private Boolean status;
     /**
      * 1已删除0未删除
      */
-	private Boolean deleted;
-	private String remark;
+    private Boolean deleted;
+    private String remark;
     /**
      * 订单来源:1.pc 2.h5 3.android 4.ios
      */
-	@TableField("order_from")
-	private Integer orderFrom;
+    @TableField("order_from")
+    private Integer orderFrom;
     /**
      * 当变动类型为礼物打赏或购课时，IOS官方抽成金额
      */
-	@TableField("ios_brokerage_value")
-	private BigDecimal iosBrokerageValue;
+    @TableField("ios_brokerage_value")
+    private BigDecimal iosBrokerageValue;
     /**
      * 分成比例，单位:%
      */
-	private BigDecimal ratio;
+    private BigDecimal ratio;
 
 
-	public Integer getId() {
-		return id;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public String getUserId() {
-		return userId;
-	}
+    public String getUserId() {
+        return userId;
+    }
 
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
-	public Integer getUserCoinId() {
-		return userCoinId;
-	}
+    public Integer getUserCoinId() {
+        return userCoinId;
+    }
 
-	public void setUserCoinId(Integer userCoinId) {
-		this.userCoinId = userCoinId;
-	}
+    public void setUserCoinId(Integer userCoinId) {
+        this.userCoinId = userCoinId;
+    }
 
-	public Integer getChangeType() {
-		return changeType;
-	}
+    public Integer getChangeType() {
+        return changeType;
+    }
 
-	public void setChangeType(Integer changeType) {
-		this.changeType = changeType;
-	}
+    public void setChangeType(Integer changeType) {
+        this.changeType = changeType;
+    }
 
-	public BigDecimal getValue() {
-		return value;
-	}
+    public BigDecimal getValue() {
+        return value;
+    }
 
-	public void setValue(BigDecimal value) {
-		this.value = value;
-	}
+    public void setValue(BigDecimal value) {
+        this.value = value;
+    }
 
-	public BigDecimal getBalance() {
-		return balance;
-	}
+    public BigDecimal getBalance() {
+        return balance;
+    }
 
-	public void setBalance(BigDecimal balance) {
-		this.balance = balance;
-	}
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
+    }
 
-	public BigDecimal getBalanceGive() {
-		return balanceGive;
-	}
+    public BigDecimal getBalanceGive() {
+        return balanceGive;
+    }
 
-	public void setBalanceGive(BigDecimal balanceGive) {
-		this.balanceGive = balanceGive;
-	}
+    public void setBalanceGive(BigDecimal balanceGive) {
+        this.balanceGive = balanceGive;
+    }
 
-	public BigDecimal getBalanceRewardGift() {
-		return balanceRewardGift;
-	}
+    public BigDecimal getBalanceRewardGift() {
+        return balanceRewardGift;
+    }
 
-	public void setBalanceRewardGift(BigDecimal balanceRewardGift) {
-		this.balanceRewardGift = balanceRewardGift;
-	}
+    public void setBalanceRewardGift(BigDecimal balanceRewardGift) {
+        this.balanceRewardGift = balanceRewardGift;
+    }
 
-	public BigDecimal getRmb() {
-		return rmb;
-	}
+    public BigDecimal getRmb() {
+        return rmb;
+    }
 
-	public void setRmb(BigDecimal rmb) {
-		this.rmb = rmb;
-	}
+    public void setRmb(BigDecimal rmb) {
+        this.rmb = rmb;
+    }
 
-	public BigDecimal getBrokerageValue() {
-		return brokerageValue;
-	}
+    public BigDecimal getBrokerageValue() {
+        return brokerageValue;
+    }
 
-	public void setBrokerageValue(BigDecimal brokerageValue) {
-		this.brokerageValue = brokerageValue;
-	}
+    public void setBrokerageValue(BigDecimal brokerageValue) {
+        this.brokerageValue = brokerageValue;
+    }
 
-	public Integer getPayType() {
-		return payType;
-	}
+    public Integer getPayType() {
+        return payType;
+    }
 
-	public void setPayType(Integer payType) {
-		this.payType = payType;
-	}
+    public void setPayType(Integer payType) {
+        this.payType = payType;
+    }
 
-	public Integer getBalanceType() {
-		return balanceType;
-	}
+    public Integer getBalanceType() {
+        return balanceType;
+    }
 
-	public void setBalanceType(Integer balanceType) {
-		this.balanceType = balanceType;
-	}
+    public void setBalanceType(Integer balanceType) {
+        this.balanceType = balanceType;
+    }
 
-	public String getCorrelationId() {
-		return correlationId;
-	}
+    public String getCorrelationId() {
+        return correlationId;
+    }
 
-	public void setCorrelationId(String correlationId) {
-		this.correlationId = correlationId;
-	}
+    public void setCorrelationId(String correlationId) {
+        this.correlationId = correlationId;
+    }
 
-	public String getVersion() {
-		return version;
-	}
+    public String getVersion() {
+        return version;
+    }
 
-	public void setVersion(String version) {
-		this.version = version;
-	}
+    public void setVersion(String version) {
+        this.version = version;
+    }
 
-	public Date getCreateTime() {
-		return createTime;
-	}
+    public Date getCreateTime() {
+        return createTime;
+    }
 
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
 
-	public Date getUpdateTime() {
-		return updateTime;
-	}
+    public Date getUpdateTime() {
+        return updateTime;
+    }
 
-	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
-	}
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
 
-	public Boolean getStatus() {
-		return status;
-	}
+    public Boolean getStatus() {
+        return status;
+    }
 
-	public void setStatus(Boolean status) {
-		this.status = status;
-	}
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
 
-	public Boolean getDeleted() {
-		return deleted;
-	}
+    public Boolean getDeleted() {
+        return deleted;
+    }
 
-	public void setDeleted(Boolean deleted) {
-		this.deleted = deleted;
-	}
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
+    }
 
-	public String getRemark() {
-		return remark;
-	}
+    public String getRemark() {
+        return remark;
+    }
 
-	public void setRemark(String remark) {
-		this.remark = remark;
-	}
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
 
-	public Integer getOrderFrom() {
-		return orderFrom;
-	}
+    public Integer getOrderFrom() {
+        return orderFrom;
+    }
 
-	public void setOrderFrom(Integer orderFrom) {
-		this.orderFrom = orderFrom;
-	}
+    public void setOrderFrom(Integer orderFrom) {
+        this.orderFrom = orderFrom;
+    }
 
-	public BigDecimal getIosBrokerageValue() {
-		return iosBrokerageValue;
-	}
+    public BigDecimal getIosBrokerageValue() {
+        return iosBrokerageValue;
+    }
 
-	public void setIosBrokerageValue(BigDecimal iosBrokerageValue) {
-		this.iosBrokerageValue = iosBrokerageValue;
-	}
+    public void setIosBrokerageValue(BigDecimal iosBrokerageValue) {
+        this.iosBrokerageValue = iosBrokerageValue;
+    }
 
-	public BigDecimal getRatio() {
-		return ratio;
-	}
+    public BigDecimal getRatio() {
+        return ratio;
+    }
 
-	public void setRatio(BigDecimal ratio) {
-		this.ratio = ratio;
-	}
+    public void setRatio(BigDecimal ratio) {
+        this.ratio = ratio;
+    }
 
-	@Override
-	protected Serializable pkVal() {
-		return this.id;
-	}
+    @Override
+    protected Serializable pkVal() {
+        return this.id;
+    }
 
-	@Override
-	public String toString() {
-		return "UserCoinIncrease{" +
-			", id=" + id +
-			", userId=" + userId +
-			", userCoinId=" + userCoinId +
-			", changeType=" + changeType +
-			", value=" + value +
-			", balance=" + balance +
-			", balanceGive=" + balanceGive +
-			", balanceRewardGift=" + balanceRewardGift +
-			", rmb=" + rmb +
-			", brokerageValue=" + brokerageValue +
-			", payType=" + payType +
-			", balanceType=" + balanceType +
-			", correlationId=" + correlationId +
-			", version=" + version +
-			", createTime=" + createTime +
-			", updateTime=" + updateTime +
-			", status=" + status +
-			", deleted=" + deleted +
-			", remark=" + remark +
-			", orderFrom=" + orderFrom +
-			", iosBrokerageValue=" + iosBrokerageValue +
-			", ratio=" + ratio +
-			"}";
-	}
+    @Override
+    public String toString() {
+        return "UserCoinIncrease{" +
+                ", id=" + id +
+                ", userId=" + userId +
+                ", userCoinId=" + userCoinId +
+                ", changeType=" + changeType +
+                ", value=" + value +
+                ", balance=" + balance +
+                ", balanceGive=" + balanceGive +
+                ", balanceRewardGift=" + balanceRewardGift +
+                ", rmb=" + rmb +
+                ", brokerageValue=" + brokerageValue +
+                ", payType=" + payType +
+                ", balanceType=" + balanceType +
+                ", correlationId=" + correlationId +
+                ", version=" + version +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", status=" + status +
+                ", deleted=" + deleted +
+                ", remark=" + remark +
+                ", orderFrom=" + orderFrom +
+                ", iosBrokerageValue=" + iosBrokerageValue +
+                ", ratio=" + ratio +
+                "}";
+    }
 }

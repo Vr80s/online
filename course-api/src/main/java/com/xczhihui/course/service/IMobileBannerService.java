@@ -3,8 +3,6 @@ package com.xczhihui.course.service;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Param;
-
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.course.model.MobileBanner;
 import com.xczhihui.course.model.OfflineCity;
@@ -75,6 +73,7 @@ public interface IMobileBannerService {
      * @return
      */
     public List<Map<String, Object>> liveCourseList(Integer pageSizeUp, Integer pageSizeDown);
+
     public List<Map<String, Object>> liveCourseList(Integer pageSizeUp, Integer pageSizeDown, boolean onlyFree);
 
     /**
@@ -126,8 +125,8 @@ public interface IMobileBannerService {
      * @return
      */
     public List<CourseLecturVo> selectUnshelveRecommenCourse(Integer pageSize);
-    
-    
+
+
     /**
      * Description：查询直播课程列表
      * creed: Talk is cheap,show me the code

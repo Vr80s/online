@@ -8,42 +8,41 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
 
 /**
- * 
  * ClassName: Course.java <br>
  * Description: <br>
  * Create by: name：yangxuan <br>email: 15936216273@163.com <br>
  * Create Time: 2018年1月14日<br>
  */
 @TableName("oe_focus")
-public class Focus extends Model<Focus>{
-	
+public class Focus extends Model<Focus> {
+
     private String id;
 
-	@TableField("lecturer_id")
+    @TableField("lecturer_id")
     private String lecturerId;
 
-	@TableField("user_id")
+    @TableField("user_id")
     private String userId;
 
-	@TableField("user_name")
+    @TableField("user_name")
     private String userName;
 
-	@TableField("user_head_img")
+    @TableField("user_head_img")
     private String userHeadImg;
 
-	@TableField("course_id")
+    @TableField("course_id")
     private Integer courseId;
 
-	@TableField("lecturer_name")
+    @TableField("lecturer_name")
     private String lecturerName;
 
-	@TableField("lecturer_head_img")
+    @TableField("lecturer_head_img")
     private String lecturerHeadImg;
 
-	@TableField("room_number")
+    @TableField("room_number")
     private Integer roomNumber;
-	
-	@TableField("create_time")
+
+    @TableField("create_time")
     private Date createTime;
 
     public String getId() {
@@ -117,18 +116,18 @@ public class Focus extends Model<Focus>{
     public void setRoomNumber(Integer roomNumber) {
         this.roomNumber = roomNumber;
     }
-    
-	public Date getCreateTime() {
-		return createTime;
-	}
 
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
+    public Date getCreateTime() {
+        return createTime;
+    }
 
-	@Override
-	protected Serializable pkVal() {
-		// TODO Auto-generated method stub
-		return this.id;
-	}
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    @Override
+    protected Serializable pkVal() {
+        // TODO Auto-generated method stub
+        return this.id;
+    }
 }

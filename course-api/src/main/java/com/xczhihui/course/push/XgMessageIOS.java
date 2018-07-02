@@ -40,28 +40,28 @@ public class XgMessageIOS {
         this.type = 11;
     }
 
-    public void setType(int type) {
-        this.type = type;
-    }
-
     public int getType() {
         return this.type;
     }
 
-    public void setExpireTime(int expireTime) {
-        this.expireTime = expireTime;
+    public void setType(int type) {
+        this.type = type;
     }
 
     public int getExpireTime() {
         return this.expireTime;
     }
 
-    public void setSendTime(String sendTime) {
-        this.sendTime = sendTime;
+    public void setExpireTime(int expireTime) {
+        this.expireTime = expireTime;
     }
 
     public String getSendTime() {
         return this.sendTime;
+    }
+
+    public void setSendTime(String sendTime) {
+        this.sendTime = sendTime;
     }
 
     public void addAcceptTime(TimeInterval acceptTime) {

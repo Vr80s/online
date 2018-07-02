@@ -33,8 +33,9 @@ public interface IOrderService extends IService<Order> {
 
     /**
      * 通过订单id得到订单详情包含课程信息
+     *
      * @param orderId
      * @return
      */
-	Order getOrderIncludeCourseInfoByOrderId(String orderId);
+    Order getOrderIncludeCourseInfoByOrderId(String orderId);
 }

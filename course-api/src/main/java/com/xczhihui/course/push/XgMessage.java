@@ -47,20 +47,20 @@ public class XgMessage {
         this.content = content;
     }
 
-    public void setExpireTime(int expireTime) {
-        this.expireTime = expireTime;
-    }
-
     public int getExpireTime() {
         return this.expireTime;
     }
 
-    public void setSendTime(String sendTime) {
-        this.sendTime = sendTime;
+    public void setExpireTime(int expireTime) {
+        this.expireTime = expireTime;
     }
 
     public String getSendTime() {
         return this.sendTime;
+    }
+
+    public void setSendTime(String sendTime) {
+        this.sendTime = sendTime;
     }
 
     public void addAcceptTime(TimeInterval acceptTime) {
@@ -85,20 +85,20 @@ public class XgMessage {
         return jsonArr;
     }
 
-    public void setType(int type) {
-        this.type = type;
-    }
-
     public int getType() {
         return this.type;
     }
 
-    public void setMultiPkg(int multiPkg) {
-        this.multiPkg = multiPkg;
+    public void setType(int type) {
+        this.type = type;
     }
 
     public int getMultiPkg() {
         return this.multiPkg;
+    }
+
+    public void setMultiPkg(int multiPkg) {
+        this.multiPkg = multiPkg;
     }
 
     public void setStyle(Style style) {
