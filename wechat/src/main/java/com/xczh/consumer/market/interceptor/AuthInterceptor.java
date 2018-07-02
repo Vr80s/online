@@ -38,6 +38,7 @@ import com.xczh.consumer.market.bean.WxcpClientUserWxMapping;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
 import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczhihui.user.center.exception.LoginRegException;
 import com.xczhihui.user.center.service.UserCenterService;
 import com.xczhihui.user.center.utils.UCCookieUtil;
 import com.xczhihui.user.center.vo.ThirdFlag;
@@ -268,7 +269,7 @@ public class AuthInterceptor implements HandlerInterceptor, HandlerMethodArgumen
             }
         } else {
             if (tokenData == null) {
-                throw new IllegalArgumentException("token 无效" + str);
+                throw new LoginRegException("token 无效" + str);
             }
             if (OnlineUser.class.isAssignableFrom(clazz)) {
                 return onlineUserService.findUserById(userId);

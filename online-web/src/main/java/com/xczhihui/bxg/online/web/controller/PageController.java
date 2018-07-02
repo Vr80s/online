@@ -199,7 +199,7 @@ public class PageController {
      */
     @RequestMapping(value = "doctors/my", method = RequestMethod.GET)
     public void doctor(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        request.getRequestDispatcher("/web/html/personal-center/personal-index.html").forward(request, response);
+        request.getRequestDispatcher("/web/html/anchors_resources.html").forward(request, response);
     }
 
     /**

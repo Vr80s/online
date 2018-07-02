@@ -43,7 +43,7 @@ function showDOrH() {
             if (data.resultObject == 1) {
                 //医师认证成功
                 $('#docOrHos').text('我是医师');
-                $('#docOrHos').attr('href', '/web/html/anchors_resources.html')
+                $('#docOrHos').attr('href', '/doctors/my')
                 $('#docOrHos').removeClass('hide');
                 $(".want-anchor").addClass("hide");
                 $(".appDown").removeClass("hide");

@@ -274,7 +274,7 @@ $('#doctor_in_inf .news_nav ul li a').click(function() {
 
 //点击我是医师
 function goDocPage() {
-	window.location.href = "/web/html/anchors_resources.html";
+	window.location.href = "/doctors/my";
 }
 
 //点击首页状态提示中的查看认证状态
