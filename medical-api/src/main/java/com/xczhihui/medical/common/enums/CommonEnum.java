@@ -2,6 +2,7 @@ package com.xczhihui.medical.common.enums;
 
 /**
  * 医师医馆公共枚举
+ *
  * @author zhuwenbao
  */
 public enum CommonEnum {
@@ -13,16 +14,16 @@ public enum CommonEnum {
     DOCTOR_APPLY_REJECT(5),
     HOSPITAL_APPLY_REJECT(6),
     NOT_DOCTOR_AND_HOSPITAL(7),
-	
+
     AUTH_DOCTOR_STATUS(8),
     AUTH_HOSPITAL_STATUS(9);
 
 
-    CommonEnum(Integer code){
+    private Integer code;
+
+    CommonEnum(Integer code) {
         this.code = code;
     }
-
-    private Integer code;
 
     public Integer getCode() {
         return code;

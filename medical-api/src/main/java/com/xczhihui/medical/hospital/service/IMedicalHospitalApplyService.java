@@ -6,7 +6,7 @@ import com.xczhihui.medical.hospital.model.MedicalHospitalApply;
 
 /**
  * <p>
- *  医馆入驻申请认证服务类
+ * 医馆入驻申请认证服务类
  * </p>
  *
  * @author yuxin
@@ -16,6 +16,7 @@ public interface IMedicalHospitalApplyService {
 
     /**
      * 添加医馆入驻申请认证信息
+     *
      * @param target 医馆入驻申请认证的信息封装
      */
     void add(MedicalHospitalApply target);
@@ -26,33 +27,34 @@ public interface IMedicalHospitalApplyService {
 
     /**
      * 根据userId获取医师入驻最后一条申请信息
+     *
      * @param userId 用户id
      * @return 医师入驻申请信息
      */
     MedicalHospitalApply getLastOne(String userId);
-    
+
     /**
      * Description：根据用户信息得到医师信息在得到医馆信息
+     *
      * @param userId
-     * @return
      * @return MedicalHospitalAccount
      * @author name：yangxuan <br>email: 15936216273@163.com
      */
     MedicalHospital getMedicalHospitalByMiddleUserId(String userId);
-    
+
     /**
      * Description：根据用户信息直接得到医馆信息
+     *
      * @param userId
-     * @return
      * @return MedicalHospitalAccount
      * @author name：yangxuan <br>email: 15936216273@163.com
      */
     MedicalHospital getMedicalHospitalByUserId(String userId);
-    
+
     /**
      * Description：通过用户信息直接得到医馆信息
+     *
      * @param userId
-     * @return
      * @return MedicalHospitalAccount
      * @author name：yangxuan <br>email: 15936216273@163.com
      */
@@ -60,8 +62,9 @@ public interface IMedicalHospitalApplyService {
 
     /**
      * 通过医师信息得到医馆信息
+     *
      * @param doctorId
      * @return
      */
-	MedicalHospital getMedicalHospitalByDoctorId(String doctorId);
+    MedicalHospital getMedicalHospitalByDoctorId(String doctorId);
 }

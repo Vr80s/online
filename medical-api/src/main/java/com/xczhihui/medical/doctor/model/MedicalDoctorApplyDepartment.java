@@ -1,11 +1,11 @@
 package com.xczhihui.medical.doctor.model;
 
+import java.io.Serializable;
+import java.util.Date;
+
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
-
-import java.io.Serializable;
-import java.util.Date;
 
 /**
  * <p>
@@ -23,67 +23,67 @@ public class MedicalDoctorApplyDepartment extends Model<MedicalDoctorApplyDepart
     /**
      * 医师认证申请科室关系表
      */
-	private String id;
+    private String id;
 
-	/**
+    /**
      * 医师认证申请id
      */
-	@TableField("doctor_apply_id")
-	private String doctorApplyId;
+    @TableField("doctor_apply_id")
+    private String doctorApplyId;
 
-	/**
+    /**
      * 科室id
      */
-	@TableField("department_id")
-	private String departmentId;
+    @TableField("department_id")
+    private String departmentId;
 
     /**
      * 创建时间
      */
-	@TableField("create_time")
-	private Date createTime;
+    @TableField("create_time")
+    private Date createTime;
 
-	@Override
-	protected Serializable pkVal() {
-		return this.id;
-	}
+    public MedicalDoctorApplyDepartment(String departmentId) {
+        this.departmentId = departmentId;
+    }
 
-	public String getId() {
-		return id;
-	}
+    public MedicalDoctorApplyDepartment() {
+    }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    @Override
+    protected Serializable pkVal() {
+        return this.id;
+    }
 
-	public String getDoctorApplyId() {
-		return doctorApplyId;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public void setDoctorApplyId(String doctorApplyId) {
-		this.doctorApplyId = doctorApplyId;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public String getDepartmentId() {
-		return departmentId;
-	}
+    public String getDoctorApplyId() {
+        return doctorApplyId;
+    }
 
-	public void setDepartmentId(String departmentId) {
-		this.departmentId = departmentId;
-	}
+    public void setDoctorApplyId(String doctorApplyId) {
+        this.doctorApplyId = doctorApplyId;
+    }
 
-	public Date getCreateTime() {
-		return createTime;
-	}
+    public String getDepartmentId() {
+        return departmentId;
+    }
 
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
+    public void setDepartmentId(String departmentId) {
+        this.departmentId = departmentId;
+    }
 
-	public MedicalDoctorApplyDepartment(String departmentId) {
-		this.departmentId = departmentId;
-	}
+    public Date getCreateTime() {
+        return createTime;
+    }
 
-	public MedicalDoctorApplyDepartment() {
-	}
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
 }

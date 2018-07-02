@@ -2,13 +2,14 @@ package com.xczhihui.medical.doctor.enums;
 
 /**
  * 医师入驻申请状态枚举
+ *
  * @author zhuwenbao
  */
 public enum MedicalDoctorApplyEnum {
 
-    REJECT(0,"拒绝"),
-    PASS(1,"通过"),
-    WAIT(2,"未处理");
+    REJECT(0, "拒绝"),
+    PASS(1, "通过"),
+    WAIT(2, "未处理");
 
     private Integer code;
 

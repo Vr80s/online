@@ -1,476 +1,475 @@
 package com.xczhihui.medical.anchor.vo;
 
 
-
 import java.io.Serializable;
 import java.util.Date;
 
 /**
  * <p>
- * 
+ * <p>
  * </p>
  *
  * @author yuxin
  * @since 2018-01-19
  */
-public class CourseApplyInfoVO implements Serializable{
+public class CourseApplyInfoVO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     /**
      * 课程申请信息表
      */
-	private Integer id;
-	private Integer courseId;
+    private Integer id;
+    private Integer courseId;
     /**
      * 标题
      */
-	private String title;
+    private String title;
     /**
      * 副标题
      */
-	private String subtitle;
+    private String subtitle;
     /**
      * 作者
      */
-	private String userId;
+    private String userId;
     /**
      * 封面
      */
-	private String imgPath;
+    private String imgPath;
     /**
      * 主播
      */
-	private String lecturer;
+    private String lecturer;
     /**
      * 主播介绍
      */
-	private String lecturerDescription;
+    private String lecturerDescription;
     /**
      * 课程类型：1.直播 2.点播 3.线下课
      */
-	private Integer courseForm;
-	private Integer liveStatus;
+    private Integer courseForm;
+    private Integer liveStatus;
     /**
      * 课程分类
      */
-	private String courseMenu;
-	private String webinarId;
+    private String courseMenu;
+    private String webinarId;
     /**
      * 课程开始时间
      */
-	private Date startTime;
+    private Date startTime;
     /**
      * 课程时长
      */
-	private String courseLength;
+    private String courseLength;
     /**
      * 课程单价
      */
-	private Double price;
+    private Double price;
     /**
      * 课程密码
      */
-	private String password;
+    private String password;
     /**
      * 课程简介
      */
-	private String courseDescription;
+    private String courseDescription;
     /**
      * 课程简介
      */
-	private String courseDetail;
+    private String courseDetail;
     /**
      * 课程大纲
      */
-	private String courseOutline;
+    private String courseOutline;
     /**
      * 课程资源
      */
-	private String courseResource;
+    private String courseResource;
     /**
      * 合辑包含课程数
      */
-	private Integer courseNumber;
+    private Integer courseNumber;
     /**
      * 合辑中课程的排序字段
      */
-	private Integer collectionCourseSort;
+    private Integer collectionCourseSort;
     /**
      * 多媒体类型:1视频2音频
      */
-	private Integer multimediaType;
+    private Integer multimediaType;
     /**
      * 是否为专辑
      */
-	private Boolean collection;
+    private Boolean collection;
     /**
      * 是否上架
      */
-	private Boolean sale;
+    private Boolean sale;
     /**
      * 审核状态 0未审核 1 审核通过 2 审核未通过
      */
-	private Integer status;
+    private Integer status;
     /**
      * 驳回原因
      */
-	private Integer dismissal;
+    private Integer dismissal;
     /**
      * 驳回备注
      */
-	private String dismissalRemark;
+    private String dismissalRemark;
     /**
      * 审核时间
      */
-	private Date reviewTime;
+    private Date reviewTime;
     /**
      * 创建时间
      */
-	private Date createTime;
+    private Date createTime;
     /**
      * 更新时间
      */
-	private Date updateTime;
-	private Date lastUpdateTime;
+    private Date updateTime;
+    private Date lastUpdateTime;
     /**
      * 授课地址
      */
-	private String address;
+    private String address;
     /**
      * 结课时间
      */
-	private Date endTime;
+    private Date endTime;
 
-	private Integer recommend;
+    private Integer recommend;
 
-	private Integer applyStatus;
+    private Integer applyStatus;
 
-	public String getWebinarId() {
-		return webinarId;
-	}
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
 
-	public void setWebinarId(String webinarId) {
-		this.webinarId = webinarId;
-	}
+    public String getWebinarId() {
+        return webinarId;
+    }
 
-	public Integer getRecommend() {
-		return recommend;
-	}
+    public void setWebinarId(String webinarId) {
+        this.webinarId = webinarId;
+    }
 
-	public void setRecommend(Integer recommend) {
-		this.recommend = recommend;
-	}
+    public Integer getRecommend() {
+        return recommend;
+    }
 
-	public Date getLastUpdateTime() {
-		return lastUpdateTime;
-	}
+    public void setRecommend(Integer recommend) {
+        this.recommend = recommend;
+    }
 
-	public void setLastUpdateTime(Date lastUpdateTime) {
-		this.lastUpdateTime = lastUpdateTime;
-	}
+    public Date getLastUpdateTime() {
+        return lastUpdateTime;
+    }
 
-	public Integer getApplyStatus() {
-		return applyStatus;
-	}
+    public void setLastUpdateTime(Date lastUpdateTime) {
+        this.lastUpdateTime = lastUpdateTime;
+    }
 
-	public void setApplyStatus(Integer applyStatus) {
-		this.applyStatus = applyStatus;
-	}
+    public Integer getApplyStatus() {
+        return applyStatus;
+    }
 
-	public Integer getId() {
-		return id;
-	}
+    public void setApplyStatus(Integer applyStatus) {
+        this.applyStatus = applyStatus;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public String getTitle() {
-		return title;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    public String getTitle() {
+        return title;
+    }
 
-	public String getSubtitle() {
-		return subtitle;
-	}
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-	public void setSubtitle(String subtitle) {
-		this.subtitle = subtitle;
-	}
+    public String getSubtitle() {
+        return subtitle;
+    }
 
-	public String getUserId() {
-		return userId;
-	}
+    public void setSubtitle(String subtitle) {
+        this.subtitle = subtitle;
+    }
 
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
+    public String getUserId() {
+        return userId;
+    }
 
-	public String getImgPath() {
-		return imgPath;
-	}
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
-	public void setImgPath(String imgPath) {
-		this.imgPath = imgPath;
-	}
+    public String getImgPath() {
+        return imgPath;
+    }
 
-	public String getLecturer() {
-		return lecturer;
-	}
+    public void setImgPath(String imgPath) {
+        this.imgPath = imgPath;
+    }
 
-	public void setLecturer(String lecturer) {
-		this.lecturer = lecturer;
-	}
+    public String getLecturer() {
+        return lecturer;
+    }
 
-	public String getLecturerDescription() {
-		return lecturerDescription;
-	}
+    public void setLecturer(String lecturer) {
+        this.lecturer = lecturer;
+    }
 
-	public void setLecturerDescription(String lecturerDescription) {
-		this.lecturerDescription = lecturerDescription;
-	}
+    public String getLecturerDescription() {
+        return lecturerDescription;
+    }
 
-	public Integer getCourseForm() {
-		return courseForm;
-	}
+    public void setLecturerDescription(String lecturerDescription) {
+        this.lecturerDescription = lecturerDescription;
+    }
 
-	public void setCourseForm(Integer courseForm) {
-		this.courseForm = courseForm;
-	}
-
-	public String getCourseMenu() {
-		return courseMenu;
-	}
-
-	public void setCourseMenu(String courseMenu) {
-		this.courseMenu = courseMenu;
-	}
-
-	public Date getStartTime() {
-		return startTime;
-	}
-
-	public void setStartTime(Date startTime) {
-		this.startTime = startTime;
-	}
-
-	public String getCourseLength() {
-		return courseLength;
-	}
-
-	public void setCourseLength(String courseLength) {
-		this.courseLength = courseLength;
-	}
-
-	public Double getPrice() {
-		return price;
-	}
-
-	public void setPrice(Double price) {
-		this.price = price;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getCourseDescription() {
-		return courseDescription;
-	}
-
-	public void setCourseDescription(String courseDescription) {
-		this.courseDescription = courseDescription;
-	}
-
-	public String getCourseDetail() {
-		return courseDetail;
-	}
-
-	public void setCourseDetail(String courseDetail) {
-		this.courseDetail = courseDetail;
-	}
-
-	public String getCourseOutline() {
-		return courseOutline;
-	}
-
-	public void setCourseOutline(String courseOutline) {
-		this.courseOutline = courseOutline;
-	}
-
-	public String getCourseResource() {
-		return courseResource;
-	}
-
-	public void setCourseResource(String courseResource) {
-		this.courseResource = courseResource;
-	}
-
-	public Integer getCourseNumber() {
-		return courseNumber;
-	}
-
-	public void setCourseNumber(Integer courseNumber) {
-		this.courseNumber = courseNumber;
-	}
-
-	public Integer getCollectionCourseSort() {
-		return collectionCourseSort;
-	}
-
-	public void setCollectionCourseSort(Integer collectionCourseSort) {
-		this.collectionCourseSort = collectionCourseSort;
-	}
-
-	public Integer getMultimediaType() {
-		return multimediaType;
-	}
-
-	public void setMultimediaType(Integer multimediaType) {
-		this.multimediaType = multimediaType;
-	}
-
-	public Boolean getCollection() {
-		return collection;
-	}
-
-	public void setCollection(Boolean collection) {
-		this.collection = collection;
-	}
-
-	public Boolean getSale() {
-		return sale;
-	}
-
-	public void setSale(Boolean sale) {
-		this.sale = sale;
-	}
-
-	public Integer getStatus() {
-		return status;
-	}
-
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
-
-	public Integer getDismissal() {
-		return dismissal;
-	}
-
-	public void setDismissal(Integer dismissal) {
-		this.dismissal = dismissal;
-	}
-
-	public String getDismissalRemark() {
-		return dismissalRemark;
-	}
-
-	public void setDismissalRemark(String dismissalRemark) {
-		this.dismissalRemark = dismissalRemark;
-	}
-
-	public static long getSerialVersionUID() {
-		return serialVersionUID;
-	}
-
-	public Date getReviewTime() {
-		return reviewTime;
-	}
-
-	public void setReviewTime(Date reviewTime) {
-		this.reviewTime = reviewTime;
-	}
-
-	public Date getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
-
-	public Date getUpdateTime() {
-		return updateTime;
-	}
-
-	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public Date getEndTime() {
-		return endTime;
-	}
-
-	public void setEndTime(Date endTime) {
-		this.endTime = endTime;
-	}
-
-	public Integer getLiveStatus() {
-		return liveStatus;
-	}
-
-	public void setLiveStatus(Integer liveStatus) {
-		this.liveStatus = liveStatus;
-	}
-
-	public Integer getCourseId() {
-		return courseId;
-	}
-
-	public void setCourseId(Integer courseId) {
-		this.courseId = courseId;
-	}
-
-	@Override
-	public String toString() {
-		return "CourseApplyInfo{" +
-			", id=" + id +
-			", title=" + title +
-			", subtitle=" + subtitle +
-			", userId=" + userId +
-			", imgPath=" + imgPath +
-			", lecturer=" + lecturer +
-			", lecturerDescription=" + lecturerDescription +
-			", courseForm=" + courseForm +
-			", courseMenu=" + courseMenu +
-			", startTime=" + startTime +
-			", courseLength=" + courseLength +
-			", price=" + price +
-			", password=" + password +
-			", courseDescription=" + courseDescription +
-			", courseDetail=" + courseDetail +
-			", courseOutline=" + courseOutline +
-			", courseResource=" + courseResource +
-			", courseNumber=" + courseNumber +
-			", collectionCourseSort=" + collectionCourseSort +
-			", multimediaType=" + multimediaType +
-			", collection=" + collection +
-			", sale=" + sale +
-			", status=" + status +
-			", dismissal=" + dismissal +
-			", dismissalRemark=" + dismissalRemark +
-			", reviewTime=" + reviewTime +
-			", createTime=" + createTime +
-			", updateTime=" + updateTime +
-			", address=" + address +
-			", endTime=" + endTime +
-			"}";
-	}
+    public Integer getCourseForm() {
+        return courseForm;
+    }
+
+    public void setCourseForm(Integer courseForm) {
+        this.courseForm = courseForm;
+    }
+
+    public String getCourseMenu() {
+        return courseMenu;
+    }
+
+    public void setCourseMenu(String courseMenu) {
+        this.courseMenu = courseMenu;
+    }
+
+    public Date getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getCourseLength() {
+        return courseLength;
+    }
+
+    public void setCourseLength(String courseLength) {
+        this.courseLength = courseLength;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getCourseDescription() {
+        return courseDescription;
+    }
+
+    public void setCourseDescription(String courseDescription) {
+        this.courseDescription = courseDescription;
+    }
+
+    public String getCourseDetail() {
+        return courseDetail;
+    }
+
+    public void setCourseDetail(String courseDetail) {
+        this.courseDetail = courseDetail;
+    }
+
+    public String getCourseOutline() {
+        return courseOutline;
+    }
+
+    public void setCourseOutline(String courseOutline) {
+        this.courseOutline = courseOutline;
+    }
+
+    public String getCourseResource() {
+        return courseResource;
+    }
+
+    public void setCourseResource(String courseResource) {
+        this.courseResource = courseResource;
+    }
+
+    public Integer getCourseNumber() {
+        return courseNumber;
+    }
+
+    public void setCourseNumber(Integer courseNumber) {
+        this.courseNumber = courseNumber;
+    }
+
+    public Integer getCollectionCourseSort() {
+        return collectionCourseSort;
+    }
+
+    public void setCollectionCourseSort(Integer collectionCourseSort) {
+        this.collectionCourseSort = collectionCourseSort;
+    }
+
+    public Integer getMultimediaType() {
+        return multimediaType;
+    }
+
+    public void setMultimediaType(Integer multimediaType) {
+        this.multimediaType = multimediaType;
+    }
+
+    public Boolean getCollection() {
+        return collection;
+    }
+
+    public void setCollection(Boolean collection) {
+        this.collection = collection;
+    }
+
+    public Boolean getSale() {
+        return sale;
+    }
+
+    public void setSale(Boolean sale) {
+        this.sale = sale;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public Integer getDismissal() {
+        return dismissal;
+    }
+
+    public void setDismissal(Integer dismissal) {
+        this.dismissal = dismissal;
+    }
+
+    public String getDismissalRemark() {
+        return dismissalRemark;
+    }
+
+    public void setDismissalRemark(String dismissalRemark) {
+        this.dismissalRemark = dismissalRemark;
+    }
+
+    public Date getReviewTime() {
+        return reviewTime;
+    }
+
+    public void setReviewTime(Date reviewTime) {
+        this.reviewTime = reviewTime;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Date getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
+    }
+
+    public Integer getLiveStatus() {
+        return liveStatus;
+    }
+
+    public void setLiveStatus(Integer liveStatus) {
+        this.liveStatus = liveStatus;
+    }
+
+    public Integer getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(Integer courseId) {
+        this.courseId = courseId;
+    }
+
+    @Override
+    public String toString() {
+        return "CourseApplyInfo{" +
+                ", id=" + id +
+                ", title=" + title +
+                ", subtitle=" + subtitle +
+                ", userId=" + userId +
+                ", imgPath=" + imgPath +
+                ", lecturer=" + lecturer +
+                ", lecturerDescription=" + lecturerDescription +
+                ", courseForm=" + courseForm +
+                ", courseMenu=" + courseMenu +
+                ", startTime=" + startTime +
+                ", courseLength=" + courseLength +
+                ", price=" + price +
+                ", password=" + password +
+                ", courseDescription=" + courseDescription +
+                ", courseDetail=" + courseDetail +
+                ", courseOutline=" + courseOutline +
+                ", courseResource=" + courseResource +
+                ", courseNumber=" + courseNumber +
+                ", collectionCourseSort=" + collectionCourseSort +
+                ", multimediaType=" + multimediaType +
+                ", collection=" + collection +
+                ", sale=" + sale +
+                ", status=" + status +
+                ", dismissal=" + dismissal +
+                ", dismissalRemark=" + dismissalRemark +
+                ", reviewTime=" + reviewTime +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", address=" + address +
+                ", endTime=" + endTime +
+                "}";
+    }
 }

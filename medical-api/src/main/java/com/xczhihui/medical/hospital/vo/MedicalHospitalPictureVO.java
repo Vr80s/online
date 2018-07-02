@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * <p>
- * 
+ * <p>
  * </p>
  *
  * @author yuxin
@@ -15,47 +15,47 @@ public class MedicalHospitalPictureVO implements Serializable {
     /**
      * 医馆图片表
      */
-	private String id;
+    private String id;
     /**
      * 医馆id
      */
-	private String hospitalId;
+    private String hospitalId;
     /**
      * 图片地址
      */
-	private String picture;
+    private String picture;
 
 
-	public String getId() {
-		return id;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public String getHospitalId() {
-		return hospitalId;
-	}
+    public String getHospitalId() {
+        return hospitalId;
+    }
 
-	public void setHospitalId(String hospitalId) {
-		this.hospitalId = hospitalId;
-	}
+    public void setHospitalId(String hospitalId) {
+        this.hospitalId = hospitalId;
+    }
 
-	public String getPicture() {
-		return picture;
-	}
+    public String getPicture() {
+        return picture;
+    }
 
-	public void setPicture(String picture) {
-		this.picture = picture;
-	}
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
 
-	@Override
-	public String toString() {
-		return "MedicalHospitalPictureVo{" +
-			", id=" + id +
-			", hospitalId=" + hospitalId +
-			", picture=" + picture +
-			"}";
-	}
+    @Override
+    public String toString() {
+        return "MedicalHospitalPictureVo{" +
+                ", id=" + id +
+                ", hospitalId=" + hospitalId +
+                ", picture=" + picture +
+                "}";
+    }
 }
