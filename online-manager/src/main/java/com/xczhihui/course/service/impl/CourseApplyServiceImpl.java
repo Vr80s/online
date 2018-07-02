@@ -3,16 +3,14 @@ package com.xczhihui.course.service.impl;
 import static com.xczhihui.common.util.RedisCacheKey.LIVE_COURSE_REMIND_LAST_TIME_KEY;
 
 import java.text.MessageFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Service;
 
@@ -163,8 +161,7 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
 
     @Override
     public void savePass(Integer courseApplyId, String createPerson) {
-        CourseApplyInfo courseApply = courseApplyDao
-                .findCourseApplyById(courseApplyId);
+        CourseApplyInfo courseApply = courseApplyDao.findCourseApplyById(courseApplyId);
         if (courseApply.getStatus() != ApplyStatus.UNTREATED.getCode()) {
             throw new RuntimeException("课程已被他人审核");
         }
@@ -175,8 +172,7 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
         // 对于专辑，通过时，所有课程都通过
         if (courseApply.getCollection()) {
             deleteCollectionCourseByCollectionId(course.getId());
-            List<CourseApplyInfo> courseApplyInfos = courseApplyDao
-                    .getCourseDeatilsByCollectionId(courseApply.getId());
+            List<CourseApplyInfo> courseApplyInfos = courseApplyDao.getCourseDeatilsByCollectionId(courseApply.getId());
             for (int i = 0; i < courseApplyInfos.size(); i++) {
                 if (courseApplyInfos.get(i).getStatus() != 1) {
                     throw new RuntimeException("专辑中包含未通过课程，无法通过审核");
@@ -413,30 +409,11 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
     }
 
     private Course saveCourseApply2course(CourseApplyInfo courseApply) {
-        courseService.checkName(null, courseApply.getTitle(),
-                courseApply.getOldApplyInfoId());
-        Map<String, Object> params = new HashMap<String, Object>();
-        String sql = "SELECT IFNULL(MAX(sort),0) as sort FROM oe_course ";
-        List<Course> temp = dao.findEntitiesByJdbc(Course.class, sql, params);
-        int sort;
-        if (temp.size() > 0) {
-            sort = temp.get(0).getSort().intValue() + 1;
-        } else {
-            sort = 1;
-        }
+        Course course = getCourse4Apply(courseApply.getOldApplyInfoId());
+        courseService.checkName(null, courseApply.getTitle(), courseApply.getOldApplyInfoId());
         // 当课程存在密码时，设置的当前价格失效，改为0.0
-        if (courseApply.getPassword() != null
-                && !"".equals(courseApply.getPassword().trim())) {
+        if (courseApply.getPassword() != null && !"".equals(courseApply.getPassword().trim())) {
             courseApply.setPrice(0.0);
-        }
-        Course course = null;
-        if (courseApply.getOldApplyInfoId() != null) {
-            course = courseDao
-                    .findOneEntitiyByProperty(Course.class, "applyId",
-                            Integer.valueOf(courseApply.getOldApplyInfoId()));
-        }
-        if (course == null) {
-            course = new Course();
         }
         // 课程名称
         course.setGradeName(courseApply.getTitle());
@@ -460,15 +437,11 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
             // 付费
             course.setIsFree(false);
         }
-        // 排序
-        course.setSort(sort);
         // 请填写一个基数，统计的时候加上这个基数
         course.setLearndCount(0);
         // 当前登录人
         course.setCreatePerson(ManagerUserUtil.getUsername());
 
-        // 状态
-        course.setStatus('0' + "");
         // 课程介绍
         course.setCourseDetail(courseApply.getCourseDetail());
 
@@ -478,13 +451,14 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
         course.setType(courseApply.getCourseForm());
 
         // zhuwenbao-2018-01-09 设置课程的展示图
-        // findCourseById 是直接拿小图 getCourseDetail是从大图里拿 同时更新两个 防止两者数据不一样
         course.setSmallImgPath(courseApply.getImgPath());
-        course.setBigImgPath(courseApply.getImgPath());
 
         course.setCourseOutline(courseApply.getCourseOutline());
         course.setLecturer(courseApply.getLecturer());
         course.setLecturerDescription(courseApply.getLecturerDescription());
+
+        course.setLiveSource(2);
+        course.setSort(0);
 
         course.setStatus("0");
         if (course.getType() == CourseForm.OFFLINE.getCode()) {
@@ -497,15 +471,14 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
             courseService.addCourseCity(course.getCity());
         } else if (course.getType() == CourseForm.LIVE.getCode()) {
             course.setStartTime(courseApply.getStartTime());
-            course.setDirectSeeding(3);
             if (StringUtils.isBlank(course.getDirectId())) {
                 String webinarId = createWebinar(course);
                 course.setDirectId(webinarId);
+                // 将直播课设置为预告
+                course.setLiveStatus(2);
             } else {
                 updateWebinar(course);
             }
-            // 将直播课设置为预告
-            course.setLiveStatus(2);
         } else if (course.getType() == CourseForm.VOD.getCode()) {
             // yuruixin-2017-08-16
             // 课程资源
@@ -514,9 +487,6 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
         }
         course.setIsRecommend(0);
         course.setClassRatedNum(0);
-        course.setServiceType(0);
-        course.setLiveSource(2);
-        course.setDescriptionShow(0);
         course.setApplyId(courseApply.getId());
         course.setCollectionCourseSort(courseApply.getCollectionCourseSort());
         course.setCollection(courseApply.getCollection());
@@ -532,6 +502,34 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
         }
         savecourseMessageReminding(course);
         return course;
+    }
+
+    private Course getCourse4Apply(Integer oldApplyInfoId) {
+        if(oldApplyInfoId==null){
+            return null;
+        }
+        List<Integer> applyIdList = new ArrayList<>();
+        getOldApplyIds(oldApplyInfoId,applyIdList);
+        String applyIds = StringUtils.join(applyIdList,",");
+        String courseTypeSql = "select * from oe_course oc where oc.apply_id in ("+applyIds+")";
+        Map<String, Object> params = new HashMap<String, Object>();
+        List<Course> courses = dao.getNamedParameterJdbcTemplate().query( courseTypeSql, params, BeanPropertyRowMapper.newInstance(Course.class));
+        if(courses.size()>1){
+            throw new RuntimeException("数据有误");
+        }else if(courses.size()==1){
+            return courses.get(0);
+        }
+        return new Course();
+    }
+
+    private List<Integer> getOldApplyIds(Integer oldApplyInfoId, List<Integer> applyIdList) {
+        if(oldApplyInfoId!=null && oldApplyInfoId !=0){
+            applyIdList.add(oldApplyInfoId);
+            String sql = "SELECT cai.old_apply_info_id FROM `course_apply_info` cai WHERE cai.id = ?";
+            Integer oai = dao.queryForInt(sql, oldApplyInfoId);
+            getOldApplyIds(oai,applyIdList);
+        }
+        return applyIdList;
     }
 
     /**
