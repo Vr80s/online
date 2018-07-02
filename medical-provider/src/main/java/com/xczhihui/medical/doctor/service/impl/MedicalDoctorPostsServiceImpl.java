@@ -1,5 +1,7 @@
 package com.xczhihui.medical.doctor.service.impl;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +50,24 @@ public class MedicalDoctorPostsServiceImpl extends ServiceImpl<MedicalDoctorPost
             });
             MedicalDoctorPosts.setDoctorPostsCommentList(commentList);
             MedicalDoctorPosts.setDoctorPostsLikeList(likeList);
+            Date d = MedicalDoctorPosts.getCreateTime();
+            Date currentDate = new Date();
+            Date createTime = MedicalDoctorPosts.getCreateTime();
+            int second = (int)(currentDate.getTime() - createTime.getTime())/1000;
+            int min = (int)(currentDate.getTime() - d.getTime())/1000/60+1;
+            int hour = (int)(currentDate.getTime() - d.getTime())/1000/60/60+1;
+            if(second<60){
+                MedicalDoctorPosts.setDateStr("刚刚");
+            } else if (min<=60){
+                MedicalDoctorPosts.setDateStr(min+"分钟前");
+            } else if (hour<=12){
+                MedicalDoctorPosts.setDateStr(hour+"小时前");
+            } else {
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                String dateString = formatter.format(createTime);
+                MedicalDoctorPosts.setDateStr(dateString);
+            }
+
         });
         page.setRecords(list);
         return page;
