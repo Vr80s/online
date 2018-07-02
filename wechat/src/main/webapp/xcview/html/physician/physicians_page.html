@@ -26,6 +26,9 @@
 
 <!-- 直播间数据引入 -->
 <script type="text/javascript" src="/xcview/js/physician/broadcastroom.js"></script>
+<!--公用弹框 -->
+<link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
+<script type="text/javascript" src="/xcview/js/common/alertPopShow.js"></script>
 
 <!-- 表情包聊天引入 -->
 <link href="/xcview/html/physician/css/webiaoqing.css" rel="stylesheet" type="text/css">
@@ -259,7 +262,10 @@
 	<!-- 中间内容开始 -->
 	<div class="the_dynamic">
 		<!-- 其他一 -->
+		<div id="refreshContainer" class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">
 		<div class="rests_nav">
+
 			<script type="text/html" id="wrap_doctor_dynamics">
 				{{each items as item i}}
 				{{if item.type == 1}}
@@ -308,7 +314,7 @@
 				</div>
 				{{else if item.typeId != null && item.typeId != 8}}
 				<!-- 文章-->
-				<div class="article_hide">
+				<div class="article_hide" onclick="articleDetails('{{item.articleId}}')">
 					<div class="article_nav_span comment_hide">
 						{{if item.stick}}
 						<span class="stick_img_stick"><img src="/xcview/images/stick.png" alt="" />置顶</span>
@@ -323,13 +329,13 @@
 				</div>
 				{{else if item.type == 5}}
 				<!-- 课程-->
-				<div class="course_hide">
+				<div class="course_hide" onclick="common_jump_all('{{item.courseId}}')">
 					<div class="course_nav_span comment_hide" style="font-size: 0.3rem;color: #333333;">
 						{{if item.stick}}
 						<span class="stick_img_stick"><img src="/xcview/images/stick.png" alt="" />置顶</span>
 						{{/if}}
 						{{item.title}}
-						
+
 						<div class="both"></div>
 					</div>
 					<div class="both"></div>
@@ -365,7 +371,7 @@
 
 				</div>
 				<div class="consilia_nav_btn"><span>收起</span></div>
-				<div class="consilia_nav_cen comment_hide">
+				<div class="consilia_nav_cen comment_hide" onclick="consiliaDetails('{{item.articleId}}')">
 					<img src="{{item.articleImgPath}}" alt="" />
 					<div class="consilia_nav_cen_size">{{item.articleContent}}</div>
 				</div>
@@ -452,6 +458,14 @@
 				{{/each}}
 			</script>
 		</div>
+
+				</div></div>
+
+
+
+
+
+
 
 		<!-- 删除样式开始 -->
 			<div class="remove">
