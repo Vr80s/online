@@ -5,7 +5,7 @@ import com.xczhihui.medical.hospital.model.MedicalHospitalAuthentication;
 
 /**
  * <p>
-  *  Mapper 接口
+ * Mapper 接口
  * </p>
  *
  * @author yuxin

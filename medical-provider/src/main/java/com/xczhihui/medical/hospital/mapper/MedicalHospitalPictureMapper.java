@@ -1,17 +1,18 @@
 package com.xczhihui.medical.hospital.mapper;
 
 
-import com.baomidou.mybatisplus.mapper.BaseMapper;
-import com.xczhihui.medical.hospital.model.MedicalHospitalPicture;
-import com.xczhihui.medical.hospital.vo.MedicalHospitalPictureVO;
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Update;
 
-import java.util.List;
+import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.xczhihui.medical.hospital.model.MedicalHospitalPicture;
+import com.xczhihui.medical.hospital.vo.MedicalHospitalPictureVO;
 
 /**
  * <p>
-  *  Mapper 接口
+ * Mapper 接口
  * </p>
  *
  * @author yuxin

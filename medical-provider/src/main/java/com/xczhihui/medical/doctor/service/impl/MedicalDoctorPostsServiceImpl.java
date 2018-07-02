@@ -1,8 +1,12 @@
 package com.xczhihui.medical.doctor.service.impl;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.xczhihui.medical.doctor.mapper.MedicalDoctorPostsCommentMapper;
 import com.xczhihui.medical.doctor.mapper.MedicalDoctorPostsLikeMapper;
 import com.xczhihui.medical.doctor.mapper.MedicalDoctorPostsMapper;
 import com.xczhihui.medical.doctor.model.MedicalDoctorPosts;
@@ -10,14 +14,11 @@ import com.xczhihui.medical.doctor.model.MedicalDoctorPostsComment;
 import com.xczhihui.medical.doctor.model.MedicalDoctorPostsLike;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsCommentService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * Description：医师动态 服务实现类
  * creed: Talk is cheap,show me the code
+ *
  * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
  * @Date: 2018/6/20 14:35
  **/
@@ -32,16 +33,16 @@ public class MedicalDoctorPostsServiceImpl extends ServiceImpl<MedicalDoctorPost
     private IMedicalDoctorPostsCommentService medicalDoctorPostsCommentService;
 
     @Override
-    public Page<MedicalDoctorPosts> selectMedicalDoctorPostsPage(Page<MedicalDoctorPosts> page, Integer type, String doctorId,String accountId) {
-        List<MedicalDoctorPosts> list = medicalDoctorPostsMapper.selectMedicalDoctorPostsPage(page,type,doctorId);
+    public Page<MedicalDoctorPosts> selectMedicalDoctorPostsPage(Page<MedicalDoctorPosts> page, Integer type, String doctorId, String accountId) {
+        List<MedicalDoctorPosts> list = medicalDoctorPostsMapper.selectMedicalDoctorPostsPage(page, type, doctorId);
         //评论列表和点赞列表
         list.forEach(MedicalDoctorPosts -> {
             Integer postsId = MedicalDoctorPosts.getId();
-            List<MedicalDoctorPostsComment> commentList = medicalDoctorPostsCommentService.selectMedicalDoctorPostsCommentList(postsId,accountId);
+            List<MedicalDoctorPostsComment> commentList = medicalDoctorPostsCommentService.selectMedicalDoctorPostsCommentList(postsId, accountId);
             List<MedicalDoctorPostsLike> likeList = medicalDoctorPostsLikeMapper.getMedicalDoctorPostsLikeList(postsId);
             likeList.forEach(MedicalDoctorPostsLike -> {
                 String userId = MedicalDoctorPostsLike.getUserId();
-                if(userId.equals(accountId)){
+                if (userId.equals(accountId)) {
                     MedicalDoctorPosts.setPraise(true);
                 }
             });
@@ -69,7 +70,7 @@ public class MedicalDoctorPostsServiceImpl extends ServiceImpl<MedicalDoctorPost
 
     @Override
     public void updateStickMedicalDoctorPosts(Integer id, Boolean stick) {
-        medicalDoctorPostsMapper.updateStickMedicalDoctorPosts(id,stick);
+        medicalDoctorPostsMapper.updateStickMedicalDoctorPosts(id, stick);
     }
 
     @Override

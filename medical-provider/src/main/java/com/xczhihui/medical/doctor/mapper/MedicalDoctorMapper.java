@@ -100,6 +100,6 @@ public interface MedicalDoctorMapper extends BaseMapper<MedicalDoctor> {
 
     List<MedicalDoctorSolrVO> selectDoctorList4Solr(@Param("doctorId") String doctorId);
 
-	Map<String, Object> selectDoctorWorkTimeAndDetailsById(@Param("doctorId")String doctorId);
+    Map<String, Object> selectDoctorWorkTimeAndDetailsById(@Param("doctorId") String doctorId);
 
 }

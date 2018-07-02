@@ -1,27 +1,27 @@
 package com.xczhihui.medical.anchor.service.impl;
 
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.common.util.enums.EnchashmentDismissal;
 import com.xczhihui.medical.anchor.mapper.CourseApplyInfoMapper;
 import com.xczhihui.medical.anchor.service.IAnchorInfoService;
 import com.xczhihui.medical.anchor.service.IAssetService;
-import com.xczhihui.medical.anchor.vo.CourseApplyInfoVO;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author yuxin
  * @since 2018-01-19
  */
 @Service
-public class AssetServiceImpl  implements IAssetService {
+public class AssetServiceImpl implements IAssetService {
 
     @Autowired
     private CourseApplyInfoMapper courseApplyInfoMapper;
@@ -41,11 +41,11 @@ public class AssetServiceImpl  implements IAssetService {
         anchorInfoService.validateAnchorPermission(userId);
         List<Map> records;
         records = courseApplyInfoMapper.selectRmbTransactionPage(page, userId);
-        for(int i= 0;i<records.size();i++){
-            if(records.get(i).containsKey("dismissal")){
+        for (int i = 0; i < records.size(); i++) {
+            if (records.get(i).containsKey("dismissal")) {
                 String dismissal = records.get(i).get("dismissal").toString();
                 String value = EnchashmentDismissal.getDismissal(Integer.parseInt(dismissal));
-                records.get(i).put("dismissal",value);
+                records.get(i).put("dismissal", value);
             }
         }
         page.setRecords(records);

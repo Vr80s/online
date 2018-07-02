@@ -7,7 +7,7 @@ import com.xczhihui.medical.doctor.vo.MedicalDoctorAuthenticationInformationVO;
 
 /**
  * <p>
-  *  Mapper 接口
+ * Mapper 接口
  * </p>
  *
  * @author yuxin

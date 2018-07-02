@@ -1,16 +1,17 @@
 package com.xczhihui.medical.department.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xczhihui.medical.department.mapper.MedicalDepartmentMapper;
 import com.xczhihui.medical.department.model.MedicalDepartment;
 import com.xczhihui.medical.department.service.IMedicalDepartmentService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author yuxin
@@ -24,6 +25,7 @@ public class MedicalDepartmentServiceImpl extends ServiceImpl<MedicalDepartmentM
 
     /**
      * 获取科室列表（分页）
+     *
      * @param page 翻页对象
      * @return 每页的科室内容
      */

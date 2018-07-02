@@ -36,7 +36,7 @@
         </if>
         <if test="department != null and department!=''">
             join medical_doctor_department mdd on md.id = mdd.doctor_id and mdd.`department_id`=#{department}
-        		and mdd.`deleted`=0
+            and mdd.`deleted`=0
         </if>
         LEFT JOIN `medical_doctor_authentication_information` mdai
         ON md.`authentication_information_id` = mdai.`id`
@@ -61,33 +61,33 @@
 
     <select id="selectDoctorById" resultType="com.xczhihui.medical.doctor.vo.MedicalDoctorVO">
         SELECT
-            md.*,
-            md.`work_time`      workTime,
-            mdai.head_portrait  headPortrait,
-            mh.`id`             hospitalId,
-            md.detailed_address detailedAddress
+        md.*,
+        md.`work_time` workTime,
+        mdai.head_portrait headPortrait,
+        mh.`id` hospitalId,
+        md.detailed_address detailedAddress
         FROM
-            medical_doctor md
-            LEFT JOIN `medical_doctor_authentication_information` mdai
-                ON md.`authentication_information_id` = mdai.`id`
-            LEFT JOIN `medical_hospital_doctor` mhd
-                ON mhd.`doctor_id` = md.`id`
-                   AND mhd.`deleted` = 0
-            LEFT JOIN `medical_hospital` mh
-                ON mhd.`hospital_id` = mh.`id`
+        medical_doctor md
+        LEFT JOIN `medical_doctor_authentication_information` mdai
+        ON md.`authentication_information_id` = mdai.`id`
+        LEFT JOIN `medical_hospital_doctor` mhd
+        ON mhd.`doctor_id` = md.`id`
+        AND mhd.`deleted` = 0
+        LEFT JOIN `medical_hospital` mh
+        ON mhd.`hospital_id` = mh.`id`
         WHERE md.deleted = 0
-              AND md.status = 1
-              AND md.id = #{id}
+        AND md.status = 1
+        AND md.id = #{id}
     </select>
 
     <select id="getHotField" resultType="com.xczhihui.medical.field.vo.MedicalFieldVO">
         SELECT
-            mf.id,
-            mf.name
+        mf.id,
+        mf.name
         FROM
-            `medical_field` mf
-            LEFT JOIN `medical_doctor_field` mdf
-                ON mf.`id` = mdf.`field_id`
+        `medical_field` mf
+        LEFT JOIN `medical_doctor_field` mdf
+        ON mf.`id` = mdf.`field_id`
         GROUP BY mdf.`field_id`
         ORDER BY COUNT(mdf.`field_id`) DESC
         LIMIT 0, 8
@@ -95,16 +95,16 @@
 
     <select id="getHotDepartment" resultType="com.xczhihui.medical.department.vo.MedicalDepartmentVO">
         SELECT
-            md.id,
-            md.name,
-            COUNT(mdd.`department_id`)
+        md.id,
+        md.name,
+        COUNT(mdd.`department_id`)
         FROM
-            `medical_department` md
-            JOIN `medical_doctor_department` mdd
-                ON md.`id` = mdd.`department_id`
-                   AND mdd.`deleted` = 0
+        `medical_department` md
+        JOIN `medical_doctor_department` mdd
+        ON md.`id` = mdd.`department_id`
+        AND mdd.`deleted` = 0
         WHERE md.`status` = 1
-              AND md.`deleted` = 0
+        AND md.`deleted` = 0
         GROUP BY mdd.`department_id`
         ORDER BY COUNT(mdd.`department_id`) DESC
         LIMIT 0, 10
@@ -112,38 +112,38 @@
 
     <select id="selectRecDoctor" resultType="com.xczhihui.medical.doctor.vo.MedicalDoctorVO">
         SELECT
-            md.*,
-            mdai.head_portrait headPortrait
+        md.*,
+        mdai.head_portrait headPortrait
         FROM
-            medical_doctor md
-            LEFT JOIN `medical_doctor_authentication_information` mdai
-                ON md.`authentication_information_id` = mdai.`id`
+        medical_doctor md
+        LEFT JOIN `medical_doctor_authentication_information` mdai
+        ON md.`authentication_information_id` = mdai.`id`
         WHERE md.deleted = 0
-              AND md.status = 1
+        AND md.status = 1
         ORDER BY md.recommend_sort DESC
         LIMIT 0, 8
     </select>
 
     <select id="getHotSpecialColumnAuthor" resultType="com.xczhihui.medical.doctor.vo.MedicalDoctorVO">
         SELECT
-            SUM(oba.`browse_sum`) sbs,
-            COUNT(oba.`id`)       ci,
-            md.`name`,
-            md.`id`,
-            mdai.`head_portrait`  headPortrait,
-            md.`signature`
+        SUM(oba.`browse_sum`) sbs,
+        COUNT(oba.`id`) ci,
+        md.`name`,
+        md.`id`,
+        mdai.`head_portrait` headPortrait,
+        md.`signature`
         FROM
-            `oe_bxs_article` oba
-            JOIN `article_type` art
-                ON oba.type_id = art.`id`
-            JOIN `medical_doctor_special_column` mdaa
-                ON mdaa.`article_id` = oba.`id`
-            JOIN `medical_doctor` md
-                ON mdaa.`doctor_id` = md.`id`
-            JOIN `medical_doctor_authentication_information` mdai
-                ON mdai.id = md.`authentication_information_id`
+        `oe_bxs_article` oba
+        JOIN `article_type` art
+        ON oba.type_id = art.`id`
+        JOIN `medical_doctor_special_column` mdaa
+        ON mdaa.`article_id` = oba.`id`
+        JOIN `medical_doctor` md
+        ON mdaa.`doctor_id` = md.`id`
+        JOIN `medical_doctor_authentication_information` mdai
+        ON mdai.id = md.`authentication_information_id`
         WHERE art.id = #{specialColumn}
-              AND oba.`is_delete` = 0 AND oba.`status` = 1
+        AND oba.`is_delete` = 0 AND oba.`status` = 1
         GROUP BY md.`id`
         ORDER BY sbs DESC, ci DESC, CONVERT(md.`name` USING gbk) ASC
         LIMIT 0, 5
@@ -151,64 +151,64 @@
 
     <select id="selectMedicalFieldsByDoctorId" resultType="com.xczhihui.medical.field.vo.MedicalFieldVO">
         SELECT
-            mf.name,
-            mf.id
+        mf.name,
+        mf.id
         FROM
-            `medical_field` mf,
-            `medical_doctor_field` mdf
+        `medical_field` mf,
+        `medical_doctor_field` mdf
         WHERE mf.`id` = mdf.`field_id`
-              AND mdf.doctor_id = #{doctorId}
+        AND mdf.doctor_id = #{doctorId}
     </select>
 
     <select id="selectMedicalDepartmentsByDoctorId" resultType="com.xczhihui.medical.department.vo.MedicalDepartmentVO">
         SELECT
-            md.name,
-            md.id
+        md.name,
+        md.id
         FROM
-            `medical_department` md,
-            `medical_doctor_department` mdd
+        `medical_department` md,
+        `medical_doctor_department` mdd
         WHERE md.`id` = mdd.`department_id`
-              AND mdd.doctor_id = #{doctorId}
+        AND mdd.doctor_id = #{doctorId}
     </select>
 
     <select id="getWritingsByDoctorId" resultType="com.xczhihui.medical.doctor.vo.MedicalWritingVO">
         SELECT
-            mw.id,
-            mw.`title`,
-            mw.`author`,
-            oba.`img_path` imgPath,
-            mw.article_id as articleId
+        mw.id,
+        mw.`title`,
+        mw.`author`,
+        oba.`img_path` imgPath,
+        mw.article_id as articleId
         FROM
-            `medical_writings` mw
-            LEFT JOIN `oe_bxs_article` oba
-                ON mw.`article_id` = oba.id
-            LEFT JOIN `medical_doctor_writings` mdw
-                ON mdw.`writings_id` = mw.`id`
-            LEFT JOIN `medical_doctor` md
-                ON md.id = mdw.`doctor_id`
+        `medical_writings` mw
+        LEFT JOIN `oe_bxs_article` oba
+        ON mw.`article_id` = oba.id
+        LEFT JOIN `medical_doctor_writings` mdw
+        ON mdw.`writings_id` = mw.`id`
+        LEFT JOIN `medical_doctor` md
+        ON md.id = mdw.`doctor_id`
         WHERE md.id = #{doctorId}
-              AND mw.`deleted` = 0 AND mw.`status` = 1
+        AND mw.`deleted` = 0 AND mw.`status` = 1
         GROUP BY oba.id
         ORDER BY mw.`create_time` DESC
     </select>
 
     <select id="getRecentlyWritings" resultType="com.xczhihui.medical.doctor.vo.MedicalWritingVO">
         SELECT
-            mw.id,
-            mw.`title`,
-            mw.`author`,
-            oba.`img_path` imgPath,
-            mw.article_id as articleId
+        mw.id,
+        mw.`title`,
+        mw.`author`,
+        oba.`img_path` imgPath,
+        mw.article_id as articleId
         FROM
-            `medical_writings` mw
-            LEFT JOIN `oe_bxs_article` oba
-                ON mw.`article_id` = oba.id
-            LEFT JOIN `medical_doctor_writings` mdw
-                ON mdw.`writings_id` = mw.`id`
-            LEFT JOIN `medical_doctor` md
-                ON md.id = mdw.`doctor_id`
+        `medical_writings` mw
+        LEFT JOIN `oe_bxs_article` oba
+        ON mw.`article_id` = oba.id
+        LEFT JOIN `medical_doctor_writings` mdw
+        ON mdw.`writings_id` = mw.`id`
+        LEFT JOIN `medical_doctor` md
+        ON md.id = mdw.`doctor_id`
         WHERE mw.`deleted` = 0
-              AND mw.`status` = 1
+        AND mw.`status` = 1
         GROUP BY oba.id
         ORDER BY mw.`create_time` DESC
         LIMIT 0, 5
@@ -216,11 +216,11 @@
 
     <select id="getWritingsByPage" resultType="com.xczhihui.medical.doctor.vo.MedicalWritingVO">
         SELECT
-            mw.id,
-            mw.`title`,
-            mw.`author`,
-            oba.`img_path` imgPath,
-            mw.`remark`
+        mw.id,
+        mw.`title`,
+        mw.`author`,
+        oba.`img_path` imgPath,
+        mw.`remark`
         FROM
         `medical_writings` mw
         LEFT JOIN `oe_bxs_article` oba
@@ -237,28 +237,28 @@
 
     <select id="getWritingsDetailsById" resultMap="MedicalWritingsResult">
         SELECT
-            mw.id,
-            mw.`article_id`      articleId,
-            mw.`title`,
-            mw.`author`,
-            mw.`buy_link`        buyLink,
-            oba.`img_path`       imgPath,
-            mw.`remark`,
-            md.id                did,
-            md.`name`            dname,
-            md.`province`,
-            md.`city`,
-            mdai.`head_portrait` headPortrait
+        mw.id,
+        mw.`article_id` articleId,
+        mw.`title`,
+        mw.`author`,
+        mw.`buy_link` buyLink,
+        oba.`img_path` imgPath,
+        mw.`remark`,
+        md.id did,
+        md.`name` dname,
+        md.`province`,
+        md.`city`,
+        mdai.`head_portrait` headPortrait
         FROM
-            `medical_writings` mw
-            LEFT JOIN `oe_bxs_article` oba
-                ON mw.`article_id` = oba.id
-            LEFT JOIN `medical_doctor_writings` mdw
-                ON mdw.`writings_id` = mw.`id`
-            LEFT JOIN `medical_doctor` md
-                ON md.id = mdw.`doctor_id`
-            LEFT JOIN `medical_doctor_authentication_information` mdai
-                ON md.`authentication_information_id` = mdai.`id`
+        `medical_writings` mw
+        LEFT JOIN `oe_bxs_article` oba
+        ON mw.`article_id` = oba.id
+        LEFT JOIN `medical_doctor_writings` mdw
+        ON mdw.`writings_id` = mw.`id`
+        LEFT JOIN `medical_doctor` md
+        ON md.id = mdw.`doctor_id`
+        LEFT JOIN `medical_doctor_authentication_information` mdai
+        ON md.`authentication_information_id` = mdai.`id`
         WHERE mw.id = #{writingsId}
     </select>
 
@@ -385,17 +385,17 @@
     <select id="selectDoctorListCount" resultType="java.lang.Integer">
         SELECT count(md.id)
         FROM
-            medical_doctor md
-            LEFT JOIN `medical_doctor_authentication_information` mdai
-                ON md.`authentication_information_id` = mdai.`id`
-            LEFT JOIN `medical_hospital_doctor` mhd
-                ON mhd.`doctor_id` = md.`id`
-                   AND mhd.`deleted` = 0
-            LEFT JOIN `medical_hospital` mh
-                ON mhd.`hospital_id` = mh.`id`
+        medical_doctor md
+        LEFT JOIN `medical_doctor_authentication_information` mdai
+        ON md.`authentication_information_id` = mdai.`id`
+        LEFT JOIN `medical_hospital_doctor` mhd
+        ON mhd.`doctor_id` = md.`id`
+        AND mhd.`deleted` = 0
+        LEFT JOIN `medical_hospital` mh
+        ON mhd.`hospital_id` = mh.`id`
         WHERE md.deleted = 0
-              AND md.status = 1
-              AND md.type = #{type}
+        AND md.status = 1
+        AND md.type = #{type}
     </select>
     <select id="selectDoctorList4Random" resultType="com.xczhihui.medical.doctor.vo.MedicalDoctorVO">
         SELECT
@@ -423,65 +423,64 @@
     <select id="selectDoctorRecommendListCount" resultType="java.lang.Integer">
         SELECT count(md.id)
         FROM
-            medical_doctor md
-            LEFT JOIN `medical_doctor_authentication_information` mdai
-                ON md.`authentication_information_id` = mdai.`id`
-            LEFT JOIN `medical_hospital_doctor` mhd
-                ON mhd.`doctor_id` = md.`id`
-                   AND mhd.`deleted` = 0
-            LEFT JOIN `medical_hospital` mh
-                ON mhd.`hospital_id` = mh.`id`
+        medical_doctor md
+        LEFT JOIN `medical_doctor_authentication_information` mdai
+        ON md.`authentication_information_id` = mdai.`id`
+        LEFT JOIN `medical_hospital_doctor` mhd
+        ON mhd.`doctor_id` = md.`id`
+        AND mhd.`deleted` = 0
+        LEFT JOIN `medical_hospital` mh
+        ON mhd.`hospital_id` = mh.`id`
         WHERE md.deleted = 0
-              AND md.status = 1
-              AND md.type = #{type}
+        AND md.status = 1
+        AND md.type = #{type}
     </select>
     <select id="selectDoctorRecommendList4Random" resultType="com.xczhihui.medical.doctor.vo.MedicalDoctorVO">
         SELECT
-	        md.*,
-	        md.`work_time` workTime,
-	        mdai.head_portrait headPortrait,
-	        mh.`name` hospitalName
+        md.*,
+        md.`work_time` workTime,
+        mdai.head_portrait headPortrait,
+        mh.`name` hospitalName
         FROM
-	        medical_doctor md
-	        LEFT JOIN `medical_doctor_authentication_information` mdai
-	        ON md.`authentication_information_id` = mdai.`id`
-	        LEFT JOIN `medical_hospital_doctor` mhd
-	        ON mhd.`doctor_id` = md.`id`
-	        AND mhd.`deleted`=0
-	        LEFT JOIN `medical_hospital` mh
-	        ON mhd.`hospital_id` = mh.`id`
-	        WHERE md.deleted = 0
-	        AND md.status = 1
-	        <if test="type != null and type != ''">
-	            and md.type = #{type}
-	        </if>
-        ORDER BY md.`recommend_sort`desc
-        LIMIT #{offset},#{rows}
-    </select>
-    
-    <select id="selectDoctorCouserByAccountId" resultType="com.xczhihui.medical.doctor.vo.MedicalDoctorVO">
-        SELECT
-	        md.*,
-	        md.`work_time` workTime,
-	        mda.account_id userId,
-	        mdai.head_portrait headPortrait,
-	        (select CONCAT_WS("concatGradeNameId",id,grade_name) from 
-					    oe_course 
-							where user_lecturer_id = mda.account_id  
-							and is_delete=0 and status=1  
-							ORDER BY release_time desc  limit 0,1 ) as concatGradeNameId
-        FROM
-	        medical_doctor md
-	        LEFT JOIN `medical_doctor_authentication_information` mdai
-	        ON md.`authentication_information_id` = mdai.`id`
-       		left join medical_doctor_account mda
-			on   md.id  =  mda.doctor_id
-	        WHERE md.deleted = 0
-	        AND md.status = 1
+        medical_doctor md
+        LEFT JOIN `medical_doctor_authentication_information` mdai
+        ON md.`authentication_information_id` = mdai.`id`
+        LEFT JOIN `medical_hospital_doctor` mhd
+        ON mhd.`doctor_id` = md.`id`
+        AND mhd.`deleted`=0
+        LEFT JOIN `medical_hospital` mh
+        ON mhd.`hospital_id` = mh.`id`
+        WHERE md.deleted = 0
+        AND md.status = 1
+        <if test="type != null and type != ''">
+            and md.type = #{type}
+        </if>
         ORDER BY md.`recommend_sort`desc
         LIMIT #{offset},#{rows}
     </select>
 
+    <select id="selectDoctorCouserByAccountId" resultType="com.xczhihui.medical.doctor.vo.MedicalDoctorVO">
+        SELECT
+        md.*,
+        md.`work_time` workTime,
+        mda.account_id userId,
+        mdai.head_portrait headPortrait,
+        (select CONCAT_WS("concatGradeNameId",id,grade_name) from
+        oe_course
+        where user_lecturer_id = mda.account_id
+        and is_delete=0 and status=1
+        ORDER BY release_time desc limit 0,1 ) as concatGradeNameId
+        FROM
+        medical_doctor md
+        LEFT JOIN `medical_doctor_authentication_information` mdai
+        ON md.`authentication_information_id` = mdai.`id`
+        left join medical_doctor_account mda
+        on md.id = mda.doctor_id
+        WHERE md.deleted = 0
+        AND md.status = 1
+        ORDER BY md.`recommend_sort`desc
+        LIMIT #{offset},#{rows}
+    </select>
 
 
     <!-- 多条件查询医师  -->
@@ -496,7 +495,7 @@
         if(mda.account_id IS NOT NULL,(select count(*) from oe_focus of
         inner join course_anchor as ou on of.lecturer_id = ou.user_id
         where of.user_id = mda.account_id
-        and ou.status = 1  and ou.deleted =0),0) as focusCount
+        and ou.status = 1 and ou.deleted =0),0) as focusCount
         FROM
         medical_doctor md
         <if test="dqv.field != null and dqv.field!=''">
@@ -528,7 +527,7 @@
             and md.type = #{dqv.type}
         </if>
         <if test="dqv.hospitalId != null and dqv.hospitalId!=''">
-            and mh.id =   #{dqv.hospitalId}
+            and mh.id = #{dqv.hospitalId}
         </if>
         <if test="dqv.queryKey != null and dqv.queryKey!='' ">
             and (
@@ -541,22 +540,22 @@
             mh.`detailed_address` like concat('%',#{dqv.queryKey},'%')
 
             <if test=" dqv.departmentFalg != null and  ( dqv.departmentFalg == 2  or dqv.departmentFalg == 3 )">
-                or  mdd.`department_id` in ( select id from medical_department where
+                or mdd.`department_id` in ( select id from medical_department where
                 name like concat('%',#{dqv.queryKey},'%'))
             </if>
             )
         </if>
         <choose>
             <!-- 推荐排序-->
-            <when test="dqv.sortType == 1 " >
-                order by  md.recommend_sort desc,CONVERT(md.`name` USING gbk) ASC
+            <when test="dqv.sortType == 1 ">
+                order by md.recommend_sort desc,CONVERT(md.`name` USING gbk) ASC
             </when>
             <!-- 人气最高,按照 -->
             <when test="dqv.sortType == 2 ">
-                order by  focusCount desc,md.recommend_sort desc,CONVERT(md.`name` USING gbk) ASC
+                order by focusCount desc,md.recommend_sort desc,CONVERT(md.`name` USING gbk) ASC
             </when>
             <otherwise>
-                order by  md.recommend_sort desc,CONVERT(md.`name` USING gbk) ASC
+                order by md.recommend_sort desc,CONVERT(md.`name` USING gbk) ASC
             </otherwise>
         </choose>
     </select>
@@ -580,7 +579,7 @@
         IF(mda.account_id IS NOT NULL,(SELECT COUNT(*) FROM oe_focus of
         INNER JOIN course_anchor AS ou ON of.lecturer_id = ou.user_id
         WHERE of.user_id = mda.account_id
-        AND ou.status = 1  AND ou.deleted =0),0) AS focusCount,
+        AND ou.status = 1 AND ou.deleted =0),0) AS focusCount,
         UNIX_TIMESTAMP(md.`create_time`) createTime
         FROM
         medical_doctor md
@@ -602,22 +601,22 @@
             AND md.id = #{doctorId}
         </if>
     </select>
-    
-    
+
+
     <!-- 通过医师信息的到坐诊时间和医师详情  -->
-    
+
     <select id="selectDoctorWorkTimeAndDetailsById" resultType="java.util.Map">
         SELECT
-        	md.id,
-            md.`work_time` workTime,
-            IFNULL((select ca.detail from course_anchor ca 
-            	inner join  medical_doctor_account  mda on 
-			  mda.account_id = ca.user_id  where mda.doctor_id = #{doctorId}),
-		     md.description)	as description
+        md.id,
+        md.`work_time` workTime,
+        IFNULL((select ca.detail from course_anchor ca
+        inner join medical_doctor_account mda on
+        mda.account_id = ca.user_id where mda.doctor_id = #{doctorId}),
+        md.description) as description
         FROM
-            medical_doctor md
+        medical_doctor md
         WHERE md.deleted = 0
-              AND md.status = 1
-              AND md.id = #{doctorId}
+        AND md.status = 1
+        AND md.id = #{doctorId}
     </select>
 </mapper>

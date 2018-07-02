@@ -11,7 +11,7 @@ import com.xczhihui.medical.enrol.vo.MedicalEnrollmenRtegulationsCardInfoVO;
 
 /**
  * <p>
-  *  Mapper 接口
+ * Mapper 接口
  * </p>
  *
  * @author yuxin

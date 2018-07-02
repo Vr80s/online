@@ -2,7 +2,7 @@ package com.xczhihui.medical.enums;
 
 public enum MedicalExceptionEnum {
 
-    USER_DATA_ERROR(20000,"数据异常，请联系管理员");
+    USER_DATA_ERROR(20000, "数据异常，请联系管理员");
 
     private Integer code;
 

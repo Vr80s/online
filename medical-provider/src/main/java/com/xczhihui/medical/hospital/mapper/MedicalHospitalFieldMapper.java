@@ -1,16 +1,17 @@
 package com.xczhihui.medical.hospital.mapper;
 
 
-import com.baomidou.mybatisplus.mapper.BaseMapper;
-import com.xczhihui.medical.hospital.model.MedicalHospitalField;
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Update;
 
-import java.util.List;
+import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.xczhihui.medical.hospital.model.MedicalHospitalField;
 
 /**
  * <p>
-  *  Mapper 接口
+ * Mapper 接口
  * </p>
  *
  * @author yuxin
@@ -20,6 +21,7 @@ public interface MedicalHospitalFieldMapper extends BaseMapper<MedicalHospitalFi
 
     /**
      * 根据hospitalId修改删除状态
+     *
      * @author zhuwenbao
      */
     @Update("update medical_hospital_field set deleted = #{deleted} where hospital_id = #{hospitalId} ")
@@ -27,6 +29,7 @@ public interface MedicalHospitalFieldMapper extends BaseMapper<MedicalHospitalFi
 
     /**
      * 批量新增医馆的医疗领域
+     *
      * @param hospitalFields 医疗领域列表
      */
     void insertBatch(@Param("fields") List<MedicalHospitalField> hospitalFields);

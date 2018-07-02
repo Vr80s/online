@@ -1,11 +1,13 @@
 package com.xczhihui.medical.anchor.service.impl;
 
-import com.baomidou.mybatisplus.plugins.Page;
-import com.xczhihui.medical.anchor.service.IGiftOrderService;
-import com.xczhihui.medical.anchor.vo.UserCoinIncreaseVO;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import com.baomidou.mybatisplus.plugins.Page;
+import com.xczhihui.medical.anchor.service.IGiftOrderService;
+import com.xczhihui.medical.anchor.vo.UserCoinIncreaseVO;
+
 import test.BaseJunit4Test;
 
 public class GiftOrderServiceImplTest extends BaseJunit4Test {
@@ -14,7 +16,7 @@ public class GiftOrderServiceImplTest extends BaseJunit4Test {
     private IGiftOrderService service;
 
     @Test
-    public void testList(){
+    public void testList() {
 
         Page<UserCoinIncreaseVO> page = new Page<>();
         page.setCurrent(1);
@@ -35,7 +37,7 @@ public class GiftOrderServiceImplTest extends BaseJunit4Test {
     }
 
     @Test
-    public void testsort(){
+    public void testsort() {
 
         Page<UserCoinIncreaseVO> page = new Page<>();
         page.setCurrent(1);

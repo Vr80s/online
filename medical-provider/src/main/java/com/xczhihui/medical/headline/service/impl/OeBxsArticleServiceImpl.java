@@ -1,21 +1,21 @@
 package com.xczhihui.medical.headline.service.impl;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.xczhihui.medical.doctor.vo.OeBxsArticleVO;
 import com.xczhihui.medical.headline.mapper.OeBxsAppraiseMapper;
 import com.xczhihui.medical.headline.mapper.OeBxsArticleMapper;
 import com.xczhihui.medical.headline.model.OeBxsAppraise;
 import com.xczhihui.medical.headline.model.OeBxsArticle;
 import com.xczhihui.medical.headline.service.IOeBxsArticleService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author yuxin
@@ -34,7 +34,7 @@ public class OeBxsArticleServiceImpl extends ServiceImpl<OeBxsArticleMapper, OeB
 
     @Override
     public Page<OeBxsAppraise> selectArticleAppraiseById(Page page, Integer id, String userId) {
-        List<OeBxsAppraise> records = oeBxsAppraiseMapper.selectArticleAppraiseById(page,id,userId);
+        List<OeBxsAppraise> records = oeBxsAppraiseMapper.selectArticleAppraiseById(page, id, userId);
         page.setRecords(records);
         return page;
     }

@@ -1,9 +1,19 @@
 package com.xczhihui.medical.doctor.service.impl;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.xczhihui.medical.exception.MedicalException;
-import com.xczhihui.common.util.IDCard;
 import com.xczhihui.common.support.lock.Lock;
+import com.xczhihui.common.util.IDCard;
 import com.xczhihui.medical.common.enums.CommonEnum;
 import com.xczhihui.medical.common.service.ICommonService;
 import com.xczhihui.medical.department.mapper.MedicalDepartmentMapper;
@@ -14,20 +24,11 @@ import com.xczhihui.medical.doctor.mapper.MedicalDoctorApplyMapper;
 import com.xczhihui.medical.doctor.model.MedicalDoctorApply;
 import com.xczhihui.medical.doctor.model.MedicalDoctorApplyDepartment;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorApplyService;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import com.xczhihui.medical.exception.MedicalException;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author yuxin
@@ -58,29 +59,29 @@ public class MedicalDoctorApplyServiceImpl extends ServiceImpl<MedicalDoctorAppl
     }
 
     @Override
-    public void addDetail(MedicalDoctorApply target){
-        medicalDoctorApplyService.addDetail4Lock(target.getUserId(),target);
+    public void addDetail(MedicalDoctorApply target) {
+        medicalDoctorApplyService.addDetail4Lock(target.getUserId(), target);
     }
 
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Lock(lockName = "addDoctorApply")
-    public void addDetail4Lock(String lockKey,MedicalDoctorApply target) {
+    public void addDetail4Lock(String lockKey, MedicalDoctorApply target) {
         // 参数校验
         this.validate(target);
         // 判断用户是否是认证医师或者认证医馆
         Integer result = commonService.isDoctorOrHospital(target.getUserId());
         // 如果用户是认证医馆或者医馆认证中 不让其认证医师
-        if(result.equals(CommonEnum.AUTH_HOSPITAL.getCode()) ||
-                result.equals(CommonEnum.HOSPITAL_APPLYING.getCode())){
+        if (result.equals(CommonEnum.AUTH_HOSPITAL.getCode()) ||
+                result.equals(CommonEnum.HOSPITAL_APPLYING.getCode())) {
 
             // 如果用户是认证医馆 表示用户走错路了
             throw new MedicalException("您已经认证了医馆，不能再认证医师");
         }
 
         // 如果用户认证医师中 表示其重新提交认证信息
-        if(result.equals(CommonEnum.DOCTOR_APPLYING.getCode()) ||
-                result.equals(CommonEnum.AUTH_DOCTOR.getCode())){
+        if (result.equals(CommonEnum.DOCTOR_APPLYING.getCode()) ||
+                result.equals(CommonEnum.AUTH_DOCTOR.getCode())) {
 
             // 如果用户之前提交了申请信息 表示其重新认证 删除之前的认证信息
             medicalDoctorApplyMapper.deleteByUserIdAndStatus(target.getUserId(), MedicalDoctorApplyEnum.WAIT.getCode());
@@ -91,29 +92,30 @@ public class MedicalDoctorApplyServiceImpl extends ServiceImpl<MedicalDoctorAppl
         }
 
         // 如果用户医师认证成功，医师认证失败，医馆认证失败，或者从没申请
-        if(result.equals(CommonEnum.DOCTOR_APPLY_REJECT.getCode()) ||
+        if (result.equals(CommonEnum.DOCTOR_APPLY_REJECT.getCode()) ||
                 result.equals(CommonEnum.NOT_DOCTOR_AND_HOSPITAL.getCode()) ||
-                result.equals(CommonEnum.HOSPITAL_APPLY_REJECT.getCode())){
+                result.equals(CommonEnum.HOSPITAL_APPLY_REJECT.getCode())) {
             this.addMedicalDoctorApply(target);
         }
     }
 
     /**
      * 根据userId获取用户最后一条医师入驻申请信息
+     *
      * @param userId 用户id
      * @return 医师入驻申请信息
      */
     @Override
     public MedicalDoctorApply getLastOne(String userId) {
         MedicalDoctorApply target = medicalDoctorApplyMapper.getLastOne(userId);
-        if(target != null){
+        if (target != null) {
             // 获取申请入驻时关联的科室
             List<MedicalDoctorApplyDepartment> departmentList =
                     applyDepartmentMapper.getByDoctorApplyId(target.getId());
             // 获取科室名称
-            if(departmentList != null && departmentList.size()>0){
+            if (departmentList != null && departmentList.size() > 0) {
                 List<String> ids = new ArrayList<>();
-                for(MedicalDoctorApplyDepartment department : departmentList){
+                for (MedicalDoctorApplyDepartment department : departmentList) {
                     ids.add(department.getDepartmentId());
                 }
                 List<MedicalDepartment> medicalDepartments =
@@ -127,7 +129,7 @@ public class MedicalDoctorApplyServiceImpl extends ServiceImpl<MedicalDoctorAppl
     private void addMedicalDoctorApply(MedicalDoctorApply target) {
 
         // 生成主键
-        String id = UUID.randomUUID().toString().replace("-","");
+        String id = UUID.randomUUID().toString().replace("-", "");
         target.setId(id);
 
         // 设置初始值 默认不删除 默认未处理
@@ -137,7 +139,7 @@ public class MedicalDoctorApplyServiceImpl extends ServiceImpl<MedicalDoctorAppl
         Date now = new Date();
 
         // 若科室不为空 则添加申请关联的科室信息
-        if(target.getDepartments() != null && (!target.getDepartments().isEmpty())) {
+        if (target.getDepartments() != null && (!target.getDepartments().isEmpty())) {
             target.getDepartments()
                     .forEach(department -> this.completeDepartmentField(department, id, now));
             applyDepartmentMapper.batchAdd(target.getDepartments());
@@ -147,39 +149,40 @@ public class MedicalDoctorApplyServiceImpl extends ServiceImpl<MedicalDoctorAppl
     }
 
     private void completeDepartmentField(MedicalDoctorApplyDepartment department, String id, Date now) {
-        department.setId(UUID.randomUUID().toString().replace("-",""));
+        department.setId(UUID.randomUUID().toString().replace("-", ""));
         department.setDoctorApplyId(id);
         department.setCreateTime(now);
     }
 
     /**
      * 参数校验
+     *
      * @param target 医师入驻申请信息
      */
     private void validate(MedicalDoctorApply target) {
 
-        if(StringUtils.isBlank(target.getName())){
+        if (StringUtils.isBlank(target.getName())) {
             throw new MedicalException("请填写真实姓名");
-        }else{
-            if(target.getName().length() > 32){
+        } else {
+            if (target.getName().length() > 32) {
                 throw new MedicalException("真实姓名应保持在32字以内");
             }
         }
 
-        if(StringUtils.isBlank(target.getCardNum())){
+        if (StringUtils.isBlank(target.getCardNum())) {
             throw new MedicalException("请填写身份证号");
-        }else{
-            if(!IDCard.validator(target.getCardNum())){
+        } else {
+            if (!IDCard.validator(target.getCardNum())) {
                 throw new MedicalException("身份证号不正确");
             }
         }
-        if(StringUtils.isBlank(target.getQualificationCertificate())){
+        if (StringUtils.isBlank(target.getQualificationCertificate())) {
             throw new MedicalException("请上传医师资格证");
         }
-        if(StringUtils.isBlank(target.getProfessionalCertificate())){
+        if (StringUtils.isBlank(target.getProfessionalCertificate())) {
             throw new MedicalException("请上传执业资格证");
         }
-        if(StringUtils.isNotBlank(target.getField()) && target.getField().length() >32){
+        if (StringUtils.isNotBlank(target.getField()) && target.getField().length() > 32) {
             throw new MedicalException("擅长领域内容应保持在32字以内");
         }
     }

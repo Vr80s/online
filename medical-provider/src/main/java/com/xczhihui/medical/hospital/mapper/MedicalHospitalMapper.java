@@ -1,19 +1,20 @@
 package com.xczhihui.medical.hospital.mapper;
 
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.medical.doctor.model.MedicalDoctor;
 import com.xczhihui.medical.field.vo.MedicalFieldVO;
 import com.xczhihui.medical.hospital.model.MedicalHospital;
 import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
-import org.apache.ibatis.annotations.Param;
-
-import java.util.List;
 
 /**
  * <p>
-  *  Mapper 接口
+ * Mapper 接口
  * </p>
  *
  * @author yuxin
@@ -37,18 +38,21 @@ public interface MedicalHospitalMapper extends BaseMapper<MedicalHospital> {
 
     /**
      * 获取医疗领域
+     *
      * @return 医疗领域集合
      */
     List<MedicalFieldVO> getFieldsPage(Page page);
 
     /**
      * 修改医馆信息
+     *
      * @param medicalHospital 医馆信息的封装
      */
     void updateSelective(@Param("medicalHospital") MedicalHospital medicalHospital);
 
     /**
      * 根据医馆名称获取医馆信息
+     *
      * @param name 医馆名称
      * @return 医馆信息
      */
@@ -60,6 +64,7 @@ public interface MedicalHospitalMapper extends BaseMapper<MedicalHospital> {
 
     /**
      * 根据用户id和启用状态获取医馆信息
+     *
      * @param userId 用户id
      * @param status 医馆启用状态（1：启用 0：未启用）
      * @return 医馆详情

@@ -1,7 +1,10 @@
 package com.xczhihui.medical.doctor.service.impl;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
@@ -49,9 +52,45 @@ public class MedicalDoctorSolrServiceImpl implements IMedicalDoctorSolrService {
 
     private SolrUtils solrUtils;
 
+    private static String getSearchStr(DoctorQueryVo dqv) {
+        StringBuilder searchKeyWordStr = new StringBuilder();
+        StringBuilder query = new StringBuilder();
+        String queryKey = dqv.getQueryKey();
+        if (StringUtils.isNotBlank(queryKey)) {
+            searchKeyWordStr.append("(");
+            searchKeyWordStr.append("name:" + queryKey + SolrConstant.OR);
+            searchKeyWordStr.append("departmentName:" + queryKey + SolrConstant.OR);
+            searchKeyWordStr.append("title:" + queryKey + SolrConstant.OR);
+            searchKeyWordStr.append("description:" + queryKey + SolrConstant.OR);
+            searchKeyWordStr.append("hospitalName:" + queryKey + SolrConstant.OR);
+            searchKeyWordStr.append("province:" + queryKey + SolrConstant.OR);
+            searchKeyWordStr.append("city:" + queryKey + SolrConstant.OR);
+            searchKeyWordStr.append("detailedAddress:" + queryKey);
+            searchKeyWordStr.append(")");
+            query.append(searchKeyWordStr);
+        }
+        String searchDepartmentKey;
+        if (StringUtils.isNotBlank(dqv.getDepartmentId())) {
+            searchDepartmentKey = "departmentId:" + dqv.getDepartmentId();
+            if (query.length() > 0) {
+                query.append(SolrConstant.AND);
+            }
+            query.append(searchDepartmentKey);
+        }
+        String searchTypeKey;
+        if (StringUtils.isNotBlank(dqv.getType()) && !"-1".equals(dqv.getType())) {
+            searchTypeKey = "type:" + dqv.getType();
+            if (query.length() > 0) {
+                query.append(SolrConstant.AND);
+            }
+            query.append(searchTypeKey);
+        }
+        return query.toString();
+    }
+
     @PostConstruct
     public void initDoctorsSolr() throws IOException, SolrServerException {
-        solrUtils = new SolrUtils(url,core,pre,post);
+        solrUtils = new SolrUtils(url, core, pre, post);
         this.initDoctorsSolrData();
     }
 
@@ -59,22 +98,22 @@ public class MedicalDoctorSolrServiceImpl implements IMedicalDoctorSolrService {
     public void initDoctorsSolrData() throws IOException, SolrServerException {
         List<MedicalDoctorSolrVO> medicalDoctorSolrVOS = selectDoctors4Solr();
         solrUtils.init(medicalDoctorSolrVOS);
-        logger.warn("医师数据初始化完成，共{}条",medicalDoctorSolrVOS.size());
+        logger.warn("医师数据初始化完成，共{}条", medicalDoctorSolrVOS.size());
     }
 
     @Override
     public void initDoctorsSolrDataById(String doctorId) throws IOException, SolrServerException {
-        if(StringUtils.isNotBlank(doctorId)){
+        if (StringUtils.isNotBlank(doctorId)) {
             MedicalDoctorSolrVO medicalDoctorSolrVO = selectDoctor4SolrById(doctorId);
             solrUtils.addBean(medicalDoctorSolrVO);
-            logger.warn("医师数据更新:{}",medicalDoctorSolrVO.toString());
+            logger.warn("医师数据更新:{}", medicalDoctorSolrVO.toString());
         }
     }
 
     @Override
     public void deleteDoctorsSolrDataById(String doctorId) throws IOException, SolrServerException {
         solrUtils.deleteById(doctorId);
-        logger.warn("医师数据删除:{}",doctorId);
+        logger.warn("医师数据删除:{}", doctorId);
     }
 
     @Override
@@ -95,13 +134,14 @@ public class MedicalDoctorSolrServiceImpl implements IMedicalDoctorSolrService {
     /**
      * Description：处理医师数据
      * creed: Talk is cheap,show me the code
+     *
      * @author name：yuxin
      * @Date: 2018/6/22 0022 上午 10:17
      **/
-    private void handleMedicalDoctorSolrVO(MedicalDoctorSolrVO medicalDoctorSolrVO){
+    private void handleMedicalDoctorSolrVO(MedicalDoctorSolrVO medicalDoctorSolrVO) {
         medicalDoctorSolrVO.setNamePinyin(HanyuPinyinHelper.toHanyuPinyin(medicalDoctorSolrVO.getName()));
 
-        if(medicalDoctorSolrVO.getRecommendSort()==null){
+        if (medicalDoctorSolrVO.getRecommendSort() == null) {
             medicalDoctorSolrVO.setRecommendSort(-Integer.MAX_VALUE);
         }
 
@@ -121,9 +161,9 @@ public class MedicalDoctorSolrServiceImpl implements IMedicalDoctorSolrService {
         String searchStr = getSearchStr(dqv);
         searchStr = searchStr.equals("") ? "*:*" : searchStr;
         Map<String, SolrQuery.ORDER> sortedMap = new LinkedHashMap<>();
-        if(dqv.getSortType()!=null && dqv.getSortType().equals(2)){
+        if (dqv.getSortType() != null && dqv.getSortType().equals(2)) {
             sortedMap.put("focusCount", SolrQuery.ORDER.desc);
-        }else if(dqv.getSortType()!=null && dqv.getSortType().equals(2)){
+        } else if (dqv.getSortType() != null && dqv.getSortType().equals(2)) {
             sortedMap.put("recommendSort", SolrQuery.ORDER.desc);
         }
         sortedMap.put("score", SolrQuery.ORDER.desc);
@@ -134,42 +174,6 @@ public class MedicalDoctorSolrServiceImpl implements IMedicalDoctorSolrService {
         page.setTotal(doctors.getTotal());
         page.setRecords(doctors.getList());
         return page;
-    }
-
-    private static String getSearchStr(DoctorQueryVo dqv){
-        StringBuilder searchKeyWordStr = new StringBuilder();
-        StringBuilder query = new StringBuilder();
-        String queryKey = dqv.getQueryKey();
-        if(StringUtils.isNotBlank(queryKey)){
-            searchKeyWordStr.append("(");
-            searchKeyWordStr.append("name:"+ queryKey + SolrConstant.OR);
-            searchKeyWordStr.append("departmentName:"+ queryKey + SolrConstant.OR);
-            searchKeyWordStr.append("title:"+ queryKey + SolrConstant.OR);
-            searchKeyWordStr.append("description:"+ queryKey + SolrConstant.OR);
-            searchKeyWordStr.append("hospitalName:"+ queryKey + SolrConstant.OR);
-            searchKeyWordStr.append("province:"+ queryKey + SolrConstant.OR);
-            searchKeyWordStr.append("city:"+ queryKey + SolrConstant.OR);
-            searchKeyWordStr.append("detailedAddress:"+ queryKey);
-            searchKeyWordStr.append(")");
-            query.append(searchKeyWordStr);
-        }
-        String searchDepartmentKey;
-        if(StringUtils.isNotBlank(dqv.getDepartmentId())){
-            searchDepartmentKey = "departmentId:"+dqv.getDepartmentId();
-            if(query.length()>0){
-                query.append(SolrConstant.AND);
-            }
-            query.append(searchDepartmentKey);
-        }
-        String searchTypeKey;
-        if(StringUtils.isNotBlank(dqv.getType()) && !"-1".equals(dqv.getType())){
-            searchTypeKey = "type:"+dqv.getType();
-            if(query.length()>0){
-                query.append(SolrConstant.AND);
-            }
-            query.append(searchTypeKey);
-        }
-        return query.toString();
     }
 
 }

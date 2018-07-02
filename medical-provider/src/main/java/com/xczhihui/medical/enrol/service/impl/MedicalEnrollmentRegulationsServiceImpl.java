@@ -9,7 +9,7 @@ import com.xczhihui.medical.enrol.service.IMedicalEnrollmentRegulationsService;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author yuxin
@@ -17,5 +17,5 @@ import com.xczhihui.medical.enrol.service.IMedicalEnrollmentRegulationsService;
  */
 @Service
 public class MedicalEnrollmentRegulationsServiceImpl extends ServiceImpl<MedicalEnrollmentRegulationsMapper, MedicalEnrollmentRegulations> implements IMedicalEnrollmentRegulationsService {
-	
+
 }

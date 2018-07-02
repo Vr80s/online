@@ -48,6 +48,7 @@ import com.xczhihui.medical.exception.AnchorWorkException;
 @Service
 public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, CourseApplyInfo> implements ICourseApplyService {
 
+    Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     private CourseApplyInfoMapper courseApplyInfoMapper;
     @Autowired
@@ -62,8 +63,6 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
     private CollectionCourseApplyUpdateDateMapper collectionCourseApplyUpdateDateMapper;
     @Autowired
     private CCUtils CCUtils;
-    
-    Logger logger = LoggerFactory.getLogger(this.getClass());
 
     /**
      * Description：分页获取主播课程列表
@@ -298,8 +297,8 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
     @Override
     public void updateCourseApplyResource() {
         List<CourseApplyResource> CourseApplyResources = courseApplyResourceMapper.selectAllCourseResourcesForUpdateDuration();
-       
-        
+
+
         for (CourseApplyResource courseApplyResource : CourseApplyResources) {
             try {
                 LocalDateTime today = LocalDateTime.now();
@@ -312,20 +311,20 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
                     String duration = CCUtils.getVideoLength(courseApplyResource.getResource());
                     courseApplyResource.setLength(duration);
                 }
-                logger.info("资源id:"+courseApplyResource.getResource());
-                logger.info("课程时长:"+courseApplyResource.getLength());
-                
-                
+                logger.info("资源id:" + courseApplyResource.getResource());
+                logger.info("课程时长:" + courseApplyResource.getLength());
+
+
                 /**
                  * 更改这个课程的时长
                  */
-                List<Integer> list  =courseApplyResourceMapper.selectCourseListByVideoRecourse(courseApplyResource.getResource());
-                if(list.size()>0) {
-                	 courseApplyResourceMapper.updateBatchCourseLength(courseApplyResource.getLength(),list);
+                List<Integer> list = courseApplyResourceMapper.selectCourseListByVideoRecourse(courseApplyResource.getResource());
+                if (list.size() > 0) {
+                    courseApplyResourceMapper.updateBatchCourseLength(courseApplyResource.getLength(), list);
                 }
-               
 
-        		/**
+
+                /**
                  * 通过这个视频Id查找这个对应的课程
                  */
                 courseApplyResourceMapper.updateById(courseApplyResource);
@@ -421,7 +420,7 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         courseApplyInfoMapper.deleteCourseApplyById(collectionApplyInfo.getId());
         //删除更新时间
         collectionCourseApplyUpdateDateMapper.deleteByCollectionApplyId(collectionApplyInfo.getId());
-        
+
         //记录原申请id
         collectionApplyInfo.setOldApplyInfoId(collectionApplyInfoId);
         collectionApplyInfo.setId(null);

@@ -9,23 +9,24 @@ import org.springframework.stereotype.Component;
 
 /**
  * redis分布式锁
+ *
  * @author zhuwenbao
  */
 @Component
 public class RedisShardLockUtils {
 
+    private final Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired
     private RedisTemplate redisTemplate;
 
-    private final Logger logger = LoggerFactory.getLogger(getClass());
-
     /**
      * 加锁
-     * @param key 唯一标示
+     *
+     * @param key   唯一标示
      * @param value 当前时间+超时时间
      * @return
      */
-    public boolean lock(String key, String value){
+    public boolean lock(String key, String value) {
 
         /**
          * setnx:set if not exists
@@ -33,7 +34,7 @@ public class RedisShardLockUtils {
          * 当key存在时，什么也不做 返回0
          * 如果设置成功 则表示成功上锁 则返回true
          */
-        if(redisTemplate.opsForValue().setIfAbsent(key, value)){
+        if (redisTemplate.opsForValue().setIfAbsent(key, value)) {
             return true;
         }
 
@@ -47,7 +48,7 @@ public class RedisShardLockUtils {
         String currentValue = (String) redisTemplate.opsForValue().get(key);
 
         // 如果锁过期（ 即value值小于当前时间戳 超时）
-        if (StringUtils.isNotBlank(currentValue) && Long.parseLong(currentValue) < System.currentTimeMillis()){
+        if (StringUtils.isNotBlank(currentValue) && Long.parseLong(currentValue) < System.currentTimeMillis()) {
 
             /**
              * getset:将key对应到value并且返回原来key对应的value
@@ -60,7 +61,7 @@ public class RedisShardLockUtils {
              * 然后C再执行getset方法 但是拿到的oldValue 是b携带的 newValue 与currentValue不相等 加锁失败
              */
             String oldValue = (String) redisTemplate.opsForValue().getAndSet(key, value);
-            if(StringUtils.isNotBlank(oldValue) && StringUtils.equals(oldValue,currentValue)){
+            if (StringUtils.isNotBlank(oldValue) && StringUtils.equals(oldValue, currentValue)) {
                 return true;
             }
         }
@@ -71,14 +72,14 @@ public class RedisShardLockUtils {
     /**
      * 解锁
      */
-    public void unlock(String key, String value){
+    public void unlock(String key, String value) {
         try {
             String currentValue = (String) redisTemplate.opsForValue().get(key);
-            if(StringUtils.isNotBlank(currentValue) && StringUtils.equals(currentValue,value)){
+            if (StringUtils.isNotBlank(currentValue) && StringUtils.equals(currentValue, value)) {
                 redisTemplate.opsForValue().getOperations().delete(key);
             }
-        }catch (Exception e){
-            logger.error("解锁异常" , e);
+        } catch (Exception e) {
+            logger.error("解锁异常", e);
         }
     }
 

@@ -14,12 +14,12 @@ import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.toolkit.CollectionUtils;
-import com.xczhihui.medical.exception.AnchorWorkException;
 import com.xczhihui.medical.anchor.mapper.CourseAnchorMapper;
 import com.xczhihui.medical.anchor.mapper.UserCoinIncreaseMapper;
 import com.xczhihui.medical.anchor.model.CourseAnchor;
 import com.xczhihui.medical.anchor.service.IGiftOrderService;
 import com.xczhihui.medical.anchor.vo.UserCoinIncreaseVO;
+import com.xczhihui.medical.exception.AnchorWorkException;
 
 @Service("giftOrderServiceImpl")
 public class GiftOrderServiceImpl implements IGiftOrderService {
@@ -47,8 +47,8 @@ public class GiftOrderServiceImpl implements IGiftOrderService {
             if (StringUtils.isNotBlank(endTime)) {
                 end = LocalDateTime.parse(endTime, dateTimeFormatter);
             }
-            if(StringUtils.isNotBlank(startTime) && StringUtils.isNotBlank(endTime)){
-                if(end.isBefore(start)){
+            if (StringUtils.isNotBlank(startTime) && StringUtils.isNotBlank(endTime)) {
+                if (end.isBefore(start)) {
                     throw new AnchorWorkException("起始时间不应大于终止时间");
                 }
             }
@@ -90,7 +90,7 @@ public class GiftOrderServiceImpl implements IGiftOrderService {
     @Override
     public Page<UserCoinIncreaseVO> sort(String liveId, String userId, Page<UserCoinIncreaseVO> page) {
 
-        if(StringUtils.isBlank(liveId)){
+        if (StringUtils.isBlank(liveId)) {
             throw new AnchorWorkException("请选择课程");
         }
 
