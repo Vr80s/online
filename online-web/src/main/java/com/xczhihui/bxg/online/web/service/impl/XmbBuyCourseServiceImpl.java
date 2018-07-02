@@ -57,7 +57,7 @@ public class XmbBuyCourseServiceImpl implements XmbBuyCouserService {
                 OrderFrom.valueOf(ov.getOrder_from()),
                 xmb, orderNo);
         /*
-		 * 更改订单状态，增加课程学习人数
+         * 更改订单状态，增加课程学习人数
 		 */
         orderPayService.addPaySuccess(orderNo, Payment.COINPAY, userCoinConsumptionId);
     }

@@ -86,7 +86,7 @@ public class MobileCourseDao extends HibernateDao<Course> {
 
             // 讲课老师
             /*
-			 * Map<String,Object> params=new HashMap<String,Object>();
+             * Map<String,Object> params=new HashMap<String,Object>();
 			 * params.put("courseId", entityVo.getId()); StringBuilder
 			 * teacherSql=new StringBuilder(); teacherSql.append(
 			 * "SELECT group_concat(ol. name) as lecturerName from oe_lecturer ol ,course_r_lecturer grl where ol.id = grl.lecturer_id AND grl.course_id =:courseId AND ol.is_delete = 0 GROUP BY grl.course_id"

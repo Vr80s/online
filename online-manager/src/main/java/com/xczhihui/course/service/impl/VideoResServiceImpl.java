@@ -258,7 +258,7 @@ public class VideoResServiceImpl implements VideoResService {
             Chapter chapter = videoResDao.findOneEntitiyByProperty(
                     Chapter.class, "id", id);
             if (null != chapter) {
-				/*
+                /*
 				 * chapter.setDelete(true); videoResDao.update(chapter);
 				 */
                 // 章节知识点改变成物理删除，原因是影响到了章节知识点的排序

@@ -94,7 +94,7 @@ public class CommonMenuController {
         String params = tableVo.getsSearch();
         Groups groups = Tools.filterGroup(params);
         /*
-		 * Group sortGroup = groups.findByName("courseCount"); Group
+         * Group sortGroup = groups.findByName("courseCount"); Group
 		 * createPersonGroup = groups.findByName("createPerson");
 		 */
         Group nameGroup = groups.findByName("menuName");

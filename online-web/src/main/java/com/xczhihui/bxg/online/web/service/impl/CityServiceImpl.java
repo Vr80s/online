@@ -22,7 +22,7 @@ public class CityServiceImpl extends OnlineBaseServiceImpl implements CityServic
     @Override
     public List<Map<String, Object>> getAllProvinceCity() throws SQLException {
          /*
-		  * sql 一下字查完。然后在进行拼接，得到中国下的省份。
+          * sql 一下字查完。然后在进行拼接，得到中国下的省份。
 		  */
         String sql1 = "select cid,lin,name from ht_location where level = 3 and lin = 7";
         List<Map<String, Object>> listProven = dao.getNamedParameterJdbcTemplate().queryForList(sql1, new HashMap<>());

@@ -335,7 +335,7 @@ public class AskMenuDao extends HibernateDao<Menu> {
     public String deleteById(String id) {
         String s = "";
         /*
-		 * String sql = "select * from menu_courseType where menu_id = :id";
+         * String sql = "select * from menu_courseType where menu_id = :id";
 		 * Map<String,Object> params=new HashMap<String,Object>();
 		 * params.put("id", id); List<MenuCourseType> query =
 		 * this.getNamedParameterJdbcTemplate

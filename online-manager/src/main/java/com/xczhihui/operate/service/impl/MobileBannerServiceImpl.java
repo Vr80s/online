@@ -110,7 +110,7 @@ public class MobileBannerServiceImpl extends OnlineBaseServiceImpl implements
 
     @Override
     public void updateSortUp(String id) {
-		/*String sqlPre = "select seq from oe_course_mobile_banner where status = 1 and id = ? ";// 先取出他自己的顺序
+        /*String sqlPre = "select seq from oe_course_mobile_banner where status = 1 and id = ? ";// 先取出他自己的顺序
 		Integer mobileBannerPreSort = dao.queryForInt(sqlPre,
 				new Object[] { id });
 

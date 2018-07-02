@@ -120,7 +120,7 @@ public class AskMenuController {
         // searchVo.setOrderCourseCount(sortGroup.getPropertyValue1().toString());
         // }
         /*
-		 * if(createPersonGroup!=null){
+         * if(createPersonGroup!=null){
 		 * searchVo.setCreatePerson(createPersonGroup
 		 * .getPropertyValue1().toString()); } if(time_startGroup!=null){
 		 * searchVo

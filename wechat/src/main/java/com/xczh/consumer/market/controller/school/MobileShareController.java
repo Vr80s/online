@@ -319,7 +319,7 @@ public class MobileShareController {
 
         LOGGER.info("啦啦啦，我是卖报的小画家：searchUrl:" + searchUrl + "===" + ",wxOrbrower:" + wxOrbrower);
         /*
-		 * 这里需要判断下是不是微信浏览器
+         * 这里需要判断下是不是微信浏览器
 		 */
         if (StringUtils.isNotBlank(wxOrbrower) && "wx".equals(wxOrbrower)) {
             String strLinkHome = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + WxPayConst.gzh_appid + "&redirect_uri=" + returnOpenidUri + "/xczh/share/xcCustomQrCodeViewUser?realUrl=" + realUrl + "&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect".replace("appid=APPID", "appid=" + WxPayConst.gzh_appid);

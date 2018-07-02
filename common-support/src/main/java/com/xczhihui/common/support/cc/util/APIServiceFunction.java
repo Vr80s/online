@@ -200,7 +200,7 @@ public class APIServiceFunction {
 
 	/* url为/servlet/uploadchunk?ccvid=&format= */
     /* chunkStart为chunk起始位置*/
-	/* chunkEnd为chunk结束位置*/
+    /* chunkEnd为chunk结束位置*/
 	/* file为文件*/
 	/* bufferOut为实际文件输出二进制内容*/
 

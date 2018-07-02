@@ -299,7 +299,7 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper, UserBank>
         validateUserBank(userBank);
         Integer fontCode = 200;
         /*
-		 * 如果
+         * 如果
 		 */
         if (StringUtils.isNotBlank(certId)) {
             /**

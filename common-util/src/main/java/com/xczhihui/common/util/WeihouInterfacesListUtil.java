@@ -107,7 +107,7 @@ public class WeihouInterfacesListUtil {
      */
     public static Integer getOnlineState(String videoId) {
 /*		if(!StringUtils.hasText(name) &&!StringUtils.hasText(head)){
-			return null;
+            return null;
 		}*/
         String whUrl = CURRENTONLINESTATE;
         Map<String, String> parameters = new TreeMap<String, String>();

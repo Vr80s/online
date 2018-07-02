@@ -62,7 +62,7 @@ public class AskTagController {
         Group citesSortSearch = groups.findByName("citesSort");
         Group monthSortSearch = groups.findByName("monthSort");
         /*
-		 * Group NameSearch = groups.findByName("NameSearch"); Group isPayment =
+         * Group NameSearch = groups.findByName("NameSearch"); Group isPayment =
 		 * groups.findByName("isPayment");
 		 */
 

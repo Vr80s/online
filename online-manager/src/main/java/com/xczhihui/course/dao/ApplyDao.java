@@ -75,7 +75,7 @@ public class ApplyDao extends HibernateDao<Apply> {
             }
             sql.append(")");
             /*
-			 * findByIdSql.append(")"); List<Apply> temps=
+             * findByIdSql.append(")"); List<Apply> temps=
 			 * this.findEntitiesByJdbc(Apply.class, findByIdSql.toString(),
 			 * paramMap); for(Apply apply :temps){ Apply applyById =
 			 * this.findOneEntitiyByProperty(Apply.class, "id", apply.getId());

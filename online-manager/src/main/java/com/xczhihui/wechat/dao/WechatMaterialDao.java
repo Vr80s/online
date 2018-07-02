@@ -26,7 +26,7 @@ public class WechatMaterialDao extends HibernateDao<Course> {
                         + "og.`smallimg_path` smallimgPath,og.`price`,og.`is_free` isFree,og.`is_continuous` isContinuous,og.`continuous_count` continuousCount,og.status,og.brokerage "
                         + "FROM `oe_WechatMaterial` og LEFT JOIN `user` u ON u.id = og.`create_person` WHERE og.`is_delete` = 0");
         /*
-		 * if (WechatMaterial.getName() != null) { paramMap.put("name", "%" +
+         * if (WechatMaterial.getName() != null) { paramMap.put("name", "%" +
 		 * WechatMaterial.getName() + "%");
 		 * sql.append(" and og.`name` like :name "); }
 		 * 

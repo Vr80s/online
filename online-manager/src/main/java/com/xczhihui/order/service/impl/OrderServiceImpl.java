@@ -81,7 +81,7 @@ public class OrderServiceImpl extends OnlineBaseServiceImpl implements
 
             }
             /*
-			 * if(r.get("preferenty")!=null&&!StringUtil.isNumber(r.get("preferenty"
+             * if(r.get("preferenty")!=null&&!StringUtil.isNumber(r.get("preferenty"
 			 * ).toString())&&!"老学员优惠".equals(r.get("preferenty").toString())){
 			 * sum=sum+Double.parseDouble(r.get("actualPay").toString());
 			 * r.put("actualPay"

@@ -59,7 +59,7 @@ public final class StringUtils extends org.apache.commons.lang3.StringUtils {
      *
      * @param s   需要转换的字符串
      * @param map 转换所需的键值对集合
-     * @return        {String}转换后的字符串
+     * @return {String}转换后的字符串
      */
     public static String format(String s, Map<String, String> map) {
         StringBuilder sb = new StringBuilder((int) (s.length() * 1.5));

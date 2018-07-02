@@ -120,7 +120,7 @@ public class Group {
     public void setTempMatchType(String tempMatchType) {
         this.tempMatchType = tempMatchType;
         /*
-		 * setPropertyValue1(((String[]) propertyValue1)[0].trim());
+         * setPropertyValue1(((String[]) propertyValue1)[0].trim());
 		 * setPropertyValue2(((String[]) propertyValue2)[0].trim());
 		 */
         if ("4".equals(tempMatchType)) {

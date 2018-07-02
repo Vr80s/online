@@ -20,6 +20,7 @@ public enum UserOrigin {
      **/
     private String text;
     private int code;
+
     UserOrigin(int code, String text) {
         this.text = text;
         this.code = code;

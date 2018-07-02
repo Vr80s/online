@@ -44,7 +44,7 @@ public class VhallUtil {
         parameters.put("auth_type", AUTO_TYPE);
         parameters.put("account", ACCOUNT);
         parameters.put("password", PWD);
-		/* 公共参数 */
+        /* 公共参数 */
         parameters.put("third_user_id", userId);
         parameters.put("pass", password);
         parameters.put("name", name);

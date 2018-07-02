@@ -17,6 +17,7 @@ public class PropertyFilter {
     private Object matchValue = null;
     private Class<?> propertyClass = null;
     private String[] propertyNames = null;
+
     public PropertyFilter() {
     }
 

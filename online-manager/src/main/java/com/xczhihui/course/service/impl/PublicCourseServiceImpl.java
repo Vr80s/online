@@ -181,7 +181,7 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
         //entity.setTeacherImgPath(courseVo.getTeacherImgPath());//教师头像
 
         entity.setDefaultStudentCount(courseVo.getDefaultStudentCount());
-		/*2017.08.10  yuruixin*/
+        /*2017.08.10  yuruixin*/
         entity.setOriginalCost(courseVo.getOriginalCost());
         entity.setCurrentPrice(courseVo.getCurrentPrice());
         entity.setDescription(courseVo.getDescription());

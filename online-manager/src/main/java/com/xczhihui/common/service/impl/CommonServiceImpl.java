@@ -200,7 +200,7 @@ public class CommonServiceImpl extends OnlineBaseServiceImpl implements
         List<SystemVariate> listOld = systemVariateService
                 .getSystemVariatesByName("common_problems");
         /*
-		 * 删除原来的
+         * 删除原来的
 		 */
         for (SystemVariate systemVariate : listOld) {
             systemVariateService.deleteSystemVariate(systemVariate.getId());

@@ -43,7 +43,7 @@ public class PrecisionUtil {
         NumberFormat nf = NumberFormat.getNumberInstance();
         nf.setMaximumFractionDigits(2);
         /*
-		 * setMinimumFractionDigits设置成2
+         * setMinimumFractionDigits设置成2
 		 * 
 		 * 如果不这么做，那么当value的值是100.00的时候返回100
 		 * 

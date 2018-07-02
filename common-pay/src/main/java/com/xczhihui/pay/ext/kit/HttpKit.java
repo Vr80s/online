@@ -25,6 +25,7 @@ public class HttpKit {
     private static final SSLSocketFactory sslSocketFactory = initSSLSocketFactory();
     private static final TrustAnyHostnameVerifier trustAnyHostnameVerifier = new HttpKit().new TrustAnyHostnameVerifier();
     private static String CHARSET = "UTF-8";
+
     private HttpKit() {
     }
 

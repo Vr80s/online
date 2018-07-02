@@ -23,6 +23,7 @@ public enum OrderFrom {
      **/
     private String text;
     private int code;
+
     private OrderFrom(int code, String text) {
         this.text = text;
         this.code = code;

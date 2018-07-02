@@ -179,7 +179,7 @@ public class MenuTagServiceImpl implements OnlineBaseService, MenuTagService {
                         if (tags.size() > 1) {
                             resultList.add(map);
                         }
-						/*yuruixin-20170831*/
+                        /*yuruixin-20170831*/
                     } else {
                         if (courseDao.checkUserToPay(loginUser.getId(), m.getId())) {  //购买了付费课程，此学科公开显示
                             map.put("menu", vo);
