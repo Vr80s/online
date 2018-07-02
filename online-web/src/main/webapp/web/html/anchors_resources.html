@@ -244,7 +244,7 @@
 				<div class="select_box" style="background: #f8f8f8;display: block;">
 					<div class="activity-wrap">
 						<textarea class="publish-activity" name="" rows="" cols="" placeholder="发布动态"></textarea>
-						<span class="comment-wrong activity-error hide">！动态内容不能为空</span>
+						<span class="comment-wrong activity-error hide">动态内容不能为空！</span>
 						<button type="button" class="btn-deliver">发布动态</button>
 						<ul class="activity-nav">
 							<li>
@@ -296,7 +296,7 @@
 									<form id="addResource">
 										<input id="video-up" style="display: none;margin-top: 20px;" type="file" value="点击上传资源" name="file" style="cursor:pointer;" onchange="uploadFile()" accept=".wmv,.wm,.asf,.asx,.rm,.rmvb,.ra,.ram,.mpg,.mpeg,.mpe,.vob,.dat,.mov,.3gp,.mp4,.mp4v,.m4v,.mkv,.avi,.flv,.f4v,.mts"/>
 									</form>
-									<span class="comment-wrong video-null hide">！视频不能为空</span>
+									<span class="comment-wrong video-null hide">视频不能为空！</span>
 									
 									<div class="resource_uploading">
 										<span id="uploadProgress">
@@ -353,7 +353,7 @@
 									</div>
 								</div>
 								<p class="consilia-result hide">共搜索出“<span class="search-keyword"></span>”全部结果约 <span class="number-search"></span> 条</p>
-								<p class="comment-wrong article-null hide">！请至少选择一篇文章</p>
+								<p class="comment-wrong article-null hide">请至少选择一篇文章！</p>
 								<div class="result-list">
 									<table border="0" class="hide">
 										
@@ -679,20 +679,17 @@
 							<div class="comment-nodata banner-nulldata hide">
 								<img src="/web/images/notext_icon.png" alt="无数据">
 								<p>暂无数据</p>
-							</div>
+							</div>							
 						</div>
-
-
-							<!--分页部分start-->
-						<div class="banner_pages pages hide" style="padding-bottom: 20px; background: white;">  <!--如需要复制分页doctors_pages要改类名并在JS里对应-->
-							<div id="Pagination_banner" class="pagination-pages"></div>	<!--如需要复制分页Pagination_doctors要改类名并在JS里对应-->
-							<div class="searchPage">
-								<span class="page-sum">共<strong class="allPage">0</strong>页</span>
-								<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
-								<a href="javascript:;" class="page-btn">确定</a>
+								<!--分页部分start-->
+							<div class="banner_pages pages hide" style="padding-bottom: 20px; background: white;">  <!--如需要复制分页doctors_pages要改类名并在JS里对应-->
+								<div id="Pagination_banner" class="pagination-pages"></div>	<!--如需要复制分页Pagination_doctors要改类名并在JS里对应-->
+								<div class="searchPage">
+									<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+									<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
+									<a href="javascript:;" class="page-btn">确定</a>
+								</div>
 							</div>
-						</div>
-
 					</div>
 					<div class="banner-set-wrap hide">
 						<!--添加图片-->
@@ -705,7 +702,7 @@
 								</span>
 								<input type="file" style="visibility: hidden;display: inline-block;" id="banner_picIpt" />
 							</div>
-							<p class="banner-all-tip banner-fengmian hide">！请上传封面图</p>
+							<p class="banner-all-tip banner-fengmian hide">请上传封面图！</p>
 						</div>
 						<!--链接类型-->
 						<div class="banner-link-wrap">
@@ -716,7 +713,7 @@
 								<li class="type4"><p><em data-type="4"></em></p>医案</li>
 								<li class="type3"><p><em data-type="3"></em></p>专栏文章</li>
 							</ul>
-							<p class="banner-all-tip banner-error-style hide">！请选择类型</p>
+							<p class="banner-all-tip banner-error-style hide">请选择类型！</p>
 						</div>
 						<!--链接到-->
 						<div class="banner-url-wrap">
@@ -735,7 +732,7 @@
 									</script>
 								</select>-->
 							</form>
-							<p class="banner-all-tip banner-error-link hide">！请选择链接类型</p>
+							<p class="banner-all-tip banner-error-link hide">请选择链接类型！</p>
 						
 						</div>
 						<!--期限-->
@@ -744,7 +741,7 @@
 							<input type="" name="" value="" placeholder="开始时间" id="start-time" />
 							<span style="margin: 0 10px;">至</span>
 							<input type="" name="" value="" placeholder="结束时间" id="end-time" />
-							<p class="banner-all-tip banner-error-time hide">！请选择时间</p>
+							<p class="banner-all-tip banner-error-time hide">请选择时间！</p>
 						
 						</div>
 						<!--提交-->
