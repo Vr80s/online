@@ -49,8 +49,7 @@ public class MobileClassifyController {
      */
     @RequestMapping("schoolClass")
     @ResponseBody
-    public ResponseObject schoolClass(HttpServletRequest req,
-                                      HttpServletResponse res)
+    public ResponseObject schoolClass()
             throws Exception {
 
         List<Object> list = new ArrayList<Object>();

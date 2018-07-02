@@ -5,6 +5,7 @@ var loginUserName="";
 var getPostsIdByComment="";
 var postsCommentId="";
 var postsCommentUserName="";
+var doctorPostsType ="";
 $(function(){
     loginUserId = localStorage.getItem("userId");
     loginUserName = localStorage.getItem("name");
@@ -12,20 +13,16 @@ $(function(){
 });
 
 //动态列表
-function doctorPostsList(type) {
+function doctorPostsList(num,downOrUp,doctorPostsType) {
     requestGetService("/doctor/posts", {
-        pageNumber: 1,
+        pageNumber: num,
         pageSize:10,
-        type:type,
+        type:doctorPostsType,
         doctorId:doctorId
     }, function (data) {
         var obj = data.resultObject.records;
-        var now = new Date();
-        now.setDate(now.getDate()+1);
         for(var i=0;i<obj.length;i++){
             var likes ="";
-            //定义时间
-            obj[i].now=now;
             //判断是否点赞
             obj[i].isPraise=false;
             //封装点赞列表
@@ -44,8 +41,34 @@ function doctorPostsList(type) {
                 var pics=obj[i].pictures.split(",");
                 obj[i].pics=pics;
             }
+            //过滤文章内容标签
+            if(obj[i].articleId!==null && obj[i].articleId!==""){
+                obj[i].articleContent = obj[i].articleContent.replace(/<.*?>/ig,"");
+            }
         }
-        $(".rests_nav").html(template('wrap_doctor_dynamics',{items:obj}));
+
+        //	判断是下拉刷新还是上拉加载
+        if(downOrUp=='down'){
+            //  	判断有无评价显示默认图片
+            /*if(data.resultObject.items.length==0){
+                $(".quie_pic").show()
+            }else{
+                $(".quie_pic").hide()
+            }*/
+            $(".rests_nav").html(template('wrap_doctor_dynamics',{items:obj}));
+            mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);
+            mui('#refreshContainer').pullRefresh().refresh(true);
+            mui("#refreshContainer").off();
+        }else if(obj.length==0){
+            mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
+            mui("#refreshContainer").off();
+        }else{
+            $(".rests_nav").append(template('wrap_doctor_dynamics',{items:obj}));
+            mui("#refreshContainer").off();
+            mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);
+
+        }
+
         for(var i=0;i<obj.length;i++){
             //没有点赞时隐藏小手
             if(obj[i].doctorPostsCommentList.length==0 && obj[i].doctorPostsLikeList.length==0){
@@ -64,7 +87,7 @@ function doctorPostsList(type) {
         }
 
         //点赞
-        $('.zan_img').click(function() {
+        mui("#refreshContainer").on('tap', '.zan_img', function (event) {
             var src = $(this).attr('src');
             var postsId = $(this).attr('data-id');
             if(src.indexOf("zan001")>-1){
@@ -72,9 +95,9 @@ function doctorPostsList(type) {
             }else{
                 postsLike(this,postsId);
             }
-        })
+        });
         //评论
-        $(".rests_nav .evaluate_img").click(function(){
+        mui("#refreshContainer").on('tap', '.rests_nav .evaluate_img', function (event) {
             $(".face").attr("src","/xcview/images/face.png");
             $("#page_emotion").css("bottom","-2.8rem");
             $(".comment").show();
@@ -82,14 +105,14 @@ function doctorPostsList(type) {
             postsCommentId = "";
         });
         // 点击其他内容区域隐藏评论区域
-        $(".comment_hide").click(function(){
+        mui("#refreshContainer").on('tap', '.comment_hide', function (event) {
             $(".face").attr("src","/xcview/images/face.png");
             $("#page_emotion").css("bottom","-2.8rem");
             $(".comment").hide();
         });
 
         // 回复/删除
-        $(".evaluateDiv").click(function(){
+        mui("#refreshContainer").on('tap', '.evaluateDiv', function (event) {
             postsCommentId = $(this).attr('data-id');
             postsCommentUserName = $(this).attr('data-userName');
             getPostsIdByComment = $(this).attr('data-postsId');
@@ -118,31 +141,20 @@ function doctorPostsList(type) {
                             }else if(!$("#"+data_postsId).children(".number_people_fize").children("span").is(":empty") && data.resultObject.length==0){
                                 $("#"+data_postsId).find(".evaluate_main").hide();
                             }
-                            alert("删除成功");
+                            webToast("删除成功","middle",1500);
                         }else{
-                            alert("删除失败");
+                            webToast("删除失败","middle",1500);
                         }
                     });
                 })
-                /*$(".copy").click(function(){
-                    copyUrl2();
-                });
-                function copyUrl2()
-                {
-                var Url2 = $(".response_center").text();
-                Url2.select(); // 选择对象
-                document.execCommand("Copy"); // 执行浏览器复制命令
-                alert("已复制好，可贴粘。");
-                }*/
-
             }
         });
     });
 }
 
 function postsType(obj) {
-    var type = $(obj).attr("value");
-    doctorPostsList(type);
+    doctorPostsType = $(obj).attr("value");
+    doctorPostsList(num,'down',doctorPostsType);
     //alert(type)
 }
 /**
@@ -151,7 +163,7 @@ function postsType(obj) {
 function sendComment(){
     var article = $("#form_article").html();
     if($("#form_article").html()==""){
-        alert("内容不能为空");
+        webToast("内容不能为空","middle",1500);
         return false;
     }
     requestService("/doctor/posts/"+getPostsIdByComment+"/comment",{
@@ -210,18 +222,18 @@ function sendComment(){
                                 }else if(!$("#"+getPostsIdByComment).children(".number_people_fize").children("span").is(":empty") && data.resultObject.length==0){
                                     $("#"+getPostsIdByComment).find(".evaluate_main").hide();
                                 }
-                                alert("删除成功");
+                                webToast("删除成功","middle",1500);
                             }else{
-                                alert("删除失败");
+                                webToast("删除失败","middle",1500);
                             }
                         });
                     })
                 }
 
             });
-            alert(data.resultObject);
+            webToast("评论成功","middle",1500);
         }else{
-            alert(data.errorMessage);
+            webToast(data.resultObject,"middle",1500);
         }
     });
 }
@@ -244,9 +256,8 @@ function postsLike(obj,postsId) {
             $("#"+postsId).find(".number_people_fize").show();
 
             getPostsLikeList(postsId,data.resultObject.list);
-            alert(data.resultObject);
         }else{
-            alert(data.errorMessage);
+            webToast(data.resultObject,"middle",1500);
         }
     });
 }
@@ -267,9 +278,8 @@ function delPostsLike(obj,postsId) {
             }else if(data.resultObject.list.length==0){
                 $("#"+postsId).find(".number_people_fize").hide();
             }
-            alert(data.resultObject);
         }else{
-            alert(data.errorMessage);
+            webToast(data.resultObject,"middle",1500);
         }
     });
 }
@@ -315,6 +325,51 @@ function ccVideo(videoId, multimediaType,id) {
         }, false);
 }
 
+//文章跳转
+function articleDetails(id) {
+    location.href = "/xcview/html/physician/article.html?articleId=" + id;
+}
+//医案跳转
+function consiliaDetails(id) {
+    location.href = "/xcview/html/physician/consilia.html?articleId=" + id;
+}
+
+//动态刷新
+var num = 1;
+mui.init();
+mui.init({
+    pullRefresh: {
+        container: '#refreshContainer',
+        down: {
+            callback: pulldownRefresh
+        },
+        up: {
+            contentrefresh: '正在加载...',
+            callback: pullupRefresh
+        }
+    }
+});
+
+/**
+ * 下拉刷新
+ */
+function pulldownRefresh() {
+    num = 1;
+    setTimeout(function() {
+        doctorPostsList(num,'down',doctorPostsType);
+        mui('#refreshContainer').pullRefresh().endPulldownToRefresh(); //refresh completed
+    }, 500);
+};
+var count = 0;
+/**
+ * 上拉加载具体业务实现
+ */
+function pullupRefresh() {
+    num++;
+    setTimeout(function() {
+        doctorPostsList(num,'up',doctorPostsType);
+    }, 500);
+}
 
 /* --------------直播间------------- */
 /*直播间开始*/

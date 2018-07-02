@@ -36,17 +36,17 @@ public class EnrolController {
     }
 
     @RequestMapping(value = "enrollmentRegulations/{id}", method = RequestMethod.GET)
-    public ResponseObject enrollmentRegulations(@Account String accountId, @PathVariable int id, HttpServletRequest req) {
+    public ResponseObject enrollmentRegulations(@Account String accountId, @PathVariable int id) {
         return ResponseObject.newSuccessResponseObject(enrolService.getMedicalEnrollmentRegulationsById(id, accountId));
     }
 
     @RequestMapping(value = "enrollmentRegulations/{id}/cardInfo", method = RequestMethod.GET)
-    public ResponseObject enrollmentRegulationsCardInfo(@Account String accountId, @PathVariable int id, HttpServletRequest req) {
+    public ResponseObject enrollmentRegulationsCardInfo(@Account String accountId, @PathVariable int id) {
         return ResponseObject.newSuccessResponseObject(enrolService.getMedicalEnrollmentRegulationsCardInfoById(id, accountId, returnOpenidUri));
     }
 
     @RequestMapping(value = "medicalEntryInformation/{merId}", method = RequestMethod.GET)
-    public ResponseObject medicalEntryInformation(@Account String accountId, @PathVariable int merId, HttpServletRequest req) {
+    public ResponseObject medicalEntryInformation(@Account String accountId, @PathVariable int merId) {
         return ResponseObject.newSuccessResponseObject(enrolService.getMedicalEntryInformationByUserIdAndERId(merId, accountId));
     }
 

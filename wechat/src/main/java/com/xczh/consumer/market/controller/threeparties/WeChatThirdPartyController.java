@@ -165,12 +165,11 @@ public class WeChatThirdPartyController {
     @RequestMapping(value = "appThirdPartyLogin")
     @ResponseBody
     @Transactional
-    public ResponseObject addAppThirdparty(HttpServletRequest req,
-                                           HttpServletResponse res,
-                                           @RequestParam("accessToken") String accessToken,
+    public ResponseObject addAppThirdparty(@RequestParam("accessToken") String accessToken,
                                            @RequestParam("openId") String openId,
-                                           @RequestParam("model") String model) throws Exception {
-        String userId = req.getParameter("userId");
+                                           @RequestParam("model") String model,
+                                           @RequestParam(value="userId",required=false) String userId) throws Exception {
+       
         if (StringUtils.isNotBlank(userId)) {
             OnlineUser ou = onlineUserService.findUserById(userId);
             if (ou == null) {

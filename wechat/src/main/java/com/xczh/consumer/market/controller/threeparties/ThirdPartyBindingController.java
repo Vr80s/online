@@ -55,8 +55,7 @@ public class ThirdPartyBindingController {
      */
     @RequestMapping(value = "userBindingInfo")
     @ResponseBody
-    public ResponseObject userBindingInfo(HttpServletRequest req,
-                                          HttpServletResponse res, @Account String accountId) {
+    public ResponseObject userBindingInfo(@Account String accountId) {
         try {
             Map<String, Object> map = threePartiesLoginService.selectUserBindingInfo(accountId);
             return ResponseObject.newSuccessResponseObject(map);
@@ -75,9 +74,7 @@ public class ThirdPartyBindingController {
      */
     @RequestMapping(value = "removeBinding")
     @ResponseBody
-    public ResponseObject removeBinding(HttpServletRequest req,
-                                        HttpServletResponse res,
-                                        @RequestParam("unionId") String unionId,
+    public ResponseObject removeBinding(@RequestParam("unionId") String unionId,
                                         @RequestParam("type") Integer type, @Account String accountId) {
         try {
             if (type == ThirdPartyType.WECHAT.getCode()) {  //微信

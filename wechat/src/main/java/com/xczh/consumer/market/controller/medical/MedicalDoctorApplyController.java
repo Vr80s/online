@@ -116,7 +116,7 @@ public class MedicalDoctorApplyController {
      */
     @RequestMapping("doctorInfo")
     @ResponseBody
-    public ResponseObject getLastOne(@Account String accountId, HttpServletRequest req) throws Exception {
+    public ResponseObject getLastOne(@Account String accountId) throws Exception {
         Map<String, Object> mapAll = new HashMap<String, Object>();
         MedicalDoctorApply mda = medicalDoctorApplyService.getLastOne(accountId);
         Integer status = commonServiceImpl.isDoctorOrHospital(accountId);

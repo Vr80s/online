@@ -103,8 +103,7 @@ public class MyInfoController {
      * @author name：yangxuan <br>email: 15936216273@163.com
      */
     @RequestMapping("myFocus")
-    public ResponseObject myFocus(HttpServletRequest req,
-                                  HttpServletResponse res, @Account String accountId)
+    public ResponseObject myFocus(@Account String accountId)
             throws Exception {
         return ResponseObject.newSuccessResponseObject(ifocusService.selectFocusList(accountId));
     }
@@ -120,8 +119,7 @@ public class MyInfoController {
      * @author name：yangxuan <br>email: 15936216273@163.com
      */
     @RequestMapping("updateFocus")
-    public ResponseObject updateFocus(HttpServletRequest req,
-                                      @RequestParam("lecturerId") String lecturerId,
+    public ResponseObject updateFocus(@RequestParam("lecturerId") String lecturerId,
                                       @RequestParam("type") Integer type,
                                       @Account String accountId)
             throws Exception {

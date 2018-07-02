@@ -392,15 +392,15 @@ var activityType;
 		return data;
 	}
 //	点击发布动态
-	$(".btn-deliver").click(function(){
-		$(this).attr("diabled","disabled");
+	$(".btn-deliver").click(function(){	
 		var post = getPostData();
-		if(checkContent(post)){		
+		if(checkContent(post)){	
+			$(".btn-deliver").attr("disabled","disabled");
 		 	post.type = activityType;
 			RequestService("/doctor/posts", "post", post , function (data) {
 	        	if(data.success==true){
 	        		showTip("发布成功");
-	        		$(this).removeAttr("diabled");
+	        		$(".btn-deliver").removeAttr("disabled");
 	        		newsList(1,getAnchorsId);
 	        		closeImages();		//关闭图片
 	        		closeConsilia();	//关闭文章
@@ -972,14 +972,15 @@ template.config("escape", false);
 //	新增轮播图按钮切换页面
 	$(".banner-set-top button").click(function(){
 	if($(this).text()=="添加轮播图"){
-		$(".banner-list-wrap").addClass("hide");
+		$(".banner-main").addClass("hide");
 		$(".banner-set-wrap").removeClass("hide");
 		$(this).text("返回");
 		$(".banner-submission-wrap button").removeAttr("disabled");
 	}else{
-		$(".banner-list-wrap").removeClass("hide");
+		$(".banner-main").removeClass("hide");
 		$(".banner-set-wrap").addClass("hide");
 		$(this).text("添加轮播图");
+		resetBanner();
 	}
 })
 
@@ -1060,7 +1061,7 @@ template.config("escape", false);
 			$(".banner-error-style").addClass("hide");
 		}
 //		连接到	
-		if(isBlank(data.linkParam)){
+		if(isBlank(data.linkParam) && data.type != 6){
 			$(".banner-error-link").removeClass("hide");
 			return false;
 		}else{
@@ -1158,11 +1159,16 @@ template.config("escape", false);
         }
         reader.readAsDataURL(this.files[0])
     });
-	var listData = [[],[],[],[]];
+	var listData = [[],[],[],[], [], []];
 //	选择链接类型下拉
 	$(".banner-link-wrap li").click(function(){
 		var linkType=$(this).find("em").attr("data-type");
 		var selectType = null;
+		if (linkType == 6) {
+            $('.J-linkParam-div').hide();
+        } else {
+            $('.J-linkParam-div').show();
+        }
 			if(linkType==1 || linkType==2){
 				if (linkType == 2) {
 					selectType = 1;
@@ -1202,11 +1208,22 @@ template.config("escape", false);
 				       }
 					},false)
 				}
-			}
+			} else if (linkType == 5) {
+                if(listData[linkType-1].length==0){
+                    RequestService("/doctor/regulations/list", "get", null, function (data) {
+                        if (data.success==true) {
+                            var regulations = data.resultObject;
+                            listData[linkType-1] = regulations;
+                        } else{
+
+                        }
+                    },false)
+                }
+            }
 			showSelect(linkType);
 		$(".banner-link-wrap li em").removeClass("active");
 		$(this).find("em").addClass("active");
-	})
+	});
 
 	function showSelect(type){
 		var data = listData[type-1];
@@ -1219,7 +1236,11 @@ template.config("escape", false);
 			name="专栏";
 		}else if(type==4){
 			name="医案";
-		}
+		} else if (type == 5) {
+		    name = "招生简章";
+        } else {
+		    return ;
+        }
         var str="<option value=''>选择一个"+name+"</option>";
         
         for(var i=0;data.length>i;i++){

@@ -75,9 +75,7 @@ public class XzUserSetController {
      */
     @RequestMapping(value = "editPassword")
     @ResponseBody
-    public ResponseObject editPassword(HttpServletRequest req,
-                                       HttpServletResponse res,
-                                       @RequestParam("oldPassword") String oldPassword,
+    public ResponseObject editPassword(@RequestParam("oldPassword") String oldPassword,
                                        @RequestParam("newPassword") String newPassword,
                                        @RequestParam("username") String username) throws Exception {
 
@@ -107,8 +105,7 @@ public class XzUserSetController {
      */
     @RequestMapping(value = "phoneCheck")
     @ResponseBody
-    public ResponseObject phoneCheck(HttpServletRequest req,
-                                     @RequestParam("username") String username,
+    public ResponseObject phoneCheck(@RequestParam("username") String username,
                                      @RequestParam("vtype") Integer vtype) throws Exception {
         if (!XzStringUtils.checkPhone(username)) {
             return ResponseObject.newErrorResponseObject("请输入正确的手机号");
@@ -133,8 +130,7 @@ public class XzUserSetController {
      */
     @RequestMapping(value = "phoneCheckAndCode")
     @ResponseBody
-    public ResponseObject phoneCheckAndCode(HttpServletRequest req,
-                                            @RequestParam("username") String username,
+    public ResponseObject phoneCheckAndCode(@RequestParam("username") String username,
                                             @RequestParam("code") String code,
                                             @RequestParam("vtype") Integer vtype) throws Exception {
         if (!XzStringUtils.checkPhone(username)) {
@@ -159,8 +155,7 @@ public class XzUserSetController {
     @RequestMapping(value = "updatePhone")
     @ResponseBody
     @Transactional
-    public ResponseObject updatePhone(HttpServletRequest req,
-                                      @RequestParam("oldUsername") String oldUsername,
+    public ResponseObject updatePhone(@RequestParam("oldUsername") String oldUsername,
                                       @RequestParam("newUsername") String newUsername,
                                       @RequestParam("code") String code,
                                       @RequestParam("vtype") Integer vtype) throws Exception {
@@ -196,8 +191,7 @@ public class XzUserSetController {
      */
     @RequestMapping(value = "getUserInfo")
     @ResponseBody
-    public ResponseObject getUserInfo(HttpServletRequest req,
-                                      @RequestParam("userId") String userId) {
+    public ResponseObject getUserInfo(@RequestParam("userId") String userId) {
         try {
             OnlineUser ou = onlineUserService.findUserById(userId);
             if (ou != null) {
@@ -223,8 +217,7 @@ public class XzUserSetController {
      */
     @RequestMapping("isLogined")
     @ResponseBody
-    public ResponseObject isLogined(
-            HttpServletResponse res, Map<String, String> params, HttpServletRequest req)
+    public ResponseObject isLogined(HttpServletRequest req)
             throws Exception {
         Token t = UCCookieUtil.readTokenCookie(req);
         if (t == null) {
@@ -257,7 +250,7 @@ public class XzUserSetController {
     @RequestMapping("logout")
     @ResponseBody
     public ResponseObject logout(HttpServletRequest req,
-                                 HttpServletResponse res, Map<String, String> params)
+                                 HttpServletResponse res)
             throws Exception {
         UCCookieUtil.clearTokenCookie(res);
         String token = req.getParameter("token");
@@ -281,8 +274,7 @@ public class XzUserSetController {
     @RequestMapping("userInfo")
     @ResponseBody
     @Transactional
-    public ResponseObject userInfo(HttpServletRequest request,
-                                   HttpServletResponse response, OnlineUserVO user) throws Exception {
+    public ResponseObject userInfo(HttpServletRequest request,OnlineUserVO user) throws Exception {
 
         if (!StringUtils.isNotBlank(user.getId())) {
             return ResponseObject.newErrorResponseObject("用户id不能为空");
@@ -370,8 +362,7 @@ public class XzUserSetController {
     @RequestMapping("userInfoWechat")
     @ResponseBody
     @Transactional
-    public ResponseObject userInfoWechat(HttpServletRequest request,
-                                         HttpServletResponse response, OnlineUserVO user) throws Exception {
+    public ResponseObject userInfoWechat(HttpServletRequest request,OnlineUserVO user) throws Exception {
         /**
          * 保存个人资料信息
          */
@@ -435,8 +426,7 @@ public class XzUserSetController {
     @RequestMapping("wechatSaveHeadImg")
     @ResponseBody
     @Transactional
-    public ResponseObject wechatSaveHeadImg(HttpServletRequest request,
-                                            HttpServletResponse response, @Account OnlineUser account) throws Exception {
+    public ResponseObject wechatSaveHeadImg(HttpServletRequest request,@Account OnlineUser account) throws Exception {
         // TODO
         String base64Data = request.getParameter("base64Data");
         String imageName = request.getParameter("imageName");
@@ -505,8 +495,7 @@ public class XzUserSetController {
      */
     @RequestMapping("getAddressAll")
     @ResponseBody
-    public ResponseObject getAddressAll(HttpServletRequest req,
-                                        HttpServletResponse res, @Account String accountId) throws Exception {
+    public ResponseObject getAddressAll(@Account String accountId) throws Exception {
         List<UserAddressManagerVo> list = cityService.getAddressAll(accountId);
         return ResponseObject.newSuccessResponseObject(list);
     }
@@ -516,8 +505,7 @@ public class XzUserSetController {
      */
     @RequestMapping("saveAddress")
     @ResponseBody
-    public ResponseObject saveAddress(HttpServletRequest req,
-                                      HttpServletResponse res, @ModelAttribute UserAddressManagerVo udm, @Account String accountId)
+    public ResponseObject saveAddress(@ModelAttribute UserAddressManagerVo udm, @Account String accountId)
             throws Exception {
         udm.setUserId(accountId);
 
@@ -538,8 +526,7 @@ public class XzUserSetController {
      */
     @RequestMapping("updateAddress")
     @ResponseBody
-    public ResponseObject updateAddress(HttpServletRequest req,
-                                        HttpServletResponse res, @ModelAttribute UserAddressManagerVo udm) {
+    public ResponseObject updateAddress(@ModelAttribute UserAddressManagerVo udm) {
         try {
             if (!XzStringUtils.checkPhone(udm.getPhone())) {
                 return ResponseObject.newErrorResponseObject("请输入正确的手机号");
@@ -557,9 +544,7 @@ public class XzUserSetController {
      */
     @RequestMapping("updateIsAcquies")
     @ResponseBody
-    public ResponseObject updateIsAcquies(HttpServletRequest req,
-                                          HttpServletResponse res, @Account String accountId) {
-        String newId = req.getParameter("newId");
+    public ResponseObject updateIsAcquies(String newId,@Account String accountId) {
         try {
             cityService.updateIsAcquies(newId, accountId);
             return ResponseObject.newSuccessResponseObject("修改成功");
@@ -574,9 +559,7 @@ public class XzUserSetController {
      */
     @RequestMapping("deleteAddressById")
     @ResponseBody
-    public ResponseObject deleteAddressById(HttpServletRequest req,
-                                            HttpServletResponse res, @Account String accountId) {
-        String id = req.getParameter("id");
+    public ResponseObject deleteAddressById(String id,@Account String accountId) {
         try {
             cityService.deleteAddressById(id, accountId);
             return ResponseObject.newSuccessResponseObject("删除成功");
@@ -591,9 +574,7 @@ public class XzUserSetController {
      */
     @RequestMapping("findAddressById")
     @ResponseBody
-    public ResponseObject findAddressById(HttpServletRequest req,
-                                          HttpServletResponse res) {
-        String id = req.getParameter("id");
+    public ResponseObject findAddressById(String id) {
         try {
             UserAddressManagerVo umv = cityService.findAddressById(id);
             return ResponseObject.newSuccessResponseObject(umv);
@@ -608,8 +589,7 @@ public class XzUserSetController {
      */
     @RequestMapping("findAddressByUserId")
     @ResponseBody
-    public ResponseObject findAcquiescenceAddressById(HttpServletRequest req,
-                                                      HttpServletResponse res, @Account String accountId) throws SQLException {
+    public ResponseObject findAcquiescenceAddressById(@Account String accountId) throws SQLException {
         UserAddressManagerVo umv = cityService.findAddressByUserIdAndAcq(accountId);
         return ResponseObject.newSuccessResponseObject(umv);
     }
@@ -619,13 +599,11 @@ public class XzUserSetController {
      */
     @RequestMapping("getAllProvinces")
     @ResponseBody
-    public ResponseObject getAllProvinces(HttpServletRequest req,
-                                          HttpServletResponse res, Map<String, String> params)
+    public ResponseObject getAllProvinces(Map<String, String> params)
             throws Exception {
         /**
          * 获取所有的省份
          */
-        // List<Map<String, Object>> list = cityService.getProvince(\);
         List<Map<String, Object>> list = cityService.getAllProvinceCityCounty();
         return ResponseObject.newSuccessResponseObject(list);
     }
@@ -642,11 +620,9 @@ public class XzUserSetController {
      */
     @RequestMapping(value = "jobVo")
     @ResponseBody
-    public ResponseObject JobVo(HttpServletRequest req, HttpServletResponse res)
+    public ResponseObject JobVo(String group)
             throws Exception {
-        String group = req.getParameter("group");
-        return ResponseObject.newSuccessResponseObject(commonApiService
-                .getJob(group));
+        return ResponseObject.newSuccessResponseObject(commonApiService.getJob(group));
     }
 
     /**
@@ -654,8 +630,7 @@ public class XzUserSetController {
      */
     @RequestMapping("getAll")
     @ResponseBody
-    public ResponseObject getAll(HttpServletRequest req,
-                                 HttpServletResponse res, Map<String, String> params)
+    public ResponseObject getAll(Map<String, String> params)
             throws Exception {
         /**
          * 获取所有的省份
@@ -669,8 +644,7 @@ public class XzUserSetController {
      */
     @RequestMapping("getProvince")
     @ResponseBody
-    public ResponseObject getProvince(HttpServletRequest req,
-                                      HttpServletResponse res, Map<String, String> params)
+    public ResponseObject getProvince(Map<String, String> params)
             throws Exception {
         /**
          * 获取所有的省份

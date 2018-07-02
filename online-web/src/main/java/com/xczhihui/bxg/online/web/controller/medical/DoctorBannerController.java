@@ -15,6 +15,9 @@ import com.xczhihui.medical.doctor.model.DoctorBanner;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorArticleService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBannerService;
 import com.xczhihui.medical.doctor.vo.OeBxsArticleVO;
+import com.xczhihui.medical.enrol.model.MedicalEnrollmentRegulations;
+import com.xczhihui.medical.enrol.service.EnrolService;
+import com.xczhihui.medical.enrol.vo.MedicalEntryInformationVO;
 
 /**
  * 医师轮播图
@@ -31,6 +34,8 @@ public class DoctorBannerController extends AbstractController {
     private ICourseService courseService;
     @Autowired
     private IMedicalDoctorArticleService medicalDoctorArticleService;
+    @Autowired
+    private EnrolService enrolService;
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseObject save(@RequestBody DoctorBannerBody doctorBannerBody) {
@@ -69,18 +74,25 @@ public class DoctorBannerController extends AbstractController {
             String linkParam = doctorBanner.getLinkParam();
             int type = doctorBanner.getType();
             if (StringUtils.isNotBlank(linkParam)) {
-                int paramId = Integer.parseInt(linkParam);
-                String linkDesc = null;
+                String linkDesc = "不跳转";
                 DoctorBannerEnum bannerEnum = DoctorBannerEnum.getByType(type);
                 if (bannerEnum.equals(DoctorBannerEnum.COURSE_DETAIL) || bannerEnum.equals(DoctorBannerEnum.LIVE_COURSE_DETAIL)) {
+                    int paramId = Integer.parseInt(linkParam);
                     Course course = courseService.findSimpleInfoById(paramId);
                     if (course != null) {
                         linkDesc = bannerEnum.getDesc() + ":" + course.getGradeName();
                     }
-                } else if (type == DoctorBannerEnum.SPECIAL_COLUMN.getType() || type == DoctorBannerEnum.DOCTOR_CASE.getType()) {
+                } else if (bannerEnum.equals(DoctorBannerEnum.SPECIAL_COLUMN) || bannerEnum.equals(DoctorBannerEnum.DOCTOR_CASE)) {
+                    int paramId = Integer.parseInt(linkParam);
                     OeBxsArticleVO oeBxsArticleVO = medicalDoctorArticleService.getSimpleInfo(Integer.parseInt(linkParam));
                     if (oeBxsArticleVO != null) {
                         linkDesc = bannerEnum.getDesc() + ":" + oeBxsArticleVO.getTitle();
+                    }
+                } else if (bannerEnum.equals(DoctorBannerEnum.APPRENTICE)) {
+                    int paramId = Integer.parseInt(linkParam);
+                    MedicalEnrollmentRegulations medicalEnrollmentRegulations = enrolService.findById(paramId);
+                    if (medicalEnrollmentRegulations != null) {
+                        linkDesc = bannerEnum.getDesc() + ":" + medicalEnrollmentRegulations.getTitle();
                     }
                 }
                 doctorBanner.setLinkDesc(linkDesc);

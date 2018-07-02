@@ -24,6 +24,7 @@ import com.xczh.consumer.market.interceptor.IOSVersionInterceptor;
 import com.xczh.consumer.market.utils.APPUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.course.consts.MultiUrlHelper;
+import com.xczhihui.course.enums.RouteTypeEnum;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.course.service.IFocusService;
 import com.xczhihui.course.service.IMyInfoService;
@@ -32,6 +33,7 @@ import com.xczhihui.medical.doctor.service.IMedicalDoctorBannerService;
 import com.xczhihui.medical.doctor.vo.DoctorBannerVO;
 import com.xczhihui.medical.hospital.model.MedicalHospital;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalApplyService;
+import com.xczhihui.pay.util.StringUtils;
 
 /**
  * ClassName: HostController.java <br>
@@ -151,7 +153,16 @@ public class HostController {
         List<DoctorBannerVO> list = medicalDoctorBannerService.listByUserId(lecturerId);
         mapAll.put("banners", list.stream()
                 .peek(doctorBannerVO ->
-                        doctorBannerVO.setUrl(MultiUrlHelper.getUrl(doctorBannerVO.getRouteType(), APPUtil.getMobileSource(request), doctorBannerVO.getLinkParam())))
+                {
+                    String routeType = doctorBannerVO.getRouteType();
+                    if (RouteTypeEnum.APPRENTICE_DETAIL.name().equals(routeType)) {
+                        String apprenticeParam = MultiUrlHelper.handleApprenticeParam(returnOpenidUri, doctorBannerVO.getLinkParam());
+                        if (StringUtils.isNotBlank(apprenticeParam)) {
+                            doctorBannerVO.setLinkParam(apprenticeParam);
+                        }
+                    }
+                    doctorBannerVO.setUrl(MultiUrlHelper.getUrl(routeType, APPUtil.getMobileSource(request), doctorBannerVO.getLinkParam()));
+                })
                 .collect(Collectors.toList()));
         return ResponseObject.newSuccessResponseObject(mapAll);
     }

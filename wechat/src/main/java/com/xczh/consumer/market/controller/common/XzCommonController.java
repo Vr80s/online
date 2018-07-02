@@ -144,7 +144,6 @@ public class XzCommonController {
     @RequestMapping("getImServerConfig")
     @ResponseBody
     public ResponseObject getImServerConfig(
-            HttpServletRequest req,
             Integer courseId, @Account OnlineUser account) throws Exception {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("guId", account.getId());

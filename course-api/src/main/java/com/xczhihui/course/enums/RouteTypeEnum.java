@@ -43,6 +43,7 @@ public enum RouteTypeEnum {
     QUESTION_DETAIL(1),
     ANCHOR_INDEX(1),
     H5(3),
+    APPRENTICE_DETAIL(1),
     PUBLIC_COURSE_LIST_PAGE(2);
 
     //0 => 不带参数 1=>详情页跳转，参数为id 2 => 列表筛选条件 3=>h5

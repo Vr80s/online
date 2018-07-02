@@ -64,7 +64,7 @@ public class XzGiftController {
      */
     @ResponseBody
     @RequestMapping(value = "/list")
-    public ResponseObject list(HttpServletRequest req, HttpServletResponse res) throws SQLException {
+    public ResponseObject list() throws SQLException {
         return ResponseObject.newSuccessResponseObject(remoteGiftService.getGift());
     }
 
@@ -82,12 +82,9 @@ public class XzGiftController {
     @ResponseBody
     @RequestMapping(value = "/sendGift")
     public ResponseObject sendGift(HttpServletRequest req,
-                                   HttpServletResponse res, @Account String accountId) throws SQLException, XMPPException, SmackException, IOException, IllegalAccessException, InvocationTargetException {
-        String giftId = req.getParameter("giftId");
-        String liveId = req.getParameter("liveId");
-        Integer clientType = Integer.valueOf(req.getParameter("clientType"));
-        Integer count = Integer.valueOf(req.getParameter("count"));
-        String receiverId = req.getParameter("receiverId");
+            String giftId,String liveId,Integer clientType,Integer count, String receiverId,
+            @Account String accountId) throws SQLException, XMPPException, SmackException, IOException, IllegalAccessException, InvocationTargetException {
+      
         Map<String, Object> map = null;
         map = remoteGiftService.addGiftStatement(accountId,
                 receiverId, giftId,
