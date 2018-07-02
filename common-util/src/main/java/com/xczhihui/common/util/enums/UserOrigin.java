@@ -15,6 +15,16 @@ public enum UserOrigin {
     IOS(4, "ios"),
     IMPORT(5, "导入");
 
+    /**
+     * 描述
+     **/
+    private String text;
+    private int code;
+    UserOrigin(int code, String text) {
+        this.text = text;
+        this.code = code;
+    }
+
     public static UserOrigin getUserOrigin(int code) {
         for (UserOrigin userOrigin : UserOrigin.values()) {
             if (userOrigin.getCode() == code) {
@@ -22,17 +32,6 @@ public enum UserOrigin {
             }
         }
         return null;
-    }
-
-    /**
-     * 描述
-     **/
-    private String text;
-    private int code;
-
-    UserOrigin(int code, String text) {
-        this.text = text;
-        this.code = code;
     }
 
     public int getCode() {

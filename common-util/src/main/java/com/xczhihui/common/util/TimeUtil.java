@@ -10,6 +10,8 @@ import java.util.List;
 
 public class TimeUtil {
 
+    public static final DateFormat FORMAT = new SimpleDateFormat("yyyy-MM-dd");
+
     public static String formatTime(String ms) {
         int a = Integer.parseInt(ms);
         SimpleDateFormat formatter = new SimpleDateFormat("mm:ss");
@@ -18,9 +20,6 @@ public class TimeUtil {
 
         return hms;
     }
-
-
-    public static final DateFormat FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 
     /**
      * 时间和当前时间对比

@@ -8,6 +8,7 @@ public class QiniuUtil {
 
     /**
      * 七牛图片瘦身处理
+     *
      * @param url 七牛图片url
      * @return 处理后的url
      */

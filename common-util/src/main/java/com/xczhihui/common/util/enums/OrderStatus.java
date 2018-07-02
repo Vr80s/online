@@ -3,13 +3,14 @@ package com.xczhihui.common.util.enums;
 /**
  * Description：支付状态 0:未支付 1:已支付 2:已关闭
  * creed: Talk is cheap,show me the code
+ *
  * @author name：yuxin <br>email: yuruixin@ixincheng.com
  * @Date: 2018/4/15 0015 下午 4:33
  **/
 public enum OrderStatus {
 
-    UNPAID (0, "未支付"),
-    PAID (1, "已支付"),
+    UNPAID(0, "未支付"),
+    PAID(1, "已支付"),
     CLOSED(2, "已关闭");
 
     // 成员变量

@@ -10,18 +10,18 @@ import com.xczhihui.common.util.bean.DoctorTypeVo;
 /**
  * Description：中医类型
  * creed: Talk is cheap,show me the code
+ *
  * @author name：yuxin <br>email: yuruixin@ixincheng.com
  * @Date: 2018/2/27 0027 下午 6:47
  **/
 public enum DoctorType {
 
-	
+
     MQNZY(1, "名青年中医"),
     MLZY(2, "名老中医"),
     SSMZZY(3, "少数民族中医"),
     GYDS(4, "国医大师"),
-    GZY(5, "家传中医")
-    ;
+    GZY(5, "家传中医");
 
     // 成员变量
     private String text;
@@ -33,36 +33,36 @@ public enum DoctorType {
         this.code = code;
     }
 
-    public static List<Map> getDoctorTypeList(){
+    public static List<Map> getDoctorTypeList() {
         List<Map> list = new ArrayList<Map>();
         for (DoctorType e : DoctorType.values()) {
             Map m = new HashMap();
-            m.put("code",e.getCode());
-            m.put("value",e.getText());
+            m.put("code", e.getCode());
+            m.put("value", e.getText());
             list.add(m);
         }
         return list;
     }
-    
-    public static List<DoctorTypeVo> getDoctorTypeListAddHot(){
-    	
+
+    public static List<DoctorTypeVo> getDoctorTypeListAddHot() {
+
         List<DoctorTypeVo> list = new ArrayList<DoctorTypeVo>();
-        DoctorTypeVo dtv = new DoctorTypeVo(-1,"热门医师");
+        DoctorTypeVo dtv = new DoctorTypeVo(-1, "热门医师");
         list.add(dtv);
         for (DoctorType e : DoctorType.values()) {
 //            Map m = new HashMap();
 //            m.put("code",e.getCode());
 //            m.put("value",e.getText());
-        	DoctorTypeVo dtv1 = new DoctorTypeVo(e.getCode(),e.getText());
+            DoctorTypeVo dtv1 = new DoctorTypeVo(e.getCode(), e.getText());
             list.add(dtv1);
         }
         return list;
     }
-    
 
-    public static String getDoctorTypeText(int code){
+
+    public static String getDoctorTypeText(int code) {
         for (DoctorType e : DoctorType.values()) {
-            if(e.getCode() == code){
+            if (e.getCode() == code) {
                 return e.getText();
             }
         }

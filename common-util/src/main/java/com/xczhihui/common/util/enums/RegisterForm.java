@@ -1,7 +1,7 @@
 package com.xczhihui.common.util.enums;
 
 /**
- * 注册来源  
+ * 注册来源
  * ClassName: RegisterForm.java <br>
  * Description: <br>
  * Create by: name：yangxuan <br>email: 15936216273@163.com <br>

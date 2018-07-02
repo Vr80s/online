@@ -6,6 +6,7 @@ import java.util.List;
 /**
  * Description：主播课程驳回理由
  * creed: Talk is cheap,show me the code
+ *
  * @author name：yuxin <br>email: yuruixin@ixincheng.com
  * @Date: 下午 3:41 2018/1/29 0029
  **/
@@ -23,7 +24,7 @@ public enum EnchashmentDismissal {
         this.code = code;
     }
 
-    public static List<EnchashmentDismissal> getDismissalList(){
+    public static List<EnchashmentDismissal> getDismissalList() {
         List<EnchashmentDismissal> dismissalList = new ArrayList<EnchashmentDismissal>();
         for (EnchashmentDismissal e : EnchashmentDismissal.values()) {
             dismissalList.add(e);
@@ -31,9 +32,9 @@ public enum EnchashmentDismissal {
         return dismissalList;
     }
 
-    public static String getDismissal(int code){
+    public static String getDismissal(int code) {
         for (EnchashmentDismissal e : EnchashmentDismissal.values()) {
-            if(e.getCode() == code){
+            if (e.getCode() == code) {
                 return e.getText();
             }
         }

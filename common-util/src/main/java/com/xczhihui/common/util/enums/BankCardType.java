@@ -8,6 +8,7 @@ import java.util.Map;
 /**
  * Description：银行卡
  * creed: Talk is cheap,show me the code
+ *
  * @author name：wys <br>email: wangyishuai@ixincheng.com
  * @Date: 下午 20:28 2018/2/1
  **/
@@ -32,8 +33,7 @@ public enum BankCardType {
     NBCB(95574, "宁波银行"),
     CZB(95527, "浙商银行"),
     EGB(95395, "恒丰银行"),
-    PSBC(95580, "邮储银行")
-    ;
+    PSBC(95580, "邮储银行");
 
     // 成员变量
     private String text;
@@ -45,22 +45,22 @@ public enum BankCardType {
         this.code = code;
     }
 
-    public static List<Map> getBankCardList(){
+    public static List<Map> getBankCardList() {
         List<Map> list = new ArrayList<Map>();
 
         for (BankCardType e : BankCardType.values()) {
             Map m = new HashMap();
-            m.put("code",e.getCode());
-            m.put("value",e.getText());
+            m.put("code", e.getCode());
+            m.put("value", e.getText());
             list.add(m);
         }
 
         return list;
     }
 
-    public static String getBankCard(int code){
+    public static String getBankCard(int code) {
         for (BankCardType e : BankCardType.values()) {
-            if(e.getCode() == code){
+            if (e.getCode() == code) {
                 return e.getText();
             }
         }

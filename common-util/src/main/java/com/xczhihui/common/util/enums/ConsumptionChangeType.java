@@ -3,6 +3,7 @@ package com.xczhihui.common.util.enums;
 /**
  * Description：账户消费类型
  * creed: Talk is cheap,show me the code
+ *
  * @author name：yuxin <br>email: yuruixin@ixincheng.com
  * @Date: 上午 10:55 2018/1/25 0025
  **/

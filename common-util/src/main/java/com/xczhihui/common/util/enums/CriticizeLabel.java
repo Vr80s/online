@@ -35,14 +35,6 @@ public enum CriticizeLabel {
         return null;
     }
 
-    public int getCode() {
-        return code;
-    }
-
-    public String getText() {
-        return text;
-    }
-
     public static List<String> getMultiLabelText(String labels) {
         if (labels == null || labels.isEmpty()) {
             return null;
@@ -64,5 +56,13 @@ public enum CriticizeLabel {
             }
             return labelTexts;
         }
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public String getText() {
+        return text;
     }
 }
