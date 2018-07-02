@@ -331,6 +331,10 @@
     <dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorPostsLikeService"
                      id="medicalDoctorPostsLikeServiceImpl" timeout="${dubbo.consumer.timeout}"/>
 
+    <!-- 师承模块服务 -->
+    <dubbo:reference interface="com.xczhihui.medical.enrol.service.EnrolService" id="enrolServiceImpl"
+                     timeout="${dubbo.consumer.timeout}"/>
+
     <!--=============================================消费者end============================================-->
 
 

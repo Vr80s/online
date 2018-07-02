@@ -30,6 +30,8 @@ public class MultiUrlHelper {
     public static final String URL_TYPE_MOBILE = "mobile";
     private static final String APP_COURSE_DETAIL = "xczh://ipandatcm.com/courseDetail?id={0}";
     private static final String WEB_COURSE_DETAIL = "/courses/{0}/info";
+    private static final String APPRENTICE_URL = "/xcview/html/apprentice/inherited_introduction.html?merId=";
+
     private static Map<String, Map<String, String>> urlMap = new HashMap<>();
     private static Map<String, String> collectionCourseDetailUrlMap = ImmutableMap.of(
             URL_TYPE_APP, APP_COURSE_DETAIL,
@@ -116,7 +118,10 @@ public class MultiUrlHelper {
             URL_TYPE_WEB, "/anchors/{0}/courses",
             URL_TYPE_MOBILE, "/xcview/html/live_personal.html?userLecturerId={0}");
     private static Map<String, String> h5Map = ImmutableMap.of(
-            URL_TYPE_APP, "xczh://ipandatcm.com/h5?url={0}");
+            URL_TYPE_APP, "xczh://ipandatcm.com/h5?url={0}&needLogin=false");
+    private static Map<String, String> apprenticeMap = ImmutableMap.of(
+            URL_TYPE_APP, "xczh://ipandatcm.com/h5?url={0}&needLogin=true"
+    );
     private static Map<String, String> publicCourseListMap = ImmutableMap.of(
             URL_TYPE_APP, "xczh://ipandatcm.com/publicCourseList?",
             URL_TYPE_WEB, "/courses/list?",
@@ -124,11 +129,11 @@ public class MultiUrlHelper {
     private static Map<String, String> specialColumnMap = ImmutableMap.of(
             URL_TYPE_APP, "xczh://ipandatcm.com/specialColumn?id={0}",
             URL_TYPE_WEB, "/headline/details/{0}",
-            URL_TYPE_MOBILE, "");
+            URL_TYPE_MOBILE, "/xcview/html/physician/article.html?id={0}");
     private static Map<String, String> doctorCaseMap = ImmutableMap.of(
             URL_TYPE_APP, "xczh://ipandatcm.com/doctorCase?id={0}",
             URL_TYPE_WEB, "/headline/details/{0}",
-            URL_TYPE_MOBILE, "");
+            URL_TYPE_MOBILE, "/xcview/html/physician/article.html?id={0}");
 
     static {
         urlMap.put(RouteTypeEnum.COLLECTION_COURSE_DETAIL_PAGE.name(), collectionCourseDetailUrlMap);
@@ -156,6 +161,7 @@ public class MultiUrlHelper {
         urlMap.put(RouteTypeEnum.QUESTION_DETAIL.name(), questionMap);
         urlMap.put(RouteTypeEnum.ANCHOR_INDEX.name(), anchorIndexMap);
         urlMap.put(RouteTypeEnum.H5.name(), h5Map);
+        urlMap.put(RouteTypeEnum.APPRENTICE_DETAIL.name(), apprenticeMap);
         urlMap.put(RouteTypeEnum.COMMON_COURSE_DETAIL_PAGE.name(), courseDetailUrlMap);
         urlMap.put(RouteTypeEnum.COMMON_LEARNING_COURSE_DETAIL_PAGE.name(), learningCourseDetailUrlMap);
         urlMap.put(RouteTypeEnum.PUBLIC_COURSE_LIST_PAGE.name(), publicCourseListMap);
@@ -173,44 +179,66 @@ public class MultiUrlHelper {
 
     public static String getUrl(String routeType, String source, String params) {
         String url = "";
-        if (routeType != null && !routeType.equals(RouteTypeEnum.NONE.name())) {
-            RouteTypeEnum routeTypeEnum = RouteTypeEnum.valueOf(routeType);
-            Map<String, String> urlMap = MultiUrlHelper.urlMap.get(routeType);
-            if (urlMap == null) {
-                return url;
-            }
-            String format = urlMap.get(source);
-            if (StringUtils.isBlank(format)) {
-                return url;
-            }
-            if (routeTypeEnum.getParamType() == OUTER_LINK) {
-                if (StringUtils.isBlank(params)) {
+        try {
+            if (routeType != null && !routeType.equals(RouteTypeEnum.NONE.name())) {
+                RouteTypeEnum routeTypeEnum = RouteTypeEnum.valueOf(routeType);
+                Map<String, String> urlMap = MultiUrlHelper.urlMap.get(routeType);
+                if (urlMap == null) {
                     return url;
                 }
-                if (URL_TYPE_WEB.equals(source) || URL_TYPE_MOBILE.equals(source)) {
-                    return params;
-                } else {
-                    try {
-                        url = MessageFormat.format(format, URLEncoder.encode(params, "UTF-8"));
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
+                String format = urlMap.get(source);
+                if (StringUtils.isBlank(format)) {
+                    return url;
+                }
+                if (routeTypeEnum.getParamType() == OUTER_LINK) {
+                    if (StringUtils.isBlank(params)) {
                         return url;
                     }
-                }
-            } else if (routeTypeEnum.getParamType() == DETAIL || routeTypeEnum.getParamType() == NONE_PARAM) {
-                if (params != null) {
-                    url = MessageFormat.format(format, params);
-                } else {
-                    url = format;
-                }
-            } else if (routeTypeEnum.getParamType() == LIST_FILTER) {
-                if (StringUtils.isNotBlank(params)) {
-                    url = format + params;
-                } else {
-                    url = format;
+                    if (URL_TYPE_WEB.equals(source) || URL_TYPE_MOBILE.equals(source)) {
+                        return params;
+                    } else {
+                        try {
+                            url = MessageFormat.format(format, URLEncoder.encode(params, "UTF-8"));
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                            return url;
+                        }
+                    }
+                } else if (routeTypeEnum.getParamType() == DETAIL || routeTypeEnum.getParamType() == NONE_PARAM) {
+                    if (params != null) {
+                        url = MessageFormat.format(format, params);
+                    } else {
+                        url = format;
+                    }
+                } else if (routeTypeEnum.getParamType() == LIST_FILTER) {
+                    if (StringUtils.isNotBlank(params)) {
+                        url = format + params;
+                    } else {
+                        url = format;
+                    }
                 }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return url;
+    }
+
+    /**
+     * 额外处理师承招生简章的参数
+     *
+     * @param prefix    域名前缀
+     * @param linkParam 参数
+     * @return
+     */
+    public static String handleApprenticeParam(String prefix, String linkParam) {
+        if (StringUtils.isNotBlank(linkParam)) {
+            try {
+                return URLEncoder.encode(prefix + APPRENTICE_URL + linkParam, "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                return "";
+            }
+        }
+        return "";
     }
 }

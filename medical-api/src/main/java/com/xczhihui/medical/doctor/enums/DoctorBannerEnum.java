@@ -5,7 +5,9 @@ public enum DoctorBannerEnum {
     COURSE_DETAIL(1, "COMMON_COURSE_DETAIL_PAGE", "课程"),
     LIVE_COURSE_DETAIL(2, "COMMON_COURSE_DETAIL_PAGE", "直播"),
     SPECIAL_COLUMN(3, "SPECIAL_COLUMN_DETAIL", "专栏文章"),
-    DOCTOR_CASE(4, "DOCTOR_CASE_DETAIL", "医案");
+    DOCTOR_CASE(4, "DOCTOR_CASE_DETAIL", "医案"),
+    APPRENTICE(5, "APPRENTICE_DETAIL", "招生简章"),
+    NONE(6, "NONE", "");
 
     private int type;
 

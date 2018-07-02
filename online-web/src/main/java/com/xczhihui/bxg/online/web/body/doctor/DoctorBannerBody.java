@@ -19,7 +19,6 @@ public class DoctorBannerBody {
     @NotBlank(message = "类型不能为空")
     private int type;
 
-    @NotBlank(message = "链接参数不能为空")
     private String linkParam;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")
@@ -81,5 +80,13 @@ public class DoctorBannerBody {
 
     public void setEndTime(Date endTime) {
         this.endTime = endTime;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 }

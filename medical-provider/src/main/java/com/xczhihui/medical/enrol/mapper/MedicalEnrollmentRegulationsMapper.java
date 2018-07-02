@@ -33,4 +33,13 @@ public interface MedicalEnrollmentRegulationsMapper extends BaseMapper<MedicalEn
             "  mer.`deadline`,  mer.`study_address` studyAddress \n" +
             "FROM  `medical_enrollment_regulations` mer where mer.id = #{id}")
     MedicalEnrollmenRtegulationsCardInfoVO getMedicalEnrollmentRegulationsCardInfoById(Integer id);
+
+    /**
+     * 医师的招生简章
+     *
+     * @param doctorId 医师id
+     * @return
+     */
+    @Select({"SELECT id, title from medical_enrollment_regulations where doctor_id = #{doctorId} and status = 1 and deleted = false"})
+    List<MedicalEnrollmentRegulations> listByDoctorId(String doctorId);
 }
