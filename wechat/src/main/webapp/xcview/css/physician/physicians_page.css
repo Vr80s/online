@@ -1934,3 +1934,9 @@ table tr td img{
 	text-indent: 0.4rem;
 }
 /*点击回复出现删除复制结束*/
+
+
+/*文章置顶处理*/
+.comment_hide{
+    overflow: hidden;
+}

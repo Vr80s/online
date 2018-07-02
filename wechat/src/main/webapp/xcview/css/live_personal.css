@@ -162,7 +162,8 @@ textarea::-webkit-input-placeholder {
 .anchor_navigation .border{
 	position: absolute;
 	bottom: 0;
-	left: 0.9rem;
+	/*left: 0.9rem;*/
+	left: 1.04rem;
 	width: 0.52rem;
 	height: 0.04rem;
 	background: #00bc12;
