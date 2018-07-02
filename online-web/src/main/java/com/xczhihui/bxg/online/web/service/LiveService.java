@@ -19,13 +19,15 @@ public interface LiveService {
 
     /**
      * 首页获取公开直播课
-     * @param  num:条数
+     *
+     * @param num:条数
      * @return
      */
     public List<OpenCourseVo> getOpenCourse(Integer num);
 
     /**
      * 获取首页直播
+     *
      * @param num
      * @return
      */
@@ -40,6 +42,7 @@ public interface LiveService {
 
     /**
      * 获取直播课程信息，根据课程id查询课程
+     *
      * @param courseId 课程id号
      * @param user
      */
@@ -47,13 +50,14 @@ public interface LiveService {
 
     /**
      * 跳转到直播页面
+     *
      * @param courseId
      * @param roomId
      * @param planId
      * @param request
      * @return
      */
-    public ModelAndView livepage(String courseId,HttpServletRequest request,HttpServletResponse response);
+    public ModelAndView livepage(String courseId, HttpServletRequest request, HttpServletResponse response);
 
-	public List<OpenCourseVo> getOpenCourse(Integer num, String id);
+    public List<OpenCourseVo> getOpenCourse(Integer num, String id);
 }

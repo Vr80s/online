@@ -1,10 +1,6 @@
 package com.xczhihui.bxg.online.web.controller;
 
-import com.xczhihui.common.support.domain.BxgUser;
-import com.xczhihui.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.online.web.service.OrderService;
-import com.alibaba.dubbo.common.utils.StringUtils;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,7 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
+import com.alibaba.dubbo.common.utils.StringUtils;
+import com.xczhihui.bxg.online.common.domain.OnlineUser;
+import com.xczhihui.bxg.online.web.service.OrderService;
+import com.xczhihui.common.support.domain.BxgUser;
+import com.xczhihui.common.util.bean.ResponseObject;
 
 /**
  * 订单控制层类

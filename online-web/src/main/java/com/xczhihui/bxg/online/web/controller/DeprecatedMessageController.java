@@ -2,13 +2,11 @@ package com.xczhihui.bxg.online.web.controller;
 
 
 import java.lang.reflect.InvocationTargetException;
-import java.text.MessageFormat;
 import java.text.ParseException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import com.xczhihui.bxg.online.web.service.OnlineUserCenterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,12 +16,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.base.common.OnlineResponse;
 import com.xczhihui.bxg.online.web.service.MessageService;
+import com.xczhihui.bxg.online.web.service.OnlineUserCenterService;
 import com.xczhihui.bxg.online.web.vo.MessageVo;
 import com.xczhihui.common.support.domain.BxgUser;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.course.consts.MultiUrlHelper;
-import com.xczhihui.course.enums.RouteTypeEnum;
 import com.xczhihui.course.service.ICommonMessageService;
 
 /**
@@ -153,7 +151,7 @@ public class DeprecatedMessageController extends AbstractController {
         if (u == null) {
             return OnlineResponse.newErrorOnlineResponse("请登录!");
         }
-        onlineUserCenterService.addFeedBack(u.getId(),title, describe);
+        onlineUserCenterService.addFeedBack(u.getId(), title, describe);
         return OnlineResponse.newSuccessOnlineResponse("操作成功");
     }
 }

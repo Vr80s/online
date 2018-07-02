@@ -34,14 +34,13 @@ import com.xczhihui.course.vo.CourseLecturVo;
 public class PageController {
 
     @Autowired
+    public IWatchHistoryService watchHistoryServiceImpl;
+    @Autowired
     private ManagerUserService managerUserService;
     @Autowired
     private LiveService liveService;
-
     @Autowired
     private ICourseService courseService;
-
-
     @Value("${env.flag}")
     private String env;
     @Value("${rate}")
@@ -52,9 +51,6 @@ public class PageController {
     private String boshService;//im服务地址
     @Value("${gift.im.host}")
     private String host;
-
-    @Autowired
-    public IWatchHistoryService watchHistoryServiceImpl;
 
     @RequestMapping(value = "/web/courseDetail/{courserId}", method = RequestMethod.GET)
     public ModelAndView courseDetail(@PathVariable String courserId, HttpServletRequest request, HttpServletResponse response) {

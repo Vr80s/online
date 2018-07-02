@@ -12,23 +12,23 @@ public class ArticleVo {
     /**
      * 文章id
      */
-    private  Integer id;
+    private Integer id;
     /**
      * 文章标题
      */
-    private  String title;
+    private String title;
     /**
      * 文章内容
      */
-    private  String content;
+    private String content;
     /**
      * 文章图片
      */
-    private  String img_path;
+    private String img_path;
     /**
      * 文章发表时间
      */
-    private  Date create_time;
+    private Date create_time;
     /**
      * 作者
      */

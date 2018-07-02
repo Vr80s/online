@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.online.common.domain.MedicalDepartment;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.controller.AbstractController;
 import com.xczhihui.bxg.online.web.service.UserService;
+import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.medical.department.service.IMedicalDepartmentService;
 import com.xczhihui.medical.doctor.model.MedicalDoctorApply;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorApplyService;

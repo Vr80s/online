@@ -1,8 +1,8 @@
 package com.xczhihui.bxg.online.web.controller.ftl;
 
+import static com.xczhihui.bxg.online.web.support.sensitive.SensitivewordFilter.MAX_MATCH_TYPE;
 import static com.xczhihui.common.util.bean.ResponseObject.newErrorResponseObject;
 import static com.xczhihui.common.util.bean.ResponseObject.newSuccessResponseObject;
-import static com.xczhihui.bxg.online.web.support.sensitive.SensitivewordFilter.MAX_MATCH_TYPE;
 
 import java.text.MessageFormat;
 import java.util.*;
@@ -20,19 +20,19 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.xczhihui.bxg.online.common.domain.OnlineUser;
+import com.xczhihui.bxg.online.web.base.utils.UserLoginUtil;
+import com.xczhihui.bxg.online.web.body.bbs.PostBody;
+import com.xczhihui.bxg.online.web.body.bbs.ReplyBody;
+import com.xczhihui.bxg.online.web.support.sensitive.SensitivewordFilter;
+import com.xczhihui.bxg.online.web.utils.HtmlUtil;
+import com.xczhihui.bxg.online.web.utils.HttpUtil;
 import com.xczhihui.common.support.domain.Attachment;
 import com.xczhihui.common.support.domain.BxgUser;
 import com.xczhihui.common.support.service.AttachmentCenterService;
 import com.xczhihui.common.util.IStringUtil;
 import com.xczhihui.common.util.JsonUtil;
 import com.xczhihui.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.online.web.base.utils.UserLoginUtil;
-import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.online.web.body.bbs.PostBody;
-import com.xczhihui.bxg.online.web.body.bbs.ReplyBody;
-import com.xczhihui.bxg.online.web.support.sensitive.SensitivewordFilter;
-import com.xczhihui.bxg.online.web.utils.HtmlUtil;
-import com.xczhihui.bxg.online.web.utils.HttpUtil;
 import com.xczhihui.medical.bbs.model.Label;
 import com.xczhihui.medical.bbs.model.Post;
 import com.xczhihui.medical.bbs.model.Reply;
@@ -67,7 +67,7 @@ public class BBSController extends AbstractFtlController {
         list.getRecords().forEach(post -> post.setContent(HtmlUtil.getTextFromHtml(post.getContent())));
         modelAndView.addObject("posts", list);
         int labelSize = labels.size();
-        modelAndView.addObject("top3Labels",  labelSize >= 3 ? labels.subList(0, 3) : labels);
+        modelAndView.addObject("top3Labels", labelSize >= 3 ? labels.subList(0, 3) : labels);
         modelAndView.addObject("otherLabels", labelSize > 3 ? labels.subList(3, labelSize >= 6 ? 6 : labelSize) : new ArrayList<>());
         modelAndView.addObject("hots", postService.listHot());
         modelAndView.addObject("type", type);
@@ -116,7 +116,7 @@ public class BBSController extends AbstractFtlController {
         BxgUser loginUser = UserLoginUtil.getLoginUser();
         postService.addBrowseRecord(id, loginUser == null ? null : loginUser.getId());
         PostVO postVO = postService.get(id);
-        if(postVO==null){
+        if (postVO == null) {
             return to404();
         }
         modelAndView.addObject("post", postVO);

@@ -1,11 +1,12 @@
 package com.xczhihui.bxg.online.web.vo;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * 分享订单结果类封装
+ *
  * @Author Fudong.Sun【】
  * @Date 2016/12/8 16:52
  */
@@ -25,52 +26,52 @@ public class ShareOrderVo {
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date create_time;
     /**
-     *  是否删除
+     * 是否删除
      */
     private Boolean is_delete = false;
     /**
-     *  排序字段
+     * 排序字段
      */
     private Integer sort;
     /**
-     *  订单号
+     * 订单号
      */
     private String order_no;
     /**
-     *  佣金订单号
+     * 佣金订单号
      */
     private String share_order_no;
     /**
-     *  补贴对象(上级用户uuid)
+     * 补贴对象(上级用户uuid)
      */
     private String target_user_id;
     /**
-     *  课程id号
+     * 课程id号
      */
     private Integer course_id = 0;
     /**
-     *  课程名称
+     * 课程名称
      */
     private String course_name;
     /**
-     *  实际支付
+     * 实际支付
      */
     private String actual_pay = "0.00";
     /**
-     *  支付时间
+     * 支付时间
      */
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date pay_time;
     /**
-     *  补贴级别 0:一级  1:二级  2:三级
+     * 补贴级别 0:一级  1:二级  2:三级
      */
     private Integer level = 0;
     /**
-     *  补贴金额
+     * 补贴金额
      */
     private String subsidies = "0.00";
     /**
-     *  订单状态 0:未提现 1:已提现
+     * 订单状态 0:未提现 1:已提现
      */
     private Integer order_status = 0;
 

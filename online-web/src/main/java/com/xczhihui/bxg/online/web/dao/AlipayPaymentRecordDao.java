@@ -1,12 +1,13 @@
 package com.xczhihui.bxg.online.web.dao;
 
-import com.xczhihui.common.support.dao.SimpleHibernateDao;
 import org.springframework.stereotype.Repository;
+
+import com.xczhihui.common.support.dao.SimpleHibernateDao;
 
 /**
  * alipay 支付
  */
 @Repository
-public class AlipayPaymentRecordDao  extends SimpleHibernateDao {
+public class AlipayPaymentRecordDao extends SimpleHibernateDao {
 
 }

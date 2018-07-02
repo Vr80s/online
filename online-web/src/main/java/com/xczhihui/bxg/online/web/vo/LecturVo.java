@@ -1,7 +1,8 @@
 package com.xczhihui.bxg.online.web.vo;
 
 /**
- *  教师结果封装类
+ * 教师结果封装类
+ *
  * @author Rongcai Kang
  */
 public class LecturVo {

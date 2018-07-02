@@ -8,6 +8,7 @@ import com.xczhihui.common.util.XzStringUtils;
 import com.xczhihui.common.util.enums.UserSex;
 import com.xczhihui.course.exception.LineApplyException;
 import com.xczhihui.course.model.LineApply;
+
 /**
  * @author hejiwei
  */
@@ -56,7 +57,7 @@ public class LineApplyBody {
         if (!XzStringUtils.checkNickName(name)) {
             throw new LineApplyException("昵称支持中文、字母、数字、'-'、'_'的组合，4-20个字符");
         }
-        
+
         if (!XzStringUtils.checkPhone(lineApply.getMobile())) {
             throw new LineApplyException("请输入正确的手机号");
         }

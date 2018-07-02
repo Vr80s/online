@@ -1,16 +1,14 @@
 package com.xczhihui.bxg.online.web.vo;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 /**
  * Created by rongcai Kang on 2016/7/27.
- *
- *
  */
 public class OpenCourseVo {
 
@@ -19,12 +17,12 @@ public class OpenCourseVo {
     /**
      * 学科id号
      */
-    private  Integer menu_id;
+    private Integer menu_id;
 
     /**
-     *课程名称
+     * 课程名称
      */
-    private String  courseName;
+    private String courseName;
 
     /**
      * 课程小图
@@ -74,7 +72,7 @@ public class OpenCourseVo {
     /**
      * 直播方式
      */
-    private  Integer direct_seeding;
+    private Integer direct_seeding;
 
     /**
      * 鲜花数
@@ -84,13 +82,13 @@ public class OpenCourseVo {
     /**
      * 讲师头像
      */
-    private  String  head_img;
-    private  String  description;
+    private String head_img;
+    private String description;
 
     /**
      * 最高在线人数
      */
-    private  Integer highest_number_line;
+    private Integer highest_number_line;
 
     /**
      * 格式化直播开始时间  例如格式：19:20
@@ -103,7 +101,7 @@ public class OpenCourseVo {
     /**
      * 星期几所代表的数值 1:星期一，以此类推  0:星期日
      */
-    private  Integer day;
+    private Integer day;
 
     private boolean isFree;
 
@@ -111,42 +109,42 @@ public class OpenCourseVo {
      * 报名人数
      */
     private Integer learnd_count;
-    
+
     private int isSubscribe;
 
-	public String getDescription() {
-		return description;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public int getIsSubscribe() {
-		return isSubscribe;
-	}
+    public int getIsSubscribe() {
+        return isSubscribe;
+    }
 
-	public void setIsSubscribe(int isSubscribe) {
-		this.isSubscribe = isSubscribe;
-	}
+    public void setIsSubscribe(int isSubscribe) {
+        this.isSubscribe = isSubscribe;
+    }
 
-	public String getCoursePwd() {
-		return coursePwd;
-	}
+    public String getCoursePwd() {
+        return coursePwd;
+    }
 
-	public void setCoursePwd(String coursePwd) {
-		this.coursePwd = coursePwd;
-	}
+    public void setCoursePwd(String coursePwd) {
+        this.coursePwd = coursePwd;
+    }
 
-	public boolean isFree() {
-		return isFree;
-	}
+    public boolean isFree() {
+        return isFree;
+    }
 
-	public void setFree(boolean isFree) {
-		this.isFree = isFree;
-	}
+    public void setFree(boolean isFree) {
+        this.isFree = isFree;
+    }
 
-	public Integer getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -294,27 +292,27 @@ public class OpenCourseVo {
 
         Date startTime = null;
         try {
-            startTime=new SimpleDateFormat("yyyy-MM-dd").parse(new SimpleDateFormat("yyyy-MM-dd").format(formatStartTime));
+            startTime = new SimpleDateFormat("yyyy-MM-dd").parse(new SimpleDateFormat("yyyy-MM-dd").format(formatStartTime));
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
         try {
-            int c=startTime.compareTo(new SimpleDateFormat("yyyy-MM-dd").parse(new SimpleDateFormat("yyyy-MM-dd").format(new Date())));
-            if(c==0){
-              return "今天 "+new SimpleDateFormat("HH:mm").format(formatStartTime);
+            int c = startTime.compareTo(new SimpleDateFormat("yyyy-MM-dd").parse(new SimpleDateFormat("yyyy-MM-dd").format(new Date())));
+            if (c == 0) {
+                return "今天 " + new SimpleDateFormat("HH:mm").format(formatStartTime);
             }
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
-        Date d=new Date();
-        d.setDate((d.getDate()+1));
+        Date d = new Date();
+        d.setDate((d.getDate() + 1));
 
         try {
-            int c=startTime.compareTo(new SimpleDateFormat("yyyy-MM-dd").parse(new SimpleDateFormat("yyyy-MM-dd").format(d)));
-            if(c==0){
-                return "明天 "+new SimpleDateFormat("HH:mm").format(formatStartTime);
+            int c = startTime.compareTo(new SimpleDateFormat("yyyy-MM-dd").parse(new SimpleDateFormat("yyyy-MM-dd").format(d)));
+            if (c == 0) {
+                return "明天 " + new SimpleDateFormat("HH:mm").format(formatStartTime);
             }
         } catch (ParseException e) {
             e.printStackTrace();

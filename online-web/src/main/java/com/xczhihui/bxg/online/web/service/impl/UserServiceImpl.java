@@ -17,12 +17,10 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import com.xczhihui.bxg.online.common.domain.Apply;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.base.common.Constant;
 import com.xczhihui.bxg.online.web.dao.UserCenterDao;
 import com.xczhihui.bxg.online.web.service.UserService;
-import com.xczhihui.user.center.service.VerificationCodeService;
 import com.xczhihui.bxg.online.web.vo.RegionVo;
 import com.xczhihui.bxg.online.web.vo.UserDataVo;
 import com.xczhihui.common.support.dao.SimpleHibernateDao;
@@ -35,15 +33,16 @@ import com.xczhihui.common.util.VhallUtil;
 import com.xczhihui.common.util.enums.UserOrigin;
 import com.xczhihui.common.util.enums.VCodeType;
 import com.xczhihui.user.center.service.UserCenterService;
+import com.xczhihui.user.center.service.VerificationCodeService;
 import com.xczhihui.user.center.vo.OeUserVO;
 
 @Service
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private UserCenterService userCenterService;
-    @Autowired
     public UserCenterDao userCenterDao;
+    @Autowired
+    private UserCenterService userCenterService;
     @Autowired
     @Qualifier("simpleHibernateDao")
     private SimpleHibernateDao dao;

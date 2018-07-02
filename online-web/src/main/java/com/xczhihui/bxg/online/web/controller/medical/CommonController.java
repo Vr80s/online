@@ -5,7 +5,6 @@ import java.util.Base64;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.xczhihui.medical.doctor.model.MedicalDoctorAccount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.ServletRequestUtils;
@@ -21,6 +20,7 @@ import com.xczhihui.common.support.service.AttachmentCenterService;
 import com.xczhihui.common.support.service.AttachmentType;
 import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.medical.common.service.ICommonService;
+import com.xczhihui.medical.doctor.model.MedicalDoctorAccount;
 
 @RestController
 @RequestMapping("/medical/common")

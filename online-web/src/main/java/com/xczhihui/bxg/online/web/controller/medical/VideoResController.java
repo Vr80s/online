@@ -1,16 +1,16 @@
 package com.xczhihui.bxg.online.web.controller.medical;
 
 
-import com.alibaba.fastjson.JSONObject;
-import com.xczhihui.common.support.cc.config.Config;
-import com.xczhihui.common.support.cc.util.APIServiceFunction;
-import com.xczhihui.common.support.cc.util.Md5Encrypt;
-import com.xczhihui.common.support.config.OnlineConfig;
-import com.xczhihui.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.online.web.base.utils.TimeUtil;
-import com.xczhihui.bxg.online.web.controller.AbstractController;
-import com.xczhihui.bxg.online.web.service.VideoResService;
+import java.io.File;
+import java.io.IOException;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.fileupload.disk.DiskFileItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,14 +20,16 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.IOException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
+import com.alibaba.fastjson.JSONObject;
+import com.xczhihui.bxg.online.common.domain.OnlineUser;
+import com.xczhihui.bxg.online.web.base.utils.TimeUtil;
+import com.xczhihui.bxg.online.web.controller.AbstractController;
+import com.xczhihui.bxg.online.web.service.VideoResService;
+import com.xczhihui.common.support.cc.config.Config;
+import com.xczhihui.common.support.cc.util.APIServiceFunction;
+import com.xczhihui.common.support.cc.util.Md5Encrypt;
+import com.xczhihui.common.support.config.OnlineConfig;
+import com.xczhihui.common.util.bean.ResponseObject;
 
 /**
  * ClassName: UserCoin.java <br>
@@ -37,24 +39,24 @@ import java.util.TreeMap;
  */
 @RestController
 @RequestMapping("/videoRes")
-public class VideoResController extends AbstractController{
+public class VideoResController extends AbstractController {
 
+    private static String categoryid = "7C85F5F633435474";
     @Autowired
     private VideoResService videoResService;
     @Autowired
     private OnlineConfig onlineConfig;
 
-    private static String categoryid = "7C85F5F633435474";
-
     /**
      * 获得上传地址
+     *
      * @param request
      * @return
      */
     @RequestMapping(value = "getUploadUrl", method = RequestMethod.GET)
-    public String getUploadUrl(HttpServletRequest request,String title) {
+    public String getUploadUrl(HttpServletRequest request, String title) {
         OnlineUser loginUser = getCurrentUser();
-        Map<String,String> paramsMap = new HashMap<String,String>();
+        Map<String, String> paramsMap = new HashMap<String, String>();
         paramsMap.put("userid", onlineConfig.ccuserId);
         paramsMap.put("title", title);
         paramsMap.put("description", TimeUtil.getCCtitleTimeStr());
@@ -62,7 +64,7 @@ public class VideoResController extends AbstractController{
         paramsMap.put("categoryid", categoryid);
         long time = System.currentTimeMillis();
         String url = Config.api_updateVideo + "?" + APIServiceFunction.createHashedQueryString(paramsMap, time, onlineConfig.ccApiKey);
-        url += "&categoryid="+categoryid;
+        url += "&categoryid=" + categoryid;
         return url;
     }
 
@@ -88,28 +90,29 @@ public class VideoResController extends AbstractController{
     /**
      * Description：cc上传文件
      * creed: Talk is cheap,show me the code
+     *
      * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
      * @Date: 2018/4/9 20:23
      **/
-    @RequestMapping(value = "/uploadFile",method= RequestMethod.POST)
-    public ResponseObject uploadFile(@RequestParam("file") MultipartFile mfile,String fileSize,
-                                     String filemd5,String fileName,String first,String ccid,
-                                     String metaUrl,String chunkUrl,Integer start){
+    @RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
+    public ResponseObject uploadFile(@RequestParam("file") MultipartFile mfile, String fileSize,
+                                     String filemd5, String fileName, String first, String ccid,
+                                     String metaUrl, String chunkUrl, Integer start) {
 
 
-        CommonsMultipartFile cf= (CommonsMultipartFile)mfile;
-        DiskFileItem fi = (DiskFileItem)cf.getFileItem();
+        CommonsMultipartFile cf = (CommonsMultipartFile) mfile;
+        DiskFileItem fi = (DiskFileItem) cf.getFileItem();
 
         File file = fi.getStoreLocation();
-        String videoid="";
-        String servicetype="";
-        String metaurl="";
-        String chunkurl="";
-        if(first.equals("1")){
+        String videoid = "";
+        String servicetype = "";
+        String metaurl = "";
+        String chunkurl = "";
+        if (first.equals("1")) {
             //创建视频上传信息
             Map<String, String> treeMap = new TreeMap<String, String>();
             //查询参数输入
-            String key="K45btKhytR527yfTAjEp6z4fb3ajgu66";
+            String key = "K45btKhytR527yfTAjEp6z4fb3ajgu66";
             treeMap.put("userid", "B5E673E55C702C42");
             treeMap.put("title", fileName);
             treeMap.put("description", fileName);
@@ -123,8 +126,8 @@ public class VideoResController extends AbstractController{
             //生成HASH码值
             String hash = Md5Encrypt.md5(String.format("%s&time=%s&salt=%s", qs, time, key));
 
-            String str =APIServiceFunction.sendGet("http://spark.bokecc.com/api/video/create",
-                    qs+"&time="+time+"&hash="+hash);
+            String str = APIServiceFunction.sendGet("http://spark.bokecc.com/api/video/create",
+                    qs + "&time=" + time + "&hash=" + hash);
 
             JSONObject strJson = JSONObject.parseObject(str);
             String uploadinfo = strJson.get("uploadinfo").toString();
@@ -135,50 +138,50 @@ public class VideoResController extends AbstractController{
             chunkurl = uploadinfoJson.get("chunkurl").toString();
 
             //创建视频上传信息
-            String up = uploadmeta(videoid,first,fileName,fileSize,servicetype,metaurl,filemd5);
+            String up = uploadmeta(videoid, first, fileName, fileSize, servicetype, metaurl, filemd5);
             JSONObject upJson = JSONObject.parseObject(up);
             String upResultinfo = upJson.get("result").toString();
             String upMsginfo = upJson.get("msg").toString();
-            if(!upResultinfo.equals("0")){
+            if (!upResultinfo.equals("0")) {
                 return ResponseObject.newErrorResponseObject(upMsginfo);
             }
             //上传视频文件块CHUNK
-            String result =APIServiceFunction.uploadchunk(chunkurl+"?ccvid="+videoid+"&format=json", 0, (Integer.parseInt(String.valueOf(file.length())) - 1), file);
+            String result = APIServiceFunction.uploadchunk(chunkurl + "?ccvid=" + videoid + "&format=json", 0, (Integer.parseInt(String.valueOf(file.length())) - 1), file);
 
             JSONObject resultJson = JSONObject.parseObject(result);
             String resultinfo = resultJson.get("result").toString();
             String msginfo = resultJson.get("msg").toString();
-            if(resultinfo.equals("0")){
-                Object[]obj=new Object[3];
-                obj[0]=videoid;
-                obj[1]=metaurl;
-                obj[2]=chunkurl;
+            if (resultinfo.equals("0")) {
+                Object[] obj = new Object[3];
+                obj[0] = videoid;
+                obj[1] = metaurl;
+                obj[2] = chunkurl;
                 return ResponseObject.newSuccessResponseObject(obj);
-            }else {
+            } else {
                 return ResponseObject.newErrorResponseObject(msginfo);
             }
-        }else {
+        } else {
             //创建视频上传信息
-            String uploadmeta = uploadmeta(ccid,first,fileName,fileSize,servicetype,metaUrl,"");
+            String uploadmeta = uploadmeta(ccid, first, fileName, fileSize, servicetype, metaUrl, "");
             JSONObject uploadmetaJson = JSONObject.parseObject(uploadmeta);
             String receivedinfo = uploadmetaJson.get("received").toString();
             String uploadmetaResultinfo = uploadmetaJson.get("result").toString();
             String uploadmetaMsginfo = uploadmetaJson.get("msg").toString();
-            if(!uploadmetaResultinfo.equals("0")){
+            if (!uploadmetaResultinfo.equals("0")) {
                 return ResponseObject.newErrorResponseObject(uploadmetaMsginfo);
             }
             //上传视频文件块CHUNK
-            String result =APIServiceFunction.uploadchunk(chunkUrl+"?ccvid="+ccid+"&format=json", start, (int)(file.length()+start-1), file);
+            String result = APIServiceFunction.uploadchunk(chunkUrl + "?ccvid=" + ccid + "&format=json", start, (int) (file.length() + start - 1), file);
             JSONObject resultJson = JSONObject.parseObject(result);
             String resultinfo = resultJson.get("result").toString();
             String msginfo = resultJson.get("msg").toString();
-            if(resultinfo.equals("0")){
-                Object[]obj=new Object[3];
-                obj[0]=ccid;
-                obj[1]=metaUrl;
-                obj[2]=chunkUrl;
+            if (resultinfo.equals("0")) {
+                Object[] obj = new Object[3];
+                obj[0] = ccid;
+                obj[1] = metaUrl;
+                obj[2] = chunkUrl;
                 return ResponseObject.newSuccessResponseObject(obj);
-            }else {
+            } else {
                 return ResponseObject.newErrorResponseObject(msginfo);
             }
         }
@@ -187,17 +190,17 @@ public class VideoResController extends AbstractController{
 
 
     //上传视频META信息
-    public String uploadmeta(String videoid,String first,String filename,String fileSize,String servicetype,String metaurl,String filemd5){
+    public String uploadmeta(String videoid, String first, String filename, String fileSize, String servicetype, String metaurl, String filemd5) {
         Map<String, String> treeMap1 = new TreeMap<String, String>();
-        String key="K45btKhytR527yfTAjEp6z4fb3ajgu66";
+        String key = "K45btKhytR527yfTAjEp6z4fb3ajgu66";
 
         //第二步
         treeMap1.put("ccvid", videoid);
         treeMap1.put("first", first);
-        if(!filemd5.equals("")){
+        if (!filemd5.equals("")) {
             treeMap1.put("uid", "B5E673E55C702C42");
             treeMap1.put("filename", filename);
-            treeMap1.put("filesize",fileSize);
+            treeMap1.put("filesize", fileSize);
             treeMap1.put("servicetype", servicetype);
             treeMap1.put("md5", filemd5);
         }
@@ -209,13 +212,10 @@ public class VideoResController extends AbstractController{
         long time1 = new Date().getTime() / 1000;
         //生成HASH码值
         String hash1 = Md5Encrypt.md5(String.format("%s&time=%s&salt=%s", qs1, time1, key));
-        String str1=APIServiceFunction.sendGet(metaurl,
-                qs1+"&time="+time1+"&hash="+hash1);
+        String str1 = APIServiceFunction.sendGet(metaurl,
+                qs1 + "&time=" + time1 + "&hash=" + hash1);
         return str1;
     }
-
-
-
 
 
 }

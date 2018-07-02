@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.xczhihui.bxg.online.common.base.controller.OnlineBaseController;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.online.common.domain.User;
 import com.xczhihui.bxg.online.web.base.common.OnlineResponse;
 import com.xczhihui.bxg.online.web.base.utils.UserLoginUtil;
 import com.xczhihui.bxg.online.web.service.UserService;
@@ -104,7 +103,7 @@ public class UserController extends OnlineBaseController {
     @ResponseBody
     public OnlineResponse isAlive(HttpServletRequest request) {
         BxgUser loginUser = UserLoginUtil.getLoginUser();
-        if(loginUser == null){
+        if (loginUser == null) {
             return OnlineResponse.newErrorOnlineResponse("未登录");
         }
         return OnlineResponse.newSuccessOnlineResponse(service.isAlive(loginUser.getLoginName()));
@@ -227,6 +226,7 @@ public class UserController extends OnlineBaseController {
     /**
      * Description：快速登录（方便后台管理）
      * creed: Talk is cheap,show me the code
+     *
      * @author name：yuxin
      * @Date: 2018/6/19 0019 下午 5:29
      **/

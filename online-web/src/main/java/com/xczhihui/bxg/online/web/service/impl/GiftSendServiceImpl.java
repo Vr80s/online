@@ -32,8 +32,10 @@ import com.xczhihui.online.api.service.UserCoinService;
 @Service
 public class GiftSendServiceImpl implements GiftSendService {
 
+    //礼物缓存时间
+    private static int GIFT_CACHE_TIMEOUT = 60 * 10;
+    private static int FREE_GIFT_SEND_MAX = 3;
     Logger logger = LoggerFactory.getLogger(this.getClass());
-
     @Autowired
     private GiftDao giftDao;
     @Autowired
@@ -42,11 +44,6 @@ public class GiftSendServiceImpl implements GiftSendService {
     private OnlineUserCenterService onlineUserCenterService;
     @Autowired
     private RedisCacheService cacheService;
-
-
-    //礼物缓存时间
-    private static int GIFT_CACHE_TIMEOUT = 60 * 10;
-    private static int FREE_GIFT_SEND_MAX = 3;
 
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)

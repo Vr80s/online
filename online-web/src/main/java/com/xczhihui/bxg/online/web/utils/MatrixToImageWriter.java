@@ -1,19 +1,17 @@
 package com.xczhihui.bxg.online.web.utils;
 
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.EncodeHintType;
-import com.google.zxing.MultiFormatWriter;
-import com.google.zxing.common.BitMatrix;
-
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.Hashtable;
+
+import javax.imageio.ImageIO;
+
+import com.google.zxing.common.BitMatrix;
 
 /**
  * 二维码的生成需要借助MatrixToImageWriter类，该类是由Google提供的，可以将该类直接拷贝到源码中使用
+ *
  * @Author Fudong.Sun【】
  * @Date 2016/11/9 10:45
  */

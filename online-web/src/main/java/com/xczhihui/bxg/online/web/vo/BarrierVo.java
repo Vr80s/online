@@ -4,6 +4,7 @@ import java.util.Date;
 
 /**
  * 关卡调用的结果封装类
+ *
  * @author Rongcai Kang
  */
 public class BarrierVo {
@@ -66,7 +67,7 @@ public class BarrierVo {
     /**
      * 使用时长 单位：分
      */
-    private  Integer use_time;
+    private Integer use_time;
 
     /**
      * 提交时间

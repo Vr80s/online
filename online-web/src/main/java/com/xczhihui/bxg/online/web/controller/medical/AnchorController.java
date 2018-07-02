@@ -1,25 +1,27 @@
 package com.xczhihui.bxg.online.web.controller.medical;
 
-import com.xczhihui.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.online.web.controller.AbstractController;
-import com.xczhihui.medical.anchor.service.IAnchorInfoService;
-import com.xczhihui.medical.anchor.vo.CourseAnchorVO;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
+import com.xczhihui.bxg.online.common.domain.OnlineUser;
+import com.xczhihui.bxg.online.web.controller.AbstractController;
+import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.medical.anchor.service.IAnchorInfoService;
+import com.xczhihui.medical.anchor.vo.CourseAnchorVO;
 
 
 /**
  * 主播工作台资产控制层
+ *
  * @author yuruixin
  */
 @RestController
 @RequestMapping(value = "/anchor/info")
-public class AnchorController extends AbstractController{
+public class AnchorController extends AbstractController {
 
     @Autowired
     private IAnchorInfoService anchorInfoService;
@@ -28,7 +30,7 @@ public class AnchorController extends AbstractController{
      * 获取主播详情
      */
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseObject detail(HttpServletRequest request){
+    public ResponseObject detail(HttpServletRequest request) {
         String userId = this.getCurrentUserId(request);
         return ResponseObject.newSuccessResponseObject(anchorInfoService.detail(userId));
     }
@@ -37,7 +39,7 @@ public class AnchorController extends AbstractController{
      * 获取主播认证详情
      */
     @RequestMapping(value = "/auth", method = RequestMethod.GET)
-    public ResponseObject authInfo(HttpServletRequest request){
+    public ResponseObject authInfo(HttpServletRequest request) {
         String userId = this.getCurrentUserId(request);
         return ResponseObject.newSuccessResponseObject(anchorInfoService.authInfo(userId));
     }
@@ -46,7 +48,7 @@ public class AnchorController extends AbstractController{
      * 修改主播信息
      */
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseObject update(CourseAnchorVO target, HttpServletRequest request){
+    public ResponseObject update(CourseAnchorVO target, HttpServletRequest request) {
         String userId = this.getCurrentUserId(request);
         target.setUserId(userId);
         anchorInfoService.update(target);
@@ -55,20 +57,21 @@ public class AnchorController extends AbstractController{
 
     /**
      * 获取发起申请的医师的id
+     *
      * @param request
      * @return
      */
-    private String getCurrentUserId(HttpServletRequest request){
+    private String getCurrentUserId(HttpServletRequest request) {
         OnlineUser loginUser = getCurrentUser();
         return loginUser.getId();
     }
 
     @RequestMapping("hasPower")
-    public ResponseObject hasPower(HttpServletRequest request){
+    public ResponseObject hasPower(HttpServletRequest request) {
         OnlineUser loginUser = getCurrentUser();
         try {
             anchorInfoService.validateAnchorPermission(loginUser.getId());
-        }catch (Exception e){
+        } catch (Exception e) {
             return ResponseObject.newErrorResponseObject(e.getMessage());
         }
         return ResponseObject.newSuccessResponseObject("有主播权限");

@@ -1,8 +1,5 @@
 package com.xczhihui.bxg.online.web.utils;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
@@ -18,60 +15,59 @@ import javax.servlet.http.HttpServletResponse;
  * @Date 2016/11/8 19:59
  */
 public class HttpUtil {
-  
+
     private final static int CONNECT_TIMEOUT = 5000; // in milliseconds
-    private final static String DEFAULT_ENCODING = "UTF-8";  
-      
-    public static String postData(String urlStr, String data){  
-        return postData(urlStr, data, null);  
-    }  
-      
-    public static String postData(String urlStr, String data, String contentType){  
+    private final static String DEFAULT_ENCODING = "UTF-8";
+
+    public static String postData(String urlStr, String data) {
+        return postData(urlStr, data, null);
+    }
+
+    public static String postData(String urlStr, String data, String contentType) {
         BufferedReader reader = null;
-        try {  
+        try {
             URL url = new URL(urlStr);
             URLConnection conn = url.openConnection();
-            conn.setDoOutput(true);  
-            conn.setConnectTimeout(CONNECT_TIMEOUT);  
-            conn.setReadTimeout(CONNECT_TIMEOUT);  
-            if(contentType != null) {
+            conn.setDoOutput(true);
+            conn.setConnectTimeout(CONNECT_TIMEOUT);
+            conn.setReadTimeout(CONNECT_TIMEOUT);
+            if (contentType != null) {
                 conn.setRequestProperty("content-type", contentType);
             }
             OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream(), DEFAULT_ENCODING);
-            if(data == null) {
+            if (data == null) {
                 data = "";
             }
-            writer.write(data);   
-            writer.flush();  
-            writer.close();    
-  
+            writer.write(data);
+            writer.flush();
+            writer.close();
+
             reader = new BufferedReader(new InputStreamReader(conn.getInputStream(), DEFAULT_ENCODING));
-            StringBuilder sb = new StringBuilder();  
-            String line = null;  
-            while ((line = reader.readLine()) != null) {  
-                sb.append(line);  
-                sb.append("\r\n");  
-            }  
-            return sb.toString();  
+            StringBuilder sb = new StringBuilder();
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line);
+                sb.append("\r\n");
+            }
+            return sb.toString();
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            try {  
+            try {
                 if (reader != null) {
                     reader.close();
                 }
-            } catch (IOException e) {  
-            }  
-        }  
-        return null;  
+            } catch (IOException e) {
+            }
+        }
+        return null;
     }
+
     /**
      * 向指定URL发送GET方法的请求
      *
-     * @param url
-     *            发送请求的URL
-     * @param paramMap
-     *            请求参数，请求参数应该是name1=value1&name2=value2的形式。
+     * @param url      发送请求的URL
+     * @param paramMap 请求参数，请求参数应该是name1=value1&name2=value2的形式。
      * @return URL所代表远程资源的响应
      */
     public static String sendGet(String url, Map<String, String> paramMap) {
@@ -114,13 +110,12 @@ public class HttpUtil {
         }
         return result.toString();
     }
+
     /**
      * 向指定URL发送POST方法的请求
      *
-     * @param url
-     *            发送请求的URL
-     * @param paramMap
-     *            请求参数，请求参数应该是name1=value1&name2=value2的形式。
+     * @param url      发送请求的URL
+     * @param paramMap 请求参数，请求参数应该是name1=value1&name2=value2的形式。
      * @return URL所代表远程资源的响应
      */
     public static String sendPost(String url, Map<String, String> paramMap) {
@@ -171,6 +166,7 @@ public class HttpUtil {
         }
         return result.toString();
     }
+
     /**
      * 功能：用一个Map生成一个QueryString，参数的顺序不可预知。
      *
@@ -201,6 +197,7 @@ public class HttpUtil {
             return null;
         }
     }
+
     /**
      * 将 String 转为 map
      *
@@ -223,8 +220,8 @@ public class HttpUtil {
     }
 
     public static void disableHttpWebCache(HttpServletResponse response) {
-        response.setHeader("Pragma","No-cache");
-        response.setHeader("Cache-Control","No-cache");
+        response.setHeader("Pragma", "No-cache");
+        response.setHeader("Cache-Control", "No-cache");
         response.setDateHeader("Expires", -1);
         response.setHeader("Cache-Control", "No-store");
     }

@@ -10,6 +10,7 @@ public class RandomUtil {
 
     /**
      * java生成随机数字和字母组合
+     *
      * @param length：生成随机数的长度
      * @return 生成的随机数
      */

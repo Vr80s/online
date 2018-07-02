@@ -6,20 +6,20 @@ package com.xczhihui.bxg.online.web.vo;
 public class AskQuestionAndAnswerVo {
 
     /**
-     *问题id
+     * 问题id
      */
     private String questionId;
 
     /**
-     *问题标题
+     * 问题标题
      */
-    private String  title;
+    private String title;
 
 
     /**
-     *回答内容
+     * 回答内容
      */
-    private String  content;
+    private String content;
 
     /**
      * 回答的点赞数

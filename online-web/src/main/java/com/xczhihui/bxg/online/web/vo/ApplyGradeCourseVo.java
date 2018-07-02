@@ -1,9 +1,9 @@
 package com.xczhihui.bxg.online.web.vo;
 
-import com.xczhihui.common.support.domain.BasicEntity;
-
 import javax.persistence.Entity;
 import javax.persistence.Table;
+
+import com.xczhihui.common.support.domain.BasicEntity;
 
 /**
  * 学员信息与班级管理中间表的实体类
@@ -24,7 +24,7 @@ public class ApplyGradeCourseVo extends BasicEntity {
 
     private String isPayment;
 
-    private String  studentNumber;
+    private String studentNumber;
 
     /**
      * 课程费用

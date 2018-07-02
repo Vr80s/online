@@ -41,16 +41,13 @@ import com.xczhihui.common.util.bean.ResponseObject;
 @Service
 public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseService {
 
+    private static Logger logger = LoggerFactory.getLogger(CourseServiceImpl.class);
     @Autowired
     private CourseDao coursedao;
-
     @Autowired
     private CourseSubscribeDao courseSubscribeDao;
-
     @Autowired
     private ScoreTypeDao scoreTypeDao;
-
-    private static Logger logger = LoggerFactory.getLogger(CourseServiceImpl.class);
 
     @Override
     public List<ScoreType> findAllScoreType() {
@@ -275,9 +272,9 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
     @Override
     public List<CourseVo> getCoursesRecommendByType(Integer type) {
         List<CourseVo> list = coursedao.getCoursesRecommendByType(type);
-        List<CourseVo> courseList =new ArrayList<CourseVo>();
-        for(CourseVo c:list){
-            if(c.getRecommendSort()>0){
+        List<CourseVo> courseList = new ArrayList<CourseVo>();
+        for (CourseVo c : list) {
+            if (c.getRecommendSort() > 0) {
                 courseList.add(c);
             }
         }

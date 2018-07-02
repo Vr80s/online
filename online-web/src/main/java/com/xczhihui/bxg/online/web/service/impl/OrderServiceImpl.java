@@ -40,9 +40,8 @@ import com.xczhihui.course.util.TextStyleUtil;
 @Service
 public class OrderServiceImpl extends OnlineBaseServiceImpl implements OrderService {
 
-    protected Logger logger = LoggerFactory.getLogger(this.getClass());
-
     private static final String APPLY_SUCCESS_TIPS = "恭喜您成功购买课程" + TextStyleUtil.LEFT_TAG + "《{0}》~" + TextStyleUtil.RIGHT_TAG;
+    protected Logger logger = LoggerFactory.getLogger(this.getClass());
     @Value("${weixin.course.pay.code}")
     private String weixinPayMessageCode;
 

@@ -15,17 +15,17 @@ public class ApplyVo {
     /**
      * 用户id号
      */
-    private  String  userId;
+    private String userId;
     /**
      * qq号
      */
     private String qq;
     /**
-     *email
+     * email
      */
     private String email;
     /**
-     *email
+     * email
      */
     private Integer sex;
     /**
@@ -44,7 +44,7 @@ public class ApplyVo {
     /**
      * 报名id号
      */
-    private  String  applyId;
+    private String applyId;
     /**
      * 学校id号
      */
@@ -61,7 +61,7 @@ public class ApplyVo {
     /**
      * 身份证号
      */
-    private String  idCardNo;
+    private String idCardNo;
 
     private String province;
 

@@ -1,11 +1,12 @@
 package com.xczhihui.bxg.online.web.vo;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * 笔记模块封装实体类
+ *
  * @Author Fudong.Sun【】
  * @Date 2016/12/13 10:51
  */
@@ -156,16 +157,16 @@ public class NotesVo {
         return create_person;
     }
 
+    public void setCreate_person(String create_person) {
+        this.create_person = create_person;
+    }
+
     public String getChapter_id() {
         return chapter_id;
     }
 
     public void setChapter_id(String chapter_id) {
         this.chapter_id = chapter_id;
-    }
-
-    public void setCreate_person(String create_person) {
-        this.create_person = create_person;
     }
 
     public Boolean getPraise() {

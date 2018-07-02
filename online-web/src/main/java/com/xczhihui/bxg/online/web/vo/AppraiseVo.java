@@ -1,8 +1,8 @@
 package com.xczhihui.bxg.online.web.vo;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * 文章评论封装类
@@ -15,21 +15,21 @@ public class AppraiseVo {
     /**
      * 评论id
      */
-    private  String id;
+    private String id;
     /**
      * 文章id
      */
-    private  Integer article_id;
+    private Integer article_id;
 
     /**
      * 评论内容
      */
-    private  String content;
+    private String content;
 
     /**
      * 评论者id
      */
-    private String  user_id;
+    private String user_id;
 
     /**
      * 被回复者id
@@ -61,7 +61,7 @@ public class AppraiseVo {
     /**
      * 是否自己评论  0:非自己评论 1:自己评论
      */
-    private Boolean  isMySelf;
+    private Boolean isMySelf;
     /**
      * 回复的评论的id
      */

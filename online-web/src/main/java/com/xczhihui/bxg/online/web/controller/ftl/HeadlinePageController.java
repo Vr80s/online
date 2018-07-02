@@ -63,7 +63,7 @@ public class HeadlinePageController extends AbstractFtlController {
     @RequestMapping(value = "{type}", method = RequestMethod.GET)
     public ModelAndView page(@PathVariable String type) {
         ModelAndView view = new ModelAndView("headline/index");
-        if(HeadlineType.getHeadline(type)==null){
+        if (HeadlineType.getHeadline(type) == null) {
             return to404();
         }
         int current = 1;
@@ -92,7 +92,7 @@ public class HeadlinePageController extends AbstractFtlController {
     @RequestMapping(value = "list/{type}", method = RequestMethod.GET)
     public ModelAndView list(@RequestParam(value = "page", required = false) Integer current, Integer size, @PathVariable String type) {
         ModelAndView view = new ModelAndView("headline/list");
-        if(HeadlineType.getHeadline(type)==null){
+        if (HeadlineType.getHeadline(type) == null) {
             return to404();
         }
         current = current == null ? 1 : current;
@@ -126,7 +126,7 @@ public class HeadlinePageController extends AbstractFtlController {
                                 @RequestParam(defaultValue = "10") Integer size, @PathVariable Integer id) {
         ModelAndView view = new ModelAndView("headline/details");
         OeBxsArticle article = oeBxsArticleService.selectArticleById(id);
-        if(article == null){
+        if (article == null) {
             return to404();
         }
 
@@ -137,9 +137,9 @@ public class HeadlinePageController extends AbstractFtlController {
 
         Page<OeBxsAppraise> appraises = oeBxsArticleService.selectArticleAppraiseById(new Page(current, size), id, userId);
         view.addObject("appraises", appraises);
-        if(onlineUser!=null){
+        if (onlineUser != null) {
             view.addObject("userSmallHeadPhoto", onlineUser.getSmallHeadPhoto());
-        }else {
+        } else {
             view.addObject("userSmallHeadPhoto", "");
         }
         String typeId = article.getTypeId();

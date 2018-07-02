@@ -7,8 +7,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.xczhihui.user.center.utils.UCCookieUtil;
-import com.xczhihui.user.center.vo.Token;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +18,8 @@ import com.xczhihui.common.support.domain.Attachment;
 import com.xczhihui.common.support.service.AttachmentCenterService;
 import com.xczhihui.common.util.JsonUtil;
 import com.xczhihui.common.util.QiniuUtil;
+import com.xczhihui.user.center.utils.UCCookieUtil;
+import com.xczhihui.user.center.vo.Token;
 
 /**
  * 百度富文本编辑器（ueditor）

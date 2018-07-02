@@ -1,5 +1,15 @@
 package com.xczhihui.bxg.online.web.service.impl;
 
+import java.sql.SQLException;
+import java.util.*;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.Apply;
 import com.xczhihui.bxg.online.common.domain.Message;
@@ -13,16 +23,6 @@ import com.xczhihui.common.support.domain.BxgUser;
 import com.xczhihui.common.util.DateUtil;
 import com.xczhihui.user.center.service.UserCenterService;
 import com.xczhihui.user.center.vo.OeUserVO;
-
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
-
-import javax.servlet.http.HttpServletRequest;
-
-import java.sql.SQLException;
-import java.util.*;
 
 /**
  * 用户中心显示内容
@@ -126,7 +126,7 @@ public class UserCenterServiceImpl extends OnlineBaseServiceImpl implements Onli
         message.setContext(describe);
         message.setUserId(userId);
         message.setType(2);
-        message.setStatus((short)1);
+        message.setStatus((short) 1);
         message.setCreateTime(new Date());
         dao.save(message);
     }

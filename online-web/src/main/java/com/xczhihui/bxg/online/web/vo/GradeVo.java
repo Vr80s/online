@@ -1,9 +1,9 @@
 package com.xczhihui.bxg.online.web.vo;
 
-import com.xczhihui.bxg.online.common.base.vo.OnlineBaseVo;
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.sql.Timestamp;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.xczhihui.bxg.online.common.base.vo.OnlineBaseVo;
 
 /**
  * Created by admin on 2016/7/27.
@@ -20,13 +20,13 @@ public class GradeVo extends OnlineBaseVo {
      */
     private String name;
     /**
-     *开课时间
+     * 开课时间
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Timestamp curriculumTime;
 
     /**
-     *班级状态
+     * 班级状态
      */
     private Integer status;
     /**

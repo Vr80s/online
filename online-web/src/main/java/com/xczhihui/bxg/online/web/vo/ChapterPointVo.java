@@ -7,8 +7,8 @@ import java.util.List;
  * Created by admin on 2016/11/2.
  * 章节表vo层
  */
-public class ChapterPointVo extends  AskVo {
-    private  String  name;
+public class ChapterPointVo extends AskVo {
+    private String name;
     /**
      * 已学习的视频数量  只有知识点有
      */
@@ -29,7 +29,7 @@ public class ChapterPointVo extends  AskVo {
     /**
      * CC直播视频提供的id
      */
-    private  String ccvideoId;
+    private String ccvideoId;
 
     /**
      * 章下-小节的id
@@ -50,12 +50,12 @@ public class ChapterPointVo extends  AskVo {
     /**
      * 学习状态 0：未学习，1：已学习，2：学习中
      */
-    private  Integer study_status;
+    private Integer study_status;
 
     /**
      * 视频排序字段
      */
-    private  Integer sort;
+    private Integer sort;
 
     /**
      * 锁状态 1:解锁  0:未解决
@@ -186,7 +186,7 @@ public class ChapterPointVo extends  AskVo {
     }
 
     public Integer getType() {
-        return type==null ? 0 : type;
+        return type == null ? 0 : type;
     }
 
     public void setType(Integer type) {
@@ -202,7 +202,7 @@ public class ChapterPointVo extends  AskVo {
     }
 
     public String getBarrier_id() {
-        return barrier_id ;
+        return barrier_id;
     }
 
     public void setBarrier_id(String barrier_id) {

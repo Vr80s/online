@@ -11,11 +11,11 @@ import com.xczhihui.bxg.online.common.base.vo.OnlineBaseVo;
 public class CourseLecturVo extends OnlineBaseVo {
 
     /**
-     *课程ID
+     * 课程ID
      */
     private int id;
     /**
-     *课程名
+     * 课程名
      */
     private String gradeName;
 
@@ -28,7 +28,7 @@ public class CourseLecturVo extends OnlineBaseVo {
     /**
      * 讲师名
      */
-    private String  name;
+    private String name;
 
     /**
      * 已学习人数
@@ -36,44 +36,44 @@ public class CourseLecturVo extends OnlineBaseVo {
     private Integer learnd_count;
 
     /**
-     *授课类型
+     * 授课类型
      */
     private String courseType;
 
     /**
-     *课程当前价格
+     * 课程当前价格
      */
     private String currentPrice;
 
     /**
-     *课程原价
+     * 课程原价
      */
     private String originalCost;
 
     private String address;
 
     /**
-     *课程时长
+     * 课程时长
      */
     private String courseLength;
 
     /**
-     *是否免费 true:免费  false:不免费
+     * 是否免费 true:免费  false:不免费
      */
     private boolean isFree;
 
     /**
-     *当前页码
+     * 当前页码
      */
     private Integer pageNumber;
 
     /**
-     *每页总条数
+     * 每页总条数
      */
     private Integer pageSize;
 
     /**
-     *总页数
+     * 总页数
      */
     private Integer totalPageCount;
 
@@ -85,21 +85,25 @@ public class CourseLecturVo extends OnlineBaseVo {
     /**
      * 推荐课程小尺寸图片
      */
-    private String  recImgPath;
-    
-    private String  type;
-    
-    private String  direct_id;
+    private String recImgPath;
 
-    private String  userLecturerId;
+    private String type;
 
-    private String  coursePwd;
+    private String direct_id;
 
-    private String  multimediaType;
+    private String userLecturerId;
 
-    private String  isRecommend;
+    private String coursePwd;
 
-    private Boolean  collection;
+    private String multimediaType;
+
+    private String isRecommend;
+
+    private Boolean collection;
+    @JsonFormat(pattern = "yyyy/MM/dd", timezone = "GMT+8")
+    private Date startTime;
+    @JsonFormat(pattern = "yyyy/MM/dd", timezone = "GMT+8")
+    private Date endTime;
 
     public Boolean getCollection() {
         return collection;
@@ -109,53 +113,47 @@ public class CourseLecturVo extends OnlineBaseVo {
         this.collection = collection;
     }
 
-    @JsonFormat(pattern = "yyyy/MM/dd", timezone = "GMT+8")
-    private Date startTime;
-
-    @JsonFormat(pattern = "yyyy/MM/dd", timezone = "GMT+8")
-    private Date endTime;
-
     public String getMultimediaType() {
-		return multimediaType;
-	}
+        return multimediaType;
+    }
 
-	public void setMultimediaType(String multimediaType) {
-		this.multimediaType = multimediaType;
-	}
+    public void setMultimediaType(String multimediaType) {
+        this.multimediaType = multimediaType;
+    }
 
-	public String getCoursePwd() {
-		return coursePwd;
-	}
+    public String getCoursePwd() {
+        return coursePwd;
+    }
 
-	public void setCoursePwd(String coursePwd) {
-		this.coursePwd = coursePwd;
-	}
+    public void setCoursePwd(String coursePwd) {
+        this.coursePwd = coursePwd;
+    }
 
-	public String getUserLecturerId() {
-		return userLecturerId;
-	}
+    public String getUserLecturerId() {
+        return userLecturerId;
+    }
 
-	public String getAddress() {
-		return address;
-	}
+    public void setUserLecturerId(String userLecturerId) {
+        this.userLecturerId = userLecturerId;
+    }
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
+    public String getAddress() {
+        return address;
+    }
 
-	public void setUserLecturerId(String userLecturerId) {
-		this.userLecturerId = userLecturerId;
-	}
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
-	public String getDirect_id() {
-		return direct_id;
-	}
+    public String getDirect_id() {
+        return direct_id;
+    }
 
-	public void setDirect_id(String direct_id) {
-		this.direct_id = direct_id;
-	}
+    public void setDirect_id(String direct_id) {
+        this.direct_id = direct_id;
+    }
 
-	public String getGradeName() {
+    public String getGradeName() {
         return gradeName;
     }
 
@@ -181,7 +179,7 @@ public class CourseLecturVo extends OnlineBaseVo {
 
     public String getName() {
 
-        return name==null ? "暂无讲师" : name;
+        return name == null ? "暂无讲师" : name;
     }
 
     public void setName(String name) {
@@ -230,10 +228,6 @@ public class CourseLecturVo extends OnlineBaseVo {
         this.courseLength = courseLength;
     }
 
-    public void setCourseType(String courseType) {
-        this.courseType = courseType;
-    }
-
     public boolean isFree() {
         return isFree;
     }
@@ -244,6 +238,10 @@ public class CourseLecturVo extends OnlineBaseVo {
 
     public String getCourseType() {
         return courseType;
+    }
+
+    public void setCourseType(String courseType) {
+        this.courseType = courseType;
     }
 
     public Integer getPageNumber() {
@@ -278,29 +276,29 @@ public class CourseLecturVo extends OnlineBaseVo {
         this.recImgPath = recImgPath;
     }
 
-	public String getType() {
-		return type;
-	}
+    public String getType() {
+        return type;
+    }
 
-	public void setType(String type) {
-		this.type = type;
-	}
+    public void setType(String type) {
+        this.type = type;
+    }
 
-	public Date getStartTime() {
-		return startTime;
-	}
+    public Date getStartTime() {
+        return startTime;
+    }
 
-	public void setStartTime(Date startTime) {
-		this.startTime = startTime;
-	}
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
+    }
 
-	public Date getEndTime() {
-		return endTime;
-	}
+    public Date getEndTime() {
+        return endTime;
+    }
 
-	public void setEndTime(Date endTime) {
-		this.endTime = endTime;
-	}
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
+    }
 
 
     public String getIsRecommend() {

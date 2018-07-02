@@ -2,8 +2,12 @@ package com.xczhihui.bxg.online.web.dao;/**
  * Created by admin on 2016/9/19.
  */
 
-import com.xczhihui.common.support.dao.SimpleHibernateDao;
-import com.xczhihui.common.util.bean.Page;
+import java.util.*;
+
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.stereotype.Repository;
+
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.common.domain.User;
 import com.xczhihui.bxg.online.web.base.utils.MysqlUtils;
@@ -11,12 +15,8 @@ import com.xczhihui.bxg.online.web.vo.AskAccuseVo;
 import com.xczhihui.bxg.online.web.vo.AskAnswerVo;
 import com.xczhihui.bxg.online.web.vo.AskQuestionVo;
 import com.xczhihui.bxg.online.web.vo.CourseVo;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
-import org.springframework.stereotype.Repository;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.*;
+import com.xczhihui.common.support.dao.SimpleHibernateDao;
+import com.xczhihui.common.util.bean.Page;
 
 /**
  * 提问列表页底层类
@@ -110,8 +110,6 @@ public class ASKQuestionListDao extends SimpleHibernateDao {
         Page<AskQuestionVo> page = this.findPageBySQL(sql, paramMap, AskQuestionVo.class, pageNumber, pageSize);
         return page;
     }*/
-
-
     public Page<AskQuestionVo> findListQuestion(Integer pageNumber, Integer pageSize, Integer menuId, String status, String tag, String title, String text, String content) {
         pageNumber = pageNumber == null ? 1 : pageNumber;
         pageSize = pageSize == null ? 20 : pageSize;
@@ -120,40 +118,40 @@ public class ASKQuestionListDao extends SimpleHibernateDao {
         title = MysqlUtils.replaceESC(title);
         tag = MysqlUtils.replaceESC(tag);
 
-        String titleSql ="";
+        String titleSql = "";
         String tagSql = "";
-        String menuSql="";
-        String statuSql="";
+        String menuSql = "";
+        String statuSql = "";
         //判断学员是否根据问题标题和标签进行搜索
         //根据问题标题搜索，拼接的sql
-        if (!"".equals(title) && title != null){
-            titleSql =" and  q.title like :title ";
+        if (!"".equals(title) && title != null) {
+            titleSql = " and  q.title like :title ";
             paramMap.put("title", "%" + title + "%");
         }
         //根据标签搜索，拼接的sql
-        if (!"".equals(tag) && tag != null){
-            tagSql=" and q.tags  like :tag ";
+        if (!"".equals(tag) && tag != null) {
+            tagSql = " and q.tags  like :tag ";
             paramMap.put("tag", "%" + tag + "%");
         }
         //根据学科搜索，拼接的sql
-        if(menuId != null && menuId > 0){
-            menuSql=" and  q.ment_id = :menuId  ";
+        if (menuId != null && menuId > 0) {
+            menuSql = " and  q.ment_id = :menuId  ";
             paramMap.put("menuId", menuId);
         }
         //根据问题状态搜索，拼接的sql
-        if(!"".equals(status) && status!=null && !"-1".equals(status)){
-              if("2".equals(status)){
-                  statuSql= " and  q.status = :status " ;
-                  paramMap.put("status", status);
-              }else{
-                  statuSql= " and  q.status != 2 ";
-              }
+        if (!"".equals(status) && status != null && !"-1".equals(status)) {
+            if ("2".equals(status)) {
+                statuSql = " and  q.status = :status ";
+                paramMap.put("status", status);
+            } else {
+                statuSql = " and  q.status != 2 ";
+            }
 
 
         }
-        sql= " select m.ask_limit, q.create_nick_name,q.create_head_img,q.title,q.content,q.accused,q.text,q.tags,q.create_time,q.create_person,q.answer_sum,q.browse_sum, m.`name`,m.id as ment_id ,q.id,NOW() as systemTime" +
+        sql = " select m.ask_limit, q.create_nick_name,q.create_head_img,q.title,q.content,q.accused,q.text,q.tags,q.create_time,q.create_person,q.answer_sum,q.browse_sum, m.`name`,m.id as ment_id ,q.id,NOW() as systemTime" +
                 " from oe_ask_question q  join oe_menu m " +
-                " where  q.ment_id = m.id  and q.is_delete = 0 "+titleSql+tagSql+menuSql+statuSql + " order by q.create_time  desc ";
+                " where  q.ment_id = m.id  and q.is_delete = 0 " + titleSql + tagSql + menuSql + statuSql + " order by q.create_time  desc ";
 
         Page<AskQuestionVo> page = this.findPageBySQL(sql, paramMap, AskQuestionVo.class, pageNumber, pageSize);
         return page;
@@ -212,9 +210,9 @@ public class ASKQuestionListDao extends SimpleHibernateDao {
     public void saveQuestion(AskQuestionVo qu) {
         //获取学科名
         Map<String, Object> paramMap = new HashMap<String, Object>();
-        paramMap.put("id",qu.getMent_id());
-        String sqlquery="select name from oe_menu where is_delete=0 and status=1 and  id=:id  limit 1";
-        String name =this.getNamedParameterJdbcTemplate().queryForObject(sqlquery,paramMap,String.class);
+        paramMap.put("id", qu.getMent_id());
+        String sqlquery = "select name from oe_menu where is_delete=0 and status=1 and  id=:id  limit 1";
+        String name = this.getNamedParameterJdbcTemplate().queryForObject(sqlquery, paramMap, String.class);
         qu.setName(name);
         qu.setId(UUID.randomUUID().toString().replaceAll("-", ""));
         String sql = "insert into oe_ask_question (id,title,content,text,ment_id,tags,create_nick_name,create_head_img,create_person,name,user_id,video_id)   "
@@ -245,8 +243,8 @@ public class ASKQuestionListDao extends SimpleHibernateDao {
         List<CourseVo> courseVoList = null;
         if (menuId != null) {
             String sql = " select c.id,c.grade_name as courseName,c.smallimg_path as smallimgPath ,c.original_cost as originalCost ,c.current_price as currentPrice ,c.is_free as isFree  ,tm.`name` as scoreName,c.description_show,c.multimedia_type multimediaType," +
-						 "IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0) + IFNULL(default_student_count, 0) learnd_count"+
-                         " from  oe_course c left join  teach_method tm on c.courseType = tm.id   where  c.is_delete=0  and c.`status`=1 AND ISNULL(c.type) and c.menu_id =?  order by c.sort desc limit 5";
+                    "IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0) + IFNULL(default_student_count, 0) learnd_count" +
+                    " from  oe_course c left join  teach_method tm on c.courseType = tm.id   where  c.is_delete=0  and c.`status`=1 AND ISNULL(c.type) and c.menu_id =?  order by c.sort desc limit 5";
             courseVoList = this.getNamedParameterJdbcTemplate().getJdbcOperations().query(sql, new Object[]{menuId}, BeanPropertyRowMapper.newInstance(CourseVo.class));
         }
         return courseVoList;
@@ -389,39 +387,39 @@ public class ASKQuestionListDao extends SimpleHibernateDao {
 
 
     /**
-     *
-     * @param videoId  视频id
-     * @param type : 1、全部问题  2、我的问题
+     * @param videoId    视频id
+     * @param type       : 1、全部问题  2、我的问题
      * @param pageNumber
      * @param pageSize
      * @return
      */
-    public Page<AskQuestionVo> findVideoQuestion(String videoId,Integer type,Integer pageNumber, Integer pageSize,OnlineUser u) {
+    public Page<AskQuestionVo> findVideoQuestion(String videoId, Integer type, Integer pageNumber, Integer pageSize, OnlineUser u) {
         pageNumber = pageNumber == null ? 1 : pageNumber;
         pageSize = pageSize == null ? 20 : pageSize;
         Map<String, Object> paramMap = new HashMap<String, Object>();
-        paramMap.put("userId",u.getId());
-        paramMap.put("videoId",videoId);
+        paramMap.put("userId", u.getId());
+        paramMap.put("videoId", videoId);
         StringBuffer sql = new StringBuffer();
         sql.append(" select if(q.user_id=:userId,true,false) isMyself,  q.create_nick_name,q.create_head_img,q.title,q.content,q.tags,q.create_time,q.create_person, ");
         sql.append(" q.answer_sum,q.browse_sum,q.praise_sum, m.id as ment_id ,q.id from oe_ask_question q  join oe_menu m  ");
         sql.append(" where  q.ment_id = m.id  and q.is_delete = 0  and q.video_id=:videoId  ");
         //我的问题
-        if(type ==2){
-            sql.append(" and q.user_id=:userId") ;
+        if (type == 2) {
+            sql.append(" and q.user_id=:userId");
         }
         sql.append("   order by q.create_time  desc  ");
 
-        Page<AskQuestionVo> page = this.findPageBySQL(sql.toString(),paramMap,AskQuestionVo.class,pageNumber,pageSize);
+        Page<AskQuestionVo> page = this.findPageBySQL(sql.toString(), paramMap, AskQuestionVo.class, pageNumber, pageSize);
         return page;
     }
 
 
     /**
      * 修改问题信息内容
+     *
      * @param questionVo
      */
-    public void updateQuestion(AskQuestionVo  questionVo){
+    public void updateQuestion(AskQuestionVo questionVo) {
         String sql = "update oe_ask_question  set content=:content  where id=:id";
         this.getNamedParameterJdbcTemplate().update(sql, new BeanPropertySqlParameterSource(questionVo));
     }
@@ -429,20 +427,20 @@ public class ASKQuestionListDao extends SimpleHibernateDao {
     /**
      * 获取被管理员删除的问题信息
      */
-    public  Map<String, Object>  findDeleteAccuseQuestion(String questionId){
+    public Map<String, Object> findDeleteAccuseQuestion(String questionId) {
         Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("questionId", questionId);
-        String  sql =" select q.id,q.user_id, q.title,a.user_id userId,  case a.accuse_type  when 0 then '广告营销等垃圾信息' when 1 then '抄袭内容' " +
-                     " when 2 then '辱骂等不文明言语的人身攻击' when 3 then '色情或反动的违法信息'  else a.content END AS text" +
-                     " from oe_ask_question q, oe_ask_accuse  a where q.id=a.target_id  and a.target_type=0  and q.id=:questionId and q.is_delete=1";
-        List<Map<String, Object>> courses= this.getNamedParameterJdbcTemplate().queryForList(sql,paramMap);
-        return  courses.size() > 0 ? courses.get(0): null;
+        String sql = " select q.id,q.user_id, q.title,a.user_id userId,  case a.accuse_type  when 0 then '广告营销等垃圾信息' when 1 then '抄袭内容' " +
+                " when 2 then '辱骂等不文明言语的人身攻击' when 3 then '色情或反动的违法信息'  else a.content END AS text" +
+                " from oe_ask_question q, oe_ask_accuse  a where q.id=a.target_id  and a.target_type=0  and q.id=:questionId and q.is_delete=1";
+        List<Map<String, Object>> courses = this.getNamedParameterJdbcTemplate().queryForList(sql, paramMap);
+        return courses.size() > 0 ? courses.get(0) : null;
     }
 
     /**
      * 获取我的提问列表信息
      */
-    public Page<AskQuestionVo> findMyListQuestion(String userId,Integer pageNumber, Integer pageSize, Integer menuId, String status, String tag, String title, String text, String content) {
+    public Page<AskQuestionVo> findMyListQuestion(String userId, Integer pageNumber, Integer pageSize, Integer menuId, String status, String tag, String title, String text, String content) {
         pageNumber = pageNumber == null ? 1 : pageNumber;
         pageSize = pageSize == null ? 20 : pageSize;
         Map<String, Object> paramMap = new HashMap<String, Object>();
@@ -450,43 +448,43 @@ public class ASKQuestionListDao extends SimpleHibernateDao {
         title = MysqlUtils.replaceESC(title);
         tag = MysqlUtils.replaceESC(tag);
 
-        String titleSql ="";
+        String titleSql = "";
         String tagSql = "";
-        String menuSql="";
-        String statuSql="";
+        String menuSql = "";
+        String statuSql = "";
 
-        String userIdSql =" and  q.user_id = :userId  ";
+        String userIdSql = " and  q.user_id = :userId  ";
         paramMap.put("userId", userId);
         //判断学员是否根据问题标题和标签进行搜索
         //根据问题标题搜索，拼接的sql
-        if (!"".equals(title) && title != null){
-            titleSql =" and  q.title like :title ";
+        if (!"".equals(title) && title != null) {
+            titleSql = " and  q.title like :title ";
             paramMap.put("title", "%" + title + "%");
         }
         //根据标签搜索，拼接的sql
-        if (!"".equals(tag) && tag != null){
-            tagSql=" and q.tags  like :tag ";
+        if (!"".equals(tag) && tag != null) {
+            tagSql = " and q.tags  like :tag ";
             paramMap.put("tag", "%" + tag + "%");
         }
         //根据学科搜索，拼接的sql
-        if(menuId != null && menuId > 0){
-            menuSql=" and  q.ment_id = :menuId  ";
+        if (menuId != null && menuId > 0) {
+            menuSql = " and  q.ment_id = :menuId  ";
             paramMap.put("menuId", menuId);
         }
         //根据问题状态搜索，拼接的sql
-        if(!"".equals(status) && status!=null && !"-1".equals(status)){
-            if("2".equals(status)){
-                statuSql= " and  q.status = :status " ;
+        if (!"".equals(status) && status != null && !"-1".equals(status)) {
+            if ("2".equals(status)) {
+                statuSql = " and  q.status = :status ";
                 paramMap.put("status", status);
-            }else{
-                statuSql= " and  q.status != 2 ";
+            } else {
+                statuSql = " and  q.status != 2 ";
             }
 
 
         }
-        sql= " select m.ask_limit, q.create_nick_name,q.create_head_img,q.title,q.content,q.accused,q.status,q.text,q.tags,q.create_time,q.create_person,q.answer_sum,q.browse_sum, m.`name`,m.id as ment_id ,q.id,NOW() as systemTime" +
+        sql = " select m.ask_limit, q.create_nick_name,q.create_head_img,q.title,q.content,q.accused,q.status,q.text,q.tags,q.create_time,q.create_person,q.answer_sum,q.browse_sum, m.`name`,m.id as ment_id ,q.id,NOW() as systemTime" +
                 " from oe_ask_question q  join oe_menu m " +
-                " where  q.ment_id = m.id  and q.is_delete = 0  "+userIdSql+titleSql+tagSql+menuSql+statuSql + " order by q.create_time  desc ";
+                " where  q.ment_id = m.id  and q.is_delete = 0  " + userIdSql + titleSql + tagSql + menuSql + statuSql + " order by q.create_time  desc ";
 
         Page<AskQuestionVo> page = this.findPageBySQL(sql, paramMap, AskQuestionVo.class, pageNumber, pageSize);
         return page;

@@ -11,7 +11,7 @@ public class OtherlinkVo extends OnlineBaseVo {
      */
     private String name;
     /**
-     *链接地址
+     * 链接地址
      */
     private String url;
 

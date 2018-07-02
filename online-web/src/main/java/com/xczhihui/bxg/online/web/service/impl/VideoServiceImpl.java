@@ -1,15 +1,11 @@
 package com.xczhihui.bxg.online.web.service.impl;
 
-import java.text.MessageFormat;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
@@ -17,16 +13,9 @@ import com.xczhihui.bxg.online.common.domain.Criticize;
 import com.xczhihui.bxg.online.web.dao.CourseDao;
 import com.xczhihui.bxg.online.web.dao.VideoDao;
 import com.xczhihui.bxg.online.web.service.VideoService;
-import com.xczhihui.bxg.online.web.vo.CourseApplyVo;
 import com.xczhihui.bxg.online.web.vo.CourseVo;
-import com.xczhihui.common.util.CodeUtil;
-import com.xczhihui.common.util.TimeUtil;
 import com.xczhihui.common.util.bean.Page;
-import com.xczhihui.course.enums.MessageTypeEnum;
-import com.xczhihui.course.params.BaseMessage;
 import com.xczhihui.course.service.ICommonMessageService;
-import com.xczhihui.course.util.CourseUtil;
-import com.xczhihui.course.util.TextStyleUtil;
 
 /**
  * @Author Fudong.Sun【】

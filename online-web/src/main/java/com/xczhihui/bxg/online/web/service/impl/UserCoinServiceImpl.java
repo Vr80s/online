@@ -1,13 +1,10 @@
 package com.xczhihui.bxg.online.web.service.impl;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
-import org.jivesoftware.smack.SmackException;
-import org.jivesoftware.smack.XMPPException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +38,7 @@ import com.xczhihui.online.api.vo.RechargeRecord;
 @Service
 public class UserCoinServiceImpl implements UserCoinService {
 
+    public static BigDecimal iosRatio = new BigDecimal("0.3");
     protected Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     private UserCoinDao userCoinDao;
@@ -48,8 +46,6 @@ public class UserCoinServiceImpl implements UserCoinService {
     private CourseDao courseDao;
     @Value("${rate}")
     private int rate;
-    public static BigDecimal iosRatio = new BigDecimal("0.3");
-
     @Autowired
     private RedisCacheService cacheService;
     @Autowired
