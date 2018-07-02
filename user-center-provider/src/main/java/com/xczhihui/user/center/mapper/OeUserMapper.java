@@ -1,15 +1,15 @@
 package com.xczhihui.user.center.mapper;
 
-import com.baomidou.mybatisplus.mapper.BaseMapper;
-
-import com.xczhihui.user.center.model.OeUser;
-import com.xczhihui.user.center.vo.OeUserVO;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.xczhihui.user.center.model.OeUser;
+import com.xczhihui.user.center.vo.OeUserVO;
+
 /**
  * <p>
-  *  Mapper 接口
+ * Mapper 接口
  * </p>
  *
  * @author yuxin
