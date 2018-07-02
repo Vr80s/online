@@ -12,9 +12,15 @@ $(function(){
 	});
 
  	// 加载先出现评价信息
-	refresh();
+	
 
-	// 评价信息定义方法--刷新
+	/*if(hospitalData != null && hospitalData != ""){
+
+	}else{*/
+		refresh();
+	// };
+
+	// 评价信息定义方法
 	function refresh(){
 		requestGetService("/xczh/article/appraise/list",{
 			articleId: id,
@@ -51,6 +57,16 @@ $(function(){
 		            updatePraise(criticize_id,true);
 		        }
 		    });
+
+		    if (data.resultObject == "" || data.resultObject == null) {
+	            // alert(123);
+	            $(".show_baseImagenumber").show();
+	        } else {
+	            // alert(456);
+	            $(".show_baseImagenumber").hide();
+	        }
+
+
 		    }
 		});
 
