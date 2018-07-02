@@ -22,20 +22,21 @@ import java.lang.annotation.*;
  * )修饰的注解，表示注解的信息被保留在class文件(字节码文件)中当程序编译时，会被虚拟机保留在运行时，
  * 所以他们可以用反射的方式读取。RetentionPolicy.RUNTIME
  * 可以让你从JVM中读取Annotation注解的信息，以便在分析程序的时候使用.
- *
+ * <p>
  * 类和方法的annotation缺省情况下是不出现在javadoc中的，为了加入这个性质我们用@Documented
- *  java用  @interface Annotation{ } 定义一个注解 @Annotation，一个注解是一个类。
- *  @interface是一个关键字，在设计annotations的时候必须把一个类型定义为@interface，而不能用class或interface关键字
+ * java用  @interface Annotation{ } 定义一个注解 @Annotation，一个注解是一个类。
  *
  * @author q
- *
+ * @interface是一个关键字，在设计annotations的时候必须把一个类型定义为@interface，而不能用class或interface关键字
  */
 
-@Target({ ElementType.METHOD, ElementType.TYPE })
+@Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface Lock {
     String lockName() default "";
+
     int waitTime() default 2;
+
     int effectiveTime() default 3;
 }

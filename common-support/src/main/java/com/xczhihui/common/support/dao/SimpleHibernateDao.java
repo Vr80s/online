@@ -35,6 +35,20 @@ public class SimpleHibernateDao implements ApplicationContextAware {
 
     private HibernateTemplate hibernateTemplate;
 
+    /**
+     * 将字符串列表转换成字符串数组
+     *
+     * @param list List 字符串列表
+     * @return String[]
+     */
+    private static String[] list2Array(List<String> list) {
+        String[] strs = new String[list.size()];
+        for (int i = 0; i < strs.length; i++) {
+            strs[i] = list.get(i);
+        }
+        return strs;
+    }
+
     public NamedParameterJdbcTemplate getNamedParameterJdbcTemplate() {
         if (this.namedParameterJdbcTemplate == null) {
             this.namedParameterJdbcTemplate = (NamedParameterJdbcTemplate) this.applicationContext.getBean("namedParameterJdbcTemplate");
@@ -424,20 +438,6 @@ public class SimpleHibernateDao implements ApplicationContextAware {
         } else {
             return 0;
         }
-    }
-
-    /**
-     * 将字符串列表转换成字符串数组
-     *
-     * @param list List 字符串列表
-     * @return String[]
-     */
-    private static String[] list2Array(List<String> list) {
-        String[] strs = new String[list.size()];
-        for (int i = 0; i < strs.length; i++) {
-            strs[i] = list.get(i);
-        }
-        return strs;
     }
 
     /**

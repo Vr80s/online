@@ -11,38 +11,38 @@ import java.util.Date;
  * 作者：chu
  **/
 public class DateUtil {
-	// 获取日期，格式：yyyy-MM-dd HH:mm:ss
-	public static String getDateFormatter() {
-		Date date = new Date();
-		DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		return df.format(date);
-	}
+    // 获取日期，格式：yyyy-MM-dd HH:mm:ss
+    public static String getDateFormatter() {
+        Date date = new Date();
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return df.format(date);
+    }
 
-	// 秒转换成两位的时间，格式：HH:mm:ss
-	public static String turnSecondsToTimestring(int seconds) {
-		String result = "";
-		int hour = 0, min = 0, second = 0;
-		hour = seconds / 3600;
-		min = (seconds - hour * 3600) / 60;
-		second = seconds - hour * 3600 - min * 60;
-		if (hour < 10) {
-			result += "0" + hour + ":";
-		} else {
-			result += hour + ":";
-		}
-		if (min < 10) {
-			result += "0" + min + ":";
-		} else {
-			result += min + ":";
-		}
-		if (second < 10) {
-			result += "0" + second;
-		} else {
-			result += second;
-		}
+    // 秒转换成两位的时间，格式：HH:mm:ss
+    public static String turnSecondsToTimestring(int seconds) {
+        String result = "";
+        int hour = 0, min = 0, second = 0;
+        hour = seconds / 3600;
+        min = (seconds - hour * 3600) / 60;
+        second = seconds - hour * 3600 - min * 60;
+        if (hour < 10) {
+            result += "0" + hour + ":";
+        } else {
+            result += hour + ":";
+        }
+        if (min < 10) {
+            result += "0" + min + ":";
+        } else {
+            result += min + ":";
+        }
+        if (second < 10) {
+            result += "0" + second;
+        } else {
+            result += second;
+        }
 
-		return result;
+        return result;
 
-	}
+    }
 
 }

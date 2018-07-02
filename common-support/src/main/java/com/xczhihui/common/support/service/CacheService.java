@@ -89,7 +89,7 @@ public interface CacheService {
     /**
      * 判断集合中是否含有该元素
      *
-     * @param key key
+     * @param key   key
      * @param value value
      * @return
      */
@@ -97,7 +97,8 @@ public interface CacheService {
 
     /**
      * 移除集合元素
-     * @param key key
+     *
+     * @param key   key
      * @param value value
      * @return
      */

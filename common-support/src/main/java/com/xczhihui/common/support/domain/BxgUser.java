@@ -1,113 +1,111 @@
 package com.xczhihui.common.support.domain;
 
-import com.xczhihui.common.util.enums.UserSex;
+import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
-import java.io.Serializable;
+
+import com.xczhihui.common.util.enums.UserSex;
 
 
 /**
  * 熊猫中医用户抽象。使用UserHolder和统一的shiro登录的系统，用户必须从这个类继承。
- * 
- * @author liyong
  *
+ * @author liyong
  */
 @MappedSuperclass
 public abstract class BxgUser extends BasicEntity implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    /**
+     * 未知
+     */
+    public static final int SEX_UNKNOWN = UserSex.UNKNOWN.getValue();
+    private static final long serialVersionUID = 1L;
+    /**
+     * 昵称给其他用户看的名。
+     */
+    private String name;
 
-	/**
-	 * 未知
-	 */
-	public static final int SEX_UNKNOWN = UserSex.UNKNOWN.getValue();
+    /**
+     * 登录名
+     */
+    @Column(name = "login_name")
+    private String loginName;
 
-	/**
-	 * 昵称给其他用户看的名。
-	 */
-	private String name;
+    private String password;
 
-	/**
-	 * 登录名
-	 */
-	@Column(name = "login_name")
-	private String loginName;
+    /**
+     * 性别
+     */
+    private int sex = SEX_UNKNOWN;
 
-	private String password;
+    /**
+     * email
+     */
+    private String email;
 
-	/**
-	 * 性别
-	 */
-	private int sex = SEX_UNKNOWN;
+    /**
+     * 电话号码
+     */
+    private String mobile;
 
-	/**
-	 * email
-	 */
-	private String email;
+    @Transient
+    private Boolean anchor;
 
-	/**
-	 * 电话号码
-	 */
-	private String mobile;
+    public Boolean getAnchor() {
+        return anchor;
+    }
 
-	@Transient
-	private Boolean anchor;
+    public void setAnchor(Boolean anchor) {
+        this.anchor = anchor;
+    }
 
-	public Boolean getAnchor() {
-		return anchor;
-	}
+    public String getLoginName() {
+        return loginName;
+    }
 
-	public void setAnchor(Boolean anchor) {
-		this.anchor = anchor;
-	}
+    public void setLoginName(String loginName) {
+        this.loginName = loginName;
+    }
 
-	public String getLoginName() {
-		return loginName;
-	}
+    public int getSex() {
+        return sex;
+    }
 
-	public void setLoginName(String loginName) {
-		this.loginName = loginName;
-	}
+    public void setSex(int sex) {
+        this.sex = sex;
+    }
 
-	public int getSex() {
-		return sex;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public void setSex(int sex) {
-		this.sex = sex;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public String getMobile() {
+        return mobile;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
 
-	public String getMobile() {
-		return mobile;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 }

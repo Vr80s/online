@@ -116,7 +116,7 @@ public class RedisCacheService implements CacheService {
     @Override
     public Long sadd(String key, String value) {
         Jedis jedis = null;
-        try  {
+        try {
             jedis = getJedis();
             return jedis.sadd(key, value);
         } finally {
@@ -127,7 +127,7 @@ public class RedisCacheService implements CacheService {
     @Override
     public Boolean sismenber(String key, String value) {
         Jedis jedis = null;
-        try  {
+        try {
             jedis = getJedis();
             return jedis.sismember(key, value);
         } finally {
@@ -138,7 +138,7 @@ public class RedisCacheService implements CacheService {
     @Override
     public Long srem(String key, String value) {
         Jedis jedis = null;
-        try  {
+        try {
             jedis = getJedis();
             return jedis.srem(key, value);
         } finally {

@@ -75,14 +75,13 @@ public enum AttachmentType implements Serializable {
      */
     ACENTER(85, "acenter");
 
+    private int type;
+    private String name;
+
     private AttachmentType(int type, String name) {
         this.type = type;
         this.name = name;
     }
-
-    private int type;
-
-    private String name;
 
     public int getType() {
         return type;
