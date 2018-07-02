@@ -533,11 +533,11 @@ requestService("/xczh/doctors/doctorStatus", {doctorId:doctorId},function (data)
                                         };
                                     };
 
-                                    if (data.resultObject.hospital.name == null && data.resultObject.hospital.tel == null && data.resultObject.hospital.detailedAddress == null && data.resultObject.description == null && data.resultObject.description == '') {
+                                    /*if (data.resultObject.hospital.name == null && data.resultObject.hospital.tel == null && data.resultObject.hospital.detailedAddress == null && data.resultObject.description == null && data.resultObject.description == '') {
                                         alert(123);
                                         $(".baseImagenumber").show();
 
-                                    };
+                                    };*/
                                                                     
 
                                 }
