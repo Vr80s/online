@@ -752,7 +752,7 @@ function confirmCourseSale(state,courseApplyId,courseId){
             success: function(data) {
                 closefn();
                 console.log(data);
-                if(data.success === true) {
+                if(data.success == true) {
 //
                     courseList(1);
                     showTip(data.resultObject);
