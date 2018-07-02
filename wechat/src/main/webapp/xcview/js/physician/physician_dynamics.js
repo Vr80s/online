@@ -522,94 +522,13 @@ requestService("/xczh/doctors/doctorStatus", {doctorId:doctorId},function (data)
                                             $(".table").hide();
                                         }else{
 
-                                            /*str=data.resultObject.workTime; //这是一字符串 
-                                            var apm = str.replace('.', '_');
-                                            var apms = apm.split(",");
-                                            // 先把所有的隐藏
-                                            $(".apm img").hide();
-                                            for (var i = 0; i < apms.length; i++) {
-                                                $(".apm"+apms[i]+" img").show();
-                                                // alert("apm"+apms[i]+"")
-                                            };*/
-
-                                            // 上午
-                                            if(str.indexOf(',1.1,') >=0){
-                                                $(".am_monday img").show();
-                                            }else{
-                                                $(".am_monday img").hide();
+                                            var workTime = data.resultObject.workTime; //这是一字符串 
+                                            // workTime = "1.1,3.2";
+                                            var apms = workTime.split(",");   //先分离,获取X--Y
+                                            for(var i in apms){
+                                                var apm = apms[i].split(".");   
+                                                $(".apm"+apm[0]+"_"+apm[1]+" img").show();
                                             }
-                                            if(str.indexOf(",2.1,") >=0){
-                                                $(".am_tuesday img").show();
-                                            }else{
-                                                $(".am_tuesday img").hide();
-                                            }
-                                            if(str.indexOf(",3.1,") >=0){
-                                                $(".am_wednesday img").show();
-                                            }else{
-                                                $(".am_wednesday img").hide();
-                                            }
-                                            if(str.indexOf(",4.1,") >=0){
-                                                $(".am_thursday img").show();
-                                            }else{
-                                                $(".am_thursday img").hide();
-                                            }
-
-                                            if(str.indexOf(",5.1,") >=0){
-                                                $(".am_friday img").show();
-                                            }else{
-                                                $(".am_friday img").hide();
-                                            }
-
-                                            if(str.indexOf(",6.1,") >=0){
-                                                $(".am_saturday img").show();
-                                            }else{
-                                                $(".am_saturday img").hide();
-                                            }
-
-                                            if(str.indexOf(",7.1,") >=0){
-                                                $(".am_sunday img").show();
-                                            }else{
-                                                $(".am_sunday img").hide();
-                                            }
-
-
-                                            // 下午
-                                            if(str.indexOf(',1.2,') >=0){
-                                                $(".pm_mondays img").show();
-                                            }else{
-                                                $(".pm_mondays img").hide();
-                                            }
-                                            if(str.indexOf(",2.2,") >=0){
-                                                $(".pm_tuesdays img").show();
-                                            }else{
-                                                $(".pm_tuesdays img").hide();
-                                            }
-                                            if(str.indexOf(",3.2,") >=0){
-                                                $(".pm_wednesdays img").show();
-                                            }else{
-                                                $(".pm_wednesdays img").hide();
-                                            }
-                                            if(str.indexOf(",4.2,") >=0){
-                                                $(".pm_thursdays img").show();
-                                            }else{
-                                                $(".pm_thursdays img").hide();
-                                            }
-                                            if(str.indexOf(",5.2,") >=0){
-                                                $(".pm_fridays img").show();
-                                            }else{
-                                                $(".pm_fridays img").hide();
-                                            }
-                                            if(str.indexOf(",6.2,") >=0){
-                                                $(".pm_saturdays img").show();
-                                            }else{
-                                                $(".pm_saturdays img").hide();
-                                            }
-                                            if(str.indexOf(",7.2,") >=0){
-                                                $(".pm_sundays img").show();
-                                            }else{
-                                                $(".pm_sundays img").hide();
-                                            }
-
 
                                         };
 

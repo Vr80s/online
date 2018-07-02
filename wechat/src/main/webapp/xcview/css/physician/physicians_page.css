@@ -1946,3 +1946,8 @@ table tr td img{
 .comment_hide{
     overflow: hidden;
 }
+
+
+.apm img{
+	display: none;
+}
