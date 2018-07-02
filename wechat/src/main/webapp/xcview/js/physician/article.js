@@ -1,8 +1,10 @@
 
 $(function(){
 	// var id = 675;
+	var id = getQueryString("articleId");
  	requestGetService("/xczh/article/view",{
- 		id:385
+ 		// id:385
+ 		id:id
  	},function (data) {
 	    if (data.success == true) {
 		  $('#consilia_main_center').html(template('consilia_main_center_id', {items: data.resultObject}));
@@ -15,7 +17,7 @@ $(function(){
 	// 评价信息定义方法--刷新
 	function refresh(){
 		requestGetService("/xczh/article/appraise/list",{
-			articleId: 385,
+			articleId: id,
 	        pageNumber: 1,
 	        pageSize: 20000
 	 	},function (data) {
@@ -24,7 +26,7 @@ $(function(){
 		    
 		    //	回复弹窗
 	        $(".wrap_returned_btn .btn_littleReturn").click(function () {
-	        	alert(55555);
+	        	// alert(55555);
 	            //评价id
 	            criticize_id = this.id;
 	            $(".bg_userModal").show();
@@ -71,7 +73,7 @@ function updatePraise(id, praised) {
 
 
 $(".report_btn").click(function(){
-	alert(11111);
+	// alert(11111);
 	reportComment();
 	
 });
@@ -88,7 +90,7 @@ function reportComment(){
 
     requestService("/xczh/article/appraise", {
         content: comment_detailed,
-        articleId: 385
+        articleId: id
     }, function (data) {
         
         if (data.success == true) {
@@ -110,7 +112,7 @@ function reportComment(){
 
 
 $(".return_btn").click(function(){
-	alert(11111);
+	// alert(11111);
 	replyComment();
 	
 });
@@ -127,7 +129,7 @@ function replyComment() {
     requestService("/xczh/article/appraise", {
 
         content: comment_detailed,
-        articleId: 385,
+        articleId: id,
         replyId: criticize_id
     }, function (data) {
         //	课程名称/等级/评价

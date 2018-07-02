@@ -710,6 +710,16 @@ template.config("escape", false);
         				if(!isBlank(posts[i].pictures)){
         					posts[i].pictures=posts[i].pictures.split(",");
         				}
+//      				给点赞加个字段
+        				posts[i].postsLikes="";
+        				var fabulous= "";
+        				    for(var j=0;j<posts[i].doctorPostsLikeList.length;j++){
+		        				if(!isBlank(posts[i].doctorPostsLikeList[j].userName)){
+		        					fabulous+=posts[i].doctorPostsLikeList[j].userName+"，";
+		        				}
+		        				
+	        				}
+        				    posts[i].postsLikes=fabulous.substr(0,fabulous.length-1);;       				    
         			}
         			
         		}
@@ -862,6 +872,17 @@ template.config("escape", false);
 		        	if(data.success==true){
 		        		var like = {postId:postsId};
 		        		like.list = data.resultObject.list;
+		        		like.postsLikes="";
+        					var fabulous= "";
+			        		for(var i=0;i<like.list.length;i++){
+			        			like.postsLikes
+			        			if(!isBlank(like.list[i].userName)){
+		        					fabulous+=like.list[i].userName+"，";
+		        				}
+			        			
+			        		}
+			        		
+			        		like.postsLikes=fabulous.substr(0,fabulous.length-1);
 						fabulousBox.html(template("fabulous-template", {like:like}));
 						myFabulous();
 						
@@ -875,6 +896,21 @@ template.config("escape", false);
 			        		var like = {postId:postsId};
 			        		like.list = data.resultObject.list;		        	
 			        		like.praise = data.resultObject.praise;
+
+			        		
+			        		
+			        		like.postsLikes="";
+        					var fabulous= "";
+			        		for(var i=0;i<like.list.length;i++){
+			        			like.postsLikes
+			        			if(!isBlank(like.list[i].userName)){
+		        					fabulous+=like.list[i].userName+"，";
+		        				}
+			        			
+			        		}
+			        		
+			        		like.postsLikes=fabulous.substr(0,fabulous.length-1);
+			        		
 							fabulousBox.html(template("fabulous-template", {like:like}));
 							myFabulous();
 			        	}else{
@@ -980,6 +1016,7 @@ template.config("escape", false);
 		$(".banner-main").removeClass("hide");
 		$(".banner-set-wrap").addClass("hide");
 		$(this).text("添加轮播图");
+		resetBanner();
 	}
 })
 
@@ -1060,7 +1097,7 @@ template.config("escape", false);
 			$(".banner-error-style").addClass("hide");
 		}
 //		连接到	
-		if(isBlank(data.linkParam)){
+		if(isBlank(data.linkParam) && data.type != 6){
 			$(".banner-error-link").removeClass("hide");
 			return false;
 		}else{
@@ -1158,11 +1195,16 @@ template.config("escape", false);
         }
         reader.readAsDataURL(this.files[0])
     });
-	var listData = [[],[],[],[]];
+	var listData = [[],[],[],[], [], []];
 //	选择链接类型下拉
 	$(".banner-link-wrap li").click(function(){
 		var linkType=$(this).find("em").attr("data-type");
 		var selectType = null;
+		if (linkType == 6) {
+            $('.J-linkParam-div').hide();
+        } else {
+            $('.J-linkParam-div').show();
+        }
 			if(linkType==1 || linkType==2){
 				if (linkType == 2) {
 					selectType = 1;
@@ -1202,11 +1244,22 @@ template.config("escape", false);
 				       }
 					},false)
 				}
-			}
+			} else if (linkType == 5) {
+                if(listData[linkType-1].length==0){
+                    RequestService("/doctor/regulations/list", "get", null, function (data) {
+                        if (data.success==true) {
+                            var regulations = data.resultObject;
+                            listData[linkType-1] = regulations;
+                        } else{
+
+                        }
+                    },false)
+                }
+            }
 			showSelect(linkType);
 		$(".banner-link-wrap li em").removeClass("active");
 		$(this).find("em").addClass("active");
-	})
+	});
 
 	function showSelect(type){
 		var data = listData[type-1];
@@ -1219,7 +1272,11 @@ template.config("escape", false);
 			name="专栏";
 		}else if(type==4){
 			name="医案";
-		}
+		} else if (type == 5) {
+		    name = "招生简章";
+        } else {
+		    return ;
+        }
         var str="<option value=''>选择一个"+name+"</option>";
         
         for(var i=0;data.length>i;i++){

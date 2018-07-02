@@ -165,6 +165,11 @@ public class MedicalDoctorPosts extends Model<MedicalDoctorPosts> {
      */
     @TableField(exist = false)
     private String articleImgPath;
+    /**
+     * 时间显示
+     */
+    @TableField(exist = false)
+    private String dateStr;
 
     @Override
     protected Serializable pkVal() {
@@ -403,6 +408,14 @@ public class MedicalDoctorPosts extends Model<MedicalDoctorPosts> {
         this.courseAddress = courseAddress;
     }
 
+    public String getDateStr() {
+        return dateStr;
+    }
+
+    public void setDateStr(String dateStr) {
+        this.dateStr = dateStr;
+    }
+
     @Override
     public String toString() {
         return "MedicalDoctorPosts{" +
@@ -419,7 +432,23 @@ public class MedicalDoctorPosts extends Model<MedicalDoctorPosts> {
                 ", doctorId='" + doctorId + '\'' +
                 ", updateTime=" + updateTime +
                 ", courseId=" + courseId +
+                ", articleId=" + articleId +
                 ", stick=" + stick +
+                ", currentPrice=" + currentPrice +
+                ", gradeName='" + gradeName + '\'' +
+                ", smallImgPath='" + smallImgPath + '\'' +
+                ", collection=" + collection +
+                ", startTime=" + startTime +
+                ", courseAddress='" + courseAddress + '\'' +
+                ", courseType=" + courseType +
+                ", doctorPostsCommentList=" + doctorPostsCommentList +
+                ", doctorPostsLikeList=" + doctorPostsLikeList +
+                ", isPraise=" + isPraise +
+                ", articleContent='" + articleContent + '\'' +
+                ", typeId=" + typeId +
+                ", articleTitle='" + articleTitle + '\'' +
+                ", articleImgPath='" + articleImgPath + '\'' +
+                ", dateStr='" + dateStr + '\'' +
                 '}';
     }
 }

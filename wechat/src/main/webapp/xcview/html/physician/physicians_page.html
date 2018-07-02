@@ -26,6 +26,14 @@
 
 <!-- 直播间数据引入 -->
 <script type="text/javascript" src="/xcview/js/physician/broadcastroom.js"></script>
+<!--公用弹框 -->
+<link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
+<script type="text/javascript" src="/xcview/js/common/alertPopShow.js"></script>
+<!--刷新 -->
+<link rel="stylesheet" href="/xcview/css/mescroll.min.css">
+<script type="text/javascript" src="/xcview/js/common/mescroll.min.js"></script>
+<!--刷新css引入-->
+<link rel="stylesheet" href="/xcview/css/mui.min.css">
 
 <!-- 表情包聊天引入 -->
 <link href="/xcview/html/physician/css/webiaoqing.css" rel="stylesheet" type="text/css">
@@ -44,6 +52,16 @@
 </script>
 
 <style>
+	.physicians_page_mains {
+		position: fixed;
+		top: 0;
+		left: 50%;
+		margin-left: -3.75rem;
+	}
+	.mui-pull-bottom-pocket .mui-pull{
+		bottom: -0.8rem !important;
+	}
+
 	/*轮播开始*/
 	.swiper-container{
 		width: 7.5rem !important;
@@ -161,7 +179,36 @@
 	.rests_nav{
 		background: none;
 	}
+	/*处理刷新效果*/
+	.mui-scroll-wrapper{
+		top: 1.1rem;
 
+	}
+	.mui-pull-top-pocket{
+		top: 0;
+	}
+	.mui-scroll-wrapper{
+		height: 100%;
+	    position: fixed;
+	    top: 5.4rem;
+	}
+	.mui-pull-bottom-pocket .mui-pull{
+		bottom: 1rem;
+	}
+	.bought_main{
+		padding-bottom: 0.6rem;
+	}
+	.mui-pull-bottom-pocket .mui-pull{
+		bottom: 0rem;
+		height: 40px;
+		line-height: 40px;
+	}
+	.mui-pull-bottom-pocket{
+		position: relative;
+		bottom: 1rem;
+		height: 40px;
+		line-height: 40px;
+	}
 </style>
 
 </head>
@@ -259,7 +306,10 @@
 	<!-- 中间内容开始 -->
 	<div class="the_dynamic">
 		<!-- 其他一 -->
+		<div id="refreshContainer" class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">
 		<div class="rests_nav">
+
 			<script type="text/html" id="wrap_doctor_dynamics">
 				{{each items as item i}}
 				{{if item.type == 1}}
@@ -308,7 +358,7 @@
 				</div>
 				{{else if item.typeId != null && item.typeId != 8}}
 				<!-- 文章-->
-				<div class="article_hide">
+				<div class="article_hide" onclick="articleDetails('{{item.articleId}}')">
 					<div class="article_nav_span comment_hide">
 						{{if item.stick}}
 						<span class="stick_img_stick"><img src="/xcview/images/stick.png" alt="" />置顶</span>
@@ -323,13 +373,13 @@
 				</div>
 				{{else if item.type == 5}}
 				<!-- 课程-->
-				<div class="course_hide">
+				<div class="course_hide" onclick="common_jump_all('{{item.courseId}}')">
 					<div class="course_nav_span comment_hide" style="font-size: 0.3rem;color: #333333;">
 						{{if item.stick}}
 						<span class="stick_img_stick"><img src="/xcview/images/stick.png" alt="" />置顶</span>
 						{{/if}}
 						{{item.title}}
-						
+
 						<div class="both"></div>
 					</div>
 					<div class="both"></div>
@@ -365,16 +415,15 @@
 
 				</div>
 				<div class="consilia_nav_btn"><span>收起</span></div>
-				<div class="consilia_nav_cen comment_hide">
+				<div class="consilia_nav_cen comment_hide" onclick="consiliaDetails('{{item.articleId}}')">
 					<img src="{{item.articleImgPath}}" alt="" />
 					<div class="consilia_nav_cen_size">{{item.articleContent}}</div>
 				</div>
 				<div class="both"></div>
 				{{/if}}
 				<div class="rests_nav_bottom ">
-					{{if item.createTime < item.now}}
-					<span class="time">6小时前
 
+					<span class="time">{{item.dateStr}}
 					{{if item.typeId==8}}
 						<span class="basis_tips">医案</span>
 					{{else if item.articleId!= null}}
@@ -389,23 +438,6 @@
 						<span class="basis_tips">线下课</span>
 					{{/if}}
 					</span>
-					{{else}}
-					<span class="time">{{item.createTime}}
-					{{if item.typeId==8}}
-						<span class="basis_tips">医案</span>
-					{{else if item.articleId!= null}}
-						<span class="basis_tips">文章</span>
-					{{else if item.courseId != null && item.courseType == 1}}
-						<span class="basis_tips">线上课</span>
-					{{else if item.courseId != null && item.courseType == 2}}
-						<span class="basis_tips">线上课</span>
-					{{else if item.courseId != null && item.courseType == 3}}
-						<span class="basis_tips">直播课</span>
-					{{else if item.courseId != null && item.courseType == 4}}
-						<span class="basis_tips">线下课</span>
-					{{/if}}
-					</span>
-					{{/if}}
 
 					{{if item.isPraise}}
 					<span class="img"><img src="/xcview/images/zan001.png" alt="" class="zan_img" data-id="{{item.id}}"/><img src="/xcview/images/returned.png" alt="" class="evaluate_img" data-id="{{item.id}}"/></span>
@@ -452,6 +484,14 @@
 				{{/each}}
 			</script>
 		</div>
+
+				</div></div>
+
+
+
+
+
+
 
 		<!-- 删除样式开始 -->
 			<div class="remove">
@@ -979,10 +1019,11 @@ $(window).bind("scroll", function() {
 		    $(".essay_main").addClass("essay_pack_up_add");
 	    });
 
-
+	    // 点击全部动态
 		$(".li_data").click(function(){
 			$(".anchor_navigation .border").css("left","1.04rem");
 			$(".li_data").addClass("li_color");
+			$(".physicians_page_main").addClass("physicians_page_mains");
 			$(".li_course").removeClass("li_color");
 			$(".li_evaluate").removeClass("li_color");
 			$(".li_data_hide").removeClass("hide");
@@ -995,11 +1036,14 @@ $(window).bind("scroll", function() {
 			$(".the_dynamic").show();   //全部动态隐藏
 			$(".message_referral").hide();   //介绍结束
 		});
+
+		// 点击直播间
 		$(".li_course").click(function(){
 			$(".anchor_navigation .border").css("left","3.5rem");
 			$(".li_data").removeClass("li_color");
 			$(".li_course").addClass("li_color");
 			$(".li_evaluate").removeClass("li_color");
+			$(".physicians_page_main").removeClass("physicians_page_mains");
 			$(".li_data_hide").addClass("hide");
 			$(".li_course_hide").removeClass("hide");
 			$(".li_evaluate_hide").addClass("hide");
@@ -1012,11 +1056,13 @@ $(window).bind("scroll", function() {
 			$(".message_referral").hide();  //介绍结束
 			// $(".broadcastroom").show();
 		});
+		// 点击介绍
 		$(".li_evaluate").click(function(){
 			$(".anchor_navigation .border").css("left","5.94rem");
 			$(".li_data").removeClass("li_color");
 			$(".li_course").removeClass("li_color");
 			$(".li_evaluate").addClass("li_color");
+			$(".physicians_page_main").removeClass("physicians_page_mains");
 			$(".li_data_hide").addClass("hide");
 			$(".li_course_hide").addClass("hide");
 			$(".li_evaluate_hide").removeClass("hide");
@@ -1247,5 +1293,17 @@ $(window).bind("scroll", function() {
     	$(".remove_copy").hide();
     });
 </script>
+<script type="text/javascript">
+	// window.onload = function(){
 
+		$(function(){
+			var school_height=$(window).height()-$(".swiper-container").height()-$(".referral").height()-$("#mainMenuBar").height();
+		$("#refreshContainer").height(school_height);
+		});
+//		处理底部高度
+		/*var school_height=$(window).height()-$(".swiper-container").height()-$(".referral").height()-$("#mainMenuBar").height();
+		$("#refreshContainer").height(school_height);*/
+		// alert(school_height);
+	// };
+</script>
 </html>

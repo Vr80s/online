@@ -2,6 +2,9 @@ package com.xczhihui.bxg.online.web.controller.medical;
 
 import javax.validation.Valid;
 
+import com.xczhihui.medical.doctor.model.MedicalDoctorPosts;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsService;
+import com.xczhihui.medical.doctor.vo.OeBxsArticleVO;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +31,8 @@ public class DoctorArticleController extends AbstractFtlController {
     private IMedicalDoctorBusinessService medicalDoctorBusinessService;
     @Autowired
     private IMedicalDoctorArticleService medicalDoctorArticleService;
+    @Autowired
+    private IMedicalDoctorPostsService medicalDoctorPostsService;
 
     @RequestMapping(value = "specialColumn", method = RequestMethod.POST)
     public ResponseObject saveSpecialColumn(@Valid @RequestBody DoctorArticleBody doctorArticleBody) {
@@ -85,6 +90,22 @@ public class DoctorArticleController extends AbstractFtlController {
     @RequestMapping(value = "specialColumn/{id}/{status}", method = RequestMethod.PUT)
     public ResponseObject changeStatus(@PathVariable String id, @PathVariable int status) {
         if (medicalDoctorArticleService.updateSpecialColumnStatus(id, status)) {
+            if(status==1){
+                String userId = getUserId();
+                String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(userId);
+                OeBxsArticleVO oba = medicalDoctorArticleService.getSpecialColumn(id);
+                //更新动态
+                MedicalDoctorPosts mdp = new MedicalDoctorPosts();
+                mdp.setContent(oba.getTitle());
+                mdp.setType(4);
+                mdp.setTitle(oba.getTitle());
+                mdp.setDoctorId(doctorId);
+                mdp.setArticleId(Integer.valueOf(id));
+                mdp.setArticleContent(oba.getContent());
+                mdp.setArticleImgPath(oba.getImgPath());
+                mdp.setArticleTitle(oba.getTitle());
+                medicalDoctorPostsService.addMedicalDoctorPosts(mdp);
+            }
             return ResponseObject.newSuccessResponseObject("操作成功");
         } else {
             return ResponseObject.newErrorResponseObject("更新状态失败");
@@ -144,6 +165,20 @@ public class DoctorArticleController extends AbstractFtlController {
         String userId = getUserId();
         String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(userId);
         if (medicalDoctorArticleService.updateReportStatus(id, status)) {
+            if(status ==1){
+                OeBxsArticleVO oba = medicalDoctorArticleService.getSpecialColumn(id);
+                //更新动态
+                MedicalDoctorPosts mdp = new MedicalDoctorPosts();
+                mdp.setContent(oba.getTitle());
+                mdp.setType(4);
+                mdp.setTitle(oba.getTitle());
+                mdp.setDoctorId(doctorId);
+                mdp.setArticleId(Integer.valueOf(id));
+                mdp.setArticleContent(oba.getContent());
+                mdp.setArticleImgPath(oba.getImgPath());
+                mdp.setArticleTitle(oba.getTitle());
+                medicalDoctorPostsService.addMedicalDoctorPosts(mdp);
+            }
             return ResponseObject.newSuccessResponseObject("操作成功");
         } else {
             return ResponseObject.newErrorResponseObject("操作失败");

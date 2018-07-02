@@ -19,7 +19,7 @@ a{
 }
 .physicians_page_main{
 	width: 7.5rem;
-	height: 100%;
+	/*height: 100%;*/
 	margin: 0 auto;
 }
 .hide{
@@ -1934,3 +1934,9 @@ table tr td img{
 	text-indent: 0.4rem;
 }
 /*点击回复出现删除复制结束*/
+
+
+/*文章置顶处理*/
+.comment_hide{
+    overflow: hidden;
+}

@@ -255,7 +255,7 @@ public class CourseVo extends OnlineBaseVo {
     private Integer multimediaType;
     private int onlineCourse;
     private String address;
-    private int liveSource;
+    private Integer liveSource;
     private String realProvince;
     private String realCitys;
     private String realCounty;
@@ -908,7 +908,7 @@ public class CourseVo extends OnlineBaseVo {
         return liveSource;
     }
 
-    public void setLiveSource(int liveSource) {
+    public void setLiveSource(Integer liveSource) {
         this.liveSource = liveSource;
     }
 
