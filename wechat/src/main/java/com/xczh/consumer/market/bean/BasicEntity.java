@@ -5,81 +5,80 @@ import java.util.Date;
 
 public abstract class BasicEntity implements Serializable {
 
-	/**
-	 * 唯一标识
-	 */
-	private String id;
+    /**
+     * 唯一标识
+     */
+    private String id;
 
-	
-	
-	/**
-	 * 实体是否删除
-	 */
-	private boolean isDelete;
 
-	/**
-	 * 创建人ID
-	 */
-	private String createPerson;
+    /**
+     * 实体是否删除
+     */
+    private boolean isDelete;
 
-	/**
-	 * 创建时间
-	 */
-	private Date createTime;
-	
-	private String userId;
-	
-	private String orderId;
+    /**
+     * 创建人ID
+     */
+    private String createPerson;
 
-	public String getId() {
-		return id;
-	}
+    /**
+     * 创建时间
+     */
+    private Date createTime;
 
-	public void setId(String id) {
-		setUserId(id);
-		setOrderId(id);
-		this.id = id;
-	}
+    private String userId;
 
-	public boolean isDelete() {
-		return isDelete;
-	}
+    private String orderId;
 
-	public void setDelete(boolean isDelete) {
-		this.isDelete = isDelete;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public String getCreatePerson() {
-		return createPerson;
-	}
+    public void setId(String id) {
+        setUserId(id);
+        setOrderId(id);
+        this.id = id;
+    }
 
-	public void setCreatePerson(String createPerson) {
-		this.createPerson = createPerson;
-	}
+    public boolean isDelete() {
+        return isDelete;
+    }
 
-	public Date getCreateTime() {
-		return createTime;
-	}
+    public void setDelete(boolean isDelete) {
+        this.isDelete = isDelete;
+    }
 
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
+    public String getCreatePerson() {
+        return createPerson;
+    }
 
-	public String getUserId() {
-		return userId;
-	}
+    public void setCreatePerson(String createPerson) {
+        this.createPerson = createPerson;
+    }
 
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
+    public Date getCreateTime() {
+        return createTime;
+    }
 
-	public String getOrderId() {
-		return orderId;
-	}
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
 
-	public void setOrderId(String orderId) {
-		this.orderId = orderId;
-	}
-	
-	
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
+
+
 }

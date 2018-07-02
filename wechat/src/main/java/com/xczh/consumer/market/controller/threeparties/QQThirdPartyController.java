@@ -29,10 +29,8 @@ import com.qq.connect.utils.RandomStatusGenerator;
 import com.qq.connect.utils.http.HttpClient;
 import com.qq.connect.utils.http.PostParameter;
 import com.xczh.consumer.market.bean.OnlineUser;
-import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczhihui.common.util.CodeUtil;
 import com.xczhihui.common.util.enums.ThirdPartyType;
 import com.xczhihui.common.util.enums.TokenExpires;
 import com.xczhihui.common.util.enums.UserUnitedStateType;
@@ -54,15 +52,13 @@ public class QQThirdPartyController {
     private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(QQThirdPartyController.class);
 
     private static final Pattern UNION_ID_PATTERN = Pattern.compile("\"unionid\"\\s*:\\s*\"(\\w+)\"");
-
+    protected HttpClient client = new HttpClient();
     @Autowired
     private OnlineUserService onlineUserService;
     @Autowired
     private IThreePartiesLoginService threePartiesLoginService;
     @Autowired
     private UserCenterService userCenterAPI;
-    protected HttpClient client = new HttpClient();
-
     @Value("${returnOpenidUri}")
     private String returnOpenidUri;
 
@@ -105,8 +101,8 @@ public class QQThirdPartyController {
                     // 利用获取到的accessToken 去获取当前用户的openid --------- end
                     UserInfo qzoneUserInfo = new UserInfo(accessToken, openID);
                     UserInfoBean userInfoBean = qzoneUserInfo.getUserInfo();
-                    
-                    QQClientUserMapping qq = new QQClientUserMapping(userInfoBean,openID);
+
+                    QQClientUserMapping qq = new QQClientUserMapping(userInfoBean, openID);
 
                     threePartiesLoginService.saveQQClientUserMapping(qq);
 
@@ -153,18 +149,18 @@ public class QQThirdPartyController {
     @RequestMapping(value = "appEvokeQQRedirect")
     @ResponseBody
     public ResponseObject appEvokeQQRedirect(HttpServletRequest request,
-             HttpServletResponse res,@RequestParam("accessToken") String accessToken,
-             @RequestParam("openId") String openId,@RequestParam("model") String model) throws Exception {
-    	
+                                             HttpServletResponse res, @RequestParam("accessToken") String accessToken,
+                                             @RequestParam("openId") String openId, @RequestParam("model") String model) throws Exception {
+
         String userId = request.getParameter("userId");
         if (StringUtils.isNotBlank(userId)) {
             OnlineUser ou = onlineUserService.findUserById(userId);
             if (ou == null) {
                 return ResponseObject.newErrorResponseObject("获取用户信息有误");
             }
-            QQClientUserMapping  qqUser =threePartiesLoginService.selectQQClientUserMappingByUserId(userId);
-            if(qqUser!=null) {
-            	return ResponseObject.newErrorResponseObject("用户已绑定过QQ号");
+            QQClientUserMapping qqUser = threePartiesLoginService.selectQQClientUserMappingByUserId(userId);
+            if (qqUser != null) {
+                return ResponseObject.newErrorResponseObject("用户已绑定过QQ号");
             }
         }
 
@@ -178,8 +174,8 @@ public class QQThirdPartyController {
             if (qqUser == null) {   //保存qq用户
                 UserInfoBean userInfoBean = this.getUserInfo(accessToken, openId);
 
-                QQClientUserMapping qq = new QQClientUserMapping(userInfoBean,openId);
-                
+                QQClientUserMapping qq = new QQClientUserMapping(userInfoBean, openId);
+
                 //用户id不等于null时，就判定用户第三方登录是通过手机号来绑定 第三方登录信息的
                 if (StringUtils.isNotBlank(userId)) {  // 绑定成功
                     qq.setUserId(userId);

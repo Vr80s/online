@@ -5,7 +5,7 @@ import java.util.Date;
 //WX red pack definition；
 public class SendRedPack {
 
-	private String rp_id; 
+    private String rp_id;
     private String nonce_str;// 随机字符串
     private String sign;// 签名
     private String mch_billno;// 商户订单号
@@ -28,16 +28,19 @@ public class SendRedPack {
     private String share_url;
     private String share_imgurl;
     private Date create_time = new Date();
-    
+    private String return_code;
+    private String result_code;
+    private String return_msg;
+
     public String getRp_id() {
-		return rp_id;
-	}
+        return rp_id;
+    }
 
-	public void setRp_id(String rp_id) {
-		this.rp_id = rp_id;
-	}
+    public void setRp_id(String rp_id) {
+        this.rp_id = rp_id;
+    }
 
-	public int getTotal_amount() {
+    public int getTotal_amount() {
         return total_amount;
     }
 
@@ -141,105 +144,101 @@ public class SendRedPack {
         this.remark = remark;
     }
 
-	public String getSub_mch_id() {
-		return sub_mch_id;
-	}
+    public String getSub_mch_id() {
+        return sub_mch_id;
+    }
 
-	public void setSub_mch_id(String sub_mch_id) {
-		this.sub_mch_id = sub_mch_id;
-	}
+    public void setSub_mch_id(String sub_mch_id) {
+        this.sub_mch_id = sub_mch_id;
+    }
 
-	public String getNick_name() {
-		return nick_name;
-	}
+    public String getNick_name() {
+        return nick_name;
+    }
 
-	public void setNick_name(String nick_name) {
-		this.nick_name = nick_name;
-	}
+    public void setNick_name(String nick_name) {
+        this.nick_name = nick_name;
+    }
 
-	public int getMin_value() {
-		return min_value;
-	}
+    public int getMin_value() {
+        return min_value;
+    }
 
-	public void setMin_value(int min_value) {
-		this.min_value = min_value;
-	}
+    public void setMin_value(int min_value) {
+        this.min_value = min_value;
+    }
 
-	public int getMax_value() {
-		return max_value;
-	}
+    public int getMax_value() {
+        return max_value;
+    }
 
-	public void setMax_value(int max_value) {
-		this.max_value = max_value;
-	}
+    public void setMax_value(int max_value) {
+        this.max_value = max_value;
+    }
 
-	public String getLogo_imgurl() {
-		return logo_imgurl;
-	}
+    public String getLogo_imgurl() {
+        return logo_imgurl;
+    }
 
-	public void setLogo_imgurl(String logo_imgurl) {
-		this.logo_imgurl = logo_imgurl;
-	}
+    public void setLogo_imgurl(String logo_imgurl) {
+        this.logo_imgurl = logo_imgurl;
+    }
 
-	public String getShare_content() {
-		return share_content;
-	}
+    public String getShare_content() {
+        return share_content;
+    }
 
-	public void setShare_content(String share_content) {
-		this.share_content = share_content;
-	}
+    public void setShare_content(String share_content) {
+        this.share_content = share_content;
+    }
 
-	public String getShare_url() {
-		return share_url;
-	}
+    public String getShare_url() {
+        return share_url;
+    }
 
-	public void setShare_url(String share_url) {
-		this.share_url = share_url;
-	}
+    public void setShare_url(String share_url) {
+        this.share_url = share_url;
+    }
 
-	public String getShare_imgurl() {
-		return share_imgurl;
-	}
+    public String getShare_imgurl() {
+        return share_imgurl;
+    }
 
-	public void setShare_imgurl(String share_imgurl) {
-		this.share_imgurl = share_imgurl;
-	}
+    public void setShare_imgurl(String share_imgurl) {
+        this.share_imgurl = share_imgurl;
+    }
 
-	public Date getCreate_time() {
-		return create_time;
-	}
+    public Date getCreate_time() {
+        return create_time;
+    }
 
-	public void setCreate_time(Date create_time) {
-		this.create_time = create_time;
-	}
-	
-	private String return_code;
-	private String result_code;
-	private String return_msg;
-		
-	public String getReturn_code() {
-		return return_code;
-	}
+    public void setCreate_time(Date create_time) {
+        this.create_time = create_time;
+    }
 
-	public void setReturn_code(String return_code) {
-		this.return_code = return_code;
-	}
+    public String getReturn_code() {
+        return return_code;
+    }
 
-	public String getResult_code() {
-		return result_code;
-	}
-	
-	public void setResult_code(String result_code) {
-		this.result_code = result_code;
-	}
+    public void setReturn_code(String return_code) {
+        this.return_code = return_code;
+    }
 
-	public String getReturn_msg() {
-		return return_msg;
-	}
+    public String getResult_code() {
+        return result_code;
+    }
 
-	public void setReturn_msg(String return_msg) {
-		this.return_msg = return_msg;
-	}	
-	
+    public void setResult_code(String result_code) {
+        this.result_code = result_code;
+    }
+
+    public String getReturn_msg() {
+        return return_msg;
+    }
+
+    public void setReturn_msg(String return_msg) {
+        this.return_msg = return_msg;
+    }
+
 }
 

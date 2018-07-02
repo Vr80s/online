@@ -19,13 +19,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.WeihouInterfacesListUtil;
-import com.xczhihui.common.util.enums.CourseType;
 import com.xczhihui.course.service.*;
-import com.xczhihui.course.service.ICourseService;
-import com.xczhihui.course.service.ICriticizeService;
-import com.xczhihui.course.service.IFocusService;
-import com.xczhihui.course.service.IMobileBannerService;
-import com.xczhihui.course.service.IWatchHistoryService;
 import com.xczhihui.course.util.CourseUtil;
 import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.medical.anchor.service.ICourseApplyService;
@@ -41,16 +35,12 @@ import com.xczhihui.medical.anchor.service.ICourseApplyService;
 @RequestMapping("/xczh/course")
 public class CourseController {
     private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(CourseController.class);
-
-    @Autowired
-    private ICourseService courseServiceImpl;
-
-    @Autowired
-    private IMobileBannerService mobileBannerService;
-
     @Autowired
     public IWatchHistoryService watchHistoryServiceImpl;
-
+    @Autowired
+    private ICourseService courseServiceImpl;
+    @Autowired
+    private IMobileBannerService mobileBannerService;
     @Autowired
     @Qualifier("focusServiceRemote")
     private IFocusService focusServiceRemote;
@@ -63,10 +53,10 @@ public class CourseController {
 
     @Autowired
     private ICourseApplyService courseApplyService;
-    
+
     @Autowired
     private ICriticizeService criticizeService;
-    
+
     /**
      * Description：用户当前课程状态   User current course status.
      * 用户判断用户是否购买了这个课程
@@ -89,12 +79,12 @@ public class CourseController {
              * 如果是免费的  判断是否学习过
 			 */
             if (cv != null && cv.getWatchState() == 1) { // 免费课程
-            	Integer falg = criticizeService.hasCourse(accountId, courseId);
-                if (falg>0) { // 如果购买过返回true 如果没有购买返回false
+                Integer falg = criticizeService.hasCourse(accountId, courseId);
+                if (falg > 0) { // 如果购买过返回true 如果没有购买返回false
                     cv.setLearning(1);
                 }
             }
-            
+
         } else {
             cv = courseServiceImpl.selectCurrentCourseStatus(courseId);
         }
@@ -141,7 +131,7 @@ public class CourseController {
             if (isFours != 0) {
                 cv.setIsFocus(1);
             }
-            
+
             Integer falg = criticizeService.hasCourse(accountId, courseId);
             //如果是付费课程，判断这个课程是否已经被购买了
             if (cv.getWatchState() == 0) { // 付费课程
@@ -215,9 +205,8 @@ public class CourseController {
                     cv.setLearning(1);
                 }
             }
-            
-            
-            
+
+
         }
         return ResponseObject.newSuccessResponseObject(cv);
     }
@@ -333,6 +322,6 @@ public class CourseController {
         page.setCurrent(0);
         page.setSize(pageSize);
 
-        return ResponseObject.newSuccessResponseObject(courseServiceImpl.selectCourseByLearndCount(page,1));
+        return ResponseObject.newSuccessResponseObject(courseServiceImpl.selectCourseByLearndCount(page, 1));
     }
 }

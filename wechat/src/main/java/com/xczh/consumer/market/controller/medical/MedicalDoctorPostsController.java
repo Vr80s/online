@@ -1,25 +1,25 @@
 package com.xczh.consumer.market.controller.medical;
 
-import com.baomidou.mybatisplus.plugins.Page;
-import com.xczh.consumer.market.auth.Account;
-import com.xczh.consumer.market.service.OLAttachmentCenterService;
-import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczhihui.medical.doctor.model.MedicalDoctorAccount;
-import com.xczhihui.medical.doctor.model.MedicalDoctorPosts;
-import com.xczhihui.medical.doctor.service.IMedicalDoctorAccountService;
-import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsService;
+import java.util.Optional;
+
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.io.IOException;
-import java.util.Optional;
+import com.baomidou.mybatisplus.plugins.Page;
+import com.xczh.consumer.market.auth.Account;
+import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczhihui.medical.doctor.model.MedicalDoctorPosts;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsService;
 
 /**
  * Description：医师控制器
  * creed: Talk is cheap,show me the code
+ *
  * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
  * @Date: 2018/6/20 14:48
  **/
@@ -27,11 +27,10 @@ import java.util.Optional;
 @RequestMapping("/doctor/posts")
 public class MedicalDoctorPostsController {
 
-    @Autowired
-    private IMedicalDoctorPostsService medicalDoctorPostsService;
-
     private static final org.slf4j.Logger LOGGER = LoggerFactory
             .getLogger(MedicalDoctorPostsController.class);
+    @Autowired
+    private IMedicalDoctorPostsService medicalDoctorPostsService;
 
     /**
      * 医师动态列表
@@ -40,12 +39,12 @@ public class MedicalDoctorPostsController {
     @ResponseBody
     public ResponseObject doctorPostsList(@Account(optional = true) Optional<String> accountIdOpt, @RequestParam("pageNumber") Integer pageNumber,
                                           @RequestParam("pageSize") Integer pageSize,
-                                          @RequestParam(required = false) Integer type, @RequestParam("doctorId") String doctorId){
-        String  userId = accountIdOpt.isPresent() ? accountIdOpt.get() : "";
+                                          @RequestParam(required = false) Integer type, @RequestParam("doctorId") String doctorId) {
+        String userId = accountIdOpt.isPresent() ? accountIdOpt.get() : "";
         Page<MedicalDoctorPosts> page = new Page<>();
         page.setCurrent(pageNumber);
         page.setSize(pageSize);
-        Page<MedicalDoctorPosts> list = medicalDoctorPostsService.selectMedicalDoctorPostsPage(page,type,doctorId,userId);
+        Page<MedicalDoctorPosts> list = medicalDoctorPostsService.selectMedicalDoctorPostsPage(page, type, doctorId, userId);
         return ResponseObject.newSuccessResponseObject(list);
     }
 

@@ -22,7 +22,7 @@ import com.xczhihui.course.service.IOrderService;
 @RequestMapping("/xczh/order")
 public class MyOrderController {
 
-	
+
     @Autowired
     private IOrderService orderService;
 
@@ -59,16 +59,17 @@ public class MyOrderController {
     @RequestMapping(value = "getByOrderId")
     @ResponseBody
     public ResponseObject getOnlineOrderByOrderId(@Account String accountId,
-            @RequestParam("orderId") String orderId) throws Exception {
+                                                  @RequestParam("orderId") String orderId) throws Exception {
         Order order = orderService.getOrderIncludeCourseInfoByOrderId(orderId);
-        if(order!=null) {
-        	order.setActualPay(order.getActualPay()*10);
+        if (order != null) {
+            order.setActualPay(order.getActualPay() * 10);
         }
         return ResponseObject.newSuccessResponseObject(order);
     }
 
     /**
      * 判断订单是否支付成功
+     *
      * @param orderId
      * @return
      */
@@ -88,6 +89,7 @@ public class MyOrderController {
 
     /**
      * 查看此订单是否已经支付,并提示信息
+     *
      * @param orderId
      * @return
      * @throws Exception
@@ -95,23 +97,23 @@ public class MyOrderController {
     @RequestMapping(value = "orderIsExitCourseIsBuy")
     @ResponseBody
     public ResponseObject orderIsExitCourseIsBuy(
-    		String orderId) throws Exception {
-        
-    	ResponseObject ro  = new ResponseObject();
-    	
-    	// 支付状态 0:未支付 1:已支付 2:已关闭 
-    	Order order =  orderService.getOrderById(orderId);
-        if(order!=null && order.getOrderStatus()!=null && order.getOrderStatus().equals(OrderStatus.PAID.getCode())) {
-        	ro.setSuccess(false);
-        	ro.setErrorMessage("已支付,请您查看已购课程");
-        	return ro;
-        }else if(order!=null && order.getOrderStatus()!=null && order.getOrderStatus().equals(OrderStatus.CLOSED.getCode())){
-        	ro.setSuccess(false);
-        	ro.setErrorMessage("已关闭,请您在PC端查看订单");
-        	return ro;
+            String orderId) throws Exception {
+
+        ResponseObject ro = new ResponseObject();
+
+        // 支付状态 0:未支付 1:已支付 2:已关闭
+        Order order = orderService.getOrderById(orderId);
+        if (order != null && order.getOrderStatus() != null && order.getOrderStatus().equals(OrderStatus.PAID.getCode())) {
+            ro.setSuccess(false);
+            ro.setErrorMessage("已支付,请您查看已购课程");
+            return ro;
+        } else if (order != null && order.getOrderStatus() != null && order.getOrderStatus().equals(OrderStatus.CLOSED.getCode())) {
+            ro.setSuccess(false);
+            ro.setErrorMessage("已关闭,请您在PC端查看订单");
+            return ro;
         }
         ro.setSuccess(true);
-    	ro.setErrorMessage("请继续支付");
-    	return ro;
+        ro.setErrorMessage("请继续支付");
+        return ro;
     }
 }

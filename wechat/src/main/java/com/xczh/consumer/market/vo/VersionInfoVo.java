@@ -39,7 +39,7 @@ public class VersionInfoVo implements Serializable {
     }
 
     public void setIsMustUpdate(Boolean isMustUpdate) {
-    	this.isMustUpdate = isMustUpdate;
+        this.isMustUpdate = isMustUpdate;
     }
 
     public Boolean getIsUpdate() {
@@ -58,13 +58,13 @@ public class VersionInfoVo implements Serializable {
         this.filename = filename;
     }
 
-	public String getDescribe() {
-		return describe;
-	}
+    public String getDescribe() {
+        return describe;
+    }
 
-	public void setDescribe(String describe) {
-		this.describe = describe;
-	}
-    
-    
+    public void setDescribe(String describe) {
+        this.describe = describe;
+    }
+
+
 }

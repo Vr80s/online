@@ -61,7 +61,6 @@ public interface OnlineUserService {
     void updateUserLoginName(OnlineUser o) throws SQLException;
 
 
-
     /**
      * Description：验证手机号是否已经注册
      *
@@ -73,6 +72,7 @@ public interface OnlineUserService {
 
     /**
      * 保存微信信息
+     *
      * @param code
      * @return
      */

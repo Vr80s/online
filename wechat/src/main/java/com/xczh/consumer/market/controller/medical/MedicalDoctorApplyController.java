@@ -33,17 +33,14 @@ import com.xczhihui.medical.doctor.service.IMedicalDoctorApplyService;
 @RequestMapping("/xczh/medical")
 public class MedicalDoctorApplyController {
 
-    @Autowired
-    private IMedicalDoctorApplyService medicalDoctorApplyService;
-
-    @Autowired
-    private OLAttachmentCenterService service;
-
-    @Autowired
-    private ICommonService commonServiceImpl;
-
     private static final org.slf4j.Logger LOGGER = LoggerFactory
             .getLogger(MedicalDoctorApplyController.class);
+    @Autowired
+    private IMedicalDoctorApplyService medicalDoctorApplyService;
+    @Autowired
+    private OLAttachmentCenterService service;
+    @Autowired
+    private ICommonService commonServiceImpl;
 
     /**
      * 医师认证
@@ -53,13 +50,13 @@ public class MedicalDoctorApplyController {
     @RequestMapping("addDoctorApply")
     @ResponseBody
     public ResponseObject addDoctorApply(@Account String accountId,
-            HttpServletRequest req,
-            HttpServletResponse res,
-            MedicalDoctorApply medicalDoctorApply,
-            @RequestParam(value = "cardPositiveFile",required = false) MultipartFile cardPositiveFile,
-            @RequestParam(value = "cardNegativeFile",required = false) MultipartFile cardNegativeFile,
-            @RequestParam("qualificationCertificateFile") MultipartFile qualificationCertificateFile,
-            @RequestParam("professionalCertificateFile") MultipartFile professionalCertificateFile)
+                                         HttpServletRequest req,
+                                         HttpServletResponse res,
+                                         MedicalDoctorApply medicalDoctorApply,
+                                         @RequestParam(value = "cardPositiveFile", required = false) MultipartFile cardPositiveFile,
+                                         @RequestParam(value = "cardNegativeFile", required = false) MultipartFile cardNegativeFile,
+                                         @RequestParam("qualificationCertificateFile") MultipartFile qualificationCertificateFile,
+                                         @RequestParam("professionalCertificateFile") MultipartFile professionalCertificateFile)
             throws Exception {
 
         LOGGER.info("--------------------医师认证开始"
@@ -68,7 +65,7 @@ public class MedicalDoctorApplyController {
         // 循环获取file数组中得文件
         String projectName = "other";
         String fileType = "1"; // 图片类型了
-        if(cardPositiveFile!=null && cardNegativeFile!=null){
+        if (cardPositiveFile != null && cardNegativeFile != null) {
             // 身份证正面
             String cardPositive = service.upload(null, projectName,
                     cardPositiveFile.getOriginalFilename(),

@@ -2,14 +2,14 @@ package com.xczh.consumer.market.bean;/**
  * Created by admin on 2016/8/30.
  */
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.xczhihui.online.api.vo.UserAddressManagerVo;
-
-import java.util.Date;
 
 /**
  * 报名表信息实体类
@@ -32,7 +32,7 @@ public class Apply extends BasicEntity {
      * 学号
      */
     @Column(name = "student_number")
-    private String  studentNumber;
+    private String studentNumber;
 
     /**
      * qq号
@@ -41,13 +41,13 @@ public class Apply extends BasicEntity {
     private String qq;
 
     /**
-     *email
+     * email
      */
     @Column(name = "email")
     private String email;
 
     /**
-     *email
+     * email
      */
     @Column(name = "sex")
     private Integer sex;
@@ -117,32 +117,31 @@ public class Apply extends BasicEntity {
      */
     @Column(name = "is_old_user")
     private Integer isOldUser;
-    
+
     /**
      * 推荐人
      */
     @Column(name = "referee")
     private String referee;
-    
+
     @Column(name = "wechat_no")
     private String wechatNo;
 
-    @Column(name="occupation")
+    @Column(name = "occupation")
     private String occupation;
-    
+
     /**
      * 否是第一次参加
      */
     @Column(name = "is_first")
     private Boolean isFirst;
-    
-    
+
+
     /**
      * 如果在选填地址的时候，如果存在默认地址，带回去默认地址，如果没有，就不带回了
      */
     private UserAddressManagerVo userAddressManagerVo;
-    
-    
+
 
     public Integer getIsOldUser() {
         return isOldUser;
@@ -266,29 +265,29 @@ public class Apply extends BasicEntity {
         this.studentNumber = studentNumber;
     }
 
-	public String getReferee() {
-		return referee;
-	}
+    public String getReferee() {
+        return referee;
+    }
 
-	public void setReferee(String referee) {
-		this.referee = referee;
-	}
+    public void setReferee(String referee) {
+        this.referee = referee;
+    }
 
-	public Boolean getIsFirst() {
-		return isFirst;
-	}
+    public Boolean getIsFirst() {
+        return isFirst;
+    }
 
-	public void setIsFirst(Boolean isFirst) {
-		this.isFirst = isFirst;
-	}
+    public void setIsFirst(Boolean isFirst) {
+        this.isFirst = isFirst;
+    }
 
-	public String getWechatNo() {
-		return wechatNo;
-	}
+    public String getWechatNo() {
+        return wechatNo;
+    }
 
-	public void setWechatNo(String wechatNo) {
-		this.wechatNo = wechatNo;
-	}
+    public void setWechatNo(String wechatNo) {
+        this.wechatNo = wechatNo;
+    }
 
     public String getOccupation() {
         return occupation;
@@ -297,16 +296,16 @@ public class Apply extends BasicEntity {
     public void setOccupation(String occupation) {
         this.occupation = occupation;
     }
-    
+
     public UserAddressManagerVo getUserAddressManagerVo() {
-		return userAddressManagerVo;
-	}
+        return userAddressManagerVo;
+    }
 
-	public void setUserAddressManagerVo(UserAddressManagerVo userAddressManagerVo) {
-		this.userAddressManagerVo = userAddressManagerVo;
-	}
+    public void setUserAddressManagerVo(UserAddressManagerVo userAddressManagerVo) {
+        this.userAddressManagerVo = userAddressManagerVo;
+    }
 
-	@Override
+    @Override
     public String toString() {
         return "Apply{" +
                 "userId='" + userId + '\'' +

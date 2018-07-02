@@ -33,17 +33,14 @@ import com.xczhihui.medical.hospital.service.IMedicalHospitalApplyService;
 @RequestMapping("/xczh/medical")
 public class MedicalHopitalApplyController {
 
-    @Autowired
-    private IMedicalHospitalApplyService medicalHospitalApplyService;
-
-    @Autowired
-    private OLAttachmentCenterService service;
-
-    @Autowired
-    private ICommonService commonServiceImpl;
-
     private static final org.slf4j.Logger LOGGER = LoggerFactory
             .getLogger(MedicalHopitalApplyController.class);
+    @Autowired
+    private IMedicalHospitalApplyService medicalHospitalApplyService;
+    @Autowired
+    private OLAttachmentCenterService service;
+    @Autowired
+    private ICommonService commonServiceImpl;
 
     /**
      * 医馆认证

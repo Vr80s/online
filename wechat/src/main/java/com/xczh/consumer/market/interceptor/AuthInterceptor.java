@@ -49,7 +49,6 @@ import com.xczhihui.user.center.vo.Token;
 @Component
 public class AuthInterceptor implements HandlerInterceptor, HandlerMethodArgumentResolver {
 
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
     private static final String TOKEN_PARAM_NAME = "token";
     private static final String APP_UNIQUE_ID_PARAM_NAME = "appUniqueId";
     private static final String ENTER_HTML_URL = "/xcview/html/enter.html";
@@ -59,7 +58,6 @@ public class AuthInterceptor implements HandlerInterceptor, HandlerMethodArgumen
     private static final String X_REQUEST_WITH_HEADER_NAME = "x-requested-with";
     private static final String XML_HTTP_REQUEST = "XMLHttpRequest";
     private static final String MICRO_MESSENGER = "micromessenger";
-
     private static List<String> noNeedAuthPaths = Arrays.asList("/xczh/user/**", "/xczh/share/**", "/xczh/qq/**",
             "/xczh/wxlogin/**", "/xczh/weibo/**", "/xczh/third/**", "/xczh/wxpublic/**", "/xczh/alipay/alipayNotifyUrl",
             "/bxg/wxpay/wxNotify", "/xczh/alipay/pay", "/xczh/alipay/rechargePay", "/xczh/criticize/getCriticizeList",
@@ -67,11 +65,10 @@ public class AuthInterceptor implements HandlerInterceptor, HandlerMethodArgumen
             "/xczh/common/getProblems", "/xczh/common/verifyLoginStatus", "/xczh/common/getProblemAnswer",
             "/xczh/common/checkUpdate", "/xczh/common/addOpinion", "/xczh/gift/rankingList", "/xczh/common/richTextDetails", "/xczh/common/getDomain",
             "/xczh/gift/list", "/xczh/common/checkToken", "/xczh/message", "/xczh/pay/pay_notify", "/xczh/set/isLogined",
-            "/xczh/recommend/**", "/xczh/classify/**", "/xczh/bunch/**", "/xczh/live/**", "/xczh/host/**", "/xczh/course/**","/xczh/doctors/**",
-            "/xczh/enrol/enrollmentRegulations","/xczh/myinfo/showWallet", "/xczh/page/course/*", "/xczh/article/view", "/xczh/article/appraise/list",
+            "/xczh/recommend/**", "/xczh/classify/**", "/xczh/bunch/**", "/xczh/live/**", "/xczh/host/**", "/xczh/course/**", "/xczh/doctors/**",
+            "/xczh/enrol/enrollmentRegulations", "/xczh/myinfo/showWallet", "/xczh/page/course/*", "/xczh/article/view", "/xczh/article/appraise/list",
             "/doctor/posts/**");
-
-
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     private PathMatcher pathMatcher;
     @Autowired

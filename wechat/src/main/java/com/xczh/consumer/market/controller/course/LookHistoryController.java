@@ -37,8 +37,8 @@ public class LookHistoryController {
                               @RequestParam("courseId") Integer courseId,
                               @RequestParam("recordType") Integer recordType,
                               @RequestParam(required = false) Integer collectionId) {
-            watchHistoryServiceImpl.addLookHistory(courseId,account.getId(),recordType,collectionId);
-            return ResponseObject.newSuccessResponseObject("保存成功");
+        watchHistoryServiceImpl.addLookHistory(courseId, account.getId(), recordType, collectionId);
+        return ResponseObject.newSuccessResponseObject("保存成功");
     }
 
     /**
@@ -48,7 +48,7 @@ public class LookHistoryController {
      */
     @RequestMapping("list")
     @ResponseBody
-    public ResponseObject list(@Account String accountId){
+    public ResponseObject list(@Account String accountId) {
         try {
             Page<WatchHistoryVO> page = new Page<>();
             page.setCurrent(1);

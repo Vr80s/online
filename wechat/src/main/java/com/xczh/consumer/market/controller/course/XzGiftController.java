@@ -35,11 +35,10 @@ import com.xczhihui.online.api.service.GiftService;
 @RequestMapping(value = "/xczh/gift")
 public class XzGiftController {
 
+    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(XzGiftController.class);
     @Autowired()
     @Qualifier("giftServiceImpl")
     private GiftService remoteGiftService;
-
-    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(XzGiftController.class);
 
     /**
      * 礼物榜单（直播间）

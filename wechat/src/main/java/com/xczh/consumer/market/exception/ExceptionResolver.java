@@ -30,6 +30,17 @@ public class ExceptionResolver {
     private static final String BIZ_Parameter_EXCEPTION_MESSAGE = "参数有误";
     private static final Pattern CHINESE_PATTERN = Pattern.compile("[\u4e00-\u9fa5]");
 
+    public static boolean isContainChinese(String str) {
+        Matcher m = CHINESE_PATTERN.matcher(str);
+        return m.find();
+    }
+
+    public static String printStackTraceToString(Throwable t) {
+        StringWriter sw = new StringWriter();
+        t.printStackTrace(new PrintWriter(sw, true));
+        return sw.getBuffer().toString();
+    }
+
     @ExceptionHandler(Exception.class)
     @ResponseBody
     public ResponseObject handleException(Exception ex) {
@@ -54,16 +65,5 @@ public class ExceptionResolver {
     @ResponseBody
     public ResponseObject processMissingServletRequestParameterException() {
         return ResponseObject.newErrorResponseObject(BIZ_Parameter_EXCEPTION_MESSAGE);
-    }
-
-    public static boolean isContainChinese(String str) {
-        Matcher m = CHINESE_PATTERN.matcher(str);
-        return m.find();
-    }
-
-    public static String printStackTraceToString(Throwable t) {
-        StringWriter sw = new StringWriter();
-        t.printStackTrace(new PrintWriter(sw, true));
-        return sw.getBuffer().toString();
     }
 }

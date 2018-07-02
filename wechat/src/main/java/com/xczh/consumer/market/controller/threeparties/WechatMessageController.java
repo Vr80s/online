@@ -39,6 +39,16 @@ public class WechatMessageController {
     @Autowired
     private CoreMessageService coreMessageService;
 
+    private static String byteToHex(final byte[] hash) {
+        Formatter formatter = new Formatter();
+        for (byte b : hash) {
+            formatter.format("%02x", b);
+        }
+        String result = formatter.toString();
+        formatter.close();
+        return result;
+    }
+
     /**
      * Description：微信开发者配置 get方法验证签名
      *
@@ -58,7 +68,7 @@ public class WechatMessageController {
         String timestamp = req.getParameter("timestamp");
         // 随机数
         String nonce = req.getParameter("nonce");
-        
+
         String[] str = {wxToken, timestamp, nonce};
         Arrays.sort(str); // 字典序排序
         String bigStr = str[0] + str[1] + str[2];
@@ -117,15 +127,5 @@ public class WechatMessageController {
                 out = null;
             }
         }
-    }
-
-    private static String byteToHex(final byte[] hash) {
-        Formatter formatter = new Formatter();
-        for (byte b : hash) {
-            formatter.format("%02x", b);
-        }
-        String result = formatter.toString();
-        formatter.close();
-        return result;
     }
 }

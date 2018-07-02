@@ -2,14 +2,14 @@ package com.xczh.consumer.market.wxpay.util;
 
 public final class Base64 {
 
-    static private final int     BASELENGTH           = 128;
-    static private final int     LOOKUPLENGTH         = 64;
-    static private final int     TWENTYFOURBITGROUP   = 24;
-    static private final int     EIGHTBIT             = 8;
-    static private final int     SIXTEENBIT           = 16;
-    static private final int     FOURBYTE             = 4;
-    static private final int     SIGN                 = -128;
-    static private final char    PAD                  = '=';
+    static private final int BASELENGTH = 128;
+    static private final int LOOKUPLENGTH = 64;
+    static private final int TWENTYFOURBITGROUP = 24;
+    static private final int EIGHTBIT = 8;
+    static private final int SIXTEENBIT = 16;
+    static private final int FOURBYTE = 4;
+    static private final int SIGN = -128;
+    static private final char PAD = '=';
     static private final boolean F_DEBUG = false;
     static final private byte[] BASE_64_ALPHABET = new byte[BASELENGTH];
     static final private char[] LOOK_UP_BASE_64_ALPHABET = new char[LOOKUPLENGTH];
@@ -173,8 +173,8 @@ public final class Base64 {
         for (; i < numberQuadruple - 1; i++) {
 
             if (!isData((d1 = base64Data[dataIndex++])) || !isData((d2 = base64Data[dataIndex++]))
-                || !isData((d3 = base64Data[dataIndex++]))
-                || !isData((d4 = base64Data[dataIndex++]))) {
+                    || !isData((d3 = base64Data[dataIndex++]))
+                    || !isData((d4 = base64Data[dataIndex++]))) {
                 return null;
             }//if found "no data" just return null
 
@@ -236,11 +236,11 @@ public final class Base64 {
     /**
      * remove WhiteSpace from MIME containing encoded Base64 data.
      *
-     * @param data  the byte array of base64 data (with WS)
+     * @param data the byte array of base64 data (with WS)
      * @return the new length
      */
     private static int removeWhiteSpace(char[] data) {
-    	
+
         if (data == null) {
             return 0;
         }
@@ -253,8 +253,8 @@ public final class Base64 {
                 data[newSize++] = data[i];
             }
         }
-        
+
         return newSize;
     }
-    
+
 }

@@ -10,17 +10,17 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 
 public class BufferedResponse extends HttpServletResponseWrapper {
-	public static final int OT_NONE = 0, OT_WRITER = 1, OT_STREAM = 2;
-	
-	private BufferedOutputStream outputStream = null;
-	private PrintWriter writer = null;
-	private int outputType = OT_NONE;
+    public static final int OT_NONE = 0, OT_WRITER = 1, OT_STREAM = 2;
 
-	public BufferedResponse(HttpServletResponse response) {
-		super(response);
-		outputStream = new BufferedOutputStream();
-	}
-	
+    private BufferedOutputStream outputStream = null;
+    private PrintWriter writer = null;
+    private int outputType = OT_NONE;
+
+    public BufferedResponse(HttpServletResponse response) {
+        super(response);
+        outputStream = new BufferedOutputStream();
+    }
+
     public PrintWriter getWriter() throws IOException {
         if (outputType == OT_STREAM)
             throw new IllegalStateException();
@@ -29,12 +29,12 @@ public class BufferedResponse extends HttpServletResponseWrapper {
         else {
             outputType = OT_WRITER;
             writer = new PrintWriter(new OutputStreamWriter(outputStream,
-			        getCharacterEncoding()), true);
+                    getCharacterEncoding()), true);
             return writer;
         }
     }
-    
-	public ServletOutputStream getOutputStream() throws IOException {
+
+    public ServletOutputStream getOutputStream() throws IOException {
         if (outputType == OT_WRITER)
             throw new IllegalStateException();
         else if (outputType == OT_STREAM)
@@ -44,9 +44,16 @@ public class BufferedResponse extends HttpServletResponseWrapper {
             return outputStream;
         }
     }
+
     public void flushBuffer() throws IOException {
-        try{writer.flush();}catch(Exception e){}
-        try{outputStream.flush();}catch(Exception e){}
+        try {
+            writer.flush();
+        } catch (Exception e) {
+        }
+        try {
+            outputStream.flush();
+        } catch (Exception e) {
+        }
     }
 
     public void reset() {

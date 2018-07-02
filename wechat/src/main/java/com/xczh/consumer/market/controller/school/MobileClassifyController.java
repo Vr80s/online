@@ -34,19 +34,15 @@ import com.xczhihui.course.service.IOfflineCityService;
 @RequestMapping("/xczh/classify")
 public class MobileClassifyController {
 
+    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(MobileClassifyController.class);
     @Autowired
     private MenuService menuService;
-
     @Autowired
     private IMobileProjectService mobileProjectService;
-
     @Autowired
     private IOfflineCityService offlineCityService;
-
     @Autowired
     private ICourseService courseService;
-
-    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(MobileClassifyController.class);
 
     /**
      * 分类

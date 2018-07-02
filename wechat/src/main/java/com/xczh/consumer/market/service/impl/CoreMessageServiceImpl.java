@@ -72,38 +72,38 @@ public class CoreMessageServiceImpl implements CoreMessageService {
             newsMessage.setFuncFlag(0);
             // 文本消息  
             if (msgType.equals(MessageConstant.REQ_MESSAGE_TYPE_TEXT)) {
-            	
-                LOGGER.info("有人给我们发送消息了~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-            
-              //请求消息类型：事件推送
-            } else if (msgType.equals(MessageConstant.REQ_MESSAGE_TYPE_EVENT)) { 
 
-            	// 关注公众号事件 或者 扫码关注
+                LOGGER.info("有人给我们发送消息了~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+
+                //请求消息类型：事件推送
+            } else if (msgType.equals(MessageConstant.REQ_MESSAGE_TYPE_EVENT)) {
+
+                // 关注公众号事件 或者 扫码关注
                 if (scan.equals(MessageConstant.EVENT_TYPE_SUBSCRIBE)
-                		|| scan.equals(MessageConstant.EVENT_TYPE_SCAN )) {  
-                	
-                    LOGGER.info("有人关注了~~~~~~~~~~~~~~~~~~~~~~~~~~~~关注类型："+scan);
+                        || scan.equals(MessageConstant.EVENT_TYPE_SCAN)) {
+
+                    LOGGER.info("有人关注了~~~~~~~~~~~~~~~~~~~~~~~~~~~~关注类型：" + scan);
                    /*
                     * 保存用户微信信息
         		    */
                     JSONObject jsonObject = serviceToken(fromUserName);
-                    Integer qr_scene = (Integer)jsonObject.get("qr_scene");
-                    String qr_scene_str = (String) jsonObject.get("qr_scene_str");	
-                    
+                    Integer qr_scene = (Integer) jsonObject.get("qr_scene");
+                    String qr_scene_str = (String) jsonObject.get("qr_scene_str");
+
                     LOGGER.info("获取的微信数据~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + jsonObject.toString());
                     String openid_ = (String) jsonObject.get("openid");
                     WxcpClientUserWxMapping m = wxcpClientUserWxMappingService.getWxcpClientUserWxMappingByOpenId(openid_);
                     LOGGER.info("~~~is exit " + m);
                     if (null == m) {
 
-                        WxcpClientUserWxMapping wxcpClientUserWxMapping = 
-                        		new WxcpClientUserWxMapping(jsonObject);
-                        
+                        WxcpClientUserWxMapping wxcpClientUserWxMapping =
+                                new WxcpClientUserWxMapping(jsonObject);
+
                         wxcpClientUserWxMappingService.insert(wxcpClientUserWxMapping);
-                        
+
                     } else if (m != null && (qr_scene != null || qr_scene_str != null)) {
 
-                    	m.bulidUpdate(jsonObject);
+                        m.bulidUpdate(jsonObject);
                         wxcpClientUserWxMappingService.update(m);
                     }
 
@@ -114,7 +114,7 @@ public class CoreMessageServiceImpl implements CoreMessageService {
                     article.setPicUrl(PIC_URL);
                     article.setUrl(returnOpenidUri);
                     articleList.add(article);
-                    
+
                     // 设置图文消息个数
                     newsMessage.setArticleCount(articleList.size());
                     // 设置图文消息包含的图文集合
@@ -123,8 +123,8 @@ public class CoreMessageServiceImpl implements CoreMessageService {
                     respMessage = MessageUtil.newsMessageToXml(newsMessage);
 
 
-                //取消公众号事件    
-                } else if (scan.equals(MessageConstant.EVENT_TYPE_UNSUBSCRIBE)) {  
+                    //取消公众号事件
+                } else if (scan.equals(MessageConstant.EVENT_TYPE_UNSUBSCRIBE)) {
 
                     LOGGER.info("有人取消关注了~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                     JSONObject jsonObject = serviceToken(fromUserName);

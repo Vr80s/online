@@ -1,11 +1,7 @@
 package com.xczh.consumer.market.controller.course;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -51,42 +47,30 @@ import com.xczhihui.user.center.service.VerificationCodeService;
 @RequestMapping("/xczh/manager")
 public class MyManagerController {
 
+    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(MyManagerController.class);
     @Autowired
     private ICourseService courseService;
-
     @Autowired
     private OnlineUserService onlineUserService;
-
     @Autowired
     private EnchashmentService enchashmentService;
-
     @Autowired
     private UserCoinService userCoinService;
-
     @Autowired
     private IMyInfoService myInfoService;
-
     @Autowired
     private IUserBankService userBankService;
-
     @Autowired
     private IMedicalDoctorApplyService medicalDoctorApplyService;
-
     @Autowired
     private VerificationCodeService verificationCodeService;
-
     @Autowired
     @Qualifier("focusServiceRemote")
     private IFocusService focusServiceRemote;
-    
     @Autowired
-    private IAnchorInfoService  anchorInfoService;
-    
-
+    private IAnchorInfoService anchorInfoService;
     @Value("${rate}")
     private int rate;
-
-    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(MyManagerController.class);
 
     /**
      * Description：进入我的页面显示几个初始化数据
@@ -126,8 +110,8 @@ public class MyManagerController {
 
             //是否拥有主播权限
             //Integer hostPermissions = myInfoService.getUserHostPermissions(userId);
-	        Integer hostPermissions = anchorInfoService.anchorPermissionStatus(ou.getUserId());
-	        LOGGER.info(hostPermissions + "");
+            Integer hostPermissions = anchorInfoService.anchorPermissionStatus(ou.getUserId());
+            LOGGER.info(hostPermissions + "");
             // 查看主播权限   -- 并且把主播信息给返回过去
             map.put("hostPermissions", hostPermissions);
             if (hostPermissions != null && hostPermissions == 1) {
