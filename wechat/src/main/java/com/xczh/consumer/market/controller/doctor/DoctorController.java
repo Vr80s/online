@@ -132,6 +132,7 @@ public class DoctorController {
         dqv.bulid();
 
 //        Page<MedicalDoctorVO> doctors = medicalDoctorBusinessService.selectDoctorListByQueryKey(new Page<MedicalDoctorVO>(pageNumber, pageSize),dqv);
+        com.baomidou.mybatisplus.plugins.Page page = new Page<>();
         Page<MedicalDoctorSolrVO> doctors = medicalDoctorSolrService.selectDoctorListBySolr(new Page<>(pageNumber, pageSize), dqv);
 
         return ResponseObject.newSuccessResponseObject(doctors.getRecords());

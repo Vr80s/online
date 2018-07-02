@@ -85,6 +85,14 @@ public class MedicalDoctorSolrServiceImpl implements IMedicalDoctorSolrService {
             }
             query.append(searchTypeKey);
         }
+        String searchStatus;
+        if (dqv.getStatus()!=null) {
+            searchStatus = "status:" + dqv.getStatus();
+            if (query.length() > 0) {
+                query.append(SolrConstant.AND);
+            }
+            query.append(searchStatus);
+        }
         return query.toString();
     }
 

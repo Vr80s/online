@@ -83,7 +83,7 @@ public class MobileShareController {
 
             ShareInfoVo sv = courseServiceImpl.selectShareInfoByType(shareType, shareId);
             //构造下分享出去的参数
-            sv.build(returnOpenidUri);
+            sv.build(returnOpenidUri,webdomain);
 
             return ResponseObject.newSuccessResponseObject(sv);
         } catch (Exception e) {
