@@ -27,7 +27,13 @@
 				position: absolute;
 			    top: 6px;
 			    left: 0;
-			    pointer-events:none; 
+			    pointer-events:none;
+			    z-index: 1;
+			}
+			#auto_play{
+				position: absolute;
+			    z-index: 2;
+			    opacity: 0;
 			}
 		</style>
 	</head>
@@ -36,8 +42,8 @@
 		<!--   直播区域    -->
 		<div class="livePlayer" style="position: relative;padding-right: 310px;">
 			 <div style="position: absolute;bottom: 0;left: 200px;">
-			 	<label style="color: #fff;font-weight: 400;">
-			 	<input id="auto_play" type="checkbox" /> 自动打开下一课时11111</label>
+			 	<label style="color: #fff;font-weight: 400;text-indent: 25px;">
+			 	<input id="auto_play" type="checkbox" /> 自动打开下一课时</label>
 			 	<div class="show-bg"></div>
 			 </div>  
 

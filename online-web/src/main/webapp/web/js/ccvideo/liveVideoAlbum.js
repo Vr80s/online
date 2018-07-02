@@ -310,8 +310,9 @@ $("#auto_play").click(function(){
 		$(".show-bg").css("background-size","100% 100%");
 	}else{
 		$(this).css("background-image","url(/web/images/btn-selete.png)");
-		$(".show-bg").css("background-image","url(/web/images/btn-selete.png)");
-		$(".show-bg").css("background-size","100% 100%");
+		$(".show-bg").css("background","#fff");
+//		$(".show-bg").css("background-image","url(/web/images/btn-selete.png)");
+//		$(".show-bg").css("background-size","100% 100%");
 	}
 })
 

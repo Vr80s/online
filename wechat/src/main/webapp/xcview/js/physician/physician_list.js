@@ -318,7 +318,7 @@ function queryDataByParams(params,data_type){
 					           "<span class='span'>"+item.name+"</span>" +
 					           "<span class='duty'>"+(item.title = item.title==null ? "" : item.title)+"</span></p>" +
 					           // "<p class='site'>"+(item.hospitalAddress = item.hospitalAddress==null ? "" : item.hospitalAddress)+"</p>"+
-					           "<p class='site'>"+(item.detailedAddress = item.detailedAddress==null ? "" : item.detailedAddress)+"</p>"+
+					           "<p class='site'>"+(item.hospitalName = item.hospitalName==null ? "" : item.hospitalName)+"</p>"+
 				            "</div>" +
 				         "</div>" +
 				     "</div>";
