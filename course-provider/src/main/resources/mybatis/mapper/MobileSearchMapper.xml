@@ -2,14 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xczhihui.course.mapper.MobileHotSearchMapper">
 
-	<select id="HotSearchList" resultType="com.xczhihui.course.model.MobileHotSearch">
-		SELECT
-		oms.name as name,oms.search_type as searchType
-		FROM
-		oe_mobile_search oms
-		WHERE oms.is_delete=0 and oms.status = 1
-		and oms.search_type = #{searchType}
-		order by oms.seq asc
-	</select>
+    <select id="HotSearchList" resultType="com.xczhihui.course.model.MobileHotSearch">
+        SELECT
+        oms.name as name,oms.search_type as searchType
+        FROM
+        oe_mobile_search oms
+        WHERE oms.is_delete=0 and oms.status = 1
+        and oms.search_type = #{searchType}
+        order by oms.seq asc
+    </select>
 
 </mapper>

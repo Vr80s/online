@@ -1,14 +1,15 @@
 package com.xczhihui.course.mapper;
 
-import com.baomidou.mybatisplus.mapper.BaseMapper;
-import com.xczhihui.course.model.OrderDetail;
+import java.util.List;
+
 import org.apache.ibatis.annotations.Select;
 
-import java.util.List;
+import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.xczhihui.course.model.OrderDetail;
 
 /**
  * <p>
-  *  Mapper 接口
+ * Mapper 接口
  * </p>
  *
  * @author yuxin

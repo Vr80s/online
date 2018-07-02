@@ -43,11 +43,9 @@ import com.xczhihui.course.vo.WatchHistoryVO;
 @Service
 public class WatchHistoryServiceImpl extends ServiceImpl<WatchHistoryMapper, WatchHistory> implements IWatchHistoryService {
     private static final String APPLY_SUCCESS_TIPS = "恭喜您成功购买课程" + TextStyleUtil.LEFT_TAG + "《{0}》~" + TextStyleUtil.RIGHT_TAG;
+    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(WatchHistoryServiceImpl.class);
     @Value("${weixin.course.apply.code}")
     private String weixinApplySuccessMessageCode;
-
-    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(WatchHistoryServiceImpl.class);
-
     @Autowired
     private WatchHistoryMapper watchHistoryMapper;
 
@@ -77,7 +75,7 @@ public class WatchHistoryServiceImpl extends ServiceImpl<WatchHistoryMapper, Wat
 
     @Override
     public void addWatchHistory(Integer courseId, String userId, String userLecturerId, Integer collectionId) {
-        watchHistoryMapper.insertWatchHistory(courseId,userId,userLecturerId,collectionId);
+        watchHistoryMapper.insertWatchHistory(courseId, userId, userLecturerId, collectionId);
     }
 
     @Override
@@ -106,19 +104,19 @@ public class WatchHistoryServiceImpl extends ServiceImpl<WatchHistoryMapper, Wat
                 this.addLearnRecord(courseId, userId);
             }
         } else if (recordType == 2) {
-        	if(collectionId!=null) {  //如果是专辑，并且存在的话，做更新操作
-        		WatchHistory wh = watchHistoryMapper.findWatchHistoryByUserIdAndCollectionId(userId,collectionId);
-        		if(wh!=null) {
-        			wh.setCourseId(courseId);
-        			wh.setCreateTime(new Date());
-        			watchHistoryMapper.updateById(wh);
-        			return;
-        		}
-        	}else {
-        		collectionId = 0;
-        	}
+            if (collectionId != null) {  //如果是专辑，并且存在的话，做更新操作
+                WatchHistory wh = watchHistoryMapper.findWatchHistoryByUserIdAndCollectionId(userId, collectionId);
+                if (wh != null) {
+                    wh.setCourseId(courseId);
+                    wh.setCreateTime(new Date());
+                    watchHistoryMapper.updateById(wh);
+                    return;
+                }
+            } else {
+                collectionId = 0;
+            }
             //更新观看记录
-            this.addWatchHistory(courseId,userId,course.getUserLecturerId(),collectionId);
+            this.addWatchHistory(courseId, userId, course.getUserLecturerId(), collectionId);
         }
     }
 

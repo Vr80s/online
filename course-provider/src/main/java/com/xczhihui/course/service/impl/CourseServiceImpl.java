@@ -174,15 +174,15 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         return list;
     }
 
-    
+
     @Override
-    public List<CourseLecturVo> selectCourseByLearndCount(Page<CourseLecturVo> page,Integer type) {
-        return iCourseMapper.selectCourseByLearndCount(page,type);
+    public List<CourseLecturVo> selectCourseByLearndCount(Page<CourseLecturVo> page, Integer type) {
+        return iCourseMapper.selectCourseByLearndCount(page, type);
     }
-    
+
     @Override
     public List<CourseLecturVo> selectRecommendSortAndRandCourse(Page<CourseLecturVo> page) {
-    	
+
         return iCourseMapper.selectRecommendSortAndRandCourse(page);
     }
 
@@ -237,14 +237,14 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         return iCourseMapper.selectCourseByType(type, userId);
     }
 
-	@Override
-	public ShareInfoVo selectShareInfoByType(Integer type, String id) {
-		
-		 return iCourseMapper.selectShareInfoByType(type, id);
-	}
+    @Override
+    public ShareInfoVo selectShareInfoByType(Integer type, String id) {
 
-	@Override
-	public Course findSimpleInfoById(int id) {
-	    return iCourseMapper.findSimpleInfoById(id);
-	}
+        return iCourseMapper.selectShareInfoByType(type, id);
+    }
+
+    @Override
+    public Course findSimpleInfoById(int id) {
+        return iCourseMapper.findSimpleInfoById(id);
+    }
 }

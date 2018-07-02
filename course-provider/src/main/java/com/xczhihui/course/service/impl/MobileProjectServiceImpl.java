@@ -15,31 +15,31 @@ import com.xczhihui.course.vo.MenuVo;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author yuxin
  * @since 2017-12-09
  */
 @Service
-public class MobileProjectServiceImpl extends ServiceImpl<MobileProjectMapper,MobileProject> implements IMobileProjectService {
+public class MobileProjectServiceImpl extends ServiceImpl<MobileProjectMapper, MobileProject> implements IMobileProjectService {
 
-	@Autowired
-	private MobileProjectMapper iMobileProjectMapper;
-	
-	@Override
+    @Autowired
+    private MobileProjectMapper iMobileProjectMapper;
+
+    @Override
     public List<MobileProject> selectMobileProjectPage(Integer type) {
-		return   iMobileProjectMapper.selectMobileProjectPage(type);
-	}
+        return iMobileProjectMapper.selectMobileProjectPage(type);
+    }
 
-	@Override
-	public List<Map<String, Object>> getCourseType() {
-		List<Map<String, Object>>  list  = CourseType.getCourseType();
-		return list;
-	}
+    @Override
+    public List<Map<String, Object>> getCourseType() {
+        List<Map<String, Object>> list = CourseType.getCourseType();
+        return list;
+    }
 
-	@Override
-	public List<MenuVo> selectMenuVo() {
-		return iMobileProjectMapper.selectMenuVo();
-	}
+    @Override
+    public List<MenuVo> selectMenuVo() {
+        return iMobileProjectMapper.selectMenuVo();
+    }
 }

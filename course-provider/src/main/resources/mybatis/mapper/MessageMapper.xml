@@ -4,9 +4,10 @@
 
     <insert id="batchInsert" keyProperty="id">
         INSERT INTO oe_message
-        (id, user_id,context, type, status,is_delete, create_person, create_time, readstatus, detail_id, route_type, outer_link, title)
+        (id, user_id,context, type, status,is_delete, create_person, create_time, readstatus, detail_id, route_type,
+        outer_link, title)
         VALUES
-        <foreach collection="list" item="message" index="index" separator="," >
+        <foreach collection="list" item="message" index="index" separator=",">
             (#{message.id},#{message.userId},#{message.context},#{message.type},
             #{message.status},#{message.deleted}, #{message.createPerson}, #{message.createTime}, #{message.readStatus},
             #{message.detailId}, #{message.routeType}, #{message.outerLink}, #{message.title})

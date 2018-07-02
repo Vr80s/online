@@ -6,7 +6,7 @@ import com.xczhihui.course.model.AlipayPaymentRecord;
 
 /**
  * <p>
-  *  Mapper 接口
+ * Mapper 接口
  * </p>
  *
  * @author yuxin

@@ -55,7 +55,7 @@
     <select id="selectCourseById" resultMap="courseBaseResult">
         SELECT oc.*
         FROM
-            oe_course oc
+        oe_course oc
         WHERE oc.id = #{courseId}
     </select>
 </mapper>

@@ -4,114 +4,116 @@
 
 
     <!-- 观看记录的sql  -->
-	<sql id="watchHistoryCommon">
-		  owh.course_id AS id,
-		  owh.create_time,
-		  owh.course_id AS courseId,
-		  owh.lecturer_id AS lecturerId,
-		  owh.collectionId AS collectionId,
-		  IF(owh.collectionId IS NOT NULL AND owh.collectionId > 0,(SELECT grade_name FROM oe_course WHERE id = owh.collectionId),
-			NULL
-		  ) AS collectionName,
-		  IF(
-			owh.collectionId IS NOT NULL AND owh.collectionId > 0,
-			1,
-			oc.collection
-		  ) AS collection,
-		  oc.grade_name AS gradeName,
-		  IF(
-			owh.collectionId IS NOT NULL AND owh.collectionId > 0,
-			(SELECT oc.lecturer FROM oe_course oc WHERE oc.id = owh.collectionId),
-			oc.lecturer
-		  ) AS lecturerName,
-		  owh.create_time AS watchTime,
-		  IF(
-			oc.type = 3,
-			4,
-			IF(oc.type = 1,3,IF(oc.multimedia_type = 1, 1, 2)
-			)
-		  ) AS TYPE,
-		  oc.is_free AS watchState,
-		  oc.live_source_type AS liveSourceType,
-		  oc.user_lecturer_id AS userId,
-		  
-		  IF(owh.collectionId IS NOT NULL AND owh.collectionId > 0,
-		    (SELECT direct_id FROM oe_course WHERE id = owh.course_id),
-			oc.direct_id
-		  ) AS directId,
-		  if(oc.live_status=1,DATE_FORMAT(oc.start_time,'%H:%i'),
-		if(oc.live_status=2,if(oc.start_time &lt;= DATE_ADD(DATE_ADD(str_to_date(DATE_FORMAT(NOW(),'%Y-%m-%d'),
-		'%Y-%m-%d %H:%i:%s'),INTERVAL 1 DAY),INTERVAL -1 SECOND),
-		DATE_FORMAT(oc.start_time,'%H:%i'),DATE_FORMAT(oc.start_time,'%m.%d')),
-		DATE_FORMAT(oc.start_time,'%m.%d') )) as startDateStr,
-		if(oc.live_status = 2,if((DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time ) or
-                             (DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now() &lt; oc.start_time ),4,
-                  if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now() &lt; oc.start_time,5,oc.live_status)),oc.live_status) as lineState,
-		IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) + IFNULL(oc.default_student_count, 0) learndCount,
-		  oc.smallimg_path AS smallimgPath,
-		  oc.current_price*10 AS currentPrice,
-		  oc.is_free AS isFree
-	</sql>
+    <sql id="watchHistoryCommon">
+        owh.course_id AS id,
+        owh.create_time,
+        owh.course_id AS courseId,
+        owh.lecturer_id AS lecturerId,
+        owh.collectionId AS collectionId,
+        IF(owh.collectionId IS NOT NULL AND owh.collectionId > 0,(SELECT grade_name FROM oe_course WHERE id =
+        owh.collectionId),
+        NULL
+        ) AS collectionName,
+        IF(
+        owh.collectionId IS NOT NULL AND owh.collectionId > 0,
+        1,
+        oc.collection
+        ) AS collection,
+        oc.grade_name AS gradeName,
+        IF(
+        owh.collectionId IS NOT NULL AND owh.collectionId > 0,
+        (SELECT oc.lecturer FROM oe_course oc WHERE oc.id = owh.collectionId),
+        oc.lecturer
+        ) AS lecturerName,
+        owh.create_time AS watchTime,
+        IF(
+        oc.type = 3,
+        4,
+        IF(oc.type = 1,3,IF(oc.multimedia_type = 1, 1, 2)
+        )
+        ) AS TYPE,
+        oc.is_free AS watchState,
+        oc.live_source_type AS liveSourceType,
+        oc.user_lecturer_id AS userId,
+
+        IF(owh.collectionId IS NOT NULL AND owh.collectionId > 0,
+        (SELECT direct_id FROM oe_course WHERE id = owh.course_id),
+        oc.direct_id
+        ) AS directId,
+        if(oc.live_status=1,DATE_FORMAT(oc.start_time,'%H:%i'),
+        if(oc.live_status=2,if(oc.start_time &lt;= DATE_ADD(DATE_ADD(str_to_date(DATE_FORMAT(NOW(),'%Y-%m-%d'),
+        '%Y-%m-%d %H:%i:%s'),INTERVAL 1 DAY),INTERVAL -1 SECOND),
+        DATE_FORMAT(oc.start_time,'%H:%i'),DATE_FORMAT(oc.start_time,'%m.%d')),
+        DATE_FORMAT(oc.start_time,'%m.%d') )) as startDateStr,
+        if(oc.live_status = 2,if((DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time ) or
+        (DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now() &lt; oc.start_time ),4,
+        if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now() &lt;
+        oc.start_time,5,oc.live_status)),oc.live_status) as lineState,
+        IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) + IFNULL(oc.default_student_count,
+        0) learndCount,
+        oc.smallimg_path AS smallimgPath,
+        oc.current_price*10 AS currentPrice,
+        oc.is_free AS isFree
+    </sql>
 
     <select id="selectWatchHistory" resultType="com.xczhihui.course.vo.WatchHistoryVO">
-		
-	 select * from	(
-	  (	SELECT
-		  <include refid="watchHistoryCommon"/>
-		FROM
-		  oe_watch_history1 owh
-		  INNER JOIN oe_course oc
-			ON owh.course_id = oc.id
-		  INNER JOIN course_anchor ou
-			ON owh.lecturer_id = ou.user_id
-		  INNER JOIN apply_r_grade_course argc
-		    ON oc.`id`=argc.`course_id` 
-		  AND argc.`user_id`=owh.user_id AND argc.`validity`>NOW()
-		WHERE owh.user_id =#{userId}   and   owh.collectionId = 0 )
-	 	union
-	  (	SELECT
-		  <include refid="watchHistoryCommon"/>
-		FROM
-		  oe_watch_history1 owh
-		  INNER JOIN oe_course oc
-			ON  owh.collectionId = oc.id
-		  INNER JOIN course_anchor ou
-			ON owh.lecturer_id = ou.user_id
-		  INNER JOIN apply_r_grade_course argc
-		    ON oc.`id`=argc.`course_id` 
-		  AND argc.`user_id`=owh.user_id AND argc.`validity`>NOW()
-		WHERE owh.user_id =#{userId} )
-	  )	as owh ORDER BY owh.create_time DESC
-	</select>
 
+        select * from (
+        ( SELECT
+        <include refid="watchHistoryCommon"/>
+        FROM
+        oe_watch_history1 owh
+        INNER JOIN oe_course oc
+        ON owh.course_id = oc.id
+        INNER JOIN course_anchor ou
+        ON owh.lecturer_id = ou.user_id
+        INNER JOIN apply_r_grade_course argc
+        ON oc.`id`=argc.`course_id`
+        AND argc.`user_id`=owh.user_id AND argc.`validity`>NOW()
+        WHERE owh.user_id =#{userId} and owh.collectionId = 0 )
+        union
+        ( SELECT
+        <include refid="watchHistoryCommon"/>
+        FROM
+        oe_watch_history1 owh
+        INNER JOIN oe_course oc
+        ON owh.collectionId = oc.id
+        INNER JOIN course_anchor ou
+        ON owh.lecturer_id = ou.user_id
+        INNER JOIN apply_r_grade_course argc
+        ON oc.`id`=argc.`course_id`
+        AND argc.`user_id`=owh.user_id AND argc.`validity`>NOW()
+        WHERE owh.user_id =#{userId} )
+        ) as owh ORDER BY owh.create_time DESC
+    </select>
 
 
     <!-- 	@Param("userId") Integer type, @Param("courseId") -->
     <select id="findWatchHistoryByUserIdAndCourseId" resultType="com.xczhihui.course.model.WatchHistory">
-		SELECT
-		  *
-		FROM
-		  oe_watch_history1 owh where owh.user_id = #{userId}
-		  and  owh.course_id = #{courseId}  and owh.collectionId = 0
-	</select>
+        SELECT
+        *
+        FROM
+        oe_watch_history1 owh where owh.user_id = #{userId}
+        and owh.course_id = #{courseId} and owh.collectionId = 0
+    </select>
 
 
     <select id="findWatchHistoryByUserIdAndCollectionId" resultType="com.xczhihui.course.model.WatchHistory">
-		SELECT
-		  *
-		FROM
-		  oe_watch_history1 owh where owh.user_id = #{userId}
-		  
-		  and  owh.collectionId = #{collectionId}
-	</select>
+        SELECT
+        *
+        FROM
+        oe_watch_history1 owh where owh.user_id = #{userId}
+
+        and owh.collectionId = #{collectionId}
+    </select>
 
 
     <select id="findWatchHistoryByUserId" resultType="com.xczhihui.course.model.WatchHistory">
-		SELECT
-		  *
-		FROM
-		  oe_watch_history1 owh where owh.user_id = #{userId}  limit 0,5
-	</select>
+        SELECT
+        *
+        FROM
+        oe_watch_history1 owh where owh.user_id = #{userId} limit 0,5
+    </select>
 
     <delete id="deleteBatch">
         delete from oe_watch_history1
@@ -122,23 +124,23 @@
     </delete>
 
     <delete id="deleteWatchHistoryByUserId">
-        delete  from  oe_watch_history1  where user_id = #{userId}
-	</delete>
+        delete from oe_watch_history1 where user_id = #{userId}
+    </delete>
 
     <insert id="insertApplyRGradeCourse">
-	INSERT IGNORE INTO apply_r_grade_course(
-		id, course_id,is_payment,cost,  user_id, create_time
-	) VALUES
-		( #{id}, #{courseId},  0,  0,   #{userId}, now())
-	</insert>
+        INSERT IGNORE INTO apply_r_grade_course(
+        id, course_id,is_payment,cost, user_id, create_time
+        ) VALUES
+        ( #{id}, #{courseId}, 0, 0, #{userId}, now())
+    </insert>
     <insert id="insertWatchHistory">
-		INSERT INTO `oe_watch_history1` (
-		  user_id, lecturer_id, course_id, collectionId
-		)
-		VALUES
-		  (#{userId},#{userLecturerId},#{courseId},#{collectionId})
-		   ON DUPLICATE KEY UPDATE create_time = NOW();
-	</insert>
+        INSERT INTO `oe_watch_history1` (
+        user_id, lecturer_id, course_id, collectionId
+        )
+        VALUES
+        (#{userId},#{userLecturerId},#{courseId},#{collectionId})
+        ON DUPLICATE KEY UPDATE create_time = NOW();
+    </insert>
 
 
 </mapper>

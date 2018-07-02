@@ -1,13 +1,13 @@
 package com.xczhihui.course.service;
 
+import java.util.List;
+
 import com.baomidou.mybatisplus.service.IService;
 import com.xczhihui.course.model.OrderDetail;
 
-import java.util.List;
-
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author yuxin

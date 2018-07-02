@@ -1,545 +1,551 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xczhihui.course.mapper.MobileBannerMapper">
-	<resultMap type="com.xczhihui.course.model.MobileBanner" id="MobileBannerBaseResult">
-		<id column="id" property="id" />
-		<id column="name" property="name" />
-		<id column="url" property="url" />
-		<id column="click_sum" property="clickSum" />
-		<id column="create_person" property="createPerson" />
-		<id column="create_time" property="createTime" />
-		<id column="status" property="status" />
-		<id column="seq" property="seq" />
-		<id column="img_path" property="imgPath" />
-		<id column="link_type" property="linkType" />
-		<id column="link_condition" property="linkCondition" />
-		<id column="banner_type" property="bannerType" />
-	</resultMap>
-	
-	<select id="selectMobileBannerPage" resultMap="MobileBannerBaseResult">
-		SELECT
-		  ocmb.*
-		FROM
-		  oe_course_mobile_banner ocmb
-		WHERE ocmb.status = 1
-		<if test="type != null and type != ''">
-			and ocmb.banner_type = #{type}
-		</if>
-		ORDER BY ocmb.seq desc
+    <resultMap type="com.xczhihui.course.model.MobileBanner" id="MobileBannerBaseResult">
+        <id column="id" property="id"/>
+        <id column="name" property="name"/>
+        <id column="url" property="url"/>
+        <id column="click_sum" property="clickSum"/>
+        <id column="create_person" property="createPerson"/>
+        <id column="create_time" property="createTime"/>
+        <id column="status" property="status"/>
+        <id column="seq" property="seq"/>
+        <id column="img_path" property="imgPath"/>
+        <id column="link_type" property="linkType"/>
+        <id column="link_condition" property="linkCondition"/>
+        <id column="banner_type" property="bannerType"/>
+    </resultMap>
 
-	</select>
-	<update id="addClickNum">
-		UPDATE
-		oe_course_mobile_banner
-		SET click_sum = click_sum+1
-		WHERE id = #{id}
-	</update>
+    <select id="selectMobileBannerPage" resultMap="MobileBannerBaseResult">
+        SELECT
+        ocmb.*
+        FROM
+        oe_course_mobile_banner ocmb
+        WHERE ocmb.status = 1
+        <if test="type != null and type != ''">
+            and ocmb.banner_type = #{type}
+        </if>
+        ORDER BY ocmb.seq desc
 
-	<sql id="commonCondition">
-		from  oe_course oc
-		inner join course_anchor as ou on oc.user_lecturer_id = ou.user_id
-		where  oc.status = 1
-		and ou.deleted =0
-		and oc.is_delete=0
-	</sql>
-	
-	<sql id="onlyFreeCondition">
-		<if test="onlyFree" >
-			and oc.is_free = 1
-		</if>
-	</sql>
-	
-	<sql id="selectRecommenCourse">
-		oc.id,
-		oc.grade_name as gradeName,
-		oc.current_price*10 as currentPrice,
-		oc.city as city,
+    </select>
+    <update id="addClickNum">
+        UPDATE
+        oe_course_mobile_banner
+        SET click_sum = click_sum+1
+        WHERE id = #{id}
+    </update>
+
+    <sql id="commonCondition">
+        from oe_course oc
+        inner join course_anchor as ou on oc.user_lecturer_id = ou.user_id
+        where oc.status = 1
+        and ou.deleted =0
+        and oc.is_delete=0
+    </sql>
+
+    <sql id="onlyFreeCondition">
+        <if test="onlyFree">
+            and oc.is_free = 1
+        </if>
+    </sql>
+
+    <sql id="selectRecommenCourse">
+        oc.id,
+        oc.grade_name as gradeName,
+        oc.current_price*10 as currentPrice,
+        oc.city as city,
         oc.smallimg_path as smallImgPath,
         oc.lecturer as name,
-		if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
-		if(oc.is_free =0,0,1) as watchState,	
-		oc.collection as collection,
-		oc.recommend_sort recommendSort,
-		oc.start_time as startTime,
-		
-		if(oc.live_status=1,DATE_FORMAT(oc.start_time,'%H:%i'),if(oc.live_status=2,if(oc.start_time &lt;= DATE_ADD(DATE_ADD(str_to_date(DATE_FORMAT(NOW(),'%Y-%m-%d'),
-		 	'%Y-%m-%d %H:%i:%s'),INTERVAL 1 DAY),INTERVAL -1 SECOND),
-		 	DATE_FORMAT(oc.start_time,'%H:%i'),DATE_FORMAT(oc.start_time,'%m.%d')),
-		 	DATE_FORMAT(oc.start_time,'%m.%d') )) as startDateStr,
-		 	
-		if(oc.live_status = 2,if((DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time ) or 
-                             (DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now() &lt; oc.start_time ),4,
-                  if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now() &lt; oc.start_time,5,oc.live_status)),oc.live_status) as lineState, 	
-		 	
-		(SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)
-		 + IFNULL(oc.default_student_count, 0)) as  learndCount,
-	</sql>
-	
-	
-	<!-- 推荐页面 -->
-	<select id="recommendCourseList" resultType="com.xczhihui.course.vo.CourseLecturVo">
-		( 
-		  select 
-		  <include refid="selectRecommenCourse"/>
-		    '精品课程' as note
-		  <include refid="commonCondition"/>
-		  <include refid="onlyFreeCondition"/>
-			order by recommendSort desc,oc.release_time desc  limit 0,#{pageSizeUp}
+        if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
+        if(oc.is_free =0,0,1) as watchState,
+        oc.collection as collection,
+        oc.recommend_sort recommendSort,
+        oc.start_time as startTime,
+
+        if(oc.live_status=1,DATE_FORMAT(oc.start_time,'%H:%i'),if(oc.live_status=2,if(oc.start_time &lt;=
+        DATE_ADD(DATE_ADD(str_to_date(DATE_FORMAT(NOW(),'%Y-%m-%d'),
+        '%Y-%m-%d %H:%i:%s'),INTERVAL 1 DAY),INTERVAL -1 SECOND),
+        DATE_FORMAT(oc.start_time,'%H:%i'),DATE_FORMAT(oc.start_time,'%m.%d')),
+        DATE_FORMAT(oc.start_time,'%m.%d') )) as startDateStr,
+
+        if(oc.live_status = 2,if((DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time ) or
+        (DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now() &lt; oc.start_time ),4,
+        if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now() &lt;
+        oc.start_time,5,oc.live_status)),oc.live_status) as lineState,
+
+        (SELECT IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)
+        + IFNULL(oc.default_student_count, 0)) as learndCount,
+    </sql>
+
+
+    <!-- 推荐页面 -->
+    <select id="recommendCourseList" resultType="com.xczhihui.course.vo.CourseLecturVo">
+        (
+        select
+        <include refid="selectRecommenCourse"/>
+        '精品课程' as note
+        <include refid="commonCondition"/>
+        <include refid="onlyFreeCondition"/>
+        order by recommendSort desc,oc.release_time desc limit 0,#{pageSizeUp}
         )
-        
-        
+
+
         <!-- pc 因为pc端和手机端显示的条目不一样。所以用这个来区分。pc端显示免费课程  -->
-        <if test="pageSizeUp != null and pageSizeUp == 3" >
-        union all
-        ( 
-		  select 
-		  <include refid="selectRecommenCourse"/>
-		    '免费课程' as note
-		  <include refid="commonCondition"/>
-		    and oc.is_free = 1
-			order by recommendSort desc,oc.release_time desc  limit 0,#{pageSizeUp} 
-        )
+        <if test="pageSizeUp != null and pageSizeUp == 3">
+            union all
+            (
+            select
+            <include refid="selectRecommenCourse"/>
+            '免费课程' as note
+            <include refid="commonCondition"/>
+            and oc.is_free = 1
+            order by recommendSort desc,oc.release_time desc limit 0,#{pageSizeUp}
+            )
         </if>
-        
-        
+
+
         union all
-        ( select 
-		  <include refid="selectRecommenCourse"/>
-		    '最新课程' as note
-		 <include refid="commonCondition"/>
-		<include refid="onlyFreeCondition"/>
-			 order by  oc.release_time desc  limit 0,#{pageSizeUp} 
+        ( select
+        <include refid="selectRecommenCourse"/>
+        '最新课程' as note
+        <include refid="commonCondition"/>
+        <include refid="onlyFreeCondition"/>
+        order by oc.release_time desc limit 0,#{pageSizeUp}
         )
-		<if test="cateGoryList !=null ">  
-			union all
-			<foreach item="cateGory" collection="cateGoryList" index="index"  separator="union all">  
-	             ( 
-	               select 
-					 <include refid="selectRecommenCourse"/>
-				       om.name as note
- 					    from  oe_course  oc 
-						 inner join course_anchor as ou  on oc.user_lecturer_id = ou.user_id
-						 inner join oe_menu as  om  on om.id = oc.menu_id
-						 where  ou.status = 1  and ou.deleted =0
-						 and oc.is_delete=0 
-						 and oc.status=1 
-						 and om.id  = #{cateGory.id}
-						<include refid="onlyFreeCondition"/>
-						 order by recommendSort desc,oc.release_time desc limit 0,#{pageSizeDown}
-	    		 )
-	        </foreach>  
-     	 </if>     
-	</select>
-	
-	<sql id="selectRealCourse">
-	    oc.id,
-	    oc.grade_name as gradeName,
-	    oc.current_price*10 as currentPrice,
-	    4 as type,
-		oc.smallimg_path as smallImgPath,
-		oc.lecturer as name,
-		oc.address as address,
+        <if test="cateGoryList !=null ">
+            union all
+            <foreach item="cateGory" collection="cateGoryList" index="index" separator="union all">
+                (
+                select
+                <include refid="selectRecommenCourse"/>
+                om.name as note
+                from oe_course oc
+                inner join course_anchor as ou on oc.user_lecturer_id = ou.user_id
+                inner join oe_menu as om on om.id = oc.menu_id
+                where ou.status = 1 and ou.deleted =0
+                and oc.is_delete=0
+                and oc.status=1
+                and om.id = #{cateGory.id}
+                <include refid="onlyFreeCondition"/>
+                order by recommendSort desc,oc.release_time desc limit 0,#{pageSizeDown}
+                )
+            </foreach>
+        </if>
+    </select>
+
+    <sql id="selectRealCourse">
+        oc.id,
+        oc.grade_name as gradeName,
+        oc.current_price*10 as currentPrice,
+        4 as type,
+        oc.smallimg_path as smallImgPath,
+        oc.lecturer as name,
+        oc.address as address,
         oc.city as city,
         DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr,
-		IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) + IFNULL(oc.default_student_count, 0) learndCount,
-		if(date_sub(date_format(oc.start_time,'%Y%m%d'),INTERVAL 1 DAY)>=date_format(now(),'%Y-%m-%d'),1,0) as cutoff,
-		oc.collection as collection,
-		oc.is_free as watchState,
-		oc.recommend_sort recommendSort,
-		oc.start_time as startTime,
-	</sql>
-	
-	<!-- 线下课 -->
-	<select id="realCourseList" resultType="com.xczhihui.course.vo.CourseLecturVo">
-		( 
-		  select 
-		  <include refid="selectRealCourse"/>
-		    '全国课程' as note
-			<include refid="commonCondition"/>
-			and oc.type = 3
-			<include refid="onlyFreeCondition"/>
-		    ORDER BY recommendSort desc,oc.start_time DESC LIMIT 0,#{pageSizeUp}
+        IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) + IFNULL(oc.default_student_count,
+        0) learndCount,
+        if(date_sub(date_format(oc.start_time,'%Y%m%d'),INTERVAL 1 DAY)>=date_format(now(),'%Y-%m-%d'),1,0) as cutoff,
+        oc.collection as collection,
+        oc.is_free as watchState,
+        oc.recommend_sort recommendSort,
+        oc.start_time as startTime,
+    </sql>
+
+    <!-- 线下课 -->
+    <select id="realCourseList" resultType="com.xczhihui.course.vo.CourseLecturVo">
+        (
+        select
+        <include refid="selectRealCourse"/>
+        '全国课程' as note
+        <include refid="commonCondition"/>
+        and oc.type = 3
+        <include refid="onlyFreeCondition"/>
+        ORDER BY recommendSort desc,oc.start_time DESC LIMIT 0,#{pageSizeUp}
         )
-		<if test="cityList !=null ">  
-			union all
-			<foreach item="city" collection="cityList" index="index"  separator="union all">  
-	             ( 
-	               select 
-					 <include refid="selectRealCourse"/>
-				    oc.city as note
-					<include refid="commonCondition"/>
-					and oc.type = 3 and oc.city = #{city.cityName}
-					<include refid="onlyFreeCondition"/>
-					ORDER BY recommendSort desc,oc.start_time DESC LIMIT 0,#{pageSizeDown}
-	    		 )
-	        </foreach>  
-     	 </if>     
-	</select>
-	
-	
-	
-	
-	
-	<sql id="selectLiveCourse">
-	     oc.id,
-	     oc.direct_Id as directId,
-	     oc.course_length as courseLength,
-	     oc.grade_name as gradeName,
-	     oc.lecturer as name,
-	     oc.city as city,
-		 oc.smallimg_path as smallImgPath,oc.end_time as endTime,
-		 oc.current_price*10 as currentPrice,
-		 if(oc.is_free =0,0,1) as watchState,
-		 if(oc.type =3,4,IF(oc.type = 1,3,if(oc.multimedia_type=1,1,2))) as type,
-		 oc.recommend_sort recommendSort,
-		 oc.start_time as startTime,
-		 oc.collection as collection,
-		 
-		 if(oc.live_status=1,DATE_FORMAT(oc.start_time,'%H:%i'),if(oc.live_status=2,if(oc.start_time &lt;= DATE_ADD(DATE_ADD(str_to_date(DATE_FORMAT(NOW(),'%Y-%m-%d'),
-		 	'%Y-%m-%d %H:%i:%s'),INTERVAL 1 DAY),INTERVAL -1 SECOND),
-		 	DATE_FORMAT(oc.start_time,'%H:%i'),DATE_FORMAT(oc.start_time,'%m.%d')),
-		 	DATE_FORMAT(oc.start_time,'%m.%d') )) as startDateStr,
-		 
-		 (SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)
-		 + IFNULL(oc.default_student_count, 0)) as  learndCount,
-		 
-	     if(oc.live_status = 2,if((DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time ) or 
-                             (DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now() &lt; oc.start_time ),4,
-                  if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now() &lt; oc.start_time,5,oc.live_status)),oc.live_status) as lineState, 	
-	</sql>
-	
-	<!-- 直播列表 -->
-	<select id="liveCourseList" resultType="com.xczhihui.course.vo.CourseLecturVo">
-		( 
-		  select 
-		    <include refid="selectLiveCourse"/>
-		    '正在直播' as note
-		  <include refid="commonCondition"/>
-		  <include refid="onlyFreeCondition"/>
-			and	oc.type=1 and oc.live_status = 1 and oc.start_time >= DATE_SUB(now(),INTERVAL 1 DAY)
-			order by  recommendSort DESC,oc.start_time DESC LIMIT 0,#{pageSizeUp}
-        )
-        union all
-        ( 
-		  select 
-		    <include refid="selectLiveCourse"/>
-		    '即将直播' as note
-		  <include refid="commonCondition"/>
-		  <include refid="onlyFreeCondition"/>
-		   and oc.type=1 and oc.live_status = 2 and ( ( oc.start_time &lt;= DATE_ADD(now(),INTERVAL 1 DAY) and oc.start_time > now() ) or ( DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time ))
-		   order by  recommendSort DESC,oc.start_time asc LIMIT 0,#{pageSizeDown}
+        <if test="cityList !=null ">
+            union all
+            <foreach item="city" collection="cityList" index="index" separator="union all">
+                (
+                select
+                <include refid="selectRealCourse"/>
+                oc.city as note
+                <include refid="commonCondition"/>
+                and oc.type = 3 and oc.city = #{city.cityName}
+                <include refid="onlyFreeCondition"/>
+                ORDER BY recommendSort desc,oc.start_time DESC LIMIT 0,#{pageSizeDown}
+                )
+            </foreach>
+        </if>
+    </select>
+
+
+    <sql id="selectLiveCourse">
+        oc.id,
+        oc.direct_Id as directId,
+        oc.course_length as courseLength,
+        oc.grade_name as gradeName,
+        oc.lecturer as name,
+        oc.city as city,
+        oc.smallimg_path as smallImgPath,oc.end_time as endTime,
+        oc.current_price*10 as currentPrice,
+        if(oc.is_free =0,0,1) as watchState,
+        if(oc.type =3,4,IF(oc.type = 1,3,if(oc.multimedia_type=1,1,2))) as type,
+        oc.recommend_sort recommendSort,
+        oc.start_time as startTime,
+        oc.collection as collection,
+
+        if(oc.live_status=1,DATE_FORMAT(oc.start_time,'%H:%i'),if(oc.live_status=2,if(oc.start_time &lt;=
+        DATE_ADD(DATE_ADD(str_to_date(DATE_FORMAT(NOW(),'%Y-%m-%d'),
+        '%Y-%m-%d %H:%i:%s'),INTERVAL 1 DAY),INTERVAL -1 SECOND),
+        DATE_FORMAT(oc.start_time,'%H:%i'),DATE_FORMAT(oc.start_time,'%m.%d')),
+        DATE_FORMAT(oc.start_time,'%m.%d') )) as startDateStr,
+
+        (SELECT IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)
+        + IFNULL(oc.default_student_count, 0)) as learndCount,
+
+        if(oc.live_status = 2,if((DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time ) or
+        (DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now() &lt; oc.start_time ),4,
+        if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now() &lt;
+        oc.start_time,5,oc.live_status)),oc.live_status) as lineState,
+    </sql>
+
+    <!-- 直播列表 -->
+    <select id="liveCourseList" resultType="com.xczhihui.course.vo.CourseLecturVo">
+        (
+        select
+        <include refid="selectLiveCourse"/>
+        '正在直播' as note
+        <include refid="commonCondition"/>
+        <include refid="onlyFreeCondition"/>
+        and oc.type=1 and oc.live_status = 1 and oc.start_time >= DATE_SUB(now(),INTERVAL 1 DAY)
+        order by recommendSort DESC,oc.start_time DESC LIMIT 0,#{pageSizeUp}
         )
         union all
-        ( 
-		  select 
-		    <include refid="selectLiveCourse"/>
-		    '直播课程' as note
-			<include refid="commonCondition"/>
-			<include refid="onlyFreeCondition"/>
-			and oc.type=1 and oc.live_status = 2 and oc.start_time >= DATE_ADD(now(),INTERVAL 1 DAY)
-			order by  recommendSort DESC,oc.start_time asc LIMIT 0,#{pageSizeDown}
+        (
+        select
+        <include refid="selectLiveCourse"/>
+        '即将直播' as note
+        <include refid="commonCondition"/>
+        <include refid="onlyFreeCondition"/>
+        and oc.type=1 and oc.live_status = 2 and ( ( oc.start_time &lt;= DATE_ADD(now(),INTERVAL 1 DAY) and
+        oc.start_time > now() ) or ( DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time ))
+        order by recommendSort DESC,oc.start_time asc LIMIT 0,#{pageSizeDown}
         )
         union all
-       ( 
-		  select 
-		    <include refid="selectLiveCourse"/>
-		    '精彩直播回放' as note
-			<include refid="commonCondition"/> 
-			<include refid="onlyFreeCondition"/>
-			and oc.type=1 and oc.live_status = 3
-		    order by  recommendSort DESC,oc.start_time desc LIMIT 0,#{pageSizeDown}
-        ) 
-    </select>    
-	
-	
+        (
+        select
+        <include refid="selectLiveCourse"/>
+        '直播课程' as note
+        <include refid="commonCondition"/>
+        <include refid="onlyFreeCondition"/>
+        and oc.type=1 and oc.live_status = 2 and oc.start_time >= DATE_ADD(now(),INTERVAL 1 DAY)
+        order by recommendSort DESC,oc.start_time asc LIMIT 0,#{pageSizeDown}
+        )
+        union all
+        (
+        select
+        <include refid="selectLiveCourse"/>
+        '精彩直播回放' as note
+        <include refid="commonCondition"/>
+        <include refid="onlyFreeCondition"/>
+        and oc.type=1 and oc.live_status = 3
+        order by recommendSort DESC,oc.start_time desc LIMIT 0,#{pageSizeDown}
+        )
+    </select>
+
+
     <!--  查看听课列表  -->
-	<select id="listenCourseList" resultType="com.xczhihui.course.vo.CourseLecturVo">
-		  select 
-			  <include refid="selectRecommenCourse"/>
-			  '听课' as note
-			  <include refid="commonCondition"/>
-			  and oc.multimedia_type = 2
-			<include refid="onlyFreeCondition"/>
-			order by recommendSort desc,oc.release_time desc LIMIT 0,12
-	</select>
-	
-	<!-- 搜索结果(字段)查询  -->
-	<sql id="commonSearchField">
-	    oc.id,
-	    oc.grade_name as gradeName,
-	    oc.current_price*10 as currentPrice,
-		oc.smallimg_path as smallImgPath,
-		oc.lecturer as name,
-		oc.collection as collection,
-		
+    <select id="listenCourseList" resultType="com.xczhihui.course.vo.CourseLecturVo">
+        select
+        <include refid="selectRecommenCourse"/>
+        '听课' as note
+        <include refid="commonCondition"/>
+        and oc.multimedia_type = 2
+        <include refid="onlyFreeCondition"/>
+        order by recommendSort desc,oc.release_time desc LIMIT 0,12
+    </select>
+
+    <!-- 搜索结果(字段)查询  -->
+    <sql id="commonSearchField">
+        oc.id,
+        oc.grade_name as gradeName,
+        oc.current_price*10 as currentPrice,
+        oc.smallimg_path as smallImgPath,
+        oc.lecturer as name,
+        oc.collection as collection,
+
         if(oc.live_status=1,DATE_FORMAT(oc.start_time,'%H:%i'),
-		  if(oc.live_status=2,if(oc.start_time &lt;= DATE_ADD(DATE_ADD(str_to_date(DATE_FORMAT(NOW(),'%Y-%m-%d'),'%Y-%m-%d %H:%i:%s'),INTERVAL 1 DAY),INTERVAL -1 SECOND) ,
-           DATE_FORMAT(oc.start_time,'%H:%i'),DATE_FORMAT(oc.start_time,'%m.%d')),DATE_FORMAT(oc.start_time,'%m.%d') )) as startDateStr,
-        
-         IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)
-			+IFNULL(oc.default_student_count, 0) learndCount,
-			
-		if(oc.is_free =0,0,1) as watchState,
-		
-	    if(oc.live_status = 2,if((DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time ) or 
-                             (DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now() &lt; oc.start_time ),4,
-                  if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now() &lt; oc.start_time,5,oc.live_status)),oc.live_status) as lineState, 	
-		oc.city as city, 
-		oc.release_time,
-		oc.recommend_sort recommendSort,
-		if(oc.type =3,4,IF(oc.type = 1,3,if(oc.multimedia_type=1,1,2))) as type,
-		oc.create_time,oc.is_recommend,oc.start_time as startTime,
-		ABS(timestampdiff(second,current_timestamp,oc.start_time)) as recent,
-	</sql>
-	
-	<!-- 公共的搜索条件  -->
-	<sql id="commonSearchCondition">
-		<!-- 查询条件  -->
-	     <if test="queryVo.city != null and queryVo.city != '' " >   
-	        and oc.type =3
-		     <choose>  
-	            <when test="queryVo.city == '全国课程'">  
-	              and 1 = 1 
-	            </when>  
-	            <when test="queryVo.city == '其他'">  
-	              and oc.city not in  
-		               ( select city_name from oe_offline_city ooc WHERE  ooc.status = 1 and ooc.is_delete = 0 
-		                   ORDER BY ooc.is_recommend desc ,ooc.sort desc  )  
-	            </when>  
-	            <otherwise>  
-	               and oc.city= #{queryVo.city}
-	            </otherwise>  
-	        </choose>  
-	     </if> 
-	     <if test="queryVo.isFree != null ">   
-	        and  oc.is_free = #{queryVo.isFree}
-	     </if>
-	     <if test="queryVo.lineState != null "  >   
-		     <choose>  
-	            <when test="queryVo.lineState == 1234">  
-	              and oc.type = 1
-	            </when>  
-	            <otherwise>  
-	               and oc.live_status= #{queryVo.lineState}
-	            </otherwise>  
-	        </choose>  
-	     </if> 
-	      <if test="queryVo.courseType != null " >   
-		     <choose>  
-	            <when test="queryVo.courseType == 1 || queryVo.courseType == 2">  
-	              and oc.multimedia_type =  #{queryVo.courseType}
-	            </when>  
-	            <when test="queryVo.courseType == 3">  
-	              and oc.type= 1
-	            </when>  
-	             <when test="queryVo.courseType == 4">  
-	              and oc.type= 3
-	            </when>  
-	        </choose>  
-	     </if> 
-	     <if test="queryVo.menuType != null and queryVo.menuType != '' 
-	     		and queryVo.menuType != 'goodCourse' 
-	     		and queryVo.menuType != 'newCourse'">   
-	        AND oc.menu_id = #{queryVo.menuType}
-	     </if>	
-	</sql>
-	
-	<sql id="commonQuerySortOrder">
-		<!-- 综合 -->
-		<choose>
-	        <when test="queryVo.sortOrder == 1 " >
-	              recommendSort desc,oc.release_time desc
-	        </when> 
-			<!-- 最新 -->
-	        <when test="queryVo.sortOrder == 2 ">
-	              oc.release_time desc
-	        </when> 
-	        <!-- 人气 -->
-	        <when test="queryVo.sortOrder == 3" >
-	              learndCount desc 
-	        </when>
-	        <!-- 价格降序-->
-	        <when test="queryVo.sortOrder == 4" >
-	              currentPrice desc,recommendSort desc 
-	        </when>
-	        <!-- 价格升序-->
-	        <when test="queryVo.sortOrder == 5" >
-	              currentPrice asc,recommendSort desc 
-	         </when>
-	         <otherwise>
-             	recommendSort desc,oc.release_time desc
-	         </otherwise>   
-	      </choose>   
-	</sql>
-	
-	
-	<!-- 没有关键字的查询 -->
-	<select id="searchCourseList" resultType="com.xczhihui.course.vo.CourseLecturVo">
-	   select 
-	     <include refid="commonSearchField"/>
-	     "1" as note
-	   from oe_course oc  
-	      inner join oe_user ou  on  oc.user_lecturer_id = ou.id		
-	     <if test="queryVo.menuType != null  and queryVo.menuType != ''
-	     		and queryVo.menuType != 'goodCourse' 
-	     		and queryVo.menuType != 'newCourse'">   
-	        inner join oe_menu as om  on om.id = oc.menu_id
-	     </if>
-	    where oc.is_delete=0 and oc.status = 1  
-	     
-	     <include refid="commonSearchCondition"/>
-	     <include refid="onlyFreeCondition"/>
+        if(oc.live_status=2,if(oc.start_time &lt;= DATE_ADD(DATE_ADD(str_to_date(DATE_FORMAT(NOW(),'%Y-%m-%d'),'%Y-%m-%d
+        %H:%i:%s'),INTERVAL 1 DAY),INTERVAL -1 SECOND) ,
+        DATE_FORMAT(oc.start_time,'%H:%i'),DATE_FORMAT(oc.start_time,'%m.%d')),DATE_FORMAT(oc.start_time,'%m.%d') )) as
+        startDateStr,
 
-	     order by  
-	  	 <include refid="commonQuerySortOrder"/> 	
-	</select>
-	
-	
-	<!-- 有关键字的查询 -->
-	<select id="searchQueryKeyCourseList" resultType="com.xczhihui.course.vo.CourseLecturVo">
-      select * from (
-	  <!-- 课程名在前面  -->
-	  ( select 
-	     <include refid="commonSearchField"/>
-	     1 as querySort
-	   from oe_course oc  
-	      inner join oe_user ou  on   oc.user_lecturer_id = ou.id		
-	     <if test="queryVo.menuType != null and queryVo.menuType != '' 
+        IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)
+        +IFNULL(oc.default_student_count, 0) learndCount,
+
+        if(oc.is_free =0,0,1) as watchState,
+
+        if(oc.live_status = 2,if((DATE_SUB(now(),INTERVAL 30 MINUTE) &lt; oc.start_time and now() > oc.start_time ) or
+        (DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now() &lt; oc.start_time ),4,
+        if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now() &lt;
+        oc.start_time,5,oc.live_status)),oc.live_status) as lineState,
+        oc.city as city,
+        oc.release_time,
+        oc.recommend_sort recommendSort,
+        if(oc.type =3,4,IF(oc.type = 1,3,if(oc.multimedia_type=1,1,2))) as type,
+        oc.create_time,oc.is_recommend,oc.start_time as startTime,
+        ABS(timestampdiff(second,current_timestamp,oc.start_time)) as recent,
+    </sql>
+
+    <!-- 公共的搜索条件  -->
+    <sql id="commonSearchCondition">
+        <!-- 查询条件  -->
+        <if test="queryVo.city != null and queryVo.city != '' ">
+            and oc.type =3
+            <choose>
+                <when test="queryVo.city == '全国课程'">
+                    and 1 = 1
+                </when>
+                <when test="queryVo.city == '其他'">
+                    and oc.city not in
+                    ( select city_name from oe_offline_city ooc WHERE ooc.status = 1 and ooc.is_delete = 0
+                    ORDER BY ooc.is_recommend desc ,ooc.sort desc )
+                </when>
+                <otherwise>
+                    and oc.city= #{queryVo.city}
+                </otherwise>
+            </choose>
+        </if>
+        <if test="queryVo.isFree != null ">
+            and oc.is_free = #{queryVo.isFree}
+        </if>
+        <if test="queryVo.lineState != null ">
+            <choose>
+                <when test="queryVo.lineState == 1234">
+                    and oc.type = 1
+                </when>
+                <otherwise>
+                    and oc.live_status= #{queryVo.lineState}
+                </otherwise>
+            </choose>
+        </if>
+        <if test="queryVo.courseType != null ">
+            <choose>
+                <when test="queryVo.courseType == 1 || queryVo.courseType == 2">
+                    and oc.multimedia_type = #{queryVo.courseType}
+                </when>
+                <when test="queryVo.courseType == 3">
+                    and oc.type= 1
+                </when>
+                <when test="queryVo.courseType == 4">
+                    and oc.type= 3
+                </when>
+            </choose>
+        </if>
+        <if test="queryVo.menuType != null and queryVo.menuType != ''
 	     		and queryVo.menuType != 'goodCourse' 
-	     		and queryVo.menuType != 'newCourse'">   
-	        inner join oe_menu as om  on om.id = oc.menu_id
-	     </if>
-	    where oc.is_delete=0 and oc.status = 1  
-	     <include refid="commonSearchCondition"/>
-	     <include refid="onlyFreeCondition"/>
-	     <if test="queryVo.queryKey != null and queryVo.queryKey != ''">
-	       and  oc.grade_name like  #{queryVo.queryKey}
-	     </if> 
-	   )
-	   
-	   union
-	   
-	   <!-- 分类名称 -->
-	  ( select 
-	     <include refid="commonSearchField"/>
-	     2 as querySort
-	    from oe_course oc  
-	      inner join oe_user ou  on   oc.user_lecturer_id = ou.id		
-	     <if test="queryVo.menuType != null and queryVo.menuType !='' 
-	     		and queryVo.menuType != 'goodCourse' 
-	     		and queryVo.menuType != 'newCourse'">   
-	        inner join oe_menu as om  on om.id = oc.menu_id
-	     </if>
-	    where oc.is_delete=0 and oc.status = 1  
-	     <include refid="commonSearchCondition"/>
-	     <if test="queryVo.queryKey != null and queryVo.queryKey !=''">   
-	       and oc.menu_id in 
-	         (select id from oe_menu  
-	            where name like #{queryVo.queryKey} ) 
-	     </if> 
-	   )
-	   union
-	  <!-- 讲师名称 -->
-	  ( select 
-	     <include refid="commonSearchField"/>
-	     3 as querySort
-	    from oe_course oc  
-	      inner join oe_user ou  on   oc.user_lecturer_id = ou.id		
-	     <if test="queryVo.menuType != null and queryVo.menuType != '' 
-	     		and queryVo.menuType != 'goodCourse' 
-	     		and queryVo.menuType != 'newCourse'">   
-	        inner join oe_menu as om  on om.id = oc.menu_id
-	     </if>
-	    where oc.is_delete=0 and oc.status = 1  
-	     <include refid="commonSearchCondition"/>
-	     <if test="queryVo.queryKey != null and queryVo.queryKey != ''">   
-	       and oc.lecturer like #{queryVo.queryKey}
-	     </if> 
-	  )
-	     union
-	  <!-- 课程详情、讲师详情-->
-	  ( select 
-	     <include refid="commonSearchField"/>
-	     4 as querySort
-	    from oe_course oc  
-	      inner join oe_user ou  on   oc.user_lecturer_id = ou.id		
-	     <if test="queryVo.menuType != null and queryVo.menuType != '' 
-	     		and queryVo.menuType != 'goodCourse' 
-	     		and queryVo.menuType != 'newCourse'">   
-	        inner join oe_menu as om  on om.id = oc.menu_id
-	     </if>
-	    where oc.is_delete=0 and oc.status = 1  
-	     
-	     <include refid="commonSearchCondition"/>
-	      
-	     <if test="queryVo.queryKey != null and queryVo.queryKey != ''">   
-	       and (
-	         oc.course_detail  like #{queryVo.queryKey}
-	         or
-	         oc.lecturer_description  like #{queryVo.queryKey}
-	       )
-	     </if> 
-	  )  ) as  ooc
-	    group by ooc.id order by  
-	  	<include refid="queryKeySortOrder"/> 
-	</select>
-	
-	<sql id="queryKeySortOrder">
-		<choose>
-			<!-- 最新 -->
-	        <when test="queryVo.sortOrder == 2 ">
-	              oc.release_time desc,ooc.querySort asc,recommendSort desc
-	        </when> 
-	        <!-- 人气 -->
-	        <when test="queryVo.sortOrder == 3" >
-	              learndCount desc,ooc.querySort asc,recommendSort desc,ooc.release_time desc
-	        </when>
-	        <!-- 价格升序-->
-	        <when test="queryVo.sortOrder == 4" >
-	              currentPrice desc,ooc.querySort asc,recommendSort desc,ooc.release_time desc
-	        </when>
-	     	<!-- 价格降序-->
-	        <when test="queryVo.sortOrder == 5" >
-	              currentPrice asc,ooc.querySort asc,recommendSort desc,ooc.release_time desc
-	         </when>
-	         <otherwise>
-             	ooc.querySort asc,recommendSort desc,ooc.release_time desc
-	         </otherwise>   
-	      </choose>   
-	</sql>
+	     		and queryVo.menuType != 'newCourse'">
+            AND oc.menu_id = #{queryVo.menuType}
+        </if>
+    </sql>
+
+    <sql id="commonQuerySortOrder">
+        <!-- 综合 -->
+        <choose>
+            <when test="queryVo.sortOrder == 1 ">
+                recommendSort desc,oc.release_time desc
+            </when>
+            <!-- 最新 -->
+            <when test="queryVo.sortOrder == 2 ">
+                oc.release_time desc
+            </when>
+            <!-- 人气 -->
+            <when test="queryVo.sortOrder == 3">
+                learndCount desc
+            </when>
+            <!-- 价格降序-->
+            <when test="queryVo.sortOrder == 4">
+                currentPrice desc,recommendSort desc
+            </when>
+            <!-- 价格升序-->
+            <when test="queryVo.sortOrder == 5">
+                currentPrice asc,recommendSort desc
+            </when>
+            <otherwise>
+                recommendSort desc,oc.release_time desc
+            </otherwise>
+        </choose>
+    </sql>
 
 
-	<!-- pc首页查询   在线课程、线下课  -->
-     
+    <!-- 没有关键字的查询 -->
+    <select id="searchCourseList" resultType="com.xczhihui.course.vo.CourseLecturVo">
+        select
+        <include refid="commonSearchField"/>
+        "1" as note
+        from oe_course oc
+        inner join oe_user ou on oc.user_lecturer_id = ou.id
+        <if test="queryVo.menuType != null  and queryVo.menuType != ''
+	     		and queryVo.menuType != 'goodCourse' 
+	     		and queryVo.menuType != 'newCourse'">
+            inner join oe_menu as om on om.id = oc.menu_id
+        </if>
+        where oc.is_delete=0 and oc.status = 1
+
+        <include refid="commonSearchCondition"/>
+        <include refid="onlyFreeCondition"/>
+
+        order by
+        <include refid="commonQuerySortOrder"/>
+    </select>
+
+
+    <!-- 有关键字的查询 -->
+    <select id="searchQueryKeyCourseList" resultType="com.xczhihui.course.vo.CourseLecturVo">
+        select * from (
+        <!-- 课程名在前面  -->
+        ( select
+        <include refid="commonSearchField"/>
+        1 as querySort
+        from oe_course oc
+        inner join oe_user ou on oc.user_lecturer_id = ou.id
+        <if test="queryVo.menuType != null and queryVo.menuType != ''
+	     		and queryVo.menuType != 'goodCourse' 
+	     		and queryVo.menuType != 'newCourse'">
+            inner join oe_menu as om on om.id = oc.menu_id
+        </if>
+        where oc.is_delete=0 and oc.status = 1
+        <include refid="commonSearchCondition"/>
+        <include refid="onlyFreeCondition"/>
+        <if test="queryVo.queryKey != null and queryVo.queryKey != ''">
+            and oc.grade_name like #{queryVo.queryKey}
+        </if>
+        )
+
+        union
+
+        <!-- 分类名称 -->
+        ( select
+        <include refid="commonSearchField"/>
+        2 as querySort
+        from oe_course oc
+        inner join oe_user ou on oc.user_lecturer_id = ou.id
+        <if test="queryVo.menuType != null and queryVo.menuType !=''
+	     		and queryVo.menuType != 'goodCourse' 
+	     		and queryVo.menuType != 'newCourse'">
+            inner join oe_menu as om on om.id = oc.menu_id
+        </if>
+        where oc.is_delete=0 and oc.status = 1
+        <include refid="commonSearchCondition"/>
+        <if test="queryVo.queryKey != null and queryVo.queryKey !=''">
+            and oc.menu_id in
+            (select id from oe_menu
+            where name like #{queryVo.queryKey} )
+        </if>
+        )
+        union
+        <!-- 讲师名称 -->
+        ( select
+        <include refid="commonSearchField"/>
+        3 as querySort
+        from oe_course oc
+        inner join oe_user ou on oc.user_lecturer_id = ou.id
+        <if test="queryVo.menuType != null and queryVo.menuType != ''
+	     		and queryVo.menuType != 'goodCourse' 
+	     		and queryVo.menuType != 'newCourse'">
+            inner join oe_menu as om on om.id = oc.menu_id
+        </if>
+        where oc.is_delete=0 and oc.status = 1
+        <include refid="commonSearchCondition"/>
+        <if test="queryVo.queryKey != null and queryVo.queryKey != ''">
+            and oc.lecturer like #{queryVo.queryKey}
+        </if>
+        )
+        union
+        <!-- 课程详情、讲师详情-->
+        ( select
+        <include refid="commonSearchField"/>
+        4 as querySort
+        from oe_course oc
+        inner join oe_user ou on oc.user_lecturer_id = ou.id
+        <if test="queryVo.menuType != null and queryVo.menuType != ''
+	     		and queryVo.menuType != 'goodCourse' 
+	     		and queryVo.menuType != 'newCourse'">
+            inner join oe_menu as om on om.id = oc.menu_id
+        </if>
+        where oc.is_delete=0 and oc.status = 1
+
+        <include refid="commonSearchCondition"/>
+
+        <if test="queryVo.queryKey != null and queryVo.queryKey != ''">
+            and (
+            oc.course_detail like #{queryVo.queryKey}
+            or
+            oc.lecturer_description like #{queryVo.queryKey}
+            )
+        </if>
+        ) ) as ooc
+        group by ooc.id order by
+        <include refid="queryKeySortOrder"/>
+    </select>
+
+    <sql id="queryKeySortOrder">
+        <choose>
+            <!-- 最新 -->
+            <when test="queryVo.sortOrder == 2 ">
+                oc.release_time desc,ooc.querySort asc,recommendSort desc
+            </when>
+            <!-- 人气 -->
+            <when test="queryVo.sortOrder == 3">
+                learndCount desc,ooc.querySort asc,recommendSort desc,ooc.release_time desc
+            </when>
+            <!-- 价格升序-->
+            <when test="queryVo.sortOrder == 4">
+                currentPrice desc,ooc.querySort asc,recommendSort desc,ooc.release_time desc
+            </when>
+            <!-- 价格降序-->
+            <when test="queryVo.sortOrder == 5">
+                currentPrice asc,ooc.querySort asc,recommendSort desc,ooc.release_time desc
+            </when>
+            <otherwise>
+                ooc.querySort asc,recommendSort desc,ooc.release_time desc
+            </otherwise>
+        </choose>
+    </sql>
+
+
+    <!-- pc首页查询   在线课程、线下课  -->
+
     <!-- 在线课程、也就是直播课程（直播中、预告、回放）   live_status   1.直播中，2预告，3直播结束   -->
     <select id="selectPcIndex" resultType="com.xczhihui.course.vo.CourseLecturVo">
-		( 
-		  select 
-		    <include refid="selectLiveCourse"/>
-		    '在线课程' as note
-		  <include refid="commonCondition"/>
-			and	oc.type  != 3 
-			order by  recommendSort DESC,oc.start_time DESC LIMIT 0,#{pageSize}
+        (
+        select
+        <include refid="selectLiveCourse"/>
+        '在线课程' as note
+        <include refid="commonCondition"/>
+        and oc.type != 3
+        order by recommendSort DESC,oc.start_time DESC LIMIT 0,#{pageSize}
         )
         union all
-        ( 
-		  select 
-		    <include refid="selectLiveCourse"/>
-		    '线下课程' as note
-		  <include refid="commonCondition"/>
-		    ORDER BY recommendSort desc,oc.start_time DESC LIMIT 0,#{pageSize}
+        (
+        select
+        <include refid="selectLiveCourse"/>
+        '线下课程' as note
+        <include refid="commonCondition"/>
+        ORDER BY recommendSort desc,oc.start_time DESC LIMIT 0,#{pageSize}
         )
-    </select>  
-	
-	
-	<!--  课程下架后，为用户推荐的课程 -->
-	<select id="selectUnshelveRecommenCourse" resultType="com.xczhihui.course.vo.CourseLecturVo">
-		select 
-		  <include refid="selectRecommenCourse"/>
-		    '精品课程' as note
-		  <include refid="commonCondition"/>
-		order by recommendSort desc,oc.release_time desc  limit 0,#{pageSize} 
-	</select>  
-	
-	
+    </select>
+
+
+    <!--  课程下架后，为用户推荐的课程 -->
+    <select id="selectUnshelveRecommenCourse" resultType="com.xczhihui.course.vo.CourseLecturVo">
+        select
+        <include refid="selectRecommenCourse"/>
+        '精品课程' as note
+        <include refid="commonCondition"/>
+        order by recommendSort desc,oc.release_time desc limit 0,#{pageSize}
+    </select>
+
+
 </mapper>

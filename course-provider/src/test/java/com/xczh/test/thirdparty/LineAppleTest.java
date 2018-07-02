@@ -15,27 +15,27 @@ import test.BaseJunit4Test;
  */
 public class LineAppleTest extends BaseJunit4Test {
 
-	
-	@Autowired
-	public ILineApplyService lineApplyServiceImpl;
-	
+
+    @Autowired
+    public ILineApplyService lineApplyServiceImpl;
+
     /**
      * 测试观看记录了
      */
-	@Test
-    public void saveLineApply(){
-    	
-		
-		LineApply lineApply =  new LineApply();
-		lineApply.setId("63dd1acaddf0469b8155c876da3e63e3");
-		lineApply.setUserId("123");
-		lineApply.setCourseId(621);
-		lineApply.setUpdateTime(new Date());
-		lineApply.setCreateTime(new Date());
-		lineApply.setRealName("社会我平哥");
-		lineApply.setSex(0);
-		lineApply.setMobile("16639145471");
-		lineApply.setWechatNo("www45399975");
-		lineApplyServiceImpl.saveOrUpdate(lineApply);
+    @Test
+    public void saveLineApply() {
+
+
+        LineApply lineApply = new LineApply();
+        lineApply.setId("63dd1acaddf0469b8155c876da3e63e3");
+        lineApply.setUserId("123");
+        lineApply.setCourseId(621);
+        lineApply.setUpdateTime(new Date());
+        lineApply.setCreateTime(new Date());
+        lineApply.setRealName("社会我平哥");
+        lineApply.setSex(0);
+        lineApply.setMobile("16639145471");
+        lineApply.setWechatNo("www45399975");
+        lineApplyServiceImpl.saveOrUpdate(lineApply);
     }
 }

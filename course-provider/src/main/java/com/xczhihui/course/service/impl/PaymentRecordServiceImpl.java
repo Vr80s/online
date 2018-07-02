@@ -1,20 +1,5 @@
 package com.xczhihui.course.service.impl;
 
-import com.xczhihui.common.util.enums.PayOrderType;
-import com.xczhihui.course.model.Order;
-import com.xczhihui.course.mapper.AlipayPaymentRecordMapper;
-import com.xczhihui.course.mapper.WxcpPayFlowMapper;
-import com.xczhihui.course.model.AlipayPaymentRecord;
-import com.xczhihui.course.model.WxcpPayFlow;
-import com.xczhihui.course.service.IOrderService;
-import com.xczhihui.course.service.IPaymentRecordService;
-import com.xczhihui.course.vo.PayMessage;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-
 import java.math.BigDecimal;
 import java.text.MessageFormat;
 import java.text.ParseException;
@@ -23,6 +8,22 @@ import java.util.Date;
 import java.util.Map;
 import java.util.UUID;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
+import com.xczhihui.common.util.enums.PayOrderType;
+import com.xczhihui.course.mapper.AlipayPaymentRecordMapper;
+import com.xczhihui.course.mapper.WxcpPayFlowMapper;
+import com.xczhihui.course.model.AlipayPaymentRecord;
+import com.xczhihui.course.model.Order;
+import com.xczhihui.course.model.WxcpPayFlow;
+import com.xczhihui.course.service.IOrderService;
+import com.xczhihui.course.service.IPaymentRecordService;
+import com.xczhihui.course.vo.PayMessage;
+
 /**
  * Description: 支付记录<br>
  *
@@ -30,13 +31,11 @@ import java.util.UUID;
  * Create Time:  2018/4/19 0019-下午 3:23<br>
  */
 @Service
-public class PaymentRecordServiceImpl implements IPaymentRecordService{
-
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
+public class PaymentRecordServiceImpl implements IPaymentRecordService {
 
     private static final String BUY_COURSE_TEXT = "购买课程{0}";
     private static final String BUY_COIN_TEXT = "充值熊猫币:{0}个";
-
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     private AlipayPaymentRecordMapper alipayPaymentRecordMapper;
     @Autowired
@@ -49,14 +48,14 @@ public class PaymentRecordServiceImpl implements IPaymentRecordService{
 
     @Override
     public AlipayPaymentRecord saveAlipayPaymentRecord(Map<String, String> params) {
-        logger.info("回调："+params.get("out_trade_no"));
+        logger.info("回调：" + params.get("out_trade_no"));
         for (Map.Entry<String, String> entry : params.entrySet()) {
             logger.info(entry.getKey() + " = " + entry.getValue());
         }
         AlipayPaymentRecord apr = new AlipayPaymentRecord();
         apr.setOutTradeNo(params.get("out_trade_no"));
         apr = alipayPaymentRecordMapper.selectOne(apr);
-        if(apr!=null){
+        if (apr != null) {
             //若记录存在，返回空
             return null;
         }
@@ -65,14 +64,14 @@ public class PaymentRecordServiceImpl implements IPaymentRecordService{
         String userId = null;
         PayMessage payMessage = PayMessage.getPayMessage(params.get("passback_params"));
 
-        if(PayOrderType.COURSE_ORDER.getCode().equals(payMessage.getType())){
+        if (PayOrderType.COURSE_ORDER.getCode().equals(payMessage.getType())) {
             userId = payMessage.getUserId();
             Order order = orderService.getOrderNo4PayByOrderNo(params.get("out_trade_no"));
-            alipayPaymentRecord.setSubject(MessageFormat.format(BUY_COURSE_TEXT,order.getCourseNames()));
-        }else if(PayOrderType.COIN_ORDER.getCode().equals(payMessage.getType())){
+            alipayPaymentRecord.setSubject(MessageFormat.format(BUY_COURSE_TEXT, order.getCourseNames()));
+        } else if (PayOrderType.COIN_ORDER.getCode().equals(payMessage.getType())) {
             BigDecimal count = new BigDecimal(params.get("total_amount")).multiply(new BigDecimal(rate));
             userId = payMessage.getUserId();
-            alipayPaymentRecord.setSubject((MessageFormat.format(BUY_COIN_TEXT,count)));
+            alipayPaymentRecord.setSubject((MessageFormat.format(BUY_COIN_TEXT, count)));
         }
 
         alipayPaymentRecord.setUserId(userId);
@@ -102,11 +101,11 @@ public class PaymentRecordServiceImpl implements IPaymentRecordService{
 
     @Override
     public WxcpPayFlow saveWxPayPaymentRecord(Map<String, String> packageParams) throws ParseException {
-        logger.info("回调："+packageParams.get("out_trade_no"));
+        logger.info("回调：" + packageParams.get("out_trade_no"));
         WxcpPayFlow wpf = new WxcpPayFlow();
         wpf.setTransactionId(packageParams.get("transaction_id"));
         wpf = wxcpPayFlowMapper.selectOne(wpf);
-        if(wpf!=null){
+        if (wpf != null) {
             //若记录存在，返回空
             return null;
         }
@@ -134,15 +133,15 @@ public class PaymentRecordServiceImpl implements IPaymentRecordService{
         String userId = null;
         PayMessage payMessage = PayMessage.getPayMessage(attach);
 
-        if(PayOrderType.COURSE_ORDER.getCode().equals(payMessage.getType())){
+        if (PayOrderType.COURSE_ORDER.getCode().equals(payMessage.getType())) {
             userId = payMessage.getUserId();
-            Order order = orderService.getOrderNo4PayByOrderNo(out_trade_no.substring(0,20));
-            wxcpPayFlow.setSubject(MessageFormat.format(BUY_COURSE_TEXT,order.getCourseNames()));
-        }else if(PayOrderType.COIN_ORDER.getCode().equals(payMessage.getType())){
+            Order order = orderService.getOrderNo4PayByOrderNo(out_trade_no.substring(0, 20));
+            wxcpPayFlow.setSubject(MessageFormat.format(BUY_COURSE_TEXT, order.getCourseNames()));
+        } else if (PayOrderType.COIN_ORDER.getCode().equals(payMessage.getType())) {
             //微信金额单位为分
             BigDecimal count = new BigDecimal(total_fee).divide(new BigDecimal(100)).multiply(new BigDecimal(rate));
             userId = payMessage.getUserId();
-            wxcpPayFlow.setSubject((MessageFormat.format(BUY_COIN_TEXT,count)));
+            wxcpPayFlow.setSubject((MessageFormat.format(BUY_COIN_TEXT, count)));
         }
 
         wxcpPayFlow.setUserId(userId);
@@ -160,8 +159,8 @@ public class PaymentRecordServiceImpl implements IPaymentRecordService{
         wxcpPayFlow.setReturnCode(return_code);
         wxcpPayFlow.setSign(sign);
         wxcpPayFlow.setSubMchId(sub_mch_id);
-        SimpleDateFormat format =  new SimpleDateFormat("yyyyMMddHHmmss");
-        Date date=format.parse(time_end);
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
+        Date date = format.parse(time_end);
         wxcpPayFlow.setTimeEnd(date);
         wxcpPayFlow.setTotalFee(Integer.valueOf(total_fee));
         wxcpPayFlow.setTradeType(trade_type);

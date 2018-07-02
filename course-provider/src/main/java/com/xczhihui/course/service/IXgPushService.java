@@ -18,7 +18,7 @@ public interface IXgPushService {
      * 根据设备号推送安卓单条消息
      *
      * @param deviceToken 设备号
-     * @param xgMessage     消息
+     * @param xgMessage   消息
      * @return
      */
     JSONObject pushSingleDevice(String deviceToken, XgMessage xgMessage);
@@ -36,7 +36,7 @@ public interface IXgPushService {
     /**
      * 根据账号推送安卓单条消息
      *
-     * @param account 账号
+     * @param account   账号
      * @param xgMessage 消息
      * @return
      */
@@ -56,7 +56,7 @@ public interface IXgPushService {
      * 根据多个账号推送安卓消息
      *
      * @param accountList 账号列表
-     * @param xgMessage     消息
+     * @param xgMessage   消息
      * @return
      */
     JSONObject pushAccountList(int deviceType, List<String> accountList, XgMessage xgMessage);
@@ -82,7 +82,7 @@ public interface IXgPushService {
     /**
      * 给全部的IOS用户推送消息
      *
-     * @param message 消息
+     * @param message     消息
      * @param environment 环境
      * @return
      */

@@ -1,16 +1,17 @@
 package com.xczhihui.course.mapper;
 
-import com.baomidou.mybatisplus.mapper.BaseMapper;
-import com.baomidou.mybatisplus.plugins.Page;
-import com.xczhihui.course.model.Reply;
-import com.xczhihui.course.model.Criticize;
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
-import java.util.List;
+import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.baomidou.mybatisplus.plugins.Page;
+import com.xczhihui.course.model.Criticize;
+import com.xczhihui.course.model.Reply;
 
 /**
  * <p>
-  *  Mapper 接口
+ * Mapper 接口
  * </p>
  *
  * @author yuxin
@@ -30,15 +31,15 @@ public interface CriticizeMapper extends BaseMapper<Criticize> {
 
     Integer hasCriticizeScore(@Param("courseId") Integer courseId, @Param("userId") String userId);
 
-	Integer hasCourseIsBuy(@Param("courseId")Integer courseId, @Param("userId")String userId);
-	
-	Integer hasUserAllCourseIsBuy(@Param("userId")String userId, @Param("userLecturerId")String userLecturerId);
+    Integer hasCourseIsBuy(@Param("courseId") Integer courseId, @Param("userId") String userId);
 
-	List<Integer> selectPcCourseCommentMeanCount(@Param("collection")Boolean collection,@Param("courseId") Integer courseId);
+    Integer hasUserAllCourseIsBuy(@Param("userId") String userId, @Param("userLecturerId") String userLecturerId);
 
-	List<Double> selectPcUserCommentMeanCount(@Param("userId")String userId);
+    List<Integer> selectPcCourseCommentMeanCount(@Param("collection") Boolean collection, @Param("courseId") Integer courseId);
 
-	List<Integer> selectMobileCourseCommentMeanCount(@Param("courseId")Integer courseId);
+    List<Double> selectPcUserCommentMeanCount(@Param("userId") String userId);
 
-	List<Integer> selectMobileUserCommentMeanCount(@Param("userId")String userId);
+    List<Integer> selectMobileCourseCommentMeanCount(@Param("courseId") Integer courseId);
+
+    List<Integer> selectMobileUserCommentMeanCount(@Param("userId") String userId);
 }

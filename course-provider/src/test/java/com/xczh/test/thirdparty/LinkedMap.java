@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
  */
 public class LinkedMap {
     private static Logger logger = LoggerFactory.getLogger(LinkedMap.class);
+
     public static void main(String[] args) {
         //LinkedHashMap 有序
         Map maps = new LinkedHashMap();

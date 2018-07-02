@@ -1,15 +1,15 @@
 package com.xczhihui.course.service.impl;
 
-import com.baomidou.mybatisplus.plugins.Page;
-import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.xczhihui.course.model.OfflineCity;
-import com.xczhihui.course.mapper.OfflineCityMapper;
-import com.xczhihui.course.service.IOfflineCityService;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.baomidou.mybatisplus.plugins.Page;
+import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.xczhihui.course.mapper.OfflineCityMapper;
+import com.xczhihui.course.model.OfflineCity;
+import com.xczhihui.course.service.IOfflineCityService;
 
 /**
  * <p>
