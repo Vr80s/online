@@ -21,6 +21,7 @@ import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 import com.xczhihui.medical.doctor.vo.MedicalWritingVO;
 import com.xczhihui.medical.doctor.vo.OeBxsArticleVO;
+import com.xczhihui.medical.enrol.service.EnrolService;
 
 @RestController
 @RequestMapping(value = "/doctor")
@@ -34,6 +35,8 @@ public class DoctorController extends AbstractController {
     private IMedicalDoctorArticleService medicalDoctorArticleService;
     @Autowired
     private ICourseService courseService;
+    @Autowired
+    private EnrolService enrolService;
 
     /**
      * Description：获取医师分页信息
@@ -331,5 +334,11 @@ public class DoctorController extends AbstractController {
     @RequestMapping(value = "course/list", method = RequestMethod.GET)
     public ResponseObject listCourse(@RequestParam(required = false) Integer type) {
         return ResponseObject.newSuccessResponseObject(courseService.list(type, getUserId()));
+    }
+
+    @RequestMapping(value = "regulations/list", method = RequestMethod.GET)
+    public ResponseObject listEnrollmentRegulations() {
+        String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(getUserId());
+        return ResponseObject.newSuccessResponseObject(enrolService.listByDoctorId(doctorId));
     }
 }

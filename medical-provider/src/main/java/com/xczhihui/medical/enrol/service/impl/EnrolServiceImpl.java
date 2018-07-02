@@ -112,6 +112,16 @@ public class EnrolServiceImpl implements EnrolService {
         return merci;
     }
 
+    @Override
+    public MedicalEnrollmentRegulations findById(int merId) {
+        return medicalEnrollmentRegulationsMapper.selectById(merId);
+    }
+
+    @Override
+    public List<MedicalEnrollmentRegulations> listByDoctorId(String doctorId) {
+        return medicalEnrollmentRegulationsMapper.listByDoctorId(doctorId);
+    }
+
     private void validateMedicalEntryInformation(MedicalEntryInformationVO medicalEntryInformationVO) {
         MedicalEnrollmentRegulations medicalEnrollmentRegulations = getMedicalEnrollmentRegulationsById(medicalEntryInformationVO.getMerId(), null);
         if (medicalEnrollmentRegulations == null) {
