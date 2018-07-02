@@ -74,15 +74,12 @@ public class XzCommonController {
     /**
      * 查询单个详情
      *
-     * @param req
-     * @param res
      * @param type
      * @throws Exception
      */
     @RequestMapping(value = "/richTextDetails")
     @ResponseBody
-    public ResponseObject richTextDetails(@RequestParam("type") Integer type,
-                                          @RequestParam("typeId") String typeId) throws Exception {
+    public ResponseObject richTextDetails(@RequestParam("type") Integer type, @RequestParam("typeId") String typeId) throws Exception {
 
         return ResponseObject.newSuccessResponseObject(courseServiceImpl.selectCourseDescription(type, typeId));
     }
@@ -92,13 +89,11 @@ public class XzCommonController {
      * 请求转发用于验证用户的登录状态
      *
      * @param req
-     * @param res
-     * @param params
      * @throws Exception
      */
     @RequestMapping(value = "/verifyLoginStatus")
     @ResponseBody
-    public ResponseObject verifyLoginStatus(HttpServletRequest req, Map<String, String> params) throws Exception {
+    public ResponseObject verifyLoginStatus(HttpServletRequest req) throws Exception {
         Integer statusFalg = 1000;
         if (req.getParameter("statusFalg") != null) {
             statusFalg = Integer.parseInt(req.getParameter("statusFalg"));
@@ -119,7 +114,6 @@ public class XzCommonController {
      * app端 tokenfilter 验证token是否有效
      *
      * @param req
-     * @param res
      * @return
      * @throws Exception
      */
@@ -163,15 +157,13 @@ public class XzCommonController {
     /**
      * 意见反馈接口
      *
-     * @param req
      * @param content
      * @return
      * @throws Exception
      */
     @RequestMapping("addOpinion")
     @ResponseBody
-    public ResponseObject addOpinion(HttpServletRequest req,
-                                     @RequestParam("content") String content, @Account(optional = true) Optional<String> accountIdOpt) throws Exception {
+    public ResponseObject addOpinion(@RequestParam("content") String content, @Account(optional = true) Optional<String> accountIdOpt) throws Exception {
 
         String userId = accountIdOpt.orElse(null);
         commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.FEEDBACK.getVal())
@@ -184,8 +176,6 @@ public class XzCommonController {
     /**
      * Description：检查更新
      *
-     * @param req
-     * @param res
      * @param userVersion
      * @return ResponseObject
      * @throws Exception
@@ -222,8 +212,6 @@ public class XzCommonController {
     /**
      * 获取 同环境下的 pc端主域名
      *
-     * @param req
-     * @param res
      * @return
      * @throws Exception
      */
@@ -241,8 +229,6 @@ public class XzCommonController {
     /**
      * 得到服务器当前时间的毫秒值
      *
-     * @param req
-     * @param res
      * @return
      * @throws Exception
      */
@@ -257,8 +243,6 @@ public class XzCommonController {
     /**
      * Description：获取 所有问题
      *
-     * @param req
-     * @param res
      * @return ResponseObject
      * @throws Exception
      * @author name：yangxuan <br>email: 15936216273@163.com
@@ -272,8 +256,6 @@ public class XzCommonController {
     /**
      * Description：获取单个问题和答案
      *
-     * @param req
-     * @param res
      * @return ResponseObject
      * @throws Exception
      * @author name：yangxuan <br>email: 15936216273@163.com
