@@ -35,8 +35,7 @@ public class MobileHotSearchController {
      */
     @RequestMapping("hotSearch")
     @ResponseBody
-    public ResponseObject hotSearchList(HttpServletRequest req,
-                                        HttpServletResponse res)
+    public ResponseObject hotSearchList()
             throws Exception {
         Map<String, Object> mapAll = new HashMap<String, Object>();
         //默认搜索框
@@ -52,8 +51,7 @@ public class MobileHotSearchController {
      */
     @RequestMapping("hotDoctorSearch")
     @ResponseBody
-    public ResponseObject hotDoctorSearchList(HttpServletRequest req,
-                                              HttpServletResponse res)
+    public ResponseObject hotDoctorSearchList()
             throws Exception {
         Map<String, Object> mapAll = new HashMap<String, Object>();
         //默认搜索框

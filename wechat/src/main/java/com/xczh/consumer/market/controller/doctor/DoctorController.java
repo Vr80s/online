@@ -141,8 +141,7 @@ public class DoctorController {
      * 分类
      */
     @RequestMapping("screen")
-    public ResponseObject schoolClass(HttpServletRequest req,
-                                      HttpServletResponse res)
+    public ResponseObject schoolClass()
             throws Exception {
 
         Map<String, Object> mapAll = new HashMap<String, Object>();

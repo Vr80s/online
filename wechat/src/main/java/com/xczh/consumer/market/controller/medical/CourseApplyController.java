@@ -53,8 +53,7 @@ public class CourseApplyController {
      */
     @RequestMapping(value = "addCourseApply", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseObject addCourseApply(@Account String accountId, HttpServletRequest req,
-                                         HttpServletResponse res,
+    public ResponseObject addCourseApply(@Account String accountId,
                                          CourseApplyInfo courseApplyInfo,
                                          @RequestParam("file") MultipartFile file)
             throws Exception {

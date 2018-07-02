@@ -46,8 +46,7 @@ public class XzUserController {
      */
     @RequestMapping(value = "sendCode")
     @ResponseBody
-    public ResponseObject sendCode(HttpServletRequest req,
-                                   @RequestParam("vtype") Integer vtype,
+    public ResponseObject sendCode(@RequestParam("vtype") Integer vtype,
                                    @RequestParam("username") String username) {
         if (!XzStringUtils.checkPhone(username)) {
             return ResponseObject.newErrorResponseObject("请输入正确的手机号");

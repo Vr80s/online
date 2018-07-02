@@ -392,15 +392,15 @@ var activityType;
 		return data;
 	}
 //	点击发布动态
-	$(".btn-deliver").click(function(){
-		$(this).attr("diabled","disabled");
+	$(".btn-deliver").click(function(){	
 		var post = getPostData();
-		if(checkContent(post)){		
+		if(checkContent(post)){	
+			$(".btn-deliver").attr("disabled","disabled");
 		 	post.type = activityType;
 			RequestService("/doctor/posts", "post", post , function (data) {
 	        	if(data.success==true){
 	        		showTip("发布成功");
-	        		$(this).removeAttr("diabled");
+	        		$(".btn-deliver").removeAttr("disabled");
 	        		newsList(1,getAnchorsId);
 	        		closeImages();		//关闭图片
 	        		closeConsilia();	//关闭文章
@@ -972,12 +972,12 @@ template.config("escape", false);
 //	新增轮播图按钮切换页面
 	$(".banner-set-top button").click(function(){
 	if($(this).text()=="添加轮播图"){
-		$(".banner-list-wrap").addClass("hide");
+		$(".banner-main").addClass("hide");
 		$(".banner-set-wrap").removeClass("hide");
 		$(this).text("返回");
 		$(".banner-submission-wrap button").removeAttr("disabled");
 	}else{
-		$(".banner-list-wrap").removeClass("hide");
+		$(".banner-main").removeClass("hide");
 		$(".banner-set-wrap").addClass("hide");
 		$(this).text("添加轮播图");
 	}

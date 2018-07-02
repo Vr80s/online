@@ -42,8 +42,7 @@ public class MyLiveController {
      */
     @RequestMapping("appLivePre")
     @ResponseBody
-    public ResponseObject myFocus(HttpServletRequest req,
-                                  @RequestParam("courseId") Integer courseId) {
+    public ResponseObject myFocus(@RequestParam("courseId") Integer courseId) {
         try {
             onlineCourseService.updateLiveSourceType(courseId);
             return ResponseObject.newSuccessResponseObject("操作成功!");

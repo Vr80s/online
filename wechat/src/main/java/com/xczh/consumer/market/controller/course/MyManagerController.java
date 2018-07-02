@@ -83,7 +83,7 @@ public class MyManagerController {
      */
     @RequestMapping("home")
     @ResponseBody
-    public ResponseObject home(HttpServletRequest req, @Account(optional = true) Optional<String> accountIdOpt)
+    public ResponseObject home(@Account(optional = true) Optional<String> accountIdOpt)
             throws Exception {
         /*
          * 显示熊猫币、已购买的课程（不包含免费的）、是否是主播 获取用户信息
@@ -148,8 +148,7 @@ public class MyManagerController {
      */
     @RequestMapping("freeCourseList")
     @ResponseBody
-    public ResponseObject freeCourseList(HttpServletRequest req,
-                                         @RequestParam("pageNumber") Integer pageNumber,
+    public ResponseObject freeCourseList(@RequestParam("pageNumber") Integer pageNumber,
                                          @RequestParam("pageSize") Integer pageSize, @Account String accountId) throws Exception {
         /*
          * 显示熊猫币、已购买的课程（不包含免费的）、是否是主播 获取用户信息
@@ -174,8 +173,7 @@ public class MyManagerController {
      */
     @RequestMapping("getWalletEnchashmentBalance")
     @ResponseBody
-    public ResponseObject getWalletEnchashmentBalance(HttpServletRequest request,
-                                                      HttpServletResponse res, @Account(optional = true) Optional<String> accountIdOpt) throws Exception {
+    public ResponseObject getWalletEnchashmentBalance(@Account(optional = true) Optional<String> accountIdOpt) throws Exception {
         if (!accountIdOpt.isPresent()) {
             return ResponseObject.newSuccessResponseObject(0);
         } else {
@@ -194,8 +192,7 @@ public class MyManagerController {
      */
     @RequestMapping("getEnchashmentBalance")
     @ResponseBody
-    public ResponseObject getEnchashmentBalance(HttpServletRequest request,
-                                                HttpServletResponse res, @Account(optional = true) Optional<String> accountIdOpt) throws Exception {
+    public ResponseObject getEnchashmentBalance(@Account(optional = true) Optional<String> accountIdOpt) throws Exception {
         if (!accountIdOpt.isPresent()) {
             return ResponseObject.newSuccessResponseObject(0);
         } else {
@@ -222,8 +219,7 @@ public class MyManagerController {
      */
     @RequestMapping("getEnchashmentRmbBalance")
     @ResponseBody
-    public ResponseObject getEnchashmentRmbBalance(HttpServletRequest request,
-                                                   HttpServletResponse res, @Account String accountId) throws Exception {
+    public ResponseObject getEnchashmentRmbBalance(@Account String accountId) throws Exception {
         return ResponseObject.newSuccessResponseObject(userCoinService.getEnchashmentBalanceByUserId(accountId));
     }
 
@@ -238,8 +234,7 @@ public class MyManagerController {
      */
     @RequestMapping("wallet")
     @ResponseBody
-    public ResponseObject wallet(HttpServletRequest req,
-                                 @RequestParam("pageNumber") Integer pageNumber,
+    public ResponseObject wallet(@RequestParam("pageNumber") Integer pageNumber,
                                  @RequestParam("pageSize") Integer pageSize, @Account String accountId) throws Exception {
         Page<Map<String, Object>> page = new Page<Map<String, Object>>();
         page.setCurrent(pageNumber);
@@ -259,7 +254,7 @@ public class MyManagerController {
      */
     @RequestMapping("anchorConsoleNumber")
     @ResponseBody
-    public ResponseObject anchorConsoleNumber(HttpServletRequest req, @Account String accountId)
+    public ResponseObject anchorConsoleNumber(@Account String accountId)
             throws Exception {
         Map<String, Object> map = new HashMap<String, Object>();
         List<BigDecimal> list = myInfoService
@@ -289,7 +284,7 @@ public class MyManagerController {
      */
     @RequestMapping("anchorConsoleCourse")
     @ResponseBody
-    public ResponseObject anchorConsoleCourse(HttpServletRequest req, @Account String accountId)
+    public ResponseObject anchorConsoleCourse(@Account String accountId)
             throws Exception {
         List<Map<String, Object>> mapCourseList = new ArrayList<Map<String, Object>>();
         List<CourseLecturVo> list = courseService.selectUserConsoleCourse(accountId);
@@ -328,8 +323,7 @@ public class MyManagerController {
      */
     @RequestMapping("anchorConsoleLiveCourse")
     @ResponseBody
-    public ResponseObject anchorConsoleCourse(HttpServletRequest req,
-                                              @RequestParam("pageNumber") Integer pageNumber,
+    public ResponseObject anchorConsoleCourse(@RequestParam("pageNumber") Integer pageNumber,
                                               @RequestParam("pageSize") Integer pageSize, @Account String accountId)
             throws Exception {
         Page<CourseLecturVo> page = new Page<>();
@@ -354,8 +348,7 @@ public class MyManagerController {
      */
     @RequestMapping("anchorConsoleApplyCourse")
     @ResponseBody
-    public ResponseObject anchorConsoleApplyCourse(HttpServletRequest req,
-                                                   @RequestParam("pageNumber") Integer pageNumber,
+    public ResponseObject anchorConsoleApplyCourse(@RequestParam("pageNumber") Integer pageNumber,
                                                    @RequestParam("pageSize") Integer pageSize,
                                                    @RequestParam("type") Integer type, @Account String accountId) throws Exception {
         Integer courseFrom = null; // 课程类型：1.直播 2.点播 3.线下课
@@ -396,8 +389,7 @@ public class MyManagerController {
      */
     @RequestMapping("settlementList")
     @ResponseBody
-    public ResponseObject settlementList(HttpServletRequest req,
-                                         @RequestParam("pageNumber") Integer pageNumber,
+    public ResponseObject settlementList(@RequestParam("pageNumber") Integer pageNumber,
                                          @RequestParam("pageSize") Integer pageSize, @Account String accountId) throws Exception {
         int num = (pageNumber - 1) * pageSize;
         num = num < 0 ? 0 : num;
@@ -416,8 +408,7 @@ public class MyManagerController {
      */
     @RequestMapping("withdrawalList")
     @ResponseBody
-    public ResponseObject withdrawalList(HttpServletRequest req,
-                                         @RequestParam("pageNumber") Integer pageNumber,
+    public ResponseObject withdrawalList(@RequestParam("pageNumber") Integer pageNumber,
                                          @RequestParam("pageSize") Integer pageSize, @Account String accountId) throws Exception {
         int num = (pageNumber - 1) * pageSize;
         num = num < 0 ? 0 : num;
@@ -436,8 +427,7 @@ public class MyManagerController {
      */
     @RequestMapping("settlement")
     @ResponseBody
-    public ResponseObject settlement(HttpServletRequest req,
-                                     @RequestParam("xmbNumber") Integer xmbNumber,
+    public ResponseObject settlement(@RequestParam("xmbNumber") Integer xmbNumber,
                                      @RequestParam("orderFrom") Integer orderFrom, @Account String accountId) throws Exception {
         /**
          * 结算服务
@@ -457,8 +447,7 @@ public class MyManagerController {
      */
     @RequestMapping("withdrawalValidation")
     @ResponseBody
-    public ResponseObject withdrawalValidation(HttpServletRequest req,
-                                               @RequestParam("bankCard") String bankCard, @Account String accountId) throws Exception {
+    public ResponseObject withdrawalValidation(@RequestParam("bankCard") String bankCard, @Account String accountId) throws Exception {
         UserBank ub = userBankService.selectUserBankByUserIdAndAcctPan(accountId, bankCard, null);
         if (ub == null) {
             return ResponseObject.newErrorResponseObject("请输入有效的银行卡信息");

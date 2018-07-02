@@ -4,9 +4,6 @@ import java.io.UnsupportedEncodingException;
 import java.util.Map;
 import java.util.Optional;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,8 +28,7 @@ public class XzCriticizeController {
      */
     @RequestMapping(value = "saveCriticize")
     @ResponseBody
-    public ResponseObject saveCriticize(HttpServletRequest req,
-                                        HttpServletResponse res, CriticizeVo criticize, @Account String accountId)
+    public ResponseObject saveCriticize(CriticizeVo criticize, @Account String accountId)
             throws Exception {
         criticizeService.saveCriticize(accountId, criticize.getUserId(), criticize.getCourseId(), criticize.getContent()
                 , criticize.getOverallLevel(), criticize.getDeductiveLevel(), criticize.getContentLevel(),
@@ -45,26 +41,18 @@ public class XzCriticizeController {
      */
     @RequestMapping("getCriticizeList")
     @ResponseBody
-    public ResponseObject getCriticizeList(HttpServletRequest req,
-                                           HttpServletResponse res, @RequestParam(required = false) String userId,
+    public ResponseObject getCriticizeList(@RequestParam(required = false) String userId,
                                            @RequestParam(required = false) Integer courseId,
                                            @RequestParam(required = false) Integer pageSize,
                                            @RequestParam(required = false) Integer pageNumber,
                                            @Account(optional = true) Optional<String> accountIdOpt
     ) throws Exception {
 
-        Map<String, Object> map = null;
-
+        Map<String, Object> map;
         if (courseId != null) {
             map = criticizeService.getCourseCriticizes(new Page<>(pageNumber, pageSize), courseId, accountIdOpt.orElse(null));
-//			List<Integer> list  = criticizeService.selectMobileCourseCommentMeanCount(courseId);
-//			map.put("labelCountList", list);
         } else {
-
-
             map = criticizeService.getAnchorCriticizes(new Page<>(pageNumber, pageSize), userId, accountIdOpt.orElse(null));
-//			List<Integer> list  =  criticizeService.selectMobileUserCommentMeanCount(userId);
-//			map.put("labelCountList", list);
         }
         return ResponseObject.newSuccessResponseObject(map);
 
@@ -73,14 +61,12 @@ public class XzCriticizeController {
     /**
      * 点赞、取消点赞
      *
-     * @param request
      * @param criticizeId
      * @return
      */
     @RequestMapping("updatePraise")
     @ResponseBody
-    public ResponseObject updatePraise(HttpServletRequest request,
-                                       @RequestParam("criticizeId") String criticizeId,
+    public ResponseObject updatePraise(@RequestParam("criticizeId") String criticizeId,
                                        @RequestParam("praise") Boolean praise, @Account String accountId) {
         Map<String, Object> returnMap = criticizeService.updatePraise(praise, criticizeId, accountId);
         return ResponseObject.newSuccessResponseObject(returnMap);
@@ -89,7 +75,6 @@ public class XzCriticizeController {
     /**
      * Description：增加回复
      *
-     * @param request
      * @param content
      * @param criticizeId
      * @return ResponseObject
@@ -98,10 +83,8 @@ public class XzCriticizeController {
      */
     @RequestMapping("saveReply")
     @ResponseBody
-    public ResponseObject saveReply(HttpServletRequest request,
-                                    @RequestParam("content") String content,
-                                    @RequestParam("criticizeId") String criticizeId,
-                                    @RequestParam(required = false) Integer collectionId, @Account String accountId) throws UnsupportedEncodingException {
+    public ResponseObject saveReply(@RequestParam("content") String content,
+                                    @RequestParam("criticizeId") String criticizeId, @Account String accountId) throws UnsupportedEncodingException {
         criticizeService.saveReply(accountId, content, criticizeId);
         return ResponseObject.newSuccessResponseObject("回复成功！");
     }

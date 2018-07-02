@@ -71,7 +71,7 @@ public class BankCardController {
      */
     @RequestMapping(value = "getBankCardList")
     @ResponseBody
-    public ResponseObject getBankCardList(HttpServletRequest req) throws Exception {
+    public ResponseObject getBankCardList() throws Exception {
 
         List<Map> getBankCardList = BankCardType.getBankCardList();
         return ResponseObject.newSuccessResponseObject(getBankCardList);

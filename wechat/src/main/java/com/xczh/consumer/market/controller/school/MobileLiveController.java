@@ -45,8 +45,7 @@ public class MobileLiveController {
      */
     @RequestMapping("onlineLive")
     @ResponseBody
-    public ResponseObject onlineLive(HttpServletRequest req,
-                                     HttpServletResponse res)
+    public ResponseObject onlineLive(HttpServletRequest req)
             throws Exception {
         Map<String, Object> mapAll = new HashMap<String, Object>();
         //直播banner

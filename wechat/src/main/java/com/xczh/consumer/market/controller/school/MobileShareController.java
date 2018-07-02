@@ -112,12 +112,11 @@ public class MobileShareController {
      * @author name：yangxuan <br>email: 15936216273@163.com
      */
     @RequestMapping("shareBrowserDifferentiation")
-    public void shareBrowserDifferentiation(HttpServletRequest req,
-                                            HttpServletResponse res,
-                                            @RequestParam(value = "shareId") String shareId,
-                                            @RequestParam(value = "shareType") Integer shareType,
-                                            @RequestParam(value = "wxOrbrower") String wxOrbrower,
-                                            @Account(optional = true) Optional<String> accountIdOpt) throws Exception {
+    public void shareBrowserDifferentiation(HttpServletRequest req,HttpServletResponse res,
+            @RequestParam(value = "shareId") String shareId,
+            @RequestParam(value = "shareType") Integer shareType,
+            @RequestParam(value = "wxOrbrower") String wxOrbrower,
+            @Account(optional = true) Optional<String> accountIdOpt) throws Exception {
 
         try {
             /**
