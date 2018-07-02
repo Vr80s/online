@@ -81,7 +81,7 @@
 			<div class="preview_bottom">
 				<table>
 					<tr>
-						<td><span><em>*</em>专栏标题</span></td>
+						<td><span><em>*</em>标题</span></td>
 						<td class="preview-column-title"></td>
 					</tr>
 					<tr>
@@ -215,7 +215,7 @@
 						<li class="setTop active"><i class="icomoon-icon-dongtai left_range ino_color"></i><span>我的动态</span></li>
 						<li class="setTop "><span class="glyphicon glyphicon-user left_range" aria-hidden="true"></span><span>轮播图设置</span></li>
 						<li class="setTop docSuccessBtn" data-name="doc_hos" id="docJoinHos"><span class="icon iconfont icon-02_dianpuguanli left_range" aria-hidden="true"></span><span>医馆</span></li>
-						<li class="select-ud">
+						<!--<li class="select-ud">
 							<span class="glyphicon glyphicon-book left_range" aria-hidden="true"></span>
 							<span>
 									师承收徒
@@ -229,7 +229,7 @@
 								<p>师承管理</p>
 								<p>收徒设置</p>
 							</div>
-						</li>
+						</li>-->
 						<li class="setTop" id="nav-colume" data-name="doc_zhuanlan"><span class="glyphicon glyphicon-file left_range" aria-hidden="true"></span><span>专栏</span></li>
 						<li class="setTop" id="nav-work" data-name="doc_book"><span class="glyphicon glyphicon-copyright-mark left_range" aria-hidden="true"></span><span>著作</span></li>
 						<li class="setTop" id="nav-media" data-name="doc_media"><span class="glyphicon glyphicon-film left_range" aria-hidden="true"></span><span>媒体报道</span></li>
@@ -635,10 +635,7 @@
 								<p>暂无数据</p>
 							</div>
 				</div>
-				
-				
-				
-				
+																
 				<!--轮播图设置-->
 				<div class="select_box" style="padding-bottom: 0;">
 					<div class="banner-set-top">
@@ -886,7 +883,7 @@
 					</div>
 				</div>
 				<!--收徒-->
-				<div class="select_box">
+				<!--<div class="select_box">
 					<div class="little_box" style="display: block;">
 						跟师直播
 					</div>
@@ -902,13 +899,34 @@
 					<div class="little_box">
 						收徒设置
 					</div>
-				</div>
+				</div>-->
 				<!--医案专栏-->
 				<div class="select_box" id="zhuanlan">
 					<div class="zhuanlan_top">
-						<span class="title">专栏</span>
+						<span class="title">专栏医案</span>
 						<button class="changeStaBtn">发布</button>
 					</div>
+					<!--选择发布专栏类型-->
+					<div class="column-btn-box hide">
+						<p class="columnselect-title">选择发布类型</p>
+						<div class="column-point z">
+							<p>
+								<em class="active" data-type = "8"></em>
+							</p>
+							<span>医案</span>
+						</div>
+						<div class="column-point column-right y">
+							<p>
+								<em data-type = "4"></em>
+							</p>
+							<span>专栏</span>
+						</div>
+						<div class="cancel-confirm-box cl">
+							<button class="cancel-column">取消</button>
+							<button class="confirm-column">确认</button>	
+						</div>
+					</div>
+					
 					<div class="zhuanlan_bottom hide" id="zhuanlan_bottom">
 							<input type="hidden" name="" id="column-id" value="" />
 							<div>
@@ -950,12 +968,21 @@
 							</div>
 
 					</div>
-					<div class="zhuanlan_bottom2" id="zhuanlan_bottom2">
+					<div class="zhuanlan_bottom2" id="zhuanlan_bottom2" style="padding-top: 20px;">
+						<div class="column-select-wrap">
+							<span>选择分类：</span>
+							<select name="">
+								<option value="">全部</option>
+								<option value="4">专栏</option>
+								<option value="8">医案</option>
+							</select>
+						</div>
 						<table>
 							<thead>
 								<tr>
 									<td>封面图</td>
 									<td>标题</td>
+									<td>类型</td>
 									<td>状态</td>
 									<td>编辑时间</td>
 									<td>操作</td>
@@ -971,6 +998,17 @@
 										<td>
 											{{item.title}}
 										</td>
+										
+										{{if item.typeId==4}}
+										<td>
+											专栏
+										</td>
+										{{else}}
+										<td>
+											医案
+										</td>
+										{{/if}}
+								
 											{{if item.status==1}}	
 										<td>
 											已发布

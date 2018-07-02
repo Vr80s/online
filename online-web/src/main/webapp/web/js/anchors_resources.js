@@ -1294,23 +1294,61 @@ template.config("escape", false);
     $('#zhuanlan .zhuanlan_top button').click(function () {
         var recruit_btn = $(this).text()
         if (recruit_btn == "发布") {
-            $(".column-sava-publish").removeAttr("disabled", "disabled");
-            resetColumn();
-            $('#zhuanlan_bottom2').addClass('hide');
-            $('#zhuanlan_bottom').removeClass('hide');
-            $(this).text("返回")
-            $(".recruit-wrap-title p").text("专栏");
-            //			保存按钮显现
-            $(".column-new-button").removeClass("hide");
-            $(".column-edit-button").addClass("hide");
+//      	选择状态弹出
+        	$("#mask").removeClass("hide");
+        	$(".column-btn-box").removeClass("hide");
+        	
+        	
+//          $(".column-sava-publish").removeAttr("disabled", "disabled");
+//          resetColumn();
+//          $('#zhuanlan_bottom2').addClass('hide');
+//          $('#zhuanlan_bottom').removeClass('hide');
+//          $(this).text("返回")
+//          $(".recruit-wrap-title p").text("专栏");
+//          //			保存按钮显现
+//          $(".column-new-button").removeClass("hide");
+//          $(".column-edit-button").addClass("hide");
 
         } else {
             $('#zhuanlan_bottom2').removeClass('hide');
             $('#zhuanlan_bottom').addClass('hide');
             $(this).text("发布")
-            $(".recruit-wrap-title p").text("专栏")
+            $('#zhuanlan .zhuanlan_top .title').text('专栏医案')
         }
     })
+//  关闭选择框
+	function closeColumnBox () {
+		$("#mask").addClass("hide");
+	    $(".column-btn-box").addClass("hide");
+	}
+//  点击取消选择
+	$(".cancel-column").click(function(){
+		closeColumnBox();
+	})
+//	点击确认选择
+	var pointId;
+    $(".confirm-column").click(function(){
+    	closeColumnBox();
+    	$(".column-point .active").each(function(){
+    		pointId=$(".column-point .active").attr("data-type");
+    	})
+		 	$(".column-sava-publish").removeAttr("disabled", "disabled");
+            resetColumn();
+            $('#zhuanlan_bottom2').addClass('hide');
+            $('#zhuanlan_bottom').removeClass('hide');
+            $('#zhuanlan .zhuanlan_top button').text("返回")
+            $(".recruit-wrap-title p").text("医案专栏");
+            //			保存按钮显现
+            $(".column-new-button").removeClass("hide");
+            $(".column-edit-button").addClass("hide");
+	})
+
+//	选择radio类型
+	$(".column-point").click(function(){
+		$(".column-point p em").removeClass("active");
+		$(this).find("em").addClass("active");
+	})
+
 
     //专栏部分，封面图上传
     function columnUpdown(baseurl, imgname) {
@@ -1374,8 +1412,8 @@ template.config("escape", false);
         var data = {
             "title": $.trim($(".column-title").val()),
             "imgPath": $(".column-picter img").attr("src"),
-//			"content": $.trim($(".column-text").val()),
-            "content": UE.getEditor('column-content').getContent(),
+			"typeId": pointId,
+            "content": UE.getEditor('column-content').getContent(),            
             "status": columeStatus
         }
         if (columnRecruit(data)) {
@@ -1391,6 +1429,7 @@ template.config("escape", false);
                         $("#nav-colume").click();
                         columnList(1);
                     } else {
+                    	$(".column-sava-publish").removeAttr("disabled");
                         showTip("保存失败");
                     }
                 }
@@ -1399,14 +1438,24 @@ template.config("escape", false);
         ;
 
     })
+//	专栏列表筛选
+	$(".column-select-wrap select").on("change",function(){
+		columnList(1,$(".column-select-wrap select").val())
+	})
+
 
     //专栏部分的列表
     columnList(1)
 
-    function columnList(pages) {
-        RequestService("/doctor/article/specialColumn", "GET", {
-            "page": pages
-        }, function (data) {
+    function columnList(pages,selectId) {
+    	var data = {
+			page:pages,
+			size:10
+		};
+    	if(selectId!=null && selectId!=""){
+			data.type=selectId;
+		};
+        RequestService("/doctor/article/specialColumn", "GET", data , function (data) {
             if (data.success = true) {
                 columns = data.resultObject.records;
                 if (columns.length == 0) {
@@ -1468,7 +1517,7 @@ template.config("escape", false);
         //专栏部分，删除
         $('.column-delete').click(function () {
             var id = $(this).attr("data-id")
-            comfirmBox.open("专栏", "确定删除该条专栏吗？", function (closefn) {
+            comfirmBox.open("专栏", "确定删除该条信息吗？", function (closefn) {
                 RequestService("/doctor/article/specialColumn/" + id, "DELETE", null, function (data) {
                     if (data.success == true) {
                         showTip("删除成功");
@@ -2372,7 +2421,7 @@ function columnEdit(index) {
     echoColumn(index)
     $(".zhuanlan_bottom").removeClass("hide");
     $(".zhuanlan_bottom2").addClass("hide");
-    $('#zhuanlan .zhuanlan_top .title').text('专栏编辑');
+    $('#zhuanlan .zhuanlan_top .title').text('专栏医案编辑');
     $('#zhuanlan .zhuanlan_top button').text('返回');
     //		保存按钮显现
     $(".column-new-button").addClass("hide");
