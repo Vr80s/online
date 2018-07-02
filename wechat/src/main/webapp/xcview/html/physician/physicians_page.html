@@ -860,25 +860,26 @@
 			    </tr>
 			    <tr class="am">
 			        <th>上午</th>
-			        <td class="apm apm1_1 am_monday"><img src="/xcview/images/default.png" alt="" /></td>
-			        <td class="apm apm2_1 am_tuesday"><img src="/xcview/images/default.png" alt="" /></td>
-			        <td class="apm apm3_1 am_wednesday"><img src="/xcview/images/default.png" alt="" /></td>
-			        <td class="apm apm4_1 am_thursday"><img src="/xcview/images/default.png" alt="" /></td>
-			        <td class="apm apm5_1 am_friday"><img src="/xcview/images/default.png" alt="" /></td>
-			        <td class="apm apm6_1 am_saturday"><img src="/xcview/images/default.png" alt="" /></td>
-			        <td class="apm apm7_1 am_sunday"><img src="/xcview/images/default.png" alt="" /></td>
+			        <td class="am_monday"><img src="/xcview/images/default.png" alt="" /></td>
+			        <td class="am_tuesday"><img src="/xcview/images/default.png" alt="" /></td>
+			        <td class="am_wednesday"><img src="/xcview/images/default.png" alt="" /></td>
+			        <td class="am_thursday"><img src="/xcview/images/default.png" alt="" /></td>
+			        <td class="am_friday"><img src="/xcview/images/default.png" alt="" /></td>
+			        <td class="am_saturday"><img src="/xcview/images/default.png" alt="" /></td>
+			        <td class="am_sunday"><img src="/xcview/images/default.png" alt="" /></td>
 			    </tr>
 			    <tr class="pm">
 			        <th>下午</th>
-			        <td class="apm apm1_2 pm_mondays"><img src="/xcview/images/default.png" alt="" /></td>
-			        <td class="apm apm2_2 pm_tuesdays"><img src="/xcview/images/default.png" alt="" /></td>
-			        <td class="apm apm3_2 pm_wednesdays"><img src="/xcview/images/default.png" alt="" /></td>
-			        <td class="apm apm4_2 pm_thursdays"><img src="/xcview/images/default.png" alt="" /></td>
-			        <td class="apm apm5_2 pm_fridays"><img src="/xcview/images/default.png" alt="" /></td>
-			        <td class="apm apm6_2 pm_saturdays"><img src="/xcview/images/default.png" alt="" /></td>
-			        <td class="apm apm7_2 pm_sundays"><img src="/xcview/images/default.png" alt="" /></td>
+			        <td class="pm_mondays"><img src="/xcview/images/default.png" alt="" /></td>
+			        <td class="pm_tuesdays"><img src="/xcview/images/default.png" alt="" /></td>
+			        <td class="pm_wednesdays"><img src="/xcview/images/default.png" alt="" /></td>
+			        <td class="pm_thursdays"><img src="/xcview/images/default.png" alt="" /></td>
+			        <td class="pm_fridays"><img src="/xcview/images/default.png" alt="" /></td>
+			        <td class="pm_saturdays"><img src="/xcview/images/default.png" alt="" /></td>
+			        <td class="pm_sundays"><img src="/xcview/images/default.png" alt="" /></td>
 			    </tr>
 			</table>
+			
 		</div>
 
 		<div class="self_introduction">
@@ -894,11 +895,12 @@
 			<div class="both"></div>
 		</div>
 
+		
+		</script>
 		<div class="baseImagenumber" style="display: none;">
 			<img src="/xcview/images/no_deal.png" />
-			<p>暂无医师介绍</p>
+			<p>暂无医师介绍...</p>
 		</div>
-		</script>
 
 	</div>
 	<!-- 介绍结束 -->
@@ -920,6 +922,7 @@
 		<dt><ol id="nav_emotion" class="nav_emotion"></ol></dt><!-- 分页提示点 -->
 	</div>
 	<!-- 表情包结束 -->
+	<div class="show_height" style="width:100%;height:0.25rem;display:none;"></div>
 </body>
 <!-- <script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script> -->
 <script src="/xcview/weihoujs/jquery.min.js"></script>
@@ -1295,15 +1298,15 @@ $(window).bind("scroll", function() {
 </script>
 <script type="text/javascript">
 	// window.onload = function(){
-
+//		处理底部高度
 		$(function(){
 			var school_height=$(window).height()-$(".swiper-container").height()-$(".referral").height()-$("#mainMenuBar").height();
 		$("#refreshContainer").height(school_height);
 		});
-//		处理底部高度
-		/*var school_height=$(window).height()-$(".swiper-container").height()-$(".referral").height()-$("#mainMenuBar").height();
-		$("#refreshContainer").height(school_height);*/
-		// alert(school_height);
+
+		// 处理介绍没有数据  
+		var school_heights=$(window).height()-$(".swiper-container").height()-$(".referral").height()-$("#mainMenuBar").height()-$(".show_height").height();
+		$(".baseImagenumber").height(school_heights);
 	// };
 </script>
 </html>

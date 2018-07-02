@@ -1733,6 +1733,7 @@ p{
 }
 .my_synopsis_time ul li img{
 	width: 0.28rem;
+	margin-top: 0.06rem;
 }
 .my_synopsis_time ul .border {
     width: 0.06rem;
