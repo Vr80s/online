@@ -146,7 +146,7 @@ a {
 }
 #doctor_in_inf .news_nav ul li a {
   width: 100%;
-  height: 100%;
+  /*height: 100%;*/
   display: block;
   text-decoration: none;
   text-align: left;
@@ -1082,6 +1082,7 @@ height: 100%;
 	border: 1px solid #DEDEDE;
 	height: 80px;
 	padding: 10px;
+	text-align: center;
 }
 
 .recruit-wrap-content .recruit-table-list tr td:nth-child(1){

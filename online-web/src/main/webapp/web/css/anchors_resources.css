@@ -1,6 +1,7 @@
 .wp{width: 1200px; margin: 0 auto;}
 .z{float: left;}
 .y{float: right;}
+.cl{clear: both;}
 #tip{
 	    position: fixed;
     top: 50%;
@@ -1296,6 +1297,107 @@ outline: none;
 .contentWrap #media_report .media_report_bottom2 table tr,.contentWrap #media_report .media_report_bottom2 table td{
 	border: 1px solid #DEDEDE;
 }
+/*防止继承样式*/
+
+.contentWrap #zhuanlan .zhuanlan_bottom2 table thead > tr > td:nth-child(2){
+	width: 230px;
+}
+.contentWrap #zhuanlan .zhuanlan_bottom2 table tbody > tr > td:nth-child(2){
+	width: 230px;
+}
+.contentWrap #zhuanlan .zhuanlan_bottom2 table thead > tr > td:nth-child(6){
+	width: 136px;
+}
+/*专栏类型*/
+.column-btn-box{
+	position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    background: white;
+    width: 400px;
+    height: 200px;
+    padding-bottom: 90px;
+    box-sizing: border-box;
+    z-index: 999;
+}
+.columnselect-title{
+	padding: 30px 0;
+	font-size: 20px;
+	text-align: center;
+	margin: 0;
+}
+.column-point{
+	margin-left: 123px;
+	padding-bottom: 30px;
+	cursor: pointer;
+}
+.column-right{
+	margin: 0 123px 0 0;
+}
+.column-point p{
+	width: 14px;
+	height: 14px;
+	border: 1px solid #ededed;
+	position:relative;
+	border-radius: 50%;
+	display: inline-block;
+	margin: 0;
+	top: 2px;
+}
+.column-point p em{
+	width: 8px;
+	height: 8px;
+	position: absolute;
+	border-radius: 50%;
+	background: #00bc12;
+	left: 2px;
+	top: 2px;
+	display: none;
+}
+.column-point p .active{
+	display: block;
+}
+.cancel-confirm-box{
+	text-align: center;
+}
+.cancel-confirm-box button{
+	width: 120px;
+	height: 36px;
+	border-radius: 4px;	
+	margin: 0 15px;
+	outline: none;
+}
+.cancel-confirm-box .cancel-column{
+	width: 120px;
+	height: 36px;
+	border-radius: 4px;	
+	border: 1px solid #dedede;
+	background: white;
+}
+.cancel-confirm-box .confirm-column{
+	width: 120px;
+	height: 36px;
+	border-radius: 4px;	
+	background: #00bc12;
+	color: white;
+	border: 0px;
+}
+.column-select-wrap{
+	margin-bottom: 20px;
+}
+.column-select-wrap select{
+	width: 280px;
+	height: 36px;
+	border: 1px solid #F0F0F0;
+	padding-left: 5px;
+	cursor: pointer;
+}
+
+
+
+
+/*防止继承样式*/
 
 
 /*右侧资源部分*/
