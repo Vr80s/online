@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
@@ -40,8 +39,7 @@ public class CcVideoController {
      */
     @RequestMapping("palyCode")
     @ResponseBody
-    public ResponseObject palyCode(HttpServletRequest req,
-                                   HttpServletResponse res) throws Exception {
+    public ResponseObject palyCode(HttpServletRequest req) throws Exception {
 
         String playerwidth = req.getParameter("playerwidth");
         String playerheight = req.getParameter("playerheight");

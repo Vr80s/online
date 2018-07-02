@@ -31,8 +31,7 @@ public class XzCriticizeController {
      */
     @RequestMapping(value = "saveCriticize")
     @ResponseBody
-    public ResponseObject saveCriticize(HttpServletRequest req,
-                                        HttpServletResponse res, CriticizeVo criticize, @Account String accountId)
+    public ResponseObject saveCriticize(CriticizeVo criticize, @Account String accountId)
             throws Exception {
         criticizeService.saveCriticize(accountId, criticize.getUserId(), criticize.getCourseId(), criticize.getContent()
                 , criticize.getOverallLevel(), criticize.getDeductiveLevel(), criticize.getContentLevel(),
@@ -45,8 +44,7 @@ public class XzCriticizeController {
      */
     @RequestMapping("getCriticizeList")
     @ResponseBody
-    public ResponseObject getCriticizeList(HttpServletRequest req,
-                                           HttpServletResponse res, @RequestParam(required = false) String userId,
+    public ResponseObject getCriticizeList(@RequestParam(required = false) String userId,
                                            @RequestParam(required = false) Integer courseId,
                                            @RequestParam(required = false) Integer pageSize,
                                            @RequestParam(required = false) Integer pageNumber,
@@ -79,8 +77,7 @@ public class XzCriticizeController {
      */
     @RequestMapping("updatePraise")
     @ResponseBody
-    public ResponseObject updatePraise(HttpServletRequest request,
-                                       @RequestParam("criticizeId") String criticizeId,
+    public ResponseObject updatePraise(@RequestParam("criticizeId") String criticizeId,
                                        @RequestParam("praise") Boolean praise, @Account String accountId) {
         Map<String, Object> returnMap = criticizeService.updatePraise(praise, criticizeId, accountId);
         return ResponseObject.newSuccessResponseObject(returnMap);
@@ -98,8 +95,7 @@ public class XzCriticizeController {
      */
     @RequestMapping("saveReply")
     @ResponseBody
-    public ResponseObject saveReply(HttpServletRequest request,
-                                    @RequestParam("content") String content,
+    public ResponseObject saveReply(@RequestParam("content") String content,
                                     @RequestParam("criticizeId") String criticizeId,
                                     @RequestParam(required = false) Integer collectionId, @Account String accountId) throws UnsupportedEncodingException {
         criticizeService.saveReply(accountId, content, criticizeId);

@@ -4,9 +4,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -50,8 +47,6 @@ public class MedicalHopitalApplyController {
     @RequestMapping("addHospitalApply")
     @ResponseBody
     public ResponseObject addDoctorApply(@Account String accountId,
-                                         HttpServletRequest req,
-                                         HttpServletResponse res,
                                          MedicalHospitalApply medicalHospitalApply,
                                          @RequestParam("businessLicensePictureFile") MultipartFile businessLicensePictureFile,
                                          @RequestParam("licenseForPharmaceuticalTradingPictureFile") MultipartFile licenseForPharmaceuticalTradingPictureFile)
@@ -85,7 +80,7 @@ public class MedicalHopitalApplyController {
      */
     @RequestMapping("hospitalInfo")
     @ResponseBody
-    public ResponseObject getLastOne(@Account String accountId, HttpServletRequest req) throws Exception {
+    public ResponseObject getLastOne(@Account String accountId) throws Exception {
         Map<String, Object> mapAll = new HashMap<String, Object>();
         MedicalHospitalApply mda = medicalHospitalApplyService.getLastOne(accountId);
         Integer status = commonServiceImpl.isDoctorOrHospital(accountId);

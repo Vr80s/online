@@ -277,8 +277,7 @@ public class ThirdPartyCertificationController {
      */
     @RequestMapping(value = "thirdCertificationMobile")
     @ResponseBody
-    public ResponseObject thirdCertificationMobile(HttpServletRequest req,
-                                                   HttpServletResponse res, @RequestParam("userName") String userName,
+    public ResponseObject thirdCertificationMobile(@RequestParam("userName") String userName,
                                                    @RequestParam("unionId") String unionId,
                                                    @RequestParam("type") Integer type) {
         try {

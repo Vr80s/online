@@ -5,9 +5,6 @@ import java.util.Date;
 import java.util.Map;
 import java.util.TreeMap;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,9 +42,8 @@ public class VhallVideoController {
      */
     @RequestMapping("vhallJssdkVerify")
     @ResponseBody
-    public ResponseObject getWeihouSign(HttpServletRequest req,
-                                        HttpServletResponse res,
-                                        @RequestParam("video") String video, @Account OnlineUser account) throws Exception {
+    public ResponseObject getWeihouSign(@RequestParam("video") String video, 
+            @Account OnlineUser account) throws Exception {
         String gvhallId = account.getVhallId();
         String email = account.getLoginName();
         if (email != null && email.indexOf("@") == -1) {

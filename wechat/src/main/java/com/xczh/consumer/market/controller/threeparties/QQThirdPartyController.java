@@ -148,11 +148,11 @@ public class QQThirdPartyController {
      */
     @RequestMapping(value = "appEvokeQQRedirect")
     @ResponseBody
-    public ResponseObject appEvokeQQRedirect(HttpServletRequest request,
-                                             HttpServletResponse res, @RequestParam("accessToken") String accessToken,
-                                             @RequestParam("openId") String openId, @RequestParam("model") String model) throws Exception {
+    public ResponseObject appEvokeQQRedirect(@RequestParam("accessToken") String accessToken,
+                                             @RequestParam("openId") String openId, 
+                                             @RequestParam("model") String model,
+                                             @RequestParam(value="userId",required=false) String userId) throws Exception {
 
-        String userId = request.getParameter("userId");
         if (StringUtils.isNotBlank(userId)) {
             OnlineUser ou = onlineUserService.findUserById(userId);
             if (ou == null) {

@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -99,8 +98,7 @@ public class XzCommonController {
      */
     @RequestMapping(value = "/verifyLoginStatus")
     @ResponseBody
-    public ResponseObject verifyLoginStatus(HttpServletRequest req,
-                                            HttpServletResponse res, Map<String, String> params) throws Exception {
+    public ResponseObject verifyLoginStatus(HttpServletRequest req, Map<String, String> params) throws Exception {
         Integer statusFalg = 1000;
         if (req.getParameter("statusFalg") != null) {
             statusFalg = Integer.parseInt(req.getParameter("statusFalg"));
@@ -127,8 +125,7 @@ public class XzCommonController {
      */
     @RequestMapping(value = "checkToken")
     @ResponseBody
-    public ResponseObject checkToken(HttpServletRequest req,
-                                     HttpServletResponse res) throws Exception {
+    public ResponseObject checkToken(HttpServletRequest req) throws Exception {
 
         String token = req.getParameter("token");
         if (!StringUtils.isNotBlank(token)) {
@@ -153,7 +150,6 @@ public class XzCommonController {
     @RequestMapping("getImServerConfig")
     @ResponseBody
     public ResponseObject getImServerConfig(
-            HttpServletRequest req,
             Integer courseId, @Account OnlineUser account) throws Exception {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("guId", account.getId());
@@ -197,9 +193,7 @@ public class XzCommonController {
      */
     @RequestMapping("checkUpdate")
     @ResponseBody
-    public ResponseObject checkUpdate(HttpServletRequest req,
-                                      HttpServletResponse res,
-                                      @RequestParam("type") Integer type,
+    public ResponseObject checkUpdate(@RequestParam("type") Integer type,
                                       @RequestParam("version") String userVersion)
             throws Exception {
 
@@ -235,8 +229,7 @@ public class XzCommonController {
      */
     @RequestMapping("getDomain")
     @ResponseBody
-    public ResponseObject getDomain(HttpServletRequest req,
-                                    HttpServletResponse res) throws Exception {
+    public ResponseObject getDomain() throws Exception {
         try {
             return ResponseObject.newSuccessResponseObject(webdomain);
         } catch (Exception e) {
@@ -255,7 +248,7 @@ public class XzCommonController {
      */
     @RequestMapping("getSystemTime")
     @ResponseBody
-    public String getSystemTime(HttpServletRequest req, HttpServletResponse res)
+    public String getSystemTime()
             throws Exception {
         Long l = System.currentTimeMillis();
         return l.toString();
@@ -272,7 +265,7 @@ public class XzCommonController {
      */
     @RequestMapping(value = "getProblems")
     @ResponseBody
-    public ResponseObject getProblems(HttpServletRequest req, HttpServletResponse res) throws Exception {
+    public ResponseObject getProblems() throws Exception {
         return ResponseObject.newSuccessResponseObject(commonApiService.getProblems("common_problems"));
     }
 
@@ -287,8 +280,7 @@ public class XzCommonController {
      */
     @RequestMapping(value = "getProblemAnswer")
     @ResponseBody
-    public ResponseObject getProblemAnswer(HttpServletRequest req, HttpServletResponse res,
-                                           @RequestParam("id") String id) throws Exception {
+    public ResponseObject getProblemAnswer(@RequestParam("id") String id) throws Exception {
         return ResponseObject.newSuccessResponseObject(commonApiService.getProblemAnswer(id));
     }
 }
