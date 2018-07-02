@@ -23,6 +23,8 @@ public class DoctorQueryVo implements Serializable {
     private String hospitalId;
 
     private Integer departmentFalg;
+    
+    private Boolean status; // 启用状态
 
 
     public void bulid() {
@@ -80,6 +82,14 @@ public class DoctorQueryVo implements Serializable {
 
     public Integer getDepartmentFalg() {
         return departmentFalg;
+    }
+    
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
 
     public void setDepartmentFalg(Integer departmentFalg) {
