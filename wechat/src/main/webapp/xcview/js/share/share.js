@@ -76,15 +76,19 @@ function getShareIdAndType(){
 		obj.shareId = sessionStorage.getItem("merId");
 		obj.shareType = 4;
 		
-	}else if(viewHtml == "inherited_introduction.html"){
-		
-		obj.shareId = getQueryString("doctor");
-		obj.shareType = 4;
-		
 	}else if(viewHtml == "physicians_page.html"){
 		
 		obj.shareId = getQueryString("doctor");
 		obj.shareType = 5;
+		
+	}else if(viewHtml == "article.html"){
+		
+		obj.shareId = getQueryString("articleId");
+		obj.shareType = 6;
+	}else if(viewHtml == "consilia.html.html"){
+		
+		obj.shareId = getQueryString("consiliaId");
+		obj.shareType = 7;
 	}
 }
 getShareIdAndType();
@@ -98,13 +102,42 @@ var title = "";
 var shareDescription = "";
 var shareSmallImgPath = "";
 
+
+
 /**
  * 获取分享信息
  * @param data
  * @returns
  */
-if(!stringnull(gradeName) || !stringnull(description) ||
-		!stringnull(smallImgPath) ){
+
+try {
+	
+	if(!stringnull(gradeName) || !stringnull(description) ||
+			!stringnull(smallImgPath) ){
+		requestService("/xczh/share/courseShare", {shareType:shareType,shareId:shareId}, function(data) {
+			if (data.success) {
+				var shareInfo  = data.resultObject;
+
+				title = shareInfo.name;
+				shareSmallImgPath = shareInfo.headImg;
+				shareDescription = shareInfo.description;
+				link = shareInfo.link;
+			}	
+		},false)
+	}else{
+		$(function () {
+			if(shareType == 1 || shareType == 3){
+				title = '中医好课程:'  + gradeName;
+			}else if(shareType == 2){
+				title = '中医好主播:'  + gradeName;
+			}else if(shareType == 4){
+				title =  gradeName;
+			}
+		})
+		shareSmallImgPath = smallImgPath;
+		shareDescription = description;
+	}
+} catch (e) {
 	
 	requestService("/xczh/share/courseShare", {shareType:shareType,shareId:shareId}, function(data) {
 		if (data.success) {
@@ -116,25 +149,13 @@ if(!stringnull(gradeName) || !stringnull(description) ||
 			link = shareInfo.link;
 		}	
 	},false)
-}else{
-	
-	$(function () {
-		if(shareType == 1 || shareType == 3){
-			title = '中医好课程:'  + gradeName;
-		}else if(shareType == 2){
-			title = '中医好主播:'  + gradeName;
-		}else if(shareType == 4){
-			title =  gradeName;
-		}
-	})
-	
-	shareSmallImgPath = smallImgPath;
-	shareDescription = description;
 }
 
 
+
+
 //点击分享share
-if(is_weixin()){
+if(!is_weixin()){
 	
 	//点击微信出现提示框
 	$(".header_news").click(function(){
