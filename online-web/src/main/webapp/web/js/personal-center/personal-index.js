@@ -1164,15 +1164,21 @@ RequestService("/message/count", "get",null, function (data) {
 //      }
 //  });
 //}
+function isBlank(str){	
+		return str == "" || str == null
+}
 function jump_msg(index) {
+	var point=$(index);
 //  var e = window.event || arguments.callee.caller.arguments[0];
     var id = $(index).data('id');
     RequestService("/message/"+id+"/readStatus", "PUT",null, function (data) {
         if (data.success == true) {
-        	newsList(1);
+        	point.find(".icon-tip").remove();
+        	point.removeClass("weidu");
+//      	newsList(1);
         	Newsnumber();
             var urlJump = $(index).data('url');
-            if (urlJump) {
+            if (isBlank(urlJump)==false) {
 //              window.open(url, "_blank");
                 location.href=urlJump;
             }

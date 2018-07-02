@@ -75,7 +75,7 @@
 			<div class="preview_top">
 				<span>预览</span>
 				<a href="javascript:;" class="close_preview">
-					<img src="../images/alter-close.png"/ alt="关闭">
+					<img src="/web/images/alter-close.png"/ alt="关闭">
 				</a>
 			</div>
 			<div class="preview_bottom">
@@ -438,11 +438,7 @@
 								{{if item.type==4}}
 									<div class="save-consilia-wrap">
 										{{if item.articleId != null}}
-											{{if item.typeId != 8}}
 												<a href="/headline/details/{{item.articleId}}" style="width: 100%;">
-											{{else}}
-												<a href="javascript:;" style="width: 100%;">
-											{{/if}}
 										{{/if}}
 											<div class="consilia-img z">
 												<img src="{{item.articleImgPath}}" alt="文章_医案图片" />
@@ -532,9 +528,7 @@
 											{{else}}
 											<span class="glyphicon glyphicon-thumbs-up fabulous" aria-hidden="true" data-id="{{item.id}}"></span>
 											{{/if}}
-											{{each item.doctorPostsLikeList as user i}}
-											<span>{{user.userName}}</span>
-											{{/each}}
+											<span>{{item.postsLikes}}</span>
 										</div>
 									{{/if}}
 									<!--底下评论-->
@@ -583,9 +577,7 @@
 							{{else}}
 								<span class="glyphicon glyphicon-thumbs-up fabulous" aria-hidden="true" data-id="{{like.postId}}"></span>
 							{{/if}}
-							{{each like.list as item i}}
-								<span>{{item.userName}}</span>
-							{{/each}}
+								<span>{{like.postsLikes}}</span>
 					</script>
 					<!--刷新回复-->
 					<script type="text/template" id="reply-template">
@@ -1520,4 +1512,35 @@
 
 		});
 	</script>
+	<script type="text/javascript">
+    //实例化编辑器
+    //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
+    function getLDContent() {
+        return UE.getEditor('column-content').getContent();
+    }
+//  function getCDContent() {
+//      return UE.getEditor('editor_cd').getContent();
+//  }
+//  function getCollectionDetails() {
+//      return UE.getEditor('editor_collection_details').getContent();
+//  }
+//  function getCollectionOutline() {
+//      return UE.getEditor('editor_collection_outline').getContent();
+//  }
+//  function getCollectionLecturerDescription() {
+//      return UE.getEditor('editor_collection_lecturer_description').getContent();
+//  }
+
+    UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
+    UE.Editor.prototype.getActionUrl = function(action) {
+        var url = '/ueditor/upload'
+        if (action == 'uploadimage' || action == 'uploadscrawl' || action == 'uploadimage') {
+            return url;
+        } else if (action == 'uploadvideo') {//视频上传：
+            return url;
+        } else {
+            return this._bkGetActionUrl.call(this, action);
+        }
+    }
+</script>
 </html>
