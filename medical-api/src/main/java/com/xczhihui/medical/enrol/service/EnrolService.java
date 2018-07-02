@@ -1,5 +1,7 @@
 package com.xczhihui.medical.enrol.service;
 
+import java.util.List;
+
 import com.xczhihui.medical.enrol.model.MedicalEnrollmentRegulations;
 import com.xczhihui.medical.enrol.vo.MedicalEnrollmenRtegulationsCardInfoVO;
 import com.xczhihui.medical.enrol.vo.MedicalEntryInformationVO;
@@ -21,4 +23,20 @@ public interface EnrolService {
     void saveMedicalEntryInformation(MedicalEntryInformationVO medicalEntryInformation);
 
     MedicalEnrollmenRtegulationsCardInfoVO getMedicalEnrollmentRegulationsCardInfoById(int id, String userId, String returnOpenidUri);
+
+    /**
+     * 查询招生简章
+     *
+     * @param merId
+     * @return
+     */
+    MedicalEnrollmentRegulations findById(int merId);
+
+    /**
+     * 根据医师id查询招生简章
+     *
+     * @param doctorId
+     * @return
+     */
+    List<MedicalEnrollmentRegulations> listByDoctorId(String doctorId);
 }
