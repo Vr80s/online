@@ -4,7 +4,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 public class WechatMpProperties {
-    /**	
+    /**
      * 设置微信公众号的appid
      */
     private String appId;

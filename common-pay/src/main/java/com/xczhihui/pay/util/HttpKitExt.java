@@ -1,14 +1,6 @@
 package com.xczhihui.pay.util;
 
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.KeyStore;
@@ -23,15 +15,16 @@ import com.xczhihui.pay.ext.kit.StrKit;
 
 /**
  * 对HttpKit添加功能
- * @author L.cm
  *
+ * @author L.cm
  */
 class HttpKitExt {
     private static final String DEFAULT_USER_AGENT = "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.146 Safari/537.36";
 
     /**
      * 上传临时素材，本段代码来自老版本（____′↘夏悸 / wechat），致敬！
-     * @param url 图片上传地址
+     *
+     * @param url  图片上传地址
      * @param file 需要上传的文件
      * @return ApiResult
      * @throws IOException
@@ -54,7 +47,7 @@ class HttpKitExt {
         // 定义最后数据分隔线
         StringBuilder mediaData = new StringBuilder();
         mediaData.append("--").append(BOUNDARY).append("\r\n");
-        mediaData.append("Content-Disposition: form-data;name=\"media\";filename=\""+ file.getName() + "\"\r\n");
+        mediaData.append("Content-Disposition: form-data;name=\"media\";filename=\"" + file.getName() + "\"\r\n");
         mediaData.append("Content-Type:application/octet-stream\r\n\r\n");
         byte[] mediaDatas = mediaData.toString().getBytes();
         out.write(mediaDatas);
@@ -86,7 +79,7 @@ class HttpKitExt {
         String valueString = null;
         StringBuffer bufferRes = null;
         bufferRes = new StringBuffer();
-        while ((valueString = read.readLine()) != null){
+        while ((valueString = read.readLine()) != null) {
             bufferRes.append(valueString);
         }
         IOUtils.closeQuietly(in);
@@ -99,8 +92,8 @@ class HttpKitExt {
 
     /**
      * 获取永久素材
+     *
      * @param url 素材地址
-     * @return params post参数
      * @return InputStream 流，考虑到这里可能返回json或file
      * @throws IOException
      */
@@ -126,12 +119,12 @@ class HttpKitExt {
         return conn.getInputStream();
     }
 
-   
 
     /**
      * 涉及资金回滚的接口会使用到商户证书，包括退款、撤销接口的请求
-     * @param url 请求的地址
-     * @param data xml数据
+     *
+     * @param url      请求的地址
+     * @param data     xml数据
      * @param certPath 证书文件目录
      * @param certPass 证书密码
      * @return String 回调的xml信息
@@ -160,7 +153,7 @@ class HttpKitExt {
             conn.setDoOutput(true);
             conn.setDoInput(true);
 
-            conn.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
+            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             conn.setRequestProperty("User-Agent", DEFAULT_USER_AGENT);
             conn.connect();
 
@@ -172,7 +165,7 @@ class HttpKitExt {
             reader = new BufferedReader(new InputStreamReader(inputStream, Charsets.UTF_8));
             StringBuilder sb = new StringBuilder();
             String line = null;
-            while ((line = reader.readLine()) != null){
+            while ((line = reader.readLine()) != null) {
                 sb.append(line).append("\n");
             }
             return sb.toString();
