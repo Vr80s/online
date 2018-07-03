@@ -517,7 +517,7 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
 
     private Course getCourse4Apply(Integer oldApplyInfoId) {
         if(oldApplyInfoId==null){
-            return null;
+            return new Course();
         }
         List<Integer> applyIdList = new ArrayList<>();
         getOldApplyIds(oldApplyInfoId,applyIdList);
