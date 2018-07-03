@@ -112,6 +112,7 @@ function getPlayCode(collectionId,courseId){
 	$(".videoBody-video").height(aheight);
 	$(".loadImg").css("display", "block");
 	
+	
 	RequestService("/online/vedio/getPlayCodeByCourseId", "GET", {
 		collectionId:collectionId,
         courseId: courseId,
@@ -133,15 +134,12 @@ function getPlayCode(collectionId,courseId){
 				recordType:2
 			}, function(data) {
 				console.log("添加观看记录");
-			},false);
-			
+			});
 			
 			var playCodeStr = data.resultObject;
             var playCodeObj = JSON.parse(playCodeStr);
-            console.log(playCodeObj.video.playcode);
+            //console.log(playCodeObj.video.playcode);
 			$(".videoBody-video").html(playCodeObj.video.playcode);
-			
-			
 			
 			
 		} else if(data.success == false) {
@@ -264,6 +262,7 @@ function getSWF(objectId) {
  * 开始播放了
  */
 function custom_player_start(){
+	
 	if(recording>0){
 		//获取视频片长（单位：秒）
 		var duration = player.getDuration();
@@ -300,6 +299,9 @@ if(null == auto_play || "true" == auto_play){
 	$("#auto_play").css("background-image","url(/web/images/btn-ondown.png)");
 	$(".show-bg").css("background-image","url(/web/images/btn-ondown.png)");
 	$(".show-bg").css("background-size","100% 100%");
+}else if("false" == auto_play){
+	$(this).css("background-image","url(/web/images/btn-selete.png)");
+	$(".show-bg").css("background","#fff");
 }
 
 $("#auto_play").click(function(){
@@ -360,10 +362,8 @@ function custom_player_stop(){
 function on_cc_player_init(vid, objectId){
     var config = {};
     
-    console.log("sdada")
     //关闭右侧菜单
     config.rightmenu_enable = 0;
-   
     config.on_player_seek = "custom_seek";
     config.on_player_ready = "custom_player_ready";
     config.on_player_start = "custom_player_start";
@@ -383,7 +383,6 @@ function on_cc_player_init(vid, objectId){
 //    };
     player= getSWF(objectId);
     player.setConfig(config);
-    
 }
 
 

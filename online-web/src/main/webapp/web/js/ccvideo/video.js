@@ -171,10 +171,8 @@ function custom_player_ready(){
 function on_cc_player_init(vid, objectId ){
     var config = {};
     
-    console.log("sdada")
     //关闭右侧菜单
     config.rightmenu_enable = 0;
-   
     config.on_player_seek = "custom_seek";
     config.on_player_ready = "custom_player_ready";
     config.on_player_start = "custom_player_start";

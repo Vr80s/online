@@ -904,12 +904,28 @@ public class CourseVo extends OnlineBaseVo {
         this.isCourseDetails = isCourseDetails;
     }
 
-    public int getLiveSource() {
+    public Integer getLiveSource() {
         return liveSource;
     }
 
     public void setLiveSource(Integer liveSource) {
         this.liveSource = liveSource;
+    }
+
+    public int getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(int courseId) {
+        this.courseId = courseId;
+    }
+
+    public Boolean getFree() {
+        return isFree;
+    }
+
+    public void setFree(Boolean free) {
+        isFree = free;
     }
 
     public String getRealProvince() {

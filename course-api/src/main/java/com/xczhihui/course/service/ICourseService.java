@@ -251,4 +251,10 @@ public interface ICourseService {
      * @return
      */
     List<CourseLecturVo> selectCourseByLearndCount(Page<CourseLecturVo> page, Integer type);
+
+    /**
+     * 获取所有上架课程
+     * @return
+     */
+    List<Course> getAllCourseByStatus();
 }

@@ -240,12 +240,6 @@
 					<img src="{{item.imgUrl}}" alt="" />
 				</div>
 				{{/each}}
-				<!--<div class="swiper-slide pic02">
-					<img src="/xcview/images/xianxia_03.jpg" alt="" />
-				</div>
-				<div class="swiper-slide pic03">
-					<img src="/xcview/images/xianxia_03.jpg" alt="" />
-				</div>-->
 			</div>
 			<div class="swiper-pagination"></div>
 
@@ -255,27 +249,36 @@
 		<!-- 主播信息开始 -->
 		<div class="referral">
 			<div class="head_portrait">
-				<img src="/xcview/images/xianxia_03.jpg" alt="" />
+				<img src="{{items.lecturerInfo.small_head_photo}}" alt="" />
 			</div>
 			<div class="message">
 				<div class="message_name">
 					<div class="name">{{items.lecturerInfo.name}}</div>
-					<div class="message_characteristic">我的师傅</div>
+					<!--<div class="message_characteristic">我的师傅</div>-->
 					<div class="both"></div>
 				</div>
 				<div class="message_face">
-					<span class="disciple"><span class="disciple_fize">弟子</span>25</span>
+					<!--<span class="disciple"><span class="disciple_fize">弟子</span>25</span>-->
 					{{if items.fansCount>0}}
-					<span class="fans"><span class="fans_size">粉丝</span>{{items.fansCount}}</span>
+					<span class="fans"><span class="fans_size">粉丝</span><span id="fansCount">{{items.fansCount}}</span></span>
 					{{/if}}
 					<div class="both"></div>
 				</div>
 				
 			</div>
-			<div class="attention">
+			{{if items.followHidden == false}}
+			{{if items.isFours == 0}}
+			<div class="attention" data-userId = "{{items.lecturerInfo.userId}}" >
 				<img src="/xcview/images/weigz.png" alt="" />
 				<div class="pay_attention">加关注</div>
 			</div>
+			{{else}}
+			<div class="attention" style="background: #bbb" data-userId = "{{items.lecturerInfo.userId}}" >
+				<img src="/xcview/images/yigz.png" alt="" />
+				<div class="pay_attention">已关注</div>
+			</div>
+			{{/if}}
+			{{/if}}
 			<div class="both"></div>
 		</div>
 			</script>
@@ -424,7 +427,7 @@
 
 				</div>
 				<div class="consilia_nav_btn"><span>收起</span></div>
-				<div class="consilia_nav_cen comment_hide" onclick="consiliaDetails('{{item.articleId}}')">
+				<div class="consilia_nav_cen comment_hide" data-id="{{item.articleId}}" >
 					<img src="{{item.articleImgPath}}" alt="" />
 					<div class="consilia_nav_cen_size">{{item.articleContent}}</div>
 				</div>
@@ -1191,11 +1194,11 @@ $(window).bind("scroll", function() {
 	    });	
 
         // 点击关注
-        $(".attention").click(function(){
+        /*$(".attention").click(function(){
             $(".attention").find('img').attr('src','/xcview/images/yigz.png');
             $(".pay_attention").html("已关注");
             $(".attention").css("background","#bbb");
-	    });	
+	    });	*/
 	    /*$(".attention").find('img').attr('src','/xcview/images/weigz.png');
         $(".pay_attention").html("加关注");
         $(".attention").css("background","#00bc12");*/
@@ -1228,7 +1231,7 @@ $(window).bind("scroll", function() {
             $("#page_emotion").css("bottom","0");
             $(".face").attr("src","/xcview/images/jianpan.png");
 	    });	*/
-		$(".face").toggle(function(){
+		/*$(".face").toggle(function(){
 	    	$(".comment").css("bottom","2.8rem");
             $("#page_emotion").css("bottom","0");
             $(".face").attr("src","/xcview/images/jianpan.png");
@@ -1236,7 +1239,7 @@ $(window).bind("scroll", function() {
 		    $(".comment").css("bottom","0rem");
             $("#page_emotion").css("bottom","-2.8rem");
             $(".face").attr("src","/xcview/images/face.png");
-	    });
+	    });*/
     // 点击底部评论textarea结束
 
     // 点击发送开始

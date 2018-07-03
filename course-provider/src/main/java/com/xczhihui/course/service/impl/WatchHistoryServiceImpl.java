@@ -130,8 +130,8 @@ public class WatchHistoryServiceImpl extends ServiceImpl<WatchHistoryMapper, Wat
             Map<String, String> weixinParams = new HashMap<>(3);
             weixinParams.put("first", TextStyleUtil.clearStyle(content));
             weixinParams.put("keyword1", courseName);
-            weixinParams.put("keyword2", startTime != null ? TimeUtil.getYearMonthDayHHmm(startTime) : "");
-            weixinParams.put("remark", "点击查看");
+            weixinParams.put("keyword2", startTime != null ? TimeUtil.getYearMonthDayHHmm(startTime) : "随到随学");
+            weixinParams.put("remark", "");
 
             commonMessageService.saveMessage(
                     new BaseMessage.Builder(MessageTypeEnum.COURSE.getVal())
