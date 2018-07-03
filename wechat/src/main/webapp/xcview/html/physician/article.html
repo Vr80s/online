@@ -11,6 +11,7 @@
 <meta name="keywords" content="" />
 
 <link rel="stylesheet" type="text/css" href="/xcview/css/physician/article.css?v=wechat_1.1.1"/>
+<link rel="stylesheet" type="text/css" href="/xcview/css/alert/sharecss.css?v=wechat_1.1.1"/>
 <!--手机嵌入模板-->
 <script type="text/javascript" src="/xcview/js/common/layout.js"></script>
 <script>
@@ -73,7 +74,7 @@
 			</div>
 			<div class="both"></div>
 			<div class="consilia_center">
-				<div class="consilia_textarea">{{items.content}}</div>
+				<div class="consilia_textarea"></div>
 			</div>
 			</script>
 		</div>
@@ -194,6 +195,13 @@
 		<!-- 点击分享按钮结束 -->
 	</div>
 	<!-- 中间内容结束 -->
+
+	<div class="quie_pic" style="padding-bottom: 0px;">
+		<img src="/xcview/images/no_comment.png">	
+		<p>还没有评价？快来抢沙发呀~</p>
+		<!-- <span onclick="btn_user_allComment()">去评价</span> -->
+	</div>
+	<div style="width:100%;height: 1.1rem;"></div>
 </body>
 <script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
@@ -245,6 +253,10 @@
         	$(".bg_userModal").hide();
         	$(".wrapLittle_comment").hide();
         });
+
+        function delHtmlTag(str){
+		    return str.replace(/<[^>]+>/g,"");
+		}
 	};
 </script>
 <!-- 公用弹框 -->

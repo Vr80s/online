@@ -136,17 +136,40 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
         //点击其他--收起
         mui("#refreshContainer").on('tap', '.essay_pack_up_btn_span', function (event) {
             if($(".essay_pack_up_btn_span").html()=="收起"){
-                 $(".essay_pack_up_btn_span").html("展开");
+                $(".consilia_nav_span .title").css("height","100%");
+                $(".essay_pack_up_btn_span").html("展开");
             }else{
                 $(".essay_pack_up_btn_span").html("收起");
+                $(".consilia_nav_span .title").css("height","2.1rem");
             }
         });
 
+        var h = $(".consilia_nav_span .title").height();
+        if (h > 200) {
+            $(".consilia_nav_btn").show();
+            // $(".line_xian").hide();
+//          $(".wrap1").css({"height":"2rem","overflow":"hidden"})
+        } else {
+            $(".consilia_nav_btn").hide()
+        }
+
+        // 点击文章收起
+        mui("#refreshContainer").on('tap', '.consilia_nav_btn', function (event) {
+            if($(".consilia_nav_btn").html()=="收起"){
+                 $(".consilia_nav_btn").html("展开");
+                 $(".consilia_nav_span .title").css("height","100%");
+            }else{
+                $(".consilia_nav_span .title").css("height","2.1rem");
+                $(".consilia_nav_btn").html("收起");
+            }
+        });
+
+
         //点击评论表情
-        mui("#refreshContainer").on('tap', '.face', function (event) {
+        /*mui("#refreshContainer").on('tap', '.face', function (event) {
             alert(111);
             
-        });
+        });*/
 
 
 
