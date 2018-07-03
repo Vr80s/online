@@ -328,7 +328,7 @@
                         {{if item.stick}}<span class="stick_img"><img src="/xcview/images/stick.png" alt="" />置顶</span>
                         {{/if}}
                         {{item.content}}</div>
-					<div class="essay_pack_up_btn"><span>收起</span></div>
+					<div class="essay_pack_up_btn"><span class="essay_pack_up_btn_span">收起</span></div>
 					<div class="both"></div>
 				</div>
 				
@@ -936,7 +936,7 @@
 	<div class="show_height" style="width:100%;height:0.25rem;display:none;"></div>
 	<div class="top_show_height" style="width:100%;height:5.2rem;display:none;"></div>
 </body>
-<!-- <script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script> -->
+<script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
 <script src="/xcview/weihoujs/jquery.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/common.js?v=wechat_1.1.1&version=4a733d0dc2"></script> 
@@ -1026,13 +1026,18 @@ $(window).bind("scroll", function() {
 	    });
 
 	    // 其他二收起
-	    $(".essay_pack_up_btn").toggle(function(){
+	    /*$(".essay_pack_up_btn").toggle(function(){
 	    	$(".essay_pack_up_btn span").html('收起');
 		    $(".essay_main").removeClass("essay_pack_up_add");
 	  	},function(){
 		    $(".essay_pack_up_btn span").html('展开');
 		    $(".essay_main").addClass("essay_pack_up_add");
-	    });
+	    });*/
+
+	    // 点击全部动态
+		/*$(".essay_pack_up_btn").click(function(){
+			alert(132);
+		});*/
 
 	    // 点击全部动态
 		$(".li_data").click(function(){

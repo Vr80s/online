@@ -1269,6 +1269,7 @@ function resetCollectionForm(){
     $(".collection_courses").html("");
     courseArr=[];
 	showPersonInf2();
+    initCourse(1);
 }
 
 //显示专辑中的主播信息

@@ -18,7 +18,7 @@ import com.xczh.consumer.market.dao.WxcpClientUserWxMappingMapper;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.wxpay.consts.WxPayConst;
 import com.xczhihui.common.util.CodeUtil;
-import com.xczhihui.common.util.enums.UserOrigin;
+import com.xczhihui.common.util.enums.ClientType;
 import com.xczhihui.user.center.service.UserCenterService;
 import com.xczhihui.user.center.vo.OeUserVO;
 import com.xczhihui.user.center.vo.ThirdFlag;
@@ -64,18 +64,12 @@ public class OnlineUserServiceImpl implements OnlineUserService {
      * 手机号注册
      */
     @Override
-    public OnlineUser addPhoneRegistByAppH5(HttpServletRequest req, String password,
-                                            String mobile)
-            throws Exception {
+    public OnlineUser addPhoneRegistByAppH5(HttpServletRequest req, String password, String mobile) throws Exception {
         OnlineUser user = onlineUserDao.findUserByLoginName(mobile);
         if (user == null) {
             //向用户中心注册
-            userCenterService.regist(mobile, password, mobile, UserOrigin.PC);
-            //String shareCode = CookieUtil.getCookieValue(req, "_usercode_");
+            userCenterService.regist(mobile, password, mobile, ClientType.PC);
             user = onlineUserDao.findUserByLoginName(mobile);
-            //if (StringUtils.isNotBlank(shareCode)) {
-            //    onlineUserDao.updateShareCode(user.getId(), shareCode);
-            //}
         }
         return user;
     }

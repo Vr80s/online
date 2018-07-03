@@ -2,6 +2,8 @@ package com.xczhihui.bxg.online.web.controller.medical;
 
 import static com.xczhihui.bxg.online.web.controller.AbstractController.getCurrentUser;
 
+import com.xczhihui.course.model.Course;
+import com.xczhihui.course.service.ICourseService;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +17,8 @@ import com.xczhihui.medical.doctor.model.MedicalDoctorAccount;
 import com.xczhihui.medical.doctor.model.MedicalDoctorPosts;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorAccountService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsService;
+
+import java.util.List;
 
 /**
  * Description：医师控制器
@@ -37,6 +41,8 @@ public class MedicalDoctorPostsController {
     private IMedicalDoctorAccountService medicalDoctorAccountService;
     @Autowired
     private ICourseApplyService courseApplyService;
+    @Autowired
+    private ICourseService courseService;
 
     /**
      * 医师动态列表
@@ -119,5 +125,31 @@ public class MedicalDoctorPostsController {
     }
 
 
+    /**
+     * Description：初始化课程动态
+     * creed: Talk is cheap,show me the code
+     * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
+     * @Date: 2018/7/3 10:38
+     **/
+    @RequestMapping( value = "/initialization",method = RequestMethod.POST)
+    public ResponseObject initializationData() {
+        List<Course> list = courseService.getAllCourseByStatus();
+        list.forEach(course ->{
+            String userId = course.getUserLecturerId();
+            MedicalDoctorAccount mha = medicalDoctorAccountService.getByUserId(userId);
+            if(mha != null){
+                MedicalDoctorPosts mdp = new MedicalDoctorPosts();
+                mdp.setContent(course.getGradeName()+","+course.getSubtitle());
+                mdp.setType(5);
+                mdp.setTitle(course.getGradeName());
+                mdp.setDoctorId(mha.getDoctorId());
+                mdp.setCourseId(course.getId());
+                mdp.setCreateTime(course.getReleaseTime());
+                mdp.setUpdateTime(course.getReleaseTime());
+                medicalDoctorPostsService.addMedicalDoctorPosts(mdp);
+            }
+        });
 
+        return ResponseObject.newSuccessResponseObject("初始化成功");
+    }
 }
