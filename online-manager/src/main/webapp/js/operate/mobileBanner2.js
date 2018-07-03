@@ -59,6 +59,8 @@ $(function () {
                     return "课程列表";
                 } else if (data === "H5") {
                     return "外部链接";
+                } else if (data === 'APPRENTICE_DETAIL') {
+                    return "招生简章";
                 }
                 return "";
             }
@@ -425,6 +427,12 @@ $(".add_bx").click(function () {
                 alertInfo("请输入跳转的外部链接");
                 return false;
             }
+        } else if (routeType === 'APPRENTICE_DETAIL') {
+            linkParam = $('#J-apprentice').val();
+            if (!linkParam) {
+                alertInfo('请选择跳转的招生简章');
+                return false;
+            }
         }
 
         var imgPath = $('#imgPath_file').val();
@@ -452,10 +460,12 @@ function routeTypeChange(obj) {
             $('.J-link').hide();
             $('.J-course-detail').show();
             $('.J-anchor-detail').hide();
+            $('.J-apprentice-detail').hide();
         } else if (routeTypeValue === 'ANCHOR_INDEX') {
             $('.J-link').hide();
             $('.J-course-detail').hide();
             $('.J-anchor-detail').show();
+            $('.J-apprentice-detail').hide();
         } else if (routeTypeValue === 'PUBLIC_COURSE_LIST_PAGE' || routeTypeValue === 'H5') {
             var placeholder = "";
             if (routeTypeValue === 'PUBLIC_COURSE_LIST_PAGE') {
@@ -467,11 +477,18 @@ function routeTypeChange(obj) {
             $('.J-link').show();
             $('.J-course-detail').hide();
             $('.J-anchor-detail').hide();
+            $('.J-apprentice-detail').hide();
+        } else if (routeTypeValue === 'APPRENTICE_DETAIL') {
+            $('.J-link').hide();
+            $('.J-course-detail').hide();
+            $('.J-anchor-detail').hide();
+            $('.J-apprentice-detail').show();
         }
     } else {
         $('.J-link').hide();
         $('.J-course-detail').hide();
         $('.J-anchor-detail').hide();
+        $('.J-apprentice-detail').hide();
     }
 }
 
@@ -479,16 +496,19 @@ function routeTypeChangeEdit(obj) {
     var $editLink = $('.J-edit-link');
     var $editCourseLink = $('.J-edit-course-detail');
     var $editAnchorLink = $('.J-edit-anchor-detail');
+    var $editApprenticeLink = $('.J-edit-apprentice-detail');
     var routeTypeValue = $(obj).val();
     if (routeTypeValue) {
         if (routeTypeValue === "COMMON_COURSE_DETAIL_PAGE") {
             $editLink.hide();
             $editCourseLink.show();
             $editAnchorLink.hide();
+            $editApprenticeLink.hide();
         } else if (routeTypeValue === 'ANCHOR_INDEX') {
             $editLink.hide();
             $editCourseLink.hide();
             $editAnchorLink.show();
+            $editApprenticeLink.hide();
         } else if (routeTypeValue === 'PUBLIC_COURSE_LIST_PAGE' || routeTypeValue === 'H5') {
             var placeholder = "";
             if (routeTypeValue === 'PUBLIC_COURSE_LIST_PAGE') {
@@ -500,11 +520,18 @@ function routeTypeChangeEdit(obj) {
             $editLink.show();
             $editCourseLink.hide();
             $editAnchorLink.hide();
+            $editApprenticeLink.hide();
+        } else if (routeTypeValue === 'APPRENTICE_DETAIL') {
+            $editLink.hide();
+            $editCourseLink.hide();
+            $editAnchorLink.hide();
+            $editApprenticeLink.show();
         }
     } else {
         $editLink.hide();
         $editCourseLink.hide();
         $editAnchorLink.hide();
+        $editApprenticeLink.hide();
     }
 }
 
@@ -526,6 +553,7 @@ function updateMobileBanner(obj) {
     var $editLink = $('.J-edit-link');
     var $editCourseLink = $('.J-edit-course-detail');
     var $editAnchorLink = $('.J-edit-anchor-detail');
+    var $editApprenticeLink = $('.J-edit-apprentice-detail');
 
     if (routeTypeValue) {
         console.log(routeTypeValue);
@@ -534,6 +562,7 @@ function updateMobileBanner(obj) {
             $editLink.hide();
             $editCourseLink.show();
             $editAnchorLink.hide();
+            $editApprenticeLink.hide();
             $('#J-edit-menu').val(menuId);
             renderCourseSelect(menuId, linkParam);
             $('#J-edit-course').val(linkParam);
@@ -541,7 +570,14 @@ function updateMobileBanner(obj) {
             $editLink.hide();
             $editCourseLink.hide();
             $editAnchorLink.show();
+            $editApprenticeLink.hide();
             $('#J-edit-anchor').val(linkParam);
+        }  else if (routeTypeValue === 'APPRENTICE_DETAIL') {
+            $editLink.hide();
+            $editCourseLink.hide();
+            $editAnchorLink.hide();
+            $editApprenticeLink.show();
+            $('#J-edit-apprentice').val(linkParam);
         } else if (routeTypeValue === 'PUBLIC_COURSE_LIST_PAGE' || routeTypeValue === 'H5') {
             var placeholder = "";
             if (routeTypeValue === 'PUBLIC_COURSE_LIST_PAGE') {
@@ -554,11 +590,13 @@ function updateMobileBanner(obj) {
             $editLink.show();
             $editCourseLink.hide();
             $editAnchorLink.hide();
+            $editApprenticeLink.hide();
         }
     } else {
         $editLink.hide();
         $editCourseLink.hide();
         $editAnchorLink.hide();
+        $editApprenticeLink.show();
     }
 
     $('#update_routeType').val(routeTypeValue);
@@ -607,6 +645,12 @@ function checkEditForm() {
             return false;
         }
         linkType = 4;
+    } else if (routeType === "APPRENTICE_DETAIL") {
+        linkParam = $('#J-edit-apprentice').val();
+        if (!linkParam) {
+            alertInfo("请选择跳转至的招生简章");
+            return false;
+        }
     } else if (routeType === "PUBLIC_COURSE_LIST_PAGE") {
         linkParam = $('#J-edit-link-param').val();
         if (!linkParam) {
