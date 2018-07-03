@@ -710,6 +710,16 @@ template.config("escape", false);
         				if(!isBlank(posts[i].pictures)){
         					posts[i].pictures=posts[i].pictures.split(",");
         				}
+//      				给点赞加个字段
+        				posts[i].postsLikes="";
+        				var fabulous= "";
+        				    for(var j=0;j<posts[i].doctorPostsLikeList.length;j++){
+		        				if(!isBlank(posts[i].doctorPostsLikeList[j].userName)){
+		        					fabulous+=posts[i].doctorPostsLikeList[j].userName+"，";
+		        				}
+		        				
+	        				}
+        				    posts[i].postsLikes=fabulous.substr(0,fabulous.length-1);;       				    
         			}
         			
         		}
@@ -862,6 +872,17 @@ template.config("escape", false);
 		        	if(data.success==true){
 		        		var like = {postId:postsId};
 		        		like.list = data.resultObject.list;
+		        		like.postsLikes="";
+        					var fabulous= "";
+			        		for(var i=0;i<like.list.length;i++){
+			        			like.postsLikes
+			        			if(!isBlank(like.list[i].userName)){
+		        					fabulous+=like.list[i].userName+"，";
+		        				}
+			        			
+			        		}
+			        		
+			        		like.postsLikes=fabulous.substr(0,fabulous.length-1);
 						fabulousBox.html(template("fabulous-template", {like:like}));
 						myFabulous();
 						
@@ -875,6 +896,21 @@ template.config("escape", false);
 			        		var like = {postId:postsId};
 			        		like.list = data.resultObject.list;		        	
 			        		like.praise = data.resultObject.praise;
+
+			        		
+			        		
+			        		like.postsLikes="";
+        					var fabulous= "";
+			        		for(var i=0;i<like.list.length;i++){
+			        			like.postsLikes
+			        			if(!isBlank(like.list[i].userName)){
+		        					fabulous+=like.list[i].userName+"，";
+		        				}
+			        			
+			        		}
+			        		
+			        		like.postsLikes=fabulous.substr(0,fabulous.length-1);
+			        		
 							fabulousBox.html(template("fabulous-template", {like:like}));
 							myFabulous();
 			        	}else{

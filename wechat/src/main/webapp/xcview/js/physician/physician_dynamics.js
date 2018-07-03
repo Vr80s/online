@@ -9,9 +9,31 @@ var doctorPostsType ="";
 $(function(){
     loginUserId = localStorage.getItem("userId");
     loginUserName = localStorage.getItem("name");
-
+    sowingMap();
+    doctorPostsList(1,'down',"");
 });
 
+//轮播图
+function sowingMap() {
+    requestService("/xczh/doctors/doctorStatus", {
+        doctorId: doctorId
+    }, function (data) {
+        if(data.success ){
+            var doctorUserId =  data.resultObject.userId;
+            requestGetService("/xczh/host/doctor", {
+                lecturerId: doctorUserId
+            }, function (data) {
+                var obj =  data.resultObject;
+                if(data.success ){
+                    $(".physicians_page_main").html(template('physicians_page_main',{items:obj}));
+                }
+            });
+        }
+    });
+
+
+
+}
 //动态列表
 function doctorPostsList(num,downOrUp,doctorPostsType) {
     requestGetService("/doctor/posts", {
@@ -148,6 +170,16 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
                     });
                 })
             }
+        });
+        //文章跳转
+        mui("#refreshContainer").on('tap', '.article_hide', function (event) {
+            var articleId=$(this).attr("data-id");
+            location.href = "/xcview/html/physician/article.html?articleId=" + articleId;
+        });
+        //课程跳转
+        mui("#refreshContainer").on('tap', '.course_hide', function (event) {
+            var itemId=$(this).attr("data-id");
+            common_jump_all(itemId);
         });
     });
 }
@@ -325,15 +357,16 @@ function ccVideo(videoId, multimediaType,id) {
         }, false);
 }
 
-//文章跳转
-function articleDetails(id) {
-    location.href = "/xcview/html/physician/article.html?articleId=" + id;
-}
 //医案跳转
 function consiliaDetails(id) {
     location.href = "/xcview/html/physician/consilia.html?articleId=" + id;
 }
+function sowingDetails(url) {
+    if(url != null && url !=""){
+        location.href = url;
+    }
 
+}
 //动态刷新
 var num = 1;
 mui.init();
@@ -492,52 +525,60 @@ requestService("/xczh/doctors/doctorStatus", {doctorId:doctorId},function (data)
                             requestService("/xczh/doctors/introduction", {doctorId:getQueryString('doctor')},function (data) {
                                 if (data.success == true) {
                                     // 介绍
-                                    $('#message_referral').html(template('message_referral_id', {items: data.resultObject.hospital}));
+                                    var hospitalData=data.resultObject.hospital;
+                                    if (hospitalData != null && hospitalData != "") {
+                                        $('#message_referral').html(template('message_referral_id', {items: hospitalData}));
+
+                                        if (hospitalData.name == "") {
+                                        $(".clinic").addClass("hide");
+                                        }
+                                        if (hospitalData.tel == null) {
+                                            $(".tel").addClass("hide");
+                                        }
+                                        if (hospitalData.detailedAddress == null) {
+                                            $(".house_address").addClass("hide");
+                                        }
+                                        /*if (data.resultObject.lecturerInfo = null && data.resultObject.lecturerInfo.workTime = null) {
+                                            $(".hid_wtime").addClass("hide");
+                                        }*/
+                                        // 个人介绍
+                                        if(data.resultObject.description == null || data.resultObject.description == ''){
+                                            
+                                            $(".self_introduction").hide();
+                                        }else{
+
+                                            $(".self_introduction_cen").html(data.resultObject.description);
+                                        };
+
+                                        if(data.resultObject.workTime == null || data.resultObject.workTime == ''){
+                                            
+                                            $(".table").hide();
+                                        }else{
+
+                                            var workTime = data.resultObject.workTime; //这是一字符串 
+                                            // workTime = "1.1,3.2";
+                                            var apms = workTime.split(",");   //先分离,获取X--Y
+                                            for(var i in apms){
+                                                var apm = apms[i].split(".");   
+                                                $(".apm"+apm[0]+"_"+apm[1]+" img").show();
+                                            }
+
+                                        };
+
+                                    }else{
+                                        $(".baseImagenumber").show();
+                                    }
+
                                     // $('#message_referral').html(template('self_introduction_id', {items: data.resultObject}));
                                     
 
-                                    if (data.resultObject.hospital.name == null) {
-                                        $(".clinic").addClass("hide");
-                                    }
-                                    if (data.resultObject.hospital.tel == null) {
-                                        $(".tel").addClass("hide");
-                                    }
-                                    if (data.resultObject.hospital.detailedAddress == null) {
-                                        $(".house_address").addClass("hide");
-                                    }
-                                    /*if (data.resultObject.lecturerInfo = null && data.resultObject.lecturerInfo.workTime = null) {
-                                        $(".hid_wtime").addClass("hide");
-                                    }*/
-                                    // 个人介绍
-                                    if(data.resultObject.description == null || data.resultObject.description == ''){
-                                        
-                                        $(".self_introduction").hide();
-                                    }else{
+                                    
 
-                                        $(".self_introduction_cen").html(data.resultObject.description);
-                                    };
+                                    // if (data.resultObject.hospital.name == null && data.resultObject.hospital.tel == null && data.resultObject.hospital.detailedAddress == null && data.resultObject.description == null && data.resultObject.description == '') {
+                                    //     alert(123);
+                                    //     $(".baseImagenumber").show();
 
-                                    if(data.resultObject.workTime == null || data.resultObject.workTime == ''){
-                                        
-                                        $(".table").hide();
-                                    }else{
-
-                                        str=data.resultObject.workTime; //这是一字符串 
-                                        var apm = str.replace('.', '_');
-                                        var apms = apm.split(",");
-                                        // 先把所有的隐藏
-                                        $(".apm img").hide();
-                                        for (var i = 0; i < apms.length; i++) {
-                                            $(".apm"+apms[i]+" img").show();
-                                            // alert("apm"+apms[i]+"")
-                                        };
-                                    };
-
-                                    if (data.resultObject.hospital.name == null && data.resultObject.hospital.tel == null && data.resultObject.hospital.detailedAddress == null && data.resultObject.description == null && data.resultObject.description == '') {
-                                        alert(123);
-                                        $(".baseImagenumber").show();
-
-                                    };
+                                    // };
                                                                     
 
                                 }

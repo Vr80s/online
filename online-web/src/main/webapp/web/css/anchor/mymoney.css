@@ -138,7 +138,7 @@
     float: right;
     vertical-align: top;
     min-height: 520px;
-    padding-bottom: 50px;
+    /*padding-bottom: 50px;*/
     margin-top: 20px;
     background-color: #f8f8f8;
 }

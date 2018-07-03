@@ -36,11 +36,9 @@ public enum WechatShareLinkType {
     LIVE_PERSONAL("/xcview/html/live_personal.html?shareBack=1&userLecturerId=", "主播"),
     APPRENTICE("/xcview/html/apprentice/inherited_introduction.html?merId=", "师承"),
 
-
     DOCDOT_SHARE("/xcview/html/physician/physicians_page.html?doctor=", "医师页面"),
-    ACTICLE_SHARE("/xcview/html/home_page.html", "文章"),
-    MEDICAL_CASES("/xcview/html/home_page.html", "医案");
-
+    ACTICLE_SHARE("/xcview/html/physician/article.html?articleId=", "文章"),
+    MEDICAL_CASES("/xcview/html/physician/consilia.html?consiliaId=", "医案");
     /**
      * 描述
      **/

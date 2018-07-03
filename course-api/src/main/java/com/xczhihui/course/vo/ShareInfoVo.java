@@ -20,7 +20,7 @@ public class ShareInfoVo implements Serializable {
     private Integer type;        //分享类型
 
 
-    public void build(String returnOpenidUri) {
+    public void build(String returnOpenidUri,String webDomian) {
 
         Integer type = this.getType();
         String id = this.getShareId();
@@ -28,6 +28,7 @@ public class ShareInfoVo implements Serializable {
         String gradeName = this.getGradeName();
         String details = this.getDescription();
 
+        //分享的标题
         if (ShareType.HOST_SHARE.getCode().equals(type)) {
             this.setName("中医好主播:" + name);
 
@@ -39,14 +40,20 @@ public class ShareInfoVo implements Serializable {
             this.setName("中医好课程:" + gradeName);
         }
 
+        //详情
         if (StringUtils.isNotBlank(details)) {
             details = XzStringUtils.delHTMLTag(details);
 
             this.setDescription(details);
         }
 
-        this.setLink(returnOpenidUri + "/wx_share.html?shareType=" + type + "&shareId=" + id);
+        //头像 为空，默认给个
+        if (!StringUtils.isNotBlank(this.getHeadImg())) {
 
+            this.setHeadImg(webDomian+"/web/images/defaultHead/18.png");
+        }
+        
+        this.setLink(returnOpenidUri + "/wx_share.html?shareType=" + type + "&shareId=" + id);
     }
 
     public String getShareId() {

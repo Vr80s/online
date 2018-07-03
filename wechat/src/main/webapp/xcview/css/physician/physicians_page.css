@@ -19,7 +19,7 @@ a{
 }
 .physicians_page_main{
 	width: 7.5rem;
-	height: 100%;
+	/*height: 100%;*/
 	margin: 0 auto;
 }
 .hide{
@@ -279,7 +279,7 @@ p{
 	background: #000;
 	opacity: 0.2;
 	position: fixed;
-	z-index: 1;
+	z-index: 9999991;
 }
 .screen_show_main{
 	width: 7.5rem;
@@ -1733,6 +1733,7 @@ p{
 }
 .my_synopsis_time ul li img{
 	width: 0.28rem;
+	margin-top: 0.06rem;
 }
 .my_synopsis_time ul .border {
     width: 0.06rem;
@@ -1871,18 +1872,23 @@ table tr td img{
 	border-right: 1px solid #DEDEDE !important;
 }
 .baseImagenumber{
-	width: 5rem;
+	width: 100%;
 	height: 5rem;
 	background: #fff;
 	display: none;
 }
 .baseImagenumber img{
 	width: 2rem;
-	height: 2rem;
+    height: 2rem;
+    margin: 0 auto;
+    display: inherit;
+    padding-top: 1.5rem;
 }
 .baseImagenumber p{
 	font-size: 0.3rem;
-	color: #333;
+    color: #999;
+    text-align: center;
+    margin-top: 0.2rem;
 }
 /*介绍结束*/
 
@@ -1939,4 +1945,14 @@ table tr td img{
 /*文章置顶处理*/
 .comment_hide{
     overflow: hidden;
+}
+
+
+.apm img{
+	display: none;
+}
+
+
+.comment{
+	z-index: 9 !important;
 }

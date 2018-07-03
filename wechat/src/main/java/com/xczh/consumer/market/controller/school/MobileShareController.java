@@ -83,7 +83,7 @@ public class MobileShareController {
 
             ShareInfoVo sv = courseServiceImpl.selectShareInfoByType(shareType, shareId);
             //构造下分享出去的参数
-            sv.build(returnOpenidUri);
+            sv.build(returnOpenidUri,webdomain);
 
             return ResponseObject.newSuccessResponseObject(sv);
         } catch (Exception e) {
@@ -123,10 +123,7 @@ public class MobileShareController {
              * 这里有个问题就是。如果去分享页面的话
              */
             LOGGER.info("shareId:" + shareId + ",shareType:" + shareType);
-
-
             String shareIdAndType = shareId + "_" + shareType;
-
             //课程分享
             if (ShareType.COURSE_SHARE.getCode().equals(shareType)
                     || ShareType.ALBUM_SHARE.getCode().equals(shareType)) {
