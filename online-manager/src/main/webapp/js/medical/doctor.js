@@ -55,7 +55,20 @@ $(function(){
     	}else{
     		return "<span name='zt'>已禁用</span>";
     	}
-    } },
+    } },{"title": "来源", "class": "center", "width": "6%", "sortable": false, "data": 'type',"mRender": function (data, display, row) {
+                if(row.clientType==1){
+                    return "PC";
+                }else if(row.clientType==2){
+                    return "H5";
+                }else if(row.clientType==3){
+                    return "android";
+                }else if(row.clientType==4){
+                    return "ios";
+                }else if(row.clientType==5){
+                    return "其他";
+                }
+                return "-";
+            }},
 
     { "sortable": false,"class": "center","width":"12%","title":"操作","mRender":function (data, display, row) {
 	    	if(row.status){ // 启用状态或者禁用状态

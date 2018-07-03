@@ -2827,3 +2827,16 @@ function eachBanner(index){
     $("#posts_resource_select").val(bannerSet.linkParam);
     $('#resetSelect .selectpicker').selectpicker('refresh')
 }
+
+
+
+//初始化课程动态 ----临时执行方法
+function initialization() {
+    RequestService("/doctor/posts/initialization", "post", null, function (data) {
+        if (data.success == true) {
+            alert("初始化成功")
+        } else {
+            alert("初始化失败")
+        }
+    });
+}

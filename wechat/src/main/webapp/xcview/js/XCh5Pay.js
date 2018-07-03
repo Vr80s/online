@@ -46,6 +46,7 @@ function wechatH5(url,params,returnUrl){
 	if(returnUrl.indexOf(domain) ==-1){
 		returnUrl =protocol+"//"+domain +returnUrl;
 	}
+    params += "&h5=true";
     $.ajax({
         url : url+"?"+params,
         type : 'get',

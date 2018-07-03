@@ -605,6 +605,10 @@ p{
 	border-radius: 4px;
 	margin: 0 auto;
 	margin-bottom: 0.3rem;
+	display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    overflow: hidden;
 }
 .consilia_nav_cen img{
 	width: 2.49rem;
@@ -1409,6 +1413,10 @@ p{
 	color: #333333;
 	float: left;
 	width: 4.29rem;
+	display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    overflow: hidden;
 }
 .basis_tips{
 	font-size: 0.22rem;
@@ -1742,7 +1750,7 @@ p{
 }
 .my_synopsis_time ul li img{
 	width: 0.28rem;
-	margin-top: 0.06rem;
+	margin-top: 0.07rem;
 }
 .my_synopsis_time ul .border {
     width: 0.06rem;
@@ -2026,4 +2034,14 @@ table tr td img{
 #form_article{
     padding: 0 !important;
     height: 0.6rem;
+}
+
+.mui-pull-caption-nomore{
+    margin-top: -119px !important;
+}
+.mui-pull-bottom-pocket{
+	bottom: 0 !important;
+}
+#fansCount{
+	margin-top: 0.04rem;
 }

@@ -96,9 +96,7 @@ public class DoctorArticleController extends AbstractFtlController {
                 OeBxsArticleVO oba = medicalDoctorArticleService.getSpecialColumn(id);
                 //更新动态
                 MedicalDoctorPosts mdp = new MedicalDoctorPosts();
-                mdp.setContent(oba.getTitle());
                 mdp.setType(4);
-                mdp.setTitle(oba.getTitle());
                 mdp.setDoctorId(doctorId);
                 mdp.setArticleId(Integer.valueOf(id));
                 mdp.setArticleContent(oba.getContent());
@@ -169,9 +167,7 @@ public class DoctorArticleController extends AbstractFtlController {
                 OeBxsArticleVO oba = medicalDoctorArticleService.getSpecialColumn(id);
                 //更新动态
                 MedicalDoctorPosts mdp = new MedicalDoctorPosts();
-                mdp.setContent(oba.getTitle());
                 mdp.setType(4);
-                mdp.setTitle(oba.getTitle());
                 mdp.setDoctorId(doctorId);
                 mdp.setArticleId(Integer.valueOf(id));
                 mdp.setArticleContent(oba.getContent());

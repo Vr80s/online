@@ -21,6 +21,7 @@ import com.xczhihui.anchor.dao.AnchorDao;
 import com.xczhihui.bxg.online.common.consts.MedicalHospitalApplyConst;
 import com.xczhihui.bxg.online.common.domain.*;
 import com.xczhihui.common.support.lock.RedissonUtil;
+import com.xczhihui.common.util.TimeUtil;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.util.enums.AnchorType;
 import com.xczhihui.course.enums.MessageTypeEnum;
@@ -86,6 +87,11 @@ public class HospitalApplyServiceImpl implements HospitalApplyService {
     @Value("${course.anchor.gift.divide}")
     private BigDecimal giftDivide;
 
+    @Value("${weixin.anchor.approve.pass.code}")
+    private String weixinAnchorApprovePassCode;
+    @Value("${weixin.anchor.approve.not.pass.code}")
+    private String weixinAnchorApproveNotPassCode;
+
     /**
      * 获取医师入驻申请列表
      *
@@ -95,9 +101,7 @@ public class HospitalApplyServiceImpl implements HospitalApplyService {
      * @return 医师入驻申请分页列表
      */
     @Override
-    public Page<MedicalHospitalApply> list(MedicalHospitalApply searchVo,
-                                           int currentPage, int pageSize) {
-
+    public Page<MedicalHospitalApply> list(MedicalHospitalApply searchVo, int currentPage, int pageSize) {
         return hospitalApplyDao.list(searchVo, currentPage, pageSize);
     }
 
@@ -216,15 +220,13 @@ public class HospitalApplyServiceImpl implements HospitalApplyService {
         String hospitalId = UUID.randomUUID().toString().replace("-", "");
 
         // 判断用户是否已经是认证医师（医师 医馆只能认证一个）
-        MedicalDoctorAccount doctorAccount = doctorAccountDao
-                .findByAccountId(apply.getUserId());
+        MedicalDoctorAccount doctorAccount = doctorAccountDao.findByAccountId(apply.getUserId());
         if (doctorAccount != null) {
             throw new RuntimeException("该用户已是医师，不能再进行认证医馆");
         }
 
         // 判断用户是否已经已拥有验证医馆
-        MedicalHospitalAccount hospitalAccount = hospitalAccountDao
-                .findByAccountId(apply.getUserId());
+        MedicalHospitalAccount hospitalAccount = hospitalAccountDao.findByAccountId(apply.getUserId());
         if (hospitalAccountDao.findByAccountId(apply.getUserId()) != null
                 && StringUtils.isNotBlank(hospitalAccount.getDoctorId())) {
             MedicalHospital hospital = hospitalDao.find(hospitalAccount
@@ -254,6 +256,7 @@ public class HospitalApplyServiceImpl implements HospitalApplyService {
                 .replace("-", "");
         hospital.setAuthenticationId(authenticationInformationId);
         hospital.setSourceId(apply.getId());
+        hospital.setClientType(apply.getClientType());
         hospitalDao.save(hospital);
 
         // 新增认证成功信息：medical_hospital_authentication
@@ -272,6 +275,7 @@ public class HospitalApplyServiceImpl implements HospitalApplyService {
 
         authenticationInformation.setDeleted(false);
         authenticationInformation.setCreateTime(now);
+
         hospitalAuthenticationDao.save(authenticationInformation);
 
         // 设置oe_user表中的is_lecturer为1
@@ -293,6 +297,8 @@ public class HospitalApplyServiceImpl implements HospitalApplyService {
         courseAnchor.setGiftDivide(giftDivide);
         courseAnchor.setDeleted(false);
         courseAnchor.setStatus(true);
+
+        courseAnchor.setClientType(apply.getClientType());
         if (StringUtils.isNotBlank(user.getName())) {
             courseAnchor.setName(user.getName());
         }
@@ -323,9 +329,17 @@ public class HospitalApplyServiceImpl implements HospitalApplyService {
         Map<String, String> params = new HashMap<>(2);
         params.put("type", type);
         params.put("date", dateStr);
+
+        Map<String, String> weixinParams = new HashMap<>(5);
+        weixinParams.put("first", TextStyleUtil.clearStyle(content).replace("去看看>>", ""));
+        weixinParams.put("keyword1", courseAnchor.getName());
+        weixinParams.put("keyword2", "认证通过");
+        weixinParams.put("keyword3", dateStr);
+        weixinParams.put("remark", "");
         commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.SYSYTEM.getVal())
                 .buildWeb(content)
                 .buildAppPush(content)
+                .buildWeixin(weixinAnchorApprovePassCode, weixinParams)
                 .buildSms(smsAnchorApprovePassCode, params)
                 .build(courseAnchor.getUserId(), RouteTypeEnum.ANCHOR_WORK_TABLE_PAGE, ManagerUserUtil.getId()));
     }
@@ -342,9 +356,17 @@ public class HospitalApplyServiceImpl implements HospitalApplyService {
         String content = MessageFormat.format(APPROVE_NOT_PASS_MESSAGE, type, reason);
         Map<String, String> params = new HashMap<>(2);
         params.put("type", type);
+
+        Map<String, String> weixinParams = new HashMap<>(5);
+        weixinParams.put("first", TextStyleUtil.clearStyle(content).replace("查看详情", ""));
+        weixinParams.put("keyword1", apply.getName());
+        weixinParams.put("keyword2", TimeUtil.getYearMonthDayHHmm(new Date()));
+        weixinParams.put("keyword3", "认证未通过");
+        weixinParams.put("remark", "");
         commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.SYSYTEM.getVal())
                 .buildWeb(content)
                 .buildAppPush(content)
+                .buildWeixin(weixinAnchorApproveNotPassCode, weixinParams)
                 .buildSms(smsAnchorApproveNotPassCode, params)
                 .build(apply.getUserId(), RouteTypeEnum.HOSPITAL_APPROVE_PAGE, ManagerUserUtil.getId()));
     }

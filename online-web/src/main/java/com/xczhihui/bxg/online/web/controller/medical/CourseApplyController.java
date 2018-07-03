@@ -25,6 +25,7 @@ import com.xczhihui.bxg.online.web.service.OnlineUserCenterService;
 import com.xczhihui.common.util.TimeUtil;
 import com.xczhihui.common.util.VhallUtil;
 import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.common.util.enums.ClientType;
 import com.xczhihui.course.enums.MessageTypeEnum;
 import com.xczhihui.course.params.BaseMessage;
 import com.xczhihui.course.service.ICommonMessageService;
@@ -109,7 +110,7 @@ public class CourseApplyController extends AbstractController {
      * @Date: 下午 3:50 2018/1/19 0019
      **/
     @RequestMapping(value = "/getCollectionApplyList", method = RequestMethod.GET)
-    public ResponseObject getCollectionApplyList(HttpServletRequest request, Integer current, Integer size, Integer multimediaType, String title) {
+    public ResponseObject getCollectionApplyList(Integer current, Integer size, Integer multimediaType, String title) {
         Page<CourseApplyInfoVO> page = new Page<>();
         page.setCurrent(current);
         page.setSize(size);
@@ -125,7 +126,7 @@ public class CourseApplyController extends AbstractController {
      * @Date: 下午 3:51 2018/1/19 0019
      **/
     @RequestMapping(value = "/getLiveApplyList", method = RequestMethod.GET)
-    public ResponseObject getLiveApplyList(HttpServletRequest request, Integer current, Integer size, String title) {
+    public ResponseObject getLiveApplyList(Integer current, Integer size, String title) {
         Page<CourseApplyInfoVO> page = new Page<>();
         page.setCurrent(current);
         page.setSize(size);
@@ -141,19 +142,19 @@ public class CourseApplyController extends AbstractController {
      * @Date: 下午 3:51 2018/1/19 0019
      **/
     @RequestMapping(value = "/getAllCourseResources", method = RequestMethod.GET)
-    public ResponseObject getAllCourseResources(HttpServletRequest request, Integer multimediaType) {
+    public ResponseObject getAllCourseResources(Integer multimediaType) {
         OnlineUser user = getCurrentUser();
         return ResponseObject.newSuccessResponseObject(courseApplyService.selectAllCourseResources(user.getId(), multimediaType));
     }
 
     @RequestMapping(value = "/getAllCourses", method = RequestMethod.GET)
-    public ResponseObject getAllCourses(HttpServletRequest request, Integer multimediaType) {
+    public ResponseObject getAllCourses(Integer multimediaType) {
         OnlineUser user = getCurrentUser();
         return ResponseObject.newSuccessResponseObject(courseApplyService.selectAllCourses(user.getId(), multimediaType));
     }
 
     @RequestMapping(value = "/getCourseApplyById", method = RequestMethod.GET)
-    public ResponseObject getCourseApplyById(HttpServletRequest request, Integer caiId) {
+    public ResponseObject getCourseApplyById(Integer caiId) {
         OnlineUser user = getCurrentUser();
         return ResponseObject.newSuccessResponseObject(courseApplyService.selectCourseApplyById(user.getId(), caiId));
     }
@@ -166,7 +167,7 @@ public class CourseApplyController extends AbstractController {
      * @Date: 下午 3:51 2018/1/19 0019
      **/
     @RequestMapping(value = "/getCourseResourceList", method = RequestMethod.GET)
-    public ResponseObject getCourseResourceList(HttpServletRequest request, Integer current, Integer size) {
+    public ResponseObject getCourseResourceList(Integer current, Integer size) {
         Page<CourseApplyResourceVO> page = new Page<>();
         page.setCurrent(current);
         page.setSize(size);
@@ -182,7 +183,7 @@ public class CourseApplyController extends AbstractController {
      * @Date: 下午 10:18 2018/2/1 0001
      **/
     @RequestMapping(value = "/getCourseResourcePlayer", method = RequestMethod.GET)
-    public ResponseObject getCourseResource(HttpServletRequest request, Integer resourceId) {
+    public ResponseObject getCourseResource(Integer resourceId) {
         OnlineUser user = getCurrentUser();
         return ResponseObject.newSuccessResponseObject(courseApplyService.selectCourseResourcePlayerById(user.getId(), resourceId));
     }
@@ -195,9 +196,10 @@ public class CourseApplyController extends AbstractController {
      * @Date: 下午 3:58 2018/1/19 0019
      **/
     @RequestMapping(value = "/saveCourseApply", method = RequestMethod.POST)
-    public ResponseObject saveCourseApply(HttpServletRequest request, @RequestBody CourseApplyInfo courseApplyInfo) {
+    public ResponseObject saveCourseApply(@RequestBody CourseApplyInfo courseApplyInfo) {
         OnlineUser user = getCurrentUser();
         courseApplyInfo.setUserId(user.getId());
+        courseApplyInfo.setClientType(ClientType.PC.getCode());
         courseApplyService.saveCourseApply(courseApplyInfo);
         return ResponseObject.newSuccessResponseObject("保存成功");
     }
@@ -210,7 +212,7 @@ public class CourseApplyController extends AbstractController {
      * @Date: 2018/2/4 0004 下午 7:35
      **/
     @RequestMapping(value = "/updateCourseApply", method = RequestMethod.POST)
-    public ResponseObject updateCourseApply(HttpServletRequest request, @RequestBody CourseApplyInfo courseApplyInfo) {
+    public ResponseObject updateCourseApply(@RequestBody CourseApplyInfo courseApplyInfo) {
         OnlineUser user = getCurrentUser();
         courseApplyInfo.setUserId(user.getId());
         courseApplyService.updateCourseApply(courseApplyInfo);
@@ -218,7 +220,7 @@ public class CourseApplyController extends AbstractController {
     }
 
     @RequestMapping(value = "/updateCollectionApply", method = RequestMethod.POST)
-    public ResponseObject updateCollectionApply(HttpServletRequest request, @RequestBody CourseApplyInfo courseApplyInfo) {
+    public ResponseObject updateCollectionApply(@RequestBody CourseApplyInfo courseApplyInfo) {
         OnlineUser user = getCurrentUser();
         courseApplyInfo.setUserId(user.getId());
         courseApplyService.updateCollectionApply(courseApplyInfo);
@@ -233,7 +235,7 @@ public class CourseApplyController extends AbstractController {
      * @Date: 下午 3:58 2018/1/19 0019
      **/
     @RequestMapping(value = "/saveCollectionApply", method = RequestMethod.POST)
-    public ResponseObject saveCollectionApply(HttpServletRequest request, @RequestBody CourseApplyInfo courseApplyInfo) {
+    public ResponseObject saveCollectionApply(@RequestBody CourseApplyInfo courseApplyInfo) {
         OnlineUser user = getCurrentUser();
         courseApplyInfo.setUserId(user.getId());
         courseApplyService.saveCollectionApply(courseApplyInfo);
@@ -248,7 +250,7 @@ public class CourseApplyController extends AbstractController {
      * @Date: 下午 3:58 2018/1/19 0019
      **/
     @RequestMapping(value = "/saveCourseResource", method = RequestMethod.POST)
-    public ResponseObject saveCourseResource(HttpServletRequest request, @RequestBody CourseApplyResource courseApplyResource) {
+    public ResponseObject saveCourseResource(@RequestBody CourseApplyResource courseApplyResource) {
         OnlineUser user = getCurrentUser();
         courseApplyResource.setUserId(user.getId());
         courseApplyService.saveCourseApplyResource(courseApplyResource);
@@ -263,7 +265,7 @@ public class CourseApplyController extends AbstractController {
      * @Date: 2018/2/3 0003 下午 9:12
      **/
     @RequestMapping(value = "/deleteCourseResource", method = RequestMethod.POST)
-    public ResponseObject deleteCourseResource(HttpServletRequest request, String resourceId) {
+    public ResponseObject deleteCourseResource(String resourceId) {
         OnlineUser user = getCurrentUser();
         courseApplyService.deleteCourseApplyResource(user.getId(), resourceId);
         return ResponseObject.newSuccessResponseObject("删除成功");
@@ -277,7 +279,7 @@ public class CourseApplyController extends AbstractController {
      * @Date: 2018/2/5 0005 下午 2:15
      **/
     @RequestMapping(value = "/deleteCourseApplyById")
-    public ResponseObject deleteCourseApplyById(HttpServletRequest request, Integer caiId) {
+    public ResponseObject deleteCourseApplyById(Integer caiId) {
         OnlineUser user = getCurrentUser();
         courseApplyService.deleteCourseApplyById(user.getId(), caiId);
         return ResponseObject.newSuccessResponseObject("删除成功");
@@ -307,7 +309,7 @@ public class CourseApplyController extends AbstractController {
      * @Date: 下午 9:45 2018/2/1 0001
      **/
     @RequestMapping(value = "getVhallInfo")
-    public ResponseObject getVhallInfo(HttpServletRequest request) {
+    public ResponseObject getVhallInfo() {
         ResponseObject responseObj = new ResponseObject();
         Map vhallInfo = new HashMap();
         OnlineUser user = getCurrentUser();
@@ -401,8 +403,8 @@ public class CourseApplyController extends AbstractController {
                         weixinParams = new HashMap<>(4);
                         weixinParams.put("first", TextStyleUtil.clearStyle(content));
                         weixinParams.put("keyword1", course.getGradeName());
-                        weixinParams.put("keyword2", startTime == null ? "" : TimeUtil.getYearMonthDayHHmm(startTime));
-                        weixinParams.put("remark", "点击查看");
+                        weixinParams.put("keyword2", startTime == null ? "随到随学" : TimeUtil.getYearMonthDayHHmm(startTime));
+                        weixinParams.put("remark", "");
                         commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.SYSYTEM.getVal())
                                 .buildAppPush(APP_PUSH_COURSE_ONLINE_MESSAGE_TIPS)
                                 .buildWeb(content)
@@ -435,7 +437,6 @@ public class CourseApplyController extends AbstractController {
             mdp.setContent(course.getGradeName()+","+course.getSubtitle());
             mdp.setType(5);
             mdp.setTitle(course.getGradeName());
-            mdp.setCoverImg(course.getBigImgPath());
             mdp.setDoctorId(mha.getDoctorId());
             mdp.setCourseId(course.getId());
             medicalDoctorPostsService.addMedicalDoctorPosts(mdp);

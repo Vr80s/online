@@ -15,7 +15,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
  */
 @Entity
 @Table(name = "medical_hospital")
-@NamedQuery(name = "MedicalHospital.findAll", query = "SELECT m FROM MedicalHospital m")
 public class MedicalHospital implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -81,6 +80,9 @@ public class MedicalHospital implements Serializable {
 
     private Integer sort;
 
+    @Column(name = "client_type")
+    private Integer clientType;
+
     @Column(name = "recommend_sort")
     private Integer recommendSort;
 
@@ -117,6 +119,14 @@ public class MedicalHospital implements Serializable {
     private Integer authenticationNum;
 
     public MedicalHospital() {
+    }
+
+    public Integer getClientType() {
+        return clientType;
+    }
+
+    public void setClientType(Integer clientType) {
+        this.clientType = clientType;
     }
 
     public String getHeadPortrait() {

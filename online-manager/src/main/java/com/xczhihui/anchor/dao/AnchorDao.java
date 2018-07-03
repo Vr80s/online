@@ -33,6 +33,7 @@ public class AnchorDao extends HibernateDao<CourseAnchor> {
         StringBuilder sql = new StringBuilder(
                 "SELECT ca.id,\n"
                         + "  ca.`name`,\n"
+                        + "  ca.`client_type`,\n"
                         + "  ca.`user_id` as userId,\n"
                         + "  ou.`login_name` loginName,\n"
                         + "  ca.`type`,\n"

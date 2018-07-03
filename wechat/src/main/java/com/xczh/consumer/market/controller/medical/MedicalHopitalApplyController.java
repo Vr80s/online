@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.xczh.consumer.market.auth.Account;
+import com.xczh.consumer.market.interceptor.HeaderInterceptor;
 import com.xczh.consumer.market.service.OLAttachmentCenterService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.medical.common.service.ICommonService;
@@ -30,8 +31,7 @@ import com.xczhihui.medical.hospital.service.IMedicalHospitalApplyService;
 @RequestMapping("/xczh/medical")
 public class MedicalHopitalApplyController {
 
-    private static final org.slf4j.Logger LOGGER = LoggerFactory
-            .getLogger(MedicalHopitalApplyController.class);
+    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(MedicalHopitalApplyController.class);
     @Autowired
     private IMedicalHospitalApplyService medicalHospitalApplyService;
     @Autowired
@@ -71,6 +71,7 @@ public class MedicalHopitalApplyController {
         medicalHospitalApply
                 .setLicenseForPharmaceuticalTradingPicture(licenseForPharmaceuticalTradingPicture);
 
+        medicalHospitalApply.setClientType(HeaderInterceptor.getClientTypeCode());
         medicalHospitalApplyService.add(medicalHospitalApply);
         return ResponseObject.newSuccessResponseObject("创建成功");
     }

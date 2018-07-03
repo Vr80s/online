@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.xczh.consumer.market.auth.Account;
+import com.xczh.consumer.market.interceptor.HeaderInterceptor;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.enums.OrderFrom;
 import com.xczhihui.online.api.service.GiftService;
@@ -81,14 +82,13 @@ public class XzGiftController {
      **/
     @ResponseBody
     @RequestMapping(value = "/sendGift")
-    public ResponseObject sendGift(HttpServletRequest req,
-            String giftId,String liveId,Integer clientType,Integer count, String receiverId,
+    public ResponseObject sendGift(String giftId,String liveId,Integer count, String receiverId,
             @Account String accountId) throws SQLException, XMPPException, SmackException, IOException, IllegalAccessException, InvocationTargetException {
-      
+
         Map<String, Object> map = null;
         map = remoteGiftService.addGiftStatement(accountId,
                 receiverId, giftId,
-                OrderFrom.getOrderFrom(clientType), count, liveId);
+                OrderFrom.getOrderFrom(HeaderInterceptor.getClientTypeCode()), count, liveId);
 
         return ResponseObject.newSuccessResponseObject(map);
     }

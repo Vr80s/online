@@ -95,6 +95,8 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
 
     @Value("${weixin.anchor.approve.pass.code}")
     private String weixinAnchorApprovePassCode;
+    @Value("${weixin.anchor.approve.not.pass.code}")
+    private String weixinAnchorApproveNotPassCode;
 
     /**
      * 获取医师入驻申请列表
@@ -236,8 +238,7 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
 
         // 判断用户是否已经认证医馆（医师 医馆只能认证一个）
         MedicalHospitalAccount hospitalAccount = hospitalAccountDao.findByAccountId(apply.getUserId());
-        if (hospitalAccountDao.findByAccountId(apply.getUserId()) != null
-                && StringUtils.isNotBlank(hospitalAccount.getDoctorId())) {
+        if (hospitalAccountDao.findByAccountId(apply.getUserId()) != null && StringUtils.isNotBlank(hospitalAccount.getDoctorId())) {
             MedicalHospital hospital = hospitalDao.find(hospitalAccount.getDoctorId());
             if (hospital != null && hospital.isAuthentication() == true) {
                 throw new RuntimeException("该用户已拥有已认证医馆，不能再进行认证医师");
@@ -259,8 +260,7 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
 
         // 新增医师信息：medical_doctor
         String authenticationInformationId = CodeUtil.getRandomUUID();
-        this.addMedicalDoctor(doctorId, authenticationInformationId, apply, 2,
-                now);
+        this.addMedicalDoctor(doctorId, authenticationInformationId, apply, 2, now);
 
         // 新增医师与科室的对应关系：medical_doctor_department
         List<MedicalDoctorApplyDepartment> medicalDoctorApplyDepartments = doctorApplyDepartmentDao
@@ -298,6 +298,8 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
         courseAnchor.setDeleted(false);
         courseAnchor.setDetail(apply.getDescription());
         courseAnchor.setStatus(true);
+
+        courseAnchor.setClientType(apply.getClientType());
         if (StringUtils.isNotBlank(user.getName())) {
             courseAnchor.setName(user.getName());
         }
@@ -327,10 +329,10 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
             params.put("date", dateStr);
 
             Map<String, String> weixinParams = new HashMap<>(5);
-            weixinParams.put("first", TextStyleUtil.clearStyle(content));
+            weixinParams.put("first", TextStyleUtil.clearStyle(content).replace("去看看>>", ""));
             weixinParams.put("keyword1", courseAnchor.getName());
             weixinParams.put("keyword2", "认证通过");
-            weixinParams.put("keyword3", TimeUtil.getYearMonthDayHHmm(applyTime));
+            weixinParams.put("keyword3", dateStr);
             weixinParams.put("remark", "");
             commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.SYSYTEM.getVal())
                     .buildWeb(content)
@@ -355,9 +357,16 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
         String content = MessageFormat.format(APPROVE_NOT_PASS_MESSAGE, type, reason);
         Map<String, String> params = new HashMap<>();
         params.put("type", type);
+        Map<String, String> weixinParams = new HashMap<>(5);
+        weixinParams.put("first", TextStyleUtil.clearStyle(content).replace("查看详情", ""));
+        weixinParams.put("keyword1", apply.getName());
+        weixinParams.put("keyword2", TimeUtil.getYearMonthDayHHmm(new Date()));
+        weixinParams.put("keyword3", "认证未通过");
+        weixinParams.put("remark", "");
         commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.SYSYTEM.getVal())
                 .buildWeb(content)
                 .buildAppPush(content)
+                .buildWeixin(weixinAnchorApproveNotPassCode, weixinParams)
                 .buildSms(smsAnchorApproveNotPassCode, params)
                 .build(apply.getUserId(), RouteTypeEnum.DOCTOR_APPROVE_PAGE, ManagerUserUtil.getId()));
     }
@@ -516,6 +525,7 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
         if (StringUtils.isNotBlank(apply.getField())) {
             doctor.setFieldText(apply.getField());
         }
+        doctor.setClientType(apply.getClientType());
         doctor.setStatus(true);
         doctor.setCreateTime(createTime);
         doctor.setSourceId(apply.getId());

@@ -93,8 +93,7 @@ public class PayServiceImpl implements PayService {
                     long current = System.currentTimeMillis();
                     //处理订单业务
                     orderPayService.addPaySuccess(outTradeNo, payment, tradeNo);
-                    logger.info("订单支付成功，订单号:{},用时{}",
-                            outTradeNo, (System.currentTimeMillis() - current) + "毫秒");
+                    logger.info("订单支付成功，订单号:{},用时{}", outTradeNo, (System.currentTimeMillis() - current) + "毫秒");
                 } catch (Exception e) {
                     logger.error("用户支付成功，构建课程失败！！！" + outTradeNo + "，错误信息：", e);
                 }

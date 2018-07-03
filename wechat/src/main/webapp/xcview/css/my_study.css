@@ -200,12 +200,15 @@ position: absolute;
 top: 0.13rem;
 left: 0.13rem;	
 }
+.text_mores{
+	margin-bottom: 0.1rem;
+}
 .text_more{
 display: -webkit-box;
 -webkit-box-orient: vertical;
--webkit-line-clamp: 2;
+-webkit-line-clamp: 1;
 overflow: hidden;
-margin-bottom: 0.1rem;
+
 }
 .text_more .span{
 	font-size: 0.22rem;

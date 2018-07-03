@@ -189,6 +189,7 @@ border-radius: 3px;
     margin-left: 0.1rem;
     float: left;
     text-align: center;
+    padding: 0.01rem 0;
 }
 .playTime li:nth-last-child(1){
 	float: right;

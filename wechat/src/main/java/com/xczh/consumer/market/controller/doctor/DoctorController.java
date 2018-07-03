@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.xczh.consumer.market.interceptor.IOSVersionInterceptor;
+import com.xczh.consumer.market.interceptor.HeaderInterceptor;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.enums.DoctorSortOrderType;
 import com.xczhihui.common.util.enums.DoctorType;
@@ -120,12 +120,11 @@ public class DoctorController {
      * @return
      */
     @RequestMapping(value = "list")
-    public ResponseObject list(@RequestParam(value = "page", required = false)
-                                       Integer pageNumber, Integer pageSize,
-                               DoctorQueryVo dqv) throws IOException, SolrServerException {
+    public ResponseObject list(@RequestParam(value = "pageNumber", required = false)Integer pageNumber,
+                Integer pageSize,DoctorQueryVo dqv) throws IOException, SolrServerException {
 
-        pageNumber = pageNumber == null ? 1 : pageNumber;
-        pageSize = pageSize == null ? 10 : pageSize;
+        pageNumber = (pageNumber == null ? 1 : pageNumber);
+        pageSize = (pageSize == null ? 10 : pageSize);
         /*
          * 构造下查询bean
 		 */
@@ -181,7 +180,7 @@ public class DoctorController {
         page.setSize(Integer.MAX_VALUE);
 
         Page<CourseLecturVo> list = courseService.selectLecturerAllCourse
-                (page, userId, 3, IOSVersionInterceptor.onlyThread.get());
+                (page, userId, 3, HeaderInterceptor.ONLY_THREAD.get());
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("text", "直播课程");
         map.put("code", 2);
@@ -202,7 +201,7 @@ public class DoctorController {
             throws Exception {
 
         CourseLecturVo cv = courseService.selectLecturerRecentCourse(userId,
-                IOSVersionInterceptor.onlyThread.get());
+                HeaderInterceptor.ONLY_THREAD.get());
         return ResponseObject.newSuccessResponseObject(cv);
     }
 

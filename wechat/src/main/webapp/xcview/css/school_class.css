@@ -313,7 +313,7 @@ line-height: 0.42rem;
 	word-wrap:break-word; 
 word-break:break-all; 
 line-height: 0.42rem;
-    border-bottom: 1px solid #f0f0f0;
+    /*border-bottom: 1px solid #f0f0f0;*/
 }
 .wrap1 p img{
 	/*width: 100%;*/

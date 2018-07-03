@@ -58,6 +58,7 @@
                                 <option  value="" >支付方式</option>
                                 <option  value="0" >支付宝</option>
                                 <option  value="1" >微信支付</option>
+                                <option  value="2" >苹果内购</option>
                             </select>
                             <input type="hidden" value="search_payType" class="propertyName" />
                         </div>

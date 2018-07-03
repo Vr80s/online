@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.xczh.consumer.market.interceptor.IOSVersionInterceptor;
+import com.xczh.consumer.market.interceptor.HeaderInterceptor;
 import com.xczh.consumer.market.utils.APPUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.enums.*;
@@ -62,7 +62,7 @@ public class MobileRecommendController {
         Map<String, Object> mapAll = new HashMap<String, Object>();
         //课程banner
         Page<MobileBanner> MobileBannerPage = new Page<>();
-        MobileBannerPage.setRecords(mobileBannerService.selectMobileBannerPage(BannerType.RECOMMENDATION.getCode(), IOSVersionInterceptor.onlyThread.get(), APPUtil.getMobileSource(request)));
+        MobileBannerPage.setRecords(mobileBannerService.selectMobileBannerPage(BannerType.RECOMMENDATION.getCode(), HeaderInterceptor.ONLY_THREAD.get(), APPUtil.getMobileSource(request)));
         mapAll.put("banner", MobileBannerPage);
 
         //课程专题
@@ -89,7 +89,7 @@ public class MobileRecommendController {
          */
         List<MenuVo> listMenu = mobileProjectService.selectMenuVo();
         List<Map<String, Object>> mapCourseList = mobileBannerService.recommendCourseList(listMenu, PagingFixedType.RECOMMENDATION_PAGETYPE_UP.getValue(),
-                PagingFixedType.RECOMMENDATION_PAGETYPE_DOWN.getValue(), IOSVersionInterceptor.onlyThread.get());
+                PagingFixedType.RECOMMENDATION_PAGETYPE_DOWN.getValue(), HeaderInterceptor.ONLY_THREAD.get());
         return ResponseObject.newSuccessResponseObject(mapCourseList);
     }
 

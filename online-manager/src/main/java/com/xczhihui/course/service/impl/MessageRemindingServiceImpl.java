@@ -123,7 +123,7 @@ public class MessageRemindingServiceImpl implements MessageRemindingService {
                     weixinParams.put("first", TextStyleUtil.clearStyle(commonContent));
                     weixinParams.put("keyword1", courseName);
                     weixinParams.put("keyword2", TimeUtil.getYearMonthDayHHmm(course.getStartTime()));
-                    weixinParams.put("remark", "点击查看");
+                    weixinParams.put("remark", "");
                     for (OnlineUser user : users) {
                         BaseMessage baseMessage = new BaseMessage.Builder(MessageTypeEnum.COURSE.getVal())
                                 .buildWeb(commonContent)
@@ -214,12 +214,12 @@ public class MessageRemindingServiceImpl implements MessageRemindingService {
                             params.put("courseName", courseName);
                             params.put("lecture", lecturer);
                             params.put("minute", String.valueOf(minute));
-                            params.put("code", String.valueOf(id));
+                            params.put("code", String.valueOf(id) + " ");
                             Map<String, String> weixinParams = new HashMap<>(4);
                             weixinParams.put("first", TextStyleUtil.clearStyle(commonContent));
                             weixinParams.put("keyword1", courseName);
                             weixinParams.put("keyword2", time);
-                            weixinParams.put("remark", "点击查看");
+                            weixinParams.put("remark", "");
                             OnlineUser onlineUser = new OnlineUser();
                             for (OnlineUser user : users) {
                                 loggger.info("推送给:{}", user.getName());

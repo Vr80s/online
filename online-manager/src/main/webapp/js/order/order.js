@@ -67,7 +67,7 @@ function loadOrderList(){
             }else if(data == 1){
             	payType = "微信支付\n"+row.payTime;
             }else if(data == 2){
-                payType = "IOS支付\n"+row.payTime;
+                payType = "苹果内购\n"+row.payTime;
             }else if(data == 3){
                 payType = "熊猫币支付\n"+row.payTime;
             }else if(data == 4){

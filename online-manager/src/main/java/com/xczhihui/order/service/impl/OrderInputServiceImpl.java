@@ -17,8 +17,8 @@ import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.common.support.dao.SimpleHibernateDao;
 import com.xczhihui.common.util.IStringUtil;
 import com.xczhihui.common.util.bean.Page;
+import com.xczhihui.common.util.enums.ClientType;
 import com.xczhihui.common.util.enums.Payment;
-import com.xczhihui.common.util.enums.UserOrigin;
 import com.xczhihui.online.api.service.OrderPayService;
 import com.xczhihui.online.api.service.UserCoinService;
 import com.xczhihui.online.api.vo.OrderVo;
@@ -105,11 +105,9 @@ public class OrderInputServiceImpl extends OnlineBaseServiceImpl implements Orde
             throw new RuntimeException("帐号请输入手机号或邮箱！");
         }
 
-//		String name =  (Math.random() * 90000 + 10000)+"";
-
         OnlineUser ou = dao.findOneEntitiyByProperty(OnlineUser.class, "loginName", loginName);
         if (ou == null) {
-            userCenterService.regist(loginName, loginName, loginName, UserOrigin.IMPORT);
+            userCenterService.regist(loginName, loginName, loginName, ClientType.OTHER);
             Thread.sleep(500);
         }
     }

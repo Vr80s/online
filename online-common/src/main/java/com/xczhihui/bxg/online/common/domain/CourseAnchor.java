@@ -55,6 +55,7 @@ public class CourseAnchor implements java.io.Serializable {
     private Integer recommendSort;
 
     private Integer isRecommend;
+    private Integer clientType;
 
     private int courseCount;
 
@@ -74,6 +75,15 @@ public class CourseAnchor implements java.io.Serializable {
 
     public void setIsRecommend(Integer isRecommend) {
         this.isRecommend = isRecommend;
+    }
+
+    @Column(name = "client_type")
+    public Integer getClientType() {
+        return clientType;
+    }
+
+    public void setClientType(Integer clientType) {
+        this.clientType = clientType;
     }
 
     @Column(name = "recommend_sort")

@@ -36,7 +36,6 @@ import com.xczhihui.course.service.CourseService;
 import com.xczhihui.course.service.ICommonMessageService;
 import com.xczhihui.course.service.MessageRemindingService;
 import com.xczhihui.course.util.TextStyleUtil;
-import com.xczhihui.message.dao.MessageDao;
 import com.xczhihui.support.shiro.ManagerUserUtil;
 import com.xczhihui.user.service.OnlineUserService;
 import com.xczhihui.vhall.VhallUtil;
@@ -95,14 +94,10 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
     private String notLiveCourseApplyPassCode;
     @Value("${sms.course.apply.not.pass.code}")
     private String courseApplyNotPassCode;
-    @Value("${weixin.course.apply.pass.code}")
-    private String weixinCourseApplyPassCode;
-    @Value("${weixin.course.apply.not.pass.code}")
-    private String weixinCourseApplyNotPassCode;
+    @Value("${weixin.course.admin.apply.code}")
+    private String weixinCourseApplyCode;
     @Autowired
     private CourseApplyDao courseApplyDao;
-    @Autowired
-    private MessageDao messageDao;
     @Autowired
     private CourseService courseService;
     @Autowired
@@ -251,12 +246,13 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
             Map<String, String> weixinParams = new HashMap<>(3);
             weixinParams.put("first", MessageFormat.format(isLiveCourse ? WEIXIN_LIVE_COURSE_APPLY_SUCCESS_MESSAGE_TIPS : WEIXIN_NOT_LIVE_COURSE_APPLY_SUCCESS_MESSAGE_TIPS, typeText, title));
             weixinParams.put("keyword1", title);
-            weixinParams.put("keyword2", course.getStartTime() == null ? "无" : TimeUtil.getYearMonthDayHHmm(course.getStartTime()));
+            weixinParams.put("keyword2", "审核通过");
+            weixinParams.put("remark", "");
             commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.COURSE.getVal())
                     .buildWeb(content)
                     .buildAppPush(MessageFormat.format(isLiveCourse ? APP_PUSH_LIVE_COURSE_APPLY_SUCCESS_MESSAGE_TIPS : APP_PUSH_NOT_LIVE_COURSE_APPLY_SUCCESS_MESSAGE_TIPS, typeText, title))
                     .buildSms(isLiveCourse ? liveCourseApplyPassCode : notLiveCourseApplyPassCode, params)
-                    .buildWeixin(weixinCourseApplyPassCode, weixinParams)
+                    .buildWeixin(weixinCourseApplyCode, weixinParams)
                     .detailId(String.valueOf(course.getId()))
                     .build(userId, routeTypeEnum, createPerson));
         } catch (Exception e) {
@@ -347,7 +343,7 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
                 .buildWeb(content)
                 .buildSms(courseApplyNotPassCode, params)
                 .buildAppPush(MessageFormat.format(APP_PUSH_COURSE_APPLY_FAIL_MESSAGE_TIPS, n, title, detailReason))
-                .buildWeixin(weixinCourseApplyNotPassCode, weixinParams)
+                .buildWeixin(weixinCourseApplyCode, weixinParams)
                 .build(courseApplyInfo.getUserId(), routeTypeEnum, createPerson)
         );
     }
@@ -502,6 +498,8 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
         course.setCollectionCourseSort(courseApply.getCollectionCourseSort());
         course.setCollection(courseApply.getCollection());
         course.setCourseNumber(courseApply.getCourseNumber());
+
+        course.setClientType(courseApply.getClientType());
         if (course.getId() != null) {
             // 若course有id，说明该申请来自一个已经审核通过的课程，则更新
             dao.update(course);
@@ -522,9 +520,9 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
         List<Integer> applyIdList = new ArrayList<>();
         getOldApplyIds(oldApplyInfoId,applyIdList);
         String applyIds = StringUtils.join(applyIdList,",");
-        String courseTypeSql = "select * from oe_course oc where oc.apply_id in ("+applyIds+")";
+        String courseTypeSql = "from Course oc where oc.applyId in (:applyIds)";
         Map<String, Object> params = new HashMap<String, Object>();
-        List<Course> courses = dao.getNamedParameterJdbcTemplate().query( courseTypeSql, params, BeanPropertyRowMapper.newInstance(Course.class));
+        List<Course> courses = (List<Course>)dao.getHibernateTemplate().findByNamedParam(courseTypeSql, "applyIds", applyIdList);
         if(courses.size()>1){
             throw new RuntimeException("数据有误");
         }else if(courses.size()==1){

@@ -30,7 +30,7 @@ import com.xczhihui.common.support.service.AttachmentType;
 import com.xczhihui.common.util.DateUtil;
 import com.xczhihui.common.util.ImageUtil;
 import com.xczhihui.common.util.VhallUtil;
-import com.xczhihui.common.util.enums.UserOrigin;
+import com.xczhihui.common.util.enums.ClientType;
 import com.xczhihui.common.util.enums.VCodeType;
 import com.xczhihui.user.center.service.UserCenterService;
 import com.xczhihui.user.center.service.VerificationCodeService;
@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void addPhoneRegist(HttpServletRequest req, String username, String password, String code, String nikeName) {
         verificationCodeService.checkCode(username, VCodeType.RETISTERED, code);
-        userCenterService.regist(username, password, nikeName, UserOrigin.PC);
+        userCenterService.regist(username, password, nikeName, ClientType.PC);
     }
 
     /**
