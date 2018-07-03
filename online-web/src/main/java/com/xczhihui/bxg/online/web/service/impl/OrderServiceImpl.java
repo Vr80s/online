@@ -85,7 +85,7 @@ public class OrderServiceImpl extends OnlineBaseServiceImpl implements OrderServ
                     weixinParams.put("first", TextStyleUtil.clearStyle(content));
                     weixinParams.put("keyword1", courseName);
                     weixinParams.put("keyword2", startTimeStr);
-                    weixinParams.put("remark", "点击查看");
+                    weixinParams.put("remark", "");
                     commonMessageService.saveMessage(
                             new BaseMessage.Builder(MessageTypeEnum.COURSE.getVal())
                                     .buildWeb(content)
