@@ -82,7 +82,7 @@ function loadOrderList() {
             }
         },
         {
-            title: '总计(元)',
+            title: '总计',
             "class": "center",
             "width": "10%",
             "data": 'subsidies',
