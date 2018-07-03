@@ -12,6 +12,7 @@ import com.xczhihui.bxg.online.web.controller.AbstractController;
 import com.xczhihui.bxg.online.web.service.UserService;
 import com.xczhihui.bxg.online.web.vo.UserDataVo;
 import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.common.util.enums.ClientType;
 import com.xczhihui.medical.hospital.model.MedicalHospitalApply;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalApplyService;
 
@@ -36,7 +37,7 @@ public class HospitalApplyController extends AbstractController {
      * @param target 医师入驻申请信息
      */
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseObject add(MedicalHospitalApply target, HttpServletRequest request) {
+    public ResponseObject add(MedicalHospitalApply target) {
 
         ResponseObject responseObj = new ResponseObject();
 
@@ -51,6 +52,7 @@ public class HospitalApplyController extends AbstractController {
         UserDataVo currentUser = userService.getUserData(loginUser);
 
         target.setUserId(currentUser.getUid());
+        target.setClientType(ClientType.PC.getCode());
 
         applyService.add(target);
 

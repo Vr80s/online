@@ -24,7 +24,6 @@ import com.xczhihui.medical.hospital.model.MedicalHospital;
 import com.xczhihui.medical.hospital.model.MedicalHospitalAccount;
 import com.xczhihui.medical.hospital.model.MedicalHospitalApply;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalApplyService;
-import com.xczhihui.utils.RedisShardLockUtils;
 
 /**
  * <p>
@@ -48,8 +47,6 @@ public class MedicalHospitalApplyServiceImpl extends ServiceImpl<MedicalHospital
     private ICommonService commonService;
     @Autowired
     private IMedicalHospitalApplyService medicalHospitalApplyService;
-    @Autowired
-    private RedisShardLockUtils redisShardLockUtils;
 
     /**
      * 添加医馆入驻申请认证信息

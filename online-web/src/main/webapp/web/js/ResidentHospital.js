@@ -31,11 +31,9 @@ RequestService("/medical/common/isDoctorOrHospital", "GET", null, function(data)
 				$('#hos_Administration .hos_renzheng_inf .bottomContent2').removeClass('hide');
 
 			} else if(data.resultObject == 7 || data.resultObject == 3 || data.resultObject == 5) {
-				//未认证
-				//	       			$('#docNoPass_tip').removeClass('hide');
 				//拒绝的情况
 				RequestService("/doctor/apply/getLastOne", "get", null, function(data) {
-					if(data.resultObject.status == 0) {
+					if(data.resultObject && data.resultObject.status == 0) {
 						$('#hos_Administration .hos_renzheng_inf .bottomContent').addClass('hide');
 						$('#hos_Administration .hos_renzheng_inf .bottomContent2').removeClass('hide');
 					}

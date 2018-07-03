@@ -14,6 +14,7 @@ import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.controller.AbstractController;
 import com.xczhihui.bxg.online.web.service.UserService;
 import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.common.util.enums.ClientType;
 import com.xczhihui.medical.department.service.IMedicalDepartmentService;
 import com.xczhihui.medical.doctor.model.MedicalDoctorApply;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorApplyService;
@@ -44,13 +45,14 @@ public class DoctorApplyController extends AbstractController {
      * @param target 医师入驻申请信息
      */
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseObject add(MedicalDoctorApply target, HttpServletRequest request) {
+    public ResponseObject add(MedicalDoctorApply target) {
         if (target == null) {
             return ResponseObject.newErrorResponseObject("请求参数不能为空");
         }
 
         // 获取发起申请的医师的id
         target.setUserId(getCurrentUser().getId());
+        target.setClientType(ClientType.PC.getCode());
         applyService.add(target);
 
         return ResponseObject.newSuccessResponseObject("入驻申请信息提交成功");
