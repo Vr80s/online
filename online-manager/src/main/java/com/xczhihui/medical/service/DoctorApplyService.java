@@ -35,10 +35,4 @@ public interface DoctorApplyService {
      */
     MedicalDoctorApply findById(String id);
 
-    /**
-     * 兼容之前主播没有进行医师认证所缺少的数据
-     */
-    void afterApply(String userId);
-
-    void afterApplyAll();
 }
