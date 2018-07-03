@@ -15,6 +15,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.xczh.consumer.market.auth.Account;
+import com.xczh.consumer.market.interceptor.HeaderInterceptor;
 import com.xczh.consumer.market.service.OLAttachmentCenterService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.enums.CourseForm;
@@ -74,6 +75,7 @@ public class CourseApplyController {
         String imgPath = service.upload(null,
                 projectName, file.getOriginalFilename(), file.getContentType(), file.getBytes(), fileType, null);
         courseApplyInfo.setImgPath(imgPath);
+        courseApplyInfo.setClientType(HeaderInterceptor.getClientTypeCode());
         courseApplyService.saveCourseApply(courseApplyInfo);
         return ResponseObject.newSuccessResponseObject("创建成功");
     }

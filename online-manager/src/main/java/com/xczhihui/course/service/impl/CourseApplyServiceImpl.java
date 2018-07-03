@@ -36,7 +36,6 @@ import com.xczhihui.course.service.CourseService;
 import com.xczhihui.course.service.ICommonMessageService;
 import com.xczhihui.course.service.MessageRemindingService;
 import com.xczhihui.course.util.TextStyleUtil;
-import com.xczhihui.message.dao.MessageDao;
 import com.xczhihui.support.shiro.ManagerUserUtil;
 import com.xczhihui.user.service.OnlineUserService;
 import com.xczhihui.vhall.VhallUtil;
@@ -101,8 +100,6 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
     private String weixinCourseApplyNotPassCode;
     @Autowired
     private CourseApplyDao courseApplyDao;
-    @Autowired
-    private MessageDao messageDao;
     @Autowired
     private CourseService courseService;
     @Autowired
@@ -502,6 +499,8 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
         course.setCollectionCourseSort(courseApply.getCollectionCourseSort());
         course.setCollection(courseApply.getCollection());
         course.setCourseNumber(courseApply.getCourseNumber());
+
+        course.setClientType(courseApply.getClientType());
         if (course.getId() != null) {
             // 若course有id，说明该申请来自一个已经审核通过的课程，则更新
             dao.update(course);

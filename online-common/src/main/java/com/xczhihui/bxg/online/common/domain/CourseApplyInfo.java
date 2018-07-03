@@ -84,6 +84,8 @@ public class CourseApplyInfo implements Serializable {
     private Boolean isDelete;
     @Column(name = "old_apply_info_id")
     private Integer oldApplyInfoId;
+    @Column(name = "client_type")
+    private Integer clientType;
 
     @Transient
     private List<CourseApplyInfo> courseApplyInfoList;
@@ -474,5 +476,11 @@ public class CourseApplyInfo implements Serializable {
         this.defaultStudentCount = defaultStudentCount;
     }
 
+    public Integer getClientType() {
+        return clientType;
+    }
 
+    public void setClientType(Integer clientType) {
+        this.clientType = clientType;
+    }
 }

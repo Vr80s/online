@@ -179,6 +179,9 @@ public class Course extends BasicEntity2 implements Serializable {
     @Column(name = "recommend_sort")
     private Integer recommendSort;
 
+    @Column(name = "client_type")
+    private Integer clientType;
+
     /**
      * qq号
      */
@@ -921,5 +924,13 @@ public class Course extends BasicEntity2 implements Serializable {
 
     public void setPlayBackType(Integer playBackType) {
         this.playBackType = playBackType;
+    }
+
+    public Integer getClientType() {
+        return clientType;
+    }
+
+    public void setClientType(Integer clientType) {
+        this.clientType = clientType;
     }
 }
