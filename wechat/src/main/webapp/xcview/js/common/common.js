@@ -192,10 +192,9 @@ function ajaxRequest(url, param,type, callback, ac) {
         url: url,
         type: type,
         data: param,
-        // headers: {"iversion":"1.0.2"},
+        headers: {"clientType":"2"},
         async: ac,
         success: function (msg) {
-            // alert(url+":"+JSON.stringify(msg))
             var rd = getCurrentRelativeUrl();
             if (msg.code == USER_UN_LOGIN) {
                 localStorage.setItem("rd", rd);
