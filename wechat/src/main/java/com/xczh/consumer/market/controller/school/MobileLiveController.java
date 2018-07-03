@@ -50,12 +50,12 @@ public class MobileLiveController {
         Map<String, Object> mapAll = new HashMap<String, Object>();
         //直播banner
         Page<MobileBanner> mobileBannerPage = new Page<>();
-        mobileBannerPage.setRecords(mobileBannerService.selectMobileBannerPage(BannerType.LIVE.getCode(), IOSVersionInterceptor.onlyThread.get(), APPUtil.getMobileSource(req)));
+        mobileBannerPage.setRecords(mobileBannerService.selectMobileBannerPage(BannerType.LIVE.getCode(), IOSVersionInterceptor.ONLY_THREAD.get(), APPUtil.getMobileSource(req)));
         mapAll.put("banner", mobileBannerPage);
         List<Map<String, Object>> mapCourseList = mobileBannerService.liveCourseList(
                 PagingFixedType.LIVE_PAGETYPE_UP.getValue(),
                 PagingFixedType.LIVE_PAGETYPE_DOWN.getValue(),
-                IOSVersionInterceptor.onlyThread.get());
+                IOSVersionInterceptor.ONLY_THREAD.get());
         mapAll.put("allCourseList", mapCourseList);
         return ResponseObject.newSuccessResponseObject(mapAll);
     }

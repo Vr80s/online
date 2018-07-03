@@ -126,7 +126,7 @@ public class HostController {
         /**
          * 此主播最近一次的直播
          */
-        CourseLecturVo cv = courseService.selectLecturerRecentCourse(lecturerId, IOSVersionInterceptor.onlyThread.get());
+        CourseLecturVo cv = courseService.selectLecturerRecentCourse(lecturerId, IOSVersionInterceptor.ONLY_THREAD.get());
         mapAll.put("recentCourse", cv);
         return ResponseObject.newSuccessResponseObject(mapAll);
     }
@@ -232,7 +232,7 @@ public class HostController {
         page.setSize(pageSize);
         try {
             Page<CourseLecturVo> list = courseService.selectLecturerAllCourse(page,
-                    lecturerId, null, IOSVersionInterceptor.onlyThread.get());
+                    lecturerId, null, IOSVersionInterceptor.ONLY_THREAD.get());
             return ResponseObject.newSuccessResponseObject(list);
         } catch (Exception e) {
             e.printStackTrace();

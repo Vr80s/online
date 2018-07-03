@@ -52,11 +52,11 @@ public class MobileListenCourseController {
         Map<String, Object> mapAll = new HashMap<String, Object>();
         //听课banner
         Page<MobileBanner> mobileBannerPage = new Page<>();
-        mobileBannerPage.setRecords(mobileBannerService.selectMobileBannerPage(BannerType.LISTEN.getCode(), IOSVersionInterceptor.onlyThread.get(), APPUtil.getMobileSource(req)));
+        mobileBannerPage.setRecords(mobileBannerService.selectMobileBannerPage(BannerType.LISTEN.getCode(), IOSVersionInterceptor.ONLY_THREAD.get(), APPUtil.getMobileSource(req)));
         mapAll.put("banner", mobileBannerPage);
 
         //听课课程列表
-        List<CourseLecturVo> listenCourseList = mobileBannerService.listenCourseList(IOSVersionInterceptor.onlyThread.get());
+        List<CourseLecturVo> listenCourseList = mobileBannerService.listenCourseList(IOSVersionInterceptor.ONLY_THREAD.get());
         mapAll.put("listenCourseList", listenCourseList);
         return ResponseObject.newSuccessResponseObject(mapAll);
     }

@@ -11,19 +11,24 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.xczhihui.common.util.enums.ClientType;
+
 /**
  * @author hejiwei
  */
 @Component
 public class IOSVersionInterceptor implements HandlerInterceptor {
 
-    public static ThreadLocal<Boolean> onlyThread = new ThreadLocal<Boolean>() {
+    public static ThreadLocal<Boolean> ONLY_THREAD = new ThreadLocal<Boolean>() {
         @Override
         protected Boolean initialValue() {
             return Boolean.FALSE;
         }
     };
+    public static ThreadLocal<String> CLIENT = new ThreadLocal<String>();
     private static String IVERSION = "iversion";
+    private static String CLIENT_TYPE = "clientType";
+
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     @Value("${ios.check.version}")
     private String version;
@@ -31,19 +36,21 @@ public class IOSVersionInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String iversion = request.getHeader(IVERSION);
+        String clientType = request.getHeader(CLIENT_TYPE);
         if (StringUtils.isBlank(iversion)) {
             iversion = request.getParameter(IVERSION);
         }
         if (version.equals(iversion)) {
-            onlyThread.set(Boolean.TRUE);
+            ONLY_THREAD.set(Boolean.TRUE);
         } else {
-            onlyThread.set(Boolean.FALSE);
+            ONLY_THREAD.set(Boolean.FALSE);
         }
+        CLIENT.set(clientType);
+
         logger.info(version + ":" + iversion + version.equals(iversion));
-        logger.info("tl:" + onlyThread.get());
+        logger.info("tl:" + ONLY_THREAD.get());
         return true;
     }
-
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView

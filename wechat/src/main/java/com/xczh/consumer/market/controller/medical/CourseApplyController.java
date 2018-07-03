@@ -5,9 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -53,9 +50,7 @@ public class CourseApplyController {
      */
     @RequestMapping(value = "addCourseApply", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseObject addCourseApply(@Account String accountId,
-                                         CourseApplyInfo courseApplyInfo,
-                                         @RequestParam("file") MultipartFile file)
+    public ResponseObject addCourseApply(@Account String accountId, CourseApplyInfo courseApplyInfo, @RequestParam("file") MultipartFile file)
             throws Exception {
 
         courseApplyInfo.setCreateTime(new Date());
@@ -78,7 +73,6 @@ public class CourseApplyController {
         String fileType = "1"; //图片类型了
         String imgPath = service.upload(null,
                 projectName, file.getOriginalFilename(), file.getContentType(), file.getBytes(), fileType, null);
-//			JSONObject imgPathJson = JSONObject.parseObject(imgPath);
         courseApplyInfo.setImgPath(imgPath);
         courseApplyService.saveCourseApply(courseApplyInfo);
         return ResponseObject.newSuccessResponseObject("创建成功");

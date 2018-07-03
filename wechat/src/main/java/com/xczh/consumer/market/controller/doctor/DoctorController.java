@@ -180,7 +180,7 @@ public class DoctorController {
         page.setSize(Integer.MAX_VALUE);
 
         Page<CourseLecturVo> list = courseService.selectLecturerAllCourse
-                (page, userId, 3, IOSVersionInterceptor.onlyThread.get());
+                (page, userId, 3, IOSVersionInterceptor.ONLY_THREAD.get());
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("text", "直播课程");
         map.put("code", 2);
@@ -201,7 +201,7 @@ public class DoctorController {
             throws Exception {
 
         CourseLecturVo cv = courseService.selectLecturerRecentCourse(userId,
-                IOSVersionInterceptor.onlyThread.get());
+                IOSVersionInterceptor.ONLY_THREAD.get());
         return ResponseObject.newSuccessResponseObject(cv);
     }
 

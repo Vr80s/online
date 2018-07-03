@@ -62,7 +62,7 @@ public class MobileRecommendController {
         Map<String, Object> mapAll = new HashMap<String, Object>();
         //课程banner
         Page<MobileBanner> MobileBannerPage = new Page<>();
-        MobileBannerPage.setRecords(mobileBannerService.selectMobileBannerPage(BannerType.RECOMMENDATION.getCode(), IOSVersionInterceptor.onlyThread.get(), APPUtil.getMobileSource(request)));
+        MobileBannerPage.setRecords(mobileBannerService.selectMobileBannerPage(BannerType.RECOMMENDATION.getCode(), IOSVersionInterceptor.ONLY_THREAD.get(), APPUtil.getMobileSource(request)));
         mapAll.put("banner", MobileBannerPage);
 
         //课程专题
@@ -89,7 +89,7 @@ public class MobileRecommendController {
          */
         List<MenuVo> listMenu = mobileProjectService.selectMenuVo();
         List<Map<String, Object>> mapCourseList = mobileBannerService.recommendCourseList(listMenu, PagingFixedType.RECOMMENDATION_PAGETYPE_UP.getValue(),
-                PagingFixedType.RECOMMENDATION_PAGETYPE_DOWN.getValue(), IOSVersionInterceptor.onlyThread.get());
+                PagingFixedType.RECOMMENDATION_PAGETYPE_DOWN.getValue(), IOSVersionInterceptor.ONLY_THREAD.get());
         return ResponseObject.newSuccessResponseObject(mapCourseList);
     }
 
