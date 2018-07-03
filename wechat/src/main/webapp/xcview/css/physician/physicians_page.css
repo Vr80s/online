@@ -605,6 +605,10 @@ p{
 	border-radius: 4px;
 	margin: 0 auto;
 	margin-bottom: 0.3rem;
+	display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    overflow: hidden;
 }
 .consilia_nav_cen img{
 	width: 2.49rem;
@@ -1409,6 +1413,10 @@ p{
 	color: #333333;
 	float: left;
 	width: 4.29rem;
+	display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    overflow: hidden;
 }
 .basis_tips{
 	font-size: 0.22rem;
@@ -2033,4 +2041,7 @@ table tr td img{
 }
 .mui-pull-bottom-pocket{
 	bottom: 0 !important;
+}
+#fansCount{
+	margin-top: 0.04rem;
 }
