@@ -135,14 +135,20 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
 
         //点击其他--收起
         mui("#refreshContainer").on('tap', '.essay_pack_up_btn_span', function (event) {
-            alert(111);
             if($(".essay_pack_up_btn_span").html()=="收起"){
                  $(".essay_pack_up_btn_span").html("展开");
             }else{
                 $(".essay_pack_up_btn_span").html("收起");
             }
-
         });
+
+        //点击评论表情
+        mui("#refreshContainer").on('tap', '.face', function (event) {
+            alert(111);
+            
+        });
+
+
 
 
 

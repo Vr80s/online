@@ -401,8 +401,8 @@ public class CourseApplyController extends AbstractController {
                         weixinParams = new HashMap<>(4);
                         weixinParams.put("first", TextStyleUtil.clearStyle(content));
                         weixinParams.put("keyword1", course.getGradeName());
-                        weixinParams.put("keyword2", startTime == null ? "" : TimeUtil.getYearMonthDayHHmm(startTime));
-                        weixinParams.put("remark", "点击查看");
+                        weixinParams.put("keyword2", startTime == null ? "随到随学" : TimeUtil.getYearMonthDayHHmm(startTime));
+                        weixinParams.put("remark", "");
                         commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.SYSYTEM.getVal())
                                 .buildAppPush(APP_PUSH_COURSE_ONLINE_MESSAGE_TIPS)
                                 .buildWeb(content)
