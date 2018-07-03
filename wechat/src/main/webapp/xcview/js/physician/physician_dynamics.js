@@ -110,6 +110,29 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
             }
         }
 
+        //判断简介的字长度
+        var h = $(".essay_main").height();
+        if (h > 200) {
+            $(".essay_pack_up_btn").show();
+            $(".line_xian").hide();
+//          $(".wrap1").css({"height":"2rem","overflow":"hidden"})
+        } else {
+            $(".essay_pack_up_btn").hide()
+        }
+
+        //点击其他--收起
+        mui("#refreshContainer").on('tap', '.essay_pack_up_btn_span', function (event) {
+            alert(111);
+            if($(".essay_pack_up_btn_span").html()=="收起"){
+                 $(".essay_pack_up_btn_span").html("展开");
+            }else{
+                $(".essay_pack_up_btn_span").html("收起");
+            }
+
+        });
+
+
+
         //点赞
         mui("#refreshContainer").on('tap', '.zan_img', function (event) {
             var src = $(this).attr('src');
