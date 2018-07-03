@@ -99,7 +99,7 @@ public class XzWxPayController {
     @RequestMapping("wxPay")
     @ResponseBody
     public ResponseObject appOrderPay(HttpServletRequest req,
-                                      @RequestParam("orderId") String orderId,@RequestParam("h5") boolean h5,
+                                      @RequestParam("orderId") String orderId,@RequestParam(value = "h5",defaultValue = "false") boolean h5,
                                       @Account String accountId) throws Exception {
         Order order = orderService.getOrderNo4PayByOrderId(orderId);
 
@@ -194,7 +194,7 @@ public class XzWxPayController {
      **/
     @RequestMapping("rechargePay")
     @ResponseBody
-    public ResponseObject rechargePay(HttpServletRequest request, @RequestParam("h5") boolean h5,
+    public ResponseObject rechargePay(HttpServletRequest request, @RequestParam(value = "h5",defaultValue = "false") boolean h5,
                                       @RequestParam("actualPay") String actualPay, @Account String accountId) throws Exception {
         Double count = Double.valueOf(actualPay) * rate;
         if (!WebUtil.isIntegerForDouble(count)) {
