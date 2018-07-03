@@ -40,6 +40,11 @@ public class Course extends Model<Course> {
     @TableField("grade_name")
     private String gradeName;
     /**
+     * 副标题
+     */
+    @TableField("subtitle")
+    private String subtitle;
+    /**
      * 直播时间
      */
     @TableField("live_time")
@@ -303,7 +308,11 @@ public class Course extends Model<Course> {
 
     @TableField("is_delete")
     private Boolean isDelete;
-
+    /**
+     * 上架或者下架时间
+     */
+    @TableField("release_time")
+    private Date releaseTime;
 
     /**
      * 回放状态类型
@@ -889,5 +898,21 @@ public class Course extends Model<Course> {
 
     public void setCollection(Boolean collection) {
         this.collection = collection;
+    }
+
+    public Date getReleaseTime() {
+        return releaseTime;
+    }
+
+    public void setReleaseTime(Date releaseTime) {
+        this.releaseTime = releaseTime;
+    }
+
+    public String getSubtitle() {
+        return subtitle;
+    }
+
+    public void setSubtitle(String subtitle) {
+        this.subtitle = subtitle;
     }
 }
