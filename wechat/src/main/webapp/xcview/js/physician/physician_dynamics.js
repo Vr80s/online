@@ -125,6 +125,7 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
             $(".face").attr("src","/xcview/images/face.png");
             $("#page_emotion").css("bottom","-2.8rem");
             $(".comment").show();
+            $(".article_main").show();
             getPostsIdByComment = $(this).attr('data-id');
             postsCommentId = "";
         });
