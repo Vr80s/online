@@ -214,7 +214,7 @@
 </head>
 <body style="background: #F8F8F8;">
 	<div class="physicians_page_main comment_hide">
-		
+		<script type="text/html" id="physicians_page_main">
 		<!-- 头部开始 -->
 		<div class="wrap-header" id="header">
 			<div class="header">		
@@ -231,17 +231,21 @@
 
 		<!-- 轮播开始 -->
 		<!--顶部轮播-->
-		<div class="swiper-container top_swiper" onclick="location.href ='broadcastRoom.html'">
+		<div class="swiper-container top_swiper" >
 			<div class="swiper-wrapper">
-				<div class="swiper-slide pic01">
-					<img src="/xcview/images/xianxia_03.jpg" alt="" />
+
+					{{each items.banners as item i}}
+				<div class="swiper-slide pic01" onclick="sowingDetails('{{item.url}}')">
+					<img src="{{item.imgUrl}}" alt="" />
 				</div>
-				<div class="swiper-slide pic02">
+					{{/each}}
+
+				<!--<div class="swiper-slide pic02">
 					<img src="/xcview/images/xianxia_03.jpg" alt="" />
 				</div>
 				<div class="swiper-slide pic03">
 					<img src="/xcview/images/xianxia_03.jpg" alt="" />
-				</div>
+				</div>-->
 			</div>
 			<div class="swiper-pagination"></div>
 
@@ -255,13 +259,15 @@
 			</div>
 			<div class="message">
 				<div class="message_name">
-					<div class="name">我是名字</div>
+					<div class="name">{{items.lecturerInfo.name}}</div>
 					<div class="message_characteristic">我的师傅</div>
 					<div class="both"></div>
 				</div>
 				<div class="message_face">
 					<span class="disciple"><span class="disciple_fize">弟子</span>25</span>
-					<span class="fans"><span class="fans_size">粉丝</span>110</span>
+					{{if items.fansCount>0}}
+					<span class="fans"><span class="fans_size">粉丝</span>{{items.fansCount}}</span>
+					{{/if}}
 					<div class="both"></div>
 				</div>
 				
@@ -285,6 +291,7 @@
 				<div class="dynamic_opacity"></div>
 			</ul>
 		</div>
+		</script>
 		<!-- 选项卡结束 -->
 
 		<!-- 点击全部动态=显示筛看开始 -->
@@ -302,6 +309,7 @@
 			</div>
 		</div>
 		<!-- 点击全部动态=显示筛看结束 -->
+
 	</div>
 	<!-- 中间内容开始 -->
 	<div class="the_dynamic">
@@ -358,7 +366,7 @@
 				</div>
 				{{else if item.typeId != null && item.typeId != 8}}
 				<!-- 文章-->
-				<div class="article_hide" onclick="articleDetails('{{item.articleId}}')">
+				<div class="article_hide" data-id="{{item.articleId}}" >
 					<div class="article_nav_span comment_hide">
 						{{if item.stick}}
 						<span class="stick_img_stick"><img src="/xcview/images/stick.png" alt="" />置顶</span>
@@ -373,7 +381,7 @@
 				</div>
 				{{else if item.type == 5}}
 				<!-- 课程-->
-				<div class="course_hide" onclick="common_jump_all('{{item.courseId}}')">
+				<div class="course_hide" data-id="{{item.courseId}}" >
 					<div class="course_nav_span comment_hide" style="font-size: 0.3rem;color: #333333;">
 						{{if item.stick}}
 						<span class="stick_img_stick"><img src="/xcview/images/stick.png" alt="" />置顶</span>
