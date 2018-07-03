@@ -259,7 +259,7 @@ p{
     top: 0;
     left: 0.15rem;
     opacity: 0.2;
-    background: red;
+    /*background: red;*/
     z-index: 2;
 }
 
