@@ -296,6 +296,8 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
         courseAnchor.setDeleted(false);
         courseAnchor.setDetail(apply.getDescription());
         courseAnchor.setStatus(true);
+
+        courseAnchor.setClientType(apply.getClientType());
         if (StringUtils.isNotBlank(user.getName())) {
             courseAnchor.setName(user.getName());
         }

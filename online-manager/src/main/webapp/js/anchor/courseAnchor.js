@@ -38,6 +38,19 @@ $(function() {
             }else if(row.type==2){
                 return "医馆";
             }
+        }}, {"title": "来源", "class": "center", "width": "6%", "sortable": false, "data": 'type',"mRender": function (data, display, row) {
+            if(row.clientType==1){
+                return "PC";
+            }else if(row.clientType==2){
+                return "H5";
+            }else if(row.clientType==3){
+                return "android";
+            }else if(row.clientType==4){
+                return "ios";
+            }else if(row.clientType==5){
+                return "其他";
+            }
+            return "-";
         }},
         {"title": "点播分成(%)", "class": "center", "width": "8%", "sortable": false, "data": 'vodDivide'},
         {"title": "直播分成(%)", "class": "center", "width": "8%", "sortable": false, "data": 'liveDivide'},

@@ -109,9 +109,9 @@ $(function () {
             "data": 'hasPicture',
             "mRender": function (data, display, row) {
                 if (data) {
-                    return data = "<span name='zt'>已上传</span>";
+                    return "<span name='zt'>已上传</span>";
                 } else {
-                    return data = "<span name='zt'>待补充</span>";
+                    return "<span name='zt'>待补充</span>";
                 }
             }
         },
@@ -123,12 +123,25 @@ $(function () {
             "data": 'authentication',
             "mRender": function (data, display, row) {
                 if (data) {
-                    return data = "<span name='zt'>已认证</span>";
+                    return "<span name='zt'>已认证</span>";
                 } else {
-                    return data = "<span name='zt'>未认证</span>";
+                    return "<span name='zt'>未认证</span>";
                 }
             }
-        }, {
+        }, {"title": "来源", "class": "center", "width": "6%", "sortable": false, "data": 'type',"mRender": function (data, display, row) {
+            if(row.clientType==1){
+                return "PC";
+            }else if(row.clientType==2){
+                return "H5";
+            }else if(row.clientType==3){
+                return "android";
+            }else if(row.clientType==4){
+                return "ios";
+            }else if(row.clientType==5){
+                return "其他";
+            }
+            return "-";
+        }}, {
             "title": "是否推荐",
             "class": "center",
             "width": "6%",

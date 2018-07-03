@@ -142,19 +142,33 @@ $(function() {
 				return "已禁用";
 			}
 		}
-	},{
-		"title" : "讲师权限",
-		"class" : "center",
-		"sortable" : false,
-		"width" : "10%",
-		"data" : 'status',
-		"mRender" : function(data, display, row) {
-			if (row.isLecturer == 1) {
-				return "有权限";
-			} else {
-				return "无权限";
-			}
-		}
+	}, {"title": "来源", "class": "center", "width": "6%", "sortable": false, "data": 'type',"mRender": function (data, display, row) {
+            if(row.origin==1){
+                return "PC";
+            }else if(row.origin==2){
+                return "H5";
+            }else if(row.origin==3){
+                return "android";
+            }else if(row.origin==4){
+                return "ios";
+            }else if(row.origin==5){
+                return "其他";
+            }
+            return "-";
+        }},
+		// {
+		// "title" : "讲师权限",
+		// "class" : "center",
+		// "sortable" : false,
+		// "width" : "10%",
+		// "data" : 'status',
+		// "mRender" : function(data, display, row) {
+		// 	if (row.isLecturer == 1) {
+		// 		return "有权限";
+		// 	} else {
+		// 		return "无权限";
+		// 	}
+		// }
 //	},{
 //		"title" : "学科权限状态",//menuId
 //		"class" : "center",
@@ -164,7 +178,7 @@ $(function() {
 //		"mRender" : function(data, display, row) {
 //			return  row.menuName==null?"无权限":row.menuName; ;
 //		}
-	},{
+	{
 		"title" : "学科权限状态",//menuId
 		"class" : "center",
 		"sortable" : false,

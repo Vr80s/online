@@ -269,6 +269,7 @@ public class HospitalApplyServiceImpl implements HospitalApplyService {
 
         authenticationInformation.setDeleted(false);
         authenticationInformation.setCreateTime(now);
+
         hospitalAuthenticationDao.save(authenticationInformation);
 
         // 设置oe_user表中的is_lecturer为1
@@ -290,6 +291,8 @@ public class HospitalApplyServiceImpl implements HospitalApplyService {
         courseAnchor.setGiftDivide(giftDivide);
         courseAnchor.setDeleted(false);
         courseAnchor.setStatus(true);
+
+        courseAnchor.setClientType(apply.getClientType());
         if (StringUtils.isNotBlank(user.getName())) {
             courseAnchor.setName(user.getName());
         }
