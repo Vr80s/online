@@ -120,12 +120,11 @@ public class DoctorController {
      * @return
      */
     @RequestMapping(value = "list")
-    public ResponseObject list(@RequestParam(value = "page", required = false)
-                                       Integer pageNumber, Integer pageSize,
-                               DoctorQueryVo dqv) throws IOException, SolrServerException {
+    public ResponseObject list(@RequestParam(value = "pageNumber", required = false)Integer pageNumber,
+                Integer pageSize,DoctorQueryVo dqv) throws IOException, SolrServerException {
 
-        pageNumber = pageNumber == null ? 1 : pageNumber;
-        pageSize = pageSize == null ? 10 : pageSize;
+        pageNumber = (pageNumber == null ? 1 : pageNumber);
+        pageSize = (pageSize == null ? 10 : pageSize);
         /*
          * 构造下查询bean
 		 */
