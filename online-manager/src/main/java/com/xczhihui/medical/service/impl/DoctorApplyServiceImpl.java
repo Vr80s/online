@@ -19,7 +19,6 @@ import com.xczhihui.bxg.online.common.consts.MedicalDoctorApplyConst;
 import com.xczhihui.bxg.online.common.domain.*;
 import com.xczhihui.common.support.lock.RedissonUtil;
 import com.xczhihui.common.util.CodeUtil;
-import com.xczhihui.common.util.RandomUtil;
 import com.xczhihui.common.util.TimeUtil;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.util.enums.AnchorType;
@@ -139,12 +138,10 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
             throw new RuntimeException("修改的目标不存在");
         }
 
-        RLock lock = redissonUtil.getRedisson().getLock(
-                MedicalDoctorApplyConst.LOCK_PREFIX + apply.getId());
+        RLock lock = redissonUtil.getRedisson().getLock(MedicalDoctorApplyConst.LOCK_PREFIX + apply.getId());
         boolean getLock = false;
         String doctorId = null;
         try {
-
             if (getLock = lock.tryLock(3, 10, TimeUnit.SECONDS)) {
 
                 if (apply == null) {
@@ -233,92 +230,21 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
     }
 
     /**
-     * 兼容之前主播没有进行医师认证所缺少的数据
-     */
-    @Override
-    public void afterApply(String userId) {
-
-        // 判断之前的主播是否进行过医师认证
-        String medicalDoctorApplyId = doctorApplyDao
-                .findByHQLOne(
-                        "select id from medical_doctor_apply where user_id = ?",
-                        userId);
-
-        String authenticationInformationId = CodeUtil.getRandomUUID();
-        String doctorId = CodeUtil.getRandomUUID();
-        Date now = new Date();
-
-        // 若没有
-        if (medicalDoctorApplyId == null) {
-
-            // 新增一条医师认证申请通过的消息 ： medical_doctor_apply
-            String doctorApplyId = CodeUtil.getRandomUUID();
-            this.addMedicalDoctorApply(doctorApplyId, userId, now);
-
-            // 新增一条医师申请时对应的科室信息:medical_doctor_apply_department
-            // 同时新增一条认证医师与科室的对应关系：medical_doctor_department
-            this.addMedicalDoctorApplyDepartment(doctorApplyId, doctorId, now);
-
-            // 新增一条认证成功信息：medical_doctor_authentication_information
-            this.addMedicalDoctorAuthenticationInformation(
-                    authenticationInformationId, null, 1, now);
-
-        }
-
-        // 若该主播和认证医师没有关联
-        MedicalDoctorAccount doctorAccount = doctorAccountDao
-                .findByAccountId(userId);
-        if (doctorAccount == null) {
-
-            // 新增医师信息：medical_doctor
-            this.addMedicalDoctor(doctorId, authenticationInformationId, null,
-                    1, now);
-
-            // 新增一条主播和认证医师的关联关系 medical_doctor_account
-            this.addMedicalDoctorAccount(userId, doctorId, now);
-
-        } else {
-
-            logger.error("用户id：{} 已经存在已认证医师：{}", doctorAccount.getAccountId(),
-                    doctorAccount.getDoctorId());
-
-        }
-
-        // 若该用户没有主播信息
-        if (anchorDao.findByHQLOne(
-                "select id from CourseAnchor where userId = ?", userId) == null) {
-            this.addCourseAnchor(userId, now);
-        }
-    }
-
-    @Override
-    public void afterApplyAll() {
-        List<Map<String, Object>> userIds = onlineUserService
-                .getAllUserLecturer();
-        for (Map<String, Object> userId : userIds) {
-            afterApply((String) userId.get("id"));
-        }
-    }
-
-    /**
      * 处理认证通过逻辑
      */
     private String authenticationPassHandle(MedicalDoctorApply apply) {
 
         // 判断用户是否已经认证医馆（医师 医馆只能认证一个）
-        MedicalHospitalAccount hospitalAccount = hospitalAccountDao
-                .findByAccountId(apply.getUserId());
+        MedicalHospitalAccount hospitalAccount = hospitalAccountDao.findByAccountId(apply.getUserId());
         if (hospitalAccountDao.findByAccountId(apply.getUserId()) != null
                 && StringUtils.isNotBlank(hospitalAccount.getDoctorId())) {
-            MedicalHospital hospital = hospitalDao.find(hospitalAccount
-                    .getDoctorId());
+            MedicalHospital hospital = hospitalDao.find(hospitalAccount.getDoctorId());
             if (hospital != null && hospital.isAuthentication() == true) {
                 throw new RuntimeException("该用户已拥有已认证医馆，不能再进行认证医师");
             }
         }
 
-        MedicalDoctorAccount doctorAccount = doctorAccountDao
-                .findByAccountId(apply.getUserId());
+        MedicalDoctorAccount doctorAccount = doctorAccountDao.findByAccountId(apply.getUserId());
         // 判断用户是否已经是医师 如果是，则表示其重新认证
         if (doctorAccount != null) {
             this.applyAgain(apply, doctorAccount.getDoctorId());
@@ -448,16 +374,13 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
 
         MedicalDoctorAuthenticationInformation authenticationInformation = new MedicalDoctorAuthenticationInformation();
 
-        authenticationInformation
-                .setId(doctor.getAuthenticationInformationId());
+        authenticationInformation.setId(doctor.getAuthenticationInformationId());
         authenticationInformation.setUpdatePerson(apply.getUserId());
         authenticationInformation.setUpdateTime(now);
         authenticationInformation.setCardNegative(apply.getCardNegative());
         authenticationInformation.setCardPositive(apply.getCardPositive());
-        authenticationInformation.setQualificationCertificate(apply
-                .getQualificationCertificate());
-        authenticationInformation.setProfessionalCertificate(apply
-                .getProfessionalCertificate());
+        authenticationInformation.setQualificationCertificate(apply.getQualificationCertificate());
+        authenticationInformation.setProfessionalCertificate(apply.getProfessionalCertificate());
         if (StringUtils.isNotBlank(apply.getTitleProve())) {
             authenticationInformation.setTitleProve(apply.getTitleProve());
         }
@@ -493,21 +416,15 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
         doctorDao.update(doctor);
 
         // 新增医师与科室的对应关系：medical_doctor_department
-        List<MedicalDoctorApplyDepartment> medicalDoctorApplyDepartments = doctorApplyDepartmentDao
-                .findByApplyId(apply.getId());
+        List<MedicalDoctorApplyDepartment> medicalDoctorApplyDepartments = doctorApplyDepartmentDao.findByApplyId(apply.getId());
 
         // 将MedicalDoctorApplyDepartment数据格式转化成：MedicalDoctorDepartment
-        if (medicalDoctorApplyDepartments != null
-                && !medicalDoctorApplyDepartments.isEmpty()) {
-            medicalDoctorApplyDepartments.stream().forEach(
-                    department -> this.addMedicalDepartment(department,
-                            doctorId, now));
+        if (medicalDoctorApplyDepartments != null && !medicalDoctorApplyDepartments.isEmpty()) {
+            medicalDoctorApplyDepartments.stream().forEach(department -> this.addMedicalDepartment(department,doctorId, now));
         }
-
     }
 
-    private void addMedicalDepartment(MedicalDoctorApplyDepartment department,
-                                      String doctorId, Date createTime) {
+    private void addMedicalDepartment(MedicalDoctorApplyDepartment department,String doctorId, Date createTime) {
         MedicalDoctorDepartment doctorDepartment = new MedicalDoctorDepartment();
         doctorDepartment.setId(CodeUtil.getRandomUUID());
         doctorDepartment.setDoctorId(doctorId);
@@ -524,43 +441,6 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
     }
 
     /**
-     * 新增医师认证申请信息（往medical_doctor_apply表插入一条数据）
-     *
-     * @param doctorApplyId medical_doctor_apply表主键
-     * @param userId        用户id
-     * @param createTime    创建时间
-     */
-    private void addMedicalDoctorApply(String doctorApplyId, String userId,
-                                       Date createTime) {
-        MedicalDoctorApply doctorApply = new MedicalDoctorApply();
-        doctorApply.setId(doctorApplyId);
-        doctorApply.setUserId(userId);
-        doctorApply.setName(userId);
-        doctorApply.setCardNum(RandomUtil.getCharAndNumr(18));
-        String picture = "http://test-www.ixincheng.com:38080/data/picture/online/2017/12/16/00/50d34185ef86451e9d13651b4591031e.jpg";
-        doctorApply.setHeadPortrait(picture);
-        doctorApply.setCardNegative(picture);
-        doctorApply.setCardPositive(picture);
-        doctorApply.setProfessionalCertificate(picture);
-        doctorApply.setTitleProve(picture);
-        doctorApply.setQualificationCertificate(picture);
-        doctorApply.setTitle("主治医师");
-        doctorApply.setField("妇科疾病");
-        doctorApply.setDescription("你是什么样的人，就得什么样的病");
-        doctorApply.setHospital("仟草堂");
-        doctorApply.setStatus(1);
-        doctorApply.setDeleted(false);
-        doctorApply.setCreateTime(createTime);
-        doctorApply.setUpdateTime(createTime);
-        doctorApply.setProvince("海南");
-        doctorApply.setCity("海口");
-        doctorApply.setDetailedAddress("演丰熊猫基地");
-        doctorApply.setRemark("系统生成,仅供测试");
-
-        doctorApplyDao.save(doctorApply);
-    }
-
-    /**
      * 新增一条认证成功信息(往medical_doctor_authentication_information表插入一条信息）
      *
      * @param authenticationInformationId medical_doctor_authentication_information表主键
@@ -568,57 +448,37 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
      * @param type                        新增数据的类型（1：系统生成 2:管理员认证）
      * @param createTime                  创建时间
      */
-    private void addMedicalDoctorAuthenticationInformation(
-            String authenticationInformationId, MedicalDoctorApply apply,
-            int type, Date createTime) {
+    private void addMedicalDoctorAuthenticationInformation(String authenticationInformationId, MedicalDoctorApply apply, int type, Date createTime) {
         MedicalDoctorAuthenticationInformation authenticationInformation = new MedicalDoctorAuthenticationInformation();
-
-        if (type == 1) {
-            authenticationInformation.setId(authenticationInformationId);
-            String picture = "http://test-www.ixincheng.com:38080/data/picture/online/2017/12/16/00/50d34185ef86451e9d13651b4591031e.jpg";
-            authenticationInformation.setHeadPortrait(picture);
-            authenticationInformation.setCardNegative(picture);
-            authenticationInformation.setCardPositive(picture);
-            authenticationInformation.setProfessionalCertificate(picture);
-            authenticationInformation.setTitleProve(picture);
-            authenticationInformation.setQualificationCertificate(picture);
-            authenticationInformation.setDeleted(false);
-            authenticationInformation.setStatus(true);
-            authenticationInformation.setCreateTime(createTime);
-            authenticationInformation.setRemark("系统生成,仅供测试");
-            doctorAuthenticationInformationDao.save(authenticationInformation);
+        authenticationInformation.setId(authenticationInformationId);
+        if (StringUtils.isNotBlank(apply.getCardPositive())) {
+            authenticationInformation.setCardPositive(apply
+                    .getCardPositive());
         }
-        if (type == 2) {
-            authenticationInformation.setId(authenticationInformationId);
-            if (StringUtils.isNotBlank(apply.getCardPositive())) {
-                authenticationInformation.setCardPositive(apply
-                        .getCardPositive());
-            }
-            if (StringUtils.isNotBlank(apply.getCardNegative())) {
-                authenticationInformation.setCardNegative(apply
-                        .getCardNegative());
-            }
-            if (StringUtils.isNotBlank(apply.getQualificationCertificate())) {
-                authenticationInformation.setQualificationCertificate(apply
-                        .getQualificationCertificate());
-            }
-            if (StringUtils.isNotBlank(apply.getTitleProve())) {
-                authenticationInformation.setTitleProve(apply.getTitleProve());
-            }
-            if (StringUtils.isNotBlank(apply.getProfessionalCertificate())) {
-                authenticationInformation.setProfessionalCertificate(apply
-                        .getProfessionalCertificate());
-            }
-            if (StringUtils.isNotBlank(apply.getHeadPortrait())) {
-                authenticationInformation.setHeadPortrait(apply
-                        .getHeadPortrait());
-            }
-
-            authenticationInformation.setDeleted(false);
-            authenticationInformation.setStatus(true);
-            authenticationInformation.setCreateTime(createTime);
-            doctorAuthenticationInformationDao.save(authenticationInformation);
+        if (StringUtils.isNotBlank(apply.getCardNegative())) {
+            authenticationInformation.setCardNegative(apply
+                    .getCardNegative());
         }
+        if (StringUtils.isNotBlank(apply.getQualificationCertificate())) {
+            authenticationInformation.setQualificationCertificate(apply
+                    .getQualificationCertificate());
+        }
+        if (StringUtils.isNotBlank(apply.getTitleProve())) {
+            authenticationInformation.setTitleProve(apply.getTitleProve());
+        }
+        if (StringUtils.isNotBlank(apply.getProfessionalCertificate())) {
+            authenticationInformation.setProfessionalCertificate(apply
+                    .getProfessionalCertificate());
+        }
+        if (StringUtils.isNotBlank(apply.getHeadPortrait())) {
+            authenticationInformation.setHeadPortrait(apply
+                    .getHeadPortrait());
+        }
+
+        authenticationInformation.setDeleted(false);
+        authenticationInformation.setStatus(true);
+        authenticationInformation.setCreateTime(createTime);
+        doctorAuthenticationInformationDao.save(authenticationInformation);
     }
 
     /**
@@ -630,57 +490,36 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
      * @param type                        新增类型（1：系统生成 2:管理员认证）
      * @param createTime                  创建时间
      */
-    private void addMedicalDoctor(String doctorId,
-                                  String authenticationInformationId, MedicalDoctorApply apply,
-                                  int type, Date createTime) {
+    private void addMedicalDoctor(String doctorId, String authenticationInformationId, MedicalDoctorApply apply, int type, Date createTime) {
 
         MedicalDoctor doctor = new MedicalDoctor();
 
-        if (type == 1) {
-            doctor.setId(doctorId);
-            doctor.setAuthenticationInformationId(authenticationInformationId);
-            doctor.setName(doctorId);
-            doctor.setTitle("主治医师");
-            doctor.setDescription("你是什么样的人，就得什么样的病");
-            doctor.setCreateTime(createTime);
-            doctor.setRemark("系统生成,仅供测试");
-            doctor.setDeleted(false);
-            doctor.setType("2");
-            doctor.setProvince("北京省");
-            doctor.setCity("北京市");
-            doctor.setWorkTime("周一下午、周四上午");
-            doctor.setStatus(true);
-            doctor.setCardNum("7758258");
-            doctorDao.save(doctor);
+        doctor.setId(doctorId);
+        doctor.setAuthenticationInformationId(authenticationInformationId);
+        doctor.setName(apply.getName());
+        doctor.setCardNum(apply.getCardNum());
+        if (StringUtils.isNotBlank(apply.getTitle())) {
+            doctor.setTitle(apply.getTitle());
         }
-        if (type == 2) {
-            doctor.setId(doctorId);
-            doctor.setAuthenticationInformationId(authenticationInformationId);
-            doctor.setName(apply.getName());
-            doctor.setCardNum(apply.getCardNum());
-            if (StringUtils.isNotBlank(apply.getTitle())) {
-                doctor.setTitle(apply.getTitle());
-            }
-            if (StringUtils.isNotBlank(apply.getDescription())) {
-                doctor.setDescription(apply.getDescription());
-            }
-            if (StringUtils.isNotBlank(apply.getProvince())) {
-                doctor.setProvince(apply.getProvince());
-            }
-            if (StringUtils.isNotBlank(apply.getCity())) {
-                doctor.setCity(apply.getCity());
-            }
-            if (StringUtils.isNotBlank(apply.getDetailedAddress())) {
-                doctor.setDetailedAddress(apply.getDetailedAddress());
-            }
-            if (StringUtils.isNotBlank(apply.getField())) {
-                doctor.setFieldText(apply.getField());
-            }
-            doctor.setStatus(true);
-            doctor.setCreateTime(createTime);
-            doctor.setSourceId(apply.getId());
-            doctorDao.save(doctor);
+        if (StringUtils.isNotBlank(apply.getDescription())) {
+            doctor.setDescription(apply.getDescription());
         }
+        if (StringUtils.isNotBlank(apply.getProvince())) {
+            doctor.setProvince(apply.getProvince());
+        }
+        if (StringUtils.isNotBlank(apply.getCity())) {
+            doctor.setCity(apply.getCity());
+        }
+        if (StringUtils.isNotBlank(apply.getDetailedAddress())) {
+            doctor.setDetailedAddress(apply.getDetailedAddress());
+        }
+        if (StringUtils.isNotBlank(apply.getField())) {
+            doctor.setFieldText(apply.getField());
+        }
+        doctor.setStatus(true);
+        doctor.setCreateTime(createTime);
+        doctor.setSourceId(apply.getId());
+        doctorDao.save(doctor);
     }
 
     /**
@@ -690,8 +529,7 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
      * @param doctorId   医师id
      * @param createTime 创建时间
      */
-    private void addMedicalDoctorAccount(String userId, String doctorId,
-                                         Date createTime) {
+    private void addMedicalDoctorAccount(String userId, String doctorId, Date createTime) {
         MedicalDoctorAccount doctorAccount = new MedicalDoctorAccount();
         doctorAccount.setId(UUID.randomUUID().toString().replace("-", ""));
         doctorAccount.setAccountId(userId);
@@ -700,60 +538,4 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
         doctorAccountDao.save(doctorAccount);
     }
 
-    /**
-     * 新增一条主播信息
-     *
-     * @param userId     用户id
-     * @param createTime 创建时间
-     */
-    private void addCourseAnchor(String userId, Date createTime) {
-
-        CourseAnchor courseAnchor = new CourseAnchor();
-        courseAnchor.setUserId(userId);
-        courseAnchor.setVideo("点击右上角的订阅，今年就会长长18cm");
-        courseAnchor.setDetail("我于杀戮中绽放，亦如黎明中的花朵");
-        courseAnchor.setType(AnchorType.DOCTOR.getCode());
-        courseAnchor.setDeleted(false);
-        courseAnchor.setStatus(true);
-        courseAnchor.setCreateTime(createTime);
-        courseAnchor.setRemark("系统生成，仅供测试");
-        courseAnchor.setVodDivide(vodDivide);
-        courseAnchor.setLiveDivide(liveDivide);
-        courseAnchor.setOfflineDivide(offlineDivide);
-        courseAnchor.setGiftDivide(giftDivide);
-        anchorDao.save(courseAnchor);
-
-    }
-
-    /**
-     * 新增一条医师申请时对应的科室信息
-     *
-     * @param doctorApplyId medical_doctor_apply表id
-     * @param doctorId      医师id
-     * @param createTime    创建时间
-     */
-    private void addMedicalDoctorApplyDepartment(String doctorApplyId,
-                                                 String doctorId, Date createTime) {
-        String departmentId = departmentDao
-                .findByHQLOne("select id from MedicalDepartment where createTime = (select max(createTime) from MedicalDepartment)");
-        if (StringUtils.isNotBlank(departmentId)) {
-            MedicalDoctorApplyDepartment applyDepartment = new MedicalDoctorApplyDepartment();
-            applyDepartment
-                    .setId(UUID.randomUUID().toString().replace("-", ""));
-            applyDepartment.setCreateTime(createTime);
-            applyDepartment.setDepartmentId(departmentId);
-            applyDepartment.setDoctorApplyId(doctorApplyId);
-            doctorApplyDepartmentDao.save(applyDepartment);
-
-            MedicalDoctorDepartment doctorDepartment = new MedicalDoctorDepartment();
-            doctorDepartment.setId(UUID.randomUUID().toString()
-                    .replace("-", ""));
-            doctorDepartment.setDoctorId(doctorId);
-            doctorDepartment.setDepartmentId(departmentId);
-            doctorDepartmentDao.save(doctorDepartment);
-
-        } else {
-            throw new RuntimeException("medical_department表没有数据");
-        }
-    }
 }
