@@ -231,17 +231,21 @@
 
 		<!-- 轮播开始 -->
 		<!--顶部轮播-->
-		<div class="swiper-container top_swiper" onclick="location.href ='broadcastRoom.html'">
+		<div class="top_details">
+			<script type="text/html" id="top_details">
+		<div class="swiper-container top_swiper" >
 			<div class="swiper-wrapper">
-				<div class="swiper-slide pic01">
-					<img src="/xcview/images/xianxia_03.jpg" alt="" />
+				{{each items.banners as item i}}
+				<div class="swiper-slide pic01" onclick="sowingDetails('{{item.url}}')">
+					<img src="{{item.imgUrl}}" alt="" />
 				</div>
-				<div class="swiper-slide pic02">
+				{{/each}}
+				<!--<div class="swiper-slide pic02">
 					<img src="/xcview/images/xianxia_03.jpg" alt="" />
 				</div>
 				<div class="swiper-slide pic03">
 					<img src="/xcview/images/xianxia_03.jpg" alt="" />
-				</div>
+				</div>-->
 			</div>
 			<div class="swiper-pagination"></div>
 
@@ -255,13 +259,15 @@
 			</div>
 			<div class="message">
 				<div class="message_name">
-					<div class="name">我是名字</div>
+					<div class="name">{{items.lecturerInfo.name}}</div>
 					<div class="message_characteristic">我的师傅</div>
 					<div class="both"></div>
 				</div>
 				<div class="message_face">
 					<span class="disciple"><span class="disciple_fize">弟子</span>25</span>
-					<span class="fans"><span class="fans_size">粉丝</span>110</span>
+					{{if items.fansCount>0}}
+					<span class="fans"><span class="fans_size">粉丝</span>{{items.fansCount}}</span>
+					{{/if}}
 					<div class="both"></div>
 				</div>
 				
@@ -271,6 +277,8 @@
 				<div class="pay_attention">加关注</div>
 			</div>
 			<div class="both"></div>
+		</div>
+			</script>
 		</div>
 		<!-- 主播信息结束 -->
 
@@ -287,7 +295,9 @@
 		</div>
 		<!-- 选项卡结束 -->
 
-		<!-- 点击全部动态=显示筛看开始 -->
+		
+	</div>
+	<!-- 点击全部动态=显示筛看开始 -->
 		<div class="screen_show">
 			<div class="screen_show_bg"></div>
 			<div class="screen_show_main">
@@ -302,7 +312,6 @@
 			</div>
 		</div>
 		<!-- 点击全部动态=显示筛看结束 -->
-	</div>
 	<!-- 中间内容开始 -->
 	<div class="the_dynamic">
 		<!-- 其他一 -->
@@ -358,7 +367,7 @@
 				</div>
 				{{else if item.typeId != null && item.typeId != 8}}
 				<!-- 文章-->
-				<div class="article_hide" onclick="articleDetails('{{item.articleId}}')">
+				<div class="article_hide" data-id="{{item.articleId}}">
 					<div class="article_nav_span comment_hide">
 						{{if item.stick}}
 						<span class="stick_img_stick"><img src="/xcview/images/stick.png" alt="" />置顶</span>
@@ -373,7 +382,7 @@
 				</div>
 				{{else if item.type == 5}}
 				<!-- 课程-->
-				<div class="course_hide" onclick="common_jump_all('{{item.courseId}}')">
+				<div class="course_hide" data-id="{{item.courseId}}">
 					<div class="course_nav_span comment_hide" style="font-size: 0.3rem;color: #333333;">
 						{{if item.stick}}
 						<span class="stick_img_stick"><img src="/xcview/images/stick.png" alt="" />置顶</span>
@@ -447,7 +456,7 @@
 
 					<div class="both"></div>
 				</div>
-				<div class="number_people ">
+				<div class="number_people " style="margin-top1: 0.2rem;">
 					<div class="number_people_bg" id="{{item.id}}">
 						{{if item.isPraise}}
 						<div class="number_people_fize"><img src="/xcview/images/zan001.png" alt="" class="number_people_zan" /><span class="likes">{{item.likes}}</span></div>
@@ -909,10 +918,12 @@
 
 	<!-- 表情包开始 -->
 	<div class="comment">
-		<div class="">
+		<div class="comment_bg"></div>
+		<div class="comment_main">
 			<img src="/xcview/images/face.png" alt="" class="face" />
 			<!-- <textarea id="form_article" contenteditable="true" onkeydown="myInput.listen(this, event);"></textarea> -->
-			<article id="form_article" contenteditable="true" onkeydown="myInput.listen(this, event);"></article>
+			<textarea id="form_article" contenteditable="true" onkeydown="myInput.listen(this, event);"></textarea>
+			<div class="article_main">说点什么...</div>
 			<h3 onclick="sendComment()">发送</h3>
 		</div>
 	</div>
@@ -952,12 +963,12 @@ $(window).bind("scroll", function() {
 
     // 判断滚动条显示隐藏title
 	var top = $(document).scrollTop();
-    if(top < 40){
+    if(top < 100){
     	$(".header p").hide();
     	$(".arror_return img").attr("src","/xcview/images/anchorj.png");
     	$(".header_news img").attr("src","/xcview/images/anchorf.png");
     	$("#header").css("border-bottom","0px solid #d8dde6");
-    }else if(top > 40){
+    }else if(top > 100){
     	$(".arror_return img").attr("src","/xcview/images/back icon.png");
     	$(".header_news img").attr("src","/xcview/images/share_img.png");
     	$(".header p").show();
@@ -1192,7 +1203,7 @@ $(window).bind("scroll", function() {
 </script>
 <script>
 	$(function(){
-		var say = '说点什么...';
+		var say = '';
 		if ($("#form_article").html() === "") {
 			$("#form_article").html(say);
 		}
@@ -1232,13 +1243,20 @@ $(window).bind("scroll", function() {
 	});
 
     // 点击其他内容区域隐藏评论区域
-	$(".comment_hide").click(function(){
+	$(".comment_bg").click(function(){
     	$(".face").attr("src","/xcview/images/face.png");
     	$("#page_emotion").css("bottom","-2.8rem");
     	$(".comment").hide();
 	});
 
-	// 点击其他--评论显示底部评论区域
+	// 点击默认说点什么
+	$(".article_main").click(function(){
+    	$("#page_emotion").css("bottom","-2.8rem");
+    	$(".article_main").hide();
+    	$("#form_article").focus();
+	});
+
+	/*// 点击其他--评论显示底部评论区域
 	$(".rests_nav .evaluate_img").click(function(){
     	$(".face").attr("src","/xcview/images/face.png");
     	$("#page_emotion").css("bottom","-2.8rem");
@@ -1285,7 +1303,7 @@ $(window).bind("scroll", function() {
     	$(".face").attr("src","/xcview/images/face.png");
     	$("#page_emotion").css("bottom","-2.8rem");
     	$(".comment").show();
-	});		
+	});		*/
 
     // 点击发送结束
 	});
@@ -1306,8 +1324,12 @@ $(window).bind("scroll", function() {
     });
 
     // 处理介绍没有数据
-    var school_heights=$(window).height()-$(".swiper-container").height()-$(".referral").height()-$("#mainMenuBar").height()-$(".show_height").height();
+    var school_heights=$(window).height()-$(".top_show_height").height();
     $(".baseImagenumber").height(school_heights);
+
+    // 处理点击全部动态
+    var school_heightss=$(window).height()-$(".top_show_height").height();
+    $(".screen_show_bg").height(school_heightss);
     // };
 </script>
 </html>

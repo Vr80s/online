@@ -102,4 +102,16 @@ public interface MyInfoMapper extends BaseMapper<OnlineUser> {
             "             from medical_doctor md LEFT JOIN `medical_doctor_authentication_information` mdai on md.authentication_information_id = mdai.id" +
             "             where md.id = (select mda.doctor_id from medical_doctor_account as mda where mda.account_id = #{userId})"})
     Map<String, Object> findDoctorInfoById(@Param("userId") String userId);
+
+    /**
+     * 医师基本信息
+     *
+     * @param doctorId doctorId
+     * @return
+     */
+    @Select({"select md.name, md.title, md.type, mdai.head_portrait as small_head_photo, md.title, md.description as detail, mda.account_id as userId" +
+            "             from medical_doctor md LEFT JOIN `medical_doctor_authentication_information` mdai on md.authentication_information_id = mdai.id" +
+            " left join medical_doctor_account mda on mda.doctor_id = md.id  " +
+            "             where md.id = #{doctorId}"})
+    Map<String, Object> findDoctorInfoByDoctorId(@Param("doctorId") String doctorId);
 }

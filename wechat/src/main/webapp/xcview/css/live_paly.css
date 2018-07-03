@@ -722,11 +722,11 @@ color: white;
     left: 50%;
     background: rgba(0,0,0,.1);
     margin-left: -3.75rem;
+    z-index: 9999999;
 }
 .wrapAll_comment{
 	width: 7.5rem;
     position: fixed;
-
 	display: none;
 	background:white;
 	box-sizing: border-box;
@@ -735,7 +735,7 @@ color: white;
 	margin-left: -3.75rem;
 	z-index: 5;
 	padding: 0.3rem 0.26rem 0.3rem;
-	
+	z-index: 99999991;
 }
 .set_title{
 	font-size: 0.32rem;
@@ -807,31 +807,32 @@ color: white;
 	float: left;
 	background: rgba(0,188,18,0.30);
 	color: white;
-	font-size: 0.28rem;
+	font-size: 0.24rem;
 	text-align: center;
 	height: 0.56rem;
 	line-height: 0.56rem;
 	margin-right: 0.2rem;
+	border-radius: 100px;
 }
 .select_lable li:nth-child(1){
-	width: 1.48rem;
+	width: 0.88rem;
 	
 }
 .select_lable li:nth-child(2){
-	width: 1.71rem;
+	width: 1.36rem;
 
 }
 .select_lable li:nth-child(3){
-	width: 1.71rem;
+	width: 1.36rem;
 }
 .select_lable li:nth-child(4){
-	width: 1.48rem;
-	margin-right: 0;
+	width: 0.88rem;
+	/*margin-right: 0;*/
 
 }
 .select_lable li:nth-child(5){
-	width: 1.48rem;
-	margin-top: 0.2rem;
+	width: 1.12rem;
+	/*margin-top: 0.2rem;*/
 	
 
 }
