@@ -15,6 +15,7 @@ import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.bean.WxcpClientUserWxMapping;
 import com.xczh.consumer.market.dao.OnlineUserMapper;
 import com.xczh.consumer.market.dao.WxcpClientUserWxMappingMapper;
+import com.xczh.consumer.market.interceptor.HeaderInterceptor;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.wxpay.consts.WxPayConst;
 import com.xczhihui.common.util.CodeUtil;
@@ -68,7 +69,7 @@ public class OnlineUserServiceImpl implements OnlineUserService {
         OnlineUser user = onlineUserDao.findUserByLoginName(mobile);
         if (user == null) {
             //向用户中心注册
-            userCenterService.regist(mobile, password, mobile, ClientType.PC);
+            userCenterService.regist(mobile, password, mobile, HeaderInterceptor.getClientType());
             user = onlineUserDao.findUserByLoginName(mobile);
         }
         return user;

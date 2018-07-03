@@ -3,6 +3,7 @@ package com.xczh.consumer.market.controller.threeparties;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.bean.WxcpClientUserWxMapping;
+import com.xczh.consumer.market.interceptor.HeaderInterceptor;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
 import com.xczh.consumer.market.utils.ResponseObject;
@@ -188,7 +190,7 @@ public class ThirdPartyCertificationController {
          */
         OeUserVO userVO = userCenterService.getUserVO(userName);
         if (userVO == null) {
-            userCenterService.regist(userName, passWord, "", ClientType.ANDROID);
+            userCenterService.regist(userName, passWord, userName, HeaderInterceptor.getClientType());
             userVO = userCenterService.getUserVO(userName);
         } else {
             return ResponseObject.newErrorResponseObject("该手机号已经注册不用重新输入密码");
@@ -270,7 +272,6 @@ public class ThirdPartyCertificationController {
     /**
      * Description：验证-->手机号 是否已经绑定了微信号、qq 或者 微博号
      *
-     * @param req
      * @return ResponseObject
      * @author name：yangxuan <br>
      * email: 15936216273@163.com

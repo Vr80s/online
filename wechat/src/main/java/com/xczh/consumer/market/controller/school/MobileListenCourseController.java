@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.xczh.consumer.market.interceptor.IOSVersionInterceptor;
+import com.xczh.consumer.market.interceptor.HeaderInterceptor;
 import com.xczh.consumer.market.utils.APPUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.enums.BannerType;
@@ -38,8 +38,6 @@ public class MobileListenCourseController {
     @Autowired
     private IMobileBannerService mobileBannerService;
 
-    @Autowired
-    private ICourseService courseService;
 
     /**
      * 听课
@@ -52,11 +50,11 @@ public class MobileListenCourseController {
         Map<String, Object> mapAll = new HashMap<String, Object>();
         //听课banner
         Page<MobileBanner> mobileBannerPage = new Page<>();
-        mobileBannerPage.setRecords(mobileBannerService.selectMobileBannerPage(BannerType.LISTEN.getCode(), IOSVersionInterceptor.onlyThread.get(), APPUtil.getMobileSource(req)));
+        mobileBannerPage.setRecords(mobileBannerService.selectMobileBannerPage(BannerType.LISTEN.getCode(), HeaderInterceptor.ONLY_THREAD.get(), APPUtil.getMobileSource(req)));
         mapAll.put("banner", mobileBannerPage);
 
         //听课课程列表
-        List<CourseLecturVo> listenCourseList = mobileBannerService.listenCourseList(IOSVersionInterceptor.onlyThread.get());
+        List<CourseLecturVo> listenCourseList = mobileBannerService.listenCourseList(HeaderInterceptor.ONLY_THREAD.get());
         mapAll.put("listenCourseList", listenCourseList);
         return ResponseObject.newSuccessResponseObject(mapAll);
     }

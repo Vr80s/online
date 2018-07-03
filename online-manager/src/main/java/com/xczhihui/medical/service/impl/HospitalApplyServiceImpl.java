@@ -95,9 +95,7 @@ public class HospitalApplyServiceImpl implements HospitalApplyService {
      * @return 医师入驻申请分页列表
      */
     @Override
-    public Page<MedicalHospitalApply> list(MedicalHospitalApply searchVo,
-                                           int currentPage, int pageSize) {
-
+    public Page<MedicalHospitalApply> list(MedicalHospitalApply searchVo, int currentPage, int pageSize) {
         return hospitalApplyDao.list(searchVo, currentPage, pageSize);
     }
 
@@ -216,15 +214,13 @@ public class HospitalApplyServiceImpl implements HospitalApplyService {
         String hospitalId = UUID.randomUUID().toString().replace("-", "");
 
         // 判断用户是否已经是认证医师（医师 医馆只能认证一个）
-        MedicalDoctorAccount doctorAccount = doctorAccountDao
-                .findByAccountId(apply.getUserId());
+        MedicalDoctorAccount doctorAccount = doctorAccountDao.findByAccountId(apply.getUserId());
         if (doctorAccount != null) {
             throw new RuntimeException("该用户已是医师，不能再进行认证医馆");
         }
 
         // 判断用户是否已经已拥有验证医馆
-        MedicalHospitalAccount hospitalAccount = hospitalAccountDao
-                .findByAccountId(apply.getUserId());
+        MedicalHospitalAccount hospitalAccount = hospitalAccountDao.findByAccountId(apply.getUserId());
         if (hospitalAccountDao.findByAccountId(apply.getUserId()) != null
                 && StringUtils.isNotBlank(hospitalAccount.getDoctorId())) {
             MedicalHospital hospital = hospitalDao.find(hospitalAccount
@@ -254,6 +250,7 @@ public class HospitalApplyServiceImpl implements HospitalApplyService {
                 .replace("-", "");
         hospital.setAuthenticationId(authenticationInformationId);
         hospital.setSourceId(apply.getId());
+        hospital.setClientType(apply.getClientType());
         hospitalDao.save(hospital);
 
         // 新增认证成功信息：medical_hospital_authentication

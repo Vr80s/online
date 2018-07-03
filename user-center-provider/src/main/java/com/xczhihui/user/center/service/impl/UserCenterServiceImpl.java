@@ -61,6 +61,9 @@ public class UserCenterServiceImpl implements UserCenterService {
 
     @Override
     public void regist(String loginName, String password, String nikeName, ClientType origin, Boolean visitor) {
+        if(origin == null){
+            origin = ClientType.OTHER;
+        }
         if (!StringUtils.hasText(loginName) || !StringUtils.hasText(password)) {
             throw new LoginRegException("用户名、密码不允许为空！");
         }

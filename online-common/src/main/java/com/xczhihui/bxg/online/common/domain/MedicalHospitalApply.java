@@ -82,6 +82,9 @@ public class MedicalHospitalApply implements Serializable {
     @Column(name = "create_person")
     private String createPerson;
 
+    @Column(name = "client_type")
+    private Integer clientType;
+
     /**
      * 更新时间
      */
@@ -108,6 +111,14 @@ public class MedicalHospitalApply implements Serializable {
      * 医馆名称
      */
     private String name;
+
+    public Integer getClientType() {
+        return clientType;
+    }
+
+    public void setClientType(Integer clientType) {
+        this.clientType = clientType;
+    }
 
     public String getId() {
         return id;

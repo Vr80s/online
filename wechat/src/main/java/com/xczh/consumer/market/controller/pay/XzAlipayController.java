@@ -26,6 +26,7 @@ import com.alipay.api.domain.AlipayTradeAppPayModel;
 import com.alipay.api.domain.AlipayTradeWapPayModel;
 import com.alipay.api.internal.util.AlipaySignature;
 import com.xczh.consumer.market.auth.Account;
+import com.xczh.consumer.market.interceptor.HeaderInterceptor;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.WebUtil;
 import com.xczhihui.common.util.OrderNoUtil;
@@ -134,7 +135,7 @@ public class XzAlipayController extends AliPayApiController {
      **/
     @RequestMapping(value = "rechargePay")
     @ResponseBody
-    public void rechargePay(@Account String accountId, HttpServletRequest request, HttpServletResponse response,
+    public void rechargePay(@Account String accountId, HttpServletResponse response,
                             @RequestParam("actualPay") String actualPay) throws Exception {
         Double count = Double.valueOf(actualPay) * rate;
         if (!WebUtil.isIntegerForDouble(count)) {
@@ -194,7 +195,7 @@ public class XzAlipayController extends AliPayApiController {
         payMessage.setType(PayOrderType.COURSE_ORDER.getCode());
         payMessage.setUserId(order.getUserId());
         //目前app端仅安卓调用支付宝接口
-        payMessage.setFrom(OrderFrom.ANDROID.getCode());
+        payMessage.setFrom(HeaderInterceptor.getClientTypeCode());
 
         String passbackParams = PayMessage.getPayMessage(payMessage);
         model.setPassbackParams(passbackParams);
@@ -212,8 +213,7 @@ public class XzAlipayController extends AliPayApiController {
      */
     @RequestMapping(value = "rechargeAppPay")
     @ResponseBody
-    public ResponseObject rechargeAppPay(@Account String accountId,
-                                         @RequestParam("actualPay") String actualPay) throws SQLException, AlipayApiException {
+    public ResponseObject rechargeAppPay(@Account String accountId, @RequestParam("actualPay") String actualPay) throws SQLException, AlipayApiException {
 
         Double count = Double.valueOf(actualPay) * rate;
         if (!WebUtil.isIntegerForDouble(count)) {
@@ -233,8 +233,8 @@ public class XzAlipayController extends AliPayApiController {
         payMessage.setType(PayOrderType.COIN_ORDER.getCode());
         payMessage.setUserId(accountId);
         payMessage.setValue(new BigDecimal(count));
-        //目前app端仅安卓调用支付宝接口
-        payMessage.setFrom(OrderFrom.ANDROID.getCode());
+
+        payMessage.setFrom(HeaderInterceptor.getClientTypeCode());
 
         String passbackParams = PayMessage.getPayMessage(payMessage);
         model.setPassbackParams(passbackParams);

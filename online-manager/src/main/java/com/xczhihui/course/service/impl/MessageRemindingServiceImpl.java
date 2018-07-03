@@ -214,7 +214,7 @@ public class MessageRemindingServiceImpl implements MessageRemindingService {
                             params.put("courseName", courseName);
                             params.put("lecture", lecturer);
                             params.put("minute", String.valueOf(minute));
-                            params.put("code", String.valueOf(id));
+                            params.put("code", String.valueOf(id) + " ");
                             Map<String, String> weixinParams = new HashMap<>(4);
                             weixinParams.put("first", TextStyleUtil.clearStyle(commonContent));
                             weixinParams.put("keyword1", courseName);

@@ -4,9 +4,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.xczh.consumer.market.auth.Account;
+import com.xczh.consumer.market.interceptor.HeaderInterceptor;
 import com.xczh.consumer.market.service.OLAttachmentCenterService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.medical.common.service.ICommonService;
@@ -33,8 +31,7 @@ import com.xczhihui.medical.doctor.service.IMedicalDoctorApplyService;
 @RequestMapping("/xczh/medical")
 public class MedicalDoctorApplyController {
 
-    private static final org.slf4j.Logger LOGGER = LoggerFactory
-            .getLogger(MedicalDoctorApplyController.class);
+    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(MedicalDoctorApplyController.class);
     @Autowired
     private IMedicalDoctorApplyService medicalDoctorApplyService;
     @Autowired
@@ -50,8 +47,6 @@ public class MedicalDoctorApplyController {
     @RequestMapping("addDoctorApply")
     @ResponseBody
     public ResponseObject addDoctorApply(@Account String accountId,
-                                         HttpServletRequest req,
-                                         HttpServletResponse res,
                                          MedicalDoctorApply medicalDoctorApply,
                                          @RequestParam(value = "cardPositiveFile", required = false) MultipartFile cardPositiveFile,
                                          @RequestParam(value = "cardNegativeFile", required = false) MultipartFile cardNegativeFile,
@@ -94,6 +89,7 @@ public class MedicalDoctorApplyController {
                 professionalCertificateFile.getBytes(), fileType, null);
         medicalDoctorApply.setProfessionalCertificate(professionalCertificate);
 
+        medicalDoctorApply.setClientType(HeaderInterceptor.getClientTypeCode());
         LOGGER.info("--------------------医师认证");
         medicalDoctorApplyService.add(medicalDoctorApply);
         return ResponseObject.newSuccessResponseObject("创建成功");

@@ -236,8 +236,7 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
 
         // 判断用户是否已经认证医馆（医师 医馆只能认证一个）
         MedicalHospitalAccount hospitalAccount = hospitalAccountDao.findByAccountId(apply.getUserId());
-        if (hospitalAccountDao.findByAccountId(apply.getUserId()) != null
-                && StringUtils.isNotBlank(hospitalAccount.getDoctorId())) {
+        if (hospitalAccountDao.findByAccountId(apply.getUserId()) != null && StringUtils.isNotBlank(hospitalAccount.getDoctorId())) {
             MedicalHospital hospital = hospitalDao.find(hospitalAccount.getDoctorId());
             if (hospital != null && hospital.isAuthentication() == true) {
                 throw new RuntimeException("该用户已拥有已认证医馆，不能再进行认证医师");
@@ -259,8 +258,7 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
 
         // 新增医师信息：medical_doctor
         String authenticationInformationId = CodeUtil.getRandomUUID();
-        this.addMedicalDoctor(doctorId, authenticationInformationId, apply, 2,
-                now);
+        this.addMedicalDoctor(doctorId, authenticationInformationId, apply, 2, now);
 
         // 新增医师与科室的对应关系：medical_doctor_department
         List<MedicalDoctorApplyDepartment> medicalDoctorApplyDepartments = doctorApplyDepartmentDao
@@ -516,6 +514,7 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
         if (StringUtils.isNotBlank(apply.getField())) {
             doctor.setFieldText(apply.getField());
         }
+        doctor.setClientType(apply.getClientType());
         doctor.setStatus(true);
         doctor.setCreateTime(createTime);
         doctor.setSourceId(apply.getId());

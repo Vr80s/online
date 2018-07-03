@@ -112,6 +112,9 @@ public class CourseApplyInfo extends Model<CourseApplyInfo> {
      */
     @TableField("course_number")
     private Integer courseNumber;
+
+    @TableField("client_type")
+    private Integer clientType;
     /**
      * 合辑中课程的排序字段
      */
@@ -243,6 +246,14 @@ public class CourseApplyInfo extends Model<CourseApplyInfo> {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getClientType() {
+        return clientType;
+    }
+
+    public void setClientType(Integer clientType) {
+        this.clientType = clientType;
     }
 
     public String getTitle() {

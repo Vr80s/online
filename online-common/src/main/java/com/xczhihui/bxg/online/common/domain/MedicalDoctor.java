@@ -13,7 +13,6 @@ import org.hibernate.annotations.Type;
  */
 @Entity
 @Table(name = "medical_doctor")
-@NamedQuery(name = "MedicalDoctor.findAll", query = "SELECT m FROM MedicalDoctor m")
 public class MedicalDoctor implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -70,6 +69,9 @@ public class MedicalDoctor implements Serializable {
     @Transient
     private Integer statusnum;
 
+    @Column(name = "client_type")
+    private Integer clientType;
+
     @Transient
     private boolean has;
 
@@ -110,6 +112,14 @@ public class MedicalDoctor implements Serializable {
 
     public String getFieldText() {
         return fieldText;
+    }
+
+    public Integer getClientType() {
+        return clientType;
+    }
+
+    public void setClientType(Integer clientType) {
+        this.clientType = clientType;
     }
 
     public void setFieldText(String fieldText) {

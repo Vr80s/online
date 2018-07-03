@@ -79,6 +79,9 @@ public class MedicalHospitalApply extends Model<MedicalHospitalApply> {
     @TableField("create_time")
     private Date createTime;
 
+    @TableField("client_type")
+    private Integer clientType;
+
     /**
      * 创建人id
      */
@@ -113,6 +116,14 @@ public class MedicalHospitalApply extends Model<MedicalHospitalApply> {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public Integer getClientType() {
+        return clientType;
+    }
+
+    public void setClientType(Integer clientType) {
+        this.clientType = clientType;
     }
 
     public String getCompany() {

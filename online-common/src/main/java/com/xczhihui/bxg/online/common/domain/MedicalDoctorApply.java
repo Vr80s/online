@@ -70,6 +70,9 @@ public class MedicalDoctorApply implements Serializable {
     @Column(name = "detailed_address")
     private String detailedAddress;
 
+    @Column(name = "client_type")
+    private Integer clientType;
+
     /**
      * 真实头像
      */
@@ -176,6 +179,14 @@ public class MedicalDoctorApply implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public Integer getClientType() {
+        return clientType;
+    }
+
+    public void setClientType(Integer clientType) {
+        this.clientType = clientType;
     }
 
     public String getName() {

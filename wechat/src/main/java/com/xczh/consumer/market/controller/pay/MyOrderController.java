@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.xczh.consumer.market.auth.Account;
+import com.xczh.consumer.market.interceptor.HeaderInterceptor;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.enums.OrderStatus;
 import com.xczhihui.course.model.Order;
@@ -40,8 +41,10 @@ public class MyOrderController {
     @Transactional
     public ResponseObject saveOnlineOrder(@Account String accountId,
                                           @RequestParam("courseId") Integer courseId,
-                                          @RequestParam("orderFrom") Integer orderFrom
-    ) throws Exception {
+                                          @RequestParam("orderFrom") Integer orderFrom ) throws Exception {
+        if(HeaderInterceptor.getClientTypeCode() != null){
+            orderFrom = HeaderInterceptor.getClientTypeCode();
+        }
         Order order = orderService.createOrder(accountId, courseId, orderFrom);
         Map returnMap = new HashMap();
         returnMap.put("orderNo", order.getOrderNo());
@@ -58,8 +61,7 @@ public class MyOrderController {
      */
     @RequestMapping(value = "getByOrderId")
     @ResponseBody
-    public ResponseObject getOnlineOrderByOrderId(@Account String accountId,
-                                                  @RequestParam("orderId") String orderId) throws Exception {
+    public ResponseObject getOnlineOrderByOrderId(@RequestParam("orderId") String orderId) throws Exception {
         Order order = orderService.getOrderIncludeCourseInfoByOrderId(orderId);
         if (order != null) {
             order.setActualPay(order.getActualPay() * 10);

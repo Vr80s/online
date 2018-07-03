@@ -155,6 +155,8 @@ public class MedicalDoctorApply extends Model<MedicalDoctorApply> {
     @TableField("card_num")
     private String cardNum;
 
+    @TableField("client_type")
+    private Integer clientType;
     /**
      * 医师入驻申请关联的科室列表
      */
@@ -295,6 +297,14 @@ public class MedicalDoctorApply extends Model<MedicalDoctorApply> {
 
     public void setProfessionalCertificate(String professionalCertificate) {
         this.professionalCertificate = professionalCertificate;
+    }
+
+    public Integer getClientType() {
+        return clientType;
+    }
+
+    public void setClientType(Integer clientType) {
+        this.clientType = clientType;
     }
 
     public Integer getStatus() {
