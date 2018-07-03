@@ -46,6 +46,7 @@ public class HeaderInterceptor implements HandlerInterceptor {
             ONLY_THREAD.set(Boolean.FALSE);
         }
         CLIENT.set(clientType);
+        logger.warn("clientType:{}",clientType);
 
         logger.info(version + ":" + iversion + version.equals(iversion));
         logger.info("tl:" + ONLY_THREAD.get());
