@@ -25,10 +25,10 @@ public enum ClientType {
         this.code = code;
     }
 
-    public static ClientType getOrderFrom(int code) {
-        for (ClientType orderFrom : ClientType.values()) {
-            if (orderFrom.getCode() == code) {
-                return orderFrom;
+    public static ClientType getClientType(int code) {
+        for (ClientType clientType : ClientType.values()) {
+            if (clientType.getCode() == code) {
+                return clientType;
             }
         }
         return null;

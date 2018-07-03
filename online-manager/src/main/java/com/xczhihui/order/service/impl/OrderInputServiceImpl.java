@@ -105,8 +105,6 @@ public class OrderInputServiceImpl extends OnlineBaseServiceImpl implements Orde
             throw new RuntimeException("帐号请输入手机号或邮箱！");
         }
 
-//		String name =  (Math.random() * 90000 + 10000)+"";
-
         OnlineUser ou = dao.findOneEntitiyByProperty(OnlineUser.class, "loginName", loginName);
         if (ou == null) {
             userCenterService.regist(loginName, loginName, loginName, ClientType.OTHER);

@@ -17,7 +17,7 @@ import com.xczhihui.common.util.enums.ClientType;
  * @author hejiwei
  */
 @Component
-public class IOSVersionInterceptor implements HandlerInterceptor {
+public class HeaderInterceptor implements HandlerInterceptor {
 
     public static ThreadLocal<Boolean> ONLY_THREAD = new ThreadLocal<Boolean>() {
         @Override
@@ -61,6 +61,14 @@ public class IOSVersionInterceptor implements HandlerInterceptor {
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception
             ex) throws Exception {
+    }
+
+    public static ClientType getClientType(){
+        ClientType clientType = null;
+        if(StringUtils.isNotBlank(HeaderInterceptor.CLIENT.get())){
+            clientType = ClientType.getClientType(Integer.valueOf(HeaderInterceptor.CLIENT.get()));
+        }
+        return clientType;
     }
 
 }
