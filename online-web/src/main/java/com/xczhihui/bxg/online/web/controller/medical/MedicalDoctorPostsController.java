@@ -118,4 +118,17 @@ public class MedicalDoctorPostsController {
         return ResponseObject.newSuccessResponseObject(mdp);
     }
 
+
+    /**
+     * Description：初始化课程动态
+     * creed: Talk is cheap,show me the code
+     * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
+     * @Date: 2018/7/3 10:38
+     **/
+    @RequestMapping( method = RequestMethod.POST)
+    public ResponseObject initializationData() {
+        //MedicalDoctorPosts mdp = medicalDoctorPostsService.getMedicalDoctorPostsById(id);
+
+        return ResponseObject.newSuccessResponseObject("");
+    }
 }

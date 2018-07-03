@@ -923,6 +923,7 @@
 	</div>
 	<!-- 表情包结束 -->
 	<div class="show_height" style="width:100%;height:0.25rem;display:none;"></div>
+	<div class="top_show_height" style="width:100%;height:5.2rem;display:none;"></div>
 </body>
 <!-- <script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script> -->
 <script src="/xcview/weihoujs/jquery.min.js"></script>
@@ -1297,16 +1298,16 @@ $(window).bind("scroll", function() {
     });
 </script>
 <script type="text/javascript">
-	// window.onload = function(){
-//		处理底部高度
-		$(function(){
-			var school_height=$(window).height()-$(".swiper-container").height()-$(".referral").height()-$("#mainMenuBar").height();
-		$("#refreshContainer").height(school_height);
-		});
+    // window.onload = function(){
+    //		处理底部高度
+    $(function(){
+        var school_height=$(window).height()-$(".top_show_height").height();
+        $("#refreshContainer").height(school_height);
+    });
 
-		// 处理介绍没有数据  
-		var school_heights=$(window).height()-$(".swiper-container").height()-$(".referral").height()-$("#mainMenuBar").height()-$(".show_height").height();
-		$(".baseImagenumber").height(school_heights);
-	// };
+    // 处理介绍没有数据
+    var school_heights=$(window).height()-$(".swiper-container").height()-$(".referral").height()-$("#mainMenuBar").height()-$(".show_height").height();
+    $(".baseImagenumber").height(school_heights);
+    // };
 </script>
 </html>

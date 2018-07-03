@@ -99,43 +99,10 @@ public class DoctorApplyController extends AbstractController {
     public String MedicalDoctorDetail(HttpServletRequest request,
                                       @PathVariable String appId) {
 
-        MedicalDoctorApply medicalDoctorApply = doctorApplyService
-                .findById(appId);
+        MedicalDoctorApply medicalDoctorApply = doctorApplyService.findById(appId);
         request.setAttribute("medicalDoctorApply", medicalDoctorApply);
 
         return CLOUD_CLASS_PATH_PREFIX + "/doctorApplyDetail";
-    }
-
-    /**
-     * 兼容之前主播没有进行医师认证所缺少的数据
-     */
-    @RequestMapping(value = "/after", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseObject afterApply(String userId) {
-
-        ResponseObject responseObj = new ResponseObject();
-
-        doctorApplyService.afterApply(userId);
-
-        responseObj.setSuccess(true);
-        responseObj.setErrorMessage("修改成功");
-        return responseObj;
-    }
-
-    /**
-     * 兼容之前主播没有进行医师认证所缺少的数据
-     */
-    @RequestMapping(value = "/afterApplyAll")
-    @ResponseBody
-    public ResponseObject afterApplyAll() {
-
-        ResponseObject responseObj = new ResponseObject();
-
-        doctorApplyService.afterApplyAll();
-
-        responseObj.setSuccess(true);
-        responseObj.setErrorMessage("修改成功");
-        return responseObj;
     }
 
 }
