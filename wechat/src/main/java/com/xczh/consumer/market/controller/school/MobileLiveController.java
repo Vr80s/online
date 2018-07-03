@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.xczh.consumer.market.interceptor.IOSVersionInterceptor;
+import com.xczh.consumer.market.interceptor.HeaderInterceptor;
+import com.xczh.consumer.market.interceptor.HeaderInterceptor;
 import com.xczh.consumer.market.utils.APPUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.enums.BannerType;
@@ -45,17 +46,16 @@ public class MobileLiveController {
      */
     @RequestMapping("onlineLive")
     @ResponseBody
-    public ResponseObject onlineLive(HttpServletRequest req)
-            throws Exception {
+    public ResponseObject onlineLive(HttpServletRequest req) throws Exception {
         Map<String, Object> mapAll = new HashMap<String, Object>();
         //直播banner
         Page<MobileBanner> mobileBannerPage = new Page<>();
-        mobileBannerPage.setRecords(mobileBannerService.selectMobileBannerPage(BannerType.LIVE.getCode(), IOSVersionInterceptor.ONLY_THREAD.get(), APPUtil.getMobileSource(req)));
+        mobileBannerPage.setRecords(mobileBannerService.selectMobileBannerPage(BannerType.LIVE.getCode(), HeaderInterceptor.ONLY_THREAD.get(), APPUtil.getMobileSource(req)));
         mapAll.put("banner", mobileBannerPage);
         List<Map<String, Object>> mapCourseList = mobileBannerService.liveCourseList(
                 PagingFixedType.LIVE_PAGETYPE_UP.getValue(),
                 PagingFixedType.LIVE_PAGETYPE_DOWN.getValue(),
-                IOSVersionInterceptor.ONLY_THREAD.get());
+                HeaderInterceptor.ONLY_THREAD.get());
         mapAll.put("allCourseList", mapCourseList);
         return ResponseObject.newSuccessResponseObject(mapAll);
     }
