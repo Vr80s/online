@@ -21,6 +21,7 @@ import com.xczhihui.anchor.dao.AnchorDao;
 import com.xczhihui.bxg.online.common.consts.MedicalHospitalApplyConst;
 import com.xczhihui.bxg.online.common.domain.*;
 import com.xczhihui.common.support.lock.RedissonUtil;
+import com.xczhihui.common.util.TimeUtil;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.util.enums.AnchorType;
 import com.xczhihui.course.enums.MessageTypeEnum;
@@ -85,6 +86,11 @@ public class HospitalApplyServiceImpl implements HospitalApplyService {
 
     @Value("${course.anchor.gift.divide}")
     private BigDecimal giftDivide;
+
+    @Value("${weixin.anchor.approve.pass.code}")
+    private String weixinAnchorApprovePassCode;
+    @Value("${weixin.anchor.approve.not.pass.code}")
+    private String weixinAnchorApproveNotPassCode;
 
     /**
      * 获取医师入驻申请列表
@@ -323,9 +329,17 @@ public class HospitalApplyServiceImpl implements HospitalApplyService {
         Map<String, String> params = new HashMap<>(2);
         params.put("type", type);
         params.put("date", dateStr);
+
+        Map<String, String> weixinParams = new HashMap<>(5);
+        weixinParams.put("first", TextStyleUtil.clearStyle(content).replace("去看看>>", ""));
+        weixinParams.put("keyword1", courseAnchor.getName());
+        weixinParams.put("keyword2", "认证通过");
+        weixinParams.put("keyword3", dateStr);
+        weixinParams.put("remark", "");
         commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.SYSYTEM.getVal())
                 .buildWeb(content)
                 .buildAppPush(content)
+                .buildWeixin(weixinAnchorApprovePassCode, weixinParams)
                 .buildSms(smsAnchorApprovePassCode, params)
                 .build(courseAnchor.getUserId(), RouteTypeEnum.ANCHOR_WORK_TABLE_PAGE, ManagerUserUtil.getId()));
     }
@@ -342,9 +356,17 @@ public class HospitalApplyServiceImpl implements HospitalApplyService {
         String content = MessageFormat.format(APPROVE_NOT_PASS_MESSAGE, type, reason);
         Map<String, String> params = new HashMap<>(2);
         params.put("type", type);
+
+        Map<String, String> weixinParams = new HashMap<>(5);
+        weixinParams.put("first", TextStyleUtil.clearStyle(content).replace("查看详情", ""));
+        weixinParams.put("keyword1", apply.getName());
+        weixinParams.put("keyword2", TimeUtil.getYearMonthDayHHmm(new Date()));
+        weixinParams.put("keyword3", "认证未通过");
+        weixinParams.put("remark", "");
         commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.SYSYTEM.getVal())
                 .buildWeb(content)
                 .buildAppPush(content)
+                .buildWeixin(weixinAnchorApproveNotPassCode, weixinParams)
                 .buildSms(smsAnchorApproveNotPassCode, params)
                 .build(apply.getUserId(), RouteTypeEnum.HOSPITAL_APPROVE_PAGE, ManagerUserUtil.getId()));
     }
