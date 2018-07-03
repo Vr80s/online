@@ -20,6 +20,7 @@ import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.course.service.CourseService;
 import com.xczhihui.course.vo.CourseVo;
 import com.xczhihui.course.vo.MenuVo;
+import com.xczhihui.medical.service.MedicalEnrollmentRegulationsService;
 import com.xczhihui.menu.service.CommonMenuService;
 import com.xczhihui.operate.service.Banner2Service;
 import com.xczhihui.operate.vo.Banner2Vo;

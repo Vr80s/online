@@ -18,6 +18,7 @@ import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.course.service.CourseService;
 import com.xczhihui.course.vo.CourseVo;
 import com.xczhihui.course.vo.MenuVo;
+import com.xczhihui.medical.service.MedicalEnrollmentRegulationsService;
 import com.xczhihui.menu.service.CommonMenuService;
 import com.xczhihui.operate.service.MobileBannerService;
 import com.xczhihui.operate.vo.MobileBannerVo;
@@ -39,6 +40,8 @@ public class MobileBannerController {
     private AnchorService anchorService;
     @Autowired
     private CommonMenuService commonMenuService;
+    @Autowired
+    private MedicalEnrollmentRegulationsService medicalEnrollmentRegulationsService;
 
     @RequestMapping(value = "/index")
     public ModelAndView index() {
@@ -51,6 +54,7 @@ public class MobileBannerController {
         mav.addObject("courses", courses);
         mav.addObject("anchors", anchorService.list(1));
         mav.addObject("menus", menus);
+        mav.addObject("regulations", medicalEnrollmentRegulationsService.getAllMedicalEntryInformationList());
         return mav;
     }
 
@@ -207,6 +211,8 @@ public class MobileBannerController {
                     mobileBannerVo.setUrl("userLecturerId=" + linkParam);
                 } else if (linkType.equals(5)) {
                     mobileBannerVo.setUrl(linkParam);
+                } else {
+                    mobileBannerVo.setUrl("");
                 }
             }
         }
