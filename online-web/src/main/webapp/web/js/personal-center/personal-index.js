@@ -1134,7 +1134,7 @@ RequestService("/message/count", "get",null, function (data) {
 		if(data.success==true){
 			var numberAll=data.resultObject;
 			if(numberAll>99){
-				numberAll=99;
+				numberAll="99+";
 			}
 			if(data.resultObject==0){
 				$(".mune-news .news-tip").addClass("hide");

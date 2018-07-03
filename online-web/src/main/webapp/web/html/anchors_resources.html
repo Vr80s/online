@@ -212,9 +212,9 @@
 				<div class="select_list z">
 					<ul style="padding: 0;">
 						
-						<li class="setTop active"><i class="icomoon-icon-dongtai left_range ino_color"></i><span>我的动态</span></li>
-						<li class="setTop "><span class="glyphicon glyphicon-user left_range" aria-hidden="true"></span><span>轮播图设置</span></li>
-						<li class="setTop docSuccessBtn" data-name="doc_hos" id="docJoinHos"><span class="icon iconfont icon-02_dianpuguanli left_range" aria-hidden="true"></span><span>医馆</span></li>
+						<li class="setTop active" data-name="doc_dynamic"><i class="icomoon-icon-dongtai left_range ino_color"></i><span>我的动态</span></li>
+						<li class="setTop" data-name="doc_banner"><span class="glyphicon glyphicon-user left_range" aria-hidden="true"></span><span>轮播图设置</span></li>
+						<li class="setTop docSuccessBtn" data-name="doc_hos" id="docJoinHos"><span class="icon iconfont icon-02_dianpuguanli left_range" aria-hidden="true"></span><span>出诊医馆</span></li>
 						<!--<li class="select-ud">
 							<span class="glyphicon glyphicon-book left_range" aria-hidden="true"></span>
 							<span>
@@ -230,7 +230,7 @@
 								<p>收徒设置</p>
 							</div>
 						</li>-->
-						<li class="setTop" id="nav-colume" data-name="doc_zhuanlan"><span class="glyphicon glyphicon-file left_range" aria-hidden="true"></span><span>专栏</span></li>
+						<li class="setTop" id="nav-colume" data-name="doc_zhuanlan"><span class="glyphicon glyphicon-file left_range" aria-hidden="true"></span><span>专栏医案</span></li>
 						<li class="setTop" id="nav-work" data-name="doc_book"><span class="glyphicon glyphicon-copyright-mark left_range" aria-hidden="true"></span><span>著作</span></li>
 						<li class="setTop" id="nav-media" data-name="doc_media"><span class="glyphicon glyphicon-film left_range" aria-hidden="true"></span><span>媒体报道</span></li>
 						<li class="setTop" data-name="doc_admit"><span class="icon iconfont icon-msnui-user-auth left_range" aria-hidden="true"></span><span>医师认证</span></li>
@@ -622,7 +622,7 @@
 					</div>
 				<!--分页部分end-->
 				<!--没有数据时的展示-->
-							<div class="comment-nodata banner-dongtai hide" style="background: white; padding: 135px 0;">
+							<div class="comment-nodata banner-dongtai hide" style="background: white; padding: 135px 0; margin-top: 20px;">
 								<img src="/web/images/notext_icon.png" alt="无数据">
 								<p>暂无数据</p>
 							</div>
@@ -632,7 +632,7 @@
 				<div class="select_box" style="padding-bottom: 0;">
 					<div class="banner-set-top">
 						<span>轮播图设置</span>
-						<button type="button">添加轮播图</button>
+						<button type="button" class="changeStaBtn">添加轮播图</button>
 					</div>
 					<div class="banner-main">					
 						<div class="banner-list-wrap" id="banner-list-content">
@@ -726,15 +726,16 @@
 									</script>
 								</select>-->
 							</form>
-							<p class="banner-all-tip banner-error-link hide">请选择链接类型！</p>
+							<span style="margin: 0 20px 0;" class="banner-all-tip banner-error-link hide">请选择链接类型！</span>
 						
 						</div>
 						<!--期限-->
 						<div class="banner-date-wrap">
 							<p class="left-title" style="display: inline-block;"><span>*</span>期限</p>
-							<input type="" name="" value="" placeholder="开始时间" id="start-time" />
+							<input type="text"style="display: none">
+							<input type="" placeholder="开始时间" id="start-time" autocomplete="off" />
 							<span style="margin: 0 10px;">至</span>
-							<input type="" name="" value="" placeholder="结束时间" id="end-time" />
+							<input type="" placeholder="结束时间" id="end-time" autocomplete="off" />
 							<p class="banner-all-tip banner-error-time hide">请选择时间！</p>
 						
 						</div>

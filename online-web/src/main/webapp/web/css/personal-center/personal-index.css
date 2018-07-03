@@ -1355,16 +1355,17 @@ overflow: hidden;*/
 	position: relative;
 }
 .news-wrap .mune-news .news-tip{
-    width: 20px;
+        background-color: #F97B49;
     height: 20px;
-    background: #f74343;
-    color: white;
-    text-align: center;
-    line-height: 20px;
+    padding: 0px 6px;
+    border-radius: 10px 10px 10px 10px;
     position: absolute;
-    left: 87px;
+    color: white;
+    font-style: normal;
+    line-height: 20px;
+        left: 87px;
     top: 19px;
-    border-radius: 50%;
+
     font-size: 12px;
 }
 .main-news{

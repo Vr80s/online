@@ -234,6 +234,10 @@
 .content_box #main .main_right .about_doctor .about_doctor_list > li>p{
 	font-size: 14px;
 	font-weight: 700;
+	 max-width: 60px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 .content_box #main .main_right .about_doctor .about_doctor_list > li .about_doctor_pic {
   display: inline-block;

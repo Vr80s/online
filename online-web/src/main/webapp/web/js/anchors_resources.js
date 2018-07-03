@@ -1,14 +1,7 @@
 var getAnchorsId;
 $(function () {
 	
- 	RequestService("/medical/common/getDoctorByUserId", "get", null, function (data) {
-        	if (data.success==true) {
-        		getAnchorsId=data.resultObject.doctorId
-        		newsList(1,getAnchorsId);
-        	} else{
-        		showTip("获取医师ID失败");
-        	}
-        });
+ 	
     $("#docOrHos").css({"color": "#2cb82c"})
     //	确定,取消弹窗初始化
     comfirmBox.init();
@@ -28,13 +21,25 @@ $(function () {
 
     //定位之前点击过的位置
     setTimeout(function () {
-        if (localStorage.docTblSta == 'doc_hos') $('.select_list li:first-child').click();
-        if (localStorage.docTblSta == 'doc_zhuanlan') $('.select_list li:nth-child(2)').click();
-        if (localStorage.docTblSta == 'doc_book') $('.select_list li:nth-child(3)').click();
-        if (localStorage.docTblSta == 'doc_media') $('.select_list li:nth-child(4)').click();
-        if (localStorage.docTblSta == 'doc_admit') $('.select_list li:nth-child(5)').click();
+    	if (localStorage.docTblSta == 'doc_dynamic') $('.select_list li:first-child').click();
+    	if (localStorage.docTblSta == 'doc_banner') $('.select_list li:nth-child(2)').click();
+    	
+        if (localStorage.docTblSta == 'doc_hos') $('.select_list li:nth-child(3)').click();
+        if (localStorage.docTblSta == 'doc_zhuanlan') $('.select_list li:nth-child(4)').click();
+        if (localStorage.docTblSta == 'doc_book') $('.select_list li:nth-child(5)').click();
+        if (localStorage.docTblSta == 'doc_media') $('.select_list li:nth-child(6)').click();
+        if (localStorage.docTblSta == 'doc_admit') $('.select_list li:nth-child(7)').click();
     }, 100)
-
+$('.select_list li:first-child').click(function(){
+	RequestService("/medical/common/getDoctorByUserId", "get", null, function (data) {
+        	if (data.success==true) {
+        		getAnchorsId=data.resultObject.doctorId
+        		newsList(1,getAnchorsId);
+        	} else{
+        		showTip("获取医师ID失败");
+        	}
+        });
+});
     //重新认证按钮
     $('#doc_Distinguish ').on("click", ".renzhengAgain", function () {
         localStorage.AutStatus = "AutAgain";
@@ -692,8 +697,7 @@ var activityType;
 }
 
 template.config("escape", false);
-//	动态列表
-	
+//	动态列表	
 	function newsList(pages,getAnchorsId){
 	 RequestService("/doctor/posts", "GET", {
             "pageNumber" : pages,
@@ -723,7 +727,8 @@ template.config("escape", false);
         			}
         			
         		}
-        		$("#comment-text-wrap").html(template("newsTemplate", {items:posts}))
+        		$("#comment-text-wrap").html(template("newsTemplate", {items:posts}));
+        		$(".consilia-text img").remove();
               	controllerText();   //获取文本后的展示更多            
 //            	 分页
               	 if (data.resultObject.pages > 1) { //分页判断
@@ -1010,6 +1015,7 @@ template.config("escape", false);
 	if($(this).text()=="添加轮播图"){
 		$(".banner-main").addClass("hide");
 		$(".banner-set-wrap").removeClass("hide");
+		$(".banner-all-tip").addClass("hide");
 		$(this).text("返回");
 		$(".banner-submission-wrap button").removeAttr("disabled");
 	}else{
@@ -1288,9 +1294,10 @@ template.config("escape", false);
             'selectedText': 'cat',size:10
         });
 	}
-
-
-
+//调用插件
+	$('.posts_resource').selectpicker({
+	        'selectedText': 'cat',size:10
+	});
 
 
 
@@ -2222,7 +2229,7 @@ RequestService("/doctor/apply/listHospital/0", "get", null, function (data) {
     }));
     $('.selectpicker_collection').selectpicker('refresh');
     //渲染之后在此调用插件
-    $('.selectpicker').selectpicker({
+    $('#hospital_bottom .selectpicker').selectpicker({
         'selectedText': 'cat',
         size: 10
     });
@@ -2424,7 +2431,7 @@ $('#docJoinHos').click(function () {
         if (data.success == true) {
             //入住过医馆
             //头像预览
-            $('.selectpicker').selectpicker('val', (data.resultObject.id));
+            $('#hospital_bottom .selectpicker').selectpicker('val', (data.resultObject.id));
             if (data.resultObject.visitTime == null) return;
             //坐诊时间渲染
             var workArr = data.resultObject.visitTime.split(",");
@@ -2800,7 +2807,7 @@ function resetBanner(){
     $("#start-time").val("");
     $("#end-time").val("");
     $("#posts_resource_select").html(resetSelect);
-    $('.selectpicker').selectpicker('refresh')
+    $('#resetSelect .selectpicker').selectpicker('refresh')
     $("#J-banner-submit").data('id', "");
 }
 
@@ -2813,5 +2820,5 @@ function eachBanner(index){
     $("#end-time").val(bannerSet.endTime);
     $("#J-banner-submit").data('id', bannerSet.id);
     $("#posts_resource_select").val(bannerSet.linkParam);
-    $('.selectpicker').selectpicker('refresh')
+    $('#resetSelect .selectpicker').selectpicker('refresh')
 }
