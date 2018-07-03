@@ -95,6 +95,8 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
 
     @Value("${weixin.anchor.approve.pass.code}")
     private String weixinAnchorApprovePassCode;
+    @Value("${weixin.anchor.approve.not.pass.code}")
+    private String weixinAnchorApproveNotPassCode;
 
     /**
      * 获取医师入驻申请列表
@@ -327,10 +329,10 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
             params.put("date", dateStr);
 
             Map<String, String> weixinParams = new HashMap<>(5);
-            weixinParams.put("first", TextStyleUtil.clearStyle(content));
+            weixinParams.put("first", TextStyleUtil.clearStyle(content).replace("去看看>>", ""));
             weixinParams.put("keyword1", courseAnchor.getName());
             weixinParams.put("keyword2", "认证通过");
-            weixinParams.put("keyword3", TimeUtil.getYearMonthDayHHmm(applyTime));
+            weixinParams.put("keyword3", dateStr);
             weixinParams.put("remark", "");
             commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.SYSYTEM.getVal())
                     .buildWeb(content)
@@ -355,9 +357,16 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
         String content = MessageFormat.format(APPROVE_NOT_PASS_MESSAGE, type, reason);
         Map<String, String> params = new HashMap<>();
         params.put("type", type);
+        Map<String, String> weixinParams = new HashMap<>(5);
+        weixinParams.put("first", TextStyleUtil.clearStyle(content).replace("查看详情", ""));
+        weixinParams.put("keyword1", apply.getName());
+        weixinParams.put("keyword2", TimeUtil.getYearMonthDayHHmm(new Date()));
+        weixinParams.put("keyword3", "认证未通过");
+        weixinParams.put("remark", "");
         commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.SYSYTEM.getVal())
                 .buildWeb(content)
                 .buildAppPush(content)
+                .buildWeixin(weixinAnchorApproveNotPassCode, weixinParams)
                 .buildSms(smsAnchorApproveNotPassCode, params)
                 .build(apply.getUserId(), RouteTypeEnum.DOCTOR_APPROVE_PAGE, ManagerUserUtil.getId()));
     }
