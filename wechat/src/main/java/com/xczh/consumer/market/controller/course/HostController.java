@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.collections.MapUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -134,7 +135,8 @@ public class HostController {
     @ResponseBody
     public ResponseObject homeV2(@Account(optional = true) Optional<String> accountIdOpt,
                                  HttpServletResponse res,
-                                 @RequestParam("lecturerId") String lecturerId, HttpServletRequest request) throws Exception {
+                                 @RequestParam(value = "lecturerId", required = false) String lecturerId,
+                                 HttpServletRequest request, @RequestParam(value = "doctorId", required = false) String doctorId) throws Exception {
         Map<String, Object> mapAll = new HashMap<String, Object>();
         Map<String, Object> lecturerInfo = myInfoService.findDoctorInfoById(lecturerId);
         if (lecturerInfo == null) {
@@ -164,6 +166,52 @@ public class HostController {
                     doctorBannerVO.setUrl(MultiUrlHelper.getUrl(routeType, APPUtil.getMobileSource(request), doctorBannerVO.getLinkParam()));
                 })
                 .collect(Collectors.toList()));
+        return ResponseObject.newSuccessResponseObject(mapAll);
+    }
+
+    @RequestMapping("doctor/v2")
+    @ResponseBody
+    public ResponseObject doctorV2(@Account(optional = true) Optional<String> accountIdOpt,
+                                 HttpServletResponse res,
+                                 HttpServletRequest request, @RequestParam(value = "doctorId") String doctorId) throws Exception {
+        Map<String, Object> mapAll = new HashMap<String, Object>();
+        Map<String, Object> lecturerInfo = myInfoService.findDoctorInfoByDoctorId(doctorId);
+        if (lecturerInfo == null) {
+            return ResponseObject.newErrorResponseObject("获取医师信息有误");
+        }
+        String userId = MapUtils.getString(lecturerInfo, "userId");
+        mapAll.put("lecturerInfo", lecturerInfo);
+        if (userId != null) {
+            List<Integer> listff = focusServiceRemote.selectFocusOrFansCountOrCriticizeCount(userId);
+            mapAll.put("fansCount", listff.get(0));
+            mapAll.put("focusCount", listff.get(1));
+            mapAll.put("followHidden", false);
+            List<DoctorBannerVO> list = medicalDoctorBannerService.listByUserId(userId);
+            mapAll.put("banners", list.stream()
+                    .peek(doctorBannerVO ->
+                    {
+                        String routeType = doctorBannerVO.getRouteType();
+                        if (RouteTypeEnum.APPRENTICE_DETAIL.name().equals(routeType)) {
+                            String apprenticeParam = MultiUrlHelper.handleApprenticeParam(returnOpenidUri, doctorBannerVO.getLinkParam());
+                            if (StringUtils.isNotBlank(apprenticeParam)) {
+                                doctorBannerVO.setLinkParam(apprenticeParam);
+                            }
+                        }
+                        doctorBannerVO.setUrl(MultiUrlHelper.getUrl(routeType, APPUtil.getMobileSource(request), doctorBannerVO.getLinkParam()));
+                    })
+                    .collect(Collectors.toList()));
+        } else {
+            mapAll.put("followHidden", true);
+            mapAll.put("fansCount", 0);
+            mapAll.put("focusCount", 0);
+        }
+        if (accountIdOpt.isPresent() && userId != null) {
+            Integer isFours = focusServiceRemote.isFoursLecturer(accountIdOpt.get(), userId);
+            mapAll.put("isFours", isFours);
+        } else {
+            mapAll.put("isFours", 0);
+        }
+
         return ResponseObject.newSuccessResponseObject(mapAll);
     }
 

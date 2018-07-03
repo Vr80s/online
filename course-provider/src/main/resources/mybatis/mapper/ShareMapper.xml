@@ -22,6 +22,20 @@
         </if>
 
         <if test="type != null and type == 4 ">
+            SELECT 
+	            mer.id as shareId, 
+	            mer.title name,
+	            mer.propaganda as description,
+	            mer.poster_img as  headImg,
+	            #{type} as type
+            FROM
+	            medical_enrollment_regulations mer
+	            WHERE mer.deleted = 0
+	            AND mer.status = 1
+	            AND mer.id = #{shareId}
+        </if>
+
+        <if test="type != null and type == 5 ">
             SELECT md.id as shareId, md.name,md.description,
             mdai.head_portrait headImg,#{type} as type
             FROM
@@ -33,7 +47,7 @@
             AND md.id = #{shareId}
         </if>
 
-        <if test="type != null and (type == 5  or type == 6 )">
+        <if test="type != null and (type == 6  or type == 7 )">
             select id as shareId,title as name,content as description,
             img_Path as headImg,#{type} as type
             from oe_bxs_article

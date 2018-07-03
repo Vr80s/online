@@ -118,4 +118,6 @@ public class MedicalDoctorPostsController {
         return ResponseObject.newSuccessResponseObject(mdp);
     }
 
+
+
 }

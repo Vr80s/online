@@ -1,4 +1,4 @@
-	
+    
 var doctorId = getQueryString("doctor");
 var loginUserId="";
 var loginUserName="";
@@ -10,29 +10,31 @@ $(function(){
     loginUserId = localStorage.getItem("userId");
     loginUserName = localStorage.getItem("name");
     sowingMap();
-    doctorPostsList(1,'down',"");
 });
-
 //轮播图
 function sowingMap() {
-    requestService("/xczh/doctors/doctorStatus", {
-        doctorId: doctorId
-    }, function (data) {
-        if(data.success ){
-            var doctorUserId =  data.resultObject.userId;
-            requestGetService("/xczh/host/doctor", {
-                lecturerId: doctorUserId
-            }, function (data) {
-                var obj =  data.resultObject;
-                if(data.success ){
-                    $(".physicians_page_main").html(template('physicians_page_main',{items:obj}));
+    requestService("/xczh/doctors/doctorStatus",{
+        doctorId:doctorId
+    },function(data) {
+        if(data.success==true){
+            var doctorUserId = data.resultObject.userId;
+            requestGetService("/xczh/host/doctor",{
+                lecturerId:doctorUserId
+            },function(data) {
+                if(data.success==true){
+                    var obj = data.resultObject;
+                    $(".top_details").html(template('top_details',{items:obj}));
                 }
             });
+
         }
     });
-
-
-
+    
+}
+function sowingDetails(url) {
+    if(url != null && url != ""){
+        location.href = url;
+    }
 }
 //动态列表
 function doctorPostsList(num,downOrUp,doctorPostsType) {
@@ -69,9 +71,9 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
             }
         }
 
-        //	判断是下拉刷新还是上拉加载
+        //  判断是下拉刷新还是上拉加载
         if(downOrUp=='down'){
-            //  	判断有无评价显示默认图片
+            //      判断有无评价显示默认图片
             /*if(data.resultObject.items.length==0){
                 $(".quie_pic").show()
             }else{
@@ -108,6 +110,29 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
             }
         }
 
+        //判断简介的字长度
+        var h = $(".essay_main").height();
+        if (h > 200) {
+            $(".essay_pack_up_btn").show();
+            $(".line_xian").hide();
+//          $(".wrap1").css({"height":"2rem","overflow":"hidden"})
+        } else {
+            $(".essay_pack_up_btn").hide()
+        }
+
+        //点击其他--收起
+        mui("#refreshContainer").on('tap', '.essay_pack_up_btn_span', function (event) {
+            alert(111);
+            if($(".essay_pack_up_btn_span").html()=="收起"){
+                 $(".essay_pack_up_btn_span").html("展开");
+            }else{
+                $(".essay_pack_up_btn_span").html("收起");
+            }
+
+        });
+
+
+
         //点赞
         mui("#refreshContainer").on('tap', '.zan_img', function (event) {
             var src = $(this).attr('src');
@@ -123,6 +148,7 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
             $(".face").attr("src","/xcview/images/face.png");
             $("#page_emotion").css("bottom","-2.8rem");
             $(".comment").show();
+            $(".article_main").show();
             getPostsIdByComment = $(this).attr('data-id');
             postsCommentId = "";
         });
@@ -173,13 +199,13 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
         });
         //文章跳转
         mui("#refreshContainer").on('tap', '.article_hide', function (event) {
-            var articleId=$(this).attr("data-id");
+            var articleId = $(this).attr("data-id");
             location.href = "/xcview/html/physician/article.html?articleId=" + articleId;
         });
         //课程跳转
         mui("#refreshContainer").on('tap', '.course_hide', function (event) {
-            var itemId=$(this).attr("data-id");
-            common_jump_all(itemId);
+            var itemId = $(this).attr("data-id");
+            common_jump_all(itemId)
         });
     });
 }
@@ -335,8 +361,8 @@ function getPostsLikeList(postsId,list) {
  * multimediaType:媒体类型  视频 1 音频 2
  */
 function ccVideo(videoId, multimediaType,id) {
-    var playerwidth = window.screen.width; //	屏幕分辨率的宽：window.screen.width
-    var playerheight = 8.95 * 21.8; //	屏幕分辨率的高：window.screen.height
+    var playerwidth = window.screen.width; //   屏幕分辨率的宽：window.screen.width
+    var playerheight = 8.95 * 21.8; //  屏幕分辨率的高：window.screen.height
     console.log(playerwidth);
     var dataParams = {
         playerwidth: playerwidth,
@@ -357,16 +383,15 @@ function ccVideo(videoId, multimediaType,id) {
         }, false);
 }
 
+//文章跳转
+function articleDetails(id) {
+    location.href = "/xcview/html/physician/article.html?articleId=" + id;
+}
 //医案跳转
 function consiliaDetails(id) {
     location.href = "/xcview/html/physician/consilia.html?articleId=" + id;
 }
-function sowingDetails(url) {
-    if(url != null && url !=""){
-        location.href = url;
-    }
 
-}
 //动态刷新
 var num = 1;
 mui.init();

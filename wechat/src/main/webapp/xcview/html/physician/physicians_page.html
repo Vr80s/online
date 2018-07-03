@@ -10,25 +10,25 @@
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <meta name="keywords" content="" />
 
-<!-- <link rel="stylesheet" type="text/css" href="/xcview/css/physician/index.css?v=wechat_1.1.1"/> -->
-<link rel="stylesheet" type="text/css" href="/xcview/css/physician/physicians_page.css?v=wechat_1.1.1"/>
+<!-- <link rel="stylesheet" type="text/css" href="/xcview/css/physician/index.css?v=wechat_1.1.1&version=20feeb913b"/> -->
+<link rel="stylesheet" type="text/css" href="/xcview/css/physician/physicians_page.css?v=wechat_1.1.1&version=460bed8932"/>
 <link rel="stylesheet" href="/xcview/css/physician/swiper-4.2.6.min.css" />
 <!--手机嵌入模板-->
-<script type="text/javascript" src="/xcview/js/common/layout.js"></script>
+<script type="text/javascript" src="/xcview/js/common/layout.js?version=e2b9d5cdbd"></script>
 
 <script src="/xcview/js/physician/zepto1.14.min.js"></script>
 <script src="/xcview/js/physician/swiper-4.2.6.min.js"></script>
 
-<script type="text/javascript" src="/xcview/js/common/jquery.min-2.1.1.js"></script>
+<script type="text/javascript" src="/xcview/js/common/jquery.min-2.1.1.js?version=d021c983bd"></script>
 
 <!-- 介绍数据引入 -->
-<script type="text/javascript" src="/xcview/js/physician/referral.js"></script>
+<script type="text/javascript" src="/xcview/js/physician/referral.js?version=6743f0205e"></script>
 
 <!-- 直播间数据引入 -->
-<script type="text/javascript" src="/xcview/js/physician/broadcastroom.js"></script>
+<script type="text/javascript" src="/xcview/js/physician/broadcastroom.js?version=d41d8cd98f"></script>
 <!--公用弹框 -->
-<link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
-<script type="text/javascript" src="/xcview/js/common/alertPopShow.js"></script>
+<link rel="stylesheet" href="/xcview/css/alert/sharecss.css?version=f6e45d2a7e">
+<script type="text/javascript" src="/xcview/js/common/alertPopShow.js?version=3a4f24e3df"></script>
 <!--刷新 -->
 <link rel="stylesheet" href="/xcview/css/mescroll.min.css">
 <script type="text/javascript" src="/xcview/js/common/mescroll.min.js"></script>
@@ -36,9 +36,9 @@
 <link rel="stylesheet" href="/xcview/css/mui.min.css">
 
 <!-- 表情包聊天引入 -->
-<link href="/xcview/html/physician/css/webiaoqing.css" rel="stylesheet" type="text/css">
-<script src="/xcview/html/physician/js/jquery_min.js" ></script>
-<script src="/xcview/html/physician/js/webiaoqin.js" ></script>
+<link href="/xcview/html/physician/css/webiaoqing.css?version=495638f506" rel="stylesheet" type="text/css">
+<script src="/xcview/html/physician/js/jquery_min.js?version=628072e721" ></script>
+<script src="/xcview/html/physician/js/webiaoqin.js?version=9f3575a6d9" ></script>
 
 <script>
 	// 判断横屏展示时的状态
@@ -214,7 +214,7 @@
 </head>
 <body style="background: #F8F8F8;">
 	<div class="physicians_page_main comment_hide">
-		<script type="text/html" id="physicians_page_main">
+		
 		<!-- 头部开始 -->
 		<div class="wrap-header" id="header">
 			<div class="header">		
@@ -231,15 +231,15 @@
 
 		<!-- 轮播开始 -->
 		<!--顶部轮播-->
+		<div class="top_details">
+			<script type="text/html" id="top_details">
 		<div class="swiper-container top_swiper" >
 			<div class="swiper-wrapper">
-
-					{{each items.banners as item i}}
+				{{each items.banners as item i}}
 				<div class="swiper-slide pic01" onclick="sowingDetails('{{item.url}}')">
 					<img src="{{item.imgUrl}}" alt="" />
 				</div>
-					{{/each}}
-
+				{{/each}}
 				<!--<div class="swiper-slide pic02">
 					<img src="/xcview/images/xianxia_03.jpg" alt="" />
 				</div>
@@ -278,6 +278,8 @@
 			</div>
 			<div class="both"></div>
 		</div>
+			</script>
+		</div>
 		<!-- 主播信息结束 -->
 
 		<!-- 选项卡开始 -->
@@ -291,10 +293,11 @@
 				<div class="dynamic_opacity"></div>
 			</ul>
 		</div>
-		</script>
 		<!-- 选项卡结束 -->
 
-		<!-- 点击全部动态=显示筛看开始 -->
+		
+	</div>
+	<!-- 点击全部动态=显示筛看开始 -->
 		<div class="screen_show">
 			<div class="screen_show_bg"></div>
 			<div class="screen_show_main">
@@ -309,8 +312,6 @@
 			</div>
 		</div>
 		<!-- 点击全部动态=显示筛看结束 -->
-
-	</div>
 	<!-- 中间内容开始 -->
 	<div class="the_dynamic">
 		<!-- 其他一 -->
@@ -327,7 +328,7 @@
                         {{if item.stick}}<span class="stick_img"><img src="/xcview/images/stick.png" alt="" />置顶</span>
                         {{/if}}
                         {{item.content}}</div>
-					<div class="essay_pack_up_btn"><span>收起</span></div>
+					<div class="essay_pack_up_btn"><span class="essay_pack_up_btn_span">收起</span></div>
 					<div class="both"></div>
 				</div>
 				
@@ -366,7 +367,7 @@
 				</div>
 				{{else if item.typeId != null && item.typeId != 8}}
 				<!-- 文章-->
-				<div class="article_hide" data-id="{{item.articleId}}" >
+				<div class="article_hide" data-id="{{item.articleId}}">
 					<div class="article_nav_span comment_hide">
 						{{if item.stick}}
 						<span class="stick_img_stick"><img src="/xcview/images/stick.png" alt="" />置顶</span>
@@ -381,7 +382,7 @@
 				</div>
 				{{else if item.type == 5}}
 				<!-- 课程-->
-				<div class="course_hide" data-id="{{item.courseId}}" >
+				<div class="course_hide" data-id="{{item.courseId}}">
 					<div class="course_nav_span comment_hide" style="font-size: 0.3rem;color: #333333;">
 						{{if item.stick}}
 						<span class="stick_img_stick"><img src="/xcview/images/stick.png" alt="" />置顶</span>
@@ -455,7 +456,7 @@
 
 					<div class="both"></div>
 				</div>
-				<div class="number_people ">
+				<div class="number_people " style="margin-top1: 0.2rem;">
 					<div class="number_people_bg" id="{{item.id}}">
 						{{if item.isPraise}}
 						<div class="number_people_fize"><img src="/xcview/images/zan001.png" alt="" class="number_people_zan" /><span class="likes">{{item.likes}}</span></div>
@@ -917,10 +918,12 @@
 
 	<!-- 表情包开始 -->
 	<div class="comment">
-		<div class="">
+		<div class="comment_bg"></div>
+		<div class="comment_main">
 			<img src="/xcview/images/face.png" alt="" class="face" />
 			<!-- <textarea id="form_article" contenteditable="true" onkeydown="myInput.listen(this, event);"></textarea> -->
-			<article id="form_article" contenteditable="true" onkeydown="myInput.listen(this, event);"></article>
+			<textarea id="form_article" contenteditable="true" onkeydown="myInput.listen(this, event);"></textarea>
+			<div class="article_main">说点什么...</div>
 			<h3 onclick="sendComment()">发送</h3>
 		</div>
 	</div>
@@ -931,20 +934,21 @@
 	</div>
 	<!-- 表情包结束 -->
 	<div class="show_height" style="width:100%;height:0.25rem;display:none;"></div>
+	<div class="top_show_height" style="width:100%;height:5.2rem;display:none;"></div>
 </body>
-<!-- <script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script> -->
+<script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
 <script src="/xcview/weihoujs/jquery.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
-<script type="text/javascript" src="/xcview/js/common/common.js?v=wechat_1.1.1"></script> 
-<script type="text/javascript" src="/xcview/js/common/template.js"></script>    <!--数据模板引入-->
+<script type="text/javascript" src="/xcview/js/common/common.js?v=wechat_1.1.1&version=4a733d0dc2"></script> 
+<script type="text/javascript" src="/xcview/js/common/template.js?version=dd622e58c9"></script>    <!--数据模板引入-->
 
 <!-- 直播课跳转 -->
-<script type="text/javascript" src="/xcview/js/common/commonJumpPlay.js"></script>
+<script type="text/javascript" src="/xcview/js/common/commonJumpPlay.js?version=8bcdb81554"></script>
 
-<script type="text/javascript" src="/xcview/js/physician/physician_dynamics.js"></script>    <!--全部动态引入-->
+<script type="text/javascript" src="/xcview/js/physician/physician_dynamics.js?version=6ee8c1a42c"></script>    <!--全部动态引入-->
 
 <!-- 直播间数据引入 -->
-<script type="text/javascript" src="/xcview/js/physician/broadcastroom.js"></script>
+<script type="text/javascript" src="/xcview/js/physician/broadcastroom.js?version=d41d8cd98f"></script>
 
 
 
@@ -959,12 +963,12 @@ $(window).bind("scroll", function() {
 
     // 判断滚动条显示隐藏title
 	var top = $(document).scrollTop();
-    if(top < 40){
+    if(top < 100){
     	$(".header p").hide();
     	$(".arror_return img").attr("src","/xcview/images/anchorj.png");
     	$(".header_news img").attr("src","/xcview/images/anchorf.png");
     	$("#header").css("border-bottom","0px solid #d8dde6");
-    }else if(top > 40){
+    }else if(top > 100){
     	$(".arror_return img").attr("src","/xcview/images/back icon.png");
     	$(".header_news img").attr("src","/xcview/images/share_img.png");
     	$(".header p").show();
@@ -1022,13 +1026,18 @@ $(window).bind("scroll", function() {
 	    });
 
 	    // 其他二收起
-	    $(".essay_pack_up_btn").toggle(function(){
+	    /*$(".essay_pack_up_btn").toggle(function(){
 	    	$(".essay_pack_up_btn span").html('收起');
 		    $(".essay_main").removeClass("essay_pack_up_add");
 	  	},function(){
 		    $(".essay_pack_up_btn span").html('展开');
 		    $(".essay_main").addClass("essay_pack_up_add");
-	    });
+	    });*/
+
+	    // 点击全部动态
+		/*$(".essay_pack_up_btn").click(function(){
+			alert(132);
+		});*/
 
 	    // 点击全部动态
 		$(".li_data").click(function(){
@@ -1199,7 +1208,7 @@ $(window).bind("scroll", function() {
 </script>
 <script>
 	$(function(){
-		var say = '说点什么...';
+		var say = '';
 		if ($("#form_article").html() === "") {
 			$("#form_article").html(say);
 		}
@@ -1239,13 +1248,20 @@ $(window).bind("scroll", function() {
 	});
 
     // 点击其他内容区域隐藏评论区域
-	$(".comment_hide").click(function(){
+	$(".comment_bg").click(function(){
     	$(".face").attr("src","/xcview/images/face.png");
     	$("#page_emotion").css("bottom","-2.8rem");
     	$(".comment").hide();
 	});
 
-	// 点击其他--评论显示底部评论区域
+	// 点击默认说点什么
+	$(".article_main").click(function(){
+    	$("#page_emotion").css("bottom","-2.8rem");
+    	$(".article_main").hide();
+    	$("#form_article").focus();
+	});
+
+	/*// 点击其他--评论显示底部评论区域
 	$(".rests_nav .evaluate_img").click(function(){
     	$(".face").attr("src","/xcview/images/face.png");
     	$("#page_emotion").css("bottom","-2.8rem");
@@ -1292,7 +1308,7 @@ $(window).bind("scroll", function() {
     	$(".face").attr("src","/xcview/images/face.png");
     	$("#page_emotion").css("bottom","-2.8rem");
     	$(".comment").show();
-	});		
+	});		*/
 
     // 点击发送结束
 	});
@@ -1305,16 +1321,20 @@ $(window).bind("scroll", function() {
     });
 </script>
 <script type="text/javascript">
-	// window.onload = function(){
-//		处理底部高度
-		$(function(){
-			var school_height=$(window).height()-$(".swiper-container").height()-$(".referral").height()-$("#mainMenuBar").height();
-		$("#refreshContainer").height(school_height);
-		});
+    // window.onload = function(){
+    //		处理底部高度
+    $(function(){
+        var school_height=$(window).height()-$(".top_show_height").height();
+        $("#refreshContainer").height(school_height);
+    });
 
-		// 处理介绍没有数据  
-		var school_heights=$(window).height()-$(".swiper-container").height()-$(".referral").height()-$("#mainMenuBar").height()-$(".show_height").height();
-		$(".baseImagenumber").height(school_heights);
-	// };
+    // 处理介绍没有数据
+    var school_heights=$(window).height()-$(".top_show_height").height();
+    $(".baseImagenumber").height(school_heights);
+
+    // 处理点击全部动态
+    var school_heightss=$(window).height()-$(".top_show_height").height();
+    $(".screen_show_bg").height(school_heightss);
+    // };
 </script>
 </html>

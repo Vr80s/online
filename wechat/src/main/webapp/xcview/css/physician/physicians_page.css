@@ -269,9 +269,11 @@ p{
 
 .screen_show{
 	width: 7.5rem;
-	margin: 0 auto;
-	position: relative;
-	display: none;
+    margin: 0 auto;
+    position: fixed;
+    top: 5.4rem;
+    display: none;
+    z-index: 9999999999999999;
 }
 .screen_show_bg{
 	width: 100%;
@@ -285,12 +287,12 @@ p{
 	width: 7.5rem;
     height: 1.72rem;
     margin: 0 auto;
-    background: #fff;
+    background: #ffffff;
     padding-top: 0.3rem;
-    position: absolute;
-    top: 0;
+    position: fixed;
+    top: 5.41rem;
     left: 0;
-    z-index: 2;
+    z-index: 9999999999;
 }
 .screen_show_main ul li{
 	float: left;
@@ -323,7 +325,7 @@ p{
 	width: 7.5rem;
     margin: 0 auto;
     height: 0.42rem;
-    margin-top: 0.2rem;
+    padding-top: 0.2rem;
     background: #fff;
 }
 .ccvideo{
@@ -333,8 +335,15 @@ p{
 .rests_nav_span .title{
 	font-size: 0.3rem;
     color: #333333;
-    display: -webkit-box;
+    /* display: -webkit-box; */
     float: left;
+    width: 6.98rem;
+    margin: 0 auto;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-left: 0.26rem;
 }
 
 .rests_nav_span .stick_img{
@@ -391,6 +400,8 @@ p{
 	width: 7.5rem;
     margin: 0 auto;
     background: #fff;
+    padding-bottom: 0.28rem;
+    margin-bottom: 0.28rem;
     padding-bottom: 0.28rem;
 }
 .number_people_bg{
@@ -627,9 +638,7 @@ p{
     line-height: 0.42rem;
     /*background: red;*/
     text-align: left;
-    margin-bottom: 0.2rem;
-    
-
+    /*margin-bottom: 0.2rem;*/
 }
 .essay_pack_up_btn span {
     color: #00bc12;
@@ -1879,7 +1888,7 @@ table tr td img{
 }
 .baseImagenumber img{
 	width: 2rem;
-    height: 2rem;
+    /*height: 2rem;*/
     margin: 0 auto;
     display: inherit;
     padding-top: 1.5rem;
@@ -1955,4 +1964,66 @@ table tr td img{
 
 .comment{
 	z-index: 9 !important;
+	display: none;
+} 
+
+
+/*处理--点击全部动态*/
+.mui-scroll-wrapper{
+	z-index: 1 !important;
+}
+.mui-pull-bottom-pocket, .mui-pull-top-pocket{
+	z-index: 1 !important;
+}
+.mui-pull{
+	z-index: 1 !important;
+}
+
+.comment_bg{
+	width: 7.5rem;
+	height: 100%;
+	background: #000;
+	position: fixed;
+	top: 0;
+	left: 50%;
+	margin-left: -3.75rem;
+	opacity: 0;
+    z-index: 1;
+    /*display: none;*/
+}
+.comment_main{
+	z-index: 10;
+    width: 7.5rem;
+    background: white;
+    /* height: 0.98rem; */
+    min-height: 0.9rem;
+    padding: 0.01rem 0.26rem 0.2rem 0.26rem;
+    box-sizing: border-box;
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    border-top: 1px solid #f0f0f0;
+    margin-left: -3.75rem;
+}
+.article_main{
+	width: 5.25rem;
+    /* height: 0.6rem; */
+    margin: 0 auto;
+    background: #f0f0f0;
+    margin-top: 0.2rem;
+    border-radius: 0.3rem;
+    /* display: flow-root; */
+    line-height: 0.6rem;
+    border: 0;
+    float: left;
+    color: #c1c1c1;
+    outline: none;
+    margin-left: 0.84rem;
+    padding-left: 0.15rem;
+    font-size: 0.3rem;
+    position: absolute;
+}
+#form_article{
+    padding: 0 !important;
+    height: 0.6rem;
 }

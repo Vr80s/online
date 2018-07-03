@@ -257,18 +257,18 @@ $(".hos_point").bind('click',function(){
 })
 //左侧鼠标移动上去变色效果
 $('#doctor_in_inf .news_nav ul li a').mouseenter(function() {
-	$(this).children('span').css('color', '#00bc12')
+	$(this).children('i').css('color', '#00bc12')
 })
 //鼠标移除
 $('#doctor_in_inf .news_nav ul li a').mouseout(function() {
-	$(this).children('span').css('color', '#cacbcb')
+	$(this).children('i').css('color', '#cacbcb')
 })
 //一级菜单点击变色效果
 $('#doctor_in_inf .news_nav > ul > li > a').click(function() {
 	$('#doctor_in_inf .news_nav ul li a').removeClass('color');
-	$('#doctor_in_inf .news_nav ul li a > span').removeClass('color');
+	$('#doctor_in_inf .news_nav ul li a > i').removeClass('color');
 	$(this).addClass('color');
-	$(this).children('span').addClass('color');
+	$(this).children('i').addClass('color');
 	if(localStorage.hos_Administration == "hos_base_inf") $('#hos_base_inf').addClass('color');
 	if(localStorage.hos_Administration == "hos_renzhneg_inf") $('#hos_renzhneg_inf').addClass('color')
 
