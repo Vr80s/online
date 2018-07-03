@@ -121,4 +121,8 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper, OnlineUser> imp
         return doctorInfo;
     }
 
+    @Override
+    public Map<String, Object> findDoctorInfoByDoctorId(String doctorId) {
+        return myInfoMapper.findDoctorInfoByDoctorId(doctorId);
+    }
 }
