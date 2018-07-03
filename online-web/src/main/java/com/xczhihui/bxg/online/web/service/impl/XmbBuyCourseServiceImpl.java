@@ -54,7 +54,7 @@ public class XmbBuyCourseServiceImpl implements XmbBuyCouserService {
         //实际要扣减的熊猫币
         BigDecimal xmb = BigDecimal.valueOf(actual_pay * rate);
         String userCoinConsumptionId = userCoinService.updateBalanceForBuyCourse(ov.getUser_id(),
-                OrderFrom.valueOf(ov.getOrder_from()),
+                OrderFrom.PC,
                 xmb, orderNo);
         /*
          * 更改订单状态，增加课程学习人数
