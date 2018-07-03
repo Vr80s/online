@@ -10,20 +10,33 @@ $(function(){
     loginUserId = localStorage.getItem("userId");
     loginUserName = localStorage.getItem("name");
     sowingMap();
+
 });
 //轮播图
 function sowingMap() {
-    requestService("/xczh/doctors/doctorStatus",{
+    requestGetService("/xczh/host/doctor/v2",{
         doctorId:doctorId
     },function(data) {
         if(data.success==true){
-            var doctorUserId = data.resultObject.userId;
-            requestGetService("/xczh/host/doctor",{
-                lecturerId:doctorUserId
-            },function(data) {
-                if(data.success==true){
-                    var obj = data.resultObject;
-                    $(".top_details").html(template('top_details',{items:obj}));
+            var obj = data.resultObject;
+            $(".top_details").html(template('top_details',{items:obj}));
+            //关注
+            $(".attention").click(function(){
+                var lecturerId = $(this).attr("data-userId");
+                var src = $(this).find('img').attr('src');
+                var p = $(".fans").find('#fansCount').html();
+                if(src.indexOf("weigz")>-1){
+                    my_follow(lecturerId,1);
+                    $(".attention").find('img').attr('src','/xcview/images/yigz.png');
+                    $(".attention").find('.pay_attention').html("已关注");
+                    $(".attention").css("background","#bbb");
+                    $(".fans").find('#fansCount').html(parseInt(p)+1);
+                } else {
+                    my_follow(lecturerId,2);
+                    $(".attention").find('img').attr('src','/xcview/images/weigz.png');
+                    $(".attention").find('.pay_attention').html("加关注");
+                    $(".attention").css("background","#00bc12");
+                    $(".fans").find('#fansCount').html(parseInt(p)-1);
                 }
             });
 
@@ -207,6 +220,11 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
             var itemId = $(this).attr("data-id");
             common_jump_all(itemId)
         });
+        //医案跳转
+        mui("#refreshContainer").on('tap', '.consilia_nav_cen', function (event) {
+            var itemId = $(this).attr("data-id");
+            location.href = "/xcview/html/physician/consilia.html?articleId=" + itemId;
+        });
     });
 }
 
@@ -219,8 +237,8 @@ function postsType(obj) {
  * 评论
  */
 function sendComment(){
-    var article = $("#form_article").html();
-    if($("#form_article").html()==""){
+    var article = $("#form_article").val();
+    if($("#form_article").val()==""){
         webToast("内容不能为空","middle",1500);
         return false;
     }
@@ -308,7 +326,7 @@ function postsLike(obj,postsId) {
             $("#"+postsId+"").children("div").find("img").attr('src','/xcview/images/zan001.png');
             //重新获取点赞列表
             $("#"+postsId).show();
-            if($("#"+postsId).children(".evaluate_main").children("div").length==0 ){
+            if($("#"+postsId).children(".evaluate_main").children(".evaluateDiv").length==0 ){
                 $("#"+postsId).find(".evaluate_main").hide();
             }
             $("#"+postsId).find(".number_people_fize").show();
@@ -331,7 +349,7 @@ function delPostsLike(obj,postsId) {
             $("#"+postsId+"").children("div").find("img").attr('src','/xcview/images/zan01.png');
             //重新获取点赞列表
             getPostsLikeList(postsId,data.resultObject.list);
-            if($("#"+postsId).children(".evaluate_main").children("div").length==0 && data.resultObject.list.length==0){
+            if($("#"+postsId).children(".evaluate_main").children(".evaluateDiv").length==0 && data.resultObject.list.length==0){
                 $("#"+postsId).hide();
             }else if(data.resultObject.list.length==0){
                 $("#"+postsId).find(".number_people_fize").hide();
@@ -390,6 +408,15 @@ function articleDetails(id) {
 //医案跳转
 function consiliaDetails(id) {
     location.href = "/xcview/html/physician/consilia.html?articleId=" + id;
+}
+
+//增加/取消关注
+function my_follow(followed, type) {
+    requestService("/xczh/myinfo/updateFocus", {
+        lecturerId: followed,
+        type: type
+    }, function (data) {
+    })
 }
 
 //动态刷新
