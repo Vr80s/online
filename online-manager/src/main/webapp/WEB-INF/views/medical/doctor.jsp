@@ -862,7 +862,7 @@
 			</div>
 		</div>
 
-		<div class="space-4"></div>
+		<%--<div class="space-4"></div>
 		<div class="form-group" style="margin-top: 18px;" >
 			<label class="col-sm-3 control-label no-padding-right" for="workTime"><font color="red">*</font>坐诊时间: </label>
 			<div class="col-sm-6">
@@ -874,11 +874,11 @@
 		<div class="form-group"  style="margin-top: 18px;" >
 			<label class="col-sm-3 control-label no-padding-right" for="description">医师简介: </label>
 			<div class="col-sm-6 my-setContent">
-				<%--<textarea class="form-control" name="description" id="edit_description"  rows="8"></textarea>--%>
+				&lt;%&ndash;<textarea class="form-control" name="description" id="edit_description"  rows="8"></textarea>&ndash;%&gt;
 				<!--<textarea class="form-control edit_description" name="description" id="edit_description"  rows="8"></textarea>-->
 				<div name="description" id="edit_description"></div>
 			</div>
-		</div>
+		</div>--%>
 
 	</form>
 </div>

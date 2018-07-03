@@ -188,7 +188,7 @@ public class ThirdPartyCertificationController {
          */
         OeUserVO userVO = userCenterService.getUserVO(userName);
         if (userVO == null) {
-            userCenterService.regist(userName, passWord, "", UserOrigin.ANDROID);
+            userCenterService.regist(userName, passWord, "", ClientType.ANDROID);
             userVO = userCenterService.getUserVO(userName);
         } else {
             return ResponseObject.newErrorResponseObject("该手机号已经注册不用重新输入密码");

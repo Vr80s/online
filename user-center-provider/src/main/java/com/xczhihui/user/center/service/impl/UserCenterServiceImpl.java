@@ -15,8 +15,8 @@ import com.xczhihui.common.util.CodeUtil;
 import com.xczhihui.common.util.RandomUtil;
 import com.xczhihui.common.util.RedisCacheKey;
 import com.xczhihui.common.util.VhallUtil;
+import com.xczhihui.common.util.enums.ClientType;
 import com.xczhihui.common.util.enums.TokenExpires;
-import com.xczhihui.common.util.enums.UserOrigin;
 import com.xczhihui.common.util.enums.UserStatus;
 import com.xczhihui.user.center.exception.LoginRegException;
 import com.xczhihui.user.center.mapper.OeUserMapper;
@@ -60,7 +60,7 @@ public class UserCenterServiceImpl implements UserCenterService {
     }
 
     @Override
-    public void regist(String loginName, String password, String nikeName, UserOrigin origin, Boolean visitor) {
+    public void regist(String loginName, String password, String nikeName, ClientType origin, Boolean visitor) {
         if (!StringUtils.hasText(loginName) || !StringUtils.hasText(password)) {
             throw new LoginRegException("用户名、密码不允许为空！");
         }
@@ -86,7 +86,7 @@ public class UserCenterServiceImpl implements UserCenterService {
     }
 
     @Override
-    public void regist(String loginName, String password, String nikeName, UserOrigin origin) {
+    public void regist(String loginName, String password, String nikeName, ClientType origin) {
         regist(loginName, password, nikeName, origin, Boolean.FALSE);
     }
 
@@ -292,7 +292,7 @@ public class UserCenterServiceImpl implements UserCenterService {
         }
         OeUserVO userVO = this.getUserVO(username);
         if (userVO == null) {
-            this.regist(username, username, "游客", UserOrigin.IOS, Boolean.TRUE);
+            this.regist(username, username, "游客", ClientType.IOS, Boolean.TRUE);
         }
         return loginMobile(username, username, TokenExpires.TenDay);
     }
