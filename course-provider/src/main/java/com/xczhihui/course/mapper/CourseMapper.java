@@ -182,4 +182,13 @@ public interface CourseMapper extends BaseMapper<Course> {
 
     List<CourseLecturVo> selectRecommendSortAndRandCourse(@Param("page") Page<CourseLecturVo> page);
 
+    /**
+     * 获取所有上架课程
+     *
+     * @return
+     */
+    @Select({"select id, grade_name as gradeName, subtitle as subtitle, smallimg_path as smallImgPath, user_lecturer_id as userLecturerId, release_time as releaseTime" +
+            " from oe_course where status = 1 and is_delete = 0"})
+    List<Course> getAllCourseByStatus();
+
 }

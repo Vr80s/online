@@ -181,6 +181,12 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     }
 
     @Override
+    public List<Course> getAllCourseByStatus() {
+        List<Course> list = iCourseMapper.getAllCourseByStatus();
+        return list;
+    }
+
+    @Override
     public List<CourseLecturVo> selectRecommendSortAndRandCourse(Page<CourseLecturVo> page) {
 
         return iCourseMapper.selectRecommendSortAndRandCourse(page);
