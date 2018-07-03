@@ -996,6 +996,7 @@ header{
     text-overflow: ellipsis;
     white-space: nowrap;
     width: 3.39rem;
+    margin-bottom: 0.04rem !important;
 }
 .boutique_main_one_title .span{
     margin-right: 0.2rem;
@@ -1005,6 +1006,9 @@ header{
     text-overflow: ellipsis;
     display: inline-block;
     float: left;
+}
+.boutique_main_one_size{
+    overflow: hidden;
 }
 .boutique_main_one_size P{
     font-size: 0.22rem;
@@ -1279,6 +1283,10 @@ header{
     font-size: 0.22rem;
     color: #999;
 }
+.boutique_main_four_size{
+    overflow: hidden;
+    margin-top: 0.07rem;
+}
 .boutique_main_four_size P{
     font-size: 0.22rem;
     color: #999999;
@@ -1468,6 +1476,7 @@ header{
     width: 100%;
     font-size: 0.22rem;
     color: #999;
+    margin-bottom: 0.07rem;
 }
 .newest_main_two_size P{
     font-size: 0.24rem;
