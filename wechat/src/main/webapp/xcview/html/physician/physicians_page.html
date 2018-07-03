@@ -10,25 +10,25 @@
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <meta name="keywords" content="" />
 
-<!-- <link rel="stylesheet" type="text/css" href="/xcview/css/physician/index.css?v=wechat_1.1.1"/> -->
-<link rel="stylesheet" type="text/css" href="/xcview/css/physician/physicians_page.css?v=wechat_1.1.1"/>
+<!-- <link rel="stylesheet" type="text/css" href="/xcview/css/physician/index.css?v=wechat_1.1.1&version=20feeb913b"/> -->
+<link rel="stylesheet" type="text/css" href="/xcview/css/physician/physicians_page.css?v=wechat_1.1.1&version=460bed8932"/>
 <link rel="stylesheet" href="/xcview/css/physician/swiper-4.2.6.min.css" />
 <!--手机嵌入模板-->
-<script type="text/javascript" src="/xcview/js/common/layout.js"></script>
+<script type="text/javascript" src="/xcview/js/common/layout.js?version=e2b9d5cdbd"></script>
 
 <script src="/xcview/js/physician/zepto1.14.min.js"></script>
 <script src="/xcview/js/physician/swiper-4.2.6.min.js"></script>
 
-<script type="text/javascript" src="/xcview/js/common/jquery.min-2.1.1.js"></script>
+<script type="text/javascript" src="/xcview/js/common/jquery.min-2.1.1.js?version=d021c983bd"></script>
 
 <!-- 介绍数据引入 -->
-<script type="text/javascript" src="/xcview/js/physician/referral.js"></script>
+<script type="text/javascript" src="/xcview/js/physician/referral.js?version=6743f0205e"></script>
 
 <!-- 直播间数据引入 -->
-<script type="text/javascript" src="/xcview/js/physician/broadcastroom.js"></script>
+<script type="text/javascript" src="/xcview/js/physician/broadcastroom.js?version=d41d8cd98f"></script>
 <!--公用弹框 -->
-<link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
-<script type="text/javascript" src="/xcview/js/common/alertPopShow.js"></script>
+<link rel="stylesheet" href="/xcview/css/alert/sharecss.css?version=f6e45d2a7e">
+<script type="text/javascript" src="/xcview/js/common/alertPopShow.js?version=3a4f24e3df"></script>
 <!--刷新 -->
 <link rel="stylesheet" href="/xcview/css/mescroll.min.css">
 <script type="text/javascript" src="/xcview/js/common/mescroll.min.js"></script>
@@ -36,9 +36,9 @@
 <link rel="stylesheet" href="/xcview/css/mui.min.css">
 
 <!-- 表情包聊天引入 -->
-<link href="/xcview/html/physician/css/webiaoqing.css" rel="stylesheet" type="text/css">
-<script src="/xcview/html/physician/js/jquery_min.js" ></script>
-<script src="/xcview/html/physician/js/webiaoqin.js" ></script>
+<link href="/xcview/html/physician/css/webiaoqing.css?version=495638f506" rel="stylesheet" type="text/css">
+<script src="/xcview/html/physician/js/jquery_min.js?version=628072e721" ></script>
+<script src="/xcview/html/physician/js/webiaoqin.js?version=9f3575a6d9" ></script>
 
 <script>
 	// 判断横屏展示时的状态
@@ -214,7 +214,7 @@
 </head>
 <body style="background: #F8F8F8;">
 	<div class="physicians_page_main comment_hide">
-		<script type="text/html" id="physicians_page_main">
+		
 		<!-- 头部开始 -->
 		<div class="wrap-header" id="header">
 			<div class="header">		
@@ -231,21 +231,17 @@
 
 		<!-- 轮播开始 -->
 		<!--顶部轮播-->
-		<div class="swiper-container top_swiper" >
+		<div class="swiper-container top_swiper" onclick="location.href ='broadcastRoom.html'">
 			<div class="swiper-wrapper">
-
-					{{each items.banners as item i}}
-				<div class="swiper-slide pic01" onclick="sowingDetails('{{item.url}}')">
-					<img src="{{item.imgUrl}}" alt="" />
+				<div class="swiper-slide pic01">
+					<img src="/xcview/images/xianxia_03.jpg" alt="" />
 				</div>
-					{{/each}}
-
-				<!--<div class="swiper-slide pic02">
+				<div class="swiper-slide pic02">
 					<img src="/xcview/images/xianxia_03.jpg" alt="" />
 				</div>
 				<div class="swiper-slide pic03">
 					<img src="/xcview/images/xianxia_03.jpg" alt="" />
-				</div>-->
+				</div>
 			</div>
 			<div class="swiper-pagination"></div>
 
@@ -259,15 +255,13 @@
 			</div>
 			<div class="message">
 				<div class="message_name">
-					<div class="name">{{items.lecturerInfo.name}}</div>
+					<div class="name">我是名字</div>
 					<div class="message_characteristic">我的师傅</div>
 					<div class="both"></div>
 				</div>
 				<div class="message_face">
 					<span class="disciple"><span class="disciple_fize">弟子</span>25</span>
-					{{if items.fansCount>0}}
-					<span class="fans"><span class="fans_size">粉丝</span>{{items.fansCount}}</span>
-					{{/if}}
+					<span class="fans"><span class="fans_size">粉丝</span>110</span>
 					<div class="both"></div>
 				</div>
 				
@@ -291,7 +285,6 @@
 				<div class="dynamic_opacity"></div>
 			</ul>
 		</div>
-		</script>
 		<!-- 选项卡结束 -->
 
 		<!-- 点击全部动态=显示筛看开始 -->
@@ -309,7 +302,6 @@
 			</div>
 		</div>
 		<!-- 点击全部动态=显示筛看结束 -->
-
 	</div>
 	<!-- 中间内容开始 -->
 	<div class="the_dynamic">
@@ -366,7 +358,7 @@
 				</div>
 				{{else if item.typeId != null && item.typeId != 8}}
 				<!-- 文章-->
-				<div class="article_hide" data-id="{{item.articleId}}" >
+				<div class="article_hide" onclick="articleDetails('{{item.articleId}}')">
 					<div class="article_nav_span comment_hide">
 						{{if item.stick}}
 						<span class="stick_img_stick"><img src="/xcview/images/stick.png" alt="" />置顶</span>
@@ -381,7 +373,7 @@
 				</div>
 				{{else if item.type == 5}}
 				<!-- 课程-->
-				<div class="course_hide" data-id="{{item.courseId}}" >
+				<div class="course_hide" onclick="common_jump_all('{{item.courseId}}')">
 					<div class="course_nav_span comment_hide" style="font-size: 0.3rem;color: #333333;">
 						{{if item.stick}}
 						<span class="stick_img_stick"><img src="/xcview/images/stick.png" alt="" />置顶</span>
@@ -935,16 +927,16 @@
 <!-- <script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script> -->
 <script src="/xcview/weihoujs/jquery.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
-<script type="text/javascript" src="/xcview/js/common/common.js?v=wechat_1.1.1"></script> 
-<script type="text/javascript" src="/xcview/js/common/template.js"></script>    <!--数据模板引入-->
+<script type="text/javascript" src="/xcview/js/common/common.js?v=wechat_1.1.1&version=4a733d0dc2"></script> 
+<script type="text/javascript" src="/xcview/js/common/template.js?version=dd622e58c9"></script>    <!--数据模板引入-->
 
 <!-- 直播课跳转 -->
-<script type="text/javascript" src="/xcview/js/common/commonJumpPlay.js"></script>
+<script type="text/javascript" src="/xcview/js/common/commonJumpPlay.js?version=8bcdb81554"></script>
 
-<script type="text/javascript" src="/xcview/js/physician/physician_dynamics.js"></script>    <!--全部动态引入-->
+<script type="text/javascript" src="/xcview/js/physician/physician_dynamics.js?version=6ee8c1a42c"></script>    <!--全部动态引入-->
 
 <!-- 直播间数据引入 -->
-<script type="text/javascript" src="/xcview/js/physician/broadcastroom.js"></script>
+<script type="text/javascript" src="/xcview/js/physician/broadcastroom.js?version=d41d8cd98f"></script>
 
 
 

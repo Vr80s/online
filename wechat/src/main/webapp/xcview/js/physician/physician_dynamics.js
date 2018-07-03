@@ -1,4 +1,4 @@
-	
+    
 var doctorId = getQueryString("doctor");
 var loginUserId="";
 var loginUserName="";
@@ -9,31 +9,9 @@ var doctorPostsType ="";
 $(function(){
     loginUserId = localStorage.getItem("userId");
     loginUserName = localStorage.getItem("name");
-    sowingMap();
-    doctorPostsList(1,'down',"");
+
 });
 
-//轮播图
-function sowingMap() {
-    requestService("/xczh/doctors/doctorStatus", {
-        doctorId: doctorId
-    }, function (data) {
-        if(data.success ){
-            var doctorUserId =  data.resultObject.userId;
-            requestGetService("/xczh/host/doctor", {
-                lecturerId: doctorUserId
-            }, function (data) {
-                var obj =  data.resultObject;
-                if(data.success ){
-                    $(".physicians_page_main").html(template('physicians_page_main',{items:obj}));
-                }
-            });
-        }
-    });
-
-
-
-}
 //动态列表
 function doctorPostsList(num,downOrUp,doctorPostsType) {
     requestGetService("/doctor/posts", {
@@ -69,9 +47,9 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
             }
         }
 
-        //	判断是下拉刷新还是上拉加载
+        //  判断是下拉刷新还是上拉加载
         if(downOrUp=='down'){
-            //  	判断有无评价显示默认图片
+            //      判断有无评价显示默认图片
             /*if(data.resultObject.items.length==0){
                 $(".quie_pic").show()
             }else{
@@ -170,16 +148,6 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
                     });
                 })
             }
-        });
-        //文章跳转
-        mui("#refreshContainer").on('tap', '.article_hide', function (event) {
-            var articleId=$(this).attr("data-id");
-            location.href = "/xcview/html/physician/article.html?articleId=" + articleId;
-        });
-        //课程跳转
-        mui("#refreshContainer").on('tap', '.course_hide', function (event) {
-            var itemId=$(this).attr("data-id");
-            common_jump_all(itemId);
         });
     });
 }
@@ -335,8 +303,8 @@ function getPostsLikeList(postsId,list) {
  * multimediaType:媒体类型  视频 1 音频 2
  */
 function ccVideo(videoId, multimediaType,id) {
-    var playerwidth = window.screen.width; //	屏幕分辨率的宽：window.screen.width
-    var playerheight = 8.95 * 21.8; //	屏幕分辨率的高：window.screen.height
+    var playerwidth = window.screen.width; //   屏幕分辨率的宽：window.screen.width
+    var playerheight = 8.95 * 21.8; //  屏幕分辨率的高：window.screen.height
     console.log(playerwidth);
     var dataParams = {
         playerwidth: playerwidth,
@@ -357,16 +325,15 @@ function ccVideo(videoId, multimediaType,id) {
         }, false);
 }
 
+//文章跳转
+function articleDetails(id) {
+    location.href = "/xcview/html/physician/article.html?articleId=" + id;
+}
 //医案跳转
 function consiliaDetails(id) {
     location.href = "/xcview/html/physician/consilia.html?articleId=" + id;
 }
-function sowingDetails(url) {
-    if(url != null && url !=""){
-        location.href = url;
-    }
 
-}
 //动态刷新
 var num = 1;
 mui.init();
