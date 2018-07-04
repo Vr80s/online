@@ -90,7 +90,7 @@ public class MedicalDoctorApplyController {
         medicalDoctorApply.setProfessionalCertificate(professionalCertificate);
 
         medicalDoctorApply.setClientType(HeaderInterceptor.getClientTypeCode());
-        LOGGER.info("--------------------医师认证");
+        LOGGER.warn("--------------------医师认证,clientType:",medicalDoctorApply.getClientType());
         medicalDoctorApplyService.add(medicalDoctorApply);
         return ResponseObject.newSuccessResponseObject("创建成功");
     }

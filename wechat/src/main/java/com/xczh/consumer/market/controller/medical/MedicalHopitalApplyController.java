@@ -72,6 +72,8 @@ public class MedicalHopitalApplyController {
                 .setLicenseForPharmaceuticalTradingPicture(licenseForPharmaceuticalTradingPicture);
 
         medicalHospitalApply.setClientType(HeaderInterceptor.getClientTypeCode());
+        LOGGER.warn("--------------------医师认证,clientType:",medicalHospitalApply.getClientType());
+
         medicalHospitalApplyService.add(medicalHospitalApply);
         return ResponseObject.newSuccessResponseObject("创建成功");
     }
