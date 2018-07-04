@@ -259,7 +259,7 @@ p{
     top: 0;
     left: 0.15rem;
     opacity: 0.2;
-    background: red;
+    /*background: red;*/
     z-index: 2;
 }
 
@@ -474,8 +474,9 @@ p{
 .consilia_nav_span .title{
 	font-size: 0.3rem;
     color: #151515;
-    display: -webkit-box;
+    /*display: -webkit-box;*/
     float: left;
+    margin-bottom: 0.2rem;
 }
 .consilia_nav_span .stick_img{
 	font-size: 0.3rem;
@@ -621,6 +622,10 @@ p{
 	color: #333333;
 	float: left;
 	width: 4.29rem;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	overflow: hidden;
 }
 .basis_tips{
 	font-size: 0.22rem;
@@ -1961,7 +1966,7 @@ table tr td img{
 
 /*文章置顶处理*/
 .comment_hide{
-    overflow: hidden;
+    /*overflow: hidden;*/
 }
 
 
@@ -2044,4 +2049,18 @@ table tr td img{
 }
 #fansCount{
 	margin-top: 0.04rem;
+}
+
+.consilia_nav_span_div{
+	width: 7.5rem;
+    height: 100%;
+    background: #fff;
+    padding-top: 0.3rem;
+}
+.consilia_nav_span .stick_imgs{
+	font-size: 0.3rem;
+    color: #F97B49;
+    float: left;
+    /*display: -webkit-box;*/
+    margin-right: 0.1rem;
 }

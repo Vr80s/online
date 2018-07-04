@@ -372,7 +372,7 @@
 				{{else if item.typeId != null && item.typeId != 8}}
 				<!-- 文章-->
 				<div class="article_hide" data-id="{{item.articleId}}">
-					<div class="article_nav_span comment_hide">
+					<div class="article_nav_span comment_hide" style="overflow: hidden; */">
 						{{if item.stick}}
 						<span class="stick_img_stick"><img src="/xcview/images/stick.png" alt="" />置顶</span>
 						{{/if}}
@@ -416,21 +416,23 @@
 					<div class="both"></div>
 				</div>
 				{{else if item.typeId != null && item.typeId == 8}}
-				<!-- 医案-->
-				<div class="consilia_nav_span comment_hide">
-					{{if item.stick}}
-					<span class="stick_img"><img src="/xcview/images/stick.png" alt="" />置顶</span>
-					{{/if}}
-					<span class="stick_img">#医案#</span>
-					<span class="title">{{item.articleTitle}}</span>
-				</div>
-				<div class="consilia_nav_main comment_hide">
-
-				</div>
-				<div class="consilia_nav_btn"><span>收起</span></div>
-				<div class="consilia_nav_cen comment_hide" data-id="{{item.articleId}}" >
-					<img src="{{item.articleImgPath}}" alt="" />
-					<div class="consilia_nav_cen_size">{{item.articleContent}}</div>
+				<div class="consilia_nav_span_div">
+					<!-- 医案-->
+					<div class="consilia_nav_span comment_hide">
+						{{if item.stick}}
+						<span class="stick_img"><img src="/xcview/images/stick.png" alt="" />置顶</span>
+						{{/if}}
+						
+						<div class="title"><span class="stick_imgs">#医案#</span>{{item.articleTitle}}</div>
+						<div class="both"></div>
+					</div>
+					<div class="both"></div>
+					<div class="consilia_nav_btn"><span>收起</span></div>
+					<div class="consilia_nav_cen" data-id="{{item.articleId}}" style="display: block;">
+						<img src="{{item.articleImgPath}}" alt="" />
+						<div class="consilia_nav_cen_size">{{item.articleContent}}</div>
+					</div>
+					<div class="both"></div>
 				</div>
 				<div class="both"></div>
 				{{/if}}

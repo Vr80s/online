@@ -603,14 +603,19 @@ var activityType;
 		$(".article-null").addClass("hide")	         //隐藏文章提示
 		if(typeId==8){
 			$(".consilia-search-wrap input").attr("placeholder","搜索医案标题").val("");
+
 		}else if(typeId==4){
 			$(".consilia-search-wrap input").attr("placeholder","搜索专栏标题").val("");
+
 		}else if(typeId==7){
 			$(".consilia-search-wrap input").attr("placeholder","添加媒体报道标题").val("");
+
 		}		
 	}
 	$(".consilia-status-nav li").removeClass("active");
 	$(this).addClass("active");
+	$(".search-input img").click();
+	
 });
 //	医案搜索
 	$(".search-input img").click(function(){
@@ -624,7 +629,7 @@ var activityType;
         	if (data.success==true) {
         		var searchData=data.resultObject.records;
 //      		判断索搜到的条数
-        		$(".consilia-result .search-keyword").text(keyword);
+//      		$(".consilia-result .search-keyword").text(keyword);
         		if(isBlank(data.resultObject.total)){
         			$(".consilia-result .number-search").text("0");
         		}else{
@@ -1283,7 +1288,7 @@ template.config("escape", false);
         } else {
 		    return ;
         }
-        var str="<option value=''>选择一个"+name+"</option>";
+        var str='<option value="" style="color:#adadad">选择一个'+name+'</option>';
         
         for(var i=0;data.length>i;i++){
             str += "<option value='"+data[i].id+"'>"+data[i].title+"</option>";

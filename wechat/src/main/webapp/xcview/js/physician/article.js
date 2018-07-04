@@ -7,7 +7,10 @@ $(function(){
  		id:id
  	},function (data) {
 	    if (data.success == true) {
-		  $('#consilia_main_center').html(template('consilia_main_center_id', {items: data.resultObject}));
+		  	$('#consilia_main_center').html(template('consilia_main_center_id', {items: data.resultObject}));
+	    
+	        $(".consilia_textarea").html(data.resultObject.content);
+	        
 	    }
 	});
 
@@ -23,7 +26,17 @@ $(function(){
 	 	},function (data) {
 		    if (data.success == true) {
 			$('.wrap_all_returned').html(template('broadcastroom_id', {items: data.resultObject}));
-		    
+	    	
+	    	var a=$(".wrap_all_returned").html();
+		    if(a==null||a.length==0){
+		       $(".quie_pic").show();
+		       $(".opacity_height").hide();
+		    }else{
+				$(".quie_pic").hide();
+		        $(".opacity_height").show();
+		    };
+
+
 		    //	回复弹窗
 	        $(".wrap_returned_btn .btn_littleReturn").click(function () {
 	        	// alert(55555);
