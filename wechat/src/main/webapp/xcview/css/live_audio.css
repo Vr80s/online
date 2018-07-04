@@ -754,7 +754,7 @@ line-height: 0.42rem;
 /*标签*/
 .select_lable{
 	clear: both;
-	padding-top: 0.4rem;
+	/*padding-top: 0.4rem;*/
 }
 .select_lable .active_color{
 	background: #00BC12;
