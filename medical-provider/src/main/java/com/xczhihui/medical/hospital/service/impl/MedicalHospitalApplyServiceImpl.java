@@ -1,6 +1,7 @@
 package com.xczhihui.medical.hospital.service.impl;
 
 import java.util.*;
+import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -36,7 +37,11 @@ import com.xczhihui.medical.hospital.service.IMedicalHospitalApplyService;
 @Service
 public class MedicalHospitalApplyServiceImpl extends ServiceImpl<MedicalHospitalApplyMapper, MedicalHospitalApply> implements IMedicalHospitalApplyService {
 
+    private final static Pattern LICENSE_FOR_PHARMACEUTICAL_TRADING_PATTERN= Pattern.compile("^[\\u4E00-\\u9FA5]{1}[A-Za-z]{2}[0-9]{7}$");
+    private final static Pattern BUSINESS_LICENSE_NO_REG_PATTERN= Pattern.compile("^[0-9A-Z]{18}$");
     private final Logger logger = LoggerFactory.getLogger(getClass());
+
+
     @Autowired
     private MedicalHospitalApplyMapper applyMapper;
     @Autowired
@@ -200,10 +205,10 @@ public class MedicalHospitalApplyServiceImpl extends ServiceImpl<MedicalHospital
         }
 
         if (StringUtils.isBlank(target.getBusinessLicenseNo())) {
-            throw new MedicalException("营业执照号码不能为空");
+            throw new MedicalException("统一社会信用代码不能为空");
         } else {
-            if (target.getBusinessLicenseNo().length() > 32) {
-                throw new MedicalException("营业执照号码应保持在32字以内");
+            if (BUSINESS_LICENSE_NO_REG_PATTERN.matcher(target.getBusinessLicenseNo()).matches()) {
+                throw new MedicalException("统一社会信用代码格式错误");
             }
         }
 
@@ -214,8 +219,8 @@ public class MedicalHospitalApplyServiceImpl extends ServiceImpl<MedicalHospital
         if (StringUtils.isBlank(target.getLicenseForPharmaceuticalTrading())) {
             throw new MedicalException("药品经营许可证号码不能为空");
         } else {
-            if (target.getLicenseForPharmaceuticalTrading().length() > 32) {
-                throw new MedicalException("药品经营许可证号码应保持在32字以内");
+            if (LICENSE_FOR_PHARMACEUTICAL_TRADING_PATTERN.matcher(target.getLicenseForPharmaceuticalTrading()).matches()) {
+                throw new MedicalException("药品经营许可证号码格式错误");
             }
         }
 
