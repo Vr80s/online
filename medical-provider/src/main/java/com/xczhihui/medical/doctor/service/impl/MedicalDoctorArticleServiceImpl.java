@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import com.xczhihui.medical.doctor.mapper.MedicalDoctorPostsMapper;
+import com.xczhihui.medical.doctor.model.MedicalDoctorPosts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +32,8 @@ public class MedicalDoctorArticleServiceImpl implements IMedicalDoctorArticleSer
     private MedicalDoctorReportMapper medicalDoctorReportMapper;
     @Autowired
     private MedicalSpecialColumnMapper medicalSpecialColumnMapper;
+    @Autowired
+    private MedicalDoctorPostsMapper medicalDoctorPostsMapper;
 
     @Override
     public Page<OeBxsArticleVO> listSpecialColumn(int page, int size, String doctorId, String keyQuery, String type) {
@@ -40,7 +44,10 @@ public class MedicalDoctorArticleServiceImpl implements IMedicalDoctorArticleSer
     @Override
     public void saveSpecialColumn(String doctorId, OeBxsArticle oeBxsArticle) {
         oeBxsArticleMapper.insert(oeBxsArticle);
-
+        if(oeBxsArticle.getStatus() == 1){
+            //更新动态
+            addDoctorPosts(doctorId, oeBxsArticle);
+        }
         MedicalDoctorSpecialColumn medicalDoctorSpecialColumn = new MedicalDoctorSpecialColumn();
         medicalDoctorSpecialColumn.setArticleId(String.valueOf(oeBxsArticle.getId()));
         medicalDoctorSpecialColumn.setCreateTime(new Date());
@@ -108,7 +115,10 @@ public class MedicalDoctorArticleServiceImpl implements IMedicalDoctorArticleSer
     @Override
     public void saveReport(String doctorId, OeBxsArticle oeBxsArticle) {
         oeBxsArticleMapper.insert(oeBxsArticle);
-
+        if(oeBxsArticle.getStatus() == 1){
+            //更新动态
+            addDoctorPosts(doctorId, oeBxsArticle);
+        }
         MedicalDoctorReport medicalDoctorReport = new MedicalDoctorReport();
         medicalDoctorReport.setArticleId(String.valueOf(oeBxsArticle.getId()));
         medicalDoctorReport.setCreateTime(new Date());
@@ -117,6 +127,7 @@ public class MedicalDoctorArticleServiceImpl implements IMedicalDoctorArticleSer
         medicalDoctorReportMapper.insert(medicalDoctorReport);
 
     }
+
 
     @Override
     public boolean updateReport(String doctorId, OeBxsArticle oeBxsArticle, String id) {
@@ -234,4 +245,26 @@ public class MedicalDoctorArticleServiceImpl implements IMedicalDoctorArticleSer
     public OeBxsArticleVO getSimpleInfo(int id) {
         return oeBxsArticleMapper.getSimpleInfo(id);
     }
+
+
+/**
+ * Description：添加专栏/报道时同步动态
+ * creed: Talk is cheap,show me the code
+ * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
+ * @Date: 2018/7/4 15:13
+ **/
+    private void addDoctorPosts(String doctorId, OeBxsArticle oeBxsArticle) {
+        MedicalDoctorPosts mdp = new MedicalDoctorPosts();
+        mdp.setType(4);
+        mdp.setDoctorId(doctorId);
+        mdp.setArticleId(oeBxsArticle.getId());
+        mdp.setArticleContent(oeBxsArticle.getContent());
+        mdp.setArticleImgPath(oeBxsArticle.getImgPath());
+        mdp.setArticleTitle(oeBxsArticle.getTitle());
+        medicalDoctorPostsMapper.addMedicalDoctorPosts(mdp);
+    }
+
+
 }
+
+

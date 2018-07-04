@@ -3,6 +3,10 @@ package com.xczhihui.course.service.impl;
 import java.io.IOException;
 import java.util.*;
 
+import com.xczhihui.medical.doctor.model.MedicalDoctorAccount;
+import com.xczhihui.medical.doctor.model.MedicalDoctorPosts;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorAccountService;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsService;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
@@ -60,6 +64,10 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
     private LiveCallbackService liveCallbackService;
     @Autowired
     private ICourseSolrService courseSolrService;
+    @Autowired
+    private IMedicalDoctorPostsService medicalDoctorPostsService;
+    @Autowired
+    private IMedicalDoctorAccountService medicalDoctorAccountService;
     @Value("${env.flag}")
     private String envFlag;
     @Value("${vhall.user.id}")
@@ -499,6 +507,17 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
             status = false;
         } else {
             course.setStatus("1");
+        }
+        if(course.getStatus().equals("1")){
+            //更新动态
+            MedicalDoctorAccount mha = medicalDoctorAccountService.getByUserId(course.getUserLecturerId());
+            MedicalDoctorPosts mdp = new MedicalDoctorPosts();
+            mdp.setContent(course.getGradeName()+","+course.getSubtitle());
+            mdp.setType(5);
+            mdp.setTitle(course.getGradeName());
+            mdp.setDoctorId(mha.getDoctorId());
+            mdp.setCourseId(course.getId());
+            medicalDoctorPostsService.addMedicalDoctorPosts(mdp);
         }
         dao.update(course);
         return status;

@@ -2,6 +2,8 @@ package com.xczhihui.medical.doctor.service.impl;
 
 import java.util.Date;
 
+import com.xczhihui.medical.doctor.mapper.MedicalDoctorPostsMapper;
+import com.xczhihui.medical.doctor.model.MedicalDoctorPosts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +30,8 @@ public class MedicalDoctorWritingServiceImpl implements IMedicalDoctorWritingSer
     private OeBxsArticleMapper oeBxsArticleMapper;
     @Autowired
     private MedicalDoctorWritingMapper medicalDoctorWritingMapper;
+    @Autowired
+    private MedicalDoctorPostsMapper medicalDoctorPostsMapper;
 
     @Override
     public Page<MedicalWritingVO> list(int page, int size, String userId) {
@@ -81,6 +85,17 @@ public class MedicalDoctorWritingServiceImpl implements IMedicalDoctorWritingSer
         oeBxsArticleMapper.insert(oeBxsArticle);
         Integer articleId = oeBxsArticle.getId();
 
+        if(oeBxsArticle.getStatus() == 1){
+            //更新动态
+            MedicalDoctorPosts mdp = new MedicalDoctorPosts();
+            mdp.setType(4);
+            mdp.setDoctorId(doctorId);
+            mdp.setArticleId(articleId);
+            mdp.setArticleContent(oeBxsArticle.getContent());
+            mdp.setArticleImgPath(oeBxsArticle.getImgPath());
+            mdp.setArticleTitle(oeBxsArticle.getTitle());
+            medicalDoctorPostsMapper.addMedicalDoctorPosts(mdp);
+        }
         medicalWriting.setArticleId(articleId);
         medicalWriting.setId(CodeUtil.getRandomUUID());
         medicalWritingMapper.insert(medicalWriting);
