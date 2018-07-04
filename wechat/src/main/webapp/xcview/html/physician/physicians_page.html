@@ -359,8 +359,6 @@
 						<span class="stick_img_stick"><img src="/xcview/images/stick.png" alt="" />置顶</span>
 						{{/if}}
 						<span class="span_span{{item.id}}"></span>
-						
-						
 					</div>
 					{{if item.pictures !=null && item.pics.length>0}}
 					<div class="paper_nav_cen_div">
@@ -382,9 +380,13 @@
 					{{/if}}
 					<span class="title">{{item.content}}</span>
 				</div>
-				<div id="ccvideo{{item.id}}" class="comment_hide ccvideo">
-
-				</div>
+				<div class="ccvideo_div">
+					<div id="ccvideo{{item.id}}" class="comment_hide ccvideo">
+						
+					</div>
+					<img src="{{item.coverImg}}" class="ccvideo_img" />
+				<div>
+				
 				{{else if item.typeId != null && item.typeId != 8}}
 				<!-- 文章-->
 				<div class="article_hide" data-id="{{item.articleId}}">
@@ -1304,9 +1306,12 @@ $(window).bind("scroll", function() {
 	// 判断头部有没有默认图
 	var a=$(".swiper-wrapper").html();
    	if(a==null||a.length==0){
+   		// alert(1111);
        $(".physician_img0").css("display","block");
     }else{
        $(".physician_img0").css("display","none");
+   		// alert(222);
+
     };
 
 
