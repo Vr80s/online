@@ -83,7 +83,7 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
     private static final String WEB_COURSE_APPLY_FAIL_MESSAGE_TIPS =
             APP_COURSE_APPLY_FAIL_MESSAGE_TIPS;
     private static final String WEIXIN_COURSE_APPLY_FAIL_MESSAGE_TIPS =
-            "很遗憾，您发布的<<{0}>>课程未通过系统审核, 原因：{1}。如有疑问请联系客服0898-32881934。";
+            "【课程审核通知】很遗憾，您发布的<<{0}>>课程未通过系统审核, 原因：{1}。如有疑问请联系客服0898-32881934。";
     @Value("${vhall.callback.url}")
     String vhall_callback_url;
     @Value("${vhall.private.key}")

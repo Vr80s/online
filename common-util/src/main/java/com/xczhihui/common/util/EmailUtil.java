@@ -42,10 +42,10 @@ public class EmailUtil {
     }
 
     public static void sendExceptionMailBySSL(String server, String subject, String content) {
-        if (ENV != null && (ENV.equals("test") || ENV.equals("prod"))) {
+        if (ENV != null) {
             try {
                 String user;
-                if (ENV.equals("test")) {
+                if (ENV.equals("test")||ENV.equals("dev")) {
                     user = TOUSER2;
                 } else {
                     user = TOUSER1;
