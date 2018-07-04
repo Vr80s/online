@@ -115,7 +115,7 @@ $(function () {
             '<li><a href="/app" class="appDown hide">APP下载</a></li>' +
 
             '<li>' +
-			'<a href="/web/html/want-anchor.html" class="want-anchor" target="_blank">我要当主播</a>' +
+			'<a href="/anchor/guide" class="want-anchor" target="_blank">我要当主播</a>' +
             '</li>' +
             '<li>' +
             '<div class="messageBox">' +

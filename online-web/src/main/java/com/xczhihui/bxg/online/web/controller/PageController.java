@@ -222,5 +222,15 @@ public class PageController {
         request.getRequestDispatcher("/App.html").forward(request, response);
     }
 
+    /**
+     * 跳转至App.html
+     *
+     * @return
+     */
+    @RequestMapping(value = "/anchor/guide", method = RequestMethod.GET)
+    public void guide(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getRequestDispatcher("/web/html/want-anchor.html").forward(request, response);
+    }
+
 
 }
