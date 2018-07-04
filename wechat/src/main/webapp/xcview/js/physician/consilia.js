@@ -30,10 +30,10 @@ $(function(){
 	    	var a=$(".wrap_all_returned").html();
 		    if(a==null||a.length==0){
 		       $(".quie_pic").show();
-		       $(".opacity_height").hide();
+		       $(".opacity_height").show();
 		    }else{
 				$(".quie_pic").hide();
-		        $(".opacity_height").show();
+		        $(".opacity_height").hide();
 		    };
 
 
