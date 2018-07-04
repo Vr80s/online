@@ -391,7 +391,7 @@
 						{{if item.stick}}
 						<span class="stick_img_stick"><img src="/xcview/images/stick.png" alt="" />置顶</span>
 						{{/if}}
-						{{item.title}}
+						{{item.content}}
 
 						<div class="both"></div>
 					</div>
@@ -483,7 +483,7 @@
 							{{else}}
 							<!-- </div> -->
 							<div class="both"></div>
-							<div class="response evaluateDiv {{postsComment.id}}" data-id="{{postsComment.id}}" data-postsId="{{item.id}}" data-replyUserId="{{postsComment.replyUserId}}">
+							<div class="response evaluateDiv {{postsComment.id}}" data-id="{{postsComment.id}}" data-postsId="{{item.id}}" data-replyUserId="{{postsComment.replyUserId}}" data-userName="{{postsComment.replyUserName}}">
 								<span class="my">{{postsComment.replyUserName}}</span>
 								<span class="response_cen">回复</span>
 								<span class="she">{{postsComment.userName}}：</span>
