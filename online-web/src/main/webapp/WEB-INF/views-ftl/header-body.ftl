@@ -17,7 +17,7 @@
                 </div>
             </li>
             <li><a href="/app" class="appDown hide">APP下载</a></li>
-            <li><a href="/web/html/want-anchor.html" class="want-anchor" target="_blank">我要当主播</a></li>
+            <li><a href="/anchor/guide" class="want-anchor" target="_blank">我要当主播</a></li>
             <li><div class="messageBox"><a href="javascript:;" data-id="mynews" class="message">消息</a></div></li>
             <li><a class="studentCenterBox" href="javascript:;">学习中心</a></li>
         </ul>

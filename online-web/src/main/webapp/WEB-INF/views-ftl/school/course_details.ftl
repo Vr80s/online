@@ -7,7 +7,7 @@
     <title>${courseInfo.gradeName} - 熊猫中医学堂</title>
     <link rel="shortcut icon" href="/favicon.ico"/>
     <meta name="keywords" content="中医教育,中医传承,中医线下教育,海口中医养生,国粹,传承,中医,中药,心承,熊猫中医"/>
-    <meta name="description"  content="${description}"/>
+    <meta name="description" content="${description}"/>
     <meta name="renderer" content="webkit">
     <meta name="baidu-site-verification" content="UHaAQAeAQF"/>
     <!--公共头部和底部样式-->
@@ -25,13 +25,13 @@
     <link rel="stylesheet" href="/web/css/ftl-page.css"/>
     <link rel="stylesheet" href="/web/css/school/details-album.css"/>
 
-	<script src="/web/js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script>
-	<script type="text/javascript" src="/web/js/artTemplate.js"></script>
-	<script src="/web/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
-	<script src="/web/js/common_msg.js"></script>
-	<!--公共头部和底部-->
-	<script src="/web/js/ajax.js" type="text/javascript" charset="utf-8"></script>
-	<script src="/web/html/school/school-header/header.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/web/js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" src="/web/js/artTemplate.js"></script>
+    <script src="/web/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/web/js/common_msg.js"></script>
+    <!--公共头部和底部-->
+    <script src="/web/js/ajax.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/web/html/school/school-header/header.js" type="text/javascript" charset="utf-8"></script>
 
 </head>
 <body>
@@ -57,8 +57,8 @@
             <p class="subtitle">${courseInfo.subtitle?default('')}</p>
             <ul class="author-inf">
                 <li>
-                    <span>主讲人：<a href="${webUrl}/anchors/${courseInfo.userLecturerId}/info" 
-                    		target="_blank">${courseInfo.name}</a></span>
+                    <span>主讲人：<a href="${webUrl}/anchors/${courseInfo.userLecturerId}/info"
+                                 target="_blank">${courseInfo.name}</a></span>
                 </li>
                 <li class="grade">
                     <img src="../../web/images/icon-start${startLevel}.png"/>
@@ -86,10 +86,10 @@
                     <ul>
                         <li>更新时间</li>
                         <li>共${courseInfo.courseNumber}集, 已更新${collectionListSize!'0'}集
-						<#if updateDateText?? &&  updateDateText!=''>
-                            (每${updateDateText}更新)
-						</#if>
-						</li>
+                            <#if updateDateText?? &&  updateDateText!=''>
+                                (每${updateDateText}更新)
+                            </#if>
+                        </li>
                     <#-- <li>共16集，已更新13集（每周三、周五更新）</li> -->
                     </ul>
                 </#if>
@@ -132,31 +132,32 @@
                     data-watchState="${courseInfo.watchState}"
                     data-type="${courseInfo.type}"
                     data-realCourseId="${courseInfo.id}"
-                    data-learning = "${courseInfo.learning}"
+                    data-learning="${courseInfo.learning}"
                     data-collection="${courseInfo.collection?string(1,0)}">
                 <#if courseInfo.watchState == 2  && courseInfo.type == 4>
-                  		  已报名
+                    已报名
                 <#elseif courseInfo.watchState == 1  && courseInfo.type == 4>
                     <#if courseInfo.learning == 1>
-                       	 已报名
+                        已报名
                     <#else>
-                      	立即报名
+                        立即报名
                     </#if>
                 <#else>
-                  	开始学习
+                    开始学习
                 </#if>
             </button>
-            
+
         <#elseif courseInfo.watchState == 0>
             <#if courseInfo.type ==4 && courseInfo.cutoff = 1>
                 <button type="button" class="immediately-buy" style="background:#DEDEDE;">报名截止</button>
             <#else>
-                <button type="button" class="immediately-buy J-course-buy" data-id="${courseInfo.id}" data-type="${courseInfo.type}">
-                 	   立即购买
+                <button type="button" class="immediately-buy J-course-buy" data-id="${courseInfo.id}"
+                        data-type="${courseInfo.type}">
+                    立即购买
                 </button>
             </#if>
         </#if>
-        <span class="remember-last hide">上次播放位置：<span>标幽赋的前世今生详解 </span></span>
+            <span class="remember-last hide">上次播放位置：<span>标幽赋的前世今生详解 </span></span>
         </div>
     </div>
 
@@ -214,40 +215,40 @@
 
             <!--详情-->
             <div class="sidebar-content hide">
-            	<#if courseInfo.lecturerDescription?? || courseInfo.description??>
-	            	<div class="author-introduce">
-	                   	 主讲人
-	                </div>
-	                <div class="author-content">
-	                    <div class="author-text">
-		                    <#if courseInfo.lecturerDescription??>
-		                    	${courseInfo.lecturerDescription}
-		                    <#else>
-		                    	<p style="padding-top:20px;">暂无主讲人介绍</p>
-		                    </#if>
-	                    </div>
-	                </div>
-	                <div class="author-introduce" style="margin-top: 30px;">
-	                   		 课程简介
-	                </div>
-	                <div class="author-content">
-	                    <div class="class-text">
-	                    <#if courseInfo.description??>
-	                    	${courseInfo.description}
-	                    <#else>
-	                        <p style="padding-top:20px;">暂无课程简介</p>
-	                    </#if>
-	                    </div>
-	                </div>
-            	<#else>	
-            		  <div class="all-null course-null">
-		                    <div class="null-img">
-		                        <img src="/web/images/icon-nodata.png"/>
-		                    </div>
-		                <p>暂无主讲人介绍</p>
-                	 </div>
-            	</#if> 
-                
+            <#if courseInfo.lecturerDescription?? || courseInfo.description??>
+                <div class="author-introduce">
+                    主讲人
+                </div>
+                <div class="author-content">
+                    <div class="author-text">
+                        <#if courseInfo.lecturerDescription??>
+                        ${courseInfo.lecturerDescription}
+                        <#else>
+                            <p style="padding-top:20px;">暂无主讲人介绍</p>
+                        </#if>
+                    </div>
+                </div>
+                <div class="author-introduce" style="margin-top: 30px;">
+                    课程简介
+                </div>
+                <div class="author-content">
+                    <div class="class-text">
+                        <#if courseInfo.description??>
+                        ${courseInfo.description}
+                        <#else>
+                            <p style="padding-top:20px;">暂无课程简介</p>
+                        </#if>
+                    </div>
+                </div>
+            <#else>
+                <div class="all-null course-null">
+                    <div class="null-img">
+                        <img src="/web/images/icon-nodata.png"/>
+                    </div>
+                    <p>暂无主讲人介绍</p>
+                </div>
+            </#if>
+
             </div>
 
             <!--课程大纲-->
@@ -266,9 +267,9 @@
             </div>
             <!--评价-->
             <div class="sidebar-content hide">
-               <#if criticizesMap??> 
+            <#if criticizesMap??>
             	 <#include "common/comment.ftl">
-			   </#if>	            
+			   </#if>
             </div>
             <!--常见问题-->
             <div class="sidebar-content hide">
@@ -297,7 +298,6 @@
     </div>
 </div>
 
-<script type="text/javascript" src="/web/js/footer.js"></script>
 <!--公共头部和底部结束-->
 
 <!--登陆结束-->
@@ -308,16 +308,19 @@
     var userId = "${courseInfo.userLecturerId}";
     var courseType = "${courseInfo.type}";
     var collection = ${courseInfo.collection?string(1,0)};
-    <#if criticizesMap??> 
-         var commentCode = ${criticizesMap.commentCode};
-	</#if>	
-	<#if courseInfo.courseLength??> 
-		var courseLength = "${courseInfo.courseLength}";
-	</#if>	
+    <#if criticizesMap??>
+    var commentCode = ${criticizesMap.commentCode};
+    </#if>
+    <#if courseInfo.courseLength??>
+    var courseLength = "${courseInfo.courseLength}";
+    </#if>
     //    console.info("type：" + type + ";watchState：" + watchState + ";courseId：" + courseId);
     //    console.info("userId：" + userId + ";collection：" + collection+",commentCode:"+commentCode);
 </script>
 <script src="/web/js/school/course-details.js" type="text/javascript" charset="utf-8"></script>
 <script src="/web/js/school/comment.js" type="text/javascript" charset="utf-8"></script>
+
+<#include "../footer.ftl">
+
 </body>
 </html>

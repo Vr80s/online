@@ -550,7 +550,7 @@ function checkAuth(courseId, type) {
 
 var thirdPartyUCT = cookie.get("_third_ipandatcm_user_");
 if (is_weixin() && !thirdPartyUCT) {//在微信里打开,没有授权时，先去微信授权
-    location.href = "/xczh/wxlogin/middle?url=" + getCurrentUrl();
+    //location.href = "/xczh/wxlogin/middle?url=" + getCurrentUrl();
 }
 
 function locationToOriginPage() {

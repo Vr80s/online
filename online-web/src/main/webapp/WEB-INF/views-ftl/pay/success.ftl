@@ -77,9 +77,9 @@
 </#if>
 
     <!--猜你喜欢-->
-    <#if (recommendCourses?size>0) >
-        <div class="main-bottom">
-            <h4 class="video-title">猜你喜欢</h4>
+<#if (recommendCourses?size>0) >
+    <div class="main-bottom">
+        <h4 class="video-title">猜你喜欢</h4>
 
         <#list recommendCourses as course>
             <div class="course clearfix">
@@ -107,8 +107,8 @@
                 </a>
             </div>
         </#list>
-        </div>
-    </#if>
+    </div>
+</#if>
 </div>
 
 
