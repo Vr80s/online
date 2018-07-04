@@ -273,6 +273,8 @@
 					<!--<span class="disciple"><span class="disciple_fize">弟子</span>25</span>-->
 					{{if items.fansCount>0}}
 					<span class="fans"><span class="fans_size">粉丝</span><span id="fansCount">{{items.fansCount}}</span></span>
+					{{else}}
+					<span class="fans"><span class="fans_size">粉丝</span><span id="fansCount">0</span></span>
 					{{/if}}
 					<div class="both"></div>
 				</div>
@@ -429,19 +431,19 @@
 				{{else if item.typeId != null && item.typeId == 8}}
 				<div class="consilia_nav_span_div">
 					<!-- 医案-->
-					<div class="consilia_nav_span comment_hide">
+					<div class="consilia_nav_span comment_hide consilia_nav_span_title">
 						{{if item.stick}}
 						<span class="stick_img"><img src="/xcview/images/stick.png" alt="" />置顶</span>
 						{{/if}}
 						
-						<div class="title"><span class="stick_imgs">#医案#</span>{{item.articleTitle}}</div>
+						<div class="title"><span class="stick_imgs">#医案#</span>{{item.articleContent}}</div>
 						<div class="both"></div>
 					</div>
 					<div class="both"></div>
-					<div class="consilia_nav_btn"><span>收起</span></div>
+					<div class="consilia_nav_btn"><span>展开</span></div>
 					<div class="consilia_nav_cen" data-id="{{item.articleId}}" style="display: block;">
 						<img src="{{item.articleImgPath}}" alt="" />
-						<div class="consilia_nav_cen_size">{{item.articleContent}}</div>
+						<div class="consilia_nav_cen_size">{{item.articleTitle}}</div>
 					</div>
 					<div class="both"></div>
 				</div>
