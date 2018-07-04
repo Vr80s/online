@@ -288,6 +288,14 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
     @Override
     public void updateSaleState(String userId, String courseApplyId, Integer state) {
         anchorInfoService.validateAnchorPermission(userId);
+        
+        Integer falg =  courseApplyInfoMapper.getIsStatusChange(userId, courseApplyId, state);
+        if(falg.equals(1) && state.equals(1)) {
+            throw new AnchorWorkException("已经上架啦");
+        }else if(falg.equals(1) && state.equals(0)) {
+            throw new AnchorWorkException("已经下架啦");
+        }
+        
         int i = courseApplyInfoMapper.updateSaleState(userId, courseApplyId, state);
         if (i < 1) {
             throw new AnchorWorkException("更新课程上架状态失败");

@@ -137,30 +137,32 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
         mui("#refreshContainer").on('tap', '.essay_pack_up_btn_span', function (event) {
             if($(".essay_pack_up_btn_span").html()=="收起"){
                 $(".consilia_nav_span .title").css("height","100%");
-                $(".essay_pack_up_btn_span").html("展开");
+                $(".essay_pack_up_btn_span span").html("展开");
+                $(".consilia_nav_span .title").addClass("consilia_nav_span_title");
             }else{
-                $(".essay_pack_up_btn_span").html("收起");
+                $(".essay_pack_up_btn_span span").html("收起");
                 $(".consilia_nav_span .title").css("height","2.1rem");
+                $(".consilia_nav_span .title").removeClass("consilia_nav_span_title");
             }
         });
 
         var h = $(".consilia_nav_span .title").height();
-        if (h > 200) {
+        if (h > 20) {
             $(".consilia_nav_btn").show();
-            // $(".line_xian").hide();
-//          $(".wrap1").css({"height":"2rem","overflow":"hidden"})
-        } else {
-            $(".consilia_nav_btn").hide()
+            } else {
+                $(".consilia_nav_btn").hide()
         }
 
         // 点击文章收起
         mui("#refreshContainer").on('tap', '.consilia_nav_btn', function (event) {
-            if($(".consilia_nav_btn").html()=="收起"){
-                 $(".consilia_nav_btn").html("展开");
-                 $(".consilia_nav_span .title").css("height","100%");
+            if($(".consilia_nav_btn span").html()=="展开"){
+                $(".consilia_nav_span .title").removeClass("consilia_nav_span_title");
+                $(".consilia_nav_btn span").html("收起");
             }else{
-                $(".consilia_nav_span .title").css("height","2.1rem");
-                $(".consilia_nav_btn").html("收起");
+                // $(".consilia_nav_span .title").css("height","2.1rem");
+                $(".consilia_nav_span .title").addClass("consilia_nav_span_title");
+                $(".consilia_nav_btn span").html("展开");
+                
             }
         });
 

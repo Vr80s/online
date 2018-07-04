@@ -468,15 +468,21 @@ p{
 .consilia_nav_span{
 	width: 6.98rem;
     margin: 0 auto;
-    height: 0.42rem;
+    /*height: 0.42rem;*/
     margin-bottom: 0.2rem;
 }
+
 .consilia_nav_span .title{
 	font-size: 0.3rem;
     color: #151515;
     /*display: -webkit-box;*/
     float: left;
-    margin-bottom: 0.2rem;
+    /*margin-bottom: 0.2rem;*/
+    min-height: 1rem;
+}
+.consilia_nav_span_title{
+	height: 2.1rem;
+    overflow: hidden;
 }
 .consilia_nav_span .stick_img{
 	font-size: 0.3rem;
