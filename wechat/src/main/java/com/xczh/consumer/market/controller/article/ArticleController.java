@@ -13,6 +13,7 @@ import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.body.article.AppraiseBody;
 import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczhihui.common.util.IStringUtil;
 import com.xczhihui.common.util.enums.HeadlineType;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorArticleService;
 import com.xczhihui.medical.doctor.vo.OeBxsArticleVO;
@@ -43,6 +44,7 @@ public class ArticleController {
         } else {
             oeBxsArticleVO.setType("文章");
         }
+        oeBxsArticleVO.setContent(IStringUtil.filterLinkTag(oeBxsArticleVO.getContent()));
         return ResponseObject.newSuccessResponseObject(oeBxsArticleVO);
     }
 
