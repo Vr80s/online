@@ -38,7 +38,7 @@ public enum WechatShareLinkType {
 
     DOCDOT_SHARE("/xcview/html/physician/physicians_page.html?doctor=", "医师页面"),
     ACTICLE_SHARE("/xcview/html/physician/article.html?articleId=", "文章"),
-    MEDICAL_CASES("/xcview/html/physician/consilia.html?consiliaId=", "医案");
+    MEDICAL_CASES("/xcview/html/physician/consilia.html?articleId=", "医案");
     /**
      * 描述
      **/
