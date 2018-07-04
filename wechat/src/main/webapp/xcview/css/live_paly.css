@@ -802,7 +802,8 @@ color: white;
 }
 .select_lable .active_color{
 	background: #00BC12;
-
+	border: 1px solid #00bc12;
+	color: #fff;
 }
 .select_lable li{
 	float: left;
@@ -814,6 +815,8 @@ color: white;
 	line-height: 0.56rem;
 	margin-right: 0.2rem;
 	border-radius: 100px;
+	color: #444444;
+    border: 1px solid #DEDEDE;
 }
 .select_lable li:nth-child(1){
 	width: 0.88rem;
