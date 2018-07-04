@@ -61,6 +61,7 @@ public class MedicalHospitalApplyServiceImpl extends ServiceImpl<MedicalHospital
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void add(MedicalHospitalApply target) {
+        logger.warn(target.toString());
         medicalHospitalApplyService.addDetail(target);
     }
 
@@ -207,7 +208,7 @@ public class MedicalHospitalApplyServiceImpl extends ServiceImpl<MedicalHospital
         if (StringUtils.isBlank(target.getBusinessLicenseNo())) {
             throw new MedicalException("统一社会信用代码不能为空");
         } else {
-            if (BUSINESS_LICENSE_NO_REG_PATTERN.matcher(target.getBusinessLicenseNo()).matches()) {
+            if (!BUSINESS_LICENSE_NO_REG_PATTERN.matcher(target.getBusinessLicenseNo()).matches()) {
                 throw new MedicalException("统一社会信用代码格式错误");
             }
         }
@@ -219,7 +220,7 @@ public class MedicalHospitalApplyServiceImpl extends ServiceImpl<MedicalHospital
         if (StringUtils.isBlank(target.getLicenseForPharmaceuticalTrading())) {
             throw new MedicalException("药品经营许可证号码不能为空");
         } else {
-            if (LICENSE_FOR_PHARMACEUTICAL_TRADING_PATTERN.matcher(target.getLicenseForPharmaceuticalTrading()).matches()) {
+            if (!LICENSE_FOR_PHARMACEUTICAL_TRADING_PATTERN.matcher(target.getLicenseForPharmaceuticalTrading()).matches()) {
                 throw new MedicalException("药品经营许可证号码格式错误");
             }
         }
