@@ -8,7 +8,7 @@
     <!--</sql>-->
     <select id="getMedicalHospitalPictureByHospitalId"
             resultType="com.xczhihui.medical.hospital.vo.MedicalHospitalPictureVO">
-        select id,hospital_id hospitalId, picture from medical_hospital_picture where hospital_id = #{hospitalId}
+        select id,hospital_id hospitalId, picture from medical_hospital_picture where hospital_id = #{hospitalId} and deleted =0
         order by version
 
     </select>
