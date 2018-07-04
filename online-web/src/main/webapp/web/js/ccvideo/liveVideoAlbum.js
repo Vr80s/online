@@ -62,7 +62,7 @@ RequestService("/online/user/isAlive", "GET", null, function(data) { ///online/u
 			
 			//如果是音频的话，需要自己去设置哪里播放
 			multimediaType = obj.multimediaType;
-			directId = obj.direct_id;
+			//directId = obj.direct_id;
 		}, false);
 	} else {
 		/**
@@ -160,10 +160,9 @@ RequestService("/course/newGetCoursesByCollectionId",
 		for (var i = 0; i < list.length; i++) {
 			var obj = list[i];
 			var li = "<li>";
-			
 			if(courseId == obj.id ){
 				li = "<li class='choosedAlbum' data-id = "+obj.id+">";
-				directId = list[0].directId;
+				directId = list[i].directId;
 			}else{
 				li = "<li data-id = "+obj.id+">"
 			}
@@ -176,7 +175,6 @@ RequestService("/course/newGetCoursesByCollectionId",
 		}
 		$(".album_list ul").html(lalal);
 		
-		
 		/**
 		 * 获取专辑下的第一个课程id
 		 * 	如果点击的是立即学习（用户还没有学习过），默认从第一个课程开始播放
@@ -187,7 +185,6 @@ RequestService("/course/newGetCoursesByCollectionId",
 			$(".album_list ul li").removeClass("choosedAlbum");
 			$(".album_list ul li").eq(0).addClass("choosedAlbum");
 		}
-
 	}
 },false);
 
