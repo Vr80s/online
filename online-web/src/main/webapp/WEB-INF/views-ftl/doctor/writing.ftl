@@ -85,7 +85,7 @@
                         <span class="about_doctor_pic">
                                 <img src="${doctor.headPortrait!defaultDoctorHeadImg}" alt="暂无图片">
                             </span>
-                        <p>${doctor.name}</p>
+                            <p>${doctor.name}</p>
                         </a>
                     </li>
                 </#list>
@@ -98,11 +98,10 @@
 
 </body>
 </html>
-<script type="text/javascript" src="/web/js/footer.js?v=ipandatcm_1.3"></script>
 <script src="/web/js/placeHolder.js"></script>
 <script type="text/javascript">
     $(function () {
         $('input').placeholder();
-        $(".doctor-tab").css({"color":"#2cb82c"})
+        $(".doctor-tab").css({"color": "#2cb82c"})
     });
 </script>

@@ -1,4 +1,5 @@
 (function(){
+    alert("submit link");
     if(document.location.host=='www.ipandatcm.com'||document.location.host=='ipandatcm.com'){
         var bp = document.createElement('script');
         var curProtocol = window.location.protocol.split(':')[0];

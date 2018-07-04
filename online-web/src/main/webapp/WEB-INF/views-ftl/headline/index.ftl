@@ -27,7 +27,6 @@
     <script src="/web/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
     <script src="/web/js/ajax.js" type="text/javascript" charset="utf-8"></script>
     <script src="/web/js/header-top.js" type="text/javascript" charset="utf-8"></script>
-<script type="text/javascript" src="/web/js/footer.js"></script>
 </head>
 <body>
 <!--提示-->
