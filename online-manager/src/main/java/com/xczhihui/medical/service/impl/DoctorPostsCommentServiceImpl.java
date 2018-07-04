@@ -33,6 +33,7 @@ public class DoctorPostsCommentServiceImpl implements DoctorPostsCommentService 
             params.put("keyword", keyword);
             sql = sql + " and md.name like :keyword";
         }
+        sql = sql + " order by mdpc.create_time desc";
         return simpleHibernateDao.findPageBySQL(sql, params, DoctorPostsCommentVO.class, page, pageSize);
     }
 
