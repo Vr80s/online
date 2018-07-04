@@ -218,6 +218,7 @@
 		margin-left: 0;
 	    width: 6.15rem;
 	}
+	
 </style>
 
 </head>
@@ -244,7 +245,8 @@
 			</div>
 		</div>
 		<!-- 头部结束 -->
-		<div class="swiper-container top_swiper" >
+		<div class="swiper-container top_swiper">
+			<img src="/xcview/images/physician.png" class="physician_img0" style="width: 7.5rem;" />
 			<div class="swiper-wrapper">
 				{{each items.banners as item i}}
 				<div class="swiper-slide pic01" onclick="sowingDetails('{{item.url}}')">
@@ -1296,6 +1298,16 @@ $(window).bind("scroll", function() {
 	$(".weixin_ceng").click(function(){
     	$(".weixin_ceng").hide();
 	});
+
+
+	// 判断头部有没有默认图
+	var a=$(".swiper-wrapper").html();
+   	if(a==null||a.length==0){
+       $(".physician_img0").css("display","block");
+    }else{
+       $(".physician_img0").css("display","none");
+    };
+
 
 	/*// 点击其他--评论显示底部评论区域
 	$(".rests_nav .evaluate_img").click(function(){

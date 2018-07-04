@@ -2107,3 +2107,9 @@ table tr td img{
     z-index: 99999999999;
 }
 /*点击分享按钮结束*/
+
+
+.physician_img0{
+	display: none;
+}
+
