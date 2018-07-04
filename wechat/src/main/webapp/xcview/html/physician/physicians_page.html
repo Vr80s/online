@@ -238,7 +238,7 @@
 				<div class="arror_return" onclick="javascript:history.back(-1);" >
 					<img src="/xcview/images/anchorj.png"/>
 				</div>
-				<div class="header_news">
+				<div class="header_news" onclick="header_click()">
 					<img src="/xcview/images/anchorf.png" alt="">
 				</div>
 			</div>
@@ -953,6 +953,12 @@
 	<!-- 表情包结束 -->
 	<div class="show_height" style="width:100%;height:0.25rem;display:none;"></div>
 	<div class="top_show_height" style="width:100%;height:5.2rem;display:none;"></div>
+
+
+	<div class="weixin_ceng">
+		<div class="weixin_ceng_bg"></div>
+		<div class="weixin_img"><img src="/xcview/images/fenxiang1.png" data-bd-imgshare-binded="1"></div>
+	</div>
 </body>
 <script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
 <script src="/xcview/weihoujs/jquery.min.js"></script>
@@ -1279,6 +1285,16 @@ $(window).bind("scroll", function() {
     	$("#form_article").focus();
 	});
 
+	// 点击头部分享按钮   
+	/*$(".header").click(function(){
+		alert(111);
+    	$(".weixin_ceng").show();
+	});*/
+	
+	$(".weixin_ceng").click(function(){
+    	$(".weixin_ceng").hide();
+	});
+
 	/*// 点击其他--评论显示底部评论区域
 	$(".rests_nav .evaluate_img").click(function(){
     	$(".face").attr("src","/xcview/images/face.png");
@@ -1330,6 +1346,10 @@ $(window).bind("scroll", function() {
 
     // 点击发送结束
 	});
+
+function header_click(){
+	$(".weixin_ceng").show();
+}
 </script>
 
 <!-- 点击复制 -->
