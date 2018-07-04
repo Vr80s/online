@@ -112,3 +112,5 @@ dev-2.1.0
     update oe_message o1, oe_message o2 set o1.`replytext` = o2.`context`where o1.type = 2 and o1.id = o2.pid;
 
     update oe_bxs_article set type_id = 9 where type_id is null;
+
+    update oe_bxs_article oba join medical_writings mw on oba.id = mw.`article_id` set oba.create_person = mw.create_person where oba.type_id = 9;
