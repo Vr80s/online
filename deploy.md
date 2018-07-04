@@ -110,3 +110,5 @@ dev-2.1.0
 
     处理老的反馈数据中的回复
     update oe_message o1, oe_message o2 set o1.`replytext` = o2.`context`where o1.type = 2 and o1.id = o2.pid;
+
+    update oe_bxs_article set type_id = 9 where type_id is null;
