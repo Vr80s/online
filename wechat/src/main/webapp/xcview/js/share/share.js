@@ -153,7 +153,7 @@ try {
 
 
 //点击分享share
-if(!is_weixin()){
+if(is_weixin()){
 	
 	//点击微信出现提示框
 	$(".header_news").click(function(){
