@@ -6,16 +6,21 @@ $(function () {
     $("#addMobileSearch").val(1);
     $("#updateMobileSearch").val(1);
     loadBanner2List();
-    createDatetimePicker2($(".datetime-picker"), "yy-mm-dd", "HH:mm:ss");
-
+    $(".datetime-picker").datetimepicker({
+        showSecond: true,
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: "yy-mm-dd",
+        monthNamesShort: [ "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" ],
+        timeFormat: "HH:mm:ss",
+        showButtonPanel: false
+    });
+    $(".datetime-picker").attr({ readonly: 'true' });
     $('input[name="pushType"]').on('click', function (e) {
         var val = $('input[name="pushType"]:checked').val();
-        console.log(val);
         if (val == 0) {
-            console.log("hide ====");
             $('.J-input-user').hide();
         } else {
-            console.log("show ====");
             $('.J-input-user').show();
         }
     });
@@ -23,7 +28,6 @@ $(function () {
     $('#J-menu').on('change', function (e) {
         var menuId = $(this).val();
         ajaxRequest("message/messagePush/course?menuId=" + menuId, null, function (res) {
-            console.log(res.resultObject.length);
             $("#J-course").html('');
             if (res.resultObject.length > 0) {
                 for (var i = 0; i < res.resultObject.length; i++) {
