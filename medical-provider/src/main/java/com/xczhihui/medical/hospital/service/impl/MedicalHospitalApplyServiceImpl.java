@@ -61,6 +61,7 @@ public class MedicalHospitalApplyServiceImpl extends ServiceImpl<MedicalHospital
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void add(MedicalHospitalApply target) {
+        logger.warn(target.toString());
         medicalHospitalApplyService.addDetail(target);
     }
 

@@ -419,29 +419,35 @@ public class MedicalDoctorApply extends Model<MedicalDoctorApply> {
     @Override
     public String toString() {
         return "MedicalDoctorApply{" +
-                ", id=" + id +
-                ", name=" + name +
-                ", title=" + title +
-                ", description=" + description +
-                ", tel=" + tel +
-                ", userId=" + userId +
-                ", province=" + province +
-                ", city=" + city +
-                ", detailedAddress=" + detailedAddress +
-                ", headPortrait=" + headPortrait +
-                ", titleProve=" + titleProve +
-                ", cardPositive=" + cardPositive +
-                ", cardNegative=" + cardNegative +
-                ", qualificationCertificate=" + qualificationCertificate +
-                ", professionalCertificate=" + professionalCertificate +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", tel='" + tel + '\'' +
+                ", userId='" + userId + '\'' +
+                ", province='" + province + '\'' +
+                ", city='" + city + '\'' +
+                ", detailedAddress='" + detailedAddress + '\'' +
+                ", headPortrait='" + headPortrait + '\'' +
+                ", titleProve='" + titleProve + '\'' +
+                ", cardPositive='" + cardPositive + '\'' +
+                ", cardNegative='" + cardNegative + '\'' +
+                ", qualificationCertificate='" + qualificationCertificate + '\'' +
+                ", professionalCertificate='" + professionalCertificate + '\'' +
                 ", status=" + status +
                 ", deleted=" + deleted +
                 ", createTime=" + createTime +
-                ", createPerson=" + createPerson +
+                ", createPerson='" + createPerson + '\'' +
                 ", updateTime=" + updateTime +
-                ", updatePerson=" + updatePerson +
-                ", version=" + version +
-                ", remark=" + remark +
-                "}";
+                ", updatePerson='" + updatePerson + '\'' +
+                ", version='" + version + '\'' +
+                ", remark='" + remark + '\'' +
+                ", cardNum='" + cardNum + '\'' +
+                ", clientType=" + clientType +
+                ", departments=" + departments +
+                ", medicalDepartments=" + medicalDepartments +
+                ", field='" + field + '\'' +
+                ", hospital='" + hospital + '\'' +
+                '}';
     }
 }
