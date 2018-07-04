@@ -161,7 +161,7 @@
 
         <div class="wrap-anchor hide">
             <p>期待有志于传承和发展中医药的医师医馆加入</p>
-            <span><a href="${webUrl}/web/html/want-anchor.html" target="_blank" style="color: white;">成为主播</a></span>
+            <span><a href="${webUrl}/anchor/guide" target="_blank" style="color: white;">成为主播</a></span>
         </div>
 
 
@@ -187,21 +187,20 @@
 
     </div>
 </div>
-
-<script src="/web/js/jquery-1.12.1.js?version=da6deec5d1" type="text/javascript" charset="utf-8"></script>
-<script type="text/javascript" src="/web/js/artTemplate.js?version=8ba0d405af"></script>
-<script src="/web/js/bootstrap.js?version=32941860bf" type="text/javascript" charset="utf-8"></script>
+<script src="/web/js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="/web/js/artTemplate.js"></script>
+<script src="/web/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
 <!--公共头部和底部-->
-<script src="/web/js/ajax.js?version=b9420555ff" type="text/javascript" charset="utf-8"></script>
-<script src="/web/html/school/school-header/header.js?version=1fead7f563" type="text/javascript"
+<script src="/web/js/ajax.js" type="text/javascript" charset="utf-8"></script>
+<script src="/web/html/school/school-header/header.js" type="text/javascript"
         charset="utf-8"></script>
-<script type="text/javascript" src="/web/js/footer.js?version=355911bda4"></script>
 <!--公共头部和底部结束-->
 
 
 <!--登陆结束-->
-<script src="/web/js/school/school-recommend.js?version=ff165246cb" type="text/javascript" charset="utf-8"></script>
+<script src="/web/js/school/school-recommend.js" type="text/javascript" charset="utf-8"></script>
 
+<#include "../../footer.ftl">
 </body>
 
 </html>

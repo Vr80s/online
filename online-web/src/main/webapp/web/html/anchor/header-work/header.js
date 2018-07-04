@@ -159,15 +159,6 @@ $(function() {
 								'</div>' +
 						'</li>' +
 						'<li><a href="/app" class="appDown">APP下载</a></li>' +
-//						'<li><a href="/web/html/want-anchor.html" class="" target="_blank">我要当主播</a></li>' +
-//						'<li>' +
-//							'<div class="messageBox">'+
-//								'<a href="javascript:;" data-id="mynews" class="message">消息</a>'+
-//								'<span class="messageCount" style="display: none;">'+
-//									'<em style="background-color: #F97B49;height:20px;padding: 2px 6px;border-radius: 10px 10px 10px 10px;position: absolute;color:white;font-style:normal"></em>'+
-//								'</span>'+
-//							'</div>'+
-//						'</li>'+
 						'<li>'+
 							'<a href="/anchor/my" class="hide" id="anchorWorkbench">主播工作台</a>'+
 						'</li>'+

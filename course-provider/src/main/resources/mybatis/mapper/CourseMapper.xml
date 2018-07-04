@@ -290,7 +290,7 @@
         oc.id,
         oc.subtitle as subtitle,
         oc.`grade_name` gradeName,
-        format(oc.`course_length`,2) courseLength,
+        oc.`course_length` courseLength,
         oc.`direct_id` directId,
         oc.lecturer as name
         FROM

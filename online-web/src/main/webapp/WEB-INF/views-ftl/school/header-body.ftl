@@ -17,7 +17,7 @@
                         <a class="btn-register btn-link" href="/web/html/login.html?ways=register">注册</a></div>
                 </div>
             </li>
-            <li><a href="/web/html/want-anchor.html" class="want-anchor" target="_blank">我要当主播</a></li>
+            <li><a href="/anchor/guide" class="want-anchor" target="_blank">我要当主播</a></li>
             <li><a href="javascript:;" class="studentCenterBox">学习中心</a></li>
         </ul>
     </div>

@@ -224,24 +224,26 @@
 <body style="background: #F8F8F8;">
 	<div class="physicians_page_main comment_hide">
 		
-		<!-- 头部开始 -->
-		<div class="wrap-header" id="header">
-			<div class="header">		
-				<p>我是医师名字</p>
-				<div class="arror_return" onclick="javascript:history.back(-1);" >
-					<img src="/xcview/images/anchorj.png"/>
-				</div>
-				<div class="header_news">
-					<img src="/xcview/images/anchorf.png" alt="">
-				</div>
-			</div>
-		</div>
-		<!-- 头部结束 -->
+		
 
 		<!-- 轮播开始 -->
 		<!--顶部轮播-->
 		<div class="top_details">
 			<script type="text/html" id="top_details">
+
+		<!-- 头部开始 -->
+		<div class="wrap-header" id="header">
+			<div class="header">		
+				<p>{{items.lecturerInfo.name}}</p>
+				<div class="arror_return" onclick="javascript:history.back(-1);" >
+					<img src="/xcview/images/anchorj.png"/>
+				</div>
+				<div class="header_news" onclick="header_click()">
+					<img src="/xcview/images/anchorf.png" alt="">
+				</div>
+			</div>
+		</div>
+		<!-- 头部结束 -->
 		<div class="swiper-container top_swiper" >
 			<div class="swiper-wrapper">
 				{{each items.banners as item i}}
@@ -263,7 +265,7 @@
 			<div class="message">
 				<div class="message_name">
 					<div class="name">{{items.lecturerInfo.name}}</div>
-					<div class="name" style="font-size: 0.24rem;color: #999999;">{{items.lecturerInfo.title}}</div>
+					<div class="name" style="font-size: 0.24rem;color: #999999;margin-top: 0.06rem;">{{items.lecturerInfo.title}}</div>
 					<!--<div class="message_characteristic">我的师傅</div>-->
 					<div class="both"></div>
 				</div>
@@ -271,6 +273,8 @@
 					<!--<span class="disciple"><span class="disciple_fize">弟子</span>25</span>-->
 					{{if items.fansCount>0}}
 					<span class="fans"><span class="fans_size">粉丝</span><span id="fansCount">{{items.fansCount}}</span></span>
+					{{else}}
+					<span class="fans"><span class="fans_size">粉丝</span><span id="fansCount">0</span></span>
 					{{/if}}
 					<div class="both"></div>
 				</div>
@@ -427,19 +431,19 @@
 				{{else if item.typeId != null && item.typeId == 8}}
 				<div class="consilia_nav_span_div">
 					<!-- 医案-->
-					<div class="consilia_nav_span comment_hide">
+					<div class="consilia_nav_span comment_hide consilia_nav_span_title">
 						{{if item.stick}}
 						<span class="stick_img"><img src="/xcview/images/stick.png" alt="" />置顶</span>
 						{{/if}}
 						
-						<div class="title"><span class="stick_imgs">#医案#</span>{{item.articleTitle}}</div>
+						<div class="title"><span class="stick_imgs">#医案#</span>{{item.articleContent}}</div>
 						<div class="both"></div>
 					</div>
 					<div class="both"></div>
-					<div class="consilia_nav_btn"><span>收起</span></div>
+					<div class="consilia_nav_btn"><span>展开</span></div>
 					<div class="consilia_nav_cen" data-id="{{item.articleId}}" style="display: block;">
 						<img src="{{item.articleImgPath}}" alt="" />
-						<div class="consilia_nav_cen_size">{{item.articleContent}}</div>
+						<div class="consilia_nav_cen_size">{{item.articleTitle}}</div>
 					</div>
 					<div class="both"></div>
 				</div>
@@ -951,6 +955,12 @@
 	<!-- 表情包结束 -->
 	<div class="show_height" style="width:100%;height:0.25rem;display:none;"></div>
 	<div class="top_show_height" style="width:100%;height:5.2rem;display:none;"></div>
+
+
+	<div class="weixin_ceng">
+		<div class="weixin_ceng_bg"></div>
+		<div class="weixin_img"><img src="/xcview/images/fenxiang1.png" data-bd-imgshare-binded="1"></div>
+	</div>
 </body>
 <script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
 <script src="/xcview/weihoujs/jquery.min.js"></script>
@@ -1277,6 +1287,16 @@ $(window).bind("scroll", function() {
     	$("#form_article").focus();
 	});
 
+	// 点击头部分享按钮   
+	/*$(".header").click(function(){
+		alert(111);
+    	$(".weixin_ceng").show();
+	});*/
+	
+	$(".weixin_ceng").click(function(){
+    	$(".weixin_ceng").hide();
+	});
+
 	/*// 点击其他--评论显示底部评论区域
 	$(".rests_nav .evaluate_img").click(function(){
     	$(".face").attr("src","/xcview/images/face.png");
@@ -1328,6 +1348,10 @@ $(window).bind("scroll", function() {
 
     // 点击发送结束
 	});
+
+function header_click(){
+	$(".weixin_ceng").show();
+}
 </script>
 
 <!-- 点击复制 -->

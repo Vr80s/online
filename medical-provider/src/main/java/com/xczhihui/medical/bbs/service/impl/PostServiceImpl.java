@@ -95,7 +95,7 @@ public class PostServiceImpl implements IPostService {
     public PostVO get(Integer id) {
         PostVO post = postMapper.get(id);
         if (post == null) {
-            throw new IllegalArgumentException("帖子不存在");
+            throw new IllegalArgumentException("帖子不存在"+id);
         }
         return post;
     }

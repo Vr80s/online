@@ -133,7 +133,7 @@ $(function() {
 									'<a class="btn-register btn-link" href="/web/html/login.html?ways=register">注册</a>' +
 								'</div>' +
 						'</li>' +
-						'<li><a href="/web/html/want-anchor.html" class="want-anchor" target="_blank">我要当主播</a></li>' +
+						'<li><a href="/anchor/guide" class="want-anchor" target="_blank">我要当主播</a></li>' +
 						'<li>'+
 							'<a href="/anchor/my" class="hide" id="anchorWorkbench">主播工作台</a>'+
 						'</li>'+
