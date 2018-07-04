@@ -16,6 +16,7 @@ import com.xczhihui.medical.doctor.model.MedicalDoctorPostsComment;
 import com.xczhihui.medical.doctor.model.MedicalDoctorPostsLike;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsCommentService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsService;
+import com.xczhihui.utils.HtmlUtil;
 
 /**
  * Description：医师动态 服务实现类
@@ -38,34 +39,37 @@ public class MedicalDoctorPostsServiceImpl extends ServiceImpl<MedicalDoctorPost
     public Page<MedicalDoctorPosts> selectMedicalDoctorPostsPage(Page<MedicalDoctorPosts> page, Integer type, String doctorId, String accountId) {
         List<MedicalDoctorPosts> list = medicalDoctorPostsMapper.selectMedicalDoctorPostsPage(page, type, doctorId);
         //评论列表和点赞列表
-        list.forEach(MedicalDoctorPosts -> {
-            Integer postsId = MedicalDoctorPosts.getId();
+        list.forEach(medicalDoctorPosts -> {
+            //去除文章中的标签
+            medicalDoctorPosts.setArticleContent(HtmlUtil.getTextFromHtml(medicalDoctorPosts.getArticleContent()));
+
+            Integer postsId = medicalDoctorPosts.getId();
             List<MedicalDoctorPostsComment> commentList = medicalDoctorPostsCommentService.selectMedicalDoctorPostsCommentList(postsId, accountId);
             List<MedicalDoctorPostsLike> likeList = medicalDoctorPostsLikeMapper.getMedicalDoctorPostsLikeList(postsId);
             likeList.forEach(MedicalDoctorPostsLike -> {
                 String userId = MedicalDoctorPostsLike.getUserId();
                 if (userId.equals(accountId)) {
-                    MedicalDoctorPosts.setPraise(true);
+                    medicalDoctorPosts.setPraise(true);
                 }
             });
-            MedicalDoctorPosts.setDoctorPostsCommentList(commentList);
-            MedicalDoctorPosts.setDoctorPostsLikeList(likeList);
-            Date d = MedicalDoctorPosts.getCreateTime();
+            medicalDoctorPosts.setDoctorPostsCommentList(commentList);
+            medicalDoctorPosts.setDoctorPostsLikeList(likeList);
+            Date d = medicalDoctorPosts.getCreateTime();
             Date currentDate = new Date();
-            Date createTime = MedicalDoctorPosts.getCreateTime();
+            Date createTime = medicalDoctorPosts.getCreateTime();
             int second = (int)(currentDate.getTime() - createTime.getTime())/1000;
             int min = (int)(currentDate.getTime() - d.getTime())/1000/60+1;
             int hour = (int)(currentDate.getTime() - d.getTime())/1000/60/60+1;
             if(second<60){
-                MedicalDoctorPosts.setDateStr("刚刚");
+                medicalDoctorPosts.setDateStr("刚刚");
             } else if (min<=60){
-                MedicalDoctorPosts.setDateStr(min+"分钟前");
+                medicalDoctorPosts.setDateStr(min+"分钟前");
             } else if (hour<=12){
-                MedicalDoctorPosts.setDateStr(hour+"小时前");
+                medicalDoctorPosts.setDateStr(hour+"小时前");
             } else {
                 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                 String dateString = formatter.format(createTime);
-                MedicalDoctorPosts.setDateStr(dateString);
+                medicalDoctorPosts.setDateStr(dateString);
             }
 
         });
