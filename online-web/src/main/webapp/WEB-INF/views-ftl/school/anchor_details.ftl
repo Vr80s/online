@@ -125,7 +125,7 @@
 									<h5>医馆</h5>
 							    </#if>
 								<div class="hospital-img z">
-								    <#if hospital?? >
+								    <#if hospital?? && hospital.headPortrait??>
 										<img src="${hospital.headPortrait}"/>
 									<#else> 
 									    <img src="${webUrl}/web/images/defaultHead/18.png" />
