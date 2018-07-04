@@ -605,7 +605,8 @@ public class CourseDao extends SimpleHibernateDao {
                     " if(c.is_free=1,(SELECT count(*) FROM apply_r_grade_course where course_id=c.id)," +
                     " (select  sum(ifnull(student_count,0))+sum(ifnull(default_student_count,0)) from  oe_grade  where course_id=?  and is_delete=0 and status=1)) learnd_count,c.course_length," +
                     " c.detailimg_path as detailImgPath, c.bigimg_path as bigImgPath,c.cloud_classroom ,CONCAT(replace(s.`name`,'课',''),t.`name`,\"课\") as scoreName," +
-                    " c.course_outline as courseOutline , c.common_problem as commonProblem, c.course_detail  as courseDetail,ifnull(c.qqno,'暂无QQ')as qqno,m.name,c.description_show " +
+                    " c.course_outline as courseOutline , c.common_problem as commonProblem,"
+                    + "c.dc.course_detail  as courseDetail,ifnull(c.qqno,'暂无QQ')as qqno,m.name,c.description_show " +
                     " from " + courseTableName + " c join oe_menu m  join score_type s  join  teach_method t where c.course_type_id = s.id  and c.courseType = t.id  and c.menu_id = m.id and c.is_delete=0 and c.status=1  and  c.id=?";
             List<CourseVo> courseVoList = this.getNamedParameterJdbcTemplate().getJdbcOperations().query(sql, new Object[]{courseId, courseId}, BeanPropertyRowMapper.newInstance(CourseVo.class));
             courseVo = courseVoList.size() > 0 ? courseVoList.get(0) : courseVo;

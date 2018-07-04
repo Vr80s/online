@@ -191,6 +191,7 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
             $("#page_emotion").css("bottom","-2.8rem");
             $(".comment").show();
             $(".article_main").show();
+            $(".article_main").html("说点什么...");
             getPostsIdByComment = $(this).attr('data-id');
             postsCommentId = "";
         });
@@ -216,6 +217,8 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
                 $(".face").attr("src","/xcview/images/face.png");
                 $("#page_emotion").css("bottom","-2.8rem");
                 $(".comment").show();
+                $(".article_main").show();
+                $(".article_main").html("回复"+postsCommentUserName+":");
             }else {
                 // alert("删除");
                 $(".remove_copy").show();
@@ -277,6 +280,7 @@ function sendComment(){
         content:article
     },function(data) {
         if(data.success==true){
+            $("#form_article").val("");
             var evaluatePostsId = "evaluate"+getPostsIdByComment;
             var getNewPostsCommentId = data.resultObject[0].id;
             $("#"+getPostsIdByComment).show();

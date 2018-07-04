@@ -209,6 +209,15 @@
 		height: 40px;
 		line-height: 40px;
 	}
+	/*隐藏掉表情包后的处理*/
+	.article_main{
+		margin-left: 0;
+	    width: 6.15rem;
+	}
+	#form_article{
+		margin-left: 0;
+	    width: 6.15rem;
+	}
 </style>
 
 </head>
@@ -391,7 +400,7 @@
 						{{if item.stick}}
 						<span class="stick_img_stick"><img src="/xcview/images/stick.png" alt="" />置顶</span>
 						{{/if}}
-						{{item.title}}
+						{{item.content}}
 
 						<div class="both"></div>
 					</div>
@@ -483,7 +492,7 @@
 							{{else}}
 							<!-- </div> -->
 							<div class="both"></div>
-							<div class="response evaluateDiv {{postsComment.id}}" data-id="{{postsComment.id}}" data-postsId="{{item.id}}" data-replyUserId="{{postsComment.replyUserId}}">
+							<div class="response evaluateDiv {{postsComment.id}}" data-id="{{postsComment.id}}" data-postsId="{{item.id}}" data-replyUserId="{{postsComment.replyUserId}}" data-userName="{{postsComment.replyUserName}}">
 								<span class="my">{{postsComment.replyUserName}}</span>
 								<span class="response_cen">回复</span>
 								<span class="she">{{postsComment.userName}}：</span>
@@ -509,10 +518,10 @@
 
 
 		<!-- 删除样式开始 -->
-			<div class="remove">
+			<!-- <div class="remove">
 				<div class="remove_bg"></div>
 				<div class=""></div>
-			</div>
+			</div> -->
 		<!-- 删除样式结束 -->
 	</div>
 	<!-- 中间内容结束 -->
@@ -926,10 +935,11 @@
 	<div class="comment">
 		<div class="comment_bg"></div>
 		<div class="comment_main">
-			<img src="/xcview/images/face.png" alt="" class="face" />
+			<!-- <img src="/xcview/images/face.png" alt="" class="face" /> -->
 			<!-- <textarea id="form_article" contenteditable="true" onkeydown="myInput.listen(this, event);"></textarea> -->
-			<textarea id="form_article" contenteditable="true" onkeydown="myInput.listen(this, event);"></textarea>
+			<textarea id="form_article" contenteditable="true" onkeydown="myInput.listen(this, event);" placeholder=""></textarea>
 			<div class="article_main">说点什么...</div>
+			<!-- <div class="article_mains">回复：</div> -->
 			<h3 onclick="sendComment()">发送</h3>
 		</div>
 	</div>

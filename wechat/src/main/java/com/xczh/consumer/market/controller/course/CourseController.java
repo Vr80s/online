@@ -119,6 +119,8 @@ public class CourseController {
         //专辑查看更新时间
         if (cv.getCollection()) {
             cv.setDirtyDate(courseApplyService.getCollectionUpdateDateText(courseId));
+            
+            cv.setRichHostDetailsUrl(returnOpenidUri + "/xcview/html/person_fragment.html?type=3&typeId=" + courseId);
         }
 
         /**
