@@ -120,7 +120,8 @@ public class MultiUrlHelper {
     private static Map<String, String> h5Map = ImmutableMap.of(
             URL_TYPE_APP, "xczh://ipandatcm.com/h5?url={0}&needLogin=false");
     private static Map<String, String> apprenticeMap = ImmutableMap.of(
-            URL_TYPE_APP, "xczh://ipandatcm.com/h5?url={0}&needLogin=true"
+            URL_TYPE_APP, "xczh://ipandatcm.com/h5?url={0}&needLogin=true",
+            URL_TYPE_MOBILE, "/xcview/html/apprentice/inherited_introduction.html?merId={0}"
     );
     private static Map<String, String> publicCourseListMap = ImmutableMap.of(
             URL_TYPE_APP, "xczh://ipandatcm.com/publicCourseList?",
