@@ -354,11 +354,12 @@
 				{{else if item.type == 2}}
 				<!-- 动态图片-->
 				<div class="trends_hide">
-					<div class="paper_nav_span comment_hide">
+					<div class="paper_nav_span comment_hide" >
 						{{if item.stick}}
 						<span class="stick_img_stick"><img src="/xcview/images/stick.png" alt="" />置顶</span>
 						{{/if}}
-						{{item.content}}
+						<span class="span_span{{item.id}}"></span>
+						
 						
 					</div>
 					{{if item.pictures !=null && item.pics.length>0}}

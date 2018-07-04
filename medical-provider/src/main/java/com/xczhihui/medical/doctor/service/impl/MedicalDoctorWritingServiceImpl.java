@@ -2,6 +2,7 @@ package com.xczhihui.medical.doctor.service.impl;
 
 import java.util.Date;
 
+import com.xczhihui.common.util.enums.HeadlineType;
 import com.xczhihui.medical.doctor.mapper.MedicalDoctorPostsMapper;
 import com.xczhihui.medical.doctor.model.MedicalDoctorPosts;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,6 +83,7 @@ public class MedicalDoctorWritingServiceImpl implements IMedicalDoctorWritingSer
         oeBxsArticle.setUserCreated(true);
         oeBxsArticle.setCreatePerson(userId);
         oeBxsArticle.setSort(0);
+        oeBxsArticle.setTypeId(HeadlineType.ZZ.getCode());
         oeBxsArticleMapper.insert(oeBxsArticle);
         Integer articleId = oeBxsArticle.getId();
 
