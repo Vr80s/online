@@ -270,8 +270,6 @@ public class DoctorController extends AbstractController {
         OnlineUser loginUser = getCurrentUser();
         UserDataVo currentUser = userService.getUserData(loginUser);
         String workTime = medicalDoctorBusinessService.getWorkTimeById(currentUser.getUid(), type);
-        //过滤下坐诊时间
-        workTime = XzStringUtils.workTimeScreen(workTime);
         return ResponseObject.newSuccessResponseObject(workTime);
     }
 
