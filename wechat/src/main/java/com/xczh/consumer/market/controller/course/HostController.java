@@ -131,44 +131,6 @@ public class HostController {
         return ResponseObject.newSuccessResponseObject(mapAll);
     }
 
-    @RequestMapping("doctor")
-    @ResponseBody
-    public ResponseObject homeV2(@Account(optional = true) Optional<String> accountIdOpt,
-                                 HttpServletResponse res,
-                                 @RequestParam(value = "lecturerId", required = false) String lecturerId,
-                                 HttpServletRequest request, @RequestParam(value = "doctorId", required = false) String doctorId) throws Exception {
-        Map<String, Object> mapAll = new HashMap<String, Object>();
-        Map<String, Object> lecturerInfo = myInfoService.findDoctorInfoById(lecturerId);
-        if (lecturerInfo == null) {
-            return ResponseObject.newErrorResponseObject("获取医师信息有误");
-        }
-        List<Integer> listff = focusServiceRemote.selectFocusOrFansCountOrCriticizeCount(lecturerId);
-        mapAll.put("lecturerInfo", lecturerInfo);
-        mapAll.put("fansCount", listff.get(0));
-        mapAll.put("focusCount", listff.get(1));
-        if (accountIdOpt.isPresent()) {
-            Integer isFours = focusServiceRemote.isFoursLecturer(accountIdOpt.get(), lecturerId);
-            mapAll.put("isFours", isFours);
-        } else {
-            mapAll.put("isFours", 0);
-        }
-        List<DoctorBannerVO> list = medicalDoctorBannerService.listByUserId(lecturerId);
-        mapAll.put("banners", list.stream()
-                .peek(doctorBannerVO ->
-                {
-                    String routeType = doctorBannerVO.getRouteType();
-                    if (RouteTypeEnum.APPRENTICE_DETAIL.name().equals(routeType)) {
-                        String apprenticeParam = MultiUrlHelper.handleApprenticeParam(returnOpenidUri, doctorBannerVO.getLinkParam());
-                        if (StringUtils.isNotBlank(apprenticeParam)) {
-                            doctorBannerVO.setLinkParam(apprenticeParam);
-                        }
-                    }
-                    doctorBannerVO.setUrl(MultiUrlHelper.getUrl(routeType, APPUtil.getMobileSource(request), doctorBannerVO.getLinkParam()));
-                })
-                .collect(Collectors.toList()));
-        return ResponseObject.newSuccessResponseObject(mapAll);
-    }
-
     @RequestMapping("doctor/v2")
     @ResponseBody
     public ResponseObject doctorV2(@Account(optional = true) Optional<String> accountIdOpt,
