@@ -27,7 +27,7 @@
             and oc.type = 1
         </if>
         <if test="type ==2 ">
-            and mdp.course_id is not null
+            and mdp.course_id is not null and oc.type !=1
         </if>
         <if test="type ==3 ">
             and oba.type_id = 8

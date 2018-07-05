@@ -7,6 +7,7 @@ import java.util.List;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.xczhihui.medical.common.bean.PictureSpecification;
 
 /**
@@ -118,6 +119,7 @@ public class MedicalDoctorPosts extends Model<MedicalDoctorPosts> {
     /**
      * 上课时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")
     @TableField(exist = false)
     private Date startTime;
     /**

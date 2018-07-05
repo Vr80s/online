@@ -310,7 +310,7 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
 
 function postsType(obj) {
     doctorPostsType = $(obj).attr("value");
-    doctorPostsList(num,'down',doctorPostsType);
+    doctorPostsList(1,'down',doctorPostsType);
     //alert(type)
 }
 /**
