@@ -56,12 +56,12 @@ public class MedicalDoctorBannerServiceImpl implements IMedicalDoctorBannerServi
                 throw new MedicalException("非法请求");
             } else {
                 if (status) {
-                    if (doctorBanner.getEndTime() != null && doctorBanner.getEndTime().before(new Date())) {
-                        throw new MedicalException("期限已过期, 请先修改时间再上架");
-                    }
                     int count = medicalDoctorBannerMapper.countOnShelf(doctorBanner.getUserId());
                     if (count >= MAX_ONSHELF_BANNER_COUNT) {
                         throw new MedicalException("最多只能上架三个轮播图");
+                    }
+                    if (doctorBanner.getEndTime() != null && doctorBanner.getEndTime().before(new Date())) {
+                        throw new MedicalException("期限已过期, 请先修改时间再上架");
                     }
                 }
                 doctorBanner.setStatus(status);
