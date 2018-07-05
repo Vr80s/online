@@ -45,7 +45,7 @@ public class HospitalDao extends HibernateDao<MedicalHospital> {
                 sql.append("and score = :score ");
             }
         }
-        sql.append(" order by authentication desc ,recommendSort desc,score desc,enable_time desc");
+        sql.append(" order by authentication desc ,recommend_sort desc,score desc,enable_time desc");
 
         Page<MedicalHospital> medicalHospitals = this.findPageBySQL(
                 sql.toString(), paramMap, MedicalHospital.class, pageNumber,

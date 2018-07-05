@@ -1292,7 +1292,7 @@ function showRecruit(obj, status) {
 }
 
 function getLocalTime(nS) {
-	if(nS == null && nS == ""){
+	if(nS == null || nS == ""){
 		return "";
 	}
     return new Date(parseInt(nS)).toLocaleString().replace(/:\d{1,2}$/, ' ');

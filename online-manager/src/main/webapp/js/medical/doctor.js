@@ -1298,6 +1298,9 @@ function drawHospitalPage(data){
 }
 
 function getLocalTime(nS) {
+	if(nS == null || nS == ""){
+		return "";
+	}
     return new Date(parseInt(nS)).toLocaleString().replace(/:\d{1,2}$/,' ');
 }
 
