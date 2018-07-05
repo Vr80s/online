@@ -505,8 +505,10 @@
 									   </div>
 								   </td>
 								<td>
-									<a href="" id="exportId" style="padding: 4px;background-color: #4183bc;font-size: 15px;
-								display: inline-block;border-radius: 8px;color: #2a6496;text-decoration : none" onclick="exportExcel()">导出Excel</a>
+
+										<button class="btn btn-sm btn-success add_bx" id="add_button" onclick="exportExcel()" title="新增招生简章">
+											<i class="fa fa-download"></i> 新增招生简章
+										</button>
 
 								</td>
 

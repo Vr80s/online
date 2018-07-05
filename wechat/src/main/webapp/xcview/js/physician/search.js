@@ -69,7 +69,7 @@ function clearAll() {
 // 点击取消调用方法
 function physician() {
     var back = document.referrer;
-    if (stringnull(back) && back.indexOf("wx_share.html") == -1) {
+    if (isNotBlank(back) && back.indexOf("wx_share.html") == -1) {
         window.location.href = back;
     } else {
         window.location.href = "index.html";

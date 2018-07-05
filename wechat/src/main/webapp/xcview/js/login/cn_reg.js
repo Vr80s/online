@@ -24,7 +24,7 @@ function time(o) {
 
 
 var opendId = getQueryString("openId");
-if (stringnull(opendId)) {
+if (isNotBlank(opendId)) {
     localStorage.setItem("openid", openId);
 }
 /**
@@ -43,7 +43,7 @@ document.getElementById("btn").addEventListener("tap", function () {
     if (text != "获取验证码") {
         return false;
     }
-    if (!stringnull(number)) {
+    if (!isNotBlank(number)) {
 //		webToast("手机号不能为空","middle",1500);
         return false;
     }
@@ -78,16 +78,16 @@ mui(".last_cn").on('tap', '#enter_btn', function (event) {
     var yanzhengma = document.getElementById("vcode").value;
     var userpassword = document.getElementById("password").value; // 密码
 
-    if (!stringnull(number)) {
+    if (!isNotBlank(number)) {
         //webToast("手机号不能为空","middle",1500);
         return false;
     }
 
-    if (!stringnull(yanzhengma)) {
+    if (!isNotBlank(yanzhengma)) {
 //		webToast("验证码不能为空","middle",1500);
         return false;
     }
-    if (!stringnull(userpassword)) {
+    if (!isNotBlank(userpassword)) {
 //		webToast("密码不能为空","middle",1500);
         return false;
     }

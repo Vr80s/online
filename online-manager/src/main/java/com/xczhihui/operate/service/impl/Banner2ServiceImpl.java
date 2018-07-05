@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.Banner;
 import com.xczhihui.common.util.bean.Page;
-import com.xczhihui.course.enums.RouteTypeEnum;
+import com.xczhihui.common.util.enums.RouteTypeEnum;
 import com.xczhihui.operate.dao.Banner2Dao;
 import com.xczhihui.operate.service.Banner2Service;
 import com.xczhihui.operate.service.MobileBannerService;

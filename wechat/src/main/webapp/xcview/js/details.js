@@ -318,7 +318,7 @@ requestService("/xczh/course/liveDetails",{
 					timer(new Date(startTime).getTime(),parseInt(sendTime));
 				}
 				var vhallId =  result.vhallId;
-				if (stringnull(videoId)) {
+				if (isNotBlank(videoId)) {
 					chZJ(videoId);
 				}
 			}
@@ -649,7 +649,7 @@ if (is_weixin()) {
 		// 发送到朋友
 		wx.onMenuShareAppMessage({
 			title : '中医好课程：' +result.gradeName, // 分享标题
-			desc : stringnull(result.description) ? result.description.stripHTML() : "", // 分享描述
+			desc : isNotBlank(result.description) ? result.description.stripHTML() : "", // 分享描述
 			link : domain + "/wx_share.html?shareType=1&shareId=" + course_id, // 分享链接
 			imgUrl : result.smallImgPath, // 分享图标
 			type : '', // 分享类型,music、video或link，不填默认为link
@@ -686,7 +686,7 @@ if (is_weixin()) {
 		// 发送到qq
 		wx.onMenuShareQQ({
 			title : '中医好课程：' +result.gradeName, // 分享标题
-			desc : stringnull(result.description) ? result.description.stripHTML() : "", // 分享描述
+			desc : isNotBlank(result.description) ? result.description.stripHTML() : "", // 分享描述
 			link : domain + "/wx_share.html?shareType=1&shareId=" + course_id, // 分享链接
 			imgUrl : result.smallImgPath, // 分享图标
 			success : function() {
@@ -705,7 +705,7 @@ if (is_weixin()) {
 		//qq空间	
 		wx.onMenuShareQZone({
 			title : '中医好课程：' +result.gradeName, // 分享标题
-			desc : stringnull(result.description) ? result.description.stripHTML() : "", // 分享描述
+			desc : isNotBlank(result.description) ? result.description.stripHTML() : "", // 分享描述
 			link : domain + "/wx_share.html?shareType=1&shareId=" + course_id, // 分享链接
 			imgUrl : result.smallImgPath, // 分享图标
 			success: function () {

@@ -4,7 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-import com.xczhihui.course.enums.RouteTypeEnum;
+import com.xczhihui.common.util.enums.RouteTypeEnum;
+
 
 /**
  * @author hejiwei

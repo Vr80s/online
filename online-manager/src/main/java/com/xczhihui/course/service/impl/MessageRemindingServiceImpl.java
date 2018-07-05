@@ -21,17 +21,17 @@ import com.xczhihui.bxg.online.common.domain.CourseAnchor;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.common.support.service.CacheService;
 import com.xczhihui.common.support.service.impl.RedisCacheService;
+import com.xczhihui.common.util.CourseUtil;
 import com.xczhihui.common.util.DateUtil;
 import com.xczhihui.common.util.RedisCacheKey;
 import com.xczhihui.common.util.TimeUtil;
+import com.xczhihui.common.util.enums.MessageTypeEnum;
+import com.xczhihui.common.util.enums.RouteTypeEnum;
 import com.xczhihui.course.dao.CollectionCourseApplyUpdateDateDao;
 import com.xczhihui.course.dao.CourseDao;
-import com.xczhihui.course.enums.MessageTypeEnum;
-import com.xczhihui.course.enums.RouteTypeEnum;
 import com.xczhihui.course.params.BaseMessage;
 import com.xczhihui.course.service.ICommonMessageService;
 import com.xczhihui.course.service.MessageRemindingService;
-import com.xczhihui.course.util.CourseUtil;
 import com.xczhihui.course.util.TextStyleUtil;
 
 /**

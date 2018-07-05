@@ -2,16 +2,16 @@
 // * 如果是来自分享的话。需要判断这个id啦
 // */
 var opendId = getQueryString("openId");
-if (stringnull(opendId)) {
+if (isNotBlank(opendId)) {
     localStorage.setItem("openid", openId);
 }
-//if(stringnull(param_page)){
+//if(isNotBlank(param_page)){
 //	localStorage.setItem("code", param_page);
 //}
 //
 //
 //var error = getQueryString("error");
-//if(stringnull(error)){
+//if(isNotBlank(error)){
 //	alert("帐号信息有误,重试或联系客户!");
 //}
 
@@ -77,7 +77,7 @@ function login() {
     var number = document.getElementById("account").value;
     var password = document.getElementById("password").value;
 
-    if (!stringnull(number) || !stringnull(password)) {
+    if (!isNotBlank(number) || !isNotBlank(password)) {
 //		webToast("手机号或密码不能为空","middle",1500);
         return false;
     }

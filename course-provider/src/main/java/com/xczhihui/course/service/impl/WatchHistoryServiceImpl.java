@@ -1,7 +1,5 @@
 package com.xczhihui.course.service.impl;
 
-import static com.xczhihui.course.enums.RouteTypeEnum.COMMON_LEARNING_COURSE_DETAIL_PAGE;
-
 import java.text.MessageFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -16,8 +14,9 @@ import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xczhihui.common.util.CodeUtil;
+import com.xczhihui.common.util.CourseUtil;
 import com.xczhihui.common.util.TimeUtil;
-import com.xczhihui.course.enums.MessageTypeEnum;
+import com.xczhihui.common.util.enums.MessageTypeEnum;
 import com.xczhihui.course.mapper.CourseMapper;
 import com.xczhihui.course.mapper.WatchHistoryMapper;
 import com.xczhihui.course.model.Course;
@@ -138,7 +137,7 @@ public class WatchHistoryServiceImpl extends ServiceImpl<WatchHistoryMapper, Wat
                             .buildWeb(content)
                             .buildWeixin(weixinApplySuccessMessageCode, weixinParams)
                             .detailId(String.valueOf(courseId))
-                            .build(userId, COMMON_LEARNING_COURSE_DETAIL_PAGE, userId));
+                            .build(userId, CourseUtil.getCourseLearningRouteType(course.getCollection(), course.getType(), course.getMultimediaType()), userId));
         } catch (Exception e) {
             LOGGER.error("报名成功时，推送消息异常: courseId: {}", courseId);
             e.printStackTrace();

@@ -3,6 +3,8 @@ package com.xczhihui.medical.web;
 import java.io.BufferedOutputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
@@ -247,7 +249,8 @@ public class ApprenticeController {
         List<MedicalEntryInformation> meilist = medicalEntryInformationService.getAllMedicalEntryInformationList(merId);
         response.reset(); // 清除buffer缓存
         // 指定下载的文件名
-        response.setHeader("Content-Disposition", "attachment;filename=enrollList" + ".xlsx");
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+        response.setHeader("Content-Disposition", "attachment;filename=enrollList"+ LocalDateTime.now().format(df) + ".xlsx");
         response.setContentType("application/vnd.ms-excel;charset=UTF-8");
         response.setHeader("Pragma", "no-cache");
         response.setHeader("Cache-Control", "no-cache");
@@ -291,18 +294,22 @@ public class ApprenticeController {
         cell = row.createCell(1);
         cell.setCellValue("手机");
         cell = row.createCell(2);
-        cell.setCellValue("性别");
-        cell = row.createCell(3);
         cell.setCellValue("年龄");
+        cell = row.createCell(3);
+        cell.setCellValue("性别");
         cell = row.createCell(4);
-        cell.setCellValue("学历");
-        cell = row.createCell(5);
         cell.setCellValue("籍贯");
+        cell = row.createCell(5);
+        cell.setCellValue("学历");
         cell = row.createCell(6);
         cell.setCellValue("报名时间");
         cell = row.createCell(7);
-        cell.setCellValue("是否徒弟");
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        cell.setCellValue("学习经历");
+        cell = row.createCell(8);
+        cell.setCellValue("行医经历");
+        cell = row.createCell(9);
+        cell.setCellValue("学中医目的");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         for (int i = 0; i < valueList.size(); i++) {
             row = sheet.createRow((int) i + 1);
             MedicalEntryInformation mei = valueList.get(i);
@@ -334,11 +341,7 @@ public class ApprenticeController {
             } else {
                 mei.setEducationStr("");
             }
-            if (mei.getApprentice() == 1) {
-                mei.setApprenticeStr("是");
-            } else {
-                mei.setApprenticeStr("否");
-            }
+
             String dataStr = sdf.format(mei.getDeadline());
             mei.setDeadlineStr(dataStr);
             cell = row.createCell((short) 0);//创建单元格  先设置样式、编码，然后再置值。
@@ -346,17 +349,21 @@ public class ApprenticeController {
             cell = row.createCell((short) 1);
             cell.setCellValue(mei.getTel());
             cell = row.createCell((short) 2);
-            cell.setCellValue(mei.getSex());
-            cell = row.createCell((short) 3);
             cell.setCellValue(mei.getAge());
+            cell = row.createCell((short) 3);
+            cell.setCellValue(mei.getSexStr());
             cell = row.createCell((short) 4);
-            cell.setCellValue(mei.getEducationStr());
-            cell = row.createCell((short) 5);
             cell.setCellValue(mei.getNativePlace());
+            cell = row.createCell((short) 5);
+            cell.setCellValue(mei.getEducationStr());
             cell = row.createCell((short) 6);
-            cell.setCellValue(mei.getDeadlineStr());
+            cell.setCellValue(sdf.format(mei.getCreateTime()));
             cell = row.createCell((short) 7);
-            cell.setCellValue(mei.getApprenticeStr());
+            cell.setCellValue(mei.getEducationExperience());
+            cell = row.createCell((short) 8);
+            cell.setCellValue(mei.getMedicalExperience());
+            cell = row.createCell((short) 9);
+            cell.setCellValue(mei.getGoal());
         }
         return workbook;
     }
