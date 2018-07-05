@@ -702,6 +702,9 @@ function updateStatus(obj, status) {
 
 //图片上传统一上传到附件中心---- 修改  列表页
 $("#addMobileBanner-form").on("change", "#imgPath_file", function () {
+	
+	debugger;
+	
     var v = this.value.split(".")[1].toUpperCase();
     if (v != 'BMP' && v != 'GIF' && v != 'JPEG' && v != 'PNG' && v != 'SVG' && v != 'JPG') {
         layer.alert("图片格式错误,请重新选择.");
