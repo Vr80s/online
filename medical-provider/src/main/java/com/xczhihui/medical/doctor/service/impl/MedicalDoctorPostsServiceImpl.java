@@ -1,9 +1,9 @@
 package com.xczhihui.medical.doctor.service.impl;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
+import com.xczhihui.medical.common.bean.PictureSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,8 +46,8 @@ public class MedicalDoctorPostsServiceImpl extends ServiceImpl<MedicalDoctorPost
             Integer postsId = medicalDoctorPosts.getId();
             List<MedicalDoctorPostsComment> commentList = medicalDoctorPostsCommentService.selectMedicalDoctorPostsCommentList(postsId, accountId);
             List<MedicalDoctorPostsLike> likeList = medicalDoctorPostsLikeMapper.getMedicalDoctorPostsLikeList(postsId);
-            likeList.forEach(MedicalDoctorPostsLike -> {
-                String userId = MedicalDoctorPostsLike.getUserId();
+            likeList.forEach(medicalDoctorPostsLike -> {
+                String userId = medicalDoctorPostsLike.getUserId();
                 if (userId.equals(accountId)) {
                     medicalDoctorPosts.setPraise(true);
                 }
@@ -72,9 +72,103 @@ public class MedicalDoctorPostsServiceImpl extends ServiceImpl<MedicalDoctorPost
                 medicalDoctorPosts.setDateStr(dateString);
             }
 
+            //封装图片
+            if(medicalDoctorPosts.getPictures() != null && !medicalDoctorPosts.getPictures().equals("")){
+                String imgStr[] =medicalDoctorPosts.getPictures().split("@#\\$%&\\*!");
+                List<PictureSpecification> psList = new ArrayList<>();
+                for(int i=0;i<imgStr.length;i++){
+                    PictureSpecification ps = new PictureSpecification();
+                    Map<String, String> m = urlSplit(imgStr[i]);
+                    ps.setImgUrl(UrlPage(imgStr[i]));
+                    ps.setWidth(Integer.parseInt(m.get("w")));
+                    ps.setHeight(Integer.parseInt(m.get("h")));
+                    psList.add(ps);
+                }
+                medicalDoctorPosts.setImgStr(psList);
+            }
+
         });
         page.setRecords(list);
         return page;
+    }
+
+    /**
+     * 解析出url请求的路径，包括页面
+     * @param strURL url地址
+     * @return url路径
+     */
+    public static String UrlPage(String strURL)
+    {
+        String strPage=null;
+        String[] arrSplit=null;
+
+        strURL=strURL.trim().toLowerCase();
+
+        arrSplit=strURL.split("[?]");
+        if(strURL.length()>0)
+        {
+            if(arrSplit.length>1)
+            {
+                if(arrSplit[0]!=null)
+                {
+                    strPage=arrSplit[0];
+                }
+            }
+        }
+
+        return strPage;
+    }
+
+    /**
+     * 去掉url中的路径，留下请求参数部分
+     * @param strURL url地址
+     * @return url请求参数部分
+     * @author lzf
+     */
+    private static String TruncateUrlPage(String strURL){
+        String strAllParam=null;
+        String[] arrSplit=null;
+        strURL=strURL.trim().toLowerCase();
+        arrSplit=strURL.split("[?]");
+        if(strURL.length()>1){
+            if(arrSplit.length>1){
+                for (int i=1;i<arrSplit.length;i++){
+                    strAllParam = arrSplit[i];
+                }
+            }
+        }
+        return strAllParam;
+    }
+    /**
+     * 解析出url参数中的键值对
+     * 如 "index.jsp?Action=del&id=123"，解析出Action:del,id:123存入map中
+     * @param URL  url地址
+     * @return  url请求参数部分
+     * @author lzf
+     */
+    public static Map<String, String> urlSplit(String URL){
+        Map<String, String> mapRequest = new HashMap<String, String>();
+        String[] arrSplit=null;
+        String strUrlParam=TruncateUrlPage(URL);
+        if(strUrlParam==null){
+            return mapRequest;
+        }
+        arrSplit=strUrlParam.split("[&]");
+        for(String strSplit:arrSplit){
+            String[] arrSplitEqual=null;
+            arrSplitEqual= strSplit.split("[=]");
+            //解析出键值
+            if(arrSplitEqual.length>1){
+                //正确解析
+                mapRequest.put(arrSplitEqual[0], arrSplitEqual[1]);
+            }else{
+                if(arrSplitEqual[0]!=""){
+                    //只有参数没有值，不加入
+                    mapRequest.put(arrSplitEqual[0], "");
+                }
+            }
+        }
+        return mapRequest;
     }
 
     @Override

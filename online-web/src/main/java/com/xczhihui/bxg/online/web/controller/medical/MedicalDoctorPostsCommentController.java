@@ -32,8 +32,6 @@ public class MedicalDoctorPostsCommentController {
             .getLogger(MedicalDoctorPostsCommentController.class);
     @Autowired
     private IMedicalDoctorPostsCommentService medicalDoctorPostsCommentService;
-    @Autowired
-    private IMedicalDoctorPostsLikeService medicalDoctorPostsLikeService;
 
     /**
      * 医师动态评论列表

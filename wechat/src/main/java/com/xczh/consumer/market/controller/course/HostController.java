@@ -25,7 +25,6 @@ import com.xczh.consumer.market.interceptor.HeaderInterceptor;
 import com.xczh.consumer.market.utils.APPUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.course.consts.MultiUrlHelper;
-import com.xczhihui.course.enums.RouteTypeEnum;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.course.service.IFocusService;
 import com.xczhihui.course.service.IMyInfoService;
@@ -34,7 +33,6 @@ import com.xczhihui.medical.doctor.service.IMedicalDoctorBannerService;
 import com.xczhihui.medical.doctor.vo.DoctorBannerVO;
 import com.xczhihui.medical.hospital.model.MedicalHospital;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalApplyService;
-import com.xczhihui.pay.util.StringUtils;
 
 /**
  * ClassName: HostController.java <br>
@@ -134,8 +132,8 @@ public class HostController {
     @RequestMapping("doctor/v2")
     @ResponseBody
     public ResponseObject doctorV2(@Account(optional = true) Optional<String> accountIdOpt,
-                                 HttpServletResponse res,
-                                 HttpServletRequest request, @RequestParam(value = "doctorId") String doctorId) throws Exception {
+                                   HttpServletResponse res,
+                                   HttpServletRequest request, @RequestParam(value = "doctorId") String doctorId) throws Exception {
         Map<String, Object> mapAll = new HashMap<String, Object>();
         Map<String, Object> lecturerInfo = myInfoService.findDoctorInfoByDoctorId(doctorId);
         if (lecturerInfo == null) {
@@ -153,13 +151,8 @@ public class HostController {
                     .peek(doctorBannerVO ->
                     {
                         String routeType = doctorBannerVO.getRouteType();
-                        if (RouteTypeEnum.APPRENTICE_DETAIL.name().equals(routeType)) {
-                            String apprenticeParam = MultiUrlHelper.handleApprenticeParam(returnOpenidUri, doctorBannerVO.getLinkParam());
-                            if (StringUtils.isNotBlank(apprenticeParam)) {
-                                doctorBannerVO.setLinkParam(apprenticeParam);
-                            }
-                        }
-                        doctorBannerVO.setUrl(MultiUrlHelper.getUrl(routeType, APPUtil.getMobileSource(request), doctorBannerVO.getLinkParam()));
+                        doctorBannerVO.setUrl(MultiUrlHelper.getUrl(routeType, APPUtil.getMobileSource(request),
+                                MultiUrlHelper.handleParam(returnOpenidUri, doctorBannerVO.getLinkParam(), routeType)));
                     })
                     .collect(Collectors.toList()));
         } else {

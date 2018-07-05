@@ -27,14 +27,14 @@ public class MedicalDoctorPostsCommentServiceImpl extends ServiceImpl<MedicalDoc
     @Override
     public List<MedicalDoctorPostsComment> selectMedicalDoctorPostsCommentList(Integer postsId, String userId) {
         List<MedicalDoctorPostsComment> list = medicalDoctorPostsCommentMapper.selectMedicalDoctorPostsCommentList(postsId);
-        list.forEach(MedicalDoctorPostsComment -> {
-            if (MedicalDoctorPostsComment.getReplyUserId() != null) {
-                if (MedicalDoctorPostsComment.getReplyUserId().equals(userId)) {
-                    MedicalDoctorPostsComment.setSelf(true);
+        list.forEach(medicalDoctorPostsComment -> {
+            if (medicalDoctorPostsComment.getReplyUserId() != null) {
+                if (medicalDoctorPostsComment.getReplyUserId().equals(userId)) {
+                    medicalDoctorPostsComment.setSelf(true);
                 }
             } else {
-                if (MedicalDoctorPostsComment.getUserId().equals(userId)) {
-                    MedicalDoctorPostsComment.setSelf(true);
+                if (medicalDoctorPostsComment.getUserId().equals(userId)) {
+                    medicalDoctorPostsComment.setSelf(true);
                 }
             }
         });

@@ -73,11 +73,6 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
                 }
                 obj[i].likes = likes.substr(0,likes.length-1);
             }
-            //封装图片
-            if(obj[i].pictures!=null&&obj[i].pictures!=""){
-                var pics=obj[i].pictures.split(",");
-                obj[i].pics=pics;
-            }
             //过滤文章内容标签
             if(obj[i].articleId!==null && obj[i].articleId!==""){
                 obj[i].articleContent = obj[i].articleContent.replace(/<.*?>/ig,"");
@@ -90,12 +85,15 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
 
         //  判断是下拉刷新还是上拉加载
         if(downOrUp=='down'){
-            //      判断有无评价显示默认图片
-            /*if(data.resultObject.items.length==0){
-                $(".quie_pic").show()
+
+
+            //判断全部动态
+            if(data.resultObject.records.length==0){
+                $(".baseImagenumbers").show();
             }else{
-                $(".quie_pic").hide()
-            }*/
+                $(".baseImagenumbers").hide();
+            }
+
             $(".rests_nav").html(template('wrap_doctor_dynamics',{items:obj}));
             mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);
             mui('#refreshContainer').pullRefresh().refresh(true);
@@ -299,12 +297,23 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
             var itemId = $(this).attr("data-id");
             location.href = "/xcview/html/physician/consilia.html?articleId=" + itemId;
         });
+        //点击视频播放/暂停
+        mui("#refreshContainer").on('tap', '.ccvideo', function (event) {
+            var ccId = $(this).find("video").attr("id");
+            var oReplay = document.getElementById(ccId);
+            if (oReplay.paused){
+                oReplay.play();
+            }
+            else{
+                oReplay.pause();
+            }
+        });
     });
 }
 
 function postsType(obj) {
     doctorPostsType = $(obj).attr("value");
-    doctorPostsList(num,'down',doctorPostsType);
+    doctorPostsList(1,'down',doctorPostsType);
     //alert(type)
 }
 /**
