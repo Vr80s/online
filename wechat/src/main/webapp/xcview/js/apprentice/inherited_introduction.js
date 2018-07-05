@@ -67,3 +67,11 @@ function cardInfo() {
     //     location.href ='/xcview/html/apprentice/generate_cards.html'
     // }
 }
+
+function apply() {
+    requestGetService("/xczh/set/check",data,function(data){
+        if(data.success){
+            location.href='apply.html?merId={{id}}';
+        }
+    })
+}
