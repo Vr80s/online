@@ -36,7 +36,7 @@
 	});
 	
 	 var addressId = getQueryString("id");
-	 if(stringnull(addressId)){
+	 if(isNotBlank(addressId)){
 		 
 		 editAddress(addressId);
 	 }
@@ -55,13 +55,13 @@
 				    
 				    //
 				    var cityp = "";
-				    if(stringnull(umv.provinces)){
+				    if(isNotBlank(umv.provinces)){
 				    	cityp+=umv.provinces+" ";
 				    }
-				    if(stringnull(umv.city)){
+				    if(isNotBlank(umv.city)){
 				    	cityp+=umv.city+" ";
 				    }
-				    if(stringnull(umv.county)){
+				    if(isNotBlank(umv.county)){
 				    	cityp+=umv.county;
 				    }
 				    //var cityp = umv.provinces+" "+ umv.city
@@ -85,7 +85,7 @@
 	$("#address_save").click(function(){
 		var consignee = $("#consignee").val();
 		var consigneeLength = consignee.length;
-		if(!stringnull(consignee) && (consigneeLength<3 || consigneeLength >20) ){  
+		if(!isNotBlank(consignee) && (consigneeLength<3 || consigneeLength >20) ){
 //			$("#errorMsg").html("<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>请填写收货人</div></div></div>");
 			/*$("#errorMsg").show();*/
 //			setTimeout(function(){$(".vanish").hide();},900000);
@@ -96,7 +96,7 @@
 		$("#vanishs").hide();
 		
 		var phone =$("#phone").val();
-		if (!stringnull(phone)) {
+		if (!isNotBlank(phone)) {
 			/*$("#errorMsg").html("<div class='vanish0'><div class='vanish0_bg'></div><div class='vanish0_cen'><div class='vanish0_size'>请填写手机号</div></div></div>");
 			$("#errorMsg").show();
 			setTimeout(function(){$(".vanish0").hide();},1500);*/
@@ -112,7 +112,7 @@
 		}
 		
 		var cityP =$("#cityP").text();
-		if(!stringnull(cityP) || cityP == "请选择"){
+		if(!isNotBlank(cityP) || cityP == "请选择"){
 //			$("#errorMsg").html("<div class='vanish3'><div class='vanish3_bg'></div><div class='vanish3_cen'><div class='vanish3_size'>请选择省市区</div></div></div>");
 //			$("#errorMsg").show();
 //			setTimeout(function(){$(".vanish3").hide();},1500);
@@ -121,7 +121,7 @@
 		}
 		
 		var detailed_address =$("#detailed_address").val();
-		if(!stringnull(detailed_address) || (detailed_address.length >50)){  
+		if(!isNotBlank(detailed_address) || (detailed_address.length >50)){
 			/*$("#errorMsg").html("<div class='vanish2'><div class='vanish2_bg'></div><div class='vanish2_cen'><div class='vanish2_size'>收货人不能为空,详细地址不能大于50</div></div></div>");
 			$("#errorMsg").show();
 			setTimeout(function(){$(".vanish2").hide();},1500);*/
@@ -133,7 +133,7 @@
 		}
 		
 		var provinces ="";var city = "";var county ="";
-		if(stringnull(cityP)){
+		if(isNotBlank(cityP)){
 			var arr = cityP.split(" ");
 			provinces = arr[0];
 			city = arr[1];
@@ -163,7 +163,7 @@
 		$(".prosperity_cen_top").text("新增成功");
 		
 		var url_address = "/xczh/set/saveAddress";
-		if(stringnull(addressId)){
+		if(isNotBlank(addressId)){
 			urlparm.id = addressId;
 			url_address = "/xczh/set/updateAddress";
 			$(".person_prosperity").show();
@@ -216,16 +216,16 @@
 					 */
 //					var a_all = result.provinces + result.city+ result.county + result.street +result.detailedAddress;
 					var a_all = "";
-				    if(stringnull(result.provinces)){
+				    if(isNotBlank(result.provinces)){
 				    	a_all+=result.provinces+"";
 				    }
-				    if(stringnull(result.city)){
+				    if(isNotBlank(result.city)){
 				    	a_all+=result.city+"";
 				    }
-				    if(stringnull(result.county)){
+				    if(isNotBlank(result.county)){
 				    	a_all+=result.county+" ";
 				    }
-				    if(stringnull(result.detailedAddress)){
+				    if(isNotBlank(result.detailedAddress)){
 				    	a_all+=result.detailedAddress;
 				    }
 					/*
@@ -357,7 +357,7 @@ $(".history_bg_bto2").click(function(){
 });
 function deleteAddress(obj){
 	var addressId =  $(obj).attr("title");
-	if(stringnull(addressId)){
+	if(isNotBlank(addressId)){
 		//查询下 -- 填充到form表单中
 		/**
 		 * 根据id查询地址

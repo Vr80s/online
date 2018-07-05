@@ -1429,8 +1429,9 @@ p{
 	width: 4.29rem;
 	display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 4;
+    -webkit-line-clamp: 1;
     overflow: hidden;
+    margin-top: 0.1rem;
 }
 .basis_tips{
 	font-size: 0.22rem;

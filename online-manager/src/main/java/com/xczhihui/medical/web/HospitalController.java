@@ -373,4 +373,22 @@ public class HospitalController extends AbstractController {
         request.setAttribute("hospitalId", hospitalId);
         return CLOUD_CLASS_PATH_PREFIX + "/recruit";
     }
+
+    /**
+     * Description：设置推荐值
+     * creed: Talk is cheap,show me the code
+     *
+     * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
+     * @Date: 2018/3/9 14:13
+     **/
+    @RequestMapping(value = "updateRecommendSort", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseObject updateRecommendSort(String id, Integer recommendSort, String recommendTime) {
+        ResponseObject responseObject = new ResponseObject();
+
+        hospitalService.updateRecommendSort(id, recommendSort, recommendTime);
+        responseObject.setSuccess(true);
+        responseObject.setResultObject("修改成功!");
+        return responseObject;
+    }
 }

@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.xczhihui.common.util.enums.CourseType;
+import com.xczhihui.common.util.enums.RouteTypeEnum;
 import com.xczhihui.course.consts.MultiUrlHelper;
-import com.xczhihui.course.enums.RouteTypeEnum;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.pay.util.StringUtils;

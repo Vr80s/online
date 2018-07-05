@@ -1,6 +1,6 @@
 	
 var openId = getQueryString("openId");
-if(stringnull(openId)){
+if(isNotBlank(openId)){
     localStorage.setItem("openid",openId);
 }
 
@@ -42,7 +42,7 @@ var cityTypeArray = new Array();
  * 默认搜索条件
  */
 //var defaultKey = localStorage.getItem("defaultKey");
-//if(stringnull(defaultKey)){
+//if(isNotBlank(defaultKey)){
 ////	$(".header_seek_main img").html(defaultKey);
 ////	$(".header_seek_main span").html(defaultKey);
 ////	$(".span_hide").hide();
@@ -121,7 +121,7 @@ function createParamsAndQuery(menuType,isFree,courseType,city,lineState,queryKey
 		$(".all_right_type_ones").find(".all_right_type_one").removeClass("all_right_type_one_add");
 	}else{
 		//从新赋值
-		if(stringnull(menuType)){
+		if(isNotBlank(menuType)){
 			paramsObj.menuType = menuType;
 			for (var int = 0; int < menuTypeArray.length; int++) {
 				var array_element = menuTypeArray[int];
@@ -144,7 +144,7 @@ function createParamsAndQuery(menuType,isFree,courseType,city,lineState,queryKey
 		}
 	}
 
-	if(stringnull(isFree)){
+	if(isNotBlank(isFree)){
 		paramsObj.isFree = isFree;
 		if(isFree==0){
 			saisuanstr +="付费-";
@@ -153,7 +153,7 @@ function createParamsAndQuery(menuType,isFree,courseType,city,lineState,queryKey
 		}
 	}
 	
-	if(stringnull(courseType)){
+	if(isNotBlank(courseType)){
 		paramsObj.courseType = courseType;
 		
 	    if(courseType == 3){
@@ -181,8 +181,8 @@ function createParamsAndQuery(menuType,isFree,courseType,city,lineState,queryKey
 		}
 		
 	}
-	if(stringnull(city)){
-		if(!stringnull(courseType)){
+	if(isNotBlank(city)){
+		if(!isNotBlank(courseType)){
 			$("#draw_course_big_list").find(".all_right_type_one").eq(3).addClass("all_right_type_one_add");
 			saisuanstr += "线下课程"+"-";
 			/**
@@ -220,7 +220,7 @@ function createParamsAndQuery(menuType,isFree,courseType,city,lineState,queryKey
 	    	}
 	    }
 	}
-	if(stringnull(lineState)){
+	if(isNotBlank(lineState)){
 		paramsObj.lineState = lineState;
 		
 		
@@ -232,7 +232,7 @@ function createParamsAndQuery(menuType,isFree,courseType,city,lineState,queryKey
 		//显示直播状态 
 		$(".all_mold4").show();
 		
-		if(!stringnull(courseType)){
+		if(!isNotBlank(courseType)){
 			$("#draw_course_big_list").find(".all_right_type_one").eq(2).addClass("all_right_type_one_add");
 			saisuanstr += "直播课程"+"-";
 		}	
@@ -255,7 +255,7 @@ function createParamsAndQuery(menuType,isFree,courseType,city,lineState,queryKey
 	}
 	
 	
-	if(stringnull(queryKey)){
+	if(isNotBlank(queryKey)){
 		paramsObj.queryKey = queryKey;
 		saisuanstr +=queryKey+"-";
 	}
@@ -297,34 +297,34 @@ function submit(){
 	paramsObj.pageSize = 1000;
 	// paramsObj.downUp = "down";
 	
-	if(stringnull(menuType)){
+	if(isNotBlank(menuType)){
 		paramsObj.menuType =menuType;
 	}else{
 		delete paramsObj.menuType;
 	}
 	
-	if(stringnull(isFree)){
+	if(isNotBlank(isFree)){
 		 paramsObj.isFree = isFree;
 	}else{
 		delete paramsObj.isFree;
 	}
-    if(stringnull(courseType)){
+    if(isNotBlank(courseType)){
     	 paramsObj.courseType = courseType;
 	}else{
 		delete paramsObj.courseType;
 	}
-    if(stringnull(city)){
+    if(isNotBlank(city)){
    	    paramsObj.city = city;
 	}else{
 		delete paramsObj.city;
 	}
-    if(stringnull(lineState)){
+    if(isNotBlank(lineState)){
     	paramsObj.lineState = lineState;
    	}else{
    		delete paramsObj.lineState;
    	}
 	
-    if(stringnull(queryKey)){
+    if(isNotBlank(queryKey)){
     	paramsObj.queryKey = queryKey;
    	}else{
    		delete paramsObj.queryKey;
@@ -385,7 +385,7 @@ function queryDataByParams(params,data_type){
 			 // 测试加载中
 			 //load.end();
 			
-			 if(stringnull(data_type)){
+			 if(isNotBlank(data_type)){
 					var id = "#query_list"+data_type;
 				}else{
 					var id = "#draw_all_query_list";

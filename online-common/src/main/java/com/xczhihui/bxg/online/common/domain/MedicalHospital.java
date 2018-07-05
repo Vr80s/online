@@ -91,6 +91,10 @@ public class MedicalHospital implements Serializable {
 
     @Column(name = "source_id")
     private String sourceId;
+    
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "sort_update_time")
+    private Date sortUpdateTime;
 
     /**
      * 微信
@@ -392,4 +396,14 @@ public class MedicalHospital implements Serializable {
     public void setAuthenticationNum(Integer authenticationNum) {
         this.authenticationNum = authenticationNum;
     }
+
+    public Date getSortUpdateTime() {
+        return sortUpdateTime;
+    }
+
+    public void setSortUpdateTime(Date sortUpdateTime) {
+        this.sortUpdateTime = sortUpdateTime;
+    }
+    
+    
 }

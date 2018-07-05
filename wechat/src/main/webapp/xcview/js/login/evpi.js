@@ -26,18 +26,18 @@ function time(o) {
 var openId ="";var unionId ="";
 
 var third_party_uc_t_ = cookie.get("_third_ipandatcm_user_");
-if(stringnull(third_party_uc_t_)){
+if(isNotBlank(third_party_uc_t_)){
 	
 	third_party_uc_t_ = decodeURIComponent(third_party_uc_t_);	
 	openId = third_party_uc_t_.split(";")[0];
 	unionId = third_party_uc_t_.split(";")[1];
 }else{
 	openId = getQueryString("openId");
-	if(!stringnull(openId)){
+	if(!isNotBlank(openId)){
 		openId = localStorage.getItem("openid")
 	}
 	unionId = getQueryString("unionId");
-	if(!stringnull(unionId)){
+	if(!isNotBlank(unionId)){
 		unionId = localStorage.getItem("unionId")
 	}
 }
@@ -67,7 +67,7 @@ document.getElementById("btn").addEventListener("tap", function() {
 	if(text!="获取验证码"){
 		return false;
 	}
-	if (!stringnull(number)) {
+	if (!isNotBlank(number)) {
 		webToast("手机号不能为空","middle",1500);
 		return false;
 	}
@@ -120,12 +120,12 @@ $(".enter_btn").click(function(){
 	var yanzhengma = document.getElementById("vcode").value;
 	var userpassword = document.getElementById("password").value; // 密码
 	
-	if (!stringnull(number)) {
+	if (!isNotBlank(number)) {
 		webToast("手机号不能为空","middle",1500);
 		return false;
 	}
 	
-	if (!stringnull(yanzhengma)) {
+	if (!isNotBlank(yanzhengma)) {
 		webToast("验证码不能为空","middle",1500);
 		return false;
 	}
@@ -142,7 +142,7 @@ $(".enter_btn").click(function(){
 	};
 	var url = "/xczh/third/thirdPartyBindIsNoMobile";
 	if(vtype==1){
-		if (!stringnull(userpassword)) {
+		if (!isNotBlank(userpassword)) {
 //			webToast("密码不能为空","middle",1500);
 			return false;
 		}

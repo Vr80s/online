@@ -28,7 +28,7 @@ requestService("/xczh/bind/userBindingInfo", null, function(data) {
 $(".email_one .div0_show").click(function(){
 	var unionId = $("#mobileShow").attr("data-title");
 	
-	if(stringnull(unionId)){ //已经绑定了，这个是解除绑定
+	if(isNotBlank(unionId)){ //已经绑定了，这个是解除绑定
 		$(".success").show();
 	}else{//还没有绑定，唤起微信授权
 		
@@ -50,7 +50,7 @@ $(".success .three .three_btn1").click(function(){
 function removeBind(){
 	
 	var unionId = $("#mobileShow").attr("data-title");
-	if(stringnull(type) && type == 1){
+	if(isNotBlank(type) && type == 1){
 		$(".success").hide();
 	}else{
 		var unionId = $("#mobileShow").attr("data-title");

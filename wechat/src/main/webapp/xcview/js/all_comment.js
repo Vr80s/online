@@ -268,7 +268,7 @@ function reportComment() {
             courseId : course_id,
             userId:LecturerId
     }
-    if(stringnull(collectionId)){
+    if(isNotBlank(collectionId)){
     	paramsCriticize.collectionId = collectionId;
     }
     
@@ -313,7 +313,7 @@ function replyComment() {
     	    content:comment_detailed,
             criticizeId : criticize_id
     }
-    if(stringnull(collectionId)){
+    if(isNotBlank(collectionId)){
     	paramsReply.collectionId = collectionId;
     }
     

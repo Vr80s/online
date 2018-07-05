@@ -13,7 +13,7 @@ window.onpageshow = function(event){
  * 保存openId
  */
 var openId = getQueryString("openId");
-if(stringnull(openId)){
+if(isNotBlank(openId)){
     localStorage.setItem("openid",openId);
 }
 

@@ -1,5 +1,7 @@
 package com.xczhihui.medical.service.impl;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,8 +46,11 @@ public class MedicalEntryInformationImpl implements MedicalEntryInformationServi
     @Override
     public List<MedicalEntryInformation> getAllMedicalEntryInformationList(Integer merId) {
         String sql = "select mei.id as id, mei.mer_id as merId,mei.name as name,mei.age as age,mei.sex as sex, " +
-                " mei.native_place as nativePlace,mei.tel as tel,mer.deadline as deadline," +
-                " mei.education,mei.apprentice as apprentice " +
+                " mei.native_place as nativePlace,mei.tel as tel,mer.deadline as deadline,mei.create_time createTime," +
+                " mei.education,mei.apprentice as apprentice ,\n" +
+                "  mei.`education_experience`  educationExperience,\n" +
+                "  mei.`medical_experience` medicalExperience,\n" +
+                "  mei.`goal`" +
                 " from " +
                 " medical_entry_information mei ,medical_enrollment_regulations mer" +
                 " WHERE mei.mer_id = mer.id and mei.deleted = 0 ";

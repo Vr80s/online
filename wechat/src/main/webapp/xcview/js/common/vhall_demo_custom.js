@@ -43,7 +43,7 @@ $(document).ready(function() {
     	var userName = msg.user_name;
     	if(msg.role == "host"){ //说明是主播
     		var hostName = sessionStorage.getItem("hostName");
-    		userName = "<span class='span_zhubo'>主播</span>"+ (stringnull(hostName) ?  hostName : "");
+    		userName = "<span class='span_zhubo'>主播</span>"+ (isNotBlank(hostName) ?  hostName : "");
     	}
     	var str = "<div class='coze_cen_ri'><div class='coze_cen_bg_ri'><span class='span_name'>"+userName+"：</span>"+msg.content+"</div><div class='both'></div></div>";
 	    
@@ -157,7 +157,7 @@ $(document).ready(function() {
         $(".chatmsg-box").mCustomScrollbar('update').mCustomScrollbar("scrollTo","99999");
 		
         var learndCount =  sessionStorage.getItem("learndCount");
-        if(stringnull(learndCount) && stringnull(msg.data.attend_count)){
+        if(isNotBlank(learndCount) && isNotBlank(msg.data.attend_count)){
             learndCount = parseInt(learndCount) + parseInt(msg.data.attend_count);
         }
         /**
@@ -188,7 +188,7 @@ $(document).ready(function() {
          * 当有人进来房间的时候，学习人数加1
          */
         var learndCount =  sessionStorage.getItem("learndCount");
-        if(stringnull(learndCount) && stringnull(msg.data.attend_count)){
+        if(isNotBlank(learndCount) && isNotBlank(msg.data.attend_count)){
             learndCount = parseInt(learndCount) + parseInt(msg.data.attend_count);
         }
         $(".details_size span:eq(0)").html(learndCount);

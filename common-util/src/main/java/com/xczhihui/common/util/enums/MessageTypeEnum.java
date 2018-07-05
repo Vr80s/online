@@ -1,4 +1,4 @@
-package com.xczhihui.course.enums;
+package com.xczhihui.common.util.enums;
 
 /**
  * @author hejiwei

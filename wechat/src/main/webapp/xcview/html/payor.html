@@ -106,25 +106,25 @@
     var total = getQueryString("total"); //人民币
     var balance = getQueryString("balance"); //充值后余额
    
-	if(stringnull(value)){
+	if(isNotBlank(value)){
 		 $("#totalAmount1").text(value);
 	}
-	if(stringnull(total)){
+	if(isNotBlank(total)){
 		 $("#totalAmount").text(total);
 	}
-	if(stringnull(name)){
+	if(isNotBlank(name)){
 		 $("#userName").text(name);
 	}
-	if(stringnull(createTime)){
+	if(isNotBlank(createTime)){
 		 $("#gmtCreate").text(createTime);
 	}
-	if(stringnull(orderNo)){
+	if(isNotBlank(orderNo)){
 		 $("#outTradeNo").text(orderNo);
 	}
-	if(stringnull(paytype)){
+	if(isNotBlank(paytype)){
 		$("#remark").text(paytype);
 	}
-	if(stringnull(balance)){
+	if(isNotBlank(balance)){
 		$("#balance").text(balance+"熊猫币");
 	}
 	

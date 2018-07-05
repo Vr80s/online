@@ -82,7 +82,7 @@ $(function () {
         /**
          * 分享使用到的参数
          */
-        if (data.success && stringnull(data.resultObject.lecturerInfo)) {
+        if (data.success && isNotBlank(data.resultObject.lecturerInfo)) {
             var lecturerInfo = data.resultObject.lecturerInfo;
             gradeName = lecturerInfo.name;
             smallImgPath = lecturerInfo.small_head_photo;
