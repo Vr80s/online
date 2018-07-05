@@ -1,8 +1,5 @@
 package com.xczhihui.course.consts;
 
-import static com.xczhihui.course.enums.RouteTypeEnum.APPRENTICE_DETAIL;
-import static com.xczhihui.course.enums.RouteTypeEnum.HOSPITAL_APPROVE_PAGE;
-
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.MessageFormat;
@@ -12,7 +9,8 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 
 import com.google.common.collect.ImmutableMap;
-import com.xczhihui.course.enums.RouteTypeEnum;
+import com.xczhihui.common.util.enums.CourseType;
+import com.xczhihui.common.util.enums.RouteTypeEnum;
 
 /**
  * 多端消息url处理类
@@ -61,6 +59,37 @@ public class MultiUrlHelper {
             ImmutableMap.of(URL_TYPE_APP, "xczh://ipandatcm.com/learningCourseDetail?id={0}",
                     URL_TYPE_WEB, WEB_COURSE_DETAIL,
                     URL_TYPE_MOBILE, "/xczh/page/course/{0}");
+
+    //===== 学习里的课程详情 courseType区分课程类型 collection 区分是否是专辑 ======
+    private static Map<String, String> learningLiveCourseDetailUrlMap =
+            ImmutableMap.of(URL_TYPE_APP, "xczh://ipandatcm.com/learningCourseDetail?id={0}&collection=false&courseType=" + CourseType.LIVE.getId(),
+                    URL_TYPE_WEB, WEB_COURSE_DETAIL,
+                    URL_TYPE_MOBILE, "/xczh/page/course/{0}");
+
+    private static Map<String, String> learningAudioCourseDetailUrlMap =
+            ImmutableMap.of(URL_TYPE_APP, "xczh://ipandatcm.com/learningCourseDetail?id={0}&collection=false&courseType=" + CourseType.AUDIO.getId(),
+                    URL_TYPE_WEB, WEB_COURSE_DETAIL,
+                    URL_TYPE_MOBILE, "/xczh/page/course/{0}");
+
+    private static Map<String, String> learningVideoCourseDetailUrlMap =
+            ImmutableMap.of(URL_TYPE_APP, "xczh://ipandatcm.com/learningCourseDetail?id={0}&collection=false&courseType=" + CourseType.VIDEO.getId(),
+                    URL_TYPE_WEB, WEB_COURSE_DETAIL,
+                    URL_TYPE_MOBILE, "/xczh/page/course/{0}");
+    private static Map<String, String> learningOfflineCourseDetailUrlMap =
+            ImmutableMap.of(URL_TYPE_APP, "xczh://ipandatcm.com/learningCourseDetail?id={0}&collection=false&courseType=" + CourseType.OFFLINE.getId(),
+                    URL_TYPE_WEB, WEB_COURSE_DETAIL,
+                    URL_TYPE_MOBILE, "/xczh/page/course/{0}");
+
+    private static Map<String, String> learningAudioCourseCollectionDetailUrlMap =
+            ImmutableMap.of(URL_TYPE_APP, "xczh://ipandatcm.com/learningCourseDetail?id={0}&collection=true&courseType=" + CourseType.AUDIO.getId(),
+                    URL_TYPE_WEB, WEB_COURSE_DETAIL,
+                    URL_TYPE_MOBILE, "/xczh/page/course/{0}");
+
+    private static Map<String, String> learningVideoCourseCollectionDetailUrlMap =
+            ImmutableMap.of(URL_TYPE_APP, "xczh://ipandatcm.com/learningCourseDetail?id={0}&collection=true&courseType=" + + CourseType.VIDEO.getId(),
+                    URL_TYPE_WEB, WEB_COURSE_DETAIL,
+                    URL_TYPE_MOBILE, "/xczh/page/course/{0}");
+    //====================================================================
 
     private static Map<String, String> doctorApproveUrlMap = ImmutableMap.of(
             URL_TYPE_APP, "xczh://ipandatcm.com/anchorApprove?type=1",
@@ -143,7 +172,7 @@ public class MultiUrlHelper {
         urlMap.put(RouteTypeEnum.OFFLINE_COURSE_DETAIL_PAGE.name(), offlineCourseDetailUrlMap);
         urlMap.put(RouteTypeEnum.VIDEO_AUDIO_COURSE_DETAIL_PAGE.name(), videoAudioCourseDetailUrlMap);
         urlMap.put(RouteTypeEnum.DOCTOR_APPROVE_PAGE.name(), doctorApproveUrlMap);
-        urlMap.put(HOSPITAL_APPROVE_PAGE.name(), hospitalApproveUrlMap);
+        urlMap.put(RouteTypeEnum.HOSPITAL_APPROVE_PAGE.name(), hospitalApproveUrlMap);
         urlMap.put(RouteTypeEnum.ANCHOR_WORK_TABLE_PAGE.name(), workTableUrlMap);
         urlMap.put(RouteTypeEnum.ANCHOR_PROPERTY_MONEY_PAGE.name(), anchorCNYMap);
         urlMap.put(RouteTypeEnum.COURSE_LIST_PAGE.name(), courseListMap);
@@ -169,6 +198,15 @@ public class MultiUrlHelper {
         urlMap.put(RouteTypeEnum.PUBLIC_COURSE_LIST_PAGE.name(), publicCourseListMap);
         urlMap.put(RouteTypeEnum.SPECIAL_COLUMN_DETAIL.name(), specialColumnMap);
         urlMap.put(RouteTypeEnum.DOCTOR_CASE_DETAIL.name(), doctorCaseMap);
+
+        //===== 学习里的课程详情 courseType区分课程类型 collection 区分是否是专辑 ======
+        urlMap.put(RouteTypeEnum.COMMON_LEARNING_AUDIO_COLLECTION_COURSE_DETAIL_PAGE.name(), learningAudioCourseCollectionDetailUrlMap);
+        urlMap.put(RouteTypeEnum.COMMON_LEARNING_VIDEO_COLLECTION_COURSE_DETAIL_PAGE.name(), learningVideoCourseCollectionDetailUrlMap);
+        urlMap.put(RouteTypeEnum.COMMON_LEARNING_VIDEO_COURSE_DETAIL_PAGE.name(), learningVideoCourseDetailUrlMap);
+        urlMap.put(RouteTypeEnum.COMMON_LEARNING_LIVE_COURSE_DETAIL_PAGE.name(), learningLiveCourseDetailUrlMap);
+        urlMap.put(RouteTypeEnum.COMMON_LEARNING_AUDIO_COURSE_DETAIL_PAGE.name(), learningAudioCourseDetailUrlMap);
+        urlMap.put(RouteTypeEnum.COMMON_LEARNING_OFFLINE_COURSE_DETAIL_PAGE.name(), learningOfflineCourseDetailUrlMap);
+        //====================================================================
     }
 
     public static String getUrl(String routeType, String source, String detailId, String link) {
@@ -243,7 +281,7 @@ public class MultiUrlHelper {
      * @return
      */
     public static String handleParam(String prefix, String linkParam, String routeType) {
-        if (routeType.equals(APPRENTICE_DETAIL.name())) {
+        if (routeType.equals(RouteTypeEnum.APPRENTICE_DETAIL.name())) {
             if (StringUtils.isNotBlank(linkParam)) {
                 return MessageFormat.format(prefix + APPRENTICE_URL, linkParam);
             }

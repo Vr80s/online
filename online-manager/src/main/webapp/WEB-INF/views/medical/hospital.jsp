@@ -32,7 +32,7 @@
 
     .vertical-tab-content {
         float: left;
-        width: 90%;
+        width: 100%;
         padding: 5px;
         margin-left: -1px;
         margin-bottom: 2px;
@@ -407,7 +407,7 @@
 
     .vertical-tab-content {
         float: left;
-        width: 90%;
+        width: 100%;
         padding: 5px;
         margin-left: -1px;
         margin-bottom: 2px;
@@ -509,7 +509,7 @@
 </div>
 
 <div style="height: 100%;" class="clearfix">
-    <ul class="nav nav-tab vertical-tab" role="tablist" id="vtab">
+<!--     <ul class="nav nav-tab vertical-tab" role="tablist" id="vtab">
         <li role="presentation" class="active">
             <a href="#home" aria-controls="home" class="zykgl_bx" role="tab"
                data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">医馆管理</a>
@@ -518,7 +518,7 @@
             <a href="#box_px" aria-controls="box_px" class="kctj_bx" role="tab" onclick="updateRec(null,1)"
                data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">医馆推荐</a>
         </li>
-    </ul>
+    </ul> -->
 
     <!-- Tab panes -->
     <div class="tab-content vertical-tab-content">
@@ -940,5 +940,28 @@
         </div>
     </form>
 </div>
+
+
+
+<!-- 修改推荐值form -->
+<div id="dialogUpdateRecommendSortDiv"></div>
+<div id="UpdateRecommendSortDialog" class="hide">
+    <form class="form-horizontal" id="UpdateRecommendSortFrom" method="post" action="" style="margin-top: 15px;">
+        <input type="hidden" name="id" id="UpdateRecommendSort_id">
+        <div class="form-group"  style="margin-top: 18px;" >
+            <label class="col-sm-3 control-label no-padding-right" for="recommendSort"><font color="red">*</font>推荐值: </label>
+            <div class="col-sm-6">
+                <input type="text" name="recommendSort"  id="recommendSort" onkeyup="value=value.replace(/[^\d]/g,'')" class="col-xs-10 col-sm-12 {required:true}">
+            </div>
+        </div>
+        <div class="form-group"  style="margin-top: 18px;" >
+            <label class="col-sm-3 control-label no-padding-right" for="recommendTime"><font color="red">*</font>推荐时效: </label>
+            <div class="col-sm-6 searchTr">
+                <input type="text" class="datetime-picker propertyValue1 {required:true}"  id="recommendTime" name="recommendTime" placeholder = "推荐时效" style="width:150px"/>
+            </div>
+        </div>
+    </form>
+</div>
+
 <script type="text/javascript" src="/js/medical/provinces.js?v=ipandatcm_1.3"></script>
 <script type="text/javascript" src="/js/medical/hospital.js?v=ipandatcm_1.3"></script>

@@ -108,21 +108,6 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
 
         }
 
-        // 判断关键字
-        var str = data.resultObject.records;
-        if (str.indexOf('#')>=0) {// 判断#是否存在
-            var arr = str.split("#");
-            var str1="";
-            for (var i = 0; i < arr.length; i++) {
-              if (i%2==0) { // 除2余数等0，就是整除的意思
-              str1=str1+arr[i];// 字符串链接
-              } else{
-              str1 = str1+"<span style='color:red;'  class='span_span'>#"+arr[i]+"#</span>";// 字符串链接
-              };
-            };
-            $('.paper_nav_span .span_span').html(str1);
-        }
-
         for(var i=0;i<obj.length;i++){
             //没有点赞时隐藏小手
             if(obj[i].doctorPostsCommentList.length==0 && obj[i].doctorPostsLikeList.length==0){
@@ -139,7 +124,7 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
                 ccVideo(obj[i].video,1,obj[i].id);
             }
             //判断关键字   动态类别：1.普通动态2.图片动态3.视频动态4.文章动态5.课程动态
-            if(obj[i].type == 2 && obj[i].type == 1 && obj[i].type == 4){
+            if(obj[i].type == 2 || obj[i].type == 1 || obj[i].type == 4){
                 var content = obj[i].content;
             if (content.indexOf('#')>=0) {// 判断#是否存在
                 var arr = content.split("#");

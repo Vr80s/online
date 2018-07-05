@@ -108,7 +108,6 @@
         medical_hospital
         where deleted = 0
         and status = 1
-        and recommend = 1
         order by recommend_sort desc
         limit 0, 7
     </select>

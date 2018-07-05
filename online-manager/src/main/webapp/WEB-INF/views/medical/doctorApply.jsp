@@ -501,8 +501,8 @@
 								<td>
 									<div class="profile-info-value searchTr">
 										<select name="search_status" id="search_status" value="" class="propertyValue1" >
-											<option value="">是否启用</option>
-											<option value="1">已认证</option>
+											<option value="">审核状态</option>
+											<option value="1" selected = "selected">已通过</option>
 											<option value="0">未通过</option>
 											<option value="2">待审核</option>
 										</select>

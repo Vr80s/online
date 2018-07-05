@@ -1,6 +1,5 @@
 package com.xczhihui.bxg.online.web.service.impl;
 
-import static com.xczhihui.course.enums.RouteTypeEnum.COMMON_LEARNING_COURSE_DETAIL_PAGE;
 
 import java.text.MessageFormat;
 import java.util.Date;
@@ -24,9 +23,10 @@ import com.xczhihui.bxg.online.web.dao.OrderDao;
 import com.xczhihui.bxg.online.web.service.OrderService;
 import com.xczhihui.bxg.online.web.vo.OrderVo;
 import com.xczhihui.common.util.CodeUtil;
+import com.xczhihui.common.util.CourseUtil;
 import com.xczhihui.common.util.TimeUtil;
 import com.xczhihui.common.util.bean.Page;
-import com.xczhihui.course.enums.MessageTypeEnum;
+import com.xczhihui.common.util.enums.MessageTypeEnum;
 import com.xczhihui.course.params.BaseMessage;
 import com.xczhihui.course.service.ICommonMessageService;
 import com.xczhihui.course.util.TextStyleUtil;
@@ -73,8 +73,9 @@ public class OrderServiceImpl extends OnlineBaseServiceImpl implements OrderServ
             if (courses.size() > 0) {
                 for (Map<String, Object> course : courses) {
                     String messageId = CodeUtil.getRandomUUID();
-                    Boolean collection = MapUtils.getBoolean(course, "collection");
+                    Boolean collection = MapUtils.getBoolean(course, "collection", false);
                     int type = MapUtils.getIntValue(course, "type");
+                    Integer multimediaType = MapUtils.getInteger(course, "multimediaType");
                     String courseId = course.get("course_id").toString();
                     String courseName = course.get("course_name").toString();
                     String startTimeStr = TimeUtil.getYearMonthDayHHmm(new Date());
@@ -86,12 +87,13 @@ public class OrderServiceImpl extends OnlineBaseServiceImpl implements OrderServ
                     weixinParams.put("keyword1", courseName);
                     weixinParams.put("keyword2", startTimeStr);
                     weixinParams.put("remark", "");
+
                     commonMessageService.saveMessage(
                             new BaseMessage.Builder(MessageTypeEnum.COURSE.getVal())
                                     .buildWeb(content)
                                     .buildWeixin(weixinPayMessageCode, weixinParams)
                                     .detailId(courseId)
-                                    .build(userId, COMMON_LEARNING_COURSE_DETAIL_PAGE, userId));
+                                    .build(userId, CourseUtil.getCourseLearningRouteType(collection, type, multimediaType), userId));
                 }
             }
             logger.info("发送课程消息通知" + orderNo);

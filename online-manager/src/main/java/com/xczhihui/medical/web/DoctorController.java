@@ -45,7 +45,7 @@ public class DoctorController extends AbstractController {
     private DoctorService doctorService;
     @Autowired
     private IMedicalDoctorSolrService medicalDoctorSolrService;
-
+ 
     @Value("${web.url}")
     private String weburl;
 
