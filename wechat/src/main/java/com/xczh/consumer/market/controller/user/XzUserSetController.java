@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -652,5 +653,11 @@ public class XzUserSetController {
         // List<Map<String, Object>> list = cityService.getProvince();
         List<Map<String, Object>> list = cityService.getAllProvinceCity();
         return ResponseObject.newSuccessResponseObject(list);
+    }
+
+    @RequestMapping("check")
+    @ResponseBody
+    public ResponseObject check(){
+        return ResponseObject.newSuccessResponseObject("已登录！");
     }
 }

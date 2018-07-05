@@ -496,7 +496,7 @@
 								   <td>
 									   <div class="profile-info-value searchTr">
 										   <select  class="propertyValue1" name="search_title" id="search_title"onchange="search_P()"  class="col-xs-12 col-sm-12 " >
-											   <option  value="-1" >请选择</option>
+											   <option  value="-1" >请选择一个招生信息</option>
 											   <c:forEach var="m" items="${MedicalEnrollmentRegulations}">
 												   <option value="${m.id}">${m.title}</option>
 											   </c:forEach>
@@ -506,8 +506,8 @@
 								   </td>
 								<td>
 
-										<button class="btn btn-sm btn-success add_bx" id="add_button" onclick="exportExcel()" title="新增招生简章">
-											<i class="fa fa-download"></i> 新增招生简章
+										<button class="btn btn-sm btn-success add_bx" id="add_button" onclick="exportExcel()" title="导出">
+											<i class="fa fa-download"></i> 导出
 										</button>
 
 								</td>

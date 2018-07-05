@@ -54,10 +54,13 @@ public class EnrolServiceImpl implements EnrolService {
             throw new MedicalException("招生简章不存在或已结束");
         }
         if (userId != null) {
+            medicalEnrollmentRegulations.setOnline(true);
             MedicalEntryInformationVO medicalEntryInformationVO = getMedicalEntryInformationByUserIdAndERId(id, userId);
             if (medicalEntryInformationVO != null) {
                 medicalEnrollmentRegulations.setEnrolled(true);
             }
+        }else{
+            medicalEnrollmentRegulations.setOnline(false);
         }
         List<String> allEnrolledUser = getAllEnrolledUser(medicalEnrollmentRegulations.getId());
         medicalEnrollmentRegulations.setAllEnrolledUser(allEnrolledUser);
