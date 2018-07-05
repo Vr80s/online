@@ -7,7 +7,7 @@ package com.xczhihui.common.util.enums;
  * @author name：yuxin <br>email: yuruixin@ixincheng.com
  * @Date: 2018/4/2 0002 上午 11:59
  **/
-public enum HeadlineType {
+public enum HeadlineType { 
 
     HYXW("1", "行业新闻"),
     HZKL("2", "合作交流"),

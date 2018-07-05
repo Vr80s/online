@@ -170,9 +170,13 @@ p{
 	font-size: 0.24rem;
 	color: #999999;
 	margin-right: 0.1rem;
+	float:left;
 }
 .message_face span{
 	display: -webkit-box;
+}
+.message_face .face{
+	position: relative;
 }
 .attention{
 	width: 1.45rem;
@@ -483,7 +487,7 @@ p{
     min-height: 0.45rem;
 }
 .consilia_nav_span_title{
-	height: 1.65rem;
+	height: 1.8rem;
     overflow: hidden;
 }
 .consilia_nav_span .stick_img{
@@ -626,6 +630,17 @@ p{
 	float: left;
 }
 .consilia_nav_cen_size{
+	font-size: 0.26rem;
+	color: #333333;
+	float: left;
+	width: 4.29rem;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 1;
+	overflow: hidden;
+	margin-top: 0.1rem;
+}
+.consilia_nav_cen_sizes{
 	font-size: 0.26rem;
 	color: #333333;
 	float: left;
@@ -1433,6 +1448,17 @@ p{
     overflow: hidden;
     margin-top: 0.1rem;
 }
+.article_nav_cen_sizes{
+	font-size: 0.26rem;
+	color: #333333;
+	float: left;
+	width: 4.29rem;
+	display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    margin-top: 0.1rem;
+}
 .basis_tips{
 	font-size: 0.22rem;
 	color: #FFFFFF;
@@ -2081,7 +2107,8 @@ table tr td img{
 	bottom: 0 !important;
 }
 #fansCount{
-	margin-top: 0.04rem;
+	    float: left;
+margin-top: 0.015rem;
 }
 
 .consilia_nav_span_div{
@@ -2169,4 +2196,16 @@ table tr td img{
 }
 .paper_nav_cen_div{
 	padding: 0 !important;
+}
+.panel_hide{
+	padding-bottom: 0 !important;
+}
+
+.paper_nav_span span{
+	width: 6.98rem;
+    display: block;
+    margin: 0 auto;
+}
+.panels_essay_main{
+	min-height: 0.45rem;
 }

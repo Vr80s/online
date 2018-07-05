@@ -6,9 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.solr.client.solrj.SolrServerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -235,6 +232,7 @@ public class DoctorController {
     	 * 医师详情
     	 */
         Map<String, Object> map = medicalDoctorBusinessService.selectDoctorWorkTimeAndDetailsById(doctorId);
+        
         if (map != null) {
             //html片段
             map.put("doctorDetailsUrl", returnOpenidUri + "/xcview/html/person_fragment.html?type=5&typeId=" + doctorId);

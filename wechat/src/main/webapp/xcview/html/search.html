@@ -147,6 +147,10 @@
 //			event.stopPropagation(); 
 			var queryKey = $(obj).find(".div0").text();
 			
+			removeByValue(arr, queryKey);
+	        arr.unshift(queryKey);
+	        localStorage.setItem(hisArr,arr);
+			
 			location.href="../html/curriculum_table.html?queryKey="+queryKey+"&curriculum_blck=2";
 		}
 

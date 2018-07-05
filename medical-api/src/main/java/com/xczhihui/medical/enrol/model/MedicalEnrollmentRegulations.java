@@ -136,6 +136,17 @@ public class MedicalEnrollmentRegulations extends Model<MedicalEnrollmentRegulat
     @TableField(exist = false)
     private String doctorPhoto;
 
+    @TableField(exist = false)
+    private Boolean online;
+
+    public Boolean getOnline() {
+        return online;
+    }
+
+    public void setOnline(Boolean online) {
+        this.online = online;
+    }
+
     public String getPosterImg() {
         return posterImg;
     }

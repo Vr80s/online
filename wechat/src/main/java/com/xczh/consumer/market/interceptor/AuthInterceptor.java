@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -68,7 +69,7 @@ public class AuthInterceptor implements HandlerInterceptor, HandlerMethodArgumen
             "/xczh/gift/list", "/xczh/common/checkToken", "/xczh/message", "/xczh/pay/pay_notify", "/xczh/set/isLogined",
             "/xczh/recommend/**", "/xczh/classify/**", "/xczh/bunch/**", "/xczh/live/**", "/xczh/host/**", "/xczh/host/doctor/v2", "/xczh/course/**", "/xczh/doctors/**",
             "/xczh/enrol/enrollmentRegulations", "/xczh/myinfo/showWallet", "/xczh/page/course/*", "/xczh/article/view", "/xczh/article/appraise/list",
-            "/doctor/posts/**","/xczh/live/onlineLive");
+            "/doctor/posts/**","/xczh/live/onlineLive","/xczh/share/courseShare","/xczh/enrol/enrollmentRegulations/**");
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     private PathMatcher pathMatcher;
