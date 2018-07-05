@@ -90,12 +90,15 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
 
         //  判断是下拉刷新还是上拉加载
         if(downOrUp=='down'){
-            //      判断有无评价显示默认图片
-            /*if(data.resultObject.items.length==0){
-                $(".quie_pic").show()
+
+
+            //判断全部动态
+            if(data.resultObject.records.length==0){
+                $(".baseImagenumbers").show();
             }else{
-                $(".quie_pic").hide()
-            }*/
+                $(".baseImagenumbers").hide();
+            }
+
             $(".rests_nav").html(template('wrap_doctor_dynamics',{items:obj}));
             mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);
             mui('#refreshContainer').pullRefresh().refresh(true);

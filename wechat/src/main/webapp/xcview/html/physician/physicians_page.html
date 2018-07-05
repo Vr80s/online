@@ -1098,6 +1098,7 @@ $(window).bind("scroll", function() {
 
 		// 点击直播间
 		$(".li_course").click(function(){
+			$(".baseImagenumbers").hide();
 			$(".anchor_navigation .border").css("left","3.5rem");
 			$(".li_data").removeClass("li_color");
 			$(".li_course").addClass("li_color");
@@ -1114,9 +1115,11 @@ $(window).bind("scroll", function() {
 			$(".broadcastroom").show();   /*直播间打开*/
 			$(".message_referral").hide();  //介绍结束
 			// $(".broadcastroom").show();
+
 		});
 		// 点击介绍
 		$(".li_evaluate").click(function(){
+			$(".baseImagenumbers").hide();
 			$(".anchor_navigation .border").css("left","5.94rem");
 			$(".li_data").removeClass("li_color");
 			$(".li_course").removeClass("li_color");
