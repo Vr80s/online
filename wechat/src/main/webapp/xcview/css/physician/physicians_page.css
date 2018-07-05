@@ -2082,6 +2082,8 @@ table tr td img{
 }
 #fansCount{
 	margin-top: 0.04rem;
+	position: absolute;
+    top: 0.72rem;
 }
 
 .consilia_nav_span_div{
@@ -2169,4 +2171,7 @@ table tr td img{
 }
 .paper_nav_cen_div{
 	padding: 0 !important;
+}
+.panel_hide{
+	padding-bottom: 0 !important;
 }
