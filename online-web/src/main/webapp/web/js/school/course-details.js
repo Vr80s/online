@@ -113,6 +113,7 @@ $(function () {
         var collection = $this.attr("data-collection");
         var realCourseId = $this.attr("data-realCourseId");
         var learning = $this.attr("data-learning");
+        var cutoff = $this.attr("data-cutoff");
         /**
          * 判断是否登录了
          */
@@ -121,9 +122,12 @@ $(function () {
                 $('#login').modal('show');
             } else {
                 if (type == 4) {
-                    if (watchState == 2 || (watchState == 1 && learning == 1)) {
+                	//已购买   或者 免费以学习   或者  报名截止的
+                    if (watchState == 2 || (watchState == 1 && learning == 1) 
+                    		|| cutoff == 1) {
                         return;
                     }
+                    
                     if (watchState == 1) {
                         goOfflineApply(realCourseId);
                     }

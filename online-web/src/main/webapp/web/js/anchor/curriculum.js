@@ -1208,7 +1208,7 @@ function trainee_set(i){
 		}else{
 			sex = 0;
 		}
-		RequestService("anchor/course/student/"+traineeId+"/"+sex+"", "PUT",null, function(data) {
+		RequestService("/anchor/course/student/"+traineeId+"/"+sex+"", "PUT",null, function(data) {
 			if(data.success==true){
 				showTip("操作成功");
 				traineeList(1);

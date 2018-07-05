@@ -203,6 +203,8 @@ public class CourseLecturVo implements Serializable {
     private Integer dirtyNumber; //已更新多少集
 
     private String dirtyDate; //更新时间
+    
+    private String outlineDetailsUrl;//富文本课程大纲的html片段url
 
     /**
      * 是否提交线下课报名表单
@@ -742,5 +744,13 @@ public class CourseLecturVo implements Serializable {
         this.dirtyDate = dirtyDate;
     }
 
+    public String getOutlineDetailsUrl() {
+        return outlineDetailsUrl;
+    }
 
+    public void setOutlineDetailsUrl(String outlineDetailsUrl) {
+        this.outlineDetailsUrl = outlineDetailsUrl;
+    }
+    
+    
 }

@@ -483,7 +483,7 @@ p{
     min-height: 0.45rem;
 }
 .consilia_nav_span_title{
-	height: 1.65rem;
+	height: 1.8rem;
     overflow: hidden;
 }
 .consilia_nav_span .stick_img{
@@ -1433,6 +1433,17 @@ p{
     overflow: hidden;
     margin-top: 0.1rem;
 }
+.article_nav_cen_sizes{
+	font-size: 0.26rem;
+	color: #333333;
+	float: left;
+	width: 4.29rem;
+	display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    margin-top: 0.1rem;
+}
 .basis_tips{
 	font-size: 0.22rem;
 	color: #FFFFFF;
@@ -2082,6 +2093,8 @@ table tr td img{
 }
 #fansCount{
 	margin-top: 0.04rem;
+	position: absolute;
+    top: 0.72rem;
 }
 
 .consilia_nav_span_div{
@@ -2169,4 +2182,7 @@ table tr td img{
 }
 .paper_nav_cen_div{
 	padding: 0 !important;
+}
+.panel_hide{
+	padding-bottom: 0 !important;
 }

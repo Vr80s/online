@@ -126,7 +126,7 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
             //判断关键字   动态类别：1.普通动态2.图片动态3.视频动态4.文章动态5.课程动态
             if(obj[i].type == 2 || obj[i].type == 1 || obj[i].type == 4){
                 var content = obj[i].content;
-            if (content.indexOf('#')>=0) {// 判断#是否存在
+            if (content != null && content.indexOf('#')>=0) {// 判断#是否存在
                 var arr = content.split("#");
                 var str1="";
                 for (var j = 0; j < arr.length; j++) {

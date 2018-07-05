@@ -80,7 +80,9 @@ public class TimedTaskJob {
         });
     }
     
-   
+    /**
+     * Description：医馆推荐值更新
+     */
     @Scheduled(cron = "0 0/30 * * * ?")
     public void hospitalRecommendAging() {
         
