@@ -14,17 +14,18 @@ requestGetService("/xczh/enrol/enrollmentRegulations/"+merId,data,function(data)
 
         //分享的信息展示
         gradeName = enrollmentRegulations.title;  /*标题*/
-        smallImgPath = enrollmentRegulations.posterImg;    /*img*/     /*下是--详情*/
-        if(enrollmentRegulations.propaganda==null || enrollmentRegulations.propaganda==''){
+        smallImgPath = enrollmentRegulations.coverImg;    /*img*/     /*下是--详情*/
+        if(enrollmentRegulations.ceremonyAddress==null || enrollmentRegulations.ceremonyAddress==''){
             description="";
         }else{
-            description = enrollmentRegulations.propaganda.stripHTML();
+            description = enrollmentRegulations.ceremonyAddress.stripHTML();
         }
 
         enrollmentRegulations.contactWay = newline(enrollmentRegulations.contactWay);
 
         enrollmentRegulations.startTime = enrollmentRegulations.startTime.substring(0,16);
         enrollmentRegulations.endTime = enrollmentRegulations.endTime.substring(0,16);
+        enrollmentRegulations.deadline = enrollmentRegulations.deadline.substring(0,16);
         enrollmentRegulations.studyAddress = doAddress(enrollmentRegulations.studyAddress);
         $("body").html(template('inherited_introduction_temp',enrollmentRegulations));
         // console.log(enrollmentRegulations)
@@ -39,6 +40,7 @@ if(wv == 'ios'){
 }
 
 function newline(str){
+    if(str==null) return null;
     return str.replace(/\n|\r\n/g,'<br/>');
 }
 function doAddress(studyAddress){
@@ -64,4 +66,12 @@ function cardInfo() {
     // }else{
     //     location.href ='/xcview/html/apprentice/generate_cards.html'
     // }
+}
+
+function apply() {
+    requestGetService("/xczh/set/check",data,function(data){
+        if(data.success){
+            location.href='apply.html?merId={{id}}';
+        }
+    })
 }

@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczhihui.common.util.CourseUtil;
 import com.xczhihui.common.util.WeihouInterfacesListUtil;
 import com.xczhihui.course.service.*;
-import com.xczhihui.course.util.CourseUtil;
 import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.medical.anchor.service.ICourseApplyService;
 
@@ -120,7 +120,7 @@ public class CourseController {
         if (cv.getCollection()) {
             cv.setDirtyDate(courseApplyService.getCollectionUpdateDateText(courseId));
             
-            cv.setRichHostDetailsUrl(returnOpenidUri + "/xcview/html/person_fragment.html?type=3&typeId=" + courseId);
+            cv.setOutlineDetailsUrl(returnOpenidUri + "/xcview/html/outline_fragment.html?courseId=" + courseId);
         }
 
         /**
@@ -168,16 +168,13 @@ public class CourseController {
         }
         //判断星级
         cv.setStartLevel(CourseUtil.criticizeStartLevel(cv.getStartLevel()));
-
         cv.setRichCourseDetailsUrl(returnOpenidUri + "/xcview/html/person_fragment.html?type=1&typeId=" + courseId);
-
         cv.setRichHostDetailsUrl(returnOpenidUri + "/xcview/html/person_fragment.html?type=2&typeId=" + courseId);
-
         //专辑查看更新时间
         if (cv.getCollection()) {
+            cv.setOutlineDetailsUrl(returnOpenidUri + "/xcview/html/outline_fragment.html?courseId=" + courseId);
             cv.setDirtyDate(courseApplyService.getCollectionUpdateDateText(courseId));
         }
-
         //判断当前在线人数
         if (cv.getType() != null && cv.getLineState() != null && cv.getType() == 1 && cv.getLineState() == 1) {
             Integer lendCount = cv.getLearndCount() + WeihouInterfacesListUtil.getCurrentOnlineNumber(cv.getDirectId());

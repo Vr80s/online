@@ -36,13 +36,11 @@ function getCurrentRelativeUrl() {
 }
 
 //判断字段空值
-function stringnull(zifu) {
-    if (zifu == "" || zifu == null || zifu == undefined || zifu == "undefined"
-        || zifu == "null") {
+function isNotBlank(str) {
+    if (str == "" || str == null || str == undefined || str == "undefined" || str == "null") {
         return false;
     }
     return true;
-
 }
 
 /**
@@ -63,7 +61,7 @@ function getQueryString(name) {
  *   通过另一个参数来判断。
  */
 var qr_code = getQueryString("qr_code");
-if (stringnull(qr_code)) {
+if (isNotBlank(qr_code)) {
     var wxOrbrower = "wx";
     if (!is_weixin()) {
         wxOrbrower = "brower";
@@ -86,7 +84,7 @@ var domain = window.location.host;
  */
 function getServerHost() {
     var server_domain = sessionStorage.server_domain;
-    if (!stringnull(server_domain)) {
+    if (!isNotBlank(server_domain)) {
         requestService("/xczh/common/getDomain", null, function (data) {
             if (data.success) {
                 sessionStorage.setItem("server_domain", data.resultObject);
@@ -96,7 +94,7 @@ function getServerHost() {
     } else {
         return server_domain;
     }
-    if (!stringnull(server_domain)) {
+    if (!isNotBlank(server_domain)) {
         return "http://www.ipandatcm.com";
     }
     return server_domain;
@@ -156,11 +154,11 @@ if (current.indexOf("course_id") != -1 ||
     current.indexOf("my_study") != -1) {
     //这里都表示课程id
     var courseId = getQueryString("course_id");
-    if (stringnull(courseId)) {
+    if (isNotBlank(courseId)) {
         h5PcConversions(true, courseId);
     } else {
         var my_study = getQueryString("my_study");
-        if (stringnull(my_study)) {
+        if (isNotBlank(my_study)) {
             h5PcConversions(true, my_study);
         } else {
             h5PcConversions(false);
@@ -229,7 +227,7 @@ function go_study() {
 function isLoginJump() {
 
     var userId = localStorage.userId;
-    if (stringnull(userId)) {
+    if (isNotBlank(userId)) {
         /*
          * 判断这上个地址是否来自我们的浏览器啦。如果是的就返回上一页，如果不是的话，那么就返回首页吧。
          */
@@ -520,9 +518,9 @@ function getFlagStatus() {
     var falg = USER_NORMAL;
     var user_cookie = cookie.get("_ipandatcm_user_");
     var third_party_cookie = cookie.get("_third_ipandatcm_user_");
-    if (!stringnull(user_cookie)) {
+    if (!isNotBlank(user_cookie)) {
         falg = USER_UN_LOGIN;
-        if (stringnull(third_party_cookie)) {
+        if (isNotBlank(third_party_cookie)) {
             falg = USER_UN_BIND;
         }
     }
@@ -550,7 +548,7 @@ function checkAuth(courseId, type) {
 
 var thirdPartyUCT = cookie.get("_third_ipandatcm_user_");
 if (is_weixin() && !thirdPartyUCT) {//在微信里打开,没有授权时，先去微信授权
-    location.href = "/xczh/wxlogin/middle?url=" + getCurrentUrl();
+    //location.href = "/xczh/wxlogin/middle?url=" + getCurrentUrl();
 }
 
 function locationToOriginPage() {
@@ -567,9 +565,9 @@ function locationToOriginPage() {
  * 这个方法保证用户id一直存在
  */
 var userId = localStorage.getItem("userId");
-if (!stringnull(userId)) {
+if (!isNotBlank(userId)) {
     var user_cookie = cookie.get("_ipandatcm_user_");
-    if (stringnull(user_cookie)) {//说明已经登录了
+    if (isNotBlank(user_cookie)) {//说明已经登录了
         /* 如果是微信公众号进入页面时，没有给他返回token。所以这里他在请求下呢  */
         var ccontrollerAddress = "/xczh/set/isLogined";
         requestService(ccontrollerAddress, null, function (data) {
@@ -590,7 +588,7 @@ function gotoLiveSelectAlbum() {
 
     //window.location="/xcview/html/live_select_album.html?course_id="+collectionId;
     var back = document.referrer;
-    if (stringnull(back) && back.indexOf("wx_share.html") == -1) {
+    if (isNotBlank(back) && back.indexOf("wx_share.html") == -1) {
         window.history.back();
     } else {
     	
@@ -604,7 +602,7 @@ function gotoLiveSelectAlbum() {
 
 function common_share_back() {
     var back = document.referrer;
-    if (stringnull(back) && back.indexOf("wx_share.html") == -1) {
+    if (isNotBlank(back) && back.indexOf("wx_share.html") == -1) {
         window.history.back();
     } else {
         window.location.href = "/xcview/html/physician/index.html";
@@ -614,7 +612,7 @@ function common_share_back() {
 
 function common_share_backs() {
     /*	var back = document.referrer;
-        if(stringnull(back) &&  back.indexOf("wx_share.html")==-1){
+        if(isNotBlank(back) &&  back.indexOf("wx_share.html")==-1){
             var u = navigator.userAgent;
             if (u.indexOf('Android') > -1 || u.indexOf('Linux') > -1) {//安卓手机
                 //window.history.back();
@@ -629,7 +627,7 @@ function common_share_backs() {
             //window.location.href = "home_page.html";
         }*/
     var back = document.referrer;
-    if (stringnull(back) && back.indexOf("wx_share.html") == -1) {
+    if (isNotBlank(back) && back.indexOf("wx_share.html") == -1) {
         window.location.href = back;
     } else {
         window.location.href = "/xcview/html/physician/index.html";

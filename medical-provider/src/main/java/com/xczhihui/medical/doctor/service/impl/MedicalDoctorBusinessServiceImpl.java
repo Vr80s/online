@@ -704,8 +704,10 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
 
     @Override
     public Map<String, Object> selectDoctorWorkTimeAndDetailsById(String doctorId) {
-
-
-        return medicalDoctorMapper.selectDoctorWorkTimeAndDetailsById(doctorId);
+        Map<String, Object> map = medicalDoctorMapper.selectDoctorWorkTimeAndDetailsById(doctorId);
+        if(map!=null && map.get("description") !=null) {
+            map.put("description",XzStringUtils.formatA(map.get("description").toString()));
+        }
+        return map;
     }
 }

@@ -108,21 +108,6 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
 
         }
 
-        // 判断关键字
-        var str = data.resultObject.records;
-        if (str.indexOf('#')>=0) {// 判断#是否存在
-            var arr = str.split("#");
-            var str1="";
-            for (var i = 0; i < arr.length; i++) {
-              if (i%2==0) { // 除2余数等0，就是整除的意思
-              str1=str1+arr[i];// 字符串链接
-              } else{
-              str1 = str1+"<span style='color:red;'  class='span_span'>#"+arr[i]+"#</span>";// 字符串链接
-              };
-            };
-            $('.paper_nav_span .span_span').html(str1);
-        }
-
         for(var i=0;i<obj.length;i++){
             //没有点赞时隐藏小手
             if(obj[i].doctorPostsCommentList.length==0 && obj[i].doctorPostsLikeList.length==0){
@@ -139,9 +124,9 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
                 ccVideo(obj[i].video,1,obj[i].id);
             }
             //判断关键字   动态类别：1.普通动态2.图片动态3.视频动态4.文章动态5.课程动态
-            if(obj[i].type == 2 && obj[i].type == 1 && obj[i].type == 4){
+            if(obj[i].type == 2 || obj[i].type == 1 || obj[i].type == 4){
                 var content = obj[i].content;
-            if (content.indexOf('#')>=0) {// 判断#是否存在
+            if (content != null && content.indexOf('#')>=0) {// 判断#是否存在
                 var arr = content.split("#");
                 var str1="";
                 for (var j = 0; j < arr.length; j++) {
@@ -158,26 +143,30 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
             }
         }
 
-        //判断简介的字长度
-        var h = $(".essay_main").height();
-        if (h > 200) {
-            $(".essay_pack_up_btn").show();
-            $(".line_xian").hide();
-//          $(".wrap1").css({"height":"2rem","overflow":"hidden"})
-        } else {
-            $(".essay_pack_up_btn").hide()
-        }
+        mui("#refreshContainer").on('tap', '#replaybtn', function (event) {
+            $(".ccvideo_img").hide();    
+        });
 
-        //点击其他--收起
-        mui("#refreshContainer").on('tap', '.essay_pack_up_btn_span', function (event) {
-            if($(".essay_pack_up_btn_span").html()=="收起"){
-                $(".consilia_nav_span .title").css("height","100%");
-                $(".essay_pack_up_btn_span span").html("展开");
-                $(".consilia_nav_span .title").addClass("consilia_nav_span_title");
+
+
+        var hh = $(".panels_essay_main").height();
+        if (hh > 30) {
+            $(".essay_pack_up_btn").show();
+            $(".panels_essay_main").addClass("consilia_nav_span_title");
+            } else {
+                $(".essay_pack_up_btn").hide();
+
+        }
+        // alert(hh);
+        // 点击普通内容
+        mui("#refreshContainer").on('tap', '.essay_pack_up_btn', function (event) {
+            if($(".essay_pack_up_btn span").html()=="展开"){
+                $(".panels_essay_main").removeClass("consilia_nav_span_title");
+                $(".essay_pack_up_btn span").html("收起");
             }else{
-                $(".essay_pack_up_btn_span span").html("收起");
-                $(".consilia_nav_span .title").css("height","2.1rem");
-                $(".consilia_nav_span .title").removeClass("consilia_nav_span_title");
+                $(".panels_essay_main").addClass("consilia_nav_span_title");
+                $(".essay_pack_up_btn span").html("展开");
+                
             }
         });
 
@@ -190,7 +179,6 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
 
         }
         // alert(h);
-
         // 点击文章收起
         mui("#refreshContainer").on('tap', '.consilia_nav_btn', function (event) {
             if($(".consilia_nav_btn span").html()=="展开"){
@@ -313,7 +301,7 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
 
 function postsType(obj) {
     doctorPostsType = $(obj).attr("value");
-    doctorPostsList(num,'down',doctorPostsType);
+    doctorPostsList(1,'down',doctorPostsType);
     //alert(type)
 }
 /**

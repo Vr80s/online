@@ -1,6 +1,7 @@
 package com.xczh.consumer.market.controller.user;
 
 import java.sql.SQLException;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.ResponseObject;
@@ -189,4 +191,5 @@ public class XzUserController {
         onlineUserService.verifyPhone(username);
         return ResponseObject.newSuccessResponseObject("验证成功");
     }
+
 }

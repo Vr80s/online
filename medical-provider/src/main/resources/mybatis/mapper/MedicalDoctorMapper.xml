@@ -607,16 +607,15 @@
 
     <select id="selectDoctorWorkTimeAndDetailsById" resultType="java.util.Map">
         SELECT
-        md.id,
-        md.`work_time` workTime,
-        IFNULL((select ca.detail from course_anchor ca
-        inner join medical_doctor_account mda on
-        mda.account_id = ca.user_id where mda.doctor_id = #{doctorId}),
-        md.description) as description
+	        md.id,
+	        md.`work_time` workTime,
+	        IFNULL((select ca.detail from course_anchor ca  inner join medical_doctor_account mda on
+	        mda.account_id = ca.user_id where mda.doctor_id = #{doctorId}),
+	        md.description) as description
         FROM
-        medical_doctor md
-        WHERE md.deleted = 0
-        AND md.status = 1
-        AND md.id = #{doctorId}
+	        medical_doctor md
+	        WHERE md.deleted = 0
+	        AND md.status = 1
+	        AND md.id = #{doctorId}
     </select>
 </mapper>

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.xczhihui.bxg.online.common.domain.MedicalDoctor;
 import com.xczhihui.bxg.online.common.domain.MedicalDoctorAuthenticationInformation;
 import com.xczhihui.bxg.online.common.domain.MedicalHospital;
+import com.xczhihui.common.util.XzStringUtils;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.common.web.controller.AbstractController;
@@ -45,7 +46,7 @@ public class DoctorController extends AbstractController {
     private DoctorService doctorService;
     @Autowired
     private IMedicalDoctorSolrService medicalDoctorSolrService;
-
+ 
     @Value("${web.url}")
     private String weburl;
 
@@ -82,6 +83,8 @@ public class DoctorController extends AbstractController {
                 doctor.setProvince(hospital.getProvince());
             }
         }
+        doctor.setWorkTime(XzStringUtils.workTimeScreen(doctor.getWorkTime()));
+        
         request.setAttribute("doctor", doctor);
 
         //String doctorId = request.getParameter("doctorId");

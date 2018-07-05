@@ -14,12 +14,12 @@ function is_weixn(){
 
 //var recharges_blck = getQueryString("recharges_blck"); 
 //var orderId = getQueryString("orderId");
-//if(stringnull(recharges_blck) && recharges_blck ==1){
+//if(isNotBlank(recharges_blck) && recharges_blck ==1){
 //	sessionStorage.setItem("recharges_blck","1");
 //	sessionStorage.setItem("recharges_blck_param",orderId);
-//}else if(stringnull(recharges_blck) && recharges_blck ==2){
+//}else if(isNotBlank(recharges_blck) && recharges_blck ==2){
 //	sessionStorage.setItem("recharges_blck","2");
-//}else if(stringnull(recharges_blck) && recharges_blck ==3){
+//}else if(isNotBlank(recharges_blck) && recharges_blck ==3){
 //	var courseId = getQueryString("courseId");
 //	sessionStorage.setItem("recharges_blck_param",courseId);
 //	sessionStorage.setItem("recharges_blck","3");
@@ -68,7 +68,7 @@ window.history.forward(1);*/
 
 function lastPage(){
 	var last_page = document.referrer;
-	if(stringnull(last_page) && last_page.indexOf("wechat_h5_recharge.html")!=-1){
+	if(isNotBlank(last_page) && last_page.indexOf("wechat_h5_recharge.html")!=-1){
 		window.history.go(-2);
 	}else{
 		window.history.go(-1);
@@ -96,7 +96,7 @@ $("#determine").click(function(){
 
 var type = getQueryString("type"); //若果type 不等于null 时提示充值成功。
 var xmbCount = getQueryString("xmbCount");
-if(stringnull(type) || type == 1 || type == 2){
+if(isNotBlank(type) || type == 1 || type == 2){
 	$(".success").show();
 	$("#xmb_success").html(xmbCount*10);
 	//alert("充值成功");
@@ -155,9 +155,9 @@ function  goPay() {
         var openId= localStorage.getItem("openid");
         var orderForm = 3;
         if(is_weixn()){
-            if(!stringnull(openId)){  // 再去重cookie中获取
+            if(!isNotBlank(openId)){  // 再去重cookie中获取
             	var third_party_uc_t_ = cookie.get("_third_ipandatcm_user_");
-            	if(stringnull(third_party_uc_t_)){
+            	if(isNotBlank(third_party_uc_t_)){
             		third_party_uc_t_ = decodeURIComponent(third_party_uc_t_);	
             		openId = third_party_uc_t_.split(";")[0];
             	}
@@ -170,7 +170,7 @@ function  goPay() {
         
         //clientType= 2 表示微信支付
         var strparam = "clientType="+orderForm+"&actualPay="+actualPay+"&outTradeNo="+outTradeNo;
-        if(stringnull(openId)){
+        if(isNotBlank(openId)){
         	strparam+="&openId="+openId;
         }
         var redirectUrl = getRedirectUrl(actualPay,orderForm,outTradeNo);

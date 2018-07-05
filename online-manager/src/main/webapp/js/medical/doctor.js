@@ -48,7 +48,14 @@ $(function(){
     	 if(data==null)return "";
          return data;
     }
-    },        
+    }, 
+    
+    { "title": "推荐时效", "class":"center","width":"8%","sortable":false,"data": 'sortUpdateTime','mRender':function(data){
+        return getLocalTime(data);
+     }
+    },  
+    
+    
     { "title": "状态", "class":"center","width":"6%","sortable":false,"data": 'status',"mRender":function (data) {
     	if(data==1){
     		return "<span name='zt'>已启用</span>";
@@ -1291,6 +1298,9 @@ function drawHospitalPage(data){
 }
 
 function getLocalTime(nS) {
+	if(nS == null || nS == ""){
+		return "";
+	}
     return new Date(parseInt(nS)).toLocaleString().replace(/:\d{1,2}$/,' ');
 }
 

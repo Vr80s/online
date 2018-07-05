@@ -216,12 +216,11 @@ $(".add_bx").click(function () {
                     return false;
                 }
                 if (!link.match(reg)) {
-                    alertInfo("不合法的url格式(正确格式如:https://www.hao123.com/)");
+                    alertInfo("不合法的url格式(正确格式如:https://www.hao123.com)");
                     return false;
                 }
             }
             if (detailId) {
-                console.log(detailId);
                 $('#J-detailId').val(detailId);
             }
         }

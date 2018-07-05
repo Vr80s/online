@@ -75,46 +75,7 @@
 				<input type="text" id="title" name="title" maxlength="30" placeholder = "最多30字"class="col-xs-10 col-sm-12 {required:true}">
 			</div>
 		</div>
-		<div class="space-4"></div>
-		<div class="form-group"  style="margin-top: 18px;" >
-			<label class="col-sm-1 control-label no-padding-right" for="add_imgPath"><font color="red">*</font>封面图: </label>
-			<div class="col-sm-3">
-				<div class="clearfix" id="imgAdd" style="width: 240px;">
 
-				</div>
-				<input type="text" name="coverImg"  id="add_imgPath" value="" class="{required:true}" style="position: absolute; opacity: 0; filter:Alpha(opacity=0);">
-			</div>
-            <div style="float: left;width: 400px; "><font color="red">*</font>支持图片格式：jpg,png,gif,bmp</div>
-		</div>
-		<div class="form-group"  style="margin-top: 18px;">
-			<label class="col-sm-1 control-label no-padding-right"><font color="red">*</font>收徒宣传语: </label>
-			<div class="col-sm-3" >
-				<textarea class="form-control col-xs-10 col-sm-12 {required:true}" maxlength="200" placeholder = "最多200字" name="propaganda" id="propaganda" rows="3"
-						  ></textarea>
-			</div>
-		</div>
-		<div class="space-4"></div>
-		<div class="form-group"  style="margin-top: 18px;">
-			<label class="col-sm-1 control-label no-padding-right"><font color="red">*</font>大师简介: </label>
-			<div class="col-sm-3" >
-				<textarea class="form-control col-xs-10 col-sm-12 {required:true}" maxlength="200" placeholder = "最多200字" name="doctorIntroduction" id="doctorIntroduction" rows="3"></textarea>
-			</div>
-		</div>
-		<div class="space-4"></div>
-		<div class="form-group" style="margin-top: 18px;" >
-			<label class="col-sm-1 control-label no-padding-right" for="tuition"><font color="red">*</font>学费: </label>
-			<div class="col-sm-3">
-				<input type="text" name="tuition" id="tuition" maxlength="11"  onkeyup="value=value.replace(/[^\d]/g,'')" class="col-xs-10 col-sm-4 {required:true}"><div style="padding-top: 5px">元</div>
-			</div>
-		</div>
-		<div class="space-4"></div>
-		<div class="form-group" style="margin-top: 18px;" >
-			<label class="col-sm-1 control-label no-padding-right" for="countLimit"><font color="red">*</font>收徒人数: </label>
-			<div class="col-sm-1">
-				<input type="text" name="countLimit" id="countLimit" maxlength="50"
-				   onkeyup="this.value=this.value.replace(/\D|^0/g,'')" onafterpaste="this.value=this.value.replace(/\D|^0/g,'')" class="col-xs-10 col-sm-8 {required:true}">
-			</div>
-		</div>
 		<div class="space-4"></div>
 		<div class="form-group"  style="margin-top: 18px;" >
 			<label class="col-sm-1 control-label no-padding-right" for="deadline"><font color="red">*</font>报名截止时间: </label>
@@ -133,6 +94,33 @@
 			</div>
 			<div class="col-sm-2">
 				<input type="text" name="endTimeStr" placeholder = "结束时间" id="endTime"  class="datetime-picker col-md-11 {required:true}">
+			</div>
+		</div>
+
+		<div class="space-4"></div>
+		<div class="form-group"  style="margin-top: 18px;" >
+			<label class="col-sm-1 control-label no-padding-right" for="add_imgPath"><font color="red">*</font>封面图: </label>
+			<div class="col-sm-3">
+				<div class="clearfix" id="imgAdd" style="width: 240px;">
+
+				</div>
+				<input type="text" name="coverImg"  id="add_imgPath" value="" class="{required:true}" style="position: absolute; opacity: 0; filter:Alpha(opacity=0);">
+			</div>
+			<div style="float: left;width: 400px; "><font color="red">*</font>支持图片格式：jpg,png,gif,bmp</div>
+		</div>
+		<div class="space-4"></div>
+		<div class="form-group" style="margin-top: 18px;" >
+			<label class="col-sm-1 control-label no-padding-right" for="tuition"><font color="red">*</font>学费: </label>
+			<div class="col-sm-3">
+				<input type="text" name="tuition" id="tuition" maxlength="11"  onkeyup="value=value.replace(/[^\d]/g,'')" class="col-xs-10 col-sm-4 {required:true}"><div style="padding-top: 5px">元</div>
+			</div>
+		</div>
+		<div class="space-4"></div>
+		<div class="form-group" style="margin-top: 18px;" >
+			<label class="col-sm-1 control-label no-padding-right" for="countLimit"><font color="red">*</font>收徒人数: </label>
+			<div class="col-sm-1">
+				<input type="text" name="countLimit" id="countLimit" maxlength="50"
+					   onkeyup="this.value=this.value.replace(/\D|^0/g,'')" onafterpaste="this.value=this.value.replace(/\D|^0/g,'')" class="col-xs-10 col-sm-8 {required:true}">
 			</div>
 		</div>
 		<div class="space-4"></div>
@@ -161,36 +149,16 @@
 		</div>
 		<div class="space-4"></div>
 		<div class="form-group" style="margin-top: 18px;" >
-			<label class="col-sm-1 control-label no-padding-right" for="learningProcess"><font color="red">*</font>拜师学习流程: </label>
+			<label class="col-sm-1 control-label no-padding-right" for="entryFormAttachment"><font color="red">*</font>招生简章: </label>
 			<div class="col-sm-3">
-				<textarea class="form-control col-xs-10 col-sm-12 {required:true}" name="learningProcess" id="learningProcess" rows="3"></textarea>
+				<input type="file" name="file" id="attachment_file"/>
+				<input type="hidden" name="entryFormAttachment" class="{required:true}"id="entryFormAttachment"/>
 			</div>
+			<div style="float: left;width: 200px; "><font color="red">*</font>文件格式：docx</div>
 		</div>
-		<div class="space-4"></div>
+		<div class="space-4"style="margin-top: 45px;"></div>
 		<div class="form-group" style="margin-top: 18px;" >
-			<label class="col-sm-1 control-label no-padding-right" for="contactWay"><font color="red">*</font>联系人: </label>
-			<div class="col-sm-3">
-				<textarea class="form-control col-xs-10 col-sm-12 {required:true}" name="contactWay" id="contactWay" rows="3"></textarea>
-			</div>
-		</div>
-		<div class="space-4"></div>
-		<div class="form-group" style="margin-top: 18px;" >
-			<label class="col-sm-1 control-label no-padding-right" for="rightsAndInterests"><font color="red">*</font>弟子权益: </label>
-			<div class="col-sm-3">
-					<textarea class="form-control col-xs-10 col-sm-12 {required:true}"name="rightsAndInterests" id="rightsAndInterests" rows="3"
-							  ></textarea>
-			</div>
-		</div>
-		<div class="space-4"></div>
-		<div class="form-group" style="margin-top: 18px;" >
-			<label class="col-sm-1 control-label no-padding-right" for="qualification"><font color="red">*</font>拜师资格: </label>
-			<div class="col-sm-3">
-					<textarea class="form-control col-xs-10 col-sm-12 {required:true}" name="qualification" id="qualification" rows="3"></textarea>
-			</div>
-		</div>
-		<div class="space-4"></div>
-		<div class="form-group" style="margin-top: 18px;" >
-			<label class="col-sm-1 control-label no-padding-right" for="ceremonyAddress"><font color="red">*</font>拜师地址: </label>
+			<label class="col-sm-1 control-label no-padding-right" for="ceremonyAddress"><font color="red">*</font>相关介绍: </label>
 			<div class="col-sm-3 " >
 					<div>
 						<script id="editor" type="text/plain" style="width:600px;height:300px;"></script></div>
@@ -206,7 +174,7 @@
 					<input type="hidden" name="regulations"  id="regulations" class="col-xs-10 col-sm-12 {required:true,minlength:1}">
 			</div>
 		</div>
-		<div class="space-4"></div>
+		<%--<div class="space-4"></div>
 		<div class="form-group"  style="margin-top: 18px;" >
 			<label class="col-sm-1 control-label no-padding-right" for="posterImg"><font color="red">*</font>海报: </label>
 			<div class="col-sm-3">
@@ -216,16 +184,8 @@
 				<input type="text" name="posterImg"  id="posterImg" class="{required:true}" value="" style="position: absolute; opacity: 0; filter:Alpha(opacity=0);">
 			</div>
             <div style="float: left;width: 400px; "><font color="red">*</font>支持图片格式：jpg,png,gif,bmp</div>
-		</div>
-		<div class="space-4"></div>
-		<div class="form-group" style="margin-top: 18px;" >
-			<label class="col-sm-1 control-label no-padding-right" for="entryFormAttachment"><font color="red">*</font>招生简章: </label>
-			<div class="col-sm-3">
-				<input type="file" name="file" id="attachment_file"/>
-					<input type="hidden" name="entryFormAttachment" class="{required:true}"id="entryFormAttachment"/>
-			</div>
-            <div style="float: left;width: 200px; "><font color="red">*</font>文件格式：docx</div>
-		</div>
+		</div>--%>
+
 
 	</form>
 	<div class="col-xs-7" style="text-align: right;margin-top:50px;">

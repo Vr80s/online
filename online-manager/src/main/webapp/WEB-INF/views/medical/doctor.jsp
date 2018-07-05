@@ -40,7 +40,7 @@
  
     .vertical-tab-content {
         float: left;
-        width: 90%;
+        width: 100%;
         padding: 5px;
         margin-left: -1px;
         margin-bottom: 2px;
@@ -383,7 +383,7 @@
  
     .vertical-tab-content {
         float: left;
-        width: 90%;
+        width: 100%;
         padding: 5px;
         margin-left: -1px;
         margin-bottom: 2px;

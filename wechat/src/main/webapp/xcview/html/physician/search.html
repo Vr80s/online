@@ -106,7 +106,13 @@
 		//点击关键字查询
 		function queryKeyToList(obj){
 //			event.stopPropagation(); 
-			var queryKey = $(obj).find(".div0").text();
+
+            var queryKey = $(obj).find(".div0").text();
+
+            removeByValue(arr, queryKey);
+            arr.unshift(queryKey);
+            localStorage.setItem(hisArr,arr);
+            
 			location.href="/xcview/html/physician/physician_list.html?queryKey="+queryKey+"&curriculum_blck=2";
 		}
 

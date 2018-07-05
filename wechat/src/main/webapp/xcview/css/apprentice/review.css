@@ -1,0 +1,169 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+img{
+	border: 0;
+	border: none;
+}
+a{
+	text-decoration: none;
+}
+ul{
+	margin: 0;
+	padding: 0;
+}
+li{
+	list-style: none;
+	/*background: blue;*/
+}
+body{
+    width: 7.5rem;
+    height: 100%;
+    background: #F5F5F5;
+    margin: 0 auto;
+}
+.both{
+	clear: both;
+}
+
+::-webkit-input-placeholder{
+	color: #ccc;
+}
+:-moz-placeholder{
+	color: #ccc;
+}
+:-ms-placeholder{
+	color: #ccc;
+}
+placeholder{
+	color: #ccc;
+}
+
+/*往期回顾头部开始*/
+header{
+	width: 7.5rem;
+	height: 0.88rem;
+	position: fixed;
+	top: 0;
+	z-index: 999999999999999;
+	border-bottom: 1px solid #d8dde6;
+}
+.header{
+	width: 100%;
+	height: 0.88rem;
+	line-height: 0.88rem;
+	position: relative;
+    background: #fff;
+}
+.return{
+	width: 0.24rem;
+    height: 0.42rem;
+    position: absolute;
+    left: 0.26rem;
+    top: 0.23rem;
+}
+.return img{
+	width: 0.24rem;
+    height: 0.42rem;
+    position: absolute;
+    left: 0rem;
+    top: 0rem;
+}
+.apply_title{
+	width: 100%;
+	height: 0.88rem;
+	line-height: 0.88rem;
+	font-size: 0.36rem;
+	color: #333333;
+	text-align: center;
+}
+/*往期回顾头部结束*/
+
+/*中间内容开始*/
+.opacity_height{
+	opacity: 0;
+	width: 100%;
+	height: 0.88rem;
+}
+.main{
+	width: 7.5rem;
+	height: 100%;
+	margin: 0 auto;
+	background: #F8F8F8;
+}
+.students{
+	width: 7.5rem;
+	margin: 0 auto;
+	background: #fff;
+}
+.students_title{
+	font-size: 0.3rem;
+	color: #333;
+	text-indent: 0.26rem;
+	padding: 0.3rem 0;
+}
+.students_video{
+	width: 7.5rem;
+	height: 4.24rem;
+	margin: 0 auto;
+	margin-bottom: 0.1rem;
+}
+.students_video_view{
+	width: 7.5rem;
+	height: 4.24rem;
+}
+.ccH5playerBox{
+	width: 7.5rem !important;
+    height: 4.24rem !important;
+}
+.ccH5Poster img{
+	width: 7.5rem !important;
+    height: 4.24rem !important;
+}
+.head_portrait{
+	padding-bottom: 0.1rem;
+}
+.head_portrait ul{
+	overflow: hidden;
+}
+.head_portrait ul li{
+	font-size: 0.22rem;
+	color: #333333;
+	text-align: center;
+	float: left;
+    margin: 0.2rem 0.25rem 0.2rem 0.25rem;
+}
+.head_portrait ul li img{
+	width: 1rem;
+	height: 1rem;
+	border-radius: 100px;
+}
+.splendid_moment{
+	width: 7.5rem;
+	margin: 0 auto;
+	margin-top: 0.2rem;
+	background: #FFF;
+	padding-bottom: 0.2rem;
+	margin-bottom: 0.2rem;
+}
+.splendid_moment_title{
+	font-size: 0.3rem;
+	color: #333333;
+	text-indent: 0.26rem;
+	padding: 0.3rem 0;
+}
+.splendid_moment_img{
+	width: 6.98rem;
+	margin: 0 auto;
+}
+.splendid_moment_img img{
+	width: 6.98rem;
+	max-width: 6.98rem;
+	margin-bottom: 0.2rem;
+	display: -webkit-box;
+}
+.splendid_moment_img img:last-child{
+	margin-bottom: 0;
+}
+/*中间内容结束*/

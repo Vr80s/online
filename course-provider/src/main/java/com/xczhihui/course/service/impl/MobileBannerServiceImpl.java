@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xczhihui.course.consts.MultiUrlHelper;
-import com.xczhihui.course.enums.RouteTypeEnum;
 import com.xczhihui.course.mapper.MobileBannerMapper;
 import com.xczhihui.course.model.MobileBanner;
 import com.xczhihui.course.model.OfflineCity;
@@ -35,7 +34,7 @@ public class MobileBannerServiceImpl extends ServiceImpl<MobileBannerMapper, Mob
 
     @Autowired
     private MobileBannerMapper iMobileBannerMapper;
-    @Value("{mobile.domain}")
+    @Value("${mobile.domain}")
     private String returnOpenidUri;
 
 
@@ -53,13 +52,7 @@ public class MobileBannerServiceImpl extends ServiceImpl<MobileBannerMapper, Mob
         records.forEach(mobileBanner -> {
             String routeType = mobileBanner.getRouteType();
             if (StringUtils.isNotBlank(routeType)) {
-                if (RouteTypeEnum.APPRENTICE_DETAIL.name().equals(routeType) && MultiUrlHelper.URL_TYPE_APP.equals(source)) {
-                    String apprenticeParam = MultiUrlHelper.handleApprenticeParam(returnOpenidUri, mobileBanner.getLinkParam());
-                    if (StringUtils.isNotBlank(apprenticeParam)) {
-                        mobileBanner.setLinkParam(apprenticeParam);
-                    }
-                }
-                String url = MultiUrlHelper.getUrl(routeType, source, mobileBanner.getLinkParam());
+                String url = MultiUrlHelper.getUrl(routeType, source, MultiUrlHelper.handleParam(returnOpenidUri, mobileBanner.getLinkParam(), routeType));
                 mobileBanner.setTarget(url);
             } else {
                 mobileBanner.setTarget("");

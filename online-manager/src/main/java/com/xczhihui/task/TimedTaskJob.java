@@ -16,6 +16,7 @@ import com.xczhihui.course.service.ICourseSolrService;
 import com.xczhihui.course.service.MessageRemindingService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorSolrService;
 import com.xczhihui.medical.service.DoctorService;
+import com.xczhihui.medical.service.HospitalService;
 
 /**
  * @ClassName: TimedTaskJob
@@ -39,6 +40,9 @@ public class TimedTaskJob {
     private IMedicalDoctorSolrService medicalDoctorSolrService;
     @Autowired
     private DoctorService doctorService;
+    
+    @Autowired
+    private HospitalService hospitalService;
 
     /**
      * Description：课程推荐值更新
@@ -60,6 +64,9 @@ public class TimedTaskJob {
         });
     }
 
+    /**
+     * Description：医师推荐值更新
+     */
     @Scheduled(cron = "0 0/30 * * * ?")
     public void doctorRecommendAging() {
         List<String> ids = doctorService.updateDefaultSort();
@@ -71,8 +78,18 @@ public class TimedTaskJob {
                 logger.error(e.getMessage());
             }
         });
-
     }
+    
+    /**
+     * Description：医馆推荐值更新
+     */
+    @Scheduled(cron = "0 0/30 * * * ?")
+    public void hospitalRecommendAging() {
+        
+        hospitalService.updateDefaultSort();
+    }
+    
+    
 
     @Scheduled(cron = "0 0/1 * * * ?")
     public void liveCourseMessage() throws ClientException {

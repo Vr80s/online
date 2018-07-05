@@ -496,7 +496,7 @@
 								   <td>
 									   <div class="profile-info-value searchTr">
 										   <select  class="propertyValue1" name="search_title" id="search_title"onchange="search_P()"  class="col-xs-12 col-sm-12 " >
-											   <option  value="-1" >请选择</option>
+											   <option  value="-1" >请选择一个招生信息</option>
 											   <c:forEach var="m" items="${MedicalEnrollmentRegulations}">
 												   <option value="${m.id}">${m.title}</option>
 											   </c:forEach>
@@ -505,8 +505,10 @@
 									   </div>
 								   </td>
 								<td>
-									<a href="" id="exportId" style="padding: 4px;background-color: #4183bc;font-size: 15px;
-								display: inline-block;border-radius: 8px;color: #2a6496;text-decoration : none" onclick="exportExcel()">导出Excel</a>
+
+										<button class="btn btn-sm btn-success add_bx" id="add_button" onclick="exportExcel()" title="导出">
+											<i class="fa fa-download"></i> 导出
+										</button>
 
 								</td>
 

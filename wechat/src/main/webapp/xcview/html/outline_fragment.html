@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+	<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<head>
+<meta charset="UTF-8">
+<title>熊猫中医</title>
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
+<!-- 网页自适应JS代码引入 -->
+<script src="/xcview/js/js.js"></script>
+
+<script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script><!--滑动引入js-->
+<script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/common.js"></script>
+<script type="text/javascript" src="/xcview/js/common/template.js"></script>
+<script type="text/javascript" src="/xcview/js/course_outline.js"></script>
+<script src="/xcview/js/course_outline.js"></script>
+<link rel="stylesheet" type="text/css" href="/xcview/css/course_outline.css" />
+<script>
+	// 判断横屏展示时的状态
+	window.onorientationchange=function(){
+	    if(window.orientation==90||window.orientation==-90){
+	        window.location.reload();  /*横屏状态刷新*/
+	    }else{
+	        window.location.reload();  /*竖屏状态刷新*/
+	    }
+	}	
+</script>
+<style>
+	.outline{
+		width: 100% !important;
+	}
+	.outline_list{
+		width: 14.954rem !important;
+	}
+</style>
+</head>
+<body style="background: #F8F8F8;">
+	<!--中间内容开始-->
+	<div class="outline" style="margin-top:0.389rem">
+		<div class="outline_main">
+			<script type="text/html" id="outline_main">
+			<div class="outline_title">{{gradeName}}</div>
+			<div class="outline_cen">
+				<div class="outline_cen_left">
+					<img src="../images/outline_bg.png" />
+					共<span>{{courseNumber}}</span>集<!--已更新<span>16</span>集-->
+				</div>
+				<!--<div class="outline_cen_right">
+					<img src="../images/time_bg0.png" />
+					每周<span>一三五</span>更新
+				</div>-->
+				<div class="both"></div>
+			</div>
+			</script>
+		</div>	
+			<div class="outline_cen_border"></div>
+			<div class="outline_list">
+				<div class="outline_list_ul">
+				</div>
+			</div>
+			<div class="both"></div>
+	</div>
+	<!--中间内容结束-->
+	
+	<!--<div class="div0">
+		
+		<script type="text/html" id="div0">
+	    {{each items as item i}}	
+		<div class="">{{item.gradeName}}</div>
+		{{/each}}
+	    </script>
+	
+	</div>-->
+</body>
+
+</html>

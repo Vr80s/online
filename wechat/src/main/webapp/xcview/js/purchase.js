@@ -12,7 +12,7 @@ function is_weixn(){
 
 function lastPage(){
 	var last_page = document.referrer;
-	if(stringnull(last_page) && last_page.indexOf("wechat_h5_pay.html")!=-1){
+	if(isNotBlank(last_page) && last_page.indexOf("wechat_h5_pay.html")!=-1){
 		window.history.go(-2);
 	}else{
 		window.history.go(-1);
@@ -42,7 +42,7 @@ if(!(before_address.indexOf("recharges.html") !=-1 ||
  */
 function purchaseBack(){
 	var before_address = sessionStorage.getItem("purchase_back");
-    if(stringnull(before_address)){
+    if(isNotBlank(before_address)){
     	location.href =before_address;
     }else{
     	 history.back(-1);
@@ -211,9 +211,9 @@ function  goPay() {
         var openId=   localStorage.getItem("openid");
         var orderForm = 3;
         if(is_weixn()){
-            if(!stringnull(openId)){  // 再去重cookie中获取
+            if(!isNotBlank(openId)){  // 再去重cookie中获取
             	var third_party_uc_t_ = cookie.get("_third_ipandatcm_user_");
-            	if(stringnull(third_party_uc_t_)){
+            	if(isNotBlank(third_party_uc_t_)){
             		third_party_uc_t_ = decodeURIComponent(third_party_uc_t_);	
             		openId = third_party_uc_t_.split(";")[0];
             	}
@@ -222,7 +222,7 @@ function  goPay() {
             orderForm=4
         }
         var strparam = "orderFrom="+orderForm+"&orderId="+getQueryString("orderId");
-        if(stringnull(openId)){  //获取openid
+        if(isNotBlank(openId)){  //获取openid
         	strparam+="&openId="+openId;
         }
         /*

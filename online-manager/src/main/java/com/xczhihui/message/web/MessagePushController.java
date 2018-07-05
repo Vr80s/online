@@ -20,7 +20,7 @@ import com.xczhihui.bxg.online.common.domain.CourseAnchor;
 import com.xczhihui.bxg.online.common.domain.MessageRecord;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.util.bean.ResponseObject;
-import com.xczhihui.course.enums.RouteTypeEnum;
+import com.xczhihui.common.util.enums.RouteTypeEnum;
 import com.xczhihui.course.service.CourseService;
 import com.xczhihui.course.service.ICommonMessageService;
 import com.xczhihui.course.vo.CourseVo;

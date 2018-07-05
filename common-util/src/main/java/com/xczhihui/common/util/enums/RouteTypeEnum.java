@@ -1,4 +1,4 @@
-package com.xczhihui.course.enums;
+package com.xczhihui.common.util.enums;
 
 /**
  * @author hejiwei
@@ -18,6 +18,14 @@ public enum RouteTypeEnum {
     COMMON_COURSE_DETAIL_PAGE(1),
     //学习中心的课程详情
     COMMON_LEARNING_COURSE_DETAIL_PAGE(1),
+
+    COMMON_LEARNING_LIVE_COURSE_DETAIL_PAGE(1),
+    COMMON_LEARNING_VIDEO_COURSE_DETAIL_PAGE(1),
+    COMMON_LEARNING_AUDIO_COURSE_DETAIL_PAGE(1),
+    COMMON_LEARNING_OFFLINE_COURSE_DETAIL_PAGE(1),
+    COMMON_LEARNING_VIDEO_COLLECTION_COURSE_DETAIL_PAGE(1),
+    COMMON_LEARNING_AUDIO_COLLECTION_COURSE_DETAIL_PAGE(1),
+
     SPECIAL_COLUMN_DETAIL(1),
     DOCTOR_CASE_DETAIL(1),
     //医师认证页
@@ -43,7 +51,7 @@ public enum RouteTypeEnum {
     QUESTION_DETAIL(1),
     ANCHOR_INDEX(1),
     H5(3),
-    APPRENTICE_DETAIL(1),
+    APPRENTICE_DETAIL(3),
     PUBLIC_COURSE_LIST_PAGE(2);
 
     //0 => 不带参数 1=>详情页跳转，参数为id 2 => 列表筛选条件 3=>h5

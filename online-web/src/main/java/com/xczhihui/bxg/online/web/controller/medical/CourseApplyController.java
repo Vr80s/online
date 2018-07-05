@@ -7,8 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.solr.client.solrj.SolrServerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,17 +20,17 @@ import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.controller.AbstractController;
 import com.xczhihui.bxg.online.web.service.CourseService;
 import com.xczhihui.bxg.online.web.service.OnlineUserCenterService;
+import com.xczhihui.common.util.CourseUtil;
 import com.xczhihui.common.util.TimeUtil;
 import com.xczhihui.common.util.VhallUtil;
 import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.common.util.enums.ClientType;
-import com.xczhihui.course.enums.MessageTypeEnum;
+import com.xczhihui.common.util.enums.MessageTypeEnum;
 import com.xczhihui.course.params.BaseMessage;
 import com.xczhihui.course.service.ICommonMessageService;
 import com.xczhihui.course.service.ICourseSolrService;
 import com.xczhihui.course.service.IFocusService;
 import com.xczhihui.course.service.ILineApplyService;
-import com.xczhihui.course.util.CourseUtil;
 import com.xczhihui.course.util.TextStyleUtil;
 import com.xczhihui.course.vo.FocusVo;
 import com.xczhihui.course.vo.LineCourseApplyStudentVO;

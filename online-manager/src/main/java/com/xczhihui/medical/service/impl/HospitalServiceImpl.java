@@ -9,8 +9,10 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.dubbo.common.utils.CollectionUtils;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
+import com.xczhihui.bxg.online.common.domain.MedicalDoctor;
 import com.xczhihui.bxg.online.common.domain.MedicalHospital;
 import com.xczhihui.bxg.online.common.domain.MedicalHospitalPicture;
+import com.xczhihui.common.util.DateUtil;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.medical.dao.HospitalDao;
 import com.xczhihui.medical.enums.MedicalExceptionEnum;
@@ -252,5 +254,31 @@ public class HospitalServiceImpl extends OnlineBaseServiceImpl implements Hospit
 
         dao.update(coursePre);
         dao.update(courseNext);
+    }
+
+    @Override
+    public void updateRecommendSort(String id, Integer recommendSort, String recommendTime) {
+        String hqlPre = "from MedicalHospital where  deleted=0 and status=1 and id = ? ";
+        MedicalHospital medicalHospital = dao.findByHQLOne(hqlPre, new Object[]{id});
+        if (medicalHospital != null) {
+            if (recommendTime != null && !recommendTime.equals("")) {
+                medicalHospital.setSortUpdateTime(DateUtil.parseDate(recommendTime, "yyyy-MM-dd HH:mm:ss"));
+            } else {
+                medicalHospital.setSortUpdateTime(null);
+            }
+            medicalHospital.setRecommendSort(recommendSort);
+            dao.update(medicalHospital);
+        }
+        
+    }
+
+    @Override
+    public void updateDefaultSort() {
+        String sql = " UPDATE  medical_hospital  SET recommend_sort=0 WHERE "
+                + "  sort_update_time<= NOW() and recommend_sort != 0 ";
+        
+        Map<String, Object> params = new HashMap<String, Object>();
+        
+        dao.getNamedParameterJdbcTemplate().update(sql, params);
     }
 }

@@ -85,4 +85,8 @@ public interface HospitalService {
     void updateSortUpRec(String id);
 
     void updateSortDownRec(String id);
+
+    void updateRecommendSort(String id, Integer recommendSort, String recommendTime);
+
+    void updateDefaultSort();
 }

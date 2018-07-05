@@ -63,8 +63,9 @@ public interface LineApplyMapper extends BaseMapper<LineApply> {
      * @return
      */
     @Select({"SELECT la.real_name as realName, la.sex, la.mobile, la.wechat_no as wechatNo, la.learned, ac.create_time as createTime, la.id, oc.grade_name as courseName" +
-            " FROM oe_line_apply la join apply_r_grade_course ac on la.course_id = ac.course_id, oe_course oc" +
-            " WHERE oc.id = la.course_id AND oc.`user_lecturer_id` = #{anchorId} AND (#{courseId} is null OR la.course_id = #{courseId})" +
+            " FROM oe_line_apply la, apply_r_grade_course ac, oe_course oc" +
+            " WHERE oc.id = la.course_id AND la.course_id = ac.course_id and la.`user_id` = ac.`user_id` AND oc.`user_lecturer_id` = #{anchorId}" +
+            " AND (#{courseId} is null OR la.course_id = #{courseId})" +
             " ORDER BY la.create_time desc"})
     List<LineCourseApplyStudentVO> listLineApplyStudent(Page<LineCourseApplyStudentVO> page, @Param("courseId") Integer courseId, @Param("anchorId") String anchorId);
 

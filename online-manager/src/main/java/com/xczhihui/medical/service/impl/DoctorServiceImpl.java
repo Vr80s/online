@@ -11,6 +11,7 @@ import com.alibaba.dubbo.common.utils.CollectionUtils;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.*;
 import com.xczhihui.common.util.DateUtil;
+import com.xczhihui.common.util.XzStringUtils;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.medical.dao.DoctorDao;
 import com.xczhihui.medical.enums.MedicalExceptionEnum;
@@ -37,6 +38,13 @@ public class DoctorServiceImpl extends OnlineBaseServiceImpl implements
             MedicalDoctor medicalDoctor, int pageNumber, int pageSize) {
         Page<MedicalDoctor> page = doctorDao.findMedicalDoctorPage(
                 medicalDoctor, pageNumber, pageSize);
+       
+        List<MedicalDoctor> list = page.getItems();
+        
+        for (MedicalDoctor medicalDoctor2 : list) {
+            medicalDoctor2.setWorkTime(XzStringUtils.workTimeScreen(medicalDoctor2.getWorkTime()));
+        }
+        
         return page;
 
     }
