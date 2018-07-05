@@ -258,6 +258,7 @@ outline: none;
 	height: 300px;
 	position: relative;
 	margin: 10px 10px 0 0;
+	overflow: hidden;
 }
 .save-photo li:nth-child(3n){
 	margin-right: 0;

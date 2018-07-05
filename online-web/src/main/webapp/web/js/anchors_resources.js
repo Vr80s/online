@@ -560,7 +560,7 @@ var activityType;
         }, function (data) {
         		$(".photo-wrap").removeClass("hide");
         	  var addPhoto='<li>'+
-					'<img class="insertImg" src="' + data.resultObject + '" alt="照片" />'+
+					'<img class="insertImg" src="' + data.resultObject + '?imageMogr2/thumbnail/!300x300r'+'|imageMogr2/gravity/Center/crop/300x300" alt="照片" />'+
 					'<p><img class="img-number" src="/web/images/delete-img.png" alt="删除照片" title="删除照片" /></p>'+
 				'</li>';
 				$('.save-photo ul').append(addPhoto); 
