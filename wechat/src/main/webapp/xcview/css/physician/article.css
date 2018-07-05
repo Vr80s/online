@@ -80,6 +80,7 @@ header{
 	width: 100%;
 	height: 0.88rem;
 	opacity: 0;
+    display: none !important;
 }
 .opacity_height{
 	width: 100%;
