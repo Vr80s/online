@@ -170,13 +170,16 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
             }
         });
 
+
+
+        
+
         var h = $(".consilia_nav_span .title").height();
         if (h > 50) {
             $(".consilia_nav_btn").show();
             $(".consilia_nav_span .title").addClass("consilia_nav_span_title");
             } else {
                 $(".consilia_nav_btn").hide();
-
         }
         // alert(h);
         // 点击文章收起
@@ -295,6 +298,10 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
             else{
                 oReplay.pause();
             }
+        });
+        //医案跳转
+        mui("#refreshContainer").on('tap', 'ul', function (event) {
+
         });
     });
 }
@@ -575,50 +582,59 @@ requestService("/xczh/doctors/doctorStatus", {doctorId:doctorId},function (data)
                                 pageSize: 1000
                             },function (data) {  
                                 if (data.success == true) {
-                                    
                                     // 直播状态
                                     //直播课程状态：lineState  1直播中， 2预告，3直播结束 ， 4 即将直播 ，5 准备直播 ，6 异常直播
                                     $('#living_broadcastroom').html(template('living_broadcastroom_id', {items: data.resultObject}));
-                                
-                                    function timer() {
-                                        //设置结束的时间
-                                        var startTime = data.resultObject.startTime;
-                                        // var endtime = new Date("2020/04/22 00:00:00");
-                                        var endtime = new Date(startTime);
-                                        //设置当前时间
-                                        var now = new Date();
-                                        //得到结束与当前时间差 ： 毫秒
-                                        var t = endtime.getTime() - now.getTime();
-                                        if (t > 0) {
-                                            //得到剩余天数
-                                            // var tian = Math.floor(t / 1000 / 60 / 60 / 24);
-                                            //得到还剩余的小时数（不满一天的小时）
-                                            var h = Math.floor(t / 1000 / 60 / 60 % 24);
-                                            if(h<10){
-                                                h="0"+h;
-                                            }
-                                            //得到分钟数
-                                            var m = Math.floor(t / 1000 / 60 % 60);
-                                            if(m<10){
-                                                m="0"+m;
-                                            }
-                                            //得到的秒数
-                                            var s = Math.floor(t / 1000 % 60);
-                                            if(s<10){
-                                                s="0"+s;
-                                            }
-                                            var str = "直播倒计时 " + h + "：" + m + "：" + s;
-                                            $("#box1").html(str);
-                                        } /*else {
-                                            //clearInterval(timer1); //这里可以添加倒计时结束后需要执行的事件 
-                                            //alert("倒计时结束后执行");
-                                        }*/
+	                                    
+                                    var obj =  data.resultObject;
+                                    var startStr =  data.resultObject.startTime;
+                                    if(obj!=null && startStr!=null){
+                                    	
+                                    	 //兼容ios和安卓了
+                                    	 var startTime = startStr.replace(/\-/g, "/");
+                                    	 
+                                         function timer() {
+                                         	    //设置结束的时间
+     	                                        var endtime = new Date(startTime);
+     	                                        //设置当前时间
+     	                                        var now = new Date();
+     	                                        //得到结束与当前时间差 ： 毫秒
+     	                                        var t = endtime.getTime() - now.getTime();
+     	                                        
+     	                                        if (t > 0) {
+     	                                            //得到剩余天数
+     	                                            // var tian = Math.floor(t / 1000 / 60 / 60 / 24);
+     	                                            //得到还剩余的小时数（不满一天的小时）
+     	                                            var h = Math.floor(t / 1000 / 60 / 60 % 24);
+     	                                            if(h<10){
+     	                                                h="0"+h;
+     	                                            }
+     	                                            //得到分钟数
+     	                                            var m = Math.floor(t / 1000 / 60 % 60);
+     	                                            if(m<10){
+     	                                                m="0"+m;
+     	                                            }
+     	                                            //得到的秒数
+     	                                            var s = Math.floor(t / 1000 % 60);
+     	                                            if(s<10){
+     	                                                s="0"+s;
+     	                                            }
+     	                                            var str = "直播倒计时 " + h + "：" + m + "：" + s;
+     	                                            $("#box1").html(str);
+     	                                        }
+     	                                    }
+     	                                    
+     	                                    if(obj!=null && obj.isLive == 1){
+     	                                    	setInterval(timer, 1000);
+     	                                    }else if(obj!=null && (obj.lineState ==2 || obj.lineState == 4  || obj.lineState ==5)){
+     	                                    	var str = startStr.replace(/\-/g, ".").slice(0,16)+ "   即将直播";
+     	                                        $("#box1").html(str);
+     	                                    }
+                                    	
                                     }
-                                    setInterval(timer, 1000);
-
+                                    
                                     }
                                 });
-
                                 requestService("/xczh/course/liveDetails", {userId:userId},function (data) {  
                                     if (data.success == true) {
                                         // 直播状态
