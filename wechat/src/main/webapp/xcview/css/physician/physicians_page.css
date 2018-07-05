@@ -203,6 +203,7 @@ p{
     width: 7.5rem;
     background-color: white;
     z-index: 999999;
+    border-bottom: 1px solid #F0F0F0;
 }
 .anchor_navigation {
     width: 100%;
@@ -633,6 +634,7 @@ p{
 	-webkit-box-orient: vertical;
 	-webkit-line-clamp: 2;
 	overflow: hidden;
+	margin-top: 0.1rem;
 }
 .basis_tips{
 	font-size: 0.22rem;
@@ -2012,6 +2014,7 @@ table tr td img{
 
 /*处理--点击全部动态*/
 .mui-scroll-wrapper{
+	top: 5.41rem !important;
 	z-index: 1 !important;
 }
 .mui-pull-bottom-pocket, .mui-pull-top-pocket{
@@ -2149,7 +2152,7 @@ table tr td img{
     height: 100%;
     position: absolute;
     height: 3.94rem;
-    top: 0rem;
+    top: 0.2rem;
     z-index: 9;
     left: 50%;
     margin-left: -3.49rem;
