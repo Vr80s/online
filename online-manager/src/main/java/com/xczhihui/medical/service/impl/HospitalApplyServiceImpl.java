@@ -338,7 +338,7 @@ public class HospitalApplyServiceImpl implements HospitalApplyService {
         weixinParams.put("remark", "");
         commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.SYSYTEM.getVal())
                 .buildWeb(content)
-                .buildAppPush(content)
+                .buildAppPush(TextStyleUtil.clearStyle(content))
                 .buildWeixin(weixinAnchorApprovePassCode, weixinParams)
                 .buildSms(smsAnchorApprovePassCode, params)
                 .build(courseAnchor.getUserId(), RouteTypeEnum.ANCHOR_WORK_TABLE_PAGE, ManagerUserUtil.getId()));
@@ -365,7 +365,7 @@ public class HospitalApplyServiceImpl implements HospitalApplyService {
         weixinParams.put("remark", "");
         commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.SYSYTEM.getVal())
                 .buildWeb(content)
-                .buildAppPush(content)
+                .buildAppPush(TextStyleUtil.clearStyle(content))
                 .buildWeixin(weixinAnchorApproveNotPassCode, weixinParams)
                 .buildSms(smsAnchorApproveNotPassCode, params)
                 .build(apply.getUserId(), RouteTypeEnum.HOSPITAL_APPROVE_PAGE, ManagerUserUtil.getId()));

@@ -85,9 +85,9 @@ function getShareIdAndType(){
 		
 		obj.shareId = getQueryString("articleId");
 		obj.shareType = 6;
-	}else if(viewHtml == "consilia.html.html"){
+	}else if(viewHtml == "consilia.html"){
 		
-		obj.shareId = getQueryString("consiliaId");
+		obj.shareId = getQueryString("articleId");
 		obj.shareType = 7;
 	}
 }
@@ -153,7 +153,7 @@ try {
 
 
 //点击分享share
-if(!is_weixin()){
+if(is_weixin()){
 	
 	//点击微信出现提示框
 	$(".header_news").click(function(){

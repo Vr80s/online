@@ -593,6 +593,8 @@ function gotoLiveSelectAlbum() {
     if (stringnull(back) && back.indexOf("wx_share.html") == -1) {
         window.history.back();
     } else {
+    	
+    	
         location.replace("/xcview/html/live_select_album.html?course_id=" + collectionId);
     }
 
@@ -605,7 +607,7 @@ function common_share_back() {
     if (stringnull(back) && back.indexOf("wx_share.html") == -1) {
         window.history.back();
     } else {
-        window.location.href = "home_page.html";
+        window.location.href = "/xcview/html/physician/index.html";
     }
 }
 
@@ -630,7 +632,7 @@ function common_share_backs() {
     if (stringnull(back) && back.indexOf("wx_share.html") == -1) {
         window.location.href = back;
     } else {
-        window.location.href = "home_page.html";
+        window.location.href = "/xcview/html/physician/index.html";
     }
 }
 

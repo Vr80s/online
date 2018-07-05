@@ -259,7 +259,7 @@ p{
     top: 0;
     left: 0.15rem;
     opacity: 0.2;
-    background: red;
+    /*background: red;*/
     z-index: 2;
 }
 
@@ -329,7 +329,7 @@ p{
     background: #fff;
 }
 .ccvideo{
-	padding: 0.2rem 0;
+	/*padding: 0.2rem 0;*/
     background: #fff;
 }
 .rests_nav_span .title{
@@ -344,6 +344,7 @@ p{
     text-overflow: ellipsis;
     white-space: nowrap;
     margin-left: 0.26rem;
+    margin-bottom: 0.2rem;
 }
 
 .rests_nav_span .stick_img{
@@ -468,14 +469,21 @@ p{
 .consilia_nav_span{
 	width: 6.98rem;
     margin: 0 auto;
-    height: 0.42rem;
+    /*height: 0.42rem;*/
     margin-bottom: 0.2rem;
 }
+
 .consilia_nav_span .title{
 	font-size: 0.3rem;
     color: #151515;
-    display: -webkit-box;
+    /*display: -webkit-box;*/
     float: left;
+    /*margin-bottom: 0.2rem;*/
+    min-height: 0.45rem;
+}
+.consilia_nav_span_title{
+	height: 1.65rem;
+    overflow: hidden;
 }
 .consilia_nav_span .stick_img{
 	font-size: 0.3rem;
@@ -621,6 +629,10 @@ p{
 	color: #333333;
 	float: left;
 	width: 4.29rem;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	overflow: hidden;
 }
 .basis_tips{
 	font-size: 0.22rem;
@@ -1909,6 +1921,28 @@ table tr td img{
 }
 /*介绍结束*/
 
+.baseImagenumbers{
+	width: 100%;
+	height: 5rem;
+	background: #fff;
+	display: none;
+}
+.baseImagenumbers img{
+	width: 2rem;
+    /*height: 2rem;*/
+    margin: 0 auto;
+    display: inherit;
+    padding-top: 1.5rem;
+}
+.baseImagenumbers p{
+	font-size: 0.3rem;
+    color: #999;
+    text-align: center;
+    margin-top: 0.2rem;
+}
+
+
+
 /*中间内容结束*/
 /*点击回复出现删除复制开始*/
 .remove_copy{
@@ -1961,7 +1995,7 @@ table tr td img{
 
 /*文章置顶处理*/
 .comment_hide{
-    overflow: hidden;
+    /*overflow: hidden;*/
 }
 
 
@@ -2044,4 +2078,91 @@ table tr td img{
 }
 #fansCount{
 	margin-top: 0.04rem;
+}
+
+.consilia_nav_span_div{
+	width: 7.5rem;
+    height: 100%;
+    background: #fff;
+    padding-top: 0.3rem;
+}
+.consilia_nav_span .stick_imgs{
+	font-size: 0.3rem;
+    color: #F97B49;
+    float: left;
+    /*display: -webkit-box;*/
+    margin-right: 0.1rem;
+}
+
+
+/*点击分享按钮开始*/
+.weixin_ceng {
+    width: 100%;
+    height: 100%;
+    display: none; 
+}
+.weixin_ceng_bg {
+    width: 7.5rem;
+    height: 100%;
+    background: #000;
+    opacity: 0.3;
+    position: fixed;
+    left: 50%;
+    top: 0;
+    z-index: 999999999999999;
+    margin-left: -3.75rem;
+}
+.weixin_img {
+    /* background: red; */
+    position: fixed;
+    z-index: 99999999999;
+    top: 0rem;
+    left: 50%;
+    width: 7.5rem;
+    height: 100%;
+    margin-left: -3.75rem;
+}
+.weixin_img img {
+    position: absolute;
+    top: 0rem;
+    right: 0.26rem;
+    width: 3rem;
+    z-index: 99999999999;
+}
+/*点击分享按钮结束*/
+
+
+/* .physician_img0{
+	display: none;
+}
+ */
+
+/*处理视频*/
+
+.ccH5playerBox{
+	width: 6.98rem !important;
+	height: 3.94rem !important;
+	margin: 0 auto;
+}
+.ccvideo_img{
+	width: 6.99rem;
+    height: 100%;
+    position: absolute;
+    height: 3.94rem;
+    top: 0rem;
+    z-index: 9;
+    left: 50%;
+    margin-left: -3.49rem;
+}
+.ccvideo_div{
+	position: relative;
+    width: 7.5rem;
+    margin: 0 auto;
+    /*padding: 0.2rem 0;*/
+}
+.rests_nav_bottom{
+	padding: 0.2rem 0;
+}
+.paper_nav_cen_div{
+	padding: 0 !important;
 }

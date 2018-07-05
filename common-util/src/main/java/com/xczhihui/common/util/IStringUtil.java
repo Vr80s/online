@@ -4,6 +4,8 @@
 package com.xczhihui.common.util;
 
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 字符串相关的工具。
@@ -11,6 +13,7 @@ import java.util.UUID;
  * @author liyong
  */
 public final class IStringUtil {
+    private static final Pattern A_LINK_PATTERN = Pattern.compile("(<a [^>]*?>)|(<\\/a>)");
 
     /**
      * 判断str是否包含可见的字符。
@@ -54,4 +57,12 @@ public final class IStringUtil {
         return sb.toString();
     }
 
+    public static String filterLinkTag(String text) {
+        if (text != null) {
+            Matcher matcher = A_LINK_PATTERN.matcher(text);
+            return matcher.replaceAll("");
+        } else {
+            return text;
+        }
+    }
 }

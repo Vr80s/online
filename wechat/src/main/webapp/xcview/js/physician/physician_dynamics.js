@@ -73,25 +73,27 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
                 }
                 obj[i].likes = likes.substr(0,likes.length-1);
             }
-            //封装图片
-            if(obj[i].pictures!=null&&obj[i].pictures!=""){
-                var pics=obj[i].pictures.split(",");
-                obj[i].pics=pics;
-            }
             //过滤文章内容标签
             if(obj[i].articleId!==null && obj[i].articleId!==""){
                 obj[i].articleContent = obj[i].articleContent.replace(/<.*?>/ig,"");
             }
+
+            
+            
+
         }
 
         //  判断是下拉刷新还是上拉加载
         if(downOrUp=='down'){
-            //      判断有无评价显示默认图片
-            /*if(data.resultObject.items.length==0){
-                $(".quie_pic").show()
+
+
+            //判断全部动态
+            if(data.resultObject.records.length==0){
+                $(".baseImagenumbers").show();
             }else{
-                $(".quie_pic").hide()
-            }*/
+                $(".baseImagenumbers").hide();
+            }
+
             $(".rests_nav").html(template('wrap_doctor_dynamics',{items:obj}));
             mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);
             mui('#refreshContainer').pullRefresh().refresh(true);
@@ -104,6 +106,21 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
             mui("#refreshContainer").off();
             mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);
 
+        }
+
+        // 判断关键字
+        var str = data.resultObject.records;
+        if (str.indexOf('#')>=0) {// 判断#是否存在
+            var arr = str.split("#");
+            var str1="";
+            for (var i = 0; i < arr.length; i++) {
+              if (i%2==0) { // 除2余数等0，就是整除的意思
+              str1=str1+arr[i];// 字符串链接
+              } else{
+              str1 = str1+"<span style='color:red;'  class='span_span'>#"+arr[i]+"#</span>";// 字符串链接
+              };
+            };
+            $('.paper_nav_span .span_span').html(str1);
         }
 
         for(var i=0;i<obj.length;i++){
@@ -121,6 +138,24 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
             if(obj[i].video!=null&&obj[i].video!=""){
                 ccVideo(obj[i].video,1,obj[i].id);
             }
+            //判断关键字   动态类别：1.普通动态2.图片动态3.视频动态4.文章动态5.课程动态
+            if(obj[i].type == 2 && obj[i].type == 1 && obj[i].type == 4){
+                var content = obj[i].content;
+            if (content.indexOf('#')>=0) {// 判断#是否存在
+                var arr = content.split("#");
+                var str1="";
+                for (var j = 0; j < arr.length; j++) {
+                  if (j%2==0) { // 除2余数等0，就是整除的意思
+                  str1=str1+arr[j];// 字符串链接
+                  } else{
+                  str1 = str1+"<span style='color:#F97B49;'  class='span_span'>#"+arr[j]+"#</span>";// 字符串链接
+                  };
+                };
+                obj[i].content = str1;
+                // alert(obj[i].content=str1;);
+                $('.span_span'+obj[i].id+'').html(str1);
+            }
+            }
         }
 
         //判断简介的字长度
@@ -136,17 +171,45 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
         //点击其他--收起
         mui("#refreshContainer").on('tap', '.essay_pack_up_btn_span', function (event) {
             if($(".essay_pack_up_btn_span").html()=="收起"){
-                 $(".essay_pack_up_btn_span").html("展开");
+                $(".consilia_nav_span .title").css("height","100%");
+                $(".essay_pack_up_btn_span span").html("展开");
+                $(".consilia_nav_span .title").addClass("consilia_nav_span_title");
             }else{
-                $(".essay_pack_up_btn_span").html("收起");
+                $(".essay_pack_up_btn_span span").html("收起");
+                $(".consilia_nav_span .title").css("height","2.1rem");
+                $(".consilia_nav_span .title").removeClass("consilia_nav_span_title");
             }
         });
 
+        var h = $(".consilia_nav_span .title").height();
+        if (h > 50) {
+            $(".consilia_nav_btn").show();
+            $(".consilia_nav_span .title").addClass("consilia_nav_span_title");
+            } else {
+                $(".consilia_nav_btn").hide();
+
+        }
+        // alert(h);
+
+        // 点击文章收起
+        mui("#refreshContainer").on('tap', '.consilia_nav_btn', function (event) {
+            if($(".consilia_nav_btn span").html()=="展开"){
+                $(".consilia_nav_span .title").removeClass("consilia_nav_span_title");
+                $(".consilia_nav_btn span").html("收起");
+            }else{
+                // $(".consilia_nav_span .title").css("height","2.1rem");
+                $(".consilia_nav_span .title").addClass("consilia_nav_span_title");
+                $(".consilia_nav_btn span").html("展开");
+                
+            }
+        });
+
+
         //点击评论表情
-        mui("#refreshContainer").on('tap', '.face', function (event) {
+        /*mui("#refreshContainer").on('tap', '.face', function (event) {
             alert(111);
             
-        });
+        });*/
 
 
 
@@ -168,6 +231,7 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
             $("#page_emotion").css("bottom","-2.8rem");
             $(".comment").show();
             $(".article_main").show();
+            $(".article_main").html("说点什么...");
             getPostsIdByComment = $(this).attr('data-id');
             postsCommentId = "";
         });
@@ -193,6 +257,8 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
                 $(".face").attr("src","/xcview/images/face.png");
                 $("#page_emotion").css("bottom","-2.8rem");
                 $(".comment").show();
+                $(".article_main").show();
+                $(".article_main").html("回复"+postsCommentUserName+":");
             }else {
                 // alert("删除");
                 $(".remove_copy").show();
@@ -231,6 +297,17 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
             var itemId = $(this).attr("data-id");
             location.href = "/xcview/html/physician/consilia.html?articleId=" + itemId;
         });
+        //点击视频播放/暂停
+        mui("#refreshContainer").on('tap', '.ccvideo', function (event) {
+            var ccId = $(this).find("video").attr("id");
+            var oReplay = document.getElementById(ccId);
+            if (oReplay.paused){
+                oReplay.play();
+            }
+            else{
+                oReplay.pause();
+            }
+        });
     });
 }
 
@@ -254,6 +331,7 @@ function sendComment(){
         content:article
     },function(data) {
         if(data.success==true){
+            $("#form_article").val("");
             var evaluatePostsId = "evaluate"+getPostsIdByComment;
             var getNewPostsCommentId = data.resultObject[0].id;
             $("#"+getPostsIdByComment).show();

@@ -67,15 +67,12 @@
         </div>
         <!--右边展示-->
         <div class="mian-right">
-        	<p>如何获取您的微信号：</p>
-        	<p>打开手机微信，选择我，在昵称下方即为您的微信号</p>
-        	<img src="/web/images/set_number.png"/>
+            <p>如何获取您的微信号：</p>
+            <p>打开手机微信，选择我，在昵称下方即为您的微信号</p>
+            <img src="/web/images/set_number.png"/>
         </div>
-        
-        
-        
-        
-        
+
+
     </div>
     <div class="both"></div>
     <div class="button J-submit">提交</div>
@@ -91,9 +88,10 @@
 <!--公共头部和底部-->
 <script src="/web/js/ajax.js" type="text/javascript" charset="utf-8"></script>
 <script src="/web/html/school/school-header/header.js" type="text/javascript" charset="utf-8"></script>
-<script type="text/javascript" src="/web/js/footer.js"></script>
 <script type="text/javascript" src="/web/js/common_msg.js"></script>
 <script type="text/javascript" src="/web/js/school/offline-apply.js"></script>
 <!--公共头部和底部结束-->
 <!--登陆结束-->
+<#include "../footer.ftl">
+
 </html>

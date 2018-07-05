@@ -2,7 +2,11 @@ package com.xczhihui.bxg.online.web.controller.ftl;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,7 +18,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.baomidou.mybatisplus.plugins.Page;
@@ -23,10 +31,26 @@ import com.xczhihui.bxg.online.web.body.course.LineApplyBody;
 import com.xczhihui.bxg.online.web.utils.HtmlUtil;
 import com.xczhihui.bxg.online.web.utils.ftl.ReplaceUrl;
 import com.xczhihui.common.util.bean.ResponseObject;
-import com.xczhihui.common.util.enums.*;
+import com.xczhihui.common.util.enums.BannerType;
+import com.xczhihui.common.util.enums.CourseForm;
+import com.xczhihui.common.util.enums.CourseType;
+import com.xczhihui.common.util.enums.LiveStatus;
+import com.xczhihui.common.util.enums.Multimedia;
+import com.xczhihui.common.util.enums.PagingFixedType;
+import com.xczhihui.common.util.enums.PayStatus;
+import com.xczhihui.common.util.enums.ProjectType;
+import com.xczhihui.common.util.enums.SearchType;
 import com.xczhihui.course.consts.MultiUrlHelper;
 import com.xczhihui.course.model.OfflineCity;
-import com.xczhihui.course.service.*;
+import com.xczhihui.course.service.ICourseService;
+import com.xczhihui.course.service.ICourseSolrService;
+import com.xczhihui.course.service.ICriticizeService;
+import com.xczhihui.course.service.ILineApplyService;
+import com.xczhihui.course.service.IMobileBannerService;
+import com.xczhihui.course.service.IMobileHotSearchService;
+import com.xczhihui.course.service.IMobileProjectService;
+import com.xczhihui.course.service.IMyInfoService;
+import com.xczhihui.course.service.IOfflineCityService;
 import com.xczhihui.course.util.CourseUtil;
 import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.course.vo.CourseSolrVO;
@@ -182,11 +206,10 @@ public class SchoolController extends AbstractFtlController {
 
         //控制banner图跳转方法
         view.addObject("replaceUrl", new ReplaceUrl());
-
         // 听课banner
         view.addObject("bannerList", mobileBannerService.selectMobileBannerPage(BannerType.LISTEN.getCode(), MultiUrlHelper.URL_TYPE_WEB));
         // 听课
-        view.addObject("courseList", courseService.listenCourseList());
+        view.addObject("courseList", mobileBannerService.listenCourseList(false));
         // 名医推荐
         view.addObject("doctorList", myInfoService.hostInfoRec());
         return view;

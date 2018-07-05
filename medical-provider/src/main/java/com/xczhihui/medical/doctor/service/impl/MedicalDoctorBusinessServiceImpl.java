@@ -304,33 +304,35 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
                 medicalDoctorAccountMapper.getByUserId(userId);
 
         if (doctorAccount != null) {
-            StringBuffer sb = new StringBuffer();
+            //StringBuffer sb = new StringBuffer();
             String workTime = medicalDoctorMapper.getWorkTimeById(doctorAccount.getDoctorId());
             if (type == 1) {
                 if (StringUtils.isNotBlank(workTime)) {
-                    if (workTime.contains("一")) {
-                        sb.append("一");
-                    }
-                    if (workTime.contains("二")) {
-                        sb.append("，二");
-                    }
-                    if (workTime.contains("三")) {
-                        sb.append("，三");
-                    }
-                    if (workTime.contains("四")) {
-                        sb.append("，四");
-                    }
-                    if (workTime.contains("五")) {
-                        sb.append("，五");
-                    }
-                    if (workTime.contains("六")) {
-                        sb.append("，六");
-                    }
-                    if (workTime.contains("日")) {
-                        sb.append("，日");
-                    }
+//                    if (workTime.contains("一")) {
+//                        sb.append("一");
+//                    }
+//                    if (workTime.contains("二")) {
+//                        sb.append("，二");
+//                    }
+//                    if (workTime.contains("三")) {
+//                        sb.append("，三");
+//                    }
+//                    if (workTime.contains("四")) {
+//                        sb.append("，四");
+//                    }
+//                    if (workTime.contains("五")) {
+//                        sb.append("，五");
+//                    }
+//                    if (workTime.contains("六")) {
+//                        sb.append("，六");
+//                    }
+//                    if (workTime.contains("日")) {
+//                        sb.append("，日");
+//                    }
+                    //过滤下坐诊时间
+                    workTime = XzStringUtils.workTimeScreen(workTime);
                 }
-                return sb.toString();
+                return workTime;
             }
         }
 
@@ -603,9 +605,12 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
     @Override
     public List<MedicalDoctorVO> selectDoctorRecommendList4Random(Integer type,
                                                                   Integer pageNumber, Integer pageSize) {
-
+       
         List<MedicalDoctorVO> records = medicalDoctorMapper.
                 selectDoctorRecommendList4Random(type, pageNumber, pageSize);
+        for (int i = 0; i < records.size(); i++) {
+            records.get(i).setWorkTime(XzStringUtils.workTimeScreen(records.get(i).getWorkTime()));
+        }
         return records;
     }
 

@@ -209,31 +209,45 @@
 		height: 40px;
 		line-height: 40px;
 	}
+	/*隐藏掉表情包后的处理*/
+	.article_main{
+		margin-left: 0;
+	    width: 6.15rem;
+	}
+	#form_article{
+		margin-left: 0;
+	    width: 6.15rem;
+	}
+	
 </style>
 
 </head>
 <body style="background: #F8F8F8;">
 	<div class="physicians_page_main comment_hide">
 		
-		<!-- 头部开始 -->
-		<div class="wrap-header" id="header">
-			<div class="header">		
-				<p>我是医师名字</p>
-				<div class="arror_return" onclick="javascript:history.back(-1);" >
-					<img src="/xcview/images/anchorj.png"/>
-				</div>
-				<div class="header_news">
-					<img src="/xcview/images/anchorf.png" alt="">
-				</div>
-			</div>
-		</div>
-		<!-- 头部结束 -->
+		
 
 		<!-- 轮播开始 -->
 		<!--顶部轮播-->
 		<div class="top_details">
 			<script type="text/html" id="top_details">
-		<div class="swiper-container top_swiper" >
+
+		<!-- 头部开始 -->
+		<div class="wrap-header" id="header">
+			<div class="header">		
+				<p>{{items.lecturerInfo.name}}</p>
+				<!-- <div class="arror_return" onclick="javascript:history.back(-1);" >  -->
+                <div class="arror_return" onclick="common_share_back();">
+					<img src="/xcview/images/anchorj.png"/>
+				</div>
+				<div class="header_news" onclick="header_click()">
+					<img src="/xcview/images/anchorf.png" alt="">
+				</div>
+			</div>
+		</div>
+		<!-- 头部结束 -->
+		<div class="swiper-container top_swiper">
+			<img src="/xcview/images/physician.png" class="physician_img0" style="width: 7.5rem;" />
 			<div class="swiper-wrapper">
 				{{each items.banners as item i}}
 				<div class="swiper-slide pic01" onclick="sowingDetails('{{item.url}}')">
@@ -254,7 +268,7 @@
 			<div class="message">
 				<div class="message_name">
 					<div class="name">{{items.lecturerInfo.name}}</div>
-					<div class="name" style="font-size: 0.24rem;color: #999999;">{{items.lecturerInfo.title}}</div>
+					<div class="name" style="font-size: 0.24rem;color: #999999;margin-top: 0.06rem;">{{items.lecturerInfo.title}}</div>
 					<!--<div class="message_characteristic">我的师傅</div>-->
 					<div class="both"></div>
 				</div>
@@ -262,6 +276,8 @@
 					<!--<span class="disciple"><span class="disciple_fize">弟子</span>25</span>-->
 					{{if items.fansCount>0}}
 					<span class="fans"><span class="fans_size">粉丝</span><span id="fansCount">{{items.fansCount}}</span></span>
+					{{else}}
+					<span class="fans"><span class="fans_size">粉丝</span><span id="fansCount">0</span></span>
 					{{/if}}
 					<div class="both"></div>
 				</div>
@@ -296,6 +312,10 @@
 				<div class="border" style="left: 1.04rem;"></div>
 				<div class="dynamic_opacity"></div>
 			</ul>
+			<div class="baseImagenumbers" style="display: none;">
+				<img src="/xcview/images/no_deal.png" />
+				<p>该医师暂未发布动态...</p>
+			</div>
 		</div>
 		<!-- 选项卡结束 -->
 
@@ -339,18 +359,17 @@
 				{{else if item.type == 2}}
 				<!-- 动态图片-->
 				<div class="trends_hide">
-					<div class="paper_nav_span comment_hide">
+					<div class="paper_nav_span comment_hide" >
 						{{if item.stick}}
 						<span class="stick_img_stick"><img src="/xcview/images/stick.png" alt="" />置顶</span>
 						{{/if}}
-						{{item.content}}
-						
+						<span class="span_span{{item.id}}"></span>
 					</div>
-					{{if item.pictures !=null && item.pics.length>0}}
+					{{if item.imgStr !=null && item.imgStr.length>0}}
 					<div class="paper_nav_cen_div">
 						<div class="paper_nav_cen comment_hide">
-							{{each item.pics as pic }}
-							<img src="{{pic}}" alt="" />
+							{{each item.imgStr as pic }}
+							<img src="{{pic.imgUrl}}" alt="" />
 							{{/each}}
 							<div class="both"></div>
 						</div>
@@ -366,13 +385,17 @@
 					{{/if}}
 					<span class="title">{{item.content}}</span>
 				</div>
-				<div id="ccvideo{{item.id}}" class="comment_hide ccvideo">
-
-				</div>
+				<div class="ccvideo_div">
+					<div id="ccvideo{{item.id}}" class="comment_hide ccvideo">
+						
+					</div>
+					<img src="{{item.coverImg}}" class="ccvideo_img" />
+				<div>
+				
 				{{else if item.typeId != null && item.typeId != 8}}
 				<!-- 文章-->
 				<div class="article_hide" data-id="{{item.articleId}}">
-					<div class="article_nav_span comment_hide">
+					<div class="article_nav_span comment_hide" style="overflow: hidden; */">
 						{{if item.stick}}
 						<span class="stick_img_stick"><img src="/xcview/images/stick.png" alt="" />置顶</span>
 						{{/if}}
@@ -391,7 +414,7 @@
 						{{if item.stick}}
 						<span class="stick_img_stick"><img src="/xcview/images/stick.png" alt="" />置顶</span>
 						{{/if}}
-						{{item.title}}
+						{{item.content}}
 
 						<div class="both"></div>
 					</div>
@@ -408,7 +431,7 @@
 						<div class="course_nav_cen_size">{{item.startTime}}</div>
 						{{/if}}
 						{{if item.courseType==4}}
-						<div class="course_nav_cen_size">{{item.courseAddress}}</div>
+						<div class="course_nav_cen_size"><img src="/xcview/images/location_four.png" style="width: 0.19rem;height: 0.24rem;float: left;margin-right: 0.1rem; margin-top: 0.06rem;" />{{item.courseAddress}}</div>
 						{{/if}}
 
 						<!-- <div class="course_nav_rate">免费</div> -->
@@ -416,21 +439,23 @@
 					<div class="both"></div>
 				</div>
 				{{else if item.typeId != null && item.typeId == 8}}
-				<!-- 医案-->
-				<div class="consilia_nav_span comment_hide">
-					{{if item.stick}}
-					<span class="stick_img"><img src="/xcview/images/stick.png" alt="" />置顶</span>
-					{{/if}}
-					<span class="stick_img">#医案#</span>
-					<span class="title">{{item.articleTitle}}</span>
-				</div>
-				<div class="consilia_nav_main comment_hide">
-
-				</div>
-				<div class="consilia_nav_btn"><span>收起</span></div>
-				<div class="consilia_nav_cen comment_hide" data-id="{{item.articleId}}" >
-					<img src="{{item.articleImgPath}}" alt="" />
-					<div class="consilia_nav_cen_size">{{item.articleContent}}</div>
+				<div class="consilia_nav_span_div">
+					<!-- 医案-->
+					<div class="consilia_nav_span comment_hide">
+						{{if item.stick}}
+						<span class="stick_img"><img src="/xcview/images/stick.png" alt="" />置顶</span>
+						{{/if}}
+						
+						<div class="title"><span class="stick_imgs">#医案#</span>{{item.articleContent}}</div>
+						<div class="both"></div>
+					</div>
+					<div class="both"></div>
+					<div class="consilia_nav_btn"><span>展开</span></div>
+					<div class="consilia_nav_cen" data-id="{{item.articleId}}" style="display: block;">
+						<img src="{{item.articleImgPath}}" alt="" />
+						<div class="consilia_nav_cen_size">{{item.articleTitle}}</div>
+					</div>
+					<div class="both"></div>
 				</div>
 				<div class="both"></div>
 				{{/if}}
@@ -481,7 +506,7 @@
 							{{else}}
 							<!-- </div> -->
 							<div class="both"></div>
-							<div class="response evaluateDiv {{postsComment.id}}" data-id="{{postsComment.id}}" data-postsId="{{item.id}}" data-replyUserId="{{postsComment.replyUserId}}">
+							<div class="response evaluateDiv {{postsComment.id}}" data-id="{{postsComment.id}}" data-postsId="{{item.id}}" data-replyUserId="{{postsComment.replyUserId}}" data-userName="{{postsComment.replyUserName}}">
 								<span class="my">{{postsComment.replyUserName}}</span>
 								<span class="response_cen">回复</span>
 								<span class="she">{{postsComment.userName}}：</span>
@@ -507,11 +532,12 @@
 
 
 		<!-- 删除样式开始 -->
-			<div class="remove">
+			<!-- <div class="remove">
 				<div class="remove_bg"></div>
 				<div class=""></div>
-			</div>
+			</div> -->
 		<!-- 删除样式结束 -->
+		
 	</div>
 	<!-- 中间内容结束 -->
 
@@ -924,10 +950,11 @@
 	<div class="comment">
 		<div class="comment_bg"></div>
 		<div class="comment_main">
-			<img src="/xcview/images/face.png" alt="" class="face" />
+			<!-- <img src="/xcview/images/face.png" alt="" class="face" /> -->
 			<!-- <textarea id="form_article" contenteditable="true" onkeydown="myInput.listen(this, event);"></textarea> -->
-			<textarea id="form_article" contenteditable="true" onkeydown="myInput.listen(this, event);"></textarea>
+			<textarea id="form_article" contenteditable="true" onkeydown="myInput.listen(this, event);" placeholder=""></textarea>
 			<div class="article_main">说点什么...</div>
+			<!-- <div class="article_mains">回复：</div> -->
 			<h3 onclick="sendComment()">发送</h3>
 		</div>
 	</div>
@@ -939,8 +966,18 @@
 	<!-- 表情包结束 -->
 	<div class="show_height" style="width:100%;height:0.25rem;display:none;"></div>
 	<div class="top_show_height" style="width:100%;height:5.2rem;display:none;"></div>
+
+	<!-- 添加分享 -->
+	<div class="weixin_ceng">
+		<div class="weixin_ceng_bg"></div>
+		<div class="weixin_img"><img src="/xcview/images/fenxiang1.png" data-bd-imgshare-binded="1"></div>
+	</div>
+
+	<!-- 添加默认图 -->
+
 </body>
 <script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
+<script type="text/JavaScript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 <script src="/xcview/weihoujs/jquery.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/common.js?v=wechat_1.1.1&version=4a733d0dc2"></script> 
@@ -950,7 +987,7 @@
 <script type="text/javascript" src="/xcview/js/common/commonJumpPlay.js?version=8bcdb81554"></script>
 
 <script type="text/javascript" src="/xcview/js/physician/physician_dynamics.js?version=6ee8c1a42c"></script>    <!--全部动态引入-->
-
+<script type="text/javascript" src="/xcview/js/share/share.js?v=wechat_1.1.1"></script>
 <!-- 直播间数据引入 -->
 <script type="text/javascript" src="/xcview/js/physician/broadcastroom.js?version=d41d8cd98f"></script>
 
@@ -1063,6 +1100,7 @@ $(window).bind("scroll", function() {
 
 		// 点击直播间
 		$(".li_course").click(function(){
+			$(".baseImagenumbers").hide();
 			$(".anchor_navigation .border").css("left","3.5rem");
 			$(".li_data").removeClass("li_color");
 			$(".li_course").addClass("li_color");
@@ -1079,9 +1117,11 @@ $(window).bind("scroll", function() {
 			$(".broadcastroom").show();   /*直播间打开*/
 			$(".message_referral").hide();  //介绍结束
 			// $(".broadcastroom").show();
+
 		});
 		// 点击介绍
 		$(".li_evaluate").click(function(){
+			$(".baseImagenumbers").hide();
 			$(".anchor_navigation .border").css("left","5.94rem");
 			$(".li_data").removeClass("li_color");
 			$(".li_course").removeClass("li_color");
@@ -1265,6 +1305,29 @@ $(window).bind("scroll", function() {
     	$("#form_article").focus();
 	});
 
+	// 点击头部分享按钮   
+	/*$(".header").click(function(){
+		alert(111);
+    	$(".weixin_ceng").show();
+	});*/
+	
+	$(".weixin_ceng").click(function(){
+    	$(".weixin_ceng").hide();
+	});
+
+
+	// 判断头部有没有默认图
+	var a=$(".swiper-wrapper").html();
+   	if(a==null||a.length==0){
+   		// alert(1111);
+       $(".physician_img0").css("display","block");
+    }else{
+       $(".physician_img0").css("display","none");
+   		// alert(222);
+
+    };
+
+
 	/*// 点击其他--评论显示底部评论区域
 	$(".rests_nav .evaluate_img").click(function(){
     	$(".face").attr("src","/xcview/images/face.png");
@@ -1316,6 +1379,10 @@ $(window).bind("scroll", function() {
 
     // 点击发送结束
 	});
+
+function header_click(){
+	$(".weixin_ceng").show();
+}
 </script>
 
 <!-- 点击复制 -->
@@ -1339,6 +1406,10 @@ $(window).bind("scroll", function() {
     // 处理点击全部动态
     var school_heightss=$(window).height()-$(".top_show_height").height();
     $(".screen_show_bg").height(school_heightss);
+
+    // 医师默认图
+    var baseImagenumbers=$(window).height()-$(".top_show_height").height();
+    $(".baseImagenumbers").height(baseImagenumbers);
     // };
 </script>
 </html>

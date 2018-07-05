@@ -251,5 +251,26 @@ public class MedicalHospitalApply extends Model<MedicalHospitalApply> {
         return this.id;
     }
 
-
+    @Override
+    public String toString() {
+        return "MedicalHospitalApply{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", company='" + company + '\'' +
+                ", businessLicenseNo='" + businessLicenseNo + '\'' +
+                ", businessLicensePicture='" + businessLicensePicture + '\'' +
+                ", licenseForPharmaceuticalTrading='" + licenseForPharmaceuticalTrading + '\'' +
+                ", licenseForPharmaceuticalTradingPicture='" + licenseForPharmaceuticalTradingPicture + '\'' +
+                ", status=" + status +
+                ", userId='" + userId + '\'' +
+                ", deleted=" + deleted +
+                ", createTime=" + createTime +
+                ", clientType=" + clientType +
+                ", createPerson='" + createPerson + '\'' +
+                ", updateTime=" + updateTime +
+                ", updatePerson='" + updatePerson + '\'' +
+                ", version='" + version + '\'' +
+                ", remark='" + remark + '\'' +
+                '}';
+    }
 }

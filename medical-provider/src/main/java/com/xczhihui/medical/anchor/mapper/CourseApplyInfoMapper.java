@@ -70,4 +70,6 @@ public interface CourseApplyInfoMapper extends BaseMapper<CourseApplyInfo> {
     String selectCourseStastusByApplyId(Integer id);
 
     Integer getParentIdByChildId(Integer id);
+
+    Integer getIsStatusChange(@Param("userId") String userId, @Param("courseApplyId") String courseApplyId, @Param("state") Integer state);
 }

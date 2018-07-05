@@ -1,26 +1,23 @@
 
 $(function(){
 	// var id = 675;
-	var id = getQueryString("consiliaId");
+	var id = getQueryString("articleId");
  	requestGetService("/xczh/article/view",{
  		// id:385
  		id:id
  	},function (data) {
 	    if (data.success == true) {
-		  $('#consilia_main_center').html(template('consilia_main_center_id', {items: data.resultObject}));
+		  	$('#consilia_main_center').html(template('consilia_main_center_id', {items: data.resultObject}));
+	    
+	        $(".consilia_textarea").html(data.resultObject.content);
+	        
 	    }
 	});
 
  	// 加载先出现评价信息
-	
+	refresh();
 
-	/*if(hospitalData != null && hospitalData != ""){
-
-	}else{*/
-		refresh();
-	// };
-
-	// 评价信息定义方法
+	// 评价信息定义方法--刷新
 	function refresh(){
 		requestGetService("/xczh/article/appraise/list",{
 			articleId: id,
@@ -29,7 +26,17 @@ $(function(){
 	 	},function (data) {
 		    if (data.success == true) {
 			$('.wrap_all_returned').html(template('broadcastroom_id', {items: data.resultObject}));
-		    
+	    	
+	    	var a=$(".wrap_all_returned").html();
+		    if(a==null||a.length==0){
+		       $(".quie_pic").show();
+		       $(".opacity_height").show();
+		    }else{
+				$(".quie_pic").hide();
+		        $(".opacity_height").hide();
+		    };
+
+
 		    //	回复弹窗
 	        $(".wrap_returned_btn .btn_littleReturn").click(function () {
 	        	// alert(55555);
@@ -57,16 +64,6 @@ $(function(){
 		            updatePraise(criticize_id,true);
 		        }
 		    });
-
-		    if (data.resultObject == "" || data.resultObject == null) {
-	            // alert(123);
-	            $(".show_baseImagenumber").show();
-	        } else {
-	            // alert(456);
-	            $(".show_baseImagenumber").hide();
-	        }
-
-
 		    }
 		});
 
@@ -167,10 +164,3 @@ function replyComment() {
 
 
 });
-
-
-
-	
-
-
-

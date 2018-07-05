@@ -341,7 +341,12 @@ public class CourseApplyController extends AbstractController {
         } else {
             responseObj.setResultObject("下架成功");
         }
-        courseSolrService.initCourseSolrDataById(courseId);
+        try {
+            courseSolrService.initCourseSolrDataById(courseId);
+        } catch (Exception e) {
+           e.printStackTrace();
+           return responseObj;
+        }
         return responseObj;
     }
 

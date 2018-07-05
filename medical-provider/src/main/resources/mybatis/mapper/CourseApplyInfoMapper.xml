@@ -306,4 +306,15 @@
     <select id="getParentIdByChildId" resultType="java.lang.Integer">
         SELECT cai.old_apply_info_id FROM `course_apply_info` cai WHERE cai.`id`=#{id};
     </select>
+    
+    
+    <select id="getIsStatusChange"  resultType="java.lang.Integer">
+       select count(*) from `oe_course` oc
+        JOIN `course_apply_info` cai
+        ON oc.`apply_id` = cai.`id`
+        WHERE cai.id =  #{courseApplyId}  and oc.`status` = #{state}
+        AND cai.`user_id` =#{userId}
+    </select>
+    
+    
 </mapper>
