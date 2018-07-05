@@ -279,7 +279,7 @@
 				<div class="message_face">
 					<!--<span class="disciple"><span class="disciple_fize">弟子</span>25</span>-->
 					{{if items.fansCount>0}}
-					<span class="fans"><span class="fans_size">粉丝</span><span id="fansCount">{{items.fansCount}}</span></span>
+					<div class="fans"><div class="fans_size">粉丝</div><div id="fansCount">{{items.fansCount}}</div></div>
 					{{else}}
 					<span class="fans"><span class="fans_size">粉丝</span><span id="fansCount">0</span></span>
 					{{/if}}
@@ -352,11 +352,11 @@
 				{{if item.type == 1}}
 				<!-- 普通动态-->
 				<div class="panel_hide">
-					<div class="essay_main comment_hide">
+					<div class="essay_main comment_hide panels_essay_main">
                         {{if item.stick}}<span class="stick_img"><img src="/xcview/images/stick.png" alt="" />置顶</span>
                         {{/if}}
                         {{item.content}}</div>
-					<div class="essay_pack_up_btn"><span class="essay_pack_up_btn_span">收起</span></div>
+					<div class="essay_pack_up_btn"><span class="essay_pack_up_btn_span">展开</span></div>
 					<div class="both"></div>
 				</div>
 				
@@ -451,7 +451,7 @@
 						<span class="stick_img"><img src="/xcview/images/stick.png" alt="" />置顶</span>
 						{{/if}}
 						
-						<div class="title"><span class="stick_imgs">#医案#</span>{{item.articleContent}}</div>
+						<div class="title"><span class="stick_imgs">#医案#</span>{{item.content}}</div>
 						<div class="both"></div>
 					</div>
 					<div class="both"></div>
@@ -459,6 +459,7 @@
 					<div class="consilia_nav_cen" data-id="{{item.articleId}}" style="display: block;">
 						<img src="{{item.articleImgPath}}" alt="" />
 						<div class="consilia_nav_cen_size">{{item.articleTitle}}</div>
+						<div class="consilia_nav_cen_sizes">{{item.articleContent}}</div>
 					</div>
 					<div class="both"></div>
 				</div>

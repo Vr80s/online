@@ -143,26 +143,30 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
             }
         }
 
-        //判断简介的字长度
-        var h = $(".essay_main").height();
-        if (h > 200) {
-            $(".essay_pack_up_btn").show();
-            $(".line_xian").hide();
-//          $(".wrap1").css({"height":"2rem","overflow":"hidden"})
-        } else {
-            $(".essay_pack_up_btn").hide()
-        }
+        mui("#refreshContainer").on('tap', '#replaybtn', function (event) {
+            $(".ccvideo_img").hide();    
+        });
 
-        //点击其他--收起
-        mui("#refreshContainer").on('tap', '.essay_pack_up_btn_span', function (event) {
-            if($(".essay_pack_up_btn_span").html()=="收起"){
-                $(".consilia_nav_span .title").css("height","100%");
-                $(".essay_pack_up_btn_span span").html("展开");
-                $(".consilia_nav_span .title").addClass("consilia_nav_span_title");
+
+
+        var hh = $(".panels_essay_main").height();
+        if (hh > 30) {
+            $(".essay_pack_up_btn").show();
+            $(".panels_essay_main").addClass("consilia_nav_span_title");
+            } else {
+                $(".essay_pack_up_btn").hide();
+
+        }
+        // alert(hh);
+        // 点击普通内容
+        mui("#refreshContainer").on('tap', '.essay_pack_up_btn', function (event) {
+            if($(".essay_pack_up_btn span").html()=="展开"){
+                $(".panels_essay_main").removeClass("consilia_nav_span_title");
+                $(".essay_pack_up_btn span").html("收起");
             }else{
-                $(".essay_pack_up_btn_span span").html("收起");
-                $(".consilia_nav_span .title").css("height","2.1rem");
-                $(".consilia_nav_span .title").removeClass("consilia_nav_span_title");
+                $(".panels_essay_main").addClass("consilia_nav_span_title");
+                $(".essay_pack_up_btn span").html("展开");
+                
             }
         });
 
@@ -175,7 +179,6 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
 
         }
         // alert(h);
-
         // 点击文章收起
         mui("#refreshContainer").on('tap', '.consilia_nav_btn', function (event) {
             if($(".consilia_nav_btn span").html()=="展开"){
