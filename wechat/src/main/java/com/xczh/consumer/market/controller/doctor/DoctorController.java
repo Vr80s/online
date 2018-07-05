@@ -232,6 +232,7 @@ public class DoctorController {
     	 * 医师详情
     	 */
         Map<String, Object> map = medicalDoctorBusinessService.selectDoctorWorkTimeAndDetailsById(doctorId);
+        
         if (map != null) {
             //html片段
             map.put("doctorDetailsUrl", returnOpenidUri + "/xcview/html/person_fragment.html?type=5&typeId=" + doctorId);
