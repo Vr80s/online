@@ -6,6 +6,10 @@ import static com.xczhihui.common.util.bean.ResponseObject.newSuccessResponseObj
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import com.xczhihui.medical.doctor.model.MedicalDoctorPosts;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorArticleService;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsService;
+import com.xczhihui.medical.doctor.vo.OeBxsArticleVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +34,8 @@ public class DoctorWritingController extends AbstractFtlController {
     private IMedicalDoctorWritingService medicalDoctorWritingService;
     @Autowired
     private IMedicalDoctorBusinessService medicalDoctorBusinessService;
+    @Autowired
+    private IMedicalDoctorPostsService medicalDoctorPostsService;
 
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
@@ -86,6 +92,19 @@ public class DoctorWritingController extends AbstractFtlController {
         String userId = getUserId();
         String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(userId);
         if (medicalDoctorWritingService.updateStatus(doctorId, id, status)) {
+            if(status){
+                MedicalWritingVO oba = medicalDoctorWritingService.get(id);
+                //更新动态
+                MedicalDoctorPosts mdp = new MedicalDoctorPosts();
+                mdp.setType(4);
+                mdp.setDoctorId(doctorId);
+                mdp.setContent(oba.getRemark());
+                mdp.setArticleId(Integer.valueOf(oba.getArticleId()));
+                mdp.setArticleContent(oba.getRemark());
+                mdp.setArticleImgPath(oba.getImgPath());
+                mdp.setArticleTitle(oba.getTitle());
+                medicalDoctorPostsService.addMedicalDoctorPosts(mdp);
+            }
             return newSuccessResponseObject("操作成功");
         } else {
             return newErrorResponseObject("操作失败");
