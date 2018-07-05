@@ -403,11 +403,12 @@
 						{{if item.stick}}
 						<span class="stick_img_stick"><img src="/xcview/images/stick.png" alt="" />置顶</span>
 						{{/if}}
-							{{item.content}}
+							<span class="title">{{item.content}}</span>
 					</div>
 					<div class="article_nav_cen comment_hide">
 						<img src="{{item.articleImgPath}}" alt="" />
-						<div class="article_nav_cen_size">{{item.articleContent}}</div>
+						<div class="article_nav_cen_size">{{item.articleTitle}}</div>
+						<div class="article_nav_cen_sizes">{{item.articleContent}}</div>
 					</div>
 					<div class="both"></div>
 				</div>
