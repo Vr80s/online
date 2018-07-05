@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <link href="/css/jquery-ui-timepicker-addon.css" type="text/css" />
-<link href="/js/layer/skin/layer.css" type="text/css" />	
+<link href="/js/layer/skin/layer.css" type="text/css" />
 
 <script type="text/javascript">
 	try {
@@ -11,7 +11,7 @@
 				function() {
 				});
 	} catch (e) {
-		
+
 	}
 </script>
 <script src="/js/layer/layer.js"></script>
@@ -20,7 +20,7 @@
 <script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.config.js"></script>
 <script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.all.min.js"> </script>
 <script type="text/javascript" charset="utf-8" src="/ueditor/lang/zh-cn/zh-cn.js"></script>
-<script type="text/javascript" src="js/medical/enrollmentRegulationsEdit.js"></script>
+<script type="text/javascript" src="/js/medical/enrollmentRegulationsEdit.js"></script>
 
 
 <link href="/bootstrap/assets/css/bootstrap-select.css" rel="stylesheet" />
@@ -89,47 +89,7 @@
 			</div>
 		</div>
 
-		<div class="form-group"  style="margin-top: 18px;" >
-			<label class="col-sm-1 control-label no-padding-right" for="add_imgPath"><font color="red">*</font>封面图: </label>
-			<div class="col-sm-2" >
-				<div class="clearfix" id="imgAdd" style="width: 240px;">
-				</div>
-				<input type="text" name="coverImg"  id="add_imgPath" class="{required:true}" value="${MedicalEnrollmentRegulations.coverImg}" style="position: absolute; opacity: 0; filter:Alpha(opacity=0);">
 
-			</div>
-            <div style="padding-left:30px;float: left;width: 400px; "><font color="red">*</font>支持图片格式：jpg,png,gif,bmp</div>
-		</div>
-		<div class="form-group"  style="margin-top: 18px;">
-			<label class="col-sm-1 control-label no-padding-right"><font color="red">*</font>收徒宣传语: </label>
-			<div class="col-sm-5" >
-				<textarea class="form-control col-xs-10 col-sm-12 {required:true}" maxlength="200" placeholder = "最多200字" name="propaganda" id="propaganda" rows="5"
-						  >${MedicalEnrollmentRegulations.propaganda}</textarea>
-			</div>
-		</div>
-		<div class="space-4"></div>
-		<div class="form-group"  style="margin-top: 18px;">
-			<label class="col-sm-1 control-label no-padding-right"><font color="red">*</font>大师简介: </label>
-			<div class="col-sm-5" >
-				<textarea class="form-control col-xs-10 col-sm-12 {required:true}" name="doctorIntroduction" maxlength="200" placeholder = "最多200字"
-						  id="doctorIntroduction" rows="5" >${MedicalEnrollmentRegulations.doctorIntroduction}</textarea>
-			</div>
-		</div>
-		<div class="space-4"></div>
-		<div class="form-group" style="margin-top: 18px;" >
-			<label class="col-sm-1 control-label no-padding-right" for="tuition"><font color="red">*</font>学费: </label>
-			<div class="col-sm-1">
-				<input type="text" name="tuition" id="tuition" maxlength="11"  onkeyup="value=value.replace(/[^\d]/g,'')" value="${MedicalEnrollmentRegulations.tuition}" class="col-xs-10 col-sm-8 {required:true}">
-				<div style="padding-top: 5px">元</div>
-			</div>
-		</div>
-		<div class="space-4"></div>
-		<div class="form-group" style="margin-top: 18px;" >
-			<label class="col-sm-1 control-label no-padding-right" for="countLimit"><font color="red">*</font>收徒人数: </label>
-			<div class="col-sm-1">
-				<input type="text" name="countLimit" id="countLimit" maxlength="50" onkeyup="this.value=this.value.replace(/\D|^0/g,'')"
-				   onafterpaste="this.value=this.value.replace(/\D|^0/g,'')"value="${MedicalEnrollmentRegulations.countLimit}"  class="col-xs-10 col-sm-8 {required:true}">
-			</div>
-		</div>
 		<div class="space-4"></div>
 		<div class="form-group"  style="margin-top: 18px;" >
 			<label class="col-sm-1 control-label no-padding-right" for="deadline"><font color="red">*</font>报名截止时间: </label>
@@ -150,6 +110,34 @@
 				<input type="text" name="endTimeStr" id="endTime" value="${fn:substring(MedicalEnrollmentRegulations.endTime,0,19)}"  class="datetime-picker col-md-11 {required:true}">
 			</div>
 		</div>
+
+        <div class="form-group"  style="margin-top: 18px;" >
+            <label class="col-sm-1 control-label no-padding-right" for="add_imgPath"><font color="red">*</font>封面图: </label>
+            <div class="col-sm-2" >
+                <div class="clearfix" id="imgAdd" style="width: 240px;">
+                </div>
+                <input type="text" name="coverImg"  id="add_imgPath" class="{required:true}" value="${MedicalEnrollmentRegulations.coverImg}" style="position: absolute; opacity: 0; filter:Alpha(opacity=0);">
+
+            </div>
+            <div style="padding-left:30px;float: left;width: 400px; "><font color="red">*</font>支持图片格式：jpg,png,gif,bmp</div>
+        </div>
+        <div class="space-4"></div>
+        <div class="form-group" style="margin-top: 18px;" >
+            <label class="col-sm-1 control-label no-padding-right" for="tuition"><font color="red">*</font>学费: </label>
+            <div class="col-sm-1">
+                <input type="text" name="tuition" id="tuition" maxlength="11"  onkeyup="value=value.replace(/[^\d]/g,'')" value="${MedicalEnrollmentRegulations.tuition}" class="col-xs-10 col-sm-8 {required:true}">
+                <div style="padding-top: 5px">元</div>
+            </div>
+        </div>
+        <div class="space-4"></div>
+        <div class="form-group" style="margin-top: 18px;" >
+            <label class="col-sm-1 control-label no-padding-right" for="countLimit"><font color="red">*</font>收徒人数: </label>
+            <div class="col-sm-1">
+                <input type="text" name="countLimit" id="countLimit" maxlength="50" onkeyup="this.value=this.value.replace(/\D|^0/g,'')"
+                       onafterpaste="this.value=this.value.replace(/\D|^0/g,'')"value="${MedicalEnrollmentRegulations.countLimit}"  class="col-xs-10 col-sm-8 {required:true}">
+            </div>
+        </div>
+
 		<div class="space-4"></div>
 		<div class="form-group" style="margin-top: 18px;" >
 			<label class="col-sm-1 control-label no-padding-right" for="studyAddress"><font color="red">*</font>学习地址: </label>
@@ -175,41 +163,22 @@
 			</div>
 			<input type="hidden" name="studyAddress" id="studyAddress"/>
 		</div>
+
+        <div class="space-4"></div>
+        <div class="form-group" style="margin-top: 18px;" >
+            <label class="col-sm-1 control-label no-padding-right" for="entryFormAttachment"><font color="red">*</font>招生简章: </label>
+            <div class="col-sm-4">
+
+                <input type="file" name="file" id="attachment_file" class="col-xs-10 col-sm-8 "/>
+                <input type="hidden" name="entryFormAttachment" id="entryFormAttachment" class="{required:true}" value="${MedicalEnrollmentRegulations.entryFormAttachment}"/>
+                <div style="padding-left:30px;float: left;width: 200px; "><font color="red">*</font>文件格式：docx</div>
+                <a href="${MedicalEnrollmentRegulations.entryFormAttachment}" style="float:right;color:blue"> 下载招生简章</a>
+            </div>
+        </div>
+
 		<div class="space-4"></div>
 		<div class="form-group" style="margin-top: 18px;" >
-			<label class="col-sm-1 control-label no-padding-right" for="learningProcess"><font color="red">*</font>拜师学习流程: </label>
-			<div class="col-sm-5">
-				<textarea class="form-control col-xs-10 col-sm-12 {required:true}" name="learningProcess" id="learningProcess"
-						  rows="5">${MedicalEnrollmentRegulations.learningProcess}</textarea>
-			</div>
-		</div>
-		<div class="space-4"></div>
-		<div class="form-group" style="margin-top: 18px;" >
-			<label class="col-sm-1 control-label no-padding-right" for="contactWay"><font color="red">*</font>联系人: </label>
-			<div class="col-sm-5">
-				<textarea class="form-control col-xs-10 col-sm-12 {required:true}" name="contactWay" id="contactWay"
-						  rows="5">${MedicalEnrollmentRegulations.contactWay}</textarea>
-			</div>
-		</div>
-		<div class="space-4"></div>
-		<div class="form-group" style="margin-top: 18px;" >
-			<label class="col-sm-1 control-label no-padding-right" for="rightsAndInterests"><font color="red">*</font>弟子权益: </label>
-			<div class="col-sm-5">
-				<textarea class="form-control col-xs-10 col-sm-12 {required:true}" name="rightsAndInterests" id="rightsAndInterests"
-						  rows="5">${MedicalEnrollmentRegulations.rightsAndInterests}</textarea>
-			</div>
-		</div>
-		<div class="space-4"></div>
-		<div class="form-group" style="margin-top: 18px;" >
-			<label class="col-sm-1 control-label no-padding-right" for="qualification"><font color="red">*</font>拜师资格: </label>
-			<div class="col-sm-5">
-				<textarea class="form-control col-xs-10 col-sm-12 {required:true}" name="qualification" id="qualification"
-						  rows="5">${MedicalEnrollmentRegulations.qualification}</textarea>
-			</div>
-		</div>
-		<div class="space-4"></div>
-		<div class="form-group" style="margin-top: 18px;" >
-			<label class="col-sm-1 control-label no-padding-right" for="ceremonyAddress"><font color="red">*</font>拜师地址: </label>
+			<label class="col-sm-1 control-label no-padding-right" for="ceremonyAddress"><font color="red">*</font>相关介绍: </label>
 			<div class="col-sm-5 " >
 				<div>
 					<script id="editor" type="text/plain" style="width:600px;height:300px;"></script></div>
@@ -225,28 +194,18 @@
 				<input type="hidden" name="regulations"  id="regulations" class="col-xs-10 col-sm-12 {required:true,minlength:1}">
 			</div>
 		</div>
-		<div class="space-4"></div>
-		<div class="form-group"  style="margin-top: 18px;" >
-			<label class="col-sm-1 control-label no-padding-right" for="posterImg"><font color="red">*</font>海报: </label>
-			<div class="col-sm-3">
-				<div class="clearfix" id="imgAddPoster" style="width: 240px;">
+		<%--<div class="space-4"></div>--%>
+		<%--<div class="form-group"  style="margin-top: 18px;" >--%>
+			<%--<label class="col-sm-1 control-label no-padding-right" for="posterImg"><font color="red">*</font>海报: </label>--%>
+			<%--<div class="col-sm-3">--%>
+				<%--<div class="clearfix" id="imgAddPoster" style="width: 240px;">--%>
 
-				</div>
-				<input type="text" name="posterImg"  id="posterImg" class="{required:true}" value="${MedicalEnrollmentRegulations.posterImg}" style="position: absolute; opacity: 0; filter:Alpha(opacity=0);">
-			</div>
-            <div style="padding-left:30px;float: left;width: 400px; "><font color="red">*</font>支持图片格式：jpg,png,gif,bmp</div>
-		</div>
-		<div class="space-4"></div>
-		<div class="form-group" style="margin-top: 18px;" >
-			<label class="col-sm-1 control-label no-padding-right" for="entryFormAttachment"><font color="red">*</font>招生简章: </label>
-			<div class="col-sm-4">
+				<%--</div>--%>
+				<%--<input type="text" name="posterImg"  id="posterImg" class="{required:true}" value="${MedicalEnrollmentRegulations.posterImg}" style="position: absolute; opacity: 0; filter:Alpha(opacity=0);">--%>
+			<%--</div>--%>
+            <%--<div style="padding-left:30px;float: left;width: 400px; "><font color="red">*</font>支持图片格式：jpg,png,gif,bmp</div>--%>
+		<%--</div>--%>
 
-				<input type="file" name="file" id="attachment_file" class="col-xs-10 col-sm-8 "/>
-				<input type="hidden" name="entryFormAttachment" id="entryFormAttachment" class="{required:true}" value="${MedicalEnrollmentRegulations.entryFormAttachment}"/>
-                <div style="padding-left:30px;float: left;width: 200px; "><font color="red">*</font>文件格式：docx</div>
-                <a href="${MedicalEnrollmentRegulations.entryFormAttachment}" style="float:right;color:blue"> 下载招生简章</a>
-			</div>
-		</div>
 
 	</form>
 	<div class="col-xs-7" style="text-align: right;margin-top:50px;">

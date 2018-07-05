@@ -25,6 +25,7 @@ requestGetService("/xczh/enrol/enrollmentRegulations/"+merId,data,function(data)
 
         enrollmentRegulations.startTime = enrollmentRegulations.startTime.substring(0,16);
         enrollmentRegulations.endTime = enrollmentRegulations.endTime.substring(0,16);
+        enrollmentRegulations.deadline = enrollmentRegulations.deadline.substring(0,16);
         enrollmentRegulations.studyAddress = doAddress(enrollmentRegulations.studyAddress);
         $("body").html(template('inherited_introduction_temp',enrollmentRegulations));
         // console.log(enrollmentRegulations)
@@ -39,6 +40,7 @@ if(wv == 'ios'){
 }
 
 function newline(str){
+    if(str==null) return null;
     return str.replace(/\n|\r\n/g,'<br/>');
 }
 function doAddress(studyAddress){

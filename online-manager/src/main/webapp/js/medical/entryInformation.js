@@ -101,7 +101,9 @@ function toEdit(obj) {
 }
 function exportExcel() {
     var merId = $("#search_title").val();
-    $('#exportId').attr('href','/apprentice/export?merId='+merId);
+    // $('#exportId').attr('href','/apprentice/export?merId='+merId);
+    debugger
+    window.location.href='/apprentice/export?merId='+merId;
 }
 
 //是否为徒弟弹框
