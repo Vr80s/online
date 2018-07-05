@@ -108,7 +108,7 @@
  * 注册的入口
  */
 var openId = getQueryString("openId");
-if(stringnull(openId)){
+if(isNotBlank(openId)){
 	localStorage.setItem("openid", openId);
 }
 var obUrl = ''
@@ -148,7 +148,7 @@ function ajaxUploadBase64File(params){
     requestService("/xczh/set/wechatSaveHeadImg",params, function(data) {
     	 if(data.success == true){
          	var result = data.resultObject;
- 			if(stringnull(result.smallHeadPhoto)){
+ 			if(isNotBlank(result.smallHeadPhoto)){
  				/*alert("result.smallHeadPhoto"+result.smallHeadPhoto);*/
  				$("#headImg").attr("src",result.smallHeadPhoto);
  				//同时我们也要变化token中的头像值。
@@ -420,7 +420,7 @@ function setImagePreview() {
             var nickNameReg = /^[A-Za-z0-9_\-\u4e00-\u9fa5]+$/;//支持中文、字母、数字、'-'、'_'的组合，4-20个字符
             var nikeName = $("#nickname").val().trim();
            
-            if(!stringnull(nikeName)){
+            if(!isNotBlank(nikeName)){
             	webToast("昵称不能为空","middle",3000);
                 return false;
             }else if (nikeName.length > 20 || nikeName.length < 1){

@@ -167,7 +167,7 @@ $(".call_cen").text("当前绑定的手机号："+localStorage.username);
  */
 $("#update_mobile_next").click(function(){
 	
-	if (!stringnull(currentName) || !(/^1[345678]\d{9}$/.test(currentName))) {
+	if (!isNotBlank(currentName) || !(/^1[345678]\d{9}$/.test(currentName))) {
 		$("#errorMsg").html("<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>获取用户手机号有误</div></div></div>");
 		$("#errorMsg").show();
 		
@@ -175,7 +175,7 @@ $("#update_mobile_next").click(function(){
 		return false;
 	}
 	var code= $("#current_mobile").val();
-	if(!stringnull(code)){
+	if(!isNotBlank(code)){
 		/*$("#errorMsg").html("<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>验证码不能为空</div></div></div>");
 		$("#errorMsg").show();
 		

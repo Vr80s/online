@@ -66,15 +66,15 @@ document.getElementById("forget_btn").addEventListener("tap", function() {
 	var yanzhengma = document.getElementById("code").value;
 	var userpassword = document.getElementById("newPassword").value; // 密码
 	
-	if (!stringnull(mobile)) {
+	if (!isNotBlank(mobile)) {
 		webToast("手机号不能为","middle",1500);
 		return false;
 	}
-	if (!stringnull(yanzhengma)) {
+	if (!isNotBlank(yanzhengma)) {
 //		webToast("验证码不能为空","middle",1500);
 		return false;
 	}
-	if (!stringnull(userpassword)) {
+	if (!isNotBlank(userpassword)) {
 //		webToast("密码不能为空","middle",1500);
 		return false;
 	}

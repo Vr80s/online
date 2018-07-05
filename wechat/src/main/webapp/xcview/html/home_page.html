@@ -647,7 +647,7 @@ tt.p = 0;
  * 加载页面 滑动上边的tab
  */
 var school_index =  sessionStorage.getItem("school_index");
-if(!stringnull(school_index)){
+if(!isNotBlank(school_index)){
 	school_index = 1;
 }
 //alert(school_index);

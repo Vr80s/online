@@ -50,7 +50,7 @@ function  sendCode(obj){
 		vtype = 4;
 		number = $("#new_mobile").val();
 	}
-	if (!stringnull(number)) {
+	if (!isNotBlank(number)) {
 		return false;
 	}
 	if (!(/^1[345678]\d{9}$/.test(number))) {
@@ -110,24 +110,24 @@ function setuserInfoWechat(saveFalg){
 	  }
 	  var user_id = localStorage.getItem("userId");
 	requestService("/xczh/set/userInfoWechat", {
-          id: stringnull(user_id) ? user_id : "",
-		  name: stringnull(nickname) ? nickname : "",
-		  sex:stringnull(sex) ? sex : "",
-		  email:stringnull(email) ? email : "",
-          provinceName:stringnull(provinceCityName) ? provinceCityName : "",
-          regionId:stringnull(regionId) ? regionId : "",		  
+          id: isNotBlank(user_id) ? user_id : "",
+		  name: isNotBlank(nickname) ? nickname : "",
+		  sex:isNotBlank(sex) ? sex : "",
+		  email:isNotBlank(email) ? email : "",
+          provinceName:isNotBlank(provinceCityName) ? provinceCityName : "",
+          regionId:isNotBlank(regionId) ? regionId : "",
          		  
-		  info:stringnull(info) ? info : "",
-	      occupation:stringnull(occupation) ? occupation : "",
-	      occupationOther:stringnull(occupationOther) ? occupationOther : ""
+		  info:isNotBlank(info) ? info : "",
+	      occupation:isNotBlank(occupation) ? occupation : "",
+	      occupationOther:isNotBlank(occupationOther) ? occupationOther : ""
 	}, function(data) {
 		if (data.success) {
 			var result = data.resultObject;
-			if(stringnull(result.nickname)){
+			if(isNotBlank(result.nickname)){
 				$("#person_one").html(result.nickname);
 				localStorage.setItem("username",result.nickname);
 			}
-			if(stringnull(result.sex)){
+			if(isNotBlank(result.sex)){
 				if(result.sex==1){
 					$("#person_two").html("男");
 				}else if(result.sex==0){
@@ -135,34 +135,34 @@ function setuserInfoWechat(saveFalg){
 				}
 				localStorage.setItem("sex",result.sex);
 			}
-			if(stringnull(result.email)){
+			if(isNotBlank(result.email)){
 				$("#person_five").html(result.email);
 				localStorage.setItem("email",result.email);
 			}
 			
 			
 
-			if(stringnull(result.provinceName)){
+			if(isNotBlank(result.provinceName)){
 				localStorage.setItem("provinceName",result.provinceName);
 				localStorage.setItem("regionAreaId",result.regionAreaId);
 			}
-			if(stringnull(result.cityName)){
+			if(isNotBlank(result.cityName)){
 				localStorage.setItem("cityName",result.cityName);
 				localStorage.setItem("regionCityId",result.regionCityId);
 			}
-			if(stringnull(result.countyName)){
+			if(isNotBlank(result.countyName)){
 				localStorage.setItem("countyName",result.countyName);
 				localStorage.setItem("regionId",result.regionId);
 			}
 			
-			if(stringnull(result.info)){
+			if(isNotBlank(result.info)){
 				localStorage.setItem("info",result.info);
 				$("#person_sign").html(result.info);
 			}
-			if(stringnull(result.occupation)){
+			if(isNotBlank(result.occupation)){
 				localStorage.setItem("occupation",result.occupation);
 			}
-			if(stringnull(result.occupationOther)){
+			if(isNotBlank(result.occupationOther)){
 				localStorage.setItem("occupationOther",result.occupationOther);
 			}
 		} else {
@@ -180,10 +180,10 @@ function setuserInfoWechat(saveFalg){
 function updateMobile(){
 
     var newMobile= $("#new_mobile").val();
-    if(!stringnull(newMobile)){
+    if(!isNotBlank(newMobile)){
         return false;
     }
-    if (!stringnull(currentName) || !(/^1[345678]\d{9}$/.test(currentName))) {
+    if (!isNotBlank(currentName) || !(/^1[345678]\d{9}$/.test(currentName))) {
         $("#errorMsg").html("获取用户手机号有误");
         $("#errorMsg").show();
         return false;
@@ -196,7 +196,7 @@ function updateMobile(){
     }
 
     var code= $("#new_code").val();
-    if(!stringnull(code)){
+    if(!isNotBlank(code)){
     	webToast("验证码不能为空","middle",1500);
         return false;
     }

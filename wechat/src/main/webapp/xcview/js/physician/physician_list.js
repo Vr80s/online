@@ -1,6 +1,6 @@
 	
 var openId = getQueryString("openId");
-if(stringnull(openId)){
+if(isNotBlank(openId)){
     localStorage.setItem("openid",openId);
 }
 
@@ -116,7 +116,7 @@ function createParamsAndQuery(type,departmentId,sortType,queryKey){
 	
 	}else{
 		//从新赋值
-		if(stringnull(type)){
+		if(isNotBlank(type)){
 			paramsObj.type = type;
 			for (var int = 0; int < typeArray.length; int++) {
 				var array_element = typeArray[int];
@@ -147,7 +147,7 @@ function createParamsAndQuery(type,departmentId,sortType,queryKey){
 	/**
 	 * 科室选中
 	 */
-	if(stringnull(departmentId)){
+	if(isNotBlank(departmentId)){
 		paramsObj.departmentId = departmentId;
 		
 		for (var int = 0; int < departmentIdArray.length; int++) {
@@ -167,7 +167,7 @@ function createParamsAndQuery(type,departmentId,sortType,queryKey){
 	}
 
 	
-	if(stringnull(sortType)){
+	if(isNotBlank(sortType)){
 	
 		paramsObj.sortType = sortType;
 	    var falg = false
@@ -188,7 +188,7 @@ function createParamsAndQuery(type,departmentId,sortType,queryKey){
 		}
 	}
 	
-	if(stringnull(queryKey)){
+	if(isNotBlank(queryKey)){
 		paramsObj.queryKey = queryKey;
 		saisuanstr +=queryKey+"-";
 	}
@@ -224,26 +224,26 @@ function submit(){
 	
 	paramsObj.pageSize = 1000;
 	
-	if(stringnull(type)){
+	if(isNotBlank(type)){
 		paramsObj.type =type;
 	}else{
 		delete paramsObj.type;
 	}
 	
-	if(stringnull(departmentId)){
+	if(isNotBlank(departmentId)){
 		 paramsObj.departmentId = departmentId;
 	}else{
 		delete paramsObj.departmentId;
 	}
 
 	
-    if(stringnull(sortType)){
+    if(isNotBlank(sortType)){
    	    paramsObj.sortType = sortType;
 	}else{
 		delete paramsObj.sortType;
 	}
   
-    if(stringnull(queryKey)){
+    if(isNotBlank(queryKey)){
     	paramsObj.queryKey = queryKey;
    	}else{
    		delete paramsObj.queryKey;
@@ -286,7 +286,7 @@ function queryDataByParams(params,data_type){
 		     var id = "#draw_all_query_list";
 		     if(data.success==true){
 			
-		    	if(stringnull(data_type)){
+		    	if(isNotBlank(data_type)){
 				   id = "#query_list"+data_type;
 				}
 		    	var data1 ="";

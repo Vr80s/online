@@ -112,8 +112,8 @@ var shareSmallImgPath = "";
 
 try {
 	
-	if(!stringnull(gradeName) || !stringnull(description) ||
-			!stringnull(smallImgPath) ){
+	if(!isNotBlank(gradeName) || !isNotBlank(description) ||
+			!isNotBlank(smallImgPath) ){
 		requestService("/xczh/share/courseShare", {shareType:shareType,shareId:shareId}, function(data) {
 			if (data.success) {
 				var shareInfo  = data.resultObject;

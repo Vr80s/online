@@ -15,7 +15,7 @@
 	<!-- 往期回顾头部开始 -->
 	<header>
 		<div class="header">
-			<div class="return"><img src="/xcview/images/back%20icon.png" alt="" /></div>
+			<div class="return" onclick="location.href='/xcview/html/apprentice/inherited_introduction.html'"><img src="/xcview/images/back%20icon.png" alt="" /></div>
 			<div class="apply_title">往期回顾</div>
 		</div>
 	</header>
@@ -31,14 +31,14 @@
 				</div>
 				<div class="head_portrait">
 					<ul>
-						<li><img src="/xcview/images/regards.png" alt="" /><p>沈施德</p></li>
-						<li><img src="/xcview/images/regards.png" alt="" /><p>沈施德</p></li>
-						<li><img src="/xcview/images/regards.png" alt="" /><p>沈施德</p></li>
-						<li><img src="/xcview/images/regards.png" alt="" /><p>沈施德</p></li>
-						<li><img src="/xcview/images/regards.png" alt="" /><p>沈施德</p></li>
-						<li><img src="/xcview/images/regards.png" alt="" /><p>沈施德</p></li>
-						<li><img src="/xcview/images/regards.png" alt="" /><p>沈施德</p></li>
-						<li><img src="/xcview/images/regards.png" alt="" /><p>沈施德</p></li>
+						<li><img src="/xcview/images/regards.png" alt="" onclick="jumpInfo('bd753d68f1cf4558a4d56cc39676c8dd')"/><p>沈施德</p></li>
+						<li><img src="/xcview/images/regards.png" alt="" onclick="jumpInfo('bd753d68f1cf4558a4d56cc39676c8dd')"/><p>沈施德</p></li>
+						<li><img src="/xcview/images/regards.png" alt="" onclick="jumpInfo('bd753d68f1cf4558a4d56cc39676c8dd')"/><p>沈施德</p></li>
+						<li><img src="/xcview/images/regards.png" alt="" onclick="jumpInfo('bd753d68f1cf4558a4d56cc39676c8dd')"/><p>沈施德</p></li>
+						<li><img src="/xcview/images/regards.png" alt="" onclick="jumpInfo('bd753d68f1cf4558a4d56cc39676c8dd')"/><p>沈施德</p></li>
+						<li><img src="/xcview/images/regards.png" alt="" onclick="jumpInfo('bd753d68f1cf4558a4d56cc39676c8dd')"/><p>沈施德</p></li>
+						<li><img src="/xcview/images/regards.png" alt="" onclick="jumpInfo('bd753d68f1cf4558a4d56cc39676c8dd')"/><p>沈施德</p></li>
+						<li><img src="/xcview/images/regards.png" alt="" onclick="jumpInfo('bd753d68f1cf4558a4d56cc39676c8dd')"/><p>沈施德</p></li>
 					</ul>
 				</div>
 			</div>
@@ -64,4 +64,16 @@
 <script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/common.js?v=wechat_1.1.1"></script>
 <script type="text/javascript" src="/xcview/js/common/template.js"></script>   <!--模板引入-->
+<script type="text/javascript" src="/xcview/js/apprentice/apprentice-common.js?v=10"></script>
+
+
+<script type="application/javascript">
+	function jumpInfo(id){
+	    if(isNotBlank(wv)){
+            window.location.href = "xczh://ipandatcm.com/doctorPost?id="+id;
+        }else{
+            window.location.href = "/xcview/html/physician/physicians_page.html?doctor="+id;
+        }
+	}
+</script>
 </html>

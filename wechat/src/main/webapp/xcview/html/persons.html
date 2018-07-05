@@ -196,10 +196,10 @@ pre:after {
 					
 				    $("#headImg").attr("src",localStorage.getItem("smallHeadPhoto"));
 			        
-			        if(stringnull(localStorage.getItem("name"))){
+			        if(isNotBlank(localStorage.getItem("name"))){
 			        	 $("#person_one").text(localStorage.getItem("name"));
 			        }
-			        if(stringnull(localStorage.getItem("sex"))){
+			        if(isNotBlank(localStorage.getItem("sex"))){
 			        	
 			        	if(localStorage.getItem("sex") ==1){
 			       		 $(".lable_img1").css("display","block");	
@@ -216,14 +216,14 @@ pre:after {
 			           }
 			        }
 			        
-			        if(stringnull(localStorage.getItem("provinceName"))){
+			        if(isNotBlank(localStorage.getItem("provinceName"))){
 			        	 $("#xzdz").text(localStorage.getItem("provinceName")+" "+localStorage.getItem("cityName")+" "+localStorage.getItem("countyName"));
 			        }
 			        
-			        if(stringnull(localStorage.getItem("email"))){
+			        if(isNotBlank(localStorage.getItem("email"))){
 			        	 $("#person_five").text(localStorage.getItem("email"));
 			        }
-			        if(stringnull(localStorage.getItem("info"))){
+			        if(isNotBlank(localStorage.getItem("info"))){
 			       	      $("#person_sign").text(localStorage.getItem("info"));
 			        }
 			        
@@ -248,7 +248,7 @@ pre:after {
 					},false);
 			        
 			        
-			    	if(stringnull(localStorage.getItem("occupationOther"))){
+			    	if(isNotBlank(localStorage.getItem("occupationOther"))){
 			       	      $("#zyxx").text(localStorage.getItem("occupationOther"));
 			        }
 			        
@@ -297,7 +297,7 @@ pre:after {
 		}
 		setTimeout(function(){
 			//这个就是mui的的多级选择。我的天
-			if(stringnull(pervinceValue) && stringnull(cityValue) && stringnull(disValue)){
+			if(isNotBlank(pervinceValue) && isNotBlank(cityValue) && isNotBlank(disValue)){
 				picker.pickers[0].setSelectedValue(pervinceValue,0,function(){
 					picker.pickers[1].setSelectedValue(cityValue,0,function(){
 						picker.pickers[2].setSelectedValue(disValue);
@@ -387,7 +387,7 @@ pre:after {
   		    //验证名称的合法性
   		    
   			var nikeName = $("#info").val().trim();
-  			if(!stringnull(nikeName) || nikeName.length>20 || nikeName.length<4){
+  			if(!isNotBlank(nikeName) || nikeName.length>20 || nikeName.length<4){
   			   cymYonghuInfo.show();
    			   cymYonghuInfo.html("<p>个性签名不能为空</p>"
   			          + "<p>长度只能在4-20个字符之间</p>");
@@ -985,7 +985,7 @@ function ajaxUploadBase64File(params){
     requestService("/xczh/set/wechatSaveHeadImg",params, function(data) {
     	 if(data.success == true){
          	var result = data.resultObject;
- 			if(stringnull(result.smallHeadPhoto)){
+ 			if(isNotBlank(result.smallHeadPhoto)){
  				/*alert("result.smallHeadPhoto"+result.smallHeadPhoto);*/
  				$("#headImg").attr("src",result.smallHeadPhoto);
  				//同时我们也要变化token中的头像值。
