@@ -18,12 +18,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
+import com.xczhihui.common.util.CourseUtil;
 import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.course.service.ICriticizeService;
 import com.xczhihui.course.service.IFocusService;
 import com.xczhihui.course.service.IMyInfoService;
-import com.xczhihui.course.util.CourseUtil;
 import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.medical.hospital.model.MedicalHospital;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalApplyService;
