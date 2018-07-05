@@ -1,5 +1,6 @@
 package com.xczhihui.course.consts;
 
+import static com.xczhihui.course.enums.RouteTypeEnum.APPRENTICE_DETAIL;
 import static com.xczhihui.course.enums.RouteTypeEnum.HOSPITAL_APPROVE_PAGE;
 
 import java.io.UnsupportedEncodingException;
@@ -30,7 +31,9 @@ public class MultiUrlHelper {
     public static final String URL_TYPE_MOBILE = "mobile";
     private static final String APP_COURSE_DETAIL = "xczh://ipandatcm.com/courseDetail?id={0}";
     private static final String WEB_COURSE_DETAIL = "/courses/{0}/info";
-    private static final String APPRENTICE_URL = "/xcview/html/apprentice/inherited_introduction.html?merId=";
+    private static final String APPRENTICE_URL = "/xcview/html/apprentice/inherited_introduction.html?merId={0}&needLogin=true";
+    private static final String NEED_LOGIN_TRUE = "needLogin=true";
+    private static final String NEED_LOGIN_FALSE = "needLogin=false";
 
     private static Map<String, Map<String, String>> urlMap = new HashMap<>();
     private static Map<String, String> collectionCourseDetailUrlMap = ImmutableMap.of(
@@ -118,11 +121,9 @@ public class MultiUrlHelper {
             URL_TYPE_WEB, "/anchors/{0}/courses",
             URL_TYPE_MOBILE, "/xcview/html/live_personal.html?userLecturerId={0}");
     private static Map<String, String> h5Map = ImmutableMap.of(
-            URL_TYPE_APP, "xczh://ipandatcm.com/h5?url={0}&needLogin=false");
-    private static Map<String, String> apprenticeMap = ImmutableMap.of(
-            URL_TYPE_APP, "xczh://ipandatcm.com/h5?url={0}&needLogin=true",
-            URL_TYPE_MOBILE, "/xcview/html/apprentice/inherited_introduction.html?merId={0}"
-    );
+            URL_TYPE_APP, "xczh://ipandatcm.com/h5?url={0}",
+            URL_TYPE_MOBILE, "{0}",
+            URL_TYPE_WEB, "{0}");
     private static Map<String, String> publicCourseListMap = ImmutableMap.of(
             URL_TYPE_APP, "xczh://ipandatcm.com/publicCourseList?",
             URL_TYPE_WEB, "/courses/list?",
@@ -162,7 +163,7 @@ public class MultiUrlHelper {
         urlMap.put(RouteTypeEnum.QUESTION_DETAIL.name(), questionMap);
         urlMap.put(RouteTypeEnum.ANCHOR_INDEX.name(), anchorIndexMap);
         urlMap.put(RouteTypeEnum.H5.name(), h5Map);
-        urlMap.put(RouteTypeEnum.APPRENTICE_DETAIL.name(), apprenticeMap);
+        urlMap.put(RouteTypeEnum.APPRENTICE_DETAIL.name(), h5Map);
         urlMap.put(RouteTypeEnum.COMMON_COURSE_DETAIL_PAGE.name(), courseDetailUrlMap);
         urlMap.put(RouteTypeEnum.COMMON_LEARNING_COURSE_DETAIL_PAGE.name(), learningCourseDetailUrlMap);
         urlMap.put(RouteTypeEnum.PUBLIC_COURSE_LIST_PAGE.name(), publicCourseListMap);
@@ -199,7 +200,16 @@ public class MultiUrlHelper {
                         return params;
                     } else {
                         try {
+                            boolean containQuestion = false;
+                            boolean needLogin = false;
+                            if (params.contains("?")) {
+                                containQuestion = true;
+                            }
+                            if (params.contains(NEED_LOGIN_TRUE)) {
+                                needLogin = true;
+                            }
                             url = MessageFormat.format(format, URLEncoder.encode(params, "UTF-8"));
+                            url = url + (containQuestion ? "&" : "?") + (needLogin ? NEED_LOGIN_TRUE : NEED_LOGIN_FALSE);
                         } catch (UnsupportedEncodingException e) {
                             e.printStackTrace();
                             return url;
@@ -232,14 +242,12 @@ public class MultiUrlHelper {
      * @param linkParam 参数
      * @return
      */
-    public static String handleApprenticeParam(String prefix, String linkParam) {
-        if (StringUtils.isNotBlank(linkParam)) {
-            try {
-                return URLEncoder.encode(prefix + APPRENTICE_URL + linkParam, "UTF-8");
-            } catch (UnsupportedEncodingException e) {
-                return "";
+    public static String handleParam(String prefix, String linkParam, String routeType) {
+        if (routeType.equals(APPRENTICE_DETAIL.name())) {
+            if (StringUtils.isNotBlank(linkParam)) {
+                return MessageFormat.format(prefix + APPRENTICE_URL, linkParam);
             }
         }
-        return "";
+        return linkParam;
     }
 }
