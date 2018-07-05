@@ -84,7 +84,7 @@ public class DoctorController {
         if (doctors0 != null && doctors0.getSize() > 0) {
             Map<String, Object> map = new HashMap<String, Object>();
             map.put("code", -1);
-            map.put("text", "热门中医");
+            map.put("text", "热门医师");
             map.put("doctors", doctors0.getRecords());
             list.add(map);
         }

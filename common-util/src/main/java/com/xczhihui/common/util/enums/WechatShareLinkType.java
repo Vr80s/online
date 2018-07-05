@@ -17,6 +17,8 @@ public enum WechatShareLinkType {
 
     BING_PHOME("/xcview/html/evpi.html", "绑定手机号页面"),
 
+    
+    // shareBack=1  --> 分享返回。  分享页面涉及到的，点击手机返回，关闭公众号回到聊天
 
     /*************    课程的分享页面  开始       ***************/
 
