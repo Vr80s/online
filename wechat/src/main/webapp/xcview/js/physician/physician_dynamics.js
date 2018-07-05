@@ -143,55 +143,59 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
             }
         }
 
-        mui("#refreshContainer").on('tap', '#replaybtn', function (event) {
-            $(".ccvideo_img").hide();    
-        });
-
-
-
-        var hh = $(".panels_essay_main").height();
-        if (hh > 30) {
+        //判断简介的字长度
+        var h = $(".essay_main").height();
+        if (h > 200) {
             $(".essay_pack_up_btn").show();
-            $(".panels_essay_main").addClass("consilia_nav_span_title");
-            } else {
-                $(".essay_pack_up_btn").hide();
-
+            $(".line_xian").hide();
+//          $(".wrap1").css({"height":"2rem","overflow":"hidden"})
+        } else {
+            $(".essay_pack_up_btn").hide()
         }
-        // alert(hh);
-        // 点击普通内容
-        mui("#refreshContainer").on('tap', '.essay_pack_up_btn', function (event) {
-            if($(".essay_pack_up_btn span").html()=="展开"){
-                $(".panels_essay_main").removeClass("consilia_nav_span_title");
-                $(".essay_pack_up_btn span").html("收起");
+
+        //点击其他--收起
+        mui("#refreshContainer").on('tap', '.essay_pack_up_btn_span', function (event) {
+            if($(".essay_pack_up_btn_span").html()=="收起"){
+                $(".consilia_nav_span .title").css("height","100%");
+                $(".essay_pack_up_btn_span span").html("展开");
+                $(".consilia_nav_span .title").addClass("consilia_nav_span_title");
             }else{
-                $(".panels_essay_main").addClass("consilia_nav_span_title");
-                $(".essay_pack_up_btn span").html("展开");
-                
+                $(".essay_pack_up_btn_span span").html("收起");
+                $(".consilia_nav_span .title").css("height","2.1rem");
+                $(".consilia_nav_span .title").removeClass("consilia_nav_span_title");
             }
         });
 
 
 
-        
+        $(".consilia_nav_span .title").each(function(){
+            var h = $(this).height();
 
-        var h = $(".consilia_nav_span .title").height();
-        if (h > 50) {
-            $(".consilia_nav_btn").show();
-            $(".consilia_nav_span .title").addClass("consilia_nav_span_title");
+            var consilia_nav_btn = $(this).parent().next().next();
+
+            if (h > 50) {
+                consilia_nav_btn.show();
+                $(this).addClass("consilia_nav_span_title");
             } else {
-                $(".consilia_nav_btn").hide();
-        }
+                consilia_nav_btn.hide();
+
+            }
+
+        })
+
         // alert(h);
+
         // 点击文章收起
         mui("#refreshContainer").on('tap', '.consilia_nav_btn', function (event) {
-            if($(".consilia_nav_btn span").html()=="展开"){
-                $(".consilia_nav_span .title").removeClass("consilia_nav_span_title");
-                $(".consilia_nav_btn span").html("收起");
+            var aaa = $(this);
+            if(aaa.find('span').html()=="展开"){
+                aaa.parent().find('.consilia_nav_span').find('.title').removeClass("consilia_nav_span_title");
+                // $(".consilia_nav_span .title").removeClass("consilia_nav_span_title");
+                aaa.find('span').html("收起");
             }else{
-                // $(".consilia_nav_span .title").css("height","2.1rem");
-                $(".consilia_nav_span .title").addClass("consilia_nav_span_title");
-                $(".consilia_nav_btn span").html("展开");
-                
+                // $(".consilia_nav_span .title").addClass("consilia_nav_span_title");
+                aaa.parent().find('.consilia_nav_span').find('.title').addClass("consilia_nav_span_title");
+                aaa.find('span').html("展开");
             }
         });
 
@@ -201,9 +205,6 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
             alert(111);
             
         });*/
-
-
-
 
 
         //点赞
@@ -298,10 +299,6 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
             else{
                 oReplay.pause();
             }
-        });
-        //医案跳转
-        mui("#refreshContainer").on('tap', 'ul', function (event) {
-
         });
     });
 }
@@ -585,52 +582,52 @@ requestService("/xczh/doctors/doctorStatus", {doctorId:doctorId},function (data)
                                     // 直播状态
                                     //直播课程状态：lineState  1直播中， 2预告，3直播结束 ， 4 即将直播 ，5 准备直播 ，6 异常直播
                                     $('#living_broadcastroom').html(template('living_broadcastroom_id', {items: data.resultObject}));
-	                                    
+                                        
                                     var obj =  data.resultObject;
                                     var startStr =  data.resultObject.startTime;
                                     if(obj!=null && startStr!=null){
-                                    	
-                                    	 //兼容ios和安卓了
-                                    	 var startTime = startStr.replace(/\-/g, "/");
-                                    	 
+                                        
+                                         //兼容ios和安卓了
+                                         var startTime = startStr.replace(/\-/g, "/");
+                                         
                                          function timer() {
-                                         	    //设置结束的时间
-     	                                        var endtime = new Date(startTime);
-     	                                        //设置当前时间
-     	                                        var now = new Date();
-     	                                        //得到结束与当前时间差 ： 毫秒
-     	                                        var t = endtime.getTime() - now.getTime();
-     	                                        
-     	                                        if (t > 0) {
-     	                                            //得到剩余天数
-     	                                            // var tian = Math.floor(t / 1000 / 60 / 60 / 24);
-     	                                            //得到还剩余的小时数（不满一天的小时）
-     	                                            var h = Math.floor(t / 1000 / 60 / 60 % 24);
-     	                                            if(h<10){
-     	                                                h="0"+h;
-     	                                            }
-     	                                            //得到分钟数
-     	                                            var m = Math.floor(t / 1000 / 60 % 60);
-     	                                            if(m<10){
-     	                                                m="0"+m;
-     	                                            }
-     	                                            //得到的秒数
-     	                                            var s = Math.floor(t / 1000 % 60);
-     	                                            if(s<10){
-     	                                                s="0"+s;
-     	                                            }
-     	                                            var str = "直播倒计时 " + h + "：" + m + "：" + s;
-     	                                            $("#box1").html(str);
-     	                                        }
-     	                                    }
-     	                                    
-     	                                    if(obj!=null && obj.isLive == 1){
-     	                                    	setInterval(timer, 1000);
-     	                                    }else if(obj!=null && (obj.lineState ==2 || obj.lineState == 4  || obj.lineState ==5)){
-     	                                    	var str = startStr.replace(/\-/g, ".").slice(0,16)+ "   即将直播";
-     	                                        $("#box1").html(str);
-     	                                    }
-                                    	
+                                                //设置结束的时间
+                                                var endtime = new Date(startTime);
+                                                //设置当前时间
+                                                var now = new Date();
+                                                //得到结束与当前时间差 ： 毫秒
+                                                var t = endtime.getTime() - now.getTime();
+                                                
+                                                if (t > 0) {
+                                                    //得到剩余天数
+                                                    // var tian = Math.floor(t / 1000 / 60 / 60 / 24);
+                                                    //得到还剩余的小时数（不满一天的小时）
+                                                    var h = Math.floor(t / 1000 / 60 / 60 % 24);
+                                                    if(h<10){
+                                                        h="0"+h;
+                                                    }
+                                                    //得到分钟数
+                                                    var m = Math.floor(t / 1000 / 60 % 60);
+                                                    if(m<10){
+                                                        m="0"+m;
+                                                    }
+                                                    //得到的秒数
+                                                    var s = Math.floor(t / 1000 % 60);
+                                                    if(s<10){
+                                                        s="0"+s;
+                                                    }
+                                                    var str = "直播倒计时 " + h + "：" + m + "：" + s;
+                                                    $("#box1").html(str);
+                                                }
+                                            }
+                                            
+                                            if(obj!=null && obj.isLive == 1){
+                                                setInterval(timer, 1000);
+                                            }else if(obj!=null && (obj.lineState ==2 || obj.lineState == 4  || obj.lineState ==5)){
+                                                var str = startStr.replace(/\-/g, ".").slice(0,16)+ "   即将直播";
+                                                $("#box1").html(str);
+                                            }
+                                        
                                     }
                                     
                                     }
