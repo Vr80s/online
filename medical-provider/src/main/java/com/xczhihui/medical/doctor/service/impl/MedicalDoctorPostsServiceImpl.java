@@ -42,7 +42,7 @@ public class MedicalDoctorPostsServiceImpl extends ServiceImpl<MedicalDoctorPost
         list.forEach(medicalDoctorPosts -> {
             //去除文章中的标签
             medicalDoctorPosts.setArticleContent(HtmlUtil.getTextFromHtml(medicalDoctorPosts.getArticleContent()));
-
+            medicalDoctorPosts.setContent(HtmlUtil.getTextFromHtml(medicalDoctorPosts.getContent()));
             Integer postsId = medicalDoctorPosts.getId();
             List<MedicalDoctorPostsComment> commentList = medicalDoctorPostsCommentService.selectMedicalDoctorPostsCommentList(postsId, accountId);
             List<MedicalDoctorPostsLike> likeList = medicalDoctorPostsLikeMapper.getMedicalDoctorPostsLikeList(postsId);

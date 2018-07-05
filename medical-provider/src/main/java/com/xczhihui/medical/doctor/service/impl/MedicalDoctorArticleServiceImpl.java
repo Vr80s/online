@@ -257,7 +257,6 @@ public class MedicalDoctorArticleServiceImpl implements IMedicalDoctorArticleSer
         MedicalDoctorPosts mdp = new MedicalDoctorPosts();
         mdp.setType(4);
         mdp.setDoctorId(doctorId);
-        mdp.setContent(oeBxsArticle.getContent());
         mdp.setArticleId(oeBxsArticle.getId());
         mdp.setArticleContent(oeBxsArticle.getContent());
         mdp.setArticleImgPath(oeBxsArticle.getImgPath());
