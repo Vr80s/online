@@ -636,6 +636,17 @@ p{
 	width: 4.29rem;
 	display: -webkit-box;
 	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 1;
+	overflow: hidden;
+	margin-top: 0.1rem;
+}
+.consilia_nav_cen_sizes{
+	font-size: 0.26rem;
+	color: #333333;
+	float: left;
+	width: 4.29rem;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
 	-webkit-line-clamp: 2;
 	overflow: hidden;
 	margin-top: 0.1rem;
