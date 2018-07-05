@@ -143,6 +143,12 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
             }
         }
 
+        mui("#refreshContainer").on('tap', '#replaybtn', function (event) {
+            $(".ccvideo_img").hide();    
+        });
+
+
+
         //判断简介的字长度
         var h = $(".essay_main").height();
         if (h > 200) {
