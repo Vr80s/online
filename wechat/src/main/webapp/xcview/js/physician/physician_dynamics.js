@@ -170,13 +170,16 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
             }
         });
 
+
+
+        
+
         var h = $(".consilia_nav_span .title").height();
         if (h > 50) {
             $(".consilia_nav_btn").show();
             $(".consilia_nav_span .title").addClass("consilia_nav_span_title");
             } else {
                 $(".consilia_nav_btn").hide();
-
         }
         // alert(h);
         // 点击文章收起
