@@ -434,15 +434,14 @@ $(".add_bx").click(function () {
                 return false;
             }
         }
-
         var imgPath = $('#imgPath_file').val();
-        if (!imgPath) {
+        if (null == imgPath || imgPath=="") {
             alertInfo("请上传图片");
             return false;
         }
 
         var name = $('#add_name').val();
-        if (!name) {
+        if (null == name || name=="") {
             alertInfo("请输入banner名称");
             return false;
         }
@@ -667,13 +666,13 @@ function checkEditForm() {
     }
 
     var imgPath = $('#update_imgPath').val();
-    if (!imgPath) {
+    if (null == imgPath || "" == imgPath) {
         alertInfo("请上传图片");
         return false;
     }
 
     var name = $('#update_name').val();
-    if (!name) {
+    if (null == name || "" == name) {
         alertInfo("请输入banner名称");
         return false;
     }
