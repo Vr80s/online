@@ -7,6 +7,7 @@ import java.util.List;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.xczhihui.medical.common.bean.PictureSpecification;
 
 /**
  * Description：医师动态表
@@ -170,6 +171,16 @@ public class MedicalDoctorPosts extends Model<MedicalDoctorPosts> {
      */
     @TableField(exist = false)
     private String dateStr;
+    /**
+     * 课程是否上架
+     */
+    @TableField(exist = false)
+    private Boolean courseStatus;
+    /**
+     * 图片
+     */
+    @TableField(exist = false)
+    private List<PictureSpecification> imgStr;
 
     @Override
     protected Serializable pkVal() {
@@ -414,6 +425,22 @@ public class MedicalDoctorPosts extends Model<MedicalDoctorPosts> {
 
     public void setDateStr(String dateStr) {
         this.dateStr = dateStr;
+    }
+
+    public Boolean getCourseStatus() {
+        return courseStatus;
+    }
+
+    public void setCourseStatus(Boolean courseStatus) {
+        this.courseStatus = courseStatus;
+    }
+
+    public List<PictureSpecification> getImgStr() {
+        return imgStr;
+    }
+
+    public void setImgStr(List<PictureSpecification> imgStr) {
+        this.imgStr = imgStr;
     }
 
     @Override
