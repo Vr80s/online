@@ -424,9 +424,9 @@
 								{{if item.type==2}}
 									<div class="save-photo-wrap">
 										<ul>
-											{{each item.pictures as picture}}
+											{{each item.imgStr as picture}}
 											<li>
-												<img src="{{picture}}" alt="日常生活照" />
+												<img src="{{picture.imgUrl}}" alt="日常生活照" />
 											</li>
 											{{/each}}
 										</ul>
@@ -443,10 +443,14 @@
 										
 									</div>
 								{{/if}}
-								<!--医案/文章/著作-->
+								<!--医案/专栏/文章/著作-->
 								{{if item.type==4}}
 									<div class="save-consilia-wrap">
+										{{if item.articleStatus==true}}
 										<a href="/headline/details/{{item.articleId}}" style="width: 100%;">
+										{{else}}
+										<a href="javascript:;" onclick="lowerText()" style="width: 100%;">
+										{{/if}}
 											<div class="consilia-img z">
 												<img src="{{item.articleImgPath}}" alt="文章_医案图片" />
 											</div>

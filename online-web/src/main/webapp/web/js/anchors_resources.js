@@ -769,14 +769,19 @@ template.config("escape", false);
         }, function (data) {
         	if(data.success==true){
         		var posts=data.resultObject.records;
+        		
         		if(isBlank(posts)){
         			$(".banner-dongtai").removeClass("hide");
         		}else{
         			$(".banner-dongtai").addClass("hide");
         			for(var i=0;i<posts.length;i++){
-        				if(!isBlank(posts[i].pictures)){
-        					posts[i].pictures=posts[i].pictures.split(",");
-        				}
+//						处理图片
+						if(posts[i].imgStr!=null){
+							for(var j=0; j<posts[i].imgStr.length;j++){
+								posts[i].imgStr[j].imgUrl=posts[i].imgStr[j].imgUrl+"?"+"imageMogr2/thumbnail/!300x300r"+"|"+"imageMogr2/gravity/Center/crop/300x300"
+							}
+
+						}							
 //      				给点赞加个字段
         				posts[i].postsLikes="";
         				var fabulous= "";
@@ -1128,7 +1133,7 @@ template.config("escape", false);
 
 
 	    	}else{
-	    		showTip("获取动态列表失败")
+	    		showTip("获取列表失败")
 	    	}
 	      
 	    })
@@ -2781,7 +2786,7 @@ function echoMedia(index) {
 					$(".file-percent").html("已上传"+0+"%");   //成功后清零
 					$(".total-size").html(0+"MB"+"/"+0+"MB")  //成功后清零
 					
-					saveVideo=$("#video-up").val();
+					saveVideo=$("#video-up").val().slice(12);
 					$(".saveUrl").html(saveVideo)
 					uploadfinished = true;
 					//alert('上传完成!');
@@ -2888,6 +2893,10 @@ function echoMedia(index) {
 		$(".result-list table").addClass("hide");	//隐藏底下搜索到的列表
 			$(".consilia-result").addClass("hide");     //隐藏搜索条数
 			$(".result-list table .select-text img").remove();    //清空勾选搜索到的列表
+	}
+//	专辑下架不跳转给出提示
+	function lowerText(){
+		showTip("该内容下架")
 	}
 //  课程下架不跳转给出提示
 	function lowerFrame(){
