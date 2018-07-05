@@ -25,12 +25,6 @@ public class EmailUtil {
     public static final String TOUSER2 = "account@ixincheng.com";
     public static final String MODIFYLOGINNAMETOUSER = "yuruixin@ixincheng.com";
     public static Properties pro = new Properties();
-    public static final String SMTP = getValue("email.host");
-    public static final String USERNAME = getValue("email.user");
-    public static final String PASSWORD = getValue("email.password");
-    public static final String ENV = getValue("env.flag");
-    private static Logger logger = LoggerFactory.getLogger(EmailUtil.class);
-
     static {
         try {
             InputStream in = EmailUtil.class.getResource("/config.properties").openStream();
@@ -40,6 +34,12 @@ public class EmailUtil {
             e.printStackTrace();
         }
     }
+    public static final String SMTP = getValue("email.host");
+    public static final String USERNAME = getValue("email.user");
+    public static final String PASSWORD = getValue("email.password");
+    public static final String ENV = getValue("env.flag");
+
+    private static Logger logger = LoggerFactory.getLogger(EmailUtil.class);
 
     public static void sendExceptionMailBySSL(String server, String subject, String content) {
         if (ENV != null) {
