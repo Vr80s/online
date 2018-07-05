@@ -73,11 +73,6 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
                 }
                 obj[i].likes = likes.substr(0,likes.length-1);
             }
-            //封装图片
-            if(obj[i].pictures!=null&&obj[i].pictures!=""){
-                var pics=obj[i].pictures.split(",");
-                obj[i].pics=pics;
-            }
             //过滤文章内容标签
             if(obj[i].articleId!==null && obj[i].articleId!==""){
                 obj[i].articleContent = obj[i].articleContent.replace(/<.*?>/ig,"");
@@ -298,6 +293,17 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
         mui("#refreshContainer").on('tap', '.consilia_nav_cen', function (event) {
             var itemId = $(this).attr("data-id");
             location.href = "/xcview/html/physician/consilia.html?articleId=" + itemId;
+        });
+        //点击视频播放/暂停
+        mui("#refreshContainer").on('tap', '.ccvideo', function (event) {
+            var ccId = $(this).find("video").attr("id");
+            var oReplay = document.getElementById(ccId);
+            if (oReplay.paused){
+                oReplay.play();
+            }
+            else{
+                oReplay.pause();
+            }
         });
     });
 }
