@@ -163,7 +163,7 @@
                         <div class="general_border"></div>
                         <!-- 招生简章结束 -->
                         {{if !enrolled}}
-                        <div class="apply" onclick="location.href='apply.html?merId={{id}}'">我也要报名</div>
+                        <div class="apply" onclick="apply()">我也要报名</div>
                         {{else}}
                         <div class="apply" onclick="location.href ='information_registration.html?merId={{id}}'">
                             已报名，查看报名信息
@@ -216,6 +216,12 @@
                 if (hashName !== '') {
                     var hash = window.location.hash;
                     if (hash === '') {
+                    	
+                    	var back = document.referrer;
+                    	if(isNotBlank(back) && back.indexOf("home_page.html") != -1){
+                            window.location.href = "/xcview/html/home_page.html";
+                            return;
+                        }
                         location.href = '/xcview/html/apprentice/apprentice.html'
                         /*跳转链接*/
                     }

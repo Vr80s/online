@@ -1,5 +1,7 @@
 package com.xczh.consumer.market.controller.medical;
 
+import java.util.Optional;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +38,9 @@ public class EnrolController {
     }
 
     @RequestMapping(value = "enrollmentRegulations/{id}", method = RequestMethod.GET)
-    public ResponseObject enrollmentRegulations(@Account String accountId, @PathVariable int id) {
-        return ResponseObject.newSuccessResponseObject(enrolService.getMedicalEnrollmentRegulationsById(id, accountId));
+    public ResponseObject enrollmentRegulations(@Account(optional = true) Optional<String> accountIdOpt, @PathVariable int id) {
+        String userId = accountIdOpt.isPresent() ? accountIdOpt.get():null;
+        return ResponseObject.newSuccessResponseObject(enrolService.getMedicalEnrollmentRegulationsById(id, userId));
     }
 
     @RequestMapping(value = "enrollmentRegulations/{id}/cardInfo", method = RequestMethod.GET)
