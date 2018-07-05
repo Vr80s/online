@@ -364,11 +364,11 @@
 						{{/if}}
 						<span class="span_span{{item.id}}"></span>
 					</div>
-					{{if item.pictures !=null && item.pics.length>0}}
+					{{if item.imgStr !=null && item.imgStr.length>0}}
 					<div class="paper_nav_cen_div">
 						<div class="paper_nav_cen comment_hide">
-							{{each item.pics as pic }}
-							<img src="{{pic}}" alt="" />
+							{{each item.imgStr as pic }}
+							<img src="{{pic.imgUrl}}" alt="" />
 							{{/each}}
 							<div class="both"></div>
 						</div>
