@@ -18,7 +18,6 @@ $(function () {
     //	       	}
     //	       }
     //	    });
-
     //定位之前点击过的位置
     setTimeout(function () {
     	if (localStorage.docTblSta == 'doc_dynamic') $('.select_list li:first-child').click();
@@ -380,6 +379,8 @@ var activityType;
 		return true;
 	}
 //	获取参数值
+	var naturalWidth=[],
+		naturalHeight=[];
 	function getPostData(){
 		var data = {};
 		data.type = activityType;
@@ -387,10 +388,10 @@ var activityType;
 		data.title = $.trim($(".video-title input").val());
 		data.coverImg = $(".video-cover-pic img").attr("src");	
 		var imgs = [];
-		$(".save-photo ul li .insertImg").each(function(){
-			imgs.push($(this).attr("src"));
+		$(".save-photo ul li .insertImg").each(function(index){
+			imgs.push($(this).attr("src")+"?"+"w"+"="+naturalWidth[index]+"&"+"h"+"="+naturalHeight[index]);
 		})
-		data.pictures = imgs.join(",");
+		data.pictures = imgs.join("@#$%&*!");
 		data.video = $("#ccId").val();
 	//	专栏文章
 		data.articleId=$(".result-list .select-text img").parent().attr("data-id");
@@ -398,12 +399,15 @@ var activityType;
 	}
 //	点击发布动态
 	$(".btn-deliver").click(function(){	
+			getPicter();
 		var post = getPostData();
 		if(checkContent(post)){	
+			
 			$(".btn-deliver").attr("disabled","disabled");
 		 	post.type = activityType;
 			RequestService("/doctor/posts", "post", post , function (data) {
 	        	if(data.success==true){
+	        		
 	        		showTip("发布成功");
 	        		$(".btn-deliver").removeAttr("disabled");
 	        		newsList(1,getAnchorsId);
@@ -412,12 +416,37 @@ var activityType;
 	        		closeVideo();		//关闭视频并重置
 	        		clearTextarea();	//清空顶部动态文本       		
 	        		clearConsilia();	//清空文章  
-	        		
+	        		activityTabClass(); //动态tab颜色
+	        					//获取图片宽高
 	        	}
 	        })
 	
 		}
 	})
+//	获取图片宽、高
+	function getPicter(){		
+		$('.insertImg').each(function(index){
+				naturalWidth[index] = $(this)[0].naturalWidth;
+   				naturalHeight[index] = $(this)[0].naturalHeight;
+// 				
+		})
+	}
+
+//  视频/图片/医案tab颜色变化
+	function activityTabClass(){
+		if($(".photo-wrap").hasClass("hide")==true && $(".video-wrap").hasClass("hide")==true && $(".consilia-wrap").hasClass("hide")==true){
+		    $(".activity-nav li").removeClass("active");
+		}else if($(".photo-wrap").hasClass("hide")==false && $(".video-wrap").hasClass("hide")==true && $(".consilia-wrap").hasClass("hide")==true){
+		    $(".activity-nav li").removeClass("active");
+		    $(".activity-nav li:first").addClass("active");
+		}else if($(".photo-wrap").hasClass("hide")==true && $(".video-wrap").hasClass("hide")==false && $(".consilia-wrap").hasClass("hide")==true){
+		    $(".activity-nav li").removeClass("active");
+		    $(".activity-nav li:nth-child(2)").addClass("active");
+		}else if($(".photo-wrap").hasClass("hide")==true && $(".video-wrap").hasClass("hide")==true && $(".consilia-wrap").hasClass("hide")==false){
+		    $(".activity-nav li").removeClass("active");
+		    $(".activity-nav li:nth-child(3)").addClass("active");
+		}
+	}
 
 //	点击图片
     $(".open-photo").click(function(){
@@ -425,6 +454,7 @@ var activityType;
     	if($(".video-wrap").hasClass("hide")==false){
       		comfirmBox.open("标题","确定放弃视频编辑吗？",function(closefn){
       			$('#photo_picIpt').click();
+      			$(".activity-nav li").removeClass("active");
       			closeVideo();
 				closefn();
 				clearTextarea()   //清空发布状态
@@ -433,6 +463,7 @@ var activityType;
     	}else if($(".consilia-wrap").hasClass("hide")==false){
     		comfirmBox.open("标题","确定放弃医案编辑吗？",function(closefn){
     			$('#photo_picIpt').click();
+    			$(".activity-nav li").removeClass("active");
     			closeConsilia();
     			closefn();
     			clearTextarea()   //清空发布状态
@@ -441,6 +472,7 @@ var activityType;
     	}else{
     		$('#photo_picIpt').click();
     	}
+
     })
 //	点击视频
 	$(".vedio-nav").click(function(){
@@ -449,18 +481,22 @@ var activityType;
     		comfirmBox.open("标题","确定放弃图片编辑吗？",function(closefn){
     			closeImages();
     			$(".video-wrap").removeClass("hide");
+    			activityTabClass();
 				closefn();
 				clearTextarea()   //清空发布状态
 			});
     	}else if($(".consilia-wrap").hasClass("hide")==false){
     		comfirmBox.open("标题","确定放弃医案编辑吗？",function(closefn){
 				closeConsilia()
+				
 				$(".video-wrap").removeClass("hide");
+				activityTabClass()
 				closefn();
 				clearTextarea()   //清空发布状态
 			});
     	}else{
     			$(".video-wrap").removeClass("hide");
+    			activityTabClass()
 //				$(".video-title input").val("");
     	}
 })
@@ -471,7 +507,9 @@ var activityType;
 		if($(".photo-wrap").hasClass("hide")==false){
 	    		comfirmBox.open("标题","确定放弃视频图片吗？",function(closefn){
 	    			closeImages();
+	    			
 	    			$(".consilia-wrap").removeClass("hide");
+	    			activityTabClass()
 					closefn();
 					clearConsilia();  //清空文章
 					clearTextarea()   //清空发布状态
@@ -479,13 +517,16 @@ var activityType;
 	    	}else if($(".video-wrap").hasClass("hide")==false){
 	    		comfirmBox.open("标题","确定放弃视频编辑吗？",function(closefn){
 	      			closeVideo();
+	      			
 	      			$(".consilia-wrap").removeClass("hide");
+	      			activityTabClass()
 					clearConsilia();  //清空文章
 					closefn();
 					clearTextarea()   //清空发布状态
 				});
 	    	}else{
 	    			$(".consilia-wrap").removeClass("hide");
+	    			activityTabClass()
 	
 	    	}
 	})  
@@ -493,16 +534,20 @@ var activityType;
 //  关闭图片
 	$(".photo-number img").click(function(){
 		closeImages();
+		activityTabClass();
 	})
 //	关闭视频
 	$(".close-video").click(function(){
 		closeVideo();
+		activityTabClass();
 	})
 //	关闭医案
 	$(".close-consilia").click(function(){
-		closeConsilia()
+		closeConsilia();
+		activityTabClass();
 	})
 
+	
 
 //	上传动态图片
     function activityUpPhoto(baseurl, imgname) {
@@ -516,6 +561,8 @@ var activityType;
 				'</li>';
 				$('.save-photo ul').append(addPhoto); 
 				photoNumber();
+				activityTabClass();
+				
         })
     }
     $('#photo_picIpt').on('change', function () {
@@ -558,6 +605,8 @@ var activityType;
 		$(this).parent().remove();
 		if($(".save-photo ul li").length==0){
 			closeImages();
+			activityTabClass();
+
 		}
 		photoNumber()
 	})
@@ -608,12 +657,16 @@ var activityType;
 			$(".consilia-search-wrap input").attr("placeholder","搜索专栏标题").val("");
 
 		}else if(typeId==7){
-			$(".consilia-search-wrap input").attr("placeholder","添加媒体报道标题").val("");
+			$(".consilia-search-wrap input").attr("placeholder","搜索媒体报道标题").val("");
 
-		}		
+		}else if(typeId==9){
+			$(".consilia-search-wrap input").attr("placeholder","搜索著作标题").val("");
+
+		}			
 	}
 	$(".consilia-status-nav li").removeClass("active");
 	$(this).addClass("active");
+
 	$(".search-input img").click();
 	
 });
@@ -702,6 +755,7 @@ var activityType;
 }
 
 template.config("escape", false);
+
 //	动态列表	
 	function newsList(pages,getAnchorsId){
 	 RequestService("/doctor/posts", "GET", {
@@ -2638,6 +2692,10 @@ function echoMedia(index) {
 		$("#continueUpload").hide();
 		$('.progress-resource').css({"width": "0%"})
 		$(".resource_uploading").show();
+		$(".up-success").addClass("hide")    	//显示条出来后隐藏
+		$("#video-up").css({"display":"none"})	//显示条出来后隐藏
+		$(".saveUrl").addClass("hide");			//显示条出来后隐藏
+		$(".againUp").addClass("hide")//		成功后显示
 		videoFinsh=1;
 		$(".video-null").addClass("hide");
 		//获取文件md5
@@ -2648,6 +2706,7 @@ function echoMedia(index) {
 		});
 	}
 //视频上传
+	var saveVideo;
 	function xmx(begin, first, filemd5, ccid, metaurl, chunkUrl) {
 		var obj_file = document.getElementById("video-up").files[0];
 		chunkSize = 2097152; //2M
@@ -2688,6 +2747,11 @@ function echoMedia(index) {
 				$('.progress-resource').css({
 					"width": completion + "%"
 				})
+				$(".file-percent").html("已上传"+completion.toFixed(1)+"%");
+				var allNumber=totalSize/(1024*1024);
+				var midwayNumber=completion/100*allNumber;
+				$(".total-size").html(midwayNumber.toFixed(1)+"MB"+"/"+allNumber.toFixed(1)+"MB")
+				
 				start = end; // 累计上传字节数
 				end = start + chunkSize; // 由上次完成的部分字节开始，添加下次上传的字节数
 				localStorage.setItem("startChunkSize", start);
@@ -2701,10 +2765,19 @@ function echoMedia(index) {
 					$(".video-null").addClass("hide");
 					$("#ccId").val(result.resultObject[0]);
 					$(".resource_uploading").hide();
+					$(".up-success").removeClass("hide")    //上传成功后显示
+					$(".saveUrl").removeClass("hide");//	成功后显示
+					$(".againUp").removeClass("hide")//		成功后显示
+					//显示条出来后隐藏
+					$(".file-percent").html("已上传"+0+"%");   //成功后清零
+					$(".total-size").html(0+"MB"+"/"+0+"MB")  //成功后清零
+					
+					saveVideo=$("#video-up").val();
+					$(".saveUrl").html(saveVideo)
 					uploadfinished = true;
 					//alert('上传完成!');
 					//告诉后台上传完成后合并文件                            //返回上传文件的存放路径
-					$("#video-up").css({"display":"block"})
+//					$("#video-up").css({"display":"block"})
 	//	
 				} else {
 					xmx(start, "2", "", ccid, metaurl, chunkUrl); // 上传字节不等与或大于总字节数，继续上传
@@ -2746,7 +2819,8 @@ function echoMedia(index) {
 		$('.progress-resource').css({
 			"width": "0%"
 		})
-	
+		$(".file-percent").html("已上传"+0+"%");   //取消后清零
+		$(".total-size").html(0+"MB"+"/"+0+"MB")  //取消后清零
 		$(".uploading").hide();
 		$(".resource_uploading").hide();
 	}
@@ -2759,16 +2833,29 @@ function echoMedia(index) {
 		var fileMd5 = localStorage.getItem("fileMD5");
 		xmx(parseInt(start), "2", "", ccid, metaurl, chunkUrl);
 	}
+//	file点击取消时去掉成功样式
+	$("#video-up").on("change",function(){
+		if($(this).val() == ""){
+			$("#video-up").val(saveVideo);
+		}
+	})
+//	重新上传
+	$(".againUp").click(function(){
+		$("#video-up").click();
+	})
 //重置状态，关闭图片，视频，文章等
 	function closeImages(){
 		$(".save-photo ul").html("");
-		$(".photo-wrap").addClass("hide");
+		$(".photo-wrap").addClass("hide");		
 	}
 	function closeVideo(){
 		$(".video-cover-pic").html(defaultPicter);
 		$(".video-wrap").addClass("hide");
 		$(".video-title input").val("");
 		$(".video-cover input").val("");
+
+		$(".up-success").addClass("hide");//	关闭视频隐藏
+		$(".saveUrl").addClass("hide");//	关闭视频隐藏
 //		重置视频
         $(".uploadfinish").hide();
         $(".updataSuccess").hide();
@@ -2790,6 +2877,12 @@ function echoMedia(index) {
 			$(".consilia-result").addClass("hide");     //隐藏搜索条数
 			$(".result-list table .select-text img").remove();    //清空勾选搜索到的列表
 	}
+//  课程下架不跳转给出提示
+	function lowerFrame(){
+		showTip("该内容下架")
+	}
+
+
 
 //轮播图设置====================
 var resetInputVal='<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>'+

@@ -281,12 +281,12 @@ public class MobileShareController {
                 //文章分享
             } else if (ShareType.ACTICLE_SHARE.getCode().equals(shareType)) {
 
-                res.sendRedirect(returnOpenidUri + WechatShareLinkType.ACTICLE_SHARE.getLink());
+                res.sendRedirect(returnOpenidUri + WechatShareLinkType.ACTICLE_SHARE.getLink()+ shareId);
 
                 //医案分享
             } else if (ShareType.MEDICAL_CASES.getCode().equals(shareType)) {
 
-                res.sendRedirect(returnOpenidUri + WechatShareLinkType.MEDICAL_CASES.getLink());
+                res.sendRedirect(returnOpenidUri + WechatShareLinkType.MEDICAL_CASES.getLink()+ shareId);
             }
         } catch (Exception e) {
             e.printStackTrace();

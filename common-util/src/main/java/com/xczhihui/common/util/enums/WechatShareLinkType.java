@@ -34,11 +34,11 @@ public enum WechatShareLinkType {
 
     UNSHELVE("/xcview/html/unshelve.html", "课程下架页面"),
     LIVE_PERSONAL("/xcview/html/live_personal.html?shareBack=1&userLecturerId=", "主播"),
-    APPRENTICE("/xcview/html/apprentice/inherited_introduction.html?merId=", "师承"),
+    APPRENTICE("/xcview/html/apprentice/inherited_introduction.html?shareBack=1&merId=", "师承"),
 
-    DOCDOT_SHARE("/xcview/html/physician/physicians_page.html?doctor=", "医师页面"),
-    ACTICLE_SHARE("/xcview/html/physician/article.html?articleId=", "文章"),
-    MEDICAL_CASES("/xcview/html/physician/consilia.html?articleId=", "医案");
+    DOCDOT_SHARE("/xcview/html/physician/physicians_page.html?shareBack=1&doctor=", "医师页面"),
+    ACTICLE_SHARE("/xcview/html/physician/article.html?shareBack=1&articleId=", "文章"),
+    MEDICAL_CASES("/xcview/html/physician/consilia.html?shareBack=1&articleId=", "医案");
     /**
      * 描述
      **/

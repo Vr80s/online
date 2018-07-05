@@ -230,7 +230,7 @@
 								<p>收徒设置</p>
 							</div>
 						</li>-->
-						<li class="setTop" id="nav-colume" data-name="doc_zhuanlan"><i class="icomoon-icon-zhuanlan left_range"></i><span>专栏医案</span></li>
+						<li class="setTop" id="nav-colume" data-name="doc_zhuanlan"><i class="icomoon-icon-zhuanlan left_range"></i><span>医案专栏</span></li>
 						<li class="setTop" id="nav-work" data-name="doc_book"><i class="icomoon-icon-zhuzuo left_range"></i><span>著作</span></li>
 						<li class="setTop" id="nav-media" data-name="doc_media"><i class="icomoon-icon-meiti left_range"></i><span>媒体报道</span></li>
 						<li class="setTop" data-name="doc_admit"><i class="icomoon-icon-yishirenzheng left_range"></i><span>医师认证</span></li>
@@ -250,18 +250,20 @@
 						<ul class="activity-nav">
 							<li>
 								<span class="open-photo" style="display: inline-block; height: 24px;">
-									<img src="/web/images/icon-photo.png" alt="图片" />
-									<p>图片</p>
+						
+									<i class="icomoon-icon-zhaopian"></i>
+									<!--<p>图片</p>-->
+									<span class="write-left">图片</span>
 								</span>
 								<input type="file" placeholder="请填写您的专栏标题" style="visibility: hidden;display: inline-block;width: 1px;" id="photo_picIpt" />
 							</li>
 							<li class="vedio-nav">
-								<img src="/web/images/icon-video.png" alt="视频" />
+								<i class="icomoon-icon-shipin" style="font-size: 19px;"></i>
 								<span class="write-left">视频</span>
 							</li>
 							<li class="consilia-nav">
-								<img src="/web/images/icon-text.png" alt="医案" />
-								<span class="write-left">医案</span>
+								<i class="icomoon-icon-yazhuanlan"></i>
+								<span class="write-left">医案文章</span>
 							</li>
 						</ul>
 						<div class="main-nav-box">
@@ -294,8 +296,12 @@
 									</span>
 									<!--<input type="file" placeholder="请填写您的专栏标题" style="visibility: hidden;display: inline-block;width: 1px;" id="video-up" />-->
 									<span class="video-prompt">请上传时长在15分钟以内的视频，请勿上传色情、反动等违规视频</span>
-									<form id="addResource">
-										<input id="video-up" style="display: none;margin-top: 20px;" type="file" value="点击上传资源" name="file" style="cursor:pointer;" onchange="uploadFile()" accept=".wmv,.wm,.asf,.asx,.rm,.rmvb,.ra,.ram,.mpg,.mpeg,.mpe,.vob,.dat,.mov,.3gp,.mp4,.mp4v,.m4v,.mkv,.avi,.flv,.f4v,.mts"/>
+									<form id="addResource" style="overflow: hidden;">
+										<input id="video-up" style="display: none;margin-top: 20px; float: left; color: #666666;" type="file" value="点击上传资源" name="file" style="cursor:pointer;" onchange="uploadFile()" accept=".wmv,.wm,.asf,.asx,.rm,.rmvb,.ra,.ram,.mpg,.mpeg,.mpe,.vob,.dat,.mov,.3gp,.mp4,.mp4v,.m4v,.mkv,.avi,.flv,.f4v,.mts"/>
+										<span class="saveUrl hide z" style="margin-top: 23px;"></span>
+										<span class="up-success hide z" style="margin-top: 23px;"><img style="margin: 2px 3px; float: left;" src="/web/images/right_15.png" alt="上传成功"/>资源上传成功</span>
+										<span class="againUp hide z" style="margin-top: 23px;"><img style="margin: 2px 3px; float: left;" src="/web/images/right_15.png" alt="上传成功"/>重新上传</span>
+									
 									</form>
 									<span class="comment-wrong video-null hide">视频不能为空！</span>
 									
@@ -309,6 +315,7 @@
 										</span>
 										<a id="cancalUpdata1" onclick="cancalUpdata1()" style="cursor:pointer;">取消上传</a>
 										<a id="continueUpload" onclick="continueUpload()" style="display:none;cursor:pointer;">继续上传</a>
+										<span class="file-percent" style="margin-right: 50px;color: #999999;">已上传0%</span><span class="total-size" style="color: #999999;">0MB/0MB</span>
 									</div>
 								
 								
@@ -344,6 +351,7 @@
 										<li class="add-consilia active" data-type = "8">添加医案</li>
 										<li data-type = "4">添加专栏</li>
 										<li data-type = "7">添加媒体报道</li>
+										<li data-type = "9">添加著作</li>
 									</ul>
 								</div>
 								<div class="consilia-search-wrap">
@@ -353,7 +361,7 @@
 										<input type="" name="" id="" value="" placeholder="搜索医案标题" />
 									</div>
 								</div>
-								<p class="consilia-result hide">共搜索出全部结果约 <span class="number-search"></span> 条</p>
+								<p class="consilia-result hide">全部结果约 <span class="number-search"></span> 条</p>
 								<p class="comment-wrong article-null hide">请至少选择一篇文章！</p>
 								<div class="result-list" style="max-height: 606px; overflow-y: auto;">
 									<table border="0" class="hide">
@@ -438,9 +446,7 @@
 								<!--医案/文章-->
 								{{if item.type==4}}
 									<div class="save-consilia-wrap">
-										{{if item.articleId != null}}
-												<a href="/headline/details/{{item.articleId}}" style="width: 100%;">
-										{{/if}}
+										<a href="/headline/details/{{item.articleId}}" style="width: 100%;">
 											<div class="consilia-img z">
 												<img src="{{item.articleImgPath}}" alt="文章_医案图片" />
 											</div>
@@ -454,9 +460,13 @@
 								<!--直播/线下课/线上课-->
 								{{if item.type==5}}
 								<div class="save-class-wrap">
+									{{if item.courseStatus==true}}
 									<a href="/courses/{{item.courseId}}/info" style="width: 100%;">
+									{{else}}
+									<a href="javascript:;" onclick="lowerFrame()" style="width: 100%;">
+									{{/if}}
 										<div class="class-img z">
-											<img src="/web/images/shanghai.jpg" alt="视频封面" />
+											<img src="{{item.smallImgPath}}" alt="课程封面" />
 										</div>
 										<div class="class-right-text y">
 											
@@ -726,6 +736,7 @@
 										{{/each}}
 									</script>
 								</select>-->
+								
 							</form>
 							<span style="margin: 0 20px 0;" class="banner-all-tip banner-error-link hide">请选择链接类型！</span>
 						
@@ -896,7 +907,7 @@
 				<!--医案专栏-->
 				<div class="select_box" id="zhuanlan">
 					<div class="zhuanlan_top">
-						<span class="title">专栏医案</span>
+						<span class="title">医案专栏</span>
 						<button class="changeStaBtn">发布</button>
 					</div>
 					<!--选择发布专栏类型-->
