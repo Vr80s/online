@@ -10,6 +10,9 @@ $(function() {
     /** 职业课列表begin */
     var searchCase_P = new Array();
     searchCase_P.push('{"tempMatchType":"9","propertyName":"search_service_type","propertyValue1":"0","tempType":"String"}');
+    
+  //默认查认证的
+    searchCase_P.push('{"tempMatchType":"9","propertyName":"search_status","propertyValue1":"1","tempType":"undefined"}');
     // searchCase_P.push('{"tempMatchType":undefined,"propertyName":"type","propertyValue1":"' + $("#type").val() + '","tempType":undefined}');
     var checkbox = '<input type="checkbox" class="ace" onclick="chooseAll(this)" /> <span class="lbl"></span>';
     var objData = [{

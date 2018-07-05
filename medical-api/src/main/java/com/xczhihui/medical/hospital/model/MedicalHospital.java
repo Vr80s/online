@@ -148,6 +148,15 @@ public class MedicalHospital extends Model<MedicalHospital> {
      */
     @TableField("head_portrait")
     private String headPortrait;
+    
+    
+    /**
+     * 更新人id
+     */
+    @TableField("sort_update_time")
+    private String sortUpdateTime;
+
+
 
     /**
      * 联系人名称
@@ -442,6 +451,15 @@ public class MedicalHospital extends Model<MedicalHospital> {
 
     public void setVersionPictures(String versionPictures) {
         this.versionPictures = versionPictures;
+    }
+
+    
+    public String getSortUpdateTime() {
+        return sortUpdateTime;
+    }
+
+    public void setSortUpdateTime(String sortUpdateTime) {
+        this.sortUpdateTime = sortUpdateTime;
     }
 
     @Override
