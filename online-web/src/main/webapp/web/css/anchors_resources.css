@@ -289,10 +289,12 @@ outline: none;
 	cursor: pointer;
 	font-size: 16px;
 	margin-bottom: 0;
+	    padding: 6px;
+    background: #00bc12;
+    border-radius: 4px;
+    color: white;
 }
-.video-btn p:hover{
-	color: #00bc12;
-}
+
 .close-video{
 	position: absolute;
 	right: 20px;
@@ -322,7 +324,7 @@ outline: none;
 	position: absolute;
 	top: 0;
 	width: 80px;
-	left: 420px;
+	left: 490px;
 }
 /*视频上传结束*/
 .video-title input{
@@ -2184,6 +2186,9 @@ outline: none;
     box-sizing: border-box;
 	
 }
+#preview .preview_bottom img{
+	max-width: 400px;
+}
 #preview .preview_bottom > table  tr > td:nth-child(2){
 	padding-left: 20px;
 
@@ -2225,6 +2230,10 @@ outline: none;
 .work-preview-table tr td{
 	padding: 20px 0;
 	vertical-align: top;
+}
+.work-preview-table tr td img{
+	max-width: 400px;
+	/*max-height: 200px;*/
 }
 .work-preview-table tr td:nth-child(2){
 	vertical-align: top;

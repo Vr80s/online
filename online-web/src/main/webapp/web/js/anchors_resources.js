@@ -1,7 +1,15 @@
 var getAnchorsId;
 $(function () {
 	
- 	
+ 		RequestService("/medical/common/getDoctorByUserId", "get", null, function (data) {
+        	if (data.success==true) {
+        		getAnchorsId=data.resultObject.doctorId
+        		newsList(1,getAnchorsId);
+        	} else{
+        		showTip("获取医师ID失败");
+        	}
+        },false);
+        
     $("#docOrHos").css({"color": "#2cb82c"})
     //	确定,取消弹窗初始化
     comfirmBox.init();
@@ -29,16 +37,9 @@ $(function () {
         if (localStorage.docTblSta == 'doc_media') $('.select_list li:nth-child(6)').click();
         if (localStorage.docTblSta == 'doc_admit') $('.select_list li:nth-child(7)').click();
     }, 100)
-$('.select_list li:first-child').click(function(){
-	RequestService("/medical/common/getDoctorByUserId", "get", null, function (data) {
-        	if (data.success==true) {
-        		getAnchorsId=data.resultObject.doctorId
-        		newsList(1,getAnchorsId);
-        	} else{
-        		showTip("获取医师ID失败");
-        	}
-        });
-});
+
+
+
     //重新认证按钮
     $('#doc_Distinguish ').on("click", ".renzhengAgain", function () {
         localStorage.AutStatus = "AutAgain";
@@ -338,7 +339,7 @@ var activityType;
 	//	视频动态
 		}else if($(".photo-wrap").hasClass("hide")==true && $(".video-wrap").hasClass("hide")==false && $(".consilia-wrap").hasClass("hide")==true){
 	//		视频videoFinsh
-			if(isBlank($("#video-up").val())){
+			if(isBlank(saveVideoId)){
 				$(".video-null").removeClass("hide");
 				return false;			
 			}else if(videoFinsh==1){
@@ -392,7 +393,8 @@ var activityType;
 			imgs.push($(this).attr("src")+"?"+"w"+"="+naturalWidth[index]+"&"+"h"+"="+naturalHeight[index]);
 		})
 		data.pictures = imgs.join("@#$%&*!");
-		data.video = $("#ccId").val();
+		data.video = saveVideoId;
+		
 	//	专栏文章
 		data.articleId=$(".result-list .select-text img").parent().attr("data-id");
 		return data;
@@ -417,7 +419,9 @@ var activityType;
 	        		clearTextarea();	//清空顶部动态文本       		
 	        		clearConsilia();	//清空文章  
 	        		activityTabClass(); //动态tab颜色
-	        					//获取图片宽高
+	        		saveVideoId="";    	//清空视频Id
+	        	}else{
+	        		$(".btn-deliver").removeAttr("disabled");
 	        	}
 	        })
 	
@@ -723,7 +727,7 @@ var activityType;
         if ($(this).height() > 96) {
             $(this).attr("data-txt", $(this).attr("data-text"));
             $(this).height(96);
-            $(this).append('<span class="qq" style="margin-right:60px"> <a class="toggle" href="###" style="color:#2cb82c"><span class="opens" style="font-size:16px;">阅读全文<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></span><span class="closes">收起<span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span></span></a></span>');
+            $(this).append('<span class="qq" style="margin-right:60px"> <a class="toggle" href="###" style="color:#2cb82c"><span class="opens" style="font-size:16px;">展开<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></span><span class="closes">收起<span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span></span></a></span>');
         }
         var $dot4 = $(this);
 
@@ -782,7 +786,8 @@ template.config("escape", false);
 		        				}
 		        				
 	        				}
-        				    posts[i].postsLikes=fabulous.substr(0,fabulous.length-1);;       				    
+        				    posts[i].postsLikes=fabulous.substr(0,fabulous.length-1);;  
+        				    
         			}
         			
         		}
@@ -1850,6 +1855,7 @@ template.config("escape", false);
                         $("#nav-work").click();
                         workList(1);
                     } else {
+                    	$(".work-save-publish").removeAttr("disabled");
                         showTip("保存失败");
                     }
                 }
@@ -2130,6 +2136,7 @@ template.config("escape", false);
                         mediaList(1);
                     } else {
                         showTip("保存失败");
+                        $(".media-save-publish").removeAttr("disabled");
                     }
                 }
             });
@@ -2684,7 +2691,7 @@ function echoMedia(index) {
 	function uploadFile() {		
 		var filemd5 = "";
 		var obj_file = document.getElementById("video-up").files[0];
-		var filepath = $("#video-up").val();
+		var filepath = $("#video-up").val();		
 		//判断文件类型
 		if(!isAccord(filepath)) {
 			return false;
@@ -2707,6 +2714,7 @@ function echoMedia(index) {
 	}
 //视频上传
 	var saveVideo;
+	var saveVideoId;
 	function xmx(begin, first, filemd5, ccid, metaurl, chunkUrl) {
 		var obj_file = document.getElementById("video-up").files[0];
 		chunkSize = 2097152; //2M
@@ -2764,6 +2772,7 @@ function echoMedia(index) {
 					videoFinsh=2;
 					$(".video-null").addClass("hide");
 					$("#ccId").val(result.resultObject[0]);
+					saveVideoId=result.resultObject[0];    //保存下载成功后的ID（资源）
 					$(".resource_uploading").hide();
 					$(".up-success").removeClass("hide")    //上传成功后显示
 					$(".saveUrl").removeClass("hide");//	成功后显示
@@ -2823,6 +2832,8 @@ function echoMedia(index) {
 		$(".total-size").html(0+"MB"+"/"+0+"MB")  //取消后清零
 		$(".uploading").hide();
 		$(".resource_uploading").hide();
+		videoFinsh=2;		// 校验为2是让它在取消时充值提示
+		saveVideoId="";    //取消上传后要把视频ID设为空
 	}
 	function continueUpload() {
 		$("#continueUpload").hide();
@@ -2833,16 +2844,13 @@ function echoMedia(index) {
 		var fileMd5 = localStorage.getItem("fileMD5");
 		xmx(parseInt(start), "2", "", ccid, metaurl, chunkUrl);
 	}
-//	file点击取消时去掉成功样式
-	$("#video-up").on("change",function(){
-		if($(this).val() == ""){
-			$("#video-up").val(saveVideo);
-		}
-	})
+
 //	重新上传
 	$(".againUp").click(function(){
 		$("#video-up").click();
 	})
+	//	file点击取消时去掉成功样式
+	
 //重置状态，关闭图片，视频，文章等
 	function closeImages(){
 		$(".save-photo ul").html("");
@@ -2854,8 +2862,12 @@ function echoMedia(index) {
 		$(".video-title input").val("");
 		$(".video-cover input").val("");
 
-		$(".up-success").addClass("hide");//	关闭视频隐藏
-		$(".saveUrl").addClass("hide");//	关闭视频隐藏
+		$(".up-success").addClass("hide");//	关闭视频隐藏 成功提示
+		$(".saveUrl").addClass("hide");//	关闭视频隐藏 上传路径
+		$(".againUp").addClass("hide");//	关闭视频隐藏  重新上传
+		videoFinsh=2;		// 校验为2是让它在关闭时充值提示
+		saveVideoId="";    //关闭视频后要把视频ID设为空
+
 //		重置视频
         $(".uploadfinish").hide();
         $(".updataSuccess").hide();
