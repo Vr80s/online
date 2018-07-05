@@ -142,7 +142,19 @@ outline: none;
 .submenu .mune-active{
 	color: #00BC12;
 }
-
+.link .news-prompt{
+	background-color: #F97B49;
+    height: 20px;
+    padding: 0px 6px;
+    border-radius: 10px 10px 10px 10px;
+    position: absolute;
+    color: white;
+    font-style: normal;
+    line-height: 20px;
+    right: 90px;
+    top: 20px;
+    font-size: 12px;
+}
 /*学习中心*/
 #right-content .content{
 	background: white;

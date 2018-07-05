@@ -1139,10 +1139,15 @@ RequestService("/message/count", "get",null, function (data) {
 			if(data.resultObject==0){
 				$(".mune-news .news-tip").addClass("hide");
 				$(".sign-read").addClass("hide");
+//				nav左侧的消息提醒
+				$(".link .news-prompt").addClass("hide");
 			}else{
 				$(".mune-news .news-tip").removeClass("hide");
 				$(".mune-news .news-tip").html(numberAll);
 				$(".sign-read").removeClass("hide");
+//				nav左侧的消息提醒
+				$(".link .news-prompt").removeClass("hide");
+				$(".link .news-prompt").html(numberAll);
 			}
 		}else{
 			showTip("消息获取失败")

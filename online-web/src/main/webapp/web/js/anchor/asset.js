@@ -197,10 +197,12 @@ function getBankCardList() {
 		if(data.resultObject.length == 0 || !data.resultObject) {
 			$('.content_Administration .Card_Administration').addClass('hide')
 			$('#noBankCard').removeClass('hide');
+			$(".chooseCard").addClass("hide");
 			//			$('.content_Administration').html('<div style="padding-top:40px;text-align:center"><img src="/web/images/nobank.png" alt="" /><p style="font-size:16px;color:#999;margin-top:35px">暂无银行卡</p></div>');
 		} else {
 			$('#noBankCard').addClass('hide');
-			$('.content_Administration .Card_Administration').removeClass('hide')
+			$('.content_Administration .Card_Administration').removeClass('hide');
+			$(".chooseCard").removeClass("hide");
 		}
 
 		//提现中的银行卡点击选中效果
