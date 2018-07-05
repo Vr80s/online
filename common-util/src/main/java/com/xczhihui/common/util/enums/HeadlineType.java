@@ -16,7 +16,8 @@ public enum HeadlineType {
     ZDFG("5", "制度法规"),
     HWZX("6", "海外资讯"),
     MYBD("7", "名医报道"),
-    YA("8", "医案");
+    YA("8", "医案"),
+    ZZ("9", "著作");
 
     private String text;
     private String code;

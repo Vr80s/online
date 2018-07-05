@@ -218,6 +218,7 @@
 		margin-left: 0;
 	    width: 6.15rem;
 	}
+	
 </style>
 
 </head>
@@ -244,7 +245,8 @@
 			</div>
 		</div>
 		<!-- 头部结束 -->
-		<div class="swiper-container top_swiper" >
+		<div class="swiper-container top_swiper">
+			<img src="/xcview/images/physician.png" class="physician_img0" style="width: 7.5rem;" />
 			<div class="swiper-wrapper">
 				{{each items.banners as item i}}
 				<div class="swiper-slide pic01" onclick="sowingDetails('{{item.url}}')">
@@ -309,6 +311,10 @@
 				<div class="border" style="left: 1.04rem;"></div>
 				<div class="dynamic_opacity"></div>
 			</ul>
+			<div class="baseImagenumbers" style="display: none;">
+				<img src="/xcview/images/no_deal.png" />
+				<p>该医师暂未发布动态...</p>
+			</div>
 		</div>
 		<!-- 选项卡结束 -->
 
@@ -352,12 +358,11 @@
 				{{else if item.type == 2}}
 				<!-- 动态图片-->
 				<div class="trends_hide">
-					<div class="paper_nav_span comment_hide">
+					<div class="paper_nav_span comment_hide" >
 						{{if item.stick}}
 						<span class="stick_img_stick"><img src="/xcview/images/stick.png" alt="" />置顶</span>
 						{{/if}}
-						{{item.content}}
-						
+						<span class="span_span{{item.id}}"></span>
 					</div>
 					{{if item.pictures !=null && item.pics.length>0}}
 					<div class="paper_nav_cen_div">
@@ -379,9 +384,13 @@
 					{{/if}}
 					<span class="title">{{item.content}}</span>
 				</div>
-				<div id="ccvideo{{item.id}}" class="comment_hide ccvideo">
-
-				</div>
+				<div class="ccvideo_div">
+					<div id="ccvideo{{item.id}}" class="comment_hide ccvideo">
+						
+					</div>
+					<img src="{{item.coverImg}}" class="ccvideo_img" />
+				<div>
+				
 				{{else if item.typeId != null && item.typeId != 8}}
 				<!-- 文章-->
 				<div class="article_hide" data-id="{{item.articleId}}">
@@ -421,7 +430,7 @@
 						<div class="course_nav_cen_size">{{item.startTime}}</div>
 						{{/if}}
 						{{if item.courseType==4}}
-						<div class="course_nav_cen_size">{{item.courseAddress}}</div>
+						<div class="course_nav_cen_size"><img src="/xcview/images/location_four.png" style="width: 0.19rem;height: 0.24rem;float: left;margin-right: 0.1rem; margin-top: 0.06rem;" />{{item.courseAddress}}</div>
 						{{/if}}
 
 						<!-- <div class="course_nav_rate">免费</div> -->
@@ -431,7 +440,7 @@
 				{{else if item.typeId != null && item.typeId == 8}}
 				<div class="consilia_nav_span_div">
 					<!-- 医案-->
-					<div class="consilia_nav_span comment_hide consilia_nav_span_title">
+					<div class="consilia_nav_span comment_hide">
 						{{if item.stick}}
 						<span class="stick_img"><img src="/xcview/images/stick.png" alt="" />置顶</span>
 						{{/if}}
@@ -527,6 +536,7 @@
 				<div class=""></div>
 			</div> -->
 		<!-- 删除样式结束 -->
+		
 	</div>
 	<!-- 中间内容结束 -->
 
@@ -956,11 +966,14 @@
 	<div class="show_height" style="width:100%;height:0.25rem;display:none;"></div>
 	<div class="top_show_height" style="width:100%;height:5.2rem;display:none;"></div>
 
-
+	<!-- 添加分享 -->
 	<div class="weixin_ceng">
 		<div class="weixin_ceng_bg"></div>
 		<div class="weixin_img"><img src="/xcview/images/fenxiang1.png" data-bd-imgshare-binded="1"></div>
 	</div>
+
+	<!-- 添加默认图 -->
+
 </body>
 <script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
 <script src="/xcview/weihoujs/jquery.min.js"></script>
@@ -1297,6 +1310,19 @@ $(window).bind("scroll", function() {
     	$(".weixin_ceng").hide();
 	});
 
+
+	// 判断头部有没有默认图
+	var a=$(".swiper-wrapper").html();
+   	if(a==null||a.length==0){
+   		// alert(1111);
+       $(".physician_img0").css("display","block");
+    }else{
+       $(".physician_img0").css("display","none");
+   		// alert(222);
+
+    };
+
+
 	/*// 点击其他--评论显示底部评论区域
 	$(".rests_nav .evaluate_img").click(function(){
     	$(".face").attr("src","/xcview/images/face.png");
@@ -1375,6 +1401,10 @@ function header_click(){
     // 处理点击全部动态
     var school_heightss=$(window).height()-$(".top_show_height").height();
     $(".screen_show_bg").height(school_heightss);
+
+    // 医师默认图
+    var baseImagenumbers=$(window).height()-$(".top_show_height").height();
+    $(".baseImagenumbers").height(baseImagenumbers);
     // };
 </script>
 </html>
