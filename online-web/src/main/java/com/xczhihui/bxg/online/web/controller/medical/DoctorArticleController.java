@@ -98,7 +98,6 @@ public class DoctorArticleController extends AbstractFtlController {
                 MedicalDoctorPosts mdp = new MedicalDoctorPosts();
                 mdp.setType(4);
                 mdp.setDoctorId(doctorId);
-                mdp.setContent(oba.getContent());
                 mdp.setArticleId(Integer.valueOf(id));
                 mdp.setArticleContent(oba.getContent());
                 mdp.setArticleImgPath(oba.getImgPath());
@@ -170,7 +169,6 @@ public class DoctorArticleController extends AbstractFtlController {
                 MedicalDoctorPosts mdp = new MedicalDoctorPosts();
                 mdp.setType(4);
                 mdp.setDoctorId(doctorId);
-                mdp.setContent(oba.getContent());
                 mdp.setArticleId(Integer.valueOf(id));
                 mdp.setArticleContent(oba.getContent());
                 mdp.setArticleImgPath(oba.getImgPath());

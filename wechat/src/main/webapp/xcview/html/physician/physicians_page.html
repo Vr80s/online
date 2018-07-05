@@ -222,7 +222,92 @@
 		margin-left: 0;
 	    width: 6.15rem;
 	}
-	
+
+
+
+	.middle-img {
+		position: absolute;
+		left: 259px;
+		top: 0px;
+		width: 40px;
+	}
+
+	.up-img {
+		position: absolute;
+		top: -40px;
+		left: 261px;
+		width: 40px;
+	}
+
+	.down-img {
+		position: absolute;
+		top: 40px;
+		left: 257px;
+		width: 40px;
+	}
+
+	.left-img {
+		position: absolute;
+		left: 218px;
+		width: 40px;
+	}
+
+	.right-img {
+		position: absolute;
+		left: 300px;
+		width: 40px;
+	}
+	@media screen and (max-width:450px) {
+		.middle-img {
+			position: absolute;
+			left: 259px;
+			top: 0px;
+			width: 40px;
+			display: none;
+		}
+
+		.up-img {
+			position: absolute;
+			top: -40px;
+			left: 261px;
+			width: 40px;
+			display: none;
+		}
+
+		.down-img {
+			position: absolute;
+			top: 40px;
+			left: 257px;
+			width: 40px;
+			display: none;
+		}
+
+		.left-img {
+			position: absolute;
+			left: 218px;
+			width: 40px;
+			display: none;
+		}
+
+		.right-img {
+			position: absolute;
+			left: 300px;
+			width: 40px;
+			display: none;
+		}
+
+		.rotate_jia{
+			display: none;
+		}.rotate_div{
+			 display: none;
+		 }.rotate_jian{
+			  display: none;
+		  }
+	}
+
+	.am-pureview-bar-active .am-pureview-actions, .am-pureview-bar-active .am-pureview-bar{
+		/*opacity: 0;*/
+	}
 </style>
 
 </head>
@@ -372,9 +457,18 @@
 					{{if item.imgStr !=null && item.imgStr.length>0}}
 					<div class="paper_nav_cen_div">
 						<div class="paper_nav_cen comment_hide">
-							{{each item.imgStr as pic }}
-							<img src="{{pic.imgUrl}}" alt="" />
-							{{/each}}
+							<ul data-am-widget="gallery" class="am-gallery am-avg-sm-2 am-avg-md-3 am-avg-lg-4 am-gallery-overlay" data-am-gallery="{ pureview: true }" >
+								{{each item.imgStr as pic }}
+								<li>
+									<div class="am-gallery-item">
+										<a href="{{pic.imgUrl}}" class="">
+											<img src="{{pic.imgUrl}}" />
+										</a>
+									</div>
+								</li>
+								{{/each}}
+							</ul>
+
 							<div class="both"></div>
 						</div>
 					</div>
