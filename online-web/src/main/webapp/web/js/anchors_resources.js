@@ -2644,7 +2644,7 @@ function mediaRreview(index) {
     $(".preview-media-author").text(previewData.author);
     $(".preview-media-picter img").attr("src", previewData.imgPath);
     $(".preview-media-present").html(previewData.content);
-    $(".preview-media-link").text(previewData.url);
+    $(".preview-media-link").html('<a href="' + previewData.url + '" target="_blank">' + previewData.url + '</a>');
     //		预览弹窗
     $("#media-preview").removeClass("hide");
     $("#mask").removeClass("hide");

@@ -3,6 +3,7 @@ package com.xczh.consumer.market.controller.article;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,6 +33,8 @@ public class ArticleController {
     private IOeBxsAppraiseService oeBxsAppraiseService;
     @Autowired
     private CacheService cacheService;
+    @Value("${returnOpenidUri}")
+    private String returnOpenUri;
 
     @RequestMapping(value = "view", method = RequestMethod.GET)
     public ResponseObject get(@RequestParam int id) {
@@ -45,6 +48,7 @@ public class ArticleController {
             oeBxsArticleVO.setType("文章");
         }
         oeBxsArticleVO.setContent(IStringUtil.filterLinkTag(oeBxsArticleVO.getContent()));
+        oeBxsArticleVO.setContentUrl(returnOpenUri + "/xcview/html/article_fragment.html?id=" + id);
         return ResponseObject.newSuccessResponseObject(oeBxsArticleVO);
     }
 
