@@ -12,7 +12,7 @@ public enum ClientType {
     H5(2, "h5"),
     ANDROID(3, "android"),
     IOS(4, "ios"),
-    OTHER(5, "其他");
+    OTHER(-1, "其他");
 
     /**
      * 描述
@@ -45,7 +45,7 @@ public enum ClientType {
                 return ClientType.ANDROID;
             case 4:
                 return ClientType.IOS;
-            case 5:
+            case -1:
                 return ClientType.OTHER;
             default:
                 return null;
