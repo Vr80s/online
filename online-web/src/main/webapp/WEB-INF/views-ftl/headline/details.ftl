@@ -81,12 +81,21 @@
                     <div class="forum-info-tags">
                         <img src="/web/images/studentCount.png">
                         <span>${article.author!''}&nbsp;&nbsp;&nbsp;${(article.createTime?string("yyyy-MM-dd"))!}</span>
-                        <a href="${webUrl}/headline/list/${article.typeId}"
-                           style="color: #188EEE;margin-left:20px">${article.type}</a>
+                        <#if article.typeId != '8' && article.typeId != '9'>
+                            <a href="${webUrl}/headline/list/${article.typeId}"
+                               style="color: #188EEE;margin-left:20px">${article.type!""}</a>
+                        <#else>
+                        <span style="color: #188EEE;margin-left:20px">${article.type!""}</span>
+                        </#if>
                     </div>
                 </div>
                 <div class="forum-detail-content">${article.content}</div>
             </div>
+            <#if article.url??>
+                <div style="width: 820px;height: 60px;background-color: #F0F0F0;font-size:14px;padding-top:20px;padding-left:20px;margin-top:40px">
+                    <span>本文转自 <a target="_blank" href="${article.url}">原文链接</a> 转载请注明出处</span>
+                </div>
+            </#if>
         </#if>
             <div class="forum-community clearfix">
                 <div class="forum-community-title">参与讨论</div>
