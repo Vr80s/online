@@ -480,11 +480,11 @@
 				<div class="both"></div>
 				{{else if item.type == 3}}
 				<!-- 视频-->
-				<div class="rests_nav_span comment_hide">
+				<div class="rests_nav_span comment_hide" style="padding-bottom: 0.2rem;">
 					{{if item.stick}}
 					<span class="stick_img"><img src="/xcview/images/stick.png" alt="" />置顶</span>
 					{{/if}}
-					<span class="title">{{item.content}}</span>
+					<span class="title">{{item.title}}</span>
 				</div>
 				<div class="ccvideo_div">
 					<div id="ccvideo{{item.id}}" class="comment_hide ccvideo">
@@ -668,8 +668,8 @@
 					</div>
 
 					{{if items.lineState == 1}}
-						<img src="/xcview/images/play_btn.png" alt="" class="broadcastroom_button" onclick="detailsId({{items.id}})" />
-						<div class="broadcastroom_hint" onclick="detailsId({{items.id}})">
+						<img src="/xcview/images/play_btn.png" alt="" class="broadcastroom_button" onclick="common_jump_all({{items.id}})" />
+						<div class="broadcastroom_hint" onclick="common_jump_all({{items.id}})">
 							<div class="broadcastroom_hint_title">正在直播：{{items.gradeName}}</div>
 						</div>
 					{{else if items.lineState == 2 || items.lineState == 4 || items.lineState == 5}}
@@ -678,8 +678,8 @@
 							<div class="count_down_title">{{items.gradeName}}</div>
 						</div>
 					{{else if items.lineState == 3}}
-						<img src="/xcview/images/play_btn.png" alt="" class="broadcastroom_button" onclick="detailsId({{items.id}})" />
-						<div class="broadcastroom_hint" onclick="detailsId({{items.id}})">
+						<img src="/xcview/images/play_btn.png" alt="" class="broadcastroom_button" onclick="common_jump_all({{items.id}})" />
+						<div class="broadcastroom_hint" onclick="common_jump_all({{items.id}})">
 							<div class="broadcastroom_hint_title">直播回放：{{items.gradeName}}</div>
 						</div>
 					{{/if}}
@@ -767,7 +767,7 @@
 							   {{if item.lineState == 1}}
 							   <p class="zhibo_play">直播中</p>
 							   {{else if item.startDateStr.indexOf('.')==-1}}
-								<p class="p3 p4"><img src="/xcview/images/Sinatv_time.png" alt="" style="margin-right: 0.03rem;" /><span style="float: left;font-size: 0.22rem;">{{item.startDateStr}}</span></p              						   
+								<p class="p3 p4"><img src="/xcview/images/Sinatv_time.png" alt="" style="margin-right: 0.03rem;" /><span style="margin-top: -0.02rem;font-size: 0.24rem;">{{item.startDateStr}}</span></p              						   
 								{{else}}
 								<p class="p3 p4"><img src="/xcview/images/learn.png" alt="" style="margin-right: 0.03rem;" /><span style="float: left;font-size: 0.22rem;margin-top: -0.02rem;">{{item.startDateStr}}</span></p>
 								{{/if}}
@@ -1176,6 +1176,7 @@ $(window).bind("scroll", function() {
 			$(".the_dynamic").show();   //全部动态隐藏
 			$(".message_referral").hide();   //介绍结束
 		});
+		$(".li_data").click();
 
 		// 点击直播间
 		$(".li_course").click(function(){

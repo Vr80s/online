@@ -1656,6 +1656,7 @@ p{
 }
 .on_line_status{
 	color: #999;
+	overflow: hidden;
 }
 .more_people img {
     width: 0.24rem;

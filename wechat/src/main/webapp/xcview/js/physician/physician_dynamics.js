@@ -311,10 +311,11 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
             var itemId = $(this).attr("data-id");
             location.href = "/xcview/html/physician/consilia.html?articleId=" + itemId;
         });
-        //点击视频播放/暂停
+        //点击视频播放/暂停  
         mui("#refreshContainer").on('tap', '.ccvideo', function (event) {
             var ccId = $(this).find("video").attr("id");
             var oReplay = document.getElementById(ccId);
+            $(".ccvideo_img").hide();
             if (oReplay.paused){
                 oReplay.play();
             }
