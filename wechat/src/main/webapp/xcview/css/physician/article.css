@@ -93,8 +93,8 @@ header{
 .consilia_main_center h2{
 	font-size: 0.36rem;
 	color: #333;
-	text-align: center;
-	width: 6.36rem;
+	/*text-align: center;*/
+	width: 6.98rem;
 	margin: 0 auto;
 	/* overflow: hidden;
     text-overflow: ellipsis;
@@ -116,23 +116,15 @@ header{
     margin: 0 auto;
 }
 .article_time{
-    /*width: 100%;*/
+    /* width: 100%; */
     font-size: 0.26rem;
     color: #999999;
-    text-align: center;
-    padding: 0 0.1rem;
+    /* text-align: center; */
+    /* padding: 0 0.1rem; */
     background: #fff;
-    /*position: absolute;
-    z-index: 2;*/
 }
 .article_time div{
-    width: 2.6rem;
-    margin: 0 auto;
-    background: #fff;
-    position: absolute;
-    z-index: 0;
-    left: 50%;
-    margin-left: -1.3rem;
+    width: 100%;
 }
 .article_border_left{
     width: 2.1rem;
@@ -179,6 +171,10 @@ header{
 .consilia_textarea p img{
     max-width: 6.98rem;
     margin: 0 auto;
+}
+.consilia_center_url{
+    font-size: 0.28rem;
+    color: #999999;
 }
 
 /*评价开始*/

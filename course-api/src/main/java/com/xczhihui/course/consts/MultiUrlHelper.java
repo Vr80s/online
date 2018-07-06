@@ -145,6 +145,11 @@ public class MultiUrlHelper {
     private static Map<String, String> questionMap = ImmutableMap.of(
             URL_TYPE_WEB, "/questions/{0}"
     );
+    private static Map<String, String> messageListMap = ImmutableMap.of(
+            URL_TYPE_WEB, "/my#menu6",
+            URL_TYPE_APP, "xczh://ipandatcm.com/message",
+            URL_TYPE_MOBILE, ""
+    );
     private static Map<String, String> anchorIndexMap = ImmutableMap.of(
             URL_TYPE_APP, "xczh://ipandatcm.com/anchorIndex?id={0}",
             URL_TYPE_WEB, "/anchors/{0}/courses",
@@ -198,6 +203,7 @@ public class MultiUrlHelper {
         urlMap.put(RouteTypeEnum.PUBLIC_COURSE_LIST_PAGE.name(), publicCourseListMap);
         urlMap.put(RouteTypeEnum.SPECIAL_COLUMN_DETAIL.name(), specialColumnMap);
         urlMap.put(RouteTypeEnum.DOCTOR_CASE_DETAIL.name(), doctorCaseMap);
+        urlMap.put(RouteTypeEnum.MESSAGE_LIST.name(), messageListMap);
 
         //===== 学习里的课程详情 courseType区分课程类型 collection 区分是否是专辑 ======
         urlMap.put(RouteTypeEnum.COMMON_LEARNING_AUDIO_COLLECTION_COURSE_DETAIL_PAGE.name(), learningAudioCourseCollectionDetailUrlMap);
