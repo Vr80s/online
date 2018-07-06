@@ -7,6 +7,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
+import com.xczhihui.common.util.enums.MessageTypeEnum;
+import com.xczhihui.common.util.enums.RouteTypeEnum;
+import com.xczhihui.course.params.BaseMessage;
+import com.xczhihui.course.service.ICommonMessageService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBannerService;
 
 /**
@@ -20,10 +24,23 @@ public class CronConfig {
 
     @Autowired
     private IMedicalDoctorBannerService medicalDoctorBannerService;
+    @Autowired
+    private ICommonMessageService commonMessageService;
 
     @Scheduled(fixedRate = 60000)
     private void updateStatusCronJob() {
         Integer updateCnt = medicalDoctorBannerService.updateAllUnShelves();
-        logger.info("cron update banner status cnt: {}", updateCnt);
+    }
+
+    @Scheduled(fixedRate = 300000)
+    private void addCronMessage() {
+        String userId1 = "fdc224fcf57c42cba7b22d5ba6da707c";
+        String userId2 = "d44983e894b34064bc8672e7117f743d";
+        commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.SYSYTEM.getVal())
+                .buildAppPush("定时消息推送~~~")
+                .buildWeb("定时消息推送~~~").build(userId1, RouteTypeEnum.MESSAGE_LIST, null));
+        commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.SYSYTEM.getVal())
+                .buildAppPush("定时消息推送~~~")
+                .buildWeb("定时消息推送~~~").build(userId2, RouteTypeEnum.MESSAGE_LIST, null));
     }
 }

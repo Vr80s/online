@@ -222,6 +222,7 @@ public class WritingServiceImpl extends OnlineBaseServiceImpl implements
             mdp.setType(4);
             mdp.setDoctorId(doctorId);
             mdp.setArticleId(vo.getId());
+            mdp.setContent(vo.getTitle());
             mdp.setArticleContent(vo.getContent());
             mdp.setArticleImgPath(vo.getImgPath());
             mdp.setArticleTitle(vo.getTitle());

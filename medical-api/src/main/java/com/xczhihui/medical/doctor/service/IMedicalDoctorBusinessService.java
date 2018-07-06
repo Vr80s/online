@@ -171,4 +171,6 @@ public interface IMedicalDoctorBusinessService {
 
     public Map<String, Object> selectDoctorWorkTimeAndDetailsById(String doctorId);
 
+    MedicalDoctorVO findSimpleById(String doctorId);
+
 }

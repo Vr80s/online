@@ -224,7 +224,8 @@
         b.`user_id` author,
         b.`type_id`,
         a.`name` type,
-        b.url url
+        b.url url,
+        b.create_person as createPerson
         FROM
         oe_bxs_article b
         LEFT JOIN `article_type` a
