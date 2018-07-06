@@ -27,6 +27,7 @@ import com.xczhihui.medical.doctor.mapper.MedicalDoctorMapper;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorSolrService;
 import com.xczhihui.medical.doctor.vo.DoctorQueryVo;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorSolrVO;
+import com.xczhihui.utils.HtmlUtil;
 
 /**
  * ClassName: MedicalDoctorBusinessServiceImpl.java <br>
@@ -162,6 +163,8 @@ public class MedicalDoctorSolrServiceImpl implements IMedicalDoctorSolrService {
         });
         medicalDoctorSolrVO.setDepartmentId(departmentId);
         medicalDoctorSolrVO.setDepartmentName(departmentName);
+
+        medicalDoctorSolrVO.setDescription(HtmlUtil.getTextFromHtml(medicalDoctorSolrVO.getDescription()));
     }
 
     @Override

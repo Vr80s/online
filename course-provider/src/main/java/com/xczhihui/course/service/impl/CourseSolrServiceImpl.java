@@ -26,6 +26,7 @@ import com.xczhihui.common.solr.utils.SolrUtils;
 import com.xczhihui.common.util.enums.CourseForm;
 import com.xczhihui.course.mapper.CourseMapper;
 import com.xczhihui.course.service.ICourseSolrService;
+import com.xczhihui.course.util.HtmlUtil;
 import com.xczhihui.course.vo.CourseSolrVO;
 import com.xczhihui.course.vo.QueryConditionVo;
 
@@ -250,6 +251,8 @@ public class CourseSolrServiceImpl implements ICourseSolrService {
         if (courseSolrVO.getRecommendSort() == null) {
             courseSolrVO.setRecommendSort(0);
         }
+        courseSolrVO.setCourseDetail(HtmlUtil.delHTMLTag(courseSolrVO.getCourseDetail()));
+        courseSolrVO.setAnchorDetail(HtmlUtil.delHTMLTag(courseSolrVO.getAnchorDetail()));
     }
 
     @Override
