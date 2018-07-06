@@ -49,8 +49,8 @@
 
     <div class="forum-content clearfix">
         <div class="forum-content-left">
+            <input type="hidden" value="${article.typeId!'0'}" id="J-page-flag">
         <#if writing??>
-            <input type="hidden" value="1" id="J-page-flag">
             <div class="forum-detailInfo">
                 <div class="writing-buy-link">
                     <div>
@@ -85,7 +85,7 @@
                             <a href="${webUrl}/headline/list/${article.typeId}"
                                style="color: #188EEE;margin-left:20px">${article.type!""}</a>
                         <#else>
-                        <span style="color: #188EEE;margin-left:20px">${article.type!""}</span>
+                            <span style="color: #188EEE;margin-left:20px">${article.type!""}</span>
                         </#if>
                     </div>
                 </div>
@@ -112,9 +112,9 @@
                     <span>全部评论</span>
                     <span class="community-count">${appraises.total}条</span>
                 </div>
-                
-                <#if appraises?? && appraises.records?size gt 0 >
-                	<div class="forum-communitybox">
+
+            <#if appraises?? && appraises.records?size gt 0 >
+                <div class="forum-communitybox">
                     <#list appraises.records as appraise>
                         <div class="forum-community-content">
                             <div class="forum-comment-content clearfix">
@@ -127,22 +127,23 @@
                                     </div>
                                     <div class="comment-info">${appraise.content}</div>
                                     <#if appraise.nickName??>
-                                    	<div class="background-replay">                               	
-	                                        <div class="comment-info">
-	                                            <div class="img" style="margin: 10px 12px 0 15px;"><img src="${appraise.replySmallHeadPhoto}"/></div>
-	                                            <div class="replay-write">
-	                                            	<span class="replyName">${appraise.nickName}</span>
-	                                            	<span class="comment-time">${(appraise.replyCreateTime?string("yyyy-MM-dd hh:mm"))!}</span>
-	                                            	 <#if appraise.replyContent??>
-	                                            	 	<div class="comment-info">${appraise.replyContent}</div>
-	                                            	 	<#else>
-	                                        			<div class="comment-info">该评论已被删除！</div>
-	                                       			 </#if>
-	                                            </div>
+                                        <div class="background-replay">
+                                            <div class="comment-info">
+                                                <div class="img" style="margin: 10px 12px 0 15px;"><img
+                                                        src="${appraise.replySmallHeadPhoto}"/></div>
+                                                <div class="replay-write">
+                                                    <span class="replyName">${appraise.nickName}</span>
+                                                    <span class="comment-time">${(appraise.replyCreateTime?string("yyyy-MM-dd hh:mm"))!}</span>
+                                                    <#if appraise.replyContent??>
+                                                        <div class="comment-info">${appraise.replyContent}</div>
+                                                    <#else>
+                                                        <div class="comment-info">该评论已被删除！</div>
+                                                    </#if>
+                                                </div>
 
-	                                        </div>
-	                                        
-                                    	</div>
+                                            </div>
+
+                                        </div>
                                     </#if>
                                     <div class="reply-comment">
                                         <!--<i class="iconfont icon-huifu"></i>-->
@@ -158,10 +159,10 @@
                                     <div class="replay-box">
                                         <!--<p class="replyPerson">回复 ${appraise.name}：</p>-->
                                         <#if userSmallHeadPhoto=="">
-                                        	<img class="pinglunSanjiao" src="/web/images/defaultHead/18.png">
-                                        	<#else>
-                                       		 <img class="pinglunSanjiao" src="${userSmallHeadPhoto}">
-                                         </#if>
+                                            <img class="pinglunSanjiao" src="/web/images/defaultHead/18.png">
+                                        <#else>
+                                            <img class="pinglunSanjiao" src="${userSmallHeadPhoto}">
+                                        </#if>
                                         <input class="reply-input" placeholder="写下您的评论..."/>
                                         <div class="emptyHit">
                                             <i class="iconfont icon-tanhao"></i>
@@ -180,15 +181,15 @@
                         </div>
                     </#list>
                 </div>
-                <#else>
-                  <!--暂无评论显示背景图-->
-					<div class="nodata-box">
-						<div class="no-question-img">
-							<img src="/web/images/icon-nodata.png"/>
-						</div>
-						<p>暂无数据</p>	
-					</div>
-                </#if>
+            <#else>
+                <!--暂无评论显示背景图-->
+                <div class="nodata-box">
+                    <div class="no-question-img">
+                        <img src="/web/images/icon-nodata.png"/>
+                    </div>
+                    <p>暂无数据</p>
+                </div>
+            </#if>
             </div>
 
 
@@ -197,6 +198,33 @@
 
         </div>
         <div class="forum-content-right">
+        <#if writingAuthor??>
+            <div class="report-doctor-list">
+                <div style="background: #fff;">
+                    <p class="name" style="padding:20px;padding-bottom: 0px;">作者</p>
+                    <div>
+                        <div class="report_right_doctor clearfix">
+                            <div class="report_right_name">
+                                <#if writingAuthor.headPortrait??>
+                                    <img src="${writingAuthor.headPortrait}" alt="医师头像">
+                                <#else>
+                                    <img src="/web/images/defaultHead/18.png" alt="医师头像">
+                                </#if>
+
+                                <div class="report_right_name_p">
+                                    <p class="p0"><a
+                                            href="${webUrl}/doctors/${writingAuthor.id}"
+                                            style="color: #000;">${writingAuthor.name!""}</a>
+                                    </p>
+                                    <p class="p1">${writingAuthor.province!""} ${writingAuthor.city!""}</p>
+                                </div>
+                            </div>
+                            <div class="both"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </#if>
         <#if reportDoctors?? && (reportDoctors?size >0)>
             <div class="report-doctor-list">
                 <div style="background: #fff;">
@@ -255,23 +283,25 @@
                 <span class="hot-article-title">推荐阅读</span>
                 <ul class="hot-article-list">
                     <#list suggestedArticles as suggestedArticle>
-                     
-                     			
-                            <li>
-                                <a href="${webUrl}/headline/details/${suggestedArticle.id}">
-                                	<#if suggestedArticle_index <= 2>
-	                                <p class="setSelect">${suggestedArticle_index+1}</p>
-	                            	<#else>
-	                                <p>${suggestedArticle_index+1}</p>
-	                            	</#if>
-                                	<span style="margin-bottom: 20px" title="${suggestedArticle.title}">${suggestedArticle.title}</span>
-                                </a>
-                            </li>
-                      
+
+
+                        <li>
+                            <a href="${webUrl}/headline/details/${suggestedArticle.id}">
+                                <#if suggestedArticle_index <= 2>
+                                    <p class="setSelect">${suggestedArticle_index+1}</p>
+                                <#else>
+                                    <p>${suggestedArticle_index+1}</p>
+                                </#if>
+                                <span style="margin-bottom: 20px"
+                                      title="${suggestedArticle.title}">${suggestedArticle.title}</span>
+                            </a>
+                        </li>
+
                     </#list>
                 </ul>
             </div>
         </#if>
+
         <#if writings?? && (writings.total gt 0)>
             <!-- 名医书籍 -->
             <div class="teacher_books">
@@ -327,7 +357,8 @@
     var articleId = ${echoMap.id};
 
     $(function () {
-        if ($("#J-page-flag") && $("#J-page-flag").val()) {
+        var typeId = $("#J-page-flag").val();
+        if (typeId == '8' || typeId == '9' ) {
             $(".doctor-tab").addClass("select");
         } else {
             $(".headline").addClass("select");
