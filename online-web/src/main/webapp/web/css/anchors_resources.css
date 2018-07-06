@@ -618,8 +618,8 @@ outline: none;
 	height: 140px;
 }
 .save-consilia-wrap .consilia-img img{
-	width: 100%;
-	height: 100%;
+	/*width: 100%;
+	height: 100%;*/
 }
 .save-consilia-wrap .consilia-right-text{
 	width: 650px;
@@ -657,8 +657,8 @@ outline: none;
 	height: 140px;
 }
 .class-img img{
-	width: 100%;
-	height: 100%;
+	/*width: 100%;
+	height: 100%;*/
 }
 .class-right-text{
 	width: 650px;
