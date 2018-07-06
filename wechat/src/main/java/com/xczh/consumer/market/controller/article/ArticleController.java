@@ -42,8 +42,19 @@ public class ArticleController {
         if (oeBxsArticleVO == null) {
             return ResponseObject.newErrorResponseObject("文章找不到");
         }
-        if (oeBxsArticleVO.getTypeId() != null && oeBxsArticleVO.getTypeId().equals(HeadlineType.YA.getCode())) {
-            oeBxsArticleVO.setType("医案");
+        String typeId = oeBxsArticleVO.getTypeId();
+        if (typeId != null) {
+            if (typeId.equals(HeadlineType.YA.getCode())) {
+                oeBxsArticleVO.setType("医案");
+            } else if (typeId.equals(HeadlineType.ZZ.getCode())) {
+                oeBxsArticleVO.setType("著作");
+            } else if (typeId.equals(HeadlineType.DJZL.getCode())) {
+                oeBxsArticleVO.setType("专栏");
+            } else if (typeId.equals(HeadlineType.MYBD.getCode())) {
+                oeBxsArticleVO.setType("报道");
+            } else {
+                oeBxsArticleVO.setType("文章");
+            }
         } else {
             oeBxsArticleVO.setType("文章");
         }
