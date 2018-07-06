@@ -60,7 +60,7 @@ public class AuthInterceptor implements HandlerInterceptor, HandlerMethodArgumen
     private static final String X_REQUEST_WITH_HEADER_NAME = "x-requested-with";
     private static final String XML_HTTP_REQUEST = "XMLHttpRequest";
     private static final String MICRO_MESSENGER = "micromessenger";
-    /*private static List<String> noNeedAuthPaths = Arrays.asList("/xczh/user/**", "/xczh/share/**", "/xczh/qq/**",
+    private static List<String> noNeedAuthPaths = Arrays.asList("/xczh/user/**", "/xczh/share/**", "/xczh/qq/**",
             "/xczh/wxlogin/**", "/xczh/weibo/**", "/xczh/third/**", "/xczh/wxpublic/**", "/xczh/alipay/alipayNotifyUrl",
             "/bxg/wxpay/wxNotify", "/xczh/alipay/pay", "/xczh/alipay/rechargePay", "/xczh/criticize/getCriticizeList",
             "/xczh/ccvideo/palyCode", "/xczh/wechatJssdk/certificationSign", "/xczh/manager/home",
@@ -69,9 +69,7 @@ public class AuthInterceptor implements HandlerInterceptor, HandlerMethodArgumen
             "/xczh/gift/list", "/xczh/common/checkToken", "/xczh/message", "/xczh/pay/pay_notify", "/xczh/set/isLogined",
             "/xczh/recommend/**", "/xczh/classify/**", "/xczh/bunch/**", "/xczh/live/**", "/xczh/host/**", "/xczh/host/doctor/v2", "/xczh/course/**", "/xczh/doctors/**",
             "/xczh/enrol/enrollmentRegulations", "/xczh/myinfo/showWallet", "/xczh/page/course/*", "/xczh/article/view", "/xczh/article/appraise/list",
-            "/doctor/posts/**","/xczh/live/onlineLive","/xczh/share/courseShare","/xczh/enrol/enrollmentRegulations/**");*/
-    private static List<String> noNeedAuthPaths = Arrays.asList(
-            "/doctor/posts/**","/xczh/enrol/enrollmentRegulations/**");
+            "/doctor/posts/**","/xczh/live/onlineLive","/xczh/share/courseShare","/xczh/enrol/enrollmentRegulations/**");*
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     private PathMatcher pathMatcher;
