@@ -188,6 +188,11 @@ public class MedicalDoctorPosts extends Model<MedicalDoctorPosts> {
      */
     @TableField(exist = false)
     private Boolean articleStatus;
+    /**
+     * 著作id
+     */
+    @TableField(exist = false)
+    private String writingsId;
 
     @Override
     protected Serializable pkVal() {
@@ -456,6 +461,14 @@ public class MedicalDoctorPosts extends Model<MedicalDoctorPosts> {
 
     public void setArticleStatus(Boolean articleStatus) {
         this.articleStatus = articleStatus;
+    }
+
+    public String getWritingsId() {
+        return writingsId;
+    }
+
+    public void setWritingsId(String writingsId) {
+        this.writingsId = writingsId;
     }
 
     @Override

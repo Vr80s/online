@@ -17,10 +17,13 @@
         oba.title as articleTitle,
         oba.img_path as articleImgPath,
         oba.status as articleStatus,
+        mw.id as writingsd,
         if(oc.type is null,null,if(oc.type =3,4,IF(oc.type = 1,3,if(oc.multimedia_type=1,1,2)))) as courseType
         FROM medical_doctor_posts mdp
         LEFT JOIN oe_course oc
         ON oc.id = mdp.course_id
+        LEFT JOIN medical_writings mw
+        ON mw.article_id = mdp.article_id
         LEFT JOIN oe_bxs_article oba
         ON oba.id = mdp.article_id
         WHERE mdp.deleted = 0 and mdp.status = 1 and mdp.doctor_id=#{doctorId}

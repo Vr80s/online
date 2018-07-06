@@ -93,6 +93,7 @@ public class MedicalDoctorWritingServiceImpl implements IMedicalDoctorWritingSer
             mdp.setType(4);
             mdp.setDoctorId(doctorId);
             mdp.setArticleId(articleId);
+            mdp.setContent(oeBxsArticle.getTitle());
             mdp.setArticleContent(oeBxsArticle.getContent());
             mdp.setArticleImgPath(oeBxsArticle.getImgPath());
             mdp.setArticleTitle(oeBxsArticle.getTitle());

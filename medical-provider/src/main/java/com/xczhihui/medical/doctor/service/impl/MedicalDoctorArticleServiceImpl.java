@@ -258,6 +258,11 @@ public class MedicalDoctorArticleServiceImpl implements IMedicalDoctorArticleSer
         mdp.setType(4);
         mdp.setDoctorId(doctorId);
         mdp.setArticleId(oeBxsArticle.getId());
+        if(oeBxsArticle.getTypeId().equals("8")){
+            mdp.setContent(oeBxsArticle.getContent());
+        } else {
+            mdp.setContent(oeBxsArticle.getTitle());
+        }
         mdp.setArticleContent(oeBxsArticle.getContent());
         mdp.setArticleImgPath(oeBxsArticle.getImgPath());
         mdp.setArticleTitle(oeBxsArticle.getTitle());
