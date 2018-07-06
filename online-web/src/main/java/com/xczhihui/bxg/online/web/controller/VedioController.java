@@ -115,5 +115,28 @@ public class VedioController extends AbstractController {
 
         return ResponseObject.newSuccessResponseObject(responsestr);
     }
+    
+    
 
+    /**
+     * 课程视频播放代码  获得播放代码
+     * @param req
+     * @param courseId
+     * @param width
+     * @param height
+     * @param autoPlay
+     * @param collectionId 如果播放的是专辑以及专辑下的下的子课程的话，需要验证这个专辑是否购买
+     * @return
+     */
+    @RequestMapping(value = "getPlayCodeByVideoId", method = RequestMethod.GET)
+    public ResponseObject getVideoInfoByVideoId(HttpServletRequest req,
+                                      String width, String height,
+                                      String autoPlay, String directId) {
+
+        String responsestr = CCUtils.getPlayCodeRequest(directId,
+                autoPlay, width, height, "1", null);
+        return ResponseObject.newSuccessResponseObject(responsestr);
+    }
+    
+    
 }
