@@ -438,7 +438,7 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
     @Override
     public String getCollectionUpdateDateText(Integer collectionId) {
         return collectionCourseApplyUpdateDateMapper.listDatesByCollectionId(collectionId)
-                .stream().map(DateUtil::getDayOfWeek).collect(Collectors.joining(","));
+                .stream().map(DateUtil::getDayOfWeek).collect(Collectors.joining(""));
     }
 
     /**
@@ -622,4 +622,5 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
             }
         }
     }
+    
 }

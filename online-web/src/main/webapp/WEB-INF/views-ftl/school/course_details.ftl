@@ -131,7 +131,7 @@
                             data-learning="${courseInfo.learning}"
                             data-cutoff="${courseInfo.cutoff}"
                             data-collection="${courseInfo.collection?string(1,0)}" 
-                            <#if courseInfo.watchState == 2  && courseInfo.type == 4 && courseInfo.cutoff = 1>
+                            <#if courseInfo.watchState == 1  && courseInfo.type == 4 && courseInfo.cutoff = 1>
                                style="background:#DEDEDE;" 
                             </#if>
                             >
