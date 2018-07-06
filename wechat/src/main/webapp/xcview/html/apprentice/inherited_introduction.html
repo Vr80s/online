@@ -67,40 +67,48 @@
 
     <!-- 中间内容开始 -->
     <div class="main">
-        <div class="head_portrait" style="display: none;">
-
-            {{if doctorPhoto == null}}
-            <img src="/xcview/images/regards.png" alt="医师头像"/>
-            {{else}}
-            <img src="{{doctorPhoto}}" alt="医师头像" onerror="nofind();"/>
-            {{/if}}
-        </div>
-        <div class="intro_title">{{title}}</div>
-        <div class="intro_title_size">{{propaganda}}</div>
-        <div class="intro_border"></div>
-        <div class="apprentice">
-            <span class="number_enlightening">收徒人数</span>
-            <span class="number_people">{{countLimit}}人</span>
-            <span class="hint">报名人数不受限，成为弟子需面试</span>
-        </div>
-        <div class="schooling">
-            <span class="schooling_size">束脩</span>
-            <span class="number_schooling">￥{{tuition}}</span>
-        </div>
-        <div class="registered">
-            <span>已报名({{allEnrolledUserCount}}人)</span>
-            <ul>
-                {{each allEnrolledUser as user i}}
-
-                {{if user == null}}
-                <li><img src="/xcview/images/default_pic.png" alt="头像"/></li>
+        
+        <div class="count_down">报名截止时间&nbsp;&nbsp;<span>{{deadline}}</span></div>
+        <div class="intro_title_bg">
+            <div class="intro_title">{{title}}</div>
+                <div class="head_portrait">
+                {{if doctorPhoto == null}}
+                <img src="/xcview/images/regards.png" alt="医师头像" />
                 {{else}}
-                <li><img src="{{user}}" alt="头像" onerror="nofinds();"/></li>
+                <img src="{{doctorPhoto}}" alt="医师头像" onerror="nofind();" />
                 {{/if}}
-                {{/each}}
-            </ul>
-            <div class="both"></div>
+                <span class="name">我是名字</span>
+                <div class="sign_people">
+                    <span>已报名({{allEnrolledUserCount}}人)</span>
+                    {{each allEnrolledUser as user i}}
+                    {{if user == null}}
+                    <img src="/xcview/images/default_pic.png" alt="头像" class="profile_picture" />
+                    {{else}}
+                    <img src="{{user}}" alt="头像" onerror="nofinds();" class="profile_picture" />
+                    {{/if}}
+                    {{/each}}
+                </div>
+            </div>
         </div>
+        <div class="registration">
+            <div class="apprentice">
+                <span class="number_enlightening"><img src="/xcview/images/population.png" />收徒人数：</span>
+                <span class="number_people">{{countLimit}}</span>
+                <span class="hint">（报名人数不受限，成为弟子需面试）</span>
+            </div>
+            <div class="schoolings">
+                <span class="schooling_sizes"><img src="/xcview/images/tuition.png" />束脩：</span>
+                <span class="number_schoolings">￥{{tuition}}</span>
+            </div>
+            <div class="flow_titles">
+                <p class="titles"><img src="/xcview/images/Sinatv_time.png" />学习时间：{{startTime}}至{{endTime}}</p>
+            </div>
+            <div class="address">
+                <p class="title"><img src="/xcview/images/address.png" />学习地址：{{studyAddress}}</p>
+            </div>
+
+        </div>
+        
         <div class="site">
             <div class="site_title">
                 <!--<p class="border"></p>-->
@@ -229,5 +237,31 @@
             window.history.pushState('forward', null, './inherited_introduction.html?merId=' + merId);
         }
     };
+</script>
+<script>
+$(function() {
+    setInterval(timer, 1000);
+    function timer() {
+        //设置结束的时间
+        var endtime = new Date("2020/04/22 00:00:00");
+        //设置当前时间
+        var now = new Date();
+        //得到结束与当前时间差 ： 毫秒
+        var t = endtime.getTime() - now.getTime();
+        if (t > 0) {
+            //得到剩余天数
+            var tian = Math.floor(t / 1000 / 60 / 60 / 24);
+            //得到还剩余的小时数（不满一天的小时）
+            var h = Math.floor(t / 1000 / 60 / 60 % 24);
+            //得到分钟数
+            var m = Math.floor(t / 1000 / 60 % 60);
+            var str = tian + " 天 " + h + " 小时  " + m + " 分 ";
+            $("#box1").html(str);
+        } else {
+            clearInterval(timer1); //这里可以添加倒计时结束后需要执行的事件 
+            $("#box1").html("元旦已经结束");
+        }
+    }
+});
 </script>
 </html>
