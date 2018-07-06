@@ -160,6 +160,7 @@ public class VideoResController extends AbstractController {
                 obj[2] = chunkurl;
                 return ResponseObject.newSuccessResponseObject(obj);
             } else {
+                logger.error(result);
                 return ResponseObject.newErrorResponseObject(msginfo);
             }
         } else {
