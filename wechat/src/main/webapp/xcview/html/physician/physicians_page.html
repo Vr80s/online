@@ -57,10 +57,10 @@
 
 <style>
 	.physicians_page_mains {
-		position: fixed;
+		/* position: fixed;
 		top: 0;
 		left: 50%;
-		margin-left: -3.75rem;
+		margin-left: -3.75rem; */
 	}
 	.mui-pull-bottom-pocket .mui-pull{
 		bottom: -0.8rem !important;
@@ -225,89 +225,7 @@
 
 
 
-	.middle-img {
-		position: absolute;
-		left: 259px;
-		top: 0px;
-		width: 40px;
-	}
 
-	.up-img {
-		position: absolute;
-		top: -40px;
-		left: 261px;
-		width: 40px;
-	}
-
-	.down-img {
-		position: absolute;
-		top: 40px;
-		left: 257px;
-		width: 40px;
-	}
-
-	.left-img {
-		position: absolute;
-		left: 218px;
-		width: 40px;
-	}
-
-	.right-img {
-		position: absolute;
-		left: 300px;
-		width: 40px;
-	}
-	@media screen and (max-width:450px) {
-		.middle-img {
-			position: absolute;
-			left: 259px;
-			top: 0px;
-			width: 40px;
-			display: none;
-		}
-
-		.up-img {
-			position: absolute;
-			top: -40px;
-			left: 261px;
-			width: 40px;
-			display: none;
-		}
-
-		.down-img {
-			position: absolute;
-			top: 40px;
-			left: 257px;
-			width: 40px;
-			display: none;
-		}
-
-		.left-img {
-			position: absolute;
-			left: 218px;
-			width: 40px;
-			display: none;
-		}
-
-		.right-img {
-			position: absolute;
-			left: 300px;
-			width: 40px;
-			display: none;
-		}
-
-		.rotate_jia{
-			display: none;
-		}.rotate_div{
-			 display: none;
-		 }.rotate_jian{
-			  display: none;
-		  }
-	}
-
-	.am-pureview-bar-active .am-pureview-actions, .am-pureview-bar-active .am-pureview-bar{
-		/*opacity: 0;*/
-	}
 	#form_article{
 		color: #333 !important;
 	}
@@ -339,7 +257,9 @@
 		</div>
 		<!-- 头部结束 -->
 		<div class="swiper-container top_swiper">
+			{{if items.banners.length <= 0}}
 			<img src="/xcview/images/physician.png" class="physician_img0" style="width: 7.5rem;" />
+			{{/if}}
 			<div class="swiper-wrapper">
 				{{each items.banners as item i}}
 				<div class="swiper-slide pic01" onclick="sowingDetails('{{item.url}}')">
@@ -368,8 +288,6 @@
 					<!--<span class="disciple"><span class="disciple_fize">弟子</span>25</span>-->
 					{{if items.fansCount>0}}
 					<div class="fans"><div class="fans_size">粉丝</div><div id="fansCount">{{items.fansCount}}</div></div>
-					{{else}}
-					<span class="fans"><span class="fans_size">粉丝</span><span id="fansCount">0</span></span>
 					{{/if}}
 					<div class="both"></div>
 				</div>
@@ -431,8 +349,6 @@
 	<!-- 中间内容开始 -->
 	<div class="the_dynamic">
 		<!-- 其他一 -->
-		<div id="refreshContainer" class="mui-content mui-scroll-wrapper">
-			<div class="mui-scroll">
 		<div class="rests_nav">
 
 			<script type="text/html" id="wrap_doctor_dynamics">
@@ -627,7 +543,6 @@
 			</script>
 		</div>
 
-				</div></div>
 
 
 
