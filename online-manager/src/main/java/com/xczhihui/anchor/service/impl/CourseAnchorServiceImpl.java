@@ -18,6 +18,8 @@ import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.course.vo.LineCourseApplyStudentVO;
 import com.xczhihui.vhall.VhallUtil;
 
+import net.sf.ehcache.constructs.nonstop.concurrency.CacheOperationUnderExplicitLockCallable;
+
 /**
  * CourseServiceImpl:课程业务层接口实现类
  *
@@ -91,6 +93,7 @@ public class CourseAnchorServiceImpl extends OnlineBaseServiceImpl implements
         ca.setVodDivide(courseAnchor.getVodDivide());
         ca.setOfflineDivide(courseAnchor.getOfflineDivide());
         ca.setGiftDivide(courseAnchor.getGiftDivide());
+        ca.setDefaultCount(courseAnchor.getDefaultCount());
         dao.update(ca);
     }
 

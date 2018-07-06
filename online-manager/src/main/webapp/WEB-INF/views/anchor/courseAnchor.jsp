@@ -617,6 +617,12 @@
 				<input type="text" name="giftDivide"  id="gift" class="col-xs-10 col-sm-12 {required:true,number:true,range:[0.00,100.00]}">
 			</div>
 		</div>
+		<div class="form-group"  style="margin-top: 18px;" >
+			<label class="col-sm-3 control-label no-padding-right" ><font color="red">*</font>默认粉丝数: </label>
+			<div class="col-sm-6">
+				<input type="text" name="defaultCount"  id="default" class="col-xs-10 col-sm-12 {required:true,number:true,range:[0,100000]}">
+			</div>
+		</div>
 
 	</form>
 </div>

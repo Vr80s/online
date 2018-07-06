@@ -87,7 +87,7 @@
                         <li>更新时间</li>
                         <li>共${courseInfo.courseNumber}集, 已更新${collectionListSize!'0'}集
                             <#if updateDateText?? &&  updateDateText!=''>
-                                (每${updateDateText}更新)
+                                (${updateDateText})
                             </#if>
                         </li>
                     <#-- <li>共16集，已更新13集（每周三、周五更新）</li> -->
@@ -131,7 +131,7 @@
                             data-learning="${courseInfo.learning}"
                             data-cutoff="${courseInfo.cutoff}"
                             data-collection="${courseInfo.collection?string(1,0)}" 
-                            <#if courseInfo.watchState == 2  && courseInfo.type == 4 && courseInfo.cutoff = 1>
+                            <#if courseInfo.watchState == 1  && courseInfo.type == 4 && courseInfo.cutoff = 1>
                                style="background:#DEDEDE;" 
                             </#if>
                             >

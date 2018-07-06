@@ -15,6 +15,8 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.common.util.CodeUtil;
 import com.xczhihui.common.util.SmsUtil;
 import com.xczhihui.common.util.enums.MessageStatusEnum;
+import com.xczhihui.common.util.enums.MessageTypeEnum;
+import com.xczhihui.common.util.enums.RouteTypeEnum;
 import com.xczhihui.course.config.Env;
 import com.xczhihui.course.consts.MultiUrlHelper;
 import com.xczhihui.course.mapper.*;
@@ -165,7 +167,11 @@ public class CommonMessageServiceImpl implements ICommonMessageService {
     private void commonPush(String userId, BaseMessage baseMessage) {
         SubMessage appPushMessage = baseMessage.getAppPushMessage();
         String content = appPushMessage.getContent();
-        String url = MultiUrlHelper.getUrl(baseMessage.getRouteType(), MultiUrlHelper.URL_TYPE_APP, baseMessage.getDetailId(), null);
+        String routeType = baseMessage.getRouteType();
+        String url = MultiUrlHelper.getUrl(routeType, MultiUrlHelper.URL_TYPE_APP, baseMessage.getDetailId(), null);
+        if (StringUtils.isBlank(url)) {
+            url = MultiUrlHelper.getUrl(RouteTypeEnum.MESSAGE_LIST.name(), MultiUrlHelper.URL_TYPE_APP, null, null);
+        }
         Map<String, Object> customParams = new HashMap<>(5);
         customParams.put("url", url);
 
@@ -194,7 +200,11 @@ public class CommonMessageServiceImpl implements ICommonMessageService {
     private void batchAppPush(List<String> userIds, BaseMessage baseMessage) {
         SubMessage appPushMessage = baseMessage.getAppPushMessage();
         String content = appPushMessage.getContent();
-        String url = MultiUrlHelper.getUrl(baseMessage.getRouteType(), MultiUrlHelper.URL_TYPE_APP, baseMessage.getDetailId(), null);
+        String routeType = baseMessage.getRouteType();
+        String url = MultiUrlHelper.getUrl(routeType, MultiUrlHelper.URL_TYPE_APP, baseMessage.getDetailId(), null);
+        if (StringUtils.isBlank(url)) {
+            url = MultiUrlHelper.getUrl(RouteTypeEnum.MESSAGE_LIST.name(), MultiUrlHelper.URL_TYPE_APP, null, null);
+        }
         Map<String, Object> customParams = new HashMap<>(5);
         customParams.put("url", url);
 

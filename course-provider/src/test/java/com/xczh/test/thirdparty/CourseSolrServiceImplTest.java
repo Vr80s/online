@@ -43,4 +43,5 @@ public class CourseSolrServiceImplTest extends BaseJunit4Test {
         Page<CourseSolrVO> courseSolrVOPage = iCourseSolrService.selectCourseListBySolr(new Page(1, 10), queryConditionVo);
     }
 
+
 }

@@ -37,13 +37,13 @@ public class DateUtil {
 
     static {
         dayMap = new HashMap<>();
-        dayMap.put(1, "周一");
-        dayMap.put(2, "周二");
-        dayMap.put(3, "周三");
-        dayMap.put(4, "周四");
-        dayMap.put(5, "周五");
-        dayMap.put(6, "周六");
-        dayMap.put(7, "周日");
+        dayMap.put(1, "一");
+        dayMap.put(2, "二");
+        dayMap.put(3, "三");
+        dayMap.put(4, "四");
+        dayMap.put(5, "五");
+        dayMap.put(6, "六");
+        dayMap.put(7, "日");
     }
 
 
