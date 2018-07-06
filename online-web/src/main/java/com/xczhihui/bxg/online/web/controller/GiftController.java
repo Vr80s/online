@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.xczhihui.bxg.online.common.domain.GiftStatement;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.common.util.enums.ClientType;
 import com.xczhihui.common.util.enums.OrderFrom;
 import com.xczhihui.common.util.enums.Payment;
 import com.xczhihui.online.api.service.GiftService;
@@ -65,10 +66,10 @@ public class GiftController extends AbstractController {
         OnlineUser u = getCurrentUser();
         if (u != null) {
             giftStatement.setGiver(u.getId());
-            giftStatement.setClientType(OrderFrom.PC.getCode());
+            giftStatement.setClientType(ClientType.PC.getCode());
             giftStatement.setPayType(Payment.COINPAY.getCode());
             map = giftService.addGiftStatement(u.getId(), giftStatement.getReceiver(),
-                    giftStatement.getGiftId(), OrderFrom.PC, giftStatement.getCount(), giftStatement.getLiveId());
+                    giftStatement.getGiftId(), ClientType.PC, giftStatement.getCount(), giftStatement.getLiveId());
         }
         return ResponseObject.newSuccessResponseObject(map);
     }

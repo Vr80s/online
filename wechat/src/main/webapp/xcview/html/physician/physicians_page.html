@@ -548,9 +548,10 @@
 						<span class="stick_img"><img src="/xcview/images/stick.png" alt="" />置顶</span>
 						{{/if}}
 						
-						<div class="title"><span class="stick_imgs">#医案#</span>{{item.content}}</div>
+						<div class="title"><span class="stick_imgs" style="display: none !important;">#医案#</span>{{item.content}}</div>
 						<div class="both"></div>
 					</div>
+
 					<div class="both"></div>
 					<div class="consilia_nav_btn"><span>展开</span></div>
 					<div class="consilia_nav_cen" data-id="{{item.articleId}}" style="display: block;">
@@ -769,7 +770,7 @@
 							   {{else if item.startDateStr.indexOf('.')==-1}}
 								<p class="p3 p4"><img src="/xcview/images/Sinatv_time.png" alt="" style="margin-right: 0.03rem;" /><span style="margin-top: -0.02rem;font-size: 0.24rem;">{{item.startDateStr}}</span></p              						   
 								{{else}}
-								<p class="p3 p4"><img src="/xcview/images/learn.png" alt="" style="margin-right: 0.03rem;" /><span style="float: left;font-size: 0.22rem;margin-top: -0.02rem;">{{item.startDateStr}}</span></p>
+								<p class="p3 p4"><img src="/xcview/images/learn.png" alt="" style="margin-right: 0.03rem;" /><span style="float: left;font-size: 0.24rem;margin-top: -0.02rem;">{{item.startDateStr}}</span></p>
 								{{/if}}
 						
 						{{else if item.type == 4}}

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.xczhihui.bxg.online.common.domain.Gift;
 import com.xczhihui.bxg.online.web.dao.GiftDao;
+import com.xczhihui.common.util.enums.ClientType;
 import com.xczhihui.common.util.enums.OrderFrom;
 import com.xczhihui.online.api.service.GiftSendService;
 import com.xczhihui.online.api.service.GiftService;
@@ -28,13 +29,13 @@ public class GiftServiceImpl implements GiftService {
     private UserCoinService userCoinService;
 
     @Override
-    public Map<String, Object> addGiftStatement(String giverId, String receiverId, String giftId, OrderFrom orderFrom, int count, String liveId) {
+    public Map<String, Object> addGiftStatement(String giverId, String receiverId, String giftId, ClientType clientType, int count, String liveId) {
 //		if(giverId.equals(receiverId)){
 //			throw new RuntimeException("不可以给自己送礼物哦~");
 //		}
         //每次送一个  20180305 yuxin
         count = 1;
-        Map<String, Object> map = giftSendService.addGiftStatement4Lock(liveId, giverId, receiverId, giftId, orderFrom, count, liveId);
+        Map<String, Object> map = giftSendService.addGiftStatement4Lock(liveId, giverId, receiverId, giftId, clientType, count, liveId);
         map.put("giftCount", findByLiveId(Integer.valueOf(liveId)));
         map.put("balanceTotal", userCoinService.getBalanceByUserId(giverId));
         map.put("ranking", getRankingListByLiveId(liveId, 1, 10));

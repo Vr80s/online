@@ -56,8 +56,18 @@ public class CourseAnchor implements java.io.Serializable {
 
     private Integer isRecommend;
     private Integer clientType;
+    private Integer defaultCount;
 
     private int courseCount;
+
+    @Column(name = "default_count")
+    public Integer getDefaultCount() {
+        return defaultCount;
+    }
+
+    public void setDefaultCount(Integer defaultCount) {
+        this.defaultCount = defaultCount;
+    }
 
     @Transient
     public int getCourseCount() {

@@ -21,6 +21,7 @@ import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xczhihui.common.support.cc.util.CCUtils;
 import com.xczhihui.common.support.lock.Lock;
 import com.xczhihui.common.util.DateUtil;
+import com.xczhihui.common.util.XzStringUtils;
 import com.xczhihui.common.util.enums.ApplyStatus;
 import com.xczhihui.common.util.enums.CourseForm;
 import com.xczhihui.common.util.enums.Multimedia;
@@ -437,8 +438,9 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
 
     @Override
     public String getCollectionUpdateDateText(Integer collectionId) {
-        return collectionCourseApplyUpdateDateMapper.listDatesByCollectionId(collectionId)
-                .stream().map(DateUtil::getDayOfWeek).collect(Collectors.joining(","));
+       String updateTime =  collectionCourseApplyUpdateDateMapper.listDatesByCollectionId(collectionId)
+        .stream().map(DateUtil::getDayOfWeek).collect(Collectors.joining(""));
+        return XzStringUtils.updateTimeConverter(updateTime);
     }
 
     /**
@@ -622,4 +624,16 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
             }
         }
     }
+    
+    public static void main(String[] args) {
+        
+        
+        List<Integer> list = new ArrayList<Integer>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        System.out.println(list.stream().map(DateUtil::getDayOfWeek).collect(Collectors.joining("")));
+        
+    }
+    
 }

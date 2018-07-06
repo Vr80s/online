@@ -22,6 +22,7 @@ import com.xczhihui.bxg.online.web.service.BannerService;
 import com.xczhihui.bxg.online.web.utils.HtmlUtil;
 import com.xczhihui.bxg.online.web.vo.BannerVo;
 import com.xczhihui.common.util.enums.HeadlineType;
+import com.xczhihui.medical.doctor.model.MedicalWriting;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorArticleService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorWritingService;
@@ -143,8 +144,9 @@ public class HeadlinePageController extends AbstractFtlController {
             view.addObject("userSmallHeadPhoto", "");
         }
         String typeId = article.getTypeId();
-        if (typeId == null) {
-            view.addObject("writing", medicalDoctorWritingService.findByArticleId(id));
+        if (HeadlineType.ZZ.getCode().equals(typeId)) {
+            MedicalWriting medicalWriting = medicalDoctorWritingService.findByArticleId(id);
+            view.addObject("writing", medicalWriting);
             view.addObject("writings", medicalDoctorArticleService.listPublicWritings(1, 6));
         } else {
             List<Map<String, Object>> hotArticles = articleService.getHotArticle();
@@ -156,6 +158,8 @@ public class HeadlinePageController extends AbstractFtlController {
             view.addObject("reportDoctors", medicalDoctorArticleService.listReportDoctorByArticleId(id));
         } else if (HeadlineType.DJZL.getCode().equals(typeId)) {
             view.addObject("authors", medicalDoctorArticleService.listHotSpecialColumnAuthorByArticleId(id));
+        } else if (HeadlineType.ZZ.getCode().equals(typeId)) {
+            //TODO 返回著作作者信息
         }
 
         Map echoMap = new HashMap();

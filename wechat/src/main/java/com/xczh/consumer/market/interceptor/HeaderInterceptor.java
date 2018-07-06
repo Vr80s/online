@@ -85,6 +85,8 @@ public class HeaderInterceptor implements HandlerInterceptor {
         ClientType clientType = null;
         if(StringUtils.isNotBlank(HeaderInterceptor.CLIENT.get())){
             clientType = ClientType.getClientType(Integer.valueOf(HeaderInterceptor.CLIENT.get()));
+        }else{
+            clientType = ClientType.OTHER;
         }
         return clientType;
     }
@@ -93,9 +95,8 @@ public class HeaderInterceptor implements HandlerInterceptor {
         ClientType clientType = null;
         if(StringUtils.isNotBlank(HeaderInterceptor.CLIENT.get())){
             clientType = ClientType.getClientType(Integer.valueOf(HeaderInterceptor.CLIENT.get()));
-        }
-        if(clientType == null){
-            return null;
+        }else{
+            return ClientType.OTHER.getCode();
         }
         return clientType.getCode();
     }

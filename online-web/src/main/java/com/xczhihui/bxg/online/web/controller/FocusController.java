@@ -60,8 +60,7 @@ public class FocusController extends AbstractController {
      */
     @RequestMapping("updateFocus")
     @ResponseBody
-    public ResponseObject updateFocus(HttpServletRequest request,
-                                      @RequestParam("lecturerId") String lecturerId,
+    public ResponseObject updateFocus(@RequestParam("lecturerId") String lecturerId,
                                       @RequestParam("type") Integer type)
             throws Exception {
         /**
@@ -83,7 +82,7 @@ public class FocusController extends AbstractController {
          * 这里建议获取下粉丝数和关注数
          */
         List<Integer> listff = focusService.selectFocusAndFansCount(lecturerId);
-        map.put("fansCount", listff.get(0));           //粉丝总数
+        map.put("fansCount", listff.get(0) + listff.get(2));           //粉丝总数
         map.put("focusCount", listff.get(1));           //关注总数
         return ResponseObject.newSuccessResponseObject(map);
     }

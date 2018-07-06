@@ -10,6 +10,7 @@ $(function(){
 		  	$('#consilia_main_center').html(template('consilia_main_center_id', {items: data.resultObject}));
 	    
 	        $(".consilia_textarea").html(data.resultObject.content);
+	        $(".consilia_center_url span").html(data.resultObject.url);
 	        
 	    }
 	});

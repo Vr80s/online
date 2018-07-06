@@ -98,8 +98,7 @@ public class AnchorsController extends AbstractFtlController {
      * @throws IOException
      */
     @RequestMapping(value = "{userId}/courses", method = RequestMethod.GET)
-    public ModelAndView courses(HttpServletRequest req, HttpServletResponse res,
-                                @PathVariable String userId,
+    public ModelAndView courses(@PathVariable String userId,
                                 @RequestParam(required = false) Integer pageSize,
                                 @RequestParam(required = false) Integer pageNumber) throws IOException {
 
