@@ -120,7 +120,7 @@ public interface CourseMapper extends BaseMapper<Course> {
      * @return
      */
     @Select({"select oc.id, oc.grade_name as gradeName, oc.learnd_count as learndCount, ca.name, oc.current_price * 10 as currentPrice," +
-            " oc.bigimg_path as bigImgPath" +
+            " oc.smallimg_path as bigImgPath" +
             " from oe_course oc inner join course_anchor as ca on oc.user_lecturer_id = ca.user_id" +
             " where oc.menu_id = #{menuId} and oc.id != #{id} and oc.status = 1 and oc.is_delete = 0" +
             " order by oc.release_time desc " +
