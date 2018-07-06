@@ -204,7 +204,7 @@ public class APIServiceFunction {
 	/* file为文件*/
 	/* bufferOut为实际文件输出二进制内容*/
 
-    public static String uploadchunk(String url, int chunkStart, int chunkEnd, File file) {
+    public static String uploadchunk(String url, long chunkStart, long chunkEnd, File file) {
         byte[] bufferOut = null;
         try {
             bufferOut = readChunk(file);

@@ -409,7 +409,6 @@ var activityType;
 		 	post.type = activityType;
 			RequestService("/doctor/posts", "post", post , function (data) {
 	        	if(data.success==true){
-	        		
 	        		showTip("发布成功");
 	        		$(".btn-deliver").removeAttr("disabled");
 	        		newsList(1,getAnchorsId);
@@ -761,6 +760,7 @@ var activityType;
 template.config("escape", false);
 
 //	动态列表	
+var posts;
 	function newsList(pages,getAnchorsId){
 	 RequestService("/doctor/posts", "GET", {
             "pageNumber" : pages,
@@ -768,20 +768,27 @@ template.config("escape", false);
             "doctorId" :getAnchorsId
         }, function (data) {
         	if(data.success==true){
-        		var posts=data.resultObject.records;
+        		posts=data.resultObject.records;
         		
         		if(isBlank(posts)){
         			$(".banner-dongtai").removeClass("hide");
         		}else{
         			$(".banner-dongtai").addClass("hide");
         			for(var i=0;i<posts.length;i++){
-//						处理图片
+//						处理图片动态
 						if(posts[i].imgStr!=null){
 							for(var j=0; j<posts[i].imgStr.length;j++){
 								posts[i].imgStr[j].imgUrl=posts[i].imgStr[j].imgUrl+"?"+"imageMogr2/thumbnail/!300x300r"+"|"+"imageMogr2/gravity/Center/crop/300x300"
 							}
-
-						}							
+						}	
+//						处理文章封面图
+						if(posts[i].articleImgPath!=null){
+								posts[i].articleImgPath=posts[i].articleImgPath+"?"+"imageMogr2/thumbnail/!250x140r"+"|"+"imageMogr2/gravity/Center/crop/250x140"
+						}
+//						处理课程封面图
+						if(posts[i].smallImgPath!=null){
+								posts[i].smallImgPath=posts[i].smallImgPath+"?"+"imageMogr2/thumbnail/!250x140r"+"|"+"imageMogr2/gravity/Center/crop/250x140"
+						}
 //      				给点赞加个字段
         				posts[i].postsLikes="";
         				var fabulous= "";
@@ -792,7 +799,9 @@ template.config("escape", false);
 		        				
 	        				}
         				    posts[i].postsLikes=fabulous.substr(0,fabulous.length-1);;  
-        				    
+
+//      				视频封面图	  
+
         			}
         			
         		}
@@ -833,24 +842,49 @@ template.config("escape", false);
         })
 }
 //  视频
+
 	function showVideos(){
-		$("#comment-text-wrap .save-video-wrap").each(function(){
+		$("#comment-text-wrap .save-video-wrap").each(function(index){
 			var that = $(this);
 			var videoId = that.attr("data-video");
-			RequestService("/online/vedio/getVideoPlayCodeByVideoId", "GET", {
-	            videoId: videoId,
-				width: "920",
-				height: "520",
+			var dataCoverimg=that.attr("data-coverimg");
+			RequestService("/online/vedio/getPlayCodeByVideoId", "GET", {
+				width: 920,
+				height: 520,
+				directId:videoId,
 				autoPlay: false
 			}, function(data) {
-				if(data.success == true) {
-					that.html(data.resultObject);
-				} else if(data.success == false) {
-					alert("播放发生错误，请清除缓存重试");
+				if(data.success == true) {									
+					var playCodeStr = data.resultObject;
+		            var playCodeObj = JSON.parse(playCodeStr);
+		            console.log(playCodeObj.video.playcode);
+		            var playCode = playCodeObj.video.playcode;
+		            playCode = playCode.replace("playertype=1","playertype=1&img_path="+dataCoverimg+"");
+					that.html(playCode);	
 				}
-			});
+			})
 		});
 	}
+
+//	function showVideos(){
+//		$("#comment-text-wrap .save-video-wrap").each(function(){
+//			var that = $(this);
+//			var videoId = that.attr("data-video");
+//			RequestService("/online/vedio/getVideoPlayCodeByVideoId", "GET", {
+//	            videoId: videoId,
+//				width: "920",
+//				height: "520",
+//				autoPlay: false
+//			}, function(data) {
+//				if(data.success == true) {
+//					var videoStr = data.resultObject.replace('<param name="allowScriptAccess" value="always" />','<param name="allowScriptAccess" value="always" /><param name="flashvars" value="img_path=https://file.ipandatcm.com/18614173351/de0d6171e55c2ae1.jpg">');
+//					that.html(videoStr);						
+//				} else if(data.success == false) {
+//					alert("播放发生错误，请清除缓存重试");
+//				}
+//			});
+//		});
+//	}
 //	是否置顶
 	function isZhiding(){
 	$(".host-top").click(function(){
@@ -2591,7 +2625,7 @@ function workPreview(index) {
     $(".preview-work-author").text(workPreviewData.author);
     $(".preview-work-picter img").attr("src", workPreviewData.imgPath);
     $(".preview-work-present").html(workPreviewData.remark);
-    $(".preview-work-link").html(workPreviewData.buyLink ? '<a href="' + workPreviewData.buyLink + '" target="_blank">' + workPreviewData.buyLink + '</a>' : '');
+    $(".preview-work-link").text(workPreviewData.buyLink);
     $("#work-preview-page").removeClass("hide");
     $("#mask").removeClass("hide")
 }
@@ -2644,7 +2678,7 @@ function mediaRreview(index) {
     $(".preview-media-author").text(previewData.author);
     $(".preview-media-picter img").attr("src", previewData.imgPath);
     $(".preview-media-present").html(previewData.content);
-    $(".preview-media-link").html(previewData.url ? '<a href="' + previewData.url + '" target="_blank">' + previewData.url + '</a>' : '');
+    $(".preview-media-link").text(previewData.url);
     //		预览弹窗
     $("#media-preview").removeClass("hide");
     $("#mask").removeClass("hide");
@@ -2718,8 +2752,9 @@ function echoMedia(index) {
 		});
 	}
 //视频上传
-	var saveVideo;
-	var saveVideoId;
+	var saveVideo;    //上传时的文件名
+	var saveVideoId;  //上传时的ccid
+	var isAjax;       //判断文件在上传时有没有走ajax 
 	function xmx(begin, first, filemd5, ccid, metaurl, chunkUrl) {
 		var obj_file = document.getElementById("video-up").files[0];
 		chunkSize = 2097152; //2M
@@ -2748,7 +2783,7 @@ function echoMedia(index) {
 			contentType: false
 		}).done(function(result) {
 			if(result.success) {
-				
+				isAjax=1;    //判断有没有进入ajax，给取消上传一个判定的标准
 				var ccid = result.resultObject[0];
 				var metaurl = result.resultObject[1];
 				var chunkUrl = result.resultObject[2];
@@ -2786,12 +2821,14 @@ function echoMedia(index) {
 					$(".file-percent").html("已上传"+0+"%");   //成功后清零
 					$(".total-size").html(0+"MB"+"/"+0+"MB")  //成功后清零
 					
-					saveVideo=$("#video-up").val().slice(12);
+					saveVideo=$("#video-up").val().slice(12); //获取input的上传文件名
 					$(".saveUrl").html(saveVideo)
 					uploadfinished = true;
+					$("#video-up").val("");					 //清空是为了二次上传同一视频
 					//alert('上传完成!');
 					//告诉后台上传完成后合并文件                            //返回上传文件的存放路径
 //					$("#video-up").css({"display":"block"})
+					clearData();
 	//	
 				} else {
 					xmx(start, "2", "", ccid, metaurl, chunkUrl); // 上传字节不等与或大于总字节数，继续上传
@@ -2827,7 +2864,10 @@ function echoMedia(index) {
 		return true;
 	}
 	function cancalUpdata1() {
-		currentAjax.abort();
+		if(isAjax=1){
+			currentAjax.abort();
+		}
+		
 		var file = document.getElementById('video-up');
 		file.value = '';
 		$('.progress-resource').css({
@@ -2854,8 +2894,15 @@ function echoMedia(index) {
 	$(".againUp").click(function(){
 		$("#video-up").click();
 	})
-	//	file点击取消时去掉成功样式
 	
+//	上传成功后去掉视频的参数
+	function clearData(){
+		var start = localStorage.removeItem("startChunkSize");
+		var ccid = localStorage.removeItem("ccId");
+		var metaurl = localStorage.removeItem("metaUrl");
+		var chunkUrl = localStorage.removeItem("chunkUrl");
+		var fileMd5 = localStorage.removeItem("fileMD5");
+	}
 //重置状态，关闭图片，视频，文章等
 	function closeImages(){
 		$(".save-photo ul").html("");

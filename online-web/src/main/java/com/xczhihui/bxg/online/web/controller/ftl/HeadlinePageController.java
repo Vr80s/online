@@ -22,9 +22,11 @@ import com.xczhihui.bxg.online.web.service.BannerService;
 import com.xczhihui.bxg.online.web.utils.HtmlUtil;
 import com.xczhihui.bxg.online.web.vo.BannerVo;
 import com.xczhihui.common.util.enums.HeadlineType;
+import com.xczhihui.medical.doctor.model.MedicalWriting;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorArticleService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorWritingService;
+import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 import com.xczhihui.medical.doctor.vo.OeBxsArticleVO;
 import com.xczhihui.medical.headline.model.OeBxsAppraise;
 import com.xczhihui.medical.headline.model.OeBxsArticle;
@@ -143,8 +145,9 @@ public class HeadlinePageController extends AbstractFtlController {
             view.addObject("userSmallHeadPhoto", "");
         }
         String typeId = article.getTypeId();
-        if (typeId == null) {
-            view.addObject("writing", medicalDoctorWritingService.findByArticleId(id));
+        if (HeadlineType.ZZ.getCode().equals(typeId)) {
+            MedicalWriting medicalWriting = medicalDoctorWritingService.findByArticleId(id);
+            view.addObject("writing", medicalWriting);
             view.addObject("writings", medicalDoctorArticleService.listPublicWritings(1, 6));
         } else {
             List<Map<String, Object>> hotArticles = articleService.getHotArticle();
@@ -156,6 +159,16 @@ public class HeadlinePageController extends AbstractFtlController {
             view.addObject("reportDoctors", medicalDoctorArticleService.listReportDoctorByArticleId(id));
         } else if (HeadlineType.DJZL.getCode().equals(typeId)) {
             view.addObject("authors", medicalDoctorArticleService.listHotSpecialColumnAuthorByArticleId(id));
+        } else if (HeadlineType.ZZ.getCode().equals(typeId) || HeadlineType.YA.getCode().equals(typeId)) {
+            String doctorUserId = article.getCreatePerson();
+            if (doctorUserId != null) {
+                try {
+                    String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(doctorUserId);
+                    MedicalDoctorVO medicalDoctorVO = medicalDoctorBusinessService.findSimpleById(doctorId);
+                    view.addObject("writingAuthor", medicalDoctorVO);
+                } catch (Exception e) {
+                }
+            }
         }
 
         Map echoMap = new HashMap();

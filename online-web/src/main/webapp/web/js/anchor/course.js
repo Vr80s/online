@@ -763,7 +763,7 @@ function confirmCourseSale(state,courseApplyId,courseId){
         });
     });
 }
-function confirmCollection(state,courseId){
+function confirmCollection(state,courseApplyId,courseId){
     var title="专辑上架";
     var content="确认上架该专辑？";
     if(state==0){
@@ -774,7 +774,7 @@ function confirmCollection(state,courseId){
         $.ajax({
             type: "post",
             url: bath + "/anchor/course/changeSaleState",
-            data:"courseApplyId="+courseId+"&state="+state,
+            data:"courseApplyId="+courseApplyId+"&state="+state+"&courseId="+courseId,
             async: false,
             success: function(data) {
                 closefn();
@@ -1267,6 +1267,7 @@ function resetCollectionForm(){
     $("#collectionId").val("");
     $("#collectionImg").html("");
     $(".collection_courses").html("");
+    $(".div_one").removeClass("div_one0");
     courseArr=[];
 	showPersonInf2();
     initCourse(1);

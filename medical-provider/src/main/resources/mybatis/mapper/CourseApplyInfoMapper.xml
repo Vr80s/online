@@ -61,7 +61,8 @@
         cai.`multimedia_type` multimediaType,
         cai.`status` applyStatus,
         oc.`status` ,
-        cai.`last_update_time` lastUpdateTime
+        cai.`last_update_time` lastUpdateTime,
+        oc.id courseId
         FROM
         `course_apply_info` cai
         LEFT JOIN `oe_course` oc

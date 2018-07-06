@@ -3,6 +3,7 @@ package com.xczhihui.online.api.service;
 
 import java.util.Map;
 
+import com.xczhihui.common.util.enums.ClientType;
 import com.xczhihui.common.util.enums.OrderFrom;
 
 
@@ -20,7 +21,7 @@ public interface GiftService {
      * @return GiftStatement
      * @author name：yuxin <br>email: yuruixin@ixincheng.com
      **/
-    public Map<String, Object> addGiftStatement(String giverId, String receiverId, String giftId, OrderFrom orderFrom, int count, String liveId);
+    public Map<String, Object> addGiftStatement(String giverId, String receiverId, String giftId, ClientType orderFrom, int count, String liveId);
 
     /**
      * Description：获取所有礼物

@@ -114,8 +114,10 @@ public class MobileRecommendController {
 
         pageNumber = pageNumber == null ? 1 : pageNumber;
         pageSize = pageSize == null ? Integer.MAX_VALUE : pageSize;
+
         handleQueryConditionVo(queryConditionVo);
 
+        
         Page<CourseSolrVO> page = new Page<>(pageNumber, pageSize);
         page = courseSolrService.selectCourseListBySolr(page, queryConditionVo);
         return ResponseObject.newSuccessResponseObject(page.getRecords());
@@ -128,6 +130,8 @@ public class MobileRecommendController {
         if (queryConditionVo.getLineState() != null && queryConditionVo.getLineState() == 0) {
             queryConditionVo.setLineState(null);
         }
+        
+        
         if (queryConditionVo.getCourseType() != null) {
             if (queryConditionVo.getCourseType().equals(CourseType.VIDEO.getId())) {
                 queryConditionVo.setCourseForm(CourseForm.VOD.getCode());
@@ -140,6 +144,10 @@ public class MobileRecommendController {
             } else if (queryConditionVo.getCourseType().equals(CourseType.OFFLINE.getId())) {
                 queryConditionVo.setCourseForm(CourseForm.OFFLINE.getCode());
             }
+        }
+        
+        if(queryConditionVo.getCity()!=null) {
+            queryConditionVo.setCourseForm(CourseForm.OFFLINE.getCode());
         }
     }
 

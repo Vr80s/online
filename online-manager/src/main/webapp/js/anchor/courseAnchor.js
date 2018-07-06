@@ -82,7 +82,7 @@ $(function() {
                 } else {
                        str += '<a class="blue" href="javascript:void(-1);" title="打开主播权限" onclick="editPermissions(this);"><i class="ace-icon fa fa-check-square-o bigger-130"></i></a>';
                 }
-                str += '<a class="blue" href="javascript:void(-1);" title="设置分成比例" onclick="toEdit(this,1);"><i class="ace-icon fa fa-pencil bigger-130"></i></a>';
+                str += '<a class="blue" href="javascript:void(-1);" title="设置" onclick="toEdit(this,1);"><i class="ace-icon fa fa-pencil bigger-130"></i></a>';
                 str += '<a class="blue" href="javascript:void(-1);" title="课程列表" onclick="showCourseListDialog(this);">课程列表</a>';
                 return str;
             }
@@ -265,8 +265,9 @@ function toEdit(obj,status){
         $("#live").val(result.liveDivide);
         $("#offline").val(result.offlineDivide);
         $("#gift").val(result.giftDivide);
+        $("#default").val(result.defaultCount);
 
-        var dialog = openDialog("EditCourseDialog","dialogEditCourseDiv","设置分成比例",500,500,true,"确定",function(){
+        var dialog = openDialog("EditCourseDialog","dialogEditCourseDiv","主播设置",500,500,true,"确定",function(){
 
             if($("#updateCourse-form").valid()){
                 mask();

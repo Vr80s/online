@@ -272,9 +272,9 @@
 		<td>
 			{{if collection.applyStatus==1}}
 			{{if collection.status==1}}
-			<a href="javascript:;" onclick="confirmCollection(0,{{collection.id}})">下架</a>
+			<a href="javascript:;" onclick="confirmCollection(0,{{collection.id}},{{collection.courseId}})">下架</a>
 			{{else}}
-			<a href="javascript:;" onclick="confirmCollection(1,{{collection.id}})">上架</a>
+			<a href="javascript:;" onclick="confirmCollection(1,{{collection.id}},{{collection.courseId}})">上架</a>
 			<a href="javascript:;" onclick="editCollection({{collection.id}})">编辑</a>
 			{{/if}}
 			{{else if collection.applyStatus==2}}

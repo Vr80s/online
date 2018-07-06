@@ -81,7 +81,7 @@ function doctorPostsList(doctorPostsType) {
         }
 
 
-            //判断全部动态
+            //判断全部动态默认图
             if(data.resultObject.records.length==0){
                 $(".baseImagenumbers").show();
             }else{
@@ -89,6 +89,19 @@ function doctorPostsList(doctorPostsType) {
             }
 
         $(".rests_nav").html(template('wrap_doctor_dynamics',{items:obj}));
+
+
+        /*$(".consilia_nav_span .title").each(function(){
+            var title = $(this);
+            // 判断可编辑医案显示隐藏
+            if(data.resultObject.records.content == null || data.resultObject.records.content == ""){
+                    title.parent(".consilia_nav_span").hide();
+                    // alert(1111);
+                }else{
+                    title.parent(".consilia_nav_span").show();
+                    // alert(2222);
+            }
+        });*/
 
 
         for(var i=0;i<obj.length;i++){
@@ -278,6 +291,7 @@ function doctorPostsList(doctorPostsType) {
                 })
             }
         });
+
         //文章跳转
         $(".article_hide").click(function(){
             var articleId = $(this).attr("data-id");

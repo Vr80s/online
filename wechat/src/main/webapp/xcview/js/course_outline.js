@@ -22,11 +22,14 @@ requestService("/xczh/course/details",{
 //				$(".outline_list_ul p").prepend('<span>'+number_m+'&nbsp'+'</span>')		
 //			}
 	
-
-
-
 //		标题		
-		$(".outline_main").html(template('outline_main',data.resultObject)) 	    	
+		$(".outline_main").html(template('outline_main',data.resultObject));
+
+		if (data.resultObject.dirtyDate == null || data.resultObject.dirtyDate == "") {
+			$(".outline_cen_right").hide();
+		} else{
+			$(".outline_cen_right").show();
+		};	
   	
 		}
 		

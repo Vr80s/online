@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xczhihui.course.mapper.FocusMapper">
 
-    <!-- 返回的map 第一个是我的粉丝总数      第二个是我的关注总数    第三个是评论总数    -->
+    <!-- 返回的map 第一个是我的粉丝总数      第二个是我的关注总数    第三个是评论总数    第四个主播默认粉丝数-->
     <select id="selectFocusOrFansCountOrCriticizeCount" resultType="java.lang.Integer">
 
         ( select count(*) from oe_focus of
@@ -19,9 +19,14 @@
         inner join course_anchor as ou on cc.user_id =ou.user_id
         where cc.user_id = #{userId} and cc.is_delete = 0  and cc.create_person is not null and ou.status = 1 and ou.deleted =0
         )
+        UNION ALL
+        (SELECT IFNULL(SUM(ca.default_count),0)
+            FROM course_anchor ca
+        WHERE ca.`user_id` =#{userId}
+        )
     </select>
 
-    <!-- 返回的map 第一个是我的粉丝总数      第二个是我的关注总数  -->
+    <!-- 返回的map 第一个是我的粉丝总数      第二个是我的关注总数  第三个是主播默认粉丝数 -->
     <select id="selectFocusAndFansCount" resultType="java.lang.Integer">
         ( select count(*) from oe_focus of
         inner join oe_user as ou on of.user_id =ou.id
@@ -32,6 +37,11 @@
         inner join course_anchor as ou on of.lecturer_id = ou.user_id
         where of.user_id =#{userId}
         and ou.status = 1 and ou.deleted =0 )
+        UNION ALL
+        (SELECT IFNULL(SUM(ca.default_count),0)
+            FROM course_anchor ca
+        WHERE ca.`user_id` =#{userId}
+        )
     </select>
 
     <!--  我的关注总数  -->

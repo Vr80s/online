@@ -14,7 +14,7 @@ public class CourseUtil {
                                 : RouteTypeEnum.OFFLINE_COURSE_DETAIL_PAGE));
     }
 
-    public static RouteTypeEnum getCourseLearningRouteType(Boolean collection, int type, int multimedia) {
+    public static RouteTypeEnum getCourseLearningRouteType(Boolean collection, int type, Integer multimedia) {
         RouteTypeEnum routeTypeEnum = RouteTypeEnum.NONE;
         if (type == CourseForm.LIVE.getCode()) {
             routeTypeEnum = RouteTypeEnum.COMMON_LEARNING_LIVE_COURSE_DETAIL_PAGE;

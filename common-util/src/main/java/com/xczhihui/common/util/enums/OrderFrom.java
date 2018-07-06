@@ -10,6 +10,7 @@ package com.xczhihui.common.util.enums;
  **/
 public enum OrderFrom {
 
+    OTHER(-1, "其他"),
     GIVE(0, "赠送"),
     PC(1, "pc"),
     H5(2, "h5"),
@@ -41,6 +42,8 @@ public enum OrderFrom {
     public static OrderFrom valueOf(int value) {
 
         switch (value) {
+            case -1:
+                return OrderFrom.OTHER;
             case 1:
                 return OrderFrom.PC;
             case 2:

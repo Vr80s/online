@@ -14,7 +14,7 @@ import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.body.article.AppraiseBody;
 import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczhihui.common.util.IStringUtil;
+import com.xczhihui.common.util.XzStringUtils;
 import com.xczhihui.common.util.enums.HeadlineType;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorArticleService;
 import com.xczhihui.medical.doctor.vo.OeBxsArticleVO;
@@ -42,12 +42,23 @@ public class ArticleController {
         if (oeBxsArticleVO == null) {
             return ResponseObject.newErrorResponseObject("文章找不到");
         }
-        if (oeBxsArticleVO.getTypeId() != null && oeBxsArticleVO.getTypeId().equals(HeadlineType.YA.getCode())) {
-            oeBxsArticleVO.setType("医案");
+        String typeId = oeBxsArticleVO.getTypeId();
+        if (typeId != null) {
+            if (typeId.equals(HeadlineType.YA.getCode())) {
+                oeBxsArticleVO.setType("医案");
+            } else if (typeId.equals(HeadlineType.ZZ.getCode())) {
+                oeBxsArticleVO.setType("著作");
+            } else if (typeId.equals(HeadlineType.DJZL.getCode())) {
+                oeBxsArticleVO.setType("专栏");
+            } else if (typeId.equals(HeadlineType.MYBD.getCode())) {
+                oeBxsArticleVO.setType("报道");
+            } else {
+                oeBxsArticleVO.setType("文章");
+            }
         } else {
             oeBxsArticleVO.setType("文章");
         }
-        oeBxsArticleVO.setContent(IStringUtil.filterLinkTag(oeBxsArticleVO.getContent()));
+        oeBxsArticleVO.setContent(XzStringUtils.formatA(oeBxsArticleVO.getContent()));
         oeBxsArticleVO.setContentUrl(returnOpenUri + "/xcview/html/article_fragment.html?id=" + id);
         return ResponseObject.newSuccessResponseObject(oeBxsArticleVO);
     }

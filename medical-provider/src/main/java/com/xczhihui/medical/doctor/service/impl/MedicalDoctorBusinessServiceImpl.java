@@ -710,4 +710,9 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
         }
         return map;
     }
+
+    @Override
+    public MedicalDoctorVO findSimpleById(String doctorId) {
+        return this.medicalDoctorMapper.selectDoctorById(doctorId);
+    }
 }

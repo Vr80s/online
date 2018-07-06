@@ -25,6 +25,7 @@ import com.xczhihui.common.support.lock.Lock;
 import com.xczhihui.common.support.service.CacheService;
 import com.xczhihui.common.support.service.impl.RedisCacheService;
 import com.xczhihui.common.util.RedisCacheKey;
+import com.xczhihui.common.util.enums.ClientType;
 import com.xczhihui.common.util.enums.OrderFrom;
 import com.xczhihui.online.api.service.GiftSendService;
 import com.xczhihui.online.api.service.UserCoinService;
@@ -48,7 +49,7 @@ public class GiftSendServiceImpl implements GiftSendService {
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Lock(lockName = "addGiftStatement", waitTime = 5, effectiveTime = 8)
-    public Map<String, Object> addGiftStatement4Lock(String lockKey, String giverId, String receiverId, String giftId, OrderFrom orderFrom, int count, String liveId) {
+    public Map<String, Object> addGiftStatement4Lock(String lockKey, String giverId, String receiverId, String giftId, ClientType clientType, int count, String liveId) {
         if (count < 1) {
             throw new RuntimeException("送礼物数量最少为1！");
         }
@@ -71,7 +72,7 @@ public class GiftSendServiceImpl implements GiftSendService {
         giftStatement.setPrice(gift.getPrice());
         giftStatement.setCreateTime(new Date());
         giftStatement.setGiftImg(gift.getSmallimgPath());
-        giftStatement.setClientType(orderFrom.getCode());
+        giftStatement.setClientType(clientType.getCode());
         giftDao.addGiftStatement(giftStatement);
 
         if (gift.getPrice() > 0) {

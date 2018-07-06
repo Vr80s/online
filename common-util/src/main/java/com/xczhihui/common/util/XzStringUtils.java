@@ -210,7 +210,11 @@ public class XzStringUtils {
      * @return
      */
     public static String workTimeScreen(String line) {
-        return workTimeScreen(line, true);
+        String workTime = workTimeScreen(line, true);
+        if(workTime.endsWith(",")){
+            workTime = workTime.substring(0,workTime.length()-1);
+        }
+        return workTime;
     }
 
     public static String workTimeScreen(String line, Boolean coOrdinate) {
@@ -335,4 +339,10 @@ public class XzStringUtils {
         map.put(7, "日");
     }
 
+    public static String updateTimeConverter(String updateTime) {
+        if(updateTime!=null) {
+            return "每周"+updateTime+"更新";
+        }    
+        return null;
+    }
 }
