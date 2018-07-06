@@ -173,7 +173,7 @@ public class CourseSolrServiceImpl implements ICourseSolrService {
         }
 
         String searchCity;
-        if (StringUtils.isNotBlank(queryConditionVo.getCity())) {
+        if (StringUtils.isNotBlank(queryConditionVo.getCity()) && !"全国课程".equals(queryConditionVo.getCity())) {
             searchCity = "city:" + queryConditionVo.getCity();
             if (query.length() > 0) {
                 query.append(SolrConstant.AND);
