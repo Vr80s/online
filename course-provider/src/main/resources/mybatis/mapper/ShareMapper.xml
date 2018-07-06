@@ -25,8 +25,8 @@
             SELECT 
 	            mer.id as shareId, 
 	            mer.title name,
-	            mer.propaganda as description,
-	            mer.poster_img as  headImg,
+	            mer.ceremony_address as description,
+	            mer.cover_img as  headImg,
 	            #{type} as type
             FROM
 	            medical_enrollment_regulations mer

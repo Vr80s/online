@@ -98,7 +98,6 @@ public class DoctorWritingController extends AbstractFtlController {
                 MedicalDoctorPosts mdp = new MedicalDoctorPosts();
                 mdp.setType(4);
                 mdp.setDoctorId(doctorId);
-                mdp.setContent(oba.getRemark());
                 mdp.setArticleId(Integer.valueOf(oba.getArticleId()));
                 mdp.setArticleContent(oba.getRemark());
                 mdp.setArticleImgPath(oba.getImgPath());

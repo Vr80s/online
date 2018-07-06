@@ -183,6 +183,11 @@ public class MedicalDoctorPosts extends Model<MedicalDoctorPosts> {
      */
     @TableField(exist = false)
     private List<PictureSpecification> imgStr;
+    /**
+     * 文章是否上架
+     */
+    @TableField(exist = false)
+    private Boolean articleStatus;
 
     @Override
     protected Serializable pkVal() {
@@ -443,6 +448,14 @@ public class MedicalDoctorPosts extends Model<MedicalDoctorPosts> {
 
     public void setImgStr(List<PictureSpecification> imgStr) {
         this.imgStr = imgStr;
+    }
+
+    public Boolean getArticleStatus() {
+        return articleStatus;
+    }
+
+    public void setArticleStatus(Boolean articleStatus) {
+        this.articleStatus = articleStatus;
     }
 
     @Override

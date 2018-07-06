@@ -14,11 +14,11 @@ requestGetService("/xczh/enrol/enrollmentRegulations/"+merId,data,function(data)
 
         //分享的信息展示
         gradeName = enrollmentRegulations.title;  /*标题*/
-        smallImgPath = enrollmentRegulations.posterImg;    /*img*/     /*下是--详情*/
-        if(enrollmentRegulations.propaganda==null || enrollmentRegulations.propaganda==''){
+        smallImgPath = enrollmentRegulations.coverImg;    /*img*/     /*下是--详情*/
+        if(enrollmentRegulations.ceremonyAddress==null || enrollmentRegulations.ceremonyAddress==''){
             description="";
         }else{
-            description = enrollmentRegulations.propaganda.stripHTML();
+            description = enrollmentRegulations.ceremonyAddress.stripHTML();
         }
 
         enrollmentRegulations.contactWay = newline(enrollmentRegulations.contactWay);

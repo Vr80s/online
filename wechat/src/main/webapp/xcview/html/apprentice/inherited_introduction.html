@@ -216,6 +216,12 @@
                 if (hashName !== '') {
                     var hash = window.location.hash;
                     if (hash === '') {
+                    	
+                    	var back = document.referrer;
+                    	if(isNotBlank(back) && back.indexOf("home_page.html") != -1){
+                            window.location.href = "/xcview/html/home_page.html";
+                            return;
+                        }
                         location.href = '/xcview/html/apprentice/apprentice.html'
                         /*跳转链接*/
                     }

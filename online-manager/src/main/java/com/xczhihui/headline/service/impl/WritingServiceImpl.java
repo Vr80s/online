@@ -2,6 +2,13 @@ package com.xczhihui.headline.service.impl;
 
 import java.util.*;
 
+import com.xczhihui.headline.service.ArticleService;
+import com.xczhihui.medical.doctor.model.MedicalDoctorPosts;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorArticleService;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsService;
+import com.xczhihui.medical.doctor.vo.OeBxsArticleVO;
+import com.xczhihui.support.shiro.ManagerUserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -30,6 +37,15 @@ public class WritingServiceImpl extends OnlineBaseServiceImpl implements
 
     @Autowired
     WritingDao writingDao;
+    @Autowired
+    private IMedicalDoctorBusinessService medicalDoctorBusinessService;
+    @Autowired
+    private IMedicalDoctorArticleService medicalDoctorArticleService;
+    @Autowired
+    private IMedicalDoctorPostsService medicalDoctorPostsService;
+    @Autowired
+    private ArticleService articleService;
+
 
     @Override
     public Page<MedicalWritings> findWritingsPage(WritingVo searchVo,
@@ -199,6 +215,17 @@ public class WritingServiceImpl extends OnlineBaseServiceImpl implements
             wv.setStatus(0);
         } else {
             wv.setStatus(1);
+            ArticleVo vo = articleService.findArticleById(Integer.valueOf(wv.getArticleId()));
+            String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(vo.getCreatePerson());
+            //更新动态
+            MedicalDoctorPosts mdp = new MedicalDoctorPosts();
+            mdp.setType(4);
+            mdp.setDoctorId(doctorId);
+            mdp.setArticleId(vo.getId());
+            mdp.setArticleContent(vo.getContent());
+            mdp.setArticleImgPath(vo.getImgPath());
+            mdp.setArticleTitle(vo.getTitle());
+            medicalDoctorPostsService.addMedicalDoctorPosts(mdp);
         }
         String sql = "UPDATE medical_writings SET status =:status  WHERE id =:id";
         Map<String, Object> param = new HashMap<>(16);
