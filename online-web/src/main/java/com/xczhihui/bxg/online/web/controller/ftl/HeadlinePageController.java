@@ -26,6 +26,7 @@ import com.xczhihui.medical.doctor.model.MedicalWriting;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorArticleService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorWritingService;
+import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 import com.xczhihui.medical.doctor.vo.OeBxsArticleVO;
 import com.xczhihui.medical.headline.model.OeBxsAppraise;
 import com.xczhihui.medical.headline.model.OeBxsArticle;
@@ -158,8 +159,16 @@ public class HeadlinePageController extends AbstractFtlController {
             view.addObject("reportDoctors", medicalDoctorArticleService.listReportDoctorByArticleId(id));
         } else if (HeadlineType.DJZL.getCode().equals(typeId)) {
             view.addObject("authors", medicalDoctorArticleService.listHotSpecialColumnAuthorByArticleId(id));
-        } else if (HeadlineType.ZZ.getCode().equals(typeId)) {
-            //TODO 返回著作作者信息
+        } else if (HeadlineType.ZZ.getCode().equals(typeId) || HeadlineType.YA.getCode().equals(typeId)) {
+            String doctorUserId = article.getCreatePerson();
+            if (doctorUserId != null) {
+                try {
+                    String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(doctorUserId);
+                    MedicalDoctorVO medicalDoctorVO = medicalDoctorBusinessService.findSimpleById(doctorId);
+                    view.addObject("writingAuthor", medicalDoctorVO);
+                } catch (Exception e) {
+                }
+            }
         }
 
         Map echoMap = new HashMap();

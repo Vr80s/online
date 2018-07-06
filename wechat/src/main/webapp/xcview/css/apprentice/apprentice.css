@@ -76,19 +76,19 @@ header{
 }
 .apprentice_main{
 	width: 100%;
-	/*height: 4.06rem;*/
 	margin-bottom: 0.02rem;
+	padding-top: 0.2rem;
 }
 .flat_patternmaking{
-	width: 100%;
-	height: 3.02rem;
-	margin-bottom: 0.2rem;
-	/*background: red;*/
+	width: 6.98rem;
+    height: 3.96rem;
+    margin: 0 auto;
+    margin-bottom: 0.2rem;
 }
 .flat_patternmaking img{
-	width: 100%;
-	height: 3.02rem;
-	margin-bottom: 0.2rem;
+	width: 6.98rem;
+    height: 3.96rem;
+    margin-bottom: 0.2rem;
 }
 .main_title{
 	/*height: 0.84rem;*/
@@ -158,4 +158,6 @@ header{
 	background-size: 0.38rem 0.42rem;
 }
 /*底部结束*/
-
+.mui-scroll-wrapper{
+	top: 0.9rem !important;
+}

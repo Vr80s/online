@@ -27,7 +27,7 @@
 			<div class="students">
 				<div class="students_title"></div>
 				<div class="students_video">
-					<div class="students_video_view"><script src="https://p.bokecc.com/player?vid=0547B1388A56C27A9C33DC5901307461&siteid=B5E673E55C702C42&autoStart=false&width=320&height=195&playerid=E92940E0788E2DAE&playertype=1&img_path=https://file.ipandatcm.com/18706201604/bcee3a08d9c5-blob.png?imageslim" type="text/javascript"></script></div>
+					<div class="students_video_view"></div>
 				</div>
 				<div class="head_portrait">
 					<ul>
@@ -72,5 +72,20 @@
             window.location.href = "/xcview/html/live_audio.html?my_study="+id;
         }
 	}
+	function videoShow(){
+	    var videoId = '5EB4C8F78F0AD9EC9C33DC5901307461';
+		var vstr = '<script src="https://p.bokecc.com/player?' +
+            'vid=' + videoId +
+            '&siteid=B5E673E55C702C42' +
+            '&autoStart=false' +
+            '&width=320' +
+            '&height=195' +
+            '&playerid=E92940E0788E2DAE' +
+            '&playertype=1' +
+            '&img_path=https://file.ipandatcm.com/18706201604/bcee3a08d9c5-blob.png?imageslim"' +
+            ' type="text/javascript"><\/script>';
+		$(".students_video_view").html(vstr);
+	}
+    videoShow();
 </script>
 </html>
