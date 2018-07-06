@@ -67,14 +67,13 @@
 
     <!-- 中间内容开始 -->
     <div class="main">
-        <div class="head_portrait">
+        <div class="head_portrait" style="display: none;">
 
             {{if doctorPhoto == null}}
             <img src="/xcview/images/regards.png" alt="医师头像"/>
             {{else}}
             <img src="{{doctorPhoto}}" alt="医师头像" onerror="nofind();"/>
             {{/if}}
-
         </div>
         <div class="intro_title">{{title}}</div>
         <div class="intro_title_size">{{propaganda}}</div>
