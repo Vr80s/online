@@ -51,14 +51,6 @@ function doAddress(studyAddress){
     return studyAddress;
 }
 
-function apply(){
-    if(authenticationCooKie()==1005){
-        location.href ="/xcview/html/evpi.html";
-    }else{
-        location.href ='apply.html?merId='+merId;
-    }
-}
-
 function cardInfo() {
     location.href = '/xcview/html/apprentice/invitation_card.html';
     // if(wv==null){
@@ -71,7 +63,7 @@ function cardInfo() {
 function apply() {
     requestGetService("/xczh/set/check",data,function(data){
         if(data.success){
-            location.href='apply.html?merId={{id}}';
+            location.href='apply.html?merId=' + merId;
         }
     })
 }
