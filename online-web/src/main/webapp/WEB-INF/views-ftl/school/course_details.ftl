@@ -122,6 +122,7 @@
             <#elseif courseInfo.status == 0 && courseInfo.currentPrice lte 0 && courseInfo.learning != 1>
                  <button type="button" class="immediately-buy" style="background:#DEDEDE;">课程下架</button>     
             <#else>
+            
                   <#if courseInfo.watchState == 1 || courseInfo.watchState == 2>
                     <button type="button" class="immediately-buy  learning_immediately"
                             data-watchState="${courseInfo.watchState}"
@@ -129,28 +130,32 @@
                             data-realCourseId="${courseInfo.id}"
                             data-learning="${courseInfo.learning}"
                             data-cutoff="${courseInfo.cutoff}"
-                            data-collection="${courseInfo.collection?string(1,0)}">
+                            data-collection="${courseInfo.collection?string(1,0)}" 
+                            <#if courseInfo.watchState == 2  && courseInfo.type == 4 && courseInfo.cutoff = 1>
+                               style="background:#DEDEDE;" 
+                            </#if>
+                            >
                         <#if courseInfo.watchState == 2  && courseInfo.type == 4>
-                                                                             已报名
+                                                                                      已报名
                         <#elseif courseInfo.watchState == 1  && courseInfo.type == 4>
                             <#if courseInfo.learning == 1>
-                                                                              已报名 
+                                                                                           已报名 
                             <#elseif courseInfo.cutoff = 1>                                                
-                                                                              报名截止                                             
+                                                                                         已结束报名                              
                             <#else>
-                                                                           立即报名
+                                                                                         立即报名
                             </#if>
                         <#else>
-                                                                          开始学习
+                                                                                     开始学习
                         </#if>
                     </button>
                 <#elseif courseInfo.watchState == 0>
                     <#if courseInfo.type ==4 && courseInfo.cutoff = 1>
-                        <button type="button" class="immediately-buy" style="background:#DEDEDE;">报名截止</button>
+                        <button type="button" class="immediately-buy" style="background:#DEDEDE;">已结束报名</button>
                     <#else>
                         <button type="button" class="immediately-buy J-course-buy" data-id="${courseInfo.id}"
                                 data-type="${courseInfo.type}">
-                                                                      立即购买
+                                                                            立即购买
                         </button>
                     </#if>
                 </#if>
