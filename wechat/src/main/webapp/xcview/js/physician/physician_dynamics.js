@@ -133,7 +133,7 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
                   if (j%2==0) { // 除2余数等0，就是整除的意思
                   str1=str1+arr[j];// 字符串链接
                   } else{
-                  str1 = str1+"<span style='color:#F97B49;'  class='span_span'>#"+arr[j]+"#</span>";// 字符串链接
+                  str1 = str1+"<span style='color:#333;'  class='span_span'>#"+arr[j]+"#</span>";// 字符串链接
                   };
                 };
                 obj[i].content = str1;
@@ -143,18 +143,42 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
             }
         }
 
-        //判断简介的字长度
-        var h = $(".essay_main").height();
+
+        //判断普通动态
+        /*var h = $(".essay_main").height();
         if (h > 200) {
             $(".essay_pack_up_btn").show();
             $(".line_xian").hide();
-//          $(".wrap1").css({"height":"2rem","overflow":"hidden"})
         } else {
             $(".essay_pack_up_btn").hide()
-        }
+        }*/
+
+        $(".essay_main").each(function(){
+            var hh = $(this).height();
+            var essay_pack_up_btn = $(this).next();
+            if (hh > 70) {
+                essay_pack_up_btn.show();
+                $(this).addClass("consilia_nav_span_title");
+            } else {
+                essay_pack_up_btn.hide();
+            }
+        });
+
+        mui("#refreshContainer").on('tap', '.essay_pack_up_btn', function (event) {
+            var dynamic = $(this);
+            if(dynamic.find('span').html()=="展开"){
+                dynamic.parent().find('.essay_main').removeClass("consilia_nav_span_title");
+                // $(".consilia_nav_span .title").removeClass("consilia_nav_span_title");
+                dynamic.find('span').html("收起");
+            }else{
+                // $(".consilia_nav_span .title").addClass("consilia_nav_span_title");
+                dynamic.parent().find('.essay_main').addClass("consilia_nav_span_title");
+                dynamic.find('span').html("展开");
+            }
+        });
 
         //点击其他--收起
-        mui("#refreshContainer").on('tap', '.essay_pack_up_btn_span', function (event) {
+        mui("#refreshContainer").on('tap', '.essay_pack_up_btn', function (event) {
             if($(".essay_pack_up_btn_span").html()=="收起"){
                 $(".consilia_nav_span .title").css("height","100%");
                 $(".essay_pack_up_btn_span span").html("展开");
@@ -173,7 +197,7 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
 
             var consilia_nav_btn = $(this).parent().next().next();
 
-            if (h > 50) {
+            if (h > 70) {
                 consilia_nav_btn.show();
                 $(this).addClass("consilia_nav_span_title");
             } else {
@@ -183,19 +207,17 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
 
         })
 
-        // alert(h);
-
         // 点击文章收起
         mui("#refreshContainer").on('tap', '.consilia_nav_btn', function (event) {
-            var aaa = $(this);
-            if(aaa.find('span').html()=="展开"){
-                aaa.parent().find('.consilia_nav_span').find('.title').removeClass("consilia_nav_span_title");
+            var post = $(this);
+            if(post.find('span').html()=="展开"){
+                post.parent().find('.consilia_nav_span').find('.title').removeClass("consilia_nav_span_title");
                 // $(".consilia_nav_span .title").removeClass("consilia_nav_span_title");
-                aaa.find('span').html("收起");
+                post.find('span').html("收起");
             }else{
                 // $(".consilia_nav_span .title").addClass("consilia_nav_span_title");
-                aaa.parent().find('.consilia_nav_span').find('.title').addClass("consilia_nav_span_title");
-                aaa.find('span').html("展开");
+                post.parent().find('.consilia_nav_span').find('.title').addClass("consilia_nav_span_title");
+                post.find('span').html("展开");
             }
         });
 
@@ -289,10 +311,11 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
             var itemId = $(this).attr("data-id");
             location.href = "/xcview/html/physician/consilia.html?articleId=" + itemId;
         });
-        //点击视频播放/暂停
+        //点击视频播放/暂停  
         mui("#refreshContainer").on('tap', '.ccvideo', function (event) {
             var ccId = $(this).find("video").attr("id");
             var oReplay = document.getElementById(ccId);
+            $(".ccvideo_img").hide();
             if (oReplay.paused){
                 oReplay.play();
             }

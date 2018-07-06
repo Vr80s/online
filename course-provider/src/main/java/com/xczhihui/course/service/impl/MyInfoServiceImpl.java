@@ -106,8 +106,13 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper, OnlineUser> imp
     public Map<String, Object> findHostInfoById(String userId, Boolean falg) {
         Map<String, Object> map = myInfoMapper.findHostInfoById(userId);
 
-        if (map != null && map.get("workTime") != null && StringUtils.isNotBlank(map.get("workTime").toString())) {
+        //过滤下坐诊时间
+        if (map != null && map.get("workTime") != null) {
             map.put("workTime", XzStringUtils.workTimeScreen(map.get("workTime").toString(), falg));
+        }
+        //过滤详情中的外部连接
+        if(map != null && map.get("detail") != null) {
+            map.put("detail", XzStringUtils.formatA(map.get("detail").toString()));
         }
         return map;
     }

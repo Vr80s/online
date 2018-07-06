@@ -66,6 +66,8 @@ public class OeBxsArticleVO implements Serializable {
     private String buyLink;
 
     private String type;
+
+    private String contentUrl;
     private List<MedicalDoctorVO> medicalDoctors;
 
     public static long getSerialVersionUID() {
@@ -214,6 +216,14 @@ public class OeBxsArticleVO implements Serializable {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getContentUrl() {
+        return contentUrl;
+    }
+
+    public void setContentUrl(String contentUrl) {
+        this.contentUrl = contentUrl;
     }
 
     @Override

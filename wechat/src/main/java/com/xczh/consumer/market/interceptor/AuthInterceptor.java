@@ -70,6 +70,8 @@ public class AuthInterceptor implements HandlerInterceptor, HandlerMethodArgumen
             "/xczh/recommend/**", "/xczh/classify/**", "/xczh/bunch/**", "/xczh/live/**", "/xczh/host/**", "/xczh/host/doctor/v2", "/xczh/course/**", "/xczh/doctors/**",
             "/xczh/enrol/enrollmentRegulations", "/xczh/myinfo/showWallet", "/xczh/page/course/*", "/xczh/article/view", "/xczh/article/appraise/list",
             "/doctor/posts/**","/xczh/live/onlineLive","/xczh/share/courseShare","/xczh/enrol/enrollmentRegulations/**");
+    private static List<String> needAuthPaths = Arrays.asList(
+            "/doctor/posts/**/like/**","/doctor/posts/**/comment/**");
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     private PathMatcher pathMatcher;
@@ -199,6 +201,11 @@ public class AuthInterceptor implements HandlerInterceptor, HandlerMethodArgumen
         String path = request.getServletPath();
         boolean isExclude = false;
         logger.info("url:{}", path);
+        for (String publicPath : needAuthPaths) {
+            if (pathMatcher.match(publicPath, path)) {
+                return isExclude;
+            }
+        }
         for (String publicPath : noNeedAuthPaths) {
             if (pathMatcher.match(publicPath, path)) {
                 isExclude = true;

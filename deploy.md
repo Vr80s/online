@@ -114,3 +114,8 @@ dev-2.1.0
     update oe_bxs_article set type_id = 9 where type_id is null;
 
     update oe_bxs_article oba join medical_writings mw on oba.id = mw.`article_id` set oba.create_person = mw.create_person where oba.type_id = 9;
+
+    INSERT INTO `article_type` (`id`, `name`, `create_person`, `create_time`, `sort`, `status`)
+    VALUES
+        ('8', '名医著作', NULL, '2018-07-06 11:38:46', 16, 0),
+        ('9', '医案', NULL, '2018-07-06 11:38:53', 17, 0);
