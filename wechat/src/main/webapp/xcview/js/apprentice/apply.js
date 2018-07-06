@@ -50,7 +50,7 @@ function verifyParams (){
     return true;
     
 }
-window.onload = function(){
+$(function(){
     // 姓名
     $('.name input').keyup(function(){
         verifyParams();
@@ -151,4 +151,4 @@ window.onload = function(){
             },false);
         }
     });
-};
+});
