@@ -79,27 +79,51 @@ $(function(){
 
 
 	//每周坐诊点击生成数组数据
-var arr = [];
-//var workTime;
-$('#u_workTime  li').click(function(){
-    if($(this).hasClass('color')){
-        //删除第二次选中的
-        for(var i = 0 ;i < arr.length; i++){
-            if($(this).text() == arr[i]){
-                arr.splice(i,1)
-            }
-        }
-//			console.log(arr.toString())
-        workTime = arr.toString();
-        $(this).removeClass('color');
-    }else{
-        $(this).addClass('color');
-        arr.push($(this).text());
-//			console.log(arr.toString())
-        workTime = arr.toString();
-    }
-    console.log(workTime)
-})
+	
+	var sittingArr;
+	var workTime;
+	$('.workTime td p').click(function () {	
+		if($(this).find("img").hasClass("hide")){
+			$(this).find("img").removeClass("hide").addClass("active");
+		}else{
+			$(this).find("img").addClass("hide").removeClass("active");
+		}	
+	})
+	function getSitting(){
+		sittingArr=[];
+		$(".workTime tr p .active").each(function(){		
+				sittingArr.push($(this).attr("data-type"));					
+		})
+		workTime=sittingArr.join(",");
+	}
+	
+	
+	
+	
+	
+	
+	
+//var arr = [];
+////var workTime;
+//$('#u_workTime  li').click(function(){
+//  if($(this).hasClass('color')){
+//      //删除第二次选中的
+//      for(var i = 0 ;i < arr.length; i++){
+//          if($(this).text() == arr[i]){
+//              arr.splice(i,1)
+//          }
+//      }
+////			console.log(arr.toString())
+//      workTime = arr.toString();
+//      $(this).removeClass('color');
+//  }else{
+//      $(this).addClass('color');
+//      arr.push($(this).text());
+////			console.log(arr.toString())
+//      workTime = arr.toString();
+//  }
+//  console.log(workTime)
+//})
 
 
 
@@ -515,12 +539,8 @@ function showAnchorInfo() {
 	if($('.personal_details').hasClass('hide')){
 		$(".message_return .message_title .two").click()
 	}
-    $.ajax({
-        type:"GET",
-        url: "/anchor/info",
-        async:true,
-        success: function( result ) {
-            if(result.success){
+	RequestService("/anchor/info", "get", null,function(result){
+		if(result.success){
        			if(localStorage.AccountStatus == '2'){
 					$('#demo1 .choosePro option:selected').text(result.resultObject.province);
 					$('#demo1 .chooseCity option:selected').text(result.resultObject.city);
@@ -577,8 +597,8 @@ function showAnchorInfo() {
                 	$('#detailAddress').text('暂无');
                 }
             }
-        }
-    })
+    	})
+    
     localStorage.AnchorsTbl_accountInf = 'name_personage';
 }
 
