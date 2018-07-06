@@ -87,7 +87,7 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
         if(downOrUp=='down'){
 
 
-            //判断全部动态
+            //判断全部动态默认图
             if(data.resultObject.records.length==0){
                 $(".baseImagenumbers").show();
             }else{
@@ -107,6 +107,19 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
             mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);
 
         }
+
+        /*$(".consilia_nav_span .title").each(function(){
+            var title = $(this);
+            // 判断可编辑医案显示隐藏
+            if(data.resultObject.records.content == null || data.resultObject.records.content == ""){
+                    title.parent(".consilia_nav_span").hide();
+                    // alert(1111);
+                }else{
+                    title.parent(".consilia_nav_span").show();
+                    // alert(2222);
+            }
+        });*/
+
 
         for(var i=0;i<obj.length;i++){
             //没有点赞时隐藏小手
@@ -296,6 +309,7 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
                 })
             }
         });
+
         //文章跳转
         mui("#refreshContainer").on('tap', '.article_hide', function (event) {
             var articleId = $(this).attr("data-id");

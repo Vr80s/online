@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.fileupload.disk.DiskFileItem;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -40,7 +42,7 @@ import com.xczhihui.common.util.bean.ResponseObject;
 @RestController
 @RequestMapping("/videoRes")
 public class VideoResController extends AbstractController {
-
+    private static Logger logger = LoggerFactory.getLogger(VideoResController.class);
     private static String categoryid = "7C85F5F633435474";
     @Autowired
     private VideoResService videoResService;
@@ -97,9 +99,9 @@ public class VideoResController extends AbstractController {
     @RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
     public ResponseObject uploadFile(@RequestParam("file") MultipartFile mfile, String fileSize,
                                      String filemd5, String fileName, String first, String ccid,
-                                     String metaUrl, String chunkUrl, Integer start) {
+                                     String metaUrl, String chunkUrl, Long start) {
 
-
+        logger.warn(fileSize+","+filemd5+","+fileName+","+first+","+ccid+","+metaUrl+","+chunkUrl+","+start);
         CommonsMultipartFile cf = (CommonsMultipartFile) mfile;
         DiskFileItem fi = (DiskFileItem) cf.getFileItem();
 
@@ -146,7 +148,7 @@ public class VideoResController extends AbstractController {
                 return ResponseObject.newErrorResponseObject(upMsginfo);
             }
             //上传视频文件块CHUNK
-            String result = APIServiceFunction.uploadchunk(chunkurl + "?ccvid=" + videoid + "&format=json", 0, (Integer.parseInt(String.valueOf(file.length())) - 1), file);
+            String result = APIServiceFunction.uploadchunk(chunkurl + "?ccvid=" + videoid + "&format=json", 0, (Long.parseLong(String.valueOf(file.length())) - 1), file);
 
             JSONObject resultJson = JSONObject.parseObject(result);
             String resultinfo = resultJson.get("result").toString();

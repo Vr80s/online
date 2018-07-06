@@ -409,7 +409,6 @@ var activityType;
 		 	post.type = activityType;
 			RequestService("/doctor/posts", "post", post , function (data) {
 	        	if(data.success==true){
-	        		
 	        		showTip("发布成功");
 	        		$(".btn-deliver").removeAttr("disabled");
 	        		newsList(1,getAnchorsId);
@@ -761,6 +760,7 @@ var activityType;
 template.config("escape", false);
 
 //	动态列表	
+var posts;
 	function newsList(pages,getAnchorsId){
 	 RequestService("/doctor/posts", "GET", {
             "pageNumber" : pages,
@@ -768,7 +768,7 @@ template.config("escape", false);
             "doctorId" :getAnchorsId
         }, function (data) {
         	if(data.success==true){
-        		var posts=data.resultObject.records;
+        		posts=data.resultObject.records;
         		
         		if(isBlank(posts)){
         			$(".banner-dongtai").removeClass("hide");
@@ -792,7 +792,8 @@ template.config("escape", false);
 		        				
 	        				}
         				    posts[i].postsLikes=fabulous.substr(0,fabulous.length-1);;  
-        				    
+
+//      				视频封面图	    
         			}
         			
         		}
@@ -844,7 +845,8 @@ template.config("escape", false);
 				autoPlay: false
 			}, function(data) {
 				if(data.success == true) {
-					that.html(data.resultObject);
+					var videoStr = data.resultObject.replace('<param name="allowScriptAccess" value="always" />','<param name="allowScriptAccess" value="always" /><param name="flashvars" value="http://img.zcool.cn/community/01690955496f930000019ae92f3a4e.jpg">');
+					that.html(videoStr);						
 				} else if(data.success == false) {
 					alert("播放发生错误，请清除缓存重试");
 				}
@@ -2718,8 +2720,9 @@ function echoMedia(index) {
 		});
 	}
 //视频上传
-	var saveVideo;
-	var saveVideoId;
+	var saveVideo;    //上传时的文件名
+	var saveVideoId;  //上传时的ccid
+	var isAjax;       //判断文件在上传时有没有走ajax 
 	function xmx(begin, first, filemd5, ccid, metaurl, chunkUrl) {
 		var obj_file = document.getElementById("video-up").files[0];
 		chunkSize = 2097152; //2M
@@ -2748,7 +2751,7 @@ function echoMedia(index) {
 			contentType: false
 		}).done(function(result) {
 			if(result.success) {
-				
+				isAjax=1;    //判断有没有进入ajax，给取消上传一个判定的标准
 				var ccid = result.resultObject[0];
 				var metaurl = result.resultObject[1];
 				var chunkUrl = result.resultObject[2];
@@ -2786,9 +2789,10 @@ function echoMedia(index) {
 					$(".file-percent").html("已上传"+0+"%");   //成功后清零
 					$(".total-size").html(0+"MB"+"/"+0+"MB")  //成功后清零
 					
-					saveVideo=$("#video-up").val().slice(12);
+					saveVideo=$("#video-up").val().slice(12); //获取input的上传文件名
 					$(".saveUrl").html(saveVideo)
 					uploadfinished = true;
+					$("#video-up").val("");					 //清空是为了二次上传同一视频
 					//alert('上传完成!');
 					//告诉后台上传完成后合并文件                            //返回上传文件的存放路径
 //					$("#video-up").css({"display":"block"})
@@ -2827,7 +2831,10 @@ function echoMedia(index) {
 		return true;
 	}
 	function cancalUpdata1() {
-		currentAjax.abort();
+		if(isAjax=1){
+			currentAjax.abort();
+		}
+		
 		var file = document.getElementById('video-up');
 		file.value = '';
 		$('.progress-resource').css({
