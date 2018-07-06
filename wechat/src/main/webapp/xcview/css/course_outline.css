@@ -17,26 +17,26 @@ a{
 
 /*头部开始*/
 header {
-    width: 14.545rem;
-    height: 1.872rem;
-    line-height: 1.872rem;
+    width: 7.5rem;
+    height: 0.88rem;
+    line-height: 0.88rem;
     background: #fff;
     position: fixed;
     top: 0;
     left: 50%;
-    margin-left: -7.2725rem;
+    margin-left: -3.75rem;
     z-index: 9;
     border-bottom: 1px solid #d8dde6;
 }
 .header {
-    width: 14.851rem;
+    width: 7.5rem;
     height: 100%;
-    margin-left: 0.553rem;
+    /*margin-left: 0.553rem;*/
     /* padding-top: 0.298rem; */
 }
 .header_return {
-    width: 2.15rem;
-    height: 1.8rem;
+    width: 0.24rem;
+    height: 0.42rem;
     /* background: red; */
     margin-right: 0.362rem;
     float: left;
@@ -44,8 +44,8 @@ header {
     z-index: 10;
 }
 .header_return img {
-    width: 0.511rem;
-    height: 0.915rem;
+    width: 0.24rem;
+    height: 0.42rem;
 }
 .header_title {
     width: 100%;
@@ -53,7 +53,7 @@ header {
     position: absolute;
     top: 0;
     left: 0;
-    font-size: 0.766rem;
+    font-size: 0.36rem;
     text-align: center;
     color: #333;
     z-index: 9;
@@ -63,10 +63,9 @@ header {
 
 /*中间内容开始*/
 .outline{
-	width: 14.545rem;
+	width: 7.5rem;
     height: 100%;
     background: #fff;
-    padding-top: 0.766rem;
     margin: 0 auto;
     margin-top: 2.398rem;
 }
@@ -74,9 +73,9 @@ header {
 	margin-top: ;
 }
 .outline_title{
-	font-size: 0.68rem;
+	font-size: 0.32rem;
 	color: #333;
-	margin-bottom: 0.638rem;
+	margin-bottom: 0.31rem;
 	text-align: center;
 }
 .outline_cen{
@@ -85,8 +84,8 @@ header {
 	margin-bottom: 0.681rem;
 }
 .outline_cen img{
-	width: 0.51rem;
-	height: 0.51rem;
+	width: 0.24rem;
+	height: 0.24rem;
 }
 .outline_cen_left{
 	float: left;
