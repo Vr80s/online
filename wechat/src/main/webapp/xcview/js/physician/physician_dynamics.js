@@ -133,7 +133,7 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
                   if (j%2==0) { // 除2余数等0，就是整除的意思
                   str1=str1+arr[j];// 字符串链接
                   } else{
-                  str1 = str1+"<span style='color:#F97B49;'  class='span_span'>#"+arr[j]+"#</span>";// 字符串链接
+                  str1 = str1+"<span style='color:#333;'  class='span_span'>#"+arr[j]+"#</span>";// 字符串链接
                   };
                 };
                 obj[i].content = str1;
