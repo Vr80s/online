@@ -104,7 +104,8 @@
         ou.user_id as userId,
         ou.name as heir,
         oc.live_source_type as liveSourceType,
-        if(oc.live_status = 3,ifnull(oc.play_back_type,1),3) as playBackType
+        if(oc.live_status = 3,ifnull(oc.play_back_type,1),3) as playBackType,
+        oc.status as status
         FROM
         oe_course as oc
         inner join course_anchor as ou on oc.user_lecturer_id = ou.user_id
@@ -189,7 +190,8 @@
         ou.profile_photo as headImg,
         ou.name as heir,
         oc.live_source_type as liveSourceType,
-        if(oc.live_status = 3,ifnull(oc.play_back_type,1),3) as playBackType
+        if(oc.live_status = 3,ifnull(oc.play_back_type,1),3) as playBackType,
+        oc.status as status
         FROM
         oe_course as oc
         inner join course_anchor as ou on oc.user_lecturer_id = ou.user_id
