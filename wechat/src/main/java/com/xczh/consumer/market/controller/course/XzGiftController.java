@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.interceptor.HeaderInterceptor;
 import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczhihui.common.util.enums.ClientType;
 import com.xczhihui.common.util.enums.OrderFrom;
 import com.xczhihui.online.api.service.GiftService;
 
@@ -88,7 +89,7 @@ public class XzGiftController {
         Map<String, Object> map = null;
         map = remoteGiftService.addGiftStatement(accountId,
                 receiverId, giftId,
-                OrderFrom.getOrderFrom(HeaderInterceptor.getClientTypeCode()), count, liveId);
+                ClientType.getClientType(HeaderInterceptor.getClientTypeCode()), count, liveId);
 
         return ResponseObject.newSuccessResponseObject(map);
     }

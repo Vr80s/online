@@ -2,6 +2,7 @@ package com.xczhihui.online.api.service;
 
 import java.util.Map;
 
+import com.xczhihui.common.util.enums.ClientType;
 import com.xczhihui.common.util.enums.OrderFrom;
 
 /**
@@ -12,5 +13,5 @@ import com.xczhihui.common.util.enums.OrderFrom;
  */
 public interface GiftSendService {
 
-    Map<String, Object> addGiftStatement4Lock(String lockKey, String giverId, String receiverId, String giftId, OrderFrom orderFrom, int count, String liveId);
+    Map<String, Object> addGiftStatement4Lock(String lockKey, String giverId, String receiverId, String giftId, ClientType clientType, int count, String liveId);
 }
