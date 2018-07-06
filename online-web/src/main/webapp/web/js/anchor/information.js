@@ -81,7 +81,7 @@ $(function(){
 	//每周坐诊点击生成数组数据
 	
 	var sittingArr;
-	var workTime;
+	
 	$('.workTime td p').click(function () {	
 		if($(this).find("img").hasClass("hide")){
 			$(this).find("img").removeClass("hide").addClass("active");
@@ -89,44 +89,7 @@ $(function(){
 			$(this).find("img").addClass("hide").removeClass("active");
 		}	
 	})
-	function getSitting(){
-		sittingArr=[];
-		$(".workTime tr p .active").each(function(){		
-				sittingArr.push($(this).attr("data-type"));					
-		})
-		workTime=sittingArr.join(",");
-	}
 	
-	
-	
-	
-	
-	
-	
-//var arr = [];
-////var workTime;
-//$('#u_workTime  li').click(function(){
-//  if($(this).hasClass('color')){
-//      //删除第二次选中的
-//      for(var i = 0 ;i < arr.length; i++){
-//          if($(this).text() == arr[i]){
-//              arr.splice(i,1)
-//          }
-//      }
-////			console.log(arr.toString())
-//      workTime = arr.toString();
-//      $(this).removeClass('color');
-//  }else{
-//      $(this).addClass('color');
-//      arr.push($(this).text());
-////			console.log(arr.toString())
-//      workTime = arr.toString();
-//  }
-//  console.log(workTime)
-//})
-
-
-
 	//选择医师列表
 	$('#speech_select1').change(function(){
 	var hosID = $('#speech_select1').val();
@@ -139,12 +102,17 @@ $(function(){
 })
 
 
-
-
-
-
 });
 
+function getSitting(){
+	var workTime;
+	sittingArr=[];
+	$(".workTime tr p .active").each(function(){		
+			sittingArr.push($(this).attr("data-type"));					
+	})
+	workTime=sittingArr.join(",");
+	return workTime;
+}
 //初始化主播是医师信息
 function initAuthentication (){
     RequestService("/doctor/apply/getLastOne", "get", null, function(data) {
@@ -175,8 +143,6 @@ function initAuthenticationHos (){
         $(".anchor_professional_certificate").attr("src",data.professionalCertificate);
     });
 }
-
-
 
 function savePhysicianApply(){
     var physician = getPhysicianData();
@@ -384,7 +350,7 @@ function getAnchorInfo(){
     data.profilePhoto = $("#profilePhotoImg img").attr('src');
     data.detail = UE.getEditor('anchor_details_editor').getContent();
     data.hospitalId = $("#speech_select1").val();
-    data.workTime = workTime;
+    data.workTime = getSitting();
     data.province = $("#demo1 #hosPro ").val();
     data.city = $('#demo1 #hosCity ').val();
     data.detailAddress = $('#demo1 textarea').val();

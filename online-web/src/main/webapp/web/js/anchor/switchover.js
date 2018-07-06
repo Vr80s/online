@@ -188,7 +188,7 @@ $(function () {
 
                 if (localStorage.AccountStatus == '1') {
                     //坐诊时间渲染
-                    var workArr = data.resultObject.workTime.split(",");
+                    var workArr = data.resultObject.wt.split(",");
 //                  var j;
 //                  for (var i = 0; i < $('#doctor_baseInf .workTime ul li ').length; i++) {
 //                      for (j = 0; j < workArr.length; j++) {
@@ -205,7 +205,7 @@ $(function () {
                     var selectTime;
 					var sureType=[];
 					var saveData;
-					
+//					$('.workTime tr p img').removeClass("active");
 					$('.workTime tr p img').each(function(){
 							selectTime=$(this).attr("data-type");
 							sureType.push(selectTime)
