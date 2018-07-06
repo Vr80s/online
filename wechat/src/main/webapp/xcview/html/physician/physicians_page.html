@@ -308,6 +308,9 @@
 	.am-pureview-bar-active .am-pureview-actions, .am-pureview-bar-active .am-pureview-bar{
 		/*opacity: 0;*/
 	}
+	#form_article{
+		color: #333 !important;
+	}
 </style>
 
 </head>
@@ -448,11 +451,11 @@
 				{{else if item.type == 2}}
 				<!-- 动态图片-->
 				<div class="trends_hide">
-					<div class="paper_nav_span comment_hide" >
+					<div class="paper_nav_span comment_hide">
 						{{if item.stick}}
-						<span class="stick_img_stick"><img src="/xcview/images/stick.png" alt="" />置顶</span>
+						<span class="stick_img_stick" style="width: 0.8rem;text-align: left;text-indent: 0;margin-left: 0.26rem;"><img src="/xcview/images/stick.png" alt="" />置顶</span>
 						{{/if}}
-						<span class="span_span{{item.id}}"></span>
+						<span class="span_span{{item.id}}" style="display: block;"></span>
 					</div>
 					{{if item.imgStr !=null && item.imgStr.length>0}}
 					<div class="paper_nav_cen_div">
@@ -1156,30 +1159,6 @@ $(window).bind("scroll", function() {
 <script type="text/javascript">
 	// 导航  固定和点击切换事件
 	window.onload = function(){
-		// 点击收起放到最上边--不然影响其他事件
-		// 医案  收起
-		/*$(".consilia_nav_btn").toggle(function(){
-	    	$(".consilia_nav_btn span").html('收起');
-		    $(".consilia_nav_main").removeClass("add");
-	  	},function(){
-		    $(".consilia_nav_btn span").html('展开');
-		    $(".consilia_nav_main").addClass("add");
-	    });*/
-
-	    // 其他二收起
-	    /*$(".essay_pack_up_btn").toggle(function(){
-	    	$(".essay_pack_up_btn span").html('收起');
-		    $(".essay_main").removeClass("essay_pack_up_add");
-	  	},function(){
-		    $(".essay_pack_up_btn span").html('展开');
-		    $(".essay_main").addClass("essay_pack_up_add");
-	    });*/
-
-	    // 点击全部动态
-		/*$(".essay_pack_up_btn").click(function(){
-			alert(132);
-		});*/
-
 	    // 点击全部动态
 		$(".li_data").click(function(){
 			$(".anchor_navigation .border").css("left","1.04rem");
