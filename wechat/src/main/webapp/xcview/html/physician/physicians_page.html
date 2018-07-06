@@ -14,6 +14,7 @@
 <link rel="stylesheet" type="text/css" href="/xcview/css/physician/physicians_page.css?v=wechat_1.1.1&version=460bed8932"/>
 <link rel="stylesheet" href="/xcview/css/physician/swiper-4.2.6.min.css" />
 <link rel="stylesheet" href="/xcview/html/physician/css/demo.css" />
+<link rel="stylesheet" href="/xcview/html/physician/css/demos.css" />
 	<!--手机嵌入模板-->
 <script type="text/javascript" src="/xcview/js/common/layout.js?version=e2b9d5cdbd"></script>
 
@@ -38,11 +39,95 @@
 
 <!-- 表情包聊天引入 -->
 <link href="/xcview/html/physician/css/webiaoqing.css?version=495638f506" rel="stylesheet" type="text/css">
-<script src="/xcview/html/physician/js/jquery_min.js?version=628072e721" ></script>
+<!--<script src="/xcview/html/physician/js/jquery_min.js?version=628072e721" ></script>-->
 <script src="/xcview/html/physician/js/webiaoqin.js?version=9f3575a6d9" ></script>
 <!-- 测试点击图片 -->
 
+	<style>
+		.middle-img {
+			position: absolute;
+			left: 259px;
+			top: 0px;
+			width: 40px;
+		}
 
+		.up-img {
+			position: absolute;
+			top: -40px;
+			left: 261px;
+			width: 40px;
+		}
+
+		.down-img {
+			position: absolute;
+			top: 40px;
+			left: 257px;
+			width: 40px;
+		}
+
+		.left-img {
+			position: absolute;
+			left: 218px;
+			width: 40px;
+		}
+
+		.right-img {
+			position: absolute;
+			left: 300px;
+			width: 40px;
+		}
+		@media screen and (max-width:450px) {
+			.middle-img {
+				position: absolute;
+				left: 259px;
+				top: 0px;
+				width: 40px;
+				display: none;
+			}
+
+			.up-img {
+				position: absolute;
+				top: -40px;
+				left: 261px;
+				width: 40px;
+				display: none;
+			}
+
+			.down-img {
+				position: absolute;
+				top: 40px;
+				left: 257px;
+				width: 40px;
+				display: none;
+			}
+
+			.left-img {
+				position: absolute;
+				left: 218px;
+				width: 40px;
+				display: none;
+			}
+
+			.right-img {
+				position: absolute;
+				left: 300px;
+				width: 40px;
+				display: none;
+			}
+
+			.rotate_jia{
+				display: none;
+			}.rotate_div{
+				 display: none;
+			 }.rotate_jian{
+				  display: none;
+			  }
+		}
+
+		.am-pureview-bar-active .am-pureview-actions, .am-pureview-bar-active .am-pureview-bar{
+			/*opacity: 0;*/
+		}
+	</style>
 
 <script>
 	// 判断横屏展示时的状态
@@ -997,7 +1082,7 @@
 </body>
 <script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
 <script type="text/JavaScript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
-<script src="/xcview/weihoujs/jquery.min.js"></script>
+<!--<script src="/xcview/weihoujs/jquery.min.js"></script>-->
 <script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/common.js?v=wechat_1.1.1&version=4a733d0dc2"></script> 
 <script type="text/javascript" src="/xcview/js/common/template.js?version=dd622e58c9"></script>    <!--数据模板引入-->
@@ -1010,7 +1095,6 @@
 <!-- 直播间数据引入 -->
 <script type="text/javascript" src="/xcview/js/physician/broadcastroom.js?version=d41d8cd98f"></script>
 
-<script type="text/javascript" src="/xcview/html/physician/js/amazeui.js"></script>
 
 
 <!-- 导航渐变 -->
@@ -1408,4 +1492,6 @@ function header_click(){
     $(".baseImagenumbers").height(baseImagenumbers);
     // };
 </script>
+<script type="text/javascript" src="/xcview/html/physician/js/amazeui.js"></script>
+
 </html>

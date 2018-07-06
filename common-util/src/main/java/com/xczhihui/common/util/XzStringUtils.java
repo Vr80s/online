@@ -211,7 +211,8 @@ public class XzStringUtils {
      */
     public static String workTimeScreen(String line) {
         String workTime = workTimeScreen(line, true);
-        if(workTime.endsWith(",")){
+
+        if(workTime!=null && workTime.endsWith(",")){
             workTime = workTime.substring(0,workTime.length()-1);
         }
         return workTime;

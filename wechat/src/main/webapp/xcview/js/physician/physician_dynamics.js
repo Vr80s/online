@@ -81,16 +81,16 @@ function doctorPostsList(doctorPostsType) {
 
         }
 
-
-            //判断全部动态默认图
-            if(data.resultObject.records.length==0){
-                $(".baseImagenumbers").show();
-            }else{
-                $(".baseImagenumbers").hide();
-            }
+        //判断全部动态默认图
+        if(data.resultObject.records.length==0){
+            $(".baseImagenumbers").show();
+        }else{
+            $(".baseImagenumbers").hide();
+        }
 
         $(".rests_nav").html(template('wrap_doctor_dynamics',{items:obj}));
 
+        webpackUniversalModuleDefinition(imgWindow,imgfn);
 
         /*$(".consilia_nav_span .title").each(function(){
             var title = $(this);
@@ -327,7 +327,7 @@ function doctorPostsList(doctorPostsType) {
 
 function postsType(obj) {
     doctorPostsType = $(obj).attr("value");
-    doctorPostsList(1,'down',doctorPostsType);
+    doctorPostsList(doctorPostsType);
     //alert(type)
 }
 /**
