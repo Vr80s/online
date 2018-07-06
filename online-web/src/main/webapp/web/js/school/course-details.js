@@ -107,6 +107,8 @@ $(function () {
 
 //	点击立即学习时，需要判断是否登录了
     $(".learning_immediately").click(function () {
+    	
+    	
         var $this = $(this);
         var watchState = $this.attr("data-watchState");
         var type = $this.attr("data-type");
@@ -114,6 +116,7 @@ $(function () {
         var realCourseId = $this.attr("data-realCourseId");
         var learning = $this.attr("data-learning");
         var cutoff = $this.attr("data-cutoff");
+        
         /**
          * 判断是否登录了
          */
@@ -122,6 +125,7 @@ $(function () {
                 $('#login').modal('show');
             } else {
                 if (type == 4) {
+                	
                 	//已购买   或者 免费以学习   或者  报名截止的
                     if (watchState == 2 || (watchState == 1 && learning == 1) 
                     		|| cutoff == 1) {
@@ -133,7 +137,6 @@ $(function () {
                     }
                 }
                 if (type == 3) { //直播课
-                	
                     if(watchState == 1){
                     	RequestService("/learnWatch/add", "POST", {
                     		courseId:realCourseId,recordType:1
@@ -141,10 +144,8 @@ $(function () {
                     		console.log("增加学习记录");
                     	},false);
                     }	
-                	
                     window.location.href = "/web/livepage/" + realCourseId;
                 } else if (type == 1 || type == 2) {
-                	
                     if(watchState == 1){
                     	RequestService("/learnWatch/add", "POST", {
                     		courseId:realCourseId,recordType:1
@@ -152,7 +153,6 @@ $(function () {
                     		console.log("增加学习记录");
                     	},false);
                     }
-                    
                     if (collection == 1) {
                     	/**
                     	 * 获取专辑最后一个播放到哪里了
@@ -196,8 +196,6 @@ $(function () {
             })
         }
     }
-
-
 //判断进入条	
     /**
      * 得到这个记录，控制播放进度条
