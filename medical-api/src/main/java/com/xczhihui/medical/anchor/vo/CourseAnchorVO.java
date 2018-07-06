@@ -47,6 +47,7 @@ public class CourseAnchorVO implements Serializable {
      * 医师坐诊时间
      */
     private String workTime;
+    private String wt;
 
     /**
      * 医师预约电话
