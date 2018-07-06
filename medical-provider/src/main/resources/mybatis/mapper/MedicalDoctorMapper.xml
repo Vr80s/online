@@ -576,7 +576,7 @@
         mh.`city`,
         mh.`detailed_address` detailedAddress,
         md.recommend_sort recommendSort,
-        IF(mda.account_id IS NOT NULL,(SELECT COUNT(*) FROM oe_focus of
+        IF(mda.account_id IS NOT NULL,(SELECT COUNT(*)+IFNULL(ou.default_count,0) FROM oe_focus of
         INNER JOIN course_anchor AS ou ON of.lecturer_id = ou.user_id
         WHERE of.user_id = mda.account_id
         AND ou.status = 1 AND ou.deleted =0),0) AS focusCount,
