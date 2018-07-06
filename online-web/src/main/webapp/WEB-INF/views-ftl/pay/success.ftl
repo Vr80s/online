@@ -85,7 +85,7 @@
             <div class="course clearfix">
                 <a style="cursor:pointer" href="/courses/${course.id}/info" target="_blank">
                     <div class="img">
-                        <img src="${course.bigImgPath}">
+                        <img src="${course.smallImgPath}">
                     </div>
                     <!--<span class="classCategory">音频</span>-->
                     <div class="detail">
