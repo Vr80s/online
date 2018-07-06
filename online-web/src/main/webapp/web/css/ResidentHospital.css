@@ -355,6 +355,9 @@ a {
 	vertical-align: top;
 	font-size: 14px;
 }
+#myinf img{
+	max-width: 540px;
+}
 #hos_Administration .hos_base_inf .bottomContent .doc_address select{
 	width: 240px;
   height: 36px;
