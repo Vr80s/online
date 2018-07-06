@@ -119,7 +119,7 @@
              
             <#if courseInfo.status == 0 && courseInfo.currentPrice gt 0 &&  courseInfo.watchState != 2>
                  <button type="button" class="immediately-buy" style="background:#DEDEDE;">课程下架</button>
-            <#elseif courseInfo.status == 0 && courseInfo.currentPrice lt 0 && courseInfo.learning != 1>
+            <#elseif courseInfo.status == 0 && courseInfo.currentPrice lte 0 && courseInfo.learning != 1>
                  <button type="button" class="immediately-buy" style="background:#DEDEDE;">课程下架</button>     
             <#else>
                   <#if courseInfo.watchState == 1 || courseInfo.watchState == 2>
