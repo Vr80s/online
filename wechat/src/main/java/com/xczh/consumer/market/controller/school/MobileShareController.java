@@ -80,7 +80,7 @@ public class MobileShareController {
             throws Exception {
 
         try {
-
+            
             ShareInfoVo sv = courseServiceImpl.selectShareInfoByType(shareType, shareId);
             //构造下分享出去的参数
             sv.build(returnOpenidUri,webdomain);
@@ -214,9 +214,7 @@ public class MobileShareController {
                          @Account(optional = true) Optional<String> accountIdOpt) throws Exception {
 
         LOGGER.info("WX return code:" + req.getParameter("code"));
-
         try {
-
             //获取分享页面转发过来的参数
             String wxOrbrower = req.getParameter("wxOrbrower");
             String shareIdAndType = req.getParameter("shareIdAndType");
@@ -229,7 +227,6 @@ public class MobileShareController {
                 shareId = idAndType[0];
                 shareType = Integer.parseInt(idAndType[1]);
             }
-            
             /*
              * 判断微信环境还是普通浏览器环境
              * 判断用户是否登录过，是否还有效
@@ -384,46 +381,45 @@ public class MobileShareController {
         }
 
         if (cv == null) {
-            coursePage = WechatShareLinkType.INDEX_PAGE.getLink();
+            return coursePage;
         }
-
+        
+        //用户未登录去展示页
         if (ou == null) {
-            if (cv.getType() == 1 || cv.getType() == 2) {
+            if (cv.getType().equals(1) || cv.getType().equals(2)) {
                 //视频音频购买
                 coursePage = WechatShareLinkType.SCHOOL_AUDIO.getLink();
-            } else if (cv.getType() == 3) {
+            } else if (cv.getType().equals(3)) {
                 //直播购买
                 coursePage = WechatShareLinkType.SCHOOL_PLAY.getLink();
             } else {
                 //线下课购买
                 coursePage = WechatShareLinkType.SCHOOL_CLASS.getLink();
             }
+            
+        //用户登录 判断课程收费情况，或者是否购买    
         } else {
-            if (cv.getWatchState() == 0) {
-                if (cv.getType() == 1 || cv.getType() == 2) {
+            if (cv.getWatchState().equals(0)) {
+                if (cv.getType().equals(1) || cv.getType().equals(2)) {
                     //视频音频购买
                     coursePage = WechatShareLinkType.SCHOOL_AUDIO.getLink();
-                } else if (cv.getType() == 3) {
+                } else if (cv.getType().equals(3)) {
                     //直播购买
                     coursePage = WechatShareLinkType.SCHOOL_PLAY.getLink();
                 } else {
                     //线下课购买
                     coursePage = WechatShareLinkType.SCHOOL_CLASS.getLink();
                 }
-            } else if (cv.getWatchState() == 1 || cv.getWatchState() == 2) {
-                if (cv.getType() == 1 || cv.getType() == 2) {
+            } else if (cv.getWatchState().equals(1) || cv.getWatchState().equals(2)) {
+                
+                if (cv.getType().equals(1) || cv.getType().equals(2)) {
                     if (cv.getCollection()) {
                         //专辑视频音频播放页
                         coursePage = WechatShareLinkType.LIVE_SELECT_ALBUM.getLink();
                     } else {
-                        if (ShareType.ALBUM_SHARE.getCode().equals(shareType)) { //跳转到总专辑那个地方
-                            coursePage = WechatShareLinkType.SCHOOL_AUDIO.getLink();
-                        } else {
-                            //单个视频音频播放
-                            coursePage = WechatShareLinkType.LIVE_AUDIO.getLink();
-                        }
+                        coursePage = WechatShareLinkType.LIVE_AUDIO.getLink();
                     }
-                } else if (cv.getType() == 3) {
+                } else if (cv.getType().equals(3)) {
                     //播放页面
                     coursePage = WechatShareLinkType.LIVE_PLAY.getLink();
                 } else {

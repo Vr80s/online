@@ -1,4 +1,4 @@
-    
+
 var doctorId = getQueryString("doctor");
 var loginUserId="";
 var loginUserName="";
@@ -20,6 +20,14 @@ function sowingMap() {
         if(data.success==true){
             var obj = data.resultObject;
             $(".top_details").html(template('top_details',{items:obj}));
+            var mySwiper = new Swiper('.swiper-container', {
+                autoplay: true, //可选选项，自动滑动
+                loop: true,
+                pagination: {
+                    el: '.swiper-pagination',
+                },
+            })
+            
             //是否显示粉丝数
             if(obj.fansCount > 0){
                 $(".fans").show();
@@ -28,7 +36,7 @@ function sowingMap() {
             }
             //关注
             $(".attention").click(function(){
-                $(".message_face").show();
+                $(".fans").show();
                 var lecturerId = $(this).attr("data-userId");
                 var src = $(this).find('img').attr('src');
                 var p = $(".fans").find('#fansCount').html();

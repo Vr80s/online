@@ -17,6 +17,11 @@ import com.xczhihui.common.util.enums.WechatShareLinkType;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.course.vo.CourseLecturVo;
 
+/**
+ * 通过课程id 重定向到前端指定的课程页面
+ * @author yangxuan
+ *
+ */
 @Controller
 @RequestMapping("/course")
 public class PageController {
@@ -68,7 +73,7 @@ public class PageController {
             if (cv.getType().equals(1) || cv.getType().equals(2)) {
                 //视频音频购买
                 coursePage = WechatShareLinkType.SCHOOL_AUDIO.getLink();
-            } else if (cv.getType() == 3) {
+            } else if (cv.getType().equals(3)) {
                 //直播购买
                 coursePage = WechatShareLinkType.SCHOOL_PLAY.getLink();
             } else {
@@ -91,14 +96,14 @@ public class PageController {
                 }
             } else if (cv.getWatchState().equals(1) || cv.getWatchState().equals(2)) {
                 
-                if (cv.getType() == 1 || cv.getType() == 2) {
+                if (cv.getType().equals(1) || cv.getType().equals(2)) {
                     if (cv.getCollection()) {
                         //专辑视频音频播放页
                         coursePage = WechatShareLinkType.LIVE_SELECT_ALBUM.getLink();
                     } else {
                         coursePage = WechatShareLinkType.LIVE_AUDIO.getLink();
                     }
-                } else if (cv.getType() == 3) {
+                } else if (cv.getType().equals(3)) {
                     //播放页面
                     coursePage = WechatShareLinkType.LIVE_PLAY.getLink();
                 } else {
@@ -109,8 +114,4 @@ public class PageController {
         }
         return coursePage + courseId;
     }
-    
-    
-    
-    
 }

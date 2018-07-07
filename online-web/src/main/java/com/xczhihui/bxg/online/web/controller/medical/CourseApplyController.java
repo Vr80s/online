@@ -26,6 +26,7 @@ import com.xczhihui.common.util.VhallUtil;
 import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.common.util.enums.ClientType;
 import com.xczhihui.common.util.enums.MessageTypeEnum;
+import com.xczhihui.common.util.enums.RouteTypeEnum;
 import com.xczhihui.course.params.BaseMessage;
 import com.xczhihui.course.service.ICommonMessageService;
 import com.xczhihui.course.service.ICourseSolrService;
@@ -413,7 +414,7 @@ public class CourseApplyController extends AbstractController {
                                 .buildWeb(content)
                                 .buildWeixin(weixinTemplateMessageRemindCode, weixinParams)
                                 .detailId(String.valueOf(course.getId()))
-                                .build(fansId, CourseUtil.getRouteType(course.getCollection(), course.getType()), userId));
+                                .build(fansId, RouteTypeEnum.COMMON_COURSE_DETAIL_PAGE, userId));
                     }
                 }
             }

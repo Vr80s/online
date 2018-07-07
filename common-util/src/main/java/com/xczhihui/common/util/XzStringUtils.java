@@ -9,8 +9,14 @@ import java.util.regex.Pattern;
 
 public class XzStringUtils {
 
-    //创建数字和中文数字一一对应的映射
+
+    //创建数字和中文数字一一对应的映I
     private static HashMap<Integer, String> map;
+    
+    //1、就是如果所有的周期都勾选的话，应该显示：每天更新；
+    //2、然后更新完成，显示：已完结  finish
+    public static  String COLLECTION_UPDATE_ALL = "每天更新";
+    public static  String COLLECTION_UPDATE_FINISH = "已完成";
 
     public static String delHTMLTag(String htmlStr) {
         String regEx_script = "<script[^>]*?>[\\s\\S]*?<\\/script>"; // 定义script的正则表达式
