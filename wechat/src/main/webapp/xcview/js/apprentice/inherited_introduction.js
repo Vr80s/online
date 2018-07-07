@@ -68,6 +68,13 @@ function apply() {
     })
 }
 
+/*function share_back(){
+    if(isNotBlank(wv)){
+        location.href='/xcview/html/apprentice/apprentice.html'
+    }else{
+        common_share_back();
+    }
+}*/
 function share_back(){
     if(isNotBlank(wv)){
         location.href='/xcview/html/apprentice/apprentice.html'
