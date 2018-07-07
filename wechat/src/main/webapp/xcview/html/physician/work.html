@@ -10,7 +10,7 @@
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <meta name="keywords" content="" />
 
-<link rel="stylesheet" type="text/css" href="/xcview/css/physician/article.css?v=wechat_1.1.1"/>
+<link rel="stylesheet" type="text/css" href="/xcview/css/physician/work.css?v=wechat_1.1.1"/>
 <link rel="stylesheet" type="text/css" href="/xcview/css/alert/sharecss.css?v=wechat_1.1.1"/>
 <!--手机嵌入模板-->
 <script type="text/javascript" src="/xcview/js/common/layout.js"></script>
@@ -39,7 +39,7 @@
 	<header>
 		<div class="header">
 			<div class="headers">
-				<p>媒体报道</p>
+				<p>著作</p>
 			</div>
 <!-- 			<div class="arror_return" onclick="javascript:window.history.back();return false;"> -->
             <div class="arror_return" onclick="common_share_back();">
@@ -71,21 +71,27 @@
 
 		<div class="consilia_main_center" id="consilia_main_center">
 			<script type="text/html" id="consilia_main_center_id">
-			<h2>{{items.title}}</h2>
-			<div class="article">
-				<div class="article_main">
-					<!--<div class="article_border_left"></div>-->
-					<div class="article_time">
-						<div class="">{{items.author}}</div>
+			<div class="cover">
+				<img src="{{items.imgPath}}" />
+			</div>
+			<div class="caption">
+				<h2>{{items.title}}</h2>
+				<div class="article">
+					<div class="article_main">
+						<!--<div class="article_border_left"></div>-->
+						<div class="article_time">
+							<div class="">{{items.createTime}}</div>
+						</div>
+						<!--<div class="article_border_right"></div>-->
+						<div class="both"></div>
 					</div>
-					<!--<div class="article_border_right"></div>-->
-					<div class="both"></div>
 				</div>
 			</div>
+			
 			<div class="both"></div>
 			<div class="consilia_center">
 				<div class="consilia_textarea"></div>
-				<div class="consilia_center_url"><span></span></div>
+				<div class="consilia_center_url"></div>
 			</div>
 			</script>
 		</div>
@@ -221,7 +227,7 @@
 <script type="text/javascript" src="/xcview/js/common/template.js"></script>    <!--数据模板引入-->
 <script type="text/javascript" src="/xcview/js/physician/index.js"></script> 
 
-<script type="text/javascript" src="/xcview/js/physician/article.js"></script> 
+<script type="text/javascript" src="/xcview/js/physician/work.js"></script> 
 <script type="text/javascript" src="/xcview/js/share/share.js?v=wechat_1.1.1"></script>
 <script>
 	window.onload = function(){
