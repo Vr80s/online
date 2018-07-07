@@ -22,7 +22,7 @@ function sowingMap() {
             $(".top_details").html(template('top_details',{items:obj}));
             //关注
             $(".attention").click(function(){
-                $(".message_face").show();
+                $(".fans").show();
                 var lecturerId = $(this).attr("data-userId");
                 var src = $(this).find('img').attr('src');
                 var p = $(".fans").find('#fansCount').html();
