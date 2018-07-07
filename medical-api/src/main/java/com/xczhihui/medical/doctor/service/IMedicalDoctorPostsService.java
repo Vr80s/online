@@ -3,6 +3,8 @@ package com.xczhihui.medical.doctor.service;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.medical.doctor.model.MedicalDoctorPosts;
 
+import java.util.List;
+
 /**
  * Description：医师动态service
  * creed: Talk is cheap,show me the code
@@ -62,5 +64,13 @@ public interface IMedicalDoctorPostsService {
      * @return
      */
     MedicalDoctorPosts getMedicalDoctorPostsById(Integer id);
+
+    /**
+     * 通过课程id获取医师动态
+     *
+     * @param courseId 课程id
+     * @return
+     */
+    List<MedicalDoctorPosts> getMedicalDoctorPostsByCourseId(Integer courseId);
 
 }

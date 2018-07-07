@@ -105,7 +105,7 @@
                 <textarea name="" id="" class="forum-community-textarea" placeholder="说点儿什么吧……" cols="30"
                           rows="10"></textarea>
                 <div class="emptyHit" style="display: none;"><i class="iconfont icon-tanhao"></i>请输入内容</div>
-                <div class="community-submit">提交</div>
+                <button type="button" class="community-submit" disabled="true">提交</button>
             </div>
             <div class="all-comment">
                 <div class="all-comment-title">
@@ -170,10 +170,10 @@
                                         </div>
                                         <div class="reply-btn">
                                             <div class="cancle">取消</div>
-                                            <div class="reply" data-targetId="${appraise.userId}"
+                                            <button type="button" disabled="true" class="reply" data-targetId="${appraise.userId}"
                                                  data-replyCommentId="${appraise.id}">
                                                 回复
-                                            </div>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -482,6 +482,7 @@
 //          $(".reply-input").css("textIndent", indentLength + "px");
 //          $(".replay-box .emptyHit").hide();
 //      });
+//回复评论
         $(".reply").each(function () {
             var forumThs = $(this);
             forumThs.click(function () {
@@ -510,12 +511,22 @@
                 });
             })
         });
-
+        $(".reply-input").keyup(function(){
+			var $this = $(this);
+			var commentContent = $(this).val();
+			var btnColor = $this.siblings(".reply-btn").find(".reply");
+			if (commentContent != null && commentContent != "" && commentContent.trim().length > 0) {
+				btnColor.attr("disabled", false);
+				btnColor.css("background",  "#00BC12");
+			}else{
+				btnColor.attr("disabled", true);
+				btnColor.css("background",  "#999");
+			}
+		})
+//提交评论       
         $(".community-submit").click(function () {
             var commentCon = $(".forum-community-textarea").val().trim();
-            if (commentCon == "") {
-                $(".forum-community .emptyHit").css("display", "block");
-            } else {
+          
                 $(".forum-community .emptyHit").css("display", "none");
                 RequestService('/bxs/article/saveAppraise', 'POST', {
                     article_id: articleId,
@@ -525,7 +536,22 @@
                         window.location.href = "/headline/details/" + articleId;
                     }
                 });
-            }
+
         });
+
+        $(".forum-community-textarea").keyup(function(){
+			var $this = $(this);
+			var commentContent = $(this).val();
+			var btnColor = $this.siblings(".community-submit");
+			if (commentContent != null && commentContent != "" && commentContent.trim().length > 0) {
+				btnColor.attr("disabled", false);
+				btnColor.css("background",  "#00BC12");
+			}else{
+				btnColor.attr("disabled", true);
+				btnColor.css("background",  "#999");
+			}
+		})
+        
+        
     })();
 </script>
