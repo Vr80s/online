@@ -351,7 +351,7 @@ function submit(){
 		sessionStorage.setItem("type_index",begin);
 	}
 	
-	if(begin_falg || type_index =="type_index"){
+	if(begin_falg){
 		slide(begin);
 	}else{
 		

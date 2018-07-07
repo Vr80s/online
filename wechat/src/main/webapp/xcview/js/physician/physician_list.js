@@ -106,14 +106,13 @@ function createParamsAndQuery(type,departmentId,sortType,queryKey){
 	 * 筛选条件拼接字符串
 	 */
 	var saisuanstr ="";
+	
 	/**
 	 * 左滑右滑选中
 	 */
-	var typeAll = $("[class='find_nav_cur'] a").attr("title");
-	if(parseInt(typeAll) == 0){
-		
+	//var typeAll = $("[class='find_nav_cur'] a").attr("title");
+	if(type == 0){
 		$(".all_right_type_ones").find(".all_right_type_one").removeClass("all_right_type_one_add");
-	
 	}else{
 		//从新赋值
 		if(isNotBlank(type)){
@@ -263,18 +262,20 @@ function submit(){
     }
 	
 	//先存一下，然后在取一下
-	var type_index = sessionStorage.getItem("type_index");
+	var type_index = sessionStorage.getItem("type_index_physician");
 	if(type_index == parseInt(begin)){ //分类没有变动
 		begin_falg = false;
 	}else{
-		sessionStorage.setItem("type_index",begin);
+		sessionStorage.setItem("type_index_physician",begin);
 	}
 	
-	if(begin_falg || type_index =="type_index"){
+	//如果分类变化的话，进行滑动啦
+	if(begin_falg){
+		//滑动到第几个		
 		slide(begin);
+	//分类没有变化的话，不滑动
 	}else{
 		createParamsAndQuery(type,departmentId,sortType,queryKey);
-		
 		queryDataByParams(paramsObj,type);
 	}
 }
