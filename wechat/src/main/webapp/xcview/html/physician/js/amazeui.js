@@ -1,5 +1,5 @@
 /*! Amaze UI v2.5.1 | by Amaze UI Team | (c) 2016 AllMobilize, Inc. | Licensed under MIT | 2016-01-19T14:45:42+0800 */
-(function webpackUniversalModuleDefinition(root, factory) {
+function webpackUniversalModuleDefinition(root, factory) {
     if(typeof exports === 'object' && typeof module === 'object')
         module.exports = factory(require("jquery"));
     else if(typeof define === 'function' && define.amd)
@@ -8,7 +8,9 @@
         exports["AMUI"] = factory(require("jquery"));
     else
         root["AMUI"] = factory(root["jQuery"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_1__) {
+}
+
+var imgfn = function(__WEBPACK_EXTERNAL_MODULE_1__) {
     return /******/ (function(modules) { // webpackBootstrap
         /******/ 	// The module cache
         /******/ 	var installedModules = {};
@@ -50,8 +52,8 @@
         /******/ 	// Load entry module and return exports
         /******/ 	return __webpack_require__(0);
         /******/ })
-        /************************************************************************/
-        /******/ ([
+    /************************************************************************/
+    /******/ ([
         /* 0 */
         /***/ function(module, exports, __webpack_require__) {
 
@@ -187,18 +189,18 @@
 
             /* jshint -W069 */
             UI.support.touch = (
-            ('ontouchstart' in window &&
-            navigator.userAgent.toLowerCase().match(/mobile|tablet/)) ||
-            (window.DocumentTouch && document instanceof window.DocumentTouch) ||
-            (window.navigator['msPointerEnabled'] &&
-            window.navigator['msMaxTouchPoints'] > 0) || //IE 10
-            (window.navigator['pointerEnabled'] &&
-            window.navigator['maxTouchPoints'] > 0) || //IE >=11
-            false);
+                ('ontouchstart' in window &&
+                    navigator.userAgent.toLowerCase().match(/mobile|tablet/)) ||
+                (window.DocumentTouch && document instanceof window.DocumentTouch) ||
+                (window.navigator['msPointerEnabled'] &&
+                    window.navigator['msMaxTouchPoints'] > 0) || //IE 10
+                (window.navigator['pointerEnabled'] &&
+                    window.navigator['maxTouchPoints'] > 0) || //IE >=11
+                false);
 
             // https://developer.mozilla.org/zh-CN/docs/DOM/MutationObserver
             UI.support.mutationobserver = (window.MutationObserver ||
-            window.WebKitMutationObserver || null);
+                window.WebKitMutationObserver || null);
 
             // https://github.com/Modernizr/Modernizr/blob/924c7611c170ef2dc502582e5079507aff61e388/feature-detects/forms/validation.js#L20
             UI.support.formValidation = (typeof document.createElement('form').
@@ -256,9 +258,9 @@
                 options = $.extend({topOffset: 0, leftOffset: 0}, options);
 
                 return (top + $element.height() >= windowTop &&
-                top - options.topOffset <= windowTop + $win.height() &&
-                left + $element.width() >= windowLeft &&
-                left - options.leftOffset <= windowLeft + $win.width());
+                    top - options.topOffset <= windowTop + $win.height() &&
+                    left + $element.width() >= windowLeft &&
+                    left - options.leftOffset <= windowLeft + $win.width());
             };
 
             /* jshint -W054 */
@@ -455,9 +457,9 @@
 
                 var classPattern = new RegExp('\\s' +
                     removals.
-                        replace(/\*/g, '[A-Za-z0-9-_]+').
-                        split(' ').
-                        join('\\s|\\s') +
+                    replace(/\*/g, '[A-Za-z0-9-_]+').
+                    split(' ').
+                    join('\\s|\\s') +
                     '\\s', 'g');
 
                 self.each(function(i, it) {
@@ -479,7 +481,7 @@
                     window.webkitRequestAnimationFrame ||
                     window.mozRequestAnimationFrame ||
                     window.oRequestAnimationFrame ||
-                        // if all else fails, use setTimeout
+                    // if all else fails, use setTimeout
                     function(callback) {
                         return window.setTimeout(callback, 1000 / 60); // shoot for 60 fps
                     };
@@ -561,18 +563,18 @@
 
                         var line = 1;
                         var body = ('try { ' + (me.variable ?
-                            'var ' + me.variable + ' = this.stash;' : 'with (this.stash) { ') +
+                                'var ' + me.variable + ' = this.stash;' : 'with (this.stash) { ') +
                             "this.ret += '" +
                             string.
-                                replace(/<%/g, '\x11').replace(/%>/g, '\x13'). // if you want other tag, just edit this line
-                                replace(/'(?![^\x11\x13]+?\x13)/g, '\\x27').
-                                replace(/^\s*|\s*$/g, '').
-                                replace(/\n/g, function() {
-                                    return "';\nthis.line = " + (++line) + "; this.ret += '\\n";
-                                }).
-                                replace(/\x11-(.+?)\x13/g, "' + ($1) + '").
-                                replace(/\x11=(.+?)\x13/g, "' + this.escapeHTML($1) + '").
-                                replace(/\x11(.+?)\x13/g, "'; $1; this.ret += '") +
+                            replace(/<%/g, '\x11').replace(/%>/g, '\x13'). // if you want other tag, just edit this line
+                            replace(/'(?![^\x11\x13]+?\x13)/g, '\\x27').
+                            replace(/^\s*|\s*$/g, '').
+                            replace(/\n/g, function() {
+                                return "';\nthis.line = " + (++line) + "; this.ret += '\\n";
+                            }).
+                            replace(/\x11-(.+?)\x13/g, "' + ($1) + '").
+                            replace(/\x11=(.+?)\x13/g, "' + this.escapeHTML($1) + '").
+                            replace(/\x11(.+?)\x13/g, "'; $1; this.ret += '") +
                             "'; " + (me.variable ? "" : "}") + "return this.ret;" +
                             "} catch (e) { throw 'TemplateError: ' + e + ' (on " + name +
                             "' + ' line ' + this.line + ')'; } " +
@@ -639,7 +641,7 @@
                     options : {childList: true, subtree: true};
 
                 callback = typeof callback === 'function' && callback || function() {
-                    };
+                };
 
                 $(elements).each(function() {
                     var element = this;
@@ -2968,8 +2970,8 @@
                         // 3.   allow if the recognizer is allowed to run simultaneous with the current recognized recognizer.
                         //      this can be setup with the `recognizeWith()` method on the recognizer.
                         if (session.stopped !== FORCED_STOP && ( // 1
-                            !curRecognizer || recognizer == curRecognizer || // 2
-                            recognizer.canRecognizeWith(curRecognizer))) { // 3
+                                !curRecognizer || recognizer == curRecognizer || // 2
+                                recognizer.canRecognizeWith(curRecognizer))) { // 3
                             recognizer.recognize(inputData);
                         } else {
                             recognizer.reset();
@@ -3248,7 +3250,7 @@
              * @license: http://cubiq.org/license
              */
 
-            // Check for addEventListener browser support (prevent errors in IE<9)
+                // Check for addEventListener browser support (prevent errors in IE<9)
             var _eventListener = 'addEventListener' in window;
 
             // Check if document is loaded, needed by autostart
@@ -3899,19 +3901,19 @@
              * @license Apache 2.0
              */
 
-            // Alert Class
-            // NOTE: removeElement option is unavailable now
+                // Alert Class
+                // NOTE: removeElement option is unavailable now
             var Alert = function(element, options) {
-                var _this = this;
-                this.options = $.extend({}, Alert.DEFAULTS, options);
-                this.$element = $(element);
+                    var _this = this;
+                    this.options = $.extend({}, Alert.DEFAULTS, options);
+                    this.$element = $(element);
 
-                this.$element
-                    .addClass('am-fade am-in')
-                    .on('click.alert.amui', '.am-close', function() {
-                        _this.close();
-                    });
-            };
+                    this.$element
+                        .addClass('am-fade am-in')
+                        .on('click.alert.amui', '.am-close', function() {
+                            _this.close();
+                        });
+                };
 
             Alert.DEFAULTS = {
                 removeElement: true
@@ -4175,7 +4177,7 @@
                 this.$element.height(this.$element.height()).redraw();
 
                 this.$element.addClass('am-collapsing').
-                    removeClass('am-collapse am-in');
+                removeClass('am-collapse am-in');
 
                 this.transitioning = 1;
 
@@ -4342,7 +4344,7 @@
 
                 this.startViewMode = this.viewMode;
                 this.weekStart = ((this.options.weekStart ||
-                Datepicker.locales[this.language].weekStart || 0) % 7);
+                    Datepicker.locales[this.language].weekStart || 0) % 7);
                 this.weekEnd = ((this.weekStart + 6) % 7);
                 this.onRender = this.options.onRender;
 
@@ -4730,7 +4732,7 @@
                 }
 
                 this.$picker.find('>div').hide().
-                    filter('.am-datepicker-' + DPGlobal.modes[this.viewMode].clsName).show();
+                filter('.am-datepicker-' + DPGlobal.modes[this.viewMode].clsName).show();
             };
 
             Datepicker.prototype.isOutView = function() {
@@ -5080,28 +5082,28 @@
              * @license The MIT License
              */
 
-            // var toggle = '[data-am-dropdown] > .am-dropdown-toggle';
+                // var toggle = '[data-am-dropdown] > .am-dropdown-toggle';
 
             var Dropdown = function(element, options) {
-                this.options = $.extend({}, Dropdown.DEFAULTS, options);
+                    this.options = $.extend({}, Dropdown.DEFAULTS, options);
 
-                options = this.options;
+                    options = this.options;
 
-                this.$element = $(element);
-                this.$toggle = this.$element.find(options.selector.toggle);
-                this.$dropdown = this.$element.find(options.selector.dropdown);
-                this.$boundary = (options.boundary === window) ? $(window) :
-                    this.$element.closest(options.boundary);
-                this.$justify = (options.justify && $(options.justify).length &&
-                    $(options.justify)) || undefined;
+                    this.$element = $(element);
+                    this.$toggle = this.$element.find(options.selector.toggle);
+                    this.$dropdown = this.$element.find(options.selector.dropdown);
+                    this.$boundary = (options.boundary === window) ? $(window) :
+                        this.$element.closest(options.boundary);
+                    this.$justify = (options.justify && $(options.justify).length &&
+                        $(options.justify)) || undefined;
 
-                !this.$boundary.length && (this.$boundary = $(window));
+                    !this.$boundary.length && (this.$boundary = $(window));
 
-                this.active = this.$element.hasClass('am-active') ? true : false;
-                this.animating = null;
+                    this.active = this.$element.hasClass('am-active') ? true : false;
+                    this.animating = null;
 
-                this.events();
-            };
+                    this.events();
+                };
 
             Dropdown.DEFAULTS = {
                 animation: 'am-animation-slide-top-fixed',
@@ -5152,10 +5154,10 @@
                 if (animation) {
                     this.animating = 1;
                     $dropdown.addClass(this.options.animation).
-                        on(animation.end + '.open.dropdown.amui', $.proxy(function() {
-                            complete();
-                            $dropdown.removeClass(this.options.animation);
-                        }, this));
+                    on(animation.end + '.open.dropdown.amui', $.proxy(function() {
+                        complete();
+                        $dropdown.removeClass(this.options.animation);
+                    }, this));
                 } else {
                     complete();
                 }
@@ -5176,8 +5178,8 @@
 
                 var complete = $.proxy(function complete() {
                     $element.
-                        removeClass('am-active').
-                        trigger('closed.dropdown.amui');
+                    removeClass('am-active').
+                    trigger('closed.dropdown.amui');
                     this.active = false;
                     this.animating = 0;
                     this.$toggle.blur();
@@ -5321,8 +5323,8 @@
                     var namespace = slider.vars.namespace,
                         msGesture = window.navigator && window.navigator.msPointerEnabled && window.MSGesture,
                         touch = (( "ontouchstart" in window ) || msGesture || window.DocumentTouch && document instanceof DocumentTouch) && slider.vars.touch,
-                    // depricating this idea, as devices are being released with both of these events
-                    //eventType = (touch) ? "touchend" : "click",
+                        // depricating this idea, as devices are being released with both of these events
+                        //eventType = (touch) ? "touchend" : "click",
                         eventType = "click touchend MSPointerUp keyup",
                         watchedEvent = "",
                         watchedEventClearTimer,
@@ -5368,17 +5370,17 @@
                             slider.startTimeout = null;
                             // TOUCH/USECSS:
                             slider.transitions = !slider.vars.video && !fade && slider.vars.useCSS && (function() {
-                                    var obj = document.createElement('div'),
-                                        props = ['perspectiveProperty', 'WebkitPerspective', 'MozPerspective', 'OPerspective', 'msPerspective'];
-                                    for (var i in props) {
-                                        if (obj.style[props[i]] !== undefined) {
-                                            slider.pfx = props[i].replace('Perspective', '').toLowerCase();
-                                            slider.prop = "-" + slider.pfx + "-transform";
-                                            return true;
-                                        }
+                                var obj = document.createElement('div'),
+                                    props = ['perspectiveProperty', 'WebkitPerspective', 'MozPerspective', 'OPerspective', 'msPerspective'];
+                                for (var i in props) {
+                                    if (obj.style[props[i]] !== undefined) {
+                                        slider.pfx = props[i].replace('Perspective', '').toLowerCase();
+                                        slider.prop = "-" + slider.pfx + "-transform";
+                                        return true;
                                     }
-                                    return false;
-                                }());
+                                }
+                                return false;
+                            }());
                             slider.ensureAnimationEnd = '';
                             // CONTROLSCONTAINER:
                             if (slider.vars.controlsContainer !== "") slider.controlsContainer = $(slider.vars.controlsContainer).length > 0 && $(slider.vars.controlsContainer);
@@ -6806,8 +6808,8 @@
                 }
 
                 me.getTime = Date.now || function getTime() {
-                        return new Date().getTime();
-                    };
+                    return new Date().getTime();
+                };
 
                 me.extend = function(target, obj) {
                     for (var i in obj) {
@@ -6825,7 +6827,7 @@
 
                 me.prefixPointerEvent = function(pointerEvent) {
                     return window.MSPointerEvent ?
-                    'MSPointer' + pointerEvent.charAt(9).toUpperCase() + pointerEvent.substr(10) :
+                        'MSPointer' + pointerEvent.charAt(9).toUpperCase() + pointerEvent.substr(10) :
                         pointerEvent;
                 };
 
@@ -7855,8 +7857,8 @@
                 }
 
                 $element.
-                    removeClass(options.className.out).
-                    addClass(options.className.active);
+                removeClass(options.className.out).
+                addClass(options.className.active);
 
                 this.transitioning = 1;
 
@@ -7876,8 +7878,8 @@
                 }
 
                 $element.
-                    one(options.transitionEnd, $.proxy(complete, this)).
-                    emulateTransitionEnd(options.duration);
+                one(options.transitionEnd, $.proxy(complete, this)).
+                emulateTransitionEnd(options.duration);
             };
 
             Modal.prototype.close = function(relatedTarget) {
@@ -7913,14 +7915,14 @@
                 };
 
                 $element.removeClass(options.className.active).
-                    addClass(options.className.out);
+                addClass(options.className.out);
 
                 if (!supportTransition) {
                     return complete.call(this);
                 }
 
                 $element.one(options.transitionEnd, $.proxy(complete, this)).
-                    emulateTransitionEnd(options.duration);
+                emulateTransitionEnd(options.duration);
             };
 
             Modal.prototype.events = function() {
@@ -8608,7 +8610,7 @@
                             widthOffsetRatio = offsetLeft / offsetRight,
                             centerX = widthOffsetRatio * this.container[0].offsetWidth / (widthOffsetRatio + 1),
 
-                        // the same for the zoomcenter y
+                            // the same for the zoomcenter y
                             height = this.container[0].offsetHeight * this.zoomFactor,
                             offsetTop = this.offset.y,
                             offsetBottom = height - offsetTop - this.container[0].offsetHeight,
@@ -9833,15 +9835,15 @@
                 });
 
                 $pureview.find('.am-pureview-direction').
-                    on('click.direction.pureview.amui', 'li', function(e) {
-                        e.preventDefault();
+                on('click.direction.pureview.amui', 'li', function(e) {
+                    e.preventDefault();
 
-                        if ($(this).is('.am-pureview-prev')) {
-                            _this.prevSlide();
-                        } else {
-                            _this.nextSlide();
-                        }
-                    });
+                    if ($(this).is('.am-pureview-prev')) {
+                        _this.prevSlide();
+                    } else {
+                        _this.nextSlide();
+                    }
+                });
 
                 // Nav Contorl
                 $pureview.find(options.selector.nav).on('click.nav.pureview.amui', 'li',
@@ -9852,10 +9854,10 @@
 
                 // Close Icon
                 $pureview.find(options.selector.close).
-                    on('click.close.pureview.amui', function(e) {
-                        e.preventDefault();
-                        _this.close();
-                    });
+                on('click.close.pureview.amui', function(e) {
+                    e.preventDefault();
+                    _this.close();
+                });
 
                 this.$slider.hammer().on('swipeleft.pureview.amui', function(e) {
                     e.preventDefault();
@@ -10098,7 +10100,7 @@
                 $slides.eq(activeIndex + 1).addClass(options.className.nextSlide);
 
                 this.$navItems.removeClass().
-                    eq(activeIndex).addClass(options.className.active);
+                eq(activeIndex).addClass(options.className.active);
 
                 if (transition) {
                     $slide.one(transition.end, $.proxy(function() {
@@ -10176,7 +10178,7 @@
 
                 if (transition) {
                     this.$pureview.one(transition.end, $.proxy(resetBody, this)).
-                        emulateTransitionEnd(300);
+                    emulateTransitionEnd(300);
                 } else {
                     resetBody.call(this);
                 }
@@ -10240,7 +10242,7 @@
 
                 this.$window = $(window).on('scroll.scrollspy.amui', checkViewRAF)
                     .on('resize.scrollspy.amui orientationchange.scrollspy.amui',
-                    UI.utils.debounce(checkViewRAF, 50));
+                        UI.utils.debounce(checkViewRAF, 50));
 
                 this.timer = this.inViewState = this.initInView = null;
 
@@ -10264,7 +10266,7 @@
                 var options = this.options;
                 var inView = UI.utils.isInView($element, options);
                 var animation = options.animation ?
-                ' am-animation-' + options.animation : '';
+                    ' am-animation-' + options.animation : '';
 
                 if (inView && !this.inViewState) {
                     if (this.timer) {
@@ -10328,29 +10330,29 @@
              * @license https://github.com/uikit/uikit/blob/master/LICENSE.md
              */
 
-            // ScrollSpyNav Class
+                // ScrollSpyNav Class
             var ScrollSpyNav = function(element, options) {
-                this.options = $.extend({}, ScrollSpyNav.DEFAULTS, options);
-                this.$element = $(element);
-                this.anchors = [];
+                    this.options = $.extend({}, ScrollSpyNav.DEFAULTS, options);
+                    this.$element = $(element);
+                    this.anchors = [];
 
-                this.$links = this.$element.find('a[href^="#"]').each(function(i, link) {
-                    this.anchors.push($(link).attr('href'));
-                }.bind(this));
+                    this.$links = this.$element.find('a[href^="#"]').each(function(i, link) {
+                        this.anchors.push($(link).attr('href'));
+                    }.bind(this));
 
-                this.$targets = $(this.anchors.join(', '));
+                    this.$targets = $(this.anchors.join(', '));
 
-                var processRAF = function() {
-                    UI.utils.rAF.call(window, $.proxy(this.process, this));
-                }.bind(this);
+                    var processRAF = function() {
+                        UI.utils.rAF.call(window, $.proxy(this.process, this));
+                    }.bind(this);
 
-                this.$window = $(window).on('scroll.scrollspynav.amui', processRAF)
-                    .on('resize.scrollspynav.amui orientationchange.scrollspynav.amui',
-                    UI.utils.debounce(processRAF, 50));
+                    this.$window = $(window).on('scroll.scrollspynav.amui', processRAF)
+                        .on('resize.scrollspynav.amui orientationchange.scrollspynav.amui',
+                            UI.utils.debounce(processRAF, 50));
 
-                processRAF();
-                this.scrollProcess();
-            };
+                    processRAF();
+                    this.scrollProcess();
+                };
 
             ScrollSpyNav.DEFAULTS = {
                 className: {
@@ -10394,11 +10396,11 @@
                     if (options.closest) {
                         $links.closest(options.closest).removeClass(options.className.active);
                         $links.filter('a[href="#' + $target.attr('id') + '"]').
-                            closest(options.closest).addClass(options.className.active);
+                        closest(options.closest).addClass(options.className.active);
                     } else {
                         $links.removeClass(options.className.active).
-                            filter('a[href="#' + $target.attr('id') + '"]').
-                            addClass(options.className.active);
+                        filter('a[href="#' + $target.attr('id') + '"]').
+                        addClass(options.className.active);
                     }
                 }
             };
@@ -10459,10 +10461,10 @@
              * @via http://mir.aculo.us/2014/01/19/scrolling-dom-elements-to-the-top-a-zepto-plugin/
              */
 
-            // Usage: $(window).smoothScroll([options])
+                // Usage: $(window).smoothScroll([options])
 
-            // only allow one scroll to top operation to be in progress at a time,
-            // which is probably what you want
+                // only allow one scroll to top operation to be in progress at a time,
+                // which is probably what you want
             var smoothScrollInProgress = false;
 
             var SmoothScroll = function(element, options) {
@@ -10592,7 +10594,7 @@
             // Make jQuery :contains Case-Insensitive
             $.expr[':'].containsNC = function(elem, i, match, array) {
                 return (elem.textContent || elem.innerText || '').toLowerCase().
-                        indexOf((match[3] || '').toLowerCase()) >= 0;
+                indexOf((match[3] || '').toLowerCase()) >= 0;
             };
 
             /**
@@ -10818,7 +10820,7 @@
 
                 this.$list.html(UI.template(options.listTpl, {options: optionItems}));
                 this.$shadowOptions = this.$list.find('> li').
-                    not('.am-selected-list-header');
+                not('.am-selected-list-header');
             };
 
             Selected.prototype.setChecked = function(item) {
@@ -10897,7 +10899,7 @@
                 var header = 'am-selected-list-header';
                 var handleKeyup = UI.utils.debounce(function(e) {
                     _this.$shadowOptions.not('.' + header).hide().
-                        filter(':containsNC("' + e.target.value + '")').show();
+                    filter(':containsNC("' + e.target.value + '")').show();
                 }, 100);
 
                 this.$list.on('click', '> li', function(e) {
@@ -11202,9 +11204,9 @@
                     this.$element = $('#' + this.options.id);
 
                     this.$element.find('[data-am-share-close]').
-                        on('click.share.amui', function() {
-                            me.close();
-                        });
+                    on('click.share.amui', function() {
+                        me.close();
+                    });
                 }, this));
 
                 $doc.on('click.share.amui', shareItem, $.proxy(function(e) {
@@ -11302,7 +11304,7 @@
                     if (data[key]) {
                         // ���� encode ͼƬ�ָ��� |
                         query.push(key.toString() + '=' + ((key === 'pic' || key === 'pics') ?
-                                data[key] : encodeURIComponent(data[key])));
+                            data[key] : encodeURIComponent(data[key])));
                     }
                 }
 
@@ -13887,34 +13889,34 @@
              * @license https://github.com/uikit/uikit/blob/master/LICENSE.md
              */
 
-            // Sticky Class
+                // Sticky Class
             var Sticky = function(element, options) {
-                var _this = this;
+                    var _this = this;
 
-                this.options = $.extend({}, Sticky.DEFAULTS, options);
-                this.$element = $(element);
-                this.sticked = null;
-                this.inited = null;
-                this.$holder = undefined;
+                    this.options = $.extend({}, Sticky.DEFAULTS, options);
+                    this.$element = $(element);
+                    this.sticked = null;
+                    this.inited = null;
+                    this.$holder = undefined;
 
-                this.$window = $(window).
+                    this.$window = $(window).
                     on('scroll.sticky.amui',
-                    UI.utils.debounce($.proxy(this.checkPosition, this), 10)).
+                        UI.utils.debounce($.proxy(this.checkPosition, this), 10)).
                     on('resize.sticky.amui orientationchange.sticky.amui',
-                    UI.utils.debounce(function() {
-                        _this.reset(true, function() {
-                            _this.checkPosition();
-                        });
-                    }, 50)).
+                        UI.utils.debounce(function() {
+                            _this.reset(true, function() {
+                                _this.checkPosition();
+                            });
+                        }, 50)).
                     on('load.sticky.amui', $.proxy(this.checkPosition, this));
 
-                // the `.offset()` is diff between jQuery & Zepto.js
-                // jQuery: return `top` and `left`
-                // Zepto.js: return `top`, `left`, `width`, `height`
-                this.offset = this.$element.offset();
+                    // the `.offset()` is diff between jQuery & Zepto.js
+                    // jQuery: return `top` and `left`
+                    // Zepto.js: return `top`, `left`, `width`, `height`
+                    this.offset = this.$element.offset();
 
-                this.init();
-            };
+                    this.init();
+                };
 
             Sticky.DEFAULTS = {
                 top: 0,
@@ -13939,7 +13941,7 @@
                 var $elementMargin = '';
 
                 $.each($element.css(
-                        ['marginTop', 'marginRight', 'marginBottom', 'marginLeft']),
+                    ['marginTop', 'marginRight', 'marginBottom', 'marginLeft']),
                     function(name, value) {
                         return $elementMargin += ' ' + value;
                     });
@@ -13961,7 +13963,7 @@
                 var options = this.options;
                 var $element = this.$element;
                 var animation = (options.animation) ?
-                ' am-animation-' + options.animation : '';
+                    ' am-animation-' + options.animation : '';
                 var complete = function() {
                     $element.css({position: '', top: '', width: '', left: '', margin: 0});
                     $element.removeClass([
@@ -14033,7 +14035,7 @@
                 var offsetBottom = options.bottom;
                 var $element = this.$element;
                 var animation = (options.animation) ?
-                ' am-animation-' + options.animation : '';
+                    ' am-animation-' + options.animation : '';
                 var className = [options.className.sticky, animation].join(' ');
 
                 if (typeof offsetBottom == 'function') {
@@ -14401,9 +14403,9 @@
 
                 UCheck.prototype.toggle = function() {
                     this.$element.
-                        prop('checked', function(i, value) {
-                            return !value;
-                        })
+                    prop('checked', function(i, value) {
+                        return !value;
+                    })
                         .trigger('change.ucheck.amui')
                         .trigger('toggled.ucheck.amui');
                 },
@@ -14535,7 +14537,7 @@
                     var $parent = $field.closest('.am-form-group');
 
                     $field.addClass(options.inValidClass + ' ' + options.activeClass).
-                        removeClass(options.validClass);
+                    removeClass(options.validClass);
                     $parent.addClass('am-form-error').removeClass('am-form-success');
                     options.onInValid.call(this, validity);
                 },
@@ -14648,7 +14650,7 @@
                             }, function() {
                                 // fail
                                 $element.data('amui.checked', false).
-                                    find('.' + options.inValidClass).eq(0).focus();
+                                find('.' + options.inValidClass).eq(0).focus();
                             });
                             return false;
                         }
@@ -14724,9 +14726,9 @@
                 // NOTE: checkbox and radio should have name attribute
                 var value = ($field.is('[type=checkbox]')) ?
                     ($checkboxGroup = $element.find('input[name="' + field.name + '"]')).
-                        filter(':checked').length : ($field.is('[type=radio]') ?
-                ($radioGroup = this.$element.find('input[name="' + field.name + '"]')).
-                    filter(':checked').length > 0 : $field.val());
+                    filter(':checked').length : ($field.is('[type=radio]') ?
+                        ($radioGroup = this.$element.find('input[name="' + field.name + '"]')).
+                        filter(':checked').length > 0 : $field.val());
 
                 // if checkbox, valid the first input of checkbox group
                 $field = ($checkboxGroup && $checkboxGroup.length) ?
@@ -15024,7 +15026,7 @@
             Validator.prototype.removeMark = function() {
                 this.$element
                     .find('.am-form-success, .am-form-error, .' + this.options.inValidClass +
-                    ', .' + this.options.validClass)
+                        ', .' + this.options.validClass)
                     .removeClass([
                         'am-form-success',
                         'am-form-error',
@@ -15521,8 +15523,8 @@
 
                         !options.multiple &&
                         $(item).children('.am-active').
-                            not($parent).not(selector.disabled).removeClass('am-active').
-                            find(selector.body + '.am-in').collapse('close');
+                        not($parent).not(selector.disabled).removeClass('am-active').
+                        find(selector.body + '.am-in').collapse('close');
                     });
                 });
             }
@@ -15559,7 +15561,7 @@
             function duoshuoInit() {
                 var $dsThread = $('.ds-thread');
                 var dsShortName = $dsThread.parent('[data-am-widget="duoshuo"]').
-                    attr('data-ds-short-name');
+                attr('data-ds-short-name');
                 var dsSrc = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
                     '//static.duoshuo.com/embed.js';
 
@@ -16015,31 +16017,31 @@
 
                 // Dropdown/slideDown menu
                 $menus.
-                    filter('[data-am-menu-collapse]').
-                    find('> .am-menu-toggle').
-                    on('click', function(e) {
-                        e.preventDefault();
-                        var $this = $(this);
-                        var $nav = $this.next('.am-menu-nav');
+                filter('[data-am-menu-collapse]').
+                find('> .am-menu-toggle').
+                on('click', function(e) {
+                    e.preventDefault();
+                    var $this = $(this);
+                    var $nav = $this.next('.am-menu-nav');
 
-                        $this.toggleClass('am-active');
+                    $this.toggleClass('am-active');
 
-                        $nav.collapse('toggle');
-                    });
+                    $nav.collapse('toggle');
+                });
 
                 // OffCanvas menu
                 $menus.
-                    filter('[data-am-menu-offcanvas]').
-                    find('> .am-menu-toggle').
-                    on('click', function(e) {
-                        e.preventDefault();
-                        var $this = $(this);
-                        var $nav = $this.next('.am-offcanvas');
+                filter('[data-am-menu-offcanvas]').
+                find('> .am-menu-toggle').
+                on('click', function(e) {
+                    e.preventDefault();
+                    var $this = $(this);
+                    var $nav = $this.next('.am-offcanvas');
 
-                        $this.toggleClass('am-active');
+                    $this.toggleClass('am-active');
 
-                        $nav.offCanvas('open');
-                    });
+                    $nav.offCanvas('open');
+                });
 
                 // Close offCanvas when link clicked
                 var autoCloseOffCanvas = '.am-offcanvas[data-dismiss-on="click"]';
@@ -16061,9 +16063,9 @@
                     $navTopItem.filter('.am-parent').each(function(index) {
                         $(this).attr('data-rel', '#am-menu-sub-' + index);
                         $(this).
-                            find('.am-menu-sub').
-                            attr('id', 'am-menu-sub-' + index).
-                            appendTo($wrap);
+                        find('.am-menu-sub').
+                        attr('id', 'am-menu-sub-' + index).
+                        appendTo($wrap);
                     });
 
                     $this.append($wrap);
@@ -16117,12 +16119,12 @@
                         var parentLeft = parseInt($this.css('padding-left'));
 
                         if (dir ? offset.left + offset.width > within.left + within.width :
-                            offset.left < within.left) {
+                                offset.left < within.left) {
                             listOffset = $nav.offset();
                             menuScroll.scrollTo(dir ?
-                            within.width - offset.left + listOffset.left -
-                            offset.width - parentLeft :
-                            listOffset.left - offset.left, 0, 400);
+                                within.width - offset.left + listOffset.left -
+                                offset.width - parentLeft :
+                                listOffset.left - offset.left, 0, 400);
                         }
 
                         prevIndex = $(this).index();
@@ -16169,7 +16171,7 @@
                 var navItemsCounter = $navItems.length;
                 var configItems = $navBarNav.attr('class') &&
                     parseInt($navBarNav.attr('class').
-                        match(/am-avg-sm-(\d+)/)[1]) || 3;
+                    match(/am-avg-sm-(\d+)/)[1]) || 3;
                 var navMinWidth = 60; // ÿ�� li ��С���
                 var offsetWidth = 16;
                 var $share = $navItems.filter('[data-am-navbar-share]');
@@ -16238,10 +16240,10 @@
                     $navBarNav.append($moreLink);
 
                     $navBarNav.
-                        find('li').
-                        not('.am-navbar-more').
-                        slice(calcSuiteItems() - 1).
-                        appendTo($moreActions);
+                    find('li').
+                    not('.am-navbar-more').
+                    slice(calcSuiteItems() - 1).
+                    appendTo($moreActions);
 
                     // Append more actions
                     $navBar.append($moreActions);
@@ -16261,15 +16263,15 @@
 
                     if ($navBarNav.find('li').length < calcSuiteItems()) {
                         $moreActions.find('li').
-                            slice(0, calcSuiteItems() - $navBarNav.find('li').length).
-                            insertBefore($moreLink);
+                        slice(0, calcSuiteItems() - $navBarNav.find('li').length).
+                        insertBefore($moreLink);
                     } else if ($navBarNav.find('li').length > calcSuiteItems()) {
                         if ($moreActions.find('li').length) {
                             $navBarNav.find('li').not($moreLink).slice(calcSuiteItems() - 1).
-                                insertBefore($moreActions.find('li').first());
+                            insertBefore($moreActions.find('li').first());
                         } else {
                             $navBarNav.find('li').not($moreLink).slice(calcSuiteItems() - 1).
-                                appendTo($moreActions);
+                            appendTo($moreActions);
                         }
                     }
                 }
@@ -16525,7 +16527,8 @@
 
             /***/ }
         /******/ ])
-});
+}
+var imgWindow = this;
 ;/**
  * Created by Administrator on 2016/1/26.
  */
