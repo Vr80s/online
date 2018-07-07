@@ -345,9 +345,7 @@
 		</div>
 		<!-- 头部结束 -->
 		<div class="swiper-container top_swiper">
-			{{if items.banners.length <= 0}}
-			<img src="/xcview/images/physician.png" class="physician_img0" style="width: 7.5rem;" />
-			{{/if}}
+		{{if items.banners !=null && items.banners !=""}}
 			<div class="swiper-wrapper">
 				{{each items.banners as item i}}
 				<div class="swiper-slide pic01" onclick="sowingDetails('{{item.url}}')">
@@ -356,7 +354,9 @@
 				{{/each}}
 			</div>
 			<div class="swiper-pagination"></div>
-
+			{{else}}
+			<img src="/xcview/images/physician.png" class="physician_img0" style="width: 7.5rem;" />
+        {{/if}}
 		</div>
 		<!-- 轮播结束 -->
 
@@ -374,7 +374,9 @@
 				</div>
 				<div class="message_face">
 					<!--<span class="disciple"><span class="disciple_fize">弟子</span>25</span>-->
+					{{if items.followHidden == false}}
 					<div class="fans"><div class="fans_size">粉丝</div><div id="fansCount">{{items.fansCount}}</div></div>
+					{{/if}}
 					<div class="both"></div>
 				</div>
 				
