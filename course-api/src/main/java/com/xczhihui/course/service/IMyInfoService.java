@@ -87,5 +87,5 @@ public interface IMyInfoService {
      * @param id
      * @return
      */
-    Integer findHostTypeByUserId(String id);
+    Map<String, Object> findHostTypeByUserId(String id);
 }

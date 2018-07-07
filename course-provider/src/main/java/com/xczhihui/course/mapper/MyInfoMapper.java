@@ -115,5 +115,5 @@ public interface MyInfoMapper extends BaseMapper<OnlineUser> {
             "             where md.id = #{doctorId}"})
     Map<String, Object> findDoctorInfoByDoctorId(@Param("doctorId") String doctorId);
 
-    Integer findHostTypeByUserId(String id);
+    Map<String, Object> findHostTypeByUserId(String id);
 }
