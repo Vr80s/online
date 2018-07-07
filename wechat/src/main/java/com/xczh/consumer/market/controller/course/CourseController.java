@@ -20,6 +20,7 @@ import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.CourseUtil;
 import com.xczhihui.common.util.WeihouInterfacesListUtil;
+import com.xczhihui.common.util.XzStringUtils;
 import com.xczhihui.course.service.*;
 import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.medical.anchor.service.ICourseApplyService;
@@ -111,14 +112,19 @@ public class CourseController {
         }
         //设置星星级别
         cv.setStartLevel(CourseUtil.criticizeStartLevel(cv.getStartLevel()));
-
         cv.setRichCourseDetailsUrl(returnOpenidUri + "/xcview/html/person_fragment.html?type=1&typeId=" + courseId);
-
         cv.setRichHostDetailsUrl(returnOpenidUri + "/xcview/html/person_fragment.html?type=3&typeId=" + courseId);
 
         //专辑查看更新时间
         if (cv.getCollection()) {
-            cv.setDirtyDate(courseApplyService.getCollectionUpdateDateText(courseId));
+            
+            //已更新多少集，等于总集数
+            if(cv.getCourseNumber()!=null && cv.getDirtyNumber()!=null && 
+                    cv.getCourseNumber().equals(cv.getDirtyNumber())) {
+                cv.setDirtyDate(XzStringUtils.COLLECTION_UPDATE_FINISH);
+            }else {
+                cv.setDirtyDate(courseApplyService.getCollectionUpdateDateText(courseId));
+            }
             
             cv.setOutlineDetailsUrl(returnOpenidUri + "/xcview/html/outline_fragment.html?courseId=" + courseId);
         }

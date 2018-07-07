@@ -1,6 +1,9 @@
 (function () {
     //解析url地址
     var ourl = document.location.search;
+    var pathname = window.location.pathname;
+    
+    
     var browser = {
         versions: function () {
             var u = navigator.userAgent, app = navigator.appVersion;
@@ -30,6 +33,16 @@
             wxurl = "http://m.ipandatcm.com";
         } else {
             wxurl = "http://test-wx.xczhihui.com";
+        }
+        
+        if(pathname!=null){
+            //"courses/2595/info"   ourl   pathname
+            if(pathname!=null && pathname.indexOf("courses")!=-1 &&  pathname.indexOf("info")!=-1){
+            	 //"courses/2595/info"  获取课程id
+                var lala = pathname.split("/"); 
+        	    var courseId = lala[2];
+        	    wxurl = wxurl+"/wx_share.html?shareType=1&shareId="+courseId;
+            }
         }
         window.location = wxurl;
     }
