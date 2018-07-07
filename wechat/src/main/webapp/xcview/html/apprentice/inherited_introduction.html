@@ -231,7 +231,7 @@
                         }
                         /*跳转链接*/
                         if(isNotBlank(back) && back.indexOf("physicians_page.html") != -1){
-                            back
+                            window.history.go(-1);
                         }
                         location.href = '/xcview/html/apprentice/apprentice.html'
                     }
