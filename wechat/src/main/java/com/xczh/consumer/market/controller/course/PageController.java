@@ -9,12 +9,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczhihui.common.util.enums.WechatShareLinkType;
 import com.xczhihui.course.service.ICourseService;
+import com.xczhihui.course.service.IMyInfoService;
 import com.xczhihui.course.vo.CourseLecturVo;
 
 /**
@@ -23,7 +25,7 @@ import com.xczhihui.course.vo.CourseLecturVo;
  *
  */
 @Controller
-@RequestMapping("/course")
+@RequestMapping("/page")
 public class PageController {
 
     @Autowired
@@ -32,6 +34,8 @@ public class PageController {
     private String returnOpenidUri;
     @Autowired
     private OnlineUserService onlineUserService;
+    @Autowired
+    private IMyInfoService myInfoService;
 
     /**
      * 课程跳转重定向
@@ -40,7 +44,7 @@ public class PageController {
      * @return
      * @throws SQLException
      */
-    @RequestMapping(value = "{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "course/{id}", method = RequestMethod.GET)
     public String jump(@PathVariable Integer id,
             @Account(optional = true) Optional<String> accountIdOpt) throws SQLException {
         
@@ -55,6 +59,36 @@ public class PageController {
         return "redirect:" + url;
     }
     
+    
+    /**
+     * 主播页面课程跳转重定向
+     * @param id
+     * @param accountIdOpt
+     * @return
+     * @throws SQLException
+     */
+    @RequestMapping(value = "doctor/{id}", method = RequestMethod.GET)
+    public String jumpDoctor(@PathVariable String id,
+          Integer idType) throws SQLException {
+        String url = WechatShareLinkType.INDEX_PAGE.getLink();
+        
+        if(idType!=null && idType.equals(1)) {//用户id
+            Integer type  = myInfoService.findHostTypeByUserId(id);
+            if(type.equals(1)) {
+                url = WechatShareLinkType.LIVE_PERSONAL.getLink(); 
+            }else if(type.equals(2)){
+                url = WechatShareLinkType.DOCDOT_SHARE.getLink(); 
+            }
+        }else if(idType!=null && idType.equals(2)) { //医师id
+            url = WechatShareLinkType.LIVE_PERSONAL.getLink(); 
+        }
+        
+        url = url +id;
+        if(url!=null) {
+            url = url.replaceAll("shareBack=1&", "");
+        }
+        return "redirect:" + url;
+    }
     
     public String coursePage(Integer courseId, OnlineUser ou) {
         String coursePage = WechatShareLinkType.INDEX_PAGE.getLink();
