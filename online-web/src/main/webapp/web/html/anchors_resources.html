@@ -324,7 +324,7 @@
 									<div class="video-title">
 										<span style="color: #666666;margin-right: 10px;"><span style="color: red;">*</span>标题</span>
 										<input type="" name="" id="" value="" placeholder="好的标题可以让大家更感兴趣" />
-										<span class="comment-wrong video-error hide">！标题不能为空</span>
+										<span class="comment-wrong video-error hide">标题不能为空！</span>
 									</div>
 								</div>
 								<div class="video-cover-wrap">
@@ -339,7 +339,7 @@
 											<p>支持JPG/PNG等格式图片</p>
 										</span>
 										<input type="file" placeholder="请填写您的专栏标题" style="visibility: hidden;display: inline-block;" id="video_picIpt" accept="image/gif,image/jpeg,image/jpg,image/png">
-										<p class="comment-wrong video-fengmian-error hide" style="padding-left: 40px;">！请上传封面</p>
+										<p class="comment-wrong video-fengmian-error hide" style="padding-left: 48px;">请上传封面！</p>
 									</div>
 								</div>
 							</div>
@@ -436,7 +436,7 @@
 								{{if item.type==3}}
 									<div class="save-video-box">
 									
-										<div class="save-video-wrap" data-video="{{item.video}}">
+										<div class="save-video-wrap" data-video="{{item.video}}" data-coverimg="{{item.coverImg}}">
 											
 										</div>
 										

@@ -188,17 +188,45 @@ $(function () {
 
                 if (localStorage.AccountStatus == '1') {
                     //坐诊时间渲染
-                    var workArr = data.resultObject.workTime.split(",");
-                    var j;
-                    for (var i = 0; i < $('#doctor_baseInf .workTime ul li ').length; i++) {
-                        for (j = 0; j < workArr.length; j++) {
-                            if ($('#doctor_baseInf .workTime ul li').eq(i).text() == workArr[j]) {
-                                if (!$('#doctor_baseInf .workTime ul li').eq(i).hasClass('color')) {
-                                    $('#doctor_baseInf .workTime ul li').eq(i).click();
-                                }
-                            }
-                        }
-                    }
+                    var workArr = data.resultObject.wt.split(",");
+//                  var j;
+//                  for (var i = 0; i < $('#doctor_baseInf .workTime ul li ').length; i++) {
+//                      for (j = 0; j < workArr.length; j++) {
+//                          if ($('#doctor_baseInf .workTime ul li').eq(i).text() == workArr[j]) {
+//                              if (!$('#doctor_baseInf .workTime ul li').eq(i).hasClass('color')) {
+//                                  $('#doctor_baseInf .workTime ul li').eq(i).click();
+//                              }
+//                          }
+//                      }
+//                  }
+                    
+                    
+                    
+                    var selectTime;
+					var sureType=[];
+					var saveData;
+//					$('.workTime tr p img').removeClass("active");
+					$('.workTime tr p img').each(function(){
+							selectTime=$(this).attr("data-type");
+							sureType.push(selectTime)
+					})
+					for (var i = 0; i < sureType.length; i++) {
+		                for (j = 0; j < workArr.length; j++) {
+		                    if (sureType[i] == workArr[j] && !$('.workTime tr p img').eq(i).hasClass("active")) {
+		                        $('.workTime tr p').eq(i).click();
+		                    }
+		                }
+		         	}
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
 
                     //医馆列表的选中效果
                     RequestService("/doctor/getHospital", "get", null, function (data) {

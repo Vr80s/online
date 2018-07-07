@@ -281,9 +281,10 @@ public interface OeBxsArticleMapper extends BaseMapper<OeBxsArticle> {
             " order by oba.create_time desc"})
     List<OeBxsArticleVO> list(@Param("type") String type, @Param("userId") String userId, @Param("keyword") String keyword, Page<OeBxsArticleVO> page);
 
-    @Select({"select id, title, content, create_time as createTime, img_Path as imgPath, user_id as author, type_id as typeId" +
-            " from oe_bxs_article" +
-            " where id = #{id} and is_delete=0 and status = 1"})
+    @Select({"select oba.id, oba.title, oba.content, oba.create_time as createTime, oba.img_Path as imgPath, oba.user_id as author" +
+            ", oba.type_id as typeId, mw.buy_link as buyLink, oba.url as url" +
+            " from oe_bxs_article oba left join medical_writings mw on oba.id = mw.article_id" +
+            " where oba.id = #{id} and oba.is_delete=0 and oba.status = 1"})
     OeBxsArticleVO get(int id);
 
     @Select({"select id, title" +

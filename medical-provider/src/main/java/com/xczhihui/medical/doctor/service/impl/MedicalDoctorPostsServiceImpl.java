@@ -43,6 +43,12 @@ public class MedicalDoctorPostsServiceImpl extends ServiceImpl<MedicalDoctorPost
             //去除文章中的标签
             medicalDoctorPosts.setArticleContent(HtmlUtil.getTextFromHtml(medicalDoctorPosts.getArticleContent()));
             medicalDoctorPosts.setContent(HtmlUtil.getTextFromHtml(medicalDoctorPosts.getContent()));
+            //截取医案
+            if(medicalDoctorPosts.getTypeId() != null && medicalDoctorPosts.getTypeId() == 8){
+                if(medicalDoctorPosts.getContent().length()>60){
+                    medicalDoctorPosts.setContent(medicalDoctorPosts.getContent().substring(0,60));
+                }
+            }
             Integer postsId = medicalDoctorPosts.getId();
             List<MedicalDoctorPostsComment> commentList = medicalDoctorPostsCommentService.selectMedicalDoctorPostsCommentList(postsId, accountId);
             List<MedicalDoctorPostsLike> likeList = medicalDoctorPostsLikeMapper.getMedicalDoctorPostsLikeList(postsId);
@@ -86,7 +92,6 @@ public class MedicalDoctorPostsServiceImpl extends ServiceImpl<MedicalDoctorPost
                 }
                 medicalDoctorPosts.setImgStr(psList);
             }
-
         });
         page.setRecords(list);
         return page;

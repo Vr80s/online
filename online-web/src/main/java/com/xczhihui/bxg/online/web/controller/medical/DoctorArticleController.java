@@ -97,6 +97,11 @@ public class DoctorArticleController extends AbstractFtlController {
                 //更新动态
                 MedicalDoctorPosts mdp = new MedicalDoctorPosts();
                 mdp.setType(4);
+                if(oba.getTypeId().equals("8")){
+                    mdp.setContent(oba.getContent());
+                }else {
+                    mdp.setContent(oba.getTitle());
+                }
                 mdp.setDoctorId(doctorId);
                 mdp.setArticleId(Integer.valueOf(id));
                 mdp.setArticleContent(oba.getContent());
@@ -169,6 +174,7 @@ public class DoctorArticleController extends AbstractFtlController {
                 MedicalDoctorPosts mdp = new MedicalDoctorPosts();
                 mdp.setType(4);
                 mdp.setDoctorId(doctorId);
+                mdp.setContent(oba.getTitle());
                 mdp.setArticleId(Integer.valueOf(id));
                 mdp.setArticleContent(oba.getContent());
                 mdp.setArticleImgPath(oba.getImgPath());

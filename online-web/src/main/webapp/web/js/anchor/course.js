@@ -1267,6 +1267,7 @@ function resetCollectionForm(){
     $("#collectionId").val("");
     $("#collectionImg").html("");
     $(".collection_courses").html("");
+    $(".div_one").removeClass("div_one0");
     courseArr=[];
 	showPersonInf2();
     initCourse(1);

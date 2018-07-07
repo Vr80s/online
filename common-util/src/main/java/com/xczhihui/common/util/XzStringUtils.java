@@ -210,7 +210,12 @@ public class XzStringUtils {
      * @return
      */
     public static String workTimeScreen(String line) {
-        return workTimeScreen(line, true);
+        String workTime = workTimeScreen(line, true);
+
+        if(workTime!=null && workTime.endsWith(",")){
+            workTime = workTime.substring(0,workTime.length()-1);
+        }
+        return workTime;
     }
 
     public static String workTimeScreen(String line, Boolean coOrdinate) {

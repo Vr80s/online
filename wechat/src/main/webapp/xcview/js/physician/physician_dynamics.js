@@ -22,6 +22,7 @@ function sowingMap() {
             $(".top_details").html(template('top_details',{items:obj}));
             //关注
             $(".attention").click(function(){
+                $(".message_face").show();
                 var lecturerId = $(this).attr("data-userId");
                 var src = $(this).find('img').attr('src');
                 var p = $(".fans").find('#fansCount').html();
@@ -50,9 +51,9 @@ function sowingDetails(url) {
     }
 }
 //动态列表
-function doctorPostsList(num,downOrUp,doctorPostsType) {
+function doctorPostsList(doctorPostsType) {
     requestGetService("/doctor/posts", {
-        pageNumber: num,
+        pageNumber: 1,
         pageSize:10,
         type:doctorPostsType,
         doctorId:doctorId
@@ -78,35 +79,18 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
                 obj[i].articleContent = obj[i].articleContent.replace(/<.*?>/ig,"");
             }
 
-            
-            
-
         }
 
-        //  判断是下拉刷新还是上拉加载
-        if(downOrUp=='down'){
-
-
-            //判断全部动态默认图
-            if(data.resultObject.records.length==0){
-                $(".baseImagenumbers").show();
-            }else{
-                $(".baseImagenumbers").hide();
-            }
-
-            $(".rests_nav").html(template('wrap_doctor_dynamics',{items:obj}));
-            mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);
-            mui('#refreshContainer').pullRefresh().refresh(true);
-            mui("#refreshContainer").off();
-        }else if(obj.length==0){
-            mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
-            mui("#refreshContainer").off();
+        //判断全部动态默认图
+        if(data.resultObject.records.length==0){
+            $(".baseImagenumbers").show();
         }else{
-            $(".rests_nav").append(template('wrap_doctor_dynamics',{items:obj}));
-            mui("#refreshContainer").off();
-            mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);
-
+            $(".baseImagenumbers").hide();
         }
+
+        $(".rests_nav").html(template('wrap_doctor_dynamics',{items:obj}));
+
+        webpackUniversalModuleDefinition(imgWindow,imgfn);
 
         /*$(".consilia_nav_span .title").each(function(){
             var title = $(this);
@@ -176,8 +160,7 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
                 essay_pack_up_btn.hide();
             }
         });
-
-        mui("#refreshContainer").on('tap', '.essay_pack_up_btn', function (event) {
+        $(".essay_pack_up_btn").click(function(){
             var dynamic = $(this);
             if(dynamic.find('span').html()=="展开"){
                 dynamic.parent().find('.essay_main').removeClass("consilia_nav_span_title");
@@ -191,7 +174,7 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
         });
 
         //点击其他--收起
-        mui("#refreshContainer").on('tap', '.essay_pack_up_btn', function (event) {
+        $(".essay_pack_up_btn").click(function(){
             if($(".essay_pack_up_btn_span").html()=="收起"){
                 $(".consilia_nav_span .title").css("height","100%");
                 $(".essay_pack_up_btn_span span").html("展开");
@@ -221,7 +204,7 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
         })
 
         // 点击文章收起
-        mui("#refreshContainer").on('tap', '.consilia_nav_btn', function (event) {
+        $(".consilia_nav_btn").click(function(){
             var post = $(this);
             if(post.find('span').html()=="展开"){
                 post.parent().find('.consilia_nav_span').find('.title').removeClass("consilia_nav_span_title");
@@ -243,7 +226,7 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
 
 
         //点赞
-        mui("#refreshContainer").on('tap', '.zan_img', function (event) {
+        $(".zan_img").click(function(){
             var src = $(this).attr('src');
             var postsId = $(this).attr('data-id');
             if(src.indexOf("zan001")>-1){
@@ -253,7 +236,7 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
             }
         });
         //评论
-        mui("#refreshContainer").on('tap', '.rests_nav .evaluate_img', function (event) {
+        $(".rests_nav .evaluate_img").click(function(){
             $(".face").attr("src","/xcview/images/face.png");
             $("#page_emotion").css("bottom","-2.8rem");
             $(".comment").show();
@@ -263,14 +246,14 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
             postsCommentId = "";
         });
         // 点击其他内容区域隐藏评论区域
-        mui("#refreshContainer").on('tap', '.comment_hide', function (event) {
+        $(".comment_hide").click(function(){
             $(".face").attr("src","/xcview/images/face.png");
             $("#page_emotion").css("bottom","-2.8rem");
             $(".comment").hide();
         });
 
         // 回复/删除
-        mui("#refreshContainer").on('tap', '.evaluateDiv', function (event) {
+        $(".evaluateDiv").click(function(){
             postsCommentId = $(this).attr('data-id');
             postsCommentUserName = $(this).attr('data-userName');
             getPostsIdByComment = $(this).attr('data-postsId');
@@ -311,22 +294,22 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
         });
 
         //文章跳转
-        mui("#refreshContainer").on('tap', '.article_hide', function (event) {
+        $(".article_hide").click(function(){
             var articleId = $(this).attr("data-id");
             location.href = "/xcview/html/physician/article.html?articleId=" + articleId;
         });
         //课程跳转
-        mui("#refreshContainer").on('tap', '.course_hide', function (event) {
+        $(".course_hide").click(function(){
             var itemId = $(this).attr("data-id");
             common_jump_all(itemId)
         });
         //医案跳转
-        mui("#refreshContainer").on('tap', '.consilia_nav_cen', function (event) {
+            $(".consilia_nav_cen").click(function(){
             var itemId = $(this).attr("data-id");
             location.href = "/xcview/html/physician/consilia.html?articleId=" + itemId;
         });
-        //点击视频播放/暂停  
-        mui("#refreshContainer").on('tap', '.ccvideo', function (event) {
+        //点击视频播放/暂停
+        $(".ccvideo").click(function(){
             var ccId = $(this).find("video").attr("id");
             var oReplay = document.getElementById(ccId);
             $(".ccvideo_img").hide();
@@ -337,12 +320,14 @@ function doctorPostsList(num,downOrUp,doctorPostsType) {
                 oReplay.pause();
             }
         });
+
+
     });
 }
 
 function postsType(obj) {
     doctorPostsType = $(obj).attr("value");
-    doctorPostsList(1,'down',doctorPostsType);
+    doctorPostsList(doctorPostsType);
     //alert(type)
 }
 /**
@@ -532,42 +517,8 @@ function my_follow(followed, type) {
     })
 }
 
-//动态刷新
-var num = 1;
-mui.init();
-mui.init({
-    pullRefresh: {
-        container: '#refreshContainer',
-        down: {
-            callback: pulldownRefresh
-        },
-        up: {
-            contentrefresh: '正在加载...',
-            callback: pullupRefresh
-        }
-    }
-});
 
-/**
- * 下拉刷新
- */
-function pulldownRefresh() {
-    num = 1;
-    setTimeout(function() {
-        doctorPostsList(num,'down',doctorPostsType);
-        mui('#refreshContainer').pullRefresh().endPulldownToRefresh(); //refresh completed
-    }, 500);
-};
-var count = 0;
-/**
- * 上拉加载具体业务实现
- */
-function pullupRefresh() {
-    num++;
-    setTimeout(function() {
-        doctorPostsList(num,'up',doctorPostsType);
-    }, 500);
-}
+
 
 /* --------------直播间------------- */
 /*直播间开始*/

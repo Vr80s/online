@@ -111,6 +111,7 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService {
             }
 
         }
+        courseAnchorVO.setWt(courseAnchorVO.getWorkTime());
         //过滤下时间
         courseAnchorVO.setWorkTime(XzStringUtils.workTimeScreen(courseAnchorVO.getWorkTime()));
         return courseAnchorVO;

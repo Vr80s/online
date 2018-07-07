@@ -54,7 +54,11 @@ requestService("/xczh/article/view?id=" + id, {}, function (data) {
     $(".user_mywrite").html(data.success ? data.resultObject.content : "");
     var aa = $(".user_mywrite").css("height");
     var scrollHeight = document.getElementById("aaaaa").scrollHeight;
-
+    var typeId = data.success ? data.resultObject.typeId : 0;
+    if (typeId == 7 && data.resultObject.url) {
+        $('.consilia_center_url').show();
+        $('.consilia_center_url').html('本文来源：' + data.resultObject.url + '。转载请注明出处。');
+    }
     var testEle = document.getElementById("aaaaa")
     testEle.setAttribute("test", scrollHeight); // 设置
     var aaa = testEle.getAttribute("test"); //获取

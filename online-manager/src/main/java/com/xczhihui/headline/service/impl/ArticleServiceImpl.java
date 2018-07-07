@@ -178,8 +178,14 @@ public class ArticleServiceImpl implements ArticleService {
             //更新动态
             MedicalDoctorPosts mdp = new MedicalDoctorPosts();
             mdp.setType(4);
+            mdp.setContent(vo.getTitle());
             mdp.setDoctorId(doctorId);
             mdp.setArticleId(id);
+            if(vo.getTypeId().equals("8")){
+                mdp.setContent(vo.getContent());
+            } else {
+                mdp.setContent(vo.getTitle());
+            }
             mdp.setArticleContent(vo.getContent());
             mdp.setArticleImgPath(vo.getImgPath());
             mdp.setArticleTitle(vo.getTitle());

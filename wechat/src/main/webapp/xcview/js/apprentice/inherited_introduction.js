@@ -1,7 +1,7 @@
 var gradeName ="";
 var smallImgPath ="";
 var description ="";
-debugger;
+// debugger;
 requestGetService("/xczh/enrol/enrollmentRegulations/"+merId,data,function(data){
     if(data.success){
         var enrollmentRegulations = data.resultObject
