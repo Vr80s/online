@@ -2198,7 +2198,7 @@ margin-top: 0.015rem;
 }
 .rests_nav_bottom{
 	padding: 0.2rem 0;
-	padding-top: 0;
+	/*padding-top: 0;*/
 }
 .paper_nav_cen_div{
 	padding: 0 !important;

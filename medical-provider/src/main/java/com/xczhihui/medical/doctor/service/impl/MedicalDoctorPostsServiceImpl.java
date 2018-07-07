@@ -45,8 +45,8 @@ public class MedicalDoctorPostsServiceImpl extends ServiceImpl<MedicalDoctorPost
             medicalDoctorPosts.setContent(HtmlUtil.getTextFromHtml(medicalDoctorPosts.getContent()));
             //截取医案
             if(medicalDoctorPosts.getTypeId() != null && medicalDoctorPosts.getTypeId() == 8){
-                if(medicalDoctorPosts.getContent().length()>60){
-                    medicalDoctorPosts.setContent(medicalDoctorPosts.getContent().substring(0,60));
+                if(medicalDoctorPosts.getContent().length()>150){
+                    medicalDoctorPosts.setContent(medicalDoctorPosts.getContent().substring(0,150));
                 }
             }
             Integer postsId = medicalDoctorPosts.getId();

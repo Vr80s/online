@@ -1,5 +1,7 @@
 package com.xczhihui.course.service.impl;
 
+import static com.xczhihui.common.util.RedisCacheKey.XG_ACCOUNT_KEY;
+
 import java.util.*;
 
 import org.apache.commons.lang.StringUtils;
@@ -12,10 +14,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.google.common.collect.ImmutableList;
+import com.xczhihui.common.support.service.CacheService;
 import com.xczhihui.common.util.CodeUtil;
 import com.xczhihui.common.util.SmsUtil;
 import com.xczhihui.common.util.enums.MessageStatusEnum;
-import com.xczhihui.common.util.enums.MessageTypeEnum;
 import com.xczhihui.common.util.enums.RouteTypeEnum;
 import com.xczhihui.course.config.Env;
 import com.xczhihui.course.consts.MultiUrlHelper;
@@ -44,6 +47,7 @@ import me.chanjar.weixin.mp.bean.template.WxMpTemplateMessage;
 public class CommonMessageServiceImpl implements ICommonMessageService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CommonMessageServiceImpl.class);
+    private static final int V2_LIMIT = 100;
 
     @Value("${mobile.domain}")
     private String mobileDomain;
@@ -68,6 +72,8 @@ public class CommonMessageServiceImpl implements ICommonMessageService {
     private IXgPushService androidXgPushService;
     @Autowired
     private Env env;
+    @Autowired
+    private CacheService cacheService;
 
     @Override
     public void saveMessage(BaseMessage baseMessage) {
@@ -116,6 +122,16 @@ public class CommonMessageServiceImpl implements ICommonMessageService {
         return noticeMapper.findNewest();
     }
 
+    @Override
+    public void bindXgAccountId(String userId, String xgAccountId) {
+        cacheService.sadd(XG_ACCOUNT_KEY + userId, xgAccountId);
+    }
+
+    @Override
+    public void unBindXgAccountId(String userId, String xgAccountId) {
+        cacheService.srem(XG_ACCOUNT_KEY + userId, xgAccountId);
+    }
+
     private void sendSMS(BaseMessage baseMessage) {
         SubMessage smsMessage = baseMessage.getSmsMessage();
         if (smsMessage != null) {
@@ -160,44 +176,18 @@ public class CommonMessageServiceImpl implements ICommonMessageService {
         String userId = baseMessage.getUserId();
         String detailId = baseMessage.getDetailId();
         if (appPushMessage != null) {
-            commonPush(userId, baseMessage);
-        }
-    }
-
-    private void commonPush(String userId, BaseMessage baseMessage) {
-        SubMessage appPushMessage = baseMessage.getAppPushMessage();
-        String content = appPushMessage.getContent();
-        String routeType = baseMessage.getRouteType();
-        String url = MultiUrlHelper.getUrl(routeType, MultiUrlHelper.URL_TYPE_APP, baseMessage.getDetailId(), null);
-        if (StringUtils.isBlank(url)) {
-            url = MultiUrlHelper.getUrl(RouteTypeEnum.MESSAGE_LIST.name(), MultiUrlHelper.URL_TYPE_APP, null, null);
-        }
-        Map<String, Object> customParams = new HashMap<>(5);
-        customParams.put("url", url);
-
-        XgMessage xgMessage = new XgMessage();
-        xgMessage.setType(PushConst.MESSAGE_TYPE_ANDROID_UT_MESSAGE);
-        xgMessage.setContent(content);
-        xgMessage.setTitle(StringUtils.isNotBlank(baseMessage.getTitle()) ? baseMessage.getTitle() : PushConst.TITLE);
-        xgMessage.setCustom(customParams);
-        //安卓推送
-        JSONObject androidRet = androidXgPushService.pushSingleAccount(PushConst.DEVICE_ALL, userId, xgMessage);
-
-        XgMessageIOS xgMessageIOS = new XgMessageIOS();
-        xgMessageIOS.setAlert(content);
-        xgMessageIOS.setBadge(1);
-        xgMessageIOS.setSound(PushConst.IOS_SOUND_FILE);
-        xgMessageIOS.setCustom(customParams);
-        JSONObject iosRet = iosXgPushService.pushSingleAccount(PushConst.DEVICE_ALL, userId, xgMessageIOS, PushConst.IOSENV_PROD);
-
-        LOGGER.warn("userId: {}, url:{}, content:{}", userId, url, content);
-        if (androidRet != null && androidRet.getInt("ret_code") != 0 && iosRet != null && iosRet.getInt("ret_code") != 0) {
-            LOGGER.error(androidRet.toString());
-            LOGGER.error(iosRet.toString());
+            batchAppPush(ImmutableList.of(userId), baseMessage);
         }
     }
 
     private void batchAppPush(List<String> userIds, BaseMessage baseMessage) {
+        List<String> xgAccountIds = getXgAccountId(userIds);
+        if (xgAccountIds.isEmpty()) {
+            if (!userIds.isEmpty() && userIds.size() == 1) {
+                LOGGER.error("can't find xgAccountId userId: {}", userIds.get(0));
+            }
+            return ;
+        }
         SubMessage appPushMessage = baseMessage.getAppPushMessage();
         String content = appPushMessage.getContent();
         String routeType = baseMessage.getRouteType();
@@ -205,27 +195,42 @@ public class CommonMessageServiceImpl implements ICommonMessageService {
         if (StringUtils.isBlank(url)) {
             url = MultiUrlHelper.getUrl(RouteTypeEnum.MESSAGE_LIST.name(), MultiUrlHelper.URL_TYPE_APP, null, null);
         }
-        Map<String, Object> customParams = new HashMap<>(5);
+        Map<String, Object> customParams = new HashMap<>(1);
         customParams.put("url", url);
+
+
+        int firstIndex = 0;
+        int endIndex = V2_LIMIT > xgAccountIds.size() ? xgAccountIds.size() : V2_LIMIT;
 
         XgMessage xgMessage = new XgMessage();
         xgMessage.setType(PushConst.MESSAGE_TYPE_ANDROID_UT_MESSAGE);
         xgMessage.setContent(content);
         xgMessage.setTitle(StringUtils.isNotBlank(baseMessage.getTitle()) ? baseMessage.getTitle() : PushConst.TITLE);
         xgMessage.setCustom(customParams);
-        //安卓推送
-        JSONObject androidRet = androidXgPushService.pushAccountList(PushConst.DEVICE_ALL, userIds, xgMessage);
 
         XgMessageIOS xgMessageIOS = new XgMessageIOS();
         xgMessageIOS.setAlert(content);
         xgMessageIOS.setBadge(1);
         xgMessageIOS.setSound(PushConst.IOS_SOUND_FILE);
         xgMessageIOS.setCustom(customParams);
-        JSONObject iosRet = iosXgPushService.pushAccountList(PushConst.DEVICE_ALL, userIds, xgMessageIOS, PushConst.IOSENV_PROD);
-
-        if (androidRet != null && androidRet.getInt("ret_code") != 0 && iosRet != null && iosRet.getInt("ret_code") != 0) {
-            LOGGER.error(androidRet.toString());
-            LOGGER.error(iosRet.toString());
+        List<String> onceUserIds;
+        while (true) {
+            onceUserIds = xgAccountIds.subList(firstIndex, endIndex);
+            JSONObject androidRet = androidXgPushService.pushAccountList(PushConst.DEVICE_ALL, onceUserIds, xgMessage);
+            JSONObject iosRet = iosXgPushService.pushAccountList(PushConst.DEVICE_ALL, onceUserIds, xgMessageIOS, PushConst.IOSENV_PROD);
+            if (androidRet != null && androidRet.getInt("ret_code") != 0 && iosRet != null && iosRet.getInt("ret_code") != 0) {
+                LOGGER.error(androidRet.toString());
+                LOGGER.error(iosRet.toString());
+            }
+            if (onceUserIds.size() < V2_LIMIT) {
+                break;
+            } else {
+                firstIndex = endIndex;
+                endIndex = endIndex + V2_LIMIT;
+                if (endIndex >= xgAccountIds.size()) {
+                    endIndex = xgAccountIds.size();
+                }
+            }
         }
     }
 
@@ -252,5 +257,17 @@ public class CommonMessageServiceImpl implements ICommonMessageService {
         message.setOuterLink(baseMessage.getLink());
         message.setTitle(StringUtils.isNotBlank(baseMessage.getTitle()) ? baseMessage.getTitle() : Message.SYSTEM_MESSAGE_TITLE);
         return message;
+    }
+
+    private List<String> getXgAccountId(List<String> userIds) {
+        Set<String> totalIds = new HashSet<>();
+        Set<String> userIdSet;
+        for (String userId : userIds) {
+            userIdSet = cacheService.smembers(XG_ACCOUNT_KEY + userId);
+            if (userIdSet != null && !userIdSet.isEmpty()) {
+                totalIds.addAll(userIdSet);
+            }
+        }
+        return new ArrayList<>(totalIds);
     }
 }
