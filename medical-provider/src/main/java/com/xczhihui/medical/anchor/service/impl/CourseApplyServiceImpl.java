@@ -438,8 +438,15 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
 
     @Override
     public String getCollectionUpdateDateText(Integer collectionId) {
-       String updateTime =  collectionCourseApplyUpdateDateMapper.listDatesByCollectionId(collectionId)
-        .stream().map(DateUtil::getDayOfWeek).collect(Collectors.joining(""));
+        
+        String updateTime ="";
+        List<Integer> list = collectionCourseApplyUpdateDateMapper.listDatesByCollectionId(collectionId);
+        if(list.size()  >= 7) {
+            
+            return XzStringUtils.COLLECTION_UPDATE_ALL;
+        }else {
+            updateTime = list.stream().map(DateUtil::getDayOfWeek).collect(Collectors.joining(""));
+        }
         return XzStringUtils.updateTimeConverter(updateTime);
     }
 

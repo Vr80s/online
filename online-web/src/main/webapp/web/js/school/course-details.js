@@ -1,6 +1,7 @@
 var loginUserId = "";
 var loginStatus = true;
 var smallHeadPhoto = "";
+
 RequestService("/online/user/isAlive", "GET", null, function (data) {
     if (data.success) {
         loginUserId = data.resultObject.id;

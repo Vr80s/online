@@ -10,6 +10,9 @@
     <meta name="description" content="${description}"/>
     <meta name="renderer" content="webkit">
     <meta name="baidu-site-verification" content="UHaAQAeAQF"/>
+    
+    <!-- 分享显示的缩略图-->
+    
     <!--公共头部和底部样式-->
     <link rel="stylesheet" href="/web/html/school/school-header/header.css"/>
     <link rel="stylesheet" href="/web/css/footer.css"/>
@@ -41,7 +44,7 @@
 <div class="wp">
     <div class="wrap-buy">
         <div class="left-cover z">
-            <img src="${courseInfo.smallImgPath}"/>
+            <img src="${courseInfo.smallImgPath}" alt="${courseInfo.gradeName}" />
             <div class="progress"
                  style="position: absolute;bottom: 0;left: 0;width: 100%;
                  	margin-bottom: 0;height: 14px;display:none">

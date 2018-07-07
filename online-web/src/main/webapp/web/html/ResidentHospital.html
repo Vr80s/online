@@ -1106,72 +1106,77 @@
 
 <!--医馆内部的医师状态模板-->
 <script type="text/template" id="docStatusTpl">
-
-	<div style="position: relative;">
-		<span><em>*</em> 医师姓名</span>
-		<span class="docName" style="font-size: 14px;">{{name}}</span>
+	<p class="hospital-close">
 		<span class="close_doc_inf">关闭</span>
-	</div>
+	</p>
 
-	<div class="touxiang_picUpdata">
-		<span style="vertical-align: top;"><em>*</em>  医师真实头像</span>
-		<span class="touxiang_pic">
-						<!--<p style="font-size: 90px;height: 80px;font-weight: 300;color: #d8d8d8;text-align: center;line-height: 80px;">+</p>
-						<p style="text-align: center;color: #999;font-size: 14px;">求真相</p>-->
-						<img src={{medicalDoctorAuthenticationInformation.headPortrait}} alt="" >
-					</span>
-		<!--<span class="touxiang_pic_tip">
-						<p>请上传清晰头像</p>
-						<p>文件小于2M</p>
-						<p>支持JPG/PNG等格式图片</p>
-					</span>-->
-		<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传真实头像</p>
-	</div>
+		<div style="position: relative;">
+			<span><em>*</em> 医师姓名</span>
+			<span class="docName" style="font-size: 14px;">{{name}}</span>
+		
+		</div>
+		
+		<div class="touxiang_picUpdata">
+			<span style="vertical-align: top;"><em>*</em>  医师真实头像</span>
+			<span class="touxiang_pic">
+								<!--<p style="font-size: 90px;height: 80px;font-weight: 300;color: #d8d8d8;text-align: center;line-height: 80px;">+</p>
+								<p style="text-align: center;color: #999;font-size: 14px;">求真相</p>-->
+								<img src={{medicalDoctorAuthenticationInformation.headPortrait}} alt="" >
+							</span>
+			<!--<span class="touxiang_pic_tip">
+								<p>请上传清晰头像</p>
+								<p>文件小于2M</p>
+								<p>支持JPG/PNG等格式图片</p>
+							</span>-->
+			<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传真实头像</p>
+		</div>
+		
+		<div>
+			<span><em>*</em> 医师职称</span>
+			<!--<input type="text" placeholder="请输入您的职称" maxlength="15" class="doc_zhicheng" />
+				<span class="warning hide"> 医师职称不能为空</span>-->
+			<span style="font-size: 14px;">{{title}}</span>
+		</div>
+		
+		<div class="zhicheng_picUpdata">
+			<span style="vertical-align: top;"><em>*</em> 职称证明</span>
+			<span class="zhicheng_pic">
+								<!--<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>
+								<p style="text-align: center;color: #999;font-size: 14px;">点击上传职称证明图片</p>-->
+								<img src={{medicalDoctorAuthenticationInformation.titleProve}} alt="" >
+				</span>
+			<!--<span class="zhicheng_pic_tip">
+								<p>文件小于2M</p>
+								<p>支持JPG/PNG等格式图片</p>
+							</span>-->
+			<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传职称证明</p>
+		</div>
+		
+		<div class="keshi">
+			<span><em>*</em> 科室</span>
+			<ul>
+				{{if departments!=''}} {{each departments as item i}}
+				<li>{{item.name}}</li>
+				{{/each}} {{/if}}
+			</ul>
+			<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请选择科室</p>
+		</div>
+		
+		<div>
+			<span><em>*</em> 擅长</span>
+		
+			<span style="font-size: 14px;">{{fieldText}}</span>
+		</div>
+		
+		<div class="personIntroduct">
+			<span><em>*</em>  医师介绍</span>
+			<!--<textarea name="" rows="" cols="" maxlength="500" placeholder="请输入500字以内医师介绍" style="resize: none;"></textarea>-->
+			<p id="myinf" style="max-width: 540px;max-height: 160;overflow: hidden;display: inline-block;vertical-align: top;font-size: 1px;">{{description}}</p>
+		</div>
+	
+		
 
-	<div>
-		<span><em>*</em> 医师职称</span>
-		<!--<input type="text" placeholder="请输入您的职称" maxlength="15" class="doc_zhicheng" />
-		<span class="warning hide"> 医师职称不能为空</span>-->
-		<span style="font-size: 14px;">{{title}}</span>
-	</div>
-
-	<div class="zhicheng_picUpdata">
-		<span style="vertical-align: top;"><em>*</em> 职称证明</span>
-		<span class="zhicheng_pic">
-						<!--<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>
-						<p style="text-align: center;color: #999;font-size: 14px;">点击上传职称证明图片</p>-->
-						<img src={{medicalDoctorAuthenticationInformation.titleProve}} alt="" >
-		</span>
-		<!--<span class="zhicheng_pic_tip">
-						<p>文件小于2M</p>
-						<p>支持JPG/PNG等格式图片</p>
-					</span>-->
-		<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传职称证明</p>
-	</div>
-
-	<div class="keshi">
-		<span><em>*</em> 科室</span>
-		<ul>
-			{{if departments!=''}}
-			{{each departments as item i}}
-			<li>{{item.name}}</li>
-			{{/each}}
-			{{/if}}
-		</ul>
-		<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请选择科室</p>
-	</div>
-
-	<div>
-		<span><em>*</em> 擅长</span>
-
-		<span style="font-size: 14px;">{{fieldText}}</span>
-	</div>
-
-	<div class="personIntroduct">
-		<span><em>*</em>  医师介绍</span>
-		<!--<textarea name="" rows="" cols="" maxlength="500" placeholder="请输入500字以内医师介绍" style="resize: none;"></textarea>-->
-		<p id="myinf" style="max-width: 540px;max-height: 160;overflow: hidden;display: inline-block;vertical-align: top;font-size: 1px;">{{description}}</p>
-	</div>
+	
 
 </script>
 
