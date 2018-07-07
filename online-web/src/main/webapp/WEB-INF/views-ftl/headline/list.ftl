@@ -47,7 +47,7 @@
 <div id="forum" class="clearfix">
     <div class="forum-content clearfix">
         <div class="forum-content-left">
-            <div class="forum-type" style="height:62px;">
+            <div class="forum-type">
                 <ul class="forum-content-tag clearfix">
                 <#list articleType as at>
                     <#if at.id==echoMap.type>
