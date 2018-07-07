@@ -32,10 +32,8 @@
 <link rel="stylesheet" href="/xcview/css/alert/sharecss.css?version=f6e45d2a7e">
 <script type="text/javascript" src="/xcview/js/common/alertPopShow.js?version=3a4f24e3df"></script>
 <!--刷新 -->
-<link rel="stylesheet" href="/xcview/css/mescroll.min.css">
-<script type="text/javascript" src="/xcview/js/common/mescroll.min.js"></script>
-<!--刷新css引入-->
-<link rel="stylesheet" href="/xcview/css/mui.min.css">
+<link rel="stylesheet" href="/xcview/css/minirefresh/minirefresh.css">
+<script type="text/javascript" src="/xcview/js/minirefresh/minirefresh.js"></script>
 
 <!-- 表情包聊天引入 -->
 <link href="/xcview/html/physician/css/webiaoqing.css?version=495638f506" rel="stylesheet" type="text/css">
@@ -129,6 +127,25 @@
 		}
 		.am-pureview{
 			z-index: 999999;
+		}
+
+		/*处理刷新*/
+		.minirefresh-wrap{
+			top: 5.3rem;
+		}
+		.minirefresh-theme-default .minirefresh-downwrap{
+			height: 1rem;
+			line-height: 1rem;
+		}
+		.minirefresh-theme-default .downwrap-content{
+			padding: 0;
+		}
+		.minirefresh-theme-default .minirefresh-upwrap{
+			height: 1rem;
+			max-height: 1rem;
+			line-height: 1rem;
+			padding: 0;
+			margin-top: -1rem;
 		}
 	</style>
 
@@ -435,6 +452,8 @@
 	<!-- 中间内容开始 -->
 	<div class="the_dynamic">
 		<!-- 其他一 -->
+		<div id="minirefresh" class="minirefresh-wrap">
+			<div class="minirefresh-scroll">
 		<div class="rests_nav">
 
 			<script type="text/html" id="wrap_doctor_dynamics">
@@ -636,7 +655,8 @@
 			</script>
 		</div>
 
-
+			</div>
+		</div>
 
 
 
@@ -1486,6 +1506,9 @@ function header_click(){
     var baseImagenumbers=$(window).height()-$(".top_show_height").height();
     $(".baseImagenumbers").height(baseImagenumbers);
     // };
+
+    var minirefresh=$(window).height()-$(".top_show_height").height();
+    $("#minirefresh").height(minirefresh);
 </script>
 <script type="text/javascript" src="/xcview/html/physician/js/amazeui.js"></script>
 
