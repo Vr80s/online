@@ -568,10 +568,10 @@
 												{{else}}
 												<span style="display: inline-block;cursor: pointer;">回复{{comment.userName}}：</span>
 												{{/if}}
-												<input type="text" />
+												<input class="reply-content" type="text" />
 											</div>
 											<div class="reply-finish y">
-												<button type="button" data-id="{{comment.postsId}}" data-comid="{{comment.id}}">回复</button>
+												<button type="button" disabled="true" data-id="{{comment.postsId}}" data-comid="{{comment.id}}">回复</button>
 											</div>
 										</div>
 										<!--回复结束-->								
@@ -617,10 +617,10 @@
 										{{else}}
 										<span style="display: inline-block;">回复{{reply.userName}}：</span>
 										{{/if}}
-										<input type="text" />
+										<input class="reply-content" type="text" />
 									</div>
 									<div class="reply-finish y">
-										<button type="button" data-id="{{reply.postsId}}" data-comid="{{reply.id}}">回复</button>
+										<button type="button" disabled="true" data-id="{{reply.postsId}}" data-comid="{{reply.id}}">回复</button>
 									</div>
 								</div>
 							</div>

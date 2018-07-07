@@ -4,7 +4,7 @@ $(function () {
  		RequestService("/medical/common/getDoctorByUserId", "get", null, function (data) {
         	if (data.success==true) {
         		getAnchorsId=data.resultObject.doctorId
-        		newsList(1,getAnchorsId);
+        		
         	} else{
         		showTip("获取医师ID失败");
         	}
@@ -28,7 +28,7 @@ $(function () {
     //	    });
     //定位之前点击过的位置
     setTimeout(function () {
-    	if (localStorage.docTblSta == 'doc_dynamic') $('.select_list li:first-child').click();
+    	if (localStorage.docTblSta == 'doc_dynamic' || localStorage.docTblSta== null) $('.select_list li:first-child').click();
     	if (localStorage.docTblSta == 'doc_banner') $('.select_list li:nth-child(2)').click();
     	
         if (localStorage.docTblSta == 'doc_hos') $('.select_list li:nth-child(3)').click();
@@ -48,6 +48,7 @@ $(function () {
 
     //	点击左侧tab按钮右侧页面变化效果
     $(".select_list li").click(function () {
+    	var navText=$(this).find("span").text();
         $(".select_list li").removeClass("active");
         $(this).addClass("active");
         $(".wrap_box .little_box").hide()
@@ -63,9 +64,20 @@ $(function () {
         $(".left_range").removeClass("ino_color").eq($(this).index()).addClass("ino_color");
         
 		//小箭头
- 		$(".select_list .arrow_jt").attr("src","/web/images/icon-select-right.png")
-
-
+ 		$(".select_list .arrow_jt").attr("src","/web/images/icon-select-right.png"); 	
+ 		
+// 		点击后加载数据
+ 			if(navText=="我的动态"){	
+ 			newsList(1,getAnchorsId);
+	 		}else if(navText=="轮播图设置"){
+	 			bannerList(1);
+	 		}else if(navText=="医案专栏"){
+	 			columnList(1);
+	 		}else if(navText=="著作"){
+	 			    workList(1);
+	 		}else if(navText=="媒体报道"){
+	 			    mediaList(1);
+	 		}
     })
 
     $(".select_list .select-ud").bind('click', function (event) {
@@ -812,11 +824,11 @@ var posts;
               	 if (data.resultObject.pages > 1) { //分页判断
                     $(".not-data").remove();
                     $(".activity_pages").removeClass("hide");
-                    $(".activity_pages .searchPage .allPage").text(data.resultObject.pages);  //pages共几页
-                    $("#Pagination_activity").pagination(data.resultObject.pages, {			//pages共几页
+                    $(".activity_pages .searchPage .allPage").text(data.resultObject.pages);  //传的页数的参数
+                    $("#Pagination_activity").pagination(data.resultObject.pages, {			//传的页数的参数
                         num_edge_entries: 1, //边缘页数
                         num_display_entries: 4, //主体页数
-                        current_page: pages - 1,  //传的页数的参数
+                        current_page: pages - 1,  //共几页
                         callback: function (page) {
                             //翻页功能
                             //newsList(page + 1);
@@ -838,6 +850,7 @@ var posts;
         	anchorReply();		//回复弹出框
         	myFabulous();		//点赞
         	finishReply();		//完成回复按钮
+        	btnColorReply();	//回复颜色按钮
         	deleteReply();		//删除回复按钮
         })
 }
@@ -1032,24 +1045,37 @@ var posts;
 	}
 
 //	input框前面回复文字设置
-	function anchorReply(){
+	function anchorReply(){				
+		$(".anchor-reply").unbind("click");
 		$(".anchor-reply").click(function(){
 			var btnReply=$(this).parent().parent().siblings(".reply-user-wrap");
 		//		
-			if(btnReply.hasClass("hide")){
-				btnReply.removeClass("hide");
-			}else{
-				btnReply.addClass("hide");
-			}
+			btnReply.toggleClass("hide");
 			var inputWidth=btnReply.find(".reply-bottom-wrap").width()-btnReply.find("span").width();
 			btnReply.find("input").css({"width":inputWidth-10+"px"})
 		})
 	}
+//	回复有字后,按钮变绿
+function btnColorReply(){
+//	$(".reply-content").unbind("keyup");
+	$(".reply-content").keyup(function(){
+		var $this = $(this);
+		var commentContent = $(this).val();
+		var aaa = $this.parent().siblings(".reply-finish").children("button");
+		if (commentContent != null && commentContent != "" && commentContent.trim().length > 0) {
+			aaa.attr("disabled", false);
+			aaa.css("background",  "#00BC12");
+		}else{
+			aaa.attr("disabled", true);
+			aaa.css("background",  "#999");
+		}
+	})
+}
 
 //	input点击完成回复
-	function finishReply(){
-		$(".reply-finish button").click(function(){
-			
+	function finishReply(){		
+		$(".reply-finish button").unbind("click");
+		$(".reply-finish button").click(function(){		
 			var that=$(this),
 				postsId=that.attr("data-id"),
 				commentId=that.attr("data-comid"),
@@ -1072,6 +1098,7 @@ var posts;
 							finishReply();   //回调
 		        			anchorReply();	//回复
 		        			deleteReply();	//删除
+		        			btnColorReply(); //回复按钮变绿
 		        	} else{
 		        		that.removeAttr("disable");
 		        		showTip("回复失败");
@@ -1082,6 +1109,7 @@ var posts;
 	}
 //	input点击删除 
 	function deleteReply(){
+		$(".reply-teacher .detele-reply").unbind("click");
 		$(".reply-teacher .detele-reply").click(function(){			
 			var that=$(this),
 				postsId=that.attr("data-id"),
@@ -1130,7 +1158,7 @@ var posts;
 })
 
 //	轮播图列表
-	bannerList(1)
+	
 
 	function bannerList(pages){
 		RequestService("/doctor/banner", "GET", {
@@ -1612,8 +1640,6 @@ var posts;
 
 
     //专栏部分的列表
-    columnList(1)
-
     function columnList(pages,selectId) {
     	var data = {
 			page:pages,
@@ -1902,7 +1928,7 @@ var posts;
         }
     });
     //	著作部分,著作列表
-    workList(1)
+
 
     function workList(pages) {
         RequestService("/doctor/writing", "GET", {
@@ -2182,7 +2208,6 @@ var posts;
         }
     });
     //	媒体报道部分,媒体报道列表
-    mediaList(1)
 
     function mediaList(pages) {
         RequestService("/doctor/article/report", "GET", {
