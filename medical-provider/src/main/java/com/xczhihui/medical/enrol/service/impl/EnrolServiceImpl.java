@@ -2,6 +2,7 @@ package com.xczhihui.medical.enrol.service.impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -66,11 +67,13 @@ public class EnrolServiceImpl implements EnrolService {
         medicalEnrollmentRegulations.setAllEnrolledUser(allEnrolledUser);
         medicalEnrollmentRegulations.setAllEnrolledUserCount(getAllEnrolledUserCount(medicalEnrollmentRegulations.getId()));
 
-        medicalEnrollmentRegulations.setDoctorPhoto(getDoctorPhoto(medicalEnrollmentRegulations.getId()));
+        Map<String, String> doctorPhotoAndName = getDoctorPhotoAndName(medicalEnrollmentRegulations.getId());
+        medicalEnrollmentRegulations.setDoctorPhoto(doctorPhotoAndName.get("headPortrait"));
+        medicalEnrollmentRegulations.setName(doctorPhotoAndName.get("name"));
         return medicalEnrollmentRegulations;
     }
 
-    private String getDoctorPhoto(Integer id) {
+    private Map<String,String> getDoctorPhotoAndName(Integer id) {
         return medicalEntryInformationMapper.getDoctorPhoto(id);
     }
 

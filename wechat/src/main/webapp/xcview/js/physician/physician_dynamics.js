@@ -29,11 +29,14 @@ function sowingMap() {
             })
             
             //是否显示粉丝数
-            if(obj.fansCount > 0){
+            /*if(obj.fansCount > 0){
                 $(".fans").show();
             } else {
                 $(".fans").hide();
-            }
+            }*/
+
+            
+
             //关注
             $(".attention").click(function(){
                 $(".fans").show();

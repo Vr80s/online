@@ -138,6 +138,16 @@ public class MedicalEnrollmentRegulations extends Model<MedicalEnrollmentRegulat
 
     @TableField(exist = false)
     private Boolean online;
+    @TableField(exist = false)
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public Boolean getOnline() {
         return online;

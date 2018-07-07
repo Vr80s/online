@@ -1,6 +1,7 @@
 package com.xczhihui.medical.enrol.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Select;
 
@@ -23,8 +24,8 @@ public interface MedicalEntryInformationMapper extends BaseMapper<MedicalEntryIn
     @Select("SELECT count(*) FROM `medical_entry_information` mei JOIN oe_user ou ON mei.`user_id` = ou.`id` and mei.mer_id=#{id}")
     int getAllEnrolledUserCount(Integer id);
 
-    @Select("SELECT mdai.`head_portrait` FROM `medical_enrollment_regulations` mer JOIN `medical_doctor` md ON mer.`doctor_id`=md.id" +
+    @Select("SELECT mdai.`head_portrait` headPortrait,md.name  FROM `medical_enrollment_regulations` mer JOIN `medical_doctor` md ON mer.`doctor_id`=md.id" +
             " JOIN `medical_doctor_authentication_information` mdai ON md.`authentication_information_id`=mdai.`id`" +
             " where mer.id=#{id}")
-    String getDoctorPhoto(Integer id);
+    Map<String,String> getDoctorPhoto(Integer id);
 }
