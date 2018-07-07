@@ -56,7 +56,10 @@
 	<header>
 		<div class="header">
 			<div class="headers">
-				<p>医案</p>
+				<script type="text/html" id="headers">
+					<p>{{item.type}}</p>
+					{{/if}}
+				</script>
 			</div>
 			<!-- <div class="arror_return" onclick="javascript:window.history.back();return false;"> -->
 			<div class="arror_return" onclick="common_share_back();">
@@ -73,10 +76,42 @@
 	<div class="consilia_main">
 		<div class="consilia_main_center" id="consilia_main_center">
 			<script type="text/html" id="consilia_main_center_id">
-			<h2>{{items.title}}</h2>
-			<div class="consilia_center">
-				<div class="consilia_textarea"></div>
-			</div>
+
+			{{if item.typeId == 9}}   <!--著作-->
+				<div class="cover">
+					<img src="http://test-file.ipandatcm.com/18510101002/e7de496c02b3-ef894375d67146478869ed0b3d7ccd661525918202364.png">
+				</div>
+				<div class="caption">
+					<h2>{{items.title}}</h2>
+					<div class="article">
+						<div class="article_main">
+							<!--<div class="article_border_left"></div>-->
+							<div class="article_time">
+								<div class="">{{items.createTime}}</div>
+							</div>
+							<!--<div class="article_border_right"></div>-->
+							<div class="both"></div>
+						</div>
+					</div>
+				</div>
+			{{else if item.typeId == 4}}  <!--专栏-->
+				<div class="column">
+					<h2>{{items.title}}</h2>
+					<div class="column_time">{{items.createTime}}</div>
+				</div>
+			{{else if item.typeId == 7}}   <!--媒体报道-->
+				<div class="media">
+					<h2>{{items.title}}</h2>
+					<div class="media_time">{{items.createTime}}</div>
+				</div>
+			{{else if item.typeId == 8}}   <!--医案报道-->
+				<div class="medical_cases">
+					<h2>{{items.title}}</h2>
+					<div class="medical_cases_time">{{items.createTime}}</div>
+				</div>
+			{{/if}}
+
+			
 			</script>
 		</div>
 

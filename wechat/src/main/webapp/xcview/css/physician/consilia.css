@@ -474,3 +474,131 @@ header{
     padding: 0.2rem 0;
 }
 
+/*著作开始*/
+.cover {
+    width: 2rem;
+    height: 2rem;
+    float: left;
+    margin-left: 0.26rem;
+}
+.cover img {
+    width: 2rem;
+    height: 2rem;
+}
+.caption {
+    width: 4.8rem;
+    /* height: 4.28rem; */
+    float: right;
+}
+.caption h2 {
+    font-size: 0.36rem;
+    color: #333;
+    /* text-align: center; */
+    width: 4.8rem;
+    margin: 0 auto;
+    margin-bottom: 0.1rem;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+}
+.article {
+    position: relative;
+    width: 4.8rem;
+    height: 0.37rem;
+    line-height: 0.37rem;
+    margin: 0 auto;
+    margin-bottom: 0.3rem;
+}
+.article_main {
+    position: absolute;
+    width: 6.98rem;
+    margin: 0 auto;
+}
+.article_time {
+    /* width: 100%; */
+    font-size: 0.26rem;
+    color: #999999;
+    /* text-align: center; */
+    /* padding: 0 0.1rem; */
+    background: #fff;
+}
+/*著作结束*/
+
+/*专栏开始*/
+.column{
+    width: 7.5rem;
+    height: 100%;
+    background: #fff;
+    margin: 0 auto;
+}
+.column h2{
+    width: 6.98rem;
+    font-size: 0.36rem;
+    color: #333;
+    /* text-align: center; */
+    width: 6.98rem;
+    margin: 0 auto;
+    padding-top: 0.3rem;
+    margin-bottom: 0.2rem;
+}
+.column_time{
+    width: 6.98rem;
+    font-size: 0.26rem;
+    margin: 0 auto;
+    color: #999999;
+    background: #fff;
+}
+/*专栏结束*/
+
+/*媒体报道开始*/
+.media{
+    width: 7.5rem;
+    height: 100%;
+    background: #fff;
+    margin: 0 auto;
+}
+.media h2{
+    width: 6.98rem;
+    font-size: 0.36rem;
+    color: #333;
+    /* text-align: center; */
+    width: 6.98rem;
+    margin: 0 auto;
+    padding-top: 0.3rem;
+    margin-bottom: 0.2rem;
+}
+.media_time{
+    width: 6.98rem;
+    font-size: 0.26rem;
+    margin: 0 auto;
+    color: #999999;
+    background: #fff;
+}
+/*媒体报道结束*/
+
+/*医案开始*/
+.medical_cases{
+    width: 7.5rem;
+    height: 100%;
+    background: #fff;
+    margin: 0 auto;
+}
+.medical_cases h2{
+    width: 6.98rem;
+    font-size: 0.36rem;
+    color: #333;
+    /* text-align: center; */
+    width: 6.98rem;
+    margin: 0 auto;
+    padding-top: 0.3rem;
+    margin-bottom: 0.2rem;
+}
+.medical_cases_time{
+    width: 6.98rem;
+    font-size: 0.26rem;
+    margin: 0 auto;
+    color: #999999;
+    background: #fff;
+}
+/*医案结束*/
