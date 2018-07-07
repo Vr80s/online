@@ -6,11 +6,17 @@ var getPostsIdByComment="";
 var postsCommentId="";
 var postsCommentUserName="";
 var doctorPostsType ="";
+var isShow = false;
 $(function(){
     loginUserId = localStorage.getItem("userId");
     loginUserName = localStorage.getItem("name");
     sowingMap();
-
+    //点击全部动态
+    $(".li_color").click(function () {
+        if(isShow){
+            $(".baseImagenumbers").show();
+        }
+    })
 
 });
 //轮播图
@@ -119,6 +125,8 @@ function doctorPostsList(page,downOrUp,doctorPostsType) {
             //判断全部动态默认图
             if(data.resultObject.records.length==0){
                 $(".baseImagenumbers").show();
+                $(".upwrap-tips").hide();
+                isShow = true;
             }else{
                 $(".baseImagenumbers").hide();
             }
