@@ -36,6 +36,7 @@ public class RedisCacheKey {
 
     public static final String APPRAISE_PRAISE_KEY = "appraise:praise:";
 
+    public static final String XG_ACCOUNT_KEY = "xg:account:key:";
 
     public static String getGiftCacheKey(String str) {
         return GIFT_CACHE__PREFIX + REDIS_SPLIT_CHAR + str;
