@@ -276,7 +276,8 @@ public class WeChatThirdPartyController {
      * @throws Exception
      */
     @RequestMapping("middle/callback")
-    public void getCurrentWechatOpenIdCallback(HttpServletResponse res, @RequestParam String code, @RequestParam String url)
+    public void getCurrentWechatOpenIdCallback(HttpServletResponse res,
+            HttpServletResponse response,@RequestParam String code, @RequestParam String url)
             throws Exception {
         LOGGER.warn("middle/callback:code={}", code);
         WxcpClientUserWxMapping wxw = onlineUserService.saveWxInfo(code);
@@ -292,6 +293,8 @@ public class WeChatThirdPartyController {
                 wxw.setClient_id(null);
                 wxcpClientUserWxMappingService.update(wxw);
             }
+        }else {
+            UCCookieUtil.clearTokenCookie(response);
         }
         UCCookieUtil.writeThirdPartyCookie(res, onlineUserService.buildThirdFlag(wxw));
         res.sendRedirect(url);
