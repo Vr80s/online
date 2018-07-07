@@ -81,4 +81,11 @@ public interface IMyInfoService {
     Map<String, Object> findDoctorInfoById(String userId);
 
     Map<String, Object> findDoctorInfoByDoctorId(String doctorId);
+
+    /**
+     * 通过用户id查看这个用户的主播权限
+     * @param id
+     * @return
+     */
+    Integer findHostTypeByUserId(String id);
 }

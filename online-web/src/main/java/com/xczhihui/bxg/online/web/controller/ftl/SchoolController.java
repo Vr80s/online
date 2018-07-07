@@ -221,7 +221,7 @@ public class SchoolController extends AbstractFtlController {
      * @return
      */
     @RequestMapping(value = "list", method = RequestMethod.GET)
-    public ModelAndView list(HttpServletRequest req, @RequestParam(value = "page", required = false) Integer current, Integer size, QueryConditionVo queryConditionVo) throws IOException, SolrServerException {
+    public ModelAndView list(HttpServletRequest req, @RequestParam(value = "current", required = false) Integer current, Integer size, QueryConditionVo queryConditionVo) throws IOException, SolrServerException {
 
         ModelAndView view = new ModelAndView("school/list/school_list");
 
