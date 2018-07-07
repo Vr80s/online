@@ -765,14 +765,14 @@
 							{{else}}
 							<p class='money_status z' style="margin-top1: 0.003rem;"><span>{{item.currentPrice}}</span>熊猫币</p>
 							{{/if}}
-							<p class="more_people z"><img src="/xcview/images/population.png" alt="" /><span>{{item.learndCount}}</span></p>                 						
+							<p class="more_people z"><img src="/xcview/images/population.png" alt="" /><span style="margin-top:-0.04rem;">{{item.learndCount}}</span></p>                 						
 							{{if item.type == 3}}
 							   {{if item.lineState == 1}}
 							   <p class="zhibo_play">直播中</p>
 							   {{else if item.startDateStr.indexOf('.')==-1}}
 								<p class="p3 p4"><img src="/xcview/images/Sinatv_time.png" alt="" style="margin-right: 0.03rem;" /><span style="margin-top: -0.02rem;font-size: 0.24rem;">{{item.startDateStr}}</span></p              						   
 								{{else}}
-								<p class="p3 p4"><img src="/xcview/images/learn.png" alt="" style="margin-right: 0.03rem;" /><span style="float: left;font-size: 0.24rem;margin-top: -0.02rem;">{{item.startDateStr}}</span></p>
+								<p class="p3 p4"><img src="/xcview/images/learn.png" alt="" style="margin-right: 0.03rem;" /><span style="float: left;font-size: 0.24rem;margin-top: -0.04rem;">{{item.startDateStr}}</span></p>
 								{{/if}}
 						
 						{{else if item.type == 4}}
@@ -934,7 +934,7 @@
 								{{else}}
 								<p class='money_status z' style="margin-top1: 0.003rem;"><span>{{item.currentPrice}}</span>熊猫币</p>
 								{{/if}}
-								<p class="more_people z"><img src="/xcview/images/population.png" alt="" /><span>{{item.learndCount}}</span></p>                 						
+								<p class="more_people z"><img src="/xcview/images/population.png" alt="" /><span style="margin-top:-0.04rem;">{{item.learndCount}}</span></p>                 						
 								{{if item.type == 3}}
 								   {{if item.lineState == 1}}
 								   <p class="zhibo_play">直播中</p>

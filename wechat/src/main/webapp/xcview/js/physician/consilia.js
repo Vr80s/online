@@ -1,7 +1,7 @@
 
 $(function(){
 	// var id = 675;
-	var id = getQueryString("articleId");
+	var id = getQueryString("consiliaId");
  	requestGetService("/xczh/article/view",{
  		// id:385
  		id:id
@@ -20,7 +20,7 @@ $(function(){
 	// 评价信息定义方法--刷新
 	function refresh(){
 		requestGetService("/xczh/article/appraise/list",{
-			articleId: id,
+			consiliaId: id,
 	        pageNumber: 1,
 	        pageSize: 20000
 	 	},function (data) {
@@ -103,7 +103,7 @@ function reportComment(){
 
     requestService("/xczh/article/appraise", {
         content: comment_detailed,
-        articleId: id
+        consiliaId: id
     }, function (data) {
         
         if (data.success == true) {
@@ -142,7 +142,7 @@ function replyComment() {
     requestService("/xczh/article/appraise", {
 
         content: comment_detailed,
-        articleId: id,
+        consiliaId: id,
         replyId: criticize_id
     }, function (data) {
         //	课程名称/等级/评价
