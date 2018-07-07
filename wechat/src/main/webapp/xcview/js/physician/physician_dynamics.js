@@ -331,7 +331,7 @@ function doctorPostsList(doctorPostsType) {
                 if(writingsId != null && writingsId != ""){
                     location.href = "/xcview/html/physician/work.html?articleId=" + articleId;
                 } else {
-                    location.href = "/xcview/html/physician/article.html?articleId=" + articleId;
+                    location.href = "/xcview/html/physician/consilia.html?consiliaId=" + articleId;
                 }
             } else {
                return false;
@@ -355,9 +355,9 @@ function doctorPostsList(doctorPostsType) {
             var itemId = $(this).attr("data-id");
             var articleStatus = $(this).attr("data-status");
             if(articleStatus == 1){
-                location.href = "/xcview/html/physician/consilia.html?articleId=" + itemId;
+                location.href = "/xcview/html/physician/consilia.html?consiliaId=" + itemId;
             } else {
-                webToast("该医案已下架","middle",1500);
+                return false;
             }
 
         });
