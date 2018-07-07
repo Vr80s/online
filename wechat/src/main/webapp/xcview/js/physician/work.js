@@ -1,9 +1,9 @@
 
 $(function(){
 	// var id = 675;
-	var id = getQueryString("consiliaId");
+	var id = getQueryString("workId");
  	requestGetService("/xczh/article/view",{
- 		// id:385
+ 		// id:665
  		id:id
  	},function (data) {
 	    if (data.success == true) {
@@ -17,10 +17,11 @@ $(function(){
  	// 加载先出现评价信息
 	refresh();
 
-	// 评价信息定义方法--刷新
+	// 评价信息定义方法
 	function refresh(){
 		requestGetService("/xczh/article/appraise/list",{
-			consiliaId: id,
+			workId: id,
+			// workId: 665,
 	        pageNumber: 1,
 	        pageSize: 20000
 	 	},function (data) {
@@ -103,7 +104,8 @@ function reportComment(){
 
     requestService("/xczh/article/appraise", {
         content: comment_detailed,
-        consiliaId: id
+        workId: id
+        // workId: 665
     }, function (data) {
         
         if (data.success == true) {
@@ -142,7 +144,8 @@ function replyComment() {
     requestService("/xczh/article/appraise", {
 
         content: comment_detailed,
-        consiliaId: id,
+        workId: id,
+        // workId: 665,
         replyId: criticize_id
     }, function (data) {
         //	课程名称/等级/评价

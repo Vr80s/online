@@ -374,8 +374,6 @@ $(".find_nav_list").on('touchmove', function (e) {
 		as[this.p].className='';
 		this.p=index;
 		
-		
-		
 		var fnl_x_tmp = fnl_x;
 		
 		fnl_x =  parseInt($(".find_nav_list li").eq(this.p).position().left);
@@ -389,13 +387,10 @@ $(".find_nav_list").on('touchmove', function (e) {
 		
 		//滑动完了后调用的是这个方法
 		//begin == 0   这是添加筛选条件时的判断
-		var type_index = sessionStorage.getItem("type_index");
-		if(fnl_x_tmp != fnl_x || fnl_x == -1 || type_index == "type_index"){
-			
+		var type_index_physician = sessionStorage.getItem("type_index_physician");
+		if(fnl_x_tmp != fnl_x || fnl_x == -1 || type_index_physician == 0){
 			typeQuery();
-		
 		}
-		
 		var fn_w = ($(".find_nav").width() - nav_w) / 2;
 		var fnl_l;
 		if (fnl_x <= fn_w) {
@@ -413,7 +408,7 @@ $(".find_nav_list").on('touchmove', function (e) {
 	//这里进行的是初始化参数
 	tt.page = page;
 	tt.p = 0;
-
+	sessionStorage.setItem("type_index_physician",begin);
 	tt.slide(begin, 600);
 
 	function slide(begin){
@@ -492,9 +487,10 @@ $(".find_nav_list").on('touchmove', function (e) {
 		  			$(this).addClass("all_right_type_one_add");
 			 	}else{
 			    	$(this).removeClass("all_right_type_one_add");
-			    	sessionStorage.setItem("type_index","type_index");
+			    	sessionStorage.setItem("type_index_physician",0);
 				}
 			});
+			
 			
 			//科室点击
 			$(".all_mold1 .all_right_type_one").click(function(){

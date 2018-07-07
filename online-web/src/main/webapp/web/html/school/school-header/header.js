@@ -1,5 +1,6 @@
 (function() {
 	//解析url地址
+	var pathname = window.location.pathname;
 	var ourl = document.location.search;
 	var browser = {
 		versions: function() {
@@ -27,12 +28,22 @@
 	} else if(browser.versions.mobile || browser.versions.ios || browser.versions.android ||
 		browser.versions.iPhone || browser.versions.iPad) {
 
-		if(document.location.host == 'www.ipandatcm.com' || document.location.host == 'www.ixincheng.com' || document.location.host == 'ipandatcm.com' || document.location.host == 'ixincheng.com') {
-			wxurl = "http://m.ipandatcm.com";
-		} else {
-			wxurl = "http://test-wx.xczhihui.com";
-		}
-		window.location = wxurl;
+		if (document.location.host == 'www.ipandatcm.com' || document.location.host == 'www.ixincheng.com' || document.location.host == 'ipandatcm.com' || document.location.host == 'ixincheng.com') {
+            wxurl = "http://m.ipandatcm.com";
+        } else {
+            wxurl = "http://test-wx.xczhihui.com";
+        }
+        
+        if(pathname!=null){
+            //"courses/2595/info"   ourl   pathname
+            if(pathname!=null && pathname.indexOf("courses")!=-1 &&  pathname.indexOf("info")!=-1){
+            	 //"courses/2595/info"  获取课程id
+                var lala = pathname.split("/"); 
+        	    var courseId = lala[2];
+        	    wxurl = wxurl+"/wx_share.html?shareType=1&shareId="+courseId;
+            }
+        }
+        window.location = wxurl;
 	}
 })();
 
