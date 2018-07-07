@@ -26,7 +26,7 @@ body{
 /*简介头部开始*/
 header{
 	width: 7.5rem;
-	height: 3.02rem;
+	height: 3.96rem;
 	margin: 0 auto;
 	/* background: url(http://test-wx.xczhihui.com/xcview/images/anchorbg.png) no-repeat;
 	background-size: 100% 100%; */
@@ -38,7 +38,7 @@ header{
 }
 .special_img{
 	width: 7.5rem;
-    height: 3.02rem;
+    height: 3.96rem;
     position: absolute;
     top: 0;
     /*left: 0;*/
@@ -46,7 +46,7 @@ header{
 }
 .special_img img{
 	width: 100%;
-    height: 3.02rem;
+    height: 3.96rem;
 }
 .intro_top{
 	width: 2.24rem;
@@ -629,6 +629,7 @@ header{
 	font-size: 0.24rem;
 	color: #FFFFFF;
 	text-indent: 0.26rem;
+	margin-top: -0.8rem;
 }
 .intro_title_bg{
 	width: 100%;
@@ -682,15 +683,20 @@ header{
 .address{
 	display: flex;
     width: 7.5rem;
-    height: 0.81rem;
-    line-height: 0.81rem;
     margin: 0 auto;
     font-size: 0.26rem;
     color: #333;
 }
+.address p{
+	margin-top: 0.2rem;
+    width: 6.98rem;
+    margin: 0 auto;
+    /* margin-top: 0.2rem; */
+    padding: 0.2rem 0;
+}
 .address img{
 	width: 0.24rem;
 	margin-right: 0.1rem;
-	margin-left: 0.26rem;
+	/*margin-left: 0.26rem;*/
 	vertical-align: middle;
 }

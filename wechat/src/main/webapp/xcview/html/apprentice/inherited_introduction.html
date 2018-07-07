@@ -77,7 +77,7 @@
                 {{else}}
                 <img src="{{doctorPhoto}}" alt="医师头像" onerror="nofind();" />
                 {{/if}}
-                <span class="name">我是名字</span>
+                <span class="name">{{name}}</span>
                 <div class="sign_people">
                     <span>已报名({{allEnrolledUserCount}}人)</span>
                     {{each allEnrolledUser as user i}}
