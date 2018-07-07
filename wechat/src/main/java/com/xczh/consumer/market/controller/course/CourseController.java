@@ -178,9 +178,23 @@ public class CourseController {
         cv.setRichHostDetailsUrl(returnOpenidUri + "/xcview/html/person_fragment.html?type=2&typeId=" + courseId);
         //专辑查看更新时间
         if (cv.getCollection()) {
+           
+            //已更新多少集，等于总集数
+            if(cv.getCourseNumber()!=null && cv.getDirtyNumber()!=null && 
+                    cv.getCourseNumber().equals(cv.getDirtyNumber())) {
+                cv.setDirtyDate(XzStringUtils.COLLECTION_UPDATE_FINISH);
+            }else {
+                cv.setDirtyDate(courseApplyService.getCollectionUpdateDateText(courseId));
+            }
+            
+            
             cv.setOutlineDetailsUrl(returnOpenidUri + "/xcview/html/outline_fragment.html?courseId=" + courseId);
-            cv.setDirtyDate(courseApplyService.getCollectionUpdateDateText(courseId));
         }
+        
+
+        
+        
+        
         //判断当前在线人数
         if (cv.getType() != null && cv.getLineState() != null && cv.getType() == 1 && cv.getLineState() == 1) {
             Integer lendCount = cv.getLearndCount() + WeihouInterfacesListUtil.getCurrentOnlineNumber(cv.getDirectId());
