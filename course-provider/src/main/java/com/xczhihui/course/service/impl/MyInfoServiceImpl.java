@@ -132,7 +132,7 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper, OnlineUser> imp
     }
 
     @Override
-    public Integer findHostTypeByUserId(String id) {
+    public  Map<String,Object> findHostTypeByUserId(String id) {
         return myInfoMapper.findHostTypeByUserId(id);
     }
 }

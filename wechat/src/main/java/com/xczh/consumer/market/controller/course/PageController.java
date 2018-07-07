@@ -1,6 +1,7 @@
 package com.xczh.consumer.market.controller.course;
 
 import java.sql.SQLException;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,19 +72,20 @@ public class PageController {
     public String jumpDoctor(@PathVariable String id,
           Integer idType) throws SQLException {
         String url = WechatShareLinkType.INDEX_PAGE.getLink();
-        
         if(idType!=null && idType.equals(1)) {//用户id
-            Integer type  = myInfoService.findHostTypeByUserId(id);
-            if(type.equals(1)) {
+            Map<String,Object> map  = myInfoService.findHostTypeByUserId(id);
+            if(map!=null && map.get("type")!=null &&  map.get("type").toString().equals("1")) {
                 url = WechatShareLinkType.LIVE_PERSONAL.getLink(); 
-            }else if(type.equals(2)){
+                url = url + map.get("doctorId").toString();//医师id
+            }else if(map!=null && map.get("type")!=null &&  map.get("type").toString().equals("2")){
                 url = WechatShareLinkType.DOCDOT_SHARE.getLink(); 
+                url = url +id;  //用户id
             }
+            
         }else if(idType!=null && idType.equals(2)) { //医师id
             url = WechatShareLinkType.LIVE_PERSONAL.getLink(); 
+            url = url +id;
         }
-        
-        url = url +id;
         if(url!=null) {
             url = url.replaceAll("shareBack=1&", "");
         }
