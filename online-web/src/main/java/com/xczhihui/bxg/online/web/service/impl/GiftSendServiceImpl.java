@@ -27,6 +27,7 @@ import com.xczhihui.common.support.service.impl.RedisCacheService;
 import com.xczhihui.common.util.RedisCacheKey;
 import com.xczhihui.common.util.enums.ClientType;
 import com.xczhihui.common.util.enums.OrderFrom;
+import com.xczhihui.online.api.exception.GiftException;
 import com.xczhihui.online.api.service.GiftSendService;
 import com.xczhihui.online.api.service.UserCoinService;
 
@@ -154,7 +155,7 @@ public class GiftSendServiceImpl implements GiftSendService {
                 fgsCount++;
                 cacheService.set(freeGiftSendKey, fgsCount, CacheService.ONE_MONTH);
             } else {
-                throw new RuntimeException("免费礼物最多只能送三个");
+                throw new GiftException("免费礼物最多只能送三个");
             }
         }
     }

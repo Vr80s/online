@@ -137,7 +137,8 @@ public class MedicalDoctorPostsController {
         list.forEach(course ->{
             String userId = course.getUserLecturerId();
             MedicalDoctorAccount mha = medicalDoctorAccountService.getByUserId(userId);
-            if(mha != null){
+            List<MedicalDoctorPosts> doctorPostsList = medicalDoctorPostsService.getMedicalDoctorPostsByCourseId(course.getId());
+            if(mha != null && doctorPostsList.size() <= 0){
                 MedicalDoctorPosts mdp = new MedicalDoctorPosts();
                 mdp.setContent(course.getGradeName()+","+course.getSubtitle());
                 mdp.setType(5);
