@@ -583,6 +583,7 @@ header{
     height: 100%;
     background: #fff;
     margin: 0 auto;
+    padding-bottom: 0.2rem;
 }
 .medical_cases h2{
     width: 6.98rem;

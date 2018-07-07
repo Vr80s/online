@@ -386,15 +386,8 @@ function doctorPostsList(page,downOrUp,doctorPostsType) {
         });
         //点击视频播放/暂停
         $(".ccvideo").click(function(){
-            var ccId = $(this).find("video").attr("id");
-            var oReplay = document.getElementById(ccId);
-            $(".ccvideo_img").hide();
-            if (oReplay.paused){
-                oReplay.play();
-            }
-            else{
-                oReplay.pause();
-            }
+            var data_id = $(this).attr("data-id");
+            $(".ccvideo"+data_id).hide();
         });
 
 
@@ -813,9 +806,14 @@ requestService("/xczh/doctors/doctorStatus", {doctorId:doctorId},function (data)
     }
 
 
-
-
 });
 /*直播间结束*/
+
+// alert(22222);
+//点播视频播放时禁止放大处理
+/*function on_cc_h5player_init(){
+    var oV = document.getElementsByTagName('video');
+    oV.setAttribute("x5-playsinline","");
+}*/
 
 

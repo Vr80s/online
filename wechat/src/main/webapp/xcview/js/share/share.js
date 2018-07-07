@@ -81,14 +81,10 @@ function getShareIdAndType(){
 		obj.shareId = getQueryString("doctor");
 		obj.shareType = 5;
 		
-	}else if(viewHtml == "article.html"){
-		
-		obj.shareId = getQueryString("articleId");
-		obj.shareType = 6;
 	}else if(viewHtml == "consilia.html"){
 		
-		obj.shareId = getQueryString("articleId");
-		obj.shareType = 7;
+		obj.shareId = getQueryString("consiliaId");
+		obj.shareType = 6;
 	}
 }
 getShareIdAndType();
