@@ -387,8 +387,8 @@ $(".find_nav_list").on('touchmove', function (e) {
 		
 		//滑动完了后调用的是这个方法
 		//begin == 0   这是添加筛选条件时的判断
-		var type_index_physician = sessionStorage.getItem("type_index_physician");
-		if(fnl_x_tmp != fnl_x || fnl_x == -1 || type_index_physician == 0){
+		
+		if(fnl_x_tmp != fnl_x || fnl_x == -1){
 			typeQuery();
 		}
 		var fn_w = ($(".find_nav").width() - nav_w) / 2;
@@ -408,7 +408,6 @@ $(".find_nav_list").on('touchmove', function (e) {
 	//这里进行的是初始化参数
 	tt.page = page;
 	tt.p = 0;
-	sessionStorage.setItem("type_index_physician",begin);
 	tt.slide(begin, 600);
 
 	function slide(begin){
@@ -487,7 +486,6 @@ $(".find_nav_list").on('touchmove', function (e) {
 		  			$(this).addClass("all_right_type_one_add");
 			 	}else{
 			    	$(this).removeClass("all_right_type_one_add");
-			    	sessionStorage.setItem("type_index_physician",0);
 				}
 			});
 			

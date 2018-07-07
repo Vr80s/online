@@ -248,31 +248,32 @@ function submit(){
    		delete paramsObj.queryKey;
    	}
 	
-	var begin_falg = false;
-	var begin = 0;
-	
+	var checkType = 0;
+	//赛选条件选中的那个
 	var list = $(".all_right_type_ones").find(".all_right_type_one");
 	for(var i = 0; i < list.length; i++) {
 		var className = list[i].className;
 		if(className.indexOf("all_right_type_one_add")!=-1){
-			begin_falg = true;
-			begin = i+1;
+			checkType = i+1;
 			break;
 		}
     }
 	
-	//先存一下，然后在取一下
-	var type_index = sessionStorage.getItem("type_index_physician");
-	if(type_index == parseInt(begin)){ //分类没有变动
-		begin_falg = false;
-	}else{
-		sessionStorage.setItem("type_index_physician",begin);
-	}
+	var currentCheckType = 0;
+	//目前是那个
+	var realList = $("#pagenavi1").find("li");
+	for(var i = 0; i < realList.length; i++) {
+		var className = realList[i].className;
+		if(className.indexOf("find_nav_cur")!=-1){
+			currentCheckType=i;
+			break;
+		}
+    }
 	
 	//如果分类变化的话，进行滑动啦
-	if(begin_falg){
+	if(currentCheckType != checkType){
 		//滑动到第几个		
-		slide(begin);
+		slide(checkType);
 	//分类没有变化的话，不滑动
 	}else{
 		createParamsAndQuery(type,departmentId,sortType,queryKey);

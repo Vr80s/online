@@ -481,8 +481,7 @@ $(".find_nav_list").on('touchmove', function (e) {
 		
 		//滑动完了后调用的是这个方法
 		//begin == 0   这是添加筛选条件时的判断
-		var type_index = sessionStorage.getItem("type_index");
-		if(fnl_x_tmp != fnl_x || fnl_x == -1 || type_index == 0){
+		if(fnl_x_tmp != fnl_x || fnl_x == -1){
 			
 			typeQuery();
 		
@@ -505,7 +504,6 @@ $(".find_nav_list").on('touchmove', function (e) {
 	//这里进行的是初始化参数
 	tt.page = page;
 	tt.p = 0;
-	sessionStorage.setItem("type_index",begin);
 	tt.slide(begin, 600);
 
 	function slide(begin){
@@ -580,8 +578,6 @@ $(".find_nav_list").on('touchmove', function (e) {
 			 	}else{
 			    	$(this).removeClass("all_right_type_one_add");
 			    	
-			    	//设置为null,并且
-			    	sessionStorage.setItem("type_index",0);
 				}
 			});
 			
