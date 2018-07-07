@@ -600,5 +600,6 @@ header{
     margin: 0 auto;
     color: #999999;
     background: #fff;
+    word-break:break-all;
 }
 /*医案结束*/
