@@ -22,8 +22,8 @@
 <div class="mainrighttab tabresourse bordernone">
 	<p class="col-xs-4" style="padding: 0;">
 	 	<button class="btn btn-sm btn-success add_bx" onclick="add();"><i class="glyphicon glyphicon-plus"></i>线下订单录入</button>      
-	 	<button class="btn btn-sm btn-success add_bx" onclick="importOrders();"><i class="glyphicon glyphicon-plus"></i>批量导入</button>
-	 	<button class="btn btn-sm btn-success add_bx validity">设置有效期</button>
+	 	<button class="btn btn-sm btn-success add_bx" onclick="importOrders();"><i class="fa fa-file-excel-o"></i> 批量导入</button>
+	 	<button class="btn btn-sm btn-success add_bx validity"><i class="fa fa-calendar"></i> 设置有效期</button>
 
 	</p>
 	<div style="padding-bottom:10px; float: right;" id="searchDiv" >

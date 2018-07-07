@@ -594,25 +594,25 @@
 		</div>
 
 		<div class="form-group"  style="margin-top: 18px;" >
-			<label class="col-sm-3 control-label no-padding-right" ><font color="red">*</font>点播课: </label>
+			<label class="col-sm-3 control-label no-padding-right" ><font color="red">*</font>点播课分成: </label>
 			<div class="col-sm-6">
 				<input type="text" name="vodDivide"  id="vod" class="col-xs-10 col-sm-12 {required:true,number:true,range:[0.00,100.00]}">
 			</div>
 		</div>
 		<div class="form-group"  style="margin-top: 18px;" >
-			<label class="col-sm-3 control-label no-padding-right"><font color="red">*</font>直播课: </label>
+			<label class="col-sm-3 control-label no-padding-right"><font color="red">*</font>直播课分成: </label>
 			<div class="col-sm-6">
 				<input type="text" name="liveDivide"  id="live" class="col-xs-10 col-sm-12 {required:true,number:true,range:[0.00,100.00]}">
 			</div>
 		</div>
 		<div class="form-group"  style="margin-top: 18px;" >
-			<label class="col-sm-3 control-label no-padding-right" ><font color="red">*</font>线下课: </label>
+			<label class="col-sm-3 control-label no-padding-right" ><font color="red">*</font>线下课分成: </label>
 			<div class="col-sm-6">
 				<input type="text" name="offlineDivide"  id="offline" class="col-xs-10 col-sm-12 {required:true,number:true,range:[0.00,100.00]}">
 			</div>
 		</div>
 		<div class="form-group"  style="margin-top: 18px;" >
-			<label class="col-sm-3 control-label no-padding-right" ><font color="red">*</font>礼物: </label>
+			<label class="col-sm-3 control-label no-padding-right" ><font color="red">*</font>礼物分成: </label>
 			<div class="col-sm-6">
 				<input type="text" name="giftDivide"  id="gift" class="col-xs-10 col-sm-12 {required:true,number:true,range:[0.00,100.00]}">
 			</div>
