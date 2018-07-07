@@ -2,9 +2,13 @@ package com.xczh.consumer.market.exception;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.jivesoftware.smack.filter.NotFilter;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -29,6 +33,8 @@ public class ExceptionResolver {
     private static final String BIZ_RUNTIME_EXCEPTION_MESSAGE = "服务器错误,请联系管理员";
     private static final String BIZ_Parameter_EXCEPTION_MESSAGE = "参数有误";
     private static final Pattern CHINESE_PATTERN = Pattern.compile("[\u4e00-\u9fa5]");
+    private static final List<String> filterList = Arrays.asList("不具备主播权限或主播权限被禁用");
+
 
     public static boolean isContainChinese(String str) {
         Matcher m = CHINESE_PATTERN.matcher(str);
@@ -50,7 +56,7 @@ public class ExceptionResolver {
         pw.flush();
         sw.flush();
         //异常通知告警
-        if (!(ex instanceof IpandaTcmException) || ((IpandaTcmException) ex).isAlarm()) {
+        if ((!(ex instanceof IpandaTcmException) || ((IpandaTcmException) ex).isAlarm()) && notFilter(ex)) {
             String subject = "业务异常";
             EmailUtil.sendExceptionMailBySSL("wechat端", subject, printStackTraceToString(ex));
         }
@@ -59,6 +65,15 @@ public class ExceptionResolver {
         LOGGER.error(!isContainChinese(ex.getMessage().substring(0, 1)) ? BIZ_RUNTIME_EXCEPTION_MESSAGE : ex.getMessage() == null ? BIZ_RUNTIME_EXCEPTION_MESSAGE : ex.getMessage());
 
         return ResponseObject.newErrorResponseObject(ex.getMessage() != null ? !isContainChinese(ex.getMessage().substring(0, 1)) ? BIZ_RUNTIME_EXCEPTION_MESSAGE : ex.getMessage() == null ? BIZ_RUNTIME_EXCEPTION_MESSAGE : ex.getMessage() : BIZ_RUNTIME_EXCEPTION_MESSAGE);
+    }
+
+    private boolean notFilter(Exception ex) {
+        for (int i = 0; i < filterList.size(); i++) {
+            if(ex.getMessage().contains(filterList.get(i))){
+                return false;
+            }
+        }
+        return true;
     }
 
     @ExceptionHandler({MissingServletRequestParameterException.class, MethodArgumentTypeMismatchException.class})
