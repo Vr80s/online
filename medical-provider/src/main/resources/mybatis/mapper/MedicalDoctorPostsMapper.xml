@@ -199,5 +199,11 @@
         WHERE id = #{id}
 
     </select>
+    <select id="getMedicalDoctorPostsByCourseId"
+            resultType="com.xczhihui.medical.doctor.model.MedicalDoctorPosts">
+        SELECT * FROM medical_doctor_posts WHERE course_id = #{courseId}
+
+
+    </select>
 
 </mapper>

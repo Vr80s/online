@@ -505,6 +505,9 @@
 						<img src="{{item.articleImgPath}}" alt="" />
 						<div class="article_nav_cen_size">{{item.articleTitle}}</div>
 						<div class="article_nav_cen_sizes">{{item.articleContent}}</div>
+						{{if item.articleStatus == 0}}
+						<div style="background: #FAFAFA;font-size: 0.26rem;">抱歉，此文章已被作者删除。</div>
+						{{/if}}
 					</div>
 					<div class="both"></div>
 				</div>
@@ -557,6 +560,9 @@
 						<img src="{{item.articleImgPath}}" alt="" />
 						<div class="consilia_nav_cen_size">{{item.articleTitle}}</div>
 						<div class="consilia_nav_cen_sizes">{{item.articleContent}}</div>
+						{{if item.articleStatus == 0}}
+						<div style="background: #FAFAFA;font-size: 0.26rem;">抱歉，此医案已被作者删除。</div>
+						{{/if}}
 					</div>
 					<div class="both"></div>
 				</div>

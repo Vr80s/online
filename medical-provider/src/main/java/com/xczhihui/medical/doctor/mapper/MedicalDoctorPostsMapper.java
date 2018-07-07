@@ -68,4 +68,12 @@ public interface MedicalDoctorPostsMapper extends BaseMapper<MedicalDoctorPosts>
      */
     MedicalDoctorPosts getMedicalDoctorPostsById(@Param("id") Integer id);
 
+    /**
+     * 通过课程id获取医师动态
+     *
+     * @param courseId 课程id
+     * @return
+     */
+    List<MedicalDoctorPosts> getMedicalDoctorPostsByCourseId(@Param("courseId") Integer courseId);
+
 }

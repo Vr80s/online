@@ -201,4 +201,9 @@ public class MedicalDoctorPostsServiceImpl extends ServiceImpl<MedicalDoctorPost
         MedicalDoctorPosts mdp = medicalDoctorPostsMapper.getMedicalDoctorPostsById(id);
         return mdp;
     }
+
+    @Override
+    public List<MedicalDoctorPosts> getMedicalDoctorPostsByCourseId(Integer courseId) {
+        return medicalDoctorPostsMapper.getMedicalDoctorPostsByCourseId(courseId);
+    }
 }

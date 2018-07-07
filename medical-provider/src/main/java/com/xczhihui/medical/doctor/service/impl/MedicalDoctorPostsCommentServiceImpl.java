@@ -45,7 +45,11 @@ public class MedicalDoctorPostsCommentServiceImpl extends ServiceImpl<MedicalDoc
     public void addMedicalDoctorPostsComment(MedicalDoctorPostsComment medicalDoctorPostsComment, String userId) {
         if (medicalDoctorPostsComment.getCommentId() != null && !medicalDoctorPostsComment.getCommentId().equals("")) {
             MedicalDoctorPostsComment mdpc = medicalDoctorPostsCommentMapper.getMedicalDoctorPostsCommentById(medicalDoctorPostsComment.getCommentId());
-            medicalDoctorPostsComment.setUserId(mdpc.getUserId());
+            if(mdpc.getReplyUserId() != null && !mdpc.getReplyUserId().equals("")){
+                medicalDoctorPostsComment.setUserId(mdpc.getReplyUserId());
+            }else {
+                medicalDoctorPostsComment.setUserId(mdpc.getUserId());
+            }
             medicalDoctorPostsComment.setReplyUserId(userId);
         } else {
             medicalDoctorPostsComment.setUserId(userId);
