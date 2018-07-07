@@ -63,7 +63,7 @@ public class HeaderInterceptor implements HandlerInterceptor {
             ONLY_THREAD.set(Boolean.FALSE);
         }
         CLIENT.set(clientType);
-        logger.warn("isMultipart{}, clientType:{},typeCode:{}",isMultipart,clientType,HeaderInterceptor.getClientTypeCode());
+        logger.info("isMultipart{}, clientType:{},typeCode:{}",isMultipart,clientType,HeaderInterceptor.getClientTypeCode());
 
         logger.info(version + ":" + iversion + version.equals(iversion));
         logger.info("tl:" + ONLY_THREAD.get());
