@@ -27,8 +27,8 @@
     <select id="findHostTypeByUserId" resultType="java.util.Map">
         select
             ca.type as type,
-            if(ca.type == 1,select mda.doctor_id from 
-                 medical_doctor_account as mda where mda.account_id = #{userId},null) as doctorId
+            if(ca.type = 1,(select mda.doctor_id from 
+                 medical_doctor_account as mda where mda.account_id = #{userId}),null) as doctorId
         from course_anchor ca 
             where  
             ca.user_id   = #{userId}
