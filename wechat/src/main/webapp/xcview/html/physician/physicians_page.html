@@ -371,9 +371,7 @@
 				</div>
 				<div class="message_face">
 					<!--<span class="disciple"><span class="disciple_fize">弟子</span>25</span>-->
-					{{if items.fansCount>0}}
 					<div class="fans"><div class="fans_size">粉丝</div><div id="fansCount">{{items.fansCount}}</div></div>
-					{{/if}}
 					<div class="both"></div>
 				</div>
 				
@@ -496,8 +494,8 @@
 				
 				{{else if item.typeId != null && item.typeId != 8}}
 				<!-- 文章-->
-				<div class="article_hide" data-id="{{item.articleId}}">
-					<div class="article_nav_span comment_hide" style="overflow: hidden; */">
+				<div class="article_hide" data-id="{{item.articleId}}" data-status="{{item.articleStatus}}" data-writingsId="{{item.writingsId}}">
+					<div class="article_nav_span comment_hide" style="overflow: hidden; ">
 						{{if item.stick}}
 						<span class="stick_img_stick"><img src="/xcview/images/stick.png" alt="" />置顶</span>
 						{{/if}}
@@ -512,7 +510,7 @@
 				</div>
 				{{else if item.type == 5}}
 				<!-- 课程-->
-				<div class="course_hide" data-id="{{item.courseId}}">
+				<div class="course_hide" data-id="{{item.courseId}}" data-status="{{item.courseStatus}}">
 					<div class="course_nav_span comment_hide" style="font-size: 0.3rem;color: #333333;">
 						{{if item.stick}}
 						<span class="stick_img_stick"><img src="/xcview/images/stick.png" alt="" />置顶</span>
@@ -555,7 +553,7 @@
 
 					<div class="both"></div>
 					<div class="consilia_nav_btn"><span>展开</span></div>
-					<div class="consilia_nav_cen" data-id="{{item.articleId}}" style="display: block;">
+					<div class="consilia_nav_cen" data-id="{{item.articleId}}" data-status="{{item.articleStatus}}" style="display: block;">
 						<img src="{{item.articleImgPath}}" alt="" />
 						<div class="consilia_nav_cen_size">{{item.articleTitle}}</div>
 						<div class="consilia_nav_cen_sizes">{{item.articleContent}}</div>
