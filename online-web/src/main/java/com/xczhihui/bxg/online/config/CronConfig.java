@@ -38,9 +38,9 @@ public class CronConfig {
         String userId2 = "d44983e894b34064bc8672e7117f743d";
         commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.SYSYTEM.getVal())
                 .buildAppPush("定时消息推送~~~")
-                .buildWeb("定时消息推送~~~").build(userId1, RouteTypeEnum.MESSAGE_LIST, null));
+                .buildWeb("定时消息推送~~~").build(userId1, RouteTypeEnum.NONE, null));
         commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.SYSYTEM.getVal())
                 .buildAppPush("定时消息推送~~~")
-                .buildWeb("定时消息推送~~~").build(userId2, RouteTypeEnum.MESSAGE_LIST, null));
+                .buildWeb("定时消息推送~~~").build(userId2, RouteTypeEnum.NONE, null));
     }
 }

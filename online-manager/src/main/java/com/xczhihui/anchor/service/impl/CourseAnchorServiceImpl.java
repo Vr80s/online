@@ -1,8 +1,6 @@
 package com.xczhihui.anchor.service.impl;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -61,8 +59,8 @@ public class CourseAnchorServiceImpl extends OnlineBaseServiceImpl implements
     }
 
     @Override
-    public List<CourseAnchor> list(Integer type) {
-        return anchorDao.listSimpleAnchorByType(type);
+    public List<CourseAnchor> listDoctor() {
+        return anchorDao.listSimpleDoctor();
     }
 
     @Override
@@ -70,6 +68,28 @@ public class CourseAnchorServiceImpl extends OnlineBaseServiceImpl implements
         List<CourseAnchor> courseAnchors = anchorDao.findByUserId(userId);
         if (courseAnchors != null && !courseAnchors.isEmpty()) {
             return courseAnchors.get(0);
+        }
+        return null;
+    }
+
+    @Override
+    public String findUserIdByDoctorId(String doctorId) {
+        Map<String, Object> map = new HashMap<>(1);
+        map.put("doctorId", doctorId);
+        List<Map<String, Object>> list = anchorDao.getNamedParameterJdbcTemplate().queryForList("select account_id from medical_doctor_account where doctor_id = :doctorId", map);
+        if (!list.isEmpty()) {
+            return (String)list.get(0).get("account_id");
+        }
+        return null;
+    }
+
+    @Override
+    public String findDoctorIdByUserId(String userId) {
+        Map<String, Object> map = new HashMap<>(1);
+        map.put("userId", userId);
+        List<Map<String, Object>> list = anchorDao.getNamedParameterJdbcTemplate().queryForList("select doctor_id from medical_doctor_account where account_id=:userId", map);
+        if (!list.isEmpty()) {
+            return (String)list.get(0).get("doctor_id");
         }
         return null;
     }

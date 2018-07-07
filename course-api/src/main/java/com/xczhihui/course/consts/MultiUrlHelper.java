@@ -29,7 +29,7 @@ public class MultiUrlHelper {
     public static final String URL_TYPE_MOBILE = "mobile";
     private static final String APP_COURSE_DETAIL = "xczh://ipandatcm.com/courseDetail?id={0}";
     private static final String WEB_COURSE_DETAIL = "/courses/{0}/info";
-    private static final String MOBILE_COURSE_DETAIL = "/course/{0}";
+    private static final String MOBILE_COURSE_DETAIL = "/page/course/{0}";
     private static final String APPRENTICE_URL = "/xcview/html/apprentice/inherited_introduction.html?merId={0}&needLogin=true";
     private static final String NEED_LOGIN_TRUE = "needLogin=true";
     private static final String NEED_LOGIN_FALSE = "needLogin=false";
@@ -135,6 +135,11 @@ public class MultiUrlHelper {
             URL_TYPE_APP, "xczh://ipandatcm.com/message",
             URL_TYPE_MOBILE, ""
     );
+    private static Map<String, String> doctorPostMap = ImmutableMap.of(
+            URL_TYPE_APP, "xczh://ipandatcm.com/doctorPost?id={0}",
+            URL_TYPE_WEB, "/anchors/doctorPost?id={0}",
+            URL_TYPE_MOBILE, "/xcview/html/physician/physicians_page.html?doctor={0}"
+    );
     private static Map<String, String> anchorIndexMap = ImmutableMap.of(
             URL_TYPE_APP, "xczh://ipandatcm.com/anchorIndex?id={0}",
             URL_TYPE_WEB, "/anchors/{0}/courses",
@@ -177,6 +182,7 @@ public class MultiUrlHelper {
         urlMap.put(RouteTypeEnum.ARTICLE_DETAIL.name(), articleMap);
         urlMap.put(RouteTypeEnum.QUESTION_DETAIL.name(), questionMap);
         urlMap.put(RouteTypeEnum.ANCHOR_INDEX.name(), anchorIndexMap);
+        urlMap.put(RouteTypeEnum.DOCTOR_POST.name(), doctorPostMap);
         urlMap.put(RouteTypeEnum.H5.name(), h5Map);
         urlMap.put(RouteTypeEnum.APPRENTICE_DETAIL.name(), h5Map);
         urlMap.put(RouteTypeEnum.COMMON_COURSE_DETAIL_PAGE.name(), courseDetailUrlMap);

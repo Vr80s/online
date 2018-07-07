@@ -57,7 +57,7 @@ public class Banner2Controller {
             courses = courseService.listByMenuId(menus.get(0).getId());
         }
         mav.addObject("courses", courses);
-        mav.addObject("anchors", anchorService.list(1));
+        mav.addObject("anchors", anchorService.listDoctor());
         mav.addObject("menus", menus);
         return mav;
     }

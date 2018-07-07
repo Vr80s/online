@@ -47,14 +47,22 @@ $(function () {
         if (val == 'COMMON_COURSE_DETAIL_PAGE') {
             $('.course-detail').show();
             $('.anchor-detail').hide();
+            $('.doctor-detail').hide();
             $('.outer-link').hide();
         } else if (val == 'ANCHOR_INDEX') {
             $('.course-detail').hide();
             $('.anchor-detail').show();
+            $('.doctor-detail').hide();
+            $('.outer-link').hide();
+        } else if (val === 'DOCTOR_POST'){
+            $('.course-detail').hide();
+            $('.anchor-detail').hide();
+            $('.doctor-detail').show();
             $('.outer-link').hide();
         } else if (val == 'H5') {
             $('.course-detail').hide();
             $('.anchor-detail').hide();
+            $('.doctor-detail').hide();
             $('.outer-link').show();
         }
     });
@@ -110,7 +118,21 @@ function loadBanner2List() {
             "sortable": false,
             "data": 'routeType',
             "mRender": function (data, display, row) {
-                return (row.routeType && row.routeType !== 'NONE') ? (row.routeType === 'H5' ? '外部链接' : (row.routeType === 'COMMON_COURSE_DETAIL_PAGE' ? '课程' : '主播')) : "无";
+                if (row.routeType && row.routeType !== 'NONE') {
+                    if (row.routeType === 'H5') {
+                        return "外部链接";
+                    } else if (row.routeType === 'COMMON_COURSE_DETAIL_PAGE') {
+                        return "课程"
+                    } else if (row.routeType === "DOCTOR_POST") {
+                        return "医师动态";
+                    } else if (row.routeType === "ANCHOR_INDEX") {
+                        return "主播";
+                    } else {
+                        return "";
+                    }
+                } else {
+                    return "无";
+                }
             }
         },
         {
@@ -205,6 +227,12 @@ $(".add_bx").click(function () {
                 }
             } else if (routeType == 'ANCHOR_INDEX') {
                 detailId = $('#J-anchor').val();
+                if (!detailId) {
+                    alertInfo("请选择医师/主播");
+                    return false;
+                }
+            } else if (routeType === "DOCTOR_POST") {
+                detailId = $('#J-doctor').val();
                 if (!detailId) {
                     alertInfo("请选择医师/主播");
                     return false;

@@ -12,10 +12,12 @@ import com.xczhihui.anchor.service.AnchorService;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.Course;
 import com.xczhihui.bxg.online.common.domain.CourseAnchor;
+import com.xczhihui.bxg.online.common.domain.MedicalEnrollmentRegulations;
 import com.xczhihui.bxg.online.common.domain.MobileBanner;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.util.enums.RouteTypeEnum;
 import com.xczhihui.course.dao.CourseDao;
+import com.xczhihui.medical.dao.MedicalEnrollmentRegulationsDao;
 import com.xczhihui.operate.dao.MobileBannerDao;
 import com.xczhihui.operate.service.MobileBannerService;
 import com.xczhihui.operate.vo.MobileBannerVo;
@@ -30,6 +32,8 @@ public class MobileBannerServiceImpl extends OnlineBaseServiceImpl implements
     private CourseDao courseDao;
     @Autowired
     private AnchorService anchorService;
+    @Autowired
+    private MedicalEnrollmentRegulationsDao medicalEnrollmentRegulationsDao;
 
     @Override
     public Page<MobileBannerVo> findMobileBannerPage(
@@ -111,7 +115,7 @@ public class MobileBannerServiceImpl extends OnlineBaseServiceImpl implements
     @Override
     public void updateSortUp(String id) {
         /*String sqlPre = "select seq from oe_course_mobile_banner where status = 1 and id = ? ";// 先取出他自己的顺序
-		Integer mobileBannerPreSort = dao.queryForInt(sqlPre,
+        Integer mobileBannerPreSort = dao.queryForInt(sqlPre,
 				new Object[] { id });
 
 		String sqlNext = "select seq,id from oe_course_mobile_banner where status = 1 and seq > ? order by seq desc limit 1 ";// 然后取出他相邻的顺序
@@ -232,6 +236,19 @@ public class MobileBannerServiceImpl extends OnlineBaseServiceImpl implements
                     CourseAnchor courseAnchor = anchorService.findByUserId(linkParam);
                     if (courseAnchor != null) {
                         map.put("linkDesc", courseAnchor.getName());
+                    }
+                } else if (routeType.equals(RouteTypeEnum.DOCTOR_POST.name())) {
+                    String userId = anchorService.findUserIdByDoctorId(linkParam);
+                    if (userId != null) {
+                        CourseAnchor courseAnchor = anchorService.findByUserId(userId);
+                        if (courseAnchor != null) {
+                            map.put("linkDesc", courseAnchor.getName());
+                        }
+                    }
+                } else if (routeType.equals(RouteTypeEnum.APPRENTICE_DETAIL.name())) {
+                    MedicalEnrollmentRegulations medicalEnrollmentRegulations = medicalEnrollmentRegulationsDao.findById(Integer.parseInt(linkParam));
+                    if (medicalEnrollmentRegulations != null) {
+                        map.put("linkDesc", medicalEnrollmentRegulations.getTitle());
                     }
                 } else {
                     map.put("linkDesc", linkParam);
