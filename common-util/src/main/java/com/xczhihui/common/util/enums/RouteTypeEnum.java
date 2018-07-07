@@ -6,14 +6,6 @@ package com.xczhihui.common.util.enums;
 
 public enum RouteTypeEnum {
 
-    //专辑课程详情页
-    COLLECTION_COURSE_DETAIL_PAGE(1),
-    //直播课程详情页
-    LIVE_COURSE_DETAIL_PAGE(1),
-    //线下课课程详情页
-    OFFLINE_COURSE_DETAIL_PAGE(1),
-    //音视频课程详情页
-    VIDEO_AUDIO_COURSE_DETAIL_PAGE(1),
     //课程详情页，不区分课程类型
     COMMON_COURSE_DETAIL_PAGE(1),
     //学习中心的课程详情

@@ -68,7 +68,7 @@ public class AuthInterceptor implements HandlerInterceptor, HandlerMethodArgumen
             "/xczh/common/checkUpdate", "/xczh/common/addOpinion", "/xczh/gift/rankingList", "/xczh/common/richTextDetails", "/xczh/common/getDomain",
             "/xczh/gift/list", "/xczh/common/checkToken", "/xczh/message", "/xczh/pay/pay_notify", "/xczh/set/isLogined",
             "/xczh/recommend/**", "/xczh/classify/**", "/xczh/bunch/**", "/xczh/live/**", "/xczh/host/**", "/xczh/host/doctor/v2", "/xczh/course/**", "/xczh/doctors/**",
-            "/xczh/enrol/enrollmentRegulations", "/xczh/myinfo/showWallet", "/xczh/page/course/*", "/xczh/article/view", "/xczh/article/appraise/list",
+            "/xczh/enrol/enrollmentRegulations", "/xczh/myinfo/showWallet", "/xczh/article/view", "/xczh/article/appraise/list",
             "/doctor/posts/**","/xczh/live/onlineLive","/xczh/share/courseShare","/xczh/enrol/enrollmentRegulations/**,/course/*");
     private static List<String> needAuthPaths = Arrays.asList(
             "/doctor/posts/**/like/**","/doctor/posts/**/comment/**");
