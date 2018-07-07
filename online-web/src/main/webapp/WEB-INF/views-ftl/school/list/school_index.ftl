@@ -11,16 +11,16 @@
     <meta name="renderer" content="webkit">
     <meta name="baidu-site-verification" content="UHaAQAeAQF"/>
     <!--公共头部和底部样式-->
-    <link rel="stylesheet" href="/web/html/school/school-header/header.css?version=b504aa0ea9"/>
-    <link rel="stylesheet" href="/web/css/footer.css?version=c40fece58d"/>
-    <link rel="stylesheet" href="/web/font/iconfont.css?version=62fcddd84e"/>
+    <link rel="stylesheet" href="/web/html/school/school-header/header.css"/>
+    <link rel="stylesheet" href="/web/css/footer.css"/>
+    <link rel="stylesheet" href="/web/font/iconfont.css"/>
     <!--公共头部和底部样式结束-->
     <!--登陆的bootstrap样式-->
-    <link rel="stylesheet" href="/web/css/mylogin.css?version=61637524d6"/>
+    <link rel="stylesheet" href="/web/css/mylogin.css"/>
     <link href="/web/bootstrap-select/bootstrap.min.css" rel="stylesheet">
 
     <!--登陆的bootstrap样式-->
-    <link rel="stylesheet" href="/web/css/school/school-recommend.css?version=6b7f0ba64e"/>
+    <link rel="stylesheet" href="/web/css/school/school-recommend.css"/>
 
 </head>
 <body>

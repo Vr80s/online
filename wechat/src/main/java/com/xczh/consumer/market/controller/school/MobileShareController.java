@@ -80,11 +80,9 @@ public class MobileShareController {
             throws Exception {
 
         try {
-            
             ShareInfoVo sv = courseServiceImpl.selectShareInfoByType(shareType, shareId);
             //构造下分享出去的参数
             sv.build(returnOpenidUri,webdomain);
-
             return ResponseObject.newSuccessResponseObject(sv);
         } catch (Exception e) {
             e.printStackTrace();
@@ -233,12 +231,10 @@ public class MobileShareController {
              */
             OnlineUser ou = null;
             if ("wx".equals(wxOrbrower)) {
-
                 WxcpClientUserWxMapping wxw = onlineUserService.saveWxInfo(code);
                 /**
                  * 判断此微信用户是否  存在或者绑定过手机号没
                  */
-
                 //绑定过
                 if (wxw != null && StringUtils.isNotBlank(wxw.getClient_id())) {
                     //获取用户信息
@@ -249,8 +245,10 @@ public class MobileShareController {
                         UCCookieUtil.writeTokenCookie(res, t);
                     }
                 } else {
-                    UCCookieUtil.writeThirdPartyCookie(res, onlineUserService.buildThirdFlag(wxw));
+                    //清理cookie，可能应该之前用户惨存的
+                    UCCookieUtil.clearTokenCookie(res);
                 }
+                UCCookieUtil.writeThirdPartyCookie(res, onlineUserService.buildThirdFlag(wxw));
             } else {
                 ou = accountIdOpt.isPresent() ? onlineUserService.findUserById(accountIdOpt.get()) : null;
             }
@@ -358,6 +356,9 @@ public class MobileShareController {
                         ou.setTicket(t.getTicket());
                         UCCookieUtil.writeTokenCookie(res, t);
                     }
+                }else {
+                    //清理cookie，可能应该之前用户惨存的
+                    UCCookieUtil.clearTokenCookie(res);
                 }
                 UCCookieUtil.writeThirdPartyCookie(res, onlineUserService.buildThirdFlag(wxw));
             }
@@ -430,6 +431,4 @@ public class MobileShareController {
         }
         return returnOpenidUri + coursePage + shareId;
     }
-
-
 }

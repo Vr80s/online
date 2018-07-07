@@ -77,7 +77,7 @@
                 {{else}}
                 <img src="{{doctorPhoto}}" alt="医师头像" onerror="nofind();" />
                 {{/if}}
-                <span class="name">我是名字</span>
+                <span class="name">{{name}}</span>
                 <div class="sign_people">
                     <span>已报名({{allEnrolledUserCount}}人)</span>
                     {{each allEnrolledUser as user i}}
@@ -229,39 +229,16 @@
                             window.location.href = "/xcview/html/home_page.html";
                             return;
                         }
-                        location.href = '/xcview/html/apprentice/apprentice.html'
                         /*跳转链接*/
+                        if(isNotBlank(back) && back.indexOf("physicians_page.html") != -1){
+                            back
+                        }
+                        location.href = '/xcview/html/apprentice/apprentice.html'
                     }
                 }
             });
             window.history.pushState('forward', null, './inherited_introduction.html?merId=' + merId);
         }
     };
-</script>
-<script>
-$(function() {
-    setInterval(timer, 1000);
-    function timer() {
-        //设置结束的时间
-        var endtime = new Date("2020/04/22 00:00:00");
-        //设置当前时间
-        var now = new Date();
-        //得到结束与当前时间差 ： 毫秒
-        var t = endtime.getTime() - now.getTime();
-        if (t > 0) {
-            //得到剩余天数
-            var tian = Math.floor(t / 1000 / 60 / 60 / 24);
-            //得到还剩余的小时数（不满一天的小时）
-            var h = Math.floor(t / 1000 / 60 / 60 % 24);
-            //得到分钟数
-            var m = Math.floor(t / 1000 / 60 % 60);
-            var str = tian + " 天 " + h + " 小时  " + m + " 分 ";
-            $("#box1").html(str);
-        } else {
-            clearInterval(timer1); //这里可以添加倒计时结束后需要执行的事件 
-            $("#box1").html("元旦已经结束");
-        }
-    }
-});
 </script>
 </html>
