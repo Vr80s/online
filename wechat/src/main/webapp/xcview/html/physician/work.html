@@ -10,15 +10,10 @@
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <meta name="keywords" content="" />
 
-<link rel="stylesheet" type="text/css" href="/xcview/css/physician/consilia.css?v=wechat_1.1.1"/>
+<link rel="stylesheet" type="text/css" href="/xcview/css/physician/work.css?v=wechat_1.1.1"/>
 <link rel="stylesheet" type="text/css" href="/xcview/css/alert/sharecss.css?v=wechat_1.1.1"/>
-
 <!--手机嵌入模板-->
 <script type="text/javascript" src="/xcview/js/common/layout.js"></script>
-
-<!--公用弹框 -->
-<link rel="stylesheet" href="/xcview/css/alert/sharecss.css?version=31c81b486a">
-
 <script>
 	// 判断横屏展示时的状态
 	window.onorientationchange=function(){
@@ -30,24 +25,12 @@
 	}	
 </script>
 <style>
-	.consilia_textarea{
-		line-height: 0.45rem;
-		word-break:break-all;
-	}
-	.returned_id{
-		word-break:break-all;
-	}
-	.user_text{
-		word-break:break-all;
-	}
-	.weixin_ceng_bg{
-		opacity: 0.3;
-	}
-	.report_btn{
-		/*opacity: 0.3;*/
-	}
 	.consilia_main{
-		margin-top: 0.88rem;
+		/*margin-top: 0.88rem;*/
+	}
+	.opacity_heights{
+		width: 100%;
+		height: 0.88rem;
 	}
 </style>
 </head>
@@ -56,13 +39,10 @@
 	<header>
 		<div class="header">
 			<div class="headers">
-				<script type="text/html" id="headers">
-					<p>{{item.type}}</p>
-					{{/if}}
-				</script>
+				<p>著作</p>
 			</div>
-			<!-- <div class="arror_return" onclick="javascript:window.history.back();return false;"> -->
-			<div class="arror_return" onclick="common_share_back();">
+<!-- 			<div class="arror_return" onclick="javascript:window.history.back();return false;"> -->
+            <div class="arror_return" onclick="common_share_back();">
 				<img src="/xcview/images/back icon.png" />
 			</div>
 			<div class="header_news">
@@ -70,60 +50,58 @@
 			</div>
 		</div>
 	</header>
-	<div class="opacity_height"></div>
+	<div class="opacity_heights" style="display: block !important;"></div>
 	<!--头部结束-->
 	<!-- 中间内容开始 -->
 	<div class="consilia_main">
+		<!-- <div class="consilia_main_center">
+			<h2>全国名中医潘敏求 宁失亿万身家只为做“良医”</h2>
+			<div class="article">
+				<div class="article_main">
+					<div class="article_border_left"></div>
+					<div class="article_time">
+						<div class="">华夏晚报 2018.6.16 01:40</div>
+					</div>
+					<div class="article_border_right"></div>
+					<div class="both"></div>
+				</div>
+			</div>
+			<div class="both"></div>
+		</div> -->
+
 		<div class="consilia_main_center" id="consilia_main_center">
 			<script type="text/html" id="consilia_main_center_id">
-
-			{{if item.typeId == 9}}   <!--著作-->
-				<div class="cover">
-					<img src="http://test-file.ipandatcm.com/18510101002/e7de496c02b3-ef894375d67146478869ed0b3d7ccd661525918202364.png">
-				</div>
-				<div class="caption">
-					<h2>{{items.title}}</h2>
-					<div class="article">
-						<div class="article_main">
-							<!--<div class="article_border_left"></div>-->
-							<div class="article_time">
-								<div class="">{{items.createTime}}</div>
-							</div>
-							<!--<div class="article_border_right"></div>-->
-							<div class="both"></div>
+			<div class="cover">
+				<img src="{{items.imgPath}}" />
+			</div>
+			<div class="caption">
+				<h2>{{items.title}}</h2>
+				<div class="article">
+					<div class="article_main">
+						<!--<div class="article_border_left"></div>-->
+						<div class="article_time">
+							<div class="">{{items.createTime}}</div>
 						</div>
+						<!--<div class="article_border_right"></div>-->
+						<div class="both"></div>
 					</div>
 				</div>
-			{{else if item.typeId == 4}}  <!--专栏-->
-				<div class="column">
-					<h2>{{items.title}}</h2>
-					<div class="column_time">{{items.createTime}}</div>
-				</div>
-			{{else if item.typeId == 7}}   <!--媒体报道-->
-				<div class="media">
-					<h2>{{items.title}}</h2>
-					<div class="media_time">{{items.createTime}}</div>
-				</div>
-			{{else if item.typeId == 8}}   <!--医案报道-->
-				<div class="medical_cases">
-					<h2>{{items.title}}</h2>
-					<div class="medical_cases_time">{{items.createTime}}</div>
-				</div>
-			{{/if}}
-
+			</div>
 			
+			<div class="both"></div>
+			<div class="consilia_center">
+				<div class="consilia_textarea"></div>
+				<div class="consilia_center_url"></div>
+			</div>
 			</script>
 		</div>
+
 
 		<!-- 评价开始 -->
 		<div class="evaluation_start">
 			<div class="wrap_comment_title">
 				<p class="border"></p>
 				<p>评价</p>
-			</div>
-			<div class="show_baseImagenumber">
-				<img src="/xcview/images/no_comment.png" alt="" />
-				<p>还没有评价？快来抢沙发呀~</p>
 			</div>
 
 			<div class="wrap_all_returned">
@@ -214,7 +192,7 @@
 		<div class="wrapAll_comment"><p class="set_title" >发表评价</p>
 			
 		<div class="text_write_box">
-			<textarea name="" id="comment_detailed" rows="" cols="" placeholder="写评价，给医案评价一下"></textarea>
+			<textarea name="" id="comment_detailed" rows="" cols="" placeholder="写评价，给文章评价一下"></textarea>
 		</div>
 		<!--表情/提交评价-->
 		<ul class="brow_btn">
@@ -234,6 +212,7 @@
 		<!-- 点击分享按钮结束 -->
 	</div>
 	<!-- 中间内容结束 -->
+
 	<div class="quie_pic" style="padding-bottom: 0px;">
 		<img src="/xcview/images/no_comment.png">	
 		<p>还没有评价？快来抢沙发呀~</p>
@@ -246,11 +225,12 @@
 <script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/common.js?v=wechat_1.1.1"></script> 
 <script type="text/javascript" src="/xcview/js/common/template.js"></script>    <!--数据模板引入-->
-<script type="text/javascript" src="/xcview/js/physician/consilia.js"></script> 
+<script type="text/javascript" src="/xcview/js/physician/index.js"></script> 
+
+<script type="text/javascript" src="/xcview/js/physician/work.js"></script> 
 <script type="text/javascript" src="/xcview/js/share/share.js?v=wechat_1.1.1"></script>
 <script>
 	window.onload = function(){
-
 		/*if($('#comment_detailed').val()==""){
             $(".report_btn").css("opacity","0.3");
             alert(2121);
@@ -271,17 +251,11 @@
         	$(".wrapAll_comment").hide();
         });
 
-        // 点击背景色隐藏
-        $(".bg_userModal").click(function(){
-        	$(".bg_userModal").hide();
-        	$(".wrapLittle_comment").hide();
-        });
-
         //点击发表评价隐藏
-        /*$(".report_btn").click(function(){
+        $(".report_btn").click(function(){
         	$(".bg_modal").hide();
         	$(".wrapAll_comment").hide();
-        });*/
+        });
 
         // 点击分享按钮
         $(".header_news").click(function(){
@@ -291,10 +265,18 @@
         $(".weixin_ceng").click(function(){
         	$(".weixin_ceng").hide();
         });
+
+        // 点击回复背景色隐藏
+        $(".bg_userModal").click(function(){
+        	$(".bg_userModal").hide();
+        	$(".wrapLittle_comment").hide();
+        });
+
+        function delHtmlTag(str){
+		    return str.replace(/<[^>]+>/g,"");
+		}
 	};
 </script>
-
 <!-- 公用弹框 -->
 <script type="text/javascript" src="/xcview/js/common/alertPopShow.js?v=wechat_1.1.1"></script>
-
 </html>

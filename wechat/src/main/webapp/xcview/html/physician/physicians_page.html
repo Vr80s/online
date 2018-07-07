@@ -127,6 +127,9 @@
 		.am-pureview-bar-active .am-pureview-actions, .am-pureview-bar-active .am-pureview-bar{
 			/*opacity: 0;*/
 		}
+		.am-pureview{
+			z-index: 999999;
+		}
 	</style>
 
 <script>
@@ -371,9 +374,7 @@
 				</div>
 				<div class="message_face">
 					<!--<span class="disciple"><span class="disciple_fize">弟子</span>25</span>-->
-					{{if items.fansCount>0}}
 					<div class="fans"><div class="fans_size">粉丝</div><div id="fansCount">{{items.fansCount}}</div></div>
-					{{/if}}
 					<div class="both"></div>
 				</div>
 				
@@ -481,11 +482,12 @@
 				<div class="both"></div>
 				{{else if item.type == 3}}
 				<!-- 视频-->
-				<div class="rests_nav_span comment_hide" style="padding-bottom: 0.2rem;">
+				<div class="rests_nav_span comment_hide">
 					{{if item.stick}}
 					<span class="stick_img"><img src="/xcview/images/stick.png" alt="" />置顶</span>
 					{{/if}}
 					<span class="title">{{item.title}}</span>
+					<div class="both"></div>
 				</div>
 				<div class="ccvideo_div">
 					<div id="ccvideo{{item.id}}" class="comment_hide ccvideo">
@@ -496,8 +498,8 @@
 				
 				{{else if item.typeId != null && item.typeId != 8}}
 				<!-- 文章-->
-				<div class="article_hide" data-id="{{item.articleId}}">
-					<div class="article_nav_span comment_hide" style="overflow: hidden; */">
+				<div class="article_hide" data-id="{{item.articleId}}" data-status="{{item.articleStatus}}" data-writingsId="{{item.writingsId}}">
+					<div class="article_nav_span comment_hide" style="overflow: hidden; ">
 						{{if item.stick}}
 						<span class="stick_img_stick"><img src="/xcview/images/stick.png" alt="" />置顶</span>
 						{{/if}}
@@ -507,12 +509,15 @@
 						<img src="{{item.articleImgPath}}" alt="" />
 						<div class="article_nav_cen_size">{{item.articleTitle}}</div>
 						<div class="article_nav_cen_sizes">{{item.articleContent}}</div>
+						{{if item.articleStatus == 0}}
+						<div style="background: #FAFAFA;font-size: 0.26rem;">抱歉，此文章已被作者删除。</div>
+						{{/if}}
 					</div>
 					<div class="both"></div>
 				</div>
 				{{else if item.type == 5}}
 				<!-- 课程-->
-				<div class="course_hide" data-id="{{item.courseId}}">
+				<div class="course_hide" data-id="{{item.courseId}}" data-status="{{item.courseStatus}}">
 					<div class="course_nav_span comment_hide" style="font-size: 0.3rem;color: #333333;">
 						{{if item.stick}}
 						<span class="stick_img_stick"><img src="/xcview/images/stick.png" alt="" />置顶</span>
@@ -531,7 +536,7 @@
 						<div class="course_nav_rate"><span>{{item.currentPrice}}</span>熊猫币</div>
 						{{/if}}
 						{{if item.courseType==3}}
-						<div class="course_nav_cen_size">{{item.startTime}}</div>
+						<div class="course_nav_cen_size" style="margin-top: 0;">{{item.startTime}}</div>
 						{{/if}}
 						{{if item.courseType==4}}
 						<div class="course_nav_cen_size"><img src="/xcview/images/location_four.png" style="width: 0.19rem;height: 0.24rem;float: left;margin-right: 0.1rem; margin-top: 0.06rem;" />{{item.courseAddress}}</div>
@@ -555,10 +560,13 @@
 
 					<div class="both"></div>
 					<div class="consilia_nav_btn"><span>展开</span></div>
-					<div class="consilia_nav_cen" data-id="{{item.articleId}}" style="display: block;">
+					<div class="consilia_nav_cen" data-id="{{item.articleId}}" data-status="{{item.articleStatus}}" style="display: block;">
 						<img src="{{item.articleImgPath}}" alt="" />
 						<div class="consilia_nav_cen_size">{{item.articleTitle}}</div>
 						<div class="consilia_nav_cen_sizes">{{item.articleContent}}</div>
+						{{if item.articleStatus == 0}}
+						<div style="background: #FAFAFA;font-size: 0.26rem;">抱歉，此医案已被作者删除。</div>
+						{{/if}}
 					</div>
 					<div class="both"></div>
 				</div>
@@ -763,14 +771,14 @@
 							{{else}}
 							<p class='money_status z' style="margin-top1: 0.003rem;"><span>{{item.currentPrice}}</span>熊猫币</p>
 							{{/if}}
-							<p class="more_people z"><img src="/xcview/images/population.png" alt="" /><span>{{item.learndCount}}</span></p>                 						
+							<p class="more_people z"><img src="/xcview/images/population.png" alt="" /><span style="margin-top:-0.04rem;">{{item.learndCount}}</span></p>                 						
 							{{if item.type == 3}}
 							   {{if item.lineState == 1}}
 							   <p class="zhibo_play">直播中</p>
 							   {{else if item.startDateStr.indexOf('.')==-1}}
 								<p class="p3 p4"><img src="/xcview/images/Sinatv_time.png" alt="" style="margin-right: 0.03rem;" /><span style="margin-top: -0.02rem;font-size: 0.24rem;">{{item.startDateStr}}</span></p              						   
 								{{else}}
-								<p class="p3 p4"><img src="/xcview/images/learn.png" alt="" style="margin-right: 0.03rem;" /><span style="float: left;font-size: 0.24rem;margin-top: -0.02rem;">{{item.startDateStr}}</span></p>
+								<p class="p3 p4"><img src="/xcview/images/learn.png" alt="" style="margin-right: 0.03rem;" /><span style="float: left;font-size: 0.24rem;margin-top: -0.04rem;">{{item.startDateStr}}</span></p>
 								{{/if}}
 						
 						{{else if item.type == 4}}
@@ -932,7 +940,7 @@
 								{{else}}
 								<p class='money_status z' style="margin-top1: 0.003rem;"><span>{{item.currentPrice}}</span>熊猫币</p>
 								{{/if}}
-								<p class="more_people z"><img src="/xcview/images/population.png" alt="" /><span>{{item.learndCount}}</span></p>                 						
+								<p class="more_people z"><img src="/xcview/images/population.png" alt="" /><span style="margin-top:-0.04rem;">{{item.learndCount}}</span></p>                 						
 								{{if item.type == 3}}
 								   {{if item.lineState == 1}}
 								   <p class="zhibo_play">直播中</p>
@@ -1142,19 +1150,6 @@ $(window).bind("scroll", function() {
  });
 </script>
 <!-- 头部固定结束 -->
-
-<!-- 头部轮播js开始 -->
-<script>
-	var mySwiper = new Swiper('.swiper-container', {
-		autoplay: true, //可选选项，自动滑动
-		loop: true,
-		pagination: {
-			el: '.swiper-pagination',
-		},
-	})
-</script>
-<!-- 头部轮播结束 -->
-
 
 <script type="text/javascript">
 	// 导航  固定和点击切换事件

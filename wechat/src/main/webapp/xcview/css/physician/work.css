@@ -25,7 +25,7 @@ header{
 	background: #fff;
 	position: fixed;
 	top: 0;
-	z-index: 1;
+    z-index: 1;
 }
 .header{
 	width: 7.5rem;
@@ -82,34 +82,85 @@ header{
 	opacity: 0;
     display: none !important;
 }
+.opacity_height{
+	width: 100%;
+	height: 0.88rem;
+	opacity: 0;
+}
 /*头部结束*/
 
 /*中间内容开始*/
 .consilia_main_center h2{
 	font-size: 0.36rem;
 	color: #333;
-	text-align: center;
-	width: 6.36rem;
+	/*text-align: center;*/
+	width: 4.8rem;
 	margin: 0 auto;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	padding-top: 0.3rem;
-	margin-bottom: 0.3rem;
+	margin-bottom: 0.1rem;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
 }
+.article{
+    position: relative;
+    width: 4.8rem;
+    height: 0.37rem;
+    line-height: 0.37rem;
+    margin: 0 auto;
+    margin-bottom: 0.3rem;
+}
+.article_main{
+    position: absolute;
+    width: 6.98rem;
+    margin: 0 auto;
+}
+.article_time{
+    /* width: 100%; */
+    font-size: 0.26rem;
+    color: #999999;
+    /* text-align: center; */
+    /* padding: 0 0.1rem; */
+    background: #fff;
+}
+.article_time div{
+    width: 100%;
+}
+.article_border_left{
+    width: 2.1rem;
+    height: 1px;
+    background: #f0f0f0;
+    position: absolute;
+    top: 0.155rem;
+    left: 0;
+    /*z-index: -1;*/
+}
+.article_border_right{
+    width: 2.1rem;
+    height: 1px;
+    background: #f0f0f0;
+    position: absolute;
+    top: 0.155rem;
+    right: 0;
+    /*z-index: -1;*/
+}
+
 .consilia_main_center{
 	width: 100%;
 	background: #fff;
+    padding-top: 0.4rem;
 }
 .consilia_center{
 	width: 6.98rem;
 	margin: 0 auto;
 	padding-bottom: 0.3rem;
+    margin-top: 0.4rem;
 }
 .consilia_center img{
 	max-width: 6.98rem;
 	margin: 0 auto;
-	margin-bottom: 0.2rem;
+    margin-bottom: 0.2rem;
+    margin-top: 0.3rem;
 }
 .consilia_textarea{
 	font-size: 0.32rem;
@@ -117,6 +168,15 @@ header{
 	line-height: 0.42rem;
 	width: 6.98rem;
 	margin: 0 auto;
+    word-break: break-all;
+}
+.consilia_textarea p img{
+    max-width: 6.98rem;
+    margin: 0 auto;
+}
+.consilia_center_url{
+    font-size: 0.28rem;
+    color: #999999;
 }
 
 /*评价开始*/
@@ -182,7 +242,7 @@ header{
     margin-top: 0.3rem;
 }
 .wrap_userName p{
-	color: #999;
+    color: #999;
 }
 .z {
     float: left;
@@ -284,7 +344,7 @@ header{
     background: rgba(0,0,0,.1);
     margin-left: -3.75rem;
     display: none;
-    z-index: 1;
+    z-index: 2;
 }
 
 .wrapAll_comment {
@@ -342,7 +402,7 @@ header{
     width: 7.5rem;
     height: 100%;
     background: #000;
-    opacity: 0.5;
+    opacity: 0.3;
     position: fixed;
     left: 50%;
     top: 0;
@@ -367,7 +427,6 @@ header{
     z-index: 99999999999;
 }
 /*点击分享按钮结束*/
-
 
 /*回复评价开始*/
 .bg_userModal {
@@ -437,24 +496,6 @@ header{
 }
 /*回复评价结束*/
 
-.show_baseImagenumber{
-    width: 100%;
-    height: 5rem;
-    text-align: center;
-    display: none;
-    background: white;
-}
-.show_baseImagenumber img{
-    width: 2.5rem;
-    display: inline-block;
-    margin-top: 0.5rem;
-}
-.show_baseImagenumber p{
-    color: #999;
-    padding: 0.2rem 0;
-}
-
-
 .quie_pic {
     width: 100%;
      height: 4rem; 
@@ -474,131 +515,20 @@ header{
     padding: 0.2rem 0;
 }
 
-/*著作开始*/
-.cover {
+
+/*封面图*/
+.cover{
     width: 2rem;
     height: 2rem;
     float: left;
     margin-left: 0.26rem;
 }
-.cover img {
+.cover img{
     width: 2rem;
     height: 2rem;
 }
-.caption {
+.caption{
     width: 4.8rem;
-    /* height: 4.28rem; */
+    /*height: 4.28rem;*/
     float: right;
 }
-.caption h2 {
-    font-size: 0.36rem;
-    color: #333;
-    /* text-align: center; */
-    width: 4.8rem;
-    margin: 0 auto;
-    margin-bottom: 0.1rem;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    overflow: hidden;
-}
-.article {
-    position: relative;
-    width: 4.8rem;
-    height: 0.37rem;
-    line-height: 0.37rem;
-    margin: 0 auto;
-    margin-bottom: 0.3rem;
-}
-.article_main {
-    position: absolute;
-    width: 6.98rem;
-    margin: 0 auto;
-}
-.article_time {
-    /* width: 100%; */
-    font-size: 0.26rem;
-    color: #999999;
-    /* text-align: center; */
-    /* padding: 0 0.1rem; */
-    background: #fff;
-}
-/*著作结束*/
-
-/*专栏开始*/
-.column{
-    width: 7.5rem;
-    height: 100%;
-    background: #fff;
-    margin: 0 auto;
-}
-.column h2{
-    width: 6.98rem;
-    font-size: 0.36rem;
-    color: #333;
-    /* text-align: center; */
-    width: 6.98rem;
-    margin: 0 auto;
-    padding-top: 0.3rem;
-    margin-bottom: 0.2rem;
-}
-.column_time{
-    width: 6.98rem;
-    font-size: 0.26rem;
-    margin: 0 auto;
-    color: #999999;
-    background: #fff;
-}
-/*专栏结束*/
-
-/*媒体报道开始*/
-.media{
-    width: 7.5rem;
-    height: 100%;
-    background: #fff;
-    margin: 0 auto;
-}
-.media h2{
-    width: 6.98rem;
-    font-size: 0.36rem;
-    color: #333;
-    /* text-align: center; */
-    width: 6.98rem;
-    margin: 0 auto;
-    padding-top: 0.3rem;
-    margin-bottom: 0.2rem;
-}
-.media_time{
-    width: 6.98rem;
-    font-size: 0.26rem;
-    margin: 0 auto;
-    color: #999999;
-    background: #fff;
-}
-/*媒体报道结束*/
-
-/*医案开始*/
-.medical_cases{
-    width: 7.5rem;
-    height: 100%;
-    background: #fff;
-    margin: 0 auto;
-}
-.medical_cases h2{
-    width: 6.98rem;
-    font-size: 0.36rem;
-    color: #333;
-    /* text-align: center; */
-    width: 6.98rem;
-    margin: 0 auto;
-    padding-top: 0.3rem;
-    margin-bottom: 0.2rem;
-}
-.medical_cases_time{
-    width: 6.98rem;
-    font-size: 0.26rem;
-    margin: 0 auto;
-    color: #999999;
-    background: #fff;
-}
-/*医案结束*/

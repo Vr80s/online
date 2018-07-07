@@ -1,4 +1,4 @@
-    
+
 var doctorId = getQueryString("doctor");
 var loginUserId="";
 var loginUserName="";
@@ -20,9 +20,23 @@ function sowingMap() {
         if(data.success==true){
             var obj = data.resultObject;
             $(".top_details").html(template('top_details',{items:obj}));
+            var mySwiper = new Swiper('.swiper-container', {
+                autoplay: true, //可选选项，自动滑动
+                loop: true,
+                pagination: {
+                    el: '.swiper-pagination',
+                },
+            })
+            
+            //是否显示粉丝数
+            if(obj.fansCount > 0){
+                $(".fans").show();
+            } else {
+                $(".fans").hide();
+            }
             //关注
             $(".attention").click(function(){
-                $(".message_face").show();
+                $(".fans").show();
                 var lecturerId = $(this).attr("data-userId");
                 var src = $(this).find('img').attr('src');
                 var p = $(".fans").find('#fansCount').html();
@@ -32,12 +46,16 @@ function sowingMap() {
                     $(".attention").find('.pay_attention').html("已关注");
                     $(".attention").css("background","#bbb");
                     $(".fans").find('#fansCount').html(parseInt(p)+1);
+                    $(".fans").show();
                 } else {
                     my_follow(lecturerId,2);
                     $(".attention").find('img').attr('src','/xcview/images/weigz.png');
                     $(".attention").find('.pay_attention').html("加关注");
                     $(".attention").css("background","#00bc12");
                     $(".fans").find('#fansCount').html(parseInt(p)-1);
+                    if(parseInt(p)-1 <= 0){
+                        $(".fans").hide();
+                    }
                 }
             });
 
@@ -54,7 +72,7 @@ function sowingDetails(url) {
 function doctorPostsList(doctorPostsType) {
     requestGetService("/doctor/posts", {
         pageNumber: 1,
-        pageSize:10,
+        pageSize:500,
         type:doctorPostsType,
         doctorId:doctorId
     }, function (data) {
@@ -77,6 +95,17 @@ function doctorPostsList(doctorPostsType) {
             //过滤文章内容标签
             if(obj[i].articleId!==null && obj[i].articleId!==""){
                 obj[i].articleContent = obj[i].articleContent.replace(/<.*?>/ig,"");
+            }
+            //是否上下架
+            if(obj[i].articleStatus){
+                obj[i].articleStatus = 1;
+            }else {
+                obj[i].articleStatus = 0;
+            }
+            if(obj[i].courseStatus){
+                obj[i].courseStatus = 1;
+            }else {
+                obj[i].courseStatus = 0;
             }
 
         }
@@ -296,17 +325,41 @@ function doctorPostsList(doctorPostsType) {
         //文章跳转
         $(".article_hide").click(function(){
             var articleId = $(this).attr("data-id");
-            location.href = "/xcview/html/physician/article.html?articleId=" + articleId;
+            var articleStatus = $(this).attr("data-status");
+            var writingsId = $(this).attr("data-writingsId");
+            if(articleStatus == 1){
+                if(writingsId != null && writingsId != ""){
+                    location.href = "/xcview/html/physician/work.html?articleId=" + articleId;
+                } else {
+                    location.href = "/xcview/html/physician/article.html?articleId=" + articleId;
+                }
+            } else {
+               return false;
+            }
+
+
         });
         //课程跳转
         $(".course_hide").click(function(){
             var itemId = $(this).attr("data-id");
-            common_jump_all(itemId)
+            var courseStatus = $(this).attr("data-status");
+            if(courseStatus == 1){
+                common_jump_all(itemId)
+            } else {
+                location.href = "/xcview/html/unshelve.html";
+            }
+
         });
         //医案跳转
             $(".consilia_nav_cen").click(function(){
             var itemId = $(this).attr("data-id");
-            location.href = "/xcview/html/physician/consilia.html?articleId=" + itemId;
+            var articleStatus = $(this).attr("data-status");
+            if(articleStatus == 1){
+                location.href = "/xcview/html/physician/consilia.html?articleId=" + itemId;
+            } else {
+                webToast("该医案已下架","middle",1500);
+            }
+
         });
         //点击视频播放/暂停
         $(".ccvideo").click(function(){
@@ -348,6 +401,7 @@ function sendComment(){
             $("#form_article").val("");
             var evaluatePostsId = "evaluate"+getPostsIdByComment;
             var getNewPostsCommentId = data.resultObject[0].id;
+            postsCommentUserName = data.resultObject[0].userName;
             $("#"+getPostsIdByComment).show();
             if(!$("#"+getPostsIdByComment).children(".number_people_fize").children("span").is(":empty")){
                 $("#"+getPostsIdByComment).find(".number_people_fize").show();
@@ -361,7 +415,7 @@ function sendComment(){
                 $("."+evaluatePostsId+"").find("").attr("class");
                 $("div[data-id="+getNewPostsCommentId+"]").addClass(""+getNewPostsCommentId+"");
             }else {
-                $("."+evaluatePostsId+"").prepend("<div class=\"both\"></div><div class='response evaluateDiv 'data-id="+getNewPostsCommentId+"" +
+                $("."+evaluatePostsId+"").prepend("<div class=\"both\"></div><div class='response evaluateDiv 'data-id="+getNewPostsCommentId+" data-userName="+postsCommentUserName+"" +
                     " data-postsId="+getPostsIdByComment+" data-replyUserId="+loginUserId+"> " +
                     "<span class=\"my\">"+loginUserName+"</span> <span class=\"response_cen\">回复</span> " +
                     "<span class=\"she\">"+postsCommentUserName+"：</span> <span class=\"response_center\">"+article+"</span>" +
@@ -373,6 +427,7 @@ function sendComment(){
             $(".evaluateDiv").unbind( "click" );
             $(".evaluateDiv").click(function(){
                 postsCommentId = $(this).attr('data-id');
+                postsCommentUserName = $(this).attr('data-userName');
                 getPostsIdByComment = $(this).attr('data-postsId');
                 var userId = $(this).attr('data-userId');
                 var replyUserId = $(this).attr('data-replyUserId');
@@ -383,6 +438,8 @@ function sendComment(){
                     $(".face").attr("src","/xcview/images/face.png");
                     $("#page_emotion").css("bottom","-2.8rem");
                     $(".comment").show();
+                    $(".article_main").show();
+                    $(".article_main").html("回复"+postsCommentUserName+":");
                 }else {
                     $(".remove_copy").show();
                     $(".remove").unbind( "click" );
@@ -497,15 +554,6 @@ function ccVideo(videoId, multimediaType,id) {
             } else {
             }
         }, false);
-}
-
-//文章跳转
-function articleDetails(id) {
-    location.href = "/xcview/html/physician/article.html?articleId=" + id;
-}
-//医案跳转
-function consiliaDetails(id) {
-    location.href = "/xcview/html/physician/consilia.html?articleId=" + id;
 }
 
 //增加/取消关注

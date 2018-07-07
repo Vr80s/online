@@ -29,66 +29,51 @@ public class MultiUrlHelper {
     public static final String URL_TYPE_MOBILE = "mobile";
     private static final String APP_COURSE_DETAIL = "xczh://ipandatcm.com/courseDetail?id={0}";
     private static final String WEB_COURSE_DETAIL = "/courses/{0}/info";
+    private static final String MOBILE_COURSE_DETAIL = "/course/{0}";
     private static final String APPRENTICE_URL = "/xcview/html/apprentice/inherited_introduction.html?merId={0}&needLogin=true";
     private static final String NEED_LOGIN_TRUE = "needLogin=true";
     private static final String NEED_LOGIN_FALSE = "needLogin=false";
 
     private static Map<String, Map<String, String>> urlMap = new HashMap<>();
-    private static Map<String, String> collectionCourseDetailUrlMap = ImmutableMap.of(
-            URL_TYPE_APP, APP_COURSE_DETAIL,
-            URL_TYPE_WEB, WEB_COURSE_DETAIL,
-            URL_TYPE_MOBILE, "/xcview/html/live_select_album.html?course_id={0}");
-    private static Map<String, String> liveCourseDetailUrlMap = ImmutableMap.of(
-            URL_TYPE_APP, APP_COURSE_DETAIL,
-            URL_TYPE_WEB, WEB_COURSE_DETAIL,
-            URL_TYPE_MOBILE, "/xcview/html/live_play.html?my_study={0}");
-    private static Map<String, String> offlineCourseDetailUrlMap = ImmutableMap.of(
-            URL_TYPE_APP, APP_COURSE_DETAIL,
-            URL_TYPE_WEB, WEB_COURSE_DETAIL,
-            URL_TYPE_MOBILE, "/xcview/html/school_class.html?course_id={0}");
-    private static Map<String, String> videoAudioCourseDetailUrlMap = ImmutableMap.of(
-            URL_TYPE_APP, APP_COURSE_DETAIL,
-            URL_TYPE_WEB, WEB_COURSE_DETAIL,
-            URL_TYPE_MOBILE, "/xcview/html/live_audio.html?my_study={0}");
 
     private static Map<String, String> courseDetailUrlMap =
             ImmutableMap.of(URL_TYPE_APP, APP_COURSE_DETAIL,
                     URL_TYPE_WEB, WEB_COURSE_DETAIL,
-                    URL_TYPE_MOBILE, "/xczh/page/course/{0}");
+                    URL_TYPE_MOBILE, MOBILE_COURSE_DETAIL);
     private static Map<String, String> learningCourseDetailUrlMap =
             ImmutableMap.of(URL_TYPE_APP, "xczh://ipandatcm.com/learningCourseDetail?id={0}",
                     URL_TYPE_WEB, WEB_COURSE_DETAIL,
-                    URL_TYPE_MOBILE, "/xczh/page/course/{0}");
+                    URL_TYPE_MOBILE, MOBILE_COURSE_DETAIL);
 
     //===== 学习里的课程详情 courseType区分课程类型 collection 区分是否是专辑 ======
     private static Map<String, String> learningLiveCourseDetailUrlMap =
             ImmutableMap.of(URL_TYPE_APP, "xczh://ipandatcm.com/learningCourseDetail?id={0}&collection=false&courseType=" + CourseType.LIVE.getId(),
                     URL_TYPE_WEB, WEB_COURSE_DETAIL,
-                    URL_TYPE_MOBILE, "/xczh/page/course/{0}");
+                    URL_TYPE_MOBILE, MOBILE_COURSE_DETAIL);
 
     private static Map<String, String> learningAudioCourseDetailUrlMap =
             ImmutableMap.of(URL_TYPE_APP, "xczh://ipandatcm.com/learningCourseDetail?id={0}&collection=false&courseType=" + CourseType.AUDIO.getId(),
                     URL_TYPE_WEB, WEB_COURSE_DETAIL,
-                    URL_TYPE_MOBILE, "/xczh/page/course/{0}");
+                    URL_TYPE_MOBILE, MOBILE_COURSE_DETAIL);
 
     private static Map<String, String> learningVideoCourseDetailUrlMap =
             ImmutableMap.of(URL_TYPE_APP, "xczh://ipandatcm.com/learningCourseDetail?id={0}&collection=false&courseType=" + CourseType.VIDEO.getId(),
                     URL_TYPE_WEB, WEB_COURSE_DETAIL,
-                    URL_TYPE_MOBILE, "/xczh/page/course/{0}");
+                    URL_TYPE_MOBILE, MOBILE_COURSE_DETAIL);
     private static Map<String, String> learningOfflineCourseDetailUrlMap =
             ImmutableMap.of(URL_TYPE_APP, "xczh://ipandatcm.com/learningCourseDetail?id={0}&collection=false&courseType=" + CourseType.OFFLINE.getId(),
                     URL_TYPE_WEB, WEB_COURSE_DETAIL,
-                    URL_TYPE_MOBILE, "/xczh/page/course/{0}");
+                    URL_TYPE_MOBILE, MOBILE_COURSE_DETAIL);
 
     private static Map<String, String> learningAudioCourseCollectionDetailUrlMap =
             ImmutableMap.of(URL_TYPE_APP, "xczh://ipandatcm.com/learningCourseDetail?id={0}&collection=true&courseType=" + CourseType.AUDIO.getId(),
                     URL_TYPE_WEB, WEB_COURSE_DETAIL,
-                    URL_TYPE_MOBILE, "/xczh/page/course/{0}");
+                    URL_TYPE_MOBILE, MOBILE_COURSE_DETAIL);
 
     private static Map<String, String> learningVideoCourseCollectionDetailUrlMap =
             ImmutableMap.of(URL_TYPE_APP, "xczh://ipandatcm.com/learningCourseDetail?id={0}&collection=true&courseType=" + + CourseType.VIDEO.getId(),
                     URL_TYPE_WEB, WEB_COURSE_DETAIL,
-                    URL_TYPE_MOBILE, "/xczh/page/course/{0}");
+                    URL_TYPE_MOBILE, MOBILE_COURSE_DETAIL);
     //====================================================================
 
     private static Map<String, String> doctorApproveUrlMap = ImmutableMap.of(
@@ -172,10 +157,6 @@ public class MultiUrlHelper {
             URL_TYPE_MOBILE, "/xcview/html/physician/consilia.html?id={0}");
 
     static {
-        urlMap.put(RouteTypeEnum.COLLECTION_COURSE_DETAIL_PAGE.name(), collectionCourseDetailUrlMap);
-        urlMap.put(RouteTypeEnum.LIVE_COURSE_DETAIL_PAGE.name(), liveCourseDetailUrlMap);
-        urlMap.put(RouteTypeEnum.OFFLINE_COURSE_DETAIL_PAGE.name(), offlineCourseDetailUrlMap);
-        urlMap.put(RouteTypeEnum.VIDEO_AUDIO_COURSE_DETAIL_PAGE.name(), videoAudioCourseDetailUrlMap);
         urlMap.put(RouteTypeEnum.DOCTOR_APPROVE_PAGE.name(), doctorApproveUrlMap);
         urlMap.put(RouteTypeEnum.HOSPITAL_APPROVE_PAGE.name(), hospitalApproveUrlMap);
         urlMap.put(RouteTypeEnum.ANCHOR_WORK_TABLE_PAGE.name(), workTableUrlMap);

@@ -1,6 +1,8 @@
 package com.xczhihui.course.service.impl;
 
 import static com.xczhihui.common.util.RedisCacheKey.LIVE_COURSE_REMIND_LAST_TIME_KEY;
+import static com.xczhihui.common.util.enums.RouteTypeEnum.COMMON_COURSE_DETAIL_PAGE;
+import static com.xczhihui.common.util.enums.RouteTypeEnum.COMMON_LEARNING_LIVE_COURSE_DETAIL_PAGE;
 
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
@@ -131,7 +133,7 @@ public class MessageRemindingServiceImpl implements MessageRemindingService {
                                 .buildWeixin(weixinTemplateMessageRemindCode, weixinParams)
                                 .buildSms(sendOfflineRemindCode, smsParams)
                                 .detailId(String.valueOf(course.getId()))
-                                .build(user.getId(), CourseUtil.getRouteType(course.getCollection(), course.getType()), null);
+                                .build(user.getId(), COMMON_COURSE_DETAIL_PAGE, null);
                         commonMessageService.saveMessage(baseMessage);
                     }
                 }
@@ -208,7 +210,6 @@ public class MessageRemindingServiceImpl implements MessageRemindingService {
                         CourseAnchor courseAnchor = anchorService.findByUserId(course.getUserLecturerId());
                         if (courseAnchor != null) {
                             String lecturer = courseAnchor.getName();
-                            RouteTypeEnum routeType = CourseUtil.getRouteType(course.getCollection(), course.getType());
                             String commonContent = MessageFormat.format(WEB_LIVE_COURSE_REMIND, lecturer, courseName, minute);
                             Map<String, String> params = new HashMap<>(4);
                             params.put("courseName", courseName);
@@ -229,7 +230,7 @@ public class MessageRemindingServiceImpl implements MessageRemindingService {
                                         .buildWeixin(weixinTemplateMessageRemindCode, weixinParams)
                                         .buildSms(sendLiveRemindCode, params)
                                         .detailId(String.valueOf(id))
-                                        .build(user.getId(), routeType, null)
+                                        .build(user.getId(), COMMON_LEARNING_LIVE_COURSE_DETAIL_PAGE, null)
                                 );
                             }
                         }

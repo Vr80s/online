@@ -106,14 +106,13 @@ function createParamsAndQuery(type,departmentId,sortType,queryKey){
 	 * 筛选条件拼接字符串
 	 */
 	var saisuanstr ="";
+	
 	/**
 	 * 左滑右滑选中
 	 */
-	var typeAll = $("[class='find_nav_cur'] a").attr("title");
-	if(parseInt(typeAll) == 0){
-		
+	//var typeAll = $("[class='find_nav_cur'] a").attr("title");
+	if(type == 0){
 		$(".all_right_type_ones").find(".all_right_type_one").removeClass("all_right_type_one_add");
-	
 	}else{
 		//从新赋值
 		if(isNotBlank(type)){
@@ -249,32 +248,35 @@ function submit(){
    		delete paramsObj.queryKey;
    	}
 	
-	var begin_falg = false;
-	var begin = 0;
-	
+	var checkType = 0;
+	//赛选条件选中的那个
 	var list = $(".all_right_type_ones").find(".all_right_type_one");
 	for(var i = 0; i < list.length; i++) {
 		var className = list[i].className;
 		if(className.indexOf("all_right_type_one_add")!=-1){
-			begin_falg = true;
-			begin = i+1;
+			checkType = i+1;
 			break;
 		}
     }
 	
-	//先存一下，然后在取一下
-	var type_index = sessionStorage.getItem("type_index");
-	if(type_index == parseInt(begin)){ //分类没有变动
-		begin_falg = false;
-	}else{
-		sessionStorage.setItem("type_index",begin);
-	}
+	var currentCheckType = 0;
+	//目前是那个
+	var realList = $("#pagenavi1").find("li");
+	for(var i = 0; i < realList.length; i++) {
+		var className = realList[i].className;
+		if(className.indexOf("find_nav_cur")!=-1){
+			currentCheckType=i;
+			break;
+		}
+    }
 	
-	if(begin_falg || type_index =="type_index"){
-		slide(begin);
+	//如果分类变化的话，进行滑动啦
+	if(currentCheckType != checkType){
+		//滑动到第几个		
+		slide(checkType);
+	//分类没有变化的话，不滑动
 	}else{
 		createParamsAndQuery(type,departmentId,sortType,queryKey);
-		
 		queryDataByParams(paramsObj,type);
 	}
 }

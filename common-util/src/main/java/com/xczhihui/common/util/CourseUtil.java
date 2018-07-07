@@ -6,14 +6,6 @@ import com.xczhihui.common.util.enums.RouteTypeEnum;
 
 public class CourseUtil {
 
-    public static RouteTypeEnum getRouteType(Boolean collection, int type) {
-        collection = collection == null ? false : collection;
-        return collection ? RouteTypeEnum.COLLECTION_COURSE_DETAIL_PAGE :
-                (type == CourseForm.LIVE.getCode() ? RouteTypeEnum.LIVE_COURSE_DETAIL_PAGE :
-                        (type == CourseForm.VOD.getCode() ? RouteTypeEnum.VIDEO_AUDIO_COURSE_DETAIL_PAGE
-                                : RouteTypeEnum.OFFLINE_COURSE_DETAIL_PAGE));
-    }
-
     public static RouteTypeEnum getCourseLearningRouteType(Boolean collection, int type, Integer multimedia) {
         RouteTypeEnum routeTypeEnum = RouteTypeEnum.NONE;
         if (type == CourseForm.LIVE.getCode()) {
