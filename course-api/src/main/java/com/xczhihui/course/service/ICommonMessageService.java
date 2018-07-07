@@ -64,4 +64,19 @@ public interface ICommonMessageService {
      * @return
      */
     Notice getNewestNotice();
+
+    /**
+     * 绑定用户id与信鸽账户id的关系
+     *
+     * @param userId      用户id
+     * @param xgAccountId 信鸽账号id
+     */
+    void bindXgAccountId(String userId, String xgAccountId);
+
+    /**
+     * 解除用户id与信鸽id的关系
+     * @param userId id
+     * @param xgAccountId xgAccountId
+     */
+    void unBindXgAccountId(String userId, String xgAccountId);
 }

@@ -103,4 +103,6 @@ public interface CacheService {
      * @return
      */
     Long srem(String key, String value);
+
+    Set<String> smembers(String key);
 }

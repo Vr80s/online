@@ -147,6 +147,17 @@ public class RedisCacheService implements CacheService {
     }
 
     @Override
+    public Set<String> smembers(String key) {
+        Jedis jedis = null;
+        try {
+            jedis = this.getJedis();
+            return jedis.smembers(key);
+        } finally {
+            this.release(jedis);
+        }
+    }
+
+    @Override
     @SuppressWarnings("unchecked")
     public <T extends Serializable> T get(String key) {
         Jedis jedis = null;
