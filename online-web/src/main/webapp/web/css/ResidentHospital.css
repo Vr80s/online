@@ -1444,22 +1444,40 @@ margin-right: 5px;
 #doc_Administration_bottom3,
 #doc_Administration_bottom4{
 	text-align: left;
-	padding-top: 30.5px;
+	padding-top: 20px;
 	padding-left: 20px;
 	background: #fff;
   position: absolute;
-  top: 100px;
+  top: 50%;
   left: 50%;
-  padding-right: 40px;
-  transform: translateX(-50%);
+  padding-right: 20px;
+  transform: translate(-50%,-50%);
   z-index: 999;
+  position: fixed;
+  width: 740px;
+      height: 700px;
+    overflow: hidden;
+    overflow-y: auto;
 }
 
 #doc_Administration_bottom3 > div,
 #doc_Administration_bottom4 > div{
 	margin-bottom: 20px;
 }
-#doc_Administration_bottom4 .close_doc_inf,
+#doc_Administration_bottom4 .hospital-close{
+ border-bottom: 1px solid #ededed;
+     overflow: hidden;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+#doc_Administration_bottom4 .hospital-close .close_doc_inf{
+
+	font-size: 18px;
+	color: #000;
+	cursor: pointer;
+	float: right;
+
+}
 #doc_Administration_bottom3 .close_doc_inf {
 	position: absolute;
 	font-size: 18px;
@@ -1468,6 +1486,7 @@ margin-right: 5px;
 	top:0px;
 	right: 0px;
 }
+
 #doc_Administration_bottom3 > div > span:first-child,
 #doc_Administration_bottom4 > div > span:first-child{
 	  display: inline-block;
