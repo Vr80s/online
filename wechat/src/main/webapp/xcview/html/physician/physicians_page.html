@@ -10,36 +10,33 @@
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <meta name="keywords" content="" />
 
-<!-- <link rel="stylesheet" type="text/css" href="/xcview/css/physician/index.css?v=wechat_1.1.1"/> -->
-<link rel="stylesheet" type="text/css" href="/xcview/css/physician/physicians_page.css?v=wechat_1.1.1"/>
+<!-- <link rel="stylesheet" type="text/css" href="/xcview/css/physician/index.css?v=wechat_1.1.1&version=20feeb913b"/> -->
+<link rel="stylesheet" type="text/css" href="/xcview/css/physician/physicians_page.css?v=wechat_1.1.1&version=e173995ae8"/>
 <link rel="stylesheet" href="/xcview/css/physician/swiper-4.2.6.min.css" />
-<link rel="stylesheet" href="/xcview/html/physician/css/demo.css" />
-<link rel="stylesheet" href="/xcview/html/physician/css/demos.css" />
+<link rel="stylesheet" href="/xcview/html/physician/css/demo.css?version=d265f83c60" />
+<link rel="stylesheet" href="/xcview/html/physician/css/demos.css?version=c4433ce522" />
 	<!--手机嵌入模板-->
-<script type="text/javascript" src="/xcview/js/common/layout.js"></script>
+<script type="text/javascript" src="/xcview/js/common/layout.js?version=e2b9d5cdbd"></script>
 
 <script src="/xcview/js/physician/zepto1.14.min.js"></script>
 <script src="/xcview/js/physician/swiper-4.2.6.min.js"></script>
 
-<script type="text/javascript" src="/xcview/js/common/jquery.min-2.1.1.js"></script>
+<script type="text/javascript" src="/xcview/js/common/jquery.min-2.1.1.js?version=d021c983bd"></script>
 
 <!-- 介绍数据引入 -->
-<script type="text/javascript" src="/xcview/js/physician/referral.js"></script>
+<script type="text/javascript" src="/xcview/js/physician/referral.js?version=6743f0205e"></script>
 
 <!--公用弹框 -->
-<link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
-<script type="text/javascript" src="/xcview/js/common/alertPopShow.js"></script>
+<link rel="stylesheet" href="/xcview/css/alert/sharecss.css?version=f6e45d2a7e">
+<script type="text/javascript" src="/xcview/js/common/alertPopShow.js?version=3a4f24e3df"></script>
 <!--刷新 -->
-<link rel="stylesheet" href="/xcview/css/minirefresh/minirefresh.css">
-<script type="text/javascript" src="/xcview/js/minirefresh/minirefresh.js"></script>
+<link rel="stylesheet" href="/xcview/css/minirefresh/minirefresh.css?version=71e5ea2f95">
+<script type="text/javascript" src="/xcview/js/minirefresh/minirefresh.js?version=db3081c0a1"></script>
 
 <!-- 表情包聊天引入 -->
-<link href="/xcview/html/physician/css/webiaoqing.css" rel="stylesheet" type="text/css">
-
-<script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
-<script type="text/JavaScript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
-<!--<script src="/xcview/html/physician/js/jquery_min.js" ></script>-->
-<script src="/xcview/html/physician/js/webiaoqin.js" ></script>
+<link href="/xcview/html/physician/css/webiaoqing.css?version=495638f506" rel="stylesheet" type="text/css">
+<!--<script src="/xcview/html/physician/js/jquery_min.js?version=628072e721" ></script>-->
+<script src="/xcview/html/physician/js/webiaoqin.js?version=9f3575a6d9" ></script>
 <!-- 测试点击图片 -->
 
 	<style>
@@ -129,12 +126,9 @@
 		.am-pureview{
 			z-index: 999999;
 		}
-		.ccH5FullsBtn{
+		/* .ccH5FullsBtn{
 			display: none !important;
-		}
-		.ccH5ExitFullsBtn{
-			display: none !important;
-		}
+		} */
 		.ccH5playerBox video{
 			z-index: 1;
 		}
@@ -170,51 +164,12 @@
 			display: none;
 		}
 
-
-
-		.show-text{
-				width: 6.98rem;
-				margin: 0 auto;
-				font-size: 0.3rem;
-			    color: #666;
-			    word-break: break-all;
-			    word-wrap: break-word;
-			    line-height: 0.4rem;
-			}
-			.show-text p{
-				margin: 0;
-			}
-			.opened {
-			    height: auto !important;
-			}
-			.toggle .closes,
-			.opened .toggle .opens {
-			  display: none;
-			  color: #2CB82C !important;
-			  font-size: 0.28rem;
-			  text-decoration: none;
-			}
-			.toggle .opened,.opened .toggle .closes {
-			  display: inline;
-			  color: #2CB82C;
-			  font-size: 0.28rem;
-			  text-decoration: none;
-			}
-			.opens{
-				font-size: 0.28rem;
-			}
+		video::-webkit-media-controls-fullscreen-button {
+            display: none;
+        }
 	</style>
 
-<script>
-	// 判断横屏展示时的状态
-	window.onorientationchange=function(){
-	    if(window.orientation==90||window.orientation==-90){
-	        window.location.reload();  /*横屏状态刷新*/
-	    }else{
-	        window.location.reload();  /*竖屏状态刷新*/
-	    }
-	}	
-</script>
+
 
 <style>
 	.physicians_page_mains {
@@ -392,44 +347,6 @@
 	}
 </style>
 
-<script>
-	$(function(){
-		/*var $dot5 = $('.show-text');
-                $dot5.each(function () {
-                    if ($(this).height() > 100) {
-                        $(this).attr("data-txt", $(this).attr("data-text"));
-                        $(this).height(100);
-                        $(this).append('<span class="qq" style="margin-right:60px"> <a class="toggle" href="###" style="color:#2cb82c"><span class="opens">阅读全文<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></span><span class="closes">收起<span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span></span></a></span>');
-                    }
-                    var $dot4 = $(this);
-
-                    function createDots() {
-                        $dot4.dotdotdot({
-                            after: 'span.qq'
-                        });
-                    }
-                    function destroyDots() {
-                        $dot4.trigger('destroy');
-                    }
-
-                    createDots();
-                    $dot4.on(
-                        'click',
-                        'a.toggle',
-                        function () {
-                            $dot4.toggleClass('opened');
-
-                            if ($dot4.hasClass('opened')) {
-                                destroyDots();
-                            } else {
-                                createDots();
-                            }
-                            return false;
-                        }
-                    );
-                 });*/
-	});
-</script>
 </head>
 <body style="background: #F8F8F8;">
 	<div class="physicians_page_main comment_hide">
@@ -557,11 +474,11 @@
 				{{if item.type == 1}}
 				<!-- 普通动态-->
 				<div class="panel_hide">
-					<div class="essay_main comment_hide panels_essay_main show-text">
+					<div class="essay_main comment_hide panels_essay_main">
                         {{if item.stick}}<span class="stick_img"><img src="/xcview/images/stick.png" alt="" />置顶</span>
                         {{/if}}
                         {{item.content}}</div>
-					<!--<div class="essay_pack_up_btn"><span class="essay_pack_up_btn_span">展开</span></div>-->
+					<div class="essay_pack_up_btn"><span class="essay_pack_up_btn_span">展开</span></div>
 					<div class="both"></div>
 				</div>
 				
@@ -1204,25 +1121,20 @@
 	<!-- 添加默认图 -->
 
 </body>
-
-
+<script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
+<script type="text/JavaScript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 <script src="/xcview/weihoujs/jquery.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
-<script type="text/javascript" src="/xcview/js/common/common.js?v=wechat_1.1.1"></script>
-<script type="text/javascript" src="/xcview/js/common/template.js"></script>    <!--数据模板引入-->
+<script type="text/javascript" src="/xcview/js/common/common.js?v=wechat_1.1.1&version=dfc1cfb838"></script>
+<script type="text/javascript" src="/xcview/js/common/template.js?version=dd622e58c9"></script>    <!--数据模板引入-->
 
 <!-- 直播课跳转 -->
-<script type="text/javascript" src="/xcview/js/common/commonJumpPlay.js"></script>
+<script type="text/javascript" src="/xcview/js/common/commonJumpPlay.js?version=8bcdb81554"></script>
 
-
-
-<script type="text/javascript" src="/xcview/js/physician/physician_dynamics.js"></script>    <!--全部动态引入-->
-<!-- 点击收起引入 -->
-<script type="text/javascript" src="/xcview/html/physician/js/jquery.dotdotdot.js"></script>
-
-<script type="text/javascript" src="/xcview/js/share/share.js?v=wechat_1.1.1"></script>
+<script type="text/javascript" src="/xcview/js/physician/physician_dynamics.js?version=216ff49d88"></script>    <!--全部动态引入-->
+<script type="text/javascript" src="/xcview/js/share/share.js?v=wechat_1.1.1&version=5f659f1e41"></script>
 <!-- 直播间数据引入 -->
-<script type="text/javascript" src="/xcview/js/physician/broadcastroom.js"></script>
+<script type="text/javascript" src="/xcview/js/physician/broadcastroom.js?version=d41d8cd98f"></script>
 
 
 
@@ -1501,9 +1413,77 @@ $(window).bind("scroll", function() {
     	$("#form_article").focus();
 	});
 
+	// 点击头部分享按钮   
+	/*$(".header").click(function(){
+		alert(111);
+    	$(".weixin_ceng").show();
+	});*/
+	
 	$(".weixin_ceng").click(function(){
     	$(".weixin_ceng").hide();
 	});
+
+
+	// 判断头部有没有默认图
+	/*var a=$(".swiper-wrapper").html();
+   	if(a==null||a.length==0){
+   		alert(1111);
+       $(".physician_img0").css("display","block");
+    }else{
+       $(".physician_img0").css("display","none");
+   		alert(222);
+
+    };*/
+
+
+	/*// 点击其他--评论显示底部评论区域
+	$(".rests_nav .evaluate_img").click(function(){
+    	$(".face").attr("src","/xcview/images/face.png");
+    	$("#page_emotion").css("bottom","-2.8rem");
+    	$(".comment").show();
+	});
+
+	// 点击医案--评论显示底部评论区域
+	$(".consilia_nav .consilia_evaluate_img").click(function(){
+    	$(".face").attr("src","/xcview/images/face.png");
+    	$("#page_emotion").css("bottom","-2.8rem");
+    	$(".comment").show();
+	});
+
+	// 点击其他二--评论显示底部评论区域
+	$(".essay_pack_up .essay_evaluate_img").click(function(){
+    	$(".face").attr("src","/xcview/images/face.png");
+    	$("#page_emotion").css("bottom","-2.8rem");
+    	$(".comment").show();
+	});	
+
+	// 点击文章--评论显示底部评论区域
+	$(".article_nav .article_evaluate_img").click(function(){
+    	$(".face").attr("src","/xcview/images/face.png");
+    	$("#page_emotion").css("bottom","-2.8rem");
+    	$(".comment").show();
+	});
+
+	// 点击其他三--评论显示底部评论区域
+	$(".paper_nav .paper_evaluate_img").click(function(){
+    	$(".face").attr("src","/xcview/images/face.png");
+    	$("#page_emotion").css("bottom","-2.8rem");
+    	$(".comment").show();
+	});	
+
+	// 点击课程--评论显示底部评论区域
+	$(".course_nav .course_evaluate_img").click(function(){
+    	$(".face").attr("src","/xcview/images/face.png");
+    	$("#page_emotion").css("bottom","-2.8rem");
+    	$(".comment").show();
+	});	
+
+	// 点击课程--评论显示底部评论区域
+	$(".sinatv_nav .sinatv_evaluate_img").click(function(){
+    	$(".face").attr("src","/xcview/images/face.png");
+    	$("#page_emotion").css("bottom","-2.8rem");
+    	$(".comment").show();
+	});		*/
 
     // 点击发送结束
 	});
@@ -1543,8 +1523,7 @@ function header_click(){
     var minirefresh=$(window).height()-$(".top_show_height").height();
     $("#minirefresh").height(minirefresh);
 </script>
-<script type="text/javascript" src="/xcview/html/physician/js/amazeui.js"></script>
-
-
+<script type="text/javascript" src="/xcview/html/physician/js/amazeui.js?version=5bdfd7fbfe"></script>
 
 </html>
+
