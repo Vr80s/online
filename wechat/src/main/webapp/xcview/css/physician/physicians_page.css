@@ -208,6 +208,7 @@ p{
     background-color: white;
     z-index: 999999;
     border-bottom: 1px solid #F0F0F0;
+    position: relative;
 }
 .anchor_navigation {
     width: 100%;
@@ -491,8 +492,8 @@ p{
     word-break: break-all;
 }
 .consilia_nav_span_title{
-	height: 1.8rem;
-    overflow: hidden;
+	/* height: 1.8rem;
+	    overflow: hidden; */
 }
 .consilia_nav_span .stick_img{
 	font-size: 0.3rem;
@@ -2215,5 +2216,5 @@ margin-top: 0.015rem;
     margin: 0 auto;
 }
 .panels_essay_main{
-	min-height: 0.45rem;
+	/*min-height: 0.45rem;*/
 }
