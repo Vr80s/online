@@ -2360,6 +2360,12 @@ var cityJson = [
 {"item_code":"460106","item_name":"龙华区"},
 {"item_code":"460107","item_name":"琼山区"},
 {"item_code":"460108","item_name":"美兰区"},
+
+{"item_code":"460201","item_name":"海棠区"},
+{"item_code":"460202","item_name":"吉阳区"},
+{"item_code":"460203","item_name":"天涯区"},
+{"item_code":"460204","item_name":"崖州区"},
+
 {"item_code":"469001","item_name":"五指山市"},
 {"item_code":"469002","item_name":"琼海市"},
 {"item_code":"469003","item_name":"儋州市"},
@@ -3432,26 +3438,25 @@ function doProvAndCityRelationEdit() {
 }
 
 function doProvAndCountyRelationEdit(){
-
+debugger;
 	  var citys =$("#edit_citys").find("option:selected").text();
 	  $("#realCitys").val(citys);
-
+	  
 	  // 该值用于提交给后台
 	  $("#edit_realCitys").val(citys);
 
 	  var cityVal = $("#edit_citys").val();
 	  var county = $("#edit_county");
-	  if (county.children().length > 1) {
+//	  if (county.children().length > 1) {
 	    county.empty();
-	  }
-	  if ($("#edit_chooseCounty").length === 0) {
-	    county.append("<option id='edit_chooseCounty' value='-1'>请选择您所在区/县</option>");
-	  }
+//	  }
+//	  if ($("#edit_chooseCounty").length === 0) {
+//	    county.append("<option id='edit_chooseCounty' value='-1'>请选择您所在区/县</option>");
+//	  }
+	  
 	  var sb = new StringBuffer();
-
       // 添加标识flag 用来取出第一个option 防止用户拿到null
       var flag = true;
-
 	  $.each(cityJson,
 	    function(i, val) {
 	      if (cityVal == '110100' || cityVal == "120100" || cityVal == "310100" || cityVal == "500100") {
@@ -3475,7 +3480,7 @@ function doProvAndCountyRelationEdit(){
 	        }
 	      }
 	    });
-	  $("#edit_chooseCounty").after(sb.toString());
+	  county.append(sb.toString());
 }
 
 
