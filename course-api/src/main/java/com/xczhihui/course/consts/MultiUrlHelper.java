@@ -155,11 +155,11 @@ public class MultiUrlHelper {
     private static Map<String, String> specialColumnMap = ImmutableMap.of(
             URL_TYPE_APP, "xczh://ipandatcm.com/specialColumn?id={0}",
             URL_TYPE_WEB, "/headline/details/{0}",
-            URL_TYPE_MOBILE, "/xcview/html/physician/consilia.html?id={0}");
+            URL_TYPE_MOBILE, "/xcview/html/physician/consilia.html?consiliaId={0}");
     private static Map<String, String> doctorCaseMap = ImmutableMap.of(
             URL_TYPE_APP, "xczh://ipandatcm.com/doctorCase?id={0}",
             URL_TYPE_WEB, "/headline/details/{0}",
-            URL_TYPE_MOBILE, "/xcview/html/physician/consilia.html?id={0}");
+            URL_TYPE_MOBILE, "/xcview/html/physician/consilia.html?consiliaId={0}");
 
     static {
         urlMap.put(RouteTypeEnum.DOCTOR_APPROVE_PAGE.name(), doctorApproveUrlMap);
