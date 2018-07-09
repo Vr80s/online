@@ -25,8 +25,7 @@ $(function() {
 			quizList(1);		
 		}
 	})
-	
-	
+		
 		if(!location.hash){
 	        	location.hash = "#menu1-1";
 		}
@@ -84,56 +83,9 @@ $(function() {
 	
 	
 //$(window).bind('hashchange', function() {
-
-//		if(location.hash == "#menu1-1" || location.hash == "#menu1-2"){
-//			$("#accordion li").removeClass('open');
-//	    	$("#accordion li[data-menu='menu1-1']").click();
-//	    	$("#accordion li[data-menu='menu1-1']").addClass('open');
-//	    	$("#accordion li[data-menu='menu1-1'] .submenu").css('display','block')
-// 	 	}else if(location.hash == "#menu2-1" || location.hash == "#menu2-2"){
-// 	 		$("#accordion li").removeClass('open');
-//	    	$("#accordion li[data-menu='menu2-1']").click();
-//	    	$("#accordion li[data-menu='menu2-1']").addClass('open');
-//	    	$("#accordion li[data-menu='menu2-1'] .submenu").css('display','block')
-//  	}else if(location.hash == "#menu3"){
-//  		$("#accordion li").removeClass('open');
-//	    	$("#accordion li[data-menu='menu3']").click();
-//	    	$("#accordion li[data-menu='menu3']").addClass('open');
-//  	}else if(location.hash == "#menu4"){
-//  		$("#accordion li").removeClass('open');
-//	    	$("#accordion li[data-menu='menu4']").click();
-//	    	$("#accordion li[data-menu='menu4']").addClass('open');
-//  	}else if(location.hash == "#menu5"){
-//  		$("#accordion li").removeClass('open');
-//	    	$("#accordion li[data-menu='menu5']").click();
-//	    	$("#accordion li[data-menu='menu5']").addClass('open');
-//  	}else if(location.hash == "#menu6"){
-//  		$("#accordion li").removeClass('open');
-//	    	$("#accordion li[data-menu='menu6']").click();
-//	    	$("#accordion li[data-menu='menu6']").addClass('open');
-//  	}else if(location.hash == "#menu7"){
-//  		$("#accordion li").removeClass('open');
-//	    	$("#accordion li[data-menu='menu7']").click();
-//	    	$("#accordion li[data-menu='menu7']").addClass('open');
-//  	}	
-
-
-//	if(hash == '#menu5'){
-//		$("#accordion .link[data-menu='menu5']").click();
-//	}else if(hash == '#menu6'){
-//			newsList(1)
-//			$("#accordion .link[data-menu='menu6']").click();
-//	}
-//if(hash == '#menu1-1'){
-// 		$("#accordion a[data-menu='menu1-1']").click();
-//	}else if(hash == '#menu1-2'){		
-//		$("#accordion a[data-menu='menu1-2']").click();
-//	}else if(hash == '#menu2-1'){
-//		$("#accordion a[data-menu='menu2-1']").click();
-//	}else if(hash == '#menu2-2'){		
-//		$("#accordion a[data-menu='menu2-2']").click();
-//	}
-
+//	
+//
+//
 //});
 	
 	

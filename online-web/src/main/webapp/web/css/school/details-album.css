@@ -190,6 +190,10 @@ color: #999999;
     margin-top: 3px;
     margin-right: 5px;
 }
+.play-album .course-length span{
+	    margin-left: 20px;
+    color: #00bc12;
+}
 .play-album p:nth-child(1){
 	margin-bottom: 6px;
 }

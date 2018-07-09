@@ -533,6 +533,7 @@
         <include refid="selectLiveCourse"/>
         '线下课程' as note
         <include refid="commonCondition"/>
+        and oc.type == 3
         ORDER BY recommendSort desc,oc.start_time DESC LIMIT 0,#{pageSize}
         )
     </select>
