@@ -438,7 +438,11 @@ public class CourseApplyController extends AbstractController {
         if(mha != null){
             Course course = courseService.findByApplyId(courseApplyId);
             MedicalDoctorPosts mdp = new MedicalDoctorPosts();
-            mdp.setContent(course.getGradeName()+","+course.getSubtitle());
+            if(course.getSubtitle() == null || course.getSubtitle().equals("")){
+                mdp.setContent(course.getGradeName());
+            }else {
+                mdp.setContent(course.getGradeName()+","+course.getSubtitle());
+            }
             mdp.setType(5);
             mdp.setTitle(course.getGradeName());
             mdp.setDoctorId(mha.getDoctorId());
