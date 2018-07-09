@@ -51,7 +51,7 @@ public class ArticleController {
             } else if (typeId.equals(HeadlineType.DJZL.getCode())) {
                 oeBxsArticleVO.setType("专栏");
             } else if (typeId.equals(HeadlineType.MYBD.getCode())) {
-                oeBxsArticleVO.setType("报道");
+                oeBxsArticleVO.setType("媒体报道");
             } else {
                 oeBxsArticleVO.setType("文章");
             }

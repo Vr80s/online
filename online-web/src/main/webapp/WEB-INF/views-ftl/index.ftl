@@ -24,6 +24,42 @@
     <link rel="stylesheet" href="/web/font/iconfont.css"/>
     <!--<link rel="stylesheet" href="/web/css/index-9a525196fb.css" type="text/css">-->
 </head>
+
+<script src="/web/js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    (function() {
+        //解析url地址
+        var config = $.ajax({url:"/config.json",async:false}).responseJSON;
+        var browser = {
+            versions: function () {
+                var u = navigator.userAgent, app = navigator.appVersion;
+                return {//移动终端浏览器版本信息
+                    trident: u.indexOf('Trident') > -1, //IE内核
+                    presto: u.indexOf('Presto') > -1, //opera内核
+                    webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+                    gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+                    mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+                    ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+                    android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+                    iPhone: u.indexOf('iPhone') > -1, //是否为iPhone或者QQHD浏览器
+                    iPad: u.indexOf('iPad') > -1, //是否iPad
+                    webApp: u.indexOf('Safari') == -1, //是否web应该程序，没有头部与底部
+                    weixin: u.indexOf('MicroMessenger') > -1, //是否微信
+                    qq: u.match(/\sQQ/i) == " qq" //是否QQ
+                };
+            }(),
+            language: (navigator.browserLanguage || navigator.language).toLowerCase()
+        }
+        var wxurl;
+        if (browser.versions.mobile || browser.versions.ios || browser.versions.android ||
+                browser.versions.iPhone || browser.versions.iPad) {
+            wxurl = config.wechat;
+            window.location = "http://" + wxurl;
+        } else if (document.location.host == 'www.ixincheng.com') {
+            window.location = "http://" + config.pc;
+        }
+    })();
+</script>
 <header>
 <#include "header-body.ftl">
 </header>
@@ -460,7 +496,6 @@
     </div>
 
 </div>
-<script src="/web/js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script>
 <script src="/web/js/lazyload/jquery.lazyload.js?v=1.9.1"></script>
 <script type="text/javascript" src="/web/js/artTemplate.js"></script>
 <script type="text/javascript" src="/web/js/jquery.SuperSlide.2.1.1.js"></script>
@@ -505,43 +540,6 @@
             $(".video_embed").show();
         });
     });
-</script>
-
-<script>
-    var browser = {
-        versions: function () {
-            var u = navigator.userAgent,
-                    app = navigator.appVersion;
-            return { //移动终端浏览器版本信息
-                trident: u.indexOf('Trident') > -1, //IE内核
-                presto: u.indexOf('Presto') > -1, //opera内核
-                webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
-                gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
-                mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
-                ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
-                android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
-                iPhone: u.indexOf('iPhone') > -1, //是否为iPhone或者QQHD浏览器
-                iPad: u.indexOf('iPad') > -1, //是否iPad
-                webApp: u.indexOf('Safari') == -1, //是否web应该程序，没有头部与底部
-                weixin: u.indexOf('MicroMessenger') > -1, //是否微信
-                qq: u.match(/\sQQ/i) == " qq" //是否QQ
-            };
-        }(),
-        language: (navigator.browserLanguage || navigator.language).toLowerCase()
-    }
-
-    if (browser.versions.mobile || browser.versions.ios || browser.versions.android ||
-            browser.versions.iPhone || browser.versions.iPad) {
-
-        if (document.location.host == 'www.ipandatcm.com' || document.location.host == 'www.ixincheng.com') {
-            wxurl = "http://m.ipandatcm.com";
-        } else {
-            wxurl = "http://test-wx.xczhihui.com";
-        }
-        window.location = wxurl;
-    } else if (document.location.host == 'www.ixincheng.com') {
-        window.location = "http://www.ipandatcm.com";
-    }
 </script>
 
 <script type="text/javascript">

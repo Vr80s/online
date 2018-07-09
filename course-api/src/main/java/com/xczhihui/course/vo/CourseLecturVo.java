@@ -205,6 +205,10 @@ public class CourseLecturVo implements Serializable {
     private String dirtyDate; //更新时间
     
     private String outlineDetailsUrl;//富文本课程大纲的html片段url
+    
+    private String doctorId; //医师id
+    
+    private Integer hostType; //主播类型：type：1 医师主播    type:2 医馆主播
 
     /**
      * 是否提交线下课报名表单
@@ -751,6 +755,21 @@ public class CourseLecturVo implements Serializable {
     public void setOutlineDetailsUrl(String outlineDetailsUrl) {
         this.outlineDetailsUrl = outlineDetailsUrl;
     }
-    
+
+    public String getDoctorId() {
+        return doctorId;
+    }
+
+    public void setDoctorId(String doctorId) {
+        this.doctorId = doctorId;
+    }
+
+    public Integer getHostType() {
+        return hostType;
+    }
+
+    public void setHostType(Integer hostType) {
+        this.hostType = hostType;
+    }
     
 }

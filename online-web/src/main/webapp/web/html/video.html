@@ -744,16 +744,9 @@
 </script>
 
 <script>
-	var wxurl;
-	(function() {
-        if(document.location.host=='www.ipandatcm.com'){
-            wxurl = "http://m.ipandatcm.com";
-        }else{
-            wxurl = "http://test-wx.xczhihui.com";
-        }
-	})();
+	var config = $.ajax({url:"/config.json",async:false}).responseJSON
+	var wxurl = config.wechat;
 	var courseId = $.getUrlParam("courseId");
-	/* var qrcodeurl = 'http://wx.ixincheng.com/xcviews/html/share.html?course_id='+courseId; */
 		var qrcodeurl = wxurl+"/wx_share.html?shareType=1&shareId="+courseId;
 		$("#qrcodeCanvas1").qrcode({
 			render : "canvas",    //设置渲染方式，有table和canvas，使用canvas方式渲染性能相对来说比较好
@@ -807,12 +800,7 @@
 
         if(browser.versions.mobile || browser.versions.ios || browser.versions.android ||
             browser.versions.iPhone || browser.versions.iPad){
-
-            if(document.location.host=='www.ipandatcm.com' ||document.location.host=='www.ixincheng.com' || document.location.host=='ipandatcm.com' ||document.location.host=='ixincheng.com'){
-                wxurl = "http://m.ipandatcm.com/wx_share.html?shareType=1&shareId="+courseId;
-            }else{
-                wxurl = "http://test-wx.xczhihui.com/wx_share.html?shareType=1&shareId="+courseId;
-            }
+            wxurl = "http://"+config.wechat+"/wx_share.html?shareType=1&shareId="+courseId;
             window.location = wxurl;
         }else if(document.location.host=='www.ixincheng.com'){
             window.location = "http://www.ipandatcm.com/course/courses/"+courseId;

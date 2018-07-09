@@ -33,6 +33,8 @@
 	.consilia_textarea{
 		line-height: 0.45rem;
 		word-break:break-all;
+		padding-top: 0.3rem;
+		padding-bottom: 0.4rem;
 	}
 	.returned_id{
 		word-break:break-all;
@@ -104,13 +106,14 @@
 				<div class="media">
 					<h2>{{item.title}}</h2>
 					<div class="media_time">{{item.createTime}}</div>
+					<div class="consilia_textarea"></div>
+					<div class="medical_cases_time">本文来源：<span>{{item.url}}<span>。转载请注明出处</div>
 				</div>
-				<div class="consilia_textarea"></div>
+				
 			{{else if item.typeId == 8}}   <!--医案报道-->
 				<div class="medical_cases">
 					<h2>{{item.title}}</h2>
 					<div class="consilia_textarea"></div>
-					<div class="medical_cases_time">本文来源：<span>{{item.createTime}}<span>。转载请注明出处</div>
 				</div>
 				
 			{{/if}}
@@ -201,7 +204,7 @@
 		<div class="wrapLittle_comment">
 			<p class="detailed_comments little_comment">详细评价</p>
 			<div class="text_write_box">
-				<textarea id="littlt_return" name="" rows="" cols="" placeholder="写评价，回复一下"></textarea>
+				<textarea id="littlt_return" name="" rows="" cols="" placeholder=""></textarea>
 			</div>
 			<!--表情/提交评价-->
 			<ul class="brow_btn">
@@ -218,7 +221,7 @@
 		<div class="wrapAll_comment"><p class="set_title" >发表评价</p>
 			
 		<div class="text_write_box">
-			<textarea name="" id="comment_detailed" rows="" cols="" placeholder="写评价，给医案评价一下"></textarea>
+			<textarea name="" id="comment_detailed" rows="" cols="" placeholder=""></textarea>
 		</div>
 		<!--表情/提交评价-->
 		<ul class="brow_btn">
