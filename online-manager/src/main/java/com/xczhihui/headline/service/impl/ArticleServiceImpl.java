@@ -61,7 +61,7 @@ public class ArticleServiceImpl implements ArticleService {
     public List<ArticleTypeVo> getArticleTypes() {
 
         return articleDao.findEntitiesByJdbc(ArticleTypeVo.class,
-                "select * from article_type where status = 1",
+                "select * from article_type",
                 new HashMap<String, Object>());
     }
 

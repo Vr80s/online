@@ -32,7 +32,7 @@ import com.xczhihui.course.vo.ShareInfoVo;
 import com.xczhihui.medical.doctor.model.MedicalDoctor;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorArticleService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
-import com.xczhihui.medical.doctor.vo.OeBxsArticleVO;
+import com.xczhihui.medical.doctor.vo.MobileArticleVO;
 import com.xczhihui.user.center.service.UserCenterService;
 import com.xczhihui.user.center.utils.UCCookieUtil;
 import com.xczhihui.user.center.vo.Token;
@@ -171,15 +171,15 @@ public class MobileShareController {
                     return;
                 }
             } else if (ShareType.ACTICLE_SHARE.getCode().equals(shareType)) {
-                OeBxsArticleVO oeBxsArticleVO = medicalDoctorArticleService.get(Integer.parseInt(shareId));
-                if (oeBxsArticleVO == null) {
+                MobileArticleVO mobileArticleVO = medicalDoctorArticleService.get(Integer.parseInt(shareId));
+                if (mobileArticleVO == null) {
                     res.sendRedirect(returnOpenidUri + WechatShareLinkType.UNSHELVE.getLink());
                     return;
                 }
 
             } else if (ShareType.MEDICAL_CASES.getCode().equals(shareType)) {
-                OeBxsArticleVO oeBxsArticleVO = medicalDoctorArticleService.get(Integer.parseInt(shareId));
-                if (oeBxsArticleVO == null) {
+                MobileArticleVO mobileArticleVO = medicalDoctorArticleService.get(Integer.parseInt(shareId));
+                if (mobileArticleVO == null) {
                     res.sendRedirect(returnOpenidUri + WechatShareLinkType.UNSHELVE.getLink());
                     return;
                 }
