@@ -596,6 +596,7 @@ var miniRefresh = new MiniRefresh({
     down: {
         //isLock: true,//是否禁用下拉刷新
         callback: function () {
+            page = 1;
             doctorPostsList(page,'down',doctorPostsType);
         }
     },
