@@ -298,11 +298,11 @@ function doctorPostsList(page,downOrUp,doctorPostsType) {
             postsCommentId = "";
         });
         // 点击其他内容区域隐藏评论区域
-        $(".comment_hide").click(function(){
+        /*$(".comment_hide").click(function(){
             $(".face").attr("src","/xcview/images/face.png");
             $("#page_emotion").css("bottom","-2.8rem");
             $(".comment").hide();
-        });
+        });*/
 
         // 回复/删除
         $(".evaluateDiv").click(function(){
