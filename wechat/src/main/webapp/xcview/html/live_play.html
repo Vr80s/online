@@ -143,8 +143,17 @@
 				
 				<div class="both"></div>
 			</div>
-			<ul class="playTime playTimes z" onclick="window.location='live_personal.html?userLecturerId={{userLecturerId}}'">
-					<li><img src="{{headImg}}" style="width:0.6rem;height:0.6rem;border-radius: 60px;" /><span style="margin-top: 0.15rem;">{{heir}}</span></li>
+
+                    {{if hostType == 1}}
+                        <ul class="playTime playTimes z" style="border-bottom: 0;" 
+                              onclick="window.location='/xcview/html/physician/physicians_page.html?doctor={{doctorId}}'">                        
+                    {{else if hostType == 2}}
+                       <ul class="playTime playTimes z" style="border-bottom: 0;" 
+                             onclick="window.location='live_personal.html?userLecturerId={{userLecturerId}}'">
+                    {{/if}}
+                
+                     
+                    <li><img src="{{headImg}}" style="width:0.6rem;height:0.6rem;border-radius: 60px;" /><span style="margin-top: 0.15rem;">{{heir}}</span></li>
 					<li style="margin-top: 0.18rem;float:right;">
 						<!--<a href="live_personal.html?userLecturerId={{userLecturerId}}">-->
 						<a href="javascript: ;">
