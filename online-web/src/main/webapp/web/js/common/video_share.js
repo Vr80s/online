@@ -18,6 +18,14 @@ if(collectionId!=""){
 }
 
 
+function stripHTML(str) {
+	if(str!=null && str!=undefined){
+		var reTag = /<(?:.|\s)*?>/g;
+	    return str.replace(reTag, "");
+	}
+    return str;
+}
+
 /**
  * pc端详情页面
  */
@@ -82,6 +90,12 @@ $("#weibo_share").click(function(){
  * qq分享
  */
 $("#qq_share").click(function(){
+	
+	//详情剔除script标签，减少长度
+	description =stripHTML(description);
+	if(description!=null && description.length>40){
+		description =  description.substring(0,40);
+	}
 	 var  p = {
         url: pc_url,/*获取URL，可加上来自分享到QQ标识，方便统计*/
         desc: '中医传承', /*分享理由(风格应模拟用户对话),支持多分享语随机展现（使用|分隔）*/
