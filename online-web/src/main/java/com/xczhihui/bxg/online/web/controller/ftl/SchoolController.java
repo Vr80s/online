@@ -100,7 +100,6 @@ public class SchoolController extends AbstractFtlController {
 
     /**
      * 推荐页面
-     *
      * @return
      */
     @RequestMapping(value = "recommendation", method = RequestMethod.GET)
@@ -348,23 +347,30 @@ public class SchoolController extends AbstractFtlController {
             description = HtmlUtil.getTextFromHtml(clv.getDescription());
             description = description.length() < 100 ? description : description.substring(0, 99);
         }
-        //获取专辑
-        List<CourseLecturVo> courses = courseService.selectCoursesByCollectionId(clv.getId());
-        view.addObject("collectionList", courses);
-        view.addObject("collectionListSize", courses.size());
-        view.addObject("updateDateText", courseApplyService.getCollectionUpdateDateText(clv.getId()));
-
+        
+        
         //课程详情
         view.addObject("courseInfo", clv);
         view.addObject("description", description);
-
-        //常见问题。
-        String path = req.getServletContext().getRealPath("/template");
-        File f = new File(path + File.separator + "/course_common_problem.html");
-        view.addObject("commonProblem", FileUtil.readAsString(f));
-
+        
+      //获取相关信息
+        if(type.equals("selection")) {
+            List<CourseLecturVo> courses = courseService.selectCoursesByCollectionId(clv.getId());
+            view.addObject("collectionList", courses);
+            view.addObject("collectionListSize", courses.size());
+            view.addObject("updateDateText", courseApplyService.getCollectionUpdateDateText(clv.getId()));
+        }
+        
+        
+        if(type.equals("aq")) {
+            //常见问题。
+            String path = req.getServletContext().getRealPath("/template");
+            File f = new File(path + File.separator + "/course_common_problem.html");
+            view.addObject("commonProblem", FileUtil.readAsString(f));        
+        }
+        
         //课程评价
-        if (type != null && type.equals("comment")) {
+        if (type.equals("comment")) {
             Map<String, Object> map = null;
             if (courseId != null) {
                 map = criticizeService.getCourseCriticizes(new Page<>(pageNumber, pageSize), courseId, user != null ? user.getId() : null);
@@ -383,12 +389,13 @@ public class SchoolController extends AbstractFtlController {
         page.setCurrent(0);
         page.setSize(2);
         view.addObject("recommendCourse", courseService.selectRecommendSortAndRandCourse(page));
+        
         return view;
     }
 
     private boolean isNotCoursePage(String type) {
         //outline  comment    info   aq
-        final List typeList = Arrays.asList("outline", "comment", "info", "aq");
+        final List typeList = Arrays.asList("outline", "comment","selection","info", "aq");
         return !typeList.contains(type);
     }
 
