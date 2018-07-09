@@ -620,4 +620,26 @@ $.fn.toggle = function( fn, fn2 ) {
     };
 </script>
 
+<script> 
+// 控制手机物理键--返回
+window.onload = function(){
+  if(window.history && window.history.pushState) {  
+      $(window).on('popstate', function() {  
+          var hashLocation = location.hash;  
+          var hashSplit = hashLocation.split("#!/");  
+          var hashName = hashSplit[1];  
+          if(hashName !== '') {  
+              var hash = window.location.hash;  
+              if(hash === '') {  
+                  alert("你点击了返回键");  
+                  //location.href ='/xcview/html/live_select_album.html'  /*跳转链接*/
+                  
+              }  
+          }  
+      });  
+      window.history.pushState('forward', null, './xcview/html/live_album.html');    //引号里写当前页面地址,刷新当前页'./inherited_introduction.html'
+  }
+};
+</script> 
+
 
