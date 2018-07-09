@@ -207,7 +207,7 @@ public class APIServiceFunction {
 	/* file为文件*/
 	/* bufferOut为实际文件输出二进制内容*/
 
-    public static String uploadchunk(String url, long chunkStart, long chunkEnd, File file) {
+    public static String uploadchunk(String url, long chunkStart, long chunkEnd, File file,long fileSize) {
         byte[] bufferOut = null;
         try {
             bufferOut = readChunk(file);
@@ -232,8 +232,8 @@ public class APIServiceFunction {
             conn.setRequestProperty("Charsert", "UTF-8");
             conn.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + BOUNDARY);
             // content-range
-            conn.setRequestProperty("Content-Range", "bytes " + chunkStart + "-" + chunkEnd + "/" + file.length());
-            logger.warn("method:POST,connection:Keep-Alive,user-agent:Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_4),Charsert:UTF-8,Content-Type:multipart/form-data; boundary=" + BOUNDARY+",Content-Range:"+ "bytes " + chunkStart + "-" + chunkEnd + "/" + file.length());
+            conn.setRequestProperty("Content-Range", "bytes " + chunkStart + "-" + chunkEnd + "/" + fileSize);
+            logger.warn("method:POST,connection:Keep-Alive,user-agent:Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_4),Charsert:UTF-8,Content-Type:multipart/form-data; boundary=" + BOUNDARY+",Content-Range:"+ "bytes " + chunkStart + "-" + chunkEnd + "/" + fileSize);
             DataOutputStream out = new DataOutputStream(conn.getOutputStream());
             StringBuilder sb = new StringBuilder();
             sb.append("--").append(BOUNDARY).append("\r\n");
