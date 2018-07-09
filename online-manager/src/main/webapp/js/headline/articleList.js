@@ -73,8 +73,7 @@ $(function () {
                 } else {
                     str += '<a class="gray" href="javascript:void(-1);" title="报道医师" ><i class="glyphicon glyphicon-camera"></i></a>';
                 }
-                debugger
-                if(row.typeId!=4&&row.typeId!=7){
+                if(row.typeId!=4&&row.typeId!=7 && row.typeId!=8 && row.typeId!=9){
                     str += '<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>';
                 }else{
                     str += '<a class="blue" href="javascript:void(-1);" title="查看" onclick="toShow(this)"><i class="ace-icon fa fa-search bigger-130"></i></a>';

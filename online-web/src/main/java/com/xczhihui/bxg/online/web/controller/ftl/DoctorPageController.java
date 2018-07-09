@@ -75,7 +75,7 @@ public class DoctorPageController extends AbstractFtlController {
         List<OeBxsArticleVO> recentlyNewsReports = medicalDoctorBusinessService.getRecentlyNewsReports();
         view.addObject("recentlyNewsReports", recentlyNewsReports);
 
-        List<OeBxsArticleVO> recentlyWritings = medicalDoctorArticleService.listPublicWritings(1, 5).getRecords();
+        List<OeBxsArticleVO> recentlyWritings = medicalDoctorArticleService.listPublicRecommendWritings(1, 5).getRecords();
         view.addObject("recentlyWritings", recentlyWritings);
 
         Page<MedicalDoctorVO> page = new Page<>();

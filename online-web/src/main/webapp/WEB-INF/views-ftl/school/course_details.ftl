@@ -178,17 +178,17 @@
                 <#-- tab的显示，这个就当做专辑页面来写   -->
                 <#if  courseInfo.collection> <#-- 专辑tab显示    -->
                     <#if courseInfo.watchState = 1 || courseInfo.watchState = 2> <#-- 免费或已购买  -->
-                        <li><a href="javascript:void(0);">选集</a></li>
-                        <li><a href="javascript:void(0);">详情</a></li>
+                        <li><a href="${webUrlParam}/selection">选集</a></li>
+                        <li><a href="${webUrlParam}/info">详情</a></li>
                     <#elseif courseInfo.watchState = 0>
-                        <li><a href="javascript:void(0);">详情</a></li>
-                        <li><a href="javascript:void(0);">课程大纲</a></li>
+                        <li><a href="${webUrlParam}/info">详情</a></li>
+                        <li><a href="${webUrlParam}/outline">课程大纲</a></li>
                     </#if>
                 <#else> <#-- 非专辑tab显示    -->
-                    <li><a href="javascript:void(0);">详情</a></li>
+                    <li><a href="${webUrlParam}/info">详情</a></li>
                 </#if>
                     <li><a href="${webUrlParam}/comment">评价（${courseInfo.criticizeCount}）</a></li>
-                    <li><a href="javascript:void(0);">常见问题</a></li>
+                    <li><a href="${webUrlParam}/aq">常见问题</a></li>
                 </ul>
             </div>
             <!--content-->
@@ -199,8 +199,12 @@
                     <#if collectionList??>
                         <#list collectionList as collectionItem>
                             <li>
+                            
+                                <#-- 判断有没有登录 -->
+                            
                                 <a href="/web/html/ccvideo/liveVideoAlbum.html?collectionId=${courseInfo.id}&courseId=${collectionItem.id}"
                                    target="_blank">
+                                   
                                     <div class="play-img z">
                                         <div class="circle">
                                             <div class="percent left percentleftId" data-courseId="${collectionItem.id}"
@@ -211,7 +215,7 @@
                                     </div>
                                     <div class="play-album z" data-courseId="${collectionItem.id}">
                                         <p>${collectionItem.gradeName}</p>
-                                        <p>${collectionItem.courseLength}</p>
+                                        <p class="course-length"><img src="/web/images/class_search_time.png"/>${collectionItem.courseLength}分钟</p>
                                     </div>
                                 </a>
                             </li>
@@ -282,8 +286,8 @@
             <!--常见问题-->
             <div class="sidebar-content hide">
                 <ul class="often-problem">
-                <#if courseInfo.description??>
-                ${commonProblem}
+                <#if commonProblem??>
+                     ${commonProblem}
                 <#else>
                     <!--无数据时显示背景图-->
                     <div class="all-null course-null">

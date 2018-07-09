@@ -16,6 +16,7 @@ import com.xczhihui.medical.doctor.mapper.MedicalSpecialColumnMapper;
 import com.xczhihui.medical.doctor.model.MedicalDoctorReport;
 import com.xczhihui.medical.doctor.model.MedicalDoctorSpecialColumn;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorArticleService;
+import com.xczhihui.medical.doctor.vo.MobileArticleVO;
 import com.xczhihui.medical.doctor.vo.OeBxsArticleVO;
 import com.xczhihui.medical.headline.mapper.OeBxsArticleMapper;
 import com.xczhihui.medical.headline.model.OeBxsArticle;
@@ -225,6 +226,12 @@ public class MedicalDoctorArticleServiceImpl implements IMedicalDoctorArticleSer
     }
 
     @Override
+    public Page<OeBxsArticleVO> listPublicRecommendWritings(int page, int size) {
+        Page<OeBxsArticleVO> oeBxsArticleVOPage = new Page<>(page, size);
+        return oeBxsArticleVOPage.setRecords(oeBxsArticleMapper.listRecommendPublicWritings(oeBxsArticleVOPage));
+    }
+
+    @Override
     public List<Map<String, Object>> listSpecialAuthorContent(int size) {
         return oeBxsArticleMapper.listSpecialAuthorContent(size);
     }
@@ -237,7 +244,7 @@ public class MedicalDoctorArticleServiceImpl implements IMedicalDoctorArticleSer
     }
 
     @Override
-    public OeBxsArticleVO get(int id) {
+    public MobileArticleVO get(int id) {
         return oeBxsArticleMapper.get(id);
     }
 

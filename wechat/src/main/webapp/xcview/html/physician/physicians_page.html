@@ -121,7 +121,7 @@
 		}
 
 		.am-pureview-bar-active .am-pureview-actions, .am-pureview-bar-active .am-pureview-bar{
-			/*opacity: 0;*/
+			opacity: 0;
 		}
 		.am-pureview{
 			z-index: 999999;
@@ -137,10 +137,22 @@
 		    width: 100%;
 		    height: 100%;
 		    /*background: red;*/
-		    position: fixed;
-		    top: 5.4rem;
+		    /* position: fixed;
+		    top: 5.4rem; */
 		    /*top: 5.7rem;*/
 		}
+
+		.rests_nav{
+			/* position: fixed;
+					    top: 5.4rem; */
+		}
+
+		.minirefresh-wrap{
+			position: static !important;
+		}
+
+
+
 
 		/*处理刷新*/
 		.minirefresh-wrap{
@@ -158,7 +170,7 @@
 			max-height: 1rem;
 			line-height: 1rem;
 			padding: 0;
-			margin-top: -0.5rem;
+			/*margin-top: -0.5rem;*/
 		}
 		.minirefresh-scroll{
 			background: none;
@@ -277,6 +289,7 @@
 	    margin: 0.2rem 0;
 	    background: #fff;
 	    margin-bottom: 0;
+	    padding-bottom: 0;
 	}
 	.paper_nav_span{
 		height: 100%;
@@ -356,7 +369,16 @@
 		
 		
 
-		<!-- 轮播开始 -->
+		
+
+
+	<!-- 中间内容开始 -->
+	<div class="the_dynamic">
+		<!-- 其他一 -->
+		<div id="minirefresh" class="minirefresh-wrap">
+			<div class="minirefresh-scroll">
+
+<!-- 轮播开始 -->
 		<!--顶部轮播-->
 		<div class="top_details">
 			<script type="text/html" id="top_details">
@@ -448,9 +470,6 @@
 		</div>
 		<!-- 选项卡结束 -->
 
-		
-	</div>
-	<!-- 点击全部动态=显示筛看开始 -->
 		<div class="screen_show">
 			<div class="screen_show_bg"></div>
 			<div class="screen_show_main">
@@ -465,13 +484,6 @@
 			</div>
 		</div>
 		<!-- 点击全部动态=显示筛看结束 -->
-	<!-- 中间内容开始 -->
-	<div class="the_dynamic">
-		<!-- 其他一 -->
-		<div id="minirefresh" class="minirefresh-wrap">
-			<div class="minirefresh-scroll">
-
-
 			
 
 
@@ -535,7 +547,8 @@
 						
 					</div>
 					<img src="{{item.coverImg}}" class="ccvideo_img ccvideo{{item.id}}" />
-				<div>
+					<div class="both"></div>
+				</div>
 				
 				{{else if item.typeId != null && item.typeId != 8}}
 				<!-- 文章-->
@@ -550,10 +563,10 @@
 						<img src="{{item.articleImgPath}}" alt="" />
 						<div class="article_nav_cen_size">{{item.articleTitle}}</div>
 						<div class="article_nav_cen_sizes">{{item.articleContent}}</div>
-						{{if item.articleStatus == 0}}
-						<div style="font-size: 0.26rem;width: 100%;height: 1rem;margin-top: 1.5rem;">抱歉，此文章已被作者删除。</div>
-						{{/if}}
 					</div>
+					{{if item.articleStatus == 0}}
+						<div style="font-size: 0.26rem;width: 6.98rem;height: 0.57rem;line-height: 0.57rem;background: #f0f0f0;margin: 0 auto;background: #FAFAFA;border: 1px solid #F0F0F0;border-radius: 4px;text-indent: 0.1rem;">抱歉，此文章已被作者删除。</div>
+					{{/if}}
 					<div class="both"></div>
 				</div>
 				{{else if item.type == 5}}
@@ -677,38 +690,11 @@
 			</script>
 		</div>
 
-			</div>
-		</div>
 
 
-
-
-
-
-		<!-- 删除样式开始 -->
-			<!-- <div class="remove">
-				<div class="remove_bg"></div>
-				<div class=""></div>
-			</div> -->
-		<!-- 删除样式结束 -->
-		
-	</div>
-	<!-- 中间内容结束 -->
-
-	<!-- 点击回复出现删除复制开始 -->
-	<div class="remove_copy">
-		<div class="remove_copy_bg"></div>
-		<div class="remove_copy_main" style="height: 1rem;">
-			<!-- <div class="copy" >复制</div> -->
-			<div class="remove">删除</div>
-		</div>
-	</div>
-	<!-- 点击回复出现删除复制结束 -->
-
-	<!-- 直播间开始 -->
+		<!-- 直播间开始 -->
 	<div class="broadcastroom">
 		<div class="broadcastroom_video">
-			
 			<!-- 直播中提示 -->
 			<div class="living_broadcastroom" id="living_broadcastroom">
 				<script type="text/html" id="living_broadcastroom_id">			
@@ -1098,6 +1084,42 @@
 	</div>
 	<!-- 介绍结束 -->
 
+
+
+		
+	</div>
+	<!-- 点击全部动态=显示筛看开始 -->
+		
+			</div>
+		</div>
+
+
+
+
+
+
+		<!-- 删除样式开始 -->
+			<!-- <div class="remove">
+				<div class="remove_bg"></div>
+				<div class=""></div>
+			</div> -->
+		<!-- 删除样式结束 -->
+		
+	</div>
+	<!-- 中间内容结束 -->
+
+	<!-- 点击回复出现删除复制开始 -->
+	<div class="remove_copy">
+		<div class="remove_copy_bg"></div>
+		<div class="remove_copy_main" style="height: 1rem;">
+			<!-- <div class="copy" >复制</div> -->
+			<div class="remove">删除</div>
+		</div>
+	</div>
+	<!-- 点击回复出现删除复制结束 -->
+
+	
+
 	
 
 	<!-- 表情包开始 -->
@@ -1150,13 +1172,13 @@
 <!-- 导航渐变 -->
 <script>
 $(window).bind("scroll", function() {
-    var $header = $("#header");
+    /*var $header = $("#header");
     var t = 200,
         m = Math.min(document.documentElement.scrollTop || document.body.scrollTop, t) / t;
-    $header.css("background", "rgba(255, 255, 255, " + m + ")");
+    $header.css("background", "rgba(255, 255, 255, " + m + ")");*/
 
     // 判断滚动条显示隐藏title
-	var top = $(document).scrollTop();
+	/*var top = $(".the_dynamic").scrollTop();
     if(top < 100){
     	$(".header p").hide();
     	$(".arror_return img").attr("src","/xcview/images/anchorj.png");
@@ -1167,19 +1189,17 @@ $(window).bind("scroll", function() {
     	$(".header_news img").attr("src","/xcview/images/share_img.png");
     	$(".header p").show();
     	$("#header").css("border-bottom","1px solid #d8dde6");
-    }
+    }*/
 });
 </script>
 <!-- 头部固定开始 -->
 <script>
- $(document).ready(function() {
+/* $(document).ready(function() {
      var $window = $(window),
          $mainMenuBar = $('#mainMenuBar'),
          $mainMenuBarAnchor = $('#mainMenuBarAnchor');
      $window.scroll(function() {
-         //scrollTop()方法返回或设置匹配元素的滚动条的垂直位置
          var window_top = $window.scrollTop();
-         //javascript用offsetTop();jquery用offset().top;
          var div_top = $mainMenuBarAnchor.offset().top;
          if (window_top > div_top) {
              $mainMenuBar.addClass('stick');
@@ -1189,7 +1209,7 @@ $(window).bind("scroll", function() {
              $mainMenuBarAnchor.height(0);
          }
      });
- });
+ });*/
 </script>
 <!-- 头部固定结束 -->
 
@@ -1210,7 +1230,7 @@ $(window).bind("scroll", function() {
 			$(".dynamic_opacity").removeClass("hide");  /*移除点击全部动态筛选*/
 			$("body").removeClass("body");
 			$(".broadcastroom").hide();  //直播间隐藏
-			$(".the_dynamic").show();   //全部动态隐藏
+			$(".rests_nav").show();   //全部动态隐藏
 			$(".message_referral").hide();   //介绍结束
 		});
 		$(".li_data").click();
@@ -1230,7 +1250,7 @@ $(window).bind("scroll", function() {
 			$(".dynamic_opacity").addClass("hide");
 			$(".screen_show").hide();  /*隐藏筛选*/
 			$("body").removeClass("body");
-			$(".the_dynamic").hide();  /*全部动态隐藏*/
+			$(".rests_nav").hide();  /*全部动态隐藏*/
 			$(".broadcastroom").show();   /*直播间打开*/
 			$(".message_referral").hide();  //介绍结束
 			// $(".broadcastroom").show();
@@ -1252,7 +1272,7 @@ $(window).bind("scroll", function() {
 			$(".screen_show").hide();  /*隐藏筛选*/
 			$("body").removeClass("body");
 			$(".broadcastroom").hide();  //直播间隐藏
-			$(".the_dynamic").hide();   //全部动态隐藏
+			$(".rests_nav").hide();   //全部动态隐藏
 			$(".message_referral").show();  //介绍结束
 			
 		});
@@ -1529,13 +1549,15 @@ function header_click(){
     $(".baseImagenumbers").height(baseImagenumbers);
     // };
 
-    var minirefresh=$(window).height()-$(".top_show_height").height();
-    $("#minirefresh").height(minirefresh);
+    /*var minirefresh=$(window).height()-$(".top_show_height").height();
+    $("#minirefresh").height(minirefresh);*/
 
     // 全部动态最外层
+    /*var minirefreshs=$(window).height()-$(".top_show_height").height();
+    $(".the_dynamic").height(minirefreshs);*/
 
-    var minirefreshs=$(window).height()-$(".top_show_height").height();
-    $(".the_dynamic").height(minirefreshs);
+    /*var minirefresh=$(window).height()-$(".top_show_height").height();
+    $(".rests_nav").height(minirefresh);*/
 
 </script>
 <script type="text/javascript" src="/xcview/html/physician/js/amazeui.js?version=5bdfd7fbfe"></script>

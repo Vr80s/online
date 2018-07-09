@@ -17,7 +17,7 @@ import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.XzStringUtils;
 import com.xczhihui.common.util.enums.HeadlineType;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorArticleService;
-import com.xczhihui.medical.doctor.vo.OeBxsArticleVO;
+import com.xczhihui.medical.doctor.vo.MobileArticleVO;
 import com.xczhihui.medical.headline.service.IOeBxsAppraiseService;
 
 /**
@@ -38,29 +38,29 @@ public class ArticleController {
 
     @RequestMapping(value = "view", method = RequestMethod.GET)
     public ResponseObject get(@RequestParam int id) {
-        OeBxsArticleVO oeBxsArticleVO = medicalDoctorArticleService.get(id);
-        if (oeBxsArticleVO == null) {
+        MobileArticleVO mobileArticleVO = medicalDoctorArticleService.get(id);
+        if (mobileArticleVO == null) {
             return ResponseObject.newErrorResponseObject("文章找不到");
         }
-        String typeId = oeBxsArticleVO.getTypeId();
+        String typeId = mobileArticleVO.getTypeId();
         if (typeId != null) {
             if (typeId.equals(HeadlineType.YA.getCode())) {
-                oeBxsArticleVO.setType("医案");
+                mobileArticleVO.setType("医案");
             } else if (typeId.equals(HeadlineType.ZZ.getCode())) {
-                oeBxsArticleVO.setType("著作");
+                mobileArticleVO.setType("著作");
             } else if (typeId.equals(HeadlineType.DJZL.getCode())) {
-                oeBxsArticleVO.setType("专栏");
+                mobileArticleVO.setType("专栏");
             } else if (typeId.equals(HeadlineType.MYBD.getCode())) {
-                oeBxsArticleVO.setType("媒体报道");
+                mobileArticleVO.setType("媒体报道");
             } else {
-                oeBxsArticleVO.setType("文章");
+                mobileArticleVO.setType("文章");
             }
         } else {
-            oeBxsArticleVO.setType("文章");
+            mobileArticleVO.setType("文章");
         }
-        oeBxsArticleVO.setContent(XzStringUtils.formatA(oeBxsArticleVO.getContent()));
-        oeBxsArticleVO.setContentUrl(returnOpenUri + "/xcview/html/article_fragment.html?id=" + id);
-        return ResponseObject.newSuccessResponseObject(oeBxsArticleVO);
+        mobileArticleVO.setContent(XzStringUtils.formatA(mobileArticleVO.getContent()));
+        mobileArticleVO.setContentUrl(returnOpenUri + "/xcview/html/article_fragment.html?id=" + id);
+        return ResponseObject.newSuccessResponseObject(mobileArticleVO);
     }
 
     @RequestMapping(value = "appraise/list", method = RequestMethod.GET)
