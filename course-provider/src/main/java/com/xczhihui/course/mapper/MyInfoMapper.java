@@ -114,4 +114,6 @@ public interface MyInfoMapper extends BaseMapper<OnlineUser> {
             " left join medical_doctor_account mda on mda.doctor_id = md.id  " +
             "             where md.id = #{doctorId}"})
     Map<String, Object> findDoctorInfoByDoctorId(@Param("doctorId") String doctorId);
+
+    Map<String, Object> findHostTypeByUserId(String id);
 }

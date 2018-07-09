@@ -702,6 +702,7 @@
                     <option value="PUBLIC_COURSE_LIST_PAGE">课程列表</option><!-- 课程列表 -->
                     <option value="H5">外部链接</option>
                     <option value="APPRENTICE_DETAIL">招生简章</option><!-- 招生简章 -->
+                    <option value="DOCTOR_POST">医师动态</option>
                 </select>
             </div>
         </div>
@@ -729,6 +730,15 @@
                     <select data-live-search="true" id="J-anchor">
                         <c:forEach var="anchor" items="${anchors}">
                             <option value="${anchor.userId}">
+                                    ${anchor.name}
+                            </option>
+                        </c:forEach>
+                    </select>
+                </div>
+                <div class="J-doctor-detail" style="display: none">
+                    <select data-live-search="true" id="J-doctor">
+                        <c:forEach var="anchor" items="${anchors}">
+                            <option value="${anchor.refId}">
                                     ${anchor.name}
                             </option>
                         </c:forEach>
@@ -799,6 +809,7 @@
                     <option value="PUBLIC_COURSE_LIST_PAGE">课程列表</option><!-- 课程列表 -->
                     <option value="H5">外部链接</option>
                     <option value="APPRENTICE_DETAIL">招生简章</option><!-- 招生简章 -->
+                    <option value="DOCTOR_POST">医师动态</option>
                 </select>
             </div>
         </div>
@@ -825,6 +836,15 @@
                     <select id="J-edit-anchor">
                         <c:forEach var="anchor" items="${anchors}">
                             <option value="${anchor.userId}">
+                                    ${anchor.name}
+                            </option>
+                        </c:forEach>
+                    </select>
+                </div>
+                <div class="J-edit-doctor-detail" style="display: none">
+                    <select id="J-edit-doctor">
+                        <c:forEach var="anchor" items="${anchors}">
+                            <option value="${anchor.refId}">
                                     ${anchor.name}
                             </option>
                         </c:forEach>

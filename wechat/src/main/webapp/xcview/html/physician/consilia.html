@@ -82,12 +82,12 @@
 					<img src="http://test-file.ipandatcm.com/18510101002/e7de496c02b3-ef894375d67146478869ed0b3d7ccd661525918202364.png">
 				</div>
 				<div class="caption">
-					<h2>{{items.title}}</h2>
+					<h2>{{item.title}}</h2>
 					<div class="article">
 						<div class="article_main">
 							<!--<div class="article_border_left"></div>-->
 							<div class="article_time">
-								<div class="">{{items.createTime}}</div>
+								<div class="">{{item.createTime}}</div>
 							</div>
 							<!--<div class="article_border_right"></div>-->
 							<div class="both"></div>
@@ -96,18 +96,18 @@
 				</div>
 			{{else if item.typeId == 4}}  <!--专栏-->
 				<div class="column">
-					<h2>{{items.title}}</h2>
-					<div class="column_time">{{items.createTime}}</div>
+					<h2>{{item.title}}</h2>
+					<div class="column_time">{{item.createTime}}</div>
 				</div>
 			{{else if item.typeId == 7}}   <!--媒体报道-->
 				<div class="media">
-					<h2>{{items.title}}</h2>
-					<div class="media_time">{{items.createTime}}</div>
+					<h2>{{item.title}}</h2>
+					<div class="media_time">{{item.createTime}}</div>
 				</div>
 			{{else if item.typeId == 8}}   <!--医案报道-->
 				<div class="medical_cases">
-					<h2>{{items.title}}</h2>
-					<div class="medical_cases_time">本文来源：<span>{{items.createTime}}<span>。转载请注明出处</div>
+					<h2>{{item.title}}</h2>
+					<div class="medical_cases_time">本文来源：<span>{{item.createTime}}<span>。转载请注明出处</div>
 				</div>
 			{{/if}}
 

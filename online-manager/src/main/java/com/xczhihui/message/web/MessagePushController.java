@@ -25,6 +25,7 @@ import com.xczhihui.course.service.CourseService;
 import com.xczhihui.course.service.ICommonMessageService;
 import com.xczhihui.course.vo.CourseVo;
 import com.xczhihui.course.vo.MenuVo;
+import com.xczhihui.medical.service.MedicalEnrollmentRegulationsService;
 import com.xczhihui.menu.service.CommonMenuService;
 import com.xczhihui.message.body.MessageBody;
 import com.xczhihui.message.service.MessageService;
@@ -74,7 +75,7 @@ public class MessagePushController {
         List<MenuVo> list = commonMenuService.list();
         mav.addObject("menus", list);
         mav.addObject("courses", courseService.listByMenuId(list.get(0).getId()));
-        mav.addObject("anchors", anchorService.list(1));
+        mav.addObject("anchors", anchorService.listDoctor());
         return mav;
     }
 
@@ -106,6 +107,12 @@ public class MessagePushController {
                         }
                     } else if (routeType.equals(RouteTypeEnum.ANCHOR_INDEX.name())) {
                         CourseAnchor courseAnchor = anchorService.findByUserId(detailId);
+                        if (courseAnchor != null) {
+                            messageVo.setCourse(courseAnchor.getName());
+                        }
+                    } else if (routeType.equals(RouteTypeEnum.DOCTOR_POST.name())) {
+                        String userId = anchorService.findUserIdByDoctorId(detailId);
+                        CourseAnchor courseAnchor = anchorService.findByUserId(userId);
                         if (courseAnchor != null) {
                             messageVo.setCourse(courseAnchor.getName());
                         }
@@ -172,12 +179,6 @@ public class MessagePushController {
         responseObj.setSuccess(false);
         responseObj.setErrorMessage("操作失败");
         return responseObj;
-    }
-
-    @RequestMapping(value = "doctorAnchor", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseObject getDoctorAnchor() {
-        return ResponseObject.newSuccessResponseObject(anchorService.list(1));
     }
 
     @RequestMapping(value = "course", method = RequestMethod.POST)

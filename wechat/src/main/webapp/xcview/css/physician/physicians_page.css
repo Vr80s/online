@@ -208,6 +208,7 @@ p{
     background-color: white;
     z-index: 999999;
     border-bottom: 1px solid #F0F0F0;
+    position: relative;
 }
 .anchor_navigation {
     width: 100%;
@@ -337,6 +338,7 @@ p{
 .ccvideo{
 	/*padding: 0.2rem 0;*/
     background: #fff;
+    height: 3.94rem;
 }
 .rests_nav_span .title{
 	font-size: 0.3rem;
@@ -2193,6 +2195,7 @@ margin-top: 0.015rem;
 .ccvideo_div{
 	position: relative;
     width: 7.5rem;
+    height: 3.94rem;
     margin: 0 auto;
     /*padding: 0.2rem 0;*/
 }

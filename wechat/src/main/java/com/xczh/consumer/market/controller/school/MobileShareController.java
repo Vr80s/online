@@ -80,11 +80,9 @@ public class MobileShareController {
             throws Exception {
 
         try {
-            
             ShareInfoVo sv = courseServiceImpl.selectShareInfoByType(shareType, shareId);
             //构造下分享出去的参数
             sv.build(returnOpenidUri,webdomain);
-
             return ResponseObject.newSuccessResponseObject(sv);
         } catch (Exception e) {
             e.printStackTrace();

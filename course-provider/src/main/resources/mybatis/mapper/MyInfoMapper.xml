@@ -21,6 +21,19 @@
         inner join course_anchor ca on ou.id = ca.user_id
         where ou.id = #{userId}
     </select>
+    
+    <!-- 查看主播类型  -->
+    
+    <select id="findHostTypeByUserId" resultType="java.util.Map">
+        select
+            ca.type as type,
+            if(ca.type = 1,(select mda.doctor_id from 
+                 medical_doctor_account as mda where mda.account_id = #{userId}),null) as doctorId
+        from course_anchor ca 
+            where  
+            ca.user_id   = #{userId}
+    </select>
+    
 
     <!-- 查找主播的学员、课程数  -->
     <select id="selectCollegeCourseXmbNumber" resultType="java.math.BigDecimal">

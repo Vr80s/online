@@ -69,12 +69,15 @@ public interface AnchorService {
     void updateLearned(String id, boolean learned);
 
     /**
-     * 主播类型
+     * 主播医师类型
      *
-     * @param type type
      * @return
      */
-    List<CourseAnchor> list(Integer type);
+    List<CourseAnchor> listDoctor();
 
     CourseAnchor findByUserId(String userId);
+
+    String findUserIdByDoctorId(String doctorId);
+
+    String findDoctorIdByUserId(String userId);
 }

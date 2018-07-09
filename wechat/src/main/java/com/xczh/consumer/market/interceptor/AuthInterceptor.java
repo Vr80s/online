@@ -69,9 +69,8 @@ public class AuthInterceptor implements HandlerInterceptor, HandlerMethodArgumen
             "/xczh/gift/list", "/xczh/common/checkToken", "/xczh/message", "/xczh/pay/pay_notify", "/xczh/set/isLogined",
             "/xczh/recommend/**", "/xczh/classify/**", "/xczh/bunch/**", "/xczh/live/**", "/xczh/host/**", "/xczh/host/doctor/v2", "/xczh/course/**", "/xczh/doctors/**",
             "/xczh/enrol/enrollmentRegulations", "/xczh/myinfo/showWallet", "/xczh/article/view", "/xczh/article/appraise/list",
-            "/doctor/posts/**","/xczh/live/onlineLive","/xczh/share/courseShare","/xczh/enrol/enrollmentRegulations/**,/course/*");
-    private static List<String> needAuthPaths = Arrays.asList(
-            "/doctor/posts/**/like/**","/doctor/posts/**/comment/**");
+            "/doctor/posts","/xczh/live/onlineLive","/xczh/share/courseShare",
+            "/xczh/enrol/enrollmentRegulations/*","/page/*");
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     private PathMatcher pathMatcher;
@@ -200,18 +199,13 @@ public class AuthInterceptor implements HandlerInterceptor, HandlerMethodArgumen
     private boolean isExcludePath(HttpServletRequest request) {
         String path = request.getServletPath();
         boolean isExclude = false;
-        logger.info("url:{}", path);
-        for (String publicPath : needAuthPaths) {
-            if (pathMatcher.match(publicPath, path)) {
-                return isExclude;
-            }
-        }
         for (String publicPath : noNeedAuthPaths) {
             if (pathMatcher.match(publicPath, path)) {
                 isExclude = true;
                 break;
             }
         }
+        logger.info("url:{},result:{}", path,isExclude);
         return isExclude;
     }
 

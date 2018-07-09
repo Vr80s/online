@@ -6,10 +6,17 @@ var getPostsIdByComment="";
 var postsCommentId="";
 var postsCommentUserName="";
 var doctorPostsType ="";
+var isShow = false;
 $(function(){
     loginUserId = localStorage.getItem("userId");
     loginUserName = localStorage.getItem("name");
     sowingMap();
+    //点击全部动态
+    $(".li_color").click(function () {
+        if(isShow){
+            $(".baseImagenumbers").show();
+        }
+    })
 
 });
 //轮播图
@@ -66,16 +73,17 @@ function sowingMap() {
     });
     
 }
+//点击轮播
 function sowingDetails(url) {
     if(url != null && url != ""){
         location.href = url;
     }
 }
 //动态列表
-function doctorPostsList(doctorPostsType) {
+function doctorPostsList(page,downOrUp,doctorPostsType) {
     requestGetService("/doctor/posts", {
-        pageNumber: 1,
-        pageSize:500,
+        pageNumber: page,
+        pageSize:10,
         type:doctorPostsType,
         doctorId:doctorId
     }, function (data) {
@@ -112,15 +120,27 @@ function doctorPostsList(doctorPostsType) {
             }
 
         }
-
-        //判断全部动态默认图
-        if(data.resultObject.records.length==0){
-            $(".baseImagenumbers").show();
-        }else{
-            $(".baseImagenumbers").hide();
+//  判断是下拉刷新还是上拉加载
+        if(downOrUp=='down'){
+            //判断全部动态默认图
+            if(data.resultObject.records.length==0){
+                $(".baseImagenumbers").show();
+                $(".upwrap-tips").hide();
+                isShow = true;
+            }else{
+                $(".baseImagenumbers").hide();
+            }
+            $(".rests_nav").html(template('wrap_doctor_dynamics',{items:obj}));
+            miniRefresh.endDownLoading(true);// 结束下拉刷新
+        } else if(obj.length==0){
+            miniRefresh.endUpLoading(true);// 结束上拉加载
+        } else {
+            $(".rests_nav").append(template('wrap_doctor_dynamics',{items:obj}));
+            miniRefresh.endUpLoading(false);
         }
 
-        $(".rests_nav").html(template('wrap_doctor_dynamics',{items:obj}));
+
+
 
         webpackUniversalModuleDefinition(imgWindow,imgfn);
 
@@ -354,7 +374,7 @@ function doctorPostsList(doctorPostsType) {
 
         });
         //医案跳转
-            $(".consilia_nav_cen").click(function(){
+        $(".consilia_nav_cen").click(function(){
             var itemId = $(this).attr("data-id");
             var articleStatus = $(this).attr("data-status");
             if(articleStatus == 1){
@@ -366,24 +386,20 @@ function doctorPostsList(doctorPostsType) {
         });
         //点击视频播放/暂停
         $(".ccvideo").click(function(){
-            var ccId = $(this).find("video").attr("id");
-            var oReplay = document.getElementById(ccId);
-            $(".ccvideo_img").hide();
-            if (oReplay.paused){
-                oReplay.play();
-            }
-            else{
-                oReplay.pause();
-            }
+            var data_id = $(this).attr("data-id");
+            $(".ccvideo"+data_id).hide();
+            /*$(".ccH5FullsBtn").css("display","none");    
+            $(".ccH5ExitFullsBtn").css("display","none");*/
         });
-
 
     });
 }
-
+/**
+ * 点击类型
+ */
 function postsType(obj) {
     doctorPostsType = $(obj).attr("value");
-    doctorPostsList(doctorPostsType);
+    doctorPostsList(1,"down",doctorPostsType);
     //alert(type)
 }
 /**
@@ -568,6 +584,29 @@ function my_follow(followed, type) {
     })
 }
 
+
+
+//刷新
+// 初始化页码
+var page = 1;
+
+// miniRefresh 对象
+var miniRefresh = new MiniRefresh({
+    container: '#minirefresh',
+    down: {
+        //isLock: true,//是否禁用下拉刷新
+        callback: function () {
+            doctorPostsList(page,'down',doctorPostsType);
+        }
+    },
+    up: {
+        isAuto: false,
+        callback: function () {
+            page++;
+            doctorPostsList(page,'up',doctorPostsType);
+        }
+    }
+});
 
 
 
@@ -766,8 +805,6 @@ requestService("/xczh/doctors/doctorStatus", {doctorId:doctorId},function (data)
             }
 
     }
-
-
 
 
 });

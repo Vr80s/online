@@ -55,6 +55,8 @@ $(function () {
                     return "课程";
                 } else if (data === "ANCHOR_INDEX") {
                     return "主播";
+                } else if(data === "DOCTOR_POST"){
+                    return "医师动态"
                 } else if (data === "PUBLIC_COURSE_LIST_PAGE") {
                     return "课程列表";
                 } else if (data === "H5") {
@@ -414,6 +416,12 @@ $(".add_bx").click(function () {
                 return false;
             }
             linkType = 4;
+        } else if (routeType === "DOCTOR_POST"){
+            linkParam = $('#J-doctor').val();
+            if (!linkParam) {
+                alertInfo("请选择跳转至的医师");
+                return false;
+            }
         } else if (routeType === "PUBLIC_COURSE_LIST_PAGE") {
             linkParam = $('#J-link-param').val();
             if (!linkParam) {
@@ -459,11 +467,19 @@ function routeTypeChange(obj) {
             $('.J-link').hide();
             $('.J-course-detail').show();
             $('.J-anchor-detail').hide();
+            $('.J-doctor-detail').hide();
             $('.J-apprentice-detail').hide();
         } else if (routeTypeValue === 'ANCHOR_INDEX') {
             $('.J-link').hide();
             $('.J-course-detail').hide();
             $('.J-anchor-detail').show();
+            $('.J-doctor-detail').hide();
+            $('.J-apprentice-detail').hide();
+        } else if(routeTypeValue === "DOCTOR_POST"){
+            $('.J-link').hide();
+            $('.J-course-detail').hide();
+            $('.J-anchor-detail').hide();
+            $('.J-doctor-detail').show();
             $('.J-apprentice-detail').hide();
         } else if (routeTypeValue === 'PUBLIC_COURSE_LIST_PAGE' || routeTypeValue === 'H5') {
             var placeholder = "";
@@ -477,10 +493,12 @@ function routeTypeChange(obj) {
             $('.J-course-detail').hide();
             $('.J-anchor-detail').hide();
             $('.J-apprentice-detail').hide();
+            $('.J-doctor-detail').hide();
         } else if (routeTypeValue === 'APPRENTICE_DETAIL') {
             $('.J-link').hide();
             $('.J-course-detail').hide();
             $('.J-anchor-detail').hide();
+            $('.J-doctor-detail').hide();
             $('.J-apprentice-detail').show();
         }
     } else {
@@ -488,6 +506,7 @@ function routeTypeChange(obj) {
         $('.J-course-detail').hide();
         $('.J-anchor-detail').hide();
         $('.J-apprentice-detail').hide();
+        $('.J-doctor-detail').hide();
     }
 }
 
@@ -496,6 +515,7 @@ function routeTypeChangeEdit(obj) {
     var $editCourseLink = $('.J-edit-course-detail');
     var $editAnchorLink = $('.J-edit-anchor-detail');
     var $editApprenticeLink = $('.J-edit-apprentice-detail');
+    var $editDoctorLink = $('.J-edit-doctor-detail');
     var routeTypeValue = $(obj).val();
     if (routeTypeValue) {
         if (routeTypeValue === "COMMON_COURSE_DETAIL_PAGE") {
@@ -503,11 +523,19 @@ function routeTypeChangeEdit(obj) {
             $editCourseLink.show();
             $editAnchorLink.hide();
             $editApprenticeLink.hide();
+            $editDoctorLink.hide();
         } else if (routeTypeValue === 'ANCHOR_INDEX') {
             $editLink.hide();
             $editCourseLink.hide();
             $editAnchorLink.show();
             $editApprenticeLink.hide();
+            $editDoctorLink.hide();
+        } else if (routeTypeValue === 'DOCTOR_POST') {
+            $editLink.hide();
+            $editCourseLink.hide();
+            $editAnchorLink.hide();
+            $editApprenticeLink.hide();
+            $editDoctorLink.show();
         } else if (routeTypeValue === 'PUBLIC_COURSE_LIST_PAGE' || routeTypeValue === 'H5') {
             var placeholder = "";
             if (routeTypeValue === 'PUBLIC_COURSE_LIST_PAGE') {
@@ -520,16 +548,19 @@ function routeTypeChangeEdit(obj) {
             $editCourseLink.hide();
             $editAnchorLink.hide();
             $editApprenticeLink.hide();
+            $editDoctorLink.hide();
         } else if (routeTypeValue === 'APPRENTICE_DETAIL') {
             $editLink.hide();
             $editCourseLink.hide();
             $editAnchorLink.hide();
+            $editDoctorLink.hide();
             $editApprenticeLink.show();
         }
     } else {
         $editLink.hide();
         $editCourseLink.hide();
         $editAnchorLink.hide();
+        $editDoctorLink.hide();
         $editApprenticeLink.hide();
     }
 }
@@ -553,15 +584,15 @@ function updateMobileBanner(obj) {
     var $editCourseLink = $('.J-edit-course-detail');
     var $editAnchorLink = $('.J-edit-anchor-detail');
     var $editApprenticeLink = $('.J-edit-apprentice-detail');
+    var $editDoctorLink = $('.J-edit-doctor-detail');
 
     if (routeTypeValue) {
-        console.log(routeTypeValue);
-        console.log(linkParam);
         if (routeTypeValue === "COMMON_COURSE_DETAIL_PAGE") {
             $editLink.hide();
             $editCourseLink.show();
             $editAnchorLink.hide();
             $editApprenticeLink.hide();
+            $editDoctorLink.hide();
             $('#J-edit-menu').val(menuId);
             renderCourseSelect(menuId, linkParam);
             $('#J-edit-course').val(linkParam);
@@ -569,12 +600,21 @@ function updateMobileBanner(obj) {
             $editLink.hide();
             $editCourseLink.hide();
             $editAnchorLink.show();
+            $editDoctorLink.hide();
             $editApprenticeLink.hide();
             $('#J-edit-anchor').val(linkParam);
-        }  else if (routeTypeValue === 'APPRENTICE_DETAIL') {
+        } else if(routeTypeValue === 'DOCTOR_POST') {
             $editLink.hide();
             $editCourseLink.hide();
             $editAnchorLink.hide();
+            $editDoctorLink.show();
+            $editApprenticeLink.hide();
+            $('#J-edit-doctor').val(linkParam);
+        } else if (routeTypeValue === 'APPRENTICE_DETAIL') {
+            $editLink.hide();
+            $editCourseLink.hide();
+            $editAnchorLink.hide();
+            $editDoctorLink.hide();
             $editApprenticeLink.show();
             $('#J-edit-apprentice').val(linkParam);
         } else if (routeTypeValue === 'PUBLIC_COURSE_LIST_PAGE' || routeTypeValue === 'H5') {
@@ -590,11 +630,13 @@ function updateMobileBanner(obj) {
             $editCourseLink.hide();
             $editAnchorLink.hide();
             $editApprenticeLink.hide();
+            $editDoctorLink.hide();
         }
     } else {
         $editLink.hide();
         $editCourseLink.hide();
         $editAnchorLink.hide();
+        $editDoctorLink.hide();
         $editApprenticeLink.show();
     }
 
@@ -644,6 +686,12 @@ function checkEditForm() {
             return false;
         }
         linkType = 4;
+    } else if (routeType === "DOCTOR_POST"){
+        linkParam = $('#J-edit-doctor').val();
+        if (!linkParam) {
+            alertInfo("请选择跳转至的医师");
+            return false;
+        }
     } else if (routeType === "APPRENTICE_DETAIL") {
         linkParam = $('#J-edit-apprentice').val();
         if (!linkParam) {

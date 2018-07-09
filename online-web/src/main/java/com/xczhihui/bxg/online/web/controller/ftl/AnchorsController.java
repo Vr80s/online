@@ -25,6 +25,8 @@ import com.xczhihui.course.service.ICriticizeService;
 import com.xczhihui.course.service.IFocusService;
 import com.xczhihui.course.service.IMyInfoService;
 import com.xczhihui.course.vo.CourseLecturVo;
+import com.xczhihui.medical.doctor.model.MedicalDoctorAccount;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.hospital.model.MedicalHospital;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalApplyService;
 
@@ -56,6 +58,9 @@ public class AnchorsController extends AbstractFtlController {
 
     @Autowired
     private IMedicalHospitalApplyService medicalHospitalApplyService;
+
+    @Autowired
+    private IMedicalDoctorBusinessService medicalDoctorBusinessService;
 
 
     @Value("${web.url}")
@@ -228,5 +233,15 @@ public class AnchorsController extends AbstractFtlController {
     public ResponseObject listOffline() {
         String userId = getUserId();
         return ResponseObject.newSuccessResponseObject(courseService.selectOfflineCourseByAnchorId(userId));
+    }
+
+    @RequestMapping(value = "doctorPost", method = RequestMethod.GET)
+    public String redirectDoctorPostsRequest(@RequestParam String id) {
+        MedicalDoctorAccount medicalDoctorAccount = medicalDoctorBusinessService.getByDoctorId(id);
+        if (medicalDoctorAccount != null) {
+            String accountId = medicalDoctorAccount.getAccountId();
+            return "redirect:/anchors/" + accountId + "/info";
+        }
+        return "redirect:/doctors";
     }
 }

@@ -304,4 +304,12 @@ public class AnchorDao extends HibernateDao<CourseAnchor> {
         paramMap.put("type", type);
         return this.findEntitiesByJdbc(CourseAnchor.class, sql, paramMap);
     }
+
+    public List<CourseAnchor> listSimpleDoctor() {
+        Map<String, Object> paramMap = new HashMap<>(1);
+        String sql = "SELECT ca.id,ca.`name`, ca.`user_id` as userId, mda.doctor_id as refId"
+                + " FROM `course_anchor` ca join medical_doctor_account mda on ca.user_id = mda.account_id "
+                + " WHERE ca.`deleted` = 0 AND ca.status = 1 and ca.type = 1";
+        return this.findEntitiesByJdbc(CourseAnchor.class, sql, paramMap);
+    }
 }

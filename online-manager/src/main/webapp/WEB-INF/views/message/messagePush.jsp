@@ -584,6 +584,10 @@
                     <input name="routeType" type="radio" value="ANCHOR_INDEX">
                 </div>
                 <div class="col-sm-3">
+                    <label>医师动态:</label>
+                    <input name="routeType" type="radio" value="DOCTOR_POST">
+                </div>
+                <div class="col-sm-3">
                     <label>外部url地址:</label>
                     <input name="routeType" type="radio" value="H5">
                 </div>
@@ -609,6 +613,15 @@
                 <select name="anchorId" id="J-anchor">
                     <c:forEach var="anchor" items="${anchors}">
                         <option value="${anchor.userId}">
+                                ${anchor.name}
+                        </option>
+                    </c:forEach>
+                </select>
+            </div>
+            <div class="doctor-detail" style="display: none">
+                <select  id="J-doctor">
+                    <c:forEach var="anchor" items="${anchors}">
+                        <option value="${anchor.refId}">
                                 ${anchor.name}
                         </option>
                     </c:forEach>
