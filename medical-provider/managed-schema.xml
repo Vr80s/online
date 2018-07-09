@@ -450,7 +450,7 @@
     <field name="headPortrait" type="string"/>
     <field name="hospitalName" type="text_ik"/>
     <field name="id" type="string" multiValued="false" indexed="true" required="true" stored="true"/>
-    <field name="name" type="text_general" multiValued="false"/>
+    <field name="name" type="text_ik" multiValued="false"/>
     <field name="namePinyin" type="text_general" multiValued="false"/>
     <field name="province" type="text_ik"/>
     <field name="recommendSort" type="tint"/>
