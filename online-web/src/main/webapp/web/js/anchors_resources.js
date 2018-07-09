@@ -1934,7 +1934,7 @@ function btnColorReply(){
                     if (data.success == true) {
                         showTip("保存成功");
                         $("#nav-work").click();
-                        workList(1);
+//                      workList(1);
                     } else {
                     	$(".work-save-publish").removeAttr("disabled");
                         showTip("保存失败");
@@ -2047,7 +2047,7 @@ function btnColorReply(){
                 success: function (data) {
                     if (data.success == true) {
                         showTip("保存成功");
-                        workList(1);
+//                      workList(1);
                         $("#nav-work").click();
                     } else {
                         showTip("保存失败");
@@ -2213,8 +2213,10 @@ function btnColorReply(){
                 success: function (data) {
                     if (data.success == true) {
                         showTip("保存成功");
-                        $("#nav-media").click();
-                        mediaList(1);
+                        setTimeout(function(){
+                        	$("#nav-media").click();
+                        },2000)
+//                      mediaList(1);
                     } else {
                         showTip("保存失败");
                         $(".media-save-publish").removeAttr("disabled");
@@ -2255,14 +2257,15 @@ function btnColorReply(){
                         mediaList(page + 1);
                     }
                 });
+                
             } else {
                 $(".media_pages").addClass("hide");
             }
             //分页添加结束
-            initMedia()
+            
         })
     };
-
+    initMedia();  
     function initMedia() {
         //媒体报道部分,预览1335行
         //媒体报道部分,关闭预览弹窗
@@ -2270,8 +2273,9 @@ function btnColorReply(){
             $("#media-preview").addClass("hide");
             $("#mask").addClass("hide");
         })
+       
         //媒体报道部分,上、下架
-        $(".media-select").click(function () {
+        $("#media-table").on('click', '.media-select',function () {
             var mediaId = $(this).attr("data-id"),
                 mediaFluctuate = $(this).attr("data-status");
             RequestService("/doctor/article/report/" + mediaId + "/" + mediaFluctuate + "", "PUT", null, function (data) {
@@ -2283,7 +2287,6 @@ function btnColorReply(){
                 }
             })
         })
-
         //媒体报道部分,删除
         $(".media-delete").click(function () {
             var deleteMediaId = $(this).attr("data-delete");
@@ -2319,8 +2322,12 @@ function btnColorReply(){
                     contentType: "application/json",
                     success: function (data) {
                         showTip("保存成功");
-                        mediaList(1);
-                        $("#nav-media").click();
+//                      mediaList(1);
+						setTimeout(function(){
+							 $("#nav-media").click();
+							 $(".media-only-save").removeAttr("disabled");
+						},2000)
+                       
                     }
                 });
             }
