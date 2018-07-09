@@ -1,5 +1,4 @@
 
-
 var doctorId = getQueryString("doctor");
 var loginUserId="";
 var loginUserName="";
@@ -132,7 +131,6 @@ function doctorPostsList(page,downOrUp,doctorPostsType) {
                 $(".baseImagenumbers").hide();
             }
             $(".rests_nav").html(template('wrap_doctor_dynamics',{items:obj}));
-
             miniRefresh.endDownLoading(true);// 结束下拉刷新
         } else if(obj.length==0){
             miniRefresh.endUpLoading(true);// 结束上拉加载
@@ -204,7 +202,7 @@ function doctorPostsList(page,downOrUp,doctorPostsType) {
             $(".essay_pack_up_btn").hide()
         }*/
 
-        /*$(".essay_main").each(function(){
+        $(".essay_main").each(function(){
             var hh = $(this).height();
             var essay_pack_up_btn = $(this).next();
             if (hh > 70) {
@@ -218,49 +216,17 @@ function doctorPostsList(page,downOrUp,doctorPostsType) {
             var dynamic = $(this);
             if(dynamic.find('span').html()=="展开"){
                 dynamic.parent().find('.essay_main').removeClass("consilia_nav_span_title");
+                // $(".consilia_nav_span .title").removeClass("consilia_nav_span_title");
                 dynamic.find('span').html("收起");
             }else{
+                // $(".consilia_nav_span .title").addClass("consilia_nav_span_title");
                 dynamic.parent().find('.essay_main').addClass("consilia_nav_span_title");
                 dynamic.find('span').html("展开");
             }
-        });*/
-                var $dot5 = $('.show-text');
-                $dot5.each(function () {
-                    if ($(this).height() > 150) {
-                        $(this).attr("data-txt", $(this).attr("data-text"));
-                        $(this).height(150);
-                        $(this).append('<span class="qq"> <a class="toggle" href="###" style="color:#2cb82c"><span class="opens">阅读全文<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></span><span class="closes">收起<span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span></span></a></span>');
-                    }
-                    var $dot4 = $(this);
-
-                    function createDots() {
-                        $dot4.dotdotdot({
-                            after: 'span.qq'
-                        });
-                    }
-                    function destroyDots() {
-                        $dot4.trigger('destroy');
-                    }
-
-                    createDots();
-                    $dot4.on(
-                        'click',
-                        'a.toggle',
-                        function () {
-                            $dot4.toggleClass('opened');
-
-                            if ($dot4.hasClass('opened')) {
-                                destroyDots();
-                            } else {
-                                createDots();
-                            }
-                            // return false;
-                        }
-                    );
-                 });
+        });
 
         //点击其他--收起
-        /*$(".essay_pack_up_btn").click(function(){
+        $(".essay_pack_up_btn").click(function(){
             if($(".essay_pack_up_btn_span").html()=="收起"){
                 $(".consilia_nav_span .title").css("height","100%");
                 $(".essay_pack_up_btn_span span").html("展开");
@@ -270,7 +236,7 @@ function doctorPostsList(page,downOrUp,doctorPostsType) {
                 $(".consilia_nav_span .title").css("height","2.1rem");
                 $(".consilia_nav_span .title").removeClass("consilia_nav_span_title");
             }
-        });*/
+        });
 
 
 
@@ -418,21 +384,13 @@ function doctorPostsList(page,downOrUp,doctorPostsType) {
             }
 
         });
-        //点击视频播放/暂停  
+        //点击视频播放/暂停
         $(".ccvideo").click(function(){
             var data_id = $(this).attr("data-id");
             $(".ccvideo"+data_id).hide();
-            // alert(1111111);
-            $(".ccvideo"+data_id).find(".ccH5FullsBtn").hide();
-            $(".ccH5FullsBtn").css("display","none");
+            /*$(".ccH5FullsBtn").css("display","none");    
+            $(".ccH5ExitFullsBtn").css("display","none");*/
         });
-
-        /*$("#replaybtn").click(function(){
-            alert(1111111);
-            $(".ccH5FullsBtn").css("display","none");
-        });
-*/
-
 
     });
 }
@@ -851,12 +809,5 @@ requestService("/xczh/doctors/doctorStatus", {doctorId:doctorId},function (data)
 
 });
 /*直播间结束*/
-
-// alert(22222);
-//点播视频播放时禁止放大处理
-/*function on_cc_h5player_init(){
-    var oV = document.getElementsByTagName('video');
-    oV.setAttribute("x5-playsinline","");
-}*/
 
 
