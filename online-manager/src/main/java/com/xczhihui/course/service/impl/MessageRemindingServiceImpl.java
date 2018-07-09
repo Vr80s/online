@@ -221,7 +221,6 @@ public class MessageRemindingServiceImpl implements MessageRemindingService {
                             weixinParams.put("keyword1", courseName);
                             weixinParams.put("keyword2", time);
                             weixinParams.put("remark", "");
-                            OnlineUser onlineUser = new OnlineUser();
                             for (OnlineUser user : users) {
                                 loggger.info("推送给:{}", user.getName());
                                 commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.COURSE.getVal())
