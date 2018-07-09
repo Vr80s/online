@@ -512,7 +512,11 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
             //更新动态
             MedicalDoctorAccount mha = medicalDoctorAccountService.getByUserId(course.getUserLecturerId());
             MedicalDoctorPosts mdp = new MedicalDoctorPosts();
-            mdp.setContent(course.getGradeName()+","+course.getSubtitle());
+            if(course.getSubtitle() == null || course.getSubtitle().equals("")){
+                mdp.setContent(course.getGradeName());
+            }else {
+                mdp.setContent(course.getGradeName()+","+course.getSubtitle());
+            }
             mdp.setType(5);
             mdp.setTitle(course.getGradeName());
             mdp.setDoctorId(mha.getDoctorId());
