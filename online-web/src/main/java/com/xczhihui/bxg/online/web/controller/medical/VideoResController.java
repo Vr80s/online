@@ -186,6 +186,7 @@ public class VideoResController extends AbstractController {
                 obj[2] = chunkUrl;
                 return ResponseObject.newSuccessResponseObject(obj);
             } else {
+                logger.warn("resultJson{}",result);
                 return ResponseObject.newErrorResponseObject(msginfo);
             }
         }

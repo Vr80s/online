@@ -337,9 +337,11 @@ public class ApprenticeController {
                     mei.setEducationStr("博士生");
                 } else if (mei.getEducation() == 8) {
                     mei.setEducationStr("博士后");
+                } else {
+                    mei.setEducationStr("无");
                 }
             } else {
-                mei.setEducationStr("");
+                mei.setEducationStr("无");
             }
 
             String dataStr = sdf.format(mei.getDeadline());
