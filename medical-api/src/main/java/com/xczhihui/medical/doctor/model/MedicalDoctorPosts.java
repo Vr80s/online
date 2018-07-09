@@ -1,14 +1,14 @@
 package com.xczhihui.medical.doctor.model;
 
-import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
-
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.xczhihui.medical.common.bean.PictureSpecification;
+
+import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Description：医师动态表
@@ -177,7 +177,7 @@ public class MedicalDoctorPosts extends Model<MedicalDoctorPosts> {
      * 课程是否上架
      */
     @TableField(exist = false)
-    private Boolean courseStatus;
+    private Boolean courseStatus = false;
     /**
      * 图片
      */
@@ -187,7 +187,7 @@ public class MedicalDoctorPosts extends Model<MedicalDoctorPosts> {
      * 文章是否上架
      */
     @TableField(exist = false)
-    private Boolean articleStatus;
+    private Boolean articleStatus = false;
     /**
      * 著作id
      */

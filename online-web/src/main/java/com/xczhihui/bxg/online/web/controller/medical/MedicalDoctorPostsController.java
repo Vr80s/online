@@ -125,36 +125,5 @@ public class MedicalDoctorPostsController {
     }
 
 
-    /**
-     * Description：初始化课程动态
-     * creed: Talk is cheap,show me the code
-     * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
-     * @Date: 2018/7/3 10:38
-     **/
-    @RequestMapping( value = "/initialization",method = RequestMethod.POST)
-    public ResponseObject initializationData() {
-        List<Course> list = courseService.getAllCourseByStatus();
-        list.forEach(course ->{
-            String userId = course.getUserLecturerId();
-            MedicalDoctorAccount mha = medicalDoctorAccountService.getByUserId(userId);
-            List<MedicalDoctorPosts> doctorPostsList = medicalDoctorPostsService.getMedicalDoctorPostsByCourseId(course.getId());
-            if(mha != null && doctorPostsList.size() <= 0){
-                MedicalDoctorPosts mdp = new MedicalDoctorPosts();
-                if(course.getSubtitle() == null || course.getSubtitle().equals("")){
-                    mdp.setContent(course.getGradeName());
-                }else {
-                    mdp.setContent(course.getGradeName()+","+course.getSubtitle());
-                }
-                mdp.setType(5);
-                mdp.setTitle(course.getGradeName());
-                mdp.setDoctorId(mha.getDoctorId());
-                mdp.setCourseId(course.getId());
-                mdp.setCreateTime(course.getReleaseTime());
-                mdp.setUpdateTime(course.getReleaseTime());
-                medicalDoctorPostsService.addMedicalDoctorPosts(mdp);
-            }
-        });
 
-        return ResponseObject.newSuccessResponseObject("初始化成功");
-    }
 }
