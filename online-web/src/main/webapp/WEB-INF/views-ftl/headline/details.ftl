@@ -63,11 +63,9 @@
                         </div>
                         <#if writing.buyLink??>
                             <div class="writing-go-buy">
-                                <button class="text">
                                     <a href="${writing.buyLink}" target="_blank">
                                         去购买
                                     </a>
-                                </button>
                             </div>
                         </#if>
                     </div>

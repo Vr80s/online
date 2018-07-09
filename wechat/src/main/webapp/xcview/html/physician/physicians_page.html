@@ -167,16 +167,17 @@
 		}
 		.minirefresh-theme-default .minirefresh-upwrap{
 			height: 1rem;
-			max-height: 1rem;
-			line-height: 1rem;
+			max-height: 0.5rem;
+			/*line-height: 1rem;*/
 			padding: 0;
 			/*margin-top: -0.5rem;*/
 		}
 		.minirefresh-scroll{
 			background: none;
 		}
+		/*下拉刷新隐藏*/
 		.downwrap-content{
-			display: none;
+			/*display: none;*/
 		}
 
 		video::-webkit-media-controls-fullscreen-button {
@@ -540,6 +541,7 @@
 					<span class="stick_img"><img src="/xcview/images/stick.png" alt="" />置顶</span>
 					{{/if}}
 					<span class="title">{{item.title}}</span>
+					<span class="title">{{item.content}}</span>
 					<div class="both"></div>
 				</div>
 				<div class="ccvideo_div">
@@ -1127,7 +1129,8 @@
 		<div class="comment_bg"></div>
 		<div class="comment_main">
 			<!-- <img src="/xcview/images/face.png" alt="" class="face" /> -->
-			<!-- <textarea id="form_article" contenteditable="true" onkeydown="myInput.listen(this, event);"></textarea> -->
+			<!-- <textarea id="form_article" contenteditable="true" onkeydown="myInput.listen(t");
+his, event);"></textarea> -->
 			<textarea id="form_article" contenteditable="true" onkeydown="myInput.listen(this, event);" placeholder=""></textarea>
 			<div class="article_main">说点什么...</div>
 			<!-- <div class="article_mains">回复：</div> -->

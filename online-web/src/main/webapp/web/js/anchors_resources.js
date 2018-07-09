@@ -1621,8 +1621,12 @@ function btnColorReply(){
                 success: function (data) {
                     if (data.success == true) {
                         showTip("保存成功");
-                        $("#nav-colume").click();
-                        columnList(1);
+//                      columnList(1);
+                        setTimeout(function(){
+                        	$("#nav-colume").click();
+                        },2000)
+                        
+                        
                     } else {
                     	$(".column-sava-publish").removeAttr("disabled");
                         showTip("保存失败");
@@ -1656,7 +1660,7 @@ function btnColorReply(){
                     $(".zhuanlan_bottom2 table").addClass("hide");
                 } else {
                     $(".columnNodata").addClass("hide");
-                    $(".zhuanlan_bottom2").removeClass("hide");
+//                  $(".zhuanlan_bottom2").removeClass("hide");
                     $(".zhuanlan_bottom2 table").removeClass("hide");
                     $("#column-wrap-list").html(template('column-list', {
                         items: data.resultObject.records
@@ -1678,11 +1682,12 @@ function btnColorReply(){
                 } else {
                     $(".column_pages").addClass("hide");
                 }
+                
+            //		上下架执行方法
+            initEvent();
             } else {
                 showTip("获取数据失败");
             }
-            //		上下架执行方法
-            initEvent();
         })
     }
 
@@ -1695,6 +1700,11 @@ function btnColorReply(){
 
     //专栏部分，上架、下线功能
     function initEvent() {
+    	console.info("123456")
+    	$('.fluctuate').unbind("click");
+    	$('.column-delete').unbind("click");
+    	$(".save-edit-publish").unbind("click");
+    	
         $('.fluctuate').click(function () {
             var id = $(this).attr("data-id"),
                 status = $(this).attr("data-status");
@@ -1724,6 +1734,7 @@ function btnColorReply(){
         });
         //专栏部分,点击编辑保存
         $(".save-edit-publish").click(function () {
+        	$(".save-edit-publish").attr("disabled","disabled");
             var editId = $("#column-id").val(),
                 editData = {
                     "title": $.trim($(".column-title").val()),
@@ -1739,10 +1750,15 @@ function btnColorReply(){
                     success: function (data) {
                         if (data.success == true) {
                             showTip("保存成功");
-                            columnList(1);
-                            $("#nav-colume").click();
+//                          columnList(1);
+                            setTimeout(function(){
+                            	 $("#nav-colume").click();
+                            	 $(".save-edit-publish").removeAttr("disabled");
+                            },2000)
+                           
                         } else {
                             showTip("保存失败");
+                            $(".save-edit-publish").removeAttr("disabled");
                         }
                     }
                 });
@@ -1918,7 +1934,7 @@ function btnColorReply(){
                     if (data.success == true) {
                         showTip("保存成功");
                         $("#nav-work").click();
-                        workList(1);
+//                      workList(1);
                     } else {
                     	$(".work-save-publish").removeAttr("disabled");
                         showTip("保存失败");
@@ -2031,7 +2047,7 @@ function btnColorReply(){
                 success: function (data) {
                     if (data.success == true) {
                         showTip("保存成功");
-                        workList(1);
+//                      workList(1);
                         $("#nav-work").click();
                     } else {
                         showTip("保存失败");
@@ -2197,8 +2213,10 @@ function btnColorReply(){
                 success: function (data) {
                     if (data.success == true) {
                         showTip("保存成功");
-                        $("#nav-media").click();
-                        mediaList(1);
+                        setTimeout(function(){
+                        	$("#nav-media").click();
+                        },2000)
+//                      mediaList(1);
                     } else {
                         showTip("保存失败");
                         $(".media-save-publish").removeAttr("disabled");
@@ -2239,14 +2257,15 @@ function btnColorReply(){
                         mediaList(page + 1);
                     }
                 });
+                
             } else {
                 $(".media_pages").addClass("hide");
             }
             //分页添加结束
-            initMedia()
+            
         })
     };
-
+    initMedia();  
     function initMedia() {
         //媒体报道部分,预览1335行
         //媒体报道部分,关闭预览弹窗
@@ -2254,8 +2273,9 @@ function btnColorReply(){
             $("#media-preview").addClass("hide");
             $("#mask").addClass("hide");
         })
+       
         //媒体报道部分,上、下架
-        $(".media-select").click(function () {
+        $("#media-table").on('click', '.media-select',function () {
             var mediaId = $(this).attr("data-id"),
                 mediaFluctuate = $(this).attr("data-status");
             RequestService("/doctor/article/report/" + mediaId + "/" + mediaFluctuate + "", "PUT", null, function (data) {
@@ -2267,7 +2287,6 @@ function btnColorReply(){
                 }
             })
         })
-
         //媒体报道部分,删除
         $(".media-delete").click(function () {
             var deleteMediaId = $(this).attr("data-delete");
@@ -2303,8 +2322,12 @@ function btnColorReply(){
                     contentType: "application/json",
                     success: function (data) {
                         showTip("保存成功");
-                        mediaList(1);
-                        $("#nav-media").click();
+//                      mediaList(1);
+						setTimeout(function(){
+							 $("#nav-media").click();
+							 $(".media-only-save").removeAttr("disabled");
+						},2000)
+                       
                     }
                 });
             }

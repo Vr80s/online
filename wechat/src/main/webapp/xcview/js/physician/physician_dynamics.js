@@ -124,6 +124,10 @@ function doctorPostsList(page,downOrUp,doctorPostsType) {
         if(downOrUp=='down'){
             //判断全部动态默认图
             if(data.resultObject.records.length==0){
+
+                var minirefresh=$(window).height()-$(".top_show_height").height();
+                $(".rests_nav").height(minirefresh);
+                
                 $(".baseImagenumbers").show();
                 $(".upwrap-tips").hide();
                 isShow = true;
@@ -706,7 +710,7 @@ requestService("/xczh/doctors/doctorStatus", {doctorId:doctorId},function (data)
                                     
                                     }
                                 });
-                                requestService("/xczh/course/liveDetails", {userId:userId},function (data) {  
+                                requestService("/xczh/course/details", {userId:userId},function (data) {  
                                     if (data.success == true) {
                                         // 直播状态
                                         //直播课程状态：lineState  1直播中， 2预告，3直播结束 ， 4 即将直播 ，5 准备直播 ，6 异常直播
