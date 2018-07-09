@@ -169,10 +169,6 @@ public class XzUserSetController {
             if (verificationCodeService.checkCode(newUsername, vCodeType, code)) {
                 // 更新用户信息
                 userCenterService.updateLoginName(oldUsername, newUsername);
-                // 更新用户表中的密码
-                OnlineUser o = onlineUserService.findUserByLoginName(oldUsername);
-                o.setLoginName(newUsername);
-                onlineUserService.updateUserLoginName(o);
                 return ResponseObject.newSuccessResponseObject("更改手机号成功");
             }
             return ResponseObject.newSuccessResponseObject("动态码错误");
