@@ -356,11 +356,41 @@
 	    width: 6.15rem;
 	}
 
-
-
-
 	#form_article{
 		color: #333 !important;
+	}
+
+	/*收起*/
+	.show-text{
+		width: 6.98rem;
+		margin: 0 auto;
+		font-size: 14px;
+	    color: #666;
+	    word-break: break-all;
+	    word-wrap: break-word;
+	    line-height: 0.4rem;
+	}
+	.show-text p{
+		margin: 0;
+	}
+	.opened {
+	    height: auto !important;
+	}
+	.toggle .closes,
+	.opened .toggle .opens {
+	  display: none;
+	  color: #2CB82C !important;
+	  font-size: 0.28rem;
+	  text-decoration: none;
+	}
+	.toggle .opened,.opened .toggle .closes {
+	  display: inline;
+	  color: #2CB82C;
+	  font-size: 0.28rem;
+	  text-decoration: none;
+	}
+	.opens{
+		font-size: 0.28rem;
 	}
 </style>
 
@@ -541,7 +571,7 @@
 					<span class="stick_img"><img src="/xcview/images/stick.png" alt="" />置顶</span>
 					{{/if}}
 					<span class="title">{{item.title}}</span>
-					<span class="title">{{item.content}}</span>
+					<span class="titles show-text">{{item.content}}</span>
 					<div class="both"></div>
 				</div>
 				<div class="ccvideo_div">
@@ -610,12 +640,12 @@
 						<span class="stick_img"><img src="/xcview/images/stick.png" alt="" />置顶</span>
 						{{/if}}
 						
-						<div class="title"><span class="stick_imgs" style="display: none !important;">#医案#</span>{{item.content}}</div>
+						<div class="title show-text"><span class="stick_imgs" style="display: none !important;">#医案#</span>{{item.content}}</div>
 						<div class="both"></div>
 					</div>
 
 					<div class="both"></div>
-					<div class="consilia_nav_btn"><span>展开</span></div>
+					<!-- <div class="consilia_nav_btn"><span>展开</span></div>-->
 					<div class="consilia_nav_cen" data-id="{{item.articleId}}" data-status="{{item.articleStatus}}" style="display: block;">
 						<img src="{{item.articleImgPath}}" alt="" />
 						<div class="consilia_nav_cen_size">{{item.articleTitle}}</div>
@@ -1146,6 +1176,8 @@ his, event);"></textarea> -->
 	<div class="show_height" style="width:100%;height:0.25rem;display:none;"></div>
 	<div class="top_show_height" style="width:100%;height:5.2rem;display:none;"></div>
 
+	<div class="top_show_heights" style="width:100%;height:5.8rem;display:none;"></div>
+
 	<!-- 添加分享 -->
 	<div class="weixin_ceng">
 		<div class="weixin_ceng_bg"></div>
@@ -1166,6 +1198,11 @@ his, event);"></textarea> -->
 <script type="text/javascript" src="/xcview/js/common/commonJumpPlay.js?version=8bcdb81554"></script>
 
 <script type="text/javascript" src="/xcview/js/physician/physician_dynamics.js?version=216ff49d88"></script>    <!--全部动态引入-->
+
+<script type="text/javascript" src="/xcview/html/physician/js/jquery.dotdotdot.js"></script>    <!--全部动态引入-->
+
+
+
 <script type="text/javascript" src="/xcview/js/share/share.js?v=wechat_1.1.1&version=5f659f1e41"></script>
 <!-- 直播间数据引入 -->
 <script type="text/javascript" src="/xcview/js/physician/broadcastroom.js?version=d41d8cd98f"></script>
