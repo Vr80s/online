@@ -1246,3 +1246,16 @@ function showMoneText(){
 //	$("#answer").addClass("hide");
 
 }
+
+//处理浏览器页面监听效果
+//监听触发操作
+//function hashChange(){
+//  window.location.reload();
+//}
+////url变化监听器
+//if( ('onhashchange' in window) && ((typeof document.documentMode==='undefined') || document.documentMode==8)) {
+//  // 浏览器支持onhashchange事件
+//  window.onhashchange = hashChange();  // TODO，对应新的hash执行的操作函数
+//} else {
+//
+//}

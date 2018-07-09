@@ -58,7 +58,6 @@
 			<div class="headers">
 				<script type="text/html" id="headers">
 					<p>{{item.type}}</p>
-					{{/if}}
 				</script>
 			</div>
 			<!-- <div class="arror_return" onclick="javascript:window.history.back();return false;"> -->
@@ -94,21 +93,26 @@
 						</div>
 					</div>
 				</div>
+				<div class="consilia_textarea"></div>
 			{{else if item.typeId == 4}}  <!--专栏-->
 				<div class="column">
 					<h2>{{item.title}}</h2>
 					<div class="column_time">{{item.createTime}}</div>
 				</div>
+				<div class="consilia_textarea"></div>
 			{{else if item.typeId == 7}}   <!--媒体报道-->
 				<div class="media">
 					<h2>{{item.title}}</h2>
 					<div class="media_time">{{item.createTime}}</div>
 				</div>
+				<div class="consilia_textarea"></div>
 			{{else if item.typeId == 8}}   <!--医案报道-->
 				<div class="medical_cases">
 					<h2>{{item.title}}</h2>
+					<div class="consilia_textarea"></div>
 					<div class="medical_cases_time">本文来源：<span>{{item.createTime}}<span>。转载请注明出处</div>
 				</div>
+				
 			{{/if}}
 
 			

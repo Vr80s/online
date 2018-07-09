@@ -1,5 +1,6 @@
 package com.xczhihui.user.center.mapper;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -21,7 +22,7 @@ public interface OeUserMapper extends BaseMapper<OeUser> {
     OeUser selectByLoginName(String loginName);
 
     @Update("update oe_user set login_name=#{newLoginName} where login_name=#{oldLoginName}")
-    void updateLoginName(String oldLoginName, String newLoginName);
+    void updateLoginName(@Param("oldLoginName")String oldLoginName, @Param("newLoginName")String newLoginName);
 
     @Select("SELECT * FROM `oe_user` where login_name = #{loginName}")
     OeUserVO getUserVOByLoginName(String loginName);

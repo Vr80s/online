@@ -63,9 +63,9 @@ function sowingMap() {
                     $(".attention").find('.pay_attention').html("加关注");
                     $(".attention").css("background","#00bc12");
                     $(".fans").find('#fansCount').html(parseInt(p)-1);
-                    if(parseInt(p)-1 <= 0){
+                    /*if(parseInt(p)-1 <= 0){
                         $(".fans").hide();
-                    }
+                    }*/
                 }
             });
 
@@ -352,7 +352,7 @@ function doctorPostsList(page,downOrUp,doctorPostsType) {
             var writingsId = $(this).attr("data-writingsId");
             if(articleStatus == 1){
                 if(writingsId != null && writingsId != ""){
-                    location.href = "/xcview/html/physician/work.html?articleId=" + articleId;
+                    location.href = "/xcview/html/physician/consilia.html?consiliaId=" + articleId;
                 } else {
                     location.href = "/xcview/html/physician/consilia.html?consiliaId=" + articleId;
                 }
@@ -596,6 +596,7 @@ var miniRefresh = new MiniRefresh({
     down: {
         //isLock: true,//是否禁用下拉刷新
         callback: function () {
+            page = 1;
             doctorPostsList(page,'down',doctorPostsType);
         }
     },
