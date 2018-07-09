@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Select;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.xczhihui.medical.doctor.vo.MobileArticleVO;
 import com.xczhihui.medical.doctor.vo.OeBxsArticleVO;
 import com.xczhihui.medical.headline.model.OeBxsArticle;
 
@@ -251,8 +252,23 @@ public interface OeBxsArticleMapper extends BaseMapper<OeBxsArticle> {
             " ON oba.`id` = mdw.`article_id` " +
             " where oba.`is_delete`=0 and oba.status = 1 and oba.sort > 0 and (oba.recommend_time is null or oba.recommend_time > now()) " +
             " order by oba.sort desc, oba.create_time desc"})
-    List<OeBxsArticleVO> listPublicWritings(Page<OeBxsArticleVO> page);
+    List<OeBxsArticleVO> listRecommendPublicWritings(Page<OeBxsArticleVO> page);
 
+    /**
+     * 名医著作
+     *
+     * @param page 分页参数
+     * @return
+     */
+    @Select({"select oba.id, oba.`title`, oba.`content`, oba.`update_time` as updateTime," +
+            " oba.`img_path` as imgPath, oba.status as status, oba.user_id as author, oba.url as url, mdw.buy_link as buyLink," +
+            " if(oba.recommend_time< now(),0,oba.sort) as sort" +
+            " from `oe_bxs_article` oba" +
+            " JOIN `medical_writings` mdw" +
+            " ON oba.`id` = mdw.`article_id` " +
+            " where oba.`is_delete`=0 and oba.status = 1" +
+            " order by oba.sort desc, oba.create_time desc"})
+    List<OeBxsArticleVO> listPublicWritings(Page<OeBxsArticleVO> page);
 
     /**
      * 获取专栏作者
@@ -285,7 +301,7 @@ public interface OeBxsArticleMapper extends BaseMapper<OeBxsArticle> {
             ", oba.type_id as typeId, mw.buy_link as buyLink, oba.url as url" +
             " from oe_bxs_article oba left join medical_writings mw on oba.id = mw.article_id" +
             " where oba.id = #{id} and oba.is_delete=0 and oba.status = 1"})
-    OeBxsArticleVO get(int id);
+    MobileArticleVO get(int id);
 
     @Select({"select id, title" +
             " from oe_bxs_article" +
