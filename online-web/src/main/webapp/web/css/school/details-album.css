@@ -184,6 +184,10 @@ color: #999999;
 	font-size: 12px;
 	color: #999999;
 }
+.play-album .course-length span{
+	margin-left: 15px;
+	color: #00bc12;
+}
 .play-album .course-length img{
 
 	    float: left;

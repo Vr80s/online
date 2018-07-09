@@ -248,6 +248,7 @@ $(function () {
             }
             console.log(arr);
             //进行循环啦
+            
             $(".wrap-anthology .left").each(function () {
                 var $this = $(this);
                 var courseId = $this.attr("data-courseId");
@@ -267,7 +268,7 @@ $(function () {
                     return true; //结束本地
                 }
                 var lookRecord = parseFloat(recording) / 60
-                var percent = (lookRecord / timeLength) * 100;
+                var	percent = (lookRecord / timeLength) * 100;
 
                 if (percent > 100) {
                     percent = 100;
@@ -280,8 +281,18 @@ $(function () {
                     $this.parent().addClass('clip-auto');
                     $this.next().removeClass('wth0');
                 }
+//              	添加视频播放百分比
                 $this.css("-webkit-transform", "rotate(" + (18 / 5) * percent + "deg)");
+                var finishVideoBox=$this.parent().parent().siblings(".play-album").find(".course-length").find("span");
+                var finishVideo=Math.floor(percent);
+                finishVideoBox.html("已完成"+finishVideo+"%");
+//              添加视频播放百分比
             })
+
+
+
+        }else{
+        	
         }
     }
 });
