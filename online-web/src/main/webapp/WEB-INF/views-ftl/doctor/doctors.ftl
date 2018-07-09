@@ -45,7 +45,7 @@
 
 
 <div id="forum" class="clearfix">
-    <div class="forum-banner">
+    <div class="forum-banner" style="position: relative;z-index: 999;">
         <div class="banner">
             <ul id="slider" class="slider">
             <#list banners as banner>
@@ -56,7 +56,7 @@
                 <#else>
                 <li>
                 <a href="${banner.imgHref}" target="_blank"
-                   style="background:url(${banner.imgPath})no-repeat top center;%">
+                   style="background:url(${banner.imgPath})no-repeat top center;">
                 </#if>
                 <div class="image-overlay">
                 </div>
