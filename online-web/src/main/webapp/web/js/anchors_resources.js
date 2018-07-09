@@ -1482,7 +1482,7 @@ function btnColorReply(){
         autoFloatEnabled: true,
         enableAutoSave: false,
         imagePopup: false,
-        maximumWords: 10000 //允许的最大字符数
+        maximumWords: 3000 //允许的最大字符数
     });
     //	专栏部分
     //	专栏部分，点击发布效果
@@ -1794,7 +1794,7 @@ function btnColorReply(){
         autoFloatEnabled: true,
         enableAutoSave: false,
         imagePopup: false,
-        maximumWords: 10000 //允许的最大字符数
+        maximumWords: 3000 //允许的最大字符数
     });
 
 
@@ -2084,7 +2084,7 @@ function btnColorReply(){
         autoFloatEnabled: true,
         enableAutoSave: false,
         imagePopup: false,
-        maximumWords: 10000 //允许的最大字符数
+        maximumWords: 3000 //允许的最大字符数
     });
 
     //	媒体报道部分

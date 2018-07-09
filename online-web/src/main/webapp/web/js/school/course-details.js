@@ -2,6 +2,7 @@ var loginUserId = "";
 var loginStatus = true;
 var smallHeadPhoto = "";
 
+//判断有没有登录
 RequestService("/online/user/isAlive", "GET", null, function (data) {
     if (data.success) {
         loginUserId = data.resultObject.id;
@@ -9,6 +10,7 @@ RequestService("/online/user/isAlive", "GET", null, function (data) {
         loginStatus = true;
     } else {
         loginStatus = false;
+
     }
 }, false)
 
@@ -38,6 +40,19 @@ $(function () {
     if (type == "selection") {
         index = 0;
         $(".wrap-sidebar ul li").eq(0).addClass("active-footer");
+    
+        if(!loginStatus){
+        	
+        	//干掉a连接
+        	$(".wrap-anthology ul li a").each(function(){
+        		$(this).attr("href","javascript:void(0)");
+        	})
+        	//点击时间
+        	$(".wrap-anthology ul li a").click(function(){
+        		$('#login').modal('show');
+        	})
+        }
+    
     } else if (type == "outline") {
         index = 1;
         $(".wrap-sidebar ul li").eq(1).addClass("active-footer");

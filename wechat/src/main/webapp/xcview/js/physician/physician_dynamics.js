@@ -294,7 +294,6 @@ function doctorPostsList(page,downOrUp,doctorPostsType) {
             postsCommentId = "";
         });
 
-
         // 回复/删除
         $(".evaluateDiv").off("click");
         $(".evaluateDiv").click(function(){
