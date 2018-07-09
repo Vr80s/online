@@ -137,6 +137,10 @@ p{
 	color: #333333;
 	float: left;
 	margin-right: 0.2rem;
+	 max-width: 1.5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .message_characteristic{
 	float: left;
@@ -208,7 +212,7 @@ p{
     background-color: white;
     z-index: 999999;
     border-bottom: 1px solid #F0F0F0;
-    position: relative;
+    /*position: relative;*/
 }
 .anchor_navigation {
     width: 100%;

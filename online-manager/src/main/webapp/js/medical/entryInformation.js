@@ -48,7 +48,7 @@ $(function(){
         } },
 	{ "title": "籍贯", "class":"center","width":"6%", "sortable":false,"data": 'nativePlace'},
 	{ "title": "报名时间", "class":"center","width":"8%","sortable":false,"data": 'deadline'},
-	{ "title": "是否徒弟", "class":"center","width":"8%","sortable":false,"data": 'apprentice',"mRender":function (data) {
+	{ "title": "徒弟", "class":"center","width":"8%","sortable":false,"data": 'apprentice',"mRender":function (data) {
             if(data==1){
                 return data="<span name='zt'>是</span>";
             }else {

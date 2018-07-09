@@ -153,6 +153,7 @@ public class VideoResController extends AbstractController {
             JSONObject resultJson = JSONObject.parseObject(result);
             String resultinfo = resultJson.get("result").toString();
             String msginfo = resultJson.get("msg").toString();
+            logger.warn("resultJson{}",resultJson);
             if (resultinfo.equals("0")) {
                 Object[] obj = new Object[3];
                 obj[0] = videoid;
@@ -185,6 +186,7 @@ public class VideoResController extends AbstractController {
                 obj[2] = chunkUrl;
                 return ResponseObject.newSuccessResponseObject(obj);
             } else {
+                logger.warn("resultJson{}",result);
                 return ResponseObject.newErrorResponseObject(msginfo);
             }
         }
