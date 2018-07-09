@@ -53,7 +53,7 @@ public class MedicalEntryInformationImpl implements MedicalEntryInformationServi
                 "  mei.`goal`" +
                 " from " +
                 " medical_entry_information mei ,medical_enrollment_regulations mer" +
-                " WHERE mei.mer_id = mer.id and mei.deleted = 0 ";
+                " WHERE mei.mer_id = mer.id and mei.deleted = 0 order by mei.create_time desc ";
         if (merId != null && merId != -1) {
             sql += "and mei.mer_id = " + merId;
         }
