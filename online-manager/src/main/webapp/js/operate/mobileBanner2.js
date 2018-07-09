@@ -3,6 +3,10 @@ var mobileBannerTable;//职业课列表
 var mobileBannerForm;
 var mobileBannerFormEdit;
 
+//上传banner图的比例
+var goodBili = 0.4;
+var minbili = 0.35;
+var maxbili = 0.45;
 
 var _courseRecTable;//课程推荐列表
 
@@ -443,6 +447,12 @@ $(".add_bx").click(function () {
             }
         }
         var imgPath = $('#imgPath_file').val();
+        
+
+        
+        
+        debugger;
+        
         if (null == imgPath || imgPath=="") {
             alertInfo("请上传图片");
             return false;
@@ -714,8 +724,10 @@ function checkEditForm() {
     }
 
     var imgPath = $('#update_imgPath').val();
+    
+    
     if (null == imgPath || "" == imgPath) {
-        alertInfo("请上传图片");
+        alertInfo("请选择正确比例的图片");
         return false;
     }
 
@@ -748,10 +760,22 @@ function updateStatus(obj, status) {
     });
 }
 
+
+function toDecimal(x) {   
+	var f = parseFloat(x);    
+	if (isNaN(f)) {   
+	  return;    
+	}          
+	f = Math.round(x*100)/100;  
+	return f;        
+}  
+
 //图片上传统一上传到附件中心---- 修改  列表页
 $("#addMobileBanner-form").on("change", "#imgPath_file", function () {
 	
 	debugger;
+	
+	var $this = $(this);
 	
     var v = this.value.split(".")[1].toUpperCase();
     if (v != 'BMP' && v != 'GIF' && v != 'JPEG' && v != 'PNG' && v != 'SVG' && v != 'JPG') {
@@ -759,8 +783,40 @@ $("#addMobileBanner-form").on("change", "#imgPath_file", function () {
         this.value = "";
         return;
     }
-    var id = $(this).attr("id");
-    ajaxFileUpload(this.id, basePath + "/attachmentCenter/upload?projectName=online&fileType=1", function (data) {
+    
+    
+    
+    //限制上传的图片尺寸比例
+    var myTest = document.getElementById("imgPath_file").files[0];
+    var reader = new FileReader();
+    reader.onload = function(theFile){
+    	var image = new Image();
+    	image.src = theFile.target.result;
+    	image.onload = function(){
+    		var height = this.height;
+    		var width = this.width;
+    		var bili = parseFloat(height/width);
+    		if(bili<minbili || bili > maxbili){
+    			$(".clearfixAdd").remove();
+    		    $("#addDiv").prepend("<div class=\"clearfixAdd\">\n" +
+    		        "	<input type=\"file\" name=\"imgPath_file\" id=\"imgPath_file\" class=\"uploadImg\"/>\n" +
+    		        "</div>");
+    		    $this.value = "";
+    			
+    		    alertInfo("banner图片最佳比例：高/宽在"+goodBili+"左右。" +
+    					"此比例限制在："+minbili+"~"+maxbili+"之间。" +
+    							"本次上传图的高/宽比例为："+bili.toFixed(2));
+    			return;
+    		}
+    	}
+    }
+    reader.readAsDataURL(myTest);
+
+    
+    var id = $this.attr("id");
+    
+    
+    ajaxFileUpload(id, basePath + "/attachmentCenter/upload?projectName=online&fileType=1", function (data) {
         if (data.error == 0) {
             $("#" + id).parent().find(".ace-file-name img").attr("src", data.url);
             $("#" + id).parent().find(".ace-file-name img").attr("style", "width: 250px; height: 140px;");
