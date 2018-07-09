@@ -333,7 +333,6 @@ $(function () {
     //主播修改信息的时候获取医馆信息渲染医馆列表
     if (localStorage.AccountStatus == 1) {
         $(".cityem").add("hide")
-        debugger
         RequestService("/doctor/apply/listHospital/0", "get", null, function (data) {
             hosList = data.resultObject.records;
             //列表渲染
