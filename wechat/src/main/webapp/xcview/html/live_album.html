@@ -174,9 +174,19 @@
 					</li>
 				</ul>
 				
-			</div>	
-			<ul class="playTime playTimes z" style="border-bottom: 0;" onclick="window.location='live_personal.html?userLecturerId={{userLecturerId}}'">
-				<li><img src="{{headImg}}" style="width:0.6rem;height:0.6rem;border-radius: 60px;"/><span style="margin-top: 0.15rem;">{{heir}}</span></li>
+			</div>	 
+			
+				    {{if hostType == 1}}
+                        <ul class="playTime playTimes z" style="border-bottom: 0;" 
+                              onclick="window.location='/xcview/html/physician/physicians_page.html?doctor={{doctorId}}'">                        
+                    {{else if hostType == 2}}
+                       <ul class="playTime playTimes z" style="border-bottom: 0;" 
+                             onclick="window.location='live_personal.html?userLecturerId={{userLecturerId}}'">
+                    {{/if}}
+                
+                    
+
+                <li><img src="{{headImg}}" style="width:0.6rem;height:0.6rem;border-radius: 60px;"/><span style="margin-top: 0.15rem;">{{heir}}</span></li>
 				<li>
 					<a href="javascript: ;">
 						<img src="../images/video_review.png" style="width: 0.15rem; height: 0.25rem; margin-right: 0rem;margin-top: 0.15rem;"  />
@@ -619,5 +629,27 @@ $.fn.toggle = function( fn, fn2 ) {
       testAuto();
     };
 </script>
+
+<script> 
+// 控制手机物理键--返回
+window.onload = function(){
+  if(window.history && window.history.pushState) {  
+      $(window).on('popstate', function() {  
+          var hashLocation = location.hash;  
+          var hashSplit = hashLocation.split("#!/");  
+          var hashName = hashSplit[1];  
+          if(hashName !== '') {  
+              var hash = window.location.hash;  
+              if(hash === '') {  
+                  location.href ='/xcview/html/live_select_album.html?course_id=' + collectionId  /*跳转链接*/
+                  
+              }  
+          }  
+      });  
+	var urlstr = window.location.href;
+      window.history.pushState('forward', null,urlstr);    //引号里写当前页面地址,刷新当前页'./inherited_introduction.html'
+  }
+};
+</script> 
 
 

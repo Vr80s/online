@@ -82,9 +82,18 @@
 						<a href="javascript:;">共{{criticizeCount}}条评价</a>
 					</li>
 				</ul>
-			</div>
-			<ul class="playTime z" onclick="window.location='live_personal.html?userLecturerId={{userLecturerId}}'" style="padding: 0.4rem 0 0 0;border: none;">
-			<!--<ul class="playTime z">-->
+			</div> 
+		
+                    {{if hostType == 1}}
+                        <ul class="playTime z"  style="padding: 0.4rem 0 0 0;border: none;"
+                              onclick="window.location='/xcview/html/physician/physicians_page.html?doctor={{doctorId}}'">                        
+                    {{else if hostType == 2}}
+                        <ul class="playTime z"  style="padding: 0.4rem 0 0 0;border: none;"
+                               onclick="window.location='live_personal.html?userLecturerId={{userLecturerId}}'">
+                    {{/if}}             
+
+
+         	<!--<ul class="playTime z">-->
 				<li><img src="{{headImg}}" style="width:0.6rem;height:0.6rem;border-radius: 60px;"/><span style="margin-top: 0.15rem;">{{heir}}</span></li>
 				<li style="margin-top: 0.18rem;">
 					<!--<a href="live_personal.html?userLecturerId={{userLecturerId}}">-->

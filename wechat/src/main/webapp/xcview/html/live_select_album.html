@@ -92,9 +92,18 @@
 				</div>	
 
 				<!--主播/时间-->
-				<div class="wrap_playTime">
-					<ul class="playTime playTimes z" style="border-bottom: 0;    padding: 0.4rem 0 0 0;" onclick="window.location='live_personal.html?userLecturerId={{userLecturerId}}'">
-						<li><img src="{{headImg}}" style="width:0.6rem;height:0.6rem;border-radius: 60px;"/><span style="margin-top: 0.15rem;">{{heir}}</span></li>
+				<div class="wrap_playTime"> 
+						
+                     {{if hostType == 1}}
+                        <ul class="playTime playTimes z" style="border-bottom: 0;padding: 0.4rem 0 0 0;"
+                              onclick="window.location='/xcview/html/physician/physicians_page.html?doctor={{doctorId}}'">                        
+                    {{else if hostType == 2}}
+                        <ul class="playTime playTimes z" style="border-bottom: 0;padding: 0.4rem 0 0 0;"
+                               onclick="window.location='live_personal.html?userLecturerId={{userLecturerId}}'">
+                    {{/if}}            
+
+
+                        <li><img src="{{headImg}}" style="width:0.6rem;height:0.6rem;border-radius: 60px;"/><span style="margin-top: 0.15rem;">{{heir}}</span></li>
 						<li style="margin-top: 0.18rem;float: right;margin-right: 0rem;">
 							<a href="javascript: ;">
 								<img src="../images/video_review.png" style="width: 0.15rem; height: 0.25rem;"  />
@@ -182,7 +191,7 @@
 							<p>{{item.gradeName}}</p>
 							<p class="limit_time">
 								<img src="../images/Sinatv_time.png"/>
-								<span>{{item.courseLength}}</span>
+								<span>{{item.courseLength}}分钟</span>
 							</p>
 						</div>
 					</li>

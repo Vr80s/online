@@ -67,8 +67,10 @@ public class AuthInterceptor implements HandlerInterceptor, HandlerMethodArgumen
             "/xczh/common/getProblems", "/xczh/common/verifyLoginStatus", "/xczh/common/getProblemAnswer",
             "/xczh/common/checkUpdate", "/xczh/common/addOpinion", "/xczh/gift/rankingList", "/xczh/common/richTextDetails", "/xczh/common/getDomain",
             "/xczh/gift/list", "/xczh/common/checkToken", "/xczh/message", "/xczh/pay/pay_notify", "/xczh/set/isLogined",
-            "/xczh/recommend/**", "/xczh/classify/**", "/xczh/bunch/**", "/xczh/live/**", "/xczh/host/**", "/xczh/host/doctor/v2", "/xczh/course/**", "/xczh/doctors/**",
-            "/xczh/enrol/enrollmentRegulations", "/xczh/myinfo/showWallet", "/xczh/article/view", "/xczh/article/appraise/list",
+            "/xczh/recommend/**", "/xczh/classify/**", "/xczh/bunch/**", "/xczh/live/**", "/xczh/host/**", "/xczh/host/doctor/v2", 
+            "/xczh/course/userCurrentCourseStatus", "/xczh/course/details", "/xczh/course/getCoursesByCollectionId", "/xczh/course/guessYouLike",
+            "/xczh/course/unshelveCouserRecommen", "/xczh/course/live/*", "/xczh/course/courseTypeNumber","/xczh/course/recommendSortAndRand",
+            "/xczh/doctors/**","/xczh/enrol/enrollmentRegulations", "/xczh/myinfo/showWallet", "/xczh/article/view", "/xczh/article/appraise/list",
             "/doctor/posts","/xczh/live/onlineLive","/xczh/share/courseShare",
             "/xczh/enrol/enrollmentRegulations/*","/page/*");
     private Logger logger = LoggerFactory.getLogger(this.getClass());

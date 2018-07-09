@@ -1621,8 +1621,12 @@ function btnColorReply(){
                 success: function (data) {
                     if (data.success == true) {
                         showTip("保存成功");
-                        $("#nav-colume").click();
-                        columnList(1);
+//                      columnList(1);
+                        setTimeout(function(){
+                        	$("#nav-colume").click();
+                        },2000)
+                        
+                        
                     } else {
                     	$(".column-sava-publish").removeAttr("disabled");
                         showTip("保存失败");
@@ -1656,7 +1660,7 @@ function btnColorReply(){
                     $(".zhuanlan_bottom2 table").addClass("hide");
                 } else {
                     $(".columnNodata").addClass("hide");
-                    $(".zhuanlan_bottom2").removeClass("hide");
+//                  $(".zhuanlan_bottom2").removeClass("hide");
                     $(".zhuanlan_bottom2 table").removeClass("hide");
                     $("#column-wrap-list").html(template('column-list', {
                         items: data.resultObject.records
@@ -1678,11 +1682,12 @@ function btnColorReply(){
                 } else {
                     $(".column_pages").addClass("hide");
                 }
+                
+            //		上下架执行方法
+            initEvent();
             } else {
                 showTip("获取数据失败");
             }
-            //		上下架执行方法
-            initEvent();
         })
     }
 
@@ -1695,6 +1700,11 @@ function btnColorReply(){
 
     //专栏部分，上架、下线功能
     function initEvent() {
+    	console.info("123456")
+    	$('.fluctuate').unbind("click");
+    	$('.column-delete').unbind("click");
+    	$(".save-edit-publish").unbind("click");
+    	
         $('.fluctuate').click(function () {
             var id = $(this).attr("data-id"),
                 status = $(this).attr("data-status");
@@ -1724,6 +1734,7 @@ function btnColorReply(){
         });
         //专栏部分,点击编辑保存
         $(".save-edit-publish").click(function () {
+        	$(".save-edit-publish").attr("disabled","disabled");
             var editId = $("#column-id").val(),
                 editData = {
                     "title": $.trim($(".column-title").val()),
@@ -1739,10 +1750,15 @@ function btnColorReply(){
                     success: function (data) {
                         if (data.success == true) {
                             showTip("保存成功");
-                            columnList(1);
-                            $("#nav-colume").click();
+//                          columnList(1);
+                            setTimeout(function(){
+                            	 $("#nav-colume").click();
+                            	 $(".save-edit-publish").removeAttr("disabled");
+                            },2000)
+                           
                         } else {
                             showTip("保存失败");
+                            $(".save-edit-publish").removeAttr("disabled");
                         }
                     }
                 });

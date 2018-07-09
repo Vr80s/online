@@ -680,7 +680,7 @@
             <label class="col-sm-3 control-label no-padding-right" for="imgPath"><font color="red">*</font>banner图片:
             </label>
             <div class="col-sm-6" id="addDiv">
-                <div class="clearfixAdd">
+                <div class="clearfixAdd" id="add_clearfixAdd">
                     <input type="file" name="imgPath_file" id="imgPath_file" class="uploadImg"/>
                 </div>
                 <!-- （图片尺寸上传限制：926*386） -->

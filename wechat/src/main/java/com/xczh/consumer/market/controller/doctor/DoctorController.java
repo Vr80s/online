@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczh.consumer.market.interceptor.HeaderInterceptor;
 import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczhihui.common.util.enums.CourseType;
 import com.xczhihui.common.util.enums.DoctorSortOrderType;
 import com.xczhihui.common.util.enums.DoctorType;
 import com.xczhihui.course.service.ICourseService;
@@ -177,7 +178,7 @@ public class DoctorController {
         page.setSize(Integer.MAX_VALUE);
 
         Page<CourseLecturVo> list = courseService.selectLecturerAllCourse
-                (page, userId, 3, HeaderInterceptor.ONLY_THREAD.get());
+                (page, userId, CourseType.LIVE.getId(), HeaderInterceptor.ONLY_THREAD.get());
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("text", "直播课程");
         map.put("code", 2);
