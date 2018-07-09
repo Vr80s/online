@@ -125,8 +125,9 @@ function doctorPostsList(page,downOrUp,doctorPostsType) {
             //判断全部动态默认图
             if(data.resultObject.records.length==0){
 
-                var minirefresh=$(window).height()-$(".top_show_height").height();
-                $(".rests_nav").height(minirefresh);
+                var minirefreshs=$(window).height()-$(".top_show_heights").height();
+                $(".rests_nav").height(minirefreshs);
+alert(1111);
                 
                 $(".baseImagenumbers").show();
                 $(".upwrap-tips").hide();
