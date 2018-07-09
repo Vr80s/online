@@ -135,7 +135,7 @@
 
         <div class="online_course">
             <div class="course_title"><span class="title">在线课程</span>
-                <a href="${webUrl}/courses/list?courseType=3" target="_blank" class="more">更多<img
+                <a href="${webUrl}/courses/list?courseType=0" target="_blank" class="more">更多<img
                         src="/web/images/right_more.png" alt="箭头"></a>
             </div>
             <ul class="online_course_list clearfix">
