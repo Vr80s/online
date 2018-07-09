@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -17,6 +18,24 @@ public class XzStringUtils {
     //2、然后更新完成，显示：已完结  finish
     public static  String COLLECTION_UPDATE_ALL = "每天更新";
     public static  String COLLECTION_UPDATE_FINISH = "已完成";
+    
+    
+
+   private static  Map<String, String > mapWeek = new HashMap<String, String>(){{
+           put("1","周一");    
+           put("2","周二");    
+           put("3","周三");    
+           put("4","周四");    
+           put("5","周五");    
+           put("6","周六");
+           put("7","周日");
+   }};
+   
+   private static  Map<String, String > mapDay = new HashMap<String, String>(){{
+       put("1","上午");    
+       put("2","下午");    
+  }};
+    
 
     public static String delHTMLTag(String htmlStr) {
         String regEx_script = "<script[^>]*?>[\\s\\S]*?<\\/script>"; // 定义script的正则表达式
@@ -228,7 +247,7 @@ public class XzStringUtils {
         if (line != null && !"".equals(line)) {
             //中文的话，过滤下
             if (isContainChinese(line)) {
-                String regex = ".*(下午|上午|周|点|早|晚|暂无).*";
+                String regex = ".*(下午|上午|周|点|早|晚|暂无|无).*";
                 Pattern datePattern = Pattern.compile(regex);
                 Matcher dateMatcher = datePattern.matcher(line);
                 if (!dateMatcher.matches()) {
@@ -236,12 +255,63 @@ public class XzStringUtils {
                 }
                 return line;
             } else {
-                return workTimeConverter(line);
+                return workTimeConvertEveryDay(line);
             }
         }
         return null;
     }
 
+    
+    public static String workTimeConvertEveryDay(String str) {
+
+        if(str!=null && str!="") {
+            String[] array = str.split(",");
+            StringBuffer sb = new StringBuffer();
+            for (String key : mapWeek.keySet()) {
+                 //map.keySet()返回的是所有key的值
+                 String value = mapWeek.get(key);//得到每个key多对用value的值
+                 Integer falg = 0;
+                 String  falgStr = "";
+                 for (int i = 0; i < array.length; i++) {
+                     //拼接字符串
+                     String item = array[i];
+                     Integer index = item.indexOf(".");
+                     String itemStart = item.substring(0, index);
+                     String itemEnd = item.substring(index + 1, item.length());
+                     
+                     if(key.equals(itemStart)) {
+                         for (String keyDay : mapDay.keySet()) {
+                             if(keyDay.equals(itemEnd)) {
+                                 String valueDay = mapDay.get(keyDay);//得到每个key多对用value的值
+                                 falgStr+=(value+valueDay);
+                                 falg++;
+                             }
+                         }
+                     }
+                     if(falg.equals(2)){
+                         break;
+                     }
+                 }
+                 if(falg.equals(2)) {
+                     sb.append(value+"全天,");
+                 }else if(falg.equals(1)){
+                     sb.append(falgStr+",");
+                 }
+            }
+            String fianlStr  =  sb.toString();
+            if(fianlStr!=null) {
+                fianlStr = "每"+fianlStr.substring(0,fianlStr.length()-1);
+            }
+            return fianlStr;
+        }
+        return str;
+    }
+    
+    public static void main(String[] args) {
+       
+        
+    }
+    
 
     public static String workTimeConverter(String str) {
 

@@ -870,7 +870,6 @@ var posts;
 				if(data.success == true) {									
 					var playCodeStr = data.resultObject;
 		            var playCodeObj = JSON.parse(playCodeStr);
-		            console.log(playCodeObj.video.playcode);
 		            var playCode = playCodeObj.video.playcode;
 		            playCode = playCode.replace("playertype=1","playertype=1&img_path="+dataCoverimg+"");
 					that.html(playCode);	
@@ -1293,6 +1292,7 @@ function btnColorReply(){
 								resetBanner();
 								$(".banner-set-top button").click();
 		                    } else {
+		                    	$(".banner-submission-wrap button").removeAttr("disabled")
 								showTip("保存失败");
 		                    }
 		                }
@@ -2650,7 +2650,7 @@ function workPreview(index) {
     $(".preview-work-author").text(workPreviewData.author);
     $(".preview-work-picter img").attr("src", workPreviewData.imgPath);
     $(".preview-work-present").html(workPreviewData.remark);
-    $(".preview-work-link").text(workPreviewData.buyLink);
+    $(".preview-work-link").html(workPreviewData.buyLink ? '<a href="' + workPreviewData.buyLink + '" target="_blank">' + workPreviewData.buyLink + '</a>' : '');
     $("#work-preview-page").removeClass("hide");
     $("#mask").removeClass("hide")
 }
@@ -2703,7 +2703,7 @@ function mediaRreview(index) {
     $(".preview-media-author").text(previewData.author);
     $(".preview-media-picter img").attr("src", previewData.imgPath);
     $(".preview-media-present").html(previewData.content);
-    $(".preview-media-link").text(previewData.url);
+    $(".preview-media-link").html(previewData.url ? '<a href="' + previewData.url + '" target="_blank">' + previewData.url + '</a>' : '');
     //		预览弹窗
     $("#media-preview").removeClass("hide");
     $("#mask").removeClass("hide");

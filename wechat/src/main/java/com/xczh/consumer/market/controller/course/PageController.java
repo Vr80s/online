@@ -10,11 +10,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.OnlineUserService;
+import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.enums.WechatShareLinkType;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.course.service.IMyInfoService;
@@ -106,6 +107,22 @@ public class PageController {
         }
         
     }
+    
+    
+    /**
+     * 课程跳转重定向
+     * @param id
+     * @param accountIdOpt
+     * @return
+     * @throws SQLException
+     */
+    @RequestMapping(value = "hostType/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseObject jumpHost(@PathVariable String  userId) throws SQLException {
+        Map<String,Object> map  = myInfoService.findHostTypeByUserId(userId);
+        return ResponseObject.newSuccessResponseObject(map);
+    }
+    
     
     public String coursePage(Integer courseId, OnlineUser ou) {
         String coursePage = WechatShareLinkType.INDEX_PAGE.getLink();
