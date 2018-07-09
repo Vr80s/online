@@ -9,6 +9,8 @@ import java.util.TreeMap;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 功能：api接口公用函数
@@ -19,6 +21,7 @@ import org.apache.commons.io.IOUtils;
  */
 public class APIServiceFunction {
 
+    private static Logger logger = LoggerFactory.getLogger(APIServiceFunction.class);
     /**
      * 功能：将一个Map按照Key字母升序构成一个QueryString. 并且加入时间混淆的hash串。
      *
@@ -230,7 +233,7 @@ public class APIServiceFunction {
             conn.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + BOUNDARY);
             // content-range
             conn.setRequestProperty("Content-Range", "bytes " + chunkStart + "-" + chunkEnd + "/" + file.length());
-
+            logger.warn("method:POST,connection:Keep-Alive,user-agent:Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_4),Charsert:UTF-8,Content-Type:multipart/form-data; boundary=" + BOUNDARY+",Content-Range:"+ "bytes " + chunkStart + "-" + chunkEnd + "/" + file.length());
             DataOutputStream out = new DataOutputStream(conn.getOutputStream());
             StringBuilder sb = new StringBuilder();
             sb.append("--").append(BOUNDARY).append("\r\n");

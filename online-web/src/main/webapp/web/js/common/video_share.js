@@ -1,9 +1,8 @@
-
-
 var protocoltype =document.location.protocol;
 var documnetHost = document.location.host;
 
-var full = protocoltype +"//" + document.location.host;
+var config = $.ajax({url:"/config.json",async:false}).responseJSON;
+var full = protocoltype +"//" + config.pc;
 
 //如果是专辑分享的话：如下
 //if(collectionId!=null && collectionId!=undefined && collectionId!=""){
@@ -34,12 +33,7 @@ var pc_url= full+"/courses/"+shareCourseId+"/info";
 /**
  * 获取微信端 域名
  */
-var wxurl="";
-if(documnetHost=='www.ipandatcm.com'){
-    wxurl = "http://m.ipandatcm.com";
-}else{
-    wxurl = "http://test-wx.xczhihui.com";
-}
+var wxurl = "http://" + config.wechat;
 /**
  * 获取微信端分享连接地址
  */
@@ -145,13 +139,6 @@ var browser={
  */
 if(browser.versions.mobile || browser.versions.ios || browser.versions.android ||
     browser.versions.iPhone || browser.versions.iPad){
-    if(documnetHost=='www.ipandatcm.com' 
-    	  || documnetHost=='www.xczhihui.com'
-    		  || documnetHost=='ipandatcm.com' 
-    			  || documnetHost=='xczhihui.com'){
-        wxurl = "http://m.ipandatcm.com/wx_share.html?shareType=1&shareId="+course_id;
-    }else{
-        wxurl = "http://test-wx.xczhihui.com/wx_share.html?shareType=1&shareId="+course_id;
-    }
+        wxurl = "http://"+config.wechat+"/wx_share.html?shareType=1&shareId="+course_id;
     window.location = wxurl;
 }
