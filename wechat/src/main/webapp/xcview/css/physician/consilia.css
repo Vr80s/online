@@ -88,7 +88,7 @@ header{
 .consilia_main_center h2{
 	font-size: 0.36rem;
 	color: #333;
-	text-align: center;
+	/*text-align: center;*/
 	width: 6.36rem;
 	margin: 0 auto;
 	overflow: hidden;
@@ -99,7 +99,11 @@ header{
 }
 .consilia_main_center{
 	width: 100%;
-	background: #fff;
+    background: #fff;
+    height: 100%;
+    overflow: hidden;
+    padding-top: 0.41rem;
+    padding-bottom: 0.2rem;
 }
 .consilia_center{
 	width: 6.98rem;
@@ -531,6 +535,7 @@ header{
     height: 100%;
     background: #fff;
     margin: 0 auto;
+    padding-bottom: 0.2rem;
 }
 .column h2{
     width: 6.98rem;

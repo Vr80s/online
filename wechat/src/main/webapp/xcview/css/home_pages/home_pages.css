@@ -75,6 +75,7 @@
 	.swiper-banner-list{
 		width: 100% !important;
 		top: 1.9rem !important;
+        display: none;  /* 先暂时隐藏点点点 */
 	}
 	.swiper-banner-list span{
 		margin: 0 0.2rem !important;

@@ -8,6 +8,7 @@ $(function(){
  	},function (data) {
 	    if (data.success == true) {
 		  	$('#consilia_main_center').html(template('consilia_main_center_id', {item: data.resultObject}));
+		  	$('.headers').html(template('headers', {item: data.resultObject}));
 	    
 	        $(".consilia_textarea").html(data.resultObject.content);
 	        
@@ -30,11 +31,11 @@ $(function(){
 	    	var a=$(".wrap_all_returned").html();
 		    if(a==null||a.length==0){
 		       $(".quie_pic").show();
-		       alert(1111);
+		       // alert(1111);
 		       $(".opacity_height").show();
 		    }else{
 				$(".quie_pic").hide();
-				alert(222);
+				// alert(222);
 		        $(".opacity_height").hide();
 		    };
 
