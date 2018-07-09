@@ -80,7 +80,7 @@
 
 			{{if item.typeId == 9}}   <!--著作-->
 				<div class="cover">
-					<img src="http://test-file.ipandatcm.com/18510101002/e7de496c02b3-ef894375d67146478869ed0b3d7ccd661525918202364.png">
+					<img src="{{item.imgPath}}" />
 				</div>
 				<div class="caption">
 					<h2>{{item.title}}</h2>
@@ -95,6 +95,7 @@
 						</div>
 					</div>
 				</div>
+				<div class="both"></div>
 				<div class="consilia_textarea"></div>
 			{{else if item.typeId == 4}}  <!--专栏-->
 				<div class="column">

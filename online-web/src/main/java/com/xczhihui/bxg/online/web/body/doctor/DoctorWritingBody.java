@@ -2,6 +2,7 @@ package com.xczhihui.bxg.online.web.body.doctor;
 
 import java.util.Date;
 
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 import com.xczhihui.medical.doctor.model.MedicalWriting;
@@ -13,6 +14,7 @@ import com.xczhihui.medical.doctor.model.MedicalWriting;
  */
 public class DoctorWritingBody {
 
+    @Length(max = 255)
     @NotBlank(message = "作者不能为空")
     private String author;
 

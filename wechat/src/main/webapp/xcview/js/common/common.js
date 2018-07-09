@@ -622,7 +622,10 @@ function common_share_back() {
     var back = document.referrer;
     if (isNotBlank(back) && back.indexOf("wx_share.html") == -1) {
         window.history.back();
+       
     } else {
+       
+
         window.location.href = "/xcview/html/physician/index.html";
     }
 }
@@ -648,7 +651,7 @@ function common_share_backs() {
     if (isNotBlank(back) && back.indexOf("wx_share.html") == -1) {
         window.location.href = back;
     } else {
-        window.location.href = "/xcview/html/physician/index.html";
+        window.location.href = "/xcview/html/home_page.html";
     }
 }
 

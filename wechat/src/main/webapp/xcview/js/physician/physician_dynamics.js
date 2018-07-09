@@ -139,9 +139,7 @@ function doctorPostsList(page,downOrUp,doctorPostsType) {
             miniRefresh.endUpLoading(false);
         }
 
-
-
-
+        //图片放大
         webpackUniversalModuleDefinition(imgWindow,imgfn);
 
         /*$(".consilia_nav_span .title").each(function(){
@@ -212,6 +210,7 @@ function doctorPostsList(page,downOrUp,doctorPostsType) {
                 essay_pack_up_btn.hide();
             }
         });
+        $(".essay_pack_up_btn").off("click");
         $(".essay_pack_up_btn").click(function(){
             var dynamic = $(this);
             if(dynamic.find('span').html()=="展开"){
@@ -226,6 +225,7 @@ function doctorPostsList(page,downOrUp,doctorPostsType) {
         });
 
         //点击其他--收起
+        $(".essay_pack_up_btn").off("click");
         $(".essay_pack_up_btn").click(function(){
             if($(".essay_pack_up_btn_span").html()=="收起"){
                 $(".consilia_nav_span .title").css("height","100%");
@@ -256,6 +256,7 @@ function doctorPostsList(page,downOrUp,doctorPostsType) {
         })
 
         // 点击文章收起
+        $(".consilia_nav_btn").off("click");
         $(".consilia_nav_btn").click(function(){
             var post = $(this);
             if(post.find('span').html()=="展开"){
@@ -269,15 +270,8 @@ function doctorPostsList(page,downOrUp,doctorPostsType) {
             }
         });
 
-
-        //点击评论表情
-        /*mui("#refreshContainer").on('tap', '.face', function (event) {
-            alert(111);
-            
-        });*/
-
-
         //点赞
+        $(".zan_img").off("click");
         $(".zan_img").click(function(){
             var src = $(this).attr('src');
             var postsId = $(this).attr('data-id');
@@ -288,7 +282,9 @@ function doctorPostsList(page,downOrUp,doctorPostsType) {
             }
         });
         //评论
-        $(".rests_nav .evaluate_img").click(function(){
+        $(".evaluate_img").off("click");
+        $(".evaluate_img").click(function(){
+            $(".evaluate_img").removeClass("comment_hide");
             $(".face").attr("src","/xcview/images/face.png");
             $("#page_emotion").css("bottom","-2.8rem");
             $(".comment").show();
@@ -297,14 +293,9 @@ function doctorPostsList(page,downOrUp,doctorPostsType) {
             getPostsIdByComment = $(this).attr('data-id');
             postsCommentId = "";
         });
-        // 点击其他内容区域隐藏评论区域
-        $(".comment_hide").click(function(){
-            $(".face").attr("src","/xcview/images/face.png");
-            $("#page_emotion").css("bottom","-2.8rem");
-            $(".comment").hide();
-        });
 
         // 回复/删除
+        $(".evaluateDiv").off("click");
         $(".evaluateDiv").click(function(){
             postsCommentId = $(this).attr('data-id');
             postsCommentUserName = $(this).attr('data-userName');
@@ -346,6 +337,7 @@ function doctorPostsList(page,downOrUp,doctorPostsType) {
         });
 
         //文章跳转
+        $(".article_hide").off("click");
         $(".article_hide").click(function(){
             var articleId = $(this).attr("data-id");
             var articleStatus = $(this).attr("data-status");
@@ -363,6 +355,7 @@ function doctorPostsList(page,downOrUp,doctorPostsType) {
 
         });
         //课程跳转
+        $(".course_hide").off("click");
         $(".course_hide").click(function(){
             var itemId = $(this).attr("data-id");
             var courseStatus = $(this).attr("data-status");
@@ -374,6 +367,7 @@ function doctorPostsList(page,downOrUp,doctorPostsType) {
 
         });
         //医案跳转
+        $(".consilia_nav_cen").off("click");
         $(".consilia_nav_cen").click(function(){
             var itemId = $(this).attr("data-id");
             var articleStatus = $(this).attr("data-status");
@@ -385,6 +379,7 @@ function doctorPostsList(page,downOrUp,doctorPostsType) {
 
         });
         //点击视频播放/暂停
+        $(".ccvideo").off("click");
         $(".ccvideo").click(function(){
             var data_id = $(this).attr("data-id");
             $(".ccvideo"+data_id).hide();
