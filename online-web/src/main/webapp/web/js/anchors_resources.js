@@ -870,7 +870,6 @@ var posts;
 				if(data.success == true) {									
 					var playCodeStr = data.resultObject;
 		            var playCodeObj = JSON.parse(playCodeStr);
-		            console.log(playCodeObj.video.playcode);
 		            var playCode = playCodeObj.video.playcode;
 		            playCode = playCode.replace("playertype=1","playertype=1&img_path="+dataCoverimg+"");
 					that.html(playCode);	
@@ -1293,6 +1292,7 @@ function btnColorReply(){
 								resetBanner();
 								$(".banner-set-top button").click();
 		                    } else {
+		                    	$(".banner-submission-wrap button").removeAttr("disabled")
 								showTip("保存失败");
 		                    }
 		                }
