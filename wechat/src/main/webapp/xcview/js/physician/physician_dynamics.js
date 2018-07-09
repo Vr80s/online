@@ -124,6 +124,10 @@ function doctorPostsList(page,downOrUp,doctorPostsType) {
         if(downOrUp=='down'){
             //判断全部动态默认图
             if(data.resultObject.records.length==0){
+
+                var minirefresh=$(window).height()-$(".top_show_height").height();
+                $(".rests_nav").height(minirefresh);
+                
                 $(".baseImagenumbers").show();
                 $(".upwrap-tips").hide();
                 isShow = true;

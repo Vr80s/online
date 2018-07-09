@@ -1,14 +1,8 @@
 package com.xczhihui.medical.doctor.service.impl;
 
-import java.text.SimpleDateFormat;
-import java.util.*;
-
-import com.xczhihui.medical.common.bean.PictureSpecification;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.xczhihui.medical.common.bean.PictureSpecification;
 import com.xczhihui.medical.doctor.mapper.MedicalDoctorPostsLikeMapper;
 import com.xczhihui.medical.doctor.mapper.MedicalDoctorPostsMapper;
 import com.xczhihui.medical.doctor.model.MedicalDoctorPosts;
@@ -17,6 +11,11 @@ import com.xczhihui.medical.doctor.model.MedicalDoctorPostsLike;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsCommentService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsService;
 import com.xczhihui.utils.HtmlUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * Description：医师动态 服务实现类
@@ -43,12 +42,6 @@ public class MedicalDoctorPostsServiceImpl extends ServiceImpl<MedicalDoctorPost
             //去除文章中的标签
             medicalDoctorPosts.setArticleContent(HtmlUtil.getTextFromHtml(medicalDoctorPosts.getArticleContent()));
             medicalDoctorPosts.setContent(HtmlUtil.getTextFromHtml(medicalDoctorPosts.getContent()));
-            //截取医案
-            if(medicalDoctorPosts.getTypeId() != null && medicalDoctorPosts.getTypeId() == 8){
-                if(medicalDoctorPosts.getContent().length()>150){
-                    medicalDoctorPosts.setContent(medicalDoctorPosts.getContent().substring(0,150));
-                }
-            }
             Integer postsId = medicalDoctorPosts.getId();
             List<MedicalDoctorPostsComment> commentList = medicalDoctorPostsCommentService.selectMedicalDoctorPostsCommentList(postsId, accountId);
             List<MedicalDoctorPostsLike> likeList = medicalDoctorPostsLikeMapper.getMedicalDoctorPostsLikeList(postsId);

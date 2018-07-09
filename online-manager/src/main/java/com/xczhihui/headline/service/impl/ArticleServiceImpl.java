@@ -182,6 +182,12 @@ public class ArticleServiceImpl implements ArticleService {
             mdp.setDoctorId(doctorId);
             mdp.setArticleId(id);
             if(vo.getTypeId().equals("8")){
+                //截取医案
+                if(vo.getContent().length()>100){
+                    mdp.setContent(vo.getContent().substring(0,100)+"...");
+                } else {
+                    mdp.setContent(vo.getContent());
+                }
                 mdp.setContent(vo.getContent());
             } else {
                 mdp.setContent(vo.getTitle());
