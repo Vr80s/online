@@ -2650,7 +2650,7 @@ function workPreview(index) {
     $(".preview-work-author").text(workPreviewData.author);
     $(".preview-work-picter img").attr("src", workPreviewData.imgPath);
     $(".preview-work-present").html(workPreviewData.remark);
-    $(".preview-work-link").text(workPreviewData.buyLink);
+    $(".preview-work-link").html(workPreviewData.buyLink ? '<a href="' + workPreviewData.buyLink + '" target="_blank">' + workPreviewData.buyLink + '</a>' : '');
     $("#work-preview-page").removeClass("hide");
     $("#mask").removeClass("hide")
 }
@@ -2703,7 +2703,7 @@ function mediaRreview(index) {
     $(".preview-media-author").text(previewData.author);
     $(".preview-media-picter img").attr("src", previewData.imgPath);
     $(".preview-media-present").html(previewData.content);
-    $(".preview-media-link").text(previewData.url);
+    $(".preview-media-link").html(previewData.url ? '<a href="' + previewData.url + '" target="_blank">' + previewData.url + '</a>' : '');
     //		预览弹窗
     $("#media-preview").removeClass("hide");
     $("#mask").removeClass("hide");
