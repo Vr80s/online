@@ -554,6 +554,16 @@ header{
     color: #999999;
     background: #fff;
 }
+
+.column p img{
+    max-width: 6.98rem;
+    margin: 0 auto;
+}
+
+.column img{
+    max-width: 6.98rem;
+    margin: 0 auto;
+}
 /*专栏结束*/
 
 /*媒体报道开始*/
@@ -579,6 +589,16 @@ header{
     margin: 0 auto;
     color: #999999;
     background: #fff;
+}
+
+.media p img{
+    max-width: 6.98rem;
+    margin: 0 auto;
+}
+
+.media img{
+    max-width: 6.98rem;
+    margin: 0 auto;
 }
 /*媒体报道结束*/
 
@@ -607,5 +627,23 @@ header{
     color: #999999;
     background: #fff;
     word-break:break-all;
+}
+
+.medical_cases p img{
+    max-width: 6.98rem;
+    margin: 0 auto;
+}
+
+.medical_cases img{
+    max-width: 6.98rem;
+    margin: 0 auto;
+}
+.consilia_textarea p img{
+    max-width: 6.98rem;
+    margin: 0 auto;
+}
+.consilia_textarea img{
+    max-width: 6.98rem;
+    margin: 0 auto;
 }
 /*医案结束*/
