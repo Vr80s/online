@@ -1,18 +1,11 @@
 package com.xczhihui.medical.doctor.service.impl;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
-import com.xczhihui.medical.doctor.mapper.MedicalDoctorPostsMapper;
-import com.xczhihui.medical.doctor.model.MedicalDoctorPosts;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.common.util.CodeUtil;
+import com.xczhihui.medical.doctor.mapper.MedicalDoctorPostsMapper;
 import com.xczhihui.medical.doctor.mapper.MedicalDoctorReportMapper;
 import com.xczhihui.medical.doctor.mapper.MedicalSpecialColumnMapper;
+import com.xczhihui.medical.doctor.model.MedicalDoctorPosts;
 import com.xczhihui.medical.doctor.model.MedicalDoctorReport;
 import com.xczhihui.medical.doctor.model.MedicalDoctorSpecialColumn;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorArticleService;
@@ -20,6 +13,12 @@ import com.xczhihui.medical.doctor.vo.MobileArticleVO;
 import com.xczhihui.medical.doctor.vo.OeBxsArticleVO;
 import com.xczhihui.medical.headline.mapper.OeBxsArticleMapper;
 import com.xczhihui.medical.headline.model.OeBxsArticle;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author hejiwei
@@ -266,7 +265,12 @@ public class MedicalDoctorArticleServiceImpl implements IMedicalDoctorArticleSer
         mdp.setDoctorId(doctorId);
         mdp.setArticleId(oeBxsArticle.getId());
         if(oeBxsArticle.getTypeId().equals("8")){
-            mdp.setContent(oeBxsArticle.getContent());
+            //截取医案
+            if(oeBxsArticle.getContent().length()>100){
+                mdp.setContent(oeBxsArticle.getContent().substring(0,100)+"...");
+            } else {
+                mdp.setContent(oeBxsArticle.getContent());
+            }
         } else {
             mdp.setContent(oeBxsArticle.getTitle());
         }

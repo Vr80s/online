@@ -98,7 +98,12 @@ public class DoctorArticleController extends AbstractFtlController {
                 MedicalDoctorPosts mdp = new MedicalDoctorPosts();
                 mdp.setType(4);
                 if(oba.getTypeId().equals("8")){
-                    mdp.setContent(oba.getContent());
+                    //截取医案
+                    if(oba.getContent().length()>100){
+                        mdp.setContent(oba.getContent().substring(0,100)+"...");
+                    } else {
+                        mdp.setContent(oba.getContent());
+                    }
                 }else {
                     mdp.setContent(oba.getTitle());
                 }
