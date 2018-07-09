@@ -24,7 +24,7 @@ public class MedicalEntryInformationDao extends HibernateDao<MedicalEntryInforma
             MedicalEntryInformation medicalEntryInformation, int pageNumber, int pageSize) {
         Map<String, Object> paramMap = new HashMap<String, Object>();
         StringBuilder sql = new StringBuilder("SELECT mei.id as id, mei.mer_id as merId,mei.name as name,mei.age as age,mei.sex as sex, " +
-                " mei.native_place as nativePlace,mei.tel as tel,mer.deadline as deadline,mei.education,mei.apprentice as apprentice  " +
+                " mei.native_place as nativePlace,mei.tel as tel,mei.create_time createTime,mer.deadline as deadline,mei.education,mei.apprentice as apprentice  " +
                 " FROM" +
                 " medical_entry_information mei ,medical_enrollment_regulations mer " +
                 " WHERE mei.mer_id = mer.id and mei.deleted = 0 ");

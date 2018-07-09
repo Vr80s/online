@@ -15,7 +15,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xczhihui.common.support.service.CacheService;
 import com.xczhihui.common.util.CodeUtil;
-import com.xczhihui.medical.doctor.vo.OeBxsArticleVO;
+import com.xczhihui.medical.doctor.vo.MobileArticleVO;
 import com.xczhihui.medical.exception.MedicalException;
 import com.xczhihui.medical.headline.mapper.OeBxsAppraiseMapper;
 import com.xczhihui.medical.headline.mapper.OeBxsArticleMapper;
@@ -46,8 +46,8 @@ public class OeBxsAppraiseServiceImpl extends ServiceImpl<OeBxsAppraiseMapper, O
     public void saveAppraise(OeBxsAppraise oeBxsAppraise) {
         String replyCommentId = oeBxsAppraise.getReplyCommentId();
         Integer articleId = oeBxsAppraise.getArticleId();
-        OeBxsArticleVO oeBxsArticleVO = oeBxsArticleMapper.get(articleId);
-        if (oeBxsArticleVO == null) {
+        MobileArticleVO mobileArticleVO = oeBxsArticleMapper.get(articleId);
+        if (mobileArticleVO == null) {
             throw new MedicalException("文章不存在");
         }
         if (StringUtils.isNotBlank(replyCommentId)) {

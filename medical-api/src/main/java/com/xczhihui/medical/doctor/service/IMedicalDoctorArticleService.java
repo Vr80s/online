@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.xczhihui.medical.doctor.vo.MobileArticleVO;
 import com.xczhihui.medical.doctor.vo.OeBxsArticleVO;
 import com.xczhihui.medical.headline.model.OeBxsArticle;
 
@@ -135,6 +136,15 @@ public interface IMedicalDoctorArticleService {
     Page<OeBxsArticleVO> listPublicWritings(int page, int size);
 
     /**
+     * 名医著作
+     *
+     * @param page 分页参数
+     * @param size size
+     * @return 名医著作
+     */
+    Page<OeBxsArticleVO> listPublicRecommendWritings(int page, int size);
+
+    /**
      * 名医推荐
      *
      * @param size size
@@ -199,7 +209,7 @@ public interface IMedicalDoctorArticleService {
      * @param id id
      * @return
      */
-    OeBxsArticleVO get(int id);
+    MobileArticleVO get(int id);
 
     /**
      * 获取文章的简单信息

@@ -215,7 +215,7 @@
                                     </div>
                                     <div class="play-album z" data-courseId="${collectionItem.id}">
                                         <p>${collectionItem.gradeName}</p>
-                                        <p>${collectionItem.courseLength}</p>
+                                        <p class="course-length"><img src="/web/images/class_search_time.png"/>${collectionItem.courseLength}分钟</p>
                                     </div>
                                 </a>
                             </li>
