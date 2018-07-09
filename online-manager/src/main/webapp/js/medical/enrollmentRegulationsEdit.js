@@ -25,8 +25,9 @@ $(function () {
         }
     });
     //县
-    onchangeCityEdit();
-    $('#edit_County option:contains(' + county + ')').each(function () {
+    doProvAndCountyRelationEdit();
+    debugger;
+    $('#edit_county option:contains(' + county + ')').each(function () {
         if ($(this).text() == county) {
             $(this).prop("selected", 'selected');
         }

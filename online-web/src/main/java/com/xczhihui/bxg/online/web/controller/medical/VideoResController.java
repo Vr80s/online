@@ -148,7 +148,7 @@ public class VideoResController extends AbstractController {
                 return ResponseObject.newErrorResponseObject(upMsginfo);
             }
             //上传视频文件块CHUNK
-            String result = APIServiceFunction.uploadchunk(chunkurl + "?ccvid=" + videoid + "&format=json", 0, (Long.parseLong(String.valueOf(file.length())) - 1), file);
+            String result = APIServiceFunction.uploadchunk(chunkurl + "?ccvid=" + videoid + "&format=json", 0, (Long.parseLong(String.valueOf(file.length())) - 1), file,Long.parseLong(fileSize));
 
             JSONObject resultJson = JSONObject.parseObject(result);
             String resultinfo = resultJson.get("result").toString();
@@ -175,7 +175,7 @@ public class VideoResController extends AbstractController {
                 return ResponseObject.newErrorResponseObject(uploadmetaMsginfo);
             }
             //上传视频文件块CHUNK
-            String result = APIServiceFunction.uploadchunk(chunkUrl + "?ccvid=" + ccid + "&format=json", start, (int) (file.length() + start - 1), file);
+            String result = APIServiceFunction.uploadchunk(chunkUrl + "?ccvid=" + ccid + "&format=json", start, (file.length() + start - 1), file,Long.parseLong(fileSize));
             JSONObject resultJson = JSONObject.parseObject(result);
             String resultinfo = resultJson.get("result").toString();
             String msginfo = resultJson.get("msg").toString();
@@ -186,6 +186,7 @@ public class VideoResController extends AbstractController {
                 obj[2] = chunkUrl;
                 return ResponseObject.newSuccessResponseObject(obj);
             } else {
+                logger.warn("resultJson{}",result);
                 return ResponseObject.newErrorResponseObject(msginfo);
             }
         }

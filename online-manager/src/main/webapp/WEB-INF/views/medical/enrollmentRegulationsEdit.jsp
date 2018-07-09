@@ -149,7 +149,7 @@
 				</select>
 			</div>
 			<div class="col-sm-2">
-				<select id="edit_citys" onchange="onchangeCityEdit();" class="clearfix col-xs-10 col-sm-12 {required:true}">
+				<select id="edit_citys" onchange="doProvAndCountyRelationEdit();" class="clearfix col-xs-10 col-sm-12 {required:true}">
 					<option id='chooseCity' value=''></option>
 				</select>
 			</div>
