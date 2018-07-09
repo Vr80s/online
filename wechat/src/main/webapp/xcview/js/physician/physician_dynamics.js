@@ -706,7 +706,7 @@ requestService("/xczh/doctors/doctorStatus", {doctorId:doctorId},function (data)
                                     
                                     }
                                 });
-                                requestService("/xczh/course/liveDetails", {userId:userId},function (data) {  
+                                requestService("/xczh/course/details", {userId:userId},function (data) {  
                                     if (data.success == true) {
                                         // 直播状态
                                         //直播课程状态：lineState  1直播中， 2预告，3直播结束 ， 4 即将直播 ，5 准备直播 ，6 异常直播
