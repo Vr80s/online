@@ -281,11 +281,18 @@ $(function () {
                     $this.parent().addClass('clip-auto');
                     $this.next().removeClass('wth0');
                 }
-//              	添加视频播放百分比
                 $this.css("-webkit-transform", "rotate(" + (18 / 5) * percent + "deg)");
+                //添加视频播放百分比
                 var finishVideoBox=$this.parent().parent().siblings(".play-album").find(".course-length").find("span");
-                var finishVideo=Math.floor(percent);
-                finishVideoBox.html("已完成"+finishVideo+"%");
+               	var finishVideo=percent.toFixed(1);
+               if (percent>0) {
+                	finishVideoBox.removeClass("hide").html("已完成"+finishVideo+"%");
+                } else{
+                	finishVideoBox.addClass("hide")
+                }
+                
+                
+                
 //              添加视频播放百分比
             })
 
