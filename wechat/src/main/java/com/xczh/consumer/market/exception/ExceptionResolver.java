@@ -69,7 +69,7 @@ public class ExceptionResolver {
 
     private boolean notFilter(Exception ex) {
         for (int i = 0; i < filterList.size(); i++) {
-            if(ex.getMessage().contains(filterList.get(i))){
+            if(ex.getMessage() !=null && ex.getMessage().contains(filterList.get(i))){
                 return false;
             }
         }
