@@ -40,7 +40,7 @@ public class ArticleController {
     public ResponseObject get(@RequestParam int id) {
         MobileArticleVO mobileArticleVO = medicalDoctorArticleService.get(id);
         if (mobileArticleVO == null) {
-            return ResponseObject.newErrorResponseObject("文章找不到");
+            return ResponseObject.newErrorResponseObject("文章已经下架~");
         }
         String typeId = mobileArticleVO.getTypeId();
         if (typeId != null) {
