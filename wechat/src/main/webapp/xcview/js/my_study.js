@@ -142,7 +142,9 @@ var all_history="";
 //				$(".no_follow_uesr").show();您还没有关注的主播
 				$(".wrap-follow").hide();   /*没有主播的时候--隐藏关注主播*/
 			}
-			$("#all_follow_people").html(template("data_follow",data))		
+			$("#all_follow_people").html(template("data_follow",data));
+
+
 		})	
 	
 
