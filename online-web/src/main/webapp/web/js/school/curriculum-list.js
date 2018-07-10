@@ -206,6 +206,7 @@ function viewCondition(paramsObj) {
 		if(sortOrder == 1|| sortOrder == 2 || sortOrder == 3){
 			$(".wrap-tab ul li a").eq(sortOrder-1).css("color","#00BC12");
 		}else{
+			$(".wrap-tab .tab-price a").css("color","#00BC12");
 			$(".wrap-tab .tab-price span").eq(sortOrder-4).css("color","#00BC12");
 		}
 	}

@@ -50,12 +50,14 @@ public class QQClientUserMapping extends Model<QQClientUserMapping> {
     @TableField("remark")
     private String remark;
 
-    @TableField("create_time")
+    @TableField("create_time") 
     private Date createTime;
 
     @TableField("union_id")
     private String unionId;
 
+    @TableField("deleted")
+    private Boolean deleted;
 
     public QQClientUserMapping() {
 
@@ -193,7 +195,15 @@ public class QQClientUserMapping extends Model<QQClientUserMapping> {
     public void setUnionId(String unionId) {
         this.unionId = unionId;
     }
+    
 
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
+    }
 
     @Override
     public String toString() {

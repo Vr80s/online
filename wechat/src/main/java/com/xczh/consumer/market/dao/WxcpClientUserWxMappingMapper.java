@@ -25,7 +25,7 @@ public class WxcpClientUserWxMappingMapper extends BasicSimpleDao {
      * @throws SQLException
      */
     public WxcpClientUserWxMapping getWxcpClientUserWxMappingByUserId(String userId) throws SQLException {
-        String sql = "select * from wxcp_client_user_wx_mapping where client_id = ? ";
+        String sql = "select * from wxcp_client_user_wx_mapping where client_id = ? and deleted = 0 ";
         Object params[] = {userId};
         return this.query(JdbcUtil.getCurrentConnection(), sql.toString(), new BeanHandler<>(WxcpClientUserWxMapping.class), params);
     }
@@ -41,7 +41,7 @@ public class WxcpClientUserWxMappingMapper extends BasicSimpleDao {
         if (openId == null) {
             return null;
         }
-        String sql = "select * from wxcp_client_user_wx_mapping where openid = ? ";
+        String sql = "select * from wxcp_client_user_wx_mapping where openid = ? and deleted = 0 ";
         Object params[] = {openId};
         return this.query(JdbcUtil.getCurrentConnection(), sql.toString(), new BeanHandler<>(WxcpClientUserWxMapping.class), params);
     }
@@ -54,11 +54,11 @@ public class WxcpClientUserWxMappingMapper extends BasicSimpleDao {
      */
     public WxcpClientUserWxMapping getWxcpClientUserWxMappingInfo(String client_id, String openid, String wx_public_id) throws SQLException {
         if (client_id != null) {
-            String sql = "select * from wxcp_client_user_wx_mapping where client_id = ? ";
+            String sql = "select * from wxcp_client_user_wx_mapping where client_id = ? and deleted = 0 ";
             Object params[] = {client_id};
             return this.query(JdbcUtil.getCurrentConnection(), sql.toString(), new BeanHandler<>(WxcpClientUserWxMapping.class), params);
         } else if (openid != null && wx_public_id != null) {
-            String sql = "select * from wxcp_client_user_wx_mapping where openid = ? and wx_public_id = ? ";
+            String sql = "select * from wxcp_client_user_wx_mapping where openid = ? and wx_public_id = ?  and deleted = 0 ";
             Object params[] = {openid, wx_public_id};
             return this.query(JdbcUtil.getCurrentConnection(), sql.toString(), new BeanHandler<>(WxcpClientUserWxMapping.class), params);
         } else {
@@ -265,14 +265,14 @@ public class WxcpClientUserWxMappingMapper extends BasicSimpleDao {
      * @author name：yangxuan <br>email: 15936216273@163.com
      */
     public WxcpClientUserWxMapping getWxcpClientUserByUnionId(String unionId) throws SQLException {
-        String sql = "select * from wxcp_client_user_wx_mapping where unionid = ? ";
+        String sql = "select * from wxcp_client_user_wx_mapping where unionid = ? and deleted = 0 ";
         Object params[] = {unionId};
         return this.query(JdbcUtil.getCurrentConnection(), sql.toString(), new BeanHandler<>(WxcpClientUserWxMapping.class), params);
     }
 
     public WxcpClientUserWxMapping getWxcpClientUserWxMappingByOpenId(
             String userId, String unionId) throws SQLException {
-        String sql = "select * from wxcp_client_user_wx_mapping where client_id =? and unionid = ?  ";
+        String sql = "select * from wxcp_client_user_wx_mapping where client_id =? and unionid = ?  and deleted = 0 ";
         Object params[] = {userId, unionId};
         return this.query(JdbcUtil.getCurrentConnection(), sql.toString(), new BeanHandler<>(WxcpClientUserWxMapping.class), params);
     }
