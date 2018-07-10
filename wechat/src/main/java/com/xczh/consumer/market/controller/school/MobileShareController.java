@@ -176,13 +176,6 @@ public class MobileShareController {
                     res.sendRedirect(returnOpenidUri + WechatShareLinkType.UNSHELVE.getLink());
                     return;
                 }
-
-            } else if (ShareType.MEDICAL_CASES.getCode().equals(shareType)) {
-                MobileArticleVO mobileArticleVO = medicalDoctorArticleService.get(Integer.parseInt(shareId));
-                if (mobileArticleVO == null) {
-                    res.sendRedirect(returnOpenidUri + WechatShareLinkType.UNSHELVE.getLink());
-                    return;
-                }
             }
 
             if (StringUtils.isNotBlank(wxOrbrower) && "wx".equals(wxOrbrower)) {
@@ -273,16 +266,14 @@ public class MobileShareController {
 
                 res.sendRedirect(returnOpenidUri + WechatShareLinkType.DOCDOT_SHARE.getLink() + shareId);
 
-                //文章分享
+                //文章分享   、 医案分享
             } else if (ShareType.ACTICLE_SHARE.getCode().equals(shareType)) {
-
-                res.sendRedirect(returnOpenidUri + WechatShareLinkType.ACTICLE_SHARE.getLink()+ shareId);
-
-                //医案分享
-            } else if (ShareType.MEDICAL_CASES.getCode().equals(shareType)) {
-
                 res.sendRedirect(returnOpenidUri + WechatShareLinkType.MEDICAL_CASES.getLink()+ shareId);
-            }
+                
+            } 
+//            else if (ShareType.MEDICAL_CASES.getCode().equals(shareType)) {
+//                res.sendRedirect(returnOpenidUri + WechatShareLinkType.MEDICAL_CASES.getLink()+ shareId);
+//            }
         } catch (Exception e) {
             e.printStackTrace();
 
