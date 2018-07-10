@@ -281,7 +281,7 @@ public class WeChatThirdPartyController {
             throws Exception {
         LOGGER.warn("middle/callback:code={}", code);
         WxcpClientUserWxMapping wxw = onlineUserService.saveWxInfo(code);
-        if (StringUtils.isNotBlank(wxw.getClient_id())) {
+        if (wxw!=null && StringUtils.isNotBlank(wxw.getClient_id())) {
             OnlineUser ou = onlineUserService.findUserById(wxw.getClient_id());
             if (ou != null) {
                 Token t = userCenterService.loginThirdPart(ou.getLoginName(), TokenExpires.TenDay);

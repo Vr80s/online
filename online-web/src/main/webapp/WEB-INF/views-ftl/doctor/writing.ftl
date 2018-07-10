@@ -57,7 +57,9 @@
                                 </a>
                             </div>
                             <div class="doctor_writing_inf">
+                            	<a href="${webUrl}/headline/details/${writing.id}">
                                 <h4>${writing.title}</h4>
+                                </a>
                                 <p>作者:${writing.author}</p>
                                 <p>${writing.content}</p>
                             </div>

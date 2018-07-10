@@ -46,15 +46,13 @@ RequestService("/online/user/isAlive", "GET", null, function(data) { ///online/u
 			
 			var obj = data.resultObject;
 			
-			
 			if(!data.success){
+				alert("获取课程信息有误");
 				location.href="/courses/"+collectionId+"/info";
 			}
 			$("#courseName").html(obj.courseName).attr("title", obj.courseName);
 			document.title = obj.courseName ;
-			
 			$(".headerBody .rightT i").html(obj.lecturer); 
-			
 			//分享使用
 			courseName = obj.courseName;
 			smallImgPath = obj.smallImgPath;
