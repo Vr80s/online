@@ -1017,6 +1017,10 @@ overflow: hidden;
 .teacher_books .book_list li .book_author{
     font-size:14px;
     font-weight:700;
+        max-width: 180px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .writing-author-info {
