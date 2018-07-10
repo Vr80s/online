@@ -27,14 +27,6 @@ public interface MedicalDoctorPostsLikeMapper extends BaseMapper<MedicalDoctorPo
     void addMedicalDoctorPostsLike(@Param("postsId") Integer postsId, @Param("userId") String userId, @Param("flag") Integer flag);
 
     /**
-     * 删除医师动态点赞
-     *
-     * @param id 医师动态点赞id
-     * @return
-     */
-    void deleteMedicalDoctorPostsLike(@Param("id") Integer id, @Param("userId") String userId);
-
-    /**
      * 获取医师动态点赞列表
      *
      * @param postsId 医师动态id
