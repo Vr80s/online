@@ -641,13 +641,13 @@ $.fn.toggle = function( fn, fn2 ) {
           if(hashName !== '') {  
               var hash = window.location.hash;  
               if(hash === '') {  
-                  location.href ='/xcview/html/live_select_album.html?course_id=' + collectionId 
+                  location.href ='/xcview/html/live_select_album.html?course_id=' + collectionId;
                   
               }  
           }  
       });  
 	var urlstr = window.location.href;
-      window.history.pushState('forward', null,urlstr);    
+    window.history.pushState('forward', null,urlstr);    
   }
 };*/
 </script> 
