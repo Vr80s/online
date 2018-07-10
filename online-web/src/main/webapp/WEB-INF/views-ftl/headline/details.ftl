@@ -30,7 +30,6 @@
     <script src="/web/js/ajax.js" type="text/javascript" charset="utf-8"></script>
     <script src="/web/js/header-top.js" type="text/javascript" charset="utf-8"></script>
 
-
 </head>
 <body>
 <!--提示-->
@@ -549,7 +548,7 @@
 				btnColor.css("background",  "#999");
 			}
 		})
-        
-        
     })();
 </script>
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"啦啦啦","bdMini":"2","bdMiniList":false,"bdPic":"https://file.ipandatcm.com/18707111404/827dbb6d1d49d55d.jpg","bdStyle":"0","bdSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
