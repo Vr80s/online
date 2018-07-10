@@ -8,6 +8,8 @@ $(".album_list").css({"height":heightt})
 var collectionId = $.getUrlParam("collectionId");
 var courseId = $.getUrlParam("courseId");
 
+var watchState = $.getUrlParam("watchState");
+
 var ljxx = $.getUrlParam("ljxx");
 var falgCollectionId = "_"+collectionId;
 var falgId = "_"+collectionId+"_"+courseId;
@@ -32,12 +34,21 @@ function stringnull(zifu) {
 }
 
 
+
 //获取视频信息接口
 RequestService("/online/user/isAlive", "GET", null, function(data) { ///online/user/isAlive
 	if(data.success === true) {
 		userId = data.resultObject.id;
 		
-		//请求集合查看列表
+		
+		//如果从选集处点击来的，并且是免费的ok，看吧  --》增加一条学习记录
+		if(watchState!=null && watchState!=undefined && watchState == 1){
+        	RequestService("/learnWatch/add", "POST", {
+        		courseId:collectionId,recordType:1
+        	}, function(data) {
+        		console.log("增加学习记录");
+        	},false);
+		}
 		
 		//获取课程名字和讲师姓名
 		RequestService("/online/live/getOpenCourseById", "get", {
@@ -46,15 +57,13 @@ RequestService("/online/user/isAlive", "GET", null, function(data) { ///online/u
 			
 			var obj = data.resultObject;
 			
-			
 			if(!data.success){
+				alert("获取课程信息有误");
 				location.href="/courses/"+collectionId+"/info";
 			}
 			$("#courseName").html(obj.courseName).attr("title", obj.courseName);
 			document.title = obj.courseName ;
-			
 			$(".headerBody .rightT i").html(obj.lecturer); 
-			
 			//分享使用
 			courseName = obj.courseName;
 			smallImgPath = obj.smallImgPath;

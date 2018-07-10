@@ -53,7 +53,7 @@
         <#if writing??>
             <div class="forum-detailInfo">
                 <div class="writing-buy-link">
-                    <div>
+                    <div style="float: left;">
                         <img src="${writing.imgPath}">
                     </div>
                     <div class="writing-author-info">
