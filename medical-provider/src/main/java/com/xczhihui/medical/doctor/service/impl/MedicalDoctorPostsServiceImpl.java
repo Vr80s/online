@@ -208,7 +208,7 @@ public class MedicalDoctorPostsServiceImpl extends ServiceImpl<MedicalDoctorPost
         return medicalDoctorPostsMapper.getMedicalDoctorPostsByCourseId(courseId);
     }
 
-
+    @Override
     public void addDoctorPosts(String userId, Integer courseId, Integer articleId, String courseName, String subtitle) {
         MedicalDoctorAccount mha = medicalDoctorAccountService.getByUserId(userId);
         if(mha != null){

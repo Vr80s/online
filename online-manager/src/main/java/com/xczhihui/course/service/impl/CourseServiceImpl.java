@@ -1,22 +1,5 @@
 package com.xczhihui.course.service.impl;
 
-import java.io.IOException;
-import java.util.*;
-
-import com.xczhihui.medical.doctor.model.MedicalDoctorAccount;
-import com.xczhihui.medical.doctor.model.MedicalDoctorPosts;
-import com.xczhihui.medical.doctor.service.IMedicalDoctorAccountService;
-import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsService;
-import org.apache.solr.client.solrj.SolrServerException;
-import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.Restrictions;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
-
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.*;
 import com.xczhihui.common.support.cc.util.CCUtils;
@@ -33,12 +16,25 @@ import com.xczhihui.course.service.ICourseSolrService;
 import com.xczhihui.course.vo.CourseVo;
 import com.xczhihui.course.vo.LecturerVo;
 import com.xczhihui.course.vo.MenuVo;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsService;
 import com.xczhihui.online.api.service.LiveCallbackService;
 import com.xczhihui.support.shiro.ManagerUserUtil;
 import com.xczhihui.user.service.OnlineUserService;
 import com.xczhihui.utils.subscribe.Subscribe;
 import com.xczhihui.vhall.VhallUtil;
 import com.xczhihui.vhall.bean.Webinar;
+import org.apache.solr.client.solrj.SolrServerException;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
+import java.io.IOException;
+import java.util.*;
 
 /**
  * CourseServiceImpl:课程业务层接口实现类
@@ -66,8 +62,6 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
     private ICourseSolrService courseSolrService;
     @Autowired
     private IMedicalDoctorPostsService medicalDoctorPostsService;
-    @Autowired
-    private IMedicalDoctorAccountService medicalDoctorAccountService;
     @Value("${env.flag}")
     private String envFlag;
     @Value("${vhall.user.id}")

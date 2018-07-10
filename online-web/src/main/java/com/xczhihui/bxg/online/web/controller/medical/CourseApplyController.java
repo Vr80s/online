@@ -1,26 +1,11 @@
 package com.xczhihui.bxg.online.web.controller.medical;
 
-import java.io.IOException;
-import java.text.MessageFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.solr.client.solrj.SolrServerException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.*;
-
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.bxg.online.common.domain.Course;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.controller.AbstractController;
 import com.xczhihui.bxg.online.web.service.CourseService;
 import com.xczhihui.bxg.online.web.service.OnlineUserCenterService;
-import com.xczhihui.common.util.CourseUtil;
 import com.xczhihui.common.util.TimeUtil;
 import com.xczhihui.common.util.VhallUtil;
 import com.xczhihui.common.util.bean.ResponseObject;
@@ -40,10 +25,20 @@ import com.xczhihui.medical.anchor.model.CourseApplyResource;
 import com.xczhihui.medical.anchor.service.ICourseApplyService;
 import com.xczhihui.medical.anchor.vo.CourseApplyInfoVO;
 import com.xczhihui.medical.anchor.vo.CourseApplyResourceVO;
-import com.xczhihui.medical.doctor.model.MedicalDoctorAccount;
-import com.xczhihui.medical.doctor.model.MedicalDoctorPosts;
-import com.xczhihui.medical.doctor.service.IMedicalDoctorAccountService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsService;
+import org.apache.solr.client.solrj.SolrServerException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
+import java.text.MessageFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 /**

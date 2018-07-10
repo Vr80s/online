@@ -1,14 +1,5 @@
 package com.xczhihui.bxg.online.web.controller.medical;
 
-import javax.validation.Valid;
-
-import com.xczhihui.medical.doctor.model.MedicalDoctorPosts;
-import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsService;
-import com.xczhihui.medical.doctor.vo.OeBxsArticleVO;
-import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
 import com.xczhihui.bxg.online.web.body.doctor.DoctorArticleBody;
 import com.xczhihui.bxg.online.web.controller.ftl.AbstractFtlController;
 import com.xczhihui.common.util.bean.ResponseObject;
@@ -16,7 +7,13 @@ import com.xczhihui.common.util.enums.HeadlineType;
 import com.xczhihui.medical.doctor.model.MedicalDoctor;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorArticleService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsService;
 import com.xczhihui.medical.headline.model.OeBxsArticle;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 /**
  * 医师专栏与报道
