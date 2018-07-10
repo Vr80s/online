@@ -90,6 +90,9 @@ public class WeiboClientUserMapping extends Model<WeiboClientUserMapping> {
 
     @TableField("create_time")
     private Date createTime;
+    
+    @TableField("deleted")
+    private Boolean deleted;
 
     public WeiboClientUserMapping() {
 
@@ -338,6 +341,14 @@ public class WeiboClientUserMapping extends Model<WeiboClientUserMapping> {
                 + createdAt + ", verified=" + verified + ", remark=" + remark
                 + ", lang=" + lang + ", weihao=" + weihao + ", createTime="
                 + createTime + "]";
+    }
+
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
     }
 
     @Override

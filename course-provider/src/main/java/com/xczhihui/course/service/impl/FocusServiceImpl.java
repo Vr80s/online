@@ -76,10 +76,10 @@ public class FocusServiceImpl extends ServiceImpl<FocusMapper, Focus> implements
             //医师认证啦
             if(focusVo.getType().equals(1)) {
                 String hostId = focusVo.getUserId();
-                Map<String, Object> mapHeadProtrait = myInfoMapper.selectDoctorHeadPortraitAndByUserId(hostId);
+                Map<String, String> mapHeadProtrait = myInfoMapper.selectDoctorHeadPortraitAndByUserId(hostId);
                 if(mapHeadProtrait!=null) {
-                    focusVo.setDoctorId(mapHeadProtrait.get("doctorId").toString());
-                    focusVo.setSmallHeadPhoto(mapHeadProtrait.get("headPortrait").toString());
+                    focusVo.setDoctorId(mapHeadProtrait.get("doctorId"));
+                    focusVo.setSmallHeadPhoto(mapHeadProtrait.get("headPortrait"));
                 }
             }
         }
