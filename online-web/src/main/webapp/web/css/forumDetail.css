@@ -166,9 +166,11 @@ img {
 }
 
 #forum .forum-content .forum-content-left .forum-detailInfo .forum-detail-content {
-    margin-top: 50px;
+    /*margin-top: 50px;*/
     word-break: break-all;
     word-wrap: break-word;
+        padding-top: 50px;
+    clear: both;
 }
 
 #forum .forum-content .forum-content-left .forum-detailInfo .forum-detail-content img {
@@ -1015,26 +1017,24 @@ overflow: hidden;
 .teacher_books .book_list li .book_author{
     font-size:14px;
     font-weight:700;
+        max-width: 180px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
-.writing-buy-link {
-    display: flex;
-}
 .writing-author-info {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+       float: right;
+    margin-top: 45px;
 }
 .writing-buy-link img {
     width: 100px;
     height:140px;
 }
 .writing-author-name {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 610px;
+        width: 610px;
     padding-left: 20px;
+    float: left;
 }
 .writing-author-name .title {
     font-size: 16px;
@@ -1046,9 +1046,7 @@ overflow: hidden;
     line-height: 19px;
 }
 .writing-author-info .writing-go-buy {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+   float: right;
 }
 .writing-go-buy a {
     width: 90px;
@@ -1062,15 +1060,11 @@ overflow: hidden;
     color:white;
     text-align: center;
 }
-
 .nodata-box{
 	text-align: center;
 	color: #999999;
 	padding-top: 69px;	
 }
-
-
-
 .nodata-box .no-question-img{
 	margin: 0 auto 10px;
     width: 63px;
