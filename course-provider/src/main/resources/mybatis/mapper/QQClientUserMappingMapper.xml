@@ -129,10 +129,10 @@
         weibo.uid as wbUnionId,
         qq.open_id as qqUnionId
         from oe_user ou
-        left join wxcp_client_user_wx_mapping wc on ou.id = wc.client_id
-        left join weibo_client_user_mapping weibo on ou.id = weibo.user_id
-        left join qq_client_user_mapping qq on ou.id = qq.user_id
-        where ou.id = #{userId}  and wc.deleted = 0   and weibo.deleted = 0  and qq.deleted = 0 
+        left join wxcp_client_user_wx_mapping wc on ou.id = wc.client_id  and  wc.deleted = 0 
+        left join weibo_client_user_mapping weibo on ou.id = weibo.user_id  and  weibo.deleted = 0 
+        left join qq_client_user_mapping qq on ou.id = qq.user_id  and qq.deleted = 0 
+        where ou.id = #{userId}     
         limit 1
     </select>
 
