@@ -112,8 +112,7 @@ public class LiveServiceImpl extends OnlineBaseServiceImpl implements LiveServic
     }
 
     @Override
-    public ModelAndView livepage
-            (String courseId, HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView livepage (Integer courseId, HttpServletRequest request, HttpServletResponse response) {
 
         Map<String, Object> paramMap = new HashMap<String, Object>();
         BxgUser user = UserLoginUtil.getLoginUser();
@@ -124,7 +123,7 @@ public class LiveServiceImpl extends OnlineBaseServiceImpl implements LiveServic
             paramMap.put("userId", user.getId());
             List<Map<String, Object>> argc = dao.getNamedParameterJdbcTemplate().queryForList("SELECT id FROM `apply_r_grade_course` argc WHERE argc.course_id = :courseId AND argc.`user_id`=:userId AND argc.`validity`>NOW()", paramMap);
             if (argc.size() == 0) {
-                ApplyGradeCourse applyGradeCourse = applyGradeCourseDao.findCollectionCourseByCourseIdAndUserId(Integer.valueOf(courseId), user.getId());
+                ApplyGradeCourse applyGradeCourse = applyGradeCourseDao.findCollectionCourseByCourseIdAndUserId(courseId, user.getId());
                 if (applyGradeCourse == null) {
                     return new ModelAndView("redirect:/courses/" + courseId + "/info");
                 }

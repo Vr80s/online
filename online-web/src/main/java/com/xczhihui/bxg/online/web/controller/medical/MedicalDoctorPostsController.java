@@ -36,13 +36,9 @@ public class MedicalDoctorPostsController {
     @Autowired
     private IMedicalDoctorPostsService medicalDoctorPostsService;
     @Autowired
-    private AttachmentCenterService service;
-    @Autowired
     private IMedicalDoctorAccountService medicalDoctorAccountService;
     @Autowired
     private ICourseApplyService courseApplyService;
-    @Autowired
-    private ICourseService courseService;
 
     /**
      * 医师动态列表

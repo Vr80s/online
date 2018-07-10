@@ -106,7 +106,7 @@ public class CourseController {
             throws Exception {
 
         CourseLecturVo cv = courseServiceImpl.selectCourseMiddleDetailsById(courseId);
-
+        
         if (cv == null) {
             return ResponseObject.newErrorResponseObject("课程信息有误");
         }
@@ -139,7 +139,6 @@ public class CourseController {
             if (isFours != 0) {
                 cv.setIsFocus(1);
             }
-
             Integer falg = criticizeService.hasCourse(accountId, courseId);
             //如果是付费课程，判断这个课程是否已经被购买了
             if (cv.getWatchState() == 0) { // 付费课程

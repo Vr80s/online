@@ -30,8 +30,8 @@
         wcum.weihao as weihao,
         wcum.create_time as createTime
         FROM
-        weibo_client_user_mapping wcum
-        WHERE wcum.uid = #{uid} limit 1
+        weibo_client_user_mapping wcum 
+        WHERE wcum.uid = #{uid} and wcum.deleted = 0 limit 1
     </select>
 
     <!-- 通过熊猫中医用户id获取  -->
@@ -63,7 +63,7 @@
         wcum.create_time as createTime
         FROM
         weibo_client_user_mapping wcum
-        WHERE wcum.user_id = #{userId} limit 1
+        WHERE wcum.user_id = #{userId} and wcum.deleted = 0  limit 1
     </select>
 
 
@@ -97,7 +97,7 @@
         wcum.create_time as createTime
         FROM
         weibo_client_user_mapping wcum
-        WHERE wcum.user_id = #{userId} and wcum.uid = #{uid} limit 1
+        WHERE wcum.user_id = #{userId} and wcum.deleted = 0  and wcum.uid = #{uid} limit 1
     </select>
 
     <delete id="deleteAccount">

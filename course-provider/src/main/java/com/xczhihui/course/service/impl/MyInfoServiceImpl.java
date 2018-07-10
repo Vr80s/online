@@ -35,7 +35,6 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper, OnlineUser> imp
 
     @Override
     public List<BigDecimal> selectCollegeCourseXmbNumber(String userId) {
-        // TODO Auto-generated method stub
         List<BigDecimal> list = myInfoMapper.selectCollegeCourseXmbNumber(userId);
         return list;
     }
@@ -94,7 +93,7 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper, OnlineUser> imp
             if(map!=null && map.get("type")!=null && "1".equals(map.get("type").toString())&& 
                     map.get("userId")!=null) {
                 String userId = map.get("userId").toString();
-                Map<String, Object> mapHeadProtrait =  
+                Map<String, String> mapHeadProtrait =
                         myInfoMapper.selectDoctorHeadPortraitAndByUserId(userId);
                 map.putAll(mapHeadProtrait);
             }

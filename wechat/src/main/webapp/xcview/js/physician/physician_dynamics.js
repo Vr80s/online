@@ -137,9 +137,9 @@ function doctorPostsList(pageNumber,downOrUp,doctorPostsType) {
             $(".rests_nav").html(template('wrap_doctor_dynamics',{items:obj}));
             var $dot5 = $('.show-text');
                 $dot5.each(function () {
-                    if ($(this).height() > 100) {
+                    if ($(this).height() > 160) {
                         $(this).attr("data-txt", $(this).attr("data-text"));
-                        $(this).height(100);
+                        $(this).height(160);
                         $(this).append('<span class="qq"> <a class="toggle" href="###" style="color:#2cb82c"><span class="opens">展开<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></span><span class="closes">收起<span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span></span></a></span>');
                     }
                     var $dot4 = $(this);
@@ -169,6 +169,53 @@ function doctorPostsList(pageNumber,downOrUp,doctorPostsType) {
                         }
                     );
                  });
+
+
+
+          var $dot1 = $('.show-text2');
+                $dot1.each(function () {
+                    if ($(this).height() > 160) {
+                        $(this).attr("data-txt", $(this).attr("data-text"));
+                        $(this).height(160);
+                        $(this).append('<span class="qq"> <a class="toggle" href="###" style="color:#2cb82c"><span class="opens">展开<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></span><span class="closes">收起<span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span></span></a></span>');
+                    }
+                    var $dot4 = $(this);
+
+                    function createDots() {
+                        $dot4.dotdotdot({
+                            after: 'span.qq'
+                        });
+                    }
+                    function destroyDots() {
+                        $dot4.trigger('destroy');
+                    }
+
+                    createDots();
+                    $dot4.on(
+                        'click',
+                        'a.toggle',
+                        function () {
+                            $dot4.toggleClass('opened');
+
+                            if ($dot4.hasClass('opened')) {
+                                destroyDots();
+                            } else {
+                                createDots();
+                            }
+                            return false;
+                        }
+                    );
+                 });
+
+
+
+
+
+
+
+
+
+
             miniRefresh.endDownLoading(true);// 结束下拉刷新
         } else if(obj.length==0){
             miniRefresh.endUpLoading(true);// 结束上拉加载
@@ -816,22 +863,12 @@ requestService("/xczh/doctors/doctorStatus", {doctorId:doctorId},function (data)
 
                                     }else{
                                         $(".baseImagenumber").show();
-                                    }
-
-                                    // $('#message_referral').html(template('self_introduction_id', {items: data.resultObject}));
-                                    
-
-                                    
-
-                                    // if (data.resultObject.hospital.name == null && data.resultObject.hospital.tel == null && data.resultObject.hospital.detailedAddress == null && data.resultObject.description == null && data.resultObject.description == '') {
-                                    //     alert(123);
-                                    //     $(".baseImagenumber").show();
-
-                                    // };
-                                                                    
+                                    }                          
 
                                 }
                             });
+
+                            
                             /*介绍结束*/
 
                     });
