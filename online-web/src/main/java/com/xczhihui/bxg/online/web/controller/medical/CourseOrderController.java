@@ -102,7 +102,11 @@ public class CourseOrderController extends AbstractController {
     @RequestMapping(value = "pay", method = RequestMethod.GET)
     public ModelAndView pay(@RequestParam String orderId) {
         ModelAndView modelAndView = new ModelAndView("pay/pay");
-        Order order = orderService.getOrderNo4PayByOrderId(orderId,null);
+        Order oldOrder = orderService.getOrderById(orderId);
+        if (oldOrder != null && oldOrder.getOrderStatus() == OrderStatus.PAID.getCode()) {
+            return new ModelAndView("redirect:/order/pay/success?orderId=" + orderId);
+        }
+        Order order = orderService.getOrderNo4PayByOrderId(orderId, null);
         if (order == null) {
             throw new OrderException("订单不存在,id:" + orderId);
         }
