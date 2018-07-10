@@ -653,15 +653,16 @@
 
 					<div class="both"></div>
 					<!-- <div class="consilia_nav_btn"><span>展开</span></div>-->
+					{{if item.articleStatus == 1}}
 					<div class="consilia_nav_cen" data-id="{{item.articleId}}" data-status="{{item.articleStatus}}" style="display: block;">
-						{{if item.articleStatus == 1}}
 							<img src="{{item.articleImgPath}}" alt="" />
 							<div class="consilia_nav_cen_size">{{item.articleTitle}}</div>
 							<div class="consilia_nav_cen_sizes">{{item.articleContent}}</div>
-						{{else}}
-							<div style="background: #FAFAFA;font-size: 0.26rem;">抱歉，此医案已被作者删除。</div>
-						{{/if}}
+
 					</div>
+					{{else}}
+					<div style="background: #FAFAFA;font-size: 0.26rem;">抱歉，此医案已被作者删除。</div>
+					{{/if}}
 					<div class="both"></div>
 				</div>
 				<div class="both"></div>
