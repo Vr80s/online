@@ -134,6 +134,9 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
     @Override
     public MedicalDoctorVO selectDoctorById(String id) {
         MedicalDoctorVO medicalDoctorVO = medicalDoctorMapper.selectDoctorById(id);
+        if(medicalDoctorVO == null){
+            return null;
+        }
         List<MedicalFieldVO> medicalFields = medicalDoctorMapper.selectMedicalFieldsByDoctorId(medicalDoctorVO.getId());
         medicalDoctorVO.setFields(medicalFields);
 

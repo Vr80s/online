@@ -125,9 +125,9 @@ function doctorPostsList(page,downOrUp,doctorPostsType) {
             //判断全部动态默认图
             if(data.resultObject.records.length==0){
 
-                var minirefresh=$(window).height()-$(".top_show_heights").height();
+                var minirefreshs=$(window).height()-$(".top_show_heights").height();
                 $(".rests_nav").height(minirefreshs);
-                alert(1111);
+alert(1111);
                 
                 $(".baseImagenumbers").show();
                 $(".upwrap-tips").hide();
@@ -136,42 +136,6 @@ function doctorPostsList(page,downOrUp,doctorPostsType) {
                 $(".baseImagenumbers").hide();
             }
             $(".rests_nav").html(template('wrap_doctor_dynamics',{items:obj}));
-            var $dot5 = $('.show-text');
-                $dot5.each(function () {
-                    if ($(this).height() > 90) {
-                        $(this).attr("data-txt", $(this).attr("data-text"));
-                        $(this).height(90);
-                        $(this).append('<span class="qq" style="margin-right:60px"> <a class="toggle" href="###" style="color:#2cb82c"><span class="opens">更多<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></span><span class="closes">收起<span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span></span></a></span>');
-                    }
-                    var $dot4 = $(this);
-
-                    function createDots() {
-                        $dot4.dotdotdot({
-                            after: 'span.qq'
-                        });
-                    }
-                    function destroyDots() {
-                        $dot4.trigger('destroy');
-                    }
-
-                    createDots();
-                    $dot4.on(
-                        'click',
-                        'a.toggle',
-                        function () {
-                            $dot4.toggleClass('opened');
-
-                            if ($dot4.hasClass('opened')) {
-                                destroyDots();
-                            } else {
-                                createDots();
-                            }
-                            return false;
-                        }
-                    );
-                 });
-
-
             miniRefresh.endDownLoading(true);// 结束下拉刷新
         } else if(obj.length==0){
             miniRefresh.endUpLoading(true);// 结束上拉加载
@@ -281,7 +245,7 @@ function doctorPostsList(page,downOrUp,doctorPostsType) {
 
 
 
-        /*$(".consilia_nav_span .title").each(function(){
+        $(".consilia_nav_span .title").each(function(){
             var h = $(this).height();
 
             var consilia_nav_btn = $(this).parent().next().next();
@@ -294,20 +258,22 @@ function doctorPostsList(page,downOrUp,doctorPostsType) {
 
             }
 
-        })*/
+        })
 
         // 点击文章收起
-        /*$(".consilia_nav_btn").off("click");
+        $(".consilia_nav_btn").off("click");
         $(".consilia_nav_btn").click(function(){
             var post = $(this);
             if(post.find('span').html()=="展开"){
                 post.parent().find('.consilia_nav_span').find('.title').removeClass("consilia_nav_span_title");
+                // $(".consilia_nav_span .title").removeClass("consilia_nav_span_title");
                 post.find('span').html("收起");
             }else{
+                // $(".consilia_nav_span .title").addClass("consilia_nav_span_title");
                 post.parent().find('.consilia_nav_span').find('.title').addClass("consilia_nav_span_title");
                 post.find('span').html("展开");
             }
-        });*/
+        });
 
         //点赞
         $(".zan_img").off("click");
