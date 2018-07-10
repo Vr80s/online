@@ -530,20 +530,14 @@
 				{{if item.type == 1}}
 				<!-- 普通动态-->
 				<div class="panel_hide">
-					<div class="essay_main comment_hide panels_essay_main show-text">{{if item.stick}}<span class="stick_img"><img src="/xcview/images/stick.png" alt="" />置顶</span>
-                        {{/if}}{{item.content}}</div>
-					<!-- <div class="essay_pack_up_btn"><span class="essay_pack_up_btn_span">展开</span></div>-->
+					<div class="essay_main comment_hide panels_essay_main show-text">{{if item.stick}}<span class="stick_img"><img src="/xcview/images/stick.png" alt="" />置顶</span>{{/if}}{{item.content}}</div>
 					<div class="both"></div>
 				</div>
 				
 				{{else if item.type == 2}}
 				<!-- 动态图片-->
 				<div class="trends_hide">
-					<div class="paper_nav_span comment_hide">
-						{{if item.stick}}
-						<span class="stick_img_stick" style="width: 0.8rem;text-align: left;text-indent: 0;margin-left: 0.26rem;"><img src="/xcview/images/stick.png" alt="" />置顶</span>
-						{{/if}}
-						<span class="span_span{{item.id}}" style="display: block;"></span>
+					<div class="paper_nav_span comment_hide show-text">{{if item.stick}}<span class="stick_img_stick" style="width: 0.8rem;text-align: left;text-indent: 0;margin-left: 0.26rem;"><img src="/xcview/images/stick.png" alt="" />置顶</span>{{/if}}<span class="span_span{{item.id}}" style="display: block;">{{item.content}}</span>
 					</div>
 					{{if item.imgStr !=null && item.imgStr.length>0}}
 					<div class="paper_nav_cen_div">
@@ -587,11 +581,7 @@
 				{{else if item.typeId != null && item.typeId != 8}}
 				<!-- 文章-->
 				<div class="article_hide" data-id="{{item.articleId}}" data-status="{{item.articleStatus}}" data-writingsId="{{item.writingsId}}">
-					<div class="article_nav_span comment_hide show-text" style="overflow: hidden; ">
-						{{if item.stick}}
-						<span class="stick_img_stick"><img src="/xcview/images/stick.png" alt="" />置顶</span>
-						{{/if}}
-							<span class="title">{{item.content}}</span>
+					<div class="article_nav_span comment_hide " style="overflow: hidden; ">{{if item.stick}}<span class="stick_img_stick"><img src="/xcview/images/stick.png" alt="" />置顶</span>{{/if}}<span class="title show-text">{{item.content}}</span><div class="both"></div>
 					</div>
 					{{if item.articleStatus == 1}}
 						<div class="article_nav_cen comment_hide">

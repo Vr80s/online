@@ -173,12 +173,10 @@ function doctorPostsList(pageNumber,downOrUp,doctorPostsType) {
             }else{
                 $(".baseImagenumbers").hide();
             }
+
             $(".rests_nav").html(template('wrap_doctor_dynamics',{items:obj}));
             miniRefresh.endDownLoading(true);// 结束下拉刷新
             idotototo();
-
-
-            
         } else if(obj.length==0){
             miniRefresh.endUpLoading(true);// 结束上拉加载
         } else {

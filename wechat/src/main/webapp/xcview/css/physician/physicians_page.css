@@ -1337,11 +1337,11 @@ p{
 .article_nav_span .title{
 	font-size: 0.3rem;
     color: #151515;
-    display: -webkit-box;
-    float: left;
+    /*display: -webkit-box;*/
+    /*float: left;*//* 
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    white-space: nowrap; */
     width: 100%;
     display: block;
 }
