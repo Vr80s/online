@@ -32,10 +32,10 @@ $(function () {
     	if (localStorage.docTblSta == 'doc_banner') $('.select_list li:nth-child(2)').click();
     	
         if (localStorage.docTblSta == 'doc_hos') $('.select_list li:nth-child(3)').click();
-        if (localStorage.docTblSta == 'doc_zhuanlan') $('.select_list li:nth-child(4)').click();
-        if (localStorage.docTblSta == 'doc_book') $('.select_list li:nth-child(5)').click();
-        if (localStorage.docTblSta == 'doc_media') $('.select_list li:nth-child(6)').click();
-        if (localStorage.docTblSta == 'doc_admit') $('.select_list li:nth-child(7)').click();
+        if (localStorage.docTblSta == 'doc_zhuanlan') $('.select_list li:nth-child(5)').click();
+        if (localStorage.docTblSta == 'doc_book') $('.select_list li:nth-child(6)').click();
+        if (localStorage.docTblSta == 'doc_media') $('.select_list li:nth-child(7)').click();
+        if (localStorage.docTblSta == 'doc_admit') $('.select_list li:nth-child(8)').click();
     }, 100)
 
 
@@ -89,8 +89,6 @@ $(function () {
     $(".setTop").click(function () {
         $(".select_list .littleBox").slideUp()
         $(".select-ud").removeAttr("id")
-        $(".select_list .arrow_jt").removeClass("glyphicon-triangle-bottom")
-        $(".select_list .arrow_jt").addClass("glyphicon-triangle-left")
     })
     //对课程目录下小的下拉div进行操作
     $(".select_list .littleBox p").bind('click', function (event) {
