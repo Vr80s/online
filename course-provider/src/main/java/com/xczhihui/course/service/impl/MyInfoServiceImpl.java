@@ -35,7 +35,6 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper, OnlineUser> imp
 
     @Override
     public List<BigDecimal> selectCollegeCourseXmbNumber(String userId) {
-        // TODO Auto-generated method stub
         List<BigDecimal> list = myInfoMapper.selectCollegeCourseXmbNumber(userId);
         return list;
     }

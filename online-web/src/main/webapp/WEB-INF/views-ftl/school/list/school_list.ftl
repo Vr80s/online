@@ -136,12 +136,14 @@
                 <li><a href="${webUrl}${replaceUrl(webUrlParam,"sortOrder",3)}">人气</a></li>
             </ul>
             <div class="tab-price z">
-                <p>价格</p>
-                <a href="${webUrl}${replaceUrl(webUrlParam,"sortOrder",4)}">
-                    <span class="glyphicon glyphicon-menu-up tab-top" aria-hidden="true" style="color:#333"> </a>
+              <#if webUrlParam?index_of("sortOrder=5")!=-1 >
+                <a href="${webUrl}${replaceUrl(webUrlParam,"sortOrder",4)}" style="color:#333"><p>价格</p></a>
+              <#else>
+                <a href="${webUrl}${replaceUrl(webUrlParam,"sortOrder",5)}" style="color:#333"><p>价格</p></a>
+              </#if>
+                <span class="glyphicon glyphicon-menu-up tab-top" aria-hidden="true" style="color:#333">
                 </span>
-                <a href="${webUrl}${replaceUrl(webUrlParam,"sortOrder",5)}">
-                    <span class="glyphicon glyphicon-menu-down tab-bottom" aria-hidden="true" style="color:#333"></a>
+                <span class="glyphicon glyphicon-menu-down tab-bottom" aria-hidden="true" style="color:#333">
                 </span>
             </div>
         </div>

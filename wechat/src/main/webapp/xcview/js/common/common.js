@@ -240,7 +240,7 @@ function isLoginJump() {
             before_address.indexOf("/xcview/html/physician/physicians_page.html") != -1 ||   //医师页面
             before_address.indexOf("live_personal.html") != -1) {  //主播页
 
-            history.back(-1);
+        	window.history.back();
         } else {
             location.href = "home_page.html";
         }
@@ -249,6 +249,21 @@ function isLoginJump() {
         location.href = "home_page.html";
     }
 }
+
+function common_share_back() {
+    var back = document.referrer;
+    var shareBack = getQueryString("shareBack");
+    if(isNotBlank(shareBack)){
+      if (isNotBlank(back) && back.indexOf("wx_share.html") == -1) {
+	      window.history.back();
+	  } else {
+	      window.location.href = "/xcview/html/physician/index.html";
+	  }
+    }else{
+    	window.history.back();
+    }
+}
+
 
 /**
  * 公共点击事件
@@ -618,42 +633,6 @@ function gotoLiveSelectAlbum() {
     // location.replace("/xcview/html/live_select_album.html?course_id="+collectionId);
 }
 
-function common_share_back() {
-    var back = document.referrer;
-    if (isNotBlank(back) && back.indexOf("wx_share.html") == -1) {
-        window.history.back();
-       
-    } else {
-       
-
-        window.location.href = "/xcview/html/physician/index.html";
-    }
-}
-
-
-function common_share_backs() {
-    /*	var back = document.referrer;
-        if(isNotBlank(back) &&  back.indexOf("wx_share.html")==-1){
-            var u = navigator.userAgent;
-            if (u.indexOf('Android') > -1 || u.indexOf('Linux') > -1) {//安卓手机
-                //window.history.back();
-                window.location.href = "curriculum_table.html";  浏览器上走这个
-                //history.go();
-            } else if (u.indexOf('iPhone') > -1) {//苹果手机
-                window.location.href = back;
-            }
-        }else
-        {
-            window.history.back();  微信上走这个
-            //window.location.href = "home_page.html";
-        }*/
-    var back = document.referrer;
-    if (isNotBlank(back) && back.indexOf("wx_share.html") == -1) {
-        window.location.href = back;
-    } else {
-        window.location.href = "/xcview/html/home_page.html";
-    }
-}
 
 
 /*
