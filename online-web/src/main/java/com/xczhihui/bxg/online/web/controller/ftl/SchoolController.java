@@ -245,7 +245,6 @@ public class SchoolController extends AbstractFtlController {
                 sb.append(name).append("=").append(value).append("&");
             }
         }
-        log.info("sb.toString()" + sb.substring(0, sb.length() - 1));
         if (sb.indexOf("?") != -1) {
             view.addObject("webUrlParam", sb.substring(0, sb.length() - 1));
         } else {
