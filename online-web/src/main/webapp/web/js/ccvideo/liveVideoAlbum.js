@@ -42,7 +42,7 @@ RequestService("/online/user/isAlive", "GET", null, function(data) { ///online/u
 		
 		
 		//如果从选集处点击来的，并且是免费的ok，看吧  --》增加一条学习记录
-		if(watchState == 1){
+		if(watchState!=null && watchState!=undefined && watchState == 1){
         	RequestService("/learnWatch/add", "POST", {
         		courseId:collectionId,recordType:1
         	}, function(data) {
