@@ -301,7 +301,7 @@ window.onload = function () {
         $(".goQuiz").on("click", function () {
             RequestService("/online/user/isAlive", "GET", null, function (data) { ///online/user/isAlive
                 if (data.success) {
-                    location.href = "quiz.html"
+                    location.href = "/web/html/quiz.html"
                 } else {
                     var pathS = window.location.href;
                     localStorage.username = null;

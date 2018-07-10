@@ -80,9 +80,9 @@ function sowingDetails(url) {
     }
 }
 //动态列表
-function doctorPostsList(page,downOrUp,doctorPostsType) {
+function doctorPostsList(pageNumber,downOrUp,doctorPostsType) {
     requestGetService("/doctor/posts", {
-        pageNumber: page,
+        pageNumber: pageNumber,
         pageSize:10,
         type:doctorPostsType,
         doctorId:doctorId
@@ -127,7 +127,6 @@ function doctorPostsList(page,downOrUp,doctorPostsType) {
 
                 var minirefreshs=$(window).height()-$(".top_show_heights").height();
                 $(".rests_nav").height(minirefreshs);
-alert(1111);
                 
                 $(".baseImagenumbers").show();
                 $(".upwrap-tips").hide();
@@ -136,6 +135,40 @@ alert(1111);
                 $(".baseImagenumbers").hide();
             }
             $(".rests_nav").html(template('wrap_doctor_dynamics',{items:obj}));
+            var $dot5 = $('.show-text');
+                $dot5.each(function () {
+                    if ($(this).height() > 100) {
+                        $(this).attr("data-txt", $(this).attr("data-text"));
+                        $(this).height(100);
+                        $(this).append('<span class="qq"> <a class="toggle" href="###" style="color:#2cb82c"><span class="opens">展开<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></span><span class="closes">收起<span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span></span></a></span>');
+                    }
+                    var $dot4 = $(this);
+
+                    function createDots() {
+                        $dot4.dotdotdot({
+                            after: 'span.qq'
+                        });
+                    }
+                    function destroyDots() {
+                        $dot4.trigger('destroy');
+                    }
+
+                    createDots();
+                    $dot4.on(
+                        'click',
+                        'a.toggle',
+                        function () {
+                            $dot4.toggleClass('opened');
+
+                            if ($dot4.hasClass('opened')) {
+                                destroyDots();
+                            } else {
+                                createDots();
+                            }
+                            return false;
+                        }
+                    );
+                 });
             miniRefresh.endDownLoading(true);// 结束下拉刷新
         } else if(obj.length==0){
             miniRefresh.endUpLoading(true);// 结束上拉加载
@@ -365,7 +398,7 @@ alert(1111);
             var itemId = $(this).attr("data-id");
             var courseStatus = $(this).attr("data-status");
             if(courseStatus == 1){
-                common_jump_all(itemId)
+                    location.href = "/page/course/"+itemId;
             } else {
                 location.href = "/xcview/html/unshelve.html";
             }

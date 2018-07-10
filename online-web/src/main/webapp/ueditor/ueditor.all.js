@@ -28776,8 +28776,13 @@ UE.ui = baidu.editor.ui = {};
                 }
                 var count = editor.getContentLength(true);
                 if (count > max) {
-                    countDom.innerHTML = errMsg;
-                    editor.fireEvent("wordcountoverflow");
+//                  countDom.innerHTML = errMsg;					原来的注释了
+//                  editor.fireEvent("wordcountoverflow");			原来的注释了
+
+					var content = editor.getContentTxt();          //限制字的长度添加
+					editor.setContent(content.substring(0,max));	//限制字的长度添加
+					editor.focus(true);								//限制字的长度添加
+
                 } else {
                     countDom.innerHTML = msg.replace("{#leave}", max - count).replace("{#count}", count);
                 }
