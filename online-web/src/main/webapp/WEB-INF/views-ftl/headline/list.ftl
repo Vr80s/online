@@ -76,7 +76,7 @@
                         ${article.content}
                         </div>
                         <div class="forum-info-tags">
-                            <span>${article.author!''}<em></em>${(article.createTime?string("yyyy-MM-dd"))!}</span>
+                            <span>${article.author!''}<em></em>${(article.createTime?string("yyyy-MM-dd HH:mm"))!}</span>
                         </div>
                     </div>
                 </div>
