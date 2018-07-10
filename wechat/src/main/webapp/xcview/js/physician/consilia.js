@@ -7,6 +7,9 @@ $(function(){
  		id:id
  	},function (data) {
 	    if (data.success == true) {
+	    	if(data.resultObject.id == null){
+                location.href = "/xcview/html/article_shelves.html";
+			}
 		  	$('#consilia_main_center').html(template('consilia_main_center_id', {item: data.resultObject}));
 		  	$('.headers').html(template('headers', {item: data.resultObject}));
 	    

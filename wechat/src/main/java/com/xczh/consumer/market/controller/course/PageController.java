@@ -135,7 +135,12 @@ public class PageController {
         if (cv == null) {
             return coursePage;
         }
-        
+        //课程已下架跳转下架页面
+        if (cv.getStatus() == 0) {
+            coursePage = WechatShareLinkType.UNSHELVE.getLink();
+            return coursePage;
+        }
+
         //用户未登录去展示页
         if (ou == null) {
             if (cv.getType().equals(1) || cv.getType().equals(2)) {
