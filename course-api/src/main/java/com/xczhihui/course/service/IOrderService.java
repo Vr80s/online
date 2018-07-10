@@ -38,4 +38,12 @@ public interface IOrderService extends IService<Order> {
      * @return
      */
     Order getOrderIncludeCourseInfoByOrderId(String orderId);
+
+    /**
+     * 通过订单状态和订单id  查找订单信息
+     * @param orderId
+     * @param status
+     * @return
+     */
+    Order getOrderNo4PayByOrderId(String orderId, Integer status);
 }

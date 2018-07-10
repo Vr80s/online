@@ -193,7 +193,7 @@
 <script src="/web/html/school/school-header/header.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" src="/web/js/footer.js"></script>
 <!--公共头部和底部结束-->
-
+<script src="/web/js/common_msg.js"></script>
 <!--登陆结束-->
 <script src="/web/js/school/pay-pay.js" type="text/javascript" charset="utf-8"></script>
 
