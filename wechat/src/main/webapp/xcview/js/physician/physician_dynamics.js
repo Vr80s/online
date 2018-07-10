@@ -80,9 +80,9 @@ function sowingDetails(url) {
     }
 }
 //动态列表
-function doctorPostsList(page,downOrUp,doctorPostsType) {
+function doctorPostsList(pageNumber,downOrUp,doctorPostsType) {
     requestGetService("/doctor/posts", {
-        pageNumber: page,
+        pageNumber: pageNumber,
         pageSize:10,
         type:doctorPostsType,
         doctorId:doctorId
@@ -365,7 +365,7 @@ alert(1111);
             var itemId = $(this).attr("data-id");
             var courseStatus = $(this).attr("data-status");
             if(courseStatus == 1){
-                common_jump_all(itemId)
+                    location.href = "/page/course/"+itemId;
             } else {
                 location.href = "/xcview/html/unshelve.html";
             }

@@ -214,16 +214,29 @@
 	        ca.profile_photo as headPortrait,
 	        ca.name,
 	        ca.user_id as userId,
-	        ca.type as type,
-	        if(ca.type = 1,(select mda.doctor_id from 
-	                 medical_doctor_account as mda where mda.account_id = ca.user_id ),null) as doctorId
-        from
+	        ca.type as type
+	    from
 	        course_anchor ca
 	        join oe_user ou on ca.user_id = ou.id
 	        where ca.status = 1 and ca.deleted = 0
 	        AND ou.is_delete = 0
 	        AND ca.is_recommend = 1 ORDER BY ca.recommend_sort DESC
     </select>
+
+    <!-- 得到医师id和医师头像 -->
+    <select id="selectDoctorHeadPortraitAndByUserId" resultType="java.util.Map">
+         select  
+            md.id as doctorId,
+            mdai.head_portrait headPortrait
+         from medical_doctor md    
+            inner join  medical_doctor_account mda
+            on md.id  = mda.doctor_id  
+            LEFT JOIN `medical_doctor_authentication_information` mdai          
+            ON md.`authentication_information_id` = mdai.`id`
+            where mda.account_id = #{userId} 
+    </select>    
+
+
 
 
 </mapper>
