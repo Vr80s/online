@@ -17,6 +17,6 @@ public interface WechatUserMapper extends BaseMapper<WechatUser> {
      * @param userId
      * @return
      */
-    @Select("select * from wxcp_client_user_wx_mapping where client_id = #{userId}")
+    @Select("select * from wxcp_client_user_wx_mapping where client_id = #{userId} and deleted = 0")
     WechatUser findByUserId(@Param("userId") String userId);
 }
