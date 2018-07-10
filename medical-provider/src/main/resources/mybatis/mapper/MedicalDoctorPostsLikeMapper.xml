@@ -43,11 +43,5 @@
         </choose>
     </insert>
 
-    <delete id="deleteMedicalDoctorPostsLike">
-        delete from
-        medical_doctor_posts_like
-        WHERE posts_id = #{id} and user_id=#{userId}
-    </delete>
-
 
 </mapper>

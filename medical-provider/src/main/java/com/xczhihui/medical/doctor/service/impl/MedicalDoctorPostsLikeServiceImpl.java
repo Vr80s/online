@@ -31,11 +31,6 @@ public class MedicalDoctorPostsLikeServiceImpl extends ServiceImpl<MedicalDoctor
     }
 
     @Override
-    public void deleteMedicalDoctorPostsLike(Integer id, String userId) {
-        medicalDoctorPostsLikeMapper.deleteMedicalDoctorPostsLike(id, userId);
-    }
-
-    @Override
     public Map<String, Object> getMedicalDoctorPostsLikeList(Integer postsId, String accountId) {
         Map<String, Object> mapAll = new HashMap<String, Object>();
         List<MedicalDoctorPostsLike> list = medicalDoctorPostsLikeMapper.getMedicalDoctorPostsLikeList(postsId);
