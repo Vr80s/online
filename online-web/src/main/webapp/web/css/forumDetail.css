@@ -1050,7 +1050,7 @@ overflow: hidden;
     flex-direction: column;
     justify-content: center;
 }
-.writing-go-buy .text a {
+.writing-go-buy a {
     width: 90px;
     height: 36px;
     background-color: #00bc12;
