@@ -73,4 +73,16 @@ public interface IMedicalDoctorPostsService {
      */
     List<MedicalDoctorPosts> getMedicalDoctorPostsByCourseId(Integer courseId);
 
+    /**
+     * 上下架时添加动态
+     *
+     * @param userId 用户id
+     * @param courseId 课程id
+     * @param articleId 文章id
+     * @param courseName 课程名
+     * @param subtitle 课程副标题
+     * @return
+     */
+    void addDoctorPosts(String userId,Integer courseId,Integer articleId,String courseName,String subtitle);
+
 }

@@ -510,18 +510,7 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
         }
         if(course.getStatus().equals("1")){
             //更新动态
-            MedicalDoctorAccount mha = medicalDoctorAccountService.getByUserId(course.getUserLecturerId());
-            MedicalDoctorPosts mdp = new MedicalDoctorPosts();
-            if(course.getSubtitle() == null || course.getSubtitle().equals("")){
-                mdp.setContent(course.getGradeName());
-            }else {
-                mdp.setContent(course.getGradeName()+","+course.getSubtitle());
-            }
-            mdp.setType(5);
-            mdp.setTitle(course.getGradeName());
-            mdp.setDoctorId(mha.getDoctorId());
-            mdp.setCourseId(course.getId());
-            medicalDoctorPostsService.addMedicalDoctorPosts(mdp);
+            medicalDoctorPostsService.addDoctorPosts(course.getUserLecturerId(),course.getId(),null,course.getGradeName(),course.getSubtitle());
         }
         dao.update(course);
         return status;

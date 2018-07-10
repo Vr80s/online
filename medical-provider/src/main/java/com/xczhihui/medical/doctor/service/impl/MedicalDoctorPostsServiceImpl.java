@@ -2,14 +2,16 @@ package com.xczhihui.medical.doctor.service.impl;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.xczhihui.common.util.enums.DoctorPostsType;
 import com.xczhihui.medical.common.bean.PictureSpecification;
 import com.xczhihui.medical.doctor.mapper.MedicalDoctorPostsLikeMapper;
 import com.xczhihui.medical.doctor.mapper.MedicalDoctorPostsMapper;
+import com.xczhihui.medical.doctor.model.MedicalDoctorAccount;
 import com.xczhihui.medical.doctor.model.MedicalDoctorPosts;
 import com.xczhihui.medical.doctor.model.MedicalDoctorPostsComment;
 import com.xczhihui.medical.doctor.model.MedicalDoctorPostsLike;
-import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsCommentService;
-import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsService;
+import com.xczhihui.medical.doctor.service.*;
+import com.xczhihui.medical.doctor.vo.OeBxsArticleVO;
 import com.xczhihui.utils.HtmlUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,6 +35,12 @@ public class MedicalDoctorPostsServiceImpl extends ServiceImpl<MedicalDoctorPost
     private MedicalDoctorPostsLikeMapper medicalDoctorPostsLikeMapper;
     @Autowired
     private IMedicalDoctorPostsCommentService medicalDoctorPostsCommentService;
+    @Autowired
+    private IMedicalDoctorAccountService medicalDoctorAccountService;
+    @Autowired
+    private IMedicalDoctorBusinessService medicalDoctorBusinessService;
+    @Autowired
+    private IMedicalDoctorArticleService medicalDoctorArticleService;
 
     @Override
     public Page<MedicalDoctorPosts> selectMedicalDoctorPostsPage(Page<MedicalDoctorPosts> page, Integer type, String doctorId, String accountId) {
@@ -199,4 +207,47 @@ public class MedicalDoctorPostsServiceImpl extends ServiceImpl<MedicalDoctorPost
     public List<MedicalDoctorPosts> getMedicalDoctorPostsByCourseId(Integer courseId) {
         return medicalDoctorPostsMapper.getMedicalDoctorPostsByCourseId(courseId);
     }
+
+
+    public void addDoctorPosts(String userId, Integer courseId, Integer articleId, String courseName, String subtitle) {
+        MedicalDoctorAccount mha = medicalDoctorAccountService.getByUserId(userId);
+        if(mha != null){
+            MedicalDoctorPosts mdp = new MedicalDoctorPosts();
+            if(courseId != null){
+                if(subtitle == null || subtitle.equals("")){
+                    mdp.setContent(courseName);
+                }else {
+                    mdp.setContent(courseName+","+subtitle);
+                }
+                mdp.setType(DoctorPostsType.COURSEPOSTS.getCode());
+                mdp.setTitle(courseName);
+                mdp.setDoctorId(mha.getDoctorId());
+                mdp.setCourseId(courseId);
+                addMedicalDoctorPosts(mdp);
+            } else {
+                String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(userId);
+                OeBxsArticleVO oba = medicalDoctorArticleService.getSpecialColumn(articleId.toString());
+                mdp.setType(DoctorPostsType.ARTICLEPOSTS.getCode());
+                if(oba.getTypeId().equals("8")){
+                    //截取医案
+                    String htmlText = HtmlUtil.delHTMLTag(oba.getContent());
+                    if(htmlText.length()>100){
+                        mdp.setContent(htmlText.substring(0,100)+"...");
+                    } else {
+                        mdp.setContent(htmlText);
+                    }
+                }else {
+                    mdp.setContent(oba.getTitle());
+                }
+                mdp.setDoctorId(doctorId);
+                mdp.setArticleId(articleId);
+                mdp.setArticleContent(oba.getContent());
+                mdp.setArticleImgPath(oba.getImgPath());
+                mdp.setArticleTitle(oba.getTitle());
+                addMedicalDoctorPosts(mdp);
+            }
+
+        }
+    }
+
 }

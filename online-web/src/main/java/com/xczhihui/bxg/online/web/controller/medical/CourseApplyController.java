@@ -78,8 +78,6 @@ public class CourseApplyController extends AbstractController {
     private OnlineUserCenterService onlineUserCenterService;
     @Autowired
     private ICourseSolrService courseSolrService;
-    @Autowired
-    private IMedicalDoctorAccountService medicalDoctorAccountService;
 
     /**
      * Description：分页获取课程申请列表
@@ -335,7 +333,8 @@ public class CourseApplyController extends AbstractController {
         if (state == 1) {
             sendCourseOnlineMessage(courseApplyId, user);
             //添加医师动态
-            addCourseDoctorPosts(courseApplyId, user);
+            Course course = courseService.findByApplyId(courseApplyId);
+            medicalDoctorPostsService.addDoctorPosts(user.getId(),course.getId(),null,course.getGradeName(),course.getSubtitle());
             responseObj.setResultObject("上架成功");
         } else {
             responseObj.setResultObject("下架成功");
@@ -424,30 +423,5 @@ public class CourseApplyController extends AbstractController {
         }
     }
 
-    /**
-     * 添加医师动态-课程
-     *
-     * @param courseApplyId
-     * @param user
-     * @author name：wangyishuai
-     * @Date: 2018/6/21 20:37
-     */
-    private void addCourseDoctorPosts(String courseApplyId, OnlineUser user) {
-        String userId = user.getId();
-        MedicalDoctorAccount mha = medicalDoctorAccountService.getByUserId(userId);
-        if(mha != null){
-            Course course = courseService.findByApplyId(courseApplyId);
-            MedicalDoctorPosts mdp = new MedicalDoctorPosts();
-            if(course.getSubtitle() == null || course.getSubtitle().equals("")){
-                mdp.setContent(course.getGradeName());
-            }else {
-                mdp.setContent(course.getGradeName()+","+course.getSubtitle());
-            }
-            mdp.setType(5);
-            mdp.setTitle(course.getGradeName());
-            mdp.setDoctorId(mha.getDoctorId());
-            mdp.setCourseId(course.getId());
-            medicalDoctorPostsService.addMedicalDoctorPosts(mdp);
-        }
-    }
+
 }

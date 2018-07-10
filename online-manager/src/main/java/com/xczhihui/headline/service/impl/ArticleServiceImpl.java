@@ -34,8 +34,6 @@ public class ArticleServiceImpl implements ArticleService {
     @Autowired
     private IMedicalDoctorBusinessService medicalDoctorBusinessService;
     @Autowired
-    private IMedicalDoctorArticleService medicalDoctorArticleService;
-    @Autowired
     private IMedicalDoctorPostsService medicalDoctorPostsService;
 
     @Override
@@ -174,28 +172,8 @@ public class ArticleServiceImpl implements ArticleService {
             vo.setStatus(0);
         } else {
             vo.setStatus(1);
-            String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(vo.getCreatePerson());
             //更新动态
-            MedicalDoctorPosts mdp = new MedicalDoctorPosts();
-            mdp.setType(4);
-            mdp.setContent(vo.getTitle());
-            mdp.setDoctorId(doctorId);
-            mdp.setArticleId(id);
-            if(vo.getTypeId().equals("8")){
-                //截取医案
-                if(vo.getContent().length()>100){
-                    mdp.setContent(vo.getContent().substring(0,100)+"...");
-                } else {
-                    mdp.setContent(vo.getContent());
-                }
-                mdp.setContent(vo.getContent());
-            } else {
-                mdp.setContent(vo.getTitle());
-            }
-            mdp.setArticleContent(vo.getContent());
-            mdp.setArticleImgPath(vo.getImgPath());
-            mdp.setArticleTitle(vo.getTitle());
-            medicalDoctorPostsService.addMedicalDoctorPosts(mdp);
+            medicalDoctorPostsService.addDoctorPosts(vo.getCreatePerson(),null,id,"","");
         }
 
         String sql = "UPDATE oe_bxs_article SET status =:status  WHERE id =:id";
