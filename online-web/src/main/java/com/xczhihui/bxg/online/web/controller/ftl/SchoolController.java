@@ -220,17 +220,17 @@ public class SchoolController extends AbstractFtlController {
      * @return
      */
     @RequestMapping(value = "list", method = RequestMethod.GET)
-    public ModelAndView list(HttpServletRequest req, @RequestParam(value = "current", required = false) Integer current, Integer size, QueryConditionVo queryConditionVo) throws IOException, SolrServerException {
+    public ModelAndView list(HttpServletRequest req, @RequestParam(value = "page", required = false) Integer page, Integer size, QueryConditionVo queryConditionVo) throws IOException, SolrServerException {
 
         ModelAndView view = new ModelAndView("school/list/school_list");
 
-        current = current == null ? 1 : current;
+        page = page == null ? 1 : page;
         size = size == null ? 12 : size;
         handleQueryConditionVo(queryConditionVo);
 
-        Page<CourseSolrVO> page = new Page<>(current, size);
-        page = courseSolrService.selectCourseListBySolr(page, queryConditionVo);
-        view.addObject("courseList", page);
+        Page<CourseSolrVO> pageList = new Page<>(page, size);
+        pageList = courseSolrService.selectCourseListBySolr(pageList, queryConditionVo);
+        view.addObject("courseList", pageList);
 
         //拼接url参数
         StringBuffer sb = new StringBuffer("/courses/list");
