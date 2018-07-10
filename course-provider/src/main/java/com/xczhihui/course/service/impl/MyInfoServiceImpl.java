@@ -91,7 +91,7 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper, OnlineUser> imp
         for (int i = 0; i < list.size(); i++) {
             Map<String, Object> map = list.get(i);
             //医师的
-            if(map!=null && map.get("type")!=null && "1".equals(map.get("type"))&& 
+            if(map!=null && map.get("type")!=null && "1".equals(map.get("type").toString())&& 
                     map.get("userId")!=null) {
                 String userId = map.get("userId").toString();
                 Map<String, Object> mapHeadProtrait =  
@@ -156,11 +156,11 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper, OnlineUser> imp
         map.put("haha1", "1");
         map.put("lala1", "1");
         
-//        Map<String,String> map1 = new HashMap<String,String>();
-//        map1.put("haha1", "2");
-//        map1.put("lala1", "2");
-//        
-//        map.putAll(map1);
+        Map<String,String> map1 = new HashMap<String,String>();
+        map1.put("haha1", "2");
+        map1.put("lala2", "2");
+        
+        map.putAll(map1);
         
         System.out.println(map.toString());
         
