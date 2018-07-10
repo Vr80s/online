@@ -137,39 +137,39 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 
         String sql_qq = "DELETE FROM qq_client_user_mapping WHERE user_id = ?";
         dao.getNamedParameterJdbcTemplate().getJdbcOperations().update(sql_qq, new Object[]{userId});
-
-        /**
-         * 删除医馆和医师信息
-         */
-        String medical_doctor_account = "select * from medical_doctor_account where account_id = '" + userId + "'";
-        List<MedicalDoctorAccount> mda = dao.getNamedParameterJdbcTemplate().getJdbcOperations()
-                .query(medical_doctor_account, new BeanPropertyRowMapper<MedicalDoctorAccount>(MedicalDoctorAccount.class));
-
-        if (mda != null && mda.size() > 0) {
-            String sql_ys = "DELETE FROM medical_doctor WHERE id = ?";
-            MedicalDoctorAccount mdad = mda.get(0);
-            dao.getNamedParameterJdbcTemplate().getJdbcOperations().update(sql_ys, new Object[]{mdad.getDoctorId()});
-        }
-        String medical_hospital_account = "select * from medical_hospital_account where account_id = '" + userId + "'";
-        List<MedicalHospitalAccount> mha = dao.getNamedParameterJdbcTemplate().getJdbcOperations()
-                .query(medical_hospital_account, new BeanPropertyRowMapper<MedicalHospitalAccount>(MedicalHospitalAccount.class));
-        if (mha != null && mha.size() > 0) {
-            String sql_yg = "DELETE FROM medical_hospital WHERE id = ?";
-            MedicalHospitalAccount mha_d = mha.get(0);
-            dao.getNamedParameterJdbcTemplate().getJdbcOperations().update(sql_yg, new Object[]{mha_d.getDoctorId()});
-        }
-        /**
-         * 删除主播信息
-         */
-        String sql_zb = "DELETE FROM course_anchor WHERE user_id = ?";
-        dao.getNamedParameterJdbcTemplate().getJdbcOperations().update(sql_zb, new Object[]{userId});
-
-        try {
-            EmailUtil.modifyLoginNameMailBySSL("原账号" + loginName + "==>"
-                    + newLoginName);
-        } catch (Exception e) {
-            logger.error("发送modifyUser邮件失败");
-        }
+//
+//        /**
+//         * 删除医馆和医师信息
+//         */
+//        String medical_doctor_account = "select * from medical_doctor_account where account_id = '" + userId + "'";
+//        List<MedicalDoctorAccount> mda = dao.getNamedParameterJdbcTemplate().getJdbcOperations()
+//                .query(medical_doctor_account, new BeanPropertyRowMapper<MedicalDoctorAccount>(MedicalDoctorAccount.class));
+//
+//        if (mda != null && mda.size() > 0) {
+//            String sql_ys = "DELETE FROM medical_doctor WHERE id = ?";
+//            MedicalDoctorAccount mdad = mda.get(0);
+//            dao.getNamedParameterJdbcTemplate().getJdbcOperations().update(sql_ys, new Object[]{mdad.getDoctorId()});
+//        }
+//        String medical_hospital_account = "select * from medical_hospital_account where account_id = '" + userId + "'";
+//        List<MedicalHospitalAccount> mha = dao.getNamedParameterJdbcTemplate().getJdbcOperations()
+//                .query(medical_hospital_account, new BeanPropertyRowMapper<MedicalHospitalAccount>(MedicalHospitalAccount.class));
+//        if (mha != null && mha.size() > 0) {
+//            String sql_yg = "DELETE FROM medical_hospital WHERE id = ?";
+//            MedicalHospitalAccount mha_d = mha.get(0);
+//            dao.getNamedParameterJdbcTemplate().getJdbcOperations().update(sql_yg, new Object[]{mha_d.getDoctorId()});
+//        }
+//        /**
+//         * 删除主播信息
+//         */
+//        String sql_zb = "DELETE FROM course_anchor WHERE user_id = ?";
+//        dao.getNamedParameterJdbcTemplate().getJdbcOperations().update(sql_zb, new Object[]{userId});
+//
+//        try {
+//            EmailUtil.modifyLoginNameMailBySSL("原账号" + loginName + "==>"
+//                    + newLoginName);
+//        } catch (Exception e) {
+//            logger.error("发送modifyUser邮件失败");
+//        }
     }
 
 }
