@@ -359,6 +359,17 @@ p{
     margin-bottom: 0.2rem;
     padding-top: 0.2rem;
 }
+.rests_nav_span .titles{
+	font-size: 0.3rem;
+    color: #333333;
+    /* display: -webkit-box; */
+    float: left;
+    width: 6.98rem;
+    margin: 0 auto;
+    display: block;
+    margin-left: 0.26rem;
+    margin-bottom: 0.2rem;
+}
 
 .rests_nav_span .stick_img{
 	/* font-size: 0.24rem;
