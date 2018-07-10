@@ -2,6 +2,7 @@ package com.xczhihui.course.service.impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.slf4j.LoggerFactory;
@@ -15,6 +16,7 @@ import com.xczhihui.common.support.lock.Lock;
 import com.xczhihui.common.util.IStringUtil;
 import com.xczhihui.course.exception.FansException;
 import com.xczhihui.course.mapper.FocusMapper;
+import com.xczhihui.course.mapper.MyInfoMapper;
 import com.xczhihui.course.model.Focus;
 import com.xczhihui.course.service.IFocusService;
 import com.xczhihui.course.util.HtmlUtil;
@@ -36,6 +38,9 @@ public class FocusServiceImpl extends ServiceImpl<FocusMapper, Focus> implements
 
     @Autowired
     private FocusMapper focusMapper;
+    
+    @Autowired
+    private MyInfoMapper myInfoMapper;
 
     @Override
     public List<Integer> selectFocusAndFansCount(String userId) {
@@ -67,6 +72,15 @@ public class FocusServiceImpl extends ServiceImpl<FocusMapper, Focus> implements
         for (FocusVo focusVo : focusVos) {
             if (focusVo.getDetail() != null) {
                 focusVo.setDetail(IStringUtil.getTop100Char(HtmlUtil.getTextFromHtml(focusVo.getDetail())));
+            }
+            //医师认证啦
+            if(focusVo.getType().equals(1)) {
+                String hostId = focusVo.getUserId();
+                Map<String, Object> mapHeadProtrait = myInfoMapper.selectDoctorHeadPortraitAndByUserId(hostId);
+                if(mapHeadProtrait!=null) {
+                    focusVo.setDoctorId(mapHeadProtrait.get("doctorId").toString());
+                    focusVo.setSmallHeadPhoto(mapHeadProtrait.get("headPortrait").toString());
+                }
             }
         }
         return focusVos;

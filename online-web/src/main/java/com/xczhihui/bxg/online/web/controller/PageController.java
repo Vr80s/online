@@ -52,13 +52,6 @@ public class PageController {
     @Value("${gift.im.host}")
     private String host;
 
-    @RequestMapping(value = "/web/courseDetail/{courserId}", method = RequestMethod.GET)
-    public ModelAndView courseDetail(@PathVariable String courserId, HttpServletRequest request, HttpServletResponse response) {
-        ModelAndView mav = new ModelAndView("CourseDetail");
-        mav.addObject("courserId", courserId);
-        return mav;
-    }
-
     @RequestMapping(value = "/web/storyDetail/{id}", method = RequestMethod.GET)
     public ModelAndView storyDetail(@PathVariable String id, HttpServletRequest request, HttpServletResponse response) {
         ModelAndView mav = new ModelAndView("StoryDetail");
@@ -86,29 +79,12 @@ public class PageController {
      * 跳转到直播间
      *
      * @param courseId
-     * @param roomId
-     * @param planId
-     * @param request
-     * @param response
-     * @return
-     */
-    @RequestMapping(value = "/web/livepage/{courseId}/{roomId}/{planId}", method = RequestMethod.GET)
-    public ModelAndView livepage(@PathVariable String courseId, @PathVariable String roomId,
-                                 @PathVariable String planId, HttpServletRequest request, HttpServletResponse response) {
-        ModelAndView mv = liveService.livepage(courseId, request, response);
-        return mv;
-    }
-
-    /**
-     * 跳转到直播间
-     *
-     * @param courseId
      * @param request
      * @param response
      * @return
      */
     @RequestMapping(value = "/web/livepage/{courseId}", method = RequestMethod.GET)
-    public ModelAndView livepage(@PathVariable String courseId, HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView livepage(@PathVariable Integer courseId, HttpServletRequest request, HttpServletResponse response) {
         ModelAndView mv = liveService.livepage(courseId, request, response);
         return mv;
     }
