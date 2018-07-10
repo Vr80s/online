@@ -80,9 +80,9 @@ function sowingDetails(url) {
     }
 }
 //动态列表
-function doctorPostsList(page,downOrUp,doctorPostsType) {
+function doctorPostsList(pageNumber,downOrUp,doctorPostsType) {
     requestGetService("/doctor/posts", {
-        pageNumber: page,
+        pageNumber: pageNumber,
         pageSize:10,
         type:doctorPostsType,
         doctorId:doctorId
@@ -125,7 +125,7 @@ function doctorPostsList(page,downOrUp,doctorPostsType) {
             //判断全部动态默认图
             if(data.resultObject.records.length==0){
 
-                var minirefresh=$(window).height()-$(".top_show_heights").height();
+                var minirefreshs=$(window).height()-$(".top_show_heights").height();
                 $(".rests_nav").height(minirefreshs);
                 alert(1111);
                 
@@ -399,7 +399,7 @@ function doctorPostsList(page,downOrUp,doctorPostsType) {
             var itemId = $(this).attr("data-id");
             var courseStatus = $(this).attr("data-status");
             if(courseStatus == 1){
-                common_jump_all(itemId)
+                    location.href = "/page/course/"+itemId;
             } else {
                 location.href = "/xcview/html/unshelve.html";
             }
