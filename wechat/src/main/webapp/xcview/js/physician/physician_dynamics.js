@@ -79,6 +79,45 @@ function sowingDetails(url) {
         location.href = url;
     }
 }
+
+function idotototo(){
+    var $dot5 = $('.show-text');
+    $dot5.each(function () {
+        if($(this).attr("data-flag")==1)return;
+        if ($(this).height() > 100) {
+            $(this).attr("data-flag", 1);
+            $(this).height(100);
+            $(this).append('<span class="qq"> <a class="toggle" href="###" style="color:#2cb82c"><span class="opens">展开<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></span><span class="closes">收起<span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span></span></a></span>');
+        }
+        var $dot4 = $(this);
+
+        function createDots() {
+            $dot4.dotdotdot({
+                after: 'span.qq'
+            });
+        }
+        function destroyDots() {
+            $dot4.trigger('destroy');
+        }
+
+        createDots();
+        $dot4.on(
+            'click',
+            'a.toggle',
+            function () {
+                $dot4.toggleClass('opened');
+
+                if ($dot4.hasClass('opened')) {
+                    destroyDots();
+                } else {
+                    createDots();
+                }
+                return false;
+            }
+        );
+ });
+    
+}
 //动态列表
 function doctorPostsList(pageNumber,downOrUp,doctorPostsType) {
     requestGetService("/doctor/posts", {
@@ -135,93 +174,18 @@ function doctorPostsList(pageNumber,downOrUp,doctorPostsType) {
                 $(".baseImagenumbers").hide();
             }
             $(".rests_nav").html(template('wrap_doctor_dynamics',{items:obj}));
-            var $dot5 = $('.show-text');
-                $dot5.each(function () {
-                    if ($(this).height() > 160) {
-                        $(this).attr("data-txt", $(this).attr("data-text"));
-                        $(this).height(160);
-                        $(this).append('<span class="qq"> <a class="toggle" href="###" style="color:#2cb82c"><span class="opens">展开<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></span><span class="closes">收起<span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span></span></a></span>');
-                    }
-                    var $dot4 = $(this);
-
-                    function createDots() {
-                        $dot4.dotdotdot({
-                            after: 'span.qq'
-                        });
-                    }
-                    function destroyDots() {
-                        $dot4.trigger('destroy');
-                    }
-
-                    createDots();
-                    $dot4.on(
-                        'click',
-                        'a.toggle',
-                        function () {
-                            $dot4.toggleClass('opened');
-
-                            if ($dot4.hasClass('opened')) {
-                                destroyDots();
-                            } else {
-                                createDots();
-                            }
-                            return false;
-                        }
-                    );
-                 });
-
-
-
-          var $dot1 = $('.show-text2');
-                $dot1.each(function () {
-                    if ($(this).height() > 160) {
-                        $(this).attr("data-txt", $(this).attr("data-text"));
-                        $(this).height(160);
-                        $(this).append('<span class="qq"> <a class="toggle" href="###" style="color:#2cb82c"><span class="opens">展开<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></span><span class="closes">收起<span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span></span></a></span>');
-                    }
-                    var $dot4 = $(this);
-
-                    function createDots() {
-                        $dot4.dotdotdot({
-                            after: 'span.qq'
-                        });
-                    }
-                    function destroyDots() {
-                        $dot4.trigger('destroy');
-                    }
-
-                    createDots();
-                    $dot4.on(
-                        'click',
-                        'a.toggle',
-                        function () {
-                            $dot4.toggleClass('opened');
-
-                            if ($dot4.hasClass('opened')) {
-                                destroyDots();
-                            } else {
-                                createDots();
-                            }
-                            return false;
-                        }
-                    );
-                 });
-
-
-
-
-
-
-
-
-
-
             miniRefresh.endDownLoading(true);// 结束下拉刷新
+            idotototo();
+
+
+            
         } else if(obj.length==0){
             miniRefresh.endUpLoading(true);// 结束上拉加载
         } else {
             $(".rests_nav").append(template('wrap_doctor_dynamics',{items:obj}));
+
             miniRefresh.endUpLoading(false);
+            idotototo();
         }
 
         //图片放大
@@ -285,75 +249,75 @@ function doctorPostsList(pageNumber,downOrUp,doctorPostsType) {
             $(".essay_pack_up_btn").hide()
         }*/
 
-        $(".essay_main").each(function(){
-            var hh = $(this).height();
-            var essay_pack_up_btn = $(this).next();
-            if (hh > 70) {
-                essay_pack_up_btn.show();
-                $(this).addClass("consilia_nav_span_title");
-            } else {
-                essay_pack_up_btn.hide();
-            }
-        });
-        $(".essay_pack_up_btn").off("click");
-        $(".essay_pack_up_btn").click(function(){
-            var dynamic = $(this);
-            if(dynamic.find('span').html()=="展开"){
-                dynamic.parent().find('.essay_main').removeClass("consilia_nav_span_title");
-                // $(".consilia_nav_span .title").removeClass("consilia_nav_span_title");
-                dynamic.find('span').html("收起");
-            }else{
-                // $(".consilia_nav_span .title").addClass("consilia_nav_span_title");
-                dynamic.parent().find('.essay_main').addClass("consilia_nav_span_title");
-                dynamic.find('span').html("展开");
-            }
-        });
+        // $(".essay_main").each(function(){
+        //     var hh = $(this).height();
+        //     var essay_pack_up_btn = $(this).next();
+        //     if (hh > 70) {
+        //         essay_pack_up_btn.show();
+        //         $(this).addClass("consilia_nav_span_title");
+        //     } else {
+        //         essay_pack_up_btn.hide();
+        //     }
+        // });
+        // $(".essay_pack_up_btn").off("click");
+        // $(".essay_pack_up_btn").click(function(){
+        //     var dynamic = $(this);
+        //     if(dynamic.find('span').html()=="展开"){
+        //         dynamic.parent().find('.essay_main').removeClass("consilia_nav_span_title");
+        //         // $(".consilia_nav_span .title").removeClass("consilia_nav_span_title");
+        //         dynamic.find('span').html("收起");
+        //     }else{
+        //         // $(".consilia_nav_span .title").addClass("consilia_nav_span_title");
+        //         dynamic.parent().find('.essay_main').addClass("consilia_nav_span_title");
+        //         dynamic.find('span').html("展开");
+        //     }
+        // });
 
         //点击其他--收起
-        $(".essay_pack_up_btn").off("click");
-        $(".essay_pack_up_btn").click(function(){
-            if($(".essay_pack_up_btn_span").html()=="收起"){
-                $(".consilia_nav_span .title").css("height","100%");
-                $(".essay_pack_up_btn_span span").html("展开");
-                $(".consilia_nav_span .title").addClass("consilia_nav_span_title");
-            }else{
-                $(".essay_pack_up_btn_span span").html("收起");
-                $(".consilia_nav_span .title").css("height","2.1rem");
-                $(".consilia_nav_span .title").removeClass("consilia_nav_span_title");
-            }
-        });
+        // $(".essay_pack_up_btn").off("click");
+        // $(".essay_pack_up_btn").click(function(){
+        //     if($(".essay_pack_up_btn_span").html()=="收起"){
+        //         $(".consilia_nav_span .title").css("height","100%");
+        //         $(".essay_pack_up_btn_span span").html("展开");
+        //         $(".consilia_nav_span .title").addClass("consilia_nav_span_title");
+        //     }else{
+        //         $(".essay_pack_up_btn_span span").html("收起");
+        //         $(".consilia_nav_span .title").css("height","2.1rem");
+        //         $(".consilia_nav_span .title").removeClass("consilia_nav_span_title");
+        //     }
+        // });
 
 
 
-        $(".consilia_nav_span .title").each(function(){
-            var h = $(this).height();
+        // $(".consilia_nav_span .title").each(function(){
+        //     var h = $(this).height();
 
-            var consilia_nav_btn = $(this).parent().next().next();
+        //     var consilia_nav_btn = $(this).parent().next().next();
 
-            if (h > 70) {
-                consilia_nav_btn.show();
-                $(this).addClass("consilia_nav_span_title");
-            } else {
-                consilia_nav_btn.hide();
+        //     if (h > 70) {
+        //         consilia_nav_btn.show();
+        //         $(this).addClass("consilia_nav_span_title");
+        //     } else {
+        //         consilia_nav_btn.hide();
 
-            }
+        //     }
 
-        })
+        // })
 
         // 点击文章收起
-        $(".consilia_nav_btn").off("click");
-        $(".consilia_nav_btn").click(function(){
-            var post = $(this);
-            if(post.find('span').html()=="展开"){
-                post.parent().find('.consilia_nav_span').find('.title').removeClass("consilia_nav_span_title");
-                // $(".consilia_nav_span .title").removeClass("consilia_nav_span_title");
-                post.find('span').html("收起");
-            }else{
-                // $(".consilia_nav_span .title").addClass("consilia_nav_span_title");
-                post.parent().find('.consilia_nav_span').find('.title').addClass("consilia_nav_span_title");
-                post.find('span').html("展开");
-            }
-        });
+        // $(".consilia_nav_btn").off("click");
+        // $(".consilia_nav_btn").click(function(){
+        //     var post = $(this);
+        //     if(post.find('span').html()=="展开"){
+        //         post.parent().find('.consilia_nav_span').find('.title').removeClass("consilia_nav_span_title");
+        //         // $(".consilia_nav_span .title").removeClass("consilia_nav_span_title");
+        //         post.find('span').html("收起");
+        //     }else{
+        //         // $(".consilia_nav_span .title").addClass("consilia_nav_span_title");
+        //         post.parent().find('.consilia_nav_span').find('.title').addClass("consilia_nav_span_title");
+        //         post.find('span').html("展开");
+        //     }
+        // });
 
         //点赞
         $(".zan_img").off("click");

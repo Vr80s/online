@@ -368,7 +368,7 @@
 	.show-text{
 		width: 6.98rem;
 		margin: 0 auto;
-		font-size: 14px;
+		font-size: 0.3rem;
 	    color: #666;
 	    word-break: break-all;
 	    word-wrap: break-word;
@@ -530,10 +530,8 @@
 				{{if item.type == 1}}
 				<!-- 普通动态-->
 				<div class="panel_hide">
-					<div class="essay_main comment_hide panels_essay_main show-text show-text2">
-                        {{if item.stick}}<span class="stick_img"><img src="/xcview/images/stick.png" alt="" />置顶</span>
-                        {{/if}}
-                        {{item.content}}</div>
+					<div class="essay_main comment_hide panels_essay_main show-text">{{if item.stick}}<span class="stick_img"><img src="/xcview/images/stick.png" alt="" />置顶</span>
+                        {{/if}}{{item.content}}</div>
 					<!-- <div class="essay_pack_up_btn"><span class="essay_pack_up_btn_span">展开</span></div>-->
 					<div class="both"></div>
 				</div>
@@ -589,7 +587,7 @@
 				{{else if item.typeId != null && item.typeId != 8}}
 				<!-- 文章-->
 				<div class="article_hide" data-id="{{item.articleId}}" data-status="{{item.articleStatus}}" data-writingsId="{{item.writingsId}}">
-					<div class="article_nav_span comment_hide" style="overflow: hidden; ">
+					<div class="article_nav_span comment_hide show-text" style="overflow: hidden; ">
 						{{if item.stick}}
 						<span class="stick_img_stick"><img src="/xcview/images/stick.png" alt="" />置顶</span>
 						{{/if}}
@@ -647,7 +645,7 @@
 						<span class="stick_img"><img src="/xcview/images/stick.png" alt="" />置顶</span>
 						{{/if}}
 						
-						<div class="title show-text"><span class="stick_imgs" style="display: none !important;">#医案#</span>{{item.content}}</div>
+						<div class="title show-text">{{item.content}}</div>
 						<div class="both"></div>
 					</div>
 
