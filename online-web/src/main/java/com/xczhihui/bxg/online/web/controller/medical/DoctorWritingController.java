@@ -1,25 +1,22 @@
 package com.xczhihui.bxg.online.web.controller.medical;
 
-import static com.xczhihui.common.util.bean.ResponseObject.newErrorResponseObject;
-import static com.xczhihui.common.util.bean.ResponseObject.newSuccessResponseObject;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-
+import com.xczhihui.bxg.online.web.body.doctor.DoctorWritingBody;
+import com.xczhihui.bxg.online.web.controller.ftl.AbstractFtlController;
+import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.medical.doctor.model.MedicalDoctorPosts;
-import com.xczhihui.medical.doctor.service.IMedicalDoctorArticleService;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsService;
-import com.xczhihui.medical.doctor.vo.OeBxsArticleVO;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorWritingService;
+import com.xczhihui.medical.doctor.vo.MedicalWritingVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import com.xczhihui.bxg.online.web.body.doctor.DoctorWritingBody;
-import com.xczhihui.bxg.online.web.controller.ftl.AbstractFtlController;
-import com.xczhihui.common.util.bean.ResponseObject;
-import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
-import com.xczhihui.medical.doctor.service.IMedicalDoctorWritingService;
-import com.xczhihui.medical.doctor.vo.MedicalWritingVO;
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+
+import static com.xczhihui.common.util.bean.ResponseObject.newErrorResponseObject;
+import static com.xczhihui.common.util.bean.ResponseObject.newSuccessResponseObject;
 
 /**
  * 医师著作

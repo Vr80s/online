@@ -2990,9 +2990,9 @@ function echoMedia(index) {
 			$(".result-list table .select-text img").remove();    //清空勾选搜索到的列表
 	}
 //	专辑下架不跳转给出提示
-	function lowerText(){
-		showTip("该内容下架")
-	}
+//	function lowerText(){
+//		showTip("该内容下架")
+//	}
 //  课程下架不跳转给出提示
 	function lowerFrame(){
 		showTip("该内容下架")

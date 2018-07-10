@@ -83,6 +83,9 @@ public class WechatUser implements Serializable {
 
     @Column(name = "last_update_time")
     private Date lastUpdateTime;
+    
+    @Column(name = "deleted")
+    private Boolean deleted;
 
     @Transient
     private String channelName;
@@ -298,5 +301,13 @@ public class WechatUser implements Serializable {
         this.loginName = loginName;
     }
 
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
+    }
+    
 
 }

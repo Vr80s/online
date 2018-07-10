@@ -641,6 +641,16 @@ outline: none;
 	-webkit-line-clamp: 2;
 	color: #666666;
 }
+.delect-text{
+
+	    margin: 0;
+    padding: 10px 20px;
+    background: #f7f7f7;
+    margin-bottom: 20px;
+    border: 1px solid #ededed;
+    font-size: 16px;
+    color: #666;
+}
 /*直播/线下课*/
 .save-class-wrap{
 	width: 920px;

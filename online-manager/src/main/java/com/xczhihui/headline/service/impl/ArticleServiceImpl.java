@@ -1,23 +1,5 @@
 package com.xczhihui.headline.service.impl;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
-import com.xczhihui.medical.doctor.model.MedicalDoctorPosts;
-import com.xczhihui.medical.doctor.service.IMedicalDoctorArticleService;
-import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
-import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsService;
-import com.xczhihui.medical.doctor.vo.OeBxsArticleVO;
-import com.xczhihui.support.shiro.ManagerUserUtil;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
-import org.springframework.stereotype.Service;
-
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.util.enums.HeadlineType;
 import com.xczhihui.headline.dao.ArticleDao;
@@ -25,16 +7,24 @@ import com.xczhihui.headline.service.ArticleService;
 import com.xczhihui.headline.vo.ArticleTypeVo;
 import com.xczhihui.headline.vo.ArticleVo;
 import com.xczhihui.headline.vo.TagVo;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsService;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 @Service("articleService")
 public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
     ArticleDao articleDao;
-    @Autowired
-    private IMedicalDoctorBusinessService medicalDoctorBusinessService;
-    @Autowired
-    private IMedicalDoctorArticleService medicalDoctorArticleService;
     @Autowired
     private IMedicalDoctorPostsService medicalDoctorPostsService;
 
@@ -174,28 +164,8 @@ public class ArticleServiceImpl implements ArticleService {
             vo.setStatus(0);
         } else {
             vo.setStatus(1);
-            String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(vo.getCreatePerson());
             //更新动态
-            MedicalDoctorPosts mdp = new MedicalDoctorPosts();
-            mdp.setType(4);
-            mdp.setContent(vo.getTitle());
-            mdp.setDoctorId(doctorId);
-            mdp.setArticleId(id);
-            if(vo.getTypeId().equals("8")){
-                //截取医案
-                if(vo.getContent().length()>100){
-                    mdp.setContent(vo.getContent().substring(0,100)+"...");
-                } else {
-                    mdp.setContent(vo.getContent());
-                }
-                mdp.setContent(vo.getContent());
-            } else {
-                mdp.setContent(vo.getTitle());
-            }
-            mdp.setArticleContent(vo.getContent());
-            mdp.setArticleImgPath(vo.getImgPath());
-            mdp.setArticleTitle(vo.getTitle());
-            medicalDoctorPostsService.addMedicalDoctorPosts(mdp);
+            medicalDoctorPostsService.addDoctorPosts(vo.getCreatePerson(),null,id,"","");
         }
 
         String sql = "UPDATE oe_bxs_article SET status =:status  WHERE id =:id";

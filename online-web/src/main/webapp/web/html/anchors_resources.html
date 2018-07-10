@@ -445,21 +445,22 @@
 								{{/if}}
 								<!--医案/专栏/文章/著作-->
 								{{if item.type==4}}
-									<div class="save-consilia-wrap">
-										{{if item.articleStatus==true}}
-										<a href="/headline/details/{{item.articleId}}" style="width: 100%;" target="_blank">
+									{{if item.articleStatus==true}}
+										<div class="save-consilia-wrap">
+											
+											<a href="/headline/details/{{item.articleId}}" style="width: 100%;" target="_blank">
+												<div class="consilia-img z">
+													<img src="{{item.articleImgPath}}" alt="文章_医案图片" />
+												</div>
+												<div class="consilia-right-text y">
+														<h5>{{item.articleTitle}}</h5>
+														<div class="consilia-text">{{item.articleContent}}</div>	
+												</div>
+											</a>
+										</div>	
 										{{else}}
-										<a href="javascript:;" onclick="lowerText()" style="width: 100%;">
-										{{/if}}
-											<div class="consilia-img z">
-												<img src="{{item.articleImgPath}}" alt="文章_医案图片" />
-											</div>
-											<div class="consilia-right-text y">
-													<h5>{{item.articleTitle}}</h5>
-													<div class="consilia-text">{{item.articleContent}}</div>	
-											</div>
-										</a>
-									</div>
+										<p class="delect-text">抱歉，此文章已被作者删除</p>
+									{{/if}}
 								{{/if}}
 								<!--直播/线下课/线上课-->
 								{{if item.type==5}}

@@ -102,6 +102,29 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         order.setCourseIds(courseIds);
         return order;
     }
+    
+    
+    
+    @Override
+    public Order getOrderNo4PayByOrderId(String orderId,Integer status) {
+        Order order = new Order();
+        order.setDelete(false);
+        order.setId(orderId);
+        if(status!=null) {
+            order.setOrderStatus(status);
+        }
+        order = this.baseMapper.selectOne(order);
+        if (order == null) {
+            throw new OrderException(orderId + "该单id下不存在订单信息，下单失败");
+        }
+        String courseNames = getCourseNames(order);
+        order.setCourseNames(courseNames);
+        List<Integer> courseIds = getCourseIds(order);
+        order.setCourseIds(courseIds);
+        return order;
+    }
+    
+    
 
     @Override
     public Order getOrderById(String orderId) {

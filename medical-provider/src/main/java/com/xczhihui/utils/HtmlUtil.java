@@ -25,6 +25,9 @@ public class HtmlUtil {
      * @Date: 2018/3/27 0027 下午 2:14
      **/
     public static String delHTMLTag(String htmlStr) {
+        if(htmlStr == null){
+            return "";
+        }
         Matcher scriptMatch = SCRIPT_PATTERN.matcher(htmlStr);
         // 过滤script标签
         htmlStr = scriptMatch.replaceAll("");

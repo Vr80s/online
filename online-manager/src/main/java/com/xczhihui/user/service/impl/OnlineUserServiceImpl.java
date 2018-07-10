@@ -127,16 +127,17 @@ public class OnlineUserServiceImpl implements OnlineUserService {
         dao.update(o);
 
         /**
-         * 删除第三方信息
+         * 逻辑删除第三方信息
          */
-        String sql_wx = "DELETE FROM wxcp_client_user_wx_mapping WHERE client_id = ?";
+        String sql_wx = "update  wxcp_client_user_wx_mapping  set deleted = 1  WHERE client_id = ?  ";
         dao.getNamedParameterJdbcTemplate().getJdbcOperations().update(sql_wx, new Object[]{userId});
 
-        String sql_wb = "DELETE FROM weibo_client_user_mapping WHERE user_id = ?";
+        String sql_wb = "update  weibo_client_user_mapping set deleted = 1 WHERE user_id = ?";
         dao.getNamedParameterJdbcTemplate().getJdbcOperations().update(sql_wb, new Object[]{userId});
 
-        String sql_qq = "DELETE FROM qq_client_user_mapping WHERE user_id = ?";
+        String sql_qq = "update  qq_client_user_mapping set deleted = 1 WHERE user_id = ?";
         dao.getNamedParameterJdbcTemplate().getJdbcOperations().update(sql_qq, new Object[]{userId});
+
 //
 //        /**
 //         * 删除医馆和医师信息

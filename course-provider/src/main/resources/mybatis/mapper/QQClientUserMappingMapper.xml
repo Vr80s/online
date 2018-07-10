@@ -21,7 +21,7 @@
         qcum.union_id as unionId
         FROM
         qq_client_user_mapping qcum
-        WHERE qcum.open_id = #{openId} limit 1
+        WHERE qcum.open_id = #{openId} and qcum.deleted = 0 limit 1
     </select>
 
     <!-- 通过熊猫中医用户id 和  unionId 获取  -->
@@ -44,7 +44,7 @@
         qcum.union_id as unionId
         FROM
         qq_client_user_mapping qcum
-        WHERE qcum.user_id = #{userId} and qcum.union_id = #{unionId}
+        WHERE qcum.user_id = #{userId}  and qcum.deleted = 0 and qcum.union_id = #{unionId}
     </select>
 
 
@@ -67,7 +67,7 @@
         qcum.union_id as unionId
         FROM
         qq_client_user_mapping qcum
-        WHERE qcum.user_id = #{userId} and qcum.open_id = #{openId}
+        WHERE qcum.user_id = #{userId}  and qcum.deleted = 0 and qcum.open_id = #{openId}
     </select>
 
 
@@ -90,7 +90,7 @@
         qcum.union_id as unionId
         FROM
         qq_client_user_mapping qcum
-        WHERE qcum.union_id = #{unionId}
+        WHERE qcum.union_id = #{unionId}  and qcum.deleted = 0
     </select>
 
 
@@ -113,7 +113,7 @@
         qcum.union_id as unionId
         FROM
         qq_client_user_mapping qcum
-        WHERE qcum.user_id = #{userId} limit 1
+        WHERE qcum.user_id = #{userId}  and qcum.deleted = 0 limit 1
     </select>
 
 
@@ -129,10 +129,11 @@
         weibo.uid as wbUnionId,
         qq.open_id as qqUnionId
         from oe_user ou
-        left join wxcp_client_user_wx_mapping wc on ou.id = wc.client_id
-        left join weibo_client_user_mapping weibo on ou.id = weibo.user_id
-        left join qq_client_user_mapping qq on ou.id = qq.user_id
-        where ou.id = #{userId} limit 1
+        left join wxcp_client_user_wx_mapping wc on ou.id = wc.client_id  and  wc.deleted = 0 
+        left join weibo_client_user_mapping weibo on ou.id = weibo.user_id  and  weibo.deleted = 0 
+        left join qq_client_user_mapping qq on ou.id = qq.user_id  and qq.deleted = 0 
+        where ou.id = #{userId}     
+        limit 1
     </select>
 
     <delete id="deleteAccount">
