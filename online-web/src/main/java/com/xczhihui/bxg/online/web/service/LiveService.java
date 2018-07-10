@@ -51,13 +51,13 @@ public interface LiveService {
     /**
      * 跳转到直播页面
      *
-     * @param courseId
      * @param roomId
      * @param planId
+     * @param courseId
      * @param request
      * @return
      */
-    public ModelAndView livepage(String courseId, HttpServletRequest request, HttpServletResponse response);
+    public ModelAndView livepage(Integer courseId, HttpServletRequest request, HttpServletResponse response);
 
     public List<OpenCourseVo> getOpenCourse(Integer num, String id);
 }
