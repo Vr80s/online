@@ -1,6 +1,7 @@
 package com.xczhihui.course.service.impl;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -86,7 +87,18 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper, OnlineUser> imp
 
     @Override
     public List<Map<String, Object>> hostInfoRec() {
-
+        List<Map<String, Object>> list = myInfoMapper.hostInfoRec();
+        for (int i = 0; i < list.size(); i++) {
+            Map<String, Object> map = list.get(i);
+            //医师的
+            if(map!=null && map.get("type")!=null && "1".equals(map.get("type"))&& 
+                    map.get("userId")!=null) {
+                String userId = map.get("userId").toString();
+                Map<String, Object> mapHeadProtrait =  
+                        myInfoMapper.selectDoctorHeadPortraitAndByUserId(userId);
+                map.putAll(mapHeadProtrait);
+            }
+        }
         return myInfoMapper.hostInfoRec();
     }
 
@@ -134,5 +146,23 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper, OnlineUser> imp
     @Override
     public  Map<String,Object> findHostTypeByUserId(String id) {
         return myInfoMapper.findHostTypeByUserId(id);
+    }
+    
+    public static void main(String[] args) {
+        
+        Map<String,String> map = new HashMap<String,String>();
+        map.put("haha", "1");
+        map.put("lala", "1");
+        map.put("haha1", "1");
+        map.put("lala1", "1");
+        
+//        Map<String,String> map1 = new HashMap<String,String>();
+//        map1.put("haha1", "2");
+//        map1.put("lala1", "2");
+//        
+//        map.putAll(map1);
+        
+        System.out.println(map.toString());
+        
     }
 }
