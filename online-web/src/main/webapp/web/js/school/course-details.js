@@ -19,25 +19,31 @@ $(function () {
     var index = 0;
 
     var falg = false;
-    if (collection == 1 && watchState == 0) { //专辑付费，删除选集、显示大纲
+    if (collection == 1 && watchState == 0) { 		  //专辑付费，	         删除选集、显示大纲
         $(".buy_tab").remove();
         $(".no_buy_tab").removeClass("hide");
         falg = true;
-    } else if (collection == 1 && watchState != 0) {  //专辑免费或已购买，显示选集、删除大纲
+    } else if (collection == 1 && watchState != 0) {  //专辑免费,已购买  显示选集、删除大纲
         $(".no_buy_tab").remove();
         $(".buy_tab").removeClass("hide");
         falg = true;
         index = 1;
-    } else {
-        $(".no_buy_tab").remove();
+    } else {										  //非专辑，删除选集和大纲  				
+        $(".no_buy_tab").remove();   
         $(".buy_tab").remove();
     }
-    if (type == "info") {
-        $(".wrap-sidebar ul li").eq(index).addClass("active-footer");
+    
+    
+    //应该显示   --> bug号：5673 默认显示专辑
+    if(type == "info" && collection == 1 && watchState != 0){
+    	type =  "selection";
     }
-    //type对应显示
-    //outline  comment    info   aq  selection
-    if (type == "selection") {
+    
+    
+    if (type == "info" || type == "albumInfo") {
+        $(".wrap-sidebar ul li").eq(index).addClass("active-footer");
+        
+    }else  if (type == "selection") {
         index = 0;
         $(".wrap-sidebar ul li").eq(0).addClass("active-footer");
     
@@ -57,6 +63,7 @@ $(function () {
         index = 1;
         $(".wrap-sidebar ul li").eq(1).addClass("active-footer");
     } else if (type == "comment") {
+    	
         falg ? index = 2 : index = 1;
         $(".wrap-sidebar ul li").eq(index).addClass("active-footer");
 
