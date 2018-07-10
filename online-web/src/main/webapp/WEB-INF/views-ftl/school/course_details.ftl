@@ -179,7 +179,7 @@
                 <#if  courseInfo.collection> <#-- 专辑tab显示    -->
                     <#if courseInfo.watchState = 1 || courseInfo.watchState = 2> <#-- 免费或已购买  -->
                         <li><a href="${webUrlParam}/selection">选集</a></li>
-                        <li><a href="${webUrlParam}/info">详情</a></li>
+                        <li><a href="${webUrlParam}/albumInfo">详情</a></li>
                     <#elseif courseInfo.watchState = 0>
                         <li><a href="${webUrlParam}/info">详情</a></li>
                         <li><a href="${webUrlParam}/outline">课程大纲</a></li>
@@ -199,12 +199,9 @@
                     <#if collectionList??>
                         <#list collectionList as collectionItem>
                             <li>
-                            
-                                <#-- 判断有没有登录 -->
-                            
-                                <a href="/web/html/ccvideo/liveVideoAlbum.html?collectionId=${courseInfo.id}&courseId=${collectionItem.id}"
+                                <#-- 判断有没有登录,判断是否是免费的呗。增加一个标记 -->
+                                <a href="/web/html/ccvideo/liveVideoAlbum.html?collectionId=${courseInfo.id}&courseId=${collectionItem.id}&watchState=${courseInfo.watchState}"
                                    target="_blank">
-                                   
                                     <div class="play-img z">
                                         <div class="circle">
                                             <div class="percent left percentleftId" data-courseId="${collectionItem.id}"

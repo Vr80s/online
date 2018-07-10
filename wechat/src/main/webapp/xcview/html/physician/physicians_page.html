@@ -595,13 +595,16 @@
 						{{/if}}
 							<span class="title">{{item.content}}</span>
 					</div>
-					<div class="article_nav_cen comment_hide">
-						<img src="{{item.articleImgPath}}" alt="" />
-						<div class="article_nav_cen_size">{{item.articleTitle}}</div>
-						<div class="article_nav_cen_sizes">{{item.articleContent}}</div>
-					</div>
-					{{if item.articleStatus == 0}}
-						<div style="font-size: 0.26rem;width: 6.98rem;height: 0.57rem;line-height: 0.57rem;background: #f0f0f0;margin: 0 auto;background: #FAFAFA;border: 1px solid #F0F0F0;border-radius: 4px;text-indent: 0.1rem;">抱歉，此文章已被作者删除。</div>
+					{{if item.articleStatus == 1}}
+						<div class="article_nav_cen comment_hide">
+							<img src="{{item.articleImgPath}}" alt="" />
+							<div class="article_nav_cen_size">{{item.articleTitle}}</div>
+							<div class="article_nav_cen_sizes">{{item.articleContent}}</div>
+						</div>
+					{{else}}
+						<div style="font-size: 0.26rem;width: 6.98rem;height: 0.57rem;line-height: 0.57rem;
+						background: #f0f0f0;margin: 0 auto;background: #FAFAFA;border: 1px solid #F0F0F0;
+						border-radius: 4px;text-indent: 0.1rem;">抱歉，此文章已被作者删除。</div>
 					{{/if}}
 					<div class="both"></div>
 				</div>
@@ -651,11 +654,12 @@
 					<div class="both"></div>
 					<!-- <div class="consilia_nav_btn"><span>展开</span></div>-->
 					<div class="consilia_nav_cen" data-id="{{item.articleId}}" data-status="{{item.articleStatus}}" style="display: block;">
-						<img src="{{item.articleImgPath}}" alt="" />
-						<div class="consilia_nav_cen_size">{{item.articleTitle}}</div>
-						<div class="consilia_nav_cen_sizes">{{item.articleContent}}</div>
-						{{if item.articleStatus == 0}}
-						<div style="background: #FAFAFA;font-size: 0.26rem;">抱歉，此医案已被作者删除。</div>
+						{{if item.articleStatus == 1}}
+							<img src="{{item.articleImgPath}}" alt="" />
+							<div class="consilia_nav_cen_size">{{item.articleTitle}}</div>
+							<div class="consilia_nav_cen_sizes">{{item.articleContent}}</div>
+						{{else}}
+							<div style="background: #FAFAFA;font-size: 0.26rem;">抱歉，此医案已被作者删除。</div>
 						{{/if}}
 					</div>
 					<div class="both"></div>
@@ -1125,9 +1129,9 @@
 		
 	</div>
 	<!-- 点击全部动态=显示筛看开始 -->
-		
-			</div>
+
 		</div>
+	</div>
 
 
 

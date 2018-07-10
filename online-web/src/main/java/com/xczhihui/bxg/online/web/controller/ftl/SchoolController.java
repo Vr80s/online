@@ -245,7 +245,6 @@ public class SchoolController extends AbstractFtlController {
                 sb.append(name).append("=").append(value).append("&");
             }
         }
-        log.info("sb.toString()" + sb.substring(0, sb.length() - 1));
         if (sb.indexOf("?") != -1) {
             view.addObject("webUrlParam", sb.substring(0, sb.length() - 1));
         } else {
@@ -354,7 +353,9 @@ public class SchoolController extends AbstractFtlController {
         view.addObject("description", description);
         
       //获取相关信息
-        if(type.equals("selection")) {
+        if(type.equals("selection") || 
+                (type.equals("info") && clv.getCollection() &&  clv.getWatchState()!=0)) {
+            
             List<CourseLecturVo> courses = courseService.selectCoursesByCollectionId(clv.getId());
             view.addObject("collectionList", courses);
             view.addObject("collectionListSize", courses.size());
@@ -395,7 +396,7 @@ public class SchoolController extends AbstractFtlController {
 
     private boolean isNotCoursePage(String type) {
         //outline  comment    info   aq
-        final List typeList = Arrays.asList("outline", "comment","selection","info", "aq");
+        final List typeList = Arrays.asList("outline", "comment","selection","info", "aq","albumInfo");
         return !typeList.contains(type);
     }
 
