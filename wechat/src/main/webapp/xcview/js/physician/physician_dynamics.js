@@ -800,14 +800,7 @@ requestService("/xczh/doctors/doctorStatus", {doctorId:doctorId},function (data)
                                         /*if (data.resultObject.lecturerInfo = null && data.resultObject.lecturerInfo.workTime = null) {
                                             $(".hid_wtime").addClass("hide");
                                         }*/
-                                        // 个人介绍
-                                        if(data.resultObject.description == null || data.resultObject.description == ''){
-                                            
-                                            $(".self_introduction").hide();
-                                        }else{
-
-                                            $(".self_introduction_cen").html(data.resultObject.description);
-                                        };
+                                        
 
                                         if(data.resultObject.workTime == null || data.resultObject.workTime == ''){
                                             
@@ -830,7 +823,18 @@ requestService("/xczh/doctors/doctorStatus", {doctorId:doctorId},function (data)
 
                                 }
                             });
+                            
+                            requestService("/xczh/doctors/introduction", {doctorId:getQueryString('doctor')},function (data) {
+                                $('#message_referral').html(template('message_referral_id', {items: hospitalData}));
+                                // 个人介绍
+                                if(data.resultObject.description == null || data.resultObject.description == ''){
+                                    
+                                    $(".self_introduction").hide();
+                                }else{
 
+                                    $(".self_introduction_cen").html(data.resultObject.description);
+                                };
+                            });
                             
                             /*介绍结束*/
 

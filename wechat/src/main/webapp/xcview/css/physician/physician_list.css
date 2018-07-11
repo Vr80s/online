@@ -309,10 +309,16 @@ header{
     padding: 0.08rem 0;
     display: inline-block;
     margin-right: 0.2rem;
+    max-width: 1.6rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .li_list_one_right .duty{
     font-size: 0.24rem;
     color: #999999;
+    margin-top: 0.1rem;
+    display: -webkit-box;
 }
 .li_list_one_right .div .p0{
 	font-size: 0.24rem;
