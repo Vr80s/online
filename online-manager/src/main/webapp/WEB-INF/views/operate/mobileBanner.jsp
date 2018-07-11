@@ -677,7 +677,12 @@
         </div>
         <div class="space-4"></div>
         <div class="form-group" style="margin-top: 18px;">
-            <label class="col-sm-3 control-label no-padding-right" for="imgPath"><font color="red">*</font>banner图片:
+            <label class="col-sm-3 control-label no-padding-right" for="imgPath"><font color="red">*</font>
+             banner图片:
+           <div style="padding-top:10px;color: blue;">
+                <p style="margin: 0px;padding: 0px;">推荐使用尺寸860*346</p>
+                <p style="margin: 0px;padding: 0px;">推荐高宽比在0.4左右</p>
+           </div> 
             </label>
             <div class="col-sm-6" id="addDiv">
                 <div class="clearfixAdd" id="add_clearfixAdd">
@@ -784,10 +789,15 @@
         </div>
         <div class="space-4"></div>
         <div class="form-group" style="margin-top: 18px;">
-            <label class="col-sm-3 control-label no-padding-right" for="imgPath"><font color="red">*</font>banner图片:
+            <label class="col-sm-3 control-label no-padding-right" for="imgPath"><font color="red">*</font>
+            banner图片:
+           <div style="padding-top:10px;color: blue;">
+	            <p style="margin: 0px;padding: 0px;">推荐使用尺寸860*346</p>
+	            <p style="margin: 0px;padding: 0px;">推荐高宽比在0.4左右</p>
+           </div> 
             </label>
             <div class="col-sm-6">
-                <div class="clearfixUpdate">
+                <div class="clearfixUpdate" id="editDiv">
                     <input type="file" name="update_imgPath_file" id="update_imgPath_file" class="uploadImg"/>
                 </div>
                 <!-- （图片尺寸上传限制：926*386） -->
