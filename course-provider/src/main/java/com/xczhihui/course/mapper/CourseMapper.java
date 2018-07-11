@@ -176,7 +176,7 @@ public interface CourseMapper extends BaseMapper<Course> {
      * @param id id
      * @return
      */
-    @Select({"select id, grade_name as gradeName from oe_course where id = #{id}"})
+    @Select({"select id, grade_name as gradeName, status from oe_course where id = #{id}"})
     Course findSimpleInfoById(@Param("id") int id);
 
 
