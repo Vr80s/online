@@ -167,18 +167,17 @@ function doctorPostsList(pageNumber,downOrUp,doctorPostsType) {
                 var minirefreshs=$(window).height()-$(".top_show_heights").height();
                 $(".rests_nav").height(minirefreshs);
                 
+                isShow = true;
                 $(".baseImagenumbers").show();
                 $(".upwrap-tips").hide();
-                isShow = true;
             }else{
+                isShow = false;
                 $(".baseImagenumbers").hide();
             }
+
             $(".rests_nav").html(template('wrap_doctor_dynamics',{items:obj}));
             miniRefresh.endDownLoading(true);// 结束下拉刷新
             idotototo();
-
-
-            
         } else if(obj.length==0){
             miniRefresh.endUpLoading(true);// 结束上拉加载
         } else {
