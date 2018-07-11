@@ -28,11 +28,11 @@
 						<input type="text"  id="searchName" class="propertyValue1" style="width:240px;" placeholder="用户昵称/用户名"/>
 						<input type="hidden" value="searchName" class="propertyName"/>
 					</span>
-					&nbsp;&nbsp;
-					<span class="searchTr">
-						<input type="text"  id="lastLoginIp" class="propertyValue1" style="width:100px;" placeholder="最后登录IP"/>
-						<input type="hidden" value="lastLoginIp" class="propertyName"/>
-					</span>
+					<%--&nbsp;&nbsp;--%>
+					<%--<span class="searchTr">--%>
+						<%--<input type="text"  id="lastLoginIp" class="propertyValue1" style="width:100px;" placeholder="最后登录IP"/>--%>
+						<%--<input type="hidden" value="lastLoginIp" class="propertyName"/>--%>
+					<%--</span>--%>
 					&nbsp;&nbsp;
 					<span class="searchTr">
 						<input type="text"  id="createTimeStart" class="propertyValue1" placeholder="注册时间"/>
@@ -43,11 +43,11 @@
 						<input type="text"  id="createTimeEnd" class="propertyValue1" placeholder="创建时间结束"/>
 						<input type="hidden" value="createTimeEnd" class="propertyName"/>
 					</span> -->
-					&nbsp;&nbsp;
-					<span class="searchTr">
-						<input type="text"  id="lastLoginTimeStart" class="propertyValue1" placeholder="最后登录时间"/>
-						<input type="hidden" value="lastLoginTimeStart" class="propertyName"/>
-					</span>
+					<%--&nbsp;&nbsp;--%>
+					<%--<span class="searchTr">--%>
+						<%--<input type="text"  id="lastLoginTimeStart" class="propertyValue1" placeholder="最后登录时间"/>--%>
+						<%--<input type="hidden" value="lastLoginTimeStart" class="propertyName"/>--%>
+					<%--</span>--%>
 					<!-- --
 					 <span class="searchTr">
 						<input type="text"  id="lastLoginTimeEnd" class="propertyValue1" placeholder="最后登录时间结束"/>
@@ -65,14 +65,14 @@
 						<input type="hidden" value="status" class="propertyName"/>
 					</span>
 					
-					<span class="searchTr">
-						 <select id="menuIdSearch" class="propertyValue1" >
-                                <option  value="" >讲师权限状态</option>
-                                <option value="0">无权限</option>
-                                <option value="1">有权限</option>
-                         </select>
-                         <input type="hidden" value="lstatus" class="propertyName"/>
-					</span>
+					<%--<span class="searchTr">--%>
+						 <%--<select id="menuIdSearch" class="propertyValue1" >--%>
+                                <%--<option  value="" >讲师权限状态</option>--%>
+                                <%--<option value="0">无权限</option>--%>
+                                <%--<option value="1">有权限</option>--%>
+                         <%--</select>--%>
+                         <%--<input type="hidden" value="lstatus" class="propertyName"/>--%>
+					<%--</span>--%>
 					
 			       	<button id="searchBtn" type="button" style="margin-bottom: 1px;"
 							class="btn btn-sm  btn-primary " onclick="search();">
