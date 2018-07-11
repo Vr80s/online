@@ -1255,6 +1255,7 @@ $(window).bind("scroll", function() {
 	window.onload = function(){
 	    // 点击全部动态
 		$(".li_data").click(function(){
+			// $(".baseImagenumbers").show();
 			$(".anchor_navigation .border").css("left","1.04rem");
 			$(".li_data").addClass("li_color");
 			$(".physicians_page_main").addClass("physicians_page_mains");
@@ -1268,7 +1269,7 @@ $(window).bind("scroll", function() {
 			$("body").removeClass("body");
 			$(".broadcastroom").hide();  //直播间隐藏
 			$(".rests_nav").show();   //全部动态隐藏
-			$(".message_referral").hide();   //介绍结束
+			$(".message_referral").hide();   //介绍结束baseImagenumbers
 		});
 		$(".li_data").click();
 
