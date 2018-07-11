@@ -34,8 +34,16 @@
 	    }
 	}	
 </script>
+<style>
+	 .top_show_height{
+		width: 7.5rem;
+		height: 1.1rem;
+		margin: 0 auto;
+		background: #f8f8f8;
+	} 
+</style>
 </head>
-<body style="background: #F8F8F8;">
+<body style="background: #fff;">
 	<!--头部搜索开始-->
 	<header>
 		<div class="header">
@@ -48,7 +56,8 @@
 	<!--头部搜索结束-->
 	
 	<!--中间内容开始-->
-	<div class="outline">
+	<div class="top_show_height"></div>
+	<div class="outline" style="margin-top: 0;">
 		<div class="outline_main">
 			<script type="text/html" id="outline_main">
 			<div class="outline_title">{{gradeName}}</div>
@@ -106,5 +115,8 @@
 	
 	</div>-->
 </body>
-
+<script>
+	/*var outline=$(window).height()-$(".top_show_height").height();
+    $(".outline").height(outline);*/
+</script>
 </html>

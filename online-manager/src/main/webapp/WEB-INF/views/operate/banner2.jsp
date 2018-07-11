@@ -97,13 +97,18 @@
         </div>
         <div class="space-4"></div>
         <div class="form-group" style="margin-top: 18px;">
-            <label class="col-sm-3 control-label no-padding-right" for="imgPath"><font color="red">*</font>banner图片:
+            <label class="col-sm-3 control-label no-padding-right" for="imgPath">
+            <font color="red">*</font>
+            banner图片:
+           <div style="padding-top:10px;color: blue;">
+                <p style="margin: 0px;padding: 0px;">推荐使用尺寸860*346</p>
+                <p style="margin: 0px;padding: 0px;">推荐高宽比在0.4左右</p>
+           </div> 
             </label>
             <div class="col-sm-6" id="addDiv">
                 <div class="clearfixAdd">
                     <input type="file" name="imgPath_file" id="imgPath_file" class="uploadImg"/>
                 </div>
-                （图片尺寸上传限制：1200*386）
                 <input name="imgPath" id="add_imgPath" value="" type="text" class="{required:true}"
                        style="position: absolute; opacity: 0; filter:Alpha(opacity=0);">
             </div>
@@ -184,13 +189,17 @@
         </div>
         <div class="space-4"></div>
         <div class="form-group" style="margin-top: 18px;">
-            <label class="col-sm-3 control-label no-padding-right" for="imgPath"><font color="red">*</font>banner图片:
+            <label class="col-sm-3 control-label no-padding-right" for="imgPath"><font color="red">*</font>
+            banner图片:
+           <div style="padding-top:10px;color: blue;">
+                <p style="margin: 0px;padding: 0px;">推荐使用尺寸860*346</p>
+                <p style="margin: 0px;padding: 0px;">推荐高宽比在0.4左右</p>
+           </div> 
             </label>
-            <div class="col-sm-6">
+            <div class="col-sm-6" id="editDiv">
                 <div class="clearfixUpdate">
                     <input type="file" name="update_imgPath_file" id="update_imgPath_file" class="uploadImg"/>
                 </div>
-                （图片尺寸上传限制：1200*386）
                 <input name="imgPath" id="update_imgPath" type="text" class="{required:true}"
                        style="position: absolute; opacity: 0; filter:Alpha(opacity=0);">
             </div>

@@ -167,10 +167,11 @@ function doctorPostsList(pageNumber,downOrUp,doctorPostsType) {
                 var minirefreshs=$(window).height()-$(".top_show_heights").height();
                 $(".rests_nav").height(minirefreshs);
                 
+                isShow = true;
                 $(".baseImagenumbers").show();
                 $(".upwrap-tips").hide();
-                isShow = true;
             }else{
+                isShow = false;
                 $(".baseImagenumbers").hide();
             }
 
