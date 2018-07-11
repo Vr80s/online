@@ -160,6 +160,7 @@ $(function () {
 
     searchCase_P.push('{"tempMatchType":"1","propertyName":"banner_type","propertyValue1":"1","tempType":Integer}');
 
+    
     mobileBannerTable = initTables("courseTable", basePath + "/operate/mobileBanner/findMobileBannerList", objData, true, true, 0, null, searchCase_P, function (data) {
 
         var iDisplayStart = data._iDisplayStart;
@@ -213,7 +214,7 @@ $(function () {
     mobileBannerForm = $("#addMobileBanner-form").validate({
         messages: {
             name: {
-                required: "请输入banner名称！",
+                required: "请输入banner名称！"
             },
             imgPath: {
                 required: "请选择图片！"
@@ -231,7 +232,7 @@ $(function () {
     mobileBannerFormEdit = $("#updateMobileBanner-form").validate({
         messages: {
             name: {
-                required: "请输入banner名称！",
+                required: "请输入banner名称！"
             },
             imgPath: {
                 required: "请选择图片！"
@@ -310,7 +311,6 @@ $('#J-menu').on('change', function (e) {
         }
     });
 });
-
 $('#J-edit-menu').on('change', function (e) {
     var menuId = $(this).val();
     renderCourseSelect(menuId, null);
@@ -447,9 +447,6 @@ $(".add_bx").click(function () {
             }
         }
         var imgPath = $('#imgPath_file').val();
-        
-
-        
         
         debugger;
         
@@ -774,9 +771,7 @@ function toDecimal(x) {
 $("#addMobileBanner-form").on("change", "#imgPath_file", function () {
 	
 	debugger;
-	
 	var $this = $(this);
-	
     var v = this.value.split(".")[1].toUpperCase();
     if (v != 'BMP' && v != 'GIF' && v != 'JPEG' && v != 'PNG' && v != 'SVG' && v != 'JPG') {
         layer.alert("图片格式错误,请重新选择.");
@@ -784,11 +779,19 @@ $("#addMobileBanner-form").on("change", "#imgPath_file", function () {
         return;
     }
     
-    
-    
     //限制上传的图片尺寸比例
     var myTest = document.getElementById("imgPath_file").files[0];
     var reader = new FileReader();
+  
+    reader.onerror = function(){
+        console.log("加载成功")
+        alertInfo("读取失败");
+    }
+    reader.onabort = function(){
+        console.log("读取被中止")
+        alertInfo("读取被中止");
+    }
+    //文件读取成功完成时触发
     reader.onload = function(theFile){
     	var image = new Image();
     	image.src = theFile.target.result;
@@ -802,57 +805,105 @@ $("#addMobileBanner-form").on("change", "#imgPath_file", function () {
     		        "	<input type=\"file\" name=\"imgPath_file\" id=\"imgPath_file\" class=\"uploadImg\"/>\n" +
     		        "</div>");
     		    $this.value = "";
-    			
+    		    
+                createImageUpload($('#imgPath_file'));//生成图片编辑器       
+    		    
     		    alertInfo("banner图片最佳比例：高/宽在"+goodBili+"左右。" +
-    					"此比例限制在："+minbili+"~"+maxbili+"之间。" +
-    							"本次上传图的高/宽比例为："+bili.toFixed(2));
+    					"此比例限制在："+minbili+"~"+maxbili+"之间。");
     			return;
     		}
+    		
+    		
+    		    var id = $this.attr("id");
+                ajaxFileUpload(id, basePath + "/attachmentCenter/upload?projectName=online&fileType=1", function (data) {
+                    if (data.error == 0) {
+                        $("#" + id).parent().find(".ace-file-name img").attr("src", data.url);
+                        $("#" + id).parent().find(".ace-file-name img").attr("style", "width: 250px; height: 140px;");
+            
+                        $("#add_imgPath").val(data.url);
+                        document.getElementById("imgPath_file").focus();
+                        document.getElementById("imgPath_file").blur();
+                        $(".remove").hide();
+                    } else {
+                        alert(data.message);
+                    }
+                })
+    		
+    		
     	}
     }
+    
+    
+       //开始读取
     reader.readAsDataURL(myTest);
-
-    
-    var id = $this.attr("id");
-    
-    
-    ajaxFileUpload(id, basePath + "/attachmentCenter/upload?projectName=online&fileType=1", function (data) {
-        if (data.error == 0) {
-            $("#" + id).parent().find(".ace-file-name img").attr("src", data.url);
-            $("#" + id).parent().find(".ace-file-name img").attr("style", "width: 250px; height: 140px;");
-
-            $("#add_imgPath").val(data.url);
-            document.getElementById("imgPath_file").focus();
-            document.getElementById("imgPath_file").blur();
-            $(".remove").hide();
-        } else {
-            alert(data.message);
-        }
-    })
 });
 
 //图片上传统一上传到附件中心---- 修改  列表页
 $("#updateMobileBanner-form").on("change", "#update_imgPath_file", function () {
+	
+	debugger;
+    var $this = $(this);
+	
     var v = this.value.split(".")[1].toUpperCase();
     if (v != 'BMP' && v != 'GIF' && v != 'JPEG' && v != 'PNG' && v != 'SVG' && v != 'JPG') {
         layer.alert("图片格式错误,请重新选择.");
         this.value = "";
         return;
     }
-    var id = $(this).attr("id");
-    ajaxFileUpload(this.id, basePath + "/attachmentCenter/upload?projectName=online&fileType=1", function (data) {
-        if (data.error == 0) {
-            $("#" + id).parent().find(".ace-file-name img").attr("src", data.url);
-            $("#" + id).parent().find(".ace-file-name img").attr("style", "width: 250px; height: 140px;");
-
-            $("#update_imgPath").val(data.url);
-            document.getElementById("update_imgPath_file").focus();
-            document.getElementById("update_imgPath_file").blur();
-            $(".remove").hide();
-        } else {
-            alert(data.message);
+    
+    //限制上传的图片尺寸比例
+    var myTest = document.getElementById("update_imgPath_file").files[0];
+    var reader = new FileReader();
+    reader.onerror = function(){
+        console.log("加载成功")
+        alertInfo("读取失败");
+    }
+    reader.onabort = function(){
+        console.log("读取被中止")
+        alertInfo("读取被中止");
+    }
+    //文件读取成功完成时触发
+    reader.onload = function(theFile){
+        var image = new Image();
+        image.src = theFile.target.result;
+        image.onload = function(){
+            var height = this.height;
+            var width = this.width;
+            var bili = parseFloat(height/width);
+            if(bili<minbili || bili > maxbili){
+                $(".clearfixUpdate").remove();
+                $("#editDiv").prepend("<div class=\"clearfixAdd\">\n" +
+                    "   <input type=\"file\" name=\"update_imgPath_file\" id=\"update_imgPath_file\" class=\"uploadImg\"/>\n" +
+                    "</div>");
+                   
+                createImageUpload($('#update_imgPath_file'));//生成图片编辑器           
+                    
+                $this.value = "";
+                alertInfo("推荐使用尺寸860*346。banner图片最佳比例：高/宽在"+goodBili+"左右。" +
+                        "此比例限制在："+minbili+"~"+maxbili+"之间。");
+                return;
+            }
+            
+            var id = $this.attr("id");
+            ajaxFileUpload(id, basePath + "/attachmentCenter/upload?projectName=online&fileType=1", function (data) {
+                if (data.error == 0) {
+                    $("#" + id).parent().find(".ace-file-name img").attr("src", data.url);
+                    $("#" + id).parent().find(".ace-file-name img").attr("style", "width: 250px; height: 140px;");
+        
+                    $("#update_imgPath").val(data.url);
+                    document.getElementById("update_imgPath_file").focus();
+                    document.getElementById("update_imgPath_file").blur();
+                    $(".remove").hide();
+                } else {
+                    alert(data.message);
+                }
+            })
         }
-    })
+    }
+      //开始读取
+    reader.readAsDataURL(myTest);
+    
+    
 });
 
 //展示图片大图
