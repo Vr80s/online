@@ -210,5 +210,15 @@ public class PageController {
         request.getRequestDispatcher("/web/html/want-anchor.html").forward(request, response);
     }
 
+    /**
+     * 解决空报错问题
+     *
+     * @return
+     */
+    @RequestMapping(value = "/web/livepage/null", method = RequestMethod.GET)
+    public void livepageNull(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getRequestDispatcher("/web/html/404.html").forward(request, response);
+    }
+
 
 }
