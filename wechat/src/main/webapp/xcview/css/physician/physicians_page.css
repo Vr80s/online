@@ -949,7 +949,7 @@ p{
 	padding-bottom: 0.2rem;
 }
 .paper_nav_cen{
-	width: 6.98rem;
+	width: 7.5rem;
     min-height: 1.4rem;
     /* background: #FAFAFA; */
     /* border: 1px solid #F0F0F0; */
@@ -962,10 +962,10 @@ p{
 }
 .paper_nav_cen img{
 	width: 2.26rem;
-	height: 2.2rem;
+	height: 2.26rem;
 	margin-right: 0.065rem;
 	float: left;
-	margin-top: 0.2rem;
+	/*margin-top: 0.2rem;*/
 }
 
 .paper_nav_cen_size{
