@@ -28,6 +28,11 @@ $('.path .hospital').addClass('select');
 		var emailPatt = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/ ;
 		
 		
+		var telVal = $.trim($('.hos_base_inf .doc_tel').val());
+		var tel = /^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/;
+        var mobile = /^1[345678]\d{9}$/;
+		
+		
 		//医馆头像判断
 		if($('.hos_base_inf   .touxiang_pic:has(img)').length < 1){
 			$('.hos_base_inf .touxiang_picUpdata .warning ').removeClass('hide');
@@ -88,6 +93,18 @@ $('.path .hospital').addClass('select');
 			$('.contant_name_warn').addClass('hide');
 		}
 		
+        //电话判断
+        if(telVal == ''){
+            $('.hos_base_inf .mobile_name_warn').removeClass('hide');
+            return false;
+        }else if(telVal !== '' && !tel.test(telVal)  && !mobile.test(telVal)){
+            $('.hos_base_inf .mobile_name_warn').removeClass('hide');
+            return false;
+        }else{
+            $('.hos_base_inf .mobile_name_warn').addClass('hide');
+        }
+		
+		
 		//邮箱判断
 		if(email !== '' && !emailPatt.test(email)){
 			$('.hos_base_inf .email_warn').removeClass('hide');
@@ -130,6 +147,7 @@ $('.path .hospital').addClass('select');
 		//data.hosIntroduct = $.trim($('.hos_base_inf .personIntroduct textarea').val());
 		data.contactor = $.trim($('.hos_base_inf .doc_shanchang').val());
 		//data.weChat =  $.trim($('.hos_base_inf .hos_weixin').val());
+		data.tel =  $.trim($('.hos_base_inf .doc_tel').val());
 		data.email = $.trim($('.hos_base_inf .doc_hospital').val());
 		data.province = $('#hos_Administration .hos_base_inf #choosePro  option:selected').text();
 		data.city = $('#hos_Administration .hos_base_inf  #citys option:selected').text();
