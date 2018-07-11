@@ -226,21 +226,22 @@ p{
     height: 0.8rem;
 }
 .anchor_navigation ul .li {
-    width: 2.3rem;
+    /*width: 2.3rem;*/
     height: 0.8rem;
     line-height: 0.8rem;
     font-size: 0.28rem;
     color: #666666;
     float: left;
-    margin: 0 0.15rem;
-    text-align: center;
+    /*margin: 0 0.15rem;*/
+    /*text-align: center;*/
+    margin-right: 1.1rem;
 }
 .li_color {
     color: #00bc12 !important;
 }
-.anchor_navigation ul .li_course {
+/* .anchor_navigation ul .li_course {
     margin: 0 0rem;
-}
+} */
 .anchor_navigation .border {
     position: absolute;
     bottom: 0;
@@ -254,6 +255,9 @@ p{
     position: fixed;
     top: 0.9rem;
 }
+.li_data{
+	margin-left: 0.7rem;
+}
 .li_data img{
 	width: 0.106rem;
     height: 0.088rem;
@@ -261,6 +265,9 @@ p{
     top: 0.38rem;
     left: 1.95rem;
     display: block !important;
+}
+.li_evaluate{
+	margin-right: 0 !important;
 }
 .dynamic_opacity{
 	width: 2.3rem;
@@ -2233,3 +2240,56 @@ margin-top: 0.015rem;
 .panels_essay_main{
 	min-height: 0.45rem;
 }
+
+
+/*师承开始*/
+.prose_origin{
+	width: 7.5rem;
+	height: 100%;
+	/*height: 3rem;*/
+	background: red;
+}
+.prose_origin_main{
+
+}
+.prose_origin_details{
+	width: 7.5rem;
+	margin: 0 auto;
+	background: #fff;
+}
+.prose_origin_details_center{
+	width: 6.98rem;
+	height: 100%;
+    margin: 0 auto;
+    margin-bottom: 0.2rem;
+}
+.prose_origin_details_center img{
+	width: 6.98rem;
+	height: 2.81rem;
+	margin-top: 0.2rem;
+}
+.prose_origin_main_fize{
+	width: 6.98rem;
+	height: 0.84rem;
+	line-height: 0.84rem;
+	margin: 0 auto;
+}
+.prose_origin_main_title{
+	width: 5.7rem;
+	font-size: 0.28rem;
+	color: #333333;
+	float: left;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.prose_origin_main_time{
+	font-size: 0.26rem;
+	color: #999999;
+	text-align: right;
+}
+/*师承结束*/
+
+
+
+

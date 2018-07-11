@@ -157,7 +157,6 @@
 
 
 
-
 		/*处理刷新*/
 		.minirefresh-wrap{
 			/*top: 5.3rem;*/
@@ -493,7 +492,8 @@
 		<div class="anchor_navigation" id="mainMenuBar">
 			<ul>
 				<li class="li li_data li_color"><span>全部动态</span><img src="/xcview/images/drop_down.png" alt="" class="hide0" /></li>
-				<li class="li li_course">直播间</li>
+				<li class="li li_course">直播</li>
+				<li class="li li_prose_origin">师承</li>
 				<li class="li li_evaluate">介绍</li>
 				<div class="border" style="left: 1.04rem;"></div>
 				<div class="dynamic_opacity"></div>
@@ -936,7 +936,7 @@
 								<img src="/xcview/images/Sinatv_time.png">
 								<span>2018.6.1 10:00</span>
 							</p>
-						</div>
+						</div
 					</li>
 				</ul>
 			</div> -->
@@ -1025,6 +1025,33 @@
 
 	</div>
 	<!-- 直播间结束 -->
+
+	<!-- 师承开始 -->
+	<div class="prose_origin">
+		<div class="prose_origin_main">
+			<div class="prose_origin_details">
+				<div class="prose_origin_details_center">
+					<img src="/xcview/images/banner01.png" alt="" />
+					<div class="prose_origin_main_fize">
+						<div class="prose_origin_main_title">京城四大名医施今墨收徒-传授草药学精髓</div>
+						<div class="prose_origin_main_time">2018.6.1</div>
+						<div class="both"></div>
+					</div>
+				</div>
+			</div>
+			<div class="prose_origin_details">
+				<div class="prose_origin_details_center">
+					<img src="/xcview/images/banner01.png" alt="" />
+					<div class="prose_origin_main_fize">
+						<div class="prose_origin_main_title">京城四大名医施今墨收徒-传授草药学精髓</div>
+						<div class="prose_origin_main_time">2018.6.1</div>
+						<div class="both"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 师承结束 -->
 
 	<!-- 介绍开始 -->
 	<div class="message_referral" id="message_referral">
@@ -1260,6 +1287,7 @@ $(window).bind("scroll", function() {
 			$(".li_data").addClass("li_color");
 			$(".physicians_page_main").addClass("physicians_page_mains");
 			$(".li_course").removeClass("li_color");
+			$(".li_prose_origin").removeClass("li_color");
 			$(".li_evaluate").removeClass("li_color");
 			$(".li_data_hide").removeClass("hide");
 			$(".li_course_hide").addClass("hide");
@@ -1270,15 +1298,17 @@ $(window).bind("scroll", function() {
 			$(".broadcastroom").hide();  //直播间隐藏
 			$(".rests_nav").show();   //全部动态隐藏
 			$(".message_referral").hide();   //介绍结束baseImagenumbers
+			$(".prose_origin").hide();   /*师承内容隐藏*/
 		});
-		$(".li_data").click();
+		// $(".li_data").click();
 
 		// 点击直播间
 		$(".li_course").click(function(){
 			$(".baseImagenumbers").hide();
-			$(".anchor_navigation .border").css("left","3.5rem");
+			$(".anchor_navigation .border").css("left","2.94rem");
 			$(".li_data").removeClass("li_color");
 			$(".li_course").addClass("li_color");
+			$(".li_prose_origin").removeClass("li_color");
 			$(".li_evaluate").removeClass("li_color");
 			$(".physicians_page_main").removeClass("physicians_page_mains");
 			$(".li_data_hide").addClass("hide");
@@ -1292,14 +1322,40 @@ $(window).bind("scroll", function() {
 			$(".broadcastroom").show();   /*直播间打开*/
 			$(".message_referral").hide();  //介绍结束
 			// $(".broadcastroom").show();
-
+			$(".prose_origin").hide();   /*师承内容隐藏*/
 		});
+
+		// 点击师承
+		$(".li_prose_origin").click(function(){
+			$(".baseImagenumbers").hide();
+			$(".anchor_navigation .border").css("left","4.59rem");
+			$(".li_data").removeClass("li_color");
+			$(".li_course").removeClass("li_color");
+			$(".li_prose_origin").addClass("li_color");
+			$(".li_evaluate").removeClass("li_color");
+			$(".physicians_page_main").removeClass("physicians_page_mains");
+			$(".li_data_hide").addClass("hide");
+			$(".li_course_hide").removeClass("hide");
+			$(".li_evaluate_hide").addClass("hide");
+			$(".li_data img").addClass("hide");
+			$(".dynamic_opacity").addClass("hide");
+			$(".screen_show").hide();  /*隐藏筛选*/
+			$("body").removeClass("body");
+			$(".rests_nav").hide();  /*全部动态隐藏*/
+			$(".broadcastroom").hide();   /*直播间打开*/
+			$(".prose_origin").show();   /*师承内容打开*/
+			$(".message_referral").hide();  //介绍结束
+			// $(".broadcastroom").show();
+		});
+		$(".li_prose_origin").click();
+
 		// 点击介绍
 		$(".li_evaluate").click(function(){
 			$(".baseImagenumbers").hide();
-			$(".anchor_navigation .border").css("left","5.94rem");
+			$(".anchor_navigation .border").css("left","6.25rem");
 			$(".li_data").removeClass("li_color");
 			$(".li_course").removeClass("li_color");
+			$(".li_prose_origin").removeClass("li_color");
 			$(".li_evaluate").addClass("li_color");
 			$(".physicians_page_main").removeClass("physicians_page_mains");
 			$(".li_data_hide").addClass("hide");
@@ -1312,7 +1368,7 @@ $(window).bind("scroll", function() {
 			$(".broadcastroom").hide();  //直播间隐藏
 			$(".rests_nav").hide();   //全部动态隐藏
 			$(".message_referral").show();  //介绍结束
-			
+			$(".prose_origin").hide();   /*师承内容隐藏*/
 		});
 
 		// 点击显示全部动态筛选  
