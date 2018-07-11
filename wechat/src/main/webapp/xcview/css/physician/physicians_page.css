@@ -1618,11 +1618,18 @@ p{
 
 /*为您推荐课程开始*/
 .wrap_vedio {
-    width: 100%;
+    /* width: 100%;
     padding: 0.3rem 0.26rem;
     box-sizing: border-box;
     background: white;
     overflow: hidden;
+    margin-top: 0.2rem; */
+    width: 6.98rem;
+    /* padding: 0.3rem 0.26rem; */
+    box-sizing: border-box;
+    background: white;
+    overflow: hidden;
+    margin: 0 auto;
     margin-top: 0.2rem;
 }
 .wrap_vedio .border {
@@ -1693,6 +1700,8 @@ p{
 }
 .more_people span {
     font-size: 0.24rem;
+    display: inherit;
+    float: left;
 }
 .wrap_vedio_btn li .speak_text {
     overflow: hidden;
@@ -2290,6 +2299,107 @@ margin-top: 0.015rem;
 }
 /*师承结束*/
 
+/*跟师开始*/
+.wrap_vedio_main{
+	width: 7.5rem;
+	height: 100%;
+	background: #fff;
+	margin: 0 auto;
+	margin-bottom: 0.2rem;
+}
+/*跟师结束*/
+
+/*老师解惑开始*/
+.QA{
+	width: 100%;
+	height: 100%;
+	background: #fff;
+	padding-bottom: 0.3rem;
+}
+.QA_title{
+	width: 6.98rem;
+    margin: 0 auto;
+    padding-top: 0.2rem;
+    margin-bottom: 0.4rem;
+}
+.QA_title .border{
+	display: inline-block;
+    width: 0.06rem;
+    height: 0.28rem;
+    border-radius: 100px;
+    background: #00bc12;
+    float: left;
+    margin-right: 0.08rem;
+    margin-top: 0.05rem;
+}
+.QA_quiz{
+	float: right;
+	font-size: 0.26rem;
+	color: #00BC12;
+}
+.QA_quiz img{
+	width: 0.26rem;
+	height: 0.26rem;
+	vertical-align: middle; 
+}
+.QA_main{
+	width: 6.98rem;
+	height: 100%;
+	margin: 0 auto;
+}
+.QA_doubt{
+	position: relative;
+	margin-bottom: 0.3rem;
+}
+.QA_doubt .QA_doubt_img{
+	width: 0.8rem;
+	height: 0.8rem;
+	border-radius: 100px;
+	margin-right: 0.13rem;
+	float: left;
+}
+.QA_doubt_main{
+	/*position: absolute;*/
+	width: 4.64rem;
+	min-height: 1rem;
+	background: #FFFFFF;
+	border: 1px solid #DEDEDE;
+	border-radius: 8px;
+	float: left;
+	font-size: 0.28rem;
+	color: #333333;
+	text-align: justify;
+	padding: 0.2rem;
+}
+
+.QA_solution{
+	position: relative;
+}
+.QA_solution .QA_solution_img{
+	width: 0.8rem;
+	height: 0.8rem;
+	border-radius: 100px;
+	margin-left: 0.13rem;
+	float: right;
+}
+.QA_solution_main{
+	/*position: absolute;*/
+	width: 4.64rem;
+	min-height: 1rem;
+	background: #AEED68;
+	border: 1px solid #DEDEDE;
+	border-radius: 8px;
+	float: right;
+	font-size: 0.28rem;
+	color: #333333;
+	text-align: justify;
+	padding: 0.2rem;
+	/*background: url(/xcview/images/bg_bg.png) no-repeat;*/
+	/*background-size: 100% 100%;*/
+}
+
+
+/*老师解惑结束*/
 
 
 
