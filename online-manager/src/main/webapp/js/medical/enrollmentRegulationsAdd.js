@@ -49,6 +49,12 @@ $(function(){
 
 });
 
+//上传banner图的比例
+var goodBili = 0.56;
+var minbili = 0.5;
+var maxbili = 0.6;
+
+
 function imgSenBut(){
     $("#imgAdd").html('<input type="file" name="img" id="imgPath_file" class="uploadImg1"/>');
     $("#imgAddPoster").html('<input type="file" name="img" id="Poster_file" class="uploadImg2"/>');
@@ -77,6 +83,9 @@ function createImageUpload(obj){
 //图片上传统一上传到附件中心---- 修改  列表页
 $("#add-form").on("change","#imgPath_file",function(){
     debugger
+    
+    var $this = $(this);
+     
     var v = this.value.split(".")[this.value.split(".").length-1].toUpperCase();
     if(v!='BMP' && v!='GIF'&& v!='PNG'&& v!='JPG'){
         alert("图片格式错误,请重新选择.");
@@ -95,20 +104,62 @@ $("#add-form").on("change","#imgPath_file",function(){
         $("#add_imgPath").val("");
         return;
     }
-    var id = $(this).attr("id");
-    ajaxFileUpload(this.id,basePath+"/attachmentCenter/upload?projectName=online&fileType=1", function(data){
-        if (data.error == 0) {
-            $("#"+id).parent().find(".ace-file-name").after("<img scr='' class='middle'/>");
-            $("#"+id).parent().find(".ace-file-name img").attr("src",data.url);
-            $("#"+id).parent().find(".ace-file-name img").attr("style","width: 228px; height: 110px;");
-            $("#add_imgPath").val(data.url);
-            document.getElementById("imgPath_file").focus();
-            document.getElementById("imgPath_file").blur();
-            $(".remove").hide();
-        }else {
-            layer.msg(data.message);
+    
+        //限制上传的图片尺寸比例
+    var myTest = document.getElementById("imgPath_file").files[0];
+    var reader = new FileReader();
+    reader.onerror = function(){
+        console.log("加载成功")
+        alertInfo("读取失败");
+    }
+    reader.onabort = function(){
+        console.log("读取被中止")
+        alertInfo("读取被中止");
+    }
+    //文件读取成功完成时触发
+    reader.onload = function(theFile){
+        var image = new Image();
+        image.src = theFile.target.result;
+        image.onload = function(){
+            var height = this.height;
+            var width = this.width;
+            var bili = parseFloat(height/width);
+            if(bili<minbili || bili > maxbili){
+            	
+                $(".clearfixAdd").remove();
+                //$("#imgDivAdd").prepend("<input type=\"file\" name=\"img\" id=\"imgPath_file\" class=\"uploadImg1\"/>");
+                $("#imgDivAdd").prepend("<div class=\"clearfixAdd\">\n" +
+                    "   <input type=\"file\" name=\"img\" id=\"imgPath_file\" class=\"uploadImg1\"/>\n" +
+                    "</div>");
+                
+                createImageUpload($('#imgPath_file'));//生成图片编辑器   
+                
+                $this.value = "";
+                alertInfo("推荐使用尺寸750*425。banner图片最佳比例：高/宽在"+goodBili+"左右。" +
+                        "此比例限制在："+minbili+"~"+maxbili+"之间。");
+                return;
+            }
+            
+            var id = $this.attr("id");
+            ajaxFileUpload(id,basePath+"/attachmentCenter/upload?projectName=online&fileType=1", function(data){
+                if (data.error == 0) {
+                    $("#"+id).parent().find(".ace-file-name").after("<img scr='' class='middle'/>");
+                    $("#"+id).parent().find(".ace-file-name img").attr("src",data.url);
+                    $("#"+id).parent().find(".ace-file-name img").attr("style","width: 228px; height: 110px;");
+                    $("#add_imgPath").val(data.url);
+                    document.getElementById("imgPath_file").focus();
+                    document.getElementById("imgPath_file").blur();
+                    $(".remove").hide();
+                }else {
+                    layer.msg(data.message);
+                }
+            })
         }
-    })
+    }
+      //开始读取
+    reader.readAsDataURL(myTest);
+    
+
 });
 
 //上传海报     统一上传到附件中心----

@@ -112,8 +112,9 @@ header {
 }
 .outline_list{
 	width: 6.98rem;
-    /* float: right; */
     margin: 0 auto;
+    margin-top: 0.2rem;
+    margin-bottom: 0.2rem;
 }
 .outline_list_ul p{
 	font-size: 0.26rem;

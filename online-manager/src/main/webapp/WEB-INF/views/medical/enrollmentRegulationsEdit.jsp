@@ -113,13 +113,16 @@
 
         <div class="form-group"  style="margin-top: 18px;" >
             <label class="col-sm-1 control-label no-padding-right" for="add_imgPath"><font color="red">*</font>封面图: </label>
-            <div class="col-sm-2" >
-                <div class="clearfix" id="imgAdd" style="width: 240px;">
+            <div class="col-sm-2" id="imgDivAdd">
+                <div class="clearfix clearfixAdd" id="imgAdd" style="width: 240px;">
                 </div>
                 <input type="text" name="coverImg"  id="add_imgPath" class="{required:true}" value="${MedicalEnrollmentRegulations.coverImg}" style="position: absolute; opacity: 0; filter:Alpha(opacity=0);">
-
             </div>
-            <div style="padding-left:30px;float: left;width: 400px; "><font color="red">*</font>支持图片格式：jpg,png,gif,bmp</div>
+            <div style="padding-left:60px;float: left;width: 400px; ">
+                <p><font color="red">*</font>支持图片格式：jpg,png,gif,bmp</p>
+                <p><font color="red">*</font>推荐最佳尺寸：750*425</p>
+                <p><font color="red">*</font>推荐高宽比在0.56左右</p>
+                </div>
         </div>
         <div class="space-4"></div>
         <div class="form-group" style="margin-top: 18px;" >

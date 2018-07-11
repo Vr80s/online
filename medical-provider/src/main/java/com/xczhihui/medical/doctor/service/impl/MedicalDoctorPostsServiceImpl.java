@@ -64,9 +64,9 @@ public class MedicalDoctorPostsServiceImpl extends ServiceImpl<MedicalDoctorPost
             Date d = medicalDoctorPosts.getCreateTime();
             Date currentDate = new Date();
             Date createTime = medicalDoctorPosts.getCreateTime();
-            int second = (int)(currentDate.getTime() - createTime.getTime())/1000;
-            int min = (int)(currentDate.getTime() - d.getTime())/1000/60+1;
-            int hour = (int)(currentDate.getTime() - d.getTime())/1000/60/60+1;
+            long second = (currentDate.getTime() - d.getTime())/1000;
+            long min = (currentDate.getTime() - d.getTime())/1000/60+1;
+            long hour = (currentDate.getTime() - d.getTime())/1000/60/60+1;
             if(second<60){
                 medicalDoctorPosts.setDateStr("刚刚");
             } else if (min<=60){

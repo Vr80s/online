@@ -113,7 +113,6 @@ try {
 		requestService("/xczh/share/courseShare", {shareType:shareType,shareId:shareId}, function(data) {
 			if (data.success) {
 				var shareInfo  = data.resultObject;
-
 				title = shareInfo.name;
 				shareSmallImgPath = shareInfo.headImg;
 				shareDescription = shareInfo.description;
@@ -124,7 +123,7 @@ try {
 		$(function () {
 			if(shareType == 1 || shareType == 3){
 				title = '中医好课程:'  + gradeName;
-			}else if(shareType == 2){
+			}else if(shareType == 2 || shareType == 5){
 				title = '中医好主播:'  + gradeName;
 			}else if(shareType == 4){
 				title =  gradeName;

@@ -29,13 +29,12 @@ public class ShareInfoVo implements Serializable {
         String details = this.getDescription();
 
         //分享的标题
-        if (ShareType.HOST_SHARE.getCode().equals(type)) {
+        if (ShareType.HOST_SHARE.getCode().equals(type)
+                || ShareType.DOCDOT_SHARE.getCode().equals(type)) {
             this.setName("中医好主播:" + name);
 
-        } else if (ShareType.COURSE_SHARE.getCode()
-                .equals(type) ||
-                ShareType.ALBUM_SHARE.getCode()
-                        .equals(type)) {
+        } else if (ShareType.COURSE_SHARE.getCode().equals(type) ||
+                ShareType.ALBUM_SHARE.getCode().equals(type)) {
 
             this.setName("中医好课程:" + gradeName);
         }
