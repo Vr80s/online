@@ -82,8 +82,14 @@ public class MobileShareController {
         try {
             ShareInfoVo sv = courseServiceImpl.selectShareInfoByType(shareType, shareId);
             //构造下分享出去的参数
-            sv.build(returnOpenidUri,webdomain);
-            return ResponseObject.newSuccessResponseObject(sv);
+            if(sv != null){
+                sv.build(returnOpenidUri,webdomain);
+                return ResponseObject.newSuccessResponseObject(sv);
+            } else {
+                return ResponseObject.newErrorResponseObject("课程/文章已下架");
+            }
+
+
         } catch (Exception e) {
             e.printStackTrace();
 
