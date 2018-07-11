@@ -60,12 +60,6 @@ $(function() {
 		"visible":false
 	}
 	,{
-		"title" : "登录IP",
-		"class" : "center",
-		"width" : "8%",
-		"sortable" : false,
-		"data" : 'lastLoginIp'
-	},{
 		"title" : "访问次数",
 		"class" : "center",
 		"width" : "8%",
