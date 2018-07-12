@@ -108,6 +108,7 @@ public class MedicalEntryInformation implements Serializable {
     @JsonFormat(pattern = "yyyy.MM.dd", timezone = "GMT+8")
     private Date deadline;
 
+    private Boolean applied;
     /**
      * 创建时间
      */
@@ -308,5 +309,13 @@ public class MedicalEntryInformation implements Serializable {
 
     public void setDeadlineStr(String deadlineStr) {
         this.deadlineStr = deadlineStr;
+    }
+
+    public Boolean getApplied() {
+        return applied;
+    }
+
+    public void setApplied(Boolean applied) {
+        this.applied = applied;
     }
 }

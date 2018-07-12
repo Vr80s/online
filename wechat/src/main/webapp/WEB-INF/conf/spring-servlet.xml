@@ -216,5 +216,9 @@
 
     <dubbo:reference interface="com.xczhihui.medical.headline.service.IOeBxsAppraiseService"
                      id="oeBxsAppraiseServiceImpl" timeout="${dubbo.consumer.timeout}"/>
+                     
+    <dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorQuestionService"
+                   id="medicalDoctorQuestionServiceImpl" timeout="${dubbo.provider.timeout}"/>             
+                     
 
 </beans>

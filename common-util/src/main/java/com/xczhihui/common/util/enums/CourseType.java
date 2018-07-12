@@ -16,7 +16,9 @@ public enum CourseType {
     VIDEO(1, "视频课程"),
     AUDIO(2, "音频课程"),
     LIVE(3, "直播课程"),
-    OFFLINE(4, "线下课程");
+    OFFLINE(4, "线下课程"),
+    APPRENTICE(5, "师承直播");
+    
     private int id;
     private String name;
 

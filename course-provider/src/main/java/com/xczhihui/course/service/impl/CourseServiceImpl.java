@@ -1,6 +1,7 @@
 package com.xczhihui.course.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xczhihui.common.util.XzStringUtils;
+import com.xczhihui.common.util.enums.CourseType;
 import com.xczhihui.common.util.enums.LiveStatus;
 import com.xczhihui.common.util.enums.PayStatus;
 import com.xczhihui.course.mapper.CourseMapper;
@@ -84,13 +86,13 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 
     @Override
     public Page<CourseLecturVo> selectLecturerAllCourse(Page<CourseLecturVo> page, String lecturerId) {
-        return selectLecturerAllCourse(page, lecturerId, null, false);
+        return selectLecturerAllCourseByType(page, lecturerId, null, false);
     }
 
     @Override
-    public Page<CourseLecturVo> selectLecturerAllCourse(Page<CourseLecturVo> page, String lecturerId,
+    public Page<CourseLecturVo> selectLecturerAllCourseByType(Page<CourseLecturVo> page, String lecturerId,
                                                         Integer type, boolean onlyFree) {
-        List<CourseLecturVo> records = iCourseMapper.selectLecturerAllCourse(page, lecturerId, type, onlyFree);
+        List<CourseLecturVo> records = iCourseMapper.selectLecturerAllCourseByType(page, lecturerId, type, onlyFree);
         return page.setRecords(records);
     }
 
@@ -252,5 +254,31 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     @Override
     public Course findSimpleInfoById(int id) {
         return iCourseMapper.findSimpleInfoById(id);
+    }
+
+    @Override
+    public List<Map<String, Object>> doctorCourseList(String userId,boolean onlyFree) {
+        
+        List<Map<String, Object>> alllist = new ArrayList<Map<String, Object>>();
+        
+        List<CourseLecturVo> records = iCourseMapper.selectLecturerAllCourseByType(new Page<CourseLecturVo>(1,4), userId, 
+                CourseType.APPRENTICE.getId(),onlyFree);
+        
+        Map<String, Object> map1 = new HashMap<String, Object>();
+        map1.put("text", "跟师直播");
+        map1.put("code", 5);
+        map1.put("courseList",records);
+        alllist.add(map1);
+
+        List<CourseLecturVo> recordsLive = iCourseMapper.selectLecturerAllCourseByType(new Page<CourseLecturVo>(1,6), userId, 
+                CourseType.LIVE.getId(),onlyFree);
+        
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("text", "直播课程");
+        map.put("code", 2);
+        map.put("courseList",recordsLive);
+        alllist.add(map);
+        
+        return alllist;
     }
 }

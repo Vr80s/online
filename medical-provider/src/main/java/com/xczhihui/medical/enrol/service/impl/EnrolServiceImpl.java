@@ -6,11 +6,13 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.xczhihui.common.util.enums.EntryInformationType;
 import com.xczhihui.medical.enrol.mapper.MedicalEnrollmentRegulationsMapper;
 import com.xczhihui.medical.enrol.mapper.MedicalEntryInformationMapper;
 import com.xczhihui.medical.enrol.model.MedicalEnrollmentRegulations;
@@ -60,7 +62,7 @@ public class EnrolServiceImpl implements EnrolService {
             if (medicalEntryInformationVO != null) {
                 medicalEnrollmentRegulations.setEnrolled(true);
             }
-        }else{
+        } else {
             medicalEnrollmentRegulations.setOnline(false);
         }
         List<String> allEnrolledUser = getAllEnrolledUser(medicalEnrollmentRegulations.getId());
@@ -73,7 +75,7 @@ public class EnrolServiceImpl implements EnrolService {
         return medicalEnrollmentRegulations;
     }
 
-    private Map<String,String> getDoctorPhotoAndName(Integer id) {
+    private Map<String, String> getDoctorPhotoAndName(Integer id) {
         return medicalEntryInformationMapper.getDoctorPhoto(id);
     }
 
@@ -90,6 +92,7 @@ public class EnrolServiceImpl implements EnrolService {
         MedicalEntryInformation m = new MedicalEntryInformation();
         m.setUserId(userId);
         m.setMerId(merId);
+        m.setType(EntryInformationType.ENROLLMENT_REGULATIONS_APPLY.getCode());
         MedicalEntryInformation medicalEntryInformation = medicalEntryInformationMapper.selectOne(m);
         MedicalEntryInformationVO medicalEntryInformationVO = new MedicalEntryInformationVO();
         if (medicalEntryInformation != null) {
@@ -102,11 +105,62 @@ public class EnrolServiceImpl implements EnrolService {
 
     @Override
     public void saveMedicalEntryInformation(MedicalEntryInformationVO medicalEntryInformationVO) {
-        validateMedicalEntryInformation(medicalEntryInformationVO);
-        MedicalEntryInformation medicalEntryInformation = new MedicalEntryInformation();
-        BeanUtils.copyProperties(medicalEntryInformationVO, medicalEntryInformation);
-        medicalEntryInformation.setCreateTime(new Date());
-        medicalEntryInformationMapper.insert(medicalEntryInformation);
+        Integer merId = medicalEntryInformationVO.getMerId();
+        String userId = medicalEntryInformationVO.getUserId();
+        //招生简章
+        if (merId != null && merId != 0) {
+            MedicalEnrollmentRegulations medicalEnrollmentRegulations = medicalEnrollmentRegulationsMapper.selectById(merId);
+            if (medicalEnrollmentRegulations == null || medicalEnrollmentRegulations.getDeleted() || !medicalEnrollmentRegulations.getStatus()) {
+                throw new MedicalException("该招生不存在或已结束");
+            }
+            validateMedicalEntryInformation(medicalEntryInformationVO);
+            if (medicalEntryInformationMapper.findOne(userId, merId) != null) {
+                throw new MedicalException("您已报名！");
+            }
+            MedicalEntryInformation medicalEntryInformation = new MedicalEntryInformation();
+            BeanUtils.copyProperties(medicalEntryInformationVO, medicalEntryInformation);
+            medicalEntryInformation.setCreateTime(new Date());
+            medicalEntryInformation.setType(EntryInformationType.ENROLLMENT_REGULATIONS_APPLY.getCode());
+            medicalEntryInformation.setDoctorId(medicalEnrollmentRegulations.getDoctorId());
+            medicalEntryInformationMapper.insert(medicalEntryInformation);
+        } else {
+            //在线弟子申请
+            String doctorId = medicalEntryInformationVO.getDoctorId();
+            if (StringUtils.isBlank(doctorId)) {
+                throw new MedicalException("医师id不能为空");
+            }
+            MedicalEntryInformation onlineEntryInformation = findOnlineEntryInformation(medicalEntryInformationVO.getUserId(), doctorId);
+            if (onlineEntryInformation != null) {
+                if (onlineEntryInformation.getApplied() && onlineEntryInformation.getApprentice() == 1) {
+                    throw new MedicalException("您已是该医师的弟子");
+                }
+                if (!onlineEntryInformation.getApplied()) {
+                    throw new MedicalException("申请在审核中，请耐心等待");
+                }
+                onlineEntryInformation.setAge(medicalEntryInformationVO.getAge());
+                onlineEntryInformation.setEducation(medicalEntryInformationVO.getEducation());
+                onlineEntryInformation.setEducationExperience(medicalEntryInformationVO.getEducationExperience());
+                onlineEntryInformation.setMedicalExperience(medicalEntryInformationVO.getMedicalExperience());
+                onlineEntryInformation.setGoal(medicalEntryInformationVO.getGoal());
+                onlineEntryInformation.setName(medicalEntryInformationVO.getName());
+                onlineEntryInformation.setSex(medicalEntryInformationVO.getSex());
+                onlineEntryInformation.setNativePlace(medicalEntryInformationVO.getNativePlace());
+                onlineEntryInformation.setTel(medicalEntryInformationVO.getTel());
+                onlineEntryInformation.setWechat(medicalEntryInformationVO.getWechat());
+                onlineEntryInformation.setCreateTime(new Date());
+                //更新审核状态为待审核
+                onlineEntryInformation.setApplied(false);
+                medicalEntryInformationMapper.updateAllColumnById(onlineEntryInformation);
+            } else {
+                onlineEntryInformation = new MedicalEntryInformation();
+                BeanUtils.copyProperties(medicalEntryInformationVO, onlineEntryInformation);
+                onlineEntryInformation.setMerId(null);
+                onlineEntryInformation.setType(EntryInformationType.ONLINE_APPLY.getCode());
+                onlineEntryInformation.setDoctorId(doctorId);
+                onlineEntryInformation.setCreateTime(new Date());
+                medicalEntryInformationMapper.insert(onlineEntryInformation);
+            }
+        }
     }
 
     @Override
@@ -128,11 +182,79 @@ public class EnrolServiceImpl implements EnrolService {
         return medicalEnrollmentRegulationsMapper.listByDoctorId(doctorId);
     }
 
-    private void validateMedicalEntryInformation(MedicalEntryInformationVO medicalEntryInformationVO) {
-        MedicalEnrollmentRegulations medicalEnrollmentRegulations = getMedicalEnrollmentRegulationsById(medicalEntryInformationVO.getMerId(), null);
-        if (medicalEnrollmentRegulations == null) {
-            throw new MedicalException("该招生不存在或已结束");
+    @Override
+    public void save(MedicalEnrollmentRegulations medicalEnrollmentRegulations) {
+        medicalEnrollmentRegulationsMapper.insert(medicalEnrollmentRegulations);
+    }
+
+    @Override
+    public void updateById(MedicalEnrollmentRegulations medicalEnrollmentRegulations, Integer id) {
+        MedicalEnrollmentRegulations oldMedicalEnrollmentRegulations = medicalEnrollmentRegulationsMapper.selectById(id);
+        if (!oldMedicalEnrollmentRegulations.getDoctorId().equals(medicalEnrollmentRegulations.getDoctorId())) {
+            throw new MedicalException("非法请求");
         }
+        oldMedicalEnrollmentRegulations.setTitle(oldMedicalEnrollmentRegulations.getTitle());
+        oldMedicalEnrollmentRegulations.setEntryFormAttachment(oldMedicalEnrollmentRegulations.getEntryFormAttachment());
+        oldMedicalEnrollmentRegulations.setCeremonyAddress(medicalEnrollmentRegulations.getCeremonyAddress());
+        oldMedicalEnrollmentRegulations.setCountLimit(medicalEnrollmentRegulations.getCountLimit());
+        oldMedicalEnrollmentRegulations.setDeadline(medicalEnrollmentRegulations.getDeadline());
+        oldMedicalEnrollmentRegulations.setCoverImg(medicalEnrollmentRegulations.getCoverImg());
+        oldMedicalEnrollmentRegulations.setTuition(medicalEnrollmentRegulations.getTuition());
+        oldMedicalEnrollmentRegulations.setStudyAddress(medicalEnrollmentRegulations.getStudyAddress());
+        oldMedicalEnrollmentRegulations.setRegulations(medicalEnrollmentRegulations.getRegulations());
+        oldMedicalEnrollmentRegulations.setEntryFormAttachment(medicalEnrollmentRegulations.getEntryFormAttachment());
+        oldMedicalEnrollmentRegulations.setUpdateTime(new Date());
+        medicalEnrollmentRegulationsMapper.updateAllColumnById(oldMedicalEnrollmentRegulations);
+    }
+
+    @Override
+    public Page<MedicalEnrollmentRegulations> listPageByDoctorId(String doctorId, int page, int pageSize) {
+        Page<MedicalEnrollmentRegulations> medicalEnrollmentRegulationsPage = new Page<>(page, pageSize);
+        medicalEnrollmentRegulationsPage.setRecords(medicalEnrollmentRegulationsMapper.listPageByDoctorId(doctorId, medicalEnrollmentRegulationsPage));
+        return medicalEnrollmentRegulationsPage;
+    }
+
+    @Override
+    public void updateRegulationsStatus(int id, String doctorId, boolean status) {
+        MedicalEnrollmentRegulations medicalEnrollmentRegulations = medicalEnrollmentRegulationsMapper.selectById(id);
+        medicalEnrollmentRegulations.setStatus(status);
+        medicalEnrollmentRegulationsMapper.updateAllColumnById(medicalEnrollmentRegulations);
+    }
+
+    @Override
+    public Page<MedicalEntryInformationVO> listByDoctorId(String doctorId, Integer type, Integer apprentice, int page, int size) {
+        Page<MedicalEntryInformationVO> medicalEntryInformationVOPage = new Page<>(page, size);
+        medicalEntryInformationVOPage.setRecords(medicalEntryInformationMapper.listEntryInformationByDoctorId(doctorId, type, apprentice, medicalEntryInformationVOPage));
+        return medicalEntryInformationVOPage;
+    }
+
+    @Override
+    public void updateStatusEntryInformationById(int id, int apprentice) {
+        MedicalEntryInformation medicalEntryInformation = medicalEntryInformationMapper.selectById(id);
+        if (medicalEntryInformation != null) {
+            if ((apprentice == 1 || apprentice == 0) && !medicalEntryInformation.getApplied()) {
+                medicalEntryInformation.setApprentice(apprentice);
+                //标记为已审核
+                medicalEntryInformation.setApplied(true);
+                medicalEntryInformationMapper.updateById(medicalEntryInformation);
+                //TODO 发送短信(只有在线申请的才发送)
+            } else {
+                throw new MedicalException("已审核过或参数错误");
+            }
+        }
+    }
+
+    @Override
+    public MedicalEntryInformation findOnlineEntryInformation(String accountId, String doctorId) {
+        MedicalEntryInformation m = new MedicalEntryInformation();
+        m.setUserId(accountId);
+        m.setMerId(null);
+        m.setType(EntryInformationType.ONLINE_APPLY.getCode());
+        m.setDoctorId(doctorId);
+        return medicalEntryInformationMapper.selectOne(m);
+    }
+
+    private void validateMedicalEntryInformation(MedicalEntryInformationVO medicalEntryInformationVO) {
         if (!isMobileNO(medicalEntryInformationVO.getTel())) {
             throw new MedicalException("手机号有误");
         }
@@ -172,10 +294,6 @@ public class EnrolServiceImpl implements EnrolService {
     }
 
     private boolean isAge(int age) {
-        if (100 > age && age > 0) {
-            return true;
-        }
-        return false;
+        return 100 > age && age > 0;
     }
-
 }
