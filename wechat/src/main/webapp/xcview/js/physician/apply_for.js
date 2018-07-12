@@ -143,7 +143,7 @@ $(function(){
             requestService("/xczh/enrol/medicalEntryInformation",apply,function(data){
                 if(data.success){
                     webToast(data.resultObject,"middle",1500);
-                    setTimeout("window.location.href ='information_registration.html'",1600);
+                    setTimeout("window.location.href ='application_approved.html'",1600);
                 }else{
                     $(".buttom").attr("data-able","1");
                     webToast(data.errorMessage,"middle",1500);
