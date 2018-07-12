@@ -70,6 +70,7 @@ public class MedicalEntryInformationImpl implements MedicalEntryInformationServi
         MedicalEntryInformation medicalEntryInformation = medicalEntryInformationDao
                 .findByHQLOne(hql, new Object[]{id});
         medicalEntryInformation.setApprentice(apprentice);
+        medicalEntryInformation.setApplied(true);
         medicalEntryInformationDao.update(medicalEntryInformation);
     }
 }

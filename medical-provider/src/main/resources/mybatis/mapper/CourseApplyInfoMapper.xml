@@ -225,6 +225,7 @@
         cai.address,
         cai.course_length,
         cai.price * 10 AS price,
+        cai.original_cost * 10 AS originalCost,
         cai.password,
         cai.course_description,
         cai.course_detail,

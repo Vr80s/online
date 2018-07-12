@@ -1,11 +1,11 @@
 package com.xczhihui.medical.anchor.vo;
 
 
-import java.io.Serializable;
-import java.util.Date;
-
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.enums.IdType;
+
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -39,6 +39,10 @@ public class CourseApplyResourceVO implements Serializable {
      * 多媒体类型:1视频2音频
      */
     private Integer multimediaType;
+    /**
+     * 资源来源:1资源2动态
+     */
+    private Integer sourceType;
     /**
      * 是否删除：0 未删除 1 删除
      */
@@ -132,5 +136,13 @@ public class CourseApplyResourceVO implements Serializable {
 
     public void setCaiId(Integer caiId) {
         this.caiId = caiId;
+    }
+
+    public Integer getSourceType() {
+        return sourceType;
+    }
+
+    public void setSourceType(Integer sourceType) {
+        this.sourceType = sourceType;
     }
 }

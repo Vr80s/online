@@ -74,7 +74,7 @@ public interface ICourseService {
      */
     Page<CourseLecturVo> selectLecturerAllCourse(Page<CourseLecturVo> page, String lecturerId);
 
-    Page<CourseLecturVo> selectLecturerAllCourse(Page<CourseLecturVo> page,
+    Page<CourseLecturVo> selectLecturerAllCourseByType(Page<CourseLecturVo> page,
                                                  String lecturerId, Integer type, boolean onlyFree);
 
     /**
@@ -257,4 +257,7 @@ public interface ICourseService {
      * @return
      */
     List<Course> getAllCourseByStatus();
+
+
+    List<Map<String, Object>> doctorCourseList(String userId,boolean onlyFree);
 }

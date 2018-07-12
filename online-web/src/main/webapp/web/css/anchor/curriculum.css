@@ -1774,31 +1774,31 @@ height: 60px;
 }
 .wrap_box  #zhuanji #zhuanji_bottom2 table thead > tr > td:nth-child(3),
 .wrap_box  #zhuanji .zhuanlan_bottom2 table tbody > tr > td:nth-child(3){
-	width: 80px;
+	width: 63px;
 }
 .wrap_box  #zhuanji #zhuanji_bottom2 table thead > tr > td:nth-child(4),
 .wrap_box  #zhuanji #zhuanji_bottom2 table tbody > tr > td:nth-child(4){
-	width: 80px;
+	width: 63px;
 }
 .wrap_box  #zhuanji #zhuanji_bottom2 table thead > tr > td:nth-child(5),
 .wrap_box  #zhuanji #zhuanji_bottom2 table tbody > tr > td:nth-child(5){
-	width: 80px;
+	width: 63px;
 }
 .wrap_box  #zhuanji #zhuanji_bottom2 table thead > tr > td:nth-child(6),
 .wrap_box  #zhuanji #zhuanji_bottom2 table tbody > tr > td:nth-child(6){
-	width: 80px;
+	width: 63px;
 }
 .wrap_box  #zhuanji #zhuanji_bottom2 table thead > tr > td:nth-child(7),
 .wrap_box  #zhuanji #zhuanji_bottom2 table tbody > tr > td:nth-child(7){
-	width: 80px;
+	width: 63px;
 }
 .wrap_box  #zhuanji #zhuanji_bottom2 table thead > tr > td:nth-child(8),
 .wrap_box  #zhuanji #zhuanji_bottom2 table tbody > tr > td:nth-child(8){
-	width: 90px;
+	width: 63px;
 }
 .wrap_box  #zhuanji #zhuanji_bottom2 table thead > tr > td:nth-child(9),
 .wrap_box  #zhuanji #zhuanji_bottom2 table tbody > tr > td:nth-child(9){
-	width: 80px;
+	width: 114px;
 }
 .wrap_box  #zhuanji #zhuanji_bottom2 table tr,.wrap_box  #zhuanji #zhuanji_bottom2 table td{
 	border: 1px solid #DEDEDE;
@@ -2164,6 +2164,55 @@ height: 60px;
 	cursor: pointer;
 }
 /*点击添加课程出现的弹框结束*/
+
+/*添加专辑模态框*/
+.add-album-modal{
+	    width: 570px;
+    height: 270px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 1;
+    background: white;
+    margin-top: -135px;
+    margin-left: -285px;
+    border-radius: 4px;
+    padding: 20px;
+    z-index: 99999;
+}
+.add-album-modal .title-top{
+	margin-bottom: 43px;
+}
+.add-album-modal .title-top img{
+	float: right;
+	cursor: pointer;
+}
+.add-album-modal .class-explain{
+	padding-left: 80px;
+	margin-top: 5px;
+}
+
+.add-album-modal .select-class-main{
+	margin-left: 20px;
+	width: 300px;
+
+}
+.select-class-main .sure-add{
+	width: 90px;
+	height: 35px;
+	border-radius: 4px;
+	color: white;
+	border: 0;
+	background: #00bc12;
+	margin: 20px 0 20px 5px;
+}
+.select-class-main .nofind-class{
+	color: #00bc12;
+	margin-left: 5px;
+	cursor: pointer;
+}
+
+
 
 
 /*课程添加开始*/

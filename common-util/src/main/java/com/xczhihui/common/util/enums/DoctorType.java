@@ -47,12 +47,7 @@ public enum DoctorType {
     public static List<DoctorTypeVo> getDoctorTypeListAddHot() {
 
         List<DoctorTypeVo> list = new ArrayList<DoctorTypeVo>();
-        DoctorTypeVo dtv = new DoctorTypeVo(-1, "热门医师");
-        list.add(dtv);
         for (DoctorType e : DoctorType.values()) {
-//            Map m = new HashMap();
-//            m.put("code",e.getCode());
-//            m.put("value",e.getText());
             DoctorTypeVo dtv1 = new DoctorTypeVo(e.getCode(), e.getText());
             list.add(dtv1);
         }

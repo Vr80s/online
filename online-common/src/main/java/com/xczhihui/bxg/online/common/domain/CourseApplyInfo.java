@@ -1,12 +1,11 @@
 package com.xczhihui.bxg.online.common.domain;
 
+import org.hibernate.annotations.Type;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-
-import javax.persistence.*;
-
-import org.hibernate.annotations.Type;
 
 
 /**
@@ -37,6 +36,11 @@ public class CourseApplyInfo implements Serializable {
     @Column(name = "course_length")
     private String courseLength;
     private Double price;
+    /**
+     * 课程原价
+     */
+    @Column(name = "original_cost")
+    private Double originalCost;
     private String password;
     @Type(type = "text")
     @Column(name = "course_description")
@@ -482,5 +486,13 @@ public class CourseApplyInfo implements Serializable {
 
     public void setClientType(Integer clientType) {
         this.clientType = clientType;
+    }
+
+    public Double getOriginalCost() {
+        return originalCost;
+    }
+
+    public void setOriginalCost(Double originalCost) {
+        this.originalCost = originalCost;
     }
 }

@@ -1,21 +1,5 @@
 package com.xczhihui.medical.anchor.service.impl;
 
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xczhihui.common.support.cc.util.CCUtils;
@@ -37,6 +21,21 @@ import com.xczhihui.medical.anchor.service.ICourseApplyService;
 import com.xczhihui.medical.anchor.vo.CourseApplyInfoVO;
 import com.xczhihui.medical.anchor.vo.CourseApplyResourceVO;
 import com.xczhihui.medical.exception.AnchorWorkException;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -145,6 +144,11 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         validateCourseApply(courseApplyInfo);
         //将价格由熊猫币转化为人民币
         courseApplyInfo.setPrice(courseApplyInfo.getPrice() / 10);
+        //将原价由熊猫币转化为人民币
+        if (courseApplyInfo.getOriginalCost() != null){
+            courseApplyInfo.setOriginalCost(courseApplyInfo.getOriginalCost() / 10);
+        }
+
         //当课程为点播视频时
         if (courseApplyInfo.getCourseForm() == CourseForm.VOD.getCode()) {
             Integer resourceId = courseApplyInfo.getResourceId();

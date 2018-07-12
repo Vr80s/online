@@ -276,6 +276,7 @@
 			{{else}}
 			<a href="javascript:;" onclick="confirmCollection(1,{{collection.id}},{{collection.courseId}})">上架</a>
 			<a href="javascript:;" onclick="editCollection({{collection.id}})">编辑</a>
+			<a href="javascript:;" onclick="addAlbum()">添加</a>
 			{{/if}}
 			{{else if collection.applyStatus==2}}
 			<a href="javascript:;" onclick="editCollection({{collection.id}})">编辑</a>
@@ -345,6 +346,13 @@
 			<span>视频</span>
 			{{else if resource.multimediaType==2}}
 			<span>音频</span>
+			{{/if}}
+		</td>
+		<td>
+			{{if resource.sourceType == 2}}
+			<span>是</span>
+			{{else if resource.sourceType==1}}
+			<span>否</span>
 			{{/if}}
 		</td>
 		<td>
@@ -604,6 +612,23 @@
 	<button id="sureDel_bank" class="confirm-sure">继续添加</button><button id="cancalDel_bank" onclick="hideDel_bank()">取消</button>
 </div>
 
+<!--审核通过后添加专辑-->
+	<div class="add-album-modal hide">
+		<p class="title-top">
+			<img onclick="closeAlbum()" src="/web/images/cha.png" alt="关闭"/>
+		</p>
+		<div class="class-explain z">
+			<span>添加已有课程</span>
+		</div>
+		<div class="select-class-main z">
+			<label for="select-add"></label>
+			<select id="select-add" class="selectpicker bla bla bli" multiple data-live-search="true">
+				</optgroup>
+			</select>
+			<button type="button" class="sure-add">确认添加</button>
+			<p class="nofind-class">没有找到课程，新增课程</p>
+		</div>
+	</div>
 
 <!--全局遮罩层-->
 <div id="mask" class="hide" style="position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; background: rgb(0, 0, 0); opacity: 0.3; z-index: 888;"></div>
@@ -833,6 +858,12 @@
 								<span>熊猫币</span><span style="color: #999;">(1元=10熊猫币)</span>
 								<p class="warning warning_course_price hide">价格不能为空</p>
 								<p class="warning warning_course_price_Illegal hide">价格数值不符合规范</p>
+							</div>
+							<div>
+								<span>原价</span>
+								<input class="zhuanlan_title zhuanlan_title3 course_originalCost " onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
+								<span>熊猫币</span>
+								<p class="warning warning_course_originalCost hide">原价不能大于当前价格</p>
 							</div>
 							<div class="">
 								<span class="span" style="vertical-align: top;"><em>*</em>课程介绍</span>
@@ -1207,6 +1238,7 @@
 	
 					</form></div>
 			</div>
+			
 	
 			<!--直播-->
 			<div class="little_box hide">
@@ -1410,6 +1442,7 @@
 								<td>创建时间</td>
 								<td>状态</td>
 								<td>类型</td>
+								<td>是否来自动态</td>
 								<td>操作</td>
 							</tr>
 							</thead>

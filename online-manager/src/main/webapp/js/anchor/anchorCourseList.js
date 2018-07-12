@@ -25,6 +25,12 @@ $(function() {
         { "title": "所属学科", "class":"center","width":"8%","sortable":false,"data": 'menuName' },
         { "title": "主讲人", "class":"center","width":"8%","sortable":false,"data": 'lecturer'},
         { "title": "价格", "class":"center","width":"8%","sortable":false,"data": 'price'},
+        { "title": "原价", "class":"center","width":"8%","sortable":false,"data": 'originalCost',"mRender":function(data,display,row){
+                if(data!=null){
+                    return data;
+                }
+                return "";
+            }},
         { "title": "默认学习人数", "class":"center","width":"10%","sortable":false,"data": 'defaultStudentCount'},
         { "title": "直播时间", "class": "center", "width": "10%","sortable":false,"data": 'startTime',"mRender":function(data,display,row){
             if(data!=null&&data!=""){
@@ -164,7 +170,6 @@ function updateStatus(obj){
  * @Date: 2018/3/9 14:11
  **/
 function updateDefaultStudentCount(obj){
-	;
     var oo = $(obj).parent().parent().parent();
     var row = P_courseTable.fnGetData(oo);
     
@@ -189,4 +194,7 @@ function updateDefaultStudentCount(obj){
         }
     });
 };
+
+
+
 

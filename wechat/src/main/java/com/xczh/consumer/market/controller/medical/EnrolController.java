@@ -6,13 +6,12 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import com.google.common.collect.ImmutableMap;
 import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczhihui.medical.enrol.model.MedicalEntryInformation;
 import com.xczhihui.medical.enrol.service.EnrolService;
 import com.xczhihui.medical.enrol.vo.MedicalEntryInformationVO;
 
@@ -25,6 +24,9 @@ import com.xczhihui.medical.enrol.vo.MedicalEntryInformationVO;
 @RestController
 @RequestMapping("/xczh/enrol")
 public class EnrolController {
+
+    private static final String WAIT_APPLY = "审核结果会已短信形式发送给您,请耐心等待";
+    private static final String SUCCESS_PASS_APPLY = "恭喜~您的弟子申请已通过审核！";
 
     @Autowired
     private EnrolService enrolService;
@@ -53,11 +55,23 @@ public class EnrolController {
         return ResponseObject.newSuccessResponseObject(enrolService.getMedicalEntryInformationByUserIdAndERId(merId, accountId));
     }
 
+    @RequestMapping(value = "medicalEntryInformation/online", method = RequestMethod.GET)
+    public ResponseObject onlineMedicalEntryInformation(@Account String accountId, @RequestParam String doctorId) {
+        MedicalEntryInformation onlineEntryInformation = enrolService.findOnlineEntryInformation(accountId, doctorId);
+        if (onlineEntryInformation == null) {
+            return ResponseObject.newErrorResponseObject("您还未提交弟子申请");
+        }
+        String message = WAIT_APPLY;
+        if (onlineEntryInformation.getApprentice() == 1) {
+            message = SUCCESS_PASS_APPLY;
+        }
+        return ResponseObject.newSuccessResponseObject(ImmutableMap.of("message", message, "entryInformation", onlineEntryInformation));
+    }
+
     @RequestMapping(value = "medicalEntryInformation", method = RequestMethod.POST)
     public ResponseObject saveMedicalEntryInformation(@Account String accountId, MedicalEntryInformationVO medicalEntryInformationVO, HttpServletRequest req) {
         medicalEntryInformationVO.setUserId(accountId);
         enrolService.saveMedicalEntryInformation(medicalEntryInformationVO);
         return ResponseObject.newSuccessResponseObject("报名成功");
     }
-
 }

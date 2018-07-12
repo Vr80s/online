@@ -119,3 +119,21 @@ dev-2.1.0
     VALUES
         ('9', '名医著作', NULL, '2018-07-06 11:38:46', 16, 0),
         ('8', '医案', NULL, '2018-07-06 11:38:53', 17, 0);
+
+dev-2.3
+===
+
+    alter table medical_entry_information add column doctor_id varchar(32)  null;
+
+    alter table medical_entry_information add column type int(1) default 1;
+
+    alter table medical_entry_information add column applied bit(1) default 0;
+
+    update medical_entry_information mei  set mei.doctor_id = (select mer.doctor_id from medical_enrollment_regulations mer where mer.id =  mei.mer_id);
+
+    update medical_entry_information set type = 1;
+
+    ALTER TABLE medical_entry_information DROP INDEX mer_id;
+    ALTER TABLE `medical_entry_information` ADD UNIQUE INDEX (`doctor_id`, `type`, `mer_id`, `user_id`);
+
+    update medical_entry_information set applied =1 where apprentice = 1;

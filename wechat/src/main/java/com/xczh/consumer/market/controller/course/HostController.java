@@ -237,7 +237,7 @@ public class HostController {
         page.setCurrent(pageNumber);
         page.setSize(pageSize);
         try {
-            Page<CourseLecturVo> list = courseService.selectLecturerAllCourse(page,
+            Page<CourseLecturVo> list = courseService.selectLecturerAllCourseByType(page,
                     lecturerId, null, HeaderInterceptor.ONLY_THREAD.get());
             return ResponseObject.newSuccessResponseObject(list);
         } catch (Exception e) {

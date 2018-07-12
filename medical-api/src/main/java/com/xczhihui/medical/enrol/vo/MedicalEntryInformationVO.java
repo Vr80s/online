@@ -1,6 +1,9 @@
 package com.xczhihui.medical.enrol.vo;
 
 import java.io.Serializable;
+import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
 
@@ -9,6 +12,7 @@ public class MedicalEntryInformationVO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    private Integer id;
     /**
      * 师承模块开发
      */
@@ -51,5 +55,12 @@ public class MedicalEntryInformationVO implements Serializable {
      * 用户id
      */
     private String userId;
+
+    private String doctorId;
+
+    private Boolean applied;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")
+    private Date createTime;
 
 }

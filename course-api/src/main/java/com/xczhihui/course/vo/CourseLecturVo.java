@@ -1,10 +1,10 @@
 package com.xczhihui.course.vo;
 
 
+import com.xczhihui.common.util.XzStringUtils;
+
 import java.io.Serializable;
 import java.util.Date;
-
-import com.xczhihui.common.util.XzStringUtils;
 
 
 /**
@@ -83,6 +83,10 @@ public class CourseLecturVo implements Serializable {
      * 现价
      */
     private double currentPrice;
+    /**
+     * 原价
+     */
+    private Double originalCost;
     /**
      * 是否付费  true 免费  false 付费
      */
@@ -209,6 +213,8 @@ public class CourseLecturVo implements Serializable {
     private String doctorId; //医师id
     
     private Integer hostType; //主播类型：type：1 医师主播    type:2 医馆主播
+    
+    private Boolean isDisciple; //是否是弟子  true 是，false 不是
 
     /**
      * 是否提交线下课报名表单
@@ -771,5 +777,21 @@ public class CourseLecturVo implements Serializable {
     public void setHostType(Integer hostType) {
         this.hostType = hostType;
     }
-    
+
+    public Double getOriginalCost() {
+        return originalCost;
+    }
+
+    public void setOriginalCost(Double originalCost) {
+        this.originalCost = originalCost;
+    }
+
+    public Boolean getIsDisciple() {
+        return isDisciple;
+    }
+
+    public void setIsDisciple(Boolean isDisciple) {
+        this.isDisciple = isDisciple;
+    }
+
 }
