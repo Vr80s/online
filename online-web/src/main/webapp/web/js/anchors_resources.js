@@ -33,7 +33,9 @@ $(function () {
         if (localStorage.docTblSta == 'doc_hos') $('.select_list li:nth-child(3)').click();
         if (localStorage.docTblSta == 'doc_disciple'){
         	$('.select_list li:nth-child(4)').click();
-        	if(localStorage.menuCache=="menu4-2"){
+        	if(localStorage.menuCache=="menu4-1"){
+        		$(".othor-set .littleBox p:nth-child(1)").click();
+        	}else if(localStorage.menuCache=="menu4-2"){
         		$(".othor-set .littleBox p:nth-child(2)").click();
         	}else if(localStorage.menuCache=="menu4-3"){
         		$(".othor-set .littleBox p:nth-child(3)").click();
