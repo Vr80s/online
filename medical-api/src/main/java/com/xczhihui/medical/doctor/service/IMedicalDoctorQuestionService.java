@@ -35,7 +35,7 @@ public interface IMedicalDoctorQuestionService {
     public Page<MedicalDoctorQuestion> selectDoctorQuestionByUserId(Page<MedicalDoctorQuestion> page, String userId);
 
     
-    public void updateQuestion(DoctorQuestionVO doctorQuestionVO);
+    public Integer updateQuestion(DoctorQuestionVO doctorQuestionVO);
 
     public MedicalDoctorQuestion findQuestionDetailsById(Integer questionId);
 
