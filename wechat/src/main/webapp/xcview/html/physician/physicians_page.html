@@ -151,13 +151,10 @@
 					    top: 5.4rem; */
 		}
 
-		/*.minirefresh-wrap{
-			position: static !important;
-		}*/
-
-
-
-
+		.minirefresh-wrap{
+			/*position: static !important;*/
+		}
+		
 		/*处理刷新*/
 		.minirefresh-wrap{
 			/*top: 5.3rem;*/
@@ -297,6 +294,7 @@
 	    padding-bottom: 0;
 	}
 	.paper_nav_span{
+		width: 6.98rem;
 		height: 100%;
 		text-indent: 0.26rem;
 	}
@@ -366,7 +364,7 @@
 
 	/*收起*/
 	.show-text{
-		width: 6.98rem;
+		/*width: 6.98rem;*/
 		margin: 0 auto;
 		font-size: 0.3rem;
 	    color: #666;
@@ -451,7 +449,7 @@
 		<!-- 主播信息开始 -->
 		<div class="referral">
 			<div class="head_portrait">
-				<img src="{{items.lecturerInfo.small_head_photo}}" alt="" />
+				<img src="{{items.lecturerInfo.small_head_photo}}" alt="" onerror="nofind();" />
 			</div>
 			<div class="message">
 				<div class="message_name">
@@ -537,7 +535,9 @@
 				{{else if item.type == 2}}
 				<!-- 动态图片-->
 				<div class="trends_hide">
-					<div class="paper_nav_span comment_hide show-text">{{if item.stick}}<span class="stick_img_stick" style="width: 0.8rem;text-align: left;text-indent: 0;margin-left: 0.26rem;"><img src="/xcview/images/stick.png" alt="" />置顶</span>{{/if}}<span class="span_span{{item.id}}" style="display: block;">{{item.content}}</span>
+					<!--<div class="paper_nav_span comment_hide show-text">{{if item.stick}}<span class="stick_img_stick" style="text-align: left;text-indent: 0;"><img src="/xcview/images/stick.png" alt="" />置顶</span>{{/if}}<span class="span_span{{item.id}}" style="display: block;">{{item.content}}</span><div class="both"></div>
+					</div>-->
+					<div class="paper_nav_span comment_hide show-text">{{if item.stick}}<span class="stick_img_stick" style="text-align: left;text-indent: 0;"><img src="/xcview/images/stick.png" alt="" />置顶</span>{{/if}}{{item.content}}<div class="both"></div>
 					</div>
 					{{if item.imgStr !=null && item.imgStr.length>0}}
 					<div class="paper_nav_cen_div">
@@ -562,9 +562,9 @@
 				<div class="both"></div>
 				{{else if item.type == 3}}
 				<!-- 视频-->
-				<div class="rests_nav_span comment_hide">
+				<div class="rests_nav_span comment_hide" style="padding-top: 0.2rem;">
 					{{if item.stick}}
-					<span class="stick_img"><img src="/xcview/images/stick.png" alt="" />置顶</span>
+					<span class="stick_img" style="margin-left: 0.26rem;"><img src="/xcview/images/stick.png" alt="" />置顶</span>
 					{{/if}}
 					<span class="titles show-text">{{item.content}}</span>
 					<div class="both"></div>
@@ -586,7 +586,7 @@
 						<div class="article_nav_cen comment_hide">
 							<img src="{{item.articleImgPath}}" alt="" />
 							<div class="article_nav_cen_size">{{item.articleTitle}}</div>
-							<div class="article_nav_cen_sizes">{{item.articleContent}}</div>
+							<!--<div class="article_nav_cen_sizes">{{item.articleContent}}</div>-->
 						</div>
 					{{else}}
 						<div style="font-size: 0.26rem;width: 6.98rem;height: 0.57rem;line-height: 0.57rem;
@@ -619,7 +619,7 @@
 						<div class="course_nav_cen_size" style="margin-top: 0;">{{item.startTime}}</div>
 						{{/if}}
 						{{if item.courseType==4}}
-						<div class="course_nav_cen_size"><img src="/xcview/images/location_four.png" style="width: 0.19rem;height: 0.24rem;float: left;margin-right: 0.1rem; margin-top: 0.06rem;" />{{item.courseAddress}}</div>
+						<div class="course_nav_cen_size" style="margin-top: 0;"><img src="/xcview/images/location_four.png" style="width: 0.19rem;height: 0.24rem;float: left;margin-right: 0.1rem; margin-top: 0.06rem;" />{{item.courseAddress}}</div>
 						{{/if}}
 
 						<!-- <div class="course_nav_rate">免费</div> -->
@@ -632,9 +632,7 @@
 					<div class="consilia_nav_span comment_hide">
 						{{if item.stick}}
 						<span class="stick_img"><img src="/xcview/images/stick.png" alt="" />置顶</span>
-						{{/if}}
-						
-						<div class="title show-text">{{item.content}}</div>
+						{{/if}}<span class="title show-text">{{item.content}}</span>
 						<div class="both"></div>
 					</div>
 
@@ -644,11 +642,11 @@
 					<div class="consilia_nav_cen" data-id="{{item.articleId}}" data-status="{{item.articleStatus}}" style="display: block;">
 							<img src="{{item.articleImgPath}}" alt="" />
 							<div class="consilia_nav_cen_size">{{item.articleTitle}}</div>
-							<div class="consilia_nav_cen_sizes">{{item.articleContent}}</div>
+							<!--<div class="consilia_nav_cen_sizes">{{item.articleContent}}</div>-->
 
 					</div>
 					{{else}}
-					<div style="background: #FAFAFA;font-size: 0.26rem;">抱歉，此医案已被作者删除。</div>
+					<div style="font-size: 0.26rem;width: 6.98rem;height: 0.57rem;line-height: 0.57rem;margin: 0 auto;background: #FAFAFA;border: 1px solid #F0F0F0;border-radius: 4px;text-indent: 0.1rem;">抱歉，此医案已被作者删除。</div>
 					{{/if}}
 					<div class="both"></div>
 				</div>
@@ -1039,8 +1037,9 @@
 			<div class="message_referral_cen">脑血管、肝病、肾病、泌尿系统疾病、癫痫病等内科、妇科疑难杂症</div>
 			<div class="both"></div>
 		</div> -->
-		<script type="text/html" id="message_referral_id">
+		
 		<div class="message_referral_main_time">
+			<script type="text/html" id="message_referral_id">
 			<div class="wrap_synopsis_time">	
 				<div class="my_synopsis_time">
 					<ul>
@@ -1086,9 +1085,10 @@
 			        <td class="apm apm7_2 pm_sundays"><img src="/xcview/images/default.png" alt="" /></td>
 			    </tr>
 			</table>
-			
+			</script>
 		</div>
 
+		
 		<div class="self_introduction">
 			<div class="self_introduction_main">	
 				<div class="self_introduction_ul">
@@ -1098,12 +1098,14 @@
 					</ul>
 				</div>		
 			</div>
-			<div class="self_introduction_cen"></div>
+			<div class="self_introduction_cen_html">
+				<script type="text/html" id="self_introduction_cen_id">
+				<div class="self_introduction_cen"></div>
+				</script>
+			</div>
+			
 			<div class="both"></div>
 		</div>
-
-		
-		</script>
 		<div class="baseImagenumber" style="display: none;">
 			<img src="/xcview/images/no_deal.png" />
 			<p>暂无医师介绍...</p>

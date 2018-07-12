@@ -27,7 +27,10 @@ public class MultiUrlHelper {
     public static final String URL_TYPE_APP = "app";
     public static final String URL_TYPE_WEB = "web";
     public static final String URL_TYPE_MOBILE = "mobile";
-    private static final String APP_COURSE_DETAIL = "xczh://ipandatcm.com/courseDetail?id={0}";
+    public static final String APP_COURSE_DETAIL_TYPE = "courseDetail";
+    public static final String APP_SPECIAL_COLUMN_DETAIL_TYPE = "specialColumn";
+    public static final String APP_DOCTOR_CASE_DETAIL_TYPE = "specialColumn";
+    private static final String APP_COURSE_DETAIL = "xczh://ipandatcm.com/" + APP_COURSE_DETAIL_TYPE + "?id={0}";
     private static final String WEB_COURSE_DETAIL = "/courses/{0}/info";
     private static final String MOBILE_COURSE_DETAIL = "/page/course/{0}";
     private static final String APPRENTICE_URL = "/xcview/html/apprentice/inherited_introduction.html?merId={0}&needLogin=true";
@@ -71,7 +74,7 @@ public class MultiUrlHelper {
                     URL_TYPE_MOBILE, MOBILE_COURSE_DETAIL);
 
     private static Map<String, String> learningVideoCourseCollectionDetailUrlMap =
-            ImmutableMap.of(URL_TYPE_APP, "xczh://ipandatcm.com/learningCourseDetail?id={0}&collection=true&courseType=" + + CourseType.VIDEO.getId(),
+            ImmutableMap.of(URL_TYPE_APP, "xczh://ipandatcm.com/learningCourseDetail?id={0}&collection=true&courseType=" + +CourseType.VIDEO.getId(),
                     URL_TYPE_WEB, WEB_COURSE_DETAIL,
                     URL_TYPE_MOBILE, MOBILE_COURSE_DETAIL);
     //====================================================================
@@ -153,11 +156,11 @@ public class MultiUrlHelper {
             URL_TYPE_WEB, "/courses/list?",
             URL_TYPE_MOBILE, "/xcview/html/curriculum_table.html?");
     private static Map<String, String> specialColumnMap = ImmutableMap.of(
-            URL_TYPE_APP, "xczh://ipandatcm.com/specialColumn?id={0}",
+            URL_TYPE_APP, "xczh://ipandatcm.com/" + APP_SPECIAL_COLUMN_DETAIL_TYPE + "?id={0}",
             URL_TYPE_WEB, "/headline/details/{0}",
             URL_TYPE_MOBILE, "/xcview/html/physician/consilia.html?consiliaId={0}");
     private static Map<String, String> doctorCaseMap = ImmutableMap.of(
-            URL_TYPE_APP, "xczh://ipandatcm.com/doctorCase?id={0}",
+            URL_TYPE_APP, "xczh://ipandatcm.com/" + APP_DOCTOR_CASE_DETAIL_TYPE + "?id={0}",
             URL_TYPE_WEB, "/headline/details/{0}",
             URL_TYPE_MOBILE, "/xcview/html/physician/consilia.html?consiliaId={0}");
 

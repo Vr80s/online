@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczh.consumer.market.interceptor.HeaderInterceptor;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczhihui.common.util.enums.CourseType;
 import com.xczhihui.common.util.enums.DoctorSortOrderType;
 import com.xczhihui.common.util.enums.DoctorType;
 import com.xczhihui.course.service.ICourseService;
@@ -165,28 +164,11 @@ public class DoctorController {
     @RequestMapping("doctorCourse")
     public ResponseObject doctorCourseList(@RequestParam("userId") String userId) throws Exception {
 
-        List<Map<String, Object>> alllist = new ArrayList<Map<String, Object>>();
-
-        Map<String, Object> map1 = new HashMap<String, Object>();
-        map1.put("text", "跟师直播");
-        map1.put("code", 5);
-        map1.put("courseList", null);
-        alllist.add(map1);
-
-        Page<CourseLecturVo> page = new Page<>();
-        page.setCurrent(1);
-        page.setSize(Integer.MAX_VALUE);
-
-        Page<CourseLecturVo> list = courseService.selectLecturerAllCourse
-                (page, userId, CourseType.LIVE.getId(), HeaderInterceptor.ONLY_THREAD.get());
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("text", "直播课程");
-        map.put("code", 2);
-        map.put("courseList", list.getRecords());
-        alllist.add(map);
+        List<Map<String, Object>> alllist =  courseService.doctorCourseList(userId,HeaderInterceptor.ONLY_THREAD.get());
+        
         return ResponseObject.newSuccessResponseObject(alllist);
     }
-
+    
     /**
      * Description：医师 最近的一次直播
      *
@@ -243,4 +225,25 @@ public class DoctorController {
         return ResponseObject.newSuccessResponseObject(map);
     }
 
+    
+    /**
+     * Description：医师主页    -- 课程列表
+     *
+     * @return ResponseObject
+     * @throws Exception
+     * @author name：yangxuan <br>email: 15936216273@163.com
+     */
+    @RequestMapping("doctorCourseType")
+    public ResponseObject doctorCourseType(@RequestParam("userId") String userId, Integer type,
+           @RequestParam(value = "pageNumber", required = false)Integer pageNumber,
+            Integer pageSize) throws Exception {
+
+        pageNumber = (pageNumber == null ? 1 : pageNumber);
+        pageSize = (pageSize == null ? 10 : pageSize);
+        
+        Page<CourseLecturVo>  page =  courseService.selectLecturerAllCourseByType(new Page<CourseLecturVo>(pageNumber, pageSize),
+                userId,type,HeaderInterceptor.ONLY_THREAD.get());
+        
+        return ResponseObject.newSuccessResponseObject(page.getRecords());
+    }
 }

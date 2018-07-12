@@ -1,4 +1,7 @@
 (function () {
+    //解析url地址
+    var pathname = window.location.pathname;
+    var config = $.ajax({url:"/config.json",async:false}).responseJSON;
     var browser = {
         versions: function () {
             var u = navigator.userAgent, app = navigator.appVersion;
@@ -23,11 +26,13 @@
         window.location = "http://www.ipandatcm.com";
     } else if (browser.versions.mobile || browser.versions.ios || browser.versions.android ||
         browser.versions.iPhone || browser.versions.iPad) {
-
-        if (document.location.host == 'www.ipandatcm.com' || document.location.host == 'www.ixincheng.com' || document.location.host == 'ipandatcm.com' || document.location.host == 'ixincheng.com') {
-            wxurl = "http://m.ipandatcm.com";
-        } else {
-            wxurl = "http://test-wx.xczhihui.com";
+        wxurl = "http://"+config.wechat;
+        if(pathname!=null){
+            if(pathname!=null && pathname.indexOf("courses")!=-1 &&  pathname.indexOf("info")!=-1){
+                var lala = pathname.split("/");
+                var courseId = lala[2];
+                wxurl = wxurl+"/wx_share.html?shareType=1&shareId="+courseId;
+            }
         }
         window.location = wxurl;
     }

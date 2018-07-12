@@ -1,5 +1,6 @@
 package com.xczh.consumer.market.controller.course;
 
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,27 +11,36 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.collections.MapUtils;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.google.common.collect.ImmutableMap;
 import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.interceptor.HeaderInterceptor;
 import com.xczh.consumer.market.utils.APPUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczhihui.common.util.enums.CourseStatus;
+import com.xczhihui.common.util.enums.ResourceCheck;
 import com.xczhihui.course.consts.MultiUrlHelper;
+import com.xczhihui.course.consts.RouteUrlUtil;
+import com.xczhihui.course.model.Course;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.course.service.IFocusService;
 import com.xczhihui.course.service.IMyInfoService;
 import com.xczhihui.course.vo.CourseLecturVo;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorArticleService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBannerService;
 import com.xczhihui.medical.doctor.vo.DoctorBannerVO;
+import com.xczhihui.medical.doctor.vo.MobileArticleVO;
 import com.xczhihui.medical.hospital.model.MedicalHospital;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalApplyService;
 
@@ -58,6 +68,8 @@ public class HostController {
     private IMyInfoService myInfoService;
     @Autowired
     private IMedicalDoctorBannerService medicalDoctorBannerService;
+    @Autowired
+    private IMedicalDoctorArticleService medicalDoctorArticleService;
 
     @Value("${returnOpenidUri}")
     private String returnOpenidUri;
@@ -171,6 +183,45 @@ public class HostController {
     }
 
     /**
+     * 校验路由的url是否失效
+     *
+     * @param url
+     * @return
+     */
+    @RequestMapping(value = "resource/check", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseObject checkResource(@RequestParam String url) {
+        Map<String, Object> urlMap;
+        try {
+            urlMap = RouteUrlUtil.handleUrl(URLDecoder.decode(url, "UTF-8"));
+            String paramType = MapUtils.getString(urlMap, "pageType", null);
+            if (StringUtils.isNotBlank(paramType)) {
+                Map<String, Object> params = (Map<String, Object>) MapUtils.getObject(urlMap, "params");
+                if (paramType.equals(MultiUrlHelper.APP_COURSE_DETAIL_TYPE)) {
+                    Integer id = MapUtils.getInteger(params, "id");
+                    Course course = courseService.findSimpleInfoById(id);
+                    if (course != null && CourseStatus.ENABLE.getCode().equals(course.getStatus())) {
+                        return ResponseObject.newSuccessResponseObject(ImmutableMap.of("type", ResourceCheck.COURSE.getCode(), "expired", false));
+                    } else {
+                        return ResponseObject.newSuccessResponseObject(ImmutableMap.of("type", ResourceCheck.COURSE.getCode(), "expired", true));
+                    }
+                } else if (paramType.equals(MultiUrlHelper.APP_SPECIAL_COLUMN_DETAIL_TYPE) || paramType.equals(MultiUrlHelper.APP_DOCTOR_CASE_DETAIL_TYPE)) {
+                    Integer id = MapUtils.getInteger(params, "id");
+                    MobileArticleVO mobileArticleVO = medicalDoctorArticleService.get(id);
+                    if (mobileArticleVO != null) {
+                        return ResponseObject.newSuccessResponseObject(ImmutableMap.of("type", ResourceCheck.ARTICLE.getCode(), "expired", false));
+                    } else {
+                        return ResponseObject.newSuccessResponseObject(ImmutableMap.of("type", ResourceCheck.ARTICLE.getCode(), "expired", true));
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ResponseObject.newSuccessResponseObject(ImmutableMap.of("expired", false, "type", 0));
+    }
+
+    /**
      * Description：用户主页    -- 课程列表
      *
      * @return ResponseObject
@@ -186,7 +237,7 @@ public class HostController {
         page.setCurrent(pageNumber);
         page.setSize(pageSize);
         try {
-            Page<CourseLecturVo> list = courseService.selectLecturerAllCourse(page,
+            Page<CourseLecturVo> list = courseService.selectLecturerAllCourseByType(page,
                     lecturerId, null, HeaderInterceptor.ONLY_THREAD.get());
             return ResponseObject.newSuccessResponseObject(list);
         } catch (Exception e) {

@@ -799,6 +799,29 @@ function confirmCollection(state,courseApplyId,courseId){
     });
 }
 
+//添加专辑模态框
+function addAlbum(index){
+	$("#mask").removeClass("hide")
+	$(".add-album-modal").removeClass("hide");
+}
+//关闭新增专辑模态框
+function closeAlbum(){
+	$("#mask").addClass("hide");
+	$(".add-album-modal").addClass("hide");
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 /**
  * Description：直播列表
  * creed: Talk is cheap,show me the code

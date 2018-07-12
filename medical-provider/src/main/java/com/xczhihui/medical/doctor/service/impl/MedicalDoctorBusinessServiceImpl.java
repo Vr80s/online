@@ -578,7 +578,7 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
     public String getDoctorIdByUserId(String userId) {
         MedicalDoctorAccount medicalDoctorAccount = medicalDoctorAccountMapper.getByUserId(userId);
         if (medicalDoctorAccount == null || StringUtils.isBlank(medicalDoctorAccount.getDoctorId())) {
-            throw new IllegalArgumentException("非法参数");
+            throw new MedicalException("该用户不是医师");
         }
         return medicalDoctorAccount.getDoctorId();
     }
