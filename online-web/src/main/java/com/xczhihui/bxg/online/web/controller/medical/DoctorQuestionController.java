@@ -41,7 +41,7 @@ public class DoctorQuestionController extends AbstractController {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            
+            return ResponseObject.newErrorResponseObject("修改失败"); 
         }
     }
     
