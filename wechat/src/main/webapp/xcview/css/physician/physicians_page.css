@@ -349,15 +349,16 @@ p{
     color: #333333;
     /* display: -webkit-box; */
     float: left;
-    /*width: 6.98rem;*/
+    width: 6rem;
     margin: 0 auto;
     display: block;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    /*margin-left: 0.26rem;*/
+    /* margin-left: 0.26rem; */
     margin-bottom: 0.2rem;
-    /*padding-top: 0.2rem;*/
+    /* padding-top: 0.2rem; */
+    text-indent: 0.26rem;
 }
 .rests_nav_span .titles{
 	font-size: 0.3rem;
@@ -648,6 +649,8 @@ p{
 	height: 1.4rem;
 	margin-right: 0.1rem;
 	float: left;
+	margin-top: -1px;
+	margin-left: -1px;
 }
 .consilia_nav_cen_size{
 	font-size: 0.26rem;
@@ -1120,6 +1123,8 @@ p{
 	height: 1.4rem;
 	margin-right: 0.1rem;
 	float: left;
+	margin-top: -1px;
+	margin-left: -1px;
 }
 .course_nav_cen_size{
 	font-size: 0.26rem;
