@@ -358,7 +358,10 @@ $('#hos_base_inf').click(function() {
 			//回显数据
 			//					 $('#hos_Administration .hos_base_inf #submit').val('重新提交')
 			baseInfrese1(data.resultObject.headPortrait, data.resultObject.name, data.resultObject.medicalHospitalPictures, data.resultObject.fields, data.resultObject.description,
-				data.resultObject.contactor, data.resultObject.email, data.resultObject.wechat, data.resultObject.province, data.resultObject.city,data.resultObject.county, data.resultObject.detailedAddress)
+				data.resultObject.contactor, data.resultObject.email, 
+				data.resultObject.wechat, data.resultObject.province, 
+				data.resultObject.city,data.resultObject.county, 
+				data.resultObject.detailedAddress,data.resultObject.tel)
 		}
 		//				 $('#doc_Distinguish .'+imgname+'').html('<img src="'+data.resultObject+'" >');
 		//			$('#areaList').html(template('areaTpl', {item:data.resultObject.records}));
@@ -393,7 +396,8 @@ function baseInfrese() {
 }
 
 //医馆基础信息回显
-function baseInfrese1(headPortrait, name, medicalHospitalPictures, fields, description, contactor, email, wechat, province, city,county, detailedAddress) {
+function baseInfrese1(headPortrait, name, medicalHospitalPictures, fields,
+description, contactor, email, wechat, province, city,county, detailedAddress,tel) {
 	//头像
 	if(headPortrait != null) {
 		var headPic = '<img src=' + headPortrait +'>';
@@ -446,6 +450,10 @@ function baseInfrese1(headPortrait, name, medicalHospitalPictures, fields, descr
 	UE.getEditor('editor2').setContent(description);
 	//联系人姓名
 	$('#hos_Administration .hos_base_inf .bottomContent .doc_shanchang').val(contactor);
+	
+	//联系人姓名
+    $('#hos_Administration .hos_base_inf .bottomContent .doc_tel').val(tel);
+	
 	//邮箱
 	$('#hos_Administration .hos_base_inf .bottomContent .doc_hospital').val(email);
 	//微信
