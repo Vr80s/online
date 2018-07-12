@@ -349,15 +349,15 @@ p{
     color: #333333;
     /* display: -webkit-box; */
     float: left;
-    width: 6.98rem;
+    /*width: 6.98rem;*/
     margin: 0 auto;
     display: block;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    margin-left: 0.26rem;
+    /*margin-left: 0.26rem;*/
     margin-bottom: 0.2rem;
-    padding-top: 0.2rem;
+    /*padding-top: 0.2rem;*/
 }
 .rests_nav_span .titles{
 	font-size: 0.3rem;
@@ -1465,7 +1465,7 @@ p{
 	width: 4.29rem;
 	display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 1;
+    -webkit-line-clamp: 2;
     overflow: hidden;
     margin-top: 0.1rem;
 }
@@ -2120,6 +2120,7 @@ table tr td img{
 #form_article{
     padding: 0 !important;
     height: 0.6rem;
+    text-indent: 0.24rem;
 }
 
 .mui-pull-caption-nomore{
@@ -2226,7 +2227,7 @@ margin-top: 0.015rem;
 }
 
 .paper_nav_span span{
-	width: 6.98rem;
+	/*width: 6.98rem;*/
     /*display: block;*/
     margin: 0 auto;
 }
