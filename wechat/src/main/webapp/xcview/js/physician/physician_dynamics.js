@@ -834,11 +834,15 @@ requestService("/xczh/doctors/doctorStatus", {doctorId:doctorId},function (data)
 
 
                                     }else{
+                                        $(".message_referral_main_time").hide();
+                                        $(".self_introduction").hide();
                                         $(".baseImagenumber").show();
                                     };                          
 
                                 }else{
-                                        $(".baseImagenumber").show();
+                                    $(".message_referral_main_time").hide();
+                                    $(".self_introduction").hide();
+                                    $(".baseImagenumber").show();
                                 }; 
                             });
 
