@@ -336,8 +336,9 @@
         order by oc.live_status,learndCount desc limit 0,1
     </select>
 
-    <!-- 通过主播id得到主播的所有课程页面 -->
-    <select id="selectLecturerAllCourse" resultType="com.xczhihui.course.vo.CourseLecturVo">
+    <!-- 通过主播id得到主播的所有课程页面 --> 
+    
+    <select id="selectLecturerAllCourseByType" resultType="com.xczhihui.course.vo.CourseLecturVo">
         SELECT
         <include refid="relLearningCourseListByUserId"/>
         if(oc.live_status=1,DATE_FORMAT(oc.start_time,'%H:%i'),if(oc.live_status=2,if(oc.start_time &lt;=
@@ -361,6 +362,9 @@
         </if>
         <if test="type == 4">
             and oc.type = 3
+        </if>
+        <if test="type == 5">
+            and oc.is_teaching = 1
         </if>
         order by release_time desc
     </select>
