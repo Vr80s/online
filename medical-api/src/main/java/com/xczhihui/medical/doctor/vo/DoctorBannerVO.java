@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 public class DoctorBannerVO implements Serializable {
 
+    private Integer id;
+
     private String imgUrl;
 
     private String url;
@@ -52,5 +54,13 @@ public class DoctorBannerVO implements Serializable {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

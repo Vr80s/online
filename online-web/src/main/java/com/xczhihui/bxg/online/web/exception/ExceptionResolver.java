@@ -18,6 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 
 import com.google.gson.Gson;
+import com.xczhihui.bxg.online.common.domain.OnlineUser;
+import com.xczhihui.bxg.online.web.controller.AbstractController;
 import com.xczhihui.common.exception.IpandaTcmException;
 import com.xczhihui.common.util.EmailUtil;
 import com.xczhihui.common.util.bean.ResponseObject;
@@ -41,9 +43,11 @@ public class ExceptionResolver extends SimpleMappingExceptionResolver {
     protected ModelAndView doResolveException(HttpServletRequest request,
                                               HttpServletResponse response, Object handler, Exception ex) {
         HandlerMethod method = (HandlerMethod) handler;
+        OnlineUser currentUser = AbstractController.getCurrentUser();
+        String userId = currentUser==null?"匿名":currentUser.getId();
         //异常通知告警
         if (!(ex instanceof IpandaTcmException) || ((IpandaTcmException) ex).isAlarm()) {
-            String subject = "业务异常";
+            String subject = userId + "-业务异常";
             EmailUtil.sendExceptionMailBySSL("pc端", subject, printStackTraceToString(ex));
         }
         if (method != null && method.getBeanType() != null && method.getMethod() != null) {

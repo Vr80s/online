@@ -22,6 +22,7 @@ import com.xczhihui.common.support.service.impl.RedisCacheService;
 import com.xczhihui.common.util.MailUtil;
 import com.xczhihui.common.util.SmsUtil;
 import com.xczhihui.common.util.enums.VCodeType;
+import com.xczhihui.user.center.exception.LoginRegException;
 import com.xczhihui.user.center.mapper.SystemVariateMapper;
 import com.xczhihui.user.center.model.SystemVariate;
 import com.xczhihui.user.center.service.UserCenterService;
@@ -96,18 +97,18 @@ public class VerificationCodeServiceImpl implements VerificationCodeService {
         OeUserVO userVO = userCenterService.getUserVO(username);
 
         if (VCodeType.RETISTERED.equals(vtype) && userVO != null) {
-            throw new RuntimeException(String.format("该%s已注册，请直接登录！", isEmail(username) ? "邮箱" : "手机号"));
+            throw new LoginRegException(String.format("该%s已注册，请直接登录！", isEmail(username) ? "邮箱" : "手机号"));
         }
 
         if ((VCodeType.WITHDRAWAL.equals(vtype) || VCodeType.FORGOT_PASSWORD.equals(vtype)) || VCodeType.OLD_PHONE.equals(vtype)) {
             if (userVO == null) {
-                throw new RuntimeException("用户不存在！");
+                throw new LoginRegException("用户不存在！");
             } else if (userVO.getStatus() == -1) {
-                throw new RuntimeException("用户已禁用！");
+                throw new LoginRegException("用户已禁用！");
             }
         }
         if (VCodeType.NEW_PHONE.equals(vtype) && userVO != null) {
-            throw new RuntimeException("此手机号已被绑定");
+            throw new LoginRegException("此手机号已被绑定");
         }
     }
 
@@ -123,7 +124,7 @@ public class VerificationCodeServiceImpl implements VerificationCodeService {
         response = SmsUtil.sendSMS(vtype.getSmsCode(), params, phone);
         if (response == null || !"OK".equals(response.getCode())) {
             String message = response != null ? response.getMessage() : null;
-            throw new RuntimeException(message != null ? message : "动态码发送失败");
+            throw new LoginRegException(message != null ? message : "动态码发送失败");
         }
     }
 
@@ -145,7 +146,7 @@ public class VerificationCodeServiceImpl implements VerificationCodeService {
             emailService.sendEmail(email, attrs.get("message_provider_email_subject"), content, "text/html;charset=UTF-8");
         } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException("验证邮件发送失败，请检查邮箱是否存在！");
+            throw new LoginRegException("验证邮件发送失败，请检查邮箱是否存在！");
         }
     }
 
@@ -167,14 +168,14 @@ public class VerificationCodeServiceImpl implements VerificationCodeService {
             long createTime = Long.parseLong(vcodeTimeArr[1]);
             String vcode = vcodeTimeArr[0];
             if (!vcode.equals(code)) {
-                throw new RuntimeException("动态码不正确！");
+                throw new LoginRegException("动态码不正确！");
             }
             if (System.currentTimeMillis() - createTime > 1000 * 60
                     * Integer.valueOf(attrs.get("message_provider_valid_time"))) {
-                throw new RuntimeException("动态码超时，请重新发送！");
+                throw new LoginRegException("动态码超时，请重新发送！");
             }
         } else {
-            throw new RuntimeException("动态码不正确！");
+            throw new LoginRegException("动态码不正确！");
         }
         return true;
     }

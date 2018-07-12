@@ -297,6 +297,7 @@
 	    padding-bottom: 0;
 	}
 	.paper_nav_span{
+		width: 6.98rem;
 		height: 100%;
 		text-indent: 0.26rem;
 	}
@@ -366,7 +367,7 @@
 
 	/*收起*/
 	.show-text{
-		width: 6.98rem;
+		/*width: 6.98rem;*/
 		margin: 0 auto;
 		font-size: 0.3rem;
 	    color: #666;
@@ -537,7 +538,7 @@
 				{{else if item.type == 2}}
 				<!-- 动态图片-->
 				<div class="trends_hide">
-					<div class="paper_nav_span comment_hide show-text">{{if item.stick}}<span class="stick_img_stick" style="width: 0.8rem;text-align: left;text-indent: 0;margin-left: 0.26rem;"><img src="/xcview/images/stick.png" alt="" />置顶</span>{{/if}}<span class="span_span{{item.id}}" style="display: block;">{{item.content}}</span>
+					<div class="paper_nav_span comment_hide show-text">{{if item.stick}}<span class="stick_img_stick" style="text-align: left;text-indent: 0;"><img src="/xcview/images/stick.png" alt="" />置顶</span>{{/if}}<span class="span_span{{item.id}}" style="display: block;">{{item.content}}</span><div class="both"></div>
 					</div>
 					{{if item.imgStr !=null && item.imgStr.length>0}}
 					<div class="paper_nav_cen_div">
@@ -562,11 +563,11 @@
 				<div class="both"></div>
 				{{else if item.type == 3}}
 				<!-- 视频-->
-				<div class="rests_nav_span comment_hide">
+				<div class="rests_nav_span comment_hide" style="padding-top: 0.2rem;">
 					{{if item.stick}}
-					<span class="stick_img"><img src="/xcview/images/stick.png" alt="" />置顶</span>
+					<span class="stick_img" style="margin-left: 0.26rem;"><img src="/xcview/images/stick.png" alt="" />置顶</span>
 					{{/if}}
-					<span class="title">{{item.title}}</span>
+					<span class="title" style="margin-bottom: 0;">{{item.title}}</span>
 					<span class="titles show-text">{{item.content}}</span>
 					<div class="both"></div>
 				</div>
@@ -587,7 +588,7 @@
 						<div class="article_nav_cen comment_hide">
 							<img src="{{item.articleImgPath}}" alt="" />
 							<div class="article_nav_cen_size">{{item.articleTitle}}</div>
-							<div class="article_nav_cen_sizes">{{item.articleContent}}</div>
+							<!--<div class="article_nav_cen_sizes">{{item.articleContent}}</div>-->
 						</div>
 					{{else}}
 						<div style="font-size: 0.26rem;width: 6.98rem;height: 0.57rem;line-height: 0.57rem;
@@ -633,9 +634,7 @@
 					<div class="consilia_nav_span comment_hide">
 						{{if item.stick}}
 						<span class="stick_img"><img src="/xcview/images/stick.png" alt="" />置顶</span>
-						{{/if}}
-						
-						<div class="title show-text">{{item.content}}</div>
+						{{/if}}<span class="title show-text">{{item.content}}</span>
 						<div class="both"></div>
 					</div>
 
