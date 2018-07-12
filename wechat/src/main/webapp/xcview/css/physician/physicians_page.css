@@ -2256,7 +2256,7 @@ margin-top: 0.015rem;
 	width: 7.5rem;
 	height: 100%;
 	/*height: 3rem;*/
-	background: red;
+	/*background: red;*/
 }
 .prose_origin_main{
 
@@ -2314,7 +2314,8 @@ margin-top: 0.015rem;
 	width: 100%;
 	height: 100%;
 	background: #fff;
-	padding-bottom: 0.3rem;
+	/*padding-bottom: 0.3rem;*/
+	margin-bottom: 0.2rem;
 }
 .QA_title{
 	width: 6.98rem;
@@ -2348,7 +2349,7 @@ margin-top: 0.015rem;
 	margin: 0 auto;
 }
 .QA_doubt{
-	position: relative;
+	
 	margin-bottom: 0.3rem;
 }
 .QA_doubt .QA_doubt_img{
@@ -2360,8 +2361,9 @@ margin-top: 0.015rem;
 }
 .QA_doubt_main{
 	/*position: absolute;*/
+	position: relative;
 	width: 4.64rem;
-	min-height: 1rem;
+	/*min-height: 1rem;*/
 	background: #FFFFFF;
 	border: 1px solid #DEDEDE;
 	border-radius: 8px;
@@ -2371,9 +2373,16 @@ margin-top: 0.015rem;
 	text-align: justify;
 	padding: 0.2rem;
 }
+.QA_doubt_main_img{
+	width: 0.1rem;
+	height: 0.19rem;
+	position: absolute;
+	top: 0.2rem;
+    left: -0.1rem;
+}
 
 .QA_solution{
-	position: relative;
+	margin-bottom: 0.3rem;
 }
 .QA_solution .QA_solution_img{
 	width: 0.8rem;
@@ -2384,8 +2393,9 @@ margin-top: 0.015rem;
 }
 .QA_solution_main{
 	/*position: absolute;*/
+	position: relative;
 	width: 4.64rem;
-	min-height: 1rem;
+	/*min-height: 1rem;*/
 	background: #AEED68;
 	border: 1px solid #DEDEDE;
 	border-radius: 8px;
@@ -2397,9 +2407,96 @@ margin-top: 0.015rem;
 	/*background: url(/xcview/images/bg_bg.png) no-repeat;*/
 	/*background-size: 100% 100%;*/
 }
-
-
+.QA_solution_main_img{
+	width: 0.1rem;
+	height: 0.19rem;
+	position: absolute;
+	top: 0.2rem;
+    right: -0.1rem;
+}
 /*老师解惑结束*/
+
+/*在线弟子开始*/
+.disciple_details{
+	width: 100%;
+	height: 100%;
+	background: #fff;
+}
+.disciple_title{
+	width: 6.98rem;
+    margin: 0 auto;
+    padding-top: 0.2rem;
+    margin-bottom: 0.2rem;
+}
+.disciple_title .border{
+	display: inline-block;
+    width: 0.06rem;
+    height: 0.28rem;
+    border-radius: 100px;
+    background: #00bc12;
+    float: left;
+    margin-right: 0.08rem;
+    margin-top: 0.05rem;
+}
+.disciple_main img{
+	width: 0.8rem;
+	height: 0.8rem;
+	margin-bottom: 0.2rem;
+	float: left;
+	border-radius: 100px;
+    margin-left: 0.14rem;
+    margin-right: 0.13rem;
+}
+.become_disciple{
+	margin-top: 0.3rem;
+	position: relative;
+	width: 6.98rem;
+	height: 100%;
+	margin: 0 auto;
+	background: #F8F8F8;
+	border: 1px solid #F0F0F0;
+	border-radius: 4px;
+	padding: 0.2rem;
+	margin-bottom: 0.3rem;
+    margin-top: 0.3rem;
+}
+.become_disciple_bg{
+	width: 0.1rem;
+	height: 0.19rem;
+}
+.become_disciple_title{
+	font-size: 0.26rem;
+	color: #333333;
+}
+.become_disciple_cen{
+	font-size: 0.26rem;
+	color: #666;
+}
+.disciple_application{
+	width: 6.98rem;
+	height: 0.72rem;
+	line-height: 0.72rem;
+	margin: 0 auto;
+	margin-bottom: 0.3rem;
+	font-size: 0.3rem;
+	color: #FFFFFF;
+	text-align: center;
+	background: #00BC12;
+	border-radius: 100px;
+}
+/*在线弟子结束*/
+
+/*师承课程提示开始*/
+.learn_tips{
+
+}
+.learn_tips_bg{
+
+}
+.learn_tips_main{
+	
+}
+/*师承课程提示结束*/
 
 
 
