@@ -44,11 +44,8 @@ public class DoctorQuestionController extends AbstractController {
     @RequestMapping(value = "/details", method = RequestMethod.GET)
     public ResponseObject details(Integer questionId) {
         try {
-            
             MedicalDoctorQuestion mQuestion = medicalDoctorQuestionService.findQuestionDetailsById(questionId);
-            
             return ResponseObject.newSuccessResponseObject(mQuestion);
-        
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseObject.newErrorResponseObject("查询失败");
