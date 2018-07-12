@@ -33,11 +33,15 @@ public class DoctorQuestionController extends AbstractController {
     @RequestMapping(value = "/update", method = RequestMethod.GET)
     public ResponseObject updateQuestion(DoctorQuestionVO doctorQuestionVO) {
         try {
-            medicalDoctorQuestionService.updateQuestion(doctorQuestionVO);
-            return ResponseObject.newSuccessResponseObject("修改成功");
+            Integer  count = medicalDoctorQuestionService.updateQuestion(doctorQuestionVO);
+            if(count>0){
+                return ResponseObject.newSuccessResponseObject("修改成功"); 
+            }else{
+                return ResponseObject.newErrorResponseObject("修改失败"); 
+            }
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseObject.newErrorResponseObject("修改失败");
+            
         }
     }
     

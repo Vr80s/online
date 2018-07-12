@@ -73,8 +73,9 @@ public class MedicalDoctorQuestionServiceImpl implements IMedicalDoctorQuestionS
     }
 
     @Override
-    public void updateQuestion(DoctorQuestionVO doctorQuestionVO) {
-        medicalDoctorQuestionMapper.updateQuestion(doctorQuestionVO);
+    public Integer updateQuestion(DoctorQuestionVO doctorQuestionVO) {
+        Integer integer = medicalDoctorQuestionMapper.updateQuestion(doctorQuestionVO);
+        return integer;
     }
 
     

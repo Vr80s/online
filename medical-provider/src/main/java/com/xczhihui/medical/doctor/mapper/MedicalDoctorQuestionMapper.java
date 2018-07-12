@@ -26,7 +26,7 @@ public interface MedicalDoctorQuestionMapper extends BaseMapper<MedicalDoctorQue
     List<MedicalDoctorQuestion> selectDoctorQuestionByUserId(@Param("page")Page<MedicalDoctorQuestion> page,
             @Param("userId") String userId);
 
-    void updateQuestion(@Param("doctorQuestionVO")DoctorQuestionVO doctorQuestionVO);
+    Integer updateQuestion(@Param("doctorQuestionVO")DoctorQuestionVO doctorQuestionVO);
     
 
 }
