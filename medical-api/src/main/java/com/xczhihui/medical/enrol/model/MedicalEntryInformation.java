@@ -3,6 +3,8 @@ package com.xczhihui.medical.enrol.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.apache.solr.client.solrj.beans.Field;
+
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
@@ -75,6 +77,27 @@ public class MedicalEntryInformation extends Model<MedicalEntryInformation> {
     private Date createTime;
     private Boolean deleted;
 
+    private Boolean applied;
+
+    /**
+     * 是否为徒弟
+     */
+    @TableField("apprentice")
+    private Integer apprentice;
+
+    //1 -> 招生简章下的报名 2->在线报名
+    private int type;
+
+    @TableField("doctor_id")
+    private String doctorId;
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
 
     public Integer getId() {
         return id;
@@ -196,9 +219,33 @@ public class MedicalEntryInformation extends Model<MedicalEntryInformation> {
         this.deleted = deleted;
     }
 
+    public Boolean getApplied() {
+        return applied;
+    }
+
+    public void setApplied(Boolean applied) {
+        this.applied = applied;
+    }
+
     @Override
     protected Serializable pkVal() {
         return this.id;
+    }
+
+    public Integer getApprentice() {
+        return apprentice;
+    }
+
+    public void setApprentice(Integer apprentice) {
+        this.apprentice = apprentice;
+    }
+
+    public String getDoctorId() {
+        return doctorId;
+    }
+
+    public void setDoctorId(String doctorId) {
+        this.doctorId = doctorId;
     }
 
     @Override

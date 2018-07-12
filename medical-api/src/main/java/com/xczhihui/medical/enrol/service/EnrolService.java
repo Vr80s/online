@@ -2,7 +2,9 @@ package com.xczhihui.medical.enrol.service;
 
 import java.util.List;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.medical.enrol.model.MedicalEnrollmentRegulations;
+import com.xczhihui.medical.enrol.model.MedicalEntryInformation;
 import com.xczhihui.medical.enrol.vo.MedicalEnrollmenRtegulationsCardInfoVO;
 import com.xczhihui.medical.enrol.vo.MedicalEntryInformationVO;
 
@@ -39,4 +41,67 @@ public interface EnrolService {
      * @return
      */
     List<MedicalEnrollmentRegulations> listByDoctorId(String doctorId);
+
+    /**
+     * 新增招生简章
+     *
+     * @param medicalEnrollmentRegulations 招生简章
+     */
+    void save(MedicalEnrollmentRegulations medicalEnrollmentRegulations);
+
+    /**
+     * 更新招生简章
+     *
+     * @param medicalEnrollmentRegulations 招生简章信息
+     * @param id                           id
+     */
+    void updateById(MedicalEnrollmentRegulations medicalEnrollmentRegulations, Integer id);
+
+    /**
+     * 查询医师的招生简章列表
+     *
+     * @param doctorId 医师id
+     * @param page     page
+     * @param pageSize pageSize
+     * @return
+     */
+    Page<MedicalEnrollmentRegulations> listPageByDoctorId(String doctorId, int page, int pageSize);
+
+    /**
+     * 更新招生简章状态
+     *
+     * @param id       id
+     * @param doctorId 医师id
+     * @param status   状态
+     */
+    void updateRegulationsStatus(int id, String doctorId, boolean status);
+
+    /**
+     * 查询医师的所有报名的人
+     *
+     * @param doctorId   doctorId
+     * @param type       type
+     * @param apprentice apprentice
+     * @param page       page
+     * @param size       size
+     * @return
+     */
+    Page<MedicalEntryInformationVO> listByDoctorId(String doctorId, Integer type, Integer apprentice, int page, int size);
+
+    /**
+     * 审核弟子报名
+     *
+     * @param id         id
+     * @param apprentice 是否通过成为弟子
+     */
+    void updateStatusEntryInformationById(int id, int apprentice);
+
+    /**
+     * 查询用户在线弟子申请
+     *
+     * @param accountId accountId
+     * @param doctorId doctorId
+     * @return
+     */
+    MedicalEntryInformation findOnlineEntryInformation(String accountId, String doctorId);
 }
