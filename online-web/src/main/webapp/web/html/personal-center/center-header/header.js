@@ -1,6 +1,6 @@
 (function() {
 	//解析url地址
-	var ourl = document.location.search;
+    var config = $.ajax({url:"/config.json",async:false}).responseJSON;
 	var browser = {
 		versions: function() {
 			var u = navigator.userAgent,
@@ -26,12 +26,7 @@
 		window.location = "http://www.ipandatcm.com";
 	} else if(browser.versions.mobile || browser.versions.ios || browser.versions.android ||
 		browser.versions.iPhone || browser.versions.iPad) {
-
-		if(document.location.host == 'www.ipandatcm.com' || document.location.host == 'www.ixincheng.com' || document.location.host == 'ipandatcm.com' || document.location.host == 'ixincheng.com') {
-			wxurl = "http://m.ipandatcm.com";
-		} else {
-			wxurl = "http://test-wx.xczhihui.com";
-		}
+		wxurl = "http://"+config.wechat;
 		window.location = wxurl;
 	}
 })();
