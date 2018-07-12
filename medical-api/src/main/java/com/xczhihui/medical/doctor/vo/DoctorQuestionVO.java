@@ -1,4 +1,4 @@
-package com.xczhihui.medical.vo;
+package com.xczhihui.medical.doctor.vo;
 
 import java.util.Date;
 

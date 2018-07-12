@@ -13,6 +13,7 @@ import com.xczhihui.medical.doctor.mapper.MedicalDoctorQuestionMapper;
 import com.xczhihui.medical.doctor.model.MedicalDoctor;
 import com.xczhihui.medical.doctor.model.MedicalDoctorQuestion;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorQuestionService;
+import com.xczhihui.medical.doctor.vo.DoctorQuestionVO;
 import com.xczhihui.medical.exception.MedicalException;
 
 import javassist.expr.NewArray;
@@ -41,6 +42,13 @@ public class MedicalDoctorQuestionServiceImpl implements IMedicalDoctorQuestionS
         return page.setRecords(medicalDoctorQuestionMapper.selectQuestionByDoctorId(page,doctorId));
     }
 
+    @Override
+    public Page<MedicalDoctorQuestion> selectDoctorQuestionByUserId(Page<MedicalDoctorQuestion> page, 
+            String userId) {
+        
+        return page.setRecords(medicalDoctorQuestionMapper.selectDoctorQuestionByUserId(page,userId));
+    }
+
     
     @Override
     public void addQuestion(String accountId, String doctorId, String question) {
@@ -64,4 +72,14 @@ public class MedicalDoctorQuestionServiceImpl implements IMedicalDoctorQuestionS
         medicalDoctorQuestionMapper.insert(medicalDoctorQuestion);
     }
 
+    @Override
+    public void updateQuestion(DoctorQuestionVO doctorQuestionVO) {
+        medicalDoctorQuestionMapper.updateQuestion(doctorQuestionVO);
+    }
+
+    
+    @Override
+    public MedicalDoctorQuestion findQuestionDetailsById(Integer questionId) {
+        return medicalDoctorQuestionMapper.selectById(questionId);
+    }
 }
