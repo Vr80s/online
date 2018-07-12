@@ -3,10 +3,12 @@ package com.xczhihui.medical.enrol.service;
 import java.util.List;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.xczhihui.medical.enrol.model.ApprenticeSettings;
 import com.xczhihui.medical.enrol.model.MedicalEnrollmentRegulations;
 import com.xczhihui.medical.enrol.model.MedicalEntryInformation;
 import com.xczhihui.medical.enrol.vo.MedicalEnrollmenRtegulationsCardInfoVO;
 import com.xczhihui.medical.enrol.vo.MedicalEntryInformationVO;
+import com.xczhihui.medical.headline.vo.SimpleUserVO;
 
 /**
  * Description: <br>
@@ -100,8 +102,30 @@ public interface EnrolService {
      * 查询用户在线弟子申请
      *
      * @param accountId accountId
-     * @param doctorId doctorId
+     * @param doctorId  doctorId
      * @return
      */
     MedicalEntryInformation findOnlineEntryInformation(String accountId, String doctorId);
+
+    /**
+     * 查询医师的收徒设置
+     *
+     * @param doctorId doctorId
+     * @return
+     */
+    ApprenticeSettings findSettingsByDoctorId(String doctorId);
+
+    /**
+     * 更新或新增医师收徒设置
+     *
+     * @param apprenticeSettings apprenticeSettings
+     */
+    void saveApprenticeSettings(ApprenticeSettings apprenticeSettings);
+
+    /**
+     * 查询医师的全部弟子
+     * @param doctorId doctorId
+     * @return
+     */
+    List<SimpleUserVO> findApprenticesByDoctorId(String doctorId);
 }

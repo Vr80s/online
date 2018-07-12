@@ -74,5 +74,4 @@ public class EnrolController {
         enrolService.saveMedicalEntryInformation(medicalEntryInformationVO);
         return ResponseObject.newSuccessResponseObject("报名成功");
     }
-
 }
