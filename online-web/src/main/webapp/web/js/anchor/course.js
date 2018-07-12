@@ -473,6 +473,7 @@ function echoCourse(caiId,passEdit){
     $("input:radio[name=course_form][value="+course.courseForm+"]").prop("checked",true);
     $('#menu_select').val(course.courseMenu);
     $('.course_price').val(course.price);
+    $('.course_originalCost').val(course.originalCost);
     if(course.courseDetail) {
         UE.getEditor('editor_cd').setContent(course.courseDetail);
     }
@@ -561,6 +562,7 @@ function getCourseData(){
     course.courseForm = $("input[name='course_form']:checked").val();
     course.courseMenu = $.trim($('#menu_select').val());
     course.price = $.trim($('.course_price').val());
+    course.originalCost = $.trim($('.course_originalCost').val());
     course.courseDetail = getCDContent();
     course.courseLength = $.trim($('.course_length').val());
 
@@ -717,6 +719,13 @@ function verifyCourse(course){
         return false;
     }else{
         $('.warning_course_price_Illegal').addClass('hide');
+    }
+    //原价
+    if(course.originalCost != '' && parseInt(course.originalCost) < parseInt(course.price)){
+        $('.warning_course_originalCost').removeClass('hide');
+        return false;
+    }else{
+        $('.warning_course_originalCost').addClass('hide');
     }
     //资源
     if((course.resourceId == '' || course.resourceId == null) && course.courseForm==2){

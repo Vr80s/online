@@ -1,9 +1,5 @@
 package com.xczhihui.medical.anchor.model;
 
-import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
-
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
@@ -11,6 +7,10 @@ import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -83,6 +83,11 @@ public class CourseApplyInfo extends Model<CourseApplyInfo> {
      * 课程单价
      */
     private Double price;
+    /**
+     * 课程原价
+     */
+    @TableField("original_cost")
+    private Double originalCost;
     /**
      * 课程密码
      */
@@ -510,6 +515,14 @@ public class CourseApplyInfo extends Model<CourseApplyInfo> {
 
     public void setUpdateDates(List<Integer> updateDates) {
         this.updateDates = updateDates;
+    }
+
+    public Double getOriginalCost() {
+        return originalCost;
+    }
+
+    public void setOriginalCost(Double originalCost) {
+        this.originalCost = originalCost;
     }
 
     @Override

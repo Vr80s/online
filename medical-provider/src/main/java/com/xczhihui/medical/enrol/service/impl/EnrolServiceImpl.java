@@ -13,14 +13,17 @@ import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.common.util.enums.EntryInformationType;
+import com.xczhihui.medical.enrol.mapper.ApprenticeSettingsMapper;
 import com.xczhihui.medical.enrol.mapper.MedicalEnrollmentRegulationsMapper;
 import com.xczhihui.medical.enrol.mapper.MedicalEntryInformationMapper;
+import com.xczhihui.medical.enrol.model.ApprenticeSettings;
 import com.xczhihui.medical.enrol.model.MedicalEnrollmentRegulations;
 import com.xczhihui.medical.enrol.model.MedicalEntryInformation;
 import com.xczhihui.medical.enrol.service.EnrolService;
 import com.xczhihui.medical.enrol.vo.MedicalEnrollmenRtegulationsCardInfoVO;
 import com.xczhihui.medical.enrol.vo.MedicalEntryInformationVO;
 import com.xczhihui.medical.exception.MedicalException;
+import com.xczhihui.medical.headline.vo.SimpleUserVO;
 
 /**
  * Description: <br>
@@ -38,6 +41,8 @@ public class EnrolServiceImpl implements EnrolService {
     private MedicalEnrollmentRegulationsMapper medicalEnrollmentRegulationsMapper;
     @Autowired
     private MedicalEntryInformationMapper medicalEntryInformationMapper;
+    @Autowired
+    private ApprenticeSettingsMapper apprenticeSettingsMapper;
 
     @Override
     public Object getEnrollmentRegulationsList(int page, int size) {
@@ -252,6 +257,36 @@ public class EnrolServiceImpl implements EnrolService {
         m.setType(EntryInformationType.ONLINE_APPLY.getCode());
         m.setDoctorId(doctorId);
         return medicalEntryInformationMapper.selectOne(m);
+    }
+
+    @Override
+    public ApprenticeSettings findSettingsByDoctorId(String doctorId) {
+        return apprenticeSettingsMapper.findByDoctorId(doctorId);
+    }
+
+    @Override
+    public void saveApprenticeSettings(ApprenticeSettings apprenticeSettings) {
+        String doctorId = apprenticeSettings.getDoctorId();
+        ApprenticeSettings settings = findSettingsByDoctorId(doctorId);
+        if (settings == null) {
+            apprenticeSettings.setId(null);
+            apprenticeSettings.setCreateTime(new Date());
+            apprenticeSettingsMapper.insert(apprenticeSettings);
+        } else {
+            String requirement = apprenticeSettings.getRequirement();
+            String welfare = apprenticeSettings.getWelfare();
+            if (StringUtils.isBlank(requirement) || StringUtils.isBlank(welfare)) {
+                throw new MedicalException("参数错误");
+            }
+            settings.setRequirement(requirement);
+            settings.setWelfare(welfare);
+            apprenticeSettingsMapper.updateAllColumnById(settings);
+        }
+    }
+
+    @Override
+    public List<SimpleUserVO> findApprenticesByDoctorId(String doctorId) {
+        return medicalEntryInformationMapper.findApprenticesByDoctorId(doctorId);
     }
 
     private void validateMedicalEntryInformation(MedicalEntryInformationVO medicalEntryInformationVO) {

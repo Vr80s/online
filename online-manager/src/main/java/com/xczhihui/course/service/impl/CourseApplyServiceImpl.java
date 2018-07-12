@@ -426,7 +426,9 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
         // 课程时长
         course.setCourseLength(courseApply.getCourseLength());
         // 原价格
-        course.setOriginalCost(courseApply.getPrice());
+        if(courseApply.getOriginalCost() != null){
+            course.setOriginalCost(courseApply.getOriginalCost());
+        }
         // 现价格
         course.setCurrentPrice(courseApply.getPrice());
         // 推荐值

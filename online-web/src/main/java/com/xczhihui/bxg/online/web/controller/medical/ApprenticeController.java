@@ -1,11 +1,14 @@
 package com.xczhihui.bxg.online.web.controller.medical;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.xczhihui.bxg.online.web.controller.AbstractController;
 import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
+import com.xczhihui.medical.enrol.model.ApprenticeSettings;
 import com.xczhihui.medical.enrol.service.EnrolService;
 
 /**
@@ -34,5 +37,26 @@ public class ApprenticeController extends AbstractController {
     public ResponseObject apply(@PathVariable int id, @PathVariable int apprentice) {
         enrolService.updateStatusEntryInformationById(id, apprentice);
         return ResponseObject.newSuccessResponseObject();
+    }
+
+    @RequestMapping(value = "settings", method = RequestMethod.GET)
+    public ResponseObject getSettings() {
+        String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(getUserId());
+        return ResponseObject.newSuccessResponseObject(enrolService.findSettingsByDoctorId(doctorId));
+    }
+
+    @RequestMapping(value = "settings", method = RequestMethod.POST)
+    public ResponseObject saveSettings(@Valid @RequestBody ApprenticeSettings apprenticeSettings) {
+        String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(getUserId());
+        apprenticeSettings.setDoctorId(doctorId);
+        apprenticeSettings.setCreator(getUserId());
+        enrolService.saveApprenticeSettings(apprenticeSettings);
+        return ResponseObject.newSuccessResponseObject();
+    }
+
+    @RequestMapping(value = "apprentices", method = RequestMethod.GET)
+    public ResponseObject apprentices() {
+        String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(getUserId());
+        return ResponseObject.newSuccessResponseObject(enrolService.findApprenticesByDoctorId(doctorId));
     }
 }
