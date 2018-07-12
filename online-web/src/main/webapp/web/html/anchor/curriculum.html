@@ -276,6 +276,7 @@
 			{{else}}
 			<a href="javascript:;" onclick="confirmCollection(1,{{collection.id}},{{collection.courseId}})">上架</a>
 			<a href="javascript:;" onclick="editCollection({{collection.id}})">编辑</a>
+			<a href="javascript:;" onclick="addAlbum()">添加</a>
 			{{/if}}
 			{{else if collection.applyStatus==2}}
 			<a href="javascript:;" onclick="editCollection({{collection.id}})">编辑</a>
@@ -604,6 +605,23 @@
 	<button id="sureDel_bank" class="confirm-sure">继续添加</button><button id="cancalDel_bank" onclick="hideDel_bank()">取消</button>
 </div>
 
+<!--审核通过后添加专辑-->
+	<div class="add-album-modal hide">
+		<p class="title-top">
+			<img onclick="closeAlbum()" src="/web/images/cha.png" alt="关闭"/>
+		</p>
+		<div class="class-explain z">
+			<span>添加已有课程</span>
+		</div>
+		<div class="select-class-main z">
+			<label for="select-add"></label>
+			<select id="select-add" class="selectpicker bla bla bli" multiple data-live-search="true">
+				</optgroup>
+			</select>
+			<button type="button" class="sure-add">确认添加</button>
+			<p class="nofind-class">没有找到课程，新增课程</p>
+		</div>
+	</div>
 
 <!--全局遮罩层-->
 <div id="mask" class="hide" style="position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; background: rgb(0, 0, 0); opacity: 0.3; z-index: 888;"></div>
@@ -1207,6 +1225,7 @@
 	
 					</form></div>
 			</div>
+			
 	
 			<!--直播-->
 			<div class="little_box hide">
