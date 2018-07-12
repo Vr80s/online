@@ -491,7 +491,7 @@
 		<div id="mainMenuBarAnchor"></div>
 		<div class="anchor_navigation" id="mainMenuBar">
 			<ul>
-				<li class="li li_data li_color"><span>全部动态</span><img src="/xcview/images/drop_down.png" alt="" class="hide0" /></li>
+				<li class="li li_data li_color"><span>全部</span>动态<img src="/xcview/images/drop_down.png" alt="" class="hide0" /></li>
 				<li class="li li_course">直播</li>
 				<li class="li li_prose_origin">师承</li>
 				<li class="li li_evaluate">介绍</li>
@@ -509,7 +509,7 @@
 			<div class="screen_show_bg"></div>
 			<div class="screen_show_main">
 				<ul>
-					<li class="filtrate_all" value="" onclick="postsType(this)">全部动态</li>
+					<li class="filtrate_all" value="" onclick="postsType(this)">全部</li>
 					<li class="filtrate_sinatv" value="1" onclick="postsType(this)">直播</li>
 					<li class="filtrate_course" value="2" onclick="postsType(this)">课程</li>
 					<li class="filtrate_consilia" value="3" onclick="postsType(this)">医案</li>
@@ -1219,14 +1219,7 @@
 		<!-- 在线弟子结束 -->
 	</div>
 	<!-- 师承结束 -->
-	<!-- 师承课程提示开始 -->
-	<div class="learn_tips">
-		<div class="learn_tips_bg"></div>
-		<div class="learn_tips_main">
-			
-		</div>
-	</div>
-	<!-- 师承课程提示结束 -->
+	
 
 
 	<!-- 介绍开始 -->
@@ -1385,7 +1378,17 @@ his, event);"></textarea> -->
 	</div>
 
 	<!-- 添加默认图 -->
-
+	<!-- 师承课程提示开始 -->
+	<div class="learn_tips">
+		<div class="learn_tips_bg"></div>
+		<div class="learn_tips_main">
+			<div class="learn_tips_close">×</div>
+			<div class="learn_tips_title">温馨提示</div>
+			<div class="learn_tips_cen">该课程为师承课程，成为弟子才能开启观看权限哦~</div>
+			<div class="learn_tips_submit">在线弟子 申请加入~</div>
+		</div>
+	</div>
+	<!-- 师承课程提示结束 -->
 </body>
 <script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
 <script type="text/JavaScript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
@@ -1570,7 +1573,7 @@ $(window).bind("scroll", function() {
               	// 替换文字后，改变3角形的位置
                 var mobile = $(".li_data span").html();		
 				if(mobile.length<3){
-					$(".li_data img").css("left","1.7rem");
+					$(".li_data img").css("left","1.9rem");
 				}else{
 					$(".li_data img").css("left","1.95rem");
 				};
@@ -1720,6 +1723,15 @@ $(window).bind("scroll", function() {
 	
 	$(".weixin_ceng").click(function(){
     	$(".weixin_ceng").hide();
+	});
+
+	// 判断是否在线弟子
+	$(".learn_tips_close").click(function(){
+    	$(".learn_tips").hide();
+	});
+
+	$(".learn_tips_submit").click(function(){
+    	$(".learn_tips").hide();
 	});
 
 
