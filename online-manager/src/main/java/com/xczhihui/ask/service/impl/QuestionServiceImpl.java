@@ -1,4 +1,4 @@
-.package com.xczhihui.ask.service.impl;
+package com.xczhihui.ask.service.impl;
 
 /**
  * Created by admin on 2016/8/29.
