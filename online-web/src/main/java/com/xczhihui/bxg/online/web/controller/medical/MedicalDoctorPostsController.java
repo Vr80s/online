@@ -65,7 +65,6 @@ public class MedicalDoctorPostsController {
         String userId = getCurrentUser().getId();
         MedicalDoctorAccount mha = medicalDoctorAccountService.getByUserId(userId);
         medicalDoctorPosts.setDoctorId(mha.getDoctorId());
-        medicalDoctorPostsService.addMedicalDoctorPosts(medicalDoctorPosts);
         if (medicalDoctorPosts.getVideo() != null && !medicalDoctorPosts.getVideo().equals("")) {
             CourseApplyResource car = new CourseApplyResource();
             car.setTitle(medicalDoctorPosts.getTitle());
@@ -74,7 +73,14 @@ public class MedicalDoctorPostsController {
             car.setSourceType(2);
             car.setUserId(userId);
             courseApplyService.saveCourseApplyResource(car);
+            if(medicalDoctorPosts.getContent() != null){
+                medicalDoctorPosts.setContent(medicalDoctorPosts.getTitle()+","+medicalDoctorPosts.getContent());
+            } else {
+                medicalDoctorPosts.setContent(medicalDoctorPosts.getTitle());
+            }
+
         }
+        medicalDoctorPostsService.addMedicalDoctorPosts(medicalDoctorPosts);
         return ResponseObject.newSuccessResponseObject("添加成功");
     }
 

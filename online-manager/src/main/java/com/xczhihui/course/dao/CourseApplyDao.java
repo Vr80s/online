@@ -1,19 +1,18 @@
 package com.xczhihui.course.dao;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.Restrictions;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.stereotype.Repository;
-
 import com.xczhihui.bxg.online.common.domain.CourseApplyInfo;
 import com.xczhihui.bxg.online.common.domain.CourseApplyResource;
 import com.xczhihui.bxg.online.common.domain.Menu;
 import com.xczhihui.common.dao.HibernateDao;
 import com.xczhihui.common.util.bean.Page;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.stereotype.Repository;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 云课堂课程管理DAO
@@ -201,6 +200,7 @@ public class CourseApplyDao extends HibernateDao<CourseApplyInfo> {
                         + "  cai.`img_path` imgPath,\n"
                         + "  cai.`course_form` courseForm,\n"
                         + "  cai.`price`*10 as price,\n"
+                        + "  cai.`original_cost`*10 as originalCost,\n"
                         + "  oc.lecturer as lecturer,\n"
                         + "  cai.create_time,cai.review_time,cai.collection,"
                         + "om.`name` as menuName FROM `course_apply_info` cai left JOIN `oe_menu` om ON om.id=cai.`course_menu` "
