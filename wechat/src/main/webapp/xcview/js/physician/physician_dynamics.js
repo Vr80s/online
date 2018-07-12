@@ -784,22 +784,45 @@ requestService("/xczh/doctors/doctorStatus", {doctorId:doctorId},function (data)
                             requestService("/xczh/doctors/introduction", {doctorId:getQueryString('doctor')},function (data) {
                                 if (data.success == true) {
                                     // 介绍
-                                    var hospitalData=data.resultObject.hospital;
-                                    if (hospitalData != null && hospitalData != "") {
-                                        $('#message_referral').html(template('message_referral_id', {items: hospitalData}));
+                                    if (data.resultObject != null || data.resultObject != '') {
+                                        
+                                    
+                                        var hospitalData=data.resultObject.hospital;
+                                        if (hospitalData != null && hospitalData != "") {
+                                            $('.message_referral_main_time').html(template('message_referral_id', {items: hospitalData}));
+                                            if (hospitalData.name == "") {
+                                            $(".clinic").addClass("hide");
+                                            }
+                                            if (hospitalData.tel == null) {
+                                                $(".tel").addClass("hide");
+                                            }
+                                            if (hospitalData.detailedAddress == null) {
+                                                $(".house_address").addClass("hide");
+                                            }
+                                            /*if (data.resultObject.lecturerInfo = null && data.resultObject.lecturerInfo.workTime = null) {
+                                                $(".hid_wtime").addClass("hide");
+                                            }*/
+                                            
+                                            if(data.resultObject.workTime == null || data.resultObject.workTime == ''){
+                                                
+                                                $(".table").hide();
+                                            }else{
 
-                                        if (hospitalData.name == "") {
-                                        $(".clinic").addClass("hide");
+                                                var workTime = data.resultObject.workTime; //这是一字符串 
+                                                // workTime = "1.1,3.2";
+                                                var apms = workTime.split(",");   //先分离,获取X--Y
+                                                for(var i in apms){
+                                                    var apm = apms[i].split(".");   
+                                                    $(".apm"+apm[0]+"_"+apm[1]+" img").show();
+                                                }
+
+                                            };
+
+                                        }else{
+                                            $(".message_referral_main_time").hide();
                                         }
-                                        if (hospitalData.tel == null) {
-                                            $(".tel").addClass("hide");
-                                        }
-                                        if (hospitalData.detailedAddress == null) {
-                                            $(".house_address").addClass("hide");
-                                        }
-                                        /*if (data.resultObject.lecturerInfo = null && data.resultObject.lecturerInfo.workTime = null) {
-                                            $(".hid_wtime").addClass("hide");
-                                        }*/
+
+                                        $('.self_introduction_cen_html').html(template('self_introduction_cen_id', {items: data.resultObject}));
                                         // 个人介绍
                                         if(data.resultObject.description == null || data.resultObject.description == ''){
                                             
@@ -809,26 +832,14 @@ requestService("/xczh/doctors/doctorStatus", {doctorId:doctorId},function (data)
                                             $(".self_introduction_cen").html(data.resultObject.description);
                                         };
 
-                                        if(data.resultObject.workTime == null || data.resultObject.workTime == ''){
-                                            
-                                            $(".table").hide();
-                                        }else{
-
-                                            var workTime = data.resultObject.workTime; //这是一字符串 
-                                            // workTime = "1.1,3.2";
-                                            var apms = workTime.split(",");   //先分离,获取X--Y
-                                            for(var i in apms){
-                                                var apm = apms[i].split(".");   
-                                                $(".apm"+apm[0]+"_"+apm[1]+" img").show();
-                                            }
-
-                                        };
 
                                     }else{
                                         $(".baseImagenumber").show();
-                                    }                          
+                                    };                          
 
-                                }
+                                }else{
+                                        $(".baseImagenumber").show();
+                                }; 
                             });
 
                             

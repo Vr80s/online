@@ -452,7 +452,7 @@
 		<!-- 主播信息开始 -->
 		<div class="referral">
 			<div class="head_portrait">
-				<img src="{{items.lecturerInfo.small_head_photo}}" alt="" />
+				<img src="{{items.lecturerInfo.small_head_photo}}" alt="" onerror="nofind();" />
 			</div>
 			<div class="message">
 				<div class="message_name">
@@ -648,7 +648,7 @@
 
 					</div>
 					{{else}}
-					<div style="background: #FAFAFA;font-size: 0.26rem;">抱歉，此医案已被作者删除。</div>
+					<div style="font-size: 0.26rem;width: 6.98rem;height: 0.57rem;line-height: 0.57rem;margin: 0 auto;background: #FAFAFA;border: 1px solid #F0F0F0;border-radius: 4px;text-indent: 0.1rem;">抱歉，此医案已被作者删除。</div>
 					{{/if}}
 					<div class="both"></div>
 				</div>
@@ -1039,8 +1039,9 @@
 			<div class="message_referral_cen">脑血管、肝病、肾病、泌尿系统疾病、癫痫病等内科、妇科疑难杂症</div>
 			<div class="both"></div>
 		</div> -->
-		<script type="text/html" id="message_referral_id">
+		
 		<div class="message_referral_main_time">
+			<script type="text/html" id="message_referral_id">
 			<div class="wrap_synopsis_time">	
 				<div class="my_synopsis_time">
 					<ul>
@@ -1086,9 +1087,10 @@
 			        <td class="apm apm7_2 pm_sundays"><img src="/xcview/images/default.png" alt="" /></td>
 			    </tr>
 			</table>
-			
+			</script>
 		</div>
 
+		
 		<div class="self_introduction">
 			<div class="self_introduction_main">	
 				<div class="self_introduction_ul">
@@ -1098,12 +1100,14 @@
 					</ul>
 				</div>		
 			</div>
-			<div class="self_introduction_cen"></div>
+			<div class="self_introduction_cen_html">
+				<script type="text/html" id="self_introduction_cen_id">
+				<div class="self_introduction_cen"></div>
+				</script>
+			</div>
+			
 			<div class="both"></div>
 		</div>
-
-		
-		</script>
 		<div class="baseImagenumber" style="display: none;">
 			<img src="/xcview/images/no_deal.png" />
 			<p>暂无医师介绍...</p>
