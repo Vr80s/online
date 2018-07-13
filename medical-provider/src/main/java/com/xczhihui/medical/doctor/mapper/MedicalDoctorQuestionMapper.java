@@ -4,6 +4,7 @@ package com.xczhihui.medical.doctor.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
@@ -26,6 +27,4 @@ public interface MedicalDoctorQuestionMapper extends BaseMapper<MedicalDoctorQue
             @Param("userId") String userId,@Param("isAnswer")Integer isAnswer);
 
     Integer updateQuestion(@Param("doctorQuestionVO")DoctorQuestionVO doctorQuestionVO);
-    
-
 }

@@ -1,6 +1,7 @@
 package com.xczhihui.medical.enrol.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.medical.enrol.model.ApprenticeSettings;
@@ -42,7 +43,7 @@ public interface EnrolService {
      * @param doctorId
      * @return
      */
-    List<MedicalEnrollmentRegulations> listByDoctorId(String doctorId);
+    List<Map<String, Object>> listByDoctorId(String doctorId);
 
     /**
      * 新增招生简章
@@ -124,8 +125,27 @@ public interface EnrolService {
 
     /**
      * 查询医师的全部弟子
+     *
      * @param doctorId doctorId
      * @return
      */
     List<SimpleUserVO> findApprenticesByDoctorId(String doctorId);
+
+    /**
+     * 查询用户是否是医师的弟子
+     *
+     * @param doctorId
+     * @param accountId
+     * @return
+     */
+    boolean isApprentice(String doctorId, String accountId);
+
+    /**
+     * 获取在线弟子申请状态
+     *
+     * @param doctorId  医师id
+     * @param accountId 账号id
+     * @return
+     */
+    int getOnlineApprenticeStatus(String doctorId, String accountId);
 }

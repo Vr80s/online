@@ -29,7 +29,9 @@ import com.xczh.consumer.market.interceptor.HeaderInterceptor;
 import com.xczh.consumer.market.utils.APPUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.enums.CourseStatus;
+import com.xczhihui.common.util.enums.OnlineApprenticeStatus;
 import com.xczhihui.common.util.enums.ResourceCheck;
+import com.xczhihui.common.util.enums.RouteTypeEnum;
 import com.xczhihui.course.consts.MultiUrlHelper;
 import com.xczhihui.course.consts.RouteUrlUtil;
 import com.xczhihui.course.model.Course;
@@ -39,8 +41,11 @@ import com.xczhihui.course.service.IMyInfoService;
 import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorArticleService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBannerService;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorQuestionService;
 import com.xczhihui.medical.doctor.vo.DoctorBannerVO;
 import com.xczhihui.medical.doctor.vo.MobileArticleVO;
+import com.xczhihui.medical.enrol.service.EnrolService;
+import com.xczhihui.medical.headline.vo.SimpleUserVO;
 import com.xczhihui.medical.hospital.model.MedicalHospital;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalApplyService;
 
@@ -70,6 +75,10 @@ public class HostController {
     private IMedicalDoctorBannerService medicalDoctorBannerService;
     @Autowired
     private IMedicalDoctorArticleService medicalDoctorArticleService;
+    @Autowired
+    private EnrolService enrolService;
+    @Autowired
+    private IMedicalDoctorQuestionService medicalDoctorQuestionService;
 
     @Value("${returnOpenidUri}")
     private String returnOpenidUri;
@@ -167,7 +176,9 @@ public class HostController {
                                 MultiUrlHelper.handleParam(returnOpenidUri, doctorBannerVO.getLinkParam(), routeType)));
                     })
                     .collect(Collectors.toList()));
+            mapAll.put("apprentice", enrolService.isApprentice(doctorId, userId));
         } else {
+            mapAll.put("apprentice", false);
             mapAll.put("followHidden", true);
             mapAll.put("fansCount", 0);
             mapAll.put("focusCount", 0);
@@ -180,6 +191,24 @@ public class HostController {
         }
 
         return ResponseObject.newSuccessResponseObject(mapAll);
+    }
+
+    @RequestMapping("doctor/apprentice")
+    @ResponseBody
+    public ResponseObject doctorApprentice(@Account(optional = true) Optional<String> accountIdOpt,
+                                           @RequestParam String doctorId, HttpServletRequest request) throws Exception {
+        Map<String, Object> apprenticeData = new HashMap<>(5);
+        List<Map<String, Object>> regulations = enrolService.listByDoctorId(doctorId);
+        regulations.forEach(regulation -> regulation.put("url", MultiUrlHelper.getUrl(RouteTypeEnum.APPRENTICE_DETAIL.name(), APPUtil.getMobileSource(request),
+                MultiUrlHelper.handleParam(returnOpenidUri, MapUtils.getString(regulation, "id"), RouteTypeEnum.APPRENTICE_DETAIL.name()))));
+        apprenticeData.put("regulations", regulations);
+        apprenticeData.put("questions", medicalDoctorQuestionService.selectQuestionByDoctorId(new Page<>(1, 100), doctorId).getRecords());
+        apprenticeData.put("apprentices", enrolService.findApprenticesByDoctorId(doctorId).stream().map(SimpleUserVO::getSmallHeadPhoto).collect(Collectors.toList()));
+        //TODO 跟师直播
+        apprenticeData.put("settings", enrolService.findSettingsByDoctorId(doctorId));
+        apprenticeData.put("onlineApprenticeStatus", accountIdOpt.map(accountId -> enrolService.getOnlineApprenticeStatus(doctorId, accountId))
+                .orElse(OnlineApprenticeStatus.NOT_APPLY.getVal()));
+        return ResponseObject.newSuccessResponseObject(apprenticeData);
     }
 
     /**
