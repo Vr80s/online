@@ -306,14 +306,22 @@
 			<div class="bot_price">
 				{{if watchState==0}}
 				<a class="left_price z" href="javascript:;">
-					<p><span>{{currentPrice}}</span>熊猫币</p>
+					<p><span>{{currentPrice}}</span>熊猫币
+					{{if originalCost != null && originalCost != 0}}
+					原价<span style="text-decoration: line-through;color:#787878">{{originalCost}}</span>
+					{{/if}}
+					</p>
 				</a>
 				<a class="right_priceBtn y" href="javascript:;" onclick="btn_zj_mianfei()" data-zj="{{0}}">
 					购买
 				</a>
 				{{else if watchState==1}}
 				<a class="left_price z" href="javascript:;">
-					<p><span>免费</span></p>
+					<p><span>免费</span>
+					{{if originalCost != null && originalCost != 0}}
+					原价<span style="text-decoration: line-through;color:#787878">{{originalCost}}</span>
+					{{/if}}
+					</p>
 				</a>
 				<a class="right_priceBtn y" href="javascript:;" onclick="btn_zj_mianfei()" data-zj="{{1}}">
 					进入学习

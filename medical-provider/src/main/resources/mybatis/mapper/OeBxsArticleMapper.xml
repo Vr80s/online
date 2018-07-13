@@ -35,7 +35,7 @@
         `oe_bxs_article` oba
         JOIN `medical_doctor_special_column` mdaa
         ON oba.`id` = mdaa.`article_id`
-        where oba.`is_delete`=0 AND oba.`status`=1
+        where oba.`is_delete`=0 AND oba.`status`=1 and oba.type_id = '4'
         <if test="doctorId != null and doctorId!=''">
             and mdaa.`doctor_id` = #{doctorId}
         </if>
