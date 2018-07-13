@@ -47,9 +47,9 @@
 	<div class="main">
 		<div class="booking_person">预约人：刘成成</div>
 		<div class="handler">
-			<div class="handler_cen">
+			<div class="handler_cen handler_time_click">
 				<div class="handler_fize">预约时间</div>
-				<div class="handler_time">2018年10月20日 10:00-10:30 <img src="/xcview/images/video_review.png" alt=""></div>
+				<div class="handler_time"><span></span> <img src="/xcview/images/video_review.png" alt=""></div>
 			</div>
 		</div>
 		<div class="handler">
@@ -64,38 +64,101 @@
 				<textarea name="" id="" cols="" rows="" placeholder="请简单描述您的问题" class="textarea"></textarea>
 			</div>
 		</div>
-
 		<div class="handler_btn">申请预约</div>
-		
 		<div class="handler_reminder">
 			<span>提交申请后，我们会以短信形式告知审核结果；</span>
 			<span>申请成功后，医师将通过您预留的联系方式进行远程诊疗，请在预约时间做好准备事项。</span>
 			
 		</div>
 	</div>
-	<!-- 中间内容结束 -->	
+	<!-- 中间内容结束 -->
+	<!-- 点击出现弹出框开始 -->
+	<!-- 点击预约时间 -->
+	<div class="time_popout">
+		<div class="time_popout_bg"></div>
+		<div class="time_popout_main">
+			<ul>
+				<li><span>2018年10月000日  10:00-10:30</span><img src="/xcview/images/pigeon.png" alt="" /></li>
+				<li><span>2018年10月111日  10:00-10:30</span><img src="/xcview/images/pigeon.png" alt="" /></li>
+				<li><span>2018年10月222日  10:00-10:30</span><img src="/xcview/images/pigeon.png" alt="" /></li>
+				<li><span>2018年10月333日  10:00-10:30</span><img src="/xcview/images/pigeon.png" alt="" /></li>
+				<li><span>2018年10月444日  10:00-10:30</span><img src="/xcview/images/pigeon.png" alt="" /></li>
+				<li><span>2018年10月555日  10:00-10:30</span><img src="/xcview/images/pigeon.png" alt="" /></li>
+				<li><span>2018年10月666日  10:00-10:30</span><img src="/xcview/images/pigeon.png" alt="" /></li>
 
+			</ul>
+		</div>
+	</div>
 
+	<!-- 点击申请成功 -->
+	<div class="prosperity_popout">
+		<div class="prosperity_popout_bg"></div>
+		<div class="prosperity_popout_main">
+			<div class="prosperity_popout_title">
+				<img src="/xcview/images/examine.png" alt="" />申请完成
+			</div>
+			<div class="prosperity_cen">医师审核完成后，我们会将审核结果以短信形式发送给您，请耐心等待</div>
+			<div class="prosperity_popout_hide">我知道了</div>
+		</div>
+	</div>
 
+	<!-- 点击申请失败 -->
+	<div class="failure_popout">
+		<div class="failure_popout_bg"></div>
+		<div class="failure_popout_main">
+			<div class="failure_popout_title">
+				<img src="/xcview/images/failure.png" alt="" />申请失败
+			</div>
+			<div class="failure_cen">抱歉~该时间段已被预约，请重新选择预约时间</div>
+			<div class="failure_popout_hide">我知道了</div>
+		</div>
+	</div>
+	<!-- 点击出现弹出框结束 -->
 </body>
 <script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/common.js?v=wechat_1.1.1"></script> 
 <script type="text/javascript" src="/xcview/js/common/template.js"></script>    <!--数据模板引入--> 
-
 <script type="text/javascript" src="/xcview/js/physician/reserve_information.js"></script> 
 <script>
 	window.onload = function(){
-		/*$('.textarea').keyup(function(){
-		    var textarea = $(".textarea").val();
-		    if(textarea==""||textarea==undefined){
-		        $(".quiz").css("opacity","0.3");
-		        $(".quiz").css("background","#00bc12");
-		    }else{
-		        $(".quiz").css("opacity","1");
-		        $(".quiz").css("background","#00bc12");
-		    }
-		})*/
+		// 循环li
+		var aBtn=$('.time_popout_main ul li');
+	    for(i=0;i<aBtn.length;i++){
+
+		    $(aBtn[i]).click(function(){
+		        for(i=0;i<aBtn.length;i++){
+		            var html = $(this).find("span").html();
+		            $(".handler_time span").html(html);
+		            $(".time_popout").hide();
+		            $(aBtn[i]).find("img").css("opacity","0");
+		            $(this).find("img").css("opacity","1");
+		    	}
+		        /*$(this).removeClass();  
+		        $(this).addClass('active6');*/
+		    })
+		}
+		$(aBtn[0]).click();
+
+		// 点击预约时间显示
+		$(".handler_time_click").click(function(){
+			$(".time_popout").show();
+		});
+		// 点击预约时间显示后的背景
+		$(".time_popout_bg").click(function(){
+			$(".time_popout").hide();
+		});
+
+		// 申请成功--我知道啦
+		$(".prosperity_popout_hide").click(function(){
+			$(".prosperity_popout").hide();
+		});
+
+		// 申请失败--我知道啦
+		$(".failure_popout_hide").click(function(){
+			$(".failure_popout").hide();
+		});
+		
 	};
 </script>
 <!-- 公用弹框 -->
