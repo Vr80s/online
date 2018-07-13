@@ -22,6 +22,12 @@
             mdq.*
          from  medical_doctor_question as mdq
 	         where  mdq.doctor_id = (select doctor_id from medical_doctor_account mda where mda.account_id = #{userId})
+	            <if test="isAnswer != null and  isAnswer == 1 ">
+                    and  mdq.answer is not null
+                </if>
+                <if test="isAnswer != null and  isAnswer == 0 ">
+                    and  mdq.answer is null
+                 </if>
 	           order by mdq.create_time desc
     </select>
     
