@@ -73,7 +73,7 @@ public class MedicalDoctorPostsController {
             car.setSourceType(2);
             car.setUserId(userId);
             courseApplyService.saveCourseApplyResource(car);
-            if(medicalDoctorPosts.getContent() != null){
+            if(medicalDoctorPosts.getContent() != null && !medicalDoctorPosts.getContent().equals("")){
                 medicalDoctorPosts.setContent(medicalDoctorPosts.getTitle()+","+medicalDoctorPosts.getContent());
             } else {
                 medicalDoctorPosts.setContent(medicalDoctorPosts.getTitle());
