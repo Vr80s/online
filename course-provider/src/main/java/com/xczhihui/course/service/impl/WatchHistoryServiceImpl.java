@@ -41,7 +41,7 @@ import com.xczhihui.course.vo.WatchHistoryVO;
  */
 @Service
 public class WatchHistoryServiceImpl extends ServiceImpl<WatchHistoryMapper, WatchHistory> implements IWatchHistoryService {
-    private static final String APPLY_SUCCESS_TIPS = "恭喜您成功购买课程" + TextStyleUtil.LEFT_TAG + "《{0}》~" + TextStyleUtil.RIGHT_TAG;
+    private static final String APPLY_SUCCESS_TIPS = "恭喜您成功购买课程" + TextStyleUtil.LEFT_TAG + "《{0}》" + TextStyleUtil.RIGHT_TAG + "~";
     private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(WatchHistoryServiceImpl.class);
     @Value("${weixin.course.apply.code}")
     private String weixinApplySuccessMessageCode;
