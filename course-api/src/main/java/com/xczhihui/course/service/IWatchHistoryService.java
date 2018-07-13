@@ -36,7 +36,7 @@ public interface IWatchHistoryService {
      */
     void deleteBatch(String userId);
 
-    void addLearnRecord(Integer courseId, String userId);
+    void addLearnRecord(Integer courseId, String userId, Boolean teaching);
 
     void addLookHistory(Integer courseId, String id, Integer recordType, Integer collectionId);
 

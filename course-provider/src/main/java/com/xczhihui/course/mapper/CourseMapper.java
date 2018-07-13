@@ -191,4 +191,6 @@ public interface CourseMapper extends BaseMapper<Course> {
             " from oe_course where status = 1 and is_delete = 0"})
     List<Course> getAllCourseByStatus();
 
+    @Select("SELECT COUNT(*) FROM `course_teaching` ct WHERE ct.`course_id`=#{courseId} AND ct.`user_id`=#{accountId}")
+    int selectQualification4TeachingCourse(@Param("accountId") String accountId, @Param("courseId") Integer courseId);
 }

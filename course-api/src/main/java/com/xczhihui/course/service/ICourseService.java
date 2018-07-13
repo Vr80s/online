@@ -260,4 +260,8 @@ public interface ICourseService {
 
 
     List<Map<String, Object>> doctorCourseList(String userId,boolean onlyFree);
+
+    List<CourseLecturVo> selectTeachingCoursesByUserId(Page<CourseLecturVo> page, String userId);
+
+    boolean selectQualification4TeachingCourse(String accountId, Integer courseId);
 }

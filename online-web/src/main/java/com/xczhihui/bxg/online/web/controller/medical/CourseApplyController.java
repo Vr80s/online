@@ -191,6 +191,7 @@ public class CourseApplyController extends AbstractController {
     public ResponseObject saveCourseApply(@RequestBody CourseApplyInfo courseApplyInfo) {
         OnlineUser user = getCurrentUser();
         courseApplyInfo.setUserId(user.getId());
+        courseApplyInfo.setTeaching(false);
         courseApplyInfo.setClientType(ClientType.PC.getCode());
         courseApplyService.saveCourseApply(courseApplyInfo);
         return ResponseObject.newSuccessResponseObject("保存成功");
@@ -230,6 +231,8 @@ public class CourseApplyController extends AbstractController {
     public ResponseObject saveCollectionApply(@RequestBody CourseApplyInfo courseApplyInfo) {
         OnlineUser user = getCurrentUser();
         courseApplyInfo.setUserId(user.getId());
+        courseApplyInfo.setTeaching(false);
+        courseApplyInfo.setClientType(ClientType.PC.getCode());
         courseApplyService.saveCollectionApply(courseApplyInfo);
         return ResponseObject.newSuccessResponseObject("保存成功");
     }
@@ -375,12 +378,12 @@ public class CourseApplyController extends AbstractController {
         }
     }
 
-    @RequestMapping(value = "/teaching/saveCourseApply", method = RequestMethod.PUT)
+    @RequestMapping(value = "/teaching/saveCourseApply", method = RequestMethod.POST)
     public ResponseObject saveCourseApply4Teaching(@RequestBody CourseApplyInfo courseApplyInfo) {
         OnlineUser user = getCurrentUser();
         courseApplyInfo.setUserId(user.getId());
         courseApplyInfo.setClientType(ClientType.PC.getCode());
-        courseApplyInfo.sett
+        courseApplyInfo.setTeaching(true);
         courseApplyService.saveCourseApply(courseApplyInfo);
         return ResponseObject.newSuccessResponseObject("保存成功");
     }

@@ -42,10 +42,7 @@ public class MyOrderController {
     public ResponseObject saveOnlineOrder(@Account String accountId,
                                           @RequestParam("courseId") Integer courseId,
                                           @RequestParam("orderFrom") Integer orderFrom ) throws Exception {
-        if(HeaderInterceptor.getClientTypeCode() != null){
-            orderFrom = HeaderInterceptor.getClientTypeCode();
-        }
-        Order order = orderService.createOrder(accountId, courseId, orderFrom);
+        Order order = orderService.createOrder(accountId, courseId, HeaderInterceptor.getClientTypeCode());
         Map returnMap = new HashMap();
         returnMap.put("orderNo", order.getOrderNo());
         returnMap.put("orderId", order.getId());
