@@ -1649,17 +1649,58 @@ display: -webkit-box;
 	color: white;
 	margin-bottom: 90px;
 }
+/*师承管理*/
 
 
 
+/*收徒设置*/
 
+.comment-apprentice{
+	margin-top: 20px;
+}
+.apprentice-left{
+	display: inline-block;
+    width: 128px;
+    text-align: right;
+    font-size: 14px;
+    color: #2A2A2A;
+    line-height: 19px;
+    margin-right: 20px;
+}
+ .apprentice-left em{
+ 	    color: red;
+    display: inline;
+    margin: 0 5px;
+ }  
+.comment-apprentice textarea{
+	width: 540px;
+	height: 160px;
+	border: 1px solid #f0f0f0;
+	outline: none;
+	resize: none;
+}
+.comment-apprentice input{
+	width: 120px;
+	height: 36px;
+	border: 1px solid #f0f0f0;
+	outline: none;
+	text-align: right;
+	padding-right: 8px;
+	margin-right: 10px;
+}
 
-
-
-
-
-
-
+.apprentice-directions span{
+	color: #999999;
+	margin-left: 10px;
+}
+.comment-apprentice button{
+	width: 120px;
+	height: 36px;
+	color: white;
+	background: #00BC12;
+	border-radius: 4px;
+	border: 0;
+}
 
 
 
