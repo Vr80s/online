@@ -40,6 +40,10 @@
     text-align: left !important;
     font-size: 16px;
 	}
+	.lecturerDescription img{
+		width: 300px;
+		height: 200px;
+	}
 </style>
 <script type="text/javascript" src="js/cloudClass/courseApplyDetail.js"></script>
 <script type="text/javascript">
@@ -249,7 +253,7 @@
 
 
 
-		<div class="form-group " style="margin-top:50px;margin-bottom:30px">
+		<div class="form-group lecturerDescription" style="margin-top:50px;margin-bottom:30px">
 			<label class="control-label no-padding-right my-set-leftTitle z" >主讲人介绍：</label>
 			<div class="col-lg-10 my-setallContent" style="padding-left: 0;">
 				<div class="clearfix" style="width: 1000px;">
