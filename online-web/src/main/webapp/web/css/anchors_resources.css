@@ -1079,6 +1079,7 @@ outline: none;
 }
 .disciple-table-main table tr span{
 	color: #188EEE;
+	cursor: pointer;
 }
 .disciple-table-main table tr .disciple-edit{
 	margin: 0 5px;
@@ -1229,6 +1230,7 @@ outline: none;
 
 .pupil-modal-wrap .pupil-top img{
 	float: right;
+	cursor: pointer;
 }
 .pupil-modal-wrap .sava-pupil{
 	width: 495px;
@@ -1320,6 +1322,220 @@ outline: none;
 	color: white;
 	outline: none;
 }
+
+.disciple-top-title{
+	width: 100%;
+    height: 60px;
+    border-bottom: 1px solid #f0f0f0;
+    line-height: 60px;
+    padding: 0 20px;
+}
+.disciple-top-title span{
+	font-size: 16px;
+}
+
+/*我的弟子*/
+.myself-disciple-wrap{
+	padding: 20px;
+	overflow: hidden;
+}
+.myself-disciple-search{
+	margin-bottom: 20px;
+	overflow: hidden;
+}
+.myself-disciple-search .myself-select-haedeer{
+	width: 100px;
+    height: 36px;
+    border: 1px solid #f0f0f0;
+    float: left;
+    line-height: 30px;
+    cursor: pointer;
+    outline: none;
+    line-height: 30px;
+}
+.myself-disciple-search .myself-select-right{
+	width: 280px;
+    height: 36px;
+    border: 1px solid #f0f0f0;
+    float: left;
+    line-height: 30px;
+    cursor: pointer;
+    outline: none;
+    line-height: 30px;
+}
+.myself-disciple-list table{
+	width: 100%;
+	border: 1px solid #f0f0f0;
+	text-align: center;
+	table-layout: fixed;
+}
+.myself-disciple-list table th{
+	text-align: center;
+	padding: 10px 0;
+	background: #f0f0f0;
+	border: 1px solid #dedede;
+}
+
+.myself-disciple-list table td{
+	border: 1px solid #dedede;
+	    padding: 10px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.myself-disciple-list table th:nth-child(1){
+	width: 95px;
+}
+.myself-disciple-list table th:nth-child(2){
+	width: 110px;
+}
+.myself-disciple-list table th:nth-child(3){
+	width: 68px;
+}
+.myself-disciple-list table th:nth-child(4){
+	width: 68px;
+}
+.myself-disciple-list table th:nth-child(5){
+	width: 68px;
+}
+.myself-disciple-list table th:nth-child(6){
+	width: 126px;
+}
+.myself-disciple-list table th:nth-child(7){
+	width: 163px;
+}
+.myself-disciple-list table th:nth-child(8){
+	width: 94px;
+}
+.myself-disciple-list table th:nth-child(9){
+	width: 120px;
+}
+.myself-disciple-list td span{
+	color: #188eee;
+	cursor: pointer;
+}
+.see-disciple-modal{
+	width: 960px;
+	background: white;
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%,-50%);
+	-webkit-transform: translate(-50%,-50%);
+	z-index: 99999;
+}
+.see-disciple-modal .see-modal-top{
+	height: 60px;
+	padding: 20px;
+	border-bottom: 1px solid #f0f0f0;
+}
+.see-disciple-modal .see-modal-top p{
+	float: left;
+	font-size: 16px;
+}
+.see-disciple-modal .see-modal-top span{
+	float: right;
+	cursor: pointer;
+}
+.see-modal-scroll{
+	margin-top: 40px;
+	max-height: 500px;
+	overflow-y: auto;
+}
+.comment-see-modal{
+	clear: both;
+	overflow: hidden;
+	margin-bottom: 20px;
+}
+.comment-see-modal span{
+	float: left;
+	width: 80px;
+	text-align: right;
+	margin-right: 20px;
+}
+.comment-see-modal .see-comment-text{
+	width: 679px;
+	float: left;
+	margin: 0;
+}
+
+.comment-see-modal button{
+	width: 120px;
+	height: 36px;
+	background: #00BC12;
+	border: 1px solid #00BC12;
+	border-radius: 4px;
+	color: white;
+	float: left;
+}
+
+.comment-see-modal .not-adopt-disciple{
+	border: 1px solid #00bc12;
+	background: white;
+	color: #00bc12;
+	margin-left: 30px;
+}
+/*问答解惑*/
+.answer-top{
+	width: 100%;
+    height: 60px;
+    border-bottom: 1px solid #f0f0f0;
+    line-height: 60px;
+    padding: 0 20px;
+} 
+.answer-top span{
+	font-size: 16px;
+} 
+.answer-list-main{
+	padding: 20px;
+    overflow: hidden;
+}
+.answer-list-search{
+	margin-bottom: 20px;
+}
+.answer-list-search select{
+ 	width: 280px;
+ 	height: 36px;
+ 	border: 1px solid #f0f0f0;
+ 	cursor: pointer;
+ 	outline: none;
+ 	line-height: 30px;
+}  
+.answer-list-table table{
+	table-layout: fixed;
+	width:100%;
+	text-align: center;
+	border:1px solid #dedede;
+
+}
+.answer-list-table table th{
+	text-align: center;
+	border: 1px solid #dedede;
+	background: #f0f0f0;
+	padding: 10px 0;
+}
+.answer-list-table table th:nth-child(1){
+	width: 115px;
+}
+.answer-list-table table th:nth-child(2){
+	width: 228px;
+}
+.answer-list-table table th:nth-child(3){
+	width: 290px;
+}
+.answer-list-table table th:nth-child(4){
+	width: 163px;
+}
+.answer-list-table table th:nth-child(5){
+	width: 120px;
+}
+.answer-list-table table td{
+	height: 80px;
+word-break:break-all;
+overflow: hidden;
+
+}
+
 
 
 

@@ -52,7 +52,7 @@ $(function(){
 //	关闭选择弟子弹窗
 	$(".pupil-top").click(function(){
 		$(".pupil-modal-wrap").addClass("hide");
-		$("#mask").addClass("hide")
+		$("#mask").addClass("hide");
 	})
 
 
@@ -76,6 +76,31 @@ $(function(){
 				$(".sava-pupil li p img").removeClass("active");
 			}
 	});
+
+//----------------------------------跟师直播介结束，我的弟子开始--------------------------------------------
+
+//	点击打开模态框
+	$(".see-disciple").click(function(){
+		$("#mask").removeClass("hide")
+		$(".see-disciple-modal").removeClass("hide");
+	})
+//	关闭模态框
+	$(".see-modal-top span img").click(function(){
+		$("#mask").addClass("hide")
+		$(".see-disciple-modal").addClass("hide");
+	})
+	
+
+
+
+
+
+
+
+
+
+
+
 
 
 
