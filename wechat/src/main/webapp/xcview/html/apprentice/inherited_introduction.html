@@ -219,7 +219,7 @@ if(isNotBlank(back) && back.indexOf("home_page.html") != -1){
 	sessionStorage.setItem("inherited_backFalg","home");
 }else if(isNotBlank(back) && back.indexOf("physicians_page.html") != -1){
 	sessionStorage.setItem("inherited_backFalg","physicians_page");
-}else{
+}else if(isNotBlank(back) && back.indexOf("apprentice.html") != -1){ //
 	sessionStorage.setItem("inherited_backFalg","");
 } 
 
@@ -242,6 +242,7 @@ if(isNotBlank(back) && back.indexOf("home_page.html") != -1){
                             window.history.go(-1);
                         } */
                         var backFalg = sessionStorage.getItem("inherited_backFalg");
+                        //alert(backFalg);
                         if(backFalg == "home"){
                         	  window.location.href = "/xcview/html/home_page.html";
                               return;
