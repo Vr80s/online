@@ -59,8 +59,6 @@ public class EnrollmentRegulationsBody implements Serializable {
      */
     @NotBlank
     private String ceremonyAddress;
-    @NotBlank
-    private String posterImg;
     /**
      * 招生简章
      */
@@ -165,14 +163,6 @@ public class EnrollmentRegulationsBody implements Serializable {
 
     public void setCeremonyAddress(String ceremonyAddress) {
         this.ceremonyAddress = ceremonyAddress;
-    }
-
-    public String getPosterImg() {
-        return posterImg;
-    }
-
-    public void setPosterImg(String posterImg) {
-        this.posterImg = posterImg;
     }
 
     public String getRegulations() {
