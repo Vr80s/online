@@ -746,7 +746,7 @@ requestService("/xczh/doctors/doctorStatus", {doctorId:doctorId},function (data)
                                             if(obj!=null && obj.isLive == 1){
                                                 setInterval(timer, 1000);
                                             }else if(obj!=null && (obj.lineState ==2 || obj.lineState == 4  || obj.lineState ==5)){
-                                                var str = startStr.replace(/\-/g, ".").slice(0,16)+ "   即将直播";
+                                                var str ="开播时间   " + startStr.replace(/\-/g, ".").slice(0,16);
                                                 $("#box1").html(str);
                                             }
                                         

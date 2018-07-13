@@ -19,81 +19,11 @@
         ||$('.tel input').val()==''
         ||$('.age input').val()==''
         ||$('.sex_show').html()==''){
-        $(".buttom").css("opacity","0.5");
+        $(".buttom").css("opacity","0.3");
         return false;
     }else{
         $(".buttom").css("opacity","1");
-        return true;
-    };
-}
-    // 姓名
-    $('.name input').keyup(function(){
-        getApply();
-    });
-    // 手机号
-    $('.tel input').keyup(function(){
-        getApply();
-    });
-
-    // 微信
-    $('.age input').keyup(function(){
-        getApply();
-    });    
-
-var courseId = getQueryString('courseId');
-var orderId = getQueryString('orderId');
-// var submitted = getQueryString('submitted');
-/**
- * 提交表单
- * @returns
- */
- // 判断是否提交
- // var submitted = "";
-
-  // if(submitted){ //线下课
-      // $(".hint").show();
-      /**
-       * 查询这个信息
-       */
-       /* var submitted ="";
-        var realName = $(".name input").val();
-        var mobile = $(".tel input").val();
-        var wechatNo = $(".age input").val();
-        var sex = $(".sex_show").html();*/
-        // var submitted ="";
-        requestGetService("/xczh/apply/applyInfo",{'courseId':courseId},function(data){
-            if(data.success){
-                // 调接口成功
-                var result = data.resultObject.applyInfo;
-                var submitted = data.resultObject.submitted;
-                // 这个判断你要问问是需要怎么处理，没有需要怎么处理
-                if(submitted){
-                    
-                    $(".opacity").css("opacity","0.3");
-                }else{
-                    $(".opacity").css("opacity","1");
-                }
-                $(".name input").val(result.realName);
-                $(".tel input").val(result.mobile);
-                $(".age input").val(result.wechatNo);
-                // $(".sex_show").html(result.sex);
-                if(result.sex==0){
-                   $(".sex_show").html("女");
-               }else if(result.sex==1){
-                   $(".sex_show").html("男");
-               }else{
-                   $(".sex_show").html("未知");
-               }
-            }else{
-              $(".web_toast").removeClass("web_toasts");
-                // 提示错误信息  // 调接口失败
-                webToast(data.errorMessage,"middle",1500);
-            }
-        })
-        // console.log(data);
- // }
-
-// 点击按钮提交表单 
+        // 点击按钮提交表单 
 $(".buttom").click(function(){
     
         var realName = $(".name input").val();
@@ -160,3 +90,75 @@ $(".buttom").click(function(){
 
        
 });
+
+        return true;
+    };
+}
+    // 姓名
+    $('.name input').keyup(function(){
+        getApply();
+    });
+    // 手机号
+    $('.tel input').keyup(function(){
+        getApply();
+    });
+
+    // 微信
+    $('.age input').keyup(function(){
+        getApply();
+    });    
+
+var courseId = getQueryString('courseId');
+var orderId = getQueryString('orderId');
+// var submitted = getQueryString('submitted');
+/**
+ * 提交表单
+ * @returns
+ */
+ // 判断是否提交
+ // var submitted = "";
+
+  // if(submitted){ //线下课
+      // $(".hint").show();
+      /**
+       * 查询这个信息
+       */
+       /* var submitted ="";
+        var realName = $(".name input").val();
+        var mobile = $(".tel input").val();
+        var wechatNo = $(".age input").val();
+        var sex = $(".sex_show").html();*/
+        // var submitted ="";
+        requestGetService("/xczh/apply/applyInfo",{'courseId':courseId},function(data){
+            if(data.success){
+                // 调接口成功
+                var result = data.resultObject.applyInfo;
+                var submitted = data.resultObject.submitted;
+                // 这个判断你要问问是需要怎么处理，没有需要怎么处理
+                if(submitted){
+                    
+                    $(".opacity").css("opacity","0.3");
+                }else{
+                    $(".opacity").css("opacity","0.3");
+                }
+                $(".name input").val(result.realName);
+                $(".tel input").val(result.mobile);
+                $(".age input").val(result.wechatNo);
+                // $(".sex_show").html(result.sex);
+                if(result.sex==0){
+                   $(".sex_show").html("女");
+               }else if(result.sex==1){
+                   $(".sex_show").html("男");
+               }else{
+                   $(".sex_show").html("未知");
+               }
+            }else{
+              $(".web_toast").removeClass("web_toasts");
+                // 提示错误信息  // 调接口失败
+                webToast(data.errorMessage,"middle",1500);
+            }
+        })
+        // console.log(data);
+ // }
+
+

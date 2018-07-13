@@ -9,6 +9,8 @@
  * third_party_falg   true 需要进行完善信息   false 不用进行完善信息
  * 返回 1000 有效   1002 过期，去登录页面  1005 过期且去完善信息
  */
+
+var USER_TOKEN_NULL = 1001;//token is null
 var USER_UN_LOGIN = 1002;//未登录
 var USER_TOP = 1003;//被顶掉
 var USER_UN_BIND = 1005;//用户用微信登录的但是没有绑定注册信息
@@ -183,9 +185,9 @@ function requestService(url, param, callback, ac) {
 function ajaxRequest(url, param,type, callback, ac) {
     if (ac == null)
         ac = true;// 默认异步
-	if(document.location.host.indexOf('dev.ixincheng.com')!=-1){
-		url = "/apis"+url;
-	}
+    if(document.location.host.indexOf('dev.ixincheng.com')!=-1){
+        url = "/apis"+url;
+    }
     mui.ajax({
         url: url,
         type: type,
@@ -194,7 +196,7 @@ function ajaxRequest(url, param,type, callback, ac) {
         async: ac,
         success: function (msg) {
             var rd = getCurrentRelativeUrl();
-            if (msg.code == USER_UN_LOGIN) {
+            if (msg.code == USER_UN_LOGIN || msg.code == USER_TOKEN_NULL) {
                 localStorage.setItem("rd", rd);
                 location.href = "/xcview/html/enter.html";
             } else if (msg.code == USER_TOP) { //被同一用户顶掉了
@@ -240,7 +242,7 @@ function isLoginJump() {
             before_address.indexOf("/xcview/html/physician/physicians_page.html") != -1 ||   //医师页面
             before_address.indexOf("live_personal.html") != -1) {  //主播页
 
-        	window.history.back();
+            window.history.back();
         } else {
             location.href = "home_page.html";
         }
@@ -255,12 +257,12 @@ function common_share_back() {
     var shareBack = getQueryString("shareBack");
     if(isNotBlank(shareBack)){
       if (isNotBlank(back) && back.indexOf("wx_share.html") == -1) {
-	      window.history.back();
-	  } else {
-	      window.location.href = "/xcview/html/physician/index.html";
-	  }
+          window.history.back();
+      } else {
+          window.location.href = "/xcview/html/physician/index.html";
+      }
     }else{
-    	window.history.back();
+        window.history.back();
     }
 }
 
@@ -568,11 +570,11 @@ function checkAuth(courseId, type) {
 var firstEntry = false;
 var session = sessionStorage.getItem("session");
 if(session==null || session ==undefined || session ==""){
-	sessionStorage.setItem("session","session");
-	var shareBack = getQueryString("shareBack");
-	if(shareBack==null || shareBack ==undefined || shareBack ==""){
-		firstEntry = true;
-	}
+    sessionStorage.setItem("session","session");
+    var shareBack = getQueryString("shareBack");
+    if(shareBack==null || shareBack ==undefined || shareBack ==""){
+        firstEntry = true;
+    }
 }
 
 //是否存在微信信息
@@ -580,7 +582,7 @@ var thirdPartyUCT = cookie.get("_third_ipandatcm_user_");
 
 if ((is_weixin()) &&  (!thirdPartyUCT  || firstEntry)) {//在微信里打开,没有授权时，先去微信授权
     
-	location.href = "/xczh/wxlogin/middle?url=" + getCurrentUrl();
+    location.href = "/xczh/wxlogin/middle?url=" + getCurrentUrl();
 }
 
 function locationToOriginPage() {
@@ -624,8 +626,8 @@ function gotoLiveSelectAlbum() {
     if (isNotBlank(back) && back.indexOf("wx_share.html") == -1) {
         window.history.back();
     } else {
-    	
-    	
+        
+        
         location.replace("/xcview/html/live_select_album.html?course_id=" + collectionId);
     }
 
