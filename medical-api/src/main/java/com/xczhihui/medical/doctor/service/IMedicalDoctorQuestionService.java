@@ -32,7 +32,15 @@ public interface IMedicalDoctorQuestionService {
      */
     public void addQuestion(String accountId, String doctorId, String question);
 
-    public Page<MedicalDoctorQuestion> selectDoctorQuestionByUserId(Page<MedicalDoctorQuestion> page, String userId);
+    /**
+     * 
+     * @param page
+     * @param userId
+     * @param isAnswer  -1 查全部     1  产
+     * @return
+     */
+    public Page<MedicalDoctorQuestion> selectDoctorQuestionByUserId(Page<MedicalDoctorQuestion> page, String userId,
+            Integer isAnswer);
 
     
     public Integer updateQuestion(DoctorQuestionVO doctorQuestionVO);

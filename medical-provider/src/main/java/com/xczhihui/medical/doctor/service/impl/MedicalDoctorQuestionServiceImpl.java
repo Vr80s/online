@@ -44,9 +44,12 @@ public class MedicalDoctorQuestionServiceImpl implements IMedicalDoctorQuestionS
 
     @Override
     public Page<MedicalDoctorQuestion> selectDoctorQuestionByUserId(Page<MedicalDoctorQuestion> page, 
-            String userId) {
+            String userId,Integer isAnswer) {
         
-        return page.setRecords(medicalDoctorQuestionMapper.selectDoctorQuestionByUserId(page,userId));
+        if(isAnswer!=null && isAnswer.equals(-1)) {
+            isAnswer = null;
+        }
+        return page.setRecords(medicalDoctorQuestionMapper.selectDoctorQuestionByUserId(page,userId,isAnswer));
     }
 
     

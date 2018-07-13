@@ -63,4 +63,6 @@ public class MedicalEntryInformationVO implements Serializable {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")
     private Date createTime;
 
+    private Integer apprentice;
+
 }

@@ -305,7 +305,7 @@ header{
 }
 .li_list_one_right .p00 .span{
 	font-size: 0.3rem;
-	color: #333;
+    color: #333;
     padding: 0.08rem 0;
     display: inline-block;
     margin-right: 0.2rem;
@@ -313,12 +313,13 @@ header{
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    float: left;
 }
 .li_list_one_right .duty{
     font-size: 0.24rem;
     color: #999999;
     margin-top: 0.1rem;
-    display: -webkit-box;
+    display: block;
 }
 .li_list_one_right .div .p0{
 	font-size: 0.24rem;
