@@ -674,7 +674,98 @@ function defaultId(){
 }
 // 定义获取当前页面id
 // var doctorId = getQueryString('doctor');
+function recentlyLive(userId){
+    requestService("/xczh/doctors/recentlyLive", {userId:userId},function (data) { 
+        if (data.success == true) {
+            createRecentlyLive(data);                            
+        }
+    });
+}
+function createRecentlyLive(data){
+    // 直播状态
+    //直播课程状态：lineState  1直播中， 2预告，3直播结束 ， 4 即将直播 ，5 准备直播 ，6 异常直播
+    $('#living_broadcastroom').html(template('living_broadcastroom_id', {items: data.resultObject}));
+        
+    var obj =  data.resultObject;
+    var startStr =  data.resultObject.startTime;
+    if(obj!=null && startStr!=null){       
+        //兼容ios和安卓了
+        var startTime = startStr.replace(/\-/g, "/");
+        function timer() {
+            //设置结束的时间
+            var endtime = new Date(startTime);
+            //设置当前时间
+            var now = new Date();
+            //得到结束与当前时间差 ： 毫秒
+            var t = endtime.getTime() - now.getTime();
+            
+            if (t > 0) {
+                //得到剩余天数
+                // var tian = Math.floor(t / 1000 / 60 / 60 / 24);
+                //得到还剩余的小时数（不满一天的小时）
+                var h = Math.floor(t / 1000 / 60 / 60 % 24);
+                if(h<10){
+                    h="0"+h;
+                }
+                //得到分钟数
+                var m = Math.floor(t / 1000 / 60 % 60);
+                if(m<10){
+                    m="0"+m;
+                }
+                //得到的秒数
+                var s = Math.floor(t / 1000 % 60);
+                if(s<10){
+                    s="0"+s;
+                }
+                var str = "直播倒计时 " + h + "：" + m + "：" + s;
+                $("#box1").html(str);
+            }
+        }
 
+        if(obj!=null && obj.isLive == 1){
+            setInterval(timer, 1000);
+        }else if(obj!=null && (obj.lineState ==2 || obj.lineState == 4  || obj.lineState ==5)){
+            var str ="开播时间   " + startStr.replace(/\-/g, ".").slice(0,16);
+            $("#box1").html(str);
+        }
+        
+    }
+}
+
+function createDoctorCourse(userId){
+    requestService("/xczh/doctors/doctorCourse", {userId:userId},function (data) {  
+        if (data.success == true) {
+            // 直播课程
+            $('#live_streaming').html(template('live_streaming_id', {items: data.resultObject[1].courseList}));
+        }
+    });
+}
+function doctorCourses(data){
+    userId = data.resultObject.userId;
+    var type = 3;
+    requestService("/xczh/course/courseTypeNumber", {  //二、获取完权限，获取课程数量。
+        userId : userId,
+        type : type
+        },function (data) {
+            if (data.success) {
+                var number = data.resultObject;
+                if (number > 0) {  //三、获取完课程判断类型。
+                    //最近的直播
+                    recentlyLive(userId);                        
+                    // 直播课程列表
+                    createDoctorCourse(userId);                        
+                }else{
+                    $(".no_live").css("display","block");     /*默认背景图*/
+                    $("#recommended").css("display","block"); /*显示为您推荐*/
+                    $(".living_broadcastroom").css("display","none");  /*封面图隐藏*/
+                    $("#live_lesson").css("display","none");  /*直播课程*/
+                    defaultId();
+                };
+
+            }
+        });
+}
+//判断医师是否具有主播权限
 requestService("/xczh/doctors/doctorStatus", {doctorId:doctorId},function (data) {  //一、获取是否医师权限。
     if (data.success == true) {
         // 0 无权限 1 医师认证通过 2 医馆认证通过 3 医师认证被禁用
@@ -684,174 +775,70 @@ requestService("/xczh/doctors/doctorStatus", {doctorId:doctorId},function (data)
                 $("#recommended").css("display","block");
                 $(".living_broadcastroom").css("display","none");  /*封面图隐藏*/
                 $("#live_lesson").css("display","none");  /*直播课程*/
-                defaultId();
-                
+                defaultId();                
         }else{
-            userId = data.resultObject.userId;
-            var type = 3;
-            requestService("/xczh/course/courseTypeNumber", {  //二、获取完权限，获取课程。
-                userId : userId,
-                type : type
-                },function (data) {
-                    if (data.success) {
-                        var number = data.resultObject;
-                        if (number > 0) {   //三、获取完课程判断类型。
-                            requestService("/xczh/doctors/recentlyLive", {
-                                userId:userId,
-                                pageSize: 1000
-                            },function (data) {  
-                                if (data.success == true) {
-                                    // 直播状态
-                                    //直播课程状态：lineState  1直播中， 2预告，3直播结束 ， 4 即将直播 ，5 准备直播 ，6 异常直播
-                                    $('#living_broadcastroom').html(template('living_broadcastroom_id', {items: data.resultObject}));
-                                        
-                                    var obj =  data.resultObject;
-                                    var startStr =  data.resultObject.startTime;
-                                    if(obj!=null && startStr!=null){
-                                        
-                                         //兼容ios和安卓了
-                                         var startTime = startStr.replace(/\-/g, "/");
-                                         
-                                         function timer() {
-                                                //设置结束的时间
-                                                var endtime = new Date(startTime);
-                                                //设置当前时间
-                                                var now = new Date();
-                                                //得到结束与当前时间差 ： 毫秒
-                                                var t = endtime.getTime() - now.getTime();
-                                                
-                                                if (t > 0) {
-                                                    //得到剩余天数
-                                                    // var tian = Math.floor(t / 1000 / 60 / 60 / 24);
-                                                    //得到还剩余的小时数（不满一天的小时）
-                                                    var h = Math.floor(t / 1000 / 60 / 60 % 24);
-                                                    if(h<10){
-                                                        h="0"+h;
-                                                    }
-                                                    //得到分钟数
-                                                    var m = Math.floor(t / 1000 / 60 % 60);
-                                                    if(m<10){
-                                                        m="0"+m;
-                                                    }
-                                                    //得到的秒数
-                                                    var s = Math.floor(t / 1000 % 60);
-                                                    if(s<10){
-                                                        s="0"+s;
-                                                    }
-                                                    var str = "直播倒计时 " + h + "：" + m + "：" + s;
-                                                    $("#box1").html(str);
-                                                }
-                                            }
-                                            
-                                            if(obj!=null && obj.isLive == 1){
-                                                setInterval(timer, 1000);
-                                            }else if(obj!=null && (obj.lineState ==2 || obj.lineState == 4  || obj.lineState ==5)){
-                                                var str ="开播时间   " + startStr.replace(/\-/g, ".").slice(0,16);
-                                                $("#box1").html(str);
-                                            }
-                                        
-                                    }
-                                    
-                                    }
-                                });
-                                requestService("/xczh/course/details", {userId:userId},function (data) {  
-                                    if (data.success == true) {
-                                        // 直播状态
-                                        //直播课程状态：lineState  1直播中， 2预告，3直播结束 ， 4 即将直播 ，5 准备直播 ，6 异常直播
-                                        $('#living_broadcastroom').html(template('living_broadcastroom_id', {items: data.resultObject}));
-                                    }
-                                });
-
-                                // 直播课程
-                                requestService("/xczh/doctors/doctorCourse", {userId:userId},function (data) {  
-                                    if (data.success == true) {
-                                        // 直播课程
-                                        $('#live_streaming').html(template('live_streaming_id', {items: data.resultObject[1].courseList}));
-                                    }
-                                });
-                            }else{
-                                $(".no_live").css("display","block");     /*默认背景图*/
-                                $("#recommended").css("display","block"); /*显示为您推荐*/
-                                $(".living_broadcastroom").css("display","none");  /*封面图隐藏*/
-                                $("#live_lesson").css("display","none");  /*直播课程*/
-                                defaultId();
-                            };
-
-                        }
-
-                            /*介绍开始*/
-                            // doctorIds = data.resultObject.doctorId;
-                            requestService("/xczh/doctors/introduction", {doctorId:getQueryString('doctor')},function (data) {
-                                if (data.success == true) {
-                                    // 介绍
-                                    if (data.resultObject != null || data.resultObject != '') {
-                                        
-                                    	//$('.self_introduction_cen_html').html(template('self_introduction_cen_id', {items: data.resultObject}));
-                                       
-                                    	// 个人介绍
-                                        if(data.resultObject.description == null || data.resultObject.description == ''){
-                                            $(".self_introduction").hide();
-                                        }else{
-                                            $(".self_introduction_cen").html(data.resultObject.description);
-                                        };
-                                    	
-                                        var hospitalData=data.resultObject.hospital;
-                                        if (hospitalData != null && hospitalData != "") {
-                                            $('.message_referral_main_time').html(template('message_referral_id', {items: hospitalData}));
-                                            if (hospitalData.name == "") {
-                                            $(".clinic").addClass("hide");
-                                            }
-                                            if (hospitalData.tel == null) {
-                                                $(".tel").addClass("hide");
-                                            }
-                                            if (hospitalData.detailedAddress == null) {
-                                                $(".house_address").addClass("hide");
-                                            }
-                                            /*if (data.resultObject.lecturerInfo = null && data.resultObject.lecturerInfo.workTime = null) {
-                                                $(".hid_wtime").addClass("hide");
-                                            }*/
-                                            
-                                            if(data.resultObject.workTime == null || data.resultObject.workTime == ''){
-                                                
-                                                $(".table").hide();
-                                            }else{
-
-                                                var workTime = data.resultObject.workTime; //这是一字符串 
-                                                // workTime = "1.1,3.2";
-                                                var apms = workTime.split(",");   //先分离,获取X--Y
-                                                for(var i in apms){
-                                                    var apm = apms[i].split(".");   
-                                                    $(".apm"+apm[0]+"_"+apm[1]+" img").show();
-                                                }
-                                            };
-                                        }else{
-                                            $(".message_referral_main_time").hide();
-                                        }
-
-                                    }else{
-                                        $(".message_referral_main_time").hide();
-                                        $(".self_introduction").hide();
-                                        $(".baseImagenumber").show();
-                                    };                          
-
-                                }else{
-                                    $(".message_referral_main_time").hide();
-                                    $(".self_introduction").hide();
-                                    $(".baseImagenumber").show();
-                                }; 
-                            });
-
-                            
-                            /*介绍结束*/
-
-                    });
-                    
-            }
-
+            //有权限，获取课程列表
+            doctorCourses(data); 
+        }
     }
-
-
 });
 /*直播间结束*/
+//获取医师个人介绍
+doctorIntroduction();
 
+function doctorIntroduction(){
+    requestService("/xczh/doctors/introduction", {doctorId:getQueryString('doctor')},function (data) {
+        if (data.success) {
+            createDoctorIntroduction(data.resultObject);
+        }else{
+            $(".message_referral_main_time").hide();
+            $(".self_introduction").hide();
+            $(".baseImagenumber").show();
+        }
+    });
+}
+
+function createDoctorIntroduction(introduction){
+    // 介绍
+    if (isNotBlank(introduction)) {
+        $('.self_introduction_cen_html').html(template('self_introduction_cen_id', {items: introduction}));
+        // 个人介绍
+        if(isNotBlank(introduction.description)){
+            $(".self_introduction_cen").html(introduction.description); 
+        }else{
+            $(".self_introduction").hide();
+            $(".baseImagenumber").show();            
+        };
+        
+        var hospitalData=introduction.hospital;
+        if (isNotBlank(hospitalData)) {
+            $('.message_referral_main_time').html(template('message_referral_id', {items: hospitalData}));
+            if (!isNotBlank(hospitalData.name)) {
+                $(".clinic").addClass("hide");
+            }
+            if (!isNotBlank(hospitalData.tel)) {
+                $(".tel").addClass("hide");
+            }
+            if (!isNotBlank(hospitalData.detailedAddress)) {
+                $(".house_address").addClass("hide");
+            }            
+            if(isNotBlank(introduction.workTime)){
+                var workTime = introduction.workTime; //这是一字符串 
+                var apms = workTime.split(",");   //先分离,获取X--Y
+                for(var i in apms){
+                    var apm = apms[i].split(".");   
+                    $(".apm"+apm[0]+"_"+apm[1]+" img").show();
+                }
+            }else{           
+                $(".table").hide();                
+            };
+        }else{
+            $(".message_referral_main_time").hide();
+        }
+    }else{
+        $(".message_referral_main_time").hide();
+        $(".self_introduction").hide();
+        $(".baseImagenumber").show();
+    };
+}
 
