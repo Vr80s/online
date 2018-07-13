@@ -285,11 +285,19 @@
 			<div class="bot_price">
 				{{if currentPrice>0}}
 					<a class="left_price z" href="javascript:;">
-					<p><span>{{currentPrice}}</span>熊猫币</p>
+					<p><span>{{currentPrice}}</span>熊猫币
+					{{if originalCost != null && originalCost != 0}}
+					原价<span style="text-decoration: line-through;color:#787878">{{originalCost}}</span>
+					{{/if}}
+					</p>
 				</a>
 					{{else}}
 					<a class="left_price z" href="javascript:;">
-					<p><span>免费</span></p>
+					<p><span>免费</span>
+					{{if originalCost != null && originalCost != 0}}
+					原价<span style="text-decoration: line-through;color:#787878">{{originalCost}}</span>
+					{{/if}}
+					</p>
 				</a>
 				{{/if}}
 <!--有无专辑付费0-->
