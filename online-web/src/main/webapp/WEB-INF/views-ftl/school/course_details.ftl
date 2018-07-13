@@ -77,9 +77,15 @@
                 </div>
 
             <#if courseInfo.watchState == 0 || courseInfo.watchState == 2>
-                <p><span>${courseInfo.currentPrice}</span>熊猫币</p>
+                <p><span>${courseInfo.currentPrice}</span>熊猫币
+                <#if (courseInfo.originalCost)?? && courseInfo.originalCost != 0>
+                    <span style="text-decoration: line-through;color:#787878;font-size:16px">${courseInfo.originalCost}</span>熊猫币
+                </#if></p>
             <#elseif courseInfo.watchState == 1>
-                <p><span style="font-size: 17px;">免费</span></p>
+                <p><span style="font-size: 17px;">免费</span>
+                <#if (courseInfo.originalCost)?? && courseInfo.originalCost != 0>
+                    <span style="text-decoration: line-through;color:#787878;font-size:16px">${courseInfo.originalCost}</span>熊猫币
+                </#if></p>
             </#if>
 
             <#-- 根据不同的课程类型，显示不同的课程介绍 -->
