@@ -375,6 +375,16 @@ public class CourseApplyController extends AbstractController {
         }
     }
 
+    @RequestMapping(value = "/teaching/saveCourseApply", method = RequestMethod.PUT)
+    public ResponseObject saveCourseApply4Teaching(@RequestBody CourseApplyInfo courseApplyInfo) {
+        OnlineUser user = getCurrentUser();
+        courseApplyInfo.setUserId(user.getId());
+        courseApplyInfo.setClientType(ClientType.PC.getCode());
+        courseApplyInfo.sett
+        courseApplyService.saveCourseApply(courseApplyInfo);
+        return ResponseObject.newSuccessResponseObject("保存成功");
+    }
+
     /**
      * 课程上架给关注该主播的用户发送消息
      *
