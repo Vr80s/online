@@ -9,6 +9,8 @@
  * third_party_falg   true 需要进行完善信息   false 不用进行完善信息
  * 返回 1000 有效   1002 过期，去登录页面  1005 过期且去完善信息
  */
+
+var USER_TOKEN_NULL = 1001;//token is null
 var USER_UN_LOGIN = 1002;//未登录
 var USER_TOP = 1003;//被顶掉
 var USER_UN_BIND = 1005;//用户用微信登录的但是没有绑定注册信息
@@ -194,7 +196,7 @@ function ajaxRequest(url, param,type, callback, ac) {
         async: ac,
         success: function (msg) {
             var rd = getCurrentRelativeUrl();
-            if (msg.code == USER_UN_LOGIN) {
+            if (msg.code == USER_UN_LOGIN || msg.code == USER_TOKEN_NULL) {
                 localStorage.setItem("rd", rd);
                 location.href = "/xcview/html/enter.html";
             } else if (msg.code == USER_TOP) { //被同一用户顶掉了
