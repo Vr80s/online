@@ -1072,6 +1072,7 @@ outline: none;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	overflow: hidden;
+	border: 1px solid #ededed;
 }
 .disciple-table-main table tr img{
 	width: 106px;
@@ -1533,8 +1534,119 @@ outline: none;
 	height: 80px;
 word-break:break-all;
 overflow: hidden;
-
+border: 1px solid #ededed;
 }
+.answer-list-table table :nth-child(2){
+	width: 228px;
+}
+.answer-list-table table th:nth-child(3){
+	width: 290px;
+}
+
+
+
+.answer-list-table table .question{
+	  width: 229px;
+overflow: hidden;
+padding: 10px;
+height: 80px;
+line-height: 22px;
+font-size: 14px;
+display: -webkit-box;
+-webkit-box-orient: vertical;
+-webkit-line-clamp: 3;
+}
+.answer-list-table table .answer{
+  width: 291px;
+overflow: hidden;
+padding: 10px;
+height: 80px;
+line-height: 22px;
+font-size: 14px;
+display: -webkit-box;
+-webkit-box-orient: vertical;
+-webkit-line-clamp: 3;
+}
+
+
+.answer-edit-replay{
+	position: fixed;
+	width: 960px;
+	min-height: 485px;
+	background: white;
+	transform: translate(-50%,-50%);
+	-webkit-transform: translate(-50%,-50%);
+	left: 50%;
+	top: 50%;
+	z-index: 99999;
+}
+.edit-replay-top{
+	    height: 60px;
+    border-bottom: 1px solid #f0f0f0;
+    padding: 0 40px;
+    line-height: 60px;
+}
+.edit-replay-top p{
+	float: left;
+	font-size: 16px;
+	margin: 0;
+}
+
+.edit-replay-top span{
+	float: right;
+	cursor: pointer;
+}
+.answer-edit-replay .querst-list{
+	margin-top: 40px;
+	overflow: hidden;
+}
+.answer-edit-replay .querst-list span{
+	display: block;
+	width:69px;
+	text-align: right;
+	margin-right: 20px;
+	color: #666666;
+	float: left;
+}
+.answer-edit-replay .querst-list p{
+	display: block;
+	width: 69px;
+	width: 736px;
+	max-height: 180px;
+	overflow-y: auto;
+	color: #333333;
+	float: left;
+}
+
+.querst-list textarea{
+	width: 736px;
+	height: 180px;
+	border: 1px solid #f0f0f0;
+	resize: none;
+	outline: none;
+	padding: 10px;
+}
+.querst-list button{
+	width: 120px;
+	height: 36px;
+	background: #00BC12;
+	border: 1px solid #00BC12;
+	border-radius: 4px;
+	color: white;
+	margin-bottom: 90px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
