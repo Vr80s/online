@@ -1,5 +1,5 @@
 $(function(){
-	//	市场点击发布/返回切换
+//	市场点击发布/返回切换
 	$(".live-top-title button").click(function(){
 		if($(this).text()=="发布"){
 			$(".disciple-list-wrap").addClass("hide");
@@ -106,10 +106,22 @@ $(function(){
 	})
 
 
+//----------------------------------问答解惑结束，师承管理开始--------------------------------------------
 
+	//	新增招生简章/返回切换
+	$(".namage-top button").click(function(){
+		if($(this).text()=="新增招生简章"){
+			$(".namage-list-table").addClass("hide");
+			$(".recruit-students").removeClass("hide");		
+			$(this).text("返回");
+		}else{
+			$(".namage-list-table").removeClass("hide");
+			$(".recruit-students").addClass("hide");	
+			$(this).text("新增招生简章");
+		}
+	})
 
-
-
+//	查看弹框
 
 
 
