@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.common.util.enums.EntryInformationType;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
+import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 import com.xczhihui.medical.enrol.mapper.ApprenticeSettingsMapper;
 import com.xczhihui.medical.enrol.mapper.MedicalEnrollmentRegulationsMapper;
 import com.xczhihui.medical.enrol.mapper.MedicalEntryInformationMapper;
@@ -43,6 +45,9 @@ public class EnrolServiceImpl implements EnrolService {
     private MedicalEntryInformationMapper medicalEntryInformationMapper;
     @Autowired
     private ApprenticeSettingsMapper apprenticeSettingsMapper;
+
+    @Autowired
+    private IMedicalDoctorBusinessService medicalDoctorBusinessService;
 
     @Override
     public Object getEnrollmentRegulationsList(int page, int size) {
@@ -215,7 +220,14 @@ public class EnrolServiceImpl implements EnrolService {
     @Override
     public Page<MedicalEnrollmentRegulations> listPageByDoctorId(String doctorId, int page, int pageSize) {
         Page<MedicalEnrollmentRegulations> medicalEnrollmentRegulationsPage = new Page<>(page, pageSize);
-        medicalEnrollmentRegulationsPage.setRecords(medicalEnrollmentRegulationsMapper.listPageByDoctorId(doctorId, medicalEnrollmentRegulationsPage));
+        MedicalDoctorVO medicalDoctorVO = medicalDoctorBusinessService.findSimpleById(doctorId);
+        List<MedicalEnrollmentRegulations> medicalEnrollmentRegulations = medicalEnrollmentRegulationsMapper.listPageByDoctorId(doctorId, medicalEnrollmentRegulationsPage);
+        medicalEnrollmentRegulations.forEach(mer -> {
+            if (medicalDoctorVO != null) {
+                mer.setName(medicalDoctorVO.getName());
+            }
+        });
+        medicalEnrollmentRegulationsPage.setRecords(medicalEnrollmentRegulations);
         return medicalEnrollmentRegulationsPage;
     }
 
