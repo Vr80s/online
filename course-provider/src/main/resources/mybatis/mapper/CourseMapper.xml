@@ -74,6 +74,7 @@
         oc.subtitle as subtitle,
         oc.course_length as courseLength,
         oc.current_price*10 as currentPrice,
+        oc.original_cost*10 as originalCost,
 
         IF(oc.collection = 1,( select count(*) from oe_criticize cc where cc.is_delete = 0 and cc.create_person is not
         null

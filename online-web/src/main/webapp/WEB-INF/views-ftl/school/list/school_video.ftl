@@ -68,8 +68,16 @@
                                 <#if courseItem.currentPrice gt 0 >
                                     <span class="price">${courseItem.currentPrice}</span>
 									 	 <span>熊猫币</span>
+                                    <#if (courseItem.originalCost)??>
+                                             <span>原价</span>
+                                                     <span style="text-decoration: line-through">${courseItem.originalCost}</span>
+                                    </#if>
                                 <#else>
                                     <span class="price">免费</span>
+                                    <#if (courseItem.originalCost)??>
+                                             <span>原价</span>
+                                                     <span style="text-decoration: line-through">${courseItem.originalCost}</span>
+                                    </#if>
                                 </#if>
 									
 									</span>

@@ -5,10 +5,10 @@ import com.xczhihui.common.util.CodeUtil;
 import com.xczhihui.medical.doctor.mapper.MedicalDoctorPostsMapper;
 import com.xczhihui.medical.doctor.mapper.MedicalDoctorReportMapper;
 import com.xczhihui.medical.doctor.mapper.MedicalSpecialColumnMapper;
-import com.xczhihui.medical.doctor.model.MedicalDoctorPosts;
 import com.xczhihui.medical.doctor.model.MedicalDoctorReport;
 import com.xczhihui.medical.doctor.model.MedicalDoctorSpecialColumn;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorArticleService;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsService;
 import com.xczhihui.medical.doctor.vo.MobileArticleVO;
 import com.xczhihui.medical.doctor.vo.OeBxsArticleVO;
 import com.xczhihui.medical.headline.mapper.OeBxsArticleMapper;
@@ -34,6 +34,8 @@ public class MedicalDoctorArticleServiceImpl implements IMedicalDoctorArticleSer
     private MedicalSpecialColumnMapper medicalSpecialColumnMapper;
     @Autowired
     private MedicalDoctorPostsMapper medicalDoctorPostsMapper;
+    @Autowired
+    private IMedicalDoctorPostsService medicalDoctorPostsService;
 
     @Override
     public Page<OeBxsArticleVO> listSpecialColumn(int page, int size, String doctorId, String keyQuery, String type) {
@@ -46,7 +48,7 @@ public class MedicalDoctorArticleServiceImpl implements IMedicalDoctorArticleSer
         oeBxsArticleMapper.insert(oeBxsArticle);
         if(oeBxsArticle.getStatus() == 1){
             //更新动态
-            addDoctorPosts(doctorId, oeBxsArticle);
+            medicalDoctorPostsService.addDoctorPosts(oeBxsArticle.getCreatePerson(),null,oeBxsArticle.getId(),"","");
         }
         MedicalDoctorSpecialColumn medicalDoctorSpecialColumn = new MedicalDoctorSpecialColumn();
         medicalDoctorSpecialColumn.setArticleId(String.valueOf(oeBxsArticle.getId()));
@@ -117,7 +119,7 @@ public class MedicalDoctorArticleServiceImpl implements IMedicalDoctorArticleSer
         oeBxsArticleMapper.insert(oeBxsArticle);
         if(oeBxsArticle.getStatus() == 1){
             //更新动态
-            addDoctorPosts(doctorId, oeBxsArticle);
+            medicalDoctorPostsService.addDoctorPosts(oeBxsArticle.getCreatePerson(),null,oeBxsArticle.getId(),"","");
         }
         MedicalDoctorReport medicalDoctorReport = new MedicalDoctorReport();
         medicalDoctorReport.setArticleId(String.valueOf(oeBxsArticle.getId()));
@@ -251,35 +253,6 @@ public class MedicalDoctorArticleServiceImpl implements IMedicalDoctorArticleSer
     public OeBxsArticleVO getSimpleInfo(int id) {
         return oeBxsArticleMapper.getSimpleInfo(id);
     }
-
-
-/**
- * Description：添加专栏/报道时同步动态
- * creed: Talk is cheap,show me the code
- * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
- * @Date: 2018/7/4 15:13
- **/
-    private void addDoctorPosts(String doctorId, OeBxsArticle oeBxsArticle) {
-        MedicalDoctorPosts mdp = new MedicalDoctorPosts();
-        mdp.setType(4);
-        mdp.setDoctorId(doctorId);
-        mdp.setArticleId(oeBxsArticle.getId());
-        if(oeBxsArticle.getTypeId().equals("8")){
-            //截取医案
-            if(oeBxsArticle.getContent().length()>100){
-                mdp.setContent(oeBxsArticle.getContent().substring(0,100)+"...");
-            } else {
-                mdp.setContent(oeBxsArticle.getContent());
-            }
-        } else {
-            mdp.setContent(oeBxsArticle.getTitle());
-        }
-        mdp.setArticleContent(oeBxsArticle.getContent());
-        mdp.setArticleImgPath(oeBxsArticle.getImgPath());
-        mdp.setArticleTitle(oeBxsArticle.getTitle());
-        medicalDoctorPostsMapper.addMedicalDoctorPosts(mdp);
-    }
-
 
 }
 

@@ -9,6 +9,8 @@ import com.xczhihui.bxg.online.web.body.doctor.EnrollmentRegulationsBody;
 import com.xczhihui.bxg.online.web.controller.AbstractController;
 import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
+import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
+import com.xczhihui.medical.enrol.model.MedicalEnrollmentRegulations;
 import com.xczhihui.medical.enrol.service.EnrolService;
 
 /**
@@ -34,7 +36,10 @@ public class EnrollmentRegulationsController extends AbstractController {
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     public ResponseObject get(@PathVariable int id) {
-        return ResponseObject.newSuccessResponseObject(enrolService.findById(id));
+        MedicalEnrollmentRegulations medicalEnrollmentRegulations = enrolService.findById(id);
+        MedicalDoctorVO medicalDoctorVO = medicalDoctorBusinessService.findSimpleById(medicalEnrollmentRegulations.getDoctorId());
+        medicalEnrollmentRegulations.setName(medicalDoctorVO.getName());
+        return ResponseObject.newSuccessResponseObject(medicalEnrollmentRegulations);
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
