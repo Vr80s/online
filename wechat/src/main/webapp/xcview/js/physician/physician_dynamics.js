@@ -31,8 +31,8 @@ function sowingMap() {
                 autoplay: true, //可选选项，自动滑动
                 loop: true,
                 pagination: {
-                    el: '.swiper-pagination',
-                },
+                    el: '.swiper-pagination'
+                }
             })
             
             //是否显示粉丝数
@@ -746,7 +746,7 @@ requestService("/xczh/doctors/doctorStatus", {doctorId:doctorId},function (data)
                                             if(obj!=null && obj.isLive == 1){
                                                 setInterval(timer, 1000);
                                             }else if(obj!=null && (obj.lineState ==2 || obj.lineState == 4  || obj.lineState ==5)){
-                                                var str = startStr.replace(/\-/g, ".").slice(0,16)+ "   即将直播";
+                                                var str ="开播时间   " + startStr.replace(/\-/g, ".").slice(0,16);
                                                 $("#box1").html(str);
                                             }
                                         
@@ -786,7 +786,15 @@ requestService("/xczh/doctors/doctorStatus", {doctorId:doctorId},function (data)
                                     // 介绍
                                     if (data.resultObject != null || data.resultObject != '') {
                                         
-                                    
+                                    	//$('.self_introduction_cen_html').html(template('self_introduction_cen_id', {items: data.resultObject}));
+                                       
+                                    	// 个人介绍
+                                        if(data.resultObject.description == null || data.resultObject.description == ''){
+                                            $(".self_introduction").hide();
+                                        }else{
+                                            $(".self_introduction_cen").html(data.resultObject.description);
+                                        };
+                                    	
                                         var hospitalData=data.resultObject.hospital;
                                         if (hospitalData != null && hospitalData != "") {
                                             $('.message_referral_main_time').html(template('message_referral_id', {items: hospitalData}));
@@ -815,23 +823,10 @@ requestService("/xczh/doctors/doctorStatus", {doctorId:doctorId},function (data)
                                                     var apm = apms[i].split(".");   
                                                     $(".apm"+apm[0]+"_"+apm[1]+" img").show();
                                                 }
-
                                             };
-
                                         }else{
                                             $(".message_referral_main_time").hide();
                                         }
-
-                                        $('.self_introduction_cen_html').html(template('self_introduction_cen_id', {items: data.resultObject}));
-                                        // 个人介绍
-                                        if(data.resultObject.description == null || data.resultObject.description == ''){
-                                            
-                                            $(".self_introduction").hide();
-                                        }else{
-
-                                            $(".self_introduction_cen").html(data.resultObject.description);
-                                        };
-
 
                                     }else{
                                         $(".message_referral_main_time").hide();

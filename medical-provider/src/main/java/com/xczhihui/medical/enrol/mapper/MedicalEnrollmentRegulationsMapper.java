@@ -1,6 +1,7 @@
 package com.xczhihui.medical.enrol.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -41,8 +42,11 @@ public interface MedicalEnrollmentRegulationsMapper extends BaseMapper<MedicalEn
      * @param doctorId 医师id
      * @return
      */
-    @Select({"SELECT id, title from medical_enrollment_regulations where doctor_id = #{doctorId} and status = 1 and deleted = false"})
-    List<MedicalEnrollmentRegulations> listByDoctorId(String doctorId);
+    @Select({"SELECT id, title, cover_img as coverImg, DATE_FORMAT(create_time, '%Y.%m.%d') as createTime" +
+            " from medical_enrollment_regulations" +
+            " where doctor_id = #{doctorId} and status = 1 and deleted = false" +
+            " order by create_time desc"})
+    List<Map<String, Object>> listByDoctorId(String doctorId);
 
     /**
      * 分页获取医师的招生简章

@@ -40,6 +40,12 @@
             float: left;
             margin-left: 0.1rem;
         }
+        .times{
+            padding: 0 0.16rem;
+            background: #fff;
+            font-size: 0.28rem;
+            color: #F97B49;
+        }
 
     </style>
 </head>
@@ -68,7 +74,8 @@
     <!-- 中间内容开始 -->
     <div class="main">
         
-        <div class="count_down">报名截止时间&nbsp;&nbsp;<span>{{deadline}}</span></div>
+        <!--<div class="count_down">报名截止时间&nbsp;&nbsp;<span>{{deadline}}</span></div>-->
+        <div class="count_down" id="box1"></span></div>
         <div class="intro_title_bg">
             <div class="intro_title">{{title}}</div>
                 <div class="head_portrait">
@@ -213,6 +220,16 @@
     };
 </script>
 <script>
+
+var back = document.referrer;
+if(isNotBlank(back) && back.indexOf("home_page.html") != -1){
+	sessionStorage.setItem("inherited_backFalg","home");
+}else if(isNotBlank(back) && back.indexOf("physicians_page.html") != -1){
+	sessionStorage.setItem("inherited_backFalg","physicians_page");
+}else if(isNotBlank(back) && back.indexOf("apprentice.html") != -1){ //
+	sessionStorage.setItem("inherited_backFalg","");
+} 
+
     // 控制手机物理键--返回
     window.onload = function () {
         if (window.history && window.history.pushState) {
@@ -223,14 +240,22 @@
                 if (hashName !== '') {
                     var hash = window.location.hash;
                     if (hash === '') {
-                    	
                     	var back = document.referrer;
-                    	if(isNotBlank(back) && back.indexOf("home_page.html") != -1){
+/*                     	if(isNotBlank(back) && back.indexOf("home_page.html") != -1){
                             window.location.href = "/xcview/html/home_page.html";
                             return;
                         }
                         if(isNotBlank(back) && back.indexOf("physicians_page.html") != -1){
                             window.history.go(-1);
+                        } */
+                        var backFalg = sessionStorage.getItem("inherited_backFalg");
+                        //alert(backFalg);
+                        if(backFalg == "home"){
+                        	  window.location.href = "/xcview/html/home_page.html";
+                              return;
+                        }else if(backFalg == "physicians_page"){
+                        	  window.history.go(-1);
+                        	  return;
                         }
                         location.href = '/xcview/html/apprentice/apprentice.html'
                     }

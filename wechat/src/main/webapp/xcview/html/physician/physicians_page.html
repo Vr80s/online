@@ -619,7 +619,7 @@
 						<div class="course_nav_cen_size" style="margin-top: 0;">{{item.startTime}}</div>
 						{{/if}}
 						{{if item.courseType==4}}
-						<div class="course_nav_cen_size" style="margin-top: 0;"><img src="/xcview/images/location_four.png" style="width: 0.19rem;height: 0.24rem;float: left;margin-right: 0.1rem; margin-top: 0.06rem;" />{{item.courseAddress}}</div>
+						<div class="course_nav_cen_size" style="margin-top: 0;"><img src="/xcview/images/location_four.png" style="width: 0.19rem;height: 0.24rem;float: left;margin-right: 0.1rem; margin-top: 0.06rem;margin-left:0.01rem;" />{{item.courseAddress}}</div>
 						{{/if}}
 
 						<!-- <div class="course_nav_rate" style="color: #F97B49;">免费</div> -->
@@ -737,8 +737,9 @@
 						</div>
 					{{else if items.lineState == 2 || items.lineState == 4 || items.lineState == 5}}
 						<div class="count_down">
+							<div class="count_down_title" style="margin-top: 0rem;margin-bottom:0.4rem;">即将直播：{{items.gradeName}}</div>
 							<div id="box1"></div>
-							<div class="count_down_title">{{items.gradeName}}</div>
+							
 						</div>
 					{{else if items.lineState == 3}}
 						<img src="/xcview/images/play_btn.png" alt="" class="broadcastroom_button" onclick="common_jump_all({{items.id}})" />
@@ -1100,7 +1101,7 @@
 			</div>
 			<div class="self_introduction_cen_html">
 				<script type="text/html" id="self_introduction_cen_id">
-				<div class="self_introduction_cen"></div>
+				   <div class="self_introduction_cen"></div>
 				</script>
 			</div>
 			
