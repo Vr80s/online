@@ -29,13 +29,26 @@ $(function () {
     //定位之前点击过的位置
     setTimeout(function () {
     	if (localStorage.docTblSta == 'doc_dynamic' || localStorage.docTblSta== null) $('.select_list li:first-child').click();
-    	if (localStorage.docTblSta == 'doc_banner') $('.select_list li:nth-child(2)').click();
-    	
+    	if (localStorage.docTblSta == 'doc_banner') $('.select_list li:nth-child(2)').click();  
         if (localStorage.docTblSta == 'doc_hos') $('.select_list li:nth-child(3)').click();
-        if (localStorage.docTblSta == 'doc_zhuanlan') $('.select_list li:nth-child(4)').click();
-        if (localStorage.docTblSta == 'doc_book') $('.select_list li:nth-child(5)').click();
-        if (localStorage.docTblSta == 'doc_media') $('.select_list li:nth-child(6)').click();
-        if (localStorage.docTblSta == 'doc_admit') $('.select_list li:nth-child(7)').click();
+        if (localStorage.docTblSta == 'doc_disciple'){
+        	$('.select_list li:nth-child(4)').click();
+        	if(localStorage.menuCache=="menu4-1"){
+        		$(".othor-set .littleBox p:nth-child(1)").click();
+        	}else if(localStorage.menuCache=="menu4-2"){
+        		$(".othor-set .littleBox p:nth-child(2)").click();
+        	}else if(localStorage.menuCache=="menu4-3"){
+        		$(".othor-set .littleBox p:nth-child(3)").click();
+        	}else if(localStorage.menuCache=="menu4-4"){
+        		$(".othor-set .littleBox p:nth-child(4)").click();
+        	}else if(localStorage.menuCache=="menu4-5"){
+        		$(".othor-set .littleBox p:nth-child(5)").click();
+        	}
+        }
+        if (localStorage.docTblSta == 'doc_zhuanlan') $('.select_list li:nth-child(5)').click();
+        if (localStorage.docTblSta == 'doc_book') $('.select_list li:nth-child(6)').click();
+        if (localStorage.docTblSta == 'doc_media') $('.select_list li:nth-child(7)').click();
+        if (localStorage.docTblSta == 'doc_admit') $('.select_list li:nth-child(8)').click();
     }, 100)
 
 
@@ -54,7 +67,7 @@ $(function () {
         $(".wrap_box .little_box").hide()
         $(".select_box").hide().eq($(this).index()).show();
 
-        window.localStorage.docTblSta = $(this).attr('data-name')
+        window.localStorage.docTblSta = $(this).attr('data-name');
 
         //判断顶部是否具有返回
         if ($(".select_box").eq($(this).index()).find('.changeStaBtn').text() == '返回') {
@@ -89,8 +102,6 @@ $(function () {
     $(".setTop").click(function () {
         $(".select_list .littleBox").slideUp()
         $(".select-ud").removeAttr("id")
-        $(".select_list .arrow_jt").removeClass("glyphicon-triangle-bottom")
-        $(".select_list .arrow_jt").addClass("glyphicon-triangle-left")
     })
     //对课程目录下小的下拉div进行操作
     $(".select_list .littleBox p").bind('click', function (event) {
@@ -98,6 +109,7 @@ $(function () {
         $(".select_list .littleBox p").removeClass("activeP");
         $(this).addClass("activeP");
         $(".contentWrap .little_box").hide().eq($(this).index()).show();
+        window.localStorage.menuCache = $(this).attr('data-name')
     })
 
     //		下拉小箭头设置
