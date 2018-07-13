@@ -51,20 +51,23 @@ function getShareIdAndType(){
 	}else if(viewHtml == "live_audio.html" || 
 			viewHtml == "live_play.html" ||
 			viewHtml == "live_class.html"){
+				
 		obj.shareId = getQueryString("my_study");
 		obj.shareType = 1;
 	}else if(viewHtml == "school_audio.html"|| 
 			viewHtml == "school_play.html"|| 
-			viewHtml == "school_class.html"|| 
-			viewHtml == "live_select_album.html"){
+			viewHtml == "school_class.html"){
 		
 		obj.shareId = getQueryString("course_id");
 		obj.shareType = 1;
-	}else if(viewHtml == "live_album.html"){
-	
-		obj.shareId = getQueryString("course_id");
-		obj.shareType = 3;
 		
+	}else if(viewHtml == "live_select_album.html"|| 
+            viewHtml == "live_album.html"){
+        obj.shareId = getQueryString("course_id");
+        if(viewHtml == "live_album.html"){
+        	obj.shareId = getQueryString("collection_id");
+        }
+        obj.shareType = 3;
 	}else if(viewHtml == "inherited_introduction.html"){
 		
 		obj.shareId = getQueryString("merId");
