@@ -94,8 +94,16 @@ $(function(){
 
 //----------------------------------我的弟子结束，问答解惑开始--------------------------------------------
 
-
-
+//	编辑/回复
+	$(".edit-question").click(function(){
+		$("#mask").removeClass("hide");
+		$(".answer-edit-replay").removeClass("hide");
+	})
+//	关闭编辑回复
+	$(".edit-replay-top").click(function(){
+		$("#mask").addClass("hide");
+		$(".answer-edit-replay").addClass("hide");
+	})
 
 
 

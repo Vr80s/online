@@ -1393,6 +1393,7 @@ outline: none;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+    height: 80px;
 }
 .myself-disciple-list table th:nth-child(1){
 	width: 95px;
@@ -1577,7 +1578,10 @@ display: -webkit-box;
 -webkit-box-orient: vertical;
 -webkit-line-clamp: 3;
 }
-
+.answer-list-table table .edit-question{
+	color: #188EEE;
+	cursor: pointer;
+}
 
 .answer-edit-replay{
 	position: fixed;
