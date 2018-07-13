@@ -14,7 +14,6 @@ import com.xczhihui.medical.doctor.vo.DoctorQuestionVO;
  * <p>
  * Mapper 接口
  * </p>
- *
  * @author yuxin
  * @since 2017-12-09
  */
@@ -24,7 +23,7 @@ public interface MedicalDoctorQuestionMapper extends BaseMapper<MedicalDoctorQue
             @Param("doctorId") String doctorId);
 
     List<MedicalDoctorQuestion> selectDoctorQuestionByUserId(@Param("page")Page<MedicalDoctorQuestion> page,
-            @Param("userId") String userId);
+            @Param("userId") String userId,@Param("isAnswer")Integer isAnswer);
 
     Integer updateQuestion(@Param("doctorQuestionVO")DoctorQuestionVO doctorQuestionVO);
     

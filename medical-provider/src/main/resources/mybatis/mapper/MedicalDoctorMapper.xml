@@ -56,7 +56,7 @@
         <if test="name != null and name!=''">
             and md.name like concat('%',#{name},'%')
         </if>
-        ORDER BY md.recommend_sort desc,CONVERT(md.`name` USING gbk) ASC
+        ORDER BY md.recommend_sort desc,md.create_time desc,CONVERT(md.`name` USING gbk) ASC
     </select>
 
     <select id="selectDoctorById" resultType="com.xczhihui.medical.doctor.vo.MedicalDoctorVO">
