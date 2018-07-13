@@ -14,7 +14,7 @@ $(function(){
 	}
 	/** 点播管理列表begin */
     var searchCase_P = new Array();
-    searchCase_P.push('{"tempMatchType":"9","propertyName":"search_service_type","propertyValue1":"0","tempType":"String"}');
+    searchCase_P.push('{"tempMatchType":"9","propertyName":"search_service_type0","propertyValue1":"0","tempType":"String"}');
 	var checkbox = '<input type="checkbox" class="ace" onclick="chooseAll(this)" /> <span class="lbl"></span>';
 	
 	var objData = [{ "title": checkbox,"class":"center","width":"5%","sortable":false,"data": 'id' ,"mRender":function(data,display,row){

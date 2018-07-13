@@ -2,6 +2,7 @@ package com.xczhihui.medical.doctor.service;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.medical.doctor.model.MedicalDoctorQuestion;
+import com.xczhihui.medical.doctor.vo.DoctorQuestionVO;
 
 /**
  * <p>
@@ -30,5 +31,12 @@ public interface IMedicalDoctorQuestionService {
      * @param question   问题描述
      */
     public void addQuestion(String accountId, String doctorId, String question);
+
+    public Page<MedicalDoctorQuestion> selectDoctorQuestionByUserId(Page<MedicalDoctorQuestion> page, String userId);
+
+    
+    public Integer updateQuestion(DoctorQuestionVO doctorQuestionVO);
+
+    public MedicalDoctorQuestion findQuestionDetailsById(Integer questionId);
 
 }

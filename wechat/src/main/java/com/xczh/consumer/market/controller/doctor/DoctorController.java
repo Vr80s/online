@@ -1,7 +1,6 @@
 package com.xczh.consumer.market.controller.doctor;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,8 +26,6 @@ import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorSolrService;
 import com.xczhihui.medical.doctor.vo.DoctorQueryVo;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorSolrVO;
-import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
-import com.xczhihui.medical.hospital.model.MedicalHospital;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalApplyService;
 
 /**
@@ -72,42 +69,8 @@ public class DoctorController {
     @RequestMapping("category")
     public ResponseObject category() {
 
-        Page<MedicalDoctorVO> page = new Page<>();
-        page.setCurrent(1);
-        page.setSize(3);
-
-        List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-        Page<MedicalDoctorVO> doctors0 = medicalDoctorBusinessService.selectDoctorPage(page, null, null, null, null, null);
-        if (doctors0 != null && doctors0.getSize() > 0) {
-            Map<String, Object> map = new HashMap<String, Object>();
-            map.put("code", -1);
-            map.put("text", "热门医师");
-            map.put("doctors", doctors0.getRecords());
-            list.add(map);
-        }
-        /**
-         * 循环枚举进行查询
-         */
-        List<Map> listMap = DoctorType.getDoctorTypeList();
-        for (int i = 0; i < listMap.size(); i++) {
-            Map maps = listMap.get(i);
-            Integer code = (Integer) maps.get("code");
-            String text = (String) maps.get("value");
-
-            Page<MedicalDoctorVO> doctors = medicalDoctorBusinessService.selectDoctorPage(page,
-                    code, null, null, null, null);
-            if (doctors != null && doctors.getSize() > 0) {
-
-                Map<String, Object> map1 = new HashMap<String, Object>();
-                map1.put("code", code);
-                map1.put("text", text);
-                map1.put("doctors", doctors.getRecords());
-                list.add(map1);
-            }
-        }
-        return ResponseObject.newSuccessResponseObject(list);
+        return ResponseObject.newSuccessResponseObject(medicalDoctorBusinessService.doctorCategoryList());
     }
-
     /**
      * 搜索列表接口
      *
@@ -127,7 +90,6 @@ public class DoctorController {
 		 */
         dqv.bulid();
 
-//        Page<MedicalDoctorVO> doctors = medicalDoctorBusinessService.selectDoctorListByQueryKey(new Page<MedicalDoctorVO>(pageNumber, pageSize),dqv);
         com.baomidou.mybatisplus.plugins.Page page = new Page<>();
         Page<MedicalDoctorSolrVO> doctors = medicalDoctorSolrService.selectDoctorListBySolr(new Page<>(pageNumber, pageSize), dqv);
 
@@ -215,12 +177,8 @@ public class DoctorController {
     	 * 医师详情
     	 */
         Map<String, Object> map = medicalDoctorBusinessService.selectDoctorWorkTimeAndDetailsById(doctorId);
-        
         if (map != null) {
-            //html片段
             map.put("doctorDetailsUrl", returnOpenidUri + "/xcview/html/person_fragment.html?type=5&typeId=" + doctorId);
-            MedicalHospital mha = medicalHospitalApplyService.getMedicalHospitalByDoctorId(doctorId);
-            map.put("hospital", mha);
         }
         return ResponseObject.newSuccessResponseObject(map);
     }

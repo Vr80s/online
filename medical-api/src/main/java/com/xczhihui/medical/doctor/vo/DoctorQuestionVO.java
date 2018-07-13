@@ -1,5 +1,6 @@
-package com.xczhihui.medical.vo;
+package com.xczhihui.medical.doctor.vo;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -10,9 +11,10 @@ import java.util.Date;
  * @author yuxin
  * @since 2017-12-09
  */
-public class DoctorQuestionVO{
+public class DoctorQuestionVO implements Serializable{
 
-
+    private static final long serialVersionUID = 1L;
+    
     /**
      * 医师答疑表
      */

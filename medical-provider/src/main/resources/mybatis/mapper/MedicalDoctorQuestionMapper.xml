@@ -16,4 +16,38 @@
            and  md.deleted = 0 AND md.status = 1
            order by mdq.update_time desc
     </select>
+    
+    <select id="selectDoctorQuestionByUserId" resultType="com.xczhihui.medical.doctor.model.MedicalDoctorQuestion">
+         select 
+            mdq.*
+         from  medical_doctor_question as mdq
+	         where  mdq.doctor_id = (select doctor_id from medical_doctor_account mda where mda.account_id = #{userId})
+	           order by mdq.create_time desc
+    </select>
+    
+    
+    <update id="updateQuestion" parameterType="com.xczhihui.medical.doctor.vo.DoctorQuestionVO">
+        UPDATE
+          medical_doctor_question mdq
+        SET
+        <if test="doctorQuestionVO.question != null">
+            mdq.question = #{doctorQuestionVO.question},
+        </if>
+        
+        <if test="doctorQuestionVO.answer != null">
+            mdq.answer = #{doctorQuestionVO.answer},
+        </if>
+        
+        <if test="doctorQuestionVO.deleted != null">
+            mdq.deleted = #{doctorQuestionVO.deleted},
+        </if>
+        <if test="doctorQuestionVO.status != null">
+            mdq.status = #{doctorQuestionVO.status},
+        </if>
+        <if test="doctorQuestionVO.createTime != null">
+            mdq.create_time = #{doctorQuestionVO.createTime},
+        </if>
+        mdq.`update_time` = NOW()
+        WHERE mdq.id = #{doctorQuestionVO.id}
+    </update>
 </mapper>

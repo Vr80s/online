@@ -173,4 +173,6 @@ public interface IMedicalDoctorBusinessService {
 
     MedicalDoctorVO findSimpleById(String doctorId);
 
+    public List<Map<String, Object>> doctorCategoryList();
+
 }

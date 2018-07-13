@@ -29,7 +29,7 @@ $(function(){
        if(data==null)return "";
        return data;
     }},
-    { "title": "医馆", "class":"center","width":"8%","sortable":false,"data": 'hospitalName',"mRender":function (data, display, row) {
+    { "title": "医馆", "class":"center","width":"8%","sortable":false,"data": 'hospital',"mRender":function (data, display, row) {
         if(data==null)return "";
         return data;
     }},

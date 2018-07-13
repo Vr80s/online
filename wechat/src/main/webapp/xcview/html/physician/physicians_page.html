@@ -611,7 +611,7 @@
 						<img src="{{item.smallImgPath}}" alt="" />
 						<div class="course_nav_cen_size">{{item.gradeName}}</div>
 						{{if item.currentPrice==0}}
-						<div class="course_nav_rate">免费</div>
+						<div class="course_nav_rate" style="color: #F97B49;">免费</div>
 						{{else}}
 						<div class="course_nav_rate"><span>{{item.currentPrice}}</span>熊猫币</div>
 						{{/if}}
@@ -622,7 +622,7 @@
 						<div class="course_nav_cen_size" style="margin-top: 0;"><img src="/xcview/images/location_four.png" style="width: 0.19rem;height: 0.24rem;float: left;margin-right: 0.1rem; margin-top: 0.06rem;" />{{item.courseAddress}}</div>
 						{{/if}}
 
-						<!-- <div class="course_nav_rate">免费</div> -->
+						<!-- <div class="course_nav_rate" style="color: #F97B49;">免费</div> -->
 					</div>
 					<div class="both"></div>
 				</div>
@@ -821,7 +821,7 @@
 
 					<div class="on_line_status">
 						{{if item.watchState == 1}}
-							<p class='money_status z' style="margin-top: -0.03rem;"><span>免费</span></p>
+							<p class='money_status z' style="margin-top: -0.03rem;"><span style="color: #F97B49;">免费</span></p>
 							{{else}}
 							<p class='money_status z' style="margin-top1: 0.003rem;"><span>{{item.currentPrice}}</span>熊猫币</p>
 							{{/if}}
@@ -990,7 +990,7 @@
 
 						<div class="on_line_status">
 							{{if item.watchState == 1}}
-								<p class='money_status z' style="margin-top: -0.03rem;"><span>免费</span></p>
+								<p class='money_status z' style="margin-top: -0.03rem;"><span style="color: #F97B49;">免费</span></p>
 								{{else}}
 								<p class='money_status z' style="margin-top1: 0.003rem;"><span>{{item.currentPrice}}</span>熊猫币</p>
 								{{/if}}

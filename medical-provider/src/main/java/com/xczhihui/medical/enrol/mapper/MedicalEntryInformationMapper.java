@@ -10,6 +10,7 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.medical.enrol.model.MedicalEntryInformation;
 import com.xczhihui.medical.enrol.vo.MedicalEntryInformationVO;
+import com.xczhihui.medical.headline.vo.SimpleUserVO;
 
 /**
  * <p>
@@ -57,8 +58,15 @@ public interface MedicalEntryInformationMapper extends BaseMapper<MedicalEntryIn
             " ORDER BY create_time DESC " +
             " </script>"})
     List<MedicalEntryInformationVO> listEntryInformationByDoctorId(@Param("doctorId") String doctorId, @Param("type") Integer type,
-                                                          @Param("apprentice") Integer apprentice, Page<MedicalEntryInformationVO> page);
+                                                                   @Param("apprentice") Integer apprentice, Page<MedicalEntryInformationVO> page);
 
     @Select({"select * from medical_entry_information where user_id = #{userId} and mer_id = #{merId} limit 1"})
     MedicalEntryInformation findOne(@Param("userId") String userId, @Param("merId") Integer merId);
+
+    @Select({"select ou.id, ou.name, ou.small_head_photo as smallHeadPhoto" +
+            " from medical_entry_information mei, oe_user ou" +
+            " where mei.doctor_id = #{doctorId} and mei.apprentice = 1 and mei.user_id = ou.id" +
+            " group by mei.user_id" +
+            " order by mei.id desc"})
+    List<SimpleUserVO> findApprenticesByDoctorId(@Param("doctorId") String doctorId);
 }

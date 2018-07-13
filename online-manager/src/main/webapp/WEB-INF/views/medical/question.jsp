@@ -15,17 +15,15 @@
 <div class="page-header">
   当前位置：医师医馆<small> <i class="ace-icon fa fa-angle-double-right"></i>
 </small>
-  <span> 科室管理 </span>
+  <span> 答惑管理 </span>
 </div>
 
 <div class="mainrighttab tabresourse bordernone">
   <p class="col-xs-4" style="padding:0px">
-    <button class="btn btn-sm btn-success add_bx" id="add_button" title="新增科室"><i class="glyphicon glyphicon-plus"></i> 新增科室</button>
     <button class="btn btn-sm btn-success deletes_bx"  onclick="deleteBatch();" title="批量删除"><i class="glyphicon glyphicon-trash"></i> 批量删除</button>
   </p>
     <div class="searchDivClass" id="searchDiv">
         <div class="profile-info-row" >
-
            <table frame=void >
                 <tr>
                     <td>
@@ -84,8 +82,9 @@
 <div id="updateDialog" class="hide">
     <form action="user/role/add" method="post" class="form-horizontal" role="form" id="update-form" style="margin-top: 15px;">
         <input type="hidden" name="id" id="update_id">
+        
         <div class="form-group">
-            <label class="col-sm-3 control-label no-padding-right"><i class="text-danger">*</i> 科室名称: </label>
+            <label class="col-sm-3 control-label no-padding-right"><i class="text-danger">*</i> 问题: </label>
             <div class="col-sm-9">
                 <input type="text" id="update_name" name="name"  style="margin-right: 15px;"  maxlength="4" class="col-xs-10 col-sm-8 {required:true,minlength:2}">
             </div>
@@ -93,7 +92,7 @@
           
         <div class="space-4"></div>
         <div class="form-group">
-            <label class="col-sm-3 control-label no-padding-right"><i class="text-danger"></i> 备注: </label>
+            <label class="col-sm-3 control-label no-padding-right"><i class="text-danger"></i> 回答: </label>
             <div class="col-sm-9">
                 <textarea class="col-xs-10 col-sm-8 " name="remark" id="update_remark" maxlength = "100" style="margin-top:10px" rows="3"></textarea>
             </div>
@@ -138,35 +137,5 @@
         </div>
     </form>
 </div>
-
-<!-- 修改推荐值form -->
-<div id="dialogUpdateRecommendSortDiv"></div>
-<div id="UpdateRecommendSortDialog" class="hide">
-    <form class="form-horizontal" id="UpdateRecommendSortFrom" method="post" action="" style="margin-top: 15px;">
-        <input type="hidden" name="id" id="UpdateRecommendSort_id">
-        <div class="form-group"  style="margin-top: 18px;" >
-            <label class="col-sm-3 control-label no-padding-right" for="sort"><font color="red">*</font>推荐值: </label>
-            <div class="col-sm-6">
-                <input type="text" name="sort"  id="sort" onkeyup="value=value.replace(/[^\d]/g,'')" class="col-xs-10 col-sm-12 {required:true}">
-            </div>
-        </div>
-    </form>
-</div>
-
-<!-- 查看 -->
-<!--  
-<div id="childMenuDialogDiv"></div>
-<div id="childMenuDialog" class="hide" >
-
-    <label class="control-label no-padding-right"><i class="text-danger">*</i> 请设置改分类包含的科室: </label>
-    <form class="form-horizontal"  method="post" action="" style="width:500px;">
-        <input type="hidden" name="parentId" id="parentId"/>
-        <table id="childMenus">
-
-        </table>
-   </form>
-</div>
--->
-
 
 <script type="text/javascript" src="/js/medical/department.js?ver=1.2"></script>

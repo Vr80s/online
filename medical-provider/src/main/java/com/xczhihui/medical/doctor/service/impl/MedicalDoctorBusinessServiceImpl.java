@@ -1,6 +1,12 @@
 package com.xczhihui.medical.doctor.service.impl;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
@@ -14,6 +20,7 @@ import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.toolkit.CollectionUtils;
 import com.xczhihui.common.util.XzStringUtils;
+import com.xczhihui.common.util.enums.DoctorType;
 import com.xczhihui.common.util.enums.HeadlineType;
 import com.xczhihui.medical.department.mapper.MedicalDepartmentMapper;
 import com.xczhihui.medical.department.model.MedicalDepartment;
@@ -28,7 +35,11 @@ import com.xczhihui.medical.doctor.model.MedicalDoctorAuthenticationInformation;
 import com.xczhihui.medical.doctor.model.MedicalDoctorDepartment;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorDepartmentService;
-import com.xczhihui.medical.doctor.vo.*;
+import com.xczhihui.medical.doctor.vo.DoctorQueryVo;
+import com.xczhihui.medical.doctor.vo.MedicalDoctorAuthenticationInformationVO;
+import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
+import com.xczhihui.medical.doctor.vo.MedicalWritingVO;
+import com.xczhihui.medical.doctor.vo.OeBxsArticleVO;
 import com.xczhihui.medical.exception.MedicalException;
 import com.xczhihui.medical.field.vo.MedicalFieldVO;
 import com.xczhihui.medical.headline.mapper.OeBxsArticleMapper;
@@ -38,6 +49,7 @@ import com.xczhihui.medical.hospital.mapper.MedicalHospitalMapper;
 import com.xczhihui.medical.hospital.model.MedicalHospital;
 import com.xczhihui.medical.hospital.model.MedicalHospitalAccount;
 import com.xczhihui.medical.hospital.model.MedicalHospitalDoctor;
+import com.xczhihui.medical.hospital.service.IMedicalHospitalApplyService;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalBusinessService;
 import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
 
@@ -76,6 +88,9 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
     @Autowired
     private IMedicalDoctorDepartmentService medicalDoctorDepartmentService;
 
+    @Autowired
+    private IMedicalHospitalApplyService medicalHospitalApplyService;
+    
     @Override
     public Page<MedicalDoctorVO> selectDoctorPage(Page<MedicalDoctorVO> page, Integer type, String hospitalId, String name, String field, String departmentId) {
         List<MedicalDoctorVO> records = null;
@@ -711,11 +726,53 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
         if(map!=null && map.get("description") !=null) {
             map.put("description",XzStringUtils.formatA(map.get("description").toString()));
         }
+        if (map != null) {
+            MedicalHospital mha = medicalHospitalApplyService.getMedicalHospitalByDoctorId(doctorId);
+            map.put("hospital", mha);
+        }
         return map;
     }
 
     @Override
     public MedicalDoctorVO findSimpleById(String doctorId) {
         return this.medicalDoctorMapper.selectDoctorById(doctorId);
+    }
+
+    @Override
+    public List<Map<String, Object>> doctorCategoryList() {
+        
+        
+        List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+        List<MedicalDoctorVO> doctors0 = medicalDoctorMapper.selectDoctorList(new Page<MedicalDoctorVO>(1,3), null, 
+                null, null, null, null);
+        
+        if (doctors0 != null && doctors0.size() > 0) {
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("code", -1);
+            map.put("text", "热门医师");
+            map.put("doctors", doctors0);
+            list.add(map);
+        }
+        /**
+         * 循环枚举进行查询
+         */
+        List<Map> listMap = DoctorType.getDoctorTypeList();
+        for (int i = 0; i < listMap.size(); i++) {
+            Map maps = listMap.get(i);
+            Integer code = (Integer) maps.get("code");
+            String text = (String) maps.get("value");
+
+            List<MedicalDoctorVO> doctors = medicalDoctorMapper.selectDoctorList(new Page<MedicalDoctorVO>(1,3),
+                    code, null, null, null, null);
+            if (doctors != null && doctors0.size() > 0) {
+
+                Map<String, Object> map1 = new HashMap<String, Object>();
+                map1.put("code", code);
+                map1.put("text", text);
+                map1.put("doctors", doctors);
+                list.add(map1);
+            }
+        }
+        return list;
     }
 }

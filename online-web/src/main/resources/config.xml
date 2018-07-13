@@ -335,6 +335,9 @@
     <dubbo:reference interface="com.xczhihui.medical.enrol.service.EnrolService" id="enrolServiceImpl"
                      timeout="${dubbo.consumer.timeout}"/>
 
+    <dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorQuestionService"
+                   id="medicalDoctorQuestionServiceImpl" timeout="${dubbo.provider.timeout}"/>   
+
     <!--=============================================消费者end============================================-->
 
 
