@@ -821,16 +821,16 @@ function createDoctorIntroduction(introduction){
             }
             if (!isNotBlank(hospitalData.detailedAddress)) {
                 $(".house_address").addClass("hide");
-            }            
+            }   
             if(isNotBlank(introduction.workTime)){
+                $(".table").hide();
+            }else{
                 var workTime = introduction.workTime; //这是一字符串 
                 var apms = workTime.split(",");   //先分离,获取X--Y
                 for(var i in apms){
                     var apm = apms[i].split(".");   
                     $(".apm"+apm[0]+"_"+apm[1]+" img").show();
                 }
-            }else{           
-                $(".table").hide();                
             };
         }else{
             $(".message_referral_main_time").hide();
