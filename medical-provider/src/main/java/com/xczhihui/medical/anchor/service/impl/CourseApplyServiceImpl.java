@@ -72,9 +72,9 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
      * @Date: 上午 11:21 2018/1/19 0019
      **/
     @Override
-    public Page<CourseApplyInfoVO> selectCourseApplyPage(Page<CourseApplyInfoVO> page, String userId, Integer courseForm, Integer multimediaType, String title) {
+    public Page<CourseApplyInfoVO> selectCourseApplyPage(Page<CourseApplyInfoVO> page, String userId, Integer courseForm, Integer multimediaType, String title, int teaching) {
         anchorInfoService.validateAnchorPermission(userId);
-        List<CourseApplyInfoVO> records = courseApplyInfoMapper.selectCourseApplyPage(page, userId, courseForm, multimediaType, title);
+        List<CourseApplyInfoVO> records = courseApplyInfoMapper.selectCourseApplyPage(page, userId, courseForm, multimediaType, title, teaching);
         page.setRecords(records);
         return page;
     }

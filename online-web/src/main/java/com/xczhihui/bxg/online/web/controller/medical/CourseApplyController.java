@@ -82,7 +82,7 @@ public class CourseApplyController extends AbstractController {
      * @Date: 下午 3:42 2018/1/19 0019
      **/
     @RequestMapping(value = "/getCourseApplyList", method = RequestMethod.GET)
-    public ResponseObject getCourseApplyList(Integer current, Integer size, Integer courseForm, Integer multimediaType, String title) {
+    public ResponseObject getCourseApplyList(Integer current, Integer size, Integer courseForm, Integer multimediaType, String title, int teaching) {
         Page<CourseApplyInfoVO> page = new Page<>();
         if (size == null) {
             size = Integer.MAX_VALUE;
@@ -91,7 +91,7 @@ public class CourseApplyController extends AbstractController {
         page.setCurrent(current);
         page.setSize(size);
         OnlineUser user = getCurrentUser();
-        return ResponseObject.newSuccessResponseObject(courseApplyService.selectCourseApplyPage(page, user.getId(), courseForm, multimediaType, title));
+        return ResponseObject.newSuccessResponseObject(courseApplyService.selectCourseApplyPage(page, user.getId(), courseForm, multimediaType, title,teaching));
     }
 
     /**
@@ -385,6 +385,16 @@ public class CourseApplyController extends AbstractController {
         courseApplyInfo.setClientType(ClientType.PC.getCode());
         courseApplyInfo.setTeaching(true);
         courseApplyService.saveCourseApply(courseApplyInfo);
+        return ResponseObject.newSuccessResponseObject("保存成功");
+    }
+
+    @RequestMapping(value = "/teaching/updateCourseApply", method = RequestMethod.POST)
+    public ResponseObject updateCourseApply4Teaching(@RequestBody CourseApplyInfo courseApplyInfo) {
+        OnlineUser user = getCurrentUser();
+        courseApplyInfo.setUserId(user.getId());
+        courseApplyInfo.setClientType(ClientType.PC.getCode());
+        courseApplyInfo.setTeaching(true);
+        courseApplyService.updateCourseApply(courseApplyInfo);
         return ResponseObject.newSuccessResponseObject("保存成功");
     }
 
