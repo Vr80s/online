@@ -204,4 +204,6 @@ public interface CourseMapper extends BaseMapper<Course> {
 
     @Select("SELECT COUNT(*) FROM `course_teaching` ct WHERE ct.`course_id`=#{courseId} AND ct.`user_id`=#{accountId}")
     int selectQualification4TeachingCourse(@Param("accountId") String accountId, @Param("courseId") Integer courseId);
+
+    CourseLecturVo selectDoctorLiveRoomRecentCourse(@Param("userId")String userId, @Param("onlyFree") boolean onlyFreee);
 }

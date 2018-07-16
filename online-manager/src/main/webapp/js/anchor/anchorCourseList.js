@@ -26,7 +26,7 @@ $(function() {
         { "title": "主讲人", "class":"center","width":"8%","sortable":false,"data": 'lecturer'},
         { "title": "价格", "class":"center","width":"8%","sortable":false,"data": 'price'},
         { "title": "原价", "class":"center","width":"8%","sortable":false,"data": 'originalCost',"mRender":function(data,display,row){
-                if(data!=null){
+                if(data!=null && data != 0){
                     return data;
                 }
                 return "";

@@ -178,7 +178,7 @@ function doctorPostsList(pageNumber,downOrUp,doctorPostsType) {
                 
                 isShow = true;
                 $(".baseImagenumbers").show();
-                $(".upwrap-tips").hide();
+                //$(".upwrap-tips").hide();
             }else{
                 isShow = false;
                 $(".baseImagenumbers").hide();
@@ -452,6 +452,7 @@ function doctorPostsList(pageNumber,downOrUp,doctorPostsType) {
 function postsType(obj) {
     doctorPostsType = $(obj).attr("value");
     if (option_id == "li-1"){
+        page = 1;
         doctorPostsList(1,"down",doctorPostsType);
     }
 
@@ -678,7 +679,7 @@ var miniRefresh = new MiniRefresh({
                 page++;
                 doctorPostsList(page,'up',doctorPostsType);
             } else {
-                miniRefresh.endUpLoading(false);// 结束上拉加载
+                miniRefresh.endUpLoading(true);// 结束上拉加载
             }
         }
     }
@@ -756,6 +757,9 @@ function createRecentlyLive(data){
 
         if(obj!=null && obj.isLive == 1){
             setInterval(timer, 1000);
+            $(".count_down_title_span").hide();
+            $("#box1").css("margin-top","-1.9rem");
+            $(".count_down_title").css("margin-top","1rem");
         }else if(obj!=null && (obj.lineState ==2 || obj.lineState == 4  || obj.lineState ==5)){
             var str ="开播时间   " + startStr.replace(/\-/g, ".").slice(0,16);
             $("#box1").html(str);

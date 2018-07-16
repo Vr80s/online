@@ -234,7 +234,7 @@ public class CourseController extends AbstractController {
     @ResponseBody
     public ResponseObject courseDetails(HttpServletRequest request, @RequestParam("courseId") Integer courseId) {
         try {
-            CourseLecturVo cv = courseServiceImpl.selectCourseMiddleDetailsById(courseId);
+            CourseLecturVo cv = courseServiceImpl.selectCourseMiddleDetailsById(null,courseId);
             if (cv == null) {
                 return ResponseObject.newErrorResponseObject("课程信息有误");
             }
