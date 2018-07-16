@@ -43,6 +43,8 @@ $(function () {
         		$(".othor-set .littleBox p:nth-child(4)").click();
         	}else if(localStorage.menuCache=="menu4-5"){
         		$(".othor-set .littleBox p:nth-child(5)").click();
+        	}else if(localStorage.menuCache=="menu4-6"){
+        		$(".othor-set .littleBox p:nth-child(6)").click();
         	}
         }
         if (localStorage.docTblSta == 'doc_zhuanlan') $('.select_list li:nth-child(5)').click();

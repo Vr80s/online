@@ -968,7 +968,116 @@ outline: none;
 	border: 0;
 	outline: none;
 }
-/*师承收徒 跟师直播*/
+/*师承收徒 远程诊疗*/
+.long-range-top{
+	    width: 100%;
+    height: 60px;
+    border-bottom: 1px solid #f0f0f0;
+    line-height: 60px;
+    padding: 0 20px;
+}
+.long-range-top span{
+	font-size: 16px;
+}
+.long-range-top .long-range-btn{
+	width:112px;
+    height: 36px;
+    background: #00bc12;
+    border-radius: 4px;
+    color: white;
+    line-height: 36px;
+    border: 0;
+    outline: none;
+    float: right;
+    margin-top: 12px;
+}
+.long-range-table {
+	padding: 20px;
+}
+.long-range-table table{
+	width: 100%;
+    border: 1px solid #f0f0f0;
+    text-align: center;
+    table-layout: fixed;
+}
+.long-range-table table th {
+    text-align: center;
+    padding: 10px 0;
+    background: #f0f0f0;
+    border: 1px solid #dedede;
+} 
+.long-range-table table th:nth-child(1) {
+    width: 216px;
+} 
+.long-range-table table th:nth-child(2) {
+    width: 103px;
+} 
+.long-range-table table th:nth-child(3) {
+    width: 324px;
+} 
+.long-range-table table th:nth-child(4) {
+    width: 96px;
+} 
+.long-range-table table th:nth-child(5) {
+    width:177px;
+} 
+.long-range-table table td {
+    border: 1px solid #dedede;
+    padding: 10px;
+    height: 80px;
+} 
+.long-range-table table td:nth-child(2){
+	    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.long-range-table table td span{
+	color: #188EEE;
+}
+.long-range-table table td span:nth-child(1){
+	margin-right: 30px;
+}
+.long-range-question{
+	width: 100%;
+    overflow: hidden;
+    height: 40px;
+    line-height: 20px;
+    font-size: 14px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+ .establish-time-wrap{
+ 	padding: 20px;
+ }   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*师承直播*/
 .live-top-title{
 	width: 100%;
 	height: 60px;
@@ -1959,23 +2068,6 @@ display: -webkit-box;
 	background: white;
 	color: #00bc12;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /*收徒设置*/
 
