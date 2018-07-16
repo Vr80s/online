@@ -444,7 +444,7 @@
         $(".reply-delete").each(function () {
             $(this).click(function () {
                 var commentId = $(this).attr("data-commentId");
-                comfirmBox.open("删除评论", "确定删除该条评论？", function (closefn) {
+                confirmBox.open("删除评论", "确定删除该条评论？", function (closefn) {
                     RequestService('/bxs/article/deleteAppraiseId', "POST", {
                         appraiseId: commentId
                     }, function (data) {

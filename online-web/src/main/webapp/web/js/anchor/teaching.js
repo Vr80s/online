@@ -1,21 +1,11 @@
 $(function () {
     initMenu();
     initEditor();
+    $(".teachingTab").click(function(){courseList(1)});
+    $(".course_search").click(function(){
+        courseList(1);
+    })
 });
-
-
-//渲染课程列表方法
-function getCourseList() {
-    //控制页面返回课程列表页
-    if ($('#curriculum .curriculum_one .zhuanlan_top .button').text() == "返回") {
-        $('#curriculum .curriculum_one .zhuanlan_top .button').click();
-    }
-
-    $('#course_name').val('')
-    $("#course_type option:first").prop("selected", 'selected');
-    courseList(1);
-}
-
 
 /**
  * Description：课程列表
@@ -44,9 +34,9 @@ function courseList(current) {
         //每次请求完数据就去渲染分页部分
         if (data.resultObject.pages > 1) { //分页判断
             $(".not-data").remove();
-            $(".course_pages").css("display", "block");
-            $(".course_pages .searchPage .allPage").text(data.resultObject.pages);
-            $("#Pagination").pagination(data.resultObject.pages, {
+            $(".live_pages").css("display", "block");
+            $(".live_pages .searchPage .allPage").text(data.resultObject.pages);
+            $("#pagination_live").pagination(data.resultObject.pages, {
                 num_edge_entries: 1, //边缘页数
                 num_display_entries: 4, //主体页数
                 current_page: current - 1,
@@ -56,7 +46,7 @@ function courseList(current) {
                 }
             });
         } else {
-            $(".course_pages").css("display", "none");
+            $(".live_pages").css("display", "none");
         }
     });
 }
@@ -91,7 +81,7 @@ function addCourse(course) {
                 showTip(data.resultObject);
                 resetCourseForm(true);
                 setTimeout(function () {
-                    getCourseList();
+                    courseList(1);
                     $(".change-status").click();
                 }, 2000);
             } else {
@@ -114,7 +104,7 @@ function updateCourse(course) {
                 showTip(data.resultObject);
                 resetCourseForm(false);
                 setTimeout(function () {
-                    getCourseList();
+                    courseList(1);
                     $(".change-status").click();
                 }, 2000);
             } else {
@@ -137,16 +127,12 @@ function editCourse(caiId, passEdit) {
 function deleteCourse(caiId) {
     var title = "删除";
     var content = "确认删除该课程？";
-    confirmBox(title, content, function (closefn) {
+    confirmBox.open(title, content, function (closefn) {
         RequestService("/anchor/course/deleteCourseApplyById?caiId=" + caiId, "get", null, function (data) {
             closefn();
             if (data.success) {
                 showTip(data.resultObject);
-                if (collection) {
-                    courseCollectionList(1);
-                } else {
-                    courseList(1);
-                }
+                courseList(1);
             } else {
                 showTip(data.errorMessage);
             }
@@ -169,8 +155,8 @@ function echoCourse(caiId, passEdit) {
     $('#caiId').val(caiId);
     $('.course_title').val(course.title);
     $('.course_subtitle').val(course.subtitle);
-    $('#courseImg').html('<img src="" style="width: 100%;height: 100%" >');
-    $('#courseImg img').attr('src', course.imgPath);
+    $('.disciple-wrap-img').html('<img src="" style="width: 100%;height: 100%" >');
+    $('.disciple-wrap-img img').attr('src', course.imgPath);
     $('.course_lecturer ').val(course.lecturer);
     if (course.lecturerDescription) {
         UE.getEditor('editor_lecturer').setContent(course.lecturerDescription);
@@ -290,7 +276,7 @@ function resetCourseForm(sp) {
    $("#caiId").val("");
     $('.course_title').val("");
     $('.course_subtitle').val("");
-    // $('.disciple-wrap-img img').attr('src');
+    $('.disciple-wrap-img').html('<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p><p style="text-align: center;color: #999;font-size: 14px;">点击上传封面图片</p>');
     $('.course_lecturer ').val("");
     // $('#menu_select').val("");
     $('.course_price').val("");
@@ -419,7 +405,7 @@ function confirmCourseSale(state, courseApplyId, courseId) {
         title = "课程下架";
         content = "确认下架该课程？";
     }
-    confirmBox(title, content, function (closefn) {
+    confirmBox.open(title, content, function (closefn) {
         $.ajax({
             type: "post",
             url: bath + "/anchor/course/changeSaleState",
@@ -456,6 +442,5 @@ function initMenu() {
             }
         }
         $("#menu_select").html(str);
-        $("#menu_select_collection").html(str);
     });
 }

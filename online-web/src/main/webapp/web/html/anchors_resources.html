@@ -53,7 +53,6 @@
 		<script type="text/javascript" src="/web/js/helpers.js"></script>
 		<script src="/web/js/ajax.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/web/html/header-physician/header.js" type="text/javascript" charset="utf-8"></script>
-		<script src="/web/js/common_msg.js" type="text/javascript"></script>
 		<!--分页部分start-->
 		<script src="/web/js/anchor/pages/jquery.pagination-course.js"></script>
 		<!--分页部分start-->
@@ -280,7 +279,7 @@
 							</span>
 
 							<div class="littleBox">
-								<p class="activeP" data-name="menu4-1">师承直播</p>
+								<p class="activeP teachingTab" data-name="menu4-1">师承直播</p>
 								<p data-name="menu4-2">我的弟子</p>
 								<p data-name="menu4-3">问答解惑</p>
 								<p data-name="menu4-4">师承管理</p>
@@ -963,11 +962,11 @@
 								<div class="disciple-search z">
 									<img src="/web/images/search.png"/>
 									<input id="course_name" placeholder="课程名称" />
-									<button type="button" onclick="getCourseList()">搜索</button>
+									<button type="button" class="course_search">搜索</button>
 								</div>
 							</div>
 							<div class="disciple-table-main">
-								<table id="live-list">
+								<table id="live-list" style="margin-bottom: 30px;">
 									<thead>
 									</thead>
 									<tbody id="course_list">
@@ -990,6 +989,15 @@
 										<!--</td>-->
 									<!--</tr>-->
 								</table>
+								<!--这是分页-->
+								<div class="pages live_pages" style="display:none" style="padding-bottom: 20px;">
+									<div id="pagination_live" class="pagination-pages"></div>
+									<div class="searchPage">
+										<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+										<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
+										<a href="javascript:;" class="page-btn">确定</a>
+									</div>
+								</div>
 							</div>
 							<!--选择弟子-->
 							<div class="pupil-modal-wrap hide">
@@ -1938,6 +1946,7 @@
 	<script src="/web/js/anchors-disciple.js?v=ipandatcm_1.2.1" type="text/javascript" charset="UTF-8"></script>
 	<script src="/web/js/anchors_resources.js?v=ipandatcm_1.2.1" type="text/javascript" charset="UTF-8"></script>
 	<script src="/web/js/anchor/teaching.js?v=ipandatcm_1.2.1" type="text/javascript" charset="UTF-8"></script>
+	<script src="/web/js/common_msg.js" type="text/javascript" charset="UTF-8"></script>
 
 	<script>
 	

@@ -18,7 +18,7 @@ function showTip(contant,fn){
 
 
 //确认取消框
-var comfirmBox = {
+var confirmBox = {
 	init : function(){
 		var confirmStr ='<div class="wxc-bgcolor"></div>'+
 						'<div id="wxc-wrap">'+
@@ -122,12 +122,12 @@ var comfirmBox = {
 		    $(".wxc-header-title").html(title);
 		    $(".wxc-conetent-text").html(content);
 		    $(".wxc-confirm").click(function(){
-		        fn(comfirmBox.close);
+		        fn(confirmBox.close);
 		    })
 		    $('#wxc-wrap').show();
 			$(".wxc-bgcolor").show();
 			$("body").on("click",".wxc-remove",function(){
-				comfirmBox.close();
+				confirmBox.close();
 			})
 	},
 	//确认框关闭
@@ -138,8 +138,8 @@ var comfirmBox = {
 	}
 }
 //用前先初始化
-comfirmBox.init()
-//comfirmBox.open("标题","内容",function(closefn){
+confirmBox.init()
+//confirmBox.open("标题","内容",function(closefn){
 ////	alert("abc");  执行的逻辑
 //	closefn();    关闭弹窗
 //});
