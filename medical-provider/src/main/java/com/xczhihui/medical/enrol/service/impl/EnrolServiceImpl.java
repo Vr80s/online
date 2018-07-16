@@ -131,12 +131,12 @@ public class EnrolServiceImpl implements EnrolService {
         Integer merId = medicalEntryInformationVO.getMerId();
         String userId = medicalEntryInformationVO.getUserId();
         //招生简章
+        validateMedicalEntryInformation(medicalEntryInformationVO);
         if (merId != null && merId != 0) {
             MedicalEnrollmentRegulations medicalEnrollmentRegulations = medicalEnrollmentRegulationsMapper.selectById(merId);
             if (medicalEnrollmentRegulations == null || medicalEnrollmentRegulations.getDeleted() || !medicalEnrollmentRegulations.getStatus()) {
                 throw new MedicalException("该招生不存在或已结束");
             }
-            validateMedicalEntryInformation(medicalEntryInformationVO);
             if (medicalEntryInformationMapper.findOne(userId, merId) != null) {
                 throw new MedicalException("您已报名！");
             }
