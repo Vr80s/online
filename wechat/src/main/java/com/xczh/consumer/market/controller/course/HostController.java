@@ -280,4 +280,13 @@ public class HostController {
             return ResponseObject.newErrorResponseObject("网络开小差");
         }
     }
+    
+    public static void main(String[] args) {
+        
+        
+        Optional<String> accountIdOpt = Optional.of(null);
+        
+        System.out.println(accountIdOpt.get());
+    }
+    
 }

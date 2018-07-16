@@ -19,9 +19,12 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.CourseUtil;
-import com.xczhihui.common.util.WeihouInterfacesListUtil;
 import com.xczhihui.common.util.XzStringUtils;
-import com.xczhihui.course.service.*;
+import com.xczhihui.course.service.ICourseService;
+import com.xczhihui.course.service.ICriticizeService;
+import com.xczhihui.course.service.IFocusService;
+import com.xczhihui.course.service.IMobileBannerService;
+import com.xczhihui.course.service.IWatchHistoryService;
 import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.medical.anchor.service.ICourseApplyService;
 
@@ -105,53 +108,14 @@ public class CourseController {
     public ResponseObject details(@Account(optional = true) Optional<String> accountIdOpt, @RequestParam("courseId") Integer courseId)
             throws Exception {
 
-        CourseLecturVo cv = courseServiceImpl.selectCourseMiddleDetailsById(courseId);
+        CourseLecturVo cv = courseServiceImpl.selectCourseMiddleDetailsById(accountIdOpt!=null ? accountIdOpt.get() : null,courseId);
         
         if (cv == null) {
             return ResponseObject.newErrorResponseObject("课程信息有误");
         }
-        //设置星星级别
-        cv.setStartLevel(CourseUtil.criticizeStartLevel(cv.getStartLevel()));
-        cv.setRichCourseDetailsUrl(returnOpenidUri + "/xcview/html/person_fragment.html?type=1&typeId=" + courseId);
-        cv.setRichHostDetailsUrl(returnOpenidUri + "/xcview/html/person_fragment.html?type=3&typeId=" + courseId);
+        //赋值公共参数
+        cv = assignCommonData(cv,courseId);
 
-        //专辑查看更新时间
-        if (cv.getCollection()) {
-            
-            //已更新多少集，等于总集数
-            if(cv.getCourseNumber()!=null && cv.getDirtyNumber()!=null && 
-                    cv.getCourseNumber().equals(cv.getDirtyNumber())) {
-                cv.setDirtyDate(XzStringUtils.COLLECTION_UPDATE_FINISH);
-            }else {
-                cv.setDirtyDate(courseApplyService.getCollectionUpdateDateText(courseId));
-            }
-            
-            cv.setOutlineDetailsUrl(returnOpenidUri + "/xcview/html/outline_fragment.html?courseId=" + courseId);
-        }
-
-        /**
-         * 这里需要判断是否购买过了
-         */
-        if (accountIdOpt.isPresent()) {
-            String accountId = accountIdOpt.get();
-            // 是否关注
-            Integer isFours = focusServiceRemote.isFoursLecturer(accountId, cv.getUserLecturerId());
-            if (isFours != 0) {
-                cv.setIsFocus(1);
-            }
-            Integer falg = criticizeService.hasCourse(accountId, courseId);
-            //如果是付费课程，判断这个课程是否已经被购买了
-            if (cv.getWatchState() == 0) { // 付费课程
-                if (falg > 0) {
-                    cv.setWatchState(2);
-                }
-                //如果是免费的  判断是否学习过
-            } else if (cv.getWatchState() == 1) { // 免费课程
-                if (falg > 0) {
-                    cv.setLearning(1);
-                }
-            }
-        }
         return ResponseObject.newSuccessResponseObject(cv);
     }
 
@@ -167,65 +131,14 @@ public class CourseController {
     public ResponseObject liveDetails(@Account(optional = true) Optional<String> accountIdOpt, @RequestParam("courseId") Integer courseId)
             throws Exception {
 
-        CourseLecturVo cv = courseServiceImpl.selectCourseDetailsById(courseId);
+        CourseLecturVo cv = courseServiceImpl.selectCourseDetailsById(accountIdOpt!=null ? accountIdOpt.get() : null,courseId);
         if (cv == null) {
             return ResponseObject.newErrorResponseObject("获取课程有误");
         }
-        //判断星级
-        cv.setStartLevel(CourseUtil.criticizeStartLevel(cv.getStartLevel()));
-        cv.setRichCourseDetailsUrl(returnOpenidUri + "/xcview/html/person_fragment.html?type=1&typeId=" + courseId);
-        cv.setRichHostDetailsUrl(returnOpenidUri + "/xcview/html/person_fragment.html?type=2&typeId=" + courseId);
-        //专辑查看更新时间
-        if (cv.getCollection()) {
-           
-            //已更新多少集，等于总集数
-            if(cv.getCourseNumber()!=null && cv.getDirtyNumber()!=null && 
-                    cv.getCourseNumber().equals(cv.getDirtyNumber())) {
-                cv.setDirtyDate(XzStringUtils.COLLECTION_UPDATE_FINISH);
-            }else {
-                cv.setDirtyDate(courseApplyService.getCollectionUpdateDateText(courseId));
-            }
-            
-            
-            cv.setOutlineDetailsUrl(returnOpenidUri + "/xcview/html/outline_fragment.html?courseId=" + courseId);
-        }
-        
 
-        
-        
-        
-        //判断当前在线人数
-        if (cv.getType() != null && cv.getLineState() != null && cv.getType() == 1 && cv.getLineState() == 1) {
-            Integer lendCount = cv.getLearndCount() + WeihouInterfacesListUtil.getCurrentOnlineNumber(cv.getDirectId());
-            cv.setLearndCount(lendCount);
-        }
-        /**
-         * 这里需要判断是否购买过了
-         */
-        if (accountIdOpt.isPresent()) {
-            String accountId = accountIdOpt.get();
-            // 是否关注
-            Integer isFours = focusServiceRemote.isFoursLecturer(accountId,
-                    cv.getUserLecturerId());
-            if (isFours != 0) {
-                cv.setIsFocus(1);
-            }
+        //赋值公共参数
+        cv = assignCommonData(cv,courseId);
 
-            Integer falg = criticizeService.hasCourse(accountId, courseId);
-            //如果是付费课程，判断这个课程是否已经被购买了
-            if (cv.getWatchState() == 0) { // 付费课程
-                if (falg > 0) {
-                    cv.setWatchState(2);
-                }
-                //如果是免费的  判断是否学习过
-            } else if (cv.getWatchState() == 1) { // 免费课程
-                if (falg > 0) {
-                    cv.setLearning(1);
-                }
-            }
-
-
-        }
         return ResponseObject.newSuccessResponseObject(cv);
     }
 
@@ -341,5 +254,34 @@ public class CourseController {
         page.setSize(pageSize);
 
         return ResponseObject.newSuccessResponseObject(courseServiceImpl.selectCourseByLearndCount(page, 1));
+    }
+    
+    /**
+     * 查看当前用户是否关注了主播以及是否购买了这个课程
+     * @param cv
+     * @param accountIdOpt
+     * @param courseId
+     * @return
+     */
+    private CourseLecturVo assignCommonData(CourseLecturVo cv,Integer courseId) {
+        
+        //设置星星级别
+        cv.setStartLevel(CourseUtil.criticizeStartLevel(cv.getStartLevel()));
+        cv.setRichCourseDetailsUrl(returnOpenidUri + "/xcview/html/person_fragment.html?type=1&typeId=" + courseId);
+        cv.setRichHostDetailsUrl(returnOpenidUri + "/xcview/html/person_fragment.html?type=3&typeId=" + courseId);
+
+        //专辑查看更新时间
+        if (cv.getCollection()) {
+            //已更新多少集，等于总集数
+            if(cv.getCourseNumber()!=null && cv.getDirtyNumber()!=null && 
+                    cv.getCourseNumber().equals(cv.getDirtyNumber())) {
+                cv.setDirtyDate(XzStringUtils.COLLECTION_UPDATE_FINISH);
+            }else {
+                cv.setDirtyDate(courseApplyService.getCollectionUpdateDateText(courseId));
+            }
+            
+            cv.setOutlineDetailsUrl(returnOpenidUri + "/xcview/html/outline_fragment.html?courseId=" + courseId);
+        }
+        return cv;
     }
 }

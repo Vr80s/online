@@ -26,7 +26,6 @@ import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorSolrService;
 import com.xczhihui.medical.doctor.vo.DoctorQueryVo;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorSolrVO;
-import com.xczhihui.medical.hospital.service.IMedicalHospitalApplyService;
 
 /**
  * Description：医师页面
@@ -54,12 +53,8 @@ public class DoctorController {
     @Autowired
     private IMedicalDoctorSolrService medicalDoctorSolrService;
 
-
     @Value("${returnOpenidUri}")
     private String returnOpenidUri;
-
-    @Autowired
-    private IMedicalHospitalApplyService medicalHospitalApplyService;
 
     /**
      * 医师分类页面
@@ -142,7 +137,7 @@ public class DoctorController {
     public ResponseObject recentlyLive(@RequestParam("userId") String userId)
             throws Exception {
 
-        CourseLecturVo cv = courseService.selectLecturerRecentCourse(userId,
+        CourseLecturVo cv = courseService.selectDoctorLiveRoomRecentCourse(userId,
                 HeaderInterceptor.ONLY_THREAD.get());
         return ResponseObject.newSuccessResponseObject(cv);
     }
