@@ -1,6 +1,9 @@
 package com.xczhihui.medical.enrol.service.impl;
 
+import static com.xczhihui.common.util.enums.EntryInformationType.ONLINE_APPLY;
+
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -9,9 +12,11 @@ import java.util.regex.Pattern;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.xczhihui.common.util.SmsUtil;
 import com.xczhihui.common.util.enums.ApprenticeStatus;
 import com.xczhihui.common.util.enums.EntryInformationType;
 import com.xczhihui.common.util.enums.OnlineApprenticeStatus;
@@ -40,6 +45,12 @@ public class EnrolServiceImpl implements EnrolService {
 
     private static Pattern p = Pattern.compile("^(1[3-8])\\d{9}$");
     private static String ENROL_URL = "/xcview/html/apprentice/inherited_introduction.html?merId=";
+    private static final Object APPLY_LOCK = new Object();
+
+    @Value("${online.apprentice.apply.success.sms.code}")
+    private String applySuccessSmsCode;
+    @Value("${online.apprentice.apply.fail.sms.code}")
+    private String applyFailSmsCode;
 
     @Autowired
     private MedicalEnrollmentRegulationsMapper medicalEnrollmentRegulationsMapper;
@@ -167,7 +178,7 @@ public class EnrolServiceImpl implements EnrolService {
                 onlineEntryInformation = new MedicalEntryInformation();
                 BeanUtils.copyProperties(medicalEntryInformationVO, onlineEntryInformation);
                 onlineEntryInformation.setMerId(null);
-                onlineEntryInformation.setType(EntryInformationType.ONLINE_APPLY.getCode());
+                onlineEntryInformation.setType(ONLINE_APPLY.getCode());
                 onlineEntryInformation.setDoctorId(doctorId);
                 onlineEntryInformation.setCreateTime(new Date());
                 medicalEntryInformationMapper.insert(onlineEntryInformation);
@@ -249,16 +260,30 @@ public class EnrolServiceImpl implements EnrolService {
 
     @Override
     public void updateStatusEntryInformationById(int id, int apprentice) {
-        MedicalEntryInformation medicalEntryInformation = medicalEntryInformationMapper.selectById(id);
-        if (medicalEntryInformation != null) {
-            if ((apprentice == ApprenticeStatus.YES.getVal() || apprentice == ApprenticeStatus.NO.getVal()) && !medicalEntryInformation.getApplied()) {
-                medicalEntryInformation.setApprentice(apprentice);
-                //标记为已审核
-                medicalEntryInformation.setApplied(true);
-                medicalEntryInformationMapper.updateById(medicalEntryInformation);
-                //TODO 发送短信(只有在线申请的才发送)
-            } else {
-                throw new MedicalException("已审核过或参数错误");
+        synchronized (APPLY_LOCK) {
+            MedicalEntryInformation medicalEntryInformation = medicalEntryInformationMapper.selectById(id);
+            if (medicalEntryInformation != null) {
+                if ((apprentice == ApprenticeStatus.YES.getVal() || apprentice == ApprenticeStatus.NO.getVal()) && !medicalEntryInformation.getApplied()) {
+                    medicalEntryInformation.setApprentice(apprentice);
+                    //标记为已审核
+                    medicalEntryInformation.setApplied(true);
+                    medicalEntryInformationMapper.updateById(medicalEntryInformation);
+                    if (medicalEntryInformation.getType() == ONLINE_APPLY.getCode()) {
+                        Map<String, String> smsParams = new HashMap<>(1);
+                        String doctorId = medicalEntryInformation.getDoctorId();
+                        MedicalDoctorVO medicalDoctorVO = medicalDoctorBusinessService.findSimpleById(doctorId);
+                        if (medicalDoctorVO != null) {
+                            smsParams.put("name", medicalDoctorVO.getName());
+                            if (apprentice == ApprenticeStatus.YES.getVal()) {
+                                SmsUtil.sendSMS(applySuccessSmsCode, smsParams, medicalEntryInformation.getTel());
+                            } else {
+                                SmsUtil.sendSMS(applyFailSmsCode, smsParams, medicalEntryInformation.getTel());
+                            }
+                        }
+                    }
+                } else {
+                    throw new MedicalException("已审核过或参数错误");
+                }
             }
         }
     }
@@ -268,7 +293,7 @@ public class EnrolServiceImpl implements EnrolService {
         MedicalEntryInformation m = new MedicalEntryInformation();
         m.setUserId(accountId);
         m.setMerId(null);
-        m.setType(EntryInformationType.ONLINE_APPLY.getCode());
+        m.setType(ONLINE_APPLY.getCode());
         m.setDoctorId(doctorId);
         return medicalEntryInformationMapper.selectOne(m);
     }
