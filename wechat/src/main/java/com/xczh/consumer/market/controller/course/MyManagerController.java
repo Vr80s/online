@@ -103,13 +103,12 @@ public class MyManagerController {
                 return ResponseObject.newErrorResponseObject("token过期", 1002);
             }
             ou.setUserCenterId(ou.getId());
-
             map.put("user", ou);
+            
             // 查找购买的课程数
             map.put("courseCount", courseService.selectMyFreeCourseListCount(userId));
 
             //是否拥有主播权限
-            //Integer hostPermissions = myInfoService.getUserHostPermissions(userId);
             Integer hostPermissions = anchorInfoService.anchorPermissionStatus(ou.getUserId());
             LOGGER.info(hostPermissions + "");
             // 查看主播权限   -- 并且把主播信息给返回过去
@@ -125,6 +124,11 @@ public class MyManagerController {
 
             map.put("fansCount", listff.get(0));           //粉丝总数
             map.put("focusCount", listff.get(1));           //关注总数
+            
+            //我的页面
+            
+            
+            
         } else {
             map.put("xmbCount", 0);
             map.put("user", "");

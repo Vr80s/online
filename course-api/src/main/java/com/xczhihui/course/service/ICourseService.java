@@ -25,12 +25,12 @@ public interface ICourseService {
 
 
     /**
-     * Description：学习中心中的课程
+     * Description：学习中心中  我的课程及以结束课程
      *
      * @return List<CourseLecturVo>
      * @author name：yangxuan <br>email: 15936216273@163.com
      */
-    List<CourseLecturVo> selectLearningCourseListByUserId(Integer pageSize, String userId);
+    List<Map<String, Object>> selectLearningCourseListByUserId(Integer pageSize, String userId);
 
     /**
      * Description：查询用户已购买课程的数量

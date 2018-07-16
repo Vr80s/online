@@ -88,4 +88,13 @@ public interface IMyInfoService {
      * @return
      */
     Map<String, Object> findHostTypeByUserId(String id);
+
+    /**
+     * 查询原来用户主页的数据
+     * @param object
+     * @param lecturerId
+     * @param boolean1
+     * @return
+     */
+    Map<String, Object> selectUserHomePageData(Object object, String lecturerId, Boolean boolean1);
 }

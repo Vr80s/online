@@ -83,9 +83,32 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     }
 
     @Override
-    public List<CourseLecturVo> selectLearningCourseListByUserId(Integer pageSize, String id) {
+    public List<Map<String, Object>> selectLearningCourseListByUserId(Integer pageSize, String id) {
         List<CourseLecturVo> listAll = iCourseMapper.selectLearningCourseListByUserId(pageSize, id);
-        return listAll;
+       
+        List<Map<String, Object>> mapCourseList = new ArrayList<Map<String, Object>>();
+        Map<String, Object> mapTj = new HashMap<String, Object>();
+        Map<String, Object> mapNw = new HashMap<String, Object>();
+        List<CourseLecturVo> listTj = new ArrayList<CourseLecturVo>();
+        List<CourseLecturVo> listNw = new ArrayList<CourseLecturVo>();
+        for (CourseLecturVo courseLecturVo : listAll) {
+            if ("我的课程".equals(courseLecturVo.getNote())) {
+                listTj.add(courseLecturVo);
+            }
+            if ("已结束课程".equals(courseLecturVo.getNote())) {
+                listNw.add(courseLecturVo);
+            }
+        }
+        mapTj.put("title", "我的课程");
+        mapTj.put("courseList", listTj);
+
+        mapNw.put("title", "已结束课程");
+        mapNw.put("courseList", listNw);
+
+        mapCourseList.add(mapTj);
+        mapCourseList.add(mapNw);
+        
+        return mapCourseList;
     }
 
     @Override

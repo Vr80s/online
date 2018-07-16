@@ -1,13 +1,5 @@
 package com.xczh.consumer.market.controller.course;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -67,30 +59,7 @@ public class MyInfoController {
         if (pageSize == null || pageSize == 0) {
             pageSize = Integer.MAX_VALUE;
         }
-        List<CourseLecturVo> listAll = courseServiceImpl
-                .selectLearningCourseListByUserId(pageSize, accountId);
-        List<Map<String, Object>> mapCourseList = new ArrayList<Map<String, Object>>();
-        Map<String, Object> mapTj = new HashMap<String, Object>();
-        Map<String, Object> mapNw = new HashMap<String, Object>();
-        List<CourseLecturVo> listTj = new ArrayList<CourseLecturVo>();
-        List<CourseLecturVo> listNw = new ArrayList<CourseLecturVo>();
-        for (CourseLecturVo courseLecturVo : listAll) {
-            if ("我的课程".equals(courseLecturVo.getNote())) {
-                listTj.add(courseLecturVo);
-            }
-            if ("已结束课程".equals(courseLecturVo.getNote())) {
-                listNw.add(courseLecturVo);
-            }
-        }
-        mapTj.put("title", "我的课程");
-        mapTj.put("courseList", listTj);
-
-        mapNw.put("title", "已结束课程");
-        mapNw.put("courseList", listNw);
-
-        mapCourseList.add(mapTj);
-        mapCourseList.add(mapNw);
-        return ResponseObject.newSuccessResponseObject(mapCourseList);
+        return ResponseObject.newSuccessResponseObject(courseServiceImpl.selectLearningCourseListByUserId(pageSize, accountId));
     }
 
     /**

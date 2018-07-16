@@ -609,9 +609,7 @@
         SELECT
 	        md.id,
 	        md.`work_time` workTime,
-	        IFNULL((select ca.detail from course_anchor ca  inner join medical_doctor_account mda on
-	        mda.account_id = ca.user_id where mda.doctor_id = #{doctorId}),
-	        md.description) as description
+	        md.description as description
         FROM
 	        medical_doctor md
 	        WHERE md.deleted = 0
