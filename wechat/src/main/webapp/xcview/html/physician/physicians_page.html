@@ -215,6 +215,9 @@
 	}
 	.swiper-container-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet:last-child{
 		margin-right: 0.26rem;
+		width: 0.22rem !important;
+	    border-radius: 8px !important;
+	    height: 0.06rem !important;
 	}
 	.swiper-slide img{
 		width: 100%;
@@ -1500,7 +1503,7 @@ $(window).bind("scroll", function() {
 			$(".message_referral").hide();   //介绍结束baseImagenumbers
 			$(".prose_origin").hide();   /*师承内容隐藏*/
 		});
-		// $(".li_data").click();
+		$(".li_data").click();
 
 		// 点击直播间
 		$(".li_course").click(function(){
@@ -1547,7 +1550,7 @@ $(window).bind("scroll", function() {
 			$(".message_referral").hide();  //介绍结束
 			// $(".broadcastroom").show();
 		});
-		$(".li_prose_origin").click();
+		/*$(".li_prose_origin").click();*/
 
 		// 点击介绍
 		$(".li_evaluate").click(function(){

@@ -260,4 +260,13 @@ public interface ICourseService {
 
 
     List<Map<String, Object>> doctorCourseList(String userId,boolean onlyFree);
+
+    /**
+     * 查询师承课程
+     * @param userId userId
+     * @param page page
+     * @param onlyFree onlyFree
+     * @return
+     */
+    List<CourseLecturVo> listTeachingCourse(String userId, Page<CourseLecturVo> page, boolean onlyFree);
 }
