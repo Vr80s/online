@@ -1189,6 +1189,8 @@
 			</div>
 			<!-- 提问开始 -->
 			<div class="QA_main">
+				<script type="text/html" id="QA_main_id">
+					{{each items as item i}} 
 				<div class="QA_doubt">
 					<img src="/xcview/images/touxiang.png" alt="" class="QA_doubt_img" />
 					<div class="QA_doubt_main">
@@ -1205,6 +1207,9 @@
 					</div>
 					<div class="both"></div>
 				</div>
+				{{/each}}
+	            </script>
+
 			</div>
 			<!-- 提问结束 -->
 		</div>
@@ -1250,7 +1255,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="disciple_application">在线弟子申请加入</div>
+			<div class="disciple_application" onclick="location.href ='/xcview/html/physician/apply_for.html?doctor='+doctorId">在线弟子申请加入</div>
 		</div>
 		<!-- 在线弟子结束 -->
 	</div>

@@ -882,3 +882,15 @@ function createDoctorIntroduction(introduction){
     };
 }
 
+
+// 提问展示开始
+requestGetService("/xczh/host/doctor/apprentice?doctorId= + doctorId",{doctorId:doctorId},function (data) {
+    if (data.success == true) {
+        $('.QA_main').html(template('QA_main_id', {items: data.resultObject.onlineApprenticeStatus}));
+
+        // webToast("提交成功","middle",1500);
+    }/*else{
+        webToast(data.errorMessage,"middle",1500);
+    }*/
+});
+

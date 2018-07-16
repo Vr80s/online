@@ -1,6 +1,46 @@
+var data = {};
+var doctorId = getQueryString('doctor');
+var wv = getQueryString('wv');
+
+if(doctorId == null){
+    doctorId = sessionStorage.getItem("doctorId");
+}else{
+    sessionStorage.setItem("doctorId",doctorId);
+}
+var token = getQueryString('token');
+var appUniqueId = getQueryString('appUniqueId');
+if(token != null && token != ''){
+    sessionStorage.setItem("token",token);
+}else{
+    token = sessionStorage.getItem("token");
+}
+if(appUniqueId != null && appUniqueId !=''){
+    sessionStorage.setItem("appUniqueId",appUniqueId);
+}else{
+    appUniqueId = sessionStorage.getItem("appUniqueId");
+}
+if(token != null && token != ''){
+    data.token = token;
+}
+if(appUniqueId != null && appUniqueId !=''){
+    data.appUniqueId = appUniqueId;
+}
+if(wv != null && wv !=''){
+    sessionStorage.setItem("wv",wv);
+}else{
+    wv = sessionStorage.getItem("wv");
+}
+if(wv == null || wv ==''){
+    $(".footer_perch").show();
+    $(".footer").show();
+}
+
+
+
+
 function getApply(){
     var apply = data;
-    apply.merId = merId;
+    apply.doctorId = doctorId;
     apply.name=$('.name input').val();
     apply.tel=$('.tel input').val();
     apply.age=$('.age input').val();
@@ -105,18 +145,6 @@ $(function(){
         $(".education_show").html($("#undergraduate").html());
         verifyParams();
     });
-   /* $("#master").click(function(){
-        $(".education_show").html($("#master").html());
-        verifyParams();
-    });
-    $("#doctor").click(function(){
-        $(".education_show").html($("#doctor").html());
-        verifyParams();
-    });
-    $("#not_have").click(function(){
-        $(".education_show").html($("#not_have").html());
-        verifyParams();
-    });*/
     $(".edu").click(function(){
         $(".education_show").html($(this).html());
         $(".education_show").attr("data-id",$(this).attr("data-id"));
@@ -140,10 +168,12 @@ $(function(){
             if(appUniqueId !=null && appUniqueId!=''){
                 apply.appUniqueId = appUniqueId;
             }
+
+            var doctorId = getQueryString("doctor");
             requestService("/xczh/enrol/medicalEntryInformation",apply,function(data){
                 if(data.success){
                     webToast(data.resultObject,"middle",1500);
-                    setTimeout("window.location.href ='application_approved.html'",1600);
+                    setTimeout("window.location.href ='application_approved.html?doctor='+doctorId",1600);
                 }else{
                     $(".buttom").attr("data-able","1");
                     webToast(data.errorMessage,"middle",1500);

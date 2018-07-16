@@ -1,6 +1,45 @@
-/*$(function(){
-    debugger
-    requestGetService("/xczh/enrol/medicalEntryInformation/"+merId,data,function(data){
+// debugger
+var data = {};
+var doctorId = getQueryString('doctor');
+// var wv = getQueryString('wv');
+
+if(doctorId == null){
+    doctorId = sessionStorage.getItem("doctorId");
+}else{
+    sessionStorage.setItem("doctorId",doctorId);
+}
+var token = getQueryString('token');
+var appUniqueId = getQueryString('appUniqueId');
+if(token != null && token != ''){
+    sessionStorage.setItem("token",token);
+}else{
+    token = sessionStorage.getItem("token");
+}
+if(appUniqueId != null && appUniqueId !=''){
+    sessionStorage.setItem("appUniqueId",appUniqueId);
+}else{
+    appUniqueId = sessionStorage.getItem("appUniqueId");
+}
+if(token != null && token != ''){
+    data.token = token;
+}
+if(appUniqueId != null && appUniqueId !=''){
+    data.appUniqueId = appUniqueId;
+}
+/*if(wv != null && wv !=''){
+    sessionStorage.setItem("wv",wv);
+}else{
+    wv = sessionStorage.getItem("wv");
+}
+if(wv == null || wv ==''){
+    $(".footer_perch").show();
+    $(".footer").show();
+}*/
+
+
+$(function(){
+    // debugger
+    requestGetService("/medicalEntryInformation/online?doctorId="+doctorId,null,function(){
         data.resultObject.education = getEducation(data.resultObject.education);
 		$("body").html(template('entry_information_temp',data.resultObject))
 	});
@@ -21,4 +60,3 @@ function getEducation(education){
         return "无";
     }
 }
-*/
