@@ -108,7 +108,7 @@ public class CourseController {
     public ResponseObject details(@Account(optional = true) Optional<String> accountIdOpt, @RequestParam("courseId") Integer courseId)
             throws Exception {
 
-        CourseLecturVo cv = courseServiceImpl.selectCourseMiddleDetailsById(accountIdOpt!=null ? accountIdOpt.get() : null,courseId);
+        CourseLecturVo cv = courseServiceImpl.selectCourseMiddleDetailsById(accountIdOpt.isPresent()? accountIdOpt.get() : null,courseId);
         
         if (cv == null) {
             return ResponseObject.newErrorResponseObject("课程信息有误");
@@ -131,7 +131,7 @@ public class CourseController {
     public ResponseObject liveDetails(@Account(optional = true) Optional<String> accountIdOpt, @RequestParam("courseId") Integer courseId)
             throws Exception {
 
-        CourseLecturVo cv = courseServiceImpl.selectCourseDetailsById(accountIdOpt!=null ? accountIdOpt.get() : null,courseId);
+        CourseLecturVo cv = courseServiceImpl.selectCourseDetailsById(accountIdOpt.isPresent() ? accountIdOpt.get() : null,courseId);
         if (cv == null) {
             return ResponseObject.newErrorResponseObject("获取课程有误");
         }
