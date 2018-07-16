@@ -19,7 +19,7 @@ import com.xczhihui.medical.anchor.vo.CourseApplyResourceVO;
  */
 public interface ICourseApplyService extends IService<CourseApplyInfo> {
 
-    Page<CourseApplyInfoVO> selectCourseApplyPage(Page<CourseApplyInfoVO> page, String userId, Integer courseForm, Integer multimediaType, String title);
+    Page<CourseApplyInfoVO> selectCourseApplyPage(Page<CourseApplyInfoVO> page, String userId, Integer courseForm, Integer multimediaType, String title, int teaching);
 
     Page<CourseApplyInfoVO> selectCollectionApplyPage(Page<CourseApplyInfoVO> page, String userId, Integer multimediaType, String title);
 

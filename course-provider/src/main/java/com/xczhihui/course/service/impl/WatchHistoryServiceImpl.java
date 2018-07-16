@@ -17,6 +17,7 @@ import com.xczhihui.common.util.CodeUtil;
 import com.xczhihui.common.util.CourseUtil;
 import com.xczhihui.common.util.TimeUtil;
 import com.xczhihui.common.util.enums.MessageTypeEnum;
+import com.xczhihui.course.exception.CourseException;
 import com.xczhihui.course.mapper.CourseMapper;
 import com.xczhihui.course.mapper.WatchHistoryMapper;
 import com.xczhihui.course.model.Course;
@@ -83,7 +84,14 @@ public class WatchHistoryServiceImpl extends ServiceImpl<WatchHistoryMapper, Wat
     }
 
     @Override
-    public void addLearnRecord(Integer courseId, String userId) {
+    public void addLearnRecord(Integer courseId, String userId, Boolean teaching) {
+
+        if(teaching){
+            boolean qualification = courseServiceImpl.selectQualification4TeachingCourse(userId, courseId);
+            if(!qualification){
+                throw new CourseException("没有观看权限");
+            }
+        }
         String id = CodeUtil.getRandomUUID();
         int i = watchHistoryMapper.insertApplyRGradeCourse(id, courseId, userId);
         if (i > 0) {
@@ -95,15 +103,16 @@ public class WatchHistoryServiceImpl extends ServiceImpl<WatchHistoryMapper, Wat
     public void addLookHistory(Integer courseId, String userId, Integer recordType, Integer collectionId) {
         CourseLecturVo course = courseServiceImpl.selectCurrentCourseStatus(courseId);
         if (course == null) {
-            throw new RuntimeException("课程信息有误");
+            throw new CourseException("课程信息有误");
         }
         //增加学习记录
         if (recordType == 1) {
             if (course.getWatchState() == 1) {
-                this.addLearnRecord(courseId, userId);
+                this.addLearnRecord(courseId, userId, course.getTeaching());
             }
         } else if (recordType == 2) {
-            if (collectionId != null) {  //如果是专辑，并且存在的话，做更新操作
+            if (collectionId != null) {
+                //如果是专辑，并且存在的话，做更新操作
                 WatchHistory wh = watchHistoryMapper.findWatchHistoryByUserIdAndCollectionId(userId, collectionId);
                 if (wh != null) {
                     wh.setCourseId(courseId);

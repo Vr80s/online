@@ -72,9 +72,9 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
      * @Date: 上午 11:21 2018/1/19 0019
      **/
     @Override
-    public Page<CourseApplyInfoVO> selectCourseApplyPage(Page<CourseApplyInfoVO> page, String userId, Integer courseForm, Integer multimediaType, String title) {
+    public Page<CourseApplyInfoVO> selectCourseApplyPage(Page<CourseApplyInfoVO> page, String userId, Integer courseForm, Integer multimediaType, String title, int teaching) {
         anchorInfoService.validateAnchorPermission(userId);
-        List<CourseApplyInfoVO> records = courseApplyInfoMapper.selectCourseApplyPage(page, userId, courseForm, multimediaType, title);
+        List<CourseApplyInfoVO> records = courseApplyInfoMapper.selectCourseApplyPage(page, userId, courseForm, multimediaType, title, teaching);
         page.setRecords(records);
         return page;
     }
@@ -496,6 +496,9 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
      * @Date: 上午 10:37 2018/1/24 0024
      **/
     private void validateCollectionApply(CourseApplyInfo courseApplyInfo) {
+        if (courseApplyInfo.getClientType()==null) {
+            throw new AnchorWorkException("课程来源不可为空");
+        }
         if (!courseApplyInfo.getCollection()) {
             throw new AnchorWorkException("该方法仅支持专辑课程");
         }
@@ -553,6 +556,9 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
      **/
     private void validateCourseApply(CourseApplyInfo courseApplyInfo) {
         validateCourseUsed(courseApplyInfo);
+        if (courseApplyInfo.getClientType()==null) {
+            throw new AnchorWorkException("课程来源不可为空");
+        }
         if (StringUtils.isBlank(courseApplyInfo.getUserId())) {
             throw new AnchorWorkException("用户id不可为空");
         }

@@ -27,7 +27,7 @@ public interface CourseApplyInfoMapper extends BaseMapper<CourseApplyInfo> {
      * @author name：yuxin <br>email: yuruixin@ixincheng.com
      * @Date: 上午 11:30 2018/1/19 0019
      **/
-    List<CourseApplyInfoVO> selectCourseApplyPage(@Param("page") Page<CourseApplyInfoVO> page, @Param("userId") String userId, @Param("courseForm") Integer courseForm, @Param("multimediaType") Integer multimediaType, @Param("title") String title);
+    List<CourseApplyInfoVO> selectCourseApplyPage(@Param("page") Page<CourseApplyInfoVO> page, @Param("userId") String userId, @Param("courseForm") Integer courseForm, @Param("multimediaType") Integer multimediaType, @Param("title") String title, @Param("teaching") int teaching);
 
     /**
      * Description：分页获取主播申请专辑列表
