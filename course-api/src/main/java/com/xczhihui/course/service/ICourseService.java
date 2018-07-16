@@ -25,12 +25,12 @@ public interface ICourseService {
 
 
     /**
-     * Description：学习中心中的课程
+     * Description：学习中心中  我的课程及以结束课程
      *
      * @return List<CourseLecturVo>
      * @author name：yangxuan <br>email: 15936216273@163.com
      */
-    List<CourseLecturVo> selectLearningCourseListByUserId(Integer pageSize, String userId);
+    List<Map<String, Object>> selectLearningCourseListByUserId(Integer pageSize, String userId);
 
     /**
      * Description：查询用户已购买课程的数量
@@ -270,6 +270,11 @@ public interface ICourseService {
      * @return
      */
     List<CourseLecturVo> listTeachingCourse(String userId, Page<CourseLecturVo> page, boolean onlyFree);
+
+    List<CourseLecturVo> selectTeachingCoursesByUserId(Page<CourseLecturVo> page, String userId);
+
+    boolean selectQualification4TeachingCourse(String accountId, Integer courseId);
+
 
     /**
      * 查看医师直播间的最近一次直播课

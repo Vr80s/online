@@ -863,7 +863,7 @@ function recruit_close_btn(t){
 //招聘管理部分，点击删除招聘信息
 function delete_recruit_btn(t){
 	var data_deleteId=$(t).attr("data-deleteId");
-	comfirmBox.open("公告","确定删除该条招聘信息吗？",function(closefn){
+	confirmBox.open("公告","确定删除该条招聘信息吗？",function(closefn){
 		RequestService("/hospital/recruit/"+data_deleteId+"","DELETE",null,function(data){
 			if(data.success == true){
 				closefn();
@@ -1097,7 +1097,7 @@ $(".notice_preview_content img").click(function(){
 //公告管理部分，点击删除--------------------------------------------------------------
 function notice_btn_delete(t){
 	var data_id=$(t).attr("data-id");
-	comfirmBox.open("公告","确定删除该条公告吗？",function(closefn){
+	confirmBox.open("公告","确定删除该条公告吗？",function(closefn){
 		RequestService("/hospital/announcement/"+data_id+"","DELETE",null,function(data){
 			if(data.success == true){
 				closefn();

@@ -134,6 +134,9 @@ public class CourseApplyInfo extends Model<CourseApplyInfo> {
      * 是否为专辑
      */
     private Boolean collection;
+
+    @TableField("is_teaching")
+    private Boolean teaching;
     /**
      * 是否上架
      */
@@ -243,6 +246,14 @@ public class CourseApplyInfo extends Model<CourseApplyInfo> {
 
     public void setResourceId(Integer resourceId) {
         this.resourceId = resourceId;
+    }
+
+    public Boolean getTeaching() {
+        return teaching;
+    }
+
+    public void setTeaching(Boolean teaching) {
+        this.teaching = teaching;
     }
 
     public Integer getId() {

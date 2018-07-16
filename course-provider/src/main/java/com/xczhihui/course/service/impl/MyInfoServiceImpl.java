@@ -14,9 +14,12 @@ import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xczhihui.common.util.XzStringUtils;
 import com.xczhihui.common.util.enums.UserSex;
 import com.xczhihui.course.exception.UserInfoException;
+import com.xczhihui.course.mapper.CourseMapper;
+import com.xczhihui.course.mapper.FocusMapper;
 import com.xczhihui.course.mapper.MyInfoMapper;
 import com.xczhihui.course.model.OnlineUser;
 import com.xczhihui.course.service.IMyInfoService;
+import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.course.vo.OnlineUserVO;
 
 /**
@@ -32,7 +35,14 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper, OnlineUser> imp
 
     @Autowired
     private MyInfoMapper myInfoMapper;
-
+    
+    @Autowired
+    private FocusMapper focusMapper;
+    
+    @Autowired
+    private CourseMapper courseMapper;
+    
+    
     @Override
     public List<BigDecimal> selectCollegeCourseXmbNumber(String userId) {
         List<BigDecimal> list = myInfoMapper.selectCollegeCourseXmbNumber(userId);
@@ -147,6 +157,36 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper, OnlineUser> imp
         return myInfoMapper.findHostTypeByUserId(id);
     }
     
+
+
+    @Override
+    public Map<String, Object> selectUserHomePageData(Object object, String lecturerId, Boolean boolean1) {
+        
+        Map<String, Object> mapAll = new HashMap<String, Object>();
+        
+        List<Integer> listff = focusMapper.selectFocusOrFansCountOrCriticizeCount(lecturerId);
+        mapAll.put("fansCount", listff.get(0));           //粉丝总数
+        mapAll.put("focusCount", listff.get(1));           //关注总数
+        mapAll.put("criticizeCount", listff.get(2));       //总数评论总数
+        /**
+         * 判断用户是否已经关注了这个主播
+         */
+        if (lecturerId == null) {
+            mapAll.put("isFours", 0);
+        } else {
+            Integer isFours = focusMapper.isFoursLecturer(lecturerId, lecturerId);
+            mapAll.put("isFours", isFours);
+        }
+        /**
+         * 此主播最近一次的直播
+         */
+        CourseLecturVo cv = courseMapper.selectLecturerRecentCourse(lecturerId,boolean1);
+        mapAll.put("recentCourse", cv);
+        
+        return mapAll;
+    }
+    
+    
     public static void main(String[] args) {
         
         Map<String,String> map = new HashMap<String,String>();
@@ -164,4 +204,5 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper, OnlineUser> imp
         System.out.println(map.toString());
         
     }
+    
 }

@@ -97,13 +97,13 @@ public class HostController {
      */
     @RequestMapping("hostPageInfo")
     @ResponseBody
-    public ResponseObject userHomePage(@Account(optional = true) Optional<String> accountIdOpt,
+    public ResponseObject hostPageInfo(@Account(optional = true) Optional<String> accountIdOpt,
                                        HttpServletResponse res,
                                        @RequestParam("lecturerId") String lecturerId) throws Exception {
 
         LOGGER.info("lecturerId-->id" + lecturerId);
-
-        Map<String, Object> mapAll = new HashMap<String, Object>();
+        
+        Map<String, Object> mapAll = myInfoService.selectUserHomePageData(accountIdOpt.isPresent()?accountIdOpt.get():null,lecturerId,HeaderInterceptor.ONLY_THREAD.get());
         /**
          * 得到讲师   主要是房间号，缩略图的信息、讲师的精彩简介
          *
@@ -113,7 +113,6 @@ public class HostController {
         if (lecturerInfo == null) {
             return ResponseObject.newErrorResponseObject("获取医师信息有误");
         }
-
         lecturerInfo.put("richHostDetailsUrl", returnOpenidUri + "/xcview/html/person_fragment.html?type=4&typeId=" + lecturerId);
 
         mapAll.put("lecturerInfo", lecturerInfo);          //讲师基本信息
@@ -129,28 +128,9 @@ public class HostController {
         //认证的主播 还是 医馆
         mapAll.put("hospital", mha);
 
-
-        List<Integer> listff = focusServiceRemote.selectFocusOrFansCountOrCriticizeCount(lecturerId);
-        mapAll.put("fansCount", listff.get(0));           //粉丝总数
-        mapAll.put("focusCount", listff.get(1));           //关注总数
-        mapAll.put("criticizeCount", listff.get(2));       //总数评论总数
-        /**
-         * 判断用户是否已经关注了这个主播
-         */
-        if (!accountIdOpt.isPresent()) {
-            mapAll.put("isFours", 0);
-        } else {
-            Integer isFours = focusServiceRemote.isFoursLecturer(accountIdOpt.get(), lecturerId);
-            mapAll.put("isFours", isFours);
-        }
-        /**
-         * 此主播最近一次的直播
-         */
-        CourseLecturVo cv = courseService.selectLecturerRecentCourse(lecturerId, HeaderInterceptor.ONLY_THREAD.get());
-        mapAll.put("recentCourse", cv);
         return ResponseObject.newSuccessResponseObject(mapAll);
     }
-
+    
     @RequestMapping("doctor/v2")
     @ResponseBody
     public ResponseObject doctorV2(@Account(optional = true) Optional<String> accountIdOpt,
@@ -279,14 +259,6 @@ public class HostController {
             e.printStackTrace();
             return ResponseObject.newErrorResponseObject("网络开小差");
         }
-    }
-    
-    public static void main(String[] args) {
-        
-        
-        Optional<String> accountIdOpt = Optional.of(null);
-        
-        System.out.println(accountIdOpt.get());
     }
     
 }

@@ -255,6 +255,28 @@ public class CourseController {
 
         return ResponseObject.newSuccessResponseObject(courseServiceImpl.selectCourseByLearndCount(page, 1));
     }
+
+    @RequestMapping("teaching")
+    public ResponseObject teaching(Integer pageSize,Integer pageNumber,String userId) throws Exception {
+
+        pageSize = (pageSize == null ? 4 : pageSize);
+        pageNumber = (pageNumber == null ? 1 : pageNumber);
+
+        Page<CourseLecturVo> page = new Page<CourseLecturVo>();
+        page.setCurrent(pageNumber);
+        page.setSize(pageSize);
+
+        return ResponseObject.newSuccessResponseObject(courseServiceImpl.selectTeachingCoursesByUserId(page, userId));
+    }
+
+    @RequestMapping("teaching/qualification")
+    public ResponseObject qualification(@Account String accountId,Integer courseId) throws Exception {
+        boolean qualification = courseServiceImpl.selectQualification4TeachingCourse(accountId, courseId);
+        if (qualification) {
+            return ResponseObject.newSuccessResponseObject("有权限");
+        }
+        return ResponseObject.newErrorResponseObject("无权限");
+    }
     
     /**
      * 查看当前用户是否关注了主播以及是否购买了这个课程

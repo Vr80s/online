@@ -70,4 +70,11 @@ public interface IFocusService {
     Integer selectFocusCount(String userId);
 
     Integer selectFansCount(String userId);
+
+    /**
+     *  查询此用户的粉丝数/关注数/已购课程数
+     * @param userId
+     * @return
+     */
+    List<Integer> selectFocusAndFansCountAndCriticizeCount(String userId);
 }

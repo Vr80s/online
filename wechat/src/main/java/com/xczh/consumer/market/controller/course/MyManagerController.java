@@ -1,10 +1,13 @@
 package com.xczh.consumer.market.controller.course;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
@@ -95,21 +98,17 @@ public class MyManagerController {
         if (accountIdOpt.isPresent()) {
             String userId = accountIdOpt.get();
 
-            // 熊猫币-- 普通用户的平台
-            map.put("xmbCount", userCoinService.getBalanceByUserId(userId));
             // 更新下用户信息
             OnlineUser ou = onlineUserService.findUserById(userId);
             if (ou == null) {
                 return ResponseObject.newErrorResponseObject("token过期", 1002);
             }
+            // 熊猫币-- 普通用户的平台
+            map.put("xmbCount", userCoinService.getBalanceByUserId(userId));
             ou.setUserCenterId(ou.getId());
-
             map.put("user", ou);
-            // 查找购买的课程数
-            map.put("courseCount", courseService.selectMyFreeCourseListCount(userId));
-
+            
             //是否拥有主播权限
-            //Integer hostPermissions = myInfoService.getUserHostPermissions(userId);
             Integer hostPermissions = anchorInfoService.anchorPermissionStatus(ou.getUserId());
             LOGGER.info(hostPermissions + "");
             // 查看主播权限   -- 并且把主播信息给返回过去
@@ -121,10 +120,12 @@ public class MyManagerController {
 
             map.put("tokenVaild", 1);
             //新增关注数和粉丝数的显示
-            List<Integer> listff = focusServiceRemote.selectFocusAndFansCount(userId);
+            List<Integer> listff = focusServiceRemote.selectFocusAndFansCountAndCriticizeCount(userId);
 
             map.put("fansCount", listff.get(0));           //粉丝总数
-            map.put("focusCount", listff.get(1));           //关注总数
+            map.put("focusCount", listff.get(1));          //关注总数
+            map.put("courseCount", listff.get(3));         // 查找购买的课程数
+            
         } else {
             map.put("xmbCount", 0);
             map.put("user", "");

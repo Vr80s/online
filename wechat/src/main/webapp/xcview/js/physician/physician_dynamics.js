@@ -178,7 +178,7 @@ function doctorPostsList(pageNumber,downOrUp,doctorPostsType) {
                 
                 isShow = true;
                 $(".baseImagenumbers").show();
-                $(".upwrap-tips").hide();
+                //$(".upwrap-tips").hide();
             }else{
                 isShow = false;
                 $(".baseImagenumbers").hide();
@@ -452,6 +452,7 @@ function doctorPostsList(pageNumber,downOrUp,doctorPostsType) {
 function postsType(obj) {
     doctorPostsType = $(obj).attr("value");
     if (option_id == "li-1"){
+        page = 1;
         doctorPostsList(1,"down",doctorPostsType);
     }
 
@@ -678,7 +679,7 @@ var miniRefresh = new MiniRefresh({
                 page++;
                 doctorPostsList(page,'up',doctorPostsType);
             } else {
-                miniRefresh.endUpLoading(false);// 结束上拉加载
+                miniRefresh.endUpLoading(true);// 结束上拉加载
             }
         }
     }

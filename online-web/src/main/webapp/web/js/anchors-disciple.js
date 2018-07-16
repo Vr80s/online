@@ -3,8 +3,9 @@ $(function(){
 	$(".live-top-title button").click(function(){
 		if($(this).text()=="发布"){
 			$(".disciple-list-wrap").addClass("hide");
-			$(".disciple-set-wrap").removeClass("hide");		
+			$(".disciple-set-wrap").removeClass("hide");
 			$(this).text("返回");
+            resetCourseForm(true);
 		}else{
 			$(".disciple-list-wrap").removeClass("hide");
 			$(".disciple-set-wrap").addClass("hide");	

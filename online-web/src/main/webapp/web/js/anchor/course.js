@@ -315,7 +315,7 @@ function courseList(current){
         courseForm = 2;
         multimediaType = 2;
     }
-    var url ="/anchor/course/getCourseApplyList?size=10&current="+current;
+    var url ="/anchor/course/getCourseApplyList?size=10&teaching=0&current="+current;
     if(courseForm!=null){
         url += "&courseForm="+courseForm;
     }
