@@ -796,7 +796,7 @@ color: white;
 /*标签*/
 .select_lable{
 	clear: both;
-	padding-top: 0.4rem;
+	/*padding-top: 0.4rem;*/
 	overflow: hidden;
     margin-bottom: 0.3rem;
 }
