@@ -99,7 +99,7 @@
         select * from (
         ( select '1' as type,'赠送礼物' as subject ,format(ucc.value,0) as totalAmount,ucc.create_time as gmtCreate,"熊猫币" as
         unit,
-        ca.`name` as receiver,'' as courseName,format(ucc.value,0) as money,ucc.correlation_id as orderId,
+        ca.`name` as receiver,'' as courseName,format(ucc.value,0) as money,ucc.correlation_id as orderId,'' as outTradeNo,
         if(ogs.pay_type=0,'支付宝',if(ogs.pay_type=1,'微信',if(ogs.pay_type=2,'网银','熊猫币'))) as payType
         from user_coin_consumption as ucc,oe_gift_statement as ogs,course_anchor as ca
         where ucc.correlation_id=ogs.id AND ca.user_id=ogs.receiver AND ucc.change_type = 8 and ucc.user_id=#{userId} )
@@ -107,7 +107,7 @@
 
         ( select '2' as type,'购买课程' as subject ,format(ucc.value,0) as totalAmount,ucc.create_time as gmtCreate,"熊猫币" as
         unit,
-        '' as receiver,oc.grade_name as courseName,format(ucc.value,0) as money,ucc.correlation_id as orderId,
+        '' as receiver,oc.grade_name as courseName,format(ucc.value,0) as money,ucc.correlation_id as orderId,'' as outTradeNo,
         if(oo.pay_type=0,'支付宝',if(oo.pay_type=1,'微信',if(oo.pay_type=2,'苹果内购',if(oo.pay_type=3,'熊猫币',if(oo.pay_type=4,'线下支付','其他支付')))))
         as payType
         from user_coin_consumption as ucc, oe_order oo,oe_order_detail ood,oe_course oc
@@ -118,7 +118,7 @@
 
         ( select '3' as type,'充值' as subject ,CONCAT('+',format(uci.value,0)) as totalAmount,uci.create_time as
         gmtCreate,"熊猫币" as unit ,
-        '' as receiver,'' as courseName,format(uci.value,0) as money,uci.correlation_id as orderId,
+        '' as receiver,'' as courseName,format(uci.value,0) as money,uci.correlation_id as orderId,'' as outTradeNo,
         if(uci.pay_type=0,'支付宝',if(uci.pay_type=1,'微信','苹果内购')) as payType
         from user_coin_increase as uci
         where uci.change_type = 1 and uci.user_id=#{userId} )
@@ -128,7 +128,7 @@
 
         ( select '4' as type,'购买课程' as subject,CONCAT('-',format(argc.cost,2)) as totalAmount,argc.create_time as
         gmtCreate,"人民币" as unit ,
-        '' as receiver,oc.grade_name as courseName,format(argc.cost,2) as money,oo.order_no as orderId,
+        '' as receiver,oc.grade_name as courseName,format(argc.cost,2) as money,oo.order_no as orderId,'' as outTradeNo,
         if(oo.pay_type=0,'支付宝',if(oo.pay_type=1,'微信',if(oo.pay_type=2,'苹果内购',if(oo.pay_type=3,'熊猫币',if(oo.pay_type=4,'线下支付','其他支付')))))
         as payType
         from oe_order_detail ood
