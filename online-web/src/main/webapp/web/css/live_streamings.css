@@ -607,8 +607,20 @@
 		height: 93% !important;
 	}
 } 
-@media screen and (max-height:600px){ 
+@media screen and (max-height:719px){ 
 	.page-pc .player-container{
-		height: 85% !important;
+		height: 90% !important;
+	}
+	.page-pc .video{
+		height: 90% !important;
+	}
+} 
+
+@media screen and (max-height:559px){ 
+	.page-pc .player-container{
+		height: 87% !important;
+	}
+	.page-pc .video{
+		height: 87% !important;
 	}
 } 
