@@ -12,7 +12,7 @@ $(function () {
         
     $("#docOrHos").css({"color": "#2cb82c"})
     //	确定,取消弹窗初始化
-    comfirmBox.init();
+    confirmBox.init();
     //医师按钮变色效果
     $('.forum').css('color', '#000');
     $('.path .doctor').addClass('select');
@@ -479,7 +479,7 @@ var activityType;
     $(".open-photo").click(function(){
     	$(".comment-wrong").addClass("hide");
     	if($(".video-wrap").hasClass("hide")==false){
-      		comfirmBox.open("标题","确定放弃视频编辑吗？",function(closefn){
+      		confirmBox.open("标题","确定放弃视频编辑吗？",function(closefn){
       			$('#photo_picIpt').click();
       			$(".activity-nav li").removeClass("active");
       			closeVideo();
@@ -488,7 +488,7 @@ var activityType;
 				return
 			});
     	}else if($(".consilia-wrap").hasClass("hide")==false){
-    		comfirmBox.open("标题","确定放弃医案编辑吗？",function(closefn){
+    		confirmBox.open("标题","确定放弃医案编辑吗？",function(closefn){
     			$('#photo_picIpt').click();
     			$(".activity-nav li").removeClass("active");
     			closeConsilia();
@@ -505,7 +505,7 @@ var activityType;
 	$(".vedio-nav").click(function(){
 	$(".comment-wrong").addClass("hide");
 	if($(".photo-wrap").hasClass("hide")==false){
-    		comfirmBox.open("标题","确定放弃图片编辑吗？",function(closefn){
+    		confirmBox.open("标题","确定放弃图片编辑吗？",function(closefn){
     			closeImages();
     			$(".video-wrap").removeClass("hide");
     			activityTabClass();
@@ -513,7 +513,7 @@ var activityType;
 				clearTextarea()   //清空发布状态
 			});
     	}else if($(".consilia-wrap").hasClass("hide")==false){
-    		comfirmBox.open("标题","确定放弃医案编辑吗？",function(closefn){
+    		confirmBox.open("标题","确定放弃医案编辑吗？",function(closefn){
 				closeConsilia()
 				
 				$(".video-wrap").removeClass("hide");
@@ -532,7 +532,7 @@ var activityType;
 		$(".comment-wrong").addClass("hide");  //清除提示
 		$(".add-consilia").click();      //指向医案
 		if($(".photo-wrap").hasClass("hide")==false){
-	    		comfirmBox.open("标题","确定放弃视频图片吗？",function(closefn){
+	    		confirmBox.open("标题","确定放弃视频图片吗？",function(closefn){
 	    			closeImages();
 	    			
 	    			$(".consilia-wrap").removeClass("hide");
@@ -542,7 +542,7 @@ var activityType;
 					clearTextarea()   //清空发布状态
 				});
 	    	}else if($(".video-wrap").hasClass("hide")==false){
-	    		comfirmBox.open("标题","确定放弃视频编辑吗？",function(closefn){
+	    		confirmBox.open("标题","确定放弃视频编辑吗？",function(closefn){
 	      			closeVideo();
 	      			
 	      			$(".consilia-wrap").removeClass("hide");
@@ -1732,7 +1732,7 @@ function btnColorReply(){
         //专栏部分，删除
         $('.column-delete').click(function () {
             var id = $(this).attr("data-id")
-            comfirmBox.open("专栏", "确定删除该条信息吗？", function (closefn) {
+            confirmBox.open("专栏", "确定删除该条信息吗？", function (closefn) {
                 RequestService("/doctor/article/specialColumn/" + id, "DELETE", null, function (data) {
                     if (data.success == true) {
                         showTip("删除成功");
@@ -2023,7 +2023,7 @@ function btnColorReply(){
         //	著作部分,删除
         //		$(".work-delete").click(function(){
         //			var deleteId=$(this).attr("data-delete");
-        //			comfirmBox.open("著作","确定删除该条著作吗？",function(closefn){
+        //			confirmBox.open("著作","确定删除该条著作吗？",function(closefn){
         //				RequestService("/hospital/recruit/"+deleteId+"","DELETE",null,function(data){
         //					if(data.success == true){
         //						showTip("删除成功");
@@ -2302,7 +2302,7 @@ function btnColorReply(){
         //媒体报道部分,删除
         $(".media-delete").click(function () {
             var deleteMediaId = $(this).attr("data-delete");
-            comfirmBox.open("媒体报道", "确定删除该条报道吗？", function (closefn) {
+            confirmBox.open("媒体报道", "确定删除该条报道吗？", function (closefn) {
                 RequestService("/doctor/article/report/" + deleteMediaId + "", "DELETE", null, function (data) {
                     if (data.success == true) {
                         showTip("删除成功");

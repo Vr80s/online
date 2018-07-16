@@ -214,7 +214,7 @@ public class CourseLecturVo implements Serializable {
     
     private Integer hostType; //主播类型：type：1 医师主播    type:2 医馆主播
     
-    private Boolean isDisciple; //是否是弟子  true 是，false 不是
+    private Boolean teaching; //是否师承课程
 
     /**
      * 是否提交线下课报名表单
@@ -786,12 +786,11 @@ public class CourseLecturVo implements Serializable {
         this.originalCost = originalCost;
     }
 
-    public Boolean getIsDisciple() {
-        return isDisciple;
+    public Boolean getTeaching() {
+        return teaching;
     }
 
-    public void setIsDisciple(Boolean isDisciple) {
-        this.isDisciple = isDisciple;
+    public void setTeaching(Boolean teaching) {
+        this.teaching = teaching;
     }
-
 }

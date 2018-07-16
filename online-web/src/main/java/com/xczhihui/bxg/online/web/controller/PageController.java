@@ -113,7 +113,7 @@ public class PageController {
                 
                 //因为跳到直播间了，增加学习记录
                 if (clv.getWatchState() == 1) {
-                    watchHistoryServiceImpl.addLearnRecord(courseId, user.getId());
+                    watchHistoryServiceImpl.addLearnRecord(courseId, user.getId(),clv.getTeaching());
                 }
                 
                 

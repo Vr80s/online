@@ -17,6 +17,7 @@ import com.xczhihui.course.mapper.OrderMapper;
 import com.xczhihui.course.model.Course;
 import com.xczhihui.course.model.Order;
 import com.xczhihui.course.model.OrderDetail;
+import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.course.service.IOrderDetailService;
 import com.xczhihui.course.service.IOrderService;
 import com.xczhihui.course.vo.OnlineCourseVo;
@@ -40,13 +41,23 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
     @Autowired
     private IOrderDetailService orderDetailService;
+    @Autowired
+    private ICourseService courseService;
 
     @Override
     public Order createOrder(String userId, int courseId, Integer orderFrom) {
         Course course = courseMapper.selectById(courseId);
-        if (course == null) {
+        if (course == null || course.getDelete() || !"1".equals(course.getStatus())) {
             throw new OrderException("课程已下架");
         }
+
+        if(course.getTeaching()){
+            boolean qualification = courseService.selectQualification4TeachingCourse(userId, courseId);
+            if(!qualification){
+                throw new OrderException("没有观看权限");
+            }
+        }
+
         //获取该用户该课程的未支付订单
         Order order = this.baseMapper.selectByUserIdAndCourseId(userId, courseId);
         //订单不为空且课程现在单价与原订单单价不符：关闭原订单，创建新的订单

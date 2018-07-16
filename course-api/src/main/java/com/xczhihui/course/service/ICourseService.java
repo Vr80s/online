@@ -269,4 +269,7 @@ public interface ICourseService {
      * @return
      */
     List<CourseLecturVo> listTeachingCourse(String userId, Page<CourseLecturVo> page, boolean onlyFree);
+    List<CourseLecturVo> selectTeachingCoursesByUserId(Page<CourseLecturVo> page, String userId);
+
+    boolean selectQualification4TeachingCourse(String accountId, Integer courseId);
 }

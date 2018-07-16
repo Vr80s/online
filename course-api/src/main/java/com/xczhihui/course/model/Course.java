@@ -308,6 +308,9 @@ public class Course extends Model<Course> {
 
     @TableField("is_delete")
     private Boolean isDelete;
+
+    @TableField("is_teaching")
+    private Boolean teaching;
     /**
      * 上架或者下架时间
      */
@@ -354,6 +357,13 @@ public class Course extends Model<Course> {
         this.lecturerId = lecturerId;
     }
 
+    public Boolean getTeaching() {
+        return teaching;
+    }
+
+    public void setTeaching(Boolean teaching) {
+        this.teaching = teaching;
+    }
 
     public String getUserLecturerId() {
         return userLecturerId;

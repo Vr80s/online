@@ -53,7 +53,6 @@
 		<script type="text/javascript" src="/web/js/helpers.js"></script>
 		<script src="/web/js/ajax.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/web/html/header-physician/header.js" type="text/javascript" charset="utf-8"></script>
-		<script src="/web/js/common_msg.js" type="text/javascript"></script>
 		<!--分页部分start-->
 		<script src="/web/js/anchor/pages/jquery.pagination-course.js"></script>
 		<!--分页部分start-->
@@ -62,10 +61,66 @@
 		<!--<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.all.min.js"></script>-->
 		<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.all.js"></script>
 		<script type="text/javascript" charset="utf-8" src="/ueditor/lang/zh-cn/zh-cn.js"></script>
+
 	</head>
 
 	<body>
-
+	<script type="text/template" id="live_list_tpl">
+		{{each records as course i}}
+		<tr>
+			<td>
+				<img src="{{course.imgPath}}" alt="" />
+			</td>
+			<td>
+				{{course.title}}
+			</td>
+			<td>
+				{{course.price}}
+			</td>
+			<td>
+				{{if course.applyStatus==1}}
+				已通过
+				{{else if course.applyStatus==2}}
+				审核中
+				{{else if course.applyStatus==0}}
+				未通过
+				{{/if}}
+			</td>
+			<td>
+				{{if course.applyStatus==1}}
+				{{if course.status==1}}
+				已上架
+				{{else}}
+				未上架
+				{{/if}}
+				{{else if course.applyStatus==2}}
+				审核中
+				{{else if course.applyStatus==0}}
+				审核失败
+				{{/if}}
+			</td>
+			<td>
+				55
+			</td>
+			<td>
+				{{if course.applyStatus==1}}
+				{{if course.status==1}}
+				<a href="javascript:;" onclick="confirmCourseSale(0,{{course.id}},{{course.courseId}})">下架</a>
+				{{else}}
+				<a href="javascript:;" onclick="confirmCourseSale(1,{{course.id}},{{course.courseId}})">上架</a>
+				<a href="javascript:;" onclick="editCourse({{course.id}},true)">编辑</a>
+				{{/if}}
+				{{else if course.applyStatus==2}}
+				<a href="javascript:;" onclick="editCourse({{course.id}},false)">编辑</a>
+				<a href="javascript:;" onclick="deleteCourse({{course.id}})">删除</a>
+				{{else if course.applyStatus==0}}
+				<a href="javascript:;" onclick="editCourse({{course.id}},false)">编辑</a>
+				<a href="javascript:;" onclick="deleteCourse({{course.id}})">删除</a>
+				{{/if}}
+			</td>
+		</tr>
+		{{/each}}
+	</script>
 		<!--提示弹窗-->
 		<div id="tip" style="display: none;">
 			您已完成了医馆注册，不能进行医师注册!
@@ -224,7 +279,7 @@
 							</span>
 
 							<div class="littleBox">
-								<p class="activeP" data-name="menu4-1">师承直播</p>
+								<p class="activeP teachingTab" data-name="menu4-1">师承直播</p>
 								<p data-name="menu4-2">我的弟子</p>
 								<p data-name="menu4-3">问答解惑</p>
 								<p data-name="menu4-4">师承管理</p>
@@ -906,41 +961,43 @@
 								</select>
 								<div class="disciple-search z">
 									<img src="/web/images/search.png"/>
-									<input type="text" name="" id="" value="" placeholder="课程名称" />
-									<button type="button">搜索</button>
+									<input id="course_name" placeholder="课程名称" />
+									<button type="button" class="course_search">搜索</button>
 								</div>
 							</div>
 							<div class="disciple-table-main">
-								<table border="" cellspacing="" cellpadding="">
-									<tr>
-										<th>封面图</th>
-										<th>课程名称</th>
-										<th>价格</th>
-										<th>时长</th>
-										<th>类型</th>
-										<th>审核状态</th>
-										<th>课程状态</th>
-										<th>参与弟子</th>
-										<th>操作</th>
-									</tr>
-									<tr>
-										<td>
-											<img src="/web/images/montreal.jpg"/ alt="课程封面">
-										</td>
-										<td>Data</td>
-										<td>Data</td>
-										<td>Data</td>
-										<td>Data</td>
-										<td>Data</td>
-										<td>Data</td>
-										<td>Data</td>
-										<td>
-											<span>下架</span>
-											<span class="disciple-edit">编辑</span>
-											<span class="select-pupil-btn">选择弟子</span>
-										</td>
-									</tr>
+								<table id="live-list" style="margin-bottom: 30px;">
+									<thead>
+									</thead>
+									<tbody id="course_list">
+									</tbody>
+									<!--<tr>-->
+										<!--<td>-->
+											<!--<img src="/web/images/montreal.jpg"/ alt="课程封面">-->
+										<!--</td>-->
+										<!--<td>Data</td>-->
+										<!--<td>Data</td>-->
+										<!--<td>Data</td>-->
+										<!--<td>Data</td>-->
+										<!--<td>Data</td>-->
+										<!--<td>Data</td>-->
+										<!--<td>Data</td>-->
+										<!--<td>-->
+											<!--<span>下架</span>-->
+											<!--<span class="disciple-edit">编辑</span>-->
+											<!--<span class="select-pupil-btn">选择弟子</span>-->
+										<!--</td>-->
+									<!--</tr>-->
 								</table>
+								<!--这是分页-->
+								<div class="pages live_pages" style="display:none" style="padding-bottom: 20px;">
+									<div id="pagination_live" class="pagination-pages"></div>
+									<div class="searchPage">
+										<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+										<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
+										<a href="javascript:;" class="page-btn">确定</a>
+									</div>
+								</div>
 							</div>
 							<!--选择弟子-->
 							<div class="pupil-modal-wrap hide">
@@ -982,17 +1039,21 @@
 						</div>
 						
 						<div class="disciple-set-wrap hide">
+
+							<input type="hidden" id="caiId">
 							<!--课程标题-->
 							<div class="comment-style">
 								<span class="comment-left-tip"><em>*</em>课程标题</span>
-								<input  type="text" name="" id="" value="" />
-								<p class="warning hide title-err">标题不能为空!</p>
+								<input type="text" placeholder="请填写您的课程标题" class="zhuanlan_title course_title"/>
+								<p class="warning warning_course_title hide">课程标题不能为空</p>
+								<p class="warning warning_course_title_length hide">课程标题最多30字</p>
 							</div>
 							<!--副标题-->
 							<div class="comment-style">
 								<span class="comment-left-tip"><em>*</em>副标题</span>
-								<input type="text" name="" id="" value="" />
-								<p class="warning hide">副标题不能为空!</p>
+								<input type="text" placeholder="请填写课程副标题" class="zhuanlan_title zhuanlan_title0 course_subtitle"/>
+								<p class="warning warning_course_subtitle hide">副标题不能为空</p>
+								<p class="warning warning_course_subtitle_length hide">副标题最多30字</p>
 							</div>
 							<!--封面图-->
 							<div class="class-fengmian">
@@ -1006,62 +1067,64 @@
 									<p>支持JPG/PNG等格式图片</p>
 									<p>( 推荐上传规格：260x147 )</p>
 								</span>
-									<input type="file" placeholder="请填写您的专栏标题" style="visibility: hidden;display: inline-block;" id="class_picIpt" />
-									<p class="warning hide">请上传封面图</p>
+									<input type="file" placeholder="请上传封面图" style="visibility: hidden;display: inline-block;" id="class_picIpt" />
+								<p class="warning_course_imgPath warning hide">请上传封面图</p>
 							</div>
 							<!--主播姓名-->
 							<div class="comment-style">
-								<span class="comment-left-tip"><em>*</em>主播姓名</span>
-								<input type="text" name="" id="" value="" />
-								<span style="color: #999999;margin-left: 15px;">两个或两个以上请用逗号隔开</span>
-								<p class="warning hide">主播姓名不能为空!</p>
+								<span class="comment-left-tip"><em>*</em>主讲人</span>
+								<input type="text" placeholder="" autocomplete="off" class="zhuanlan_title zhuanlan_title1 course_lecturer "/>
+								<span style="font-size: 14px;color: #999999;margin-left: 20px;">两个或两个以上请用逗号隔开</span>
+								<p class="warning warning_course_lecturer hide">主讲人不能为空</p>
+								<p class="warning warning_course_lecturer_length hide">姓名格式不正确</p>
 							</div>
 							<!--主播介绍-->
 							<div class="comment-style">
-								<span class="comment-left-tip"><em>*</em>主播介绍</span>
-								<textarea class="introduce-text" name="" rows="" cols=""></textarea>							
-								<p class="warning hide title-err">主播介绍不能为空!</p>
+								<span class="comment-left-tip"><em>*</em>主讲人介绍</span>
+								<div class="" style="display: inline-block">
+									<script id="editor_lecturer" type="text/plain" style="width:540px;height:160px;"></script></div>
+								<p class="warning warning_course_lecturer_description hide">主讲人介绍不能为空</p>
 							</div>	
 							<!--课程分类-->
 							<div class="comment-style">
 								<span class="comment-left-tip"><em>*</em>课程分类</span>
-								<select class="class-style" name="">
-									<option value="">请选择课程分类</option>
-									<option value="">直播课</option>
+								<select id="menu_select" class="class-style">
 								</select>
-								<p class="warning hide title-err">主播介绍不能为空!</p>
+								<p class="warning hide">课程分类不能为空</p>
 							</div>	
 							<!--开课日期-->
 							<div class="comment-style">
 								<span class="comment-left-tip"><em>*</em>开课时间</span>
-								<input type="" name="" id="" value="" />
-								<p class="warning hide title-err">主播介绍不能为空!</p>
+								<input type="text"  id="classOpenTiem" readonly="readonly" placeholder="请选择开课时间" style="width: 280px;height: 36px;color: #999999 !important;font-size: 14px;" class="select_time course_start_time">
+								<p class="warning warning_course_start_time hide">开课时间不能为空</p>
+								<p class="warning warning_course_time1 hide">开课时间应大于当前时间</p>
 							</div>	
 							<!--价格-->
 							<div class="comment-style">
 								<span class="comment-left-tip"><em>*</em>价格</span>
-								<input type="" name="" id="" value="" class="price-write" />
-								<span class="priceTip">熊猫币<span>（1元=10熊猫币）</span></span>
-								<p class="warning hide title-err">主播介绍不能为空!</p>
-							</div>	
-							<!--原价-->
+								<input class="zhuanlan_title zhuanlan_title3 course_price" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
+								<span>熊猫币</span><span style="color: #999;">(1元=10熊猫币)</span>
+								<p class="warning warning_course_price hide">价格不能为空</p>
+								<p class="warning warning_course_price_Illegal hide">价格数值不符合规范</p>
+							</div>
 							<div class="comment-style">
-								<span class="comment-left-tip"><em></em>原价</span>
-								<input type="" name="" id="" value="" class="original-price"  />
-								<span class="priceTip">熊猫币</span>
-								<p class="warning hide title-err">主播介绍不能为空!</p>
+								<span class="comment-left-tip">原价</span>
+								<input class="zhuanlan_title zhuanlan_title3 course_originalCost " onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
+								<span>熊猫币</span>
+								<p class="warning warning_course_originalCost hide">原价不能大于当前价格</p>
 							</div>
 							<!--课程介绍-->
 							<div class="comment-style">
 								<span class="comment-left-tip"><em>*</em>课程介绍</span>
-								<textarea class="class-text" name="" rows="" cols=""></textarea>							
-								<p class="warning hide">主播介绍不能为空!</p>
+								<div class="" style="display: inline-block">
+									<script id="editor_cd" type="text/plain" style="width:540px;height:260px;"></script></div>
+								<p class="warning warning_course_details hide">课程介绍不能为空</p>
 							</div>
 							
 							
 							<div class="comment-style">
 								<span class="comment-left-tip"></span>
-								<button type="button" class="class-submission">提交课程</button>
+								<button type="button" class="class-submission" onclick="saveCourse()">提交课程</button>
 							</div>
 						</div>
 					</div>
@@ -1958,6 +2021,8 @@
 	<!--<script src="/web/js/provinces.js"></script>-->
 	<script src="/web/js/anchors-disciple.js?v=ipandatcm_1.2.1" type="text/javascript" charset="UTF-8"></script>
 	<script src="/web/js/anchors_resources.js?v=ipandatcm_1.2.1" type="text/javascript" charset="UTF-8"></script>
+	<script src="/web/js/anchor/teaching.js?v=ipandatcm_1.2.1" type="text/javascript" charset="UTF-8"></script>
+	<script src="/web/js/common_msg.js" type="text/javascript" charset="UTF-8"></script>
 
 	<script>
 	
@@ -1980,9 +2045,9 @@
 	<script type="text/javascript">
     //实例化编辑器
     //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
-    function getLDContent() {
-        return UE.getEditor('column-content').getContent();
-    }
+//    function getLDContent() {
+//        return UE.getEditor('column-content').getContent();
+//    }
 //  function getCDContent() {
 //      return UE.getEditor('editor_cd').getContent();
 //  }
