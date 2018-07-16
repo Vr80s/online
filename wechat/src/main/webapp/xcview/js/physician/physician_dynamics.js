@@ -7,6 +7,7 @@ var postsCommentId="";
 var postsCommentUserName="";
 var doctorPostsType ="";
 var isShow = false;
+var option_id="";
 $(function(){
     loginUserId = localStorage.getItem("userId");
     loginUserName = localStorage.getItem("name");
@@ -17,6 +18,14 @@ $(function(){
             $(".baseImagenumbers").show();
         }
     })
+    //点击选项
+    $('#mainMenu').click(function(e){
+        console.log(e.target.id);
+        option_id = e.target.id;
+        if (option_id == "") {
+            option_id = "li-1";
+        }
+    });
 
 });
 //轮播图
@@ -442,7 +451,10 @@ function doctorPostsList(pageNumber,downOrUp,doctorPostsType) {
  */
 function postsType(obj) {
     doctorPostsType = $(obj).attr("value");
-    doctorPostsList(1,"down",doctorPostsType);
+    if (option_id == "li-1"){
+        doctorPostsList(1,"down",doctorPostsType);
+    }
+
     //alert(type)
 }
 /**
@@ -640,14 +652,34 @@ var miniRefresh = new MiniRefresh({
         //isLock: true,//是否禁用下拉刷新
         callback: function () {
             page = 1;
-            doctorPostsList(page,'down',doctorPostsType);
+            if (option_id == "li-1"){
+                sowingMap();
+                doctorPostsList(page,'down',doctorPostsType);
+            } else if (option_id == "li-2") {
+                sowingMap();
+                doctorStatus();
+                miniRefresh.endDownLoading(true);// 结束下拉刷新
+            } else if (option_id == "li-3") {
+                sowingMap();
+
+                miniRefresh.endDownLoading(true);// 结束下拉刷新
+            } else if (option_id == "li-4") {
+                sowingMap();
+                doctorIntroduction();
+                miniRefresh.endDownLoading(true);// 结束下拉刷新
+            }
+
         }
     },
     up: {
         isAuto: false,
         callback: function () {
-            page++;
-            doctorPostsList(page,'up',doctorPostsType);
+            if (option_id == "li-1"){
+                page++;
+                doctorPostsList(page,'up',doctorPostsType);
+            } else {
+                miniRefresh.endUpLoading(false);// 结束上拉加载
+            }
         }
     }
 });
@@ -769,22 +801,26 @@ function doctorCourses(data){
         });
 }
 //判断医师是否具有主播权限
-requestService("/xczh/doctors/doctorStatus", {doctorId:doctorId},function (data) {  //一、获取是否医师权限。
-    if (data.success == true) {
-        // 0 无权限 1 医师认证通过 2 医馆认证通过 3 医师认证被禁用
-        var status = data.resultObject.status;
-        if (status == 0 || status == 3) {
+
+function doctorStatus() {
+    requestService("/xczh/doctors/doctorStatus", {doctorId:doctorId},function (data) {  //一、获取是否医师权限。
+        if (data.success == true) {
+            // 0 无权限 1 医师认证通过 2 医馆认证通过 3 医师认证被禁用
+            var status = data.resultObject.status;
+            if (status == 0 || status == 3) {
                 $(".no_live").css("display","block");
                 $("#recommended").css("display","block");
                 $(".living_broadcastroom").css("display","none");  /*封面图隐藏*/
                 $("#live_lesson").css("display","none");  /*直播课程*/
-                defaultId();                
-        }else{
-            //有权限，获取课程列表
-            doctorCourses(data); 
+                defaultId();
+            }else{
+                //有权限，获取课程列表
+                doctorCourses(data);
+            }
         }
-    }
-});
+    });
+}
+doctorStatus();
 /*直播间结束*/
 //获取医师个人介绍
 doctorIntroduction();
