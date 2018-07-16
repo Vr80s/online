@@ -397,6 +397,13 @@
 	.opens{
 		font-size: 0.28rem;
 	}
+
+	.swiper-pagination-bullet{
+		border: none !important;
+	    width: 0.22rem !important;
+	    border-radius: 100px !important;
+	    height: 0.06rem !important;
+	}
 </style>
 
 </head>
@@ -741,9 +748,8 @@
 						</div>
 					{{else if items.lineState == 2 || items.lineState == 4 || items.lineState == 5}}
 						<div class="count_down">
-							<div class="count_down_title" style="margin-top: 0rem;margin-bottom:0.4rem;">即将直播：{{items.gradeName}}</div>
+							<div class="count_down_title" style="margin-top: 0rem;margin-bottom:0.4rem;"><span class="count_down_title_span">即将直播：</span></div>
 							<div id="box1"></div>
-							
 						</div>
 					{{else if items.lineState == 3}}
 						<img src="/xcview/images/play_btn.png" alt="" class="broadcastroom_button" onclick="common_jump_all({{items.id}})" />

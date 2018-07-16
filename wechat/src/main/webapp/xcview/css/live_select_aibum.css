@@ -297,7 +297,7 @@ overflow: hidden;
 }
 .limit_height ul li{
 	overflow: hidden;
-    padding: 0.2rem 0 0.3rem;
+    padding: 0.2rem 0 0.2rem;
     border-bottom: 1px solid #f0f0f0;
     position: relative;
 }
@@ -310,6 +310,9 @@ overflow: hidden;
 	height: 100%;
 	left: 0;
 	top: 0;
+}
+.limit_time{
+	margin-top: 0.1rem;
 }
 .limit_inf{
 	width: 6.2rem;
