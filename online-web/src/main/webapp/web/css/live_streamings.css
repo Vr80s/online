@@ -607,3 +607,8 @@
 		height: 93% !important;
 	}
 } 
+@media screen and (max-height:600px){ 
+	.page-pc .player-container{
+		height: 85% !important;
+	}
+} 
