@@ -91,7 +91,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 
     @Override
     public Page<CourseLecturVo> selectLecturerAllCourseByType(Page<CourseLecturVo> page, String lecturerId,
-                                                        Integer type, boolean onlyFree) {
+                                                              Integer type, boolean onlyFree) {
         List<CourseLecturVo> records = iCourseMapper.selectLecturerAllCourseByType(page, lecturerId, type, onlyFree);
         return page.setRecords(records);
     }
@@ -257,28 +257,33 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     }
 
     @Override
-    public List<Map<String, Object>> doctorCourseList(String userId,boolean onlyFree) {
-        
+    public List<Map<String, Object>> doctorCourseList(String userId, boolean onlyFree) {
+
         List<Map<String, Object>> alllist = new ArrayList<Map<String, Object>>();
-        
-        List<CourseLecturVo> records = iCourseMapper.selectLecturerAllCourseByType(new Page<CourseLecturVo>(1,4), userId, 
-                CourseType.APPRENTICE.getId(),onlyFree);
-        
+
+        List<CourseLecturVo> records = iCourseMapper.selectLecturerAllCourseByType(new Page<CourseLecturVo>(1, 4), userId,
+                CourseType.APPRENTICE.getId(), onlyFree);
+
         Map<String, Object> map1 = new HashMap<String, Object>();
         map1.put("text", "跟师直播");
         map1.put("code", 5);
-        map1.put("courseList",records);
+        map1.put("courseList", records);
         alllist.add(map1);
 
-        List<CourseLecturVo> recordsLive = iCourseMapper.selectLecturerAllCourseByType(new Page<CourseLecturVo>(1,6), userId, 
-                CourseType.LIVE.getId(),onlyFree);
-        
+        List<CourseLecturVo> recordsLive = iCourseMapper.selectLecturerAllCourseByType(new Page<CourseLecturVo>(1, 6), userId,
+                CourseType.LIVE.getId(), onlyFree);
+
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("text", "直播课程");
         map.put("code", 2);
-        map.put("courseList",recordsLive);
+        map.put("courseList", recordsLive);
         alllist.add(map);
-        
+
         return alllist;
+    }
+
+    @Override
+    public List<CourseLecturVo> listTeachingCourse(String userId, Page<CourseLecturVo> page, boolean onlyFree) {
+        return iCourseMapper.selectTeachingCourse(userId, page, onlyFree);
     }
 }
