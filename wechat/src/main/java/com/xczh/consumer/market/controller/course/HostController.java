@@ -1,10 +1,7 @@
 package com.xczh.consumer.market.controller.course;
 
 import java.net.URLDecoder;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
@@ -39,8 +36,10 @@ import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.course.service.IFocusService;
 import com.xczhihui.course.service.IMyInfoService;
 import com.xczhihui.course.vo.CourseLecturVo;
+import com.xczhihui.medical.doctor.model.MedicalDoctorAccount;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorArticleService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBannerService;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorQuestionService;
 import com.xczhihui.medical.doctor.vo.DoctorBannerVO;
 import com.xczhihui.medical.doctor.vo.MobileArticleVO;
@@ -79,6 +78,8 @@ public class HostController {
     private EnrolService enrolService;
     @Autowired
     private IMedicalDoctorQuestionService medicalDoctorQuestionService;
+    @Autowired
+    private IMedicalDoctorBusinessService medicalDoctorBusinessService;
 
     @Value("${returnOpenidUri}")
     private String returnOpenidUri;
@@ -204,7 +205,12 @@ public class HostController {
         apprenticeData.put("regulations", regulations);
         apprenticeData.put("questions", medicalDoctorQuestionService.selectQuestionByDoctorId(new Page<>(1, 100), doctorId).getRecords());
         apprenticeData.put("apprentices", enrolService.findApprenticesByDoctorId(doctorId).stream().map(SimpleUserVO::getSmallHeadPhoto).collect(Collectors.toList()));
-        //TODO 跟师直播
+        MedicalDoctorAccount doctorAccount = medicalDoctorBusinessService.getByDoctorId(doctorId);
+        if (doctorAccount != null) {
+            apprenticeData.put("apprenticeCourses", courseService.listTeachingCourse(doctorAccount.getAccountId(), new Page<>(1, 100), HeaderInterceptor.ONLY_THREAD.get()));
+        } else {
+            apprenticeData.put("apprenticeCourses", Collections.emptyList());
+        }
         apprenticeData.put("settings", enrolService.findSettingsByDoctorId(doctorId));
         apprenticeData.put("onlineApprenticeStatus", accountIdOpt.map(accountId -> enrolService.getOnlineApprenticeStatus(doctorId, accountId))
                 .orElse(OnlineApprenticeStatus.NOT_APPLY.getVal()));
