@@ -143,7 +143,7 @@ public class PageController {
 
         //用户未登录去展示页
         if (ou == null) {
-            if (cv.getType().equals(1) || cv.getType().equals(2)) {
+            if (cv.getType().equals(1) || cv.getType().equals(0)) {
                 //视频音频购买
                 coursePage = WechatShareLinkType.SCHOOL_AUDIO.getLink();
             } else if (cv.getType().equals(3)) {
@@ -156,7 +156,8 @@ public class PageController {
             
         //用户登录 判断课程收费情况，或者是否购买    
         } else {
-            if (cv.getWatchState().equals(0)) {
+            //判断有没有学习过啦啦啦
+            if (cv.getWatchState().equals(0) || cv.getWatchState().equals(1) ) {
                 if (cv.getType().equals(1) || cv.getType().equals(2)) {
                     //视频音频购买
                     coursePage = WechatShareLinkType.SCHOOL_AUDIO.getLink();
@@ -167,9 +168,8 @@ public class PageController {
                     //线下课购买
                     coursePage = WechatShareLinkType.SCHOOL_CLASS.getLink();
                 }
-            } else if (cv.getWatchState().equals(1) || cv.getWatchState().equals(2)) {
-                
-                if (cv.getType().equals(1) || cv.getType().equals(2)) {
+            } else if (cv.getWatchState().equals(2) ) {
+                if (cv.getType().equals(2)) {
                     if (cv.getCollection()) {
                         //专辑视频音频播放页
                         coursePage = WechatShareLinkType.LIVE_SELECT_ALBUM.getLink();

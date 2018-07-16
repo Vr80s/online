@@ -397,7 +397,7 @@ public class MobileShareController {
             
         //用户登录 判断课程收费情况，或者是否购买    
         } else {
-            if (cv.getWatchState().equals(0)) {
+            if (cv.getWatchState().equals(0) || cv.getWatchState().equals(1)) {
                 if (cv.getType().equals(1) || cv.getType().equals(2)) {
                     //视频音频购买
                     coursePage = WechatShareLinkType.SCHOOL_AUDIO.getLink();
@@ -408,7 +408,7 @@ public class MobileShareController {
                     //线下课购买
                     coursePage = WechatShareLinkType.SCHOOL_CLASS.getLink();
                 }
-            } else if (cv.getWatchState().equals(1) || cv.getWatchState().equals(2)) {
+            } else if (cv.getWatchState().equals(2)) {
                 
                 if (cv.getType().equals(1) || cv.getType().equals(2)) {
                     if (cv.getCollection()) {

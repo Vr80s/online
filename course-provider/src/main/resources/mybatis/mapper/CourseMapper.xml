@@ -334,7 +334,7 @@
 	        and oc.status=1
 	        and oc.type = 1
         <include refid="onlyFreeCondition"/>
-        order by oc.live_status,learndCount desc limit 0,1
+        order by oc.live_status,oc.start_time desc,learndCount desc limit 0,1
     </select>
 
     <!-- 通过主播id得到主播的所有课程页面 --> 
