@@ -42,8 +42,8 @@ public interface CourseMapper extends BaseMapper<Course> {
     CourseLecturVo selectLecturerRecentCourse(@Param("userId") String userId, @Param("onlyFree") boolean onlyFree);
 
     List<CourseLecturVo> selectLecturerAllCourseByType(@Param("page") Page<CourseLecturVo> page,
-                                                 @Param("userId") String id, @Param("type") Integer type,
-                                                 @Param("onlyFree") boolean onlyFree);
+                                                       @Param("userId") String id, @Param("type") Integer type,
+                                                       @Param("onlyFree") boolean onlyFree);
 
     List<CourseLecturVo> selectUserConsoleCourse(@Param("userId") String userId);
 
@@ -191,4 +191,14 @@ public interface CourseMapper extends BaseMapper<Course> {
             " from oe_course where status = 1 and is_delete = 0"})
     List<Course> getAllCourseByStatus();
 
+    /**
+     * 查询师承课程
+     *
+     * @param userId   医师用户id
+     * @param page     分页参数
+     * @param onlyFree 是否仅查询免费
+     * @return
+     */
+    List<CourseLecturVo> selectTeachingCourse(@Param("userId") String userId, @Param("page") Page<CourseLecturVo> page,
+                                              @Param("onlyFree") boolean onlyFree);
 }
