@@ -597,3 +597,13 @@
 } 
 /*设置文档和视频的动画切换结束*/
 
+/*@media (max-width: 1365){ 
+	.page-pc .player-container{
+		height: 93% !important;
+	}
+}*/
+@media screen and (max-width:1367px){ 
+	.page-pc .player-container{
+		height: 93% !important;
+	}
+} 

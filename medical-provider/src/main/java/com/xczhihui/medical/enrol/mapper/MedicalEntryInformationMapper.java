@@ -69,4 +69,9 @@ public interface MedicalEntryInformationMapper extends BaseMapper<MedicalEntryIn
             " group by mei.user_id" +
             " order by mei.id desc"})
     List<SimpleUserVO> findApprenticesByDoctorId(@Param("doctorId") String doctorId);
+
+    @Select({"select count(id)" +
+            " from medical_entry_information" +
+            " where doctor_id = #{doctorId} and user_id = #{accountId} and apprentice = 1"})
+    Integer countByDoctorIdAndAccountId(@Param("doctorId") String doctorId, @Param("accountId") String accountId);
 }

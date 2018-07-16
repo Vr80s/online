@@ -12,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.xczhihui.common.util.enums.ApprenticeStatus;
 import com.xczhihui.common.util.enums.EntryInformationType;
+import com.xczhihui.common.util.enums.OnlineApprenticeStatus;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 import com.xczhihui.medical.enrol.mapper.ApprenticeSettingsMapper;
@@ -188,7 +190,7 @@ public class EnrolServiceImpl implements EnrolService {
     }
 
     @Override
-    public List<MedicalEnrollmentRegulations> listByDoctorId(String doctorId) {
+    public List<Map<String, Object>> listByDoctorId(String doctorId) {
         return medicalEnrollmentRegulationsMapper.listByDoctorId(doctorId);
     }
 
@@ -249,7 +251,7 @@ public class EnrolServiceImpl implements EnrolService {
     public void updateStatusEntryInformationById(int id, int apprentice) {
         MedicalEntryInformation medicalEntryInformation = medicalEntryInformationMapper.selectById(id);
         if (medicalEntryInformation != null) {
-            if ((apprentice == 1 || apprentice == 0) && !medicalEntryInformation.getApplied()) {
+            if ((apprentice == ApprenticeStatus.YES.getVal() || apprentice == ApprenticeStatus.NO.getVal()) && !medicalEntryInformation.getApplied()) {
                 medicalEntryInformation.setApprentice(apprentice);
                 //标记为已审核
                 medicalEntryInformation.setApplied(true);
@@ -299,6 +301,26 @@ public class EnrolServiceImpl implements EnrolService {
     @Override
     public List<SimpleUserVO> findApprenticesByDoctorId(String doctorId) {
         return medicalEntryInformationMapper.findApprenticesByDoctorId(doctorId);
+    }
+
+    @Override
+    public boolean isApprentice(String doctorId, String accountId) {
+        Integer cnt = medicalEntryInformationMapper.countByDoctorIdAndAccountId(doctorId, accountId);
+        return cnt != null && cnt > 0;
+    }
+
+    @Override
+    public int getOnlineApprenticeStatus(String doctorId, String accountId) {
+        MedicalEntryInformation onlineEntryInformation = findOnlineEntryInformation(accountId, doctorId);
+        if (onlineEntryInformation == null) {
+            return OnlineApprenticeStatus.NOT_ENTRY.getVal();
+        } else if (!onlineEntryInformation.getApplied()) {
+            return OnlineApprenticeStatus.NOT_APPLY.getVal();
+        } else if (onlineEntryInformation.getApplied() && onlineEntryInformation.getApprentice() == ApprenticeStatus.YES.getVal()) {
+            return OnlineApprenticeStatus.PASSED.getVal();
+        } else {
+            return OnlineApprenticeStatus.NOT_PASS.getVal();
+        }
     }
 
     private void validateMedicalEntryInformation(MedicalEntryInformationVO medicalEntryInformationVO) {

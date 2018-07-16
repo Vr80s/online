@@ -30,6 +30,41 @@ requestGetService("/xczh/enrol/enrollmentRegulations/"+merId,data,function(data)
         $("body").html(template('inherited_introduction_temp',enrollmentRegulations));
         // console.log(enrollmentRegulations)
 
+        var obj =  data.resultObject;
+        var startStr =  data.resultObject.deadline;
+        if(obj!=null && startStr!=null){
+            
+             //兼容ios和安卓了
+             var startTime = startStr.replace(/\-/g, "/");
+             setInterval(timer, 1000);
+             function timer() {
+                //设置结束的时间
+                var endtime = new Date(startStr);
+                //设置当前时间
+                var now = new Date();
+                //得到结束与当前时间差 ： 毫秒
+                var t = endtime.getTime() - now.getTime();
+                
+                if (t > 0) {
+                //得到剩余天数
+                var tian = Math.floor(t / 1000 / 60 / 60 / 24);
+                //得到还剩余的小时数（不满一天的小时）
+                var h = Math.floor(t / 1000 / 60 / 60 % 24);
+                //得到分钟数
+                var m = Math.floor(t / 1000 / 60 % 60);
+                //得到的秒数
+                // var s = Math.floor(t / 1000 % 60);
+                var str = "报名截止时间：<span class='times'>" + tian + "</span> 天 <span class='times'>" + h + "</span> 小时  <span class='times'>" + m + "</span> 分";
+                $("#box1").html(str);
+                } else {
+                    //clearInterval(timer); //这里可以添加倒计时结束后需要执行的事件 
+                    $("#box1").html("报名时间已结束");
+                }
+            }
+        
+        }
+
+
     }else{
         location.href="/xcview/html/apprentice/apprentice.html";
     }
