@@ -1,7 +1,7 @@
 // debugger
 var data = {};
 var doctorId = getQueryString('doctor');
-// var wv = getQueryString('wv');
+var wv = getQueryString('wv');
 
 if(doctorId == null){
     doctorId = sessionStorage.getItem("doctorId");
@@ -26,7 +26,7 @@ if(token != null && token != ''){
 if(appUniqueId != null && appUniqueId !=''){
     data.appUniqueId = appUniqueId;
 }
-/*if(wv != null && wv !=''){
+if(wv != null && wv !=''){
     sessionStorage.setItem("wv",wv);
 }else{
     wv = sessionStorage.getItem("wv");
@@ -34,15 +34,17 @@ if(appUniqueId != null && appUniqueId !=''){
 if(wv == null || wv ==''){
     $(".footer_perch").show();
     $(".footer").show();
-}*/
+}
 
 
 $(function(){
     // debugger
-    requestGetService("/medicalEntryInformation/online?doctorId="+doctorId,null,function(){
-        data.resultObject.education = getEducation(data.resultObject.education);
-		$("body").html(template('entry_information_temp',data.resultObject))
-	});
+    requestGetService("/xczh/enrol/medicalEntryInformation/online",{
+        doctorId:doctorId
+    },function(data){
+        data.resultObject.education = getEducation(data.resultObject.entryInformation);
+        $("body").html(template('entry_information_temp',data.resultObject.entryInformation))
+    });
 
 })
 

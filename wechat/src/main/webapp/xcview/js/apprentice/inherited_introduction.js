@@ -35,11 +35,11 @@ requestGetService("/xczh/enrol/enrollmentRegulations/"+merId,data,function(data)
         if(obj!=null && startStr!=null){
             
              //兼容ios和安卓了
-             var startTime = startStr.replace(/\-/g, "/");
+             var deadline = startStr.replace(/\-/g, "/");
              setInterval(timer, 1000);
              function timer() {
                 //设置结束的时间
-                var endtime = new Date(startStr);
+                var endtime = new Date(deadline);
                 //设置当前时间
                 var now = new Date();
                 //得到结束与当前时间差 ： 毫秒
