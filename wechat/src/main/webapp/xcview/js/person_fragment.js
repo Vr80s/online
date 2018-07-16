@@ -91,7 +91,7 @@ requestService("/xczh/common/richTextDetails",{
 			$(".user_mywrite").html(data.resultObject);
 			$(".no").hide();
 		}
-	}else if(type == 4){  //主播详情页面 --》 介绍 
+	}else if(type == 4 || type == 5){  //主播详情页面 --》 介绍 
 		if(data.resultObject==''||data.resultObject==null){
 			$("#jieshao").hide();
 			$(".no").show();

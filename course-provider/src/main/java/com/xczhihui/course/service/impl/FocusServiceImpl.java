@@ -44,11 +44,20 @@ public class FocusServiceImpl extends ServiceImpl<FocusMapper, Focus> implements
 
     @Override
     public List<Integer> selectFocusAndFansCount(String userId) {
-        return focusMapper.selectFocusAndFansCount(userId);
+        List<Integer> counts = focusMapper.selectFocusAndFansCount(userId);
+        counts.set(0,counts.get(0)+counts.get(2));
+        return counts;
     }
 
     @Override
     public List<Integer> selectFocusOrFansCountOrCriticizeCount(String userId) {
+        List<Integer> counts = focusMapper.selectFocusOrFansCountOrCriticizeCount(userId);
+        counts.set(0,counts.get(0)+counts.get(3));
+        return counts;
+    }
+    
+    @Override
+    public List<Integer> selectFocusAndFansCountAndCriticizeCount(String userId) {
         List<Integer> counts = focusMapper.selectFocusOrFansCountOrCriticizeCount(userId);
         counts.set(0,counts.get(0)+counts.get(3));
         return counts;
