@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+	<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<head>
+<meta charset="UTF-8">
+<title>熊猫中医</title>
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+
+<link rel="stylesheet" type="text/css" href="/xcview/css/physician/quiz.css?v=wechat_1.1.1"/>
+<link rel="stylesheet" type="text/css" href="/xcview/css/alert/sharecss.css?v=wechat_1.1.1"/>
+<!--手机嵌入模板-->
+<script type="text/javascript" src="/xcview/js/common/layout.js"></script>
+<script>
+	// 判断横屏展示时的状态
+	window.onorientationchange=function(){
+	    if(window.orientation==90||window.orientation==-90){
+	        window.location.reload();  /*横屏状态刷新*/
+	    }else{
+	        window.location.reload();  /*竖屏状态刷新*/
+	    }
+	}	
+</script>
+</head>
+<body style="background: #F8F8F8;">
+	<!--头部开始-->
+	<div class="header">
+		<div class="headers">
+				<p>提问</p>
+			</div>
+			<div class="arror_return" onclick="javascript:window.history.back();return false;">
+            <!-- <div class="arror_return" onclick="common_share_back();"> -->
+				<img src="/xcview/images/back icon.png" />
+			</div>
+			<!-- <div class="header_news">
+				<img src="/xcview/images/share_img.png" alt="" />
+			</div> -->
+		</div>
+	</header>
+	<div class="opacity_heights"></div>
+	<!--头部结束-->
+	
+	<!-- 中间内容开始 -->
+	<div class="main">
+		<textarea name="" id="" cols="" rows="" placeholder="描述您的问题" class="textarea"></textarea>
+	</div>
+	<div class="quiz">提问</div>
+	<!-- 中间内容结束 -->	
+</body>
+<script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/common.js?v=wechat_1.1.1"></script> 
+<script type="text/javascript" src="/xcview/js/common/template.js"></script>    <!--数据模板引入--> 
+
+<script type="text/javascript" src="/xcview/js/physician/quiz.js"></script> 
+<script>
+	window.onload = function(){
+		$('.textarea').keyup(function(){
+		    var textarea = $(".textarea").val();
+		    if(textarea==""||textarea==undefined){
+		        $(".quiz").css("opacity","0.3");
+		        $(".quiz").css("background","#00bc12");
+		    }else{
+		        $(".quiz").css("opacity","1");
+		        $(".quiz").css("background","#00bc12");
+		    }
+		})
+	};
+</script>
+<!-- 公用弹框 -->
+<script type="text/javascript" src="/xcview/js/common/alertPopShow.js?v=wechat_1.1.1"></script>
+</html>
