@@ -944,10 +944,13 @@
 						</div>
 					</div>
 				</div>
-				<!--收徒-->
+				<!--师承收徒-->
 				<div class="select_box">
-					<!--师承直播-->
 					<div class="little_box" style="display: block;">
+						
+					</div>
+					<!--师承直播-->
+					<div class="little_box">
 						<div class="live-top-title">
 							<span>师承直播</span>
 							<button type="button" class="change-status">发布</button>
@@ -1373,7 +1376,7 @@
 									<td>Data</td>
 									<td>Data</td>
 									<td>
-										<span>查看</span>	
+										<span class="btn-see">查看</span>	
 										<span>编辑</span>
 									</td>
 								</tr>
@@ -1385,10 +1388,179 @@
 								<p>查看</p>
 								<span><img src="/web/images/cha.png" alt="关闭"/></span>
 							</div>
+							<div class="see-details-wrap">
+								<!--老师-->
+								<div class="commer-see-menu">
+									<span>老师</span>
+									<p>老师老师老师老师老师老师老师老师老师老师老师老师老师老师老师老师老师</p>
+								</div>
+								<!--招生标题-->
+								<div class="commer-see-menu">
+									<span>招生标题</span>
+									<p>老师老师老师老师老师老师老师老师老师老师老师老师老师老师老师老师老师</p>
+								</div>
+								<!--封面图-->
+								<div class="commer-see-menu">
+									<span>封面图</span>
+									<p class="cover-map-namage"><img src="/web/images/1.jpg" alt="封面图"/></p>
+								</div>
+								<!--学费-->
+								<div class="commer-see-menu">
+									<span>学费</span>
+									<p>652</p>
+								</div>
+								<!--招生人数-->
+								<div class="commer-see-menu">
+									<span>招生人数</span>
+									<p>652</p>
+								</div>
+								<!--报名截止时间-->
+								<div class="commer-see-menu">
+									<span>报名截止时间</span>
+									<p>652</p>
+								</div>
+								<!--学习时间-->
+								<div class="commer-see-menu">
+									<span>学习时间</span>
+									<p>652</p>
+								</div>
+								<!--学习地址-->
+								<div class="commer-see-menu">
+									<span>学习地址</span>
+									<p>652</p>
+								</div>
+								<!--相关介绍-->
+								<div class="commer-see-menu">
+									<span>相关介绍</span>
+									<p>
+										《标幽赋》出自《针经指南》，为金元时期著名针灸医家窦默所著。窦氏
+										在《标幽赋》中论述了针灸与经络、脏腑、气血的关系，施术前后的注意
+										事项以及取穴、配穴和针灸禁忌等重要问题。《标幽赋》采用歌赋的形式把
+										幽冥隐晦、深奥难懂的针灸理论表达出来，文字精炼，叙述准确，对后世医家影响很大。
+									
+									</p>
+								</div>
+								<!--招生简章-->
+								<div class="commer-see-menu">
+									<span>招生简章</span>
+									<p>
+											《标幽赋》出自《针经指南》，为金元时期著名针灸医家窦默所著。窦氏
+										在《标幽赋》中论述了针灸与经络、脏腑、气血的关系，施术前后的注意
+										事项以及取穴、配穴和针灸禁忌等重要问题。《标幽赋》采用歌赋的形式把
+										幽冥隐晦、深奥难懂的针灸理论表达出来，文字精炼，叙述准确，对后世医家影响很大。
+									
+									</p>
+								</div>
+							</div>
+							<!--下载招生简介-->
+							<div class="download-file">
+								<button type="button">下载招生简介</button>
+							</div>
 						</div>
 						<!--新增招生简章-->
 						<div class="recruit-students hide">
-							2
+							<!--老师-->
+							<div class="comment-set-rules">
+								<span class="comment-left-rules"><em>*</em>老师</span>
+								<input type="text" class="teacher-name" />
+								<p class="warning-manage">姓名不能为空</p>								
+							</div>
+							<!--招生标题-->
+							<div class="comment-set-rules">
+								<span class="comment-left-rules"><em>*</em>招生标题</span>
+								<input type="text" class="recruit-title" placeholder="请填写招生标题" />
+								<p class="warning-manage">标题不能为空</p>	
+							</div>
+							<!--封面图-->
+							<div class="comment-set-rules" style="width: 619px;margin: 0;">
+								<span class="comment-left-rules" style="vertical-align: top;"><em>*</em>封面图</span>
+								<span class="mamage-wrap-img" onclick="$('#manage_picIpt').click()">
+									<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>
+									<p style="text-align: center;color: #999;font-size: 14px;">点击上传封面图片</p>
+								</span>
+								<span class="fengmian_tip">
+									<p>文件小于2M</p>
+									<p>支持JPG/PNG等格式图片</p>
+									<p>( 推荐上传规格：260x147 )</p>
+								</span>
+								<input type="file" placeholder="请填写您的专栏标题" style="visibility: hidden;display: inline-block;height: 10px;" id="manage_picIpt" />
+								<p class="warning-manage">请上传封面图</p>	
+							</div>
+							<!--学费-->
+							<div class="comment-set-rules">
+								<span class="comment-left-rules"><em>*</em>学费</span>
+								<input type="text" class="" /><span style="margin-left: 15px;">元</span>
+								<p class="warning-manage">学费不能为空</p>	
+							</div>
+							<!--招生人数-->
+							<div class="comment-set-rules">
+								<span class="comment-left-rules"><em>*</em>招生人数</span>
+								<input type="text" class="" />
+								<p class="warning-manage">请填写招生人数</p>	
+							</div>
+							<!--报名截止时间-->
+							<div class="comment-set-rules">
+								<span class="comment-left-rules"><em>*</em>报名截止时间</span>
+								<input type="text" class="" />
+								<p class="warning-manage">请选择截止时间</p>	
+							</div>
+							<!--学习时间-->
+							<div class="comment-set-rules">
+								<span class="comment-left-rules"><em>*</em>报名截止时间</span>
+								<input type="text" class="" placeholder="开始时间" />
+								<span>至</span>
+								<input type="text" class="" placeholder="结束时间" >
+								<p class="warning-manage">请选择学习时间段</p>	
+							</div>
+							<!--学习地址-->
+							<div class="comment-set-float">
+								<span class="comment-left-float"><em>*</em>学习地址</span>
+								<div class="comment-right-float">
+									<select name="">
+										<option value=""></option>
+									</select>
+									<select name="">
+										<option value=""></option>
+									</select>
+									<textarea class="address-text" placeholder="请输入详细地址"></textarea>
+									<p class="warning-manage">学习地址不能为空</p>	
+								</div>
+							</div>
+							<!--相关介绍-->
+							<div class="comment-set-float">
+								<span class="comment-left-float"><em>*</em>相关介绍</span>
+								<div class="comment-right-float">
+									<script id="about-introduce" type="text/plain" style="width:540px;height:160px;"></script>
+									<p class="warning-manage">相关介绍不能为空</p>	
+								</div>
+							</div>
+							<!--招生简介-->
+							<div class="comment-set-float">
+								<span class="comment-left-float"><em>*</em>招生简介</span>
+								<div class="comment-right-float">
+									<script id="introduction-enrolment" type="text/plain" style="width:540px;height:160px;"></script>
+									<p class="warning-manage">招生简介不能为空</p>	
+								</div>
+							</div>
+							<!--招生简章附件-->
+							<div class="comment-set-float">
+								<span class="comment-left-float"><em>*</em>招生简章附件</span>
+								<div class="comment-right-float">
+									<p class="enclosure-text"></p>
+									<span class="btn-up-file" onclick="$('#file-input').click()">上传</span>
+									<input type="file" id="file-input" style="visibility: hidden;display: inline-block;width: 2px;position: fixed;left: -1000px;" />
+									<span class="file-tip">支持doc/docx/pdf等格式</span>
+									<p class="warning-manage">附件不能为空</p>
+								</div>	
+							</div>
+							<!--招生简介-->
+							<div class="comment-set-float" style="padding-top: 10px;">
+								<span class="comment-left-float" style="height: 2px;"></span>
+								<div class="comment-right-float">
+									<button class="recruit-text-up" type="button">保存并发布</button>
+									<button class="recruit-text-up recruit-other-up" type="button">保存</button>
+								</div>
+							</div>
 						</div>
 					</div>
 					<!--收徒设置-->
