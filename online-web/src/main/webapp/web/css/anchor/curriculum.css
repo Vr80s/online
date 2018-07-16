@@ -503,6 +503,7 @@ table{
     height: 36px;
     border: 1px solid #eeeeee;
     outline: none;
+    line-height: 30px;
 }
 .trainee-table{
 	margin-top: 20px;
@@ -1475,6 +1476,7 @@ width: 63px;
 	border: 0;
 	border: 1px solid #F0F0F0;
 	float: left;
+	line-height: 30px;
 }
 .curriculum_top .div{
 	width: 280px;
