@@ -201,4 +201,6 @@ public interface CourseMapper extends BaseMapper<Course> {
      */
     List<CourseLecturVo> selectTeachingCourse(@Param("userId") String userId, @Param("page") Page<CourseLecturVo> page,
                                               @Param("onlyFree") boolean onlyFree);
+
+    CourseLecturVo selectDoctorLiveRoomRecentCourse(@Param("userId")String userId, @Param("onlyFree") boolean onlyFreee);
 }

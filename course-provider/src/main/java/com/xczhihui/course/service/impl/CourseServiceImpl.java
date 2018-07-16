@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,8 @@ import com.xczhihui.common.util.enums.CourseType;
 import com.xczhihui.common.util.enums.LiveStatus;
 import com.xczhihui.common.util.enums.PayStatus;
 import com.xczhihui.course.mapper.CourseMapper;
+import com.xczhihui.course.mapper.CriticizeMapper;
+import com.xczhihui.course.mapper.FocusMapper;
 import com.xczhihui.course.model.Course;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.course.vo.CourseLecturVo;
@@ -34,6 +37,12 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 
     @Autowired
     private CourseMapper iCourseMapper;
+    
+    @Autowired
+    private CriticizeMapper  criticizeMapper;
+    
+    @Autowired
+    private FocusMapper focusMapper;
 
 
     @Override
@@ -43,10 +52,33 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     }
 
     @Override
-    public CourseLecturVo selectCourseDetailsById(Integer courseId) {
+    public CourseLecturVo selectCourseDetailsById(String  userId,Integer courseId) {
 
         CourseLecturVo cv = iCourseMapper.selectCourseDetailsById(courseId);
 
+        /**
+         * 这里需要判断是否购买过了
+         */
+        if (userId!=null) {
+            // 是否关注
+            Integer isFours = focusMapper.isFoursLecturer(userId, cv.getUserLecturerId());
+            if (isFours != 0) {
+                cv.setIsFocus(1);
+            }
+            Integer falg = criticizeMapper.hasCourse(courseId,userId);
+            //如果是付费课程，判断这个课程是否已经被购买了
+            if (cv.getWatchState() == 0) { // 付费课程
+                if (falg > 0) {
+                    cv.setWatchState(2);
+                }
+                //如果是免费的  判断是否学习过
+            } else if (cv.getWatchState() == 1) { // 免费课程
+                if (falg > 0) {
+                    cv.setLearning(1);
+                }
+            }
+        }
+        
         return cv;
     }
 
@@ -115,10 +147,32 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     }
 
     @Override
-    public CourseLecturVo selectCourseMiddleDetailsById(Integer courseId) {
+    public CourseLecturVo selectCourseMiddleDetailsById(String  userId,Integer courseId) {
 
         CourseLecturVo cv = iCourseMapper.selectCourseMidileDetailsById(courseId);
-
+        
+        /**
+         * 这里需要判断是否购买过了
+         */
+        if (userId!=null) {
+            // 是否关注
+            Integer isFours = focusMapper.isFoursLecturer(userId, cv.getUserLecturerId());
+            if (isFours != 0) {
+                cv.setIsFocus(1);
+            }
+            Integer falg = criticizeMapper.hasCourse(courseId,userId);
+            //如果是付费课程，判断这个课程是否已经被购买了
+            if (cv.getWatchState() == 0) { // 付费课程
+                if (falg > 0) {
+                    cv.setWatchState(2);
+                }
+                //如果是免费的  判断是否学习过
+            } else if (cv.getWatchState() == 1) { // 免费课程
+                if (falg > 0) {
+                    cv.setLearning(1);
+                }
+            }
+        }
         return cv;
     }
 
@@ -286,4 +340,45 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     public List<CourseLecturVo> listTeachingCourse(String userId, Page<CourseLecturVo> page, boolean onlyFree) {
         return iCourseMapper.selectTeachingCourse(userId, page, onlyFree);
     }
+
+    @Override
+    public CourseLecturVo selectDoctorLiveRoomRecentCourse(String userId, boolean onlyFreee) {
+        return iCourseMapper.selectDoctorLiveRoomRecentCourse(userId, onlyFreee);
+    }
+    
+    
+    /**
+     * 查看当前用户是否关注了主播以及是否购买了这个课程
+     * @param cv
+     * @param accountIdOpt
+     * @param courseId
+     * @return
+     */
+    private CourseLecturVo assignFocusAndWatchState(CourseLecturVo cv,Optional<String> accountIdOpt,Integer courseId) {
+        /**
+         * 这里需要判断是否购买过了
+         */
+        if (accountIdOpt.isPresent()) {
+            String accountId = accountIdOpt.get();
+            // 是否关注
+            Integer isFours = focusMapper.isFoursLecturer(accountId, cv.getUserLecturerId());
+            if (isFours != 0) {
+                cv.setIsFocus(1);
+            }
+            Integer falg = criticizeMapper.hasCourse(courseId,accountId);
+            //如果是付费课程，判断这个课程是否已经被购买了
+            if (cv.getWatchState() == 0) { // 付费课程
+                if (falg > 0) {
+                    cv.setWatchState(2);
+                }
+                //如果是免费的  判断是否学习过
+            } else if (cv.getWatchState() == 1) { // 免费课程
+                if (falg > 0) {
+                    cv.setLearning(1);
+                }
+            }
+        }
+        return cv;
+    }
+
 }

@@ -2,6 +2,7 @@ package com.xczhihui.course.service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.course.model.Course;
@@ -20,7 +21,7 @@ public interface ICourseService {
      * @return CourseLecturVo
      * @author name：yangxuan <br>email: 15936216273@163.com
      */
-    CourseLecturVo selectCourseDetailsById(Integer courseId);
+    CourseLecturVo selectCourseDetailsById(String  userId,Integer courseId);
 
 
     /**
@@ -102,7 +103,7 @@ public interface ICourseService {
                                                   String id, Integer courseFrom, Integer multimediaType);
 
 
-    CourseLecturVo selectCourseMiddleDetailsById(Integer courseId);
+    CourseLecturVo selectCourseMiddleDetailsById(String userId,Integer courseId);
 
     /**
      * Description：查看主播控制台的---》直播间的分页
@@ -269,4 +270,12 @@ public interface ICourseService {
      * @return
      */
     List<CourseLecturVo> listTeachingCourse(String userId, Page<CourseLecturVo> page, boolean onlyFree);
+
+    /**
+     * 查看医师直播间的最近一次直播课
+     * @param userId
+     * @param onlyFreee
+     * @return
+     */
+    CourseLecturVo selectDoctorLiveRoomRecentCourse(String userId, boolean onlyFreee);
 }

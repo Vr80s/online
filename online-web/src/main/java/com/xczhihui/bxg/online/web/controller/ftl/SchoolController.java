@@ -7,6 +7,7 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -315,7 +316,8 @@ public class SchoolController extends AbstractFtlController {
         view.addObject("webUrlParam", "/courses/" + courseId);
         //获取用户信息
         OnlineUser user = getCurrentUser();
-        CourseLecturVo clv = courseService.selectCourseMiddleDetailsById(courseId);
+        
+        CourseLecturVo clv = courseService.selectCourseMiddleDetailsById(user.getId(),courseId);
         if (clv == null) {
             return to404();
         }
@@ -323,24 +325,7 @@ public class SchoolController extends AbstractFtlController {
         clv.setStartLevel(CourseUtil.criticizeStartLevel(clv.getStartLevel()));
         String strLevel = CourseUtil.criticizeStartLevel(clv.getStartLevel()) + "";
         view.addObject("startLevel", strLevel.replace(".", "_"));
-        if (user != null) {
-            /*
-             * 收费课程判断有没有购买过
-             * 免费课程判断有没有学习过
-             */
-            Integer falg = criticizeService.hasCourse(user.getId(), courseId);
-            // 付费课程
-            if (clv.getWatchState() == 0) {
-                if (falg > 0) {
-                    clv.setWatchState(2);
-                }
-                //如果是免费的  判断是否学习过
-            } else if (clv.getWatchState() == 1) {
-                if (falg > 0) {
-                    clv.setLearning(1);
-                }
-            }
-        }
+
         String description = "";
         if (clv.getDescription() != null) {
             description = HtmlUtil.getTextFromHtml(clv.getDescription());
@@ -410,8 +395,11 @@ public class SchoolController extends AbstractFtlController {
     @ResponseBody
     public ResponseObject add(LineApplyBody lineApplyBody) {
         String userId = getUserId();
+        
         lineApplyService.saveOrUpdate(lineApplyBody.build(userId));
-        CourseLecturVo clv = courseService.selectCourseMiddleDetailsById(lineApplyBody.getCourseId());
+        CourseLecturVo clv = courseService.selectCourseMiddleDetailsById(userId,lineApplyBody.getCourseId());
+       
+        
         return ResponseObject.newSuccessResponseObject(clv.getWatchState());
     }
 
