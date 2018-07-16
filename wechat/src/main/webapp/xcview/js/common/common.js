@@ -249,6 +249,7 @@ function isLoginJump() {
     } else {
         //登录页面
         location.href = "home_page.html";
+        
     }
 }
 
