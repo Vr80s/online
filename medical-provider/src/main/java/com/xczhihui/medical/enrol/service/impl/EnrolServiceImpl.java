@@ -2,10 +2,7 @@ package com.xczhihui.medical.enrol.service.impl;
 
 import static com.xczhihui.common.util.enums.EntryInformationType.ONLINE_APPLY;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -345,6 +342,25 @@ public class EnrolServiceImpl implements EnrolService {
             return OnlineApprenticeStatus.PASSED.getVal();
         } else {
             return OnlineApprenticeStatus.NOT_PASS.getVal();
+        }
+    }
+
+    @Override
+    public List<Map<String, String>> listByDoctorIdAndCourseId(String doctorId, String courseId) {
+        return medicalEntryInformationMapper.listByDoctorIdAndCourseId(doctorId,courseId);
+    }
+
+    @Override
+    public void saveCourseTeaching(String doctorId, String courseId, String apprenticeIds) {
+        List<String> userIds = Arrays.asList(apprenticeIds.split(","));
+        checkCourseDoctor(doctorId,courseId);
+        medicalEntryInformationMapper.deleteCourseTeachingByCourseId(courseId);
+        medicalEntryInformationMapper.saveCourseTeaching(courseId,userIds);
+    }
+
+    void checkCourseDoctor(String doctorId, String courseId) {
+        if (medicalEntryInformationMapper.checkCourseDoctor(doctorId,courseId)<1){
+            throw new MedicalException("医师不具有该课程权限");
         }
     }
 

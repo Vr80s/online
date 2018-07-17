@@ -75,6 +75,14 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
     public Page<CourseApplyInfoVO> selectCourseApplyPage(Page<CourseApplyInfoVO> page, String userId, Integer courseForm, Integer multimediaType, String title, int teaching) {
         anchorInfoService.validateAnchorPermission(userId);
         List<CourseApplyInfoVO> records = courseApplyInfoMapper.selectCourseApplyPage(page, userId, courseForm, multimediaType, title, teaching);
+        if(teaching == 1){
+            records.forEach(courseApplyInfoVO -> {
+                if(courseApplyInfoVO.getCourseId() != null){
+                    int count = courseApplyInfoMapper.getCourseTeachingCountByCourseId(courseApplyInfoVO.getCourseId());
+                    courseApplyInfoVO.setCourseTeachingCount(count);
+                }
+            });
+        }
         page.setRecords(records);
         return page;
     }

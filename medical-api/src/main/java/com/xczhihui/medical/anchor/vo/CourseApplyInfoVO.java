@@ -145,6 +145,16 @@ public class CourseApplyInfoVO implements Serializable {
 
     private Integer applyStatus;
 
+    private Integer courseTeachingCount;
+
+    public Integer getCourseTeachingCount() {
+        return courseTeachingCount;
+    }
+
+    public void setCourseTeachingCount(Integer courseTeachingCount) {
+        this.courseTeachingCount = courseTeachingCount;
+    }
+
     public static long getSerialVersionUID() {
         return serialVersionUID;
     }
