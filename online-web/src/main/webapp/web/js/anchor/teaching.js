@@ -5,6 +5,16 @@ $(function () {
     $(".course_search").click(function(){
         courseList(1);
     })
+//	我的弟子
+	$(".teaching-disciple").click(function(){myDiscipleList(1)});
+
+//  疑惑解答
+	$(".teaching-answer").click(function(){questionDisabuse(1)});
+	$(".answer-list-search select").on("change",function(){
+		editSelectStatus=$(this).val();
+		questionDisabuse(1,editSelectStatus);
+	})
+	
 });
 
 /**
@@ -23,9 +33,11 @@ function courseList(current) {
     RequestService(url, "get", null, function (data) {
         if (!data.resultObject || !data.resultObject.records || data.resultObject.records.length == 0) {
             $('#live-list').html('<div style="padding-top:40px;text-align:center"><img src="/web/images/other_noResult.png" alt="" /><p style="font-size:16px;color:#999;margin-top:35px">暂无课程</p></div>');
+            $('#live-list').css({"border":"0"})
             $('#live-list').removeClass('hide')
         } else {
-            var str = '<thead><tr><td>封面图</td><td>课程名称</td><td>价格</td><td>审核状态</td><td>课程状态</td><td>参与弟子</td><td>操作</td></tr></thead><tbody id="course_list"></tbody>'
+			$('#live-list').css({"border":"1px solid #dedede"})
+            var str = '<thead><tr><th>封面图</th><th>课程名称</th><th>价格</th><th>审核状态</th><th>课程状态</th><th>参与弟子</th><th>操作</th></tr></thead><tbody id="course_list"></tbody>'
             $('#live-list').html(str)
             $('#live-list').removeClass('hide')
         }
@@ -444,3 +456,212 @@ function initMenu() {
         $("#menu_select").html(str);
     });
 }
+
+/**
+ * Description：问答解惑
+ * creed: Talk is cheap,show me the code
+ * @author name：yuxin <br>email: wangxingchuan@ixincheng.com
+ * @Date: 2018/7/17 0003 上午 14:50
+ **/
+//	疑问解答列表
+	var questionData
+	var editSelectStatus
+	function questionDisabuse(pages,isAnswer) {	
+		var customData={}
+			customData.current=pages,
+	    	customData.size=10;
+	  
+	  	if(isAnswer!=null && isAnswer!=""){
+			customData.isAnswer=isAnswer;
+		};	
+	    RequestService("/doctor/question/list", "get",customData, function (data) {
+	      	if(data.success==true){
+	      		questionData=data.resultObject.records;
+	      		if(questionData==null || questionData.length==0){
+	      			$(".question-null").removeClass("hide");
+	      			$(".answer-list-table").addClass("hide");
+	      		}else{
+	      			$(".question-null").addClass("hide");
+	      			$(".answer-list-table").removeClass("hide");
+	      			$("#template-question-list").html(template("template-question",{items:data.resultObject.records}))
+	      		}
+	     // 分页
+	              	 if (data.resultObject.pages > 1) { //分页判断
+	                    $(".not-data").remove();
+	                    $(".ans_que_pages").removeClass("hide");
+	                    $(".ans_que_pages .searchPage .allPage").text(data.resultObject.pages);  //传的页数的参数
+	                    $("#Pagination_ans_que").pagination(data.resultObject.pages, {			//传的页数的参数
+	                        num_edge_entries: 1, //边缘页数
+	                        num_display_entries: 4, //主体页数
+	                        current_page: pages - 1,  //共几页
+	                        callback: function (page) {
+	                            //翻页功能
+	                            questionDisabuse(page + 1,editSelectStatus);
+	                        }
+	                    });
+	                } else {
+	                    $(".ans_que_pages").addClass("hide");
+	                }
+	      	}else{
+	      		showTip("获取问答疑惑数据失败");
+	      	}
+	    });
+	}
+
+//	0编辑/1回复  
+	$(".answer-list-table").on("click",".edit-question",function(){
+		var editStatus=$(this).attr("data-status"),
+			index=$(this).attr("data-index"),
+			questionShow=questionData[index];
+		if(editStatus==0){		
+			$(".querst-list textarea").val(questionShow.answer);
+		}else if(editStatus==1){
+			$(".querst-list textarea").val("");
+		}
+		$(".savaReplyId").val(questionShow.id)
+		$(".querst-list .all-question-text").html(questionShow.question);			
+		$("#mask").removeClass("hide");
+		$(".answer-edit-replay").removeClass("hide");
+	})
+//	确认修改编辑或回复
+	$(".answer-edit-replay").on("click","button",function(){		
+		var replyData=$(this).parent().siblings(".querst-list").find("textarea").val();		
+		var answerId=$(".savaReplyId").val();
+		if($.trim(replyData)==""){
+			$(".error-reply-null").removeClass("hide");
+			return
+		}else{
+			$(".error-reply-null").addClass("hide");
+			RequestService("/doctor/question/update", "get",{
+				answer:replyData,
+				id:answerId
+			}, function (data) {
+				if(data.success==true){
+					closeReplyText();
+					showTip("提交成功");
+					questionDisabuse(1,editSelectStatus)
+				}else{
+					showTip("提交失败");
+				}
+			})
+			
+		}
+	})
+//	关闭编辑回复
+	function closeReplyText(){
+		$("#mask").addClass("hide");
+		$(".answer-edit-replay").addClass("hide");
+	}
+	$(".edit-replay-top").click(function(){
+		closeReplyText()
+	})
+/**
+ * Description：我的弟子
+ * creed: Talk is cheap,show me the code
+ * @author name：yuxin <br>email: wangxingchuan@ixincheng.com
+ * @Date: 2018/7/17 0003 上午 20:07
+ **/
+//我的弟子列表
+	var disciple;
+	function myDiscipleList(pages) {	
+		var discipleData={}
+			discipleData.page=pages,
+	    	discipleData.size=10;
+
+	    RequestService("/doctor/apprentice", "get",discipleData, function (data) {
+	      	if(data.success==true){
+	      		disciple=data.resultObject.records;
+	      		if(disciple==null || disciple.length==0){
+	      			$(".disciple-null").removeClass("hide");
+	      			$(".myself-disciple-list").addClass("hide");
+	      		}else{
+	      			$(".disciple-null").addClass("hide");
+	      			$(".myself-disciple-list").removeClass("hide");
+	      			$("#disciple-table").html(template("disciple-template",{items:disciple}))
+	      		}
+	     // 分页
+	              	 if (data.resultObject.pages > 1) { //分页判断
+	                    $(".not-data").remove();
+	                    $(".disciple_pages").removeClass("hide");
+	                    $(".disciple_pages .searchPage .allPage").text(data.resultObject.pages);  //传的页数的参数
+	                    $("#Pagination_disciple").pagination(data.resultObject.pages, {			//传的页数的参数
+	                        num_edge_entries: 1, //边缘页数
+	                        num_display_entries: 4, //主体页数
+	                        current_page: pages - 1,  //共几页
+	                        callback: function (page) {
+	                            //翻页功能
+	                            myDiscipleList(page + 1);
+	                        }
+	                    });
+	                } else {
+	                    $(".disciple_pages").addClass("hide");
+	                }
+	      	}else{
+	      		showTip("获取问答疑惑数据失败");
+	      	}
+	    });
+	}
+//	点击查看弟子
+	$(".myself-disciple-list").on("click",".see-disciple-btn",function(){
+		var index=$(this).attr("data-index");
+		var previewDisciple=disciple[index];
+	//	是否审核通过
+		if(previewDisciple.applied==true){
+			$(".pass-through").addClass("hide");
+		}else{
+			$(".pass-through").removeClass("hide");
+		}
+	//	性别
+		if(previewDisciple.sex==1){
+			previewDisciple.sex="男";
+		}else{
+			previewDisciple.sex="女";
+		}
+	//	学历
+		if(previewDisciple.education==0){
+			previewDisciple.education="无";
+		}else if(previewDisciple.education==5){
+			previewDisciple.education="本科";
+		}else if(previewDisciple.education==6){
+			previewDisciple.education="硕士";
+		}else if(previewDisciple.education==7){
+			previewDisciple.education="博士";
+		}
+		$(".see-modal-scroll .name").text(previewDisciple.name);
+		$(".see-modal-scroll .number").text(previewDisciple.tel);
+		$(".see-modal-scroll .age").text(previewDisciple.age);
+		$(".see-modal-scroll .sex").text(previewDisciple.sex);
+		$(".see-modal-scroll .nativePlace").text(previewDisciple.nativePlace);
+		$(".see-modal-scroll .education").text(previewDisciple.education);
+		$(".see-modal-scroll .educationExperience").text(previewDisciple.educationExperience);
+		$(".see-modal-scroll .medicalExperience").text(previewDisciple.medicalExperience);
+		$(".see-modal-scroll .goal").text(previewDisciple.goal);
+		
+		$(".save-id-disciple").val(previewDisciple.id)
+		$("#mask").removeClass("hide");
+		$(".see-disciple-modal").removeClass("hide");
+	})
+//	审核是否通过
+	$(".see-disciple-modal").on("click",".adopt-disciple",function(){
+		var status=$(this).attr("data-apprentice");
+		var id=$(".save-id-disciple").val();
+		RequestService("/doctor/apprentice/"+id+"/"+status+"","PUT",null, function (data) {
+		 	if (data.success==true) {
+		 		showTip("操作成功");
+		 		closeDisciple()
+		 	} else{
+		 		showTip("操作失败");
+		 		closeDisciple()
+		 	}
+	   })
+	})
+	
+	
+//	关闭模态框
+	function closeDisciple(){
+		$("#mask").addClass("hide")
+		$(".see-disciple-modal").addClass("hide");
+	}
+	$(".see-modal-top span img").click(function(){
+		closeDisciple()
+	})

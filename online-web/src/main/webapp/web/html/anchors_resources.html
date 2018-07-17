@@ -281,8 +281,8 @@
 							<div class="littleBox">
 								<p class="activeP" data-name="menu4-1">远程诊疗</p>
 								<p class="teachingTab" data-name="menu4-2">师承直播</p>
-								<p data-name="menu4-3">我的弟子</p>
-								<p data-name="menu4-4">问答解惑</p>
+								<p class="teaching-disciple" data-name="menu4-3">我的弟子</p>
+								<p class="teaching-answer" data-name="menu4-4">问答解惑</p>
 								<p data-name="menu4-5">师承管理</p>
 								<p data-name="menu4-6">收徒设置</p>
 							</div>
@@ -1421,33 +1421,68 @@
 								</select>
 							</div>
 							<div class="myself-disciple-list">
-								<table border="" cellspacing="" cellpadding="">
-									<tr>
-										<th>姓名</th>
-										<th>手机号</th>
-										<th>性别</th>
-										<th>年龄</th>
-										<th>学历</th>
-										<th>籍贯</th>
-										<th>报名时间</th>
-										<th>是否徒弟</th>
-										<th>操作</th>
-									</tr>
-									<tr>
-										<td>Data</td>
-										<td>Data</td>
-										<td>Data</td>
-										<td>Data</td>
-										<td>Data</td>
-										<td>Data</td>
-										<td>Data</td>
-										<td>Data</td>
-										<td>
-											<span class="see-disciple">查看</span>
-										</td>
-									</tr>
+								<table id="disciple-table">
+									<script type="text/template" id="disciple-template">
+										<tr>
+											<th>姓名</th>
+											<th>手机号</th>
+											<th>性别</th>
+											<th>年龄</th>
+											<th>学历</th>
+											<th>籍贯</th>
+											<th>报名时间</th>
+											<th>是否徒弟</th>
+											<th>操作</th>
+										</tr>
+										{{each items as item i}}
+										<tr>
+											<td>{{item.name}}</td>
+											<td>{{item.tel}}</td>
+											{{if item.sex == 1}}
+												<td>男</td>
+											{{else}}
+												<td>女</td>
+											{{/if}}
+											<td>{{item.age}}</td>
+											{{if item.education == 0}}
+												<td>无</td>
+											{{else if item.education == 5}}
+												<td>本科</td>
+											{{else if item.education == 6}}
+												<td>硕士</td>
+											{{else if item.education == 7}}
+												<td>博士</td>
+											{{/if}}
+											<td>{{item.nativePlace}}</td>
+											<td>{{item.createTime}}</td>
+											{{if item.apprentice==1}}
+											<td>是</td>
+											{{else}}
+											<td>否</td>
+											{{/if}}
+											<td>
+												<span class="see-disciple-btn" data-index="{{i}}">查看</span>
+											</td>
+										</tr>
+										{{/each}}
+									</script>
 								</table>
 							</div>
+							<!--无数据时展示-->
+							<div class="comment-inherit-null disciple-null hide">
+								<img src="/web/images/icon-nodata.png" alt="无数据"/>
+								<p>暂无数据</p>
+							</div>
+							<!--分页部分start-->
+							<div class="disciple_pages pages hide" style="margin-top: 20px;">  <!--如需要复制分页doctors_pages要改类名并在JS里对应-->
+								<div id="Pagination_disciple" class="pagination-pages"></div>	<!--如需要复制分页Pagination_doctors要改类名并在JS里对应-->
+								<div class="searchPage">
+									<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+									<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
+									<a href="javascript:;" class="page-btn">确定</a>
+								</div>
+							</div>
+							<!--分页部分end-->
 						</div>
 						<!--查看徒弟模态框-->
 						<div class="see-disciple-modal hide">
@@ -1455,54 +1490,71 @@
 								<p>查看</p>
 								<span><img src="/web/images/cha.png" alt="关闭"/></span>
 							</div>
+							<input type="hidden" class="save-id-disciple" />
 							<!--姓名-->
 							<div class="see-modal-scroll">
 								<div class="comment-see-modal">
 									<span>姓名</span>
-									<p class="see-comment-text">查看查看</p>
+									<p class="see-comment-text name">查看查看</p>
 								</div>
 
 							<!--手机号-->
 
 								<div class="comment-see-modal">
 									<span>手机号</span>
-									<p class="see-comment-text">查看查看</p>
+									<p class="see-comment-text number">查看查看</p>
 								</div>
 
 							<!--年龄-->
 
 								<div class="comment-see-modal">
 									<span>年龄</span>
-									<p class="see-comment-text">查看查看</p>
+									<p class="see-comment-text age">查看查看</p>
 								</div>
 
 							<!--性别-->
 
 								<div class="comment-see-modal">
 									<span>性别</span>
-									<p class="see-comment-text">查看查看</p>
+									<p class="see-comment-text sex">查看查看</p>
 								</div>
 
 							<!--籍贯-->
 
 								<div class="comment-see-modal">
 									<span>籍贯</span>
-									<p class="see-comment-text">查看查看</p>
+									<p class="see-comment-text nativePlace">查看查看</p>
 								</div>
 
 							<!--学历-->
 
 								<div class="comment-see-modal">
 									<span>学历</span>
-									<p class="see-comment-text">查看查看</p>
+									<p class="see-comment-text education">查看查看</p>
+								</div>
+								
+							<!--学习经历-->
+								<div class="comment-see-modal">
+									<span>学习经历</span>
+									<p class="see-comment-text educationExperience">查看查看</p>
+								</div>
+							<!--行医经历-->
+								<div class="comment-see-modal">
+									<span>行医经历</span>
+									<p class="see-comment-text medicalExperience">查看查看</p>
+								</div>
+							<!--学中医目的-->
+								<div class="comment-see-modal">
+									<span>学中医目的</span>
+									<p class="see-comment-text goal">查看查看</p>
 								</div>
 							</div>
 							<!--通过/不通过-->
 							
-							<div class="comment-see-modal" style="padding: 30px 0 50px 0;">
+							<div class="comment-see-modal pass-through" style="padding: 30px 0 50px 0;">
 								<span style="height: 3px;"></span>
-								<button class="adopt-disciple" type="button">审核通过</button>
-								<button class="not-adopt-disciple" type="button">审核不通过</button>
+								<button class="adopt-disciple" type="button" data-apprentice="1">审核通过</button>
+								<button class="adopt-disciple not-adopt-disciple" type="button" data-apprentice="0">审核不通过</button>
 							</div>	
 						</div>
 					</div>
@@ -1515,102 +1567,81 @@
 							<div class="answer-list-search">
 								<span>选择分类：</span>
 								<select name="">
-									<option value="">全部</option>
-
+									<option value="-1">全部</option>
+									<option value="1">已回答</option>
+									<option value="0">未回答</option>
 								</select>
 							</div>
 							<div class="answer-list-table">
-								<table border="" cellspacing="" cellpadding="">
-								<tr>
-									<th>提问者</th>
-									<th>问题</th>
-									<th>回答</th>
-									<th>报名时间</th>
-									<th>操作</th>
-								</tr>
-								<tr>
-									<td>Data</td>
-									<td>
-										<div class="question">
-											全部全部全部全部全部全部
-											全部全部全部全部全部全部
-											全部全部全部全部全部全部全部
-											全部全部全部全部全部全部全部
-											全部全部全部全部全部全部全部全部全部全部全部全部全部全部
-											全部全部全部全部全部全部全部
-											全部全部全部全部全部全部全部全部
-										</div>
-									</td>
-									<td>
-										<div class="answer">
-											全部全部全部全部全部全部
-											全部全部全部全部全部全部
-											全部全部全部全部全部全部全部
-											全部全部全部全部全部全部全部
-											全部全部全部全部全部全部全部全部全部全部全部全部全部全部
-											全部全部全部全部全部全部全部
-											全部全部全部全部全部全部全部全部
-										</div>
-									</td>
-									<td></td>
-									<td>
-										<span class="edit-question">编辑</span>
-									</td>
-								</tr>
-								<tr>
-									<td>Data</td>
-									<td>
-										<div class="question">
-											全部全部全部全部全部全部
-											全部全部全部全部全部全部
-											全部全部全部全部全部全部全部
-											全部全部全部全部全部全部全部
-											全部全部全部全部全部全部全部全部全部全部全部全部全部全部
-											全部全部全部全部全部全部全部
-											全部全部全部全部全部全部全部全部
-										</div>
-									</td>
-									<td>
-										<div class="answer">
-											全部全部全部全部全部全部
-											全部全部全部全部全部全部
-											全部全部全部全部全部全部全部
-											全部全部全部全部全部全部全部
-											全部全部全部全部全部全部全部全部全部全部全部全部全部全部
-											全部全部全部全部全部全部全部
-											全部全部全部全部全部全部全部全部
-										</div>
-									</td>
-									<td></td>
-									<td>
-										<span class="edit-question">回复</span>
-									</td>
-								</tr>
-							</table>
+								<table id="template-question-list">
+									<script type="text/template" id="template-question">
+										<tr>
+											<th>提问者</th>
+											<th>问题</th>
+											<th>回答</th>
+											<th>提问时间</th>
+											<th>操作</th>
+										</tr>	
+										{{each items as item i}}
+										<tr>
+											<td>{{item.quizzerName}}</td>
+											<td>
+												<div class="question">
+													{{item.question}}
+												</div>
+											</td>
+											<td>
+												{{if item.answer != null}}
+												<div class="answer">
+													{{item.answer}}
+												</div>
+												{{/if}}
+											</td>
+											<td>{{item.createTime}}</td>
+											<td>
+												{{if item.answer != null}}
+													<span class="edit-question" data-status="0" data-index="{{i}}">编辑</span>
+												{{else}}
+													<span class="edit-question" data-status="1" data-index="{{i}}">回复</span>
+												{{/if}}
+											</td>
+										</tr>
+										{{/each}}
+									</script>
+								</table>
 							</div>
+							<!--无数据时展示-->
+							<div class="comment-inherit-null question-null hide">
+								<img src="/web/images/icon-nodata.png" alt="无数据"/>
+								<p>暂无数据</p>
+							</div>
+							<!--分页部分start-->
+							<div class="ans_que_pages pages hide" style="margin-top: 20px;">  <!--如需要复制分页doctors_pages要改类名并在JS里对应-->
+								<div id="Pagination_ans_que" class="pagination-pages"></div>	<!--如需要复制分页Pagination_doctors要改类名并在JS里对应-->
+								<div class="searchPage">
+									<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+									<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
+									<a href="javascript:;" class="page-btn">确定</a>
+								</div>
+							</div>
+							<!--分页部分end-->
 						</div>
 						<!--编辑回复-->
 						<div class="answer-edit-replay hide">
+							<input class="savaReplyId" type="hidden" />
 							<div class="edit-replay-top">
 								<p>编辑</p>
 								<span><img src="/web/images/cha.png" alt="关闭"/></span>
 							</div>
 							<div class="querst-list">
 								<span>问题</span>
-								<p>
-									编辑编辑编辑编辑编辑编辑编辑编辑编辑编辑编辑编辑
-									编辑编辑编辑编辑编辑编辑编辑编辑编辑编辑编辑编辑
-									编辑编辑编辑编辑编辑编辑编辑编辑编辑编辑编辑编辑
-									编辑编辑编辑编辑编辑编辑编辑编辑编辑编辑编辑编辑
-									编辑编辑编辑编辑编辑编辑编辑编辑编辑编辑编辑编辑
-									编辑编辑编辑编辑编辑编辑编辑编辑编辑编辑编辑编辑
-									编辑编辑编辑编辑编辑编辑编辑编辑编辑编辑编辑编辑
-									编辑编辑编辑编辑编辑编辑编辑编辑编辑编辑编辑编辑
-								</p>
+								<p class="all-question-text"></p>
+								
 							</div>
 							<div class="querst-list">
 								<span>回复</span>
 								<textarea name="" rows="" cols=""></textarea>
+								<p class="error-reply-null z hide">回复的内容不能为空</p>
 							</div>
 							<div class="querst-list">
 								<span style="height: 2px;"></span>
