@@ -352,10 +352,12 @@ public class EnrolServiceImpl implements EnrolService {
 
     @Override
     public void saveCourseTeaching(String doctorId, String courseId, String apprenticeIds) {
-        List<String> userIds = Arrays.asList(apprenticeIds.split(","));
         checkCourseDoctor(doctorId,courseId);
         medicalEntryInformationMapper.deleteCourseTeachingByCourseId(courseId);
-        medicalEntryInformationMapper.saveCourseTeaching(courseId,userIds);
+        if(StringUtils.isNotBlank(apprenticeIds)){
+            List<String> userIds = Arrays.asList(apprenticeIds.split(","));
+            medicalEntryInformationMapper.saveCourseTeaching(courseId,userIds);
+        }
     }
 
     void checkCourseDoctor(String doctorId, String courseId) {
