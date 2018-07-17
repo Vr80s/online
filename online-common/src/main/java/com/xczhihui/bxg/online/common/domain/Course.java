@@ -349,6 +349,8 @@ public class Course extends BasicEntity2 implements Serializable {
     private int onlineCourse;
     @Column(name = "collection")
     private Boolean collection;
+    @Column(name = "is_teaching")
+    private Boolean teaching;
     @Column(name = "lecturer")
     private String lecturer;
     @Type(type = "text")
@@ -463,6 +465,14 @@ public class Course extends BasicEntity2 implements Serializable {
 
     public void setOnlineCourse(int onlineCourse) {
         this.onlineCourse = onlineCourse;
+    }
+
+    public Boolean getTeaching() {
+        return teaching;
+    }
+
+    public void setTeaching(Boolean teaching) {
+        this.teaching = teaching;
     }
 
     public String getVersion() {

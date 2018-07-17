@@ -415,7 +415,6 @@ function confirmCourseSale(state, courseApplyId, courseId) {
                 closefn();
                 console.log(data);
                 if (data.success == true) {
-//
                     courseList(1);
                     showTip(data.resultObject);
                 } else {
@@ -483,6 +482,7 @@ function saveCourseTeaching(){
     RequestService("/anchor/course/teaching/apprentices/"+courseId, "post", {apprenticeIds:userIds.join(",")}, function (data) {
         if(data.success){
             showTip(data.resultObject);
+            courseList(1);
             $(".pupil-modal-wrap").addClass("hide");
             $("#mask").addClass("hide");
         }else{
