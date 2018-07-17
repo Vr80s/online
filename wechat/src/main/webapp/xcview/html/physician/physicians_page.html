@@ -1037,7 +1037,22 @@
 	<!-- 师承开始 -->
 	<div class="prose_origin">
 		<div class="prose_origin_main">
-			<div class="prose_origin_details">
+			<script type="text/html" id="prose_origin_main_id">
+			{{each items as item i}} 
+			<div class="prose_origin_details" data-ids="{{item.id}}"  data-tokenStr="{{item.tokenStr}}">
+				<div class="prose_origin_details_center">
+					<img src="{{item.coverImg}}" alt="" />
+					<div class="prose_origin_main_fize">
+						<div class="prose_origin_main_title">{{item.title}}</div>
+						<div class="prose_origin_main_time">{{item.createTime}}</div>
+						<div class="both"></div>
+					</div>
+				</div>
+			</div>
+			{{/each}}
+	        </script>
+
+			<!-- <div class="prose_origin_details">
 				<div class="prose_origin_details_center">
 					<img src="/xcview/images/banner01.png" alt="" />
 					<div class="prose_origin_main_fize">
@@ -1046,17 +1061,7 @@
 						<div class="both"></div>
 					</div>
 				</div>
-			</div>
-			<div class="prose_origin_details">
-				<div class="prose_origin_details_center">
-					<img src="/xcview/images/banner01.png" alt="" />
-					<div class="prose_origin_main_fize">
-						<div class="prose_origin_main_title">京城四大名医施今墨收徒-传授草药学精髓</div>
-						<div class="prose_origin_main_time">2018.6.1</div>
-						<div class="both"></div>
-					</div>
-				</div>
-			</div>
+			</div> -->
 		</div>
 
 		<!-- 远程诊疗开始 -->
