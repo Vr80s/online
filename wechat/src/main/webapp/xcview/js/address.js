@@ -107,7 +107,7 @@
 			/*$("#errorMsg").html("<div class='vanish1'><div class='vanish1_bg'></div><div class='vanish1_cen'><div class='vanish1_size'>手机号格式不正确</div></div></div>");
 			$("#errorMsg").show();
 			setTimeout(function(){$(".vanish1").hide();},1500);*/
-			webToast("手机号格式不正确","middle",1500);
+			webToast("请输入正确的手机号","middle",1500);
 			return false;
 		}
 		

@@ -421,6 +421,7 @@ $(".add_follow").click(function() {
 			            	 var left_p = $span.html();
 			            	 $span.html(parseInt(left_p)+1);
 				        }
+				        webToast("关注成功","middle",1500);
 					}
 				}
 			})

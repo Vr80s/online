@@ -45,6 +45,7 @@
 body{
     width: 7.5rem;
     margin: 0 auto;
+    background: #fff;
 }
 .return {
     background: url(../images/backicon.png) no-repeat;
@@ -114,7 +115,7 @@ $(".mailbox_right").click(function(){
            webToast("邮箱不能为空","middle",1500);
 		return false;
 	}else if (email.indexOf('@') == -1 && !regEmail.test(email)) {
-           webToast("邮箱格式不正确!","middle",1500);
+           webToast("请输入正确的邮箱!","middle",1500);
            return false;
     }else if (email.length < 5 || email.length > 32){
            webToast("邮件长度在5-32之间","middle",1500);
