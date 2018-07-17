@@ -1035,7 +1035,8 @@ outline: none;
 	color: #188EEE;
 }
 .long-range-table table td span:nth-child(1){
-	margin-right: 30px;
+	margin-left: 30px;
+	float: left;
 }
 .long-range-question{
 	width: 100%;
@@ -1050,6 +1051,208 @@ outline: none;
  .establish-time-wrap{
  	padding: 20px;
  }   
+.establish-time-wrap{
+	padding: 30px 20px;
+	overflow: hidden;
+}
+.comment-establish{
+	margin-bottom: 20px;
+}
+.comment-establish .establish-left{
+	display: inline-block;
+	width: 80px;
+	text-align: right;
+	margin-right: 15px;
+}
+.comment-establish .establish-left em{
+	color: red;
+	display: inline-block;
+}
+.comment-establish .time-set{
+	width: 280px;
+	height: 36px;
+	border: 1px solid #f0f0f0;
+	outline: none;
+	padding: 5px;
+	background-image: url(/web/images/down.png);
+    background-repeat: no-repeat;
+    background-position: 260px center;
+}
+
+.comment-establish .start-establish-time{
+	width: 120px;
+	height: 36px;
+	border: 1px solid #f0f0f0;
+	outline: none;
+	padding-left: 5px;
+}
+.comment-establish .end-establish-time{
+	width: 120px;
+	height: 36px;
+	border: 1px solid #f0f0f0;
+	outline: none;
+	padding-left: 5px;
+}
+.comment-establish button{
+	background: #00BC12;
+	border-radius: 4px;
+	width: 120px;
+	height: 36px;
+	color: white;
+	border: 0;
+	outline: none;
+}
+.appointment-details{
+	overflow: hidden;
+	padding: 20px;
+}
+.comment-appointment {
+	margin-bottom: 20px;
+	overflow: hidden;
+}
+.comment-appointment .appointment-left{
+	width: 90px;
+	text-align: right;
+	color: #666666;
+	margin-right: 20px;
+	display: inline-block;
+}
+
+.comment-appointment .appointment-right{
+	width: 680px;
+}
+.comment-appointment .appointment-right ul li{
+	list-style: none;
+	float: left;
+	margin-right: 5px;
+}
+.appointment-right .appointment-name{
+	color: #188eee;
+	cursor: pointer;
+}
+
+.comment-appointment .appointment-right button{
+	width: 120px;
+	height: 36px;
+	background: #00bc12;
+	color: white;
+	border-radius: 4px;
+	border: 1px solid #00bc12;
+	outline: none;
+	margin-right: 30px;
+	margin-top: 10px;
+}
+.comment-appointment .appointment-right .refuse-appointment{
+	background: white;
+	color: #00bc12;
+	border: 1px solid #00bc12;
+}
+/*弟子报名信息弹窗*/
+.disciple-inf-modal{
+	width: 960px;
+	max-height: 630px;
+	background: white;
+	    left: 50%;
+    top: 50%;
+	transform: translate(-50%,-50%);
+	-webkit-transform: translate(-50%,-50%);
+	position: fixed;
+    z-index: 99999;
+}
+.disciple-inf-top{
+	width: 100%;
+	height: 60px;
+	border-bottom: 1px solid #f0f0f0;
+	line-height: 60px;
+	padding: 0 40px;
+}
+.disciple-inf-top p{
+	font-size: 16px;
+    float: left;
+    margin: 0;
+}
+.disciple-inf-top span{
+	float: right;
+	cursor: pointer;
+}
+.disciple-inf-main{
+	padding: 20px;
+	max-height: 570px;
+	overflow-y: auto;
+
+}
+.disciple-content{
+	margin-bottom: 20px;
+	overflow: hidden;
+}
+.disciple-content .disciple-inf-left{
+	width: 90px;
+	margin-right: 20px;
+	text-align: right;
+}
+.disciple-inf-right{
+	width: 680px;
+}
+/*点击查看*/
+.see-btn-modal{
+	width: 960px;
+	background: white;
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%,-50%);
+	-webkit-transform: translate(-50%,-50%);
+	z-index: 99999;
+}
+.see-disciple-top{
+	width: 100%;
+	height: 60px;
+	line-height: 60px;
+	padding: 0 40px;
+	border-bottom: 1px solid #f0f0f0;
+}
+.see-disciple-top p{
+	float: left;
+	font-size: 16px;
+}
+.see-disciple-top span{
+	float: right;
+	cursor: pointer;
+}
+
+.see-disciple-main{
+	width: 100%;
+	padding: 20px;
+	max-height: 350px;
+	overflow-y: auto;
+}
+.see-disciple-scroll{
+	overflow: hidden;
+	margin-bottom: 20px;
+}
+.see-disciple-scroll .see-disciple-left{
+	width: 90px;
+	text-align: right;
+	color: #666666;
+	margin-right: 20px;
+}
+.see-disciple-right {
+	width: 680px;
+}
+.see-disciple-right li{
+	float: left;
+	list-style: none;
+	margin-right: 7px;
+}
+
+
+
+
+
+
+
+
+
 
 
 
