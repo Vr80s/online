@@ -415,7 +415,6 @@ function confirmCourseSale(state, courseApplyId, courseId) {
                 closefn();
                 console.log(data);
                 if (data.success == true) {
-//
                     courseList(1);
                     showTip(data.resultObject);
                 } else {
@@ -460,11 +459,13 @@ function openSelectPupil(courseId){
             str += '</p><span>'+users[i].name+'</span></div></li>';
         }
         $(".sava-pupil ul").html(str);
+        cheackSelectAll();
         $(".sava-pupil ul").attr("data-courseId",courseId);
         //	单个点击弟子
         $(".sava-pupil li .set-lable").click(function(){
             var thatImg=$(this).find("img");
             thatImg.toggleClass("active");
+            cheackSelectAll();
         });
 
         $(".pupil-modal-wrap").removeClass("hide");
@@ -483,11 +484,20 @@ function saveCourseTeaching(){
     RequestService("/anchor/course/teaching/apprentices/"+courseId, "post", {apprenticeIds:userIds.join(",")}, function (data) {
         if(data.success){
             showTip(data.resultObject);
+            courseList(1);
             $(".pupil-modal-wrap").addClass("hide");
             $("#mask").addClass("hide");
         }else{
             showTip(data.errorMessage);
         }
     });
+}
+
+function cheackSelectAll(){
+    if($(".sava-pupil ul .active").length > 0 && $(".sava-pupil ul .active").length == $(".sava-pupil ul img").length){
+        $(".all-select img").addClass("active");
+    }else{
+        $(".all-select img").removeClass("active");
+    }
 }
 

@@ -105,7 +105,7 @@ public class AnchorsController extends AbstractFtlController {
     @RequestMapping(value = "{userId}/courses", method = RequestMethod.GET)
     public ModelAndView courses(@PathVariable String userId,
                                 @RequestParam(required = false) Integer pageSize,
-                                @RequestParam(required = false) Integer pageNumber) throws IOException {
+                                @RequestParam(required = false) Integer pageNumber) {
 
 
         pageNumber = pageNumber == null ? 1 : pageNumber;

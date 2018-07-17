@@ -1,16 +1,16 @@
 package com.xczhihui.medical.doctor.service.impl;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.xczhihui.common.util.StringLegalUtil;
 import com.xczhihui.medical.doctor.mapper.MedicalDoctorPostsLikeMapper;
 import com.xczhihui.medical.doctor.model.MedicalDoctorPostsLike;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsLikeService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Description：医师动态点赞 服务实现类
@@ -40,6 +40,7 @@ public class MedicalDoctorPostsLikeServiceImpl extends ServiceImpl<MedicalDoctor
             if (userId.equals(accountId)) {
                 praise = true;
             }
+            list.get(i).setUserName(StringLegalUtil.isPhoneLegal(list.get(i).getUserName()));
         }
         mapAll.put("list", list);
         mapAll.put("praise", praise);

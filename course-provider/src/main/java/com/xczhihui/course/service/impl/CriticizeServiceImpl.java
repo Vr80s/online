@@ -1,21 +1,9 @@
 package com.xczhihui.course.service.impl;
 
-import java.io.UnsupportedEncodingException;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xczhihui.common.util.IStringUtil;
+import com.xczhihui.common.util.StringLegalUtil;
 import com.xczhihui.common.util.enums.CriticizeLabel;
 import com.xczhihui.course.exception.CriticizeException;
 import com.xczhihui.course.mapper.CourseMapper;
@@ -24,6 +12,18 @@ import com.xczhihui.course.model.Criticize;
 import com.xczhihui.course.model.OnlineUser;
 import com.xczhihui.course.model.Reply;
 import com.xczhihui.course.service.ICriticizeService;
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -256,10 +256,12 @@ public class CriticizeServiceImpl extends ServiceImpl<CriticizeMapper, Criticize
                         ou.setSmallHeadPhoto(criticize.getReplySmallHeadPhoto());
                         r.setReplyContent(criticize.getReplyContent());
                         r.setCreateTime(criticize.getReplyCreateTime());
+                        ou.setName(StringLegalUtil.isPhoneLegal(ou.getName()));
                         r.setOnlineUser(ou);
                         lr.add(r);
                     }
                     criticize.setReply(lr);
+                    criticize.getOnlineUser().setName(StringLegalUtil.isPhoneLegal(criticize.getOnlineUser().getName()));
                 }
 
         );
@@ -374,5 +376,4 @@ public class CriticizeServiceImpl extends ServiceImpl<CriticizeMapper, Criticize
         return this.baseMapper.selectMobileUserCommentMeanCount(userId);
     }
 
-
-}
+    }

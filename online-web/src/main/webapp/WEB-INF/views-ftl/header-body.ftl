@@ -53,7 +53,7 @@
                                                             placeholder="请输入手机号" autocomplete="off">
                 <div class="cymyloginclose1"></div>
                 <input type="password" class="cyinput2 form-control" maxlength="18" placeholder="请输入6-18位密码"
-                       autocomplete="off" style="border: 1px solid rgb(255, 64, 18);">
+                       autocomplete="new-password" style="border: 1px solid rgb(255, 64, 18);">
                 <div class="cymyloginclose2"></div>
                 <button class="cymyloginbutton">登<em></em>录</button>
                 <div class="cymyloginpassword"><a class="atOnceRegister"
