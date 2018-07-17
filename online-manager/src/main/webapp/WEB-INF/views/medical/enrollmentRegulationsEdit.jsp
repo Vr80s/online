@@ -72,20 +72,8 @@
 
 		<div class="form-group">
 			<label class="col-sm-1 control-label"><font color="red">*</font>老师: </label>
-			<div class="col-sm-3">
-				<select id="doctorId" name="doctorId" class="selectpicker show-tick form-control {required:true}" data-max-options="1" data-live-search="true">
-					<option  value="" >请选择</option>
-					<c:forEach var="m" items="${doctorList}">
-						<c:choose>
-							<c:when test="${m.id eq MedicalEnrollmentRegulations.doctorId}">
-								<option value="${m.id}" selected="selected">${m.name}</option>
-							</c:when>
-							<c:otherwise>
-								<option value="${m.id}">${m.name}</option>
-							</c:otherwise>
-						</c:choose>
-					</c:forEach>
-				</select>
+			<div class="col-sm-3" style="padding-top:5px ">
+				${MedicalEnrollmentRegulations.doctorName}
 			</div>
 		</div>
 

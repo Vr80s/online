@@ -1,14 +1,14 @@
 package com.xczhihui.medical.doctor.service.impl;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.xczhihui.common.util.StringLegalUtil;
 import com.xczhihui.medical.doctor.mapper.MedicalDoctorPostsCommentMapper;
 import com.xczhihui.medical.doctor.model.MedicalDoctorPostsComment;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsCommentService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Description：医师动态评论 服务实现类
@@ -32,10 +32,15 @@ public class MedicalDoctorPostsCommentServiceImpl extends ServiceImpl<MedicalDoc
                 if (medicalDoctorPostsComment.getReplyUserId().equals(userId)) {
                     medicalDoctorPostsComment.setSelf(true);
                 }
+                medicalDoctorPostsComment.setUserName(StringLegalUtil.isPhoneLegal(medicalDoctorPostsComment.getUserName()));
+                if(medicalDoctorPostsComment.getReplyUserName() != null){
+                    medicalDoctorPostsComment.setReplyUserName(StringLegalUtil.isPhoneLegal(medicalDoctorPostsComment.getReplyUserName()));
+                }
             } else {
                 if (medicalDoctorPostsComment.getUserId().equals(userId)) {
                     medicalDoctorPostsComment.setSelf(true);
                 }
+                medicalDoctorPostsComment.setUserName(StringLegalUtil.isPhoneLegal(medicalDoctorPostsComment.getUserName()));
             }
         });
         return list;

@@ -1,20 +1,10 @@
 package com.xczhihui.medical.headline.service.impl;
 
-import static com.xczhihui.common.util.RedisCacheKey.APPRAISE_PRAISE_KEY;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
-import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xczhihui.common.support.service.CacheService;
 import com.xczhihui.common.util.CodeUtil;
+import com.xczhihui.common.util.StringLegalUtil;
 import com.xczhihui.medical.doctor.vo.MobileArticleVO;
 import com.xczhihui.medical.exception.MedicalException;
 import com.xczhihui.medical.headline.mapper.OeBxsAppraiseMapper;
@@ -23,6 +13,16 @@ import com.xczhihui.medical.headline.model.OeBxsAppraise;
 import com.xczhihui.medical.headline.service.IOeBxsAppraiseService;
 import com.xczhihui.medical.headline.vo.AppraiseVO;
 import com.xczhihui.medical.headline.vo.SimpleUserVO;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import static com.xczhihui.common.util.RedisCacheKey.APPRAISE_PRAISE_KEY;
 
 /**
  * <p>
@@ -108,6 +108,7 @@ public class OeBxsAppraiseServiceImpl extends ServiceImpl<OeBxsAppraiseMapper, O
                 appraiseVO.setSelf(false);
                 appraiseVO.setPraised(false);
             }
+            appraiseVO.getAuthor().setName(StringLegalUtil.isPhoneLegal(appraiseVO.getAuthor().getName()));
         });
 
         //处理列表中评论别人的评论的数据
@@ -121,6 +122,7 @@ public class OeBxsAppraiseServiceImpl extends ServiceImpl<OeBxsAppraiseMapper, O
                         AppraiseVO reply = appraiseVOMap.get(replyCommentId);
                         if (reply != null) {
                             reply.setAuthor(new SimpleUserVO(reply.getUserId(), reply.getName(), reply.getSmallHeadPhoto()));
+                            reply.getAuthor().setName(StringLegalUtil.isPhoneLegal(reply.getAuthor().getName()));
                         }
                         appraiseVO.setReply(reply);
                         appraiseVO.setSelf(false);
