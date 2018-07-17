@@ -71,8 +71,7 @@ public class CourseController {
      * email: 15936216273@163.com
      */
     @RequestMapping("userCurrentCourseStatus")
-    public ResponseObject userCurrentCourseStatus(@Account(optional = true) Optional<String> accountIdOpt, @RequestParam("courseId") Integer courseId)
-            throws Exception {
+    public ResponseObject userCurrentCourseStatus(@Account(optional = true) Optional<String> accountIdOpt, @RequestParam("courseId") Integer courseId) {
 
         // 这里需要判断是否购买过了
         CourseLecturVo cv = null;
@@ -105,8 +104,7 @@ public class CourseController {
      * email: 15936216273@163.com
      */
     @RequestMapping("details")
-    public ResponseObject details(@Account(optional = true) Optional<String> accountIdOpt, @RequestParam("courseId") Integer courseId)
-            throws Exception {
+    public ResponseObject details(@Account(optional = true) Optional<String> accountIdOpt, @RequestParam("courseId") Integer courseId) {
 
         CourseLecturVo cv = courseServiceImpl.selectCourseMiddleDetailsById(accountIdOpt.isPresent()? accountIdOpt.get() : null,courseId);
         
@@ -128,8 +126,7 @@ public class CourseController {
      * email: 15936216273@163.com
      */
     @RequestMapping("liveDetails")
-    public ResponseObject liveDetails(@Account(optional = true) Optional<String> accountIdOpt, @RequestParam("courseId") Integer courseId)
-            throws Exception {
+    public ResponseObject liveDetails(@Account(optional = true) Optional<String> accountIdOpt, @RequestParam("courseId") Integer courseId) {
 
         CourseLecturVo cv = courseServiceImpl.selectCourseDetailsById(accountIdOpt.isPresent() ? accountIdOpt.get() : null,courseId);
         if (cv == null) {
@@ -150,9 +147,7 @@ public class CourseController {
      * @Date: 上午 10:29 2018/1/22 0022
      **/
     @RequestMapping("getCoursesByCollectionId")
-    public ResponseObject getCoursesByCollectionId(
-            @RequestParam(value = "collectionId") Integer collectionId)
-            throws Exception {
+    public ResponseObject getCoursesByCollectionId(@RequestParam(value = "collectionId") Integer collectionId) {
         List<CourseLecturVo> courses = courseServiceImpl.selectCoursesByCollectionId(collectionId);
         return ResponseObject.newSuccessResponseObject(courses);
     }
@@ -167,9 +162,7 @@ public class CourseController {
      * email: 15936216273@163.com
      */
     @RequestMapping("guessYouLike")
-    public ResponseObject selectMenuTypeAndRandCourse(
-            @RequestParam(value = "courseId") Integer courseId)
-            throws Exception {
+    public ResponseObject selectMenuTypeAndRandCourse( @RequestParam(value = "courseId") Integer courseId) {
         Page<CourseLecturVo> page = new Page<CourseLecturVo>();
         page.setCurrent(0);
         page.setSize(2);
@@ -188,9 +181,7 @@ public class CourseController {
      * email: 15936216273@163.com
      */
     @RequestMapping("unshelveCouserRecommen")
-    public ResponseObject unshelveCouserRecommen(
-            @RequestParam(required = false, value = "pageSize") Integer pageSize)
-            throws Exception {
+    public ResponseObject unshelveCouserRecommen( @RequestParam(required = false, value = "pageSize") Integer pageSize) {
 
         if (pageSize == null || pageSize == 0) {
             pageSize = 8;
@@ -207,8 +198,7 @@ public class CourseController {
      * @Date: 2018/6/5 0005 下午 8:23
      **/
     @RequestMapping("live/{courseId}")
-    public void liveCourse(@PathVariable("courseId") String courseId,
-                           @Account String accountId,
+    public void liveCourse(@PathVariable("courseId") String courseId, @Account String accountId,
                            HttpServletResponse response) throws IOException {
 
         String liveCourseUrl4Wechat = courseServiceImpl.getLiveCourseUrl4Wechat(accountId, courseId);
@@ -228,10 +218,7 @@ public class CourseController {
      * @throws Exception
      */
     @RequestMapping("courseTypeNumber")
-    public ResponseObject courseTypeNumber(
-            @RequestParam(value = "userId") String userId,
-            Integer type)
-            throws Exception {
+    public ResponseObject courseTypeNumber(@RequestParam(value = "userId") String userId, Integer type){
         Integer count = courseServiceImpl.selectLiveCountByUserIdAndType(userId, type);
         return ResponseObject.newSuccessResponseObject(count);
     }
@@ -243,8 +230,7 @@ public class CourseController {
      * @throws Exception
      */
     @RequestMapping("recommendSortAndRand")
-    public ResponseObject recommendSortAndRand(Integer pageSize)
-            throws Exception {
+    public ResponseObject recommendSortAndRand(Integer pageSize) {
 
         pageSize = (pageSize == null ? 4 : pageSize);
 
@@ -257,7 +243,7 @@ public class CourseController {
     }
 
     @RequestMapping("teaching")
-    public ResponseObject teaching(Integer pageSize,Integer pageNumber,String userId) throws Exception {
+    public ResponseObject teaching(Integer pageSize,Integer pageNumber,String userId) {
 
         pageSize = (pageSize == null ? 4 : pageSize);
         pageNumber = (pageNumber == null ? 1 : pageNumber);
@@ -270,7 +256,7 @@ public class CourseController {
     }
 
     @RequestMapping("teaching/qualification")
-    public ResponseObject qualification(@Account String accountId,Integer courseId) throws Exception {
+    public ResponseObject qualification(@Account String accountId,Integer courseId) {
         boolean qualification = courseServiceImpl.selectQualification4TeachingCourse(accountId, courseId);
         if (qualification) {
             return ResponseObject.newSuccessResponseObject("有权限");
@@ -281,7 +267,6 @@ public class CourseController {
     /**
      * 查看当前用户是否关注了主播以及是否购买了这个课程
      * @param cv
-     * @param accountIdOpt
      * @param courseId
      * @return
      */

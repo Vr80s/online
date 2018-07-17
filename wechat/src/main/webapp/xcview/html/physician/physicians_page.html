@@ -430,8 +430,8 @@
 		<div class="wrap-header" id="header">
 			<div class="header">		
 				<p>{{items.lecturerInfo.name}}</p>
-				<!-- <div class="arror_return" onclick="javascript:history.back(-1);" >  -->
-                <div class="arror_return" onclick="common_share_back();">
+				<!--<div class="arror_return" onclick="location.href='javascript:history.go(-1)'" >-->
+                <div class="arror_return" onclick="common_share_backs();"> 
 					<img src="/xcview/images/anchorj.png"/>
 				</div>
 				<div class="header_news" onclick="header_click()">
@@ -748,7 +748,7 @@
 						</div>
 					{{else if items.lineState == 2 || items.lineState == 4 || items.lineState == 5}}
 						<div class="count_down">
-							<div class="count_down_title" style="margin-top: 0rem;margin-bottom:0.4rem;"><span class="count_down_title_span">即将直播：</span></div>
+							<div class="count_down_title" style="margin-top: 0rem;margin-bottom:0.4rem;"><span class="count_down_title_span">即将直播：</span>{{items.gradeName}}</div>
 							<div id="box1"></div>
 						</div>
 					{{else if items.lineState == 3}}
@@ -1037,7 +1037,22 @@
 	<!-- 师承开始 -->
 	<div class="prose_origin">
 		<div class="prose_origin_main">
-			<div class="prose_origin_details">
+			<script type="text/html" id="prose_origin_main_id">
+			{{each items as item i}} 
+			<div class="prose_origin_details" data-ids="{{item.id}}"  data-tokenStr="{{item.tokenStr}}">
+				<div class="prose_origin_details_center">
+					<img src="{{item.coverImg}}" alt="" />
+					<div class="prose_origin_main_fize">
+						<div class="prose_origin_main_title">{{item.title}}</div>
+						<div class="prose_origin_main_time">{{item.createTime}}</div>
+						<div class="both"></div>
+					</div>
+				</div>
+			</div>
+			{{/each}}
+	        </script>
+
+			<!-- <div class="prose_origin_details">
 				<div class="prose_origin_details_center">
 					<img src="/xcview/images/banner01.png" alt="" />
 					<div class="prose_origin_main_fize">
@@ -1046,17 +1061,7 @@
 						<div class="both"></div>
 					</div>
 				</div>
-			</div>
-			<div class="prose_origin_details">
-				<div class="prose_origin_details_center">
-					<img src="/xcview/images/banner01.png" alt="" />
-					<div class="prose_origin_main_fize">
-						<div class="prose_origin_main_title">京城四大名医施今墨收徒-传授草药学精髓</div>
-						<div class="prose_origin_main_time">2018.6.1</div>
-						<div class="both"></div>
-					</div>
-				</div>
-			</div>
+			</div> -->
 		</div>
 
 		<!-- 远程诊疗开始 -->
@@ -1190,20 +1195,20 @@
 			<!-- 提问开始 -->
 			<div class="QA_main">
 				<script type="text/html" id="QA_main_id">
-					{{each items as item i}} 
+				{{each items as item i}} 
 				<div class="QA_doubt">
-					<img src="/xcview/images/touxiang.png" alt="" class="QA_doubt_img" />
+					<img src="{{item.userImg}}" alt="" class="QA_doubt_img" />
 					<div class="QA_doubt_main">
 						<img src="/xcview/images/QA_doubt.png" alt="" class="QA_doubt_main_img" />
-						肌肉萎缩都有哪些早期的症状？治疗肌肉萎缩的最佳治疗方案
+						{{item.question}}
 					</div>
 					<div class="both"></div>
 				</div>
 				<div class="QA_solution">
-					<img src="/xcview/images/touxiang.png" alt="" class="QA_solution_img" />
+					<img src="{{item.doctorImg}}" alt="" class="QA_solution_img" onerror="nofind()" />
 					<div class="QA_solution_main">
 						<img src="/xcview/images/QA_solution..png" alt="" class="QA_solution_main_img" />
-						肌肉萎缩都有哪些早期的症状？治疗肌肉萎缩的最佳治疗方案
+						{{item.answer}}
 					</div>
 					<div class="both"></div>
 				</div>
@@ -1218,24 +1223,17 @@
 		<div class="disciple_details">
 			<div class="disciple_title">
 				<span class="border"></span>
-				<span style="font-size: 0.28rem;">弟子：24人</span>
+				<span style="font-size: 0.28rem;">弟子：<span class="disciple_number">0</span>人</span>
 				<div class="both"></div>
 			</div>
 			<div class="disciple_main">
-				<img src="/xcview/images/physician_pic.png" alt="" />
-				<img src="/xcview/images/physician_pic.png" alt="" />
-				<img src="/xcview/images/physician_pic.png" alt="" />
-				<img src="/xcview/images/physician_pic.png" alt="" />
-				<img src="/xcview/images/physician_pic.png" alt="" />
-				<img src="/xcview/images/physician_pic.png" alt="" />
-				<img src="/xcview/images/physician_pic.png" alt="" />
-				<img src="/xcview/images/physician_pic.png" alt="" />
-				<img src="/xcview/images/physician_pic.png" alt="" />
-				<img src="/xcview/images/physician_pic.png" alt="" />
-				<img src="/xcview/images/physician_pic.png" alt="" />
-				<img src="/xcview/images/physician_pic.png" alt="" />
-				<img src="/xcview/images/physician_pic.png" alt="" />
-				<img src="/xcview/images/physician_pic.png" alt="" />
+	            <div class="disciple_main_id">
+	            	<script type="text/html" id="disciple_main_id">
+					{{each items as item i}} 
+						<img src="{{item}}" alt="" class="disciple_main_apprentices" />
+					{{/each}}
+		            </script>
+	            </div>
 				<div class="both"></div>
 			</div>
 			<!-- 如何成为弟子 -->
@@ -1255,7 +1253,19 @@
 					</div>
 				</div>
 			</div>
-			<div class="disciple_application" onclick="location.href ='/xcview/html/physician/apply_for.html?doctor='+doctorId">在线弟子申请加入</div>
+			<div class="disciple_application_state">
+				<script type="text/html" id="disciple_application_state_id">
+					{{if items.onlineApprenticeStatus == 1 || items.onlineApprenticeStatus == 3}}
+					<div class="disciple_application" onclick="location.href ='/xcview/html/physician/apply_for.html?doctor='+doctorId">在线弟子申请加入</div>
+					{{else if items.onlineApprenticeStatus == 2}}
+						<div class="disciple_application" onclick="location.href ='/xcview/html/physician/application_approved.html?doctor='+doctorId">申请已提交</div>
+					{{else if items.onlineApprenticeStatus == 4}}
+						<div class="disciple_application" style="display: none;">申请已提交</div>
+
+					{{/if}}
+				</script>
+			</div>
+			
 		</div>
 		<!-- 在线弟子结束 -->
 	</div>
@@ -1881,7 +1891,7 @@ function header_click(){
     $("body").height(body);
 
 </script>
-<script type="text/javascript" src="/xcview/html/physician/js/amazeui.js?version=5bdfd7fbfe"></script>
+<script type="text/javascript" src="/xcview/html/physician/js/amazeui.js"></script>
 
 </html>
 

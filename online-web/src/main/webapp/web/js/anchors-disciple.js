@@ -1,5 +1,68 @@
 $(function(){
-//	市场点击发布/返回切换
+	
+//----------------------------------远程诊疗开始--------------------------------------------
+	
+//	远程诊疗点击发布/返回切换
+	$(".long-range-top button").click(function(){
+		if($(this).text()=="创建预约时间"){
+			$(".long-range-table").addClass("hide");
+			$(".establish-time-wrap").removeClass("hide");
+			$(this).text("返回");
+			$(this).siblings("span").text("预约时间");
+		}else{
+			$(".long-range-table").removeClass("hide");
+			$(".establish-time-wrap").addClass("hide");	
+			$(this).text("创建预约时间");
+			$(this).siblings("span").text("远程诊疗");
+//			关闭审核
+			$(".appointment-details").addClass("hide")
+		}
+	})
+//	点击审核	
+	$(".to-examine").click(function(){
+			$(".long-range-table").addClass("hide");
+			$(".appointment-details").removeClass("hide");
+			$(this).parents().find(".long-range-table").siblings(".long-range-top").find("span").text("预约详情");
+			$(this).parents().find(".long-range-table").siblings(".long-range-top").find("button").text("返回");
+	})
+//	点击查看
+	$(".see-inf-modal").click(function(){
+		$(".see-btn-modal").removeClass("hide");
+		$("#mask").removeClass("hide");
+	})
+//	关闭查看
+	$(".see-disciple-top span").click(function(){
+		$(".see-btn-modal").addClass("hide");
+		$("#mask").addClass("hide");
+	})
+
+
+
+
+
+//	弟子报名信息弹窗	
+	$(".appointment-name").click(function(){
+		$(".disciple-inf-modal").removeClass("hide");
+		$("#mask").removeClass("hide");
+		$(".see-btn-modal").addClass("hide");  //关闭查看
+	})
+	
+//	关闭弟子报名信息	
+	$(".disciple-inf-top span").click(function(){
+		$(".disciple-inf-modal").addClass("hide");
+		$("#mask").addClass("hide");
+	})
+	
+	
+	
+	
+	
+	
+	
+	
+//----------------------------------远程诊疗介结束，师承直播开始--------------------------------------------
+	
+//	师承点击发布/返回切换
 	$(".live-top-title button").click(function(){
 		if($(this).text()=="发布"){
 			$(".disciple-list-wrap").addClass("hide");
@@ -44,29 +107,13 @@ $(function(){
         }
         reader.readAsDataURL(this.files[0])
     });
-    
-//	选择弟子弹出框
-	$(".select-pupil-btn").click(function(){
-		$(".pupil-modal-wrap").removeClass("hide");
-		$("#mask").removeClass("hide")
-	})
+
 //	关闭选择弟子弹窗
 	$(".pupil-top").click(function(){
 		$(".pupil-modal-wrap").addClass("hide");
 		$("#mask").addClass("hide");
 	})
 
-
-
-//	单个点击弟子
-	$(".sava-pupil li .set-lable").click(function(){
-		var thatImg=$(this).find("img");
-		thatImg.toggleClass("active");
-	});
-	
-	
-	
-	
 //	全选弟子
 	$(".all-select-main").click(function(){
 		var thatImg=$(this).find("img");
@@ -255,42 +302,5 @@ var ue = UE.getEditor('introduction-enrolment', {
         imagePopup: false,
         maximumWords: 3000 //允许的最大字符数
     });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 })

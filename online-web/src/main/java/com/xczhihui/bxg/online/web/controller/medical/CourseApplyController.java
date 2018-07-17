@@ -25,7 +25,9 @@ import com.xczhihui.medical.anchor.model.CourseApplyResource;
 import com.xczhihui.medical.anchor.service.ICourseApplyService;
 import com.xczhihui.medical.anchor.vo.CourseApplyInfoVO;
 import com.xczhihui.medical.anchor.vo.CourseApplyResourceVO;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsService;
+import com.xczhihui.medical.enrol.service.EnrolService;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -73,6 +75,10 @@ public class CourseApplyController extends AbstractController {
     private OnlineUserCenterService onlineUserCenterService;
     @Autowired
     private ICourseSolrService courseSolrService;
+    @Autowired
+    private EnrolService enrolService;
+    @Autowired
+    private IMedicalDoctorBusinessService medicalDoctorBusinessService;
 
     /**
      * Description：分页获取课程申请列表
@@ -395,6 +401,19 @@ public class CourseApplyController extends AbstractController {
         courseApplyInfo.setClientType(ClientType.PC.getCode());
         courseApplyInfo.setTeaching(true);
         courseApplyService.updateCourseApply(courseApplyInfo);
+        return ResponseObject.newSuccessResponseObject("保存成功");
+    }
+
+    @RequestMapping(value = "/teaching/apprentices/{courseId}", method = RequestMethod.GET)
+    public ResponseObject getApprentices4Teaching(@PathVariable String courseId) {
+        String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(getUserId());
+        return ResponseObject.newSuccessResponseObject(enrolService.listByDoctorIdAndCourseId(doctorId, courseId));
+    }
+
+    @RequestMapping(value = "/teaching/apprentices/{courseId}", method = RequestMethod.POST)
+    public ResponseObject saveCourseTeaching(@PathVariable String courseId,String apprenticeIds) {
+        String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(getUserId());
+        enrolService.saveCourseTeaching(doctorId,courseId,apprenticeIds);
         return ResponseObject.newSuccessResponseObject("保存成功");
     }
 

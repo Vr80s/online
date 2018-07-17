@@ -497,6 +497,7 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
         course.setCourseNumber(courseApply.getCourseNumber());
 
         course.setClientType(courseApply.getClientType());
+        course.setTeaching(courseApply.getTeaching());
         if (course.getId() != null) {
             // 若course有id，说明该申请来自一个已经审核通过的课程，则更新
             dao.update(course);

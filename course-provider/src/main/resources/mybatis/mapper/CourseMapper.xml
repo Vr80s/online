@@ -526,7 +526,7 @@
         oc.course_detail as description,
         oc.direct_id as directId,
         ou.name as vhallName,
-        oc.teaching,
+        oc.is_teaching as teaching,
 
         if(oc.live_status = 3,ifnull(oc.play_back_type,1),3) as playBackType,
     </sql>
@@ -572,7 +572,7 @@
             ( select ca.detail as details from course_anchor ca where ca.user_id = #{typeId} )
         </if>
         <if test="type != null and type == 5 ">
-            ( select md.detailed as details from medical_doctor md where md.`id` = #{typeId} )
+            ( select md.detailed_address as details from medical_doctor md where md.`id` = #{typeId} )
         </if>
         as common_details
     </select>

@@ -267,6 +267,70 @@ function common_share_back() {
     }
 }
 
+function common_share_backs() {
+    var back = document.referrer;
+    var shareBack = getQueryString("shareBack");
+    if(isNotBlank(back) && back.indexOf("home_page.html") != -1){
+        sessionStorage.setItem("inherited_backFalg","home");
+    }else if(isNotBlank(back) && back.indexOf("physician_list.html") != -1){
+        sessionStorage.setItem("inherited_backFalg","physicians_page");
+    }else if(isNotBlank(back) && back.indexOf("index.html") != -1){
+        sessionStorage.setItem("inherited_backFalg","index");
+    }else{
+        window.location.href = "/xcview/html/physician/index.html";
+        // window.history.back();
+        return;
+    }
+
+    /*var backFalg = sessionStorage.getItem("inherited_backFalg");
+                        //alert(backFalg);
+    if(backFalg == "index"){
+          window.location.href = "/xcview/html/physician/index.html";
+          return;
+    }else if(backFalg == "application_approved"){
+          window.history.go(-1);
+          return;
+    }*/
+
+    if(isNotBlank(shareBack)){
+      if (isNotBlank(back) && back.indexOf("wx_share.html") == -1) {
+          window.history.back();
+      } else {
+          window.location.href = "/xcview/html/physician/index.html";
+      }
+    }else{
+        window.history.back();
+    }
+}
+
+/*function isLoginJumps() {
+
+    var userId = localStorage.userId;
+    if (isNotBlank(userId)) {
+        var before_address = document.referrer;
+        if (before_address.indexOf("page/index") != -1 ||
+            before_address.indexOf("bought.html") != -1 ||   //购买
+            before_address.indexOf("home_page.html") != -1 ||   //学堂
+            before_address.indexOf("my_study.html") != -1 ||   //学习
+            before_address.indexOf("live_play.html") != -1 ||   //直播展示页后面播放页
+            before_address.indexOf("/xcview/html/physician/physicians_page.html") != -1 ||   //医师页面
+            before_address.indexOf("live_personal.html") != -1) {  //主播页
+
+            window.history.back();
+        } else {
+            location.href = "home_page.html";
+        }
+    } else {
+        //登录页面
+        location.href = "home_page.html";
+        
+    }
+}*/
+
+
+
+
+
 
 /**
  * 公共点击事件

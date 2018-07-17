@@ -86,6 +86,8 @@ public class CourseApplyInfo implements Serializable {
 
     @Column(name = "is_delete")
     private Boolean isDelete;
+    @Column(name = "is_teaching")
+    private Boolean teaching;
     @Column(name = "old_apply_info_id")
     private Integer oldApplyInfoId;
     @Column(name = "client_type")
@@ -115,6 +117,14 @@ public class CourseApplyInfo implements Serializable {
 
     @Transient
     private Integer defaultStudentCount;
+
+    public Boolean getTeaching() {
+        return teaching;
+    }
+
+    public void setTeaching(Boolean teaching) {
+        this.teaching = teaching;
+    }
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
