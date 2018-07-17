@@ -298,7 +298,6 @@ public class SchoolController extends AbstractFtlController {
     public ModelAndView info(HttpServletRequest req,
                              @PathVariable Integer courseId,
                              @PathVariable String type,
-                             @RequestParam(required = false) String userId,
                              @RequestParam(required = false) Integer pageSize,
                              @RequestParam(required = false) Integer pageNumber) throws IOException {
 
@@ -316,8 +315,8 @@ public class SchoolController extends AbstractFtlController {
         view.addObject("webUrlParam", "/courses/" + courseId);
         //获取用户信息
         OnlineUser user = getCurrentUser();
-        
-        CourseLecturVo clv = courseService.selectCourseMiddleDetailsById(user.getId(),courseId);
+        String userId = user==null?"":user.getId();
+        CourseLecturVo clv = courseService.selectCourseMiddleDetailsById(userId,courseId);
         if (clv == null) {
             return to404();
         }
