@@ -360,13 +360,13 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 
     @Override
     public List<CourseLecturVo> listTeachingCourse(String userId, Page<CourseLecturVo> page, boolean onlyFree) {
-        return iCourseMapper.selectTeachingCourse(userId, page, onlyFree);
+        return iCourseMapper.selectTeachingCourse(page,userId);
     }
 
     @Override
    public List<CourseLecturVo> selectTeachingCoursesByUserId(Page<CourseLecturVo> page, String userId) {
         //userId为医师的用户id
-        List<CourseLecturVo> courses = iCourseMapper.selectLecturerAllCourseByType(page, userId, CourseType.APPRENTICE.getId(),false);
+        List<CourseLecturVo> courses = iCourseMapper.selectTeachingCourse(page, userId);
         return courses;
     }
 
