@@ -125,10 +125,11 @@
 			/*$("#errorMsg").html("<div class='vanish2'><div class='vanish2_bg'></div><div class='vanish2_cen'><div class='vanish2_size'>收货人不能为空,详细地址不能大于50</div></div></div>");
 			$("#errorMsg").show();
 			setTimeout(function(){$(".vanish2").hide();},1500);*/
-			
-			webToast("收货人不能为空,详细地址不能大于50","middle",1500);
-			$(".web_toast").css("left","50%");
-			$(".web_toast").css("margin-left","-94px");
+			$("")
+			// webToast("收货人不能为空,详细地址不能大于50","middle",1500);
+			webToast("请输入详细地址","middle",1500);
+			// $(".web_toast").css("left","50%");
+			// $(".web_toast").css("margin-left","-2.1rem");
 			return false;
 		}
 		
