@@ -267,6 +267,38 @@ function common_share_back() {
     }
 }
 
+function common_share_backs() {
+    var back = document.referrer;
+    var shareBack = getQueryString("shareBack");
+    if(isNotBlank(back) && back.indexOf("home_page.html") != -1){
+        sessionStorage.setItem("inherited_backFalg","home");
+    }else if(isNotBlank(back) && back.indexOf("application_approvedssss.html") != -1){
+        sessionStorage.setItem("inherited_backFalg","physicians_page");
+    }else if(isNotBlank(back) && back.indexOf("index.html") != -1){ //
+        sessionStorage.setItem("inherited_backFalg","");
+        return;
+    }else{
+        window.location.href = "/xcview/html/physician/index.html";
+    }
+
+    if(isNotBlank(shareBack)){
+      if (isNotBlank(back) && back.indexOf("wx_share.html") == -1) {
+          window.history.back();
+      } else {
+          window.location.href = "/xcview/html/physician/index.html";
+      }
+    }else{
+        window.history.back();
+    }
+
+
+    
+}
+
+
+
+
+
 
 /**
  * 公共点击事件

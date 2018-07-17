@@ -883,10 +883,23 @@ function createDoctorIntroduction(introduction){
 }
 
 
+// 师承开始
 // 提问展示开始
 requestGetService("/xczh/host/doctor/apprentice?doctorId= + doctorId",{doctorId:doctorId},function (data) {
     if (data.success == true) {
         $('.QA_main').html(template('QA_main_id', {items: data.resultObject.onlineApprenticeStatus}));
+
+        // webToast("提交成功","middle",1500);
+    }/*else{
+        webToast(data.errorMessage,"middle",1500);
+    }*/
+});
+
+
+// 在线弟子申请的状态 1->未报名 2->没有审核 3->审核未通过 4->审核已通过 . 值是1与3 去提交信息页面 2与4 去申请信息查看页
+requestGetService("/xczh/host/doctor/apprentice",{doctorId:doctorId},function (data) {
+    if (data.success == true) {
+        $('.disciple_application_state').html(template('disciple_application_state_id', {items: data.resultObject}));
 
         // webToast("提交成功","middle",1500);
     }/*else{
