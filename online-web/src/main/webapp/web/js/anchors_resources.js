@@ -11,8 +11,6 @@ $(function () {
         },false);
         
     $("#docOrHos").css({"color": "#2cb82c"})
-    //	确定,取消弹窗初始化
-    confirmBox.init();
     //医师按钮变色效果
     $('.forum').css('color', '#000');
     $('.path .doctor').addClass('select');

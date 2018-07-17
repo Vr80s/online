@@ -148,4 +148,8 @@ public interface EnrolService {
      * @return
      */
     int getOnlineApprenticeStatus(String doctorId, String accountId);
+
+    List<Map<String,String>> listByDoctorIdAndCourseId(String doctorId, String courseId);
+
+    void saveCourseTeaching(String doctorId, String courseId, String apprenticeIds);
 }

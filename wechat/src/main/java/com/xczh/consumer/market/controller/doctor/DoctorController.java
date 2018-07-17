@@ -119,7 +119,7 @@ public class DoctorController {
      * @author name：yangxuan <br>email: 15936216273@163.com
      */
     @RequestMapping("doctorCourse")
-    public ResponseObject doctorCourseList(@RequestParam("userId") String userId) throws Exception {
+    public ResponseObject doctorCourseList(@RequestParam("userId") String userId) {
 
         List<Map<String, Object>> alllist =  courseService.doctorCourseList(userId,HeaderInterceptor.ONLY_THREAD.get());
         

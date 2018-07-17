@@ -88,6 +88,13 @@ public class MedicalDoctorQuestion extends Model<MedicalDoctorQuestion> {
     @TableField(exist = false)
     private String doctorImg;
     
+    
+    /**
+     * 提问者名字
+     */
+    @TableField(exist = false)
+    private String quizzerName;
+    
 
 
     @Override
@@ -206,13 +213,33 @@ public class MedicalDoctorQuestion extends Model<MedicalDoctorQuestion> {
         this.status = status;
     }
 
+    
+    
+
+    public String getQuizzerName() {
+        return quizzerName;
+    }
+
+
+    public void setQuizzerName(String quizzerName) {
+        this.quizzerName = quizzerName;
+    }
+
+
+
+
 
     @Override
     public String toString() {
         return "MedicalDoctorQuestion [id=" + id + ", question=" + question + ", answer=" + answer + ", userId="
                 + userId + ", doctorId=" + doctorId + ", deleted=" + deleted + ", status=" + status + ", createTime="
-                + createTime + ", updateTime=" + updateTime + ", userImg=" + userImg + ", doctorImg=" + doctorImg + "]";
+                + createTime + ", updateTime=" + updateTime + ", userImg=" + userImg + ", doctorImg=" + doctorImg
+                + ", quizzerName=" + quizzerName + "]";
     }
 
+
+    
+
+    
     
 }

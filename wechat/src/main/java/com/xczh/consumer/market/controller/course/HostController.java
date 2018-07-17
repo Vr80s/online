@@ -187,7 +187,7 @@ public class HostController {
         apprenticeData.put("apprentices", enrolService.findApprenticesByDoctorId(doctorId).stream().map(SimpleUserVO::getSmallHeadPhoto).collect(Collectors.toList()));
         MedicalDoctorAccount doctorAccount = medicalDoctorBusinessService.getByDoctorId(doctorId);
         if (doctorAccount != null) {
-            apprenticeData.put("apprenticeCourses", courseService.listTeachingCourse(doctorAccount.getAccountId(), new Page<>(1, 100), HeaderInterceptor.ONLY_THREAD.get()));
+            apprenticeData.put("apprenticeCourses", courseService.selectTeachingCoursesByUserId(new Page<CourseLecturVo>(1, 100),doctorAccount.getAccountId()));
         } else {
             apprenticeData.put("apprenticeCourses", Collections.emptyList());
         }

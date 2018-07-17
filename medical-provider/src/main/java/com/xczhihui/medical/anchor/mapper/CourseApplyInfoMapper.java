@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.medical.anchor.model.CourseApplyInfo;
 import com.xczhihui.medical.anchor.vo.CourseApplyInfoVO;
+import org.apache.ibatis.annotations.Select;
 
 /**
  * <p>
@@ -72,4 +73,7 @@ public interface CourseApplyInfoMapper extends BaseMapper<CourseApplyInfo> {
     Integer getParentIdByChildId(Integer id);
 
     Integer getIsStatusChange(@Param("userId") String userId, @Param("courseApplyId") String courseApplyId, @Param("state") Integer state);
+
+    @Select("SELECT COUNT(ct.id) FROM `course_teaching` ct WHERE ct.`deleted`=0 AND ct.`course_id`=#{courseId}")
+    int getCourseTeachingCountByCourseId(@Param("courseId") Integer courseId);
 }
