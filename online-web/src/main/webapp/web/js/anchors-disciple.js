@@ -44,29 +44,13 @@ $(function(){
         }
         reader.readAsDataURL(this.files[0])
     });
-    
-//	选择弟子弹出框
-	$(".select-pupil-btn").click(function(){
-		$(".pupil-modal-wrap").removeClass("hide");
-		$("#mask").removeClass("hide")
-	})
+
 //	关闭选择弟子弹窗
 	$(".pupil-top").click(function(){
 		$(".pupil-modal-wrap").addClass("hide");
 		$("#mask").addClass("hide");
 	})
 
-
-
-//	单个点击弟子
-	$(".sava-pupil li .set-lable").click(function(){
-		var thatImg=$(this).find("img");
-		thatImg.toggleClass("active");
-	});
-	
-	
-	
-	
 //	全选弟子
 	$(".all-select-main").click(function(){
 		var thatImg=$(this).find("img");
@@ -255,42 +239,5 @@ var ue = UE.getEditor('introduction-enrolment', {
         imagePopup: false,
         maximumWords: 3000 //允许的最大字符数
     });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 })

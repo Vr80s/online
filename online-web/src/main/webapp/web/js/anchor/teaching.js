@@ -444,3 +444,50 @@ function initMenu() {
         $("#menu_select").html(str);
     });
 }
+
+//	选择弟子弹出框
+function openSelectPupil(courseId){
+    RequestService("/anchor/course/teaching/apprentices/"+courseId, "get", null, function (data) {
+        var users = data.resultObject;
+        var str = "";
+        for (var i = 0; i < users.length; i++) {
+            str += '<li><div class="set-lable"><p>';
+            if(users[i].selected){
+                str += '<img src="/web/images/btn-ondown.png" alt="选择" data-userId="'+users[i].userId+'" class="active">';
+            }else{
+                str += '<img src="/web/images/btn-ondown.png" alt="选择" data-userId="'+users[i].userId+'">';
+            }
+            str += '</p><span>'+users[i].name+'</span></div></li>';
+        }
+        $(".sava-pupil ul").html(str);
+        $(".sava-pupil ul").attr("data-courseId",courseId);
+        //	单个点击弟子
+        $(".sava-pupil li .set-lable").click(function(){
+            var thatImg=$(this).find("img");
+            thatImg.toggleClass("active");
+        });
+
+        $(".pupil-modal-wrap").removeClass("hide");
+        $("#mask").removeClass("hide");
+    });
+}
+
+//	选择弟子弹出框
+function saveCourseTeaching(){
+    var userIds = [];
+    var courseId = $(".sava-pupil ul").attr("data-courseId");
+    $(".sava-pupil ul .active").each(function(){
+        userIds.push($(this).attr("data-userId"));
+    })
+
+    RequestService("/anchor/course/teaching/apprentices/"+courseId, "post", {apprenticeIds:userIds.join(",")}, function (data) {
+        if(data.success){
+            showTip(data.resultObject);
+            $(".pupil-modal-wrap").addClass("hide");
+            $("#mask").addClass("hide");
+        }else{
+            showTip(data.errorMessage);
+        }
+    });
+}
+

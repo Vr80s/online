@@ -3,6 +3,7 @@ package com.xczhihui.medical.enrol.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
@@ -46,7 +47,8 @@ public interface MedicalEntryInformationMapper extends BaseMapper<MedicalEntryIn
     @Select({"<script> " +
             " SELECT id, name, age, sex, native_place as nativePlace," +
             "   education, education_experience as educationExperience, medical_experience as medicalExperience," +
-            "   goal, tel, wechat, create_time as createTime, apprentice, type, applied" +
+            "   goal, tel, wechat, create_time as createTime, apprentice, type, applied," +
+            "  user_id userId " +
             " FROM medical_entry_information " +
             " WHERE doctor_id = #{doctorId} AND deleted=0 " +
             " <if test='type != null'>" +
@@ -74,4 +76,28 @@ public interface MedicalEntryInformationMapper extends BaseMapper<MedicalEntryIn
             " from medical_entry_information" +
             " where doctor_id = #{doctorId} and user_id = #{accountId} and apprentice = 1"})
     Integer countByDoctorIdAndAccountId(@Param("doctorId") String doctorId, @Param("accountId") String accountId);
+
+    @Select({"SELECT mei.name,mei.user_id userId,(ISNULL(ct.id)=0) selected " +
+            " FROM  medical_entry_information mei" +
+            "  LEFT JOIN `course_teaching` ct" +
+            "  ON mei.`user_id` = ct.`user_id` AND ct.`course_id` = #{courseId} AND ct.`deleted`=0" +
+            " WHERE mei.deleted = 0 AND mei.`doctor_id`=#{doctorId} " +
+            " ORDER BY mei.create_time DESC"})
+    List<Map<String,String>> listByDoctorIdAndCourseId(@Param("doctorId") String doctorId, @Param("courseId") String courseId);
+
+    @Select("UPDATE `course_teaching` ct SET ct.`deleted`=1 WHERE ct.`course_id`=#{courseId}")
+    void deleteCourseTeachingByCourseId(@Param("courseId") String courseId);
+
+    @Insert("<script>"+
+            "insert into course_teaching(course_id, user_id) "
+            + "values "
+            + "<foreach collection =\"userIds\" item=\"userId\" index= \"index\" separator =\",\"> "
+            + "(#{courseId},#{userId}) "
+            + "</foreach > "
+            + "</script>")
+    void saveCourseTeaching(@Param("courseId") String courseId, @Param("userIds") List<String> userIds);
+
+    @Select("SELECT COUNT(oe.id) FROM `oe_course` oe JOIN `medical_doctor_account` mda ON oe.`user_lecturer_id`=mda.`account_id` " +
+            "AND mda.`doctor_id`=#{doctorId} AND oe.id=#{courseId} ")
+    int checkCourseDoctor(@Param("doctorId") String doctorId, @Param("courseId") String courseId);
 }
