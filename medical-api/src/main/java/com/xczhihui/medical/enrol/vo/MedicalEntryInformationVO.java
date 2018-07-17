@@ -65,4 +65,6 @@ public class MedicalEntryInformationVO implements Serializable {
 
     private Integer apprentice;
 
+    private String regulationName;
+
 }

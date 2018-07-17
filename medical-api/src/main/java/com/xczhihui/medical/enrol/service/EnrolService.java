@@ -83,13 +83,13 @@ public interface EnrolService {
      * 查询医师的所有报名的人
      *
      * @param doctorId   doctorId
-     * @param type       type
+     * @param merId       merId
      * @param apprentice apprentice
      * @param page       page
      * @param size       size
      * @return
      */
-    Page<MedicalEntryInformationVO> listByDoctorId(String doctorId, Integer type, Integer apprentice, int page, int size);
+    Page<MedicalEntryInformationVO> listByDoctorId(String doctorId, Integer merId, Integer apprentice, int page, int size);
 
     /**
      * 审核弟子报名
@@ -152,4 +152,13 @@ public interface EnrolService {
     List<Map<String,String>> listByDoctorIdAndCourseId(String doctorId, String courseId);
 
     void saveCourseTeaching(String doctorId, String courseId, String apprenticeIds);
+
+    /**
+     * 查询改用户的弟子信息
+     *
+     * @param doctorId  医师id
+     * @param accountId 用户id
+     * @return
+     */
+    Map<String, Object> findApprenticeInfo(String doctorId, String accountId);
 }

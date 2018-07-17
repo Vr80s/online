@@ -171,4 +171,19 @@ public class DateUtil {
     public static String getDayOfWeek(Integer day) {
         return dayMap.get(day);
     }
+
+    public static String getDayOfWeek(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return "星期" + dayMap.get(calendar.get(Calendar.DAY_OF_WEEK) - 1);
+    }
+
+    public static boolean isCurrentYear(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        int dateYear = calendar.get(Calendar.YEAR);
+        calendar.setTime(new Date());
+        int curYear = calendar.get(Calendar.YEAR);
+        return dateYear == curYear;
+    }
 }
