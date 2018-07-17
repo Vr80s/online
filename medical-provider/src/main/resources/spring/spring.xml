@@ -131,10 +131,14 @@
     <!--文章评论 -->
     <dubbo:service interface="com.xczhihui.medical.headline.service.IOeBxsAppraiseService"
                    ref="oeBxsAppraiseServiceImpl" timeout="${dubbo.provider.timeout}"/>
-                   
+
     <!-- 医师解惑 -->
     <dubbo:service interface="com.xczhihui.medical.doctor.service.IMedicalDoctorQuestionService"
-                   ref="medicalDoctorQuestionServiceImpl" timeout="${dubbo.provider.timeout}"/>               
+                   ref="medicalDoctorQuestionServiceImpl" timeout="${dubbo.provider.timeout}"/>
+
+    <!-- 远程诊疗 -->
+    <dubbo:service interface="com.xczhihui.medical.doctor.service.IRemoteTreatmentService"
+                   ref="remoteTreatmentServiceImpl" timeout="${dubbo.provider.timeout}"/>
 
     <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig"></bean>
 
