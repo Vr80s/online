@@ -37,10 +37,7 @@ import com.xczhihui.course.service.IFocusService;
 import com.xczhihui.course.service.IMyInfoService;
 import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.medical.doctor.model.MedicalDoctorAccount;
-import com.xczhihui.medical.doctor.service.IMedicalDoctorArticleService;
-import com.xczhihui.medical.doctor.service.IMedicalDoctorBannerService;
-import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
-import com.xczhihui.medical.doctor.service.IMedicalDoctorQuestionService;
+import com.xczhihui.medical.doctor.service.*;
 import com.xczhihui.medical.doctor.vo.DoctorBannerVO;
 import com.xczhihui.medical.doctor.vo.MobileArticleVO;
 import com.xczhihui.medical.enrol.service.EnrolService;
@@ -80,6 +77,8 @@ public class HostController {
     private IMedicalDoctorQuestionService medicalDoctorQuestionService;
     @Autowired
     private IMedicalDoctorBusinessService medicalDoctorBusinessService;
+    @Autowired
+    private IRemoteTreatmentService remoteTreatmentService;
 
     @Value("${returnOpenidUri}")
     private String returnOpenidUri;
@@ -102,8 +101,8 @@ public class HostController {
                                        @RequestParam("lecturerId") String lecturerId) throws Exception {
 
         LOGGER.info("lecturerId-->id" + lecturerId);
-        
-        Map<String, Object> mapAll = myInfoService.selectUserHomePageData(accountIdOpt.isPresent()?accountIdOpt.get():null,lecturerId,HeaderInterceptor.ONLY_THREAD.get());
+
+        Map<String, Object> mapAll = myInfoService.selectUserHomePageData(accountIdOpt.isPresent() ? accountIdOpt.get() : null, lecturerId, HeaderInterceptor.ONLY_THREAD.get());
         /**
          * 得到讲师   主要是房间号，缩略图的信息、讲师的精彩简介
          *
@@ -130,7 +129,7 @@ public class HostController {
 
         return ResponseObject.newSuccessResponseObject(mapAll);
     }
-    
+
     @RequestMapping("doctor/v2")
     @ResponseBody
     public ResponseObject doctorV2(@Account(optional = true) Optional<String> accountIdOpt,
@@ -194,6 +193,7 @@ public class HostController {
         apprenticeData.put("settings", enrolService.findSettingsByDoctorId(doctorId));
         apprenticeData.put("onlineApprenticeStatus", accountIdOpt.map(accountId -> enrolService.getOnlineApprenticeStatus(doctorId, accountId))
                 .orElse(OnlineApprenticeStatus.NOT_APPLY.getVal()));
+        apprenticeData.put("treatments", remoteTreatmentService.listAppointment(doctorId, false));
         return ResponseObject.newSuccessResponseObject(apprenticeData);
     }
 
@@ -260,5 +260,5 @@ public class HostController {
             return ResponseObject.newErrorResponseObject("网络开小差");
         }
     }
-    
+
 }

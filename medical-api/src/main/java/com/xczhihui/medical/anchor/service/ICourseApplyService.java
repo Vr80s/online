@@ -115,4 +115,7 @@ public interface ICourseApplyService extends IService<CourseApplyInfo> {
      * @return
      */
     String getCollectionUpdateDateText(Integer collectionId);
+
+    List<CourseApplyInfoVO> getCollectionNotExitCouse(String id, Integer multimediaType,
+            Integer collectionId,Integer caiId);
 }

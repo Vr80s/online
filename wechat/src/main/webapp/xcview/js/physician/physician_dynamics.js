@@ -905,7 +905,7 @@ requestGetService("/xczh/host/doctor/apprentice",{doctorId:doctorId},function (d
         $(".prose_origin_details").click(function(){
             var id=$(this).attr("data-ids");
             var tokenStr=$(this).attr("data-tokenStr");
-            location.href ='inherited_introduction.html?merId='+id+tokenStr;
+            location.href ='/xcview/html/apprentice/inherited_introduction.html?merId='+id;
         });
 
 

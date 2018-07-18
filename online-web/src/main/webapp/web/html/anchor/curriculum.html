@@ -276,7 +276,7 @@
 			{{else}}
 			<a href="javascript:;" onclick="confirmCollection(1,{{collection.id}},{{collection.courseId}})">上架</a>
 			<a href="javascript:;" onclick="editCollection({{collection.id}})">编辑</a>
-			<a href="javascript:;" onclick="addAlbum()">添加</a>
+			<a href="javascript:;" onclick="addAlbum({{collection.id}},{{collection.courseId}},{{collection.multimediaType}})">添加</a>
 			{{/if}}
 			{{else if collection.applyStatus==2}}
 			<a href="javascript:;" onclick="editCollection({{collection.id}})">编辑</a>
@@ -622,13 +622,36 @@
 		</div>
 		<div class="select-class-main z">
 			<label for="select-add"></label>
-			<select id="select-add" class="selectpicker bla bla bli" multiple data-live-search="true">
+			<select id="select-add" class="selectpicker selectpicker_ks bla bla bli" multiple data-live-search="true">
 				</optgroup>
 			</select>
-			<button type="button" class="sure-add">确认添加</button>
+			<button type="button" onclick="quicklyAddAlbumCourse()" class="sure-add sure-add-caiId" >确认添加</button>
 			<p class="nofind-class">没有找到课程，新增课程</p>
 		</div>
 	</div>
+
+
+
+<!--点击添加课程出现的弹框开始-->
+<!-- <div class="new_box">
+    <div class="new_box_bg"></div>
+    <div class="new_box_main">
+        <p>×</p>
+        <div class="input">
+                                        添加已有课程
+            <label for="course_select"></label>
+            <select id="course_select" class="selectpicker selectpicker_collection bla bla bli collection_course" multiple data-live-search="true">
+                </optgroup>
+            </select>
+        </div>
+        <div class="add" onclick="addCourse2Collection()">确认添加</div>
+        <div class="size">没有找到课程，新增课程</div>
+    </div>
+</div> -->
+<!--点击添加课程出现的弹框结束-->
+
+
+
 
 <!--全局遮罩层-->
 <div id="mask" class="hide" style="position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; background: rgb(0, 0, 0); opacity: 0.3; z-index: 888;"></div>
