@@ -375,10 +375,15 @@
         DATE_ADD(DATE_ADD(str_to_date(DATE_FORMAT(NOW(),'%Y-%m-%d'),
         '%Y-%m-%d %H:%i:%s'),INTERVAL 1 DAY),INTERVAL -1 SECOND),
         DATE_FORMAT(oc.start_time,'%H:%i'),DATE_FORMAT(oc.start_time,'%m.%d')),
-        DATE_FORMAT(oc.start_time,'%m.%d') )) as startDateStr
+        DATE_FORMAT(oc.start_time,'%m.%d') )) as startDateStr,
+        (ISNULL(ct.id)=0) teaching
         FROM
         oe_course oc
-        where oc.user_lecturer_id = #{userId} and oc.status = 1 and oc.is_delete=0
+        LEFT JOIN
+        `course_teaching` ct
+        ON oc.id=ct.`course_id`
+        AND ct.`user_id` = #{userId} AND ct.`deleted`=0
+        where oc.user_lecturer_id = #{lecturerId} and oc.status = 1 and oc.is_delete=0
         and oc.is_teaching = 1
         order by release_time desc
     </select>

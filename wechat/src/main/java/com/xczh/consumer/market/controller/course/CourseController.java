@@ -243,7 +243,7 @@ public class CourseController {
     }
 
     @RequestMapping("teaching")
-    public ResponseObject teaching(Integer pageSize,Integer pageNumber,String userId) {
+    public ResponseObject teaching(@Account(optional = true) Optional<String> accountIdOpt,Integer pageSize,Integer pageNumber,@RequestParam("userId") String lecturerId) {
 
         pageSize = (pageSize == null ? 4 : pageSize);
         pageNumber = (pageNumber == null ? 1 : pageNumber);
@@ -251,8 +251,8 @@ public class CourseController {
         Page<CourseLecturVo> page = new Page<CourseLecturVo>();
         page.setCurrent(pageNumber);
         page.setSize(pageSize);
-
-        return ResponseObject.newSuccessResponseObject(courseServiceImpl.selectTeachingCoursesByUserId(page, userId));
+        String userId = accountIdOpt.isPresent() ? accountIdOpt.get() : null;
+        return ResponseObject.newSuccessResponseObject(courseServiceImpl.selectTeachingCoursesByUserId(page, lecturerId ,userId));
     }
 
     @RequestMapping("teaching/qualification")

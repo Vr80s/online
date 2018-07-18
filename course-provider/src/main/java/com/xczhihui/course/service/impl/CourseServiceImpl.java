@@ -334,11 +334,11 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     }
 
     @Override
-    public List<Map<String, Object>> doctorCourseList(String userId, boolean onlyFree) {
+    public List<Map<String, Object>> doctorCourseList(String lecturerId,String userId) {
 
         List<Map<String, Object>> alllist = new ArrayList<Map<String, Object>>();
 
-        List<CourseLecturVo> records = selectTeachingCoursesByUserId(new Page<CourseLecturVo>(1,4), userId);
+        List<CourseLecturVo> records = selectTeachingCoursesByUserId(new Page<CourseLecturVo>(1,4),lecturerId, userId);
         
         Map<String, Object> map1 = new HashMap<String, Object>();
         map1.put("text", "跟师直播");
@@ -346,8 +346,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         map1.put("courseList",records);
         alllist.add(map1);
 
-        List<CourseLecturVo> recordsLive = iCourseMapper.selectLecturerAllCourseByType(new Page<CourseLecturVo>(1, 6), userId,
-                CourseType.LIVE.getId(), onlyFree);
+        List<CourseLecturVo> recordsLive = iCourseMapper.selectLecturerAllCourseByType(new Page<CourseLecturVo>(1, 6), userId, CourseType.LIVE.getId(), false);
 
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("text", "直播课程");
@@ -359,14 +358,9 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     }
 
     @Override
-    public List<CourseLecturVo> listTeachingCourse(String userId, Page<CourseLecturVo> page, boolean onlyFree) {
-        return iCourseMapper.selectTeachingCourse(page,userId);
-    }
-
-    @Override
-   public List<CourseLecturVo> selectTeachingCoursesByUserId(Page<CourseLecturVo> page, String userId) {
+   public List<CourseLecturVo> selectTeachingCoursesByUserId(Page<CourseLecturVo> page, String lecturerId, String userId) {
         //userId为医师的用户id
-        List<CourseLecturVo> courses = iCourseMapper.selectTeachingCourse(page, userId);
+        List<CourseLecturVo> courses = iCourseMapper.selectTeachingCourse(page, lecturerId, userId);
         return courses;
     }
 

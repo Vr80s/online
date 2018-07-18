@@ -260,18 +260,15 @@ public interface ICourseService {
     List<Course> getAllCourseByStatus();
 
 
-    List<Map<String, Object>> doctorCourseList(String userId,boolean onlyFree);
+    List<Map<String, Object>> doctorCourseList(String lecturerId,String userId);
 
     /**
      * 查询师承课程
      * @param userId userId
      * @param page page
-     * @param onlyFree onlyFree
      * @return
      */
-    List<CourseLecturVo> listTeachingCourse(String userId, Page<CourseLecturVo> page, boolean onlyFree);
-
-    List<CourseLecturVo> selectTeachingCoursesByUserId(Page<CourseLecturVo> page, String userId);
+    List<CourseLecturVo> selectTeachingCoursesByUserId(Page<CourseLecturVo> page, String lecturerId, String userId);
 
     boolean selectQualification4TeachingCourse(String accountId, Integer courseId);
 
