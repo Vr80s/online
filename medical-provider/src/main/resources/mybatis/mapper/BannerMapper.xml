@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xczhihui.medical.banner.mapper.BannerMapper">
+
+    <select id="page" resultType="com.xczhihui.medical.banner.model.OeBanner">
+       select id, 
+	       img_path as imgPath, 
+	       description, 
+	       img_href as imgHref,
+	       route_type as routeType,
+	       link_param as linkParam 
+       from oe_banner2 
+         where is_delete=0 and 
+         type = #{type} and 
+         status=1 order by sort 
+    </select>
+</mapper>

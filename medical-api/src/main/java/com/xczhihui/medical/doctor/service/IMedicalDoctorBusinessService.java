@@ -175,4 +175,11 @@ public interface IMedicalDoctorBusinessService {
 
     public List<Map<String, Object>> doctorCategoryList();
 
+    /**
+     * 推荐值最高的15个医师里面随机取三个
+     * @param page
+     * @return
+     */
+    public List<MedicalDoctorVO> selectHotInBatch(Page<MedicalDoctorVO> page);
+
 }

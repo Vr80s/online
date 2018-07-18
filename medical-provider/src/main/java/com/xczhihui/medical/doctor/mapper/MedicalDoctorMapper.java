@@ -102,4 +102,6 @@ public interface MedicalDoctorMapper extends BaseMapper<MedicalDoctor> {
 
     Map<String, Object> selectDoctorWorkTimeAndDetailsById(@Param("doctorId") String doctorId);
 
+    List<MedicalDoctorVO> selectHotInBatch(@Param("page")Page<MedicalDoctorVO> page);
+
 }
