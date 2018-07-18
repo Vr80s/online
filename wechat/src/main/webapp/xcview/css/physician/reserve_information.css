@@ -90,7 +90,7 @@ header{
     width: 7.5rem;
     height: 0.97rem;
     border-bottom: 1px solid #f0f0f0;
-    overflow: hidden;
+    /*overflow: hidden;*/
     margin: 0 auto;
     background: #fff;
 }
@@ -130,12 +130,13 @@ header{
 }
 .handler_tel input{
     width: 5rem;
-    height: 0.97rem;
-    line-height: 0.97rem;
+    height: 0.96rem;
+    line-height: 0.96rem;
     text-align: right;
     border: 0;
     font-size: 0.28rem;
     color: #666666;
+    outline: none;
 }
 .problem_description{
     width: 7.5rem;
@@ -159,6 +160,7 @@ header{
     height: 2.5rem;
     /*background: red;*/
     border: 0;
+    outline: none;
 }
 .handler_btn{
     width: 6.98rem;

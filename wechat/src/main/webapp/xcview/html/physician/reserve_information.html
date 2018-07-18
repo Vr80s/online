@@ -11,7 +11,11 @@
 <meta name="keywords" content="" />
 
 <link rel="stylesheet" type="text/css" href="/xcview/css/physician/reserve_information.css"/>
-<link rel="stylesheet" type="text/css" href="/xcview/css/alert/sharecss.css?v=wechat_1.1.1"/>
+<!-- <link rel="stylesheet" type="text/css" href="/xcview/css/alert/sharecss.css"/> -->
+
+<!-- 弹框 -->
+<link rel="stylesheet" type="text/css" href="/xcview/css/popups.css"/>
+
 <!--手机嵌入模板-->
 <script type="text/javascript" src="/xcview/js/common/layout.js"></script>
 <script>
@@ -45,31 +49,41 @@
 	
 	<!-- 中间内容开始 -->
 	<div class="main">
-		<div class="booking_person">预约人：刘成成</div>
-		<div class="handler">
+		<script type="text/html" id="main_id">
+		<div class="booking_person">预约人：<span class="booking_person_span">{{items.name}}</span></div>
+		<div class="handler ">
 			<div class="handler_cen handler_time_click">
 				<div class="handler_fize">预约时间</div>
-				<div class="handler_time"><span></span> <img src="/xcview/images/video_review.png" alt=""></div>
+				<div class="handler_time"><span class="handler_time_span"></span> <img src="/xcview/images/video_review.png" alt=""></div>
 			</div>
 		</div>
+		<div class="both"></div>
 		<div class="handler">
 			<div class="handler_cen">
 				<div class="handler_fize">预留电话</div>  <!-- 默认弟子报名时预留的电话 -->
-				<div class="handler_tel"><input type="tel" maxlength="11" /></div>
+				<div class="handler_tel"><input type="tel" maxlength="11" class="handler_tel_put" /></div>
 			</div>
 		</div>
+		<div class="both"></div>
+
 		<div class="problem_description">
 			<div class="problem_description_main">
 				<div class="problem_description_title">诊疗问题</div>
 				<textarea name="" id="" cols="" rows="" placeholder="请简单描述您的问题" class="textarea"></textarea>
 			</div>
 		</div>
-		<div class="handler_btn">申请预约</div>
-		<div class="handler_reminder">
-			<span>提交申请后，我们会以短信形式告知审核结果；</span>
-			<span>申请成功后，医师将通过您预留的联系方式进行远程诊疗，请在预约时间做好准备事项。</span>
-			
-		</div>
+		<div class="both"></div>
+	    </script>
+
+		
+
+	</div>
+
+	<div class="handler_btn">申请预约</div>
+	<div class="handler_reminder">
+		<span>提交申请后，我们会以短信形式告知审核结果；</span>
+		<span>申请成功后，医师将通过您预留的联系方式进行远程诊疗，请在预约时间做好准备事项。</span>
+		
 	</div>
 	<!-- 中间内容结束 -->
 	<!-- 点击出现弹出框开始 -->
@@ -77,15 +91,12 @@
 	<div class="time_popout">
 		<div class="time_popout_bg"></div>
 		<div class="time_popout_main">
-			<ul>
-				<li><span>2018年10月000日  10:00-10:30</span><img src="/xcview/images/pigeon.png" alt="" /></li>
-				<li><span>2018年10月111日  10:00-10:30</span><img src="/xcview/images/pigeon.png" alt="" /></li>
-				<li><span>2018年10月222日  10:00-10:30</span><img src="/xcview/images/pigeon.png" alt="" /></li>
-				<li><span>2018年10月333日  10:00-10:30</span><img src="/xcview/images/pigeon.png" alt="" /></li>
-				<li><span>2018年10月444日  10:00-10:30</span><img src="/xcview/images/pigeon.png" alt="" /></li>
-				<li><span>2018年10月555日  10:00-10:30</span><img src="/xcview/images/pigeon.png" alt="" /></li>
-				<li><span>2018年10月666日  10:00-10:30</span><img src="/xcview/images/pigeon.png" alt="" /></li>
-
+			<ul class="time_popout_main_ul">
+				<script type="text/html" id="time_popout_main_ul_id">
+				{{each items as item i}} 
+				<li><span data-ids="{{item.id}}">{{item.dateText}}</span><img src="/xcview/images/pigeon.png" alt="" /></li>
+				{{/each}}
+		        </script>
 			</ul>
 		</div>
 	</div>
@@ -117,50 +128,10 @@
 </body>
 <script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
-<script type="text/javascript" src="/xcview/js/common/common.js?v=wechat_1.1.1"></script> 
-<script type="text/javascript" src="/xcview/js/common/template.js"></script>    <!--数据模板引入--> 
-<script type="text/javascript" src="/xcview/js/physician/reserve_information.js"></script> 
-<script>
-	window.onload = function(){
-		// 循环li
-		var aBtn=$('.time_popout_main ul li');
-	    for(i=0;i<aBtn.length;i++){
-
-		    $(aBtn[i]).click(function(){
-		        for(i=0;i<aBtn.length;i++){
-		            var html = $(this).find("span").html();
-		            $(".handler_time span").html(html);
-		            $(".time_popout").hide();
-		            $(aBtn[i]).find("img").css("opacity","0");
-		            $(this).find("img").css("opacity","1");
-		    	}
-		        /*$(this).removeClass();  
-		        $(this).addClass('active6');*/
-		    })
-		}
-		$(aBtn[0]).click();
-
-		// 点击预约时间显示
-		$(".handler_time_click").click(function(){
-			$(".time_popout").show();
-		});
-		// 点击预约时间显示后的背景
-		$(".time_popout_bg").click(function(){
-			$(".time_popout").hide();
-		});
-
-		// 申请成功--我知道啦
-		$(".prosperity_popout_hide").click(function(){
-			$(".prosperity_popout").hide();
-		});
-
-		// 申请失败--我知道啦
-		$(".failure_popout_hide").click(function(){
-			$(".failure_popout").hide();
-		});
-		
-	};
-</script>
+<script type="text/javascript" src="/xcview/js/common/common.js"></script> 
 <!-- 公用弹框 -->
-<script type="text/javascript" src="/xcview/js/common/alertPopShow.js?v=wechat_1.1.1"></script>
+<!-- <script type="text/javascript" src="/xcview/js/common/alertPopShow.js"></script> -->
+<script type="text/javascript" src="/xcview/js/common/popups.js"></script>
+<script type="text/javascript" src="/xcview/js/common/template.js"></script>    <!--数据模板引入--> 
+<script type="text/javascript" src="/xcview/js/physician/reserve_information.js"></script>
 </html>

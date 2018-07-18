@@ -2389,6 +2389,7 @@ margin-top: 0.015rem;
 	background: #fff;
 	/*padding-bottom: 0.3rem;*/
 	margin-bottom: 0.2rem;
+	margin-top: 0.2rem;
 }
 .QA_title{
 	width: 6.98rem;
@@ -2436,7 +2437,7 @@ margin-top: 0.015rem;
 .QA_doubt_main{
 	/*position: absolute;*/
 	position: relative;
-	width: 4.64rem;
+	max-width: 4.64rem;
 	/*min-height: 1rem;*/
 	background: #FFFFFF;
 	border: 1px solid #DEDEDE;
@@ -2468,7 +2469,7 @@ margin-top: 0.015rem;
 .QA_solution_main{
 	/*position: absolute;*/
 	position: relative;
-	width: 4.64rem;
+	max-width: 4.64rem;
 	/*min-height: 1rem;*/
 	background: #AEED68;
 	border: 1px solid #DEDEDE;
