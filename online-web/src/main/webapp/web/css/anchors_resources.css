@@ -1667,7 +1667,7 @@ outline: none;
 	overflow: hidden;
 }
 .myself-disciple-search .myself-select-haedeer{
-	width: 100px;
+	width: 120px;
     height: 36px;
     border: 1px solid #f0f0f0;
     float: left;
@@ -1686,6 +1686,17 @@ outline: none;
     outline: none;
     line-height: 30px;
 }
+.myself-disciple-search button{
+	width: 60px;
+    height: 36px;
+    background: #00bc12;
+    outline: none;
+    border: 0;
+    color: white;
+    border-radius: 4px;
+    margin-left: 10px;
+}
+    
 .myself-disciple-list table{
 	width: 100%;
 	border: 1px solid #f0f0f0;
@@ -1714,10 +1725,10 @@ outline: none;
 	width: 120px;
 }
 .myself-disciple-list table th:nth-child(3){
-	width: 68px;
+	width: 58px;
 }
 .myself-disciple-list table th:nth-child(4){
-	width: 68px;
+	width: 58px;
 }
 .myself-disciple-list table th:nth-child(5){
 	width: 68px;
@@ -1726,14 +1737,32 @@ outline: none;
 	width: 126px;
 }
 .myself-disciple-list table th:nth-child(7){
-	width: 163px;
+	width: 153px;
 }
+
 .myself-disciple-list table th:nth-child(8){
-	width: 94px;
+	width: 109px;
 }
+
 .myself-disciple-list table th:nth-child(9){
-	width: 110px;
+	width: 65px;
 }
+.myself-disciple-list table th:nth-child(10){
+	width: 60px;
+}
+.myself-disciple-list table .disciple-source{
+	width: 89px;
+    overflow: hidden;
+    height: 40px;
+    line-height: 20px;
+    font-size: 14px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    text-align: center;
+    white-space: normal;
+}
+    
 .myself-disciple-list td span{
 	color: #188eee;
 	cursor: pointer;
@@ -1861,6 +1890,8 @@ word-break:break-all;
 overflow: hidden;
 border: 1px solid #ededed;
 padding: 10px;
+white-space: nowrap;
+    text-overflow: ellipsis;
 }
 .answer-list-table table :nth-child(2){
 	width: 228px;
@@ -1881,6 +1912,7 @@ display: -webkit-box;
 -webkit-box-orient: vertical;
 -webkit-line-clamp: 3;
 text-align: left;
+white-space: normal;
 }
 .answer-list-table table .answer{
   width: 100%;
@@ -1891,7 +1923,8 @@ font-size: 14px;
 display: -webkit-box;
 -webkit-box-orient: vertical;
 -webkit-line-clamp: 3;
-text-align: left
+text-align: left;
+white-space: normal;
 }
 
 .answer-list-table table .edit-question{
@@ -2026,32 +2059,36 @@ text-align: left
 .namage-list-table table th:nth-child(2){
 	width: 75px;
 }
+
 .namage-list-table table th:nth-child(3){
-	width: 61px;
+	width: 79px;
 }
 .namage-list-table table th:nth-child(4){
-	width: 79px;
+	width: 65px;
 }
 .namage-list-table table th:nth-child(5){
 	width: 65px;
 }
 .namage-list-table table th:nth-child(6){
-	width: 65px;
-}
-.namage-list-table table th:nth-child(7){
 	width: 94px;
 }
+.namage-list-table table th:nth-child(7){
+	width: 121px;
+}
 .namage-list-table table th:nth-child(8){
-	width: 161px;
+	width: 61px;
 }
 .namage-list-table table th:nth-child(9){
-	width: 85px;
+	width: 125px;
 }
 .namage-list-table table td{
 	height: 80px;
 	border: 1px solid #dedede;
 	overflow: hidden;
-	padding: 0 10px
+	padding: 0 10px;
+	white-space: nowrap;
+    text-overflow: ellipsis;
+
 }
 .namage-list-table table td span{
 	color: #188EEE;
@@ -2068,6 +2105,7 @@ text-align: left
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
     text-align: left;
+    white-space: normal;
 }
 .see-namage-modal{
 	width: 960px;
@@ -2164,7 +2202,7 @@ text-align: left
 	color: red;
 }
 .comment-set-rules input{
-	width: 120px;
+	width: 139px;
 	height: 36px;
 	border: 1px solid #f0f0f0;
 	padding-left: 5px;
@@ -2341,8 +2379,16 @@ text-align: left
 	border: 0;
 	outline: none;
 }
-
-
+.error-information{
+	font-size: 14px;
+    color: #FF4012;
+    line-height: 30px;
+    text-indent: 20px;
+    background: url(../images/icons/tanhao.png) no-repeat left center;
+    margin-left: 153px;
+    margin-bottom: 0;
+}
+    
 
 
 

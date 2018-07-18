@@ -1934,7 +1934,7 @@ function btnColorReply(){
                 "remark": UE.getEditor('work-suggest').getContent(),
                 "buyLink": $(".work-link").val(),
                 "status": worksaveId
-            }
+            };
         if (workValidate(workData)) {
             $(this).attr("disabled", "disabled");
             $.ajax({

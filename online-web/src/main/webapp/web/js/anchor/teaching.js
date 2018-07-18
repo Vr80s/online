@@ -14,7 +14,10 @@ $(function () {
 		editSelectStatus=$(this).val();
 		questionDisabuse(1,editSelectStatus);
 	})
-	
+//	师承管理
+	$(".teaching-manage").click(function(){manageList(1)});
+//	省市区三联动初始化
+	$(".comment-right-float").iProvincesSelect("init",null);
 });
 
 /**
@@ -722,3 +725,227 @@ function cheackSelectAll(){
 		closeDisciple()
 	})
 
+/**
+ * Description：收徒设置
+ * creed: Talk is cheap,show me the code
+ * @author name：yuxin <br>email: wangxingchuan@ixincheng.com
+ * @Date: 2018/7/18 0003 上午 09:38
+ **/
+	function clearApprentice(){
+
+		$(".how-apprentice").val("");
+		$(".apprentice-welfare").val("");
+		$(".price").val("");
+	}
+	function provingApprentice(apprentice){
+		var reg = /^[0-9]+.?[0-9]*$/;
+		if(apprentice.requirement==""){
+			$(".error-set").removeClass("hide");
+			return false;
+		}else{
+			$(".error-set").addClass("hide");
+		}if(apprentice.welfare==""){
+			$(".error-welfare").removeClass("hide");
+			return false;
+		}else{
+			$(".error-welfare").addClass("hide");
+		}
+		if(apprentice.cost != null){
+			if(reg.test(apprentice.cost)==true){
+				$(".error-price").addClass("hide");
+			}else{
+				$(".error-price").removeClass("hide");
+				return false;
+			}
+		}else{
+			$(".error-price").addClass("hide");
+		}
+		return true;
+	}
+
+	$(".comment-apprentice button").click(function(){
+		var that=$(this);
+		var apprentice={			
+			 "requirement": $.trim($(".how-apprentice").val()),
+             "welfare": $.trim($(".apprentice-welfare").val()),
+             "cost":$.trim($(".comment-apprentice .price").val())
+		};
+		if (provingApprentice(apprentice)) {
+			that.attr("disabled","disabled");
+			RequestJsonService("/doctor/apprentice/settings","POST",JSON.stringify(apprentice), function (data) {
+				if(data.success==true){
+					showTip("保存成功");
+					$(".comment-apprentice button").removeAttr("disabled");
+				}else{
+					showTip("保存失败");
+					$(".comment-apprentice button").removeAttr("disabled");
+				}
+			})
+			
+		} 		
+	})
+//	收徒设置回显
+		RequestService("/doctor/apprentice/settings","GET",null, function (data) {
+		 	if (data.success==true) {
+		 		var echoData=data.resultObject
+				$(".how-apprentice").val(echoData.requirement);
+				$(".apprentice-welfare").val(echoData.welfare);
+				$(".comment-apprentice .price").val(echoData.cost);
+
+		 	}
+	   	})
+
+/**
+ * Description：师承管理
+ * creed: Talk is cheap,show me the code
+ * @author name：yuxin <br>email: wangxingchuan@ixincheng.com
+ * @Date: 2018/7/18 0003 上午 09:38
+ **/
+//师承管理列表
+var manageData;
+function manageList(pages){
+    RequestService("/doctor/enrollmentRegulations?page="+pages+"&size=10", "get",null, function (data) {
+      	if(data.success==true){
+      		manageData=data.resultObject.records;
+      		if(manageData==null || manageData.length==0){
+      			$(".manage-null").removeClass("hide");
+      			$(".namage-list-table").addClass("hide");
+      		}else{
+      			$(".manage-null").addClass("hide");
+      			$(".namage-list-table").removeClass("hide");
+      			$("#manage-list-wrap").html(template("template-manage",{items:manageData}))
+      		}
+     // 分页
+              	 if (data.resultObject.pages > 1) { //分页判断
+                    $(".not-data").remove();
+                    $(".disciple_pages").removeClass("hide");
+                    $(".disciple_pages .searchPage .allPage").text(data.resultObject.pages);  //传的页数的参数
+                    $("#Pagination_disciple").pagination(data.resultObject.pages, {			//传的页数的参数
+                        num_edge_entries: 1, //边缘页数
+                        num_display_entries: 4, //主体页数
+                        current_page: pages - 1,  //共几页
+                        callback: function (page) {
+                            //翻页功能
+                            myDiscipleList(page + 1);
+                        }
+                    });
+                } else {
+                    $(".disciple_pages").addClass("hide");
+                }
+      	}else{
+      		showTip("获取问答疑惑数据失败");
+      	}
+    });
+}
+
+//创建招生简章
+//点击保存
+var addressText;     //学习详细地址
+function testRecruit(establishDate){
+//	名字
+	if(establishDate.name==""){
+		$(".teachea-null").removeClass("hide");
+		return false;
+	}else{
+		$(".teachea-null").addClass("hide");
+	}
+//	标题
+	if(establishDate.title==""){
+		$(".title-null").removeClass("hide");
+		return false;
+	}else{
+		$(".title-null").addClass("hide");
+	}
+//	封面图
+	if($(".mamage-wrap-img img").length==0){
+		$(".fengmian-null").removeClass("hide");
+		return false;
+	}else{
+		$(".fengmian-null").addClass("hide");
+	}
+//	学费
+	if(establishDate.tuition==""){
+		$(".tuition-null").removeClass("hide");
+		return false;
+	}else{
+		$(".tuition-null").addClass("hide");
+	}
+//	招生人数	
+	if(establishDate.countLimit==""){
+		$(".personal-null").removeClass("hide");
+		return false;
+	}else{
+		$(".personal-null").addClass("hide");
+	}
+//	报名截止时间	
+	if(establishDate.deadline==""){
+		$(".sign-up-null").removeClass("hide");
+		return false;
+	}else{
+		$(".sign-up-null").addClass("hide");
+	}
+//	学习时间	
+	if(establishDate.startTime=="" || establishDate.endTime==""){
+		$(".studyTime-null").removeClass("hide");
+		return false;
+	}else{
+		$(".studyTime-null").addClass("hide");
+	}	
+//	开始时间不能大于结束时间
+	if(establishDate.startTime>establishDate.endTime){
+		showTip("开始时间不能大于结束时间");
+		return false;
+	}
+//	开始时间不能小于报名截止时间
+	if(establishDate.startTime<establishDate.deadline){
+		showTip("开始时间不能小于报名截止时间");
+		return false;
+	}
+//  学习地址
+	if($.trim($(".address-text").val())==""){
+		$(".studyAddress-null").removeClass("hide");
+		return false;			
+	}else{			
+		addressText=$.trim($(".address-text").val());
+		$(".studyAddress-null").addClass("hide");
+	}
+//	相关介绍	
+	if(establishDate.ceremonyAddress==""){
+		$(".about-introduce-null").removeClass("hide");
+		return false;
+	}else{
+		$(".about-introduce-null").addClass("hide");
+	}	
+//	招生简介
+	if(establishDate.regulations==""){
+		$(".introduction-null").removeClass("hide");
+		return false;
+	}else{
+		$(".introduction-null").addClass("hide");
+	}
+	return true;
+}
+$(".recruit-text-up").click(function(){
+	var provinceName=$(".comment-right-float .province").val(),
+		cityName=$(".comment-right-float .city").val(),
+		districtName=$(".comment-right-float .district").val();
+
+	var establishDate={
+		"name": $.trim($(".teacher-name").val()),    		//名字
+		"title":$.trim($(".recruit-title").val()),			//标题
+		"coverImg":$(".manage-wrap-img img").attr("src"),	//封面图
+		"tuition":$.trim($(".tuition").val()),				//学费
+		"countLimit":$.trim($(".personal-number").val()),	//招生人数
+		"deadline":$.trim($("#sign-up-time").val()),		//报名截止时间
+		"startTime":$.trim($("#study-start-time").val()),	//学习时间
+		"endTime":$.trim($("#study-end-time").val()),		//结束时间
+		"studyAddress":provinceName+"-"+cityName+"-"+districtName+"-"+addressText,
+		"ceremonyAddress":UE.getEditor('about-introduce').getContent(),  //相关介绍
+		"regulations":UE.getEditor('introduction-enrolment').getContent(), //招生简章
+	}
+	
+	if(testRecruit(establishDate)){
+		
+	}
+	
+})
