@@ -249,12 +249,11 @@ public class EnrolServiceImpl implements EnrolService {
     }
 
     @Override
-    public Page<MedicalEntryInformationVO> listByDoctorId(String doctorId, Integer merId, Integer apprentice, int page, int size) {
+    public Page<MedicalEntryInformationVO> listByDoctorId(String doctorId, Integer type, Integer status, int page, int size) {
         Page<MedicalEntryInformationVO> medicalEntryInformationVOPage = new Page<>(page, size);
-        List<MedicalEntryInformationVO> medicalEntryInformationVOS = medicalEntryInformationMapper.listEntryInformationByDoctorId(doctorId, merId, apprentice, medicalEntryInformationVOPage);
-        medicalEntryInformationVOS.forEach(medicalEntryInformationVO -> {
-            medicalEntryInformationVO.setRegulationName(medicalEntryInformationVO.getRegulationName() == null ? "师承页面" : medicalEntryInformationVO.getRegulationName());
-        });
+        List<MedicalEntryInformationVO> medicalEntryInformationVOS = medicalEntryInformationMapper.listEntryInformationByDoctorId(doctorId, type, status, medicalEntryInformationVOPage);
+        medicalEntryInformationVOS.forEach(medicalEntryInformationVO ->
+                medicalEntryInformationVO.setRegulationName(medicalEntryInformationVO.getRegulationName() == null ? "医师师承页面" : medicalEntryInformationVO.getRegulationName()));
         medicalEntryInformationVOPage.setRecords(medicalEntryInformationVOS);
         return medicalEntryInformationVOPage;
     }
