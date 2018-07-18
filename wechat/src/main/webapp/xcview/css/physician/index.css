@@ -261,3 +261,71 @@ header{
 }
 /*底部结束*/
 
+
+
+/*换一批*/
+.batch{
+    width: 7.5rem;
+    height: 4.32rem;
+    margin: 0 auto;
+    background: #fff;
+    margin-bottom: 0.2rem;
+}
+.batch .physician_title span{
+    font-size: 0.24rem;
+    color: #999999;
+    text-align: right;
+    float: right;
+    margin-top: 0.05rem;
+}
+.batch .physician_title span img{
+    width: 0.26rem;
+    height: 0.26rem;
+    margin-top: 0.04rem;
+    margin-left: 0.1rem;
+}
+.batch_main{
+    float: left;
+    margin-left: 0.105rem;
+    margin-right: 0.105rem;
+}
+.exothecium{
+    width: 7.2rem;
+    margin: 0 auto;
+    /*background: red;*/
+}
+.batch_main_bg{
+    width: 2.19rem;
+    height: 3.1rem;
+    background-image: linear-gradient(-224deg, #9573F6 0%, #9099F8 100%);
+    box-shadow: 0 4px 4px 0 rgba(0,0,0,0.10);
+    border-radius: 16px;
+}
+.batch_main_img{
+    padding-top: 0.52rem;
+}
+.batch_main_bg .batch_main_img img{
+    width: 1rem;
+    height: 1rem;
+    border-radius: 100px;
+    border: 2px solid #fff;
+    display: block;
+    margin: 0 auto;
+    /*margin-top: 0.52rem;*/
+    margin-bottom: 0.2rem;
+}
+.batch_main_bg .name{
+    font-size: 0.28rem;
+    color: #FFFFFF;
+    text-align: center;
+    margin-bottom: 0.1rem;
+}
+.batch_main_bg .center{
+    width: 1.99rem;
+    margin: 0 auto;
+    font-size: 0.24rem;
+    color: #FFFFFF;
+    text-align: center;
+}
+
+

@@ -989,7 +989,9 @@ requestGetService("/xczh/host/doctor/apprentice",{doctorId:doctorId},function (d
         }
 
         // 判断跟师直播
-        /*if () {
+        /*if (data.resultObject.apprenticeCourses.teaching == true) {
+            
+        }else{
             
         };*/
         
