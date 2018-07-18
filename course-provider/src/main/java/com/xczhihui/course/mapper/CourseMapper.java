@@ -45,6 +45,8 @@ public interface CourseMapper extends BaseMapper<Course> {
                                                        @Param("userId") String id, @Param("type") Integer type,
                                                        @Param("onlyFree") boolean onlyFree);
 
+    List<CourseLecturVo> selectTeachingCourse(@Param("page") Page<CourseLecturVo> page, @Param("userId") String id);
+
     List<CourseLecturVo> selectUserConsoleCourse(@Param("userId") String userId);
 
     List<CourseLecturVo> selectMenuTypeAndRandCourse(@Param("page") Page<CourseLecturVo> page, @Param("courseId") Integer courseId);
@@ -54,7 +56,6 @@ public interface CourseMapper extends BaseMapper<Course> {
      *
      * @param page
      * @param userId
-     * @param courseFrom
      * @param multimediaType
      * @return List<CourseLecturVo>
      * @author name：yangxuan <br>email: 15936216273@163.com
@@ -190,17 +191,6 @@ public interface CourseMapper extends BaseMapper<Course> {
     @Select({"select id, grade_name as gradeName, subtitle as subtitle, smallimg_path as smallImgPath, user_lecturer_id as userLecturerId, release_time as releaseTime" +
             " from oe_course where status = 1 and is_delete = 0"})
     List<Course> getAllCourseByStatus();
-
-    /**
-     * 查询师承课程
-     *
-     * @param userId   医师用户id
-     * @param page     分页参数
-     * @param onlyFree 是否仅查询免费
-     * @return
-     */
-    List<CourseLecturVo> selectTeachingCourse(@Param("userId") String userId, @Param("page") Page<CourseLecturVo> page,
-                                              @Param("onlyFree") boolean onlyFree);
 
     @Select("SELECT COUNT(*) FROM `course_teaching` ct WHERE ct.`course_id`=#{courseId} AND ct.`user_id`=#{accountId}")
     int selectQualification4TeachingCourse(@Param("accountId") String accountId, @Param("courseId") Integer courseId);

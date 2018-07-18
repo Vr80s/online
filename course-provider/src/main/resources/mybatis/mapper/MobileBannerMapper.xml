@@ -41,6 +41,7 @@
         where oc.status = 1
         and ou.deleted =0
         and oc.is_delete=0
+        and oc.is_teaching = 0
     </sql>
 
     <sql id="onlyFreeCondition">
@@ -126,6 +127,7 @@
                 where ou.status = 1 and ou.deleted =0
                 and oc.is_delete=0
                 and oc.status=1
+                and oc.is_teaching=0
                 and om.id = #{cateGory.id}
                 <include refid="onlyFreeCondition"/>
                 order by recommendSort desc,oc.release_time desc limit 0,#{pageSizeDown}

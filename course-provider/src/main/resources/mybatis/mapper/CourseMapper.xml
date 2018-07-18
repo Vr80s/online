@@ -349,7 +349,7 @@
         DATE_FORMAT(oc.start_time,'%m.%d') )) as startDateStr
         FROM
         oe_course oc
-        where oc.user_lecturer_id = #{userId} and oc.status = 1 and oc.is_delete=0
+        where oc.user_lecturer_id = #{userId} and oc.status = 1 and oc.is_delete=0 and oc.is_teaching = 0
         <include refid="onlyFreeCondition"/>
 
         <if test="type == 1">
@@ -364,9 +364,22 @@
         <if test="type == 4">
             and oc.type = 3
         </if>
-        <if test="type == 5">
-            and oc.is_teaching = 1
-        </if>
+        order by release_time desc
+    </select>
+
+
+    <select id="selectTeachingCourse" resultType="com.xczhihui.course.vo.CourseLecturVo">
+        SELECT
+        <include refid="relLearningCourseListByUserId"/>
+        if(oc.live_status=1,DATE_FORMAT(oc.start_time,'%H:%i'),if(oc.live_status=2,if(oc.start_time &lt;=
+        DATE_ADD(DATE_ADD(str_to_date(DATE_FORMAT(NOW(),'%Y-%m-%d'),
+        '%Y-%m-%d %H:%i:%s'),INTERVAL 1 DAY),INTERVAL -1 SECOND),
+        DATE_FORMAT(oc.start_time,'%H:%i'),DATE_FORMAT(oc.start_time,'%m.%d')),
+        DATE_FORMAT(oc.start_time,'%m.%d') )) as startDateStr
+        FROM
+        oe_course oc
+        where oc.user_lecturer_id = #{userId} and oc.status = 1 and oc.is_delete=0
+        and oc.is_teaching = 1
         order by release_time desc
     </select>
 
@@ -719,29 +732,11 @@
         FROM oe_course oc
         INNER JOIN oe_user ou ON oc.user_lecturer_id = ou.id
         INNER JOIN oe_menu AS om ON om.id = oc.menu_id
-        WHERE oc.is_delete=0 AND oc.status = 1
+        WHERE oc.is_delete=0 AND oc.status = 1 AND oc.is_teaching=0
         <if test="courseId != null">
             AND oc.id = #{courseId}
         </if>
     </select>
-
-    <select id="selectTeachingCourse" resultType="com.xczhihui.course.vo.CourseLecturVo">
-        SELECT
-        <include refid="relLearningCourseListByUserId"/>
-        if(oc.live_status=1,DATE_FORMAT(oc.start_time,'%H:%i'),if(oc.live_status=2,if(oc.start_time &lt;=
-        DATE_ADD(DATE_ADD(str_to_date(DATE_FORMAT(NOW(),'%Y-%m-%d'),
-        '%Y-%m-%d %H:%i:%s'),INTERVAL 1 DAY),INTERVAL -1 SECOND),
-        DATE_FORMAT(oc.start_time,'%H:%i'),DATE_FORMAT(oc.start_time,'%m.%d')),
-        DATE_FORMAT(oc.start_time,'%m.%d') )) as startDateStr,
-        0 as isDisciple
-        FROM
-        oe_course oc
-        where oc.user_lecturer_id = #{userId} and oc.status = 1 and oc.is_delete=0
-        <include refid="onlyFreeCondition"/>
-        and oc.is_teaching = 1
-        order by release_time desc
-    </select>
-
 
         <!-- live_status 1.直播中，2预告，3直播结束 -->
     <select id="selectDoctorLiveRoomRecentCourse" resultType="com.xczhihui.course.vo.CourseLecturVo">

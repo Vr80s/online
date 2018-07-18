@@ -249,9 +249,9 @@ public class EnrolServiceImpl implements EnrolService {
     }
 
     @Override
-    public Page<MedicalEntryInformationVO> listByDoctorId(String doctorId, Integer type, Integer apprentice, int page, int size) {
+    public Page<MedicalEntryInformationVO> listByDoctorId(String doctorId, Integer merId, Integer apprentice, int page, int size) {
         Page<MedicalEntryInformationVO> medicalEntryInformationVOPage = new Page<>(page, size);
-        medicalEntryInformationVOPage.setRecords(medicalEntryInformationMapper.listEntryInformationByDoctorId(doctorId, type, apprentice, medicalEntryInformationVOPage));
+        medicalEntryInformationVOPage.setRecords(medicalEntryInformationMapper.listEntryInformationByDoctorId(doctorId, merId, apprentice, medicalEntryInformationVOPage));
         return medicalEntryInformationVOPage;
     }
 
@@ -347,23 +347,28 @@ public class EnrolServiceImpl implements EnrolService {
 
     @Override
     public List<Map<String, String>> listByDoctorIdAndCourseId(String doctorId, String courseId) {
-        return medicalEntryInformationMapper.listByDoctorIdAndCourseId(doctorId,courseId);
+        return medicalEntryInformationMapper.listByDoctorIdAndCourseId(doctorId, courseId);
     }
 
     @Override
     public void saveCourseTeaching(String doctorId, String courseId, String apprenticeIds) {
-        checkCourseDoctor(doctorId,courseId);
+        checkCourseDoctor(doctorId, courseId);
         medicalEntryInformationMapper.deleteCourseTeachingByCourseId(courseId);
-        if(StringUtils.isNotBlank(apprenticeIds)){
+        if (StringUtils.isNotBlank(apprenticeIds)) {
             List<String> userIds = Arrays.asList(apprenticeIds.split(","));
-            medicalEntryInformationMapper.saveCourseTeaching(courseId,userIds);
+            medicalEntryInformationMapper.saveCourseTeaching(courseId, userIds);
         }
     }
 
     void checkCourseDoctor(String doctorId, String courseId) {
-        if (medicalEntryInformationMapper.checkCourseDoctor(doctorId,courseId)<1){
+        if (medicalEntryInformationMapper.checkCourseDoctor(doctorId, courseId) < 1) {
             throw new MedicalException("医师不具有该课程权限");
         }
+    }
+
+    @Override
+    public Map<String, Object> findApprenticeInfo(String doctorId, String accountId) {
+        return medicalEntryInformationMapper.findApprenticeInfo(doctorId, accountId);
     }
 
     private void validateMedicalEntryInformation(MedicalEntryInformationVO medicalEntryInformationVO) {

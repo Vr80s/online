@@ -28,9 +28,9 @@ public class ApprenticeController extends AbstractController {
     @RequestMapping(method = RequestMethod.GET)
     public ResponseObject list(@RequestParam(required = false, defaultValue = "1") int page,
                                @RequestParam(required = false, defaultValue = "10") int size,
-                               @RequestParam(required = false) Integer type, @RequestParam(required = false) Integer apprentice) {
+                               @RequestParam(required = false) Integer merId, @RequestParam(required = false) Integer apprentice) {
         String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(getUserId());
-        return ResponseObject.newSuccessResponseObject(enrolService.listByDoctorId(doctorId, type, apprentice, page, size));
+        return ResponseObject.newSuccessResponseObject(enrolService.listByDoctorId(doctorId, merId, apprentice, page, size));
     }
 
     @RequestMapping(value = "{id}/{apprentice}", method = RequestMethod.PUT)

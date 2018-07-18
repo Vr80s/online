@@ -19,7 +19,11 @@ function submit() {
         webToast("两次密码不一致","middle",1500);
         return false;
     }
-    //提交
+
+    
+
+
+    //提交  
     requestService("/xczh/set/editPassword",{
         oldPassword:$("#oldPassword").val(),
         newPassword:$("#newPassword").val(),
@@ -36,7 +40,22 @@ function submit() {
 // 	            });
         	},2000)
         }else{
-            webToast(data.errorMessage,"middle",1500);
+            /*var newPassword = document.getElementById("newPassword").value;
+            if( /^[a-zA-Z0-9]{6,18}$/.test(newPassword)){
+                alert(456);
+            }
+
+            var confirmPassword = document.getElementById("confirmPassword").value;
+            if( /^[a-zA-Z0-9]{6,18}$/.test(confirmPassword)){
+                alert(123);
+            }*/
+            // webToast(data.errorMessage,"middle",1500);
+
+            webToast("格式错误，密码为6-18位英文大小写字母或者阿拉伯数字","middle",1500);
+           /* $(".web_toast").css("left","50%");
+            $(".web_toast").css("margin-left","-2.9rem");*/
         }
     });
+
+
 }

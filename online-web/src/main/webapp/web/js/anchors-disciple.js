@@ -127,31 +127,6 @@ $(function(){
 
 //----------------------------------跟师直播介结束，我的弟子开始--------------------------------------------
 
-//	点击打开模态框
-	$(".see-disciple").click(function(){
-		$("#mask").removeClass("hide")
-		$(".see-disciple-modal").removeClass("hide");
-	})
-//	关闭模态框
-	$(".see-modal-top span img").click(function(){
-		$("#mask").addClass("hide")
-		$(".see-disciple-modal").addClass("hide");
-	})
-	
-
-
-//----------------------------------我的弟子结束，问答解惑开始--------------------------------------------
-
-//	编辑/回复
-	$(".edit-question").click(function(){
-		$("#mask").removeClass("hide");
-		$(".answer-edit-replay").removeClass("hide");
-	})
-//	关闭编辑回复
-	$(".edit-replay-top").click(function(){
-		$("#mask").addClass("hide");
-		$(".answer-edit-replay").addClass("hide");
-	})
 
 
 //----------------------------------问答解惑结束，师承管理开始--------------------------------------------
@@ -181,7 +156,7 @@ $(function(){
 	})
 
 //	师承封面
-	function classUpdown(baseurl, imgname) {
+	function manageUpdown(baseurl, imgname) {
         RequestService("/medical/common/upload", "post", {
             image: baseurl,
         }, function (data) {
@@ -208,7 +183,7 @@ $(function(){
         }
         var reader = new FileReader();
         reader.onload = function (e) {
-            classUpdown(reader.result, 'mamage-wrap-img');
+            manageUpdown(reader.result, 'mamage-wrap-img');
         }
         reader.readAsDataURL(this.files[0])
     });
