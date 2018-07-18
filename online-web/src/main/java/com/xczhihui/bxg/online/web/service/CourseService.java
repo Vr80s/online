@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.solr.client.solrj.SolrServerException;
+
 import com.aliyuncs.exceptions.ClientException;
 import com.xczhihui.bxg.online.common.domain.Course;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
@@ -137,7 +139,7 @@ public interface CourseService {
      */
     ResponseObject insertSubscribe(String userId, String mobile, Integer courseId) throws ClientException;
 
-    void updateCourseException();
+    void updateCourseException() throws IOException, SolrServerException;
 
     /**
      * Description：根据专辑id获取课程

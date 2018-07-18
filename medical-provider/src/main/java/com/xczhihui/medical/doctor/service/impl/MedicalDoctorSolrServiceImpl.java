@@ -1,5 +1,7 @@
 package com.xczhihui.medical.doctor.service.impl;
 
+import static com.xczhihui.common.util.enums.DoctorType.getDoctorTypeListAddHot;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -22,6 +24,7 @@ import com.xczhihui.common.solr.utils.HanyuPinyinHelper;
 import com.xczhihui.common.solr.utils.SolrConstant;
 import com.xczhihui.common.solr.utils.SolrPages;
 import com.xczhihui.common.solr.utils.SolrUtils;
+import com.xczhihui.common.util.bean.DoctorTypeVo;
 import com.xczhihui.medical.department.vo.MedicalDepartmentVO;
 import com.xczhihui.medical.doctor.mapper.MedicalDoctorMapper;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorSolrService;
@@ -85,6 +88,20 @@ public class MedicalDoctorSolrServiceImpl implements IMedicalDoctorSolrService {
                 query.append(SolrConstant.AND);
             }
             query.append(searchTypeKey);
+        }else{
+            List<DoctorTypeVo> doctorTypeListAddHot = getDoctorTypeListAddHot();
+            StringBuilder sb = new StringBuilder("(");
+            for (int i=0;i<doctorTypeListAddHot.size();i++) {
+                sb.append("type:" + doctorTypeListAddHot.get(i).getCode());
+                if(i<doctorTypeListAddHot.size()-1){
+                    sb.append(SolrConstant.OR);
+                }
+            }
+            sb.append(")");
+            if (query.length() > 0) {
+                query.append(SolrConstant.AND);
+            }
+            query.append(sb.toString());
         }
         String searchStatus;
         if (dqv.getStatus()!=null) {

@@ -13,6 +13,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.solr.client.solrj.SolrServerException;
 import org.aspectj.util.FileUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,6 +42,7 @@ import com.xczhihui.common.util.SmsUtil;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.common.util.enums.ApplyStatus;
+import com.xczhihui.course.service.ICourseSolrService;
 import com.xczhihui.medical.anchor.model.CourseApplyInfo;
 import com.xczhihui.medical.anchor.service.ICourseApplyService;
 import com.xczhihui.medical.exception.AnchorWorkException;
@@ -63,6 +65,8 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
     
     @Autowired
     private ICourseApplyService courseApplyService;
+    @Autowired
+    private ICourseSolrService courseSolrService;
     
 
     @Override
@@ -261,7 +265,7 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
     }
 
     @Override
-    public void updateCourseException() {
+    public void updateCourseException() throws IOException, SolrServerException {
         List<Course> liveCourse = coursedao.getLiveCourse();
         for (Course course : liveCourse) {
             Date startTime = course.getStartTime();
@@ -276,6 +280,7 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
                 courseException.setCreateTime(new Date());
                 dao.save(courseException);
                 logger.info("课程id{}的直播课程由于超时未发起直播，被下架并插入课程异常表中", course.getId());
+                courseSolrService.initCourseSolrDataById(course.getId());
             }
         }
     }
