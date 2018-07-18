@@ -57,9 +57,9 @@ public class FocusServiceImpl extends ServiceImpl<FocusMapper, Focus> implements
     }
     
     @Override
-    public List<Integer> selectFocusAndFansCountAndCriticizeCount(String userId) {
-        List<Integer> counts = focusMapper.selectFocusOrFansCountOrCriticizeCount(userId);
-        counts.set(0,counts.get(0)+counts.get(3));
+    public List<Integer> selectFocusAndFansCountAndCourseCount(String userId) {
+        List<Integer> counts = focusMapper.selectFocusAndFansCountAndCourseCount(userId);
+        counts.set(0,counts.get(0)+counts.get(2));
         return counts;
     }
 
@@ -133,4 +133,5 @@ public class FocusServiceImpl extends ServiceImpl<FocusMapper, Focus> implements
             throw new FansException("操作过于频繁!");
         }
     }
+
 }

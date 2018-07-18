@@ -16,6 +16,7 @@ import com.xczhihui.common.util.XzStringUtils;
 import com.xczhihui.common.util.enums.CourseType;
 import com.xczhihui.common.util.enums.LiveStatus;
 import com.xczhihui.common.util.enums.PayStatus;
+import com.xczhihui.course.exception.CourseException;
 import com.xczhihui.course.mapper.CourseMapper;
 import com.xczhihui.course.mapper.CriticizeMapper;
 import com.xczhihui.course.mapper.FocusMapper;
@@ -56,6 +57,10 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 
         CourseLecturVo cv = iCourseMapper.selectCourseDetailsById(courseId);
 
+        if(cv == null) {
+            throw new CourseException("获取课程详情有误");
+        }
+        
         /**
          * 这里需要判断是否购买过了
          */
@@ -173,7 +178,9 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     public CourseLecturVo selectCourseMiddleDetailsById(String  userId,Integer courseId) {
 
         CourseLecturVo cv = iCourseMapper.selectCourseMidileDetailsById(courseId);
-        
+        if(cv == null) {
+            throw new CourseException("获取课程详情有误");
+        }
         /**
          * 这里需要判断是否购买过了
          */

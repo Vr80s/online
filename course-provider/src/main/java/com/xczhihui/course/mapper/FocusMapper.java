@@ -33,4 +33,6 @@ public interface FocusMapper extends BaseMapper<Focus> {
     Integer selectFocusCount(String userId);
 
     Integer selectFansCount(String userId);
+
+    List<Integer> selectFocusAndFansCountAndCourseCount(@Param("userId")String userId);
 }
