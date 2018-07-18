@@ -97,6 +97,10 @@ public class OeBanner extends Model<OeBanner> {
     @TableField("create_person")
     private String createPerson;
 
+    
+    //路由链接
+    @TableField(exist = false)
+    private String target;
 
     @Override
     protected Serializable pkVal() {
@@ -260,6 +264,16 @@ public class OeBanner extends Model<OeBanner> {
 
     public void setBgColor(String bgColor) {
         this.bgColor = bgColor;
+    }
+
+    
+    public String getTarget() {
+        return target;
+    }
+
+
+    public void setTarget(String target) {
+        this.target = target;
     }
 
 
