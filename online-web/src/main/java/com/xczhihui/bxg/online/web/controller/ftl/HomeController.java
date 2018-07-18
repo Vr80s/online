@@ -63,7 +63,7 @@ public class HomeController extends AbstractFtlController {
      * @throws InvocationTargetException
      */
     @RequestMapping
-    public ModelAndView index() throws InvocationTargetException, IllegalAccessException {
+    public ModelAndView index() {
 
         ModelAndView view = new ModelAndView("index");
 
