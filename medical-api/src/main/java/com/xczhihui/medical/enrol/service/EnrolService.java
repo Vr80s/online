@@ -83,7 +83,7 @@ public interface EnrolService {
      * 查询医师的所有报名的人
      *
      * @param doctorId doctorId
-     * @param type    type
+     * @param type     type
      * @param status   status
      * @param page     page
      * @param size     size
@@ -179,4 +179,12 @@ public interface EnrolService {
      * @return
      */
     boolean checkAuthTeachingCourse(String userId, Integer courseId);
+
+    /**
+     * 医师的弟子数
+     *
+     * @param doctorId doctorId
+     * @return
+     */
+    Integer countApprentice(String doctorId);
 }

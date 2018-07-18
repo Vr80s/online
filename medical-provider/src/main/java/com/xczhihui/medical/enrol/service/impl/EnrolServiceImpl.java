@@ -387,6 +387,12 @@ public class EnrolServiceImpl implements EnrolService {
         return count != null && count > 0;
     }
 
+    @Override
+    public Integer countApprentice(String doctorId) {
+        Integer count = medicalEntryInformationMapper.countApprenticeByDoctorId(doctorId);
+        return count == null ? 0 : count;
+    }
+
     private void validateMedicalEntryInformation(MedicalEntryInformationVO medicalEntryInformationVO) {
         if (!isMobileNO(medicalEntryInformationVO.getTel())) {
             throw new MedicalException("手机号有误");
