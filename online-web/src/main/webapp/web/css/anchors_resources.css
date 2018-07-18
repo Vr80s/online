@@ -1578,6 +1578,7 @@ outline: none;
 .sava-pupil ul li .set-lable{
 	overflow: hidden;
 	width: fit-content;
+	cursor: pointer;
 	width: -webkit-fit-content;
 }
 .sava-pupil ul li p{
