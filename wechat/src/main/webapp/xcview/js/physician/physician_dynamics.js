@@ -893,11 +893,27 @@ function createDoctorIntroduction(introduction){
 });*/
 
 
-
 // 
 // 在线弟子申请的状态 1->未报名 2->没有审核 3->审核未通过 4->审核已通过 . 值是1与3 去提交信息页面 2与4 去申请信息查看页
 requestGetService("/xczh/host/doctor/apprentice",{doctorId:doctorId},function (data) {
     if (data.success == true) {
+
+        
+        // 跟师直播
+        if (!isNotBlank(data.resultObject.apprenticeCourses)) {
+            $(".wrap_vedio_main").hide();
+        } else{
+            $(".wrap_vedio_main").show();
+            // 跟师直播开始
+            $('#teacher_hide').html(template('teacher_hide_id', {items: data.resultObject.apprenticeCourses}));
+            // $(".more_people_time").html(data.resultObject.apprenticeCourses.startTime);   
+        }
+
+        
+        
+
+
+
 
         // 招生简章详情
         $('.prose_origin_main').html(template('prose_origin_main_id', {items: data.resultObject.regulations}));
@@ -913,9 +929,9 @@ requestGetService("/xczh/host/doctor/apprentice",{doctorId:doctorId},function (d
         $('.disciple_application_state').html(template('disciple_application_state_id', {items: data.resultObject}));
        // 判断--老师解惑--时隐藏
         if (!isNotBlank(data.resultObject.questions)) {
-            $(".QA").hide();
+            $(".QA_main").hide();
         } else{
-            $(".QA").show();
+            $(".QA_main").show();
              // 医师问答列表
             $('.QA_main').html(template('QA_main_id', {items: data.resultObject.questions}));
         }
@@ -935,6 +951,9 @@ requestGetService("/xczh/host/doctor/apprentice",{doctorId:doctorId},function (d
         $(".disciple_number").html(length);
 
        
+
+
+
 
 
         // webToast("提交成功","middle",1500);

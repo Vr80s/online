@@ -1629,8 +1629,8 @@ p{
     background: white;
     overflow: hidden;
     margin-top: 0.2rem; */
-    width: 6.98rem;
-    /* padding: 0.3rem 0.26rem; */
+    width: 7.5rem;
+    padding: 0.3rem 0.26rem; 
     box-sizing: border-box;
     background: white;
     overflow: hidden;
@@ -1653,7 +1653,7 @@ p{
 .wrap_vedio_btn li {
     margin-bottom: 0.4rem;
     width: 3.39rem;
-    height: 3.2rem;
+    height: 3.8rem;
 }
 .wrap_vedio_btn li .wrap_img_pic {
     width: 3.39rem;
@@ -1674,9 +1674,12 @@ p{
 }
 .wrap_vedio_btn li .speak_text {
     overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    padding: 0.16rem 0 0 0;
+    padding: 0.1rem 0 0 0;
+    height: 1rem;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
 }
 .wrap_vedio_btn li .speak_name {
     overflow: hidden;
@@ -2391,7 +2394,7 @@ margin-top: 0.015rem;
 	width: 6.98rem;
     margin: 0 auto;
     padding-top: 0.2rem;
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.2rem;
 }
 .QA_title .border{
 	display: inline-block;
@@ -2417,6 +2420,7 @@ margin-top: 0.015rem;
 	width: 6.98rem;
 	height: 100%;
 	margin: 0 auto;
+	padding-top: 0.2rem;
 }
 .QA_doubt{
 	
