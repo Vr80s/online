@@ -157,8 +157,10 @@ public class HostController {
                     })
                     .collect(Collectors.toList()));
             mapAll.put("apprentice", enrolService.isApprentice(doctorId, userId));
+            mapAll.put("apprenticeCount", enrolService.countApprentice(doctorId));
         } else {
             mapAll.put("apprentice", false);
+            mapAll.put("apprenticeCount", 0);
             mapAll.put("followHidden", true);
             mapAll.put("fansCount", 0);
             mapAll.put("focusCount", 0);

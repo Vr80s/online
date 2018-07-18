@@ -38,10 +38,10 @@ public interface MedicalEntryInformationMapper extends BaseMapper<MedicalEntryIn
     /**
      * 查询报名信息
      *
-     * @param merId      收徒类型
-     * @param doctorId   医师
-     * @param apprentice 是否是弟子
-     * @param page       分页参数
+     * @param type     收徒类型(null -> 全部 1 -> 发现页收徒 2->师承页收徒)
+     * @param doctorId 医师
+     * @param status   状态 null -> 全部 0 -> 待审核 1->审核不通过 2->弟子
+     * @param page     分页参数
      * @return
      */
     @Select({"<script> " +
@@ -50,21 +50,24 @@ public interface MedicalEntryInformationMapper extends BaseMapper<MedicalEntryIn
             "   mei.goal, mei.tel, mei.wechat, mei.create_time as createTime, mei.apprentice, mei.type, mei.applied, mer.title as regulationName, mei.user_id userId " +
             " FROM medical_entry_information mei left join medical_enrollment_regulations mer on mei.mer_id = mer.id" +
             " WHERE mei.doctor_id = #{doctorId} AND mei.deleted=0 " +
-            " <if test='merId != null'>" +
-            " <if test='merId == -1'>" +
-            " AND mei.type = 2" +
+            " <if test='type != null'>" +
+            " AND mei.type = #{type}" +
             " </if>" +
-            " <if test='merId != -1'>" +
-            " AND mer.id = #{merId}" +
+            " <if test='status != null'>" +
+            " <if test='status == 0'>" +
+            " AND mei.applied = false" +
             " </if>" +
+            " <if test='status == 1'>" +
+            " AND mei.applied = true AND mei.apprentice = 0" +
             " </if>" +
-            " <if test='apprentice != null'>" +
-            " AND mei.apprentice = #{apprentice}" +
+            " <if test='status == 2'>" +
+            " AND mei.apprentice = 1" +
+            " </if>" +
             " </if>" +
             " ORDER BY mei.create_time DESC " +
             " </script>"})
-    List<MedicalEntryInformationVO> listEntryInformationByDoctorId(@Param("doctorId") String doctorId, @Param("merId") Integer merId,
-                                                                   @Param("apprentice") Integer apprentice, Page<MedicalEntryInformationVO> page);
+    List<MedicalEntryInformationVO> listEntryInformationByDoctorId(@Param("doctorId") String doctorId, @Param("type") Integer type,
+                                                                   @Param("status") Integer status, Page<MedicalEntryInformationVO> page);
 
     @Select({"select * from medical_entry_information where user_id = #{userId} and mer_id = #{merId} limit 1"})
     MedicalEntryInformation findOne(@Param("userId") String userId, @Param("merId") Integer merId);
@@ -138,4 +141,15 @@ public interface MedicalEntryInformationMapper extends BaseMapper<MedicalEntryIn
      */
     @Select({"select count(id) from course_teaching where course_id = #{courseId} and user_id = #{userId} and deleted = false"})
     Integer countCourseTeaching(@Param("courseId") Integer courseId, @Param("userId") String userId);
+
+    /**
+     * 查询医师的弟子数
+     *
+     * @param doctorId doctorId
+     * @return
+     */
+    @Select({"select count(distinct user_id)" +
+            " from medical_entry_information" +
+            " where doctor_id = #{doctorId} and apprentice = 1"})
+    Integer countApprenticeByDoctorId(@Param("doctorId") String doctorId);
 }

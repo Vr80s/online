@@ -332,7 +332,6 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
             throw new AnchorWorkException("此专辑未审核通过,不能直接添加子课程！");
         }
         
-        
         //查看是否存在此课程
         Course collection = this.findByApplyId(courseApplyInfo.getId()+"");
         if (collection == null) {
@@ -341,11 +340,23 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
         
         for (CourseApplyInfo applyInfo : courseApplyInfo.getCourseApplyInfos()) {
            
-            CollectionCourseApply collectionCourseApply = new CollectionCourseApply();
-            collectionCourseApply.setCourseApplyId(applyInfo.getId());
-            collectionCourseApply.setCollectionApplyId(courseApplyInfo.getId());
-            collectionCourseApply.setCollectionCourseSort(applyInfo.getCollectionCourseSort());
-            dao.save(collectionCourseApply);
+            
+            //查找最小的排序字段
+            String sqlCCs = "select ifnull(min(collection_course_sort),0) from collection_course_apply where "
+                    + " collection_apply_id = ? ";
+            int i = dao.queryForInt(sqlCCs, new Object[]{courseApplyInfo.getId()});//最大的排序
+            
+            
+            // 保存专辑-课程关系
+            String sqlCai = "INSERT INTO collection_course_apply(collection_apply_id,course_apply_id,create_time,collection_course_sort) "
+                    + " VALUES (:collectionApplyId,:courseApplyId,now(),:collectionCourseSort)";
+           
+            
+            Map<String, Integer> paramMapCai = new HashMap<String, Integer>();
+            paramMapCai.put("collectionApplyId", courseApplyInfo.getId());
+            paramMapCai.put("courseApplyId", applyInfo.getId());
+            paramMapCai.put("collectionCourseSort", i-1);
+            dao.getNamedParameterJdbcTemplate().update(sqlCai, paramMapCai);
             
             /**
              * 查看是否审核通过
@@ -360,6 +371,7 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
                 course = savePassCourse(cai);
             
             }else if(cai.getStatus()!=null && cai.getStatus().equals(ApplyStatus.PASS.getCode())){  //通过    
+               
                 course = coursedao.getCourseByApplyId(cai.getId()+"");
             }
             
@@ -367,26 +379,26 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
                 throw new AnchorWorkException("此课程审核状态有误！");
             }
             
-            // 保存专辑-课程关系
+
             String sql = "INSERT INTO collection_course(collection_id,course_id,create_time,collection_course_sort) "
                     + " VALUES (:cId,:courseId,now(),:collectionCourseSort)";
             Map<String, Integer> paramMap = new HashMap<String, Integer>();
             paramMap.put("cId", collection.getId());
             paramMap.put("courseId", course.getId());
-            paramMap.put("collectionCourseSort", course.getCollectionCourseSort());
+            paramMap.put("collectionCourseSort",  i-1);
             dao.getNamedParameterJdbcTemplate().update(sql, paramMap);
             
         }
     }
 
     private Course savePassCourse(CourseApplyInfo cai) {
-        // TODO Auto-generated method stub
         
         //更改课程审核状态
-        cai.setStatus(ApplyStatus.PASS.getCode());
-        cai.setReviewPerson(null); 
-        cai.setReviewTime(new Date());
-        courseApplyService.updateById(cai);
+        String sql = "UPDATE course_apply_info SET status = 1,review_time = now() WHERE  id = :id";
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("id",cai.getId());
+        dao.getNamedParameterJdbcTemplate().update(sql, params);
+        
         
         //同步到课程表
         return saveCourseApply2course(cai);
@@ -511,12 +523,10 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
             // 若course有id，说明该申请来自一个已经审核通过的课程，则更新
             dao.update(course);
             //cacheService.delete(LIVE_COURSE_REMIND_LAST_TIME_KEY + RedisCacheKey.REDIS_SPLIT_CHAR + course.getId());
-        
         } else {
             // 当前时间
             course.setCreateTime(new Date());
             dao.save(course);
-            
         }
         
         //发送消息，暂时不发送啦

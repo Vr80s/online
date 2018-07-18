@@ -82,14 +82,14 @@ public interface EnrolService {
     /**
      * 查询医师的所有报名的人
      *
-     * @param doctorId   doctorId
-     * @param merId      merId
-     * @param apprentice apprentice
-     * @param page       page
-     * @param size       size
+     * @param doctorId doctorId
+     * @param type     type
+     * @param status   status
+     * @param page     page
+     * @param size     size
      * @return
      */
-    Page<MedicalEntryInformationVO> listByDoctorId(String doctorId, Integer merId, Integer apprentice, int page, int size);
+    Page<MedicalEntryInformationVO> listByDoctorId(String doctorId, Integer type, Integer status, int page, int size);
 
     /**
      * 审核弟子报名
@@ -174,9 +174,17 @@ public interface EnrolService {
     /**
      * 校验师承课程的观看权限
      *
-     * @param userId userId
+     * @param userId   userId
      * @param courseId courseId
      * @return
      */
     boolean checkAuthTeachingCourse(String userId, Integer courseId);
+
+    /**
+     * 医师的弟子数
+     *
+     * @param doctorId doctorId
+     * @return
+     */
+    Integer countApprentice(String doctorId);
 }
