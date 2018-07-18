@@ -708,11 +708,14 @@ public class CourseDao extends SimpleHibernateDao {
     }
 
     public Course getCourseByApplyId(String applyId) {
+        if(applyId == null) {
+            return new Course();
+        }
         DetachedCriteria dc = DetachedCriteria.forClass(Course.class);
         dc.add(Restrictions.eq("applyId", Integer.parseInt(applyId)));
         Course course = this.findEntity(dc);
         if (course == null) {
-            return null;
+            return new Course();
         }
         return course;
     }
