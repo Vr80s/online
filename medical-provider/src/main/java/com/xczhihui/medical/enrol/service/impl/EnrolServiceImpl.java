@@ -236,6 +236,7 @@ public class EnrolServiceImpl implements EnrolService {
             if (medicalDoctorVO != null) {
                 mer.setName(medicalDoctorVO.getName());
             }
+            mer.setAllEnrolledUserCount(getAllEnrolledUserCount(mer.getId()));
         });
         medicalEnrollmentRegulationsPage.setRecords(medicalEnrollmentRegulations);
         return medicalEnrollmentRegulationsPage;
