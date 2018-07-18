@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.lang.StringUtils;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,18 +17,23 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczh.consumer.market.interceptor.HeaderInterceptor;
+import com.xczh.consumer.market.utils.APPUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.enums.DoctorSortOrderType;
 import com.xczhihui.common.util.enums.DoctorType;
+import com.xczhihui.course.consts.MultiUrlHelper;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.medical.anchor.service.IAnchorInfoService;
+import com.xczhihui.medical.banner.model.OeBanner;
+import com.xczhihui.medical.banner.service.PcBannerService;
 import com.xczhihui.medical.department.model.MedicalDepartment;
 import com.xczhihui.medical.department.service.IMedicalDepartmentService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorSolrService;
 import com.xczhihui.medical.doctor.vo.DoctorQueryVo;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorSolrVO;
+import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 
 /**
  * Description：医师页面
@@ -56,6 +64,48 @@ public class DoctorController {
     @Value("${returnOpenidUri}")
     private String returnOpenidUri;
 
+    
+    @Autowired
+    private PcBannerService bannerService;
+    
+    
+    /**
+     * banner图
+     *
+     * @return
+     */
+    @RequestMapping("banner")
+    public ResponseObject banner(HttpServletRequest request) {
+        Page<OeBanner> page =  bannerService.page(new Page<>(1, 3),6);
+        
+        if(HeaderInterceptor.ONLY_THREAD.get()) {
+            return ResponseObject.newSuccessResponseObject(null);
+        }
+        
+        page.getRecords().forEach(bannerVo -> {
+            String routeType = bannerVo.getRouteType();
+            if (StringUtils.isNotBlank(routeType)) {
+                String url = MultiUrlHelper.getUrl(routeType,  APPUtil.getMobileSource(request), MultiUrlHelper.handleParam(returnOpenidUri, bannerVo.getLinkParam(), routeType));
+                bannerVo.setTarget(url);
+            } else {
+                bannerVo.setTarget("");
+            }
+        });
+        
+        return ResponseObject.newSuccessResponseObject(page.getRecords());
+    }
+    
+    
+    /**
+     * 热门搜索换一批
+     * @return
+     */
+    @RequestMapping("hotInBatch")
+    public ResponseObject hotInBatch() {
+        
+        return ResponseObject.newSuccessResponseObject(medicalDoctorBusinessService.selectHotInBatch(new Page<MedicalDoctorVO>(1,3)));
+    }
+    
     /**
      * 医师分类页面
      *
@@ -63,7 +113,7 @@ public class DoctorController {
      */
     @RequestMapping("category")
     public ResponseObject category() {
-
+        
         return ResponseObject.newSuccessResponseObject(medicalDoctorBusinessService.doctorCategoryList());
     }
     /**

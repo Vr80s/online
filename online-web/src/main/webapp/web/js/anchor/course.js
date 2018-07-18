@@ -802,17 +802,43 @@ function confirmCollection(state,courseApplyId,courseId){
 //添加专辑模态框
 function addAlbum(id,collectionId,multimediaType){
 	
+	//初始化下拉框
+	initAlbumNoExitCourse(id,collectionId,multimediaType);
+	
 	debugger;
 	$("#mask").removeClass("hide")
 	$(".add-album-modal").removeClass("hide");
-	
 	$(".sure-add-caiId").attr("data-id",id);
-	
-	initAlbumNoExitCourse(id,collectionId,multimediaType);
 	
 }
 
-
+function initAlbumNoExitCourse(id,collectionId,multimediaType){
+    
+    RequestService("/anchor/course/getCollectionNotExitCouse?multimediaType="+multimediaType+"&collectionId="+collectionId+"&caiId="+id, "get", null, function(data) {
+        var courses = data.resultObject;
+        var str="";
+        if(courses !=null &&  courses.length>0){
+           $(".nofind-class").hide();
+        }else{
+           $(".nofind-class").show();
+           $("#select-add").html(str);
+           $('.selectpicker_ks').selectpicker('refresh');
+           return;
+        }
+        collectionCourseListQuickly = courses;
+        
+        for(var i=0;courses.length>i;i++){
+            str += "<option value='"+courses[i].id+"'>"+courses[i].title+"</option>";
+        }
+        $("#select-add").html(str);
+        
+        $('.selectpicker_ks').selectpicker('refresh');
+        $('.selectpicker_ks').selectpicker({
+            'selectedText': 'cat',size:10
+        });
+    });
+    
+}
 
 
 //关闭新增专辑模态框
@@ -825,6 +851,11 @@ function closeAlbum(){
 function quicklyAddAlbumCourse(){
     
 	var csArr = $("#select-add").val();
+	if(csArr ==null || csArr == undefined ||  csArr.length<=0){
+		alert("请选择课程");
+		return;
+	}
+	
     var courseArr = [];
     var k=1;
     for(var i in csArr){
@@ -844,50 +875,33 @@ function quicklyAddAlbumCourse(){
     collection.id = $(".sure-add-caiId").attr("data-id");
     collection.courseApplyInfos = courseArr;
 	
-	
-	
-	
-	 $.ajax({
-        type: "post",
-        url: bath + "/anchor/course/saveCollectionCourse",
-        data:JSON.stringify(collection),
-        contentType:"application/json",
-        async: false,
-        success: function(data) {
-            console.log(data);
-            if(data.success === true) {
-                showTip(data.resultObject);
-                $("#zhuanji_bottom2").show();
-                $("#zhuanji_bottom").hide();
-                resetCollectionForm();
-                courseCollectionList(1);
-            } else {
-                showTip(data.errorMessage)
+    var fromFalg = true;
+    if(fromFalg){
+    	fromFalg = false;
+    	
+        $.ajax({
+            type: "post",
+            url: bath + "/anchor/course/saveCollectionCourse",
+            data:JSON.stringify(collection),
+            contentType:"application/json",
+            async: false,
+            success: function(data) {
+            	fromFalg = true;
+                console.log(data);
+                if(data.success === true) {
+                    closeAlbum();
+                    showTip("添加成功");
+                    $('.course_collection_search').click();
+                } else {
+                	closeAlbum();
+                    showTip(data.errorMessage)
+                }
             }
-        }
-    });
-	
-    
-}
-
-function initAlbumNoExitCourse(id,collectionId,multimediaType){
-	
-    RequestService("/anchor/course/getCollectionNotExitCouse?multimediaType="+multimediaType+"&collectionId="+collectionId+"&caiId="+id, "get", null, function(data) {
-        var courses = data.resultObject;
-        collectionCourseListQuickly = courses;
-        var str="";
-        for(var i=0;courses.length>i;i++){
-            str += "<option value='"+courses[i].id+"'>"+courses[i].title+"</option>";
-        }
-        $("#select-add").html(str);
-        $('.selectpicker_ks').selectpicker('refresh');
-        $('.selectpicker_ks').selectpicker({
-            'selectedText': 'cat',size:10
         });
-    });
-    
+    }else{
+        console.error("正在处理请稍等");
+    }
 }
-
 
 function initCourse(multimediaType){
     RequestService("/anchor/course/getAllCourses?multimediaType="+multimediaType, "get", null, function(data) {
@@ -1100,10 +1114,11 @@ function upCourse2Collection(collectionCourseSort){
     for(var i=0;i < courseArr.length;i++){
         if(courseArr[i].collectionCourseSort==collectionCourseSort){
             var temp = courseArr[i];
-            courseArr[i]=courseArr[i-1];
-            courseArr[i-1]=temp;
+            var tempI = i -1;
+            courseArr[i]=courseArr[tempI];
+            courseArr[tempI]=temp;
             courseArr[i].collectionCourseSort++;
-            courseArr[i-1].collectionCourseSort--;
+            courseArr[tempI].collectionCourseSort--;
         }
     }
     courseArr = upDownShowInit(courseArr);

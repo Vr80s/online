@@ -775,4 +775,10 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
         }
         return list;
     }
+
+    @Override
+    public List<MedicalDoctorVO> selectHotInBatch(Page<MedicalDoctorVO> page) {
+        
+        return medicalDoctorMapper.selectHotInBatch(page);
+    }
 }

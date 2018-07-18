@@ -22,6 +22,13 @@ public interface IFocusService {
      * @author name：yangxuan <br>email: 15936216273@163.com
      */
     List<Integer> selectFocusOrFansCountOrCriticizeCount(String userId);
+    
+    /**
+     * 查看课程数
+     * @param userId
+     * @return
+     */
+    List<Integer> selectFocusAndFansCountAndCourseCount(String userId);
 
     /**
      * Description：我关注的主播集合
@@ -71,10 +78,4 @@ public interface IFocusService {
 
     Integer selectFansCount(String userId);
 
-    /**
-     *  查询此用户的粉丝数/关注数/已购课程数
-     * @param userId
-     * @return
-     */
-    List<Integer> selectFocusAndFansCountAndCriticizeCount(String userId);
 }

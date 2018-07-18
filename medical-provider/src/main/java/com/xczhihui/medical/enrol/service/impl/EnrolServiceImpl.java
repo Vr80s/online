@@ -236,6 +236,7 @@ public class EnrolServiceImpl implements EnrolService {
             if (medicalDoctorVO != null) {
                 mer.setName(medicalDoctorVO.getName());
             }
+            mer.setAllEnrolledUserCount(getAllEnrolledUserCount(mer.getId()));
         });
         medicalEnrollmentRegulationsPage.setRecords(medicalEnrollmentRegulations);
         return medicalEnrollmentRegulationsPage;
@@ -249,9 +250,12 @@ public class EnrolServiceImpl implements EnrolService {
     }
 
     @Override
-    public Page<MedicalEntryInformationVO> listByDoctorId(String doctorId, Integer merId, Integer apprentice, int page, int size) {
+    public Page<MedicalEntryInformationVO> listByDoctorId(String doctorId, Integer type, Integer status, int page, int size) {
         Page<MedicalEntryInformationVO> medicalEntryInformationVOPage = new Page<>(page, size);
-        medicalEntryInformationVOPage.setRecords(medicalEntryInformationMapper.listEntryInformationByDoctorId(doctorId, merId, apprentice, medicalEntryInformationVOPage));
+        List<MedicalEntryInformationVO> medicalEntryInformationVOS = medicalEntryInformationMapper.listEntryInformationByDoctorId(doctorId, type, status, medicalEntryInformationVOPage);
+        medicalEntryInformationVOS.forEach(medicalEntryInformationVO ->
+                medicalEntryInformationVO.setRegulationName(medicalEntryInformationVO.getRegulationName() == null ? "医师师承页面" : medicalEntryInformationVO.getRegulationName()));
+        medicalEntryInformationVOPage.setRecords(medicalEntryInformationVOS);
         return medicalEntryInformationVOPage;
     }
 
@@ -316,6 +320,7 @@ public class EnrolServiceImpl implements EnrolService {
             }
             settings.setRequirement(requirement);
             settings.setWelfare(welfare);
+            settings.setCost(apprenticeSettings.getCost());
             apprenticeSettingsMapper.updateAllColumnById(settings);
         }
     }
@@ -369,6 +374,24 @@ public class EnrolServiceImpl implements EnrolService {
     @Override
     public Map<String, Object> findApprenticeInfo(String doctorId, String accountId) {
         return medicalEntryInformationMapper.findApprenticeInfo(doctorId, accountId);
+    }
+
+    @Override
+    public boolean apprenticeApplying(String doctorId, String accountId) {
+        Integer count = medicalEntryInformationMapper.countApplyingEntryInformation(doctorId, accountId);
+        return count != null && count > 0;
+    }
+
+    @Override
+    public boolean checkAuthTeachingCourse(String userId, Integer courseId) {
+        Integer count = medicalEntryInformationMapper.countCourseTeaching(courseId, userId);
+        return count != null && count > 0;
+    }
+
+    @Override
+    public Integer countApprentice(String doctorId) {
+        Integer count = medicalEntryInformationMapper.countApprenticeByDoctorId(doctorId);
+        return count == null ? 0 : count;
     }
 
     private void validateMedicalEntryInformation(MedicalEntryInformationVO medicalEntryInformationVO) {

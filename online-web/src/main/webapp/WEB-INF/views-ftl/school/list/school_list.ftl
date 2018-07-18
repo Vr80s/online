@@ -118,7 +118,7 @@
                         <input type="hidden" name="lineState" value="">
                         <input type="hidden" name="city" value="">
                         <p class="author-search z">
-                            <input type="text" name="queryKey" id="search-text" value="" placeholder="如：朱小宝"/>
+                            <input type="text" name="queryKey" id="search-text" value="" placeholder="如：针灸"/>
                             <button type="submit"></button>
                         </p>
                     </form>
