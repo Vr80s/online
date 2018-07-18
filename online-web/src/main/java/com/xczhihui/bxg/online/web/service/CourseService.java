@@ -15,6 +15,7 @@ import com.xczhihui.bxg.online.web.vo.CourseLecturVo;
 import com.xczhihui.bxg.online.web.vo.CourseVo;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.medical.anchor.model.CourseApplyInfo;
 
 /**
  * CourseService1:课程业务层接口类
@@ -151,4 +152,10 @@ public interface CourseService {
     List<CourseVo> getCoursesRecommendByType(Integer type);
 
     Course findByApplyId(String applyId);
+
+
+    public void saveCollectionCourse(CourseApplyInfo courseApplyInfo);
+
+
+    public void saveCollectionCourse4Lock(String userId, CourseApplyInfo courseApplyInfo);
 }

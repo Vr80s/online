@@ -1,5 +1,24 @@
 package com.xczhihui.bxg.online.web.controller.medical;
 
+import java.io.IOException;
+import java.text.MessageFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.solr.client.solrj.SolrServerException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.bxg.online.common.domain.Course;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
@@ -28,19 +47,6 @@ import com.xczhihui.medical.anchor.vo.CourseApplyResourceVO;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsService;
 import com.xczhihui.medical.enrol.service.EnrolService;
-import org.apache.solr.client.solrj.SolrServerException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.*;
-
-import java.io.IOException;
-import java.text.MessageFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -150,6 +156,15 @@ public class CourseApplyController extends AbstractController {
         OnlineUser user = getCurrentUser();
         return ResponseObject.newSuccessResponseObject(courseApplyService.selectAllCourses(user.getId(), multimediaType));
     }
+    
+    
+    @RequestMapping(value = "/getCollectionNotExitCouse", method = RequestMethod.GET)
+    public ResponseObject getCollectionNotExitCouse(Integer multimediaType,Integer collectionId,Integer caiId) {
+        OnlineUser user = getCurrentUser();
+        return ResponseObject.newSuccessResponseObject(courseApplyService.getCollectionNotExitCouse(user.getId(),
+                multimediaType,collectionId,caiId));
+    }
+    
 
     @RequestMapping(value = "/getCourseApplyById", method = RequestMethod.GET)
     public ResponseObject getCourseApplyById(Integer caiId) {
@@ -222,6 +237,7 @@ public class CourseApplyController extends AbstractController {
     public ResponseObject updateCollectionApply(@RequestBody CourseApplyInfo courseApplyInfo) {
         OnlineUser user = getCurrentUser();
         courseApplyInfo.setUserId(user.getId());
+        courseApplyInfo.setClientType(ClientType.PC.getCode());
         courseApplyService.updateCollectionApply(courseApplyInfo);
         return ResponseObject.newSuccessResponseObject("保存成功");
     }
@@ -240,8 +256,28 @@ public class CourseApplyController extends AbstractController {
         courseApplyInfo.setTeaching(false);
         courseApplyInfo.setClientType(ClientType.PC.getCode());
         courseApplyService.saveCollectionApply(courseApplyInfo);
+        
         return ResponseObject.newSuccessResponseObject("保存成功");
     }
+    
+    /**
+     * 添加专辑下的课程
+     * @param courseApplyInfo
+     * @return
+     */
+    @RequestMapping(value = "/saveCollectionCourse", method = RequestMethod.POST)
+    public ResponseObject saveCollectionCourse(@RequestBody CourseApplyInfo courseApplyInfo) {
+      
+        
+        OnlineUser user = getCurrentUser();
+        courseApplyInfo.setUserId(user.getId());
+        courseApplyInfo.setTeaching(false);
+        courseApplyInfo.setClientType(ClientType.PC.getCode());
+        //课程审核的id
+        courseService.saveCollectionCourse4Lock(user.getId(),courseApplyInfo);
+        return ResponseObject.newSuccessResponseObject("保存成功");
+    }
+    
 
     /**
      * Description：新增资源

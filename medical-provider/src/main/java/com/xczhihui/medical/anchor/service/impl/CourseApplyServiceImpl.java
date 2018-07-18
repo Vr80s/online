@@ -34,6 +34,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -659,6 +660,41 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         list.add(3);
         System.out.println(list.stream().map(DateUtil::getDayOfWeek).collect(Collectors.joining("")));
         
+    }
+
+    @Override
+    public List<CourseApplyInfoVO> getCollectionNotExitCouse(String userId, Integer multimediaType,
+            Integer collectionId,Integer caiId) {
+        
+        anchorInfoService.validateAnchorPermission(userId);
+        
+        List<CourseApplyInfoVO> courseApplyInfoVOs =  courseApplyInfoMapper.selectAllCourses(userId, multimediaType);
+        if(courseApplyInfoVOs==null || courseApplyInfoVOs.size()<=0) {
+            return courseApplyInfoVOs;
+        }
+        
+        List<CourseApplyInfo> courseApplyInfos = courseApplyInfoMapper.selectCourseApplyByCollectionId(caiId);
+        if(courseApplyInfoVOs!=null && courseApplyInfos!=null && courseApplyInfoVOs.size() <= courseApplyInfos.size()) {
+            return null;
+        }
+//        for (CourseApplyInfoVO courseApplyInfoVO : courseApplyInfoVOs) {
+//            for (CourseApplyInfo courseApplyInfo : courseApplyInfos) {
+//                if(courseApplyInfoVO.getId().equals(courseApplyInfo.getId())) {
+//                    courseApplyInfoVOs.remove(courseApplyInfoVO);
+//                    break;//结束当前循环
+//                }
+//            }
+//        }
+        Iterator<CourseApplyInfoVO> it = courseApplyInfoVOs.iterator();
+        while(it.hasNext()){
+            CourseApplyInfoVO x = it.next();
+            for (CourseApplyInfo courseApplyInfo : courseApplyInfos) {
+              if(x.getId().equals(courseApplyInfo.getId())) {
+                  it.remove();
+              }
+           }
+        }
+        return courseApplyInfoVOs;
     }
     
 }

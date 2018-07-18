@@ -5,7 +5,6 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,7 +30,7 @@ public class RemoteTreatmentAppointmentInfoController {
     private EnrolService enrolService;
 
     @RequestMapping(value = "appointmentInfo", method = RequestMethod.POST)
-    public ResponseObject save(@Valid @RequestBody TreatmentAppointmentInfoBody treatmentAppointmentInfoBody, @Account String accountId) {
+    public ResponseObject save(TreatmentAppointmentInfoBody treatmentAppointmentInfoBody, @Account String accountId) {
         int result = remoteTreatmentService.saveAppointmentInfo(treatmentAppointmentInfoBody.build(accountId));
         if (result != 1) {
             return ResponseObject.newErrorResponseObject("抱歉~该时间段已被预约, 请重新选择预约时间");

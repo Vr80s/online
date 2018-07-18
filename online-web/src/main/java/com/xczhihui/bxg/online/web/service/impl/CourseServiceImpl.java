@@ -1,11 +1,15 @@
 package com.xczhihui.bxg.online.web.service.impl;
 
+import static org.junit.Assert.assertNotNull;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,9 +18,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.aliyuncs.exceptions.ClientException;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
+import com.xczhihui.bxg.online.common.domain.CollectionCourseApply;
 import com.xczhihui.bxg.online.common.domain.Course;
 import com.xczhihui.bxg.online.common.domain.CourseException;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
@@ -29,9 +36,14 @@ import com.xczhihui.bxg.online.web.vo.CourseApplyVo;
 import com.xczhihui.bxg.online.web.vo.CourseDescriptionVo;
 import com.xczhihui.bxg.online.web.vo.CourseLecturVo;
 import com.xczhihui.bxg.online.web.vo.CourseVo;
+import com.xczhihui.common.support.lock.Lock;
 import com.xczhihui.common.util.SmsUtil;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.common.util.enums.ApplyStatus;
+import com.xczhihui.medical.anchor.model.CourseApplyInfo;
+import com.xczhihui.medical.anchor.service.ICourseApplyService;
+import com.xczhihui.medical.exception.AnchorWorkException;
 
 /**
  * CourseServiceImpl:课程业务层接口实现类
@@ -48,6 +60,10 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
     private CourseSubscribeDao courseSubscribeDao;
     @Autowired
     private ScoreTypeDao scoreTypeDao;
+    
+    @Autowired
+    private ICourseApplyService courseApplyService;
+    
 
     @Override
     public List<ScoreType> findAllScoreType() {
@@ -285,4 +301,218 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
     public Course findByApplyId(String applyId) {
         return coursedao.getCourseByApplyId(applyId);
     }
+
+    @Override
+    public void saveCollectionCourse(CourseApplyInfo courseApplyInfo) {
+        
+        this.saveCollectionCourse4Lock(courseApplyInfo.getUserId(), courseApplyInfo);
+    }
+
+    
+    @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Lock(lockName = "saveCollectionCourse4Lock")
+    public void saveCollectionCourse4Lock(String userId, CourseApplyInfo courseApplyInfo) {
+        
+        CourseApplyInfo collectionApplyInfo = courseApplyService.selectCourseApplyById(courseApplyInfo.getUserId(), courseApplyInfo.getId());
+        if (collectionApplyInfo == null) {
+            throw new AnchorWorkException("专辑不存在");
+        }
+        
+        if (collectionApplyInfo != null && !collectionApplyInfo.getStatus().equals(ApplyStatus.PASS.getCode())) {
+            throw new AnchorWorkException("此专辑未审核通过,不能直接添加子课程！");
+        }
+        
+        
+        //查看是否存在此课程
+        Course collection = this.findByApplyId(courseApplyInfo.getId()+"");
+        if (collection == null) {
+            throw new AnchorWorkException("未正确找到审核过后的课程！");
+        }
+        
+        for (CourseApplyInfo applyInfo : courseApplyInfo.getCourseApplyInfos()) {
+           
+            CollectionCourseApply collectionCourseApply = new CollectionCourseApply();
+            collectionCourseApply.setCourseApplyId(applyInfo.getId());
+            collectionCourseApply.setCollectionApplyId(courseApplyInfo.getId());
+            collectionCourseApply.setCollectionCourseSort(applyInfo.getCollectionCourseSort());
+            dao.save(collectionCourseApply);
+            
+            /**
+             * 查看是否审核通过
+             */
+            CourseApplyInfo cai = courseApplyService.selectById(applyInfo.getId());
+            if(cai == null){
+                throw new AnchorWorkException("未正确找到正确的子课程！");
+            }
+            Course course = null;
+            if(cai.getStatus()!=null && cai.getStatus().equals(ApplyStatus.UNTREATED.getCode())) { //没有通过
+                //让其审核通过
+                course = savePassCourse(cai);
+            
+            }else if(cai.getStatus()!=null && cai.getStatus().equals(ApplyStatus.PASS.getCode())){  //通过    
+                course = coursedao.getCourseByApplyId(cai.getId()+"");
+            }
+            
+            if(course ==null || course.getId() ==null ) {
+                throw new AnchorWorkException("此课程审核状态有误！");
+            }
+            
+            // 保存专辑-课程关系
+            String sql = "INSERT INTO collection_course(collection_id,course_id,create_time,collection_course_sort) "
+                    + " VALUES (:cId,:courseId,now(),:collectionCourseSort)";
+            Map<String, Integer> paramMap = new HashMap<String, Integer>();
+            paramMap.put("cId", collection.getId());
+            paramMap.put("courseId", course.getId());
+            paramMap.put("collectionCourseSort", course.getCollectionCourseSort());
+            dao.getNamedParameterJdbcTemplate().update(sql, paramMap);
+            
+        }
+    }
+
+    private Course savePassCourse(CourseApplyInfo cai) {
+        // TODO Auto-generated method stub
+        
+        //更改课程审核状态
+        cai.setStatus(ApplyStatus.PASS.getCode());
+        cai.setReviewPerson(null); 
+        cai.setReviewTime(new Date());
+        courseApplyService.updateById(cai);
+        
+        //同步到课程表
+        return saveCourseApply2course(cai);
+    }
+    
+    private Course saveCourseApply2course(CourseApplyInfo courseApply) {
+        
+        //之前是否存在此课程
+        Course course =  coursedao.getCourseByApplyId(courseApply.getOldApplyInfoId()!=null ? courseApply.getOldApplyInfoId()+"":null);
+        
+        //验证课程名
+        if(course!=null) {
+            //修改
+            String hqlPre = "from Course where gradeName = ? and id != ? ";
+            Course courseName = dao.findByHQLOne(hqlPre, 
+                    new Object[]{courseApply.getTitle(),course.getId()});
+            if(courseName!=null) {
+                throw new RuntimeException("课程名更改下吧！");
+            }
+        }else {
+            String hqlPre = "from Course where gradeName = ?";
+            Course courseName = dao.findByHQLOne(hqlPre, 
+                    new Object[]{courseApply.getTitle()});
+            if(courseName!=null) {
+                throw new RuntimeException("课程名更改下吧！");
+            }
+        }
+        
+        // 当课程存在密码时，设置的当前价格失效，改为0.0
+        if (courseApply.getPassword() != null && !"".equals(courseApply.getPassword().trim())) {
+            courseApply.setPrice(0.0);
+        }
+        // 课程名称
+        course.setGradeName(courseApply.getTitle());
+        // 课程副标题
+        course.setSubtitle(courseApply.getSubtitle());
+        // 学科id
+        course.setMenuId(Integer.valueOf(courseApply.getCourseMenu()));
+        // 课程时长
+        course.setCourseLength(courseApply.getCourseLength());
+        // 原价格
+        if(courseApply.getOriginalCost() != null){
+            course.setOriginalCost(courseApply.getOriginalCost());
+        }
+        // 现价格
+        course.setCurrentPrice(courseApply.getPrice());
+        // 推荐值
+        course.setRecommendSort(0);
+
+        if (0 == course.getCurrentPrice()) {
+            // 免费
+            course.setIsFree(true);
+        } else {
+            // 付费
+            course.setIsFree(false);
+        }
+        // 请填写一个基数，统计的时候加上这个基数
+        course.setLearndCount(0);
+        
+        // 当前登录人
+        //course.setCreatePerson(ManagerUserUtil.getUsername());
+
+        // 课程介绍
+        course.setCourseDetail(courseApply.getCourseDetail());
+
+        // 增加密码和老师
+        course.setCoursePwd(courseApply.getPassword());
+        course.setUserLecturerId(courseApply.getUserId() + "");
+        course.setType(courseApply.getCourseForm());
+
+        // zhuwenbao-2018-01-09 设置课程的展示图
+        course.setSmallImgPath(courseApply.getImgPath());
+
+        course.setCourseOutline(courseApply.getCourseOutline());
+        course.setLecturer(courseApply.getLecturer());
+        course.setLecturerDescription(courseApply.getLecturerDescription());
+
+        course.setLiveSource(2);
+        course.setSort(0);
+
+        course.setStatus("0");
+//        if (course.getType() == CourseForm.OFFLINE.getCode()) {
+//            // 线下课程
+//            course.setAddress(courseApply.getAddress());
+//            course.setStartTime(courseApply.getStartTime());
+//            course.setEndTime(courseApply.getEndTime());
+//            course.setCity(courseApply.getCity());
+//            
+//            //添加城市管理  不可能是线下班吧
+//            //courseService.addCourseCity(course.getCity());
+//            
+//            
+//        } else if (course.getType() == CourseForm.LIVE.getCode()) {
+//            course.setStartTime(courseApply.getStartTime());
+//            if (StringUtils.isBlank(course.getDirectId())) {
+//                String webinarId = createWebinar(course);
+//                course.setDirectId(webinarId);
+//                // 将直播课设置为预告
+//                course.setLiveStatus(2);
+//            } else {
+//                updateWebinar(course);
+//            }
+//        } else if (course.getType() == CourseForm.VOD.getCode()) {
+//            // yuruixin-2017-08-16
+//            // 课程资源
+//            course.setMultimediaType(courseApply.getMultimediaType());
+//            course.setDirectId(courseApply.getCourseResource());
+//        }
+        
+        course.setMultimediaType(courseApply.getMultimediaType());
+        course.setDirectId(courseApply.getCourseResource());
+        
+        course.setIsRecommend(0);
+        course.setClassRatedNum(0);
+        course.setApplyId(courseApply.getId());
+        course.setCollectionCourseSort(courseApply.getCollectionCourseSort());
+        course.setCollection(courseApply.getCollection());
+        course.setCourseNumber(courseApply.getCourseNumber());
+
+        course.setClientType(courseApply.getClientType());
+        if (course.getId() != null) {
+            // 若course有id，说明该申请来自一个已经审核通过的课程，则更新
+            dao.update(course);
+            //cacheService.delete(LIVE_COURSE_REMIND_LAST_TIME_KEY + RedisCacheKey.REDIS_SPLIT_CHAR + course.getId());
+        
+        } else {
+            // 当前时间
+            course.setCreateTime(new Date());
+            dao.save(course);
+            
+        }
+        
+        //发送消息，暂时不发送啦
+        //savecourseMessageReminding(course);
+        return course;
+    }
+    
 }

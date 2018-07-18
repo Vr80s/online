@@ -800,17 +800,110 @@ function confirmCollection(state,courseApplyId,courseId){
 }
 
 //添加专辑模态框
-function addAlbum(index){
+function addAlbum(id,collectionId,multimediaType){
+	
+	debugger;
 	$("#mask").removeClass("hide")
 	$(".add-album-modal").removeClass("hide");
+	
+	$(".sure-add-caiId").attr("data-id",id);
+	
+	initAlbumNoExitCourse(id,collectionId,multimediaType);
+	
 }
+
+
+
+
 //关闭新增专辑模态框
 function closeAlbum(){
 	$("#mask").addClass("hide");
 	$(".add-album-modal").addClass("hide");
 }
 
+//增加这个课程中的
+function quicklyAddAlbumCourse(){
+    
+	var csArr = $("#select-add").val();
+    var courseArr = [];
+    var k=1;
+    for(var i in csArr){
+        for(var j=0;j<collectionCourseListQuickly.length;j++){
+            if(csArr[i]==collectionCourseListQuickly[j].id){
+                collectionCourseListQuickly[j].collectionCourseSort=k;
+                collectionCourseListQuickly[j].first=false;
+                collectionCourseListQuickly[j].last=false;
+                k++;
+                courseArr.push(collectionCourseListQuickly[j]);
+            }
+        }
+    }
+    courseArr = upDownShowInit(courseArr);
+	
+	var collection = {};
+    collection.id = $(".sure-add-caiId").attr("data-id");
+    collection.courseApplyInfos = courseArr;
+	
+	
+	
+	
+	 $.ajax({
+        type: "post",
+        url: bath + "/anchor/course/saveCollectionCourse",
+        data:JSON.stringify(collection),
+        contentType:"application/json",
+        async: false,
+        success: function(data) {
+            console.log(data);
+            if(data.success === true) {
+                showTip(data.resultObject);
+                $("#zhuanji_bottom2").show();
+                $("#zhuanji_bottom").hide();
+                resetCollectionForm();
+                courseCollectionList(1);
+            } else {
+                showTip(data.errorMessage)
+            }
+        }
+    });
+	
+    
+}
 
+function initAlbumNoExitCourse(id,collectionId,multimediaType){
+	
+    RequestService("/anchor/course/getCollectionNotExitCouse?multimediaType="+multimediaType+"&collectionId="+collectionId+"&caiId="+id, "get", null, function(data) {
+        var courses = data.resultObject;
+        collectionCourseListQuickly = courses;
+        var str="";
+        for(var i=0;courses.length>i;i++){
+            str += "<option value='"+courses[i].id+"'>"+courses[i].title+"</option>";
+        }
+        $("#select-add").html(str);
+        $('.selectpicker_ks').selectpicker('refresh');
+        $('.selectpicker_ks').selectpicker({
+            'selectedText': 'cat',size:10
+        });
+    });
+    
+}
+
+
+function initCourse(multimediaType){
+    RequestService("/anchor/course/getAllCourses?multimediaType="+multimediaType, "get", null, function(data) {
+        var courses = data.resultObject;
+        collectionCourseList = courses;
+        var str="";
+        for(var i=0;courses.length>i;i++){
+            str += "<option value='"+courses[i].id+"'>"+courses[i].title+"</option>";
+        }
+        $("#course_select").html(str);
+        $('.selectpicker_collection').selectpicker('refresh');
+        $('.selectpicker_collection').selectpicker({
+            'selectedText': 'cat',size:10
+        });
+    });
+}
 
 
 
@@ -950,6 +1043,11 @@ function initCourse(multimediaType){
         });
     });
 }
+
+
+
+
+
 var courseArr;
 function addCourse2Collection(){
     var csArr = $("#course_select").val();
@@ -1532,7 +1630,7 @@ function initVhallInfo(){
 //上传图片调用的接口
 function picUpdown(baseurl,imgname){
     RequestService("/medical/common/upload", "post", {
-        image: baseurl,
+        image: baseurl
     }, function(data) {
         $('#'+imgname+'').html('<img src="'+data.resultObject+'" style="width: 100%;height: 100%" >');
     	$(".row_size").hide()
