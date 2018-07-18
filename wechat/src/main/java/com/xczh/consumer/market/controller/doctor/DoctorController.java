@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.lang.StringUtils;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczh.consumer.market.interceptor.HeaderInterceptor;
+import com.xczh.consumer.market.utils.APPUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.enums.DoctorSortOrderType;
 import com.xczhihui.common.util.enums.DoctorType;
@@ -71,11 +75,23 @@ public class DoctorController {
      * @return
      */
     @RequestMapping("banner")
-    public ResponseObject banner() {
+    public ResponseObject banner(HttpServletRequest request) {
         Page<OeBanner> page =  bannerService.page(new Page<>(1, 3),6);
+        
+        if(HeaderInterceptor.ONLY_THREAD.get()) {
+            return ResponseObject.newSuccessResponseObject(null);
+        }
+        
         page.getRecords().forEach(bannerVo -> {
-            bannerVo.setImgHref(MultiUrlHelper.getUrl(bannerVo.getRouteType(), MultiUrlHelper.URL_TYPE_WEB, bannerVo.getLinkParam()));
+            String routeType = bannerVo.getRouteType();
+            if (StringUtils.isNotBlank(routeType)) {
+                String url = MultiUrlHelper.getUrl(routeType,  APPUtil.getMobileSource(request), MultiUrlHelper.handleParam(returnOpenidUri, bannerVo.getLinkParam(), routeType));
+                bannerVo.setTarget(url);
+            } else {
+                bannerVo.setTarget("");
+            }
         });
+        
         return ResponseObject.newSuccessResponseObject(page.getRecords());
     }
     

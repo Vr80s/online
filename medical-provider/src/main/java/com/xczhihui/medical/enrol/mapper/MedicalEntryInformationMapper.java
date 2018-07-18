@@ -118,4 +118,24 @@ public interface MedicalEntryInformationMapper extends BaseMapper<MedicalEntryIn
             " order by id desc" +
             " limit 1"})
     Map<String, Object> findApprenticeInfo(@Param("doctorId") String doctorId, @Param("accountId") String accountId);
+
+    /**
+     * 查询在医师下弟子申请的待审核数
+     *
+     * @param doctorId  doctorId
+     * @param accountId accountId
+     * @return
+     */
+    @Select({"SELECT count(id) FROM medical_entry_information where doctor_id = #{doctorId} and user_id = #{accountId} and applied = false"})
+    Integer countApplyingEntryInformation(@Param("doctorId") String doctorId, @Param("accountId") String accountId);
+
+    /**
+     * 查询用户是否有权限参与跟师直播
+     *
+     * @param courseId courseId
+     * @param userId   userId
+     * @return
+     */
+    @Select({"select count(id) from course_teaching where course_id = #{courseId} and user_id = #{userId} and deleted = false"})
+    Integer countCourseTeaching(@Param("courseId") Integer courseId, @Param("userId") String userId);
 }

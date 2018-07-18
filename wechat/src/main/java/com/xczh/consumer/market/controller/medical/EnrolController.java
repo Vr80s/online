@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import com.google.common.collect.ImmutableMap;
 import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczhihui.common.util.enums.ApprenticeCheckStatus;
 import com.xczhihui.medical.enrol.model.MedicalEntryInformation;
 import com.xczhihui.medical.enrol.service.EnrolService;
 import com.xczhihui.medical.enrol.vo.MedicalEntryInformationVO;
@@ -41,7 +42,7 @@ public class EnrolController {
 
     @RequestMapping(value = "enrollmentRegulations/{id}", method = RequestMethod.GET)
     public ResponseObject enrollmentRegulations(@Account(optional = true) Optional<String> accountIdOpt, @PathVariable int id) {
-        String userId = accountIdOpt.isPresent() ? accountIdOpt.get():null;
+        String userId = accountIdOpt.isPresent() ? accountIdOpt.get() : null;
         return ResponseObject.newSuccessResponseObject(enrolService.getMedicalEnrollmentRegulationsById(id, userId));
     }
 
@@ -73,5 +74,26 @@ public class EnrolController {
         medicalEntryInformationVO.setUserId(accountId);
         enrolService.saveMedicalEntryInformation(medicalEntryInformationVO);
         return ResponseObject.newSuccessResponseObject("报名成功");
+    }
+
+    @RequestMapping(value = "checkAuth", method = RequestMethod.GET)
+    public ResponseObject checkApprenticeAuth(@Account String accountId, @RequestParam String doctorId, @RequestParam(value = "courseId", required = false) Integer courseId) {
+        boolean auth = false;
+        int type = ApprenticeCheckStatus.DEFAULT.getVal();
+        boolean apprentice = enrolService.isApprentice(doctorId, accountId);
+        //师承直播的校验
+        if (courseId != null) {
+            auth = enrolService.checkAuthTeachingCourse(accountId, courseId);
+        } else {
+            auth = apprentice;
+        }
+        if (!auth) {
+            if (apprentice) {
+                type = ApprenticeCheckStatus.APPRENTICE.getVal();
+            } else if (enrolService.apprenticeApplying(doctorId, accountId)) {
+                type = ApprenticeCheckStatus.APPLYING.getVal();
+            }
+        }
+        return ResponseObject.newSuccessResponseObject(ImmutableMap.of("auth", auth, "type", type));
     }
 }

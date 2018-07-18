@@ -2,6 +2,7 @@ package com.xczhihui.medical.doctor.service;
 
 import java.util.List;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.medical.doctor.model.Treatment;
 import com.xczhihui.medical.doctor.model.TreatmentAppointmentInfo;
 import com.xczhihui.medical.doctor.vo.TreatmentVO;
@@ -47,8 +48,34 @@ public interface IRemoteTreatmentService {
     /**
      * 查询医师诊疗
      *
-     * @param doctorId doctorId
+     * @param doctorId          doctorId
+     * @param onlyUnAppointment onlyUnAppointment
      * @return
      */
     List<TreatmentVO> listAppointment(String doctorId, boolean onlyUnAppointment);
+
+    /**
+     * 更新审核预约的状态
+     *
+     * @param id     id
+     * @param status status
+     */
+    void updateStatus(Integer id, boolean status);
+
+    /**
+     * 取消预约
+     *
+     * @param id id
+     */
+    void updateAppointmentForCancel(Integer id);
+
+    /**
+     * 远程诊疗列表
+     *
+     * @param doctorId doctorId
+     * @param page     page
+     * @param size     size
+     * @return
+     */
+    Page<TreatmentVO> list(String doctorId, int page, int size);
 }

@@ -1,7 +1,6 @@
 package com.xczhihui.medical.doctor.vo;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -13,7 +12,7 @@ public class TreatmentVO implements Serializable {
 
     private Integer id;
 
-    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy年-MM月-dd日", timezone = "GMT+8")
     private Date date;
 
     @JsonFormat(pattern = "HH:mm", timezone = "GMT+8")
@@ -26,13 +25,15 @@ public class TreatmentVO implements Serializable {
 
     private String tel;
 
-    private String apprenticeName;
+    private String name;
 
     private Integer status;
 
     private Boolean appointed;
 
     private String indexDateText;
+
+    private String question;
 
     @Override
     public String toString() {
@@ -43,7 +44,7 @@ public class TreatmentVO implements Serializable {
                 ", endTime=" + endTime +
                 ", dateText='" + dateText + '\'' +
                 ", tel='" + tel + '\'' +
-                ", apprenticeName='" + apprenticeName + '\'' +
+                ", name='" + name + '\'' +
                 '}';
     }
 
@@ -95,12 +96,12 @@ public class TreatmentVO implements Serializable {
         this.tel = tel;
     }
 
-    public String getApprenticeName() {
-        return apprenticeName;
+    public String getName() {
+        return name;
     }
 
-    public void setApprenticeName(String apprenticeName) {
-        this.apprenticeName = apprenticeName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Boolean getAppointed() {
@@ -125,5 +126,13 @@ public class TreatmentVO implements Serializable {
 
     public void setIndexDateText(String indexDateText) {
         this.indexDateText = indexDateText;
+    }
+
+    public String getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(String question) {
+        this.question = question;
     }
 }
