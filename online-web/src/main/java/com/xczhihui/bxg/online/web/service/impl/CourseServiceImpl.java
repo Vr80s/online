@@ -263,7 +263,7 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
     }
 
     @Override
-    public void updateCourseException() throws IOException, SolrServerException {
+    public void updateCourseException() {
         List<Course> liveCourse = coursedao.getLiveCourse();
         for (Course course : liveCourse) {
             Date startTime = course.getStartTime();
@@ -278,7 +278,13 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
                 courseException.setCreateTime(new Date());
                 dao.save(courseException);
                 logger.info("课程id{}的直播课程由于超时未发起直播，被下架并插入课程异常表中", course.getId());
-                courseSolrService.initCourseSolrDataById(course.getId());
+                try {
+                    courseSolrService.initCourseSolrDataById(course.getId());
+                } catch (IOException e) {
+                    logger.error(e.getMessage());
+                } catch (SolrServerException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

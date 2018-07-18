@@ -139,7 +139,7 @@ public interface CourseService {
      */
     ResponseObject insertSubscribe(String userId, String mobile, Integer courseId) throws ClientException;
 
-    void updateCourseException() throws IOException, SolrServerException;
+    void updateCourseException();
 
     /**
      * Description：根据专辑id获取课程
