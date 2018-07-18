@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.common.util.DateUtil;
 import com.xczhihui.common.util.enums.AppointmentStatus;
 import com.xczhihui.medical.doctor.mapper.RemoteTreatmentAppointmentInfoMapper;
@@ -93,7 +94,7 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
             treatment.setStatus(AppointmentStatus.WAIT_APPLY.getVal());
             remoteTreatmentMapper.updateById(treatment);
         }
-        return 1;//throw new MedicalException("");
+        return 1;
     }
 
     @Override
@@ -115,5 +116,49 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
             treatmentVO.setAppointed(treatmentVO.getStatus() != AppointmentStatus.ORIGIN.getVal());
         });
         return treatmentVOS;
+    }
+
+    @Override
+    public void updateStatus(Integer id, boolean status) {
+        synchronized (LOCK) {
+            Treatment treatment = remoteTreatmentMapper.selectById(id);
+            if (treatment == null || (treatment.getDeleted() != null && treatment.getDeleted())) {
+                throw new MedicalException("预约时间已被删除");
+            }
+            if (treatment.getStatus() != AppointmentStatus.WAIT_APPLY.getVal()) {
+                throw new MedicalException("当前状态不支持审核");
+            }
+            if (status) {
+                treatment.setStatus(AppointmentStatus.APPOINTMENT_SUCCESS.getVal());
+                //TODO send sms
+            } else {
+                treatment.setStatus(AppointmentStatus.ORIGIN.getVal());
+                treatment.setInfoId(null);
+            }
+            remoteTreatmentMapper.updateAllColumnById(treatment);
+        }
+    }
+
+    @Override
+    public void updateAppointmentForCancel(Integer id) {
+        synchronized (LOCK) {
+            Treatment treatment = remoteTreatmentMapper.selectById(id);
+            if (treatment == null || (treatment.getDeleted() != null && treatment.getDeleted())) {
+                throw new MedicalException("预约时间已被删除");
+            }
+            if (treatment.getStatus() != AppointmentStatus.APPOINTMENT_SUCCESS.getVal()) {
+                throw new MedicalException("当前状态不支持取消");
+            }
+            treatment.setStatus(AppointmentStatus.ORIGIN.getVal());
+            treatment.setInfoId(null);
+            remoteTreatmentMapper.updateAllColumnById(treatment);
+        }
+    }
+
+    @Override
+    public Page<TreatmentVO> list(String doctorId, int page, int size) {
+        Page<TreatmentVO> treatmentVOPage = new Page<>(page, size);
+        List<TreatmentVO> treatmentVOS = remoteTreatmentMapper.listPageByDoctorId(doctorId, treatmentVOPage);
+        return treatmentVOPage.setRecords(treatmentVOS);
     }
 }

@@ -3,7 +3,6 @@ package com.xczhihui.bxg.online.web.controller.medical;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import com.xczhihui.bxg.online.web.body.doctor.TreatmentBody;
@@ -27,7 +26,9 @@ public class RemoteTreatmentController extends AbstractController {
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseObject list(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10") int size) {
-        return ResponseObject.newSuccessResponseObject();
+        String userId = getUserId();
+        String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(userId);
+        return ResponseObject.newSuccessResponseObject(remoteTreatmentService.list(doctorId, page, size));
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -50,5 +51,17 @@ public class RemoteTreatmentController extends AbstractController {
     public ResponseObject delete(@PathVariable Integer id) {
         remoteTreatmentService.delete(id, getUserId());
         return ResponseObject.newSuccessResponseObject("删除成功");
+    }
+
+    @RequestMapping(value = "{id}/{status}", method = RequestMethod.PUT)
+    public ResponseObject updateStatus(@PathVariable Integer id, @PathVariable boolean status) {
+        remoteTreatmentService.updateStatus(id, status);
+        return ResponseObject.newSuccessResponseObject();
+    }
+
+    @RequestMapping(value = "cancel/{id}", method = RequestMethod.PUT)
+    public ResponseObject updateAppointmentStatusForCancel(@PathVariable Integer id) {
+        remoteTreatmentService.updateAppointmentForCancel(id);
+        return ResponseObject.newSuccessResponseObject();
     }
 }

@@ -83,7 +83,7 @@ public interface EnrolService {
      * 查询医师的所有报名的人
      *
      * @param doctorId   doctorId
-     * @param merId       merId
+     * @param merId      merId
      * @param apprentice apprentice
      * @param page       page
      * @param size       size
@@ -149,7 +149,7 @@ public interface EnrolService {
      */
     int getOnlineApprenticeStatus(String doctorId, String accountId);
 
-    List<Map<String,String>> listByDoctorIdAndCourseId(String doctorId, String courseId);
+    List<Map<String, String>> listByDoctorIdAndCourseId(String doctorId, String courseId);
 
     void saveCourseTeaching(String doctorId, String courseId, String apprenticeIds);
 
@@ -161,4 +161,22 @@ public interface EnrolService {
      * @return
      */
     Map<String, Object> findApprenticeInfo(String doctorId, String accountId);
+
+    /**
+     * 判断用户在该医师下面是否有待审核的弟子申请
+     *
+     * @param doctorId  doctorId
+     * @param accountId accountId
+     * @return
+     */
+    boolean apprenticeApplying(String doctorId, String accountId);
+
+    /**
+     * 校验师承课程的观看权限
+     *
+     * @param userId userId
+     * @param courseId courseId
+     * @return
+     */
+    boolean checkAuthTeachingCourse(String userId, Integer courseId);
 }

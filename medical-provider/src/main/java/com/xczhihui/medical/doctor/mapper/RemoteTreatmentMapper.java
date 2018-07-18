@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.medical.doctor.model.Treatment;
 import com.xczhihui.medical.doctor.vo.TreatmentVO;
 
@@ -53,4 +54,10 @@ public interface RemoteTreatmentMapper extends BaseMapper<Treatment> {
             " </if>" +
             " </script>"})
     List<TreatmentVO> listByDoctorId(@Param("doctorId") String doctorId, @Param("onlyUnAppointment") boolean onlyUnAppointment);
+
+    @Select({"<script>select mt.*, mtai.name, mtai.tel, mtai.question" +
+            " from medical_treatment mt left join medical_treatment_appointment_info mtai on mt.info_id = mtai.id" +
+            " where mt.deleted = false and mt.doctor_id = #{doctorId}" +
+            " </script>"})
+    List<TreatmentVO> listPageByDoctorId(@Param("doctorId") String doctorId, Page<TreatmentVO> page);
 }
