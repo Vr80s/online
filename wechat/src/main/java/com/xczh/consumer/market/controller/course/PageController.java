@@ -241,7 +241,7 @@ public class PageController {
             
             coursePage = WechatShareLinkType.SCHOOL_PLAY.getLink();
         }
-        return coursePage+cv.getId();
+        return coursePage;
     }
 
 
