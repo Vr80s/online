@@ -354,21 +354,20 @@
         <include refid="onlyFreeCondition"/>
 
         <if test="type == 1">
-            and oc.multimedia_type = 1 
+            and oc.multimedia_type = 1 and oc.is_teaching = 0 
         </if>
         <if test="type == 2">
-            and oc.multimedia_type = 2
+            and oc.multimedia_type = 2 and oc.is_teaching = 0
         </if>
         <if test="type == 3">
-            and oc.type = 1
+            and oc.type = 1 and oc.is_teaching = 0 
         </if>
         <if test="type == 4">
-            and oc.type = 3
+            and oc.type = 3 and oc.is_teaching = 0 
         </if>
-        <if test="type == 5">
-            and oc.is_teaching = 1
+        <if test="type == 5">  <!-- 师承直播 -->
+            and oc.is_teaching = 1 and oc.type = 1
         </if>
-        
         order by release_time desc
     </select>
 
