@@ -166,7 +166,7 @@ public class DoctorPageController extends AbstractFtlController {
         view.addObject("doctors", doctors);
 
         //医师默认搜索框
-        view.addObject("defaultSearch", mobileHotSearchService.HotSearchListByString(3));
+        view.addObject("defaultSearch", mobileHotSearchService.HotSearchListByString(SearchType.DOCTOR_DEFAULT_SEARCH.getCode()));
         
         
         List<MedicalDoctorVO> recDoctors = medicalDoctorBusinessService.selectRecDoctor();
