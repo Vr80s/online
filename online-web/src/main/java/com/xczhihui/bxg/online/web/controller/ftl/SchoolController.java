@@ -337,8 +337,7 @@ public class SchoolController extends AbstractFtlController {
         view.addObject("description", description);
         
       //获取相关信息
-        if(type.equals("selection") || 
-                (type.equals("info") && clv.getCollection() &&  clv.getWatchState()!=0)) {
+        if(type.equals("selection") || (type.equals("info") && clv.getCollection())) {
             
             List<CourseLecturVo> courses = courseService.selectCoursesByCollectionId(clv.getId());
             view.addObject("collectionList", courses);

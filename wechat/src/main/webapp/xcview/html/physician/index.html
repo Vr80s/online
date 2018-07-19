@@ -11,8 +11,13 @@
 <meta name="keywords" content="" />
 
 <link rel="stylesheet" type="text/css" href="/xcview/css/physician/index.css?v=wechat_1.1.1"/>
+<!-- 轮播 -->
+<link rel="stylesheet" href="/xcview/css/physician/swiper-4.2.6.min.css" />
 <!--手机嵌入模板-->
 <script type="text/javascript" src="/xcview/js/common/layout.js"></script>
+<!-- 轮播 -->
+<script src="/xcview/js/physician/swiper-4.2.6.min.js"></script>
+
 <script>
 	// 判断横屏展示时的状态
 	window.onorientationchange=function(){
@@ -23,6 +28,42 @@
 	    }
 	}	
 </script>
+<style>
+	.banner_img{
+		width: 7.5rem !important;
+		height: 3.22rem;
+		/*padding: 0.2rem 0;*/
+		background: #fff;
+		margin-bottom: 0.2rem;
+	}
+	.swiper-container{
+		width: 6.98rem !important;
+		height: 2.82rem;
+		padding-top: 0.2rem;
+	}
+	.swiper-slide{
+		width: 6.98rem !important;
+	}
+	.swiper-slide img{
+		width: 6.98rem;
+		height: 2.82rem;
+		border-radius: 8px;
+	}
+	.swiper-pagination-bullet{
+		width: 0.22rem;
+		height: 0.06rem;
+		/*background: #FFFFFF;*/
+		border-radius: 100px;
+		border: none;
+	}
+	.swiper-pagination-bullet-active{
+		background: #00BC12;
+	}
+	.swiper-container-horizontal>.swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction{
+		bottom: 0;
+	}
+</style>
+
 </head>
 <body style="background: #F8F8F8;">
 	<!--头部搜索开始-->
@@ -48,6 +89,25 @@
 		</div>
 	</header>
 	<div class="opacity_height"></div>
+	<!-- 头部轮播开始 -->
+	<div class="banner_img">
+		<div class="swiper-container top_swiper" onclick="location.href ='broadcastRoom.html'">
+			<div class="swiper-wrapper">
+				<div class="swiper-slide ">
+					<img src="/xcview/images/banner01.png" alt="" />
+				</div>
+				<div class="swiper-slide ">
+					<img src="/xcview/images/banner01.png" alt="" />
+				</div>
+				<div class="swiper-slide ">
+					<img src="/xcview/images/banner01.png" alt="" />
+				</div>
+			</div>
+			<div class="swiper-pagination"></div>
+		</div>
+	</div>
+	<!-- 头部轮播结束 -->
+	
 	<!--头部搜索结束-->
 
 	<!-- 中间内容开始 -->
@@ -63,7 +123,44 @@
 		</div>
 		<div class="both"></div>
 	</div> -->
-	
+	<!-- 热门医师开始 -->
+	<div class="batch">
+		<div class="physician_title">热门医师<span>换一批<img src="/xcview/images/video_review.png" alt=""></span></div>
+		<div class="exothecium">
+			<div class="batch_main">
+				<div class="batch_main_bg">
+					<div class="batch_main_img">
+						<img src="/xcview/images/BTCpanda.png" alt="" />
+					</div>
+					<div class="name">我是名字</div>
+					<div class="center">主任医师，国家级名老中医专家</div>
+				</div>
+			</div>
+			<div class="batch_main">
+				<div class="batch_main_bg" style="background-image: linear-gradient(-223deg, #F6A84C 0%, #FED200 100%);">
+					<div class="batch_main_img">
+						<img src="/xcview/images/BTCpanda.png" alt="" />
+					</div>
+					<div class="name">我是名字</div>
+					<div class="center">主任医师，国家级名老中医专家</div>
+				</div>
+			</div>
+			<div class="batch_main">
+				<div class="batch_main_bg" style="background-image: linear-gradient(-223deg, #22DF93 0%, #85D1DD 100%);">
+					<div class="batch_main_img">
+						<img src="/xcview/images/BTCpanda.png" alt="" />
+					</div>
+					<div class="name">我是名字</div>
+					<div class="center">主任医师，国家级名老中医专家</div>
+				</div>
+			</div>
+			<div class="both"></div>
+		</div>
+	</div>
+	<!-- 热门医师结束 -->
+	<div class="">
+		
+	</div>
 
 	<div class="main" id="hot_title">
 		<!-- 热门中医 -->
@@ -128,5 +225,14 @@
 <script type="text/javascript" src="/xcview/js/common/template.js"></script>    <!--数据模板引入-->
 <script type="text/javascript" src="/xcview/js/physician/index.js"></script> 
 
+<script>
+	var mySwiper = new Swiper('.swiper-container', {
+		autoplay: true, //可选选项，自动滑动
+		loop: true,
+		pagination: {
+			el: '.swiper-pagination',
+		},
+	})
+</script>
 
 </html>

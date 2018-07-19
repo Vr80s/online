@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.interceptor.HeaderInterceptor;
 import com.xczh.consumer.market.utils.APPUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
@@ -169,9 +171,9 @@ public class DoctorController {
      * @author name：yangxuan <br>email: 15936216273@163.com
      */
     @RequestMapping("doctorCourse")
-    public ResponseObject doctorCourseList(@RequestParam("userId") String userId) {
-
-        List<Map<String, Object>> alllist =  courseService.doctorCourseList(userId,HeaderInterceptor.ONLY_THREAD.get());
+    public ResponseObject doctorCourseList(@Account(optional = true) Optional<String> accountIdOpt,@RequestParam("userId") String lecturerId) {
+        String userId = accountIdOpt.isPresent() ? accountIdOpt.get() : null;
+        List<Map<String, Object>> alllist =  courseService.doctorCourseList(lecturerId,userId);
         
         return ResponseObject.newSuccessResponseObject(alllist);
     }

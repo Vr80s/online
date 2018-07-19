@@ -896,28 +896,23 @@ function createDoctorIntroduction(introduction){
 });*/
 
 
-// 
+function Aclock(){
+    $(".clicka").click(function(){
+        /*if (data.resultObject.apprenticeCourses == 3) {
+            common_jump_all({{item.id}});
+        } else{
+            $(".learn_tips").show();
+        }*/
+        $(".learn_tips").show();
+    });
+}
+
+
+
 // 在线弟子申请的状态 1->未报名 2->没有审核 3->审核未通过 4->审核已通过 . 值是1与3 去提交信息页面 2与4 去申请信息查看页
 requestGetService("/xczh/host/doctor/apprentice",{doctorId:doctorId},function (data) {
     if (data.success == true) {
-
         
-        // 跟师直播
-        if (!isNotBlank(data.resultObject.apprenticeCourses)) {
-            $(".wrap_vedio_main").hide();
-        } else{
-            $(".wrap_vedio_main").show();
-            // 跟师直播开始
-            $('#teacher_hide').html(template('teacher_hide_id', {items: data.resultObject.apprenticeCourses}));
-            // $(".more_people_time").html(data.resultObject.apprenticeCourses.startTime);   
-        }
-
-        
-        
-
-
-
-
         // 招生简章详情
         $('.prose_origin_main').html(template('prose_origin_main_id', {items: data.resultObject.regulations}));
 
@@ -939,6 +934,40 @@ requestGetService("/xczh/host/doctor/apprentice",{doctorId:doctorId},function (d
             $('.QA_main').html(template('QA_main_id', {items: data.resultObject.questions}));
         }
 
+        // 判断弟子
+        $(".subscribe_btn").click(function(){
+
+            if (data.resultObject.onlineApprenticeStatus == 4) {
+                location.href ='/xcview/html/physician/reserve_information.html?doctor='+doctorId;
+            }else{
+
+            }; 
+        
+        });
+
+
+        // 远程诊疗  
+        if (!isNotBlank(data.resultObject.treatments.indexDateText)) {
+            $(".therapy").show();
+             // 预约
+            $('.subscribe_id').html(template('subscribe_id', {items: data.resultObject.treatments}));
+        
+        } else{
+            $(".therapy").hide();
+        }
+
+        // $('.subscribe_id').html(template('subscribe_id', {items: data.resultObject.treatments}));
+
+
+        // 跟师直播
+        if (!isNotBlank(data.resultObject.apprenticeCourses)) {
+            $(".wrap_vedio_main").hide();
+        } else{
+            $(".wrap_vedio_main").show();
+            // 跟师直播开始
+            $('#teacher_hide').html(template('teacher_hide_id', {items: data.resultObject.apprenticeCourses}));
+            // $(".more_people_time").html(data.resultObject.apprenticeCourses.startTime);   
+        }
         
         // 弟子头像--显示
         if (!isNotBlank(data.resultObject.apprentices)) {
@@ -953,15 +982,69 @@ requestGetService("/xczh/host/doctor/apprentice",{doctorId:doctorId},function (d
         var length = $(".disciple_main_apprentices").size();
         $(".disciple_number").html(length);
 
-       
 
+        if (isNotBlank(data.resultObject.settings)) {
+            // 如何成为弟子
+            $('.become_disciple_cen_id').html(template('become_disciple_cen_id', {items: data.resultObject.settings}));
 
+        } else{
+            $(".become_disciple").hide();        
+        }
 
-
+        // 判断跟师直播
+        /*if (data.resultObject.apprenticeCourses.teaching == true) {
+            
+        }else{
+            
+        };*/
+        
 
         // webToast("提交成功","middle",1500);
     }/*else{
         webToast(data.errorMessage,"middle",1500);
     }*/
+
+
 });
+
+
+// 点击跟师直播
+function common_jump_alls(courseId) {
+    requestService("/xczh/course/userCurrentCourseStatus?courseId=" + courseId, null, function (data) {
+
+        var userPlay = data.resultObject;
+
+        var watchState = userPlay.watchState;
+        var type = userPlay.type;
+        var collection = userPlay.collection;
+        var lineState = userPlay.lineState;
+
+        if (watchState == 1 || watchState == 2) {
+            if (type == 1 || type == 2) {
+                //增加学习记录
+                requestService("/xczh/history/add", {courseId: courseId, recordType: 1}, function (data) {
+                    console.log("增加学习记录");
+                })
+                if (collection == 1) {
+                    location.href = "/xcview/html/live_select_album.html?course_id=" + courseId;
+                } else {
+                    location.href = "/xcview/html/live_audio.html?my_study=" + courseId;
+                }
+            } else if (type == 3) {
+
+                common_jump_play(courseId, watchState, lineState);
+            } else if (type == 4) {
+                location.href = "/xcview/html/school_class.html?course_id=" + courseId;
+            }
+        } else {
+            if (type == 1 || type == 2) {
+                location.href = "/xcview/html/school_audio.html?course_id=" + courseId;
+            } else if (type == 3) {
+                common_jump_play(courseId, watchState, lineState);
+            } else if (type == 4) {
+                location.href = "/xcview/html/school_class.html?course_id=" + courseId;
+            }
+        }
+    })
+}
 

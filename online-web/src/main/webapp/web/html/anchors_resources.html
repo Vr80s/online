@@ -289,7 +289,7 @@
 								<p class="teachingTab" data-name="menu4-2">师承直播</p>
 								<p class="teaching-disciple" data-name="menu4-3">我的弟子</p>
 								<p class="teaching-answer" data-name="menu4-4">问答解惑</p>
-								<p data-name="menu4-5">师承管理</p>
+								<p class="teaching-manage" data-name="menu4-5">师承管理</p>
 								<p data-name="menu4-6">收徒设置</p>
 							</div>
 						</li>
@@ -810,9 +810,9 @@
 						<div class="banner-date-wrap">
 							<p class="left-title" style="display: inline-block;"><span>*</span>期限</p>
 							<input type="text"style="display: none">
-							<input type="" placeholder="开始时间" id="start-time" autocomplete="off" />
+							<input type="" placeholder="开始时间" readonly="value" id="start-time" autocomplete="off" />
 							<span style="margin: 0 10px;">至</span>
-							<input type="" placeholder="结束时间" id="end-time" autocomplete="off" />
+							<input type="" placeholder="结束时间" readonly="value" id="end-time" autocomplete="off" />
 							<p class="banner-all-tip banner-error-time hide">请选择时间！</p>
 						
 						</div>
@@ -1421,10 +1421,16 @@
 							<div class="myself-disciple-search">
 								<select class="myself-select-haedeer" name="">
 									<option value="">全部</option>
+									<option value="-1">医师主页招生</option>
+									<option value="">发现师承收徒</option>
 								</select>
-								<select class="myself-select-right" name="">
-									<option value="">徒弟</option>
+								<select class="myself-select-right" name="">									
+									<option value="">全部</option>
+									<option value="1">徒弟</option>
+									<option value="0">未审核用户</option>
+									<option value="0">未通过用户</option>
 								</select>
+								<button type="button">筛选</button>
 							</div>
 							<div class="myself-disciple-list">
 								<table id="disciple-table">
@@ -1437,6 +1443,7 @@
 											<th>学历</th>
 											<th>籍贯</th>
 											<th>报名时间</th>
+											<th>来源</th>
 											<th>是否徒弟</th>
 											<th>操作</th>
 										</tr>
@@ -1460,7 +1467,13 @@
 												<td>博士</td>
 											{{/if}}
 											<td>{{item.nativePlace}}</td>
+											
 											<td>{{item.createTime}}</td>
+											<td>
+												<div class="disciple-source">
+													博士博士博士博士博士博士博士博士博士博士博士博士
+												</div>
+											</td>
 											{{if item.apprentice==1}}
 											<td>是</td>
 											{{else}}
@@ -1661,38 +1674,52 @@
 							<span>师承管理</span>
 							<button type="button" class="change-namage-reyurn">新增招生简章</button>
 						</div>
-						<div class="namage-list-table">
-							<table>
+						<div class="namage-list-table hide">
+							<table id="manage-list-wrap">
+								<script type="text/template" id="template-manage">
 								<tr>
 									<th>师承标题</th>
 									<th>城市</th>
-									<th>老师</th>
 									<th>学费（元）</th>
 									<th>招生人数</th>
 									<th>报名人数</th>
 									<th>报名截止时间</th>
 									<th>学习时间</th>
+									<th>状态</th>
 									<th>操作</th>
 								</tr>
+								{{each items as item i}}
 								<tr>
 									<td>
 										<div class="namage-title">
-											师承标题师承标题师承标题师承标题师承标题师承标题师承标题师承标题师承标题
+											{{item.title}}
 										</div>
 									</td>
-									<td>Data</td>
-									<td>Data</td>
-									<td>Data</td>
-									<td>Data</td>
-									<td>Data</td>
-									<td>Data</td>
-									<td>Data</td>
+									<td title="{{item.studyAddress}}">{{item.studyAddress}}</td>
+									<td>{{item.tuition}}</td>
+									<td>{{item.countLimit}}</td>
+									<td>{{item.allEnrolledUserCount}}</td>
+									<td style="padding: 0; white-space: normal;">{{item.deadline}}</td>
+									<td title="{{item.startTime}}至{{item.endTime}}">{{item.startTime}}-{{item.endTime}}</td>
+									{{if item.status==true}}
+									<td>上架</td>
+									{{else}}
+									<td>下架</td>
+									{{/if}}
 									<td>
 										<span class="btn-see">查看</span>	
 										<span>编辑</span>
+										<span>上架</span>
 									</td>
 								</tr>
+								{{/each}}
+								</script>
 							</table>
+						</div>
+						<!--无数据时展示-->
+						<div class="comment-inherit-null manage-null hide">
+							<img src="/web/images/icon-nodata.png" alt="无数据"/>
+							<p>暂无数据</p>
 						</div>
 						<!--查看-->
 						<div class="see-namage-modal hide">
@@ -1770,18 +1797,18 @@
 							</div>
 						</div>
 						<!--新增招生简章-->
-						<div class="recruit-students hide">
+						<div class="recruit-students">
 							<!--老师-->
 							<div class="comment-set-rules">
 								<span class="comment-left-rules"><em>*</em>老师</span>
 								<input type="text" class="teacher-name" />
-								<p class="warning-manage">姓名不能为空</p>								
+								<p class="warning-manage teachea-null hide">姓名不能为空</p>								
 							</div>
 							<!--招生标题-->
 							<div class="comment-set-rules">
 								<span class="comment-left-rules"><em>*</em>招生标题</span>
 								<input type="text" class="recruit-title" placeholder="请填写招生标题" />
-								<p class="warning-manage">标题不能为空</p>	
+								<p class="warning-manage title-null hide">标题不能为空</p>	
 							</div>
 							<!--封面图-->
 							<div class="comment-set-rules" style="width: 619px;margin: 0;">
@@ -1796,46 +1823,54 @@
 									<p>( 推荐上传规格：260x147 )</p>
 								</span>
 								<input type="file" placeholder="请填写您的专栏标题" style="visibility: hidden;display: inline-block;height: 10px;" id="manage_picIpt" />
-								<p class="warning-manage">请上传封面图</p>	
+								<p class="warning-manage fengmian-null hide">请上传封面图</p>	
 							</div>
 							<!--学费-->
 							<div class="comment-set-rules">
 								<span class="comment-left-rules"><em>*</em>学费</span>
-								<input type="text" class="" /><span style="margin-left: 15px;">元</span>
-								<p class="warning-manage">学费不能为空</p>	
+								<input type="text" class="tuition" /><span style="margin-left: 15px;">元</span>
+								<p class="warning-manage tuition-null hide">学费不能为空</p>	
 							</div>
 							<!--招生人数-->
 							<div class="comment-set-rules">
 								<span class="comment-left-rules"><em>*</em>招生人数</span>
-								<input type="text" class="" />
-								<p class="warning-manage">请填写招生人数</p>	
+								<input type="text" class="personal-number" />
+								<p class="warning-manage personal-null hide">请填写招生人数</p>	
 							</div>
 							<!--报名截止时间-->
 							<div class="comment-set-rules">
 								<span class="comment-left-rules"><em>*</em>报名截止时间</span>
-								<input type="text" class="" />
-								<p class="warning-manage">请选择截止时间</p>	
+								<input type="text" readonly="value" id="sign-up-time" />
+								<p class="warning-manage sign-up-null hide">请选择截止时间</p>	
 							</div>
 							<!--学习时间-->
 							<div class="comment-set-rules">
-								<span class="comment-left-rules"><em>*</em>报名截止时间</span>
-								<input type="text" class="" placeholder="开始时间" />
+								<span class="comment-left-rules"><em>*</em>学习时间</span>
+								<input type="text" readonly="value" placeholder="开始时间" id="study-start-time" />
 								<span>至</span>
-								<input type="text" class="" placeholder="结束时间" >
-								<p class="warning-manage">请选择学习时间段</p>	
+								<input type="text" readonly="value" placeholder="结束时间" id="study-end-time" >
+								<p class="warning-manage studyTime-null hide">请选择学习时间段</p>	
 							</div>
 							<!--学习地址-->
 							<div class="comment-set-float">
 								<span class="comment-left-float"><em>*</em>学习地址</span>
 								<div class="comment-right-float">
-									<select name="">
-										<option value=""></option>
-									</select>
-									<select name="">
-										<option value=""></option>
-									</select>
+
+									
+							        <select class="province">
+							        	<option value="volvo">--选择省--</option>
+							        </select>
+							        
+							        <select class="city">
+							        	<option value="volvo" >--选择市--</option>
+							        </select>
+							        
+        							<select class="district">
+							        	<option value="volvo">--选择区/县--</option> 
+							       	</select>	
+
 									<textarea class="address-text" placeholder="请输入详细地址"></textarea>
-									<p class="warning-manage">学习地址不能为空</p>	
+									<p class="warning-manage studyAddress-null hide">学习地址不能为空</p>	
 								</div>
 							</div>
 							<!--相关介绍-->
@@ -1843,7 +1878,7 @@
 								<span class="comment-left-float"><em>*</em>相关介绍</span>
 								<div class="comment-right-float">
 									<script id="about-introduce" type="text/plain" style="width:540px;height:160px;"></script>
-									<p class="warning-manage">相关介绍不能为空</p>	
+									<p class="warning-manage about-introduce-null hide">相关介绍不能为空</p>	
 								</div>
 							</div>
 							<!--招生简介-->
@@ -1851,7 +1886,7 @@
 								<span class="comment-left-float"><em>*</em>招生简介</span>
 								<div class="comment-right-float">
 									<script id="introduction-enrolment" type="text/plain" style="width:540px;height:160px;"></script>
-									<p class="warning-manage">招生简介不能为空</p>	
+									<p class="warning-manage introduction-null hide">招生简介不能为空</p>	
 								</div>
 							</div>
 							<!--招生简章附件-->
@@ -1862,7 +1897,7 @@
 									<span class="btn-up-file" onclick="$('#file-input').click()">上传</span>
 									<input type="file" id="file-input" style="visibility: hidden;display: inline-block;width: 2px;position: fixed;left: -1000px;" />
 									<span class="file-tip">支持doc/docx/pdf等格式</span>
-									<p class="warning-manage">附件不能为空</p>
+									<p class="warning-manage hide">附件不能为空</p>
 								</div>	
 							</div>
 							<!--招生简介-->
@@ -1883,15 +1918,19 @@
 						<div class="comment-apprentice">
 							<span class="apprentice-left"><em>*</em>如何成为弟子</span>
 							<textarea class="how-apprentice" name="" rows="" cols="" placeholder="请输入"></textarea>
+							<p class="error-information error-set hide">条件不能为空</p>	
 						</div>
 						<div class="comment-apprentice">
 							<span class="apprentice-left"><em>*</em>弟子福利</span>
 							<textarea class="apprentice-welfare" name="" rows="" cols="" placeholder="请输入"></textarea>
+							<p class="error-information error-welfare hide">福利不能为空</p>
 						</div>
 						<div class="comment-apprentice">
 							<span class="apprentice-left">费用</span>
-							<input type="" name="" id="" value="" placeholder="0" />
+							<input type="text" class="price" style="ime-mode:disabled" placeholder="0" onkeyup='this.value=this.value.replace(/\D/gi,"")' />
 							<span class="apprentice-directions">熊猫币<span>(1元=10熊猫币)</span></span>
+							<p class="error-information error-price hide">请输入正确的价格</p>
+						
 						</div>
 						<div class="comment-apprentice" style="margin: 30px 0;">
 							<span class="apprentice-left" style="height: 2px;"></span>
@@ -2507,7 +2546,10 @@
 	<script src="/web/js/anchors_resources.js?v=ipandatcm_1.2.1" type="text/javascript" charset="UTF-8"></script>
 	<script src="/web/js/anchor/teaching.js?v=ipandatcm_1.2.1" type="text/javascript" charset="UTF-8"></script>
 	<script src="/web/js/common_msg.js" type="text/javascript" charset="UTF-8"></script>
-
+	<!--省市区三联动-->
+	<script src="/web/js/common/data.provinces2.js"></script>
+	<script src="/web/js/common/provinces-selector.js"></script>
+	<!--省市区三联动-->
 	<script>
 	
 		//时间插件调用
@@ -2521,6 +2563,17 @@
 		        format: "YYYY-MM-DD hh:mm"
 		   });
 		   $("#end-time").jeDate({
+		        format: "YYYY-MM-DD hh:mm"
+		   });
+//			报名截止时间
+ 			$("#sign-up-time").jeDate({
+		        format: "YYYY-MM-DD hh:mm"
+		   });
+//		   学习时间
+			$("#study-start-time").jeDate({
+		        format: "YYYY-MM-DD hh:mm"
+		   });
+		   $("#study-end-time").jeDate({
 		        format: "YYYY-MM-DD hh:mm"
 		   });
 

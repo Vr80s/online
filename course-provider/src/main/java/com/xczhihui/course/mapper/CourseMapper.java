@@ -45,7 +45,7 @@ public interface CourseMapper extends BaseMapper<Course> {
                                                        @Param("userId") String id, @Param("type") Integer type,
                                                        @Param("onlyFree") boolean onlyFree);
 
-    List<CourseLecturVo> selectTeachingCourse(@Param("page") Page<CourseLecturVo> page, @Param("userId") String id);
+    List<CourseLecturVo> selectTeachingCourse(@Param("page") Page<CourseLecturVo> page, @Param("lecturerId") String lecturerId, @Param("userId") String userId);
 
     List<CourseLecturVo> selectUserConsoleCourse(@Param("userId") String userId);
 

@@ -566,7 +566,7 @@
         SELECT
         md.id,
         md.description,
-        md.`type`,
+        IFNULL(md.`type`,0) type,
         mdai.`head_portrait` headPortrait,
         md.`name`,
         md.`field_text` fieldText,

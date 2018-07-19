@@ -26,6 +26,7 @@ public enum WechatShareLinkType {
     SCHOOL_PLAY("/xcview/html/school_play.html?shareBack=1&course_id=", "直播展示页"),
     SCHOOL_CLASS("/xcview/html/school_class.html?shareBack=1&course_id=", "线下课展示页"),
 
+    LIVE("/xcview/html/details.html?shareBack=1&courseId=", "直播中"),
     LIVE_AUDIO("/xcview/html/live_audio.html?shareBack=1&my_study=", "视频/音频"),
     LIVE_PLAY("/xcview/html/live_play.html?shareBack=1&my_study=", "直播"),
     LIVE_CLASS("/xcview/html/live_class.html?shareBack=1&my_study=", "线下课"),

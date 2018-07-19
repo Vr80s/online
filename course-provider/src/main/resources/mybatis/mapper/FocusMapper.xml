@@ -46,8 +46,8 @@
     
     
     
-    <!-- 返回的map 第一个是我的粉丝总数      第二个是我的关注总数  第三个是主播默认粉丝数   第四个已购的课程书-->
-    <select id="selectFocusAndFansCount" resultType="java.lang.Integer">
+    <!-- 返回的map 第一个是我的粉丝总数      第二个是我的关注总数  第三个是主播默认粉丝数   第四个已购的课程数-->
+    <select id="selectFocusAndFansCountAndCourseCount" resultType="java.lang.Integer">
         ( select count(*) from oe_focus of
         inner join oe_user as ou on of.user_id =ou.id
         where of.lecturer_id =#{userId}
