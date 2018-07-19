@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczhihui.common.util.enums.SearchType;
 import com.xczhihui.course.service.IMobileHotSearchService;
 
 /**
@@ -39,9 +40,9 @@ public class MobileHotSearchController {
             throws Exception {
         Map<String, Object> mapAll = new HashMap<String, Object>();
         //默认搜索框
-        mapAll.put("defaultSearch", mobileHotSearchService.HotSearchList(1));
+        mapAll.put("defaultSearch", mobileHotSearchService.HotSearchList(SearchType.SCHOOL_DEFAULT_SEARCH.getCode()));
         //热门搜索
-        mapAll.put("hotSearch", mobileHotSearchService.HotSearchList(2));
+        mapAll.put("hotSearch", mobileHotSearchService.HotSearchList(SearchType.SCHOOL_HOT_SEARCH.getCode()));
 
         return ResponseObject.newSuccessResponseObject(mapAll);
     }
@@ -55,9 +56,9 @@ public class MobileHotSearchController {
             throws Exception {
         Map<String, Object> mapAll = new HashMap<String, Object>();
         //默认搜索框
-        mapAll.put("defaultSearch", mobileHotSearchService.HotSearchList(3));
+        mapAll.put("defaultSearch", mobileHotSearchService.HotSearchList(SearchType.DOCTOR_DEFAULT_SEARCH.getCode()));
         //热门搜索
-        mapAll.put("hotSearch", mobileHotSearchService.HotSearchList(4));
+        mapAll.put("hotSearch", mobileHotSearchService.HotSearchList(SearchType.DOCTOR_HOT_SEARCH.getCode()));
         return ResponseObject.newSuccessResponseObject(mapAll);
     }
 }

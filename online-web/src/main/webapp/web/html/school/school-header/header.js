@@ -41,6 +41,17 @@
     }
 })();
 
+
+function getQueryString(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    var search = decodeURIComponent(window.location.search);
+    var r = search.substr(1).match(reg);
+    if (r != null) return unescape(r[2]);
+    return null;
+}
+
+
+
 //医师或医馆入口是否展示
 function showDOrH() {
 	//请求判断顶部是否具有我是医师、医馆的入口
@@ -823,26 +834,32 @@ $(function() {
 
 		});
 		
-		 /*
-		  * 请求默认
-		  */
-		 $.ajax({
-	         type: "get",
-	         url:"/course/hotSearch",
-	         async: false,
-	         success: function(data) {
-	             console.log(data);
-	             if(data.success === true) {
-	            	 var list = data.resultObject;
-	            	 var defaultKey = "";
-	            	 for (var i = 0; i < list.length; i++) {
-	            		 defaultKey+=list[i].name+" ";
-					 }
-	            	 $("#defaultSearch").attr("placeholder",defaultKey);
-	             }
-	         }
-		 });
-		
-		
+		var queryKey = getQueryString("queryKey");
+		if(queryKey ==null || queryKey==undefined || queryKey==""){
+		   /*
+            * 请求默认
+           */
+             $.ajax({
+                 type: "get",
+                 url:"/course/hotSearch",
+                 async: false,
+                 success: function(data) {
+                     console.log(data);
+                     if(data.success === true) {
+                         var list = data.resultObject;
+                         var defaultKey = ""; 
+                         for (var i = 0; i < list.length; i++) {
+                             defaultKey+=list[i].name+" ";
+                         }
+                         $("#defaultSearch").attr("placeholder",defaultKey);
+                         
+                         var searchTextObj =  $("#search-text");
+                         if(searchTextObj!=null && searchTextObj!=undefined && searchTextObj!=""){
+                            $("#search-text").attr("placeholder",defaultKey);
+                         }
+                     }
+                 }
+             });
+		}
 	}
 });

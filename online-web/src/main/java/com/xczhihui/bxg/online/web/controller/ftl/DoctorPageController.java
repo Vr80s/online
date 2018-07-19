@@ -21,7 +21,9 @@ import com.xczhihui.bxg.online.web.utils.HtmlUtil;
 import com.xczhihui.bxg.online.web.vo.BannerVo;
 import com.xczhihui.common.util.XzStringUtils;
 import com.xczhihui.common.util.enums.DoctorType;
+import com.xczhihui.common.util.enums.SearchType;
 import com.xczhihui.course.service.ICourseService;
+import com.xczhihui.course.service.IMobileHotSearchService;
 import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.medical.department.model.MedicalDepartment;
 import com.xczhihui.medical.department.service.IMedicalDepartmentService;
@@ -61,6 +63,9 @@ public class DoctorPageController extends AbstractFtlController {
     private IMedicalDoctorArticleService medicalDoctorArticleService;
     @Autowired
     private ICourseService courseService;
+    
+    @Autowired
+    private IMobileHotSearchService mobileHotSearchService;
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView index() {
@@ -69,6 +74,11 @@ public class DoctorPageController extends AbstractFtlController {
         List<BannerVo> banners = bannerService.list(null, null, 6);
         view.addObject("banners", banners);
 
+        
+        //医师默认搜索框
+        view.addObject("defaultSearch", mobileHotSearchService.HotSearchListByString(SearchType.DOCTOR_DEFAULT_SEARCH.getCode()));
+        
+        
         List<MedicalDepartmentVO> hotDepartments = medicalDoctorBusinessService.getHotDepartment();
         view.addObject("hotDepartments", hotDepartments);
 
@@ -155,6 +165,10 @@ public class DoctorPageController extends AbstractFtlController {
 
         view.addObject("doctors", doctors);
 
+        //医师默认搜索框
+        view.addObject("defaultSearch", mobileHotSearchService.HotSearchListByString(3));
+        
+        
         List<MedicalDoctorVO> recDoctors = medicalDoctorBusinessService.selectRecDoctor();
         view.addObject("recDoctors", recDoctors);
 

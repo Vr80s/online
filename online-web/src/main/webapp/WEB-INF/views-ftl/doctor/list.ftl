@@ -51,7 +51,7 @@
                         <form action="/doctors/list" method="get">
                             <input type="hidden" name="departmentId" value="${echoMap.departmentId?default('')}"/>
                             <input type="hidden" name="type" value="${echoMap.type?default('')}"/>
-                            <input type="text" placeholder="输入关键字搜索医师" name="name" value="${echoMap.name?default('')}"/>
+                            <input type="text" placeholder="${defaultSearch?default('请输入关键字搜索医师')}" name="name" value="${echoMap.name?default('')}"/>
                             <button type="submit">搜索</button>
                         </form>
                     </div>

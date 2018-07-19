@@ -116,10 +116,9 @@ public class SchoolController extends AbstractFtlController {
          */
         view.addObject("bannerList", mobileBannerService.selectMobileBannerPage(BannerType.RECOMMENDATION.getCode(), MultiUrlHelper.URL_TYPE_WEB));
         /**
-         * 默认搜索、热门搜索
+         * 热门搜索
          */
-        view.addObject("defaultSearch", mobileHotSearchService.HotSearchList(SearchType.DEFAULT_SEARCH.getCode()));
-        view.addObject("hotList", mobileHotSearchService.HotSearchList(SearchType.HOT_SEARCH.getCode()));
+        view.addObject("hotList", mobileHotSearchService.HotSearchList(SearchType.SCHOOL_HOT_SEARCH.getCode()));
         /**
          * 名医推荐
          */

@@ -11,9 +11,12 @@ package com.xczhihui.common.util.enums;
 public enum SearchType {
 
 
-    //1 默认检索提示   2 热门搜索
-    DEFAULT_SEARCH(1, "默认检索提示"),
-    HOT_SEARCH(2, "热门搜索");
+    //1 课程搜索框 2 课程热门搜索   3 医师搜索框 4 医师热门搜索
+    SCHOOL_DEFAULT_SEARCH(1, "课程  默认检索提示"),
+    SCHOOL_HOT_SEARCH(2, "课程  热门搜索"),
+    
+    DOCTOR_DEFAULT_SEARCH(3, "医师 默认检索提示"),
+    DOCTOR_HOT_SEARCH(4, "医师  热门搜索");
 
     /**
      * 描述
