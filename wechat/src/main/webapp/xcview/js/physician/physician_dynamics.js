@@ -980,7 +980,7 @@ requestGetService("/xczh/host/doctor/apprentice",{doctorId:doctorId},function (d
         $(".disciple_number").html(length);
 
 
-        if (!isNotBlank(data.resultObject.settings)) {
+        if (isNotBlank(data.resultObject.settings)) {
             // 如何成为弟子
             $('.become_disciple_cen_id').html(template('become_disciple_cen_id', {items: data.resultObject.settings}));
 
