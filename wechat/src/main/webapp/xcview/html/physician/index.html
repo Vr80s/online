@@ -125,10 +125,10 @@
 	</div> -->
 	<!-- 热门医师开始 -->
 	<div class="batch">
-		<div class="physician_title">热门医师<span>换一批<img src="/xcview/images/video_review.png" alt=""></span></div>
+		<div class="physician_title">热门医师<span class="switchover">换一批<img src="/xcview/images/switchover.png" alt="" class="physician_title_img"></span></div>
 		<div class="exothecium">
 			<div class="batch_main">
-				<div class="batch_main_bg">
+				<div class="batch_main_bg" style="background-image: url(/xcview/images/switchover_one.png);">
 					<div class="batch_main_img">
 						<img src="/xcview/images/BTCpanda.png" alt="" />
 					</div>
@@ -137,7 +137,7 @@
 				</div>
 			</div>
 			<div class="batch_main">
-				<div class="batch_main_bg" style="background-image: linear-gradient(-223deg, #F6A84C 0%, #FED200 100%);">
+				<div class="batch_main_bg" style="background-image: url(/xcview/images/switchover_two.png);">
 					<div class="batch_main_img">
 						<img src="/xcview/images/BTCpanda.png" alt="" />
 					</div>
@@ -146,7 +146,7 @@
 				</div>
 			</div>
 			<div class="batch_main">
-				<div class="batch_main_bg" style="background-image: linear-gradient(-223deg, #22DF93 0%, #85D1DD 100%);">
+				<div class="batch_main_bg" style="background-image: url(/xcview/images/switchover_three.png);">
 					<div class="batch_main_img">
 						<img src="/xcview/images/BTCpanda.png" alt="" />
 					</div>
@@ -233,6 +233,23 @@
 			el: '.swiper-pagination',
 		},
 	})
+
+	// 点击刷新图片
+    $(".switchover").click(function () {
+ 
+      	if($('.physician_title_img').is('.img')){
+            $('.physician_title_img').removeClass('img');
+      	}else{
+      		$(".physician_title_img").addClass("img");
+      		myFunction();
+      	}
+ 
+    });
+	function myFunction() {
+	    setTimeout(function(){
+	    	$('.physician_title_img').removeClass('img');
+	    }, 400);
+	};
 </script>
 
 </html>
