@@ -92,9 +92,10 @@
 		<div class="time_popout_bg"></div>
 		<div class="time_popout_main">
 			<ul class="time_popout_main_ul">
+				<!-- 开始对号先隐藏 -->
 				<script type="text/html" id="time_popout_main_ul_id">
 				{{each items as item i}} 
-				<li><span data-ids="{{item.id}}">{{item.dateText}}</span><img src="/xcview/images/pigeon.png" alt="" /></li>
+				<li class="zhengliao_{{item.id}}"><span data-ids="{{item.id}}">{{item.dateText}}</span><img src="/xcview/images/pigeon.png" alt="" /></li>
 				{{/each}}
 		        </script>
 			</ul>

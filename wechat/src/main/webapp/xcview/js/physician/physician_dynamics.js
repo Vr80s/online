@@ -932,7 +932,7 @@ requestGetService("/xczh/host/doctor/apprentice",{doctorId:doctorId},function (d
         }
 
         // 判断弟子
-        $(".subscribe_btn").click(function(){
+        /*$(".subscribe_btn").click(function(){
 
             if (data.resultObject.onlineApprenticeStatus == 4) {
                 location.href ='/xcview/html/physician/reserve_information.html?doctor='+doctorId;
@@ -940,7 +940,14 @@ requestGetService("/xczh/host/doctor/apprentice",{doctorId:doctorId},function (d
 
             }; 
         
-        });
+        });*/
+
+
+
+
+
+
+
 
 
         // 远程诊疗  
@@ -948,7 +955,7 @@ requestGetService("/xczh/host/doctor/apprentice",{doctorId:doctorId},function (d
             $(".therapy").show();
              // 预约
             $('.subscribe_id').html(template('subscribe_id', {items: data.resultObject.treatments}));
-        
+            // ceshi();
         } else{
             $(".therapy").hide();
         }
@@ -1007,10 +1014,33 @@ requestGetService("/xczh/host/doctor/apprentice",{doctorId:doctorId},function (d
 
 // 点击跟师直播
 function common_jump_alls(courseId) {
+
+    requestGetService("/xczh/enrol/checkAuth",{
+        doctorId:doctorId
+    },function (data) {
+        if (data.success == true) {
+            // 是否是徒弟
+            if (data.resultObject.auth == false) {
+                if (data.resultObject.type == 0) {
+                    $(".order_tips").show();
+                }else if(data.resultObject.type == 1) {
+                    $(".order_tips_no").show();
+                };
+
+            }else{
+                masterCourse();  //跟师直播跳转
+            }
+
+        }
+    }); 
+
+
+}
+
+// 跟师直播跳转
+function masterCourse(){
     requestService("/xczh/course/userCurrentCourseStatus?courseId=" + courseId, null, function (data) {
-
         var userPlay = data.resultObject;
-
         var watchState = userPlay.watchState;
         var type = userPlay.type;
         var collection = userPlay.collection;
@@ -1042,6 +1072,28 @@ function common_jump_alls(courseId) {
                 location.href = "/xcview/html/school_class.html?course_id=" + courseId;
             }
         }
-    })
+    });
 }
+
+
+
+function order(id){
+    
+    requestGetService("/xczh/enrol/checkAuth",{doctorId:doctorId},function (data) {
+        if (data.success == true) {
+            // 是否是徒弟
+            if (data.resultObject.auth == false) {
+                if (data.resultObject.type == 0) {
+                    $(".order_tips").show();
+                }else if(data.resultObject.type == 1) {
+                    $(".order_tips_no").show();
+                };
+
+            }else{
+                location.href ='/xcview/html/physician/reserve_information.html?doctor='+doctorId+'&dataId='+id+''
+            }
+
+        }
+    });
+};
 
