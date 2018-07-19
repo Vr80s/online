@@ -233,6 +233,7 @@
         oc.city as city,
         oc.address as address,
         if(oc.live_status = 3,ifnull(oc.play_back_type,1),3) as playBackType,
+        oc.is_teaching teaching,
     </sql>
 
 
