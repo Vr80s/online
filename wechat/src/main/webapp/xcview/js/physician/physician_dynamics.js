@@ -934,24 +934,6 @@ requestGetService("/xczh/host/doctor/apprentice",{doctorId:doctorId},function (d
             $('.QA_main').html(template('QA_main_id', {items: data.resultObject.questions}));
         }
 
-        // 判断弟子
-        /*$(".subscribe_btn").click(function(){
-
-            if (data.resultObject.onlineApprenticeStatus == 4) {
-                location.href ='/xcview/html/physician/reserve_information.html?doctor='+doctorId;
-            }else{
-
-            }; 
-        
-        });*/
-
-
-
-
-
-
-
-
 
         // 远程诊疗  
         if (!isNotBlank(data.resultObject.treatments.indexDateText)) {
@@ -1015,71 +997,73 @@ requestGetService("/xczh/host/doctor/apprentice",{doctorId:doctorId},function (d
 });
 
 
+// 0 -> 没有申请过弟子 1-> 弟子申请在审核中 2->已经是弟子但没有参与观看跟师直播权限
 // 点击跟师直播
 function common_jump_alls(courseId) {
 
     requestGetService("/xczh/enrol/checkAuth",{
-        doctorId:doctorId
+        doctorId:doctorId,
+        courseId:courseId
     },function (data) {
         if (data.success == true) {
             // 是否是徒弟
             if (data.resultObject.auth == false) {
                 if (data.resultObject.type == 0) {
-                    $(".order_tips").show();
+                    $(".learn_tips").show();  //在线弟子 申请加入
                 }else if(data.resultObject.type == 1) {
-                    $(".order_tips_no").show();
+                    $(".learn_tips_audit").show();  //弟子审核中
+                }else if(data.resultObject.type == 2) {
+                    $(".learn_tips_part").show();  //弟子审核中
                 };
 
             }else{
-                masterCourse();  //跟师直播跳转
+                requestService("/xczh/course/userCurrentCourseStatus?courseId=" + courseId, null, function (data) {
+                    var userPlay = data.resultObject;
+                    var watchState = userPlay.watchState;
+                    var type = userPlay.type;
+                    var collection = userPlay.collection;
+                    var lineState = userPlay.lineState;
+
+                    if (watchState == 1 || watchState == 2) {
+                        if (type == 1 || type == 2) {
+                            //增加学习记录
+                            requestService("/xczh/history/add", {courseId: courseId, recordType: 1}, function (data) {
+                                console.log("增加学习记录");
+                            })
+                            if (collection == 1) {
+                                location.href = "/xcview/html/live_select_album.html?course_id=" + courseId;
+                            } else {
+                                location.href = "/xcview/html/live_audio.html?my_study=" + courseId;
+                            }
+                        } else if (type == 3) {
+
+                            common_jump_play(courseId, watchState, lineState);
+                        } else if (type == 4) {
+                            location.href = "/xcview/html/school_class.html?course_id=" + courseId;
+                        }
+                    } else {
+                        if (type == 1 || type == 2) {
+                            location.href = "/xcview/html/school_audio.html?course_id=" + courseId;
+                        } else if (type == 3) {
+                            common_jump_play(courseId, watchState, lineState);
+                        } else if (type == 4) {
+                            location.href = "/xcview/html/school_class.html?course_id=" + courseId;
+                        }
+                    }
+                });
+
+
+
             }
 
         }
     }); 
 
-
-}
-
-// 跟师直播跳转
-function masterCourse(){
-    requestService("/xczh/course/userCurrentCourseStatus?courseId=" + courseId, null, function (data) {
-        var userPlay = data.resultObject;
-        var watchState = userPlay.watchState;
-        var type = userPlay.type;
-        var collection = userPlay.collection;
-        var lineState = userPlay.lineState;
-
-        if (watchState == 1 || watchState == 2) {
-            if (type == 1 || type == 2) {
-                //增加学习记录
-                requestService("/xczh/history/add", {courseId: courseId, recordType: 1}, function (data) {
-                    console.log("增加学习记录");
-                })
-                if (collection == 1) {
-                    location.href = "/xcview/html/live_select_album.html?course_id=" + courseId;
-                } else {
-                    location.href = "/xcview/html/live_audio.html?my_study=" + courseId;
-                }
-            } else if (type == 3) {
-
-                common_jump_play(courseId, watchState, lineState);
-            } else if (type == 4) {
-                location.href = "/xcview/html/school_class.html?course_id=" + courseId;
-            }
-        } else {
-            if (type == 1 || type == 2) {
-                location.href = "/xcview/html/school_audio.html?course_id=" + courseId;
-            } else if (type == 3) {
-                common_jump_play(courseId, watchState, lineState);
-            } else if (type == 4) {
-                location.href = "/xcview/html/school_class.html?course_id=" + courseId;
-            }
-        }
-    });
 }
 
 
 
+// 点击预约判断
 function order(id){
     
     requestGetService("/xczh/enrol/checkAuth",{doctorId:doctorId},function (data) {
