@@ -58,7 +58,7 @@ public interface MedicalEnrollmentRegulationsMapper extends BaseMapper<MedicalEn
     @Select({"select id, title, cover_img as coverImg, tuition, count_limit as countLimit, " +
             " deadline, learning_process as learningProcess, start_time as startTime, end_time as endTime, " +
             " study_address as studyAddress, ceremony_address as ceremonyAddress, poster_img as posterImg, regulations," +
-            " entry_form_attachment as entryFormAttachment, create_time as createTime, status" +
+            " entry_form_attachment as entryFormAttachment, create_time as createTime, status, attachment_name as attachmentName" +
             " from medical_enrollment_regulations " +
             " where doctor_id = #{doctorId}" +
             " order by create_time desc"})
