@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.xczhihui.common.support.domain.Attachment;
 import com.xczhihui.common.support.service.AttachmentCenterService;
+import com.xczhihui.common.util.ImageUtil;
 import com.xczhihui.common.util.JsonUtil;
 import com.xczhihui.common.util.QiniuUtil;
 import com.xczhihui.user.center.utils.UCCookieUtil;
@@ -71,7 +72,11 @@ public class UeditorUploadController {
         Attachment a = JsonUtil.getBaseGson().fromJson(upload, Attachment.class);
         mp.put("original", a.getOrgFileName());
         mp.put("name", a.getFileName());
-        mp.put("url", QiniuUtil.slim(a.getUrl()));
+        if(a.getUrl().contains(".png")) {
+            mp.put("url", QiniuUtil.slim(a.getUrl()));
+        } else {
+            mp.put("url", a.getUrl());
+        }
         mp.put("size", a.getFileSize());
         mp.put("type", a.getFileType());
         mp.put("state", "SUCCESS");
