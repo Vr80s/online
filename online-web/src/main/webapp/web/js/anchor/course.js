@@ -857,6 +857,8 @@ function closeAlbum(){
 //增加这个课程中的
 function quicklyAddAlbumCourse(){
     
+	//
+	
 	var csArr = $("#select-add").val();
 	if(csArr ==null || csArr == undefined ||  csArr.length<=0){
 		alert("请选择课程");

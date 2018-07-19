@@ -233,6 +233,9 @@
 		<td>
 			{{collection.courseNumber}}
 		</td>
+        <td>
+            {{collection.courseNumber}}
+        </td>
 		<td>
 			{{if collection.recommend==1}}
 			<span>是</span>
@@ -273,7 +276,7 @@
 			{{if collection.applyStatus==1}}
 			{{if collection.status==1}}
 			     <a href="javascript:;" onclick="confirmCollection(0,{{collection.id}},{{collection.courseId}})">下架</a>
-			     {{if course.updateCompleted==2 }}
+			     {{if collection.updateCompleted==2 }}
                     <a href="javascript:;" onclick="addAlbum({{collection.id}},{{collection.courseId}},{{collection.multimediaType}})">添加</a>
                  {{/if}}      
             {{else}}
