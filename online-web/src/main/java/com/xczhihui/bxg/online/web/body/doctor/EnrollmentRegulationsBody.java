@@ -70,6 +70,8 @@ public class EnrollmentRegulationsBody implements Serializable {
     @NotBlank
     private String entryFormAttachment;
 
+    private String attachmentName;
+
     private boolean status;
 
     public MedicalEnrollmentRegulations build(String userId, String doctorId) {
@@ -92,6 +94,7 @@ public class EnrollmentRegulationsBody implements Serializable {
         medicalEnrollmentRegulations.setStartTime(startTime);
         medicalEnrollmentRegulations.setEndTime(endTime);
         medicalEnrollmentRegulations.setCreateTime(new Date());
+        medicalEnrollmentRegulations.setAttachmentName(attachmentName);
         return medicalEnrollmentRegulations;
     }
 
@@ -189,5 +192,13 @@ public class EnrollmentRegulationsBody implements Serializable {
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public String getAttachmentName() {
+        return attachmentName;
+    }
+
+    public void setAttachmentName(String attachmentName) {
+        this.attachmentName = attachmentName;
     }
 }
