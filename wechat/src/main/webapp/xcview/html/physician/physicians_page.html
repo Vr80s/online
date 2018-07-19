@@ -1076,13 +1076,12 @@
 				<script type="text/html" id="subscribe_id">
 				{{each items as item i}} 
 				<div class="subscribe">
-					<div class="subscribe_time">{{item.indexDateText}}</div>
+					<div class="subscribe_time" data-id="{{item.id}}">{{item.indexDateText}}</div>
 					{{if item.appointed == true}}
 						<div class="subscribe_btns">已预约</div>
 					{{else}}
-						<div class="subscribe_btn" onclick="location.href ='/xcview/html/physician/reserve_information.html?doctor='+doctorId">预约</div>
-
-						<!--<div class="subscribe_btn" onclick="location.href ='/xcview/html/physician/reserve_information.html?doctor='+doctorId">预约</div>-->
+						<!--<div class="subscribe_btn" onclick="location.href ='/xcview/html/physician/reserve_information.html?doctor='+doctorId+'&dataId={{item.id}}'">预约</div>-->
+						<div class="subscribe_btn" onclick="order('{{item.id}}')">预约</div>
 					{{/if}}
 				</div>
 				{{/each}}
@@ -1432,7 +1431,53 @@ his, event);"></textarea> -->
 			<div class="learn_tips_submit" onclick="location.href ='/xcview/html/physician/apply_for.html?doctor='+doctorId">在线弟子 申请加入~</div>
 		</div>
 	</div>
+
+	<!-- 审核中 -->
+	<div class="learn_tips_audit">
+		<div class="learn_tips_audit_bg"></div>
+		<div class="learn_tips_audit_main">
+			<div class="learn_tips_audit_close">×</div>
+			<div class="learn_tips_audit_title">温馨提示</div>
+			<div class="learn_tips_audit_cen">该课程为师承课程，成为弟子才能开启观看权限哦~~</div>
+			<div class="learn_tips_audit_submit">弟子审核中</div>
+		</div>
+	</div>
+
+	<!-- 部分 -->
+	<div class="learn_tips_part">
+		<div class="learn_tips_part_bg"></div>
+		<div class="learn_tips_part_main">
+			<!-- <div class="learn_tips_part_close">×</div> -->
+			<div class="learn_tips_part_title">温馨提示</div>
+			<div class="learn_tips_part_cen">只有部分弟子可学习该课程~</div>
+			<div class="learn_tips_part_submit">我知道了</div>
+		</div>
+	</div>
+
 	<!-- 师承课程提示结束 -->
+
+	<!-- 预约远程诊疗开始 -->
+	<div class="order_tips">
+		<div class="order_tips_bg"></div>
+		<div class="order_tips_main">
+			<div class="order_tips_close">×</div>
+			<div class="order_tips_title">温馨提示</div>
+			<div class="order_tips_cen">只有弟子可预约远程诊疗，成为弟子才能开启权限哦~~</div>
+			<div class="order_tips_submit" onclick="location.href ='/xcview/html/physician/apply_for.html?doctor='+doctorId">在线弟子 申请加入~</div>
+		</div>
+	</div>
+
+	<div class="order_tips_no">
+		<div class="order_tips_no_bg"></div>
+		<div class="order_tips_no_main">
+			<div class="order_tips_no_close">×</div>
+			<div class="order_tips_no_title">温馨提示</div>
+			<div class="order_tips_no_cen">只有弟子可预约远程诊疗，成为弟子才能开启权限哦~~</div>
+			<div class="order_tips_no_submit">弟子审核中</div>
+		</div>
+	</div>
+
+	<!-- 预约远程诊疗结束 -->
 
 
 
@@ -1779,6 +1824,27 @@ $(window).bind("scroll", function() {
 
 	$(".learn_tips_submit").click(function(){
     	$(".learn_tips").hide();
+	});
+
+	$(".order_tips_close").click(function(){
+    	$(".learn_tips").hide();
+	});
+
+	$(".order_tips_no_close").click(function(){
+    	$(".learn_tips").hide();
+	});
+
+	// 我知道了--课程
+	$(".learn_tips_part_submit").click(function(){
+    	$(".learn_tips_part").hide();
+	});
+
+	// 弟子审核中
+	$(".learn_tips_audit_submit").click(function(){
+    	$(".learn_tips_audit").hide();
+	});
+	$(".learn_tips_audit_bg").click(function(){
+    	$(".learn_tips_audit").hide();
 	});
 
 
