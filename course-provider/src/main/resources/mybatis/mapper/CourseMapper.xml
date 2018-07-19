@@ -375,8 +375,7 @@
         DATE_ADD(DATE_ADD(str_to_date(DATE_FORMAT(NOW(),'%Y-%m-%d'),
         '%Y-%m-%d %H:%i:%s'),INTERVAL 1 DAY),INTERVAL -1 SECOND),
         DATE_FORMAT(oc.start_time,'%H:%i'),DATE_FORMAT(oc.start_time,'%m.%d')),
-        DATE_FORMAT(oc.start_time,'%m.%d') )) as startDateStr,
-        (ISNULL(ct.id)=0) teaching
+        DATE_FORMAT(oc.start_time,'%m.%d') )) as startDateStr
         FROM
         oe_course oc
         LEFT JOIN

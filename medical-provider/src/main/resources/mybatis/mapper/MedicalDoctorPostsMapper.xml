@@ -18,7 +18,8 @@
         oba.img_path as articleImgPath,
         oba.status as articleStatus,
         mw.id as writingsId,
-        if(oc.type is null,null,if(oc.type =3,4,IF(oc.type = 1,3,if(oc.multimedia_type=1,1,2)))) as courseType
+        if(oc.type is null,null,if(oc.type =3,4,IF(oc.type = 1,3,if(oc.multimedia_type=1,1,2)))) as courseType,
+        oc.is_teaching teaching
         FROM medical_doctor_posts mdp
         LEFT JOIN oe_course oc
         ON oc.id = mdp.course_id
