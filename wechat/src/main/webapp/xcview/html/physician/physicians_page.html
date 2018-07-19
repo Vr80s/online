@@ -1034,7 +1034,7 @@
 			<!-- 跟师课程结束 -->
 
 
-			<!-- 直播课程开始  live_lesson -->
+<!-- 直播课程开始  live_lesson -->
 			<div class="wrap_vedio" style="padding-bottom: 0;" id="live_lesson">
 				<div class="">
 					<span class="border"></span>
@@ -1049,6 +1049,7 @@
 	            		{{if item.type == 1 || item.type == 2 || item.type == 4}}
 		                					 
 	                		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" onclick="common_jump_all({{item.id}})"></a>
+
 
 							<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" onclick="common_jump_school({{item.watchState}},{{item.type}},{{item.collection?1:0}},{{item.id}})"></a>
 	            			
@@ -1078,6 +1079,7 @@
 						<p class="speak_text">{{item.gradeName}}</p>
 						<p class="speak_name">{{item.name}}</p>
 
+
 						<div class="on_line_status">
 							{{if item.watchState == 1}}
 								<p class='money_status z' style="margin-top: -0.03rem;"><span style="color: #F97B49;">免费</span></p>
@@ -1100,13 +1102,13 @@
 						</div>
 					</li>		
 					
+
 					{{/each}}
 	            	</script>
 
 				</ul>
 			</div>
-			<!-- 直播课程结束 -->
-		</div>
+			<!-- 直播课程结束 -->		</div>
 		<!-- 直播间展示结束 -->
 
 	</div>
