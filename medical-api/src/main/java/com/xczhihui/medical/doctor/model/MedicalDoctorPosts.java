@@ -147,6 +147,8 @@ public class MedicalDoctorPosts extends Model<MedicalDoctorPosts> {
      */
     @TableField(exist = false)
     private Boolean isPraise = false;
+    @TableField(exist = false)
+    private Boolean teaching = false;
 
     /**
      * 文章内容
@@ -205,6 +207,14 @@ public class MedicalDoctorPosts extends Model<MedicalDoctorPosts> {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Boolean getTeaching() {
+        return teaching;
+    }
+
+    public void setTeaching(Boolean teaching) {
+        this.teaching = teaching;
     }
 
     public String getContent() {
