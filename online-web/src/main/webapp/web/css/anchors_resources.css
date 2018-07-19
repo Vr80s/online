@@ -1362,32 +1362,27 @@ outline: none;
 	border: 1px solid #dedede;
 }
 .disciple-table-main table th:nth-child(1){
-	width: 126px;
+	width: 145px;
 }
 .disciple-table-main table th:nth-child(2){
-	width: 178px;
+	width: 205px;
 }
 .disciple-table-main table th:nth-child(3){
-	width: 70px;
+	width: 80px;
 }
 .disciple-table-main table th:nth-child(4){
-	width: 70px;
+	width: 80px;
 }
 .disciple-table-main table th:nth-child(5){
-	width: 76px;
+	width: 87px;
 }
 .disciple-table-main table th:nth-child(6){
-	width: 76px;
+	width: 87px;
 }
 .disciple-table-main table th:nth-child(7){
-	width: 76px;
+	width: 205px;
 }
-.disciple-table-main table th:nth-child(8){
-	width: 76px;
-}
-.disciple-table-main table th:nth-child(9){
-	width: 170px;
-}
+
 
 .disciple-table-main table td{
 	padding: 10px;
