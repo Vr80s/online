@@ -158,40 +158,20 @@ public class PageController {
             }
         //用户登录 判断课程收费情况，或者是否购买    
         } else {
-            //判断有没有学习过啦啦啦
-            if (cv.getWatchState().equals(0)) {
-                if (cv.getType().equals(1) || cv.getType().equals(2)) {
-                    //视频音频购买
-                    coursePage = WechatShareLinkType.SCHOOL_AUDIO.getLink();
-                } else if (cv.getType().equals(3)) {
-                    //直播的
-                    coursePage = courseLivePage(cv,ou);
-                } else {
-                    //线下课购买
-                    coursePage = WechatShareLinkType.SCHOOL_CLASS.getLink();
-                }
-            } else if (cv.getWatchState().equals(2)  || cv.getWatchState().equals(1)) {
-              
-                if(cv.getType().equals(1) || cv.getType().equals(2)) {
-
-                    //增加学习记录
-                    watchHistoryService.addLookHistory(courseId, ou.getId(),
-                            RecordType.STUDY.getId(), null);
-                    
-                    if (cv.getCollection()) {
-                        //专辑视频音频播放页
-                        coursePage = WechatShareLinkType.LIVE_SELECT_ALBUM.getLink();
-                    } else {
-                        coursePage = WechatShareLinkType.LIVE_AUDIO.getLink();
-                    }
-                    
-                }else if(cv.getType().equals(3)) {
-                    //直播的
-                    coursePage = courseLivePage(cv,ou);
-                } else {
-                    //线下课页面
-                    coursePage = WechatShareLinkType.LIVE_CLASS.getLink();
-                }
+            if(cv.getType().equals(1) || cv.getType().equals(2)) {
+                
+                //视频音频的
+                coursePage = courseVideoPage(cv,ou);
+                
+            }else if(cv.getType().equals(3)) {
+                
+                //直播的
+                coursePage = courseLivePage(cv,ou);
+                
+            }else if(cv.getType().equals(4)) {
+                
+                //线下课
+                coursePage = WechatShareLinkType.SCHOOL_CLASS.getLink();
             }
         }
         return coursePage + courseId;
@@ -243,6 +223,28 @@ public class PageController {
         }
         return coursePage;
     }
-
-
+    
+    
+    public String courseVideoPage(CourseLecturVo cv, OnlineUser ou) {
+        String coursePage = WechatShareLinkType.INDEX_PAGE.getLink();
+        //免费
+        if(cv.getWatchState().equals(1)) {
+            
+            //增加学习记录
+            watchHistoryService.addLookHistory(cv.getId(), ou.getId(),
+                    RecordType.STUDY.getId(), null);
+            
+            
+            if (cv.getCollection()) {
+                //专辑视频音频播放页
+                coursePage = WechatShareLinkType.LIVE_SELECT_ALBUM.getLink();
+            } else {
+                coursePage = WechatShareLinkType.LIVE_AUDIO.getLink();
+            }
+        //付费
+        }else{
+            coursePage = WechatShareLinkType.SCHOOL_AUDIO.getLink();
+        }
+        return coursePage;
+    }
 }
