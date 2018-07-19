@@ -137,6 +137,11 @@ $(function(){
 			$(".namage-list-table").addClass("hide");
 			$(".recruit-students").removeClass("hide");		
 			$(this).text("返回");
+			
+			$(".teacher-name").val(anchors);
+			clearRecruit();
+			$(".recruit-text-up").removeClass("hide");
+			$(".edit-save").addClass("hide");
 		}else{
 			$(".namage-list-table").removeClass("hide");
 			$(".recruit-students").addClass("hide");	
@@ -144,16 +149,6 @@ $(function(){
 		}
 	})
 
-//	查看弹框
-	$(".btn-see").click(function(){
-		$(".see-namage-modal").removeClass("hide");
-		$("#mask").removeClass("hide");
-	})
-//	关闭查看弹框
-	$(".see-namage-top img").click(function(){
-		$(".see-namage-modal").addClass("hide");
-		$("#mask").addClass("hide");
-	})
 
 //	师承封面
 	function manageUpdown(baseurl, imgname) {
