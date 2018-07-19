@@ -2166,12 +2166,24 @@ white-space: normal;
 	padding-bottom: 60px;
 	margin-left: 135px;
 }
-.download-file button{
+.download-file a{
 	border: 1px solid #00BC12;
 	border-radius: 4px;
 	width: 120px;
 	height: 36px;
 	background: white;
+	color: #00bc12;
+	display: inline-block;
+	text-align: center;
+    line-height: 36px;
+}
+.download-file a:link {
+	color: #00bc12;
+}
+.download-file a:visited {
+	color: #00bc12;
+}
+.download-file a:hover{
 	color: #00bc12;
 }
 /*招生简章*/
@@ -2202,7 +2214,7 @@ white-space: normal;
 	color: red;
 }
 .comment-set-rules input{
-	width: 139px;
+	width: 158px;
 	height: 36px;
 	border: 1px solid #f0f0f0;
 	padding-left: 5px;
@@ -2293,6 +2305,7 @@ white-space: normal;
     margin-bottom: 0;
     display: inline-block;
     float: left;
+    line-height: 36px;
 }
 
 .comment-right-float .btn-up-file{
@@ -2328,7 +2341,15 @@ white-space: normal;
 	background: white;
 	color: #00bc12;
 }
-
+.comment-right-float .edit-save{
+	width: 120px;
+	height: 36px;
+	border-radius: 4px;
+	border: 1px solid #00bc12;
+	outline: none;
+	background: white;
+	color: #00bc12;
+}
 /*收徒设置*/
 
 .comment-apprentice{

@@ -1421,14 +1421,14 @@
 							<div class="myself-disciple-search">
 								<select class="myself-select-haedeer" name="">
 									<option value="">全部</option>
-									<option value="-1">医师主页招生</option>
-									<option value="">发现师承收徒</option>
+									<option value="2">医师主页招生</option>
+									<option value="1">发现师承收徒</option>
 								</select>
 								<select class="myself-select-right" name="">									
 									<option value="">全部</option>
-									<option value="1">徒弟</option>
+									<option value="2">徒弟</option>
 									<option value="0">未审核用户</option>
-									<option value="0">未通过用户</option>
+									<option value="1">未通过用户</option>
 								</select>
 								<button type="button">筛选</button>
 							</div>
@@ -1453,8 +1453,10 @@
 											<td>{{item.tel}}</td>
 											{{if item.sex == 1}}
 												<td>男</td>
-											{{else}}
+											{{else if item.sex == 0}}
 												<td>女</td>
+											{{else if item.sex == 2}}	
+												<td>未知</td>
 											{{/if}}
 											<td>{{item.age}}</td>
 											{{if item.education == 0}}
@@ -1471,7 +1473,7 @@
 											<td>{{item.createTime}}</td>
 											<td>
 												<div class="disciple-source">
-													博士博士博士博士博士博士博士博士博士博士博士博士
+													{{item.regulationName}}
 												</div>
 											</td>
 											{{if item.apprentice==1}}
@@ -1674,7 +1676,7 @@
 							<span>师承管理</span>
 							<button type="button" class="change-namage-reyurn">新增招生简章</button>
 						</div>
-						<div class="namage-list-table hide">
+						<div class="namage-list-table">
 							<table id="manage-list-wrap">
 								<script type="text/template" id="template-manage">
 								<tr>
@@ -1707,20 +1709,35 @@
 									<td>下架</td>
 									{{/if}}
 									<td>
-										<span class="btn-see">查看</span>	
-										<span>编辑</span>
-										<span>上架</span>
+										<span class="btn-see" data-index="{{i}}">查看</span>	
+										<span class="edit-manage" data-index="{{i}}">编辑</span>
+										{{if item.status==true}}
+										<span class="ecruit-fluctuate" data-id="{{item.id}}" data-status="0">下架</span>
+										{{else}}
+										<span class="ecruit-fluctuate" data-id="{{item.id}}" data-status="1">上架</span>
+										{{/if}}
 									</td>
 								</tr>
 								{{/each}}
 								</script>
 							</table>
+								<!--无数据时展示-->
+								<div class="comment-inherit-null manage-null hide">
+									<img src="/web/images/icon-nodata.png" alt="无数据"/>
+									<p>暂无数据</p>
+								</div>
+								<!--分页部分start-->
+								<div class="manage_pages pages hide" style="margin-top: 20px;">  <!--如需要复制分页doctors_pages要改类名并在JS里对应-->
+									<div id="Pagination_manage" class="pagination-pages"></div>	<!--如需要复制分页Pagination_doctors要改类名并在JS里对应-->
+									<div class="searchPage">
+										<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+										<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
+										<a href="javascript:;" class="page-btn">确定</a>
+									</div>
+								</div>
+								<!--分页部分end-->
 						</div>
-						<!--无数据时展示-->
-						<div class="comment-inherit-null manage-null hide">
-							<img src="/web/images/icon-nodata.png" alt="无数据"/>
-							<p>暂无数据</p>
-						</div>
+					
 						<!--查看-->
 						<div class="see-namage-modal hide">
 							<div class="see-namage-top">
@@ -1731,12 +1748,12 @@
 								<!--老师-->
 								<div class="commer-see-menu">
 									<span>老师</span>
-									<p>老师老师老师老师老师老师老师老师老师老师老师老师老师老师老师老师老师</p>
+									<p class="see-name"></p>
 								</div>
 								<!--招生标题-->
 								<div class="commer-see-menu">
 									<span>招生标题</span>
-									<p>老师老师老师老师老师老师老师老师老师老师老师老师老师老师老师老师老师</p>
+									<p class="see-title"></p>
 								</div>
 								<!--封面图-->
 								<div class="commer-see-menu">
@@ -1746,62 +1763,55 @@
 								<!--学费-->
 								<div class="commer-see-menu">
 									<span>学费</span>
-									<p>652</p>
+									<p class="see-tuition"></p>
 								</div>
 								<!--招生人数-->
 								<div class="commer-see-menu">
 									<span>招生人数</span>
-									<p>652</p>
+									<p class="see-zhaosheng"></p>
 								</div>
 								<!--报名截止时间-->
 								<div class="commer-see-menu">
 									<span>报名截止时间</span>
-									<p>652</p>
+									<p class="see-stop-time"></p>
 								</div>
 								<!--学习时间-->
 								<div class="commer-see-menu">
 									<span>学习时间</span>
-									<p>652</p>
+									<p class="see-study-time"></p>
 								</div>
 								<!--学习地址-->
 								<div class="commer-see-menu">
 									<span>学习地址</span>
-									<p>652</p>
+									<p class="see-address">652</p>
 								</div>
 								<!--相关介绍-->
 								<div class="commer-see-menu">
 									<span>相关介绍</span>
-									<p>
-										《标幽赋》出自《针经指南》，为金元时期著名针灸医家窦默所著。窦氏
-										在《标幽赋》中论述了针灸与经络、脏腑、气血的关系，施术前后的注意
-										事项以及取穴、配穴和针灸禁忌等重要问题。《标幽赋》采用歌赋的形式把
-										幽冥隐晦、深奥难懂的针灸理论表达出来，文字精炼，叙述准确，对后世医家影响很大。
+									<p class="see-about">
 									
 									</p>
 								</div>
 								<!--招生简章-->
 								<div class="commer-see-menu">
 									<span>招生简章</span>
-									<p>
-											《标幽赋》出自《针经指南》，为金元时期著名针灸医家窦默所著。窦氏
-										在《标幽赋》中论述了针灸与经络、脏腑、气血的关系，施术前后的注意
-										事项以及取穴、配穴和针灸禁忌等重要问题。《标幽赋》采用歌赋的形式把
-										幽冥隐晦、深奥难懂的针灸理论表达出来，文字精炼，叙述准确，对后世医家影响很大。
-									
+									<p class="see-general-rules">
+										
 									</p>
 								</div>
 							</div>
 							<!--下载招生简介-->
 							<div class="download-file">
-								<button type="button">下载招生简介</button>
+								<a href="">下载招生简介</a>
 							</div>
 						</div>
 						<!--新增招生简章-->
-						<div class="recruit-students">
+						<div class="recruit-students hide">
 							<!--老师-->
+							<input type="hidden" name="save-manageId" id="save-manageId" value="" />
 							<div class="comment-set-rules">
 								<span class="comment-left-rules"><em>*</em>老师</span>
-								<input type="text" class="teacher-name" />
+								<input type="text" readonly="value" class="teacher-name" />
 								<p class="warning-manage teachea-null hide">姓名不能为空</p>								
 							</div>
 							<!--招生标题-->
@@ -1828,14 +1838,16 @@
 							<!--学费-->
 							<div class="comment-set-rules">
 								<span class="comment-left-rules"><em>*</em>学费</span>
-								<input type="text" class="tuition" /><span style="margin-left: 15px;">元</span>
+								<input type="text" class="tuition" onkeyup='this.value=this.value.replace(/\D/gi,"")' /><span style="margin-left: 15px;">元</span>
 								<p class="warning-manage tuition-null hide">学费不能为空</p>	
+								<p class="warning-manage tuition-alb-null hide">请输入阿拉伯数字</p>
 							</div>
 							<!--招生人数-->
 							<div class="comment-set-rules">
 								<span class="comment-left-rules"><em>*</em>招生人数</span>
-								<input type="text" class="personal-number" />
+								<input type="text" class="personal-number"  onkeyup='this.value=this.value.replace(/\D/gi,"")' />
 								<p class="warning-manage personal-null hide">请填写招生人数</p>	
+								<p class="warning-manage personal-alb-null hide">请输入阿拉伯数字</p>	
 							</div>
 							<!--报名截止时间-->
 							<div class="comment-set-rules">
@@ -1895,19 +1907,27 @@
 								<div class="comment-right-float">
 									<p class="enclosure-text"></p>
 									<span class="btn-up-file" onclick="$('#file-input').click()">上传</span>
-									<input type="file" id="file-input" style="visibility: hidden;display: inline-block;width: 2px;position: fixed;left: -1000px;" />
+									<form action="/ueditor/upload" method="post" id="submitFile">
+										<input type="file" id="file-input" name="file-att" style="visibility: hidden;display: inline-block;width: 2px;position: fixed;left: -1000px;" accept=".doc,.pdf,.docx" />	
+									</form>
 									<span class="file-tip">支持doc/docx/pdf等格式</span>
-									<p class="warning-manage hide">附件不能为空</p>
+									<p class="warning-manage enclosure-null hide ">附件不能为空</p>
 								</div>	
 							</div>
 							<!--招生简介-->
 							<div class="comment-set-float" style="padding-top: 10px;">
 								<span class="comment-left-float" style="height: 2px;"></span>
+								<!--新增-->
 								<div class="comment-right-float">
-									<button class="recruit-text-up" type="button">保存并发布</button>
-									<button class="recruit-text-up recruit-other-up" type="button">保存</button>
+									<button class="recruit-text-up" type="button" data-status="true">保存并发布</button>
+									<button class="recruit-text-up recruit-other-up" type="button" data-status="false">保存</button>
+									<!--编辑-->
+									<button class="edit-save" type="button" data-status="false">保存</button>
+
 								</div>
+								
 							</div>
+							
 						</div>
 					</div>
 					<!--收徒设置-->
@@ -2124,7 +2144,7 @@
 							<span class="fengmian_tip">
 									<p>文件小于2M</p>
 									<p>支持JPG/PNG等格式图片</p>
-								</span>
+							</span>
 							<input type="file" placeholder="请填写您的专栏标题" style="visibility: hidden;display: inline-block;" id="zhuzuo_picIpt" />
 							<p class="warning hide work-picter-warning">请上传封面图</p>
 						</div>
@@ -2567,14 +2587,14 @@
 		   });
 //			报名截止时间
  			$("#sign-up-time").jeDate({
-		        format: "YYYY-MM-DD hh:mm"
+		        format: "YYYY-MM-DD hh:mm:ss"
 		   });
 //		   学习时间
 			$("#study-start-time").jeDate({
-		        format: "YYYY-MM-DD hh:mm"
+		        format: "YYYY-MM-DD hh:mm:ss"
 		   });
 		   $("#study-end-time").jeDate({
-		        format: "YYYY-MM-DD hh:mm"
+		        format: "YYYY-MM-DD hh:mm:ss"
 		   });
 
 		});

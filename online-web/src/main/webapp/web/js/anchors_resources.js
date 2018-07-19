@@ -1,4 +1,5 @@
 var getAnchorsId;
+var anchorsName;
 $(function () {
 	
  		RequestService("/medical/common/getDoctorByUserId", "get", null, function (data) {
@@ -2570,6 +2571,7 @@ if (localStorage.AccountStatus == 1) {
             //	       			$('#tip').toggle();
             //	       		},2000)
         } else if (data.success == true) {
+        	anchors=data.resultObject.name
             //				alert('认证成功');
             //医馆数据渲染
             //				$('#hosAutStatus').html(template('hosAutStatusTpl',data.resultObject))
