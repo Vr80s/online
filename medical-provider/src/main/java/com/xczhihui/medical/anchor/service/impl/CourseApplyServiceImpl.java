@@ -455,7 +455,6 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         String updateTime ="";
         List<Integer> list = collectionCourseApplyUpdateDateMapper.listDatesByCollectionId(collectionId);
         if(list.size()  >= 7) {
-            
             return XzStringUtils.COLLECTION_UPDATE_ALL;
         }else {
             updateTime = list.stream().map(DateUtil::getDayOfWeek).collect(Collectors.joining(""));
