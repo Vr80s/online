@@ -25,6 +25,9 @@ $(function(){
         if (option_id == "") {
             option_id = "li-1";
         }
+        if(option_id == "li-1"){
+            miniRefresh.endDownLoading(true);
+        }
     });
 
 });
@@ -652,8 +655,8 @@ var miniRefresh = new MiniRefresh({
     down: {
         //isLock: true,//是否禁用下拉刷新
         callback: function () {
-            page = 1;
             if (option_id == "li-1"){
+                page = 1;
                 sowingMap();
                 doctorPostsList(page,'down',doctorPostsType);
             } else if (option_id == "li-2") {
