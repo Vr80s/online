@@ -15,7 +15,12 @@ $(function () {
 		questionDisabuse(1,editSelectStatus);
 	})
 //	师承管理
-	$(".teaching-manage").click(function(){manageList(1)});
+	$(".teaching-manage").click(function(){
+		manageList(1)
+		if($(".change-namage-reyurn").text()=="返回"){
+			$(".change-namage-reyurn").click();
+		}
+	});
 //	省市区三联动初始化
 	$(".comment-right-float").iProvincesSelect("init",null);
 });
@@ -620,13 +625,18 @@ function cheackSelectAll(){
  * @author name：yuxin <br>email: wangxingchuan@ixincheng.com
  * @Date: 2018/7/17 0003 上午 20:07
  **/
-//我的弟子列表
+//	我的弟子列表
 	var disciple;
-	function myDiscipleList(pages) {	
+	function myDiscipleList(pages,type,status) {	
 		var discipleData={}
 			discipleData.page=pages,
 	    	discipleData.size=10;
-
+	    if(type!=null && type!=""){
+			discipleData.type=type;
+		};
+		if(status!=null && status!=""){
+			discipleData.status=status;
+		};
 	    RequestService("/doctor/apprentice", "get",discipleData, function (data) {
 	      	if(data.success==true){
 	      		disciple=data.resultObject.records;
@@ -660,6 +670,14 @@ function cheackSelectAll(){
 	      	}
 	    });
 	}
+
+//	筛选
+	$(".myself-disciple-search button").click(function(){
+		var type=$(".myself-select-haedeer").val(),
+			status=$(".myself-select-right").val();
+			myDiscipleList(1,type,status)
+	})
+
 //	点击查看弟子
 	$(".myself-disciple-list").on("click",".see-disciple-btn",function(){
 		var index=$(this).attr("data-index");
@@ -673,8 +691,10 @@ function cheackSelectAll(){
 	//	性别
 		if(previewDisciple.sex==1){
 			previewDisciple.sex="男";
-		}else{
+		}else if(previewDisciple.sex==0){
 			previewDisciple.sex="女";
+		}else if(previewDisciple.sex==2){
+			previewDisciple.sex="未知";
 		}
 	//	学历
 		if(previewDisciple.education==0){
@@ -801,36 +821,36 @@ function cheackSelectAll(){
  * @author name：yuxin <br>email: wangxingchuan@ixincheng.com
  * @Date: 2018/7/18 0003 上午 09:38
  **/
-//师承管理列表
-var manageData;
-function manageList(pages){
+//	师承管理列表
+	var manageData;
+	function manageList(pages){
     RequestService("/doctor/enrollmentRegulations?page="+pages+"&size=10", "get",null, function (data) {
       	if(data.success==true){
       		manageData=data.resultObject.records;
       		if(manageData==null || manageData.length==0){
       			$(".manage-null").removeClass("hide");
-      			$(".namage-list-table").addClass("hide");
+      			$("#manage-list-wrap").addClass("hide");
       		}else{
       			$(".manage-null").addClass("hide");
-      			$(".namage-list-table").removeClass("hide");
+      			$("#manage-list-wrap").removeClass("hide");
       			$("#manage-list-wrap").html(template("template-manage",{items:manageData}))
       		}
      // 分页
               	 if (data.resultObject.pages > 1) { //分页判断
                     $(".not-data").remove();
-                    $(".disciple_pages").removeClass("hide");
-                    $(".disciple_pages .searchPage .allPage").text(data.resultObject.pages);  //传的页数的参数
-                    $("#Pagination_disciple").pagination(data.resultObject.pages, {			//传的页数的参数
+                    $(".manage_pages").removeClass("hide");
+                    $(".manage_pages .searchPage .allPage").text(data.resultObject.pages);  //传的页数的参数
+                    $("#Pagination_manage").pagination(data.resultObject.pages, {			//传的页数的参数
                         num_edge_entries: 1, //边缘页数
                         num_display_entries: 4, //主体页数
                         current_page: pages - 1,  //共几页
                         callback: function (page) {
                             //翻页功能
-                            myDiscipleList(page + 1);
+                            manageList(page + 1);
                         }
                     });
                 } else {
-                    $(".disciple_pages").addClass("hide");
+                    $(".manage_pages").addClass("hide");
                 }
       	}else{
       		showTip("获取问答疑惑数据失败");
@@ -838,17 +858,139 @@ function manageList(pages){
     });
 }
 
-//创建招生简章
-//点击保存
-var addressText;     //学习详细地址
-function testRecruit(establishDate){
-//	名字
-	if(establishDate.name==""){
-		$(".teachea-null").removeClass("hide");
-		return false;
-	}else{
-		$(".teachea-null").addClass("hide");
+//	上下架
+	$(".namage-list-table").on("click",".ecruit-fluctuate",function(){
+		var id=$(this).attr("data-id"),
+			status=$(this).attr("data-status");
+			RequestService("/doctor/enrollmentRegulations/"+id+"/"+status,"PUT",null, function (data) {
+				if (data.success==true) {
+					showTip("操作成功");
+					manageList(1);
+				} else{
+					showTip("操作失败");
+				}
+      	})
+			
+	})
+
+//	查看弹框
+	$(".namage-list-table").on("click",".btn-see",function(){
+		var index=$(this).attr("data-index"),
+			seeData=manageData[index];
+		$(".see-details-wrap .see-name").text(seeData.name);
+		$(".see-details-wrap .see-title").text(seeData.title);
+		$(".see-details-wrap .cover-map-namage img").attr("src",seeData.coverImg);
+		$(".see-details-wrap .see-tuition").text(seeData.tuition);
+		$(".see-details-wrap .see-zhaosheng").text(seeData.countLimit);
+		$(".see-details-wrap .see-stop-time").text(seeData.deadline);
+		$(".see-details-wrap .see-study-time").text(seeData.startTime+"至"+seeData.endTime);
+		$(".see-details-wrap .see-address").text(seeData.studyAddress);
+		$(".see-details-wrap .see-about").html(seeData.ceremonyAddress);
+		$(".see-details-wrap .see-general-rules").html(seeData.regulations);
+		$(".download-file a").attr("href",seeData.entryFormAttachment);
+		
+		
+		$(".see-namage-modal").removeClass("hide");
+		$("#mask").removeClass("hide");
+	})
+//	关闭查看弹框
+	$(".see-namage-top img").click(function(){
+		$(".see-namage-modal").addClass("hide");
+		$("#mask").addClass("hide");
+	})
+//	编辑
+	$(".namage-list-table").on("click",".edit-manage",function(){
+		var index=$(this).attr("data-index");
+		echoManage(index);					//回显
+		$(".edit-save").removeClass("hide");//保存按钮显示
+		
+		$(".namage-list-table").addClass("hide"); //列表切换
+		$(".recruit-students").removeClass("hide");	//列表切换
+		$(".teacher-name").val(anchors);			//医师名字
+		$(".recruit-text-up").addClass("hide");     //保存/发布按钮
+		$(".namage-top button").text("返回");		//返回
+	})
+	function echoManage(index){
+		var echoManageData=manageData[index];
+		$("#save-manageId").val(echoManageData.id);
+		$(".recruit-students .recruit-title").val(echoManageData.title);
+		$(".recruit-students .mamage-wrap-img").html("<img src="+echoManageData.coverImg+" />")
+		$(".recruit-students .tuition").val(echoManageData.tuition);
+		$(".recruit-students .personal-number").val(echoManageData.countLimit);
+		$("#sign-up-time").val(echoManageData.deadline);
+		$("#study-start-time").val(echoManageData.startTime);
+		$("#study-end-time").val(echoManageData.endTime);
+	
+//		$(".recruit-students .address-text").val(echoManageData.endTime);
+		UE.getEditor('about-introduce').setContent(echoManageData.ceremonyAddress);
+		UE.getEditor('introduction-enrolment').setContent(echoManageData.regulations);		
+		$(".enclosure-text").html(echoManageData.attachmentName)
+		fileUrl=echoManageData.entryFormAttachment;
+//	省市区		
+		var  addressSplit= echoManageData.studyAddress.split("-");
+		var provinces = {
+                            province: addressSplit[0],
+                            city: addressSplit[1],
+                            district: addressSplit[2]
+        			};
+        $(".comment-right-float").iProvincesSelect("init",provinces);
+//  详细地址
+        var detailAddress=echoManageData.studyAddress.split("-")[3];
+		$(".address-text").val(detailAddress);
 	}
+
+//	编辑保存
+	$(".edit-save").click(function(){
+			saveFileName=$(".enclosure-text").text();
+			addressText=$.trim($(".address-text").val());			
+		var provinceName=$(".comment-right-float .province").val(),
+			cityName=$(".comment-right-float .city").val(),
+			districtName=$(".comment-right-float .district").val(),
+			id=$("#save-manageId").val();
+			
+		var establishDate={
+			"title":$.trim($(".recruit-title").val()),			//标题
+			"coverImg":$(".mamage-wrap-img img").attr("src"),	//封面图
+			"tuition":$.trim($(".tuition").val()),				//学费
+			"countLimit":$.trim($(".personal-number").val()),	//招生人数
+			"deadline":$.trim($("#sign-up-time").val()),		//报名截止时间
+			"startTime":$.trim($("#study-start-time").val()),	//学习时间
+			"endTime":$.trim($("#study-end-time").val()),		//结束时间
+			"studyAddress":provinceName+"-"+cityName+"-"+districtName+"-"+addressText,
+			"ceremonyAddress":UE.getEditor('about-introduce').getContent(),  //相关介绍
+			"regulations":UE.getEditor('introduction-enrolment').getContent(), //招生简章
+			"entryFormAttachment":fileUrl,
+			"attachmentName":saveFileName	
+		}	
+		if(testRecruit(establishDate)){	
+			$(".edit-save").attr("disabled","disabled");
+			RequestJsonService("/doctor/enrollmentRegulations/"+id,"PUT",JSON.stringify(establishDate), function (data) {
+				if(data.success==true){
+					$(".edit-save").removeAttr("disabled");
+					showTip("保存成功");
+					clearRecruit();
+					setTimeout(function(){
+						$(".teaching-manage").click();
+					},2000);
+				}else{
+					showTip("保存失败");
+					$(".edit-save").removeAttr("disabled");
+				}
+			})
+		}
+	})
+
+
+
+
+
+
+
+
+//	创建招生简章  校验
+	var addressText;     //学习详细地址
+	function testRecruit(establishDate){
+		var reg = /^[0-9]+.?[0-9]*$/;
 //	标题
 	if(establishDate.title==""){
 		$(".title-null").removeClass("hide");
@@ -870,12 +1012,24 @@ function testRecruit(establishDate){
 	}else{
 		$(".tuition-null").addClass("hide");
 	}
+	if(reg.test(establishDate.tuition)==false){
+		$(".tuition-alb-null").removeClass("hide");
+		return false;
+	}else{
+		$(".tuition-alb-null").addClass("hide");
+	}
 //	招生人数	
 	if(establishDate.countLimit==""){
 		$(".personal-null").removeClass("hide");
 		return false;
 	}else{
 		$(".personal-null").addClass("hide");
+	}
+	if(reg.test(establishDate.countLimit)==false){
+		$(".personal-alb-null").removeClass("hide");
+		return false;
+	}else{
+		$(".personal-alb-null").addClass("hide");
 	}
 //	报名截止时间	
 	if(establishDate.deadline==""){
@@ -905,8 +1059,7 @@ function testRecruit(establishDate){
 	if($.trim($(".address-text").val())==""){
 		$(".studyAddress-null").removeClass("hide");
 		return false;			
-	}else{			
-		addressText=$.trim($(".address-text").val());
+	}else{				
 		$(".studyAddress-null").addClass("hide");
 	}
 //	相关介绍	
@@ -923,17 +1076,26 @@ function testRecruit(establishDate){
 	}else{
 		$(".introduction-null").addClass("hide");
 	}
+//	招生简章附件
+	if($(".enclosure-text").text()==""){
+		$(".enclosure-null").removeClass("hide");
+		return false;
+	}else{
+		$(".enclosure-null").addClass("hide");
+	}
 	return true;
 }
-$(".recruit-text-up").click(function(){
+//	点击保存
+	$(".recruit-text-up").click(function(){
+		addressText=$.trim($(".address-text").val());
 	var provinceName=$(".comment-right-float .province").val(),
 		cityName=$(".comment-right-float .city").val(),
-		districtName=$(".comment-right-float .district").val();
-
+		districtName=$(".comment-right-float .district").val(),
+		saveStatus=$(this).attr("data-status");
+		
 	var establishDate={
-		"name": $.trim($(".teacher-name").val()),    		//名字
 		"title":$.trim($(".recruit-title").val()),			//标题
-		"coverImg":$(".manage-wrap-img img").attr("src"),	//封面图
+		"coverImg":$(".mamage-wrap-img img").attr("src"),	//封面图
 		"tuition":$.trim($(".tuition").val()),				//学费
 		"countLimit":$.trim($(".personal-number").val()),	//招生人数
 		"deadline":$.trim($("#sign-up-time").val()),		//报名截止时间
@@ -942,10 +1104,75 @@ $(".recruit-text-up").click(function(){
 		"studyAddress":provinceName+"-"+cityName+"-"+districtName+"-"+addressText,
 		"ceremonyAddress":UE.getEditor('about-introduce').getContent(),  //相关介绍
 		"regulations":UE.getEditor('introduction-enrolment').getContent(), //招生简章
-	}
-	
-	if(testRecruit(establishDate)){
-		
+		"entryFormAttachment":fileUrl,
+		"attachmentName":saveFileName,
+		"status":saveStatus
+	}	
+	if(testRecruit(establishDate)){	
+		$(".recruit-text-up").attr("disabled","disabled");
+		RequestJsonService("/doctor/enrollmentRegulations","POST",JSON.stringify(establishDate), function (data) {
+			if(data.success==true){
+				$(".recruit-text-up").removeAttr("disabled");
+				showTip("添加成功");
+				clearRecruit();
+				setTimeout(function(){
+					$(".teaching-manage").click();
+				},2000);
+			}else{
+				showTip("添加失败");
+				$(".recruit-text-up").removeAttr("disabled");
+			}
+		})
 	}
 	
 })
+
+//	选择附件上传 
+   var fileUrl;  //需要的url
+   var saveFileName;
+   $('#file-input').change(function(){ 
+     //如果文件为空 
+     if($(this).val() == ''){ 
+       return false; 
+     }else{
+     	saveFileName=$(this).val().slice(12);
+     	$(".enclosure-text").text(saveFileName);
+     }
+     $('#submitFile').ajaxSubmit({ 
+       type:'post', 
+       dataType:'json', 
+       success:function(result){ 
+         //请求成功后的操作 
+  			fileUrl=result.url;
+         //并且清空原文件，不然选择相同文件不能再次传 
+//       $('#file-input').val(''); 
+       }, 
+       error:function(){ 
+         //并且清空原文件，不然选择相同文件不能再次传 
+//       $('#file-input').val(''); 
+       } 
+     }); 
+})
+
+//	清空招生简章数据
+	var clearFengmian='<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>'+
+						'<p style="text-align: center;color: #999;font-size: 14px;">点击上传封面图片</p>'
+								
+								
+	function clearRecruit(){
+		$(".recruit-title").val("");
+		$(".mamage-wrap-img").html(clearFengmian);
+		$(".tuition").val("");
+		$(".personal-number").val("");
+		$("#sign-up-time").val("");
+		$("#study-start-time").val("");
+		$("#study-end-time").val("");
+		$(".address-text").val("");
+		UE.getEditor('about-introduce').setContent("");
+		UE.getEditor('introduction-enrolment').setContent("");
+		$(".enclosure-text").text("");
+		$("#manage_picIpt").val("");
+		$('#file-input').val(""); 
+		$(".warning-manage").addClass("hide");
+	}
+	
