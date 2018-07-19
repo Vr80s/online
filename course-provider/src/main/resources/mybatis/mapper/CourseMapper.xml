@@ -350,11 +350,11 @@
         DATE_FORMAT(oc.start_time,'%m.%d') )) as startDateStr
         FROM
         oe_course oc
-        where oc.user_lecturer_id = #{userId} and oc.status = 1 and oc.is_delete=0 and oc.is_teaching = 0
+        where oc.user_lecturer_id = #{userId} and oc.status = 1 and oc.is_delete=0 
         <include refid="onlyFreeCondition"/>
 
         <if test="type == 1">
-            and oc.multimedia_type = 1
+            and oc.multimedia_type = 1 
         </if>
         <if test="type == 2">
             and oc.multimedia_type = 2
@@ -365,6 +365,10 @@
         <if test="type == 4">
             and oc.type = 3
         </if>
+        <if test="type == 5">
+            and oc.is_teaching = 1
+        </if>
+        
         order by release_time desc
     </select>
 
