@@ -52,12 +52,12 @@
                 <img class="middle" style="width: 250px; height: 140px;" src="${MedicalEnrollmentRegulations.coverImg}">
             </div>
         </div>
-        <div class="form-group" style="margin-top: 18px;">
+        <%--<div class="form-group" style="margin-top: 18px;">
             <label class="col-sm-1 yrx no-padding-right" for="tuition"><font color="red">*</font>学费: </label>
             <div class="col-sm-1">
                 <div style="padding-top: 5px">${MedicalEnrollmentRegulations.tuition}元</div>
             </div>
-        </div>
+        </div>--%>
         <div class="space-4"></div>
         <div class="form-group" style="margin-top: 18px;">
             <label class="col-sm-1 yrx no-padding-right" for="countLimit"><font color="red">*</font>收徒人数:

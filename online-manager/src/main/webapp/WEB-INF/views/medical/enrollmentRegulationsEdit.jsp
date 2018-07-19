@@ -112,14 +112,14 @@
                 <p><font color="red">*</font>推荐高宽比在0.56左右</p>
                 </div>
         </div>
-        <div class="space-4"></div>
+        <%--<div class="space-4"></div>
         <div class="form-group" style="margin-top: 18px;" >
             <label class="col-sm-1 control-label no-padding-right" for="tuition"><font color="red">*</font>学费: </label>
             <div class="col-sm-1">
                 <input type="text" name="tuition" id="tuition" maxlength="11"  onkeyup="value=value.replace(/[^\d]/g,'')" value="${MedicalEnrollmentRegulations.tuition}" class="col-xs-10 col-sm-8 {required:true}">
                 <div style="padding-top: 5px">元</div>
             </div>
-        </div>
+        </div>--%>
         <div class="space-4"></div>
         <div class="form-group" style="margin-top: 18px;" >
             <label class="col-sm-1 control-label no-padding-right" for="countLimit"><font color="red">*</font>收徒人数: </label>
