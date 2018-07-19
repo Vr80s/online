@@ -234,7 +234,7 @@
 			{{collection.courseNumber}}
 		</td>
         <td>
-            {{collection.courseNumber}}
+            {{collection.selectedNumber}}
         </td>
 		<td>
 			{{if collection.recommend==1}}
@@ -276,13 +276,15 @@
 			{{if collection.applyStatus==1}}
 			{{if collection.status==1}}
 			     <a href="javascript:;" onclick="confirmCollection(0,{{collection.id}},{{collection.courseId}})">下架</a>
-			     {{if collection.updateCompleted==2 }}
+			     {{if collection.courseNumber > collection.selectedNumber }}
                     <a href="javascript:;" onclick="addAlbum({{collection.id}},{{collection.courseId}},{{collection.multimediaType}})">添加</a>
                  {{/if}}      
             {{else}}
 			<a href="javascript:;" onclick="confirmCollection(1,{{collection.id}},{{collection.courseId}})">上架</a>
 			<a href="javascript:;" onclick="editCollection({{collection.id}})">编辑</a>
-			<a href="javascript:;" onclick="addAlbum({{collection.id}},{{collection.courseId}},{{collection.multimediaType}})">添加</a>
+            {{if collection.courseNumber > collection.selectedNumber }}
+                  <a href="javascript:;" onclick="addAlbum({{collection.id}},{{collection.courseId}},{{collection.multimediaType}})">添加</a>
+            {{/if}}  
 			{{/if}}
 			{{else if collection.applyStatus==2}}
 			<a href="javascript:;" onclick="editCollection({{collection.id}})">编辑</a>
@@ -1035,6 +1037,7 @@
 							<td>课程名称</td>
 							<td>价格</td>
 							<td>总集数</td>
+							<td>选集数</td>
 							<td>推荐</td>
 							<td>类型</td>
 							<td>审核状态</td>
