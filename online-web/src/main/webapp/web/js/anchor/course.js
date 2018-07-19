@@ -36,6 +36,13 @@ $(function(){
     })
 });
 
+//判断字段空值
+function isNotBlank(str) {
+    if (str == "" || str == null || str == undefined || str == "undefined" || str == "null") {
+        return false;
+    }
+    return true;
+}
 
   //渲染课程列表方法
     function getCourseList(){
@@ -850,6 +857,8 @@ function closeAlbum(){
 //增加这个课程中的
 function quicklyAddAlbumCourse(){
     
+	//
+	
 	var csArr = $("#select-add").val();
 	if(csArr ==null || csArr == undefined ||  csArr.length<=0){
 		alert("请选择课程");
@@ -1065,6 +1074,14 @@ function initCourse(multimediaType){
 var courseArr;
 function addCourse2Collection(){
     var csArr = $("#course_select").val();
+    
+    var courseNumer = $('.course_number').val();
+    if(csArr!=null && csArr!=undefined && csArr!="" && courseNumer!=null &&
+        courseNumer!=undefined && courseNumer!=""  && 
+        csArr.length > courseNumer){
+    	alert("选中的选集数大于总集数,请酌情更改!");
+    	return;
+    }
     courseArr = [];
     var k=1;
     for(var i in csArr){
@@ -1146,6 +1163,19 @@ function saveCollection(){
 	
     var collection = getCollectionData();
 
+//    collection.courseNumber = $.trim($('.course_number').val());
+//    collection.courseApplyInfos = courseArr;
+    
+    //var courseNumer = $('.course_number').val();
+    if(collection.courseApplyInfos!=null && collection.courseApplyInfos!="" && 
+       collection.courseApplyInfos!=undefined && 
+       collection.courseNumber!=null && collection.courseNumber!=undefined && 
+       collection.courseNumber!="" && 
+       collection.courseApplyInfos.length > collection.courseNumber){
+        alert("选中的选集数量大于总集数,请酌情更改!");
+        return;
+    }
+    
     //
     if(verifyCollection(collection)){
         if($("#collectionId").val()==null||$("#collectionId").val()==''){
@@ -1434,10 +1464,27 @@ function showPersonInf2(){
 
 function initCourseSelect(){
     var csArr=[];
+    
+    //添加 false
+    var  isAddOrUpdate= false;
+    if($("#collectionId").val()==null||$("#collectionId").val()==''){
+        isAddOrUpdate = true;
+    }else{
+        isAddOrUpdate = false;
+    }
+    
+    var courseNumer = $('.course_number').val();
+    if(isNotBlank(courseNumer) && isNotBlank(courseArr) &&
+        courseArr.length >= courseNumer && !isAddOrUpdate){
+        alert("此专辑已更新完毕(选集数等于总集数)！请酌情修改");
+        return;
+    }
+    
     if(courseArr==null)courseArr={};
     for(var i=0;i < courseArr.length;i++){
         csArr.push(courseArr[i].id);
     }
+    
     $('.selectpicker_collection').selectpicker('val',(csArr));
     $('.selectpicker_collection').selectpicker('refresh');
     $(".new_box").show();

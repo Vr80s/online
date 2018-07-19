@@ -61,9 +61,13 @@
         oc.`is_recommend` recommend,
         cai.`multimedia_type` multimediaType,
         cai.`status` applyStatus,
-        oc.`status` ,
+        oc.`status`,
         cai.`last_update_time` lastUpdateTime,
-        oc.id courseId
+        oc.id courseId,
+        if(cai.`status`=1,( SELECT  count(*) FROM  `oe_course` s_oc 
+           JOIN `collection_course` s_cc ON s_oc.id = s_cc.`course_id` 
+        WHERE s_cc.`collection_id` = oc.id ),0) as selectedNumber
+        
         FROM
         `course_apply_info` cai
         LEFT JOIN `oe_course` oc

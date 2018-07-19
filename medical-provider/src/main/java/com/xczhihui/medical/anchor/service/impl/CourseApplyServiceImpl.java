@@ -455,7 +455,6 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         String updateTime ="";
         List<Integer> list = collectionCourseApplyUpdateDateMapper.listDatesByCollectionId(collectionId);
         if(list.size()  >= 7) {
-            
             return XzStringUtils.COLLECTION_UPDATE_ALL;
         }else {
             updateTime = list.stream().map(DateUtil::getDayOfWeek).collect(Collectors.joining(""));
@@ -677,22 +676,21 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         if(courseApplyInfoVOs!=null && courseApplyInfos!=null && courseApplyInfoVOs.size() <= courseApplyInfos.size()) {
             return null;
         }
-//        for (CourseApplyInfoVO courseApplyInfoVO : courseApplyInfoVOs) {
-//            for (CourseApplyInfo courseApplyInfo : courseApplyInfos) {
-//                if(courseApplyInfoVO.getId().equals(courseApplyInfo.getId())) {
-//                    courseApplyInfoVOs.remove(courseApplyInfoVO);
-//                    break;//结束当前循环
-//                }
-//            }
-//        }
-        Iterator<CourseApplyInfoVO> it = courseApplyInfoVOs.iterator();
-        while(it.hasNext()){
-            CourseApplyInfoVO x = it.next();
-            for (CourseApplyInfo courseApplyInfo : courseApplyInfos) {
-              if(x.getId().equals(courseApplyInfo.getId())) {
-                  it.remove();
-              }
-           }
+        try {
+            Iterator<CourseApplyInfoVO> it = courseApplyInfoVOs.iterator();
+            while(it.hasNext()){
+                CourseApplyInfoVO x = it.next();
+                for (CourseApplyInfo courseApplyInfo : courseApplyInfos) {
+                  if(x.getId().equals(courseApplyInfo.getId())) {
+                      if(it!=null) {
+                          it.remove();  
+                      }
+                  }
+               }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
         return courseApplyInfoVOs;
     }

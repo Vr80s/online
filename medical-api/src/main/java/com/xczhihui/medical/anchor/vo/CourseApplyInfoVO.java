@@ -146,6 +146,18 @@ public class CourseApplyInfoVO implements Serializable {
     private Integer applyStatus;
 
     private Integer courseTeachingCount;
+    
+    /**
+     * 如果是专辑的话,判断更新是否完成
+     *  1 完成  ， 2 未完成
+     */
+    private Integer updateCompleted;
+    
+    /**
+     * 如果是专辑的话，此专辑的选集数
+     */
+    private Integer selectedNumber;
+    
 
     public Integer getCourseTeachingCount() {
         return courseTeachingCount;
@@ -445,6 +457,27 @@ public class CourseApplyInfoVO implements Serializable {
 
     public void setCourseId(Integer courseId) {
         this.courseId = courseId;
+    }
+    
+
+    public Integer getUpdateCompleted() {
+        return updateCompleted;
+    }
+
+    public void setUpdateCompleted(Integer updateCompleted) {
+        if(this.getCourseNumber()!=null && this.getCourseNumber().equals(this.getSelectedNumber())) {
+            this.updateCompleted = 1;
+        }else {
+            this.updateCompleted = 2;
+        }
+    }
+
+    public Integer getSelectedNumber() {
+        return selectedNumber;
+    }
+
+    public void setSelectedNumber(Integer selectedNumber) {
+        this.selectedNumber = selectedNumber;
     }
 
     @Override
