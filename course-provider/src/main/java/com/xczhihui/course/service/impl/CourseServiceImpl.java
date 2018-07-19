@@ -41,7 +41,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     
     @Autowired
     private CriticizeMapper  criticizeMapper;
-    
+
     @Autowired
     private FocusMapper focusMapper;
 
@@ -372,8 +372,8 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     }
 
     @Override
-    public boolean selectQualification4TeachingCourse(String accountId, Integer courseId) {
-        int count = iCourseMapper.selectQualification4TeachingCourse(accountId, courseId);
+    public boolean selectQualification4TeachingCourse(String userId, Integer courseId) {
+        int count = iCourseMapper.selectQualification4TeachingCourse(userId, courseId);
         return count>0;
     }
 

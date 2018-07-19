@@ -270,7 +270,7 @@ public interface ICourseService {
      */
     List<CourseLecturVo> selectTeachingCoursesByUserId(Page<CourseLecturVo> page, String lecturerId, String userId);
 
-    boolean selectQualification4TeachingCourse(String accountId, Integer courseId);
+    boolean selectQualification4TeachingCourse(String userId, Integer courseId);
 
 
     /**
