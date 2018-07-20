@@ -41,7 +41,7 @@ public class ApprenticeController extends AbstractController {
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     public ResponseObject get(@PathVariable Integer id) {
-        return ResponseObject.newSuccessResponseObject(enrolService.findById(id));
+        return ResponseObject.newSuccessResponseObject(enrolService.findEntryInformationById(id));
     }
 
     @RequestMapping(value = "settings", method = RequestMethod.GET)
