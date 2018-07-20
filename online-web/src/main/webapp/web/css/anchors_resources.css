@@ -1130,12 +1130,22 @@ outline: none;
 
 .comment-appointment .appointment-right{
 	width: 680px;
+	max-height: 380px;
+	overflow-y: auto;
+}    
+.comment-appointment .appointment-right .appointment-question{
+	word-wrap: break-word;
+	margin-bottom: 0;
 }
-.comment-appointment .appointment-right ul li{
+.comment-appointment .appointment-right .appointment-tip{
+	color: #F97B49;
+	margin: 20px 0 0;
+}
+/*.comment-appointment .appointment-right ul li{
 	list-style: none;
 	float: left;
 	margin-right: 5px;
-}
+}*/
 .appointment-right .appointment-name{
 	color: #188eee;
 	cursor: pointer;

@@ -992,7 +992,7 @@
 											<span class="edit-range-btn" data-index="{{i}}">编辑</span>
 											<span class="appointment-delete" data-id="{{item.id}}" data-index="{{i}}">删除</span>
 											{{else if item.status==1}}
-											<span class="to-examine">审核</span>
+											<span class="to-examine" data-index="{{i}}">审核</span>
 											<span class="appointment-delete" data-id="{{item.id}}" data-index="{{i}}">删除</span>
 											{{else if item.status==2}}
 											<span class="see-inf-modal">查看</span>
@@ -1044,45 +1044,42 @@
 						</div>
 						<!--预约详情-->
 						<div class="appointment-details hide">
+							<input type="hidden" id="save-appointment-id" />
 							<!--预约人-->
 							<div class="comment-appointment">
 								<span class="appointment-left z">预约时间</span>
 								<div class="appointment-right z">
-									<ul>
-										<li>2018年5月03日</li>
-										<li>星期三</li>
-										<li>10:00-10:03</li>
-									</ul>
+									<span class="appointment-date"></span>
 								</div>
 							</div>
 							<!--预约详情-->
 							<div class="comment-appointment">
 								<span class="appointment-left z">预约人</span>
 								<div class="appointment-right z">
-									<span class="appointment-name">王佳怡</span>
+									<span class="appointment-name"></span>
 								</div>
 							</div>
 							<!--预约详情-->
 							<div class="comment-appointment">
 								<span class="appointment-left z">预留电话</span>
 								<div class="appointment-right z">										
-									<span>12326548659</span>
+									<span class="appointment-phone-number">12326548659</span>
 								</div>
 							</div>
 							<!--预约详情-->
 							<div class="comment-appointment">
 								<span class="appointment-left z">诊疗问题</span>
 								<div class="appointment-right z">										
-									预留电话预留电话预留电话
-									预留电话预留电话预留电话
+									<p class="appointment-question"></p>
 								</div>
 							</div>
 							<!--接受-拒绝-->
 							<div class="comment-appointment">
 								<span class="appointment-left z" style="height: 2px;"></span>
 								<div class="appointment-right z">										
-									<button type="button" class="accept-appointment">接受</button>
-									<button type="button" class="refuse-appointment">不接受</button>
+									<button type="button" class="accept-appointment" data-status="true">接受</button>
+									<button type="button" class="refuse-appointment" data-status="false">不接受</button>
+									<p class="appointment-tip">接受预约后，会发送预约成功短信给预约诊疗的弟子，请在预约时间内联系对方进行远程诊疗</p>
 								</div>
 							</div>
 						</div>
