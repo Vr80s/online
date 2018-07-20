@@ -35,6 +35,8 @@ public class TreatmentVO implements Serializable {
 
     private String question;
 
+    private String week;
+
     @Override
     public String toString() {
         return "TreatmentVO{" +
@@ -134,5 +136,13 @@ public class TreatmentVO implements Serializable {
 
     public void setQuestion(String question) {
         this.question = question;
+    }
+
+    public String getWeek() {
+        return week;
+    }
+
+    public void setWeek(String week) {
+        this.week = week;
     }
 }
