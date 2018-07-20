@@ -194,6 +194,7 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
     public Page<TreatmentVO> list(String doctorId, int page, int size) {
         Page<TreatmentVO> treatmentVOPage = new Page<>(page, size);
         List<TreatmentVO> treatmentVOS = remoteTreatmentMapper.listPageByDoctorId(doctorId, treatmentVOPage);
+        treatmentVOS.forEach(treatmentVO -> treatmentVO.setWeek(DateUtil.getDayOfWeek(treatmentVO.getDate())));
         return treatmentVOPage.setRecords(treatmentVOS);
     }
 }
