@@ -75,7 +75,7 @@ $(function(){
 
     // 点击提交表单按钮
     $(".handler_btn").click(function(){
-        var id=$(".handler_time_span").attr("data-ids"); //预约时间
+        var Id=$(".handler_time_span").attr("data-ids"); //预约时间
         var name = $(".booking_person_span").html(); //预约人
         var tel = $(".handler_tel_put").val(); //预留电话
         if (!(/^1[346578]\d{9}$/.test(tel))) {
@@ -91,7 +91,7 @@ $(function(){
         }
 
         requestService("/doctor/treatment/appointmentInfo",{
-            treatmentId:id,
+            treatmentId:Id,
             name:name,
             tel:tel,
             question:question
@@ -99,11 +99,13 @@ $(function(){
             if (data.success == true) {    
                 $(".prosperity_popout").show();    //申请完成
             }else{
-                if (data.resultObject.code==5004) {
+
+                if (data.resultObject.code == 5004) {
                     $(".failure_popout").show();   //已经预约
                 }else{
                     jqtoast(data.errorMessage);
                 };
+                
             }
         });
 
