@@ -135,10 +135,10 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
     public void updateStatus(Integer id, boolean status) {
         synchronized (LOCK) {
             Treatment treatment = remoteTreatmentMapper.selectById(id);
-            Integer infoId = treatment.getInfoId();
             if (treatment == null || (treatment.getDeleted() != null && treatment.getDeleted())) {
                 throw new MedicalException("预约时间已被删除");
             }
+            Integer infoId = treatment.getInfoId();
             if (treatment.getStatus() != AppointmentStatus.WAIT_APPLY.getVal()) {
                 throw new MedicalException("当前状态不支持审核");
             }
@@ -148,16 +148,15 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
                 treatment.setStatus(AppointmentStatus.ORIGIN.getVal());
                 treatment.setInfoId(null);
             }
-            treatment.setInfoId(infoId);
             remoteTreatmentMapper.updateAllColumnById(treatment);
-            sendSms(treatment, status);
+            sendSms(treatment, status, infoId);
         }
     }
 
-    public void sendSms(Treatment treatment, boolean status) {
+    public void sendSms(Treatment treatment, boolean status, int infoId) {
         SimpleDateFormat yearMonthDayFormat = new SimpleDateFormat("yyyy年MM月dd日");
         SimpleDateFormat hourMinuteFormat = new SimpleDateFormat("HH时mm分");
-        TreatmentAppointmentInfo treatmentAppointmentInfo = remoteTreatmentAppointmentInfoMapper.selectById(treatment.getInfoId());
+        TreatmentAppointmentInfo treatmentAppointmentInfo = remoteTreatmentAppointmentInfoMapper.selectById(infoId);
         MedicalDoctorVO medicalDoctorVO = medicalDoctorBusinessService.findSimpleById(treatment.getDoctorId());
         Map<String, String> smsParams = new HashMap<>(4);
         String smsCode;
