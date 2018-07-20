@@ -20,6 +20,9 @@ import com.xczhihui.course.consts.MultiUrlHelper;
 @Service
 public class BannerServiceImpl extends OnlineBaseServiceImpl implements BannerService {
 
+    
+    
+    
     /**
      * 查询Banner全部列表
      *
@@ -41,6 +44,8 @@ public class BannerServiceImpl extends OnlineBaseServiceImpl implements BannerSe
 
     @Override
     public void updateClickCount(Integer id) {
+        
+        
         String sql = "update oe_banner2 set click_count=(if (click_count is null,1,click_count+1)) where id=?";
         dao.getNamedParameterJdbcTemplate().getJdbcOperations().update(sql, id);
 

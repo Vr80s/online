@@ -124,7 +124,7 @@
 <script type="text/javascript" src="/web/js/bootstrap.js"></script>
 <script type="text/javascript" src="/web/js/artTemplate.js"></script>
 <script type="text/javascript" src="/web/js/jquery.form.min.js"></script>
-<script src="/web/js/ajax.js" type="text/javascript" charset="utf-8"></script>
+<script src="/web/js/common/common.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" src="/web/js/helpers.js"></script>
 <script src="/web/js/html5.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" src="/web/js/jquery.dotdotdot.js"></script>

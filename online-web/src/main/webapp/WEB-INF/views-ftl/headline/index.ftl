@@ -25,7 +25,7 @@
     <script type="text/javascript" src="/web/js/artTemplate.js"></script>
     <script type="text/javascript" src="/web/js/jquery.SuperSlide.2.1.1.js"></script>
     <script src="/web/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
-    <script src="/web/js/ajax.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/web/js/common/common.js" type="text/javascript" charset="utf-8"></script>
     <script src="/web/js/header-top.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body>
@@ -48,14 +48,14 @@
         <#list banners as banner>
             <#if banner_index==0>
                 <li style="z-index: 2">
-                    <a href="${banner.imgHref}" target="_blank"
+                    <a href="${banner.imgHref}" target="_blank" data-indexId = "${banner.id}"
                        style="background:url(${banner.imgPath})no-repeat top center">
                         <div class="image-overlay"></div>
                     </a>
                 </li>
             <#else >
                 <li>
-                    <a href="${banner.imgHref}" target="_blank"
+                    <a href="${banner.imgHref}" target="_blank" data-indexId = "${banner.id}"
                        style="background:url(${banner.imgPath})no-repeat top center">
                         <div class="image-overlay"></div>
                     </a>

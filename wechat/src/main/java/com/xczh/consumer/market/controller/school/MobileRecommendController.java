@@ -18,6 +18,7 @@ import com.xczh.consumer.market.interceptor.HeaderInterceptor;
 import com.xczh.consumer.market.utils.APPUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.enums.*;
+import com.xczhihui.course.consts.MultiUrlHelper;
 import com.xczhihui.course.model.MobileBanner;
 import com.xczhihui.course.model.MobileProject;
 import com.xczhihui.course.service.ICourseSolrService;
@@ -157,8 +158,19 @@ public class MobileRecommendController {
      */
     @RequestMapping("clickBanner")
     @ResponseBody
-    public ResponseObject clickBanner(@RequestParam("id") String id) throws Exception {
-        mobileBannerService.addClickNum(id);
-        return ResponseObject.newSuccessResponseObject("点击量+1");
+    public ResponseObject clickBanner(HttpServletRequest request,@RequestParam("id") String id,
+            @RequestParam(value="clickSource",required=false) Integer clickSource,
+            @RequestParam(value="dataSource",required=false) Integer dataSource) throws Exception {
+
+        if(!APPUtil.getMobileSource(request).equals(MultiUrlHelper.URL_TYPE_APP)) {
+            clickSource = BannerClickSourceType.H5.getCode();
+        }
+        Integer count = mobileBannerService.addClickNum(id,clickSource,dataSource);
+        if(count>0) {
+            return ResponseObject.newSuccessResponseObject("增加成功");
+        }else {
+            LOGGER.error("banner增加失败啦！！！  id:"+id+",clickSource:"+clickSource+",dataSource："+dataSource);
+            return ResponseObject.newSuccessResponseObject("增加失败");
+        }
     }
 }

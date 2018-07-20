@@ -813,16 +813,16 @@ function createDoctorIntroduction(introduction){
         var hospitalData=introduction.hospital;
         if (isNotBlank(hospitalData)) {
             $('.message_referral_main_time').html(template('message_referral_id', {items: hospitalData}));
-            if (!isNotBlank(hospitalData.name)) {
+            if (isBlank(hospitalData.name)) {
                 $(".clinic").addClass("hide");
             }
-            if (!isNotBlank(hospitalData.tel)) {
+            if (isBlank(hospitalData.tel)) {
                 $(".tel").addClass("hide");
             }
-            if (!isNotBlank(hospitalData.detailedAddress)) {
+            if (isBlank(hospitalData.detailedAddress)) {
                 $(".house_address").addClass("hide");
             }   
-            if(!isNotBlank(introduction.workTime)){
+            if(isBlank(introduction.workTime)){
                 $(".table").hide();
             }else{
                 var workTime = introduction.workTime; //这是一字符串 
@@ -858,7 +858,7 @@ function apprenticeInfo() {
             // 获取判断是否提交申请弟子信息  师承底部判断是否提交
             $('.disciple_application_state').html(template('disciple_application_state_id', {items: data.resultObject}));
             // 判断--老师解惑--时隐藏
-            if (!isNotBlank(data.resultObject.questions)) {
+            if (isBlank(data.resultObject.questions)) {
                 $(".QA_main").hide();
             } else{
                 $(".QA_main").show();
@@ -866,7 +866,7 @@ function apprenticeInfo() {
                 $('.QA_main').html(template('QA_main_id', {items: data.resultObject.questions}));
             }
             // 远程诊疗
-            if (!isNotBlank(data.resultObject.treatments.indexDateText)) {
+            if (isBlank(data.resultObject.treatments.indexDateText)) {
                 $(".therapy").show();
                 // 预约
                 $('.subscribe_id').html(template('subscribe_id', {items: data.resultObject.treatments}));
@@ -876,7 +876,7 @@ function apprenticeInfo() {
             }
             // $('.subscribe_id').html(template('subscribe_id', {items: data.resultObject.treatments}));
             // 跟师直播--师承
-            if (!isNotBlank(data.resultObject.apprenticeCourses)) {
+            if (isBlank(data.resultObject.apprenticeCourses)) {
                 $(".wrap_vedio_main").hide();
             } else{
                 $(".wrap_vedio_main").show();
@@ -885,7 +885,7 @@ function apprenticeInfo() {
                 // $(".more_people_time").html(data.resultObject.apprenticeCourses.startTime);
             }
             // 跟师直播--直播间
-            if (!isNotBlank(data.resultObject.apprenticeCourses)) {
+            if (isBlank(data.resultObject.apprenticeCourses)) {
                 $(".wrap_vedio_main").hide();
             } else{
                 $(".wrap_vedio_main").show();
@@ -894,7 +894,7 @@ function apprenticeInfo() {
                 // $(".more_people_time").html(data.resultObject.apprenticeCourses.startTime);
             }
             // 弟子头像--显示
-            if (!isNotBlank(data.resultObject.apprentices)) {
+            if (isBlank(data.resultObject.apprentices)) {
                 // alert(11);
                 $(".disciple_main").hide();
             } else{

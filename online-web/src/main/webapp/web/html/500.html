@@ -82,7 +82,7 @@
 <script src="/web/js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" src="/web/js/artTemplate.js"></script>
 <script src="/web/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
-<script src="/web/js/ajax.js" type="text/javascript" charset="utf-8"></script>
+<script src="/web/js/common/common.js" type="text/javascript" charset="utf-8"></script>
 <script src="/web/js/header.js?v=ipandatcm_1.3" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" src="/web/js/footer.js?v=ipandatcm_1.3"></script>	
 

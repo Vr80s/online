@@ -325,4 +325,10 @@ public class MobileBannerServiceImpl extends ServiceImpl<MobileBannerMapper, Mob
         return iMobileBannerMapper.listenCourseList(onlyFree);
     }
 
+    @Override
+    public Integer addClickNum(String id, Integer clickSource, Integer dataSource) {
+        
+        return  iMobileBannerMapper.addBannerClickNum(id,clickSource,dataSource);
+    }
+
 }

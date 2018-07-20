@@ -37,13 +37,20 @@ function getCurrentRelativeUrl() {
     return document.location.pathname + document.location.search + document.location.hash;
 }
 
-//判断字段空值
+//判断字段为非空值
 function isNotBlank(str) {
-    if (str == "" || str == null || str == undefined || str == "undefined" || str == "null") {
+    str = $.trim(str);
+    if (str == undefined || str == null || str == "" || str == "undefined" || str == "null") {
         return false;
     }
     return true;
 }
+
+//判断字段为空值
+function isBlank(str) {
+    return !isNotBlank(str);
+}
+
 
 /**
  * 截取url传递的参数
@@ -86,7 +93,7 @@ var domain = window.location.host;
  */
 function getServerHost() {
     var server_domain = sessionStorage.server_domain;
-    if (!isNotBlank(server_domain)) {
+    if (isBlank(server_domain)) {
         requestService("/xczh/common/getDomain", null, function (data) {
             if (data.success) {
                 sessionStorage.setItem("server_domain", data.resultObject);
@@ -96,7 +103,7 @@ function getServerHost() {
     } else {
         return server_domain;
     }
-    if (!isNotBlank(server_domain)) {
+    if (isBlank(server_domain)) {
         return "http://www.ipandatcm.com";
     }
     return server_domain;
@@ -600,7 +607,7 @@ function getFlagStatus() {
     var falg = USER_NORMAL;
     var user_cookie = cookie.get("_ipandatcm_user_");
     var third_party_cookie = cookie.get("_third_ipandatcm_user_");
-    if (!isNotBlank(user_cookie)) {
+    if (isBlank(user_cookie)) {
         falg = USER_UN_LOGIN;
         if (isNotBlank(third_party_cookie)) {
             falg = USER_UN_BIND;
@@ -665,7 +672,7 @@ function locationToOriginPage() {
  * 这个方法保证用户id一直存在
  */
 var userId = localStorage.getItem("userId");
-if (!isNotBlank(userId)) {
+if (isBlank(userId)) {
     var user_cookie = cookie.get("_ipandatcm_user_");
     if (isNotBlank(user_cookie)) {//说明已经登录了
         /* 如果是微信公众号进入页面时，没有给他返回token。所以这里他在请求下呢  */

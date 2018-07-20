@@ -86,7 +86,7 @@ $(function(){
         }
 
         var question = $(".textarea").val(); //请简单描述您的问题
-        if (!isNotBlank(question)) {
+        if (isBlank(question)) {
 
             jqtoast("诊疗问题不能为空");
             return false;

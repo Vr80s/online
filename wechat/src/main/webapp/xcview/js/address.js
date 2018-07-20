@@ -85,7 +85,7 @@
 	$("#address_save").click(function(){
 		var consignee = $("#consignee").val();
 		var consigneeLength = consignee.length;
-		if(!isNotBlank(consignee) && (consigneeLength<3 || consigneeLength >20) ){
+		if(isBlank(consignee) && (consigneeLength<3 || consigneeLength >20) ){
 //			$("#errorMsg").html("<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>请填写收货人</div></div></div>");
 			/*$("#errorMsg").show();*/
 //			setTimeout(function(){$(".vanish").hide();},900000);
@@ -96,7 +96,7 @@
 		$("#vanishs").hide();
 		
 		var phone =$("#phone").val();
-		if (!isNotBlank(phone)) {
+		if (isBlank(phone)) {
 			/*$("#errorMsg").html("<div class='vanish0'><div class='vanish0_bg'></div><div class='vanish0_cen'><div class='vanish0_size'>请填写手机号</div></div></div>");
 			$("#errorMsg").show();
 			setTimeout(function(){$(".vanish0").hide();},1500);*/
@@ -112,7 +112,7 @@
 		}
 		
 		var cityP =$("#cityP").text();
-		if(!isNotBlank(cityP) || cityP == "请选择"){
+		if(isBlank(cityP) || cityP == "请选择"){
 //			$("#errorMsg").html("<div class='vanish3'><div class='vanish3_bg'></div><div class='vanish3_cen'><div class='vanish3_size'>请选择省市区</div></div></div>");
 //			$("#errorMsg").show();
 //			setTimeout(function(){$(".vanish3").hide();},1500);
@@ -121,7 +121,7 @@
 		}
 		
 		var detailed_address =$("#detailed_address").val();
-		if(!isNotBlank(detailed_address) || (detailed_address.length >50)){
+		if(isBlank(detailed_address) || (detailed_address.length >50)){
 			/*$("#errorMsg").html("<div class='vanish2'><div class='vanish2_bg'></div><div class='vanish2_cen'><div class='vanish2_size'>收货人不能为空,详细地址不能大于50</div></div></div>");
 			$("#errorMsg").show();
 			setTimeout(function(){$(".vanish2").hide();},1500);*/

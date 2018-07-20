@@ -84,6 +84,15 @@ function init() {
 
 init();
 
+
+$("#slider a").on("click",function(){
+    var indexId=$(this).attr("data-indexId");
+    RequestService("/banner/updateClickCount","POST",{id:indexId},function(){
+
+    })
+})
+
+
 function rTips(errorMessage) {
 	//  $(".rTips").text(errorMessage);
 	$(".rTips").css("display", "block");
