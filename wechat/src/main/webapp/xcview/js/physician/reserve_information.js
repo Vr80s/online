@@ -21,6 +21,9 @@ $(function(){
             //var zhengliao1 = $(".zhengliao_"+zhengliaoid).find('span').text();// 时间段
             // alert("时间段："+zhengliao);
             // alert("时间段："+zhengliao1);
+            
+            // zhengliao.click();
+
             $(".handler_time span").html(zhengliao);
             $(".time_popout_main_ul li").click(function(){
                 var id=$(this).find("span").attr("data-ids");
@@ -34,6 +37,7 @@ $(function(){
                 $(".time_popout").hide();
             });
 
+            $(".zhengliao_"+zhengliaoid).click();
             // 循环li
             /*var aBtn=$('.time_popout_main ul li');
             for(i=0;i<aBtn.length;i++){
@@ -75,13 +79,14 @@ $(function(){
 
     // 点击提交表单按钮
     $(".handler_btn").click(function(){
-        var Id=$(".handler_time_span").attr("data-ids"); //预约时间
+        var Id=$(".handler_time_span").attr("data-id"); //预约时间
         var name = $(".booking_person_span").html(); //预约人
         var tel = $(".handler_tel_put").val(); //预留电话
         if (!(/^1[346578]\d{9}$/.test(tel))) {
             jqtoast("请输入正确的手机号");
             return false;
         }
+        alert(Id);
 
         var question = $(".textarea").val(); //请简单描述您的问题
         if (isBlank(question)) {
@@ -97,15 +102,23 @@ $(function(){
             question:question
         },function (data) {
             if (data.success == true) {    
+
+                /*if (data.resultObject.code == 5004) {
+                    $(".failure_popout").show();   //已经预约
+                }else{
+                    $(".prosperity_popout").show();    //申请完成
+                };*/
+
+
                 $(".prosperity_popout").show();    //申请完成
             }else{
 
-                if (data.resultObject.code == 5004) {
+                if (data.code == 5004) {
                     $(".failure_popout").show();   //已经预约
                 }else{
                     jqtoast(data.errorMessage);
                 };
-                
+                // jqtoast(data.errorMessage);
             }
         });
 
