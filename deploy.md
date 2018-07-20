@@ -87,8 +87,8 @@ dev-2.1.0
 
     处理banner中老的数据，登陆后台管理后，使用postman 以post方式调用:
     测试环境:
-            http://test-www.ixincheng.com:28080/operate/mobileBanner/clean
-            http://test-www.ixincheng.com:28080/operate/banner2/updateOldData
+            http://test-www.xczhihui.com:28080/operate/mobileBanner/clean
+            http://test-www.xczhihui.com:28080/operate/banner2/updateOldData
 
     正式环境环境:
                 http://www.ipandatcm.com:28080/operate/mobileBanner/clean
