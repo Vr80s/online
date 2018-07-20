@@ -465,11 +465,13 @@
 				<div class="message_name">
 					<div class="name">{{items.lecturerInfo.name}}</div>
 					<div class="name" style="font-size: 0.24rem;color: #999999;margin-top: 0.06rem;">{{items.lecturerInfo.title}}</div>
+					{{if items.apprentice}}
 					<div class="message_characteristic">我的师傅</div>
+					{{/if}}
 					<div class="both"></div>
 				</div>
 				<div class="message_face">
-					<span class="disciple"><span class="disciple_fize">弟子</span><span style="margin-top: 0.015rem;">4</span></span>
+					<span class="disciple"><span class="disciple_fize">弟子</span><span style="margin-top: 0.015rem;">{{items.apprenticeCount}}</span></span>
 					{{if items.followHidden == false}}
 					<div class="fans" style="float:left;"><div class="fans_size">粉丝</div><div id="fansCount">{{items.fansCount}}</div></div>
 					{{/if}}
@@ -1298,7 +1300,11 @@
 		<div class="disciple_details">
 			<div class="disciple_title">
 				<span class="border"></span>
-				<span style="font-size: 0.28rem;">弟子：<span class="disciple_number">0</span>人</span>
+				<span style="font-size: 0.28rem;">弟子：<span class="disciple_number">
+					<script type="text/html" id="disciple_number_id">
+					<span>{{items.apprenticeCount}}</span>
+					</script>
+				</span>人</span>
 				<div class="both"></div>
 			</div>
 			<div class="disciple_main">
