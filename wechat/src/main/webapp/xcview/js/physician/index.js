@@ -49,20 +49,43 @@ window.onload = function(){
                 }
             });
 
-            //点击轮播
-            /*function sowingDetails(target) {
-                if(target != null && target != ""){
+            $(".swiper-banner-btn").click(function () {
+                var data_id = $(this).find("img").attr("data_id");
+                //增加banner的点击量
+                clickBanner(data_id);
+                //页面跳转
+                // var data_url = $(this).find("img").attr("data_url");
+                var data_target = $(this).find("img").attr('data_target');
+
+                bannerJump(data_target);
+            })
+
+            // 点击banner跳转
+            function bannerJump(target) {
+                if (!target) {
+                    return ;
+                } else {
+                    // 定义跳转路径--共用
+                    if(document.location.host.indexOf('dev.ixincheng.com')!=-1){
+                        target = "/apis"+target;
+                    }
+
                     location.href = target;
                 }
-            }*/
+            }
 
 
         }
     });
 
+    //增加点击数banner
+    function clickBanner(id) {
+        requestService("/xczh/recommend/clickBanner", {
+            id: id
+        }, function (data) {
 
-
-
+        });
+    }
 
 };
 

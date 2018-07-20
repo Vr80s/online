@@ -113,10 +113,10 @@
 		<script type="text/html" id="top_details">
 		<!-- 头部结束 -->
 		<div class="swiper-container top_swiper">
-			<div class="swiper-wrapper">
+			<div class="swiper-wrapper swiper-banner-btn">
 				{{each items as item i}}
 				<div class="swiper-slide pic01" onclick="{{item.target}}">
-					<img src="{{item.imgPath}}" alt="" />
+					<img src="{{item.imgPath}}" alt="" data_target="{{item.target}}" data_id="{{item.id}}" />
 				</div>
 				{{/each}}
 			</div>
