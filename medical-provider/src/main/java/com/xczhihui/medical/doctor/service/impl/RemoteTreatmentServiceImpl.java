@@ -2,19 +2,25 @@ package com.xczhihui.medical.doctor.service.impl;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.common.util.DateUtil;
+import com.xczhihui.common.util.SmsUtil;
 import com.xczhihui.common.util.enums.AppointmentStatus;
 import com.xczhihui.medical.doctor.mapper.RemoteTreatmentAppointmentInfoMapper;
 import com.xczhihui.medical.doctor.mapper.RemoteTreatmentMapper;
 import com.xczhihui.medical.doctor.model.Treatment;
 import com.xczhihui.medical.doctor.model.TreatmentAppointmentInfo;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.service.IRemoteTreatmentService;
+import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 import com.xczhihui.medical.doctor.vo.TreatmentVO;
 import com.xczhihui.medical.exception.MedicalException;
 
@@ -26,10 +32,17 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
 
     private static final Object LOCK = new Object();
 
+    @Value("${online.treatment.apply.success.sms.code}")
+    private String treatmentApplySuccessCode;
+    @Value("${online.treatment.apply.fail.sms.code}")
+    private String treatmentApplyFailCode;
+
     @Autowired
     private RemoteTreatmentMapper remoteTreatmentMapper;
     @Autowired
     private RemoteTreatmentAppointmentInfoMapper remoteTreatmentAppointmentInfoMapper;
+    @Autowired
+    private IMedicalDoctorBusinessService medicalDoctorBusinessService;
 
     @Override
     public void save(Treatment treatment) {
@@ -130,13 +143,35 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
             }
             if (status) {
                 treatment.setStatus(AppointmentStatus.APPOINTMENT_SUCCESS.getVal());
-                //TODO send sms
             } else {
                 treatment.setStatus(AppointmentStatus.ORIGIN.getVal());
                 treatment.setInfoId(null);
             }
             remoteTreatmentMapper.updateAllColumnById(treatment);
+            sendSms(treatment, status);
         }
+    }
+
+    public void sendSms(Treatment treatment, boolean status) {
+        SimpleDateFormat yearMonthDayFormat = new SimpleDateFormat("yyyy年MM月dd日");
+        SimpleDateFormat hourMinuteFormat = new SimpleDateFormat("HH时mm分");
+        TreatmentAppointmentInfo treatmentAppointmentInfo = remoteTreatmentAppointmentInfoMapper.selectById(treatment.getInfoId());
+        MedicalDoctorVO medicalDoctorVO = medicalDoctorBusinessService.findSimpleById(treatment.getDoctorId());
+        Map<String, String> smsParams = new HashMap<>(4);
+        String smsCode;
+        if (status) {
+            smsParams.put("name1", medicalDoctorVO.getName());
+            smsParams.put("name2", medicalDoctorVO.getName());
+            smsParams.put("startTime", yearMonthDayFormat.format(treatment.getDate()) + hourMinuteFormat.format(treatment.getStartTime()));
+            smsParams.put("endTime", hourMinuteFormat.format(treatment.getEndTime()));
+            smsCode = treatmentApplySuccessCode;
+        } else {
+            smsParams.put("name", medicalDoctorVO.getName());
+            smsParams.put("startTime", yearMonthDayFormat.format(treatment.getDate()) + hourMinuteFormat.format(treatment.getStartTime()));
+            smsParams.put("endTime", hourMinuteFormat.format(treatment.getEndTime()));
+            smsCode = treatmentApplyFailCode;
+        }
+        SmsUtil.sendSMS(smsCode, smsParams, treatmentAppointmentInfo.getTel());
     }
 
     @Override

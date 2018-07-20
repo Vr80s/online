@@ -137,7 +137,7 @@ p{
 	color: #333333;
 	float: left;
 	margin-right: 0.2rem;
-	 max-width: 1.5rem;
+	max-width: 1.2rem;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -2575,6 +2575,7 @@ margin-top: 0.015rem;
     position: fixed;
     top: 0;
     left: 0;
+    z-index: 1;
     display: none;
 }
 .learn_tips_bg{
@@ -2629,7 +2630,268 @@ margin-top: 0.015rem;
 	background: #00BC12;
 	border-radius: 8px;
 }
+
+/*审核中*/
+.learn_tips_audit{
+	width: 7.5rem;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    display: none;
+}
+.learn_tips_audit_bg{
+	position: fixed;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    opacity: 0.5;
+    z-index: 999999991;
+    top: 0;
+    left: 0;
+}
+.learn_tips_audit_main{
+	width: 5.4rem;
+    height: 3.27rem;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -1.635rem;
+    margin-left: -2.7rem;
+    background: #f4f4f4;
+    z-index: 999999999;
+    border-radius: 6px;
+}
+.learn_tips_audit_close{
+	font-size: 0.4rem;
+    color: #999;
+    text-align: right;
+    padding-right: 0.2rem;
+    height: 0.5rem;
+}
+.learn_tips_audit_title{
+	font-size: 0.28rem;
+	color: #333333;
+	text-align: center;
+}
+.learn_tips_audit_cen{
+	width: 4.36rem;
+	font-size: 0.28rem;
+	color: #333333;
+	margin: 0 auto;
+	margin-bottom: 0.3rem;
+}
+.learn_tips_audit_submit{
+	width: 2.9rem;
+	height: 0.72rem;
+	line-height: 0.72rem;
+	font-size: 0.3rem;
+	color: #FFFFFF;
+	text-align: center;
+	margin: 0 auto;
+	background: #DEDEDE;
+	border-radius: 8px;
+}
+
+/*部分*/
+.learn_tips_part{
+	width: 7.5rem;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    display: none;
+}
+.learn_tips_part_bg{
+	position: fixed;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    opacity: 0.5;
+    z-index: 999999991;
+    top: 0;
+    left: 0;
+}
+.learn_tips_part_main{
+	width: 5.4rem;
+    height: 2.73rem;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -1.635rem;
+    margin-left: -2.7rem;
+    background: #f4f4f4;
+    z-index: 999999999;
+    border-radius: 6px;
+}
+.learn_tips_part_close{
+	font-size: 0.4rem;
+    color: #999;
+    text-align: right;
+    padding-right: 0.2rem;
+    height: 0.5rem;
+}
+.learn_tips_part_title{
+	font-size: 0.32rem;
+    color: #333333;
+    text-align: center;
+    margin-top: 0.4rem;
+    margin-bottom: 0.2rem;
+    font-weight: 800;
+}
+.learn_tips_part_cen{
+	/*width: 4.36rem;*/
+	text-align: center;
+	font-size: 0.28rem;
+	color: #333333;
+	margin: 0 auto;
+	margin-bottom: 0.3rem;
+}
+.learn_tips_part_submit{
+	height: 0.85rem;
+    line-height: 0.85rem;
+    font-size: 0.3rem;
+    color: #00bc12;
+    text-align: center;
+    margin: 0 auto;
+    border-top: 1px solid #D8DDE6;
+    margin-top: 0.2rem;
+}
 /*师承课程提示结束*/
+
+
+
+
+
+/*预约远程诊疗开始*/
+.order_tips{
+	width: 7.5rem;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    display: none;
+}
+.order_tips_bg{
+	position: fixed;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    opacity: 0.5;
+    z-index: 999999991;
+    top: 0;
+    left: 0;
+}
+.order_tips_main{
+	width: 5.4rem;
+    height: 3.27rem;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -1.635rem;
+    margin-left: -2.7rem;
+    background: #f4f4f4;
+    z-index: 999999999;
+    border-radius: 6px;
+}
+.order_tips_close{
+	font-size: 0.4rem;
+    color: #999;
+    text-align: right;
+    padding-right: 0.2rem;
+    height: 0.5rem;
+}
+.order_tips_title{
+	font-size: 0.28rem;
+	color: #333333;
+	text-align: center;
+}
+.order_tips_cen{
+	width: 4.36rem;
+	font-size: 0.28rem;
+	color: #333333;
+	margin: 0 auto;
+	margin-bottom: 0.3rem;
+}
+.order_tips_submit{
+	width: 2.9rem;
+	height: 0.72rem;
+	line-height: 0.72rem;
+	font-size: 0.3rem;
+	color: #FFFFFF;
+	text-align: center;
+	margin: 0 auto;
+	background: #00BC12;
+	border-radius: 8px;
+}
+/*预约远程诊疗结束*/
+
+/*预约远程诊疗开始*/
+.order_tips_no{
+	width: 7.5rem;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    display: none;
+}
+.order_tips_no_bg{
+	position: fixed;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    opacity: 0.5;
+    z-index: 999999991;
+    top: 0;
+    left: 0;
+}
+.order_tips_no_main{
+	width: 5.4rem;
+    height: 3.27rem;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -1.635rem;
+    margin-left: -2.7rem;
+    background: #f4f4f4;
+    z-index: 999999999;
+    border-radius: 6px;
+}
+.order_tips_no_close{
+	font-size: 0.4rem;
+    color: #999;
+    text-align: right;
+    padding-right: 0.2rem;
+    height: 0.5rem;
+}
+.order_tips_no_title{
+	font-size: 0.28rem;
+	color: #333333;
+	text-align: center;
+}
+.order_tips_no_cen{
+	width: 4.36rem;
+	font-size: 0.28rem;
+	color: #333333;
+	margin: 0 auto;
+	margin-bottom: 0.3rem;
+}
+.order_tips_no_submit{
+	width: 2.9rem;
+	height: 0.72rem;
+	line-height: 0.72rem;
+	font-size: 0.3rem;
+	color: #FFFFFF;
+	text-align: center;
+	margin: 0 auto;
+	background: #DEDEDE;
+	border-radius: 8px;
+}
+/*预约远程诊疗结束*/
 
 
 

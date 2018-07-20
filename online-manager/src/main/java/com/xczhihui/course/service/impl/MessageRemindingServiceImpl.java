@@ -161,10 +161,17 @@ public class MessageRemindingServiceImpl implements MessageRemindingService {
                 Map<String, String> params = new HashMap<>(1);
                 params.put("courseName", courseName);
                 String commonContent = MessageFormat.format(WEB_COLLECTION_COURSE_REMIND, courseName, dateStr);
+
+                Map<String, String> weixinParams = new HashMap<>(4);
+                weixinParams.put("first", TextStyleUtil.clearStyle(commonContent));
+                weixinParams.put("keyword1", courseName);
+                weixinParams.put("keyword2", TimeUtil.getYearMonthDayHHmm(course.getStartTime()));
+                weixinParams.put("remark", "");
                 BaseMessage baseMessage = new BaseMessage.Builder(MessageTypeEnum.COURSE.getVal())
                         .buildWeb(commonContent)
                         .buildAppPush(MessageFormat.format(APP_PUSH_COLLECTION_COURSE_REMIND, courseName, dateStr))
                         .buildSms(sendCourseUpdateRemindCode, params)
+                        .buildWeixin(weixinTemplateMessageRemindCode, weixinParams)
                         .detailId(String.valueOf(course.getId()))
                         .build(course.getUserLecturerId(), RouteTypeEnum.COLLECTION_COURSE_LIST_ONLY_WEB, null);
                 commonMessageService.saveMessage(baseMessage);

@@ -48,7 +48,7 @@ public interface RemoteTreatmentMapper extends BaseMapper<Treatment> {
      */
     @Select({"<script>select * " +
             " from medical_treatment" +
-            " where deleted = false and doctor_id = #{doctorId}" +
+            " where deleted = false and doctor_id = #{doctorId} and date &gt;= curdate()" +
             " <if test='onlyUnAppointment'>" +
             " and status = 0" +
             " </if>" +

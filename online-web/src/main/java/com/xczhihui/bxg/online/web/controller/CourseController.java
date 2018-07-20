@@ -269,6 +269,6 @@ public class CourseController extends AbstractController {
     @RequestMapping(value = "/hotSearch")
     @ResponseBody
     public ResponseObject hotSearch() {
-        return ResponseObject.newSuccessResponseObject(mobileHotSearchService.HotSearchList(SearchType.DEFAULT_SEARCH.getCode()));
+        return ResponseObject.newSuccessResponseObject(mobileHotSearchService.HotSearchList(SearchType.SCHOOL_DEFAULT_SEARCH.getCode()));
     }
 }

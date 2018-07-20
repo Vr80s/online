@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +21,6 @@ import com.xczhihui.common.util.CourseUtil;
 import com.xczhihui.common.util.XzStringUtils;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.course.service.ICriticizeService;
-import com.xczhihui.course.service.IFocusService;
 import com.xczhihui.course.service.IMobileBannerService;
 import com.xczhihui.course.service.IWatchHistoryService;
 import com.xczhihui.course.vo.CourseLecturVo;
@@ -45,9 +43,6 @@ public class CourseController {
     private ICourseService courseServiceImpl;
     @Autowired
     private IMobileBannerService mobileBannerService;
-    @Autowired
-    @Qualifier("focusServiceRemote")
-    private IFocusService focusServiceRemote;
 
     @Value("${gift.im.room.postfix}")
     private String postfix;
@@ -255,15 +250,6 @@ public class CourseController {
         return ResponseObject.newSuccessResponseObject(courseServiceImpl.selectTeachingCoursesByUserId(page, lecturerId ,userId));
     }
 
-    @RequestMapping("teaching/qualification")
-    public ResponseObject qualification(@Account String accountId,Integer courseId) {
-        boolean qualification = courseServiceImpl.selectQualification4TeachingCourse(accountId, courseId);
-        if (qualification) {
-            return ResponseObject.newSuccessResponseObject("有权限");
-        }
-        return ResponseObject.newErrorResponseObject("无权限");
-    }
-    
     /**
      * 查看当前用户是否关注了主播以及是否购买了这个课程
      * @param cv

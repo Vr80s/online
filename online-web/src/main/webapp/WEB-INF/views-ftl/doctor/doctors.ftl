@@ -228,7 +228,7 @@
                 <div class="search_hos_box clearfix">
                     <form action="/doctors/list" method="get">
                         <button type="submit" value="Submit" class="search_hos_btn">搜索</button>
-                        <input class="search_hos" type="text" name="name" placeholder="请输入关键字搜索医师">
+                        <input class="search_hos" type="text" name="name" placeholder="${defaultSearch?default('请输入关键字搜索医师')}">
                     </form>
                 </div>
                 <p>按热门科室搜索</p>

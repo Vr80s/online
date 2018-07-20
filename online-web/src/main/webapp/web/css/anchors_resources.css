@@ -1362,32 +1362,27 @@ outline: none;
 	border: 1px solid #dedede;
 }
 .disciple-table-main table th:nth-child(1){
-	width: 126px;
+	width: 145px;
 }
 .disciple-table-main table th:nth-child(2){
-	width: 178px;
+	width: 205px;
 }
 .disciple-table-main table th:nth-child(3){
-	width: 70px;
+	width: 80px;
 }
 .disciple-table-main table th:nth-child(4){
-	width: 70px;
+	width: 80px;
 }
 .disciple-table-main table th:nth-child(5){
-	width: 76px;
+	width: 87px;
 }
 .disciple-table-main table th:nth-child(6){
-	width: 76px;
+	width: 87px;
 }
 .disciple-table-main table th:nth-child(7){
-	width: 76px;
+	width: 205px;
 }
-.disciple-table-main table th:nth-child(8){
-	width: 76px;
-}
-.disciple-table-main table th:nth-child(9){
-	width: 170px;
-}
+
 
 .disciple-table-main table td{
 	padding: 10px;
@@ -2166,12 +2161,24 @@ white-space: normal;
 	padding-bottom: 60px;
 	margin-left: 135px;
 }
-.download-file button{
+.download-file a{
 	border: 1px solid #00BC12;
 	border-radius: 4px;
 	width: 120px;
 	height: 36px;
 	background: white;
+	color: #00bc12;
+	display: inline-block;
+	text-align: center;
+    line-height: 36px;
+}
+.download-file a:link {
+	color: #00bc12;
+}
+.download-file a:visited {
+	color: #00bc12;
+}
+.download-file a:hover{
 	color: #00bc12;
 }
 /*招生简章*/
@@ -2202,7 +2209,7 @@ white-space: normal;
 	color: red;
 }
 .comment-set-rules input{
-	width: 139px;
+	width: 158px;
 	height: 36px;
 	border: 1px solid #f0f0f0;
 	padding-left: 5px;
@@ -2293,6 +2300,7 @@ white-space: normal;
     margin-bottom: 0;
     display: inline-block;
     float: left;
+    line-height: 36px;
 }
 
 .comment-right-float .btn-up-file{
@@ -2328,7 +2336,15 @@ white-space: normal;
 	background: white;
 	color: #00bc12;
 }
-
+.comment-right-float .edit-save{
+	width: 120px;
+	height: 36px;
+	border-radius: 4px;
+	border: 1px solid #00bc12;
+	outline: none;
+	background: white;
+	color: #00bc12;
+}
 /*收徒设置*/
 
 .comment-apprentice{

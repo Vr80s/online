@@ -857,6 +857,8 @@ function closeAlbum(){
 //增加这个课程中的
 function quicklyAddAlbumCourse(){
     
+	//
+	
 	var csArr = $("#select-add").val();
 	if(csArr ==null || csArr == undefined ||  csArr.length<=0){
 		alert("请选择课程");
@@ -1021,7 +1023,7 @@ function courseCollectionList(current){
         $('#zhuanji_list').html('<div style="padding-top:40px;text-align:center"><img src="/web/images/other_noResult.png" alt="" /><p style="font-size:16px;color:#999;margin-top:35px">暂无专辑</p></div>');
         $('#zhuanji_list').removeClass('hide')
         }else{
-        	var str = '<thead><tr><td>封面图</td><td>课程名称</td><td>价格</td><td>总集数</td><td>推荐</td><td>类型</td><td>审核状态</td><td>课程状态</td><td>操作</td></tr></thead><tbody id="collection_list"></tbody>';
+        	var str = '<thead><tr><td>封面图</td><td>课程名称</td><td>价格</td><td>总集数</td><td>选集数</td><td>推荐</td><td>类型</td><td>审核状态</td><td>课程状态</td><td>操作</td></tr></thead><tbody id="collection_list"></tbody>';
         	$('#zhuanji_list').html(str);
         	$('#zhuanji_list').removeClass('hide')
         }

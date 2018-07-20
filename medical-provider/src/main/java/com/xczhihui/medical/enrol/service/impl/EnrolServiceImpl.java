@@ -224,6 +224,7 @@ public class EnrolServiceImpl implements EnrolService {
         oldMedicalEnrollmentRegulations.setRegulations(medicalEnrollmentRegulations.getRegulations());
         oldMedicalEnrollmentRegulations.setEntryFormAttachment(medicalEnrollmentRegulations.getEntryFormAttachment());
         oldMedicalEnrollmentRegulations.setUpdateTime(new Date());
+        oldMedicalEnrollmentRegulations.setAttachmentName(medicalEnrollmentRegulations.getAttachmentName());
         medicalEnrollmentRegulationsMapper.updateAllColumnById(oldMedicalEnrollmentRegulations);
     }
 

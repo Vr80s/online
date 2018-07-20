@@ -14,4 +14,6 @@ public interface IMobileHotSearchService {
      * @Date: 2018/5/10 10:07
      **/
     public List<MobileHotSearch> HotSearchList(Integer searchType);
+
+    public String HotSearchListByString(Integer searchType);
 }

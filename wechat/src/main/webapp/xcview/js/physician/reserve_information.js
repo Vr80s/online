@@ -2,6 +2,7 @@
 $(function(){
 
     var doctorId = getQueryString("doctor");
+    // var dataId = getQueryString("dataId");
     requestGetService("/doctor/treatment",{doctorId:doctorId},function (data) {
         if (data.success == true) {
             // 提交预约信息
@@ -11,10 +12,31 @@ $(function(){
             // 时间段
             $('.time_popout_main_ul').html(template('time_popout_main_ul_id', {items: data.resultObject.treatments}));
 
+            // 当前选中的诊疗id
+            var zhengliaoid = getQueryString('dataId');
+            // alert("链接 "+zhengliaoid);
+            // 找到对应的，把它下面的图片显示
+            $(".zhengliao_"+zhengliaoid).find('img').css("opacity","1");
+            // 找到该li下面的时间段
+            var zhengliao = $(".zhengliao_"+zhengliaoid).find('span').html();// 时间段
+            //var zhengliao1 = $(".zhengliao_"+zhengliaoid).find('span').text();// 时间段
+            // alert("时间段："+zhengliao);
+            // alert("时间段："+zhengliao1);
+            $(".handler_time span").html(zhengliao);
+            $(".time_popout_main_ul li").click(function(){
+                var id=$(this).find("span").attr("data-ids");
+                $(".handler_time span").attr("data-id",id);
+                var html = $(this).find("span").html();
 
+                zhengliao = $(this).find('span').html();// 时间段
+                $(".handler_time span").html(html);
+                // alert("时间段："+zhengliao);
+
+                $(".time_popout").hide();
+            });
 
             // 循环li
-            var aBtn=$('.time_popout_main ul li');
+            /*var aBtn=$('.time_popout_main ul li');
             for(i=0;i<aBtn.length;i++){
 
                 $(aBtn[i]).click(function(){
@@ -27,11 +49,9 @@ $(function(){
                         $(aBtn[i]).find("img").css("opacity","0");
                         $(this).find("img").css("opacity","1");
                     }
-                    /*$(this).removeClass();  
-                    $(this).addClass('active6');*/
                 })
-            }
-            $(aBtn[0]).click();
+            }*/
+            // $(aBtn[0]).click();
 
             // 点击预约时间显示
             $(".handler_time_click").click(function(){
@@ -54,7 +74,6 @@ $(function(){
         }
     });
 
-
     // 点击提交表单按钮
     $(".handler_btn").click(function(){
         var id=$(".handler_time_span").attr("data-id"); //预约时间
@@ -65,7 +84,13 @@ $(function(){
             jqtoast("请输入正确的手机号");
             return false;
         }
+
         var question = $(".textarea").val(); //请简单描述您的问题
+        if (!isNotBlank(question)) {
+
+            jqtoast("诊疗问题不能为空");
+            return false;
+        }
 
         requestService("/doctor/treatment/appointmentInfo",{
             treatmentId:id,

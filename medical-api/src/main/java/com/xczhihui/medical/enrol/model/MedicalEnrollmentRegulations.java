@@ -100,6 +100,8 @@ public class MedicalEnrollmentRegulations extends Model<MedicalEnrollmentRegulat
     private String ceremonyAddress;
     @TableField("poster_img")
     private String posterImg;
+    @TableField("attachment_name")
+    private String attachmentName;
     /**
      * 招生简章
      */
@@ -395,6 +397,14 @@ public class MedicalEnrollmentRegulations extends Model<MedicalEnrollmentRegulat
 
     public void setDeleted(Boolean deleted) {
         this.deleted = deleted;
+    }
+
+    public String getAttachmentName() {
+        return attachmentName;
+    }
+
+    public void setAttachmentName(String attachmentName) {
+        this.attachmentName = attachmentName;
     }
 
     @Override
