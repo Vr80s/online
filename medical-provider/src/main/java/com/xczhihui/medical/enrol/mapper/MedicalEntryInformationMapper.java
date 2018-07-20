@@ -115,7 +115,7 @@ public interface MedicalEntryInformationMapper extends BaseMapper<MedicalEntryIn
      * @param accountId accountId
      * @return
      */
-    @Select({"select name, tel" +
+    @Select({"select name, tel, id as apprenticeId" +
             " from medical_entry_information" +
             " where doctor_id = #{doctorId} and user_id = #{accountId} and apprentice = 1" +
             " order by id desc" +
@@ -152,4 +152,13 @@ public interface MedicalEntryInformationMapper extends BaseMapper<MedicalEntryIn
             " from medical_entry_information" +
             " where doctor_id = #{doctorId} and apprentice = 1"})
     Integer countApprenticeByDoctorId(@Param("doctorId") String doctorId);
+
+    @Select({"<script> " +
+            " SELECT mei.id, mei.name, mei.age, mei.sex, mei.native_place as nativePlace," +
+            "   mei.education, mei.education_experience as educationExperience, mei.medical_experience as medicalExperience," +
+            "   mei.goal, mei.tel, mei.wechat, mei.create_time as createTime, mei.apprentice, mei.type, mei.applied, mer.title as regulationName, mei.user_id userId " +
+            " FROM medical_entry_information mei left join medical_enrollment_regulations mer on mei.mer_id = mer.id" +
+            " WHERE mei.id = #{id}" +
+            " </script>"})
+    MedicalEntryInformationVO findById(@Param("id") Integer id);
 }

@@ -75,6 +75,7 @@ $(function(){
         // var Id=$(".handler_time_span").attr("data-ids"); //预约时间
         var name = $(".booking_person_span").html(); //预约人
         var tel = $(".handler_tel_put").val(); //预留电话
+        var apprenticeId = $('#J_apprenticeId').val();
         if (!(/^1[346578]\d{9}$/.test(tel))) {
             jqtoast("请输入正确的手机号");
             return false;
@@ -89,6 +90,7 @@ $(function(){
 
         requestService("/doctor/treatment/appointmentInfo",{
             treatmentId:treatmentId,
+            apprenticeId: apprenticeId,
             name:name,
             tel:tel,
             question:question

@@ -42,7 +42,7 @@ public class Treatment implements Serializable {
 
     private Boolean deleted;
 
-    private int status;
+    private Integer status;
 
     @TableField("info_id")
     private Integer infoId;
@@ -125,5 +125,9 @@ public class Treatment implements Serializable {
 
     public void setInfoId(Integer infoId) {
         this.infoId = infoId;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

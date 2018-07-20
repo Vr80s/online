@@ -46,6 +46,19 @@ public class DateUtil {
         dayMap.put(7, "日");
     }
 
+    static Map<Integer, String> weekMap;
+
+    static {
+        weekMap = new HashMap<>();
+        weekMap.put(1, "一");
+        weekMap.put(2, "二");
+        weekMap.put(3, "三");
+        weekMap.put(4, "四");
+        weekMap.put(5, "五");
+        weekMap.put(6, "六");
+        weekMap.put(0, "日");
+    }
+
 
     /**
      * 格式化日期，格式为：yyyy-MM-dd HH:mm:ss
@@ -175,7 +188,7 @@ public class DateUtil {
     public static String getDayOfWeek(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
-        return "星期" + dayMap.get(calendar.get(Calendar.DAY_OF_WEEK) - 1);
+        return "星期" + weekMap.get(calendar.get(Calendar.DAY_OF_WEEK) - 1);
     }
 
     public static boolean isCurrentYear(Date date) {
