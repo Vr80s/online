@@ -42,7 +42,8 @@
         <if test="dataSource == null  or dataSource == 1 ">
             UPDATE
               oe_course_mobile_banner
-              SET click_sum = click_sum+1
+              SET 
+                click_sum=(if (click_sum is null,1,click_sum+1))
             WHERE id = #{id}
         </if>    
            
@@ -50,7 +51,7 @@
         <if test="dataSource == 2 ">
             UPDATE
               oe_banner2
-              SET click_count = click_count+1
+              SET click_count=(if (click_count is null,1,click_count+1))
             WHERE id = #{id}
         </if>    
             
