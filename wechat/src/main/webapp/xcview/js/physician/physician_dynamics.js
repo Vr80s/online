@@ -901,10 +901,12 @@ function apprenticeInfo() {
                 $(".disciple_main").show();
                 // 医师问答列表
                 $('.disciple_main_id').html(template('disciple_main_id', {items: data.resultObject.apprentices}));
+                // $(".disciple_number").html(data.resultObject.apprenticeCount);
+                apprenticeCount();
             }
-            // 获取头像长度做弟子总数
-            var length = $(".disciple_main_apprentices").size();
-            $(".disciple_number").html(length);
+            // 获取头像长度做弟子总数--现在用 的字段
+            /*var length = $(".disciple_main_apprentices").size();
+            $(".disciple_number").html(length);*/
             if (isNotBlank(data.resultObject.settings)) {
                 // 如何成为弟子
                 $('.become_disciple_cen_id').html(template('become_disciple_cen_id', {items: data.resultObject.settings}));
@@ -918,6 +920,18 @@ function apprenticeInfo() {
     });
 }
 apprenticeInfo();
+
+
+// 获取师承弟子数
+function apprenticeCount(){
+    requestGetService("/xczh/host/doctor/v2",{
+        doctorId:doctorId
+    },function(data) {
+        if(data.success==true){
+            $('.disciple_number').html(template('disciple_number_id', {items: data.resultObject}));
+        }
+    });
+};
 
 
 // 0 -> 没有申请过弟子 1-> 弟子申请在审核中 2->已经是弟子但没有参与观看跟师直播权限
