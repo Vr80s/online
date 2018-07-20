@@ -2,6 +2,7 @@ package com.xczhihui.medical.doctor.service.impl;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.xczhihui.common.util.StringLegalUtil;
 import com.xczhihui.common.util.enums.DoctorPostsType;
 import com.xczhihui.medical.common.bean.PictureSpecification;
 import com.xczhihui.medical.doctor.mapper.MedicalDoctorPostsLikeMapper;
@@ -58,6 +59,7 @@ public class MedicalDoctorPostsServiceImpl extends ServiceImpl<MedicalDoctorPost
                 if (userId.equals(accountId)) {
                     medicalDoctorPosts.setPraise(true);
                 }
+                medicalDoctorPostsLike.setUserName(StringLegalUtil.isPhoneLegal(medicalDoctorPostsLike.getUserName()));
             });
             medicalDoctorPosts.setDoctorPostsCommentList(commentList);
             medicalDoctorPosts.setDoctorPostsLikeList(likeList);
