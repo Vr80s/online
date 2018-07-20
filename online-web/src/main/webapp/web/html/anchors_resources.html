@@ -285,7 +285,7 @@
 							</span>
 
 							<div class="littleBox">
-								<p class="activeP" data-name="menu4-1">远程诊疗</p>
+								<p class="teaching-range activeP" data-name="menu4-1">远程诊疗</p>
 								<p class="teachingTab" data-name="menu4-2">师承直播</p>
 								<p class="teaching-disciple" data-name="menu4-3">我的弟子</p>
 								<p class="teaching-answer" data-name="menu4-4">问答解惑</p>
@@ -961,7 +961,9 @@
 						</div>
 						<!--远程诊疗列表-->
 						<div class="long-range-table">
-							<table>
+
+							<table id="long-range-list">
+								<script type="text/template" id="long-range-template">						
 								<tr>
 									<th>预约时间</th>
 									<th>预约人</th>
@@ -969,72 +971,75 @@
 									<th>状态</th>
 									<th>操作</th>
 								</tr>
-								<tr>
-									<td>Data</td>
-									<td>Data</td>
-									<td>
-										<div class="long-range-question">
-											诊疗问题诊疗问题诊疗问题诊疗问题
-											诊疗问题诊疗问题诊疗问题诊疗问题
-											诊疗问题诊疗问题诊疗问题诊疗问题
-										</div>
-									</td>
-									<td>Data</td>
-									<td>
-										<span class="to-examine">审核</span>
-										<span class="appointment-delete">删除</span>
-									</td>
-								</tr>
-								<tr>
-									<td>Data</td>
-									<td></td>
-									<td>
-										<div class="long-range-question">
-										
-										</div>
-									</td>
-									<td></td>
-									<td>
-										<span>编辑</span>
-										<span>删除</span>
-									</td>
-								</tr>
-								<tr>
-									<td>Data</td>
-									<td>Data</td>
-									<td>
-										<div class="long-range-question">
-											诊疗问题诊疗问题诊疗问题诊疗问题
-											诊疗问题诊疗问题诊疗问题诊疗问题
-											诊疗问题诊疗问题诊疗问题诊疗问题
-										</div>
-									</td>
-									<td>Data</td>
-									<td>
-										<span class="see-inf-modal">查看</span>
-										<span>取消预约</span>
-									</td>
-								</tr>
+								{{each items as item i}}
+									<tr>
+										<td>{{item.date}}&nbsp{{item.startTime}}-{{item.endTime}}</td>
+										<td>{{item.name}}</td>
+										<td>
+											<div class="long-range-question">
+												{{item.question}}
+											</div>
+										</td>
+										{{if item.status==0}}
+										<td>待预约</td>
+										{{else if item.status==1}}
+										<td>待审核</td>
+										{{else if item.status==2}}
+										<td>预约成功</td>
+										{{/if}}
+										<td>
+											{{if item.status==0}}
+											<span class="edit-range-btn" data-index="{{i}}">编辑</span>
+											<span class="appointment-delete" data-id="{{item.id}}" data-index="{{i}}">删除</span>
+											{{else if item.status==1}}
+											<span class="to-examine">审核</span>
+											<span class="appointment-delete" data-id="{{item.id}}" data-index="{{i}}">删除</span>
+											{{else if item.status==2}}
+											<span class="see-inf-modal">查看</span>
+											<span>取消预约</span>
+											{{/if}}
+										</td>
+									</tr>
+								{{/each}}
+								</script>	
 							</table>
+							<!--无数据时展示-->
+							<div class="comment-inherit-null range-null hide">
+								<img src="/web/images/icon-nodata.png" alt="无数据"/>
+								<p>暂无数据</p>
+							</div>
+							<!--分页部分start-->
+							<div class="range_pages pages hide" style="margin-top: 20px;">  <!--如需要复制分页doctors_pages要改类名并在JS里对应-->
+								<div id="Pagination_range" class="pagination-pages"></div>	<!--如需要复制分页Pagination_doctors要改类名并在JS里对应-->
+								<div class="searchPage">
+									<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+									<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
+									<a href="javascript:;" class="page-btn">确定</a>
+								</div>
+							</div>
 						</div>
 						<!--创建预约时间-->
 						<div class="establish-time-wrap hide">
+							<input type="hidden" id="savaRangeId" />
 							<!--时间-->
 							<div class="comment-establish">
 								<span class="establish-left"><em>*</em>日期</span>
-								<input type="text" class="time-set"/>
+								<input type="text" readonly="value" class="time-set" id="range-year"/>
+								<p class="wrong-null error-data hide">请选择日期</p>
 							</div>
 							<!--时间段-->
 							<div class="comment-establish">
 								<span class="establish-left"><em>*</em>时间段</span>
-								<input type="text" class="start-establish-time"/>
+								<input type="text" readonly="value" class="start-establish-time"/>
 								<span>至</span>
-								<input type="text" class="end-establish-time"/>
+								<input type="text" readonly="value" class="end-establish-time"/>
+								<p class="wrong-null error-hour hide">请选择预约时间段</p>
 							</div>
 							<!--时间段-->
 							<div class="comment-establish">
 								<span class="establish-left" style="height: 2px;"></span>
-								<button>提交</button>
+								<button class="new-range-btn">提交</button>
+								<button class="ruturn-edit-range">提交</button>
 							</div>
 						</div>
 						<!--预约详情-->
@@ -1681,8 +1686,7 @@
 								<script type="text/template" id="template-manage">
 								<tr>
 									<th>师承标题</th>
-									<th>城市</th>
-									<th>学费（元）</th>
+									<th>城市</th>				
 									<th>招生人数</th>
 									<th>报名人数</th>
 									<th>报名截止时间</th>
@@ -1698,7 +1702,6 @@
 										</div>
 									</td>
 									<td title="{{item.studyAddress}}">{{item.studyAddress}}</td>
-									<td>{{item.tuition}}</td>
 									<td>{{item.countLimit}}</td>
 									<td>{{item.allEnrolledUserCount}}</td>
 									<td style="padding: 0; white-space: normal;">{{item.deadline}}</td>
@@ -1759,11 +1762,6 @@
 								<div class="commer-see-menu">
 									<span>封面图</span>
 									<p class="cover-map-namage"><img src="/web/images/1.jpg" alt="封面图"/></p>
-								</div>
-								<!--学费-->
-								<div class="commer-see-menu">
-									<span>学费</span>
-									<p class="see-tuition"></p>
 								</div>
 								<!--招生人数-->
 								<div class="commer-see-menu">
@@ -1834,13 +1832,6 @@
 								</span>
 								<input type="file" placeholder="请填写您的专栏标题" style="visibility: hidden;display: inline-block;height: 10px;" id="manage_picIpt" />
 								<p class="warning-manage fengmian-null hide">请上传封面图</p>	
-							</div>
-							<!--学费-->
-							<div class="comment-set-rules">
-								<span class="comment-left-rules"><em>*</em>学费</span>
-								<input type="text" class="tuition" onkeyup='this.value=this.value.replace(/\D/gi,"")' /><span style="margin-left: 15px;">元</span>
-								<p class="warning-manage tuition-null hide">学费不能为空</p>	
-								<p class="warning-manage tuition-alb-null hide">请输入阿拉伯数字</p>
 							</div>
 							<!--招生人数-->
 							<div class="comment-set-rules">
@@ -2596,7 +2587,19 @@
 		   $("#study-end-time").jeDate({
 		        format: "YYYY-MM-DD hh:mm:ss"
 		   });
-
+		
+//		    只显示年远程诊疗
+		     $("#range-year").jeDate({
+		        format: "YYYY-MM-DD"
+		   	});
+//		  只显示时分秒（hh:mm:ss）格式
+			$(".start-establish-time").jeDate({
+		       format:"hh:mm:ss"
+		   	});
+//		    只显示时分秒（hh:mm:ss）格式
+			$(".end-establish-time").jeDate({
+		       format:"hh:mm:ss"
+		   	});
 		});
 	</script>
 	<script type="text/javascript">
