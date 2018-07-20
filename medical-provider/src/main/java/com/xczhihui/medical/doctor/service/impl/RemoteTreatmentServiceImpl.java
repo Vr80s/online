@@ -135,6 +135,7 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
     public void updateStatus(Integer id, boolean status) {
         synchronized (LOCK) {
             Treatment treatment = remoteTreatmentMapper.selectById(id);
+            Integer infoId = treatment.getInfoId();
             if (treatment == null || (treatment.getDeleted() != null && treatment.getDeleted())) {
                 throw new MedicalException("预约时间已被删除");
             }
@@ -147,6 +148,7 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
                 treatment.setStatus(AppointmentStatus.ORIGIN.getVal());
                 treatment.setInfoId(null);
             }
+            treatment.setInfoId(infoId);
             remoteTreatmentMapper.updateAllColumnById(treatment);
             sendSms(treatment, status);
         }
