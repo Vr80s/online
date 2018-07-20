@@ -21,33 +21,10 @@ $(function(){
 			$(".appointment-details").addClass("hide")
 		}
 	})
-//	点击审核	
-	$(".to-examine").click(function(){
-			$(".long-range-table").addClass("hide");
-			$(".appointment-details").removeClass("hide");
-			$(this).parents().find(".long-range-table").siblings(".long-range-top").find("span").text("预约详情");
-			$(this).parents().find(".long-range-table").siblings(".long-range-top").find("button").text("返回");
-	})
-//	点击查看
-	$(".see-inf-modal").click(function(){
-		$(".see-btn-modal").removeClass("hide");
-		$("#mask").removeClass("hide");
-	})
 //	关闭查看
 	$(".see-disciple-top span").click(function(){
 		$(".see-btn-modal").addClass("hide");
 		$("#mask").addClass("hide");
-	})
-
-
-
-
-
-//	弟子报名信息弹窗	
-	$(".appointment-name").click(function(){
-		$(".disciple-inf-modal").removeClass("hide");
-		$("#mask").removeClass("hide");
-		$(".see-btn-modal").addClass("hide");  //关闭查看
 	})
 	
 //	关闭弟子报名信息	

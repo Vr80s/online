@@ -229,7 +229,15 @@ public class MobileShareController {
              * 判断用户是否登录过，是否还有效
              */
             OnlineUser ou = null;
-            if ("wx".equals(wxOrbrower)) {
+            
+            
+            LOGGER.warn("----> wxOrbrower:"+wxOrbrower);
+            if ("brower".equals(wxOrbrower)) {
+                
+                ou = accountIdOpt.isPresent() ? onlineUserService.findUserById(accountIdOpt.get()) : null;
+                
+            } else {
+                
                 WxcpClientUserWxMapping wxw = onlineUserService.saveWxInfo(code);
                 /**
                  * 判断此微信用户是否  存在或者绑定过手机号没
@@ -247,9 +255,8 @@ public class MobileShareController {
                     //清理cookie，可能应该之前用户惨存的
                     UCCookieUtil.clearTokenCookie(res);
                 }
+                
                 UCCookieUtil.writeThirdPartyCookie(res, onlineUserService.buildThirdFlag(wxw));
-            } else {
-                ou = accountIdOpt.isPresent() ? onlineUserService.findUserById(accountIdOpt.get()) : null;
             }
 
             //课程分享啦

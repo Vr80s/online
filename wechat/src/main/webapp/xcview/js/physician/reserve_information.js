@@ -1,7 +1,7 @@
 //requestService
 $(function(){
     var doctorId = getQueryString("doctor");
-    // var dataId = getQueryString("dataId");
+    var treatmentId = getQueryString("dataId");
     requestGetService("/doctor/treatment",{doctorId:doctorId},function (data) {
         if (data.success == true) {
             // 提交预约信息
@@ -12,18 +12,12 @@ $(function(){
             $('.time_popout_main_ul').html(template('time_popout_main_ul_id', {items: data.resultObject.treatments}));
 
             // 当前选中的诊疗id
-            var zhengliaoid = getQueryString('dataId');
-            // alert("链接 "+zhengliaoid);
+            // var zhengliaoid = getQueryString('dataId');
+            // alert("链接 "+treatmentId);
             // 找到对应的，把它下面的图片显示
-            $(".zhengliao_"+zhengliaoid).find('img').css("opacity","1");
+            $(".zhengliao_"+treatmentId).find('img').css("opacity","1");
             // 找到该li下面的时间段
-            var zhengliao = $(".zhengliao_"+zhengliaoid).find('span').html();// 时间段
-            //var zhengliao1 = $(".zhengliao_"+zhengliaoid).find('span').text();// 时间段
-            // alert("时间段："+zhengliao);
-            // alert("时间段："+zhengliao1);
-            
-            // zhengliao.click();
-
+            var zhengliao = $(".zhengliao_"+treatmentId).find('span').html();// 时间段
             $(".handler_time span").html(zhengliao);
             $(".time_popout_main_ul li").click(function(){
                 var id=$(this).find("span").attr("data-ids");
@@ -37,7 +31,6 @@ $(function(){
                 $(".time_popout").hide();
             });
 
-            $(".zhengliao_"+zhengliaoid).click();
             // 循环li
             /*var aBtn=$('.time_popout_main ul li');
             for(i=0;i<aBtn.length;i++){
@@ -79,14 +72,14 @@ $(function(){
 
     // 点击提交表单按钮
     $(".handler_btn").click(function(){
-        var Id=$(".handler_time_span").attr("data-id"); //预约时间
+        // var Id=$(".handler_time_span").attr("data-ids"); //预约时间
         var name = $(".booking_person_span").html(); //预约人
         var tel = $(".handler_tel_put").val(); //预留电话
+        var apprenticeId = $('#J_apprenticeId').val();
         if (!(/^1[346578]\d{9}$/.test(tel))) {
             jqtoast("请输入正确的手机号");
             return false;
         }
-        alert(Id);
 
         var question = $(".textarea").val(); //请简单描述您的问题
         if (isBlank(question)) {
@@ -96,29 +89,22 @@ $(function(){
         }
 
         requestService("/doctor/treatment/appointmentInfo",{
-            treatmentId:Id,
+            treatmentId:treatmentId,
+            apprenticeId: apprenticeId,
             name:name,
             tel:tel,
             question:question
         },function (data) {
             if (data.success == true) {    
-
-                /*if (data.resultObject.code == 5004) {
-                    $(".failure_popout").show();   //已经预约
-                }else{
-                    $(".prosperity_popout").show();    //申请完成
-                };*/
-
-
                 $(".prosperity_popout").show();    //申请完成
             }else{
 
-                if (data.code == 5004) {
+                if (data.resultObject.code == 5004) {
                     $(".failure_popout").show();   //已经预约
                 }else{
                     jqtoast(data.errorMessage);
                 };
-                // jqtoast(data.errorMessage);
+                
             }
         });
 
