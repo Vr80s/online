@@ -9,6 +9,9 @@ $(function(){
 			$(".establish-time-wrap").removeClass("hide");
 			$(this).text("返回");
 			$(this).siblings("span").text("预约时间");
+			$(".new-range-btn").removeClass("hide")//显示新建时间
+			$(".ruturn-edit-range").addClass("hide");//隐藏编辑的按钮
+			clearRangeTime()//清空预约时间
 		}else{
 			$(".long-range-table").removeClass("hide");
 			$(".establish-time-wrap").addClass("hide");	
@@ -18,13 +21,7 @@ $(function(){
 			$(".appointment-details").addClass("hide")
 		}
 	})
-//	点击审核	
-	$(".to-examine").click(function(){
-			$(".long-range-table").addClass("hide");
-			$(".appointment-details").removeClass("hide");
-			$(this).parents().find(".long-range-table").siblings(".long-range-top").find("span").text("预约详情");
-			$(this).parents().find(".long-range-table").siblings(".long-range-top").find("button").text("返回");
-	})
+
 //	点击查看
 	$(".see-inf-modal").click(function(){
 		$(".see-btn-modal").removeClass("hide");

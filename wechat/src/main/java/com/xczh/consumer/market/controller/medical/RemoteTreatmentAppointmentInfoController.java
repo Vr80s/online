@@ -2,8 +2,6 @@ package com.xczh.consumer.market.controller.medical;
 
 import java.util.Map;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -12,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.body.treatment.TreatmentAppointmentInfoBody;
 import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczhihui.common.util.enums.ResultCode;
 import com.xczhihui.medical.doctor.service.IRemoteTreatmentService;
 import com.xczhihui.medical.enrol.service.EnrolService;
 
@@ -33,7 +32,7 @@ public class RemoteTreatmentAppointmentInfoController {
     public ResponseObject save(TreatmentAppointmentInfoBody treatmentAppointmentInfoBody, @Account String accountId) {
         int result = remoteTreatmentService.saveAppointmentInfo(treatmentAppointmentInfoBody.build(accountId));
         if (result != 1) {
-            return ResponseObject.newErrorResponseObject("抱歉~该时间段已被预约, 请重新选择预约时间");
+            return ResponseObject.newErrorResponseObject("抱歉~该时间段已被预约, 请重新选择预约时间", ResultCode.APPOINTMENT_STATE_CHANGE);
         }
         return ResponseObject.newSuccessResponseObject(null);
     }
