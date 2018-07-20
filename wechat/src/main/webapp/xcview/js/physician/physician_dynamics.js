@@ -141,6 +141,13 @@ function doctorPostsList(pageNumber,downOrUp,doctorPostsType) {
     }, function (data) {
         var obj = data.resultObject.records;
         for(var i=0;i<obj.length;i++){
+            if(obj[i].type==5){
+                if(obj[i].teaching){
+                    obj[i].teaching=1;
+                }else{
+                    obj[i].teaching=0;
+                }
+            }
             var likes ="";
             //判断是否点赞
             obj[i].isPraise=false;
@@ -337,43 +344,12 @@ function doctorPostsList(pageNumber,downOrUp,doctorPostsType) {
         });
         //课程跳转
         $(".course_hide").off("click");
-            
-
-            $(".course_hide").click(function(){
-                var itemId = $(this).attr("data-id");
-                var courseStatus = $(this).attr("data-status");
-
-                requestGetService("/xczh/enrol/checkAuth",{
-                    doctorId:doctorId,
-                    courseId:itemId
-                },function (data) {
-                    if (data.success == true) {
-                        // 是否是徒弟
-                        if (data.resultObject.auth == false) {
-                            if (data.resultObject.type == 0) {
-                                $(".learn_tips").show();  //在线弟子 申请加入
-                            }else if(data.resultObject.type == 1) {
-                                $(".learn_tips_audit").show();  //弟子审核中
-                            }else if(data.resultObject.type == 2) {
-                                $(".learn_tips_part").show();  //弟子审核中
-                            };
-
-                        }else{
-                            
-                            
-                            if(courseStatus == 1){
-                                location.href = "/page/course/"+itemId;
-                            } else {
-                                location.href = "/xcview/html/unshelve.html";
-                            }
-
-                        }
-
-                    }
-                }); 
-
-
-            });
+        $(".course_hide").click(function(){
+            var itemId = $(this).attr("data-id");
+            var teaching = $(this).attr("data-teaching");
+            var courseStatus = $(this).attr("data-status");
+            jumpTeachingCourse(itemId,teaching);
+        });
 
 
 
@@ -668,18 +644,23 @@ function defaultId(){
 function recentlyLive(userId){
     requestService("/xczh/doctors/recentlyLive", {userId:userId},function (data) { 
         if (data.success == true) {
-            createRecentlyLive(data);                            
+            createRecentlyLive(data.resultObject);                            
         }
     });
 }
 
-function createRecentlyLive(data){
+function createRecentlyLive(recentlyLive){
+    if(recentlyLive.teaching){
+        recentlyLive.teaching=1;
+    }else{
+        recentlyLive.teaching=0;
+    }
     // 直播状态
     //直播课程状态：lineState  1直播中， 2预告，3直播结束 ， 4 即将直播 ，5 准备直播 ，6 异常直播
-    $('#living_broadcastroom').html(template('living_broadcastroom_id', {items: data.resultObject}));
+    $('#living_broadcastroom').html(template('living_broadcastroom_id', {items: recentlyLive}));
         
-    var obj =  data.resultObject;
-    var startStr =  data.resultObject.startTime;
+    var obj =  recentlyLive;
+    var startStr =  recentlyLive.startTime;
     if(obj!=null && startStr!=null){       
         //兼容ios和安卓了
         var startTime = startStr.replace(/\-/g, "/");
@@ -881,7 +862,16 @@ function apprenticeInfo() {
             } else{
                 $(".wrap_vedio_main").show();
                 // 跟师直播开始
-                $('#teacher_hide').html(template('teacher_hide_id', {items: data.resultObject.apprenticeCourses}));
+                // 跟师直播开始
+                var apprenticeCourses = data.resultObject.apprenticeCourses;
+                for(var i=0;i<apprenticeCourses.length;i++){
+                    if(apprenticeCourses[i].teaching){
+                        apprenticeCourses[i].teaching=1;
+                    }else{
+                        apprenticeCourses[i].teaching=0;
+                    }
+                }
+                $('#teacher_hide').html(template('teacher_hide_id', {items: apprenticeCourses}));
                 // $(".more_people_time").html(data.resultObject.apprenticeCourses.startTime);
             }
             // 跟师直播--直播间
@@ -890,7 +880,15 @@ function apprenticeInfo() {
             } else{
                 $(".wrap_vedio_main").show();
                 // 跟师直播开始
-                $('#teacher_hides').html(template('teacher_hide_ids', {items: data.resultObject.apprenticeCourses}));
+                var apprenticeCourses = data.resultObject.apprenticeCourses;
+                for(var i=0;i<apprenticeCourses.length;i++){
+                    if(apprenticeCourses[i].teaching){
+                        apprenticeCourses[i].teaching=1;
+                    }else{
+                        apprenticeCourses[i].teaching=0;
+                    }
+                }
+                $('#teacher_hides').html(template('teacher_hide_ids', {items: apprenticeCourses}));
                 // $(".more_people_time").html(data.resultObject.apprenticeCourses.startTime);
             }
             // 弟子头像--显示
@@ -936,67 +934,40 @@ function apprenticeCount(){
 
 // 0 -> 没有申请过弟子 1-> 弟子申请在审核中 2->已经是弟子但没有参与观看跟师直播权限
 // 点击跟师直播
-function common_jump_alls(courseId) {
-
-    requestGetService("/xczh/enrol/checkAuth",{
-        doctorId:doctorId,
-        courseId:courseId
-    },function (data) {
-        if (data.success == true) {
-            // 是否是徒弟
-            if (data.resultObject.auth == false) {
-                if (data.resultObject.type == 0) {
-                    $(".learn_tips").show();  //在线弟子 申请加入
-                }else if(data.resultObject.type == 1) {
-                    $(".learn_tips_audit").show();  //弟子审核中
-                }else if(data.resultObject.type == 2) {
-                    $(".learn_tips_part").show();  //弟子审核中
-                };
-
-            }else{
-                requestService("/xczh/course/userCurrentCourseStatus?courseId=" + courseId, null, function (data) {
-                    var userPlay = data.resultObject;
-                    var watchState = userPlay.watchState;
-                    var type = userPlay.type;
-                    var collection = userPlay.collection;
-                    var lineState = userPlay.lineState;
-
-                    if (watchState == 1 || watchState == 2) {
-                        if (type == 1 || type == 2) {
-                            //增加学习记录
-                            requestService("/xczh/history/add", {courseId: courseId, recordType: 1}, function (data) {
-                                console.log("增加学习记录");
-                            })
-                            if (collection == 1) {
-                                location.href = "/xcview/html/live_select_album.html?course_id=" + courseId;
-                            } else {
-                                location.href = "/xcview/html/live_audio.html?my_study=" + courseId;
-                            }
-                        } else if (type == 3) {
-
-                            common_jump_play(courseId, watchState, lineState);
-                        } else if (type == 4) {
-                            location.href = "/xcview/html/school_class.html?course_id=" + courseId;
-                        }
-                    } else {
-                        if (type == 1 || type == 2) {
-                            location.href = "/xcview/html/school_audio.html?course_id=" + courseId;
-                        } else if (type == 3) {
-                            common_jump_play(courseId, watchState, lineState);
-                        } else if (type == 4) {
-                            location.href = "/xcview/html/school_class.html?course_id=" + courseId;
-                        }
-                    }
-                });
-
-
-
+function jumpTeachingCourse(courseId,teaching) {
+    // 是否为师承课程
+    if (teaching==1) {
+        requestGetService("/xczh/enrol/checkAuth",{
+            doctorId:doctorId,
+            courseId:courseId
+        },function (data) {
+            if (data.success) {
+                // 是否是徒弟
+                if (!data.resultObject.auth) {
+                    if (data.resultObject.type == 0) {
+                        $(".learn_tips").show();  //在线弟子 申请加入
+                    }else if(data.resultObject.type == 1) {
+                        $(".learn_tips_audit").show();  //弟子审核中
+                    }else if(data.resultObject.type == 2) {
+                        $(".learn_tips_part").show();  //部分弟子有权限
+                    };
+                }else{                                
+                    liveJump(courseId);
+                }
             }
-
-        }
-    }); 
-
+        });
+    }else{
+        liveJump(courseId);
+    }
 }
+
+
+
+// 直播跳转
+function liveJump(courseId){
+    location.href = "/page/course/"+courseId;
+}
+
 
 // 点击预约判断
 function order(id){

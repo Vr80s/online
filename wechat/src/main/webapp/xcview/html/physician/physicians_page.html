@@ -610,7 +610,7 @@
 				</div>
 				{{else if item.type == 5}}
 				<!-- 课程-->
-				<div class="course_hide" data-id="{{item.courseId}}" data-status="{{item.courseStatus}}">
+				<div class="course_hide" data-id="{{item.courseId}}" data-status="{{item.courseStatus}}" data-teaching="{{item.teaching}}">
 					<div class="course_nav_span comment_hide" style="font-size: 0.3rem;color: #333333;">
 						{{if item.stick}}
 						<span class="stick_img_stick"><img src="/xcview/images/stick.png" alt="" />置顶</span>
@@ -740,17 +740,17 @@
 				<!-- //封面图和背景色  //直播课程状态：lineState  1直播中， 2预告，3直播结束 ， 4 即将直播 ，5 准备直播 ，6 异常直播 -->
 
 					{{if items.lineState == 1}}
-						<div class="fixation_reminder" onclick="common_jump_alls({{items.id}})">
+						<div class="fixation_reminder" onclick="jumpTeachingCourse({{items.id}},{{items.teaching}})">
 							<img src="{{items.smallImgPath}}" alt="" class="surface_plot" />
 							<div class="broadcastroom_bg"></div>
 						</div>
 
-						<img src="/xcview/images/play_btn.png" alt="" class="broadcastroom_button" onclick="common_jump_alls({{items.id}})" />
-						<div class="broadcastroom_hint" onclick="common_jump_alls({{items.id}})">
+						<img src="/xcview/images/play_btn.png" alt="" class="broadcastroom_button" onclick="jumpTeachingCourse({{items.id}},{{items.teaching}})" />
+						<div class="broadcastroom_hint" onclick="jumpTeachingCourse({{items.id}},{{items.teaching}})">
 							<div class="broadcastroom_hint_title">正在直播：{{items.gradeName}}</div>
 						</div>
 					{{else if items.lineState == 2 || items.lineState == 4 || items.lineState == 5}}
-						<div class="fixation_reminder" onclick="common_jump_alls({{items.id}})">
+						<div class="fixation_reminder" onclick="jumpTeachingCourse({{items.id}},{{items.teaching}})">
 							<img src="{{items.smallImgPath}}" alt="" class="surface_plot" />
 							<div class="broadcastroom_bg"></div>
 						</div>
@@ -760,13 +760,13 @@
 							<div id="box1"></div>
 						</div>
 					{{else if items.lineState == 3}}
-						<div class="fixation_reminder" onclick="common_jump_alls({{items.id}})">
+						<div class="fixation_reminder" onclick="jumpTeachingCourse({{items.id}},{{items.teaching}})">
 							<img src="{{items.smallImgPath}}" alt="" class="surface_plot" />
 							<div class="broadcastroom_bg"></div>
 						</div>
 
-						<img src="/xcview/images/play_btn.png" alt="" class="broadcastroom_button" onclick="common_jump_alls({{items.id}})" />
-						<div class="broadcastroom_hint" onclick="common_jump_alls({{items.id}})">
+						<img src="/xcview/images/play_btn.png" alt="" class="broadcastroom_button" onclick="jumpTeachingCourse({{items.id}},{{items.teaching}})" />
+						<div class="broadcastroom_hint" onclick="jumpTeachingCourse({{items.id}},{{items.teaching}})">
 							<div class="broadcastroom_hint_title">直播回放：{{items.gradeName}}</div>
 						</div>
 					{{/if}}
@@ -977,12 +977,12 @@
 							<li style="position: relative;">
 
 								<!--if (data.resultObject.onlineApprenticeStatus == 4) {
-					                <a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" onclick="common_jump_alls({{item.id}})"></a>
+					                <a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" onclick="jumpTeachingCourse({{item.id}},{{item.teaching}})"></a>
 					            }else{
-					                <a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" onclick="common_jump_alls({{item.id}})"></a>
+					                <a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" onclick="jumpTeachingCourse({{item.id}},{{item.teaching}})"></a>
 					            }-->
 						        
-						       <a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" onclick="common_jump_alls({{item.id}})"></a> 
+						       <a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" onclick="jumpTeachingCourse({{item.id}},{{item.teaching}})"></a> 
 
 								<p class="wrap_img_pic">
 									<img src="{{item.smallImgPath}}" /> 
@@ -1200,12 +1200,12 @@
 						<li style="position: relative;">
 
 							<!--if (data.resultObject.onlineApprenticeStatus == 4) {
-				                <a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" onclick="common_jump_alls({{item.id}})"></a>
+				                <a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" onclick="jumpTeachingCourse({{item.id}},{{item.teaching}})"></a>
 				            }else{
-				                <a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" onclick="common_jump_alls({{item.id}})"></a>
+				                <a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" onclick="jumpTeachingCourse({{item.id}},{{item.teaching}})"></a>
 				            }-->
 					        
-					       <a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" onclick="common_jump_alls({{item.id}})"></a> 
+					       <a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" onclick="jumpTeachingCourse({{item.id}},{{item.teaching}})"></a> 
 
 							<p class="wrap_img_pic">
 								<img src="{{item.smallImgPath}}" /> 
