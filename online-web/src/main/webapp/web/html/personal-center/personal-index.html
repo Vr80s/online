@@ -191,18 +191,20 @@
 											
 														{{if item.type == 1}}
 															{{if item.collection == true}}
-															<span class="classCategory">音频专辑</span>
-															{{else}}
-															<span class="classCategory">音频</span>
-															{{/if}}
-														{{else if item.type == 2}}
-															{{if item.collection == true}}
 															<span class="classCategory">视频专辑</span>
 															{{else}}
 															<span class="classCategory">视频</span>
 															{{/if}}
+														{{else if item.type == 2}}
+															{{if item.collection == true}}
+															<span class="classCategory">音频专辑</span>
+															{{else}}
+															<span class="classCategory">音频</span>
+															{{/if}}
 														{{else if item.type == 3 && item.lineState==1}}
 																<span class="classCategory">直播中</span>
+                                                        {{else if item.type == 3 && item.lineState==2}}
+                                                                <span class="classCategory">直播预告</span>    
 														{{else if item.type == 3 && item.lineState==3}}
 																<span class="classCategory">直播回放</span>
 														{{else if item.type == 3 && item.lineState==4}}
@@ -286,18 +288,20 @@
 													
 														{{if item.type == 1}}
 															{{if item.collection == true}}
-															<span class="classCategory">音频专辑</span>
-															{{else}}
-															<span class="classCategory">音频</span>
-															{{/if}}
-														{{else if item.type == 2}}
-															{{if item.collection == true}}
 															<span class="classCategory">视频专辑</span>
 															{{else}}
 															<span class="classCategory">视频</span>
 															{{/if}}
+														{{else if item.type == 2}}
+															{{if item.collection == true}}
+															<span class="classCategory">音频专辑</span>
+															{{else}}
+															<span class="classCategory">音频</span>
+															{{/if}}
 														{{else if item.type == 3 && item.lineState==1}}
 																<span class="classCategory">直播中</span>
+                                                        {{else if item.type == 3 && item.lineState==2}}
+                                                                <span class="classCategory">直播预告</span> 
 														{{else if item.type == 3 && item.lineState==3}}
 																<span class="classCategory">直播回放</span>
 														{{else if item.type == 3 && item.lineState==4}}
@@ -385,18 +389,20 @@
 														</div>
 														{{if item.type == 1}}
 															{{if item.collection == true}}
-															<span class="classCategory">音频专辑</span>
-															{{else}}
-															<span class="classCategory">音频</span>
-															{{/if}}
-														{{else if item.type == 2}}
-															{{if item.collection == true}}
 															<span class="classCategory">视频专辑</span>
 															{{else}}
 															<span class="classCategory">视频</span>
 															{{/if}}
+														{{else if item.type == 2}}
+															{{if item.collection == true}}
+															<span class="classCategory">音频专辑</span>
+															{{else}}
+															<span class="classCategory">音频</span>
+															{{/if}}
 														{{else if item.type == 3 && item.lineState==1}}
 																<span class="classCategory">直播中</span>
+                                                        {{else if item.type == 3 && item.lineState==2}}
+                                                                <span class="classCategory">直播预告</span> 
 														{{else if item.type == 3 && item.lineState==3}}
 																<span class="classCategory">直播回放</span>
 														{{else if item.type == 3 && item.lineState==4}}
