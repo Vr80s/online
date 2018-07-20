@@ -1209,17 +1209,21 @@ function rangeList(pages){
 }
 
 //删除预约
+var deleteRangeId;
 $(".long-range-table").on("click",".appointment-delete",function(){
-	var id=$(this).attr("data-id");
-	RequestJsonService("doctor/treatment/"+id,"DELETE",null, function (data) {
-		if(data.success==true){
-			showTip("删除成功");
-			rangeList(1);
-		}else{
-			showTip("删除失败");
-		}
-	})
-})
+		deleteRangeId=$(this).attr("data-id");	
+			confirmBox.open("删除预约时间","删除后用户将无法进行该时间段的预约，是否确定删除？",function(closefn){
+				RequestJsonService("/doctor/treatment/"+deleteRangeId,"DELETE",null, function (data) {
+					if(data.success==true){
+						showTip("删除成功");
+						rangeList(1);
+					}else{
+						showTip("删除失败");
+					}
+				})	
+					closefn();    //关闭弹窗
+				});
+			})
 //编辑预约
 $(".long-range-table").on("click",".edit-range-btn",function(){
 	var index=$(this).attr("data-index"),
@@ -1289,7 +1293,7 @@ var appointmentStatus,
 			
 			if (appointmentStatus=="false") {
 				confirmBox.open("拒绝接受","若拒绝接受，则该预约人的申请资料将不可恢复",function(closefn){
-					RequestJsonService("doctor/treatment/"+appointmentId+"/"+appointmentStatus,"PUT",null, function (data) {
+					RequestJsonService("/doctor/treatment/"+appointmentId+"/"+appointmentStatus,"PUT",null, function (data) {
 						if(data.success==true){
 							showTip("操作成功");
 							$(".teaching-range").click();
@@ -1303,7 +1307,7 @@ var appointmentStatus,
 			} 
 			else{
 				$(".appointment-right button").attr("disabled","disabled");
-				RequestJsonService("doctor/treatment/"+appointmentId+"/"+appointmentStatus,"PUT",null, function (data) {
+				RequestJsonService("/doctor/treatment/"+appointmentId+"/"+appointmentStatus,"PUT",null, function (data) {
 						if(data.success==true){
 							showTip("操作成功");
 							$(".teaching-range").click();
@@ -1317,8 +1321,28 @@ var appointmentStatus,
 
 	})
 	
-	
-	
+//	点击查看
+	$(".long-range-table").on("click",".see-inf-modal",function(){
+		$(".see-btn-modal").removeClass("hide");
+		$("#mask").removeClass("hide");
+	})	
+//	取消预约
+	var reservationId;
+	$(".long-range-table").on("click",".cancel-reservation",function(){
+		reservationId=$(this).attr("data-id");
+		confirmBox.open("取消预约","是否确定取消该名弟子的预约？",function(closefn){
+				RequestJsonService("/doctor/treatment/cancel/"+reservationId,"PUT",null, function (data) {
+					if(data.success==true){
+						showTip("取消预约成功");
+						rangeList(1);
+					}else{
+						showTip("取消失败");
+					}
+				})	
+					closefn();    //关闭弹窗
+		});
+		
+	})
 	
 	
 	

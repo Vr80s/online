@@ -31,7 +31,7 @@ var confirmBox = {
 		$("#wxc-wrap").css({
 		"display":"none",
 		"width":"400px",
-		"padding":"30px 32px",
+		"padding":"30px 20px",
 		"background-color":"#fff",
 		"border-radius":"4px",
 		"top":"50%",
@@ -62,8 +62,9 @@ var confirmBox = {
 			    "text-align":"center",
 			    "line-height": "36px",
 				"margin-left":"30px",
-			    "background-color": "#fff",
-			   "color": "#000"
+			    "background-color": "#00bc12",
+			    "cursor":"pointer",
+			   "color": "#fff"
 		});
 	
 		$(".wxc-remove").css({
@@ -78,6 +79,7 @@ var confirmBox = {
 			    "outline": "none",
 			    "background-color": "#fff",
 			    "color": "#000",
+			    "cursor":"pointer",
 				"margin-right": "30px"
 		});
 		$(".wxc-bgcolor").css({
@@ -91,30 +93,30 @@ var confirmBox = {
 		   "z-index": "888",
 		    "display": "none"
 		})	
-		$(".wxc-confirm").hover(function(){
-			$(".wxc-confirm").css({
-				"background-color":"#00BC12",
-				"cursor":"pointer",
-	    		"color": "#fff"
-			});
-		},function(){
-			$(".wxc-confirm").css({
-				"background-color":"#fff",
-	    		"color": "#000"
-			});
-		})
-		$(".wxc-remove").hover(function(){
-			$(".wxc-remove").css({
-				"background-color":"#00BC12",
-				"cursor":"pointer",
-	    		"color": "#fff"
-			});
-		},function(){
-			$(".wxc-remove").css({
-				"background-color":"#fff",
-	    		"color": "#000"
-			});
-		})
+//		$(".wxc-confirm").hover(function(){
+//			$(".wxc-confirm").css({
+//				"background-color":"#00BC12",
+//				"cursor":"pointer",
+//	    		"color": "#fff"
+//			});
+//		},function(){
+//			$(".wxc-confirm").css({
+//				"background-color":"#fff",
+//	    		"color": "#000"
+//			});
+//		})
+//		$(".wxc-remove").hover(function(){
+//			$(".wxc-remove").css({
+//				"background-color":"#00BC12",
+//				"cursor":"pointer",
+//	    		"color": "#fff"
+//			});
+//		},function(){
+//			$(".wxc-remove").css({
+//				"background-color":"#fff",
+//	    		"color": "#000"
+//			});
+//		})
 
 		},
 	//确认框打开

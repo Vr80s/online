@@ -22,11 +22,7 @@ $(function(){
 		}
 	})
 
-//	点击查看
-	$(".see-inf-modal").click(function(){
-		$(".see-btn-modal").removeClass("hide");
-		$("#mask").removeClass("hide");
-	})
+
 //	关闭查看
 	$(".see-disciple-top span").click(function(){
 		$(".see-btn-modal").addClass("hide");
