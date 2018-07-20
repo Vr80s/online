@@ -21,23 +21,10 @@ $(function(){
 			$(".appointment-details").addClass("hide")
 		}
 	})
-
-
 //	关闭查看
 	$(".see-disciple-top span").click(function(){
 		$(".see-btn-modal").addClass("hide");
 		$("#mask").addClass("hide");
-	})
-
-
-
-
-
-//	弟子报名信息弹窗	
-	$(".appointment-name").click(function(){
-		$(".disciple-inf-modal").removeClass("hide");
-		$("#mask").removeClass("hide");
-		$(".see-btn-modal").addClass("hide");  //关闭查看
 	})
 	
 //	关闭弟子报名信息	

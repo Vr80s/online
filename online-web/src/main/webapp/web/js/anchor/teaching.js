@@ -1278,11 +1278,14 @@ function rangeEcho(editRange){
 	})
 	function echoAppointment(index){
 		var appointmentData=rangeData[index];
+//		接受/不接受ID
 		$("#save-appointment-id").val(appointmentData.id);
+//		查看弟子ID
+		$("#save-reservations-id").val(appointmentData.apprenticeId);
 		$(".appointment-right .appointment-date").html(appointmentData.date.replace(/[-]/g,"")+" "+appointmentData.week+" "+appointmentData.startTime+"-"+appointmentData.endTime)
 		$(".appointment-right .appointment-name").html(appointmentData.name);
 		$(".appointment-right .appointment-phone-number").html(appointmentData.tel);
-		$(".appointment-right .appointment-question").html(appointmentData.question)	
+		$(".appointment-right .appointment-question").html(appointmentData.question);	
 	}
 //接受预约	
 var appointmentStatus,
@@ -1323,9 +1326,20 @@ var appointmentStatus,
 	
 //	点击查看
 	$(".long-range-table").on("click",".see-inf-modal",function(){
+		var index=$(this).attr("data-index");
 		$(".see-btn-modal").removeClass("hide");
-		$("#mask").removeClass("hide");
+		$("#mask").removeClass("hide");		
+		echoDisciple(index);
 	})	
+	function echoDisciple(index){
+		var eachDiscipleData=rangeData[index];
+		$("#save-reservations-id").val(eachDiscipleData.apprenticeId); //保存查看弟子ID
+		$(".see-disciple-scroll .echo-see-date").html(eachDiscipleData.date.replace(/[-]/g,"")+" "+eachDiscipleData.week+" "+eachDiscipleData.startTime+"-"+eachDiscipleData.endTime)
+		$(".see-disciple-scroll .appointment-name").html(eachDiscipleData.name);
+		$(".see-disciple-scroll .appointment-number").html(eachDiscipleData.tel);
+		$(".see-disciple-scroll .see-appointment-question").html(eachDiscipleData.question);
+		discipleInformation(eachDiscipleData.apprenticeId);
+}	
 //	取消预约
 	var reservationId;
 	$(".long-range-table").on("click",".cancel-reservation",function(){
@@ -1343,7 +1357,29 @@ var appointmentStatus,
 		});
 		
 	})
-	
+//	弟子报名信息弹窗	
+	$(".little_box").on("click",".appointment-name",function(){
+		$(".disciple-inf-modal").removeClass("hide");
+		$("#mask").removeClass("hide");
+		$(".see-btn-modal").addClass("hide");  //关闭查看
+		var id=$("#save-reservations-id").val();
+		discipleInformation(id)
+	})
+	function discipleInformation(id){
+		RequestService("/doctor/apprentice/"+id,"GET",null, function (data) {
+			if(data.success==true){
+				$("#disciple-wrap-inf").html(template("template-disciple-wrap",{items:data.resultObject}))
+			}else{
+				showTip("获取弟子信息失败");
+			}
+		})	
+		
+	}
+//	关闭弟子报名信息	
+	$(".disciple-inf-top span").click(function(){
+		$(".disciple-inf-modal").addClass("hide");
+		$("#mask").addClass("hide");
+	})
 	
 	
 //创建预约时间

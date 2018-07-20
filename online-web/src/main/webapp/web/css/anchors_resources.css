@@ -1031,6 +1031,11 @@ outline: none;
     text-overflow: ellipsis;
     overflow: hidden;
 }
+.long-range-table table td:nth-child(3){
+	    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
 .long-range-table table td span{
 	color: #188EEE;
 	cursor: pointer;
@@ -1256,14 +1261,7 @@ outline: none;
 	color: #666666;
 	margin-right: 20px;
 }
-.see-disciple-right {
-	width: 680px;
-}
-.see-disciple-right li{
-	float: left;
-	list-style: none;
-	margin-right: 7px;
-}
+
 
 
 
