@@ -50,7 +50,7 @@ function  sendCode(obj){
 		vtype = 4;
 		number = $("#new_mobile").val();
 	}
-	if (!isNotBlank(number)) {
+	if (isBlank(number)) {
 		return false;
 	}
 	if (!(/^1[345678]\d{9}$/.test(number))) {
@@ -180,10 +180,10 @@ function setuserInfoWechat(saveFalg){
 function updateMobile(){
 
     var newMobile= $("#new_mobile").val();
-    if(!isNotBlank(newMobile)){
+    if(isBlank(newMobile)){
         return false;
     }
-    if (!isNotBlank(currentName) || !(/^1[345678]\d{9}$/.test(currentName))) {
+    if (isBlank(currentName) || !(/^1[345678]\d{9}$/.test(currentName))) {
         $("#errorMsg").html("获取用户手机号有误");
         $("#errorMsg").show();
         return false;
@@ -196,7 +196,7 @@ function updateMobile(){
     }
 
     var code= $("#new_code").val();
-    if(!isNotBlank(code)){
+    if(isBlank(code)){
     	webToast("验证码不能为空","middle",1500);
         return false;
     }

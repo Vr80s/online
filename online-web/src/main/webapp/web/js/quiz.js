@@ -170,6 +170,23 @@ $(function() {
 		}
 	})
 
+    function isAlive0(){
+        $.ajax({
+            type: "get",
+            url: bath + "/online/user/isAlive",
+            async: false,
+            success: function(data) {
+                if(data.success === true) {
+                } else {
+                    $('#login').modal('show');$('#login').css("display", "block");
+                    $(".loginGroup .logout").css("display", "block");
+                    $(".loginGroup .login").css("display", "none");
+                    return false;
+                }
+            }
+        });
+    };
+
 	//提交问题
 	$(".update").off().on("click",function(){
 		isAlive0();

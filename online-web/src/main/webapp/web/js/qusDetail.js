@@ -8,6 +8,11 @@ window.onload = function() {
 		arr[i] = apam[1];
 		var qid=arr[0];
 	};
+
+    function initTFormModal(title, txt) {
+        $("#bzh_modal_tform .title").val(title);
+        $("#bzh_modal_tform .txt").val($.trim(txt));
+    }
 	var allTl = {
 		as: "{{each items as $value i}}" +
 			"<div class='answer-item'>" +
@@ -597,3 +602,58 @@ window.onload = function() {
 
 	}
 }
+
+
+//图片缩放
+$(function() {
+    $.fn.extend({
+        showlargeimg: function() {
+            var obj = $(this).attr("src"); //获取src
+            var window_height = $(window).height(); //判断可视区域高度
+            var window_width = $(window).width(); //判断可视区域宽度
+            $("body").append("<div class='background_img' style='width:100%;height: 100%;position: fixed;top:0px;left: 0px;z-index: 99;background-color: #000;opacity: 0.5'></div>" +
+                "<div id='largeimg' style='position: fixed;z-index: 100;'></div>") //添加模态大图
+            $("#largeimg").html("<div><img src='" + obj + "'/></div>"); //添加大图
+            var thisheight = parseInt($("#largeimg div img").height()); //原图高度number类型
+            var thiswidth = parseInt($("#largeimg div img").width()); //原图宽度number类型
+            //判断是否超宽
+            if(($("#largeimg div img").width()) >= window_width && ($("#largeimg div img").height()) < window_height) { //图片超宽，不超高
+                $("#largeimg div img").css("width", (window_width * 0.8) + "px");
+            } else if(($("#largeimg div img").width()) >= window_width && ($("#largeimg div img").height()) >= window_height) { //图片超高超宽
+                if(($("#largeimg div img").width() - window_width) < ($("#largeimg div img").height() - window_height)) { //图片超高比例大于超宽比例
+                    var h = thisheight / thiswidth;
+                    $("#largeimg div img").css("height", (window_height * 0.8) + "px");
+                    $("#largeimg div img").css("width", $("#largeimg div img").width() * h + "px");
+                } else { //推按超高比例小于超宽比例
+                    $("#largeimg div img").css("width", (window_width * 0.8) + "px");
+                }
+            } else if(($("#largeimg div img").width()) < window_width && ($("#largeimg div img").height()) >= window_height) { //图片超高不超宽
+                var h = thisheight / thiswidth;
+                $("#largeimg div img").css("heigth", (window_height * 0.8) + "px");
+                $("#largeimg div img").css("width", $("#largeimg div img").width() * h + "px");
+            }
+            $(document.body).css("overflow", "hidden");
+            $("body").css("padding-right", "17px");
+            $(".other-page").css("padding-right", "17px");
+            var heights = (window_height - $("#largeimg").height()) / 2;
+            var widths = (window_width - $("#largeimg").width()) / 2;
+            $("#largeimg").css("left", widths + "px"); //模态水平居中
+            $("#largeimg").css("top", heights + "px"); //模态垂直居中
+            //关闭
+            $(".background_img").click(function() {
+                $(this).remove();
+                $("#largeimg").remove();
+                $(document.body).css("overflow", "");
+                $("body").css("padding-right", "0px");
+                $(".other-page").css("padding-right", "0px");
+            });
+            $("#largeimg").click(function() {
+                $(this).remove();
+                $(".background_img").remove();
+                $(document.body).css("overflow", "");
+                $("body").css("padding-right", "0px");
+                $(".other-page").css("padding-right", "0px");
+            })
+        }
+    });
+});

@@ -182,7 +182,7 @@ function createParamsAndQuery(menuType,isFree,courseType,city,lineState,queryKey
 		
 	}
 	if(isNotBlank(city)){
-		if(!isNotBlank(courseType)){
+		if(isBlank(courseType)){
 			$("#draw_course_big_list").find(".all_right_type_one").eq(3).addClass("all_right_type_one_add");
 			saisuanstr += "线下课程"+"-";
 			/**
@@ -232,7 +232,7 @@ function createParamsAndQuery(menuType,isFree,courseType,city,lineState,queryKey
 		//显示直播状态 
 		$(".all_mold4").show();
 		
-		if(!isNotBlank(courseType)){
+		if(isBlank(courseType)){
 			$("#draw_course_big_list").find(".all_right_type_one").eq(2).addClass("all_right_type_one_add");
 			saisuanstr += "直播课程"+"-";
 		}	

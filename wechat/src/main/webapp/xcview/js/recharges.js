@@ -155,7 +155,7 @@ function  goPay() {
         var openId= localStorage.getItem("openid");
         var orderForm = 3;
         if(is_weixn()){
-            if(!isNotBlank(openId)){  // 再去重cookie中获取
+            if(isBlank(openId)){  // 再去重cookie中获取
             	var third_party_uc_t_ = cookie.get("_third_ipandatcm_user_");
             	if(isNotBlank(third_party_uc_t_)){
             		third_party_uc_t_ = decodeURIComponent(third_party_uc_t_);	

@@ -43,7 +43,7 @@ document.getElementById("btn").addEventListener("tap", function () {
     if (text != "获取验证码") {
         return false;
     }
-    if (!isNotBlank(number)) {
+    if (isBlank(number)) {
 //		webToast("手机号不能为空","middle",1500);
         return false;
     }
@@ -78,16 +78,16 @@ mui(".last_cn").on('tap', '#enter_btn', function (event) {
     var yanzhengma = document.getElementById("vcode").value;
     var userpassword = document.getElementById("password").value; // 密码
 
-    if (!isNotBlank(number)) {
+    if (isBlank(number)) {
         //webToast("手机号不能为空","middle",1500);
         return false;
     }
 
-    if (!isNotBlank(yanzhengma)) {
+    if (isBlank(yanzhengma)) {
 //		webToast("验证码不能为空","middle",1500);
         return false;
     }
-    if (!isNotBlank(userpassword)) {
+    if (isBlank(userpassword)) {
 //		webToast("密码不能为空","middle",1500);
         return false;
     }

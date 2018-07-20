@@ -77,7 +77,7 @@ function login() {
     var number = document.getElementById("account").value;
     var password = document.getElementById("password").value;
 
-    if (!isNotBlank(number) || !isNotBlank(password)) {
+    if (isBlank(number) || isBlank(password)) {
 //		webToast("手机号或密码不能为空","middle",1500);
         return false;
     }
