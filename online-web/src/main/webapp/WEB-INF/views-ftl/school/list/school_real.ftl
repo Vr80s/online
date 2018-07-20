@@ -117,7 +117,7 @@
 <script src="/web/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
 
 <!--公共头部和底部-->
-<script src="/web/js/ajax.js" type="text/javascript" charset="utf-8"></script>
+<script src="/web/js/common/common.js" type="text/javascript" charset="utf-8"></script>
 <script src="/web/html/school/school-header/header.js" type="text/javascript" charset="utf-8"></script>
 <!--公共头部和底部结束-->
 
