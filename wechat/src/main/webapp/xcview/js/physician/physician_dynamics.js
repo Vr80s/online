@@ -620,7 +620,7 @@ var miniRefresh = new MiniRefresh({
                 miniRefresh.endDownLoading(true);// 结束下拉刷新
             } else if (option_id == "li-3") {
                 sowingMap();
-
+                apprenticeInfo();
                 miniRefresh.endDownLoading(true);// 结束下拉刷新
             } else if (option_id == "li-4") {
                 sowingMap();
@@ -842,97 +842,82 @@ function createDoctorIntroduction(introduction){
     };
 }
 
-
 // 师承开始
+function apprenticeInfo() {
+    // 在线弟子申请的状态 1->未报名 2->没有审核 3->审核未通过 4->审核已通过 . 值是1与3 去提交信息页面 2与4 去申请信息查看页
+    requestGetService("/xczh/host/doctor/apprentice",{doctorId:doctorId},function (data) {
+        if (data.success == true) {
+            // 招生简章详情
+            $('.prose_origin_main').html(template('prose_origin_main_id', {items: data.resultObject.regulations}));
 
-// 在线弟子申请的状态 1->未报名 2->没有审核 3->审核未通过 4->审核已通过 . 值是1与3 去提交信息页面 2与4 去申请信息查看页
-requestGetService("/xczh/host/doctor/apprentice",{doctorId:doctorId},function (data) {
-    if (data.success == true) {
-        
-        // 招生简章详情
-        $('.prose_origin_main').html(template('prose_origin_main_id', {items: data.resultObject.regulations}));
-
-        $(".prose_origin_details").click(function(){
-            var id=$(this).attr("data-ids");
-            var tokenStr=$(this).attr("data-tokenStr");
-            location.href ='/xcview/html/apprentice/inherited_introduction.html?merId='+id;
-        });
-
-
-        // 获取判断是否提交申请弟子信息  师承底部判断是否提交
-        $('.disciple_application_state').html(template('disciple_application_state_id', {items: data.resultObject}));
-       // 判断--老师解惑--时隐藏
-        if (!isNotBlank(data.resultObject.questions)) {
-            $(".QA_main").hide();
-        } else{
-            $(".QA_main").show();
-             // 医师问答列表
-            $('.QA_main').html(template('QA_main_id', {items: data.resultObject.questions}));
-        }
-
-
-        // 远程诊疗  
-        if (!isNotBlank(data.resultObject.treatments.indexDateText)) {
-            $(".therapy").show();
-             // 预约
-            $('.subscribe_id').html(template('subscribe_id', {items: data.resultObject.treatments}));
-            // ceshi();
-        } else{
-            $(".therapy").hide();
-        }
-
-        // $('.subscribe_id').html(template('subscribe_id', {items: data.resultObject.treatments}));
-
-
-        // 跟师直播--师承
-        if (!isNotBlank(data.resultObject.apprenticeCourses)) {
-            $(".wrap_vedio_main").hide();
-        } else{
-            $(".wrap_vedio_main").show();
-            // 跟师直播开始
-            $('#teacher_hide').html(template('teacher_hide_id', {items: data.resultObject.apprenticeCourses}));
-            // $(".more_people_time").html(data.resultObject.apprenticeCourses.startTime);   
-        }
-
-        // 跟师直播--直播间
-        if (!isNotBlank(data.resultObject.apprenticeCourses)) {
-            $(".wrap_vedio_main").hide();
-        } else{
-            $(".wrap_vedio_main").show();
-            // 跟师直播开始
-            $('#teacher_hides').html(template('teacher_hide_ids', {items: data.resultObject.apprenticeCourses}));
-            // $(".more_people_time").html(data.resultObject.apprenticeCourses.startTime);   
-        }
-        
-        // 弟子头像--显示
-        if (!isNotBlank(data.resultObject.apprentices)) {
-            // alert(11);
-            $(".disciple_main").hide();
-        } else{
-            $(".disciple_main").show();
-             // 医师问答列表
-            $('.disciple_main_id').html(template('disciple_main_id', {items: data.resultObject.apprentices}));
-        }
-        // 获取头像长度做弟子总数  
-        var length = $(".disciple_main_apprentices").size();
-        $(".disciple_number").html(length);
-
-
-        if (isNotBlank(data.resultObject.settings)) {
-            // 如何成为弟子
-            $('.become_disciple_cen_id').html(template('become_disciple_cen_id', {items: data.resultObject.settings}));
-
-        } else{
-            $(".become_disciple").hide();        
-        }
-
-
-        // webToast("提交成功","middle",1500);
-    }/*else{
+            $(".prose_origin_details").click(function(){
+                var id=$(this).attr("data-ids");
+                var tokenStr=$(this).attr("data-tokenStr");
+                location.href ='/xcview/html/apprentice/inherited_introduction.html?merId='+id;
+            });
+            // 获取判断是否提交申请弟子信息  师承底部判断是否提交
+            $('.disciple_application_state').html(template('disciple_application_state_id', {items: data.resultObject}));
+            // 判断--老师解惑--时隐藏
+            if (!isNotBlank(data.resultObject.questions)) {
+                $(".QA_main").hide();
+            } else{
+                $(".QA_main").show();
+                // 医师问答列表
+                $('.QA_main').html(template('QA_main_id', {items: data.resultObject.questions}));
+            }
+            // 远程诊疗
+            if (!isNotBlank(data.resultObject.treatments.indexDateText)) {
+                $(".therapy").show();
+                // 预约
+                $('.subscribe_id').html(template('subscribe_id', {items: data.resultObject.treatments}));
+                // ceshi();
+            } else{
+                $(".therapy").hide();
+            }
+            // $('.subscribe_id').html(template('subscribe_id', {items: data.resultObject.treatments}));
+            // 跟师直播--师承
+            if (!isNotBlank(data.resultObject.apprenticeCourses)) {
+                $(".wrap_vedio_main").hide();
+            } else{
+                $(".wrap_vedio_main").show();
+                // 跟师直播开始
+                $('#teacher_hide').html(template('teacher_hide_id', {items: data.resultObject.apprenticeCourses}));
+                // $(".more_people_time").html(data.resultObject.apprenticeCourses.startTime);
+            }
+            // 跟师直播--直播间
+            if (!isNotBlank(data.resultObject.apprenticeCourses)) {
+                $(".wrap_vedio_main").hide();
+            } else{
+                $(".wrap_vedio_main").show();
+                // 跟师直播开始
+                $('#teacher_hides').html(template('teacher_hide_ids', {items: data.resultObject.apprenticeCourses}));
+                // $(".more_people_time").html(data.resultObject.apprenticeCourses.startTime);
+            }
+            // 弟子头像--显示
+            if (!isNotBlank(data.resultObject.apprentices)) {
+                // alert(11);
+                $(".disciple_main").hide();
+            } else{
+                $(".disciple_main").show();
+                // 医师问答列表
+                $('.disciple_main_id').html(template('disciple_main_id', {items: data.resultObject.apprentices}));
+            }
+            // 获取头像长度做弟子总数
+            var length = $(".disciple_main_apprentices").size();
+            $(".disciple_number").html(length);
+            if (isNotBlank(data.resultObject.settings)) {
+                // 如何成为弟子
+                $('.become_disciple_cen_id').html(template('become_disciple_cen_id', {items: data.resultObject.settings}));
+            } else{
+                $(".become_disciple").hide();
+            }
+            // webToast("提交成功","middle",1500);
+        }/*else{
         webToast(data.errorMessage,"middle",1500);
     }*/
-
-});
+    });
+}
+apprenticeInfo();
 
 
 // 0 -> 没有申请过弟子 1-> 弟子申请在审核中 2->已经是弟子但没有参与观看跟师直播权限
