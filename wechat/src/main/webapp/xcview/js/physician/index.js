@@ -87,5 +87,40 @@ window.onload = function(){
         });
     }
 
+    // 点击刷新图片
+    $(".switchover").click(function () {
+ 
+        if($('.physician_title_img').is('.img')){
+            $('.physician_title_img').removeClass('img');
+        }else{
+            $(".physician_title_img").addClass("img");
+            myFunction();
+            clickSwitchover();
+        }
+ 
+    });
+    function myFunction() {
+        setTimeout(function(){
+            $('.physician_title_img').removeClass('img');
+        }, 400);
+    };
+
+    function clickSwitchover(){
+        // 热门医师 换一批
+        requestService("/xczh/doctors/hotInBatch",null, function (data) {
+            if (data.success==true) {
+                $('.exothecium').html(template('exothecium_id', {items: data.resultObject}));
+                // 详情跳转
+                $(".batch_main").click(function(){
+                    var id = $(this).attr("data-ids");
+                    window.location.href = "/xcview/html/physician/physicians_page.html?doctor=" + id + "";
+                });
+            }
+        });
+    }
+    clickSwitchover();
+
+
+
 };
 

@@ -1,6 +1,5 @@
 //requestService
 $(function(){
-
     var doctorId = getQueryString("doctor");
     // var dataId = getQueryString("dataId");
     requestGetService("/doctor/treatment",{doctorId:doctorId},function (data) {
@@ -76,11 +75,10 @@ $(function(){
 
     // 点击提交表单按钮
     $(".handler_btn").click(function(){
-        var id=$(".handler_time_span").attr("data-id"); //预约时间
+        var id=$(".handler_time_span").attr("data-ids"); //预约时间
         var name = $(".booking_person_span").html(); //预约人
         var tel = $(".handler_tel_put").val(); //预留电话
         if (!(/^1[346578]\d{9}$/.test(tel))) {
-
             jqtoast("请输入正确的手机号");
             return false;
         }
@@ -98,22 +96,18 @@ $(function(){
             tel:tel,
             question:question
         },function (data) {
-            if (data.success == true) {
-                // webToast("提交成功","middle",1500);
-                // jqtoast("提交成功");
-                $(".prosperity_popout").show();
+            if (data.success == true) {    
+                $(".prosperity_popout").show();    //申请完成
             }else{
-                // jqtoast(data.errorMessage);
-                $(".failure_popout").show();
+                if (data.resultObject.code==5004) {
+                    $(".failure_popout").show();   //已经预约
+                }else{
+                    jqtoast(data.errorMessage);
+                };
             }
         });
 
     });
-
-
-
-
-
 });
 
 
