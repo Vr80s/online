@@ -21,13 +21,7 @@ $(function(){
 			$(".appointment-details").addClass("hide")
 		}
 	})
-//	点击审核	
-	$(".to-examine").click(function(){
-			$(".long-range-table").addClass("hide");
-			$(".appointment-details").removeClass("hide");
-			$(this).parents().find(".long-range-table").siblings(".long-range-top").find("span").text("预约详情");
-			$(this).parents().find(".long-range-table").siblings(".long-range-top").find("button").text("返回");
-	})
+
 //	点击查看
 	$(".see-inf-modal").click(function(){
 		$(".see-btn-modal").removeClass("hide");

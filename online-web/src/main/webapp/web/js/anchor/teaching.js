@@ -693,7 +693,7 @@ function cheackSelectAll(){
 		var index=$(this).attr("data-index");
 		var previewDisciple=disciple[index];
 	//	是否审核通过
-		if(previewDisciple.applied==true){
+		if(previewDisciple.apprentice==1){
 			$(".pass-through").addClass("hide");
 		}else{
 			$(".pass-through").removeClass("hide");
@@ -1243,8 +1243,7 @@ function rangeEcho(editRange){
 	$("#savaRangeId").val(editRange.id);  //存放ID
 }
 //编辑后保存时间
-	$(".ruturn-edit-range").click(function(){
-		
+	$(".ruturn-edit-range").click(function(){		
 		var id=$("#savaRangeId").val(),
 		 	longRange={};
 			longRange.date=$(".time-set").val();
@@ -1264,7 +1263,65 @@ function rangeEcho(editRange){
 			})
 		}
 	})
+//	点击审核	
+	$(".long-range-table").on("click",".to-examine",function(){
+		var index=$(this).attr("data-index")
+			$(".long-range-table").addClass("hide");
+			$(".appointment-details").removeClass("hide");
+			$(this).parents().find(".long-range-table").siblings(".long-range-top").find("span").text("预约详情");
+			$(this).parents().find(".long-range-table").siblings(".long-range-top").find("button").text("返回");
+			echoAppointment(index)
+	})
+	function echoAppointment(index){
+		var appointmentData=rangeData[index];
+		$("#save-appointment-id").val(appointmentData.id);
+		$(".appointment-right .appointment-date").html(appointmentData.date.replace(/[-]/g,"")+" "+appointmentData.week+" "+appointmentData.startTime+"-"+appointmentData.endTime)
+		$(".appointment-right .appointment-name").html(appointmentData.name);
+		$(".appointment-right .appointment-phone-number").html(appointmentData.tel);
+		$(".appointment-right .appointment-question").html(appointmentData.question)	
+	}
+//接受预约	
+var appointmentStatus,
+	appointmentId;
+	$(".appointment-right button").click(function(){
+			appointmentStatus=$(this).attr("data-status");
+			appointmentId=$("#save-appointment-id").val();
+			
+			if (appointmentStatus=="false") {
+				confirmBox.open("拒绝接受","若拒绝接受，则该预约人的申请资料将不可恢复",function(closefn){
+					RequestJsonService("doctor/treatment/"+appointmentId+"/"+appointmentStatus,"PUT",null, function (data) {
+						if(data.success==true){
+							showTip("操作成功");
+							$(".teaching-range").click();
 
+						}else{
+							showTip("操作失败");
+						}
+					})	
+					closefn();    //关闭弹窗
+				});
+			} 
+			else{
+				$(".appointment-right button").attr("disabled","disabled");
+				RequestJsonService("doctor/treatment/"+appointmentId+"/"+appointmentStatus,"PUT",null, function (data) {
+						if(data.success==true){
+							showTip("操作成功");
+							$(".teaching-range").click();
+							$(".appointment-right button").removeAttr("disabled");
+						}else{
+							showTip("操作失败");
+							$(".appointment-right button").removeAttr("disabled");
+						}
+					})
+			}
+
+	})
+	
+	
+	
+	
+	
+	
 //创建预约时间
 function checkRange(longRange){
 	if(longRange.date==""){
