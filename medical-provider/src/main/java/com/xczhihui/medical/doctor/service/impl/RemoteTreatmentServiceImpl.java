@@ -22,6 +22,7 @@ import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.service.IRemoteTreatmentService;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 import com.xczhihui.medical.doctor.vo.TreatmentVO;
+import com.xczhihui.medical.enrol.mapper.MedicalEntryInformationMapper;
 import com.xczhihui.medical.exception.MedicalException;
 
 /**
@@ -43,6 +44,8 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
     private RemoteTreatmentAppointmentInfoMapper remoteTreatmentAppointmentInfoMapper;
     @Autowired
     private IMedicalDoctorBusinessService medicalDoctorBusinessService;
+    @Autowired
+    private MedicalEntryInformationMapper medicalEntryInformationMapper;
 
     @Override
     public void save(Treatment treatment) {

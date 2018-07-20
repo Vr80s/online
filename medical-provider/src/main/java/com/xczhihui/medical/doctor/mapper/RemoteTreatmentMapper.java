@@ -55,7 +55,7 @@ public interface RemoteTreatmentMapper extends BaseMapper<Treatment> {
             " </script>"})
     List<TreatmentVO> listByDoctorId(@Param("doctorId") String doctorId, @Param("onlyUnAppointment") boolean onlyUnAppointment);
 
-    @Select({"<script>select mt.*, mtai.name, mtai.tel, mtai.question" +
+    @Select({"<script>select mt.*, mtai.name, mtai.tel, mtai.question, mtai.apprentice_id as apprenticeId" +
             " from medical_treatment mt left join medical_treatment_appointment_info mtai on mt.info_id = mtai.id" +
             " where mt.deleted = false and mt.doctor_id = #{doctorId}" +
             " </script>"})

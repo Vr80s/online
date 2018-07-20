@@ -399,6 +399,11 @@ public class EnrolServiceImpl implements EnrolService {
         return count == null ? 0 : count;
     }
 
+    @Override
+    public MedicalEntryInformationVO findEntryInformationById(Integer id) {
+        return medicalEntryInformationMapper.findById(id);
+    }
+
     private void validateMedicalEntryInformation(MedicalEntryInformationVO medicalEntryInformationVO) {
         if (!isMobileNO(medicalEntryInformationVO.getTel())) {
             throw new MedicalException("手机号有误");

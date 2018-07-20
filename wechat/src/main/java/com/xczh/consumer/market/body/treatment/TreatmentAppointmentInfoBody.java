@@ -15,6 +15,8 @@ public class TreatmentAppointmentInfoBody {
 
     private Integer treatmentId;
 
+    private Integer apprenticeId;
+
     private String question;
 
     private String tel;
@@ -22,7 +24,7 @@ public class TreatmentAppointmentInfoBody {
     private String name;
 
     public TreatmentAppointmentInfo build(String userId) {
-        if (treatmentId == null || StringUtils.isBlank(question) || StringUtils.isBlank(tel) || StringUtils.isBlank(name)) {
+        if (treatmentId == null || StringUtils.isBlank(question) || StringUtils.isBlank(tel) || StringUtils.isBlank(name) || apprenticeId == null) {
             throw new MedicalException("请检查参数");
         }
         TreatmentAppointmentInfo treatmentAppointmentInfo = new TreatmentAppointmentInfo();
@@ -32,6 +34,7 @@ public class TreatmentAppointmentInfoBody {
         treatmentAppointmentInfo.setTel(tel);
         treatmentAppointmentInfo.setUserId(userId);
         treatmentAppointmentInfo.setName(name);
+        treatmentAppointmentInfo.setApprenticeId(this.apprenticeId);
         return treatmentAppointmentInfo;
     }
 
@@ -65,5 +68,13 @@ public class TreatmentAppointmentInfoBody {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getApprenticeId() {
+        return apprenticeId;
+    }
+
+    public void setApprenticeId(Integer apprenticeId) {
+        this.apprenticeId = apprenticeId;
     }
 }
