@@ -21,7 +21,6 @@ $(function(){
     })
     //点击选项
     $('#mainMenu').click(function(e){
-        console.log(e.target.id);
         option_id = e.target.id;
         if (option_id == "") {
             option_id = "li-1";
@@ -47,15 +46,6 @@ function sowingMap() {
                     el: '.swiper-pagination'
                 }
             })
-            
-            //是否显示粉丝数
-            /*if(obj.fansCount > 0){
-                $(".fans").show();
-            } else {
-                $(".fans").hide();
-            }*/
-
-            
 
             //关注
             $(".attention").click(function(){
@@ -103,7 +93,6 @@ function idotototo(){
             $(this).append('<span class="qq"> <a class="toggle" href="###" style="color:#2cb82c"><span class="opens">展开<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></span><span class="closes">收起<span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span></span></a></span>');
         }
         var $dot4 = $(this);
-
         function createDots() {
             $dot4.dotdotdot({
                 after: 'span.qq'
@@ -112,14 +101,12 @@ function idotototo(){
         function destroyDots() {
             $dot4.trigger('destroy');
         }
-
         createDots();
         $dot4.on(
             'click',
             'a.toggle',
             function () {
                 $dot4.toggleClass('opened');
-
                 if ($dot4.hasClass('opened')) {
                     destroyDots();
                 } else {
@@ -183,18 +170,14 @@ function doctorPostsList(pageNumber,downOrUp,doctorPostsType) {
         if(downOrUp=='down'){
             //判断全部动态默认图
             if(data.resultObject.records.length==0){
-
                 var minirefreshs=$(window).height()-$(".top_show_heights").height();
                 $(".rests_nav").height(minirefreshs);
-                
                 isShow = true;
                 $(".baseImagenumbers").show();
-                //$(".upwrap-tips").hide();
             }else{
                 isShow = false;
                 $(".baseImagenumbers").hide();
             }
-
             $(".rests_nav").html(template('wrap_doctor_dynamics',{items:obj}));
             miniRefresh.endDownLoading(true);// 结束下拉刷新
             idotototo();
@@ -202,26 +185,11 @@ function doctorPostsList(pageNumber,downOrUp,doctorPostsType) {
             miniRefresh.endUpLoading(true);// 结束上拉加载
         } else {
             $(".rests_nav").append(template('wrap_doctor_dynamics',{items:obj}));
-
             miniRefresh.endUpLoading(false);
             idotototo();
         }
-
         //图片放大
         webpackUniversalModuleDefinition(imgWindow,imgfn);
-
-        /*$(".consilia_nav_span .title").each(function(){
-            var title = $(this);
-            // 判断可编辑医案显示隐藏
-            if(data.resultObject.records.content == null || data.resultObject.records.content == ""){
-                    title.parent(".consilia_nav_span").hide();
-                    // alert(1111);
-                }else{
-                    title.parent(".consilia_nav_span").show();
-                    // alert(2222);
-            }
-        });*/
-
 
         for(var i=0;i<obj.length;i++){
             //没有点赞时隐藏小手
@@ -252,7 +220,6 @@ function doctorPostsList(pageNumber,downOrUp,doctorPostsType) {
                   };
                 };
                 obj[i].content = str1;
-                // alert(obj[i].content=str1;);
                 $('.span_span'+obj[i].id+'').html(str1);
             }
             }
@@ -351,12 +318,6 @@ function doctorPostsList(pageNumber,downOrUp,doctorPostsType) {
             jumpTeachingCourse(itemId,teaching);
         });
 
-
-
-
-
-
-
         //医案跳转
         $(".consilia_nav_cen").off("click");
         $(".consilia_nav_cen").click(function(){
@@ -374,8 +335,6 @@ function doctorPostsList(pageNumber,downOrUp,doctorPostsType) {
         $(".ccvideo").click(function(){
             var data_id = $(this).attr("data-id");
             $(".ccvideo"+data_id).hide();
-            /*$(".ccH5FullsBtn").css("display","none");    
-            $(".ccH5ExitFullsBtn").css("display","none");*/
         });
 
     });
@@ -389,8 +348,6 @@ function postsType(obj) {
         page = 1;
         doctorPostsList(1,"down",doctorPostsType);
     }
-
-    //alert(type)
 }
 /**
  * 评论
@@ -574,8 +531,6 @@ function my_follow(followed, type) {
     })
 }
 
-
-
 //刷新
 // 初始化页码
 var page = 1;
@@ -626,7 +581,6 @@ var miniRefresh = new MiniRefresh({
 // 一、获取是否医师权限。二、获取完权限，获取课程。三、获取完课程判断类型。
 // 点击直播间回放和直播中状态跳转发礼物直播间
 function detailsId(id){
-    // var id = data.resultObject.courseList.id;
     location.href = "/xcview/html/details.html?courseId=" + id;
 };
 
@@ -640,7 +594,6 @@ function defaultId(){
     });
 }
 // 定义获取当前页面id
-// var doctorId = getQueryString('doctor');
 function recentlyLive(userId){
     requestService("/xczh/doctors/recentlyLive", {userId:userId},function (data) { 
         if (data.success == true) {
@@ -872,7 +825,6 @@ function apprenticeInfo() {
                     }
                 }
                 $('#teacher_hide').html(template('teacher_hide_id', {items: apprenticeCourses}));
-                // $(".more_people_time").html(data.resultObject.apprenticeCourses.startTime);
             }
             // 跟师直播--直播间
             if (isBlank(data.resultObject.apprenticeCourses)) {
@@ -889,7 +841,6 @@ function apprenticeInfo() {
                     }
                 }
                 $('#teacher_hides').html(template('teacher_hide_ids', {items: apprenticeCourses}));
-                // $(".more_people_time").html(data.resultObject.apprenticeCourses.startTime);
             }
             // 弟子头像--显示
             if (isBlank(data.resultObject.apprentices)) {
@@ -902,19 +853,14 @@ function apprenticeInfo() {
                 // $(".disciple_number").html(data.resultObject.apprenticeCount);
                 apprenticeCount();
             }
-            // 获取头像长度做弟子总数--现在用 的字段
-            /*var length = $(".disciple_main_apprentices").size();
-            $(".disciple_number").html(length);*/
+
             if (isNotBlank(data.resultObject.settings)) {
                 // 如何成为弟子
                 $('.become_disciple_cen_id').html(template('become_disciple_cen_id', {items: data.resultObject.settings}));
             } else{
                 $(".become_disciple").hide();
             }
-            // webToast("提交成功","middle",1500);
-        }/*else{
-        webToast(data.errorMessage,"middle",1500);
-    }*/
+        }
     });
 }
 apprenticeInfo();
