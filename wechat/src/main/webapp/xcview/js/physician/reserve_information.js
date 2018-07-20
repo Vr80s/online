@@ -30,7 +30,7 @@ $(function(){
 
                 $(".time_popout").hide();
             });
-
+            $(".zhengliao_"+zhengliaoid).click();
             // 循环li
             /*var aBtn=$('.time_popout_main ul li');
             for(i=0;i<aBtn.length;i++){
