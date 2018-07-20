@@ -1211,7 +1211,7 @@ function rangeList(pages){
 //删除预约
 $(".long-range-table").on("click",".appointment-delete",function(){
 	var id=$(this).attr("data-id");
-	RequestJsonService("doctor/treatment/"+id,"DELETE",null, function (data) {
+	RequestJsonService("/doctor/treatment/"+id,"DELETE",null, function (data) {
 		if(data.success==true){
 			showTip("删除成功");
 			rangeList(1);
@@ -1251,7 +1251,7 @@ function rangeEcho(editRange){
 			longRange.endTime=$(".end-establish-time").val();
 		if(checkRange(longRange)){
 			$(".ruturn-edit-range").attr("disabled","disabled");
-			RequestJsonService("doctor/treatment/"+id,"PUT",JSON.stringify(longRange), function (data) {
+			RequestJsonService("/doctor/treatment/"+id,"PUT",JSON.stringify(longRange), function (data) {
 				if(data.success==true){
 					showTip("编辑成功");
 					$(".teaching-range").click();
@@ -1289,7 +1289,7 @@ var appointmentStatus,
 			
 			if (appointmentStatus=="false") {
 				confirmBox.open("拒绝接受","若拒绝接受，则该预约人的申请资料将不可恢复",function(closefn){
-					RequestJsonService("doctor/treatment/"+appointmentId+"/"+appointmentStatus,"PUT",null, function (data) {
+					RequestJsonService("/doctor/treatment/"+appointmentId+"/"+appointmentStatus,"PUT",null, function (data) {
 						if(data.success==true){
 							showTip("操作成功");
 							$(".teaching-range").click();
@@ -1303,7 +1303,7 @@ var appointmentStatus,
 			} 
 			else{
 				$(".appointment-right button").attr("disabled","disabled");
-				RequestJsonService("doctor/treatment/"+appointmentId+"/"+appointmentStatus,"PUT",null, function (data) {
+				RequestJsonService("/doctor/treatment/"+appointmentId+"/"+appointmentStatus,"PUT",null, function (data) {
 						if(data.success==true){
 							showTip("操作成功");
 							$(".teaching-range").click();
