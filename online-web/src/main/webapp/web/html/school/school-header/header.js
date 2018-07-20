@@ -101,6 +101,15 @@ function on_click_msg(msg_id, msg_link) {
 	}, false);
 };
 
+ $(".wrap-banner .item a").on("click",function(){
+    var indexId=$(this).attr("data-indexId");
+    RequestService("/banner/updateSchoolClickCount","POST",{id:indexId,dataSource:1},function(){
+
+    })
+})
+
+
+
 //$("<script src='http://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js'></script>").appendTo('head');
 
 //$("<meta http-equiv='X-UA-Compatible' content='IE=edge' > ").appendTo('head');

@@ -51,11 +51,11 @@
             <#list banners as banner>
                 <#if banner_index==0>
                 <li style="z-index: 2;">
-                <a href="${banner.imgHref}" target="_blank"
+                <a href="${banner.imgHref}" data-indexId = "${banner.id}" target="_blank"
                    style="background:url(${banner.imgPath})no-repeat top center;background-size:100% 100%">
                 <#else>
                 <li>
-                <a href="${banner.imgHref}" target="_blank"
+                <a href="${banner.imgHref}" target="_blank" data-indexId = "${banner.id}"
                    style="background:url(${banner.imgPath})no-repeat top center;%">
                 </#if>
                 <div class="image-overlay">
