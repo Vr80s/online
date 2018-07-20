@@ -94,14 +94,12 @@
                 <ul id="slider" class="slider">
                     <#if bannerList??>
                         <#list bannerList as bannerItem >
-                            <li data-indexid="${bannerItem.id}"
-                                class="cur"
+                            <li class="cur"
                                 data-img="${bannerItem.imgPath}"
                                 <#if bannerItem_index == 0>
                                 style="display: none;"
-                                </#if>
-                            >
-                                <a id="aImg${bannerItem_index}" target="_blank" href="${bannerItem.imgHref}"
+                                </#if>  >
+                                <a id="aImg${bannerItem_index}" data-indexid="${bannerItem.id}" target="_blank" href="${bannerItem.imgHref}"
                                    style="background: url(&quot;${bannerItem.imgPath}&quot;) center top no-repeat;">
                                 </a>
                             </li>
@@ -165,7 +163,7 @@
                             <#if courseItem.lineState  == 1  >
                                 <span class="classCategory">直播中</span>
                             <#elseif courseItem.lineState  == 2>
-
+                                <span class="classCategory">直播预告</span>
                             <#elseif courseItem.lineState  == 3>
                                 <span class="classCategory">直播回放</span>
                             <#elseif courseItem.lineState  == 4>
@@ -260,7 +258,7 @@
                             <#if courseItem.lineState  == 1  >
                                 <span class="classCategory">直播中</span>
                             <#elseif courseItem.lineState  == 2>
-
+                                <span class="classCategory">直播预告</span>
                             <#elseif courseItem.lineState  == 3>
                                 <span class="classCategory">直播回放</span>
                             <#elseif courseItem.lineState  == 4>

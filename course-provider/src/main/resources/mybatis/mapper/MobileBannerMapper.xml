@@ -35,6 +35,34 @@
         WHERE id = #{id}
     </update>
 
+
+    <update id="addBannerClickNum">
+            
+        <!--  增加移动端配置的banner点击数量 -->   
+        <if test="dataSource == null  or dataSource == 1 ">
+            UPDATE
+              oe_course_mobile_banner
+              SET 
+                click_sum=(if (click_sum is null,1,click_sum+1))
+            WHERE id = #{id}
+        </if>    
+           
+        <!--  增加pc端配置的banner点击数量 -->      
+        <if test="dataSource == 2 ">
+            UPDATE
+              oe_banner2
+              SET click_count=(if (click_count is null,1,click_count+1))
+            WHERE id = #{id}
+        </if>    
+            
+            
+    </update>
+
+          
+        
+
+
+
     <sql id="commonCondition">
         from oe_course oc
         inner join course_anchor as ou on oc.user_lecturer_id = ou.user_id

@@ -136,4 +136,6 @@ public interface IMobileBannerService {
      **/
     List<CourseLecturVo> listenCourseList(boolean onlyFree);
 
+    Integer addClickNum(String id, Integer clickSource, Integer clickType);
+
 }

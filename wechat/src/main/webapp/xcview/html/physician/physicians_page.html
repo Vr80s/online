@@ -10,7 +10,6 @@
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <meta name="keywords" content="" />
 
-<!-- <link rel="stylesheet" type="text/css" href="/xcview/css/physician/index.css?v=wechat_1.1.1&version=20feeb913b"/> -->
 <link rel="stylesheet" type="text/css" href="/xcview/css/physician/physicians_page.css?v=wechat_1.1.1&version=e173995ae8"/>
 <link rel="stylesheet" href="/xcview/css/physician/swiper-4.2.6.min.css" />
 <link rel="stylesheet" href="/xcview/html/physician/css/demo.css?version=d265f83c60" />
@@ -36,7 +35,6 @@
 
 <!-- 表情包聊天引入 -->
 <link href="/xcview/html/physician/css/webiaoqing.css?version=495638f506" rel="stylesheet" type="text/css">
-<!--<script src="/xcview/html/physician/js/jquery_min.js?version=628072e721" ></script>-->
 <script src="/xcview/html/physician/js/webiaoqin.js?version=9f3575a6d9" ></script>
 <!-- 测试点击图片 -->
 
@@ -130,9 +128,6 @@
 		.am-pureview{
 			z-index: 999999;
 		}
-		/* .ccH5FullsBtn{
-			display: none !important;
-		} */
 		.ccH5playerBox video{
 			z-index: 1;
 		}
@@ -175,10 +170,6 @@
 		}
 		.minirefresh-scroll{
 			background: none;
-		}
-		/*下拉刷新隐藏*/
-		.downwrap-content{
-			/*display: none;*/
 		}
 
 		video::-webkit-media-controls-fullscreen-button {
@@ -410,9 +401,6 @@
 <body style="background: #F8F8F8;">
 	<div class="physicians_page_main comment_hide">
 		
-		
-
-		
 
 
 	<!-- 中间内容开始 -->
@@ -430,7 +418,6 @@
 		<div class="wrap-header" id="header">
 			<div class="header">		
 				<p>{{items.lecturerInfo.name}}</p>
-				<!--<div class="arror_return" onclick="location.href='javascript:history.go(-1)'" >-->
                 <div class="arror_return" onclick="common_share_backs();"> 
 					<img src="/xcview/images/anchorj.png"/>
 				</div>
@@ -530,9 +517,6 @@
 			</div>
 		</div>
 		<!-- 点击全部动态=显示筛看结束 -->
-			
-
-
 
 		<div class="rests_nav">
 
@@ -548,8 +532,6 @@
 				{{else if item.type == 2}}
 				<!-- 动态图片-->
 				<div class="trends_hide">
-					<!--<div class="paper_nav_span comment_hide show-text">{{if item.stick}}<span class="stick_img_stick" style="text-align: left;text-indent: 0;"><img src="/xcview/images/stick.png" alt="" />置顶</span>{{/if}}<span class="span_span{{item.id}}" style="display: block;">{{item.content}}</span><div class="both"></div>
-					</div>-->
 					<div class="paper_nav_span comment_hide show-text">{{if item.stick}}<span class="stick_img_stick" style="text-align: left;text-indent: 0;"><img src="/xcview/images/stick.png" alt="" />置顶</span>{{/if}}{{item.content}}<div class="both"></div>
 					</div>
 					{{if item.imgStr !=null && item.imgStr.length>0}}
@@ -599,7 +581,6 @@
 						<div class="article_nav_cen comment_hide">
 							<img src="{{item.articleImgPath}}" alt="" />
 							<div class="article_nav_cen_size">{{item.articleTitle}}</div>
-							<!--<div class="article_nav_cen_sizes">{{item.articleContent}}</div>-->
 						</div>
 					{{else}}
 						<div style="font-size: 0.26rem;width: 6.98rem;height: 0.57rem;line-height: 0.57rem;
@@ -610,7 +591,7 @@
 				</div>
 				{{else if item.type == 5}}
 				<!-- 课程-->
-				<div class="course_hide" data-id="{{item.courseId}}" data-status="{{item.courseStatus}}">
+				<div class="course_hide" data-id="{{item.courseId}}" data-status="{{item.courseStatus}}" data-teaching="{{item.teaching}}">
 					<div class="course_nav_span comment_hide" style="font-size: 0.3rem;color: #333333;">
 						{{if item.stick}}
 						<span class="stick_img_stick"><img src="/xcview/images/stick.png" alt="" />置顶</span>
@@ -635,7 +616,6 @@
 						<div class="course_nav_cen_size" style="margin-top: 0;"><img src="/xcview/images/location_four.png" style="width: 0.19rem;height: 0.24rem;float: left;margin-right: 0.1rem; margin-top: 0.06rem;margin-left:0.01rem;" />{{item.courseAddress}}</div>
 						{{/if}}
 
-						<!-- <div class="course_nav_rate" style="color: #F97B49;">免费</div> -->
 					</div>
 					<div class="both"></div>
 				</div>
@@ -650,12 +630,10 @@
 					</div>
 
 					<div class="both"></div>
-					<!-- <div class="consilia_nav_btn"><span>展开</span></div>-->
 					{{if item.articleStatus == 1}}
 					<div class="consilia_nav_cen" data-id="{{item.articleId}}" data-status="{{item.articleStatus}}" style="display: block;">
 							<img src="{{item.articleImgPath}}" alt="" />
 							<div class="consilia_nav_cen_size">{{item.articleTitle}}</div>
-							<!--<div class="consilia_nav_cen_sizes">{{item.articleContent}}</div>-->
 
 					</div>
 					{{else}}
@@ -700,7 +678,6 @@
 						{{/if}}
 						<!-- 评价内容 -->
 						<div class="evaluate_main evaluate{{item.id}}">
-							<!-- <div class=""> -->
 							{{if item.doctorPostsCommentList!==null&&item.doctorPostsCommentList.length>0}}
 							{{each item.doctorPostsCommentList as postsComment}}
 							{{if postsComment.commentId == null}}
@@ -710,7 +687,6 @@
 							</div>
 							<div class="both"></div>
 							{{else}}
-							<!-- </div> -->
 							<div class="both"></div>
 							<div class="response evaluateDiv {{postsComment.id}}" data-id="{{postsComment.id}}" data-postsId="{{item.id}}" data-replyUserId="{{postsComment.replyUserId}}" data-userName="{{postsComment.replyUserName}}">
 								<span class="my">{{postsComment.replyUserName}}</span>
@@ -740,17 +716,17 @@
 				<!-- //封面图和背景色  //直播课程状态：lineState  1直播中， 2预告，3直播结束 ， 4 即将直播 ，5 准备直播 ，6 异常直播 -->
 
 					{{if items.lineState == 1}}
-						<div class="fixation_reminder" onclick="common_jump_alls({{items.id}})">
+						<div class="fixation_reminder" onclick="jumpTeachingCourse({{items.id}},{{items.teaching}})">
 							<img src="{{items.smallImgPath}}" alt="" class="surface_plot" />
 							<div class="broadcastroom_bg"></div>
 						</div>
 
-						<img src="/xcview/images/play_btn.png" alt="" class="broadcastroom_button" onclick="common_jump_alls({{items.id}})" />
-						<div class="broadcastroom_hint" onclick="common_jump_alls({{items.id}})">
+						<img src="/xcview/images/play_btn.png" alt="" class="broadcastroom_button" onclick="jumpTeachingCourse({{items.id}},{{items.teaching}})" />
+						<div class="broadcastroom_hint" onclick="jumpTeachingCourse({{items.id}},{{items.teaching}})">
 							<div class="broadcastroom_hint_title">正在直播：{{items.gradeName}}</div>
 						</div>
 					{{else if items.lineState == 2 || items.lineState == 4 || items.lineState == 5}}
-						<div class="fixation_reminder" onclick="common_jump_alls({{items.id}})">
+						<div class="fixation_reminder" onclick="jumpTeachingCourse({{items.id}},{{items.teaching}})">
 							<img src="{{items.smallImgPath}}" alt="" class="surface_plot" />
 							<div class="broadcastroom_bg"></div>
 						</div>
@@ -760,13 +736,13 @@
 							<div id="box1"></div>
 						</div>
 					{{else if items.lineState == 3}}
-						<div class="fixation_reminder" onclick="common_jump_alls({{items.id}})">
+						<div class="fixation_reminder" onclick="jumpTeachingCourse({{items.id}},{{items.teaching}})">
 							<img src="{{items.smallImgPath}}" alt="" class="surface_plot" />
 							<div class="broadcastroom_bg"></div>
 						</div>
 
-						<img src="/xcview/images/play_btn.png" alt="" class="broadcastroom_button" onclick="common_jump_alls({{items.id}})" />
-						<div class="broadcastroom_hint" onclick="common_jump_alls({{items.id}})">
+						<img src="/xcview/images/play_btn.png" alt="" class="broadcastroom_button" onclick="jumpTeachingCourse({{items.id}},{{items.teaching}})" />
+						<div class="broadcastroom_hint" onclick="jumpTeachingCourse({{items.id}},{{items.teaching}})">
 							<div class="broadcastroom_hint_title">直播回放：{{items.gradeName}}</div>
 						</div>
 					{{/if}}
@@ -792,7 +768,6 @@
 		<!-- 为您推荐课程开始 -->
 		<div class="wrap_vedio" style="padding-bottom: 0;" id="recommended">
 			<div class="">
-				<!-- <span class="border"></span> -->
 				<span style="font-size: 0.28rem;float: left;">为您推荐</span>
 				<div class="both"></div>
 			</div>
@@ -876,93 +851,6 @@
 		<!-- 直播间展示开始 -->
 		<div class="broadcastroom_show" style="display1:none;display: block;">
 			<!-- 跟师课程开始 -->
-			<!-- <div class="wrap_vedio" style="padding-bottom: 0;" id="master_course">
-				<div class="">
-					<span class="border"></span>
-					<span style="font-size: 0.28rem;float: left;">跟师直播</span>
-					<span class="master_course_span">只有弟子能跟师直播学习</span>
-					<div class="both"></div>
-				</div>
-				<ul class="wrap_vedio_btn" id="wrap_vedio_btn">				
-					<li style="position: relative;">
-				            		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;"></a>
-						<p class="wrap_img_pic">
-							<img src="http://test-file.ipandatcm.com/18625153916/0022426186be-2c9aec356231d035016231eb7b0b00001529912356541.png?imageView2/2/w/339"> 
-							<img src="/xcview/images/Sinatv_auto.png" alt="" class="img_little">
-						</p>
-						<p class="speak_text">6.25直播ios哈哈哈</p>
-						<p class="speak_name">默默</p>
-						<div class="on_line_status">
-							<p class="money_status z">
-								<span>免费</span>
-							</p>
-							<p class="more_people z">
-								<img src="/xcview/images/Sinatv_time.png">
-								<span>2018.6.1 10:00</span>
-							</p>
-						</div>
-					</li>
-					<li style="position: relative;">
-				            		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;"></a>
-				            			
-						<p class="wrap_img_pic">
-							<img src="http://test-file.ipandatcm.com/18625153916/0022426186be-2c9aec356231d035016231eb7b0b00001529912356541.png?imageView2/2/w/339">
-							<img src="/xcview/images/Sinatv_auto.png" alt="" class="img_little">
-						</p>
-						<p class="speak_text">6.25直播ios哈哈哈</p>
-						<p class="speak_name">默默</p>
-						<div class="on_line_status">
-							<p class="money_status z">
-								<span>免费</span>
-							</p>
-							<p class="more_people z">
-								<img src="/xcview/images/Sinatv_time.png">
-								<span>2018.6.1 10:00</span>
-							</p>
-						</div>
-					</li>
-					<li style="position: relative;">
-				            		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;"></a>
-				            			
-						<p class="wrap_img_pic">
-							<img src="http://test-file.ipandatcm.com/18625153916/0022426186be-2c9aec356231d035016231eb7b0b00001529912356541.png?imageView2/2/w/339"> 
-							<img src="/xcview/images/Sinatv_auto.png" alt="" class="img_little">
-						</p>
-						<p class="speak_text">6.25直播ios哈哈哈</p>
-						<p class="speak_name">默默</p>
-						<div class="on_line_status">
-							<p class="money_status z">
-								<span>免费</span>
-							</p>
-							<p class="more_people z">
-								<img src="/xcview/images/Sinatv_time.png">
-								<span>2018.6.1 10:00</span>
-							</p>
-						</div>
-					</li>
-					<li style="position: relative;">
-				            		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;"></a>
-				            			
-						<p class="wrap_img_pic">
-							<img src="http://test-file.ipandatcm.com/18625153916/0022426186be-2c9aec356231d035016231eb7b0b00001529912356541.png?imageView2/2/w/339">
-							<img src="/xcview/images/Sinatv_auto.png" alt="" class="img_little">
-						</p>
-						<p class="speak_text">6.25直播ios哈哈哈</p>
-						<p class="speak_name">默默</p>
-						<div class="on_line_status">
-							<p class="money_status z">
-								<span>免费</span>
-							</p>
-							<p class="more_people z">
-								<img src="/xcview/images/Sinatv_time.png">
-								<span>2018.6.1 10:00</span>
-							</p>
-						</div>
-					</li>
-				</ul>
-			</div> -->
-			<!-- 跟师课程结束 -->
-			<!-- 跟师课程开始 -->
 			<div class="wrap_vedio_main">
 				<div class="wrap_vedio" style="padding-bottom: 0;" id="master_course">
 					<div class="" style="margin-top1: 0.2rem;">
@@ -975,15 +863,7 @@
 						<script type="text/html" id="teacher_hide_ids">
 						{{each items as item i}}			
 							<li style="position: relative;">
-
-								<!--if (data.resultObject.onlineApprenticeStatus == 4) {
-					                <a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" onclick="common_jump_alls({{item.id}})"></a>
-					            }else{
-					                <a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" onclick="common_jump_alls({{item.id}})"></a>
-					            }-->
-						        
-						       <a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" onclick="common_jump_alls({{item.id}})"></a> 
-
+						       <a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" onclick="jumpTeachingCourse({{item.id}},{{item.teaching}})"></a>
 								<p class="wrap_img_pic">
 									<img src="{{item.smallImgPath}}" /> 
 									<img src="/xcview/images/Sinatv_auto.png" alt="" class="img_little">
@@ -998,9 +878,6 @@
 										<p style="font-size: 0.22rem;margin-top: 0.03rem;" class="money_status z"><span>{{item.currentPrice}}</span>熊猫币</p>
 									{{/if}}
 
-									<!--<p class="money_status z">
-										<span>免费</span>
-									</p>-->
 									<p class="more_people z">
 										<img src="/xcview/images/Sinatv_time.png">
 										<span class="more_people_time">{{item.startTime.slice(0,16)}}</span>
@@ -1010,26 +887,6 @@
 						{{/each}}
 						</script>
 
-
-
-						<!-- <li style="position: relative;">
-							<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;"></a>			
-							<p class="wrap_img_pic">
-								<img src="http://test-file.ipandatcm.com/18625153916/0022426186be-2c9aec356231d035016231eb7b0b00001529912356541.png?imageView2/2/w/339">
-								<img src="/xcview/images/Sinatv_auto.png" alt="" class="img_little">
-							</p>
-							<p class="speak_text">6.25直播ios哈哈哈</p>
-							<p class="speak_name">默默</p>
-							<div class="on_line_status">
-								<p class="money_status z">
-									<span>免费</span>
-								</p>
-								<p class="more_people z">
-									<img src="/xcview/images/Sinatv_time.png">
-									<span>2018.6.1 10:00</span>
-								</p>
-							</div>
-						</li> -->
 					</ul>
 				</div> 
 			</div>
@@ -1049,23 +906,15 @@
 					{{each items as item i}} 
 					<li style="position: relative;">
 	            		{{if item.type == 1 || item.type == 2 || item.type == 4}}
-		                					 
 	                		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" onclick="common_jump_all({{item.id}})"></a>
-
-
 							<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" onclick="common_jump_school({{item.watchState}},{{item.type}},{{item.collection?1:0}},{{item.id}})"></a>
-	            			
 	            		{{else if item.type == 3}}
-	            			
 						<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" onclick="common_jump_all({{item.id}})"></a>
 	            			
 						{{/if}}
 	            			
 						<p class="wrap_img_pic">
 							<img src="{{item.smallImgPath}}">  <!--大背景图-->
-
-							<!--watchState，1免费、0收费-视频、2-type，-音频、3-直播、4-线下培训班   collection:1-专辑   -->
-
 
 							{{if item.type == 1}}
 								<img src="/xcview/images/tv_auto.png" alt="" class="img_little" />
@@ -1133,17 +982,6 @@
 			</div>
 			{{/each}}
 	        </script>
-
-			<!-- <div class="prose_origin_details">
-				<div class="prose_origin_details_center">
-					<img src="/xcview/images/banner01.png" alt="" />
-					<div class="prose_origin_main_fize">
-						<div class="prose_origin_main_title">京城四大名医施今墨收徒-传授草药学精髓</div>
-						<div class="prose_origin_main_time">2018.6.1</div>
-						<div class="both"></div>
-					</div>
-				</div>
-			</div> -->
 		</div>
 
 		<!-- 远程诊疗开始 -->
@@ -1162,25 +1000,12 @@
 					{{if item.appointed == true}}
 						<div class="subscribe_btns">已预约</div>
 					{{else}}
-						<!--<div class="subscribe_btn" onclick="location.href ='/xcview/html/physician/reserve_information.html?doctor='+doctorId+'&dataId={{item.id}}'">预约</div>-->
 						<div class="subscribe_btn" onclick="order('{{item.id}}')">预约</div>
 					{{/if}}
 				</div>
 				{{/each}}
 			    </script>
 			</div>
-			
-
-			<!-- <div class="subscribe">
-				<div class="subscribe_time">6月24日  星期五  9:00-10:30</div>
-				<div class="subscribe_btn" style="display: none;">预约</div>
-				<div class="subscribe_btns">已预约</div>
-			</div>
-			<div class="subscribe">
-				<div class="subscribe_time">6月25日  星期六  9:00-10:30</div>
-				<div class="subscribe_btn" style="display: none;">预约</div>
-				<div class="subscribe_btns">已预约</div>
-			</div> -->
 			
 		</div>
 		<!-- 远程诊疗结束 -->
@@ -1198,14 +1023,8 @@
 					<script type="text/html" id="teacher_hide_id">
 					{{each items as item i}}			
 						<li style="position: relative;">
-
-							<!--if (data.resultObject.onlineApprenticeStatus == 4) {
-				                <a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" onclick="common_jump_alls({{item.id}})"></a>
-				            }else{
-				                <a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" onclick="common_jump_alls({{item.id}})"></a>
-				            }-->
 					        
-					       <a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" onclick="common_jump_alls({{item.id}})"></a> 
+					       <a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" onclick="jumpTeachingCourse({{item.id}},{{item.teaching}})"></a> 
 
 							<p class="wrap_img_pic">
 								<img src="{{item.smallImgPath}}" /> 
@@ -1221,9 +1040,6 @@
 									<p style="font-size: 0.22rem;margin-top: 0.03rem;" class="money_status z"><span>{{item.currentPrice}}</span>熊猫币</p>
 								{{/if}}
 
-								<!--<p class="money_status z">
-									<span>免费</span>
-								</p>-->
 								<p class="more_people z">
 									<img src="/xcview/images/Sinatv_time.png">
 									<span class="more_people_time">{{item.startTime.slice(0,16)}}</span>
@@ -1233,26 +1049,6 @@
 					{{/each}}
 					</script>
 
-
-
-					<!-- <li style="position: relative;">
-						<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;"></a>			
-						<p class="wrap_img_pic">
-							<img src="http://test-file.ipandatcm.com/18625153916/0022426186be-2c9aec356231d035016231eb7b0b00001529912356541.png?imageView2/2/w/339">
-							<img src="/xcview/images/Sinatv_auto.png" alt="" class="img_little">
-						</p>
-						<p class="speak_text">6.25直播ios哈哈哈</p>
-						<p class="speak_name">默默</p>
-						<div class="on_line_status">
-							<p class="money_status z">
-								<span>免费</span>
-							</p>
-							<p class="more_people z">
-								<img src="/xcview/images/Sinatv_time.png">
-								<span>2018.6.1 10:00</span>
-							</p>
-						</div>
-					</li> -->
 				</ul>
 			</div> 
 		</div>
@@ -1328,16 +1124,7 @@
 						<div class="become_disciple_cen">{{items.requirement}}</div>
 						</script>
 					</div>
-					<!-- <div class="become_disciple_cen">
-						1.提交申请，符合条件的，安排面谈之后，可成为弟子；
-						2.在医师收徒的时候，也可成为弟子。
-					</div>
-					<div class="become_disciple_title">弟子福利</div>
-					<div class="become_disciple_cen">
-						1.老师定期有跟师观摩的课程，有弟子有资格参与；
-						2.针对观摩或者实际工作过程中的案例进行提问学习；
-						3.预约远程协助问诊。
-					</div> -->
+
 				</div>
 			</div>
 			<div class="disciple_application_state">
@@ -1360,18 +1147,6 @@
 
 	<!-- 介绍开始 -->
 	<div class="message_referral" id="message_referral">
-		<!-- <div class="message_referral_main">
-			<div class="wrap_synopsis">	
-				<div class="my_synopsis">
-					<ul>
-						<li class="border"></li>
-						<li>主治</li>
-					</ul>
-				</div>		
-			</div>
-			<div class="message_referral_cen">脑血管、肝病、肾病、泌尿系统疾病、癫痫病等内科、妇科疑难杂症</div>
-			<div class="both"></div>
-		</div> -->
 		
 		<div class="message_referral_main_time">
 			<script type="text/html" id="message_referral_id">
@@ -1454,13 +1229,6 @@
 
 		</div>
 	</div>
-
-		<!-- 删除样式开始 -->
-			<!-- <div class="remove">
-				<div class="remove_bg"></div>
-				<div class=""></div>
-			</div> -->
-		<!-- 删除样式结束 -->
 		
 	</div>
 	<!-- 中间内容结束 -->
@@ -1469,7 +1237,6 @@
 	<div class="remove_copy">
 		<div class="remove_copy_bg"></div>
 		<div class="remove_copy_main" style="height: 1rem;">
-			<!-- <div class="copy" >复制</div> -->
 			<div class="remove">删除</div>
 		</div>
 	</div>
@@ -1479,12 +1246,8 @@
 	<div class="comment">
 		<div class="comment_bg"></div>
 		<div class="comment_main">
-			<!-- <img src="/xcview/images/face.png" alt="" class="face" /> -->
-			<!-- <textarea id="form_article" contenteditable="true" onkeydown="myInput.listen(t");
-his, event);"></textarea> -->
 			<textarea id="form_article" contenteditable="true" onkeydown="myInput.listen(this, event);" placeholder=""></textarea>
 			<div class="article_main">说点什么...</div>
-			<!-- <div class="article_mains">回复：</div> -->
 			<h3 onclick="sendComment()">发送</h3>
 		</div>
 	</div>
@@ -1593,45 +1356,10 @@ his, event);"></textarea> -->
 <!-- 导航渐变 -->
 <script>
 $(window).bind("scroll", function() {
-    /*var $header = $("#header");
-    var t = 200,
-        m = Math.min(document.documentElement.scrollTop || document.body.scrollTop, t) / t;
-    $header.css("background", "rgba(255, 255, 255, " + m + ")");*/
 
-    // 判断滚动条显示隐藏title
-	/*var top = $(".the_dynamic").scrollTop();
-    if(top < 100){
-    	$(".header p").hide();
-    	$(".arror_return img").attr("src","/xcview/images/anchorj.png");
-    	$(".header_news img").attr("src","/xcview/images/anchorf.png");
-    	$("#header").css("border-bottom","0px solid #d8dde6");
-    }else if(top > 100){
-    	$(".arror_return img").attr("src","/xcview/images/back icon.png");
-    	$(".header_news img").attr("src","/xcview/images/share_img.png");
-    	$(".header p").show();
-    	$("#header").css("border-bottom","1px solid #d8dde6");
-    }*/
 });
 </script>
 <!-- 头部固定开始 -->
-<script>
-/* $(document).ready(function() {
-     var $window = $(window),
-         $mainMenuBar = $('#mainMenuBar'),
-         $mainMenuBarAnchor = $('#mainMenuBarAnchor');
-     $window.scroll(function() {
-         var window_top = $window.scrollTop();
-         var div_top = $mainMenuBarAnchor.offset().top;
-         if (window_top > div_top) {
-             $mainMenuBar.addClass('stick');
-             $mainMenuBarAnchor.height($mainMenuBar.height());
-         } else {
-             $mainMenuBar.removeClass('stick');
-             $mainMenuBarAnchor.height(0);
-         }
-     });
- });*/
-</script>
 <!-- 头部固定结束 -->
 
 <script type="text/javascript">
@@ -1702,9 +1430,7 @@ $(window).bind("scroll", function() {
 			$(".broadcastroom").hide();   /*直播间打开*/
 			$(".prose_origin").show();   /*师承内容打开*/
 			$(".message_referral").hide();  //介绍结束
-			// $(".broadcastroom").show();
 		});
-		/*$(".li_prose_origin").click();*/
 
 		// 点击介绍
 		$(".li_evaluate").click(function(){
@@ -1820,17 +1546,7 @@ $(window).bind("scroll", function() {
             $(".paper_nav").removeClass("hide");  //其他3  
             $(".course_nav").addClass("hide");  //课程 
             $(".sinatv_nav").addClass("hide");  //直播 
-	    });	
-
-        // 点击关注
-        /*$(".attention").click(function(){
-            $(".attention").find('img').attr('src','/xcview/images/yigz.png');
-            $(".pay_attention").html("已关注");
-            $(".attention").css("background","#bbb");
-	    });	*/
-	    /*$(".attention").find('img').attr('src','/xcview/images/weigz.png');
-        $(".pay_attention").html("加关注");
-        $(".attention").css("background","#00bc12");*/
+	    });
 
         // 点赞 
         $(".rests_nav .zan_img").click(function(){
@@ -1854,23 +1570,6 @@ $(window).bind("scroll", function() {
 	    });
 
 
-	    // 点击底部评论textarea开始
-	    /*$(".face").click(function(){
-            $(".comment").css("bottom","2.8rem");
-            $("#page_emotion").css("bottom","0");
-            $(".face").attr("src","/xcview/images/jianpan.png");
-	    });	*/
-		/*$(".face").toggle(function(){
-	    	$(".comment").css("bottom","2.8rem");
-            $("#page_emotion").css("bottom","0");
-            $(".face").attr("src","/xcview/images/jianpan.png");
-	  	},function(){
-		    $(".comment").css("bottom","0rem");
-            $("#page_emotion").css("bottom","-2.8rem");
-            $(".face").attr("src","/xcview/images/face.png");
-	    });*/
-    // 点击底部评论textarea结束
-
     // 点击发送开始
     $(".comment h3").click(function(){
     	$(".face").attr("src","/xcview/images/face.png");
@@ -1892,12 +1591,6 @@ $(window).bind("scroll", function() {
     	$(".article_main").hide();
     	$("#form_article").focus();
 	});
-
-	// 点击头部分享按钮   
-	/*$(".header").click(function(){
-		alert(111);
-    	$(".weixin_ceng").show();
-	});*/
 	
 	$(".weixin_ceng").click(function(){
     	$(".weixin_ceng").hide();
@@ -1933,69 +1626,6 @@ $(window).bind("scroll", function() {
     	$(".learn_tips_audit").hide();
 	});
 
-
-	// 判断头部有没有默认图
-	/*var a=$(".swiper-wrapper").html();
-   	if(a==null||a.length==0){
-   		alert(1111);
-       $(".physician_img0").css("display","block");
-    }else{
-       $(".physician_img0").css("display","none");
-   		alert(222);
-
-    };*/
-
-
-	/*// 点击其他--评论显示底部评论区域
-	$(".rests_nav .evaluate_img").click(function(){
-    	$(".face").attr("src","/xcview/images/face.png");
-    	$("#page_emotion").css("bottom","-2.8rem");
-    	$(".comment").show();
-	});
-
-	// 点击医案--评论显示底部评论区域
-	$(".consilia_nav .consilia_evaluate_img").click(function(){
-    	$(".face").attr("src","/xcview/images/face.png");
-    	$("#page_emotion").css("bottom","-2.8rem");
-    	$(".comment").show();
-	});
-
-	// 点击其他二--评论显示底部评论区域
-	$(".essay_pack_up .essay_evaluate_img").click(function(){
-    	$(".face").attr("src","/xcview/images/face.png");
-    	$("#page_emotion").css("bottom","-2.8rem");
-    	$(".comment").show();
-	});	
-
-	// 点击文章--评论显示底部评论区域
-	$(".article_nav .article_evaluate_img").click(function(){
-    	$(".face").attr("src","/xcview/images/face.png");
-    	$("#page_emotion").css("bottom","-2.8rem");
-    	$(".comment").show();
-	});
-
-	// 点击其他三--评论显示底部评论区域
-	$(".paper_nav .paper_evaluate_img").click(function(){
-    	$(".face").attr("src","/xcview/images/face.png");
-    	$("#page_emotion").css("bottom","-2.8rem");
-    	$(".comment").show();
-	});	
-
-	// 点击课程--评论显示底部评论区域
-	$(".course_nav .course_evaluate_img").click(function(){
-    	$(".face").attr("src","/xcview/images/face.png");
-    	$("#page_emotion").css("bottom","-2.8rem");
-    	$(".comment").show();
-	});	
-
-	// 点击课程--评论显示底部评论区域
-	$(".sinatv_nav .sinatv_evaluate_img").click(function(){
-    	$(".face").attr("src","/xcview/images/face.png");
-    	$("#page_emotion").css("bottom","-2.8rem");
-    	$(".comment").show();
-	});		*/
-
-    // 点击发送结束
 	});
 
 function header_click(){
@@ -2010,7 +1640,6 @@ function header_click(){
     });
 </script>
 <script type="text/javascript">
-    // window.onload = function(){
     //		处理底部高度
     $(function(){
         var school_height=$(window).height()-$(".top_show_height").height();
@@ -2028,17 +1657,7 @@ function header_click(){
     // 医师默认图
     var baseImagenumbers=$(window).height()-$(".top_show_height").height();
     $(".baseImagenumbers").height(baseImagenumbers);
-    // };
-
-    /*var minirefresh=$(window).height()-$(".top_show_height").height();
-    $("#minirefresh").height(minirefresh);*/
-
-    // 全部动态最外层
-    /*var minirefreshs=$(window).height()-$(".top_show_height").height();
-    $(".the_dynamic").height(minirefreshs);*/
-
-    /*var minirefresh=$(window).height()-$(".top_show_height").height();
-    $(".rests_nav").height(minirefresh);*/
+	
 
     // 处理整体body区域高度，不让内容有滚动条
     var body=$(window).height();

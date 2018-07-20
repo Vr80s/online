@@ -109,32 +109,23 @@
 		</div>
 	</div> -->
 	
-	<!-- <div class="banner_img">
+	<div class="banner_img">
 		<script type="text/html" id="top_details">
-		头部结束
+		<!-- 头部结束 -->
 		<div class="swiper-container top_swiper">
-			<div class="swiper-wrapper">
+			<div class="swiper-wrapper swiper-banner-btn">
 				{{each items as item i}}
-				<div class="swiper-slide pic01" onclick="sowingDetails('{{item.url}}')">
-					<img src="{{item.imgPath}}" alt="" />
+				<div class="swiper-slide pic01" onclick="{{item.target}}">
+					<img src="{{item.imgPath}}" alt="" data_target="{{item.target}}" data_id="{{item.id}}" />
 				</div>
 				{{/each}}
 			</div>
 			<div class="swiper-pagination"></div>
 		</div>
-		轮播结束
-	
-		</script>
-	</div> -->
+		<!-- 轮播结束 -->
 
-	<!--swiper轮播图滑动-->
-	<div class="swiper-container swiper-container-box" id="swiper-container-box" style="">
-	    <div class="swiper-wrapper" id="wrapper-box">
-	     
-	    </div>
-	    <div class="swiper-pagination swiper-banner-list" id="swiper-banner-list"></div>
+		</script>
 	</div>
-	<!--swiper轮播图滑动结束-->
 
 
 

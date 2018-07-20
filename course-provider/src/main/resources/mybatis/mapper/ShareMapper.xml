@@ -55,4 +55,14 @@
             and is_delete=0 and status = 1
         </if>
     </select>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 </mapper>

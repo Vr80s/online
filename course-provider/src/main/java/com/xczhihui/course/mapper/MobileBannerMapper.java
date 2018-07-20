@@ -54,4 +54,7 @@ public interface MobileBannerMapper extends BaseMapper<MobileBanner> {
     List<CourseLecturVo> realTest2(@Param("name") String name);
 
     List<CourseLecturVo> listenCourseList(@Param("onlyFree") boolean onlyFree);
+
+    Integer addBannerClickNum(@Param("id")String id,@Param("clickSource")Integer clickSource, 
+            @Param("dataSource")Integer dataSource);
 }
