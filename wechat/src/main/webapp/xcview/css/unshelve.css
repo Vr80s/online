@@ -86,7 +86,7 @@ header {
     margin-bottom: 0.4rem;
     position: relative;
     width: 3.39rem;
-    height: 3.25rem;
+    height: 3.61rem;
 }
 
 #course_list_main .course_list_main_one:nth-child(even) {
@@ -118,14 +118,14 @@ header {
 }
 .course_list_one_title{
 	width: 3.39rem;
-    /*height: 0.35rem;
-    line-height: 0.35rem;*/
+    height: 0.76rem;
     font-size: 0.28rem;
     color: #333;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
 	margin-bottom: 0.1rem;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
 }
 .course_list_one_title_name{
 	color: #999;
