@@ -89,14 +89,18 @@ window.onload = function(){
 
     // 点击刷新图片
     $(".switchover").click(function () {
- 
-        if($('.physician_title_img').is('.img')){
+        // 隐藏刷新动画转圈效果
+/*        if($('.physician_title_img').is('.img')){
             $('.physician_title_img').removeClass('img');
         }else{
             $(".physician_title_img").addClass("img");
             myFunction();
             clickSwitchover();
         }
+*/
+        myFunction();
+        clickSwitchover();
+
  
     });
     function myFunction() {
