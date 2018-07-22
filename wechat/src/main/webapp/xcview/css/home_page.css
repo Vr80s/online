@@ -973,19 +973,20 @@ header{
     width: 3.39rem;
     font-size: 0.28rem;
     color: #333;
-    overflow: hidden;
+    /* overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    white-space: nowrap; */
 }
 .boutique_main_one_title div{
     margin-bottom: 0.1rem;
 }
 .boutique_main_one_title .div{
     width: 3.358rem;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
     overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    height: 0.38rem;
+    height: 0.76rem;
     margin-bottom: 0.07rem;
 }
 .boutique_main_one_title .span0{
@@ -1359,7 +1360,7 @@ header{
     float: left;
     margin-bottom: 0.35rem;
     width: 3.39rem !important;
-    height: 3.25rem !important;
+    height: 3.61rem !important;
 }
 .newest_main ul li:nth-child(even) {
     float: right;
@@ -1455,17 +1456,21 @@ header{
 .newest_main_two_title{
     font-size: 0.28rem;
     color: #333;
-    overflow: hidden;
+    /* overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    white-space: nowrap; */
 }
 .newest_main_two_title .div{
     width: 3.358rem;
-    overflow: hidden;
+    /* overflow: hidden;
     white-space: nowrap;
-    text-overflow: ellipsis;
-    height: 0.38rem;
+    text-overflow: ellipsis; */
+    height: 0.76rem;
     margin-bottom: 0.07rem;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
 }
 .newest_main_two_title .span{
     overflow: hidden;
