@@ -1259,16 +1259,17 @@ header{
     width: 3.39rem;
     font-size: 0.28rem;
     color: #333;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
     overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
 }
 .boutique_main_four_title .div{
     width: 3.358rem;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
     overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    height: 0.38rem;
+    height: 0.76rem;
     margin-bottom: 0.07rem;
 }
 .boutique_main_four_title div{
@@ -1705,7 +1706,7 @@ header{
     margin-bottom: 0.35rem;
     position: relative;
     width: 3.39rem !important;
-    height: 3.25rem !important;
+    height: 3.61rem !important;
 }
 .lectures_main ul li:nth-child(even){
     float: right;
@@ -1735,17 +1736,18 @@ header{
     width: 3.39rem;
     font-size: 0.28rem;
     color: #333;
-    overflow: hidden;
+    /* overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    white-space: nowrap; */
 }
 .lectures_main_one_title .div{
     width: 3.358rem;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    height: 0.38rem;
+    height: 0.76rem;
     margin-bottom: 0.07rem;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
 }
 .lectures_main_one_title div{
     margin-bottom: 0.1rem;
