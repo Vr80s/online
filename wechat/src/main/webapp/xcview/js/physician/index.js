@@ -110,6 +110,12 @@ window.onload = function(){
         requestService("/xczh/doctors/hotInBatch",null, function (data) {
             if (data.success==true) {
                 $('.exothecium').html(template('exothecium_id', {items: data.resultObject}));
+                
+                $(".batch_main_bg:eq(0)").addClass("batch_main_bg_one");
+                $(".batch_main_bg:eq(1)").addClass("batch_main_bg_two");
+                $(".batch_main_bg:eq(2)").addClass("batch_main_bg_three");
+                $(".batch_main_bg").css("background-size","2.27rem 3.18rem");
+                
                 // 详情跳转
                 $(".batch_main").click(function(){
                     var id = $(this).attr("data-ids");
@@ -120,7 +126,7 @@ window.onload = function(){
     }
     clickSwitchover();
 
-
+    
 
 };
 
