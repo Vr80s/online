@@ -800,14 +800,28 @@ function apprenticeInfo() {
                 $('.QA_main').html(template('QA_main_id', {items: data.resultObject.questions}));
             }
             // 远程诊疗
-            if (isBlank(data.resultObject.treatments.indexDateText)) {
+            /*if (isBlank(data.resultObject.treatments.indexDateText)) {
                 $(".therapy").show();
                 // 预约
                 $('.subscribe_id').html(template('subscribe_id', {items: data.resultObject.treatments}));
                 // ceshi();
             } else{
+                alert(11111);
                 $(".therapy").hide();
+            }*/
+
+            if (isBlank(data.resultObject.treatments.indexDateText)) {
+                // alert(11111);
+                $(".therapy").hide();
+            } else{
+                $(".therapy").show();
+                // 预约
+                $('.subscribe_id').html(template('subscribe_id', {items: data.resultObject.treatments}));
+                // ceshi();
             }
+
+
+
             // $('.subscribe_id').html(template('subscribe_id', {items: data.resultObject.treatments}));
             // 跟师直播--师承
             if (isBlank(data.resultObject.apprenticeCourses)) {
@@ -851,7 +865,7 @@ function apprenticeInfo() {
                 // 医师问答列表
                 $('.disciple_main_id').html(template('disciple_main_id', {items: data.resultObject.apprentices}));
                 // $(".disciple_number").html(data.resultObject.apprenticeCount);
-                apprenticeCount();
+                //apprenticeCount();  //医师底部弟子数
             }
 
             if (isNotBlank(data.resultObject.settings)) {
@@ -863,9 +877,9 @@ function apprenticeInfo() {
         }
     });
 }
-apprenticeInfo();
+apprenticeInfo();  /*师承方法*/
 
-
+apprenticeCount();  /*医师底部弟子数*/
 // 获取师承弟子数
 function apprenticeCount(){
     requestGetService("/xczh/host/doctor/v2",{

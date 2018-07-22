@@ -1098,7 +1098,11 @@
 				<span class="border"></span>
 				<span style="font-size: 0.28rem;">弟子：<span class="disciple_number">
 					<script type="text/html" id="disciple_number_id">
+					{{if items.apprenticeCount ==null && items.apprenticeCount ==""}}
+					<span>0</span>
+					{{else}}
 					<span>{{items.apprenticeCount}}</span>
+        			{{/if}}
 					</script>
 				</span>人</span>
 				<div class="both"></div>
