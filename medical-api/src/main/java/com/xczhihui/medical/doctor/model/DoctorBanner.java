@@ -48,6 +48,8 @@ public class DoctorBanner implements Serializable {
     @TableField(exist = false)
     private String linkDesc;
 
+    private Boolean deleted;
+
     public Integer getId() {
         return id;
     }
@@ -134,5 +136,13 @@ public class DoctorBanner implements Serializable {
 
     public void setLinkDesc(String linkDesc) {
         this.linkDesc = linkDesc;
+    }
+
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
     }
 }

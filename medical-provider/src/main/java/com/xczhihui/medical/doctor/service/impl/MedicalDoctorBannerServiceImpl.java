@@ -97,4 +97,13 @@ public class MedicalDoctorBannerServiceImpl implements IMedicalDoctorBannerServi
     public Integer updateAllUnShelves() {
         return medicalDoctorBannerMapper.updateAllUnShelves();
     }
+
+    @Override
+    public void delete(int id) {
+        DoctorBanner doctorBanner = medicalDoctorBannerMapper.selectById(id);
+        if (doctorBanner != null) {
+            doctorBanner.setDeleted(true);
+            medicalDoctorBannerMapper.updateAllColumnById(doctorBanner);
+        }
+    }
 }
