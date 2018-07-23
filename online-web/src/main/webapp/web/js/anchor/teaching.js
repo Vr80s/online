@@ -919,6 +919,7 @@ function cheackSelectAll(){
 		$(".teacher-name").val(anchors);			//医师名字
 		$(".recruit-text-up").addClass("hide");     //保存/发布按钮
 		$(".namage-top button").text("返回");		//返回
+		$(".namage-top span").text("招生简章");
 	})
 	function echoManage(index){
 		var echoManageData=manageData[index];
@@ -960,6 +961,7 @@ function cheackSelectAll(){
 		var establishDate={
 			"title":$.trim($(".recruit-title").val()),			//标题
 			"coverImg":$(".mamage-wrap-img img").attr("src"),	//封面图
+			"tuition":0,
 			"countLimit":$.trim($(".personal-number").val()),	//招生人数
 			"deadline":$.trim($("#sign-up-time").val()),		//报名截止时间
 			"startTime":$.trim($("#study-start-time").val()),	//学习时间
@@ -1085,6 +1087,7 @@ function cheackSelectAll(){
 	var establishDate={
 		"title":$.trim($(".recruit-title").val()),			//标题
 		"coverImg":$(".mamage-wrap-img img").attr("src"),	//封面图
+		"tuition":0,
 		"countLimit":$.trim($(".personal-number").val()),	//招生人数
 		"deadline":$.trim($("#sign-up-time").val()),		//报名截止时间
 		"startTime":$.trim($("#study-start-time").val()),	//学习时间
