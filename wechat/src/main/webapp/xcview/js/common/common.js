@@ -17,6 +17,12 @@ var USER_UN_BIND = 1005;//用户用微信登录的但是没有绑定注册信息
 var USER_NORMAL = 1000;
 var USER_WEIXIN_AUTH = 1006;//需要去微信授权
 
+// QA_quiz
+
+/*$(".QA_quiz").click(function(){
+
+});*/
+
 /**
  * 判断是不是来自微信浏览器
  */
@@ -85,7 +91,7 @@ if (isNotBlank(qr_code)) {
 var accessCommon = localStorage.access;
 var current = window.location.search;
 //当前域名
-var domain = window.location.host;
+var domain = window.location.host;       
 
 /**
  * 得到  online-web 的测试或者生成域名

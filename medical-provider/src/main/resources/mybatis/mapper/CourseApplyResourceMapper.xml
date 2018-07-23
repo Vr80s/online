@@ -65,6 +65,10 @@
             #{item}
         </foreach>
     </update>
-
+    <!--   根据资源id更新时长     -->
+    <update id="updateCourseLengthByResource" parameterType="java.util.List">
+        update course_apply_resource set length = #{videoLength}
+        where resource = #{ResourceId}
+    </update>
 
 </mapper>

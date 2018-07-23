@@ -54,5 +54,6 @@
     <uri>/web/wxPay/pay_notify</uri>
     <uri>/anchor/guide</uri>
     <uri>/course/courses/[0-9]{1,}</uri>
+    <uri>/videoRes/updateCourseApplyResource</uri>
 
 </openuris>

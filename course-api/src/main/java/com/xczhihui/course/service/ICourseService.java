@@ -259,8 +259,14 @@ public interface ICourseService {
      */
     List<Course> getAllCourseByStatus();
 
-
-    List<Map<String, Object>> doctorCourseList(String lecturerId,String userId);
+    /**
+     * 查看医师的直播间的课程信息
+     * @param lecturerId
+     * @param userId
+     * @param onlyFreee
+     * @return
+     */
+    List<Map<String, Object>> doctorCourseList(String lecturerId,String userId,boolean onlyFreee);
 
     /**
      * 查询师承课程

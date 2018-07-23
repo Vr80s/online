@@ -1,13 +1,12 @@
 package com.xczhihui.medical.anchor.mapper;
 
-import java.util.List;
-
-import org.apache.ibatis.annotations.Param;
-
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.medical.anchor.model.CourseApplyResource;
 import com.xczhihui.medical.anchor.vo.CourseApplyResourceVO;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -32,4 +31,6 @@ public interface CourseApplyResourceMapper extends BaseMapper<CourseApplyResourc
 
     void updateBatchCourseLength(@Param("videoLength") String videoLength,
                                  @Param("list") List<Integer> list);
+    void updateCourseLengthByResource(@Param("videoLength") String videoLength,
+                                 @Param("ResourceId") String ResourceId);
 }

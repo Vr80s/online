@@ -341,24 +341,26 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     }
 
     @Override
-    public List<Map<String, Object>> doctorCourseList(String lecturerId,String userId) {
+    public List<Map<String, Object>> doctorCourseList(String lecturerId,String userId,boolean onlyFreee) {
 
         List<Map<String, Object>> alllist = new ArrayList<Map<String, Object>>();
 
-        List<CourseLecturVo> records = selectTeachingCoursesByUserId(new Page<CourseLecturVo>(1,4),lecturerId, userId);
-        
+        List<CourseLecturVo> records = selectTeachingCoursesByUserId(new Page<CourseLecturVo>(1,4),lecturerId,
+                userId);
         Map<String, Object> map1 = new HashMap<String, Object>();
         map1.put("text", "跟师直播");
         map1.put("code", CourseType.APPRENTICE.getId());
         map1.put("courseList",records);
         alllist.add(map1);
 
-        List<CourseLecturVo> recordsLive = iCourseMapper.selectLecturerAllCourseByType(new Page<CourseLecturVo>(1, 6), userId, CourseType.LIVE.getId(), false);
+        List<CourseLecturVo> recordsLive = iCourseMapper.selectLecturerAllCourseByType(new Page<CourseLecturVo>(1, 6), 
+                lecturerId, CourseType.LIVE.getId(), onlyFreee);
 
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("text", "直播课程");
         map.put("code", CourseType.LIVE.getId());
         map.put("courseList",recordsLive);
+        
         alllist.add(map);
 
         return alllist;

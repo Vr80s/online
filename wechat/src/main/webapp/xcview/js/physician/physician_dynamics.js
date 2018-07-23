@@ -810,7 +810,7 @@ function apprenticeInfo() {
                 $(".therapy").hide();
             }*/
 
-            if (isBlank(data.resultObject.treatments.indexDateText)) {
+            if (!isBlank(data.resultObject.treatments.indexDateText)) {
                 // alert(11111);
                 $(".therapy").hide();
             } else{
@@ -950,4 +950,29 @@ function order(id){
         }
     });
 };
+
+
+// 申请预约--
+$(".QA_quiz").click(function(){
+    checkAuth(doctorId);
+});
+function checkAuth(doctorId) {
+    var USER_UN_BIND = 1005;//用户用微信登录的但是没有绑定注册信息
+    var USER_UN_LOGIN = 1002;//未登录
+    var flag = getFlagStatus();
+  
+    if (flag === USER_UN_BIND) {
+        var rd = getCurrentRelativeUrl();
+        localStorage.setItem("rd", rd); 
+        location.href = "/xcview/html/evpi.html";
+    }else if(flag === USER_UN_LOGIN){
+          var rd = getCurrentRelativeUrl();
+         localStorage.setItem("rd", rd); 
+        
+        location.href = "/xcview/html/enter.html";
+    }else{
+        window.location.href="/xcview/html/physician/quiz.html?doctor="+doctorId; 
+    }
+}
+
 

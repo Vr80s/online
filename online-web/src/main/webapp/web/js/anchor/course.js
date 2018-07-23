@@ -1579,6 +1579,7 @@ function saveResource(){
         data.title = $.trim($('#ziyuan_bottom .zhuanlan_title').val());
         data.resource = $.trim($('#ccId').val());
         data.multimediaType = $("input[name='resource_multimediaType']:checked").val();
+        var resourceIdData = data.resource;
         $.ajax({
             type: "post",
             url: bath + "/anchor/course/saveCourseResource",
@@ -1588,6 +1589,13 @@ function saveResource(){
             success: function(data) {
                 console.log(data);
                 if(data.success === true) {
+                    //更新时长
+                    /*var fileSize = localStorage.getItem("fileSize");
+                    var fileName = localStorage.getItem("fileName");
+                    RequestService("/videoRes/ifUploaded", "GET",{ccId:resourceIdData,fileSize:fileSize,fileName:fileName}, function(data) {
+
+
+                    })*/
                     showTip(data.resultObject);
                     showResourceList();
                 } else {

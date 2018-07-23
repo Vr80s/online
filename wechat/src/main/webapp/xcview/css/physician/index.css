@@ -123,6 +123,7 @@ header{
     background: #fff;
     margin-bottom: 0.2rem;
     overflow: hidden;
+    border-bottom: 1px solid #e6e6e6;
 }
 .physician_title{
     font-size: 0.3rem;
@@ -141,11 +142,17 @@ header{
     padding-top: 0 !important;
 }
 .physician_cen{
-    width: 7.24rem;
+    width: 6.98rem;
     min-height: 1.4rem;
-    float: right;
-    border-bottom: 1px solid #F0F0F0;
+    margin: 0 auto;
     padding-top: 0.2rem;
+    background: #F8F8F8;
+    border-radius: 4px;
+    margin-bottom: 0.2rem;
+}
+.physician_cen .referral{
+    float: left;
+    width: 5.2rem;
 }
 
 .physician_cen:last-child{
@@ -157,6 +164,7 @@ header{
     height: 1.2rem;
     float: left;
     margin-right: 0.2rem;
+    margin-left: 0.2rem;
     border-radius: 100px;
 }
 .head_portrait img{
@@ -171,9 +179,8 @@ header{
 .referral_title{
     margin-top: 0.12rem;
     margin-bottom: 0.2rem;
-    width: 5.8rem;
+    width: 5.2rem;
     /*background: red;*/
-    float: right;
     height: 0.42rem;
     line-height: 0.42rem;
 }
@@ -194,7 +201,7 @@ header{
 }
 .hospital{
     width: 5.54rem;
-    float: right;
+    /*float: right;*/
     min-height: 0.33rem;
     line-height: 0.33rem;
     font-size: 0.24rem;
@@ -270,6 +277,7 @@ header{
     margin: 0 auto;
     background: #fff;
     margin-bottom: 0.2rem;
+    border-bottom: 1px solid #e6e6e6;
 }
 .batch .physician_title span{
     font-size: 0.24rem;

@@ -12,7 +12,7 @@ $(function(){
             $('.time_popout_main_ul').html(template('time_popout_main_ul_id', {items: data.resultObject.treatments}));
 
             // 当前选中的诊疗id
-            // var zhengliaoid = getQueryString('dataId');
+            var zhengliaoid = getQueryString('dataId');
             // alert("链接 "+treatmentId);
             // 找到对应的，把它下面的图片显示
             $(".zhengliao_"+treatmentId).find('img').css("opacity","1");
@@ -22,6 +22,8 @@ $(function(){
             $(".time_popout_main_ul li").click(function(){
                 var id=$(this).find("span").attr("data-ids");
                 $(".handler_time span").attr("data-id",id);
+                $('.zhengliao_img').css("opacity","0");
+                $(".zhengliao_"+id).find('img').css("opacity","1");
                 var html = $(this).find("span").html();
 
                 zhengliao = $(this).find('span').html();// 时间段
@@ -30,7 +32,7 @@ $(function(){
 
                 $(".time_popout").hide();
             });
-            $(".zhengliao_"+zhengliaoid).click();
+            //$(".zhengliao_"+zhengliaoid).click();
             // 循环li
             /*var aBtn=$('.time_popout_main ul li');
             for(i=0;i<aBtn.length;i++){
@@ -61,6 +63,7 @@ $(function(){
             // 申请成功--我知道啦
             $(".prosperity_popout_hide").click(function(){
                 $(".prosperity_popout").hide();
+                window.location.href="/xcview/html/physician/physicians_page.html?doctor="+doctorId; 
             });
 
             // 申请失败--我知道啦
@@ -109,6 +112,19 @@ $(function(){
         });
 
     });
+
+
+    // 我知道了--失败
+    $(".failure_popout_hide").click(function(){
+        $(".failure_popout").hide();
+    });
+
+    // 我知道了--成功
+    $(".prosperity_popout_hide").click(function(){
+        $(".prosperity_popout").hide();
+        window.location.href="/xcview/html/physician/physicians_page?doctor="+doctorId; 
+    });
+
 });
 
 

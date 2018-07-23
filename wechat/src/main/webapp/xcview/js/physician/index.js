@@ -49,13 +49,13 @@ window.onload = function(){
                 }
             });
 
-            $(".swiper-banner-btn").click(function () {
-                var data_id = $(this).find("img").attr("data_id");
+            $(".swiper-banner-btn img").click(function () {
+                var data_id = $(this).attr("data_id");
                 //增加banner的点击量
                 clickBanner(data_id);
                 //页面跳转
                 // var data_url = $(this).find("img").attr("data_url");
-                var data_target = $(this).find("img").attr('data_target');
+                var data_target = $(this).attr('data_target');
 
                 bannerJump(data_target);
             })
@@ -130,7 +130,6 @@ window.onload = function(){
     }
     clickSwitchover();
 
-    
 
 };
 
