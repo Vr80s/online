@@ -353,13 +353,14 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         map1.put("courseList",records);
         alllist.add(map1);
 
-        List<CourseLecturVo> recordsLive = iCourseMapper.selectLecturerAllCourseByType(new Page<CourseLecturVo>(1, 6), userId,
-                CourseType.LIVE.getId(), onlyFreee);
+        List<CourseLecturVo> recordsLive = iCourseMapper.selectLecturerAllCourseByType(new Page<CourseLecturVo>(1, 6), 
+                lecturerId, CourseType.LIVE.getId(), onlyFreee);
 
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("text", "直播课程");
         map.put("code", CourseType.LIVE.getId());
         map.put("courseList",recordsLive);
+        
         alllist.add(map);
 
         return alllist;
