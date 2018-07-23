@@ -229,6 +229,8 @@ public class CourseApplyController extends AbstractController {
     public ResponseObject updateCourseApply(@RequestBody CourseApplyInfo courseApplyInfo) {
         OnlineUser user = getCurrentUser();
         courseApplyInfo.setUserId(user.getId());
+        courseApplyInfo.setTeaching(false);
+        courseApplyInfo.setClientType(ClientType.PC.getCode());
         courseApplyService.updateCourseApply(courseApplyInfo);
         return ResponseObject.newSuccessResponseObject("保存成功");
     }
@@ -237,6 +239,7 @@ public class CourseApplyController extends AbstractController {
     public ResponseObject updateCollectionApply(@RequestBody CourseApplyInfo courseApplyInfo) {
         OnlineUser user = getCurrentUser();
         courseApplyInfo.setUserId(user.getId());
+        courseApplyInfo.setTeaching(false);
         courseApplyInfo.setClientType(ClientType.PC.getCode());
         courseApplyService.updateCollectionApply(courseApplyInfo);
         return ResponseObject.newSuccessResponseObject("保存成功");
@@ -267,8 +270,6 @@ public class CourseApplyController extends AbstractController {
      */
     @RequestMapping(value = "/saveCollectionCourse", method = RequestMethod.POST)
     public ResponseObject saveCollectionCourse(@RequestBody CourseApplyInfo courseApplyInfo) {
-      
-        
         OnlineUser user = getCurrentUser();
         courseApplyInfo.setUserId(user.getId());
         courseApplyInfo.setTeaching(false);
