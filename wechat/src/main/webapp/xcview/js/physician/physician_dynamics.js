@@ -952,11 +952,10 @@ function order(id){
 };
 
 
+// 申请预约--
 $(".QA_quiz").click(function(){
     checkAuth(doctorId);
 });
-
-
 function checkAuth(doctorId) {
     var USER_UN_BIND = 1005;//用户用微信登录的但是没有绑定注册信息
     var USER_UN_LOGIN = 1002;//未登录
@@ -973,4 +972,5 @@ function checkAuth(doctorId) {
         window.location.href="/xcview/html/physician/quiz.html?doctor="+doctorId; 
     }
 }
+
 
