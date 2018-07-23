@@ -1,19 +1,5 @@
 package com.xczhihui.bxg.online.web.controller;
 
-import java.io.IOException;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
-
 import com.xczhihui.bxg.online.common.domain.User;
 import com.xczhihui.bxg.online.web.base.utils.UserLoginUtil;
 import com.xczhihui.bxg.online.web.service.LiveService;
@@ -22,6 +8,19 @@ import com.xczhihui.common.support.domain.BxgUser;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.course.service.IWatchHistoryService;
 import com.xczhihui.course.vo.CourseLecturVo;
+import com.xczhihui.medical.common.service.ICommonService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * 页面路由控制器.
@@ -41,6 +40,8 @@ public class PageController {
     private LiveService liveService;
     @Autowired
     private ICourseService courseService;
+    @Autowired
+    private ICommonService commonService;
     @Value("${env.flag}")
     private String env;
     @Value("${rate}")
@@ -167,7 +168,22 @@ public class PageController {
      */
     @RequestMapping(value = "anchor/my", method = RequestMethod.GET)
     public void anchor(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/web/html/anchor/curriculum.html").forward(request, response);
+        response.setHeader("Cache-Control", "no-cache");
+        response.setHeader("Pragma", "no-cache");
+        response.setDateHeader("Expires", -1);
+        // 获取当前用户
+        BxgUser user = UserLoginUtil.getLoginUser();
+        if (user != null) {
+            Integer result = commonService.isDoctorOrHospital(user.getId());
+            if (result == 1 || result == 2) {
+                request.getRequestDispatcher("/web/html/anchor/curriculum.html").forward(request, response);
+            } else {
+                request.getRequestDispatcher("/").forward(request, response);
+            }
+        } else {
+            request.getRequestDispatcher("/").forward(request, response);
+        }
+
     }
 
     /**
@@ -177,7 +193,22 @@ public class PageController {
      */
     @RequestMapping(value = "doctors/my", method = RequestMethod.GET)
     public void doctor(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/web/html/anchors_resources.html").forward(request, response);
+        response.setHeader("Cache-Control", "no-cache");
+        response.setHeader("Pragma", "no-cache");
+        response.setDateHeader("Expires", -1);
+        // 获取当前用户
+        BxgUser user = UserLoginUtil.getLoginUser();
+        if (user != null) {
+            Integer result = commonService.isDoctorOrHospital(user.getId());
+            if (result == 1) {
+                request.getRequestDispatcher("/web/html/anchors_resources.html").forward(request, response);
+            } else {
+                request.getRequestDispatcher("/").forward(request, response);
+            }
+        } else {
+            request.getRequestDispatcher("/").forward(request, response);
+        }
+
     }
 
     /**
@@ -187,7 +218,22 @@ public class PageController {
      */
     @RequestMapping(value = "clinics/my", method = RequestMethod.GET)
     public void clinic(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/web/html/ResidentHospital.html").forward(request, response);
+        response.setHeader("Cache-Control", "no-cache");
+        response.setHeader("Pragma", "no-cache");
+        response.setDateHeader("Expires", -1);
+        // 获取当前用户
+        BxgUser user = UserLoginUtil.getLoginUser();
+        if (user != null) {
+            Integer result = commonService.isDoctorOrHospital(user.getId());
+            if (result == 2) {
+                request.getRequestDispatcher("/web/html/ResidentHospital.html").forward(request, response);
+            } else {
+                request.getRequestDispatcher("/").forward(request, response);
+            }
+        } else {
+            request.getRequestDispatcher("/").forward(request, response);
+        }
+
     }
 
     /**
