@@ -261,7 +261,7 @@ public class VideoResController extends AbstractController {
     @RequestMapping(value = "updateCourseApplyResource", method = RequestMethod.GET)
     public void updateCourseApplyResource( String ccId) {
 
-        courseApplyService.updateCourseApplyResource(ccId);
+        courseApplyService.updateCourseApplyResource();
         System.out.println("视频处理完成的回调+++++");
 
     }

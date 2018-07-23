@@ -270,13 +270,13 @@ if(is_weixn()){
 		        // 用户确认分享后执行的回调函数
 		    	$(".weixin_ceng").hide();
 		    	$(".share").hide();
-		    	webToast("分享成功","middle",1500);
+		    	//webToast("分享成功","middle",1500);
 		    },
 		    cancel: function () {
 		        // 用户取消分享后执行的回调函数
 		    	$(".weixin_ceng").hide();
 		    	$(".share").hide();
-		    	webToast("分享失败","middle",1500);
+		    	//webToast("分享失败","middle",1500);
 		    }
 		});
 		//发送到朋友圈
@@ -288,14 +288,14 @@ if(is_weixn()){
 		        // 用户确认分享后执行的回调函数
 		    	$(".weixin_ceng").hide();
 		    	$(".share").hide();
-		    	webToast("分享成功","middle",1500);
+		    	//webToast("分享成功","middle",1500);
 		    },
 		    cancel: function () {
 		        // 用户取消分享后执行的回调函数
 		    	//alert("取消分享");
 		    	$(".weixin_ceng").hide();
 		    	$(".share").hide();
-		    	webToast("分享失败","middle",1500);
+		    	//webToast("分享失败","middle",1500);
 
 		    }
 		});
@@ -310,14 +310,14 @@ if(is_weixn()){
 		    	$(".weixin_ceng").hide();
 		    	$(".share").hide();
 		    	//alert("分享成功");
-		    	webToast("分享成功","middle",1500);
+		    	//webToast("分享成功","middle",1500);
 		    },
 		    cancel: function () {
 		       // 用户取消分享后执行的回调函数
 		    	///alert("取消分享");
 		    	$(".weixin_ceng").hide();
 		    	$(".share").hide();
-		    	webToast("分享失败","middle",1500);
+		    	//webToast("分享失败","middle",1500);
 
 		    }
 		});
@@ -332,14 +332,14 @@ if(is_weixn()){
 		    	$(".weixin_ceng").hide();
 		    	$(".share").hide();
 		    	//alert("分享成功");
-		    	webToast("分享成功","middle",1500);
+		    	//webToast("分享成功","middle",1500);
 			},
 			cancel: function () {
 				// 用户取消分享后执行的回调函数
 		    	///alert("取消分享");
 		    	$(".weixin_ceng").hide();
 		    	$(".share").hide();
-		    	webToast("分享失败","middle",1500);
+		    	//webToast("分享失败","middle",1500);
 		    	
 			}
 		});
