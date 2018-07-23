@@ -113,10 +113,10 @@
 		<script type="text/html" id="top_details">
 		<!-- 头部结束 -->
 		<div class="swiper-container top_swiper">
-			<div class="swiper-wrapper">
+			<div class="swiper-wrapper swiper-banner-btn">
 				{{each items as item i}}
 				<div class="swiper-slide pic01" onclick="{{item.target}}">
-					<img src="{{item.imgPath}}" alt="" />
+					<img src="{{item.imgPath}}" alt="" data_target="{{item.target}}" data_id="{{item.id}}" />
 				</div>
 				{{/each}}
 			</div>
@@ -151,34 +151,41 @@
 	<div class="batch">
 		<div class="physician_title">热门医师<span class="switchover">换一批<img src="/xcview/images/switchover.png" alt="" class="physician_title_img"></span></div>
 		<div class="exothecium">
-			<div class="batch_main">
-				<div class="batch_main_bg" style="background-image: url(/xcview/images/switchover_one.png);">
+			<script type="text/html" id="exothecium_id">
+
+			{{each items as item i}}
+			<div class="batch_main" data-ids="{{item.id}}">
+				<div class="batch_main_bg">
 					<div class="batch_main_img">
-						<img src="/xcview/images/BTCpanda.png" alt="" />
+						<img src="{{item.headPortrait}}" alt="" />
 					</div>
-					<div class="name">我是名字</div>
-					<div class="center">主任医师，国家级名老中医专家</div>
+					<div class="name">{{item.name}}</div>
+					<div class="center">{{item.title}}</div>
 				</div>
 			</div>
-			<div class="batch_main">
+			{{/each}}
+
+
+			<!--<div class="batch_main">
 				<div class="batch_main_bg" style="background-image: url(/xcview/images/switchover_two.png);">
 					<div class="batch_main_img">
-						<img src="/xcview/images/BTCpanda.png" alt="" />
+						<img src="{{items.headPortrait}}" alt="" />
 					</div>
-					<div class="name">我是名字</div>
-					<div class="center">主任医师，国家级名老中医专家</div>
+					<div class="name">{{items.name}}</div>
+					<div class="center">{{items.title}}</div>
 				</div>
 			</div>
 			<div class="batch_main">
 				<div class="batch_main_bg" style="background-image: url(/xcview/images/switchover_three.png);">
 					<div class="batch_main_img">
-						<img src="/xcview/images/BTCpanda.png" alt="" />
+						<img src="{{items.headPortrait}}" alt="" />
 					</div>
-					<div class="name">我是名字</div>
-					<div class="center">主任医师，国家级名老中医专家</div>
+					<div class="name">{{items.name}}</div>
+					<div class="center">{{items.title}}</div>
 				</div>
-			</div>
+			</div>-->
 			<div class="both"></div>
+			</script>
 		</div>
 	</div>
 	<!-- 热门医师结束 -->
@@ -257,23 +264,6 @@
 			el: '.swiper-pagination',
 		},
 	})
-
-	// 点击刷新图片
-    $(".switchover").click(function () {
- 
-      	if($('.physician_title_img').is('.img')){
-            $('.physician_title_img').removeClass('img');
-      	}else{
-      		$(".physician_title_img").addClass("img");
-      		myFunction();
-      	}
- 
-    });
-	function myFunction() {
-	    setTimeout(function(){
-	    	$('.physician_title_img').removeClass('img');
-	    }, 400);
-	};
 </script>
 
 </html>

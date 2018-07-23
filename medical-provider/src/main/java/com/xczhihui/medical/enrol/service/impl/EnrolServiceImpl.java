@@ -265,7 +265,11 @@ public class EnrolServiceImpl implements EnrolService {
         synchronized (APPLY_LOCK) {
             MedicalEntryInformation medicalEntryInformation = medicalEntryInformationMapper.selectById(id);
             if (medicalEntryInformation != null) {
-                if ((apprentice == ApprenticeStatus.YES.getVal() || apprentice == ApprenticeStatus.NO.getVal()) && !medicalEntryInformation.getApplied()) {
+                if ((apprentice == ApprenticeStatus.YES.getVal() || apprentice == ApprenticeStatus.NO.getVal())) {
+                    //审核通过并且是弟子，不允许再次审核
+                    if (medicalEntryInformation.getApplied() && medicalEntryInformation.getApprentice() == ApprenticeStatus.YES.getVal()) {
+                        throw new MedicalException("已成为弟子，不可以再审核");
+                    }
                     medicalEntryInformation.setApprentice(apprentice);
                     //标记为已审核
                     medicalEntryInformation.setApplied(true);
@@ -284,7 +288,7 @@ public class EnrolServiceImpl implements EnrolService {
                         }
                     }
                 } else {
-                    throw new MedicalException("已审核过或参数错误");
+                    throw new MedicalException("参数错误");
                 }
             }
         }
@@ -393,6 +397,11 @@ public class EnrolServiceImpl implements EnrolService {
     public Integer countApprentice(String doctorId) {
         Integer count = medicalEntryInformationMapper.countApprenticeByDoctorId(doctorId);
         return count == null ? 0 : count;
+    }
+
+    @Override
+    public MedicalEntryInformationVO findEntryInformationById(Integer id) {
+        return medicalEntryInformationMapper.findById(id);
     }
 
     private void validateMedicalEntryInformation(MedicalEntryInformationVO medicalEntryInformationVO) {

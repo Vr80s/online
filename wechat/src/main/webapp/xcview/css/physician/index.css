@@ -299,8 +299,17 @@ header{
     /*background-image: linear-gradient(-224deg, #9573F6 0%, #9099F8 100%);*/
     /*box-shadow: 0 4px 4px 0 rgba(0,0,0,0.10);*/
     border-radius: 16px;
+    /*background-image: url(/xcview/images/switchover_one.png) no-repeat;*/
     background-size: 2.27rem 3.18rem;
-
+}
+.batch_main_bg_one{
+    background-image: url(/xcview/images/switchover_one.png);
+}
+.batch_main_bg_two{
+    background-image: url(/xcview/images/switchover_two.png);
+}
+.batch_main_bg_three{
+    background-image: url(/xcview/images/switchover_three.png);
 }
 .batch_main_img{
     padding-top: 0.52rem;

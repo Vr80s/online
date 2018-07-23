@@ -285,7 +285,7 @@
 							</span>
 
 							<div class="littleBox">
-								<p class="activeP" data-name="menu4-1">远程诊疗</p>
+								<p class="teaching-range activeP" data-name="menu4-1">远程诊疗</p>
 								<p class="teachingTab" data-name="menu4-2">师承直播</p>
 								<p class="teaching-disciple" data-name="menu4-3">我的弟子</p>
 								<p class="teaching-answer" data-name="menu4-4">问答解惑</p>
@@ -961,7 +961,9 @@
 						</div>
 						<!--远程诊疗列表-->
 						<div class="long-range-table">
-							<table>
+
+							<table id="long-range-list">
+								<script type="text/template" id="long-range-template">						
 								<tr>
 									<th>预约时间</th>
 									<th>预约人</th>
@@ -969,214 +971,206 @@
 									<th>状态</th>
 									<th>操作</th>
 								</tr>
-								<tr>
-									<td>Data</td>
-									<td>Data</td>
-									<td>
-										<div class="long-range-question">
-											诊疗问题诊疗问题诊疗问题诊疗问题
-											诊疗问题诊疗问题诊疗问题诊疗问题
-											诊疗问题诊疗问题诊疗问题诊疗问题
-										</div>
-									</td>
-									<td>Data</td>
-									<td>
-										<span class="to-examine">审核</span>
-										<span class="appointment-delete">删除</span>
-									</td>
-								</tr>
-								<tr>
-									<td>Data</td>
-									<td></td>
-									<td>
-										<div class="long-range-question">
-										
-										</div>
-									</td>
-									<td></td>
-									<td>
-										<span>编辑</span>
-										<span>删除</span>
-									</td>
-								</tr>
-								<tr>
-									<td>Data</td>
-									<td>Data</td>
-									<td>
-										<div class="long-range-question">
-											诊疗问题诊疗问题诊疗问题诊疗问题
-											诊疗问题诊疗问题诊疗问题诊疗问题
-											诊疗问题诊疗问题诊疗问题诊疗问题
-										</div>
-									</td>
-									<td>Data</td>
-									<td>
-										<span class="see-inf-modal">查看</span>
-										<span>取消预约</span>
-									</td>
-								</tr>
+								{{each items as item i}}
+									<tr>
+										<td>{{item.date}}&nbsp{{item.startTime}}-{{item.endTime}}</td>
+										<td>{{item.name}}</td>
+										<td title="{{item.question}}">
+												{{item.question}}
+										</td>
+										{{if item.status==0}}
+										<td>待预约</td>
+										{{else if item.status==1}}
+										<td>待审核</td>
+										{{else if item.status==2}}
+										<td>预约成功</td>
+										{{/if}}
+										<td>
+											{{if item.status==0}}
+											<span class="edit-range-btn" data-index="{{i}}">编辑</span>
+											<span class="appointment-delete" data-id="{{item.id}}" data-index="{{i}}">删除</span>
+											{{else if item.status==1}}
+											<span class="to-examine" data-index="{{i}}">审核</span>
+											<span class="appointment-delete" data-id="{{item.id}}" data-index="{{i}}">删除</span>
+											{{else if item.status==2}}
+											<span class="see-inf-modal" data-index="{{i}}">查看</span>
+											<span class="cancel-reservation" data-id="{{item.id}}">取消预约</span>
+											{{/if}}
+										</td>
+									</tr>
+								{{/each}}
+								</script>	
 							</table>
+							<!--无数据时展示-->
+							<div class="comment-inherit-null range-null hide">
+								<img src="/web/images/icon-nodata.png" alt="无数据"/>
+								<p>暂无数据</p>
+							</div>
+							<!--分页部分start-->
+							<div class="range_pages pages hide" style="margin-top: 20px;">  <!--如需要复制分页doctors_pages要改类名并在JS里对应-->
+								<div id="Pagination_range" class="pagination-pages"></div>	<!--如需要复制分页Pagination_doctors要改类名并在JS里对应-->
+								<div class="searchPage">
+									<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+									<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
+									<a href="javascript:;" class="page-btn">确定</a>
+								</div>
+							</div>
 						</div>
 						<!--创建预约时间-->
 						<div class="establish-time-wrap hide">
+							<input type="hidden" id="savaRangeId" />
 							<!--时间-->
 							<div class="comment-establish">
 								<span class="establish-left"><em>*</em>日期</span>
-								<input type="text" class="time-set"/>
+								<input type="text" readonly="value" class="time-set" id="range-year"/>
+								<p class="wrong-null error-data hide">请选择日期</p>
 							</div>
 							<!--时间段-->
 							<div class="comment-establish">
 								<span class="establish-left"><em>*</em>时间段</span>
-								<input type="text" class="start-establish-time"/>
+								<input type="text" readonly="value" class="start-establish-time"/>
 								<span>至</span>
-								<input type="text" class="end-establish-time"/>
+								<input type="text" readonly="value" class="end-establish-time"/>
+								<p class="wrong-null error-hour hide">请选择预约时间段</p>
 							</div>
 							<!--时间段-->
 							<div class="comment-establish">
 								<span class="establish-left" style="height: 2px;"></span>
-								<button>提交</button>
+								<button class="new-range-btn">提交</button>
+								<button class="ruturn-edit-range">提交</button>
 							</div>
 						</div>
 						<!--预约详情-->
 						<div class="appointment-details hide">
-							<!--预约人-->
+							<!--接受/拒绝ID-->
+							<input type="hidden" id="save-appointment-id" />
+							<!--查看预约人ID-->
+							<input type="hidden" id="save-reservations-id" />
+							<!--预约时间-->
 							<div class="comment-appointment">
 								<span class="appointment-left z">预约时间</span>
 								<div class="appointment-right z">
-									<ul>
-										<li>2018年5月03日</li>
-										<li>星期三</li>
-										<li>10:00-10:03</li>
-									</ul>
+									<span class="appointment-date"></span>
 								</div>
 							</div>
-							<!--预约详情-->
+							<!--预约人-->
 							<div class="comment-appointment">
 								<span class="appointment-left z">预约人</span>
 								<div class="appointment-right z">
-									<span class="appointment-name">王佳怡</span>
+									<span class="appointment-name"></span>
 								</div>
 							</div>
-							<!--预约详情-->
+							<!--预留电话-->
 							<div class="comment-appointment">
 								<span class="appointment-left z">预留电话</span>
 								<div class="appointment-right z">										
-									<span>12326548659</span>
+									<span class="appointment-phone-number"></span>
 								</div>
 							</div>
-							<!--预约详情-->
+							<!--诊疗问题-->
 							<div class="comment-appointment">
 								<span class="appointment-left z">诊疗问题</span>
 								<div class="appointment-right z">										
-									预留电话预留电话预留电话
-									预留电话预留电话预留电话
+									<p class="appointment-question"></p>
 								</div>
 							</div>
 							<!--接受-拒绝-->
 							<div class="comment-appointment">
 								<span class="appointment-left z" style="height: 2px;"></span>
 								<div class="appointment-right z">										
-									<button type="button" class="accept-appointment">接受</button>
-									<button type="button" class="refuse-appointment">不接受</button>
+									<button type="button" class="accept-appointment" data-status="true">接受</button>
+									<button type="button" class="refuse-appointment" data-status="false">不接受</button>
+									<p class="appointment-tip">接受预约后，会发送预约成功短信给预约诊疗的弟子，请在预约时间内联系对方进行远程诊疗</p>
 								</div>
 							</div>
 						</div>
 						<!--弟子报名信息弹窗-->
 						<div class="disciple-inf-modal hide">
-							<div class="disciple-inf-top">
-								<p>弟子报名信息</p>
-								<span>
-									<img src="/web/images/cha.png" alt="关闭"/>
-								</span>
-							</div>
-							<div class="disciple-inf-main">
-								<!--姓名-->
-								<div class="disciple-content">
-									<span class="disciple-inf-left z">姓名</span>
-									<div class="disciple-inf-right z">
-										<span>王思聪</span>
-									</div>
+						
+								<div class="disciple-inf-top">
+									<p>弟子报名信息</p>
+									<span>
+										<img src="/web/images/cha.png" alt="关闭"/>
+									</span>
 								</div>
-								<!--姓名-->
-								<div class="disciple-content">
-									<span class="disciple-inf-left z">手机号</span>
-									<div class="disciple-inf-right z">
-										<span>13236548659</span>
+								<div class="disciple-inf-main" id="disciple-wrap-inf">
+									<script type="text/template" id="template-disciple-wrap">
+									<!--姓名-->
+									<div class="disciple-content">
+										<span class="disciple-inf-left z">姓名</span>
+										<div class="disciple-inf-right z">
+											<span>{{items.name}}</span>
+										</div>
 									</div>
-								</div>
-								<!--年龄-->
-								<div class="disciple-content">
-									<span class="disciple-inf-left z">年龄</span>
-									<div class="disciple-inf-right z">
-										<span>18</span>
+									<!--姓名-->
+									<div class="disciple-content">
+										<span class="disciple-inf-left z">手机号</span>
+										<div class="disciple-inf-right z">
+											<span>{{items.tel}}</span>
+										</div>
 									</div>
-								</div>
-								<!--性别-->
-								<div class="disciple-content">
-									<span class="disciple-inf-left z">年龄</span>
-									<div class="disciple-inf-right z">
-										<span>18</span>
+									<!--年龄-->
+									<div class="disciple-content">
+										<span class="disciple-inf-left z">年龄</span>
+										<div class="disciple-inf-right z">
+											<span>{{items.age}}</span>
+										</div>
 									</div>
-								</div>
-								<!--籍贯-->
-								<div class="disciple-content">
-									<span class="disciple-inf-left z">籍贯</span>
-									<div class="disciple-inf-right z">
-										<span>海南省万宁市</span>
+									<!--性别-->
+									<div class="disciple-content">
+										<span class="disciple-inf-left z">性别</span>
+										<div class="disciple-inf-right z">
+											{{if items.sex==1}}
+											<span>男</span>
+											{{else if items.sex=0}}
+											<span>女</span>
+											{{else if items.sex=2}}
+											<span>未知</span>
+											{{/if}}
+										</div>
 									</div>
-								</div>
-								<!--学历-->
-								<div class="disciple-content">
-									<span class="disciple-inf-left z">学历</span>
-									<div class="disciple-inf-right z">
-										<span>本科</span>
+									<!--籍贯-->
+									<div class="disciple-content">
+										<span class="disciple-inf-left z">籍贯</span>
+										<div class="disciple-inf-right z">
+											<span>{{items.nativePlace}}</span>
+										</div>
 									</div>
-								</div>
-								<!--学习经历-->
-								<div class="disciple-content">
-									<span class="disciple-inf-left z">学习经历</span>
-									<div class="disciple-inf-right z">
-										<span>
-											本本科本科本科本科本科科本本科本科本科本科本科科
-											本本科本科本科本科本科科本本科本科本科本科本科科
-											本本科本科本科本科本科科本本科本科本科本科本科科
-											本本科本科本科本科本科科本本科本科本科本科本科科
-											本本科本科本科本科本科科本本科本科本科本科本科科
-											本本科本科本科本科本科科本本科本科本科本科本科科
-											本本科本科本科本科本科科本本科本科本科本科本科科
-										</span>
+									<!--学历-->
+									<div class="disciple-content">
+										<span class="disciple-inf-left z">学历</span>
+										<div class="disciple-inf-right z">
+											<span>{{items.education}}</span>
+										</div>
 									</div>
-								</div>
-								<!--行医精力-->
-								<div class="disciple-content">
-									<span class="disciple-inf-left z">行医精力</span>
-									<div class="disciple-inf-right z">
-										<span>
-											本本科本科本科本科本科科本本科本科本科本科本科科
-											本本科本科本科本科本科科本本科本科本科本科本科科
-											本本科本科本科本科本科科本本科本科本科本科本科科
-											本本科本科本科本科本科科本本科本科本科本科本科科
-											本本科本科本科本科本科科本本科本科本科本科本科科
-											本本科本科本科本科本科科本本科本科本科本科本科科
-											本本科本科本科本科本科科本本科本科本科本科本科科
-										</span>
+									<!--学习经历-->
+									<div class="disciple-content">
+										<span class="disciple-inf-left z">学习经历</span>
+										<div class="disciple-inf-right z">
+											<span>
+												{{items.educationExperience}}
+											</span>
+										</div>
 									</div>
-								</div>
-								<!--学中医目的-->
-								<div class="disciple-content">
-									<span class="disciple-inf-left z">学中医目的</span>
-									<div class="disciple-inf-right z">
-										<span>
-											本本科本科本科本科本科科本本科本科本科本科本科科
-											本本科本科本科本科本科科本本科本科本科本科本科科
-											本本科本科本科本科本科科本本科本科本科本科本科科
-											本本科本科本科本科本科科本本科本科本科本科本科科
-											本本科本科本科本科本科科本本科本科本科本科本科科
-											本本科本科本科本科本科科本本科本科本科本科本科科
-											本本科本科本科本科本科科本本科本科本科本科本科科
-										</span>
+									<!--行医精力-->
+									<div class="disciple-content">
+										<span class="disciple-inf-left z">行医精力</span>
+										<div class="disciple-inf-right z">
+											<span>
+												{{items.medicalExperience}}
+											</span>
+										</div>
 									</div>
-								</div>
+									<!--学中医目的-->
+									<div class="disciple-content">
+										<span class="disciple-inf-left z">学中医目的</span>
+										<div class="disciple-inf-right z">
+											<span>
+												{{items.goal}}
+											</span>
+										</div>
+									</div>
+								</script>
 							</div>
 						</div>
 						<!--点击查看弹窗-->
@@ -1190,39 +1184,29 @@
 								<div class="see-disciple-scroll">
 									<span class="see-disciple-left z">预约时间</span>
 									<div class="see-disciple-right z">
-										<ul>
-											<li>2018年10月20日 </li>
-											<li>星期三</li>
-											<li>10:00-10:30</li>
-										</ul>
+										<span class="echo-see-date"></span>
 									</div>
 								</div>
 								<!--预约人-->
 								<div class="see-disciple-scroll">
 									<span class="see-disciple-left z">预约人</span>
 									<div class="see-disciple-right z">
-										<span class="appointment-name" style="color: #188EEE;">王老大</span>
+										<span class="appointment-name" style="color: #188EEE;"></span>
 									</div>
 								</div>
 								<!--预留电话-->
 								<div class="see-disciple-scroll">
 									<span class="see-disciple-left z">预留电话</span>
 									<div class="see-disciple-right z">
-										<span>1236598456</span>
+										<span class="appointment-number"></span>
 									</div>
 								</div>
 								<!--诊疗问题-->
 								<div class="see-disciple-scroll">
 									<span class="see-disciple-left z">诊疗问题</span>
 									<div class="see-disciple-right z">
-										<p>
-											检查及化验：
-											骶髂关节，磁共振，无异常（2012，11）。
-											髋关节，磁共振，坐髋积液，其他正常（2012，11）。
-											9.30风湿类检查，血沉，血常规，c反应蛋白正常。RF：25.9，阳性。
-											11.20风湿免疫全套检查，均正常。RF：31.9，仍阳性。
-											附结果（6-GDP,APF,RA33,ANA,DS-DNA,ANTI-SSA/SSB/SM/URNP/SCL-70,RO-52,CENPB,NUCLEOSOMES,HISTONES,Rib.p-protein），CPR,CCP,AKA,ESR=5,均阴性
-											血常规，尿常规正常
+										<p class="see-appointment-question">
+
 										</p>
 									</div>
 								</div>
@@ -1681,8 +1665,7 @@
 								<script type="text/template" id="template-manage">
 								<tr>
 									<th>师承标题</th>
-									<th>城市</th>
-									<th>学费（元）</th>
+									<th>城市</th>				
 									<th>招生人数</th>
 									<th>报名人数</th>
 									<th>报名截止时间</th>
@@ -1698,7 +1681,6 @@
 										</div>
 									</td>
 									<td title="{{item.studyAddress}}">{{item.studyAddress}}</td>
-									<td>{{item.tuition}}</td>
 									<td>{{item.countLimit}}</td>
 									<td>{{item.allEnrolledUserCount}}</td>
 									<td style="padding: 0; white-space: normal;">{{item.deadline}}</td>
@@ -1759,11 +1741,6 @@
 								<div class="commer-see-menu">
 									<span>封面图</span>
 									<p class="cover-map-namage"><img src="/web/images/1.jpg" alt="封面图"/></p>
-								</div>
-								<!--学费-->
-								<div class="commer-see-menu">
-									<span>学费</span>
-									<p class="see-tuition"></p>
 								</div>
 								<!--招生人数-->
 								<div class="commer-see-menu">
@@ -1834,13 +1811,6 @@
 								</span>
 								<input type="file" placeholder="请填写您的专栏标题" style="visibility: hidden;display: inline-block;height: 10px;" id="manage_picIpt" />
 								<p class="warning-manage fengmian-null hide">请上传封面图</p>	
-							</div>
-							<!--学费-->
-							<div class="comment-set-rules">
-								<span class="comment-left-rules"><em>*</em>学费</span>
-								<input type="text" class="tuition" onkeyup='this.value=this.value.replace(/\D/gi,"")' /><span style="margin-left: 15px;">元</span>
-								<p class="warning-manage tuition-null hide">学费不能为空</p>	
-								<p class="warning-manage tuition-alb-null hide">请输入阿拉伯数字</p>
 							</div>
 							<!--招生人数-->
 							<div class="comment-set-rules">
@@ -2596,7 +2566,19 @@
 		   $("#study-end-time").jeDate({
 		        format: "YYYY-MM-DD hh:mm:ss"
 		   });
-
+		
+//		    只显示年远程诊疗
+		     $("#range-year").jeDate({
+		        format: "YYYY-MM-DD"
+		   	});
+//		  只显示时分秒（hh:mm:ss）格式
+			$(".start-establish-time").jeDate({
+		       format:"hh:mm:ss"
+		   	});
+//		    只显示时分秒（hh:mm:ss）格式
+			$(".end-establish-time").jeDate({
+		       format:"hh:mm:ss"
+		   	});
 		});
 	</script>
 	<script type="text/javascript">

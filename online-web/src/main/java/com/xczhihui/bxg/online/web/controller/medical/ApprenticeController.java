@@ -39,6 +39,11 @@ public class ApprenticeController extends AbstractController {
         return ResponseObject.newSuccessResponseObject();
     }
 
+    @RequestMapping(value = "{id}", method = RequestMethod.GET)
+    public ResponseObject get(@PathVariable Integer id) {
+        return ResponseObject.newSuccessResponseObject(enrolService.findEntryInformationById(id));
+    }
+
     @RequestMapping(value = "settings", method = RequestMethod.GET)
     public ResponseObject getSettings() {
         String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(getUserId());

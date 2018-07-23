@@ -426,10 +426,12 @@ color: #999999;
 	left: 0.1rem;
 }
 .wrap_vedio_btn li .speak_text{
-	    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-        padding: 0.16rem 0 0 0;
+	height: 0.76rem;
+    padding: 0.16rem 0 0 0;
+    display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	overflow: hidden;
 
 }
 .wrap_vedio_btn li .speak_name{

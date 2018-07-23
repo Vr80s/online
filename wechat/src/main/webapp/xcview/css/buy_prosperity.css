@@ -104,7 +104,6 @@ span,p{
 .purchase_details{
 	width: 100%;
 	background: #fff;
-	/*margin-bottom: 0.638rem;*/
 	overflow: hidden;
 	margin-top: 0.6rem;
 }
@@ -112,9 +111,6 @@ span,p{
 	width: 100%;
 	padding: 0 0.26rem;
 }
-/*.purchase_details_main_cen{
-	width: 100%;
-}*/
 .purchase_details_main_cen img{
 	width: 2.12rem;
 	height:1.2rem;
@@ -167,11 +163,9 @@ span,p{
 	margin: 0.4rem 0 0.4rem;
 }
 .check_one{
-	/*width: 100%;*/
 	text-align: center;
 	font-size: 0.28rem;
 	color: #333;
-	/*line-height: 1.3rem;*/
 	padding-bottom: 0.3rem;
 }
 .check_one span{
@@ -186,9 +180,6 @@ span,p{
 .check_two span{
 	color: #00BC12;
 }
-
-
-
 
 /*猜你喜欢开始*/
 .acupuncture {
@@ -208,24 +199,19 @@ span,p{
 }
 .boutique_main{
 	width: 100%;
-    /*margin: 0 auto;*/
-    /*background: red;*/
 }
 .boutique_main ul li:nth-child(odd){
 	float: left;
-	/*margin-left: 0.456rem;*/
 	margin-bottom: 0.3rem;
 }
 .boutique_main ul li:nth-child(even){
 	float: right;
-	/*margin-left: 0.456rem;*/
 	margin-bottom: 0.3rem;
 }
 /*视频*/
 .boutique_main_one{
 	width: 3.4rem;
 	height: 3.67rem;
-	/*height: 4.085rem;*/
 	position: relative;
 }
 .boutique_one_img{
@@ -245,28 +231,20 @@ span,p{
 	top: 0.1rem;
 }
 .boutique_main_one_title{
-	/*width: 7.234rem;
-	height: 0.851rem;
-    line-height: 0.851rem;*/
 	font-size: 0.28rem;
 	color: #333;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
 	overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    /*margin-bottom: 0.1rem;*/
-   height: 0.45rem;
-   line-height: 0.45rem;
+   	height: 0.76rem;
 }
 .boutique_main_one_author{
-	/*width: 7.234rem;
-	height: 0.851rem;
-    line-height: 0.851rem;*/
 	font-size: 0.22rem;
 	color: #999999;
 	overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    /*margin-bottom: 0.1rem;*/
    height: 0.4rem;
    line-height: 0.4rem;
 }
@@ -354,19 +332,19 @@ span,p{
     text-overflow: ellipsis;
     white-space: nowrap;
     display: inline-block;
-margin-top: 0.03rem;
+	margin-top: 0.03rem;
 }
 .boutique_main_two_size .p3 img{
-	    width: 0.24rem;
+	width: 0.24rem;
     height: 0.24rem;
-       margin: 0.04rem 0.06rem 0 0.03rem;
+    margin: 0.04rem 0.06rem 0 0.03rem;
     float: left;
 }
 .boutique_main_two_size .p3 span{
-		font-size: 0.22rem;
-color: #999999;
-float: left;
-margin-top: 0.03rem;
+	font-size: 0.22rem;
+	color: #999999;
+	float: left;
+	margin-top: 0.03rem;
 }
 /*线下课*/
 .boutique_main_four_size P span{
@@ -397,13 +375,13 @@ margin-top: 0.03rem;
 }
 
 .boutique_main_four_size .p3 img{
-	    width: 0.2rem;
+	width: 0.2rem;
     height: 0.24rem;
     float: left;
     margin: 0.03rem 0.02rem 0;
 }
 .boutique_main_four_size .p3 span{
 	font-size: 0.22rem;
-color: #999999;
-float: left;
+	color: #999999;
+	float: left;
 }

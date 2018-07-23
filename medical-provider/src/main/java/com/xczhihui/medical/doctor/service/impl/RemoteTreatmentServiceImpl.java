@@ -22,6 +22,7 @@ import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.service.IRemoteTreatmentService;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 import com.xczhihui.medical.doctor.vo.TreatmentVO;
+import com.xczhihui.medical.enrol.mapper.MedicalEntryInformationMapper;
 import com.xczhihui.medical.exception.MedicalException;
 
 /**
@@ -43,6 +44,8 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
     private RemoteTreatmentAppointmentInfoMapper remoteTreatmentAppointmentInfoMapper;
     @Autowired
     private IMedicalDoctorBusinessService medicalDoctorBusinessService;
+    @Autowired
+    private MedicalEntryInformationMapper medicalEntryInformationMapper;
 
     @Override
     public void save(Treatment treatment) {
@@ -138,6 +141,7 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
             if (treatment == null || (treatment.getDeleted() != null && treatment.getDeleted())) {
                 throw new MedicalException("预约时间已被删除");
             }
+            Integer infoId = treatment.getInfoId();
             if (treatment.getStatus() != AppointmentStatus.WAIT_APPLY.getVal()) {
                 throw new MedicalException("当前状态不支持审核");
             }
@@ -148,14 +152,14 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
                 treatment.setInfoId(null);
             }
             remoteTreatmentMapper.updateAllColumnById(treatment);
-            sendSms(treatment, status);
+            sendSms(treatment, status, infoId);
         }
     }
 
-    public void sendSms(Treatment treatment, boolean status) {
+    public void sendSms(Treatment treatment, boolean status, int infoId) {
         SimpleDateFormat yearMonthDayFormat = new SimpleDateFormat("yyyy年MM月dd日");
         SimpleDateFormat hourMinuteFormat = new SimpleDateFormat("HH时mm分");
-        TreatmentAppointmentInfo treatmentAppointmentInfo = remoteTreatmentAppointmentInfoMapper.selectById(treatment.getInfoId());
+        TreatmentAppointmentInfo treatmentAppointmentInfo = remoteTreatmentAppointmentInfoMapper.selectById(infoId);
         MedicalDoctorVO medicalDoctorVO = medicalDoctorBusinessService.findSimpleById(treatment.getDoctorId());
         Map<String, String> smsParams = new HashMap<>(4);
         String smsCode;
@@ -194,6 +198,7 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
     public Page<TreatmentVO> list(String doctorId, int page, int size) {
         Page<TreatmentVO> treatmentVOPage = new Page<>(page, size);
         List<TreatmentVO> treatmentVOS = remoteTreatmentMapper.listPageByDoctorId(doctorId, treatmentVOPage);
+        treatmentVOS.forEach(treatmentVO -> treatmentVO.setWeek(DateUtil.getDayOfWeek(treatmentVO.getDate())));
         return treatmentVOPage.setRecords(treatmentVOS);
     }
 }

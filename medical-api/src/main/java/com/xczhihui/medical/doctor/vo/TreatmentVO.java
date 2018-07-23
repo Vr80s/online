@@ -35,6 +35,12 @@ public class TreatmentVO implements Serializable {
 
     private String question;
 
+    private String week;
+
+    private String userId;
+
+    private Integer apprenticeId;
+
     @Override
     public String toString() {
         return "TreatmentVO{" +
@@ -134,5 +140,29 @@ public class TreatmentVO implements Serializable {
 
     public void setQuestion(String question) {
         this.question = question;
+    }
+
+    public String getWeek() {
+        return week;
+    }
+
+    public void setWeek(String week) {
+        this.week = week;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public Integer getApprenticeId() {
+        return apprenticeId;
+    }
+
+    public void setApprenticeId(Integer apprenticeId) {
+        this.apprenticeId = apprenticeId;
     }
 }

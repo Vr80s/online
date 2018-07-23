@@ -19,7 +19,7 @@ public class ResponseObject implements Serializable {
 
     private Object resultObject;
 
-    private Integer code;
+    private Integer code = 0;
 
     /**
      * 构造一个错误响应对象

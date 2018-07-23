@@ -23,6 +23,14 @@ $(function () {
 	});
 //	省市区三联动初始化
 	$(".comment-right-float").iProvincesSelect("init",null);
+//	远程诊疗
+	$(".teaching-range").click(function(){
+		rangeList(1);
+		if($(".long-range-btn").text()=="返回"){
+			$(".long-range-btn").click();
+		}
+	});
+
 });
 
 /**
@@ -524,7 +532,7 @@ function cheackSelectAll(){
 /**
  * Description：问答解惑
  * creed: Talk is cheap,show me the code
- * @author name：yuxin <br>email: wangxingchuan@ixincheng.com
+ * @author name：牛男 <br>email: wangxingchuan@ixincheng.com
  * @Date: 2018/7/17 0003 上午 14:50
  **/
 //	疑问解答列表
@@ -622,7 +630,7 @@ function cheackSelectAll(){
 /**
  * Description：我的弟子
  * creed: Talk is cheap,show me the code
- * @author name：yuxin <br>email: wangxingchuan@ixincheng.com
+ * @author name：牛男 <br>email: wangxingchuan@ixincheng.com
  * @Date: 2018/7/17 0003 上午 20:07
  **/
 //	我的弟子列表
@@ -672,10 +680,12 @@ function cheackSelectAll(){
 	}
 
 //	筛选
+	var disciplaStatus,
+		disciplaType;
 	$(".myself-disciple-search button").click(function(){
-		var type=$(".myself-select-haedeer").val(),
-			status=$(".myself-select-right").val();
-			myDiscipleList(1,type,status)
+			disciplaStatus=$(".myself-select-haedeer").val();
+			disciplaType=$(".myself-select-right").val();
+			myDiscipleList(1,disciplaType,disciplaStatus);
 	})
 
 //	点击查看弟子
@@ -683,7 +693,7 @@ function cheackSelectAll(){
 		var index=$(this).attr("data-index");
 		var previewDisciple=disciple[index];
 	//	是否审核通过
-		if(previewDisciple.applied==true){
+		if(previewDisciple.apprentice==1){
 			$(".pass-through").addClass("hide");
 		}else{
 			$(".pass-through").removeClass("hide");
@@ -727,10 +737,11 @@ function cheackSelectAll(){
 		RequestService("/doctor/apprentice/"+id+"/"+status+"","PUT",null, function (data) {
 		 	if (data.success==true) {
 		 		showTip("操作成功");
-		 		closeDisciple()
+		 		closeDisciple();
+		 		myDiscipleList(1,disciplaType,disciplaStatus);
 		 	} else{
 		 		showTip("操作失败");
-		 		closeDisciple()
+		 		closeDisciple();
 		 	}
 	   })
 	})
@@ -748,7 +759,7 @@ function cheackSelectAll(){
 /**
  * Description：收徒设置
  * creed: Talk is cheap,show me the code
- * @author name：yuxin <br>email: wangxingchuan@ixincheng.com
+ * @author name：牛男 <br>email: wangxingchuan@ixincheng.com
  * @Date: 2018/7/18 0003 上午 09:38
  **/
 	function clearApprentice(){
@@ -818,7 +829,7 @@ function cheackSelectAll(){
 /**
  * Description：师承管理
  * creed: Talk is cheap,show me the code
- * @author name：yuxin <br>email: wangxingchuan@ixincheng.com
+ * @author name：牛男 <br>email: wangxingchuan@ixincheng.com
  * @Date: 2018/7/18 0003 上午 09:38
  **/
 //	师承管理列表
@@ -880,7 +891,6 @@ function cheackSelectAll(){
 		$(".see-details-wrap .see-name").text(seeData.name);
 		$(".see-details-wrap .see-title").text(seeData.title);
 		$(".see-details-wrap .cover-map-namage img").attr("src",seeData.coverImg);
-		$(".see-details-wrap .see-tuition").text(seeData.tuition);
 		$(".see-details-wrap .see-zhaosheng").text(seeData.countLimit);
 		$(".see-details-wrap .see-stop-time").text(seeData.deadline);
 		$(".see-details-wrap .see-study-time").text(seeData.startTime+"至"+seeData.endTime);
@@ -915,7 +925,6 @@ function cheackSelectAll(){
 		$("#save-manageId").val(echoManageData.id);
 		$(".recruit-students .recruit-title").val(echoManageData.title);
 		$(".recruit-students .mamage-wrap-img").html("<img src="+echoManageData.coverImg+" />")
-		$(".recruit-students .tuition").val(echoManageData.tuition);
 		$(".recruit-students .personal-number").val(echoManageData.countLimit);
 		$("#sign-up-time").val(echoManageData.deadline);
 		$("#study-start-time").val(echoManageData.startTime);
@@ -951,7 +960,6 @@ function cheackSelectAll(){
 		var establishDate={
 			"title":$.trim($(".recruit-title").val()),			//标题
 			"coverImg":$(".mamage-wrap-img img").attr("src"),	//封面图
-			"tuition":$.trim($(".tuition").val()),				//学费
 			"countLimit":$.trim($(".personal-number").val()),	//招生人数
 			"deadline":$.trim($("#sign-up-time").val()),		//报名截止时间
 			"startTime":$.trim($("#study-start-time").val()),	//学习时间
@@ -981,12 +989,6 @@ function cheackSelectAll(){
 	})
 
 
-
-
-
-
-
-
 //	创建招生简章  校验
 	var addressText;     //学习详细地址
 	function testRecruit(establishDate){
@@ -1004,19 +1006,6 @@ function cheackSelectAll(){
 		return false;
 	}else{
 		$(".fengmian-null").addClass("hide");
-	}
-//	学费
-	if(establishDate.tuition==""){
-		$(".tuition-null").removeClass("hide");
-		return false;
-	}else{
-		$(".tuition-null").addClass("hide");
-	}
-	if(reg.test(establishDate.tuition)==false){
-		$(".tuition-alb-null").removeClass("hide");
-		return false;
-	}else{
-		$(".tuition-alb-null").addClass("hide");
 	}
 //	招生人数	
 	if(establishDate.countLimit==""){
@@ -1096,7 +1085,6 @@ function cheackSelectAll(){
 	var establishDate={
 		"title":$.trim($(".recruit-title").val()),			//标题
 		"coverImg":$(".mamage-wrap-img img").attr("src"),	//封面图
-		"tuition":$.trim($(".tuition").val()),				//学费
 		"countLimit":$.trim($(".personal-number").val()),	//招生人数
 		"deadline":$.trim($("#sign-up-time").val()),		//报名截止时间
 		"startTime":$.trim($("#study-start-time").val()),	//学习时间
@@ -1162,7 +1150,6 @@ function cheackSelectAll(){
 	function clearRecruit(){
 		$(".recruit-title").val("");
 		$(".mamage-wrap-img").html(clearFengmian);
-		$(".tuition").val("");
 		$(".personal-number").val("");
 		$("#sign-up-time").val("");
 		$("#study-start-time").val("");
@@ -1175,4 +1162,268 @@ function cheackSelectAll(){
 		$('#file-input').val(""); 
 		$(".warning-manage").addClass("hide");
 	}
+/**
+ * Description：远程诊疗
+ * creed: Talk is cheap,show me the code
+ * @author name：牛男 <br>email: wangxingchuan@ixincheng.com
+ * @Date: 2018/7/20 0003 上午 09:52
+ **/	
+ rangeList(1)
+ var rangeData;
+function rangeList(pages){	
+	RequestService("/doctor/treatment","GET",{
+		"pages":pages,
+		"size":10
+	}, function (data) {
+		if (data.success==true) {
+			rangeData=data.resultObject.records;
+			if (rangeData==null || rangeData.length==0) {
+				$(".range-null").removeClass("hide");
+				$("#long-range-list").addClass("hide");
+			} else{
+				$(".range-null").addClass("hide");
+				$("#long-range-list").removeClass("hide");
+				$("#long-range-list").html(template("long-range-template",{items:rangeData}))
+			}
+								 // 分页
+          	 if (data.resultObject.pages > 1) { //分页判断
+                $(".not-data").remove();
+                $(".range_pages").removeClass("hide");
+                $(".range_pages .searchPage .allPage").text(data.resultObject.pages);  //传的页数的参数
+                $("#Pagination_range").pagination(data.resultObject.pages, {			//传的页数的参数
+                    num_edge_entries: 1, //边缘页数
+                    num_display_entries: 4, //主体页数
+                    current_page: pages - 1,  //共几页
+                    callback: function (page) {
+                        //翻页功能
+                        rangeList(page + 1);
+                    }
+                });
+            } else {
+                $(".range_pages").addClass("hide");
+            }
+		} else{
+			showTip("获取诊疗列表失败");
+		}
+    })
+}
+
+//删除预约
+var deleteRangeId;
+$(".long-range-table").on("click",".appointment-delete",function(){
+		deleteRangeId=$(this).attr("data-id");	
+			confirmBox.open("删除预约时间","删除后用户将无法进行该时间段的预约，是否确定删除？",function(closefn){
+				RequestJsonService("/doctor/treatment/"+deleteRangeId,"DELETE",null, function (data) {
+					if(data.success==true){
+						showTip("删除成功");
+						rangeList(1);
+					}else{
+						showTip("删除失败");
+					}
+				})	
+					closefn();    //关闭弹窗
+				});
+			})
+//编辑预约
+$(".long-range-table").on("click",".edit-range-btn",function(){
+	var index=$(this).attr("data-index"),
+		editRange=rangeData[index];
+		rangeEcho(editRange);	
+		$(".ruturn-edit-range").removeClass("hide");
+//		切换页面
+		$(".new-range-btn").addClass("hide");
+		$(".long-range-table").addClass("hide");
+		$(".establish-time-wrap").removeClass("hide");
+		$(".long-range-top .long-range-btn").text("返回");
+		$(".long-range-top span").text("预约时间");
+})
+function rangeEcho(editRange){
+//	把年月日去掉
+	var reg = /[\u4e00-\u9fa5]/g,
+		newDate=editRange.date.replace(reg,"");			
+	$(".comment-establish .time-set").val(newDate);
+	$(".comment-establish .start-establish-time").val(editRange.startTime+":00");
+	$(".comment-establish .end-establish-time").val(editRange.endTime+":00");
+	$("#savaRangeId").val(editRange.id);  //存放ID
+}
+//编辑后保存时间
+	$(".ruturn-edit-range").click(function(){		
+		var id=$("#savaRangeId").val(),
+		 	longRange={};
+			longRange.date=$(".time-set").val();
+			longRange.startTime=$(".start-establish-time").val();
+			longRange.endTime=$(".end-establish-time").val();
+		if(checkRange(longRange)){
+			$(".ruturn-edit-range").attr("disabled","disabled");
+			RequestJsonService("doctor/treatment/"+id,"PUT",JSON.stringify(longRange), function (data) {
+				if(data.success==true){
+					showTip("编辑成功");
+					$(".teaching-range").click();
+					$(".ruturn-edit-range").removeAttr("disabled");
+				}else{
+					showTip("编辑失败");
+					$(".ruturn-edit-range").removeAttr("disabled");
+				}
+			})
+		}
+	})
+//	点击审核	
+	$(".long-range-table").on("click",".to-examine",function(){
+		var index=$(this).attr("data-index")
+			$(".long-range-table").addClass("hide");
+			$(".appointment-details").removeClass("hide");
+			$(this).parents().find(".long-range-table").siblings(".long-range-top").find("span").text("预约详情");
+			$(this).parents().find(".long-range-table").siblings(".long-range-top").find("button").text("返回");
+			echoAppointment(index)
+	})
+	function echoAppointment(index){
+		var appointmentData=rangeData[index];
+//		接受/不接受ID
+		$("#save-appointment-id").val(appointmentData.id);
+//		查看弟子ID
+		$("#save-reservations-id").val(appointmentData.apprenticeId);
+		$(".appointment-right .appointment-date").html(appointmentData.date.replace(/[-]/g,"")+" "+appointmentData.week+" "+appointmentData.startTime+"-"+appointmentData.endTime)
+		$(".appointment-right .appointment-name").html(appointmentData.name);
+		$(".appointment-right .appointment-phone-number").html(appointmentData.tel);
+		$(".appointment-right .appointment-question").html(appointmentData.question);	
+	}
+//接受预约	
+var appointmentStatus,
+	appointmentId;
+	$(".appointment-right button").click(function(){
+			appointmentStatus=$(this).attr("data-status");
+			appointmentId=$("#save-appointment-id").val();
+			
+			if (appointmentStatus=="false") {
+				confirmBox.open("拒绝接受","若拒绝接受，则该预约人的申请资料将不可恢复",function(closefn){
+					RequestJsonService("/doctor/treatment/"+appointmentId+"/"+appointmentStatus,"PUT",null, function (data) {
+						if(data.success==true){
+							showTip("操作成功");
+							$(".teaching-range").click();
+
+						}else{
+							showTip("操作失败");
+						}
+					})	
+					closefn();    //关闭弹窗
+				});
+			} 
+			else{
+				$(".appointment-right button").attr("disabled","disabled");
+				RequestJsonService("/doctor/treatment/"+appointmentId+"/"+appointmentStatus,"PUT",null, function (data) {
+						if(data.success==true){
+							showTip("操作成功");
+							$(".teaching-range").click();
+							$(".appointment-right button").removeAttr("disabled");
+						}else{
+							showTip("操作失败");
+							$(".appointment-right button").removeAttr("disabled");
+						}
+					})
+			}
+
+	})
 	
+//	点击查看
+	$(".long-range-table").on("click",".see-inf-modal",function(){
+		var index=$(this).attr("data-index");
+		$(".see-btn-modal").removeClass("hide");
+		$("#mask").removeClass("hide");		
+		echoDisciple(index);
+	})	
+	function echoDisciple(index){
+		var eachDiscipleData=rangeData[index];
+		$("#save-reservations-id").val(eachDiscipleData.apprenticeId); //保存查看弟子ID
+		$(".see-disciple-scroll .echo-see-date").html(eachDiscipleData.date.replace(/[-]/g,"")+" "+eachDiscipleData.week+" "+eachDiscipleData.startTime+"-"+eachDiscipleData.endTime)
+		$(".see-disciple-scroll .appointment-name").html(eachDiscipleData.name);
+		$(".see-disciple-scroll .appointment-number").html(eachDiscipleData.tel);
+		$(".see-disciple-scroll .see-appointment-question").html(eachDiscipleData.question);
+		discipleInformation(eachDiscipleData.apprenticeId);
+}	
+//	取消预约
+	var reservationId;
+	$(".long-range-table").on("click",".cancel-reservation",function(){
+		reservationId=$(this).attr("data-id");
+		confirmBox.open("取消预约","是否确定取消该名弟子的预约？",function(closefn){
+				RequestJsonService("/doctor/treatment/cancel/"+reservationId,"PUT",null, function (data) {
+					if(data.success==true){
+						showTip("取消预约成功");
+						rangeList(1);
+					}else{
+						showTip("取消失败");
+					}
+				})	
+					closefn();    //关闭弹窗
+		});
+		
+	})
+//	弟子报名信息弹窗	
+	$(".little_box").on("click",".appointment-name",function(){
+		$(".disciple-inf-modal").removeClass("hide");
+		$("#mask").removeClass("hide");
+		$(".see-btn-modal").addClass("hide");  //关闭查看
+		var id=$("#save-reservations-id").val();
+		discipleInformation(id)
+	})
+	function discipleInformation(id){
+		RequestService("/doctor/apprentice/"+id,"GET",null, function (data) {
+			if(data.success==true){
+				$("#disciple-wrap-inf").html(template("template-disciple-wrap",{items:data.resultObject}))
+			}else{
+				showTip("获取弟子信息失败");
+			}
+		})	
+		
+	}
+//	关闭弟子报名信息	
+	$(".disciple-inf-top span").click(function(){
+		$(".disciple-inf-modal").addClass("hide");
+		$("#mask").addClass("hide");
+	})
+	
+	
+//创建预约时间
+function checkRange(longRange){
+	if(longRange.date==""){
+		$(".error-data").removeClass("hide");
+		return false;
+	}else{
+		$(".error-data").addClass("hide");
+	}
+	if(longRange.startTime=="" || longRange.endTime == ""){
+		$(".error-hour").removeClass("hide");
+		return false;
+	}else{
+		$(".error-hour").addClass("hide");
+	}
+	if(longRange.startTime > longRange.endTime){
+		showTip("开始时间不能大于结束时间");
+		return false;
+	}
+	return true
+}
+$(".comment-establish .new-range-btn").click(function(){
+	var longRange={};
+		longRange.date=$(".time-set").val();
+		longRange.startTime=$(".start-establish-time").val();
+		longRange.endTime=$(".end-establish-time").val();		
+		if (checkRange(longRange)) {	
+			$(".comment-establish .new-range-btn").attr("disabled","disabled");
+			RequestJsonService("doctor/treatment","POST",JSON.stringify(longRange), function (data) {				
+				if(data.success==true){
+					showTip("创建成功");
+					clearRangeTime();
+					$(".teaching-range").click();
+					$(".comment-establish .new-range-btn").removeAttr("disabled");
+				}else{
+					showTip("创建失败");
+					$(".comment-establish .new-range-btn").removeAttr("disabled")
+				}
+			})
+		}
+})
+
+//清空创建时间
+function clearRangeTime(){
+	$(".comment-establish input").val("");
+}

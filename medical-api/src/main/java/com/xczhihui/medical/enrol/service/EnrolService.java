@@ -187,4 +187,12 @@ public interface EnrolService {
      * @return
      */
     Integer countApprentice(String doctorId);
+
+    /**
+     * 查询弟子信息
+     *
+     * @param id id
+     * @return
+     */
+    MedicalEntryInformationVO findEntryInformationById(Integer id);
 }
