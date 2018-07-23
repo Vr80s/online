@@ -1,16 +1,17 @@
 package com.xczhihui.bxg.online.web.controller.medical;
 
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.alibaba.fastjson.JSONObject;
+import com.xczhihui.bxg.online.common.domain.OnlineUser;
+import com.xczhihui.bxg.online.web.base.utils.TimeUtil;
+import com.xczhihui.bxg.online.web.controller.AbstractController;
+import com.xczhihui.bxg.online.web.service.VideoResService;
+import com.xczhihui.common.support.cc.config.Config;
+import com.xczhihui.common.support.cc.util.APIServiceFunction;
+import com.xczhihui.common.support.cc.util.Md5Encrypt;
+import com.xczhihui.common.support.config.OnlineConfig;
+import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.medical.anchor.service.ICourseApplyService;
 import org.apache.commons.fileupload.disk.DiskFileItem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,16 +23,14 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-import com.alibaba.fastjson.JSONObject;
-import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.online.web.base.utils.TimeUtil;
-import com.xczhihui.bxg.online.web.controller.AbstractController;
-import com.xczhihui.bxg.online.web.service.VideoResService;
-import com.xczhihui.common.support.cc.config.Config;
-import com.xczhihui.common.support.cc.util.APIServiceFunction;
-import com.xczhihui.common.support.cc.util.Md5Encrypt;
-import com.xczhihui.common.support.config.OnlineConfig;
-import com.xczhihui.common.util.bean.ResponseObject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.IOException;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * ClassName: UserCoin.java <br>
@@ -48,6 +47,8 @@ public class VideoResController extends AbstractController {
     private VideoResService videoResService;
     @Autowired
     private OnlineConfig onlineConfig;
+    @Autowired
+    private ICourseApplyService courseApplyService;
 
     /**
      * 获得上传地址
@@ -220,6 +221,49 @@ public class VideoResController extends AbstractController {
         String str1 = APIServiceFunction.sendGet(metaurl,
                 qs1 + "&time=" + time1 + "&hash=" + hash1);
         return str1;
+    }
+
+
+    /**
+     * 视频处理完成的回调
+     *
+     * @param ccId
+     */
+    @RequestMapping(value = "ifUploaded", method = RequestMethod.GET)
+    public void ifUploaded( String ccId, String fileSize, String fileName) {
+//创建视频上传信息
+        Map<String, String> treeMap = new TreeMap<String, String>();
+        //查询参数输入
+        String key = "K45btKhytR527yfTAjEp6z4fb3ajgu66";
+        treeMap.put("userid", "B5E673E55C702C42");
+        treeMap.put("title", fileName);
+        treeMap.put("description", fileName);
+        treeMap.put("filename", fileName);
+        treeMap.put("filesize", fileSize);
+        treeMap.put("categoryid", categoryid);
+        treeMap.put("notify_url", "http://dev-www.xczhihui.com/videoRes/updateCourseApplyResource");
+        treeMap.put("format", "json");
+        String qs = APIServiceFunction.createQueryString(treeMap);
+        //生成时间片
+        long time = new Date().getTime() / 1000;
+        //生成HASH码值
+        String hash = Md5Encrypt.md5(String.format("%s&time=%s&salt=%s", qs, time, key));
+
+        String str = APIServiceFunction.sendGet("http://spark.bokecc.com/api/video/create/v2",
+                qs + "&time=" + time + "&hash=" + hash);
+
+    }
+    /**
+     * 视频处理完成的回调
+     *
+     * @param ccId
+     */
+    @RequestMapping(value = "updateCourseApplyResource", method = RequestMethod.GET)
+    public void updateCourseApplyResource( String ccId) {
+
+        courseApplyService.updateCourseApplyResource(ccId);
+        System.out.println("视频处理完成的回调+++++");
+
     }
 
 
