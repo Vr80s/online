@@ -2275,10 +2275,10 @@ function btnColorReply(){
                 $(".media_pages").addClass("hide");
             }
             //分页添加结束
-            
+             initMedia(); 
         })
     };
-    initMedia();  
+    
     function initMedia() {
         //媒体报道部分,预览1335行
         //媒体报道部分,关闭预览弹窗

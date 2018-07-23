@@ -39,6 +39,7 @@ public class DoctorBannerBody {
         doctorBanner.setType(this.type);
         doctorBanner.setLinkParam(linkParam);
         doctorBanner.setRouteType(DoctorBannerEnum.getByType(type).getRouteType());
+        doctorBanner.setDeleted(false);
         return doctorBanner;
     }
 

@@ -27,8 +27,7 @@ public class EnrollmentRegulationsBody implements Serializable {
     /**
      * 学费
      */
-    @NotBlank
-    private String tuition;
+    private String tuition = "0";
     /**
      * 招生人数
      */

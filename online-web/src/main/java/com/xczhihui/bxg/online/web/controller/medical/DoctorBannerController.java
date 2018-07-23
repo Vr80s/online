@@ -69,6 +69,12 @@ public class DoctorBannerController extends AbstractController {
         return ResponseObject.newSuccessResponseObject(medicalDoctorBannerService.get(id, getUserId()));
     }
 
+    @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+    public ResponseObject delete(@PathVariable int id) {
+        medicalDoctorBannerService.delete(id);
+        return ResponseObject.newSuccessResponseObject();
+    }
+
     private void handleLinkDesc(Page<DoctorBanner> list) {
         list.getRecords().forEach(doctorBanner -> {
             String linkParam = doctorBanner.getLinkParam();

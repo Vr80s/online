@@ -69,4 +69,11 @@ public interface IMedicalDoctorBannerService {
      * @return
      */
     Integer updateAllUnShelves();
+
+    /**
+     * 轮播图删除
+     *
+     * @param id id
+     */
+    void delete(int id);
 }
