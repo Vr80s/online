@@ -52,12 +52,14 @@ public interface RemoteTreatmentMapper extends BaseMapper<Treatment> {
             " <if test='onlyUnAppointment'>" +
             " and status = 0" +
             " </if>" +
+            " order by date" +
             " </script>"})
     List<TreatmentVO> listByDoctorId(@Param("doctorId") String doctorId, @Param("onlyUnAppointment") boolean onlyUnAppointment);
 
     @Select({"<script>select mt.*, mtai.name, mtai.tel, mtai.question, mtai.apprentice_id as apprenticeId" +
             " from medical_treatment mt left join medical_treatment_appointment_info mtai on mt.info_id = mtai.id" +
             " where mt.deleted = false and mt.doctor_id = #{doctorId}" +
+            " order by mt.create_time desc" +
             " </script>"})
     List<TreatmentVO> listPageByDoctorId(@Param("doctorId") String doctorId, Page<TreatmentVO> page);
 }
