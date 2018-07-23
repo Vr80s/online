@@ -26,6 +26,7 @@ $(function(){
 		 	},function (data) {
 			    if (data.success == true) {
 				  	webToast("提交成功","middle",1500);
+				  	setTimeout("window.history.back();",1600);
 			    }else{
 			    	webToast(data.errorMessage,"middle",1500);
 			    }

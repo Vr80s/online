@@ -871,6 +871,7 @@ function apprenticeInfo() {
             if (isNotBlank(data.resultObject.settings)) {
                 // 如何成为弟子
                 $('.become_disciple_cen_id').html(template('become_disciple_cen_id', {items: data.resultObject.settings}));
+                $('.become_disciple_cen_ids').html(template('become_disciple_cen_ids', {items: data.resultObject.settings}));
             } else{
                 $(".become_disciple").hide();
             }

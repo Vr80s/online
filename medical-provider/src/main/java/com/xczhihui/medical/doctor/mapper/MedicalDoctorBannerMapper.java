@@ -26,7 +26,7 @@ public interface MedicalDoctorBannerMapper extends BaseMapper<DoctorBanner> {
     @Select({"select id, img_url as imgUrl, type, link_param as linkParam, start_time as startTime, end_time as endTime," +
             " status, user_Id as userId, create_time as createTime" +
             " from doctor_banner " +
-            " where user_id = #{userId}" +
+            " where user_id = #{userId} and deleted is false" +
             " order by create_time desc"})
     List<DoctorBanner> list(@Param("userId") String userId, Page<DoctorBanner> page);
 
@@ -38,7 +38,7 @@ public interface MedicalDoctorBannerMapper extends BaseMapper<DoctorBanner> {
      */
     @Select({"select img_url as imgUrl,link_param as linkParam, route_type as routeType, user_id as userId " +
             "             from doctor_banner " +
-            "             where user_id = #{userId} and status =1 and (start_time is null or end_time is null or (start_time <= current_time() and end_time >= current_time()))" +
+            "             where user_id = #{userId} and status =1 and deleted is false and (start_time is null or end_time is null or (start_time <= current_time() and end_time >= current_time()))" +
             "             order by create_time desc limit 3"})
     List<DoctorBannerVO> listByUserId(@Param("userId") String userId);
 
@@ -48,9 +48,9 @@ public interface MedicalDoctorBannerMapper extends BaseMapper<DoctorBanner> {
      * @param userId 用户id
      * @return
      */
-    @Select({"select count(id) from doctor_banner where user_id = #{userId} and status is true"})
+    @Select({"select count(id) from doctor_banner where user_id = #{userId} and status is true and deleted is false"})
     int countOnShelf(@Param("userId") String userId);
 
-    @Update({"update doctor_banner set status = 0 where status = 1 and end_time is not null and end_time <= current_time()"})
+    @Update({"update doctor_banner set status = 0 where status = 1 and deleted is false and end_time is not null and end_time <= current_time()"})
     Integer updateAllUnShelves();
 }
