@@ -334,6 +334,7 @@
 	        and oc.is_delete=0
 	        and oc.status=1
 	        and oc.type = 1
+	        and oc.is_teaching = 0
         <include refid="onlyFreeCondition"/>
         order by oc.live_status,oc.start_time desc,learndCount desc limit 0,1
     </select>
@@ -370,6 +371,7 @@
         </if>
         order by release_time desc
     </select>
+    
 
 
     <select id="selectTeachingCourse" resultType="com.xczhihui.course.vo.CourseLecturVo">
@@ -467,7 +469,7 @@
         if(now() > DATE_SUB(oc.start_time,INTERVAL 1 HOUR) and oc.start_time > now() ,1,0) as isLive
         FROM
         oe_course oc
-        where oc.is_delete=0 and oc.status=1 and oc.id != #{courseId} and
+        where oc.is_delete=0 and oc.status=1 and oc.is_teaching = 0 and oc.id != #{courseId} and
         oc.menu_id= (select menu_id from oe_course where id =#{courseId} limit 1) order by rand()
     </select>
 
@@ -688,24 +690,27 @@
     </select>
 
     <!-- 查询用户不同课程类型的数量 -->
-
     <select id="selectLiveCountByUserIdAndType" resultType="java.lang.Integer">
         SELECT
-        count(*)
+            count(*)
         FROM
         oe_course as oc where oc.is_delete=0 and oc.status=1 and oc.user_lecturer_id = #{userId}
         <if test="type == 1">
-            and oc.multimedia_type = 1
+           and oc.multimedia_type = 1 and oc.is_teaching = 0 
         </if>
         <if test="type == 2">
-            and oc.multimedia_type = 2
+            and oc.multimedia_type = 2 and oc.is_teaching = 0
         </if>
         <if test="type == 3">
-            and oc.type = 1
+            and oc.type = 1   and oc.is_teaching = 0
         </if>
         <if test="type == 4">
-            and oc.type = 3
+            and oc.type = 3 and oc.is_teaching = 0
         </if>
+           <if test="type == 5">  <!-- 师承直播 -->
+            and oc.is_teaching = 1 and oc.type = 1
+        </if>
+        
     </select>
 
     <select id="selectCourses4Solr" resultType="com.xczhihui.course.vo.CourseSolrVO">
@@ -746,7 +751,8 @@
         </if>
     </select>
 
-        <!-- live_status 1.直播中，2预告，3直播结束 -->
+    <!-- live_status 1.直播中，2预告，3直播结束 -->
+    
     <select id="selectDoctorLiveRoomRecentCourse" resultType="com.xczhihui.course.vo.CourseLecturVo">
 		select   * from 
 		(
@@ -760,6 +766,7 @@
 			          and oc.is_delete=0
 			          and oc.status=1
 			          and oc.type = 1
+			          and oc.is_teaching = 0
 			          <include refid="onlyFreeCondition"/>
 		             
 		              and  oc.live_status = 1  order by oc.start_time limit 0,1 )
@@ -776,6 +783,7 @@
                       and oc.is_delete=0
                       and oc.status=1
                       and oc.type = 1
+                      and oc.is_teaching = 0
                       <include refid="onlyFreeCondition"/>
 		            and oc.live_status = 2 
 		            and ( now() > DATE_SUB(oc.start_time,INTERVAL 6 HOUR) and oc.start_time > now() )  order by oc.start_time  limit 0,1 )
@@ -791,6 +799,7 @@
                       and oc.is_delete=0
                       and oc.status=1
                       and oc.type = 1
+                      and oc.is_teaching = 0
                       <include refid="onlyFreeCondition"/>
                       and oc.live_status = 3 order by  oc.release_time  limit 0,1  )
 		        union all
@@ -805,6 +814,7 @@
                       and oc.is_delete=0
                       and oc.status=1
                       and oc.type = 1
+                      and oc.is_teaching = 0
                       <include refid="onlyFreeCondition"/>
 		              and oc.live_status = 2 
 		                     and ( now() &lt; DATE_SUB(oc.start_time,INTERVAL 6 HOUR) and oc.start_time > now() )   order by oc.start_time  limit 0,1 )  

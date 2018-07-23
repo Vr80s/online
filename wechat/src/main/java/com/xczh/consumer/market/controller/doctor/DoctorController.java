@@ -173,7 +173,7 @@ public class DoctorController {
     @RequestMapping("doctorCourse")
     public ResponseObject doctorCourseList(@Account(optional = true) Optional<String> accountIdOpt,@RequestParam("userId") String lecturerId) {
         String userId = accountIdOpt.isPresent() ? accountIdOpt.get() : null;
-        List<Map<String, Object>> alllist =  courseService.doctorCourseList(lecturerId,userId);
+        List<Map<String, Object>> alllist =  courseService.doctorCourseList(lecturerId,userId,HeaderInterceptor.ONLY_THREAD.get());
         
         return ResponseObject.newSuccessResponseObject(alllist);
     }
