@@ -1281,7 +1281,7 @@
 			<div class="learn_tips_close">×</div>
 			<div class="learn_tips_title">温馨提示</div>
 			<div class="learn_tips_cen">该课程为师承课程，成为弟子才能开启观看权限哦~</div>
-			<div class="learn_tips_submit" onclick="location.href ='/xcview/html/physician/apply_for.html?doctor='+doctorId">在线弟子 申请加入~</div>
+			<div class="learn_tips_submit" onclick="location.href ='/xcview/html/physician/apply_for.html?doctor='+doctorId">在线弟子 申请加入</div>
 		</div>
 	</div>
 
@@ -1614,6 +1614,11 @@ $(window).bind("scroll", function() {
 	});
 
 	$(".order_tips_no_close").click(function(){
+    	$(".order_tips_no").hide();
+	});
+
+	// 审核中关闭叉号
+	$(".learn_tips_audit_close").click(function(){
     	$(".learn_tips").hide();
 	});
 

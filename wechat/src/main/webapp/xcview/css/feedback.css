@@ -89,6 +89,7 @@ header {
     margin-top: 1.08rem;
     background: #fff;
     background-color: white;
+    padding: 0.2rem 0;
 }
 textarea{
 	width: 7.1rem !important;
