@@ -810,7 +810,7 @@ function apprenticeInfo() {
                 $(".therapy").hide();
             }*/
 
-            if (isBlank(data.resultObject.treatments.indexDateText)) {
+            if (!isBlank(data.resultObject.treatments.indexDateText)) {
                 // alert(11111);
                 $(".therapy").hide();
             } else{
@@ -950,4 +950,34 @@ function order(id){
         }
     });
 };
+
+
+$(".QA_quiz").click(function(){
+    /*if (data.code ==1005) {
+        location.href ="/xcview/html/evpi.html";
+        alert(1);
+    }else{
+        alert(2);
+        window.location.href="location.href ='/xcview/html/physician/quiz.html?doctor=' + doctorId";  
+    }*/
+    checkAuth(doctorId);
+});
+
+
+function checkAuth(doctorId) {
+    var USER_UN_BIND = 1005;//用户用微信登录的但是没有绑定注册信息
+    var USER_UN_LOGIN = 1002;//未登录
+    var flag = getFlagStatus();
+    if (flag === USER_UN_BIND) {
+        
+        var rd = getCurrentRelativeUrl();
+        localStorage.setItem("rd", rd); 
+
+        location.href = "/xcview/html/evpi.html";
+    }else if(flag === USER_UN_LOGIN){
+        location.href = "/xcview/html/enter.html";
+    }else{
+        window.location.href="/xcview/html/physician/quiz.html?doctor="+doctorId; 
+    }
+}
 

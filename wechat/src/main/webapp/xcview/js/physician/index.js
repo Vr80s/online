@@ -130,7 +130,6 @@ window.onload = function(){
     }
     clickSwitchover();
 
-    
 
 };
 
