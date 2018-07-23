@@ -124,7 +124,7 @@ public class MessageRemindingServiceImpl implements MessageRemindingService {
                     Map<String, String> weixinParams = new HashMap<>(4);
                     weixinParams.put("first", TextStyleUtil.clearStyle(commonContent));
                     weixinParams.put("keyword1", courseName);
-                    weixinParams.put("keyword2", TimeUtil.getYearMonthDayHHmm(course.getStartTime()));
+                    weixinParams.put("keyword2", course.getStartTime() != null ? TimeUtil.getYearMonthDayHHmm(course.getStartTime()) : "随到随学");
                     weixinParams.put("remark", "");
                     for (OnlineUser user : users) {
                         BaseMessage baseMessage = new BaseMessage.Builder(MessageTypeEnum.COURSE.getVal())
@@ -165,7 +165,7 @@ public class MessageRemindingServiceImpl implements MessageRemindingService {
                 Map<String, String> weixinParams = new HashMap<>(4);
                 weixinParams.put("first", TextStyleUtil.clearStyle(commonContent));
                 weixinParams.put("keyword1", courseName);
-                weixinParams.put("keyword2", TimeUtil.getYearMonthDayHHmm(course.getStartTime()));
+                weixinParams.put("keyword2", "随到随学");
                 weixinParams.put("remark", "");
                 BaseMessage baseMessage = new BaseMessage.Builder(MessageTypeEnum.COURSE.getVal())
                         .buildWeb(commonContent)

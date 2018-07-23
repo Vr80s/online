@@ -1409,7 +1409,7 @@ $(".comment-establish .new-range-btn").click(function(){
 		longRange.endTime=$(".end-establish-time").val();		
 		if (checkRange(longRange)) {	
 			$(".comment-establish .new-range-btn").attr("disabled","disabled");
-			RequestJsonService("doctor/treatment","POST",JSON.stringify(longRange), function (data) {				
+			RequestJsonService("/doctor/treatment","POST",JSON.stringify(longRange), function (data) {				
 				if(data.success==true){
 					showTip("创建成功");
 					clearRangeTime();

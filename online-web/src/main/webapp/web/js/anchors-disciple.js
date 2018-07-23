@@ -60,7 +60,7 @@ $(function(){
         RequestService("/medical/common/upload", "post", {
             image: baseurl,
         }, function (data) {
-            $('.class-fengmian  .' + imgname + '').html('<img src="' + data.resultObject + '?imageMogr2/thumbnail/!260x147r'+'|imageMogr2/gravity/Center/crop/260x147"" alt="课程封面">');
+            $('.class-fengmian  .' + imgname + '').html('<img src="' + data.resultObject + '" alt="课程封面">');
         })
     }
     $('#class_picIpt').on('change', function () {
@@ -135,7 +135,7 @@ $(function(){
         RequestService("/medical/common/upload", "post", {
             image: baseurl,
         }, function (data) {
-            $('.comment-set-rules  .' + imgname + '').html('<img src="' + data.resultObject + '?imageMogr2/thumbnail/!260x147r'+'|imageMogr2/gravity/Center/crop/260x147"" alt="课程封面">');
+            $('.comment-set-rules  .' + imgname + '').html('<img src="' + data.resultObject + '" alt="课程封面">');
         })
     }
     $('#manage_picIpt').on('change', function () {
