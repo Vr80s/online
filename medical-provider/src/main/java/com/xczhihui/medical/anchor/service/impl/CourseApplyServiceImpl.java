@@ -29,6 +29,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -314,20 +317,43 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
     }
 
     @Override
-    public void updateCourseApplyResource(String ccId) {
-        //获取时长
-        String duration = CCUtils.getVideoLength(ccId);
-        /**
-         * 更改这个课程的时长
-         */
-        List<Integer> list = courseApplyResourceMapper.selectCourseListByVideoRecourse(ccId);
-        if (list.size() > 0) {
-            courseApplyResourceMapper.updateBatchCourseLength(duration, list);
+    public void updateCourseApplyResource() {
+        List<CourseApplyResource> CourseApplyResources = courseApplyResourceMapper.selectAllCourseResourcesForUpdateDuration();
+
+
+        for (CourseApplyResource courseApplyResource : CourseApplyResources) {
+            try {
+                LocalDateTime today = LocalDateTime.now();
+                LocalDateTime birthDate = LocalDateTime.ofInstant(courseApplyResource.getCreateTime().toInstant(), ZoneId.systemDefault());
+                Duration d = java.time.Duration.between(birthDate, today);
+                if (d.toHours() > 24) {
+                    logger.info("资源{}-{}转码超时", courseApplyResource.getId(), courseApplyResource.getTitle());
+                    courseApplyResource.setLength(-1 + "");
+                } else {
+                    String duration = CCUtils.getVideoLength(courseApplyResource.getResource());
+                    courseApplyResource.setLength(duration);
+                }
+                logger.info("资源id:" + courseApplyResource.getResource());
+                logger.info("课程时长:" + courseApplyResource.getLength());
+
+
+                /**
+                 * 更改这个课程的时长
+                 */
+                List<Integer> list = courseApplyResourceMapper.selectCourseListByVideoRecourse(courseApplyResource.getResource());
+                if (list.size() > 0) {
+                    courseApplyResourceMapper.updateBatchCourseLength(courseApplyResource.getLength(), list);
+                }
+
+
+                /**
+                 * 通过这个视频Id查找这个对应的课程
+                 */
+                courseApplyResourceMapper.updateById(courseApplyResource);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-        /**
-         * 通过这个视频Id查找这个对应的课程
-         */
-        courseApplyResourceMapper.updateCourseLengthByResource(duration,ccId);
     }
 
     @Override
