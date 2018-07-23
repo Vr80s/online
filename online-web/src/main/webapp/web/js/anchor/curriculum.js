@@ -962,6 +962,8 @@ function xmx(begin, first, filemd5, ccid, metaurl, chunkUrl) {
 	var start = begin; //每次上传的开始字节
 	var end = start + chunkSize; //每次上传的结尾字节
 	var blob = null;
+    localStorage.setItem("fileSize", totalSize);
+    localStorage.setItem("fileName", obj_file.name);
 	blob = obj_file.slice(start, end); //截取每次需要上传字节数
 
 	formData = new FormData(); //每一次需重新创建

@@ -308,7 +308,7 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
         }
         anchorDao.save(courseAnchor);
 
-        sendApprovePassMessage(courseAnchor, apply.getCreateTime());
+        sendApprovePassMessage(courseAnchor, apply);
 
         return doctorId;
     }
@@ -318,7 +318,7 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
      *
      * @param courseAnchor
      */
-    private void sendApprovePassMessage(CourseAnchor courseAnchor, Date applyTime) {
+    private void sendApprovePassMessage(CourseAnchor courseAnchor, MedicalDoctorApply apply) {
         try {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd");
             String type = "医师";
@@ -330,7 +330,7 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
 
             Map<String, String> weixinParams = new HashMap<>(5);
             weixinParams.put("first", TextStyleUtil.clearStyle(content).replace("去看看>>", ""));
-            weixinParams.put("keyword1", courseAnchor.getName());
+            weixinParams.put("keyword1", apply.getName());
             weixinParams.put("keyword2", "认证通过");
             weixinParams.put("keyword3", dateStr);
             weixinParams.put("remark", "");

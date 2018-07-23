@@ -306,7 +306,7 @@ public class HospitalApplyServiceImpl implements HospitalApplyService {
             courseAnchor.setProfilePhoto(user.getSmallHeadPhoto());
         }
         anchorDao.save(courseAnchor);
-        sendApprovePassMessage(courseAnchor);
+        sendApprovePassMessage(courseAnchor, apply);
     }
 
     /**
@@ -321,7 +321,7 @@ public class HospitalApplyServiceImpl implements HospitalApplyService {
      *
      * @param courseAnchor
      */
-    private void sendApprovePassMessage(CourseAnchor courseAnchor) {
+    private void sendApprovePassMessage(CourseAnchor courseAnchor, MedicalHospitalApply apply) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd");
         String type = "医馆";
         String dateStr = simpleDateFormat.format(new Date());
@@ -332,7 +332,7 @@ public class HospitalApplyServiceImpl implements HospitalApplyService {
 
         Map<String, String> weixinParams = new HashMap<>(5);
         weixinParams.put("first", TextStyleUtil.clearStyle(content).replace("去看看>>", ""));
-        weixinParams.put("keyword1", courseAnchor.getName());
+        weixinParams.put("keyword1", apply.getName());
         weixinParams.put("keyword2", "认证通过");
         weixinParams.put("keyword3", dateStr);
         weixinParams.put("remark", "");
