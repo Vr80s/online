@@ -724,7 +724,7 @@
 									{{each items as item i}}
 									<tr>
 										<td><img src="{{item.imgUrl}}"/></td>
-										<td>{{item.linkDesc}}</td>
+										<td style="text-align: left;">{{item.linkDesc}}</td>
 										<td>{{item.startTime}}-{{item.endTime}}</td>
 										{{if item.status==true}}
 										<td>已上架</td>
@@ -1346,9 +1346,9 @@
 								<p class="warning warning_course_lecturer hide">主讲人不能为空</p>
 								<p class="warning warning_course_lecturer_length hide">姓名格式不正确</p>
 							</div>
-							<!--主播介绍-->
+							<!--主讲人介绍-->
 							<div class="comment-style">
-								<span class="comment-left-tip"><em>*</em>主讲人介绍</span>
+								<span class="comment-left-tip" style="vertical-align: top;"><em>*</em>主讲人介绍</span>
 								<div class="" style="display: inline-block">
 									<script id="editor_lecturer" type="text/plain" style="width:540px;height:160px;"></script></div>
 								<p class="warning warning_course_lecturer_description hide">主讲人介绍不能为空</p>
@@ -1383,7 +1383,7 @@
 							</div>
 							<!--课程介绍-->
 							<div class="comment-style">
-								<span class="comment-left-tip"><em>*</em>课程介绍</span>
+								<span class="comment-left-tip"  style="vertical-align: top;"><em>*</em>课程介绍</span>
 								<div class="" style="display: inline-block">
 									<script id="editor_cd" type="text/plain" style="width:540px;height:260px;"></script></div>
 								<p class="warning warning_course_details hide">课程介绍不能为空</p>
@@ -1729,50 +1729,50 @@
 							<div class="see-details-wrap">
 								<!--老师-->
 								<div class="commer-see-menu">
-									<span>老师</span>
-									<p class="see-name"></p>
+									<span class="see-left-width">老师</span>
+									<p class="comment-width-text see-name"></p>
 								</div>
 								<!--招生标题-->
 								<div class="commer-see-menu">
-									<span>招生标题</span>
-									<p class="see-title"></p>
+									<span class="see-left-width">招生标题</span>
+									<p class="comment-width-text see-title"></p>
 								</div>
 								<!--封面图-->
 								<div class="commer-see-menu">
-									<span>封面图</span>
-									<p class="cover-map-namage"><img src="/web/images/1.jpg" alt="封面图"/></p>
+									<span class="see-left-width">封面图</span>
+									<p class="comment-width-text cover-map-namage"><img src="/web/images/1.jpg" alt="封面图"/></p>
 								</div>
 								<!--招生人数-->
 								<div class="commer-see-menu">
-									<span>招生人数</span>
-									<p class="see-zhaosheng"></p>
+									<span class="see-left-width">招生人数</span>
+									<p class="comment-width-text see-zhaosheng"></p>
 								</div>
 								<!--报名截止时间-->
 								<div class="commer-see-menu">
-									<span>报名截止时间</span>
-									<p class="see-stop-time"></p>
+									<span class="see-left-width">报名截止时间</span>
+									<p class="comment-width-text see-stop-time"></p>
 								</div>
 								<!--学习时间-->
 								<div class="commer-see-menu">
-									<span>学习时间</span>
-									<p class="see-study-time"></p>
+									<span class="see-left-width">学习时间</span>
+									<p class="comment-width-text see-study-time"></p>
 								</div>
 								<!--学习地址-->
 								<div class="commer-see-menu">
-									<span>学习地址</span>
-									<p class="see-address">652</p>
+									<span class="see-left-width">学习地址</span>
+									<p class="comment-width-text see-address">652</p>
 								</div>
 								<!--相关介绍-->
 								<div class="commer-see-menu">
-									<span>相关介绍</span>
-									<p class="see-about">
+									<span class="see-left-width">相关介绍</span>
+									<p class="comment-width-text see-about">
 									
 									</p>
 								</div>
 								<!--招生简章-->
 								<div class="commer-see-menu">
-									<span>招生简章</span>
-									<p class="see-general-rules">
+									<span class="see-left-width">招生简章</span>
+									<p class="comment-width-text see-general-rules">
 										
 									</p>
 								</div>
@@ -2023,7 +2023,7 @@
 										<td>
 											<img src="{{item.imgPath}}" alt="" />
 										</td>
-										<td>
+										<td style="text-align: left; padding: 0 5px;">
 											{{item.title}}
 										</td>
 										
@@ -2164,7 +2164,7 @@
 										<td>
 											<img src="{{item.imgPath}}" alt="封面图" />
 										</td>
-										<td>
+										<td style="text-align: left;padding: 0 5px;">
 											{{item.title}}
 										</td>
 										<td>
@@ -2297,7 +2297,7 @@
 											<td>
 												<img src="{{item.imgPath}}" alt="" style="width: 106px; height: 60px;" />
 											</td>
-											<td>
+											<td style="padding: 0 5px; text-align: left;">
 												{{item.title}}
 											</td>
 												{{if item.status==1}}

@@ -2122,7 +2122,7 @@ white-space: normal;
 }
 .see-namage-modal{
 	width: 960px;
-	max-height: 822px;
+	max-height: 670px;
 	background: white;
 	position: fixed;
 	left: 50%;
@@ -2149,26 +2149,30 @@ white-space: normal;
 }
 .see-details-wrap{
 	overflow: hidden;
-	padding: 40px 20px 20px;
+	padding: 20px 20px 20px;
 	width: 100%;
-	max-height: 667px;
+	max-height: 500px;
 	overflow-y: auto;
 }
 .commer-see-menu{
 	overflow: hidden;
 	margin-bottom: 20px;
 }
-.commer-see-menu span {
+.commer-see-menu .see-left-width {
 	display: block;
 	float: left;
 	width: 95px;
 	text-align: right;
 	margin-right: 20px;
 }
-.commer-see-menu p{
+.commer-see-menu .comment-width-text{
 	width: 680px;
 	float: left;
 	margin: 0;
+	word-wrap: break-word;
+}
+.commer-see-menu .comment-width-text img{
+	max-width: 680px;
 }
 .commer-see-menu .cover-map-namage{
 	width: 260px;
@@ -2176,7 +2180,7 @@ white-space: normal;
 	overflow: hidden;
 }
 .download-file{
-	padding-bottom: 60px;
+	padding: 10px 0 30px;
 	margin-left: 135px;
 }
 .download-file a{
