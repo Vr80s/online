@@ -953,13 +953,6 @@ function order(id){
 
 
 $(".QA_quiz").click(function(){
-    /*if (data.code ==1005) {
-        location.href ="/xcview/html/evpi.html";
-        alert(1);
-    }else{
-        alert(2);
-        window.location.href="location.href ='/xcview/html/physician/quiz.html?doctor=' + doctorId";  
-    }*/
     checkAuth(doctorId);
 });
 
@@ -970,7 +963,7 @@ function checkAuth(doctorId) {
     var flag = getFlagStatus();
   
     if (flag === USER_UN_BIND) {
-          var rd = getCurrentRelativeUrl();
+        var rd = getCurrentRelativeUrl();
         localStorage.setItem("rd", rd); 
         location.href = "/xcview/html/evpi.html";
     }else if(flag === USER_UN_LOGIN){

@@ -2331,7 +2331,8 @@ margin-top: 0.015rem;
 	height: 100%;
 	margin: 0 auto;
 	padding-top: 0.2rem;
-	margin-bottom: 0.38rem;
+	/*margin-bottom: 0.38rem;*/
+	margin-bottom: 0.2rem;
 }
 .therapy .border {
     display: inline-block;
