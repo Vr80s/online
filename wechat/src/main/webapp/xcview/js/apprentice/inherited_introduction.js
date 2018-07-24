@@ -53,15 +53,18 @@ requestGetService("/xczh/enrol/enrollmentRegulations/"+merId,data,function(data)
                 //得到分钟数
                 var m = Math.floor(t / 1000 / 60 % 60);
                 //得到的秒数
-                // var s = Math.floor(t / 1000 % 60);
-                var str = "报名截止时间：<span class='times'>" + tian + "</span> 天 <span class='times'>" + h + "</span> 小时  <span class='times'>" + m + "</span> 分";
+                var s = Math.floor(t / 1000 % 60);
+                var str = "报名截止时间：<span class='times'>" + tian + "</span> 天 <span class='times'>" + h + "</span> 小时  <span class='times'>" + m + "</span> 分 <span class='times'>" + s + "</span> 秒";
                 $("#box1").html(str);
                 } else {
                     //clearInterval(timer); //这里可以添加倒计时结束后需要执行的事件 
                     $("#box1").html("报名时间已结束");
-                    /*$(".apply").css("background","#f0f0f0");
-                    $(".apply").css("color","#666");
-                    $(".apply").html("报名已结束");*/
+                    $("#box1").hide();
+                    // 底部修改--报名已结束
+                    $(".apply").attr("onclick","apply();");
+                    $(".apply").removeAttr("onclick");
+                    $(".apply").css("background","#bbb");
+                    $(".apply").html("报名已结束");
                 }
             }
         

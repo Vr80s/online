@@ -26,7 +26,7 @@ import com.xczhihui.medical.enrol.vo.MedicalEntryInformationVO;
 @RequestMapping("/xczh/enrol")
 public class EnrolController {
 
-    private static final String WAIT_APPLY = "审核结果会已短信形式发送给您,请耐心等待";
+    private static final String WAIT_APPLY = "审核结果会以短信形式发送给您,请耐心等待";
     private static final String SUCCESS_PASS_APPLY = "恭喜~您的弟子申请已通过审核！";
 
     @Autowired
