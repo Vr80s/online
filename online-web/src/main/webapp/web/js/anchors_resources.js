@@ -1171,7 +1171,6 @@ function btnColorReply(){
 
 //	轮播图列表
 	
-
 	function bannerList(pages){
 		RequestService("/doctor/banner", "GET", {
 			"page":pages,
@@ -1181,8 +1180,10 @@ function btnColorReply(){
 	    		list=data.resultObject.records;
 	    		if(list.length==0){
 	    			$(".banner-nulldata").removeClass("hide");
+	    			$("#banner-list-content table").addClass("hide");
 	    		}else{
 	    			$(".banner-nulldata").addClass("hide");
+	    			$("#banner-list-content table").removeClass("hide");
 	    			$("#banner-list-content").html(template("banner-template",{items:data.resultObject.records}));
 	    		}
 	//            	 分页
@@ -1204,8 +1205,7 @@ function btnColorReply(){
 	            }
 	//             分页结束
 				isRelease();    //上下架触发方法
-
-
+				deleteBanner();	//删除轮播图
 	    	}else{
 	    		showTip("获取列表失败")
 	    	}
@@ -1228,7 +1228,20 @@ function btnColorReply(){
 			    })
 		})
 	}
-
+//	删除轮播图
+	function deleteBanner(){
+		$(".delete-banner").click(function(){
+			var id=$(this).attr("data-id");
+			RequestService("/doctor/banner/"+id, "DELETE", null, function (data) {
+				if(data.success=true){
+					showTip("删除成功");
+					bannerList(1)
+				}else{
+					showTip("删除失败");
+				}
+			})
+		})
+	}
 //  验证轮播图
 	function RecruitBanner(data){
 //		是否上传图片
@@ -1257,6 +1270,11 @@ function btnColorReply(){
 			$(".banner-error-time").removeClass("hide");
 			return false;
 		}else if(!isBlank(data.startTime) && !isBlank(data.endTime)){
+			if (data.endTime<getNowFormatDate()) {
+                showTip("结束时间必须大于当前时间");
+                $(".banner-error-time").addClass("hide");
+                return false;
+            }
 		    if (data.startTime>data.endTime) {
                 showTip("开始时间不能大于结束时间");
                 $(".banner-error-time").addClass("hide");
@@ -1521,7 +1539,7 @@ function btnColorReply(){
             $('#zhuanlan_bottom2').removeClass('hide');
             $('#zhuanlan_bottom').addClass('hide');
             $(this).text("发布")
-            $('#zhuanlan .zhuanlan_top .title').text('专栏医案')
+            $('#zhuanlan .zhuanlan_top .title').text('专栏医案');
         }
     })
 //  关闭选择框
@@ -1544,7 +1562,14 @@ function btnColorReply(){
             resetColumn();
             $('#zhuanlan_bottom2').addClass('hide');
             $('#zhuanlan_bottom').removeClass('hide');
-            $('#zhuanlan .zhuanlan_top button').text("返回")
+            $('#zhuanlan .zhuanlan_top button').text("返回");
+            if(pointId==8){
+            	$('#zhuanlan .zhuanlan_top .title').text('新医案');
+            	$(".isConsilia").html("<em>*</em>医案标题");
+            }else if(pointId==4){
+            	$('#zhuanlan .zhuanlan_top .title').text('新专栏');
+            	$(".isConsilia").html("<em>*</em>专栏标题");
+            }
             $(".recruit-wrap-title p").text("医案专栏");
             //			保存按钮显现
             $(".column-new-button").removeClass("hide");
@@ -2173,6 +2198,7 @@ function btnColorReply(){
 
     //	媒体报道部分,点击发布验证文本框
     function mediaValidate(mediaData) {
+    	var urlHttp = /^http:\/\//;
         if (mediaData.title == "") {
             $(".media-title-warning").removeClass("hide");
             return false;
@@ -2199,9 +2225,17 @@ function btnColorReply(){
         }
         if (mediaData.url == "") {
             $(".media-url-warning").removeClass("hide");
+            $(".media-url2-warning").addClass("hide");
             return false;
         } else {
             $(".media-url-warning").addClass("hide");
+        }
+        if (!urlHttp.test(mediaData.url)) {
+            $(".media-url2-warning").removeClass("hide");
+            return false;
+        } else {
+            $(".media-url2-warning").addClass("hide");
+
         }
         return true;
     }
@@ -2648,11 +2682,11 @@ function showPreview(index) {
 //回显所有数据，id隐藏
 //1.获取所有修改后的值2.校验所有值3.将所有值提交到后台
 function columnEdit(index) {
-    resetColumn(index)
-    echoColumn(index)
+    resetColumn(index);
+    echoColumn(index);
+    var status=$(this).attr("data-status");
     $(".zhuanlan_bottom").removeClass("hide");
     $(".zhuanlan_bottom2").addClass("hide");
-    $('#zhuanlan .zhuanlan_top .title').text('专栏医案编辑');
     $('#zhuanlan .zhuanlan_top button').text('返回');
     //		保存按钮显现
     $(".column-new-button").addClass("hide");
@@ -2676,6 +2710,15 @@ function echoColumn(index) {
     $(".column-picter").html("<img src=" + column.imgPath + " />");
 //		$(".column-text").val(columnGetdata.content);
     UE.getEditor('column-content').setContent(column.content);
+
+	if(column.typeId==4){
+		$("#zhuanlan .zhuanlan_top .title").html("专栏编辑");
+		$(".isConsilia").html("<em>*</em>专栏标题");
+	}else if(column.typeId==8){
+		$("#zhuanlan .zhuanlan_top .title").html("医案编辑");
+		$(".isConsilia").html("<em>*</em>医案标题");
+	}
+
 }
 
 //-----------------------------------------著作部分，预览,编辑回显--------------------------------------
@@ -3050,8 +3093,6 @@ function eachBanner(index){
     $("#posts_resource_select").val(bannerSet.linkParam);
     $('#resetSelect .selectpicker').selectpicker('refresh')
 }
-
-
 
 //初始化课程动态 ----临时执行方法
 function initialization() {

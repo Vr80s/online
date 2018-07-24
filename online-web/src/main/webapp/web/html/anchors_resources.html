@@ -519,7 +519,19 @@
 											</a>
 										</div>	
 										{{else}}
-										<p class="delect-text">抱歉，此文章已被作者删除</p>
+											{{if item.articleId != null}}
+												{{if item.typeId != 8}}
+												<p class="delect-text">抱歉，此文章已被作者删除</p>
+												{{else}}
+												<p class="delect-text">抱歉，此医案已被作者删除</p>
+												{{/if}}
+											{{/if}}
+											
+											{{if item.courseId != null}}
+												{{if item.courseType != null}}
+													<p class="delect-text">抱歉，此课程已被作者下架</p>
+												{{/if}}
+											{{/if}}
 									{{/if}}
 								{{/if}}
 								<!--直播/线下课/线上课-->
@@ -733,22 +745,25 @@
 										{{/if}}		
 										<td>
 											{{if item.status==true}}
-											<a href="javascript:;" class="is-release" style="margin-right: 20px;" data-status="0" data-id="{{item.id}}">下架</a>
+											<a href="javascript:;" class="is-release" data-status="0" data-id="{{item.id}}">下架</a>
 											{{else}}
-											<a href="javascript:;" class="is-release" style="margin-right: 20px;" data-status="1" data-id="{{item.id}}">上架</a>
+											<a href="javascript:;" class="is-release" data-status="1" data-id="{{item.id}}">上架</a>
 											{{/if}}		
-											<a href="javascript:;" class="" onclick="editBanner({{i}})">编辑</a>
+											<a href="javascript:;" class=""  style="margin: 0 15px;" onclick="editBanner({{i}})">编辑</a>
+											<a href="javascript:;" class="delete-banner" data-id="{{item.id}}">删除</a>
+											
 										</td>
 									</tr>	
 									{{/each}}
 								</table>
 							</script>
+												
+						</div>
 							<!--没有数据时的展示-->
 							<div class="comment-nodata banner-nulldata hide">
 								<img src="/web/images/notext_icon.png" alt="无数据">
 								<p>暂无数据</p>
-							</div>							
-						</div>
+							</div>	
 								<!--分页部分start-->
 							<div class="banner_pages pages hide" style="padding-bottom: 20px; background: white;">  <!--如需要复制分页doctors_pages要改类名并在JS里对应-->
 								<div id="Pagination_banner" class="pagination-pages"></div>	<!--如需要复制分页Pagination_doctors要改类名并在JS里对应-->
@@ -1312,14 +1327,14 @@
 							<!--课程标题-->
 							<div class="comment-style">
 								<span class="comment-left-tip"><em>*</em>课程标题</span>
-								<input type="text" placeholder="请填写您的课程标题" class="zhuanlan_title course_title"/>
+								<input type="text" placeholder="请填写您的课程标题" maxlength="30" class="zhuanlan_title course_title"/>
 								<p class="warning warning_course_title hide">课程标题不能为空</p>
 								<p class="warning warning_course_title_length hide">课程标题最多30字</p>
 							</div>
 							<!--副标题-->
 							<div class="comment-style">
 								<span class="comment-left-tip"><em>*</em>副标题</span>
-								<input type="text" placeholder="请填写课程副标题" class="zhuanlan_title zhuanlan_title0 course_subtitle"/>
+								<input type="text" placeholder="请填写课程副标题" maxlength="30" class="zhuanlan_title zhuanlan_title0 course_subtitle"/>
 								<p class="warning warning_course_subtitle hide">副标题不能为空</p>
 								<p class="warning warning_course_subtitle_length hide">副标题最多30字</p>
 							</div>
@@ -1794,7 +1809,7 @@
 							<!--招生标题-->
 							<div class="comment-set-rules">
 								<span class="comment-left-rules"><em>*</em>招生标题</span>
-								<input type="text" class="recruit-title" placeholder="请填写招生标题" />
+								<input type="text" class="recruit-title" maxlength="15" placeholder="请填写招生标题" />
 								<p class="warning-manage title-null hide">标题不能为空</p>	
 							</div>
 							<!--封面图-->
@@ -1863,9 +1878,9 @@
 									<p class="warning-manage about-introduce-null hide">相关介绍不能为空</p>	
 								</div>
 							</div>
-							<!--招生简介-->
+							<!--招生简章-->
 							<div class="comment-set-float">
-								<span class="comment-left-float"><em>*</em>招生简介</span>
+								<span class="comment-left-float"><em>*</em>招生简章</span>
 								<div class="comment-right-float">
 									<script id="introduction-enrolment" type="text/plain" style="width:540px;height:160px;"></script>
 									<p class="warning-manage introduction-null hide">招生简介不能为空</p>	
@@ -1958,7 +1973,7 @@
 					<div class="zhuanlan_bottom hide" id="zhuanlan_bottom">
 							<input type="hidden" name="" id="column-id" value="" />
 							<div>
-								<span><em>*</em>专栏标题</span>
+								<span class="isConsilia"><em>*</em>专栏标题</span>
 								<input type="text" maxlength="30" maxlength="30" placeholder="请填写您的专栏标题" class="zhuanlan_title column-title" />
 								<p class="warning hide column-title-warning">标题不能为空</p>
 							</div>		
@@ -2266,8 +2281,9 @@
 
 						<div>
 							<span><em>*</em>来源URL</span>
-							<input type="text" placeholder="原文链接" class="media_report_name media-link">
+							<input type="text" placeholder="原文链接，请以http://格式开头" class="media_report_name media-link">
 							<p class="warning hide media-url-warning">来源不能为空</p>
+							<p class="warning hide media-url2-warning">请以http://格式开头</p>
 						</div>
 
 						<div class="baocun media-save-allwrap">
@@ -2557,14 +2573,17 @@
 		   });
 //			报名截止时间
  			$("#sign-up-time").jeDate({
-		        format: "YYYY-MM-DD hh:mm:ss"
+		        format: "YYYY-MM-DD hh:mm:ss",
+		        minDate:getNowFormatDate()
 		   });
 //		   学习时间
 			$("#study-start-time").jeDate({
-		        format: "YYYY-MM-DD hh:mm:ss"
+		        format: "YYYY-MM-DD hh:mm:ss",
+		        minDate:getNowFormatDate()
 		   });
 		   $("#study-end-time").jeDate({
-		        format: "YYYY-MM-DD hh:mm:ss"
+		        format: "YYYY-MM-DD hh:mm:ss",
+		        minDate:getNowFormatDate()
 		   });
 		
 //		    只显示年远程诊疗
@@ -2580,7 +2599,26 @@
 		       format:"hh:mm:ss"
 		   	});
 		});
+		//获取当前时间
+	function getNowFormatDate() {
+	    var date = new Date();
+	    var seperator1 = "-";
+	    var seperator2 = ":";
+	    var month = date.getMonth() + 1;
+	    var strDate = date.getDate();
+	    if (month >= 1 && month <= 9) {
+	        month = "0" + month;
+	    }
+	    if (strDate >= 0 && strDate <= 9) {
+	        strDate = "0" + strDate;
+	    }
+	    var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+	            + " " + date.getHours() + seperator2 + date.getMinutes()
+	            + seperator2 + date.getSeconds();
+	    return currentdate;    
+	}
 	</script>
+	
 	<script type="text/javascript">
     //实例化编辑器
     //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例

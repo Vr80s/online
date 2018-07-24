@@ -2258,6 +2258,10 @@ white-space: normal;
     position: relative;
     background: #f0f0f0;
 }
+.mamage-wrap-img img{
+	width: 100%;
+	height: 100%;
+}
 .comment-set-rules .fengmian_tip{
 	display: inline-block;
     width: 190px;
@@ -2275,6 +2279,7 @@ white-space: normal;
  	width: 105px;
  	margin-right: 25px;
  	text-align: right;
+ 	margin-top: 5px;
  }
   .comment-set-float .comment-left-float em{
   	display: inline-block;
@@ -2337,6 +2342,8 @@ white-space: normal;
 	float: left;
 	margin: 0 20px;
 	cursor: pointer;
+	background: url(/web/images/upFile.png) no-repeat 10px center;
+    padding-left: 20px;
 }
 .comment-right-float .file-tip{
 	float: left;

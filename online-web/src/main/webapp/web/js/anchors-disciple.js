@@ -117,6 +117,7 @@ $(function(){
 			$(".namage-list-table").addClass("hide");
 			$(".recruit-students").removeClass("hide");		
 			$(this).text("返回");
+			$(".namage-top span").html("招生简章");
 			
 			$(".teacher-name").val(anchors);
 			clearRecruit();
@@ -126,6 +127,7 @@ $(function(){
 			$(".namage-list-table").removeClass("hide");
 			$(".recruit-students").addClass("hide");	
 			$(this).text("新增招生简章");
+			$(".namage-top span").html("师承管理");
 		}
 	})
 
