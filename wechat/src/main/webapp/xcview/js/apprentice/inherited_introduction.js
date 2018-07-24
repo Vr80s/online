@@ -59,6 +59,9 @@ requestGetService("/xczh/enrol/enrollmentRegulations/"+merId,data,function(data)
                 } else {
                     //clearInterval(timer); //这里可以添加倒计时结束后需要执行的事件 
                     $("#box1").html("报名时间已结束");
+                    /*$(".apply").css("background","#f0f0f0");
+                    $(".apply").css("color","#666");
+                    $(".apply").html("报名已结束");*/
                 }
             }
         
