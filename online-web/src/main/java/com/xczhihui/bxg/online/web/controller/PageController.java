@@ -178,10 +178,10 @@ public class PageController {
             if (result == 1 || result == 2) {
                 request.getRequestDispatcher("/web/html/anchor/curriculum.html").forward(request, response);
             } else {
-                request.getRequestDispatcher("/").forward(request, response);
+                response.sendRedirect("/");
             }
         } else {
-            request.getRequestDispatcher("/").forward(request, response);
+            request.getRequestDispatcher("/web/html/login.html").forward(request, response);
         }
 
     }
@@ -203,10 +203,10 @@ public class PageController {
             if (result == 1) {
                 request.getRequestDispatcher("/web/html/anchors_resources.html").forward(request, response);
             } else {
-                request.getRequestDispatcher("/").forward(request, response);
+                response.sendRedirect("/");
             }
         } else {
-            request.getRequestDispatcher("/").forward(request, response);
+            request.getRequestDispatcher("/web/html/login.html").forward(request, response);
         }
 
     }
@@ -228,12 +228,31 @@ public class PageController {
             if (result == 2) {
                 request.getRequestDispatcher("/web/html/ResidentHospital.html").forward(request, response);
             } else {
-                request.getRequestDispatcher("/").forward(request, response);
+                response.sendRedirect("/");
             }
         } else {
-            request.getRequestDispatcher("/").forward(request, response);
+            request.getRequestDispatcher("/web/html/login.html").forward(request, response);
         }
 
+    }
+
+    /**
+     * 跳转至医师认证页面
+     *
+     * @return
+     */
+    @RequestMapping(value = "doctors/authentication", method = RequestMethod.GET)
+    public void doctorsAuthentication(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setHeader("Cache-Control", "no-cache");
+        response.setHeader("Pragma", "no-cache");
+        response.setDateHeader("Expires", -1);
+        // 获取当前用户
+        BxgUser user = UserLoginUtil.getLoginUser();
+        if (user != null) {
+            request.getRequestDispatcher("/web/html/ResidentDoctor.html").forward(request, response);
+        } else {
+            request.getRequestDispatcher("/web/html/login.html").forward(request, response);
+        }
     }
 
     /**

@@ -809,9 +809,9 @@ function apprenticeInfo() {
                 alert(11111);
                 $(".therapy").hide();
             }*/
-
-            if (!isBlank(data.resultObject.treatments.indexDateText)) {
-                // alert(11111);
+            
+            // 判断预约
+            if (isBlank(data.resultObject.treatments)) {
                 $(".therapy").hide();
             } else{
                 $(".therapy").show();
