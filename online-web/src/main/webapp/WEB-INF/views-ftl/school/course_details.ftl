@@ -44,6 +44,7 @@
 <div class="wp">
     <div class="wrap-buy">
         <div class="left-cover z">
+        	<p class="class-style">视频</p>
             <img src="${courseInfo.smallImgPath}?imageMogr2/thumbnail/!462x260r|imageMogr2/gravity/Center/crop/462x260" alt="${courseInfo.gradeName}" />
             <div class="progress"
                  style="position: absolute;bottom: 0;left: 0;width: 100%;
