@@ -61,6 +61,13 @@
 	.swiper-pagination-bullet-active{
 		background: #00BC12 !important;
 	}
+	.footer ul li{
+		/*background: blue;*/
+		display: inherit;
+	}
+	.li_list{
+		/*background: yellow;*/
+	}
 </style>
 </head>
 <body style="background: #F8F8F8;display: none;">
@@ -515,10 +522,15 @@ onclick="common_jump_school({{item.watchState}},{{item.type}},{{item.collection?
 	<div class="footer_perch" style="1display: none;"></div>
 	<div class="footer" style="display: none1;">
 		<ul>
+			<!-- <li onclick="location.href =/xcview/html/apprentice/apprentice.html'">
+				<a href="javascript:;" class="physician" style="width: 0.42rem;height: 0.42rem;background: url(/xcview/images/physicians_nav.png) no-repeat center;background-size: 0.42rem 0.42rem;margin-top: 0.14rem;"   onclick="location.href =/xcview/html/apprentice/apprentice.html'"></a>
+				<p onclick="location.href =/xcview/html/apprentice/apprentice.html'">中医师</p>
+			</li> -->
 			<li onclick="location.href ='/xcview/html/physician/index.html'">
 				<a href="javascript: ;" class="physician" style="width: 0.42rem;height: 0.42rem;background: url(/xcview/images/physicians_nav.png) no-repeat center;background-size: 0.42rem 0.42rem;margin-top: 0.14rem;" onclick="location.href ='/xcview/html/physician/index.html'"></a>
-				<p>中医师</p>
+				<p onclick="location.href ='/xcview/html/physician/index.html'">中医师</p>
 			</li>
+
 			<li>
 				<a href="javascript: ;" class="footer_one" style="background: url(/xcview/images/school_ones.png) no-repeat center;background-size: 0.48rem 0.37rem;margin-top: 0.14rem;"></a>
 				<p style="color: #00BC12;">学堂</p>
@@ -551,6 +563,8 @@ onclick="common_jump_school({{item.watchState}},{{item.type}},{{item.collection?
 <script type="text/javascript" src="/xcview/js/common/swiper.min.js"></script>  <!-- 名师推荐滑动引入 -->
 <!--新滑动引入-->
 <script type="text/javascript" src="/xcview/js/table/touchslider.js?v=wechat_1.1.1"></script>
+
+
 
 <script type="text/javascript">
 // 给li定义高度，配合css使li独立滚动

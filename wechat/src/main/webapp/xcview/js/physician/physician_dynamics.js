@@ -976,3 +976,39 @@ function checkAuth(doctorId) {
 }
 
 
+
+// 判断是否在线弟子
+    $(".learn_tips_close").click(function(){
+        $(".learn_tips").hide();
+    });
+
+    $(".learn_tips_submit").click(function(){
+        $(".learn_tips").hide();
+    });
+
+    $(".order_tips_close").click(function(){
+        $(".order_tips").hide();
+    });
+
+    $(".order_tips_no_close").click(function(){
+        $(".order_tips_no").hide();
+    });
+
+    // 审核中关闭叉号
+    $(".learn_tips_audit_close").click(function(){
+        $(".learn_tips").hide();
+    });
+
+    // 我知道了--课程
+    $(".learn_tips_part_submit").click(function(){
+        $(".learn_tips_part").hide();
+    });
+
+    // 弟子审核中
+    $(".learn_tips_audit_submit").click(function(){
+        $(".learn_tips_audit").hide();
+    });
+    $(".learn_tips_audit_bg").click(function(){
+        $(".learn_tips_audit").hide();
+    });
+
