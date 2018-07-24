@@ -56,8 +56,7 @@ $(function () {
 
     //重新认证按钮
     $('#doc_Distinguish ').on("click", ".renzhengAgain", function () {
-        localStorage.AutStatus = "AutAgain";
-        window.location.href = "/web/html/ResidentDoctor.html";
+        window.location.href = "/doctors/authentication#update";
     })
 
     //	点击左侧tab按钮右侧页面变化效果
@@ -2591,40 +2590,28 @@ $('#hospital_bottom #submit').click(function () {
             }, 2000)
         }
     });
-    //	alert(111)
 })
 
-if (localStorage.AccountStatus == 1) {
-    RequestService("/doctor/authentication/get", "get", {}, function (data) {
-        console.log(data);
-        if (data.success == false) {
-            //				alert('获取认证状态数据失败');
-            //				$('#tip').text('获取认证状态数据失败');
-            //	       		$('#tip').toggle();
-            //	       		setTimeout(function(){
-            //	       			$('#tip').toggle();
-            //	       		},2000)
-        } else if (data.success == true) {
-        	anchors=data.resultObject.name
-            //				alert('认证成功');
-            //医馆数据渲染
-            //				$('#hosAutStatus').html(template('hosAutStatusTpl',data.resultObject))
-            $('#renzheng_status_list').html(template('renzheng_statusTpl', data.resultObject));
-            //个人信息渲染
-            $('.personIntroduct .introductInf').html(data.resultObject.description);
-        }
-
-    })
-} else {
+// if (localStorage.AccountStatus == 1) {
+//     RequestService("/doctor/authentication/get", "get", {}, function (data) {
+//         if (data.success == true) {
+//             anchors=data.resultObject.name;
+//             //医馆数据渲染
+//             $('#renzheng_status_list').html(template('renzheng_statusTpl', data.resultObject));
+//             //个人信息渲染
+//             $('.personIntroduct .introductInf').html(data.resultObject.description);
+//         }
+//     })
+// } else {
     //医师认证状态和认证信息显示
     RequestService("/doctor/apply/getLastOne", "get", null, function (data) {
+        anchors=data.resultObject.name;
         //头像预览
-        console.log(data);
         $('#renzheng_status_list').html(template('renzheng_statusTpl', data.resultObject));
         //个人信息渲染
         $('.personIntroduct .introductInf').html(data.resultObject.description);
     });
-}
+// }
 
 //如果入驻了医馆进入获取数据
 $('#docJoinHos').click(function () {

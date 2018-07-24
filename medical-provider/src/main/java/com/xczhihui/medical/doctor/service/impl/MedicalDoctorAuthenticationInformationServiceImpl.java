@@ -48,19 +48,6 @@ public class MedicalDoctorAuthenticationInformationServiceImpl extends ServiceIm
         // 根据用户id获取其医师id
         MedicalDoctorAccount doctorAccount = doctorAccountMapper.getByUserId(userId);
 
-//        if(doctorAccount != null){
-//            // 根据医师id获取其认证信息id
-//            MedicalDoctor doctor = doctorMapper.selectById(doctorAccount.getDoctorId());
-//            if(doctor != null && StringUtils.isNotBlank(doctor.getAuthenticationInformationId())){
-//                // 根据认证信息id获取其认证信息
-//                MedicalDoctorAuthenticationInformation authenticationInformation =
-//                        doctorAuthenticationInformationMapper.selectById(doctor.getAuthenticationInformationId());
-//                if(authenticationInformation != null){
-//                    return this.processDoctorAuthenticationInformation(authenticationInformation, doctor);
-//                }
-//            }
-//        }
-
         MedicalDoctor doctor = Optional.ofNullable(doctorAccount)
                 .map(optional -> doctorMapper.selectById(optional.getDoctorId()))
                 .orElse(null);

@@ -2421,19 +2421,17 @@
 		{{if status == 2}}
 		<div class="bottomContent_inf text-left">
 			<span>医师认证审核中，3个工作日完成</span><span style="color: red;margin-left: -20px;">（如提交信息有误可重新提交）</span>
-			<button class="renzhengAgain">重新认证</button>
+			<button class="renzhengAgain">重新提交</button>
 		</div>
 		{{else if status == 1}}
 		<div class="bottomContent_inf text-left">
 			<span>已于{{createTime}}通过认证，享有入驻医师的功能</span><span style="color: red;margin-left: -20px;"></span>
-			<!--<button class="renzhengAgain">重新认证</button> （如信息有更新可重新认证）-->
-			<!--<button class="renzhengAgain">重新认证</button>-->
-
+			<button class="renzhengAgain">重新认证</button> （如信息有更新可重新认证）
 		</div>
 		{{else if status == 0}}
 		<div class="bottomContent_inf text-left">
 			<span>审核未通过</span><span style="color: red;margin-left: -20px;">（提交审核信息有误）</span>
-			<button class="renzhengAgain">重新认证</button>
+			<button class="renzhengAgain">重新提交</button>
 		</div>
 		{{/if}}
 		<div>
@@ -2445,16 +2443,6 @@
 			<span>身份证号</span>
 			<span class="doc_Idnum">{{cardNum}}</span>
 		</div>
-
-		<!--<div class="idCard_pic">
-			<span> 身份证</span>
-			<span class="idFont_pic" style="cursor: default;">
-				<img src={{cardPositive}} alt="" />
-			</span>
-			<span class="idBack_pic" style="cursor: default;">
-				<img src={{cardNegative}} alt="" />
-			</span>
-		</div>-->
 
 		<div class="teacher_picUpdata">
 			<span> 医师资格证</span>
@@ -2501,18 +2489,13 @@
 
 		<div>
 			<span>擅长</span>
-			<span class="doc_shanchang">{{fieldText}}</span>
+			<span class="doc_shanchang">{{field}}</span>
 		</div>
 
 		<div class="personIntroduct">
 			<span>个人介绍</span>
 			<p class="introductInf" style="max-width: 540px;max-height: 160;overflow: hidden;display: inline-block;vertical-align: top;font-size: 14px;"></p>
 		</div>
-
-		<!--<div>
-			<span>任职医馆</span>
-			<span class="doc_hospital">{{hospital}}</span>
-		</div>-->
 
 		<div class="doc_address">
 			<span>城市</span>
