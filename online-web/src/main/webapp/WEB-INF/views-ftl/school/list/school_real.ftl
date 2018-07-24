@@ -64,7 +64,7 @@
                         </#if>
 
                         <a style="cursor:pointer" href="${webUrl}/courses/${courseItem.id}/info" target="_blank">
-                            <div class="img"><img src="${courseItem.smallImgPath}"></div>
+                            <div class="img"><img src="${courseItem.smallImgPath}?imageMogr2/thumbnail/!260x147r|imageMogr2/gravity/Center/crop/260x147"></div>
                             <span class="classCategory">线下课程</span>
                             <div class="detail">
                                 <p class="title" title="${courseItem.gradeName}">${courseItem.gradeName}</p>

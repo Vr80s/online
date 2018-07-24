@@ -17,7 +17,7 @@
 			            <a style="cursor:pointer" href="/web/liveCoursePage/${courseItem.id}" target="_blank">
 				</#if>
 				<div class="img">
-				<img src="${courseItem.smallImgPath}"></div>
+				<img src="${courseItem.smallImgPath}?imageMogr2/thumbnail/!260x147r|imageMogr2/gravity/Center/crop/260x147"></div>
 			    <#if courseItem.type == 1  > 
 			      <#if courseItem.collection> 
 			         <span class="classCategory">视频专辑</span>

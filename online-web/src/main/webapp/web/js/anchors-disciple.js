@@ -133,11 +133,13 @@ $(function(){
 
 
 //	师承封面
+	
 	function manageUpdown(baseurl, imgname) {
         RequestService("/medical/common/upload", "post", {
             image: baseurl,
         }, function (data) {
-            $('.comment-set-rules  .' + imgname + '').html('<img src="' + data.resultObject + '" alt="课程封面">');
+        	discipleImgCover=data.resultObject;
+            $('.comment-set-rules  .' + imgname + '').html('<img src="' + discipleImgCover + '?imageMogr2/thumbnail/!260x147r|imageMogr2/gravity/Center/crop/260x147" alt="课程封面">');
         })
     }
     $('#manage_picIpt').on('change', function () {
@@ -256,3 +258,4 @@ var ue = UE.getEditor('introduction-enrolment', {
     });
 
 })
+var discipleImgCover;

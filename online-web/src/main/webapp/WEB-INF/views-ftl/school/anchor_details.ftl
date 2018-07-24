@@ -32,7 +32,7 @@
 <div class="wrap-top">
     <div class="main-top">
         <div class="head-portrait z">
-            <img src="${lecturerInfo.small_head_photo}"/>
+            <img src="${lecturerInfo.small_head_photo}?imageMogr2/thumbnail/!150x150r|imageMogr2/gravity/Center/crop/150x150"/>
 
         </div>
     <#--
@@ -127,7 +127,7 @@
                     </#if>
                     <div class="hospital-img z">
                         <#if hospital?? && hospital.headPortrait??>
-                            <img src="${hospital.headPortrait}"/>
+                            <img src="${hospital.headPortrait}?imageMogr2/thumbnail/!270x152r|imageMogr2/gravity/Center/crop/270x152"/>
                         <#else>
                             <img src="${webUrl}/web/images/defaultHead/18.png"/>
                         </#if>
