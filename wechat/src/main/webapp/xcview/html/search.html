@@ -43,15 +43,12 @@
 	<!--头部搜索开始-->
 	<header>
 		<div class="header">
-			
+			<div class="return" onclick="common_share_back()"><img src="/xcview/images/back icon.png"></div>
 			<div class="header_seek"> 
-				
 				<input type="text" name="" value="" autocomplete="off"  id="header_input" />
 				
 				<span class="span">
-					
 					<img src="/xcview/images/sousuo0.png" alt="" class="sousuo" /><!--针灸疗法-->
-					
 				</span>
 				<div class="header_seek_main">
 					<span class="div_span_input">
@@ -64,7 +61,7 @@
 					</span>
 				</div>
 			</div>
-			<div class="header_cancel" onclick="common_share_back()">取消</div>
+			<div class="header_cancel">搜索</div>
 			<!--<div class="header_cancel" onclick="location.href='home_page.html'">取消</div>-->
 			<!--<div class="header_cancel" onclick="javascript:window.history.back();return false;">取消</div>-->
 		</div>
@@ -197,8 +194,6 @@
 		}
    		initHistoryList();
 
-   		
-   		
 //      点击yinput  失去焦点隐藏默认值
         $("#header_input").keyup(function(){
 			var search_val=$(this).val()
@@ -223,13 +218,37 @@
                             localStorage.setItem(hisArr,arr);
                             window.location.href="../html/curriculum_table.html?queryKey="+search_val+"&curriculum_blck=2";
 						}
-
 			        } 
 			   }; 
 			}else{
 				$(".header_seek_main").css("display","block");
 			};
 		});
+
+		// 点击搜索按钮
+		$(".header_cancel").click(function(){
+			var search_val=$("#header_input").val();
+			if($("#header_input").val() != ""){
+				$(".header_seek_main").css("display","none");
+				//头部input搜索框开始
+					initHistoryList();
+                        var keyValue = $('#header_input').val();
+                        //判断该记录是否已存在
+						if($.inArray(keyValue, arr)!=-1){
+                            removeByValue(arr, keyValue);
+                            arr.unshift($('#header_input').val());
+                            localStorage.setItem(hisArr,arr);
+                            window.location.href="/xcview/html/physician/physician_list.html?queryKey="+search_val+"&curriculum_blck=2";
+						}else{
+                            arr.unshift($('#header_input').val())
+                            localStorage.setItem(hisArr,arr);
+                            window.location.href="/xcview/html/physician/physician_list.html?queryKey="+search_val+"&curriculum_blck=2";
+						}
+			}else{
+				$(".header_seek_main").css("display","block");
+			};
+		});
+
 		//删除指定数组中的元素
         function removeByValue(arr, val) {
             for(var i=0; i<arr.length; i++) {
