@@ -63,6 +63,9 @@ public class CourseAnchor implements java.io.Serializable {
     @Transient
     private String refId;
 
+    @Transient
+    private String refName;
+
     @Column(name = "default_count")
     public Integer getDefaultCount() {
         return defaultCount;
@@ -298,5 +301,14 @@ public class CourseAnchor implements java.io.Serializable {
 
     public void setRefId(String refId) {
         this.refId = refId;
+    }
+
+    @Transient
+    public String getRefName() {
+        return refName;
+    }
+
+    public void setRefName(String refName) {
+        this.refName = refName;
     }
 }
