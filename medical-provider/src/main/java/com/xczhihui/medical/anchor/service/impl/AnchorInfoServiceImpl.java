@@ -152,7 +152,7 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService {
             courseAnchorMapper.updateById(courseAnchor);
 
             // 如果用户是医师 更新医师信息
-            if (anchor.getType() == AnchorType.DOCTOR.getCode() && StringUtils.isNotBlank(target.getHospitalId())) {
+            if (anchor.getType() == AnchorType.DOCTOR.getCode()) {
                 this.updateDoctorDetail(target);
             }
 
@@ -246,9 +246,9 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService {
 
     private void updateDoctorDetail(CourseAnchorVO target) {
 
-        if (StringUtils.isBlank(target.getHospitalId())) {
-            throw new AnchorException("请选择医馆");
-        }
+//        if (StringUtils.isBlank(target.getHospitalId())) {
+//            throw new AnchorException("请选择医馆");
+//        }
 
         // 根据用户id获取其医师id
         MedicalDoctorAccount doctorAccount = doctorAccountMapper.getByUserId(target.getUserId());
@@ -259,27 +259,22 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService {
         ew.where("doctor_id={0}", doctorAccount.getDoctorId());
         hospitalDoctorMapper.delete(ew);
 
-        // 新增用户新的 医师与医馆关联关系
-        MedicalHospitalDoctor hospitalDoctor = new MedicalHospitalDoctor();
-        hospitalDoctor.setHospitalId(target.getHospitalId());
-        hospitalDoctor.setDoctorId(doctorAccount.getDoctorId());
-        hospitalDoctor.setCreateTime(new Date());
-        hospitalDoctor.setId(UUID.randomUUID().toString().replace("-", ""));
-        hospitalDoctorMapper.insert(hospitalDoctor);
+        if(StringUtils.isNotBlank(target.getHospitalId())){
+            // 新增用户新的 医师与医馆关联关系
+            MedicalHospitalDoctor hospitalDoctor = new MedicalHospitalDoctor();
+            hospitalDoctor.setHospitalId(target.getHospitalId());
+            hospitalDoctor.setDoctorId(doctorAccount.getDoctorId());
+            hospitalDoctor.setCreateTime(new Date());
+            hospitalDoctor.setId(UUID.randomUUID().toString().replace("-", ""));
+            hospitalDoctorMapper.insert(hospitalDoctor);
+        }
 
         // 更新用户的医师信息
         MedicalDoctor doctor = new MedicalDoctor();
-//        doctor.setProvince(target.getProvince());
-//        doctor.setCity(target.getCity());
-        if (StringUtils.isNotBlank(target.getWorkTime())) {
-            doctor.setWorkTime(target.getWorkTime());
-        }
-//        if(StringUtils.isNotBlank(target.getTel())){
-//            doctor.setTel(target.getTel());
-//        }
-//        if(StringUtils.isNotBlank(target.getDetailAddress())){
-//            doctor.setDetailedAddress(target.getDetailAddress());
-//        }
+        doctor.setWorkTime(target.getWorkTime());
+        doctor.setProvince(target.getProvince());
+        doctor.setCity(target.getCity());
+        doctor.setDetailedAddress(target.getDetailAddress());
         doctor.setUpdatePerson(target.getUserId());
         EntityWrapper<MedicalDoctor> medicalDoctorEntityWrapper = new EntityWrapper();
         medicalDoctorEntityWrapper.where("id={0}", doctorAccount.getDoctorId());
@@ -350,7 +345,7 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService {
         Map<String, Object> columnMap = new HashMap<>();
         columnMap.put("doctor_id", doctorAccount.getDoctorId());
         List<MedicalHospitalDoctor> hospitalDoctors = hospitalDoctorMapper.selectByMap(columnMap);
-        MedicalHospital hospital = new MedicalHospital();
+        MedicalHospital hospital;
         if (CollectionUtils.isNotEmpty(hospitalDoctors)) {
 
             // 获取医馆的信息
@@ -358,11 +353,9 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService {
             hospital = hospitalMapper.selectById(hospitalDoctor.getHospitalId());
             if (hospital != null) {
                 courseAnchorVO.setHospitalName(hospital.getName());
+                courseAnchorVO.setHospitalId(hospital.getId());
                 // 医师的预约电话是医馆的预约电话
                 courseAnchorVO.setTel(hospital.getTel());
-                courseAnchorVO.setProvince(hospital.getProvince());
-                courseAnchorVO.setCity(hospital.getCity());
-                courseAnchorVO.setDetailAddress(hospital.getDetailedAddress());
             }
 
         }
@@ -372,6 +365,9 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService {
         if (doctor != null) {
             courseAnchorVO.setWorkTime(doctor.getWorkTime());
         }
+        courseAnchorVO.setProvince(doctor.getProvince());
+        courseAnchorVO.setCity(doctor.getCity());
+        courseAnchorVO.setDetailAddress(doctor.getDetailedAddress());
         return courseAnchorVO;
 
     }
