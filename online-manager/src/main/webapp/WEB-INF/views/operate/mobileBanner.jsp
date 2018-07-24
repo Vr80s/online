@@ -744,7 +744,7 @@
                     <select data-live-search="true" id="J-doctor">
                         <c:forEach var="anchor" items="${anchors}">
                             <option value="${anchor.refId}">
-                                    ${anchor.name}
+                                    ${anchor.refName}
                             </option>
                         </c:forEach>
                     </select>
@@ -855,7 +855,7 @@
                     <select id="J-edit-doctor">
                         <c:forEach var="anchor" items="${anchors}">
                             <option value="${anchor.refId}">
-                                    ${anchor.name}
+                                    ${anchor.refName}
                             </option>
                         </c:forEach>
                     </select>

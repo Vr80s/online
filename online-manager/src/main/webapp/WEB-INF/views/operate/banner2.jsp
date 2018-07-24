@@ -126,6 +126,8 @@
                     <option value="ANCHOR_INDEX">主播</option>
                     <option value="PUBLIC_COURSE_LIST_PAGE">课程列表</option><!-- 课程列表 -->
                     <option value="H5">外部链接</option>
+                    <option value="APPRENTICE_DETAIL">招生简章</option><!-- 招生简章 -->
+                    <option value="DOCTOR_POST">医师动态</option>
                 </select>
             </div>
         </div>
@@ -154,6 +156,24 @@
                         <c:forEach var="anchor" items="${anchors}">
                             <option value="${anchor.userId}">
                                     ${anchor.name}
+                            </option>
+                        </c:forEach>
+                    </select>
+                </div>
+                <div class="J-doctor-detail" style="display: none">
+                    <select data-live-search="true" id="J-doctor">
+                        <c:forEach var="anchor" items="${anchors}">
+                            <option value="${anchor.refId}">
+                                    ${anchor.refName}
+                            </option>
+                        </c:forEach>
+                    </select>
+                </div>
+                <div class="J-apprentice-detail" style="display: none">
+                    <select data-live-search="true" id="J-apprentice">
+                        <c:forEach var="regulation" items="${regulations}">
+                            <option value="${regulation.id}">
+                                    ${regulation.title}
                             </option>
                         </c:forEach>
                     </select>
@@ -217,6 +237,8 @@
                     <option value="ANCHOR_INDEX">主播</option>
                     <option value="PUBLIC_COURSE_LIST_PAGE">课程列表</option><!-- 课程列表 -->
                     <option value="H5">外部链接</option>
+                    <option value="APPRENTICE_DETAIL">招生简章</option><!-- 招生简章 -->
+                    <option value="DOCTOR_POST">医师动态</option>
                 </select>
             </div>
         </div>
@@ -244,6 +266,24 @@
                         <c:forEach var="anchor" items="${anchors}">
                             <option value="${anchor.userId}">
                                     ${anchor.name}
+                            </option>
+                        </c:forEach>
+                    </select>
+                </div>
+                <div class="J-edit-doctor-detail" style="display: none">
+                    <select id="J-edit-doctor">
+                        <c:forEach var="anchor" items="${anchors}">
+                            <option value="${anchor.refId}">
+                                    ${anchor.refName}
+                            </option>
+                        </c:forEach>
+                    </select>
+                </div>
+                <div class="J-edit-apprentice-detail" style="display: none">
+                    <select data-live-search="true" id="J-edit-apprentice">
+                        <c:forEach var="regulation" items="${regulations}">
+                            <option value="${regulation.id}">
+                                    ${regulation.title}
                             </option>
                         </c:forEach>
                     </select>

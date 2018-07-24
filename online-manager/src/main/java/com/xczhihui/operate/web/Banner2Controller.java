@@ -42,6 +42,8 @@ public class Banner2Controller {
     private AnchorService anchorService;
     @Autowired
     private CommonMenuService commonMenuService;
+    @Autowired
+    private MedicalEnrollmentRegulationsService medicalEnrollmentRegulationsService;
 
     /**
      * @return
@@ -58,6 +60,7 @@ public class Banner2Controller {
         }
         mav.addObject("courses", courses);
         mav.addObject("anchors", anchorService.listDoctor());
+        mav.addObject("regulations", medicalEnrollmentRegulationsService.getAllMedicalEntryInformationList());
         mav.addObject("menus", menus);
         return mav;
     }

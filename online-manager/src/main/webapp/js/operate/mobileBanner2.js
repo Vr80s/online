@@ -582,7 +582,6 @@ function updateMobileBanner(obj) {
     $("#update_imgPath").val(row.imgPath);
     $("#update_id").val(row.id);
 
-    console.log(row);
     var routeTypeValue = row.routeType;
     var linkParam = row.linkParam;
     var menuId = row.menuId;

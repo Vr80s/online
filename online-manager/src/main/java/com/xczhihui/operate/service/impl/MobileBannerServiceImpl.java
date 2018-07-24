@@ -10,13 +10,11 @@ import org.springframework.stereotype.Service;
 
 import com.xczhihui.anchor.service.AnchorService;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
-import com.xczhihui.bxg.online.common.domain.Course;
-import com.xczhihui.bxg.online.common.domain.CourseAnchor;
-import com.xczhihui.bxg.online.common.domain.MedicalEnrollmentRegulations;
-import com.xczhihui.bxg.online.common.domain.MobileBanner;
+import com.xczhihui.bxg.online.common.domain.*;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.util.enums.RouteTypeEnum;
 import com.xczhihui.course.dao.CourseDao;
+import com.xczhihui.medical.dao.DoctorDao;
 import com.xczhihui.medical.dao.MedicalEnrollmentRegulationsDao;
 import com.xczhihui.operate.dao.MobileBannerDao;
 import com.xczhihui.operate.service.MobileBannerService;
@@ -34,6 +32,8 @@ public class MobileBannerServiceImpl extends OnlineBaseServiceImpl implements
     private AnchorService anchorService;
     @Autowired
     private MedicalEnrollmentRegulationsDao medicalEnrollmentRegulationsDao;
+    @Autowired
+    private DoctorDao doctorDao;
 
     @Override
     public Page<MobileBannerVo> findMobileBannerPage(
@@ -149,7 +149,7 @@ public class MobileBannerServiceImpl extends OnlineBaseServiceImpl implements
 
     @Override
     public void updateSortDown(String id) {
-		/*String sqlPre = "select seq from oe_course_mobile_banner where status = 1 and id = ? ";// 先取出他自己的顺序
+        /*String sqlPre = "select seq from oe_course_mobile_banner where status = 1 and id = ? ";// 先取出他自己的顺序
 		Integer mobileBannerPreSort = dao.queryForInt(sqlPre,
 				new Object[] { id });
 
@@ -238,12 +238,9 @@ public class MobileBannerServiceImpl extends OnlineBaseServiceImpl implements
                         map.put("linkDesc", courseAnchor.getName());
                     }
                 } else if (routeType.equals(RouteTypeEnum.DOCTOR_POST.name())) {
-                    String userId = anchorService.findUserIdByDoctorId(linkParam);
-                    if (userId != null) {
-                        CourseAnchor courseAnchor = anchorService.findByUserId(userId);
-                        if (courseAnchor != null) {
-                            map.put("linkDesc", courseAnchor.getName());
-                        }
+                    MedicalDoctor medicalDoctor = doctorDao.find(linkParam);
+                    if (medicalDoctor != null) {
+                        map.put("linkDesc", medicalDoctor.getName());
                     }
                 } else if (routeType.equals(RouteTypeEnum.APPRENTICE_DETAIL.name())) {
                     MedicalEnrollmentRegulations medicalEnrollmentRegulations = medicalEnrollmentRegulationsDao.findById(Integer.parseInt(linkParam));
