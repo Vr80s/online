@@ -81,7 +81,7 @@ public class MultiUrlHelper {
 
     private static Map<String, String> doctorApproveUrlMap = ImmutableMap.of(
             URL_TYPE_APP, "xczh://ipandatcm.com/anchorApprove?type=1",
-            URL_TYPE_WEB, "/web/html/ResidentDoctor.html",
+            URL_TYPE_WEB, "/doctors/authentication",
             URL_TYPE_MOBILE, "");
     private static Map<String, String> hospitalApproveUrlMap = ImmutableMap.of(
             URL_TYPE_APP, "xczh://ipandatcm.com/anchorApprove?type=2",

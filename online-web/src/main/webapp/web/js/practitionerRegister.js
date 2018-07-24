@@ -21,10 +21,10 @@ $(function () {
 
             } else if (data.resultObject == 7) {
                 //都没有注册过 进入注册页面
-                window.location.href = "/web/html/ResidentDoctor.html";
+                window.location.href = "/doctors/authentication";
             } else {
                 //医师认证中 医师认证拒绝 跳转到认证状态页面
-                window.location.href = "/web/html/ResidentDoctor.html";
+                window.location.href = "/doctors/authentication";
             }
         }
     });
@@ -157,13 +157,13 @@ $(function () {
                 $('#tip').toggle();
                 setTimeout(function () {
                     $('#tip').toggle();
-                    window.location.href = '/web/html/ResidentDoctor.html';
+                    window.location.href = '/doctors/authentication';
                 }, 2000)
 
             }
         })
 
-//	window.location.href = '/web/html/ResidentDoctor.html';
+//	window.location.href = '/doctors/authentication';
 
     })
 
