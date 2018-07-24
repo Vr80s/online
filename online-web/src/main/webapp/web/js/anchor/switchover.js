@@ -137,18 +137,11 @@ $(function () {
     $(".name_news").click(function () {
 //	隐藏认证信息第二页  
         localStorage.AccountNumber = 'name_news';
-//	$(".account_main_alter").hide();
-
-//	隐藏个人信息内容
-//  $(".message_return").addClass('hide');
-//  $(".personal_details").addClass('hide');
     });
 
 //点击个人信息  
     $(".name_personage").click(function () {
         localStorage.AccountNumber = 'name_personage';
-//	$('.begin_approve').hide();
-//	$('.account_main').hide();
     });
 
 //账户重新认证点击开始
@@ -174,38 +167,25 @@ $(function () {
         //获取主播信息回显
         RequestService("/anchor/info", "get", null, function (data) {
             if (data.success == true) {
-                $('.account .message_return .anchor_nick_name').val(data.resultObject.name);
+                var anchor = data.resultObject;
+                $('.account .message_return .anchor_nick_name').val(anchor.name);
 
-                if (data.resultObject.profilePhoto) {
-                    $('.account .message_return #profilePhotoImg').html('<img id="imghead" border="0" src=' + data.resultObject.profilePhoto + ' width="90" height="90" >')
+                if (anchor.profilePhoto) {
+                    $('.account .message_return #profilePhotoImg').html('<img id="imghead" border="0" src=' + anchor.profilePhoto + ' width="90" height="90" >')
                 }
 
-                if (data.resultObject.detail == null) {
+                if (anchor.detail == null) {
                     UE.getEditor('anchor_details_editor').setContent('');
                 } else {
-                    UE.getEditor('anchor_details_editor').setContent(data.resultObject.detail);
+                    UE.getEditor('anchor_details_editor').setContent(anchor.detail);
                 }
 
                 if (localStorage.AccountStatus == '1') {
                     //坐诊时间渲染
-                    var workArr = data.resultObject.wt.split(",");
-//                  var j;
-//                  for (var i = 0; i < $('#doctor_baseInf .workTime ul li ').length; i++) {
-//                      for (j = 0; j < workArr.length; j++) {
-//                          if ($('#doctor_baseInf .workTime ul li').eq(i).text() == workArr[j]) {
-//                              if (!$('#doctor_baseInf .workTime ul li').eq(i).hasClass('color')) {
-//                                  $('#doctor_baseInf .workTime ul li').eq(i).click();
-//                              }
-//                          }
-//                      }
-//                  }
-                    
-                    
-                    
+                    var workArr = anchor.wt.split(",");
+
                     var selectTime;
 					var sureType=[];
-					var saveData;
-//					$('.workTime tr p img').removeClass("active");
 					$('.workTime tr p img').each(function(){
 							selectTime=$(this).attr("data-type");
 							sureType.push(selectTime)
@@ -217,63 +197,46 @@ $(function () {
 		                    }
 		                }
 		         	}
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
 
-                    //医馆列表的选中效果
-                    RequestService("/doctor/getHospital", "get", null, function (data) {
-                        $('.workHos_select').selectpicker('val', (data.resultObject.id));
-                    })
+                    // //医馆列表的选中效果
+                    // RequestService("/doctor/getHospital", "get", null, function (data) {
+                    $('.workHos_select').selectpicker('val', (anchor.hospitalId));
+                    // })
 
                     //精彩致辞的选中状态
-                    $('.speech_resource').selectpicker('val', (data.resultObject.resourceId));
+                    $('.speech_resource').selectpicker('val', (anchor.resourceId));
 
                 } else if (localStorage.AccountStatus == '2') {
                     //医馆自己的模板渲染
                     //电话
-                    if (data.resultObject.tel) {
-                        $('#u_hospital_tel').val(data.resultObject.tel)
+                    if (anchor.tel) {
+                        $('#u_hospital_tel').val(anchor.tel)
                     }
-                    //城市
-                    if (!data.resultObject.province) {
-                        $('#demo1 .choosePro option:selected').text('请选择省');
-                        $('#demo1 .chooseCity option:selected').text('请选择市');
-                    }
-
                 }
-                $('#u_detailAddress').val(data.resultObject.detailAddress)
+                var provinces = {
+                    province: anchor.province,
+                    city: anchor.city
+                };
+                $(".provinces").iProvincesSelect("init",provinces);
+                $('#u_detailAddress').val(anchor.detailAddress)
             }
         })
     });
 
 //选择医馆列表选中之后出发的事件
-    $('#speech_select1').change(function () {
-        //医馆ID的获取
-        hosID = $('#speech_select1').val()
-        if (hosID == -1) {
-            //清空信息
-            clearHosList()
-            return false;
-        }
-        var hos = getHosById(hosID);
-        if (hos == null) return;
-        //省
-        $('#hosPro').val(hos.province)
-        //市
-        $('#hosCity').val(hos.city)
-        //详细地址
-        $('#u_detailAddress').val(hos.detailedAddress)
-        //电话号码
-        $('.appointmentTel').val(hos.tel);
-    })
+//     $('#speech_select1').change(function () {
+//         //医馆ID的获取
+//         hosID = $('#speech_select1').val()
+//         if (hosID == -1) {
+//             //清空信息
+//             clearHosList()
+//             return false;
+//         }
+//         var hos = getHosById(hosID);
+//         if (hos == null) return;
+//         //电话号码
+//         $('.appointmentTel').val(hos.tel);
+//     })
 
 
 //清空医师入驻医馆信息列表
@@ -290,11 +253,6 @@ $(function () {
         $('#u_workTime > li').removeClass('color');
     }
 
-//点击选择省份效果
-    $('#demo1 .choosePro').click(function () {
-        $("#demo1 .choosePro option[value = '-1']").text('请选择省')
-    })
-
     $(".message_return .message_title .two").click(function () {
         $(".message_return").addClass("hide");
         $(".personal_details").removeClass('hide');
@@ -305,31 +263,12 @@ $(function () {
         //医师
         $('#doctor_baseInf').removeClass('hide');
         $('#hospital_baseInf').addClass('hide');
-
-        //地址选择部分变化
-        $('#demo1 .choosePro').addClass('hide');
-        $('#demo1 .chooseCity').addClass('hide');
-
-        $('#hosPro').removeClass('hide');
-        $('#hosCity').removeClass('hide');
-
-        $('#u_detailAddress').attr('readonly', true)
-
     } else if (localStorage.AccountStatus == 2) {
         //医馆
         $('#doctor_baseInf').addClass('hide');
         $('#hospital_baseInf').removeClass('hide')
-
-        //地址选择部分变化
-        $('#hosPro').addClass('hide');
-        $('#hosCity').addClass('hide');
-
-        $('#demo1 .choosePro').removeClass('hide');
-        $('#demo1 .chooseCity').removeClass('hide');
-
-        $('#u_detailAddress').attr('readonly', false)
     }
-
+    $(".provinces").iProvincesSelect("init",null);
     //主播修改信息的时候获取医馆信息渲染医馆列表
     if (localStorage.AccountStatus == 1) {
         $(".cityem").add("hide")

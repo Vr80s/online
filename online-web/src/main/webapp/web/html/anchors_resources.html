@@ -881,7 +881,7 @@
 									<option value="">111</option>
 								</select>-->
 							<input type="text" id="hosPro" placeholder="医馆所在省份" disabled="disabled" />
-							<input type="text" id="hosCity" placeholder="医馆所在市区" />
+							<input type="text" id="hosCity" placeholder="医馆所在市区" disabled="disabled" />
 							<textarea readonly name="" id="detail_address" style="resize: none;display: block;" placeholder="医馆详细地址"></textarea>
 							<p class="warning hide">医馆地址不能为空</p>
 						</div>
@@ -1290,25 +1290,10 @@
 								</div>
 								<div class="sava-pupil">
 									<ul>
-										<li>
-											<div class="set-lable">
-												<p>
-													<img src="/web/images/btn-ondown.png" alt="选择"/>
-												</p>
-												<span>王兵</span>
-											</div>
-											
-										</li>
-										<li>
-											<div class="set-lable">
-												<p>
-													<img src="/web/images/btn-ondown.png" alt="选择"/>
-												</p>
-												<span>王兵</span>
-											</div>
-										</li>
+										
 									</ul>
 								</div>
+								<p class='null_data_disciple hide' style='color:#999999;'>您暂时还没有弟子<p>
 								<div class="all-select-pupil">
 									<div class="all-select-main z all-select">
 										<p>
@@ -1822,7 +1807,8 @@
 								<span class="fengmian_tip">
 									<p>文件小于2M</p>
 									<p>支持JPG/PNG等格式图片</p>
-									<p>( 推荐上传规格：260x147 )</p>
+									<p>推荐比例：16 : 9</p>
+									<p>推荐上传尺寸：698x396</p>
 								</span>
 								<input type="file" placeholder="请填写您的专栏标题" style="visibility: hidden;display: inline-block;height: 10px;" id="manage_picIpt" />
 								<p class="warning-manage fengmian-null hide">请上传封面图</p>	
@@ -1922,12 +1908,26 @@
 						</div>
 						<div class="comment-apprentice">
 							<span class="apprentice-left"><em>*</em>如何成为弟子</span>
-							<textarea class="how-apprentice" name="" rows="" cols="" placeholder="请输入"></textarea>
+							<textarea class="how-apprentice" name="" rows="" cols="" placeholder="*以下预填内容仅作参考，您可以完全删除并自行填写。
+提交申请 → 等待资格审核 → 初审通过 → 在线面谈 → 申请通过成为弟子。"></textarea>
 							<p class="error-information error-set hide">条件不能为空</p>	
 						</div>
 						<div class="comment-apprentice">
 							<span class="apprentice-left"><em>*</em>弟子福利</span>
-							<textarea class="apprentice-welfare" name="" rows="" cols="" placeholder="请输入"></textarea>
+							<textarea class="apprentice-welfare" name="" rows="" cols="" placeholder="*以下预填内容仅作参考，您可以完全删除并自行填写。
+课程配置
+（请在此板块介绍您此次在线收徒，即将传授的系列课程提纲）
+1、
+2、
+3、
+4、......
+在线跟师
+（请在此板块介绍您此次在线收徒，徒弟可以通过直播的形式在线跟诊，跟诊的时间，频次，总次数。例如：在线弟子可享受至少5次在线跟诊直播，时间每周三13:00-17:00。）
+课外咨询
+（请在此板块介绍除系列课程之外，弟子在线咨询医案时，您回复的时间段、频率等。例如：在线弟子可在线咨询医案，老师将于每日24:00前对当日提问进行答复。）
+远程协助
+（请在此板块介绍您在何时为徒弟提供远程问诊指导。例如：老师将在每周一10:00-11:30、每周四13:30-17:00提供远程协助问诊。）">
+								</textarea>
 							<p class="error-information error-welfare hide">福利不能为空</p>
 						</div>
 						<div class="comment-apprentice">
@@ -2536,7 +2536,7 @@
 	<script src="/web/js/anchor/teaching.js?v=ipandatcm_1.2.1" type="text/javascript" charset="UTF-8"></script>
 	<script src="/web/js/common_msg.js" type="text/javascript" charset="UTF-8"></script>
 	<!--省市区三联动-->
-	<script src="/web/js/common/data.provinces2.js"></script>
+	<script src="/web/js/common/data.provinces.js"></script>
 	<script src="/web/js/common/provinces-selector.js"></script>
 	<!--省市区三联动-->
 	<script>

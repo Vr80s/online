@@ -310,7 +310,7 @@
 							<div class="personIntroduct">
 								<span><em>*</em> 个人介绍</span>
 								<!--<textarea name="" rows="" cols="" maxlength="500" placeholder="请输入500字以内个人简介" style="resize: none;"></textarea>-->
-							<div style="display: inline-block;vertical-align: top;"><script id="editor" type="text/plain" style="width:540px;height:160px;" ></script></div>
+							<div style="display: inline-block;vertical-align: top;"><script id="editor" type="text/plain"></script></div>
 							
 								
 								
@@ -546,7 +546,7 @@
 	
 	
 	
-	
+	initEditor()
 	 //实例化编辑器
     //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
 	 function initEditor() {
@@ -583,6 +583,8 @@
 //          'emotion', //表情
                  'fullscreen'
              ] ],
+             initialFrameWidth: 540,
+        	 initialFrameHeight: 220,
              elementPathEnabled:false,
              autoHeightEnabled: false,
              autoFloatEnabled: true,
