@@ -38,6 +38,14 @@ outline: none;
 	height: 100%;
 	display: block;
 }
+.left-cover .class-style{
+	position: absolute;
+	right: 10px;
+	top: 0px;
+	padding: 3px 7px;
+	background: #00bc12;
+	color: white;
+}
 .right-details{
 	width: 677px;
 	height: 260px;

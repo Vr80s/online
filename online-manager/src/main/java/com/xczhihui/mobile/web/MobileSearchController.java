@@ -3,6 +3,7 @@ package com.xczhihui.mobile.web;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
 
+import org.apache.poi.ss.formula.functions.EDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -192,12 +193,52 @@ public class MobileSearchController {
             responseObj.setSuccess(true);
             responseObj.setResultObject("操作成功");
         } catch (Exception e) {
+            e.printStackTrace();
             responseObj.setSuccess(false);
             responseObj.setErrorMessage("操作失败");
         }
         return responseObj;
     }
 
+    
+
+    @RequestMapping(value = "updateStatus1", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseObject updateStatus1(String id) {
+        ResponseObject responseObj = new ResponseObject();
+        try {
+            
+            Integer falg = service.updateStatus1(id);
+            responseObj.setCode(falg);
+            responseObj.setSuccess(true);
+            responseObj.setResultObject("操作成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseObj.setSuccess(false);
+            responseObj.setErrorMessage("操作失败");
+        }
+        return responseObj;
+    }
+
+    
+    @RequestMapping(value = "updateStatus2", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseObject updateStatus2(String id) {
+        ResponseObject responseObj = new ResponseObject();
+        try {
+            
+            service.updateStatus2(id);
+            responseObj.setSuccess(true);
+            responseObj.setResultObject("操作成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseObj.setSuccess(false);
+            responseObj.setErrorMessage("操作失败");
+        }
+        return responseObj;
+    }
+    
+    
     /**
      * 上移
      *

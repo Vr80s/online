@@ -799,17 +799,7 @@ function apprenticeInfo() {
                 // 医师问答列表
                 $('.QA_main').html(template('QA_main_id', {items: data.resultObject.questions}));
             }
-            // 远程诊疗
-            /*if (isBlank(data.resultObject.treatments.indexDateText)) {
-                $(".therapy").show();
-                // 预约
-                $('.subscribe_id').html(template('subscribe_id', {items: data.resultObject.treatments}));
-                // ceshi();
-            } else{
-                alert(11111);
-                $(".therapy").hide();
-            }*/
-            
+
             // 判断预约
             if (isBlank(data.resultObject.treatments)) {
                 $(".therapy").hide();
@@ -819,8 +809,6 @@ function apprenticeInfo() {
                 $('.subscribe_id').html(template('subscribe_id', {items: data.resultObject.treatments}));
                 // ceshi();
             }
-
-
 
             // $('.subscribe_id').html(template('subscribe_id', {items: data.resultObject.treatments}));
             // 跟师直播--师承
@@ -922,13 +910,10 @@ function jumpTeachingCourse(courseId,teaching) {
     }
 }
 
-
-
 // 直播跳转
 function liveJump(courseId){
     location.href = "/page/course/"+courseId;
 }
-
 
 // 点击预约判断
 function order(id){
@@ -974,8 +959,6 @@ function checkAuth(doctorId) {
         window.location.href="/xcview/html/physician/quiz.html?doctor="+doctorId; 
     }
 }
-
-
 
 // 判断是否在线弟子
     $(".learn_tips_close").click(function(){

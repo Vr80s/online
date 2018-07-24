@@ -184,7 +184,7 @@ function echoCourse(caiId, passEdit) {
     $('.course_title').val(course.title);
     $('.course_subtitle').val(course.subtitle);
     $('.disciple-wrap-img').html('<img src="" style="width: 100%;height: 100%" >');
-    $('.disciple-wrap-img img').attr('src', course.imgPath);
+    $('.disciple-wrap-img img').attr('src', course.imgPath+"?imageMogr2/thumbnail/!260x147r|imageMogr2/gravity/Center/crop/260x147");
     $('.course_lecturer ').val(course.lecturer);
     if (course.lecturerDescription) {
         UE.getEditor('editor_lecturer').setContent(course.lecturerDescription);
@@ -344,7 +344,7 @@ function getCourseData() {
     course.courseForm = 1;
     course.title = $.trim($('.course_title').val());
     course.subtitle = $.trim($('.course_subtitle').val());
-    course.imgPath = $.trim($('.disciple-wrap-img img').attr('src'));
+    course.imgPath = $.trim($('.disciple-wrap-img img').attr('src').split("?")[0]);
     course.lecturer = $.trim($('.course_lecturer ').val());
     course.lecturerDescription = UE.getEditor('editor_lecturer').getContent();
     course.courseMenu = $.trim($('#menu_select').val());
@@ -477,24 +477,30 @@ function openSelectPupil(courseId){
     RequestService("/anchor/course/teaching/apprentices/"+courseId, "get", null, function (data) {
         var users = data.resultObject;
         var str = "";
-        for (var i = 0; i < users.length; i++) {
-            str += '<li><div class="set-lable"><p>';
-            if(users[i].selected){
-                str += '<img src="/web/images/btn-ondown.png" alt="选择" data-userId="'+users[i].userId+'" class="active">';
-            }else{
-                str += '<img src="/web/images/btn-ondown.png" alt="选择" data-userId="'+users[i].userId+'">';
-            }
-            str += '</p><span>'+users[i].name+'</span></div></li>';
+        if(users.length==0 || users== null){
+			$(".null_data_disciple").removeClass("hide");
+        }else{
+        	$(".null_data_disciple").addClass("hide");
+        	for (var i = 0; i < users.length; i++) {
+	            str += '<li><div class="set-lable"><p>';
+	            if(users[i].selected){
+	                str += '<img src="/web/images/btn-ondown.png" alt="选择" data-userId="'+users[i].userId+'" class="active">';
+	            }else{
+	                str += '<img src="/web/images/btn-ondown.png" alt="选择" data-userId="'+users[i].userId+'">';
+	            }
+	            str += '</p><span>'+users[i].name+'</span></div></li>';
+	        }
+	        $(".sava-pupil ul").html(str);
+	        cheackSelectAll();
+	        $(".sava-pupil ul").attr("data-courseId",courseId);
+	        //	单个点击弟子
+	        $(".sava-pupil li .set-lable").click(function(){
+	            var thatImg=$(this).find("img");
+	            thatImg.toggleClass("active");
+	            cheackSelectAll();
+	        });
         }
-        $(".sava-pupil ul").html(str);
-        cheackSelectAll();
-        $(".sava-pupil ul").attr("data-courseId",courseId);
-        //	单个点击弟子
-        $(".sava-pupil li .set-lable").click(function(){
-            var thatImg=$(this).find("img");
-            thatImg.toggleClass("active");
-            cheackSelectAll();
-        });
+
 
         $(".pupil-modal-wrap").removeClass("hide");
         $("#mask").removeClass("hide");
@@ -1110,7 +1116,7 @@ function cheackSelectAll(){
 					$(".teaching-manage").click();
 				},2000);
 			}else{
-				showTip("添加失败");
+				showTip(data.errorMessage);
 				$(".recruit-text-up").removeAttr("disabled");
 			}
 		})
@@ -1288,7 +1294,7 @@ function rangeEcho(editRange){
 		$("#save-appointment-id").val(appointmentData.id);
 //		查看弟子ID
 		$("#save-reservations-id").val(appointmentData.apprenticeId);
-		$(".appointment-right .appointment-date").html(appointmentData.date.replace(/[-]/g,"")+" "+appointmentData.week+" "+appointmentData.startTime+"-"+appointmentData.endTime)
+		$(".appointment-right .appointment-date").html(appointmentData.date+" "+appointmentData.week+" "+appointmentData.startTime+"-"+appointmentData.endTime)
 		$(".appointment-right .appointment-name").html(appointmentData.name);
 		$(".appointment-right .appointment-phone-number").html(appointmentData.tel);
 		$(".appointment-right .appointment-question").html(appointmentData.question);	
@@ -1340,7 +1346,7 @@ var appointmentStatus,
 	function echoDisciple(index){
 		var eachDiscipleData=rangeData[index];
 		$("#save-reservations-id").val(eachDiscipleData.apprenticeId); //保存查看弟子ID
-		$(".see-disciple-scroll .echo-see-date").html(eachDiscipleData.date.replace(/[-]/g,"")+" "+eachDiscipleData.week+" "+eachDiscipleData.startTime+"-"+eachDiscipleData.endTime)
+		$(".see-disciple-scroll .echo-see-date").html(eachDiscipleData.date+" "+eachDiscipleData.week+" "+eachDiscipleData.startTime+"-"+eachDiscipleData.endTime)
 		$(".see-disciple-scroll .appointment-name").html(eachDiscipleData.name);
 		$(".see-disciple-scroll .appointment-number").html(eachDiscipleData.tel);
 		$(".see-disciple-scroll .see-appointment-question").html(eachDiscipleData.question);
@@ -1422,7 +1428,7 @@ $(".comment-establish .new-range-btn").click(function(){
 					$(".teaching-range").click();
 					$(".comment-establish .new-range-btn").removeAttr("disabled");
 				}else{
-					showTip("创建失败");
+					showTip(data.errorMessage);
 					$(".comment-establish .new-range-btn").removeAttr("disabled")
 				}
 			})

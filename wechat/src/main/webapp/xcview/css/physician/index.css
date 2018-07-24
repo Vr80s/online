@@ -368,4 +368,17 @@ header{
             -ms-transform: rotate(360deg);
 }
 
+.header_seek_main img{
+    float: left;
+    margin-left: 0.2rem;
+    margin-right: 0;
+}
+.header_seek_main_span{
+    display: inline-block;
+    float: left;
+    width: 6.2rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 

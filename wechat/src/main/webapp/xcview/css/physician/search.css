@@ -33,14 +33,15 @@ header{
 }
 
 .header_seek{
-	width: 6.18rem;
-	height: 0.6rem;
+    width: 5.8rem;
+    height: 0.6rem;
     line-height: 0.6rem;
-	background: #F0F0F0;
-	border-radius: 100px;
-	position: relative;
-	text-indent: 0.24rem;
-	float: left;
+    background: #F0F0F0;
+    border-radius: 100px;
+    position: relative;
+    text-indent: 0.24rem;
+    float: left;
+    margin-left: 0.42rem;
 }
 .header_seek_main{
 	position: absolute;
@@ -78,7 +79,7 @@ header{
     left: 0.3rem;
 }
 .header_seek input{
-	width: 6.16rem;
+	width: 5.8rem;
     height: 0.6rem;
     line-height: 0.6rem;
     border-radius: 100px;
@@ -201,3 +202,19 @@ header{
 	border: 0;
 }
 /*搜索历史结束*/
+
+
+/*返回按钮*/
+.return{
+    width: 0.24rem;
+    height: 0.42rem;
+    position: absolute;
+    left: 0.26rem;
+    top: 0.23rem;
+}
+.return img{
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
