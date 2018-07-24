@@ -120,7 +120,7 @@
             <#list articles.records as article>
                 <div class="forum-info clearfix">
                     <a href="${webUrl}/headline/details/${article.id}" target="_blank">
-                        <img class="forum-info-left" src="${article.imgPath}" alt=""/>
+                        <img class="forum-info-left" src="${article.imgPath}?imageMogr2/thumbnail/!260x147r|imageMogr2/gravity/Center/crop/260x147" alt=""/>
                     </a>
                     <div class="forum-info-right">
                         <div class="forum-info-title">
@@ -194,7 +194,7 @@
                     <li class="clearfix">
                         <div class="touxiang">
                         	<a href="/doctors/${hotSpecialColumnAuthor.doctorId}" style="color: #0C0C0C"target="_blank">
-                            <img src="${hotSpecialColumnAuthor.headPortrait!defaultDoctorHeadImg}" alt=""/>
+                            <img src="${hotSpecialColumnAuthor.headPortrait!defaultDoctorHeadImg}?imageMogr2/thumbnail/!60x60r|imageMogr2/gravity/Center/crop/60x60" alt=""/>
                             </a>
                         </div>
                      	<div class="zuozhe_inf">

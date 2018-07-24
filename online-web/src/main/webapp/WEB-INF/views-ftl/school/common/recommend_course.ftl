@@ -7,7 +7,7 @@
 		 <#elseif courseItem.type == 3>
 	            <a style="cursor:pointer" href="${webUrl}/web/liveCoursePage/${courseItem.id}" target="_blank">
 		 </#if>
-			<div class="img"><img src="${courseItem.smallImgPath}"></div>
+			<div class="img"><img src="${courseItem.smallImgPath}?imageMogr2/thumbnail/!280x157r|imageMogr2/gravity/Center/crop/280x157"></div>
 			
 			
 			<div class="detail">

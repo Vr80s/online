@@ -890,7 +890,7 @@ function cheackSelectAll(){
 			seeData=manageData[index];
 		$(".see-details-wrap .see-name").text(seeData.name);
 		$(".see-details-wrap .see-title").text(seeData.title);
-		$(".see-details-wrap .cover-map-namage img").attr("src",seeData.coverImg);
+		$(".see-details-wrap .cover-map-namage img").attr("src",seeData.coverImg+"?imageMogr2/thumbnail/!260x147r|imageMogr2/gravity/Center/crop/260x147");
 		$(".see-details-wrap .see-zhaosheng").text(seeData.countLimit);
 		$(".see-details-wrap .see-stop-time").text(seeData.deadline);
 		$(".see-details-wrap .see-study-time").text(seeData.startTime+"至"+seeData.endTime);
@@ -1086,7 +1086,7 @@ function cheackSelectAll(){
 		
 	var establishDate={
 		"title":$.trim($(".recruit-title").val()),			//标题
-		"coverImg":$(".mamage-wrap-img img").attr("src"),	//封面图
+		"coverImg":discipleImgCover,	//封面图
 		"tuition":0,
 		"countLimit":$.trim($(".personal-number").val()),	//招生人数
 		"deadline":$.trim($("#sign-up-time").val()),		//报名截止时间
@@ -1180,10 +1180,14 @@ function rangeList(pages){
 	}, function (data) {
 		if (data.success==true) {
 			rangeData=data.resultObject.records;
+			
 			if (rangeData==null || rangeData.length==0) {
 				$(".range-null").removeClass("hide");
 				$("#long-range-list").addClass("hide");
 			} else{
+				for(var i=0;i<rangeData.length;i++){
+					rangeData[i].date=rangeData[i].date.replace(/-/g,"")
+				}
 				$(".range-null").addClass("hide");
 				$("#long-range-list").removeClass("hide");
 				$("#long-range-list").html(template("long-range-template",{items:rangeData}))

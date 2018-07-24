@@ -44,7 +44,7 @@
 <div class="wp">
     <div class="wrap-buy">
         <div class="left-cover z">
-            <img src="${courseInfo.smallImgPath}" alt="${courseInfo.gradeName}" />
+            <img src="${courseInfo.smallImgPath}?imageMogr2/thumbnail/!462x260r|imageMogr2/gravity/Center/crop/462x260" alt="${courseInfo.gradeName}" />
             <div class="progress"
                  style="position: absolute;bottom: 0;left: 0;width: 100%;
                  	margin-bottom: 0;height: 14px;display:none">

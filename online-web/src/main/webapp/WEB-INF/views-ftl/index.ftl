@@ -145,7 +145,7 @@
                         <a style="cursor:pointer" href="${webUrl}/web/liveCoursePage/${courseItem.id}" target="_blank">
                         </#if>
 
-                        <div class="img"><img src="${courseItem.smallImgPath}"></div>
+                        <div class="img"><img src="${courseItem.smallImgPath}?imageMogr2/thumbnail/!260x147r|imageMogr2/gravity/Center/crop/260x147"></div>
 
                         <#if courseItem.type == 1  >
                             <#if courseItem.collection>
@@ -237,7 +237,7 @@
                         <a style="cursor:pointer" href="${webUrl}/web/liveCoursePage/${courseItem.id}" target="_blank">
                         </#if>
 
-                        <div class="img"><img src="${courseItem.smallImgPath}"></div>
+                        <div class="img"><img src="${courseItem.smallImgPath}?imageMogr2/thumbnail/!260x147r|imageMogr2/gravity/Center/crop/260x147"></div>
 
 
                         <#if courseItem.type == 1  >
@@ -319,7 +319,7 @@
                 <#list doctorList as doctor>
                     <li class="doctorTpl">
                         <a href="${webUrl}/doctors/${doctor.id}" target="_blank"></a>
-                        <img src="${doctor.headPortrait!defaultDoctorHeadImg}" alt="${doctor.name}">
+                        <img src="${doctor.headPortrait!defaultDoctorHeadImg}?imageMogr2/thumbnail/!70x70r|imageMogr2/gravity/Center/crop/70x70" alt="${doctor.name}">
                         <h5>${doctor.name}&nbsp;<span>${doctor.title?default('')}</span></h5>
                         <#if doctor.workTime?? && doctor.workTime != "暂无">
                             <p>${doctor.workTime?default('')}</p>
@@ -342,7 +342,7 @@
                 <#list articles.records as article>
                     <li class="newsTpl clearfix">
                         <a href="${webUrl}/headline/details/${article.id}" target="_blank">
-                            <img class="forum-info-left" src="${article.imgPath}" alt="">
+                            <img class="forum-info-left" src="${article.imgPath}?imageMogr2/thumbnail/!260x147r|imageMogr2/gravity/Center/crop/260x147" alt="">
                         </a>
                         <div class="forum-info-right">
                             <div class="forum-info-title">
@@ -374,10 +374,10 @@
                     <li class="hospitalTpl">
                         <a href="${webUrl}/clinics/${clinic.id}" id="${clinic.id}" target="_blank"></a>
                         <#if clinic.medicalHospitalPictures[0]??>
-                            <img src="${clinic.medicalHospitalPictures[0].picture}" style="width: 100%;height: 147px;"
+                            <img src="${clinic.medicalHospitalPictures[0].picture}?imageMogr2/thumbnail/!258x147r|imageMogr2/gravity/Center/crop/258x147" style="width: 100%;height: 147px;"
                                  alt="${clinic.name}">
                         <#else >
-                            <img src="/web/images/hospitalDefault.png" style="width: 100%;height: 147px;"
+                            <img src="/web/images/hospitalDefault.png?imageMogr2/thumbnail/!258x147r|imageMogr2/gravity/Center/crop/258x147" style="width: 100%;height: 147px;"
                                  alt="${clinic.name}">
                         </#if>
 
@@ -427,9 +427,9 @@
                         <div class="touxiang">
                             <a href="${webUrl}/doctors/${doctor.id}" style="color: #0C0C0C" target="_blank">
                                 <#if doctor.headPortrait??>
-                                    <img src="${doctor.headPortrait}" alt="${doctor.name}"/>
+                                    <img src="${doctor.headPortrait}?imageMogr2/thumbnail/!60x60r|imageMogr2/gravity/Center/crop/60x60" alt="${doctor.name}"/>
                                 <#else>
-                                    <img src="${webUrl}/web/images/defaultHead/18.png" alt="${doctor.name}"/>
+                                    <img src="${webUrl}/web/images/defaultHead/18.png?imageMogr2/thumbnail/!60x60r|imageMogr2/gravity/Center/crop/60x60" alt="${doctor.name}"/>
                                 </#if>
                             </a>
                         </div>
@@ -463,9 +463,9 @@
                             <a href="${webUrl}/doctors/${hotSpecialColumnAuthor.doctorId}" style="color: #0C0C0C"
                                target="_blank">
                                 <#if hotSpecialColumnAuthor.headPortrait??>
-                                    <img src="${hotSpecialColumnAuthor.headPortrait}" alt=""/>
+                                    <img src="${hotSpecialColumnAuthor.headPortrait}?imageMogr2/thumbnail/!60x60r|imageMogr2/gravity/Center/crop/60x60" alt=""/>
                                 <#else>
-                                    <img src="${webUrl}/web/images/defaultHead/18.png" alt=""/>
+                                    <img src="${webUrl}/web/images/defaultHead/18.png?imageMogr2/thumbnail/!60x60r|imageMogr2/gravity/Center/crop/60x60" alt=""/>
                                 </#if>
                             </a>
                         </div>
