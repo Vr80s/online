@@ -67,6 +67,10 @@ function loadBanner2List() {
                     return "课程列表";
                 } else if (data === "H5") {
                     return "外部链接";
+                } else if (data === 'DOCTOR_POST') {
+                    return "医师动态";
+                } else if (data === 'APPRENTICE_DETAIL') {
+                    return "招生简章";
                 }
                 return "";
             }
@@ -203,7 +207,6 @@ function search() {
 $('#J-menu').on('change', function (e) {
     var menuId = $(this).val();
     ajaxRequest("message/messagePush/course?menuId=" + menuId, null, function (res) {
-        console.log(res.resultObject.length);
         $("#J-course").html('');
         if (res.resultObject.length > 0) {
             for (var i = 0; i < res.resultObject.length; i++) {
@@ -316,6 +319,18 @@ $(".add_bx").click(function () {
                 alertInfo("请输入跳转的外部链接");
                 return false;
             }
+        } else if (routeType === 'APPRENTICE_DETAIL') {
+            linkParam = $('#J-apprentice').val();
+            if (!linkParam) {
+                alertInfo('请选择跳转的招生简章');
+                return false;
+            }
+        } else if (routeType === 'DOCTOR_POST') {
+            linkParam = $('#J-doctor').val();
+            if (!linkParam) {
+                alertInfo("请选择跳转至的医师");
+                return false;
+            }
         }
 
         var imgPath = $('#imgPath_file').val();
@@ -342,11 +357,21 @@ function routeTypeChange(obj) {
             $('.J-link').hide();
             $('.J-course-detail').show();
             $('.J-anchor-detail').hide();
+            $('.J-doctor-detail').hide();
+            $('.J-apprentice-detail').hide();
         } else if (routeTypeValue === 'ANCHOR_INDEX') {
             $('.J-link').hide();
             $('.J-course-detail').hide();
             $('.J-anchor-detail').show();
-        } else if (routeTypeValue === 'PUBLIC_COURSE_LIST_PAGE' || routeTypeValue === 'H5') {
+            $('.J-doctor-detail').hide();
+            $('.J-apprentice-detail').hide();
+        } else if(routeTypeValue === "DOCTOR_POST"){
+            $('.J-link').hide();
+            $('.J-course-detail').hide();
+            $('.J-anchor-detail').hide();
+            $('.J-doctor-detail').show();
+            $('.J-apprentice-detail').hide();
+        }  else if (routeTypeValue === 'PUBLIC_COURSE_LIST_PAGE' || routeTypeValue === 'H5') {
             var placeholder = "";
             if (routeTypeValue === 'PUBLIC_COURSE_LIST_PAGE') {
                 placeholder = "请输入课程列表条件(提示：在文件管理中，下载连接说明文档。如有疑问，询问开发)";
@@ -357,11 +382,21 @@ function routeTypeChange(obj) {
             $('.J-link').show();
             $('.J-course-detail').hide();
             $('.J-anchor-detail').hide();
+            $('.J-apprentice-detail').hide();
+            $('.J-doctor-detail').hide();
+        } else if (routeTypeValue === 'APPRENTICE_DETAIL') {
+            $('.J-link').hide();
+            $('.J-course-detail').hide();
+            $('.J-anchor-detail').hide();
+            $('.J-doctor-detail').hide();
+            $('.J-apprentice-detail').show();
         }
     } else {
         $('.J-link').hide();
         $('.J-course-detail').hide();
         $('.J-anchor-detail').hide();
+        $('.J-apprentice-detail').hide();
+        $('.J-doctor-detail').hide();
     }
 }
 
@@ -369,17 +404,29 @@ function routeTypeChangeEdit(obj) {
     var $editLink = $('.J-edit-link');
     var $editCourseLink = $('.J-edit-course-detail');
     var $editAnchorLink = $('.J-edit-anchor-detail');
+    var $editApprenticeLink = $('.J-edit-apprentice-detail');
+    var $editDoctorLink = $('.J-edit-doctor-detail');
     var routeTypeValue = $(obj).val();
     if (routeTypeValue) {
         if (routeTypeValue === "COMMON_COURSE_DETAIL_PAGE") {
             $editLink.hide();
             $editCourseLink.show();
             $editAnchorLink.hide();
+            $editApprenticeLink.hide();
+            $editDoctorLink.hide();
         } else if (routeTypeValue === 'ANCHOR_INDEX') {
             $editLink.hide();
             $editCourseLink.hide();
             $editAnchorLink.show();
-        } else if (routeTypeValue === 'PUBLIC_COURSE_LIST_PAGE' || routeTypeValue === 'H5') {
+            $editApprenticeLink.hide();
+            $editDoctorLink.hide();
+        } else if (routeTypeValue === 'DOCTOR_POST') {
+            $editLink.hide();
+            $editCourseLink.hide();
+            $editAnchorLink.hide();
+            $editApprenticeLink.hide();
+            $editDoctorLink.show();
+        }  else if (routeTypeValue === 'PUBLIC_COURSE_LIST_PAGE' || routeTypeValue === 'H5') {
             var placeholder = "";
             if (routeTypeValue === 'PUBLIC_COURSE_LIST_PAGE') {
                 placeholder = "请输入课程列表条件(提示：在文件管理中，下载连接说明文档。如有疑问，询问开发)";
@@ -390,11 +437,21 @@ function routeTypeChangeEdit(obj) {
             $editLink.show();
             $editCourseLink.hide();
             $editAnchorLink.hide();
+            $editApprenticeLink.hide();
+            $editDoctorLink.hide();
+        } else if (routeTypeValue === 'APPRENTICE_DETAIL') {
+            $editLink.hide();
+            $editCourseLink.hide();
+            $editAnchorLink.hide();
+            $editDoctorLink.hide();
+            $editApprenticeLink.show();
         }
     } else {
         $editLink.hide();
         $editCourseLink.hide();
         $editAnchorLink.hide();
+        $editDoctorLink.hide();
+        $editApprenticeLink.hide();
     }
 }
 
@@ -416,14 +473,16 @@ function updateMobileBanner(obj) {
     var $editLink = $('.J-edit-link');
     var $editCourseLink = $('.J-edit-course-detail');
     var $editAnchorLink = $('.J-edit-anchor-detail');
+    var $editApprenticeLink = $('.J-edit-apprentice-detail');
+    var $editDoctorLink = $('.J-edit-doctor-detail');
 
     if (routeTypeValue) {
-        console.log(routeTypeValue);
-        console.log(linkParam);
         if (routeTypeValue === "COMMON_COURSE_DETAIL_PAGE") {
             $editLink.hide();
             $editCourseLink.show();
             $editAnchorLink.hide();
+            $editApprenticeLink.hide();
+            $editDoctorLink.hide();
             $('#J-edit-menu').val(menuId);
             renderCourseSelect(menuId, linkParam);
             $('#J-edit-course').val(linkParam);
@@ -431,8 +490,24 @@ function updateMobileBanner(obj) {
             $editLink.hide();
             $editCourseLink.hide();
             $editAnchorLink.show();
+            $editDoctorLink.hide();
+            $editApprenticeLink.hide();
             $('#J-edit-anchor').val(linkParam);
-        } else if (routeTypeValue === 'PUBLIC_COURSE_LIST_PAGE' || routeTypeValue === 'H5') {
+        }  else if(routeTypeValue === 'DOCTOR_POST') {
+            $editLink.hide();
+            $editCourseLink.hide();
+            $editAnchorLink.hide();
+            $editDoctorLink.show();
+            $editApprenticeLink.hide();
+            $('#J-edit-doctor').val(linkParam);
+        } else if (routeTypeValue === 'APPRENTICE_DETAIL') {
+            $editLink.hide();
+            $editCourseLink.hide();
+            $editAnchorLink.hide();
+            $editDoctorLink.hide();
+            $editApprenticeLink.show();
+            $('#J-edit-apprentice').val(linkParam);
+        }  else if (routeTypeValue === 'PUBLIC_COURSE_LIST_PAGE' || routeTypeValue === 'H5') {
             var placeholder = "";
             if (routeTypeValue === 'PUBLIC_COURSE_LIST_PAGE') {
                 placeholder = "请输入课程列表条件(提示：在文件管理中，下载连接说明文档。如有疑问，询问开发)";
@@ -444,15 +519,18 @@ function updateMobileBanner(obj) {
             $editLink.show();
             $editCourseLink.hide();
             $editAnchorLink.hide();
+            $editApprenticeLink.hide();
+            $editDoctorLink.hide();
         }
     } else {
         $editLink.hide();
         $editCourseLink.hide();
         $editAnchorLink.hide();
+        $editDoctorLink.hide();
+        $editApprenticeLink.show();
     }
 
     $('#update_routeType').val(routeTypeValue);
-console.log(row.imgPath);
     reviewImage("update_imgPath_file", row.imgPath);
 
     var dialog = openDialog("updateMobileBannerDialog", "dialogUpdateMobileBannerDiv", "修改", 580, 500, true, "确定", function () {
@@ -480,29 +558,36 @@ function checkEditForm() {
         return false;
     }
     var linkParam;
-    var linkType = 0;
     if (routeType === "COMMON_COURSE_DETAIL_PAGE") {
         linkParam = $('#J-edit-course').val();
-        console.log(linkParam);
         if (!linkParam) {
             alertInfo("请选择要跳转至的课程");
             return false;
         }
-        linkType = 3;
     } else if (routeType === "ANCHOR_INDEX") {
         linkParam = $('#J-edit-anchor').val();
         if (!linkParam) {
             alertInfo("请选择跳转至的主播");
             return false;
         }
-        linkType = 4;
+    } else if (routeType === "DOCTOR_POST") {
+        linkParam = $('#J-edit-doctor').val();
+        if (!linkParam) {
+            alertInfo("请选择跳转至的医师");
+            return false;
+        }
+    } else if (routeType === "APPRENTICE_DETAIL") {
+        linkParam = $('#J-edit-apprentice').val();
+        if (!linkParam) {
+            alertInfo("请选择跳转至的招生简章");
+            return false;
+        }
     } else if (routeType === "PUBLIC_COURSE_LIST_PAGE") {
         linkParam = $('#J-edit-link-param').val();
         if (!linkParam) {
             alertInfo("请输入跳转至课程列表的条件");
             return false;
         }
-        linkType = 5;
     } else if (routeType === 'H5') {
         linkParam = $('#J-edit-link-param').val();
         if (!linkParam) {
