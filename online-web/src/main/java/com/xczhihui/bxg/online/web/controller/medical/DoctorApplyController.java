@@ -33,8 +33,6 @@ public class DoctorApplyController extends AbstractController {
     @Autowired
     private IMedicalDoctorApplyService applyService;
     @Autowired
-    private UserService userService;
-    @Autowired
     private IMedicalHospitalBusinessService hospitalBusinessService;
     @Autowired
     private IMedicalDepartmentService medicalDepartmentService;
@@ -46,15 +44,10 @@ public class DoctorApplyController extends AbstractController {
      */
     @RequestMapping(method = RequestMethod.POST)
     public ResponseObject add(MedicalDoctorApply target) {
-        if (target == null) {
-            return ResponseObject.newErrorResponseObject("请求参数不能为空");
-        }
-
         // 获取发起申请的医师的id
         target.setUserId(getCurrentUser().getId());
         target.setClientType(ClientType.PC.getCode());
         applyService.add(target);
-
         return ResponseObject.newSuccessResponseObject("入驻申请信息提交成功");
     }
 
@@ -62,11 +55,8 @@ public class DoctorApplyController extends AbstractController {
      * 根据用户id获取医师入驻申请信息
      */
     @RequestMapping(value = "getLastOne", method = RequestMethod.GET)
-    public ResponseObject getLastOne(HttpServletRequest request) {
-
-        // 获取当前用户
-        OnlineUser loginUser = getCurrentUser();
-        return ResponseObject.newSuccessResponseObject(applyService.getLastOne(userService.getUserData(loginUser).getUid()));
+    public ResponseObject getLastOne() {
+        return ResponseObject.newSuccessResponseObject(applyService.getLastOne(getCurrentUser().getId()));
     }
 
     /**

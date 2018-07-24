@@ -164,28 +164,20 @@ $(function(){
 				province:province,
 				city:city
 			}, function(data) {
-				console.log(data);
-			if(data.success == false){
-				$('#tip').text(data.errorMessage);
-	       		$('#tip').toggle();
-	       		setTimeout(function(){
-	       			$('#tip').toggle();
-	       		},2000)
-			}else if(data.success == true){
-				$('#tip').text('保存成功');
-	       		$('#tip').toggle();
-	       		setTimeout(function(){
-	       			$('#tip').toggle();
-	       			window.location.reload();
-	       		},2000)
-	       		
-	       		localStorage.AutStatus = 1;
-//	       		window.location.reload();
-//	       		$('#doc_Distinguish #AutList').addClass('hide');
-//	       		$('#doc_Distinguish #AutStatus').removeClass('hide');
-	       		
-			}
-
+				if(data.success == false){
+					$('#tip').text(data.errorMessage);
+					$('#tip').toggle();
+					setTimeout(function(){
+						$('#tip').toggle();
+					},2000)
+				}else if(data.success == true){
+					$('#tip').text('保存成功');
+					$('#tip').toggle();
+					setTimeout(function(){
+						$('#tip').toggle();
+						location.href="/doctors/authentication";
+					},2000)
+				}
 		})
 	
 	})

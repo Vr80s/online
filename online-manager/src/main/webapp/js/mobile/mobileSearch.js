@@ -3,6 +3,9 @@ var banner2Form;
 var nowTime;
 var searchJson = new Array();
 var courseArray=new Array();
+
+var total = 0;
+
 $(function() {
 	nowTime=show();
     $("#addMobileSearch").val(1);
@@ -55,6 +58,9 @@ function loadBanner2List(){
         
     	var iDisplayStart = data._iDisplayStart;
         var countNum = data._iRecordsTotal;//总条数
+        
+        total = data._iRecordsTotal;
+        
         pageSize = data._iDisplayLength;//每页显示条数
         currentPage = iDisplayStart / pageSize +1;//页码
 
@@ -97,7 +103,7 @@ function loadBanner2List(){
     banner2Form = $("#addBanner2-form").validate({
         messages: {
         	name: {
-				required:"请输入搜索关键字！",
+				required:"请输入搜索关键字！"
             }
         }
     });
@@ -105,7 +111,7 @@ function loadBanner2List(){
     banner2FormEdit = $("#updateBanner2-form").validate({
         messages: {
         	name: {
-				required:"请输入搜索关键字！",
+				required:"请输入搜索关键字！"
             }
         }
     });
@@ -170,12 +176,58 @@ function updateBanner2(obj){
  * @param obj
  */
 function updateStatus(obj){
+	
 	var oo = $(obj).parent().parent().parent();
-	var row = banner2Table.fnGetData(oo); // get datarow
-	ajaxRequest(basePath+"/mobile/search/updateStatus",{"id":row.id},function(data){
-		layer.msg(data.resultObject);
-		freshTable(banner2Table);
-	});
+    var row = banner2Table.fnGetData(oo); // get datarow
+	
+    ajaxRequest(basePath+"/mobile/search/updateStatus1",{"id":row.id},function(data){
+    	  if(data.code == 1000){
+           showDelDialog(function(){
+                ajaxRequest(basePath+"/mobile/search/updateStatus2",{"id":row.id},function(data){
+                    if(!data.success){
+                        layer.msg(data.errorMessage);
+                    }else{
+                        layer.msg(data.resultObject);
+                        freshTable(banner2Table);
+                    }	
+                });
+            },"更改状态","启用这个将会禁用另一个哦！！！","");
+    	  }else{  //更新成功
+        	  layer.msg(data.resultObject);
+              freshTable(banner2Table);
+    	  }
+    });
+//    debugger;
+//    //判断一共有多少条记录啦
+//    console.log(total);
+    //一共多少条
+//    if( total>1 &&  row.status==0){ // 准备启用这条数据，且这条数据
+//    	alert("好几条");
+//    	
+//    	showDelDialog(function(){
+//            ajaxRequest(url,{'ids':ids.join(",")},function(data){
+//                if(!data.success){
+//                    //alertInfo(data.errorMessage);
+//                    layer.msg(data.errorMessage);
+//                }else{
+//                    if(!isnull(dataTable)){
+//                        freshDelTable(dataTable);
+//                    }
+//                    if(typeof(data.errorMessage) != "undefined"){
+//                        //alertInfo(data.errorMessage);
+//                        layer.msg(data.errorMessage);
+//                    }
+//                }
+//            });
+//        },"更改状态","启用这个将会禁用另一个哦！！！",banner2Table);
+//        
+//    }else{
+//      alert("就一条");
+//     
+
+//    }
+	
+
 };
 
 

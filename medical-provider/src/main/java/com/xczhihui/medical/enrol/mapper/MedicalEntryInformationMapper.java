@@ -85,11 +85,11 @@ public interface MedicalEntryInformationMapper extends BaseMapper<MedicalEntryIn
     Integer countByDoctorIdAndAccountId(@Param("doctorId") String doctorId, @Param("accountId") String accountId);
 
     @Select({"SELECT mei.name,mei.user_id userId,(ISNULL(ct.id)=0) selected " +
-            " FROM  medical_entry_information mei" +
+            " FROM (select * from medical_entry_information where deleted = 0 AND apprentice = 1 order by `create_time` ) mei" +
             "  LEFT JOIN `course_teaching` ct" +
             "  ON mei.`user_id` = ct.`user_id` AND ct.`course_id` = #{courseId} AND ct.`deleted`=0" +
-            " WHERE mei.deleted = 0 AND mei.apprentice = 1 AND mei.`doctor_id`=#{doctorId} " +
-            " group by mei.user_id" +
+            " WHERE mei.`doctor_id`=#{doctorId} " +
+            "  group by mei.user_id " +
             " ORDER BY mei.create_time DESC"})
     List<Map<String, String>> listByDoctorIdAndCourseId(@Param("doctorId") String doctorId, @Param("courseId") String courseId);
 
