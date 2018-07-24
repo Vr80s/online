@@ -142,10 +142,12 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 
     @Override
     public ThirdFlag buildThirdFlag(WxcpClientUserWxMapping wxw) {
+        LOGGER.error("wxw:{}", wxw);
         ThirdFlag tf = new ThirdFlag();
         tf.setOpenId(wxw.getOpenid());
         tf.setUnionId(wxw.getUnionid());
         tf.setNickName(StringUtils.isNotBlank(wxw.getNickname()) ? wxw.getNickname() : "熊猫中医");
+        LOGGER.error("webdomain:{}", webdomain);
         String defaultHeadImg = webdomain + "/web/images/defaultHead/18.png";
         tf.setHeadImg(StringUtils.isNotBlank(wxw.getHeadimgurl()) ? wxw.getHeadimgurl() : defaultHeadImg);
         return tf;
