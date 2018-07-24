@@ -11,7 +11,7 @@
             inner join oe_user as  ou on ou.id = mdq.user_id
             inner join medical_doctor as md on md.id = mdq.doctor_id
             LEFT JOIN `medical_doctor_authentication_information` mdai ON md.`authentication_information_id` = mdai.`id`
-         where mdq.answer is not null  and mdq.doctor_id = #{doctorId}
+         where  mdq.doctor_id = #{doctorId}
            and ou.status = 0  and ou.is_delete =0
            and  md.deleted = 0 AND md.status = 1
            order by mdq.update_time desc
