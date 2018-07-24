@@ -1070,21 +1070,28 @@
 			<div class="QA_main">
 				<script type="text/html" id="QA_main_id">
 				{{each items as item i}} 
-				<div class="QA_doubt">
-					<img src="{{item.userImg}}" alt="" class="QA_doubt_img" />
-					<div class="QA_doubt_main">
-						<img src="/xcview/images/QA_doubt.png" alt="" class="QA_doubt_main_img" />
-						{{item.question}}
+				<div class="QA_center">
+					<div class="QA_doubt">
+						<!-- <img src="{{item.userImg}}" alt="" class="QA_doubt_img" />-->
+						<div class="QA_doubt_main">
+							<!--<img src="/xcview/images/QA_doubt.png" alt="" class="QA_doubt_main_img" />-->
+							<span>问</span>{{item.question}}
+						</div>
+						<div class="both"></div>
 					</div>
-					<div class="both"></div>
-				</div>
-				<div class="QA_solution">
-					<img src="{{item.doctorImg}}" alt="" class="QA_solution_img" onerror="nofind()" />
-					<div class="QA_solution_main">
-						<img src="/xcview/images/QA_solution..png" alt="" class="QA_solution_main_img" />
-						{{item.answer}}
+					<div class="QA_solution">
+						
+						<div class="QA_solution_main">
+							<!--<img src="/xcview/images/QA_solution..png" alt="" class="QA_solution_main_img" />-->
+							<span><img src="{{item.doctorImg}}" alt="" class="QA_solution_img" onerror="nofind()" />医师解答：</span>
+							{{if item.answer == null || item.answer == ''}}
+								<span>暂未回答该问题</span>
+							{{else}}
+								{{item.answer}}
+							{{/if}}
+						</div>
+						<div class="both"></div>
 					</div>
-					<div class="both"></div>
 				</div>
 				{{/each}}
 	            </script>
@@ -1137,20 +1144,11 @@
 				
 				</div>
 			</div>
-			<div class="disciple_application_state">
-				<script type="text/html" id="disciple_application_state_id">
-					{{if items.onlineApprenticeStatus == 1 || items.onlineApprenticeStatus == 3}}
-					<div class="disciple_application" onclick="location.href ='/xcview/html/physician/apply_for.html?doctor='+doctorId">在线弟子申请加入</div>
-					{{else if items.onlineApprenticeStatus == 2}}
-						<div class="disciple_application" onclick="location.href ='/xcview/html/physician/application_approved.html?doctor='+doctorId">申请已提交</div>
-					{{else if items.onlineApprenticeStatus == 4}}
-						<div class="disciple_application" style="display: none;">申请已提交</div>
-
-					{{/if}}
-				</script>
-			</div>
+			
+			
 			
 		</div>
+		
 		<!-- 在线弟子结束 -->
 	</div>
 	<!-- 师承结束 -->
@@ -1232,6 +1230,7 @@
 		</div>
 
 	</div>
+	<div class="" style="width: 100%;height:0.72rem;"></div>
 	<!-- 介绍结束 -->
 
 	</div>
@@ -1336,7 +1335,20 @@
 		</div>
 	</div>
 
+
 	<!-- 预约远程诊疗结束 -->
+<div class="disciple_application_state">
+	<script type="text/html" id="disciple_application_state_id">
+		{{if items.onlineApprenticeStatus == 1 || items.onlineApprenticeStatus == 3}}
+		<div class="disciple_application" onclick="location.href ='/xcview/html/physician/apply_for.html?doctor='+doctorId">在线弟子申请加入</div>
+		{{else if items.onlineApprenticeStatus == 2}}
+			<div class="disciple_application" onclick="location.href ='/xcview/html/physician/application_approved.html?doctor='+doctorId">申请已提交</div>
+		{{else if items.onlineApprenticeStatus == 4}}
+			<div class="disciple_application" style="display: none;">申请已提交</div>
+
+		{{/if}}
+	</script>
+</div>
 
 
 
@@ -1394,6 +1406,8 @@ $(window).bind("scroll", function() {
 			$(".rests_nav").show();   //全部动态隐藏
 			$(".message_referral").hide();   //介绍结束baseImagenumbers
 			$(".prose_origin").hide();   /*师承内容隐藏*/
+			$(".disciple_application_state").hide();  //底部按钮隐藏
+			$(".minirefresh-totop").css("bottom","30px");  //返回按钮
 		});
 		$(".li_data").click();
 
@@ -1418,6 +1432,8 @@ $(window).bind("scroll", function() {
 			$(".message_referral").hide();  //介绍结束
 			// $(".broadcastroom").show();
 			$(".prose_origin").hide();   /*师承内容隐藏*/
+			$(".disciple_application_state").hide();  //底部按钮隐藏
+			$(".minirefresh-totop").css("bottom","30px");  //返回按钮
 		});
 
 		// 点击师承
@@ -1439,7 +1455,9 @@ $(window).bind("scroll", function() {
 			$(".rests_nav").hide();  /*全部动态隐藏*/
 			$(".broadcastroom").hide();   /*直播间打开*/
 			$(".prose_origin").show();   /*师承内容打开*/
-			$(".message_referral").hide();  //介绍结束
+			$(".disciple_application_state").show();  //底部按钮显示
+			$(".minirefresh-totop").css("bottom","65px");  //返回按钮
+
 		});
 
 		// 点击介绍
@@ -1462,6 +1480,8 @@ $(window).bind("scroll", function() {
 			$(".rests_nav").hide();   //全部动态隐藏
 			$(".message_referral").show();  //介绍结束
 			$(".prose_origin").hide();   /*师承内容隐藏*/
+			$(".disciple_application_state").hide();  //底部按钮隐藏
+			$(".minirefresh-totop").css("bottom","30px");  //返回按钮
 		});
 
 		// 点击显示全部动态筛选  
