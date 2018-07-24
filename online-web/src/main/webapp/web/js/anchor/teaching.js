@@ -683,8 +683,8 @@ function cheackSelectAll(){
 	var disciplaStatus,
 		disciplaType;
 	$(".myself-disciple-search button").click(function(){
-			disciplaStatus=$(".myself-select-haedeer").val();
-			disciplaType=$(".myself-select-right").val();
+			disciplaType=$(".myself-select-haedeer").val();
+			disciplaStatus=$(".myself-select-right").val();
 			myDiscipleList(1,disciplaType,disciplaStatus);
 	})
 
@@ -925,7 +925,7 @@ function cheackSelectAll(){
 		var echoManageData=manageData[index];
 		$("#save-manageId").val(echoManageData.id);
 		$(".recruit-students .recruit-title").val(echoManageData.title);
-		$(".recruit-students .mamage-wrap-img").html("<img src="+echoManageData.coverImg+" />")
+		$(".recruit-students .mamage-wrap-img").html("<img src="+echoManageData.coverImg+"?imageMogr2/thumbnail/!260x147r|imageMogr2/gravity/Center/crop/260x147 />")
 		$(".recruit-students .personal-number").val(echoManageData.countLimit);
 		$("#sign-up-time").val(echoManageData.deadline);
 		$("#study-start-time").val(echoManageData.startTime);
@@ -960,7 +960,7 @@ function cheackSelectAll(){
 			
 		var establishDate={
 			"title":$.trim($(".recruit-title").val()),			//标题
-			"coverImg":$(".mamage-wrap-img img").attr("src"),	//封面图
+			"coverImg":$(".mamage-wrap-img img").attr("src").split("?")[0],	//封面图
 			"tuition":0,
 			"countLimit":$.trim($(".personal-number").val()),	//招生人数
 			"deadline":$.trim($("#sign-up-time").val()),		//报名截止时间
@@ -1086,7 +1086,7 @@ function cheackSelectAll(){
 		
 	var establishDate={
 		"title":$.trim($(".recruit-title").val()),			//标题
-		"coverImg":discipleImgCover,	//封面图
+		"coverImg":$(".mamage-wrap-img img").attr("src").split("?")[0],	//封面图
 		"tuition":0,
 		"countLimit":$.trim($(".personal-number").val()),	//招生人数
 		"deadline":$.trim($("#sign-up-time").val()),		//报名截止时间
@@ -1185,8 +1185,9 @@ function rangeList(pages){
 				$(".range-null").removeClass("hide");
 				$("#long-range-list").addClass("hide");
 			} else{
+				//	把年月日去掉
 				for(var i=0;i<rangeData.length;i++){
-					rangeData[i].date=rangeData[i].date.replace(/-/g,"")
+					rangeData[i].date=rangeData[i].date.replace(/[\u4e00-\u9fa5]/g,"")
 				}
 				$(".range-null").addClass("hide");
 				$("#long-range-list").removeClass("hide");
@@ -1245,10 +1246,8 @@ $(".long-range-table").on("click",".edit-range-btn",function(){
 		$(".long-range-top span").text("预约时间");
 })
 function rangeEcho(editRange){
-//	把年月日去掉
-	var reg = /[\u4e00-\u9fa5]/g,
-		newDate=editRange.date.replace(reg,"");			
-	$(".comment-establish .time-set").val(newDate);
+		
+	$(".comment-establish .time-set").val(editRange.date);
 	$(".comment-establish .start-establish-time").val(editRange.startTime+":00");
 	$(".comment-establish .end-establish-time").val(editRange.endTime+":00");
 	$("#savaRangeId").val(editRange.id);  //存放ID

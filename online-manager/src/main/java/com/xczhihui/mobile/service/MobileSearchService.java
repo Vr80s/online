@@ -29,4 +29,8 @@ public interface MobileSearchService {
 
     public void updateSortDown(Integer id);
 
+    Integer updateStatus1(String id);
+
+    public void updateStatus2(String id);
+
 }

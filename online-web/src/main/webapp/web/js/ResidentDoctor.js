@@ -53,14 +53,10 @@ RequestService("/medical/common/isDoctorOrHospital", "GET", null, function(data)
 			$('#AutStatus').removeClass('hide');
 		}
 	}
+    var hash = $.trim(window.location.hash);
 	//判断是否是重新认证
-	if(localStorage.AutStatus == "AutAgain") {
-		//		seeAutStatus();
-		//		Autagain();	
-		//		$('#renzhengAgain').click();
-		$('#AutStatus').addClass('hide');
-		$('#AutList').removeClass('hide');
-		localStorage.clear();
+	if(hash == "#update") {
+        autagain();
 	}
 
 });
@@ -160,9 +156,6 @@ function img() {
 				reader.readAsDataURL(this.files[0]);
 				this.files = [];
 				getImg();
-				//								return $(".imageBox").click(function() {
-				//									getImg();
-				//								});
 			}
 		}
 	})
@@ -192,7 +185,6 @@ $(".btn-upload").click(function(evt) {
 		return false;
 	}
 	$(".btn-upload").css("color", "white");
-	//	if($(".upload_pictures_bottom_upload").attr("data-id") && $(".upload_pictures_bottom_upload").attr("data-id") != '/webview/images/usershow/defaultHeadImg.jpg') {
 	RequestService("/online/user/updateHeadPhoto", "post", {
 		image: $(".btn-upload").attr("data-img"),
 	}, function(data) {
@@ -209,10 +201,6 @@ $(".btn-upload").click(function(evt) {
 						background: "url(" + path + ") no-repeat",
 						backgroundSize: "100% 100%"
 					});
-					//							$("doctor_inf >img").css({
-					//								background: "url(" + path + ") no-repeat",
-					//								backgroundSize: "100% 100%"
-					//							});
 					$(".doctor_inf >img").attr('src', path)
 
 					var file = document.getElementById("upload-file")
@@ -234,7 +222,7 @@ $(".btn-upload").click(function(evt) {
 					$(".tc").css("display", "none");
 					$(".mask").css("display", "none");
 					$("#headImg").css("display", "none");
-					location.reload();
+					window.location.reload();
 				}
 
 			})
@@ -292,23 +280,18 @@ function gotToAut() {
 }
 
 //查看状态之后的重新认证
-function Autagain() {
-	$('#AutList').removeClass('hide');
-	$('#AutStatus').addClass('hide');
+function autagain() {
 	//医师认证状态回显示
-	
 	RequestService("/doctor/apply/getLastOne", "get", null, function(data) {
 		if( data.success == true && data.resultObject != null){
-			console.log(data);
+            $('#AutList').removeClass('hide');
+            $('#AutStatus').addClass('hide');
+            initEditor();
 			var result = data.resultObject;
 			//姓名
 			$('#AutList .doc_name').val(result.name);
 			//身份证号码
 			$('#AutList .doc_Idnum').val(result.cardNum);
-			//身份证图片  正面
-			/*$('#AutList .idFont_pic').html("<img src="+result.cardPositive+">");*/
-			//反面
-			/*$('#AutList .idBack_pic').html("<img src="+result.cardNegative+">");*/
 			//医师资格证
 			$('#AutList .teacher_pic').html("<img src="+result.qualificationCertificate+">");
 			//执业资格证
@@ -332,8 +315,10 @@ function Autagain() {
 			//擅长
 			$('#AutList .doc_shanchang').val(result.field);
 			//个人介绍 editor
-			UE.getEditor('editor').setContent(result.description);
-			
+            UE.getEditor('editor').addListener('ready', function (editor) {
+                UE.getEditor('editor').setContent(result.description);
+            });
+
 			//省份
 			for(var i = 0 ;i < $('#AutList #choosePro option').length ;i++){
 				if($('#AutList #choosePro option').eq(i).text() == result.province){
@@ -551,16 +536,3 @@ $('#zhicheng_pic_ipt').on('change', function() {
 	}
 	reader.readAsDataURL(this.files[0])
 })
-
-//$(function(){
-//在医师认证通过的页面设置了一个localStorage 在这个取出来判断 执行重新认证 并且清楚localStorage的值
-//	if(localStorage.AutStatus == "AutAgain"){
-////		seeAutStatus();
-////		Autagain();	
-////		$('#renzhengAgain').click();
-//		$('#AutStatus').addClass('hide');
-//		$('#AutList').removeClass('hide');
-//		localStorage.clear();
-//	}
-
-//})

@@ -183,7 +183,7 @@
 						</div>
 						
 						
-						<div class="bottomContent " id="AutList">
+						<div class="bottomContent hide" id="AutList">
 							
 							<div>
 								<span><em>*</em>姓名</span>
@@ -310,9 +310,7 @@
 							<div class="personIntroduct">
 								<span><em>*</em> 个人介绍</span>
 								<!--<textarea name="" rows="" cols="" maxlength="500" placeholder="请输入500字以内个人简介" style="resize: none;"></textarea>-->
-							<div style="display: inline-block;vertical-align: top;">
-								<script id="editor" type="text/plain" style="width:540px;height:160px;" ></script>
-							</div>
+							<div style="display: inline-block;vertical-align: top;"><script id="editor" type="text/plain" style="width:540px;height:160px;" ></script></div>
 							
 								
 								
@@ -344,9 +342,8 @@
 						
 						
 						<!--认证状态展示的样子重复代码-->
-						<div class="bottomContent" id="AutStatus">
-							<!--TODO-->
-						
+						<div class="bottomContent hide" id="AutStatus">
+
 						</div>
 						
 					</div>
@@ -437,18 +434,18 @@
 		{{if status == 2}}
 		<div class="bottomContent_inf text-left">
 			<span>医师认证审核中，3个工作日完成</span><span style="color: red;margin-left: -20px;">（如提交信息有误可重新提交）</span>
-			<button class="renzhengAgain" onclick="Autagain()">重新认证</button>
+			<button class="renzhengAgain" onclick="autagain()">重新提交</button>
 		</div>
 		{{else if status == 1}}
 		<div class="bottomContent_inf text-left">
 			<span>已于{{updateTime}}通过认证</span><span style="color: red;margin-left: -20px;"></span>
 			<button class="renzhengAgain" onclick="goDocPage()">去看看</button>
-			<button class="renzhengAgain" id="renzhengAgain" onclick="Autagain()" style="display: none;">重新认证</button>
+			<button class="renzhengAgain" id="renzhengAgain" onclick="autagain()">重新认证</button>
 		</div>
 		{{else if status == 0}}
 		<div class="bottomContent_inf text-left">
 			<span>审核未通过</span><span style="color: red;margin-left: -20px;">（提交审核信息有误）</span>
-			<button class="renzhengAgain" onclick="Autagain()">重新认证</button>
+			<button class="renzhengAgain" onclick="autagain()">重新提交</button>
 		</div>
 		{{/if}}
 		<div>
@@ -552,46 +549,48 @@
 	
 	 //实例化编辑器
     //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
-    var ue = UE.getEditor('editor',{
-        toolbars:[[
+	 function initEditor() {
+         UE.getEditor('editor',{
+             toolbars:[[
 //      'source', //源代码
-            'undo', //撤销
-            'redo', //重做
-            'bold', //加粗
-            'forecolor', //字体颜色
-            'backcolor', //背景色
-            'indent', //首行缩进
-            'removeformat',//清除格式
-            'formatmatch', //格式刷
-            'blockquote', //引用
-            'fontfamily', //字体
-            'fontsize', //字号
-            'paragraph', //段落格式
-            'italic', //斜体
-            'underline', //下划线
-            'strikethrough', //删除线
-            'superscript', //上标
-            'subscript', //下标
-            'touppercase', //字母大写
-            'tolowercase', //字母小写
-            'justifyleft', //居左对齐
-            'justifyright', //居右对齐
-            'justifycenter', //居中对齐
-            'justifyjustify',//两端对齐
-            'link', //超链接
-            'unlink', //取消链接
-            'simpleupload', //单图上传
-            // 'insertimage', //多图上传
+                 'undo', //撤销
+                 'redo', //重做
+                 'bold', //加粗
+                 'forecolor', //字体颜色
+                 'backcolor', //背景色
+                 'indent', //首行缩进
+                 'removeformat',//清除格式
+                 'formatmatch', //格式刷
+                 'blockquote', //引用
+                 'fontfamily', //字体
+                 'fontsize', //字号
+                 'paragraph', //段落格式
+                 'italic', //斜体
+                 'underline', //下划线
+                 'strikethrough', //删除线
+                 'superscript', //上标
+                 'subscript', //下标
+                 'touppercase', //字母大写
+                 'tolowercase', //字母小写
+                 'justifyleft', //居左对齐
+                 'justifyright', //居右对齐
+                 'justifycenter', //居中对齐
+                 'justifyjustify',//两端对齐
+                 'link', //超链接
+                 'unlink', //取消链接
+                 'simpleupload', //单图上传
+                 // 'insertimage', //多图上传
 //          'emotion', //表情
-			'fullscreen'
-        ] ],
-          elementPathEnabled:false,
-            autoHeightEnabled: false,
-            autoFloatEnabled: true,
-            enableAutoSave:false,
-            imagePopup:false,
-            maximumWords:10000       //允许的最大字符数
-    });
+                 'fullscreen'
+             ] ],
+             elementPathEnabled:false,
+             autoHeightEnabled: false,
+             autoFloatEnabled: true,
+             enableAutoSave:false,
+             imagePopup:false,
+             maximumWords:10000       //允许的最大字符数
+         });
+     }
 
     function getContent() {
         var arr = [];
