@@ -158,6 +158,25 @@ $(function(){
 		font-size: 0.32rem;
 		color: #fff;
 	}
+	.video_end_top0 .video_end{
+		width: 100%;
+	    height: 100%;
+	    background: #000;
+	    opacity: 0.5;
+	    position: absolute;
+	    top: 0;
+	    left: 0;
+	    z-index: -1;
+	}
+	.video_end_top0 .smallImgPath{
+		width: 100%;
+	    height: 100%;
+	    position: absolute;
+	    top: 0;
+	    left: 0;
+	    z-index: -1;
+	}
+
 	.video_end_top1 .initiation{
 		font-size: 0.68rem;
 		color: #fff;
@@ -303,6 +322,7 @@ $(function(){
 		
 		<!--即将开始提示-->
 		<div class="video_end_top0" style="display: none;">
+			<img src="" alt="" class="smallImgPath" />
 			<p>即将直播：<span id="initiation_gradename"></span></p>
 			<div class="initiation">开播时间：<span class="initiation_span"></span></div>
 		</div>

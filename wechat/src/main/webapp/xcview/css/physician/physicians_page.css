@@ -116,7 +116,7 @@ p{
     position: absolute;
     top: -0.42rem;
     left: 0.26rem;
-    z-index: 1;
+    z-index: 9 !important;
 }
 .head_portrait img{
 	width: 1.4rem;
@@ -1712,9 +1712,9 @@ p{
     float: left;
 }
 .wrap_vedio_btn li .speak_text {
-    overflow: hidden;
+    /* overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    white-space: nowrap; */
     padding: 0.16rem 0 0 0;
 }
 .wrap_vedio_btn li:nth-child(odd) {
@@ -2894,5 +2894,7 @@ margin-top: 0.015rem;
 }
 /*预约远程诊疗结束*/
 
-
+.swiper-container{
+	z-index: -1 !important;
+}
 
