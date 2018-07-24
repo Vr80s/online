@@ -1,11 +1,15 @@
 package com.xczhihui.mobile.service.impl;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
+import com.xczhihui.common.exception.IpandaTcmException;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.mobile.dao.MobileSearchDao;
 import com.xczhihui.mobile.service.MobileSearchService;
@@ -76,15 +80,62 @@ public class MobileSearchServiceImpl extends OnlineBaseServiceImpl implements
 
     @Override
     public void updateStatus(String id) {
-        // TODO Auto-generated method stub
         MobileSearchVo scoreType = mobileSearchDao.findById(id);
-        if (scoreType.getStatus() != null && scoreType.getStatus() == 1) {
+        if (scoreType.getStatus() != null && scoreType.getStatus() == 1) {  //禁用
             scoreType.setStatus(0);
-        } else {
+        } else {                      //启用
             scoreType.setStatus(1);
         }
         mobileSearchDao.update(scoreType);
     }
+    
+    
+    @Override
+    public Integer updateStatus1(String id) {
+        MobileSearchVo scoreType = mobileSearchDao.findById(id);
+        if (scoreType.getStatus() != null && scoreType.getStatus() == 1) {  //禁用
+            scoreType.setStatus(0);
+        } else {                      //启用
+            if(scoreType.getSearchType().equals(1) || scoreType.getSearchType().equals(3)) {
+                //查看下是否已经有启用的啦
+                String hqlPre = "from MobileSearchVo where  searchType = ? and isDelete=0 and status = 1 and id != ?";
+                MobileSearchVo ms = dao.findByHQLOne(hqlPre,new Object[]{scoreType.getSearchType(),Integer.parseInt(id)});
+                if(ms!=null) {
+                    return 1000;
+                }
+            }
+            scoreType.setStatus(1);
+        }
+        mobileSearchDao.update(scoreType);
+        
+        return 1001;
+    }
+    
+    @Override
+    public void updateStatus2(String id) {
+        
+        MobileSearchVo scoreType = mobileSearchDao.findById(id);
+        if(scoreType ==null) {
+            throw new IpandaTcmException("获取信息有误");
+        }
+        if(scoreType.getStatus().equals(1)) {
+            throw new IpandaTcmException("已经是启用状态了啊");
+        }
+        Integer searchType = scoreType.getSearchType();
+        //更改同类型的为禁用
+        String sql = " UPDATE  oe_mobile_search  SET status=0 WHERE search_type = :searchType";
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("searchType", searchType);
+        dao.getNamedParameterJdbcTemplate().update(sql, params);
+        
+        //更改自己的为启用
+        String sql1 = " UPDATE  oe_mobile_search  SET status=1 WHERE id = :id";
+        Map<String, Object> params1 = new HashMap<String, Object>();
+        params1.put("id", id);
+        dao.getNamedParameterJdbcTemplate().update(sql1, params1);
+        
+    }
+    
 
     @Override
     public void updateSortUp(Integer id) {
@@ -122,5 +173,7 @@ public class MobileSearchServiceImpl extends OnlineBaseServiceImpl implements
         dao.update(ProjectPre);
         dao.update(ProjectNext);
     }
+
+
 
 }
