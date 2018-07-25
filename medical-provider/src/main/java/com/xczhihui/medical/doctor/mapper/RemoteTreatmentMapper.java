@@ -46,13 +46,14 @@ public interface RemoteTreatmentMapper extends BaseMapper<Treatment> {
      * @param onlyUnAppointment onlyUnAppointment
      * @return
      */
-    @Select({"<script>select * " +
-            " from medical_treatment" +
-            " where deleted = false and doctor_id = #{doctorId} and date &gt;= curdate()" +
+    @Select({"<script>select mt.id, mt.doctor_id as doctorId, mt.date as date, mt.start_time as startTime, mt.end_time as endTime," +
+            " mt.create_time as createTime, mt.status, mt.info_id as infoId, mtai.user_id as userId " +
+            " from medical_treatment mt left join medical_treatment_appointment_info mtai on mt.info_id = mtai.id" +
+            " where mt.deleted = false and mt.doctor_id = #{doctorId} and mt.date &gt;= curdate()" +
             " <if test='onlyUnAppointment'>" +
-            " and status = 0" +
+            " and mt.status = 0" +
             " </if>" +
-            " order by date, start_time" +
+            " order by mt.date, mt.start_time" +
             " </script>"})
     List<TreatmentVO> listByDoctorId(@Param("doctorId") String doctorId, @Param("onlyUnAppointment") boolean onlyUnAppointment);
 
@@ -62,4 +63,15 @@ public interface RemoteTreatmentMapper extends BaseMapper<Treatment> {
             " order by mt.create_time desc" +
             " </script>"})
     List<TreatmentVO> listPageByDoctorId(@Param("doctorId") String doctorId, Page<TreatmentVO> page);
+
+    /**
+     * 查询医师诊疗预约
+     *
+     * @param infoId infoId
+     * @return
+     */
+    @Select({"select mtai.name, mtai.tel, mtai.question, mt.date as date, mt.start_time as startTime, mt.end_time as endTime" +
+            " from medical_treatment_appointment_info mtai left join medical_treatment mt on mt.info_id = mtai.id" +
+            " where mtai.id = #{infoId}"})
+    TreatmentVO findByInfoId(@Param("infoId") Integer infoId);
 }
