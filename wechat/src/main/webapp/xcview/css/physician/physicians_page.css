@@ -2919,7 +2919,7 @@ margin-top: 0.015rem;
 /*预约远程诊疗结束*/
 
 .swiper-container{
-	z-index: -1 !important;
+	/*z-index: -1 !important;*/
 }
 
 .disciple_application_states{
