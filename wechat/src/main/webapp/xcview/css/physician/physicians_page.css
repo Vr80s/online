@@ -2922,7 +2922,7 @@ margin-top: 0.015rem;
 	z-index: -1 !important;
 }
 
-.disciple_application_state{
+.disciple_application_states{
 	width: 7.5rem;
     height: 1rem;
     position: fixed;
@@ -2932,5 +2932,11 @@ margin-top: 0.015rem;
     z-index: 1;
     background: #fff;
     padding-top: 0.15rem;
-    display: none;
+    /*display: none;*/
+}
+
+
+.disciple_welfare p{
+	font-size: 0.26rem;
+    color: #666;
 }
