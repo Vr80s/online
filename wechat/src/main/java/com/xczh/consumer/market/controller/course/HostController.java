@@ -102,7 +102,8 @@ public class HostController {
 
         LOGGER.info("lecturerId-->id" + lecturerId);
 
-        Map<String, Object> mapAll = myInfoService.selectUserHomePageData(accountIdOpt.isPresent() ? accountIdOpt.get() : null, lecturerId, HeaderInterceptor.ONLY_THREAD.get());
+        Map<String, Object> mapAll = myInfoService.selectUserHomePageData(accountIdOpt.isPresent() ? accountIdOpt.get() : null,
+                lecturerId, HeaderInterceptor.ONLY_THREAD.get());
         /**
          * 得到讲师   主要是房间号，缩略图的信息、讲师的精彩简介
          *

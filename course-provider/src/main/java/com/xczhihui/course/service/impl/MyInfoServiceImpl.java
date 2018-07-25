@@ -171,7 +171,7 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper, OnlineUser> imp
 
 
     @Override
-    public Map<String, Object> selectUserHomePageData(Object object, String lecturerId, Boolean boolean1) {
+    public Map<String, Object> selectUserHomePageData(String userId, String lecturerId, Boolean boolean1) {
         
         Map<String, Object> mapAll = new HashMap<String, Object>();
         
@@ -185,7 +185,7 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper, OnlineUser> imp
         if (lecturerId == null) {
             mapAll.put("isFours", 0);
         } else {
-            Integer isFours = focusMapper.isFoursLecturer(lecturerId, lecturerId);
+            Integer isFours = focusMapper.isFoursLecturer(userId, lecturerId);
             mapAll.put("isFours", isFours);
         }
         /**
