@@ -94,7 +94,7 @@ public interface ICourseApplyService extends IService<CourseApplyInfo> {
      * @author name：yuxin <br>email: yuruixin@ixincheng.com
      * @Date: 下午 2:19 2018/2/2 0002
      **/
-    void updateCourseApplyResource();
+    void updateCourseApplyResource(String ccId);
 
     void deleteCourseApplyResource(String id, String resourceId);
 
