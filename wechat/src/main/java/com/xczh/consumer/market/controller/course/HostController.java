@@ -108,7 +108,7 @@ public class HostController {
          *
          * 这个主播可能认证的是医馆，也可能认证的是医师
          */
-        Map<String, Object> lecturerInfo = myInfoService.findHostInfoById(lecturerId, false);
+        Map<String, String> lecturerInfo = myInfoService.findHostInfoByIdProbablyPhysician(lecturerId);
         if (lecturerInfo == null) {
             return ResponseObject.newErrorResponseObject("获取医师信息有误");
         }

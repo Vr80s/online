@@ -86,7 +86,6 @@ public class AnchorsController extends AbstractFtlController {
         view.addObject("userId", userId);
         view.addObject("webUrlParam", webUrl + "/anchors/" + userId);
 
-
         view = getHostBaseInfo(view, userId);
 
         //推荐课程   -- 从推荐值最高的课程里面查询啦啦啦啦。
@@ -198,7 +197,7 @@ public class AnchorsController extends AbstractFtlController {
         /**
          * 这个主播可能认证的是医馆，也可能认证的是医师
          */
-        Map<String, Object> lecturerInfo = myInfoService.findHostInfoById(userId);
+        Map<String, String> lecturerInfo = myInfoService.findHostInfoByIdProbablyPhysician(userId);
         if (lecturerInfo.size() == 0) {
             return to404();
         }

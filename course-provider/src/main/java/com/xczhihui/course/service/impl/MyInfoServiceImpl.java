@@ -97,14 +97,15 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper, OnlineUser> imp
     @Override
     public List<Map<String, Object>> hostInfoRec() {
         List<Map<String, Object>> list = myInfoMapper.hostInfoRec();
+        
         for (int i = 0; i < list.size(); i++) {
             Map<String, Object> map = list.get(i);
+        
             //医师的
             if(map!=null && map.get("type")!=null && "1".equals(map.get("type").toString())&& 
                     map.get("userId")!=null) {
                 String userId = map.get("userId").toString();
-                Map<String, String> mapHeadProtrait =
-                        myInfoMapper.selectDoctorHeadPortraitAndByUserId(userId);
+                Map<String, String> mapHeadProtrait = myInfoMapper.selectDoctorHeadPortraitAndByUserId(userId);
                 map.putAll(mapHeadProtrait);
             }
         }
@@ -119,24 +120,34 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper, OnlineUser> imp
     }
 
     @Override
-    public Map<String, Object> findHostInfoById(String userId) {
-        return findHostInfoById(userId, true);
+    public Map<String, String> findHostInfoById(String userId) {
+        
+        return myInfoMapper.findHostInfoById(userId);
     }
 
     @Override
-    public Map<String, Object> findHostInfoById(String userId, Boolean falg) {
-        Map<String, Object> map = myInfoMapper.findHostInfoById(userId);
+    public Map<String, String> findHostInfoByIdProbablyPhysician(String userId) {
+        
+        Map<String, String> mapHostInfo = myInfoMapper.findHostInfoById(userId);
 
-        //过滤下坐诊时间
-        if (map != null && map.get("workTime") != null) {
-            map.put("workTime", XzStringUtils.workTimeScreen(map.get("workTime").toString(), falg));
+        if(mapHostInfo!=null && mapHostInfo.get("type").equals("1")){
+            Map<String, String> mapDoctorInfo =   myInfoMapper.
+                    selectDoctorHeadPortraitAndTitleByUserId(userId);
+            //过滤下坐诊时间
+            if (mapDoctorInfo != null && mapDoctorInfo.get("workTime") != null) {
+                mapDoctorInfo.put("workTime", XzStringUtils.workTimeScreen(mapDoctorInfo.get("workTime")));
+            }
+            //过滤详情中的外部连接
+            if(mapDoctorInfo != null && mapDoctorInfo.get("detail") != null) {
+                mapDoctorInfo.put("detail", XzStringUtils.formatA(mapDoctorInfo.get("detail")));
+            }        
+            mapHostInfo.putAll(mapDoctorInfo);
         }
-        //过滤详情中的外部连接
-        if(map != null && map.get("detail") != null) {
-            map.put("detail", XzStringUtils.formatA(map.get("detail").toString()));
-        }
-        return map;
+        return mapHostInfo;
     }
+    
+    
+    
 
     @Override
     public Map<String, Object> findDoctorInfoById(String userId) {

@@ -10,13 +10,7 @@
         ca.profile_photo as small_head_photo,
         ca.video,
         ca.detail,
-        ca.type as type,
-        if(ca.type = 1, (select md.title from medical_doctor md where id =
-        (select doctor_id from medical_doctor_account as mda where mda.account_id = #{userId}) ),null)
-        as title,
-        if(ca.type = 1, (select md.work_time from medical_doctor md where id =
-        (select doctor_id from medical_doctor_account as mda where mda.account_id = #{userId}) ),null)
-        as workTime
+        ca.type as type
         from oe_user ou
         inner join course_anchor ca on ou.id = ca.user_id
         where ou.id = #{userId}
@@ -237,6 +231,19 @@
     </select>    
 
 
-
-
+     <!-- 得到医师id/医师详情/医师头像/医师职称/工作时间 -->
+    <select id="selectDoctorHeadPortraitAndTitleByUserId" resultType="java.util.Map">
+         select  
+            md.id as doctorId,
+            md.title as title,
+            md.description as detail,
+            md.work_time as workTime,
+            mdai.head_portrait headPortrait
+         from medical_doctor md    
+            inner join  medical_doctor_account mda
+            on md.id  = mda.doctor_id  
+            LEFT JOIN `medical_doctor_authentication_information` mdai          
+            ON md.`authentication_information_id` = mdai.`id`
+            where mda.account_id = #{userId} 
+    </select> 
 </mapper>

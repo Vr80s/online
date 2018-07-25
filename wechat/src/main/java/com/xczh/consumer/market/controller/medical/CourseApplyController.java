@@ -62,9 +62,9 @@ public class CourseApplyController {
         courseApplyInfo.setLecturer(ca.getName());
 
 
-        Map<String, Object> lecturerInfo = myInfoService.findHostInfoById(accountId, false);
+        Map<String, String> lecturerInfo = myInfoService.findHostInfoById(accountId);
         if (lecturerInfo.get("detail") != null && !"".equals(lecturerInfo.get("detail"))) {
-            String detail = lecturerInfo.get("detail").toString();
+            String detail = lecturerInfo.get("detail");
             courseApplyInfo.setLecturerDescription(detail);
         }
         courseApplyInfo.setCourseForm(CourseForm.LIVE.getCode());

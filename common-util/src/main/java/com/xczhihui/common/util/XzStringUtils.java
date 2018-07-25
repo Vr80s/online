@@ -235,7 +235,8 @@ public class XzStringUtils {
      * @return
      */
     public static String workTimeScreen(String line) {
-        String workTime = workTimeScreen(line, true);
+        
+        String workTime = getWorkTimeScreen(line);
 
         if(workTime!=null && workTime.endsWith(",")){
             workTime = workTime.substring(0,workTime.length()-1);
@@ -243,7 +244,8 @@ public class XzStringUtils {
         return workTime;
     }
 
-    public static String workTimeScreen(String line, Boolean coOrdinate) {
+    public static String getWorkTimeScreen(String line) {
+        
         if (line != null && !"".equals(line)) {
             //中文的话，过滤下
             if (isContainChinese(line)) {
