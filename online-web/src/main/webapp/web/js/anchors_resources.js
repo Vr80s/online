@@ -414,7 +414,7 @@ var activityType;
 		data.coverImg = $(".video-cover-pic img").attr("src");	
 		var imgs = [];
 		$(".save-photo ul li .insertImg").each(function(index){
-			imgs.push($(this).attr("src")+"?"+"w"+"="+naturalWidth[index]+"&"+"h"+"="+naturalHeight[index]);
+			imgs.push($(this).attr("src").split("?")[0]+"?"+"w"+"="+naturalWidth[index]+"&"+"h"+"="+naturalHeight[index]);
 		})
 		data.pictures = imgs.join("@#$%&*!");
 		data.video = saveVideoId;
@@ -453,9 +453,8 @@ var activityType;
 //	获取图片宽、高
 	function getPicter(){		
 		$('.insertImg').each(function(index){
-				naturalWidth[index] = $(this)[0].naturalWidth;
-   				naturalHeight[index] = $(this)[0].naturalHeight;
-// 				
+				naturalWidth[index] = $(this).attr("data-w");
+   				naturalHeight[index] =$(this).attr("data-h");			
 		})
 	}
 
@@ -583,14 +582,14 @@ var activityType;
         }, function (data) {
         		$(".photo-wrap").removeClass("hide");
         	  var addPhoto='<li>'+
-					'<img class="insertImg" src="' + data.resultObject + '?imageMogr2/thumbnail/!300x300r'+'|imageMogr2/gravity/Center/crop/300x300" alt="照片" />'+
+					'<img class="insertImg" src="' + data.resultObject + '?imageMogr2/thumbnail/!300x300r'+'|imageMogr2/gravity/Center/crop/300x300" alt="照片">'+
 					'<p><img class="img-number" src="/web/images/delete-img.png" alt="删除照片" title="删除照片" /></p>'+
 				'</li>';
 				$('.save-photo ul').append(addPhoto); 
 				photoNumber();
 				activityTabClass();
-				
-        })
+//				pictureInfo("photo_picIpt","insertImg")
+        },false)
     }
     $('#photo_picIpt').on('change', function () {
     	if($(".save-photo .img-number").length==9){
@@ -616,8 +615,16 @@ var activityType;
         var reader = new FileReader();
         reader.onload = function (e) {
             activityUpPhoto(reader.result, 'open-photo');
+            var image = new Image();
+            image.onload = function () {
+                var width = this.width;
+                var height = this.height;
+                $(".insertImg:last").attr("data-w",width);
+        		$(".insertImg:last").attr("data-h",height);
+            };
+            image.src = e.target.result;
         }
-        reader.readAsDataURL(this.files[0])
+        reader.readAsDataURL(this.files[0]);
         $('#photo_picIpt').val("");
     })
 
@@ -3091,3 +3098,25 @@ function initialization() {
         }
     });
 }
+
+
+//function pictureInfo(domId,imgDom) {
+//      var file = document.getElementById(domId);
+//      createReader(file.files[0], function (w, h) {
+//      	$("."+imgDom).attr("data-w",w);
+//      	$("."+imgDom).attr("data-h",h);
+//      });
+//  }
+//  createReader = function(file, whenReady) {
+//          var reader = new FileReader;
+//          reader.onload = function (evt) {
+//              var image = new Image();
+//              image.onload = function () {
+//                  var width = this.width;
+//                  var height = this.height;
+//                  if (whenReady) whenReady(width, height);
+//              };
+//              image.src = evt.target.result;
+//          };
+////          reader.readAsDataURL(file);
+//      }

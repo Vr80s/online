@@ -1267,7 +1267,7 @@ function rangeEcho(editRange){
 			longRange.endTime=$(".end-establish-time").val();
 		if(checkRange(longRange)){
 			$(".ruturn-edit-range").attr("disabled","disabled");
-			RequestJsonService("doctor/treatment/"+id,"PUT",JSON.stringify(longRange), function (data) {
+			RequestJsonService("/doctor/treatment/"+id,"PUT",JSON.stringify(longRange), function (data) {
 				if(data.success==true){
 					showTip("编辑成功");
 					$(".teaching-range").click();
