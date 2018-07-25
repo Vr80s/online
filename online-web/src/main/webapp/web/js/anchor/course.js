@@ -1052,6 +1052,7 @@ function courseCollectionList(current){
 }
 var collectionCourseList;
 function initCourse(multimediaType){
+
     RequestService("/anchor/course/getAllCourses?multimediaType="+multimediaType, "get", null, function(data) {
         var courses = data.resultObject;
         collectionCourseList = courses;
@@ -1079,7 +1080,8 @@ function addCourse2Collection(){
     if(csArr!=null && csArr!=undefined && csArr!="" && courseNumer!=null &&
         courseNumer!=undefined && courseNumer!=""  && 
         csArr.length > courseNumer){
-    	alert("选中的选集数大于总集数,请酌情更改!");
+//  	alert("选中的选集数大于总集数,请酌情更改!");
+		$(".course_null").removeClass("hide");
     	return;
     }
     courseArr = [];
@@ -1172,7 +1174,8 @@ function saveCollection(){
        collection.courseNumber!=null && collection.courseNumber!=undefined && 
        collection.courseNumber!="" && 
        collection.courseApplyInfos.length > collection.courseNumber){
-        alert("选中的选集数量大于总集数,请酌情更改!");
+//      alert("选中的选集数量大于总集数,请酌情更改!");
+		showTip("选中的选集数量大于总集数,请酌情更改!")
         return;
     }
     
@@ -1463,8 +1466,9 @@ function showPersonInf2(){
 
 
 function initCourseSelect(){
+	$(".course_null").addClass("hide");
     var csArr=[];
-    
+    		
     //添加 false
     var  isAddOrUpdate= false;
     if($("#collectionId").val()==null||$("#collectionId").val()==''){

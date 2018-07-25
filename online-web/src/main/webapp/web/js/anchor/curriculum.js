@@ -818,10 +818,12 @@ $(function() {
 
 	//新专辑,新增课程 
 	$(".new_box .size").click(function() {
-		$(".new_box").hide();
-		$("#zhuanji_bottom").hide();
-		$(".zhuanlan_top_one").hide();
-		$("#zhuanjis_bottom").show();
+//		$(".new_box").hide();
+//		$("#zhuanji_bottom").hide();
+//		$(".zhuanlan_top_one").hide();
+//		$("#zhuanjis_bottom").show();
+		$("#course_class").click();
+		$(".new_course").click();
 	});
 
 	//专辑

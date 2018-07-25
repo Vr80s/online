@@ -286,7 +286,6 @@ function autagain() {
 		if( data.success == true && data.resultObject != null){
             $('#AutList').removeClass('hide');
             $('#AutStatus').addClass('hide');
-            initEditor();
 			var result = data.resultObject;
 			//姓名
 			$('#AutList .doc_name').val(result.name);
@@ -315,9 +314,9 @@ function autagain() {
 			//擅长
 			$('#AutList .doc_shanchang').val(result.field);
 			//个人介绍 editor
-            UE.getEditor('editor').addListener('ready', function (editor) {
+//          UE.getEditor('editor').addListener('ready', function (editor) {
                 UE.getEditor('editor').setContent(result.description);
-            });
+//          });
 
 			//省份
 			for(var i = 0 ;i < $('#AutList #choosePro option').length ;i++){
