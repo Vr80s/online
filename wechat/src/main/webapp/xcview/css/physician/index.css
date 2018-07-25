@@ -382,3 +382,7 @@ header{
     white-space: nowrap;
 }
 
+#hot_title .physicians:first-child{
+    display: none;
+}
+
