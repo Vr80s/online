@@ -241,7 +241,7 @@ public class VideoResController extends AbstractController {
         treeMap.put("filename", fileName);
         treeMap.put("filesize", fileSize);
         treeMap.put("categoryid", categoryid);
-        treeMap.put("notify_url", "http://dev-www.xczhihui.com/videoRes/updateCourseApplyResource");
+        treeMap.put("notify_url", "http://dev-www.xczhihui.com/videoRes/updateCourseApplyResource?ccId="+ccId);
         treeMap.put("format", "json");
         String qs = APIServiceFunction.createQueryString(treeMap);
         //生成时间片
@@ -261,7 +261,7 @@ public class VideoResController extends AbstractController {
     @RequestMapping(value = "updateCourseApplyResource", method = RequestMethod.GET)
     public void updateCourseApplyResource( String ccId) {
 
-        courseApplyService.updateCourseApplyResource();
+        courseApplyService.updateCourseApplyResource(ccId);
         System.out.println("视频处理完成的回调+++++");
 
     }

@@ -29,7 +29,7 @@ public class CourseServiceImplTest extends BaseJunit4Test {
 
     @Test
     public void updateCourseApplyResource(String ccId) throws Exception {
-        service.updateCourseApplyResource();
+        service.updateCourseApplyResource(ccId);
     }
 
     @Test

@@ -38,7 +38,7 @@ public class DoctorQuestionController extends AbstractController {
                 selectDoctorQuestionByUserId(page,userId,isAnswer));
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.GET)
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
     public ResponseObject updateQuestion(DoctorQuestionVO doctorQuestionVO) {
         try {
             Integer  count = medicalDoctorQuestionService.updateQuestion(doctorQuestionVO);
