@@ -120,11 +120,14 @@ public class HostController {
 
         LOGGER.info("lecturerInfo" + lecturerInfo.toString());
         //1.医师2.医馆
-        if (lecturerInfo.get("type").toString().equals("1")) {
-            mha = medicalHospitalApplyService.getMedicalHospitalByMiddleUserId(lecturerId);
-        } else if (lecturerInfo.get("type").toString().equals("2")) {
-            mha = medicalHospitalApplyService.getMedicalHospitalByUserId(lecturerId);
-        }
+        
+          if ("1".equals(lecturerInfo.get("type"))) {
+              mha = medicalHospitalApplyService.getMedicalHospitalByMiddleUserId(lecturerId);
+          } else if ("2".equals(lecturerInfo.get("type"))) {
+              mha = medicalHospitalApplyService.getMedicalHospitalByUserId(lecturerId);
+          }
+  
+        
         //认证的主播 还是 医馆
         mapAll.put("hospital", mha);
 

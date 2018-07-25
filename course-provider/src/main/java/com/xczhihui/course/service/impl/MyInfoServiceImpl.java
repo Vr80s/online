@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.cfg.SecondaryTableSecondPass;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -130,7 +131,7 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper, OnlineUser> imp
         
         Map<String, String> mapHostInfo = myInfoMapper.findHostInfoById(userId);
 
-        if(mapHostInfo!=null && mapHostInfo.get("type").equals("1")){
+        if(mapHostInfo!=null && "1".equals(mapHostInfo.get("type"))){
             Map<String, String> mapDoctorInfo =   myInfoMapper.
                     selectDoctorHeadPortraitAndTitleByUserId(userId);
             //过滤下坐诊时间
@@ -145,9 +146,6 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper, OnlineUser> imp
         }
         return mapHostInfo;
     }
-    
-    
-    
 
     @Override
     public Map<String, Object> findDoctorInfoById(String userId) {
@@ -200,20 +198,17 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper, OnlineUser> imp
     
     public static void main(String[] args) {
         
-        Map<String,String> map = new HashMap<String,String>();
-        map.put("haha", "1");
-        map.put("lala", "1");
-        map.put("haha1", "1");
-        map.put("lala1", "1");
-        
-        Map<String,String> map1 = new HashMap<String,String>();
-        map1.put("haha1", "2");
-        map1.put("lala2", "2");
-        
-        map.putAll(map1);
-        
-        System.out.println(map.toString());
-        
+        if("1".equals(1)) {
+            System.out.println("11111111");
+        }else {
+            System.out.println("22222222222222");
+        }
+        Integer aInteger = 1;
+        if(aInteger.equals("1")) {
+            System.out.println("11111111");
+        }else {
+            System.out.println("22222222222222");
+        }
     }
     
 }

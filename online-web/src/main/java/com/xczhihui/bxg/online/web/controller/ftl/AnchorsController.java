@@ -205,9 +205,9 @@ public class AnchorsController extends AbstractFtlController {
 
         MedicalHospital mha = new MedicalHospital();
         //1.医师2.医馆
-        if (lecturerInfo.get("type").toString().equals("1")) {
+        if ("1".equals(lecturerInfo.get("type"))) {
             mha = medicalHospitalApplyService.getMedicalHospitalByMiddleUserId(userId);
-        } else if (lecturerInfo.get("type").toString().equals("2")) {
+        } else if ("2".equals(lecturerInfo.get("type"))) {
             mha = medicalHospitalApplyService.getMedicalHospitalByUserId(userId);
         }
         //认证的主播 还是 医馆
