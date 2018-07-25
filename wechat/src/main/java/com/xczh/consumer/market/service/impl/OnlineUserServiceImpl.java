@@ -130,11 +130,11 @@ public class OnlineUserServiceImpl implements OnlineUserService {
                 wxcpClientUserWxMapping.setUnionid(wxMpUser.getUnionId());
                 wxcpClientUserWxMappingMapper.insert(wxcpClientUserWxMapping);
                 return wxcpClientUserWxMapping;
-                
             } else if(m.getOpenid() ==null || !openId.equals(m.getOpenid())){
-                
                 m.setOpenid(openId);
                 wxcpClientUserWxMappingMapper.update(m);
+                return m;
+            }else {
                 return m;
             }
         } catch (Exception e) {
