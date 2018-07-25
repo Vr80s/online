@@ -14,6 +14,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.common.util.DateUtil;
 import com.xczhihui.common.util.SmsUtil;
 import com.xczhihui.common.util.enums.AppointmentStatus;
+import com.xczhihui.common.util.enums.IndexAppointmentStatus;
 import com.xczhihui.medical.doctor.mapper.RemoteTreatmentAppointmentInfoMapper;
 import com.xczhihui.medical.doctor.mapper.RemoteTreatmentMapper;
 import com.xczhihui.medical.doctor.model.Treatment;
@@ -114,22 +115,25 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
     }
 
     @Override
-    public List<TreatmentVO> listAppointment(String doctorId, boolean onlyUnAppointment) {
+    public List<TreatmentVO> listAppointment(String doctorId, boolean onlyUnAppointment, String accountId) {
         List<TreatmentVO> treatmentVOS = remoteTreatmentMapper.listByDoctorId(doctorId, onlyUnAppointment);
         SimpleDateFormat yearMonthDayDateFormat = new SimpleDateFormat("yyyy年MM月dd日");
         SimpleDateFormat hourMinuteFormat = new SimpleDateFormat("HH:mm");
         SimpleDateFormat monthDayDateFormat = new SimpleDateFormat("MM月dd日");
         treatmentVOS.forEach(treatmentVO -> {
-            Date date = treatmentVO.getDate();
-            Date startTime = treatmentVO.getStartTime();
-            Date endTime = treatmentVO.getEndTime();
-            if (date != null && startTime != null && endTime != null) {
-                String startTimeStr = hourMinuteFormat.format(startTime);
-                String endTimeStr = hourMinuteFormat.format(endTime);
-                treatmentVO.setDateText(yearMonthDayDateFormat.format(date) + " " + startTimeStr + "-" + endTimeStr);
-                treatmentVO.setIndexDateText((DateUtil.isCurrentYear(date) ? monthDayDateFormat.format(date) : yearMonthDayDateFormat.format(date)) + " " + DateUtil.getDayOfWeek(date) + " " + startTimeStr + "-" + endTimeStr);
+            handleDate(treatmentVO);
+            Integer status = treatmentVO.getStatus();
+            //已预约
+            if (status != AppointmentStatus.ORIGIN.getVal()) {
+                if (accountId == null || !treatmentVO.getUserId().equals(accountId)) {
+                    treatmentVO.setAppointStatus(IndexAppointmentStatus.FULL.getVal());
+                } else {
+                    treatmentVO.setAppointStatus(IndexAppointmentStatus.MY_APPOINT.getVal());
+                }
+            } else {
+                treatmentVO.setAppointStatus(IndexAppointmentStatus.ORIGIN.getVal());
             }
-            treatmentVO.setAppointed(treatmentVO.getStatus() != AppointmentStatus.ORIGIN.getVal());
+            treatmentVO.setAppointed(status != AppointmentStatus.ORIGIN.getVal());
         });
         return treatmentVOS;
     }
@@ -200,5 +204,28 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
         List<TreatmentVO> treatmentVOS = remoteTreatmentMapper.listPageByDoctorId(doctorId, treatmentVOPage);
         treatmentVOS.forEach(treatmentVO -> treatmentVO.setWeek(DateUtil.getDayOfWeek(treatmentVO.getDate())));
         return treatmentVOPage.setRecords(treatmentVOS);
+    }
+
+    @Override
+    public TreatmentVO getInfo(int id) {
+        TreatmentVO treatmentVO = remoteTreatmentMapper.findByInfoId(id);
+        handleDate(treatmentVO);
+        return treatmentVO;
+    }
+
+    private void handleDate(TreatmentVO treatmentVO) {
+        SimpleDateFormat yearMonthDayDateFormat = new SimpleDateFormat("yyyy年MM月dd日");
+        SimpleDateFormat hourMinuteFormat = new SimpleDateFormat("HH:mm");
+        SimpleDateFormat monthDayDateFormat = new SimpleDateFormat("MM月dd日");
+        Date date = treatmentVO.getDate();
+        Date startTime = treatmentVO.getStartTime();
+        Date endTime = treatmentVO.getEndTime();
+        if (date != null && startTime != null && endTime != null) {
+            String startTimeStr = hourMinuteFormat.format(startTime);
+            String endTimeStr = hourMinuteFormat.format(endTime);
+            treatmentVO.setDateText(yearMonthDayDateFormat.format(date) + " " + startTimeStr + "-" + endTimeStr);
+            treatmentVO.setIndexDateText((DateUtil.isCurrentYear(date) ? monthDayDateFormat.format(date) : yearMonthDayDateFormat.format(date))
+                    + " " + DateUtil.getDayOfWeek(date) + " " + startTimeStr + "-" + endTimeStr);
+        }
     }
 }
