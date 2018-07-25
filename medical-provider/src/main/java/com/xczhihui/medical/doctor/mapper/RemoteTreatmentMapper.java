@@ -49,7 +49,7 @@ public interface RemoteTreatmentMapper extends BaseMapper<Treatment> {
     @Select({"<script>select mt.id, mt.doctor_id as doctorId, mt.date as date, mt.start_time as startTime, mt.end_time as endTime," +
             " mt.create_time as createTime, mt.status, mt.info_id as infoId, mtai.user_id as userId " +
             " from medical_treatment mt left join medical_treatment_appointment_info mtai on mt.info_id = mtai.id" +
-            " where mt.deleted = false and mt.doctor_id = #{doctorId} and mt.date &gt;= curdate()" +
+            " where mt.deleted = false and mt.doctor_id = #{doctorId} and mt.date &gt; curdate()" +
             " <if test='onlyUnAppointment'>" +
             " and mt.status = 0" +
             " </if>" +
