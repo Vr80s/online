@@ -278,24 +278,35 @@ public class WeChatThirdPartyController {
     public void getCurrentWechatOpenIdCallback(HttpServletResponse res,
             HttpServletResponse response,@RequestParam String code, @RequestParam String url)
             throws Exception {
-        LOGGER.warn("middle/callback:code={}", code);
-        WxcpClientUserWxMapping wxw = onlineUserService.saveWxInfo(code);
-        if (wxw!=null && StringUtils.isNotBlank(wxw.getClient_id())) {
-            OnlineUser ou = onlineUserService.findUserById(wxw.getClient_id());
-            if (ou != null) {
-                Token t = userCenterService.loginThirdPart(ou.getLoginName(), TokenExpires.TenDay);
-                // 把用户中心的数据给他 这里im都要用到
-                ou.setUserCenterId(ou.getId());
-                ou.setTicket(t.getTicket());
-                UCCookieUtil.writeTokenCookie(res, t);
-            } else { //之前的bug引起的,需要用户在完善一次信息
-                wxw.setClient_id(null);
-                wxcpClientUserWxMappingService.update(wxw);
+        
+        try {
+            
+            LOGGER.warn("middle/callback:code={}", code);
+            WxcpClientUserWxMapping wxw = onlineUserService.saveWxInfo(code);
+            if (wxw!=null && StringUtils.isNotBlank(wxw.getClient_id())) {
+                OnlineUser ou = onlineUserService.findUserById(wxw.getClient_id());
+                if (ou != null) {
+                    Token t = userCenterService.loginThirdPart(ou.getLoginName(), TokenExpires.TenDay);
+                    // 把用户中心的数据给他 这里im都要用到
+                    ou.setUserCenterId(ou.getId());
+                    ou.setTicket(t.getTicket());
+                    UCCookieUtil.writeTokenCookie(res, t);
+                } else { //之前的bug引起的,需要用户在完善一次信息
+                    wxw.setClient_id(null);
+                    wxcpClientUserWxMappingService.update(wxw);
+                }
+            }else if(wxw!=null){
+                UCCookieUtil.clearTokenCookie(response);
             }
-        }else {
-            UCCookieUtil.clearTokenCookie(response);
+            UCCookieUtil.writeThirdPartyCookie(res, onlineUserService.buildThirdFlag(wxw));
+            res.sendRedirect(url);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            
+            res.sendRedirect(url);
         }
-        UCCookieUtil.writeThirdPartyCookie(res, onlineUserService.buildThirdFlag(wxw));
-        res.sendRedirect(url);
+        
+        
     }
 }
