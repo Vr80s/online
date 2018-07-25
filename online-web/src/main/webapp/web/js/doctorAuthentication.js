@@ -175,7 +175,13 @@ $(function(){
 					$('#tip').toggle();
 					setTimeout(function(){
 						$('#tip').toggle();
-						location.href="/doctors/authentication";
+						if (localStorage.AccountStatus==1) {
+							location.href="/doctors/my"
+						} else{
+							location.href="/doctors/authentication";
+						}
+						
+
 					},2000)
 				}
 		})
