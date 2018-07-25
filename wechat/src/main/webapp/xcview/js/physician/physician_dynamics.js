@@ -819,6 +819,9 @@ function apprenticeInfo() {
                 $(".therapy").show();
                 // 预约
                 $('.subscribe_id').html(template('subscribe_id', {items: data.resultObject.treatments}));
+                
+
+
                 // ceshi();
                 // alert(data.resultObject.treatments.indexDateText);
                 /*var aaa = $(".subscribe_time").html();
@@ -968,6 +971,18 @@ function order(id){
             }else{
                 location.href ='/xcview/html/physician/reserve_information.html?doctor='+doctorId+'&dataId='+id+''
             }
+
+        }
+    });
+};
+
+// 点击我的预约
+function orders(id){
+    
+    requestGetService("/doctor/treatment/appointmentInfo",{id:id},function (data) {
+        if (data.success == true) {
+           
+            location.href ='/xcview/html/physician/my_bookings.html?id='+id;
 
         }
     });

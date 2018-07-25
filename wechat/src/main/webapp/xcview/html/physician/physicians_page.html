@@ -999,10 +999,12 @@
 				{{each items as item i}} 
 				<div class="subscribe">
 					<div class="subscribe_time" data-id="{{item.id}}">{{item.indexDateText}}</div>
-					{{if item.appointed == true}}
-						<div class="subscribe_btns">已预约</div>
-					{{else}}
-						<div class="subscribe_btn" onclick="order('{{item.id}}')">预约</div>
+					{{if item.appointStatus == 0}}
+						<div class="subscribe_btn" onclick="order('{{item.id}}')">可预约</div>
+					{{else if item.appointStatus == 1}}
+						<div class="subscribe_btns">预约满</div>
+					{{else if item.appointStatus == 2}}
+						<div class="subscribe_btns" onclick="orders('{{item.id}}')" style="background: #F9BD2C;">我的预约</div>
 					{{/if}}
 				</div>
 				{{/each}}
