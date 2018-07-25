@@ -2572,15 +2572,18 @@
 		
 //		    只显示年远程诊疗
 		     $("#range-year").jeDate({
-		        format: "YYYY-MM-DD"
+		        format: "YYYY-MM-DD",
+		        minDate:getNowFormatDate()
 		   	});
 //		  只显示时分秒（hh:mm:ss）格式
 			$(".start-establish-time").jeDate({
 		       format:"hh:mm:ss"
+
 		   	});
 //		    只显示时分秒（hh:mm:ss）格式
 			$(".end-establish-time").jeDate({
 		       format:"hh:mm:ss"
+
 		   	});
 		});
 		//获取当前时间

@@ -787,8 +787,8 @@ function apprenticeInfo() {
                 var id=$(this).attr("data-ids");
                 var tokenStr=$(this).attr("data-tokenStr");
                 location.href ='/xcview/html/apprentice/inherited_introduction.html?merId='+id;
-            });
-            // 获取判断是否提交申请弟子信息  师承底部判断是否提交
+            });  //    '/xcview/html/physician/physician_list.html?queryKey='+search_val+'&curriculum_blck=2';
+            // 获取判断是否提交申请弟子信息  
             $('.disciple_application_state').html(template('disciple_application_state_id', {items: data.resultObject}));
             // 判断--老师解惑--时隐藏
             if (isBlank(data.resultObject.questions)) {

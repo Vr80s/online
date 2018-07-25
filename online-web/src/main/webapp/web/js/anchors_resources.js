@@ -453,8 +453,8 @@ var activityType;
 //	获取图片宽、高
 	function getPicter(){		
 		$('.insertImg').each(function(index){
-				naturalWidth[index] = $(this)[0].naturalWidth;
-   				naturalHeight[index] =$(this)[0].naturalHeight;			
+				naturalWidth[index] = $(this).attr("data-w");
+   				naturalHeight[index] =$(this).attr("data-h");			
 		})
 	}
 
@@ -588,8 +588,8 @@ var activityType;
 				$('.save-photo ul').append(addPhoto); 
 				photoNumber();
 				activityTabClass();
-//				pictureInfo("photo_picIpt",imgname)
-        })
+//				pictureInfo("photo_picIpt","insertImg")
+        },false)
     }
     $('#photo_picIpt').on('change', function () {
     	if($(".save-photo .img-number").length==9){
@@ -613,9 +613,16 @@ var activityType;
             return false;
         }
         var reader = new FileReader();
-        $('#photo_picIpt').val("");
         reader.onload = function (e) {
             activityUpPhoto(reader.result, 'open-photo');
+            var image = new Image();
+            image.onload = function () {
+                var width = this.width;
+                var height = this.height;
+                $(".insertImg:last").attr("data-w",width);
+        		$(".insertImg:last").attr("data-h",height);
+            };
+            image.src = e.target.result;
         }
         reader.readAsDataURL(this.files[0]);
         $('#photo_picIpt').val("");
@@ -3096,8 +3103,8 @@ function initialization() {
 //function pictureInfo(domId,imgDom) {
 //      var file = document.getElementById(domId);
 //      createReader(file.files[0], function (w, h) {
-//      	$("#"+domId).attr("data-w",w);
-//      	$("#"+domId).attr("data-h",h);
+//      	$("."+imgDom).attr("data-w",w);
+//      	$("."+imgDom).attr("data-h",h);
 //      });
 //  }
 //  createReader = function(file, whenReady) {
@@ -3111,5 +3118,5 @@ function initialization() {
 //              };
 //              image.src = evt.target.result;
 //          };
-//          reader.readAsDataURL(file);
+////          reader.readAsDataURL(file);
 //      }
