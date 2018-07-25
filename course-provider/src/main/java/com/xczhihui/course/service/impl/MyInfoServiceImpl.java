@@ -132,7 +132,7 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper, OnlineUser> imp
         
         Map<String, Object> mapHostInfo = myInfoMapper.findHostInfoById(userId);
         
-        if(mapHostInfo!=null && "1".equals(mapHostInfo.get("type"))){
+        if(mapHostInfo!=null && "1".equals(mapHostInfo.get("type").toString())){
             
             Map<String, String> mapDoctorInfo =   myInfoMapper.
                     selectDoctorHeadPortraitAndTitleByUserId(userId);

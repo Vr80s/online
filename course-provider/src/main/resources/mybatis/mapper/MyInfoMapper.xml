@@ -238,7 +238,7 @@
             md.title as title,
             md.description as detail,
             md.work_time as workTime,
-            mdai.head_portrait headPortrait
+            mdai.head_portrait small_head_photo
          from medical_doctor md    
             inner join  medical_doctor_account mda
             on md.id  = mda.doctor_id  

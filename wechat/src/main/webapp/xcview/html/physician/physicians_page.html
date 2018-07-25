@@ -958,6 +958,8 @@
 	            	</script>
 
 				</ul>
+				<div class="more_live_lesson">查看更多直播课</div>
+				<!-- <div class="more_live_lesson_no">点击收起</div> --> <!-- 直播课加载完后点击收起成开始状态 -->
 			</div>
 			<!-- 直播课程结束 -->		</div>
 		<!-- 直播间展示结束 -->
@@ -997,10 +999,12 @@
 				{{each items as item i}} 
 				<div class="subscribe">
 					<div class="subscribe_time" data-id="{{item.id}}">{{item.indexDateText}}</div>
-					{{if item.appointed == true}}
-						<div class="subscribe_btns">已预约</div>
-					{{else}}
-						<div class="subscribe_btn" onclick="order('{{item.id}}')">预约</div>
+					{{if item.appointStatus == 0}}
+						<div class="subscribe_btn" onclick="order('{{item.id}}')">可预约</div>
+					{{else if item.appointStatus == 1}}
+						<div class="subscribe_btns">预约满</div>
+					{{else if item.appointStatus == 2}}
+						<div class="subscribe_btns" onclick="orders('{{item.id}}')" style="background: #F9BD2C;">我的预约</div>
 					{{/if}}
 				</div>
 				{{/each}}
@@ -1050,7 +1054,9 @@
 					</script>
 
 				</ul>
+
 			</div> 
+
 		</div>
 		<!-- 跟师课程结束 -->
 
@@ -1075,7 +1081,7 @@
 						<!-- <img src="{{item.userImg}}" alt="" class="QA_doubt_img" />-->
 						<div class="QA_doubt_main">
 							<!--<img src="/xcview/images/QA_doubt.png" alt="" class="QA_doubt_main_img" />-->
-							<span>问</span>{{item.question}}
+							<span class="QA_doubt_main_asking">问</span><span class="QA_doubt_main_reply">{{item.question}}</span>
 						</div>
 						<div class="both"></div>
 					</div>
@@ -1087,7 +1093,7 @@
 							{{if item.answer == null || item.answer == ''}}
 								<span>暂未回答该问题</span>
 							{{else}}
-								{{item.answer}}
+								<span class="QA_doubt_main_replys">{{item.answer}}</span>
 							{{/if}}
 						</div>
 						<div class="both"></div>

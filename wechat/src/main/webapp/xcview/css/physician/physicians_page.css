@@ -2461,7 +2461,7 @@ margin-top: 0.015rem;
     padding-bottom: 0.1rem;
     border-bottom: 1px solid #f0f0f0;
 }
-.QA_doubt_main span{
+.QA_doubt_main .QA_doubt_main_asking{
 	display: initial;
     font-size: 0.24rem;
     color: #F97B49;
@@ -2797,7 +2797,7 @@ margin-top: 0.015rem;
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 1;
+    z-index: 9;
     display: none;
 }
 .order_tips_bg{
@@ -2939,4 +2939,17 @@ margin-top: 0.015rem;
 .disciple_welfare p{
 	font-size: 0.26rem;
     color: #666;
+}
+
+.more_live_lesson{
+	font-size: 0.28rem;
+    text-align: center;
+    width: 100%;
+    color: #999;
+}
+.more_live_lesson_no{
+	font-size: 0.28rem;
+    text-align: center;
+    width: 100%;
+    color: #999;
 }
