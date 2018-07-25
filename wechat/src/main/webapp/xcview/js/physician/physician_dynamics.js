@@ -797,6 +797,19 @@ function apprenticeInfo() {
                 $(".QA_main").show();
                 // 医师问答列表
                 $('.QA_main').html(template('QA_main_id', {items: data.resultObject.questions}));
+                /*var txt=$('.QA_doubt_main_reply').html();
+                txts=txt.replace('\n','<br>')
+                $('.QA_doubt_main_reply').html(txts);*/
+                // 提问处理回车
+                var txts = $('.QA_doubt_main_reply').html();
+                txts=txts.replace(/[\n\r]/g,'<br>')
+                $('.QA_doubt_main_reply').html(txts);
+
+                // 回答处理回车
+                var txt = $('.QA_doubt_main_replys').html();
+                txt=txt.replace(/[\n\r]/g,'<br>')
+                $('.QA_doubt_main_replys').html(txt);
+
             }
 
             // 判断预约

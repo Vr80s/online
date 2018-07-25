@@ -958,6 +958,8 @@
 	            	</script>
 
 				</ul>
+				<div class="more_live_lesson">查看更多直播课</div>
+				<!-- <div class="more_live_lesson_no">点击收起</div> --> <!-- 直播课加载完后点击收起成开始状态 -->
 			</div>
 			<!-- 直播课程结束 -->		</div>
 		<!-- 直播间展示结束 -->
@@ -1050,7 +1052,9 @@
 					</script>
 
 				</ul>
+
 			</div> 
+
 		</div>
 		<!-- 跟师课程结束 -->
 
@@ -1075,7 +1079,7 @@
 						<!-- <img src="{{item.userImg}}" alt="" class="QA_doubt_img" />-->
 						<div class="QA_doubt_main">
 							<!--<img src="/xcview/images/QA_doubt.png" alt="" class="QA_doubt_main_img" />-->
-							<span>问</span>{{item.question}}
+							<span class="QA_doubt_main_asking">问</span><span class="QA_doubt_main_reply">{{item.question}}</span>
 						</div>
 						<div class="both"></div>
 					</div>
@@ -1087,7 +1091,7 @@
 							{{if item.answer == null || item.answer == ''}}
 								<span>暂未回答该问题</span>
 							{{else}}
-								{{item.answer}}
+								<span class="QA_doubt_main_replys">{{item.answer}}</span>
 							{{/if}}
 						</div>
 						<div class="both"></div>
