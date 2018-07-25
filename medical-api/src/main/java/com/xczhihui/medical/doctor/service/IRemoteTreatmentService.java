@@ -50,9 +50,10 @@ public interface IRemoteTreatmentService {
      *
      * @param doctorId          doctorId
      * @param onlyUnAppointment onlyUnAppointment
+     * @param accountId         accountId
      * @return
      */
-    List<TreatmentVO> listAppointment(String doctorId, boolean onlyUnAppointment);
+    List<TreatmentVO> listAppointment(String doctorId, boolean onlyUnAppointment, String accountId);
 
     /**
      * 更新审核预约的状态
@@ -78,4 +79,12 @@ public interface IRemoteTreatmentService {
      * @return
      */
     Page<TreatmentVO> list(String doctorId, int page, int size);
+
+    /**
+     * 获取预约信息
+     *
+     * @param id id
+     * @return
+     */
+    TreatmentVO getInfo(int id);
 }

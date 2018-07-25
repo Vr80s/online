@@ -120,11 +120,14 @@ public class HostController {
 
         LOGGER.info("lecturerInfo" + lecturerInfo.toString());
         //1.医师2.医馆
-        if (lecturerInfo.get("type").toString().equals("1")) {
-            mha = medicalHospitalApplyService.getMedicalHospitalByMiddleUserId(lecturerId);
-        } else if (lecturerInfo.get("type").toString().equals("2")) {
-            mha = medicalHospitalApplyService.getMedicalHospitalByUserId(lecturerId);
-        }
+        
+          if ("1".equals(lecturerInfo.get("type"))) {
+              mha = medicalHospitalApplyService.getMedicalHospitalByMiddleUserId(lecturerId);
+          } else if ("2".equals(lecturerInfo.get("type"))) {
+              mha = medicalHospitalApplyService.getMedicalHospitalByUserId(lecturerId);
+          }
+  
+        
         //认证的主播 还是 医馆
         mapAll.put("hospital", mha);
 
@@ -188,7 +191,7 @@ public class HostController {
         apprenticeData.put("questions", medicalDoctorQuestionService.selectQuestionByDoctorId(new Page<>(1, 100), doctorId).getRecords());
         apprenticeData.put("apprentices", enrolService.findApprenticesByDoctorId(doctorId).stream().map(SimpleUserVO::getSmallHeadPhoto).collect(Collectors.toList()));
         MedicalDoctorAccount doctorAccount = medicalDoctorBusinessService.getByDoctorId(doctorId);
-        String userId = accountIdOpt.isPresent() ? accountIdOpt.get() : null;
+        String userId = accountIdOpt.orElse(null);
         if (doctorAccount != null) {
             apprenticeData.put("apprenticeCourses", courseService.selectTeachingCoursesByUserId(new Page<CourseLecturVo>(1, 100),doctorAccount.getAccountId(),userId));
         } else {
@@ -197,7 +200,7 @@ public class HostController {
         apprenticeData.put("settings", enrolService.findSettingsByDoctorId(doctorId));
         apprenticeData.put("onlineApprenticeStatus", accountIdOpt.map(accountId -> enrolService.getOnlineApprenticeStatus(doctorId, accountId))
                 .orElse(OnlineApprenticeStatus.NOT_APPLY.getVal()));
-        apprenticeData.put("treatments", remoteTreatmentService.listAppointment(doctorId, false));
+        apprenticeData.put("treatments", remoteTreatmentService.listAppointment(doctorId, false, userId));
         return ResponseObject.newSuccessResponseObject(apprenticeData);
     }
 
