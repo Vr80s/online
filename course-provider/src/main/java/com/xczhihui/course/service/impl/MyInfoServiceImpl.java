@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xczhihui.common.util.XzStringUtils;
+import com.xczhihui.common.util.enums.AnchorType;
 import com.xczhihui.common.util.enums.UserSex;
 import com.xczhihui.course.exception.UserInfoException;
 import com.xczhihui.course.mapper.CourseMapper;
@@ -121,17 +122,18 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper, OnlineUser> imp
     }
 
     @Override
-    public Map<String, String> findHostInfoById(String userId) {
+    public Map<String, Object> findHostInfoById(String userId) {
         
         return myInfoMapper.findHostInfoById(userId);
     }
 
     @Override
-    public Map<String, String> findHostInfoByIdProbablyPhysician(String userId) {
+    public Map<String, Object> findHostInfoByIdProbablyPhysician(String userId) {
         
-        Map<String, String> mapHostInfo = myInfoMapper.findHostInfoById(userId);
-
-        if(mapHostInfo!=null && "1".equals(mapHostInfo.get("type"))){
+        Map<String, Object> mapHostInfo = myInfoMapper.findHostInfoById(userId);
+        
+        if(mapHostInfo!=null && "1".equals(mapHostInfo.get("type").toString())){
+            
             Map<String, String> mapDoctorInfo =   myInfoMapper.
                     selectDoctorHeadPortraitAndTitleByUserId(userId);
             //过滤下坐诊时间
@@ -144,6 +146,7 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper, OnlineUser> imp
             }        
             mapHostInfo.putAll(mapDoctorInfo);
         }
+       
         return mapHostInfo;
     }
 

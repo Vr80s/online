@@ -90,7 +90,7 @@ public interface MyInfoMapper extends BaseMapper<OnlineUser> {
      * @param userId
      * @return
      */
-    Map<String, String> findHostInfoById(@Param("userId") String userId);
+    Map<String, Object> findHostInfoById(@Param("userId") String userId);
 
     /**
      * 医师基本信息
