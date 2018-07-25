@@ -92,19 +92,27 @@ public class CoreMessageServiceImpl implements CoreMessageService {
 
                     LOGGER.info("获取的微信数据~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + jsonObject.toString());
                     String openid_ = (String) jsonObject.get("openid");
-                    WxcpClientUserWxMapping m = wxcpClientUserWxMappingService.getWxcpClientUserWxMappingByOpenId(openid_);
+                    
+                    LOGGER.warn("啦啦啦啦，听说可以说去到uniondId:::::"+jsonObject.get("openid"));
+                    
+                    String unionid = (String) jsonObject.get("unionid");
+                    
+                    //WxcpClientUserWxMapping m = wxcpClientUserWxMappingService.getWxcpClientUserWxMappingByOpenId(openid_);
+                    
+                    WxcpClientUserWxMapping m = wxcpClientUserWxMappingService.getWxcpClientUserByUnionId(unionid);
+                    
                     LOGGER.info("~~~is exit " + m);
                     if (null == m) {
-
-                        WxcpClientUserWxMapping wxcpClientUserWxMapping =
-                                new WxcpClientUserWxMapping(jsonObject);
-
+                        WxcpClientUserWxMapping wxcpClientUserWxMapping =  new WxcpClientUserWxMapping(jsonObject);
                         wxcpClientUserWxMappingService.insert(wxcpClientUserWxMapping);
-
                     } else if (m != null && (qr_scene != null || qr_scene_str != null)) {
 
                         m.bulidUpdate(jsonObject);
+                        if(m.getOpenid() ==null || !openid_.equals(m.getOpenid())) {
+                            m.setOpenid(openid_);
+                        }
                         wxcpClientUserWxMappingService.update(m);
+                        
                     }
 
                     newsMessage.setMsgType(MessageConstant.RESP_MESSAGE_TYPE_NEWS);

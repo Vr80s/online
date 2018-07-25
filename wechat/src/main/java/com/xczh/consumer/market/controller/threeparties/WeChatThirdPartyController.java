@@ -151,7 +151,7 @@ public class WeChatThirdPartyController {
 
     /**
      * Description：app端第三方登录 ---绑定手机号使用
-     *
+     *      app 微信第三方登录，不保存openId信息，没啥用。因为openId对于公众号更有用
      * @param req
      * @param res
      * @param accessToken
@@ -183,7 +183,6 @@ public class WeChatThirdPartyController {
                 return ResponseObject.newErrorResponseObject("用户已绑定过微信号");
             }
         }
-
 
         Map<String, String> mapRequest = new HashMap<String, String>();
         mapRequest.put("type", ThirdPartyType.WECHAT.getCode() + "");

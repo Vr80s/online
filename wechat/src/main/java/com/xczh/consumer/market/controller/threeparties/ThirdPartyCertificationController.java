@@ -108,8 +108,8 @@ public class ThirdPartyCertificationController {
 
                 if (m == null) {
                     return ResponseObject.newErrorResponseObject
-                            (CommonEnumsType.WEIBO_USERINFO_NOFOUND.getText(),
-                                    CommonEnumsType.WEIBO_USERINFO_NOFOUND.getCode());
+                            (CommonEnumsType.WECHAT_USERINFO_NOFOUND.getText(),
+                                    CommonEnumsType.WECHAT_USERINFO_NOFOUND.getCode());
                 }
                 m.setClient_id(ou.getId());
                 wxcpClientUserWxMappingService.update(m);

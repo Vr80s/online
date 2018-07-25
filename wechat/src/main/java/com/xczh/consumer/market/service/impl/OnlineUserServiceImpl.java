@@ -110,8 +110,7 @@ public class OnlineUserServiceImpl implements OnlineUserService {
             String nickname = wxMpUser.getNickname();
             String openId = wxMpUser.getOpenId();
             WxcpClientUserWxMapping m = wxcpClientUserWxMappingMapper.getWxcpClientUserByUnionId(wxMpUser.getUnionId());
-
-            if (null == m) {
+            if (null == m ) {
                 WxcpClientUserWxMapping wxcpClientUserWxMapping = new WxcpClientUserWxMapping();
                 wxcpClientUserWxMapping.setWx_id(CodeUtil.getRandomUUID());
                 wxcpClientUserWxMapping.setWx_public_id(wxMpConfigStorage.getAppId());
@@ -131,7 +130,11 @@ public class OnlineUserServiceImpl implements OnlineUserService {
                 wxcpClientUserWxMapping.setUnionid(wxMpUser.getUnionId());
                 wxcpClientUserWxMappingMapper.insert(wxcpClientUserWxMapping);
                 return wxcpClientUserWxMapping;
-            } else {
+                
+            } else if(m.getOpenid() ==null || !openId.equals(m.getOpenid())){
+                
+                m.setOpenid(openId);
+                wxcpClientUserWxMappingMapper.update(m);
                 return m;
             }
         } catch (Exception e) {
