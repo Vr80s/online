@@ -17,10 +17,9 @@ import com.xczhihui.course.service.IMyInfoService;
 
 
 /**
- * ClassName: GiftController.java <br>
- * Description: 礼物打赏接口<br>
- * Create by: name：yuxin <br>email: yuruixin@ixincheng.com <br>
- * Create Time: 2017年8月16日<br>
+ * 获取主播详情
+ * @author yangxuan
+ *
  */
 @RestController
 @RequestMapping(value = "/host")

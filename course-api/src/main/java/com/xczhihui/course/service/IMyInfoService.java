@@ -70,13 +70,12 @@ public interface IMyInfoService {
 
     /**
      * 查询主播信息
-     *
+     *  不包含坐诊时间
      * @param userId
      * @return
      */
     Map<String, Object> findHostInfoById(String userId);
 
-    Map<String, Object> findHostInfoById(String userId, Boolean falg);
 
     Map<String, Object> findDoctorInfoById(String userId);
 
@@ -96,5 +95,13 @@ public interface IMyInfoService {
      * @param boolean1
      * @return
      */
-    Map<String, Object> selectUserHomePageData(Object object, String lecturerId, Boolean boolean1);
+    Map<String, Object> selectUserHomePageData(String userId, String lecturerId, Boolean boolean1);
+
+    /**
+     * 通过用户信息获取主播信息，但是如果主播是医师的化，部分字段替换为医师简介
+     *    包括坐诊时间
+     * @param userId
+     * @return
+     */
+    Map<String, Object> findHostInfoByIdProbablyPhysician(String userId);
 }

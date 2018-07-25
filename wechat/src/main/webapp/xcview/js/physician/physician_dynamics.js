@@ -696,7 +696,6 @@ function doctorCourses(data){
         });
 }
 //判断医师是否具有主播权限
-
 function doctorStatus() {
     requestService("/xczh/doctors/doctorStatus", {doctorId:doctorId},function (data) {  //一、获取是否医师权限。
         if (data.success == true) {
@@ -788,8 +787,8 @@ function apprenticeInfo() {
                 var id=$(this).attr("data-ids");
                 var tokenStr=$(this).attr("data-tokenStr");
                 location.href ='/xcview/html/apprentice/inherited_introduction.html?merId='+id;
-            });
-            // 获取判断是否提交申请弟子信息  师承底部判断是否提交
+            });  //    '/xcview/html/physician/physician_list.html?queryKey='+search_val+'&curriculum_blck=2';
+            // 获取判断是否提交申请弟子信息  
             $('.disciple_application_state').html(template('disciple_application_state_id', {items: data.resultObject}));
             // 判断--老师解惑--时隐藏
             if (isBlank(data.resultObject.questions)) {
@@ -858,10 +857,19 @@ function apprenticeInfo() {
 
             if (isNotBlank(data.resultObject.settings)) {
                 // 如何成为弟子
-                $('.become_disciple_cen_id').html(template('become_disciple_cen_id', {items: data.resultObject.settings}));
-                $('.become_disciple_cen_ids').html(template('become_disciple_cen_ids', {items: data.resultObject.settings}));
+                //$('.become_disciple_cen_id').html(template('become_disciple_cen_id', {items: data.resultObject.settings}));
+                //$('.become_disciple_cen_ids').html(template('become_disciple_cen_ids', {items: data.resultObject.settings}));
+                // 如何成为弟子
+                var requirement = data.resultObject.settings.requirement;
+                $(".a_disciple").html(requirement);
+                // 弟子福利
+                var welfare = data.resultObject.settings.welfare;
+                $(".disciple_welfare").html(welfare);
             } else{
-                $(".become_disciple").hide();
+                $(".a_disciple").html("提交申请后，资格审核通过即可与老师在线面谈，面谈结束由老师决定是否收为弟子。");
+                $(".disciple_welfare_one").html("1、系统学习老师精心设计的整套课程；");
+                $(".disciple_welfare_two").html("2、在线零距离求知问道；");
+                $(".disciple_welfare_three").html("3、多媒体全方位在线跟师；");
             }
         }
     });

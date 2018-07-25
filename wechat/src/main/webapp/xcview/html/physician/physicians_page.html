@@ -164,7 +164,7 @@
 		.minirefresh-theme-default .minirefresh-upwrap{
 			height: 1rem;
 			max-height: 0.5rem;
-			/*line-height: 1rem;*/
+			line-height: 0.6rem;
 			padding: 0;
 			/*margin-top: -0.5rem;*/
 		}
@@ -542,7 +542,7 @@
 								<li>
 									<div class="am-gallery-item">
 										<a href="{{pic.imgUrl}}" class="">
-											<img src="{{pic.imgUrl}}" />
+											<img src="{{pic.imgUrl}}?imageMogr2/thumbnail/!226x226r|imageMogr2/gravity/Center/crop/226x226" />
 										</a>
 									</div>
 								</li>
@@ -568,7 +568,7 @@
 					<div id="ccvideo{{item.id}}" data-id="{{item.id}}"class="comment_hide ccvideo">
 						
 					</div>
-					<img src="{{item.coverImg}}" class="ccvideo_img ccvideo{{item.id}}" />
+					<img src="{{item.coverImg}}?imageMogr2/thumbnail/!699x394r|imageMogr2/gravity/Center/crop/699x394" class="ccvideo_img ccvideo{{item.id}}" />
 					<div class="both"></div>
 				</div>
 				
@@ -579,7 +579,7 @@
 					</div>
 					{{if item.articleStatus == 1}}
 						<div class="article_nav_cen comment_hide">
-							<img src="{{item.articleImgPath}}" alt="" />
+							<img src="{{item.articleImgPath}}?imageMogr2/thumbnail/!249x140r|imageMogr2/gravity/Center/crop/249x140" alt="" />
 							<div class="article_nav_cen_size">{{item.articleTitle}}</div>
 						</div>
 					{{else}}
@@ -972,7 +972,7 @@
 			{{each items as item i}} 
 			<div class="prose_origin_details" data-ids="{{item.id}}">
 				<div class="prose_origin_details_center">
-					<img src="{{item.coverImg}}" alt="" />
+					<img src="{{item.coverImg}}?imageMogr2/thumbnail/!698x396r|imageMogr2/gravity/Center/crop/698x396" alt="" />
 					<div class="prose_origin_main_fize">
 						<div class="prose_origin_main_title">{{item.title}}</div>
 						<div class="prose_origin_main_time">{{item.createTime}}</div>
@@ -1131,15 +1131,15 @@
 				<div class="become_disciple_main">
 					<div class="become_disciple_title">如何成为弟子</div>
 					<div class="become_disciple_cen_id">
-						<script type="text/html" id="become_disciple_cen_id">
-						<div class="become_disciple_cen">{{items.requirement}}</div>
-						</script>
+						<div class="become_disciple_cen a_disciple"></div>
 					</div>
 					<div class="become_disciple_title" style="margin-top:0.1rem;">弟子福利</div>
 					<div class="become_disciple_cen_ids">
-						<script type="text/html" id="become_disciple_cen_ids">
-						<div class="become_disciple_cen">{{items.welfare}}</div>
-						</script>
+						<div class="become_disciple_cen disciple_welfare">
+							<p class="disciple_welfare_one"></p>
+							<p class="disciple_welfare_two"></p>
+							<p class="disciple_welfare_three"></p>
+						</div>
 					</div>
 				
 				</div>
@@ -1230,10 +1230,11 @@
 		</div>
 
 	</div>
-	<div class="commonality_height" style="width: 100%;height:0.72rem;"></div>
+	
 	<!-- 介绍结束 -->
 
 	</div>
+	<div class="commonality_height" style="width: 100%;height:0.9rem;"></div>
 	<!-- 点击全部动态=显示筛看开始 -->
 
 		</div>
@@ -1340,12 +1341,12 @@
 <div class="disciple_application_state">
 	<script type="text/html" id="disciple_application_state_id">
 		{{if items.onlineApprenticeStatus == 1 || items.onlineApprenticeStatus == 3}}
-		<div class="disciple_application" onclick="location.href ='/xcview/html/physician/apply_for.html?doctor='+doctorId">在线弟子申请加入</div>
+		<div class="disciple_application_states">
+			<div class="disciple_application" onclick="location.href ='/xcview/html/physician/apply_for.html?doctor='+doctorId">在线弟子申请加入</div></div>
 		{{else if items.onlineApprenticeStatus == 2}}
-			<div class="disciple_application" onclick="location.href ='/xcview/html/physician/application_approved.html?doctor='+doctorId">申请已提交</div>
+			<div class="disciple_application_states"><div class="disciple_application" onclick="location.href ='/xcview/html/physician/application_approved.html?doctor='+doctorId">申请已提交，查看信息</div></div>
 		{{else if items.onlineApprenticeStatus == 4}}
-			<div class="disciple_application" style="display: none;">申请已提交</div>
-
+			<!--<div class="disciple_application_states"><div class="disciple_application" styles="display: none;">申请已提交</div></div>-->
 		{{/if}}
 	</script>
 </div>

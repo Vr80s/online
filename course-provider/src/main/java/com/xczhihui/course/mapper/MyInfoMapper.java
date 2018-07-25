@@ -118,4 +118,6 @@ public interface MyInfoMapper extends BaseMapper<OnlineUser> {
     Map<String, Object> findHostTypeByUserId(String id);
 
     Map<String, String> selectDoctorHeadPortraitAndByUserId(@Param("userId")String userId);
+    
+    Map<String, String> selectDoctorHeadPortraitAndTitleByUserId(@Param("userId")String userId);
 }
