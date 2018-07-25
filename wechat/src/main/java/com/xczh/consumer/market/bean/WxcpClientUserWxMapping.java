@@ -174,13 +174,18 @@ public class WxcpClientUserWxMapping implements Serializable {
 
     }
 
+    /**
+     * 不保存来自app的openId
+     * @param wxMpUser
+     */
     public WxcpClientUserWxMapping(WxMpUser wxMpUser) {
 
         this.setWx_id(CodeUtil.getRandomUUID());
         this.setWx_public_id(WxPayConst.gzh_appid);
         this.setWx_public_name(WxPayConst.appid4name);
 
-        this.setOpenid(wxMpUser.getOpenId());
+        //this.setOpenid(wxMpUser.getOpenId());
+        
         this.setNickname(wxMpUser.getNickname());
         this.setSex(String.valueOf(wxMpUser.getSex()));
         this.setLanguage(wxMpUser.getLanguage());

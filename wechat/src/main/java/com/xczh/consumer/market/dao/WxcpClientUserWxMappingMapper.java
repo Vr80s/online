@@ -53,6 +53,9 @@ public class WxcpClientUserWxMappingMapper extends BasicSimpleDao {
      * @throws SQLException
      */
     public WxcpClientUserWxMapping getWxcpClientUserWxMappingInfo(String client_id, String openid, String wx_public_id) throws SQLException {
+        if(openid == null ) {
+            return null;
+        }
         if (client_id != null) {
             String sql = "select * from wxcp_client_user_wx_mapping where client_id = ? and deleted = 0 ";
             Object params[] = {client_id};
