@@ -43,7 +43,7 @@ public class HostController extends AbstractController {
     public ResponseObject getHostInfoById(HttpServletRequest request, String lecturerId) {
 
         Map<String, Object> mapAll = new HashMap<String, Object>();
-        Map<String, String> lecturerInfo = myInfoService.findHostInfoById(lecturerId);
+        Map<String, Object> lecturerInfo = myInfoService.findHostInfoById(lecturerId);
         mapAll.put("lecturerInfo", lecturerInfo);          //讲师基本信息
         List<Integer> listff = focusService.selectFocusOrFansCountOrCriticizeCount(lecturerId);
         mapAll.put("fansCount", listff.get(0));           //粉丝总数

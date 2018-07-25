@@ -149,7 +149,7 @@
                                     <span>址：</span>
                                 </p>
                                 <p class="address-text z">
-                                ${hospital.province?default("")}${hospital.city?default("")}${hospital.detailedAddress}
+                                    ${hospital.province?default("")}${hospital.city?default("")}${hospital.detailedAddress?default("")}
                                 </p>
                             </#if>
                         </div>

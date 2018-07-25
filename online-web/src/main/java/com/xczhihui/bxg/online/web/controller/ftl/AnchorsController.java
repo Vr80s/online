@@ -20,6 +20,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.common.util.CourseUtil;
 import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.common.util.enums.AnchorType;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.course.service.ICriticizeService;
 import com.xczhihui.course.service.IFocusService;
@@ -197,7 +198,7 @@ public class AnchorsController extends AbstractFtlController {
         /**
          * 这个主播可能认证的是医馆，也可能认证的是医师
          */
-        Map<String, String> lecturerInfo = myInfoService.findHostInfoByIdProbablyPhysician(userId);
+        Map<String, Object> lecturerInfo = myInfoService.findHostInfoByIdProbablyPhysician(userId);
         if (lecturerInfo.size() == 0) {
             return to404();
         }
@@ -205,9 +206,9 @@ public class AnchorsController extends AbstractFtlController {
 
         MedicalHospital mha = new MedicalHospital();
         //1.医师2.医馆
-        if (lecturerInfo.get("type").toString().equals("1")) {
+        if (AnchorType.DOCTOR.getCode() == (Integer.parseInt(lecturerInfo.get("type").toString()))) {
             mha = medicalHospitalApplyService.getMedicalHospitalByMiddleUserId(userId);
-        } else if (lecturerInfo.get("type").toString().equals("2")) {
+        } else if (AnchorType.HOSPITAL.getCode() == (Integer.parseInt(lecturerInfo.get("type").toString()))) {
             mha = medicalHospitalApplyService.getMedicalHospitalByUserId(userId);
         }
         //认证的主播 还是 医馆

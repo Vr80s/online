@@ -41,6 +41,10 @@ public class TreatmentVO implements Serializable {
 
     private Integer apprenticeId;
 
+    private Integer appointStatus;
+
+    private Integer infoId;
+
     @Override
     public String toString() {
         return "TreatmentVO{" +
@@ -164,5 +168,21 @@ public class TreatmentVO implements Serializable {
 
     public void setApprenticeId(Integer apprenticeId) {
         this.apprenticeId = apprenticeId;
+    }
+
+    public Integer getAppointStatus() {
+        return appointStatus;
+    }
+
+    public void setAppointStatus(Integer appointStatus) {
+        this.appointStatus = appointStatus;
+    }
+
+    public Integer getInfoId() {
+        return infoId;
+    }
+
+    public void setInfoId(Integer infoId) {
+        this.infoId = infoId;
     }
 }

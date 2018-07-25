@@ -25,6 +25,7 @@ import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.interceptor.HeaderInterceptor;
 import com.xczh.consumer.market.utils.APPUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczhihui.common.util.enums.AnchorType;
 import com.xczhihui.common.util.enums.CourseStatus;
 import com.xczhihui.common.util.enums.OnlineApprenticeStatus;
 import com.xczhihui.common.util.enums.ResourceCheck;
@@ -109,7 +110,7 @@ public class HostController {
          *
          * 这个主播可能认证的是医馆，也可能认证的是医师
          */
-        Map<String, String> lecturerInfo = myInfoService.findHostInfoByIdProbablyPhysician(lecturerId);
+        Map<String, Object> lecturerInfo = myInfoService.findHostInfoByIdProbablyPhysician(lecturerId);
         if (lecturerInfo == null) {
             return ResponseObject.newErrorResponseObject("获取医师信息有误");
         }
@@ -120,11 +121,13 @@ public class HostController {
 
         LOGGER.info("lecturerInfo" + lecturerInfo.toString());
         //1.医师2.医馆
-        if (lecturerInfo.get("type").toString().equals("1")) {
-            mha = medicalHospitalApplyService.getMedicalHospitalByMiddleUserId(lecturerId);
-        } else if (lecturerInfo.get("type").toString().equals("2")) {
-            mha = medicalHospitalApplyService.getMedicalHospitalByUserId(lecturerId);
-        }
+          if (AnchorType.DOCTOR.getCode() == (Integer.parseInt(lecturerInfo.get("type").toString()))) {
+              mha = medicalHospitalApplyService.getMedicalHospitalByMiddleUserId(lecturerId);
+          } else if (AnchorType.HOSPITAL.getCode() == (Integer.parseInt(lecturerInfo.get("type").toString()))) {
+              mha = medicalHospitalApplyService.getMedicalHospitalByUserId(lecturerId);
+          }
+  
+        
         //认证的主播 还是 医馆
         mapAll.put("hospital", mha);
 
@@ -188,7 +191,7 @@ public class HostController {
         apprenticeData.put("questions", medicalDoctorQuestionService.selectQuestionByDoctorId(new Page<>(1, 100), doctorId).getRecords());
         apprenticeData.put("apprentices", enrolService.findApprenticesByDoctorId(doctorId).stream().map(SimpleUserVO::getSmallHeadPhoto).collect(Collectors.toList()));
         MedicalDoctorAccount doctorAccount = medicalDoctorBusinessService.getByDoctorId(doctorId);
-        String userId = accountIdOpt.isPresent() ? accountIdOpt.get() : null;
+        String userId = accountIdOpt.orElse(null);
         if (doctorAccount != null) {
             apprenticeData.put("apprenticeCourses", courseService.selectTeachingCoursesByUserId(new Page<CourseLecturVo>(1, 100),doctorAccount.getAccountId(),userId));
         } else {
@@ -197,7 +200,7 @@ public class HostController {
         apprenticeData.put("settings", enrolService.findSettingsByDoctorId(doctorId));
         apprenticeData.put("onlineApprenticeStatus", accountIdOpt.map(accountId -> enrolService.getOnlineApprenticeStatus(doctorId, accountId))
                 .orElse(OnlineApprenticeStatus.NOT_APPLY.getVal()));
-        apprenticeData.put("treatments", remoteTreatmentService.listAppointment(doctorId, false));
+        apprenticeData.put("treatments", remoteTreatmentService.listAppointment(doctorId, false, userId));
         return ResponseObject.newSuccessResponseObject(apprenticeData);
     }
 

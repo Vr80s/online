@@ -74,7 +74,7 @@ public interface IMyInfoService {
      * @param userId
      * @return
      */
-    Map<String, String> findHostInfoById(String userId);
+    Map<String, Object> findHostInfoById(String userId);
 
 
     Map<String, Object> findDoctorInfoById(String userId);
@@ -103,5 +103,5 @@ public interface IMyInfoService {
      * @param userId
      * @return
      */
-    Map<String, String> findHostInfoByIdProbablyPhysician(String userId);
+    Map<String, Object> findHostInfoByIdProbablyPhysician(String userId);
 }
