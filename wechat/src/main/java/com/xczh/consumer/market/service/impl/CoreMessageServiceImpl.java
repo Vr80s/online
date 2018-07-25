@@ -103,8 +103,11 @@ public class CoreMessageServiceImpl implements CoreMessageService {
                     
                     LOGGER.info("~~~is exit " + m);
                     if (null == m) {
+                        
                         WxcpClientUserWxMapping wxcpClientUserWxMapping =  new WxcpClientUserWxMapping(jsonObject);
                         wxcpClientUserWxMappingService.insert(wxcpClientUserWxMapping);
+                        
+                    // 渠道来源
                     } else if (m != null && (qr_scene != null || qr_scene_str != null)) {
 
                         m.bulidUpdate(jsonObject);
@@ -113,6 +116,11 @@ public class CoreMessageServiceImpl implements CoreMessageService {
                         }
                         wxcpClientUserWxMappingService.update(m);
                         
+                    // 有可能存在app登录的openId。替换成公众号的    
+                    }else if(m.getOpenid() == null || !openid_.equals(m.getOpenid())) {
+                        
+                        m.setOpenid(openid_);
+                        wxcpClientUserWxMappingService.update(m);
                     }
 
                     newsMessage.setMsgType(MessageConstant.RESP_MESSAGE_TYPE_NEWS);

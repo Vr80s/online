@@ -610,7 +610,7 @@ function cheackSelectAll(){
 			return
 		}else{
 			$(".error-reply-null").addClass("hide");
-			RequestService("/doctor/question/update", "get",{
+			RequestService("/doctor/question/update", "post",{
 				answer:replyData,
 				id:answerId
 			}, function (data) {

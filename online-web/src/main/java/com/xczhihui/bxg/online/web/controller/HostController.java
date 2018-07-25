@@ -17,10 +17,9 @@ import com.xczhihui.course.service.IMyInfoService;
 
 
 /**
- * ClassName: GiftController.java <br>
- * Description: 礼物打赏接口<br>
- * Create by: name：yuxin <br>email: yuruixin@ixincheng.com <br>
- * Create Time: 2017年8月16日<br>
+ * 获取主播详情
+ * @author yangxuan
+ *
  */
 @RestController
 @RequestMapping(value = "/host")
@@ -44,7 +43,7 @@ public class HostController extends AbstractController {
     public ResponseObject getHostInfoById(HttpServletRequest request, String lecturerId) {
 
         Map<String, Object> mapAll = new HashMap<String, Object>();
-        Map<String, Object> lecturerInfo = myInfoService.findHostInfoById(lecturerId);
+        Map<String, String> lecturerInfo = myInfoService.findHostInfoById(lecturerId);
         mapAll.put("lecturerInfo", lecturerInfo);          //讲师基本信息
         List<Integer> listff = focusService.selectFocusOrFansCountOrCriticizeCount(lecturerId);
         mapAll.put("fansCount", listff.get(0));           //粉丝总数

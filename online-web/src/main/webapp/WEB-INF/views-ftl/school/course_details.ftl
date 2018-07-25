@@ -44,7 +44,36 @@
 <div class="wp">
     <div class="wrap-buy">
         <div class="left-cover z">
-        	<p class="class-style">视频</p>
+        	
+        	  <#if courseInfo.type == 1  > 
+                  <#if courseInfo.collection> 
+                     <p class="class-style">视频专辑</p>
+                  <#elseif !courseInfo.collection>
+                      <p class="class-style">视频</p>
+                  </#if>
+                 
+               <#elseif courseInfo.type == 2>
+                  <#if courseInfo.collection> 
+                   <p class="class-style">音频专辑</p>
+                  <#elseif !courseInfo.collection>
+                     <p class="class-style">音频</p>
+                  </#if>
+                <#elseif courseInfo.type == 3>
+                  <#if courseInfo.lineState  == 1  > 
+                    <p class="class-style">直播中</p> 
+                  <#elseif courseInfo.lineState  == 2>
+                    <p class="class-style">直播预告</p>
+                  <#elseif courseInfo.lineState  == 3>
+                      <p class="class-style">直播回放</p>
+                  <#elseif courseInfo.lineState  == 4>
+                     <p class="class-style">即将直播</p>
+                  <#else>   
+                      <p class="class-style">暂未开播</p>   
+                  </#if>
+                <#elseif courseInfo.type == 4>
+                  <p class="class-style">线下课程</p>
+                </#if>
+        	
             <img src="${courseInfo.smallImgPath}?imageMogr2/thumbnail/!462x260r|imageMogr2/gravity/Center/crop/462x260" alt="${courseInfo.gradeName}" />
             <div class="progress"
                  style="position: absolute;bottom: 0;left: 0;width: 100%;
