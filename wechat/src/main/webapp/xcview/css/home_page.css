@@ -38,11 +38,19 @@ header{
     background: #F0F0F0;
     border-radius: 100px;
     position: relative;
-    text-indent: 0.25rem;
+    text-indent: 0.1rem;
     margin-top: 0.14rem;
     width: 7rem !important;
     margin: 0 auto;
     margin-top: 0.14rem;
+}
+.header_seek_main_span{
+    display: inline-block;
+    float: left;
+    width: 6.2rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .header_seek_main{
     position: absolute;
@@ -52,13 +60,22 @@ header{
     color: #999999;
 }
 .header_seek_main img{
+    /* width: 0.36rem;
+    height: 0.36rem;
+    vertical-align: -webkit-baseline-middle;
+    vertical-align: text-bottom;
+    margin-right: 0.1rem;
+    display: inline-block;
+    margin-top: 0.1rem; */
     width: 0.36rem;
     height: 0.36rem;
     vertical-align: -webkit-baseline-middle;
     vertical-align: text-bottom;
     margin-right: 0.1rem;
     display: inline-block;
-    margin-top: 0.1rem;
+    margin-top: 0.13rem;
+    float: left;
+    margin-left: 0.18rem;
 }
 .header_news{
     width: 0.893rem;

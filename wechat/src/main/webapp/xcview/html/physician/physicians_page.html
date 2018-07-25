@@ -1230,7 +1230,7 @@
 		</div>
 
 	</div>
-	<div class="" style="width: 100%;height:0.72rem;"></div>
+	<div class="commonality_height" style="width: 100%;height:0.72rem;"></div>
 	<!-- 介绍结束 -->
 
 	</div>
@@ -1373,8 +1373,6 @@
 <!-- 直播间数据引入 -->
 <script type="text/javascript" src="/xcview/js/physician/broadcastroom.js?version=d41d8cd98f"></script>
 
-
-
 <!-- 导航渐变 -->
 <script>
 $(window).bind("scroll", function() {
@@ -1408,6 +1406,7 @@ $(window).bind("scroll", function() {
 			$(".prose_origin").hide();   /*师承内容隐藏*/
 			$(".disciple_application_state").hide();  //底部按钮隐藏
 			$(".minirefresh-totop").css("bottom","30px");  //返回按钮
+			$(".commonality_height").hide();
 		});
 		$(".li_data").click();
 
@@ -1434,10 +1433,12 @@ $(window).bind("scroll", function() {
 			$(".prose_origin").hide();   /*师承内容隐藏*/
 			$(".disciple_application_state").hide();  //底部按钮隐藏
 			$(".minirefresh-totop").css("bottom","30px");  //返回按钮
+			$(".commonality_height").hide();
 		});
 
 		// 点击师承
 		$(".li_prose_origin").click(function(){
+			$("#message_referral").hide();   //介绍结束
 			$(".baseImagenumbers").hide();
 			$(".anchor_navigation .border").css("left","4.59rem");
 			$(".li_data").removeClass("li_color");
@@ -1457,7 +1458,7 @@ $(window).bind("scroll", function() {
 			$(".prose_origin").show();   /*师承内容打开*/
 			$(".disciple_application_state").show();  //底部按钮显示
 			$(".minirefresh-totop").css("bottom","65px");  //返回按钮
-
+			$(".commonality_height").show();  /*公用高度*/
 		});
 
 		// 点击介绍
@@ -1482,6 +1483,7 @@ $(window).bind("scroll", function() {
 			$(".prose_origin").hide();   /*师承内容隐藏*/
 			$(".disciple_application_state").hide();  //底部按钮隐藏
 			$(".minirefresh-totop").css("bottom","30px");  //返回按钮
+			$(".commonality_height").hide();
 		});
 
 		// 点击显示全部动态筛选  

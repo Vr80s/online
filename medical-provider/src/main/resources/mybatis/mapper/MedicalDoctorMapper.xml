@@ -572,8 +572,8 @@
         md.`field_text` fieldText,
         md.`title`,
         mh.`name` hospitalName,
-        mh.`province`,
-        mh.`city`,
+        md.`province`,
+        md.`city`,
         mh.`detailed_address` detailedAddress,
         md.recommend_sort recommendSort,
         IF(mda.account_id IS NOT NULL,(SELECT COUNT(*)+IFNULL(ou.default_count,0) FROM oe_focus of

@@ -67,7 +67,8 @@
 	<script type="text/javascript" src="/web/bootstrap-select/bootstrap-select.js"></script>
 
 	<!--<script src="/web/js/anchor/jquery.citys.js" type="text/javascript" charset="utf-8"></script> -->
-	<script src="/web/js/anchor/provinces.js"></script>
+	<script src="/web/js/common/data.provinces.js"></script>
+	<script src="/web/js/common/provinces-selector.js"></script>
 	<script src="/web/js/anchor/pages/jquery.pagination-course.js"></script>
 	<script src="/web/js/anchor/course.js" type="text/javascript" charset="utf-8"></script>
 
@@ -2703,10 +2704,10 @@
 					<p class="warning return_warning7 hide">请选择坐诊时间</p>
 					</div>
 					
-					<div class="name">
-						<span>预约电话</span>
-						<input type="text"  disabled="disabled" class="appointmentTel" placeholder="请输入预约电话">
-					</div>
+					<!--<div class="name">-->
+						<!--<span>预约电话</span>-->
+						<!--<input type="text"  disabled="disabled" class="appointmentTel" placeholder="请输入预约电话">-->
+					<!--</div>-->
 					</div>
 					
 					
@@ -2724,17 +2725,15 @@
 
 					<div class="name">
 						<span><em class="cityem">*</em>城市</span>
-						<div id="demo1" class="citys">
-								<select name="province" class="choosePro" style="margin-bottom: 20px;">
-									<option value="">请选择省份</option>
+						<div id="demo1" class="citys provinces">
+								<select name="province" class="choosePro province" style="margin-bottom: 20px;">
 								</select>
-								<select name="city" class="chooseCity" style="margin-bottom: 20px;">
-									<option value="">请选择市</option>
+								<select name="city" class="chooseCity city" style="margin-bottom: 20px;">
 								</select>
-								<p class="warning return_warning6 hide" style="margin-top: -20px;margin-bottom: 0px;">请填写正确省份信息</p>
-								<input type="text" id="hosPro"  disabled="disabled" style="margin-bottom: 20px;" placeholder="医馆所在省份"/>
-								<input type="text" id="hosCity"  disabled="disabled" style="margin-bottom: 20px;"placeholder="医馆所在市区"/>
-							<textarea name="" readonly rows="" cols="" placeholder="请输入详细地址" class="name_textarea" id="u_detailAddress"></textarea>
+								<!--<p class="warning return_warning6 hide" style="margin-top: -20px;margin-bottom: 0px;">请填写正确省份信息</p>-->
+								<!--<input type="text" id="hosPro"  disabled="disabled" style="margin-bottom: 20px;" placeholder="医馆所在省份"/>-->
+								<!--<input type="text" id="hosCity"  disabled="disabled" style="margin-bottom: 20px;"placeholder="医馆所在市区"/>-->
+							<textarea placeholder="请输入详细地址" class="name_textarea" id="u_detailAddress"></textarea>
 							<p class="warning return_warning5 hide">详细地址不能为空</p>
 						</div>
 					

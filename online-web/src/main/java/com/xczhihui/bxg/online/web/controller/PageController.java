@@ -225,11 +225,11 @@ public class PageController {
         BxgUser user = UserLoginUtil.getLoginUser();
         if (user != null) {
             Integer result = commonService.isDoctorOrHospital(user.getId());
-            if (result == 2) {
+//            if (result == 2) {
                 request.getRequestDispatcher("/web/html/ResidentHospital.html").forward(request, response);
-            } else {
-                response.sendRedirect("/");
-            }
+//            } else {
+//                response.sendRedirect("/");
+//            }
         } else {
             request.getRequestDispatcher("/web/html/login.html").forward(request, response);
         }
