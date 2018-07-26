@@ -249,7 +249,7 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
         // 判断用户是否已经是医师 如果是，则表示其重新认证
         if (doctorAccount != null) {
             this.applyAgain(apply, doctorAccount.getDoctorId());
-            return null;
+            return doctorAccount.getDoctorId();
         }
 
         Date now = new Date();
