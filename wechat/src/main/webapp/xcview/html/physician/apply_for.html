@@ -10,8 +10,54 @@
 	<link rel="stylesheet" href="/xcview/css/physician/apply_for.css">
 	<!--公用弹框 -->
 	<link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
+	<!-- 籍贯引入css -->
+	<link href="/xcview/css/mui.picker.css" rel="stylesheet" />
+	<link href="/xcview/css/mui.poppicker.css" rel="stylesheet" />
+
 	<!--手机嵌入模板-->
 	<script type="text/javascript" src="/xcview/js/common/layout.js"></script>
+
+	<style>
+		.person_cen_top {
+		    width: 100%;
+		    margin: 0 auto;
+		    padding: 0.29rem 0;
+		    border-bottom: 1px solid #e5e5e5;
+		    /* margin-bottom: 0.4rem; */
+		}
+		.person_p1 {
+		    float: left;
+		    color: #666;
+		    font-size: 0.28rem;
+		}
+		.person_cen_right {
+		    float: right;
+		}
+		.person_cen_right p {
+		    font-size: 0.26rem;
+		    color: #666;
+		    float: left;
+		    overflow: hidden;
+		    white-space: nowrap;
+		    text-overflow: ellipsis;
+		    width: 5rem;
+		    text-align: right;
+		    /* background: #007AFF; */
+		}
+		.my_right_img {
+		    float: right;
+		    width: 3rem;
+		    text-align: right;
+		    margin-right: 0.26rem;
+		    margin-top: 0.03rem;
+    		width: 0.25rem;
+		}
+		.my_right_img img {
+		    width: 0.15rem;
+		    height: 100%;
+		    display: inline-block;
+		}
+	</style>
 </head>
 <body>
 	<!-- 报名头部开始 -->
@@ -27,6 +73,18 @@
 	<div class="fiexd"></div>
 	<div class="main">
 		<div class="main_bg">
+
+			<!-- 地址选择地址  -->
+			<!-- <div class="person_cen_top" id="showCityPicker">
+				<p class="person_p1">选择地址</p>
+				<div class="person_cen_right">
+					<p id="xzdz"></p>
+					<div class="my_right_img"><img src="/xcview/images/right_jian.png"></div>
+				</div>
+				<div class="both"></div>
+			</div> -->
+
+
 			<div class="name">
 				姓名
 				<input type="text" placeholder="请输入" />
@@ -128,25 +186,71 @@
 <script type="text/javascript" src="/xcview/js/common/common.js?v=wechat_1.1.1"></script>
 <script type="text/javascript" src="/xcview/js/apprentice/apprentice-common.js"></script>
 <script type="text/javascript" src="/xcview/js/common/alertPopShow.js"></script>
+
+<!-- 增加籍贯选择引入开始 -->
+<script src="/xcview/js/city.js"></script>
+<script src="/xcview/js/common/picker.min.js"></script>
+<script src="/xcview/js/common/mui.picker.js"></script>
+<script src="/xcview/js/common/mui.poppicker.js"></script>
+<!-- 增加籍贯选择引入结束 -->
 <script type="text/javascript" src="/xcview/js/physician/apply_for.js"></script>
 <script> 
-	// 控制手机物理键--返回
-
-	/*window.onload = function(){
-	  	if(window.history && window.history.pushState) {  
-	      	$(window).on('popstate', function() {  
-	          	var hashLocation = location.hash;  
-	          	var hashSplit = hashLocation.split("#!/");  
-	          	var hashName = hashSplit[1];  
-	          	if(hashName !== '') {  
-	              	var hash = window.location.hash;  
-	              	if(hash === '') {  
-	                  	location.href ='/xcview/html/apprentice/inherited_introduction.html'  	
-	              	}  
-	          	}  
-	      	});  
-	      	window.history.pushState('forward', null, './apply.html');  
-	  	}
-	};*/
-	</script>
+	//省市区
+		var picker = new mui.PopPicker({
+	   	 	layer: 3
+		});
+		picker.setData(mucityData);
+		
+		//给这个省市区下拉框增加 默认值，如果有的情况下
+		
+		//countyName  cityName     provinceName
+		
+		var pervinceValue = localStorage.getItem("regionAreaId");
+		var cityValue = localStorage.getItem("regionCityId");
+		var disValue = localStorage.getItem("regionId");
+		
+		
+		function countMin(){
+			picker.pickers[0].setSelectedValue(3);
+			picker.pickers[3].setSelectedValue(6);
+			picker.pickers[6].setSelectedValue(2);
+		}
+		setTimeout(function(){
+			//这个就是mui的的多级选择。我的天
+			if(isNotBlank(pervinceValue) && isNotBlank(cityValue) && isNotBlank(disValue)){
+				picker.pickers[0].setSelectedValue(pervinceValue,0,function(){
+					picker.pickers[1].setSelectedValue(cityValue,0,function(){
+						picker.pickers[2].setSelectedValue(disValue);
+					});
+				});
+			}
+		},2000)
+		
+		
+		var showCityPicker = document.getElementById('showCityPicker');
+		var cityResult = document.getElementById('xzdz');
+		showCityPicker.addEventListener('tap', function(event) {
+			picker.show(function(items) {
+				var citysNames = "";
+				var citysIds ="";
+				for (var int = 0; int < items.length; int++) {
+					if(int == items.length){
+						citysNames +=items[int].text;
+						citysIds +=items[int].value;
+					}else{
+						citysNames +=items[int].text +" ";
+						citysIds +=items[int].value +" ";
+					}
+				}
+				if(items.length>=2){
+					picker.pickers[0].setSelectedValue(items[0].value);
+					picker.pickers[1].setSelectedValue(items[1].value);
+					picker.pickers[2].setSelectedValue(items[2].value);
+				}
+				cityResult.innerText = citysNames;
+				cityResult.className = citysIds;
+				setuserInfoWechat("provinceCityName");
+			});
+		}, false);
+</script>
 </html>

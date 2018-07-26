@@ -49,6 +49,7 @@ $(function(){
 			$(".disciple-set-wrap").removeClass("hide");
 			$(this).text("返回");
             resetCourseForm(true);
+            $("#class_picIpt").val("");
 		}else{
 			$(".disciple-list-wrap").removeClass("hide");
 			$(".disciple-set-wrap").addClass("hide");	
@@ -60,7 +61,11 @@ $(function(){
         RequestService("/medical/common/upload", "post", {
             image: baseurl,
         }, function (data) {
-            $('.class-fengmian  .' + imgname + '').html('<img src="' + data.resultObject + '?imageMogr2/thumbnail/!260x147r|imageMogr2/gravity/Center/crop/260x147" alt="课程封面">');
+//          $('.class-fengmian  .' + imgname + '').html('<img src="' + data.resultObject + '?imageMogr2/thumbnail/!260x147r|imageMogr2/gravity/Center/crop/260x147" alt="课程封面">');
+        	var teacherCoverReset='<img src="' + data.resultObject + '?imageMogr2/thumbnail/!260x147r|imageMogr2/gravity/Center/crop/260x147" alt="课程封面">'+
+        						'<p class="teacher-reset-tip">点击图片重新上传</p>'
+        	$('.class-fengmian  .' + imgname + '').html(teacherCoverReset);
+        	
         })
     }
     $('#class_picIpt').on('change', function () {
@@ -138,7 +143,10 @@ $(function(){
         RequestService("/medical/common/upload", "post", {
             image: baseurl,
         }, function (data) {
-            $('.comment-set-rules  .' + imgname + '').html('<img src="' + data.resultObject + '?imageMogr2/thumbnail/!260x147r|imageMogr2/gravity/Center/crop/260x147" alt="课程封面">');
+//          $('.comment-set-rules  .' + imgname + '').html('<img src="' + data.resultObject + '?imageMogr2/thumbnail/!260x147r|imageMogr2/gravity/Center/crop/260x147" alt="课程封面">');
+        		var manageCoverReset='<img src="' + data.resultObject + '?imageMogr2/thumbnail/!260x147r|imageMogr2/gravity/Center/crop/260x147" alt="课程封面">'+
+        						'<p class="manage-reset-tip">点击图片重新上传</p>'
+        	$('.comment-set-rules  .' + imgname + '').html(manageCoverReset);
         })
     }
     $('#manage_picIpt').on('change', function () {

@@ -342,6 +342,19 @@ outline: none;
 	width: 100%;
 	height: 100%;
 }
+.video-cover .video-reset-tip{
+	position: absolute;
+	width: 100%;
+	height: 60px;
+	left: 0;
+	bottom: 0;
+	background: rgba(0,0,0,.3);
+	color: white;
+	text-align: center;
+	line-height: 60px;
+	margin: 0;
+}
+
 .btn-deliver{
 	width: 92px;
 	height: 36px;
@@ -877,9 +890,31 @@ outline: none;
 	width: 260px;
 	height: 147px;
 }
+.banner-box{
+	    display: inline-block;
+    width: 260px;
+    height: 147px;
+    border: 1px solid #f0f0f0;
+    vertical-align: middle;
+    margin-right: 30px;
+    position: relative;
+    background: #F0F0F0;
+}
 .banner-box img{
 	width: 100%;
 	height: 100%;
+}
+.banner-box .banner-reset-tip{
+	position: absolute;
+	width: 100%;
+	height: 60px;
+	left: 0;
+	bottom: 0;
+	background: rgba(0,0,0,.3);
+	color: white;
+	text-align: center;
+	line-height: 60px;
+	margin: 0;
 }
 .left-title{
 	width: 92px;
@@ -1461,6 +1496,18 @@ outline: none;
 }
 .class-fengmian{
 	width: 603px;
+}
+.disciple-wrap-img .teacher-reset-tip{
+	    position: absolute;
+    width: 100%;
+    height: 60px;
+    left: 0;
+    bottom: 0;
+    background: rgba(0,0,0,.3);
+    color: white;
+    text-align: center;
+    line-height: 60px;
+    margin: 0;
 }
 .class-fengmian > span:nth-child{
 	display: inline-block;
@@ -2111,7 +2158,7 @@ white-space: normal;
 .namage-list-table .namage-title{
 	    width: 209px;
     overflow: hidden;
-    height: 40px;
+    max-height: 40px;
     line-height: 20px;
     font-size: 14px;
     display: -webkit-box;
@@ -2261,6 +2308,18 @@ white-space: normal;
 .mamage-wrap-img img{
 	width: 100%;
 	height: 100%;
+}
+.mamage-wrap-img .manage-reset-tip{
+	    position: absolute;
+    width: 100%;
+    height: 60px;
+    left: 0;
+    bottom: 0;
+    background: rgba(0,0,0,.3);
+    color: white;
+    text-align: center;
+    line-height: 60px;
+    margin: 0;
 }
 .comment-set-rules .fengmian_tip{
 	display: inline-block;

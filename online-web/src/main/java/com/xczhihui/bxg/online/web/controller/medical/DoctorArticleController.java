@@ -103,8 +103,7 @@ public class DoctorArticleController extends AbstractFtlController {
     public ResponseObject saveReport(@Valid @RequestBody DoctorArticleBody doctorArticleBody) {
         String userId = getUserId();
         String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(userId);
-        String doctorName = medicalDoctorBusinessService.get(doctorId).getName();
-        OeBxsArticle bxsArticle = doctorArticleBody.build(HeadlineType.MYBD, doctorName);
+        OeBxsArticle bxsArticle = doctorArticleBody.build(HeadlineType.MYBD, doctorArticleBody.getAuthor());
         bxsArticle.setCreatePerson(userId);
         medicalDoctorArticleService.saveReport(doctorId, bxsArticle);
         return ResponseObject.newSuccessResponseObject("保存成功");
@@ -115,8 +114,7 @@ public class DoctorArticleController extends AbstractFtlController {
                                        @PathVariable String id) {
         String userId = getUserId();
         String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(userId);
-        String doctorName = medicalDoctorBusinessService.get(doctorId).getName();
-        if (medicalDoctorArticleService.updateReport(doctorId, doctorArticleBody.build(HeadlineType.MYBD, doctorName), id)) {
+        if (medicalDoctorArticleService.updateReport(doctorId, doctorArticleBody.build(HeadlineType.MYBD, doctorArticleBody.getAuthor()), id)) {
             return ResponseObject.newSuccessResponseObject("更新成功");
         } else {
             return ResponseObject.newErrorResponseObject("更新失败");

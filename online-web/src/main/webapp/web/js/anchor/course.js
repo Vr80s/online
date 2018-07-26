@@ -1594,10 +1594,7 @@ function saveResource(){
                 console.log(data);
                 if(data.success === true) {
                     //更新时长
-                    var fileSize = localStorage.getItem("fileSize");
-                    var fileName = localStorage.getItem("fileName");
-                    RequestService("/videoRes/ifUploaded", "GET",{ccId:resourceIdData,fileSize:fileSize,fileName:fileName}, function(data) {
-
+                    RequestService("/videoRes/ifUploaded", "GET",{ccId:resourceIdData,}, function(data) {
 
                     })
                     showTip(data.resultObject);

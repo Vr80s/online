@@ -16,6 +16,7 @@ import org.apache.commons.fileupload.disk.DiskFileItem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -49,6 +50,10 @@ public class VideoResController extends AbstractController {
     private OnlineConfig onlineConfig;
     @Autowired
     private ICourseApplyService courseApplyService;
+    @Value("${cc.uploadCallback.url}")
+    private String ccUploadCallbackUrl;
+
+
 
     /**
      * 获得上传地址
@@ -122,6 +127,7 @@ public class VideoResController extends AbstractController {
             treeMap.put("filename", fileName);
             treeMap.put("filesize", fileSize);
             treeMap.put("categoryid", categoryid);
+            treeMap.put("notify_url", ccUploadCallbackUrl);
             treeMap.put("format", "json");
             String qs = APIServiceFunction.createQueryString(treeMap);
             //生成时间片
@@ -225,39 +231,22 @@ public class VideoResController extends AbstractController {
 
 
     /**
-     * 视频处理完成的回调
+     * 更新时长
      *
      * @param ccId
      */
     @RequestMapping(value = "ifUploaded", method = RequestMethod.GET)
-    public void ifUploaded( String ccId, String fileSize, String fileName) {
-//创建视频上传信息
-        Map<String, String> treeMap = new TreeMap<String, String>();
-        //查询参数输入
-        String key = "K45btKhytR527yfTAjEp6z4fb3ajgu66";
-        treeMap.put("userid", "B5E673E55C702C42");
-        treeMap.put("filename", fileName);
-        treeMap.put("filesize", fileSize);
-        treeMap.put("notify_url", "http://221.182.185.52:80/videoRes/uploadSuccessCallback");
-        treeMap.put("format", "json");
-
-
-        String ss = APIServiceFunction.createHashedQueryString(treeMap,new Date().getTime(),key);
-        String str = APIServiceFunction.sendGet("http://spark.bokecc.com/api/video/create/v2",ss);
-
-        System.out.println("上传视频++++++++++++++++");
+    public void ifUploaded( String ccId) {
+        courseApplyService.updateCourseApplyResource(ccId);
     }
     /**
      * 视频处理完成的回调
      *
-     * @param ccId
+     * @param videoid
      */
     @RequestMapping(value = "updateCourseApplyResource", method = RequestMethod.GET)
-    public void updateCourseApplyResource(HttpServletResponse res, String ccId) throws IOException {
-        System.out.println("视频处理完成的回调前+++++");
-        courseApplyService.updateCourseApplyResource(ccId);
-        System.out.println("视频处理完成的回调后+++++");
-
+    public void updateCourseApplyResource(HttpServletResponse res, String videoid) throws IOException {
+        courseApplyService.updateCourseApplyResource(videoid);
         res.setCharacterEncoding("UTF-8");
         res.setContentType("text/xml; charset=utf-8");
         res.getWriter().write("<?xml version=\"1.0\" encoding=\"UTF-8\"?><video>OK</video>");
