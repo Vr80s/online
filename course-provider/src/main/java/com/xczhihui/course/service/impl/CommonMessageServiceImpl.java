@@ -217,7 +217,7 @@ public class CommonMessageServiceImpl implements ICommonMessageService {
         while (true) {
             onceUserIds = xgAccountIds.subList(firstIndex, endIndex);
             JSONObject androidRet = androidXgPushService.pushAccountList(PushConst.DEVICE_ALL, onceUserIds, xgMessage);
-            JSONObject iosRet = iosXgPushService.pushAccountList(PushConst.DEVICE_ALL, onceUserIds, xgMessageIOS, PushConst.IOSENV_PROD);
+            JSONObject iosRet = iosXgPushService.pushAccountList(PushConst.DEVICE_ALL, onceUserIds, xgMessageIOS, env.isProd() ? PushConst.IOSENV_PROD : PushConst.IOSENV_DEV);
             if (androidRet != null && androidRet.getInt("ret_code") != 0 && iosRet != null && iosRet.getInt("ret_code") != 0) {
                 LOGGER.error(androidRet.toString());
                 LOGGER.error(iosRet.toString());
