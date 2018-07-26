@@ -87,13 +87,15 @@ function courseList(current) {
  **/
 var imgCourseUrl;
 function saveCourse() {
-    var course = getCourseData(),
-    	imgCourseLength=$(".disciple-wrap-img img");
-    	if(imgCourseLength.length!=0){
+	var imgCourseLength=$(".disciple-wrap-img img");
+		if(imgCourseLength.length!=0){
     		imgCourseUrl=imgCourseLength.attr("src").split("?")[0];
     	}else{
-    		imgCourseUrl=0
+    		imgCourseUrl="";
     	}
+    var course = getCourseData();
+    
+    
     if (verifyCourse(course)) {
         if (course.id == null || course.id == '') {
             addCourse(course);
@@ -190,7 +192,7 @@ function echoCourse(caiId, passEdit) {
     $('#caiId').val(caiId);
     $('.course_title').val(course.title);
     $('.course_subtitle').val(course.subtitle);
-    $('.disciple-wrap-img').html('<img src="" style="width: 100%;height: 100%" >');
+    $('.disciple-wrap-img').html('<img src="" style="width: 100%;height: 100%" ><p class="teacher-reset-tip">点击图片重新上传</p>');
     $('.disciple-wrap-img img').attr('src', course.imgPath+"?imageMogr2/thumbnail/!260x147r|imageMogr2/gravity/Center/crop/260x147");
     $('.course_lecturer ').val(course.lecturer);
     if (course.lecturerDescription) {
@@ -938,7 +940,7 @@ function cheackSelectAll(){
 		var echoManageData=manageData[index];
 		$("#save-manageId").val(echoManageData.id);
 		$(".recruit-students .recruit-title").val(echoManageData.title);
-		$(".recruit-students .mamage-wrap-img").html("<img src="+echoManageData.coverImg+"?imageMogr2/thumbnail/!260x147r|imageMogr2/gravity/Center/crop/260x147 />")
+		$(".recruit-students .mamage-wrap-img").html("<img src="+echoManageData.coverImg+"?imageMogr2/thumbnail/!260x147r|imageMogr2/gravity/Center/crop/260x147 /><p class='manage-reset-tip'>点击图片重新上传</p>")
 		$(".recruit-students .personal-number").val(echoManageData.countLimit);
 		$("#sign-up-time").val(echoManageData.deadline);
 		$("#study-start-time").val(echoManageData.startTime);
@@ -1100,7 +1102,7 @@ function cheackSelectAll(){
 			if(isImgSrc.length != 0 ){
 				isImgLength=isImgSrc.attr("src").split("?")[0];
 			}else{
-				isImgLength=1;
+				isImgLength="";
 		}
 		
 	var establishDate={
