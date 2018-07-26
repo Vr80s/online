@@ -27,10 +27,11 @@ $(function() {
         { "title": checkbox,"class":"center","width":"5%","sortable":false,"data": 'id' ,"mRender":function(data,display,row){
             return '<input type="checkbox" value='+data+' class="ace" /><span class="lbl"></span>';
         }},
-        { "title": "主播ID", "class": "center","width":"12%","title":"主播(Id)点击复制","sortable": false,"data":"userId","mRender": function (data, display, row) {
+        { "title": "主播ID", "class": "center","width":"8%","title":"主播(Id)点击复制","sortable": false,"data":"userId","mRender": function (data, display, row) {
               return "<a onclick='hahaha(this)' style='color:blue;' >"+data+"</a>";
         }},
         {"title": "主播", "class": "center", "width": "10%", "sortable": false, "data": 'name'},
+        {"title": "医师/医馆名", "class": "center", "width": "10%", "sortable": false, "data": 'doctorOrHospitalName'},
         {"title": "帐号", "class": "center", "width": "10%", "sortable": false, "data": 'loginName'},
         {"title": "类型", "class": "center", "width": "6%", "sortable": false, "data": 'type',"mRender": function (data, display, row) {
             if(row.type==1){
