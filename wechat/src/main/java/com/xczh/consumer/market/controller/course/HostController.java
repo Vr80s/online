@@ -35,6 +35,7 @@ import com.xczhihui.course.consts.RouteUrlUtil;
 import com.xczhihui.course.model.Course;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.course.service.IFocusService;
+import com.xczhihui.course.service.IMobileBannerService;
 import com.xczhihui.course.service.IMyInfoService;
 import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.medical.doctor.model.MedicalDoctorAccount;
@@ -80,6 +81,8 @@ public class HostController {
     private IMedicalDoctorBusinessService medicalDoctorBusinessService;
     @Autowired
     private IRemoteTreatmentService remoteTreatmentService;
+    @Autowired
+    private IMobileBannerService mobileBannerService;
 
     @Value("${returnOpenidUri}")
     private String returnOpenidUri;
@@ -156,8 +159,9 @@ public class HostController {
                     .peek(doctorBannerVO ->
                     {
                         String routeType = doctorBannerVO.getRouteType();
-                        doctorBannerVO.setUrl(MultiUrlHelper.getUrl(routeType, APPUtil.getMobileSource(request),
-                                MultiUrlHelper.handleParam(returnOpenidUri, doctorBannerVO.getLinkParam(), routeType)));
+                        String linkParam = doctorBannerVO.getLinkParam();
+                        doctorBannerVO.setUrl(MultiUrlHelper.getUrl(mobileBannerService.getHandleRouteType(routeType, linkParam), APPUtil.getMobileSource(request),
+                                MultiUrlHelper.handleParam(returnOpenidUri, linkParam, routeType)));
                     })
                     .collect(Collectors.toList()));
             mapAll.put("apprenticeCount", enrolService.countApprentice(doctorId));
