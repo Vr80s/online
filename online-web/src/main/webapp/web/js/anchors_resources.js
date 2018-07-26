@@ -384,12 +384,12 @@ var activityType;
 				$(".video-error").addClass("hide");			
 			}
 	//		封面
-			if(isBlank(data.coverImg)){
-				$(".video-fengmian-error").removeClass("hide");
-				return false;
-			}else{
-				$(".video-fengmian-error").addClass("hide");
-			}
+//			if(isBlank(data.coverImg)){
+//				$(".video-fengmian-error").removeClass("hide");
+//				return false;
+//			}else{
+//				$(".video-fengmian-error").addClass("hide");
+//			}
 			activityType=3;
 	//	医案
 		}else if($(".photo-wrap").hasClass("hide")==true && $(".video-wrap").hasClass("hide")==true && $(".consilia-wrap").hasClass("hide")==false){
@@ -406,12 +406,18 @@ var activityType;
 //	获取参数值
 	var naturalWidth=[],
 		naturalHeight=[];
+	var videoCover;
 	function getPostData(){
+		if($(".video-cover-pic img").length!=0){
+			videoCover=$(".video-cover-pic img").attr("src");
+		}else{
+			videoCover="";
+		}
 		var data = {};
 		data.type = activityType;
 		data.content = $.trim($(".publish-activity").val());
 		data.title = $.trim($(".video-title input").val());
-		data.coverImg = $(".video-cover-pic img").attr("src");	
+		data.coverImg =videoCover;	
 		var imgs = [];
 		$(".save-photo ul li .insertImg").each(function(index){
 			imgs.push($(this).attr("src").split("?")[0]+"?"+"w"+"="+naturalWidth[index]+"&"+"h"+"="+naturalHeight[index]);
@@ -650,7 +656,10 @@ var activityType;
         RequestService("/medical/common/upload", "post", {
             image: baseurl,
         }, function (data) {
-            $('.video-cover  .' + imgname + '').html('<img src="' + data.resultObject + '" >');
+        	var videoCoverReset='<img src="' + data.resultObject + '" >'+
+        						'<p class="video-reset-tip">点击图片重新上传</p>'
+        	$('.video-cover  .' + imgname + '').html(videoCoverReset);				
+//          $('.video-cover  .' + imgname + '').html('<img src="' + data.resultObject + '" >');
         })
     }
     $('#video_picIpt').on('change', function () {
@@ -1316,20 +1325,21 @@ function btnColorReply(){
 			    url = url  + "/" + id;
             }
 			if(RecruitBanner(data)){
+				$(".banner-submission-wrap button").attr("disabled","disabled");
 				   $.ajax({
 		                type: method,
 		                url: url,
 		                data: JSON.stringify(data),
 		                contentType: "application/json",
 		                success: function (data) {
-		                	$this.attr("disabled","disabled");
 		                    if (data.success == true) {
+		                    	$(".banner-submission-wrap button").removeAttr("disabled")
 								bannerList(1);
 								showTip(id ? "更新成功" : "创建成功");
 								resetBanner();
 								$(".banner-set-top button").click();
-		                    } else {
-		                    	$(".banner-submission-wrap button").removeAttr("disabled")
+		                    } else {		                    	
+		                    	$(".banner-submission-wrap button").removeAttr("disabled");
 								showTip("保存失败");
 		                    }
 		                }
@@ -1342,7 +1352,10 @@ function btnColorReply(){
 	        RequestService("/medical/common/upload", "post", {
 	            image: baseurl,
 	        }, function (data) {
-	            $('.right-banner  .' + imgname + '').html('<img src="' + data.resultObject + '" >');
+	        	var videoCoverReset='<img src="' + data.resultObject + '" >'+
+        						'<p class="banner-reset-tip">点击图片重新上传</p>'
+        		$('.right-banner  .' + imgname + '').html(videoCoverReset);	
+//	            $('.right-banner  .' + imgname + '').html('<img src="' + data.resultObject + '" >');
 	        })
 	    }
 	    $('#banner_picIpt').on('change', function () {
@@ -3079,7 +3092,7 @@ function resetBanner(){
 //	回显轮播图设置
 function eachBanner(index){
     var bannerSet=list[index];
-    $(".banner-box").html("<img src=" + bannerSet.imgUrl + " />");
+    $(".banner-box").html("<img src=" + bannerSet.imgUrl + " /><p class='banner-reset-tip'>点击图片重新上传</p>");
     $(".type"+bannerSet.type).click();
     $("#start-time").val(bannerSet.startTime);
     $("#end-time").val(bannerSet.endTime);
