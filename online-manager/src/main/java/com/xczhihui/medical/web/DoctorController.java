@@ -230,12 +230,8 @@ public class DoctorController extends AbstractController {
     @RequestMapping(value = "updateStatus", method = RequestMethod.POST)
     @ResponseBody
     public ResponseObject updateStatus(String id) throws IOException, SolrServerException {
-        boolean status = doctorService.updateStatus(id);
-        if (status) {
-            medicalDoctorSolrService.initDoctorsSolrDataById(id);
-        } else {
-            medicalDoctorSolrService.deleteDoctorsSolrDataById(id);
-        }
+        doctorService.updateStatus(id);
+        medicalDoctorSolrService.initDoctorsSolrDataById(id);
         return ResponseObject.newSuccessResponseObject("操作成功！");
     }
 
