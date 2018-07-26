@@ -180,7 +180,7 @@
                         {{if !enrolled}}
                         <div class="apply" onclick="apply()">我也要报名</div>
                         {{else}}
-                        <div class="apply" onclick="location.href ='information_registration.html?merId={{id}}'">
+                        <div class="apply" onclick="location.replace('information_registration.html?merId={{id}}')">
                             已报名，查看报名信息
                         </div>
                         {{/if}}
@@ -242,27 +242,19 @@ if(isNotBlank(back) && back.indexOf("home_page.html") != -1){
                     var hash = window.location.hash;
                     if (hash === '') {
                     	var back = document.referrer;
-/*                     	if(isNotBlank(back) && back.indexOf("home_page.html") != -1){
-                            window.location.href = "/xcview/html/home_page.html";
-                            return;
-                        }
-                        if(isNotBlank(back) && back.indexOf("physicians_page.html") != -1){
-                            window.history.go(-1);
-                        } */
                         var backFalg = sessionStorage.getItem("inherited_backFalg");
-                        //alert(backFalg);
                         if(backFalg == "home"){
                         	  window.location.href = "/xcview/html/home_page.html";
                               return;
                         }else if(backFalg == "physicians_page"){
-                        	  window.history.go(-1);
+                        	  window.history.back();
                         	  return;
                         }
                         location.href = '/xcview/html/apprentice/apprentice.html'
                     }
                 }
             });
-            window.history.pushState('forward', null, './inherited_introduction.html?merId=' + merId);
+            window.history.replaceState('forward', null, './inherited_introduction.html?merId=' + merId);
         }
     };
 </script>
