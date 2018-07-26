@@ -132,8 +132,12 @@ public class MedicalDoctorSolrServiceImpl implements IMedicalDoctorSolrService {
     public void initDoctorsSolrDataById(String doctorId) throws IOException, SolrServerException {
         if (StringUtils.isNotBlank(doctorId)) {
             MedicalDoctorSolrVO medicalDoctorSolrVO = selectDoctor4SolrById(doctorId);
-            solrUtils.addBean(medicalDoctorSolrVO);
-            logger.warn("医师数据更新:{}", medicalDoctorSolrVO.toString());
+            if(medicalDoctorSolrVO != null){
+                solrUtils.addBean(medicalDoctorSolrVO);
+                logger.warn("医师数据更新:{}", medicalDoctorSolrVO.toString());
+            }else{
+                deleteDoctorsSolrDataById(doctorId);
+            }
         }
     }
 

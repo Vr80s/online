@@ -35,7 +35,7 @@ public class MedicalDoctorServiceImplTest extends BaseJunit4Test {
 
     @Test
     public void testSolrDelete() throws IOException, SolrServerException {
-        service.deleteDoctorsSolrDataById("14c2192523c5438f9a10d17994a1c6a3");
+        service.initDoctorsSolrDataById("14c2192523c5438f9a10d17994a1c6a3");
     }
 
     @Test
