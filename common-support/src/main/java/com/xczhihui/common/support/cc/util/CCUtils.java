@@ -1,16 +1,15 @@
 package com.xczhihui.common.support.cc.util;
 
-import java.math.BigDecimal;
-import java.util.*;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.xczhihui.common.support.cc.bean.CategoryBean;
 import com.xczhihui.common.support.cc.config.Config;
 import com.xczhihui.common.support.config.OnlineConfig;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
+
+import java.math.BigDecimal;
+import java.util.*;
 
 public class CCUtils {
 
@@ -155,6 +154,9 @@ public class CCUtils {
         Gson g = new GsonBuilder().create();
         Map<String, Object> fromJson = g.fromJson(responsestr, Map.class);
         Map<String, Object> obj = (Map<String, Object>) fromJson.get("video");
+        if(obj == null){
+            return "";
+        }
         String duration = obj.get("duration").toString();
         return String.valueOf(Double.valueOf(duration).intValue() / 60);
     }

@@ -752,73 +752,21 @@
     </select>
 
     <!-- live_status 1.直播中，2预告，3直播结束 -->
-    
+    <!-- 正在直播的     未来6个小时内要直播的    未来几天内要直播的   历 史播放记录最高的直播回放    -->
     <select id="selectDoctorLiveRoomRecentCourse" resultType="com.xczhihui.course.vo.CourseLecturVo">
-		select   * from 
-		(
-		       (SELECT
-		            <include refid="relLearningCourseListByUserId"/>
-		            if(oc.live_status = 2, if(now() > DATE_SUB(oc.start_time,INTERVAL 6 HOUR) and oc.start_time > now(),1,0),0) as isLive,
-		            '4' as fl
-		        FROM
-		            oe_course oc 
-		              where oc.user_lecturer_id = #{userId}
-			          and oc.is_delete=0
-			          and oc.status=1
-			          and oc.type = 1
-			          and oc.is_teaching = 0
-			          <include refid="onlyFreeCondition"/>
-		             
-		              and  oc.live_status = 1  order by oc.start_time limit 0,1 )
-		            
-		       union all
-		                
-		       (SELECT
-		            <include refid="relLearningCourseListByUserId"/>
-		            if(oc.live_status = 2, if(now() > DATE_SUB(oc.start_time,INTERVAL 6 HOUR) and oc.start_time > now(),1,0),0) as isLive,
-		            '3' as fl
-		        FROM
-		            oe_course oc 
-		              where oc.user_lecturer_id = #{userId}
-                      and oc.is_delete=0
-                      and oc.status=1
-                      and oc.type = 1
-                      and oc.is_teaching = 0
-                      <include refid="onlyFreeCondition"/>
-		            and oc.live_status = 2 
-		            and ( now() > DATE_SUB(oc.start_time,INTERVAL 6 HOUR) and oc.start_time > now() )  order by oc.start_time  limit 0,1 )
-		       union all
-		            
-		       (SELECT
-		            <include refid="relLearningCourseListByUserId"/>
-		            if(oc.live_status = 2, if(now() > DATE_SUB(oc.start_time,INTERVAL 6 HOUR) and oc.start_time > now(),1,0),0) as isLive,
-		            '2' as fl
-		        FROM
-		            oe_course oc 
-                      where oc.user_lecturer_id = #{userId}
-                      and oc.is_delete=0
-                      and oc.status=1
-                      and oc.type = 1
-                      and oc.is_teaching = 0
-                      <include refid="onlyFreeCondition"/>
-                      and oc.live_status = 3 order by  oc.release_time  limit 0,1  )
-		        union all
-		                
-		        (SELECT
-		            <include refid="relLearningCourseListByUserId"/>
-		            if(oc.live_status = 2, if(now() > DATE_SUB(oc.start_time,INTERVAL 6 HOUR) and oc.start_time > now(),1,0),0) as isLive,
-		            '1' as fl
-		        FROM
-		            oe_course oc 
-		              where oc.user_lecturer_id = #{userId}
-                      and oc.is_delete=0
-                      and oc.status=1
-                      and oc.type = 1
-                      and oc.is_teaching = 0
-                      <include refid="onlyFreeCondition"/>
-		              and oc.live_status = 2 
-		                     and ( now() &lt; DATE_SUB(oc.start_time,INTERVAL 6 HOUR) and oc.start_time > now() )   order by oc.start_time  limit 0,1 )  
-		)   sq order by sq.fl desc limit 0,1    
+        SELECT
+            <include refid="relLearningCourseListByUserId"/>
+            if(oc.live_status = 2, if(now() > DATE_SUB(oc.start_time,INTERVAL 6 HOUR) and oc.start_time > now(),1,0),0) as isLive
+        FROM
+            oe_course oc 
+              where oc.user_lecturer_id = #{userId}
+              and oc.is_delete=0
+              and oc.status=1
+              and oc.type = 1
+              and oc.is_teaching = 0
+              <include refid="onlyFreeCondition"/>
+              order by oc.live_status,oc.start_time,learndCount desc limit 0,1
     </select>
+
 
 </mapper>
