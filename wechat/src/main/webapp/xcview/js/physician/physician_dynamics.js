@@ -30,6 +30,11 @@ $(function(){
         }
     });
 
+    //点击选项
+    $('.li_data').click(function(){
+        doctorPostsList(1,"down",doctorPostsType);
+    });
+
 });
 //轮播图
 function sowingMap() {
@@ -660,15 +665,35 @@ function createRecentlyLive(recentlyLive){
         
     }
 }
-
+var doctorCourseUserId="";
 // 直播课程列表
 function createDoctorCourse(userId){
+    doctorCourseUserId = userId;
     requestService("/xczh/doctors/doctorCourse", {userId:userId},function (data) {  
         if (data.success == true) {
             // 直播课程
             $('#live_streaming').html(template('live_streaming_id', {items: data.resultObject[1].courseList}));
+            $(".more_live_lesson").html("查看更多直播课");
         }
     });
+}
+var pageNumber=2;
+//分页
+function dortorCoursePage() {
+
+    requestService("/xczh/doctors/doctorCourseType", {userId:doctorCourseUserId,type:3,pageNumber:pageNumber,pageSize:6},function (data) {
+        if (data.success == true) {
+            if(data.resultObject.length == 0){
+                $('.more_live_lesson').removeAttr('onclick');
+                $(".more_live_lesson").html("没有更多课程了！");
+            }else {
+                pageNumber++;
+                $('#live_streaming').append(template('live_streaming_id', {items: data.resultObject}));
+            }
+
+        }
+    });
+
 }
 function doctorCourses(data){
     userId = data.resultObject.userId;
