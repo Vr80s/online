@@ -160,19 +160,19 @@ public class HostController {
                                 MultiUrlHelper.handleParam(returnOpenidUri, doctorBannerVO.getLinkParam(), routeType)));
                     })
                     .collect(Collectors.toList()));
-            mapAll.put("apprentice", enrolService.isApprentice(doctorId, userId));
             mapAll.put("apprenticeCount", enrolService.countApprentice(doctorId));
         } else {
-            mapAll.put("apprentice", false);
             mapAll.put("apprenticeCount", 0);
             mapAll.put("followHidden", true);
             mapAll.put("fansCount", 0);
             mapAll.put("focusCount", 0);
         }
         if (accountIdOpt.isPresent() && userId != null) {
+            mapAll.put("apprentice", enrolService.isApprentice(doctorId, accountIdOpt.get()));
             Integer isFours = focusServiceRemote.isFoursLecturer(accountIdOpt.get(), userId);
             mapAll.put("isFours", isFours);
         } else {
+            mapAll.put("apprentice", false);
             mapAll.put("isFours", 0);
         }
 

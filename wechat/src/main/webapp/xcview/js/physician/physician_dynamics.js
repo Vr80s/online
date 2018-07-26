@@ -427,7 +427,7 @@ function sendComment(){
                     })
                 }
 
-            });
+            },false);
             webToast("评论成功","middle",1500);
         }else{
             webToast(data.resultObject,"middle",1500);

@@ -33,7 +33,7 @@ $(function(){
 			    }else{
 			    	webToast(data.errorMessage,"middle",1500);
 			    }
-			});
+			},false);
 		};
 
 	});
