@@ -1416,9 +1416,12 @@ $(window).bind("scroll", function() {
 			$(".minirefresh-totop").css("bottom","30px");  //返回按钮
 			$(".commonality_height").hide();
 			$(".minirefresh-upwrap").show();  //底部没有数据--文字隐藏
+			
+			
+			 sessionStorage.setItem("physiciansPage","li_data");
 		});
-		$(".li_data").click();
-
+	    
+	    	    
 		// 点击直播间
 		$(".li_course").click(function(){
 			$(".baseImagenumbers").hide();
@@ -1444,8 +1447,11 @@ $(window).bind("scroll", function() {
 			$(".minirefresh-totop").css("bottom","30px");  //返回按钮
 			$(".commonality_height").hide();
 			$(".minirefresh-upwrap").hide();  //底部没有数据--文字隐藏
+			
+			sessionStorage.setItem("physiciansPage","li_course");
 		});
 
+		
 		// 点击师承
 		$(".li_prose_origin").click(function(){
 			$("#message_referral").hide();   //介绍结束
@@ -1470,6 +1476,8 @@ $(window).bind("scroll", function() {
 			$(".minirefresh-totop").css("bottom","65px");  //返回按钮
 			$(".commonality_height").show();  /*公用高度*/
 			$(".minirefresh-upwrap").hide();  //底部没有数据--文字隐藏
+			
+			sessionStorage.setItem("physiciansPage","li_prose_origin");
 		});
 
 		// 点击介绍
@@ -1496,8 +1504,12 @@ $(window).bind("scroll", function() {
 			$(".minirefresh-totop").css("bottom","30px");  //返回按钮
 			$(".commonality_height").hide();
 			$(".minirefresh-upwrap").hide();  //底部没有数据--文字隐藏
+			
+			sessionStorage.setItem("physiciansPage","li_evaluate");
 		});
 
+		var physiciansPage = sessionStorage.getItem("physiciansPage");
+		
 		// 点击显示全部动态筛选  
 		$(".dynamic_opacity").click(function(){
 			$(".screen_show").show();
@@ -1512,8 +1524,13 @@ $(window).bind("scroll", function() {
 		var aBtn=$('.screen_show_main ul li');
 		for(i=0;i<aBtn.length;i++){
             $(aBtn[i]).click(function(){
+            	
               for(i=0;i<aBtn.length;i++){
                 $(aBtn[i]).removeClass('active');
+                
+                if($(this).attr("value") == $(aBtn[i]).attr("value")){
+                	sessionStorage.setItem("li_data",i);
+                }
               }
               $(this).addClass('active');
               $(".li_data span").html($(this).html());
@@ -1528,7 +1545,32 @@ $(window).bind("scroll", function() {
 				$(".screen_show").hide();
             })
         };
-        $(aBtn[0]).click();
+        
+        
+        
+        
+        
+        
+        if("li_evaluate" == physiciansPage){
+            
+            $(".li_evaluate").click();
+        }else if("li_course" == physiciansPage){
+            
+            $(".li_course").click();
+        }else if("li_prose_origin" == physiciansPage){
+            
+            $(".li_prose_origin").click();
+        }else{
+            $(".li_data").click();
+            debugger;
+            var li_data = sessionStorage.getItem("li_data");
+            if(isNotBlank(li_data)){
+            	 $(aBtn[parseInt(li_data)]).click();
+            }else{
+            	 $(aBtn[0]).click();
+            }
+        }
+        
 
         // 点击动态筛选里面的内容  
         // 点击全部动态
