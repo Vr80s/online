@@ -18,7 +18,8 @@
 	<!-- 报名头部开始 -->
 	<header>
 		<div class="header">
-			<div class="return" onclick="location.replace('/xcview/html/apprentice/inherited_introduction.html')"><img src="/xcview/images/back%20icon.png" alt="" /></div>
+			<!-- <div class="return" onclick="location.replace('/xcview/html/apprentice/inherited_introduction.html')"><img src="/xcview/images/back%20icon.png" alt="" /></div> -->
+			<div class="return" onclick="history.back();"><img src="/xcview/images/back%20icon.png" alt="" /></div>
 			<!--<div class="return" onclick="window.history.back();"><img src="/xcview/images/back%20icon.png" alt="" /></div>-->
 			<div class="apply_title">报名信息</div>
 		</div>
@@ -108,7 +109,7 @@
 <script type="text/javascript" src="/xcview/js/apprentice/inherited_registration.js"></script>
 
 <script>
-window.onload = function(){
+/* window.onload = function(){
 	if(window.history && window.history.pushState) {  
 	    $(window).on('popstate', function() {  
 	        var hashLocation = location.hash;  
@@ -121,8 +122,8 @@ window.onload = function(){
 	            }  
 	        }  
 	    });  
-	    window.history.replaceState('/xcview/html/apprentice/information_registration.html', null, './information_registration.html');  
+	    window.history.pushState('/xcview/html/apprentice/information_registration.html', null, './information_registration.html');  
 	}
-};
+}; */
 </script>		
 </html>

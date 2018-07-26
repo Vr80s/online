@@ -11,7 +11,6 @@ $(function(){
 	        $(".quiz").css("background","#00bc12");
 	    }
 	})
-	var doctorId = getQueryString("doctor");
 	$(".quiz").click(function(){
 
 		var question = $(".textarea").val();
@@ -26,12 +25,11 @@ $(function(){
 		 		question:question
 		 	},function (data) {
 			    if (data.success == true) {
-				  	// webToast("提交成功","middle",1500);
+				  	webToast("提交成功","middle",1500);
 				  	// var doctorId = getQueryString("doctor"); 
 				  	// alert(11111);
-				  	
+				  	// setTimeout(window.history.back(),1600);
 				  	$(".prosperity_popout").show();
-				  	
 			    }else{
 			    	webToast(data.errorMessage,"middle",1500);
 			    }
@@ -39,6 +37,7 @@ $(function(){
 		};
 
 	});
+
 	$(".prosperity_popout_hide").click(function(){
         // $(".prosperity_popout").hide();
         window.history.back();return false;

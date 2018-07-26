@@ -454,9 +454,10 @@
 			<div class="message">
 				<div class="message_name">
 					<div class="name">{{items.lecturerInfo.name}}</div>
-					<div class="name names" style="font-size: 0.24rem;color: #999999;margin-top: 0.06rem;">{{items.lecturerInfo.title}}</div>
 					{{if items.apprentice}}
 					<div class="message_characteristic">我的师傅</div>
+                    {{else}}
+                    <div class="name" style="font-size: 0.24rem;color: #999999;margin-top: 0.06rem;">{{items.lecturerInfo.title}}</div>
 					{{/if}}
 					<div class="both"></div>
 				</div>
@@ -962,7 +963,7 @@
 	            	</script>
 
 				</ul>
-				<div class="more_live_lesson">查看更多直播课</div>
+				<div class="more_live_lesson"onclick="dortorCoursePage()">查看更多直播课</div>
 				<!-- <div class="more_live_lesson_no">点击收起</div> --> <!-- 直播课加载完后点击收起成开始状态 -->
 			</div>
 			<!-- 直播课程结束 -->		</div>

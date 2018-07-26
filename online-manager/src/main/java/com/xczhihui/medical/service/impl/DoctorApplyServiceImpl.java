@@ -312,7 +312,12 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
         sendApprovePassMessage(courseAnchor, apply);
         //说明是APP过来的医师申请，通过后通知用户
         if (StringUtils.isBlank(apply.getHeadPortrait())) {
-            sendRemindMessage(courseAnchor);
+            try {
+                Thread.sleep(500);
+                sendRemindMessage(courseAnchor);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
 
         return doctorId;

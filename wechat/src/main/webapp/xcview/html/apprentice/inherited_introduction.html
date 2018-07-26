@@ -59,7 +59,7 @@
             <div class="special_img">
                 <img src="{{coverImg}}?imageMogr2/thumbnail/!750x425r|imageMogr2/gravity/Center/crop/750x425" alt=""/> <!-- 此图是从上一页专题图的封面图 -->
             </div>
-            <!--  <div class="intro_top" onclick="location.href='/xcview/html/apprentice/apprentice.html'">  -->
+            <!--  <div class="intro_top" onclick="history.back()">  -->
             <div class="intro_top" onclick="share_back();">
                 <div class="intro_top_bg"></div>
                 <img src="/xcview/images/anchorj.png" alt=""/>
@@ -180,7 +180,7 @@
                         {{if !enrolled}}
                         <div class="apply" onclick="apply()">我也要报名</div>
                         {{else}}
-                        <div class="apply" onclick="location.replace('information_registration.html?merId={{id}}')">
+                        <div class="apply" onclick="location.href = 'information_registration.html?merId={{id}}'">
                             已报名，查看报名信息
                         </div>
                         {{/if}}
@@ -232,12 +232,13 @@ if(isNotBlank(back) && back.indexOf("home_page.html") != -1){
 } 
 
     // 控制手机物理键--返回
-    window.onload = function () {
+/*     window.onload = function () {
         if (window.history && window.history.pushState) {
             $(window).on('popstate', function () {
                 var hashLocation = location.hash;
                 var hashSplit = hashLocation.split("#!/");
                 var hashName = hashSplit[1];
+           
                 if (hashName !== '') {
                     var hash = window.location.hash;
                     if (hash === '') {
@@ -254,8 +255,8 @@ if(isNotBlank(back) && back.indexOf("home_page.html") != -1){
                     }
                 }
             });
-            window.history.replaceState('forward', null, './inherited_introduction.html?merId=' + merId);
+            window.history.pushState('forward', null, './inherited_introduction.html?merId=' + merId);
         }
-    };
+    }; */
 </script>
 </html>
