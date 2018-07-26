@@ -106,9 +106,9 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
             if (treatment.getStatus() != AppointmentStatus.ORIGIN.getVal()) {
                 return 0;
             }
-            if (checkRepeatAppoint(treatmentId, treatmentAppointmentInfo.getUserId())) {
-                throw new MedicalException("该日期您已经有预约申请，请选择其他日期进行申请");
-            }
+//            if (checkRepeatAppoint(treatmentId, treatmentAppointmentInfo.getUserId())) {
+//                throw new MedicalException("该日期您已经有预约申请，请选择其他日期进行申请");
+//            }
             remoteTreatmentAppointmentInfoMapper.insert(treatmentAppointmentInfo);
             treatment.setInfoId(treatmentAppointmentInfo.getId());
             treatment.setStatus(AppointmentStatus.WAIT_APPLY.getVal());
