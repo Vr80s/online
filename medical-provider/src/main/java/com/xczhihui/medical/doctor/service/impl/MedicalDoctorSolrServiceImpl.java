@@ -89,16 +89,7 @@ public class MedicalDoctorSolrServiceImpl implements IMedicalDoctorSolrService {
             }
             query.append(searchTypeKey);
         }else{
-            List<DoctorTypeVo> doctorTypeListAddHot = getDoctorTypeListAddHot();
-            StringBuilder sb = new StringBuilder("(");
-            sb.append("type:0");
-            for (int i=0;i<doctorTypeListAddHot.size();i++) {
-                if(sb.length()>0){
-                    sb.append(SolrConstant.OR);
-                }
-                sb.append("type:" + doctorTypeListAddHot.get(i).getCode());
-            }
-            sb.append(")");
+            StringBuilder sb = new StringBuilder("(*:*)");
             if (query.length() > 0) {
                 query.append(SolrConstant.AND);
             }
