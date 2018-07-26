@@ -253,10 +253,11 @@ header{
     height: 100%;
     position: fixed;
     top: 0;
-    left: 0;
+    left: 50%;
     z-index: 999999;
     background: #000;
     opacity: 0.3;
+    margin-left: -3.75rem;
 }
 .prosperity_popout_main{
     width: 5.4rem;
@@ -316,10 +317,11 @@ header{
     height: 100%;
     position: fixed;
     top: 0;
-    left: 0;
+    left: 50%;
     z-index: 999999;
     background: #000;
     opacity: 0.3;
+    margin-left: -3.75rem;
 }
 .failure_popout_main{
     width: 5.4rem;
