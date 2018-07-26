@@ -763,7 +763,6 @@
               and oc.is_delete=0
               and oc.status=1
               and oc.type = 1
-              and oc.is_teaching = 0
               <include refid="onlyFreeCondition"/>
               order by oc.live_status,oc.start_time,learndCount desc limit 0,1
     </select>
