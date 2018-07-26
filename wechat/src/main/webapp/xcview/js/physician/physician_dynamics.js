@@ -31,6 +31,11 @@ $(function(){
     });
 
 });
+$(".li_data").click(function () {
+        if(isShow){
+            $(".baseImagenumbers").show();
+        }
+    })
 //轮播图
 function sowingMap() {
     requestGetService("/xczh/host/doctor/v2",{
@@ -800,15 +805,7 @@ function apprenticeInfo() {
                 /*var txt=$('.QA_doubt_main_reply').html();
                 txts=txt.replace('\n','<br>')
                 $('.QA_doubt_main_reply').html(txts);*/
-                // 提问处理回车
-                var txts = $('.QA_doubt_main_reply').html();
-                txts=txts.replace(/[\n\r]/g,'<br>');
-                $('.QA_doubt_main_reply').html(txts);
-
-                // 回答处理回车
-                var txt = $('.QA_doubt_main_replys').html();
-                txt=txt.replace(/[\n\r]/g,'<br>');
-                $('.QA_doubt_main_replys').html(txt);
+                
 
             }
 
@@ -1047,3 +1044,15 @@ function checkAuth(doctorId) {
         $(".learn_tips_audit").hide();
     });
 
+// 提问处理回车
+/*var txts = $('.QA_doubt_main_reply').html();
+txts=txts.replace(/[\n\r]/g,'<br>');
+$('.QA_doubt_main_reply').html(txts);*/
+/*var text = $('.QA_doubt_main_reply').html();
+text=text.replace(/[\n\r]/g,'<br>')
+$('.QA_doubt_main_reply').html(text);*/
+
+// 回答处理回车
+/*var txt = $('.QA_doubt_main_replys').html();
+txt=txt.replace(/[\n\r]/g,'<br>');
+$('.QA_doubt_main_replys').html(txt);*/

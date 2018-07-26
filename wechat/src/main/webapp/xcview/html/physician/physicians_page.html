@@ -1079,8 +1079,10 @@
 				{{each items as item i}} 
 				<div class="QA_center">
 					<div class="QA_doubt">
+						<!-- <img src="{{item.userImg}}" alt="" class="QA_doubt_img" />-->
 						<div class="QA_doubt_main">
-							<span class="QA_doubt_main_asking">问</span><span>{{item.question}}</span>
+							<!--<span class="QA_doubt_main_asking">问</span><span class="QA_doubt_main_reply">{{item.question}}</span>-->
+							<span class="QA_doubt_main_asking">问</span><span class="QA_doubt_main_reply">{{item.question}}</span>
 						</div>
 						<div class="both"></div>
 					</div>
@@ -1356,7 +1358,7 @@
 </div>
 
 
-
+<div class="both"></div>
 </body>
 <script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
 <script type="text/JavaScript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
@@ -1413,7 +1415,7 @@ $(window).bind("scroll", function() {
 			$(".minirefresh-totop").css("bottom","30px");  //返回按钮
 			$(".commonality_height").hide();
 			$(".minirefresh-upwrap").show();  //底部没有数据--文字隐藏
-			
+			// $(".baseImagenumbers").show();
 			
 			 sessionStorage.setItem("physiciansPage","li_data");
 		});
@@ -1555,7 +1557,7 @@ $(window).bind("scroll", function() {
             $(".li_prose_origin").click();
         }else{
             $(".li_data").click();
-            debugger;
+            // debugger;
             var li_data = sessionStorage.getItem("li_data");
             if(isNotBlank(li_data)){
             	 $(aBtn[parseInt(li_data)]).click();
