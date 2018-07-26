@@ -12,8 +12,13 @@ import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.xczhihui.common.util.CourseUtil;
+import com.xczhihui.common.util.enums.CourseForm;
+import com.xczhihui.common.util.enums.RouteTypeEnum;
 import com.xczhihui.course.consts.MultiUrlHelper;
+import com.xczhihui.course.mapper.CourseMapper;
 import com.xczhihui.course.mapper.MobileBannerMapper;
+import com.xczhihui.course.model.Course;
 import com.xczhihui.course.model.MobileBanner;
 import com.xczhihui.course.model.OfflineCity;
 import com.xczhihui.course.service.IMobileBannerService;
@@ -36,6 +41,8 @@ public class MobileBannerServiceImpl extends ServiceImpl<MobileBannerMapper, Mob
     private MobileBannerMapper iMobileBannerMapper;
     @Value("${mobile.domain}")
     private String returnOpenidUri;
+    @Autowired
+    private CourseMapper courseMapper;
 
 
     @Override
@@ -51,8 +58,9 @@ public class MobileBannerServiceImpl extends ServiceImpl<MobileBannerMapper, Mob
         List<MobileBanner> records = iMobileBannerMapper.selectMobileBannerPage(type);
         records.forEach(mobileBanner -> {
             String routeType = mobileBanner.getRouteType();
+            String linkParam = mobileBanner.getLinkParam();
             if (StringUtils.isNotBlank(routeType)) {
-                String url = MultiUrlHelper.getUrl(routeType, source, MultiUrlHelper.handleParam(returnOpenidUri, mobileBanner.getLinkParam(), routeType));
+                String url = MultiUrlHelper.getUrl(getHandleRouteType(routeType, linkParam), source, MultiUrlHelper.handleParam(returnOpenidUri, linkParam, routeType));
                 mobileBanner.setTarget(url);
             } else {
                 mobileBanner.setTarget("");
@@ -327,8 +335,27 @@ public class MobileBannerServiceImpl extends ServiceImpl<MobileBannerMapper, Mob
 
     @Override
     public Integer addClickNum(String id, Integer clickSource, Integer dataSource) {
-        
-        return  iMobileBannerMapper.addBannerClickNum(id,clickSource,dataSource);
+
+        return iMobileBannerMapper.addBannerClickNum(id, clickSource, dataSource);
+    }
+
+    @Override
+    public String getHandleRouteType(String routeType, String linkParam) {
+        if (routeType != null) {
+            //客户端中的课程详情, 如果是免费的直播，视频，音频 改为跳转到学习的详情页
+            if (routeType.equals(RouteTypeEnum.COMMON_COURSE_DETAIL_PAGE.name())) {
+                if (linkParam != null) {
+                    Course course = courseMapper.selectById(Integer.parseInt(linkParam));
+                    if (course != null) {
+                        Integer type = course.getType();
+                        if (course.isFree() && type != null && (type == CourseForm.LIVE.getCode() || type == CourseForm.VOD.getCode())) {
+                            return CourseUtil.getCourseLearningRouteType(course.getCollection(), type, course.getMultimediaType()).name();
+                        }
+                    }
+                }
+            }
+        }
+        return routeType;
     }
 
 }
