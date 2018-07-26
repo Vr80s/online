@@ -28,8 +28,7 @@ $(function(){
 				  	webToast("提交成功","middle",1500);
 				  	// var doctorId = getQueryString("doctor"); 
 				  	// alert(11111);
-				  	setTimeout(window.location.href = "/xcview/html/physician/physicians_page.html?doctor=" + doctorId + "",1600);
-				  	
+				  	setTimeout(window.history.back(),1600);
 			    }else{
 			    	webToast(data.errorMessage,"middle",1500);
 			    }
