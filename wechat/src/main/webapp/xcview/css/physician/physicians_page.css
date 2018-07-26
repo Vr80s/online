@@ -2501,7 +2501,7 @@ margin-top: 0.015rem;
     /* border-radius: 8px; */
     float: left;
     font-size: 0.28rem;
-    color: #333333;
+    color: #666;
     /*text-align: justify;*/
     /*padding: 0.2rem;*/
     /* background: url(/xcview/images/bg_bg.png) no-repeat; */
@@ -2862,7 +2862,7 @@ margin-top: 0.015rem;
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 1;
+    z-index: 9;
     display: none;
 }
 .order_tips_no_bg{
