@@ -94,8 +94,6 @@ function saveCourse() {
     		imgCourseUrl="";
     	}
     var course = getCourseData();
-    
-    
     if (verifyCourse(course)) {
         if (course.id == null || course.id == '') {
             addCourse(course);
