@@ -743,6 +743,7 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
         
         
         List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+        
         List<MedicalDoctorVO> doctors0 = medicalDoctorMapper.selectDoctorList(new Page<MedicalDoctorVO>(1,3), null, 
                 null, null, null, null);
         
@@ -753,6 +754,7 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
             map.put("doctors", doctors0);
             list.add(map);
         }
+        
         /**
          * 循环枚举进行查询
          */
@@ -764,7 +766,7 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
 
             List<MedicalDoctorVO> doctors = medicalDoctorMapper.selectDoctorList(new Page<MedicalDoctorVO>(1,3),
                     code, null, null, null, null);
-            if (doctors != null && doctors0.size() > 0) {
+            if (doctors != null && doctors.size() > 0) {
 
                 Map<String, Object> map1 = new HashMap<String, Object>();
                 map1.put("code", code);

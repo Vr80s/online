@@ -111,6 +111,7 @@ public class FocusServiceImpl extends ServiceImpl<FocusMapper, Focus> implements
     public void updateFocus(String lockId, String lecturerId, String userid, Integer type) {
 
         try {
+            
             Focus f = focusMapper.findFoursByUserIdAndlecturerId(userid, lecturerId);
             if (type != null && type == 1) {//增加关注
                 if (f != null) {

@@ -427,7 +427,7 @@ function sendComment(){
                     })
                 }
 
-            });
+            },false);
             webToast("评论成功","middle",1500);
         }else{
             webToast(data.resultObject,"middle",1500);
@@ -696,7 +696,6 @@ function doctorCourses(data){
         });
 }
 //判断医师是否具有主播权限
-
 function doctorStatus() {
     requestService("/xczh/doctors/doctorStatus", {doctorId:doctorId},function (data) {  //一、获取是否医师权限。
         if (data.success == true) {
@@ -788,8 +787,8 @@ function apprenticeInfo() {
                 var id=$(this).attr("data-ids");
                 var tokenStr=$(this).attr("data-tokenStr");
                 location.href ='/xcview/html/apprentice/inherited_introduction.html?merId='+id;
-            });
-            // 获取判断是否提交申请弟子信息  师承底部判断是否提交
+            });  //    '/xcview/html/physician/physician_list.html?queryKey='+search_val+'&curriculum_blck=2';
+            // 获取判断是否提交申请弟子信息  
             $('.disciple_application_state').html(template('disciple_application_state_id', {items: data.resultObject}));
             // 判断--老师解惑--时隐藏
             if (isBlank(data.resultObject.questions)) {
@@ -798,6 +797,19 @@ function apprenticeInfo() {
                 $(".QA_main").show();
                 // 医师问答列表
                 $('.QA_main').html(template('QA_main_id', {items: data.resultObject.questions}));
+                /*var txt=$('.QA_doubt_main_reply').html();
+                txts=txt.replace('\n','<br>')
+                $('.QA_doubt_main_reply').html(txts);*/
+                // 提问处理回车
+                var txts = $('.QA_doubt_main_reply').html();
+                txts=txts.replace(/[\n\r]/g,'<br>');
+                $('.QA_doubt_main_reply').html(txts);
+
+                // 回答处理回车
+                var txt = $('.QA_doubt_main_replys').html();
+                txt=txt.replace(/[\n\r]/g,'<br>');
+                $('.QA_doubt_main_replys').html(txt);
+
             }
 
             // 判断预约
@@ -807,7 +819,26 @@ function apprenticeInfo() {
                 $(".therapy").show();
                 // 预约
                 $('.subscribe_id').html(template('subscribe_id', {items: data.resultObject.treatments}));
+                
+
+
                 // ceshi();
+                // alert(data.resultObject.treatments.indexDateText);
+                /*var aaa = $(".subscribe_time").html();
+                for (var j = 0; j < aaa.length; j++) {
+                    alert(aaa);
+                };*/
+
+                /*var aBtn=$('.subscribe');
+                    for(i=0;i<aBtn.length;i++){
+                    
+                    $(aBtn[i]).click(function(){
+                        for(i=0;i<aBtn.length;i++){
+                            alert(aBtn[i].html());
+                        }
+                    })
+                }*/
+
             }
 
             // $('.subscribe_id').html(template('subscribe_id', {items: data.resultObject.treatments}));
@@ -858,10 +889,19 @@ function apprenticeInfo() {
 
             if (isNotBlank(data.resultObject.settings)) {
                 // 如何成为弟子
-                $('.become_disciple_cen_id').html(template('become_disciple_cen_id', {items: data.resultObject.settings}));
-                $('.become_disciple_cen_ids').html(template('become_disciple_cen_ids', {items: data.resultObject.settings}));
+                //$('.become_disciple_cen_id').html(template('become_disciple_cen_id', {items: data.resultObject.settings}));
+                //$('.become_disciple_cen_ids').html(template('become_disciple_cen_ids', {items: data.resultObject.settings}));
+                // 如何成为弟子
+                var requirement = data.resultObject.settings.requirement;
+                $(".a_disciple").html(requirement);
+                // 弟子福利
+                var welfare = data.resultObject.settings.welfare;
+                $(".disciple_welfare").html(welfare);
             } else{
-                $(".become_disciple").hide();
+                $(".a_disciple").html("提交申请后，资格审核通过即可与老师在线面谈，面谈结束由老师决定是否收为弟子。");
+                $(".disciple_welfare_one").html("1、系统学习老师精心设计的整套课程；");
+                $(".disciple_welfare_two").html("2、在线零距离求知问道；");
+                $(".disciple_welfare_three").html("3、多媒体全方位在线跟师；");
             }
         }
     });
@@ -931,6 +971,18 @@ function order(id){
             }else{
                 location.href ='/xcview/html/physician/reserve_information.html?doctor='+doctorId+'&dataId='+id+''
             }
+
+        }
+    });
+};
+
+// 点击我的预约
+function orders(id){
+    
+    requestGetService("/doctor/treatment/appointmentInfo",{id:id},function (data) {
+        if (data.success == true) {
+           
+            location.href ='/xcview/html/physician/my_bookings.html?id='+id;
 
         }
     });

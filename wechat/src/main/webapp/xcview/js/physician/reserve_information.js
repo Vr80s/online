@@ -25,7 +25,7 @@ $(function(){
                 $('.zhengliao_img').css("opacity","0");
                 $(".zhengliao_"+id).find('img').css("opacity","1");
                 var html = $(this).find("span").html();
-
+                treatmentId = id;
                 zhengliao = $(this).find('span').html();// 时间段
                 $(".handler_time span").html(html);
                 // alert("时间段："+zhengliao);
@@ -109,7 +109,7 @@ $(function(){
                 };
                 
             }
-        });
+        },false);
 
     });
 

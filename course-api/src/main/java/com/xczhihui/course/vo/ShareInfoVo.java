@@ -37,6 +37,7 @@ public class ShareInfoVo implements Serializable {
                 ShareType.ALBUM_SHARE.getCode().equals(type)) {
 
             this.setName("中医好课程:" + gradeName);
+            this.setGradeName("中医好课程:" + gradeName);
         }
 
         //详情

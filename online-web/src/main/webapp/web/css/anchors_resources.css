@@ -2290,7 +2290,7 @@ white-space: normal;
     color: #FF4012;
     line-height: 30px;
     text-indent: 20px;
-    background: url(../images/icons/tanhao.png) no-repeat left center;
+    background: url(/web/images/icons/tanhao.png) no-repeat left center;
  	margin-bottom: 0;
  	clear: both;
  }   
@@ -2429,7 +2429,7 @@ white-space: normal;
     color: #FF4012;
     line-height: 30px;
     text-indent: 20px;
-    background: url(../images/icons/tanhao.png) no-repeat left center;
+    background: url(/web/images/icons/tanhao.png) no-repeat left center;
     margin-left: 153px;
     margin-bottom: 0;
 }
@@ -2659,7 +2659,7 @@ white-space: normal;
     color: #FF4012;
     line-height: 30px;
     text-indent: 20px;
-    background: url(../images/icons/tanhao.png) no-repeat left center;
+    background: url(/web/images/icons/tanhao.png) no-repeat left center;
      margin-left: 120px;
 }
 
@@ -3007,7 +3007,7 @@ white-space: normal;
     color: #FF4012;
     line-height: 30px;
     text-indent: 20px;
-    background: url(../images/icons/tanhao.png) no-repeat left center;
+    background: url(/web/images/icons/tanhao.png) no-repeat left center;
      margin-left: 120px;
 }
 #resourceUrl input{
@@ -3357,7 +3357,7 @@ white-space: normal;
     color: #FF4012;
     line-height: 30px;
     text-indent: 20px;
-    background: url(../images/icons/tanhao.png) no-repeat left center;
+    background: url(/web/images/icons/tanhao.png) no-repeat left center;
      margin-left: 120px;
 }
 #resourceUrl input{
@@ -3523,6 +3523,12 @@ white-space: normal;
 }
 #doc_Distinguish .bottomContent >.keshi ul li:nth-child(5n){
 	margin-right: 0;
+}
+#doc_Distinguish .bottomContent .personIntroduct{
+	word-break: break-word;
+}
+#doc_Distinguish .bottomContent .personIntroduct img{
+	max-width: 500px;
 }
 #doc_Distinguish .bottomContent .personIntroduct textarea {
 	width: 540px;

@@ -6,12 +6,14 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.cfg.SecondaryTableSecondPass;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xczhihui.common.util.XzStringUtils;
+import com.xczhihui.common.util.enums.AnchorType;
 import com.xczhihui.common.util.enums.UserSex;
 import com.xczhihui.course.exception.UserInfoException;
 import com.xczhihui.course.mapper.CourseMapper;
@@ -97,14 +99,15 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper, OnlineUser> imp
     @Override
     public List<Map<String, Object>> hostInfoRec() {
         List<Map<String, Object>> list = myInfoMapper.hostInfoRec();
+        
         for (int i = 0; i < list.size(); i++) {
             Map<String, Object> map = list.get(i);
+        
             //医师的
             if(map!=null && map.get("type")!=null && "1".equals(map.get("type").toString())&& 
                     map.get("userId")!=null) {
                 String userId = map.get("userId").toString();
-                Map<String, String> mapHeadProtrait =
-                        myInfoMapper.selectDoctorHeadPortraitAndByUserId(userId);
+                Map<String, String> mapHeadProtrait = myInfoMapper.selectDoctorHeadPortraitAndByUserId(userId);
                 map.putAll(mapHeadProtrait);
             }
         }
@@ -120,22 +123,31 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper, OnlineUser> imp
 
     @Override
     public Map<String, Object> findHostInfoById(String userId) {
-        return findHostInfoById(userId, true);
+        
+        return myInfoMapper.findHostInfoById(userId);
     }
 
     @Override
-    public Map<String, Object> findHostInfoById(String userId, Boolean falg) {
-        Map<String, Object> map = myInfoMapper.findHostInfoById(userId);
-
-        //过滤下坐诊时间
-        if (map != null && map.get("workTime") != null) {
-            map.put("workTime", XzStringUtils.workTimeScreen(map.get("workTime").toString(), falg));
+    public Map<String, Object> findHostInfoByIdProbablyPhysician(String userId) {
+        
+        Map<String, Object> mapHostInfo = myInfoMapper.findHostInfoById(userId);
+        
+        if(mapHostInfo!=null && "1".equals(mapHostInfo.get("type").toString())){
+            
+            Map<String, String> mapDoctorInfo =   myInfoMapper.
+                    selectDoctorHeadPortraitAndTitleByUserId(userId);
+            //过滤下坐诊时间
+            if (mapDoctorInfo != null && mapDoctorInfo.get("workTime") != null) {
+                mapDoctorInfo.put("workTime", XzStringUtils.workTimeScreen(mapDoctorInfo.get("workTime")));
+            }
+            //过滤详情中的外部连接
+            if(mapDoctorInfo != null && mapDoctorInfo.get("detail") != null) {
+                mapDoctorInfo.put("detail", XzStringUtils.formatA(mapDoctorInfo.get("detail")));
+            }        
+            mapHostInfo.putAll(mapDoctorInfo);
         }
-        //过滤详情中的外部连接
-        if(map != null && map.get("detail") != null) {
-            map.put("detail", XzStringUtils.formatA(map.get("detail").toString()));
-        }
-        return map;
+       
+        return mapHostInfo;
     }
 
     @Override
@@ -160,7 +172,7 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper, OnlineUser> imp
 
 
     @Override
-    public Map<String, Object> selectUserHomePageData(Object object, String lecturerId, Boolean boolean1) {
+    public Map<String, Object> selectUserHomePageData(String userId, String lecturerId, Boolean boolean1) {
         
         Map<String, Object> mapAll = new HashMap<String, Object>();
         
@@ -174,7 +186,7 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper, OnlineUser> imp
         if (lecturerId == null) {
             mapAll.put("isFours", 0);
         } else {
-            Integer isFours = focusMapper.isFoursLecturer(lecturerId, lecturerId);
+            Integer isFours = focusMapper.isFoursLecturer(userId, lecturerId);
             mapAll.put("isFours", isFours);
         }
         /**
@@ -189,20 +201,17 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper, OnlineUser> imp
     
     public static void main(String[] args) {
         
-        Map<String,String> map = new HashMap<String,String>();
-        map.put("haha", "1");
-        map.put("lala", "1");
-        map.put("haha1", "1");
-        map.put("lala1", "1");
-        
-        Map<String,String> map1 = new HashMap<String,String>();
-        map1.put("haha1", "2");
-        map1.put("lala2", "2");
-        
-        map.putAll(map1);
-        
-        System.out.println(map.toString());
-        
+        if("1".equals(1)) {
+            System.out.println("11111111");
+        }else {
+            System.out.println("22222222222222");
+        }
+        Integer aInteger = 1;
+        if(aInteger.equals("1")) {
+            System.out.println("11111111");
+        }else {
+            System.out.println("22222222222222");
+        }
     }
     
 }

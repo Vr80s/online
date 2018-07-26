@@ -3,9 +3,7 @@ package com.xczh.consumer.market.controller.medical;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.body.treatment.TreatmentAppointmentInfoBody;
@@ -37,13 +35,18 @@ public class RemoteTreatmentAppointmentInfoController {
         return ResponseObject.newSuccessResponseObject(null);
     }
 
+    @RequestMapping(value = "appointmentInfo", method = RequestMethod.GET)
+    public ResponseObject get(@RequestParam int id) {
+        return ResponseObject.newSuccessResponseObject(remoteTreatmentService.getInfo(id));
+    }
+
     @RequestMapping(method = RequestMethod.GET)
     public ResponseObject list(@Account String accountId, String doctorId) {
         Map<String, Object> result = enrolService.findApprenticeInfo(doctorId, accountId);
         if (result == null) {
             return ResponseObject.newErrorResponseObject("您不是该医师的弟子~");
         }
-        result.put("treatments", remoteTreatmentService.listAppointment(doctorId, true));
+        result.put("treatments", remoteTreatmentService.listAppointment(doctorId, true, accountId));
         return ResponseObject.newSuccessResponseObject(result);
     }
 }

@@ -236,22 +236,16 @@ public class VideoResController extends AbstractController {
         //查询参数输入
         String key = "K45btKhytR527yfTAjEp6z4fb3ajgu66";
         treeMap.put("userid", "B5E673E55C702C42");
-        treeMap.put("title", fileName);
-        treeMap.put("description", fileName);
         treeMap.put("filename", fileName);
         treeMap.put("filesize", fileSize);
-        treeMap.put("categoryid", categoryid);
-        treeMap.put("notify_url", "http://dev-www.xczhihui.com/videoRes/updateCourseApplyResource");
+        treeMap.put("notify_url", "http://221.182.185.52:80/videoRes/uploadSuccessCallback");
         treeMap.put("format", "json");
-        String qs = APIServiceFunction.createQueryString(treeMap);
-        //生成时间片
-        long time = new Date().getTime() / 1000;
-        //生成HASH码值
-        String hash = Md5Encrypt.md5(String.format("%s&time=%s&salt=%s", qs, time, key));
 
-        String str = APIServiceFunction.sendGet("http://spark.bokecc.com/api/video/create/v2",
-                qs + "&time=" + time + "&hash=" + hash);
 
+        String ss = APIServiceFunction.createHashedQueryString(treeMap,new Date().getTime(),key);
+        String str = APIServiceFunction.sendGet("http://spark.bokecc.com/api/video/create/v2",ss);
+
+        System.out.println("上传视频++++++++++++++++");
     }
     /**
      * 视频处理完成的回调
@@ -259,10 +253,14 @@ public class VideoResController extends AbstractController {
      * @param ccId
      */
     @RequestMapping(value = "updateCourseApplyResource", method = RequestMethod.GET)
-    public void updateCourseApplyResource( String ccId) {
+    public void updateCourseApplyResource(HttpServletResponse res, String ccId) throws IOException {
+        System.out.println("视频处理完成的回调前+++++");
+        courseApplyService.updateCourseApplyResource(ccId);
+        System.out.println("视频处理完成的回调后+++++");
 
-        courseApplyService.updateCourseApplyResource();
-        System.out.println("视频处理完成的回调+++++");
+        res.setCharacterEncoding("UTF-8");
+        res.setContentType("text/xml; charset=utf-8");
+        res.getWriter().write("<?xml version=\"1.0\" encoding=\"UTF-8\"?><video>OK</video>");
 
     }
 
