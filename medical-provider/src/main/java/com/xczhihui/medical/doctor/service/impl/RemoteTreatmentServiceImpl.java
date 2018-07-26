@@ -1,7 +1,10 @@
 package com.xczhihui.medical.doctor.service.impl;
 
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -103,6 +106,9 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
             if (treatment.getStatus() != AppointmentStatus.ORIGIN.getVal()) {
                 return 0;
             }
+//            if (checkRepeatAppoint(treatmentId, treatmentAppointmentInfo.getUserId())) {
+//                throw new MedicalException("该日期您已经有预约申请，请选择其他日期进行申请");
+//            }
             remoteTreatmentAppointmentInfoMapper.insert(treatmentAppointmentInfo);
             treatment.setInfoId(treatmentAppointmentInfo.getId());
             treatment.setStatus(AppointmentStatus.WAIT_APPLY.getVal());
@@ -208,6 +214,19 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
         TreatmentVO treatmentVO = remoteTreatmentMapper.findByInfoId(id);
         handleDate(treatmentVO);
         return treatmentVO;
+    }
+
+    @Override
+    public boolean checkRepeatAppoint(int id, String accountId) {
+        Treatment treatment = remoteTreatmentMapper.selectById(id);
+        if (treatment == null) {
+            throw new MedicalException("数据不存在");
+        }
+        Date startTime = treatment.getStartTime();
+        Date endTime = treatment.getEndTime();
+        Date date = treatment.getDate();
+        Integer cnt = remoteTreatmentMapper.countUserAppointRepeatByDate(date, startTime, endTime, accountId);
+        return cnt != null && cnt > 0;
     }
 
     private void handleDate(TreatmentVO treatmentVO) {

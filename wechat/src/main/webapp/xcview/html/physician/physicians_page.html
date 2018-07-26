@@ -39,6 +39,9 @@
 <!-- 测试点击图片 -->
 
 	<style>
+	body{
+		/*background: red !important;*/
+	}
 		.middle-img {
 			position: absolute;
 			left: 259px;
@@ -451,9 +454,10 @@
 			<div class="message">
 				<div class="message_name">
 					<div class="name">{{items.lecturerInfo.name}}</div>
-					<div class="name names" style="font-size: 0.24rem;color: #999999;margin-top: 0.06rem;">{{items.lecturerInfo.title}}</div>
 					{{if items.apprentice}}
 					<div class="message_characteristic">我的师傅</div>
+                    {{else}}
+                    <div class="name" style="font-size: 0.24rem;color: #999999;margin-top: 0.06rem;">{{items.lecturerInfo.title}}</div>
 					{{/if}}
 					<div class="both"></div>
 				</div>
@@ -542,7 +546,8 @@
 								<li>
 									<div class="am-gallery-item">
 										<a href="{{pic.imgUrl}}" class="">
-											<img src="{{pic.imgUrl}}?imageMogr2/thumbnail/!226x226r|imageMogr2/gravity/Center/crop/226x226" />
+											<!--<img src="{{pic.imgUrl}}?imageMogr2/thumbnail/!226x226r|imageMogr2/gravity/Center/crop/226x226" />-->
+											<img src="{{pic.imgUrl}}" />
 										</a>
 									</div>
 								</li>
@@ -958,7 +963,7 @@
 	            	</script>
 
 				</ul>
-				<div class="more_live_lesson">查看更多直播课</div>
+				<div class="more_live_lesson"onclick="dortorCoursePage()">查看更多直播课</div>
 				<!-- <div class="more_live_lesson_no">点击收起</div> --> <!-- 直播课加载完后点击收起成开始状态 -->
 			</div>
 			<!-- 直播课程结束 -->		</div>
@@ -991,7 +996,7 @@
 			<div class="therapy_title">
 				<span class="border"></span>
 				<span style="font-size: 0.28rem;float: left;">远程诊疗</span>
-				<span class="master_course_span">开放远程诊疗预约时间，仅弟子可预约</span>
+				<span class="master_course_span">一个时段仅可一名弟子预约</span>
 				<div class="both"></div>
 			</div>
 			<div class="subscribe_id">

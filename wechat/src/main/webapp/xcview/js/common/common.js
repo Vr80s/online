@@ -290,8 +290,8 @@ function common_share_backs() {
     }else if(isNotBlank(back) && back.indexOf("index.html") != -1){
         sessionStorage.setItem("inherited_backFalg","index");
     }else{
-        window.location.href = "/xcview/html/physician/index.html";
-        // window.history.back();
+        //window.location.href = "/xcview/html/physician/index.html";
+        window.history.back();
         return;
     }
 

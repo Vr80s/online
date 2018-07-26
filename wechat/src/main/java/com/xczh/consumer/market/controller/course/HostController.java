@@ -203,7 +203,7 @@ public class HostController {
         }
         apprenticeData.put("settings", enrolService.findSettingsByDoctorId(doctorId));
         apprenticeData.put("onlineApprenticeStatus", accountIdOpt.map(accountId -> enrolService.getOnlineApprenticeStatus(doctorId, accountId))
-                .orElse(OnlineApprenticeStatus.NOT_APPLY.getVal()));
+                .orElse(OnlineApprenticeStatus.NOT_ENTRY.getVal()));
         apprenticeData.put("treatments", remoteTreatmentService.listAppointment(doctorId, false, userId));
         return ResponseObject.newSuccessResponseObject(apprenticeData);
     }

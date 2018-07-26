@@ -20,12 +20,14 @@ body{
 /*头部开始*/
 header{
 	width: 7.5rem;
-	height: 0.88rem;
-	margin: 0 auto;
-	background: #fff;
-	position: fixed;
-	top: 0;
-	z-index: 1;
+    height: 0.88rem;
+    margin: 0 auto;
+    background: #fff;
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    left: 50%;
+    margin-left: -3.75rem;
 }
 .header{
 	width: 7.5rem;

@@ -30,11 +30,15 @@ header{
     z-index: 1;
 }
 .header{
-	width: 7.5rem;
-	height: 0.88rem;
-	margin: 0 auto;
-	background: #fff;
-	margin: 0 auto;
+    width: 7.5rem;
+    height: 0.88rem;
+    margin: 0 auto;
+    background: #fff;
+    margin: 0 auto;
+    position: fixed;
+    top: 0;
+    left: 50%;
+    margin-left: -3.75rem;
 }
 
 .headers{
@@ -196,21 +200,23 @@ header{
     height: 100%;
     position: fixed;
     top: 0;
-    left: 0;
+    left: 50%;
     z-index: 999999;
     background: #000;
     opacity: 0.3;
+    margin-left: -3.75rem;
 }
 .time_popout_main{
     width: 7.5rem;
-    /*height: 6.02rem;*/
+    /* height: 6.02rem; */
     max-height: 6.02rem;
     background: #fff;
     position: fixed;
-    left: 0;
+    left: 50%;
     bottom: 0;
     z-index: 999999;
     overflow: scroll;
+    margin-left: -3.75rem;
 }
 .time_popout_main ul li{
     width: 100%;
@@ -247,10 +253,11 @@ header{
     height: 100%;
     position: fixed;
     top: 0;
-    left: 0;
+    left: 50%;
     z-index: 999999;
     background: #000;
     opacity: 0.3;
+    margin-left: -3.75rem;
 }
 .prosperity_popout_main{
     width: 5.4rem;
@@ -310,10 +317,11 @@ header{
     height: 100%;
     position: fixed;
     top: 0;
-    left: 0;
+    left: 50%;
     z-index: 999999;
     background: #000;
     opacity: 0.3;
+    margin-left: -3.75rem;
 }
 .failure_popout_main{
     width: 5.4rem;
