@@ -37,6 +37,12 @@ public class AnchorDao extends HibernateDao<CourseAnchor> {
                         + "  ca.`user_id` as userId,\n"
                         + "  ou.`login_name` loginName,\n"
                         + "  ca.`type`,\n"
+                        + "  if(ca.type =1, ( "
+                        + "     select name from medical_doctor where id = (select mda.doctor_id from medical_doctor_account as mda  where mda.account_id = ca.user_id  ) \n"  
+                        + "  ),( \n" 
+                        + "     select name from medical_hospital  where id = (select mha.doctor_id from medical_hospital_account as mha  where mha.account_id = ca.user_id  ) \n"
+                        + ")) as doctorOrHospitalName, \n" 
+                        
                         + "  ca.`vod_divide`,\n"
                         + "  ca.`live_divide`,\n"
                         + "  ca.`offline_divide`,\n"
@@ -46,6 +52,7 @@ public class AnchorDao extends HibernateDao<CourseAnchor> {
                         + "  ca.`status`  \n" + "FROM\n"
                         + "  `course_anchor` ca \n" + "  JOIN `oe_user` ou \n"
                         + "    ON ca.`user_id` = ou.`id` \n"
+                        
                         + "WHERE ca.`deleted` = 0 \n"
                         + "  AND ou.`is_delete` = 0 \n" + "    ");
         if (courseAnchor.getLoginName() != null) {
