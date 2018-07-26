@@ -171,7 +171,7 @@
 			                    </td>
 								<td>
 									<div class="profile-info-value searchTr">
-										<input type="text" placeholder="主播" class="propertyValue1" id="search_lecturerName" style="width: 150px;">
+										<input type="text" placeholder="主播/主讲人" class="propertyValue1" id="search_lecturerName" style="width: 150px;">
 										<input type="hidden" value="search_lecturerName" class="propertyName" />
 									</div>
 								</td>
