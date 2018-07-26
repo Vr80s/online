@@ -25,6 +25,7 @@ import com.xczhihui.common.util.enums.DoctorSortOrderType;
 import com.xczhihui.common.util.enums.DoctorType;
 import com.xczhihui.course.consts.MultiUrlHelper;
 import com.xczhihui.course.service.ICourseService;
+import com.xczhihui.course.service.IMobileBannerService;
 import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.medical.anchor.service.IAnchorInfoService;
 import com.xczhihui.medical.banner.model.OeBanner;
@@ -69,6 +70,8 @@ public class DoctorController {
     
     @Autowired
     private PcBannerService bannerService;
+    @Autowired
+    private IMobileBannerService mobileBannerService;
     
     
     /**
@@ -86,8 +89,10 @@ public class DoctorController {
         
         page.getRecords().forEach(bannerVo -> {
             String routeType = bannerVo.getRouteType();
+            String linkParam = bannerVo.getLinkParam();
             if (StringUtils.isNotBlank(routeType)) {
-                String url = MultiUrlHelper.getUrl(routeType,  APPUtil.getMobileSource(request), MultiUrlHelper.handleParam(returnOpenidUri, bannerVo.getLinkParam(), routeType));
+                String url = MultiUrlHelper.getUrl(mobileBannerService.getHandleRouteType(routeType, linkParam),
+                        APPUtil.getMobileSource(request), MultiUrlHelper.handleParam(returnOpenidUri, linkParam, routeType));
                 bannerVo.setTarget(url);
             } else {
                 bannerVo.setTarget("");

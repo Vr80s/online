@@ -1,10 +1,7 @@
 package com.xczhihui.medical.doctor.service.impl;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -214,9 +211,9 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
     }
 
     private void handleDate(TreatmentVO treatmentVO) {
-        SimpleDateFormat yearMonthDayDateFormat = new SimpleDateFormat("yyyy年MM月dd日");
+        SimpleDateFormat yearMonthDayDateFormat = new SimpleDateFormat("yyyy年M月dd日");
         SimpleDateFormat hourMinuteFormat = new SimpleDateFormat("HH:mm");
-        SimpleDateFormat monthDayDateFormat = new SimpleDateFormat("MM月dd日");
+        SimpleDateFormat monthDayDateFormat = new SimpleDateFormat("M月dd日");
         Date date = treatmentVO.getDate();
         Date startTime = treatmentVO.getStartTime();
         Date endTime = treatmentVO.getEndTime();
