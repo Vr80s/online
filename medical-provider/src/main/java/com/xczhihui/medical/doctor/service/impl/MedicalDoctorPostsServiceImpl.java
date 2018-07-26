@@ -232,7 +232,7 @@ public class MedicalDoctorPostsServiceImpl extends ServiceImpl<MedicalDoctorPost
                 mdp.setType(DoctorPostsType.ARTICLEPOSTS.getCode());
                 if(oba.getTypeId().equals("8")){
                     //截取医案
-                    String htmlText = HtmlUtil.delHTMLTag(oba.getContent());
+                    String htmlText = HtmlUtil.getTextFromHtml(oba.getContent());
                     if(htmlText.length()>100){
                         mdp.setContent(htmlText.substring(0,100)+"...");
                     } else {

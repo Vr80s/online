@@ -46,6 +46,7 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
             "快去发布课程吧~如需帮助请联系客服0898-32881934。" + TextStyleUtil.LEFT_TAG + "去看看>>" + TextStyleUtil.RIGHT_TAG;
     private static final String APPROVE_NOT_PASS_MESSAGE = "您的{0}认证未能通过，原因: {1}，如有疑问请联系客服0898-32881934。"
             + TextStyleUtil.LEFT_TAG + "查看详情" + TextStyleUtil.RIGHT_TAG;
+    private static final String FINISH_MESSAGE = "您的医师认证已通过，您的医师信息未填写完整，请登录http://www.ipandatcm.com进入“我是医师”模块中的“医师认证”补充未填写的信息。";
     private final Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired
     private DoctorApplyDao doctorApplyDao;
@@ -309,8 +310,24 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
         anchorDao.save(courseAnchor);
 
         sendApprovePassMessage(courseAnchor, apply);
+        //说明是APP过来的医师申请，通过后通知用户
+        if (StringUtils.isBlank(apply.getHeadPortrait())) {
+            try {
+                Thread.sleep(500);
+                sendRemindMessage(courseAnchor);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
 
         return doctorId;
+    }
+
+    private void sendRemindMessage(CourseAnchor courseAnchor) {
+        commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.SYSYTEM.getVal())
+                .buildWeb(FINISH_MESSAGE)
+                .buildAppPush(FINISH_MESSAGE)
+                .build(courseAnchor.getUserId(), RouteTypeEnum.NONE, ManagerUserUtil.getId()));
     }
 
     /**
@@ -429,11 +446,11 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
 
         // 将MedicalDoctorApplyDepartment数据格式转化成：MedicalDoctorDepartment
         if (medicalDoctorApplyDepartments != null && !medicalDoctorApplyDepartments.isEmpty()) {
-            medicalDoctorApplyDepartments.stream().forEach(department -> this.addMedicalDepartment(department,doctorId, now));
+            medicalDoctorApplyDepartments.stream().forEach(department -> this.addMedicalDepartment(department, doctorId, now));
         }
     }
 
-    private void addMedicalDepartment(MedicalDoctorApplyDepartment department,String doctorId, Date createTime) {
+    private void addMedicalDepartment(MedicalDoctorApplyDepartment department, String doctorId, Date createTime) {
         MedicalDoctorDepartment doctorDepartment = new MedicalDoctorDepartment();
         doctorDepartment.setId(CodeUtil.getRandomUUID());
         doctorDepartment.setDoctorId(doctorId);
