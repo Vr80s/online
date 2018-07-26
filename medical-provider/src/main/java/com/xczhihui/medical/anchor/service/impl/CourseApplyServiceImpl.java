@@ -544,6 +544,9 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         if (StringUtils.isBlank(courseApplyInfo.getUserId())) {
             throw new AnchorWorkException("用户id不可为空");
         }
+        if (StringUtils.isBlank(courseApplyInfo.getImgPath())) {
+            throw new AnchorWorkException("封面不可为空");
+        }
         if (StringUtils.isBlank(courseApplyInfo.getTitle())) {
             throw new AnchorWorkException("课程标题不可为空");
         } else if (courseApplyInfo.getTitle().length() > 30) {
