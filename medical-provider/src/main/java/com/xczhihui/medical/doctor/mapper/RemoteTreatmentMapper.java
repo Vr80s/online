@@ -39,6 +39,17 @@ public interface RemoteTreatmentMapper extends BaseMapper<Treatment> {
     Integer countRepeatByDate(@Param("date") Date date, @Param("startTime") Date startTime,
                               @Param("endTime") Date endTime, @Param("id") Integer id, @Param("doctorId") String doctorId);
 
+    @Select({"<script>" +
+            "   select count(mt.id)" +
+            "   from medical_treatment mt join medical_treatment_appointment_info mtai on mt.info_id = mtai.id" +
+            "   where mt.date = #{date} and mtai.user_id = #{userId}" +
+            "   and ((mt.start_time &gt;= #{startTime} and mt.start_time &lt;= #{endTime}) or (mt.start_time &lt;= #{startTime}" +
+            " and mt.end_time &gt;= #{endTime}) or (mt.end_time &gt;= #{startTime} and mt.end_time &lt;= #{endTime}))" +
+            "   and mt.deleted = false" +
+            "</script>"})
+    Integer countUserAppointRepeatByDate(@Param("date") Date date, @Param("startTime") Date startTime,
+                              @Param("endTime") Date endTime, @Param("userId") String userId);
+
     /**
      * 查找医师可预约的诊疗
      *
