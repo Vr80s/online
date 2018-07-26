@@ -87,4 +87,13 @@ public interface IRemoteTreatmentService {
      * @return
      */
     TreatmentVO getInfo(int id);
+
+    /**
+     * 校验是否预约了相同时间段的预约
+     *
+     * @param id        id
+     * @param accountId accountId
+     * @return
+     */
+    boolean checkRepeatAppoint(int id, String accountId);
 }

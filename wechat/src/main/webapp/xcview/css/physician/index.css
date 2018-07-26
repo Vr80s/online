@@ -31,7 +31,8 @@ header{
     left: 50%;
     margin-left: -3.75rem;
     z-index: 99991;
-    border-bottom: 1px solid #d8dde6;
+    border-bottom: 1px solid #e6e6e6;
+
 }
 .header{
     width: 100%;

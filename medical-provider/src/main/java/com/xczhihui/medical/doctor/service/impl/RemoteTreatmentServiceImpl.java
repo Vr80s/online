@@ -106,6 +106,9 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
             if (treatment.getStatus() != AppointmentStatus.ORIGIN.getVal()) {
                 return 0;
             }
+            if (checkRepeatAppoint(treatmentId, treatmentAppointmentInfo.getUserId())) {
+                throw new MedicalException("该日期您已经有预约申请，请选择其他日期进行申请");
+            }
             remoteTreatmentAppointmentInfoMapper.insert(treatmentAppointmentInfo);
             treatment.setInfoId(treatmentAppointmentInfo.getId());
             treatment.setStatus(AppointmentStatus.WAIT_APPLY.getVal());
@@ -213,10 +216,23 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
         return treatmentVO;
     }
 
+    @Override
+    public boolean checkRepeatAppoint(int id, String accountId) {
+        Treatment treatment = remoteTreatmentMapper.selectById(id);
+        if (treatment == null) {
+            throw new MedicalException("数据不存在");
+        }
+        Date startTime = treatment.getStartTime();
+        Date endTime = treatment.getEndTime();
+        Date date = treatment.getDate();
+        Integer cnt = remoteTreatmentMapper.countUserAppointRepeatByDate(date, startTime, endTime, accountId);
+        return cnt != null && cnt > 0;
+    }
+
     private void handleDate(TreatmentVO treatmentVO) {
-        SimpleDateFormat yearMonthDayDateFormat = new SimpleDateFormat("yyyy年MM月dd日");
+        SimpleDateFormat yearMonthDayDateFormat = new SimpleDateFormat("yyyy年M月dd日");
         SimpleDateFormat hourMinuteFormat = new SimpleDateFormat("HH:mm");
-        SimpleDateFormat monthDayDateFormat = new SimpleDateFormat("MM月dd日");
+        SimpleDateFormat monthDayDateFormat = new SimpleDateFormat("M月dd日");
         Date date = treatmentVO.getDate();
         Date startTime = treatmentVO.getStartTime();
         Date endTime = treatmentVO.getEndTime();

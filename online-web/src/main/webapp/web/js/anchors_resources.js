@@ -1607,7 +1607,10 @@ function btnColorReply(){
         RequestService("/medical/common/upload", "post", {
             image: baseurl,
         }, function (data) {
-            $('#zhuanlan .zhuanlan_bottom  .' + imgname + '').html('<img src="' + data.resultObject + '" >');
+//          $('#zhuanlan .zhuanlan_bottom  .' + imgname + '').html('<img src="' + data.resultObject + '" >');
+        var columnCoverReset='<img src="' + data.resultObject + '?imageMogr2/thumbnail/!260x147r|imageMogr2/gravity/Center/crop/260x147" alt="课程封面">'+
+        						'<p class="column-reset-tip">点击图片重新上传</p>'
+        	$('#zhuanlan .zhuanlan_bottom  .' + imgname + '').html(columnCoverReset);
         })
     }
 
@@ -1660,10 +1663,17 @@ function btnColorReply(){
     }
 
     $(".column-sava-publish").click(function () {
-        var columeStatus = $(this).attr("data-status");
+        var columeStatus = $(this).attr("data-status"),
+	        isImgSrc=$(".column-picter img"),
+			isImgLength;
+				if(isImgSrc.length != 0 ){
+					isImgLength=isImgSrc.attr("src").split("?")[0];
+				}else{
+					isImgLength="";
+			}
         var data = {
             "title": $.trim($(".column-title").val()),
-            "imgPath": $(".column-picter img").attr("src"),
+            "imgPath": isImgLength,
 			"typeId": pointId,
             "content": UE.getEditor('column-content').getContent(),            
             "status": columeStatus
@@ -1795,7 +1805,7 @@ function btnColorReply(){
             var editId = $("#column-id").val(),
                 editData = {
                     "title": $.trim($(".column-title").val()),
-                    "imgPath": $(".column-picter img").attr("src"),
+                    "imgPath": $(".column-picter img").attr("src").split("?")[0],
                     "content": UE.getEditor('column-content').getContent()
                 };
             if (columnRecruit(editData)) {
@@ -2187,7 +2197,10 @@ function btnColorReply(){
         RequestService("/medical/common/upload", "post", {
             image: baseurl,
         }, function (data) {
-            $('#media_report .media_report_bottom  .' + imgname + '').html('<img src="' + data.resultObject + '" >');
+//          $('#media_report .media_report_bottom  .' + imgname + '').html('<img src="' + data.resultObject + '" >');
+           var mediaCoverReset='<img src="' + data.resultObject + '?imageMogr2/thumbnail/!260x147r|imageMogr2/gravity/Center/crop/260x147" alt="课程封面">'+
+        						'<p class="media-reset-tip">点击图片重新上传</p>'
+        	$('#media_report .media_report_bottom  .' + imgname + '').html(mediaCoverReset);
         })
     }
 
@@ -2261,14 +2274,21 @@ function btnColorReply(){
 
     $(".media-save-publish").click(function () {
         var mediaSaveId = $(this).attr("data-status"),
-            mediaData = {
+        	isImgSrc=$(".media-picter img"),
+			isImgLength;
+				if(isImgSrc.length != 0 ){
+					isImgLength=isImgSrc.attr("src").split("?")[0];
+				}else{
+					isImgLength="";
+			}
+        var mediaData = {
                 "title": $(".media-title").val(),
                 "author": $(".media-author").val(),
-                "imgPath": $(".media-picter img").attr("src"),
+                "imgPath": isImgLength,
                 "content": UE.getEditor('media-context').getContent(),
                 "url": $(".media-link").val(),
                 "status": mediaSaveId
-            }
+           };
         if (mediaValidate(mediaData)) {
             $(this).attr("disabled", "disabled");
             $.ajax({
@@ -2375,7 +2395,7 @@ function btnColorReply(){
                 editDataMedia = {
                     "title": $(".media-title").val(),
                     "author": $(".media-author").val(),
-                    "imgPath": $(".media-picter img").attr("src"),
+                    "imgPath": $(".media-picter img").attr("src").split("?")[0],
                     "content": UE.getEditor('media-context').getContent(),
                     "url": $(".media-link").val(),
                 };
@@ -2679,7 +2699,7 @@ var columns;
 function showPreview(index) {
     var columnPreview = columns[index];
     $(".preview-column-title").text(columnPreview.title);
-    $(".preview-column-picter img").attr("src", columnPreview.imgPath);
+    $(".preview-column-picter img").attr("src", columnPreview.imgPath+"?imageMogr2/thumbnail/!260x147r|imageMogr2/gravity/Center/crop/260x147");
     $(".preview-column-content").html(columnPreview.content);
     $('#preview').removeClass('hide');
     $('#mask').removeClass('hide')
@@ -2714,7 +2734,7 @@ function echoColumn(index) {
     var column = columns[index];
     $("#column-id").val(column.id);
     $(".column-title").val(column.title);
-    $(".column-picter").html("<img src=" + column.imgPath + " />");
+    $(".column-picter").html("<img src=" + column.imgPath + "?imageMogr2/thumbnail/!260x147r|imageMogr2/gravity/Center/crop/260x147 /><p class='column-reset-tip'>点击图片重新上传</p>");
 //		$(".column-text").val(columnGetdata.content);
     UE.getEditor('column-content').setContent(column.content);
 
@@ -2788,7 +2808,7 @@ function mediaRreview(index) {
     var previewData = getMediadata[index];
     $(".preview-media-title").text(previewData.title);
     $(".preview-media-author").text(previewData.author);
-    $(".preview-media-picter img").attr("src", previewData.imgPath);
+    $(".preview-media-picter img").attr("src", previewData.imgPath+"?imageMogr2/thumbnail/!260x147r|imageMogr2/gravity/Center/crop/260x147");
     $(".preview-media-present").html(previewData.content);
     $(".preview-media-link").html(previewData.url ? '<a href="' + previewData.url + '" target="_blank">' + previewData.url + '</a>' : '');
     //		预览弹窗
@@ -2827,7 +2847,7 @@ function echoMedia(index) {
     $("#mediaId").val(mediaData.id);
     $(".media-title").val(mediaData.title);
     $(".media-author").val(mediaData.author);
-    $(".media-picter").html("<img src=" + mediaData.imgPath + " />");
+    $(".media-picter").html("<img src=" + mediaData.imgPath + "?imageMogr2/thumbnail/!260x147r|imageMogr2/gravity/Center/crop/260x147 /><p class='media-reset-tip'>点击图片重新上传</p>");
 //	$(".media-text").val(mediaData.content);
     UE.getEditor('media-context').setContent(mediaData.content),
         $(".media-link").val(mediaData.url);

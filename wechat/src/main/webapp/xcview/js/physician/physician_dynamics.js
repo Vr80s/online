@@ -36,6 +36,11 @@ $(function(){
     });
 
 });
+$(".li_data").click(function () {
+        if(isShow){
+            $(".baseImagenumbers").show();
+        }
+    })
 //轮播图
 function sowingMap() {
     requestGetService("/xczh/host/doctor/v2",{
@@ -652,7 +657,7 @@ function createRecentlyLive(recentlyLive){
                 $("#box1").html(str);
             }
         }
-
+        // lineState   直播课程状态 1直播中， 2预告，3直播结束 ， 4 即将直播 ，5 准备直播 ，6 异常直播
         if(obj!=null && obj.isLive == 1){
             setInterval(timer, 1000);
             $(".count_down_title_span").hide();
@@ -661,7 +666,7 @@ function createRecentlyLive(recentlyLive){
         }else if(obj!=null && (obj.lineState ==2 || obj.lineState == 4  || obj.lineState ==5)){
             var str ="开播时间   " + startStr.replace(/\-/g, ".").slice(0,16);
             $("#box1").html(str);
-        }
+        };
         
     }
 }
@@ -825,15 +830,7 @@ function apprenticeInfo() {
                 /*var txt=$('.QA_doubt_main_reply').html();
                 txts=txt.replace('\n','<br>')
                 $('.QA_doubt_main_reply').html(txts);*/
-                // 提问处理回车
-                var txts = $('.QA_doubt_main_reply').html();
-                txts=txts.replace(/[\n\r]/g,'<br>');
-                $('.QA_doubt_main_reply').html(txts);
-
-                // 回答处理回车
-                var txt = $('.QA_doubt_main_replys').html();
-                txt=txt.replace(/[\n\r]/g,'<br>');
-                $('.QA_doubt_main_replys').html(txt);
+                
 
             }
 
@@ -1072,3 +1069,15 @@ function checkAuth(doctorId) {
         $(".learn_tips_audit").hide();
     });
 
+// 提问处理回车
+/*var txts = $('.QA_doubt_main_reply').html();
+txts=txts.replace(/[\n\r]/g,'<br>');
+$('.QA_doubt_main_reply').html(txts);*/
+/*var text = $('.QA_doubt_main_reply').html();
+text=text.replace(/[\n\r]/g,'<br>')
+$('.QA_doubt_main_reply').html(text);*/
+
+// 回答处理回车
+/*var txt = $('.QA_doubt_main_replys').html();
+txt=txt.replace(/[\n\r]/g,'<br>');
+$('.QA_doubt_main_replys').html(txt);*/

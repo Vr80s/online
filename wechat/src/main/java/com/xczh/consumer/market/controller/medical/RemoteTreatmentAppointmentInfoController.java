@@ -49,4 +49,9 @@ public class RemoteTreatmentAppointmentInfoController {
         result.put("treatments", remoteTreatmentService.listAppointment(doctorId, true, accountId));
         return ResponseObject.newSuccessResponseObject(result);
     }
+
+    @RequestMapping(value = "check/repeat", method = RequestMethod.GET)
+    public ResponseObject checkAppointmentInfo(@RequestParam int id, @Account String accountId) {
+        return ResponseObject.newSuccessResponseObject(remoteTreatmentService.checkRepeatAppoint(id, accountId));
+    }
 }

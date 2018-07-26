@@ -39,6 +39,9 @@
 <!-- 测试点击图片 -->
 
 	<style>
+	body{
+		/*background: red !important;*/
+	}
 		.middle-img {
 			position: absolute;
 			left: 259px;
@@ -543,7 +546,8 @@
 								<li>
 									<div class="am-gallery-item">
 										<a href="{{pic.imgUrl}}" class="">
-											<img src="{{pic.imgUrl}}?imageMogr2/thumbnail/!226x226r|imageMogr2/gravity/Center/crop/226x226" />
+											<!--<img src="{{pic.imgUrl}}?imageMogr2/thumbnail/!226x226r|imageMogr2/gravity/Center/crop/226x226" />-->
+											<img src="{{pic.imgUrl}}" />
 										</a>
 									</div>
 								</li>
@@ -992,7 +996,7 @@
 			<div class="therapy_title">
 				<span class="border"></span>
 				<span style="font-size: 0.28rem;float: left;">远程诊疗</span>
-				<span class="master_course_span">开放远程诊疗预约时间，仅弟子可预约</span>
+				<span class="master_course_span">一个间段仅可一名弟子预约</span>
 				<div class="both"></div>
 			</div>
 			<div class="subscribe_id">
@@ -1082,13 +1086,12 @@
 					<div class="QA_doubt">
 						<!-- <img src="{{item.userImg}}" alt="" class="QA_doubt_img" />-->
 						<div class="QA_doubt_main">
-							<!--<img src="/xcview/images/QA_doubt.png" alt="" class="QA_doubt_main_img" />-->
+							<!--<span class="QA_doubt_main_asking">问</span><span class="QA_doubt_main_reply">{{item.question}}</span>-->
 							<span class="QA_doubt_main_asking">问</span><span class="QA_doubt_main_reply">{{item.question}}</span>
 						</div>
 						<div class="both"></div>
 					</div>
 					<div class="QA_solution">
-						
 						<div class="QA_solution_main">
 							<!--<img src="/xcview/images/QA_solution..png" alt="" class="QA_solution_main_img" />-->
 							<span><img src="{{item.doctorImg}}" alt="" class="QA_solution_img" onerror="nofind()" />医师解答：</span>
@@ -1360,7 +1363,7 @@
 </div>
 
 
-
+<div class="both"></div>
 </body>
 <script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
 <script type="text/JavaScript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
@@ -1417,7 +1420,7 @@ $(window).bind("scroll", function() {
 			$(".minirefresh-totop").css("bottom","30px");  //返回按钮
 			$(".commonality_height").hide();
 			$(".minirefresh-upwrap").show();  //底部没有数据--文字隐藏
-			
+			// $(".baseImagenumbers").show();
 			
 			 sessionStorage.setItem("physiciansPage","li_data");
 		});
@@ -1559,7 +1562,7 @@ $(window).bind("scroll", function() {
             $(".li_prose_origin").click();
         }else{
             $(".li_data").click();
-            debugger;
+            // debugger;
             var li_data = sessionStorage.getItem("li_data");
             if(isNotBlank(li_data)){
             	 $(aBtn[parseInt(li_data)]).click();

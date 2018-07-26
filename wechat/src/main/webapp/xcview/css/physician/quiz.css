@@ -31,10 +31,15 @@ header{
 }
 .header{
 	width: 7.5rem;
-	height: 0.88rem;
-	margin: 0 auto;
-	background: #fff;
-	margin: 0 auto;
+    height: 0.88rem;
+    margin: 0 auto;
+    background: #fff;
+    margin: 0 auto;
+    position: fixed;
+    top: 0;
+    left: 50%;
+    margin-left: -3.75rem;
+
 }
 
 .headers{

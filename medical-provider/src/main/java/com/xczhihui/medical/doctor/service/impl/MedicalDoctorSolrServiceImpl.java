@@ -89,16 +89,7 @@ public class MedicalDoctorSolrServiceImpl implements IMedicalDoctorSolrService {
             }
             query.append(searchTypeKey);
         }else{
-            List<DoctorTypeVo> doctorTypeListAddHot = getDoctorTypeListAddHot();
-            StringBuilder sb = new StringBuilder("(");
-            sb.append("type:0");
-            for (int i=0;i<doctorTypeListAddHot.size();i++) {
-                if(sb.length()>0){
-                    sb.append(SolrConstant.OR);
-                }
-                sb.append("type:" + doctorTypeListAddHot.get(i).getCode());
-            }
-            sb.append(")");
+            StringBuilder sb = new StringBuilder("(*:*)");
             if (query.length() > 0) {
                 query.append(SolrConstant.AND);
             }
@@ -132,8 +123,12 @@ public class MedicalDoctorSolrServiceImpl implements IMedicalDoctorSolrService {
     public void initDoctorsSolrDataById(String doctorId) throws IOException, SolrServerException {
         if (StringUtils.isNotBlank(doctorId)) {
             MedicalDoctorSolrVO medicalDoctorSolrVO = selectDoctor4SolrById(doctorId);
-            solrUtils.addBean(medicalDoctorSolrVO);
-            logger.warn("医师数据更新:{}", medicalDoctorSolrVO.toString());
+            if(medicalDoctorSolrVO != null){
+                solrUtils.addBean(medicalDoctorSolrVO);
+                logger.warn("医师数据更新:{}", medicalDoctorSolrVO.toString());
+            }else{
+                deleteDoctorsSolrDataById(doctorId);
+            }
         }
     }
 

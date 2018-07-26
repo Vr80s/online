@@ -278,7 +278,11 @@ function gotToAut() {
 	$('#AutList').removeClass('hide');
 	$('#AutStatus').addClass('hide');
 }
-
+var nullHead='<p style="font-size: 90px;height: 80px;font-weight: 300;color: #d8d8d8;text-align: center;line-height: 80px;">+</p>'+
+			'<p style="text-align: center;color: #999;font-size: 14px;">求真相</p>'
+			
+var nullZhichen='<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>'+
+			'<p style="text-align: center;color: #999;font-size: 14px;">点击上传职称证明图片</p>'
 //查看状态之后的重新认证
 function autagain() {
 	//医师认证状态回显示
@@ -296,12 +300,19 @@ function autagain() {
 			//执业资格证
 			$('#AutList .zhiye_pic').html("<img src="+result.professionalCertificate+">");
 			// 真实头像
-			$('#AutList .touxiang_pic').html("<img src="+result.headPortrait+">");
-			//职称
+			if(result.headPortrait==null || result.headPortrait==""){
+				$('#AutList .touxiang_pic').html(nullHead);
+			}else{
+				$('#AutList .touxiang_pic').html("<img src="+result.headPortrait+">");
+			}
+			//职称			
 			$('#AutList .doc_zhicheng').val(result.title);
 			// 职称证明
-			$('#AutList .zhicheng_pic').html("<img src="+result.titleProve+">");
-			
+			if(result.titleProve==null || result.titleProve==""){
+				$('#AutList .zhicheng_pic').html(nullZhichen);				
+			}else{
+				$('#AutList .zhicheng_pic').html("<img src="+result.titleProve+">");
+			}
 			//科室
 			var j;
 			for(var i = 0; i < $('#AutList #keshiList li').length; i++) {
