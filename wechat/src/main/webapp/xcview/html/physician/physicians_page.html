@@ -451,7 +451,7 @@
 			<div class="message">
 				<div class="message_name">
 					<div class="name">{{items.lecturerInfo.name}}</div>
-					<div class="name" style="font-size: 0.24rem;color: #999999;margin-top: 0.06rem;">{{items.lecturerInfo.title}}</div>
+					<div class="name names" style="font-size: 0.24rem;color: #999999;margin-top: 0.06rem;">{{items.lecturerInfo.title}}</div>
 					{{if items.apprentice}}
 					<div class="message_characteristic">我的师傅</div>
 					{{/if}}
@@ -1079,15 +1079,12 @@
 				{{each items as item i}} 
 				<div class="QA_center">
 					<div class="QA_doubt">
-						<!-- <img src="{{item.userImg}}" alt="" class="QA_doubt_img" />-->
 						<div class="QA_doubt_main">
-							<!--<img src="/xcview/images/QA_doubt.png" alt="" class="QA_doubt_main_img" />-->
-							<span class="QA_doubt_main_asking">问</span><span class="QA_doubt_main_reply">{{item.question}}</span>
+							<span class="QA_doubt_main_asking">问</span><span>{{item.question}}</span>
 						</div>
 						<div class="both"></div>
 					</div>
 					<div class="QA_solution">
-						
 						<div class="QA_solution_main">
 							<!--<img src="/xcview/images/QA_solution..png" alt="" class="QA_solution_main_img" />-->
 							<span><img src="{{item.doctorImg}}" alt="" class="QA_solution_img" onerror="nofind()" />医师解答：</span>
