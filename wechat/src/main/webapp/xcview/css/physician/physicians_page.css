@@ -2357,11 +2357,12 @@ margin-top: 0.015rem;
 	margin-bottom: 0.2rem;
 }
 .subscribe_time{
-	width: 3.8rem;
+	width: 4.8rem;
 	font-size: 0.28rem;
 	color: #333333;
 	float: left;
 	margin-left: 0.2rem;
+	position: relative;
 }
 .subscribe_btn{
 	width: 1.6rem;
@@ -2797,7 +2798,7 @@ margin-top: 0.015rem;
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 1;
+    z-index: 9;
     display: none;
 }
 .order_tips_bg{
@@ -2952,4 +2953,15 @@ margin-top: 0.015rem;
     text-align: center;
     width: 100%;
     color: #999;
+}
+
+
+.subscribe_time_absolute{
+	/* position: absolute;
+	    top: 0rem;
+	    left: 2.2rem;
+	    font-size: 0.28rem;
+	    color: #333333;
+	    background: #F8F8F8; */
+    /*background: red;*/
 }

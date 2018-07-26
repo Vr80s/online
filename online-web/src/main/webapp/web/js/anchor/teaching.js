@@ -85,8 +85,15 @@ function courseList(current) {
  * @author name：yuxin <br>email: yuruixin@ixincheng.com
  * @Date: 2018/2/3 0003 下午 5:56
  **/
+var imgCourseUrl;
 function saveCourse() {
-    var course = getCourseData();
+    var course = getCourseData(),
+    	imgCourseLength=$(".disciple-wrap-img img");
+    	if(imgCourseLength.length!=0){
+    		imgCourseUrl=imgCourseLength.attr("src").split("?")[0];
+    	}else{
+    		imgCourseUrl=0
+    	}
     if (verifyCourse(course)) {
         if (course.id == null || course.id == '') {
             addCourse(course);
@@ -344,7 +351,7 @@ function getCourseData() {
     course.courseForm = 1;
     course.title = $.trim($('.course_title').val());
     course.subtitle = $.trim($('.course_subtitle').val());
-    course.imgPath = $.trim($('.disciple-wrap-img img').attr('src').split("?")[0]);
+    course.imgPath = imgCourseUrl;
     course.lecturer = $.trim($('.course_lecturer ').val());
     course.lecturerDescription = UE.getEditor('editor_lecturer').getContent();
     course.courseMenu = $.trim($('#menu_select').val());
@@ -383,7 +390,7 @@ function verifyCourse(course) {
         return false;
     }
     //封面图
-    if (course.imgPath == '') {
+    if ($(".disciple-wrap-img img").length == 0) {
         $('.warning_course_imgPath ').removeClass('hide');
         return false;
     }
@@ -963,7 +970,6 @@ function cheackSelectAll(){
 			cityName=$(".comment-right-float .city").val(),
 			districtName=$(".comment-right-float .district").val(),
 			id=$("#save-manageId").val();
-			
 		var establishDate={
 			"title":$.trim($(".recruit-title").val()),			//标题
 			"coverImg":$(".mamage-wrap-img img").attr("src").split("?")[0],	//封面图
@@ -1088,11 +1094,18 @@ function cheackSelectAll(){
 	var provinceName=$(".comment-right-float .province").val(),
 		cityName=$(".comment-right-float .city").val(),
 		districtName=$(".comment-right-float .district").val(),
-		saveStatus=$(this).attr("data-status");
+		saveStatus=$(this).attr("data-status"),
+		isImgSrc=$(".mamage-wrap-img img"),
+		isImgLength;
+			if(isImgSrc.length != 0 ){
+				isImgLength=isImgSrc.attr("src").split("?")[0];
+			}else{
+				isImgLength=1;
+		}
 		
 	var establishDate={
 		"title":$.trim($(".recruit-title").val()),			//标题
-		"coverImg":$(".mamage-wrap-img img").attr("src").split("?")[0],	//封面图
+		"coverImg":isImgLength,	//封面图
 		"tuition":0,
 		"countLimit":$.trim($(".personal-number").val()),	//招生人数
 		"deadline":$.trim($("#sign-up-time").val()),		//报名截止时间

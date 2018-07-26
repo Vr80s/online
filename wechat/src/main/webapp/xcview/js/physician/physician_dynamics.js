@@ -427,7 +427,7 @@ function sendComment(){
                     })
                 }
 
-            });
+            },false);
             webToast("评论成功","middle",1500);
         }else{
             webToast(data.resultObject,"middle",1500);
@@ -802,12 +802,12 @@ function apprenticeInfo() {
                 $('.QA_doubt_main_reply').html(txts);*/
                 // 提问处理回车
                 var txts = $('.QA_doubt_main_reply').html();
-                txts=txts.replace(/[\n\r]/g,'<br>')
+                txts=txts.replace(/[\n\r]/g,'<br>');
                 $('.QA_doubt_main_reply').html(txts);
 
                 // 回答处理回车
                 var txt = $('.QA_doubt_main_replys').html();
-                txt=txt.replace(/[\n\r]/g,'<br>')
+                txt=txt.replace(/[\n\r]/g,'<br>');
                 $('.QA_doubt_main_replys').html(txt);
 
             }
@@ -819,7 +819,26 @@ function apprenticeInfo() {
                 $(".therapy").show();
                 // 预约
                 $('.subscribe_id').html(template('subscribe_id', {items: data.resultObject.treatments}));
+                
+
+
                 // ceshi();
+                // alert(data.resultObject.treatments.indexDateText);
+                /*var aaa = $(".subscribe_time").html();
+                for (var j = 0; j < aaa.length; j++) {
+                    alert(aaa);
+                };*/
+
+                /*var aBtn=$('.subscribe');
+                    for(i=0;i<aBtn.length;i++){
+                    
+                    $(aBtn[i]).click(function(){
+                        for(i=0;i<aBtn.length;i++){
+                            alert(aBtn[i].html());
+                        }
+                    })
+                }*/
+
             }
 
             // $('.subscribe_id').html(template('subscribe_id', {items: data.resultObject.treatments}));
@@ -952,6 +971,18 @@ function order(id){
             }else{
                 location.href ='/xcview/html/physician/reserve_information.html?doctor='+doctorId+'&dataId='+id+''
             }
+
+        }
+    });
+};
+
+// 点击我的预约
+function orders(id){
+    
+    requestGetService("/doctor/treatment/appointmentInfo",{id:id},function (data) {
+        if (data.success == true) {
+           
+            location.href ='/xcview/html/physician/my_bookings.html?id='+id;
 
         }
     });

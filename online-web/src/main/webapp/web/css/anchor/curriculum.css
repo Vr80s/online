@@ -2128,15 +2128,15 @@ height: 60px;
 	cursor: pointer;
 }
 .new_box_main .input{
-	display: inline-block;
+	/*display: inline-block;*/
     height: 36px;
     line-height: 36px;
     font-size: 14px;
     color: #666666;
     margin: 0 auto;
     margin-bottom: 20px;
-    padding-left: 20px;
-    margin-right: 20px;
+    padding-left: 100px;
+
 }
 .new_box_main .input input{
 	width: 280px;
@@ -2158,12 +2158,23 @@ height: 60px;
     border-radius: 4px;
     cursor: pointer;
     vertical-align: top;
+    margin-left: 193px;
 }
 .new_box_main .size{
 	font-size: 14px;
 	color: #188EEE;
-	margin-left: 184px;
+	margin-left: 194px;
 	cursor: pointer;
+}
+.new_box_main .course_null{
+	display: inline-block;
+	    font-size: 14px;
+    color: #FF4012;
+    line-height: 30px;
+    text-indent: 20px;
+    background: url(/web/images/icons/tanhao.png) no-repeat left center;
+    width: auto;
+    margin: 5px 0 0;
 }
 /*点击添加课程出现的弹框结束*/
 
