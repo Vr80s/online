@@ -29,7 +29,7 @@ $(function(){
 				  	// webToast("提交成功","middle",1500);
 				  	// var doctorId = getQueryString("doctor"); 
 				  	// alert(11111);
-				  	//setTimeout(window.location.href = "/xcview/html/physician/physicians_page.html?doctor=" + doctorId + "",1600);
+				  	// setTimeout(window.location.href = "/xcview/html/physician/physicians_page.html?doctor=" + doctorId + "",1600);
 				  	$(".prosperity_popout").show();
 			    }else{
 			    	webToast(data.errorMessage,"middle",1500);
@@ -40,11 +40,12 @@ $(function(){
 	});
 	var doctorId = getQueryString("doctor");
 	$(".prosperity_popout_hide").click(function(){
-		// history.back();
+		history.back();   //可以就是没有刷新数据
 		// window.history.go(-1)
 		// window.history.go(-1);location.reload()
 		// window.history.go(-2); 
 		window.location.href="/xcview/html/physician/physicians_page.html?doctor="+doctorId; 
+		// self.location=document.referrer;
 	});
 
 	/*$(".prosperity_popout_hide").click(function(){

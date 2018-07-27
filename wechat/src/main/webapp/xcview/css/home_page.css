@@ -1483,8 +1483,8 @@ header{
     /* overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis; */
-    height: 0.64rem;
-    /*height: 0.76rem;*/
+    /*height: 0.64rem;*/
+    height: 0.76rem;
     margin-bottom: 0.07rem;
     display: -webkit-box;
     -webkit-box-orient: vertical;
