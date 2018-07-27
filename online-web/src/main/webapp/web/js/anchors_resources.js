@@ -340,9 +340,6 @@ $(function () {
 //---------------------------------头像上传部分结束,动态开始---------------------------------  
 
 
-function isBlank(str){
-	return str == "" || str == null;
-}
 var activityType;
 
 //	发布动态验证

@@ -210,11 +210,11 @@
 		</td>
 		<td>
 			{{if course.liveStatus==1}}
-			<a href="javascript:;" onclick="startLive({{course.webinarId}})">进入直播</a>
+			<a href="javascript:;" style="margin-right: 10px;" onclick="startLive({{course.webinarId}})">进入直播</a>
 			<!--<a href="javascript:;" onclick="startGuestLive({{course.webinarId}})">嘉宾进入</a>-->
 			<a href="javascript:;" onclick="previewLive({{course.webinarId}})">直播预览</a>
 			{{else if course.liveStatus==2}}
-			<a href="javascript:;" onclick="startLive({{course.webinarId}})">进入直播</a>
+			<a href="javascript:;" style="margin-right: 10px;" onclick="startLive({{course.webinarId}})">进入直播</a>
 			<!--<a href="javascript:;" onclick="startGuestLive({{course.webinarId}})">嘉宾进入</a>-->
 			<a href="javascript:;" onclick="previewLive({{course.webinarId}})">直播预览</a>
 			{{else if course.liveStatus==0}}
