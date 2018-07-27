@@ -948,8 +948,8 @@ function courseLiveList(current){
 //
     RequestService(url, "get", null, function(data) {
         $("#course_live_list").html(template('course_live_tpl', data.resultObject));
-         if(!data.resultObject || !data.resultObject.records || data.resultObject.records.length == 0){
-        $('.live_streaming_table').html('<div style="padding-top:40px;text-align:center"><img src="/web/images/other_noResult.png" alt="" /><p style="font-size:16px;color:#999;margin-top:35px">暂无直播</p></div>');
+        if(!data.resultObject || !data.resultObject.records || data.resultObject.records.length == 0){
+            $('.live_streaming_table').html('<div style="padding-top:40px;text-align:center"><img src="/web/images/other_noResult.png" alt="" /><p style="font-size:16px;color:#999;margin-top:35px">暂无直播</p></div>');
          	$('.live_streaming_table').removeClass('hide')
         }else{
         	$('.live_streaming_table').removeClass('hide')

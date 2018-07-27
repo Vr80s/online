@@ -98,7 +98,8 @@
         cai.`course_length` courseLength,
         cai.`start_time` startTime,
         oc.live_status liveStatus,
-        oc.direct_id webinarId
+        oc.direct_id webinarId,
+        oc.`is_teaching` teaching
         FROM
         `course_apply_info` cai
         JOIN `oe_course` oc

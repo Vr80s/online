@@ -398,6 +398,15 @@
 	    border-radius: 100px !important;
 	    height: 0.06rem !important;
 	}
+
+	.opacity_click{
+		position: absolute;
+	    width: 100%;
+	    height: 3.927rem;
+	    /*background: red;*/
+	    z-index: 9;
+	    opacity: 0;
+	}
 </style>
 
 </head>
@@ -543,11 +552,14 @@
 						<div class="paper_nav_cen comment_hide">
 							<ul data-am-widget="gallery" class="am-gallery am-avg-sm-2 am-avg-md-3 am-avg-lg-4 am-gallery-overlay" data-am-gallery="{ pureview: true }" >
 								{{each item.imgStr as pic }}
-								<li>
-									<div class="am-gallery-item">
-										<a href="{{pic.imgUrl}}?imageView2/2/h/226" class="">
+								<li  class="itransform_{{item.id}} itransforms">
+									<div class="am-gallery-item" data-itransform="{{item.id}}">
+										<a href="{{pic.imgUrl}}?imageView2/2/h/226" class="transform_a_img">
 											<!--<img src="{{pic.imgUrl}}?imageMogr2/thumbnail/!226x226r|imageMogr2/gravity/Center/crop/226x226" />-->
-											<img src="{{pic.imgUrl}}" />
+
+												<img src="{{pic.imgUrl}}" class="ccc" />
+											
+
 										</a>
 									</div>
 								</li>
@@ -721,6 +733,7 @@
 				<!-- //封面图和背景色  //直播课程状态：lineState  1直播中， 2预告，3直播结束 ， 4 即将直播 ，5 准备直播 ，6 异常直播 -->
 
 					{{if items.lineState == 1}}
+						<div class="opacity_click" onclick="jumpTeachingCourse({{items.id}},{{items.teaching}})"></div>
 						<div class="fixation_reminder" onclick="jumpTeachingCourse({{items.id}},{{items.teaching}})">
 							<img src="{{items.smallImgPath}}" alt="" class="surface_plot" />
 							<div class="broadcastroom_bg"></div>
@@ -731,6 +744,7 @@
 							<div class="broadcastroom_hint_title">正在直播：{{items.gradeName}}</div>
 						</div>
 					{{else if items.lineState == 2 || items.lineState == 4 || items.lineState == 5}}
+						<div class="opacity_click" onclick="jumpTeachingCourse({{items.id}},{{items.teaching}})"></div>
 						<div class="fixation_reminder" onclick="jumpTeachingCourse({{items.id}},{{items.teaching}})">
 							<img src="{{items.smallImgPath}}" alt="" class="surface_plot" />
 							<div class="broadcastroom_bg"></div>
@@ -741,6 +755,7 @@
 							<div id="box1"></div>
 						</div>
 					{{else if items.lineState == 3}}
+						<div class="opacity_click" onclick="jumpTeachingCourse({{items.id}},{{items.teaching}})"></div>
 						<div class="fixation_reminder" onclick="jumpTeachingCourse({{items.id}},{{items.teaching}})">
 							<img src="{{items.smallImgPath}}" alt="" class="surface_plot" />
 							<div class="broadcastroom_bg"></div>
@@ -961,8 +976,9 @@
 
 					{{/each}}
 	            	</script>
-
+					<div class="both"></div>
 				</ul>
+				<div class="both"></div>
 				<div class="more_live_lesson"onclick="dortorCoursePage()">查看更多直播课</div>
 				<!-- <div class="more_live_lesson_no">点击收起</div> --> <!-- 直播课加载完后点击收起成开始状态 -->
 			</div>
@@ -1397,6 +1413,8 @@ $(window).bind("scroll", function() {
 <script type="text/javascript">
 	// 导航  固定和点击切换事件
 	window.onload = function(){
+		// $(".transform_a_img img").addClass("transform_img");
+		// $(".transform_a_img img").addClass("transform_img");
 	    // 点击全部动态
 		$(".li_data").click(function(){
 			// $(".baseImagenumbers").show();
