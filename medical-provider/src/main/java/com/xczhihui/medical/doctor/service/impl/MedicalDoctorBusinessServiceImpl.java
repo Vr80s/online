@@ -1,5 +1,6 @@
 package com.xczhihui.medical.doctor.service.impl;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -10,6 +11,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.solr.client.solrj.SolrServerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -35,6 +37,7 @@ import com.xczhihui.medical.doctor.model.MedicalDoctorAuthenticationInformation;
 import com.xczhihui.medical.doctor.model.MedicalDoctorDepartment;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorDepartmentService;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorSolrService;
 import com.xczhihui.medical.doctor.vo.DoctorQueryVo;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorAuthenticationInformationVO;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
@@ -90,6 +93,9 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
 
     @Autowired
     private IMedicalHospitalApplyService medicalHospitalApplyService;
+    
+    @Autowired
+    private IMedicalDoctorSolrService medicalDoctorSolrService;
     
     @Override
     public Page<MedicalDoctorVO> selectDoctorPage(Page<MedicalDoctorVO> page, Integer type, String hospitalId, String name, String field, String departmentId) {
@@ -303,6 +309,13 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
             logger.info("hospitalId：{} and accountId：{}，doctorId：{} build relation Successfully", medicalDoctor.getHospitalId(),
                     medicalDoctor.getUserId(), doctorId);
 
+            try {
+                medicalDoctorSolrService.initDoctorsSolrDataById(doctorId);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (SolrServerException e) {
+                e.printStackTrace();
+            }
         });
     }
 
