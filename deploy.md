@@ -137,3 +137,11 @@ dev-2.3
     ALTER TABLE `medical_entry_information` ADD UNIQUE INDEX (`doctor_id`, `type`, `mer_id`, `user_id`);
 
     update medical_entry_information set applied =1 where apprentice = 1;
+
+    update oe_user set origin = 2 where origin = 'weixin';
+
+    update oe_user set origin = 1 where origin = 'online';
+
+    update oe_user set origin = 4,  visitor = 1 where origin = 'apple_yk';
+
+    update oe_user set origin = -1 where origin is null;
