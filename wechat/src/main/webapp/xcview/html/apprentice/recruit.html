@@ -26,7 +26,8 @@
 	<!-- 报名头部开始 -->
 	<header>
 		<div class="header">
-			<div class="return" onclick="location.href='/xcview/html/apprentice/inherited_introduction.html'"><img src="/xcview/images/back icon.png" alt="" /></div>
+			<!-- <div class="return" onclick="location.href='/xcview/html/apprentice/inherited_introduction.html'"><img src="/xcview/images/back icon.png" alt="" /></div> -->
+			<div class="return" onclick="location.href='javascript:history.go(-1)'"><img src="/xcview/images/back icon.png" alt="" /></div>
 			<div class="apply_title">招徒简章全文</div>
 		</div>
 		
@@ -46,7 +47,7 @@
 	<!-- 中间内容结束 -->
 	<script> 
 	// 控制手机物理键--返回
-	window.onload = function(){
+	/*window.onload = function(){
 	  	if(window.history && window.history.pushState) {  
 	      	$(window).on('popstate', function() {  
 	          	var hashLocation = location.hash;  
@@ -55,13 +56,13 @@
 	          	if(hashName !== '') {  
 	              	var hash = window.location.hash;  
 	              	if(hash === '') {  
-	                  	location.href ='/xcview/html/apprentice/inherited_introduction.html'  	/*跳转链接*/
+	                  	location.href ='/xcview/html/apprentice/inherited_introduction.html'  	
 	              	}  
 	          	}  
 	      	});  
-	      	window.history.pushState('forward', null, './recruit.html');    //引号里写当前页面地址,刷新当前页'	./inherited_introduction.html'
+	      	window.history.pushState('forward', null, './recruit.html');    
 	  	}
-	};
+	};*/
 	</script> 
 </body>
 <!-- 中间内容结束 -->
