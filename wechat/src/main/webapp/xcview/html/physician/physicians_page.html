@@ -885,7 +885,11 @@
 						{{each items as item i}}			
 							<li style="position: relative;">
 						       <a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" onclick="jumpTeachingCourse({{item.id}},{{item.teaching}})"></a>
+						        {{if item.lineState == 1}}
+								    <p style="position: absolute;right: 0;top: 0;    border-radius: 0 0 0 3px;float: left;font-size: 0.22rem;padding: 0rem 0.1rem;color: #fff !important;margin-top: -0.02rem;background: #f97b49;z-index: 1;">直播中</p>
+								{{/if}}
 								<p class="wrap_img_pic">
+									
 									<img src="{{item.smallImgPath}}" /> 
 									<img src="/xcview/images/Sinatv_auto.png" alt="" class="img_little">
 								</p>
@@ -1052,7 +1056,9 @@
 						<li style="position: relative;">
 					        
 					       <a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" onclick="jumpTeachingCourse({{item.id}},{{item.teaching}})"></a> 
-
+					        {{if item.lineState == 1}}
+								    <p style="position: absolute;right: 0;top: 0;    border-radius: 0 0 0 3px;float: left;font-size: 0.22rem;padding: 0rem 0.1rem;color: #fff !important;margin-top: -0.02rem;background: #f97b49;z-index: 1;">直播中</p>
+							{{/if}}
 							<p class="wrap_img_pic">
 								<img src="{{item.smallImgPath}}" /> 
 								<img src="/xcview/images/Sinatv_auto.png" alt="" class="img_little">
@@ -1104,7 +1110,7 @@
 						<!-- <img src="{{item.userImg}}" alt="" class="QA_doubt_img" />-->
 						<div class="QA_doubt_main">
 							<!--<span class="QA_doubt_main_asking">问</span><span class="QA_doubt_main_reply">{{item.question}}</span>-->
-							<span class="QA_doubt_main_asking">问</span><span class="QA_doubt_main_reply">{{item.question}}</span>
+							<span class="QA_doubt_main_asking">问</span><span class="QA_doubt_main_reply_{{item.id}}">{{item.question}}</span>
 						</div>
 						<div class="both"></div>
 					</div>

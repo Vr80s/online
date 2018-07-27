@@ -70,26 +70,26 @@ requestService("/xczh/common/richTextDetails",{
 	if(type ==1 ){ // 展示页面  课程详情
 		if(data.resultObject==''||data.resultObject==null){
 			$("#jieshao").hide();
-			$(".no_referrals").show();
+			$(".no_referral").show();
 		}else{
-			$(".no_referrals").hide();
+			$(".no_referral").hide();
 			$(".user_mywrite").html(data.resultObject);
 		}
 	}else if(type == 2){ //主讲人  --》 直播间主讲人
 		if(data.resultObject==''||data.resultObject==null){
 			$("#jieshao").hide();
-			$(".no_referral").show();	
+			$(".no_referrals").show();	
 		}else{
 			$(".user_mywrite").html(data.resultObject);
-			$(".no_referral").hide();
+			$(".no_referrals").hide();
 		}
 	}else if(type == 3){  //展示页面  主讲人
 		if(data.resultObject==''||data.resultObject==null){
 			$("#jieshao").hide();
-			$(".no_referral").show();
+			$(".no_referrals").show();
 		}else{
 			$(".user_mywrite").html(data.resultObject);
-			$(".no_referral").hide();
+			$(".no_referrals").hide();
 		}
 	}else if(type == 4 || type == 5){  //主播详情页面 --》 介绍 
 		if(data.resultObject==''||data.resultObject==null){

@@ -373,6 +373,13 @@ public class EnrolServiceImpl implements EnrolService {
         }
     }
 
+    @Override
+    public void saveCourseTeaching4Init(Integer courseId, String doctorAccountId) {
+        medicalEntryInformationMapper.deleteCourseTeachingByCourseId(courseId.toString());
+        List<String> apprenticeIds = medicalEntryInformationMapper.getApprenticeIdsByDoctorAccountId(doctorAccountId);
+        medicalEntryInformationMapper.saveCourseTeaching(courseId.toString(), apprenticeIds);
+    }
+
     void checkCourseDoctor(String doctorId, String courseId) {
         if (medicalEntryInformationMapper.checkCourseDoctor(doctorId, courseId) < 1) {
             throw new MedicalException("医师不具有该课程权限");

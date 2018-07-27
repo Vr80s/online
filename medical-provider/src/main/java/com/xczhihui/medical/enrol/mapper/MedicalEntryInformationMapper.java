@@ -85,10 +85,10 @@ public interface MedicalEntryInformationMapper extends BaseMapper<MedicalEntryIn
     Integer countByDoctorIdAndAccountId(@Param("doctorId") String doctorId, @Param("accountId") String accountId);
 
     @Select({"SELECT mei.name,mei.user_id userId,(ISNULL(ct.id)=0) selected " +
-            " FROM (select * from medical_entry_information where deleted = 0 AND apprentice = 1 order by `create_time` ) mei" +
+            " FROM medical_entry_information mei" +
             "  LEFT JOIN `course_teaching` ct" +
             "  ON mei.`user_id` = ct.`user_id` AND ct.`course_id` = #{courseId} AND ct.`deleted`=0" +
-            " WHERE mei.`doctor_id`=#{doctorId} " +
+            " WHERE mei.`doctor_id`=#{doctorId} and mei.deleted = 0 AND mei.apprentice = 1" +
             "  group by mei.user_id " +
             " ORDER BY mei.create_time DESC"})
     List<Map<String, String>> listByDoctorIdAndCourseId(@Param("doctorId") String doctorId, @Param("courseId") String courseId);
@@ -162,4 +162,11 @@ public interface MedicalEntryInformationMapper extends BaseMapper<MedicalEntryIn
             " WHERE mei.id = #{id}" +
             " </script>"})
     MedicalEntryInformationVO findById(@Param("id") Integer id);
+
+    @Select("SELECT mei.`user_id` \n" +
+            "FROM `medical_doctor_account` mda     \n" +
+            "  JOIN `medical_entry_information` mei \n" +
+            "    ON mei.`doctor_id` = mda.`doctor_id` AND mei.`deleted` = 0 AND mei.`apprentice` = 1 AND mei.`applied` = 1 AND mda.`account_id`=#{accountId}\n" +
+            "GROUP BY mei.user_id ORDER BY mei.create_time DESC ")
+    List<String> getApprenticeIdsByDoctorAccountId(String accountId);
 }

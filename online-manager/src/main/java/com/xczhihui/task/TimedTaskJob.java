@@ -96,14 +96,12 @@ public class TimedTaskJob {
         messageRemindingService.liveCourseMessageReminding();
     }
 
-//    @Scheduled(cron = "0 0 8 * * ?")
-    @Scheduled(cron = "0 0 0/1 * * ?")
+    @Scheduled(cron = "0 0 8 * * ?")
     public void offlineCourseMessage() throws ClientException {
         messageRemindingService.offlineCourseMessageReminding();
     }
 
-//    @Scheduled(cron = "0 0 8 * * ?")
-    @Scheduled(cron = "0 0 0/1 * * ?")
+    @Scheduled(cron = "0 0 8 * * ?")
     public void remindCollectionUpdate() {
         messageRemindingService.collectionUpdateRemind();
     }
