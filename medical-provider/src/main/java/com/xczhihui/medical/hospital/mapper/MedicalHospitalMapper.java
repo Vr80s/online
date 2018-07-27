@@ -74,7 +74,7 @@ public interface MedicalHospitalMapper extends BaseMapper<MedicalHospital> {
     MedicalHospitalVo selectHospitalByIdAndStatus(@Param("id") String userId,
                                                   @Param("status") Integer status);
 
-    List<MedicalHospitalSolrVO> selectHospitalList4Solr(String hospitalId);
+    List<MedicalHospitalSolrVO> selectHospitalList4Solr(@Param("hospitalId") String hospitalId);
 
-    List<String> selectPictureListByHospital(String hospitalId);
+    List<String> selectPictureListByHospital(@Param("hospitalId") String hospitalId);
 }
