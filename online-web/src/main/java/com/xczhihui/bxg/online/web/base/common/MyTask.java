@@ -41,18 +41,7 @@ public class MyTask extends SimpleHibernateDao {
         orderDao.updateStatus();
     }
 
-    /**
-     * Description：每隔半小时执行一次
-     * 处理用户资源上传后时长更新
-     * creed: Talk is cheap,show me the code
-     *
-     * @author name：yuxin <br>email: yuruixin@ixincheng.com
-     * @Date: 下午 12:17 2018/2/2 0002
-     **/
-    /*@Scheduled(cron = "0 0/30 * * * ?")
-    public void dealCourseApplyResourceTask() {
-        courseApplyService.updateCourseApplyResource();
-    }*/
+
 
 
     /**

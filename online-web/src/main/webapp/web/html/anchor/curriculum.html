@@ -333,7 +333,7 @@
 			{{resource.title}}
 		</td>
 		<td>
-			{{if resource.length==null}}
+			{{if resource.length==null || resource.length==""}}
 			<span>转码中</span>
 			{{else if resource.length==-1}}
 			<span>转码失败</span>
