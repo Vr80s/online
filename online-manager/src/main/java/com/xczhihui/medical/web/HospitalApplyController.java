@@ -1,7 +1,10 @@
 package com.xczhihui.medical.web;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.solr.client.solrj.SolrServerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +15,7 @@ import com.xczhihui.bxg.online.common.domain.MedicalHospitalApply;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.common.web.controller.AbstractController;
+import com.xczhihui.medical.hospital.service.IMedicalHospitalSolrService;
 import com.xczhihui.medical.service.HospitalApplyService;
 import com.xczhihui.utils.Group;
 import com.xczhihui.utils.Groups;
@@ -31,6 +35,8 @@ public class HospitalApplyController extends AbstractController {
     protected final static String CLOUD_CLASS_PATH_PREFIX = "/medical/";
     @Autowired
     private HospitalApplyService hospitalApplyService;
+    @Autowired
+    private IMedicalHospitalSolrService medicalHospitalSolrService;
 
     @RequestMapping(value = "index")
     public String index(HttpServletRequest request) {
@@ -89,10 +95,10 @@ public class HospitalApplyController extends AbstractController {
      */
     @RequestMapping(value = "/updateStatus")
     @ResponseBody
-    public ResponseObject updateStatus(MedicalHospitalApply hospitalApply) {
+    public ResponseObject updateStatus(MedicalHospitalApply hospitalApply) throws IOException, SolrServerException {
 
-        hospitalApplyService.updateStatus(hospitalApply);
-
+        String hospitalId = hospitalApplyService.updateStatus(hospitalApply);
+        medicalHospitalSolrService.initHospitalsSolrDataById(hospitalId);
         ResponseObject responseObj = new ResponseObject();
         responseObj.setSuccess(true);
         responseObj.setErrorMessage("修改成功");

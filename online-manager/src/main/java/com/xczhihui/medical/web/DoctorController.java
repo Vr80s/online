@@ -489,7 +489,7 @@ public class DoctorController extends AbstractController {
     }
 
     /**
-     * 获取所有医师 名字 的 接口
+     * 刷新solr中医师数据
      *
      * @return
      */

@@ -10,6 +10,8 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.medical.doctor.model.MedicalDoctor;
 import com.xczhihui.medical.field.vo.MedicalFieldVO;
 import com.xczhihui.medical.hospital.model.MedicalHospital;
+import com.xczhihui.medical.hospital.vo.MedicalHospitalPictureVO;
+import com.xczhihui.medical.hospital.vo.MedicalHospitalSolrVO;
 import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
 
 /**
@@ -71,4 +73,8 @@ public interface MedicalHospitalMapper extends BaseMapper<MedicalHospital> {
      */
     MedicalHospitalVo selectHospitalByIdAndStatus(@Param("id") String userId,
                                                   @Param("status") Integer status);
+
+    List<MedicalHospitalSolrVO> selectHospitalList4Solr(String hospitalId);
+
+    List<String> selectPictureListByHospital(String hospitalId);
 }
