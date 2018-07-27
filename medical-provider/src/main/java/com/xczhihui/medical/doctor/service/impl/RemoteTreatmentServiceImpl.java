@@ -197,13 +197,15 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
             if (treatment.getStatus() != AppointmentStatus.APPOINTMENT_SUCCESS.getVal()) {
                 throw new MedicalException("当前状态不支持取消");
             }
+            Integer infoId = treatment.getInfoId();
             treatment.setStatus(AppointmentStatus.ORIGIN.getVal());
             treatment.setInfoId(null);
             remoteTreatmentMapper.updateAllColumnById(treatment);
+            sendAppointmentCancelSms(infoId, treatment);
         }
     }
 
-    private void sendAppointmentCancelSms(String infoId, Treatment treatment) {
+    private void sendAppointmentCancelSms(Integer infoId, Treatment treatment) {
         SimpleDateFormat yearMonthDayFormat = new SimpleDateFormat("yyyy年MM月dd日");
         SimpleDateFormat hourMinuteFormat = new SimpleDateFormat("HH时mm分");
         Map<String, String> smsParams = new HashMap<>(3);
