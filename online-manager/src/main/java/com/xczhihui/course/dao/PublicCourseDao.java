@@ -41,7 +41,7 @@ public class PublicCourseDao extends HibernateDao<Course> {
         }
         if (courseVo.getLecturerName() != null) {
             paramMap.put("lecturerName", "%" + courseVo.getLecturerName() + "%");
-            sql.append(" and ( ca.name like :lecturerName or ou.login_name like :lecturerName )");
+            sql.append(" and ( c.`lecturer` like :lecturerName or ou.login_name like :lecturerName )");
         }
         if (courseVo.getMenuId() != null) {
             paramMap.put("menuId", courseVo.getMenuId());
