@@ -66,11 +66,12 @@
 	<script src="/web/bootstrap-select/bootstrap.min.js"></script>
 	<script type="text/javascript" src="/web/bootstrap-select/bootstrap-select.js"></script>
 
-	<!--<script src="/web/js/anchor/jquery.citys.js" type="text/javascript" charset="utf-8"></script> -->
+	<!--<script src="/web/js/anchor/jquery.citys.js" type="text/javascript" charset="utf-8"></script>--> 
 	<script src="/web/js/common/data.provinces.js"></script>
 	<script src="/web/js/common/provinces-selector.js"></script>
 	<script src="/web/js/anchor/pages/jquery.pagination-course.js"></script>
 	<script src="/web/js/anchor/course.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/web/js/anchor/provinces.js" type="text/javascript" charset="utf-8"></script>
 
 
 	<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.config.js"></script>
@@ -862,10 +863,10 @@
 							<div class="sheng offline special">
 								<span style="float: left;margin-top: 5px;margin-right: 23px;"><em>*</em>上课地址</span>
 								<div id="demo2" class="citys">
-									<p>
-										<select name="province" class="choosePro course_province"></select>
-										<select name="city" class=" citys course_city"></select>
-									</p>
+									<!--<p>-->
+										<select name="province" class="choosePro course_province province"></select>
+										<select name="city" class=" citys course_city city"></select>
+									<!--</p>-->
 								</div>
 								<textarea name="" rows="" cols="" class="sheng_textarea course_address" placeholder="请输入详细地址"></textarea>
 								<p class="warning warning_course_address hide">请填写完整的地址信息</p>
