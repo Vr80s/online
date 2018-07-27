@@ -1301,3 +1301,14 @@ function getLocalTime(nS) {
 $('.J-announcement').on('click', function() {
     window.location.href="/home#hospital/announcement/index";
 });
+
+
+$(".refresh-data").click(function(){
+    ajaxRequest(basePath+"/medical/hospital/initHospitalSolrData",null,function(data){
+        if(data.success){//如果失败
+            layer.msg(data.resultObject);
+        }else{
+            layer.msg(data.errorMessage);
+        }
+    });
+});

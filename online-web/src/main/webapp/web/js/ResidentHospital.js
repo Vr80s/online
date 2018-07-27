@@ -286,13 +286,7 @@ $('.hos_left_list > li:nth-child(n+3)').click(function () {
     $(".hos_point_icon").addClass("glyphicon-triangle-right")
 })
 
-//医馆管理部分
-//医馆管理部分下拉列表点击 右侧内容对应变化
-$('#hos_base_inf').click(function () {
-    $('.hos_renzheng_inf').addClass('hide');
-    $('.hos_base_inf ').removeClass('hide');
-
-    localStorage.hos_Administration = 'hos_base_inf';
+function initDecsription() {
     var ue = UE.getEditor('editor2', {
         toolbars: [
             [
@@ -336,6 +330,15 @@ $('#hos_base_inf').click(function () {
         imagePopup: false,
         maximumWords: 10000 //允许的最大字符数
     });
+}
+//医馆管理部分
+//医馆管理部分下拉列表点击 右侧内容对应变化
+$('#hos_base_inf').click(function () {
+    $('.hos_renzheng_inf').addClass('hide');
+    $('.hos_base_inf ').removeClass('hide');
+
+    localStorage.hos_Administration = 'hos_base_inf';
+
 
     //调用医馆详细信息借口数据
     RequestService("/hospital/getHospitalByUserId", "get", null, function (data) {
@@ -367,10 +370,11 @@ function baseInfrese() {
     $('#hos_Administration .hos_base_inf .bottomContent #hos_pic').html('');
     //领域
     $('#hos_Administration .hos_base_inf .bottomContent #areaList li').removeClass('keshiColor');
+    initDecsription();
     //富文本
     UE.getEditor('editor2').addListener( 'ready', function( editor ) {
         UE.getEditor('editor2').setContent("");
-    } );;
+    } );
 
     //联系人姓名
     $('#hos_Administration .hos_base_inf .bottomContent .doc_shanchang').val('');
@@ -428,10 +432,11 @@ function baseInfrese1(headPortrait, name, medicalHospitalPictures, fields,
             }
         }
     }
+    initDecsription();
     //富文本
     UE.getEditor('editor2').addListener( 'ready', function( editor ) {
         UE.getEditor('editor2').setContent(description); //编辑器家在完成后，让编辑器拿到焦点
-    } );;
+    } );
     //联系人姓名
     $('#hos_Administration .hos_base_inf .bottomContent .doc_shanchang').val(contactor);
 

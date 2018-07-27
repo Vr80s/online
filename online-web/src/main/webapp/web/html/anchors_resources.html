@@ -1443,17 +1443,28 @@
 												<td>未知</td>
 											{{/if}}
 											<td>{{item.age}}</td>
-											{{if item.education == 0}}
+											{{if item.education == 0 || item.education == null}}
 												<td>无</td>
+											{{else if item.education == 1}}
+												<td>小学</td>
+											{{else if item.education == 2}}
+												<td>初中</td>
+											{{else if item.education == 3}}
+												<td>高中</td>
+											{{else if item.education == 4}}
+												<td>大专</td>
 											{{else if item.education == 5}}
 												<td>本科</td>
 											{{else if item.education == 6}}
 												<td>硕士</td>
 											{{else if item.education == 7}}
 												<td>博士</td>
+											{{else if item.education == 8}}
+												<td>博士后</td>
+											{{else}}
+												<td>无</td>
 											{{/if}}
 											<td>{{item.nativePlace}}</td>
-											
 											<td>{{item.createTime}}</td>
 											<td>
 												<div class="disciple-source">

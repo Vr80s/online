@@ -111,9 +111,10 @@ public class HospitalApplyServiceImpl implements HospitalApplyService {
      * @param hospitalApply 更新的数据封装类
      */
     @Override
-    public void updateStatus(MedicalHospitalApply hospitalApply) {
+    public String updateStatus(MedicalHospitalApply hospitalApply) {
+        String hospitalId = null;
         if (hospitalApply == null) {
-            return;
+            return hospitalId;
         }
 
         String id = hospitalApply.getId();
@@ -153,7 +154,7 @@ public class HospitalApplyServiceImpl implements HospitalApplyService {
                 }
                 // 前台传来的状态和数据库的状态一致 不予处理
                 if (apply.getStatus().equals(status)) {
-                    return;
+                    return hospitalId;
                 }
                 // 如果该条信息被删除 不能再修改
                 if (apply.getDeleted()) {
@@ -168,7 +169,7 @@ public class HospitalApplyServiceImpl implements HospitalApplyService {
                         break;
                     // 当status = 1 即认证通过
                     case 1:
-                        this.authenticationPassHandle(apply);
+                        hospitalId = this.authenticationPassHandle(apply);
                         break;
                     default:
                         break;
@@ -189,13 +190,14 @@ public class HospitalApplyServiceImpl implements HospitalApplyService {
         } finally {
 
             if (!getLock) {
-                return;
+                return hospitalId;
             }
 
             lock.unlock();
 
             logger.info("--------------  redisson release lock");
         }
+        return hospitalId;
     }
 
     /**
@@ -213,7 +215,7 @@ public class HospitalApplyServiceImpl implements HospitalApplyService {
     /**
      * 处理认证通过逻辑
      */
-    private void authenticationPassHandle(MedicalHospitalApply apply) {
+    private String authenticationPassHandle(MedicalHospitalApply apply) {
 
         Date now = new Date();
 
@@ -307,6 +309,7 @@ public class HospitalApplyServiceImpl implements HospitalApplyService {
         }
         anchorDao.save(courseAnchor);
         sendApprovePassMessage(courseAnchor, apply);
+        return hospitalId;
     }
 
     /**

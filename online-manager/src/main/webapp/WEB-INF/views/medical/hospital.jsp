@@ -531,6 +531,9 @@
                     <%--<button class="btn btn-sm btn-success dele_P" title="批量删除">
                         <i class="glyphicon glyphicon-trash"></i> 批量删除
                     </button>--%>
+                    <button class="btn btn-sm btn-success refresh-data" title="更新医馆数据">
+                        <i class="glyphicon glyphicon-refresh"></i> 更新医馆数据
+                    </button>
                     <button class="btn btn-sm btn-success rec_P" title="设为推荐">
                         <i class="glyphicon glyphicon-cog"></i> 设为推荐
                     </button>

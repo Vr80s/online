@@ -46,7 +46,7 @@
                 <div class="search_hos_box">
                     <form action="/clinics/list" method="get">
                         <input type="hidden" name="field" value="${echoMap.field?default('')}"/>
-                        <input type="text" placeholder="输入名字搜索医馆" name="name" value="${echoMap.name?default('')}"/>
+                        <input type="text" placeholder="输入关键字搜索医馆" name="name" value="${echoMap.name?default('')}"/>
                         <button type="submit">搜索</button>
                     </form>
                 </div>
@@ -101,8 +101,8 @@
                     <#list clinics.records as clinic>
                         <div class="hospitals">
                             <a href="${webUrl}/clinics/${clinic.id}" id="${clinic.id}" target="_blank"></a>
-                            <#if clinic.medicalHospitalPictures[0]??>
-                                <img src="${clinic.medicalHospitalPictures[0].picture}"
+                            <#if clinic.medicalHospitalPictures??>
+                                <img src="${clinic.medicalHospitalPictures[0]}"
                                      style="width: 100%;height: 147px;" alt="${clinic.name}">
                             <#else >
                                 <img src="/web/images/hospitalDefault.png" style="width: 100%;height: 147px;"
@@ -111,19 +111,19 @@
 
                             <div class="hospital_inf">
                                 <span class="hospital_name">${clinic.name}</span>
-                                <#if clinic.authentication==true>
+                                <#if clinic.authentication==1>
                                     <span class="hospital_pass">已认证</span>
                                 </#if>
                                 <div class="hospital_address"><em></em>
                                     <span>${clinic.province!""}&nbsp;&nbsp;${clinic.city!""}</span>
                                 </div>
                                 <div class="hospital_star">
-                                    <#if clinic.score??>
-                                        <#list 1..clinic.score/1 as t>
+                                    <#if clinic.mhscore??>
+                                        <#list 1..clinic.mhscore/1 as t>
                                             <em class="full_star"></em>
                                         </#list>
-                                        <#if (5-(clinic.score/1)) gt 0>
-                                            <#list 1..(5-(clinic.score/1)) as t>
+                                        <#if (5-(clinic.mhscore/1)) gt 0>
+                                            <#list 1..(5-(clinic.mhscore/1)) as t>
                                                 <em class="gray_star"></em>
                                             </#list>
                                         </#if>

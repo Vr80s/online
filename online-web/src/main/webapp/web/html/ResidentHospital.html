@@ -217,7 +217,7 @@
 										<select class="province" id="choosePro" ></select>
 										<select class="city" id="citys"></select>
 										<p class="cityWarn warning hide" style="margin-left:110px;padding-left: 0px;">所在城市地址不能为空</p>
-										<textarea placeholder="请填写医馆详细信息" cols="" style="width: 500px;height: 90px;border: 1px solid #F0F0F0;padding: 10px;resize: none;margin: 20px 0px 0px 110px;outline: none;"></textarea>
+										<textarea placeholder="请填写医馆详细信息" maxlength="100" cols="" style="width: 500px;height: 90px;border: 1px solid #F0F0F0;padding: 10px;resize: none;margin: 20px 0px 0px 110px;outline: none;"></textarea>
 										<p class="detailWarn warning hide" style="margin-left:110px;padding-left: 0px;">所在城市地址不能为空</p>
 									</div>
 
@@ -1106,52 +1106,6 @@
             imagePopup:false,
             maximumWords:10000
 	});
-
-	var ue = UE.getEditor('editor2', {
-		toolbars: [
-			[
-				'undo', //撤销
-				'redo', //重做
-				'bold', //加粗
-				'forecolor', //字体颜色
-				'backcolor', //背景色
-				'indent', //首行缩进
-				'removeformat', //清除格式
-				'formatmatch', //格式刷
-				'blockquote', //引用
-				'fontfamily', //字体
-				'fontsize', //字号
-				'paragraph', //段落格式
-				'italic', //斜体
-				'underline', //下划线
-				'strikethrough', //删除线
-				'superscript', //上标
-				'subscript', //下标
-				'touppercase', //字母大写
-				'tolowercase', //字母小写
-				'justifyleft', //居左对齐
-				'justifyright', //居右对齐
-				'justifycenter', //居中对齐
-				'justifyjustify', //两端对齐
-				'link', //超链接
-				'unlink', //取消链接
-				'simpleupload', //单图上传
-				// 'insertimage', //多图上传
-//				'emotion', //表情
-				'fullscreen'
-			]
-		],
-		initialFrameWidth: 540,
-        initialFrameHeight:220,
-		elementPathEnabled:false,
-            autoHeightEnabled: false,
-            autoFloatEnabled: true,
-            enableAutoSave:false,
-            imagePopup:false,
-            maximumWords:10000       //允许的最大字符数
-	});
-
-
 
 	function getContent() {
 		var arr = [];

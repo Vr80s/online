@@ -1,10 +1,12 @@
 package com.xczhihui.bxg.online.web.controller.ftl;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.solr.client.solrj.SolrServerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,7 +27,9 @@ import com.xczhihui.medical.field.vo.MedicalFieldVO;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalAnnouncementService;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalBusinessService;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalRecruitBusinessService;
+import com.xczhihui.medical.hospital.service.IMedicalHospitalSolrService;
 import com.xczhihui.medical.hospital.vo.MedicalHospitalRecruitVO;
+import com.xczhihui.medical.hospital.vo.MedicalHospitalSolrVO;
 import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
 
 /**
@@ -51,9 +55,11 @@ public class ClinicPageController extends AbstractFtlController {
     private IMedicalHospitalAnnouncementService medicalHospitalAnnouncementService;
     @Autowired
     private ICourseService courseService;
+    @Autowired
+    private IMedicalHospitalSolrService medicalHospitalSolrServiceImpl;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView index() {
+    public ModelAndView index() throws IOException, SolrServerException {
         ModelAndView view = new ModelAndView("clinic/clinics");
 
         List<BannerVo> banners = bannerService.list(null, null, 7);
@@ -69,7 +75,7 @@ public class ClinicPageController extends AbstractFtlController {
         view.addObject("recruits", recruits);
 
 
-        Page<MedicalHospitalVo> clinics = medicalHospitalBusinessServiceImpl.selectHospitalPage(new Page<>(0, 9), null, null);
+        Page<MedicalHospitalSolrVO> clinics = medicalHospitalSolrServiceImpl.selectHospitalListBySolr(new Page<>(0, 9), null, null);
         view.addObject("clinics", clinics);
 
         return view;
@@ -108,12 +114,13 @@ public class ClinicPageController extends AbstractFtlController {
     }
 
     @RequestMapping(value = "list", method = RequestMethod.GET)
-    public ModelAndView list(@RequestParam(value = "page", required = false) Integer current, Integer size, String name, String field) {
+    public ModelAndView list(@RequestParam(value = "page", required = false) Integer current, Integer size, String name, String field) throws IOException, SolrServerException {
         ModelAndView view = new ModelAndView("clinic/list");
         current = current == null ? 1 : current;
         size = size == null ? 20 : size;
 
-        Page<MedicalHospitalVo> clinics = medicalHospitalBusinessServiceImpl.selectHospitalPage(new Page<>(current, size), name, field);
+//        Page<MedicalHospitalVo> clinics = medicalHospitalBusinessServiceImpl.selectHospitalPage(new Page<>(current, size), name, field);
+        Page<MedicalHospitalSolrVO> clinics = medicalHospitalSolrServiceImpl.selectHospitalListBySolr(new Page<>(current, size), name, field);
         view.addObject("clinics", clinics);
 
         Page<MedicalFieldVO> fields = medicalHospitalBusinessServiceImpl.getFieldsPage(new Page(1, Integer.MAX_VALUE));
