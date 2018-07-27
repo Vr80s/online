@@ -5,6 +5,9 @@ body{color: #333333;}
 table{
 	width: 100%;
 }
+a:focus {
+outline: none !important;
+}
 .color{
 	border: 1px solid #00BC12 !important;
     color: #00BC12;
@@ -2493,11 +2496,17 @@ height: 60px;
 .live_streaming_table table tbody > tr > td:nth-child(2){
 	width: 270px;
 }
+.live_streaming_table table tbody > tr > td:nth-child(3){
+	width: 120px;
+}
 .live_streaming_table table tbody > tr > td:nth-child(4){
 	width: 140px;
 }
+.live_streaming_table table tbody > tr > td:nth-child(5){
+	width: 150px;
+}
 .live_streaming_table table tbody > tr > td:nth-child(6){
-	width: 200px;
+	width: 180px;
 }
 
 /*直播结束*/

@@ -157,7 +157,15 @@ public class CourseApplyInfoVO implements Serializable {
      * 如果是专辑的话，此专辑的选集数
      */
     private Integer selectedNumber;
-    
+    private Boolean teaching;
+
+    public Boolean getTeaching() {
+        return teaching;
+    }
+
+    public void setTeaching(Boolean teaching) {
+        this.teaching = teaching;
+    }
 
     public Integer getCourseTeachingCount() {
         return courseTeachingCount;

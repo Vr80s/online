@@ -312,8 +312,8 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
         sendApprovePassMessage(courseAnchor, apply);
         //说明是APP过来的医师申请，通过后通知用户
         if (StringUtils.isBlank(apply.getHeadPortrait())) {
-            try {
-                Thread.sleep(500);
+            try {//前面的申请为异步
+                Thread.sleep(2000);
                 sendRemindMessage(courseAnchor);
             } catch (InterruptedException e) {
                 e.printStackTrace();

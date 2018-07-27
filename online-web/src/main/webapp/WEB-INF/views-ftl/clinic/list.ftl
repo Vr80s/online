@@ -46,7 +46,7 @@
                 <div class="search_hos_box">
                     <form action="/clinics/list" method="get">
                         <input type="hidden" name="field" value="${echoMap.field?default('')}"/>
-                        <input type="text" placeholder="输入名字搜索医馆" name="name" value="${echoMap.name?default('')}"/>
+                        <input type="text" placeholder="输入关键字搜索医馆" name="name" value="${echoMap.name?default('')}"/>
                         <button type="submit">搜索</button>
                     </form>
                 </div>
