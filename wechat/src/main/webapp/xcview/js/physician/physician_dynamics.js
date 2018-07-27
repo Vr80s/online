@@ -827,11 +827,25 @@ function apprenticeInfo() {
                 $(".QA_main").show();
                 // 医师问答列表
                 $('.QA_main').html(template('QA_main_id', {items: data.resultObject.questions}));
-                /*var txt=$('.QA_doubt_main_reply').html();
-                txts=txt.replace('\n','<br>')
-                $('.QA_doubt_main_reply').html(txts);*/
                 
 
+                /*var aBtn=$('.QA_doubt_main_reply');
+                for(i=0;i<aBtn.length;i++){
+                
+                    $(aBtn[i]).click(function(){
+                        for(i=0;i<aBtn.length;i++){
+                            var quesTion = data.resultObject.questions.question;
+                            alert(quesTion);
+                            $(aBtn[i]).html(quesTion);
+                        }
+                    })
+                }*/
+
+                /*var txt=$('.QA_doubt_main_reply'+id).html();
+                // txts=txt.replace('\n','<br>')
+                txts=txt.replace(/[\n\r]/g,'<br>')
+                $('.QA_doubt_main_reply'+id).html(txts);*/
+                
             }
 
             // 判断预约
@@ -1069,18 +1083,22 @@ function checkAuth(doctorId) {
         $(".learn_tips_audit").hide();
     });
 
-// 提问处理回车
-/*var txts = $('.QA_doubt_main_reply').html();
-txts=txts.replace(/[\n\r]/g,'<br>');
-$('.QA_doubt_main_reply').html(txts);*/
+
+
+
 /*var text = $('.QA_doubt_main_reply').html();
 text=text.replace(/[\n\r]/g,'<br>')
 $('.QA_doubt_main_reply').html(text);*/
 
+// 提问处理回车
+/*var txts = $('.QA_doubt_main_reply').html();
+txtt=txts.replace(/\r?\n/g,"<br />");
+$('.QA_doubt_main_reply').html(txtt);*/
+
 // 回答处理回车
 /*var txt = $('.QA_doubt_main_replys').html();
-txt=txt.replace(/[\n\r]/g,'<br>');
-$('.QA_doubt_main_replys').html(txt);*/
+txttt=txt.replace(/\r?\n/g,"<br />");
+$('.QA_doubt_main_replys').html(txttt);*/
 
 
 // 动态图

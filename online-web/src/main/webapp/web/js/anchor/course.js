@@ -543,6 +543,9 @@ function resetCourseForm(sp){
 function showPersonInf(){
    RequestService("/anchor/info", "get",null, function(data) {
     $('.course_lecturer').val(data.resultObject.name);
+    if(isBlank(data.resultObject.detail)){
+    	data.resultObject.detail="";
+    }
    	UE.getEditor('editor').setContent(data.resultObject.detail);
    },false);
     RequestService("/template/course_detail.html", "get",null, function(data) {
