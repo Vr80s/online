@@ -1136,3 +1136,4 @@ if ($(".itransform_"+id).size() > 1) {
 */
 
 
+apprenticeInfo();
