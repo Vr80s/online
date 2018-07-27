@@ -59,7 +59,7 @@ public class ClinicPageController extends AbstractFtlController {
     private IMedicalHospitalSolrService medicalHospitalSolrServiceImpl;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView index() {
+    public ModelAndView index() throws IOException, SolrServerException {
         ModelAndView view = new ModelAndView("clinic/clinics");
 
         List<BannerVo> banners = bannerService.list(null, null, 7);
@@ -75,7 +75,7 @@ public class ClinicPageController extends AbstractFtlController {
         view.addObject("recruits", recruits);
 
 
-        Page<MedicalHospitalVo> clinics = medicalHospitalBusinessServiceImpl.selectHospitalPage(new Page<>(0, 9), null, null);
+        Page<MedicalHospitalSolrVO> clinics = medicalHospitalSolrServiceImpl.selectHospitalListBySolr(new Page<>(0, 9), null, null);
         view.addObject("clinics", clinics);
 
         return view;
