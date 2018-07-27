@@ -40,6 +40,10 @@ $(function(){
 	});
 	var doctorId = getQueryString("doctor");
 	$(".prosperity_popout_hide").click(function(){
+		// history.back();
+		// window.history.go(-1)
+		// window.history.go(-1);location.reload()
+		// window.history.go(-2); 
 		window.location.href="/xcview/html/physician/physicians_page.html?doctor="+doctorId; 
 	});
 

@@ -677,8 +677,13 @@ function createDoctorCourse(userId){
     requestService("/xczh/doctors/doctorCourse", {userId:userId},function (data) {  
         if (data.success == true) {
             // 直播课程
-            $('#live_streaming').html(template('live_streaming_id', {items: data.resultObject[1].courseList}));
-            $(".more_live_lesson").html("查看更多直播课");
+            if (data.resultObject[1].courseList.length == 0) {
+                $("#live_lesson").hide();
+            }else{
+
+                $('#live_streaming').html(template('live_streaming_id', {items: data.resultObject[1].courseList}));
+                $(".more_live_lesson").html("查看更多直播课");            
+            };
         }
     });
 }
@@ -738,6 +743,7 @@ function doctorStatus() {
                 $("#live_lesson").css("display","none");  /*直播课程*/
                 defaultId();
             }else{
+
                 //有权限，获取课程列表
                 doctorCourses(data);
             }
@@ -996,16 +1002,32 @@ function order(id){
     
     requestGetService("/xczh/enrol/checkAuth",{doctorId:doctorId},function (data) {
         if (data.success == true) {
-            // 是否是徒弟
-            if (data.resultObject.auth == false) {
+            // 是否是徒弟  当auth是false type用于区分提示 0 -> 没有申请过弟子 1-> 弟子申请在审核中 2->
+            if (data.resultObject.auth == false) {  //判断是否是弟子，是跳转，不是显示下面弹框
                 if (data.resultObject.type == 0) {
                     $(".order_tips").show();
                 }else if(data.resultObject.type == 1) {
                     $(".order_tips_no").show();
                 };
-
             }else{
-                location.href ='/xcview/html/physician/reserve_information.html?doctor='+doctorId+'&dataId='+id+''
+
+               /* requestGetService("/doctor/treatment/check",{id:id},function (data) {
+                    if (data.success == true) {
+                        // 0 -> 正常可预约 1 -> 已被预约 2-> 该时间段重复预约
+                        if (data.resultObject == 0) {
+                            alert(0);
+                            // location.href ='/xcview/html/physician/reserve_information.html?doctor='+doctorId+'&dataId='+id+''
+                        }else if (data.resultObject == 1 && data.resultObject == 2){
+                            alert(1);
+                            $(".subscribe_btn").html("预约满");
+                            $(".subscribe_btn").css("background","#DEDEDE");
+                        }
+
+                    }
+                });*/
+
+                location.href ='/xcview/html/physician/reserve_information.html?doctor='+doctorId+'&dataId='+id+'';
+
             }
 
         }
@@ -1114,3 +1136,4 @@ if ($(".itransform_"+id).size() > 1) {
 */
 
 
+apprenticeInfo();
