@@ -1077,3 +1077,18 @@ $('.QA_doubt_main_reply').html(text);*/
 /*var txt = $('.QA_doubt_main_replys').html();
 txt=txt.replace(/[\n\r]/g,'<br>');
 $('.QA_doubt_main_replys').html(txt);*/
+
+
+// 动态图
+/*var id=$(".itransforms").find("am-gallery-item").attr("data-itransform");
+
+if ($(".itransform_"+id).size() > 1) {
+    alert(1);
+    $(".itransform_"+id).find("img").addClass("transform_img");
+}else{
+    alert(2);
+    $(".itransform_"+id).find("img").removeClass("ccc");
+};
+*/
+
+
