@@ -30,6 +30,7 @@ header{
 	height: 100%;
 	margin-left: 0.26rem;
 	padding-top: 0.14rem;
+    position: relative;
 }
 
 .header_seek{
@@ -214,7 +215,7 @@ header{
     width: 0.24rem;
     height: 0.42rem;
     position: absolute;
-    left: 0.26rem;
+    left: 0rem;
     top: 0.23rem;
 }
 .return img{

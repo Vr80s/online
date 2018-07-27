@@ -138,4 +138,12 @@ public interface IMobileBannerService {
 
     Integer addClickNum(String id, Integer clickSource, Integer clickType);
 
+    /**
+     * 根据不同的跳转逻辑处理routeType
+     *
+     * @param linkParam linkParam
+     * @param routeType     routeType
+     * @return
+     */
+    String getHandleRouteType(String routeType, String linkParam);
 }

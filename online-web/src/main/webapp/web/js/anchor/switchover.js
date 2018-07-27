@@ -182,7 +182,7 @@ $(function () {
 
                 if (localStorage.AccountStatus == '1') {
                     //坐诊时间渲染
-                    var workArr = anchor.wt.split(",");
+                   	var workArr = anchor.wt==null?[]:anchor.wt.split(",");
 
                     var selectTime;
 					var sureType=[];

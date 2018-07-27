@@ -69,6 +69,7 @@ $(function(){
             // 申请失败--我知道啦
             $(".failure_popout_hide").click(function(){
                 $(".failure_popout").hide();
+                // window.location.href="/xcview/html/physician/physicians_page.html?doctor="+doctorId;
             });
         }
     });
@@ -102,7 +103,7 @@ $(function(){
                 $(".prosperity_popout").show();    //申请完成
             }else{
 
-                if (data.resultObject.code == 5004) {
+                if (data.code == 5004) {
                     $(".failure_popout").show();   //已经预约
                 }else{
                     jqtoast(data.errorMessage);

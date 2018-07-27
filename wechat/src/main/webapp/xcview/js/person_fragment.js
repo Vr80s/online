@@ -70,9 +70,9 @@ requestService("/xczh/common/richTextDetails",{
 	if(type ==1 ){ // 展示页面  课程详情
 		if(data.resultObject==''||data.resultObject==null){
 			$("#jieshao").hide();
-			$(".no").show();
+			$(".no_referrals").show();
 		}else{
-			$(".no").hide();
+			$(".no_referrals").hide();
 			$(".user_mywrite").html(data.resultObject);
 		}
 	}else if(type == 2){ //主讲人  --》 直播间主讲人
@@ -86,18 +86,18 @@ requestService("/xczh/common/richTextDetails",{
 	}else if(type == 3){  //展示页面  主讲人
 		if(data.resultObject==''||data.resultObject==null){
 			$("#jieshao").hide();
-			$(".no").show();
+			$(".no_referral").show();
 		}else{
 			$(".user_mywrite").html(data.resultObject);
-			$(".no").hide();
+			$(".no_referral").hide();
 		}
 	}else if(type == 4 || type == 5){  //主播详情页面 --》 介绍 
 		if(data.resultObject==''||data.resultObject==null){
 			$("#jieshao").hide();
-			$(".no").show();
+			$(".no_referral").show();
 		}else{
 			$(".user_mywrite").html(data.resultObject);
-			$(".no").hide();
+			$(".no_referral").hide();
 		}
 	}
 	

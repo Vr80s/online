@@ -94,8 +94,6 @@ function saveCourse() {
     		imgCourseUrl="";
     	}
     var course = getCourseData();
-    
-    
     if (verifyCourse(course)) {
         if (course.id == null || course.id == '') {
             addCourse(course);
@@ -796,25 +794,26 @@ function cheackSelectAll(){
 		}else{
 			$(".error-welfare").addClass("hide");
 		}
-		if(apprentice.cost != null){
-			if(reg.test(apprentice.cost)==true){
-				$(".error-price").addClass("hide");
-			}else{
-				$(".error-price").removeClass("hide");
-				return false;
-			}
-		}else{
-			$(".error-price").addClass("hide");
-		}
+//		if(apprentice.cost != null){
+//			if(reg.test(apprentice.cost)==true){
+//				$(".error-price").addClass("hide");
+//			}else{
+//				$(".error-price").removeClass("hide");
+//				return false;
+//			}
+//		}else{
+//			$(".error-price").addClass("hide");
+//		}
 		return true;
 	}
 
 	$(".comment-apprentice button").click(function(){
 		var that=$(this);
+//		        "cost":$.trim($(".comment-apprentice .price").val())
 		var apprentice={			
 			 "requirement": $.trim($(".how-apprentice").val()),
-             "welfare": $.trim($(".apprentice-welfare").val()),
-             "cost":$.trim($(".comment-apprentice .price").val())
+             "welfare": $.trim($(".apprentice-welfare").val())
+
 		};
 		if (provingApprentice(apprentice)) {
 			that.attr("disabled","disabled");
@@ -836,7 +835,7 @@ function cheackSelectAll(){
 		 		var echoData=data.resultObject
 				$(".how-apprentice").val(echoData.requirement);
 				$(".apprentice-welfare").val(echoData.welfare);
-				$(".comment-apprentice .price").val(echoData.cost);
+//				$(".comment-apprentice .price").val(echoData.cost);
 
 		 	}
 	   	})
