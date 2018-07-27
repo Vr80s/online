@@ -38,6 +38,8 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
     private String treatmentApplySuccessCode;
     @Value("${online.treatment.apply.fail.sms.code}")
     private String treatmentApplyFailCode;
+    @Value("${online.treatment.apply.cancel.sms.code}")
+    private String treatmentApplyCancelCode;
 
     @Autowired
     private RemoteTreatmentMapper remoteTreatmentMapper;
@@ -198,6 +200,22 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
             treatment.setStatus(AppointmentStatus.ORIGIN.getVal());
             treatment.setInfoId(null);
             remoteTreatmentMapper.updateAllColumnById(treatment);
+        }
+    }
+
+    private void sendAppointmentCancelSms(String infoId, Treatment treatment) {
+        SimpleDateFormat yearMonthDayFormat = new SimpleDateFormat("yyyy年MM月dd日");
+        SimpleDateFormat hourMinuteFormat = new SimpleDateFormat("HH时mm分");
+        Map<String, String> smsParams = new HashMap<>(3);
+        TreatmentAppointmentInfo treatmentAppointmentInfo = remoteTreatmentAppointmentInfoMapper.selectById(infoId);
+        if (treatmentAppointmentInfo != null) {
+            MedicalDoctorVO medicalDoctorVO = medicalDoctorBusinessService.findSimpleById(treatment.getDoctorId());
+            if (medicalDoctorVO != null) {
+                smsParams.put("name", medicalDoctorVO.getName());
+                smsParams.put("startTime", yearMonthDayFormat.format(treatment.getDate()) + hourMinuteFormat.format(treatment.getStartTime()));
+                smsParams.put("endTime", hourMinuteFormat.format(treatment.getEndTime()));
+                SmsUtil.sendSMS(treatmentApplyCancelCode, smsParams, treatmentAppointmentInfo.getTel());
+            }
         }
     }
 
