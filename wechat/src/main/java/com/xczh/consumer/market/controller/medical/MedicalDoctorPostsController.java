@@ -55,6 +55,8 @@ public class MedicalDoctorPostsController {
                 if(!medicalDoctorPosts.getTeaching()){
                     list1.add(medicalDoctorPosts);
                 }
+            } else {
+                list1.add(medicalDoctorPosts);
             }
 
         });
