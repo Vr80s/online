@@ -9218,8 +9218,12 @@
         position:relative
     }
     .am-gallery-overlay .am-gallery-item img{
-        width:100%;
-        /*height:auto*/
+        width:2.26rem;
+        height:auto;
+        transform: scale(2.4,2.4);  /* 缩放比例 */
+        margin: 0.3rem -0.3rem;  /* 距离上下距离 */ 
+    }
+    .transform_img{
         transform: scale(3,3);  /* 缩放比例 */
         margin: 0.3rem -0.3rem;  /* 距离上下距离 */
     }

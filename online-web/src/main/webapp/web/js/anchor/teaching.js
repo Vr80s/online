@@ -833,10 +833,14 @@ function cheackSelectAll(){
 		RequestService("/doctor/apprentice/settings","GET",null, function (data) {
 		 	if (data.success==true) {
 		 		var echoData=data.resultObject
-				$(".how-apprentice").val(echoData.requirement);
-				$(".apprentice-welfare").val(echoData.welfare);
-//				$(".comment-apprentice .price").val(echoData.cost);
-
+		 		if(echoData==null){
+		 			$(".how-apprentice").val("");
+		 			$(".apprentice-welfare").val("")
+		 		}else{
+		 			$(".how-apprentice").val(echoData.requirement);
+					$(".apprentice-welfare").val(echoData.welfare);
+//					$(".comment-apprentice .price").val(echoData.cost);
+		 		}
 		 	}
 	   	})
 

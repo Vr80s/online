@@ -56,6 +56,7 @@ requestGetService("/xczh/enrol/enrollmentRegulations/"+merId,data,function(data)
                 var s = Math.floor(t / 1000 % 60);
                 var str = "报名截止时间：<span class='times'>" + tian + "</span> 天 <span class='times'>" + h + "</span> 小时  <span class='times'>" + m + "</span> 分 <span class='times'>" + s + "</span> 秒";
                 $("#box1").html(str);
+                $("#box1").show();
                 } else {
                     //clearInterval(timer); //这里可以添加倒计时结束后需要执行的事件 
                     $("#box1").html("报名时间已结束");
