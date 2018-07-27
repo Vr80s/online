@@ -30,10 +30,6 @@ $(function(){
         }
     });
 
-    //点击选项
-    $('.li_data').click(function(){
-        doctorPostsList(1,"down",doctorPostsType);
-    });
 
 });
 $(".li_data").click(function () {
@@ -702,7 +698,7 @@ function dortorCoursePage() {
 }
 function doctorCourses(data){
     userId = data.resultObject.userId;
-    var type = 3;
+    var type = 6;
     requestService("/xczh/course/courseTypeNumber", {  //二、获取完权限，获取课程数量。
         userId : userId,
         type : type

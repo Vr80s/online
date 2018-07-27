@@ -1551,15 +1551,17 @@ $(window).bind("scroll", function() {
         
         var physiciansPage = sessionStorage.getItem("physiciansPage");
         
+      
+        
         if("li_evaluate" == physiciansPage){
-            
             $(".li_evaluate").click();
+            page = 0;
         }else if("li_course" == physiciansPage){
-            
             $(".li_course").click();
+            page = 0;
         }else if("li_prose_origin" == physiciansPage){
-            
             $(".li_prose_origin").click();
+            page = 0;
         }else{
             $(".li_data").click();
             // debugger;
