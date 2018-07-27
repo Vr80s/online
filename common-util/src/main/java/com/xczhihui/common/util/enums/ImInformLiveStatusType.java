@@ -13,7 +13,12 @@ public enum ImInformLiveStatusType {
     LIVE_START(2, "直播开始"),
     LIVE_END(3, "直播结束"),
     PLAYBACK_SUCCES(4, "回放生成成功"),
-    PLAYBACK_FAILURE(5, "回放生产失败");
+    PLAYBACK_FAILURE(5, "回放生产失败"),
+    
+    LIVE_EXIT_NOEND(6, "直播结束并不退出"),
+    GO_ON_NOEND(7, "继续直播");
+    
+    
 
     /**
      * 描述

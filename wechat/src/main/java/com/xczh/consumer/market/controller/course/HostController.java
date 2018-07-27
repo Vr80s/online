@@ -101,7 +101,6 @@ public class HostController {
     @RequestMapping("hostPageInfo")
     @ResponseBody
     public ResponseObject hostPageInfo(@Account(optional = true) Optional<String> accountIdOpt,
-                                       HttpServletResponse res,
                                        @RequestParam("lecturerId") String lecturerId) throws Exception {
 
         LOGGER.info("lecturerId-->id" + lecturerId);

@@ -31,6 +31,7 @@ import com.xczhihui.course.service.CourseService;
 import com.xczhihui.course.service.ICommonMessageService;
 import com.xczhihui.course.service.MessageRemindingService;
 import com.xczhihui.course.util.TextStyleUtil;
+import com.xczhihui.medical.enrol.service.EnrolService;
 import com.xczhihui.support.shiro.ManagerUserUtil;
 import com.xczhihui.user.service.OnlineUserService;
 import com.xczhihui.vhall.VhallUtil;
@@ -109,6 +110,8 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
     private ICommonMessageService commonMessageService;
     @Autowired
     private CacheService cacheService;
+    @Autowired
+    private EnrolService enrolService;
     @Value("${vhall.user.id}")
     private String liveVhallUserId;
 
@@ -498,6 +501,7 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
 
         course.setClientType(courseApply.getClientType());
         course.setTeaching(courseApply.getTeaching());
+
         if (course.getId() != null) {
             // 若course有id，说明该申请来自一个已经审核通过的课程，则更新
             dao.update(course);
@@ -506,6 +510,9 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
             // 当前时间
             course.setCreateTime(new Date());
             dao.save(course);
+            if(course.getTeaching()){
+                enrolService.saveCourseTeaching4Init(course.getId(),course.getUserLecturerId());
+            }
         }
         savecourseMessageReminding(course);
         return course;

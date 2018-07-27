@@ -153,6 +153,8 @@ public interface EnrolService {
 
     void saveCourseTeaching(String doctorId, String courseId, String apprenticeIds);
 
+    void saveCourseTeaching4Init(Integer courseId, String doctorAccountId);
+
     /**
      * 查询改用户的弟子信息
      *

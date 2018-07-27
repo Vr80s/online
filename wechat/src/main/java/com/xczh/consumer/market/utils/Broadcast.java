@@ -26,11 +26,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class Broadcast {
 
-//	private    String host = "47.92.39.21";
-//	private  int port = 5222;
-//	private   String account = "15@47.92.39.21";
-//	private   String password = "system-prod-mobile";
-//	private   String postfix="xczh@conference.47.92.39.21";
 
     @Value("${gift.im.host}")
     private String host;

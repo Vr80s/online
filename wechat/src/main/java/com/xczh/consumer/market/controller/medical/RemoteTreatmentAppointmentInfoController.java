@@ -3,7 +3,10 @@ package com.xczh.consumer.market.controller.medical;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.body.treatment.TreatmentAppointmentInfoBody;
@@ -50,8 +53,14 @@ public class RemoteTreatmentAppointmentInfoController {
         return ResponseObject.newSuccessResponseObject(result);
     }
 
+    @Deprecated
     @RequestMapping(value = "check/repeat", method = RequestMethod.GET)
     public ResponseObject checkAppointmentInfo(@RequestParam int id, @Account String accountId) {
         return ResponseObject.newSuccessResponseObject(remoteTreatmentService.checkRepeatAppoint(id, accountId));
+    }
+
+    @RequestMapping(value = "check", method = RequestMethod.GET)
+    public ResponseObject checkAppointmentInfoValid(@RequestParam int id, @Account String accountId) {
+        return ResponseObject.newSuccessResponseObject(remoteTreatmentService.checkAppointment(id, accountId));
     }
 }
