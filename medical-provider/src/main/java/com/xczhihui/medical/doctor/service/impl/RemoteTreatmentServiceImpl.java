@@ -249,6 +249,21 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
         return cnt != null && cnt > 0;
     }
 
+    @Override
+    public int checkAppointment(int id, String accountId) {
+        Treatment treatment = remoteTreatmentMapper.selectById(id);
+        if (treatment == null) {
+            throw new MedicalException("参数错误");
+        }
+        if (treatment.getStatus() != AppointmentStatus.ORIGIN.getVal()) {
+            return 1;
+        }
+        if (checkRepeatAppoint(id, accountId)) {
+            return 2;
+        }
+        return 0;
+    }
+
     private void handleDate(TreatmentVO treatmentVO) {
         SimpleDateFormat yearMonthDayDateFormat = new SimpleDateFormat("yyyy年M月dd日");
         SimpleDateFormat hourMinuteFormat = new SimpleDateFormat("HH:mm");
