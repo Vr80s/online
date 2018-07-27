@@ -1186,7 +1186,7 @@ $(".preview-top img").click(function(){
 function trainee_set(i){
 	var setClass = traineeSee[i];
 		$("#saveId").val(setClass.id);
-	if(setClass.createTime>getNowFormatDate()){
+	if(setClass.startTime>getNowFormatDate()){
 		showTip("上课日期开始后，才可设置学员的上课状态");
 		return false;
 	}
