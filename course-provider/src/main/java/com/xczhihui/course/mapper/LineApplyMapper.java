@@ -62,7 +62,7 @@ public interface LineApplyMapper extends BaseMapper<LineApply> {
      * @param anchorId 主播id
      * @return
      */
-    @Select({"SELECT la.real_name as realName, la.sex, la.mobile, la.wechat_no as wechatNo, la.learned, ac.create_time as createTime, la.id, oc.grade_name as courseName" +
+    @Select({"SELECT la.real_name as realName, la.sex, la.mobile, la.wechat_no as wechatNo, la.learned, ac.create_time as createTime, la.id, oc.grade_name as courseName,oc.start_time AS start_time" +
             " FROM oe_line_apply la, apply_r_grade_course ac, oe_course oc" +
             " WHERE oc.id = la.course_id AND la.course_id = ac.course_id and la.`user_id` = ac.`user_id` AND oc.`user_lecturer_id` = #{anchorId}" +
             " AND (#{courseId} is null OR la.course_id = #{courseId})" +

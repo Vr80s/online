@@ -24,6 +24,8 @@ public class LineCourseApplyStudentVO implements Serializable {
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")
     private Date createTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")
+    private Date startTime;
 
     private String realName;
 
@@ -99,6 +101,14 @@ public class LineCourseApplyStudentVO implements Serializable {
 
     public void setAnchorName(String anchorName) {
         this.anchorName = anchorName;
+    }
+
+    public Date getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
     }
 
     @Override
