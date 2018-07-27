@@ -511,7 +511,7 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
             course.setCreateTime(new Date());
             dao.save(course);
             if(course.getTeaching()){
-                enrolService.saveCourseTeaching4Init(course.getId());
+                enrolService.saveCourseTeaching4Init(course.getId(),course.getUserLecturerId());
             }
         }
         savecourseMessageReminding(course);

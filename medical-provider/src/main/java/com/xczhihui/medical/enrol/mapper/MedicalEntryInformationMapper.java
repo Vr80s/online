@@ -88,7 +88,7 @@ public interface MedicalEntryInformationMapper extends BaseMapper<MedicalEntryIn
             " FROM medical_entry_information mei" +
             "  LEFT JOIN `course_teaching` ct" +
             "  ON mei.`user_id` = ct.`user_id` AND ct.`course_id` = #{courseId} AND ct.`deleted`=0" +
-            " WHERE mei.`doctor_id`=#{doctorId} and deleted = 0 AND apprentice = 1" +
+            " WHERE mei.`doctor_id`=#{doctorId} and mei.deleted = 0 AND mei.apprentice = 1" +
             "  group by mei.user_id " +
             " ORDER BY mei.create_time DESC"})
     List<Map<String, String>> listByDoctorIdAndCourseId(@Param("doctorId") String doctorId, @Param("courseId") String courseId);
@@ -163,12 +163,10 @@ public interface MedicalEntryInformationMapper extends BaseMapper<MedicalEntryIn
             " </script>"})
     MedicalEntryInformationVO findById(@Param("id") Integer id);
 
-    @Select("SELECT mei.`user_id` FROM `oe_course` oc \n" +
-            "  JOIN `medical_doctor_account` mda \n" +
-            "    ON oc.`user_lecturer_id` = mda.`account_id` AND oc.id=#{courseId}\n" +
-            "  JOIN `medical_entry_information` mei\n" +
-            "    ON mei.`doctor_id`=mda.`doctor_id`\n" +
-            "   AND mei.`deleted`=0 AND mei.`apprentice`=1 AND mei.`applied`=1\n" +
-            " GROUP BY mei.user_id ORDER BY mei.create_time DESC  ")
-    List<String> getApprenticeIdsByCourseId(String courseId);
+    @Select("SELECT mei.`user_id` \n" +
+            "FROM `medical_doctor_account` mda     \n" +
+            "  JOIN `medical_entry_information` mei \n" +
+            "    ON mei.`doctor_id` = mda.`doctor_id` AND mei.`deleted` = 0 AND mei.`apprentice` = 1 AND mei.`applied` = 1 AND mda.`account_id`=#{accountId}\n" +
+            "GROUP BY mei.user_id ORDER BY mei.create_time DESC ")
+    List<String> getApprenticeIdsByDoctorAccountId(String accountId);
 }

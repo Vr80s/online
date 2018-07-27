@@ -374,8 +374,9 @@ public class EnrolServiceImpl implements EnrolService {
     }
 
     @Override
-    public void saveCourseTeaching4Init(Integer courseId) {
-        List<String> apprenticeIds = medicalEntryInformationMapper.getApprenticeIdsByCourseId(courseId.toString());
+    public void saveCourseTeaching4Init(Integer courseId, String doctorAccountId) {
+        medicalEntryInformationMapper.deleteCourseTeachingByCourseId(courseId.toString());
+        List<String> apprenticeIds = medicalEntryInformationMapper.getApprenticeIdsByDoctorAccountId(doctorAccountId);
         medicalEntryInformationMapper.saveCourseTeaching(courseId.toString(), apprenticeIds);
     }
 
