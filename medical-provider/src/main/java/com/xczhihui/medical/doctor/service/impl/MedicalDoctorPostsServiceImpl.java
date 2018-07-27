@@ -69,11 +69,11 @@ public class MedicalDoctorPostsServiceImpl extends ServiceImpl<MedicalDoctorPost
             long second = (currentDate.getTime() - d.getTime())/1000;
             long min = (currentDate.getTime() - d.getTime())/1000/60+1;
             long hour = (currentDate.getTime() - d.getTime())/1000/60/60+1;
-            if(second<60){
+            if(second>0 && second<60){
                 medicalDoctorPosts.setDateStr("刚刚");
-            } else if (min<=60){
+            } else if (min>0 &&  min<=60){
                 medicalDoctorPosts.setDateStr(min+"分钟前");
-            } else if (hour<=12){
+            } else if (hour>0 &&  hour<=12){
                 medicalDoctorPosts.setDateStr(hour+"小时前");
             } else {
                 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
