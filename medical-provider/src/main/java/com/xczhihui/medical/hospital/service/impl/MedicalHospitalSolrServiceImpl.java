@@ -90,14 +90,14 @@ public class MedicalHospitalSolrServiceImpl implements IMedicalHospitalSolrServi
     }
 
     @Override
-    public void initHospitalsSolrDataById(String HospitalId) throws IOException, SolrServerException {
-        if (StringUtils.isNotBlank(HospitalId)) {
-            MedicalHospitalSolrVO medicalHospitalSolrVO = selectHospital4SolrById(HospitalId);
+    public void initHospitalsSolrDataById(String hospitalId) throws IOException, SolrServerException {
+        if (StringUtils.isNotBlank(hospitalId)) {
+            MedicalHospitalSolrVO medicalHospitalSolrVO = selectHospital4SolrById(hospitalId);
             if(medicalHospitalSolrVO != null){
                 solrUtils.addBean(medicalHospitalSolrVO);
                 logger.warn("医馆数据更新:{}", medicalHospitalSolrVO.toString());
             }else{
-                deleteHospitalsSolrDataById(HospitalId);
+                deleteHospitalsSolrDataById(hospitalId);
             }
         }
     }

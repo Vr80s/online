@@ -275,7 +275,7 @@
         medical_hospital mh
         where mh.`status` = 1
         <if test="hospitalId != null and hospitalId!=''">
-            AND md.id = #{hospitalId}
+            AND mh.id = #{hospitalId}
         </if>
     </select>
 
