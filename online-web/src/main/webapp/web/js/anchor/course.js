@@ -410,7 +410,6 @@ function updateCourse(course){
         contentType:"application/json",
         async: false,
         success: function(data) {
-            console.log(data);
             if(data.success === true) {
                 showTip(data.resultObject);
                 resetCourseForm(false);
@@ -462,7 +461,7 @@ function getCourse4Update(caiId){
     },false);
     return course;
 }
-
+ $("#demo2").iProvincesSelect("init",null);
 function echoCourse(caiId,passEdit){
     var course = getCourse4Update(caiId);
     //若该申请已通过，且点进方法的页面显示未通过，给出提示  //暂时关闭该校验
@@ -1860,3 +1859,4 @@ $(function(){
         reader.readAsDataURL(this.files[0])
     })
 })
+

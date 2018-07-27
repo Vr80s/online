@@ -49,8 +49,8 @@ public class MessageRemindingServiceImpl implements MessageRemindingService {
     private static final String WEB_LIVE_COURSE_REMIND = "【上课提醒】{0}老师叫你去上课了！您报名的" + TextStyleUtil.LEFT_TAG + "《{1}》" + TextStyleUtil.RIGHT_TAG + "直播还有{2}分钟就要开始了，别忘了准时观看";
     private static final String APP_PUSH_OFFLINE_COURSE_REMIND = "您报名的《{0}》将于明天{1}在{2}开始，别忘了准时参加！";
     private static final String WEB_OFFLINE_COURSE_REMIND = "【上课提醒】您报名的" + TextStyleUtil.LEFT_TAG + "《{0}》"+ TextStyleUtil.RIGHT_TAG + "将于明天{1}在{2}开始，别忘了准时参加！";
-    private static final String APP_PUSH_COLLECTION_COURSE_REMIND = "您的专辑课程《{0}》需要更新啦~更新时间为每{1}";
-    private static final String WEB_COLLECTION_COURSE_REMIND = "【课程更新提示】您的专辑课程《{0}》需要更新啦~更新时间为每{1}";
+    private static final String APP_PUSH_COLLECTION_COURSE_REMIND = "您的专辑课程《{0}》需要更新啦~更新时间为每周{1}";
+    private static final String WEB_COLLECTION_COURSE_REMIND = "【课程更新提示】您的专辑课程《{0}》需要更新啦~更新时间为每周{1}";
     CacheService cacheService;
     @Autowired
     CourseDao courseDao;
