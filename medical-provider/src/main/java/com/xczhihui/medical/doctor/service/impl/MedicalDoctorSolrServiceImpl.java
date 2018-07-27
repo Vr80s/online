@@ -1,7 +1,5 @@
 package com.xczhihui.medical.doctor.service.impl;
 
-import static com.xczhihui.common.util.enums.DoctorType.getDoctorTypeListAddHot;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -24,7 +22,6 @@ import com.xczhihui.common.solr.utils.HanyuPinyinHelper;
 import com.xczhihui.common.solr.utils.SolrConstant;
 import com.xczhihui.common.solr.utils.SolrPages;
 import com.xczhihui.common.solr.utils.SolrUtils;
-import com.xczhihui.common.util.bean.DoctorTypeVo;
 import com.xczhihui.medical.department.vo.MedicalDepartmentVO;
 import com.xczhihui.medical.doctor.mapper.MedicalDoctorMapper;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorSolrService;
@@ -51,7 +48,7 @@ public class MedicalDoctorSolrServiceImpl implements IMedicalDoctorSolrService {
     private String pre;
     @Value("${solr.heiht.post}")
     private String post;
-    @Value("${solr.core}")
+    @Value("${solr.doctor.core}")
     private String core;
 
     private SolrUtils solrUtils;

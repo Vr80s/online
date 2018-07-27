@@ -1185,7 +1185,11 @@ $(".preview-top img").click(function(){
 //点击设置上课
 function trainee_set(i){
 	var setClass = traineeSee[i];
-		$("#saveId").val(setClass.id)
+		$("#saveId").val(setClass.id);
+	if(setClass.createTime>getNowFormatDate()){
+		showTip("上课日期开始后，才可设置学员的上课状态");
+		return false;
+	}
 	if (setClass.learned==true) {
 			$(".radio-cover em").removeClass("active");
 			$(".select-man em").addClass("active");
@@ -1204,11 +1208,11 @@ function trainee_set(i){
 	$(".content-setClass label").click(function() {
 		$(this).find(".radio-cover em").addClass("active").parent().parent().siblings().find(".radio-cover em").removeClass("active");
 	});
-//	确认
+//	确认是否上课
 	function class_btnUp(i){
 		var traineeId = $("#saveId").val();		
 		if($(".select-man em").hasClass("active")){
-			sex = 1;
+			sex = 1;		
 		}else{
 			sex = 0;
 		}
@@ -1222,6 +1226,24 @@ function trainee_set(i){
 				showTip("操作失败");
 			}
 		})	
+	}
+//	获取当前时间
+	function getNowFormatDate() {
+	    var date = new Date();
+	    var seperator1 = "-";
+	    var seperator2 = ":";
+	    var month = date.getMonth() + 1;
+	    var strDate = date.getDate();
+	    if (month >= 1 && month <= 9) {
+	        month = "0" + month;
+	    }
+	    if (strDate >= 0 && strDate <= 9) {
+	        strDate = "0" + strDate;
+	    }
+	    var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+	            + " " + date.getHours() + seperator2 + date.getMinutes()
+	            + seperator2 + date.getSeconds();
+	    return currentdate;    
 	}
 //	关闭
 	$(".trainee-close").click(function(){

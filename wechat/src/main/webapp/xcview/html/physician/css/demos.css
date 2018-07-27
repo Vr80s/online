@@ -849,6 +849,7 @@
         margin-left: 0.18rem;
     	margin-top: 0.1rem;
     	margin-bottom: 0.1rem;
+        overflow: hidden;
     }
     @media only screen{
         .am-avg-sm-1>li{
@@ -9219,6 +9220,8 @@
     .am-gallery-overlay .am-gallery-item img{
         width:100%;
         /*height:auto*/
+        transform: scale(3,3);  /* 缩放比例 */
+        margin: 0.3rem -0.3rem;  /* 距离上下距离 */
     }
     .am-gallery-overlay .am-gallery-title{
         font-size:1.4rem;

@@ -118,6 +118,7 @@
 
     <select id="selectMedicalFieldsByHospitalId" resultType="com.xczhihui.medical.field.vo.MedicalFieldVO">
         SELECT
+        mf.id,
         mf.name
         FROM
         `medical_field` mf,
@@ -258,5 +259,33 @@
             AND md.status = #{status}
         </if>
     </select>
+    <select id="selectHospitalList4Solr" resultType="com.xczhihui.medical.hospital.vo.MedicalHospitalSolrVO">
+        select
+        mh.id,
+        mh.name,
+        mh.description,
+        mh.province,
+        mh.city,
+        mh.detailed_address,
+        ifnull(mh.score,0) mhscore,
+        mh.authentication,
+        IFNULL(mh.recommend_sort,0) recommendSort,
+        UNIX_TIMESTAMP(mh.`create_time`) createTime
+        from
+        medical_hospital mh
+        where mh.`status` = 1
+        <if test="hospitalId != null and hospitalId!=''">
+            AND md.id = #{hospitalId}
+        </if>
+    </select>
 
+    <select id="selectPictureListByHospital" resultType="java.lang.String">
+        SELECT
+        mhp.picture
+        FROM
+        `medical_hospital_picture` mhp
+        WHERE mhp.`deleted` = 0
+        AND mhp.`hospital_id` = #{hospitalId}
+        ORDER BY mhp.version
+    </select>
 </mapper>

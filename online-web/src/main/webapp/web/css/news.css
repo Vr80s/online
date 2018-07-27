@@ -333,6 +333,10 @@ overflow: hidden;
 	font-size: 14px;
 	color: #333;
 	margin-top: 10px;
+	    max-width: 165px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 #forum .forum-content .forum-content-right .zhuanlan_zuozhe #zhuanlan_zuozhe > li .zuozhe_touxaing{
 	    width: 60px;

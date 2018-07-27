@@ -1,11 +1,13 @@
 package com.xczhihui.medical.web;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.solr.client.solrj.SolrServerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -20,6 +22,7 @@ import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.common.web.controller.AbstractController;
 import com.xczhihui.medical.enums.MedicalExceptionEnum;
 import com.xczhihui.medical.exception.MedicalException;
+import com.xczhihui.medical.hospital.service.IMedicalHospitalSolrService;
 import com.xczhihui.medical.service.HospitalService;
 import com.xczhihui.utils.Group;
 import com.xczhihui.utils.Groups;
@@ -38,6 +41,8 @@ public class HospitalController extends AbstractController {
     protected final static String CLOUD_CLASS_PATH_PREFIX = "/medical/";
     @Autowired
     private HospitalService hospitalService;
+    @Autowired
+    private IMedicalHospitalSolrService medicalHospitalSolrService;
 
     @Value("${web.url}")
     private String weburl;
@@ -390,5 +395,18 @@ public class HospitalController extends AbstractController {
         responseObject.setSuccess(true);
         responseObject.setResultObject("修改成功!");
         return responseObject;
+    }
+
+
+    /**
+     * 刷新solr中医馆数据
+     *
+     * @return
+     */
+    @RequestMapping(value = "initHospitalSolrData")
+    @ResponseBody
+    public ResponseObject initHospitalSolrData() throws IOException, SolrServerException {
+        medicalHospitalSolrService.initHospitalsSolrData();
+        return ResponseObject.newSuccessResponseObject("医馆数据初始化成功");
     }
 }

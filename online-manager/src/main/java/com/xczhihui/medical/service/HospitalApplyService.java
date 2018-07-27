@@ -26,7 +26,7 @@ public interface HospitalApplyService {
      *
      * @param doctorApply 更新的数据封装类
      */
-    void updateStatus(MedicalHospitalApply doctorApply);
+    String updateStatus(MedicalHospitalApply doctorApply);
 
     /**
      * 根据id查询详情

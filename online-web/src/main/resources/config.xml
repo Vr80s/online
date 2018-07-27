@@ -320,6 +320,10 @@
     <dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorSolrService"
                      id="medicalDoctorSolrServiceImpl"
                      timeout="${dubbo.consumer.timeout}"/>
+    <!--医馆搜索 -->
+    <dubbo:reference interface="com.xczhihui.medical.hospital.service.IMedicalHospitalSolrService"
+                     id="medicalHospitalSolrServiceImpl"
+                     timeout="${dubbo.consumer.timeout}"/>
     <!--课程搜索 -->
     <dubbo:reference interface="com.xczhihui.course.service.ICourseSolrService" id="courseSolrServiceImpl"
                      timeout="${dubbo.consumer.timeout}"/>
