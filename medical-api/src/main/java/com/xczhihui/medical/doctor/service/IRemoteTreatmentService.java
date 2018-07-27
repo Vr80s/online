@@ -96,4 +96,13 @@ public interface IRemoteTreatmentService {
      * @return
      */
     boolean checkRepeatAppoint(int id, String accountId);
+
+    /**
+     * 校验预约状态
+     *
+     * @param id id
+     * @param accountId accountId
+     * @return
+     */
+    int checkAppointment(int id, String accountId);
 }

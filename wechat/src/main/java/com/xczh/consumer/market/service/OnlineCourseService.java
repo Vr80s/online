@@ -32,4 +32,10 @@ public interface OnlineCourseService {
      */
     void updateLiveSourceType(Integer courseId) throws SQLException;
 
+    /**
+     * app推出直播并不结束，没画面呗
+     * @param courseId
+     */
+    void updateLiveType(Integer courseId,Integer liveType)throws SQLException;
+
 }
