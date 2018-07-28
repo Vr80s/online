@@ -414,7 +414,7 @@
 </style>
 
 </head>
-<body style="background: #F0f0f0;">
+<body style="background: #F0f0f0;" onLoad="body_onload()">
 	<div class="physicians_page_main comment_hide">
 		
 
@@ -508,7 +508,7 @@
 			<ul id="mainMenu">
 				<li class="li li_data" id="li-1"><span>全部</span>动态<img src="/xcview/images/drop_down.png" alt="" class="hide0" /></li>
 				<li class="li li_course" id="li-2">直播</li>
-				<li class="li li_prose_origin" id="li-3">师承</li>
+				<li class="li li_prose_origin" id="li-3" onclick="apprenticeInfo()">师承</li>
 				<li class="li li_evaluate" id="li-4">介绍</li>
 				<div class="border" style="left: 1.04rem;"></div>
 				<div class="dynamic_opacity"></div>
@@ -1186,7 +1186,7 @@
 			
 			
 		</div>
-		
+		<div class="both"></div>
 		<!-- 在线弟子结束 -->
 	</div>
 	<!-- 师承结束 -->
@@ -1591,6 +1591,7 @@ $(window).bind("scroll", function() {
         }else if("li_prose_origin" == physiciansPage){
             $(".li_prose_origin").click();
             page = 0;
+            $(".li_prose_origin").click();
         }else{
             $(".li_data").click();
             // debugger;

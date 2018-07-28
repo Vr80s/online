@@ -2280,6 +2280,7 @@ margin-top: 0.015rem;
 	/*height: 3rem;*/
 	/*background: red;*/
 	margin: 0 auto;
+	min-height: 1rem;
 }
 .prose_origin_main{
 

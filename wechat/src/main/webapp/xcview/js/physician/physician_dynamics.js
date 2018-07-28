@@ -833,7 +833,7 @@ function apprenticeInfo() {
                 $(".QA_main").show();
                 // 医师问答列表
                 $('.QA_main').html(template('QA_main_id', {items: data.resultObject.questions}));
-                
+                // setcookie('param_cookie',0,10);
 
                 /*var aBtn=$('.QA_doubt_main_reply');
                 for(i=0;i<aBtn.length;i++){
@@ -1136,4 +1136,23 @@ if ($(".itransform_"+id).size() > 1) {
 */
 
 
-apprenticeInfo();
+// apprenticeInfo();
+
+/*function myrefresh(){
+    
+    return;
+}*/
+// window.location.reload();
+// myrefresh();
+// location.assign(location);
+// history.go(0)
+// location.reload()
+// location.replace(location)
+
+function body_onload()
+{
+    if(0 == getcookie('param_cookie')){
+        setcookie("param_cookie",1,10);
+        window.location.reload(true); 
+    }
+}
