@@ -29,6 +29,10 @@
 	}	
 </script>
 <link rel="stylesheet" type="text/css" href="/xcview/css/search.css" />
+
+
+<link rel="stylesheet" type="text/css" href="/xcview/css/popups.css"/>  <!-- 公用弹框 -->
+
 <style>
 	.search_hot{
 		margin-bottom: 0;
@@ -55,7 +59,11 @@
 						<!--给inpiu默认值-->
 						<script type="text/html" id="shipin">
 						{{each items as item i}}
-						<span>{{item.name}}</span>
+						{{if item.name !=null}}
+							<span>大家都在搜：<span class="keyword">{{item.name}}</span></span>
+						{{else}}
+							<span></span>
+						{{/if}}
 						{{/each}}
 	           	 		</script>
 					</span>
@@ -130,7 +138,7 @@
 
 <script src="/xcview/js/search.js?v=wechat_1.1.1"></script>
 
-
+<script type="text/javascript" src="/xcview/js/common/popups.js"></script>  <!-- 公用弹框 -->
 
 <script type="text/javascript">
 	hisArr="hisArr";
@@ -194,10 +202,9 @@
 		}
    		initHistoryList();
 
-//      点击yinput  失去焦点隐藏默认值
+/*//      点击yinput  失去焦点隐藏默认值
         $("#header_input").keyup(function(){
 			var search_val=$(this).val()
-        	
 			if($("#header_input").val() != ""){
 				$(".header_seek_main").css("display","none");
 				
@@ -223,9 +230,10 @@
 			}else{
 				$(".header_seek_main").css("display","block");
 			};
-		});
+		});*/
 
-		// 点击搜索按钮
+
+		/*// 点击搜索按钮
 		$(".header_cancel").click(function(){
 			var search_val=$("#header_input").val();
 			if($("#header_input").val() != ""){
@@ -247,7 +255,11 @@
 			}else{
 				$(".header_seek_main").css("display","block");
 			};
-		});
+		});*/
+
+
+
+
 
 		//删除指定数组中的元素
         function removeByValue(arr, val) {

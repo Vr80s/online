@@ -12,6 +12,8 @@ import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.xczhihui.common.util.Md5Encrypt;
+
 /**
  * 功能：api接口公用函数
  * 详细：该页面是请求接口生成参数字符串的公用函数处理文件，不需要修改
