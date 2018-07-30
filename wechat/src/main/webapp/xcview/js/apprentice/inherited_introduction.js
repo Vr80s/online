@@ -62,8 +62,8 @@ requestGetService("/xczh/enrol/enrollmentRegulations/"+merId,data,function(data)
                     $("#box1").html("报名时间已结束");
                     $("#box1").hide();
                     // 底部修改--报名已结束
-                    $(".apply").attr("onclick","apply();");
-                    $(".apply").removeAttr("onclick");
+                    // $(".apply").attr("onclick","apply();");
+                    // $(".apply").removeAttr("onclick");
                     $(".apply").css("background","#bbb");
                     $(".apply").html("报名已结束");
                 }
