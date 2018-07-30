@@ -6,7 +6,7 @@
   background: #2c6aa0;
 }
 .skin-1 .sidebar {
-  background-color: #222a2d;
+  background-color: #222d32;
   border-right-width: 0;
 }
 .skin-1 .nav-list > li {
@@ -14,7 +14,7 @@
 }
 .skin-1 .nav-list > li > a {
   background-color: #222a2d;
-  color: #bac2c8;
+  color: #b8c7ce;
 }
 .skin-1 .nav-list > li:hover > a {
   background-color: #414b51;
@@ -22,7 +22,7 @@
 }
 .skin-1 .nav-list > li.open > a,
 .skin-1 .nav-list > li.open:hover > a {
-  color: #85c0ec;
+  color: #fff;
   background-color: #222a2d;
 }
 .skin-1 .nav-list > li.active > a,
@@ -48,7 +48,8 @@
   top: 5px;
 }
 .skin-1 .nav-list > li .submenu {
-  background-color: #333d3f;
+  background-color: #2c3b41;
+ 
 }
 .skin-1 .nav-list > li.active .submenu {
   background-color: #181e20;
@@ -56,17 +57,17 @@
 .skin-1 .nav-list > li .submenu > li > a {
   border-top-style: solid;
   border-top-color: #454d4e;
-  background-color: #333d3f;
+  /*background-color: #333d3f;*/
 }
 .skin-1 .nav-list > li .submenu > li > a:hover {
-  background-color: #2d3638;
+  /*background-color: #2d3638;*/
 }
 .skin-1 .nav-list > li.active .submenu > li > a {
   border-top-color: #222526;
   background-color: #181e20;
 }
 .skin-1 .nav-list > li.active .submenu > li > a:hover {
-  background-color: #14191a;
+  background-color: #2c3b41;
 }
 .skin-1 .nav-list > li > .submenu {
   border-top-color: #505a5b;
@@ -75,14 +76,14 @@
   border-top-color: #2f3e44;
 }
 .skin-1 .nav-list > li > .submenu > li > a {
-  color: #d9dfe6;
+  color: #8aa4af;
 }
 .skin-1 .nav-list > li > .submenu > li:hover > a {
-  color: #8ab4de;
+  color: #fff;
 }
 .skin-1 .nav-list > li > .submenu > li.active > a {
-  color: #7bb7e5;
-  background-color: #161b1d;
+  color: #fff;
+  background-color: #2c3b41;
 }
 .skin-1 .nav-list > li > .submenu:before,
 .skin-1 .nav-list > li > .submenu > li:before {
@@ -158,6 +159,9 @@
 .skin-1 .breadcrumbs {
   border-width: 0;
   background-color: #f0f0f0;
+}
+#breadcrumbs{
+	background:#3c8dbc !important;
 }
 @media (min-width: 992px) {
   .skin-1 .breadcrumbs.breadcrumbs-fixed {
