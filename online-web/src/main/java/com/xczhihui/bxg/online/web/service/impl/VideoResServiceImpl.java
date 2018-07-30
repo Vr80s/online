@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.xczhihui.bxg.online.web.service.VideoResService;
-import com.xczhihui.common.support.cc.util.Md5Encrypt;
+import com.xczhihui.common.util.Md5Encrypt;
 import com.xczhihui.common.support.config.OnlineConfig;
 
 
