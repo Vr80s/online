@@ -343,6 +343,16 @@
      display:block;
      clear:both;
     }
+    #cloudClassTable th{
+    	border-bottom: 1px solid #f0f0f0;
+    	background: #fff;
+    }
+    #cloudClassTable tr{
+    	
+    }
+     #cloudClassTable td{
+    	border: 1px solid #f0f0f0;
+    }
     </style>
 
 <script type="text/javascript">
