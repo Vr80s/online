@@ -8,7 +8,7 @@ import com.xczhihui.bxg.online.web.controller.AbstractController;
 import com.xczhihui.bxg.online.web.service.VideoResService;
 import com.xczhihui.common.support.cc.config.Config;
 import com.xczhihui.common.support.cc.util.APIServiceFunction;
-import com.xczhihui.common.support.cc.util.Md5Encrypt;
+import com.xczhihui.common.util.Md5Encrypt;
 import com.xczhihui.common.support.config.OnlineConfig;
 import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.medical.anchor.service.ICourseApplyService;

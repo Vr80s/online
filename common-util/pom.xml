@@ -56,6 +56,11 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.47</version>
         </dependency>
+        <dependency>
+            <groupId>com.jayway.jsonpath</groupId>
+            <artifactId>json-path</artifactId>
+            <version>2.4.0</version>
+        </dependency>
         <!-- 		<dependency>
                     <groupId>org.apache.commons</groupId>
                     <artifactId>commons-lang</artifactId>

@@ -1,4 +1,4 @@
-package com.xczhihui.common.support.cc.util;
+package com.xczhihui.common.util;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

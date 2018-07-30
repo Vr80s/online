@@ -113,7 +113,7 @@
             <div class="breadcrumbs" id="breadcrumbs" style="height:50px;">
                 <div class="navbar-header pull-left">
                     <div href="#" class="navbar-brand" style="color:#fff;font-size:20px">
-                        <small style="color: #2d3638;">
+                        <small style="color: #fff;">
                             <i class="fa fa-leaf"></i>
                             熊猫中医直播教育管理系统
                         </small>
@@ -124,12 +124,12 @@
                         <li class="light-blue lightb">
                             <a data-toggle="dropdown" href="#" class="dropdown-toggle">
                                 <img class="nav-user-photo" src="images/defaultavatar.png" alt="头像"/>
-                                <span class="user-info" style="color: #2d3638;">
-									<small style="color: #2d3638;">Welcome,</small>
+                                <span class="user-info" style="color: #fff;">
+									<small style="color: #fff;">Welcome,</small>
 									${_user_.username}
 								</span>
 
-                                <i class="ace-icon fa fa-caret-down" style="color: #2d3638;"></i>
+                                <i class="ace-icon fa fa-caret-down" style="color: #fff;"></i>
                             </a>
 
                             <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close"

@@ -12,7 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.xczhihui.ask.service.AccuseService;
 import com.xczhihui.ask.vo.AccuseVo;
-import com.xczhihui.common.support.cc.util.Md5Encrypt;
+import com.xczhihui.common.util.Md5Encrypt;
 import com.xczhihui.common.util.DateUtil;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.util.bean.ResponseObject;

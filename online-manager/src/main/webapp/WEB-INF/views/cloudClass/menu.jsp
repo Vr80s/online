@@ -290,7 +290,7 @@
         margin-left: -1px;
         margin-bottom: 2px;
         border-radius: 0px 4px 4px 4px;
-        border: solid 1px #ccc;
+        /*border: solid 1px #ccc;*/
         color: #666;
     }
  
@@ -394,8 +394,8 @@
     <div class="tab-content vertical-tab-content">
 		<div role="tabpanel" class="tab-pane active"
 			id="vocationalCourseGrade">
-			<p class="col-xs-4" style="padding: 0px">
-				<button class="btn btn-sm btn-success add_bx" id="add_button"
+			<p class="col-xs-4" style="padding: 10px 0px">
+				<button style="margin-right: 10px;" class="btn btn-sm btn-success add_bx" id="add_button"
 					title="新增课程类别">
 					<i class="glyphicon glyphicon-plus"></i> 新增课程类别
 				</button>
