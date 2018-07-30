@@ -14,7 +14,7 @@
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <meta name="keywords" content="" />
 
-<link rel="stylesheet" type="text/css" href="/xcview/css/physician/physicians_page.css?v=wechat_1.1.1&version=e173995ae8"/>
+<link rel="stylesheet" type="text/css" href="/xcview/css/physician/master_course.css?v=wechat_1.1.1&version=e173995ae8"/>
 <link rel="stylesheet" href="/xcview/css/physician/swiper-4.2.6.min.css" />
 <link rel="stylesheet" href="/xcview/html/physician/css/demo.css?version=d265f83c60" />
 <link rel="stylesheet" href="/xcview/html/physician/css/demos.css?version=c4433ce522" />
@@ -905,7 +905,7 @@
 			<!-- 跟师课程开始 -->
 			<div class="wrap_vedio_main">
 				<div class="wrap_vedio" style="padding-bottom: 0;" id="master_course">
-					<div class="" style="margin-top1: 0.2rem;">
+					<div class="master_course_skip" style="margin-top1: 0.2rem;" onclick="location.href =/xcview/html/physician/master_course.html">
 						<span class="border"></span>
 						<span style="font-size: 0.28rem;float: left;">跟师直播</span>
 						<span class="master_course_span">只有弟子能跟师直播学习</span>
@@ -1075,7 +1075,7 @@
 		<!-- 跟师课程开始 -->
 		<div class="wrap_vedio_main">
 			<div class="wrap_vedio" style="padding-bottom: 0;" id="master_course">
-				<div class="" style="margin-top1: 0.2rem;">
+				<div class="" style="margin-top1: 0.2rem;" onclick="location.href =/xcview/html/physician/master_course.html">
 					<span class="border"></span>
 					<span style="font-size: 0.28rem;float: left;">跟师直播</span>
 					<span class="master_course_span">只有弟子能跟师直播学习</span>
@@ -1429,7 +1429,7 @@
 <!-- 直播课跳转 -->
 <script type="text/javascript" src="/xcview/js/common/commonJumpPlay.js?version=8bcdb81554"></script>
 
-<script type="text/javascript" src="/xcview/js/physician/physician_dynamics.js?version=216ff49d88"></script>    <!--全部动态引入-->
+<script type="text/javascript" src="/xcview/js/physician/master_course.js?version=216ff49d88"></script>    <!--全部动态引入-->
 
 <script type="text/javascript" src="/xcview/html/physician/js/jquery.dotdotdot.js"></script>    <!--全部动态引入-->
 
@@ -1779,6 +1779,12 @@ function header_click(){
     // 处理整体body区域高度，不让内容有滚动条
     var body=$(window).height();
     $("body").height(body);
+
+    // 点击跟师直播
+    $(".master_course_skip").click(function(){
+    	alert(212222);
+    	location.href ='/xcview/html/physician/master_course.html';
+    });
 
 </script>
 <script type="text/javascript" src="/xcview/html/physician/js/amazeui.js"></script>
