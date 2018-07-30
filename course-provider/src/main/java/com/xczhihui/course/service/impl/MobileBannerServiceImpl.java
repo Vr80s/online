@@ -47,9 +47,9 @@ public class MobileBannerServiceImpl extends ServiceImpl<MobileBannerMapper, Mob
 
     @Override
     public List<MobileBanner> selectMobileBannerPage(Integer type, boolean onlyFree, String source) {
-        if (onlyFree) {
-            return new ArrayList<>();
-        }
+//        if (onlyFree) {
+//            return new ArrayList<>();
+//        }
         return selectMobileBannerPage(type, source);
     }
 
