@@ -110,29 +110,24 @@ public class FocusServiceImpl extends ServiceImpl<FocusMapper, Focus> implements
     @Lock(lockName = "updateFocusHost", waitTime = 5, effectiveTime = 8)
     public void updateFocus(String lockId, String lecturerId, String userid, Integer type) {
 
-        try {
-            
-            Focus f = focusMapper.findFoursByUserIdAndlecturerId(userid, lecturerId);
-            if (type != null && type == 1) {//增加关注
-                if (f != null) {
-                    throw new FansException("你已经关注过了!");
-                }
-                f = new Focus();
-                f.setId(UUID.randomUUID().toString().replace("-", ""));
-                f.setUserId(userid);
-                f.setLecturerId(lecturerId);
-                f.setCreateTime(new Date());
-                focusMapper.insert(f);
-            } else if (type != null && type == 2) {
-                if (f == null) {
-                    throw new FansException("你还未关注此主播!");
-                }
-                focusMapper.deleteById(f.getId());
+        Focus f = focusMapper.findFoursByUserIdAndlecturerId(userid, lecturerId);
+        if (type != null && type == 1) {//增加关注
+            if (f != null) {
+                throw new FansException("你已关注过了!");
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new FansException("操作过于频繁!");
+            f = new Focus();
+            f.setId(UUID.randomUUID().toString().replace("-", ""));
+            f.setUserId(userid);
+            f.setLecturerId(lecturerId);
+            f.setCreateTime(new Date());
+            focusMapper.insert(f);
+        } else if (type != null && type == 2) {
+            if (f == null) {
+                throw new FansException("你还未关注此主播!");
+            }
+            focusMapper.deleteById(f.getId());
         }
+        
     }
 
 }

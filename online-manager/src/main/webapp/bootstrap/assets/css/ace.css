@@ -5362,7 +5362,7 @@ button.btn:active {
 .btn-default:active,
 .open .btn.dropdown-toggle,
 .open .btn-default.dropdown-toggle {
-  background-color: #fff !important;
+  background-color: #bec9d0 !important;
   border-color: #abbac3;
 }
 .btn.no-border:hover,
@@ -5422,14 +5422,14 @@ fieldset[disabled] .btn-default.active {
 }
 .btn-primary,
 .btn-primary:focus {
-  background-color: #428bca !important;
-  border-color: #428bca;
+  background-color: #00c0ef !important;
+  border-color: #00c0ef;
 }
 .btn-primary:hover,
 .btn-primary:active,
 .open .btn-primary.dropdown-toggle {
-  background-color: #1b6aaa !important;
-  border-color: #428bca;
+  background-color: #00c0ef !important;
+  border-color: #00c0ef;
 }
 .btn-primary.no-border:hover,
 .btn-primary.no-border:active {
@@ -10256,11 +10256,11 @@ td .lbl:only-child {
   box-sizing: content-box;
   position: relative;
   min-height: 38px;
-  background: #f7f7f7;
-  background-image: -webkit-linear-gradient(top, #ffffff 0%, #eeeeee 100%);
+  /*background: #f7f7f7;*/
+  /*background-image: -webkit-linear-gradient(top, #ffffff 0%, #eeeeee 100%);
   background-image: -o-linear-gradient(top, #ffffff 0%, #eeeeee 100%);
   background-image: linear-gradient(to bottom, #ffffff 0%, #eeeeee 100%);
-  background-repeat: repeat-x;
+  background-repeat: repeat-x;*/
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffeeeeee', GradientType=0);
   color: #669fc7;
   border-bottom: 1px solid #DDD;
@@ -13855,6 +13855,17 @@ ul.attachment-list > li {
     margin-bottom: 20px;
     box-shadow: 0 1px 1px rgba(0,0,0,0.1);
 }
+table thead{
+	background: #fff;
+}
+table thead th{
+	border: 1px solid #f0f0f0 !important;
+}
+table tr{
+	border: 1px solid #f0f0f0 !important;
+	background: #fff !important;
+}
+
 .dataTables_wrapper .row:last-child {
   /*border-bottom: 1px solid #e0e0e0;
   padding-top: 12px;
@@ -16049,12 +16060,14 @@ img.editable-click:hover {
   border: 1px solid #DDD;
   -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border-top: 3px solid #00c0ef;
 }
+
 .ui-dialog .ui-dialog-titlebar,
 .ui-jqdialog .ui-dialog-titlebar,
 .ui-dialog .ui-jqdialog-titlebar,
 .ui-jqdialog .ui-jqdialog-titlebar {
-  background-color: #F1F1F1;
+  /*background-color: #F1F1F1;*/
   font-size: 16px;
   color: #669fc7;
   padding: 0;
@@ -16075,7 +16088,7 @@ img.editable-click:hover {
 .ui-jqdialog .ui-dialog-buttonpane,
 .ui-dialog .ui-jqdialog-buttonpane,
 .ui-jqdialog .ui-jqdialog-buttonpane {
-  background-color: #eff3f8;
+  /*background-color: #eff3f8;*/
   border-top: 1px solid #e4e9ee;
 }
 .ui-dialog .ui-dialog-buttonpane button,
