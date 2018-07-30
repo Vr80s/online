@@ -1,4 +1,4 @@
-package com.xczhihui.common.support.cc.util;
+package com.xczhihui.common.util;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
