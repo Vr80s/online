@@ -669,6 +669,38 @@ function createRecentlyLive(recentlyLive){
         };
         
     }
+
+
+    // 跟师直播列表
+
+
+
+    requestGetService("/xczh/host/doctor/apprentice",{doctorId:doctorId},function (data) {
+        if (data.success == true) {
+
+        // 跟师直播--直播间
+        if (isBlank(data.resultObject.apprenticeCourses)) {
+            $(".wrap_vedio_main").hide();
+        } else{
+            $(".wrap_vedio_main").show();
+            // 跟师直播开始
+            var apprenticeCourses = data.resultObject.apprenticeCourses;
+            for(var i=0;i<apprenticeCourses.length;i++){
+                if(apprenticeCourses[i].teaching){
+                    apprenticeCourses[i].teaching=1;
+                }else{
+                    apprenticeCourses[i].teaching=0;
+                }
+            }
+            $('#teacher_hides').html(template('teacher_hide_ids', {items: apprenticeCourses}));
+        }
+
+
+        }
+    });
+
+
+
 }
 var doctorCourseUserId="";
 // 直播课程列表
@@ -810,7 +842,9 @@ function createDoctorIntroduction(introduction){
         $(".baseImagenumber").show();
     };
 }
-
+/*$("#li-3").click(function(){
+    apprenticeInfo();
+});*/
 // 师承开始
 function apprenticeInfo() {
     // 在线弟子申请的状态 1->未报名 2->没有审核 3->审核未通过 4->审核已通过 . 值是1与3 去提交信息页面 2与4 去申请信息查看页
@@ -850,8 +884,7 @@ function apprenticeInfo() {
                 /*var txt=$('.QA_doubt_main_reply'+id).html();
                 // txts=txt.replace('\n','<br>')
                 txts=txt.replace(/[\n\r]/g,'<br>')
-                $('.QA_doubt_main_reply'+id).html(txts);*/
-                
+                $('.QA_doubt_main_reply'+id).html(txts);*/     
             }
 
             // 判断预约
@@ -901,8 +934,9 @@ function apprenticeInfo() {
                 }
                 $('#teacher_hide').html(template('teacher_hide_id', {items: apprenticeCourses}));
             }
+
             // 跟师直播--直播间
-            if (isBlank(data.resultObject.apprenticeCourses)) {
+            /*if (isBlank(data.resultObject.apprenticeCourses)) {
                 $(".wrap_vedio_main").hide();
             } else{
                 $(".wrap_vedio_main").show();
@@ -916,7 +950,8 @@ function apprenticeInfo() {
                     }
                 }
                 $('#teacher_hides').html(template('teacher_hide_ids', {items: apprenticeCourses}));
-            }
+            }*/
+
             // 弟子头像--显示
             if (isBlank(data.resultObject.apprentices)) {
                 // alert(11);
@@ -945,9 +980,12 @@ function apprenticeInfo() {
                 $(".disciple_welfare_two").html("2、在线零距离求知问道；");
                 $(".disciple_welfare_three").html("3、多媒体全方位在线跟师；");
             }
+
         }
+
     });
 }
+
 apprenticeInfo();  /*师承方法*/
 
 apprenticeCount();  /*医师底部弟子数*/
@@ -1105,9 +1143,6 @@ function checkAuth(doctorId) {
         $(".learn_tips_audit").hide();
     });
 
-
-
-
 /*var text = $('.QA_doubt_main_reply').html();
 text=text.replace(/[\n\r]/g,'<br>')
 $('.QA_doubt_main_reply').html(text);*/
@@ -1123,19 +1158,6 @@ txttt=txt.replace(/\r?\n/g,"<br />");
 $('.QA_doubt_main_replys').html(txttt);*/
 
 
-// 动态图
-/*var id=$(".itransforms").find("am-gallery-item").attr("data-itransform");
-
-if ($(".itransform_"+id).size() > 1) {
-    alert(1);
-    $(".itransform_"+id).find("img").addClass("transform_img");
-}else{
-    alert(2);
-    $(".itransform_"+id).find("img").removeClass("ccc");
-};
-*/
-
-
 // apprenticeInfo();
 
 /*function myrefresh(){
@@ -1149,10 +1171,16 @@ if ($(".itransform_"+id).size() > 1) {
 // location.reload()
 // location.replace(location)
 
-function body_onload()
-{
+function body_onload(){
     if(0 == getcookie('param_cookie')){
         setcookie("param_cookie",1,10);
         window.location.reload(true); 
     }
 }
+
+$(".li_prose_origin").click(function(){
+    apprenticeInfo();
+    // alert(88888)
+    // location.reload();
+});
+

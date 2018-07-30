@@ -414,7 +414,12 @@
 </style>
 
 </head>
-<body style="background: #F0f0f0;" onLoad="body_onload()">
+<!-- <body style="background: #F0f0f0;" onload="location.reload()"> -->
+<body style="background: #F0f0f0;">
+<!-- <body style="background: #F0f0f0;" onLoad="body_onload()"> -->
+<!-- <body style="background: #F0f0f0;" onload="location.replace()"> -->
+
+
 	<div class="physicians_page_main comment_hide">
 		
 
@@ -551,19 +556,18 @@
 				<div class="trends_hide">
 					<div class="paper_nav_span comment_hide show-text">{{if item.stick}}<span class="stick_img_stick" style="text-align: left;text-indent: 0;"><img src="/xcview/images/stick.png" alt="" />置顶</span>{{/if}}{{item.content}}<div class="both"></div>
 					</div>
-					{{if item.imgStr !=null && item.imgStr.length>0}}
+					{{if item.imgStr !=null && item.imgStr.length==1}}
 					<div class="paper_nav_cen_div">
 						<div class="paper_nav_cen comment_hide">
 							<ul data-am-widget="gallery" class="am-gallery am-avg-sm-2 am-avg-md-3 am-avg-lg-4 am-gallery-overlay" data-am-gallery="{ pureview: true }" >
 								{{each item.imgStr as pic }}
-								<li  class="itransform_{{item.id}} itransforms">
+								<li  class="itransform_{{item.id}} itransforms itransforms_li">
 									<div class="am-gallery-item" data-itransform="{{item.id}}">
 										<a href="{{pic.imgUrl}}?imageView2/2/h/226" class="transform_a_img">
 											<!--<img src="{{pic.imgUrl}}?imageMogr2/thumbnail/!226x226r|imageMogr2/gravity/Center/crop/226x226" />-->
 
-												<img src="{{pic.imgUrl}}" class="ccc" />
+												<img src="{{pic.imgUrl}}" class="pic_img pic_img_one" />
 											
-
 										</a>
 									</div>
 								</li>
@@ -573,8 +577,31 @@
 							<div class="both"></div>
 						</div>
 					</div>
+					{{else item.imgStr !=null && item.imgStr.length>1}}
+					<div class="paper_nav_cen_div" style="background: blue;">
+						<div class="paper_nav_cen comment_hide">
+							<ul data-am-widget="gallery" class="am-gallery am-avg-sm-2 am-avg-md-3 am-avg-lg-4 am-gallery-overlay" data-am-gallery="{ pureview: true }" >
+								{{each item.imgStr as pic }}
+								<li class="itransform_{{item.id}} itransforms">
+									<div class="am-gallery-item" data-itransform="{{item.id}}">
+										<a href="{{pic.imgUrl}}?imageView2/2/h/226" class="transform_a_img">
+											<!--<img src="{{pic.imgUrl}}?imageMogr2/thumbnail/!226x226r|imageMogr2/gravity/Center/crop/226x226" />-->
+
+												<img src="{{pic.imgUrl}}" class="pic_img transform_img" />
+											
+										</a>
+									</div>
+								</li>
+								{{/each}}
+							</ul>
+
+							<div class="both"></div>
+						</div>
+					</div>
+					{{/if}}
+
 				</div>
-				{{/if}}
+				
 				<div class="both"></div>
 				{{else if item.type == 3}}
 				<!-- 视频-->
@@ -1756,5 +1783,13 @@ function header_click(){
 </script>
 <script type="text/javascript" src="/xcview/html/physician/js/amazeui.js"></script>
 
+
+<script>
+/*window.onload = function(){
+   window.location.reload();
+   //或者
+   window.location.href=window.location.href;
+}*/
+</script>
 </html>
 

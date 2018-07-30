@@ -292,7 +292,7 @@ function common_share_backs() {
     }else{
         //window.location.href = "/xcview/html/physician/index.html";
         window.history.back();
-        return;
+        // return;
     }
 
     /*var backFalg = sessionStorage.getItem("inherited_backFalg");
@@ -302,7 +302,7 @@ function common_share_backs() {
           return;
     }else if(backFalg == "application_approved"){
           window.history.go(-1);
-          return;
+          return;D
     }*/
 
     if(isNotBlank(shareBack)){

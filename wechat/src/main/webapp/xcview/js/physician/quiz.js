@@ -48,6 +48,7 @@ $(function(){
 		// window.history.go(-2); 
 		//window.location.href="/xcview/html/physician/physicians_page.html?doctor="+doctorId; 
 		// self.location=document.referrer;
+		// window.location.replace(document.referrer)
 	});
 
 	/*$(".prosperity_popout_hide").click(function(){
