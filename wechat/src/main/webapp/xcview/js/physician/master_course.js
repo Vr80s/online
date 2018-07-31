@@ -46,6 +46,11 @@ function apprenticeList(userId,pageNumber,downOrUp) {
                     }
                 }
                 $('#teacher_hides').html(template('teacher_hide_ids', {items: data.resultObject}));
+                
+
+
+
+                
                 miniRefresh.endDownLoading(true);// 结束下拉刷新
             } else if(data.resultObject.length==0){
                 miniRefresh.endUpLoading(true);// 结束上拉加载
