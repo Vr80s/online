@@ -21,6 +21,9 @@
 
 <!-- 轮播 -->
 <script type="text/javascript" src="/xcview/js/common/jquery.min-2.1.1.js"></script>
+<!--刷新 -->
+<link rel="stylesheet" href="/xcview/css/minirefresh/minirefresh.css?version=71e5ea2f95&version=71e5ea2f95">
+<script type="text/javascript" src="/xcview/js/minirefresh/minirefresh.js?version=db3081c0a1&version=db3081c0a1"></script>
 
 
 
@@ -94,6 +97,8 @@
 
 	<!-- 中间内容开始 -->
 	<div class="wrap_vedio_main">
+		<div id="minirefresh" class="minirefresh-wrap">
+			<div class="minirefresh-scroll">
 		<div class="wrap_vedio" style="padding-bottom: 0;" id="master_course">
 			<ul class="wrap_vedio_btn" id="teacher_hides" style="margin-top: 0;">	 <script type="text/html" id="teacher_hide_ids">
 				{{each items as item i}}			
@@ -126,7 +131,9 @@
 				{{/each}}
 				</script>
 			</ul>
-		</div> 
+		</div>
+			</div>
+		</div>
 	</div>
 	<!-- 中间内容结束 -->
 
