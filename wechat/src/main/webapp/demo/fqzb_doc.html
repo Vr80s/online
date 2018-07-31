@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>【文档 or 文档+发直播】</title>
+    <script src="./styles/jquery-3.2.1.min.js"></script>
+    <link rel="stylesheet" href="./styles/bootstrap.min.css">
+    <style>
+        #params-area{    
+            background-color: #fff;
+            width: 800px;
+            height: 600px;
+            line-height: 300px;
+            margin: 0 auto;
+            margin-top: 5%;
+            text-align: center;
+        }
+        #params-area .row{
+            height: 60px;
+        }
+        #params-area button{
+            width: 120px;
+        }
+        #myVideo{
+            position: absolute;
+            display: inline-block;
+            width: 640px;
+            height: 360px;
+        }
+        label {
+            text-align: right;
+            width: 100px;
+            margin-right: 10px;
+        }
+        #my-doc-area div{
+            background-color: #fff;
+        }
+    </style>
+    <script src="./styles/bootstrap.min.js"></script>
+    <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-doc-1.0.0.js?v=201806271657"></script>
+    <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-live-stream-1.0.0.js?v=201806271657"></script>
+    <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-base-1.0.0.js?v=201806271657"></script>
+
+    <script>
+      var ls = new Ls();
+
+      function elsBind(){
+
+        localStorage.setItem('ipt-roomId',$('#ipt-roomId').val());
+        $('#ipt-channelId').val() && localStorage.setItem('ipt-channelId',$('#ipt-channelId').val());
+        $('#ipt-docId').val() && localStorage.setItem('ipt-docId',$('#ipt-docId').val());
+        localStorage.setItem('ipt-appId',$('#ipt-appId').val());
+
+
+        window.doc = {};
+        var readyCallback = function(){
+          window.doc = new VhallDoc({
+            roomId:$('#ipt-roomId').val(),//房间ID,bi tian
+            channelId:$('#ipt-channelId').val(), //频道Id
+            docId:$('#ipt-docId').val(),//jpg big
+            docNode:'my-doc-area',//文档显示节点div id
+            width:$('#ipt-width').val(),
+            height:$('#ipt-height').val()
+          });
+          // window.doc.cancelPencil(true);
+
+        }
+        window.Vhall.ready(readyCallback);
+
+        window.Vhall.config({
+             appId :$('#ipt-appId').val(),//应用 ID ,必填
+             accountId :'test_jssdk',//第三方用户唯一标识,必填
+             token: $('#ipt-token').val(),//token必填
+        });
+
+        console.info('--->pt-roomId',$('#ipt-roomId').val());
+
+        if($('#ipt-roomId').val()){
+
+             VHPublisher.init({
+                roomId:$('#ipt-roomId').val(),
+                videoNode:'myVideo',
+                complete:function(){
+                    VHPublisher.startPush({
+                        //camera:'',
+                        //mic:'',
+                        //width:'',
+                        //height:'',
+                        //success:function(){
+                        //},
+                        //fail:function(){
+                        //}
+                    });
+                }
+            });
+        }
+
+        $('#btn-pre-slide').on('click',function(){
+           window.doc.preSlide();
+        });
+
+        $('#btn-next-slide').on('click',function(){
+          window.doc.nextSlide();
+        });
+
+        $('#btn-pre-step').on('click',function(){
+          window.doc.preStep();
+        });
+
+        $('#btn-next-step').on('click',function(){
+          window.doc.nextStep();
+        });
+
+        $('#btn-cancel-pencil').on('click',function(){
+            window.doc.cancelPencil(true);
+        });
+
+        $('#btn-erase').on('click',function(){
+            window.doc.setEraser(16);
+        });
+
+        $('#btn-clear').on('click',function(){
+            window.doc.clear();
+        });
+
+        $('#btn-set-text').on('click',function(){
+            window.doc.setText($('#ipt-text').val());
+            window.doc.cancelPencil(false);
+        });
+
+        $('#btn-jump-slide').on('click',function(){
+            window.doc.gotoSlide(parseInt($('#ipt-slide-index').val()));
+        });
+
+        $("#cbbSize a").on("click", function () {
+            var a = $(this).data("size");
+            console.log(a); 
+            window.doc.setSize(a);
+            window.doc.cancelPencil(false);
+        });
+
+        $("#cbbColor a").on("click", function () {
+            var a = $(this).data("color");
+            console.log(a);
+            window.doc.setColor(a);
+            window.doc.cancelPencil(false);
+        })
+
+        $('#btn-publish-init').on('click',function(){
+                VHPublisher.init({
+                   roomId:$('#ipt-roomId').val(),
+                   videoNode:'myVideo',
+                   complete:function(){
+                    
+                   }
+               });
+        });
+
+        $('#btn-publish-start').on('click',function(){
+            VHPublisher.startPush({
+                //camera:'',
+                //mic:'',
+                //width:'',
+                //height:'',
+                //success:function(){
+                //},
+                //fail:function(){
+                //}
+            });
+            
+        });
+
+        $('#highlighters a').on("click", function () {
+            var a = $(this).data("size");
+            window.doc.highlighters({
+                size:a
+            });
+            window.doc.cancelPencil(false);
+        });
+
+      }
+
+
+      $(document).ready(function(){
+
+            var isProd = window.location.href.indexOf('vhallyun.com') > -1;
+            if(!isProd){
+                $('#ipt-appId').val('27376e92');
+                $('#ipt-docId').val('f0adf726');
+                $('#ipt-channelId').val('ch_fc6f51f4');
+            }
+
+            $('#btn-set-init').on('click',function(){
+                elsBind()
+                $('#params-area').hide();
+                $('#borad-area').show();
+            });
+
+            $('#btn-set-doc').on('click',function(){
+                $('#ipt-docId').val()
+                && $('#ipt-channelId').val()
+                && window.doc.loadDoc($('#ipt-docId').val(),$('#ipt-channelId').val(),function(docId){
+                    console.info('文档加载成功！文档id为：',docId);
+                },function(reason){
+                    console.error(reason);
+                });
+                $('#ipt-channelId').val() && localStorage.setItem('ipt-channelId',$('#ipt-channelId').val());
+                $('#ipt-docId').val() && localStorage.setItem('ipt-docId',$('#ipt-docId').val());
+            });
+
+
+            // ls.get('ipt-token');
+            // ls.get('ipt-appId');
+            // ls.get('ipt-recordId');
+            // ls.get('ipt-channelId');
+            // ls.get('ipt-docId');
+      })
+
+      function Ls(){
+        return {
+          set: function(k){
+            var _v = $('#' + k).val();
+            if(_v){
+              localStorage.setItem(k,_v);
+            }
+          },
+          get: function(k){
+            var _v = localStorage.getItem(k);
+            if(_v){
+              $('#' + k).val(_v)
+            }
+          }
+        }
+      }
+
+    </script>
+
+</head>
+
+<body style="background-color: snow;">
+
+    <div class="params-area" id="params-area">
+        <div class="navbar-form">
+            <div class="row">
+                <label>token:</label>
+                <input value="access:27376e92:07a2aa77f97a36e0" id="ipt-token" type="text" class="form-control" placeholder="token">
+            </div>
+            <div class="row">
+                <label>appId:</label>
+                <input value="27376e92" id="ipt-appId" type="text" class="form-control" placeholder="appId">
+            </div>
+            <div class="row">
+                <label>roomId:</label>
+                <!-- <input value="lss_22b89748" id="ipt-roomId" type="text" class="form-control" placeholder="roomId"> -->
+                <input value="lss_ad04fdfe" id="ipt-roomId" type="text" class="form-control" placeholder="roomId">
+            </div>
+            <div class="row">
+                <label>文档区域宽:</label>
+                <input value="800" id="ipt-width" type="text" class="form-control" placeholder="文档区域宽">
+            </div>
+            <div class="row">
+                <label>文档区域高:</label>
+                <input value="450"  id="ipt-height" type="text" class="form-control" placeholder="文档区域高">
+            </div>
+            <div class="row">
+                <button  id="btn-set-init" class="btn btn-primary">实例化</button>
+            </div>
+        </div>
+    </div>
+    <div id="borad-area" style="display: none;">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">粗细
+                            <span class="caret"></span>
+                        </button>
+                        <ul id="cbbSize" class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="#" data-size="4">4</a>
+                            </li>
+                            <li>
+                                <a href="#" data-size="8">8</a>
+                            </li>
+                            <li>
+                                <a href="#" data-size="12">12</a>
+                            </li>
+                            <li>
+                                <a href="#" data-size="16">16</a>
+                            </li>
+                            <li>
+                                <a href="#" data-size="20">20</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">颜色
+                            <span class="caret"></span>
+                        </button>
+                        <ul id="cbbColor" class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="#" data-color="#ff0000">red</a>
+                            </li>
+                            <li>
+                                <a href="#" data-color="#00ff00">green</a>
+                            </li>
+                            <li>
+                                <a href="#" data-color="#0000ff">blue</a>
+                            </li>
+                            <li>
+                                <a href="#" data-color="#000000">black</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">荧光笔
+                            <span class="caret"></span>
+                        </button>
+                        <ul id="highlighters" class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="#" data-size="4">4</a>
+                            </li>
+                            <li>
+                                <a href="#" data-size="8">8</a>
+                            </li>
+                            <li>
+                                <a href="#" data-size="12">12</a>
+                            </li>
+                            <li>
+                                <a href="#" data-size="16">16</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                </ul>
+                <div class="navbar-form navbar-left">
+                    <div class="form-group">
+                        <input id="ipt-text" type="text" class="form-control" placeholder="Text">
+                    </div>
+                    <button  id="btn-set-text" class="btn btn-default">确认</button>
+                </div>
+
+                <div class="navbar-form navbar-left">
+                    <div class="form-group">
+                        <input value="4daa24ad" id="ipt-docId" type="text" class="form-control" placeholder="docId">
+                    </div>
+                    <div class="form-group">
+                        <input value="ch_fc6f51f4" id="ipt-channelId" type="text" class="form-control" placeholder="channelId">
+                    </div>
+                    <button  id="btn-set-doc" class="btn btn-default">加载文档</button>
+                </div>
+<!--                 <form class="navbar-form navbar-right">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Text">
+                    </div>
+                    <button  class="btn btn-default">确认</button>
+                </form> -->
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <button id="btn-cancel-pencil" class="btn btn-default">取消画笔</button>
+                    </li>
+                    <li>
+                        <button id="btn-erase"   class="btn btn-default">橡皮擦</button>
+                    </li>
+<!--                     <li>
+                        <button type="submit" class="btn btn-default">撤销</button>
+                    </li>
+                    <li>
+                        <button type="submit" class="btn btn-default">重做</button>
+                    </li> -->
+                    <li>
+                        <button id="btn-clear" type="submit" class="btn btn-default">清空</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div>
+        <div id="my-doc-area" style="margin: auto; display: inline-block;margin-left: 200px;">
+
+            <h1>文档区</h1>
+
+        </div>
+        <div id='myVideo' style="display: inline-block;">
+            
+        </div>
+    </div>
+    <nav class="navbar navbar-default" style="margin-top: 50px;">
+        <div class="container-fluid">
+            <ul class="nav navbar-nav navbar-left">
+                <li>
+                    <button id="btn-pre-slide" type="submit" class="btn btn-default">上一页</button>
+                </li>
+                <li>
+                    <button id="btn-next-slide" type="submit" class="btn btn-default">下一页</button>
+                </li>
+<!--                 <li>
+                    <button id="btn-pre-step" type="submit" class="btn btn-default">前一步</button>
+                </li>
+                <li>
+                    <button id="btn-next-step" type="submit" class="btn btn-default">后一步</button>
+                </li> -->
+            </ul>
+            <!-- <div class="form-group">
+                <input id="ipt-slide-index" type="text" class="form-control" placeholder="跳到第x页">
+                <button id="btn-jump-slide" class="btn btn-default">确认</button>
+            </div> -->
+
+            <div class="navbar-form navbar-left">
+                <div class="form-group">
+                    <input id="ipt-slide-index" type="text" class="form-control" placeholder="跳到第x页">
+                </div>
+                <button id="btn-jump-slide" class="btn btn-default">确认</button>
+            </div>
+<!--             <button id="btn-publish-init">推流初始化</button>
+            <button id="btn-publish-start">开始推流</button> -->
+        </div>
+    </nav>
+    </div>
+</body>
+
+</html>

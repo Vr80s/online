@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>jssdk聊天包测试页</title>
+  <base href=".">
+  <link rel="stylesheet" href="./css/base.css">
+  <link href="./css/main.css" rel="stylesheet">
+  <link href="./css/nav.css" rel="stylesheet">
+  <link rel="stylesheet" href="./css/bootstrap.min.css">
+  <script src="./js/clipboard.js"></script>
+  <script src="./js/toc.js"></script>
+  <script src="./js/test.js"></script>
+  <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-chat-1.0.0.js?v=201801121522"></script>
+  <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-base-1.0.0.js"></script>
+  <script>
+    window.onload = function(){
+
+        var msgBox = $('#ipt-msg');
+        $('#btn-send').on('click',function(){
+            if(window.chat){
+              window.chat.emit($(msgBox).val());
+              $(msgBox).val('');
+            }
+        });
+
+    }
+  </script>
+</head>
+<body class="open-wrapper ">
+  <div class="page-wrapper">
+    <div class="wrapper">
+      <div class="container">
+        <div class="main-wrapper">
+          <div class="sidebar-wrapper">
+            <div class="sidebar" style="height: 694px;">
+                <!-- <h3 class="sidebar-title" id="active-menu">jssdk推流包接口</h3> -->
+                <ul class="menu-group" id="normal-catalog">
+                  <li class="menu-item menu-item-1" style="display: block;">
+                      <h5 class="sub-title">基础接口</h5> 
+                  </li>
+                  <li class="menu-item menu-item-2">
+                    <a href="javascript:void(0);" title="初始化配置" data-label="Vhall.config" >初始化配置</a>
+                  </li>
+                  <li class="menu-item menu-item-1">
+                    <a href="javascript:void(0);" title="实例化" data-label="VhallChat">实例化</a>
+                  </li>
+                  <li class="menu-item menu-item-1">
+                    <a href="javascript:void(0);" title="监听消息" data-label="chat.on">监听消息</a>
+                  </li>
+                  <li class="menu-item menu-item-1">
+                    <a href="javascript:void(0);" title="发送消息" data-label="chat.emit">发送消息</a>
+                  </li>
+                </ul>
+          </div>
+        </div>
+          <div class="main-container"> 
+
+          <div id="chat-box" style="width: auto;height: auto;padding-top: 20px;">
+          </div>
+          
+            <div class="markdown" data-label="Vhall.config" >
+              <h1 id="title">
+                Vhall.config 配置初始化
+                <span class="metadata">更新时间：2017-12-25</span>
+              </h1>
+              <p>
+              <textarea data-label="Vhall.config" class="form-control">
+                 Vhall.config({
+                     appId :'27376e92',//应用 ID ,必填
+                     accountId :'test_jssdk',//第三方用户唯一标识,必填
+                     token:'access:27376e92:07c8cb19a294f6fe',//token必填
+                 })     
+              </textarea>
+              </p>
+              <br>
+              <p><button data-label="Vhall.config" class="btn btn-primary">执行</button></p>
+              <br>
+              <p><pre data-label="Vhall.config"></pre></p>
+            </div>
+
+            <div class="markdown" style="display: none;" data-label="VhallChat" >
+              <h1 id="title">
+                实例化
+                <span class="metadata">更新时间：2017-12-25</span>
+              </h1>
+              <p>
+                <textarea data-label="VhallChat" class="form-control" >
+                  window.chat = VhallChat({
+                    channelId:'ch_fc6f51f4'
+                  }) 
+                </textarea>
+              </p>
+              <br>
+              <p><button data-label="VhallChat" class="btn btn-primary">执行</button></p>
+              <br>
+              <p> <pre data-label="VhallChat"></pre> </p>
+            </div>
+
+            <div class="markdown" style="display: none;" data-label="chat.on" >
+              <h1 id="title">
+                window.chat.on 监听聊天消息
+                <span class="metadata">更新时间：2017-12-25</span>
+              </h1>
+              <p><textarea data-label="chat.on" class="form-control" >
+                        window.chat.on(function(msg){
+                            console.dir(msg);
+                            var _p = document.createElement('p'),
+                                _nickeName = msg.nick_name || msg.third_party_user_id,
+                                _pic = msg.avatar || './images/pic.jpg';
+                            _p.innerHTML = ' <img style="display: inline-block;" width="30" height="30" src="'+ _pic +'"> '+ _nickeName +':   ' + msg.data;
+                            $('#pre-msg-box').append(_p);
+                        })
+              </textarea> 
+              </p>
+              <br>
+              <p><button data-label="chat.on" class="btn btn-primary">执行</button></p>
+              <br>
+              <pre data-label="chat.on"></pre>
+            </div> 
+
+            <div class="markdown" style="display: none;" data-label="chat.emit" >
+              <h1 id="title">
+                chat.emit 发送聊天消息
+                <span class="metadata">更新时间：2017-12-25</span>
+              </h1>
+              <p><pre id="pre-msg-box"  style="height: 400px;width: 280px;" ></pre> </p>
+              <p>
+                <input id="ipt-msg" style="width: 280px !important;" type="text" data-label="chat.emit" class="form-control" value="圣诞快乐🎄🎅" />
+              </p>
+              <br>
+              <p>
+              <button id='btn-send' data-label="chat.emit" class="btn btn-primary" >发送</button>
+              <button id='btn-goto-phone' data-label="chat.emit" class="btn btn-primary" >去手机版</button>
+              </p>
+            </div> 
+            
+            <div class="body-action-fixed">
+              <div id="scroll-top" class=""></div>
+            </div>
+            <div class="page-footer-nav"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<script src="./js/vendor.js"></script>
+</body>
+</html>

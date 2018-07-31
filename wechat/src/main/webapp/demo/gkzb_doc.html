@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>文档 or 文档+看直播</title>
+    <script src="./styles/jquery-3.2.1.min.js"></script>
+    <link rel="stylesheet" href="./styles/bootstrap.min.css">
+    <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-doc-1.0.0.js?v=201806271657"></script>
+    <script src="https://static.vhallyun.com/jssdk/dvideo-plugin.js?v=0.3"></script>
+    <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-live-1.0.0.js?v=201806271657"></script>
+    <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-base-1.0.0.js?v=201806271657"></script>
+    <style>
+        #params-area{    
+            background-color: #fff;
+            width: 800px;
+            height: 600px;
+            line-height: 300px;
+            margin: 0 auto;
+            margin-top: 5%;
+            text-align: center;
+        }
+        #params-area .row{
+            height: 60px;
+        }
+        #params-area button{
+            width: 120px;
+        }
+        label {
+            text-align: right;
+            width: 100px;
+        }
+
+        #btn-goto-phone{
+          position: absolute;
+          right: 30px;
+          top: 30px;
+        }
+    </style>
+    <script>
+
+    var ls = new Ls();
+
+    function elsBind(){
+
+        window.doc = {};
+        var readyCallback = function(){
+          ls.set('ipt-channelId');
+          window.doc = new VhallDocPassive({
+            // roomId:$('#ipt-roomId').val(),//房间ID,bi tian
+            channelId:$('#ipt-channelId').val(), //频道Id
+            // docId:$('#ipt-docId').val(),//jpg big
+            docNode:'my-doc-area',//文档显示节点div id
+            // width:$('#ipt-width').val(),
+            // height:$('#ipt-height').val()
+          });
+
+        }
+
+        window.Vhall.ready(readyCallback);
+
+        window.Vhall.config({
+             appId :$('#ipt-appId').val(),//应用 ID ,必填
+             accountId :'100001',//第三方用户唯一标识,必填
+             token: $('#ipt-token').val(),//token必填
+        });
+
+        setTimeout(function(){
+            if($('#ipt-roomId').val()){
+
+              VhallLive.init({
+                   roomId:$('#ipt-roomId').val(),
+                   type:'live',
+                   videoNode:'myVideo',
+                   complete:function(){
+                      VhallLive.play();
+                   }
+              });
+
+            }
+          },1000);
+
+    }
+
+      $(document).ready(function(){
+
+
+          var isProd = window.location.href.indexOf('vhallyun.com') > -1;
+          if(!isProd){
+              $('#ipt-appId').val('27376e92');
+              $('#ipt-channelId').val('ch_fc6f51f4');
+          }
+
+          $('#btn-set-init').on('click',function(){
+              elsBind()
+              $('#params-area').hide();
+              $('#borad-area').show();
+          });
+
+
+          $('#btn-player-start').on('click',function(){
+
+            VhallLive.init({
+                 roomId:$('#ipt-roomId').val(),
+                 type:'live',
+                 videoNode:'myVideo',
+                 complete:function(){
+                    VhallLive.play();
+                 }
+            });
+              
+          });
+
+
+
+          $('#btn-goto-phone').on('click',function(){
+
+              location.href = './slave-live-h5.html?appId=' 
+              + window.VhallEnv.appId 
+              + '&channelId=' + window.VhallEnv.channelId 
+              + '&token=' + window.VhallEnv.accessToken
+              + '&accountId=' + window.VhallEnv.thirdPartyUserId
+              + '&rd=' + (new Date().getTime());
+
+          });
+
+      })
+
+
+      function Ls(){
+        return {
+          set: function(k){
+            var _v = $('#' + k).val();
+            if(_v){
+              localStorage.setItem(k,_v);
+            }
+          },
+          get: function(k){
+            var _v = localStorage.getItem(k);
+            if(_v){
+              $('#' + k).val(_v)
+            }
+          }
+        }
+      }
+
+   </script>
+  <script>
+
+
+
+  </script>
+<link rel="stylesheet" type="text/css" href="./styles/videojs.min.css">
+</head>
+
+<body style="background-color: snow;">
+    <button style="display: none;"  id="btn-goto-phone" class="btn btn-primary">去手机版</button>
+    <div class="params-area" id="params-area">
+        <div class="navbar-form">
+            <div class="row">
+                <label>token:</label>
+                <input value="access:27376e92:07a2aa77f97a36e0" id="ipt-token" type="text" class="form-control" placeholder="token">
+            </div>
+            <div class="row">
+                <label>appId:</label>
+                <input value="27376e92" id="ipt-appId" type="text" class="form-control" placeholder="appId">
+            </div>
+            <div class="row">
+                <label>roomId:</label>
+                <!-- <input value="lss_22b89748" id="ipt-roomId" type="text" class="form-control" placeholder="roomId"> -->
+                <input value="lss_ad04fdfe" id="ipt-roomId" type="text" class="form-control" placeholder="roomId">
+            </div>
+            <div class="row">
+                <label>channelId:</label>
+                <input value="ch_fc6f51f4" id="ipt-channelId" type="text" class="form-control" placeholder="channelId">
+            </div>
+            <div class="row">
+                <label>文档区域宽:</label>
+                <input value="800" id="ipt-width" type="text" class="form-control" placeholder="文档区域宽">
+            </div>
+            <div class="row">
+                <label>文档区域高:</label>
+                <input value="450"  id="ipt-height" type="text" class="form-control" placeholder="文档区域高">
+            </div>
+            <div class="row">
+                <button  id="btn-set-init" onclick="$('#btn-goto-phone').show();" class="btn btn-primary">实例化</button>
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-top: 200px;text-align: center;">
+        <div id="my-doc-area" style="margin: auto; display: inline-block;margin-left: 200px;">
+
+        </div>
+        <div id='myVideo' style="display: inline-block;width: 480px;height: 270px;">
+            
+        </div>
+    </div>
+
+    <!-- <button id="btn-player-start">播放</button> -->
+
+</body>
+
+</html>
