@@ -22,7 +22,7 @@
 <div class="mainrighttab tabresourse bordernone">
 	<div style="padding-bottom:10px; float: right;" id="searchDiv" >
 		<table>
-			<tr>
+			<tr style="border: 0 !important;">
 				<td >
 				
 				    <span class="searchTr">

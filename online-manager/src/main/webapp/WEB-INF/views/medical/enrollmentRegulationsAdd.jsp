@@ -191,11 +191,11 @@
 
 
 	</form>
-	<div class="col-xs-7" style="text-align: right;margin-top:50px;">
-          <button class="btn btn-sm btn-success" id="saveBtn">
+	<div class="" style="text-align: right;margin:50px auto 0;text-align: center;">
+          <button class="btn btn-sm add_type" id="saveBtn" style="margin-right: 30px;">
 	                       保存
           </button>
-          <button class="btn btn-sm btn-success" id="returnbutton">
+          <button class="btn btn-sm" id="returnbutton">
 	                      返回
           </button>
   </div>

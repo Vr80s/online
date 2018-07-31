@@ -110,15 +110,15 @@
         <div class="space-4"></div>
         <div class="form-group" style="margin-top: 18px;">
             <label class="col-sm-1 yrx no-padding-right"><font color="red">*</font>招生简章: </label>
-            <div class="col-sm-3" style="padding-top:7px">
+            <div class="col-sm-3">
 
-                <a href="${MedicalEnrollmentRegulations.entryFormAttachment}" style="color:blue"> 下载招生简章</a>
+                <a href="${MedicalEnrollmentRegulations.entryFormAttachment}" style="color:#3c8dbc;">下载招生简章</a>
             </div>
         </div>
 
     </form>
-    <div class="col-xs-7" style="text-align: right;margin-top:50px;">
-        <button class="btn btn-sm btn-success" id="returnbutton">
+    <div class="" style="text-align: right;margin:50px auto 0;text-align: center;">
+        <button class="btn btn-sm" id="returnbutton">
             返回
         </button>
     </div>
