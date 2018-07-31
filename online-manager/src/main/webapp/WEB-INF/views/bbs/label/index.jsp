@@ -27,7 +27,7 @@
     <%--<button class="btn btn-sm btn-danger delete_bx" title="删除">--%>
         <%--<i class="glyphicon glyphicon-trash"></i> 删除--%>
     <%--</button>--%>
-    <button class="btn btn-sm btn-primary edit_bx" title="编辑">
+    <button class="btn btn-sm btn-primary edit_bx" style="margin-bottom: 10px;" title="编辑">
         <i class="glyphicon glyphicon-plus"></i> 编辑
     </button>
     <%--<button class="btn btn-sm btn-danger status_bx" title="禁用/启用">--%>

@@ -21,12 +21,13 @@
 			<span> 课程管理 </span> 
 			<small> <i class="ace-icon fa fa-angle-double-right"></i></small> 
 			<span id="titleXQ"> 课程详情 </span>
-		</div>
-		<div class="col-xs-4" style="text-align: right; margin-top:-14px;padding-left: 0px;padding-right: 0px;">
-			<button class="btn btn-sm btn-success" id="returnbutton">
+			<button class="btn btn-sm btn-success" id="returnbutton" style="margin-left: 30px;">
 				<i class="glyphicon glyphicon-arrow-left"></i>
 				返回上级
 			</button>
+		</div>
+		<div class="col-xs-4" style="text-align: right; margin-top:-14px;padding-left: 0px;padding-right: 0px;">
+			
 		</div>
 </div>
 <!-- Tab panes -->
@@ -64,7 +65,7 @@
 				<i class="glyphicon glyphicon-ok"></i> 确定
 			</button>
 			&nbsp;&nbsp;&nbsp;&nbsp;
-			<button class="btn btn-sm btn-success qx_bx" id="cancelbt">
+			<button class="btn btn-sm qx_bx" id="cancelbt">
 				<i class="glyphicon glyphicon-remove"></i> 取消
 			</button>
 		</div>

@@ -19487,3 +19487,49 @@ input.typeahead.scrollable ~ .tt-dropdown-menu {
 		    background-color: #00c0ef !important;
     border-color: #00c0ef;
 	}
+	.add_type:focus{
+		    background-color: #00c0ef !important;
+    border-color: #00c0ef;
+	}
+.no-jump-link{
+	    background: #00a65a;
+    color: white;
+    border: 0;
+    padding: 3px 11px;
+    border-radius: 3px;
+}
+.hot_bx{
+	    background-color: #3c8dbc !important;
+    border-color: #3c8dbc;
+}
+.hot_bx:hover{
+		background-color: #3c8dbc !important;
+    border-color: #3c8dbc;
+	}
+.hot_bx:focus{
+		
+	}
+	.btn-warning-set{
+		background-color: #f39c12 !important;
+    border-color: #f39c12;
+	}
+	.btn-warning-set:hover{
+		background-color: #f39c12 !important;
+    border-color: #f39c12;
+	}
+		.btn-warning-set:focus{
+		background-color: #f39c12 !important;
+    border-color: #f39c12;
+	}
+	.btn-primary-set{
+		background-color: #3c8dbc !important;
+    border-color: #3c8dbc;
+	}
+.btn-primary-set:hover{
+		background-color: #3c8dbc !important;
+    border-color: #3c8dbc;
+	}
+	.btn-primary-set:focus{
+		background-color: #3c8dbc !important;
+    border-color: #3c8dbc;
+	}

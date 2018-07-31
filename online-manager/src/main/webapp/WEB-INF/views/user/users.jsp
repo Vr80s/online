@@ -24,7 +24,7 @@
 		<button class="btn btn-sm btn-success dele_bx" title="批量删除">
 			<i class="glyphicon glyphicon-trash"></i> 批量删除
 		</button>
-		<button class="btn btn-sm btn-success user" title="赋予角色">赋予角色</button>
+		<button class="btn btn-sm add_type user" title="赋予角色">赋予角色</button>
 
 	</p>
 	<div class="searchDivClass" id="searchDiv">
