@@ -931,10 +931,19 @@
 										<p style="font-size: 0.22rem;margin-top: 0.03rem;" class="money_status z"><span>{{item.currentPrice}}</span>熊猫币</p>
 									{{/if}}
 
-									<p class="more_people z">
+									<!--当天-->
+									<p class="more_people z time_z">
 										<img src="/xcview/images/Sinatv_time.png">
-										<span class="more_people_time">{{item.startTime.slice(0,16)}}</span>
+										<span class="more_people_time">{{item.startTime.slice(11,16)}}</span>
+										<span class="more_people_times" style="opacity: 0;">{{item.startTime.slice(8,10)}}</span>
 									</p>
+
+									<!--之前，之后-->
+									<p class="more_people z date_z">
+										<img src="/xcview/images/learn.png">
+										<span class="more_people_time more_peoples_times">{{item.startTime.slice(5,11)}}</span>
+									</p>
+									
 								</div>
 							</li>
 						{{/each}}
@@ -1102,9 +1111,17 @@
 									<p style="font-size: 0.22rem;margin-top: 0.03rem;" class="money_status z"><span>{{item.currentPrice}}</span>熊猫币</p>
 								{{/if}}
 
-								<p class="more_people z">
+								<!--当天-->
+								<p class="more_people z time_z">
 									<img src="/xcview/images/Sinatv_time.png">
-									<span class="more_people_time">{{item.startTime.slice(0,16)}}</span>
+									<span class="more_people_time">{{item.startTime.slice(11,16)}}</span>
+									<span class="more_people_times" style="opacity: 0;">{{item.startTime.slice(8,10)}}</span>
+								</p>
+
+								<!--之前，之后-->
+								<p class="more_people z date_z">
+									<img src="/xcview/images/learn.png">
+									<span class="more_people_time more_peoples_times">{{item.startTime.slice(5,11)}}</span>
 								</p>
 							</div>
 						</li>
