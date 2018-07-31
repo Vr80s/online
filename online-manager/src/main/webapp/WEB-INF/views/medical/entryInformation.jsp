@@ -4,31 +4,7 @@
 <link href="/js/layer/skin/layer.css" type="text/css" />	
 
 <style type="text/css">
-    .vertical-tab {
-        width: 8%;
-        height: 100%;
-        float: left;
-        /* overflow: hidden; */
-           margin-top: 50px;
-    }
- 
-    .vertical-tab > li {
-        text-align: center;
-    }
     
-    .vertical-tab > li.active > a, .vertical-tab > li.active > a:focus, .vertical-tab > li.active > a:hover {
-        border: solid #ccc;
-        border-width: 1px 1px 1px 1px;
-        background-color: #ffffff;
-        border-right: 1px solid #ffffff;
-        z-index: 2;
-    }
- 
-    .vertical-tab > li > a {
-         /* border-radius: 4px 4px 4px 4px; */
-         border-radius: 4px 0px 0px 4px; 
-    }
- 
     .vertical-tab-content {
         float: left;
         width: 90%;
@@ -36,7 +12,7 @@
         margin-left: -1px;
         margin-bottom: 2px;
         border-radius: 0px 4px 4px 4px;
-        border: solid 1px #ccc;
+
         color: #666;
     }
  
@@ -337,32 +313,7 @@
             display:none;
         }
         
-      
-       
-	.vertical-tab {
-        width: 8%;
-        height: 100%;
-        float: left;
-        /* overflow: hidden; */
-    }
- 
-    .vertical-tab > li {
-        text-align: center;
-    }
-    
-    .vertical-tab > li.active > a, .vertical-tab > li.active > a:focus, .vertical-tab > li.active > a:hover {
-        border: solid #ccc;
-        border-width: 1px 1px 1px 1px;
-        background-color: #ffffff;
-        border-right: 1px solid #ffffff;
-        z-index: 2;
-    }
- 
-    .vertical-tab > li > a {
-         /* border-radius: 4px 4px 4px 4px; */
-         border-radius: 4px 0px 0px 4px; 
-    }
- 
+
     .vertical-tab-content {
         float: left;
         width: 90%;
@@ -370,7 +321,7 @@
         margin-left: -1px;
         margin-bottom: 2px;
         border-radius: 0px 4px 4px 4px;
-        border: solid 1px #ccc;
+
         color: #666;
     }
  
@@ -471,14 +422,15 @@
 </div>
 
 <div style="height: 100%;" class="clearfix">
-	<ul class="nav nav-tab vertical-tab" role="tablist" id="vtab">
-		<li role="presentation" class="active">
-			<a href="#home" aria-controls="home" class="zykgl_bx" role="tab"
-			   data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">报名管理</a>
-		</li>
-	</ul>
+	
     <!-- Tab panes -->
     <div class="tab-content vertical-tab-content">
+    	<ul class="nav nav-tab vertical-tab" role="tablist" id="vtab">
+			<li role="presentation" class="active">
+				<a href="#home" aria-controls="home" class="zykgl_bx" role="tab"
+				   data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">报名管理</a>
+			</li>
+		</ul>
         <div role="tabpanel" class="tab-pane active" id="home">
         	<div class="mainrighttab tabresourse bordernone" id="courseDiv">
 
