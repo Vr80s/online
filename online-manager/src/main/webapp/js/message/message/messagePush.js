@@ -145,7 +145,7 @@ function loadBanner2List() {
                 return row.course;
             }
         },
-        {title: '推送用户数', "class": "center", "sortable": false,"width": "12%", "height": "68px", "data": 'pushCount'},
+        {title: '推送用户数', "class": "center", "width": "12%", "height": "68px", "data": 'pushCount',"color":"#307ecc"},
         {
             title: "操作",
             "class": "center",

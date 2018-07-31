@@ -38,7 +38,7 @@
         margin-left: -1px;
         margin-bottom: 2px;
         border-radius: 0px 4px 4px 4px;
-        border: solid 1px #ccc;
+        /*border: solid 1px #ccc;*/
         color: #666;
     }
 
@@ -413,7 +413,7 @@
         margin-left: -1px;
         margin-bottom: 2px;
         border-radius: 0px 4px 4px 4px;
-        border: solid 1px #ccc;
+        /*border: solid 1px #ccc;*/
         color: #666;
     }
 
@@ -559,9 +559,9 @@
         <div class="form-group" style="margin-top: 18px;">
             <label class="col-sm-3 control-label no-padding-right" for="add_pushUser"><font color="red">*</font>推送用户:
             </label>
-            <div class="col-sm-6">
-                <label><input name="pushType" type="radio" value="0" checked/>所有人 </label>
-                <label><input name="pushType" type="radio" value="1"/>指定用户</label>
+            <div class="col-sm-6" style="margin-top: 6px;">
+                <label style="margin:0 15px 0 0;"><input name="pushType" type="radio" value="0" checked/>所有人 </label>
+                <label style="margin-bottom: 0;"><input name="pushType" type="radio" value="1"/>指定用户</label>
                 <div class="J-input-user" style="display: none">
                     <label>推送对象导入:<a href="/template/inputUser.xls">点击下载模板</a> </label>
                     <div>
@@ -573,23 +573,27 @@
 
         <div class="form-group" style="margin-top: 18px;">
             <input type="hidden" name="detailId" id="J-detailId">
-            <label class="col-sm-3 control-label no-padding-right">跳转: <button class="J-no-target">不跳转</button></label>
-            <div class="col-sm-18">
-                <div class="col-sm-3">
-                    <label>课程:</label>
-                    <input name="routeType" type="radio" value="COMMON_COURSE_DETAIL_PAGE">
+            <label class="col-sm-3 control-label no-padding-right">跳转: <button class="J-no-target no-jump-link">不跳转</button></label>
+            <div class="col-sm-18" style="margin-top: 9px;">
+                <div class="col-sm-2">
+                    <label>课程:
+                    	<input name="routeType" type="radio" value="COMMON_COURSE_DETAIL_PAGE">
+                	</label>
                 </div>
-                <div class="col-sm-3">
-                    <label>医师/主播:</label>
-                    <input name="routeType" type="radio" value="ANCHOR_INDEX">
+                <div class="col-sm-2">
+                    <label>医师/主播:
+                    	<input name="routeType" type="radio" value="ANCHOR_INDEX">
+                	</label>
                 </div>
-                <div class="col-sm-3">
-                    <label>医师动态:</label>
-                    <input name="routeType" type="radio" value="DOCTOR_POST">
+                <div class="col-sm-2">
+                    <label>医师动态:
+                    	<input name="routeType" type="radio" value="DOCTOR_POST">
+                	</label>
                 </div>
-                <div class="col-sm-3">
-                    <label>外部url地址:</label>
-                    <input name="routeType" type="radio" value="H5">
+                <div class="col-sm-2">
+                    <label>外部url地址:
+                    	<input name="routeType" type="radio" value="H5">
+               		</label>
                 </div>
             </div>
         </div>
@@ -609,7 +613,7 @@
                     </c:forEach>
                 </select>
             </div>
-            <div class="anchor-detail" style="display: none">
+            <div class="anchor-detail" style="display: none;float: left;margin-left: 15px;">
                 <select name="anchorId" id="J-anchor">
                     <c:forEach var="anchor" items="${anchors}">
                         <option value="${anchor.userId}">
@@ -618,7 +622,7 @@
                     </c:forEach>
                 </select>
             </div>
-            <div class="doctor-detail" style="display: none">
+            <div class="doctor-detail" style="display: none;float: left;margin-left: 15px;">
                 <select  id="J-doctor">
                     <c:forEach var="anchor" items="${anchors}">
                         <option value="${anchor.refId}">
@@ -627,7 +631,7 @@
                     </c:forEach>
                 </select>
             </div>
-            <div class="outer-link" style="display: none">
+            <div class="outer-link" style="display: none;float: left;margin-left: 15px;">
                 <input type="url" name="url" id="J-link">
             </div>
         </div>

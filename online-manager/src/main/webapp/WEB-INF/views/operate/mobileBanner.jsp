@@ -6,39 +6,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
 
 <style type="text/css">
-    .vertical-tab {
-        width: 8%;
-        height: 100%;
-        float: left;
 
-        /* overflow: hidden; */
-    }
-
-    .vertical-tab > li {
-        text-align: center;
-    }
-
-    /*  	.vertical-tab > li > a {
-            border: solid #ccc;
-            border-width: 1px 1px 1px 1px;
-            background-color: #ffffff;
-             border-right: 1px solid #ffffff;
-            border-right: 1px solid #ccc;
-            z-index: 2;
-        } */
-
-    .vertical-tab > li.active > a, .vertical-tab > li.active > a:focus, .vertical-tab > li.active > a:hover {
-        border: solid #ccc;
-        border-width: 1px 1px 1px 1px;
-        background-color: #ffffff;
-        border-right: 1px solid #ffffff;
-        z-index: 2;
-    }
-
-    .vertical-tab > li > a {
-        /* border-radius: 4px 4px 4px 4px; */
-        border-radius: 4px 0px 0px 4px;
-    }
 
     .vertical-tab-content {
         float: left;
@@ -47,7 +15,7 @@
         margin-left: -1px;
         margin-bottom: 2px;
         border-radius: 0px 4px 4px 4px;
-        border: solid 1px #ccc;
+        /*border: solid 1px #ccc;*/
         color: #666;
     }
 
@@ -391,38 +359,7 @@
         display: none;
     }
 
-    .vertical-tab {
-        width: 8%;
-        height: 100%;
-        float: left;
-        /* overflow: hidden; */
-    }
-
-    .vertical-tab > li {
-        text-align: center;
-    }
-
-    /*  	.vertical-tab > li > a {
-            border: solid #ccc;
-            border-width: 1px 1px 1px 1px;
-            background-color: #ffffff;
-             border-right: 1px solid #ffffff;
-            border-right: 1px solid #ccc;
-            z-index: 2;
-        } */
-
-    .vertical-tab > li.active > a, .vertical-tab > li.active > a:focus, .vertical-tab > li.active > a:hover {
-        border: solid #ccc;
-        border-width: 1px 1px 1px 1px;
-        background-color: #ffffff;
-        border-right: 1px solid #ffffff;
-        z-index: 2;
-    }
-
-    .vertical-tab > li > a {
-        /* border-radius: 4px 4px 4px 4px; */
-        border-radius: 4px 0px 0px 4px;
-    }
+   
 
     .vertical-tab-content {
         float: left;
@@ -431,7 +368,7 @@
         margin-left: -1px;
         margin-bottom: 2px;
         border-radius: 0px 4px 4px 4px;
-        border: solid 1px #ccc;
+        /*border: solid 1px #ccc;*/
         color: #666;
     }
 
@@ -523,7 +460,10 @@
 </div>
 
 <div style="height: 100%;" class="clearfix">
-    <!-- Nav tabs -->
+   
+    <!-- Tab panes -->
+    <div class="tab-content vertical-tab-content">
+    	 <!-- Nav tabs -->
     <ul class="nav nav-tab vertical-tab" role="tablist" id="vtab">
         <li role="presentation" class="active">
             <a href="#home" aria-controls="home" class="zykgl_bx" title="1" role="tab"
@@ -542,8 +482,6 @@
                data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">听课banner</a>
         </li>
     </ul>
-    <!-- Tab panes -->
-    <div class="tab-content vertical-tab-content">
         <div role="tabpanel" class="tab-pane active" id="home">
             <div class="mainrighttab tabresourse bordernone" id="courseDiv">
                 <p class="col-xs-4" style="padding: 0;">
@@ -679,11 +617,12 @@
         <div class="form-group" style="margin-top: 18px;">
             <label class="col-sm-3 control-label no-padding-right" for="imgPath"><font color="red">*</font>
              banner图片:
-           <div style="padding-top:10px;color: blue;">
+          
+            </label>
+             <div style="padding-top:10px;color: #b1b1b1;float: right;margin-right: 15px;">
                 <p style="margin: 0px;padding: 0px;">推荐使用尺寸860*346</p>
                 <p style="margin: 0px;padding: 0px;">推荐高宽比在0.4左右</p>
            </div> 
-            </label>
             <div class="col-sm-6" id="addDiv">
                 <div class="clearfixAdd" id="add_clearfixAdd">
                     <input type="file" name="imgPath_file" id="imgPath_file" class="uploadImg"/>
@@ -791,11 +730,12 @@
         <div class="form-group" style="margin-top: 18px;">
             <label class="col-sm-3 control-label no-padding-right" for="imgPath"><font color="red">*</font>
             banner图片:
-           <div style="padding-top:10px;color: blue;">
+           
+            </label>
+            <div style="padding-top:10px;color: #b1b1b1;float: right;margin-right: 15px;">
 	            <p style="margin: 0px;padding: 0px;">推荐使用尺寸860*346</p>
 	            <p style="margin: 0px;padding: 0px;">推荐高宽比在0.4左右</p>
            </div> 
-            </label>
             <div class="col-sm-6">
                 <div class="clearfixUpdate" id="editDiv">
                     <input type="file" name="update_imgPath_file" id="update_imgPath_file" class="uploadImg"/>
@@ -861,7 +801,7 @@
                     </select>
                 </div>
                 <div class="J-edit-apprentice-detail" style="display: none">
-                    <select data-live-search="true" id="J-edit-apprentice">
+                    <select data-live-search="true" id="J-edit-apprentice" style="width: 265px;">
                         <c:forEach var="regulation" items="${regulations}">
                             <option value="${regulation.id}">
                                     ${regulation.title}

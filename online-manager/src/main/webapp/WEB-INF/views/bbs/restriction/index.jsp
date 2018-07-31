@@ -21,16 +21,16 @@
 </div>
 
 <div class="mainrighttab tabresourse bordernone">
-    <button class="btn btn-sm btn-danger blacklist_bx" title="拉黑">
+    <button class="btn btn-sm blacklist_bx dele_bx" title="拉黑">
         <i class="glyphicon glyphicon-trash"></i> 拉黑
     </button>
     <button class="btn btn-sm btn-primary cancel_blacklist_bx" title="取消拉黑">
         <i class="glyphicon glyphicon-trash"></i> 取消拉黑
     </button>
-    <button class="btn btn-sm btn-danger gags_bx" title="禁言">
+    <button class="btn btn-sm btn-warning-set gags_bx" title="禁言">
         <i class="glyphicon glyphicon-trash"></i> 禁言
     </button>
-    <button class="btn btn-sm btn-primary cancel_gags_bx" title="取消禁言">
+    <button class="btn btn-sm btn-primary-set cancel_gags_bx" title="取消禁言">
         <i class="glyphicon glyphicon-trash"></i> 取消禁言
     </button>
 

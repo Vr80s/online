@@ -15,4 +15,4 @@
 .xcConfirm .popBox .btnGroup .sgBtn{margin-top: 14px; margin-right: 10px;}
 .xcConfirm .popBox .sgBtn{display: block; cursor: pointer; float: left; width: 95px; height: 35px; line-height: 35px; text-align: center; color: #FFFFFF; border-radius: 5px;}
 .xcConfirm .popBox .sgBtn.ok{background-color: #00c0ef; color: #FFFFFF;}
-.xcConfirm .popBox .sgBtn.cancel{background-color: #546a79; color: #FFFFFF;}
+.xcConfirm .popBox .sgBtn.cancel{background-color: #cecece; color: #FFFFFF;}

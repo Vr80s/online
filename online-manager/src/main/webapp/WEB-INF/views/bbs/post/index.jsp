@@ -35,7 +35,7 @@
     <button class="btn btn-sm btn-primary good_bx" title="加精/取消">
         <i class="glyphicon glyphicon-plus"></i> 加精/取消
     </button>
-    <button class="btn btn-sm btn-danger hot_bx" title="热门/取消">
+    <button class="btn btn-sm hot_bx" title="热门/取消">
         <i class="glyphicon glyphicon-trash"></i> 热门/取消
     </button>
 

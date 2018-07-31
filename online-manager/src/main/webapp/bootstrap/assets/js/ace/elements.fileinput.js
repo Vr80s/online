@@ -59,7 +59,7 @@
 		var remove_btn = !!this.settings.icon_remove;
 		if(remove_btn) {
 			var btn = 
-			$('<a class="remove" href="#"><i class="'+ ace.vars['icon'] + this.settings.icon_remove+'"></i></a>')
+			$('<a class="remove" href="#"><i style="line-height:17px" class="'+ ace.vars['icon'] + this.settings.icon_remove+'"></i></a>')
 			.appendTo(this.$element.parent());
 
 			btn.on(ace.click_event, function(e){

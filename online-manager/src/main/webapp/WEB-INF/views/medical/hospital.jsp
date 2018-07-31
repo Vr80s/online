@@ -37,7 +37,7 @@
         margin-left: -1px;
         margin-bottom: 2px;
         border-radius: 0px 4px 4px 4px;
-        border: solid 1px #ccc;
+
         color: #666;
     }
 
@@ -412,7 +412,7 @@
         margin-left: -1px;
         margin-bottom: 2px;
         border-radius: 0px 4px 4px 4px;
-        border: solid 1px #ccc;
+
         color: #666;
     }
 
@@ -534,10 +534,10 @@
                     <button class="btn btn-sm btn-success refresh-data" title="更新医馆数据">
                         <i class="glyphicon glyphicon-refresh"></i> 更新医馆数据
                     </button>
-                    <button class="btn btn-sm btn-success rec_P" title="设为推荐">
+                    <button class="btn btn-sm add_type rec_P" title="设为推荐">
                         <i class="glyphicon glyphicon-cog"></i> 设为推荐
                     </button>
-                    <button class="btn btn-sm btn-success J-announcement" title="公告管理">
+                    <button class="btn btn-sm btn-primary-set J-announcement" title="公告管理">
                         公告管理
                     </button>
                 </p>

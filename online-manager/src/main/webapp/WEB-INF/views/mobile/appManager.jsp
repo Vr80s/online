@@ -112,7 +112,7 @@
 	    <div class="space-4"></div>
 		<div class="form-group"  style="margin-top: 18px;" >
 			 <label class="col-sm-3 control-label no-padding-right" for="url"><font color="red">*</font>强制更新: </label>
-			 <div class="col-sm-6">
+			 <div class="col-sm-6" style="margin-top: 6px;">
                		<input type="radio" value="true" name="mustUpdate" class="{required:true}">是
                		<input type="radio" value="0" name="mustUpdate" class="{required:true}" checked="checked">否
              </div>
@@ -122,7 +122,7 @@
 		<div class="space-4"></div>
 		<div class="form-group"  id ="ad_apk" style="margin-top: 18px;">
 			 <label class="col-sm-3 control-label no-padding-right" f><font color="red">*</font>安装包: </label>
-			 <div class="col-sm-6">
+			 <div class="col-sm-6" style="margin-top: 5px;">
 					 <input type="file" name="filename1" id="imgPath_file"/>
 					 <input type="hidden" name="filename" id="jia_imgPath_file"/>
 					 <div id="kewudeie" style="padding-top:20px;">
@@ -155,7 +155,7 @@
 	    <div class="space-4"></div>
 		<div class="form-group"  style="margin-top: 18px;" >
 			 <label class="col-sm-3 control-label no-padding-right" for="url"><font color="red">*</font>强制更新: </label>
-			 <div class="col-sm-6">
+			 <div class="col-sm-6" style="margin-top: 6px;">
                		<input type="radio" value="true" name="mustUpdate" class="{required:true}" >是
                		<input type="radio" value="0" name="mustUpdate" class="{required:true}" checked="checked">否
              </div>
