@@ -902,6 +902,7 @@
 						<span class="border"></span>
 						<span style="font-size: 0.28rem;float: left;">跟师直播</span>
 						<span class="master_course_span">只有弟子能跟师直播学习</span>
+						<img src="/xcview/images/video_review.png" alt="" class="" style="width: 0.15rem;float: right;margin-top: 0.09rem;" />
 						<div class="both"></div>
 					</div>
 					<ul class="wrap_vedio_btn" id="teacher_hides">
@@ -1051,7 +1052,7 @@
 					<!--appointStatus: 0 -> 可预约 1->预约满 2->我的预约 infoId: 我的预约信息id-->
 					<div class="subscribe_time" data-id="{{item.id}}">{{item.indexDateText}}</div>
 					{{if item.appointStatus == 0}}
-						<div class="subscribe_btn" onclick="order('{{item.id}}')">预约</div>
+						<div class="subscribe_btn subscribe_btn_{{item.id}}" data-ids="{{item.id}}" onclick="order('{{item.id}}')">预约</div>
 					{{else if item.appointStatus == 1}}
 						<div class="subscribe_btns">预约满</div>
 					{{else if item.appointStatus == 2}}
@@ -1072,6 +1073,7 @@
 					<span class="border"></span>
 					<span style="font-size: 0.28rem;float: left;">跟师直播</span>
 					<span class="master_course_span">只有弟子能跟师直播学习</span>
+					<!-- <img src="/xcview/images/video_review.png" alt="" class="" /> -->
 					<div class="both"></div>
 				</div>
 				<ul class="wrap_vedio_btn" id="teacher_hide">

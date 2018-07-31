@@ -1044,22 +1044,23 @@ function order(id){
                 };
             }else{
 
-               /* requestGetService("/doctor/treatment/check",{id:id},function (data) {
+               requestGetService("/doctor/treatment/check",{id:id},function (data) {
                     if (data.success == true) {
                         // 0 -> 正常可预约 1 -> 已被预约 2-> 该时间段重复预约
                         if (data.resultObject == 0) {
-                            alert(0);
-                            // location.href ='/xcview/html/physician/reserve_information.html?doctor='+doctorId+'&dataId='+id+''
-                        }else if (data.resultObject == 1 && data.resultObject == 2){
-                            alert(1);
-                            $(".subscribe_btn").html("预约满");
-                            $(".subscribe_btn").css("background","#DEDEDE");
+                            // alert(0);
+                            location.href ='/xcview/html/physician/reserve_information.html?doctor='+doctorId+'&dataId='+id+''
+                        // }else if (data.resultObject == 1 || data.resultObject == 2){
+                        }else if (data.resultObject == 1){
+                            // alert(1);
+                            $(".subscribe_btn_"+id).html("预约满");
+                            $(".subscribe_btn_"+id).css("background","#DEDEDE");
                         }
 
                     }
-                });*/
+                });
 
-                location.href ='/xcview/html/physician/reserve_information.html?doctor='+doctorId+'&dataId='+id+'';
+                // location.href ='/xcview/html/physician/reserve_information.html?doctor='+doctorId+'&dataId='+id+'';
 
             }
 
