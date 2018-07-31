@@ -26,7 +26,7 @@
 <div class="mainrighttab tabresourse bordernone">
 	<p class="col-xs-4" style="padding: 0;">
 	 	<button class="btn btn-sm btn-success add_bx" ><i class="glyphicon glyphicon-plus"></i> 新增</button>      
-    	<button class="btn btn-sm btn-success dels_bx" onclick="deleteBatch();"><i class="glyphicon glyphicon-trash"></i> 批量删除</button>
+    	<button class="btn btn-sm btn-success dels_bx dele_bx" onclick="deleteBatch();"><i class="glyphicon glyphicon-trash"></i> 批量删除</button>
 	</p>
 	
 	<div class="searchDivClass" id="searchDiv">

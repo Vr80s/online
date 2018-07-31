@@ -342,7 +342,7 @@ function initTypeHtml(index,name,value){
 				<input type="text"   name="vos['+index+'].name"  id="typeName'+index+'"  value="'+name+'" class="col-xs-10 col-sm-12 {required:true,minlength:2,maxlength:40}">\
 				<input type="hidden" name="vos['+index+'].value" id="typevalue'+index+'" value="'+value+'">\
 			</div>\
-			<button type="button" class="btn btn-sm btn-success" title="删除" onclick="$(this).parent().remove();" >\
+			<button type="button" class="btn btn-sm btn-success dele_bx" title="删除" onclick="$(this).parent().remove();" >\
 				<i class="glyphicon glyphicon-remove"></i>\
 			</button>\
 		</div>';

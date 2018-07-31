@@ -100,11 +100,12 @@
             <label class="col-sm-3 control-label no-padding-right" for="imgPath">
             <font color="red">*</font>
             banner图片:
-           <div style="padding-top:10px;color: blue;">
+           
+            </label>
+            <div style="padding-top:10px;color: #949494;float: right;margin-right: 16px;">
                 <p style="margin: 0px;padding: 0px;">推荐使用尺寸860*346</p>
                 <p style="margin: 0px;padding: 0px;">推荐高宽比在0.4左右</p>
            </div> 
-            </label>
             <div class="col-sm-6" id="addDiv">
                 <div class="clearfixAdd">
                     <input type="file" name="imgPath_file" id="imgPath_file" class="uploadImg"/>
