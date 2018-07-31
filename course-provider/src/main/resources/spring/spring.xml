@@ -18,8 +18,7 @@
 
     <!-- dubbo -->
     <dubbo:application name="${dubbo.app.name}"/>
-    <dubbo:registry protocol="zookeeper" address="${dubbo.zookepper.url}"
-                    file="${catalina.home}/dubbo-registry/dubbo-registry-course.properties"/>
+    <dubbo:registry protocol="zookeeper" address="${dubbo.zookepper.url}"/>
     <dubbo:protocol name="dubbo" host="${dubbo.protocol.host}" port="${dubbo.protocol.port}"/>
 
 
