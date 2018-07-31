@@ -27,7 +27,8 @@ function apprenticeList(userId,pageNumber,downOrUp) {
                 }
                 $('#teacher_hides').html(template('teacher_hide_ids', {items: data.resultObject}));
                 
-
+                /*var time = $(".more_people_time").html();
+                alert(time);*/
 
 
                 
