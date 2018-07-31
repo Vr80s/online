@@ -76,6 +76,38 @@
 	.learn_tips_part{
 		z-index: 9;
 	}
+	.wrap_vedio_btn li .speak_text{
+		height: 0.8rem;
+	}
+
+	.minirefresh-wrap{
+		top: 0.88rem !important;
+	}
+	.wrap_vedio_btn li .speak_name{
+		padding-top: 0;
+	}
+
+	/*处理刷新*/
+	.minirefresh-wrap{
+		/*top: 5.3rem;*/
+	}
+	.minirefresh-theme-default .minirefresh-downwrap{
+		height: 1rem;
+		line-height: 1rem;
+	}
+	.minirefresh-theme-default .downwrap-content{
+		padding: 0;
+	}
+	.minirefresh-theme-default .minirefresh-upwrap{
+		height: 1rem;
+		max-height: 0.5rem;
+		line-height: 0.6rem;
+		padding: 0;
+		/*margin-top: -0.5rem;*/
+	}
+	.minirefresh-scroll{
+		background: none;
+	}
 
 </style>
 
@@ -122,15 +154,23 @@
 								<p style="font-size: 0.22rem;margin-top: 0.03rem;" class="money_status z"><span>{{item.currentPrice}}</span>熊猫币</p>
 							{{/if}}
 
+							<!--当天-->
 							<p class="more_people z">
 								<img src="/xcview/images/Sinatv_time.png">
-								<span class="more_people_time">{{item.startTime.slice(0,16)}}</span>
+								<span class="more_people_time">{{item.startTime.slice(11,16)}}</span>
+							</p>
+
+							<!--之前，之后-->
+							<p class="more_people z" style="display: none;">
+								<img src="/xcview/images/learn.png">
+								<span class="more_people_time">{{item.startTime.slice(5,11)}}</span>
 							</p>
 						</div>
 					</li>
 				{{/each}}
 				</script>
 			</ul>
+			<!-- /xcview/images/learn.png -->
 		</div>
 			</div>
 		</div>
