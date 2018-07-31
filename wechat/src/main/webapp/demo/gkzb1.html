@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html id="html-code">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>微吼云jssdk观看demo </title>
+  <base href=".">
+  <link rel="stylesheet" href="./css/base.css">
+  <link href="./css/main.css" rel="stylesheet">
+  <link href="./css/nav.css" rel="stylesheet">
+  <link rel="stylesheet" href="./css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://static.vhallyun.com/jssdk/videojs.min.css?v=1.0.0"></script><!--播放器默认样式，需要引用在包含在页面的head标签里-->
+  <script src="./js/clipboard.js"></script>
+  <script src="./js/toc.js"></script>
+  <script src="./js/test.js"></script>
+  <script src="https://static.vhallyun.com/jssdk/dvideo-plugin.js?v=201806132033"></script><!--依赖的播放器资源-->
+  <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-player-1.0.0.js?v=201806132033"></script>
+  <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-base-1.0.0.js?v=201806132033"></script>
+  <style type="text/css">
+    body{
+      background-color: #d2d2d2;
+    }
+    #title{
+      padding-top: 5%;
+    }
+    .menu-item a{
+      text-align: center;
+    }
+    @media (min-width: 1200px){
+      .container {
+          width: 1270px;
+      }
+    }
+    button{
+      margin-top: 30px;
+      outline: none;
+    }
+    .confs-title{
+      display: inline-block;
+      text-align: right;
+    }
+    .confs-title .confs-title-item{
+      height: 60px;
+    }
+    .confs-info{
+      display: inline-block;
+      width: 500px;
+      margin-left: 10px;
+    }
+    .confs-info .confs-info-item{
+      height: 60px;
+    }
+    .action-box{
+      text-align: center;
+    }
+    .btn-small{
+      width: 50px !important;
+      height: 26px;
+      padding: 2px 6px;
+    }
+    .btn-white,.btn-white:hover,.btn-white:visited,.btn-white:active{
+      background-color: #fff;
+      color:#666;
+      border:1px solid #666;
+      border-radius: 3px;
+    }
+    .settings{
+      display: none;
+      position: absolute;
+      border: 1px solid #d2d2d2;
+      padding-top: 40px;
+      padding-left: 40px;
+      padding-right: 40px;
+      padding-bottom: 40px;
+      text-align: center;
+      width: auto;
+      vertical-align: middle;
+      margin-top: -432px;
+      margin-left: 498px;
+      background-color: #fff;
+      border-radius: 5px;
+    }
+    .settings .confs-info{
+      width: 200px;
+    }
+    .settings-action-btn{
+      margin-top: 0px;
+    }
+    .settings-action-btn div{
+      width: 30%;
+      display: inline-block;
+      text-align: center;
+    }
+    .settings-action-btn button{
+        margin-top: 0px;
+    }
+    .vjs-big-play-button{
+        display: none !important;
+    }
+    #myVideo{
+      width: 854px;
+      height: 480px;
+      margin-top: 20px;
+    }
+    .btn-copy-code{
+      float: right;
+      margin-top: -50px;
+    }
+    .copycode-box{
+      text-align: right;
+    }
+    .copycode-box button{
+      margin-top: 0px;
+    }
+    .live-and-vod{
+
+    }
+    .live-and-vod div{
+      display: inline-block;
+      background-color: #337ab7;
+      color: #fff;
+      padding: 6px 10px;
+    }
+  </style>
+</head>
+<body class="open-wrapper ">
+  <div class="page-wrapper">
+    <div class="wrapper">
+      <div class="container">
+        <div class="main-wrapper">
+          <div class="sidebar-wrapper">
+            <div class="sidebar" style="height: 694px;">
+                <!-- <h3 class="sidebar-title" id="active-menu">jssdk推流包接口</h3> -->
+                <ul class="menu-group" id="normal-catalog">
+                  <li class="menu-item menu-item-1">
+                    <a href="javascript:tabShow('confBox')" title="接口配置" >接口配置</a>
+                  </li>
+                  <li class="menu-item menu-item-1">
+                    <a href="javascript:tabShow('videoBox')" title="推流演示" >观看演示</a>
+                  </li>
+                </ul>
+          </div>
+        </div>
+        <div class="main-container"> 
+
+            <h1 id="title">
+               微吼云jssdk观看demo
+            </h1>
+          <div id="videoBox" style="width: 854px;height: 480px;display: none;">
+            <div class="live-and-vod">
+              <div onclick="liveInit();" style="cursor: pointer;">PC直播</div>
+              <div onclick="vodInit();" style="cursor: pointer;">PC点播</div>
+            </div>
+            <hr />
+            <div class="copycode-box"><button onclick="jsCopy();" class="btn btn-primary">复制源码</button></div>
+            <div id="myVideo"></div>
+            <div class="action-box">
+              <button id="btn-start-play" class="btn btn-primary">播放</button>
+            </div>
+          </div>
+          
+          <div id="confBox" class="markdown" data-label="Vhall.config" >
+<!--             <p><span>appId:</span><input id="appId" type="text" name="" value="76043aaf"></p>
+            <p><span>roomId:</span><input id="roomId" type="text" name="" value="lss_c063b5c9"></p>
+            <p><span>accountId:</span><input id="accountId" type="text" name="" value="10000126"></p>
+            <p><span>token:</span><input id="token" type="text" name="" value="vhall"></p>
+            <br> -->
+            <div class="confs">
+              <div class="confs-title">
+                <div class="confs-title-item">appId:</div>
+                <div class="confs-title-item">roomId:</div>
+                <div class="confs-title-item">recordId:</div>
+                <div class="confs-title-item">accountId:</div>
+                <div class="confs-title-item">token:</div>
+              </div>
+              <div class="confs-info">
+                <div class="confs-info-item"><input class="form-control" id="appId" type="text" name="" value="76043aaf"></div>
+                <div class="confs-info-item"><input class="form-control" id="roomId" type="text" name="" value="lss_c063b5c9"></div>
+                <div class="confs-info-item"><input class="form-control" id="recordId" type="text" name="" value=""></div>
+                <div class="confs-info-item"><input class="form-control" id="accountId" type="text" name="" value="10000126"></div>
+                <div class="confs-info-item"><input class="form-control" id="token" type="text" name="" value="vhall"></div>
+              </div>
+            </div>
+            <p> <button id="btn-conf-save" data-label="Vhall.config" class="btn btn-primary">保存</button></p>
+          </div>
+            
+          <div class="body-action-fixed">
+            <div id="scroll-top" class=""></div>
+          </div>
+
+          <div class="page-footer-nav"></div>
+        </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+<script src="./js/vendor.js"></script>
+<script id="javascript-code">
+
+    var startBtn = document.getElementById('btn-start-play');
+      startBtn.addEventListener('click',startPlay);
+    $('#btn-conf-save').on('click',function(){
+        init();
+        tabShow('videoBox');
+    });
+
+    $('#btn-setting').on('click',function(){
+        setSettings();
+    });
+
+
+    function liveInit(){
+      VhallPlayer.init({
+          roomId:$('#roomId').val(),//房间ID,直播必填，点播不写
+          recordId:'',//回放Id，点播必填，直播不写
+          type:'live',//播放类型,必填，live 直播, vod 为点播
+          videoNode:'myVideo',//推流视频回显节点id，必填
+          complete:function(){
+            // VhallPlayer.play();
+          }
+      });
+    }
+
+    function vodInit(){
+      VhallPlayer.init({
+          roomId:'',//房间ID,直播必填，点播不写
+          recordId:$('#recordId').val(),//回放Id，点播必填，直播不写
+          type:'vod',//播放类型,必填，live 直播, vod 为点播
+          videoNode:'myVideo',//推流视频回显节点id，必填
+          complete:function(){
+            // VhallPlayer.play();
+          }
+      });
+    }
+
+    /**
+     * 开始播放
+     */
+      function startPlay(){
+        VhallPlayer.play();
+        $('#btn-start-play').text('暂停');
+        startBtn.removeEventListener('click',startPlay);
+        startBtn.addEventListener('click',stopPlay);
+      }
+
+      function stopPlay(){
+        VhallPlayer.pause();
+        $('#btn-start-play').text('播放');
+        startBtn.removeEventListener('click',stopPlay);
+        startBtn.addEventListener('click',startPlay);
+      }
+
+      function tabShow(id){
+          $('#videoBox').hide();
+          $('#confBox').hide();
+          $('#' + id).show();
+      }
+
+      function jsCopy(){  
+        var e=document.getElementById("html-code");//对象是copy-num1  
+        e.select(); //选择对象  
+        document.execCommand("Copy"); //执行浏览器复制命令  
+        alert("复制成功");  
+      }  
+
+      function setSettings(){
+
+        var html = '\
+                <div class="confs-title">\
+                  <div class="confs-title-item">摄像头:</div>\
+                  <div class="confs-title-item">麦克风:</div>\
+                  <div class="confs-title-item">分辨率:</div>\
+                  <div class="confs-title-item">音量:</div>\
+                </div>\
+                <div class="confs-info">\
+                  <div class="confs-info-item">\
+                    <select class="form-control" id="camera"  >\
+                      {{cameras}}\
+                    </select>\
+                  </div>\
+                  <div class="confs-info-item">\
+                    <select class="form-control" id="mic"  >\
+                      {{mics}}\
+                    </select>\
+                  </div>\
+                  <div class="confs-info-item">\
+                    <select class="form-control" id="resolving"  >\
+                      <option value="800*450" selected="selected">800*450</option>\
+                      <option value="1280*720" >1280*720</option>\
+                      <option value="1600*900" >1600*900</option>\
+                      <option value="800*600" >800*600</option>\
+                    </select>\
+                  </div>\
+                  <div class="confs-info-item">\
+                    <select class="form-control" id="volume" >\
+                      <option value="10" >10</option>\
+                      <option value="20" >20</option>\
+                      <option value="30" >30</option>\
+                      <option value="40" >40</option>\
+                      <option value="50"  selected="selected">50</option>\
+                      <option value="60" >60</option>\
+                      <option value="70" >70</option>\
+                      <option value="80" >80</option>\
+                      <option value="90" >90</option>\
+                      <option value="100" >100</option>\
+                    </select>\
+                  </div>\
+                </div>\
+                <div class="settings-action-btn">\
+                  <div><button id="btn-settings-ok" class="btn btn-primary btn-small">确定</button></div>\
+                  <div><button id="btn-settings-cancel" class="btn-small btn-white">取消</button></div>\
+                </div>';
+        var cameras = '',mics = '',selected = '';
+        for(var i = 0; i < window.Vhall.devices.cameras.length; i++){
+          if(i==0){
+            selected = 'selected="selected"';
+          }
+          cameras += '<option '+ selected +' value="'+ window.Vhall.devices.cameras[i] +'">'+ window.Vhall.devices.cameras[i] +'</option>';
+        }
+        for(var j = 0; j < window.Vhall.devices.mics.length; j++){
+          if(i==0){
+            selected = 'selected="selected"';
+          }
+          mics += '<option '+ selected +' value="'+ window.Vhall.devices.mics[j] +'">'+ window.Vhall.devices.mics[j] +'</option>';
+        }
+        html = html.replace(/{{cameras}}/g,cameras);
+        html = html.replace(/{{mics}}/g,mics);
+        var isEmpty = $('#settings').html().trim().length == 0;
+        if(isEmpty){
+           $('#settings').html(html);
+        }
+        $('#settings').show();
+        $('#btn-settings-ok,#btn-settings-cancel').on('click',function(){
+          $('#settings').hide();
+        });
+
+      }
+
+  </script>
+
+  <script>
+
+    function getQueryString(name) {
+      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); // 匹配目标参数
+      var result = window.location.search.substr(1).match(reg); // 对querystring匹配目标参数
+      if (result != null) {
+        return decodeURIComponent(result[2]);
+      } else {
+        return null;
+      }
+    }
+
+    if(getQueryString('roomId')){
+
+      // $('#appId').val(getQueryString('appId'));
+      // $('#roomId').val(getQueryString('roomId'));
+      // $('#accountId').val(getQueryString('accountId'));
+      // $('#token').val(getQueryString('token'));
+      
+      // $(document).ready(function(){
+
+      //     $('#btn-conf-save').click();
+          
+      // });
+
+      Vhall.ready(function(){
+
+          VhallPlayer.init({
+              roomId:getQueryString('roomId'),//房间ID,直播必填，点播不写
+              recordId:'',//回放Id，点播必填，直播不写
+              type:'live',//播放类型,必填，live 直播, vod 为点播
+              videoNode:'myVideo',//推流视频回显节点id，必填
+              complete:function(){
+                // VhallPlayer.play();
+              }
+          });
+
+      });
+
+      Vhall.config({
+         appId :getQueryString('appId'),//应用 ID ,必填
+         accountId :getQueryString('accountId'),//第三方用户唯一标识,必填
+         token :getQueryString('token'),//token必填
+      });
+
+      tabShow('videoBox');
+      
+
+
+    } 
+
+
+    function init(){
+       Vhall.ready(function(){
+
+           VhallPlayer.init({
+               roomId:$('#roomId').val(),//房间ID,直播必填，点播不写
+               recordId:'',//回放Id，点播必填，直播不写
+               type:'live',//播放类型,必填，live 直播, vod 为点播
+               videoNode:'myVideo',//推流视频回显节点id，必填
+               complete:function(){
+                 // VhallPlayer.play();
+               }
+           });
+
+       });
+
+      Vhall.config({
+          appId :$('#appId').val(),//应用 ID ,必填
+          accountId :$('#accountId').val(),//第三方用户唯一标识,必填
+          token :$('#token').val(),//token必填
+      });
+    }
+
+  </script>
+
+</body>
+</html>
+
+

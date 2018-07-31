@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>观看直播</title>
+  <link rel="stylesheet" href="https://static.vhallyun.com/jssdk/videojs.min.css?v=1.0.0"></script><!--播放器默认样式，需要引用在包含在页面的head标签里-->
+  <script src="https://static.vhallyun.com/jssdk/dvideo-plugin.js?v=1.0.0"></script><!--依赖的播放器资源-->
+  <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-player-1.0.0.js"></script>
+  <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-base-1.0.0.js"></script>
+  <style>
+    body{
+      background-color: #000;
+    }
+    .video-box{
+      margin:0 auto;
+      width: 854px;
+      height: 480px;
+    }
+  </style>
+</head>
+<body>
+  <div class="video-box" >
+    <div id="myVideo" style="width:100%; height:450px;"></div>
+  </div>
+
+</body>
+<script>
+  
+ /**
+  * 注册ready事件
+  */
+  Vhall.ready(function(){
+     /**
+      * 播放器初始化
+      */
+      VhallPlayer.init({
+          roomId:'lss_dcdde775', //房间ID,直播必填，点播不写
+          recordId:'',//回放Id，点播必填，直播不写
+          type:'live',//播放类型,必填，live 直播, vod 为点播
+          videoNode:'myVideo',//推流视频回显节点id，必填
+          complete:function(){
+        
+          /**
+           * 播放
+           */
+            VhallPlayer.play();
+          }
+      });
+
+  });
+  
+ /**
+  * 初始化配置
+  */
+   Vhall.config({
+       appId :'27376e92',//应用 ID ,必填
+       accountId :'10086',//第三方用户唯一标识,必填
+       token:'access:27376e92:d1dd4ef4e6fb3eec',//token必填
+   });
+
+
+</script>
+</html>

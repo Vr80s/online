@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>演示文档</title>
+  <style>
+  body{
+    background-color: #000;
+    text-align: center;
+  }
+  #msg-box{
+    margin:0 auto;
+    margin-top:30px;
+    width:350px;
+    height: 600px;
+    background-color:#fff;
+    border: 1px solid #d2d2d2;
+    border-radius:4px;
+    text-align: left;
+    padding-top:10px;
+  }
+  #msg-box span{
+    display: block;
+    padding: 2px 10px;
+    width: 330px;
+    max-width: 330px;
+    font-size: 14px;
+    word-wrap: break-word;
+  }
+  #ipt-msg{
+    padding: 2px 6px;
+    height: 26px;
+    width:254px;
+    border: 1px solid #fff;
+    border-radius: 2px;
+    color: #000;
+    font-size: 14px;
+    outline: none;
+  }
+  #btn-emit-message{
+    margin-top:20px;
+    min-width: 80px;
+    padding: 6px 10px;
+    height: 30px;
+    background-color: #1f88e4;
+    border: 1px solid #1f88e4;
+    border-radius: 2px;
+    color: #fff;
+    outline: none;
+  }
+  </style>
+  <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-doc-1.0.0.js?v=201802261520"></script>
+  <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-base-1.0.0.js?v=201802261520"></script>
+
+  <script>
+  /**
+   * 注册ready事件
+   */
+  Vhall.ready(function(){
+    /**
+     * 初始化文档
+     */
+    var doc = VhallDocPassive({
+      channelId:'ch_8474f6e9',//频道ID
+      docNode:'my-doc',//文档显示节点div id
+      width:'800',//非必填
+      height:'450'//非必填
+    });
+  });
+  /**
+   * 初始化配置
+   */
+  Vhall.config({
+    appId :'27376e92',//应用 ID ,必填
+    accountId :'10086',//第三方用户唯一标识,必填
+    token:'access:27376e92:e5b6fc33d73f8e24',//token必填
+  });
+  </script>
+
+</head>
+<body>
+  <div id="my-doc" style="width:100%; height:450px;margin:0 auto;margin-top:10%;"></div>
+</body>
+</html>

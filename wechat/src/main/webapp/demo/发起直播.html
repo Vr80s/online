@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html id="html-code">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>微吼云jssdk推流demo</title>
+  <base href=".">
+  <link rel="stylesheet" href="./css/base.css">
+  <link href="./css/main.css" rel="stylesheet">
+  <link href="./css/nav.css" rel="stylesheet">
+  <link rel="stylesheet" href="./css/bootstrap.min.css">
+  <script src="./js/clipboard.js"></script>
+  <script src="./js/toc.js"></script>
+  <script src="./js/test.js"></script>
+<!--   <script src="../../vhall-jssdk-live-stream-1.0.0.js?v=201803301814"></script>
+  <script src="../dist/vhall-jssdk-live-stream-1.0.0.js?v=201803301814"></script>
+  <script src="../../vhall-jssdk-base-1.0.0.js?v=201712300026"></script>
+  <script src="../dist/vhall-jssdk-base-1.0.0.js?v=201712300026"></script> -->
+  <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-doc-1.0.0.js?v=201802261520"></script>
+  <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-live-stream-1.0.0.js?v=201802021400"></script>
+  <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-base-1.0.0.js?v=201802021400"></script>
+
+
+  <style type="text/css">
+    body{
+      background-color: #d2d2d2;
+    }
+    #title{
+      padding-top: 12%;
+    }
+    .menu-item a{
+      text-align: center;
+    }
+    @media (min-width: 1200px){
+      .container {
+          width: 1270px;
+      }
+    }
+    button{
+      margin-top: 30px;
+      outline: none;
+    }
+    .confs-title{
+      display: inline-block;
+      text-align: right;
+    }
+    .confs-title .confs-title-item{
+      height: 60px;
+    }
+    .confs-info{
+      display: inline-block;
+      width: 500px;
+      margin-left: 10px;
+    }
+    .confs-info .confs-info-item{
+      height: 60px;
+    }
+    .action-box{
+      text-align: center;
+    }
+    .btn-small{
+      width: 50px !important;
+      height: 26px;
+      padding: 2px 6px;
+    }
+    .btn-white,.btn-white:hover,.btn-white:visited,.btn-white:active{
+      background-color: #fff;
+      color:#666;
+      border:1px solid #666;
+      border-radius: 3px;
+    }
+    .settings{
+      display: none;
+      position: absolute;
+      border: 1px solid #d2d2d2;
+      padding-top: 40px;
+      padding-left: 40px;
+      padding-right: 40px;
+      padding-bottom: 40px;
+      text-align: center;
+      width: auto;
+      vertical-align: middle;
+      margin-top: -432px;
+      margin-left: 498px;
+      background-color: #fff;
+      border-radius: 5px;
+    }
+    .settings .confs-info{
+      width: 200px;
+    }
+    .settings-action-btn{
+      margin-top: 0px;
+    }
+    .settings-action-btn div{
+      width: 30%;
+      display: inline-block;
+      text-align: center;
+    }
+    .settings-action-btn button{
+        margin-top: 0px;
+    }
+    #roomId,#appId{
+      width: 300px;
+    }
+  </style>
+</head>
+<body class="open-wrapper ">
+  <div class="page-wrapper">
+    <div class="wrapper">
+      <div class="container">
+        <div class="main-wrapper">
+          
+        <div class="main-container"> 
+
+            <h1 id="title">
+               微吼云jssdk推流demo
+               <button id="go-to-play" onclick="goToPlay();" class="btn btn-primary" style="margin-top:0px; margin-left:150px;display: none;">去观看直播</button>
+            </h1>
+
+          <div id="videoBox" style="width: 854px;height: 480px;margin-top: 20px;">
+            <div id="myVideo"></div>
+			  <div id="my-doc" style="width:100%; height:450px;margin:0 auto;margin-top:10%;"></div>
+
+            <div class="detection"></div>
+            <div class="action-box">
+              <button id="btn-start-push" class="btn btn-primary">推流</button>
+              <button id="btn-setting" class="btn btn-primary btn-small" style="float: right;">设置</button>
+              <div id="settings" class="settings">
+              </div>
+            </div>
+          </div>
+          
+         
+            
+          <div class="body-action-fixed">
+            <div id="scroll-top" class=""></div>
+          </div>
+
+          <div class="page-footer-nav"></div>
+        </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+<script src="./js/vendor.js"></script>
+<script id="javascript-code">
+
+  
+      Vhall.ready(function(){
+        //todo
+        VHPublisher.error(function(e){
+          console.error(e.msg);
+        });
+	
+      	VHPublisher.init({
+      		roomId:'lss_dcdde775',//房间名称
+      		videoNode:'myVideo',//推流容器
+      		//调用推流接口后完成事件，注意，是调用接口事件完成，不是推流结束。
+      		complete:function(){
+      		  console.info(555555555555555555555555555555)
+      		}
+      	  });
+    
+        /**
+         * 初始化文档
+         */
+        var doc = new VhallDoc({
+          docNode:'my-doc',//文档容器
+          width:'800',//文档显示的宽度,非必填
+          height:'450'//文档显示的高度，非必填
+        });
+  
+      /**
+       * 加载文档
+       */
+    	  doc.loadDoc('f0adf726','ch_8474f6e9',function(docId){
+    		console.info('load doc success,the docId is:',docId);
+    	  },function(reason){
+    		console.error(reason);
+    	  });
+
+	  });
+
+    Vhall.config({
+         appId :'27376e92',//应用 ID ,必填
+         accountId :'10086', //第三方用户唯一标识,必填
+         token :'27376e92:23cd8910e8cd1e9f',//token必填
+    });
+  
+
+    var startBtn = document.getElementById('btn-start-push');
+      startBtn.addEventListener('click',startPush);
+    $('#btn-conf-save').on('click',function(){
+        load();
+        tabShow('videoBox');
+    });
+
+    $('#btn-setting').on('click',function(){
+        setSettings();
+    });
+
+    /**
+     * 开始推流
+     */
+      function startPush(){
+        var _s = $('#resolving').val(),_w = '',_h = '';
+        _s = _s ? _s : '*';
+        _w = _s.split('*')[0];
+        _h = _s.split('*')[1];
+        startBtn.innerHTML = '启动推流中...';
+        // $('#videoBox').css({
+        //   width: _w + 'px',
+        //   height: _h + 'px'
+        // });
+        VHPublisher.startPush({
+          camera:$('#camera').val() || '',//摄像头名称，不传值则使用默认摄像头
+          mic:$('#mic').val() || '',//麦克风名称，不传值则使用默认麦克风
+          width:_w,//推流分辨率的宽度，不传值则使用默认分辨率：853，
+          height:_h,//推流分辨率的高度，不传值则使用默认分辨率：480
+          //成功回调，非必填
+          success: function(){
+            
+            startBtn.removeEventListener('click',startPush);
+            startBtn.innerHTML = '停推';
+            startBtn.addEventListener('click',stopPush);
+            setTimeout(function(){
+              $('#go-to-play').show();
+            },5*1000);
+             
+
+          },
+          fail: function(e){
+            console.error('推流出错',e.msg);
+          },
+          complete: function(e){
+            
+          } 
+        });
+      }
+
+      function stopPush(){
+
+        VHPublisher.stopPush({
+          complete: function(){
+            startBtn.removeEventListener('click',stopPush);
+            startBtn.addEventListener('click',startPush);
+            startBtn.innerHTML = '开推';
+            $('#go-to-play').hide();
+          }
+        });
+      }
+
+
+
+
+      function tabShow(id){
+          $('#videoBox').hide();
+          $('#confBox').hide();
+          $('#' + id).show();
+          // $('#go-to-play').show();
+      }
+
+      function jsCopy(){  
+        var e=document.getElementById("html-code");//对象是copy-num1  
+        e.select(); //选择对象  
+        document.execCommand("Copy"); //执行浏览器复制命令  
+        alert("复制成功");  
+      }  
+
+      function setSettings(){
+
+        var html = '\
+                <div class="confs-title">\
+                  <div class="confs-title-item">摄像头:</div>\
+                  <div class="confs-title-item">麦克风:</div>\
+                  <div class="confs-title-item">分辨率:</div>\
+                  <div class="confs-title-item">音量:</div>\
+                </div>\
+                <div class="confs-info">\
+                  <div class="confs-info-item">\
+                    <select class="form-control" id="camera"  >\
+                      {{cameras}}\
+                    </select>\
+                  </div>\
+                  <div class="confs-info-item">\
+                    <select class="form-control" id="mic"  >\
+                      {{mics}}\
+                    </select>\
+                  </div>\
+                  <div class="confs-info-item">\
+                    <select class="form-control" id="resolving"  >\
+                      <option value="800*450" selected="selected">800*450</option>\
+                      <option value="1280*720" >1280*720</option>\
+                      <option value="1600*900" >1600*900</option>\
+                      <option value="800*600" >800*600</option>\
+                    </select>\
+                  </div>\
+                  <div class="confs-info-item">\
+                    <select class="form-control" id="volume" >\
+                      <option value="10" >10</option>\
+                      <option value="20" >20</option>\
+                      <option value="30" >30</option>\
+                      <option value="40" >40</option>\
+                      <option value="50"  selected="selected">50</option>\
+                      <option value="60" >60</option>\
+                      <option value="70" >70</option>\
+                      <option value="80" >80</option>\
+                      <option value="90" >90</option>\
+                      <option value="100" >100</option>\
+                    </select>\
+                  </div>\
+                </div>\
+                <div class="settings-action-btn">\
+                  <div><button id="btn-settings-ok" class="btn btn-primary btn-small">确定</button></div>\
+                  <div><button id="btn-settings-cancel" class="btn-small btn-white">取消</button></div>\
+                </div>';
+        var cameras = '',mics = '',selected = '';
+        for(var i = 0; i < window.Vhall.devices.cameras.length; i++){
+          if(i==0){
+            selected = 'selected="selected"';
+          }
+          cameras += '<option '+ selected +' value="'+ window.Vhall.devices.cameras[i] +'">'+ window.Vhall.devices.cameras[i] +'</option>';
+        }
+        for(var j = 0; j < window.Vhall.devices.mics.length; j++){
+          if(i==0){
+            selected = 'selected="selected"';
+          }
+          mics += '<option '+ selected +' value="'+ window.Vhall.devices.mics[j] +'">'+ window.Vhall.devices.mics[j] +'</option>';
+        }
+        html = html.replace(/{{cameras}}/g,cameras);
+        html = html.replace(/{{mics}}/g,mics);
+        var isEmpty = $('#settings').html().trim().length == 0;
+        if(isEmpty){
+           $('#settings').html(html);
+        }
+        $('#settings').show();
+
+        //设置按钮
+        $('#btn-settings-ok,#btn-settings-cancel').on('click',function(){
+          $('#settings').hide();
+          // VHPublisher.stopPush({
+          //   complete: function(){
+          //     startBtn.removeEventListener('click',stopPush);
+          //     startBtn.addEventListener('click',startPush);
+          //     startBtn.innerHTML = '开推';
+          //     startPush();
+          //   }
+          // });
+
+        });
+
+      }
+
+      function goToPlay(){
+        window.open ('/jssdk/vhall-jssdk-live/test/demo.html?appId=' 
+          + $('#appId').val() 
+          + '&roomId=' 
+          + $('#roomId').val() 
+          + '&accountId=' 
+          + $('#accountId').val() 
+          + '&token=' 
+          + $('#token').val() 
+          + '&v=' + (new Date().getTime()),'newwindow','height=100,width=400,top=0,left=0,toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no') 
+      }
+
+  </script>
+</body>
+</html>
+
+

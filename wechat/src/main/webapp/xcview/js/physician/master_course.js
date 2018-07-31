@@ -4,26 +4,6 @@ var doctorId = getQueryString("doctor");
 var isShow = false;
 
 
-// 定义获取当前页面id
-function recentlyLive(userId,pageNumber,downOrUp){
-    requestService("/xczh/doctors/recentlyLive", {userId:userId},function (data) { 
-        if (data.success == true) {
-            createRecentlyLive(data.resultObject,userId,pageNumber,downOrUp);
-        }
-    });
-}
-
-function createRecentlyLive(recentlyLive,userId,pageNumber,downOrUp){
-    if(recentlyLive.teaching){
-        recentlyLive.teaching=1;
-    }else{
-        recentlyLive.teaching=0;
-    }
-    
-    // 跟师直播列表===============================================================================课程
-    apprenticeList(userId,pageNumber,downOrUp);
-}
-
 //跟师直播列表
 function apprenticeList(userId,pageNumber,downOrUp) {
     requestGetService("/xczh/doctors/doctorCourseType",{userId:userId,type:5,pageNumber:pageNumber,pageSize:6},function (data) {
@@ -62,48 +42,12 @@ function apprenticeList(userId,pageNumber,downOrUp) {
     });
 }
 
-function doctorCourses(data,pageNumber,downOrUp){
-    userId = data.resultObject.userId;
-    var type = 6;
-    requestService("/xczh/course/courseTypeNumber", {  //二、获取完权限，获取课程数量。
-        userId : userId,
-        type : type
-        },function (data) {
-            if (data.success) {
-                var number = data.resultObject;
-                if (number > 0) {  //三、获取完课程判断类型。
-                    //最近的直播
-                    recentlyLive(userId,pageNumber,downOrUp);
-                    // 直播课程列表
-                    // createDoctorCourse(userId);                        
-                }else{
-                    $(".no_live").css("display","block");     /*默认背景图*/
-                    $("#recommended").css("display","block"); /*显示为您推荐*/
-                    $(".living_broadcastroom").css("display","none");  /*封面图隐藏*/
-                    $("#live_lesson").css("display","none");  /*直播课程*/
-                    // defaultId();
-                };
-
-            }
-        });
-}
 //判断医师是否具有主播权限
 function doctorStatus(pageNumber,downOrUp) {
     requestService("/xczh/doctors/doctorStatus", {doctorId:doctorId},function (data) {  //一、获取是否医师权限。
         if (data.success == true) {
-            // 0 无权限 1 医师认证通过 2 医馆认证通过 3 医师认证被禁用
-            var status = data.resultObject.status;
-            if (status == 0 || status == 3) {
-                $(".no_live").css("display","block");
-                $("#recommended").css("display","block");
-                $(".living_broadcastroom").css("display","none");  /*封面图隐藏*/
-                $("#live_lesson").css("display","none");  /*直播课程*/
-                // defaultId();
-            }else{
-
-                //有权限，获取课程列表
-                doctorCourses(data,pageNumber,downOrUp);
-            }
+            //有权限，获取课程列表
+            apprenticeList(data.resultObject.userId,pageNumber,downOrUp);
         }
     });
 }
