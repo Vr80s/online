@@ -672,30 +672,25 @@ function createRecentlyLive(recentlyLive){
 
 
     // 跟师直播列表
-
-
-
     requestGetService("/xczh/host/doctor/apprentice",{doctorId:doctorId},function (data) {
         if (data.success == true) {
 
-        // 跟师直播--直播间
-        if (isBlank(data.resultObject.apprenticeCourses)) {
-            $(".wrap_vedio_main").hide();
-        } else{
-            $(".wrap_vedio_main").show();
-            // 跟师直播开始
-            var apprenticeCourses = data.resultObject.apprenticeCourses;
-            for(var i=0;i<apprenticeCourses.length;i++){
-                if(apprenticeCourses[i].teaching){
-                    apprenticeCourses[i].teaching=1;
-                }else{
-                    apprenticeCourses[i].teaching=0;
+            // 跟师直播--直播间
+            if (isBlank(data.resultObject.apprenticeCourses)) {
+                $(".wrap_vedio_main").hide();
+            } else{
+                $(".wrap_vedio_main").show();
+                // 跟师直播开始
+                var apprenticeCourses = data.resultObject.apprenticeCourses;
+                for(var i=0;i<apprenticeCourses.length;i++){
+                    if(apprenticeCourses[i].teaching){
+                        apprenticeCourses[i].teaching=1;
+                    }else{
+                        apprenticeCourses[i].teaching=0;
+                    }
                 }
+                $('#teacher_hides').html(template('teacher_hide_ids', {items: apprenticeCourses}));
             }
-            $('#teacher_hides').html(template('teacher_hide_ids', {items: apprenticeCourses}));
-        }
-
-
         }
     });
 
@@ -1049,22 +1044,23 @@ function order(id){
                 };
             }else{
 
-               /* requestGetService("/doctor/treatment/check",{id:id},function (data) {
+               requestGetService("/doctor/treatment/check",{id:id},function (data) {
                     if (data.success == true) {
                         // 0 -> 正常可预约 1 -> 已被预约 2-> 该时间段重复预约
                         if (data.resultObject == 0) {
-                            alert(0);
-                            // location.href ='/xcview/html/physician/reserve_information.html?doctor='+doctorId+'&dataId='+id+''
-                        }else if (data.resultObject == 1 && data.resultObject == 2){
-                            alert(1);
-                            $(".subscribe_btn").html("预约满");
-                            $(".subscribe_btn").css("background","#DEDEDE");
+                            // alert(0);
+                            location.href ='/xcview/html/physician/reserve_information.html?doctor='+doctorId+'&dataId='+id+''
+                        // }else if (data.resultObject == 1 || data.resultObject == 2){
+                        }else if (data.resultObject == 1){
+                            // alert(1);
+                            $(".subscribe_btn_"+id).html("预约满");
+                            $(".subscribe_btn_"+id).css("background","#DEDEDE");
                         }
 
                     }
-                });*/
+                });
 
-                location.href ='/xcview/html/physician/reserve_information.html?doctor='+doctorId+'&dataId='+id+'';
+                // location.href ='/xcview/html/physician/reserve_information.html?doctor='+doctorId+'&dataId='+id+'';
 
             }
 
@@ -1143,6 +1139,9 @@ function checkAuth(doctorId) {
         $(".learn_tips_audit").hide();
     });
 
+
+
+
 /*var text = $('.QA_doubt_main_reply').html();
 text=text.replace(/[\n\r]/g,'<br>')
 $('.QA_doubt_main_reply').html(text);*/
@@ -1156,6 +1155,19 @@ $('.QA_doubt_main_reply').html(txtt);*/
 /*var txt = $('.QA_doubt_main_replys').html();
 txttt=txt.replace(/\r?\n/g,"<br />");
 $('.QA_doubt_main_replys').html(txttt);*/
+
+
+// 动态图
+/*var id=$(".itransforms").find("am-gallery-item").attr("data-itransform");
+
+if ($(".itransform_"+id).size() > 1) {
+    alert(1);
+    $(".itransform_"+id).find("img").addClass("transform_img");
+}else{
+    alert(2);
+    $(".itransform_"+id).find("img").removeClass("ccc");
+};
+*/
 
 
 // apprenticeInfo();
@@ -1184,3 +1196,4 @@ $(".li_prose_origin").click(function(){
     // location.reload();
 });
 
+//alert(111);

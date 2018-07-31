@@ -345,6 +345,12 @@ function verifyAnchorInfo(data) {
     } else {
         $('.warning_anchor_lecturer_description').addClass('hide');
     }
+    if (data.detailAddress.length >100) {
+        $('.return_warningLength ').removeClass('hide');
+        return false;
+    } else {
+        $('.return_warningLength ').addClass('hide');
+    }
 
 
     //医师入驻的医馆名字
@@ -425,7 +431,6 @@ function verifyAnchorInfo2(data) {
     } else {
         $('.return_warning5 ').addClass('hide');
     }
-
     return true;
 }
 
