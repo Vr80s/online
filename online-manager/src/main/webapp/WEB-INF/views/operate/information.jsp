@@ -31,7 +31,7 @@
 		<button class="btn btn-sm btn-success dele_bx" title="批量删除">
 			<i class="glyphicon glyphicon-trash"></i> 批量删除
 		</button>
-		<button class="btn btn-sm btn-success add_type" title="分类管理">
+		<button class="btn btn-sm add_type" title="分类管理">
 			<i class="glyphicon glyphicon-plus"></i> 分类管理
 		</button>
 	</p>

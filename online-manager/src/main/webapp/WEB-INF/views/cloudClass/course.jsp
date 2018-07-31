@@ -4,11 +4,11 @@
 <link href="/js/layer/skin/layer.css" type="text/css" />	
 
 <style type="text/css">
-    .vertical-tab {
+    /*.vertical-tab {
         width: 8%;
         height: 100%;
         float: left;
-        /* overflow: hidden; */
+
     }
  
     .vertical-tab > li {
@@ -24,9 +24,9 @@
     }
  
     .vertical-tab > li > a {
-         /* border-radius: 4px 4px 4px 4px; */
+
          border-radius: 4px 0px 0px 4px; 
-    }
+    }*/
  
     .vertical-tab-content {
         float: left;
@@ -338,11 +338,11 @@
         
       
        
-	.vertical-tab {
+	/*.vertical-tab {
         width: 8%;
         height: 100%;
         float: left;
-        /* overflow: hidden; */
+
     }
  
     .vertical-tab > li {
@@ -359,9 +359,9 @@
     }
  
     .vertical-tab > li > a {
-         /* border-radius: 4px 4px 4px 4px; */
+
          border-radius: 4px 0px 0px 4px; 
-    }
+    }*/
 
  
     .send {

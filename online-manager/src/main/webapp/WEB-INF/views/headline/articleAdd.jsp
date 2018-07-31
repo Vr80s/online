@@ -92,14 +92,14 @@
 
 	</form>
 
-	<div class="col-xs-7" style="text-align: right;margin-top:150px;">
-		<button class="btn btn-sm btn-success" id="previewSaveBtn">
+	<div class="" style="text-align: right; margin: 150px auto 0;text-align: left;padding-left: 143px;">
+		<button class="btn btn-sm" id="previewSaveBtn">
 			预览
 		</button>
-		<button class="btn btn-sm btn-success" id="saveBtn">
+		<button class="btn btn-sm btn-success" id="saveBtn" style="margin: 0 10px;">
 			保存
 		</button>
-		<button class="btn btn-sm btn-success" id="returnbutton">
+		<button class="btn btn-sm" id="returnbutton">
 			返回
 		</button>
 	</div>

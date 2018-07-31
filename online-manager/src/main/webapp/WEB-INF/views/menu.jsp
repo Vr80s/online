@@ -11,8 +11,8 @@
 
 	<ul class="nav nav-list">
 
-			<div href="javascript:void(-1)">
-			<span><img src="${contextPath}/images/logos.jpg" alt=""> </span></div>
+			<div href="javascript:void(-1)" style="background: #3c8dbc;">
+			<span><img src="${contextPath}/images/logos.png" alt="" style="margin:7px 0 6px 19px;"> </span></div>
 
 		<li id="homeLi" >
 			<a href="javascript:void(-1)" role="welcome">
