@@ -14,32 +14,32 @@
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <meta name="keywords" content="" />
 
-<link rel="stylesheet" type="text/css" href="/xcview/css/physician/physicians_page.css?v=wechat_1.1.1&version=e173995ae8"/>
+<link rel="stylesheet" type="text/css" href="/xcview/css/physician/physicians_page.css?v=wechat_1.1.1&version=e173995ae8&version=3aef4edb9d"/>
 <link rel="stylesheet" href="/xcview/css/physician/swiper-4.2.6.min.css" />
-<link rel="stylesheet" href="/xcview/html/physician/css/demo.css?version=d265f83c60" />
-<link rel="stylesheet" href="/xcview/html/physician/css/demos.css?version=c4433ce522" />
+<link rel="stylesheet" href="/xcview/html/physician/css/demo.css?version=d265f83c60&version=d265f83c60" />
+<link rel="stylesheet" href="/xcview/html/physician/css/demos.css?version=c4433ce522&version=7414fb6524" />
 	<!--手机嵌入模板-->
-<script type="text/javascript" src="/xcview/js/common/layout.js?version=e2b9d5cdbd"></script>
+<script type="text/javascript" src="/xcview/js/common/layout.js?version=e2b9d5cdbd&version=e2b9d5cdbd"></script>
 
 <!-- 轮播 -->
 <script src="/xcview/js/physician/zepto1.14.min.js"></script>
 <script src="/xcview/js/physician/swiper-4.2.6.min.js"></script>
 
-<script type="text/javascript" src="/xcview/js/common/jquery.min-2.1.1.js?version=d021c983bd"></script>
+<script type="text/javascript" src="/xcview/js/common/jquery.min-2.1.1.js?version=d021c983bd&version=d021c983bd"></script>
 
 <!-- 介绍数据引入 -->
-<script type="text/javascript" src="/xcview/js/physician/referral.js?version=6743f0205e"></script>
+<script type="text/javascript" src="/xcview/js/physician/referral.js?version=6743f0205e&version=6743f0205e"></script>
 
 <!--公用弹框 -->
-<link rel="stylesheet" href="/xcview/css/alert/sharecss.css?version=f6e45d2a7e">
-<script type="text/javascript" src="/xcview/js/common/alertPopShow.js?version=3a4f24e3df"></script>
+<link rel="stylesheet" href="/xcview/css/alert/sharecss.css?version=f6e45d2a7e&version=f6e45d2a7e">
+<script type="text/javascript" src="/xcview/js/common/alertPopShow.js?version=3a4f24e3df&version=3a4f24e3df"></script>
 <!--刷新 -->
-<link rel="stylesheet" href="/xcview/css/minirefresh/minirefresh.css?version=71e5ea2f95">
-<script type="text/javascript" src="/xcview/js/minirefresh/minirefresh.js?version=db3081c0a1"></script>
+<link rel="stylesheet" href="/xcview/css/minirefresh/minirefresh.css?version=71e5ea2f95&version=71e5ea2f95">
+<script type="text/javascript" src="/xcview/js/minirefresh/minirefresh.js?version=db3081c0a1&version=db3081c0a1"></script>
 
 <!-- 表情包聊天引入 -->
-<link href="/xcview/html/physician/css/webiaoqing.css?version=495638f506" rel="stylesheet" type="text/css">
-<script src="/xcview/html/physician/js/webiaoqin.js?version=9f3575a6d9" ></script>
+<link href="/xcview/html/physician/css/webiaoqing.css?version=495638f506&version=495638f506" rel="stylesheet" type="text/css">
+<script src="/xcview/html/physician/js/webiaoqin.js?version=9f3575a6d9&version=9f3575a6d9" ></script>
 <!-- 测试点击图片 -->
 
 	<style>
@@ -414,12 +414,7 @@
 </style>
 
 </head>
-<!-- <body style="background: #F0f0f0;" onload="location.reload()"> -->
-<body style="background: #F0f0f0;">
-<!-- <body style="background: #F0f0f0;" onLoad="body_onload()"> -->
-<!-- <body style="background: #F0f0f0;" onload="location.replace()"> -->
-
-
+<body style="background: #F0f0f0;" onLoad="body_onload()">
 	<div class="physicians_page_main comment_hide">
 		
 
@@ -578,7 +573,7 @@
 						</div>
 					</div>
 					{{else item.imgStr !=null && item.imgStr.length>1}}
-					<div class="paper_nav_cen_div" style="background: blue;">
+					<div class="paper_nav_cen_div">
 						<div class="paper_nav_cen comment_hide">
 							<ul data-am-widget="gallery" class="am-gallery am-avg-sm-2 am-avg-md-3 am-avg-lg-4 am-gallery-overlay" data-am-gallery="{ pureview: true }" >
 								{{each item.imgStr as pic }}
@@ -599,9 +594,7 @@
 						</div>
 					</div>
 					{{/if}}
-
 				</div>
-				
 				<div class="both"></div>
 				{{else if item.type == 3}}
 				<!-- 视频-->
@@ -905,10 +898,11 @@
 			<!-- 跟师课程开始 -->
 			<div class="wrap_vedio_main">
 				<div class="wrap_vedio" style="padding-bottom: 0;" id="master_course">
-					<div class="" style="margin-top1: 0.2rem;">
+					<div class="" style="margin-top1: 0.2rem;" onclick="location.href ='/xcview/html/physician/master_course.html?doctor='+doctorId">
 						<span class="border"></span>
 						<span style="font-size: 0.28rem;float: left;">跟师直播</span>
 						<span class="master_course_span">只有弟子能跟师直播学习</span>
+						<img src="/xcview/images/video_review.png" alt="" class="" style="width: 0.15rem;float: right;margin-top: 0.09rem;" />
 						<div class="both"></div>
 					</div>
 					<ul class="wrap_vedio_btn" id="teacher_hides">
@@ -1058,7 +1052,7 @@
 					<!--appointStatus: 0 -> 可预约 1->预约满 2->我的预约 infoId: 我的预约信息id-->
 					<div class="subscribe_time" data-id="{{item.id}}">{{item.indexDateText}}</div>
 					{{if item.appointStatus == 0}}
-						<div class="subscribe_btn" onclick="order('{{item.id}}')">可预约</div>
+						<div class="subscribe_btn subscribe_btn_{{item.id}}" data-ids="{{item.id}}" onclick="order('{{item.id}}')">预约</div>
 					{{else if item.appointStatus == 1}}
 						<div class="subscribe_btns">预约满</div>
 					{{else if item.appointStatus == 2}}
@@ -1079,6 +1073,7 @@
 					<span class="border"></span>
 					<span style="font-size: 0.28rem;float: left;">跟师直播</span>
 					<span class="master_course_span">只有弟子能跟师直播学习</span>
+					<!-- <img src="/xcview/images/video_review.png" alt="" class="" /> -->
 					<div class="both"></div>
 				</div>
 				<ul class="wrap_vedio_btn" id="teacher_hide">
@@ -1423,21 +1418,21 @@
 <script type="text/JavaScript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 <script src="/xcview/weihoujs/jquery.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
-<script type="text/javascript" src="/xcview/js/common/common.js?v=wechat_1.1.1&version=dfc1cfb838"></script>
-<script type="text/javascript" src="/xcview/js/common/template.js?version=dd622e58c9"></script>    <!--数据模板引入-->
+<script type="text/javascript" src="/xcview/js/common/common.js?v=wechat_1.1.1&version=dfc1cfb838&version=b007cb5668"></script>
+<script type="text/javascript" src="/xcview/js/common/template.js?version=dd622e58c9&version=dd622e58c9"></script>    <!--数据模板引入-->
 
 <!-- 直播课跳转 -->
-<script type="text/javascript" src="/xcview/js/common/commonJumpPlay.js?version=8bcdb81554"></script>
+<script type="text/javascript" src="/xcview/js/common/commonJumpPlay.js?version=8bcdb81554&version=5517f2545d"></script>
 
-<script type="text/javascript" src="/xcview/js/physician/physician_dynamics.js?version=216ff49d88"></script>    <!--全部动态引入-->
+<script type="text/javascript" src="/xcview/js/physician/physician_dynamics.js?version=216ff49d88&version=974b2b1865"></script>    <!--全部动态引入-->
 
-<script type="text/javascript" src="/xcview/html/physician/js/jquery.dotdotdot.js"></script>    <!--全部动态引入-->
+<script type="text/javascript" src="/xcview/html/physician/js/jquery.dotdotdot.js?version=34985f15dd"></script>    <!--全部动态引入-->
 
 
 
-<script type="text/javascript" src="/xcview/js/share/share.js?v=wechat_1.1.1&version=5f659f1e41"></script>
+<script type="text/javascript" src="/xcview/js/share/share.js?v=wechat_1.1.1&version=5f659f1e41&version=6fd323d461"></script>
 <!-- 直播间数据引入 -->
-<script type="text/javascript" src="/xcview/js/physician/broadcastroom.js?version=d41d8cd98f"></script>
+<script type="text/javascript" src="/xcview/js/physician/broadcastroom.js?version=d41d8cd98f&version=d41d8cd98f"></script>
 
 <!-- 导航渐变 -->
 <script>
@@ -1781,15 +1776,8 @@ function header_click(){
     $("body").height(body);
 
 </script>
-<script type="text/javascript" src="/xcview/html/physician/js/amazeui.js"></script>
+<script type="text/javascript" src="/xcview/html/physician/js/amazeui.js?version=5bdfd7fbfe"></script>
 
-
-<script>
-/*window.onload = function(){
-   window.location.reload();
-   //或者
-   window.location.href=window.location.href;
-}*/
-</script>
 </html>
+
 

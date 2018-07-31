@@ -28,6 +28,7 @@ h1, h2, h3, h4, h5, h6 {
 .dataTable > tbody > tr > td {
 	font-size: 12px;
 	white-space:pre;
+	border: 1px solid #f0f0f0 !important;
 }
 #subjectDialog .form-group p{
 	margin-top: 5px;
