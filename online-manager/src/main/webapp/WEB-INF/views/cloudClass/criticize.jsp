@@ -31,7 +31,7 @@
                     <td>
                         <div class="profile-info-value searchTr">
                             <input type="text" placeholder="课程名称/主播名称" class="propertyValue1" id="search_keyword"
-                                   style="width: 150px;">
+                                   style="width: 150px;float: left; margin-right: 5px;">
                             <input type="hidden" value="keyword" class="propertyName"/>
                             <button id="searchBtn" type="button" class="btn btn-sm btn-primary"
                                     onclick="search();">
