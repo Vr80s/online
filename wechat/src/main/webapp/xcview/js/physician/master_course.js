@@ -26,15 +26,15 @@ function createRecentlyLive(recentlyLive,userId,pageNumber,downOrUp){
 
 //跟师直播列表
 function apprenticeList(userId,pageNumber,downOrUp) {
-    requestGetService("/xczh/doctors/doctorCourseType",{userId:userId,type:5,pageNumber:pageNumber,pageSize:5},function (data) {
+    requestGetService("/xczh/doctors/doctorCourseType",{userId:userId,type:5,pageNumber:pageNumber,pageSize:6},function (data) {
         if (data.success == true) {
             //  判断是下拉刷新还是上拉加载
             if(downOrUp=='down'){
                 //判断全部动态默认图
                 if(data.resultObject.length==0){
-                    $(".wrap_vedio_main").show();
-                }else{
                     $(".wrap_vedio_main").hide();
+                }else{
+                    $(".wrap_vedio_main").show();
                     // 跟师直播开始
                     var apprenticeCourses = data.resultObject;
                     for(var i=0;i<apprenticeCourses.length;i++){
@@ -105,43 +105,6 @@ function doctorStatus(pageNumber,downOrUp) {
 doctorStatus(1,'down');
 /*直播间结束*/
 
-// 师承开始
-function apprenticeInfo() {
-    // 在线弟子申请的状态 1->未报名 2->没有审核 3->审核未通过 4->审核已通过 . 值是1与3 去提交信息页面 2与4 去申请信息查看页
-    requestGetService("/xczh/host/doctor/apprentice",{doctorId:doctorId},function (data) {
-        if (data.success == true) {
-            // 招生简章详情
-            // $('.prose_origin_main').html(template('prose_origin_main_id', {items: data.resultObject.regulations}));
-
-            $(".prose_origin_details").click(function(){
-                var id=$(this).attr("data-ids");
-                var tokenStr=$(this).attr("data-tokenStr");
-                location.href ='/xcview/html/apprentice/inherited_introduction.html?merId='+id;
-            });  //    '/xcview/html/physician/physician_list.html?queryKey='+search_val+'&curriculum_blck=2';
-            // 获取判断是否提交申请弟子信息  
-            // 跟师直播--师承
-            if (isBlank(data.resultObject.apprenticeCourses)) {
-                $(".wrap_vedio_main").hide();
-            } else{
-                $(".wrap_vedio_main").show();
-                // 跟师直播开始
-                // 跟师直播开始
-                var apprenticeCourses = data.resultObject.apprenticeCourses;
-                for(var i=0;i<apprenticeCourses.length;i++){
-                    if(apprenticeCourses[i].teaching){
-                        apprenticeCourses[i].teaching=1;
-                    }else{
-                        apprenticeCourses[i].teaching=0;
-                    }
-                }
-            }
-
-        }
-
-    });
-}
-
-apprenticeInfo();  /*师承方法*/
 
 // 0 -> 没有申请过弟子 1-> 弟子申请在审核中 2->已经是弟子但没有参与观看跟师直播权限
 // 点击跟师直播
