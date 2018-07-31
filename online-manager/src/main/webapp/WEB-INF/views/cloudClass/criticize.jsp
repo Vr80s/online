@@ -23,10 +23,8 @@
 </div>
 
 <div class="mainrighttab tabresourse bordernone">
-    <button class="btn btn-sm btn-danger top_bx" title="删除" onclick="deleteCriticizes()">
-        <i class="glyphicon"></i> 删除
-    </button>
-    <div class="searchDivClass" id="searchDiv">
+   
+    <div class="searchDivClass" id="searchDiv" style="margin: 10px 0 18px 0;">
         <div class="profile-info-row">
             <table frame=void>
                 <tr>
@@ -45,6 +43,9 @@
 
             </table>
         </div>
+        <button class="btn btn-sm btn-danger top_bx" title="删除" onclick="deleteCriticizes()">
+        	<i class="glyphicon"></i> 删除
+   		</button>
     </div>
 
     <div class="row">

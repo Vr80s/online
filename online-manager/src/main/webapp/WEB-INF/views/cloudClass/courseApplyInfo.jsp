@@ -44,7 +44,7 @@
         margin-left: -1px;
         margin-bottom: 2px;
         border-radius: 0px 4px 4px 4px;
-        border: solid 1px #ccc;
+        /*border: solid 1px #ccc;*/
         color: #666;
     }
  
@@ -387,7 +387,7 @@
         margin-left: -1px;
         margin-bottom: 2px;
         border-radius: 0px 4px 4px 4px;
-        border: solid 1px #ccc;
+        /*border: solid 1px #ccc;*/
         color: #666;
     }
 

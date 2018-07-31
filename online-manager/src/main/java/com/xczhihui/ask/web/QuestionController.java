@@ -16,7 +16,7 @@ import com.xczhihui.ask.service.QuestionService;
 import com.xczhihui.ask.service.TagService;
 import com.xczhihui.ask.vo.QuestionVo;
 import com.xczhihui.ask.vo.TagVo;
-import com.xczhihui.common.support.cc.util.Md5Encrypt;
+import com.xczhihui.common.util.Md5Encrypt;
 import com.xczhihui.common.util.DateUtil;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.util.bean.ResponseObject;

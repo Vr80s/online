@@ -66,8 +66,8 @@ public class WatchHistoryServiceImpl extends ServiceImpl<WatchHistoryMapper, Wat
             String watch = DateUtil.formatDate(watchHistoryVO.getWatchTime(), DateUtil.FORMAT_DAY_TIME);
             String current = DateUtil.formatDate(new Date(), DateUtil.FORMAT_DAY_TIME);
             String distance = DateDistance.getNewDistanceTime(watch, current);
-            LOGGER.info("watch:" + watch + "========current:" + current);
-            LOGGER.info("distance:" + distance);
+//            LOGGER.info("watch:" + watch + "========current:" + current);
+//            LOGGER.info("distance:" + distance);
             watchHistoryVO.setTimeDifference(distance);
         }
         return page.setRecords(records);

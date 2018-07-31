@@ -40,6 +40,109 @@ requestService("/xczh/bunch/hotSearch",null,
 			if(data.resultObject.defaultSearch!=null&&data.resultObject.defaultSearch.length>0){
 				localStorage.setItem("defaultKey", data.resultObject.defaultSearch[0].name);
 			}
+
+			// 点击搜索按钮
+			$(".header_cancel").click(function(){
+
+				if ($(".div_span_input").html() == "" && $("#header_input").val() == "") {
+				// if ($("#header_input").val() == "" && $(".keyword").html() == "") {
+					jqtoast("请输入搜索关键字");
+				}else{
+					var search_val=$("#header_input").val();
+					if($("#header_input").val() != ""){
+						$(".header_seek_main").css("display","none");
+						//头部input搜索框开始
+							initHistoryList();
+	                        var keyValue = $('#header_input').val();
+	                        //判断该记录是否已存在
+							if($.inArray(keyValue, arr)!=-1){
+	                            removeByValue(arr, keyValue);
+	                            arr.unshift($('#header_input').val());
+	                            localStorage.setItem(hisArr,arr);
+	                            window.location.href="../html/curriculum_table.html?queryKey="+search_val+"&curriculum_blck=2";
+							}else{
+	                            arr.unshift($('#header_input').val())
+	                            localStorage.setItem(hisArr,arr);
+	                            window.location.href="../html/curriculum_table.html?queryKey="+search_val+"&curriculum_blck=2";
+							}
+					}else{
+						var keyword = $(".keyword").html();
+						search_val = keyword;
+						// $(".header_seek_main").css("display","block");
+						$(".header_seek_main").css("display","none");
+						//头部input搜索框开始
+						initHistoryList();
+                        var keyValue = $('#header_input').val();
+                        //判断该记录是否已存在
+						if($.inArray(keyValue, arr)!=-1){
+                            removeByValue(arr, keyValue);
+                            arr.unshift($('#header_input').val());
+                            localStorage.setItem(hisArr,arr);
+                            window.location.href="../html/curriculum_table.html?queryKey="+search_val+"&curriculum_blck=2";
+						}else{
+                            arr.unshift($('#header_input').val())
+                            localStorage.setItem(hisArr,arr);
+                            window.location.href="../html/curriculum_table.html?queryKey="+search_val+"&curriculum_blck=2";
+						}
+					};
+				};
+				});
+
+			//      点击yinput  失去焦点隐藏默认值
+	        $("#header_input").keyup(function(){
+	        	if ($(".div_span_input").html() == "" && $("#header_input").val() == ""){
+	        		jqtoast("请输入搜索关键字");
+	        	}else{
+	        		var search_val=$(this).val()
+					if($("#header_input").val() != ""){
+						$(".header_seek_main").css("display","none");
+						
+						//头部input搜索框开始
+						document.onkeyup=function(event){
+							initHistoryList();
+					        var e = event || window.event || arguments.callee.caller.arguments[0];          
+					        if(e && e.keyCode==13){ // enter 键
+		                        var keyValue = $('#header_input').val();
+		                        //判断该记录是否已存在
+								if($.inArray(keyValue, arr)!=-1){
+		                            removeByValue(arr, keyValue);
+		                            arr.unshift($('#header_input').val());
+		                            localStorage.setItem(hisArr,arr);
+		                            window.location.href="../html/curriculum_table.html?queryKey="+search_val+"&curriculum_blck=2";
+								}else{
+		                            arr.unshift($('#header_input').val())
+		                            localStorage.setItem(hisArr,arr);
+		                            window.location.href="../html/curriculum_table.html?queryKey="+search_val+"&curriculum_blck=2";
+								}
+					        } 
+					   }; 
+					}else{
+						var keyword = $(".keyword").html();
+						search_val = keyword;
+						// $(".header_seek_main").css("display","block");
+						$(".header_seek_main").css("display","none");
+						//头部input搜索框开始
+						initHistoryList();
+                        var keyValue = $('#header_input').val();
+                        //判断该记录是否已存在
+						if($.inArray(keyValue, arr)!=-1){
+                            removeByValue(arr, keyValue);
+                            arr.unshift($('#header_input').val());
+                            localStorage.setItem(hisArr,arr);
+                            window.location.href="../html/curriculum_table.html?queryKey="+search_val+"&curriculum_blck=2";
+						}else{
+                            arr.unshift($('#header_input').val())
+                            localStorage.setItem(hisArr,arr);
+                            window.location.href="../html/curriculum_table.html?queryKey="+search_val+"&curriculum_blck=2";
+						}
+					};
+	        	}
+
+				
+			});
+
+
+
 // 	    	localStorage.setItem("defaultKey", data.resultObject.defaultSearch);
  	    	
 		}
