@@ -22,9 +22,7 @@
 <!-- 轮播 -->
 <script type="text/javascript" src="/xcview/js/common/jquery.min-2.1.1.js"></script>
 
-<!--刷新 -->
-<link rel="stylesheet" href="/xcview/css/minirefresh/minirefresh.css">
-<script type="text/javascript" src="/xcview/js/minirefresh/minirefresh.js"></script>
+
 
 <style>
 	header {
@@ -40,9 +38,9 @@
 	    /* margin: 0 auto; */
 	    margin-left: -3.75rem;
 	}
-	.header {
+	/* .header {
 	    height: 100%;
-	}
+	} */
 	.header_return {
 	    width: 1.24rem;
 	    height: 0.88rem;
@@ -69,6 +67,12 @@
 	    text-align: center;
 	    color: #333;
 	}
+	.wrap_vedio_main{
+		display: none;
+	}
+	.learn_tips_part{
+		z-index: 9;
+	}
 
 </style>
 
@@ -91,7 +95,7 @@
 	<!-- 中间内容开始 -->
 	<div class="wrap_vedio_main">
 		<div class="wrap_vedio" style="padding-bottom: 0;" id="master_course">
-			<ul class="wrap_vedio_btn" id="teacher_hides" style="margin-top: 0;">			<script type="text/html" id="teacher_hide_ids">
+			<ul class="wrap_vedio_btn" id="teacher_hides" style="margin-top: 0;">	 <script type="text/html" id="teacher_hide_ids">
 				{{each items as item i}}			
 					<li style="position: relative;">
 				       <a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" onclick="jumpTeachingCourse({{item.id}},{{item.teaching}})"></a>

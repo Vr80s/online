@@ -898,7 +898,7 @@
 			<!-- 跟师课程开始 -->
 			<div class="wrap_vedio_main">
 				<div class="wrap_vedio" style="padding-bottom: 0;" id="master_course">
-					<div class="" style="margin-top1: 0.2rem;" onclick="location.href ='/xcview/html/physician/master_course.html'">
+					<div class="" style="margin-top1: 0.2rem;" onclick="location.href ='/xcview/html/physician/master_course.html?doctor='+doctorId">
 						<span class="border"></span>
 						<span style="font-size: 0.28rem;float: left;">跟师直播</span>
 						<span class="master_course_span">只有弟子能跟师直播学习</span>
@@ -1051,7 +1051,7 @@
 					<!--appointStatus: 0 -> 可预约 1->预约满 2->我的预约 infoId: 我的预约信息id-->
 					<div class="subscribe_time" data-id="{{item.id}}">{{item.indexDateText}}</div>
 					{{if item.appointStatus == 0}}
-						<div class="subscribe_btn" onclick="order('{{item.id}}')">可预约</div>
+						<div class="subscribe_btn" onclick="order('{{item.id}}')">预约</div>
 					{{else if item.appointStatus == 1}}
 						<div class="subscribe_btns">预约满</div>
 					{{else if item.appointStatus == 2}}
