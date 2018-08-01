@@ -53,12 +53,10 @@ function elsBind(){
         window.chat.on(function(msg){
             //在此收到聊天消息，消息内容为msg
             if (msg){
-                var str = "<div class='coze_cen_ri'> "+
-                            "<div class='coze_cen_bg_ri'>"+
-                                "<span class='span_name'>"+msg.nick_name+"：</span>"+msg.data+""+
-                            " </div> "+
-                        "<div class='both'></div></div>";
-                $("#chatmsg").append(str);  
+            	var str = chatLoad(msg);
+            	if(str!=""){
+            	 $("#chatmsg").append(str);  
+            	}
             }
             $("#mywords").val('');
         });
@@ -79,30 +77,7 @@ function elsBind(){
          */
         window.chat.join(function(msg){
         	
-        	
-        	var userName = msg.nick_name;
-            var content = "进入直播间";
-    
-            console.log("参与人数："+msg.data.connection_online_num);
-            console.log("当前在线人数："+msg.data.user_online_num);
-            
-            var str = "<div class='coze_cen_ri'> "+
-            "  <div class='coze_cen_bg_ri'> "+
-            "<span class='span_name'>"+userName+"：</span>"+   //用户名
-            "   "+content+"  "+
-            " </div> "+
-            " <div class='both'></div></div>";
-            $("#chatmsg").append(str);
-            $(".chatmsg-box").mCustomScrollbar('update').mCustomScrollbar("scrollTop","bottom");
-            
-            
-            var learndCount =  sessionStorage.getItem("learndCount");
-            if(isNotBlank(learndCount) && isNotBlank(msg.data.attend_count)){
-                learndCount = parseInt(learndCount) + parseInt(msg.data.attend_count);
-            }
-            $(".details_size span:eq(0)").html(learndCount);
-        	
-        	
+        	viewJoinleaveRoomInfo(msg,"join");
         })
         
         /**
@@ -110,28 +85,7 @@ function elsBind(){
          */
         window.chat.leave(function(msg){
         	
-            var userName = msg.nick_name;
-            var content = "退出直播间";
-            
-            console.log("参与人数："+msg.data.connection_online_num);
-            console.log("当前在线人数："+msg.data.user_online_num);
-            
-            var str = "<div class='coze_cen_ri'> "+
-                "  <div class='coze_cen_bg_ri'> "+
-                "<span class='span_name'>"+userName+"：</span>"+   //用户名
-                "   "+content+"  "+
-                " </div> "+
-                " <div class='both'></div></div>";
-            $("#chatmsg").append(str);
-            $(".chatmsg-box").mCustomScrollbar('update').mCustomScrollbar("scrollTop","bottom");
-            console.log(msg);
-            
-            //赋值学习人数
-            var learndCount =  sessionStorage.getItem("learndCount");
-            if(isNotBlank(learndCount) && isNotBlank(msg.data.connection_online_num)){
-                learndCount = parseInt(learndCount) + parseInt(msg.data.connection_online_num);
-            }
-            $(".details_size span:eq(0)").html(learndCount);
+            viewJoinleaveRoomInfo(msg,"leave");
         })
     }
 
@@ -157,9 +111,14 @@ function elsBind(){
         $(".coze_bottom").css("bottom", "0rem");  //这是输入框在最底部,添加到其他文件不起作用
         var text = $("#mywords").val();
         if(text!=null){
-        	
-          window.chat.emit(text);
-        
+          var content = {
+            type:1,                 //消息类型     1 聊天消息
+            content:text,   //发送的内容
+            headImg:localStorage.getItem("smallHeadPhoto"),       //发送的头像
+            username:localStorage.getItem("name"),     //发送的用户名
+            role:"normal"           //发送人的角色    主播： host   普通用户： normal
+          }	
+          window.chat.emit(JSON.stringify(content));
         }
     });
 }
@@ -172,14 +131,6 @@ elsBind();
  * @param {} limit 每页多少条
  */
 function msgList(pos,limit){
-	
-//	channel_id string  是   频道ID
-//  type    int 否   查询类型 ，1 聊天列表（ 默认），2 自定义聊天列表
-//  pos    int 否   获取条目节点，默认为 0。eg : 10 从第10条开始查询
-//  limit   int 否   获取条目数量，默认为 10 条，最大为1000条
-//  start_time  date    是   查询开始时间，格式为：2017/01/01
-//  end_time    date    否   查询结束时间，默认为当前时间，格式为：2017/01/01
-	
 	
   var num = (pos - 1) * limit;
   num = num < 0 ? 0 : num;	
@@ -201,28 +152,75 @@ function msgList(pos,limit){
         	 var e = "";
              for (var i = res.data.length - 1; i >= 0; i--) {
                     var item = res.data[i];
-                    var userName = item.data;
-                    if(isNotBlank(item.role) &&  item.role == "host"){ //说明是主播
-                        var hostName = sessionStorage.getItem("hostName");
-                        userName = "<span class='span_zhubo'>主播</span>"+ (isNotBlank(hostName) ?  hostName : "");
-                    }
-                     e += "<div class='coze_cen_ri'> "+
-                    "  <div class='coze_cen_bg_ri'> "+
-                    "<span class='span_name'>"+userName+"：</span>"+   //用户名
-                    "   "+item.content+"  "+
-                    " </div> "+
-                    " <div class='both'></div></div>";
-             }	
-             $("#chatmsg").html(e);
+                    e+=chatLoad(item);
+             }
+             if(e!=""){
+             	 $("#chatmsg").html(e);
+             }
         } 	
   });      	
 }
-msgList();
-
+msgList(0,10);
 
 /**
- * 
+ * 进入或退出直播间
+ * @param {} msg
+ * @param {} joinOrLeave
  */
+function viewJoinleaveRoomInfo(msg,joinOrLeave){
+            
+    var userName = msg.nick_name;
+    
+    var content = "进入直播间";
+    if(joinOrLeave == "join"){
+        content = "进入直播间";
+    }else if(joinOrLeave == "leave"){
+        content = "退出直播间";
+    }
+    console.log("参与人数："+msg.data.connection_online_num);
+    console.log("当前在线人数："+msg.data.user_online_num);
+    var str = "<div class='coze_cen_ri'> "+
+        "  <div class='coze_cen_bg_ri'> "+
+        "<span class='span_name'>"+userName+"：</span>"+   //用户名
+        "   "+content+"  "+
+        " </div> "+
+        " <div class='both'></div></div>";
+        
+    $("#chatmsg").append(str);
+    $(".chatmsg-box").mCustomScrollbar('update').mCustomScrollbar("scrollTop","bottom");
+    
+    
+    var learndCount =  sessionStorage.getItem("learndCount");
+    if(isNotBlank(learndCount) && isNotBlank(msg.data.attend_count)){
+        learndCount = parseInt(learndCount) + parseInt(msg.data.attend_count);
+    }
+    $(".details_size span:eq(0)").html(learndCount);
+}
 
+/**
+ * 聊天消息渲染
+ * @param {} item
+ * @return {}
+ */
+function chatLoad(item){
+	
+	try{
+        var contentObj =  JSON.parse(item.data);
+        var userName = contentObj.username;
+        if(isNotBlank(contentObj.role) &&  contentObj.role == "host"){ //说明是主播
+            userName = "<span class='span_zhubo'>主播</span>"+ userName ;
+        }
+        var htmlStr =  "<div class='coze_cen_ri'> "+
+            "  <div class='coze_cen_bg_ri'> "+
+            "<span class='span_name'>"+userName+"：</span>"+   //用户名
+            "   "+contentObj.content+"  "+
+            " </div> "+
+            " <div class='both'></div></div>";
+        return htmlStr;
+	}catch(err){
+	   console.error(err);
+	    return "";
+	}
+}
 
   

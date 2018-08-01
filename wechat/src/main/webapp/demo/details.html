@@ -291,6 +291,28 @@ $(function(){
     opacity: 1;
 }
 
+/* 新加文档 */
+.pinch-zoom-container{
+    min-height: 4rem !important;
+    /* background: red; */
+}
+.pinch-zoom-container-addclass{
+    display: block !important;
+}
+.document_ceneter{
+    width:100% !important;
+    height: 100% !important;
+}
+.document_ceneter img{
+    width:100% !important;
+    height: 100% !important;
+}
+.document_ceneter div{
+    width:100% !important;
+    height: 100% !important;
+}
+/* 新加文档 */
+
 </style>
 </head>
 <body style="background: #f8f8f8;overflow: hidden1;">
@@ -394,7 +416,7 @@ $(function(){
                     <li><span class="li1">聊天</span></li>
                     <li><span class="li3">排行榜</span></li>
                     <li class="click_li"><span class="li2">主讲人</span></li>
-                    <li><span class="li4">课件</span></li> 
+                    <li class="click_li_four"><span class="li4">课件</span></li> 
                 </ul>
             </div>
         </div>
@@ -749,7 +771,6 @@ $(function(){
 <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-live-1.0.0.js?v=201806271657"></script>
 <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-base-1.0.0.js?v=201806271657"></script>
 
-
 <script src="/demo/js/vhallyun.js"></script>
 
 <script type="text/javascript" src="/xcview/js/details_change.js"></script>
@@ -759,7 +780,9 @@ $(function(){
 
 <script type="text/javascript">
     window.onload = function(){
-
+        /* 默认点击图片 */
+    	$(".document_ceneter img").click();
+    	
         $(".video_end_top1 .div img").click(function(){
             location.reload();
             $(".video_end_top1").hide();
@@ -767,13 +790,13 @@ $(function(){
 
         $("body").scrollTop($("body").scrollHeight);
         $(".chatmsg-box").scrollTop($(".chatmsg-box")[0].scrollHeight);
-        $(".mCSB_dragger").scrollTop($(".mCSB_dragger")[0].scrollHeight);
+        /* $(".mCSB_dragger").scrollTop($(".mCSB_dragger")[0].scrollHeight); */
         $(".coze").scrollTop($(".coze")[0].scrollHeight);
         $(".coze_center").scrollTop($(".coze_center")[0].scrollHeight);
-        $(".mCSB_container").scrollTop($(".mCSB_container")[0].scrollHeight);
+        /* $(".mCSB_container").scrollTop($(".mCSB_container")[0].scrollHeight); */
         /*$(".mCSB_container").css("top","0");
         $(".mCSB_container").css("bottom","0");*/
-        $(".mCSB_dragger_bar").scrollTop($(".mCSB_dragger_bar")[0].scrollHeight);
+        /* $(".mCSB_dragger_bar").scrollTop($(".mCSB_dragger_bar")[0].scrollHeight); */
 
 
         $(".chatmsg-box").scroll(function(){  
@@ -825,11 +848,21 @@ $(function(){
         });
 
         $(".li4").click(function(){
-            // 课件获取高度
+            /* alert(111111); */
+        	// 课件获取高度
+            $(".pinch-zoom-container").addClass("pinch-zoom-container-addclass");
             var school_height=$(window).height()-$(".details_cen1").height();
             $(".pinch-zoom-container").height(school_height);
 
             $("#doc").addClass("img_doc");
+        });
+        
+        
+        
+        $(".click_li_four").click(function(){
+            /* alert(111111); */
+            // 课件获取高度
+            $(".pinch-zoom-container").addClass("pinch-zoom-container-addclass");
         });
 
         $("#doc img").click(function(){
