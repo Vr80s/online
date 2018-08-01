@@ -145,3 +145,17 @@ dev-2.3
     update oe_user set origin = 4,  visitor = 1 where origin = 'apple_yk';
 
     update oe_user set origin = -1 where origin is null;
+
+
+dev-2.4
+==
+
+    CREATE TABLE `oe_user_document` (
+      `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+      `user_id` varchar(32) NOT NULL DEFAULT '' COMMENT '用户id',
+      `document_id` varchar(32) NOT NULL DEFAULT '' COMMENT '文档id',
+      `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+      `document_name` varchar(500) DEFAULT NULL COMMENT '文档名称',
+      PRIMARY KEY (`id`),
+      UNIQUE KEY `unique_index` (`user_id`,`document_id`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

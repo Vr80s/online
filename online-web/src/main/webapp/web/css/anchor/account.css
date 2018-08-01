@@ -497,15 +497,17 @@
     margin-right: 20px;
     margin-bottom: 20px;
     color: #333333;
+    width: 670px;
+    word-wrap: break-word;
 }
 
-.personal_details .name .two {
+/*.personal_details .name .two {
     text-align: left;
     float: left;
     margin-right: 20px;
     margin-bottom: 20px;
     color: #333333;
-}
+}*/
 #detail img{
 	max-width: 200px;
 }

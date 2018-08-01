@@ -1,7 +1,9 @@
 package com.xczhihui.medical.anchor.service;
 
+import java.util.List;
 import java.util.Map;
 
+import com.xczhihui.medical.anchor.model.UserDocument;
 import com.xczhihui.medical.anchor.vo.CourseAnchorVO;
 
 /**
@@ -45,4 +47,21 @@ public interface IAnchorInfoService {
      * @return
      */
     Map<String, Object> anchorPermissionStatusByDoctorId(String DoctorId);
+
+    /**
+     * 添加用户与文档之间的关系
+     *
+     * @param userId       用户id
+     * @param documentId   文档id
+     * @param documentName 文档名称
+     */
+    void addDocument(String userId, String documentId, String documentName);
+
+    /**
+     * 主播关联的文档列表
+     *
+     * @param userId userId
+     * @return
+     */
+    List<UserDocument> listDocument(String userId);
 }
