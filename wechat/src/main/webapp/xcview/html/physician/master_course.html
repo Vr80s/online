@@ -108,6 +108,9 @@
 	.minirefresh-scroll{
 		background: none;
 	}
+	.more_people{
+		display: none;
+	}
 
 </style>
 
@@ -155,15 +158,17 @@
 							{{/if}}
 
 							<!--当天-->
-							<p class="more_people z">
+							<p class="more_people z time_z">
 								<img src="/xcview/images/Sinatv_time.png">
 								<span class="more_people_time">{{item.startTime.slice(11,16)}}</span>
+								<span class="more_people_times" style="opacity: 0;">{{item.startTime.slice(8,10)}}</span>
 							</p>
 
+
 							<!--之前，之后-->
-							<p class="more_people z" style="display: none;">
+							<p class="more_people z date_z">
 								<img src="/xcview/images/learn.png">
-								<span class="more_people_time">{{item.startTime.slice(5,11)}}</span>
+								<span class="more_people_time more_peoples_times">{{item.startTime.slice(5,11)}}</span>
 							</p>
 						</div>
 					</li>

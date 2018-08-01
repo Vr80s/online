@@ -3,38 +3,6 @@
 <link href="/css/jquery-ui-timepicker-addon.css" type="text/css" />	
 <link href="/js/layer/skin/layer.css" type="text/css" />	
 <style type="text/css">
-    .vertical-tab {
-        width: 8%;
-        height: 100%;
-        float: left;
-        /* overflow: hidden; */
-    }
- 
-    .vertical-tab > li {
-        text-align: center;
-    }
-    
-/*  	.vertical-tab > li > a {
-        border: solid #ccc;
-        border-width: 1px 1px 1px 1px;
-        background-color: #ffffff; 
-         border-right: 1px solid #ffffff; 
-        border-right: 1px solid #ccc;
-        z-index: 2;
-    } */
-    
-    .vertical-tab > li.active > a, .vertical-tab > li.active > a:focus, .vertical-tab > li.active > a:hover {
-        border: solid #ccc;
-        border-width: 1px 1px 1px 1px;
-        background-color: #ffffff;
-        border-right: 1px solid #ffffff;
-        z-index: 2;
-    }
- 
-    .vertical-tab > li > a {
-         /* border-radius: 4px 4px 4px 4px; */
-         border-radius: 4px 0px 0px 4px; 
-    }
  
     .vertical-tab-content {
         float: left;
@@ -43,7 +11,7 @@
         margin-left: -1px;
         margin-bottom: 2px;
         border-radius: 0px 4px 4px 4px;
-        border: solid 1px #ccc;
+
         color: #666;
     }
  
@@ -173,7 +141,7 @@
 			                    </td>
 								<td>
 			                       <div class="profile-info-value searchTr">
-			                            <select name="search_status" id="search_status" value="" class="propertyValue1" >
+			                            <select name="search_status" id="search_status" value="" class="propertyValue1" style="margin-right: 3px;" >
 						               		<option value="">状态</option>
 						                        <option value="0">已禁用</option>
 						                        <option value="1">已启用</option>
@@ -304,7 +272,7 @@
 						<input type="file" name="smallImgPath_file" id="smallImgPath_file" class="uploadImg"/>
 					</div>
 					<input name="smallimgPath" id="teacherImgPath" value="" type="hidden" class="{required:true}" style="position: absolute; opacity: 0; filter:Alpha(opacity=0);">
-	           		<div style="position:absolute;bottom:5px;padding:0px;margin:0px;margin-left: 115px;">尺寸限制50*50</div>
+	           		<div style="position:absolute;bottom:35px;padding:0px;margin:0px;margin-left: 115px;color: #868686;">尺寸限制50*50</div>
 	            </div>
 			</div>
 	        

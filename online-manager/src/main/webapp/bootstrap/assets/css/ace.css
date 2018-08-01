@@ -19533,3 +19533,6 @@ input.typeahead.scrollable ~ .tt-dropdown-menu {
 		background-color: #3c8dbc !important;
     border-color: #3c8dbc;
 	}
+	#saveBtn:hover{
+		background-color: #00c0ef !important;
+	}

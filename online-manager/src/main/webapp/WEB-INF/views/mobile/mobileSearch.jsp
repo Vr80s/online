@@ -489,8 +489,12 @@
 		<div class="form-group"  style="margin-top: 18px;" >
 			 <label class="col-sm-3 control-label no-padding-right" for="description"><font color="red">*</font>搜索关键字: </label>
 			 <div class="col-sm-6">
-			 		<input type="text" name="name"  id="add_description" maxlength="50" class="col-xs-10 col-sm-12 {required:true}">
+			 		<input type="text" name="name"  id="add_description" value="大家都在搜：" maxlength="50" class="col-xs-10 col-sm-12 {required:true}">
              </div>
+
+		</div>
+		<div class="form-group">
+			<label class="col-sm-5 control-label no-padding-right" style="color: red"><font color="red">*</font>搜索框关键字只能填写一个 </label>
 		</div>
 
 		<input type="hidden" name="searchType" id="addMobileSearch" >

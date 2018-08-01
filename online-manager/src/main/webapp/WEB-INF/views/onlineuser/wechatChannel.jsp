@@ -43,7 +43,7 @@
         margin-left: -1px;
         margin-bottom: 2px;
         border-radius: 0px 4px 4px 4px;
-        border: solid 1px #ccc;
+
         color: #666;
     }
  
@@ -404,9 +404,9 @@
 			class="paddingtop7px padding7;">自定义二维码可通过第三方二维码生成器进行生产。将自定义二维码连接生产二维码 </p></div>
 		 </div>
 		 
-		  <div class="form-group" style="margin-left: 20%;text-align: left;margin-top: 5px;">
+		  <div class="form-group" style="margin-left: 26%;text-align: left;margin-top: 5px;">
 			 <a href="https://cli.im/" title="草料二维码生成器" 
-			 style="color: blue;text-decoration: underline;" target="_blank">草料二维码生成器</a>
+			 style="color: blue;text-decoration: underline;color: #00c0ef;" target="_blank">草料二维码生成器</a>
 		 </div>
 		 
 		</form>
