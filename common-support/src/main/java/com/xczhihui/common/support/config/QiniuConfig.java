@@ -14,7 +14,7 @@ import com.qiniu.util.Auth;
 @Configuration
 public class QiniuConfig {
 
-    @Value("${qiniu.accessKey}")
+    @Value("${qiniu.accessKey}") 
     private String accessKey;
     @Value("${qiniu.secretKey}")
     private String secretKey;

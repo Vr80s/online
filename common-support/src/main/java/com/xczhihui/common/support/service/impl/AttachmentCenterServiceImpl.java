@@ -1,6 +1,12 @@
 package com.xczhihui.common.support.service.impl;
 
+import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Date;
 
 import org.apache.commons.lang3.time.DateFormatUtils;
@@ -12,8 +18,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import com.jayway.jsonpath.internal.Path;
+import com.qiniu.common.Zone;
 import com.qiniu.http.Response;
 import com.qiniu.storage.UploadManager;
+import com.qiniu.streaming.StreamingManager;
 import com.qiniu.util.Auth;
 import com.qiniu.util.StringMap;
 import com.xczhihui.common.support.dao.SimpleHibernateDao;
@@ -73,6 +82,10 @@ public class AttachmentCenterServiceImpl implements AttachmentCenterService {
         }
         return JsonUtil.getBaseGson().toJson(attachment);
     }
+    
+    
+    
+    
 
     /**
      * 上传附件
@@ -120,6 +133,10 @@ public class AttachmentCenterServiceImpl implements AttachmentCenterService {
         return attachment;
     }
 
+    
+    
+    
+    
     /**
      * 上传文件到七牛，返回url
      *
@@ -134,6 +151,76 @@ public class AttachmentCenterServiceImpl implements AttachmentCenterService {
         return (String) result.get("url");
     }
 
+    
+    
+    public static void main(String[] args) {
+        
+        
+        String url = "http://cnstatic01.e.vhall.com/static/img/arclist/Expression_1@2x.png";
+        String fileName =  url.substring(url.lastIndexOf("/")+1,url.length());
+        
+        System.out.println(fileName);
+        
+        String filePath = "static/img/" + fileName;
+        
+        downloadPicture(url,filePath);
+    }
+    
+    
+    //链接url下载图片
+    private static void downloadPicture(String urlList,String fileName) {
+        
+        URL url = null;
+        try {
+            url = new URL(urlList);
+            DataInputStream dataInputStream = new DataInputStream(url.openStream());
+            String imageName =  "C:\\Users\\yangxuan\\Desktop\\VhallImg\\"+fileName;
+            FileOutputStream fileOutputStream = new FileOutputStream(new File(imageName));
+            
+            ByteArrayOutputStream output = new ByteArrayOutputStream();
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = dataInputStream.read(buffer)) > 0) {
+                output.write(buffer, 0, length);
+            }
+            byte[] context=output.toByteArray();
+            
+            //写文件到本地 
+            fileOutputStream.write(context);
+            
+            /**
+             * 得到token
+             */
+            Auth autn =  Auth.create("Mc0SU4FEXmVBM33XZSxdSP2W496ntL9kDMjy3Dwi", "kpbCbnuuKFw3vWLbF5DhavDy08Jvsmyd83hgBZ9B");
+            String token = autn.uploadToken("ipandatcm", null, 3600, new StringMap()
+                    .put("returnBody", "{\"url\": $(key), \"w\": $(imageInfo.width), \"h\": $(imageInfo.height)}"));
+            
+            
+            /**
+             * 上传服务器
+             */
+            com.qiniu.storage.Configuration cfg = new com.qiniu.storage.Configuration(Zone.zone2());
+            UploadManager um  =  new UploadManager(cfg);
+            
+            
+            //上传到七牛服务器上
+            Response response = um.put(context, fileName, token);
+            StringMap result = response.jsonToMap();
+            
+            System.out.println("七牛云图片地址："+(String) result.get("url"));
+            
+            dataInputStream.close();
+            fileOutputStream.close();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    
+    
+    
     /**
      * 获取上传token
      *

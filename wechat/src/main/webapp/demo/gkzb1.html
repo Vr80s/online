@@ -375,6 +375,29 @@
               }
           });
 
+          /**
+           * 初始化聊天对象ch_fc6f51f4
+           */
+          window.chat = new VhallChat({
+             channelId:'ch_fc6f51f4'//频道Id，必填
+          });
+          
+          
+          /**
+           * 某某进入直播间
+           */
+          window.chat.join(function(msg){
+              console.log(msg);
+          })
+          
+          /**
+           * 某某离开直播间
+           */
+          window.chat.leave(function(msg){
+             console.log(msg);
+          })
+          
+          
       });
 
       Vhall.config({

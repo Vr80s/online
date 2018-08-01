@@ -71,13 +71,15 @@ public class VhallVideoController {
     }
     
     
-    
-    
     @RequestMapping("vhallYunMessageList")
     @ResponseBody
     public ResponseObject getMessageList(
             VhallMessageParamsVo vmpv) throws Exception {
        
+        /**
+         * 需要根据用户id查看用户
+         */
+        
         return ResponseObject.newSuccessResponseObject(MessageService.getMessageList(vmpv));
     }
     

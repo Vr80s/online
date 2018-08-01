@@ -1,18 +1,14 @@
 
 
 
-
-
 function chZJ(videoId){
    return;
 }
 
 var course_id = getQueryString("courseId");
 
-
-//新的token啦：频道id：ch_fc6f51f4    ，   token access:27376e92:07a2aa77f97a36e0
-
-//access:27376e92:07a2aa77f97a36e0
+//新的token啦：频道id：ch_fc6f51f4    ，   token access:27376e92:798807b652f03baf
+//access:27376e92:798807b652f03baf
 /**
  * 
  */
@@ -20,12 +16,11 @@ var obj = {
     roomId:"lss_ad04fdfe",
     appId:"27376e92",
     accountId:"test_jssdk",
-    token:"access:27376e92:07a2aa77f97a36e0",
+    token:"access:27376e92:798807b652f03baf",
     channelId:'ch_fc6f51f4'
 }
 
   
- 
 function elsBind(){
 
     window.doc = {};
@@ -39,13 +34,11 @@ function elsBind(){
         // width:$('#ipt-width').val(),
         // height:$('#ipt-height').val()
       });
-
+      
         /**
          * 初始化聊天对象
          */
         window.chat = new VhallChat({
-           appId :obj.appId,//应用 ID ,必填
-           token:obj.token,//token必填
            channelId:'ch_fc6f51f4'//频道Id，必填
         });
 
@@ -54,16 +47,46 @@ function elsBind(){
          */
         window.chat.on(function(msg){
             //在此收到聊天消息，消息内容为msg
-            //todo
-            var msgBox = document.getElementById('msg-box');
-            var span = document.createElement('span');
-            span.innerText = msg.data;
-            msgBox.appendChild(span);
+            if (msg){
+                var str = "<div class='coze_cen_ri'> "+
+                            "<div class='coze_cen_bg_ri'>"+
+                                "<span class='span_name'>"+msg.nick_name+"：</span>"+msg.data+""+
+                            " </div> "+
+                        "<div class='both'></div></div>";
+                $("#chatmsg").append(str);  
+            }
+            $("#mywords").val('');
         });
+        
+        /**
+         * 监听自定义消息
+         */
+        window.chat.onCustomMsg(function(msg){
+        	msg = JSON.parse(msg);
+        	/**
+        	 * 接受到的消息
+        	 */ 
+        	createGiftList(msg);
+        })
+        
+        /**
+         * 某某进入直播间
+         */
+        window.chat.join(function(msg){
+            console.log(msg);
+        })
+        
+        /**
+         * 某某离开直播间
+         */
+        window.chat.leave(function(msg){
+           	
+        	
+           console.log(msg);
+        })
     }
 
     window.Vhall.ready(readyCallback);
-    
     
     
     window.Vhall.config({
@@ -85,20 +108,28 @@ function elsBind(){
           });
      },1000);
       
-      
+    /**
+     * 发送聊天消息
+     */  
     $("#sendChat").click(function() {
         $(".coze_bottom").css("bottom", "0rem");  //这是输入框在最底部,添加到其他文件不起作用
         var text = $("#mywords").val();
         if(text!=null){
+        	
           window.chat.emit(text);
+        
         }
     });
 }
 //初始化    
 elsBind();
 
-
-function msgList(){
+/**
+ * 获取消息列表
+ * @param {} pos   第几页
+ * @param {} limit 每页多少条
+ */
+function msgList(pos,limit){
 	
 //	channel_id string  是   频道ID
 //  type    int 否   查询类型 ，1 聊天列表（ 默认），2 自定义聊天列表
@@ -106,33 +137,61 @@ function msgList(){
 //  limit   int 否   获取条目数量，默认为 10 条，最大为1000条
 //  start_time  date    是   查询开始时间，格式为：2017/01/01
 //  end_time    date    否   查询结束时间，默认为当前时间，格式为：2017/01/01
+	
+	
+  var num = (pos - 1) * limit;
+  num = num < 0 ? 0 : num;	
+ 	
   var params = {
     channel_id:obj.channelId,
     type:1,
-    pos:0,
-    limit:0,
+    pos:num,
+    limit:limit,
     start_time:"2017/01/01"
   }
-	
-  $.ajax({
-        url: "//api.yun.vhall.com/api/v1/channel/get-message-list",
-        type: "get",
-        dataType: "jsonp",
-        jsonp: "callback",
-        data: params,
-        success: function(e) {
-           
-        	alert("哈哈");
-        },
-        error: function(e) {
-            r.trigger("sendSign", {
-                code: 20005,
-                msg: "接口请求失败"
-            })
-        }
-  })
+  /**
+   * 获取列表啦
+   */ 
+  requestService("/xczh/vhall/vhallYunMessageList",params,
+        function(data) {
+        if (data.success && data.resultObject.code == 200) {
+        	 var res = data.resultObject;
+        	 var e = "";
+             for (var i = res.data.length - 1; i >= 0; i--) {
+                    var item = res.data[i];
+                    var userName = item.data;
+                    
+//data
+//:
+//"大萨达撒"
+//date_time
+//:
+//"2018-08-01 14:47:29"
+//third_party_user_id
+//:
+//"test_jssdk"
+                    
+                    if(isNotBlank(item.role) &&  item.role == "host"){ //说明是主播
+                        var hostName = sessionStorage.getItem("hostName");
+                        userName = "<span class='span_zhubo'>主播</span>"+ (isNotBlank(hostName) ?  hostName : "");
+                    }
+                     e += "<div class='coze_cen_ri'> "+
+                    "  <div class='coze_cen_bg_ri'> "+
+                    "<span class='span_name'>"+userName+"：</span>"+   //用户名
+                    "   "+item.content+"  "+
+                    " </div> "+
+                    " <div class='both'></div></div>";
+             }	
+             $("#chatmsg").html(e);
+        } 	
+  });      	
 }
-
 msgList();
+
+
+/**
+ * 
+ */
+
 
   
