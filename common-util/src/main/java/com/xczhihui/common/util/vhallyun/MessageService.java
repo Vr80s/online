@@ -19,7 +19,7 @@ public class MessageService {
 //    end_time    date    否   查询结束时间，默认为当前时间，格式为：2017/01/01
     
     @SuppressWarnings("unchecked")
-    private static Object getMessageList(VhallMessageParamsVo vmpv) throws Exception{
+    public static Object getMessageList(VhallMessageParamsVo vmpv) throws Exception{
         
         HashMap<String, String> params = vmpv.bulidMap();
         params = VhallUtil.createRealParam(params);
@@ -28,7 +28,7 @@ public class MessageService {
         return JSON.parse(result);
     }
     
-    private static Object sendMessage(String type,String body,String channel_id) throws Exception {
+    public static Object sendMessage(String type,String body,String channel_id) throws Exception {
         
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("type", type);
