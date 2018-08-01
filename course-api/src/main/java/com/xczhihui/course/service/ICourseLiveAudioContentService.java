@@ -19,13 +19,19 @@ public interface ICourseLiveAudioContentService {
 
     void saveCourseLiveAudioPPT(Integer courseId,String imgUrl,Integer sort);
 
-    void saveCourseLiveAudioContentLike(Integer audioContentId, String userId);
+    void saveCourseLiveAudioContentLike(Integer audioContentId, String userId) throws Exception;
 
-    void saveCourseLiveAudioDiscussionLike(Integer discussionId, String userId);
+    void saveCourseLiveAudioDiscussionLike(Integer discussionId, String userId) throws Exception;
 
-    void saveCourseLiveAudioContent(CourseLiveAudioContentVO courseLiveAudioContent);
+    void saveCourseLiveAudioContent(CourseLiveAudioContentVO courseLiveAudioContent) throws Exception;
 
-    void saveCourseLiveAudioDiscussion(CourseLiveAudioDiscussionVO courseLiveAudioDiscussionVO);
+    void saveCourseLiveAudioDiscussion(CourseLiveAudioDiscussionVO courseLiveAudioDiscussionVO) throws Exception;
 
-    Page<CourseLiveAudioContentVO> selectCourseLiveAudioContentByCourseId(Page page, Date closingDateTime, Integer courseId);
+    Page<CourseLiveAudioContentVO> selectCourseLiveAudioContentByCourseId(Page page, String closingDateTime, Integer courseId);
+
+    Page<CourseLiveAudioDiscussionVO> selectCourseLiveAudioDiscussionByCourseId(Page page, String closingDateTime, Integer courseId);
+
+    void deleteCourseLiveAudioContent(String accountId, Integer courseLiveAudioContentId) throws Exception;
+
+    void deleteCourseLiveAudioDiscussion(String accountId, Integer courseLiveAudioDiscussionId) throws Exception;
 }

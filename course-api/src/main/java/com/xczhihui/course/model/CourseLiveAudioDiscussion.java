@@ -1,6 +1,8 @@
 package com.xczhihui.course.model;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 import com.baomidou.mybatisplus.activerecord.Model;
@@ -36,11 +38,6 @@ public class CourseLiveAudioDiscussion extends Model<CourseLiveAudioDiscussion> 
     @TableField("course_id")
     private Integer courseId;
     /**
-     * 音频直播记录id(最后一个播放的音频记录id,可为空)
-     */
-    @TableField("audio_live_content_id")
-    private Integer audioLiveContentId;
-    /**
      * 是否为提问，默认为否
      */
     @TableField("is_question")
@@ -70,11 +67,14 @@ public class CourseLiveAudioDiscussion extends Model<CourseLiveAudioDiscussion> 
     /**
      * 点赞数
      */
-    private Integer like;
+    private Integer likes;
+    @TableField("is_anchor")
+    private Boolean anchor;
 
     @Override
     protected Serializable pkVal() {
         return this.id;
     }
+
 
 }

@@ -60,7 +60,7 @@ public class CourseLiveAudioContent extends Model<CourseLiveAudioContent> {
     /**
      * 点赞数
      */
-    private Integer like;
+    private Integer likes;
     @TableField("is_delete")
     private Boolean delete;
     @TableField("create_time")

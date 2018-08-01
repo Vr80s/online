@@ -72,5 +72,8 @@
     <!--课程搜索-solr -->
     <dubbo:service interface="com.xczhihui.course.service.ICourseSolrService" ref="courseSolrServiceImpl"
                    timeout="${dubbo.consumer.timeout}"/>
+    <!--音频直播 -->
+    <dubbo:service interface="com.xczhihui.course.service.ICourseLiveAudioContentService" ref="courseLiveAudioContentServiceImpl"
+                   timeout="${dubbo.consumer.timeout}"/>
 
 </beans>
