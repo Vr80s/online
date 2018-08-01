@@ -233,7 +233,24 @@
           }
       });
     }
-
+    
+    /**
+     * 开始推流事件监听
+     */
+     VhallPlayer.onPublishStart(function(){
+         console.log('直播开始！');
+         VhallLive.play();
+    })
+     
+    /**
+     * 停止推流事件监听
+     */
+     VhallPlayer.onPublishStop(function(){
+        console.log('直播结束！');
+    })
+    
+    
+    
     /**
      * 开始播放
      */

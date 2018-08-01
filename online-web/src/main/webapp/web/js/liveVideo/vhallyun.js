@@ -31,9 +31,27 @@ function elsBind(){
        type:'live',
        videoNode:'myVideo',
        complete:function(){
-          VhallLive.play();
+         
        }
      });	
+     
+     
+        /**
+             * 开始推流事件监听
+             */
+            VhallLive.onPublishStart(function(){
+                 console.log('直播开始！');
+                 VhallLive.play();
+            })
+             
+            /**
+             * 停止推流事件监听
+             */
+            VhallLive.onPublishStop(function(){
+                console.log('直播结束！');
+            })
+     
+          
     	
       window.doc = new VhallDocPassive({
         channelId:obj.channelId, //频道Id
