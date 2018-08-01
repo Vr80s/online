@@ -31,6 +31,9 @@ public class UserDocument implements Serializable {
     @TableField("document_name")
     private String documentName;
 
+    @TableField("trans_status")
+    private Integer transStatus;
+
     public Integer getId() {
         return id;
     }
@@ -69,5 +72,13 @@ public class UserDocument implements Serializable {
 
     public void setDocumentName(String documentName) {
         this.documentName = documentName;
+    }
+
+    public Integer getTransStatus() {
+        return transStatus;
+    }
+
+    public void setTransStatus(Integer transStatus) {
+        this.transStatus = transStatus;
     }
 }
