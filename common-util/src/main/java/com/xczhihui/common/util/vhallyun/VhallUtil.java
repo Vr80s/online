@@ -115,7 +115,7 @@ public class VhallUtil {
 
         try {
             URL url = new URL(urlStr);
-            conn = (HttpURLConnection)url.openConnection();
+            conn = (HttpURLConnection) url.openConnection();
             conn.setConnectTimeout(5000);
             conn.setReadTimeout(30000);
             conn.setDoOutput(true);
@@ -134,10 +134,10 @@ public class VhallUtil {
                 StringBuffer strBuf = new StringBuffer();
                 Iterator iter = textMap.entrySet().iterator();
 
-                while(iter.hasNext()) {
-                    entry = (Map.Entry)iter.next();
-                    inputName = (String)entry.getKey();
-                    inputValue = (String)entry.getValue();
+                while (iter.hasNext()) {
+                    entry = (Map.Entry) iter.next();
+                    inputName = (String) entry.getKey();
+                    inputValue = (String) entry.getValue();
                     if (inputValue != null) {
                         strBuf.append("\r\n").append("--").append(BOUNDARY).append("\r\n");
                         strBuf.append("Content-Disposition: form-data; name=\"" + inputName + "\"\r\n\r\n");
@@ -152,16 +152,16 @@ public class VhallUtil {
                 Iterator iter = fileMap.entrySet().iterator();
 
                 label219:
-                while(true) {
+                while (true) {
                     do {
                         if (!iter.hasNext()) {
                             break label219;
                         }
 
-                        entry = (Map.Entry)iter.next();
-                        inputName = (String)entry.getKey();
-                        inputValue = (String)entry.getValue();
-                    } while(inputValue == null);
+                        entry = (Map.Entry) iter.next();
+                        inputName = (String) entry.getKey();
+                        inputValue = (String) entry.getValue();
+                    } while (inputValue == null);
 
                     File file = new File(inputValue);
                     String filename = file.getName();
@@ -193,7 +193,7 @@ public class VhallUtil {
                     byte[] bufferOut = new byte[1024];
 
                     int bytes;
-                    while((bytes = in.read(bufferOut)) != -1) {
+                    while ((bytes = in.read(bufferOut)) != -1) {
                         out.write(bufferOut, 0, bytes);
                     }
 
@@ -209,7 +209,7 @@ public class VhallUtil {
             BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             inputValue = null;
 
-            while((inputValue = reader.readLine()) != null) {
+            while ((inputValue = reader.readLine()) != null) {
                 strBuf.append(inputValue).append("\n");
             }
 
@@ -262,6 +262,16 @@ public class VhallUtil {
             e.printStackTrace();
         }
         return savePath + "/" + uname;
+    }
+
+    public static String getCallbackSign(Map<String, String> params) {
+        TreeMap<String, String> treeMap = new TreeMap<>(params);
+        StringBuilder sb = new StringBuilder();
+        String md5SecretKey = parseMd5(SECRET_KEY);
+        for (String key : treeMap.keySet()) {
+            sb.append(key).append("|").append(md5SecretKey).append("|").append(treeMap.get(key));
+        }
+        return parseMd5(sb.toString());
     }
 
 }

@@ -446,4 +446,9 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService {
     public List<UserDocument> listDocument(String userId) {
         return userDocumentMapper.listByUserId(userId);
     }
+
+    @Override
+    public void updateDocumentStatus(String documentId, Integer status) {
+        userDocumentMapper.updateStatusByDocumentId(documentId, status);
+    }
 }

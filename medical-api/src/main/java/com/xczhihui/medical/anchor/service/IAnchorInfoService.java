@@ -64,4 +64,12 @@ public interface IAnchorInfoService {
      * @return
      */
     List<UserDocument> listDocument(String userId);
+
+    /**
+     * 更新文档转化状态
+     *
+     * @param documentId 文档id
+     * @param status     状态
+     */
+    void updateDocumentStatus(String documentId, Integer status);
 }

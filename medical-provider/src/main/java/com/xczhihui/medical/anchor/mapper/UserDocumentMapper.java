@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.xczhihui.medical.anchor.model.UserDocument;
@@ -23,4 +24,13 @@ public interface UserDocumentMapper extends BaseMapper<UserDocument> {
             " from oe_user_document" +
             " where user_id = #{userId}"})
     List<UserDocument> listByUserId(@Param("userId") String userId);
+
+    /**
+     * 更新文档的转换状态
+     *
+     * @param documentId 文档id
+     * @param status     状态
+     */
+    @Update({"update oe_user_document set trans_status = #{status} where document_id = #{documentId}"})
+    void updateStatusByDocumentId(@Param("documentId") String documentId, @Param("status") Integer status);
 }
