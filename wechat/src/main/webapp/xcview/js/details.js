@@ -142,6 +142,9 @@ requestService("/xczh/course/liveDetails",{
 
 				
 				lineState = result.lineState;
+				
+				lineState = 1;
+				
 				/**
 				 * 直播状态1.直播中，2预告，3直播结束 4 即将直播
 				 */
