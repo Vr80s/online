@@ -27,8 +27,20 @@ function apprenticeList(userId,pageNumber,downOrUp) {
                 }
                 $('#teacher_hides').html(template('teacher_hide_ids', {items: data.resultObject}));
                 
-                /*var time = $(".more_people_time").html();
-                alert(time);*/
+                // 判断日期---显示时间还是日历
+                var dateTime = $(".more_people_times").html();
+                var d = new Date();  /*定义日期  31号(日期)*/
+                var a = d.getDate(); /*获取当天日期*/
+                if (dateTime == a) {
+                    $(".date_z").hide();
+                    $(".time_z").show();
+                }else{
+                    var dateTimes = $(".more_peoples_times").html();
+                    var dt = dateTimes.replace(/-/g,"."); 
+                    $(".more_peoples_times").html(dt);
+                    $(".time_z").hide();
+                    $(".date_z").show();
+                };
 
 
                 

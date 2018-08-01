@@ -196,4 +196,39 @@ public class DateUtil {
         int curYear = calendar.get(Calendar.YEAR);
         return dateYear == curYear;
     }
+    
+    
+    
+    /**
+     * 解析日期
+     *
+     * @param value
+     * @param format 默认值为"yyyy-MM-dd HH:mm:ss"
+     * @return Date
+     * @throws Exception 
+     */
+    public static Date parseDate1(String value, String format) throws Exception {
+        if (IStringUtil.isNotBlank(value)) {
+            if (!IStringUtil.isNotBlank(format)) {
+                format = FORMAT_DAY_TIME;
+            }
+            DateFormat dateFormate = new SimpleDateFormat(format);
+            Date date = null;
+            try {
+                date = dateFormate.parse(value);
+            } catch (Exception e) {
+                throw new Exception("时间格式有误");
+            }
+            return date;
+        }
+        return null;
+    }
+    
+    public static void main(String[] args) throws Exception {
+        
+        System.out.println(parseDate1("2018-01/01","yyyy/MM/dd"));
+        
+    }
+    
+    
 }
