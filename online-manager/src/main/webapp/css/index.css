@@ -5,6 +5,7 @@
 } */
 .sidebar + .main-content{
 	min-width: auto!important;
+	background: #eceff5;
 }
 .text-danger{
 	color: #ff471c;

@@ -15,6 +15,8 @@ import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.WeihouInterfacesListUtil;
+import com.xczhihui.common.util.bean.VhallMessageParamsVo;
+import com.xczhihui.common.util.vhallyun.MessageService;
 
 
 /**
@@ -67,5 +69,27 @@ public class VhallVideoController {
         map.put("sign", WeihouInterfacesListUtil.getSign(map));
         return ResponseObject.newSuccessResponseObject(map);
     }
+    
+    
+    
+    
+    @RequestMapping("vhallYunMessageList")
+    @ResponseBody
+    public ResponseObject getMessageList(
+            VhallMessageParamsVo vmpv) throws Exception {
+       
+        return ResponseObject.newSuccessResponseObject(MessageService.getMessageList(vmpv));
+    }
+    
+    @RequestMapping("vhallYunSendMessage")
+    @ResponseBody
+    public ResponseObject sendMessage(String type,
+            @RequestParam(value = "body", required = false)String body,
+            String channel_id) throws Exception {
+       
+       return ResponseObject.newSuccessResponseObject(MessageService.sendMessage(type,body,channel_id));
+    }
+    
+    
 
 }

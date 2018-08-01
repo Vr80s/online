@@ -122,6 +122,7 @@ function loadBanner2List(){
 
 //新增框
  $(".add_bx").click(function(){
+     setFocus();
  	banner2Form.resetForm();
  	var dialog = openDialog("addBanner2Dialog","dialogAddBanner2Div","新增搜索关键字",580,500,true,"确定",function(){
  		if($("#addBanner2-form").valid()){
@@ -142,6 +143,11 @@ function loadBanner2List(){
  		}
  	});
  });
+//光标移至内容末尾
+function setFocus() {
+	var t = $("#add_description").val();
+	$("#add_description").val("").focus().val(t);
+}
 
 function updateBanner2(obj){
 	var oo = $(obj).parent().parent().parent();

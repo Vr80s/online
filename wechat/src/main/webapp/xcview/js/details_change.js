@@ -156,13 +156,13 @@ $(document)
 									function() {
 										if( $('#doc img').attr('src') ){
 									    	 $(".fd_img").css("display","none");
-									    	$(".pinch-zoom-container").css("display","black");
+									    	 $(".pinch-zoom-container").css("display","black");
 									    	// $(".document").css("display","black");
 									   // 不为空
 
 										}else{
 											 $(".fd_img").css("display","black");
-											$(".pinch-zoom-container").css("display","none");
+											 $(".pinch-zoom-container").css("display","none");
 											// $(".document").css("display","none");
 										// 为空
 

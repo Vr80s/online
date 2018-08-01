@@ -271,7 +271,7 @@
 			<%--</div>--%>
 		<%--</div>--%>
 		<div class="form-group" style="margin-top:18px;">
-			<label class="col-sm-1 control-label no-padding-right my-set-leftTitle z">课程详情：</label>
+			<label class="col-sm-1 control-label no-padding-right my-set-leftTitle z" style="margin-top: 6px;">课程详情：</label>
 			<div class="col-lg-10 my-setallContent" style="padding-left: 0;">
 				<div class="clearfix" style="width: 1000px;">
 					<p >${courseApplyInfo.courseDetail}</p>
