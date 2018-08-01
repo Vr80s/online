@@ -2321,7 +2321,7 @@ body.mob-safari .sidebar.sidebar-fixed {
   }
 }
 .sidebar .sidebar-toggle {
-  border-style: solid;
+  /*border-style: solid;*/
   border-width: 0 0 1px;
   text-align: center;
   padding: 3px 0;
@@ -2340,8 +2340,8 @@ body.mob-safari .sidebar.sidebar-fixed {
   content: "";
   display: block;
   height: 0;
-  border-top: 1px solid;
-  border-color: inherit;
+  border-top: 1px solid #969696;
+  /*border-color: inherit;*/
   position: absolute;
   left: 15px;
   right: 15px;
@@ -5160,7 +5160,9 @@ body.mob-safari .sidebar.sidebar-fixed {
 .footer {
   padding-top: 75px;
   height: 0;
-  width: 0;
+  width: 100%;
+  background: #eceff5;
+  margin-left: 190px;
 }
 .footer .footer-inner {
   text-align: center;
@@ -19537,3 +19539,17 @@ input.typeahead.scrollable ~ .tt-dropdown-menu {
 	#saveBtn:hover{
 		background-color: #00c0ef !important;
 	}
+.profile-info-row table tr{
+	background: transparent !important;
+}
+#searchDiv table tr{
+	background: transparent !important;
+}
+#editDialog {
+	  background: #fff;
+    padding: 20px 0;
+}
+#addArticleDialog{
+	 background: #fff;
+    padding: 20px 0;
+}

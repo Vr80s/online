@@ -434,7 +434,7 @@
 		<table frame=void >
 			<tr>
 				<td>
-					<div class="profile-info-value searchTr">
+					<div class="profile-info-value searchTr hide">
 						<input name="search_status" id="search_status" value="1"	class="propertyValue1"/> 
 						<input type="hidden" value="search_status" class="propertyName"/>
 					</div>

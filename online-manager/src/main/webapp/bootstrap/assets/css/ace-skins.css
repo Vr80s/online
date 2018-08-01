@@ -148,12 +148,12 @@
   border-color: #3f4e54;
 }
 .skin-1 .sidebar-toggle {
-  background-color: #181e21;
-  border-color: #3f4e54;
+  /*background-color: #181e21;
+  border-color: #3f4e54;*/
 }
 .skin-1 .sidebar-toggle > .ace-icon {
-  background-color: #222a2d;
-  color: #aaaaaa;
+  background-color: #969696;
+  color: #fff;
   border-color: #aaaaaa;
 }
 .skin-1 .breadcrumbs {
