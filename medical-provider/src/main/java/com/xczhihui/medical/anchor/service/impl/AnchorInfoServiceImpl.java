@@ -19,8 +19,10 @@ import com.xczhihui.common.util.enums.AnchorType;
 import com.xczhihui.medical.anchor.enums.AuchorTypeEnum;
 import com.xczhihui.medical.anchor.mapper.CourseAnchorMapper;
 import com.xczhihui.medical.anchor.mapper.CourseApplyResourceMapper;
+import com.xczhihui.medical.anchor.mapper.UserDocumentMapper;
 import com.xczhihui.medical.anchor.model.CourseAnchor;
 import com.xczhihui.medical.anchor.model.CourseApplyResource;
+import com.xczhihui.medical.anchor.model.UserDocument;
 import com.xczhihui.medical.anchor.service.IAnchorInfoService;
 import com.xczhihui.medical.anchor.vo.CourseAnchorVO;
 import com.xczhihui.medical.doctor.mapper.MedicalDoctorAccountMapper;
@@ -70,6 +72,8 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService {
     private CourseApplyResourceMapper courseApplyResourceMapper;
     @Autowired
     private RedisCacheService cacheService;
+    @Autowired
+    private UserDocumentMapper userDocumentMapper;
 
     @Autowired
     private CCUtils ccUtils;
@@ -428,4 +432,18 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService {
         return map;
     }
 
+    @Override
+    public void addDocument(String userId, String documentId, String documentName) {
+        UserDocument userDocument = new UserDocument();
+        userDocument.setCreateTime(new Date());
+        userDocument.setDocumentId(documentId);
+        userDocument.setUserId(userId);
+        userDocument.setDocumentName(documentName);
+        userDocumentMapper.insert(userDocument);
+    }
+
+    @Override
+    public List<UserDocument> listDocument(String userId) {
+        return userDocumentMapper.listByUserId(userId);
+    }
 }
