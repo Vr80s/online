@@ -63,7 +63,7 @@ textarea{
   min-width:1320px;
 }
 .page-content {
-  background-color: #ffffff;
+  /*background-color: #ffffff;*/
   position: relative;
   margin: 0;
   padding: 8px 20px 24px;
@@ -2014,6 +2014,7 @@ pre.prettyprint {
   text-shadow: none !important;
   font-size: 13px;
   text-decoration: none;
+  background: #fff !important;
 }
 .nav-list > li > a > .menu-icon {
   display: inline-block;
@@ -2089,8 +2090,8 @@ pre.prettyprint {
   position: relative;
   padding: 7px 0 9px 37px;
   margin: 0;
-  border-top-width: 1px;
-  border-top-style: dotted;
+  /*border-top-width: 1px;*/
+  /*border-top-style: dotted;*/
 }
 .nav-list > li .submenu > li > a:hover {
   text-decoration: none;
