@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.common.collect.ImmutableMap;
 import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.body.article.AppraiseBody;
-import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.XzStringUtils;
 import com.xczhihui.common.util.enums.HeadlineType;
@@ -31,8 +30,6 @@ public class ArticleController {
     private IMedicalDoctorArticleService medicalDoctorArticleService;
     @Autowired
     private IOeBxsAppraiseService oeBxsAppraiseService;
-    @Autowired
-    private CacheService cacheService;
     @Value("${returnOpenidUri}")
     private String returnOpenUri;
 
