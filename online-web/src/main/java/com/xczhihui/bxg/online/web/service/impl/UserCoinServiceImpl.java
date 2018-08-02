@@ -21,7 +21,7 @@ import com.xczhihui.common.support.lock.Lock;
 import com.xczhihui.common.support.service.impl.RedisCacheService;
 import com.xczhihui.common.util.CodeUtil;
 import com.xczhihui.common.util.OrderNoUtil;
-import com.xczhihui.common.util.RedisCacheKey;
+import com.xczhihui.common.util.redis.key.RedisCacheKey;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.util.enums.*;
 import com.xczhihui.medical.anchor.service.IAnchorInfoService;

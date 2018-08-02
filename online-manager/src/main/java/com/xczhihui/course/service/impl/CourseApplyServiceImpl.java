@@ -1,6 +1,6 @@
 package com.xczhihui.course.service.impl;
 
-import static com.xczhihui.common.util.RedisCacheKey.LIVE_COURSE_REMIND_LAST_TIME_KEY;
+import static com.xczhihui.common.util.redis.key.RedisCacheKey.LIVE_COURSE_REMIND_LAST_TIME_KEY;
 
 import java.text.MessageFormat;
 import java.util.*;
@@ -10,7 +10,6 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Service;
 
@@ -19,8 +18,7 @@ import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.*;
 import com.xczhihui.common.support.cc.util.CCUtils;
 import com.xczhihui.common.support.service.CacheService;
-import com.xczhihui.common.util.RedisCacheKey;
-import com.xczhihui.common.util.TimeUtil;
+import com.xczhihui.common.util.redis.key.RedisCacheKey;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.util.enums.*;
 import com.xczhihui.course.dao.CourseApplyDao;

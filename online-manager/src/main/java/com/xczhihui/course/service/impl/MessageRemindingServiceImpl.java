@@ -1,6 +1,6 @@
 package com.xczhihui.course.service.impl;
 
-import static com.xczhihui.common.util.RedisCacheKey.LIVE_COURSE_REMIND_LAST_TIME_KEY;
+import static com.xczhihui.common.util.redis.key.RedisCacheKey.LIVE_COURSE_REMIND_LAST_TIME_KEY;
 import static com.xczhihui.common.util.enums.RouteTypeEnum.COMMON_COURSE_DETAIL_PAGE;
 import static com.xczhihui.common.util.enums.RouteTypeEnum.COMMON_LEARNING_LIVE_COURSE_DETAIL_PAGE;
 
@@ -23,9 +23,8 @@ import com.xczhihui.bxg.online.common.domain.CourseAnchor;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.common.support.service.CacheService;
 import com.xczhihui.common.support.service.impl.RedisCacheService;
-import com.xczhihui.common.util.CourseUtil;
 import com.xczhihui.common.util.DateUtil;
-import com.xczhihui.common.util.RedisCacheKey;
+import com.xczhihui.common.util.redis.key.RedisCacheKey;
 import com.xczhihui.common.util.TimeUtil;
 import com.xczhihui.common.util.enums.MessageTypeEnum;
 import com.xczhihui.common.util.enums.RouteTypeEnum;
