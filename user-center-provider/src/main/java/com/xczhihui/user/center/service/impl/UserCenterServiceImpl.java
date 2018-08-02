@@ -13,7 +13,7 @@ import org.springframework.util.StringUtils;
 import com.xczhihui.common.util.Md5Encrypt;
 import com.xczhihui.common.util.CodeUtil;
 import com.xczhihui.common.util.RandomUtil;
-import com.xczhihui.common.util.RedisCacheKey;
+import com.xczhihui.common.util.redis.key.RedisCacheKey;
 import com.xczhihui.common.util.VhallUtil;
 import com.xczhihui.common.util.enums.ClientType;
 import com.xczhihui.common.util.enums.TokenExpires;

@@ -223,6 +223,9 @@ public class AuthInterceptor implements HandlerInterceptor, HandlerMethodArgumen
             param = multiReq.getParameter(paramName);
         } else {
             param = request.getParameter(paramName);
+            if(param == null){
+                param = request.getHeader(paramName);
+            }
         }
         return param;
     }

@@ -1,6 +1,7 @@
 package com.xczhihui.bxg.online.web.controller.vhallyun;
 
-import static com.xczhihui.common.util.RedisCacheKey.VHALLYUN_BAN_KEY;
+
+import static com.xczhihui.common.util.redis.key.RedisCacheKey.VHALLYUN_BAN_KEY;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -100,6 +101,7 @@ public class VhallyunController extends AbstractController {
         if (vhallCallbackBody.isTransOverEvent()) {
             String documentId = vhallCallbackBody.getDocumentId();
             Integer status = vhallCallbackBody.getStatus();
+            anchorInfoService.updateDocumentStatus(documentId, status);
         }
         return "success";
     }
@@ -110,8 +112,15 @@ public class VhallyunController extends AbstractController {
         VhallMessageParamsVo vmpv = new VhallMessageParamsVo();
         vmpv.setChannel_id(channelId);
         vmpv.setPos(String.valueOf(pos));
-        vmpv.setType(String.valueOf(0));
+        vmpv.setType(String.valueOf(2));
         return ResponseObject.newSuccessResponseObject(MessageService.getMessageList(vmpv));
+    }
+
+    @RequestMapping(value = "message", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseObject sendMessage(@RequestParam String body, @RequestParam String channelId) throws Exception {
+        MessageService.sendMessage("CustomBroadcast", body, channelId);
+        return ResponseObject.newSuccessResponseObject();
     }
 
     @RequestMapping(value = "ban/{channelId}/{userId}/{status}", method = RequestMethod.POST)

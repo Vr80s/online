@@ -146,7 +146,6 @@ dev-2.3
 
     update oe_user set origin = -1 where origin is null;
 
-
 dev-2.4
 ==
 
@@ -160,3 +159,5 @@ dev-2.4
       PRIMARY KEY (`id`),
       UNIQUE KEY `unique_index` (`user_id`,`document_id`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+    ALTER TABLE `oe_course` ADD COLUMN `channel_id` VARCHAR(32) NULL COMMENT '频道ID（文档、IM）' AFTER `direct_id`; 

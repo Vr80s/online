@@ -125,6 +125,8 @@ public class VhallUtil {
             conn.setRequestProperty("Connection", "Keep-Alive");
             conn.setRequestProperty("User-Agent", "Mozilla/5.0 (server with java api sdk)");
             conn.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + BOUNDARY);
+            // 设置字符编码
+            conn.setRequestProperty("Accept-Charset","utf-8");
             OutputStream out = new DataOutputStream(conn.getOutputStream());
             Map.Entry entry;
             String inputName;
