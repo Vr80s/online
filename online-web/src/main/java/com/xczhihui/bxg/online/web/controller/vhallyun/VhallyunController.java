@@ -1,5 +1,7 @@
 package com.xczhihui.bxg.online.web.controller.vhallyun;
 
+import static com.xczhihui.common.util.RedisCacheKey.VHALLYUN_BAN_KEY;
+
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +15,7 @@ import com.xczhihui.bxg.online.web.controller.AbstractController;
 import com.xczhihui.common.support.domain.Attachment;
 import com.xczhihui.common.support.service.AttachmentCenterService;
 import com.xczhihui.common.support.service.AttachmentType;
+import com.xczhihui.common.support.service.CacheService;
 import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.common.util.bean.VhallMessageParamsVo;
 import com.xczhihui.common.util.vhallyun.BaseService;
@@ -35,6 +38,8 @@ public class VhallyunController extends AbstractController {
     private AttachmentCenterService attachmentCenterService;
     @Autowired
     private IAnchorInfoService anchorInfoService;
+    @Autowired
+    private CacheService cacheService;
 
     @RequestMapping(value = "publishStream/accessToken", method = RequestMethod.GET)
     @ResponseBody
@@ -98,5 +103,17 @@ public class VhallyunController extends AbstractController {
         vmpv.setPos(String.valueOf(pos));
         vmpv.setType(String.valueOf(0));
         return ResponseObject.newSuccessResponseObject(MessageService.getMessageList(vmpv));
+    }
+
+    @RequestMapping(value = "ban/{channelId}/{userId}/{status}", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseObject updateBanStatus(@PathVariable boolean status, @PathVariable String channelId, @PathVariable String userId) {
+        //禁言
+        if (status) {
+            cacheService.sadd(VHALLYUN_BAN_KEY + channelId, userId);
+        } else {
+            cacheService.srem(VHALLYUN_BAN_KEY + channelId, userId);
+        }
+        return ResponseObject.newSuccessResponseObject();
     }
 }
