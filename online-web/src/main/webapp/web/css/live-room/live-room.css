@@ -424,7 +424,7 @@ input::-webkit-input-placeholder{
 }
 .student-name{
 	margin:8px 15px 0 10px;
-	max-width: 170px;
+	max-width: 45%;
 	overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -508,7 +508,7 @@ input::-webkit-input-placeholder{
 .input-main input{
 	line-height: 32px;
 	height: 36px;	
-	width: 80%;
+	width: 75%;
 	border: 0;
 	outline: none;
 	background: #666666;
@@ -516,7 +516,7 @@ input::-webkit-input-placeholder{
 	color: #e6e6e6;
 }
 .input-main button{
-	width: 19%;
+	width: 23%;
 	height: 36px;
 	background: #00bc12;
 	font-size: 14px;
@@ -525,3 +525,11 @@ input::-webkit-input-placeholder{
 	border: 0;
 	float: right;
 }
+/*媒体查询*/
+@media (min-width: 992px) and (max-width: 1199px) {
+    .input-main button,.chat-personal,.select-document,.share-icon
+    {
+		font-size: 12px;
+	}
+}
+
