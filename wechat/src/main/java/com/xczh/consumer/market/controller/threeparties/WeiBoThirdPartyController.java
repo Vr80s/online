@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.xczh.consumer.market.bean.OnlineUser;
-import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.CodeUtil;
@@ -59,8 +58,6 @@ public class WeiBoThirdPartyController {
     private OnlineUserService onlineUserService;
     @Autowired
     private IThreePartiesLoginService threePartiesLoginService;
-    @Autowired
-    private CacheService cacheService;
     @Autowired
     private UserCenterService userCenterService;
     @Value("${returnOpenidUri}")

@@ -27,7 +27,7 @@ import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.common.domain.User;
 import com.xczhihui.common.support.domain.BasicEntity;
 import com.xczhihui.common.support.service.CacheService;
-import com.xczhihui.common.util.RedisCacheKey;
+import com.xczhihui.common.util.redis.key.RedisCacheKey;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.util.enums.MessageTypeEnum;
 import com.xczhihui.common.util.enums.RouteTypeEnum;

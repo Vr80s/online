@@ -1,4 +1,4 @@
-package com.xczhihui.common.util;
+package com.xczhihui.common.util.redis.key;
 
 /**
  * Description: <br>
