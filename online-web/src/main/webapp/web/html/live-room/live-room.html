@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="/web/css/bootstrap.min.css"/>
+		<link rel="stylesheet" href="/web/css/live-room/live-room.css" />
+	</head>
+	<body>
+		
+		<div class="background-ask hide"></div>
+		<!--文档弹窗-->
+		<div class="modal-content modal-document hide">
+			<div class="modal-top">
+				<p>文档管理</p>
+				<img src="/web/images/collection-close.png" alt="关闭" />
+			</div>
+			<div class="document-file">
+				<ul class="file-list">
+					<li class="doc-title">
+						<div class="doc-name text-center">文档名称</div>
+						<div class="doc-time text-center">上传日期</div>
+						<div class="doc-progress text-center">进度</div>
+						<div class="doc-operation text-center">操作</div>
+					</li>
+					<!--图片-->
+					<li class="doc-title hover-delect">
+						<div class="doc-name doc-photo">我是大哥大.png</div>
+						<div class="doc-time text-center">2018-07-31 14:30</div>
+						<div class="doc-progress text-center">转化成功</div>
+						<div class="doc-operation text-center">
+							<p>演示</p>
+						</div>
+						<div class="delect-img hide"></div>
+					</li>
+					<!--word文件-->
+					<li class="doc-title hover-delect">
+						<div class="doc-name doc-word">明天会更好，升官发财.png</div>
+						<div class="doc-time text-center">2018-07-31 14:30</div>
+						<div class="doc-progress text-center">转化成功</div>
+						<div class="doc-operation text-center">
+							<p>演示</p>
+						</div>
+						<div class="delect-img hide"></div>
+					</li>
+					<!--图片-->
+					<li class="doc-title hover-delect">
+						<div class="doc-name doc-photo">我是大哥大.png</div>
+						<div class="doc-time text-center">2018-07-31 14:30</div>
+						<div class="doc-progress text-center">转化成功</div>
+						<div class="doc-operation text-center">
+							<p>演示</p>
+						</div>
+						<div class="delect-img hide"></div>
+					</li>
+					<!--word文件-->
+					<li class="doc-title hover-delect">
+						<div class="doc-name doc-word">明天会更好，升官发财.png</div>
+						<div class="doc-time text-center">2018-07-31 14:30</div>
+						<div class="doc-progress text-center">转化成功</div>
+						<div class="doc-operation text-center">
+							<p>演示</p>
+						</div>
+						<div class="delect-img hide"></div>
+					</li>
+					<!--图片-->
+					<li class="doc-title hover-delect">
+						<div class="doc-name doc-photo">我是大哥大.png</div>
+						<div class="doc-time text-center">2018-07-31 14:30</div>
+						<div class="doc-progress text-center">转化成功</div>
+						<div class="doc-operation text-center">
+							<p>演示</p>
+						</div>
+						<div class="delect-img hide"></div>
+					</li>
+					<!--word文件-->
+					<li class="doc-title hover-delect">
+						<div class="doc-name doc-word">明天会更好，升官发财.png</div>
+						<div class="doc-time text-center">2018-07-31 14:30</div>
+						<div class="doc-progress text-center">转化成功</div>
+						<div class="doc-operation text-center">
+							<p>演示</p>
+						</div>
+						<div class="delect-img hide"></div>
+					</li>
+					<!--图片-->
+					<li class="doc-title hover-delect">
+						<div class="doc-name doc-photo">我是大哥大.png</div>
+						<div class="doc-time text-center">2018-07-31 14:30</div>
+						<div class="doc-progress text-center">转化成功</div>
+						<div class="doc-operation text-center">
+							<p>演示</p>
+						</div>
+						<div class="delect-img hide"></div>
+					</li>
+					<!--word文件-->
+					<li class="doc-title hover-delect">
+						<div class="doc-name doc-word">明天会更好，升官发财.png</div>
+						<div class="doc-time text-center">2018-07-31 14:30</div>
+						<div class="doc-progress text-center">转化成功</div>
+						<div class="doc-operation text-center">
+							<p>演示</p>
+						</div>
+						<div class="delect-img hide"></div>
+					</li>
+					<!--图片-->
+					<li class="doc-title hover-delect">
+						<div class="doc-name doc-photo">我是大哥大.png</div>
+						<div class="doc-time text-center">2018-07-31 14:30</div>
+						<div class="doc-progress text-center">转化成功</div>
+						<div class="doc-operation text-center">
+							<p>演示</p>
+						</div>
+						<div class="delect-img hide"></div>
+					</li>
+					<!--word文件-->
+					<li class="doc-title hover-delect">
+						<div class="doc-name doc-word">明天会更好，升官发财.png</div>
+						<div class="doc-time text-center">2018-07-31 14:30</div>
+						<div class="doc-progress text-center">转化成功</div>
+						<div class="doc-operation text-center">
+							<p>演示</p>
+						</div>
+						<div class="delect-img hide"></div>
+					</li>
+				</ul>
+				<div class="null-document hide">
+					<img src="/web/images/live-room/null-document.png" alt="无文件" />
+					<p>您还没有上传文档，快来上传吧~</p>
+				</div>
+			</div>
+			<button type="button" class="document-upload" onclick="$('#file-input').click()" >上传</button>
+
+			<form action="/ueditor/upload" method="post" id="submitFile">
+				<input type="file" id="file-input" name="file-att" style="visibility: hidden;display: inline-block;width: 2px;position: fixed;left: -1000px;" />	
+			</form>
+		</div>
+		<!--文档弹窗结束-->
+		<div class="container-fluid" style="height: 100%;">
+			<div class="row" style="height: 100%;">
+				<!--视频区-->
+			  <div class="col-md-8 comment-padding" style="height: 100%;">
+			  	<div class="content-video">
+			  		<!--分享模块-->
+			  		<div class="share-main =">
+			  			<div class="select-document text-center">
+			  				<ul>
+			  					<li class="document-modal">
+			  						<img src="/web/images/document-page.png"/>
+			  						<p>文档</p>
+			  					</li>
+			  					<li>
+			  						<img src="/web/images/document-write.png"/>
+			  						<p>白板</p>
+			  					</li>
+			  				</ul>
+			  			</div>
+			  			<div class="share-icon text-center">
+			  				<p>分享到</p>
+			  				<ul>
+			  					<li><img src="/web/images/video2/weixin.png"/></li>
+			  					<li><img src="/web/images/video2/quan.png"/></li>
+			  					<li><img src="/web/images/video2/weibo.png"/></li>
+			  					<li><img src="/web/images/video2/Qq.png"/></li>
+			  				</ul>
+			  			</div>
+			  		</div>
+			  		<div class="document-main text-center">
+			  			<p>文档区<span class="current-page">1</span>/<span class="all-page">3</span></p>
+			  		</div>
+			  		<!--工具模块-->
+			  		<div class="tool-main">
+			  			<ul class="select-tool">
+			  				<!--画笔-->
+			  				<li>
+			  					<div class="show-img">
+			  						<img src="/web/images/live-room/huabi.png" alt="画笔" />
+			  						<img class="select-img" src="/web/images/live-room/xiaosanjiao.png" alt="下拉选择" />
+			  					</div>
+			  					<div class="tip-tool hide">
+			  						<span>画笔</span>
+			  					</div>
+			  					<div class="select-huabi hide">
+			  						<p class="comment-bg other-one">
+			  							<span></span>
+			  						</p>
+			  						<p class="comment-bg other-two">
+			  							<span></span>
+			  						</p>
+			  						<p class="comment-bg other-three">
+			  							<span></span>
+			  						</p>
+			  						<p class="comment-bg other-four">
+			  							<span></span>
+			  						</p>
+			  						<p class="comment-bg other-five">
+			  							<span></span>
+			  						</p>
+			  						<p class="comment-bg other-six">
+			  							<span></span>
+			  						</p>
+			  					</div>
+			  					
+			  				</li>
+			  				<!--颜色-->
+			  				<li class="remove-color">
+			  					<div class="show-img">
+			  						<img class="sure-color" src="/web/images/live-room/color5.png" alt="画笔" />
+			  						<img class="select-img" src="/web/images/live-room/xiaosanjiao.png" alt="下拉选择" />
+			  					</div>
+			  					<div class="tip-tool hide">
+			  						<span>画笔</span>
+			  					</div>
+			  					<div class="select-huabi hide">
+			  						<p class="comment-bg comment-color other-one">
+			  							<img src="/web/images/live-room/color1.png"/>
+			  						</p>
+			  						<p class="comment-bg comment-color other-two">
+			  							<img src="/web/images/live-room/color6.png"/>
+			  						</p>
+			  						<p class="comment-bg comment-color other-three">
+			  							<img src="/web/images/live-room/color4.png"/>
+			  						</p>
+			  						<p class="comment-bg comment-color other-four">
+			  							<img src="/web/images/live-room/color3.png"/>
+			  						</p>
+			  						<p class="comment-bg comment-color other-five">
+			  							<img src="/web/images/live-room/color2.png"/>
+			  						</p>
+			  						<p class="comment-bg comment-color other-six">
+			  							<img src="/web/images/live-room/color5.png"/>
+			  						</p>
+			  					</div>
+			  					
+			  				</li>
+			  				<!--橡皮擦-->
+			  				<li>
+			  					<div class="show-img">
+		  							<img src="/web/images/live-room/xiangpi.png" alt="橡皮擦" />
+		  						</div>
+		  						<div class="tip-tool hide">
+			  						<span>橡皮擦</span>
+			  					</div>
+			  				</li>
+			  				<!--清空-->
+			  				<li>
+			  					<div class="show-img">
+		  							<img src="/web/images/live-room/qingkong.png" alt="清空" />
+		  						</div>
+		  						<div class="tip-tool hide">
+			  						<span>清空</span>
+			  					</div>
+			  				</li>
+			  			</ul>
+			  		</div>
+			  		<!--视频模块-->
+			  		<div class="video-main">
+			  			
+			  		</div>
+			  		<!--开始播放按钮模块-->
+			  		<div class="play-main text-center">
+			  			<ul class="select-operation text-center">
+			  				<li><p class="play-time">00:00</p></li>
+			  				<li>
+			  					<button class="start-play" type="button">开始直播</button>
+			  				</li>
+			  				<li>
+			  					<img src="/web/images/video-set.png"/>
+			  				</li>
+			  				<li>
+			  					<img src="/web/images/video-set2.png"/>
+			  				</li>
+			  			</ul>
+			  		</div>
+			  	</div>
+			  </div>
+			  
+				<!--学员区-->
+			  <div class="col-md-2 comment-padding" style="height: 100%;">
+			  	<div class="content-student">
+			  		<!--存放视频-->
+			  		<div class="video-wrap">
+			  			
+			  		</div>
+			  		<!--刷新学员-->
+			  		<div class="refresh-student text-center">
+			  			<span>学员列表</span>
+			  			<img src="/web/images/refresh.png" alt="刷新" />
+			  		</div>
+			  		<!--学员列表-->
+			  		<div class="student-list">
+			  			<ul>
+			  				<li>
+			  					<div class="head-portrait z">
+			  						<img src="/web/images/reset_head.png" alt="头像" />
+			  					</div>
+			  					<span class="student-name z">我是超人</span>
+			  					<span class="student-status z">主播</span>
+			  				</li>
+			  				<li>
+			  					<div class="head-portrait z">
+			  						<img src="/web/images/reset_head.png" alt="头像" />
+			  					</div>
+			  					<span class="student-name z">我是超人</span>
+			  				</li>
+			  				<li>
+			  					<div class="head-portrait z">
+			  						<img src="/web/images/reset_head.png" alt="头像" />
+			  					</div>
+			  					<span class="student-name z">我是超人</span>
+			  				</li>
+			  				<li>
+			  					<div class="head-portrait z">
+			  						<img src="/web/images/reset_head.png" alt="头像" />
+			  					</div>
+			  					<span class="student-name z">我是超人</span>
+			  				</li>
+			  				
+			  			</ul>
+			  		</div>
+			  	</div>
+			  </div>
+			    <!--聊天区-->
+			  <div class="col-md-2 comment-padding" style="height: 100%;">
+			  	<div class="content-chat">
+			  		<div class="chat-top">
+			  			<span>聊天区域</span>
+			  		</div>
+			  		<!--聊天区-->
+			  		<div class="chat-personal">
+			  			<ul>
+			  				<!--普通聊天-->
+			  				<li>
+			  					<span class="chat-name">明天会更好:</span>
+			  					<span class="chat-content">这是评这是评论的内容这是评论的内容论的内容</span>
+			  				</li>
+			  				<!--主播聊天-->
+			  				<li>
+			  					<span class="chat-status">主播</span>
+			  					<span class="chat-name">霸位:</span>
+			  					<span class="chat-content">回家多学习</span>
+			  				</li>
+			  					<!--自己发言-->
+			  				<li>
+			  					<span class="chat-oneselft">霸位:</span>
+			  					<span class="chat-content">大家好</span>
+			  				</li>
+			  				<!--进入直播间-->
+			  				<li>
+			  					<span class="chat-name">霸位:</span>
+			  					<span class="chat-content">进入直播间</span>
+			  				</li>
+			  				<!--赠送礼物-->
+			  				<li>
+			  					<span class="chat-name">霸位:</span>
+			  					<span class="chat-content">送给主播</span>
+			  					<span class="chat-gift">一个锦旗</span>
+			  				</li>
+			  				
+			  			</ul>
+			  		</div>
+			  		<!--发布弹幕区域-->
+			  		<div class="barrage-up">
+			  			<div class="expression-limit">
+			  				<!--表情-->
+			  				<div class="expression-img z">
+			  					<img src="/web/images/live-room/img-face.png" alt="表情包" />
+			  				</div>
+			  				<!--输入框-->
+			  				<div class="input-main z">
+			  					<input type="text" value="" placeholder="来点儿神聊..." />
+			  					<button type="button">发送</button>
+			  				</div>
+			  			</div>
+			  		</div>
+			  	</div>
+			  </div>
+			  
+			</div>
+		</div>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<script src="/web/js/jquery-1.12.1.js"></script>
+		<script src="/web/js/bootstrap.min.js"></script>
+		<script src="/web/js/live-room/live-room.js"></script>
+	</body>
+</html>
