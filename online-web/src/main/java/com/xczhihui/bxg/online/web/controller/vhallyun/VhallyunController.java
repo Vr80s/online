@@ -1,6 +1,7 @@
 package com.xczhihui.bxg.online.web.controller.vhallyun;
 
-import static com.xczhihui.common.util.RedisCacheKey.VHALLYUN_BAN_KEY;
+
+import static com.xczhihui.common.util.redis.key.RedisCacheKey.VHALLYUN_BAN_KEY;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
