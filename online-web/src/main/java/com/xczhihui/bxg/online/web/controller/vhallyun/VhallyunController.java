@@ -91,6 +91,7 @@ public class VhallyunController extends AbstractController {
         if (vhallCallbackBody.isTransOverEvent()) {
             String documentId = vhallCallbackBody.getDocumentId();
             Integer status = vhallCallbackBody.getStatus();
+            anchorInfoService.updateDocumentStatus(documentId, status);
         }
         return "success";
     }
