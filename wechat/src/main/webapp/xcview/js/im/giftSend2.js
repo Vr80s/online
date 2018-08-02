@@ -420,20 +420,18 @@ $(document).ready(function() {
                             /**
                              * 发送IM消息
                              */
-                            sendMsg(data.resultObject);
-
-                            var str = "<div class='coze_cen_ri'> "+
-                            "<div class='coze_cen_bg_ri'>"+
-                                "<span class='span_name'>"+data.resultObject.senderInfo.userName+"：</span>赠送给主播1个<span style='color: #F97B49;'>"+data.resultObject.giftInfo.name+"</span>"+
-                            " </div> "+
-                            "<div class='both'></div></div>";
-                            
-                            //将礼物发送到
-                            var msg = null;
-                            msg = VHALL_SDK.sendChat({
-                                      text: "赠送给主播1个"+data.resultObject.giftInfo.name+""
-                            });
-                            $("#chatmsg").append(str);
+//                            sendMsg(data.resultObject);
+//                            var str = "<div class='coze_cen_ri'> "+
+//                            "<div class='coze_cen_bg_ri'>"+
+//                                "<span class='span_name'>"+data.resultObject.senderInfo.userName+"：</span>赠送给主播1个<span style='color: #F97B49;'>"+data.resultObject.giftInfo.name+"</span>"+
+//                            " </div> "+
+//                            "<div class='both'></div></div>";
+//                            //将礼物发送到
+//                            var msg = null;
+//                            msg = VHALL_SDK.sendChat({
+//                                      text: "赠送给主播1个"+data.resultObject.giftInfo.name+""
+//                            });
+//                            $("#chatmsg").append(str);
                            
                             //显示礼物总数
                             $("#liveGiftCount").html(data.resultObject.giftCount);
@@ -442,8 +440,6 @@ $(document).ready(function() {
                                   $(".chatmsg-box").mCustomScrollbar("scrollTo","bottom","0");
                             },50);
                             
-                            //隐藏发送礼物的，连击效果，暂时不隐藏
-                            //$(".send_gifts").hide();
                             // 更新余额
                             $("#xmbShowSpan").html(data.resultObject.balanceTotal);
                         } else {

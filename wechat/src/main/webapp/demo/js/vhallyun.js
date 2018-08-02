@@ -1,6 +1,7 @@
 
 
 
+
 function chZJ(videoId){
    return;
 }
@@ -12,15 +13,25 @@ var course_id = getQueryString("courseId");
 /**
  * 
  */
-var obj = {
+var vhallObj = {
     roomId:"lss_e96b3c35",
     appId:"27376e92",
     accountId:"test_jssdk",
     token:"access:27376e92:9d9d4041ccf028ca",
-    channelId:'ch_c7fb060c'
+    channelId:'ch_c7fb060c',
+    recordId:''
 }
 
-  
+//直播状态1.直播中，2预告，3直播结束 4 即将直播
+if(lineState == 1 || lineState == 3){
+    //初始化 微吼云播放器 
+    elsBind();
+    
+    //初始化消息
+    msgList(0,10);
+}  
+
+
 function elsBind(){
     window.doc = {};
     
@@ -43,14 +54,17 @@ function elsBind(){
  
     	
         window.doc = new VhallDocPassive({
-            channelId:obj.channelId, //频道Id
+            channelId:vhallObj.channelId, //频道Id
             docNode:'my-doc-area'//文档显示节点div id
         });
       
+        var liveType = (lineState == 1 ? "live" : "vod");
+        var recordId = (lineState == 1 ? "" : vhallObj.recordId);
         
         VhallLive.init({
-           roomId:obj.roomId,
-           type:'live',
+           roomId:vhallObj.roomId,
+           type:'liveType',
+           recordId:vhallObj.recordId, //回放Id，点播必填，直播不写
            videoNode:'myVideo',
            complete:function(){
               VhallLive.play();
@@ -60,27 +74,22 @@ function elsBind(){
 
     window.Vhall.ready(readyCallback);
     
-    
     window.Vhall.config({
-         appId :obj.appId,//应用 ID ,必填
-         accountId :obj.accountId,//第三方用户唯一标识,必填
-         token:obj.token//token必填
+         appId :vhallObj.appId,//应用 ID ,必填
+         accountId :vhallObj.accountId,//第三方用户唯一标识,必填
+         token:vhallObj.token//token必填
     });
     
     
-    /*
-     * 在初始化一个
-     */    
+     
     setTimeout(function(){
-    	
-    	
     	
     	 window.Vhall.ready(function(){
     	    /**
              * 初始化聊天对象
              */
             window.chat = new VhallChat({
-               channelId:'ch_c7fb060c'//频道Id，必填
+               channelId:vhallObj.channelId //频道Id
             });
             /**
              * 监听聊天消息
@@ -88,7 +97,7 @@ function elsBind(){
             window.chat.on(function(msg){
                 //在此收到聊天消息，消息内容为msg
                 if (msg){
-                    var str = chatLoad(msg);
+                    var str = chatLoad(msg,true);
                     if(str!=""){
                      $("#chatmsg").append(str);  
                     }
@@ -101,12 +110,14 @@ function elsBind(){
              */
             window.chat.onCustomMsg(function(msg){
                 msg = JSON.parse(msg);
-                /**
-                 * 接受到的消息
-                 */ 
+                //在聊天消息中显示
+                var str = chatLoad(msg,true);
+                if(str!=""){
+                   $("#chatmsg").append(str);  
+                }
+                //浮动效果
                 createGiftList(msg);
             })
-            
             
             /**
              * 某某进入直播间
@@ -121,16 +132,13 @@ function elsBind(){
             window.chat.leave(function(msg){
                 viewJoinleaveRoomInfo(msg,"leave");
             })
-    	 
     	 });
-    	 
          //在初始化一个消息的
     	 window.Vhall.config({
-             appId :obj.appId,//应用 ID ,必填
-             accountId :obj.accountId,//第三方用户唯一标识,必填
-             token:"access:27376e92:55fb863e8525cd3b"//token必填
+              appId :vhallObj.appId,//应用 ID ,必填
+              accountId :vhallObj.accountId,//第三方用户唯一标识,必填
+              token:vhallObj.token//token必填
          });
-    
     },1000);
       
     /**
@@ -142,17 +150,31 @@ function elsBind(){
         if(text!=null){
           var content = {
             type:1,                 //消息类型     1 聊天消息
-            content:text,   //发送的内容
-            headImg:localStorage.getItem("smallHeadPhoto"),       //发送的头像
-            username:localStorage.getItem("name"),     //发送的用户名
-            role:"normal"           //发送人的角色    主播： host   普通用户： normal
+            message:{
+                content:text,   //发送的内容
+                headImg:localStorage.getItem("smallHeadPhoto"),       //发送的头像
+                username:localStorage.getItem("name"),     //发送的用户名
+                role:"normal"           //发送人的角色    主播： host   普通用户： normal
+              } 
           }	
-          window.chat.emit(JSON.stringify(content));
+         /**
+          * 发送消息
+          */ 
+         requestService("/xczh/vhall/vhallYunSendMessage",{channel_id:vhallObj.channel_id,body:JSON.stringify(content)},
+                function(data) {
+                if (data.success) {
+                    var str = chatLoad(content,false);
+                    if(str!=""){
+                     $("#chatmsg").append(str);  
+                    }
+                    $("#mywords").val('');
+                	
+                }   
+          }); 
         }
     });
 }
-//初始化    
-elsBind();
+
 
 /**
  * 获取消息列表
@@ -165,8 +187,7 @@ function msgList(pos,limit){
   num = num < 0 ? 0 : num;	
  	
   var params = {
-    channel_id:obj.channelId,
-    type:1,
+    channel_id:vhallObj.channelId,
     pos:num,
     limit:limit,
     start_time:"2017/01/01"
@@ -180,16 +201,15 @@ function msgList(pos,limit){
         	 var res = data.resultObject;
         	 var e = "";
              for (var i = res.data.length - 1; i >= 0; i--) {
-                    var item = res.data[i];
-                    e+=chatLoad(item);
+                    var item = res.data[i].data;
+                    e+=chatLoad(item,isParse);
              }
              if(e!=""){
-             	 $("#chatmsg").html(e);
+             	$("#chatmsg").html(e);
              }
         } 	
   });      	
 }
-msgList(0,10);
 
 /**
  * 进入或退出直播间
@@ -228,26 +248,37 @@ function viewJoinleaveRoomInfo(msg,joinOrLeave){
 
 /**
  * 聊天消息渲染
- * @param {} item
- * @return {}
+ * @param {} content 自定义内容体
+ * @return {}  是否转义
  */
-function chatLoad(item){
+function chatLoad(content,isParse){
 	
 	try{
-		
-        var contentObj =  JSON.parse(item.data);
-        var userName = contentObj.username;
-        if(isNotBlank(contentObj.role) &&  contentObj.role == "host"){ //说明是主播
-            userName = "<span class='span_zhubo'>主播</span>"+ userName ;
-        }
-        var htmlStr =  "<div class='coze_cen_ri'> "+
-            "  <div class='coze_cen_bg_ri'> "+
-            "<span class='span_name'>"+userName+"：</span>"+   //用户名
-            "   "+contentObj.content+"  "+
-            " </div> "+
-            " <div class='both'></div></div>";
-        return htmlStr;
+        var content  = isParse ? JSON.parse(content) : content;
+        var message  = content.message;
         
+        var htmlStr = "";
+        if(content.type == 10){ //聊天消息
+             var userName = message.username;
+             if(isNotBlank(message.role) &&  message.role == "host"){ //说明是主播
+                  userName = "<span class='span_zhubo'>主播</span>"+ message.username ;
+             }
+             htmlStr =  "<div class='coze_cen_ri'> "+
+                "  <div class='coze_cen_bg_ri'> "+
+                "<span class='span_name'>"+userName+"：</span>"+   //用户名
+                "   "+message.content+"  "+
+                " </div> "+
+                " <div class='both'></div></div>";
+            
+        }else if(content.type == 11){ //礼物消息
+             htmlStr = "<div class='coze_cen_ri'> "+
+                "<div class='coze_cen_bg_ri'>"+
+                    "<span class='span_name'>"+message.senderInfo.userName+"：</span>" +
+                "赠送给主播1个<span style='color: #F97B49;'>"+message.giftInfo.name+"</span>"+
+                " </div> "+
+                "<div class='both'></div></div>";
+        }
+        return htmlStr;
 	}catch(err){
 	   console.error(err);
 	    return "";

@@ -1,4 +1,5 @@
-﻿function is_weixin() {
+﻿
+function is_weixin() {
 	var ua = navigator.userAgent.toLowerCase();
 	if (ua.match(/MicroMessenger/i) == "micromessenger") {
 		return true;
@@ -15,9 +16,7 @@ if (!is_weixin()) {
  */
 h5PcConversions(true, course_id);
 
-//if (localStorage.getItem("userId") == null) {
-//	location.href = "/xcview/html/share.html?course_id=" + course_id;
-//}
+
 /**
  * 视频id
  */

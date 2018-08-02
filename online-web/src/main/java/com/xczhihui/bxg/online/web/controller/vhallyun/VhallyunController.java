@@ -7,12 +7,21 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.alibaba.dubbo.common.json.JSONObject;
+import com.alibaba.fastjson.JSON;
+import com.xczhihui.bxg.online.web.base.utils.UserLoginUtil;
 import com.xczhihui.bxg.online.web.body.vhall.VhallCallbackBody;
 import com.xczhihui.bxg.online.web.controller.AbstractController;
 import com.xczhihui.common.support.domain.Attachment;
+import com.xczhihui.common.support.domain.BxgUser;
 import com.xczhihui.common.support.service.AttachmentCenterService;
 import com.xczhihui.common.support.service.AttachmentType;
 import com.xczhihui.common.support.service.CacheService;
@@ -116,4 +125,20 @@ public class VhallyunController extends AbstractController {
         }
         return ResponseObject.newSuccessResponseObject();
     }
+    
+    
+    @RequestMapping(value = "sendMessage", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseObject sendMessage(String body,String channel_id) throws Exception {
+        BxgUser loginUser = UserLoginUtil.getLoginUser();
+        JSONObject jsonObject =  (JSONObject) JSON.parse(body);
+        if(jsonObject.get("type")!=null && jsonObject.get("type").toString().equals("1")) {
+            Boolean isShutup =  cacheService.sismenber(VHALLYUN_BAN_KEY + channel_id, loginUser.getId());
+            if(!isShutup) {
+                return ResponseObject.newErrorResponseObject("你被禁言了");
+            } 
+        } 
+        return ResponseObject.newSuccessResponseObject(MessageService.sendMessage("CustomBroadcast",body,channel_id));
+    }
+    
 }

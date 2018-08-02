@@ -30,9 +30,8 @@ public class VhallMessageParamsVo {
             throw new Exception("频道id不能为空");
         }
         
-        if(IStringUtil.isNotBlank(this.type)) {
-            params.put("type", this.type);
-        }
+        //1 聊天列表（ 默认），2 自定义聊天列表
+        params.put("type", "2");
         
         if(IStringUtil.isNotBlank(this.pos)) {
             params.put("pos", this.pos);

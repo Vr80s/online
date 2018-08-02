@@ -20,7 +20,6 @@ public class MessageService {
         HashMap<String, String> params = vmpv.bulidMap();
         params = VhallUtil.createRealParam(params);
         String result = VhallUtil.sendPost("http://api.yun.vhall.com/api/v1/channel/get-message-list", params);
-        System.out.println(result);
         return JSON.parse(result);
     }
     
