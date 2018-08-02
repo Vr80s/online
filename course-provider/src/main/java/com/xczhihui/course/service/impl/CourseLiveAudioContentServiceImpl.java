@@ -133,9 +133,7 @@ public class CourseLiveAudioContentServiceImpl implements ICourseLiveAudioConten
             courseLiveAudioContentVO.setCourseLiveAudioDiscussionVO(courseLiveAudioDiscussionVO);
         }
 
-        String str = "{\"body\":{\"content\":\"1大家好今天我给大家讲000讲针灸1\",\"contentType\":1,\"courseId\":800,\"courseLiveAudioDiscussionVO\":null,\"discussionId\":null,\"id\":56,\"length\":null,\"likes\":0,\"pptImgId\":null,\"userId\":\"2c9aec345eba06eb015eba0820f80000\"},\"type\":1}\n";
         ChatService.sentCustomBroadcast(channelId, courseLiveAudioContentVO.toJson());
-//        ChatService.sentCustomBroadcast(channelId, "你好");
     }
 
     @Override
@@ -200,10 +198,17 @@ public class CourseLiveAudioContentServiceImpl implements ICourseLiveAudioConten
 
     @Override
     public void deleteCourseLiveAudioContent(String userId, Integer courseLiveAudioContentId) throws Exception {
-        int deleteCount = courseLiveAudioContentMapper.deleteByUserIdAndId(userId, courseLiveAudioContentId);
-        if(deleteCount>0){
+        int i = courseLiveAudioContentMapper.deleteByUserIdAndId(userId, courseLiveAudioContentId);
+        if(i>0){
             String channelId = courseLiveAudioContentMapper.selectChannelIdByCourseLiveAudioContentId(courseLiveAudioContentId);
+            CourseLiveAudioContentVO courseLiveAudioContentVO = courseLiveAudioContentMapper.selectCourseLiveAudioContentById(courseLiveAudioContentId);
             sentCourseLiveAudioContentDeleteCustomBroadcast(channelId,courseLiveAudioContentId);
+            if(courseLiveAudioContentVO.getDiscussionId() != null){
+                int j = courseLiveAudioDiscussionMapper.deleteByUserIdAndId(userId,courseLiveAudioContentVO.getDiscussionId());
+                if(j>0){
+                    sentCourseLiveAudioDiscussionDeleteCustomBroadcast(channelId,courseLiveAudioContentVO.getDiscussionId());
+                }
+            }
         }else{
             throw new CourseException("操作失败");
         }
@@ -218,15 +223,25 @@ public class CourseLiveAudioContentServiceImpl implements ICourseLiveAudioConten
 
     @Override
     public void deleteCourseLiveAudioDiscussion(String userId, Integer courseLiveAudioDiscussionId) throws Exception {
-        int deleteCount = courseLiveAudioDiscussionMapper.deleteByUserIdAndId(userId,courseLiveAudioDiscussionId);
-        if(deleteCount>0){
+        int i = courseLiveAudioDiscussionMapper.deleteByUserIdAndId(userId,courseLiveAudioDiscussionId);
+        if(i>0){
             String channelId = courseLiveAudioDiscussionMapper.selectChannelIdByCourseLiveAudioDiscussionId(courseLiveAudioDiscussionId);
             sentCourseLiveAudioDiscussionDeleteCustomBroadcast(channelId,courseLiveAudioDiscussionId);
+            CourseLiveAudioDiscussionVO courseLiveAudioDiscussionVO = courseLiveAudioDiscussionMapper.selectCourseLiveAudioDiscussionById(courseLiveAudioDiscussionId);
+            if(courseLiveAudioDiscussionVO.getSourceAudioLiveContentId()!=null){
+                int j = courseLiveAudioContentMapper.deleteByUserIdAndId(userId, courseLiveAudioDiscussionVO.getSourceAudioLiveContentId());
+                if(j>0){
+                    sentCourseLiveAudioContentDeleteCustomBroadcast(channelId,courseLiveAudioDiscussionVO.getSourceAudioLiveContentId());
+                }
+            }
         }
     }
 
     @Override
     public void saveCourseLiveAudioDiscussionBan(String accountId, Integer courseId, String userId) throws Exception {
+        if(StringUtils.isBlank(userId)||courseId==null){
+            throw new CourseException("参数有误");
+        }
         int count = courseLiveAudioDiscussionMapper.selectCourseCount(accountId,courseId);
         if(count > 0){
             cacheService.set(CourseRedisCacheKey.getLiveAudioBanCacheKey(courseId,userId),"禁言");

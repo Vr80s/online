@@ -1,6 +1,7 @@
 package com.xczhihui.course.vo;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,6 +34,7 @@ public class CourseLiveAudioDiscussionVO implements Serializable{
     private Integer sourceAudioLiveContentId;
     private Integer likes;
     private Boolean anchor;
+    private Date createTime;
 
     private String name;
     private String imgUrl;
