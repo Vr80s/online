@@ -1,15 +1,23 @@
 $(function(){
-	var videoHeight = $(document.body).height()-219;
-	var studentHeight=$(document.body).height()-262;
-	var chatHeight=$(document.body).height()-152;
-//	文档高度
-	$(".video-main").css({"height":videoHeight});
-//	学员列表高度
-	$(".student-list").css({"height":studentHeight});
-//	聊天区域
-	$(".chat-personal").css({"height":chatHeight});	
+
 	
+
 	
+	function getWhiteHeight(){
+		var videoHeight = $(document.body).height()-219;
+		var studentHeight=$(document.body).height()-262;
+		var chatHeight=$(document.body).height()-152;
+	//	文档高度
+		$(".video-main").css({"height":videoHeight});
+	//	学员列表高度
+		$(".student-list").css({"height":studentHeight});
+	//	聊天区域
+		$(".chat-personal").css({"height":chatHeight});	
+	}
+	getWhiteHeight();
+	$(window).resize(function (){  
+		getWhiteHeight();
+	})
 //------------------------------------------工具栏----------------------------------------------------------------	
 
 

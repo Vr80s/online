@@ -109,6 +109,8 @@ input::-webkit-input-placeholder{
 	line-height: 40px;
 	background: url(/web/images/live-room/qingkong.png) left center no-repeat;
 	cursor: pointer;
+	margin-right: 20px;
+	float: right;
 }
 .doc-title .doc-photo{
 	padding-left: 30px;
@@ -149,25 +151,15 @@ input::-webkit-input-placeholder{
 }
 
 
-
-
-
-
-
-
-
 .content-video{
-	background: red;
 	height: 100%;
 	width: 100%;
 	position: relative;
 }
 .content-student{
-	background: skyblue;
 	height: 100%;
 }
 .content-chat{
-	background: pink;
 	height: 100%;
 }
 .comment-padding{
