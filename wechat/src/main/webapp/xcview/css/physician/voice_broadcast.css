@@ -1,0 +1,638 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+li{
+	/*list-style: none;*/
+}
+img{
+	border: none;
+}
+a{
+    text-decoration: none;
+}
+.both{
+	clear: both;
+}
+body{
+	font-size: 0.28rem;
+    height: 100%;
+}
+
+
+/*头部开始*/
+.voice_broadcast_top{
+    width: 7.5rem;
+    height: 4.24rem;
+    margin: 0 auto;
+    position: relative;
+    background: #000;
+}
+.header{
+    width: 100%;
+    height: 0.88rem;
+    /*background: red;*/
+    position: absolute;
+    top: 0;
+    z-index: 9999999;
+}
+.header_return{
+    float: left;
+    width: 1rem;
+    height: 0.88rem;
+    /*background: blue;*/
+}
+.header_return img{
+    width: 0.24rem;
+    height: 0.42rem;
+    margin-left: 0.26rem;
+    margin-top: 0.26rem;
+}
+.share{
+    float: right;
+    width: 1rem;
+    height: 0.88rem;
+    /*background: blue;*/
+}
+.share img{
+    width: 0.42rem;
+    height: 0.43rem;
+    margin-left: 0.26rem;
+    margin-top: 0.26rem;
+}
+.surface_plot{
+    width: 100%;
+    height: 100%;
+    background: red;
+}
+.surface_plot_img{
+    width: 100%;
+    height: 100%;
+}
+.surface_plot_img img{
+    width: 100%;
+    height: 100%;
+}
+.surface_plot_bg{
+    width: 100%;
+    height: 100%;
+    background: #000;
+    opacity: 0.3;
+    position: absolute;
+    top: 0;
+}
+.surface_plot_fize{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0rem;
+}
+.surface_plot_fize_title{
+    width: 6.98rem;
+    font-size: 0.32rem;
+    margin: 0 auto;
+    color: #FFFFFF;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-top: 1.47rem;
+    margin-bottom: 0.4rem;
+}
+.surface_plot_fize_time{
+    width: 100%;
+    color: #FFFFFF;
+    text-align: center;
+}
+#box1{
+    width: 100%;
+    color: #FFFFFF;
+    text-align: center;
+}
+/*头部结束*/
+
+/*关注区域开始*/
+.attention{
+    width: 7.5rem;
+    height: 0.6rem;
+    background: #fff;
+    margin: 0 auto;
+    padding: 0.2rem 0;
+    margin-bottom: 0.2rem;
+}
+.attention_main{
+    width: 6.98rem;
+    height: 0.6rem;
+    background: #fff;
+    margin: 0 auto;
+}
+.anchor_head{
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 100px;
+    /*padding-top: 0.2rem;*/
+    margin-right: 0.2rem;
+    float: left;
+}
+.anchor_head img{
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 100px;
+}
+.anchor_message{
+    float: left;
+    width: 4rem;
+    /*background: blue;*/
+}
+.anchor_message_name{
+    font-size: 0.26rem;
+    color: #333333;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.anchor_message_number{
+    font-size: 0.22rem;
+    color: #666666;
+}
+.live_streaming{
+    font-size: 0.22rem;
+    color: #00BC12;
+    display: inline-block;
+}
+.live_streaming_dot{
+    width: 0.06rem;
+    height: 0.06rem;
+    background: #00bc12;
+    float: left;
+    margin-top: 0.145rem;
+    margin-left: 0.1rem;
+    margin-right: 0.1rem;
+}
+.booking_person{
+    float: right;
+    width: 1.6rem;
+    height: 0.56rem;
+    line-height: 0.56rem;
+    text-align: center;
+    border-radius: 100px;
+}
+.booking_person_bg{
+    background: #00bc12;
+}
+.booking_person_bg_two{
+    background: #bbb;
+}
+.booking_person img{
+    width: 0.24rem;
+    float: left;
+    margin-top: 0.16rem;
+    margin-left: 0.27rem;
+}
+.booking_person p{
+    font-size: 0.24rem;
+    color: #fff;
+    display: block;
+}
+/*关注区域结束*/
+
+.instructions{
+    width: 6.98rem;
+    margin: 0 auto;
+    /*background: red;*/
+    margin-bottom: 0.42rem;
+}
+.instructions_title{
+    font-size: 0.28rem;
+    color: #999999;
+    margin-bottom: 0.1rem;
+}
+.instructions ul li{
+    font-size: 0.26rem;
+    color: #999999;
+}
+.instructions ul{
+    margin-left: 0.3rem;
+}
+
+/*中间内容开始*/
+.live_to{
+    width: 1rem;
+    height: 0.32rem;
+    line-height: 0.32rem;
+    text-align: center;
+    font-size: 0.2rem;
+    color: #FFFFFF;
+    background: rgba(0,0,0,0.50);
+    border-radius: 4px;
+    margin: 0 auto;
+    margin-bottom: 0.3rem;
+}
+
+/*主播聊天區展示開始*/
+.main{
+    width: 6.98rem;
+    height: 100%;
+    margin: 0 auto;
+}
+.main_time{
+    width: 0.7rem;
+    height: 0.32rem;
+    line-height: 0.32rem;
+    background: #DEDEDE;
+    border-radius: 4px;
+    margin: 0 auto;
+    font-size: 0.2rem;
+    color: #FFFFFF;
+    text-align: center;
+    margin-bottom: 0.36rem;
+}
+.anchor{
+    margin-bottom: 0.26rem;
+}
+.anchor_img{
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 100px;
+    float: left;
+    margin-right: 0.2rem;
+}
+.anchor_img img{
+    width: 100%;
+    height: 100%;
+    border-radius: 100px;
+}
+.anchor_main{
+    width: 6rem;
+    height: 100%;
+    margin-bottom: 0.2rem;
+    float: left;
+}
+.anchor_name{
+    font-size: 0.24rem;
+    color: #333333;
+    margin-bottom: 0.2rem;
+}
+.anchor_name span{
+    font-size: 0.24rem;
+    color: #999999;
+    margin-left: 0.2rem;
+}
+.anchor_center{
+    width: 4.88rem;
+    height: 100%;
+    background: #89D03A;
+    border: 1px solid #DEDEDE;
+    border-radius: 8px;
+    padding: 0.2rem;
+    font-size: 0.28rem;
+    color: #FFFFFF;
+    word-wrap:break-word;
+    margin-bottom: 0.1rem;
+}
+.anchor_favour{
+    width: 1.3rem;
+}
+.favour_img{
+    width: 0.24rem;
+    height: 0.237rem;
+    background: url(/xcview/images/zan01.png) no-repeat;
+    background-size: 100% 100%;
+    margin-right: 0.1rem;
+    float: left;
+}
+.favour_imgs{
+    background: url(/xcview/images/zan001.png) no-repeat;
+    background-size: 100% 100%;
+}
+.anchor_favour span{
+    font-size: 0.2rem;
+    color: #999;
+    float: left;
+}
+.anchor_favour_span{
+    color: #00BC12 !important;
+}
+
+/*回復*/
+.anchor_main_border{
+    width: 4.88rem;
+    height: 1px;
+    background: #72B528;
+    margin: 0 auto;
+    margin: 0.1rem 0;
+}
+.anchor_center .anchor_center_ask{
+    padding: 0 0.04rem;
+    font-size: 0.24rem;
+    color: #FFFFFF;
+    background: #F97B49;
+    border-radius: 5px;
+    margin: 0 0.1rem;
+}
+/*主播聊天區展示結束*/
+.main_height{
+    width: 100%;
+    height: 0.98rem;
+    opacity: 0;
+}
+/*只看问题开始*/
+.comment_area{
+    width: 7.5rem;
+    /*height: 100%;*/
+    background: #fff;
+    position: fixed;
+    top: 4.24rem;
+    padding-bottom: 1rem;
+    overflow-y: scroll;
+    z-index: 99999991;
+    display: none;
+}
+.comment_area_problem{
+    width: 7.5rem;
+    height: 0.88rem;
+    line-height: 0.88rem;
+    background: #F0F0F0;
+    margin-bottom: 0.2rem;
+    position: fixed;
+    top: 4.24rem;
+}
+.comment_area_problem_left{
+    width: 3rem;
+    height: 0.88rem;
+    /*background: blue;*/
+    float: left;
+}
+.comment_area_problem_bg{
+    width: 0.36rem;
+    height: 0.36rem;
+    /* background: url(/xcview/images/radio.png) no-repeat;
+    background-size: 100% 100%; */
+    float: left;
+    margin-left: 0.26rem;
+    margin-right: 0.1rem;
+    margin-top: 0.26rem;
+}
+.problem_label_bg{
+    width: 0.36rem;
+    height: 0.36rem;
+    background: url(/xcview/images/radio.png) no-repeat;
+    background-size: 100% 100%;
+    position: absolute;
+}
+.problem_label_bgs{
+    width: 0.36rem;
+    height: 0.36rem;
+    background: url(/xcview/images/radio_bg.png) no-repeat;
+    background-size: 100% 100%;
+}
+.problem_label_put{
+    width: 2rem;
+    height: 0.6rem;
+    position: absolute;
+    opacity: 0;
+}
+/* .comment_area_problem_bg_toggle{
+    background: url(/xcview/images/radio.png) no-repeat !important;
+    background-size: 100% 100%;
+} */
+.comment_area_close{
+    color: #999;
+    width: 1rem;
+    height: 0.88rem;
+    float: right;
+    text-align: right;
+    margin-right: 0.26rem;
+    font-size: 0.4rem;
+}
+.comment_area_height{
+    width: 100%;
+    height: 0.98rem;
+}
+.comment_area_main{
+    border-bottom: 1px solid #F0F0F0;
+    margin-top: 0.2rem;
+}
+.comment_area_cen{
+    width: 6.98rem;
+    height: 100%;
+    margin: 0 auto;
+}
+.criticism{
+    width: 100%;
+    height: 0.6rem;
+    line-height: 0.6rem;
+    margin-bottom: 0.2rem;
+}
+.criticism_img{
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 100px;
+    margin-right: 0.2rem;
+    float: left;
+}
+.criticism .name{
+    font-size: 0.28rem;
+    color: #999999;
+    min-width: 0.5rem;
+    display: block;
+    float: left;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 5rem;
+    margin-right: 0.1rem;
+}
+.criticism .criticism_hint{
+    font-size: 0.18rem;
+    color: #FFFFFF;
+    padding: 0 0.1rem;
+    background: #00BC12;
+    border-radius: 4px;
+}
+.host_response{
+    width: 100%;
+    font-size: 0.26rem;
+    color: #333333;
+    margin-bottom: 0.3rem;
+}
+.respond_questions{
+    width: 6.5rem;
+    background: #FAFAFA;
+    border: 1px solid #F0F0F0;
+    border-radius: 4px;
+    padding: 0.2rem;
+    margin-bottom: 0.3rem;
+}
+.respond_questions span{
+    font-size: 0.26rem;
+    color: #666666;
+}
+.respond_questions .ask{
+    background: #F97B49;
+    border-radius: 5px;
+    font-size: 0.24rem;
+    color: #FFFFFF;
+    padding: 0 0.04rem;
+    margin-right: 0.1rem;
+}
+.comment_area_cen .time{
+    font-size: 0.24rem;
+    color: #999999;
+    margin-bottom: 0.2rem;
+}
+/*只看问题结束*/
+
+/*中间内容结束*/
+
+/*底部开始*/
+.footer{
+    width: 7.5rem;
+    height: 0.98rem;
+    background: #fff;
+    /*box-shadow: 0 -2px 4px 0 #F0F0F0;*/
+    position: fixed;
+    bottom: 0;
+    z-index: 99999999;
+    border-top: 1px solid #f0f0f0;
+}
+.footer_bg{
+    width: 100%;
+    height: 100%;
+    background: #000;
+    opacity: 0;
+    display: none;
+    position: fixed;
+    top: 0;
+    z-index: 9999999;
+}
+.footer .chat{
+    width: 5.57rem;
+    height: 0.6rem;
+    background: #F0F0F0;
+    border-radius: 100px;
+    /* margin-top: 0.19rem;
+    margin-left: 0.26rem;
+    margin-right: 0.26rem; */
+    margin: 0.19rem 0.3rem 0 0.26rem;
+    float: left;
+}
+.chats{
+    width: 6.1rem !important;
+}
+.chat_img{
+    width: 0.24rem;
+    height: 0.24rem;
+    /* margin-left: 0.36rem;
+    margin-top: 0.18rem;
+    margin-right: 0.08rem; */
+    margin: 0.18rem 0.08rem 0 0.26rem;
+}
+.footer .chat .chat_put{
+    width: 3.8rem;
+    height: 0.55rem;
+    /*background: red;*/
+    border: 0;
+    background: #F0F0F0;
+    outline: none;
+    font-size: 0.28rem;
+    color: #333;
+}
+.chat_puts{
+    width: 4.35rem !important;
+}
+.chat ::-webkit-input-placeholder { /* WebKit browsers */
+    color: #bbb;
+}
+.chat :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: #bbb;
+}
+.chat ::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: #bbb;
+}
+.chat :-ms-input-placeholder { /* Internet Explorer 10+ */
+    color: #bbb;
+}
+
+.chat_radio{
+    float: right;
+    margin-top: 0.12rem;
+    margin-right: 0.2rem;
+    position: relative;
+    width: 0.8rem;
+    /*background: red;*/
+    text-align: right;
+}
+.radio_lable{
+    width: 0.24rem;
+    height: 0.24rem;
+    background: url(/xcview/images/radio.png) no-repeat;
+    background-size: 100% 100%;
+    display: inline-block;
+    position: absolute;
+    top: 0.09rem;
+    z-index: 2;
+    left: 0;
+}
+.radio_lables{
+    width: 0.24rem;
+    height: 0.24rem;
+    background: url(/xcview/images/radio_bg.png) no-repeat;
+    background-size: 100% 100%;
+    display: inline-block;
+    position: absolute;
+    top: 0.09rem;
+    z-index: 2;
+    left: 0;
+}
+.radio_put{
+    width: 0.8rem;
+    height: 0.3rem;
+    position: absolute;
+    top: 0.09rem;
+    z-index: 1;
+    left: 0;
+    opacity: 0;
+}
+.chat_radio span{
+    font-size: 0.22rem;
+    color: #333333;
+}
+.barrage_switch{
+    float: left;
+    width: 0.4rem;
+    height: 0.4rem;
+    background: url(/xcview/images/barrage_switch.png) no-repeat;
+    background-size: 100% 100%;
+    margin-top: 0.3rem;
+    /*margin-right: 0.4rem;*/
+}
+.chat_all{
+    width: 0.41rem;
+    height: 0.4rem;
+    background: url(/xcview/images/chat_all.png) no-repeat;
+    background-size: 100% 100%;
+    margin-top: 0.29rem;
+    float: right;
+    margin-right: 0.26rem;
+}
+.transmit{
+    width: 0.84rem;
+    height: 0.98rem;
+    line-height: 0.98rem;
+    font-size: 0.28rem;
+    color: #00BC12;
+    display: none;
+    float: right;
+    /* background: red; */
+}
+
+/*弹幕浮层*/
+.show{
+    width: 1rem;
+    height: 1rem;
+    background: red;
+    display: none;
+}
+
+/*底部结束*/

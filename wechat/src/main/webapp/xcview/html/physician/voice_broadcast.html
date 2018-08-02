@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+	<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<head>
+<meta charset="UTF-8">
+<title>熊猫中医</title>
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+
+<link rel="stylesheet" type="text/css" href="/xcview/css/physician/voice_broadcast.css"/>
+<!--手机嵌入模板-->
+<script type="text/javascript" src="/xcview/js/common/layout.js"></script>
+<script>
+	// 判断横屏展示时的状态
+	window.onorientationchange=function(){
+	    if(window.orientation==90||window.orientation==-90){
+	        window.location.reload();  /*横屏状态刷新*/
+	    }else{
+	        window.location.reload();  /*竖屏状态刷新*/
+	    }
+	}	
+</script>
+</head>
+<body style="background: #F8F8F8;">
+	<!-- 头部开始 -->
+	<div class="voice_broadcast_top">
+		<div class="header">
+			<div class="header_return">
+				<img src="/xcview/images/anchorj.png" alt="" />
+			</div>
+			<div class="share">
+				<img src="/xcview/images/anchorf.png" alt="" />
+			</div>
+		</div>
+		<div class="surface_plot">
+			<div class="surface_plot_img">
+				<img src="/xcview/images/xianxia_03.jpg" alt="" />
+				<div class="surface_plot_bg"></div>
+				<div class="surface_plot_fize">
+					<p class="surface_plot_fize_title">即将直播：如何治疗感冒及普通感冒的推荐治疗冒的推荐治疗冒的推荐治疗</p>
+					<!-- <p class="surface_plot_fize_time">开课时间：08:00</p> -->
+					<div id="box1"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 头部结束 -->
+	<!-- 关注区域开始 -->
+	<div class="attention">
+		<div class="attention_main">
+			<div class="anchor_head">
+				<img src="/xcview/images/touxiang.png" alt="" />
+			</div>
+			<div class="anchor_message">
+				<div class="anchor_message_name">这里是主播名字</div>
+				<div class="anchor_message_number">320人<span class="subscribe">预约</span><span class="live_streaming"><div class="live_streaming_dot"></div>直播中</span></div>
+			</div>
+			<div class="booking_person booking_person_bg">
+				<img src="/xcview/images/weigz.png" alt="" />
+				<p>加关注</p>
+			</div>
+		</div>
+	</div>
+	<!-- 关注区域结束 -->
+	<div class="instructions">
+		<div class="instructions_title">操作指南</div>
+		<ul>
+			<li>听不到声音请往下翻，点击语音即可播放，并确认手机没有静音；</li>
+			<li>课程语音永久保留，可重复回听</li>
+		</ul>
+	</div>
+
+	<!-- 中间内容开始 -->
+	<div class="live_to">直播开始</div>
+	<div class="main">
+		<div class="main_time">10:02</div>
+		<div class="anchor">
+			<div class="anchor_img">
+				<img src="/xcview/images/touxiang.png" alt="" />
+			</div>
+			<div class="anchor_main">
+				<div class="anchor_name">我是一只快乐的小青蛙<span>主播</span></div>
+				<div class="anchor_center">首乌12克，枸杞子12克，菟丝子12克，桑螵蛸12克，赤石脂12克，狗脊12克，熟地24克，藿香6克，砂仁6克</div>
+				<div class="anchor_favour">
+					<div class="favour_img"></div>
+					<span>1</span>
+					<div class="both"></div>
+				</div>
+			</div>
+			<div class="both"></div>
+		</div>
+		<!-- 主播回復 -->
+		<div class="anchor">
+			<div class="anchor_img">
+				<img src="/xcview/images/touxiang.png" alt="" />
+			</div>
+			<div class="anchor_main">
+				<div class="anchor_name">我是一只快乐的小青蛙<span>主播</span></div>
+				<!-- <div class="anchor_center"></div> -->
+	
+				
+
+				<div class="anchor_center">@柠檬<span class="anchor_center_ask">问</span>风寒感冒和风热感冒的区别
+				
+				<div class="anchor_main_border"></div>
+
+				首乌12克，枸杞子12克，菟丝子12克，桑螵蛸12克，赤石脂12克，狗脊12克，熟地24克，藿香6克，砂仁6克</div>
+				<div class="anchor_favour">
+					<div class="favour_img"></div>
+					<span>1</span>
+					<div class="both"></div>
+				</div>
+			</div>
+			<div class="both"></div>
+		</div>
+
+	</div>
+	<div class="main_height"></div>
+	<!-- 只看问题开始 -->
+	<div class="comment_area">
+		<div class="comment_area_top">
+			<div class="comment_area_problem">
+				<!-- 只看問題 -->
+				<div class="comment_area_problem_left">
+					<div class="comment_area_problem_bg">
+						<label for="" class="problem_label_bg"></label>
+						<input type="checkbox" class="problem_label_put" />
+						<!-- <input type="chebox"> -->
+					</div>
+					<span>只看问题</span>
+				</div>
+				<div class="comment_area_close">×</div>
+			</div>
+			<div class="comment_area_height"></div>
+			<!-- 评论区 -->
+			<div class="comment_area_main">
+				<div class="comment_area_cen">
+					<div class="criticism">
+						<img src="/xcview/images/touxiang.png" alt="" class="criticism_img" />
+						<span class="name">我是一只快乐的小跳蛙</span>
+						<span class="criticism_hint">主播</span>
+					</div>
+					<div class="host_response">我是一只快乐的小跳蛙我是一只快乐的小跳蛙我是一只快乐的小跳蛙我是一只快乐的小跳蛙我是一只快乐的小跳蛙</div>
+					<div class="respond_questions">
+						<span class="name">辣椒小姐：<span class="ask">问</span>风寒感冒和风热感冒的区别是什么？应该风寒感冒和风热感冒的区别是什么？应该</span>
+					</div>
+					<div class="time">2017.12.25</div>
+				</div>
+			</div>
+			<div class="comment_area_main">
+				<div class="comment_area_cen">
+					<div class="criticism">
+						<img src="/xcview/images/touxiang.png" alt="" class="criticism_img" />
+						<span class="name">我是一只快乐的小跳蛙</span>
+						<span class="criticism_hint">主播</span>
+					</div>
+					<div class="host_response">我是一只快乐的小跳蛙我是一只快乐的小跳蛙我是一只快乐的小跳蛙我是一只快乐的小跳蛙我是一只快乐的小跳蛙</div>
+					<div class="respond_questions">
+						<span class="name"><span class="ask">问</span>风寒感冒和风热感冒的区别是什么？应该风寒感冒和风热感冒的区别是什么？应该</span>
+					</div>
+					<div class="time">2017.12.25</div>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+	<!-- 只看问题结束 -->
+	
+	<!-- 中间内容结束 -->
+
+	<!-- 底部开始 -->
+	<div class="footer_bg"></div>
+	<div class="footer">
+		<div class="chat">
+			<img src="/xcview/images/inp_retured.png" alt="" class="chat_img" />
+			<input type="text" placeholder="来点儿神聊或提问" class="chat_put" id="chat_put" />
+			<div class="chat_radio">
+				<label for="" class="radio_lable"></label>
+				<input type="checkbox" class="radio_put" />
+				<span>提问</span>
+			</div>
+		</div>
+		<!-- 弹幕开关 -->
+		<div class="barrage_switch"></div>
+		<div class="chat_all"></div>
+		<div class="transmit">发送</div>
+	</div>
+	<!-- 底部结束 -->
+	<div class="show"></div>
+</body>
+<script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/common.js?v=wechat_1.1.1"></script> 
+<script type="text/javascript" src="/xcview/js/common/template.js"></script>    <!--数据模板引入--> 
+<!-- <script type="text/javascript" src="/xcview/js/physician/quiz.js"></script>  -->
+
+<script>
+	window.onload = function(){
+		var htmlstr = $(".booking_person").find('p').html();
+		$(".booking_person").click(function(){
+
+			if (htmlstr == "已关注") {
+				$(".booking_person").find('img').attr('src','/xcview//images/weigz.png');
+				$(".booking_person").find('p').html("加关注");
+				$(".booking_person").removeClass("booking_person_bg_two");
+				$(".booking_person").addClass("booking_person_bg");
+			}else{
+				$(".booking_person").find('img').attr('src','/xcview//images/yigz.png');
+				$(".booking_person").find('p').html("已关注");
+				$(".booking_person").removeClass("booking_person_bg");
+				$(".booking_person").addClass("booking_person_bg_two");
+			};
+
+		});
+
+		// 点击提问获取
+		$(".chat_radio").click(function(){
+			if($('.radio_put').is(':checked')) {
+				$(".radio_lable").addClass("radio_lables");
+			    // alert(1111);
+			}else{
+				$(".radio_lable").removeClass("radio_lables");
+				// alert(21222);
+			}
+		});
+
+		// 点击弹幕开关
+		$(".barrage_switch").click(function(){
+			var a = $(".show").css("display");
+			if (a == "block") {
+				$(".facebox-mobile").hide();
+				$(".barrage_switch").css('background','url(/xcview/images/barrage_switch.png) no-repeat');
+				$(".barrage_switch").css('background-size','100% 100%');
+				$(".show").hide();
+
+			} else {
+				$(".barrage_switch").css('background','url(/xcview/images/barrage_switch_bg.png) no-repeat');
+				$(".barrage_switch").css('background-size','100% 100%');
+				$(".show").show();
+			}
+		});
+
+		// 点击发送
+		$("#chat_put").click(function(){
+			$(".barrage_switch").hide();  /*弹幕隐藏*/
+			$(".chat_all").hide();      /*查看更多评论隐藏*/
+			$(".chat").addClass("chats");  /*增加input长度*/
+			$(".chat_put").addClass("chat_puts");   /*增加input外div长度*/
+			$(".transmit").show();  /*发送按钮*/
+			$(".footer_bg").show();  /*整屏按钮*/
+		});
+
+		// 点击背景--还原输入区域
+		$(".footer_bg").click(function(){
+			$(".barrage_switch").hide();  /*弹幕隐藏*/
+			$(".chat_all").hide();      /*查看更多评论隐藏*/
+			$(".chat").removeClass("chats");  /*隱藏input长度*/
+			$(".chat_put").removeClass("chat_puts");
+			$(".transmit").hide();   /*发送按钮*/
+			$(".footer_bg").hide();  /*整屏按钮*/
+			$(".barrage_switch").show();  /*弹幕*/
+			$(".chat_all").show();      /*查看更多评论*/
+		});
+
+		// 点击发送--还原输入区域
+		$(".transmit").click(function(){
+			var commentArea = $(".comment_area").css("display");  /*獲取全部評論顯示隱藏*/
+			if (commentArea == "block") {
+				$(".footer_bg").hide();
+			}else{
+				// alert(22);
+				// 全部评论隱藏--點擊發送
+				$(".barrage_switch").hide();  /*弹幕隐藏*/
+				$(".chat_all").hide();      /*查看更多评论隐藏*/
+				$(".chat").removeClass("chats");  /*增加input长度*/
+				$(".chat_put").removeClass("chat_puts");
+				$(".transmit").hide();   /*发送按钮*/
+				$(".footer_bg").hide();  /*整屏按钮*/
+				$(".barrage_switch").show();  /*弹幕*/
+				$(".chat_all").show();      /*查看更多评论*/
+			};
+
+		});
+
+		// 點擊全部評論的關閉按鈕
+		$(".comment_area_close").click(function(){
+			$(".chat").removeClass("chats");  /*隱藏input长度*/
+			$(".chat_put").removeClass("chat_puts");
+			$(".transmit").hide();   /*发送按钮*/
+			$(".barrage_switch").show();  /*弹幕*/
+			$(".chat_all").show();      /*查看更多评论*/
+			$(".comment_area").hide();  /*隱藏全部評論*/
+		});
+
+		// 点击发送--还原输入区域  comment_area_close
+		//$(".transmit").click(function(){
+			//$(".barrage_switch").hide();  /*弹幕隐藏*/
+			//$(".chat_all").hide();      /*查看更多评论隐藏*/
+			//$(".chat").removeClass("chats");  /*增加input长度*/
+			//$(".chat_put").removeClass("chat_puts");
+			//$(".transmit").hide();   /*发送按钮*/
+			//$(".footer_bg").hide();  /*整屏按钮*/
+			//$(".barrage_switch").show();  /*弹幕*/
+			//$(".chat_all").show();      /*查看更多评论*/
+		//});
+
+		// 获取只看问题高度
+		var school_height=$(window).height()-$(".voice_broadcast_top").height()-$(".footer").height();
+		$(".comment_area").height(school_height);
+
+		// 点击查看更多聊天
+		$(".chat_all").click(function(){
+
+			$(".chat_all").hide();
+			$(".transmit").show();
+			$(".comment_area").show();
+			$(".barrage_switch").hide();  /*弹幕隐藏*/
+			$(".chat").addClass("chats");  /*增加input长度*/
+			$(".chat_put").addClass("chat_puts");   /*增加input外div长度*/
+		});
+
+		// 點擊只看問題
+		/*$('.comment_area_problem_left').toggle(function() {
+			alert(1111);
+		    $(".comment_area_problem_bg").addClass('comment_area_problem_bg_toggle');
+		}, function() {
+			alert(222);
+		    $(".comment_area_problem_bg").removeClass('comment_area_problem_bg_toggle');
+		});*/
+		/*$('.comment_area_problem_left').click(function(){
+			alert(33333);
+		});*/
+
+		// 點擊只看問題
+		$(".comment_area_problem_left").click(function(){
+			if($('.problem_label_put').is(':checked')) {
+				$(".problem_label_bg").addClass("problem_label_bgs");
+			    // alert(1111);
+			}else{
+				$(".problem_label_bg").removeClass("problem_label_bgs");
+				// alert(21222);
+			}
+		});
+
+		// 點讚
+		$(".anchor_favour").click(function(){
+			$(".favour_img").addClass("favour_imgs");
+			$(".anchor_favour span").addClass("anchor_favour_span");
+		});
+
+
+
+		
+	}
+</script>
+
+<!-- 倒计时开始 -->
+<script>
+	$(function() {
+	    setInterval(timer, 1000);
+	    function timer() {
+	        //设置结束的时间
+	        var endtime = new Date("2018/10/01 00:00:00");
+	        //设置当前时间
+	        var now = new Date();
+	        //得到结束与当前时间差 ： 毫秒
+	        var t = endtime.getTime() - now.getTime();
+	        if (t > 0) {
+	            //得到剩余天数
+	            var tian = Math.floor(t / 1000 / 60 / 60 / 24);
+	            //得到还剩余的小时数（不满一天的小时）
+	            var h = Math.floor(t / 1000 / 60 / 60 % 24);
+	            //得到分钟数
+	            var m = Math.floor(t / 1000 / 60 % 60);
+	            //得到的秒数
+	            var s = Math.floor(t / 1000 % 60);
+	            var str = "距离10月1回家：" + tian + " 天 " + h + " 小时  " + m + " 分 " + s + " 秒 ";
+	            $("#box1").html(str);
+	        } else {
+	            // clearInterval(timer); //这里可以添加倒计时结束后需要执行的事件 
+	            $("#box1").html("您已在回家的路上");
+	        }
+	    }
+	});
+</script>
+<!-- 倒计时结束 -->
+
+</html>
