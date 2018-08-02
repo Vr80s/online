@@ -18,7 +18,6 @@ import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.support.service.CacheService;
 import com.xczhihui.common.util.WeihouInterfacesListUtil;
-import com.xczhihui.common.util.XzStringUtils;
 import com.xczhihui.common.util.bean.VhallMessageParamsVo;
 import com.xczhihui.common.util.redis.key.RedisCacheKey;
 import com.xczhihui.common.util.vhallyun.MessageService;
@@ -108,8 +107,6 @@ public class VhallVideoController {
             String body,String channel_id) throws Exception {
        
        JSONObject jsonObject =  (JSONObject) JSON.parse(body);
-       
-       
        if(jsonObject.get("type")!=null && jsonObject.get("type").toString().equals("1")) {
            Boolean isShutup =  cacheService.sismenber(RedisCacheKey.VHALLYUN_BAN_KEY + channel_id, account.getUserId());
            if(!isShutup) {
