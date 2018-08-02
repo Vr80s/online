@@ -3,7 +3,12 @@
 <%@ include file="../common/jstl_taglib.jsp" %>
 <link href="/css/jquery-ui-timepicker-addon.css" type="text/css"/>
 <link href="/js/layer/skin/layer.css" type="text/css"/>
-
+<script type="text/javascript">
+    try {
+        var scripts = [ null, null ];
+        $('.page-content-area').ace_ajax('loadScripts', scripts,function(){});
+    } catch (e) {}
+</script>
 <script src="/js/layer/layer.js"></script>
 <script src="/js/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
 <script src="/js/echarts.min.js" type="text/javascript"></script>

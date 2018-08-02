@@ -1,6 +1,6 @@
 package com.xczhihui.course.service.impl;
 
-import static com.xczhihui.common.util.RedisCacheKey.XG_ACCOUNT_KEY;
+import static com.xczhihui.common.util.redis.key.RedisCacheKey.XG_ACCOUNT_KEY;
 
 import java.util.*;
 

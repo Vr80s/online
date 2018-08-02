@@ -488,6 +488,7 @@ function echoCourse(caiId,passEdit){
     showCourseAttribute(course.courseForm);
     if(course.courseForm==1){
         $('.course_start_time').val(course.startTime);
+        $("input:radio[name=course_multimedia_type][value="+course.multimediaType+"]").prop("checked",true);
     }else if(course.courseForm==2){
         // course.multimediaType = $("input[name='course_multimedia_type']:checked").val();
         initResource(course.multimediaType);
@@ -577,6 +578,7 @@ function getCourseData(){
 
     if(course.courseForm==1){
         course.startTime = $.trim($('.course_start_time').val());
+        course.multimediaType = $("input[name='course_multimedia_type']:checked").val();
     }else if(course.courseForm==2){
         course.resourceId = $('.course_resource').val();
         course.multimediaType = $("input[name='course_multimedia_type']:checked").val();

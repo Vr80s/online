@@ -23,6 +23,7 @@ import com.xczh.consumer.market.interceptor.HeaderInterceptor;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.enums.ClientType;
 import com.xczhihui.common.util.enums.OrderFrom;
+import com.xczhihui.common.util.vhallyun.MessageService;
 import com.xczhihui.online.api.service.GiftService;
 
 
@@ -72,7 +73,6 @@ public class XzGiftController {
 
     /**
      * Description：赠送礼物接口（做礼物赠送余额扣减和检验）
-     *
      * @return ResponseObject
      * @throws IOException
      * @throws SmackException
@@ -90,7 +90,29 @@ public class XzGiftController {
         map = remoteGiftService.addGiftStatement(accountId,
                 receiverId, giftId,
                 ClientType.getClientType(HeaderInterceptor.getClientTypeCode()), count, liveId);
-
+        
         return ResponseObject.newSuccessResponseObject(map);
     }
+    
+    
+    /**
+     * Description：赠送礼物接口（做礼物赠送余额扣减和检验）
+     * @return ResponseObject
+     * @author name：liutao <br>email: gvmtar@gmail.com
+     * @throws Exception 
+     **/
+    @ResponseBody
+    @RequestMapping(value = "/customSendGift")
+    public ResponseObject customSendGift(String giftId,String liveId,Integer count, String receiverId,String channel_id,
+            @Account String accountId) throws Exception {
+
+        Map<String, Object> map = null;
+        map = remoteGiftService.addGiftStatement(accountId,
+                receiverId, giftId,
+                ClientType.getClientType(HeaderInterceptor.getClientTypeCode()), count, liveId);
+        //后台把这个消息广播出去
+        MessageService.sendMessage("CustomBroadcast",map.toString(),channel_id);
+        return ResponseObject.newSuccessResponseObject(map);
+    }
+    
 }

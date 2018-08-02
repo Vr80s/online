@@ -609,6 +609,9 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
                 throw new AnchorWorkException("结课时间不为空");
             }
         } else if (courseApplyInfo.getCourseForm() == CourseForm.LIVE.getCode()) {
+            if (courseApplyInfo.getMultimediaType() == null) {
+                throw new AnchorWorkException("媒体类型不为空");
+            }
             if (courseApplyInfo.getStartTime() == null) {
                 throw new AnchorWorkException("开课时间不为空");
             }

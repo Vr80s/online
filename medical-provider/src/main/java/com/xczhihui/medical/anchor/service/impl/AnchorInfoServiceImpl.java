@@ -12,7 +12,7 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.toolkit.CollectionUtils;
 import com.xczhihui.common.support.cc.util.CCUtils;
 import com.xczhihui.common.support.service.impl.RedisCacheService;
-import com.xczhihui.common.util.RedisCacheKey;
+import com.xczhihui.common.util.redis.key.RedisCacheKey;
 import com.xczhihui.common.util.XzStringUtils;
 import com.xczhihui.common.util.enums.AnchorPermissionType;
 import com.xczhihui.common.util.enums.AnchorType;
@@ -445,5 +445,10 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService {
     @Override
     public List<UserDocument> listDocument(String userId) {
         return userDocumentMapper.listByUserId(userId);
+    }
+
+    @Override
+    public void updateDocumentStatus(String documentId, Integer status) {
+        userDocumentMapper.updateStatusByDocumentId(documentId, status);
     }
 }
