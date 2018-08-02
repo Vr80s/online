@@ -102,8 +102,15 @@ public class VhallyunController extends AbstractController {
         VhallMessageParamsVo vmpv = new VhallMessageParamsVo();
         vmpv.setChannel_id(channelId);
         vmpv.setPos(String.valueOf(pos));
-        vmpv.setType(String.valueOf(0));
+        vmpv.setType(String.valueOf(2));
         return ResponseObject.newSuccessResponseObject(MessageService.getMessageList(vmpv));
+    }
+
+    @RequestMapping(value = "message", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseObject sendMessage(@RequestParam String body, @RequestParam String channelId) throws Exception {
+        MessageService.sendMessage("CustomBroadcast", body, channelId);
+        return ResponseObject.newSuccessResponseObject();
     }
 
     @RequestMapping(value = "ban/{channelId}/{userId}/{status}", method = RequestMethod.POST)
