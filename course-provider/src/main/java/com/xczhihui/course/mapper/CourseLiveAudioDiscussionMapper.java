@@ -28,8 +28,8 @@ public interface CourseLiveAudioDiscussionMapper extends BaseMapper<CourseLiveAu
     @Select({"SELECT ou.`small_head_photo` imgUrl,ou.`name`,clad.is_anchor anchor,clad.* FROM `oe_course_live_audio_discussion` clad JOIN `oe_user` ou ON clad.`user_id`=ou.id WHERE clad.id=#{discussionId}"})
     CourseLiveAudioDiscussionVO selectCourseLiveAudioDiscussionById(Integer discussionId);
 
-    @Select({"SELECT ou.`small_head_photo` ,ou.`name`,clad.is_anchor anchor,clad.* FROM `oe_course_live_audio_discussion` clad JOIN `oe_user` ou ON clad.`user_id`=ou.id WHERE clad.course_id=#{courseId}"})
-    List<CourseLiveAudioDiscussionVO> selectCourseLiveAudioDiscussionByCourseId(Page page, String closingDateTime, Integer courseId);
+    @Select({"SELECT ou.`small_head_photo` ,ou.`name`,clad.is_anchor anchor,clad.* FROM `oe_course_live_audio_discussion` clad JOIN `oe_user` ou ON clad.`user_id`=ou.id WHERE clad.course_id=#{courseId} AND clad.`create_time` <= #{endTime} order by clad.`create_time` desc"})
+    List<CourseLiveAudioDiscussionVO> selectCourseLiveAudioDiscussionByCourseId(Page page, String endTime, Integer courseId);
 
     @Update("UPDATE `oe_course_live_audio_discussion`  clad SET clad.`likes`=clad.`likes`+1 WHERE clad.id=#{discussionId}")
     int updateLikeById(@Param("discussionId") Integer discussionId);
@@ -39,4 +39,10 @@ public interface CourseLiveAudioDiscussionMapper extends BaseMapper<CourseLiveAu
 
     @Select("SELECT oc.`channel_id` channelId FROM `oe_course` oc JOIN `oe_course_live_audio_discussion` clad ON oc.id=clad.`course_id` WHERE clad.id=#{courseLiveAudioDiscussionId}")
     String selectChannelIdByCourseLiveAudioDiscussionId(Integer courseLiveAudioDiscussionId);
+
+    @Select("SELECT COUNT(oc.id) FROM `oe_course` oc WHERE oc.id=#{courseId} AND oc.`user_lecturer_id`=#{accountId}")
+    int selectCourseCount(String accountId, Integer courseId);
+
+    @Select("select clad.`id` from `oe_course_live_audio_discussion` clad where clad.`course_id`=#{courseId} and clad.`user_id`=#{userId} and clad.`is_delete`=0")
+    List<Integer> selectCourseLiveAudioDiscussionIdsByCourseIdAndUserId(Integer courseId, String userId);
 }

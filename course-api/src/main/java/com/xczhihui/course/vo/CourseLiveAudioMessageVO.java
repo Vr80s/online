@@ -32,6 +32,6 @@ public class CourseLiveAudioMessageVO implements Serializable {
     private Object body;
 
     public String toJson() {
-        return JSON.toJSONString(this, SerializerFeature.WriteMapNullValue);
+        return JSON.toJSONString(this, SerializerFeature.WriteMapNullValue, SerializerFeature.DisableCheckSpecialChar);
     }
 }

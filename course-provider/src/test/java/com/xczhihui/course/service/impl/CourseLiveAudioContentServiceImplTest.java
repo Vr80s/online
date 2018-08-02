@@ -1,11 +1,16 @@
 package com.xczhihui.course.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.xczhihui.common.util.vhallyun.ChatService;
 import com.xczhihui.course.service.ICourseLiveAudioContentService;
 import com.xczhihui.course.vo.CourseLiveAudioContentVO;
 import com.xczhihui.course.vo.CourseLiveAudioDiscussionVO;
+import com.xczhihui.course.vo.CourseLiveAudioPPTVO;
 
 import test.BaseJunit4Test;
 
@@ -70,6 +75,32 @@ public class CourseLiveAudioContentServiceImplTest extends BaseJunit4Test {
     @Test
     public void tsetList6() throws Exception {
         courseLiveAudioContentService.saveCourseLiveAudioDiscussionLike(10,"cd5bd6030d8b4105a8b8a7a7e0708605");
+    }
+
+    @Test
+    public void tsetList7() throws Exception {
+        List<CourseLiveAudioPPTVO> ppts = new ArrayList<>();
+        CourseLiveAudioPPTVO ppt = new CourseLiveAudioPPTVO();
+        ppt.setImgUrl("img");
+        ppt.setSort(1);
+        ppts.add(ppt);
+        ppts.add(ppt);
+        courseLiveAudioContentService.saveCourseLiveAudioPPTs(800,"2222222",ppts);
+    }
+
+    @Test
+    public void sent() throws Exception {
+//        DictionaryVo dictionaryVo = new DictionaryVo("1","22","333");
+//        ChatService.sentCustomBroadcast("ch_56f227c2",dictionaryVo.toString());
+        String str = "{\"body\":{\"content\":\"大家好今天我给大家讲讲针灸\",\"contentType\":1,\"courseId\":800,\"courseLiveAudioDiscussionVO\":null,\"discussionId\":null,\"id\":25,\"length\":null,\"likes\":0,\"pptImgId\":null,\"userId\":\"2c9aec345eba06eb015eba0820f80000\"},\"type\":1}";
+        CourseLiveAudioContentVO courseLiveAudioContentVO = new CourseLiveAudioContentVO();
+        courseLiveAudioContentVO.setId(25);
+        courseLiveAudioContentVO.setContent("大家好今天我给大家讲123讲针灸");
+        courseLiveAudioContentVO.setContentType(1);
+        courseLiveAudioContentVO.setCourseId(800);
+        courseLiveAudioContentVO.setLikes(0);
+        courseLiveAudioContentVO.setUserId("2c9aec345eba06eb015eba0820f80000");
+        ChatService.sentCustomBroadcast("ch_56f227c2",courseLiveAudioContentVO.toJson());
     }
 
 }

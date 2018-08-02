@@ -1,5 +1,7 @@
 package com.xczh.consumer.market.controller.course;
 
+import java.util.List;
+
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +12,7 @@ import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.course.service.ICourseLiveAudioContentService;
 import com.xczhihui.course.vo.CourseLiveAudioContentVO;
 import com.xczhihui.course.vo.CourseLiveAudioDiscussionVO;
+import com.xczhihui.course.vo.CourseLiveAudioPPTVO;
 
 /**
  * 音频直播
@@ -22,16 +25,28 @@ public class CourseLiveAudioController {
     @Autowired
     public ICourseLiveAudioContentService courseLiveAudioContentService;
 
-    @RequestMapping(value = "courseLiveAudioContent",method = RequestMethod.GET)
-    public ResponseObject courseLiveAudioContentList(String closingTime,Integer pageSize,Integer courseId) throws Exception {
+    @RequestMapping(value = "courseLiveAudioContent/{courseId}",method = RequestMethod.GET)
+    public ResponseObject courseLiveAudioContentList(String endTime,Integer pageSize,@PathVariable Integer courseId) throws Exception {
         Page page = new Page(pageSize,10);
-        return ResponseObject.newSuccessResponseObject(courseLiveAudioContentService.selectCourseLiveAudioContentByCourseId(page,closingTime,courseId));
+        return ResponseObject.newSuccessResponseObject(courseLiveAudioContentService.selectCourseLiveAudioContentByCourseId(page,endTime,courseId));
     }
 
-    @RequestMapping(value = "courseLiveAudioDiscussion",method = RequestMethod.GET)
-    public ResponseObject courseLiveAudioDiscussionList(String closingTime,Integer pageSize,Integer courseId) throws Exception {
+    @RequestMapping(value = "courseLiveAudioDiscussion/{courseId}",method = RequestMethod.GET)
+    public ResponseObject courseLiveAudioDiscussionList(String endTime,Integer pageSize,@PathVariable Integer courseId) throws Exception {
         Page page = new Page(pageSize,10);
-        return ResponseObject.newSuccessResponseObject(courseLiveAudioContentService.selectCourseLiveAudioDiscussionByCourseId(page,closingTime,courseId));
+        return ResponseObject.newSuccessResponseObject(courseLiveAudioContentService.selectCourseLiveAudioDiscussionByCourseId(page,endTime,courseId));
+    }
+
+    @RequestMapping(value = "courseLiveAudioPPT/{courseId}",method = RequestMethod.POST)
+    public ResponseObject saveCourseLiveAudioPPT(@Account String accountId, @PathVariable Integer courseId,@RequestBody List<CourseLiveAudioPPTVO> courseLiveAudioPPTs) throws Exception {
+        courseLiveAudioContentService.saveCourseLiveAudioPPTs(courseId,accountId,courseLiveAudioPPTs);
+        return ResponseObject.newSuccessResponseObject("课件保存成功");
+    }
+
+    @RequestMapping(value = "courseLiveAudioPPT/{courseId}",method = RequestMethod.GET)
+    public ResponseObject courseLiveAudioPPT(@PathVariable Integer courseId) throws Exception {
+        List<CourseLiveAudioPPTVO> courseLiveAudioPPTVOS = courseLiveAudioContentService.selectCourseLiveAudioPPTsByCourseId(courseId);
+        return ResponseObject.newSuccessResponseObject(courseLiveAudioPPTVOS);
     }
 
     @RequestMapping(value = "courseLiveAudioContent",method = RequestMethod.POST)
@@ -72,9 +87,9 @@ public class CourseLiveAudioController {
         return ResponseObject.newSuccessResponseObject("点赞成功");
     }
 
-    @RequestMapping(value = "courseLiveAudioDiscussion/ban/{userId}",method = RequestMethod.POST)
-    public ResponseObject saveCourseLiveAudioDiscussionBan(@Account String accountId, @PathVariable String userId) throws Exception {
-        courseLiveAudioContentService.saveCourseLiveAudioDiscussionBan(accountId,userId);
+    @RequestMapping(value = "courseLiveAudioDiscussion/ban/{courseId}/{userId}",method = RequestMethod.POST)
+    public ResponseObject saveCourseLiveAudioDiscussionBan(@Account String accountId, @PathVariable Integer courseId, @PathVariable String userId) throws Exception {
+        courseLiveAudioContentService.saveCourseLiveAudioDiscussionBan(accountId,courseId,userId);
         return ResponseObject.newSuccessResponseObject("禁言成功");
     }
 

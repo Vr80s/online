@@ -21,7 +21,8 @@ public class ChatService {
         params.put("channel_id",channelId);
         params.put("body",body);
         params = VhallUtil.createRealParam(params);
-        VhallUtil.sendPost("http://api.yun.vhall.com/api/v1/channel/sent", params);
+        String s = VhallUtil.sendPost("http://api.yun.vhall.com/api/v1/channel/sent", params);
+        System.out.println(s);
     }
 
 }

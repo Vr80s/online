@@ -25,8 +25,11 @@ public interface CourseLiveAudioContentMapper extends BaseMapper<CourseLiveAudio
     @Insert("INSERT IGNORE INTO `oe_course_live_audio_content_like` (audio_content_id,user_id) VALUES(#{audioContentId},#{userId})")
     int insertCourseLiveAudioContentLike(@Param("audioContentId") Integer audioContentId, @Param("userId") String userId);
 
-    @Select("SELECT clac.* FROM `oe_course_live_audio_content` clac WHERE clac.`is_delete`=0 AND clac.`course_id`=#{courseId} AND clac.`create_time` <= #{closingDateTime}")
-    List<CourseLiveAudioContentVO> selectCourseLiveAudioContentByCourseId(@Param("page") Page page, @Param("closingDateTime") String closingDateTime, @Param("courseId") Integer courseId);
+    @Select("SELECT clac.id,clac.`course_id` AS courseId,clac.`audio_ppt_id` AS audiopptId,clac.`content_type` AS contentType,clac.`content`," +
+            "clac.`length`,clac.`user_id` AS userId,clac.`discussion_id` AS discussionId,clac.likes,clac.`create_time` createTime,ppt.`ppt_img_url` pptImgUrl " +
+            "FROM `oe_course_live_audio_content` clac LEFT JOIN `oe_course_live_audio_ppt` ppt ON ppt.id=clac.`audio_ppt_id`  " +
+            " WHERE clac.`is_delete`=0 AND clac.`course_id`=#{courseId} AND clac.`create_time` <= #{endTime} order by clac.`create_time` desc")
+    List<CourseLiveAudioContentVO> selectCourseLiveAudioContentByCourseId(@Param("page") Page page, @Param("endTime") String endTime, @Param("courseId") Integer courseId);
 
     @Update("UPDATE `oe_course_live_audio_content`  clac SET clac.`likes`=clac.`likes`+1 WHERE clac.id=#{audioContentId}")
     int updateLikeById(@Param("audioContentId") Integer audioContentId);
@@ -41,4 +44,10 @@ public interface CourseLiveAudioContentMapper extends BaseMapper<CourseLiveAudio
 
     @Select("SELECT oc.`channel_id` channelId FROM `oe_course` oc JOIN `oe_course_live_audio_content` clac ON oc.id=clac.`course_id` WHERE clac.id=#{courseLiveAudioContentId}")
     String selectChannelIdByCourseLiveAudioContentId(@Param("courseLiveAudioContentId") Integer courseLiveAudioContentId);
+
+    @Select("SELECT clac.id,clac.`course_id` AS courseId,clac.`audio_ppt_id` AS audiopptId,clac.`content_type` AS contentType,clac.`content`," +
+            "clac.`length`,clac.`user_id` AS userId,clac.`discussion_id` AS discussionId,clac.likes,clac.`create_time` createTime,ppt.`ppt_img_url` pptImgUrl " +
+            "FROM `oe_course_live_audio_content` clac LEFT JOIN `oe_course_live_audio_ppt` ppt ON ppt.id=clac.`audio_ppt_id`  " +
+            " WHERE clac.`is_delete`=0 AND clac.id=#{id}")
+    CourseLiveAudioContentVO selectCourseLiveAudioContentById(Integer id);
 }
