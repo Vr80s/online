@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static com.xczhihui.common.util.RedisCacheKey.APPRAISE_PRAISE_KEY;
+import static com.xczhihui.common.util.redis.key.RedisCacheKey.APPRAISE_PRAISE_KEY;
 
 /**
  * <p>

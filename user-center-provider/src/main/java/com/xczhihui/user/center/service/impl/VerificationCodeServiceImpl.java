@@ -1,7 +1,7 @@
 package com.xczhihui.user.center.service.impl;
 
-import static com.xczhihui.common.util.RedisCacheKey.REDIS_SPLIT_CHAR;
-import static com.xczhihui.common.util.RedisCacheKey.VCODE_PREFIX;
+import static com.xczhihui.common.util.redis.key.RedisCacheKey.REDIS_SPLIT_CHAR;
+import static com.xczhihui.common.util.redis.key.RedisCacheKey.VCODE_PREFIX;
 
 import java.util.HashMap;
 import java.util.List;
