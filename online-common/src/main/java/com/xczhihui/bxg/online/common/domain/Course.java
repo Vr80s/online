@@ -224,6 +224,8 @@ public class Course extends BasicEntity2 implements Serializable {
      */
     @Column(name = "direct_id")
     private String directId;
+    @Column(name = "channel_id")
+    private String channelId;
     /**
      * 外部链接
      */
@@ -445,6 +447,14 @@ public class Course extends BasicEntity2 implements Serializable {
 
     public String getLecturerDescription() {
         return lecturerDescription;
+    }
+
+    public String getChannelId() {
+        return channelId;
+    }
+
+    public void setChannelId(String channelId) {
+        this.channelId = channelId;
     }
 
     public void setLecturerDescription(String lecturerDescription) {

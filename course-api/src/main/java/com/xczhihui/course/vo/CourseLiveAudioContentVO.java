@@ -1,11 +1,8 @@
 package com.xczhihui.course.vo;
 
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Date;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.xczhihui.common.util.enums.CourseLiveAudioMessageType;
 
 import lombok.Data;
@@ -28,10 +25,12 @@ public class CourseLiveAudioContentVO implements Serializable {
     private Integer pptImgId;
     private Integer contentType;
     private String content;
+    private String pptImgUrl;
     private Integer length;
     private String userId;
     private Integer discussionId;
     private Integer likes;
+    private Date createTime;
 
     private CourseLiveAudioDiscussionVO courseLiveAudioDiscussionVO;
 

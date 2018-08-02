@@ -39,4 +39,8 @@ public interface ICourseLiveAudioContentService {
     void saveCourseLiveAudioPPTs(Integer courseId, String accountId, List<CourseLiveAudioPPTVO> courseLiveAudioPPTs);
 
     List<CourseLiveAudioPPTVO> selectCourseLiveAudioPPTsByCourseId(Integer courseId);
+
+    String getCourseLiveAudioAccessToken(Integer courseId, String accountId) throws Exception;
+
+    void stop(String accountId, Integer courseId);
 }

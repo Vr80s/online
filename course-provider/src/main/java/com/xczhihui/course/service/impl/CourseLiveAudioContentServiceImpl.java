@@ -14,6 +14,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.common.support.service.CacheService;
 import com.xczhihui.common.util.enums.CourseLiveAudioMessageType;
 import com.xczhihui.common.util.redis.key.CourseRedisCacheKey;
+import com.xczhihui.common.util.vhallyun.BaseService;
 import com.xczhihui.common.util.vhallyun.ChatService;
 import com.xczhihui.course.exception.CourseException;
 import com.xczhihui.course.mapper.CourseLiveAudioContentMapper;
@@ -99,6 +100,10 @@ public class CourseLiveAudioContentServiceImpl implements ICourseLiveAudioConten
     @Override
     public void saveCourseLiveAudioContent(CourseLiveAudioContentVO courseLiveAudioContentVO) throws Exception {
         verifyCourseLiveAudioContent(courseLiveAudioContentVO);
+        int contentCount = courseLiveAudioContentMapper.selectContentCountByCourseId(courseLiveAudioContentVO.getCourseId());
+        if(contentCount == 0){
+            courseLiveAudioContentMapper.start(courseLiveAudioContentVO.getUserId(),courseLiveAudioContentVO.getCourseId());
+        }
         String channelId = courseLiveAudioContentMapper.selectChannelIdByCourseId(courseLiveAudioContentVO.getCourseId());
         if(channelId == null){
             throw new CourseException("课程信息有误");
@@ -133,9 +138,7 @@ public class CourseLiveAudioContentServiceImpl implements ICourseLiveAudioConten
             courseLiveAudioContentVO.setCourseLiveAudioDiscussionVO(courseLiveAudioDiscussionVO);
         }
 
-        String str = "{\"body\":{\"content\":\"1大家好今天我给大家讲000讲针灸1\",\"contentType\":1,\"courseId\":800,\"courseLiveAudioDiscussionVO\":null,\"discussionId\":null,\"id\":56,\"length\":null,\"likes\":0,\"pptImgId\":null,\"userId\":\"2c9aec345eba06eb015eba0820f80000\"},\"type\":1}\n";
         ChatService.sentCustomBroadcast(channelId, courseLiveAudioContentVO.toJson());
-//        ChatService.sentCustomBroadcast(channelId, "你好");
     }
 
     @Override
@@ -200,10 +203,17 @@ public class CourseLiveAudioContentServiceImpl implements ICourseLiveAudioConten
 
     @Override
     public void deleteCourseLiveAudioContent(String userId, Integer courseLiveAudioContentId) throws Exception {
-        int deleteCount = courseLiveAudioContentMapper.deleteByUserIdAndId(userId, courseLiveAudioContentId);
-        if(deleteCount>0){
+        CourseLiveAudioContentVO courseLiveAudioContentVO = courseLiveAudioContentMapper.selectCourseLiveAudioContentById(courseLiveAudioContentId);
+        int i = courseLiveAudioContentMapper.deleteByUserIdAndId(userId, courseLiveAudioContentId);
+        if(i>0){
             String channelId = courseLiveAudioContentMapper.selectChannelIdByCourseLiveAudioContentId(courseLiveAudioContentId);
             sentCourseLiveAudioContentDeleteCustomBroadcast(channelId,courseLiveAudioContentId);
+            if(courseLiveAudioContentVO.getDiscussionId() != null){
+                int j = courseLiveAudioDiscussionMapper.deleteByUserIdAndId(userId,courseLiveAudioContentVO.getDiscussionId());
+                if(j>0){
+                    sentCourseLiveAudioDiscussionDeleteCustomBroadcast(channelId,courseLiveAudioContentVO.getDiscussionId());
+                }
+            }
         }else{
             throw new CourseException("操作失败");
         }
@@ -218,15 +228,25 @@ public class CourseLiveAudioContentServiceImpl implements ICourseLiveAudioConten
 
     @Override
     public void deleteCourseLiveAudioDiscussion(String userId, Integer courseLiveAudioDiscussionId) throws Exception {
-        int deleteCount = courseLiveAudioDiscussionMapper.deleteByUserIdAndId(userId,courseLiveAudioDiscussionId);
-        if(deleteCount>0){
+        CourseLiveAudioDiscussionVO courseLiveAudioDiscussionVO = courseLiveAudioDiscussionMapper.selectCourseLiveAudioDiscussionById(courseLiveAudioDiscussionId);
+        int i = courseLiveAudioDiscussionMapper.deleteByUserIdAndId(userId,courseLiveAudioDiscussionId);
+        if(i>0){
             String channelId = courseLiveAudioDiscussionMapper.selectChannelIdByCourseLiveAudioDiscussionId(courseLiveAudioDiscussionId);
             sentCourseLiveAudioDiscussionDeleteCustomBroadcast(channelId,courseLiveAudioDiscussionId);
+            if(courseLiveAudioDiscussionVO.getSourceAudioLiveContentId()!=null){
+                int j = courseLiveAudioContentMapper.deleteByUserIdAndId(userId, courseLiveAudioDiscussionVO.getSourceAudioLiveContentId());
+                if(j>0){
+                    sentCourseLiveAudioContentDeleteCustomBroadcast(channelId,courseLiveAudioDiscussionVO.getSourceAudioLiveContentId());
+                }
+            }
         }
     }
 
     @Override
     public void saveCourseLiveAudioDiscussionBan(String accountId, Integer courseId, String userId) throws Exception {
+        if(StringUtils.isBlank(userId)||courseId==null){
+            throw new CourseException("参数有误");
+        }
         int count = courseLiveAudioDiscussionMapper.selectCourseCount(accountId,courseId);
         if(count > 0){
             cacheService.set(CourseRedisCacheKey.getLiveAudioBanCacheKey(courseId,userId),"禁言");
@@ -259,6 +279,26 @@ public class CourseLiveAudioContentServiceImpl implements ICourseLiveAudioConten
     @Override
     public List<CourseLiveAudioPPTVO> selectCourseLiveAudioPPTsByCourseId(Integer courseId) {
         return courseLiveAudioPptMapper.selectCourseLiveAudioPPTsByCourseId(courseId);
+    }
+
+    @Override
+    public String getCourseLiveAudioAccessToken(Integer courseId, String accountId) throws Exception {
+        String accessToken = cacheService.get(CourseRedisCacheKey.getLiveAudioTokenCacheKey(courseId,accountId));
+        if(StringUtils.isNotBlank(accessToken)){
+            return accessToken;
+        }
+        String channelId = courseLiveAudioContentMapper.selectChannelIdByCourseId(courseId);
+        if(StringUtils.isBlank(channelId)){
+            throw new RuntimeException("课程信息有误");
+        }
+        accessToken = BaseService.createAccessToken4Live(accountId, null, channelId);
+        cacheService.set(CourseRedisCacheKey.getLiveAudioTokenCacheKey(courseId,accountId),accessToken,CacheService.FIVE_HOUR);
+        return accessToken;
+    }
+
+    @Override
+    public void stop(String accountId, Integer courseId) {
+        courseLiveAudioContentMapper.stop(accountId,courseId);
     }
 
     private void verifyCourseLiveAudioPPT(CourseLiveAudioPPTVO courseLiveAudioPPT) {

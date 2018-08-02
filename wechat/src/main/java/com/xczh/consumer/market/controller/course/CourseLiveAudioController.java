@@ -2,7 +2,6 @@ package com.xczh.consumer.market.controller.course;
 
 import java.util.List;
 
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,20 +20,12 @@ import com.xczhihui.course.vo.CourseLiveAudioPPTVO;
 @RequestMapping("/xczh/course/live/audio")
 public class CourseLiveAudioController {
 
-    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(CourseLiveAudioController.class);
     @Autowired
     public ICourseLiveAudioContentService courseLiveAudioContentService;
 
-    @RequestMapping(value = "courseLiveAudioContent/{courseId}",method = RequestMethod.GET)
-    public ResponseObject courseLiveAudioContentList(String endTime,Integer pageSize,@PathVariable Integer courseId) throws Exception {
-        Page page = new Page(pageSize,10);
-        return ResponseObject.newSuccessResponseObject(courseLiveAudioContentService.selectCourseLiveAudioContentByCourseId(page,endTime,courseId));
-    }
-
-    @RequestMapping(value = "courseLiveAudioDiscussion/{courseId}",method = RequestMethod.GET)
-    public ResponseObject courseLiveAudioDiscussionList(String endTime,Integer pageSize,@PathVariable Integer courseId) throws Exception {
-        Page page = new Page(pageSize,10);
-        return ResponseObject.newSuccessResponseObject(courseLiveAudioContentService.selectCourseLiveAudioDiscussionByCourseId(page,endTime,courseId));
+    @RequestMapping(value = "courseLiveAudioAccessToken/{courseId}",method = RequestMethod.GET)
+    public ResponseObject getCourseLiveAudioAccessToken(@Account String accountId, @PathVariable Integer courseId) throws Exception {
+        return ResponseObject.newSuccessResponseObject(courseLiveAudioContentService.getCourseLiveAudioAccessToken(courseId,accountId));
     }
 
     @RequestMapping(value = "courseLiveAudioPPT/{courseId}",method = RequestMethod.POST)
@@ -68,8 +59,14 @@ public class CourseLiveAudioController {
         return ResponseObject.newSuccessResponseObject("点赞成功");
     }
 
+    @RequestMapping(value = "courseLiveAudioContent/{courseId}",method = RequestMethod.GET)
+    public ResponseObject courseLiveAudioContentList(String endTime, Integer pageNumber, @PathVariable Integer courseId) throws Exception {
+        Page page = new Page(pageNumber == null?1:pageNumber,10);
+        return ResponseObject.newSuccessResponseObject(courseLiveAudioContentService.selectCourseLiveAudioContentByCourseId(page,endTime,courseId));
+    }
+
     @RequestMapping(value = "courseLiveAudioDiscussion",method = RequestMethod.POST)
-    public ResponseObject saveCourseLiveAudioDiscussion(@Account String accountId, CourseLiveAudioDiscussionVO courseLiveAudioDiscussionVO) throws Exception {
+    public ResponseObject saveCourseLiveAudioDiscussion(@Account String accountId, @RequestBody CourseLiveAudioDiscussionVO courseLiveAudioDiscussionVO) throws Exception {
         courseLiveAudioDiscussionVO.setUserId(accountId);
         courseLiveAudioContentService.saveCourseLiveAudioDiscussion(courseLiveAudioDiscussionVO);
         return ResponseObject.newSuccessResponseObject("添加讨论成功");
@@ -87,10 +84,22 @@ public class CourseLiveAudioController {
         return ResponseObject.newSuccessResponseObject("点赞成功");
     }
 
+    @RequestMapping(value = "courseLiveAudioDiscussion/{courseId}",method = RequestMethod.GET)
+    public ResponseObject courseLiveAudioDiscussionList(String endTime,Integer pageNumber,@PathVariable Integer courseId) throws Exception {
+        Page page = new Page(pageNumber == null?1:pageNumber,10);
+        return ResponseObject.newSuccessResponseObject(courseLiveAudioContentService.selectCourseLiveAudioDiscussionByCourseId(page,endTime,courseId));
+    }
+
     @RequestMapping(value = "courseLiveAudioDiscussion/ban/{courseId}/{userId}",method = RequestMethod.POST)
     public ResponseObject saveCourseLiveAudioDiscussionBan(@Account String accountId, @PathVariable Integer courseId, @PathVariable String userId) throws Exception {
         courseLiveAudioContentService.saveCourseLiveAudioDiscussionBan(accountId,courseId,userId);
         return ResponseObject.newSuccessResponseObject("禁言成功");
+    }
+
+    @RequestMapping(value = "stop/{courseId}",method = RequestMethod.POST)
+    public ResponseObject stop(@Account String accountId, @PathVariable Integer courseId) throws Exception {
+        courseLiveAudioContentService.stop(accountId,courseId);
+        return ResponseObject.newSuccessResponseObject("关闭成功");
     }
 
 }
