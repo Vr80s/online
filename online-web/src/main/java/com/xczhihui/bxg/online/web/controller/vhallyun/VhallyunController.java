@@ -14,8 +14,10 @@ import com.xczhihui.common.support.domain.Attachment;
 import com.xczhihui.common.support.service.AttachmentCenterService;
 import com.xczhihui.common.support.service.AttachmentType;
 import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.common.util.bean.VhallMessageParamsVo;
 import com.xczhihui.common.util.vhallyun.BaseService;
 import com.xczhihui.common.util.vhallyun.DocumentService;
+import com.xczhihui.common.util.vhallyun.MessageService;
 import com.xczhihui.common.util.vhallyun.VhallUtil;
 import com.xczhihui.medical.anchor.service.IAnchorInfoService;
 
@@ -86,5 +88,15 @@ public class VhallyunController extends AbstractController {
             Integer status = vhallCallbackBody.getStatus();
         }
         return "success";
+    }
+
+    @RequestMapping(value = "message", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseObject getMessages(@RequestParam(name = "channelId") String channelId, @RequestParam(defaultValue = "0") int pos) throws Exception {
+        VhallMessageParamsVo vmpv = new VhallMessageParamsVo();
+        vmpv.setChannel_id(channelId);
+        vmpv.setPos(String.valueOf(pos));
+        vmpv.setType(String.valueOf(0));
+        return ResponseObject.newSuccessResponseObject(MessageService.getMessageList(vmpv));
     }
 }
