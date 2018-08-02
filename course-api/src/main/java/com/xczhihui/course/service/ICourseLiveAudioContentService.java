@@ -1,9 +1,7 @@
 package com.xczhihui.course.service;
 
 
-import java.util.Date;
-
-import com.xczhihui.common.util.bean.Page;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.course.vo.CourseLiveAudioContentVO;
 import com.xczhihui.course.vo.CourseLiveAudioDiscussionVO;
 
@@ -34,4 +32,6 @@ public interface ICourseLiveAudioContentService {
     void deleteCourseLiveAudioContent(String accountId, Integer courseLiveAudioContentId) throws Exception;
 
     void deleteCourseLiveAudioDiscussion(String accountId, Integer courseLiveAudioDiscussionId) throws Exception;
+
+    void saveCourseLiveAudioDiscussionBan(String accountId, String userId);
 }

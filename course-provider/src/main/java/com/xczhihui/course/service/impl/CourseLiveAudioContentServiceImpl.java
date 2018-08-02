@@ -1,8 +1,6 @@
 package com.xczhihui.course.service.impl;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +10,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.xczhihui.common.util.bean.Page;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.common.util.enums.CourseLiveAudioMessageType;
 import com.xczhihui.common.util.vhallyun.ChatService;
 import com.xczhihui.course.exception.CourseException;
@@ -180,7 +178,7 @@ public class CourseLiveAudioContentServiceImpl implements ICourseLiveAudioConten
                 courseLiveAudioContentVO.setCourseLiveAudioDiscussionVO(courseLiveAudioDiscussionVO);
             }
         });
-        page.setItems(courseLiveAudioContentVOList);
+        page.setRecords(courseLiveAudioContentVOList);
         return page;
     }
 
@@ -196,7 +194,7 @@ public class CourseLiveAudioContentServiceImpl implements ICourseLiveAudioConten
                 courseLiveAudioDiscussionVO.setCourseLiveAudioDiscussionVO(cld);
             }
         });
-        page.setItems(courseLiveAudioDiscussionVOList);
+        page.setRecords(courseLiveAudioDiscussionVOList);
         return page;
     }
 
@@ -227,6 +225,11 @@ public class CourseLiveAudioContentServiceImpl implements ICourseLiveAudioConten
         }else{
             throw new CourseException("操作失败");
         }
+    }
+
+    @Override
+    public void saveCourseLiveAudioDiscussionBan(String accountId, String userId) {
+            //TODO
     }
 
     private void sentCourseLiveAudioDiscussionDeleteCustomBroadcast(String channelId, Integer courseLiveAudioDiscussionId) throws Exception {

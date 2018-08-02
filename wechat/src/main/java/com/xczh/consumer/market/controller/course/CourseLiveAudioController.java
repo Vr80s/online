@@ -1,7 +1,5 @@
 package com.xczh.consumer.market.controller.course;
 
-import java.util.Optional;
-
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -9,31 +7,31 @@ import org.springframework.web.bind.annotation.*;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczhihui.course.model.CourseLiveAudioDiscussion;
 import com.xczhihui.course.service.ICourseLiveAudioContentService;
-import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.course.vo.CourseLiveAudioContentVO;
 import com.xczhihui.course.vo.CourseLiveAudioDiscussionVO;
 
 /**
- * 点播控制器 ClassName: BunchPlanController.java <br>
- * Description: <br>
- * Create by: name：yangxuan <br>
- * email: 15936216273@163.com <br>
- * Create Time: 2017年8月11日<br>
+ * 音频直播
  */
 @RestController
-@RequestMapping("/xczh/course")
+@RequestMapping("/xczh/course/live/audio")
 public class CourseLiveAudioController {
+
     private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(CourseLiveAudioController.class);
     @Autowired
     public ICourseLiveAudioContentService courseLiveAudioContentService;
 
-
     @RequestMapping(value = "courseLiveAudioContent",method = RequestMethod.GET)
-    public ResponseObject courseLiveAudioContentList(String closingTime,Integer pageSize) throws Exception {
-        Page<CourseLecturVo> courseLiveAudioContentList = courseLiveAudioContentService.selectCourseLiveAudioContentByCourseId(pageSize,closingTime);
-        return ResponseObject.newSuccessResponseObject("发送成功");
+    public ResponseObject courseLiveAudioContentList(String closingTime,Integer pageSize,Integer courseId) throws Exception {
+        Page page = new Page(pageSize,10);
+        return ResponseObject.newSuccessResponseObject(courseLiveAudioContentService.selectCourseLiveAudioContentByCourseId(page,closingTime,courseId));
+    }
+
+    @RequestMapping(value = "courseLiveAudioDiscussion",method = RequestMethod.GET)
+    public ResponseObject courseLiveAudioDiscussionList(String closingTime,Integer pageSize,Integer courseId) throws Exception {
+        Page page = new Page(pageSize,10);
+        return ResponseObject.newSuccessResponseObject(courseLiveAudioContentService.selectCourseLiveAudioDiscussionByCourseId(page,closingTime,courseId));
     }
 
     @RequestMapping(value = "courseLiveAudioContent",method = RequestMethod.POST)
@@ -72,6 +70,12 @@ public class CourseLiveAudioController {
     public ResponseObject saveCourseLiveAudioDiscussionLike(@Account String accountId, @PathVariable Integer courseLiveAudioDiscussionId) throws Exception {
         courseLiveAudioContentService.saveCourseLiveAudioDiscussionLike(courseLiveAudioDiscussionId,accountId);
         return ResponseObject.newSuccessResponseObject("点赞成功");
+    }
+
+    @RequestMapping(value = "courseLiveAudioDiscussion/ban/{userId}",method = RequestMethod.POST)
+    public ResponseObject saveCourseLiveAudioDiscussionBan(@Account String accountId, @PathVariable String userId) throws Exception {
+        courseLiveAudioContentService.saveCourseLiveAudioDiscussionBan(accountId,userId);
+        return ResponseObject.newSuccessResponseObject("禁言成功");
     }
 
 }

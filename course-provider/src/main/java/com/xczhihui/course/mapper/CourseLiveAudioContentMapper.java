@@ -1,13 +1,14 @@
 package com.xczhihui.course.mapper;
 
-import java.util.Date;
 import java.util.List;
 
-import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
-import com.xczhihui.common.util.bean.Page;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.course.model.CourseLiveAudioContent;
 import com.xczhihui.course.vo.CourseLiveAudioContentVO;
 
