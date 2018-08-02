@@ -38,6 +38,8 @@ public class RedisCacheKey {
 
     public static final String XG_ACCOUNT_KEY = "xg:account:key:";
 
+    public static final String VHALLYUN_BAN_KEY = "vhallyun:ban:key:";
+
     public static String getGiftCacheKey(String str) {
         return GIFT_CACHE__PREFIX + REDIS_SPLIT_CHAR + str;
     }
