@@ -16,7 +16,7 @@ public interface CourseApplyService {
 
     CourseApplyInfo findCourseApplyById(Integer id);
 
-    void savePass(Integer courseApplyId, String id);
+    void savePass(Integer courseApplyId, String id) throws Exception;
 
     void saveNotPass(CourseApplyInfo courseApply, String id);
 

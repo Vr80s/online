@@ -170,7 +170,7 @@ public class CourseApplyInfoController extends AbstractController {
     //@RequiresPermissions("course:menu:course")
     @RequestMapping(value = "pass", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseObject pass(Integer courseApplyId) { 
+    public ResponseObject pass(Integer courseApplyId) throws Exception {
         ResponseObject responseObj = new ResponseObject();
         courseApplyService.savePass(courseApplyId, ManagerUserUtil.getId());
         responseObj.setSuccess(true);

@@ -152,7 +152,7 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
     }
 
     @Override
-    public void savePass(Integer courseApplyId, String createPerson) {
+    public void savePass(Integer courseApplyId, String createPerson) throws Exception {
         CourseApplyInfo courseApply = courseApplyDao.findCourseApplyById(courseApplyId);
         if (courseApply.getStatus() != ApplyStatus.UNTREATED.getCode()) {
             throw new RuntimeException("课程已被他人审核");
@@ -402,7 +402,7 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
         dao.update(courseApply);
     }
 
-    public Course savePassCourse(CourseApplyInfo courseApply, String userId) {
+    public Course savePassCourse(CourseApplyInfo courseApply, String userId) throws Exception {
         courseApply.setStatus(ApplyStatus.PASS.getCode());
         courseApply.setReviewPerson(userId);
         courseApply.setReviewTime(new Date());
@@ -465,7 +465,7 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
 
         course.setLiveSource(2);
         course.setSort(0);
-
+        course.setMultimediaType(courseApply.getMultimediaType());
         course.setStatus("0");
         if (course.getType() == CourseForm.OFFLINE.getCode()) {
             // 线下课程
