@@ -24,13 +24,7 @@ function chZJ(videoId){
    return;
 }
 
-//var course_id = getQueryString("courseId");
 
-//新的token啦：频道id：ch_d260ab70    ，   token access:27376e92:8520e066f987ba58
-//access:27376e92:8520e066f987ba58
-/**
- * 
- */
 var vhallObj = {
     roomId:"lss_508dc5c6",
     appId:"27376e92",
@@ -135,7 +129,6 @@ function elsBind(){
          */
         window.chat.onCustomMsg(function(msg){
              msg = JSON.parse(msg);
-            
              try{
                 //在聊天 区域显示
                 item = JSON.parse(item);
@@ -143,7 +136,12 @@ function elsBind(){
                     e+=liaotian(item);
                 }else if(item.type == 11){ //礼物
                     e+=liveGiftList(item);
+                }else if(item.type == 12){ // 开始直播啦
+                
+                }if(item.type == 13){ //直播结束了  
+                
                 }
+                
                 
                 //在礼物区域显示
                 createGiftList(msg);
@@ -156,7 +154,6 @@ function elsBind(){
          * 某某进入直播间
          */
         window.chat.join(function(msg){
-            
             viewJoinleaveRoomInfo(msg,"join");
         })
         
@@ -164,9 +161,9 @@ function elsBind(){
          * 某某离开直播间
          */
         window.chat.leave(function(msg){
-            
             viewJoinleaveRoomInfo(msg,"leave");
         })
+        
      });	
     
          window.Vhall.config({

@@ -6,7 +6,6 @@ function is_weixin() {
 	} else {
 		return false;
 	}
-	gift
 }
 if (!is_weixin()) {
 	$(".weixin_li").remove();

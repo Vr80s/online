@@ -136,9 +136,9 @@ public class VhallyunController extends AbstractController {
     }
     
     
-    @RequestMapping(value = "sendMessage", method = RequestMethod.GET)
+    @RequestMapping(value = "customSendMessage", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseObject sendMessage(String body,String channel_id) throws Exception {
+    public ResponseObject customSendMessage(String body,String channel_id) throws Exception {
         BxgUser loginUser = UserLoginUtil.getLoginUser();
         JSONObject jsonObject =  (JSONObject) JSON.parse(body);
         if(jsonObject.get("type")!=null && jsonObject.get("type").toString().equals("1")) {
