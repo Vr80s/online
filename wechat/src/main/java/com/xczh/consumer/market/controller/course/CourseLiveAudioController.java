@@ -23,6 +23,11 @@ public class CourseLiveAudioController {
     @Autowired
     public ICourseLiveAudioContentService courseLiveAudioContentService;
 
+    @RequestMapping(value = "courseLiveAudioAccessToken/{courseId}",method = RequestMethod.GET)
+    public ResponseObject getCourseLiveAudioAccessToken(@Account String accountId, @PathVariable Integer courseId) throws Exception {
+        return ResponseObject.newSuccessResponseObject(courseLiveAudioContentService.getCourseLiveAudioAccessToken(courseId,accountId));
+    }
+
     @RequestMapping(value = "courseLiveAudioPPT/{courseId}",method = RequestMethod.POST)
     public ResponseObject saveCourseLiveAudioPPT(@Account String accountId, @PathVariable Integer courseId,@RequestBody List<CourseLiveAudioPPTVO> courseLiveAudioPPTs) throws Exception {
         courseLiveAudioContentService.saveCourseLiveAudioPPTs(courseId,accountId,courseLiveAudioPPTs);
@@ -89,6 +94,12 @@ public class CourseLiveAudioController {
     public ResponseObject saveCourseLiveAudioDiscussionBan(@Account String accountId, @PathVariable Integer courseId, @PathVariable String userId) throws Exception {
         courseLiveAudioContentService.saveCourseLiveAudioDiscussionBan(accountId,courseId,userId);
         return ResponseObject.newSuccessResponseObject("禁言成功");
+    }
+
+    @RequestMapping(value = "stop/{courseId}",method = RequestMethod.POST)
+    public ResponseObject stop(@Account String accountId, @PathVariable Integer courseId) throws Exception {
+        courseLiveAudioContentService.stop(accountId,courseId);
+        return ResponseObject.newSuccessResponseObject("关闭成功");
     }
 
 }

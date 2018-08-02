@@ -34,7 +34,7 @@ public interface CourseLiveAudioContentMapper extends BaseMapper<CourseLiveAudio
     @Update("UPDATE `oe_course_live_audio_content`  clac SET clac.`likes`=clac.`likes`+1 WHERE clac.id=#{audioContentId}")
     int updateLikeById(@Param("audioContentId") Integer audioContentId);
 
-    @Select("SELECT oc.`channel_id` channelId FROM `oe_course` oc WHERE oc.id=#{courseId}")
+    @Select("SELECT oc.`channel_id` channelId FROM `oe_course` oc WHERE oc.id=#{courseId} AND oc.`multimedia_type`=2 ")
     String selectChannelIdByCourseId(@Param("courseId") Integer courseId);
 
     int insertSelect(@Param("courseLiveAudioContent") CourseLiveAudioContent courseLiveAudioContent);
@@ -50,4 +50,13 @@ public interface CourseLiveAudioContentMapper extends BaseMapper<CourseLiveAudio
             "FROM `oe_course_live_audio_content` clac LEFT JOIN `oe_course_live_audio_ppt` ppt ON ppt.id=clac.`audio_ppt_id`  " +
             " WHERE clac.`is_delete`=0 AND clac.id=#{id}")
     CourseLiveAudioContentVO selectCourseLiveAudioContentById(Integer id);
+
+    @Update("UPDATE `oe_course` oc SET oc.`live_status`=3 WHERE oc.`user_lecturer_id`=#{accountId} AND oc.id=#{courseId}")
+    void stop(@Param("accountId") String accountId, @Param("courseId") Integer courseId);
+
+    @Select("SELECT COUNT(*) FROM `oe_course_live_audio_content` clac WHERE clac.`course_id`=#{courseId}")
+    int selectContentCountByCourseId(@Param("courseId") Integer courseId);
+
+    @Update("UPDATE `oe_course` oc SET oc.`live_status`=1 WHERE oc.`user_lecturer_id`=#{userId} AND oc.id=#{courseId}")
+    void start(String userId, Integer courseId);
 }

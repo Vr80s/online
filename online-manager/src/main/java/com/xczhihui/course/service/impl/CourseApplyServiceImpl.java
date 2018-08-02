@@ -21,6 +21,7 @@ import com.xczhihui.common.support.service.CacheService;
 import com.xczhihui.common.util.redis.key.RedisCacheKey;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.util.enums.*;
+import com.xczhihui.common.util.vhallyun.ChannelService;
 import com.xczhihui.course.dao.CourseApplyDao;
 import com.xczhihui.course.dao.CourseDao;
 import com.xczhihui.course.params.BaseMessage;
@@ -411,7 +412,7 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
 
     }
 
-    private Course saveCourseApply2course(CourseApplyInfo courseApply) {
+    private Course saveCourseApply2course(CourseApplyInfo courseApply) throws Exception {
         Course course = getCourse4Apply(courseApply.getOldApplyInfoId());
         courseService.checkName(null, courseApply.getTitle(), courseApply.getOldApplyInfoId());
         // 当课程存在密码时，设置的当前价格失效，改为0.0
@@ -476,13 +477,22 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
             courseService.addCourseCity(course.getCity());
         } else if (course.getType() == CourseForm.LIVE.getCode()) {
             course.setStartTime(courseApply.getStartTime());
-            if (StringUtils.isBlank(course.getDirectId())) {
-                String webinarId = createWebinar(course);
-                course.setDirectId(webinarId);
-                // 将直播课设置为预告
-                course.setLiveStatus(2);
-            } else {
-                updateWebinar(course);
+            if(course.getMultimediaType()==Multimedia.VIDEO.getCode()){
+                if (StringUtils.isBlank(course.getDirectId())) {
+                    String webinarId = createWebinar(course);
+                    course.setDirectId(webinarId);
+                    // 将直播课设置为预告
+                    course.setLiveStatus(2);
+                } else {
+                    updateWebinar(course);
+                }
+            }else{
+                if (StringUtils.isBlank(course.getChannelId())) {
+                    String channelId = ChannelService.create();
+                    course.setChannelId(channelId);
+                    // 将直播课设置为预告
+                    course.setLiveStatus(2);
+                }
             }
         } else if (course.getType() == CourseForm.VOD.getCode()) {
             // yuruixin-2017-08-16
