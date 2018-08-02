@@ -5,19 +5,19 @@ function chZJ(videoId){
    return;
 }
 
-var course_id = getQueryString("courseId");
+//var course_id = getQueryString("courseId");
 
-//新的token啦：频道id：ch_fc6f51f4    ，   token access:27376e92:798807b652f03baf
-//access:27376e92:798807b652f03baf
+//新的token啦：频道id：ch_d260ab70    ，   token access:27376e92:8520e066f987ba58
+//access:27376e92:8520e066f987ba58
 /**
  * 
  */
 var obj = {
-    roomId:"lss_ad04fdfe",
+    roomId:"lss_508dc5c6",
     appId:"27376e92",
     accountId:"test_jssdk",
-    token:"access:27376e92:798807b652f03baf",
-    channelId:'ch_fc6f51f4'
+    token:"access:27376e92:8520e066f987ba58",
+    channelId:'ch_d260ab70'
 }
 
   
@@ -25,33 +25,19 @@ function elsBind(){
     window.doc = {};
     
     var readyCallback = function(){
-    	
-     VhallLive.init({
-       roomId:obj.roomId,
-       type:'live',
-       videoNode:'myVideo',
-       complete:function(){
-         
-       }
-     });	
-     
-     
+       /**
+         * 开始推流事件监听
+         */
+        VhallLive.onPublishStart(function(){
+             console.log('直播开始！');
+             VhallLive.play();
+        })
         /**
-             * 开始推流事件监听
-             */
-            VhallLive.onPublishStart(function(){
-                 console.log('直播开始！');
-                 VhallLive.play();
-            })
-             
-            /**
-             * 停止推流事件监听
-             */
-            VhallLive.onPublishStop(function(){
-                console.log('直播结束！');
-            })
-     
-          
+         * 停止推流事件监听
+         */
+        VhallLive.onPublishStop(function(){
+            console.log('直播结束！');
+        })
     	
       window.doc = new VhallDocPassive({
         channelId:obj.channelId, //频道Id
@@ -62,7 +48,7 @@ function elsBind(){
          * 初始化聊天对象
          */
         window.chat = new VhallChat({
-           channelId:'ch_fc6f51f4'//频道Id，必填
+           channelId:'ch_d260ab70'//频道Id，必填
         });
 
         /**
@@ -105,6 +91,16 @@ function elsBind(){
         	
             viewJoinleaveRoomInfo(msg,"leave");
         })
+        
+         VhallLive.init({
+           roomId:obj.roomId,
+           type:'live',
+           videoNode:'myVideo',
+           complete:function(){
+              VhallLive.play();
+           }
+         });    
+        
     }
 
     window.Vhall.ready(readyCallback);
@@ -116,11 +112,6 @@ function elsBind(){
          token:obj.token//token必填
     });
 
-    
-    
-//    setTimeout(function(){
-//      
-//     },1000);
       
     /**
      * 发送聊天消息
@@ -163,7 +154,7 @@ function msgList(pos,limit){
   /**
    * 获取列表啦
    */ 
-  requestService("/xczh/vhall/vhallYunMessageList",params,
+  RequestService("/xczh/vhall/vhallYunMessageList","get",params,
         function(data) {
         if (data.success && data.resultObject.code == 200) {
         	 var res = data.resultObject;

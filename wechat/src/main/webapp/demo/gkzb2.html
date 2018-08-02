@@ -2,27 +2,26 @@
 <html id="html-code">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>微吼云jssdk推流demo</title>
+  <title>微吼云jssdk观看demo </title>
   <base href=".">
   <link rel="stylesheet" href="./css/base.css">
   <link href="./css/main.css" rel="stylesheet">
   <link href="./css/nav.css" rel="stylesheet">
   <link rel="stylesheet" href="./css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://static.vhallyun.com/jssdk/videojs.min.css?v=1.0.0"></script><!--播放器默认样式，需要引用在包含在页面的head标签里-->
   <script src="./js/clipboard.js"></script>
   <script src="./js/toc.js"></script>
   <script src="./js/test.js"></script>
-<!--   <script src="../../vhall-jssdk-live-stream-1.0.0.js?v=201803301814"></script>
-  <script src="../dist/vhall-jssdk-live-stream-1.0.0.js?v=201803301814"></script>
-  <script src="../../vhall-jssdk-base-1.0.0.js?v=201712300026"></script>
-  <script src="../dist/vhall-jssdk-base-1.0.0.js?v=201712300026"></script> -->
-  <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-live-stream-1.0.0.js?v=201802021400"></script>
-  <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-base-1.0.0.js?v=201802021400"></script>
+  <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-chat-1.0.0.js?v=201801121522"></script>
+  <script src="https://static.vhallyun.com/jssdk/dvideo-plugin.js?v=201806132033"></script><!--依赖的播放器资源-->
+  <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-player-1.0.0.js?v=201806132033"></script>
+  <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-base-1.0.0.js?v=201806132033"></script>
   <style type="text/css">
     body{
       background-color: #d2d2d2;
     }
     #title{
-      padding-top: 12%;
+      padding-top: 5%;
     }
     .menu-item a{
       text-align: center;
@@ -95,8 +94,32 @@
     .settings-action-btn button{
         margin-top: 0px;
     }
-    #roomId,#appId{
-      width: 300px;
+    .vjs-big-play-button{
+        display: none !important;
+    }
+    #myVideo{
+      width: 854px;
+      height: 480px;
+      margin-top: 20px;
+    }
+    .btn-copy-code{
+      float: right;
+      margin-top: -50px;
+    }
+    .copycode-box{
+      text-align: right;
+    }
+    .copycode-box button{
+      margin-top: 0px;
+    }
+    .live-and-vod{
+
+    }
+    .live-and-vod div{
+      display: inline-block;
+      background-color: #337ab7;
+      color: #fff;
+      padding: 6px 10px;
     }
   </style>
 </head>
@@ -113,7 +136,7 @@
                     <a href="javascript:tabShow('confBox')" title="接口配置" >接口配置</a>
                   </li>
                   <li class="menu-item menu-item-1">
-                    <a href="javascript:tabShow('videoBox')" title="推流演示" >推流演示</a>
+                    <a href="javascript:tabShow('videoBox')" title="推流演示" >观看演示</a>
                   </li>
                 </ul>
           </div>
@@ -121,18 +144,21 @@
         <div class="main-container"> 
 
             <h1 id="title">
-               微吼云jssdk推流demo
-               <button id="go-to-play" onclick="goToPlay();" class="btn btn-primary" style="margin-top:0px; margin-left:150px;display: none;">去观看直播</button>
+               微吼云jssdk观看demo
             </h1>
-
-          <div id="videoBox" style="width: 854px;height: 480px;margin-top: 20px;display: none;">
+          <div id="videoBox" style="width: 854px;height: 480px;display: none;">
+            <div class="live-and-vod">
+              <div onclick="liveInit();" style="cursor: pointer;">PC直播</div>
+              <div onclick="vodInit();" style="cursor: pointer;">PC点播</div>
+            </div>
+            <hr />
+            <div class="copycode-box"><button onclick="jsCopy();" class="btn btn-primary">复制源码</button>
+            <button onclick="sendMsg();" class="btn btn-primary">发送消息</button></div>
             <div id="myVideo"></div>
-            <div class="detection"></div>
             <div class="action-box">
-              <button id="btn-start-push" class="btn btn-primary">推流</button>
-              <button id="btn-setting" class="btn btn-primary btn-small" style="float: right;">设置</button>
-              <div id="settings" class="settings">
-              </div>
+              <button id="btn-start-play" class="btn btn-primary">播放</button>
+              
+              
             </div>
           </div>
           
@@ -146,27 +172,16 @@
               <div class="confs-title">
                 <div class="confs-title-item">appId:</div>
                 <div class="confs-title-item">roomId:</div>
+                <div class="confs-title-item">recordId:</div>
                 <div class="confs-title-item">accountId:</div>
                 <div class="confs-title-item">token:</div>
               </div>
               <div class="confs-info">
-                <div class="confs-info-item">
-                  <input class="form-control" id="appId" type="text" name="" value="27376e92">
-<!--                   <select class="form-control" id="appId" >
-                      <option value="277ed4af">277ed4af</option>
-                      <option value="70335bff">70335bff</option>
-                      <option value="493879b4">493879b4</option>
-                      <option value="22d685d6">22d685d6</option>
-                  </select> -->
-                </div>
-                <div class="confs-info-item">
-                  <select class="form-control" id="roomId" >
-                    <option value="lss_508dc5c6">lss_508dc5c6</option>
-                   
-                  </select>
-                </div>
-                <div class="confs-info-item"><input class="form-control" id="accountId" type="text" name="" value="test_jssdk"></div>
-                <div class="confs-info-item"><input class="form-control" id="token" type="text" name="" value="access:27376e92:8520e066f987ba58"></div>
+                <div class="confs-info-item"><input class="form-control" id="appId" type="text" name="" value="76043aaf"></div>
+                <div class="confs-info-item"><input class="form-control" id="roomId" type="text" name="" value="lss_c063b5c9"></div>
+                <div class="confs-info-item"><input class="form-control" id="recordId" type="text" name="" value=""></div>
+                <div class="confs-info-item"><input class="form-control" id="accountId" type="text" name="" value="10000126"></div>
+                <div class="confs-info-item"><input class="form-control" id="token" type="text" name="" value="vhall"></div>
               </div>
             </div>
             <p> <button id="btn-conf-save" data-label="Vhall.config" class="btn btn-primary">保存</button></p>
@@ -186,36 +201,10 @@
 <script src="./js/vendor.js"></script>
 <script id="javascript-code">
 
-  function load(){
-      Vhall.ready(function(){
-        //todo
-        VHPublisher.error(function(e){
-          console.error(e.msg);
-        });
-
-        VHPublisher.init({
-        roomId:$('#roomId').val(),//房间名称
-        videoNode:'myVideo',//推流容器
-        //调用推流接口后完成事件，注意，是调用接口事件完成，不是推流结束。
-        complete:function(){
-          //to do
-        }
-      });
-
-    });
-
-     Vhall.config({
-         appId :$('#appId').val(),//应用 ID ,必填
-         accountId :$('#accountId').val(),//第三方用户唯一标识,必填
-         token :$('#token').val(),//token必填
-     });
-  }
-
-
-    var startBtn = document.getElementById('btn-start-push');
-      startBtn.addEventListener('click',startPush);
+    var startBtn = document.getElementById('btn-start-play');
+      startBtn.addEventListener('click',startPlay);
     $('#btn-conf-save').on('click',function(){
-        load();
+        init();
         tabShow('videoBox');
     });
 
@@ -223,62 +212,68 @@
         setSettings();
     });
 
-    /**
-     * 开始推流
-     */
-      function startPush(){
-        var _s = $('#resolving').val(),_w = '',_h = '';
-        _s = _s ? _s : '*';
-        _w = _s.split('*')[0];
-        _h = _s.split('*')[1];
-        startBtn.innerHTML = '启动推流中...';
-        // $('#videoBox').css({
-        //   width: _w + 'px',
-        //   height: _h + 'px'
-        // });
-        VHPublisher.startPush({
-          camera:$('#camera').val() || '',//摄像头名称，不传值则使用默认摄像头
-          mic:$('#mic').val() || '',//麦克风名称，不传值则使用默认麦克风
-          width:_w,//推流分辨率的宽度，不传值则使用默认分辨率：853，
-          height:_h,//推流分辨率的高度，不传值则使用默认分辨率：480
-          //成功回调，非必填
-          success: function(){
-            
-            startBtn.removeEventListener('click',startPush);
-            startBtn.innerHTML = '停推';
-            startBtn.addEventListener('click',stopPush);
-            setTimeout(function(){
-              $('#go-to-play').show();
-            },5*1000);
-             
 
-          },
-          fail: function(e){
-            console.error('推流出错',e.msg);
-          },
-          complete: function(e){
-            
-          } 
-        });
+    function liveInit(){
+      VhallPlayer.init({
+          roomId:$('#roomId').val(),//房间ID,直播必填，点播不写
+          recordId:'',//回放Id，点播必填，直播不写
+          type:'live',//播放类型,必填，live 直播, vod 为点播
+          videoNode:'myVideo',//推流视频回显节点id，必填
+          complete:function(){
+            // VhallPlayer.play();
+          }
+      });
+    }
+
+    function vodInit(){
+      VhallPlayer.init({
+          roomId:'',//房间ID,直播必填，点播不写
+          recordId:$('#recordId').val(),//回放Id，点播必填，直播不写
+          type:'vod',//播放类型,必填，live 直播, vod 为点播
+          videoNode:'myVideo',//推流视频回显节点id，必填
+          complete:function(){
+            // VhallPlayer.play();
+          }
+      });
+    }
+    
+    /**
+     * 开始推流事件监听
+     */
+     VhallPlayer.onPublishStart(function(){
+         console.log('直播开始！');
+         VhallLive.play();
+    })
+     
+    /**
+     * 停止推流事件监听
+     */
+     VhallPlayer.onPublishStop(function(){
+        console.log('直播结束！');
+    })
+    
+    
+    /**
+     * 开始播放
+     */
+      function startPlay(){
+        VhallPlayer.play();
+        $('#btn-start-play').text('暂停');
+        startBtn.removeEventListener('click',startPlay);
+        startBtn.addEventListener('click',stopPlay);
       }
 
-      function stopPush(){
-
-        VHPublisher.stopPush({
-          complete: function(){
-            startBtn.removeEventListener('click',stopPush);
-            startBtn.addEventListener('click',startPush);
-            startBtn.innerHTML = '开推';
-            $('#go-to-play').hide();
-          }
-        });
+      function stopPlay(){
+        VhallPlayer.pause();
+        $('#btn-start-play').text('播放');
+        startBtn.removeEventListener('click',stopPlay);
+        startBtn.addEventListener('click',startPlay);
       }
 
       function tabShow(id){
           $('#videoBox').hide();
           $('#confBox').hide();
           $('#' + id).show();
-          // $('#go-to-play').show();
       }
 
       function jsCopy(){  
@@ -355,36 +350,125 @@
            $('#settings').html(html);
         }
         $('#settings').show();
-
-        //设置按钮
         $('#btn-settings-ok,#btn-settings-cancel').on('click',function(){
           $('#settings').hide();
-          // VHPublisher.stopPush({
-          //   complete: function(){
-          //     startBtn.removeEventListener('click',stopPush);
-          //     startBtn.addEventListener('click',startPush);
-          //     startBtn.innerHTML = '开推';
-          //     startPush();
-          //   }
-          // });
-
         });
 
       }
 
-      function goToPlay(){
-        window.open ('/demo/gkzb1.html?appId=' 
-          + $('#appId').val() 
-          + '&roomId=' 
-          + $('#roomId').val() 
-          + '&accountId=' 
-          + $('#accountId').val() 
-          + '&token=' 
-          + $('#token').val() 
-          + '&v=' + (new Date().getTime()),'newwindow','height=100,width=400,top=0,left=0,toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no') 
-      }
-
   </script>
+
+  <script>
+
+    function getQueryString(name) {
+      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); // 匹配目标参数
+      var result = window.location.search.substr(1).match(reg); // 对querystring匹配目标参数
+      if (result != null) {
+        return decodeURIComponent(result[2]);
+      } else {
+        return null;
+      }
+    }
+
+    if(getQueryString('roomId')){
+
+      // $('#appId').val(getQueryString('appId'));
+      // $('#roomId').val(getQueryString('roomId'));
+      // $('#accountId').val(getQueryString('accountId'));
+      // $('#token').val(getQueryString('token'));
+      
+      // $(document).ready(function(){
+
+      //     $('#btn-conf-save').click();
+          
+      // });
+
+      Vhall.ready(function(){
+
+          VhallPlayer.init({
+              roomId:getQueryString('roomId'),//房间ID,直播必填，点播不写
+              recordId:'',//回放Id，点播必填，直播不写
+              type:'live',//播放类型,必填，live 直播, vod 为点播
+              videoNode:'myVideo',//推流视频回显节点id，必填
+              complete:function(){
+                // VhallPlayer.play();
+              }
+          });
+
+          /**
+           * 初始化聊天对象ch_d260ab70
+           */
+          window.chat = new VhallChat({
+             channelId:'ch_d260ab70'//频道Id，必填
+          });
+          
+          
+          /**
+           * 监听聊天消息
+           */
+          window.chat.on(function(msg){
+              //在此收到聊天消息，消息内容为msg
+        	  alert("接受到啦");
+          });
+          
+          
+          /**
+           * 某某进入直播间
+           */
+          window.chat.join(function(msg){
+              console.log(msg);
+          })
+          
+          /**
+           * 某某离开直播间
+           */
+          window.chat.leave(function(msg){
+             console.log(msg);
+          })
+          
+          
+      });
+
+      Vhall.config({
+         appId :getQueryString('appId'),//应用 ID ,必填
+         accountId :getQueryString('accountId'),//第三方用户唯一标识,必填
+         token :getQueryString('token'),//token必填
+      });
+
+      tabShow('videoBox');
+    } 
+
+
+    function init(){
+       Vhall.ready(function(){
+           VhallPlayer.init({
+               roomId:$('#roomId').val(),//房间ID,直播必填，点播不写
+               recordId:'',//回放Id，点播必填，直播不写
+               type:'live',//播放类型,必填，live 直播, vod 为点播
+               videoNode:'myVideo',//推流视频回显节点id，必填
+               complete:function(){
+                 // VhallPlayer.play();
+               }
+           });
+
+       });
+
+      Vhall.config({
+          appId :$('#appId').val(),//应用 ID ,必填
+          accountId :$('#accountId').val(),//第三方用户唯一标识,必填
+          token :$('#token').val(),//token必填
+      });
+    }
+
+    
+    function sendMsg(){
+        window.chat.emit("啦啦啦");
+        alert("发送成功");
+     }
+    
+    
+  </script>
+
 </body>
 </html>
 

@@ -71,6 +71,12 @@ public class VhallVideoController {
     }
     
     
+    /**
+     * 获取消息列表
+     * @param vmpv
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("vhallYunMessageList")
     @ResponseBody
     public ResponseObject getMessageList(
@@ -83,6 +89,14 @@ public class VhallVideoController {
         return ResponseObject.newSuccessResponseObject(MessageService.getMessageList(vmpv));
     }
     
+    /**
+     * 微吼发送消息
+     * @param type
+     * @param body
+     * @param channel_id
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("vhallYunSendMessage")
     @ResponseBody
     public ResponseObject sendMessage(String type,
