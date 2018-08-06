@@ -82,14 +82,19 @@ public class MobileBannerServiceImpl extends ServiceImpl<MobileBannerMapper, Mob
 
         List<Map<String, Object>> mapCourseList = new ArrayList<Map<String, Object>>();
 
+        Map<String, Object> mapLiveAudio = new HashMap<String, Object>();
         Map<String, Object> mapTj = new HashMap<String, Object>();
         Map<String, Object> mapNw = new HashMap<String, Object>();
         Map<String, Object> mapMf = new HashMap<String, Object>();
+        List<CourseLecturVo> listLiveAudio = new ArrayList<CourseLecturVo>();
         List<CourseLecturVo> listTj = new ArrayList<CourseLecturVo>();
         List<CourseLecturVo> listNw = new ArrayList<CourseLecturVo>();
         List<CourseLecturVo> listMf = new ArrayList<CourseLecturVo>();
 
         for (CourseLecturVo courseLecturVo : listAll) {
+            if ("语音直播".equals(courseLecturVo.getNote())) {
+                listLiveAudio.add(courseLecturVo);
+            }
             if ("精品课程".equals(courseLecturVo.getNote())) {
                 listTj.add(courseLecturVo);
             }
@@ -101,6 +106,13 @@ public class MobileBannerServiceImpl extends ServiceImpl<MobileBannerMapper, Mob
             }
         }
 
+
+        if (listLiveAudio.size() > 0) {
+            mapLiveAudio.put("menuType", "liveAudioCourse");
+            mapLiveAudio.put("title", "语音直播");
+            mapLiveAudio.put("courseList", listLiveAudio);
+            mapCourseList.add(mapLiveAudio);
+        }
         if (listTj.size() > 0) {
             mapTj.put("menuType", "goodCourse");
             mapTj.put("title", "精品课程");
