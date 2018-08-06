@@ -19,6 +19,7 @@ import com.xczh.consumer.market.interceptor.HeaderInterceptor;
 import com.xczh.consumer.market.service.OLAttachmentCenterService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.enums.CourseForm;
+import com.xczhihui.common.util.enums.Multimedia;
 import com.xczhihui.course.service.IMyInfoService;
 import com.xczhihui.medical.anchor.model.CourseApplyInfo;
 import com.xczhihui.medical.anchor.service.IAnchorInfoService;
@@ -54,6 +55,9 @@ public class CourseApplyController {
     public ResponseObject addCourseApply(@Account String accountId, CourseApplyInfo courseApplyInfo, @RequestParam("file") MultipartFile file)
             throws Exception {
 
+        if(courseApplyInfo.getMultimediaType()==null){
+            courseApplyInfo.setMultimediaType(Multimedia.VIDEO.getCode());
+        }
         courseApplyInfo.setCreateTime(new Date());
 
         courseApplyInfo.setUserId(accountId);
