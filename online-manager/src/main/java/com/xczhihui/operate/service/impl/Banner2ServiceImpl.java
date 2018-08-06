@@ -1,13 +1,5 @@
 package com.xczhihui.operate.service.impl;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.Banner;
 import com.xczhihui.common.util.bean.Page;
@@ -16,6 +8,13 @@ import com.xczhihui.operate.dao.Banner2Dao;
 import com.xczhihui.operate.service.Banner2Service;
 import com.xczhihui.operate.service.MobileBannerService;
 import com.xczhihui.operate.vo.Banner2Vo;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class Banner2ServiceImpl extends OnlineBaseServiceImpl implements
@@ -62,6 +61,7 @@ public class Banner2ServiceImpl extends OnlineBaseServiceImpl implements
         banner.setLinkParam(banner2Vo.getLinkParam());
 
         banner.setType(banner2Vo.getType());
+        banner.setClientType(banner2Vo.getClientType());
         dao.save(banner);
     }
 
@@ -78,6 +78,7 @@ public class Banner2ServiceImpl extends OnlineBaseServiceImpl implements
         banner.setImgPath(banner2Vo.getImgPath());// 图片的地址
         banner.setRouteType(banner2Vo.getRouteType());
         banner.setLinkParam(banner2Vo.getLinkParam());
+        banner.setClientType(banner2Vo.getClientType());
         dao.update(banner);
     }
 

@@ -1,14 +1,13 @@
 package com.xczhihui.operate.dao;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.stereotype.Repository;
-
 import com.xczhihui.common.support.dao.SimpleHibernateDao;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.operate.vo.MobileBannerVo;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.stereotype.Repository;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Repository
 public class MobileBannerDao extends SimpleHibernateDao {
@@ -22,7 +21,7 @@ public class MobileBannerDao extends SimpleHibernateDao {
                 + "	t.seq, " + "	t.img_path, "
                 + "	t.banner_type as bannerType, "
                 + "	t.link_type as linkType, "
-                + "	t.link_condition as linkCondition, t.route_type as routeType, t.link_param as linkParam, "
+                + "	t.link_condition as linkCondition, t.route_type as routeType, t.link_param as linkParam,t.client_type as clientType, "
                 + "	t2.name createPersonName " + " FROM "
                 + "	oe_course_mobile_banner t, " + "	user t2 "
                 + " where t.create_person = t2.login_name ");

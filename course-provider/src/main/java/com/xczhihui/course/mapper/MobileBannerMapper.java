@@ -23,7 +23,7 @@ import com.xczhihui.course.vo.QueryConditionVo;
 public interface MobileBannerMapper extends BaseMapper<MobileBanner> {
 
 
-    List<MobileBanner> selectMobileBannerPage(@Param("type") Integer type);
+    List<MobileBanner> selectMobileBannerPage(@Param("type") Integer type, @Param("clientType") Integer clientType);
 
     void addClickNum(@Param("id") String id);
 

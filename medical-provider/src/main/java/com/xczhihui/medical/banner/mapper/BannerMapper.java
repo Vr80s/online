@@ -1,12 +1,11 @@
 package com.xczhihui.medical.banner.mapper;
 
-import java.util.List;
-
-import org.apache.ibatis.annotations.Param;
-
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.medical.banner.model.OeBanner;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -24,5 +23,5 @@ public interface BannerMapper extends BaseMapper<OeBanner> {
      * @param page 翻页对象
      * @return 每页的科室内容
      */
-    List<OeBanner> page(@Param("page")Page page,@Param("type")Integer type);
+    List<OeBanner> page(@Param("page")Page page,@Param("type")Integer type,@Param("clientType")Integer clientType);
 }

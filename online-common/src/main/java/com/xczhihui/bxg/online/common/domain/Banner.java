@@ -1,12 +1,11 @@
 package com.xczhihui.bxg.online.common.domain;
 
-import java.io.Serializable;
+import com.xczhihui.common.support.domain.BasicEntity2;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-
-import com.xczhihui.common.support.domain.BasicEntity2;
+import java.io.Serializable;
 
 /**
  * 首页banner图实体类
@@ -57,6 +56,9 @@ public class Banner extends BasicEntity2 implements Serializable {
 
     @Column(name = "link_param")
     private String linkParam;
+
+    @Column(name = "client_type")
+    private String clientType;
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -148,5 +150,13 @@ public class Banner extends BasicEntity2 implements Serializable {
 
     public void setLinkParam(String linkParam) {
         this.linkParam = linkParam;
+    }
+
+    public String getClientType() {
+        return clientType;
+    }
+
+    public void setClientType(String clientType) {
+        this.clientType = clientType;
     }
 }

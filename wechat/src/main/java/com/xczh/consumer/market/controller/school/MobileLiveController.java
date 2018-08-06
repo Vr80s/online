@@ -47,10 +47,11 @@ public class MobileLiveController {
     @RequestMapping("onlineLive")
     @ResponseBody
     public ResponseObject onlineLive(HttpServletRequest req) throws Exception {
+        int clientType = HeaderInterceptor.getClientType().getCode();
         Map<String, Object> mapAll = new HashMap<String, Object>();
         //直播banner
         Page<MobileBanner> mobileBannerPage = new Page<>();
-        mobileBannerPage.setRecords(mobileBannerService.selectMobileBannerPage(BannerType.LIVE.getCode(), HeaderInterceptor.ONLY_THREAD.get(), APPUtil.getMobileSource(req)));
+        mobileBannerPage.setRecords(mobileBannerService.selectMobileBannerPage(BannerType.LIVE.getCode(), HeaderInterceptor.ONLY_THREAD.get(), APPUtil.getMobileSource(req), clientType));
         mapAll.put("banner", mobileBannerPage);
         List<Map<String, Object>> mapCourseList = mobileBannerService.liveCourseList(
                 PagingFixedType.LIVE_PAGETYPE_UP.getValue(),

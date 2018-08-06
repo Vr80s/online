@@ -25,6 +25,7 @@
         <if test="type != null and type != ''">
             and ocmb.banner_type = #{type}
         </if>
+            and ocmb.client_type like CONCAT(CONCAT('%',#{clientType},'%'))
         ORDER BY ocmb.seq desc
 
     </select>
