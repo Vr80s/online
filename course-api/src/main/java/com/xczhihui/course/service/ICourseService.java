@@ -307,4 +307,12 @@ public interface ICourseService {
 	* @return void    返回类型
 	 */
 	void updatePlayBackStatusAndSendVahllYunMessageByRecordId(String recordId, Integer status) throws Exception;
+
+    /**
+     * 更新课程直播状态
+     * @param event
+     * @param roomId
+     * @return
+     */
+    Integer updateCourseLiveStatus(String event, String roomId);
 }

@@ -217,6 +217,10 @@ public class CourseLecturVo implements Serializable {
     
     private Boolean teaching; //是否师承课程
 
+    private String channelId;
+
+    private String recordId;
+
     /**
      * 是否提交线下课报名表单
      */
@@ -800,5 +804,21 @@ public class CourseLecturVo implements Serializable {
 
     public void setTeaching(Boolean teaching) {
         this.teaching = teaching;
+    }
+
+    public String getChannelId() {
+        return channelId;
+    }
+
+    public void setChannelId(String channelId) {
+        this.channelId = channelId;
+    }
+
+    public String getRecordId() {
+        return recordId;
+    }
+
+    public void setRecordId(String recordId) {
+        this.recordId = recordId;
     }
 }

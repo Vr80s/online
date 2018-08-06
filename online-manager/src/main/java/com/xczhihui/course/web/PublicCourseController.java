@@ -190,6 +190,7 @@ public class PublicCourseController {
      * @throws IllegalAccessException
      * @author name：yuxin <br>email: yuruixin@ixincheng.com
      **/
+    @Deprecated
     @RequestMapping(value = "changeCallback")
     @ResponseBody
     public ResponseObject changeCallback(ChangeCallbackVo changeCallbackVo) throws IllegalAccessException, InvocationTargetException, IOException, SolrServerException {
@@ -203,8 +204,6 @@ public class PublicCourseController {
         return responseObj;
     }
 
-    
-    
     @RequestMapping(value = "vhallYunLiveCallback")
     @ResponseBody
     public String vhallYunLiveCallback(HttpServletRequest rq) throws IllegalAccessException, InvocationTargetException, IOException, SolrServerException {
