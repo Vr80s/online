@@ -483,6 +483,8 @@
         FLOOR(cai.`price` * 10) as currentPrice,
         if(cai.price>0,0,1) as watchState,
         if(cai.course_form=1,3,if(cai.course_form=3,4,if(cai.multimedia_type=1,1,2))) as type,
+        cai.course_form courseForm,
+        cai.multimedia_type multimediaType,
         if(oc.start_time is null,cai.start_time,oc.start_time) as startTime,
         cai.end_time as endTime,
         cai.course_number as courseNumber,
