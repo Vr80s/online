@@ -1,8 +1,10 @@
 package com.xczhihui.medical.service.impl;
 
+import java.io.IOException;
 import java.util.*;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.solr.client.solrj.SolrServerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -10,10 +12,13 @@ import org.springframework.stereotype.Service;
 import com.alibaba.dubbo.common.utils.CollectionUtils;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.*;
+import com.xczhihui.common.solr.utils.SolrUtils;
 import com.xczhihui.common.util.DateUtil;
 import com.xczhihui.common.util.XzStringUtils;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.medical.dao.DoctorDao;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorSolrService;
+import com.xczhihui.medical.doctor.vo.MedicalDoctorSolrVO;
 import com.xczhihui.medical.enums.MedicalExceptionEnum;
 import com.xczhihui.medical.exception.MedicalException;
 import com.xczhihui.medical.service.DoctorService;
@@ -32,6 +37,11 @@ public class DoctorServiceImpl extends OnlineBaseServiceImpl implements
     private DoctorDao doctorDao;
     @Value("${env.flag}")
     private String envFlag;
+    
+    @Autowired
+    private IMedicalDoctorSolrService medicalDoctorSolrService;
+    
+    private SolrUtils solrUtils;
 
     @Override
     public Page<MedicalDoctor> findMedicalDoctorPage(
@@ -90,6 +100,13 @@ public class DoctorServiceImpl extends OnlineBaseServiceImpl implements
             MedicalDoctor.setStatus(true);
         }
         dao.update(MedicalDoctor);
+        
+        try {
+        	List<MedicalDoctorSolrVO> medicalDoctorSolrVOS = medicalDoctorSolrService.selectDoctors4Solr();
+			solrUtils.init(medicalDoctorSolrVOS);
+		} catch (IOException | SolrServerException e) {
+			e.printStackTrace();
+		}
         return status;
     }
 

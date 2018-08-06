@@ -39,7 +39,6 @@ import com.xczhihui.medical.anchor.service.IAnchorInfoService;
 
 /**
  * 微吼云
- *
  * @author hejiwei
  */
 @RequestMapping("vhallyun")
@@ -155,7 +154,6 @@ public class VhallyunController extends AbstractController {
         }
         return ResponseObject.newSuccessResponseObject();
     }
-    
     
     @RequestMapping(value = "vhallYunSendMessage", method = RequestMethod.GET)
     @ResponseBody
