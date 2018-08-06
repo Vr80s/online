@@ -11,7 +11,8 @@
 	       link_param as linkParam 
        from oe_banner2 
          where is_delete=0 and 
-         type = #{type} and 
-         status=1 order by sort 
+         type = #{type} and
+         client_type like CONCAT(CONCAT('%',#{clientType},'%'))
+         and  status=1 order by sort
     </select>
 </mapper>

@@ -23,6 +23,7 @@ public class MobileBannerVo extends OnlineBaseVo {
     private String linkParam;
     private String routeType;
     private String linkDesc;
+    private String clientType;
 
     private String menuId;
 
@@ -164,5 +165,13 @@ public class MobileBannerVo extends OnlineBaseVo {
 
     public void setMenuId(String menuId) {
         this.menuId = menuId;
+    }
+
+    public String getClientType() {
+        return clientType;
+    }
+
+    public void setClientType(String clientType) {
+        this.clientType = clientType;
     }
 }

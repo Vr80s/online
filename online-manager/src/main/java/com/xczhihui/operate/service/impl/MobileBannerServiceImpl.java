@@ -1,13 +1,5 @@
 package com.xczhihui.operate.service.impl;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.xczhihui.anchor.service.AnchorService;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.*;
@@ -19,6 +11,13 @@ import com.xczhihui.medical.dao.MedicalEnrollmentRegulationsDao;
 import com.xczhihui.operate.dao.MobileBannerDao;
 import com.xczhihui.operate.service.MobileBannerService;
 import com.xczhihui.operate.vo.MobileBannerVo;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class MobileBannerServiceImpl extends OnlineBaseServiceImpl implements
@@ -56,8 +55,8 @@ public class MobileBannerServiceImpl extends OnlineBaseServiceImpl implements
         mobileBannerVo.setStatus(0);
         ;
         sql = "INSERT INTO oe_course_mobile_banner  ( id ,  name ,  url ,  click_sum ,  "
-                + "create_person ,  create_time ,  status ,  seq ,  img_path , link_type  ,banner_type, route_type, link_param) "
-                + "VALUES (REPLACE(UUID(),'-',''), ?, ?, ?, ?, now(), ?, ?, ?,?,?,?,?)";
+                + "create_person ,  create_time ,  status ,  seq ,  img_path , link_type  ,banner_type, route_type, link_param,client_type) "
+                + "VALUES (REPLACE(UUID(),'-',''), ?, ?, ?, ?, now(), ?, ?, ?,?,?,?,?,?)";
         dao.getNamedParameterJdbcTemplate()
                 .getJdbcOperations()
                 .update(sql,
@@ -69,13 +68,13 @@ public class MobileBannerServiceImpl extends OnlineBaseServiceImpl implements
                                 mobileBannerVo.getImgPath(),
                                 mobileBannerVo.getLinkType(),
                                 mobileBannerVo.getBannerType(),
-                                mobileBannerVo.getRouteType(), mobileBannerVo.getLinkParam()});
+                                mobileBannerVo.getRouteType(), mobileBannerVo.getLinkParam(),mobileBannerVo.getClientType()});
     }
 
     @Override
     public void updateMobileBanner(MobileBannerVo mobileBannerVo) {
         String sql = "UPDATE oe_course_mobile_banner "
-                + "SET name = ?, url = ?, img_path = ? ,link_type = ?, route_type = ?, link_param = ? "
+                + "SET name = ?, url = ?, img_path = ? ,link_type = ?, route_type = ?, link_param = ?, client_type = ? "
                 + "WHERE " + "	id = ? ";
         dao.getNamedParameterJdbcTemplate()
                 .getJdbcOperations()
@@ -86,6 +85,7 @@ public class MobileBannerServiceImpl extends OnlineBaseServiceImpl implements
                                 mobileBannerVo.getLinkType(),
                                 mobileBannerVo.getRouteType(),
                                 mobileBannerVo.getLinkParam(),
+                                mobileBannerVo.getClientType(),
                                 mobileBannerVo.getId()});
     }
 

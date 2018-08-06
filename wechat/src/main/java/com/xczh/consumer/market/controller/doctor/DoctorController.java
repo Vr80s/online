@@ -81,7 +81,8 @@ public class DoctorController {
      */
     @RequestMapping("banner")
     public ResponseObject banner(HttpServletRequest request) {
-        Page<OeBanner> page =  bannerService.page(new Page<>(1, 3),6);
+        int clientType = HeaderInterceptor.getClientType().getCode();
+        Page<OeBanner> page =  bannerService.page(new Page<>(1, 3),6,clientType);
         
         if(HeaderInterceptor.ONLY_THREAD.get()) {
             return ResponseObject.newSuccessResponseObject(null);

@@ -1,15 +1,5 @@
 package com.xczhihui.course.service.impl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xczhihui.common.util.CourseUtil;
@@ -25,6 +15,15 @@ import com.xczhihui.course.service.IMobileBannerService;
 import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.course.vo.MenuVo;
 import com.xczhihui.course.vo.QueryConditionVo;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -46,16 +45,16 @@ public class MobileBannerServiceImpl extends ServiceImpl<MobileBannerMapper, Mob
 
 
     @Override
-    public List<MobileBanner> selectMobileBannerPage(Integer type, boolean onlyFree, String source) {
+    public List<MobileBanner> selectMobileBannerPage(Integer type, boolean onlyFree, String source, Integer clientType) {
 //        if (onlyFree) {
 //            return new ArrayList<>();
 //        }
-        return selectMobileBannerPage(type, source);
+        return selectMobileBannerPage(type, source, clientType);
     }
 
     @Override
-    public List<MobileBanner> selectMobileBannerPage(Integer type, String source) {
-        List<MobileBanner> records = iMobileBannerMapper.selectMobileBannerPage(type);
+    public List<MobileBanner> selectMobileBannerPage(Integer type, String source, Integer clientType) {
+        List<MobileBanner> records = iMobileBannerMapper.selectMobileBannerPage(type, clientType);
         records.forEach(mobileBanner -> {
             String routeType = mobileBanner.getRouteType();
             String linkParam = mobileBanner.getLinkParam();

@@ -494,7 +494,8 @@
 
 		</div>
 		<div class="form-group">
-			<label class="col-sm-5 control-label no-padding-right" style="color: red"><font color="red">*</font>搜索框关键字只能填写一个 </label>
+			<label class="col-sm-8 control-label no-padding-right" style="color: red;padding-left:77px"><font color="red">*</font>搜索框关键字只能填写一词，如：针灸；
+				不可填写如下格式——针灸 艾灸或针灸、艾灸或针灸\艾灸 </label>
 		</div>
 
 		<input type="hidden" name="searchType" id="addMobileSearch" >
@@ -512,7 +513,10 @@
 			 		<input type="text" name="name"  id="update_description" maxlength="50" class="col-xs-10 col-sm-12 {required:true}">
              </div>
 		</div>
-
+		<div class="form-group">
+			<label class="col-sm-8 control-label no-padding-right" style="color: red;padding-left:77px"><font color="red">*</font>搜索框关键字只能填写一词，如：针灸；
+				不可填写如下格式——针灸 艾灸或针灸、艾灸或针灸\艾灸 </label>
+		</div>
 		<input type="hidden" name="searchType" id="updateMobileSearch" >
 	</form>
 </div>

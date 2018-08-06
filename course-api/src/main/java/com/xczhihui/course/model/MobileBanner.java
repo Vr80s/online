@@ -1,11 +1,11 @@
 package com.xczhihui.course.model;
 
-import java.io.Serializable;
-import java.util.Date;
-
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
+
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * ClassName: Course.java <br>
@@ -91,6 +91,10 @@ public class MobileBanner extends Model<MobileBanner> {
 
     @TableField("link_param")
     private String linkParam;
+
+    //客户端类型1:pc,2:h5,3:android,4:ios
+    @TableField("client_type")
+    private String clientType;
 
     //路由链接
     @TableField(exist = false)
@@ -219,5 +223,13 @@ public class MobileBanner extends Model<MobileBanner> {
 
     public void setTarget(String target) {
         this.target = target;
+    }
+
+    public String getClientType() {
+        return clientType;
+    }
+
+    public void setClientType(String clientType) {
+        this.clientType = clientType;
     }
 }

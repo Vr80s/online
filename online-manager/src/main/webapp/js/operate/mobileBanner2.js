@@ -118,6 +118,30 @@ $(function () {
                 return status;
             }
         },
+        {title: '对应客户端', "class": "center", "width": "6%", "height": "68px", "data": 'clientType', "sortable": false,
+            "mRender": function (data) {
+                var chk_value ="";
+                if(data != null){
+                    var checkBoxArray = data.split(",");
+                    for(var i=0;i<checkBoxArray.length;i++){
+                        if(checkBoxArray[i] == 1){
+                            chk_value+="pc \n ";
+                        }
+                        if(checkBoxArray[i] == 2){
+                            chk_value+="h5 \n ";
+                        }
+                        if(checkBoxArray[i] == 3){
+                            chk_value+="android \n ";
+                        }
+                        if(checkBoxArray[i] == 4){
+                            chk_value+="ios \n ";
+                        }
+                    }
+                    return chk_value;
+                } else {
+                    return "";
+                }
+            }},
         {
             title: '排序',
             "class": "center",
@@ -195,11 +219,6 @@ $(function () {
      *
      */
     $(".zykgl_bx").click(function () {
-        $("#courseDiv").show();
-        $("#courseDiv_M").hide();
-        $("#courseDiv_PX").hide();
-        $("#courseRecDiv").hide();
-
         var banneType = $(this).attr("title");
         $("#bannerType").val(banneType);
 
@@ -460,6 +479,17 @@ $(".add_bx").click(function () {
             alertInfo("请输入banner名称");
             return false;
         }
+        //整理客户端复选框
+        var chk_value =[];
+        $('input[name="clientType1"]:checked').each(function(){
+            chk_value.push($(this).val());
+        });
+        if(chk_value.length == 0){
+            alertInfo("请选择对应客户端类型");
+            return false;
+        } else {
+            $("#clientType").val(chk_value.join(","))
+        }
 
         $('#J-add-linkParam').val(linkParam);
         $('#J-add-linkType').val(linkType);
@@ -581,7 +611,23 @@ function updateMobileBanner(obj) {
     $("#update_name").val(row.name);
     $("#update_imgPath").val(row.imgPath);
     $("#update_id").val(row.id);
-
+    //整理客户端复选框
+    $('input[name="clientType2"]').each(function(){
+        $(this).removeAttr("checked");
+    });
+    var checkBox = row.clientType;
+    if(checkBox != null){
+        var checkBoxArray = checkBox.split(",");
+        var chk_value =[];
+        for(var i=0;i<checkBoxArray.length;i++){
+            $('input[name="clientType2"]').each(function(){
+                chk_value.push($(this).val());
+                if($(this).val() == checkBoxArray[i]){
+                    $(this).prop("checked","checked");
+                }
+            });
+        }
+    }
     var routeTypeValue = row.routeType;
     var linkParam = row.linkParam;
     var menuId = row.menuId;
@@ -731,6 +777,17 @@ function checkEditForm() {
     if (null == name || "" == name) {
         alertInfo("请输入banner名称");
         return false;
+    }
+    //整理客户端复选框
+    var chk_value =[];
+    $('input[name="clientType2"]:checked').each(function(){
+        chk_value.push($(this).val());
+    });
+    if(chk_value.length == 0){
+        alertInfo("请选择对应客户端类型");
+        return false;
+    } else {
+        $("#update_clientType").val(chk_value.join(","))
     }
 
     $('#J-edit-linkParam').val(linkParam);

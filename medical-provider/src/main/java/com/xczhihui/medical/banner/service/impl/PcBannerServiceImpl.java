@@ -1,14 +1,11 @@
 package com.xczhihui.medical.banner.service.impl;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.medical.banner.mapper.BannerMapper;
 import com.xczhihui.medical.banner.model.OeBanner;
 import com.xczhihui.medical.banner.service.PcBannerService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * 
@@ -28,10 +25,9 @@ public class PcBannerServiceImpl implements PcBannerService {
      * @return 每页的科室内容
      */
     @Override
-    public Page<OeBanner> page(Page page,Integer type) {
+    public Page<OeBanner> page(Page page,Integer type, Integer clientType) {
+
         
-        List<OeBanner> listb  =   bannerMapper.page(page,type);
-        
-        return page.setRecords(bannerMapper.page(page,type));
+        return page.setRecords(bannerMapper.page(page,type,clientType));
     }
 }

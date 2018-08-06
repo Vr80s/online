@@ -30,6 +30,8 @@ public class BannerVo extends OnlineBaseVo {
 
     private String linkParam;
 
+    private String clientType;
+
     public Integer getId() {
         return id;
     }
@@ -84,5 +86,13 @@ public class BannerVo extends OnlineBaseVo {
 
     public void setLinkParam(String linkParam) {
         this.linkParam = linkParam;
+    }
+
+    public String getClientType() {
+        return clientType;
+    }
+
+    public void setClientType(String clientType) {
+        this.clientType = clientType;
     }
 }

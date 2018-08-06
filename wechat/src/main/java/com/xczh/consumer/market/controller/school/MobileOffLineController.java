@@ -55,12 +55,13 @@ public class MobileOffLineController {
     @RequestMapping("offLine")
     @ResponseBody
     public ResponseObject offLine(HttpServletRequest request) throws Exception {
+        int clientType = HeaderInterceptor.getClientType().getCode();
         Integer current = 1;
         Integer size = 100;
         Map<String, Object> mapAll = new HashMap<String, Object>();
         //线下课banner
         Page<MobileBanner> MobileBannerPage = new Page<>();
-        MobileBannerPage.setRecords(mobileBannerService.selectMobileBannerPage(BannerType.REAL.getCode(), HeaderInterceptor.ONLY_THREAD.get(), APPUtil.getMobileSource(request)));
+        MobileBannerPage.setRecords(mobileBannerService.selectMobileBannerPage(BannerType.REAL.getCode(), HeaderInterceptor.ONLY_THREAD.get(), APPUtil.getMobileSource(request), clientType));
         mapAll.put("banner", MobileBannerPage);
         //城市
         Page<OfflineCity> OfflineCityPage = new Page<>();
