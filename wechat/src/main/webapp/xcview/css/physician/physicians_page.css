@@ -1152,7 +1152,7 @@ p{
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	margin-top: 0.1rem;
-	margin-bottom: 0.1rem;
+	margin-bottom: 0.05rem;
 }
 .basis_tips{
 	font-size: 0.22rem;
@@ -1163,8 +1163,14 @@ p{
 	margin-left: 0.2rem;
 }
 .course_nav_rate{
-	font-size: 0.24rem;	
-	color: #999999;
+	font-size: 0.24rem;
+    color: #999999;
+    float: left;
+    width: 4.29rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-bottom: 0.05rem;
 }
 .course_nav_rate span{
 	color: #F97B49;
@@ -2252,8 +2258,11 @@ margin-top: 0.015rem;
     /*padding: 0.2rem 0;*/
 }
 .rests_nav_bottom{
-	padding: 0.2rem 0;
-	/*padding-top: 0;*/
+	/* padding: 0.2rem 0; */
+    /* padding-top: 0; */
+    padding-bottom: 0;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
 }
 .paper_nav_cen_div{
 	padding: 0 !important;

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
@@ -196,4 +197,24 @@ public interface CourseMapper extends BaseMapper<Course> {
     int selectQualification4TeachingCourse(@Param("accountId") String accountId, @Param("courseId") Integer courseId);
 
     CourseLecturVo selectDoctorLiveRoomRecentCourse(@Param("userId")String userId, @Param("onlyFree") boolean onlyFreee);
+
+
+
+    /**
+     * 回放状态
+     * @param documentId 回放id
+     * @param status     回放状态
+     */
+    @Update({"update oe_course set play_back_type = #{status} where record_id = #{recordId}"})
+    void updatePlayBackStatusByRecordId(@Param("recordId") String recordId, @Param("status") Integer status);
+    
+    
+    /**
+     * 通过回放id查找渠道id
+     * @param documentId 回放id
+     * @param status     回放状态
+     */
+    @Select({"select  channel_id  oe_course where record_id = #{recordId}"})
+    String selectChannelIdByRecordId(@Param("recordId") String recordId);
+
 }

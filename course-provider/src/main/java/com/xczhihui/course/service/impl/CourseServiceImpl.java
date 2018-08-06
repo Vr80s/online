@@ -10,12 +10,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xczhihui.common.util.XzStringUtils;
 import com.xczhihui.common.util.enums.CourseType;
 import com.xczhihui.common.util.enums.LiveStatus;
 import com.xczhihui.common.util.enums.PayStatus;
+import com.xczhihui.common.util.enums.PlayBackType;
+import com.xczhihui.common.util.enums.VhallCustomMessageType;
+import com.xczhihui.common.util.vhallyun.MessageService;
 import com.xczhihui.course.exception.CourseException;
 import com.xczhihui.course.mapper.CourseMapper;
 import com.xczhihui.course.mapper.CriticizeMapper;
@@ -418,4 +422,33 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         }
         return cv;
     }
+
+	@Override
+	public void updatePlayBackStatusByRecordId(String recordId, Integer status) {
+		
+		iCourseMapper.updatePlayBackStatusByRecordId(recordId, status);
+	}
+
+	@Override
+	public void updatePlayBackStatusAndSendVahllYunMessageByRecordId(String recordId, Integer status) throws Exception {
+		
+		iCourseMapper.updatePlayBackStatusByRecordId(recordId, status);
+		
+		String channelId = iCourseMapper.selectChannelIdByRecordId(recordId);
+		
+		Integer type =  VhallCustomMessageType.PLAYBACK_GENERATION_SECCESS.getCode();
+		String message = "回放生成成功";
+		//发送im消息
+        if(status.equals(PlayBackType.GENERATION_SUCCESS.getCode())) { 
+        	type  =  VhallCustomMessageType.PLAYBACK_GENERATION_SECCESS.getCode();
+        	message = "回放生成成功";
+        }else if(status.equals(PlayBackType.GENERATION_FAILURE.getCode())) {
+        	type  =  VhallCustomMessageType.PLAYBACK_GENERATION_FAILURE.getCode();
+        	message = "回放生成失败";
+        }
+		JSONObject job = new JSONObject();
+		job.put("type", type);
+		job.put("message", message);
+		MessageService.sendMessage(MessageService.CustomBroadcast,job.toJSONString(),channelId);
+	}
 }

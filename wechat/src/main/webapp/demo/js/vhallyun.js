@@ -159,27 +159,26 @@ function elsBind(){
 		             //生成回访中
 		             $(".video_end_top2").show();
                 	
-                }else if(msg.type == 14){ // 回放生成成功
+                }else if(msg.type == 14){ //退出直播间，但是没有结束直播
+                	
                 		
+                }else if(msg.type == 15){ //继续直播
+                    
+                	
+                }else if(msg.type == 16){ //回放生成成功
+                	
                 	$(".video_end_top0").hide();
 		            $(".video_end_top2").hide();
 		            $(".video_end_top1").show();
-		            
 		            console.info("回放生成成功");
-                }else if(msg.type == 15){ // 回放生成失败
-                    
+                	
+                }else if(msg.type == 17){ //回放生成失败
+                	
                 	$(".video_end_top0").hide();
 		            $(".video_end_top2").hide();
 		            $(".video_end_top1").hide();
-		            
 		            $(".video_end_top").show();
 		            console.info("回放生成失败");
-                	
-                }else if(msg.type == 16){ // 退出直播间，但是没有结束直播
-                	
-                	
-                }else if(msg.type == 17){ // 继续直播
-               
                 	
                 }
             })

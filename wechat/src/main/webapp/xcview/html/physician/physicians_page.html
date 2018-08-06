@@ -182,6 +182,9 @@
 		video::-webkit-media-controls-fullscreen-button {
             display: none;
         }
+        .disciple_application_state{
+        	display: none;
+        }
 	</style>
 
 
@@ -304,8 +307,9 @@
 	.trends_hide{
 		background: #fff;
 	    /*padding: 0.3rem 0;*/
-	    margin: 0.2rem 0;
+	    /*margin: 0.2rem 0;*/
 	    margin-bottom: 0;
+	    /*margin-bottom: 0.2rem;*/
 	}
 
 	/*普通动态*/
@@ -618,7 +622,7 @@
 				
 				{{else if item.typeId != null && item.typeId != 8}}
 				<!-- 文章-->
-				<div class="article_hide" data-id="{{item.articleId}}" data-status="{{item.articleStatus}}" data-writingsId="{{item.writingsId}}">
+				<div class="article_hide" data-id="{{item.articleId}}" data-status="{{item.articleStatus}}" data-writingsId="{{item.writingsId}}" style="margin-top: 0;">
 					<div class="article_nav_span comment_hide " style="overflow: hidden; ">{{if item.stick}}<span class="stick_img_stick"><img src="/xcview/images/stick.png" alt="" />置顶</span>{{/if}}<span class="title show-text">{{item.content}}</span><div class="both"></div>
 					</div>
 					{{if item.articleStatus == 1}}
@@ -635,7 +639,7 @@
 				</div>
 				{{else if item.type == 5}}
 				<!-- 课程-->
-				<div class="course_hide" data-id="{{item.courseId}}" data-status="{{item.courseStatus}}" data-teaching="{{item.teaching}}">
+				<div class="course_hide" data-id="{{item.courseId}}" data-status="{{item.courseStatus}}" data-teaching="{{item.teaching}}" style="padding-bottom: 0;margin-top: 0;">
 					<div class="course_nav_span comment_hide" style="font-size: 0.3rem;color: #333333;">
 						{{if item.stick}}
 						<span class="stick_img_stick"><img src="/xcview/images/stick.png" alt="" />置顶</span>
@@ -1551,7 +1555,7 @@ $(window).bind("scroll", function() {
 			$(".minirefresh-totop").css("bottom","65px");  //返回按钮
 			$(".commonality_height").show();  /*公用高度*/
 			$(".minirefresh-upwrap").hide();  //底部没有数据--文字隐藏
-			
+			$(".disciple_application_state").show();
 			sessionStorage.setItem("physiciansPage","li_prose_origin");
 		});
 

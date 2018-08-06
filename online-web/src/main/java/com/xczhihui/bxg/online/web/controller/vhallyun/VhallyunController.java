@@ -21,6 +21,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.xczhihui.bxg.online.web.base.utils.UserLoginUtil;
 import com.xczhihui.bxg.online.web.body.vhall.VhallCallbackBody;
 import com.xczhihui.bxg.online.web.controller.AbstractController;
+import com.xczhihui.bxg.online.web.service.CourseService;
 import com.xczhihui.common.support.domain.Attachment;
 import com.xczhihui.common.support.domain.BxgUser;
 import com.xczhihui.common.support.service.AttachmentCenterService;
@@ -28,10 +29,12 @@ import com.xczhihui.common.support.service.AttachmentType;
 import com.xczhihui.common.support.service.CacheService;
 import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.common.util.bean.VhallMessageParamsVo;
+import com.xczhihui.common.util.enums.PlayBackType;
 import com.xczhihui.common.util.vhallyun.BaseService;
 import com.xczhihui.common.util.vhallyun.DocumentService;
 import com.xczhihui.common.util.vhallyun.MessageService;
 import com.xczhihui.common.util.vhallyun.VhallUtil;
+import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.medical.anchor.service.IAnchorInfoService;
 
 /**
@@ -50,6 +53,8 @@ public class VhallyunController extends AbstractController {
     private IAnchorInfoService anchorInfoService;
     @Autowired
     private CacheService cacheService;
+    @Autowired
+    private ICourseService courseService;
 
     @RequestMapping(value = "publishStream/accessToken", method = RequestMethod.GET)
     @ResponseBody
@@ -86,7 +91,11 @@ public class VhallyunController extends AbstractController {
 
     @RequestMapping(value = "callback", method = RequestMethod.POST)
     @ResponseBody
-    public String callback(@RequestBody VhallCallbackBody vhallCallbackBody) {
+    public String callback(@RequestBody VhallCallbackBody vhallCallbackBody) throws Exception {
+    	
+    	LOGGER.info("into 点播生成回调 callback ");
+    	LOGGER.info("vhallCallbackBody："+vhallCallbackBody.toString());
+    	
         String signature = vhallCallbackBody.getSignature();
         if (StringUtils.isBlank(signature)) {
             LOGGER.error("callback error, signature is blank.");
@@ -98,10 +107,22 @@ public class VhallyunController extends AbstractController {
             LOGGER.error("vhallCallbackBody: {}", vhallCallbackBody);
             return "fail";
         }
+        
         if (vhallCallbackBody.isTransOverEvent()) {
             String documentId = vhallCallbackBody.getDocumentId();
             Integer status = vhallCallbackBody.getStatus();
             anchorInfoService.updateDocumentStatus(documentId, status);
+        }
+        
+        /**
+         * 回放生成成功
+         */
+        if (vhallCallbackBody.isCreatedEvent()) {
+           String recordId = vhallCallbackBody.getRecordId();
+           Integer status = vhallCallbackBody.getStatus();
+
+           //更改回放状态
+           courseService.updatePlayBackStatusAndSendVahllYunMessageByRecordId(recordId,status);
         }
         return "success";
     }
@@ -136,7 +157,7 @@ public class VhallyunController extends AbstractController {
     }
     
     
-    @RequestMapping(value = "customSendMessage", method = RequestMethod.GET)
+    @RequestMapping(value = "vhallYunSendMessage", method = RequestMethod.GET)
     @ResponseBody
     public ResponseObject customSendMessage(String body,String channel_id) throws Exception {
         BxgUser loginUser = UserLoginUtil.getLoginUser();
@@ -147,7 +168,7 @@ public class VhallyunController extends AbstractController {
                 return ResponseObject.newErrorResponseObject("你被禁言了");
             } 
         } 
-        return ResponseObject.newSuccessResponseObject(MessageService.sendMessage("CustomBroadcast",body,channel_id));
+        return ResponseObject.newSuccessResponseObject(MessageService.sendMessage(MessageService.CustomBroadcast,body,channel_id));
     }
     
 }
