@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xczhihui.course.mapper.CourseLiveAudioContentMapper">
+
+  <insert id="insertSelect" parameterType="com.xczhihui.course.model.CourseLiveAudioContent" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+    insert IGNORE into oe_course_live_audio_content
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="courseLiveAudioContent.courseId != null">
+        course_id,
+      </if>
+      <if test="courseLiveAudioContent.audiopptId != null">
+        audio_ppt_id,
+      </if>
+      <if test="courseLiveAudioContent.contentType != null">
+        content_type,
+      </if>
+      <if test="courseLiveAudioContent.length != null">
+        length,
+      </if>
+      <if test="courseLiveAudioContent.userId != null">
+        user_id,
+      </if>
+      <if test="courseLiveAudioContent.discussionId != null">
+        discussion_id,
+      </if>
+      <if test="courseLiveAudioContent.content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="courseLiveAudioContent.courseId != null">
+        #{courseLiveAudioContent.courseId},
+      </if>
+      <if test="courseLiveAudioContent.audiopptId != null">
+        #{courseLiveAudioContent.audiopptId},
+      </if>
+      <if test="courseLiveAudioContent.contentType != null">
+        #{courseLiveAudioContent.contentType},
+      </if>
+      <if test="courseLiveAudioContent.length != null">
+        #{courseLiveAudioContent.length},
+      </if>
+      <if test="courseLiveAudioContent.userId != null">
+        #{courseLiveAudioContent.userId},
+      </if>
+      <if test="courseLiveAudioContent.discussionId != null">
+        #{courseLiveAudioContent.discussionId},
+      </if>
+      <if test="courseLiveAudioContent.content != null">
+        #{courseLiveAudioContent.content},
+      </if>
+    </trim>
+  </insert>
+</mapper>

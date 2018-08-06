@@ -85,7 +85,6 @@ if (sendTime == null) {
 function createGiftList(gift) {
     
     if(gift.messageType == 5){ //回放生成失败
-        
         if(parseInt(sendTime) < parseInt(gift.sendTime)){
             
             $(".video_end_top0").hide();

@@ -18,8 +18,7 @@
 
     <!-- dubbo -->
     <dubbo:application name="${dubbo.app.name}"/>
-    <dubbo:registry protocol="zookeeper" address="${dubbo.zookepper.url}"
-                    file="${catalina.home}/dubbo-registry/dubbo-registry-course.properties"/>
+    <dubbo:registry protocol="zookeeper" address="${dubbo.zookepper.url}"/>
     <dubbo:protocol name="dubbo" host="${dubbo.protocol.host}" port="${dubbo.protocol.port}"/>
 
 
@@ -72,6 +71,9 @@
 
     <!--课程搜索-solr -->
     <dubbo:service interface="com.xczhihui.course.service.ICourseSolrService" ref="courseSolrServiceImpl"
+                   timeout="${dubbo.consumer.timeout}"/>
+    <!--音频直播 -->
+    <dubbo:service interface="com.xczhihui.course.service.ICourseLiveAudioContentService" ref="courseLiveAudioContentServiceImpl"
                    timeout="${dubbo.consumer.timeout}"/>
 
 </beans>

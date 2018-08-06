@@ -6,19 +6,20 @@ import com.xczhihui.common.util.DateUtil;
 import com.xczhihui.common.util.IStringUtil;
 
 /**
- * 微吼聊天列表放回的数据
+ * 请求微吼聊天记录需要的参数bean
  * @author yangxuan
  *
  */
 public class VhallMessageParamsVo {
 
     
-    private String channel_id; // 
-    private String type; //
-    private String pos; //
-    private String limit; //
-    private String start_time; //
-    private String end_time; //
+    private String channel_id;  //  频道ID
+    private String type;        //  查询类型 ，1 聊天列表（ 默认），2 自定义聊天列表
+    private String pos;         //  获取条目节点，默认为 0。eg : 10 从第10条开始查询
+    private String limit;       //  获取条目数量，默认为 10 条，最大为1000条 
+    private String start_time;  //  查询开始时间，格式为：2017/01/01
+    private String end_time;    //  查询结束时间，默认为当前时间，格式为：2017/01/01
+    
     
     public  HashMap<String, String> bulidMap() throws Exception{
         
@@ -29,9 +30,8 @@ public class VhallMessageParamsVo {
             throw new Exception("频道id不能为空");
         }
         
-        if(IStringUtil.isNotBlank(this.type)) {
-            params.put("type", this.type);
-        }
+        //1 聊天列表（ 默认），2 自定义聊天列表
+        params.put("type", "2");
         
         if(IStringUtil.isNotBlank(this.pos)) {
             params.put("pos", this.pos);

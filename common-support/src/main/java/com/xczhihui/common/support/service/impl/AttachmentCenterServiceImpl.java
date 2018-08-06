@@ -1,6 +1,14 @@
 package com.xczhihui.common.support.service.impl;
 
+import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Date;
 
 import org.apache.commons.lang3.time.DateFormatUtils;
@@ -12,8 +20,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import com.jayway.jsonpath.internal.Path;
+import com.qiniu.common.Zone;
 import com.qiniu.http.Response;
 import com.qiniu.storage.UploadManager;
+import com.qiniu.streaming.StreamingManager;
 import com.qiniu.util.Auth;
 import com.qiniu.util.StringMap;
 import com.xczhihui.common.support.dao.SimpleHibernateDao;
@@ -73,6 +84,10 @@ public class AttachmentCenterServiceImpl implements AttachmentCenterService {
         }
         return JsonUtil.getBaseGson().toJson(attachment);
     }
+    
+    
+    
+    
 
     /**
      * 上传附件
@@ -120,6 +135,10 @@ public class AttachmentCenterServiceImpl implements AttachmentCenterService {
         return attachment;
     }
 
+    
+    
+    
+    
     /**
      * 上传文件到七牛，返回url
      *
@@ -180,4 +199,70 @@ public class AttachmentCenterServiceImpl implements AttachmentCenterService {
         Attachment attachment = simpleDao.findOneEntitiyByProperty(Attachment.class, "fileName", fileName);
         return attachment == null ? new Attachment(1, "附件找不到") : attachment;
     }
+    
+    /**
+     * 使用前需做路径修改
+     * main方法上传图片使用、批量上传图片使用
+     * @param urlList
+     * @param fileName
+     */
+    private static void downloadPicture(String urlList,String fileName) {
+        //TODO
+        
+        
+        URL url = null;
+        try {
+            // 网络图片下载并上传使用
+            //url = new URL(urlList);
+            //DataInputStream dataInputStream = new DataInputStream(url.openStream());
+
+            //本地图片上传
+            DataInputStream dataInputStream = new DataInputStream(new FileInputStream(urlList));
+            
+            
+            String imageName =  "C:\\Users\\yangxuan\\Desktop\\VhallImg\\"+fileName;
+            FileOutputStream fileOutputStream = new FileOutputStream(new File(imageName));
+            
+            ByteArrayOutputStream output = new ByteArrayOutputStream();
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = dataInputStream.read(buffer)) > 0) {
+                output.write(buffer, 0, length);
+            }
+            byte[] context=output.toByteArray();
+            
+            //写文件到本地 
+            fileOutputStream.write(context);
+            
+            
+            /**
+             * 得到token
+             */
+            Auth autn =  Auth.create("Mc0SU4FEXmVBM33XZSxdSP2W496ntL9kDMjy3Dwi", "kpbCbnuuKFw3vWLbF5DhavDy08Jvsmyd83hgBZ9B");
+            String token = autn.uploadToken("ipandatcm", null, 3600, new StringMap()
+                    .put("returnBody", "{\"url\": $(key), \"w\": $(imageInfo.width), \"h\": $(imageInfo.height)}"));
+            
+            
+            /**
+             * 上传服务器
+             */
+            com.qiniu.storage.Configuration cfg = new com.qiniu.storage.Configuration(Zone.zone2());
+            UploadManager um  =  new UploadManager(cfg);
+            
+            
+            //上传到七牛服务器上
+            Response response = um.put(context, fileName, token);
+            StringMap result = response.jsonToMap();
+            System.out.println("七牛云图片地址："+(String) result.get("url"));
+            
+            dataInputStream.close();
+            fileOutputStream.close();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    
 }

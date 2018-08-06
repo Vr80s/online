@@ -12,6 +12,7 @@
   <script src="./js/clipboard.js"></script>
   <script src="./js/toc.js"></script>
   <script src="./js/test.js"></script>
+  <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-chat-1.0.0.js?v=201801121522"></script>
   <script src="https://static.vhallyun.com/jssdk/dvideo-plugin.js?v=201806132033"></script><!--依赖的播放器资源-->
   <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-player-1.0.0.js?v=201806132033"></script>
   <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-base-1.0.0.js?v=201806132033"></script>
@@ -151,10 +152,13 @@
               <div onclick="vodInit();" style="cursor: pointer;">PC点播</div>
             </div>
             <hr />
-            <div class="copycode-box"><button onclick="jsCopy();" class="btn btn-primary">复制源码</button></div>
+            <div class="copycode-box"><button onclick="jsCopy();" class="btn btn-primary">复制源码</button>
+            <button onclick="sendMsg();" class="btn btn-primary">发送消息</button></div>
             <div id="myVideo"></div>
             <div class="action-box">
               <button id="btn-start-play" class="btn btn-primary">播放</button>
+              
+              
             </div>
           </div>
           
@@ -232,7 +236,23 @@
           }
       });
     }
-
+    
+    /**
+     * 开始推流事件监听
+     */
+     VhallPlayer.onPublishStart(function(){
+         console.log('直播开始！');
+         VhallLive.play();
+    })
+     
+    /**
+     * 停止推流事件监听
+     */
+     VhallPlayer.onPublishStop(function(){
+        console.log('直播结束！');
+    })
+    
+    
     /**
      * 开始播放
      */
@@ -375,6 +395,40 @@
               }
           });
 
+          /**
+           * 初始化聊天对象ch_d260ab70
+           */
+          window.chat = new VhallChat({
+        	 token :"access:27376e92:8c47c95b7cbc26cd",//token必填
+        	 appId :$('#appId').val(),//应用 ID ,必填
+             channelId:'ch_d260ab70'//频道Id，必填
+          });
+          
+          
+          /**
+           * 监听聊天消息
+           */
+          window.chat.on(function(msg){
+              //在此收到聊天消息，消息内容为msg
+              //alert("");
+          });
+          
+          
+          /**
+           * 某某进入直播间
+           */
+          window.chat.join(function(msg){
+              console.log(msg);
+          })
+          
+          /**
+           * 某某离开直播间
+           */
+          window.chat.leave(function(msg){
+             console.log(msg);
+          })
+          
+          
       });
 
       Vhall.config({
@@ -384,15 +438,11 @@
       });
 
       tabShow('videoBox');
-      
-
-
     } 
 
 
     function init(){
        Vhall.ready(function(){
-
            VhallPlayer.init({
                roomId:$('#roomId').val(),//房间ID,直播必填，点播不写
                recordId:'',//回放Id，点播必填，直播不写
@@ -412,6 +462,13 @@
       });
     }
 
+    
+    function sendMsg(){
+        window.chat.emit("啦啦啦");
+        alert("发送成功");
+     }
+    
+    
   </script>
 
 </body>

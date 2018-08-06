@@ -1,6 +1,6 @@
 package com.xczhihui.course.service.impl;
 
-import static com.xczhihui.common.util.RedisCacheKey.LIVE_COURSE_REMIND_LAST_TIME_KEY;
+import static com.xczhihui.common.util.redis.key.RedisCacheKey.LIVE_COURSE_REMIND_LAST_TIME_KEY;
 
 import java.text.MessageFormat;
 import java.util.*;
@@ -10,7 +10,6 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Service;
 
@@ -19,10 +18,10 @@ import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.*;
 import com.xczhihui.common.support.cc.util.CCUtils;
 import com.xczhihui.common.support.service.CacheService;
-import com.xczhihui.common.util.RedisCacheKey;
-import com.xczhihui.common.util.TimeUtil;
+import com.xczhihui.common.util.redis.key.RedisCacheKey;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.util.enums.*;
+import com.xczhihui.common.util.vhallyun.ChannelService;
 import com.xczhihui.course.dao.CourseApplyDao;
 import com.xczhihui.course.dao.CourseDao;
 import com.xczhihui.course.params.BaseMessage;
@@ -153,7 +152,7 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
     }
 
     @Override
-    public void savePass(Integer courseApplyId, String createPerson) {
+    public void savePass(Integer courseApplyId, String createPerson) throws Exception {
         CourseApplyInfo courseApply = courseApplyDao.findCourseApplyById(courseApplyId);
         if (courseApply.getStatus() != ApplyStatus.UNTREATED.getCode()) {
             throw new RuntimeException("课程已被他人审核");
@@ -403,7 +402,7 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
         dao.update(courseApply);
     }
 
-    public Course savePassCourse(CourseApplyInfo courseApply, String userId) {
+    public Course savePassCourse(CourseApplyInfo courseApply, String userId) throws Exception {
         courseApply.setStatus(ApplyStatus.PASS.getCode());
         courseApply.setReviewPerson(userId);
         courseApply.setReviewTime(new Date());
@@ -413,7 +412,7 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
 
     }
 
-    private Course saveCourseApply2course(CourseApplyInfo courseApply) {
+    private Course saveCourseApply2course(CourseApplyInfo courseApply) throws Exception {
         Course course = getCourse4Apply(courseApply.getOldApplyInfoId());
         courseService.checkName(null, courseApply.getTitle(), courseApply.getOldApplyInfoId());
         // 当课程存在密码时，设置的当前价格失效，改为0.0
@@ -466,7 +465,7 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
 
         course.setLiveSource(2);
         course.setSort(0);
-
+        course.setMultimediaType(courseApply.getMultimediaType());
         course.setStatus("0");
         if (course.getType() == CourseForm.OFFLINE.getCode()) {
             // 线下课程
@@ -478,13 +477,22 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
             courseService.addCourseCity(course.getCity());
         } else if (course.getType() == CourseForm.LIVE.getCode()) {
             course.setStartTime(courseApply.getStartTime());
-            if (StringUtils.isBlank(course.getDirectId())) {
-                String webinarId = createWebinar(course);
-                course.setDirectId(webinarId);
-                // 将直播课设置为预告
-                course.setLiveStatus(2);
-            } else {
-                updateWebinar(course);
+            if(course.getMultimediaType()==Multimedia.VIDEO.getCode()){
+                if (StringUtils.isBlank(course.getDirectId())) {
+                    String webinarId = createWebinar(course);
+                    course.setDirectId(webinarId);
+                    // 将直播课设置为预告
+                    course.setLiveStatus(2);
+                } else {
+                    updateWebinar(course);
+                }
+            }else{
+                if (StringUtils.isBlank(course.getChannelId())) {
+                    String channelId = ChannelService.create();
+                    course.setChannelId(channelId);
+                    // 将直播课设置为预告
+                    course.setLiveStatus(2);
+                }
             }
         } else if (course.getType() == CourseForm.VOD.getCode()) {
             // yuruixin-2017-08-16

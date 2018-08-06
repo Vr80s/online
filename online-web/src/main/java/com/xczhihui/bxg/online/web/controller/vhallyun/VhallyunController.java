@@ -1,21 +1,37 @@
 package com.xczhihui.bxg.online.web.controller.vhallyun;
 
+
+import static com.xczhihui.common.util.redis.key.RedisCacheKey.VHALLYUN_BAN_KEY;
+
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.alibaba.dubbo.common.json.JSONObject;
+import com.alibaba.fastjson.JSON;
+import com.xczhihui.bxg.online.web.base.utils.UserLoginUtil;
+import com.xczhihui.bxg.online.web.body.vhall.VhallCallbackBody;
 import com.xczhihui.bxg.online.web.controller.AbstractController;
 import com.xczhihui.common.support.domain.Attachment;
+import com.xczhihui.common.support.domain.BxgUser;
 import com.xczhihui.common.support.service.AttachmentCenterService;
 import com.xczhihui.common.support.service.AttachmentType;
+import com.xczhihui.common.support.service.CacheService;
 import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.common.util.bean.VhallMessageParamsVo;
 import com.xczhihui.common.util.vhallyun.BaseService;
 import com.xczhihui.common.util.vhallyun.DocumentService;
+import com.xczhihui.common.util.vhallyun.MessageService;
+import com.xczhihui.common.util.vhallyun.VhallUtil;
 import com.xczhihui.medical.anchor.service.IAnchorInfoService;
 
 /**
@@ -26,10 +42,14 @@ import com.xczhihui.medical.anchor.service.IAnchorInfoService;
 @RequestMapping("vhallyun")
 @Controller
 public class VhallyunController extends AbstractController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(VhallyunController.class);
+
     @Autowired
     private AttachmentCenterService attachmentCenterService;
     @Autowired
     private IAnchorInfoService anchorInfoService;
+    @Autowired
+    private CacheService cacheService;
 
     @RequestMapping(value = "publishStream/accessToken", method = RequestMethod.GET)
     @ResponseBody
@@ -63,4 +83,71 @@ public class VhallyunController extends AbstractController {
     public ResponseObject list() {
         return ResponseObject.newSuccessResponseObject(anchorInfoService.listDocument(getUserId()));
     }
+
+    @RequestMapping(value = "callback", method = RequestMethod.POST)
+    @ResponseBody
+    public String callback(@RequestBody VhallCallbackBody vhallCallbackBody) {
+        String signature = vhallCallbackBody.getSignature();
+        if (StringUtils.isBlank(signature)) {
+            LOGGER.error("callback error, signature is blank.");
+            return "fail";
+        }
+        String callbackSign = VhallUtil.getCallbackSign(vhallCallbackBody.getParams());
+        if (!signature.equals(callbackSign)) {
+            LOGGER.error("callback error, signature invalid. oldSign:{} newSign:{}", signature, callbackSign);
+            LOGGER.error("vhallCallbackBody: {}", vhallCallbackBody);
+            return "fail";
+        }
+        if (vhallCallbackBody.isTransOverEvent()) {
+            String documentId = vhallCallbackBody.getDocumentId();
+            Integer status = vhallCallbackBody.getStatus();
+            anchorInfoService.updateDocumentStatus(documentId, status);
+        }
+        return "success";
+    }
+
+    @RequestMapping(value = "message", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseObject getMessages(@RequestParam(name = "channelId") String channelId, @RequestParam(defaultValue = "0") int pos) throws Exception {
+        VhallMessageParamsVo vmpv = new VhallMessageParamsVo();
+        vmpv.setChannel_id(channelId);
+        vmpv.setPos(String.valueOf(pos));
+        vmpv.setType(String.valueOf(2));
+        return ResponseObject.newSuccessResponseObject(MessageService.getMessageList(vmpv));
+    }
+
+    @RequestMapping(value = "message", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseObject sendMessage(@RequestParam String body, @RequestParam String channelId) throws Exception {
+        MessageService.sendMessage("CustomBroadcast", body, channelId);
+        return ResponseObject.newSuccessResponseObject();
+    }
+
+    @RequestMapping(value = "ban/{channelId}/{userId}/{status}", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseObject updateBanStatus(@PathVariable boolean status, @PathVariable String channelId, @PathVariable String userId) {
+        //禁言
+        if (status) {
+            cacheService.sadd(VHALLYUN_BAN_KEY + channelId, userId);
+        } else {
+            cacheService.srem(VHALLYUN_BAN_KEY + channelId, userId);
+        }
+        return ResponseObject.newSuccessResponseObject();
+    }
+    
+    
+    @RequestMapping(value = "customSendMessage", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseObject customSendMessage(String body,String channel_id) throws Exception {
+        BxgUser loginUser = UserLoginUtil.getLoginUser();
+        JSONObject jsonObject =  (JSONObject) JSON.parse(body);
+        if(jsonObject.get("type")!=null && jsonObject.get("type").toString().equals("1")) {
+            Boolean isShutup =  cacheService.sismenber(VHALLYUN_BAN_KEY + channel_id, loginUser.getId());
+            if(!isShutup) {
+                return ResponseObject.newErrorResponseObject("你被禁言了");
+            } 
+        } 
+        return ResponseObject.newSuccessResponseObject(MessageService.sendMessage("CustomBroadcast",body,channel_id));
+    }
+    
 }

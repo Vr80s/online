@@ -25,12 +25,44 @@ function apprenticeList(userId,pageNumber,downOrUp) {
                         }
                     }
                 }
+
+                // 循环 apprenticeCourses 判断日期
+                // 也就是说先把这个数据处理了，然后再给模板
+                $.each(apprenticeCourses,function(key,value){
+                    // console.log(startDateStr);
+                    var myDate = new Date();  /*定义日期  31号(日期)*/
+                    var y = myDate.getFullYear(); /*获取当天日期-年*/
+                    var m = myDate.getMonth()+1; /*获取当天日期-月*/
+                    if (m<10) {
+                        m = "0"+m;
+                    }
+                    var d = myDate.getDate(); /*获取当天日期-日*/
+                    if (d<10) {
+                        d = "0"+d;
+                    }
+                    // 这里要判断年月日 2018-07-10 
+                    var a = y+"."+m+"."+d;
+                    var ymd = value.startTime;
+                    var ymd = ymd.replace(/-/g,".");  
+                    ymd = ymd.substring(0,10);// substring
+                    var isday = "y";   /*今天*/
+                    if (a!=ymd) {
+                        // 不相等
+                        // 不等startDateStr把这个换成年月日格式就行了
+                        apprenticeCourses[key]['startDateStr'] = ymd;
+                        apprenticeCourses[key]['isday'] = "n";
+                    }else{
+                        apprenticeCourses[key]['isday'] = "y";
+                    }
+
+                });
+
                 $('#teacher_hides').html(template('teacher_hide_ids', {items: data.resultObject}));
                 
                 // 判断日期---显示时间还是日历
-                var dateTime = $(".more_people_times").html();
-                var d = new Date();  /*定义日期  31号(日期)*/
-                var a = d.getDate(); /*获取当天日期*/
+                /*var dateTime = $(".more_people_times").html();
+                var d = new Date(); 
+                var a = d.getDate(); 
                 if (dateTime == a) {
                     $(".date_z").hide();
                     $(".time_z").show();
@@ -40,7 +72,7 @@ function apprenticeList(userId,pageNumber,downOrUp) {
                     $(".more_peoples_times").html(dt);
                     $(".time_z").hide();
                     $(".date_z").show();
-                };
+                };*/
 
 
                 

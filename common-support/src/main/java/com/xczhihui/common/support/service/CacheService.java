@@ -19,6 +19,7 @@ public interface CacheService {
      * 一小时的秒数
      */
     int ONE_HOUR = ONE_MINUTE * 60;
+    int FIVE_HOUR = ONE_HOUR * 5;
 
     /**
      * 一天的秒数

@@ -146,7 +146,6 @@ dev-2.3
 
     update oe_user set origin = -1 where origin is null;
 
-
 dev-2.4
 ==
 
@@ -156,6 +155,9 @@ dev-2.4
       `document_id` varchar(32) NOT NULL DEFAULT '' COMMENT '文档id',
       `create_time` datetime DEFAULT NULL COMMENT '创建时间',
       `document_name` varchar(500) DEFAULT NULL COMMENT '文档名称',
+      `trans_status` int(1) DEFAULT NULL COMMENT '文档转码状态',
       PRIMARY KEY (`id`),
       UNIQUE KEY `unique_index` (`user_id`,`document_id`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+    ALTER TABLE `oe_course` ADD COLUMN `channel_id` VARCHAR(32) NULL COMMENT '频道ID（文档、IM）' AFTER `direct_id`; 
