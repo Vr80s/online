@@ -351,7 +351,7 @@ public class MyManagerController {
     @ResponseBody
     public ResponseObject anchorConsoleApplyCourse(@RequestParam("pageNumber") Integer pageNumber,
                                                    @RequestParam("pageSize") Integer pageSize,
-                                                   @RequestParam("type") Integer type, Integer courseFrom, Integer multimediaType, @Account String accountId) throws Exception {
+                                                   Integer type, Integer courseFrom, Integer multimediaType, @Account String accountId) throws Exception {
 //        Integer courseFrom = null; // 课程类型：1.直播 2.点播 3.线下课
 //        Integer multimediaType = null; // 多媒体类型:1视频2音频
 
