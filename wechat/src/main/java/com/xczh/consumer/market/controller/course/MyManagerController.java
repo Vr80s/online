@@ -340,7 +340,7 @@ public class MyManagerController {
 
     /**
      * Description：主播控制台 我的课程（app端我的课程 全部、直播、视频、线下课、音频） 包括审批的包括没有审批的
-     *
+     *  20180806调整接口参数，兼容老接口
      * @param req
      * @return ResponseObject
      * @throws Exception
@@ -351,21 +351,23 @@ public class MyManagerController {
     @ResponseBody
     public ResponseObject anchorConsoleApplyCourse(@RequestParam("pageNumber") Integer pageNumber,
                                                    @RequestParam("pageSize") Integer pageSize,
-                                                   @RequestParam("type") Integer type, @Account String accountId) throws Exception {
-        Integer courseFrom = null; // 课程类型：1.直播 2.点播 3.线下课
-        Integer multimediaType = null; // 多媒体类型:1视频2音频
+                                                   @RequestParam("type") Integer type, Integer courseFrom, Integer multimediaType, @Account String accountId) throws Exception {
+//        Integer courseFrom = null; // 课程类型：1.直播 2.点播 3.线下课
+//        Integer multimediaType = null; // 多媒体类型:1视频2音频
 
-        //type 查询类型：0 全部 1 直播 2 视频 3 线下课 4 音频
-        if (type == 1) {
-            courseFrom = 1;
-        } else if (type == 2) {
-            courseFrom = 2;
-            multimediaType = 1;
-        } else if (type == 3) {
-            courseFrom = 3;
-        } else if (type == 4) {
-            courseFrom = 2;
-            multimediaType = 2;
+        //type 查询类型：0 全部 1 直播音频 2 点播视频 3 线下课 4 点播音频 5.直播音频
+        if(type!=null){
+            if (type == 1) {
+                courseFrom = 1;
+            } else if (type == 2) {
+                courseFrom = 2;
+                multimediaType = 1;
+            } else if (type == 3) {
+                courseFrom = 3;
+            } else if (type == 4) {
+                courseFrom = 2;
+                multimediaType = 2;
+            }
         }
 
         Page<CourseLecturVo> page = new Page<>();
