@@ -42,6 +42,7 @@
                 /logout = logout
                 /test = anon
                 /publiccloudclass/course/changeCallback* = anon
+                /publiccloudclass/course/vhallYunLiveCallback* = anon
                 /** = authc
             </value>
         </property>

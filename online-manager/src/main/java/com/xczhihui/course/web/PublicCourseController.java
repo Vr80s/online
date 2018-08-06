@@ -2,6 +2,8 @@ package com.xczhihui.course.web;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -201,4 +203,29 @@ public class PublicCourseController {
         return responseObj;
     }
 
+    
+    
+    @RequestMapping(value = "vhallYunLiveCallback")
+    @ResponseBody
+    public String vhallYunLiveCallback(HttpServletRequest rq) throws IllegalAccessException, InvocationTargetException, IOException, SolrServerException {
+       
+    	Map map = new HashMap();
+
+    	Enumeration enum1 =rq.getParameterNames();  
+    	
+    	while (enum1.hasMoreElements()) {  
+			String paramName = (String) enum1.nextElement();
+
+			String paramValue = rq.getParameter(paramName);
+			// 形成键值对应的map
+			map.put(paramName, paramValue);
+    	}  
+    	
+    	System.out.println("查看下直播回调参数："+map.toString());
+        
+    	return "success";
+    }
+
+    
+    
 }

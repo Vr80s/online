@@ -97,7 +97,7 @@ function createGiftList(gift) {
         } 
         return;
     }
-    if(gift.courseId!=course_id)return;   //ios传值
+    //if(gift.courseId!=course_id)return;   //ios传值
     if (gift.messageType == 0 || gift.messageType == 1) {
     	
     	var data = gift;
@@ -407,10 +407,12 @@ $(document).ready(function() {
                     liveId : course_id,
                     receiverId : teacherId,
                     receiverName : teacherName,
-                    continuousCount : 1
+                    continuousCount : 1,
+                    channel_id:"ch_d260ab70"
                 };
-                requestService("/xczh/gift/sendGift",
+                requestService("/xczh/gift/customSendGift",
                     msgJson,
+                    
                     function(data) {
                         if (data.success == true) {
 

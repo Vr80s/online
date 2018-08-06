@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.alibaba.dubbo.common.json.JSONObject;
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.xczhihui.bxg.online.web.base.utils.UserLoginUtil;
 import com.xczhihui.bxg.online.web.body.vhall.VhallCallbackBody;
 import com.xczhihui.bxg.online.web.controller.AbstractController;

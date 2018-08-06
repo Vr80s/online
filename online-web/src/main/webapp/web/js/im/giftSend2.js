@@ -169,7 +169,7 @@ $(document).ready(function() {
 					receiver:teacherId,
 					receiverName:teacherName
 			};
-			RequestService("/gift/sendGift", "POST", msgJson, function(data) {
+			RequestService("/gift/vhallSendGift", "POST", msgJson, function(data) {
 				if(data.success==true){
                     data.resultObject.courseId=course_id;
         			sendMsg(data.resultObject);
