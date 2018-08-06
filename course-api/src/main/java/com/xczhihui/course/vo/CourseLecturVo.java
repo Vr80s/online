@@ -128,6 +128,7 @@ public class CourseLecturVo implements Serializable {
      * 多媒体类型   1 点播  2 音频
      */
     private Integer multimediaType;
+    private Integer courseForm;
 
     /**
      * 房间号
@@ -221,6 +222,13 @@ public class CourseLecturVo implements Serializable {
      */
     private boolean submitted;
 
+    public Integer getCourseForm() {
+        return courseForm;
+    }
+
+    public void setCourseForm(Integer courseForm) {
+        this.courseForm = courseForm;
+    }
 
     public String getUdescription() {
         return udescription;

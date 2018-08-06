@@ -194,20 +194,21 @@ text-align: right;
     height: 1.22rem;
 }
 .little_img{
-width: 0.32rem;
-height: 0.32rem;
-position: absolute;
-top: 0.13rem;
-left: 0.13rem;	
+	width: 0.32rem;
+	height: 0.32rem;
+	position: absolute;
+	top: 0.13rem;
+	left: 0.13rem;	
 }
 .text_mores{
 	margin-bottom: 0.1rem;
 }
 .text_more{
-display: -webkit-box;
--webkit-box-orient: vertical;
--webkit-line-clamp: 1;
-overflow: hidden;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 1;
+	overflow: hidden;
+	margin-bottom: 0.1rem;
 
 }
 .text_more .span{

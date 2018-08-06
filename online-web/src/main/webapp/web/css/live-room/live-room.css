@@ -224,7 +224,7 @@ input::-webkit-input-placeholder{
 	left: 50%;
 	margin-left: -25px;
 	font-size: 12px;
-	z-index: 3;
+	z-index: 50;
 }
 .tool-main .select-tool li .select-huabi{
 	width: 30px;
@@ -239,6 +239,7 @@ input::-webkit-input-placeholder{
 	margin-left: -15px;
 	font-size: 12px;
 	text-align: center;
+	z-index: 10;
 }
 .tool-main .select-tool li .select-huabi .comment-bg{
 	width: 30px;
@@ -313,6 +314,59 @@ input::-webkit-input-placeholder{
 	width: 100%;
 	background: #969c9e;
 	padding-left: 60px;
+	position: relative;
+}
+.pages{
+	width: 340px;
+    height: 30px;
+    position: absolute;
+    right: 0;
+    bottom: 20px;
+    padding-right: 25px;
+}
+.pages .prve{
+	width: 66px;
+	height: 25px;
+	text-align: center;
+	line-height: 25px;
+	background: #c2c2c2;
+	display: inline-block;
+	margin-right: 10px;
+	color: white;
+	cursor: pointer;
+	border-radius: 4px;
+}
+.pages .next{
+	width: 66px;
+	height: 25px;
+	text-align: center;
+	line-height: 25px;
+	background: #c2c2c2;
+	display: inline-block;
+	color: white;
+	cursor: pointer;
+	border-radius: 4px;
+}
+.jump-pages{
+	float: right;
+	color: white;
+}
+.jump-pages input{
+	width: 40px;
+	height: 25px;
+	margin: 0 5px;
+	padding-left: 5px;
+	outline: none;
+	color: #444;
+}
+.jump-pages button{
+	width: 52px;
+	height: 25px;
+	border: 0;
+	outline: none;
+	margin-left: 15px;
+	background: #00bc12;
+	color: white;
 }
 .select-document{
 	position: absolute;
