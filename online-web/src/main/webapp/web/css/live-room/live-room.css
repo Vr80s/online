@@ -239,6 +239,7 @@ input::-webkit-input-placeholder{
 	margin-left: -15px;
 	font-size: 12px;
 	text-align: center;
+	z-index: 10;
 }
 .tool-main .select-tool li .select-huabi .comment-bg{
 	width: 30px;
