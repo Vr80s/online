@@ -60,10 +60,11 @@ public class MobileRecommendController {
     @RequestMapping("recommendTop")
     @ResponseBody
     public ResponseObject recommendTop(HttpServletRequest request) throws Exception {
+        int clientType = HeaderInterceptor.getClientType().getCode();
         Map<String, Object> mapAll = new HashMap<String, Object>();
         //课程banner
         Page<MobileBanner> MobileBannerPage = new Page<>();
-        MobileBannerPage.setRecords(mobileBannerService.selectMobileBannerPage(BannerType.RECOMMENDATION.getCode(), HeaderInterceptor.ONLY_THREAD.get(), APPUtil.getMobileSource(request)));
+        MobileBannerPage.setRecords(mobileBannerService.selectMobileBannerPage(BannerType.RECOMMENDATION.getCode(), HeaderInterceptor.ONLY_THREAD.get(), APPUtil.getMobileSource(request), clientType));
         mapAll.put("banner", MobileBannerPage);
 
         //课程专题

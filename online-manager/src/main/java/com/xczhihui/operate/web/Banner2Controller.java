@@ -49,10 +49,8 @@ public class Banner2Controller {
      * @return
      */
     @RequestMapping(value = "/index")
-    public ModelAndView index(@RequestParam(defaultValue = "主页banner管理") String title, @RequestParam(defaultValue = "2") Integer type) {
+    public ModelAndView index() {
         ModelAndView mav = new ModelAndView("/operate/banner2");
-        mav.addObject("title", title);
-        mav.addObject("type", type);
         List<MenuVo> menus = commonMenuService.list();
         List<CourseVo> courses = new ArrayList<>();
         if (!menus.isEmpty()) {

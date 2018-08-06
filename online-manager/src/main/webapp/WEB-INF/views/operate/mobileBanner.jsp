@@ -492,68 +492,10 @@
                         <i class="glyphicon glyphicon-trash"></i> 批量删除
                     </button>
 
-                    <!--     <button class="btn btn-sm btn-success upload_bx" title="上传word文档">
-                            <i class="glyphicon glyphicon-trash"></i> 上传word文档
-                        </button>
-
-                         <button class="btn btn-sm btn-success upload_excel" title="上传excel文档">
-                            <i class="glyphicon glyphicon-trash"></i> 上传excel文档
-                        </button>
-                         -->
-                    <!--  <a href="/link/word/download?filename=链接地址添加文档.docx">文档说明</a>
-
-                     <form action="/link/word/upload" enctype="multipart/form-data" method="post">
-                        <table>
-                            <tr>
-                                <td>请选择文件:</td>
-                                <td><input type="file" name="file"></td>
-                            </tr>
-                            <tr>
-                                <td><input type="submit" value="上传"></td>
-                            </tr>
-                        </table>
-                    </form> -->
-
                 <div class="row">
                     <div class="col-xs-12">
                         <table id="courseTable"
                                class="table table-striped table-bordered table-hover" style="width: 100%;">
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div role="tabpanel" class="tab-pane active" id="box_m">
-            <div class="mainrighttab tabresourse bordernone" id="courseDiv_M" style="display:none">
-                <p class="col-xs-4" style="padding: 0;">
-                    <button class="btn btn-sm btn-success add_M" title="新增课程">
-                        <i class="glyphicon glyphicon-plus"></i> 新增微课
-                    </button>
-                    <button class="btn btn-sm btn-success dele_M" title="批量删除">
-                        <i class="glyphicon glyphicon-trash"></i> 批量删除
-                    </button>
-                    <button class="btn btn-sm btn-success rec_M" title="设为推荐">
-                        <i class="glyphicon glyphicon-cog"></i> 设为推荐
-                    </button>
-                </p>
-
-                <div class="row">
-                    <div class="col-xs-12">
-                        <table id="courseTable_M"
-                               class="table table-striped table-bordered table-hover">
-                            <colgroup>
-                                <col width='5%'></col>
-                                <col width='5%'></col>
-                                <col width='10%'></col>
-                                <col width='8%'></col>
-                                <col width='8%'></col>
-                                <col width='8%'></col>
-                                <col width='9%'></col>
-                                <col width='10%'></col>
-                                <col width='8%'></col>
-                                <col width='8%'></col>
-                                <col width='14%'></col>
-                            </colgroup>
                         </table>
                     </div>
                 </div>
@@ -573,11 +515,7 @@
             <div class="col-sm-6">
                 <input type="file" name="file" id="imgPath_file1"/>
                 <input type="hidden" name="filename" id="jia_imgPath_file"/>
-                <!-- 					 <div id="kewudeie" style="padding-top:20px;">
-                                     <p><span>原始文件名：</span><span id="ys_filename"></span></p>
-                                     <p><span>下载地址：</span><p id="xz_fileurl" style="word-wrap: break-word;word-break: normal;"></p></p>
-                                     </div>
-                 --> <input name="downUrl" id="add_imgPath1" value="" type="hidden" class="{required:true}">
+                <input name="downUrl" id="add_imgPath1" value="" type="hidden" class="{required:true}">
             </div>
         </div>
     </form>
@@ -607,7 +545,7 @@
         <input type="hidden" name="linkParam" id="J-add-linkParam">
         <input type="hidden" name="linkType" id="J-add-linkType">
         <div class="form-group" style="margin-top: 18px;">
-            <label class="col-sm-3 control-label no-padding-right" for="description"><font color="red">*</font>banner名称:
+            <label class="col-sm-3 control-label no-padding-right" ><font color="red">*</font>banner名称:
             </label>
             <div class="col-sm-6">
                 <input type="text" name="name" id="add_name" maxlength="50" class="col-xs-10 col-sm-12 {required:true}">
@@ -615,7 +553,7 @@
         </div>
         <div class="space-4"></div>
         <div class="form-group" style="margin-top: 18px;">
-            <label class="col-sm-3 control-label no-padding-right" for="imgPath"><font color="red">*</font>
+            <label class="col-sm-3 control-label no-padding-right" ><font color="red">*</font>
              banner图片:
           
             </label>
@@ -635,7 +573,7 @@
 
         <div class="space-4"></div>
         <div class="form-group" style="margin-top: 18px;">
-            <label class="col-sm-3 control-label no-padding-right" for="menuName"><font color="red">*</font>连接类型:
+            <label class="col-sm-3 control-label no-padding-right" ><font color="red">*</font>连接类型:
             </label>
             <div class="col-sm-6">
                 <select name="routeType" id="linkType" onchange="routeTypeChange(this)"
@@ -653,7 +591,7 @@
 
         <!-- 友情提示：  -->
         <div class="form-group" id="yqti_div" style="margin-top: 18px;">
-            <label class="col-sm-3 control-label no-padding-right" for="description"></label>
+            <label class="col-sm-3 control-label no-padding-right" ></label>
             <div class="col-sm-6">
                 <div class="J-course-detail" style="display: none;">
                     <select name="menuType" id="J-menu">
@@ -701,12 +639,24 @@
         </div>
         <div class="space-4"></div>
         <div class="form-group J-link" style="margin-top: 18px; display: none">
-            <label class="col-sm-3 control-label no-padding-right" for="url"><font color="red">*</font>链接条件: </label>
+            <label class="col-sm-3 control-label no-padding-right" ><font color="red">*</font>链接条件: </label>
             <div class="col-sm-6">
         <textarea name="url" placeholder="请填写课程列表/外部链接" id="J-link-param" rows="6"
                   cols="20" class="col-xs-10 col-sm-12 {required:true,maxlength:225}"></textarea>
             </div>
         </div>
+        <div class="space-4"></div>
+        <div class="form-group" style="margin-top: 18px;">
+            <label class="col-sm-3 control-label no-padding-right" ><font color="red">*</font>对应客户端类型:
+            </label>
+            <div class="col-sm-6">
+                <input type="checkbox" checked="checked" name="clientType1" value="1" >PC
+                <input type="checkbox" checked="checked" name="clientType1" value="2" >H5
+                <input type="checkbox" checked="checked" name="clientType1" value="3" >Android
+                <input type="checkbox" checked="checked" name="clientType1" value="4" >IOS
+            </div>
+        </div>
+        <input type="hidden" name="clientType" id="clientType">
         <input type="hidden" name="bannerType" id="bannerType">
     </form>
 </div>
@@ -819,7 +769,18 @@
                   cols="20" class="col-xs-10 col-sm-12 {required:true,maxlength:225}"></textarea>
             </div>
         </div>
-
+        <div class="space-4"></div>
+        <div class="form-group" style="margin-top: 18px;">
+            <label class="col-sm-3 control-label no-padding-right" ><font color="red">*</font>对应客户端类型:
+            </label>
+            <div class="col-sm-6">
+                <input type="checkbox" name="clientType2" value="1" >PC
+                <input type="checkbox" name="clientType2" value="2" >H5
+                <input type="checkbox" name="clientType2" value="3" >Android
+                <input type="checkbox" name="clientType2" value="4" >IOS
+            </div>
+        </div>
+        <input type="hidden" name="clientType" id="update_clientType">
         <input type="hidden" name="bannerType" id="upload_bannerType">
     </form>
 </div>

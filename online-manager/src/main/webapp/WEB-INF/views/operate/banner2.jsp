@@ -19,77 +19,110 @@
     当前位置：运营管理
     <small><i class="ace-icon fa fa-angle-double-right"></i>
     </small>
-    <span> ${title} </span>
+    <span> banner管理 </span>
 </div>
 
 
-<div class="mainrighttab tabresourse bordernone">
-    <p class="col-xs-4" style="padding: 0;">
-        <button class="btn btn-sm btn-success add_bx" title="新增">
-            <i class="glyphicon glyphicon-plus"></i> 新增
-        </button>
-        <button class="btn btn-sm btn-success dele_bx" title="批量删除">
-            <i class="glyphicon glyphicon-trash"></i> 批量删除
-        </button>
-    </p>
-    <div class="searchDivClass" id="searchDiv">
-        <div class="profile-info-row">
-            <table frame=void>
-                <tr>
-                    <td>
-                        <div class="profile-info-value searchTr">
-                            <input type="text" id="search_description" class="propertyValue1" placeholder="banner关键字"
-                                   maxlength="30"/>
-                            <input type="hidden" value="search_description" class="propertyName"/>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="profile-info-value searchTr">
-                            <select id="search_status" class="propertyValue1">
-                                <option value="">状态</option>
-                                <option value="1">启用</option>
-                                <option value="0">禁用</option>
-                            </select>
-                        </div>
-                        <input type="hidden" value="search_status" class="propertyName"/>
-                    </td>
-
-                    <td style="display: none">
-                        <div class="profile-info-value searchTr">
-                            <input type="text" value="${type}" id="search_type" class="propertyValue1" maxlength="30"/>
-                            <input type="hidden" value="search_type" class="propertyName"/>
-                        </div>
-                    </td>
-
-                    <td>
-                        <button id="searchBtn" type="button" class="btn btn-sm  btn-primary "
-                                onclick="search();">
-                            <i class="ace-icon fa fa-search icon-on-right bigger-110"></i>
-                        </button>
-                    </td>
-                </tr>
-            </table>
+<div style="height: 100%;" class="clearfix">
+    <!-- Tab panes -->
+    <div class="tab-content vertical-tab-content">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tab vertical-tab" role="tablist" id="vtab">
+            <li role="presentation" class="active">
+                <a href="#home" aria-controls="home" class="zykgl_bx" title="2" role="tab"
+                   data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">主页banner</a>
+            </li>
+            <li role="presentation">
+                <a href="#home" aria-controls="home" class="zykgl_bx" title="3" role="tab"
+                   data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">头条banner</a>
+            </li>
+            <li role="presentation">
+                <a href="#home" aria-controls="home" class="zykgl_bx" title="4" role="tab"
+                   data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">创业banner</a>
+            </li>
+            <li role="presentation">
+                <a href="#home" aria-controls="home" class="zykgl_bx" title="5" role="tab"
+                   data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">海外banner</a>
+            </li>
+            <li role="presentation" >
+                <a href="#home" aria-controls="home" class="zykgl_bx" title="6" role="tab"
+                   data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">医师banner</a>
+            </li>
+            <li role="presentation">
+                <a href="#home" aria-controls="home" class="zykgl_bx" title="7" role="tab"
+                   data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">医馆banner</a>
+            </li>
+        </ul>
+        <div role="tabpanel" class="tab-pane active" id="home">
+            <div class="mainrighttab tabresourse bordernone" id="courseDiv">
+                <p class="col-xs-4" style="padding: 0;">
+                    <button class="btn btn-sm btn-success add_bx" title="新增">
+                        <i class="glyphicon glyphicon-plus"></i> 新增
+                    </button>
+                    <button class="btn btn-sm btn-success dele_bx" title="批量删除">
+                        <i class="glyphicon glyphicon-trash"></i> 批量删除
+                    </button>
+                </p>
+                <div class="searchDivClass" id="searchDiv">
+                    <div class="profile-info-row">
+                        <table frame=void>
+                            <tr>
+                                <td>
+                                    <div class="profile-info-value searchTr">
+                                        <input type="text" id="search_description" class="propertyValue1" placeholder="banner关键字"
+                                               maxlength="30"/>
+                                        <input type="hidden" value="search_description" class="propertyName"/>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="profile-info-value searchTr">
+                                        <select id="search_status" class="propertyValue1">
+                                            <option value="">状态</option>
+                                            <option value="1">启用</option>
+                                            <option value="0">禁用</option>
+                                        </select>
+                                    </div>
+                                    <input type="hidden" value="search_status" class="propertyName"/>
+                                </td>
+                                <td style="display: none">
+                                    <div class="profile-info-value searchTr">
+                                        <input type="text"  id="search_type" class="propertyValue1" maxlength="30"/>
+                                        <input type="hidden" value="search_type" class="propertyName"/>
+                                    </div>
+                                </td>
+                                <td>
+                                    <button id="searchBtn" type="button" class="btn btn-sm  btn-primary "
+                                            onclick="search();">
+                                        <i class="ace-icon fa fa-search icon-on-right bigger-110"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <table id="banner2Table"
+                               class="table table-striped table-bordered table-hover">
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
 
-
-    <div class="row">
-        <div class="col-xs-12">
-            <table id="banner2Table"
-                   class="table table-striped table-bordered table-hover">
-            </table>
-        </div>
     </div>
 </div>
+
+
 
 <!-- 增加form -->
 <div id="dialogAddMobileBannerDiv"></div>
 <div id="addMobileBannerDialog" class="hide">
     <form id="addMobileBanner-form" class="form-horizontal" method="post" action="" style="margin-top: 15px;">
         <input type="hidden" name="linkParam" id="J-add-linkParam">
-        <input type="hidden" name="type" value="${type}" maxlength="50">
+        <input type="hidden" name="type" id="add_bannerType"  maxlength="50">
         <div class="form-group" style="margin-top: 18px;">
-            <label class="col-sm-3 control-label no-padding-right" for="description"><font color="red">*</font>banner名称:
+            <label class="col-sm-3 control-label no-padding-right" ><font color="red">*</font>banner名称:
             </label>
             <div class="col-sm-6">
                 <input type="text" name="description" id="add_description" maxlength="50" class="col-xs-10 col-sm-12 {required:true}">
@@ -189,7 +222,18 @@
                   cols="20" class="col-xs-10 col-sm-12 {required:true,maxlength:225}"></textarea>
             </div>
         </div>
-        <input type="hidden" name="bannerType" id="bannerType">
+        <div class="space-4"></div>
+        <div class="form-group" style="margin-top: 18px;">
+            <label class="col-sm-3 control-label no-padding-right" ><font color="red">*</font>对应客户端类型:
+            </label>
+            <div class="col-sm-6">
+                <input type="checkbox" checked="checked" name="clientType1" value="1" >PC
+                <input type="checkbox" checked="checked" name="clientType1" value="2" >H5
+                <input type="checkbox" checked="checked" name="clientType1" value="3" >Android
+                <input type="checkbox" checked="checked" name="clientType1" value="4" >IOS
+            </div>
+        </div>
+        <input type="hidden" name="clientType" id="clientType">
     </form>
 </div>
 
@@ -299,8 +343,19 @@
                       cols="20" class="col-xs-10 col-sm-12 {required:true,maxlength:225}"></textarea>
             </div>
         </div>
-
-        <input type="hidden" name="bannerType" id="upload_bannerType">
+        <div class="space-4"></div>
+        <div class="form-group" style="margin-top: 18px;">
+            <label class="col-sm-3 control-label no-padding-right" ><font color="red">*</font>对应客户端类型:
+            </label>
+            <div class="col-sm-6">
+                <input type="checkbox" name="clientType2" value="1" >PC
+                <input type="checkbox" name="clientType2" value="2" >H5
+                <input type="checkbox" name="clientType2" value="3" >Android
+                <input type="checkbox" name="clientType2" value="4" >IOS
+            </div>
+        </div>
+        <input type="hidden" name="clientType" id="update_clientType">
+        <input type="hidden" name="type" id="upload_bannerType">
     </form>
 </div>
 

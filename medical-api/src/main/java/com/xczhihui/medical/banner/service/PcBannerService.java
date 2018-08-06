@@ -18,5 +18,5 @@ public interface PcBannerService {
      * @param page 翻页对象
      * @return 每页的科室内容
      */
-    Page<OeBanner> page(Page page,Integer type);
+    Page<OeBanner> page(Page page,Integer type,Integer clientType);
 }

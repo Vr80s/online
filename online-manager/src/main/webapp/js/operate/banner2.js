@@ -12,7 +12,9 @@ var maxbili = 0.45;
 $(function () {
     nowTime = show();
 
-    searchJson.push('{"tempMatchType":undefined,"propertyName":"search_type","propertyValue1":"' + $("#search_type").val() + '","tempType":undefined}');
+    searchJson.push('{"tempMatchType":undefined,"propertyName":"search_type","propertyValue1":"2","tempType":undefined}');
+    $("#add_bannerType").val("2");
+    $("#upload_bannerType").val("2");
     loadBanner2List();
 });
 
@@ -110,6 +112,30 @@ function loadBanner2List() {
                 return status;
             }
         },
+        {title: '对应客户端', "class": "center", "width": "6%", "height": "68px", "data": 'clientType', "sortable": false,
+            "mRender": function (data) {
+                var chk_value ="";
+            if(data != null){
+                var checkBoxArray = data.split(",");
+                for(var i=0;i<checkBoxArray.length;i++){
+                    if(checkBoxArray[i] == 1){
+                        chk_value+="pc \n ";
+                    }
+                    if(checkBoxArray[i] == 2){
+                        chk_value+="h5 \n ";
+                    }
+                    if(checkBoxArray[i] == 3){
+                        chk_value+="android \n ";
+                    }
+                    if(checkBoxArray[i] == 4){
+                        chk_value+="ios \n ";
+                    }
+                }
+                return chk_value;
+            } else {
+                return "";
+            }
+            }},
         {
             title: '排序',
             "class": "center",
@@ -203,6 +229,21 @@ function search() {
     searchJson.pop();
 
 }
+/**
+ * 点击菜单
+ *
+ */
+$(".zykgl_bx").click(function () {
+
+    var banneType = $(this).attr("title");
+    $("#search_type").val(banneType);
+    $("#add_bannerType").val(banneType);
+    $("#upload_bannerType").val(banneType);
+
+    var json = new Array();
+    searchJson.push('{"tempMatchType":undefined,"propertyName":"search_type","propertyValue1":"' + $("#search_type").val() + '","tempType":undefined}');
+    searchButton(banner2Table, searchJson);
+});
 
 $('#J-menu').on('change', function (e) {
     var menuId = $(this).val();
@@ -344,6 +385,17 @@ $(".add_bx").click(function () {
             alertInfo("请输入banner名称");
             return false;
         }
+        //整理客户端复选框
+        var chk_value =[];
+        $('input[name="clientType1"]:checked').each(function(){
+            chk_value.push($(this).val());
+        });
+        if(chk_value.length == 0){
+            alertInfo("请选择对应客户端类型");
+            return false;
+        } else {
+            $("#clientType").val(chk_value.join(","))
+        }
 
         $('#J-add-linkParam').val(linkParam);
         return true;
@@ -465,6 +517,23 @@ function updateMobileBanner(obj) {
     $("#update_name").val(row.description);
     $("#update_imgPath").val(row.imgPath);
     $("#update_id").val(row.id);
+    //整理客户端复选框
+    $('input[name="clientType2"]').each(function(){
+        $(this).removeAttr("checked");
+    });
+    var checkBox = row.clientType;
+    if(checkBox != null){
+        var checkBoxArray = checkBox.split(",");
+        var chk_value =[];
+        for(var i=0;i<checkBoxArray.length;i++){
+            $('input[name="clientType2"]').each(function(){
+                chk_value.push($(this).val());
+                if($(this).val() == checkBoxArray[i]){
+                    $(this).prop("checked","checked");
+                }
+            });
+        }
+    }
 
     var routeTypeValue = row.routeType;
     var linkParam = row.linkParam;
@@ -607,6 +676,17 @@ function checkEditForm() {
         alertInfo("请输入banner名称");
         return false;
     }
+    //整理客户端复选框
+    var chk_value =[];
+    $('input[name="clientType2"]:checked').each(function(){
+        chk_value.push($(this).val());
+    });
+    if(chk_value.length == 0){
+        alertInfo("请选择对应客户端类型");
+        return false;
+    } else {
+        $("#update_clientType").val(chk_value.join(","))
+    }
 
     $('#J-edit-linkParam').val(linkParam);
     return true;
@@ -743,23 +823,7 @@ $("#updateMobileBanner-form").on("change", "#update_imgPath_file", function () {
     }
       //开始读取
     reader.readAsDataURL(myTest);
-    
-    
-    
-/*    var id = $(this).attr("id");
-    ajaxFileUpload(this.id, basePath + "/attachmentCenter/upload?projectName=online&fileType=1", function (data) {
-        if (data.error == 0) {
-            $("#" + id).parent().find(".ace-file-name img").attr("src", data.url);
-            $("#" + id).parent().find(".ace-file-name img").attr("style", "width: 250px; height: 140px;");
 
-            $("#update_imgPath").val(data.url);
-            document.getElementById("update_imgPath_file").focus();
-            document.getElementById("update_imgPath_file").blur();
-            $(".remove").hide();
-        } else {
-            alert(data.message);
-        }
-    })*/
 });
 
 $('.ace-file-input .remove').on('click', function() {

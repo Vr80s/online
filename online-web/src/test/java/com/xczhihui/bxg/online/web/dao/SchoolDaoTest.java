@@ -62,7 +62,7 @@ public class SchoolDaoTest extends TestCase {
      */
     @Test
     public void selectMobileBannerPage() throws Exception {
-        List<MobileBanner> list = mobileBannerService.selectMobileBannerPage(BannerType.RECOMMENDATION.getCode(), MultiUrlHelper.URL_TYPE_WEB);
+        List<MobileBanner> list = mobileBannerService.selectMobileBannerPage(BannerType.RECOMMENDATION.getCode(), MultiUrlHelper.URL_TYPE_WEB, 1);
     }
 
     /**

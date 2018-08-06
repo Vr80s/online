@@ -46,11 +46,11 @@ public class MobileListenCourseController {
     @ResponseBody
     public ResponseObject onlineLive(HttpServletRequest req)
             throws Exception {
-
+        int clientType = HeaderInterceptor.getClientType().getCode();
         Map<String, Object> mapAll = new HashMap<String, Object>();
         //听课banner
         Page<MobileBanner> mobileBannerPage = new Page<>();
-        mobileBannerPage.setRecords(mobileBannerService.selectMobileBannerPage(BannerType.LISTEN.getCode(), HeaderInterceptor.ONLY_THREAD.get(), APPUtil.getMobileSource(req)));
+        mobileBannerPage.setRecords(mobileBannerService.selectMobileBannerPage(BannerType.LISTEN.getCode(), HeaderInterceptor.ONLY_THREAD.get(), APPUtil.getMobileSource(req), clientType));
         mapAll.put("banner", mobileBannerPage);
 
         //听课课程列表

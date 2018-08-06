@@ -1,13 +1,12 @@
 package com.xczhihui.operate.dao;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.springframework.stereotype.Repository;
-
 import com.xczhihui.common.support.dao.SimpleHibernateDao;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.operate.vo.Banner2Vo;
+import org.springframework.stereotype.Repository;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Repository
 public class Banner2Dao extends SimpleHibernateDao {
@@ -17,7 +16,7 @@ public class Banner2Dao extends SimpleHibernateDao {
         Map<String, Object> paramMap = new HashMap<String, Object>();
         StringBuilder sql = new StringBuilder(" SELECT " + "	ob.id, "
                 + "	ob.create_person, " + "	ob.description, "
-                + "	ou. NAME createPersonName, " + "	ob.create_time, "
+                + "	ou. NAME createPersonName, " + "	ob.create_time, ob.client_type,"
                 + "	ob.is_delete, " + "	ob.img_path, " + "	ob.img_href, "
                 + "	ob.sort, " + "	ob.start_time, " + "	ob.end_time, "
                 + "	ob. status, " + "	ob.click_count, ob.route_type as routeType, ob.link_param as linkParam " + " FROM "
