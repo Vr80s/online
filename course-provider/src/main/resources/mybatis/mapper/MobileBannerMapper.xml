@@ -120,7 +120,7 @@
         '语音直播' as note
         <include refid="commonCondition"/>
         <include refid="onlyFreeCondition"/>
-        oc.`type`=1 AND oc.`multimedia_type`=2 ORDER BY oc.`live_status`,oc.`create_time` DESC,oc.`recommend_sort` LIMIT 3
+        and oc.`type`=1 AND oc.`multimedia_type`=2 ORDER BY oc.`live_status`,oc.`create_time` DESC,oc.`recommend_sort` LIMIT 3
         )
           union all
         (

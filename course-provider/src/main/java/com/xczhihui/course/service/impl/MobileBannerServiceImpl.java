@@ -92,7 +92,7 @@ public class MobileBannerServiceImpl extends ServiceImpl<MobileBannerMapper, Mob
         List<CourseLecturVo> listMf = new ArrayList<CourseLecturVo>();
 
         for (CourseLecturVo courseLecturVo : listAll) {
-            if ("精品课程".equals(courseLecturVo.getNote())) {
+            if ("语音直播".equals(courseLecturVo.getNote())) {
                 listLiveAudio.add(courseLecturVo);
             }
             if ("精品课程".equals(courseLecturVo.getNote())) {
@@ -108,7 +108,7 @@ public class MobileBannerServiceImpl extends ServiceImpl<MobileBannerMapper, Mob
 
 
         if (listLiveAudio.size() > 0) {
-            mapLiveAudio.put("menuType", "goodCourse");
+            mapLiveAudio.put("menuType", "liveAudioCourse");
             mapLiveAudio.put("title", "语音直播");
             mapLiveAudio.put("courseList", listLiveAudio);
             mapCourseList.add(mapLiveAudio);
