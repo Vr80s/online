@@ -11,9 +11,12 @@ package com.xczhihui.common.util.enums;
  */
 public enum VhallCustomMessageType {
 
-    //	10：聊天消息  11：礼物消息
+    //	10：聊天消息  11：礼物消息   12：回放生成成功  13：回放生成失败
     CHAT_MESSAGE(10, "聊天消息"),
-    GIFT_MESSAGE(11, "礼物消息");
+    GIFT_MESSAGE(11, "礼物消息"),
+	
+	PLAYBACK_GENERATION_SECCESS(16, "回放生成成功"),
+	PLAYBACK_GENERATION_FAILURE(17, "回放生成失败");
 
     /**
      * 描述
