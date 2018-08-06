@@ -389,12 +389,13 @@ function baseInfrese() {
 //医馆基础信息回显
 function baseInfrese1(headPortrait, name, medicalHospitalPictures, fields,
                       description, contactor, email, wechat, province, city, county, detailedAddress, tel) {
+    var data = null;
     if (isNotBlank(province) && isNotBlank(city)) {
-        $(".doc_address").iProvincesSelect("init", {
-            "province": province,
-            "city": city
-        });
+    	data={};
+    	data.province=province;
+    	data.city=city;
     }
+    $(".doc_address").iProvincesSelect("init",data);
     //头像
     if (headPortrait != null) {
         var headPic = '<img src=' + headPortrait + '>';
@@ -435,7 +436,7 @@ function baseInfrese1(headPortrait, name, medicalHospitalPictures, fields,
     initDecsription();
     //富文本
     UE.getEditor('editor2').addListener( 'ready', function( editor ) {
-        UE.getEditor('editor2').setContent(description); //编辑器家在完成后，让编辑器拿到焦点
+    	UE.getEditor('editor2').setContent(description==null?"":description);       
     } );
     //联系人姓名
     $('#hos_Administration .hos_base_inf .bottomContent .doc_shanchang').val(contactor);

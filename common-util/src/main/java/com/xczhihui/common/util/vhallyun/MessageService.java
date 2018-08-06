@@ -13,6 +13,14 @@ import com.xczhihui.common.util.bean.VhallMessageParamsVo;
  */
 public class MessageService {
 
+	// 
+	/**
+	 * 微吼自定义消息类型   CustomBroadcast
+	 *  http://www.vhallyun.com/docs/show/1041.html  发送消息:接口
+	 *   
+	 */
+	public static String  CustomBroadcast  = "CustomBroadcast";
+	
     
     @SuppressWarnings("unchecked")
     public static Object getMessageList(VhallMessageParamsVo vmpv) throws Exception{
@@ -23,7 +31,8 @@ public class MessageService {
         return JSON.parse(result);
     }
     
-    public static Object sendMessage(String type,String body,String channel_id) throws Exception {
+    @SuppressWarnings("unchecked")
+	public static Object sendMessage(String type,String body,String channel_id) throws Exception {
         
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("type", type);
@@ -38,18 +47,4 @@ public class MessageService {
         return JSON.parse(result);
         
     }
-    
-    
-    public static void main(String[] args) throws Exception {
-        VhallMessageParamsVo vhallMessageParamsVo = new VhallMessageParamsVo();
-        vhallMessageParamsVo.setChannel_id("ch_fc6f51f4");
-        vhallMessageParamsVo.setType("2");
-        vhallMessageParamsVo.setPos("0");
-        vhallMessageParamsVo.setLimit("10");
-        vhallMessageParamsVo.setStart_time("1980/01/01");
-        //vhallMessageParamsVo.setEnd_time("1980/01/02");
-        System.out.println(getMessageList(vhallMessageParamsVo));
-        //sendMessage("CustomBroadcast","啦啦啦啦","ch_fc6f51f4");
-    }
-    
 }

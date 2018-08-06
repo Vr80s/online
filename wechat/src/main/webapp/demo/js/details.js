@@ -321,7 +321,7 @@ requestService("/xczh/course/liveDetails",{
 				var vhallId =  result.vhallId;
 				if (isNotBlank(videoId)) {
 					
-					chZJ(videoId);
+					//chZJ(videoId);
 				}
 			}
 		}, false)

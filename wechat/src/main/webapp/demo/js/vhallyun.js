@@ -8,25 +8,23 @@ function chZJ(videoId){
 
 var course_id = getQueryString("courseId");
 
-//新的token啦：频道id：ch_d260ab70    ，   token access:27376e92:8520e066f987ba58
-//access:27376e92:8520e066f987ba58
 /**
  * 
  */
 var vhallObj = {
-    roomId:"lss_e96b3c35",
+    roomId:"lss_508dc5c6",
     appId:"27376e92",
     accountId:"test_jssdk",
-    token:"access:27376e92:9d9d4041ccf028ca",
-    channelId:'ch_c7fb060c',
+    token:"access:27376e92:7a190806fb6feb8b",
+    channelId:'ch_d260ab70',
     recordId:''
 }
 
+	
 //直播状态1.直播中，2预告，3直播结束 4 即将直播
 if(lineState == 1 || lineState == 3){
     //初始化 微吼云播放器 
     elsBind();
-    
     //初始化消息
     msgList(0,10);
 }  
@@ -63,7 +61,7 @@ function elsBind(){
         
         VhallLive.init({
            roomId:vhallObj.roomId,
-           type:'liveType',
+           type:"live",
            recordId:vhallObj.recordId, //回放Id，点播必填，直播不写
            videoNode:'myVideo',
            complete:function(){
@@ -83,6 +81,31 @@ function elsBind(){
     
      
     setTimeout(function(){
+    	
+    	
+  var md=document.getElementsByTagName("video")[0];
+  md.addEventListener("ended",function(){
+    console.log("播放结束了");
+  });	
+  md.addEventListener("loadstart",function(){
+    console.log("浏览器开始在网上寻找媒体数据");
+  });	
+   md.addEventListener("progress",function(){
+    console.log("浏览器正在获取媒体数据");
+  });	
+   md.addEventListener("suspend",function(){
+    console.log("浏览器暂停获取媒体数据，但是下载过程并滑正常结束");
+  });
+  
+  //非正常结束直播，但是获取不到流数据
+  md.addEventListener("abort",function(){
+  	
+    console.log("浏览器在下载完全部媒体数据之前中止获取媒体数据，但是并不是由错误引起的");
+  });
+  
+  md.addEventListener("error",function(){
+    console.log("	获取媒体数据过程中出错  ");
+  });	
     	
     	 window.Vhall.ready(function(){
     	    /**
@@ -111,12 +134,54 @@ function elsBind(){
             window.chat.onCustomMsg(function(msg){
                 msg = JSON.parse(msg);
                 //在聊天消息中显示
-                var str = chatLoad(msg,true);
+                var str = chatLoad(msg,false);
                 if(str!=""){
                    $("#chatmsg").append(str);  
                 }
-                //浮动效果
-                createGiftList(msg);
+                if(msg.type == 11){ // 礼物
+                	//浮动效果
+                	createGiftList(msg.message);
+                	
+                }else if(msg.type == 12){ // 开始直播
+                
+                	console.log("开始直播了   >>>>");
+            
+		            $(".video_end_top0").hide();
+		            $(".video_end_top2").hide(); 
+		            //刷新页面 --》在观看
+		            location.reload();
+                	
+                }else if(msg.type == 13){ // 结束直播  --》 生成点播
+                
+                	 console.log("直播结束了，去学习中心 >>>>");
+		             $("#video").html("");
+		             $(".video_end_top0").hide();
+		             //生成回访中
+		             $(".video_end_top2").show();
+                	
+                }else if(msg.type == 14){ // 回放生成成功
+                		
+                	$(".video_end_top0").hide();
+		            $(".video_end_top2").hide();
+		            $(".video_end_top1").show();
+		            
+		            console.info("回放生成成功");
+                }else if(msg.type == 15){ // 回放生成失败
+                    
+                	$(".video_end_top0").hide();
+		            $(".video_end_top2").hide();
+		            $(".video_end_top1").hide();
+		            
+		            $(".video_end_top").show();
+		            console.info("回放生成失败");
+                	
+                }else if(msg.type == 16){ // 退出直播间，但是没有结束直播
+                	
+                	
+                }else if(msg.type == 17){ // 继续直播
+               
+                	
+                }
             })
             
             /**
@@ -149,7 +214,7 @@ function elsBind(){
         var text = $("#mywords").val();
         if(text!=null){
           var content = {
-            type:1,                 //消息类型     1 聊天消息
+            type:10,                 //消息类型     10 聊天消息  礼物 11
             message:{
                 content:text,   //发送的内容
                 headImg:localStorage.getItem("smallHeadPhoto"),       //发送的头像
@@ -160,15 +225,10 @@ function elsBind(){
          /**
           * 发送消息
           */ 
-         requestService("/xczh/vhall/vhallYunSendMessage",{channel_id:vhallObj.channel_id,body:JSON.stringify(content)},
+         requestService("/xczh/vhall/vhallYunSendMessage",{channel_id:vhallObj.channelId,body:JSON.stringify(content)},
                 function(data) {
                 if (data.success) {
-                    var str = chatLoad(content,false);
-                    if(str!=""){
-                     $("#chatmsg").append(str);  
-                    }
                     $("#mywords").val('');
-                	
                 }   
           }); 
         }
@@ -202,7 +262,7 @@ function msgList(pos,limit){
         	 var e = "";
              for (var i = res.data.length - 1; i >= 0; i--) {
                     var item = res.data[i].data;
-                    e+=chatLoad(item,isParse);
+                    e+=chatLoad(JSON.parse(item),true);
              }
              if(e!=""){
              	$("#chatmsg").html(e);
@@ -265,7 +325,7 @@ function chatLoad(content,isParse){
              }
              htmlStr =  "<div class='coze_cen_ri'> "+
                 "  <div class='coze_cen_bg_ri'> "+
-                "<span class='span_name'>"+userName+"：</span>"+   //用户名
+                "<span class='span_name'>"+userName+"：</span>"+   	 //用户名
                 "   "+message.content+"  "+
                 " </div> "+
                 " <div class='both'></div></div>";
