@@ -14,12 +14,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alibaba.fastjson.JSONObject;
 import com.xczhihui.bxg.online.common.domain.GiftStatement;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.common.util.enums.ClientType;
 import com.xczhihui.common.util.enums.OrderFrom;
 import com.xczhihui.common.util.enums.Payment;
+import com.xczhihui.common.util.enums.VhallCustomMessageType;
+import com.xczhihui.common.util.vhallyun.MessageService;
 import com.xczhihui.online.api.service.GiftService;
 
 
@@ -141,5 +144,44 @@ public class GiftController extends AbstractController {
         return ResponseObject.newSuccessResponseObject(giftService.getRankingListByLiveId(liveId, pageNumber, pageSize));
     }
 
+    
+    /**
+     * Description：赠送礼物接口（做礼物赠送余额扣减和检验）
+     *
+     * @param giftStatement
+     * @return ResponseObject
+     * @author name：yuxin <br>email: yuruixin@ixincheng.com
+     * @throws Exception 
+     **/
+    @RequestMapping(value = "/vhallSendGift")
+    public ResponseObject customSendGift(GiftStatement giftStatement,String channel_id,
+                                   HttpServletRequest request) throws Exception {
+        
+    	Map<String, Object> mapRanking = new HashMap<String, Object>();
+    	
+    	Map<String, Object> map = new HashMap<String, Object>();
+        OnlineUser u = getCurrentUser();
+        
+        if (u != null) {
+            giftStatement.setGiver(u.getId());
+            giftStatement.setClientType(ClientType.PC.getCode());
+            giftStatement.setPayType(Payment.COINPAY.getCode());
+            map = giftService.addGiftStatement(u.getId(), giftStatement.getReceiver(),
+                    giftStatement.getGiftId(), ClientType.PC, giftStatement.getCount(), giftStatement.getLiveId());
+        }
+        
+        mapRanking = map;
+        //删除排行榜  -- 因为加上排行榜字符太长
+        map.remove("ranking");
+        
+        JSONObject jsonObject =  new JSONObject();
+        jsonObject.put("type",VhallCustomMessageType.GIFT_MESSAGE.getCode());
+        jsonObject.put("message",map);
+        //后台把这个消息广播出去
+        MessageService.sendMessage(MessageService.CustomBroadcast,jsonObject.toJSONString(),channel_id);
+        
+        return ResponseObject.newSuccessResponseObject(mapRanking);
+    }
+    
 
 }

@@ -1,5 +1,7 @@
 package com.xczhihui.course.service.impl;
 
+import static com.xczhihui.common.util.redis.key.CourseRedisCacheKey.COURSE_LIVE_TOKEN_SECONDS;
+
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
@@ -292,7 +294,7 @@ public class CourseLiveAudioContentServiceImpl implements ICourseLiveAudioConten
             throw new RuntimeException("课程信息有误");
         }
         accessToken = BaseService.createAccessToken4Live(accountId, null, channelId);
-        cacheService.set(CourseRedisCacheKey.getLiveAudioTokenCacheKey(courseId,accountId),accessToken,CacheService.FIVE_HOUR);
+        cacheService.set(CourseRedisCacheKey.getLiveAudioTokenCacheKey(courseId,accountId),accessToken,COURSE_LIVE_TOKEN_SECONDS);
         return accessToken;
     }
 
