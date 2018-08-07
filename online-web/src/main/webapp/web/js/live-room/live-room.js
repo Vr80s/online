@@ -9,6 +9,8 @@ $(function(){
 		var chatHeight=$(document.body).height()-152;
 	//	文档高度
 		$(".video-main").css({"height":videoHeight});
+	//	文档左侧文件列表高度
+		$(".select-document-wrap").css({"height":videoHeight});
 	//	学员列表高度
 		$(".student-list").css({"height":studentHeight});
 	//	聊天区域
@@ -98,4 +100,23 @@ $(function(){
 	       } 
 	     }); 
 	})
+})
+
+//------------------------------------------文档左侧列表点击效果----------------------------------------------------------------	
+$(".icon-right").click(function(){
+	$(this).parent(".select-document-wrap").addClass("select-left");
+	$(".video-main .icon-left").removeClass("hide");
+})
+$(".icon-left").click(function(){
+	$(this).siblings(".select-document-wrap").removeClass("select-left");
+	$(".video-main .icon-left").addClass("hide");
+})
+$(".modal-list li").each(function(){
+	var index=$(this).index();
+	var num=index+1;
+	$(this).find("span").html(num)
+})
+$(".modal-list li").click(function(){
+	$(".modal-list li").removeClass("active");
+	$(this).addClass("active")
 })
