@@ -293,7 +293,7 @@ $(function () {
         var videoHeight = $(document.body).height() - 219;
         var studentHeight = $(document.body).height() - 262;
         var chatHeight = $(document.body).height() - 152;
-
+		var documentWidth=$(".video-width").width()-170;
 
         //	文档高度
         $(".video-main").css({"height": videoHeight});
@@ -303,6 +303,8 @@ $(function () {
         $(".student-list").css({"height": studentHeight});
         //	聊天区域
         $(".chat-personal").css({"height": chatHeight});
+        //  文档宽度
+        $(".document-content").css({"width": documentWidth});
     }
 
     getWhiteHeight();

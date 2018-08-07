@@ -318,6 +318,11 @@ input::-webkit-input-placeholder{
 	padding-left: 60px;
 	position: relative;
 }
+.document-content{
+	float: right;
+	background: pink;
+	height: 100%;
+}
 .pages{
 	width: 100px;
     height: 30px;
