@@ -146,6 +146,8 @@ public class CourseApplyInfoVO implements Serializable {
     private Integer applyStatus;
 
     private Integer courseTeachingCount;
+
+    private String channelId;
     
     /**
      * 如果是专辑的话,判断更新是否完成
@@ -486,6 +488,14 @@ public class CourseApplyInfoVO implements Serializable {
 
     public void setSelectedNumber(Integer selectedNumber) {
         this.selectedNumber = selectedNumber;
+    }
+
+    public String getChannelId() {
+        return channelId;
+    }
+
+    public void setChannelId(String channelId) {
+        this.channelId = channelId;
     }
 
     @Override

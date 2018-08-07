@@ -3,6 +3,7 @@ package com.xczhihui.medical.anchor.service;
 import java.util.List;
 import java.util.Map;
 
+import com.xczhihui.medical.anchor.model.CourseAnchor;
 import com.xczhihui.medical.anchor.model.UserDocument;
 import com.xczhihui.medical.anchor.vo.CourseAnchorVO;
 
@@ -30,6 +31,8 @@ public interface IAnchorInfoService {
 
     void validateAnchorPermission(String userId);
 
+    CourseAnchor getCourseAnchor4Validate(String userId);
+
     /**
      * 查看主播认证状态    0 未认证   1 医师   2 医馆   3 禁用
      *
@@ -56,6 +59,13 @@ public interface IAnchorInfoService {
      * @param documentName 文档名称
      */
     void addDocument(String userId, String documentId, String documentName);
+
+    /**
+     * 删除文档
+     *
+     * @param documentId documentId
+     */
+    void deleteDocument(String documentId);
 
     /**
      * 主播关联的文档列表

@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
 
+import com.xczhihui.medical.anchor.model.CourseAnchor;
+import com.xczhihui.medical.anchor.service.IAnchorInfoService;
 import com.xczhihui.medical.common.enums.CommonEnum;
 import com.xczhihui.medical.common.service.ICommonService;
 import com.xczhihui.medical.doctor.enums.MedicalDoctorApplyEnum;
@@ -45,6 +47,8 @@ public class CommonServiceImpl implements ICommonService {
     private MedicalHospitalApplyMapper hospitalApplyMapper;
     @Autowired
     private ThreadPoolTaskExecutor commonThreadPoolTaskExecutor;
+    @Autowired
+    private IAnchorInfoService anchorInfoService;
 
     /**
      * 根据用户id 判断用户是否是认证医师
@@ -97,7 +101,11 @@ public class CommonServiceImpl implements ICommonService {
                 Integer result = null;
                 MedicalDoctorAccount mda = this.isDoctorStatus(userId);
                 if (mda != null) {
-                    result = CommonEnum.AUTH_DOCTOR.getCode();
+                    if(mda.getStatus()){
+                        result = CommonEnum.AUTH_DOCTOR.getCode();
+                    }else{
+                        result = CommonEnum.AUTH_DOCTOR_CLOSE.getCode();
+                    }
                 } else {
                     // 如果不是认证医师，判断是否正在认证医师
                     MedicalDoctorApply doctorApply = doctorApplyMapper.getLastOne(userId);
@@ -119,7 +127,11 @@ public class CommonServiceImpl implements ICommonService {
                 Integer result = null;
                 MedicalHospitalAccount mha = this.isHospitalStatus(userId);
                 if (mha != null) {
-                    result = CommonEnum.AUTH_HOSPITAL.getCode();
+                    if(mha.getStatus()){
+                        result = CommonEnum.AUTH_HOSPITAL.getCode();
+                    }else{
+                        result = CommonEnum.AUTH_HOSPITAL_CLOSE.getCode();
+                    }
                 } else {
                     // 如果不是已认证医馆，判断是否正在认证医馆
                     MedicalHospitalApply hospitalApply = hospitalApplyMapper.getLastOne(userId);
@@ -224,6 +236,12 @@ public class CommonServiceImpl implements ICommonService {
                 }
             }
         }
+    }
+
+    @Override
+    public Integer isAnchorPower(String userId){
+        CourseAnchor courseAnchor4Validate = anchorInfoService.getCourseAnchor4Validate(userId);
+        return courseAnchor4Validate == null ? 0 : 1;
     }
 
     /**

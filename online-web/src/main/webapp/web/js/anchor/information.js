@@ -1,12 +1,12 @@
 var workTime;
 $(function () {
     //判断账户身份显示效果
-    if (localStorage.AccountStatus == 1) {
+    if (localStorage.AccountStatus == 1 || localStorage.AccountStatus == -1) {
         $('.clinics').addClass('hide');
         $('.physician').removeClass('hide');
         //初始化医师的信息
         initAuthentication();
-    } else if (localStorage.AccountStatus == 2) {
+    } else if (localStorage.AccountStatus == 2 || localStorage.AccountStatus == -2) {
         //主播是医馆的身份
         $('.clinics').removeClass('hide');
         $('.physician').addClass('hide');
@@ -53,6 +53,7 @@ $(function () {
         autoFloatEnabled: true,
         enableAutoSave: false,
         imagePopup: false,
+        autoFloatEnabled:false,
         maximumWords: 3000       //允许的最大字符数
     });
 
@@ -258,7 +259,7 @@ function isCardID(sId) {
 //储存主播信息
 function saveAnchorInfo() {
     //基础信息验证通过了验证医师医馆对应的信息
-    if (localStorage.AccountStatus == 1) {
+    if (localStorage.AccountStatus == 1 || localStorage.AccountStatus == -1) {
         var anchorInfo1 = getAnchorInfo();
         if (verifyAnchorInfo(anchorInfo1)) {
             //验证通过之后进行
@@ -273,7 +274,7 @@ function saveAnchorInfo() {
         }
     }
 
-    if (localStorage.AccountStatus == 2) {
+    if (localStorage.AccountStatus == 2 || localStorage.AccountStatus == -2) {
         var anchorInfo2 = getAnchorInfo2();
         if (verifyAnchorInfo2(anchorInfo2)) {
             //验证通过之后进行
@@ -362,12 +363,12 @@ function verifyAnchorInfo(data) {
     // }
 
     //坐诊的时间
-    if (data.workTime == '') {
-        $('.return_warning7').removeClass('hide');
-        return false;
-    } else {
-        $('.return_warning7').addClass('hide');
-    }
+//  if (data.workTime == '') {
+//      $('.return_warning7').removeClass('hide');
+//      return false;
+//  } else {
+//      $('.return_warning7').addClass('hide');
+//  }
 // //
 // //	//医师所在省市填写
 //     if (data.province == '-1' || data.city == '-1') {
@@ -441,7 +442,7 @@ function showAnchorInfo() {
     }
     RequestService("/anchor/info", "get", null, function (result) {
         if (result.success) {
-            if (localStorage.AccountStatus == '2') {
+            if (localStorage.AccountStatus == 2 ||localStorage.AccountStatus == -2) {
                 $('#demo1 .choosePro option:selected').text(result.resultObject.province);
                 $('#demo1 .chooseCity option:selected').text(result.resultObject.city);
                 $('#u_hospital_tel').val(result.resultObject.tel);
@@ -457,10 +458,10 @@ function showAnchorInfo() {
             } else {
                 $('#hospitalName').text('暂无');
             }
-            if (anchor.workTime) {
+            if (anchor.workTime != null) {
                 $('#workTime').html(anchor.workTime);
             } else {
-                $('#workTime').parent().text('暂无');
+                $('#workTime').html('暂无');
             }
             if (anchor.detail) {
                 $('#detail').html(anchor.detail);

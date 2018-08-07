@@ -15,16 +15,6 @@ $(function () {
     //医师按钮变色效果
     $('.forum').css('color', '#000');
     $('.path .doctor').addClass('select');
-    //进行认证状态的验证 控制左侧tab的显示隐藏
-    //	 RequestService("/medical/common/isDoctorOrHospital","GET",null,function(data){
-    //	       if(data.success == true ){
-    //	       	if(data.resultObject.indexOf(1) != -1){
-    //	       		//医师认证成功
-    //	       		$('.docSuccessBtn').removeClass('hide');
-    //	       		$('.docSuccessBox').removeClass('hide');
-    //	       	}
-    //	       }
-    //	    });
     //定位之前点击过的位置
     setTimeout(function () {
     	if (localStorage.docTblSta == 'doc_dynamic' || localStorage.docTblSta== null) $('.select_list li:first-child').click();

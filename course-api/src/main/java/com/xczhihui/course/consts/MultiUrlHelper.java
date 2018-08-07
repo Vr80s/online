@@ -54,6 +54,11 @@ public class MultiUrlHelper {
                     URL_TYPE_WEB, WEB_COURSE_DETAIL,
                     URL_TYPE_MOBILE, MOBILE_COURSE_DETAIL);
 
+    private static Map<String, String> learningAudioLiveCourseDetailUrlMap =
+            ImmutableMap.of(URL_TYPE_APP, "xczh://ipandatcm.com/learningCourseDetail?id={0}&collection=false&courseType=" + CourseType.AUDIO_LIVE.getId(),
+                    URL_TYPE_WEB, WEB_COURSE_DETAIL,
+                    URL_TYPE_MOBILE, MOBILE_COURSE_DETAIL);
+
     private static Map<String, String> learningAudioCourseDetailUrlMap =
             ImmutableMap.of(URL_TYPE_APP, "xczh://ipandatcm.com/learningCourseDetail?id={0}&collection=false&courseType=" + CourseType.AUDIO.getId(),
                     URL_TYPE_WEB, WEB_COURSE_DETAIL,
@@ -204,6 +209,7 @@ public class MultiUrlHelper {
         urlMap.put(RouteTypeEnum.COMMON_LEARNING_VIDEO_COLLECTION_COURSE_DETAIL_PAGE.name(), learningVideoCourseCollectionDetailUrlMap);
         urlMap.put(RouteTypeEnum.COMMON_LEARNING_VIDEO_COURSE_DETAIL_PAGE.name(), learningVideoCourseDetailUrlMap);
         urlMap.put(RouteTypeEnum.COMMON_LEARNING_LIVE_COURSE_DETAIL_PAGE.name(), learningLiveCourseDetailUrlMap);
+        urlMap.put(RouteTypeEnum.COMMON_LEARNING_LIVE_AUDIO_COURSE_DETAIL_PAGE.name(), learningAudioLiveCourseDetailUrlMap);
         urlMap.put(RouteTypeEnum.COMMON_LEARNING_AUDIO_COURSE_DETAIL_PAGE.name(), learningAudioCourseDetailUrlMap);
         urlMap.put(RouteTypeEnum.COMMON_LEARNING_OFFLINE_COURSE_DETAIL_PAGE.name(), learningOfflineCourseDetailUrlMap);
         //====================================================================

@@ -197,21 +197,6 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper, OnlineUser> imp
         
         return mapAll;
     }
-    
-    
-    public static void main(String[] args) {
-        
-        if("1".equals(1)) {
-            System.out.println("11111111");
-        }else {
-            System.out.println("22222222222222");
-        }
-        Integer aInteger = 1;
-        if(aInteger.equals("1")) {
-            System.out.println("11111111");
-        }else {
-            System.out.println("22222222222222");
-        }
-    }
-    
+
+
 }

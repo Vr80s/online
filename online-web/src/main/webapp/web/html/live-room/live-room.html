@@ -136,10 +136,30 @@
 			</form>
 		</div>
 		<!--文档弹窗结束-->
+		<!--设置弹窗-->
+		<div class="modal-content setup-modal hide">
+			<div class="comment-setup">
+				<span>摄像头</span>
+				<select name="">
+					<option value="">王总摄像头</option>
+				</select>
+			</div>
+			<div class="comment-setup">
+				<span>麦克风</span>
+				<select name="">
+					<option value="">王总麦克风</option>
+				</select>
+			</div>
+			<div class="comment-setup">
+				<button class="sure" type="button">确认</button>
+				<button class="cancel" type="button">取消</button>
+			</div>
+		</div>
+		<!--设置结束-->
 		<div class="container-fluid" style="height: 100%;">
 			<div class="row" style="height: 100%;">
 				<!--视频区-->
-			  <div class="col-md-8 comment-padding" style="height: 100%;">
+			  <div class="col-md-8 comment-padding video-width" style="height: 100%;">
 			  	<div class="content-video">
 			  		<!--分享模块-->
 			  		<div class="share-main =">
@@ -158,7 +178,15 @@
 			  			<div class="share-icon text-center">
 			  				<p>分享到</p>
 			  				<ul>
-			  					<li><img src="/web/images/video2/weixin.png"/></li>
+			  					<li class="share-weixin">
+			  						<img src="/web/images/video2/weixin.png"/>
+			  						<div class="weixin-wrap">
+			  							<img src="/web/images/sideWeixin.jpg"/>
+			  						</div>
+			  						<div class="slider-sanjiao">
+			  							<img src="/web/images/float_sanjiao.png"/>
+			  						</div>
+			  					</li>
 			  					<li><img src="/web/images/video2/quan.png"/></li>
 			  					<li><img src="/web/images/video2/weibo.png"/></li>
 			  					<li><img src="/web/images/video2/Qq.png"/></li>
@@ -213,22 +241,22 @@
 			  					</div>
 			  					<div class="select-huabi hide">
 			  						<p class="comment-bg comment-color other-one">
-			  							<img src="/web/images/live-room/color1.png"/>
+			  							<img src="/web/images/live-room/color1.png" data-color="#d900ae" />
 			  						</p>
 			  						<p class="comment-bg comment-color other-two">
-			  							<img src="/web/images/live-room/color6.png"/>
+			  							<img src="/web/images/live-room/color6.png" data-color="#0063db" />
 			  						</p>
 			  						<p class="comment-bg comment-color other-three">
-			  							<img src="/web/images/live-room/color4.png"/>
+			  							<img src="/web/images/live-room/color4.png" data-color="#00c900" />
 			  						</p>
 			  						<p class="comment-bg comment-color other-four">
-			  							<img src="/web/images/live-room/color3.png"/>
+			  							<img src="/web/images/live-room/color3.png" data-color="#ffc800" />
 			  						</p>
 			  						<p class="comment-bg comment-color other-five">
-			  							<img src="/web/images/live-room/color2.png"/>
+			  							<img src="/web/images/live-room/color2.png" data-color="#ff0000" />
 			  						</p>
 			  						<p class="comment-bg comment-color other-six">
-			  							<img src="/web/images/live-room/color5.png"/>
+			  							<img src="/web/images/live-room/color5.png" data-color="#000000" />
 			  						</p>
 			  					</div>
 			  					
@@ -253,9 +281,75 @@
 			  				</li>
 			  			</ul>
 			  		</div>
-			  		<!--视频模块-->
+			  		<!--文档区模块-->
 			  		<div class="video-main">
-			  			
+			  			<!--文档区-->
+			  			<div class="document-content">
+			  				
+			  			</div>
+			  			<!--文档左侧文件列表高度-->
+			  			<div class="select-document-wrap">
+			  				<div class="modal-list">
+			  					<ul>
+				  					<li class="active">
+				  						<img src="/web/images/1.jpg"/>
+				  						<span></span>
+				  					</li>
+				  					<li>
+				  						<img src="/web/images/1.jpg"/>
+				  						<span></span>
+				  					</li>
+				  					<li>
+				  						<img src="/web/images/1.jpg"/>
+				  						<span></span>
+				  					</li>
+				  					<li>
+				  						<img src="/web/images/1.jpg"/>
+				  						<span></span>
+				  					</li>
+				  					<li>
+				  						<img src="/web/images/1.jpg"/>
+				  						<span></span>
+				  					</li>
+				  					<li>
+				  						<img src="/web/images/1.jpg"/>
+				  						<span></span>
+				  					</li>
+				  					<li>
+				  						<img src="/web/images/1.jpg"/>
+				  						<span></span>
+				  					</li>
+				  					<li>
+				  						<img src="/web/images/1.jpg"/>
+				  						<span></span>
+				  					</li>
+				  					<li>
+				  						<img src="/web/images/1.jpg"/>
+				  						<span></span>
+				  					</li>
+				  					<li>
+				  						<img src="/web/images/1.jpg"/>
+				  						<span></span>
+				  					</li>
+			  					</ul>
+			  				</div>
+			  				<div class="icon-right"></div>
+			  			</div>
+			  			<div class="icon-left hide"></div>
+			  			<!--pages分页-->
+			  			<div class="pages">			  				
+			  				<p class="jump-pages">
+			  					<span class="prev">
+			  						<img src="/web/images/live-room/left.png" alt="上一页" />
+			  					</span>
+			  					<span class="now-page">2</span>
+			  					<span class="line">/</span>
+			  					<span class="all-pages">5</span>
+			  					<span class="next">
+			  						<img src="/web/images/live-room/right.png" alt="下一页" />
+			  					</span>
+			  				</p>
+			  			</div>
 			  		</div>
 			  		<!--开始播放按钮模块-->
 			  		<div class="play-main text-center">
@@ -267,7 +361,7 @@
 			  				<li>
 			  					<img src="/web/images/video-set.png"/>
 			  				</li>
-			  				<li>
+			  				<li class="set-up">
 			  					<img src="/web/images/video-set2.png"/>
 			  				</li>
 			  			</ul>
@@ -358,6 +452,12 @@
 			  				</li>
 			  				
 			  			</ul>
+			  			<!--表情筛选-->
+		  				<div class="expression-select hide z">
+							<ul class="expression-list">
+								
+							</ul>
+		  				</div>
 			  		</div>
 			  		<!--发布弹幕区域-->
 			  		<div class="barrage-up">
@@ -365,14 +465,16 @@
 			  				<!--表情-->
 			  				<div class="expression-img z">
 			  					<img src="/web/images/live-room/img-face.png" alt="表情包" />
-			  				</div>
-			  				<!--输入框-->
-			  				<div class="input-main z">
-			  					<input type="text" value="" placeholder="来点儿神聊..." />
-			  					<button type="button">发送</button>
-			  				</div>
+			  				</div>			  			
 			  			</div>
+
+		  				<!--输入框-->
+		  				<div class="input-main z">
+		  					<input type="text" value="" placeholder="来点儿神聊..." />
+		  					<button type="button">发送</button>
+		  				</div>
 			  		</div>
+		  			
 			  	</div>
 			  </div>
 			  

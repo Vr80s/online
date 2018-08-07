@@ -161,3 +161,32 @@ dev-2.4
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
     ALTER TABLE `oe_course` ADD COLUMN `channel_id` VARCHAR(32) NULL COMMENT '频道ID（文档、IM）' AFTER `direct_id`; 
+    ALTER TABLE `oe_course` ADD COLUMN `record_id` VARCHAR(100) NULL COMMENT '回放ID' AFTER `direct_id`; 
+
+dev-2.5
+==
+
+    DROP TABLE IF EXISTS `doctor_type`;
+	CREATE TABLE `doctor_type`  (
+	  `id` int(11) NOT NULL AUTO_INCREMENT,
+	  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '标题',
+	  `icon` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '图标',
+	  `sort` int(11) DEFAULT NULL COMMENT '排序',
+	  `create_person` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '创建人',
+	  `create_time` datetime(0) DEFAULT NULL COMMENT '创建时间',
+	  `is_delete` bit(1) DEFAULT NULL COMMENT '是否删除,1已删除0未删除',
+	  `status` int(2) NOT NULL DEFAULT 1 COMMENT '是否启用, 1 禁用 0 启用',
+	  `remark` varchar(512) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '备注',
+	  PRIMARY KEY (`id`) USING BTREE
+	) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+	
+	-- ----------------------------
+	-- Records of doctor_type
+	-- ----------------------------
+	INSERT INTO `doctor_type` VALUES (1, '名青年中医1', NULL, 1, 'admin', '2018-08-07 11:58:28', b'0', 1, NULL);
+	INSERT INTO `doctor_type` VALUES (2, '名老中医', NULL, 2, 'admin', '2018-08-07 14:58:12', b'0', 1, NULL);
+	INSERT INTO `doctor_type` VALUES (3, '少数名族中医', NULL, 3, 'admin', '2018-08-07 15:01:46', b'0', 1, NULL);
+	INSERT INTO `doctor_type` VALUES (4, '国医大师', NULL, 4, 'admin', '2018-08-07 15:03:41', b'0', 1, NULL);
+	INSERT INTO `doctor_type` VALUES (5, '家传中医', NULL, 5, 'admin', '2018-08-07 15:04:05', b'0', 1, NULL);
+    
+    

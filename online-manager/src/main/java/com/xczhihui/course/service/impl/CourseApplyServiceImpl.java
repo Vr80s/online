@@ -22,6 +22,7 @@ import com.xczhihui.common.util.redis.key.RedisCacheKey;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.util.enums.*;
 import com.xczhihui.common.util.vhallyun.ChannelService;
+import com.xczhihui.common.util.vhallyun.RoomService;
 import com.xczhihui.course.dao.CourseApplyDao;
 import com.xczhihui.course.dao.CourseDao;
 import com.xczhihui.course.params.BaseMessage;
@@ -479,12 +480,12 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
             course.setStartTime(courseApply.getStartTime());
             if(course.getMultimediaType()==Multimedia.VIDEO.getCode()){
                 if (StringUtils.isBlank(course.getDirectId())) {
-                    String webinarId = createWebinar(course);
-                    course.setDirectId(webinarId);
+                    course.setDirectId(RoomService.create());
                     // 将直播课设置为预告
                     course.setLiveStatus(2);
-                } else {
-                    updateWebinar(course);
+                }
+                if (StringUtils.isBlank(course.getChannelId())) {
+                    course.setChannelId(ChannelService.create());
                 }
             }else{
                 if (StringUtils.isBlank(course.getChannelId())) {

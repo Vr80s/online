@@ -325,6 +325,11 @@ public class Course extends Model<Course> {
 
     private Boolean collection;
 
+    @TableField("channel_id")
+    private String channelId;
+    @TableField("record_id")
+    private String recordId;
+
     @Override
     protected Serializable pkVal() {
         return this.id;
@@ -924,5 +929,21 @@ public class Course extends Model<Course> {
 
     public void setSubtitle(String subtitle) {
         this.subtitle = subtitle;
+    }
+
+    public String getChannelId() {
+        return channelId;
+    }
+
+    public void setChannelId(String channelId) {
+        this.channelId = channelId;
+    }
+
+    public String getRecordId() {
+        return recordId;
+    }
+
+    public void setRecordId(String recordId) {
+        this.recordId = recordId;
     }
 }

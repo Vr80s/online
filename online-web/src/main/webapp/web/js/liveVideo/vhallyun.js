@@ -1,6 +1,17 @@
 
 
 
+// 请求--》json文件
+var emoji = [];
+$.ajax({
+	type : "POST",// 请求方式
+	url : "https://file.ipandatcm.com/static/img/emoji.json",// 地址，就是json文件的请求路径
+	dataType : "json",// 数据类型可以为 text xml json script jsonp
+	async:false,
+	success : function(result) {// 返回的参数就是 action里面所有的有get和set方法的参数
+		emoji = result;
+	}
+});
 
 var loginUserId = "";
 var loginStatus = true;
@@ -29,7 +40,7 @@ var vhallObj = {
     roomId:"lss_508dc5c6",
     appId:"27376e92",
     accountId:"test_jssdk",
-    token:"access:27376e92:8520e066f987ba58",
+    token:"access:27376e92:5153a1b38f360ccc",
     channelId:'ch_d260ab70',
     recordId:''
 }
@@ -78,7 +89,7 @@ function elsBind(){
       VhallLive.init({
        roomId:vhallObj.roomId,
        recordId:recordId, //回放Id，点播必填，直播不写
-       type:liveType,
+       type:"live",
        videoNode:'myVideo',
        complete:function(){
           VhallLive.play();
@@ -281,10 +292,14 @@ function liaotian(obj){
     if(!isFilter && role =="user" ){
         className = "hide";
     }
+    
+    //替换表情为url
+    var contentEmoji = replaceEmoji(obj.content);
+    
     var aaa = "<li uid=' user_id' data-role="+str_hide+" class="+className+">"+
     /*聊天区域*/
         "<div class='msg'>"+
-        "<p> " + role_str+"：<span style='color:#fff;'>"+obj.content+"</span></p >"+
+        "<p> " + role_str+"：<span style='color:#fff;'>"+contentEmoji+"</span></p >"+
         "</div>"+
       "</li>";
     return aaa;
@@ -333,5 +348,26 @@ function liveGiftList(obj){
   }
 
 
-
-
+var pattern1 = /\[[\u4e00-\u9fa5]+\]/g;
+var pattern2 = /\[[\u4e00-\u9fa5]+\]/;
+/**
+ * 表情
+ */
+function replaceEmoji(contents) {
+	content = contents.match(pattern1);
+	if(content == null){
+	  return contents;
+	}
+	str = contents;
+	for (i = 0; i < content.length; i++) {
+		for (j = 0; j < emoji.length; j++) {
+			if ("[" + emoji[j].text + "]" == content[i]) {
+				src = emoji[j].imgUrl;
+				break;
+			}
+		}
+		var imgBag = "<img src="+src+" />";
+		str = str.replace(pattern2, imgBag);
+	}
+	return str;
+}

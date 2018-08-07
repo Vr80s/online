@@ -47,14 +47,17 @@
 	}
 	/*处理刷新效果*/
 	.mui-scroll-wrapper{
-		top: 0.7rem;
+		top: 0.88rem;
 	}
 	.mui-pull-top-pocket{
 		top: 0;
 	}
 	.mui-scroll-wrapper{
 		height: 100%;
-
+	    width: 7.5rem;
+	    left: 50%;
+	    margin-left: -3.75rem;
+	    background: #fff;
 	}
 	.mui-pull-bottom-pocket .mui-pull{
 		bottom: 1rem;
@@ -90,6 +93,10 @@
 		padding-top: 0 !important;
     	margin-top: 0.4rem;
 	}
+	.data_my_class{
+		padding-left: 0.26rem;
+		background: #fff;
+	}
 </style>
 </head>
     
@@ -108,9 +115,10 @@
 	<div id="refreshContainer" class="mui-content mui-scroll-wrapper">
 		<div class="mui-scroll">
 			<div class="data_my_class" style="margin-bottom: 1.3rem;">  <!--渲染存放盒子-->
+				<div class="wrap_class">
 		<script type="text/html" id="data_my_class">
 		
-			<div class="wrap_class">
+			
 					{{each items as item i}}
 					<div class="my_class_text" style="position: relative;">
 						{{if item.type == 1 || item.type == 2 }}
@@ -176,10 +184,12 @@
 							
 						</div>
 					</div>
+					<div class="both"></div>
 					{{/each}}
-			</div>
+			
 		
-	</script>
+				</script>
+			</div>
 		</div>
 		</div>
 	</div>
