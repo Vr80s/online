@@ -105,4 +105,9 @@ public interface UserCenterService {
     Token login4visitor(String username);
 
     Token fastLogin(String loginName, String token, TokenExpires day);
+
+    /**
+     * 更新用户微吼云的信息
+     */
+    void updateVhallYunInfo();
 }

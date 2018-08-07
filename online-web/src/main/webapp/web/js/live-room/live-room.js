@@ -1,10 +1,11 @@
-
 $(function () {
     var roomId = $('#J_roomId').val();
     var channelId = $('#J_channelId').val();
     var appId = $('#J_appId').val();
     var accountId = $('#J_accountId').val();
     var token = $('#J_token').val();
+    var nickname = $('#J_nickname').val();
+    var headImg = $('#J_headImg').val();
     var docId;
     window.doc = null;
 
@@ -21,10 +22,102 @@ $(function () {
             console.log("初始化成功!")
         }
     });
-    //聊天初始化
-    window.chat = new VhallChat({
-        channelId: channelId
+
+    window.Vhall.ready(function () {
+        /**
+         * 初始化聊天对象
+         */
+        window.chat = new VhallChat({
+            channelId: channelId //频道Id
+        });
+        /**
+         * 监听聊天消息
+         */
+        window.chat.on(function (msg) {
+            console.log(msg);
+        });
+
+        /**
+         * 监听自定义消息
+         */
+        window.chat.onCustomMsg(function (msg) {
+            msg = JSON.parse(msg);
+            console.log(msg);
+            renderMsg(msg)
+        });
+
+        window.chat.join(function (msg) {
+            console.log(msg);
+            console.log("进入直播间");
+            viewJoinleaveRoomInfo(msg, "join");
+        });
+        window.chat.leave(function (msg) {
+            console.log(msg);
+            console.log("离开直播间");
+            viewJoinleaveRoomInfo(msg, "leave");
+        })
     });
+
+    function renderMsg(msg) {
+        console.log(msg.type);
+        console.log(msg);
+        if (msg.type == 11) { // 礼物
+            if (msg.message) {
+                var html = '<li>\n' +
+                    '                            <span class="chat-name">' + msg.message.senderInfo.userName + ':</span>\n' +
+                    '                            <span class="chat-content">送给主播</span>\n' +
+                    '                            <span class="chat-gift">一个' + msg.message.giftInfo.name + '</span>\n' +
+                    '                        </li>';
+
+                $('#J_message_list').append(html);
+            }
+
+        } else if (msg.type == 10) {
+            console.log("==========")
+            if (msg.message) {
+                console.log("---------")
+                var html = '';
+                if (msg.message.role == 'host') {
+                    html = '<li>\n' +
+                        '                            <span class="chat-status">主播</span>\n' +
+                        '                            <span class="chat-name">' + msg.message.username + ':</span>\n' +
+                        '                            <span class="chat-content">' + msg.message.content + '</span>\n' +
+                        '                        </li>';
+                } else {
+                    html = '<li>\n' +
+                        '                            <span class="chat-name">' + msg.message.username + ':</span>\n' +
+                        '                            <span class="chat-content">' + msg.message.content + '</span>\n' +
+                        '                        </li>';
+                }
+                $('#J_message_list').append(html);
+            }
+        }
+        $('.chat-personal').scrollTop($('.chat-personal')[0].scrollHeight);
+    }
+
+    $.ajax({
+        method: 'GET',
+        url: '/vhallyun/message',
+        data: {'channel_id': channelId, 'start_time': '2018/01/01', 'limit': '1000'},
+        success: function(resp) {
+            if (resp.resultObject && resp.resultObject.data) {
+                var result = resp.resultObject.data;
+                for(var i = result.length - 1; i >=0 ; i--) {
+                    renderMsg(JSON.parse(JSON.parse(result[i].data)));
+                }
+            }
+        }
+    });
+
+    function viewJoinleaveRoomInfo(msg, action) {
+        var html = '<li>\n' +
+        '                            <span class="chat-name">' + msg.nick_name + ':</span>\n' +
+        '                            <span class="chat-content">' + (action === 'join' ? '进入直播间' : '退出') + '</span>\n' +
+            '                        </li>';
+        $('#J_message_list').append(html);
+        $('.chat-personal').scrollTop($('.chat-personal')[0].scrollHeight);
+    }
+
     $('.J-eraser').on('click', function () {
         window.doc.setEraser(16);
     });
@@ -49,18 +142,20 @@ $(function () {
     }
 
     var timer = null;
+
     function updateLiveStatus(event) {
         console.log("event:" + event);
         $.ajax({
             method: 'POST',
             url: '/course/updateLiveStatus',
-            data: {"roomId" : roomId, "event" : event},
+            data: {"roomId": roomId, "event": event},
             async: false,
-            success: function(resp) {
+            success: function (resp) {
                 console.log("调用后台更新状态成功");
             }
         });
     }
+
     $('#J_play').on('click', function () {
         var $this = $(this);
         $this.prop('disabled', 'disabled');
@@ -176,8 +271,8 @@ $(function () {
             type: 10,
             message: {
                 content: message,   //发送的内容
-                headImg: "xxx",       //发送的头像
-                username: "hahah",     //发送的用户名
+                headImg: headImg,       //发送的头像
+                username: nickname,     //发送的用户名
                 role: "host"           //发送人的角色    主播： host   普通用户： normal
             }
         };
@@ -185,22 +280,12 @@ $(function () {
         $.ajax({
             method: "POST",
             url: "/vhallyun/message",
-            data: {'body': JSON.stringify(message), 'channelId': channelId},
+            data: {'body': JSON.stringify(content), 'channelId': channelId},
             success: function (resp) {
                 console.log("发送成功");
             }
         })
     });
-
-    window.chat.on(function (msg) {
-        console.log(msg);
-
-        // $('#J_message_list').append(' <li>\n' +
-        //     '                            <span class="chat-name">' + 明天会更好 + ':</span>\n' +
-        //     '                            <span class="chat-content">这是评这是评论的内容这是评论的内容论的内容</span>\n' +
-        //     '                        </li>');
-    });
-
 
 //------------------------------------------静态页面效果----------------------------------------------------------------
 
@@ -208,16 +293,16 @@ $(function () {
         var videoHeight = $(document.body).height() - 219;
         var studentHeight = $(document.body).height() - 262;
         var chatHeight = $(document.body).height() - 152;
-        
-        
+
+
         //	文档高度
-		$(".video-main").css({"height":videoHeight});
-	//	文档左侧文件列表高度
-		$(".select-document-wrap").css({"height":videoHeight});
-	//	学员列表高度
-		$(".student-list").css({"height":studentHeight});
-	//	聊天区域
-		$(".chat-personal").css({"height":chatHeight});	
+        $(".video-main").css({"height": videoHeight});
+        //	文档左侧文件列表高度
+        $(".select-document-wrap").css({"height": videoHeight});
+        //	学员列表高度
+        $(".student-list").css({"height": studentHeight});
+        //	聊天区域
+        $(".chat-personal").css({"height": chatHeight});
     }
 
     getWhiteHeight();
@@ -260,7 +345,7 @@ $(function () {
     })
 //	收起下拉工具
     $(window).click(function () {
-        $(".select-tool .select-huabi").addClass("hide");
+        $(".select-tool .select-huabi").addClass("hide");       
     })
 
 
@@ -291,23 +376,23 @@ $(function () {
 //点击上传文件的URL
 
 //------------------------------------------文档左侧列表点击效果----------------------------------------------------------------	
-$(".icon-right").click(function(){
-	$(this).parent(".select-document-wrap").addClass("select-left");
-	$(".video-main .icon-left").removeClass("hide");
-})
-$(".icon-left").click(function(){
-	$(this).siblings(".select-document-wrap").removeClass("select-left");
-	$(".video-main .icon-left").addClass("hide");
-})
-$(".modal-list li").each(function(){
-	var index=$(this).index();
-	var num=index+1;
-	$(this).find("span").html(num)
-})
-$(".modal-list li").click(function(){
-	$(".modal-list li").removeClass("active");
-	$(this).addClass("active")
-})
+    $(".icon-right").click(function () {
+        $(this).parent(".select-document-wrap").addClass("select-left");
+        $(".video-main .icon-left").removeClass("hide");
+    })
+    $(".icon-left").click(function () {
+        $(this).siblings(".select-document-wrap").removeClass("select-left");
+        $(".video-main .icon-left").addClass("hide");
+    })
+    $(".modal-list li").each(function () {
+        var index = $(this).index();
+        var num = index + 1;
+        $(this).find("span").html(num)
+    })
+    $(".modal-list li").click(function () {
+        $(".modal-list li").removeClass("active");
+        $(this).addClass("active")
+    })
 
 //------------------------------------------设置----------------------------------------------------------------	
 
@@ -321,8 +406,21 @@ $(".comment-setup .cancel").click(function(){
 	$(".setup-modal").addClass("hide");
 })
 
-
-
+//表情设置
+$(".expression-img").click(function(){
+	$(".expression-select").removeClass("hide");
+	$.ajax({
+		type:"get",
+		url:"/web/js/live-room/emoticon.json",
+		success:function(data){
+			var del="";
+			for(var i=0;i<data.length;i++){
+				del+='<li><img src='+data[i].imgUrl+'></li>'
+			}
+			$(".expression-list").html(del)	
+		}
+	});
+})
 
 
 

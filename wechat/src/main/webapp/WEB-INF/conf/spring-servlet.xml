@@ -229,4 +229,7 @@
                      id="courseLiveAudioContentServiceImpl" timeout="${dubbo.provider.timeout}"/>
 
 
+	<dubbo:reference interface="com.xczhihui.medical.doctor.service.IDoctorTypeService"
+		id="doctorTypeServiceImpl" timeout="${dubbo.provider.timeout}" />  
+
 </beans>

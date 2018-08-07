@@ -202,7 +202,9 @@
         oc.status as status,
         ou.type as hostType,
         if(ou.type = 1,(select mda.doctor_id from 
-                     medical_doctor_account as mda where mda.account_id = oc.user_lecturer_id ),null) as doctorId
+                     medical_doctor_account as mda where mda.account_id = oc.user_lecturer_id ),null) as doctorId,
+        oc.channel_id as channelId,
+        oc.record_id as recordId
         FROM
         oe_course as oc
         inner join course_anchor as ou on oc.user_lecturer_id = ou.user_id

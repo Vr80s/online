@@ -1,6 +1,7 @@
 package com.xczhihui.common.util.vhallyun;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import com.alibaba.fastjson.JSON;
 import com.xczhihui.common.util.IStringUtil;
@@ -46,5 +47,17 @@ public class MessageService {
         
         return JSON.parse(result);
         
+    }
+
+    public static void saveUserInfo(String accountId, String nickname, String headImg) {
+        HashMap<String, String> params = new HashMap<>(2);
+        params.put("third_party_user_id", accountId);
+        params.put("nick_name", nickname);
+        params.put("avatar", headImg);
+        try {
+            VhallUtil.sendPost("http://api.yun.vhall.com/api/v1/channel/save-user-info", params);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

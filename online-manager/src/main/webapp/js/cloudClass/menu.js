@@ -13,7 +13,7 @@ $(function(){
 	               { "title": "序号", "class": "center","width":"4%","sortable": false,"data":"id" },
 	               { "title": "学科名称", "class":"center","width":"5%","sortable":false,"data": 'name' },
 	               { "title": "包含的课程类别", "class":"center","width":"10%","sortable":false,"data": 'childMenuNames' },
-					{ "title": "课程数量", "class":"center","width":"5%","sortable":false,"data": 'courseCount' },
+				   { "title": "课程数量", "class":"center","width":"5%","sortable":false,"data": 'courseCount' },
 	               { "title": "创建人", "class":"center","width":"5%","sortable":false,"data": 'createPerson' },
 					{ "title": "创建日期", "class":"center","width":"5%","sortable":false,"data": 'createTime' },
 					{ "title": "状态", "class":"center","width":"5%","sortable":false,"data": 'yunStatus',"mRender":function (data, display, row) {
