@@ -641,27 +641,24 @@ function checkAuth(courseId, type) {
     }
 }
 
-
-
-
 //关闭浏览器后，又一次打开浏览器了
-var firstEntry = false;
-var session = sessionStorage.getItem("session");
-if(session==null || session ==undefined || session ==""){
-    sessionStorage.setItem("session","session");
-    var shareBack = getQueryString("shareBack");
-    if(shareBack==null || shareBack ==undefined || shareBack ==""){
-        firstEntry = true;
-    }
-}
-
-//是否存在微信信息
-var thirdPartyUCT = cookie.get("_third_ipandatcm_user_");
-
-if ((is_weixin()) &&  (!thirdPartyUCT  || firstEntry)) {//在微信里打开,没有授权时，先去微信授权
-    
-    location.href = "/xczh/wxlogin/middle?url=" + getCurrentUrl();
-}
+//var firstEntry = false;
+//var session = sessionStorage.getItem("session");
+//if(session==null || session ==undefined || session ==""){
+//    sessionStorage.setItem("session","session");
+//    var shareBack = getQueryString("shareBack");
+//    if(shareBack==null || shareBack ==undefined || shareBack ==""){
+//        firstEntry = true;
+//    }
+//}
+//
+////是否存在微信信息
+//var thirdPartyUCT = cookie.get("_third_ipandatcm_user_");
+//
+//if ((is_weixin()) &&  (!thirdPartyUCT  || firstEntry)) {//在微信里打开,没有授权时，先去微信授权
+//    
+//    location.href = "/xczh/wxlogin/middle?url=" + getCurrentUrl();
+//}
 
 function locationToOriginPage() {
     var rd = localStorage.getItem("rd");

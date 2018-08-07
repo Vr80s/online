@@ -43,72 +43,7 @@
               src: "https://file.xczhihui.com/18802142750/1a666a314bdc05a6.png"
           });
     });
-</script>
-		<script type="text/javascript">
-			window.onload = function(){
-			 	/*作用--点击img让最大的div显示出来,不添加的话点击img会隐藏最大块（这个区域的点击图片都得设置）*/
-		 		$(".video-bottom img").click(function(){  /*礼物图片*/
-			 		$("#userCusEvent").show();
-			 	});
-			 	/*排行榜图片--模板中点击img隐藏掉最大div，此代码让最大div显示*/
-			 	$(".billboard-float img").click(function(){  /*排行榜图片*/
-			 		$("#userCusEvent").show();
-			 	});
-			 	
-			 	/*鼠标礼物img上的效果开始*/
-			 	var aBtn=$('.surprise-top .surprise-mouseover-ul li');
-		        for(i=0;i<aBtn.length;i++){
-		            $(aBtn[i]).mouseover(function(){
-		              	for(i=0;i<aBtn.length;i++){
-		                	$(aBtn[i]).removeClass('surprise-top-li-border');
-		                	$(aBtn[i]).addClass('li-initial-border');
-		                	$(this).removeClass('li-initial-border');
-		                	$(this).addClass('surprise-top-li-border');
-		                	
-		                	$(this).find('.surprise-hide').show();
-		              	}
-		            });
-		            $(aBtn[i]).mouseout(function(){
-		              	for(i=0;i<aBtn.length;i++){
-		                	$(aBtn[i]).removeClass('surprise-top-li-border');
-		                	$(this).addClass('li-initial-border');
-		                	$(this).find('.surprise-hide').hide();
-		              	}
-		            });
-		        };
-			 	/*鼠标礼物img上的效果结束*/
-			 	
-			 	/*鼠标放排行榜上查看效果开始*/
-			 	$(".mouseover").mouseover(function(){
-			 		$(".toptenreviews-list").show();
-			 	});
-			 	$(".toptenreviews-list").mouseover(function(){
-			 		$(this).show();
-			 	});
-			 	$(".toptenreviews").mouseout(function(){
-			 		$(".toptenreviews-list").hide();
-			 	});
-			 	/*鼠标放排行榜上查看效果结束*/
-
-
-			 	// 點擊表情開始
-			 	/*$("#face").click(function(){
-			 		$.ajax({
-			 			type:"get",
-			 			url:"/web/js/live-room/emotion.json",
-			 			success:function(data){
-			 				var del="";
-			 				for (var i=0; i<data.length;i++) {
-			 					del+= '<li><img src='+data[i].imgUrl+'></li>'
-			 				}
-			 				$("")
-			 			}
-			 		});
-			 	});*/
-			 	// 點擊表情結束
-
-			};
-		</script>
+    </script>    
 <!--新写直播间--css--替换引入微吼css-->
 <!--<lick rel="stylesheet" type="text/css" href="/web/css/live_streamings.css"></lick>-->
 <link rel="stylesheet" type="text/css" href="/web/css/live_streamings.css"/>
@@ -427,7 +362,7 @@
 						<a id="face" href="javascript:;" class="face"></a> 
 						<div class="chitchat">
 							<!-- <a id= href="javascript:;" class="send-chat">发送</a> -->
-							<a id="" href="javascript:;" class="send-chat">发送</a>
+							<a id="sendChat" href="javascript:;" class="send-chat">发送</a>
 							<textarea id="mywords" onkeypress='return!(13==event.keyCode&&!event.shiftKey)||(document.getElementById("sendChat").click(),!1)' placeholder="来点神聊..."></textarea>
 						</div>
 					</div>
@@ -689,10 +624,10 @@
 
 <!-- <script src="/web/js/im/strophe.js" type="text/javascript" charset="utf-8"></script> -->
 <script src="/web/js/common/common.js" type="text/javascript" charset="utf-8"></script>
+
+
 <script src="/web/js/im/giftSend2.js?v=ipandatcm_1.3" type="text/javascript" charset="utf-8"></script>
-
 <!-- 微吼云 -->
-
 <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-chat-1.0.0.js?v=201801121522"></script>
 <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-doc-1.0.0.js?v=201806271657"></script>
 <script src="https://static.vhallyun.com/jssdk/dvideo-plugin.js?v=0.3"></script>
@@ -719,6 +654,53 @@
     	alert("呵呵");
     })
 </script>
+		<script type="text/javascript">
+			window.onload = function(){
+			 	/*作用--点击img让最大的div显示出来,不添加的话点击img会隐藏最大块（这个区域的点击图片都得设置）*/
+		 		$(".video-bottom img").click(function(){  /*礼物图片*/
+			 		$("#userCusEvent").show();
+			 	});
+			 	/*排行榜图片--模板中点击img隐藏掉最大div，此代码让最大div显示*/
+			 	$(".billboard-float img").click(function(){  /*排行榜图片*/
+			 		$("#userCusEvent").show();
+			 	});
+			 	
+			 	/*鼠标礼物img上的效果开始*/
+			 	var aBtn=$('.surprise-top .surprise-mouseover-ul li');
+		        for(i=0;i<aBtn.length;i++){
+		            $(aBtn[i]).mouseover(function(){
+		              	for(i=0;i<aBtn.length;i++){
+		                	$(aBtn[i]).removeClass('surprise-top-li-border');
+		                	$(aBtn[i]).addClass('li-initial-border');
+		                	$(this).removeClass('li-initial-border');
+		                	$(this).addClass('surprise-top-li-border');
+		                	
+		                	$(this).find('.surprise-hide').show();
+		              	}
+		            });
+		            $(aBtn[i]).mouseout(function(){
+		              	for(i=0;i<aBtn.length;i++){
+		                	$(aBtn[i]).removeClass('surprise-top-li-border');
+		                	$(this).addClass('li-initial-border');
+		                	$(this).find('.surprise-hide').hide();
+		              	}
+		            });
+		        };
+			 	/*鼠标礼物img上的效果结束*/
+			 	
+			 	/*鼠标放排行榜上查看效果开始*/
+			 	$(".mouseover").mouseover(function(){
+			 		$(".toptenreviews-list").show();
+			 	});
+			 	$(".toptenreviews-list").mouseover(function(){
+			 		$(this).show();
+			 	});
+			 	$(".toptenreviews").mouseout(function(){
+			 		$(".toptenreviews-list").hide();
+			 	});
+			 	/*鼠标放排行榜上查看效果结束*/
+			};
+		</script>
 </body>
 </html>
 
