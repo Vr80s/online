@@ -22,7 +22,8 @@ public interface UserDocumentMapper extends BaseMapper<UserDocument> {
      */
     @Select({"select *" +
             " from oe_user_document" +
-            " where user_id = #{userId}"})
+            " where user_id = #{userId} and deleted = false" +
+            " order by create_time desc"})
     List<UserDocument> listByUserId(@Param("userId") String userId);
 
     /**

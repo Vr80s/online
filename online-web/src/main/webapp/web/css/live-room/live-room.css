@@ -189,6 +189,7 @@ input::-webkit-input-placeholder{
 	background: #363636;
 	border: 1px solid #4D4D4D;
 	padding-left: 90px;
+	border-bottom: 0;
 }
 .tool-main .select-tool li{
 	float: left;
@@ -317,57 +318,142 @@ input::-webkit-input-placeholder{
 	position: relative;
 }
 .pages{
-	width: 340px;
+	width: 100px;
     height: 30px;
     position: absolute;
-    right: 0;
+    left: 50%;
+    margin-left: -50px;
     bottom: 20px;
-    padding-right: 25px;
-}
-.pages .prve{
-	width: 66px;
-	height: 25px;
-	text-align: center;
-	line-height: 25px;
-	background: #c2c2c2;
-	display: inline-block;
-	margin-right: 10px;
-	color: white;
-	cursor: pointer;
-	border-radius: 4px;
-}
-.pages .next{
-	width: 66px;
-	height: 25px;
-	text-align: center;
-	line-height: 25px;
-	background: #c2c2c2;
-	display: inline-block;
-	color: white;
-	cursor: pointer;
-	border-radius: 4px;
+    line-height: 30px;
+    background: #6e6e6e;
+    border-radius: 10px;
 }
 .jump-pages{
-	float: right;
+	text-align: center;
 	color: white;
+	position: relative;
 }
-.jump-pages input{
-	width: 40px;
-	height: 25px;
-	margin: 0 5px;
-	padding-left: 5px;
-	outline: none;
-	color: #444;
+.jump-pages .prev{
+	display: inline-block;
+    position: absolute;
+    top: -1px;
+    left: 11px;
+    cursor: pointer;
 }
-.jump-pages button{
-	width: 52px;
-	height: 25px;
-	border: 0;
-	outline: none;
-	margin-left: 15px;
-	background: #00bc12;
-	color: white;
+.jump-pages .next{
+	display: inline-block;
+    position: absolute;
+    top: -1px;
+    right: 11px;
+    cursor: pointer;
 }
+/*文档左侧文件列表高度*/
+.select-document-wrap{
+	width: 110px;
+	background: #1a1a1a;
+	position: relative;
+
+}
+.select-left{
+	left: -100%;
+}
+.select-document-wrap .icon-right{
+	width: 18px;
+	height: 70px;
+	background-color: #010101 !important;
+	background: url(/web/images/live-room/left.png) no-repeat center;
+	position: absolute;
+    right: 0;
+    top: 50%;
+    margin-top: -35px;
+	border-radius: 7px 0 0 7px;
+	cursor: pointer;
+}
+
+.select-document-wrap .icon-right:hover{
+	background-color: #282828 !important;
+}
+
+.video-main .icon-left{
+	width: 18px;
+	height: 70px;
+	background-color: #010101 !important;
+	background: url(/web/images/live-room/right.png) no-repeat center;
+	position: absolute;
+    left: 60px;
+    top: 50%;
+    margin-top: -35px;
+	border-radius: 0 7px 7px 0;
+	cursor: pointer;
+}
+.video-main .icon-left:hover{
+	background-color: #282828 !important;
+}
+.select-document-wrap .modal-list{
+	padding-top: 1px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	height: 100%;
+}
+.select-document-wrap .modal-list li{
+	width: 100px;
+	height: 60px;
+	/*border: 1px solid #818181;*/
+	margin: 10px auto 0;
+	background: #818181;
+	cursor: pointer;
+	position: relative;
+}
+.select-document-wrap .modal-list .active{
+	border: 1px solid #b44c4c;
+}
+.select-document-wrap .modal-list li img{
+	position: absolute;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+}
+.select-document-wrap .modal-list li span{
+	float: left;
+    display: inline-block;
+    width: 25px;
+    height: 18px;
+    background: #5b5b5b;
+    color: white;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    text-align: center;
+    line-height: 18px;
+    border-radius: 0 9px 0 0;	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .select-document{
 	position: absolute;
 	top: 0;
@@ -397,9 +483,47 @@ input::-webkit-input-placeholder{
 }
 
 .share-icon ul li{
-	margin:25px 0;
-	
+	margin:25px 0;	
 }
+.share-icon ul .share-weixin{
+	position: relative;
+}
+.share-icon ul .share-weixin:hover .weixin-wrap,
+.share-icon ul .share-weixin:hover .slider-sanjiao
+{
+	display: block;
+}
+.weixin-wrap{
+	padding: 10px;
+	background: white;
+	position: absolute;
+    left: 70px;
+    top: 50%;
+    margin-top: -50px;
+    display: none;
+}
+.slider-sanjiao{
+	padding: 10px;
+    /* background: white; */
+    position: absolute;
+    left: 50px;
+    top: 50%;
+    margin-top: -20px;
+    -webkit-transform: rotate(180deg);
+    -webkit-transform-origin: center;
+    transform: rotate(180deg);
+    transform-origin: center;
+    -moz-transform: rotate(180deg);
+    -moz-transform-origin: center;
+    display: none;
+}
+
+
+
+
+
+
+
 .select-operation{
 	width: 280px;
 	margin: 0 auto;
