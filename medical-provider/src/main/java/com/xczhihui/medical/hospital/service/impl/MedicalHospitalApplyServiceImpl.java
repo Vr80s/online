@@ -80,18 +80,18 @@ public class MedicalHospitalApplyServiceImpl extends ServiceImpl<MedicalHospital
         Integer result = commonService.isDoctorOrHospital(target.getUserId());
 
         // 如果用户是认证医师或者医师认证中 不让其认证医馆
-        if (result.equals(CommonEnum.AUTH_DOCTOR.getCode()) ||
+        if (result.equals(CommonEnum.AUTH_DOCTOR.getCode()) ||result.equals(CommonEnum.AUTH_DOCTOR_CLOSE.getCode()) ||
                 result.equals(CommonEnum.DOCTOR_APPLYING.getCode())) {
             throw new MedicalException("您已经认证了医师，不能再认证医馆");
         }
 
         // 如果用户认证医馆中
-        if (result.equals(CommonEnum.HOSPITAL_APPLYING.getCode()) ||
-                result.equals(CommonEnum.AUTH_HOSPITAL.getCode())) {
+        if (result.equals(CommonEnum.AUTH_HOSPITAL.getCode()) ||  result.equals(CommonEnum.AUTH_HOSPITAL_CLOSE.getCode())||
+                result.equals(CommonEnum.HOSPITAL_APPLYING.getCode())) {
             if (result.equals(CommonEnum.HOSPITAL_APPLYING.getCode())) {
                 this.checkHospitalName(target.getName(), target.getUserId(), 1);
             }
-            if (result.equals(CommonEnum.AUTH_HOSPITAL.getCode())) {
+            if (result.equals(CommonEnum.AUTH_HOSPITAL.getCode()) ||  result.equals(CommonEnum.AUTH_HOSPITAL_CLOSE.getCode())) {
                 this.checkHospitalName(target.getName(), target.getUserId(), 2);
             }
 

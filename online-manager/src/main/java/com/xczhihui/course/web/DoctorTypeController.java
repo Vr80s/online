@@ -27,7 +27,7 @@ import com.xczhihui.utils.Tools;
  *
  * @author Rongcai Kang
  */
-@RestController()
+@RestController
 @RequestMapping(value = "/medical/doctorType")
 public class DoctorTypeController {
 

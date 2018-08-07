@@ -13,21 +13,21 @@ RequestService("/online/user/isAlive", "get", null, function (data) {
 //获取医馆认证状态控制左侧tab栏
 RequestService("/medical/common/isDoctorOrHospital", "GET", null, function (data) {
     if (data.success == true) {
-        if (data.resultObject != 2) {
+        var isDoctorOrHospital = data.resultObject.isDoctorOrHospital;
+        if (isDoctorOrHospital != 2 && isDoctorOrHospital != -2) {
             //医馆认证未成功显示出来认证失败的页面
-
             $('#hos_Administration .hos_renzheng_inf .bottomContent').removeClass('hide');
             $('#hos_Administration .hos_renzheng_inf .bottomContent2').addClass('hide');
 
-            if (data.resultObject == 4 || data.resultObject == 6) {
+            if (isDoctorOrHospital == 4 || isDoctorOrHospital == 6) {
                 //认证中
                 $('#hos_Administration .hos_renzheng_inf .bottomContent').addClass('hide');
                 $('#hos_Administration .hos_renzheng_inf .bottomContent2').removeClass('hide');
 
-            } else if (data.resultObject == 7 || data.resultObject == 3 || data.resultObject == 5) {
+            } else if (isDoctorOrHospital == 7 || isDoctorOrHospital == 3 || isDoctorOrHospital == 5) {
                 //拒绝的情况
                 RequestService("/doctor/apply/getLastOne", "get", null, function (data) {
-                    if (data.resultObject && data.resultObject.status == 0) {
+                    if (isDoctorOrHospital && data.resultObject.status == 0) {
                         $('#hos_Administration .hos_renzheng_inf .bottomContent').addClass('hide');
                         $('#hos_Administration .hos_renzheng_inf .bottomContent2').removeClass('hide');
                     }
@@ -35,7 +35,7 @@ RequestService("/medical/common/isDoctorOrHospital", "GET", null, function (data
                 $('#hos_Administration .hos_renzheng_inf .bottomContent').removeClass('hide');
                 $('#hos_Administration .hos_renzheng_inf .bottomContent2').addClass('hide');
             }
-        } else if (data.resultObject == 2) {
+        } else if (isDoctorOrHospital == 2 ||isDoctorOrHospital == -2) {
             //医馆认证成功 左侧tab显示出来 医馆基础信息显示出来
             $('#doc_Administration_tabBtn').removeClass('hide');
             $('#collect_Administration_tabBtn').removeClass('hide');
@@ -342,7 +342,6 @@ $('#hos_base_inf').click(function () {
 
     //调用医馆详细信息借口数据
     RequestService("/hospital/getHospitalByUserId", "get", null, function (data) {
-        //				console.log(data);
         if (data.success && data.resultObject == null) {
             //清空
             baseInfrese();
@@ -1177,10 +1176,8 @@ $(function () {
     $('#hos_renzhneg_inf').addClass('color');
     var userStatus;
     RequestService("/medical/common/isDoctorOrHospital", "GET", null, function (data) {
-        //	 	console.log(data)
-        userStatus = data.resultObject;
-        //	 	console.log(userStatus)
-        if (localStorage.hos_Administration == "hos_base_inf" && userStatus == 2) {
+        userStatus = data.resultObject.isDoctorOrHospital;
+        if (localStorage.hos_Administration == "hos_base_inf" && (userStatus == 2 ||userStatus == 2)) {
             $('#hos_base_inf').click();
         }
 

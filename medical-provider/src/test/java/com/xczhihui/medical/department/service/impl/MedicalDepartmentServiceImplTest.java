@@ -10,8 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.xczhihui.common.util.enums.DoctorType1;
 import com.xczhihui.medical.department.model.MedicalDepartment;
+import com.xczhihui.medical.doctor.service.IDoctorTypeService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorDepartmentService;
 import com.xczhihui.medical.doctor.vo.DoctorQueryVo;
@@ -31,6 +31,9 @@ public class MedicalDepartmentServiceImplTest extends BaseJunit4Test {
 
     @Autowired
     private IMedicalDoctorBusinessService medicalDoctorBusinessService;
+    
+    @Autowired
+    private IDoctorTypeService doctorTypeService;
 
     /**
      * 获取医师所在的科室
@@ -85,7 +88,10 @@ public class MedicalDepartmentServiceImplTest extends BaseJunit4Test {
         /**
          * 循环枚举进行查询
          */
-        List<Map> listMap = DoctorType1.getDoctorTypeList();
+        //List<Map> listMap = DoctorType1.getDoctorTypeList();
+
+        List<Map<String,Object>> listMap = doctorTypeService.getDoctorTypeTitleList();
+        
         for (int i = 0; i < listMap.size(); i++) {
             Map maps = listMap.get(i);
             Integer code = (Integer) maps.get("code");

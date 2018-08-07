@@ -23,17 +23,16 @@ RequestService("/online/user/isAlive", "get", null, function(data) {
 //获取医师认证状态控制左侧tab栏
 RequestService("/medical/common/isDoctorOrHospital", "GET", null, function(data) {
 	if(data.success == true) {
-		if(data.resultObject != 1) {
+		var isDoctorOrHospital = data.resultObject.isDoctorOrHospital;
+		if(isDoctorOrHospital != 1 &&isDoctorOrHospital != -1) {
 			//医师认证未成功
 			$('.DocAut_btn').removeClass('hide');
 			$('.ImDoc_btn').addClass('hide');
-			if(data.resultObject == 3 || data.resultObject == 5) {
+			if(isDoctorOrHospital == 3 || isDoctorOrHospital == 5) {
 				//认证中
 				seeAutStatus();
 				$('#docAut_tip').removeClass('hide');
-			} else if(data.resultObject == 7) {
-				//未认证
-				//	       			$('#docNoPass_tip').removeClass('hide');
+			} else if(isDoctorOrHospital == 7) {
 				//拒绝情况
 				RequestService("/doctor/apply/getLastOne", "get", null, function(data) {
 					if(data.resultObject.status == 0){
@@ -44,9 +43,8 @@ RequestService("/medical/common/isDoctorOrHospital", "GET", null, function(data)
 				$('#AutList').removeClass('hide');
 				$('#AutStatus').addClass('hide');
 			}
-		} else if(data.resultObject == 1) {
+		} else if(isDoctorOrHospital == 1 ||isDoctorOrHospital == -1) {
 			//医师认证成功
-			//	       		$('#docpass_tip').removeClass('hide');
 			$('.ImDoc_btn').removeClass('hide');
 			$('.DocAut_btn').addClass('hide');
 			$('#AutList').addClass('hide');

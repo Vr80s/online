@@ -13,6 +13,9 @@
 <input type="hidden" id="J_accountId" value="${accountId}"/>
 <input type="hidden" id="J_appId" value="${appId}"/>
 <input type="hidden" id="J_token" value="${token}"/>
+<input type="hidden" id="J_nickname" value="${anchor.name}"/>
+<input type="hidden" id="J_headImg" value="${anchor.smallHeadPhoto}"/>
+
 <div class="background-ask hide"></div>
 <!--文档弹窗-->
 <div class="modal-content modal-document hide">
@@ -251,34 +254,6 @@
                 <!--聊天区-->
                 <div class="chat-personal">
                     <ul id="J_message_list">
-                        <!--普通聊天-->
-                        <li>
-                            <span class="chat-name">明天会更好:</span>
-                            <span class="chat-content">这是评这是评论的内容这是评论的内容论的内容</span>
-                        </li>
-                        <#--<!--主播聊天&ndash;&gt;-->
-                        <#--<li>-->
-                            <#--<span class="chat-status">主播</span>-->
-                            <#--<span class="chat-name">霸位:</span>-->
-                            <#--<span class="chat-content">回家多学习</span>-->
-                        <#--</li>-->
-                        <#--<!--自己发言&ndash;&gt;-->
-                        <#--<li>-->
-                            <#--<span class="chat-oneselft">霸位:</span>-->
-                            <#--<span class="chat-content">大家好</span>-->
-                        <#--</li>-->
-                        <#--<!--进入直播间&ndash;&gt;-->
-                        <#--<li>-->
-                            <#--<span class="chat-name">霸位:</span>-->
-                            <#--<span class="chat-content">进入直播间</span>-->
-                        <#--</li>-->
-                        <#--<!--赠送礼物&ndash;&gt;-->
-                        <#--<li>-->
-                            <#--<span class="chat-name">霸位:</span>-->
-                            <#--<span class="chat-content">送给主播</span>-->
-                            <#--<span class="chat-gift">一个锦旗</span>-->
-                        <#--</li>-->
-
                     </ul>
                 </div>
                 <!--发布弹幕区域-->
