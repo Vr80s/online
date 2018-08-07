@@ -1,38 +1,49 @@
-﻿3<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 <meta charset="UTF-8">
 <title id="title-share">熊猫直播</title>
 <link rel="shortcut icon" href="../../favicon.ico" />
-<meta name="keywords"
-	content="中医教育,中医传承,中医线下教育,海口中医养生,国粹,传承,中医,中药,心承,熊猫中医" />
-<meta name="description"
-	content="熊猫中医是中医药的学习传承平台：学中医、懂中医、用中医，让中医服务于家庭、个人，让中国古代科学瑰宝为现代人类的健康保驾护航。" />
+<meta name="keywords" content="中医教育,中医传承,中医线下教育,海口中医养生,国粹,传承,中医,中药,心承,熊猫中医" />
+<meta name="description" content="熊猫中医是中医药的学习传承平台：学中医、懂中医、用中医，让中医服务于家庭、个人，让中国古代科学瑰宝为现代人类的健康保驾护航。" />
 <meta name="renderer" content="webkit">
 
 <link rel="stylesheet" href="/web/css/bootstrap.min.css">
 <link rel="stylesheet" href="/web/css/bootstrap-theme.min.css">
-<link rel="stylesheet" href="/web/css/mylogin.css" />
-<link href="/web/css/header.css" rel="stylesheet" />
-<link rel="stylesheet" href="/web/css/componet.css" />
-<link rel="stylesheet" href="/web/font/iconfont.css">
-<link rel="stylesheet" href="/web/css/sendGift.css?v=ipandatcm_1.3">
-<link rel="stylesheet" type="text/css" href="/web/css/liveVideo.css?v=ipandatcm_1.3" />
-<link rel="stylesheet" type="text/css" href="/web/css/dashang.css?v=ipandatcm_1.3" />
-<link rel="stylesheet" type="text/css" href="/web/css/chongZhi.css?v=ipandatcm_1.3" />
-<link rel=stylesheet
-	href=//cnstatic01.e.vhall.com/3rdlibs/mCustomScrollbar/3.0.8/jquery.mCustomScrollbar.min.css>
+<link rel="stylesheet" href="/web/css/mylogin.css?version=58c2cecd8d" />
+<link href="/web/css/header.css?version=79ae96638a" rel="stylesheet" />
+<link rel="stylesheet" href="/web/css/componet.css?version=dea190eb02" />
+<link rel="stylesheet" href="/web/font/iconfont.css?version=342591a644">
+<link rel="stylesheet" href="/web/css/sendGift.css?v=ipandatcm_1.3&version=5e5becf693">
+<link rel="stylesheet" type="text/css" href="/web/css/liveVideo.css?v=ipandatcm_1.3&version=da888a1acd" />
+<link rel="stylesheet" type="text/css" href="/web/css/dashang.css?v=ipandatcm_1.3&version=c144bb73d5" />
+<link rel="stylesheet" type="text/css" href="/web/css/chongZhi.css?v=ipandatcm_1.3&version=85776cce54" />
+<link rel=stylesheet href=//cnstatic01.e.vhall.com/3rdlibs/mCustomScrollbar/3.0.8/jquery.mCustomScrollbar.min.css>
 <link href="/web/js/vhall/nihao.css" rel="stylesheet" type="text/css" />
 
 <script src="/web/js/jquery.min.js" type="text/javascript"></script>
-<script src="/web/js/common_msg.js" type="text/javascript"></script>
-<script>
+<script src="/web/js/common_msg.js?version=ce867abddd" type="text/javascript"></script>
+
+<!-- 放大縮小文檔使用文件 -->
+<link rel="stylesheet" href="/web/htmls/jquery.iviewer.css">
+<script type="text/javascript" src="/web/js/live-streamin-document/jquery.js" ></script>
+<script type="text/javascript" src="/web/js/live-streamin-document/jqueryui.js" ></script>
+<script type="text/javascript" src="/web/js/live-streamin-document/jquery.mousewheel.min.js" ></script>
+<script type="text/javascript" src="/web/js/live-streamin-document/jquery.iviewer.js" ></script>
+
+<script type="text/javascript">
+    var $ = jQuery;
+    $(document).ready(function(){
+         
+          var iv2 = $("#viewer2").iviewer(
+          {
+              src: "https://file.xczhihui.com/18802142750/1a666a314bdc05a6.png"
+          });
+    });
 </script>
-		
 		<script type="text/javascript">
 			window.onload = function(){
 			 	/*作用--点击img让最大的div显示出来,不添加的话点击img会隐藏最大块（这个区域的点击图片都得设置）*/
@@ -43,25 +54,6 @@
 			 	$(".billboard-float img").click(function(){  /*排行榜图片*/
 			 		$("#userCusEvent").show();
 			 	});
-			 	
-			 	var num = 1;
-				$(".animation-cut-click").click(function(){
-					num = -num;
-					if(num == -1){
-						$("#doc").removeClass("company-introduces-one");
-						$("#doc").removeClass("doc-img");
-						$("#doc").addClass("company-introduce-one");
-						$("#video").removeClass("company-introduces-two");
-						$("#video").addClass("company-introduce-two");
-					}else{
-						$("#doc").removeClass("company-introduce-one");
-						$("#doc").addClass("doc-img");
-						$("#doc").addClass("company-introduces-one");
-						$("#video").addClass("company-introduces-two");
-						$("#video").removeClass("company-introduce-two");
-					}
-		
-				})
 			 	
 			 	/*鼠标礼物img上的效果开始*/
 			 	var aBtn=$('.surprise-top .surprise-mouseover-ul li');
@@ -97,20 +89,198 @@
 			 		$(".toptenreviews-list").hide();
 			 	});
 			 	/*鼠标放排行榜上查看效果结束*/
+
+
+			 	// 點擊表情開始
+			 	/*$("#face").click(function(){
+			 		$.ajax({
+			 			type:"get",
+			 			url:"/web/js/live-room/emotion.json",
+			 			success:function(data){
+			 				var del="";
+			 				for (var i=0; i<data.length;i++) {
+			 					del+= '<li><img src='+data[i].imgUrl+'></li>'
+			 				}
+			 				$("")
+			 			}
+			 		});
+			 	});*/
+			 	// 點擊表情結束
+
 			};
 		</script>
 <!--新写直播间--css--替换引入微吼css-->
 <!--<lick rel="stylesheet" type="text/css" href="/web/css/live_streamings.css"></lick>-->
 <link rel="stylesheet" type="text/css" href="/web/css/live_streamings.css"/>
+
+<style>
+	/*====隱藏修改視頻后====*/
+	.vjs-control-bar{
+		display: none;
+	}
+	.vjs-hidden{
+		display: none;
+	}
+	.vjs-modal-dialog-content{
+		display: none;
+	}
+	.vjs-modal-dialog{
+		display: none;
+	}
+	.vjs-big-play-button{
+		display: none;
+	}
+	/*隱藏后結束*/
+
+	/*修改變動后的代碼--微吼云開始*/
+	.doc-img{
+		/*background: rosybrown;*/
+		/*background: #000;*/
+		background: rgb(68, 68, 68);
+		margin-top: 0;
+	}
+	.doc-img div{
+		width: 294px !important;
+    	height: 168px !important;
+	}
+	.doc-img div img{
+		/*width: 294px !important;*/
+    	height: 100% !important;
+	}
+	.doc-img canvas{
+		width: 294px !important;
+    	height: 168px !important;
+	}
+	.doc-img-div{
+		width: 100% !important;
+		height: 100% !important;
+	}
+	.canvas{
+		width: 100% !important;
+		height: 100% !important;
+	}
+	#myVideo div:first-child{
+		/*height: 87% !important;*/
+		/*height: 100% !important;*/
+    	width: 100%;
+    	background: #000;
+	}
+	.player-container{
+		height: 100%;
+	}
+	.video{
+		height: 100%;
+	}
+	#myVideo video{
+		width: 100% !important;
+		height: 100% !important;
+	}
+	/*修改變動后的代碼--微吼云結束*/
+
+	/*右側聊天區域*/
+	.container{
+		right: 0;
+	    top: 176px;
+	    bottom: 0;
+	    width: 320px;
+	    z-index: 9;
+	}
+	.animation{
+		right: 308px;
+		padding-bottom: 15px;
+	}
+	
+	/*發送按鈕*/
+	.send-chat{
+		width: 60px;
+	    height: 36px;
+	    line-height: 36px;
+	    color: #fff;
+	    background: #00BC12;
+	    border-radius: 0 4px 4px 0;
+	    margin-top: 0;
+	    position: unset;
+	    float: right;
+	    margin-right: 11px;
+	}
+</style>
+<script>
+	window.onload = function(){
+		// 文檔切換
+		var num = 1;
+		$(".animation-cut-click").click(function(){
+			num = -num;
+			if(num == -1){
+				$(".doc div").addClass("doc-img-div");
+				$(".doc canvas").addClass("canvas");
+				$(".doc").removeClass("company-introduces-one");
+				$(".doc").removeClass("doc-img");
+				$(".doc").addClass("company-introduce-one");
+				$(".video").removeClass("company-introduces-two");
+				$(".video").addClass("company-introduce-two");
+				src = $(".company-introduce-one div img").attr("src");
+		        $("#viewer2 img").attr("src",src);
+		        $(".doc").hide();
+		        $("#viewer2").removeClass("company-introduces-one");
+				$("#viewer2").removeClass("doc-img");
+				$("#viewer2").addClass("company-introduce-one");
+				$("#viewer2 img").removeClass("viewer-img");
+			}else{
+				$("#viewer2 img").addClass("viewer-img");
+				$("#viewer2").removeClass("company-introduce-one");
+				$("#viewer2").addClass("doc-img");
+				$("#viewer2").addClass("company-introduces-one");
+				$(".doc").removeClass("company-introduce-one");
+				$(".doc").addClass("doc-img");
+				$(".doc").addClass("company-introduces-one");
+				$(".video").addClass("company-introduces-two");
+				$(".video").removeClass("company-introduce-two");
+			}
+		})
+	}
+</script>
+<style>
+
+	/*文檔變形*/
+    .viewer{
+        width: 50%;
+        height: 100%;
+        /*height: 100%;*/
+        /*border: 1px solid black;*/
+        position: relative;
+        /*background: red;*/
+    }
+    .wrapper{
+        overflow: hidden;
+    }
+    .viewer-img{
+    	width: 130px !important;
+    	height: 100% !important;
+	    margin: 0 auto;
+	    display: block;
+	    left: 50% !important;
+	    margin-left: -65px !important;
+    }
+   	/*滑動后圖片%分比*/
+    .iviewer_zoom_status{
+    	display: none;
+    }
+
+</style>
 </head>
 
-<body style="background: #000!important">
+<body style="background: red!important">
+	
 	<!--  充值的时候余额不足提示框11 -->
-	<div class='mask3'
-		style='padding: 0 20px; bottom: 65px; right: 85px; display: none; position: fixed; text-align: center; color: white; line-height: 60px; height: 60px; background: #000; opacity: 0.5; z-index: 1000; filter: alpha(opacity = 30);'></div>
+	<div class='mask3' style='padding: 0 20px; bottom: 65px; right: 85px; display: none; position: fixed; text-align: center; color: white; line-height: 60px; height: 60px; background: #000; opacity: 0.5; z-index: 1000; filter: alpha(opacity = 30);'></div>
+
+	
+
 
 	<!--   直播区域    -->
 	<div class="livePlayer" style="position: relative">
+
+
 	
 		<!--动画代码视频文档小框--右侧-->
 		<div class="animation">
@@ -202,7 +372,14 @@
 					<!-- <div class=video id=video></div>
 					<div class="doc doc-img" id=doc ></div> -->
 					<div class=video id="myVideo"></div>
-                    <div class="doc doc-img" id="my-doc-area" ></div>
+					<div class="wrapper">
+            
+						<div id="viewer2" class="viewer" style="width: 80%;display: block;"></div>
+						
+            			<div class="doc doc-img" id="my-doc-area"></div>
+				        
+				    </div>
+                    <!-- <div class="doc doc-img" id="my-doc-area" ></div> -->
 				</div>
 				
 				<div class=container>
@@ -234,23 +411,24 @@
 							href=javascript:; data-target=notice-msg-box>公告</a>
 					</div>
 					<div class="chatmsg-box  tab-pane active" style="width:310px">
-						<div class=chatmsg id=chatmsg></div>
+						<div class=chatmsg id="chatmsg"></div>
 					</div>
 					<div class="question-msg-box tab-pane mCustomScrollbar">
-						<div class=question-msg id=question-msg></div>
+						<div class=question-msg id="question-msg"></div>
 					</div>
 					<div class="notice-msg-box tab-pane mCustomScrollbar">
-						<div class=notice-msg id=notice-msg>
+						<div class=notice-msg id="notice-msg">
 							<ul>
 							</ul>
 						</div>
 					</div>
 					<div class=send-box>
-						<a id=filter-msg href=javascript:; class=lecturer style="left: 40px;"></a> 
-						<a id=face href=javascript:; class=face></a> 
+						<a id="filter-msg" href=javascript:; class=lecturer style="left: 40px;"></a> 
+						<a id="face" href="javascript:;" class="face"></a> 
 						<div class="chitchat">
-							<a id=sendChat href=javascript:; class=send-chat>发送</a>
-							<textarea id=mywords onkeypress='return!(13==event.keyCode&&!event.shiftKey)||(document.getElementById("sendChat").click(),!1)' placeholder="来点神聊..."></textarea>
+							<!-- <a id= href="javascript:;" class="send-chat">发送</a> -->
+							<a id="" href="javascript:;" class="send-chat">发送</a>
+							<textarea id="mywords" onkeypress='return!(13==event.keyCode&&!event.shiftKey)||(document.getElementById("sendChat").click(),!1)' placeholder="来点神聊..."></textarea>
 						</div>
 					</div>
 				</div>
@@ -539,4 +717,5 @@
 </script>
 </body>
 </html>
+
 
