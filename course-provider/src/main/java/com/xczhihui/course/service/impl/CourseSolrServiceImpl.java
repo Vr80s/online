@@ -191,8 +191,8 @@ public class CourseSolrServiceImpl implements ICourseSolrService {
 
     @PostConstruct
     public void initDoctorsSolr() throws IOException, SolrServerException {
-        solrUtils = new SolrUtils(url, core, pre, post);
-        this.initCoursesSolrData();
+//        solrUtils = new SolrUtils(url, core, pre, post);
+//        this.initCoursesSolrData();
     }
 
     @Override

@@ -2,11 +2,15 @@ package com.xczhihui.user.center.service.impl;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -18,6 +22,7 @@ import com.xczhihui.common.util.VhallUtil;
 import com.xczhihui.common.util.enums.ClientType;
 import com.xczhihui.common.util.enums.TokenExpires;
 import com.xczhihui.common.util.enums.UserStatus;
+import com.xczhihui.common.util.vhallyun.MessageService;
 import com.xczhihui.user.center.exception.LoginRegException;
 import com.xczhihui.user.center.mapper.OeUserMapper;
 import com.xczhihui.user.center.mapper.UserCoinMapper;
@@ -86,6 +91,7 @@ public class UserCenterServiceImpl implements UserCenterService {
         iOeUserService.addOeUser(oeUser);
         saveUserCoin(oeUser.getId());
         updateVhallInfo(oeUser);
+        MessageService.saveUserInfo(oeUser.getId(), oeUser.getName(), oeUser.getSmallHeadPhoto());
     }
 
     @Override
@@ -137,6 +143,7 @@ public class UserCenterServiceImpl implements UserCenterService {
         OeUser oeUser = new OeUser();
         BeanUtils.copyProperties(oeUserVO, oeUser);
         this.iOeUserService.updateOeUser(oeUser);
+        MessageService.saveUserInfo(oeUser.getId(), oeUser.getName(), oeUser.getSmallHeadPhoto());
     }
 
     @Override
@@ -317,4 +324,14 @@ public class UserCenterServiceImpl implements UserCenterService {
         return null;
     }
 
+    @Async
+    @Override
+    public void updateVhallYunInfo() {
+        Map<String, Object> map = new HashMap<>(1);
+        map.put("is_delete", 0);
+        List<OeUser> oeUsers = this.oeUserMapper.selectByMap(map);
+        for (OeUser oeUser : oeUsers) {
+            MessageService.saveUserInfo(oeUser.getId(), oeUser.getName(), oeUser.getSmallHeadPhoto());
+        }
+    }
 }

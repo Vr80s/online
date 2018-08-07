@@ -32,6 +32,7 @@ import com.xczhihui.common.util.vhallyun.MessageService;
 import com.xczhihui.common.util.vhallyun.VhallUtil;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.medical.anchor.service.IAnchorInfoService;
+import com.xczhihui.user.center.service.UserCenterService;
 
 /**
  * 微吼云
@@ -51,6 +52,8 @@ public class VhallyunController extends AbstractController {
     private CacheService cacheService;
     @Autowired
     private ICourseService courseService;
+    @Autowired
+    private UserCenterService userCenterService;
 
     @RequestMapping(value = "publishStream/accessToken", method = RequestMethod.GET)
     @ResponseBody
@@ -92,7 +95,7 @@ public class VhallyunController extends AbstractController {
         return ResponseObject.newSuccessResponseObject();
     }
 
-    @RequestMapping(value = "callback", method = RequestMethod.POST)
+    @RequestMapping(value = "callback")
     @ResponseBody
     public String callback(@RequestBody VhallCallbackBody vhallCallbackBody) throws Exception {
 
@@ -132,11 +135,7 @@ public class VhallyunController extends AbstractController {
 
     @RequestMapping(value = "message", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseObject getMessages(@RequestParam(name = "channelId") String channelId, @RequestParam(defaultValue = "0") int pos) throws Exception {
-        VhallMessageParamsVo vmpv = new VhallMessageParamsVo();
-        vmpv.setChannel_id(channelId);
-        vmpv.setPos(String.valueOf(pos));
-        vmpv.setType(String.valueOf(2));
+    public ResponseObject getMessages(VhallMessageParamsVo vmpv) throws Exception {
         return ResponseObject.newSuccessResponseObject(MessageService.getMessageList(vmpv));
     }
 
@@ -144,6 +143,13 @@ public class VhallyunController extends AbstractController {
     @ResponseBody
     public ResponseObject sendMessage(@RequestParam String body, @RequestParam String channelId) throws Exception {
         MessageService.sendMessage("CustomBroadcast", body, channelId);
+        return ResponseObject.newSuccessResponseObject();
+    }
+
+    @RequestMapping(value = "userInfo", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseObject initUserInfo() {
+        userCenterService.updateVhallYunInfo();
         return ResponseObject.newSuccessResponseObject();
     }
 
