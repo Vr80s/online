@@ -22,7 +22,6 @@ import com.xczh.consumer.market.interceptor.HeaderInterceptor;
 import com.xczh.consumer.market.utils.APPUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.enums.DoctorSortOrderType;
-import com.xczhihui.common.util.enums.DoctorType;
 import com.xczhihui.course.consts.MultiUrlHelper;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.course.service.IMobileBannerService;
@@ -32,6 +31,7 @@ import com.xczhihui.medical.banner.model.OeBanner;
 import com.xczhihui.medical.banner.service.PcBannerService;
 import com.xczhihui.medical.department.model.MedicalDepartment;
 import com.xczhihui.medical.department.service.IMedicalDepartmentService;
+import com.xczhihui.medical.doctor.service.IDoctorTypeService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorSolrService;
 import com.xczhihui.medical.doctor.vo.DoctorQueryVo;
@@ -73,7 +73,8 @@ public class DoctorController {
     @Autowired
     private IMobileBannerService mobileBannerService;
     
-    
+    @Autowired
+    private IDoctorTypeService doctorTypeService;
     /**
      * banner图
      *
@@ -158,7 +159,8 @@ public class DoctorController {
 
         Map<String, Object> mapAll = new HashMap<String, Object>();
         //名医类型
-        mapAll.put("doctorTypes", DoctorType.getDoctorTypeList());
+        //mapAll.put("doctorTypes", DoctorType1.getDoctorTypeList());
+        mapAll.put("doctorTypes", doctorTypeService.getDoctorTypeTitleList());
         //科室
         Page page = new Page(0, Integer.MAX_VALUE);
         Page<MedicalDepartment> departments = medicalDepartmentService.page(page);

@@ -27,9 +27,7 @@
     if (browser.versions.mobile || browser.versions.ios || browser.versions.android ||
         browser.versions.iPhone || browser.versions.iPad) {
         if(pathname!=null){
-            //"courses/2595/info"   ourl   pathname
             if(pathname!=null && pathname.indexOf("courses")!=-1 &&  pathname.indexOf("info")!=-1){
-                //"courses/2595/info"  获取课程id
                 var lala = pathname.split("/");
                 var courseId = lala[2];
                 wxurl = config.wechat+"/wx_share.html?shareType=1&shareId="+courseId;
@@ -50,45 +48,6 @@ function getQueryString(name) {
     return null;
 }
 
-
-
-//医师或医馆入口是否展示
-function showDOrH() {
-	//请求判断顶部是否具有我是医师、医馆的入口
-	RequestService("/medical/common/isDoctorOrHospital", "GET", null, function(data) {
-		if(data.success == true) {
-			//判断
-			localStorage.AccountStatus = data.resultObject;
-			if(data.resultObject == 1) {
-				//医师认证成功
-				$('#docOrHos').text('我是医师');
-				$('#docOrHos').attr('href', '/doctors/my')
-				$('#docOrHos').removeClass('hide');
-				$(".want-anchor").addClass('hide');  //我要当主播
-			} else if(data.resultObject == 2) {
-				//医馆认证成功
-				$('#docOrHos').text('我是医馆');
-				$('#docOrHos').attr('href', '/clinics/my')
-				$('#docOrHos').removeClass('hide');
-				$(".want-anchor").addClass('hide'); //我要当主播
-			}
-			showAnchorWorkbench();
-		} else if(data.success == false && data.errorMessage == "请登录！") {
-			$('#docOrHos').addClass('hide');
-		}
-	});
-}
-
-function showAnchorWorkbench() {
-	RequestService("/anchor/info/hasPower", "GET", null, function(data) {
-		if(data.success == true) {
-			$('#anchorWorkbench').removeClass('hide');
-		} else {
-			$('#anchorWorkbench').addClass('hide');
-		}
-	});
-}
-
 //如果有链接的点击事件
 function on_click_msg(msg_id, msg_link) {
 	var $this = $(this);
@@ -107,12 +66,6 @@ function on_click_msg(msg_id, msg_link) {
 
     })
 })
-
-
-
-//$("<script src='http://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js'></script>").appendTo('head');
-
-//$("<meta http-equiv='X-UA-Compatible' content='IE=edge' > ").appendTo('head');
 
 $(function() {
 

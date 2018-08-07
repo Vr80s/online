@@ -175,7 +175,7 @@ $(function(){
 					$('#tip').toggle();
 					setTimeout(function(){
 						$('#tip').toggle();
-						if (localStorage.AccountStatus==1) {
+						if (localStorage.AccountStatus==1 || localStorage.AccountStatus==-1) {
 							location.href="/doctors/my"
 						} else{
 							location.href="/doctors/authentication";

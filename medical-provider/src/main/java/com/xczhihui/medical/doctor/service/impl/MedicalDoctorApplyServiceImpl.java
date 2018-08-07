@@ -76,13 +76,13 @@ public class MedicalDoctorApplyServiceImpl extends ServiceImpl<MedicalDoctorAppl
         // 判断用户是否是认证医师或者认证医馆
         Integer result = commonService.isDoctorOrHospital(target.getUserId());
         // 如果用户是认证医馆或者医馆认证中 不让其认证医师
-        if (result.equals(CommonEnum.AUTH_HOSPITAL.getCode()) || result.equals(CommonEnum.HOSPITAL_APPLYING.getCode())) {
+        if (result.equals(CommonEnum.AUTH_HOSPITAL.getCode()) || result.equals(CommonEnum.AUTH_HOSPITAL_CLOSE.getCode()) || result.equals(CommonEnum.HOSPITAL_APPLYING.getCode())) {
             // 如果用户是认证医馆 表示用户走错路了
             throw new MedicalException("您已经认证了医馆，不能再认证医师");
         }
 
         // 如果用户认证医师中 表示其重新提交认证信息
-        if (result.equals(CommonEnum.DOCTOR_APPLYING.getCode()) || result.equals(CommonEnum.AUTH_DOCTOR.getCode())) {
+        if (result.equals(CommonEnum.DOCTOR_APPLYING.getCode()) || result.equals(CommonEnum.AUTH_DOCTOR.getCode()) || result.equals(CommonEnum.AUTH_DOCTOR_CLOSE.getCode())) {
             // 如果用户之前提交了申请信息 表示其重新认证 删除之前的认证信息
             medicalDoctorApplyMapper.deleteByUserIdAndStatus(target.getUserId(), MedicalDoctorApplyEnum.WAIT.getCode());
             // 新增新的认证信息

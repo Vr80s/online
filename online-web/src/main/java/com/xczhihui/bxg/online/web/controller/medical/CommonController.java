@@ -2,6 +2,8 @@ package com.xczhihui.bxg.online.web.controller.medical;
 
 import java.io.IOException;
 import java.util.Base64;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -60,14 +62,17 @@ public class CommonController extends AbstractController {
     }
 
     /**
-     * 判断用户是医师还是医馆
+     * 判断用户是医师还是医馆,是否具有主播权限
      */
     @RequestMapping(value = "/isDoctorOrHospital", method = RequestMethod.GET)
     public ResponseObject isDoctorOrHospital(HttpServletRequest request) throws ServletRequestBindingException, IOException {
         // 获取当前用户
         OnlineUser loginUser = getCurrentUser();
-        Integer result = commonService.isDoctorOrHospital(loginUser.getId());
-        commonService.isHospitalStatus(loginUser.getId());
+        Integer isDoctorOrHospital = commonService.isDoctorOrHospital(loginUser.getId());
+        Integer anchorPower = commonService.isAnchorPower(loginUser.getId());
+        Map result = new HashMap();
+        result.put("isDoctorOrHospital",isDoctorOrHospital);
+        result.put("anchorPower",anchorPower);
         return ResponseObject.newSuccessResponseObject(result);
     }
 

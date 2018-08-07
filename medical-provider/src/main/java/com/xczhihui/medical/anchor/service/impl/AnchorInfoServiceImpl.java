@@ -196,23 +196,28 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService {
         if (userId == null) {
             throw new AnchorException("用户id不为空");
         }
+
+        CourseAnchor ca = getCourseAnchor4Validate(userId);
+        if (ca == null) {
+            throw new AnchorException("不具备主播权限或主播权限被禁用");
+        }
+    }
+
+    @Override
+    public CourseAnchor getCourseAnchor4Validate(String userId){
         CourseAnchor courseAnchor = new CourseAnchor();
         courseAnchor.setUserId(userId);
         courseAnchor.setStatus(true);
         String key = RedisCacheKey.getAnchorPermissionValidateCacheKey(userId);
         CourseAnchor ca = cacheService.get(key);
-
         if (ca == null) {
             ca = courseAnchorMapper.selectOne(courseAnchor);
-            if (ca == null) {
-                throw new AnchorException("不具备主播权限或主播权限被禁用");
-            } else {
+            if (ca != null) {
                 //缓存数据1分钟
                 cacheService.set(key, ca, 60);
             }
-        } else {
-            logger.info("{}具备主播权限，取到缓存数据", key);
         }
+        return ca;
     }
 
     private Object selectAuthInfo(Integer type, String userId) {

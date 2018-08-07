@@ -47,7 +47,6 @@
                 <#-- 课程的小标题-->
                     <span>${courseTypeItem.title}</span>
                 <#-- 课程列表 页跳转  带上跳转条件 -->
-
                     <#if courseTypeItem.title?? && courseTypeItem.title == "直播课程">
                     <p><a href="${webUrl}/courses/list?courseType=3&lineState=2" style="color: #00bc12;">更多</a>
                     <#else>
@@ -59,12 +58,10 @@
 
                 <#list courseTypeItem.courseList as courseItem>
                     <div class="course clearfix">
-
                         <#if courseItem.recommendSort?? &&  courseItem.recommendSort gt 0>
                             <img style="position:absolute;width: 16%;top:-2px;left:-2px;z-index:999"
                                  src="/web/images/recommend2.png">
                         </#if>
-
                         <#if courseItem.type == 1 ||  courseItem.type == 2 ||  courseItem.type == 4 >
                         <a style="cursor:pointer" href="${webUrl}/courses/${courseItem.id}/info" target="_blank">
                         <#elseif courseItem.type == 3>
@@ -152,7 +149,5 @@
 <!--登陆结束-->
 <script src="/web/js/school/school-live.js" type="text/javascript" charset="utf-8"></script>
 <#include "../../footer.ftl">
-
 </body>
-
 </html>

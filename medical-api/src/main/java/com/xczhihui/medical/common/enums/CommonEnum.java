@@ -8,7 +8,9 @@ package com.xczhihui.medical.common.enums;
 public enum CommonEnum {
 
     AUTH_DOCTOR(1),
+    AUTH_DOCTOR_CLOSE(-1),
     AUTH_HOSPITAL(2),
+    AUTH_HOSPITAL_CLOSE(-2),
     DOCTOR_APPLYING(3),
     HOSPITAL_APPLYING(4),
     DOCTOR_APPLY_REJECT(5),

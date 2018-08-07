@@ -28,16 +28,4 @@ public class CronConfig {
     private void updateStatusCronJob() {
         Integer updateCnt = medicalDoctorBannerService.updateAllUnShelves();
     }
-//
-//    @Scheduled(fixedRate = 300000)
-//    private void addCronMessage() {
-//        String userId1 = "fdc224fcf57c42cba7b22d5ba6da707c";
-//        String userId2 = "d44983e894b34064bc8672e7117f743d";
-//        commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.SYSYTEM.getVal())
-//                .buildAppPush("定时消息推送~~~")
-//                .buildWeb("定时消息推送~~~").build(userId1, RouteTypeEnum.NONE, null));
-//        commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.SYSYTEM.getVal())
-//                .buildAppPush("定时消息推送~~~")
-//                .buildWeb("定时消息推送~~~").build(userId2, RouteTypeEnum.NONE, null));
-//    }
 }

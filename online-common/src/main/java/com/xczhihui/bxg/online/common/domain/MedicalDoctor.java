@@ -294,15 +294,17 @@ public class MedicalDoctor implements Serializable {
         this.title = title;
     }
 
+
+
     public String getType() {
-        return this.type;
-    }
+		return type;
+	}
 
-    public void setType(String type) {
-        this.type = type;
-    }
+	public void setType(String type) {
+		this.type = type;
+	}
 
-    public String getUpdatePerson() {
+	public String getUpdatePerson() {
         return this.updatePerson;
     }
 

@@ -31,40 +31,6 @@
 	}
 })();
 
-//医师或医馆入口是否展示
-function showDOrH() {
-	//请求判断顶部是否具有我是医师、医馆的入口
-	RequestService("/medical/common/isDoctorOrHospital", "GET", null, function(data) {
-		if(data.success == true) {
-			//判断
-			localStorage.AccountStatus = data.resultObject;
-			if(data.resultObject == 1) {
-				//医师认证成功
-				$('#docOrHos').text('我是医师');
-				$('#docOrHos').attr('href', '/doctors/my')
-				$('#docOrHos').removeClass('hide');
-			} else if(data.resultObject == 2) {
-				//医馆认证成功
-				$('#docOrHos').text('我是医馆');
-				$('#docOrHos').attr('href', '/clinics/my')
-				$('#docOrHos').removeClass('hide');
-			}
-			showAnchorWorkbench();
-		} else if(data.success == false && data.errorMessage == "请登录！") {
-			$('#docOrHos').addClass('hide');
-		}
-	});
-}
-
-function showAnchorWorkbench() {
-	RequestService("/anchor/info/hasPower", "GET", null, function(data) {
-		if(data.success == true) {
-			$('#anchorWorkbench').removeClass('hide');
-		} else {
-			$('#anchorWorkbench').addClass('hide');
-		}
-	});
-}
 
 //如果有链接的点击事件
 function on_click_msg(msg_id, msg_link) {
@@ -78,39 +44,7 @@ function on_click_msg(msg_id, msg_link) {
 	}, false);
 };
 
-//$("<script src='http://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js'></script>").appendTo('head');
-
-//$("<meta http-equiv='X-UA-Compatible' content='IE=edge' > ").appendTo('head');
-
 $(function() {
-
-	/*$(document).ajaxSend(function(event, request, settings) {
-	    //pc端多端登录限制
-	    if((settings.url.indexOf("/online/user/isAlive")>=0)){
-	                $.ajax({
-	                type: "get",
-	                url: bath + "/online/user/loginStatus",
-	                async: false,
-	                success: function(data) {
-	                    console.log(data);
-	                    if(data.success === true) {
-	                        if(data.resultObject==0){
-	                            //alert("当前已登录");
-	                         }else if(data.resultObject==1){
-	                            //alert("未登录状态");
-	                        }else if(data.resultObject==2){
-	                            //alert("被顶掉！");
-	                            window.location.href=bath+"/otherDevice.html"
-	                        }
-
-	                    } else {
-
-	                    }
-	                }
-	            });
-	    }
-	});*/
-
 	/**
 	 * Created by admin on 2016/9/14.
 	 */

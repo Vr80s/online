@@ -23,12 +23,15 @@ import org.springframework.web.servlet.ModelAndView;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.body.course.LineApplyBody;
+import com.xczhihui.bxg.online.web.service.OnlineUserCenterService;
 import com.xczhihui.bxg.online.web.utils.HtmlUtil;
 import com.xczhihui.bxg.online.web.utils.ftl.ReplaceUrl;
 import com.xczhihui.common.util.CourseUtil;
 import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.common.util.bean.VhallMessageParamsVo;
 import com.xczhihui.common.util.enums.*;
 import com.xczhihui.common.util.vhallyun.BaseService;
+import com.xczhihui.common.util.vhallyun.MessageService;
 import com.xczhihui.common.util.vhallyun.VhallUtil;
 import com.xczhihui.course.consts.MultiUrlHelper;
 import com.xczhihui.course.model.OfflineCity;
@@ -39,6 +42,7 @@ import com.xczhihui.course.vo.MenuVo;
 import com.xczhihui.course.vo.QueryConditionVo;
 import com.xczhihui.medical.anchor.service.IAnchorInfoService;
 import com.xczhihui.medical.anchor.service.ICourseApplyService;
+import com.xczhihui.user.center.service.UserCenterService;
 
 @Controller
 @RequestMapping(value = "/courses")
@@ -75,6 +79,8 @@ public class SchoolController extends AbstractFtlController {
     private ICourseSolrService courseSolrService;
     @Autowired
     private IAnchorInfoService anchorInfoService;
+    @Autowired
+    private OnlineUserCenterService onlineUserCenterService;
 
     @Value("${web.url}")
     private String webUrl;
@@ -412,14 +418,15 @@ public class SchoolController extends AbstractFtlController {
 
     @RequestMapping(value = "liveRoom", method = RequestMethod.GET)
     public ModelAndView liveRoom(@RequestParam String channelId, @RequestParam String roomId) throws Exception {
+        String userId = getUserId();
         ModelAndView modelAndView = new ModelAndView("/school/live-room");
         modelAndView.addObject("channelId", channelId);
         modelAndView.addObject("roomId", roomId);
-        modelAndView.addObject("accountId", getUserId());
-        modelAndView.addObject("documents", anchorInfoService.listDocument(getUserId()));
-        modelAndView.addObject("token", BaseService.createAccessToken4Live(getUserId(), roomId, channelId));
+        modelAndView.addObject("accountId", userId);
+        modelAndView.addObject("documents", anchorInfoService.listDocument(userId));
+        modelAndView.addObject("token", BaseService.createAccessToken4Live(userId, roomId, channelId));
         modelAndView.addObject("appId", VhallUtil.APP_ID);
-
+        modelAndView.addObject("anchor", onlineUserCenterService.getUser(userId));
         return modelAndView;
     }
 

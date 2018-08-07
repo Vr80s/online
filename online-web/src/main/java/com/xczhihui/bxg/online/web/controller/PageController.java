@@ -174,8 +174,8 @@ public class PageController {
         // 获取当前用户
         BxgUser user = UserLoginUtil.getLoginUser();
         if (user != null) {
-            Integer result = commonService.isDoctorOrHospital(user.getId());
-            if (result == 1 || result == 2) {
+            Integer result = commonService.isAnchorPower(user.getId());
+            if (result == 1) {
                 request.getRequestDispatcher("/web/html/anchor/curriculum.html").forward(request, response);
             } else {
                 response.sendRedirect("/");
@@ -224,7 +224,7 @@ public class PageController {
         // 获取当前用户
         BxgUser user = UserLoginUtil.getLoginUser();
         if (user != null) {
-            Integer result = commonService.isDoctorOrHospital(user.getId());
+//            Integer result = commonService.isDoctorOrHospital(user.getId());
 //            if (result == 2) {
                 request.getRequestDispatcher("/web/html/ResidentHospital.html").forward(request, response);
 //            } else {
