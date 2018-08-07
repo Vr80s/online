@@ -12,10 +12,10 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.toolkit.CollectionUtils;
 import com.xczhihui.common.support.cc.util.CCUtils;
 import com.xczhihui.common.support.service.impl.RedisCacheService;
-import com.xczhihui.common.util.redis.key.RedisCacheKey;
 import com.xczhihui.common.util.XzStringUtils;
 import com.xczhihui.common.util.enums.AnchorPermissionType;
 import com.xczhihui.common.util.enums.AnchorType;
+import com.xczhihui.common.util.redis.key.RedisCacheKey;
 import com.xczhihui.medical.anchor.enums.AuchorTypeEnum;
 import com.xczhihui.medical.anchor.mapper.CourseAnchorMapper;
 import com.xczhihui.medical.anchor.mapper.CourseApplyResourceMapper;
@@ -31,6 +31,7 @@ import com.xczhihui.medical.doctor.model.MedicalDoctor;
 import com.xczhihui.medical.doctor.model.MedicalDoctorAccount;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorAuthenticationInformationService;
 import com.xczhihui.medical.exception.AnchorException;
+import com.xczhihui.medical.exception.MedicalException;
 import com.xczhihui.medical.hospital.mapper.MedicalHospitalAccountMapper;
 import com.xczhihui.medical.hospital.mapper.MedicalHospitalDoctorMapper;
 import com.xczhihui.medical.hospital.mapper.MedicalHospitalMapper;
@@ -263,7 +264,7 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService {
         ew.where("doctor_id={0}", doctorAccount.getDoctorId());
         hospitalDoctorMapper.delete(ew);
 
-        if(StringUtils.isNotBlank(target.getHospitalId())){
+        if (StringUtils.isNotBlank(target.getHospitalId())) {
             // 新增用户新的 医师与医馆关联关系
             MedicalHospitalDoctor hospitalDoctor = new MedicalHospitalDoctor();
             hospitalDoctor.setHospitalId(target.getHospitalId());
@@ -438,8 +439,20 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService {
         userDocument.setCreateTime(new Date());
         userDocument.setDocumentId(documentId);
         userDocument.setUserId(userId);
+        userDocument.setDeleted(false);
+        userDocument.setTransStatus(0);
         userDocument.setDocumentName(documentName);
         userDocumentMapper.insert(userDocument);
+    }
+
+    @Override
+    public void deleteDocument(String documentId) {
+        UserDocument userDocument = userDocumentMapper.selectById(documentId);
+        if (userDocument == null || userDocument.getDeleted() != null || userDocument.getDeleted()) {
+            throw new MedicalException("文档不存在");
+        }
+        userDocument.setDeleted(true);
+        userDocumentMapper.updateById(userDocument);
     }
 
     @Override

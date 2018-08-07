@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -19,7 +20,7 @@ import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.support.service.CacheService;
 import com.xczhihui.common.util.WeihouInterfacesListUtil;
 import com.xczhihui.common.util.bean.VhallMessageParamsVo;
-import com.xczhihui.common.util.redis.key.RedisCacheKey;
+import com.xczhihui.common.util.vhallyun.BaseService;
 import com.xczhihui.common.util.vhallyun.MessageService;
 
 
@@ -116,5 +117,10 @@ public class VhallVideoController {
        return ResponseObject.newSuccessResponseObject(MessageService.sendMessage("CustomBroadcast",body,channel_id));
     
     }
-    
+
+    @RequestMapping(value = "vhallYunToken", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseObject getAccessToken(@Account String accountId, @RequestParam String roomId, @RequestParam String channelId) throws Exception {
+        return ResponseObject.newSuccessResponseObject(BaseService.createAccessToken4Live(accountId, roomId, channelId));
+    }
 }

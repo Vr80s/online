@@ -1,8 +1,10 @@
 package com.xczhihui.course.mapper;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -217,4 +219,10 @@ public interface CourseMapper extends BaseMapper<Course> {
     @Select({"select  channel_id  oe_course where record_id = #{recordId}"})
     String selectChannelIdByRecordId(@Param("recordId") String recordId);
 
+    @Select({"SELECT max(record_count) FROM oe_live_time_record WHERE live_id = #{liveId}"})
+    Integer maxRecordCount(@Param("liveId") String liveId);
+
+    @Insert({"insert into oe_live_time_record (course_id,live_id, start_time, end_time, record_count) values(#{courseId}, #{liveId}, #{startTime}, #{endTime}, #{recordCount})"})
+    void insertRecordLiveTime(@Param("startTime") Date startTime, @Param("endTime") Date endTime,
+                              @Param("courseId") Integer courseId, @Param("liveId") String liveId, @Param("recordCount") Integer recordCount);
 }

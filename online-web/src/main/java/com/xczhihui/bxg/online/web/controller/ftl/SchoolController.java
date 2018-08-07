@@ -1,21 +1,14 @@
 package com.xczhihui.bxg.online.web.controller.ftl;
 
-import com.baomidou.mybatisplus.plugins.Page;
-import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.online.web.body.course.LineApplyBody;
-import com.xczhihui.bxg.online.web.utils.HtmlUtil;
-import com.xczhihui.bxg.online.web.utils.ftl.ReplaceUrl;
-import com.xczhihui.common.util.CourseUtil;
-import com.xczhihui.common.util.bean.ResponseObject;
-import com.xczhihui.common.util.enums.*;
-import com.xczhihui.course.consts.MultiUrlHelper;
-import com.xczhihui.course.model.OfflineCity;
-import com.xczhihui.course.service.*;
-import com.xczhihui.course.vo.CourseLecturVo;
-import com.xczhihui.course.vo.CourseSolrVO;
-import com.xczhihui.course.vo.MenuVo;
-import com.xczhihui.course.vo.QueryConditionVo;
-import com.xczhihui.medical.anchor.service.ICourseApplyService;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.collections.MapUtils;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.aspectj.util.FileUtil;
@@ -27,10 +20,25 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.io.IOException;
-import java.util.*;
+import com.baomidou.mybatisplus.plugins.Page;
+import com.xczhihui.bxg.online.common.domain.OnlineUser;
+import com.xczhihui.bxg.online.web.body.course.LineApplyBody;
+import com.xczhihui.bxg.online.web.utils.HtmlUtil;
+import com.xczhihui.bxg.online.web.utils.ftl.ReplaceUrl;
+import com.xczhihui.common.util.CourseUtil;
+import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.common.util.enums.*;
+import com.xczhihui.common.util.vhallyun.BaseService;
+import com.xczhihui.common.util.vhallyun.VhallUtil;
+import com.xczhihui.course.consts.MultiUrlHelper;
+import com.xczhihui.course.model.OfflineCity;
+import com.xczhihui.course.service.*;
+import com.xczhihui.course.vo.CourseLecturVo;
+import com.xczhihui.course.vo.CourseSolrVO;
+import com.xczhihui.course.vo.MenuVo;
+import com.xczhihui.course.vo.QueryConditionVo;
+import com.xczhihui.medical.anchor.service.IAnchorInfoService;
+import com.xczhihui.medical.anchor.service.ICourseApplyService;
 
 @Controller
 @RequestMapping(value = "/courses")
@@ -65,6 +73,8 @@ public class SchoolController extends AbstractFtlController {
 
     @Autowired
     private ICourseSolrService courseSolrService;
+    @Autowired
+    private IAnchorInfoService anchorInfoService;
 
     @Value("${web.url}")
     private String webUrl;
@@ -74,6 +84,7 @@ public class SchoolController extends AbstractFtlController {
 
     /**
      * 推荐页面
+     *
      * @return
      */
     @RequestMapping(value = "recommendation", method = RequestMethod.GET)
@@ -287,8 +298,8 @@ public class SchoolController extends AbstractFtlController {
         view.addObject("webUrlParam", "/courses/" + courseId);
         //获取用户信息
         OnlineUser user = getCurrentUser();
-        String userId = user==null?"":user.getId();
-        CourseLecturVo clv = courseService.selectCourseMiddleDetailsById(userId,courseId);
+        String userId = user == null ? "" : user.getId();
+        CourseLecturVo clv = courseService.selectCourseMiddleDetailsById(userId, courseId);
         if (clv == null) {
             return to404();
         }
@@ -302,29 +313,29 @@ public class SchoolController extends AbstractFtlController {
             description = HtmlUtil.getTextFromHtml(clv.getDescription());
             description = description.length() < 100 ? description : description.substring(0, 99);
         }
-        
-        
+
+
         //课程详情
         view.addObject("courseInfo", clv);
         view.addObject("description", description);
-        
-      //获取相关信息
-        if(type.equals("selection") || (type.equals("info") && clv.getCollection())) {
-            
+
+        //获取相关信息
+        if (type.equals("selection") || (type.equals("info") && clv.getCollection())) {
+
             List<CourseLecturVo> courses = courseService.selectCoursesByCollectionId(clv.getId());
             view.addObject("collectionList", courses);
             view.addObject("collectionListSize", courses.size());
             view.addObject("updateDateText", courseApplyService.getCollectionUpdateDateText(clv.getId()));
         }
-        
-        
-        if(type.equals("aq")) {
+
+
+        if (type.equals("aq")) {
             //常见问题。
             String path = req.getServletContext().getRealPath("/template");
             File f = new File(path + File.separator + "/course_common_problem.html");
-            view.addObject("commonProblem", FileUtil.readAsString(f));        
+            view.addObject("commonProblem", FileUtil.readAsString(f));
         }
-        
+
         //课程评价
         if (type.equals("comment")) {
             Map<String, Object> map = null;
@@ -345,13 +356,13 @@ public class SchoolController extends AbstractFtlController {
         page.setCurrent(0);
         page.setSize(2);
         view.addObject("recommendCourse", courseService.selectRecommendSortAndRandCourse(page));
-        
+
         return view;
     }
 
     private boolean isNotCoursePage(String type) {
         //outline  comment    info   aq
-        final List typeList = Arrays.asList("outline", "comment","selection","info", "aq","albumInfo");
+        final List typeList = Arrays.asList("outline", "comment", "selection", "info", "aq", "albumInfo");
         return !typeList.contains(type);
     }
 
@@ -365,11 +376,11 @@ public class SchoolController extends AbstractFtlController {
     @ResponseBody
     public ResponseObject add(LineApplyBody lineApplyBody) {
         String userId = getUserId();
-        
+
         lineApplyService.saveOrUpdate(lineApplyBody.build(userId));
-        CourseLecturVo clv = courseService.selectCourseMiddleDetailsById(userId,lineApplyBody.getCourseId());
-       
-        
+        CourseLecturVo clv = courseService.selectCourseMiddleDetailsById(userId, lineApplyBody.getCourseId());
+
+
         return ResponseObject.newSuccessResponseObject(clv.getWatchState());
     }
 
@@ -397,6 +408,33 @@ public class SchoolController extends AbstractFtlController {
         modelAndView.addObject("sex", MapUtils.getString(lineApply, "sex", ""));
         modelAndView.addObject("courseId", courseId);
         return modelAndView;
+    }
+
+    @RequestMapping(value = "liveRoom", method = RequestMethod.GET)
+    public ModelAndView liveRoom(@RequestParam String channelId, @RequestParam String roomId) throws Exception {
+        ModelAndView modelAndView = new ModelAndView("/school/live-room");
+        modelAndView.addObject("channelId", channelId);
+        modelAndView.addObject("roomId", roomId);
+        modelAndView.addObject("accountId", getUserId());
+        modelAndView.addObject("documents", anchorInfoService.listDocument(getUserId()));
+        modelAndView.addObject("token", BaseService.createAccessToken4Live(getUserId(), roomId, channelId));
+        modelAndView.addObject("appId", VhallUtil.APP_ID);
+
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "images/Shy.swf", method = RequestMethod.GET)
+    public void getShyImages(HttpServletResponse response) throws IOException {
+        InputStream inputStream = Thread.currentThread().getContextClassLoader().getResource("Shy.swf").openStream();
+        response.setContentType("application/x-shockwave-flash");
+        OutputStream outputStream = response.getOutputStream();
+        byte[] bytes = new byte[2048];
+        int len = 0;
+        while ((len = inputStream.read(bytes)) > 0) {
+            outputStream.write(bytes, 0, len);
+        }
+        inputStream.close();
+        outputStream.close();
     }
 
     private void handleQueryConditionVo(QueryConditionVo queryConditionVo) {

@@ -102,4 +102,15 @@ public class CourseLiveAudioController {
         return ResponseObject.newSuccessResponseObject("关闭成功");
     }
 
+    @RequestMapping(value = "push/{courseId}",method = RequestMethod.POST)
+    public ResponseObject push(@Account String accountId, @PathVariable Integer courseId) throws Exception {
+        courseLiveAudioContentService.push(accountId,courseId);
+        return ResponseObject.newSuccessResponseObject("发送成功");
+    }
+
+    @RequestMapping(value = "push/{courseId}",method = RequestMethod.GET)
+    public ResponseObject pushCount(@PathVariable Integer courseId) throws Exception {
+        return ResponseObject.newSuccessResponseObject(courseLiveAudioContentService.getPushCount(courseId));
+    }
+
 }

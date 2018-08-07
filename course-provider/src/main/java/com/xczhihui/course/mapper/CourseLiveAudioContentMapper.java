@@ -58,5 +58,20 @@ public interface CourseLiveAudioContentMapper extends BaseMapper<CourseLiveAudio
     int selectContentCountByCourseId(@Param("courseId") Integer courseId);
 
     @Update("UPDATE `oe_course` oc SET oc.`live_status`=1 WHERE oc.`user_lecturer_id`=#{userId} AND oc.id=#{courseId}")
-    void start(String userId, Integer courseId);
+    void start(@Param("userId") String userId, @Param("courseId") Integer courseId);
+
+    @Select("SELECT ca.`name` FROM `course_anchor` ca WHERE ca.`user_id`=#{accountId}")
+    String getAnchorNameByUserId(String accountId);
+
+    @Select("SELECT of.`user_id`  FROM `oe_focus` of WHERE of.`lecturer_id` = #{accountId} GROUP BY of.`user_id`")
+    List<String> getFansListByUserId(String accountId);
+
+    @Select("SELECT argc.`user_id` FROM `apply_r_grade_course` argc WHERE argc.`course_id` = #{courseId}")
+    List<String> getBuyerListByCourseId(Integer courseId);
+
+    @Select("SELECT oc.`grade_name` FROM `oe_course` oc WHERE oc.id=#{courseId}")
+    String getCourseNameByCourseId(Integer courseId);
+
+    @Select("SELECT oc.`grade_name` FROM `oe_course` oc WHERE oc.id=#{courseId} AND oc.user_lecturer_id=#{accountId}")
+    String getCourseNameByCourseIdAndUserId(@Param("courseId") Integer courseId, @Param("accountId") String accountId);
 }
