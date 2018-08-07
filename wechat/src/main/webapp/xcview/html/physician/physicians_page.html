@@ -532,7 +532,8 @@
 			<div class="screen_show_main">
 				<ul>
 					<li class="filtrate_all" value="" onclick="postsType(this)">全部</li>
-					<li class="filtrate_sinatv" value="1" onclick="postsType(this)">直播</li>
+					<li class="filtrate_sinatv" value="1" onclick="postsType(this)">视频直播</li>
+					<li class="filtrate_sinatv1" value="6" onclick="postsType(this)">语音直播</li>
 					<li class="filtrate_course" value="2" onclick="postsType(this)">课程</li>
 					<li class="filtrate_consilia" value="3" onclick="postsType(this)">医案</li>
 					<li class="filtrate_essay"value="4" onclick="postsType(this)">文章</li>
@@ -657,7 +658,7 @@
 						{{else}}
 						<div class="course_nav_rate"><span>{{item.currentPrice}}</span>熊猫币</div>
 						{{/if}}
-						{{if item.courseType==3}}
+						{{if item.courseType==1}}
 						<div class="course_nav_cen_size" style="margin-top: 0;">{{item.startTime}}</div>
 						{{/if}}
 						{{if item.courseType==4}}
@@ -698,14 +699,14 @@
 						<span class="basis_tips">医案</span>
 					{{else if item.articleId!= null}}
 						<span class="basis_tips">文章</span>
-					{{else if item.courseId != null && item.courseType == 1}}
-						<span class="basis_tips">线上课</span>
 					{{else if item.courseId != null && item.courseType == 2}}
 						<span class="basis_tips">线上课</span>
-					{{else if item.courseId != null && item.courseType == 3}}
+					{{else if item.courseId != null && item.courseType == 1 && item.multimediaType !=2}}
 						<span class="basis_tips">直播课</span>
-					{{else if item.courseId != null && item.courseType == 4}}
+					{{else if item.courseId != null && item.courseType == 3}}
 						<span class="basis_tips">线下课</span>
+					{{else if item.courseId != null && item.courseType == 1 && item.multimediaType == 2}}
+						<span class="basis_tips">语音直播</span>
 					{{/if}}
 					</span>
 
@@ -1671,6 +1672,16 @@ $(window).bind("scroll", function() {
             $(".course_nav").addClass("hide");  //课程 
             $(".sinatv_nav").removeClass("hide");  //直播 
 	    });
+        //点击语音直播
+        $(".filtrate_sinatv1").click(function(){
+            //$(".rests_nav").addClass("hide");  //其他1
+            $(".consilia_nav").addClass("hide");  // 医案
+            $(".essay_pack_up").addClass("hide");  //其他2
+            $(".article_nav").addClass("hide");  //文章
+            $(".paper_nav").addClass("hide");  //其他3
+            $(".course_nav").addClass("hide");  //课程
+            $(".sinatv_nav").removeClass("hide");  //直播
+        });
 	    //点击课程 
 	    $(".filtrate_course").click(function(){
             //$(".rests_nav").addClass("hide");  //其他1
