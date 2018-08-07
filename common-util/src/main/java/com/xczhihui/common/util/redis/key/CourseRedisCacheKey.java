@@ -10,6 +10,8 @@ public class CourseRedisCacheKey {
     public static final String COURSE_LIVE_VIDEO_BAN_PREFIX = "course:live:video:ban";
     public static final String COURSE_LIVE_VIDEO_TOKEN_PREFIX = "course:live:video:token";
 
+    public static final String COURSE_LIVE_AUDIO_PUSH_PREFIX = "course:live:audio:push";
+
     /**
      * 有效期5小时
      */
@@ -29,6 +31,10 @@ public class CourseRedisCacheKey {
 
     public static String getLiveVideoTokenCacheKey(Integer courseId,String userId) {
         return COURSE_LIVE_VIDEO_TOKEN_PREFIX + REDIS_SPLIT_CHAR + courseId.toString() + REDIS_SPLIT_CHAR + userId;
+    }
+
+    public static String getLiveAudioPushCacheKey(Integer courseId) {
+        return COURSE_LIVE_AUDIO_PUSH_PREFIX + REDIS_SPLIT_CHAR + courseId.toString();
     }
 
 }

@@ -1,20 +1,26 @@
 package com.xczhihui.course.service.impl;
 
+import static com.xczhihui.common.util.enums.RouteTypeEnum.COMMON_LEARNING_AUDIO_LIVE_COURSE_DETAIL_PAGE;
 import static com.xczhihui.common.util.redis.key.CourseRedisCacheKey.COURSE_LIVE_TOKEN_SECONDS;
 
+import java.text.MessageFormat;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.common.support.service.CacheService;
 import com.xczhihui.common.util.enums.CourseLiveAudioMessageType;
+import com.xczhihui.common.util.enums.MessageTypeEnum;
 import com.xczhihui.common.util.redis.key.CourseRedisCacheKey;
 import com.xczhihui.common.util.vhallyun.BaseService;
 import com.xczhihui.common.util.vhallyun.ChatService;
@@ -25,7 +31,10 @@ import com.xczhihui.course.mapper.CourseLiveAudioPptMapper;
 import com.xczhihui.course.model.CourseLiveAudioContent;
 import com.xczhihui.course.model.CourseLiveAudioDiscussion;
 import com.xczhihui.course.model.CourseLiveAudioPPT;
+import com.xczhihui.course.params.BaseMessage;
+import com.xczhihui.course.service.ICommonMessageService;
 import com.xczhihui.course.service.ICourseLiveAudioContentService;
+import com.xczhihui.course.util.TextStyleUtil;
 import com.xczhihui.course.vo.*;
 
 /**
@@ -39,6 +48,10 @@ import com.xczhihui.course.vo.*;
 @Service
 public class CourseLiveAudioContentServiceImpl implements ICourseLiveAudioContentService {
 
+    private static final String WEB_AUDIO_LIVE_COURSE_REMIND_FANCES = "【上课提醒】您好，您关注的主播{0},有新的直播课程" + TextStyleUtil.LEFT_TAG + "《{1}》" + TextStyleUtil.RIGHT_TAG + "开播了，快登录熊猫中医APP观看该直播吧！";
+    private static final String WEB_AUDIO_LIVE_COURSE_REMIND_BUYER = "【上课提醒】您好，您购买的直播课程" + TextStyleUtil.LEFT_TAG + "《{0}》" + TextStyleUtil.RIGHT_TAG + "开播了，快登录熊猫中医APP观看该直播吧！";
+    private static final Logger loggger = LoggerFactory.getLogger(CourseLiveAudioContentServiceImpl.class);
+
     @Autowired
     private CourseLiveAudioContentMapper courseLiveAudioContentMapper;
     @Autowired
@@ -47,6 +60,13 @@ public class CourseLiveAudioContentServiceImpl implements ICourseLiveAudioConten
     private CourseLiveAudioPptMapper courseLiveAudioPptMapper;
     @Autowired
     private CacheService cacheService;
+    @Autowired
+    private ICommonMessageService commonMessageService;
+
+    @Value("${weixin.course.remind.code}")
+    private String weixinTemplateMessageRemindCode;
+
+
 
 
     @Override
@@ -301,6 +321,56 @@ public class CourseLiveAudioContentServiceImpl implements ICourseLiveAudioConten
     @Override
     public void stop(String accountId, Integer courseId) {
         courseLiveAudioContentMapper.stop(accountId,courseId);
+    }
+
+    @Override
+    public void push(String accountId, Integer courseId) {
+        List<String> fansList = courseLiveAudioContentMapper.getFansListByUserId(accountId);
+        List<String> buyerList = courseLiveAudioContentMapper.getBuyerListByCourseId(courseId);
+        fansList.removeAll(buyerList);
+        String anchorName = courseLiveAudioContentMapper.getAnchorNameByUserId(accountId);
+        String courseName = courseLiveAudioContentMapper.getCourseNameByCourseIdAndUserId(courseId,accountId);
+        if(courseName==null){
+            throw new CourseException("不具有该课程权限");
+        }
+
+        doPush(accountId,courseId,anchorName,courseName,fansList,WEB_AUDIO_LIVE_COURSE_REMIND_FANCES);
+        doPush(accountId,courseId,anchorName,courseName,buyerList,WEB_AUDIO_LIVE_COURSE_REMIND_BUYER);
+
+        count(courseId);
+    }
+
+    @Override
+    public Integer getPushCount(Integer courseId) {
+        Integer count = cacheService.get(CourseRedisCacheKey.getLiveAudioPushCacheKey(courseId));
+        count = count == null ? 0:count;
+        return count;
+    }
+
+    private void count(Integer courseId) {
+        Integer count = cacheService.get(CourseRedisCacheKey.getLiveAudioPushCacheKey(courseId));
+        count = count == null ? 0:count;
+        count ++;
+        cacheService.set(CourseRedisCacheKey.getLiveAudioPushCacheKey(courseId),count);
+    }
+
+    private void doPush(String accountId, Integer courseId, String anchorName, String courseName, List<String> fansList, String webAudioLiveCourseRemind) {
+        String commonContent = MessageFormat.format(webAudioLiveCourseRemind, anchorName, courseName);
+        Map<String, String> weixinParams = new HashMap<>(4);
+        weixinParams.put("first", TextStyleUtil.clearStyle(commonContent));
+        weixinParams.put("keyword1", courseName);
+        weixinParams.put("keyword2", "随到随学");
+        weixinParams.put("remark", "");
+        for (String userId : fansList) {
+            loggger.info("推送给:{}", userId);
+            commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.COURSE.getVal())
+                    .buildWeb(commonContent)
+                    .buildAppPush(commonContent)
+                    .buildWeixin(weixinTemplateMessageRemindCode, weixinParams)
+                    .detailId(String.valueOf(courseId))
+                    .build(userId, COMMON_LEARNING_AUDIO_LIVE_COURSE_DETAIL_PAGE, accountId)
+            );
+        }
     }
 
     private void verifyCourseLiveAudioPPT(CourseLiveAudioPPTVO courseLiveAudioPPT) {

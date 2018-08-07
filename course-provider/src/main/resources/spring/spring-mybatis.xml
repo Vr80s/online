@@ -118,6 +118,7 @@
             <tx:method name="remove*" propagation="REQUIRED"/>
             <tx:method name="repair" propagation="REQUIRED"/>
             <tx:method name="stop" propagation="REQUIRED"/>
+            <tx:method name="push" propagation="REQUIRED"/>
 
             <tx:method name="get*" propagation="REQUIRED" read-only="true"/>
             <tx:method name="find*" propagation="REQUIRED" read-only="true"/>
