@@ -51,11 +51,11 @@
             <#list banners as banner>
                 <#if banner_index==0>
                 <li style="z-index: 2;">
-                <a href="${banner.imgHref}" data-indexId = "${banner.id}" target="_blank"
+                <a href="${banner.imgHref}" data-indexId="${banner.id}" target="_blank"
                    style="background:url(${banner.imgPath})no-repeat top center;background-size:100% 100%">
                 <#else>
                 <li>
-                <a href="${banner.imgHref}" target="_blank"  data-indexId = "${banner.id}"
+                <a href="${banner.imgHref}" target="_blank" data-indexId="${banner.id}"
                    style="background:url(${banner.imgPath})no-repeat top center;">
                 </#if>
                 <div class="image-overlay">
@@ -228,7 +228,8 @@
                 <div class="search_hos_box clearfix">
                     <form action="/doctors/list" method="get">
                         <button type="submit" value="Submit" class="search_hos_btn">搜索</button>
-                        <input class="search_hos" type="text" name="name" placeholder="${defaultSearch?default('请输入关键字搜索医师')}">
+                        <input class="search_hos" type="text" name="name"
+                               placeholder="${defaultSearch?default('请输入关键字搜索医师')}">
                     </form>
                 </div>
                 <p>按热门科室搜索</p>
@@ -249,14 +250,15 @@
                 <div>
                     <h4>名医报道</h4>
                     <a href="${webUrl}/headline/list/7" target="_blank">
-                    	<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                        <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
                     </a>
                 </div>
 
                 <ul class="teacher_picList clearfix" id="doctor_baodao">
                     <#list recentlyNewsReports as recentlyNewsReport>
                         <li>
-                            <a href="${webUrl}/headline/details/${recentlyNewsReport.id}" target="_blank">${recentlyNewsReport.title}</a>
+                            <a href="${webUrl}/headline/details/${recentlyNewsReport.id}"
+                               target="_blank">${recentlyNewsReport.title}</a>
                         </li>
                     </#list>
                 </ul>
@@ -276,9 +278,9 @@
                 <ul class="book_list clearfix" id="boos_list">
                     <#list recentlyWritings as recentlyWriting>
                         <li>
-                            <a href="/headline/details/${recentlyWriting.id}" style="color: #0C0C0C;display: inline;">                       	
-                        		<img src="${recentlyWriting.imgPath}" alt="">
-                           </a>
+                            <a href="/headline/details/${recentlyWriting.id}" style="color: #0C0C0C;display: inline;">
+                                <img src="${recentlyWriting.imgPath}" alt="">
+                            </a>
                             <div>
                                 <a href="/headline/details/${recentlyWriting.id}" style="color: #0C0C0C">
                                     <span class="book_name">${recentlyWriting.title!""}</span>
@@ -308,8 +310,9 @@
         //登入之后进行判断 右侧医师入驻入口是否有
         RequestService("/medical/common/isDoctorOrHospital", "GET", null, function (data) {
             if (data.success == true) {
+                var isDoctorOrHospital = data.resultObject.isDoctorOrHospital;
                 //判断
-                if (data.resultObject == 1) {
+                if (isDoctorOrHospital == 1 || isDoctorOrHospital == -1 || isDoctorOrHospital == 2 || isDoctorOrHospital == -2) {
                     //医师认证成功
                     $('.forum-hosJoin').addClass('hide');
                 } else {
@@ -321,40 +324,7 @@
         });
         //医师页面的医师入驻入口点击跳转效果
         $('#toDocJoin').click(function () {
-            RequestService("/medical/common/isDoctorOrHospital", "GET", null, function (data) {
-                if (data.success == true) {
-                    //请求数据成功进行判断
-                    if ($('.login').css('display') == 'block' && data.resultObject == 2) {
-                        //登录并且入驻了医馆了
-                        $('#tip').text('您已完成了医馆认证，不能进行医师认证！');
-                        $('#tip').toggle();
-                        setTimeout(function () {
-                            $('#tip').toggle();
-                        }, 2000)
-                    } else if ($('.login').css('display') == 'block' && data.resultObject == 1) {
-                        //注册医师成功
-                        window.location.href = "/doctors/my";
-                    } else if ($('.login').css('display') == 'block' && data.resultObject == 7) {
-                        //登录了并且都没有注册过
-                        window.location.href = "/doctors/authentication";
-                    } else if ($('.login').css('display') == 'block' && data.resultObject == 3 || data.resultObject == 5 || data.resultObject == 6) {
-                        //登录了 并且注册了没有通过的
-                        window.location.href = "/doctors/authentication";
-                    } else if (data.resultObject == 4) {
-                        //登录并且入驻了医馆了
-                        $('#tip').text('您已提交医馆认证，暂时不能进行医师认证！');
-                        $('#tip').toggle();
-                        setTimeout(function () {
-                            $('#tip').toggle();
-                        }, 2000)
-                    }
-                } else if (data.success == false) {
-                    window.location.href = "/web/html/practitionerRegister.html";
-                }
-            });
-        })
+            regDoctor();
+        });
     });
-
-
-
 </script>

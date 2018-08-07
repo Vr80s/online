@@ -30,6 +30,8 @@ public interface ICommonService {
      */
     Integer isDoctorOrHospital(String userId);
 
+    Integer isAnchorPower(String userId);
+
     MedicalDoctorAccount isDoctorStatus(String userId);
 
     MedicalHospitalAccount isHospitalStatus(String userId);
