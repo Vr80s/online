@@ -286,4 +286,33 @@ public interface ICourseService {
      * @return
      */
     CourseLecturVo selectDoctorLiveRoomRecentCourse(String userId, boolean onlyFreee);
+
+    /**
+     * 
+    * @Title: updatePlayBackStatusByRecordId
+    * @Description: 通过回放id 更改回放状态
+    * @param @param recordId
+    * @param @param status    参数
+    * @return void    返回类型
+    * @author yangxuan
+    * @throws
+     */
+	void updatePlayBackStatusByRecordId(String recordId, Integer status);
+
+	/**
+	 * 更改回放状态，并且发送回放状态IM消息
+	 * 
+	* @param  recordId
+	* @param  status    参数
+	* @return void    返回类型
+	 */
+	void updatePlayBackStatusAndSendVahllYunMessageByRecordId(String recordId, Integer status) throws Exception;
+
+    /**
+     * 更新课程直播状态
+     * @param event
+     * @param roomId
+     * @return
+     */
+    Integer updateCourseLiveStatus(String event, String roomId);
 }

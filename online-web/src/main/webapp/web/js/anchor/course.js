@@ -95,6 +95,7 @@ function isNotBlank(str) {
             autoFloatEnabled: true,
             enableAutoSave:false,
             imagePopup:false,
+            autoFloatEnabled:false,
             maximumWords:3000       //允许的最大字符数
         });
         var ue_cd = UE.getEditor('editor_cd',{
@@ -137,6 +138,7 @@ function isNotBlank(str) {
             autoFloatEnabled: true,
             enableAutoSave:false,
             imagePopup:false,
+            autoFloatEnabled:false,
             maximumWords:3000       //允许的最大字符数
         });
     }
@@ -193,6 +195,7 @@ function isNotBlank(str) {
             autoFloatEnabled: true,
             enableAutoSave:false,
             imagePopup:false,
+            autoFloatEnabled:false,
             maximumWords:3000       //允许的最大字符数
         });
         var editor_collection_outline = UE.getEditor('editor_collection_outline',{
@@ -235,6 +238,7 @@ function isNotBlank(str) {
             autoFloatEnabled: true,
             enableAutoSave:false,
             imagePopup:false,
+            autoFloatEnabled:false,
             maximumWords:3000       //允许的最大字符数
         });
         var editor_collection_lecturer_description = UE.getEditor('editor_collection_lecturer_description',{
@@ -277,6 +281,7 @@ function isNotBlank(str) {
             autoFloatEnabled: true,
             enableAutoSave:false,
             imagePopup:false,
+            autoFloatEnabled:false,
             maximumWords:3000       //允许的最大字符数
         });
   }
@@ -986,19 +991,15 @@ function courseLiveList(current){
  * @author name：yuxin <br>email: yuruixin@ixincheng.com
  * @Date: 2018/2/3 0003 下午 8:46
  **/
-function startLive(id) {
-    RequestService("/anchor/course/getWebinarUrl?webinarId="+id, "get", null, function(data) {
-//      window.open(data.resultObject);
-        location.href=data.resultObject;
-    });
+function startLive(roomId, channelId) {
+    if (!channelId) {
+        alert("该直播为老的直播数据，请重新创建直播");
+        return false;
+    } else {
+        location.href = "/courses/liveRoom?channelId=" + channelId + "&roomId=" + roomId;
+    }
 }
 
-function startGuestLive(id) {
-    RequestService("/anchor/course/getWebinarGuestUrl?webinarId="+id, "get", null, function(data) {
-//      window.open(data.resultObject);
-location.href=data.resultObject;
-    });
-}
 function previewLive(id) {
 //  window.open("http://e.vhall.com/"+id);
 location.href="http://e.vhall.com/"+id+""

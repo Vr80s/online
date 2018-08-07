@@ -342,6 +342,9 @@ a {
 	vertical-align: top;
 	font-size: 14px;
 }
+#doc_Distinguish .bottomContent .personIntroduct img{
+	max-width: 500;
+}
 #doc_Distinguish .bottomContent .doc_address select{
 	width: 240px;
   height: 36px;

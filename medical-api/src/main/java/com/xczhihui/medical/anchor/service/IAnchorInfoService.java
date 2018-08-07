@@ -58,6 +58,13 @@ public interface IAnchorInfoService {
     void addDocument(String userId, String documentId, String documentName);
 
     /**
+     * 删除文档
+     *
+     * @param documentId documentId
+     */
+    void deleteDocument(String documentId);
+
+    /**
      * 主播关联的文档列表
      *
      * @param userId userId

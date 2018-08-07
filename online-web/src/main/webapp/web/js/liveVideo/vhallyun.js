@@ -29,7 +29,7 @@ var vhallObj = {
     roomId:"lss_508dc5c6",
     appId:"27376e92",
     accountId:"test_jssdk",
-    token:"access:27376e92:8520e066f987ba58",
+    token:"access:27376e92:7a190806fb6feb8b",
     channelId:'ch_d260ab70',
     recordId:''
 }
@@ -78,7 +78,7 @@ function elsBind(){
       VhallLive.init({
        roomId:vhallObj.roomId,
        recordId:recordId, //回放Id，点播必填，直播不写
-       type:liveType,
+       type:"live",
        videoNode:'myVideo',
        complete:function(){
           VhallLive.play();
