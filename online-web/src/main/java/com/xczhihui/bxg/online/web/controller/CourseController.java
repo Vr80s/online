@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.solr.client.solrj.SolrServerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -16,6 +17,7 @@ import com.xczhihui.bxg.online.web.service.CourseService;
 import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.common.util.enums.SearchType;
 import com.xczhihui.course.service.ICourseService;
+import com.xczhihui.course.service.ICourseSolrService;
 import com.xczhihui.course.service.IMobileHotSearchService;
 import com.xczhihui.course.vo.CourseLecturVo;
 
@@ -36,7 +38,8 @@ public class CourseController extends AbstractController {
 
     @Autowired
     private IMobileHotSearchService mobileHotSearchService;
-
+    @Autowired
+    private ICourseSolrService courseSolrService;
 
     @RequestMapping(value = "/scoreList")
     public Object listAllScoreType() {
@@ -270,5 +273,19 @@ public class CourseController extends AbstractController {
     @ResponseBody
     public ResponseObject hotSearch() {
         return ResponseObject.newSuccessResponseObject(mobileHotSearchService.HotSearchList(SearchType.SCHOOL_DEFAULT_SEARCH.getCode()));
+    }
+
+    @RequestMapping(value = "updateLiveStatus", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseObject updateLiveStatus(String event, String roomId) throws IOException, SolrServerException {
+        Integer courseId = courseServiceImpl.updateCourseLiveStatus(event, roomId);
+        if (courseId != null) {
+            try {
+                courseSolrService.initCourseSolrDataById(courseId);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return ResponseObject.newSuccessResponseObject();
     }
 }

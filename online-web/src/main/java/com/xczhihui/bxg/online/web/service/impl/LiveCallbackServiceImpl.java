@@ -46,5 +46,4 @@ public class LiveCallbackServiceImpl implements LiveCallbackService {
             e.printStackTrace();
         }
     }
-
 }

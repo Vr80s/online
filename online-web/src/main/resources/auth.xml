@@ -55,5 +55,6 @@
     <uri>/anchor/guide</uri>
     <uri>/course/courses/[0-9]{1,}</uri>
     <uri>/videoRes/updateCourseApplyResource</uri>
+    <uri>/vhallyun/callback</uri>
 
 </openuris>

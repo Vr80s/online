@@ -1,10 +1,13 @@
 package com.xczhihui.course.mapper;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
@@ -196,4 +199,30 @@ public interface CourseMapper extends BaseMapper<Course> {
     int selectQualification4TeachingCourse(@Param("accountId") String accountId, @Param("courseId") Integer courseId);
 
     CourseLecturVo selectDoctorLiveRoomRecentCourse(@Param("userId")String userId, @Param("onlyFree") boolean onlyFreee);
+
+
+
+    /**
+     * 回放状态
+     * @param documentId 回放id
+     * @param status     回放状态
+     */
+    @Update({"update oe_course set play_back_type = #{status} where record_id = #{recordId}"})
+    void updatePlayBackStatusByRecordId(@Param("recordId") String recordId, @Param("status") Integer status);
+    
+    
+    /**
+     * 通过回放id查找渠道id
+     * @param documentId 回放id
+     * @param status     回放状态
+     */
+    @Select({"select  channel_id  oe_course where record_id = #{recordId}"})
+    String selectChannelIdByRecordId(@Param("recordId") String recordId);
+
+    @Select({"SELECT max(record_count) FROM oe_live_time_record WHERE live_id = #{liveId}"})
+    Integer maxRecordCount(@Param("liveId") String liveId);
+
+    @Insert({"insert into oe_live_time_record (course_id,live_id, start_time, end_time, record_count) values(#{courseId}, #{liveId}, #{startTime}, #{endTime}, #{recordCount})"})
+    void insertRecordLiveTime(@Param("startTime") Date startTime, @Param("endTime") Date endTime,
+                              @Param("courseId") Integer courseId, @Param("liveId") String liveId, @Param("recordCount") Integer recordCount);
 }

@@ -161,3 +161,4 @@ dev-2.4
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
     ALTER TABLE `oe_course` ADD COLUMN `channel_id` VARCHAR(32) NULL COMMENT '频道ID（文档、IM）' AFTER `direct_id`; 
+    ALTER TABLE `oe_course` ADD COLUMN `record_id` VARCHAR(100) NULL COMMENT '回放ID' AFTER `direct_id`; 

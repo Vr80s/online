@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,7 +39,8 @@ public class MedicalDoctorApplyController {
     private OLAttachmentCenterService service;
     @Autowired
     private ICommonService commonServiceImpl;
-
+    @Value("${webdomain}")
+    private String webdomain;
     /**
      * 医师认证
      *
@@ -91,6 +93,10 @@ public class MedicalDoctorApplyController {
 
         medicalDoctorApply.setClientType(HeaderInterceptor.getClientTypeCode());
         LOGGER.warn("--------------------医师认证,clientType:",medicalDoctorApply.getClientType());
+        
+        //默认医师头像
+        medicalDoctorApply.setHeadPortrait(webdomain + "/web/images/defaultHead/18.png");
+        
         medicalDoctorApplyService.add(medicalDoctorApply);
         return ResponseObject.newSuccessResponseObject("创建成功");
     }

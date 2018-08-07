@@ -24,6 +24,7 @@ import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.common.web.controller.AbstractController;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorSolrService;
+import com.xczhihui.medical.doctor.vo.MedicalDoctorSolrVO;
 import com.xczhihui.medical.enums.MedicalExceptionEnum;
 import com.xczhihui.medical.exception.MedicalException;
 import com.xczhihui.medical.service.DoctorService;
@@ -231,7 +232,7 @@ public class DoctorController extends AbstractController {
     @ResponseBody
     public ResponseObject updateStatus(String id) throws IOException, SolrServerException {
         doctorService.updateStatus(id);
-        medicalDoctorSolrService.initDoctorsSolrDataById(id);
+        
         return ResponseObject.newSuccessResponseObject("操作成功！");
     }
 
