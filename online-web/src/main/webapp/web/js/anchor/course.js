@@ -95,6 +95,7 @@ function isNotBlank(str) {
             autoFloatEnabled: true,
             enableAutoSave:false,
             imagePopup:false,
+            autoFloatEnabled:false,
             maximumWords:3000       //允许的最大字符数
         });
         var ue_cd = UE.getEditor('editor_cd',{
@@ -137,6 +138,7 @@ function isNotBlank(str) {
             autoFloatEnabled: true,
             enableAutoSave:false,
             imagePopup:false,
+            autoFloatEnabled:false,
             maximumWords:3000       //允许的最大字符数
         });
     }
@@ -193,6 +195,7 @@ function isNotBlank(str) {
             autoFloatEnabled: true,
             enableAutoSave:false,
             imagePopup:false,
+            autoFloatEnabled:false,
             maximumWords:3000       //允许的最大字符数
         });
         var editor_collection_outline = UE.getEditor('editor_collection_outline',{
@@ -235,6 +238,7 @@ function isNotBlank(str) {
             autoFloatEnabled: true,
             enableAutoSave:false,
             imagePopup:false,
+            autoFloatEnabled:false,
             maximumWords:3000       //允许的最大字符数
         });
         var editor_collection_lecturer_description = UE.getEditor('editor_collection_lecturer_description',{
@@ -277,6 +281,7 @@ function isNotBlank(str) {
             autoFloatEnabled: true,
             enableAutoSave:false,
             imagePopup:false,
+            autoFloatEnabled:false,
             maximumWords:3000       //允许的最大字符数
         });
   }
