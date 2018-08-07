@@ -15,7 +15,7 @@ var vhallObj = {
     roomId:"lss_508dc5c6",
     appId:"27376e92",
     accountId:"test_jssdk",
-    token:"access:27376e92:7a190806fb6feb8b",
+    token:"access:27376e92:5153a1b38f360ccc",
     channelId:'ch_d260ab70',
     recordId:''
 }
@@ -78,34 +78,32 @@ function elsBind(){
          token:vhallObj.token//token必填
     });
     
-    
      
     setTimeout(function(){
     	
-    	
-  var md=document.getElementsByTagName("video")[0];
-  md.addEventListener("ended",function(){
-    console.log("播放结束了");
-  });	
-  md.addEventListener("loadstart",function(){
-    console.log("浏览器开始在网上寻找媒体数据");
-  });	
-   md.addEventListener("progress",function(){
-    console.log("浏览器正在获取媒体数据");
-  });	
-   md.addEventListener("suspend",function(){
-    console.log("浏览器暂停获取媒体数据，但是下载过程并滑正常结束");
-  });
-  
-  //非正常结束直播，但是获取不到流数据
-  md.addEventListener("abort",function(){
-  	
-    console.log("浏览器在下载完全部媒体数据之前中止获取媒体数据，但是并不是由错误引起的");
-  });
-  
-  md.addEventListener("error",function(){
-    console.log("	获取媒体数据过程中出错  ");
-  });	
+		  var md=document.getElementsByTagName("video")[0];
+		  md.addEventListener("ended",function(){
+		    console.log("播放结束了");
+		  });	
+		  md.addEventListener("loadstart",function(){
+		    console.log("浏览器开始在网上寻找媒体数据");
+		  });	
+		   md.addEventListener("progress",function(){
+		    console.log("浏览器正在获取媒体数据");
+		  });	
+		   md.addEventListener("suspend",function(){
+		    console.log("浏览器暂停获取媒体数据，但是下载过程并滑正常结束");
+		  });
+		  
+		  //非正常结束直播，但是获取不到流数据
+		  md.addEventListener("abort",function(){
+		  	
+		    console.log("浏览器在下载完全部媒体数据之前中止获取媒体数据，但是并不是由错误引起的");
+		  });
+		  
+		  md.addEventListener("error",function(){
+		    console.log("	获取媒体数据过程中出错  ");
+		  });	
     	
     	 window.Vhall.ready(function(){
     	    /**

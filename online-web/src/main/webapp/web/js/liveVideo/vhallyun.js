@@ -29,7 +29,7 @@ var vhallObj = {
     roomId:"lss_508dc5c6",
     appId:"27376e92",
     accountId:"test_jssdk",
-    token:"access:27376e92:7a190806fb6feb8b",
+    token:"access:27376e92:5153a1b38f360ccc",
     channelId:'ch_d260ab70',
     recordId:''
 }

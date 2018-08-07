@@ -101,12 +101,6 @@ public class DoctorServiceImpl extends OnlineBaseServiceImpl implements
         }
         dao.update(MedicalDoctor);
         
-        try {
-        	List<MedicalDoctorSolrVO> medicalDoctorSolrVOS = medicalDoctorSolrService.selectDoctors4Solr();
-			solrUtils.init(medicalDoctorSolrVOS);
-		} catch (IOException | SolrServerException e) {
-			e.printStackTrace();
-		}
         return status;
     }
 

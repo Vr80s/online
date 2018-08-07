@@ -4,18 +4,21 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.controller.AbstractController;
 import com.xczhihui.bxg.online.web.service.UserService;
 import com.xczhihui.bxg.online.web.vo.UserDataVo;
-import com.xczhihui.common.util.XzStringUtils;
 import com.xczhihui.common.util.bean.ResponseObject;
-import com.xczhihui.common.util.enums.DoctorType;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.medical.doctor.model.MedicalDoctor;
+import com.xczhihui.medical.doctor.service.IDoctorTypeService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorArticleService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
@@ -37,6 +40,9 @@ public class DoctorController extends AbstractController {
     private ICourseService courseService;
     @Autowired
     private EnrolService enrolService;
+    
+    @Autowired
+    private IDoctorTypeService doctorTypeService;
 
     /**
      * Description：获取医师分页信息
@@ -100,7 +106,8 @@ public class DoctorController extends AbstractController {
     @RequestMapping(value = "getDoctorType")
     @ResponseBody
     public ResponseObject getDoctorType() {
-        return ResponseObject.newSuccessResponseObject(DoctorType.getDoctorTypeList());
+        //return ResponseObject.newSuccessResponseObject(DoctorType1.getDoctorTypeList());
+        return ResponseObject.newSuccessResponseObject(doctorTypeService.getDoctorTypeTitleList());
     }
 
 //    /**

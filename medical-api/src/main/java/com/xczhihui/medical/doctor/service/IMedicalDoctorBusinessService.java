@@ -182,4 +182,6 @@ public interface IMedicalDoctorBusinessService {
      */
     public List<MedicalDoctorVO> selectHotInBatch(Page<MedicalDoctorVO> page);
 
+	public List<Map<String, Object>> doctorTypeList();
+
 }

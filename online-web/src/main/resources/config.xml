@@ -347,5 +347,7 @@
                      id="remoteTreatmentServiceImpl" timeout="${dubbo.provider.timeout}"/>
     <!--=============================================消费者end============================================-->
 
+	<dubbo:reference interface="com.xczhihui.medical.doctor.service.IDoctorTypeService"
+		id="doctorTypeServiceImpl" timeout="${dubbo.provider.timeout}" />        
 
 </beans>

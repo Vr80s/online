@@ -124,96 +124,24 @@
     </div>
     <div class="forum-content clearfix">
         <div class="forum-content-left">
-            <!-- TODO -->
-            <div class="doctor_list clearfix" id="doc_lis1">
-                <h2>国医大师</h2>
-                <a href="${webUrl}/doctors/list?type=4" target="_blank">更多<span class="glyphicon glyphicon-menu-right"
-                                                                                aria-hidden="true"></span></a>
-                <ul class="doctor_inf" id="guoyi">
-                <#list doctors4.records as doctor>
-                    <li>
-                        <a href="${webUrl}/doctors/${doctor.id}" target="_blank"></a>
-                        <img src="${doctor.headPortrait!''}" alt="${doctor.name}">
-                        <h5>${doctor.name}&nbsp;<span>${doctor.title!''}</span></h5>
-                        <@workTime text=doctor.workTime!'' />
-                        <p>${doctor.province!''}&nbsp;${doctor.city!''}&nbsp; </p>
-                    </li>
-                </#list>
-                </ul>
-            </div>
-
-
-            <div class="doctor_list clearfix" id="doc_lis2">
-                <h2>名老中医</h2>
-                <a href="${webUrl}/doctors/list?type=2" target="_blank">更多<span class="glyphicon glyphicon-menu-right"
-                                                                                aria-hidden="true"></span></a>
-                <ul class="doctor_inf" id="minglao">
-                <#list doctors2.records as doctor>
-                    <li>
-                        <a href="${webUrl}/doctors/${doctor.id}" target="_blank"></a>
-                        <img src="${doctor.headPortrait!''}" alt="${doctor.name}">
-                        <h5>${doctor.name}&nbsp;<span>${doctor.title!''}</span></h5>
-                        <@workTime text=doctor.workTime!'' />
-                        <p>${doctor.province!''}&nbsp;${doctor.city!''}&nbsp; </p>
-                    </li>
-                </#list>
-                </ul>
-            </div>
-
-            <div class="doctor_list clearfix" id="doc_lis3">
-                <h2>名青年中医</h2>
-                <a href="${webUrl}/doctors/list?type=1" target="_blank">更多<span class="glyphicon glyphicon-menu-right"
-                                                                                aria-hidden="true"></span></a>
-                <ul class="doctor_inf" id="mingqing">
-                <#list doctors1.records as doctor>
-                    <li>
-                        <a href="${webUrl}/doctors/${doctor.id}" target="_blank"></a>
-                        <img src="${doctor.headPortrait!''}" alt="${doctor.name}">
-                        <h5>${doctor.name}&nbsp;<span>${doctor.title!''}</span></h5>
-                        <@workTime text=doctor.workTime!'' />
-                        <p>${doctor.province!''}&nbsp;${doctor.city!''}&nbsp; </p>
-                    </li>
-                </#list>
-                </ul>
-            </div>
-
-
-            <div class="doctor_list clearfix" id="doc_lis4">
-                <h2>家传中医</h2>
-                <a href="${webUrl}/doctors/list?type=5" target="_blank">更多<span class="glyphicon glyphicon-menu-right"
-                                                                                aria-hidden="true"></span></a>
-                <ul class="doctor_inf" id="guzhongyi">
-                <#list doctors5.records as doctor>
-                    <li>
-                        <a href="${webUrl}/doctors/${doctor.id}" target="_blank"></a>
-                        <img src="${doctor.headPortrait!''}" alt="${doctor.name}">
-                        <h5>${doctor.name}&nbsp;<span>${doctor.title!''}</span></h5>
-                        <@workTime text=doctor.workTime!'' />
-                        <p>${doctor.province!''}&nbsp;${doctor.city!''}&nbsp; </p>
-                    </li>
-                </#list>
-                </ul>
-            </div>
-
-
-            <div class="doctor_list clearfix" id="doc_lis5">
-                <h2>少数民族中医</h2>
-                <a href="${webUrl}/doctors/list?type=3" target="_blank">更多<span class="glyphicon glyphicon-menu-right"
-                                                                                aria-hidden="true"></span></a>
-                <ul class="doctor_inf" id="shaoshu">
-                <#list doctors3.records as doctor>
-                    <li>
-                        <a href="${webUrl}/doctors/${doctor.id}" target="_blank"></a>
-                        <img src="${doctor.headPortrait!''}" alt="${doctor.name}">
-                        <h5>${doctor.name}&nbsp;<span>${doctor.title!''}</span></h5>
-                        <@workTime text=doctor.workTime!'' />
-                        <p>${doctor.province?default('')}&nbsp;${doctor.city?default('')}&nbsp; </p>
-                    </li>
-                </#list>
-                </ul>
-            </div>
-
-
+           <#list doctorTypeList as doctorTypeItem>
+	           <div class="doctor_list clearfix" id="doc_lis${doctorTypeItem_index+1}">
+	                <h2>${doctorTypeItem.text}</h2>
+	                <a href="${webUrl}/doctors/list?type=${doctorTypeItem.code}" target="_blank">更多<span class="glyphicon glyphicon-menu-right"
+	                                                                                aria-hidden="true"></span></a>
+	                <ul class="doctor_inf" id="guoyi">
+	                <#list doctorTypeItem.doctors as doctor>
+	                    <li>
+	                        <a href="${webUrl}/doctors/${doctor.id}" target="_blank"></a>
+	                        <img src="${doctor.headPortrait!''}" alt="${doctor.name}">
+	                        <h5>${doctor.name}&nbsp;<span>${doctor.title!''}</span></h5>
+	                        <@workTime text=doctor.workTime!'' />
+	                        <p>${doctor.province!''}&nbsp;${doctor.city!''}&nbsp; </p>
+	                    </li>
+	                </#list>
+	                </ul>
+	            </div>	
+           </#list>
         </div>
         <div class="forum-content-right">
 

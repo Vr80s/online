@@ -22,15 +22,16 @@ import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.toolkit.CollectionUtils;
 import com.xczhihui.common.util.XzStringUtils;
-import com.xczhihui.common.util.enums.DoctorType;
 import com.xczhihui.common.util.enums.HeadlineType;
 import com.xczhihui.medical.department.mapper.MedicalDepartmentMapper;
 import com.xczhihui.medical.department.model.MedicalDepartment;
 import com.xczhihui.medical.department.vo.MedicalDepartmentVO;
+import com.xczhihui.medical.doctor.mapper.DoctorTypeMapper;
 import com.xczhihui.medical.doctor.mapper.MedicalDoctorAccountMapper;
 import com.xczhihui.medical.doctor.mapper.MedicalDoctorAuthenticationInformationMapper;
 import com.xczhihui.medical.doctor.mapper.MedicalDoctorDepartmentMapper;
 import com.xczhihui.medical.doctor.mapper.MedicalDoctorMapper;
+import com.xczhihui.medical.doctor.model.DoctorType;
 import com.xczhihui.medical.doctor.model.MedicalDoctor;
 import com.xczhihui.medical.doctor.model.MedicalDoctorAccount;
 import com.xczhihui.medical.doctor.model.MedicalDoctorAuthenticationInformation;
@@ -96,6 +97,9 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
     
     @Autowired
     private IMedicalDoctorSolrService medicalDoctorSolrService;
+    
+    @Autowired
+    private DoctorTypeMapper doctorTypeMapper;
     
     @Override
     public Page<MedicalDoctorVO> selectDoctorPage(Page<MedicalDoctorVO> page, Integer type, String hospitalId, String name, String field, String departmentId) {
@@ -771,7 +775,8 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
         /**
          * 循环枚举进行查询
          */
-        List<Map> listMap = DoctorType.getDoctorTypeList();
+        //List<Map> listMap = DoctorType1.getDoctorTypeList();
+        List<Map<String,Object>> listMap = doctorTypeMapper.getDoctorTypeTitleList();
         for (int i = 0; i < listMap.size(); i++) {
             Map maps = listMap.get(i);
             Integer code = (Integer) maps.get("code");
@@ -796,4 +801,23 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
         
         return medicalDoctorMapper.selectHotInBatch(page);
     }
+
+	@Override
+	public List<Map<String, Object>> doctorTypeList() {
+	   List<Map<String, Object>> listMap = new ArrayList<Map<String, Object>>();	
+	   List<DoctorType> list  = doctorTypeMapper.getDoctorTypeList();
+       for (int i = 0; i < list.size(); i++) {
+    	   DoctorType dt = list.get(i);
+            List<MedicalDoctorVO> doctors = medicalDoctorMapper.selectDoctorList(new Page<MedicalDoctorVO>(1,4),
+            		dt.getId(), null, null, null, null);
+            if (doctors != null && doctors.size() > 0) {
+                Map<String, Object> map1 = new HashMap<String, Object>();
+                map1.put("code", dt.getId());
+                map1.put("text", dt.getTitle());
+                map1.put("doctors", doctors);
+                listMap.add(map1);
+            }
+        }
+		return listMap;
+	}
 }

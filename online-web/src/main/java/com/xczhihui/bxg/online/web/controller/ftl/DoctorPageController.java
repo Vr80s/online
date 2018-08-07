@@ -20,7 +20,7 @@ import com.xczhihui.bxg.online.web.service.BannerService;
 import com.xczhihui.bxg.online.web.utils.HtmlUtil;
 import com.xczhihui.bxg.online.web.vo.BannerVo;
 import com.xczhihui.common.util.XzStringUtils;
-import com.xczhihui.common.util.enums.DoctorType;
+import com.xczhihui.common.util.enums.PagingFixedType;
 import com.xczhihui.common.util.enums.SearchType;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.course.service.IMobileHotSearchService;
@@ -29,6 +29,7 @@ import com.xczhihui.medical.department.model.MedicalDepartment;
 import com.xczhihui.medical.department.service.IMedicalDepartmentService;
 import com.xczhihui.medical.department.vo.MedicalDepartmentVO;
 import com.xczhihui.medical.doctor.model.MedicalDoctorAccount;
+import com.xczhihui.medical.doctor.service.IDoctorTypeService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorArticleService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorSolrService;
@@ -66,6 +67,9 @@ public class DoctorPageController extends AbstractFtlController {
     
     @Autowired
     private IMobileHotSearchService mobileHotSearchService;
+    
+    @Autowired
+    private IDoctorTypeService doctorTypeService;
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView index() {
@@ -92,20 +96,23 @@ public class DoctorPageController extends AbstractFtlController {
         page.setCurrent(1);
         page.setSize(4);
 
-        Page<MedicalDoctorVO> doctors1 = medicalDoctorBusinessService.selectDoctorPage(page, DoctorType.MQNZY.getCode(), null, null, null, null);
-        view.addObject("doctors1", doctors1);
-
-        Page<MedicalDoctorVO> doctors2 = medicalDoctorBusinessService.selectDoctorPage(page, DoctorType.MLZY.getCode(), null, null, null, null);
-        view.addObject("doctors2", doctors2);
-
-        Page<MedicalDoctorVO> doctors3 = medicalDoctorBusinessService.selectDoctorPage(page, DoctorType.SSMZZY.getCode(), null, null, null, null);
-        view.addObject("doctors3", doctors3);
-
-        Page<MedicalDoctorVO> doctors4 = medicalDoctorBusinessService.selectDoctorPage(page, DoctorType.GYDS.getCode(), null, null, null, null);
-        view.addObject("doctors4", doctors4);
-
-        Page<MedicalDoctorVO> doctors5 = medicalDoctorBusinessService.selectDoctorPage(page, DoctorType.GZY.getCode(), null, null, null, null);
-        view.addObject("doctors5", doctors5);
+        view.addObject("doctorTypeList",
+        		medicalDoctorBusinessService.doctorTypeList());
+        
+//        Page<MedicalDoctorVO> doctors1 = medicalDoctorBusinessService.selectDoctorPage(page, DoctorType1.MQNZY.getCode(), null, null, null, null);
+//        view.addObject("doctors1", doctors1);
+//
+//        Page<MedicalDoctorVO> doctors2 = medicalDoctorBusinessService.selectDoctorPage(page, DoctorType1.MLZY.getCode(), null, null, null, null);
+//        view.addObject("doctors2", doctors2);
+//
+//        Page<MedicalDoctorVO> doctors3 = medicalDoctorBusinessService.selectDoctorPage(page, DoctorType1.SSMZZY.getCode(), null, null, null, null);
+//        view.addObject("doctors3", doctors3);
+//
+//        Page<MedicalDoctorVO> doctors4 = medicalDoctorBusinessService.selectDoctorPage(page, DoctorType1.GYDS.getCode(), null, null, null, null);
+//        view.addObject("doctors4", doctors4);
+//
+//        Page<MedicalDoctorVO> doctors5 = medicalDoctorBusinessService.selectDoctorPage(page, DoctorType1.GZY.getCode(), null, null, null, null);
+//        view.addObject("doctors5", doctors5);
 
         return view;
     }
@@ -176,7 +183,9 @@ public class DoctorPageController extends AbstractFtlController {
         Page<MedicalDepartment> departments = medicalDepartmentService.page(page);
         view.addObject("departments", departments);
 
-        List<Map> doctorTypeList = DoctorType.getDoctorTypeList();
+        //List<Map> doctorTypeList = DoctorType1.getDoctorTypeList();
+        
+        List<Map<String,Object>> doctorTypeList = doctorTypeService.getDoctorTypeTitleList();
         view.addObject("doctorTypeList", doctorTypeList);
 
         StringBuilder title = new StringBuilder();
@@ -189,7 +198,8 @@ public class DoctorPageController extends AbstractFtlController {
             echoMap.put("name", dqv.getQueryKey());
         }
         if (StringUtils.isNotBlank(dqv.getType())) {
-            String dt = DoctorType.getDoctorTypeText(Integer.valueOf(dqv.getType()));
+            //String dt = DoctorType1.getDoctorTypeText(Integer.valueOf(dqv.getType()));
+        	String dt = doctorTypeService.getDoctorTypeTitleById(dqv.getType());
             title.append(dt + "-");
             keywords.append(dt + ",");
 
