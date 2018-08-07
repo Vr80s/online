@@ -751,7 +751,7 @@ input::-webkit-input-placeholder{
 	float: right;
 }
 /*媒体查询*/
-@media (min-width: 992px) and (max-width: 1199px) {
+@media (min-width: 992px) and (max-width: 1366px) {
     .input-main button,.chat-personal,.select-document,.share-icon
     {
 		font-size: 12px;

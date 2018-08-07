@@ -363,12 +363,12 @@ function verifyAnchorInfo(data) {
     // }
 
     //坐诊的时间
-    if (data.workTime == '') {
-        $('.return_warning7').removeClass('hide');
-        return false;
-    } else {
-        $('.return_warning7').addClass('hide');
-    }
+//  if (data.workTime == '') {
+//      $('.return_warning7').removeClass('hide');
+//      return false;
+//  } else {
+//      $('.return_warning7').addClass('hide');
+//  }
 // //
 // //	//医师所在省市填写
 //     if (data.province == '-1' || data.city == '-1') {
@@ -458,10 +458,10 @@ function showAnchorInfo() {
             } else {
                 $('#hospitalName').text('暂无');
             }
-            if (anchor.workTime) {
+            if (anchor.workTime != null) {
                 $('#workTime').html(anchor.workTime);
             } else {
-                $('#workTime').parent().text('暂无');
+                $('#workTime').html('暂无');
             }
             if (anchor.detail) {
                 $('#detail').html(anchor.detail);
