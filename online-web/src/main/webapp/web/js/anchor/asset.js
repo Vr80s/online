@@ -427,7 +427,7 @@ function sendVerificationCode() {
 					setTimeout(function() {
 						clearInterval(timer)
 						$(".getPassWord").html('获取验证码');
-						$(".getPassWord").attr('onclick', 'btn_cade()');
+						$(".getPassWord").attr('onclick', 'sendVerificationCode()');
 						$(".getPassWord").css({
 							"background": "#00bd12",
 							"color": "white"
