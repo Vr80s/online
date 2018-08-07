@@ -1,5 +1,4 @@
 
-
 // 请求--》json文件
 var emoji = [];
 $.ajax({
@@ -12,23 +11,16 @@ $.ajax({
 	}
 });
 
-function chZJ(videoId) {
-	return;
-}
-
-var course_id = getQueryString("courseId");
-
 /**
- * 
+ * 请求token
  */
-var vhallObj = {
-	roomId : "lss_508dc5c6",
-	appId : "27376e92",
-	accountId : "test_jssdk",
-	token : "access:27376e92:5153a1b38f360ccc",
-	channelId : 'ch_d260ab70',
-	recordId : ''
-}
+requestService("/xczh/vhall/vhallYunToken", {roomId:vhallObj.roomId,channelId:vhallObj.channelId}, function(data) {
+	if (data.success) {
+		vhallObj.token=data.resultObject;
+	}
+});
+
+
 
 // 直播状态1.直播中，2预告，3直播结束 4 即将直播
 if (lineState == 1 || lineState == 3) {
@@ -49,7 +41,7 @@ function elsBind() {
 		VhallLive.onPublishStart(function() {
 					console.log('直播开始！');
 					VhallLive.play();
-				})
+		})
 
 		/**
 		 * 停止推流事件监听
@@ -277,7 +269,7 @@ function msgList(pos, limit) {
 						$("#chatmsg").html(e);
 					}
 				}
-			});
+   });
 }
 
 /**
