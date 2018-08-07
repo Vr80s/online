@@ -973,7 +973,7 @@ header{
 .boutique_one_img{
     width: 3.39rem;
     height: 1.92rem;
-    margin-bottom: 0.1rem;
+    /*margin-bottom: 0.1rem;*/
 }
 .boutique_one_img img{
     width: 3.39rem;
@@ -1003,8 +1003,13 @@ header{
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
     overflow: hidden;
-    height: 0.76rem;
+    height: 0.72rem;
     margin-bottom: 0.07rem;
+    
+    padding: 0.1rem 0 0 0;
+    /*height: 1rem;*/
+    /*background: blue;*/
+    line-height: 0.4rem;
 }
 .boutique_main_one_title .span0{
     color: #999999;
