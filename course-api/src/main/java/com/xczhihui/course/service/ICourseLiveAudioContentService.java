@@ -43,4 +43,8 @@ public interface ICourseLiveAudioContentService {
     String getCourseLiveAudioAccessToken(Integer courseId, String accountId) throws Exception;
 
     void stop(String accountId, Integer courseId);
+
+    void push(String accountId, Integer courseId);
+
+    Integer getPushCount(Integer courseId);
 }
