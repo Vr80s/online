@@ -309,6 +309,25 @@ $(".modal-list li").click(function(){
 	$(this).addClass("active")
 })
 
+//------------------------------------------设置----------------------------------------------------------------	
+
+$(".select-operation .set-up").click(function(){
+	$(".background-ask").removeClass("hide");
+	$(".setup-modal").removeClass("hide");
+})
+
+$(".comment-setup .cancel").click(function(){
+	$(".background-ask").addClass("hide");
+	$(".setup-modal").addClass("hide");
+})
+
+
+
+
+
+
+
+//------------------------------------------文档转换----------------------------------------------------------------	
     var fileUrl;
     $('#file-input').change(function () {
         $('#submitFile').ajaxSubmit({
