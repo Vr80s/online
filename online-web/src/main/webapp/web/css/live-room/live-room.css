@@ -671,7 +671,7 @@ input::-webkit-input-placeholder{
 }
 .chat-personal ul li{
 	line-height: 25px;
-	margin-bottom: 8px;
+	/*margin-bottom: 8px;*/
 }
 .chat-personal ul li .chat-name{
 	color: #999999;
