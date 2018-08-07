@@ -318,6 +318,11 @@ input::-webkit-input-placeholder{
 	padding-left: 60px;
 	position: relative;
 }
+.document-content{
+	float: right;
+	background: pink;
+	height: 100%;
+}
 .pages{
 	width: 100px;
     height: 30px;
@@ -666,7 +671,7 @@ input::-webkit-input-placeholder{
 }
 .chat-personal ul li{
 	line-height: 25px;
-	margin-bottom: 8px;
+	/*margin-bottom: 8px;*/
 }
 .chat-personal ul li .chat-name{
 	color: #999999;
@@ -751,7 +756,7 @@ input::-webkit-input-placeholder{
 	float: right;
 }
 /*媒体查询*/
-@media (min-width: 992px) and (max-width: 1199px) {
+@media (min-width: 992px) and (max-width: 1366px) {
     .input-main button,.chat-personal,.select-document,.share-icon
     {
 		font-size: 12px;

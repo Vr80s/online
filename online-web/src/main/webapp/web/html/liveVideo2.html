@@ -28,11 +28,14 @@
 <script src="/web/js/common_msg.js?version=ce867abddd" type="text/javascript"></script>
 
 <!-- 放大縮小文檔使用文件 -->
-<link rel="stylesheet" href="/web/htmls/jquery.iviewer.css">
+<link rel="stylesheet" href="/web/js/live-streamin-document/jquery.iviewer.css">
 <script type="text/javascript" src="/web/js/live-streamin-document/jquery.js" ></script>
 <script type="text/javascript" src="/web/js/live-streamin-document/jqueryui.js" ></script>
-<script type="text/javascript" src="/web/js/live-streamin-document/jquery.mousewheel.min.js" ></script>
+<!-- <script type="text/javascript" src="/web/js/live-streamin-document/jquery.mousewheel.min.js" ></script> -->
 <script type="text/javascript" src="/web/js/live-streamin-document/jquery.iviewer.js" ></script>
+
+<!-- 測試引入表情文件 -->
+<!-- <script type="text/javascript" src="/web/js/live-room/emotion.json" ></script> -->
 
 <script type="text/javascript">
     var $ = jQuery;
@@ -43,12 +46,93 @@
               src: "https://file.xczhihui.com/18802142750/1a666a314bdc05a6.png"
           });
     });
-    </script>    
+</script>
+		<script type="text/javascript">
+			$(function(){
+				// 點擊表情開始
+			 	$("#face").click(function(){
+			 		// alert(55555);
+			 		$(".send-face").removeClass("hide");
+			 		$(".send-face-bg").show();
+			 		$(".send-face").show();
+			 		$.ajax({  
+			 			type:"get",
+			 			url:"/web/js/live-room/emoticon.json",
+			 			success:function(data){
+			 				var del="";
+			 				for (var i=0; i<data.length;i++) {
+			 					del+= '<li><img src='+data[i].imgUrl+'></li>'
+			 				}
+			 				$(".send-face").html(del);
+			 			}
+			 		});
+			 	});
+			 	// 點擊表情結束
+
+			 	// 點擊隱藏表情
+			 	$(".send-face-bg").click(function(){  
+			 		$(".send-face").hide();
+			 		$(this).hide();
+			 	});
+
+
+			 	/*作用--点击img让最大的div显示出来,不添加的话点击img会隐藏最大块（这个区域的点击图片都得设置）*/
+		 		$(".video-bottom img").click(function(){  /*礼物图片*/
+			 		$("#userCusEvent").show();
+			 	});
+			 	/*排行榜图片--模板中点击img隐藏掉最大div，此代码让最大div显示*/
+			 	$(".billboard-float img").click(function(){  /*排行榜图片*/
+			 		$("#userCusEvent").show();
+			 	});
+			 	
+			 	/*鼠标礼物img上的效果开始*/
+			 	var aBtn=$('.surprise-top .surprise-mouseover-ul li');
+		        for(i=0;i<aBtn.length;i++){
+		            $(aBtn[i]).mouseover(function(){
+		              	for(i=0;i<aBtn.length;i++){
+		                	$(aBtn[i]).removeClass('surprise-top-li-border');
+		                	$(aBtn[i]).addClass('li-initial-border');
+		                	$(this).removeClass('li-initial-border');
+		                	$(this).addClass('surprise-top-li-border');
+		                	
+		                	$(this).find('.surprise-hide').show();
+		              	}
+		            });
+		            $(aBtn[i]).mouseout(function(){
+		              	for(i=0;i<aBtn.length;i++){
+		                	$(aBtn[i]).removeClass('surprise-top-li-border');
+		                	$(this).addClass('li-initial-border');
+		                	$(this).find('.surprise-hide').hide();
+		              	}
+		            });
+		        };
+			 	/*鼠标礼物img上的效果结束*/
+			 	
+			 	/*鼠标放排行榜上查看效果开始*/
+			 	$(".mouseover").mouseover(function(){
+			 		$(".toptenreviews-list").show();
+			 	});
+			 	$(".toptenreviews-list").mouseover(function(){
+			 		$(this).show();
+			 	});
+			 	$(".toptenreviews").mouseout(function(){
+			 		$(".toptenreviews-list").hide();
+			 	});
+			 	/*鼠标放排行榜上查看效果结束*/
+
+
+
+
+			});
+		</script>
 <!--新写直播间--css--替换引入微吼css-->
 <!--<lick rel="stylesheet" type="text/css" href="/web/css/live_streamings.css"></lick>-->
 <link rel="stylesheet" type="text/css" href="/web/css/live_streamings.css"/>
 
 <style>
+	.hide{
+		display: none;
+	}
 	/*====隱藏修改視頻后====*/
 	.vjs-control-bar{
 		display: none;
@@ -138,6 +222,9 @@
 	    float: right;
 	    margin-right: 11px;
 	}
+	.send-box{
+		/*background: red;*/
+	}
 </style>
 <script>
 	window.onload = function(){
@@ -160,6 +247,9 @@
 				$("#viewer2").removeClass("doc-img");
 				$("#viewer2").addClass("company-introduce-one");
 				$("#viewer2 img").removeClass("viewer-img");
+
+				// 文檔按鈕隱藏
+				$(".iviewer_common").show();
 			}else{
 				$("#viewer2 img").addClass("viewer-img");
 				$("#viewer2").removeClass("company-introduce-one");
@@ -170,6 +260,8 @@
 				$(".doc").addClass("company-introduces-one");
 				$(".video").addClass("company-introduces-two");
 				$(".video").removeClass("company-introduce-two");
+				// 文檔按鈕隱藏
+				$(".iviewer_common").hide();
 			}
 		})
 	}
@@ -201,10 +293,38 @@
     	display: none;
     }
 
+    /*表情*/
+    .send-face{
+	    width: 308px;
+	    height: 360px;
+	    background: #fff;
+	    position: absolute;
+	    top: -370px;
+    }
+    .send-face-bg{
+    	width: 100%;
+	    height: 499px;
+	    /*background: red;*/
+	    position: absolute;
+	    top: -677px;
+	    left: 0;
+	    display: none;
+	    opacity: 0;
+    }
+    .send-face li{
+	    float: left;
+	    width: 30px;
+	    margin-top: 5px;
+	    margin-bottom: 5px;
+    }
+    .send-face li img{
+    	width: 30px;
+    }
+
 </style>
 </head>
 
-<body style="background: red!important">
+<body style="background0: red!important">
 	
 	<!--  充值的时候余额不足提示框11 -->
 	<div class='mask3' style='padding: 0 20px; bottom: 65px; right: 85px; display: none; position: fixed; text-align: center; color: white; line-height: 60px; height: 60px; background: #000; opacity: 0.5; z-index: 1000; filter: alpha(opacity = 30);'></div>
@@ -357,12 +477,14 @@
 							</ul>
 						</div>
 					</div>
-					<div class=send-box>
-						<a id="filter-msg" href=javascript:; class=lecturer style="left: 40px;"></a> 
+					<div class="send-box">
+						<div class="send-face-bg"></div>
+						<div class="send-face hide"></div>
+						<a id="filter-msg" href="javascript:;" class=lecturer style="left: 40px;"></a> 
 						<a id="face" href="javascript:;" class="face"></a> 
 						<div class="chitchat">
 							<!-- <a id= href="javascript:;" class="send-chat">发送</a> -->
-							<a id="sendChat" href="javascript:;" class="send-chat">发送</a>
+							<a id="" href="javascript:;" class="send-chat">发送</a>
 							<textarea id="mywords" onkeypress='return!(13==event.keyCode&&!event.shiftKey)||(document.getElementById("sendChat").click(),!1)' placeholder="来点神聊..."></textarea>
 						</div>
 					</div>
@@ -624,10 +746,10 @@
 
 <!-- <script src="/web/js/im/strophe.js" type="text/javascript" charset="utf-8"></script> -->
 <script src="/web/js/common/common.js" type="text/javascript" charset="utf-8"></script>
-
-
 <script src="/web/js/im/giftSend2.js?v=ipandatcm_1.3" type="text/javascript" charset="utf-8"></script>
+
 <!-- 微吼云 -->
+
 <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-chat-1.0.0.js?v=201801121522"></script>
 <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-doc-1.0.0.js?v=201806271657"></script>
 <script src="https://static.vhallyun.com/jssdk/dvideo-plugin.js?v=0.3"></script>
@@ -654,53 +776,6 @@
     	alert("呵呵");
     })
 </script>
-		<script type="text/javascript">
-			window.onload = function(){
-			 	/*作用--点击img让最大的div显示出来,不添加的话点击img会隐藏最大块（这个区域的点击图片都得设置）*/
-		 		$(".video-bottom img").click(function(){  /*礼物图片*/
-			 		$("#userCusEvent").show();
-			 	});
-			 	/*排行榜图片--模板中点击img隐藏掉最大div，此代码让最大div显示*/
-			 	$(".billboard-float img").click(function(){  /*排行榜图片*/
-			 		$("#userCusEvent").show();
-			 	});
-			 	
-			 	/*鼠标礼物img上的效果开始*/
-			 	var aBtn=$('.surprise-top .surprise-mouseover-ul li');
-		        for(i=0;i<aBtn.length;i++){
-		            $(aBtn[i]).mouseover(function(){
-		              	for(i=0;i<aBtn.length;i++){
-		                	$(aBtn[i]).removeClass('surprise-top-li-border');
-		                	$(aBtn[i]).addClass('li-initial-border');
-		                	$(this).removeClass('li-initial-border');
-		                	$(this).addClass('surprise-top-li-border');
-		                	
-		                	$(this).find('.surprise-hide').show();
-		              	}
-		            });
-		            $(aBtn[i]).mouseout(function(){
-		              	for(i=0;i<aBtn.length;i++){
-		                	$(aBtn[i]).removeClass('surprise-top-li-border');
-		                	$(this).addClass('li-initial-border');
-		                	$(this).find('.surprise-hide').hide();
-		              	}
-		            });
-		        };
-			 	/*鼠标礼物img上的效果结束*/
-			 	
-			 	/*鼠标放排行榜上查看效果开始*/
-			 	$(".mouseover").mouseover(function(){
-			 		$(".toptenreviews-list").show();
-			 	});
-			 	$(".toptenreviews-list").mouseover(function(){
-			 		$(this).show();
-			 	});
-			 	$(".toptenreviews").mouseout(function(){
-			 		$(".toptenreviews-list").hide();
-			 	});
-			 	/*鼠标放排行榜上查看效果结束*/
-			};
-		</script>
 </body>
 </html>
 

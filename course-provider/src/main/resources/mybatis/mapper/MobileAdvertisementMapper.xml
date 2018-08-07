@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xczhihui.course.mapper.MobileAdvertisementMapper">
+    <resultMap type="com.xczhihui.course.model.MobileAdvertisement" id="MobileAdvertisementResult">
+        <id column="id" property="id"/>
+        <id column="name" property="name"/>
+        <id column="url" property="url"/>
+        <id column="click_sum" property="clickSum"/>
+        <id column="create_person" property="createPerson"/>
+        <id column="create_time" property="createTime"/>
+        <id column="status" property="status"/>
+        <id column="img_path" property="imgPath"/>
+        <id column="route_type" property="routeType"/>
+        <id column="link_param" property="linkParam"/>
+    </resultMap>
+
+    <select id="selectMobileAdvertisement" resultMap="MobileAdvertisementResult">
+        SELECT
+        oma.*
+        FROM
+        oe_mobile_advertisement oma
+        WHERE oma.status = 1
+        ORDER BY rand() LIMIT 1
+
+    </select>
+    <update id="addClickNum">
+        UPDATE
+        oe_mobile_advertisement
+        SET click_sum = click_sum+1
+        WHERE id = #{id}
+    </update>
+
+
+
+</mapper>

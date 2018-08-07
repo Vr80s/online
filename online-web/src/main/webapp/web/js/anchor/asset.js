@@ -427,7 +427,7 @@ function sendVerificationCode() {
 					setTimeout(function() {
 						clearInterval(timer)
 						$(".getPassWord").html('获取验证码');
-						$(".getPassWord").attr('onclick', 'btn_cade()');
+						$(".getPassWord").attr('onclick', 'sendVerificationCode()');
 						$(".getPassWord").css({
 							"background": "#00bd12",
 							"color": "white"
@@ -499,10 +499,13 @@ function verifyEnchashment(data) {
 	}
 	//户名
 	if(!isNv(data.bankCardId)) {
-		$('.warning_bank_card_id').removeClass('hide');
+//		$('.warning_bank_card_id').removeClass('hide');
+		$('.userNameIpt_warn').removeClass('hide');
 		return false;
 	} else {
-		$('.warning_bank_card_id').addClass('hide');
+//		$('.warning_bank_card_id').addClass('hide');
+		$('.userNameIpt_warn').addClass('hide');
+		
 	}
 	//手机验证码
 	if(!isNv(data.code)) {
