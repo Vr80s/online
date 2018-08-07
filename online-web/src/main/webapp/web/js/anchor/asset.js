@@ -499,10 +499,13 @@ function verifyEnchashment(data) {
 	}
 	//户名
 	if(!isNv(data.bankCardId)) {
-		$('.warning_bank_card_id').removeClass('hide');
+//		$('.warning_bank_card_id').removeClass('hide');
+		$('.userNameIpt_warn').removeClass('hide');
 		return false;
 	} else {
-		$('.warning_bank_card_id').addClass('hide');
+//		$('.warning_bank_card_id').addClass('hide');
+		$('.userNameIpt_warn').addClass('hide');
+		
 	}
 	//手机验证码
 	if(!isNv(data.code)) {
