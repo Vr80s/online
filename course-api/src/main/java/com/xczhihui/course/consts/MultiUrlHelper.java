@@ -209,7 +209,7 @@ public class MultiUrlHelper {
         urlMap.put(RouteTypeEnum.COMMON_LEARNING_VIDEO_COLLECTION_COURSE_DETAIL_PAGE.name(), learningVideoCourseCollectionDetailUrlMap);
         urlMap.put(RouteTypeEnum.COMMON_LEARNING_VIDEO_COURSE_DETAIL_PAGE.name(), learningVideoCourseDetailUrlMap);
         urlMap.put(RouteTypeEnum.COMMON_LEARNING_LIVE_COURSE_DETAIL_PAGE.name(), learningLiveCourseDetailUrlMap);
-        urlMap.put(RouteTypeEnum.COMMON_LEARNING_AUDIO_LIVE_COURSE_DETAIL_PAGE.name(), learningAudioLiveCourseDetailUrlMap);
+        urlMap.put(RouteTypeEnum.COMMON_LEARNING_LIVE_AUDIO_COURSE_DETAIL_PAGE.name(), learningAudioLiveCourseDetailUrlMap);
         urlMap.put(RouteTypeEnum.COMMON_LEARNING_AUDIO_COURSE_DETAIL_PAGE.name(), learningAudioCourseDetailUrlMap);
         urlMap.put(RouteTypeEnum.COMMON_LEARNING_OFFLINE_COURSE_DETAIL_PAGE.name(), learningOfflineCourseDetailUrlMap);
         //====================================================================

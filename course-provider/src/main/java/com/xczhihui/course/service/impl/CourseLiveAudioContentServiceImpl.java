@@ -1,6 +1,6 @@
 package com.xczhihui.course.service.impl;
 
-import static com.xczhihui.common.util.enums.RouteTypeEnum.COMMON_LEARNING_AUDIO_LIVE_COURSE_DETAIL_PAGE;
+import static com.xczhihui.common.util.enums.RouteTypeEnum.COMMON_LEARNING_LIVE_AUDIO_COURSE_DETAIL_PAGE;
 import static com.xczhihui.common.util.redis.key.CourseRedisCacheKey.COURSE_LIVE_TOKEN_SECONDS;
 
 import java.text.MessageFormat;
@@ -48,8 +48,8 @@ import com.xczhihui.course.vo.*;
 @Service
 public class CourseLiveAudioContentServiceImpl implements ICourseLiveAudioContentService {
 
-    private static final String WEB_AUDIO_LIVE_COURSE_REMIND_FANCES = "【上课提醒】您好，您关注的主播{0},有新的直播课程" + TextStyleUtil.LEFT_TAG + "《{1}》" + TextStyleUtil.RIGHT_TAG + "开播了，快登录熊猫中医APP观看该直播吧！";
-    private static final String WEB_AUDIO_LIVE_COURSE_REMIND_BUYER = "【上课提醒】您好，您购买的直播课程" + TextStyleUtil.LEFT_TAG + "《{0}》" + TextStyleUtil.RIGHT_TAG + "开播了，快登录熊猫中医APP观看该直播吧！";
+    private static final String WEB_LIVE_AUDIO_COURSE_REMIND_FANCES = "【上课提醒】您好，您关注的主播{0},有新的直播课程" + TextStyleUtil.LEFT_TAG + "《{1}》" + TextStyleUtil.RIGHT_TAG + "开播了，快登录熊猫中医APP观看该直播吧！";
+    private static final String WEB_LIVE_AUDIO_COURSE_REMIND_BUYER = "【上课提醒】您好，您购买的直播课程" + TextStyleUtil.LEFT_TAG + "《{0}》" + TextStyleUtil.RIGHT_TAG + "开播了，快登录熊猫中医APP观看该直播吧！";
     private static final Logger loggger = LoggerFactory.getLogger(CourseLiveAudioContentServiceImpl.class);
 
     @Autowired
@@ -334,8 +334,8 @@ public class CourseLiveAudioContentServiceImpl implements ICourseLiveAudioConten
             throw new CourseException("不具有该课程权限");
         }
 
-        doPush(accountId,courseId,anchorName,courseName,fansList,WEB_AUDIO_LIVE_COURSE_REMIND_FANCES);
-        doPush(accountId,courseId,anchorName,courseName,buyerList,WEB_AUDIO_LIVE_COURSE_REMIND_BUYER);
+        doPush(accountId,courseId,anchorName,courseName,fansList,WEB_LIVE_AUDIO_COURSE_REMIND_FANCES);
+        doPush(accountId,courseId,anchorName,courseName,buyerList,WEB_LIVE_AUDIO_COURSE_REMIND_BUYER);
 
         count(courseId);
     }
@@ -368,7 +368,7 @@ public class CourseLiveAudioContentServiceImpl implements ICourseLiveAudioConten
                     .buildAppPush(commonContent)
                     .buildWeixin(weixinTemplateMessageRemindCode, weixinParams)
                     .detailId(String.valueOf(courseId))
-                    .build(userId, COMMON_LEARNING_AUDIO_LIVE_COURSE_DETAIL_PAGE, accountId)
+                    .build(userId, COMMON_LEARNING_LIVE_AUDIO_COURSE_DETAIL_PAGE, accountId)
             );
         }
     }
