@@ -128,10 +128,15 @@ public class MedicalDoctorPosts extends Model<MedicalDoctorPosts> {
     @TableField(exist = false)
     private String courseAddress;
     /**
-     * 课程类型 1：视频 2：音频 3：直播 4：线下培训班
+     * 课程类型 1.直播2.点播3.线下课
      */
     @TableField(exist = false)
     private Integer courseType;
+    /**
+     * 多媒体类型1视频2音频
+     */
+    @TableField(exist = false)
+    private Integer multimediaType;
     /**
      * 评论
      */
@@ -481,6 +486,14 @@ public class MedicalDoctorPosts extends Model<MedicalDoctorPosts> {
         this.writingsId = writingsId;
     }
 
+    public Integer getMultimediaType() {
+        return multimediaType;
+    }
+
+    public void setMultimediaType(Integer multimediaType) {
+        this.multimediaType = multimediaType;
+    }
+
     @Override
     public String toString() {
         return "MedicalDoctorPosts{" +
@@ -506,14 +519,20 @@ public class MedicalDoctorPosts extends Model<MedicalDoctorPosts> {
                 ", startTime=" + startTime +
                 ", courseAddress='" + courseAddress + '\'' +
                 ", courseType=" + courseType +
+                ", multimediaType=" + multimediaType +
                 ", doctorPostsCommentList=" + doctorPostsCommentList +
                 ", doctorPostsLikeList=" + doctorPostsLikeList +
                 ", isPraise=" + isPraise +
+                ", teaching=" + teaching +
                 ", articleContent='" + articleContent + '\'' +
                 ", typeId=" + typeId +
                 ", articleTitle='" + articleTitle + '\'' +
                 ", articleImgPath='" + articleImgPath + '\'' +
                 ", dateStr='" + dateStr + '\'' +
+                ", courseStatus=" + courseStatus +
+                ", imgStr=" + imgStr +
+                ", articleStatus=" + articleStatus +
+                ", writingsId='" + writingsId + '\'' +
                 '}';
     }
 }

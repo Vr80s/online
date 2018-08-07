@@ -227,6 +227,8 @@
                      id="pcBannerServiceImpl" timeout="${dubbo.provider.timeout}"/>
     <dubbo:reference interface="com.xczhihui.course.service.ICourseLiveAudioContentService"
                      id="courseLiveAudioContentServiceImpl" timeout="${dubbo.provider.timeout}"/>
+    <dubbo:reference interface="com.xczhihui.course.service.IMobileAdvertisementService"
+                     id="mobileAdvertisementServiceImpl" timeout="${dubbo.provider.timeout}"/>
 
 
 </beans>

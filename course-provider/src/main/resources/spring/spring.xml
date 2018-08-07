@@ -75,5 +75,8 @@
     <!--音频直播 -->
     <dubbo:service interface="com.xczhihui.course.service.ICourseLiveAudioContentService" ref="courseLiveAudioContentServiceImpl"
                    timeout="${dubbo.consumer.timeout}"/>
+    <!--广告页 -->
+    <dubbo:service interface="com.xczhihui.course.service.IMobileAdvertisementService" ref="mobileAdvertisementServiceImpl"
+                   timeout="${dubbo.consumer.timeout}"/>
 
 </beans>
