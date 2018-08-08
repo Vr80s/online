@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczh.consumer.market.service.MenuService;
 import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczhihui.common.util.enums.PagingFixedType;
 import com.xczhihui.common.util.enums.ProjectType;
 import com.xczhihui.course.model.MobileProject;
 import com.xczhihui.course.model.OfflineCity;
@@ -87,7 +88,7 @@ public class MobileClassifyController {
         //城市
         Page<OfflineCity> OfflineCityPage = new Page<>();
         OfflineCityPage.setCurrent(1);
-        OfflineCityPage.setSize(5);
+        OfflineCityPage.setSize(PagingFixedType.OFFLINE_CITY_COURSE_RECOMMEND.getValue());
         List<OfflineCity> oclist = offlineCityService.selectOfflineCityPage(OfflineCityPage).getRecords();
         if (oclist != null && oclist.size() > 0) {
             OfflineCity oc = new OfflineCity();
