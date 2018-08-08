@@ -166,8 +166,9 @@ $(".enter_btn").click(function(){
  * 返回登录页
  */
 $(".header_return").click(function(){
+	// alert(1111);
 	location.href = "/xcview/html/home_page.html";
-	//window.history.back();
+	// window.history.back();
 })
 
 
