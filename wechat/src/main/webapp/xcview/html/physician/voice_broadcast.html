@@ -174,6 +174,9 @@
 	<!-- 底部开始 -->
 	<div class="footer_bg"></div>
 	<div class="footer">
+		<div class="msgCont">
+		
+		</div>
 		<div class="chat">
 			<img src="/xcview/images/inp_retured.png" alt="" class="chat_img" />
 			<input type="text" placeholder="来点儿神聊或提问" class="chat_put" id="chat_put" />
@@ -271,7 +274,8 @@
 			if (commentArea == "block") {
 				$(".footer_bg").hide();
 			}else{
-				// alert(22);
+				sendMsgBtn();
+				alert(22);
 				// 全部评论隱藏--點擊發送
 				$(".barrage_switch").hide();  /*弹幕隐藏*/
 				$(".chat_all").hide();      /*查看更多评论隐藏*/
@@ -284,6 +288,75 @@
 			};
 
 		});
+
+		init();  /*默認方法--可用于判斷是否回放*/
+		// 彈幕開始
+		var data = ['你好世界','世界你好','啊啊啊哈哈哈哈'];  //定義最後3條
+		var SixHide = 0;
+
+		function init(){
+			setInterval(function(){
+				// console.log(data)
+				biubiubiu()		
+			},1500)
+			setInterval(function(){
+				if(data == 0 ){
+					SixHide++
+					if(SixHide == 0.5){   //SixHide == 0.5(時間，錯誤操作，時間小於0.5一直顯示)
+						$(".msgCont").html('')
+					}
+				}
+			},1000)
+		}
+
+		// 點擊發送
+		function sendMsgBtn(){
+			if($("#chat_put").val()==''){
+				alert('请输入内容')
+			}else{		
+				if(data == 0){
+					SixHide = 0
+				}
+				var tempText = $("#chat_put").val()
+				data.push(tempText) //入栈
+				// console.log(data)
+				$("#chat_put").val('')
+				biubiubiu()//点击发送立即发送当前
+				isSixNoMsg = true
+			}
+		}
+
+		// 顯示發送內容
+		function showList(text){
+			var _html = `<div class="msgItem">
+					<div class="text">${text}</div>
+					<div class="avatar">			
+						<img src="/xcview/images/touxiang.png" />
+					</div>
+				</div>`
+			$(".msgCont").append(_html)
+		}
+
+		// 發送內容后移除前面的內容
+		function biubiubiu(){
+			if(data == ''){   			
+				return
+			}
+			if($(".msgCont .msgItem").length > 2){
+				$(".msgCont .msgItem").eq(0).remove()
+				var _tempText =  data.pop()  //出栈 最新的 后加入进来的弹幕
+				showList(_tempText)
+			}else{
+				var _tempText =  data.pop()
+				showList(_tempText)	
+			}		
+		}
+
+		// 彈幕結束
+
+
+
+
 
 		// 點擊全部評論的關閉按鈕
 		$(".comment_area_close").click(function(){
@@ -387,5 +460,9 @@
 	});
 </script>
 <!-- 倒计时结束 -->
+
+<!-- 彈幕開始 -->
+
+<!-- 彈幕結束 -->
 
 </html>
