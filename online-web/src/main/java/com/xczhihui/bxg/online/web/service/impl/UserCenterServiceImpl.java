@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -21,6 +22,7 @@ import com.xczhihui.bxg.online.web.service.OnlineUserCenterService;
 import com.xczhihui.bxg.online.web.vo.*;
 import com.xczhihui.common.support.domain.BxgUser;
 import com.xczhihui.common.util.DateUtil;
+import com.xczhihui.common.util.vhallyun.MessageService;
 import com.xczhihui.user.center.service.UserCenterService;
 import com.xczhihui.user.center.vo.OeUserVO;
 
@@ -184,5 +186,16 @@ public class UserCenterServiceImpl extends OnlineBaseServiceImpl implements Onli
             mapProven.put("cityList", listCityC);
         }
         return listProven;
+    }
+
+    @Async
+    @Override
+    public void updateVhallYunInfo() {
+        List<OnlineUser> list = userCenter.selectAll();
+        for (OnlineUser oeUser : list) {
+            String name = oeUser.getName();
+            String headImg = oeUser.getSmallHeadPhoto();
+            MessageService.saveUserInfo(oeUser.getId(), name == null ? "" : name, headImg == null ? "" : headImg);
+        }
     }
 }

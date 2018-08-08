@@ -52,6 +52,7 @@ public class MessageService {
         params.put("nick_name", nickname);
         params.put("avatar", headImg);
         try {
+            params = VhallUtil.createRealParam(params);
             VhallUtil.sendPost("http://api.yun.vhall.com/api/v1/channel/save-user-info", params);
         } catch (Exception e) {
             e.printStackTrace();
