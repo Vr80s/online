@@ -104,13 +104,13 @@
                             </#if>
                         <#elseif courseItem.courseForm == 1 && courseItem.multimediaType == 1>
                             <#if courseItem.lineState  == 1  >
-                                <span class="classCategory">直播中</span>
+                                <span class="classCategory">视频直播中</span>
                             <#elseif courseItem.lineState  == 2>
-                                <span class="classCategory">直播预告</span>
+                                <span class="classCategory">视频直播预告</span>
                             <#elseif courseItem.lineState  == 3>
-                                <span class="classCategory">直播回放</span>
+                                <span class="classCategory">视频直播回放</span>
                             <#elseif courseItem.lineState  == 4>
-                                <span class="classCategory">即将直播</span>
+                                <span class="classCategory">即将视频直播</span>
                             </#if>
                         <#elseif courseItem.courseForm == 1 && courseItem.multimediaType == 2>
                             <#if courseItem.lineState  == 1  >
@@ -120,7 +120,7 @@
                             <#elseif courseItem.lineState  == 3>
                                 <span class="classCategory">语音直播回放</span>
                             <#elseif courseItem.lineState  == 4>
-                                <span class="classCategory">即将直播</span>
+                                <span class="classCategory">即将语音直播</span>
                             </#if>
                         <#elseif courseItem.courseForm == 3>
                             <span class="classCategory">线下课程</span>

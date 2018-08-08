@@ -62,21 +62,33 @@
                             <img style="position:absolute;width: 16%;top:-2px;left:-2px;z-index:999"
                                  src="/web/images/recommend2.png">
                         </#if>
-                        <#if courseItem.type == 1 ||  courseItem.type == 2 ||  courseItem.type == 4 >
-                        <a style="cursor:pointer" href="${webUrl}/courses/${courseItem.id}/info" target="_blank">
-                        <#elseif courseItem.type == 3>
+                        <#if courseItem.courseForm == 1 && courseItem.multimediaType == 1>
                         <a style="cursor:pointer" href="${webUrl}/web/liveCoursePage/${courseItem.id}" target="_blank">
+                        <#else>
+                        <a style="cursor:pointer" href="${webUrl}/courses/${courseItem.id}/info" target="_blank">
                         </#if>
                         <div class="img"><img src="${courseItem.smallImgPath}?imageMogr2/thumbnail/!260x147r|imageMogr2/gravity/Center/crop/260x147"></div>
-                        <#if courseItem.type == 3>
+                        <#if courseItem.courseForm == 1 && courseItem.multimediaType == 1>
                             <#if courseItem.lineState  == 1  >
-                                <span class="classCategory">直播中</span>
+                                <span class="classCategory">视频直播中</span>
                             <#elseif courseItem.lineState  == 2>
-                                <span class="classCategory">直播预告</span>
+                                <span class="classCategory">视频直播预告</span>
                             <#elseif courseItem.lineState  == 3>
-                                <span class="classCategory">直播回放</span>
+                                <span class="classCategory">视频直播回放</span>
                             <#elseif courseItem.lineState  == 4>
-                                <span class="classCategory">即将直播</span>
+                                <span class="classCategory">即将视频直播</span>
+                            <#else>
+                                <span class="classCategory">暂未开播</span>
+                            </#if>
+                        <#elseif courseItem.courseForm == 1 && courseItem.multimediaType == 2>
+                            <#if courseItem.lineState  == 1  >
+                                <span class="classCategory">音频直播中</span>
+                            <#elseif courseItem.lineState  == 2>
+                                <span class="classCategory">音频直播预告</span>
+                            <#elseif courseItem.lineState  == 3>
+                                <span class="classCategory">音频直播回放</span>
+                            <#elseif courseItem.lineState  == 4>
+                                <span class="classCategory">即将音频直播</span>
                             <#else>
                                 <span class="classCategory">暂未开播</span>
                             </#if>
@@ -84,7 +96,7 @@
                         <div class="detail">
                             <p class="title" title="${courseItem.gradeName}">${courseItem.gradeName}</p>
                             <p class="timeAndTeac"><span class="teacher z">${courseItem.name}</span>
-                                <#if courseItem.type == 4>
+                                <#if courseItem.courseForm == 3>
                                     <span class="y">${courseItem.city}</span>
                                 <#elseif courseItem.lineState?? && courseItem.lineState !=1>
                                     <#if courseItem.startDateStr?index_of(".")!=-1 >

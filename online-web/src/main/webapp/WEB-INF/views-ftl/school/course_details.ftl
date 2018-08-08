@@ -62,13 +62,13 @@
                   </#if>
               <#elseif courseInfo.courseForm == 1  && courseInfo.multimediaType == 1>
                   <#if courseInfo.lineState  == 1  >
-                      <p class="class-style">直播中</p>
+                      <p class="class-style">视频直播中</p>
                   <#elseif courseInfo.lineState  == 2>
-                      <p class="class-style">直播预告</p>
+                      <p class="class-style">视频直播预告</p>
                   <#elseif courseInfo.lineState  == 3>
-                      <p class="class-style">直播回放</p>
+                      <p class="class-style">视频直播回放</p>
                   <#elseif courseInfo.lineState  == 4>
-                      <p class="class-style">即将直播</p>
+                      <p class="class-style">即将视频直播</p>
                   <#else>
                       <p class="class-style">暂未开播</p>
                   </#if>
@@ -381,7 +381,7 @@
     var courseType = "${courseInfo.type}";
     var courseForm = "${courseInfo.courseForm}";
     var multimediaType = "${courseInfo.multimediaType}";
-    var collection = ${courseInfo.collection?string(1,0)};
+    var collection = ${courseInfo.collection?string("1","0")};
     <#if criticizesMap??>
     var commentCode = ${criticizesMap.commentCode};
     </#if>

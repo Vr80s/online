@@ -12,19 +12,29 @@
 
 			<div class="detail">
 				<#if courseItem.courseForm == 2 && courseItem.multimediaType == 1 >
-			      <span class="classCategory">视频</span>
+					<#if courseItem.collection>
+                        <span class="classCategory">视频专辑</span>
+					<#elseif !courseItem.collection>
+                        <span class="classCategory">视频</span>
+					</#if>
 			   <#elseif courseItem.courseForm == 2 && courseItem.multimediaType == 2>
-			      <span class="classCategory">音频</span>
+				   <#if courseItem.collection>
+                       <span class="classCategory">音频专辑</span>
+				   <#elseif !courseItem.collection>
+                       <span class="classCategory">音频</span>
+				   </#if>
 			   <#elseif courseItem.courseForm == 1 && courseItem.multimediaType == 1>
 		          <#if courseItem.lineState  == 1  >
-			        <span class="classCategory">直播中</span>
+			        <span class="classCategory">视频直播中</span>
 				  <#elseif courseItem.lineState  == 2>
-				    <span class="classCategory">直播预告</span>
+				    <span class="classCategory">视频直播预告</span>
 				  <#elseif courseItem.lineState  == 3>
-				      <span class="classCategory">直播回放</span>
+				      <span class="classCategory">视频直播回放</span>
 				  <#elseif courseItem.lineState  == 4>
-		             <span class="classCategory">即将直播</span>
-		          </#if>
+		             <span class="classCategory">即将语音直播</span>
+				  <#else>
+                      <p class="class-style">暂未开播</p>
+				  </#if>
 			   <#elseif courseItem.courseForm == 1 && courseItem.multimediaType == 2>
 		          <#if courseItem.lineState  == 1  >
 			        <span class="classCategory">语音直播中</span>
@@ -33,8 +43,10 @@
 				  <#elseif courseItem.lineState  == 3>
 				      <span class="classCategory">语音直播回放</span>
 				  <#elseif courseItem.lineState  == 4>
-		             <span class="classCategory">即将直播</span>
-		          </#if>
+		             <span class="classCategory">即将语音直播</span>
+				  <#else>
+                      <p class="class-style">暂未开播</p>
+				  </#if>
 			   <#elseif courseItem.courseForm == 3>
 			      <span class="classCategory">线下课程</span>
 			   </#if>
