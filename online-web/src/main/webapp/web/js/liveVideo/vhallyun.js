@@ -13,12 +13,12 @@ $.ajax({
 	}
 });
 
-RequestService("/vhallyun/vhallYunToken","get",{channelId:vhallObj.channel_id,roomId:vhallObj.roomId},
+RequestService("/vhallyun/vhallYunToken","get",{channelId:vhallObj.channelId,roomId:vhallObj.roomId},
     function(data) {
     if (data.success) {
         vhallObj.token=data.resultObject;
     }   
-}); 
+},false); 
 
 
 
@@ -202,7 +202,7 @@ function elsBind(){
         var text = $("#mywords").val();
         if(text!=null){
           var content = {
-            type:1,                 //消息类型     1 聊天消息
+            type:10,                 //消息类型     1 聊天消息
             message:{
                 content:text,   //发送的内容
                 headImg:smallHeadPhoto,       //发送的头像
@@ -213,14 +213,14 @@ function elsBind(){
          /**
           * 发送消息
           */ 
-         RequestService("/vhallyun/vhallYunSendMessage","get",{channel_id:vhallObj.channel_id,body:JSON.stringify(content)},
+         RequestService("/vhallyun/vhallYunSendMessage","get",{channel_id:vhallObj.channelId,body:JSON.stringify(content)},
                 function(data) {
                 if (data.success) {
-                    var str = liaotian(content.message,false);
-                    if(str!=""){
-                     $("#chatmsg").append(str);  
-                    }
-                    $("#mywords").val('');
+//                    var str = liaotian(content.message,false);
+//                    if(str!=""){
+//                     $("#chatmsg").append(str);  
+//                    }
+//                    $("#mywords").val('');
                 }   
           }); 
         }
@@ -372,14 +372,17 @@ function replaceEmoji(contents) {
 	}
 	str = contents;
 	for (i = 0; i < content.length; i++) {
+		var src = "";
 		for (j = 0; j < emoji.length; j++) {
-			if ("[" + emoji[j].text + "]" == content[i]) {
+			if (emoji[j].text == content[i]) {
 				src = emoji[j].imgUrl;
 				break;
 			}
 		}
-		var imgBag = "<img src="+src+" />";
-		str = str.replace(pattern2, imgBag);
+		if(src!=""){
+			var imgBag = "<img src="+src+" style='width:20px;' />";
+		    str = str.replace(pattern2, imgBag);
+		}
 	}
 	return str;
 }
