@@ -26,6 +26,7 @@ import com.xczhihui.common.solr.utils.SolrUtils;
 import com.xczhihui.common.util.enums.CourseForm;
 import com.xczhihui.course.mapper.CourseMapper;
 import com.xczhihui.course.service.ICourseSolrService;
+import com.xczhihui.course.service.IOfflineCityService;
 import com.xczhihui.course.util.HtmlUtil;
 import com.xczhihui.course.vo.CourseSolrVO;
 import com.xczhihui.course.vo.QueryConditionVo;
@@ -44,6 +45,9 @@ public class CourseSolrServiceImpl implements ICourseSolrService {
     private final Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired
     private CourseMapper iCourseMapper;
+    
+    @Autowired
+    private IOfflineCityService iOfflineCityService;
 
     private SolrUtils solrUtils;
 
@@ -113,7 +117,7 @@ public class CourseSolrServiceImpl implements ICourseSolrService {
         return sf.format(startTime);
     }
 
-    private static String getSearchStr(QueryConditionVo queryConditionVo) {
+    private  String getSearchStr(QueryConditionVo queryConditionVo) {
         StringBuilder searchKeyWordStr = new StringBuilder();
         StringBuilder query = new StringBuilder();
         String queryKey = queryConditionVo.getQueryKey();
@@ -174,14 +178,32 @@ public class CourseSolrServiceImpl implements ICourseSolrService {
         }
 
         String searchCity;
-        if (StringUtils.isNotBlank(queryConditionVo.getCity()) && !"全国课程".equals(queryConditionVo.getCity())) {
+/*        if (StringUtils.isNotBlank(queryConditionVo.getCity()) && !"全国课程".equals(queryConditionVo.getCity())) {
             searchCity = "city:" + queryConditionVo.getCity();
             if (query.length() > 0) {
                 query.append(SolrConstant.AND);
             }
             query.append(searchCity);
+        }*/
+     
+        if (StringUtils.isNotBlank(queryConditionVo.getCity()) && !"全国课程".equals(queryConditionVo.getCity())) {
+        	if("其他".equals(queryConditionVo.getCity())) {
+        		 String citys = iOfflineCityService.getClassIfyOffLine();
+        		 if(StringUtils.isNotBlank(citys)) {
+        			 searchCity = " NOT city:("+citys+")";
+                     if (query.length() > 0) {
+                         query.append(SolrConstant.AND);
+                     }
+                     query.append(searchCity);
+        		 }
+        	}else {
+                searchCity = "city:" + queryConditionVo.getCity();
+                if (query.length() > 0) {
+                    query.append(SolrConstant.AND);
+                }
+                query.append(searchCity);
+        	}
         }
-
         return query.toString();
     }
 
@@ -257,7 +279,8 @@ public class CourseSolrServiceImpl implements ICourseSolrService {
 
     @Override
     public Page<CourseSolrVO> selectCourseListBySolr(Page page, QueryConditionVo queryConditionVo) throws IOException, SolrServerException {
-        String searchStr = getSearchStr(queryConditionVo);
+        
+    	String searchStr = getSearchStr(queryConditionVo);
         searchStr = searchStr.equals("") ? "*:*" : searchStr;
         Map<String, SolrQuery.ORDER> sortedMap = new LinkedHashMap<>();
         if (queryConditionVo.getSortOrder() == null) {

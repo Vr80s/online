@@ -17,6 +17,8 @@ public class QueryConditionVo implements Serializable {
 
     private Integer courseType;
 
+    private Integer teaching;
+
     private String menuType;
 
     private String queryKey;

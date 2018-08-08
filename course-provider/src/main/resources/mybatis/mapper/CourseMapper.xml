@@ -52,6 +52,8 @@
         oc.start_time as startTime,
         oc.end_time as endTime,
         oc.user_lecturer_id as userLecturerId,
+        oc.type courseForm,
+        oc.multimedia_type multimediaType,
         if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
         if(oc.is_free =0,0,1) as watchState,
         if(date_add(now(),INTERVAL 1 DAY)>= oc.start_time,1,0) as cutoff,
@@ -236,6 +238,7 @@
         as lineState,
 
         oc.current_price*10 as currentPrice,
+        oc.original_cost*10 as originalCost,
         oc.live_source_type as liveSourceType,
         oc.lecturer as name,
         oc.city as city,
