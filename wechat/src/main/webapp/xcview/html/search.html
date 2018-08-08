@@ -150,6 +150,16 @@
 		//点击关键字查询
 		function queryKeyToList(obj){
 //			event.stopPropagation(); 
+			
+			/*if ($("#header_input").val() != "") {
+				var queryKey = $(obj).find(".div0").text();
+			}else{
+				
+				var keyword = $(".keyword").html();
+				search_val = keyword;
+				var queryKey = $(obj).find(".div0").text(keyword);
+			};*/
+
 			var queryKey = $(obj).find(".div0").text();
 			
 			removeByValue(arr, queryKey);
@@ -279,6 +289,17 @@
 			if(localStorage.getItem(hisArr)!=undefined){
                 localStorage.getItem(hisArr).split(',').forEach(function(v,i){
                     if(v.split($("#header_input").val()).length>1||$("#header_input").val()==''){
+
+                    	/*var keyWord = $(".keyword").html();
+                    	var KeyValue = $('#header_input').val();
+                    	KeyValue = keyWord;*/
+
+                    	/*var keyword = $(".keyword").html();
+						search_val = keyword;
+						$(".header_seek_main").css("display", "none");
+						$(".search_history_list_one .div0").html(keyword);
+						$(".search_history_list_one .div0").html();*/
+
                     	$(".search_history_title").show();
                         historyInf += '<div class="search_history_list_one" onclick="queryKeyToList(this)"><div class="div0">'+v+'</div><div class="div1"  onclick="del('+i+')" data-id='+i+'>×</div><div class="both"></div></div>';
                     }else{
