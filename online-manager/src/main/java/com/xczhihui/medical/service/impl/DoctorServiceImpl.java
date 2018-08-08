@@ -40,8 +40,7 @@ public class DoctorServiceImpl extends OnlineBaseServiceImpl implements
     
     @Autowired
     private IMedicalDoctorSolrService medicalDoctorSolrService;
-    
-    private SolrUtils solrUtils;
+
 
     @Override
     public Page<MedicalDoctor> findMedicalDoctorPage(
@@ -100,7 +99,6 @@ public class DoctorServiceImpl extends OnlineBaseServiceImpl implements
             MedicalDoctor.setStatus(true);
         }
         dao.update(MedicalDoctor);
-        
         return status;
     }
 

@@ -434,6 +434,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 
         Integer type = VhallCustomMessageType.PLAYBACK_GENERATION_SECCESS.getCode();
         String message = "回放生成成功";
+        
         //发送im消息
         if (status.equals(PlayBackType.GENERATION_SUCCESS.getCode())) {
             type = VhallCustomMessageType.PLAYBACK_GENERATION_SECCESS.getCode();

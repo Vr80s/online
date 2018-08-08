@@ -14,11 +14,11 @@ $.ajax({
 /**
  * 请求token
  */
-requestService("/xczh/vhall/vhallYunToken", {roomId:vhallObj.roomId,channelId:vhallObj.channelId}, function(data) {
+requestGetService("/xczh/vhall/vhallYunToken", {roomId:vhallObj.roomId,channelId:vhallObj.channelId}, function(data) {
 	if (data.success) {
 		vhallObj.token=data.resultObject;
 	}
-});
+},false);
 
 
 
@@ -59,14 +59,14 @@ function elsBind() {
 		var recordId = (lineState == 1 ? "" : vhallObj.recordId);
 
 		VhallLive.init({
-					roomId : vhallObj.roomId,
-					type : "live",
-					recordId : vhallObj.recordId, // 回放Id，点播必填，直播不写
-					videoNode : 'myVideo',
-					complete : function() {
-						VhallLive.play();
-					}
-				});
+				roomId : vhallObj.roomId,
+				type : "live",
+				recordId : vhallObj.recordId, // 回放Id，点播必填，直播不写
+				videoNode : 'myVideo',
+				complete : function() {
+					VhallLive.play();
+				}
+			});
 	}
 
 	window.Vhall.ready(readyCallback);
@@ -149,9 +149,7 @@ function elsBind() {
 											// 刷新页面 --》在观看
 											location.reload();
 
-										} else if (msg.type == 13) { // 结束直播
-																		// --》
-																		// 生成点播
+										} else if (msg.type == 13) { // 结束直播  --》  生成点播
 
 											console.log("直播结束了，去学习中心 >>>>");
 											$("#video").html("");
@@ -335,7 +333,7 @@ function chatLoad(content, isParse) {
 			htmlStr = "<div class='coze_cen_ri'> "
 					+ "  <div class='coze_cen_bg_ri'> "
 					+ "<span class='span_name'>" + userName + "：</span>"
-					"   " + contentEmoji + "  " + " </div> "
+					 + contentEmoji + "  " + " </div> "
 					+ " <div class='both'></div></div>";
 
 		} else if (content.type == 11) { // 礼物消息

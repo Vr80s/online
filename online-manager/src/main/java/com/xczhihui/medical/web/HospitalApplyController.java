@@ -98,7 +98,7 @@ public class HospitalApplyController extends AbstractController {
     public ResponseObject updateStatus(MedicalHospitalApply hospitalApply) throws IOException, SolrServerException {
 
         String hospitalId = hospitalApplyService.updateStatus(hospitalApply);
-//        medicalHospitalSolrService.initHospitalsSolrDataById(hospitalId);
+        medicalHospitalSolrService.initHospitalsSolrDataById(hospitalId);
         ResponseObject responseObj = new ResponseObject();
         responseObj.setSuccess(true);
         responseObj.setErrorMessage("修改成功");

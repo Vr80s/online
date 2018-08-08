@@ -471,6 +471,9 @@ function echoCourse(caiId,passEdit){
     var course = getCourse4Update(caiId);
     //若该申请已通过，且点进方法的页面显示未通过，给出提示  //暂时关闭该校验
     if(course.status==1 && !passEdit)return false;
+    if(course.courseForm == 1 && course.multimediaType == 2){
+    	course.courseForm = 4;
+    }
     $('#caiId').val(caiId);
     $('.course_title').val(course.title);
     $('.course_subtitle').val(course.subtitle);
@@ -491,16 +494,14 @@ function echoCourse(caiId,passEdit){
 
     $('.course_length').val(course.courseLength);
     showCourseAttribute(course.courseForm);
-    if(course.courseForm==1){
+    
+    if(course.courseForm==1||course.courseForm==4){
         $('.course_start_time').val(course.startTime);
-        $("input:radio[name=course_multimedia_type][value="+course.multimediaType+"]").prop("checked",true);
     }else if(course.courseForm==2){
-        // course.multimediaType = $("input[name='course_multimedia_type']:checked").val();
         initResource(course.multimediaType);
         $("input:radio[name=course_multimedia_type][value="+course.multimediaType+"]").prop("checked",true);
-        // $('.course_resource').val(course.resourceId);
         $('.course_resource').selectpicker('val',(course.resourceId));
-    }else{
+    }else if(course.courseForm == 3){
         $('.course_start_time').val(course.startTime);
         $('.course_end_time').val(course.endTime);
         //TODO 省市回显
@@ -583,11 +584,11 @@ function getCourseData(){
 
     if(course.courseForm==1){
         course.startTime = $.trim($('.course_start_time').val());
-        course.multimediaType = $("input[name='course_multimedia_type']:checked").val();
+        course.multimediaType = 1
     }else if(course.courseForm==2){
         course.resourceId = $('.course_resource').val();
         course.multimediaType = $("input[name='course_multimedia_type']:checked").val();
-    }else{
+    }else if(course.courseForm == 3){
         course.startTime = $.trim($('.course_start_time').val());
         course.endTime = $.trim($('.course_end_time').val());
         course.province = $(".course_province").find("option:selected").text();
@@ -598,6 +599,10 @@ function getCourseData(){
         }else{
             course.address = course.province+"-"+course.city+" "+course.address;
         }
+    }else if(course.courseForm == 4){
+    	course.startTime = $.trim($('.course_start_time').val());
+    	course.courseForm = 1;
+    	course.multimediaType = 2;
     }
 
     return course;

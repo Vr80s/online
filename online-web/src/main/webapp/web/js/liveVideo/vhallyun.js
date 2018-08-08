@@ -13,37 +13,43 @@ $.ajax({
 	}
 });
 
-var loginUserId = "";
-var loginStatus = true;
-var smallHeadPhoto = "";
-var nickname = "";
-
-//判断有没有登录
-RequestService("/online/user/isAlive", "GET", null, function (data) {
+RequestService("/vhallyun/vhallYunToken","get",{channelId:vhallObj.channel_id,roomId:vhallObj.roomId},
+    function(data) {
     if (data.success) {
-        loginUserId = data.resultObject.id;
-        smallHeadPhoto = data.resultObject.smallHeadPhoto;
-        nickname = data.resultObject.name;
-    }
-}, false)
+        vhallObj.token=data.resultObject;
+    }   
+}); 
 
 
 
+var onOff = true, isFilter = true;
 
-
-function chZJ(videoId){
-   return;
-}
-
-
-var vhallObj = {
-    roomId:"lss_508dc5c6",
-    appId:"27376e92",
-    accountId:"test_jssdk",
-    token:"access:27376e92:5153a1b38f360ccc",
-    channelId:'ch_d260ab70',
-    recordId:''
-}
+$("#filter-msg").on("click", function() {//只看主办方消息   
+	    if (isFilter) {   //
+	        $(this).addClass("filter-yes").attr("title", "查看全部消息");
+	        for (var i = 0; i < $(".chatmsg li").length; i++) {
+	            var isRole = $(".chatmsg li").eq(i).data("role");
+	            if (isRole == "no") {
+	                $(".chatmsg li").eq(i).addClass("hide");
+	            }
+	        }
+	        $(".chartlist").mCustomScrollbar("update").mCustomScrollbar("scrollTo", "99999");
+	        
+	        //变成红色
+	        $("#filter-msg").removeClass("lecturer");
+	        $("#filter-msg").addClass("lecturer_filter1");
+	        isFilter = false;
+	    } else {
+	    	
+	        $(this).removeClass("filter-yes").attr("title", "只看主办方消息");
+	        $(".chatmsg li").removeClass("hide");
+	        $(".chartlist").mCustomScrollbar("update").mCustomScrollbar("scrollTo", "99999");
+	        
+	        $("#filter-msg").removeClass("lecturer_filter1");
+	        $("#filter-msg").addClass("lecturer");
+	        isFilter = true;
+	    }
+})
 
 
 if(liveStatus == 1 || liveStatus == 3){
@@ -140,22 +146,25 @@ function elsBind(){
          */
         window.chat.onCustomMsg(function(msg){
              msg = JSON.parse(msg);
+             
              try{
-                //在聊天 区域显示
-                item = JSON.parse(item);
-                if(item.type ==10 ){//聊天
-                    e+=liaotian(item);
-                }else if(item.type == 11){ //礼物
-                    e+=liveGiftList(item);
-                }else if(item.type == 12){ // 开始直播啦
+             	var e="";
+                if(msg.type ==10 ){//聊天
+                    e+=liaotian(msg);
+                }else if(msg.type == 11){ //礼物
+                    e+=liveGiftList(msg);
+                     //在礼物区域显示
+                	createGiftList(msg.message);
+                }else if(msg.type == 12){ // 开始直播啦
                 
-                }if(item.type == 13){ //直播结束了  
+                }if(msg.type == 13){ //直播结束了  
                 
                 }
                 
-                
-                //在礼物区域显示
-                createGiftList(msg);
+                if (e != "") {
+					$("#chatmsg").append(e);
+				}
+               
              }catch(error){
                console.error(error);
              }
@@ -204,7 +213,7 @@ function elsBind(){
          /**
           * 发送消息
           */ 
-         RequestService("/vhallyun/sendMessage","get",{channel_id:vhallObj.channel_id,body:JSON.stringify(content)},
+         RequestService("/vhallyun/vhallYunSendMessage","get",{channel_id:vhallObj.channel_id,body:JSON.stringify(content)},
                 function(data) {
                 if (data.success) {
                     var str = liaotian(content.message,false);
@@ -247,7 +256,7 @@ function msgList(pos,limit){
              for (var i = res.data.length - 1; i >= 0; i--) {
                 var item = res.data[i].data;
                 try{
-                    item = JSON.parse(item);
+                    item = JSON.parse(JSON.parse(item));
                 	if(item.type ==10 ){//聊天
                         e+=liaotian(item);
                     }else if(item.type == 11){ //礼物
@@ -269,6 +278,7 @@ msgList(0,10);
 
   //聊天消息
 function liaotian(obj){
+	obj = obj.message;
 	
     var role_str = "";
     var role= obj.role;
@@ -294,7 +304,7 @@ function liaotian(obj){
     }
     
     //替换表情为url
-    var contentEmoji = replaceEmoji(obj.content);
+    var contentEmoji = (obj.content!=null && obj.content!="") ? replaceEmoji(obj.content) :obj.content;
     
     var aaa = "<li uid=' user_id' data-role="+str_hide+" class="+className+">"+
     /*聊天区域*/
@@ -306,7 +316,7 @@ function liaotian(obj){
 }
     
 //进入直播间
-function viewJoinleaveRoomInfo(msg,falg){
+function viewJoinleaveRoomInfo(msg,joinOrLeave){
 
 	var userName = msg.nick_name;
 	var content = "进入直播间";
@@ -326,13 +336,15 @@ function viewJoinleaveRoomInfo(msg,falg){
             "<p> " + role_str+"：<span style='color:#fff;'>"+content+"</span></p >"+
         "</div>"+
       "</li>";
-    return aaa;
+   
+    $("#chatmsg").append(aaa);
+    
 }
     
     
 //送礼
 function liveGiftList(obj){
-	
+	var message = obj.message;
     var  role_str="<a class='name' href='javascript:;' title=' user_name'>"+message.senderInfo.userName+" </a>";
     var className = "";
     if(!isFilter){
@@ -341,7 +353,7 @@ function liveGiftList(obj){
     var aaa = "<li uid=' user_id' data-role='no'  class="+className+" >"+
     /*聊天区域*/
         "<div class='msg'>"+
-            "<p> " + role_str+"：<span style='color:#fff;'>"+message.giftInfo.name+"</span></p >"+
+            "<p> " + role_str+"：赠送给主播1个<span style='color:#fff;'>"+message.giftInfo.name+"</span></p >"+
         "</div>"+
       "</li>";
     return aaa;

@@ -858,7 +858,10 @@ function showCourseAttribute(type) {
 		$(".live").show();
 	} else if(type == 2) {
 		$(".vod").show();
-	} else {
+	}else if(type == 4) {
+		$(".show-video").show();
+	}  
+	else {
 		$(".offline").show();
 	}
 }
@@ -1264,5 +1267,11 @@ $("#selectClass").on("change",function(){
 	traineeList(1,$("#selectClass").val());
 })
 
-
-
+$("#video-cover").click(function(){
+	$(this).addClass("hide");
+	$(".video-live").addClass("hide");
+})
+function jumpApp(){
+	$("#video-cover").removeClass("hide");
+	$(".video-live").removeClass("hide");
+}

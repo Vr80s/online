@@ -2932,3 +2932,34 @@ left: 0px;
 	width: 500px;
 	height: 360px;
 }
+/*语音直播弹窗*/
+.video-live{
+	width: 300px;
+	height: 300px;
+	background: white;
+	position: fixed;
+	z-index: 999;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	-webkit-transform: translate(-50%,-50%);
+}
+.video-top{
+	width: 100%;
+	height: 86px;
+	background: #E2B95A;
+	text-align: center;
+	line-height: 86px;
+	color: white;
+	font-size: 20px;
+	margin-bottom: 20px;
+}
+.video-live img{
+	display: block;
+	margin: 0 auto;
+}
+.video-live .video-tip{
+	text-align: center;
+	font-size: 12px;
+	margin: 15px 0 0;
+}

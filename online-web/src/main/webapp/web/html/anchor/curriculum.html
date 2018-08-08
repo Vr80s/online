@@ -123,7 +123,11 @@
 		</td>
 		<td>
 			{{if course.courseForm==1}}
-			<span>直播</span>
+				{{if course.multimediaType==1}}
+				<span>直播</span>
+				{{else if course.multimediaType==2}}
+				<span>语音直播</span>
+				{{/if}}
 			{{else if course.courseForm==2}}
 			<span>点播</span>
 			{{else if course.courseForm==3}}
@@ -209,16 +213,20 @@
 			{{/if}}
 		</td>
 		<td>
-			{{if course.liveStatus==1}}
-			<a href="javascript:;" style="margin-right: 10px;" onclick="startLive('{{course.webinarId}}', '{{course.channelId}}')">进入直播</a>
-			<!--<a href="javascript:;" onclick="startGuestLive({{course.webinarId}})">嘉宾进入</a>-->
-			<!--<a href="javascript:;" onclick="startLive('{{course.webinarId}}', '{{course.channelId}}')">直播预览</a>-->
-			{{else if course.liveStatus==2}}
-			<a href="javascript:;" style="margin-right: 10px;" onclick="startLive('{{course.webinarId}}', '{{course.channelId}}')">进入直播</a>
-			<!--<a href="javascript:;" onclick="startGuestLive({{course.webinarId}})">嘉宾进入</a>-->
-			<!--<a href="javascript:;" onclick="startLive('{{course.webinarId}}', '{{course.channelId}}')">直播预览</a>-->
-			{{else if course.liveStatus==0}}
-			<span>直播完成</span>
+			{{if course.multimediaType == 2}}
+				<a href="javascript:;" style="margin-right: 10px;" onclick="jumpApp()">进入直播</a>
+			{{else}}
+				{{if course.liveStatus==1}}
+				<a href="javascript:;" style="margin-right: 10px;" onclick="startLive('{{course.webinarId}}', '{{course.channelId}}')">进入直播</a>
+				<!--<a href="javascript:;" onclick="startGuestLive({{course.webinarId}})">嘉宾进入</a>-->
+				<!--<a href="javascript:;" onclick="startLive('{{course.webinarId}}', '{{course.channelId}}')">直播预览</a>-->
+				{{else if course.liveStatus==2}}
+				<a href="javascript:;" style="margin-right: 10px;" onclick="startLive('{{course.webinarId}}', '{{course.channelId}}')">进入直播</a>
+				<!--<a href="javascript:;" onclick="startGuestLive({{course.webinarId}})">嘉宾进入</a>-->
+				<!--<a href="javascript:;" onclick="startLive('{{course.webinarId}}', '{{course.channelId}}')">直播预览</a>-->
+				{{else if course.liveStatus==0}}
+				<span>直播完成</span>
+				{{/if}}
 			{{/if}}
 		</td>
 	</tr>
@@ -670,9 +678,15 @@
 <!--全局遮罩层-->
 <div id="mask" class="hide" style="position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; background: rgb(0, 0, 0); opacity: 0.3; z-index: 888;"></div>
 
-<!--<div id="blackTip" style="display: none;">
-	保存失败
-</div>-->
+<!--语音直播弹窗-->
+<!--语音直播遮罩层-->
+<div id="video-cover" class="hide" style="position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; background: rgb(0, 0, 0); opacity: 0.3; z-index: 888;"></div>
+
+<div class="video-live hide">
+	<p class="video-top">语音直播</p>
+	<img src="/webview/images/usershow/ERWEIMA-ICON2.png"/>
+	<p class="video-tip">扫描二维码下载熊猫中医APP，在客户端进行直播</p>
+</div>
 
 <div class="wp">
 	<!--左边点击-->
@@ -842,6 +856,9 @@
 								<label>线下课
 									<input type="radio" value="3" name="course_form" onclick="showCourseAttribute(3)" />
 								<i></i></label>
+								<label>语音直播
+									<input type="radio" value="4" name="course_form" onclick="showCourseAttribute(4)" />
+								<i></i></label>
 							</div>
 	
 							<div class="select">
@@ -850,7 +867,7 @@
 								</select>
 								<p class="warning hide">课程分类不能为空</p>
 							</div>
-							<div class="select live offline special">
+							<div class="select live offline show-video special">
 								<span><em>*</em>开课时间</span>
 								<input type="text"  id="classOpenTiem" readonly="readonly" placeholder="请选择开课时间" style="width: 280px;height: 36px;color: #999999 !important;font-size: 14px;" class="select_time course_start_time">
 								<p class="warning warning_course_start_time hide">开课时间不能为空</p>
@@ -902,7 +919,7 @@
 									<script id="editor_cd" type="text/plain" style="width:540px;height:260px;"></script></div>
 								<p class="warning warning_course_details hide">课程介绍不能为空</p>
 							</div>
-							<div id="resourceType" class="sheng vod live special">
+							<div id="resourceType" class="sheng vod special">
 								<span><em>*</em>资源类型</span>
 								<label>
 									<input type="radio" name="course_multimedia_type" value="1" onclick="initResource(1)" checked="checked" />视频
@@ -1599,7 +1616,7 @@
 					<div>
 						<span>户名</span><input onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\u4E00-\u9FA5]/g,''))" id="userNameIpt" type="text" placeholder="" readonly="readonly" style="text-indent: 1em;width: 280px;height: 36px;color: #CCC;font-size: 14px;border: 1px solid #F0F0F0;outline: none;" />
 						<a href="javascript:;" style="font-size: 14px;color: #666;" onclick="$('.addNew').click()"><i class="smallAdd">+</i>新增银行卡</a>
-						<span class="userNameIpt_warn waring hide" style="color: #FF4012;"><i class="smallwarn">!</i>请输入户名</span>
+						<span class="userNameIpt_warn waring hide" style="color: #FF4012;"><i class="smallwarn">!</i>请添加银行卡</span>
 						<!--<p style="font-size: 14px;color: #999999;padding-left: 85px;padding-top: 10px;">（只能是认证的本人银行卡名字）</p>-->
 					</div>
 					

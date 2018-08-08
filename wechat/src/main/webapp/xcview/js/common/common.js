@@ -641,9 +641,6 @@ function checkAuth(courseId, type) {
     }
 }
 
-
-
-
 //关闭浏览器后，又一次打开浏览器了
 var firstEntry = false;
 var session = sessionStorage.getItem("session");

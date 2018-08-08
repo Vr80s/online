@@ -20,6 +20,8 @@ import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.support.service.CacheService;
 import com.xczhihui.common.util.WeihouInterfacesListUtil;
 import com.xczhihui.common.util.bean.VhallMessageParamsVo;
+import com.xczhihui.common.util.enums.VhallCustomMessageType;
+import com.xczhihui.common.util.redis.key.RedisCacheKey;
 import com.xczhihui.common.util.vhallyun.BaseService;
 import com.xczhihui.common.util.vhallyun.MessageService;
 
@@ -108,14 +110,13 @@ public class VhallVideoController {
             String body,String channel_id) throws Exception {
        
        JSONObject jsonObject =  (JSONObject) JSON.parse(body);
-//       if(jsonObject.get("type")!=null && jsonObject.get("type").toString().equals("1")) {
-//           Boolean isShutup =  cacheService.sismenber(RedisCacheKey.VHALLYUN_BAN_KEY + channel_id, account.getUserId());
-//           if(!isShutup) {
-//               return ResponseObject.newErrorResponseObject("你被禁言了");
-//           } 
-//       } 
+       if(jsonObject.get("type")!=null && Integer.parseInt(jsonObject.get("type").toString()) == VhallCustomMessageType.CHAT_MESSAGE.getCode()) {
+           Boolean isShutup =  cacheService.sismenber(RedisCacheKey.VHALLYUN_BAN_KEY + channel_id, account.getUserId());
+           if(isShutup) {
+               return ResponseObject.newErrorResponseObject("你被禁言了");
+           } 
+       } 
        return ResponseObject.newSuccessResponseObject(MessageService.sendMessage("CustomBroadcast",body,channel_id));
-    
     }
 
     @RequestMapping(value = "vhallYunToken", method = RequestMethod.GET)

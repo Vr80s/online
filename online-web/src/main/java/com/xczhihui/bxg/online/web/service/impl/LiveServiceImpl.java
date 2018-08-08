@@ -145,7 +145,6 @@ public class LiveServiceImpl extends OnlineBaseServiceImpl implements LiveServic
         description = description.replaceAll("\n", "");
         OnlineUser u = (OnlineUser) UserLoginUtil.getLoginUser();
 
-
         ModelAndView mv = null;
 
         mv = new ModelAndView("live_success_page");

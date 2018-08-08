@@ -116,7 +116,8 @@ public class XzGiftController {
         Map<String, Object> map =  remoteGiftService.addGiftStatement(accountId,
                 receiverId, giftId,
                 ClientType.getClientType(HeaderInterceptor.getClientTypeCode()), count, liveId);
-        mapRanking = map;
+       
+        mapRanking.putAll(map);
         //删除排行榜  -- 因为加上排行榜字符太长
         map.remove("ranking");
         

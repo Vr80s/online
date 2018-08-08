@@ -20,7 +20,6 @@
   var email = '<%=request.getAttribute("email")%>';
   var name = '<%=request.getAttribute("name")%>';
   var k = '<%=request.getAttribute("k")%>';
-  
   var vhallName = '<%=request.getAttribute("vhallName")%>';
 
 </script>

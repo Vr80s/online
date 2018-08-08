@@ -3,6 +3,7 @@ package com.xczhihui.bxg.online.web.controller;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -160,17 +161,18 @@ public class GiftController extends AbstractController {
     	Map<String, Object> mapRanking = new HashMap<String, Object>();
     	
     	Map<String, Object> map = new HashMap<String, Object>();
+    	
         OnlineUser u = getCurrentUser();
-        
         if (u != null) {
             giftStatement.setGiver(u.getId());
             giftStatement.setClientType(ClientType.PC.getCode());
             giftStatement.setPayType(Payment.COINPAY.getCode());
             map = giftService.addGiftStatement(u.getId(), giftStatement.getReceiver(),
                     giftStatement.getGiftId(), ClientType.PC, giftStatement.getCount(), giftStatement.getLiveId());
+            
         }
+        mapRanking.putAll(map);
         
-        mapRanking = map;
         //删除排行榜  -- 因为加上排行榜字符太长
         map.remove("ranking");
         
@@ -179,9 +181,8 @@ public class GiftController extends AbstractController {
         jsonObject.put("message",map);
         //后台把这个消息广播出去
         MessageService.sendMessage(MessageService.CustomBroadcast,jsonObject.toJSONString(),channel_id);
-        
+       
         return ResponseObject.newSuccessResponseObject(mapRanking);
     }
-    
 
 }
