@@ -213,16 +213,20 @@
 			{{/if}}
 		</td>
 		<td>
-			{{if course.liveStatus==1}}
-			<a href="javascript:;" style="margin-right: 10px;" onclick="startLive('{{course.webinarId}}', '{{course.channelId}}')">进入直播</a>
-			<!--<a href="javascript:;" onclick="startGuestLive({{course.webinarId}})">嘉宾进入</a>-->
-			<!--<a href="javascript:;" onclick="startLive('{{course.webinarId}}', '{{course.channelId}}')">直播预览</a>-->
-			{{else if course.liveStatus==2}}
-			<a href="javascript:;" style="margin-right: 10px;" onclick="startLive('{{course.webinarId}}', '{{course.channelId}}')">进入直播</a>
-			<!--<a href="javascript:;" onclick="startGuestLive({{course.webinarId}})">嘉宾进入</a>-->
-			<!--<a href="javascript:;" onclick="startLive('{{course.webinarId}}', '{{course.channelId}}')">直播预览</a>-->
-			{{else if course.liveStatus==0}}
-			<span>直播完成</span>
+			{{if course.multimediaType == 2}}
+				<a href="javascript:;" style="margin-right: 10px;" onclick="jumpApp()">进入直播</a>
+			{{else}}
+				{{if course.liveStatus==1}}
+				<a href="javascript:;" style="margin-right: 10px;" onclick="startLive('{{course.webinarId}}', '{{course.channelId}}')">进入直播</a>
+				<!--<a href="javascript:;" onclick="startGuestLive({{course.webinarId}})">嘉宾进入</a>-->
+				<!--<a href="javascript:;" onclick="startLive('{{course.webinarId}}', '{{course.channelId}}')">直播预览</a>-->
+				{{else if course.liveStatus==2}}
+				<a href="javascript:;" style="margin-right: 10px;" onclick="startLive('{{course.webinarId}}', '{{course.channelId}}')">进入直播</a>
+				<!--<a href="javascript:;" onclick="startGuestLive({{course.webinarId}})">嘉宾进入</a>-->
+				<!--<a href="javascript:;" onclick="startLive('{{course.webinarId}}', '{{course.channelId}}')">直播预览</a>-->
+				{{else if course.liveStatus==0}}
+				<span>直播完成</span>
+				{{/if}}
 			{{/if}}
 		</td>
 	</tr>
@@ -674,9 +678,15 @@
 <!--全局遮罩层-->
 <div id="mask" class="hide" style="position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; background: rgb(0, 0, 0); opacity: 0.3; z-index: 888;"></div>
 
-<!--<div id="blackTip" style="display: none;">
-	保存失败
-</div>-->
+<!--语音直播弹窗-->
+<!--语音直播遮罩层-->
+<div id="video-cover" class="" style="position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; background: rgb(0, 0, 0); opacity: 0.3; z-index: 888;"></div>
+
+<div class="video-live">
+	<p class="video-top">语音直播</p>
+	<img src="/webview/images/usershow/ERWEIMA-ICON2.png"/>
+	<p class="video-tip">扫描二维码下载熊猫中医APP，在客户端进行直播</p>
+</div>
 
 <div class="wp">
 	<!--左边点击-->
