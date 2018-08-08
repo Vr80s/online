@@ -238,6 +238,7 @@
         as lineState,
 
         oc.current_price*10 as currentPrice,
+        oc.original_cost*10 as originalCost,
         oc.live_source_type as liveSourceType,
         oc.lecturer as name,
         oc.city as city,
