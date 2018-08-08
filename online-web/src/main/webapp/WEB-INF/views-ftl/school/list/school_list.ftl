@@ -60,7 +60,7 @@
                             <dd class="select-all" subject="courseType" data-id="0">全部</dd>
                         </a>
                         <#list courseTypeEnum as courseType>
-                        <#if courseType.id == 5>
+                        <#if courseType.id != 5>
                             <a href="${webUrl}${replaceUrl(webUrlParam,'courseType',courseType.id)}">
                                 <dd subject="courseType" data-id="${courseType.id}">${courseType.name}</dd>
                             </a>
