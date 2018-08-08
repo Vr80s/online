@@ -45,35 +45,46 @@
     <div class="wrap-buy">
         <div class="left-cover z">
         	
-        	  <#if courseInfo.type == 1  > 
+        	  <#if courseInfo.courseForm == 2  && courseInfo.multimediaType == 1>
                   <#if courseInfo.collection> 
                      <p class="class-style">视频专辑</p>
                   <#elseif !courseInfo.collection>
                       <p class="class-style">视频</p>
                   </#if>
                  
-               <#elseif courseInfo.type == 2>
+              <#elseif courseInfo.courseForm == 2  && courseInfo.multimediaType == 2>
                   <#if courseInfo.collection> 
                    <p class="class-style">音频专辑</p>
                   <#elseif !courseInfo.collection>
                      <p class="class-style">音频</p>
                   </#if>
-                <#elseif courseInfo.type == 3>
-                  <#if courseInfo.lineState  == 1  > 
-                    <p class="class-style">直播中</p> 
+              <#elseif courseInfo.courseForm == 1  && courseInfo.multimediaType == 1>
+                  <#if courseInfo.lineState  == 1  >
+                      <p class="class-style">直播中</p>
                   <#elseif courseInfo.lineState  == 2>
-                    <p class="class-style">直播预告</p>
+                      <p class="class-style">直播预告</p>
                   <#elseif courseInfo.lineState  == 3>
                       <p class="class-style">直播回放</p>
                   <#elseif courseInfo.lineState  == 4>
-                     <p class="class-style">即将直播</p>
-                  <#else>   
-                      <p class="class-style">暂未开播</p>   
+                      <p class="class-style">即将直播</p>
+                  <#else>
+                      <p class="class-style">暂未开播</p>
                   </#if>
-                <#elseif courseInfo.type == 4>
+              <#elseif courseInfo.courseForm == 1  && courseInfo.multimediaType == 2>
+                  <#if courseInfo.lineState  == 1  >
+                      <p class="class-style">语音直播中</p>
+                  <#elseif courseInfo.lineState  == 2>
+                      <p class="class-style">语音直播预告</p>
+                  <#elseif courseInfo.lineState  == 3>
+                      <p class="class-style">语音直播回放</p>
+                  <#elseif courseInfo.lineState  == 4>
+                      <p class="class-style">即将语音直播</p>
+                  <#else>
+                      <p class="class-style">暂未开播</p>
+                  </#if>
+              <#elseif courseInfo.courseForm == 3>
                   <p class="class-style">线下课程</p>
-                </#if>
-        	
+              </#if>
             <img src="${courseInfo.smallImgPath}?imageMogr2/thumbnail/!462x260r|imageMogr2/gravity/Center/crop/462x260" alt="${courseInfo.gradeName}" />
             <div class="progress"
                  style="position: absolute;bottom: 0;left: 0;width: 100%;
@@ -120,7 +131,7 @@
 
             <#-- 根据不同的课程类型，显示不同的课程介绍 -->
 
-            <#if courseInfo.type == 1 || courseInfo.type == 2>
+            <#if courseInfo.courseForm == 2>
                 <#if courseInfo.collection >
                     <ul>
                         <li>更新时间</li>
@@ -132,13 +143,13 @@
                     <#-- <li>共16集，已更新13集（每周三、周五更新）</li> -->
                     </ul>
                 </#if>
-            <#elseif courseInfo.type == 3>
+            <#elseif courseInfo.courseForm == 1>
             <#-- 直播的 -->
                 <ul>
                     <li>直播时间</li>
                     <li>${courseInfo.startTime?string("yyyy.MM.dd HH:mm")}</li>
                 </ul>
-            <#elseif courseInfo.type == 4>
+            <#elseif courseInfo.courseForm == 3>
             <#-- 线下课的 -->
                 <ul>
                     <li>上课时间</li>
@@ -166,33 +177,38 @@
                     <button type="button" class="immediately-buy  learning_immediately"
                             data-watchState="${courseInfo.watchState}"
                             data-type="${courseInfo.type}"
+                            data-courseForm="${courseInfo.courseForm}"
+                            data-multimediaType="${courseInfo.multimediaType}"
                             data-realCourseId="${courseInfo.id}"
                             data-learning="${courseInfo.learning}"
                             data-cutoff="${courseInfo.cutoff}"
-                            data-collection="${courseInfo.collection?string(1,0)}" 
-                            <#if courseInfo.watchState == 1  && courseInfo.type == 4 && courseInfo.cutoff = 1>
+                            data-collection="${courseInfo.collection?string("1","0")}"
+                            <#if courseInfo.watchState == 1  && courseInfo.courseForm == 3 && courseInfo.cutoff = 1>
                                style="background:#DEDEDE;" 
                             </#if>
                             >
-                        <#if courseInfo.watchState == 2  && courseInfo.type == 4>
-                                                                                      已报名
-                        <#elseif courseInfo.watchState == 1  && courseInfo.type == 4>
+                        <#if courseInfo.watchState == 2  && courseInfo.courseForm == 3>
+                               已报名
+                        <#elseif courseInfo.watchState == 1  && courseInfo.courseForm == 3>
                             <#if courseInfo.learning == 1>
-                                                                                           已报名 
+                               已报名
                             <#elseif courseInfo.cutoff = 1>                                                
-                                                                                         已结束报名                              
+                                已结束报名
                             <#else>
-                                                                                         立即报名
+                                立即报名
                             </#if>
                         <#else>
-                                                                                     开始学习
+                                开始学习
                         </#if>
                     </button>
                 <#elseif courseInfo.watchState == 0>
-                    <#if courseInfo.type ==4 && courseInfo.cutoff = 1>
+                    <#if courseInfo.courseForm == 3 && courseInfo.cutoff = 1>
                         <button type="button" class="immediately-buy" style="background:#DEDEDE;">已结束报名</button>
                     <#else>
-                        <button type="button" class="immediately-buy J-course-buy" data-id="${courseInfo.id}"
+                        <button type="button" class="immediately-buy J-course-buy"
+                                data-id="${courseInfo.id}"
+                                data-courseForm="${courseInfo.courseForm}"
+                                data-multimediaType="${courseInfo.multimediaType}"
                                 data-type="${courseInfo.type}">
                                                                             立即购买
                         </button>
@@ -352,6 +368,8 @@
     var courseId = "${courseInfo.id}";
     var userId = "${courseInfo.userLecturerId}";
     var courseType = "${courseInfo.type}";
+    var courseForm = "${courseInfo.courseForm}";
+    var multimediaType = "${courseInfo.multimediaType}";
     var collection = ${courseInfo.collection?string(1,0)};
     <#if criticizesMap??>
     var commentCode = ${criticizesMap.commentCode};
