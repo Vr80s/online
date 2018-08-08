@@ -146,7 +146,6 @@ function elsBind(){
          */
         window.chat.onCustomMsg(function(msg){
              msg = JSON.parse(msg);
-             
              try{
              	var e="";
                 if(msg.type ==10 ){//聊天
@@ -157,14 +156,21 @@ function elsBind(){
                 	createGiftList(msg.message);
                 }else if(msg.type == 12){ // 开始直播啦
                 
+                	
                 }if(msg.type == 13){ //直播结束了  
                 
-                }
-                
+                } else if (msg.type == 14) { // 退出直播间，但是没有结束直播
+
+				} else if (msg.type == 15) { // 继续直播
+
+				} else if (msg.type == 16) { // 回放生成成功
+
+				} else if (msg.type == 17) { // 回放生成失败
+
+				}
                 if (e != "") {
 					$("#chatmsg").append(e);
 				}
-               
              }catch(error){
                console.error(error);
              }
@@ -186,11 +192,11 @@ function elsBind(){
         
      });	
     
-         window.Vhall.config({
-              appId :vhallObj.appId,//应用 ID ,必填
-              accountId :vhallObj.accountId,//第三方用户唯一标识,必填
-              token:vhallObj.token//token必填
-         });
+     window.Vhall.config({
+          appId :vhallObj.appId,//应用 ID ,必填
+          accountId :vhallObj.accountId,//第三方用户唯一标识,必填
+          token:vhallObj.token//token必填
+     });
      
     },1000);	
       
@@ -216,11 +222,7 @@ function elsBind(){
          RequestService("/vhallyun/vhallYunSendMessage","get",{channel_id:vhallObj.channelId,body:JSON.stringify(content)},
                 function(data) {
                 if (data.success) {
-//                    var str = liaotian(content.message,false);
-//                    if(str!=""){
-//                     $("#chatmsg").append(str);  
-//                    }
-//                    $("#mywords").val('');
+					console.log("发送消息成功");
                 }   
           }); 
         }

@@ -89,6 +89,9 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper, OnlineUser> imp
             throw new UserInfoException("邮箱格式有误");
         }
         myInfoMapper.updateUserSetInfo(user);
+        
+        //更新微吼云上的信息
+    
     }
 
     @Override

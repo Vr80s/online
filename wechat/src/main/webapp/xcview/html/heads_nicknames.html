@@ -149,7 +149,6 @@ function ajaxUploadBase64File(params){
     	 if(data.success == true){
          	var result = data.resultObject;
  			if(isNotBlank(result.smallHeadPhoto)){
- 				/*alert("result.smallHeadPhoto"+result.smallHeadPhoto);*/
  				$("#headImg").attr("src",result.smallHeadPhoto);
  				//同时我们也要变化token中的头像值。
  				localStorage.setItem("smallHeadPhoto",result.smallHeadPhoto);
