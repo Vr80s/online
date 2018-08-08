@@ -10,7 +10,6 @@ RequestService("/online/user/isAlive", "GET", null, function (data) {
         loginStatus = true;
     } else {
         loginStatus = false;
-
     }
 }, false)
 
@@ -74,12 +73,11 @@ $(function () {
     $(".sidebar-content").addClass("hide").eq(index).removeClass("hide")
 
     //课程类型 1：视频 2：音频 3：直播 4：线下培训班
-    if (courseType == 4) {
-        //$(".sidebar-content").addClass("hide").eq(index).removeClass("hide");
+    if (courseForm == 3) {
         $(".under").css("color", "rgb(0, 188, 18)");
-    } else if (courseType == 3) {
+    } else if (courseForm == 1) {
         $(".broadcast").css("color", "rgb(0, 188, 18)");
-    } else if (courseType == 1 || courseType == 2) {
+    } else if (courseForm == 2) {
         $(".listen").css("color", "rgb(0, 188, 18)");
     }
 
@@ -100,12 +98,11 @@ $(function () {
                 $('#login').modal('show');
             } else {
                 var id = $this.data('id');
-                var type = $this.data('type');
                 $this.attr("disabled", "disabled");
                 if (!id) {
                     showTip("无法获取课程id");
                 }
-                if (type === 4) {//线下课，需要先填写报名信息
+                if (courseForm === 3) {//线下课，需要先填写报名信息
                     goOfflineApply(id);
                 } else {
                     createOrder(id);
@@ -130,8 +127,6 @@ $(function () {
 
 //	点击立即学习时，需要判断是否登录了
     $(".learning_immediately").click(function () {
-    	
-    	
         var $this = $(this);
         var watchState = $this.attr("data-watchState");
         var type = $this.attr("data-type");
@@ -147,11 +142,9 @@ $(function () {
             if (!data.success) {
                 $('#login').modal('show');
             } else {
-                if (type == 4) {
-                	
+                if (courseForm == 3) {
                 	//已购买   或者 免费以学习   或者  报名截止的
-                    if (watchState == 2 || (watchState == 1 && learning == 1) 
-                    		|| cutoff == 1) {
+                    if (watchState == 2 || (watchState == 1 && learning == 1) || cutoff == 1) {
                         return;
                     }
                     
@@ -159,16 +152,21 @@ $(function () {
                         goOfflineApply(realCourseId);
                     }
                 }
-                if (type == 3) { //直播课
-                    if(watchState == 1){
-                    	RequestService("/learnWatch/add", "POST", {
-                    		courseId:realCourseId,recordType:1
-                    	}, function(data) {
-                    		console.log("增加学习记录");
-                    	},false);
-                    }	
-                    window.location.href = "/web/livepage/" + realCourseId;
-                } else if (type == 1 || type == 2) {
+                if (courseForm == 1) { //直播课
+                    if(multimediaType == 1){
+                        if(watchState == 1){
+                            RequestService("/learnWatch/add", "POST", {
+                                courseId:realCourseId,recordType:1
+                            }, function(data) {
+                                console.log("增加学习记录");
+                            },false);
+                        }
+                        window.location.href = "/web/livepage/" + realCourseId;
+                    }else if(multimediaType == 2){
+                        $("#video-cover").removeClass("hide");
+                        $(".video-live").removeClass("hide");
+                    }
+                } else if (courseForm == 2) {
                     if(watchState == 1){
                     	RequestService("/learnWatch/add", "POST", {
                     		courseId:realCourseId,recordType:1
@@ -297,21 +295,14 @@ $(function () {
                 } else{
                 	finishVideoBox.addClass("hide")
                 }
-                
-                
-                
-//              添加视频播放百分比
             })
-
-
-
         }else{
         	
         }
     }
 });
 $("#video-cover").click(function(){
-	$(this).addClass("hide");
-	$(".video-live").addClass("hide");
+    $(this).addClass("hide");
+    $(".video-live").addClass("hide");
 })
 

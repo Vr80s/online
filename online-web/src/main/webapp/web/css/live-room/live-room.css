@@ -320,7 +320,6 @@ input::-webkit-input-placeholder{
 }
 .document-content{
 	float: right;
-	background: pink;
 	height: 100%;
 }
 .pages{
@@ -592,6 +591,20 @@ input::-webkit-input-placeholder{
     background: #a5a5a5;
     margin-right: 20px;
 }
+.comment-setup .width-my{
+	width: 60px;
+	height: 20px;
+	border: 1px solid #d7d3d3;
+	outline: none;
+	padding-left: 5px;
+}
+.comment-setup .height-my{
+	width: 50px;
+	height: 20px;
+	border: 1px solid #d7d3d3;
+	outline: none;
+	padding-left: 5px;
+}
 /*学员区*/
 .video-wrap{
 	height: 232px;
@@ -652,6 +665,12 @@ input::-webkit-input-placeholder{
 	line-height: 20px;
 	text-align: center;
 	margin-top: 6px;
+}
+/*选择禁言*/
+.student-list .select-ban{
+	margin-top: 4px;
+	margin-right: 15px;
+	cursor: pointer;
 }
 .chat-top {
 	width: 100%;

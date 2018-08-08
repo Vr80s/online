@@ -460,8 +460,12 @@ public class SchoolController extends AbstractFtlController {
                 queryConditionVo.setMultimediaType(Multimedia.AUDIO.getCode());
             } else if (queryConditionVo.getCourseType().equals(CourseType.LIVE.getId())) {
                 queryConditionVo.setCourseForm(CourseForm.LIVE.getCode());
+                queryConditionVo.setMultimediaType(Multimedia.VIDEO.getCode());
             } else if (queryConditionVo.getCourseType().equals(CourseType.OFFLINE.getId())) {
                 queryConditionVo.setCourseForm(CourseForm.OFFLINE.getCode());
+            } else if (queryConditionVo.getCourseType().equals(CourseType.AUDIO_LIVE.getId())) {
+                queryConditionVo.setCourseForm(CourseForm.LIVE.getCode());
+                queryConditionVo.setMultimediaType(Multimedia.AUDIO.getCode());
             }
         }
     }

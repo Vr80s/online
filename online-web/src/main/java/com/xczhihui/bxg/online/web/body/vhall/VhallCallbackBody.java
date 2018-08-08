@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class VhallCallbackBody implements Serializable {
 
-    private static final String TRANS_OVER = "record/trans-over";
+    private static final String TRANS_OVER = "document/trans-over";
     private static final String CREATED_SUCCESS = "record/created-success";
 
     private String event;

@@ -1,9 +1,8 @@
 package com.xczhihui.common.util.vhallyun;
 
+import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
+import java.util.*;
 
 import com.jayway.jsonpath.JsonPath;
 
@@ -37,5 +36,23 @@ public class VideoService {
         String result = VhallUtil.sendPost("http://api.yun.vhall.com/api/v1/record/create", params);
         String recordId = JsonPath.read(result, "$.data.record_id");
         return recordId;
+    }
+
+    public static List<Map<String, Object>> getRoomJoinInfo(String roomId, int pos) {
+        Date startTime = DEFAULT_START_TIME;
+        Date endTime = new Date();
+        HashMap<String, String> params = new HashMap<String, String>();
+        params.put("room_id", roomId);
+        params.put("pos", String.valueOf(pos));
+        params.put("start_time", SDF.format(startTime));
+        params.put("end_time", SDF.format(endTime));
+        try {
+            params = VhallUtil.createRealParam(params);
+            String result = VhallUtil.sendPost("http://api.yun.vhall.com/api/v1/room/get-room-join-info", params);
+            return JsonPath.read(result, "$.data");
+        } catch (Exception e) {
+        }
+
+        return Collections.emptyList();
     }
 }

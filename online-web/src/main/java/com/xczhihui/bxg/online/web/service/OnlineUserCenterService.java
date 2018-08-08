@@ -109,4 +109,9 @@ public interface OnlineUserCenterService {
     public List<CityVo> getCityByProId(Integer proId);
 
     List<Map<String, Object>> getAllProvinceCity() throws SQLException;
+
+    /**
+     * 更新用户微吼云的信息
+     */
+    void updateVhallYunInfo();
 }
