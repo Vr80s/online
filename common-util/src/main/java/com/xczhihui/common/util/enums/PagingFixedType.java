@@ -1,26 +1,28 @@
 package com.xczhihui.common.util.enums;
 
 /**
- * banner图类型
- * <p>
- * ClassName: ThirdPartyType.java <br>
- * Description: <br>
- * Create by: name：yangxuan <br>email: 15936216273@163.com <br>
- * Create Time: 2018年2月2日<br>
+ * 
+* @ClassName: PagingFixedType
+* @Description: 展示的数据,分页数据
+* @author yangxuan
+* @email yangxuan@ixincheng.com
+* @date 2018年8月8日
+*
  */
 public enum PagingFixedType {
 
 
     /************  客户端分页展示类别   *****************/
+	
 
-    RECOMMENDATION_PAGETYPE_UP(1, "客户端-->推荐->精品课程、最新课程-->固定展示6个", 6),
-    RECOMMENDATION_PAGETYPE_DOWN(2, "客户端-->推荐->分类课程-->固定展示4个", 4),
+    RECOMMENDATION_PAGETYPE_UP(1, "推荐->精品课程、最新课程-->固定展示6个", 6),
+    RECOMMENDATION_PAGETYPE_DOWN(2, "推荐->分类课程-->固定展示4个", 4),
 
-    REAL_PAGETYPE_UP(3, "客户端-->线下课->全国课程-->固定展示6个", 6),
-    REAL_PAGETYPE_DOWN(4, "客户端-->线下课->其他城市-->固定展示4个", 4),
+    REAL_PAGETYPE_UP(3, "线下课->全国课程-->固定展示6个", 6),
+    REAL_PAGETYPE_DOWN(4, "线下课->其他城市-->固定展示4个", 4),
 
-    LIVE_PAGETYPE_UP(5, "客户端-->直播课->正在直播-->固定展示12个", 12),
-    LIVE_PAGETYPE_DOWN(6, "客户端-->直播课->其他状态-->固定展示4个", 4),
+    LIVE_PAGETYPE_UP(5, "直播课->正在直播-->固定展示12个", 12),
+    LIVE_PAGETYPE_DOWN(6, "直播课->其他状态-->固定展示4个", 4),
 
     LISTEN(7, "听课-->固定展示4个", 12),
 
@@ -35,11 +37,13 @@ public enum PagingFixedType {
 
     PC_LISTEN(12, "PC端-->固定展示12个", 12),
 
+    PC_INDEX(13, "PC端-->首页 ---》固定展示3个", 3),
 
-    PC_INDEX(13, "PC端-->首页 ---》固定展示3个", 3);
-
-
-    /************  PC客户端分页展示类别   *****************/
+    /************  线下课  *****************/
+    
+    OFFLINE_CITY_RECOMMEND(14, "学堂线下课城市推荐（推荐很多个）", 100),
+    OFFLINE_CITY_CLASSIFY_RECOMMEND(15, "课程筛选列表，筛选条件展示的城市数", 5),
+    OFFLINE_CITY_COURSE_RECOMMEND(16, "学堂线下课城市分类列表", 4);
 
 
     /**
