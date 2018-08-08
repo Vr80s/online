@@ -232,8 +232,9 @@ public class HospitalController extends AbstractController {
      */
     @RequestMapping(value = "updateStatus", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseObject updateStatus(String id) {
+    public ResponseObject updateStatus(String id) throws IOException, SolrServerException {
         hospitalService.updateStatus(id);
+        medicalHospitalSolrService.initHospitalsSolrDataById(id);
         return ResponseObject.newSuccessResponseObject("操作成功！");
     }
 

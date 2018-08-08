@@ -232,7 +232,7 @@ public class DoctorController extends AbstractController {
     @ResponseBody
     public ResponseObject updateStatus(String id) throws IOException, SolrServerException {
         doctorService.updateStatus(id);
-        
+//        medicalDoctorSolrService.initDoctorsSolrDataById(id);
         return ResponseObject.newSuccessResponseObject("操作成功！");
     }
 
