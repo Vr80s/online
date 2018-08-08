@@ -13,6 +13,15 @@ $.ajax({
 	}
 });
 
+RequestService("/vhallyun/vhallYunToken","get",{channelId:vhallObj.channel_id,roomId:vhallObj.roomId},
+    function(data) {
+    if (data.success) {
+        vhallObj.token=data.resultObject;
+    }   
+}); 
+
+
+
 var onOff = true, isFilter = true;
 
 $("#filter-msg").on("click", function() {//只看主办方消息   
@@ -204,7 +213,7 @@ function elsBind(){
          /**
           * 发送消息
           */ 
-         RequestService("/vhallyun/sendMessage","get",{channel_id:vhallObj.channel_id,body:JSON.stringify(content)},
+         RequestService("/vhallyun/vhallYunSendMessage","get",{channel_id:vhallObj.channel_id,body:JSON.stringify(content)},
                 function(data) {
                 if (data.success) {
                     var str = liaotian(content.message,false);

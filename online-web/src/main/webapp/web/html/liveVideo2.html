@@ -46,26 +46,69 @@
               src: "https://file.xczhihui.com/18802142750/1a666a314bdc05a6.png"
           });
     });
+    
+    
+    
 </script>
 		<script type="text/javascript">
+		
+		function setCaret(){
+			 $this = $("#mywords")
+			 if (/msie/.test(navigator.userAgent.toLowerCase())) {
+	                var e = function() {
+	                        var e = $this.get(0);
+	                        e.caretPos = document.selection.createRange().duplicate()
+	                    };
+	                   $this.click(e).select(e).keyup(e)
+	         }
+		}
+		
+		function insertAtCaret(e){
+			$this = $("#mywords")
+			var t = $this.get(0);
+            if (document.all && t.createTextRange && t.caretPos) {
+                var i = t.caretPos;
+                i.text = "" === i.text.charAt(i.text.length - 1) ? e + "" : e
+            } else if (t.setSelectionRange) {
+                var n = t.selectionStart,
+                    a = t.selectionEnd,
+                    o = t.value.substring(0, n),
+                    s = t.value.substring(a);
+                t.value = o + e + s;
+                var c = e.length;
+                t.setSelectionRange(n + c, n + c), r ? $this.focus() : $this.blur()
+            } else t.value += e
+		}
+		
+		
 			$(function(){
+			    $(document).click(function() {
+			    	 $(".send-face").hide();
+			    });
+				
 				// 點擊表情開始
-			 	$("#face").click(function(){
+			 	$("#face").click(function(e){
 			 		// alert(55555);
 			 		$(".send-face").removeClass("hide");
 			 		$(".send-face-bg").show();
 			 		$(".send-face").show();
-			 		$.ajax({  
-			 			type:"get",
-			 			url:"/web/js/live-room/emoticon.json",
-			 			success:function(data){
-			 				var del="";
-			 				for (var i=0; i<data.length;i++) {
-			 					del+= '<li><img src='+data[i].imgUrl+'></li>'
-			 				}
-			 				$(".send-face").html(del);
-			 			}
-			 		});
+			 		e.stopPropagation();
+			 		var lis = $(".send-face").find("li");
+			 		if(lis.length<=0){
+			 			$.ajax({  
+				 			type:"get",
+				 			url:"/web/js/live-room/emoticon.json",
+				 			success:function(data){
+				 				var del="";
+				 				//<img width="24" src="//cnstatic01.e.vhall.com/static/img/arclist/Expression_55@2x.png" onclick="$('#mywords').setCaret();$('#mywords').insertAtCaret('[可怜]');">
+				 				for (var i=0; i<data.length;i++) {
+				 					del+= "<li><img  onclick=insertAtCaret('"+data[i].text+"') src="+data[i].imgUrl+"></li>"
+				 				}
+				 				$(".send-face").html(del);
+				 			}
+				 		});
+			 			
+			 		}
 			 	});
 			 	// 點擊表情結束
 
@@ -119,10 +162,6 @@
 			 		$(".toptenreviews-list").hide();
 			 	});
 			 	/*鼠标放排行榜上查看效果结束*/
-
-
-
-
 			});
 		</script>
 <!--新写直播间--css--替换引入微吼css-->
@@ -484,7 +523,7 @@
 						<a id="face" href="javascript:;" class="face"></a> 
 						<div class="chitchat">
 							<!-- <a id= href="javascript:;" class="send-chat">发送</a> -->
-							<a id="" href="javascript:;" class="send-chat">发送</a>
+							<a id="sendChat" href="javascript:;" class="send-chat">发送</a>
 							<textarea id="mywords" onkeypress='return!(13==event.keyCode&&!event.shiftKey)||(document.getElementById("sendChat").click(),!1)' placeholder="来点神聊..."></textarea>
 						</div>
 					</div>
@@ -772,9 +811,7 @@
 		/* var html = template('',html) */
 	});
     
-    $("#face").click(function(){
-    	alert("呵呵");
-    })
+    
 </script>
 </body>
 </html>

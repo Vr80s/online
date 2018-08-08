@@ -16,7 +16,7 @@
 </script>
 <%@include file="../../web/html/liveVideoOther.html" %>
 <script>
-  var room_id='<%=request.getAttribute("roomId")%>';
+  var room_id="138028190";
   var plan_id='<%=request.getAttribute("planId")%>';
   var email = '<%=request.getAttribute("email")%>';
   var name = '<%=request.getAttribute("name")%>';

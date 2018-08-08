@@ -207,7 +207,7 @@ public interface CourseMapper extends BaseMapper<Course> {
      * @param documentId 回放id
      * @param status     回放状态
      */
-    @Update({"update oe_course set play_back_type = #{status} where record_id = #{recordId}"})
+    @Update({" update oe_course set play_back_type = #{status} where record_id = #{recordId} "})
     void updatePlayBackStatusByRecordId(@Param("recordId") String recordId, @Param("status") Integer status);
     
     
@@ -216,7 +216,7 @@ public interface CourseMapper extends BaseMapper<Course> {
      * @param documentId 回放id
      * @param status     回放状态
      */
-    @Select({"select  channel_id  oe_course where record_id = #{recordId}"})
+    @Select({"select  channel_id from oe_course where record_id = #{recordId}"})
     String selectChannelIdByRecordId(@Param("recordId") String recordId);
 
     @Select({"SELECT max(record_count) FROM oe_live_time_record WHERE live_id = #{liveId}"})
