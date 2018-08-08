@@ -481,7 +481,6 @@ function commonLocalStorageSetItem(data) {
     localStorage.setItem("info", configresult.info);
     localStorage.setItem("username", configresult.loginName);
 
-    localStorage.setItem("ticket", configresult.ticket);
 
     localStorage.setItem("occupation", configresult.occupation);
     localStorage.setItem("occupationOther", configresult.occupationOther);
@@ -514,7 +513,6 @@ function commonLocalStorageRemoveItem(data) {
     localStorage.removeItem("email");
     localStorage.removeItem("info");
     localStorage.removeItem("username");
-    localStorage.removeItem("ticket");
 
     localStorage.removeItem("occupation");
     localStorage.removeItem("occupationOther");

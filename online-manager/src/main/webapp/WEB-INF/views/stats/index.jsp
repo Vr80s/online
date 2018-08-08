@@ -18,7 +18,7 @@
 
 
 <div class="mainrighttab tabresourse bordernone">
-    <div class="searchDivClass" id="searchDiv">
+    <%--<div class="searchDivClass" id="searchDiv">
         <div class="profile-info-row">
             <table frame=void>
                 <tr>
@@ -40,7 +40,42 @@
                 <input type="button" class="J-button btn-primary" value="确定"/>
             </div>
         </div>
-    </div>
+    </div>--%>
+
+        <div class="searchDivClass" id="searchDiv">
+            <div class="profile-info-row" >
+                <table frame=void >
+                    <tr>
+                        <td>
+                            <div class="profile-info-value searchTr">
+                                <input type="text" class="datetime-picker propertyValue1"  value="${startTime}" id="startTime" name="startTime" placeholder = "开始日期" style="width:130px"/>
+                                <input type="hidden" value="startTime" class="propertyName"/>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="profile-info-value">
+                                至
+                            </div>
+                        </td>
+                        <td>
+                            <div class="profile-info-value searchTr">
+                                <input type="text" class="datetime-picker propertyValue1"  value="${endTime}" id="endTime" name="endTime" placeholder = "结束日期" style="width:130px"/>
+                                <input type="hidden" value="endTime" class="propertyName"/>
+                            </div>
+                        </td>
+                        <td>
+                            <button id="searchBtn" type="button" class="btn btn-sm  btn-primary "
+                                    onclick="render();">
+                                <i class="ace-icon fa fa-search icon-on-right bigger-110"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+
+
 </div>
 <div></div>
 </div>
@@ -74,9 +109,7 @@
     var orderChart = echarts.init(document.getElementById('order-chart'));
     var incomeChart = echarts.init(document.getElementById('income-chart'));
     render();
-    $('.J-button').on('click', function () {
-        render();
-    });
+
 
     function render() {
         var startTime = $('#startTime').val();
