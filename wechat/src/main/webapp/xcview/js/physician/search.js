@@ -63,15 +63,15 @@ requestService("/xczh/bunch/hotDoctorSearch",null,
 					$(".header_seek_main").css("display","none");
 					//头部input搜索框开始
 					initHistoryList();
-                    var keyValue = $('#header_input').val();
+                    var keyValue = $(".keyword").html();
                     //判断该记录是否已存在
 					if($.inArray(keyValue, arr)!=-1){
                         removeByValue(arr, keyValue);
-                        arr.unshift($('#header_input').val());
+                        arr.unshift($(".keyword").html());
                         localStorage.setItem(hisArr,arr);
                         window.location.href="/xcview/html/physician/physician_list.html?queryKey="+search_val+"&curriculum_blck=2";
 					}else{
-                        arr.unshift($('#header_input').val())
+                        arr.unshift($(".keyword").html())
                         localStorage.setItem(hisArr,arr);
                         window.location.href="/xcview/html/physician/physician_list.html?queryKey="+search_val+"&curriculum_blck=2";
 					}
@@ -118,15 +118,15 @@ requestService("/xczh/bunch/hotDoctorSearch",null,
 					$(".header_seek_main").css("display","none");
 					//头部input搜索框开始
 					initHistoryList();
-                    var keyValue = $('#header_input').val();
+                    var keyValue = $(".keyword").html();
                     //判断该记录是否已存在
 					if($.inArray(keyValue, arr)!=-1){
                         removeByValue(arr, keyValue);
-                        arr.unshift($('#header_input').val());
+                        arr.unshift($(".keyword").html());
                         localStorage.setItem(hisArr,arr);
                         window.location.href="/xcview/html/physician/physician_list.html?queryKey="+search_val+"&curriculum_blck=2";
 					}else{
-                        arr.unshift($('#header_input').val())
+                        arr.unshift($(".keyword").html())
                         localStorage.setItem(hisArr,arr);
                         window.location.href="/xcview/html/physician/physician_list.html?queryKey="+search_val+"&curriculum_blck=2";
 					}

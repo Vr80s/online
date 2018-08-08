@@ -314,5 +314,5 @@ public interface ICourseService {
      * @param roomId
      * @return
      */
-    Integer updateCourseLiveStatus(String event, String roomId);
+    Integer updateCourseLiveStatus(String event, String roomId,String clientType);
 }

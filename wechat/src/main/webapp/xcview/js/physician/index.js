@@ -22,6 +22,11 @@ window.onload = function(){
 //	            } else {
 //		        	$('#hotSearch').html(template('hotSearchs', {items: data.resultObject.hotSearch}));
 //	        }
+            /*if ($(".header_seek_main_span").html() != '') {
+                alert(1111);
+            }else{
+                alert(222);
+            };*/
 	    }
 	})
 	
