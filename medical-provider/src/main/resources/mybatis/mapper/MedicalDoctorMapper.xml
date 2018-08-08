@@ -76,6 +76,7 @@
         LEFT JOIN `medical_hospital` mh
         ON mhd.`hospital_id` = mh.`id`
         WHERE md.deleted = 0
+        AND md.status = 1
         AND md.id = #{id}
     </select>
 
