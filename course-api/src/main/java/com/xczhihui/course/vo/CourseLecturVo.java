@@ -221,6 +221,8 @@ public class CourseLecturVo implements Serializable {
 
     private String recordId;
 
+    private String vhallYunToken;
+
     /**
      * 是否提交线下课报名表单
      */
@@ -820,5 +822,13 @@ public class CourseLecturVo implements Serializable {
 
     public void setRecordId(String recordId) {
         this.recordId = recordId;
+    }
+
+    public String getVhallYunToken() {
+        return vhallYunToken;
+    }
+
+    public void setVhallYunToken(String vhallYunToken) {
+        this.vhallYunToken = vhallYunToken;
     }
 }

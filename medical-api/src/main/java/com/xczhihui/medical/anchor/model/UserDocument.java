@@ -34,6 +34,8 @@ public class UserDocument implements Serializable {
     @TableField("trans_status")
     private Integer transStatus;
 
+    private Integer page;
+
     private Boolean deleted;
 
     public Integer getId() {
@@ -90,5 +92,13 @@ public class UserDocument implements Serializable {
 
     public void setDeleted(Boolean deleted) {
         this.deleted = deleted;
+    }
+
+    public Integer getPage() {
+        return page;
+    }
+
+    public void setPage(Integer page) {
+        this.page = page;
     }
 }

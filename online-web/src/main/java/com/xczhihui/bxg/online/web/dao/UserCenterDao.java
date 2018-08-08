@@ -221,5 +221,7 @@ public class UserCenterDao extends SimpleHibernateDao {
         return new HashMap<String, Object>();
     }
 
-
+    public List<OnlineUser> selectAll() {
+        return this.getHibernateTemplate().loadAll(OnlineUser.class);
+    }
 }

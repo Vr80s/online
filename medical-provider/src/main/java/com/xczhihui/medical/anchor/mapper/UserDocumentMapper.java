@@ -32,6 +32,14 @@ public interface UserDocumentMapper extends BaseMapper<UserDocument> {
      * @param documentId 文档id
      * @param status     状态
      */
-    @Update({"update oe_user_document set trans_status = #{status} where document_id = #{documentId}"})
-    void updateStatusByDocumentId(@Param("documentId") String documentId, @Param("status") Integer status);
+    @Update({"update oe_user_document set trans_status = #{status}, page = #{page} where document_id = #{documentId}"})
+    void updateStatusByDocumentId(@Param("documentId") String documentId, @Param("status") Integer status, @Param("page") int page);
+
+    /**
+     * 删除文档
+     *
+     * @param documentId documentId
+     */
+    @Update({"update oe_user_document set deleted = 1 where document_id = #{documentId}"})
+    void delete(@Param("documentId") String documentId);
 }

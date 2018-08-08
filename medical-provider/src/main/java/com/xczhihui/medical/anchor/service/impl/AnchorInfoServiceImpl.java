@@ -16,6 +16,7 @@ import com.xczhihui.common.util.XzStringUtils;
 import com.xczhihui.common.util.enums.AnchorPermissionType;
 import com.xczhihui.common.util.enums.AnchorType;
 import com.xczhihui.common.util.redis.key.RedisCacheKey;
+import com.xczhihui.common.util.vhallyun.DocumentService;
 import com.xczhihui.medical.anchor.enums.AuchorTypeEnum;
 import com.xczhihui.medical.anchor.mapper.CourseAnchorMapper;
 import com.xczhihui.medical.anchor.mapper.CourseApplyResourceMapper;
@@ -452,7 +453,9 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService {
 
     @Override
     public void deleteDocument(String documentId) {
-        UserDocument userDocument = userDocumentMapper.selectById(documentId);
+        UserDocument condition = new UserDocument();
+        condition.setDocumentId(documentId);
+        UserDocument userDocument = userDocumentMapper.selectOne(condition);
         if (userDocument == null || userDocument.getDeleted() != null || userDocument.getDeleted()) {
             throw new MedicalException("文档不存在");
         }
@@ -467,6 +470,7 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService {
 
     @Override
     public void updateDocumentStatus(String documentId, Integer status) {
-        userDocumentMapper.updateStatusByDocumentId(documentId, status);
+        int page = DocumentService.getPage(documentId);
+        userDocumentMapper.updateStatusByDocumentId(documentId, status, page);
     }
 }

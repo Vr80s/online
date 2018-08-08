@@ -13,6 +13,8 @@
   var ROOM_JID='<%=request.getAttribute("roomJId")%>';
   var BOSH_SERVICE='<%=request.getAttribute("boshService")%>';
   var sendTime='<%=request.getAttribute("now")%>';
+  
+  
 </script>
 <%@include file="../../web/html/liveVideoOther.html" %>
 <script>
