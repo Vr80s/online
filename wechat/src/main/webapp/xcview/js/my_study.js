@@ -66,16 +66,16 @@ var all_history="";
 		$(".history_bg").show();
 		$(".history_modal").show();
 	})
-	$(".history_modal ul li:nth-child(1)").click(function(){
+	$(".history_modal ul li:nth-child(2)").click(function(){
 		$(".history_bg").hide();
 		$(".history_modal").hide();
 	})
-	$(".history_modal ul li:nth-child(2)").click(function(){
+	$(".history_modal ul li:nth-child(1)").click(function(){
 		requestService("/xczh/history/empty",null,function(data) {			
-		$("#paly_history").hide()
-		$(".history_bg").hide();
-		$(".history_modal").hide();
-		location.href="my_study.html"
+			$("#paly_history").hide()
+			$(".history_bg").hide();
+			$(".history_modal").hide();
+			location.href="my_study.html"
 		})
 		
 	})	
@@ -83,7 +83,7 @@ var all_history="";
 //已购课程/结束课程	
 
 //	var no_class='<p style="color: #a5a5a5;">暂无课程...</p>'
-	 requestService("/xczh/myinfo/list",{pageSize:5},function(data) {  //备份之前接口
+	requestService("/xczh/myinfo/list",{pageSize:5},function(data) {  //备份之前接口
 	// requestService("/xczh/myinfo/myCourseType",{pageNumber:1,pageSize:500,type:1},function(data) {    备份新接口
 	//requestService("/xczh/myinfo/list",null,function(data) {
 
@@ -114,24 +114,24 @@ var all_history="";
 
 			});*/
 			
-//点击播放视频后才开始记录播放历史	
-//直播中
-	$(".paly_ing_all").click(function(){
-			var courseId=$(this).attr("data-ppd");
-			
-			//更新下观看记录
-			requestService("/xczh/history/add",{courseId:courseId,recordType:2},function(data) {
-				console.log();
-			})	
-			
-			location.href="details.html?courseId="+courseId
-		})
-//即将直播
-	$(".paly_ing_all_now").click(function(){
-		  var courseId_now=$(this).attr("data-ppdnow");
+	//点击播放视频后才开始记录播放历史	
+	//直播中
+		$(".paly_ing_all").click(function(){
+				var courseId=$(this).attr("data-ppd");
+				
+				//更新下观看记录
+				requestService("/xczh/history/add",{courseId:courseId,recordType:2},function(data) {
+					console.log();
+				})	
+				
+				location.href="details.html?courseId="+courseId
+			})
+	//即将直播
+		$(".paly_ing_all_now").click(function(){
+			  var courseId_now=$(this).attr("data-ppdnow");
 
-		 location.href="/xcview/html/live_play.html?my_study="+courseId_now;	
-	})
+			 location.href="/xcview/html/live_play.html?my_study="+courseId_now;	
+		})
 	})	
 	
 /*requestService("/xczh/myinfo/myCourseType",{'pageSize':5,'pageNumber':1,'type':2},function(data) {
