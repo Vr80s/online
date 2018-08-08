@@ -871,11 +871,18 @@ function confirmBox(title, content, fn) {
 	$(".confirm-content").html(content);
 	$(".confirm-sure").click(function() {
 		fn(hideDel);
+		$("#cancalDel").unbind("click");
+		$(".confirm-sure").unbind("click")
+	})
+	$("#cancalDel").click(function() {
+		$("#cancalDel").unbind("click");
 		$(".confirm-sure").unbind("click")
 	})
 	showDel();
 }
-
+//	$("#cancalDel").click(function() {
+//		$("#cancalDel").unbind("click")
+//	})
 //删除提示框出现方法
 function showDel() {
 	$('#deleteTip').removeClass('hide');
