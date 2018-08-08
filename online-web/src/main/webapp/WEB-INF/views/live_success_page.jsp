@@ -24,4 +24,4 @@
   var vhallName = '<%=request.getAttribute("vhallName")%>';
 
 </script>
-<%@include file="../../web/html/liveVideo.html" %>
+<%@include file="../../web/html/liveVideo2.html" %>

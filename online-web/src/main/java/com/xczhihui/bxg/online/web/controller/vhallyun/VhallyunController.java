@@ -10,7 +10,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSON;
@@ -67,7 +72,14 @@ public class VhallyunController extends AbstractController {
     public ResponseObject getChatAccessToken(@RequestParam String channelId) throws Exception {
         return ResponseObject.newSuccessResponseObject(BaseService.createAccessToken4Live(getUserId(), null, channelId));
     }
-
+    
+    @RequestMapping(value = "vhallYunToken", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseObject getAccessToken(@RequestParam String roomId, @RequestParam String channelId) throws Exception {
+        return ResponseObject.newSuccessResponseObject(BaseService.createAccessToken4Live(getUserId(), roomId, channelId));
+    }
+    
+    
     @RequestMapping(value = "documentId", method = RequestMethod.POST)
     @ResponseBody
     public ResponseObject createDocument(@RequestParam("document") MultipartFile file) throws Exception {

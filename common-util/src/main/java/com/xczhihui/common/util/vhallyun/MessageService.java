@@ -1,7 +1,6 @@
 package com.xczhihui.common.util.vhallyun;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import com.alibaba.fastjson.JSON;
 import com.xczhihui.common.util.IStringUtil;
@@ -43,8 +42,6 @@ public class MessageService {
         params.put("channel_id", channel_id);
         params = VhallUtil.createRealParam(params);
         String result = VhallUtil.sendPost("http://api.yun.vhall.com/api/v1/channel/sent", params);
-        System.out.println(result);
-        
         return JSON.parse(result);
         
     }
