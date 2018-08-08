@@ -253,7 +253,7 @@ public class HospitalApplyServiceImpl implements HospitalApplyService {
         hospital.setCreateTime(now);
         hospital.setAuthentication(true);
         hospital.setDeleted(false);
-        hospital.setStatus(false);
+        hospital.setStatus(true);
         String authenticationInformationId = UUID.randomUUID().toString()
                 .replace("-", "");
         hospital.setAuthenticationId(authenticationInformationId);
