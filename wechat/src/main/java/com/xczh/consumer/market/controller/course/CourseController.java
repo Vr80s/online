@@ -6,13 +6,11 @@ import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.solr.client.solrj.SolrServerException;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczh.consumer.market.auth.Account;
@@ -20,10 +18,7 @@ import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.CourseUtil;
 import com.xczhihui.common.util.XzStringUtils;
 import com.xczhihui.common.util.vhallyun.BaseService;
-import com.xczhihui.course.service.ICourseService;
-import com.xczhihui.course.service.ICriticizeService;
-import com.xczhihui.course.service.IMobileBannerService;
-import com.xczhihui.course.service.IWatchHistoryService;
+import com.xczhihui.course.service.*;
 import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.medical.anchor.service.ICourseApplyService;
 
@@ -56,6 +51,8 @@ public class CourseController {
 
     @Autowired
     private ICriticizeService criticizeService;
+    @Autowired
+    private ICourseSolrService courseSolrService;
 
     /**
      * Description：用户当前课程状态   User current course status.
@@ -251,6 +248,19 @@ public class CourseController {
         page.setSize(pageSize);
         String userId = accountIdOpt.isPresent() ? accountIdOpt.get() : null;
         return ResponseObject.newSuccessResponseObject(courseServiceImpl.selectTeachingCoursesByUserId(page, lecturerId ,userId));
+    }
+
+    @RequestMapping(value = "updateLiveStatus", method = RequestMethod.POST)
+    public ResponseObject updateLiveStatus(String event, String directId) throws IOException, SolrServerException {
+        Integer courseId = courseServiceImpl.updateCourseLiveStatus(event, directId);
+        if (courseId != null) {
+            try {
+                courseSolrService.initCourseSolrDataById(courseId);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return ResponseObject.newSuccessResponseObject(null);
     }
 
     /**
