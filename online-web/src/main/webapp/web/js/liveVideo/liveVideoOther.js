@@ -132,8 +132,3 @@ var timeRunner = new fn({
 }, function() {
 	console.log("倒计时结束");
 });
-
-
-
-
-
