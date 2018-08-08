@@ -342,7 +342,16 @@
         </div>
     </div>
 </div>
-
+<!--语音直播弹窗-->
+<div id="video-cover" class="" style="position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; background: rgb(0, 0, 0); opacity: 0.3; z-index: 888;"></div>
+<div class="video-live">
+	<p class="video-top">语音直播</p>
+	<div class="video-qr-code">
+		
+	</div>
+	<p class="video-tip">请使用微信扫描二维码进入语音直播间观看</p>
+	<p class="video-tip2">或用熊猫中医APP进入语音直播间观看</p>
+</div>
 <!--公共头部和底部结束-->
 
 <!--登陆结束-->

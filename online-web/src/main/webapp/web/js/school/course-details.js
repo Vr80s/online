@@ -310,3 +310,8 @@ $(function () {
         }
     }
 });
+$("#video-cover").click(function(){
+	$(this).addClass("hide");
+	$(".video-live").addClass("hide");
+})
+
