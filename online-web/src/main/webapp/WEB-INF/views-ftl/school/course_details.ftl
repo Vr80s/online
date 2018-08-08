@@ -35,6 +35,8 @@
     <!--公共头部和底部-->
     <script src="/web/js/common/common.js" type="text/javascript" charset="utf-8"></script>
     <script src="/web/html/school/school-header/header.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/web/js/jquery.qrcode.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/web/js/utf.js" type="text/javascript" charset="utf-8"></script>
 
 </head>
 <body>
@@ -359,8 +361,8 @@
     </div>
 </div>
 <!--语音直播弹窗-->
-<div id="video-cover" class="" style="position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; background: rgb(0, 0, 0); opacity: 0.3; z-index: 888;"></div>
-<div class="video-live">
+<div id="video-cover" class="hide" style="position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; background: rgb(0, 0, 0); opacity: 0.3; z-index: 888;"></div>
+<div class="video-live hide">
 	<p class="video-top">语音直播</p>
 	<div class="video-qr-code">
 		
@@ -386,8 +388,37 @@
     <#if courseInfo.courseLength??>
     var courseLength = "${courseInfo.courseLength}";
     </#if>
-    //    console.info("type：" + type + ";watchState：" + watchState + ";courseId：" + courseId);
-    //    console.info("userId：" + userId + ";collection：" + collection+",commentCode:"+commentCode);
+
+
+    var config = "";
+    $.ajax({url:"/config.json",async:false,success:function(data){
+        config = data;
+    }});
+    var shareCourseId = courseId;
+
+    /**
+     * 获取微信端 域名
+     */
+    var wxurl = "http://" + config.wechat;
+    /**
+     * 获取微信端分享连接地址
+     */
+//-- shareType 分享类型 1 课程  2 主播    shareId 当类型是1时为课程id，当是2时为用户id
+    var share_link = "/wx_share.html?shareType=1&shareId="+shareCourseId;
+    var qrcodeurl = wxurl+share_link;
+
+    /**
+     * 微信pc分享 显示二维码
+     */
+    $(".video-qr-code").qrcode({
+        render : "canvas",    //设置渲染方式，有table和canvas，使用canvas方式渲染性能相对来说比较好
+        text : qrcodeurl,    //扫描了二维码后的内容显示,在这里也可以直接填一个网址，扫描二维码后
+        width : "115",               //二维码的宽度
+        height : "115",              //二维码的高度
+        background : "#ffffff",       //二维码的后景色
+        foreground : "#000000",        //二维码的前景色
+//        src: '/web/images/yrx.png'             //二维码中间的图片
+    });
 </script>
 <script src="/web/js/school/course-details.js" type="text/javascript" charset="utf-8"></script>
 <script src="/web/js/school/comment.js" type="text/javascript" charset="utf-8"></script>

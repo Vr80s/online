@@ -163,7 +163,8 @@ $(function () {
                         }
                         window.location.href = "/web/livepage/" + realCourseId;
                     }else if(multimediaType == 2){
-                        alert("免费音频直播---二维码")
+                        $("#video-cover").removeClass("hide");
+                        $(".video-live").removeClass("hide");
                     }
                 } else if (courseForm == 2) {
                     if(watchState == 1){
@@ -301,7 +302,7 @@ $(function () {
     }
 });
 $("#video-cover").click(function(){
-	$(this).addClass("hide");
-	$(".video-live").addClass("hide");
+    $(this).addClass("hide");
+    $(".video-live").addClass("hide");
 })
 
