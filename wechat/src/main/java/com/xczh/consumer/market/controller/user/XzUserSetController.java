@@ -278,44 +278,10 @@ public class XzUserSetController {
         }
         LOGGER.info("user.getId():" + user.getId());
         /**
-         * 保存个人资料信息
+         * 图片转换
          */
-        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-        MultipartFile fileMul = multipartRequest.getFile("file");
-        if (fileMul != null && !fileMul.isEmpty()) {
-            // 获得文件名：
-            String filename = fileMul.getOriginalFilename();
-            if (filename != null && !"".equals(filename.trim())) {
-                filename = filename.toLowerCase();
-                if (!filename.endsWith("image") && !filename.endsWith("gif")
-                        && !filename.endsWith("jpg")
-                        && !filename.endsWith("png")
-                        && !filename.endsWith("bmp")) {
-                    return ResponseObject.newErrorResponseObject("文件类型有误");
-                }
-                byte[] bs = fileMul.getBytes();
-                LOGGER.info("个人头像:bytes():" + bs.length + ",filename:" + filename);
-                String contentType = fileMul.getContentType();// 文件类型
-                String projectName = "other";
-                String fileType = "1"; // 图片类型了
-                String headImgPath = service.upload(null, // 用户中心的用户ID
-                        projectName, filename, contentType,
-                        bs, fileType, null);
-                LOGGER.info("文件路径——path:" + headImgPath);
-                user.setSmallHeadPhoto(headImgPath);
-            }
-        }
-
-        String provinceCityName = user.getProvinceName();
-        if (StringUtils.isNotBlank(provinceCityName)) {
-            String[] str = provinceCityName.split(" ");
-            // 获取省市县
-            if (str.length == 3) {
-                user.setProvinceName(str[0]);
-                user.setCityName(str[1]);
-                user.setCountyName(str[2]);
-            }
-        }
+        String headImgPath =   getUploadImgUrlByRequestFile(request);
+        user.setSmallHeadPhoto(headImgPath);
         /**
          * 更新信息
          */
@@ -328,19 +294,6 @@ public class XzUserSetController {
         OnlineUser newUser = onlineUserService.findUserById(user.getId());
         if (token != null) {
             userCenterService.updateTokenInfo(newUser.getId(), token);
-        }
-        /**
-         * 更改微吼信息
-         */
-        if (StringUtils.isNotBlank(user.getName())
-                || StringUtils.isNotBlank(user.getSmallHeadPhoto())) {
-
-            String weiHouResp = WeihouInterfacesListUtil.updateUser(
-                    user.getId(), null, newUser.getName(),
-                    newUser.getSmallHeadPhoto());
-            if (weiHouResp == null) {
-                LOGGER.info("同步微吼昵称，头像失败");
-            }
         }
         return ResponseObject.newSuccessResponseObject(newUser);
     }
@@ -360,30 +313,8 @@ public class XzUserSetController {
     @ResponseBody
     @Transactional
     public ResponseObject userInfoWechat(HttpServletRequest request,OnlineUserVO user) throws Exception {
-        /**
-         * 保存个人资料信息
-         */
-        String provinceCityName = user.getProvinceName();
-        // cityResult.className
-        String citys = user.getRegionId();
-        if (StringUtils.isNotBlank(provinceCityName)) {
-            String[] str = provinceCityName.split(" ");
-            // 获取省市县
-            if (str.length == 3) {
-                user.setProvinceName(str[0]);
-                user.setCityName(str[1]);
-                user.setCountyName(str[2]);
-            }
-        }
-        if (StringUtils.isNotBlank(provinceCityName)) {
-            String[] str = citys.split(" ");
-            // 获取省市县
-            if (str.length == 3) {
-                user.setRegionAreaId(str[0]);
-                user.setRegionCityId(str[1]);
-                user.setRegionId(str[2]);
-            }
-        }
+    	
+    	user = getOnlineUserAddress(user);
         /**
          * 更新信息
          */
@@ -395,19 +326,6 @@ public class XzUserSetController {
         OnlineUser newUser = onlineUserService.findUserById(user.getId());
         if (token != null) {
             userCenterService.updateTokenInfo(newUser.getId(), token);
-        }
-        /**
-         * 更改微吼信息
-         */
-        if (StringUtils.isNotBlank(user.getName())
-                || StringUtils.isNotBlank(user.getSmallHeadPhoto())) {
-
-            String weiHouResp = WeihouInterfacesListUtil.updateUser(
-                    user.getId(), null, newUser.getName(),
-                    newUser.getSmallHeadPhoto());
-            if (weiHouResp == null) {
-                LOGGER.info("同步微吼昵称，头像失败");
-            }
         }
         return ResponseObject.newSuccessResponseObject(user);
     }
@@ -424,67 +342,24 @@ public class XzUserSetController {
     @ResponseBody
     @Transactional
     public ResponseObject wechatSaveHeadImg(HttpServletRequest request,@Account OnlineUser account) throws Exception {
-        // TODO
-        String base64Data = request.getParameter("base64Data");
-        String imageName = request.getParameter("imageName");
-        // logger.debug("上传文件的数据："+base64Data);
-        String dataPrix = "";
-        String data = "";
+      
+    	/**
+    	 * 通过base64上次图片啦,并且得到上传图片的路径
+    	 */
+    	String headImgPath = getUploadImgUrlByRequestBase64(request);
 
-        // logger.debug("对数据进行判断");
-        if (base64Data == null || "".equals(base64Data)) {
-            throw new Exception("上传失败，上传图片数据为空");
-        } else {
-            String[] d = base64Data.split("base64,");
-            if (d != null && d.length == 2) {
-                dataPrix = d[0];
-                data = d[1];
-            } else {
-                throw new Exception("上传失败，数据不合法");
-            }
-        }
-        String suffix = "";
-        if ("data:image/jpeg;".equalsIgnoreCase(dataPrix)) {// data:image/jpeg;base64,base64编码的jpeg图片数据
-            suffix = ".jpg";
-        } else if ("data:image/x-icon;".equalsIgnoreCase(dataPrix)) {// data:image/x-icon;base64,base64编码的icon图片数据
-            suffix = ".ico";
-        } else if ("data:image/gif;".equalsIgnoreCase(dataPrix)) {// data:image/gif;base64,base64编码的gif图片数据
-            suffix = ".gif";
-        } else if ("data:image/png;".equalsIgnoreCase(dataPrix)) {// data:image/png;base64,base64编码的png图片数据
-            suffix = ".png";
-        } else {
-            throw new Exception("上传图片格式不合法");
-        }
-
-        // 因为BASE64Decoder的jar问题，此处使用spring框架提供的工具包
-        byte[] bs123 = Base64Utils.decodeFromString(data);
-
-        String projectName = "other";
-        String fileType = "1"; // 图片类型了
-
-        Map<String, String> map = new HashMap<String, String>();
-        String headImgPath = service.upload(null, projectName, imageName,
-                suffix, bs123, fileType, null);
-
-        LOGGER.info("文件路径——path:" + headImgPath);
-        map.put("smallHeadPhoto", headImgPath);
-
-        onlineUserService.updateUserCenterData(account, map);
-        /**
-         * 更新微吼信息
-         */
-        String weiHouResp = WeihouInterfacesListUtil.updateUser(account.getId(),
-                null, null, map.get("smallHeadPhoto"));
+        OnlineUserVO user = new OnlineUserVO();
+        user.setId(account.getId());
+        user.setSmallHeadPhoto(headImgPath);
+        myInfoService.updateUserSetInfo(user);
+        
         /**
          * 如果用户信息发生改变。那么就改变token的信息，也就是redsei里面的信息
          */
-        OnlineUser newUser = onlineUserService.findUserByLoginName(account
-                .getLoginName());
+        OnlineUser newUser = onlineUserService.findUserByLoginName(account.getLoginName());
         request.getSession().setAttribute("_user_", newUser);
-        if (weiHouResp == null) {
-            LOGGER.info("同步微吼头像失败");
-        }
-        return ResponseObject.newSuccessResponseObject(map);
+
+        return ResponseObject.newSuccessResponseObject(user);
     }
 
     /**
@@ -656,4 +531,126 @@ public class XzUserSetController {
     public ResponseObject check(){
         return ResponseObject.newSuccessResponseObject("已登录！");
     }
+    
+    /**
+     * 
+    * @Title: getUploadImgUrlByRequest
+    * @Description: 微信端处理上传的base64图片数据，上传并返回图片url
+    * @param @param request
+    * @param @return
+    * @param @throws Exception    参数
+    * @return String    返回类型
+    * @author yangxuan
+    * @throws
+     */
+    private String getUploadImgUrlByRequestBase64(HttpServletRequest request) throws Exception {
+    	
+        String base64Data = request.getParameter("base64Data");
+        String imageName = request.getParameter("imageName");
+        String dataPrix = "";
+        String data = "";
+        if (base64Data == null || "".equals(base64Data)) {
+            throw new Exception("上传失败，上传图片数据为空");
+        } else {
+            String[] d = base64Data.split("base64,");
+            if (d != null && d.length == 2) {
+                dataPrix = d[0];
+                data = d[1];
+            } else {
+                throw new Exception("上传失败，数据不合法");
+            }
+        }
+        String suffix = "";
+        if ("data:image/jpeg;".equalsIgnoreCase(dataPrix)) {// data:image/jpeg;base64,base64编码的jpeg图片数据
+            suffix = ".jpg";
+        } else if ("data:image/x-icon;".equalsIgnoreCase(dataPrix)) {// data:image/x-icon;base64,base64编码的icon图片数据
+            suffix = ".ico";
+        } else if ("data:image/gif;".equalsIgnoreCase(dataPrix)) {// data:image/gif;base64,base64编码的gif图片数据
+            suffix = ".gif";
+        } else if ("data:image/png;".equalsIgnoreCase(dataPrix)) {// data:image/png;base64,base64编码的png图片数据
+            suffix = ".png";
+        } else {
+            throw new Exception("上传图片格式不合法");
+        }
+        byte[] bs123 = Base64Utils.decodeFromString(data);
+        String projectName = "other";
+        String fileType = "1"; // 图片类型了
+
+    	return service.upload(null, projectName, imageName,suffix, bs123, fileType, null);
+    }
+    
+   /**
+    * @Title: getUploadImgUrlByRequestFile
+    * @Description: 通过多媒体字段file 得到图片地址
+    * @param @param request
+    * @param @return
+    * @param @throws Exception    参数
+    * @return String    返回类型
+    * @author yangxuan
+    * @throws
+     */
+    private String getUploadImgUrlByRequestFile(HttpServletRequest request) throws Exception {
+    	
+        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+        MultipartFile fileMul = multipartRequest.getFile("file");
+        if (fileMul != null && !fileMul.isEmpty()) {
+            // 获得文件名：
+            String filename = fileMul.getOriginalFilename();
+            if (filename != null && !"".equals(filename.trim())) {
+                filename = filename.toLowerCase();
+                if (!filename.endsWith("image") && !filename.endsWith("gif")
+                        && !filename.endsWith("jpg")
+                        && !filename.endsWith("png")
+                        && !filename.endsWith("bmp")) {
+                	
+                	 throw new Exception("文件类型有误");
+                }
+                byte[] bs = fileMul.getBytes();
+                LOGGER.info("个人头像:bytes():" + bs.length + ",filename:" + filename);
+                String contentType = fileMul.getContentType();// 文件类型
+                String projectName = "other";
+                String fileType = "1"; // 图片类型了
+                String headImgPath = service.upload(null,projectName, filename, contentType,bs, fileType, null);
+                LOGGER.info("文件路径——path:" + headImgPath);
+                return headImgPath;
+            }
+        }
+        return null;
+    }
+    
+    /**
+     * 
+    * @Title: getOnlineUserAddress
+    * @Description: 微信端保存省市区时的省市区简化转换
+    * @param @param user
+    * @param @return
+    * @param @throws Exception    参数
+    * @return OnlineUserVO    返回类型
+    * @author yangxuan
+    * @throws
+     */
+    private OnlineUserVO getOnlineUserAddress(OnlineUserVO user) throws Exception {
+         String provinceCityName = user.getProvinceName();
+         String citys = user.getRegionId();
+         if (StringUtils.isNotBlank(provinceCityName)) {
+             String[] str = provinceCityName.split(" ");
+             // 获取省市县
+             if (str.length == 3) {
+                 user.setProvinceName(str[0]);
+                 user.setCityName(str[1]);
+                 user.setCountyName(str[2]);
+             }
+         }
+         if (StringUtils.isNotBlank(provinceCityName)) {
+             String[] str = citys.split(" ");
+             // 获取省市县
+             if (str.length == 3) {
+                 user.setRegionAreaId(str[0]);
+                 user.setRegionCityId(str[1]);
+                 user.setRegionId(str[2]);
+             }
+         }
+         return user;
+     }
+    
 }

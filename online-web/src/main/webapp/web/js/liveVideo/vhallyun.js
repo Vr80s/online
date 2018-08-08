@@ -13,12 +13,12 @@ $.ajax({
 	}
 });
 
-RequestService("/vhallyun/vhallYunToken","get",{channelId:vhallObj.channel_id,roomId:vhallObj.roomId},
+RequestService("/vhallyun/vhallYunToken","get",{channelId:vhallObj.channelId,roomId:vhallObj.roomId},
     function(data) {
     if (data.success) {
         vhallObj.token=data.resultObject;
     }   
-}); 
+},false); 
 
 
 
@@ -146,7 +146,6 @@ function elsBind(){
          */
         window.chat.onCustomMsg(function(msg){
              msg = JSON.parse(msg);
-             
              try{
              	var e="";
                 if(msg.type ==10 ){//聊天
@@ -157,14 +156,21 @@ function elsBind(){
                 	createGiftList(msg.message);
                 }else if(msg.type == 12){ // 开始直播啦
                 
+                	
                 }if(msg.type == 13){ //直播结束了  
                 
-                }
-                
+                } else if (msg.type == 14) { // 退出直播间，但是没有结束直播
+
+				} else if (msg.type == 15) { // 继续直播
+
+				} else if (msg.type == 16) { // 回放生成成功
+
+				} else if (msg.type == 17) { // 回放生成失败
+
+				}
                 if (e != "") {
 					$("#chatmsg").append(e);
 				}
-               
              }catch(error){
                console.error(error);
              }
@@ -186,11 +192,11 @@ function elsBind(){
         
      });	
     
-         window.Vhall.config({
-              appId :vhallObj.appId,//应用 ID ,必填
-              accountId :vhallObj.accountId,//第三方用户唯一标识,必填
-              token:vhallObj.token//token必填
-         });
+     window.Vhall.config({
+          appId :vhallObj.appId,//应用 ID ,必填
+          accountId :vhallObj.accountId,//第三方用户唯一标识,必填
+          token:vhallObj.token//token必填
+     });
      
     },1000);	
       
@@ -202,7 +208,7 @@ function elsBind(){
         var text = $("#mywords").val();
         if(text!=null){
           var content = {
-            type:1,                 //消息类型     1 聊天消息
+            type:10,                 //消息类型     1 聊天消息
             message:{
                 content:text,   //发送的内容
                 headImg:smallHeadPhoto,       //发送的头像
@@ -213,14 +219,10 @@ function elsBind(){
          /**
           * 发送消息
           */ 
-         RequestService("/vhallyun/vhallYunSendMessage","get",{channel_id:vhallObj.channel_id,body:JSON.stringify(content)},
+         RequestService("/vhallyun/vhallYunSendMessage","get",{channel_id:vhallObj.channelId,body:JSON.stringify(content)},
                 function(data) {
                 if (data.success) {
-                    var str = liaotian(content.message,false);
-                    if(str!=""){
-                     $("#chatmsg").append(str);  
-                    }
-                    $("#mywords").val('');
+					console.log("发送消息成功");
                 }   
           }); 
         }
@@ -372,14 +374,17 @@ function replaceEmoji(contents) {
 	}
 	str = contents;
 	for (i = 0; i < content.length; i++) {
+		var src = "";
 		for (j = 0; j < emoji.length; j++) {
-			if ("[" + emoji[j].text + "]" == content[i]) {
+			if (emoji[j].text == content[i]) {
 				src = emoji[j].imgUrl;
 				break;
 			}
 		}
-		var imgBag = "<img src="+src+" />";
-		str = str.replace(pattern2, imgBag);
+		if(src!=""){
+			var imgBag = "<img src="+src+" style='width:20px;' />";
+		    str = str.replace(pattern2, imgBag);
+		}
 	}
 	return str;
 }

@@ -19,6 +19,7 @@ import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.CourseUtil;
 import com.xczhihui.common.util.XzStringUtils;
+import com.xczhihui.common.util.vhallyun.BaseService;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.course.service.ICriticizeService;
 import com.xczhihui.course.service.IMobileBannerService;
@@ -121,16 +122,18 @@ public class CourseController {
      * email: 15936216273@163.com
      */
     @RequestMapping("liveDetails")
-    public ResponseObject liveDetails(@Account(optional = true) Optional<String> accountIdOpt, @RequestParam("courseId") Integer courseId) {
+    public ResponseObject liveDetails(@Account String accountId, @RequestParam("courseId") Integer courseId) throws Exception {
 
-        CourseLecturVo cv = courseServiceImpl.selectCourseDetailsById(accountIdOpt.isPresent() ? accountIdOpt.get() : null,courseId);
+        CourseLecturVo cv = courseServiceImpl.selectCourseDetailsById(accountId,courseId);
         if (cv == null) {
             return ResponseObject.newErrorResponseObject("获取课程有误");
         }
 
         //赋值公共参数
         cv = assignCommonData(cv,courseId);
-
+        if (cv.getChannelId() != null && cv.getDirectId() != null) {
+            cv.setVhallYunToken(BaseService.createAccessToken4Live(accountId, cv.getDirectId(), cv.getChannelId()));
+        }
         return ResponseObject.newSuccessResponseObject(cv);
     }
 

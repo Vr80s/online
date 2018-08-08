@@ -15,6 +15,7 @@ import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xczhihui.common.util.XzStringUtils;
 import com.xczhihui.common.util.enums.AnchorType;
 import com.xczhihui.common.util.enums.UserSex;
+import com.xczhihui.common.util.vhallyun.MessageService;
 import com.xczhihui.course.exception.UserInfoException;
 import com.xczhihui.course.mapper.CourseMapper;
 import com.xczhihui.course.mapper.FocusMapper;
@@ -89,6 +90,12 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper, OnlineUser> imp
             throw new UserInfoException("邮箱格式有误");
         }
         myInfoMapper.updateUserSetInfo(user);
+    
+        
+        /**
+         * 同步更新到微吼信息
+         */
+        MessageService.saveUserInfo(user.getId(), user.getName(), user.getSmallHeadPhoto());
     }
 
     @Override
