@@ -1098,6 +1098,11 @@ header{
 .boutique_main_one_size .p3 span{
     color: #999999;
     float: left;
+    max-width: 1.1rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: inline-block;
 }
 .boutique_main_one_size .p4{
     margin-top: 0.03rem;
@@ -1264,7 +1269,7 @@ header{
 .boutique_four_img{
     width: 3.358rem;
     height: 1.92rem;
-    margin-bottom: 0.16rem;
+    /*margin-bottom: 0.16rem;*/
 }
 .boutique_four_img img{
     width: 3.39rem;
@@ -1286,13 +1291,22 @@ header{
     overflow: hidden;
 }
 .boutique_main_four_title .div{
-    width: 3.358rem;
+    /* width: 3.358rem;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
     overflow: hidden;
     height: 0.76rem;
+    margin-bottom: 0.07rem; */
+    width: 3.358rem;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    height: 0.72rem;
     margin-bottom: 0.07rem;
+    padding: 0.1rem 0 0 0;
+    line-height: 0.4rem;
 }
 .boutique_main_four_title div{
     margin-bottom: 0.1rem;
@@ -1463,7 +1477,7 @@ header{
 .newest_two_img{
     width: 3.39rem;
     height: 1.92rem;
-    margin-bottom: 0.1rem;
+    /*margin-bottom: 0.1rem;*/
 }
 .newest_two_img img{
     width: 3.39rem;
@@ -1484,17 +1498,22 @@ header{
     white-space: nowrap; */
 }
 .newest_main_two_title .div{
-    width: 3.358rem;
-    /* overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis; */
-    /*height: 0.64rem;*/
+    /* width: 3.358rem;
     height: 0.76rem;
     margin-bottom: 0.07rem;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
+    overflow: hidden; */
+    width: 3.358rem;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
     overflow: hidden;
+    height: 0.72rem;
+    margin-bottom: 0.07rem;
+    padding: 0.1rem 0 0 0;
+    line-height: 0.4rem;
 }
 .newest_main_two_title .span{
     overflow: hidden;
@@ -1742,7 +1761,7 @@ header{
 .lectures_one_img{
     width: 3.39rem;
     height: 1.92rem;
-    margin-bottom: 0.1rem;
+    /*margin-bottom: 0.1rem;*/
 }
 .lectures_one_img img{
     width: 3.39rem;
@@ -1764,13 +1783,22 @@ header{
     white-space: nowrap; */
 }
 .lectures_main_one_title .div{
-    width: 3.358rem;
+    /* width: 3.358rem;
     height: 0.76rem;
     margin-bottom: 0.07rem;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
+    overflow: hidden; */
+    width: 3.358rem;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
     overflow: hidden;
+    height: 0.72rem;
+    margin-bottom: 0.07rem;
+    padding: 0.1rem 0 0 0;
+    line-height: 0.4rem;
 }
 .lectures_main_one_title div{
     margin-bottom: 0.1rem;
