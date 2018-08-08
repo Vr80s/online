@@ -602,7 +602,7 @@ body{
     float: left;
     width: 0.4rem;
     height: 0.4rem;
-    background: url(/xcview/images/barrage_switch.png) no-repeat;
+    background: url(/xcview/images/barrage_switch_bg.png) no-repeat;
     background-size: 100% 100%;
     margin-top: 0.3rem;
     /*margin-right: 0.4rem;*/
@@ -680,7 +680,7 @@ body{
     /*background: #007AFF;*/
     position: fixed;
     right: 0;
-    bottom: 2.38rem;
+    bottom: 2.36rem;
     /*overflow: hidden;*/
 }
 .msgItem{
@@ -691,10 +691,10 @@ body{
     background: rgba(0,0,0,0.50);
     /*background: rgba(0,0,0,.7);*/
     color: #fff;
-    border-radius: 5px;
     padding: 0.12rem 0.17rem;
     box-sizing: border-box;
     margin-bottom: .2rem;
+    border-radius: 100px 0 0 100px;
 }
 .msgItem .text{
     flex: 1;
@@ -705,6 +705,15 @@ body{
     -webkit-line-clamp: 2;
     overflow: hidden;
     word-wrap: break-word;
+    margin-right: 0.1rem;
+}
+.msgItem .text .ask{
+    font-size: 0.2rem;
+    color: #fff;
+    background: #F97B49;
+    border-radius: 5px;
+    padding: 0 0.03rem;
+    margin-right: 0.1rem;
 }
 .msgItem  .avatar{
     width: .4rem;
