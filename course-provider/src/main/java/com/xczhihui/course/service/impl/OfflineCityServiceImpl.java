@@ -73,10 +73,12 @@ public class OfflineCityServiceImpl extends ServiceImpl<OfflineCityMapper, Offli
         mapAll.put("cityList", offlineCityPage.setRecords(list));
 
         List<OfflineCity> ocl = new ArrayList<OfflineCity>();
-        for (int i = 0; i < PagingFixedType.OFFLINE_CITY_COURSE_RECOMMEND.getValue(); i++) {
+        for (int i = 0; i < list.size(); i++) {
+        	if(i==4) {
+        	   break;
+        	}
         	ocl.add(list.get(i));
 		}
-        
         //城市  城市中的课程
         List<Map<String, Object>> mapCourseList = mobileBannerService.realCourseList(ocl, PagingFixedType.PC_REAL_PAGETYPE_UP.getValue(),
                 PagingFixedType.PC_REAL_PAGETYPE_DOWN.getValue(),onlyThread);

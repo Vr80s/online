@@ -127,7 +127,7 @@ function recommendSchool() {
                     pagination: '#swiper-banner-list',
                     loop: true,
                     autoplay: 3000,
-                    autoplayDisableOnInteraction: false,
+                    autoplayDisableOnInteraction: false
                     //pagination : '#swiper-pagination1',
                 })
             } else {
@@ -224,7 +224,7 @@ function lineWork() {
                         pagination: '#swiper-banner-list-class',
                         loop: true,
                         autoplay: 3000,
-                        autoplayDisableOnInteraction: false,
+                        autoplayDisableOnInteraction: false
                         //pagination : '#swiper-pagination1',
                     })
                 }
@@ -266,7 +266,7 @@ function lineWork() {
 //				all_class='';
 //			}
 
-        window.location.href = "/xcview/html/curriculum_table.html?city=" + all_class.trim() + "";
+        window.location.href = "/xcview/html/curriculum_table.html?courseType=4&city=" + all_class.trim() + "";
     })
 
 }
@@ -293,7 +293,7 @@ function liveSchool() {
                     pagination: '#swiper-banner-list-play',
                     loop: true,
                     autoplay: 3000,
-                    autoplayDisableOnInteraction: false,
+                    autoplayDisableOnInteraction: false
                     //pagination : '#swiper-pagination1',
                 })
             } else {
@@ -343,7 +343,7 @@ function listenSchool() {
                     pagination: '#swiper-banner-list-listen',
                     loop: true,
                     autoplay: 3000,
-                    autoplayDisableOnInteraction: false,
+                    autoplayDisableOnInteraction: false
                     //pagination : '#swiper-pagination1',
                 })
             } else {
