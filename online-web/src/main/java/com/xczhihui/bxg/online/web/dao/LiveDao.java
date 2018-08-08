@@ -144,6 +144,12 @@ public class LiveDao extends SimpleHibernateDao {
                 "    c.start_time,\n" +
                 "    '%Y年%m月%d日 %H:%i'\n" +
                 "  ) start_time,\n" +
+                
+                "  DATE_FORMAT(\n" +
+                "    c.start_time,\n" +
+                "    '%Y-%m-%d %H:%i:%s'\n" +
+                "  ) startTime,\n" +
+                
                 "  c.direct_id," +
                 "  c.channel_id," +
                 "  c.record_id," +
