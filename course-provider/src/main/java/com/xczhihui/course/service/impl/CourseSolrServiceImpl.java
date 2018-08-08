@@ -117,7 +117,7 @@ public class CourseSolrServiceImpl implements ICourseSolrService {
         return sf.format(startTime);
     }
 
-    private static String getSearchStr(QueryConditionVo queryConditionVo) {
+    private  String getSearchStr(QueryConditionVo queryConditionVo) {
         StringBuilder searchKeyWordStr = new StringBuilder();
         StringBuilder query = new StringBuilder();
         String queryKey = queryConditionVo.getQueryKey();
@@ -187,13 +187,15 @@ public class CourseSolrServiceImpl implements ICourseSolrService {
         }*/
      
         if (StringUtils.isNotBlank(queryConditionVo.getCity()) && !"全国课程".equals(queryConditionVo.getCity())) {
-        	
         	if("其他".equals(queryConditionVo.getCity())) {
-        		 searchCity = " NOT city:(唐山市,信阳市)";
-                 if (query.length() > 0) {
-                     query.append(SolrConstant.AND);
-                 }
-                 query.append(searchCity);
+        		 String citys = iOfflineCityService.getClassIfyOffLine();
+        		 if(StringUtils.isNotBlank(citys)) {
+        			 searchCity = " NOT city:("+citys+")";
+                     if (query.length() > 0) {
+                         query.append(SolrConstant.AND);
+                     }
+                     query.append(searchCity);
+        		 }
         	}else {
                 searchCity = "city:" + queryConditionVo.getCity();
                 if (query.length() > 0) {
@@ -202,8 +204,6 @@ public class CourseSolrServiceImpl implements ICourseSolrService {
                 query.append(searchCity);
         	}
         }
-        
-
         return query.toString();
     }
 
@@ -279,7 +279,8 @@ public class CourseSolrServiceImpl implements ICourseSolrService {
 
     @Override
     public Page<CourseSolrVO> selectCourseListBySolr(Page page, QueryConditionVo queryConditionVo) throws IOException, SolrServerException {
-        String searchStr = getSearchStr(queryConditionVo);
+        
+    	String searchStr = getSearchStr(queryConditionVo);
         searchStr = searchStr.equals("") ? "*:*" : searchStr;
         Map<String, SolrQuery.ORDER> sortedMap = new LinkedHashMap<>();
         if (queryConditionVo.getSortOrder() == null) {
