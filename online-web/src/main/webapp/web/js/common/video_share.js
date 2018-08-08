@@ -1,7 +1,10 @@
 var protocoltype =document.location.protocol;
 var documnetHost = document.location.host;
 
-var config = $.ajax({url:"/config.json",async:false}).responseJSON;
+var config = "";
+$.ajax({url:"/config.json",async:false,success:function(data){
+  config = data;
+}});
 var full = protocoltype +"//" + config.pc;
 
 //如果是专辑分享的话：如下
