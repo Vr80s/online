@@ -9,6 +9,24 @@ var giftList;
 var queue = new Queue();
 
 
+var loginUserId = "";
+var loginStatus = true;
+var smallHeadPhoto = "";
+var nickname = "";
+//判断有没有登录
+RequestService("/online/user/isAlive", "GET", null, function (data) {
+    if (data.success) {
+        loginUserId = data.resultObject.id;
+        smallHeadPhoto = data.resultObject.smallHeadPhoto;
+        nickname = data.resultObject.name;
+    }
+}, false)
+
+var vhallObj = {
+    appId: "27376e92",
+    accountId:loginUserId
+};
+
 /**
  * 礼物列表血染
  * @returns
@@ -46,41 +64,6 @@ function getGiftList(){
 //礼物渲染
 getGiftList();
 
-/**
- * 连接IM服务器
- * @param status
- * @returns
- */
-//function onConnect(status) {
-//    if (status == Strophe.Status.CONNFAIL) {
-////        alert("连接失败！");
-//        autoLogin();
-//    } else if (status == Strophe.Status.AUTHFAIL) {
-////        alert("登录失败！");
-//        autoLogin();
-//    } else if (status == Strophe.Status.DISCONNECTED) {
-////        alert("连接断开！");
-//        autoLogin();
-//        connected = false;
-//    } else if (status == Strophe.Status.CONNECTED) {
-////        alert("连接成功，可以开始聊天了！");
-//        connected = true;
-//        
-//        // 当接收到<message>节，调用onMessage回调函数
-//        connection.addHandler(onMessage, null, 'message', null, null, null);
-//        
-//        // 首先要发送一个<presence>给服务器（initial presence）
-//        connection.send($pres().tree());
-//
-//        // 发送<presence>元素，加入房间
-//		var pres = $pres({
-//            from: jid,
-//            to: ROOM_JID + "/" + guId//jid.substring(0,jid.indexOf("@"))
-//        }).c('x',{xmlns: 'http://jabber.org/protocol/muc'}).tree();
-//        connection.send(pres);
-//		//connection.sendIQ(pres);//获取房间列表
-//	}
-//}
 
 /**
  * 自定义string过滤方法
@@ -90,57 +73,8 @@ String.prototype.replaceAll = function (FindText, RepText) {
 	return this.replace(regExp, RepText); 
 }
 
-/**
- * 接受到IM消息
- * @param msg
- * @returns
- */
-function onMessage(msg) {
-    // 解析出<message>的from、type属性，以及body子元素
-    var from = msg.getAttribute('from');
-    var type = msg.getAttribute('type');
-    var elems = msg.getElementsByTagName('body');
-
-    if (type == "groupchat" && elems.length > 0) {
-    	try{
-	        var body = elems[0];
-	        var text = Strophe.getText(body);
-	        text = text.replaceAll("&quot;","\"");
-        	data = JSON.parse(text);
-        	
-        	createGiftList(data);
-    	}catch(err){
-//        	console.info(err);
-    	}
-    }
-    return true;
-}
-
-
 
 $(document).ready(function() {
-
-    // 通过BOSH连接XMPP服务器
-//    $('#btn-login').click(function() {
-//        if(!connected) {
-//            connection = new Strophe.Connection(BOSH_SERVICE);
-//            connection.connect($("#input-jid").val(), $("#input-pwd").val(), onConnect);
-//            jid = $("#input-jid").val();
-//        }
-//    });
-    
-    function sendMsg(data){
-//    	data = JSON.stringify(data);
-//    	data = JSON.parse(data);
-//		// 创建一个<message>元素并发送
-//		var msg = $msg({
-//			to: ROOM_JID, 
-//			from: jid,
-//			type: 'groupchat'
-//		}).c("body", null, JSON.stringify(data));
-//		//connection.send(msg.tree());
-    }
-	//autoLogin();
 	
 	var lastGift=null;
 	var lastTime = new Date();
@@ -167,26 +101,20 @@ $(document).ready(function() {
 					clientType:1,
 					liveId:course_id,
 					receiver:teacherId,
-					receiverName:teacherName
+					receiverName:teacherName,
+					channel_id:vhallObj.channelId
 			};
 			RequestService("/gift/vhallSendGift", "POST", msgJson, function(data) {
 				if(data.success==true){
-                    data.resultObject.courseId=course_id;
-        			sendMsg(data.resultObject);
-        			VHALL_SDK.sendChat({
-        				text: "赠送给主播一个"+data.resultObject.giftInfo.name
-        			})
-        			var json = {user_name:data.resultObject.senderInfo.userName,
-        				content:"赠送给主播一个"+data.resultObject.giftInfo.name};
-        			$("#chatmsg").append(liveGiftList(json)), $(".chatmsg-box").mCustomScrollbar("update").mCustomScrollbar("scrollTo", "99999");
+                
+					data.resultObject.courseId=course_id;
+        			
+					//同步下排行榜
+					createRanking(data.resultObject.ranking);
+        			
         			refreshBalance();
 				}else{
                     showTip(data.errorMessage);
-					// $('.mask3').text(data.errorMessage).fadeIn(400,function(){
-					// 	setTimeout(function(){
-					// 		$('.mask3').fadeOut()
-					// 	},1000)
-					// });
 				}
 			},false);
 			//获取当前点击时候的id/点击的时间
@@ -199,7 +127,6 @@ $(document).ready(function() {
 });
 
 function createGiftList(data){
-    if(data.courseId!=course_id)return;   //ios传值
     
     if(data.messageType==2 && liveStatus == 2){  //直播开始通知
 	  	//当前时间 
@@ -208,8 +135,9 @@ function createGiftList(data){
         	//刷新页面 --》在观看
         	location.reload();
     	}
-	}else if(data.messageType==1){
-        createRanking(data.ranking);
+	}else if(data.messageType == 0 || data.messageType == 1){
+		
+		
 		//获取最后一次的id
 		var li = $('<li style="background-color:#fafafa;margin-bottom: 10px"></li>');
 		li.html("<li class='clearfix' style='position: relative;background-color:#fafafa;margin-left:0;'>" +
@@ -240,13 +168,6 @@ function createGiftList(data){
 		}
 	}
 }
-
-
-//function autoLogin(){
-//	connection = new Strophe.Connection(BOSH_SERVICE);
-//	connection.connect(guId+'@'+host, guPwd, onConnect);
-//	jid = guId+'@'+host;
-//}
 
 //两个占位 f1 f2
 var f1 = true;

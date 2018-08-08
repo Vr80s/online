@@ -26,6 +26,7 @@ import com.xczhihui.common.support.service.AttachmentType;
 import com.xczhihui.common.support.service.CacheService;
 import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.common.util.bean.VhallMessageParamsVo;
+import com.xczhihui.common.util.enums.VhallCustomMessageType;
 import com.xczhihui.common.util.vhallyun.BaseService;
 import com.xczhihui.common.util.vhallyun.DocumentService;
 import com.xczhihui.common.util.vhallyun.MessageService;
@@ -170,9 +171,9 @@ public class VhallyunController extends AbstractController {
     public ResponseObject customSendMessage(String body, String channel_id) throws Exception {
         BxgUser loginUser = UserLoginUtil.getLoginUser();
         JSONObject jsonObject = (JSONObject) JSON.parse(body);
-        if (jsonObject.get("type") != null && jsonObject.get("type").toString().equals("1")) {
+        if(jsonObject.get("type")!=null && Integer.parseInt(jsonObject.get("type").toString()) == VhallCustomMessageType.CHAT_MESSAGE.getCode()) {
             Boolean isShutup = cacheService.sismenber(VHALLYUN_BAN_KEY + channel_id, loginUser.getId());
-            if (!isShutup) {
+            if (isShutup) {
                 return ResponseObject.newErrorResponseObject("你被禁言了");
             }
         }

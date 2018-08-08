@@ -44,7 +44,7 @@ $(function() {
 		courseName = obj.courseName;
 		smallImgPath = obj.smallImgPath;
 		description = obj.description;
-		lineState = 
+	
 		
 		teacherId = obj.teacherId;
 		teacherName = obj.teacherName;
@@ -69,6 +69,10 @@ $(function() {
 		}else if(liveStatus==3){
 			$("#liveStatus").html("【直播回放】");
 		}
+		
+		vhallObj.roomId = result.direct_id;
+        vhallObj.channelId = result.channel_id;
+        vhallObj.recordId = result.record_id;
 	});
 	
 	//直播间访问量增加

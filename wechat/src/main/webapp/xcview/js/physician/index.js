@@ -48,7 +48,24 @@ window.onload = function(){
     requestGetService("/xczh/doctors/banner",null,function(data) {
         if(data.success==true){
             var obj = data.resultObject;
-            $(".banner_img").html(template('top_details',{items:obj}));            
+            $(".banner_img").html(template('top_details',{items:obj}));      
+
+            /*if (isBlank(data.resultObject.imgPath)) {
+                alert(11111);
+            }else{
+                alert(22222);
+            };*/
+
+
+            var a = $(".swiper-wrapper .pic01").css("display");
+            if (a == "block") {
+                $(".banner_img").show();
+            } else {
+                $(".banner_img").hide();
+            }
+
+
+
             // 轮播滑动js
             var mySwiper = new Swiper('.swiper-container', {
                 autoplay: true, //可选选项，自动滑动

@@ -1,45 +1,17 @@
 
-// 房间JID
-//var ROOM_JID = course_id+'xczh@conference.47.92.39.21';
-// XMPP连接
-var connection = null;
 
-// 当前状态是否连接
-var connected = false;
-
-// 当前登录的JID
-var jid = "";
 
 var giftList;
 // 初始化没有参数的队列
 var queue = new Queue();
 
-/*
- * 获取im配置信息
- */
-var guId = "";
-var guPwd = "";
-var room_id="";
-var host = "";
-var BOSH_SERVICE="";
-var ROOM_JID="";
-/**
- * 这个
- * @param status
- * @returns
- */
-var course_id = getQueryString("courseId");
-requestService("/xczh/common/getImServerConfig", {courseId : course_id}, function(data) {
-    if (data.success) {
-        guId = data.resultObject.guId;
-        guPwd = data.resultObject.guPwd;
-        room_id=data.resultObject.roomId;
-        host = data.resultObject.host;
-        BOSH_SERVICE=data.resultObject.boshService;
-        ROOM_JID=data.resultObject.roomJId;
-    }
-},false);
 
+var course_id = getQueryString("courseId");
+
+var vhallObj = {
+    appId: "27376e92",
+    accountId:localStorage.getItem("userId")
+};
 
 
 String.prototype.replaceAll = function(FindText, RepText) {
@@ -368,17 +340,6 @@ function repalceAll(str, rstr, arstr) {
 
 $(document).ready(function() {
 
-    // 通过BOSH连接XMPP服务器
-    $('#btn-login').click(
-        function() {
-            if (!connected) {
-                connection = new Strophe.Connection(
-                    BOSH_SERVICE);
-                connection.connect($("#input-jid").val(),
-                    $("#input-pwd").val(), onConnect);
-                jid = $("#input-jid").val();
-            }
-        });
 
 // 发送消息
     $(".balance_send").click(function() {
@@ -408,9 +369,9 @@ $(document).ready(function() {
                     receiverId : teacherId,
                     receiverName : teacherName,
                     continuousCount : 1,
-                    channel_id:"ch_d260ab70"
+                    channel_id:vhallObj.channelId
                 };
-                requestService("/xczh/gift/customSendGift",
+                requestService("/xczh/gift/vhallSendGift",
                     msgJson,
                     
                     function(data) {
@@ -419,21 +380,7 @@ $(document).ready(function() {
                         	/*ios传值--判断是在一个直播间*/
                             data.resultObject.courseId=course_id; 
                             
-                            /**
-                             * 发送IM消息
-                             */
-//                            sendMsg(data.resultObject);
-//                            var str = "<div class='coze_cen_ri'> "+
-//                            "<div class='coze_cen_bg_ri'>"+
-//                                "<span class='span_name'>"+data.resultObject.senderInfo.userName+"：</span>赠送给主播1个<span style='color: #F97B49;'>"+data.resultObject.giftInfo.name+"</span>"+
-//                            " </div> "+
-//                            "<div class='both'></div></div>";
-//                            //将礼物发送到
-//                            var msg = null;
-//                            msg = VHALL_SDK.sendChat({
-//                                      text: "赠送给主播1个"+data.resultObject.giftInfo.name+""
-//                            });
-//                            $("#chatmsg").append(str);
+                            createRanking(data.resultObject.ranking);
                            
                             //显示礼物总数
                             $("#liveGiftCount").html(data.resultObject.giftCount);
@@ -469,25 +416,6 @@ $(document).ready(function() {
         }
     });
 
-    /**
-     * 前端发送IM消息
-     */
-//    function sendMsg(data) {
-////      console.info(data);
-//        data = JSON.stringify(data);
-////      console.info(data);
-//        data = JSON.parse(data);
-////      console.info(data);
-//        // 创建一个<message>元素并发送
-//        var msg = $msg({
-//            to : ROOM_JID,
-//            from : jid,
-//            type : 'groupchat'
-//            // }).c("body", null,
-//            // data.giver+"yuxin"+data.giftName+"yuxin"+data.count);
-//        }).c("body", null, JSON.stringify(data));
-//        connection.send(msg.tree());
-//    }
     
         /**
      * 前端发送IM消息
@@ -512,15 +440,6 @@ $(document).ready(function() {
             }   
         });  
     }
-    
-    
-
-//    function autoLogin() {
-//        connection = new Strophe.Connection(BOSH_SERVICE);
-//        connection.connect(guId + '@' + host, guPwd, onConnect);
-//        jid = guId + '@' + host;
-//    }
-//    autoLogin();
 });
 $(function () {
     setInterval(function(){

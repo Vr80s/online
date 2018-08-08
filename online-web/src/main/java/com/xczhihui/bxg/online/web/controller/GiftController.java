@@ -169,8 +169,9 @@ public class GiftController extends AbstractController {
             map = giftService.addGiftStatement(u.getId(), giftStatement.getReceiver(),
                     giftStatement.getGiftId(), ClientType.PC, giftStatement.getCount(), giftStatement.getLiveId());
         }
-        
         mapRanking = map;
+        
+        
         //删除排行榜  -- 因为加上排行榜字符太长
         map.remove("ranking");
         
@@ -179,7 +180,6 @@ public class GiftController extends AbstractController {
         jsonObject.put("message",map);
         //后台把这个消息广播出去
         MessageService.sendMessage(MessageService.CustomBroadcast,jsonObject.toJSONString(),channel_id);
-        
         return ResponseObject.newSuccessResponseObject(mapRanking);
     }
     
