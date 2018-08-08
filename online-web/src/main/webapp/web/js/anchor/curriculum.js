@@ -858,7 +858,10 @@ function showCourseAttribute(type) {
 		$(".live").show();
 	} else if(type == 2) {
 		$(".vod").show();
-	} else {
+	}else if(type == 4) {
+		$(".show-video").show();
+	}  
+	else {
 		$(".offline").show();
 	}
 }
