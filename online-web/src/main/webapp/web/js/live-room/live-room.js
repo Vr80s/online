@@ -286,12 +286,36 @@ $(function () {
         console.log("开始");
         setTimeout(function() {
             console.log("要打印缩略图了?");
-            console.log(window.doc.getThumImgList(function(list) {
+            var imgs = window.doc.getThumImgList(function(list) {
                 console.dir(list);
                 console.log("结束");
-            }));
+            });
+            $('.J-thumImg').html('');
+            page = imgs.length;
+            for(var i = 0; i < imgs.length; i++) {
+                if (i === 0) {
+                    $('.J-thumImg').append('<li class="active J-page-img J-page-num-' + (i + 1) + '">\n' +
+                        '                                    <img src="' + imgs[i] + '"  class="" data-page="' + (i + 1) + '"/>\n' +
+                        '                                    <span>' + (i + 1) + '</span>\n' +
+                        '                                </li>');
+                } else {
+                    $('.J-thumImg').append('<li class="J-page-img J-page-num-' + (i + 1) + '">\n' +
+                        '                                    <img src="' + imgs[i] +'"/>\n' +
+                        '                                    <span >' + (i + 1) + '</span>\n' +
+                        '                                </li>');
+                }
+            }
         }, 1000);
     }
+
+    $('.J-thumImg').on('click', '.J-page-img', function() {
+        // $(".modal-list li").removeClass("active");
+        // $(this).addClass("active");
+        var p = $(this).find('span').text();
+        curPage = p;
+        window.doc.gotoSlide(curPage);
+        setPage(page, curPage);
+    });
 
     $('.J-doc-prev').on('click', function () {
         if (window.doc && curPage > 1) {
@@ -315,6 +339,8 @@ $(function () {
         }
         $('.now-page').text(curPage);
         $('.all-pages').text(page);
+        $(".modal-list li").removeClass("active");
+        $('.J-page-num-' + curPage).addClass('active');
     }
 
     $('.file-list').on('click', '.J-doc-operation', function () {
@@ -356,7 +382,7 @@ $(function () {
                     if (status != 0) {
                         var $docItem = $('.J-doc-item-text-' + documentId);
                         if (status === 1) {
-                            if ($docItem.text() === "转换中") {
+                            if ($docItem.text() === "转码中") {
                                 $docItem.text("转化成功");
                                 console.log("xxxxxx");
                                 $docItem.after('<div class="doc-operation text-center J-doc-operation J-operation-' + documentId + '">\n' +
@@ -498,10 +524,13 @@ $(function () {
         var num = index + 1;
         $(this).find("span").html(num)
     })
-    $(".modal-list li").click(function () {
-        $(".modal-list li").removeClass("active");
-        $(this).addClass("active")
-    })
+    // $(".modal-list li").click(function () {
+    //     $(".modal-list li").removeClass("active");
+    //     $(this).addClass("active");
+    //     var p = $(this).data('page');
+    //     curPage = p;
+    //     setPage(page, p);
+    // });
 
 //------------------------------------------设置----------------------------------------------------------------	
 
@@ -621,7 +650,7 @@ $(".student-list .select-ban").click(function(){
                 var liHtml = ' <li class="doc-title hover-delect" data-did ="' + obj.documentId + '">\n' +
                     '                <div class="doc-name doc-photo">' + obj.filename + '</div>\n' +
                     '                <div class="doc-time text-center">' + obj.createTime + '</div>\n' +
-                    '                <div class="doc-progress text-center">转换中</div>\n' +
+                    '                <div class="doc-progress text-center">转码中</div>\n' +
                     '                <div class="delect-img hide"></div>\n' +
                     '            </li>';
                 $('.J-doc-title').after(liHtml);
