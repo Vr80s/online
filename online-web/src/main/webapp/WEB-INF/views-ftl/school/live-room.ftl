@@ -44,16 +44,16 @@
                 <div class="doc-name doc-photo">${document.documentName}</div>
                 <div class="doc-time text-center">${document.createTime?string('yyyy-MM-dd HH:mm:ss')}</div>
                 <#if document.transStatus?? && document.transStatus == 1>
-                    <div class="doc-progress text-center J-doc-item-text-${document.documentId}">转码成功</div>
+                    <div class="doc-progress text-center J-doc-item-text-${document.documentId}">转换成功</div>
                     <div class="doc-operation text-center J-doc-operation J-operation-${document.documentId}">
                         <p>演示</p>
                     </div>
                 </#if>
                 <#if document.transStatus?? && document.transStatus == 2>
-                    <div class="doc-progress text-center J-doc-item-text-${document.documentId}">转码失败</div>
+                    <div class="doc-progress text-center J-doc-item-text-${document.documentId}">转换失败</div>
                 </#if>
                 <#if document.transStatus == 0>
-                    <div class="doc-progress text-center J-doc-item-text-${document.documentId}">转码中</div>
+                    <div class="doc-progress text-center J-doc-item-text-${document.documentId}">等待转换</div>
                 </#if>
                 <div class="delect-img hide J-doc-delete"></div>
             </li>
@@ -64,10 +64,10 @@
             <p>您还没有上传文档，快来上传吧~</p>
         </div>
     </div>
-    <button type="button" class="document-upload" onclick="$('#file-input').click()">上传</button>
+    <button type="button" class="document-upload">上传</button>
 
     <form action="/vhallyun/documentId" method="post" id="submitFile">
-        <input type="file" id="file-input" name="document"
+        <input type="file" id="file-input" name="document" enctype='multipart/form-data'
                style="visibility: hidden;display: inline-block;width: 2px;position: fixed;left: -1000px;"/>
     </form>
 </div>
@@ -300,30 +300,30 @@
                             <span class="student-name z">${anchor.name!''}</span>
                             <span class="student-status z">主播</span>
                         </li>
-                        <li>
-                            <div class="head-portrait z">
-                                <img src="/web/images/reset_head.png" alt="头像"/>
-                            </div>
-                            <span class="student-name z">我是超人</span>
-                            <span class="select-ban y">
-                                <img src="/web/images/live-room/say-icon.png" alt="选择禁言" title="禁言"/>
-                            </span>
-                        </li>
-                        <li>
-                            <div class="head-portrait z">
-                                <img src="/web/images/reset_head.png" alt="头像"/>
-                            </div>
-                            <span class="student-name z">我是超人</span>
-                            <span class="select-ban y">
-                                <img src="/web/images/live-room/say-icon.png" alt="选择禁言" title="禁言"/>
-                            </span>
-                        </li>
-                        <li>
-                            <div class="head-portrait z">
-                                <img src="/web/images/reset_head.png" alt="头像"/>
-                            </div>
-                            <span class="student-name z">我是超人</span>
-                        </li>
+                        <#--<li>-->
+                            <#--<div class="head-portrait z">-->
+                                <#--<img src="/web/images/reset_head.png" alt="头像"/>-->
+                            <#--</div>-->
+                            <#--<span class="student-name z">我是超人</span>-->
+                            <#--<span class="select-ban y">-->
+                                <#--<img src="/web/images/live-room/say-icon.png" alt="选择禁言" title="禁言"/>-->
+                            <#--</span>-->
+                        <#--</li>-->
+                        <#--<li>-->
+                            <#--<div class="head-portrait z">-->
+                                <#--<img src="/web/images/reset_head.png" alt="头像"/>-->
+                            <#--</div>-->
+                            <#--<span class="student-name z">我是超人</span>-->
+                            <#--<span class="select-ban y">-->
+                                <#--<img src="/web/images/live-room/say-icon.png" alt="选择禁言" title="禁言"/>-->
+                            <#--</span>-->
+                        <#--</li>-->
+                        <#--<li>-->
+                            <#--<div class="head-portrait z">-->
+                                <#--<img src="/web/images/reset_head.png" alt="头像"/>-->
+                            <#--</div>-->
+                            <#--<span class="student-name z">我是超人</span>-->
+                        <#--</li>-->
                     </ul>
 
                 </div>

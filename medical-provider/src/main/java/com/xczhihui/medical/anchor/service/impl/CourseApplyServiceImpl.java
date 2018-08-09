@@ -139,6 +139,9 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
      **/
     @Override
     public void saveCourseApply(CourseApplyInfo courseApplyInfo) {
+        if(courseApplyInfo.getCourseForm() == 1 && courseApplyInfo.getMultimediaType() == null){
+            courseApplyInfo.setMultimediaType(Multimedia.VIDEO.getCode());
+        }
         anchorInfoService.validateAnchorPermission(courseApplyInfo.getUserId());
         courseApplyService.saveCourseApply4Lock(courseApplyInfo.getUserId(), courseApplyInfo);
     }

@@ -46,13 +46,13 @@ function elsBind() {
         var liveType = (lineState == 1 ? "live" : "vod");
         var recordId = (lineState == 1 ? "" : vhallObj.recordId);
 
-        VhallPlayer.init({
+        VhallLive.init({
             roomId: roomId,
             type: liveType,
             recordId: recordId, // 回放Id，点播必填，直播不写
             videoNode: 'myVideo',
             complete: function () {
-                VhallPlayer.play();
+                VhallLive.play();
             }
         });
     }
