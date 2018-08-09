@@ -9,7 +9,7 @@ function getProblemAnswer() {
     requestService("/xczh/common/getProblems",{
     },function(data) {
         if(data.success==true){
-            $(".help_main").html(template('help_main',{items:data.resultObject}));
+            $(".help_mains").html(template('help_main',{items:data.resultObject}));
 
         }else{
             alert(data.errorMessage);

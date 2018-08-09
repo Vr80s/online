@@ -190,8 +190,8 @@ function elsBind() {
                     type: 10, // 消息类型 10 聊天消息 礼物 11
                     message: {
                         content: text, // 发送的内容
-                        headImg: localStorage.getItem("smallHeadPhoto"), // 发送的头像
-                        username: localStorage.getItem("name"), // 发送的用户名
+//                        headImg: localStorage.getItem("smallHeadPhoto"), // 发送的头像
+//                        username: localStorage.getItem("name"), // 发送的用户名
                         role: "normal" // 发送人的角色 主播： host 普通用户： normal
                     }
                 }
@@ -327,14 +327,17 @@ function replaceEmoji(contents) {
     }
     str = contents;
     for (i = 0; i < content.length; i++) {
+    	var src = "";
         for (j = 0; j < emoji.length; j++) {
             if ("[" + emoji[j].text + "]" == content[i]) {
                 src = emoji[j].imgUrl;
                 break;
             }
         }
-        var imgBag = "<img src=" + src + " />";
-        str = str.replace(pattern2, imgBag);
+        if(src!=""){
+			var imgBag = "<img src="+src+" style='width:20px;' />";
+		    str = str.replace(pattern2, imgBag);
+		}
     }
     return str;
 }
