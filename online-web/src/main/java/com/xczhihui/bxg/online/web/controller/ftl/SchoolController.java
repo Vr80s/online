@@ -338,7 +338,7 @@ public class SchoolController extends AbstractFtlController {
 
         if (type.equals("aq")) {
             //常见问题。
-            String path = req.getServletContext().getRealPath("/template");
+            String path = request.getServletContext().getRealPath("/template");
             File f = new File(path + File.separator + "/course_common_problem.html");
             view.addObject("commonProblem", FileUtil.readAsString(f));
         }
