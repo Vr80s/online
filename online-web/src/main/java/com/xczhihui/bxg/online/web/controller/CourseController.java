@@ -16,6 +16,7 @@ import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.service.CourseService;
 import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.common.util.enums.SearchType;
+import com.xczhihui.course.consts.MultiUrlHelper;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.course.service.ICourseSolrService;
 import com.xczhihui.course.service.IMobileHotSearchService;
@@ -278,7 +279,7 @@ public class CourseController extends AbstractController {
     @RequestMapping(value = "updateLiveStatus", method = RequestMethod.POST)
     @ResponseBody
     public ResponseObject updateLiveStatus(String event, String roomId) throws IOException, SolrServerException {
-        Integer courseId = courseServiceImpl.updateCourseLiveStatus(event, roomId);
+        Integer courseId = courseServiceImpl.updateCourseLiveStatus(event, roomId,MultiUrlHelper.URL_TYPE_WEB);
         if (courseId != null) {
             try {
                 courseSolrService.initCourseSolrDataById(courseId);

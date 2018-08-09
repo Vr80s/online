@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.solr.client.solrj.SolrServerException;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczh.consumer.market.auth.Account;
+import com.xczh.consumer.market.utils.APPUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.CourseUtil;
 import com.xczhihui.common.util.XzStringUtils;
@@ -251,8 +253,10 @@ public class CourseController {
     }
 
     @RequestMapping(value = "updateLiveStatus", method = RequestMethod.POST)
-    public ResponseObject updateLiveStatus(String event, String directId) throws IOException, SolrServerException {
-        Integer courseId = courseServiceImpl.updateCourseLiveStatus(event, directId);
+    public ResponseObject updateLiveStatus(HttpServletRequest request,String event, String directId) throws IOException, SolrServerException {
+    	
+        Integer courseId = courseServiceImpl.updateCourseLiveStatus(event, directId,APPUtil.getMobileSource(request));
+        
         if (courseId != null) {
             try {
                 courseSolrService.initCourseSolrDataById(courseId);

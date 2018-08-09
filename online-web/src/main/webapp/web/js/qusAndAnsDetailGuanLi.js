@@ -104,7 +104,7 @@ window.onload = function() {
 		'<span class="bestAnsBox box3"><span class="best-answer colorgren box3" style="margin-right:0px;" data-id="{{$value.id}}">已采纳为最佳回答</span></span></span>' +
 		'{{/if}}' +
 		'{{if $value.copyright==true}}' +
-		'<span class="reserve"><span class="rights-reserved"><img src="../images/ansandqus/sakdetial_equal.png" alt=""/>作者保留权利</span>' +
+		'<span class="reserve"><span class="rights-reserved"><img src="/web/images/ansandqus/sakdetial_equal.png" alt=""/>作者保留权利</span>' +
 		'<div class="rights-reserved-content"><img src="../images/personcenter/baoliuTip.png" class="jian">用户在熊猫中医上发表的全部原创内容（包括但不限于提问，问答和评论），著作权均归用户本人所有。用户可授权第三方以任何方式使用，不需要得到熊猫中医的同意。</div>' +
 		'{{/if}}' +
 		'</span>' +

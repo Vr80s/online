@@ -54,7 +54,7 @@ window.onload = function () {
         "<p>暂无问答</p>" +
         "</div>";
     var searchkongbai = "<div class='kongbai'>" +
-        "<img src='../images/ansandqus/nosearch.png' style='margin-top:188px;'/>" +
+        "<img src='/web/images/ansandqus/nosearch.png' style='margin-top:188px;'/>" +
         "<p>抱歉，没有找到<span class='searchkongbaiBody'></span>相关内容</p>" +
         "<div class='returnAnsAndQus'>返回问答首页</div>"+
         "</div>";
@@ -111,7 +111,7 @@ window.onload = function () {
 	        "{{/if}}" +
 	        "</span>" +
 	        "{{if d.askAnswerVo.copyright == true}}" +
-	        "<span class='biaoliuquanli'><img src='../images/ansandqus/sakdetial_equal.png'>作者保留权利</span>" +
+	        "<span class='biaoliuquanli'><img src='/web/images/ansandqus/sakdetial_equal.png'>作者保留权利</span>" +
 	        '<div class="rights-reserved">' +
 	        "<div class='sanjiao'><img src='../images/ansandqus/sanjiao02.png'/></div>" +
 	        '用户在熊猫中医上发表的全部原创内容（包括但不限于提问，问答和评论），著作权均归用户本人所有。用户可授权第三方以任何方式使用，不需要得到熊猫中医的同意。</div>' +
