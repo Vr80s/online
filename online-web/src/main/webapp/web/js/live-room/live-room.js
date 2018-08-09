@@ -426,7 +426,6 @@ $(function () {
                         if (status === 1) {
                             if ($docItem.text() === "等待转换") {
                                 $docItem.text("转换成功");
-                                console.log("xxxxxx");
                                 $docItem.after('<div class="doc-operation text-center J-doc-operation J-operation-' + documentId + '">\n' +
                                     '                        <p>演示</p>\n' +
                                     '                    </div>');
@@ -682,10 +681,10 @@ $(function () {
 
     $('.document-upload').on('click', function () {
         $('#file-input').trigger('click');
-        $(this).text('上传中');
-        $(this).prop('disabled', 'disabled');
     });
     $('#file-input').change(function () {
+        $(this).text('上传中');
+        $(this).prop('disabled', 'disabled');
         $fileInput = $('#file-input');
         $('#submitFile').ajaxSubmit({
             type: 'post',
@@ -696,7 +695,7 @@ $(function () {
                 var liHtml = ' <li class="doc-title hover-delect" data-did ="' + obj.documentId + '">\n' +
                     '                <div class="doc-name doc-photo">' + obj.filename + '</div>\n' +
                     '                <div class="doc-time text-center">' + obj.createTime + '</div>\n' +
-                    '                <div class="doc-progress text-center">等待转换</div>\n' +
+                    '                <div class="doc-progress text-center J-doc-item-text-' + obj.documentId +'">等待转换</div>\n' +
                     '                <div class="delect-img hide"></div>\n' +
                     '            </li>';
                 $('.J-doc-title').after(liHtml);
