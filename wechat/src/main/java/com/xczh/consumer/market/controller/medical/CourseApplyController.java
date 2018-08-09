@@ -55,9 +55,6 @@ public class CourseApplyController {
     public ResponseObject addCourseApply(@Account String accountId, CourseApplyInfo courseApplyInfo, @RequestParam("file") MultipartFile file)
             throws Exception {
 
-        if(courseApplyInfo.getMultimediaType()==null){
-            courseApplyInfo.setMultimediaType(Multimedia.VIDEO.getCode());
-        }
         courseApplyInfo.setCreateTime(new Date());
 
         courseApplyInfo.setUserId(accountId);

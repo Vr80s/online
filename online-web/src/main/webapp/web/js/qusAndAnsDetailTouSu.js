@@ -4,6 +4,7 @@
 /**
  * Created by admin on 2016/9/19.
  */
+var ln;
 window.onload = function() {
 	var ourl = document.location.search;
 	var apams = ourl.substring(1).split("&");
@@ -12,10 +13,8 @@ window.onload = function() {
 		var apam = apams[i].split("=");
 		arr[i] = apam[1];
 		var qid = arr[0];
+		ln = arr[1];
 	};
-	if(qid == undefined) {
-		qid = "66986961d6774bd1ba7153713ecac502";
-	}
 	var self = false; //是否本人提问
 	var pageCount = 0; //自定义总页数
 	var relative_mentId; //相关课程的Id
@@ -1111,7 +1110,6 @@ window.onload = function() {
 				}
 			}
 			mark();
-            var ln=window.location.toString().getQuery('ln');
 			$(".quesDetail-left-third .qingjian1").unbind().on("click", function() {
 				var $this = $(this);
 				$("#quxiaoshoucang").paymentModal("qingjian1");
