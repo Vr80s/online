@@ -126,26 +126,17 @@ function elsBind() {
 
                 } else if (msg.type == 12) { // 开始直播
 
-                    console.log("开始直播了   >>>>");
-
-                    $(".video_end_top0").hide();
-                    $(".video_end_top2").hide();
                     // 刷新页面 --》在观看
                     location.reload();
 
                 } else if (msg.type == 13) { // 结束直播  --》  生成点播
 
-                    console.log("直播结束了，去学习中心 >>>>");
-                    $("#video").html("");
-                    $(".video_end_top0").hide();
-                    // 生成回访中
                     $(".video_end_top2").show();
 
                 } else if (msg.type == 14) { // 退出直播间，但是没有结束直播
 
-                } else if (msg.type == 15) { // 继续直播
-
-                } else if (msg.type == 16) { // 回放生成成功
+                	
+                }  else if (msg.type == 16) { // 回放生成成功
 
                     $(".video_end_top0").hide();
                     $(".video_end_top2").hide();

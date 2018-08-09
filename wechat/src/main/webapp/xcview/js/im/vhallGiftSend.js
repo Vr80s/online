@@ -294,7 +294,7 @@ $(document).ready(function() {
 				receiverId: teacherId,
 				receiverName: teacherName,
 				continuousCount: 1,
-				channel_id: vhallObj.channelId
+				channelId: vhallObj.channelId
 			};
 			requestService("/xczh/gift/vhallSendGift", msgJson,
 
