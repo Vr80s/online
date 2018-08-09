@@ -15,6 +15,13 @@
 <input type="hidden" id="J_token" value="${token}"/>
 <input type="hidden" id="J_nickname" value="${anchor.name}"/>
 <input type="hidden" id="J_headImg" value="${anchor.smallHeadPhoto}"/>
+<script>
+    var courseId = "${courseId}";
+    var collectionId = "";
+    var courseName = "${courseName}";
+    var	smallImgPath = "${courseImg}";
+    var	description = "";
+</script>
 
 <div class="background-ask hide"></div>
 <!--文档弹窗-->
@@ -75,11 +82,18 @@
     <div class="comment-setup">
         <span>麦克风</span>
         <select name="" class="J-mics">
-            <option value="">王总麦克风</option>
         </select>
     </div>
     <div class="comment-setup">
-        <button class="sure" type="button">确认</button>
+        <span>自定义尺寸:</span>
+        <span>宽</span>
+        <input type="text" onkeyup="value=value.replace(/[^\d]/g,'')" class="width-my J-setup-width" value="800" maxlength="4" />
+        <span>x高</span>
+        <input type="text" onkeyup="value=value.replace(/[^\d]/g,'')" class="height-my J-setup-height" value="450" maxlength="4" />
+        <p class="control-size hide" style="color: red; margin-left: 78px;"></p>
+    </div>
+    <div class="comment-setup">
+        <button class="sure" type="button" id="J_confirm_edit">确认</button>
         <button class="cancel" type="button">取消</button>
     </div>
 </div>
@@ -102,10 +116,31 @@
                     <div class="share-icon text-center">
                         <p>分享到</p>
                         <ul>
-                            <li><img src="/web/images/video2/weixin.png"/></li>
-                            <li><img src="/web/images/video2/quan.png"/></li>
-                            <li><img src="/web/images/video2/weibo.png"/></li>
-                            <li><img src="/web/images/video2/Qq.png"/></li>
+                            <li class="share-weixin">
+                                <img src="/web/images/video2/weixin.png"/>
+                                <div class="weixin-wrap">
+                                    <div id="qrcodeCanvas1"></div>
+                                </div>
+                                <div class="slider-sanjiao">
+                                    <img src="/web/images/float_sanjiao.png"/>
+                                </div>
+                            </li>
+                            <li class="share-weixin">
+                                <img src="/web/images/video2/quan.png"/>
+                                <div class="weixin-wrap">
+                                    <div id="qrcodeCanvas2"></div>
+                                </div>
+                                <div class="slider-sanjiao">
+                                    <img src="/web/images/float_sanjiao.png"/>
+                                </div>
+                            </li>
+                            <li id="weibo_share"><img src="/web/images/video2/weibo.png"/>
+                                <a href="javascript:void(0)"
+                                    target="_blank"></a></li>
+                            <li id="qq_share"><img src="/web/images/video2/Qq.png"/>
+                                <a href="javascript:void(0)"
+                                   id="qq_share" target="_blank"></a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -200,7 +235,7 @@
                 <!--文档模块-->
                 <div class="video-main">
                     <div id="J_doc_main" class="document-content"></div>
-                    <div class="select-document-wrap">
+                    <div class="select-document-wrap" style="width: 100px">
 
                         <div class="modal-list">
                             <ul class="J-thumImg">
@@ -265,6 +300,30 @@
                             <span class="student-name z">${anchor.name!''}</span>
                             <span class="student-status z">主播</span>
                         </li>
+                        <li>
+                            <div class="head-portrait z">
+                                <img src="/web/images/reset_head.png" alt="头像"/>
+                            </div>
+                            <span class="student-name z">我是超人</span>
+                            <span class="select-ban y">
+                                <img src="/web/images/live-room/say-icon.png" alt="选择禁言" title="禁言"/>
+                            </span>
+                        </li>
+                        <li>
+                            <div class="head-portrait z">
+                                <img src="/web/images/reset_head.png" alt="头像"/>
+                            </div>
+                            <span class="student-name z">我是超人</span>
+                            <span class="select-ban y">
+                                <img src="/web/images/live-room/say-icon.png" alt="选择禁言" title="禁言"/>
+                            </span>
+                        </li>
+                        <li>
+                            <div class="head-portrait z">
+                                <img src="/web/images/reset_head.png" alt="头像"/>
+                            </div>
+                            <span class="student-name z">我是超人</span>
+                        </li>
                     </ul>
 
                 </div>
@@ -315,5 +374,9 @@
 <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-chat-1.0.0.js?v=201806271657"></script>
 <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-base-1.0.0.js?v=201806271657"></script>
 <script src="/web/js/live-room/live-room.js"></script>
+<script src="/web/js/common_msg.js"></script>
+<script src="/web/js/utf.js" type="text/javascript" charset="utf-8"></script>
+<script src="/web/js/jquery.qrcode.js" type="text/javascript" charset="utf-8"></script>
+<script src="/web/js/common/video_share.js"></script>
 </body>
 </html>
