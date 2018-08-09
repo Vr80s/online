@@ -4,10 +4,12 @@ import static com.xczhihui.bxg.online.web.support.sensitive.SensitivewordFilter.
 import static com.xczhihui.common.util.bean.ResponseObject.newErrorResponseObject;
 import static com.xczhihui.common.util.bean.ResponseObject.newSuccessResponseObject;
 
+import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.*;
 
 import javax.mail.MessagingException;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -111,13 +113,13 @@ public class BBSController extends AbstractFtlController {
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
-    public ModelAndView view(@PathVariable Integer id, @RequestParam(defaultValue = "1") int page, HttpServletRequest request) {
+    public ModelAndView view(HttpServletResponse response, @PathVariable Integer id, @RequestParam(defaultValue = "1") int page, HttpServletRequest request) throws ServletException, IOException {
         ModelAndView modelAndView = new ModelAndView("bbs/detail");
         BxgUser loginUser = UserLoginUtil.getLoginUser();
         postService.addBrowseRecord(id, loginUser == null ? null : loginUser.getId());
         PostVO postVO = postService.get(id);
         if (postVO == null) {
-            return to404();
+            return to404(request,response);
         }
         modelAndView.addObject("post", postVO);
         modelAndView.addObject("replies", postService.listByPostId(id, page));

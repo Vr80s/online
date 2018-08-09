@@ -7,7 +7,6 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
@@ -22,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class ImgProxyController {
 
     @RequestMapping(value = "imgProxy", method = RequestMethod.GET)
-    public void imgProxy(String imgURL, HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public void imgProxy(String imgURL, HttpServletResponse response) throws Exception {
         // 创建URL
         URL url = new URL(imgURL);
         // 创建链接

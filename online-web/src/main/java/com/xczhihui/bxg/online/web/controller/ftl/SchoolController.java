@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.*;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -284,11 +285,11 @@ public class SchoolController extends AbstractFtlController {
      * @throws IOException
      */
     @RequestMapping(value = "{courseId}/{type}", method = RequestMethod.GET)
-    public ModelAndView info(HttpServletRequest req,
+    public ModelAndView info(HttpServletResponse response, HttpServletRequest request,
                              @PathVariable Integer courseId,
                              @PathVariable String type,
                              @RequestParam(required = false) Integer pageSize,
-                             @RequestParam(required = false) Integer pageNumber) throws IOException {
+                             @RequestParam(required = false) Integer pageNumber) throws IOException, ServletException {
 
         pageNumber = pageNumber == null ? 1 : pageNumber;
         pageSize = pageSize == null ? 5 : pageSize;
@@ -297,7 +298,7 @@ public class SchoolController extends AbstractFtlController {
         //显示详情呢、大纲、评论、常见问题呢
         //outline  comment    info   aq  selection
         if (isNotCoursePage(type)) {
-            return to404();
+            return to404(request,response);
         }
         view.addObject("type", type);
 
@@ -307,7 +308,7 @@ public class SchoolController extends AbstractFtlController {
         String userId = user == null ? "" : user.getId();
         CourseLecturVo clv = courseService.selectCourseMiddleDetailsById(userId, courseId);
         if (clv == null) {
-            return to404();
+            return to404(request,response);
         }
         //计算星级
         clv.setStartLevel(CourseUtil.criticizeStartLevel(clv.getStartLevel()));
@@ -337,7 +338,7 @@ public class SchoolController extends AbstractFtlController {
 
         if (type.equals("aq")) {
             //常见问题。
-            String path = req.getServletContext().getRealPath("/template");
+            String path = request.getServletContext().getRealPath("/template");
             File f = new File(path + File.separator + "/course_common_problem.html");
             view.addObject("commonProblem", FileUtil.readAsString(f));
         }

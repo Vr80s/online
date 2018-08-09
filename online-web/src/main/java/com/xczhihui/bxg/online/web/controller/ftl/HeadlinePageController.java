@@ -1,11 +1,14 @@
 package com.xczhihui.bxg.online.web.controller.ftl;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -63,10 +66,10 @@ public class HeadlinePageController extends AbstractFtlController {
     }
 
     @RequestMapping(value = "{type}", method = RequestMethod.GET)
-    public ModelAndView page(@PathVariable String type) {
+    public ModelAndView page(HttpServletRequest request, HttpServletResponse response, @PathVariable String type) throws ServletException, IOException {
         ModelAndView view = new ModelAndView("headline/index");
         if (HeadlineType.getHeadline(type) == null) {
-            return to404();
+            return to404(request,response);
         }
         int current = 1;
         int size = 6;
@@ -92,10 +95,10 @@ public class HeadlinePageController extends AbstractFtlController {
     }
 
     @RequestMapping(value = "list/{type}", method = RequestMethod.GET)
-    public ModelAndView list(@RequestParam(value = "page", required = false) Integer current, Integer size, @PathVariable String type) {
+    public ModelAndView list(HttpServletRequest request, HttpServletResponse response, @RequestParam(value = "page", required = false) Integer current, Integer size, @PathVariable String type) throws ServletException, IOException {
         ModelAndView view = new ModelAndView("headline/list");
         if (HeadlineType.getHeadline(type) == null) {
-            return to404();
+            return to404(request,response);
         }
         current = current == null ? 1 : current;
         size = size == null ? 10 : size;
@@ -124,12 +127,12 @@ public class HeadlinePageController extends AbstractFtlController {
     }
 
     @RequestMapping(value = "details/{id}", method = RequestMethod.GET)
-    public ModelAndView details(HttpServletRequest request, @RequestParam(value = "page", required = false, defaultValue = "1") Integer current,
-                                @RequestParam(defaultValue = "10") Integer size, @PathVariable Integer id) {
+    public ModelAndView details(HttpServletResponse response, HttpServletRequest request, @RequestParam(value = "page", required = false, defaultValue = "1") Integer current,
+                                @RequestParam(defaultValue = "10") Integer size, @PathVariable Integer id) throws ServletException, IOException {
         ModelAndView view = new ModelAndView("headline/details");
         OeBxsArticle article = oeBxsArticleService.selectArticleById(id);
         if (article == null) {
-            return to404();
+            return to404(request,response);
         }
 
         view.addObject("article", article);
