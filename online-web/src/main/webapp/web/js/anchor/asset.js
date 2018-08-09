@@ -469,6 +469,8 @@ function saveEnchashment() {
 				if(data.errorMessage == "动态码不正确！") {
 					$('.phonePwdIpt_warn').text('动态码不正确');
 					$('.phonePwdIpt_warn').removeClass('hide')
+				}else{
+					showTip(data.errorMessage);
 				}
 				//              showTip(data.errorMessage);
 			}
