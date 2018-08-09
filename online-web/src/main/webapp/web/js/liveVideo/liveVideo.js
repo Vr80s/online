@@ -71,6 +71,12 @@ var courseId = course_id;
 		vhallObj.roomId = obj.direct_id;
         vhallObj.channelId = obj.channel_id;
         vhallObj.recordId = obj.record_id;
+        
+        //主播暂时离开一下下啦
+        if(obj.live_case == 2){
+        	$(".playback-rebroadcast").text("主播要离开一会儿，稍等片刻哦~");
+            $(".playback").show();
+        }
 	},false);
 	
 	//直播间访问量增加
