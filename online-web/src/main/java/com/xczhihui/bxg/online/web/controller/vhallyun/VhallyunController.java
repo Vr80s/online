@@ -224,13 +224,19 @@ public class VhallyunController extends AbstractController {
             if (isShutup) {
                 return ResponseObject.newErrorResponseObject("你被禁言了");
             }
+            //后台自动添加这几个参数
+            JSONObject message = (JSONObject) jsonObject.get("message");
+            message.put("userId", ou.getId());
+            message.put("headImg", ou.getSmallHeadPhoto());
+            message.put("username", ou.getName());
         }
-        //后台自动添加这几个参数
-        JSONObject message = (JSONObject) jsonObject.get("message");
-        message.put("userId", ou.getId());
-        message.put("headImg", ou.getSmallHeadPhoto());
-        message.put("username", ou.getName());
         return ResponseObject.newSuccessResponseObject(MessageService.sendMessage(MessageService.CustomBroadcast, jsonObject.toJSONString(), channel_id));
     }
 
+    @RequestMapping(value = "join/{status}", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseObject joinRoom(@RequestParam String channelId, @RequestParam String userId, @PathVariable boolean status) {
+
+        return ResponseObject.newSuccessResponseObject();
+    }
 }

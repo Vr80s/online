@@ -329,6 +329,12 @@ public class Course extends Model<Course> {
     private String channelId;
     @TableField("record_id")
     private String recordId;
+    
+    /**
+     * 1.正常直播 2.退出但不结束
+     */
+    @TableField("live_case")
+    private Integer liveCase;
 
     @Override
     protected Serializable pkVal() {
@@ -946,4 +952,13 @@ public class Course extends Model<Course> {
     public void setRecordId(String recordId) {
         this.recordId = recordId;
     }
+
+	public Integer getLiveCase() {	
+		return liveCase;
+	}
+
+	public void setLiveCase(Integer liveCase) {
+		this.liveCase = liveCase;
+	}
+    
 }
