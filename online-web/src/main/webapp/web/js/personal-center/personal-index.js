@@ -208,16 +208,29 @@ function historyClass(pages){
     })
 }
 //删除历史
+//$(".clear-history").click(function(){
+//	 RequestService("/history/empty", "POST",null, function (data) {
+// 	if(data.success==true){
+// 		showTip(data.resultObject);
+// 		historyClass(1)
+// 	}else{
+// 		showTip("清空失败")		
+// 	}
+// })
+//})
 $(".clear-history").click(function(){
-	 RequestService("/history/empty", "POST",null, function (data) {
-   	if(data.success==true){
-   		showTip(data.resultObject);
-   		historyClass(1)
-   	}else{
-   		showTip("清空失败")		
-   	}
-   })
-})
+confirmBox.open("","确定清除播放历史？",function(closefn){
+ 	RequestService("/history/empty", "POST",null, function (data) {
+	   	if(data.success==true){
+	   		showTip(data.resultObject);
+	   		historyClass(1)
+	   	}else{
+	   		showTip("清空失败")		
+	   	}
+	   })
+		closefn();    //关闭弹窗
+	});
+});
 //已购课程
 
 function buyClass (pages){
