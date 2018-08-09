@@ -214,7 +214,7 @@ $(function(){
         margin: 0 auto;
     }
 
-.video_end_top2 .smallImgPath{
+	.video_end_top2 .smallImgPath{
         width: 100%;
         height: 100%;
         position: absolute;
@@ -233,6 +233,54 @@ $(function(){
         left: 0;
         z-index: -1;
     }
+
+	.video_end_top3 {
+	    position: absolute;
+	    text-align: center;
+	    width: 100%;
+	    height: 4.24rem;
+	    top: 0;
+	    margin-top: 0.88rem;
+	    z-index: 1;
+	    background: rgba(0,0,0,0.80);
+	    /* display: none; */
+	}
+    .video_end_top3 .initiation{
+        font-size: 0.28rem;
+        color: #fff;
+        background: #00BC12;
+        border-radius: 8px;
+        padding: 0.1rem;
+        width: 1.44rem;
+        margin: 0 auto;
+    }
+
+	.video_end_top3 .smallImgPath{
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+    }
+
+    .video_end_top3 .video_end{
+        width: 100%;
+        height: 100%;
+        background: #000;
+        opacity: 0.5;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+    }
+    .video_end_top3 p {
+	    color: #fff;
+	    font-size: 0.32rem;
+	    margin-top: 1.5rem;
+	    margin-bottom: 0.4rem;
+	    text-align: center;
+	}
 
 .mCustomScrollBox{
     height: 100%;
@@ -294,7 +342,7 @@ $(function(){
 /* 新加文档 */
 .pinch-zoom-container{
     min-height: 4rem !important;
-    background: red;
+    /*background: red;*/
 }
 .pinch-zoom-container-addclass{
     display: block !important;
@@ -313,6 +361,39 @@ $(function(){
 }
 /* 新加文档 */
 
+/*隐藏迁移后--视频读取失败后--错误提示*/
+.vjs-error-displayP{
+	display: none;
+}
+
+/*添加视频读取失败后的提示*/
+	.video_end_top4 {
+	    position: absolute;
+	    text-align: center;
+	    width: 100%;
+	    height: 4.24rem;
+	    top: 0;
+	    margin-top: 0.88rem;
+	    z-index: 1;
+	    background: rgba(0,0,0,0.80);
+	    /* display: none; */
+	}
+    .video_end_top4 .initiation{
+        font-size: 0.28rem;
+        color: #fff;
+        background: #00BC12;
+        border-radius: 8px;
+        padding: 0.1rem;
+        width: 1.44rem;
+        margin: 0 auto;
+    }
+    .video_end_top4 p {
+	    color: #fff;
+	    font-size: 0.32rem;
+	    margin-top: 1.5rem;
+	    margin-bottom: 0.4rem;
+	    text-align: center;
+	}
 </style>
 </head>
 <body style="background: #f8f8f8;overflow: hidden1;">
@@ -365,12 +446,21 @@ $(function(){
         </div>
         <!--即将开始提示-->
 
-        <!--直播结束查看回放提示-->
-<!--        <div class="video_end_top1" style="display: none;">
-            <p>直播结束，点击查看回放</p>
+        <!--添加视频读取失败后的提示-->
+        <div class="video_end_top4" style="displays: none;">
+            <p>获取媒体数据过程中出错 </p>
             <div class="initiation">点击刷新</div>
-        </div> -->
-        <!--直播结束查看回放提示-->
+        </div> 
+        <!--添加视频读取失败后的提示-->
+
+		<!-- 主播要离开一会提示开始-->
+		<div class="video_end_top3" style="displays: none;">
+            <img src="" alt="" class="smallImgPath" />
+            <div class="video_end"></div>
+            <p>主播要离开一会儿，稍等片刻哦~</p>
+            <!-- <div class="initiation" onclick="location.href ='/xcview/html/my_study.html'">学习中心</div> -->
+        </div>
+		<!-- 主播要离开一会提示结束-->
 
         <!--直播结束，正在生成回放提示-->
         <div class="video_end_top2" style="display: none;">
