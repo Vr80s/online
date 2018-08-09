@@ -603,24 +603,24 @@
 	}
 }*/
 @media screen and (max-width:1367px){ 
-	.page-pc .player-container{
-		height: 93% !important;
+	.player-container{
+		height: 87% !important;
 	}
 } 
 @media screen and (max-height:719px){ 
-	.page-pc .player-container{
-		height: 90% !important;
+	.player-container{
+		height: 97% !important;
 	}
-	.page-pc .video{
+	.video{
 		height: 90% !important;
 	}
 } 
 
 @media screen and (max-height:559px){ 
-	.page-pc .player-container{
+	.player-container{
 		height: 87% !important;
 	}
-	.page-pc .video{
+	.video{
 		height: 87% !important;
 	}
 } 

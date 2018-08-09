@@ -169,7 +169,7 @@
 		display: none;
 	}
 	/*====隱藏修改視頻后====*/
-	.vjs-control-bar{
+	/*.vjs-control-bar{
 		display: none;
 	}
 	.vjs-hidden{
@@ -183,7 +183,7 @@
 	}
 	.vjs-big-play-button{
 		display: none;
-	}
+	}*/
 	/*隱藏后結束*/
 
 	/*修改變動后的代碼--微吼云開始*/
@@ -214,10 +214,13 @@
 		height: 100% !important;
 	}
 	#myVideo div:first-child{
-		/*height: 87% !important;*/
+		height: 87% !important;
 		/*height: 100% !important;*/
     	width: 100%;
-    	background: #000;
+    	/*background: #000;*/
+	}
+	#myVideo video{
+		/*z-index: 9;*/
 	}
 	.player-container{
 		height: 100%;
@@ -259,6 +262,9 @@
 	}
 	.send-box{
 		/*background: red;*/
+	}
+	.player-container{
+		height: 87% !important;
 	}
 </style>
 <script>
@@ -358,9 +364,16 @@
     .playback{
     	width: 100%;
     	height: 100%;
-    	background: url(/web/images/2.jpg) no-repeat;
-    	background-size: 100% 100%;
-    	/*position: relative;*/
+    	/*background: url(/web/images/2.jpg) no-repeat;
+    	background-size: 100% 100%;*/
+    	position: relative;
+    }
+    .playback-img{
+    	width: 100%;
+    	height: 100%;
+    	position: absolute;
+    	top: 0;
+    	left: 0;
     }
     .playback-rebroadcast{
 	    width: 100px;
@@ -373,7 +386,7 @@
 	    margin: 0 auto;
 	    position: absolute;
 	    top: 45%;
-	    left: 40%;
+	    left: 50%;
 	    margin-left: -50px;
 	    color: #fff;
     }
@@ -455,10 +468,11 @@
 			<span class="liveTime">直播时间：<span></span></span>
 		</div>
 		
-		<div id="livePlayer">
+		<div id="livePlayer">.playback-rebroadcast
 		
 			<!--回放重播提示开始-->
 			<div class="playback" style="display:none;">
+				<img src="/web/images/2.jpg" alt="" class="playback-img" />
 				<div class="playback-rebroadcast">重播</div>
 			</div>
 			<!--回放重播提示结束-->

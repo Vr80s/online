@@ -205,7 +205,7 @@ requestService("/xczh/course/liveDetails", {
                 $(".history_span").text("直播中");
 
                 $("#mywords").click(function () {
-                    $(".coze_bottom input").css("width", "5rem");
+                    $(".coze_bottom input").css("width", "6rem");
                     $(".div_input").css("background", "none");
                 });
 

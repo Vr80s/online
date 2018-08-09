@@ -488,9 +488,17 @@ $(function () {
     getWhiteHeight();
     $(window).resize(function () {
         getWhiteHeight();
-        if (window.doc) {
-            // window.doc.reSizeBorad($(".document-content").width(), $(".document-content").width() * (4 / 3));
-        }
+        // if (window.doc) {
+        //     // window.doc.loadDoc(docId, channelId, function (docId) {
+        //     // }, function (reason) {
+        //     //     console.error(reason);
+        //     // });
+        //     var width = $('.video-main').width();
+        //     var height = $(".video-main").height();
+        //     console.log("width:" + width);
+        //     console.log("height:" + height);
+        //     window.doc.reSizeBorad(width - 170, height);
+        // }
     });
 //------------------------------------------工具栏----------------------------------------------------------------	
 
@@ -623,21 +631,6 @@ $(function () {
             $('.comment-setup .control-size').addClass("hide");
         }
     });
-//表情设置
-    $(".expression-img").click(function () {
-        $(".expression-select").removeClass("hide");
-        $.ajax({
-            type: "get",
-            url: "/web/js/live-room/emoticon.json",
-            success: function (data) {
-                var del = "";
-                for (var i = 0; i < data.length; i++) {
-                    del += '<li><img src=' + data[i].imgUrl + '></li>'
-                }
-                $(".expression-list").html(del)
-            }
-        });
-    })
 
 //选择禁言
     $(".student-list .select-ban").click(function () {
