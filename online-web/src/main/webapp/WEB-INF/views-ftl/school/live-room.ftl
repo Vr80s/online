@@ -300,30 +300,30 @@
                             <span class="student-name z">${anchor.name!''}</span>
                             <span class="student-status z">主播</span>
                         </li>
-                        <li>
-                            <div class="head-portrait z">
-                                <img src="/web/images/reset_head.png" alt="头像"/>
-                            </div>
-                            <span class="student-name z">我是超人</span>
-                            <span class="select-ban y">
-                                <img src="/web/images/live-room/say-icon.png" alt="选择禁言" title="禁言"/>
-                            </span>
-                        </li>
-                        <li>
-                            <div class="head-portrait z">
-                                <img src="/web/images/reset_head.png" alt="头像"/>
-                            </div>
-                            <span class="student-name z">我是超人</span>
-                            <span class="select-ban y">
-                                <img src="/web/images/live-room/say-icon.png" alt="选择禁言" title="禁言"/>
-                            </span>
-                        </li>
-                        <li>
-                            <div class="head-portrait z">
-                                <img src="/web/images/reset_head.png" alt="头像"/>
-                            </div>
-                            <span class="student-name z">我是超人</span>
-                        </li>
+                        <#--<li>-->
+                            <#--<div class="head-portrait z">-->
+                                <#--<img src="/web/images/reset_head.png" alt="头像"/>-->
+                            <#--</div>-->
+                            <#--<span class="student-name z">我是超人</span>-->
+                            <#--<span class="select-ban y">-->
+                                <#--<img src="/web/images/live-room/say-icon.png" alt="选择禁言" title="禁言"/>-->
+                            <#--</span>-->
+                        <#--</li>-->
+                        <#--<li>-->
+                            <#--<div class="head-portrait z">-->
+                                <#--<img src="/web/images/reset_head.png" alt="头像"/>-->
+                            <#--</div>-->
+                            <#--<span class="student-name z">我是超人</span>-->
+                            <#--<span class="select-ban y">-->
+                                <#--<img src="/web/images/live-room/say-icon.png" alt="选择禁言" title="禁言"/>-->
+                            <#--</span>-->
+                        <#--</li>-->
+                        <#--<li>-->
+                            <#--<div class="head-portrait z">-->
+                                <#--<img src="/web/images/reset_head.png" alt="头像"/>-->
+                            <#--</div>-->
+                            <#--<span class="student-name z">我是超人</span>-->
+                        <#--</li>-->
                     </ul>
 
                 </div>
