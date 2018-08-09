@@ -121,16 +121,26 @@ public class CourseAnchorServiceImpl extends OnlineBaseServiceImpl implements
     public void updatePermissions(Integer id) {
         CourseAnchor ca = dao.findOneEntitiyByProperty(CourseAnchor.class,
                 "id", id);
-        OnlineUser u = dao.findOneEntitiyByProperty(OnlineUser.class, "id",
-                ca.getUserId());
-        if (!ca.getStatus()) {
-            // 设置微吼子帐号权限
-            VhallUtil.changeUserPower(u.getVhallId(), "1", "0");
-        } else {
-            VhallUtil.changeUserPower(u.getVhallId(), "0", "0");
-        }
+//        OnlineUser u = dao.findOneEntitiyByProperty(OnlineUser.class, "id",
+//                ca.getUserId());
+//        if (!ca.getStatus()) {
+//            // 设置微吼子帐号权限
+//            VhallUtil.changeUserPower(u.getVhallId(), "1", "0");
+//        } else {
+//            VhallUtil.changeUserPower(u.getVhallId(), "0", "0");
+//        }
         ca.setStatus(!ca.getStatus());
         dao.update(ca);
+        if(!ca.getStatus()){
+            updateCourseStatusByUserId4Ban(ca.getUserId());
+        }
+    }
+
+    public void updateCourseStatusByUserId4Ban(String userId) {
+        String sql = " UPDATE `oe_course` oc SET oc.`status`=0 WHERE oc.`status`=1 AND oc.`is_delete`=0 AND oc.`user_lecturer_id` = :userId";
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("userId", userId);
+        dao.getNamedParameterJdbcTemplate().update(sql, params);
     }
 
     @Override

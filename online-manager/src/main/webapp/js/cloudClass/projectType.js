@@ -22,7 +22,7 @@ function loadBanner2List(){
         {title: '序号', "class": "center", "width": "5%","height":"68px","data": 'id',datafield: 'xuhao', "sortable": false},
         {title: '专题类别名称', "class": "center","height":"68px","data": 'name', "sortable": false},
         { "title": "创建人", "class":"center","sortable":false,"data": 'createPerson' },
-		{ "title": "图标地址", "class":"center","sortable":false,"data": 'icon' },
+		{ "title": "链接", "class":"center","sortable":false,"data": 'linkCondition' },
 		{ "title": "状态", "class":"center","sortable":false,"data": 'status',"mRender":function (data, display, row) {
 			return row.status=="1"?"已启用":"已禁用";
 			}

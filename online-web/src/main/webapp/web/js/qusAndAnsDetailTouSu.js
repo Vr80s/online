@@ -349,19 +349,6 @@ window.onload = function() {
 						"left": "100%"
 					});
 				}
-				//		setTimeout(function() {
-				//			jQuery(".slide-box").slide({
-				//				//				    titCell: ".hd ul",
-				//				mainCell: ".slideBox ul",
-				//				autoPage: true,
-				//				effect: "leftLoop",
-				//				autoPlay: true,
-				//				vis: 1,
-				//				easing: "swing",
-				//				interTime: '4000',
-				//				delayTime: '300'
-				//			});
-				//		}, 1000)
 			})
 			//相似问题
 		RequestService('/online/questionlist/getSameProblem?tags=' + tags + '&menuId=' + relative_mentId + '&qid='+qid+'', "GET", null, function(m) {
@@ -376,31 +363,6 @@ window.onload = function() {
 					}));
 					$(".relAnsNoData").css("display","block");
 				}
-				//省略号
-				/*	var $dot5 = $('.rel-content');
-				 $($dot5).each(function() {
-				 if($(this).height() > 22) {
-				 $(this).attr("data-txt", $(this).attr("data-text"));
-				 $(this).height(22);
-				 }
-				 var $dot4 = $(this);
-
-				 function createDots() {
-				 $dot4.dotdotdot({
-				 after: 'a.toggle'
-				 });
-				 }
-
-				 function destroyDots() {
-				 $dot4.trigger('destroy');
-				 }
-				 createDots();
-				 $dot4.hover(function() {
-				 destroyDots();
-				 }, function() {
-				 createDots();
-				 });
-				 });*/
 			})
 			//相关课程
 		RequestService('/online/questionlist/getCourseByMenuId', 'GET', {
@@ -463,19 +425,6 @@ window.onload = function() {
 					"left": "100%"
 				});
 			}
-			//		setTimeout(function() {
-			//			jQuery(".slide-box").slide({
-			//				//				    titCell: ".hd ul",
-			//				mainCell: ".slideBox ul",
-			//				autoPage: true,
-			//				effect: "leftLoop",
-			//				autoPlay: true,
-			//				vis: 1,
-			//				easing: "swing",
-			//				interTime: '4000',
-			//				delayTime: '300'
-			//			});
-			//		}, 1000)
 		})
 		$(".curr").html(data.resultObject.name);
 		if(data.resultObject.status == 2) {
@@ -551,93 +500,6 @@ window.onload = function() {
 		mark();
 		jingcai(self, myanswerStatus);
 		lasteAnaswer();
-		//投诉
-//		$(".wenqiang").off().on("click", function() {
-//			var $this = $(this);
-//
-//			window.localStorage.username = data.resultObject.loginName;
-//			$("#tousu1 .comment-content").val("");
-//			$("#tousu1").find(".radio-cover").removeClass("active");
-//			$(".errorInfo").css("display", "none");
-//			$("#tousu1").paymentModal("wenqiang");
-//			var targetId = $this.attr("data-id");
-//			var accuse_type = 5;
-//			$("#tousu1 .modalBody label").unbind().on("click", function() {
-//				$(".errorInfo").css("display", "none");
-//				$(".radio-cover").removeClass("active");
-//				$(this).find(".radio-cover").addClass("active");
-//				var value = $(this).find("span").text();
-//				if(value == "广告营销等垃圾信息") {
-//					accuse_type = 0
-//				} else if(value == "抄袭内容") {
-//					accuse_type = 1
-//				} else if(value == "辱骂等不文明语言的人身攻击") {
-//					accuse_type = 2
-//				} else if(value == "色情或反动的违法信息") {
-//					accuse_type = 3
-//				} else {
-//					accuse_type = 4;
-//				}
-//			})
-//			$("#tousu1 .modalFooter a").unbind().click(function() {
-//				var data3;
-//				var content = $("#tousu1 .comment-content").val();
-//				if(accuse_type == 4) {
-//					data3 = {
-//						target_type: 0,
-//						target_id: targetId,
-//						accuse_type: 4,
-//						content: content //其他信息
-//					}
-//				} else {
-//					data3 = {
-//						target_type: 0,
-//						target_id: targetId,
-//						accuse_type: accuse_type
-//					};
-//				}
-//				if(accuse_type == 5) {
-//					$("#tousu1 .errorInfo").css("display", "block");
-//					return;
-//				} else if(content == "" && accuse_type == 4) {
-//					$("#tousu1 .errorInfo").css("display", "block");
-//				} else {
-//					$("#tousu1 .errorInfo").css("display", "none");
-//					RequestService('/online/menutag/saveAccuse', 'POST', data3, function(data) {
-//						if(data.success = true) {
-//							$(".payment-modal .payment-modal-close").trigger("click");
-//							location.reload();
-//						}
-//					})
-//				}
-//			})
-//		});
-		/*$(".holdRright").click(function(){
-		 $(".tipMessage").toggle();
-		 })*/
-		//富文本编辑器
-		//		var sm_toolbar = ['italic', 'bold', 'underline', 'strikethrough', '|', 'blockquote', 'code', 'link', 'image'];
-		//		Simditor.locale = 'zh-CN'
-		//		var editor = new Simditor({
-		//			textarea: $('#editor'),
-		//			toolbar: sm_toolbar,
-		//			defaultImage: '',
-		//			//http://attachment-center.ixincheng.com:58000/data/picture/online/2016/09/23/17/853ba435fc894781b16310ebc5142704.png
-		//			pasteImage: true,
-		//			toolbarHidden: false,
-		//			toolbarFloat: false,
-		//			placeholder: '',
-		//			upload: {
-		//				url: bath+"/online/util/upload4Simditor",
-		//				params: null,
-		//				fileKey: 'attachment',
-		//				connectionCount: 3,
-		//				leaveConfirm: '正在上传文件，如果离开上传会自动取消'
-		//			},
-		//			success: function(data) {
-		//
-		//			}
-		//		});
 		$(".writeReply").focus(function() {
 			$(this).parent("").siblings(".user-content-line").find(".sanjiaoInput").css("display", "block");
 			$(this).parent("").siblings(".user-content-line").find(".sanjiaoInput img").attr("src", "../images/ansandqus/sanjia03.png");
@@ -800,68 +662,6 @@ window.onload = function() {
 					$(".payment-modal-close").trigger("click");
 				})
 			});
-			//投诉11
-//			$(".tousuBox").off().on("click", function() {
-//				var $this = $(this);
-//				var targetId = $this.attr("data-id");
-//				window.localStorage.username = data.resultObject.loginName;
-//				$("#tousu .comment-content").val("");
-//				$("#tousu").find(".radio-cover").removeClass("active");
-//				$("#tousu").paymentModal("tousuBox");
-//				$(".errorInfo").css("display", "none");
-//				var accuse_type = 5;
-//				$("#tousu .modalBody label").unbind().on("click", function() {
-//					$(".errorInfo").css("display", "none");
-//					$(".radio-cover").removeClass("active");
-//					$(this).find(".radio-cover").addClass("active");
-//					var value = $(this).find("span").text();
-//					if(value == "广告营销等垃圾信息") {
-//						accuse_type = 0
-//					} else if(value == "抄袭内容") {
-//						accuse_type = 1
-//					} else if(value == "辱骂等不文明语言的人身攻击") {
-//						accuse_type = 2
-//					} else if(value == "色情或反动的违法信息") {
-//						accuse_type = 3
-//					} else {
-//						accuse_type = 4;
-//					}
-//				})
-//				$("#tousu .modalFooter a").click(function() {
-//					var data3;
-//					var content = $("#tousu .comment-content").val();
-//					if(accuse_type == 4) {
-//						data3 = {
-//							target_type: 1,
-//							target_id: targetId,
-//							accuse_type: 4,
-//							content: content //其他信息
-//						}
-//					} else {
-//						data3 = {
-//							target_type: 1,
-//							target_id: targetId,
-//							accuse_type: accuse_type
-//						};
-//					}
-//					if(accuse_type == 5) {
-//						$("#tousu .errorInfo").css("display", "block");
-//					} else if(content == "" && accuse_type == 4) {
-//						$("#tousu .errorInfo").css("display", "block");
-//					} else {
-//						$("#tousu .errorInfo").css("display", "none");
-//						RequestService('/online/menutag/saveAccuse', 'POST', data3, function(data) {
-//							if(data.success = true) {
-//								$(".payment-modal .payment-modal-close").trigger("click");
-//								$this.find("span").text("已投诉");
-//								$this.find("img").css("cursor", "auto");
-//								$this.find("span").css("cursor", "auto");
-//								$this.unbind("click");
-//							}
-//						})
-//					}
-//				})
-//			});
 			//评论
 			$(".answer-comment").off().on("click", function() {
 				var $this = $(this);
@@ -1311,12 +1111,13 @@ window.onload = function() {
 				}
 			}
 			mark();
+            var ln=window.location.toString().getQuery('ln');
 			$(".quesDetail-left-third .qingjian1").unbind().on("click", function() {
 				var $this = $(this);
 				$("#quxiaoshoucang").paymentModal("qingjian1");
 				$(".tipType").text("确定删除吗？");
 				$("#quxiaoshoucang .modalFooter .yesBtn").unbind().click(function() {
-					RequestService('/ask/answer/deleteAnswerById?answerId=' + $this.attr("data-delectId"), "GET", "", function(data) {
+					RequestService('/ask/answer/deleteAnswerById?answerId=' + $this.attr("data-delectId") + "&ln="+ln, "GET", "", function(data) {
 						if(data.resultObject=="操作成功"){
 							$(".payment-modal-close").trigger("click");
 							$this.parents(".good-answer-content").remove();
