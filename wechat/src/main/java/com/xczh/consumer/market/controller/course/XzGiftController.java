@@ -108,7 +108,7 @@ public class XzGiftController {
      **/
     @ResponseBody
     @RequestMapping(value = "/vhallSendGift")
-    public ResponseObject customSendGift(String giftId,String liveId,Integer count, String receiverId,String channel_id,
+    public ResponseObject customSendGift(String giftId,String liveId,Integer count, String receiverId,String channelId,
             @Account String accountId) throws Exception {
 
     	Map<String, Object> mapRanking = new HashMap<String, Object>();
@@ -126,7 +126,7 @@ public class XzGiftController {
         jsonObject.put("message",map);
 
         //后台把这个消息广播出去
-        MessageService.sendMessage(MessageService.CustomBroadcast,jsonObject.toJSONString(),channel_id);
+        MessageService.sendMessage(MessageService.CustomBroadcast,jsonObject.toJSONString(),channelId);
         return ResponseObject.newSuccessResponseObject(mapRanking);
     }
 }

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -78,7 +79,7 @@ public class AnchorsController extends AbstractFtlController {
      */
     @RequestMapping(value = "{userId}/info", method = RequestMethod.GET)
     public ModelAndView info(HttpServletRequest req, HttpServletResponse res,
-                             @PathVariable String userId) throws IOException {
+                             @PathVariable String userId) throws IOException, ServletException {
 
         ModelAndView view = new ModelAndView("school/anchor_details");
 
@@ -87,7 +88,7 @@ public class AnchorsController extends AbstractFtlController {
         view.addObject("userId", userId);
         view.addObject("webUrlParam", webUrl + "/anchors/" + userId);
 
-        view = getHostBaseInfo(view, userId);
+        view = getHostBaseInfo(req,res,view, userId);
 
         //推荐课程   -- 从推荐值最高的课程里面查询啦啦啦啦。
         view.addObject("recommendCourse", getRecommendCourse());
@@ -103,9 +104,9 @@ public class AnchorsController extends AbstractFtlController {
      * @throws IOException
      */
     @RequestMapping(value = "{userId}/courses", method = RequestMethod.GET)
-    public ModelAndView courses(@PathVariable String userId,
+    public ModelAndView courses(HttpServletRequest request, HttpServletResponse response, @PathVariable String userId,
                                 @RequestParam(required = false) Integer pageSize,
-                                @RequestParam(required = false) Integer pageNumber) {
+                                @RequestParam(required = false) Integer pageNumber) throws ServletException, IOException {
 
 
         pageNumber = pageNumber == null ? 1 : pageNumber;
@@ -119,7 +120,7 @@ public class AnchorsController extends AbstractFtlController {
         /**
          * 这个主播可能认证的是医馆，也可能认证的是医师
          */
-        view = getHostBaseInfo(view, userId);
+        view = getHostBaseInfo(request, response, view, userId);
 
         //查找主播课程
         Page<CourseLecturVo> page = new Page<>();
@@ -144,7 +145,7 @@ public class AnchorsController extends AbstractFtlController {
     public ModelAndView comment(HttpServletRequest req, HttpServletResponse res,
                                 @PathVariable String userId,
                                 @RequestParam(required = false) Integer pageSize,
-                                @RequestParam(required = false) Integer pageNumber) throws IOException {
+                                @RequestParam(required = false) Integer pageNumber) throws IOException, ServletException {
 
 
         pageNumber = pageNumber == null ? 1 : pageNumber;
@@ -160,7 +161,7 @@ public class AnchorsController extends AbstractFtlController {
         /**
          * 这个主播可能认证的是医馆，也可能认证的是医师
          */
-        view = getHostBaseInfo(view, userId);
+        view = getHostBaseInfo(req,res,view, userId);
 
         //获取用户信息
         OnlineUser user = getCurrentUser();
@@ -193,14 +194,14 @@ public class AnchorsController extends AbstractFtlController {
     /*
      * 获取主播基本信息啦
      */
-    private ModelAndView getHostBaseInfo(ModelAndView view, String userId) {
+    private ModelAndView getHostBaseInfo(HttpServletRequest request, HttpServletResponse response, ModelAndView view, String userId) throws ServletException, IOException {
         //推荐课程   -- 从推荐值最高的课程里面查询啦啦啦啦。
         /**
          * 这个主播可能认证的是医馆，也可能认证的是医师
          */
         Map<String, Object> lecturerInfo = myInfoService.findHostInfoByIdProbablyPhysician(userId);
         if (lecturerInfo.size() == 0) {
-            return to404();
+            return to404(request,response);
         }
         view.addObject("lecturerInfo", lecturerInfo);
 

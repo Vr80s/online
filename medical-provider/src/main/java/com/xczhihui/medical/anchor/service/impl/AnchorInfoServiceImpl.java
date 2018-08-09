@@ -456,7 +456,7 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService {
         UserDocument condition = new UserDocument();
         condition.setDocumentId(documentId);
         UserDocument userDocument = userDocumentMapper.selectOne(condition);
-        if (userDocument == null || userDocument.getDeleted() != null || userDocument.getDeleted()) {
+        if (userDocument == null || (userDocument.getDeleted() != null && userDocument.getDeleted())) {
             throw new MedicalException("文档不存在");
         }
         userDocument.setDeleted(true);

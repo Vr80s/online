@@ -11,6 +11,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.google.common.collect.ImmutableMap;
+import com.xczhihui.common.util.EmailUtil;
 import com.xczhihui.common.util.XzStringUtils;
 import com.xczhihui.common.util.enums.*;
 import com.xczhihui.common.util.vhallyun.MessageService;
@@ -435,7 +436,6 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 
         Integer type = VhallCustomMessageType.PLAYBACK_GENERATION_SECCESS.getCode();
         String message = "回放生成成功";
-        
         //发送im消息
         if (status.equals(PlayBackType.GENERATION_SUCCESS.getCode())) {
             type = VhallCustomMessageType.PLAYBACK_GENERATION_SECCESS.getCode();
@@ -443,6 +443,19 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         } else if (status.equals(PlayBackType.GENERATION_FAILURE.getCode())) {
             type = VhallCustomMessageType.PLAYBACK_GENERATION_FAILURE.getCode();
             message = "回放生成失败";
+            
+            try {
+            	String content = "未找到课程信息。";
+                List<Course> courses = iCourseMapper.selectByMap(ImmutableMap.of("record_id", recordId));
+                if (courses != null && courses.isEmpty()) {
+                	content = "课程名："+courses.get(0).getGradeName()+",课程id:"+courses.get(0).getId()+",回放id:"+recordId;
+                }
+                //发送email ,报告错误  
+                EmailUtil.sendExceptionMailBySSL("课程服务：回放生成失败", "回放生成失败。回放recordId = "+recordId,content);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+            
         }
         JSONObject job = new JSONObject();
         job.put("type", type);

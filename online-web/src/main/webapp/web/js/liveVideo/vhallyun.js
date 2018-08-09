@@ -68,16 +68,17 @@ function elsBind(){
         channelId:vhallObj.channelId, //频道Id
         docNode:'my-doc-area'//文档显示节点div id
       });
+      var roomId = (liveStatus == 1 ? vhallObj.roomId : "");
       var liveType = (liveStatus == 1 ? "live" : "vod");
       var recordId = (liveStatus == 1 ? "" : vhallObj.recordId);
       //判断是回放呢，还是直播呢
-      VhallLive.init({
-       roomId:vhallObj.roomId,
+      VhallPlayer.init({
+       roomId:roomId,
        recordId:recordId, //回放Id，点播必填，直播不写
-       type:"live",
+       type:liveType,
        videoNode:'myVideo',
        complete:function(){
-          VhallLive.play();
+          VhallPlayer.play();
        }
      });    
     }
@@ -92,6 +93,16 @@ function elsBind(){
      * 加载消息
      */
     setTimeout(function(){
+    	
+//      var video = document.getElementsByTagName("video")[0];
+//	    md.addEventListener("ended",function(){
+//	         console.log("结束");
+//	         
+//	         $(".playback-rebroadcast").attr("type",20);
+//	         $(".playback-rebroadcast").text("重播");
+//             $(".playback").show();
+//	    })	
+    	
     	
        window.Vhall.ready(function(){
         window.chat = new VhallChat({
@@ -119,6 +130,7 @@ function elsBind(){
              msg = JSON.parse(msg);
              try{
              	var e="";
+             	$(".playback-rebroadcast").attr("type",msg.type);
                 if(msg.type ==10 ){//聊天
                     e+=liaotian(msg);
                 }else if(msg.type == 11){ //礼物
@@ -127,17 +139,27 @@ function elsBind(){
                 	createGiftList(msg.message);
                 }else if(msg.type == 12){ // 开始直播啦
                 
-                	
+                	// 刷新页面 --》在观看
+                	location.reload();
                 }if(msg.type == 13){ //直播结束了  
                 
+                	$(".playback-rebroadcast").text("直播结束，正在生成回放…");
+                	$(".playback").show();
+                	
                 } else if (msg.type == 14) { // 退出直播间，但是没有结束直播
 
-				} else if (msg.type == 15) { // 继续直播
-
+                	$(".playback-rebroadcast").text("主播要离开一会儿，稍等片刻哦~");
+                	$(".playback").show();
+                	
 				} else if (msg.type == 16) { // 回放生成成功
 
+				    $(".playback-rebroadcast").text("直播结束,点击查看回放");
+                	$(".playback").show();
+					
 				} else if (msg.type == 17) { // 回放生成失败
 
+					$(".playback-rebroadcast").text("直播结束，点击返回学习中心");
+                	$(".playback").show();
 				}
                 if (e != "") {
 					$("#chatmsg").append(e);
@@ -162,25 +184,16 @@ function elsBind(){
      });
     },1000);	
       
-    //开始  
-    $("#startlive").click(function() {
-    	 VhallLive.play();
-    	 
-    	 var array =  VhallLive.getQualitys();
-    	 
-    	 VhallLive.setQuality(VhallLive.getQualitys()[0]);
-    }) 	
-         
-    //暂停
-    $("#endlive").click(function() {
-    	 VhallLive.pause();
-    	 var video = document.getElementsByTagName("video")[0];
-    	 video.pause()
-    }) 	
+    //  
+    $(".playback-rebroadcast").click(function() {
+    	var type = $(this).attr("type");
+    	if (type == 16 || type ==20) { // 回放生成成功   重播
+			location.reload();
+		}else if (msg.type == 17) { // 回放生成失败,点击去学习中心吧
+			location.href="/my";
+	    }
+    }) 
     
-   
-    
-   
     
     /**
      * 发送聊天消息
