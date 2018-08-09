@@ -57,10 +57,8 @@ requestService("/xczh/course/liveDetails", {
 
             watchState = result.watchState;
             teacherId = result.userLecturerId; // 讲师Id
-
             teacherName = result.heir; // 上传人
             sessionStorage.setItem("hostName", teacherName);
-
             $("#userId").val(result.userId);
             $("#teacherId").val(result.userId);
             courseHead = result.smallImgPath;
@@ -133,7 +131,6 @@ requestService("/xczh/course/liveDetails", {
 
             lineState = result.lineState;
 
-            //lineState = 1;
 
             /**
              * 直播状态1.直播中，2预告，3直播结束 4 即将直播
@@ -155,25 +152,17 @@ requestService("/xczh/course/liveDetails", {
 
                 $("title").text("熊猫中医");
 
-                /*$("#face").css("top", "1.45rem");
-					$("#face").css('left', '0.06rem');*/
-
-                // $(".give_a1").hide();
                 $(".give_a1_img").hide();
                 $(".give_a1_span02").hide();
                 $(".poson").css('right', '0rem');
                 $(".poson").css('margin-left', '0.4rem');
-                //$(".div_img").css('margin-left', '0.35rem');   //左侧  图片笔
                 $("#face").css('position', 'absolute'); //表情
                 $("#face").css('top', '0'); //表情
                 $("#face").css('left', '-0.05rem'); //表情
-                //					$("#sendChat").css('right', '-2.2rem !important');  //发送按钮向右距离
                 $("#sendChat").addClass('important'); //发送按钮 添加class
 
                 $(".give_a01").show();
-                //$(".give_a1 .give_a1_img").css("margin-left","-2.6rem");
 
-                // $("#sendChat").show();
                 //					点击输入框
                 $("#mywords").click(function () {
                     $(".give_a1").hide();
@@ -182,13 +171,11 @@ requestService("/xczh/course/liveDetails", {
 
                 });
                 $(".details_size").hide();
-                //					$(".poson").css('right', '-2.1rem');
 
                 $(".div_input").css('width', '6rem');
                 $(".coze_bottom_input").css('margin-left', '0rem');
                 $(".give_a01").css('margin-left', '0.5rem');
                 $(".give_a01").css('right', '0.6rem'); //表情
-                //					$(".coze_bottom img").css('margin-left','0.3rem');  //微吼表情包
 
                 $("#sendChat").addClass('importants'); //发送
 
@@ -196,8 +183,6 @@ requestService("/xczh/course/liveDetails", {
                 //					点击表情
                 $("#face").click(function () {
                     $(".coze_bottom").css('bottom', '7.1rem');
-                    //						$(".facebox-mobile").css('left', '-13.6rem');
-                    //						$(".facebox-mobile").addClass("facebox-mobiles");
                 });
 
                 /* 点击发送 */
@@ -206,7 +191,6 @@ requestService("/xczh/course/liveDetails", {
                     $(".give_a1").css("display", "none"); /* 礼物隐藏 */
                     $(".coze_bottom").css("bottom", "0"); /* 最底部区域到最下方 */
                     $(".face_img01").css('background', 'url(/xcview/images/face.png) no-repeat');
-
                     $(".face_img01").css("background-size", "100% 100%");
 
                 });
@@ -269,25 +253,19 @@ requestService("/xczh/course/liveDetails", {
 
                 });
             }
-            
-            // 点击直播回放时的input mywords
-            $("#mywords").click(function () {
-                return;
-            });
 
-            var jjzb = result.lineState;
-            var startTime = result.startTime;
-
-            //				即将播放时间
-            $(".initiation_span").html(result.startTime.slice(0, 16));
-
-            if (jjzb == 4) { //即将直播的
-                $(".initiation_span").html(result.startTime.slice(0, 16));
+            if (lineState == 4) { //即将直播的
+                var startTime = result.startTime;
+                $(".initiation_span").html(startTime.slice(0, 16));
                 $("#initiation_gradename").html(result.gradeName);
-
                 $(".video_end_top0").show();
                 $(".cover").show(); //显示即将直播时候--聊天区域添加的遮盖层
-                timer(new Date(startTime).getTime(), parseInt(sendTime));
+                timer(new Date(startTime).getTime(),new Date().getTime());
+            }
+            
+            var liveCase = result.liveCase;
+            if(lineState ==1 && liveCase == 2){
+            	$(".video_end_top3").show();
             }
         }
     }, false)

@@ -42,16 +42,17 @@ function elsBind() {
             docNode: 'my-doc-area' // 文档显示节点div id
         });
 
+        var roomId = (lineState == 1 ? vhallObj.roomId : "");
         var liveType = (lineState == 1 ? "live" : "vod");
         var recordId = (lineState == 1 ? "" : vhallObj.recordId);
 
-        VhallLive.init({
-            roomId: vhallObj.roomId,
-            type: "live",
-            recordId: vhallObj.recordId, // 回放Id，点播必填，直播不写
+        VhallPlayer.init({
+            roomId: roomId,
+            type: liveType,
+            recordId: recordId, // 回放Id，点播必填，直播不写
             videoNode: 'myVideo',
             complete: function () {
-                VhallLive.play();
+                VhallPlayer.play();
             }
         });
     }
@@ -126,31 +127,22 @@ function elsBind() {
 
                 } else if (msg.type == 12) { // 开始直播
 
-                    console.log("开始直播了   >>>>");
-
-                    $(".video_end_top0").hide();
-                    $(".video_end_top2").hide();
                     // 刷新页面 --》在观看
                     location.reload();
 
                 } else if (msg.type == 13) { // 结束直播  --》  生成点播
 
-                    console.log("直播结束了，去学习中心 >>>>");
-                    $("#video").html("");
-                    $(".video_end_top0").hide();
-                    // 生成回访中
                     $(".video_end_top2").show();
 
                 } else if (msg.type == 14) { // 退出直播间，但是没有结束直播
 
-                } else if (msg.type == 15) { // 继续直播
+                	 $(".video_end_top3").show();
 
-                } else if (msg.type == 16) { // 回放生成成功
+                }  else if (msg.type == 16) { // 回放生成成功
 
                     $(".video_end_top0").hide();
                     $(".video_end_top2").hide();
                     $(".video_end_top1").show();
-                    console.info("回放生成成功");
 
                 } else if (msg.type == 17) { // 回放生成失败
 
@@ -158,7 +150,6 @@ function elsBind() {
                     $(".video_end_top2").hide();
                     $(".video_end_top1").hide();
                     $(".video_end_top").show();
-                    console.info("回放生成失败");
                 }
             })
 

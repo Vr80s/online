@@ -68,16 +68,17 @@ function elsBind(){
         channelId:vhallObj.channelId, //频道Id
         docNode:'my-doc-area'//文档显示节点div id
       });
+      var roomId = (liveStatus == 1 ? vhallObj.roomId : "");
       var liveType = (liveStatus == 1 ? "live" : "vod");
       var recordId = (liveStatus == 1 ? "" : vhallObj.recordId);
       //判断是回放呢，还是直播呢
-      VhallLive.init({
-       roomId:vhallObj.roomId,
+      VhallPlayer.init({
+       roomId:roomId,
        recordId:recordId, //回放Id，点播必填，直播不写
-       type:"live",
+       type:liveType,
        videoNode:'myVideo',
        complete:function(){
-          VhallLive.play();
+          VhallPlayer.play();
        }
      });    
     }
@@ -93,14 +94,14 @@ function elsBind(){
      */
     setTimeout(function(){
     	
-        var video = document.getElementsByTagName("video")[0];
-	    md.addEventListener("ended",function(){
-	         console.log("结束");
-	         
-	         $(".playback-rebroadcast").attr("type",20);
-	         $(".playback-rebroadcast").text("重播");
-             $(".playback").show();
-	    })	
+//      var video = document.getElementsByTagName("video")[0];
+//	    md.addEventListener("ended",function(){
+//	         console.log("结束");
+//	         
+//	         $(".playback-rebroadcast").attr("type",20);
+//	         $(".playback-rebroadcast").text("重播");
+//             $(".playback").show();
+//	    })	
     	
     	
        window.Vhall.ready(function(){

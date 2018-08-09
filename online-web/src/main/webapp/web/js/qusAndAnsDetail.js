@@ -67,13 +67,13 @@ window.onload = function() {
 		'</div>' +
 		'<div class="quesTitle-left">' +
 		'{{if items.collectStatu==true}}' +
-		'<div class="shouBox colorGr" style="border:1px solid #6acd6a">' +
+		'<div class="shouBox colorGr hide" style="border:1px solid #6acd6a">' +
 //		'<img class="shoucangImg" src="/web/images/ansandqus/star.png"/>' +
 		'<i class="iconfont icon-shoucang"></i>'+
 		'<span class="shoucang">已收藏</span>' +
 		'</div>' +
 		'{{else}}' +
-		'<div class="shouBox">' +
+		'<div class="shouBox hide">' +
 //		'<img class="shoucangImg" src="/web/images/ansandqus/star_normal.png"/>' +
 		'<i class="iconfont icon-shoucang"></i>'+
 		'<span class="shoucang">收藏</span>' +
