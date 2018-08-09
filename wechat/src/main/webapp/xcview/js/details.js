@@ -354,7 +354,6 @@ $(".add_follow").click(function () {
 });
 
 
-
 /**
  * 点击主播头像跳转主播页面
  */

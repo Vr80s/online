@@ -140,7 +140,10 @@ function elsBind(){
                 }else if(msg.type == 12){ // 开始直播啦
                 
                 	// 刷新页面 --》在观看
-                	location.reload();
+                	setTimeout(function () {
+                		location.reload();
+                	},2000)
+                	
                 }if(msg.type == 13){ //直播结束了  
                 
                 	$(".playback-rebroadcast").text("直播结束，正在生成回放…");
@@ -188,7 +191,9 @@ function elsBind(){
     $(".playback-rebroadcast").click(function() {
     	var type = $(this).attr("type");
     	if (type == 16 || type ==20) { // 回放生成成功   重播
-			location.reload();
+			setTimeout(function () {
+        		location.reload();
+        	},2000)
 		}else if (msg.type == 17) { // 回放生成失败,点击去学习中心吧
 			location.href="/my";
 	    }
