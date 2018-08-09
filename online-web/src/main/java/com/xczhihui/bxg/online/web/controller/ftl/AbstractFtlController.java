@@ -1,9 +1,12 @@
 package com.xczhihui.bxg.online.web.controller.ftl;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.ModelAndView;
 
@@ -36,8 +39,12 @@ public class AbstractFtlController extends AbstractController {
         return (OnlineUser) UserLoginUtil.getLoginUser();
     }
 
-    public ModelAndView to404() {
-        ModelAndView mv = new ModelAndView("forward:/web/html/404.html");
-        return mv;
+    public ModelAndView to404(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+        response.setHeader("Cache-Control", "no-cache");
+        response.setHeader("Pragma", "no-cache");
+        response.setDateHeader("Expires", -1);
+        request.getRequestDispatcher("/web/html/404.html").forward(request, response);
+//        ModelAndView mv = new ModelAndView("forward:/web/html/404.html");
+        return null;
     }
 }

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -193,14 +194,14 @@ public class AnchorsController extends AbstractFtlController {
     /*
      * 获取主播基本信息啦
      */
-    private ModelAndView getHostBaseInfo(ModelAndView view, String userId) {
+    private ModelAndView getHostBaseInfo(HttpServletRequest request, HttpServletResponse response, ModelAndView view, String userId) throws ServletException, IOException {
         //推荐课程   -- 从推荐值最高的课程里面查询啦啦啦啦。
         /**
          * 这个主播可能认证的是医馆，也可能认证的是医师
          */
         Map<String, Object> lecturerInfo = myInfoService.findHostInfoByIdProbablyPhysician(userId);
         if (lecturerInfo.size() == 0) {
-            return to404();
+            return to404(request,response);
         }
         view.addObject("lecturerInfo", lecturerInfo);
 

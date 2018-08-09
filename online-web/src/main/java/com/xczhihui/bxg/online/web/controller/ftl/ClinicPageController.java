@@ -5,6 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,12 +86,12 @@ public class ClinicPageController extends AbstractFtlController {
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
-    public ModelAndView details(@PathVariable String id) {
+    public ModelAndView details(HttpServletRequest request, HttpServletResponse response, @PathVariable String id) throws ServletException, IOException {
         ModelAndView view = new ModelAndView("clinic/details");
 
         MedicalHospitalVo clinic = medicalHospitalBusinessServiceImpl.selectHospitalById(id);
         if (clinic == null) {
-            return to404();
+            return to404(request,response);
         }
 
         view.addObject("clinic", clinic);
@@ -153,12 +157,12 @@ public class ClinicPageController extends AbstractFtlController {
 
 
     @RequestMapping(value = "{id}/doctors", method = RequestMethod.GET)
-    public ModelAndView doctors(@PathVariable String id) {
+    public ModelAndView doctors(HttpServletRequest request, HttpServletResponse response, @PathVariable String id) throws ServletException, IOException {
         ModelAndView view = new ModelAndView("clinic/doctors");
 
         MedicalHospitalVo clinic = medicalHospitalBusinessServiceImpl.selectHospitalById(id);
         if (clinic == null) {
-            return to404();
+            return to404(request,response);
         }
         view.addObject("clinic", clinic);
 
