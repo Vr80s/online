@@ -24,6 +24,7 @@ import com.xczhihui.common.util.enums.VhallCustomMessageType;
 import com.xczhihui.common.util.redis.key.RedisCacheKey;
 import com.xczhihui.common.util.vhallyun.BaseService;
 import com.xczhihui.common.util.vhallyun.MessageService;
+import com.xczhihui.course.service.ICourseService;
 
 
 /**
@@ -42,6 +43,9 @@ public class VhallVideoController {
     
     @Autowired
     private CacheService cacheService;
+    
+    @Autowired
+    private ICourseService courseService;
     
     /**
      * Description：微吼签名认证得到微吼的视频播放权
@@ -115,8 +119,17 @@ public class VhallVideoController {
            if(isShutup) {
                return ResponseObject.newErrorResponseObject("你被禁言了");
            } 
-       } 
-       return ResponseObject.newSuccessResponseObject(MessageService.sendMessage("CustomBroadcast",body,channel_id));
+           //后台自动添加这几个参数
+           JSONObject message = (JSONObject) jsonObject.get("message");
+           message.put("userId", account.getUserId());
+           message.put("headImg", account.getSmallHeadPhoto());
+           message.put("username", account.getName());
+       }else if(jsonObject.get("type")!=null && Integer.parseInt(jsonObject.get("type").toString()) == VhallCustomMessageType.LIVE_EXIT_BUT_NOT_END.getCode()){
+    	   //更改直播中的状况
+    	   courseService.updateCourseLiveCase(channel_id);
+       }
+       
+       return ResponseObject.newSuccessResponseObject(MessageService.sendMessage(MessageService.CustomBroadcast,jsonObject.toJSONString(),channel_id));
     }
 
     @RequestMapping(value = "vhallYunToken", method = RequestMethod.GET)
@@ -124,4 +137,7 @@ public class VhallVideoController {
     public ResponseObject getAccessToken(@Account String accountId, @RequestParam String roomId, @RequestParam String channelId) throws Exception {
         return ResponseObject.newSuccessResponseObject(BaseService.createAccessToken4Live(accountId, roomId, channelId));
     }
+    
+    
+    
 }

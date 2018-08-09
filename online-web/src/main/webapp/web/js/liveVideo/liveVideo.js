@@ -43,7 +43,6 @@ var courseId = course_id;
 		courseName = obj.courseName;
 		smallImgPath = obj.smallImgPath;
 		description = obj.description;
-	
 		
 		teacherId = obj.teacherId;
 		teacherName = obj.teacherName;

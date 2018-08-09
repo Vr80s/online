@@ -203,47 +203,7 @@
                     <div class="select-document-wrap">
 
                         <div class="modal-list">
-                            <ul>
-                                <li class="active">
-                                    <img src="/web/images/1.jpg"/>
-                                    <span></span>
-                                </li>
-                                <li>
-                                    <img src="/web/images/1.jpg"/>
-                                    <span></span>
-                                </li>
-                                <li>
-                                    <img src="/web/images/1.jpg"/>
-                                    <span></span>
-                                </li>
-                                <li>
-                                    <img src="/web/images/1.jpg"/>
-                                    <span></span>
-                                </li>
-                                <li>
-                                    <img src="/web/images/1.jpg"/>
-                                    <span></span>
-                                </li>
-                                <li>
-                                    <img src="/web/images/1.jpg"/>
-                                    <span></span>
-                                </li>
-                                <li>
-                                    <img src="/web/images/1.jpg"/>
-                                    <span></span>
-                                </li>
-                                <li>
-                                    <img src="/web/images/1.jpg"/>
-                                    <span></span>
-                                </li>
-                                <li>
-                                    <img src="/web/images/1.jpg"/>
-                                    <span></span>
-                                </li>
-                                <li>
-                                    <img src="/web/images/1.jpg"/>
-                                    <span></span>
-                                </li>
+                            <ul class="J-thumImg">
                             </ul>
                         </div>
                         <div class="icon-right"></div>

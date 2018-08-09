@@ -15,6 +15,7 @@ import com.xczhihui.common.util.XzStringUtils;
 import com.xczhihui.common.util.enums.*;
 import com.xczhihui.common.util.vhallyun.MessageService;
 import com.xczhihui.common.util.vhallyun.VideoService;
+import com.xczhihui.course.consts.MultiUrlHelper;
 import com.xczhihui.course.exception.CourseException;
 import com.xczhihui.course.mapper.CourseMapper;
 import com.xczhihui.course.mapper.CriticizeMapper;
@@ -450,7 +451,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     }
 
     @Override
-    public Integer updateCourseLiveStatus(String event, String roomId) {
+    public Integer updateCourseLiveStatus(String event, String roomId,String clientType) {
         List<Course> courses = iCourseMapper.selectByMap(ImmutableMap.of("direct_id", roomId));
         if (courses == null || courses.isEmpty()) {
             return null;
@@ -465,6 +466,13 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
                     startOrEnd = "start_time";
                     course.setLiveStatus(1);
                     type = VhallCustomMessageType.LIVE_START.getCode();
+                    // -- 》app端发起的直播
+                    if(MultiUrlHelper.URL_TYPE_APP.equals(clientType)) {
+                    	course.setLiveSourceType(true);
+                    }
+                    //直播状况
+                    course.setLiveCase(LiveCaseType.NORMAL_LIVE.getCode());
+                    
                     break;
                 case "stop":
                     startOrEnd = "end_time";
@@ -516,5 +524,16 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
             e.printStackTrace();
         }
     }
+
+	@Override
+	public Integer updateCourseLiveCase(String channelId) {
+		List<Course> courses = iCourseMapper.selectByMap(ImmutableMap.of("channel_id", channelId));
+        if (courses == null || courses.isEmpty()) {
+            return null;
+        }
+        Course course = courses.get(0);
+        course.setLiveCase(LiveCaseType.EXIT_BUT_NOT_END.getCode());
+		return  iCourseMapper.updateById(course);
+	}
 
 }

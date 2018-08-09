@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.ImmutableMap;
+import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.base.utils.UserLoginUtil;
 import com.xczhihui.bxg.online.web.body.vhall.VhallCallbackBody;
 import com.xczhihui.bxg.online.web.controller.AbstractController;
@@ -215,15 +216,21 @@ public class VhallyunController extends AbstractController {
     @RequestMapping(value = "vhallYunSendMessage", method = RequestMethod.GET)
     @ResponseBody
     public ResponseObject customSendMessage(String body, String channel_id) throws Exception {
-        BxgUser loginUser = UserLoginUtil.getLoginUser();
+    	OnlineUser ou = (OnlineUser) UserLoginUtil.getLoginUser();
+        
         JSONObject jsonObject = (JSONObject) JSON.parse(body);
         if(jsonObject.get("type")!=null && Integer.parseInt(jsonObject.get("type").toString()) == VhallCustomMessageType.CHAT_MESSAGE.getCode()) {
-            Boolean isShutup = cacheService.sismenber(VHALLYUN_BAN_KEY + channel_id, loginUser.getId());
+            Boolean isShutup = cacheService.sismenber(VHALLYUN_BAN_KEY + channel_id, ou.getId());
             if (isShutup) {
                 return ResponseObject.newErrorResponseObject("你被禁言了");
             }
+            //后台自动添加这几个参数
+            JSONObject message = (JSONObject) jsonObject.get("message");
+            message.put("userId", ou.getId());
+            message.put("headImg", ou.getSmallHeadPhoto());
+            message.put("username", ou.getName());
         }
-        return ResponseObject.newSuccessResponseObject(MessageService.sendMessage(MessageService.CustomBroadcast, body, channel_id));
+        return ResponseObject.newSuccessResponseObject(MessageService.sendMessage(MessageService.CustomBroadcast, jsonObject.toJSONString(), channel_id));
     }
 
 }

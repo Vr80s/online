@@ -355,7 +355,32 @@
     .send-face li img{
     	width: 30px;
     }
-
+    .playback{
+    	width: 100%;
+    	height: 100%;
+    	background: url(/web/images/2.jpg) no-repeat;
+    	background-size: 100% 100%;
+    	/*position: relative;*/
+    }
+    .playback-rebroadcast{
+	    width: 100px;
+	    height: 30px;
+	    line-height: 30px;
+	    font-size: 18px;
+	    text-align: center;
+	    border-radius: 4px;
+	    background: #ed4343;
+	    margin: 0 auto;
+	    position: absolute;
+	    top: 45%;
+	    left: 40%;
+	    margin-left: -50px;
+	    color: #fff;
+    }
+    /*.playback-img{
+    	width
+    }
+*/
 </style>
 </head>
 
@@ -364,14 +389,9 @@
 	<!--  充值的时候余额不足提示框11 -->
 	<div class='mask3' style='padding: 0 20px; bottom: 65px; right: 85px; display: none; position: fixed; text-align: center; color: white; line-height: 60px; height: 60px; background: #000; opacity: 0.5; z-index: 1000; filter: alpha(opacity = 30);'></div>
 
-	
-
-
 	<!--   直播区域    -->
 	<div class="livePlayer" style="position: relative">
 
-
-	
 		<!--动画代码视频文档小框--右侧-->
 		<div class="animation">
 			<div class="animation-cut animation-cut-click"></div>
@@ -436,6 +456,13 @@
 		</div>
 		
 		<div id="livePlayer">
+		
+			<!--回放重播提示开始-->
+			<div class="playback" style="display:none;">
+				<div class="playback-rebroadcast">重播</div>
+			</div>
+			<!--回放重播提示结束-->
+				
 			 <!-- <iframe id="vhall-video" src="" width="100%" height="100%" style="border-width:0;"></iframe> -->
 		 	<div class=layer id=userCusEvent style="display:block !important">
 				<div class=layer id=userCusEvent style="display:none">
@@ -516,6 +543,10 @@
 						<div class="send-face-bg"></div>
 						<div class="send-face hide"></div>
 						<a id="filter-msg" href="javascript:;" class=lecturer style="left: 40px;"></a> 
+						
+						<a id="startlive" href="javascript:;" class="" style="left: 70px;">开始</a>
+						<a id="endlive" href="javascript:;" class="" style="left: 70px;">暂停</a> 
+						
 						<a id="face" href="javascript:;" class="face"></a> 
 						<div class="chitchat">
 							<!-- <a id= href="javascript:;" class="send-chat">发送</a> -->
@@ -597,6 +628,8 @@
 						<div class="surprise-bottom"></div>
 					</div>
 				</div>
+				
+				
 				
 		</div>
 
@@ -750,6 +783,7 @@
 		</ul>
 
 		<!--禁言提示-->
+		
 		<!--模板引擎渲染礼物栏-->
 		<script type='text/template' id='gift_temp'>
 			{{each resultObject as item i}}
@@ -780,17 +814,16 @@
 
 <!-- 微吼云 -->
 
-<script src="https://static.vhallyun.com/jssdk/vhall-jssdk-chat-1.0.0.js?v=201801121522"></script>
-<script src="https://static.vhallyun.com/jssdk/vhall-jssdk-doc-1.0.0.js?v=201806271657"></script>
-<script src="https://static.vhallyun.com/jssdk/dvideo-plugin.js?v=0.3"></script>
 <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-live-1.0.0.js?v=201806271657"></script>
+<script src="https://static.vhallyun.com/jssdk/vhall-jssdk-doc-1.0.0.js?v=201806271657"></script>
+<script src="https://static.vhallyun.com/jssdk/vhall-jssdk-chat-1.0.0.js?v=201801121522"></script>
+<script src="https://static.vhallyun.com/jssdk/dvideo-plugin.js?v=0.3"></script>
 <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-base-1.0.0.js?v=201806271657"></script>
+
 
 <script src="/web/js/liveVideo/liveVideo.js?v=ipandatcm_1.3"></script>
 <script src="/web/js/liveVideo/liveVideoSDK.js?v=ipandatcm_1.3"></script>
-
 <script src="/web/js/liveVideo/vhallyun.js?v=ipandatcm_1.3"></script>
-
 
 <script src="/web/js/common/video_share.js?v=ipandatcm_1.3"></script>
 <script src="/web/js/placeHolder.js"></script>
@@ -801,8 +834,6 @@
 		$('input').placeholder();
 		/* var html = template('',html) */
 	});
-    
-    
 </script>
 </body>
 </html>
