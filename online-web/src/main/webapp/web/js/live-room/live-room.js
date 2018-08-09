@@ -147,7 +147,7 @@ $(function () {
                 var content = msg.message.content;
                 if (content) {
                     content.replace(emojiReg, function (a, b) {
-                        var imgUrl = emojiMap[a];
+                        var imgUrl = emojiMap.get(a);
                         if (imgUrl) {
                             a = '<img src="' + imgUrl + '">';
                         }
@@ -309,8 +309,6 @@ $(function () {
     }
 
     $('.J-thumImg').on('click', '.J-page-img', function() {
-        // $(".modal-list li").removeClass("active");
-        // $(this).addClass("active");
         var p = $(this).find('span').text();
         curPage = p;
         window.doc.gotoSlide(curPage);
