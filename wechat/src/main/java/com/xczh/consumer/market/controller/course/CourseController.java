@@ -4,25 +4,23 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.solr.client.solrj.SolrServerException;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczh.consumer.market.auth.Account;
+import com.xczh.consumer.market.utils.APPUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.CourseUtil;
 import com.xczhihui.common.util.XzStringUtils;
-import com.xczhihui.course.service.ICourseService;
-import com.xczhihui.course.service.ICriticizeService;
-import com.xczhihui.course.service.IMobileBannerService;
-import com.xczhihui.course.service.IWatchHistoryService;
+import com.xczhihui.common.util.vhallyun.BaseService;
+import com.xczhihui.course.service.*;
 import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.medical.anchor.service.ICourseApplyService;
 
@@ -55,6 +53,8 @@ public class CourseController {
 
     @Autowired
     private ICriticizeService criticizeService;
+    @Autowired
+    private ICourseSolrService courseSolrService;
 
     /**
      * Description：用户当前课程状态   User current course status.
@@ -121,16 +121,18 @@ public class CourseController {
      * email: 15936216273@163.com
      */
     @RequestMapping("liveDetails")
-    public ResponseObject liveDetails(@Account(optional = true) Optional<String> accountIdOpt, @RequestParam("courseId") Integer courseId) {
+    public ResponseObject liveDetails(@Account String accountId, @RequestParam("courseId") Integer courseId) throws Exception {
 
-        CourseLecturVo cv = courseServiceImpl.selectCourseDetailsById(accountIdOpt.isPresent() ? accountIdOpt.get() : null,courseId);
+        CourseLecturVo cv = courseServiceImpl.selectCourseDetailsById(accountId,courseId);
         if (cv == null) {
             return ResponseObject.newErrorResponseObject("获取课程有误");
         }
 
         //赋值公共参数
         cv = assignCommonData(cv,courseId);
-
+        if (cv.getChannelId() != null && cv.getDirectId() != null) {
+            cv.setVhallYunToken(BaseService.createAccessToken4Live(accountId, cv.getDirectId(), cv.getChannelId()));
+        }
         return ResponseObject.newSuccessResponseObject(cv);
     }
 
@@ -248,6 +250,21 @@ public class CourseController {
         page.setSize(pageSize);
         String userId = accountIdOpt.isPresent() ? accountIdOpt.get() : null;
         return ResponseObject.newSuccessResponseObject(courseServiceImpl.selectTeachingCoursesByUserId(page, lecturerId ,userId));
+    }
+
+    @RequestMapping(value = "updateLiveStatus", method = RequestMethod.POST)
+    public ResponseObject updateLiveStatus(HttpServletRequest request,String event, String directId) throws IOException, SolrServerException {
+    	
+        Integer courseId = courseServiceImpl.updateCourseLiveStatus(event, directId,APPUtil.getMobileSource(request));
+        
+        if (courseId != null) {
+            try {
+                courseSolrService.initCourseSolrDataById(courseId);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return ResponseObject.newSuccessResponseObject(null);
     }
 
     /**

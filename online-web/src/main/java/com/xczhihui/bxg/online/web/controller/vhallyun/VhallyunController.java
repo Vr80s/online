@@ -3,7 +3,10 @@ package com.xczhihui.bxg.online.web.controller.vhallyun;
 
 import static com.xczhihui.common.util.redis.key.RedisCacheKey.VHALLYUN_BAN_KEY;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -24,6 +27,7 @@ import com.google.common.collect.ImmutableMap;
 import com.xczhihui.bxg.online.web.base.utils.UserLoginUtil;
 import com.xczhihui.bxg.online.web.body.vhall.VhallCallbackBody;
 import com.xczhihui.bxg.online.web.controller.AbstractController;
+import com.xczhihui.bxg.online.web.service.OnlineUserCenterService;
 import com.xczhihui.common.support.domain.Attachment;
 import com.xczhihui.common.support.domain.BxgUser;
 import com.xczhihui.common.support.service.AttachmentCenterService;
@@ -36,9 +40,9 @@ import com.xczhihui.common.util.vhallyun.BaseService;
 import com.xczhihui.common.util.vhallyun.DocumentService;
 import com.xczhihui.common.util.vhallyun.MessageService;
 import com.xczhihui.common.util.vhallyun.VhallUtil;
+import com.xczhihui.common.util.vhallyun.*;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.medical.anchor.service.IAnchorInfoService;
-import com.xczhihui.user.center.service.UserCenterService;
 
 /**
  * 微吼云
@@ -59,7 +63,7 @@ public class VhallyunController extends AbstractController {
     @Autowired
     private ICourseService courseService;
     @Autowired
-    private UserCenterService userCenterService;
+    private OnlineUserCenterService onlineUserCenterService;
 
     @RequestMapping(value = "publishStream/accessToken", method = RequestMethod.GET)
     @ResponseBody
@@ -162,7 +166,7 @@ public class VhallyunController extends AbstractController {
     @RequestMapping(value = "userInfo", method = RequestMethod.POST)
     @ResponseBody
     public ResponseObject initUserInfo() {
-        userCenterService.updateVhallYunInfo();
+        onlineUserCenterService.updateVhallYunInfo();
         return ResponseObject.newSuccessResponseObject();
     }
 
@@ -176,6 +180,36 @@ public class VhallyunController extends AbstractController {
             cacheService.srem(VHALLYUN_BAN_KEY + channelId, userId);
         }
         return ResponseObject.newSuccessResponseObject();
+    }
+
+    @RequestMapping(value = "banStatus", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseObject getBanStatus(@RequestParam String channelId, @RequestParam String accountId){
+        return ResponseObject.newSuccessResponseObject(cacheService.sismenber(VHALLYUN_BAN_KEY + channelId, accountId));
+    }
+
+    @RequestMapping(value = "roomJoinStudent", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseObject listStudent(@RequestParam String roomId, @RequestParam String channelId, @RequestParam String anchorId) {
+        int pos = 0;
+        List<Map<String, Object>> students = new ArrayList<>();
+        List<Map<String, Object>> result;
+        while(true) {
+            result = VideoService.getRoomJoinInfo(roomId, pos);
+            for (Map<String, Object> info : result) {
+                String accountId = info.get("uid").toString();
+                if (info.get("end_Time") == null && !anchorId.equals(accountId)) {
+                    info.put("banStatus", cacheService.sismenber(VHALLYUN_BAN_KEY + channelId, accountId));
+                    students.add(info);
+                }
+            }
+            if (result.size() < 1000) {
+                break;
+            } else {
+                pos ++;
+            }
+        }
+        return ResponseObject.newSuccessResponseObject(students);
     }
 
     @RequestMapping(value = "vhallYunSendMessage", method = RequestMethod.GET)

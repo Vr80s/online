@@ -33,20 +33,20 @@
             </li>
             <!--图片-->
         <#list documents as document>
-            <li class="doc-title hover-delect" data-did="${document.documentId}">
+            <li class="doc-title hover-delect" data-did="${document.documentId}" data-page="${document.page!'1'}">
                 <div class="doc-name doc-photo">${document.documentName}</div>
                 <div class="doc-time text-center">${document.createTime?string('yyyy-MM-dd HH:mm:ss')}</div>
                 <#if document.transStatus?? && document.transStatus == 1>
-                    <div class="doc-progress text-center J-doc-item-text-${document.documentId}">转化成功</div>
+                    <div class="doc-progress text-center J-doc-item-text-${document.documentId}">转码成功</div>
                     <div class="doc-operation text-center J-doc-operation J-operation-${document.documentId}">
                         <p>演示</p>
                     </div>
                 </#if>
                 <#if document.transStatus?? && document.transStatus == 2>
-                    <div class="doc-progress text-center J-doc-item-text-${document.documentId}">转换失败</div>
+                    <div class="doc-progress text-center J-doc-item-text-${document.documentId}">转码失败</div>
                 </#if>
                 <#if document.transStatus == 0>
-                    <div class="doc-progress text-center J-doc-item-text-${document.documentId}">转换中</div>
+                    <div class="doc-progress text-center J-doc-item-text-${document.documentId}">转码中</div>
                 </#if>
                 <div class="delect-img hide J-doc-delete"></div>
             </li>
@@ -65,10 +65,29 @@
     </form>
 </div>
 <!--文档弹窗结束-->
+<!--设置弹窗-->
+<div class="modal-content setup-modal hide">
+    <div class="comment-setup">
+        <span>摄像头</span>
+        <select name="" class="J-cameras">
+        </select>
+    </div>
+    <div class="comment-setup">
+        <span>麦克风</span>
+        <select name="" class="J-mics">
+            <option value="">王总麦克风</option>
+        </select>
+    </div>
+    <div class="comment-setup">
+        <button class="sure" type="button">确认</button>
+        <button class="cancel" type="button">取消</button>
+    </div>
+</div>
+<!--设置结束-->
 <div class="container-fluid" style="height: 100%;">
     <div class="row" style="height: 100%;">
         <!--视频区-->
-        <div class="col-md-8 comment-padding" style="height: 100%;">
+        <div class="col-md-8 comment-padding video-width" style="height: 100%;">
             <div class="content-video">
                 <!--分享模块-->
                 <div class="share-main =">
@@ -137,19 +156,19 @@
                                 <span>颜色</span>
                             </div>
                             <div class="select-huabi hide">
-                                <p class="comment-bg comment-color other-one" data-color="#ff0000">
+                                <p class="comment-bg comment-color other-one" data-color="#d900ae">
                                     <img src="/web/images/live-room/color1.png"/>
                                 </p>
-                                <p class="comment-bg comment-color other-two" data-color="#00ff00">
+                                <p class="comment-bg comment-color other-two" data-color="#0063db">
                                     <img src="/web/images/live-room/color6.png"/>
                                 </p>
-                                <p class="comment-bg comment-color other-three" data-color="#0000ff">
+                                <p class="comment-bg comment-color other-three" data-color="#00c900">
                                     <img src="/web/images/live-room/color4.png"/>
                                 </p>
-                                <p class="comment-bg comment-color other-four" data-color="#000000">
+                                <p class="comment-bg comment-color other-four" data-color="#ffc800">
                                     <img src="/web/images/live-room/color3.png"/>
                                 </p>
-                                <p class="comment-bg comment-color other-five" data-color="#000000">
+                                <p class="comment-bg comment-color other-five" data-color="#ff0000">
                                     <img src="/web/images/live-room/color2.png"/>
                                 </p>
                                 <p class="comment-bg comment-color other-six" data-color="#000000">
@@ -178,9 +197,72 @@
                         </li>
                     </ul>
                 </div>
-                <!--视频模块-->
-                <div class="video-main" id="J_doc_main">
+                <!--文档模块-->
+                <div class="video-main">
+                    <div id="J_doc_main" class="document-content"></div>
+                    <div class="select-document-wrap">
 
+                        <div class="modal-list">
+                            <ul>
+                                <li class="active">
+                                    <img src="/web/images/1.jpg"/>
+                                    <span></span>
+                                </li>
+                                <li>
+                                    <img src="/web/images/1.jpg"/>
+                                    <span></span>
+                                </li>
+                                <li>
+                                    <img src="/web/images/1.jpg"/>
+                                    <span></span>
+                                </li>
+                                <li>
+                                    <img src="/web/images/1.jpg"/>
+                                    <span></span>
+                                </li>
+                                <li>
+                                    <img src="/web/images/1.jpg"/>
+                                    <span></span>
+                                </li>
+                                <li>
+                                    <img src="/web/images/1.jpg"/>
+                                    <span></span>
+                                </li>
+                                <li>
+                                    <img src="/web/images/1.jpg"/>
+                                    <span></span>
+                                </li>
+                                <li>
+                                    <img src="/web/images/1.jpg"/>
+                                    <span></span>
+                                </li>
+                                <li>
+                                    <img src="/web/images/1.jpg"/>
+                                    <span></span>
+                                </li>
+                                <li>
+                                    <img src="/web/images/1.jpg"/>
+                                    <span></span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="icon-right"></div>
+                    </div>
+                    <div class="icon-left hide"></div>
+                    <!--pages分页-->
+                    <div class="pages hide">
+                        <p class="jump-pages">
+                            <span class="prev J-doc-prev">
+                                <img src="/web/images/live-room/left.png" alt="上一页"/>
+                            </span>
+                            <span class="now-page">1</span>
+                            <span class="line">/</span>
+                            <span class="all-pages">1</span>
+                            <span class="next J-doc-next">
+                                <img src="/web/images/live-room/right.png" alt="下一页"/>
+                            </span>
+                        </p>
+                    </div>
                 </div>
                 <!--开始播放按钮模块-->
                 <div class="play-main text-center">
@@ -189,10 +271,10 @@
                         <li>
                             <button class="start-play" type="button" id="J_play" data-status="0">开始直播</button>
                         </li>
-                        <#--<li>-->
-                            <#--<img src="/web/images/video-set.png" id="J_stop_play"/>-->
-                        <#--</li>-->
-                        <li>
+                    <#--<li>-->
+                    <#--<img src="/web/images/video-set.png" id="J_stop_play"/>-->
+                    <#--</li>-->
+                        <li class="set-up">
                             <img src="/web/images/video-set2.png"/>
                         </li>
                     </ul>
@@ -218,30 +300,13 @@
                     <ul>
                         <li>
                             <div class="head-portrait z">
-                                <img src="/web/images/reset_head.png" alt="头像"/>
+                                <img src="${anchor.smallHeadPhoto!''}" alt="头像"/>
                             </div>
-                            <span class="student-name z">我是超人</span>
+                            <span class="student-name z">${anchor.name!''}</span>
                             <span class="student-status z">主播</span>
                         </li>
-                        <li>
-                            <div class="head-portrait z">
-                                <img src="/web/images/reset_head.png" alt="头像"/>
-                            </div>
-                            <span class="student-name z">我是超人</span>
-                        </li>
-                        <li>
-                            <div class="head-portrait z">
-                                <img src="/web/images/reset_head.png" alt="头像"/>
-                            </div>
-                            <span class="student-name z">我是超人</span>
-                        </li>
-                        <li>
-                            <div class="head-portrait z">
-                                <img src="/web/images/reset_head.png" alt="头像"/>
-                            </div>
-                            <span class="student-name z">我是超人</span>
-                        </li>
                     </ul>
+
                 </div>
             </div>
         </div>
@@ -255,6 +320,12 @@
                 <div class="chat-personal">
                     <ul id="J_message_list">
                     </ul>
+                    <!--表情筛选-->
+                    <div class="expression-select hide z">
+                        <ul class="expression-list">
+
+                        </ul>
+                    </div>
                 </div>
                 <!--发布弹幕区域-->
                 <div class="barrage-up">

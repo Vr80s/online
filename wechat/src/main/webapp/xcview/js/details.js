@@ -513,12 +513,14 @@ function refreshGiftRanking() {
 
                     }
                     $("#phbList").html(html);
-
                 }
             }
         }, false);
-
 }
+
+
+
+
 
 // 微博分享  title :'中医好课程' + '《' + gradeName + '》',/*分享标题(可选)*/
 document.getElementById('qqShare0').onclick = function (e) {

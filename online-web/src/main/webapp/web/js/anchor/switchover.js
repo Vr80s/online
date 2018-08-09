@@ -200,11 +200,10 @@ $(function () {
 
                     // //医馆列表的选中效果
                     // RequestService("/doctor/getHospital", "get", null, function (data) {
-                    $('.workHos_select').selectpicker('val', (anchor.hospitalId));
+                    	$('.workHos_select').selectpicker('val', (anchor.hospitalId));
                     // })
-
                     //精彩致辞的选中状态
-                    $('.speech_resource').selectpicker('val', (anchor.resourceId));
+//                  	$('.speech_resource').selectpicker('val', (anchor.resourceId));
 
                 } else if (localStorage.AccountStatus == '2') {
                     //医馆自己的模板渲染
@@ -213,6 +212,7 @@ $(function () {
                         $('#u_hospital_tel').val(anchor.tel)
                     }
                 }
+                $('.speech_resource').selectpicker('val', (anchor.resourceId));
                 var provinces = {
                     province: anchor.province,
                     city: anchor.city

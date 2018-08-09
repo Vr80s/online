@@ -62,14 +62,14 @@
 				display: inline-block;
 				float: left;
 				width: 40px;
-				height: 50px;
+				height: 60px;
 				background: rgba(0,0,0,0.50);
 				text-align: center;
 				margin-right: 10px;
 				margin-left: 10px;
 				/*margin-top: 20px;*/
 				padding-top: 4px;
-				font-size: 18px;
+				font-size: 24px;
 			}
 			.box-day{
 				/*width: 1rem;
@@ -132,14 +132,18 @@
 				
 			</div>
 			<div id="livePlayer" style="width: 100%;">
-				<img src="/web/images/04.png" alt="" class="cover-plan-img" />
+				<img src="" alt="" class="cover-plan-img" />
 				<div class="cover-plan">
 					<div class="count-down">
 						<div class="count-down-fize">距离直播开始还有</div>
-						<div id="box1"></div>
+						<div id="box1" class="timeRunner">
+							<span class='box-day span'><span class='days'></span><span class='box-fize'>天</span></span>
+							<span class='box-hour span'><span class='hours'></span><span class='box-fize'>小时</span></span>
+							<span class='box-minute span'><span class='minutes'></span><span class='box-fize'>分</span></span>
+							<span class='box-second span'><span class='seconds'></span><span class='box-fize'>秒</span></span>
+						</div>
 					</div>
 				</div>
-				<!--<iframe id="vhall-video" src="" width="100%" height="100%" style="border-width:0;"></iframe>-->
 			</div>
 		</div>
 		<!-- right start -->
@@ -171,7 +175,7 @@
 </html>
 <!-- 倒计时开始 -->
 <script>
-	$(function() {
+	/* $(function() {
 	    setInterval(timer, 1000);
 	    function timer() {
 	        //设置结束的时间
@@ -196,7 +200,7 @@
 	            $("#box1").html("您已在回家的路上");
 	        }
 	    }
-	});
+	}); */
 </script>
 <!-- 倒计时结束 -->
 <script src="/web/js/placeHolder.js"></script>

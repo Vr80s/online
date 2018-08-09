@@ -5,14 +5,16 @@
 <head>
 <meta charset="UTF-8">
 <title>熊猫中医</title>
-
 <!--这段meta代码需要加上，移动端自适应缩放用-->
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <meta name="keywords" content="" />
-
 <link rel="stylesheet" type="text/css" href="/xcview/css/physician/voice_broadcast.css"/>
-<!--手机嵌入模板-->
-<script type="text/javascript" src="/xcview/js/common/layout.js"></script>
+
+<script type="text/javascript" src="/xcview/js/common/layout.js"></script><!--手机嵌入模板-->
+
+<script type="text/javascript" src="/xcview/js/common/popups.js"></script>  <!-- 公用弹框 -->
+<link rel="stylesheet" type="text/css" href="/xcview/css/popups.css"/> <!-- 公用弹框 -->
+
 <script>
 	// 判断横屏展示时的状态
 	window.onorientationchange=function(){
@@ -224,9 +226,11 @@
 			if($('.radio_put').is(':checked')) {
 				$(".radio_lable").addClass("radio_lables");
 			    // alert(1111);
+			    //$(".msgItem .text .ask").show();   //点击提问--显示问--提示
 			}else{
 				$(".radio_lable").removeClass("radio_lables");
 				// alert(21222);
+				//$(".msgItem .text .ask").hide();   //点击提问--隐藏问--提示
 			}
 		});
 
@@ -235,14 +239,15 @@
 			var a = $(".show").css("display");
 			if (a == "block") {
 				$(".facebox-mobile").hide();
-				$(".barrage_switch").css('background','url(/xcview/images/barrage_switch.png) no-repeat');
-				$(".barrage_switch").css('background-size','100% 100%');
-				$(".show").hide();
-
-			} else {
 				$(".barrage_switch").css('background','url(/xcview/images/barrage_switch_bg.png) no-repeat');
 				$(".barrage_switch").css('background-size','100% 100%');
+				$(".show").hide();
+				$(".msgCont").show();   //彈幕隱藏
+			} else {
+				$(".barrage_switch").css('background','url(/xcview/images/barrage_switch.png) no-repeat');
+				$(".barrage_switch").css('background-size','100% 100%');
 				$(".show").show();
+				$(".msgCont").hide();   //彈幕顯示
 			}
 		});
 
@@ -274,8 +279,8 @@
 			if (commentArea == "block") {
 				$(".footer_bg").hide();
 			}else{
-				sendMsgBtn();
-				alert(22);
+				sendMsgBtn();   //点击发送方法
+				// alert(22);
 				// 全部评论隱藏--點擊發送
 				$(".barrage_switch").hide();  /*弹幕隐藏*/
 				$(".chat_all").hide();      /*查看更多评论隐藏*/
@@ -290,7 +295,7 @@
 		});
 
 		init();  /*默認方法--可用于判斷是否回放*/
-		// 彈幕開始
+		// 弹幕开始
 		var data = ['你好世界','世界你好','啊啊啊哈哈哈哈'];  //定義最後3條
 		var SixHide = 0;
 
@@ -302,7 +307,7 @@
 			setInterval(function(){
 				if(data == 0 ){
 					SixHide++
-					if(SixHide == 0.5){   //SixHide == 0.5(時間，錯誤操作，時間小於0.5一直顯示)
+					if(SixHide == 6){ //设置发弹幕--6秒后移除    //SixHide == 0.5(時間，錯誤操作，時間小於0.5一直顯示彈幕)
 						$(".msgCont").html('')
 					}
 				}
@@ -312,7 +317,7 @@
 		// 點擊發送
 		function sendMsgBtn(){
 			if($("#chat_put").val()==''){
-				alert('请输入内容')
+				jqtoast("输入内容不能为空");
 			}else{		
 				if(data == 0){
 					SixHide = 0
@@ -329,7 +334,7 @@
 		// 顯示發送內容
 		function showList(text){
 			var _html = `<div class="msgItem">
-					<div class="text">${text}</div>
+					<div class="text"><span class="ask">问</span>${text}</div>
 					<div class="avatar">			
 						<img src="/xcview/images/touxiang.png" />
 					</div>
@@ -351,12 +356,7 @@
 				showList(_tempText)	
 			}		
 		}
-
-		// 彈幕結束
-
-
-
-
+		// 弹幕结束
 
 		// 點擊全部評論的關閉按鈕
 		$(".comment_area_close").click(function(){

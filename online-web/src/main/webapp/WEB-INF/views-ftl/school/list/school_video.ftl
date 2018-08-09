@@ -45,48 +45,7 @@
                 </div>
 
             <#list courseList as courseItem>
-                <div class="course clearfix">
-
-                    <#if courseItem.recommendSort?? &&  courseItem.recommendSort gt 0>
-                        <img style="position:absolute;width: 16%;top:-2px;left:-2px;z-index:999"
-                             src="/web/images/recommend2.png">
-                    </#if>
-
-                    <a style="cursor:pointer" href="${webUrl}/courses/${courseItem.id}/info" target="_blank">
-                        <div class="img"><img src="${courseItem.smallImgPath}?imageMogr2/thumbnail/!260x147r|imageMogr2/gravity/Center/crop/260x147"></div>
-                        <#if courseItem.collection>
-                            <span class="classCategory">音频专辑</span>
-                        <#elseif !courseItem.collection>
-                            <span class="classCategory">音频</span>
-                        </#if>
-                        <div class="detail">
-                            <p class="title" title="${courseItem.gradeName}">${courseItem.gradeName}</p>
-                            <p class="timeAndTeac">
-                                <span class="teacher z">${courseItem.name}</span>
-                            </p>
-                            <p class="info clearfix"><span>
-                                <#if courseItem.currentPrice gt 0 >
-                                    <span class="price">${courseItem.currentPrice}</span>
-									 	 <span>熊猫币</span>
-                                    <#if (courseItem.originalCost)?? && courseItem.originalCost != 0>
-                                             <span>原价</span>
-                                                     <span style="text-decoration: line-through">${courseItem.originalCost}</span>
-                                    </#if>
-                                <#else>
-                                    <span class="price">免费</span>
-                                    <#if (courseItem.originalCost)?? && courseItem.originalCost != 0>
-                                             <span>原价</span>
-                                                     <span style="text-decoration: line-through">${courseItem.originalCost}</span>
-                                    </#if>
-                                </#if>
-									
-									</span>
-                                <span class="stuCount"><img src="/web/images/studentCount.png" alt="">
-									<span class="studentCou">${courseItem.learndCount}</span></span>
-                            </p>
-                        </div>
-                    </a>
-                </div>
+                <#include "../common/list_course.ftl">
             </#list>
 
             </div>

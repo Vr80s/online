@@ -166,11 +166,31 @@ $(".enter_btn").click(function(){
  * 返回登录页
  */
 $(".header_return").click(function(){
+	// alert(1111);
 	location.href = "/xcview/html/home_page.html";
-	//window.history.back();
+	// window.history.back();
 })
 
 
 mui.init({
 	swipeBack : false
 });
+
+// alert(5555);
+
+// 物理返回键
+if(window.history && window.history.pushState) {
+	$(window).on('popstate', function() {
+		var hashLocation = location.hash;
+		var hashSplit = hashLocation.split("#!/");
+		var hashName = hashSplit[1];
+		if(hashName !== '') {
+			var hash = window.location.hash;
+			if(hash === '') {
+				// alert("你点击了返回键");
+				location.href ='/xcview/html/home_page.html'
+			}
+		}
+	});
+	window.history.pushState('forward', null, './evpi.html');
+}

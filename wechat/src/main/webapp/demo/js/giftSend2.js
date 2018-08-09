@@ -379,12 +379,8 @@ $(document).ready(function() {
 
                         	/*ios传值--判断是在一个直播间*/
                             data.resultObject.courseId=course_id; 
-                            
-                            createRanking(data.resultObject.ranking);
-                           
                             //显示礼物总数
                             $("#liveGiftCount").html(data.resultObject.giftCount);
-                            
                             setTimeout(function(){
                                   $(".chatmsg-box").mCustomScrollbar("scrollTo","bottom","0");
                             },50);
