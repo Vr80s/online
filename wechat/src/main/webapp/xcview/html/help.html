@@ -55,14 +55,17 @@
 	<div class="help">
 		<div class="help_main">
 			<div class="help_main_title">常见问题</div>
-			<script type="text/html" id="help_main">
+			<div class="help_mains">
+				<script type="text/html" id="help_main">
 				{{each items as item i}}
-			<div class="help_main_one" onclick="problem('{{item.id}}')">
-				<span>{{item.value}}</span>
-				<img src="../images/account05.png" />
-			</div>
+					<div class="help_main_one" onclick="problem('{{item.id}}')">
+						<span>{{item.value}}</span>
+						<img src="../images/account05.png" />
+					</div>
 				{{/each}}
-			</script>
+				</script>
+			</div>
+			
 			<!--<div class="help_main_one" onclick="location.href ='problem.html'">
 				<span>购买的课程，是否有缴费凭证？</span>
 				<img src="../images/account05.png" />
@@ -84,7 +87,17 @@
 	</div>
 	
 	<!-- 中间内容结束 -->
-	
+	<script>
+		window.onload = function(){
+			var a = $(".help_main_one").css("display");
+			if (a == "block") {
+				$(".help").show();
+
+			} else {
+				$(".help").hide();
+			}
+		};
+	</script>
 
 </body>
 </html>
