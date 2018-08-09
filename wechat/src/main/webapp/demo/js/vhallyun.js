@@ -42,13 +42,14 @@ function elsBind() {
             docNode: 'my-doc-area' // 文档显示节点div id
         });
 
+        var roomId = (lineState == 1 ? vhallObj.roomId : "");
         var liveType = (lineState == 1 ? "live" : "vod");
         var recordId = (lineState == 1 ? "" : vhallObj.recordId);
 
         VhallLive.init({
-            roomId: vhallObj.roomId,
-            type: "live",
-            recordId: vhallObj.recordId, // 回放Id，点播必填，直播不写
+            roomId: roomId,
+            type: liveType,
+            recordId: recordId, // 回放Id，点播必填，直播不写
             videoNode: 'myVideo',
             complete: function () {
                 VhallLive.play();
@@ -67,26 +68,33 @@ function elsBind() {
 
     setTimeout(function () {
 
-        var md = document.getElementsByTagName("video")[0];
-        md.addEventListener("ended", function () {
-            console.log("播放结束了");
-        });
-        md.addEventListener("loadstart", function () {
-            console.log("浏览器开始在网上寻找媒体数据");
-        });
-        md.addEventListener("progress", function () {
-            console.log("浏览器正在获取媒体数据");
-        });
-        md.addEventListener("suspend", function () {
-            console.log("浏览器暂停获取媒体数据，但是下载过程并滑正常结束");
-        });
-        // 非正常结束直播，但是获取不到流数据
-        md.addEventListener("abort", function () {
-            console.log("浏览器在下载完全部媒体数据之前中止获取媒体数据，但是并不是由错误引起的");
-        });
-        md.addEventListener("error", function () {
-            console.log("	获取媒体数据过程中出错  ");
-        });
+    	try{
+    	
+    		 var md = document.getElementsByTagName("video")[0];
+	        md.addEventListener("ended", function () {
+	            console.log("播放结束了");
+	        });
+	        md.addEventListener("loadstart", function () {
+	            console.log("浏览器开始在网上寻找媒体数据");
+	        });
+	        md.addEventListener("progress", function () {
+	            console.log("浏览器正在获取媒体数据");
+	        });
+	        md.addEventListener("suspend", function () {
+	            console.log("浏览器暂停获取媒体数据，但是下载过程并滑正常结束");
+	        });
+	        // 非正常结束直播，但是获取不到流数据
+	        md.addEventListener("abort", function () {
+	            console.log("浏览器在下载完全部媒体数据之前中止获取媒体数据，但是并不是由错误引起的");
+	        });
+	        md.addEventListener("error", function () {
+	            console.log("	获取媒体数据过程中出错  ");
+	        });
+    	}catch(error){
+    	  console.log(error);
+    	}
+    	
+      
 
         window.Vhall.ready(function () {
             /**
@@ -126,31 +134,22 @@ function elsBind() {
 
                 } else if (msg.type == 12) { // 开始直播
 
-                    console.log("开始直播了   >>>>");
-
-                    $(".video_end_top0").hide();
-                    $(".video_end_top2").hide();
                     // 刷新页面 --》在观看
                     location.reload();
 
                 } else if (msg.type == 13) { // 结束直播  --》  生成点播
 
-                    console.log("直播结束了，去学习中心 >>>>");
-                    $("#video").html("");
-                    $(".video_end_top0").hide();
-                    // 生成回访中
                     $(".video_end_top2").show();
 
                 } else if (msg.type == 14) { // 退出直播间，但是没有结束直播
 
-                } else if (msg.type == 15) { // 继续直播
+                	 $(".video_end_top3").show();
 
-                } else if (msg.type == 16) { // 回放生成成功
+                }  else if (msg.type == 16) { // 回放生成成功
 
                     $(".video_end_top0").hide();
                     $(".video_end_top2").hide();
                     $(".video_end_top1").show();
-                    console.info("回放生成成功");
 
                 } else if (msg.type == 17) { // 回放生成失败
 
@@ -158,7 +157,6 @@ function elsBind() {
                     $(".video_end_top2").hide();
                     $(".video_end_top1").hide();
                     $(".video_end_top").show();
-                    console.info("回放生成失败");
                 }
             })
 

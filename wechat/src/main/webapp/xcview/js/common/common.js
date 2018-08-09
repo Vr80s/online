@@ -737,12 +737,12 @@ function randomWord(randomFlag, min, max) {
  *  h5  ---> 百度统计
  */
 var _hmt = _hmt || [];
-(function () {
-    var hm = document.createElement("script");
-    hm.src = "https://hm.baidu.com/hm.js?9edcc82ab19a52e4f6e3f13050141a70";
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(hm, s);
-})();
+//(function () {
+//    var hm = document.createElement("script");
+//    hm.src = "https://hm.baidu.com/hm.js?9edcc82ab19a52e4f6e3f13050141a70";
+//    var s = document.getElementsByTagName("script")[0];
+//    s.parentNode.insertBefore(hm, s);
+//})();
 
 
 // 主播链接错误时用到的默认头像
