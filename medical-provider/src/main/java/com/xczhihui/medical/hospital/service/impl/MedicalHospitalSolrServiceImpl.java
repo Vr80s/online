@@ -78,8 +78,8 @@ public class MedicalHospitalSolrServiceImpl implements IMedicalHospitalSolrServi
 
     @PostConstruct
     public void initHospitalsSolr() throws IOException, SolrServerException {
-//        solrUtils = new SolrUtils(url, core, pre, post);
-//        this.initHospitalsSolrData();
+        solrUtils = new SolrUtils(url, core, pre, post);
+        this.initHospitalsSolrData();
     }
 
     @Override
