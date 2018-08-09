@@ -10,6 +10,9 @@ img{
     width: 100%;
     border: none;
 }
+.both{
+    clear: both;
+}
 header {
     width: 7.5rem;
     height: .88rem;
@@ -78,7 +81,7 @@ header {
     /*min-width: 200%;*/
     width: 100%;
     height: auto;
-    padding: .4rem 0;
+    padding: .3rem 0;
     font-size: 0;
     display: flex;  
 }
@@ -86,9 +89,11 @@ header {
     width: 1.2rem;
     height: 1.2rem;
     margin-right: .23rem;
-    margin-left: .27rem;
+    margin-left: .32rem;
     display: inline-block;
-    background: red;
+    border-radius: 17px;
+    /*background: blue;*/
+    border: 2px solid #fff;
 }
 .slectBox li img{
     width: 1.2rem;
@@ -97,17 +102,17 @@ header {
 }
 .imgBoxWrapper{
     width: 5rem;
-    height: 8.89rem;
+    height: 9rem;
     position: absolute;
     left: 50%;
-    top: .5rem;
+    top: 1.5rem;
     transform: translate(-50%,0);
     box-sizing: border-box;
     font-size: .30rem;
-    background-repeat:repeat;
-    /*background: red;*/
-    /*margin-top: 1.48rem;*/
-    margin-top: 1.08rem;
+    background-repeat: repeat;
+    /* background: red; */
+    /* margin-top: 1.48rem; */
+    /* margin-top: 1.08rem; */
 }
 
 .imgBoxWrapper .avatar{
@@ -116,6 +121,7 @@ header {
 }
 .imgBoxWrapper .avatar img{
     width: 1rem;
+    height: 1rem;
     display: inline-block;
     border-radius: 100px;
     box-shadow: 0 2px 8px 0 #8b8989;
@@ -178,6 +184,9 @@ header {
 .active{
     display: block
 }
+.active .imgBoxWrapper {
+    display: block;
+}
 .imgBoxWrapperTop{
     z-index: 10;
     display: block
@@ -199,10 +208,10 @@ header {
     width: 1.77rem;
     height: .52rem;
 }
-.imgBoxWrapper1 .avatar{
+.sub_imgBoxWrapper1 .avatar{
     margin-top: .16rem;
 }
-.imgBoxWrapper1 .avatar .p1{
+.sub_imgBoxWrapper1 .avatar .p1{
     width: 3.4rem;
     margin: 0 auto;
     overflow: hidden;
@@ -214,7 +223,7 @@ header {
     margin-top: 0.18rem;
     margin-bottom: 0.1rem;
 }
-.imgBoxWrapper1 .size{
+.sub_imgBoxWrapper1 .size{
     width: 3.5rem;
     margin: 0 auto;
     font-size: .2rem;
@@ -222,7 +231,7 @@ header {
     margin-bottom: .2rem;
     text-align: center;
 }
-.imgBoxWrapper1 .mainIma1 img{
+.sub_imgBoxWrapper1 .mainIma1 img{
     width: 4.2rem;
     height: 2.35rem;
     margin: 0 auto;
@@ -230,7 +239,7 @@ header {
     box-shadow:0 4px 4px 0 #8b8989;
     margin-bottom: .24rem;
 }
-.imgBoxWrapper1 .des .title{
+.sub_imgBoxWrapper1 .des .title{
     width: 4.2rem;
     height: .56rem;
     margin: 0 auto;
@@ -241,7 +250,7 @@ header {
     -webkit-line-clamp: 2;
     overflow: hidden;
 }
-.imgBoxWrapper1 .des .site{
+.sub_imgBoxWrapper1 .des .site{
     width: 4.2rem;
     height: .56rem;
     margin: 0 auto;
@@ -254,17 +263,35 @@ header {
     -webkit-line-clamp: 2;
     overflow: hidden;
 }
-.imgBoxWrapper1 .QR_code{
+.sub_imgBoxWrapper1 .QR_code{
     width: 1rem;
     height: 1rem;
     display: block;
     margin: 0 auto;
 }
-.imgBoxWrapper1 .QR_code_fize{
+.sub_imgBoxWrapper1 .QR_code_fize{
     width: 100%;
     font-size: .18rem;
     color: #555555;
     text-align: center;
     margin-top: .2rem;
     padding-bottom: .3rem;
+}
+
+.sub_imgBoxWrapper1 .logo{
+    /*float: right;*/
+    margin-right: .4rem;
+    margin-bottom: 0.3rem;
+}
+.imgBoxWrapper2 .size{
+    width: 4.2rem;
+    margin: 0 auto;
+    font-family: FZQKBYSJW--GB1-0;
+    font-size: .22rem;
+    color: #333333;
+    margin-bottom: 0.29rem;
+}
+.imgBoxWrapper2 .logo{
+    float: right;
+    margin-right: 0.4rem;
 }

@@ -185,10 +185,10 @@ $(function () {
                 var html = '';
                 var content = msg.message.content;
                 if (content) {
-                    content.replace(emojiReg, function (a, b) {
+                    content = content.replace(emojiReg, function (a, b) {
                         var imgUrl = emojiMap.get(a);
                         if (imgUrl) {
-                            a = '<img src="' + imgUrl + '">';
+                            a = '<img src="' + imgUrl + '" style="width: 20px;height: 20px">';
                         }
                         return a;
                     })
@@ -683,8 +683,8 @@ $(function () {
         $('#file-input').trigger('click');
     });
     $('#file-input').change(function () {
-        $(this).text('上传中');
-        $(this).prop('disabled', 'disabled');
+        $('.document-upload').text('上传中');
+        $('.document-upload').prop('disabled', 'disabled');
         $fileInput = $('#file-input');
         $('#submitFile').ajaxSubmit({
             type: 'post',
