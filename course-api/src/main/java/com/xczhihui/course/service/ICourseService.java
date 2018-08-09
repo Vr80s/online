@@ -315,4 +315,16 @@ public interface ICourseService {
      * @return
      */
     Integer updateCourseLiveStatus(String event, String roomId,String clientType);
+
+
+    /**
+    * @Title: updateCourseLiveStatus
+    * @Description: 通过渠道id更改直播中的课程状况
+    * @param channelId
+    * @param   参数
+    * @return Integer    返回类型
+    * @author yangxuan
+    * @throws
+     */
+    Integer updateCourseLiveCase(String channelId);
 }
