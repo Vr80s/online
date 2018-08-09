@@ -233,4 +233,10 @@ public class VhallyunController extends AbstractController {
         return ResponseObject.newSuccessResponseObject(MessageService.sendMessage(MessageService.CustomBroadcast, jsonObject.toJSONString(), channel_id));
     }
 
+    @RequestMapping(value = "join/{status}", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseObject joinRoom(@RequestParam String channelId, @RequestParam String userId, @PathVariable boolean status) {
+
+        return ResponseObject.newSuccessResponseObject();
+    }
 }

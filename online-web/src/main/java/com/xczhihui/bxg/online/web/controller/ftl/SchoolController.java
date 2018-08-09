@@ -418,9 +418,18 @@ public class SchoolController extends AbstractFtlController {
     }
 
     @RequestMapping(value = "liveRoom", method = RequestMethod.GET)
-    public ModelAndView liveRoom(@RequestParam String channelId, @RequestParam String roomId) throws Exception {
+    public ModelAndView liveRoom(@RequestParam Integer courseId) throws Exception {
         String userId = getUserId();
+        CourseLecturVo courseLecturVo = courseService.selectCourseMiddleDetailsById(userId, courseId);
+        if (courseLecturVo == null) {
+            return new ModelAndView("/courses/recommendation");
+        }
+        String channelId = courseLecturVo.getChannelId();
+        String roomId = courseLecturVo.getDirectId();
         ModelAndView modelAndView = new ModelAndView("/school/live-room");
+        modelAndView.addObject("courseId", courseId);
+        modelAndView.addObject("courseImg", courseLecturVo.getSmallImgPath());
+        modelAndView.addObject("courseName", courseLecturVo.getGradeName());
         modelAndView.addObject("channelId", channelId);
         modelAndView.addObject("roomId", roomId);
         modelAndView.addObject("accountId", userId);
