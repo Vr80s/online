@@ -143,22 +143,22 @@ function elsBind(){
                 	location.reload();
                 }if(msg.type == 13){ //直播结束了  
                 
-                	$(".playback-rebroadcast").text("直播结束，正在生成回放…");
+                	$(".generate-replay").show();
                 	$(".playback").show();
                 	
                 } else if (msg.type == 14) { // 退出直播间，但是没有结束直播
 
-                	$(".playback-rebroadcast").text("主播要离开一会儿，稍等片刻哦~");
+                	$(".leave").show();
                 	$(".playback").show();
                 	
 				} else if (msg.type == 16) { // 回放生成成功
 
-				    $(".playback-rebroadcast").text("直播结束,点击查看回放");
+				    $(".see-the-replay").show();
                 	$(".playback").show();
 					
 				} else if (msg.type == 17) { // 回放生成失败
 
-					$(".playback-rebroadcast").text("直播结束，点击返回学习中心");
+					$(".learning-center").show();
                 	$(".playback").show();
 				}
                 if (e != "") {
