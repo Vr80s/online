@@ -67,7 +67,7 @@
     <button type="button" class="document-upload">上传</button>
 
     <form action="/vhallyun/documentId" method="post" id="submitFile">
-        <input type="file" id="file-input" name="document"
+        <input type="file" id="file-input" name="document" enctype='multipart/form-data'
                style="visibility: hidden;display: inline-block;width: 2px;position: fixed;left: -1000px;"/>
     </form>
 </div>
