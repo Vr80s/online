@@ -80,20 +80,20 @@
 		<div class="form-group"  style="margin-top: 18px;" >
 			<label class="col-sm-1 control-label no-padding-right" for="deadline"><font color="red">*</font>报名截止时间: </label>
 			<div class="col-sm-3">
-				<input type="text" name="deadlineStr" id="deadline"  class="datetime-picker propertyValue1 {required:true}">
+				<input type="text" name="deadlineStr" id="deadline"  class="datetime-picker propertyValue1 {required:true}" readonly="readonly" >
 			</div>
 		</div>
 		<div class="space-4"></div>
 		<div class="form-group" style="margin-top: 18px;" >
 			<label class="col-sm-1 control-label no-padding-right" for="startTime"><font color="red">*</font>学习时间: </label>
 			<div class="col-sm-2">
-				<input type="text" name="startTimeStr" id="startTime" placeholder = "开始时间" class="datetime-picker col-md-11 {required:true}">
+				<input type="text" name="startTimeStr" id="startTime" placeholder = "开始时间" class="datetime-picker col-md-11 {required:true}" readonly="readonly" >
 			</div>
 			<div style="float: left;padding-top: 5px;margin-right: 5px">
 				至
 			</div>
 			<div class="col-sm-2">
-				<input type="text" name="endTimeStr" placeholder = "结束时间" id="endTime"  class="datetime-picker col-md-11 {required:true}">
+				<input type="text" name="endTimeStr" placeholder = "结束时间" id="endTime"  class="datetime-picker col-md-11 {required:true}" readonly="readonly" >
 			</div>
 		</div>
 
