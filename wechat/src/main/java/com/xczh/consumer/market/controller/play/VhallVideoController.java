@@ -115,8 +115,15 @@ public class VhallVideoController {
            if(isShutup) {
                return ResponseObject.newErrorResponseObject("你被禁言了");
            } 
-       } 
-       return ResponseObject.newSuccessResponseObject(MessageService.sendMessage("CustomBroadcast",body,channel_id));
+       }
+       
+       //后台自动添加这几个参数
+       JSONObject message = (JSONObject) jsonObject.get("message");
+       message.put("userId", account.getUserId());
+       message.put("headImg", account.getSmallHeadPhoto());
+       message.put("username", account.getName());
+       
+       return ResponseObject.newSuccessResponseObject(MessageService.sendMessage(MessageService.CustomBroadcast,jsonObject.toJSONString(),channel_id));
     }
 
     @RequestMapping(value = "vhallYunToken", method = RequestMethod.GET)
@@ -124,4 +131,18 @@ public class VhallVideoController {
     public ResponseObject getAccessToken(@Account String accountId, @RequestParam String roomId, @RequestParam String channelId) throws Exception {
         return ResponseObject.newSuccessResponseObject(BaseService.createAccessToken4Live(accountId, roomId, channelId));
     }
+    
+    
+    public static void main(String[] args) {
+		
+    	String body = "{\"type\":10,\"message\":{\"content\":\"哈哈\"}}";
+    	JSONObject jsonObject =  (JSONObject) JSON.parse(body);
+    	JSONObject message = (JSONObject) jsonObject.get("message");
+        message.put("userId", 1);
+        message.put("headImg", 2);
+        message.put("username", 3);
+         
+        System.out.println(jsonObject.toJSONString());
+	}
+    
 }

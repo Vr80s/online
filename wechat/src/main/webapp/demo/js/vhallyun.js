@@ -190,8 +190,8 @@ function elsBind() {
                     type: 10, // 消息类型 10 聊天消息 礼物 11
                     message: {
                         content: text, // 发送的内容
-                        headImg: localStorage.getItem("smallHeadPhoto"), // 发送的头像
-                        username: localStorage.getItem("name"), // 发送的用户名
+//                        headImg: localStorage.getItem("smallHeadPhoto"), // 发送的头像
+//                        username: localStorage.getItem("name"), // 发送的用户名
                         role: "normal" // 发送人的角色 主播： host 普通用户： normal
                     }
                 }

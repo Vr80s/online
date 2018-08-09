@@ -456,9 +456,9 @@
 		</div>
 		
 		<div id="livePlayer">
+		
 			<!--回放重播提示开始-->
-			<div class="playback">
-				<!--<img src="/web/images/2.jpg" alt="" class="playback-img" />-->
+			<div class="playback" style="display:none;">
 				<div class="playback-rebroadcast">重播</div>
 			</div>
 			<!--回放重播提示结束-->
@@ -543,6 +543,10 @@
 						<div class="send-face-bg"></div>
 						<div class="send-face hide"></div>
 						<a id="filter-msg" href="javascript:;" class=lecturer style="left: 40px;"></a> 
+						
+						<a id="startlive" href="javascript:;" class="" style="left: 70px;">开始</a>
+						<a id="endlive" href="javascript:;" class="" style="left: 70px;">暂停</a> 
+						
 						<a id="face" href="javascript:;" class="face"></a> 
 						<div class="chitchat">
 							<!-- <a id= href="javascript:;" class="send-chat">发送</a> -->
@@ -808,16 +812,6 @@
 <script src="/web/js/common/common.js" type="text/javascript" charset="utf-8"></script>
 <script src="/web/js/im/giftSend2.js?v=ipandatcm_1.3" type="text/javascript" charset="utf-8"></script>
 
-<script src="/web/js/common/video_share.js?v=ipandatcm_1.3"></script>
-<script src="/web/js/placeHolder.js"></script>
-<script src="/web/js/chongZhi.js?v=ipandatcm_1.3" type="text/javascript"
-	charset="utf-8"></script>
-<script type="text/javascript">
-    $(function() {
-		$('input').placeholder();
-		/* var html = template('',html) */
-	});
-</script>
 <!-- 微吼云 -->
 
 <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-live-1.0.0.js?v=201806271657"></script>
@@ -831,6 +825,16 @@
 <script src="/web/js/liveVideo/liveVideoSDK.js?v=ipandatcm_1.3"></script>
 <script src="/web/js/liveVideo/vhallyun.js?v=ipandatcm_1.3"></script>
 
+<script src="/web/js/common/video_share.js?v=ipandatcm_1.3"></script>
+<script src="/web/js/placeHolder.js"></script>
+<script src="/web/js/chongZhi.js?v=ipandatcm_1.3" type="text/javascript"
+	charset="utf-8"></script>
+<script type="text/javascript">
+    $(function() {
+		$('input').placeholder();
+		/* var html = template('',html) */
+	});
+</script>
 </body>
 </html>
 

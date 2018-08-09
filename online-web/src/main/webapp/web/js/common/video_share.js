@@ -13,7 +13,7 @@ var full = protocoltype +"//" + config.pc;
 //}
 
 var shareCourseId = ""
-if(collectionId!=""){
+if(collectionId!=undefined && collectionId!=""){
 	shareCourseId = collectionId;
 }else{
 	shareCourseId = courseId;

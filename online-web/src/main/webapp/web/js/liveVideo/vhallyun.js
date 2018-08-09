@@ -92,11 +92,11 @@ function elsBind(){
      * 加载消息
      */
     setTimeout(function(){
+    	
        window.Vhall.ready(function(){
         window.chat = new VhallChat({
            channelId:vhallObj.channelId //频道Id
         });
-        
         
         /**
          * 监听聊天消息
@@ -141,6 +141,7 @@ function elsBind(){
 				}
                 if (e != "") {
 					$("#chatmsg").append(e);
+					$("#mywords").val();
 				}
              }catch(error){
                console.error(error);
@@ -161,6 +162,26 @@ function elsBind(){
      });
     },1000);	
       
+    //开始  
+    $("#startlive").click(function() {
+    	 VhallLive.play();
+    	 
+    	 var array =  VhallLive.getQualitys();
+    	 
+    	 VhallLive.setQuality(VhallLive.getQualitys()[0]);
+    }) 	
+         
+    //暂停
+    $("#endlive").click(function() {
+    	 VhallLive.pause();
+    	 var video = document.getElementsByTagName("video")[0];
+    	 video.pause()
+    }) 	
+    
+   
+    
+   
+    
     /**
      * 发送聊天消息
      */  
@@ -172,8 +193,6 @@ function elsBind(){
             type:10,                 //消息类型     1 聊天消息
             message:{
                 content:text,   //发送的内容
-                headImg:smallHeadPhoto,       //发送的头像
-                username:nickname,     //发送的用户名
                 role:"normal"           //发送人的角色    主播： host   普通用户： normal
               } 
           } 
