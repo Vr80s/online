@@ -843,7 +843,6 @@ $(function(){
 <!--这段meta代码需要加上，移动端自适应缩放用-->
 <!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
 
-<!-- <script src="/xcview/weihoujs/vhallSDK.js"></script> -->
 <script src="/xcview/weihoujs/jquery.mCustomScrollbar.concat.min.js"></script>
 <script src="/xcview/weihoujs/underscore-min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/common.js"></script>
@@ -931,7 +930,6 @@ $(function(){
         });
 
         $(".li4").click(function(){
-            /* alert(111111); */
         	// 课件获取高度
             $(".pinch-zoom-container").addClass("pinch-zoom-container-addclass");
             var school_height=$(window).height()-$(".details_cen1").height();
@@ -940,10 +938,7 @@ $(function(){
             $("#doc").addClass("img_doc");
         });
         
-        
-        
         $(".click_li_four").click(function(){
-            /* alert(111111); */
             // 课件获取高度
             $(".pinch-zoom-container").addClass("pinch-zoom-container-addclass");
         });
@@ -951,17 +946,12 @@ $(function(){
         $("#doc img").click(function(){
             // 课件获取高度  img_doc
             $("#doc").removeClass("img_doc");
-            // $(".course_nav").addClass("hide");
         });
     };
 </script>
 <script>
-    //      聊天区高度footer_k
-    //var school_heights=$(window).height();
-//alert(school_heights);
-        var school_height=$(window).height()-$(".header").height()-$(".footer_ks").height();
-        $(".chatmsg-box").height(school_height);
-         //alert(school_height);
+     var school_height=$(window).height()-$(".header").height()-$(".footer_ks").height();
+     $(".chatmsg-box").height(school_height);
 </script>
 </html>
 

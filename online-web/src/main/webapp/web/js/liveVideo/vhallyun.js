@@ -96,6 +96,57 @@ function elsBind(){
         window.chat = new VhallChat({
            channelId:vhallObj.channelId //频道Id
         });
+        
+        
+        /**
+         * 监听聊天消息
+         */
+        window.chat.on(function(msg){
+            //在此收到聊天消息，消息内容为msg
+            if (msg){
+                var str = chatLoad(msg);
+                if(str!=""){
+                 $("#chatmsg").append(str);  
+                }
+            }
+            $("#mywords").val('');
+        });
+        
+        /**
+         * 监听自定义消息
+         */
+        window.chat.onCustomMsg(function(msg){
+             msg = JSON.parse(msg);
+             try{
+             	var e="";
+                if(msg.type ==10 ){//聊天
+                    e+=liaotian(msg);
+                }else if(msg.type == 11){ //礼物
+                    e+=liveGiftList(msg);
+                     //在礼物区域显示
+                	createGiftList(msg.message);
+                }else if(msg.type == 12){ // 开始直播啦
+                
+                	
+                }if(msg.type == 13){ //直播结束了  
+                
+                } else if (msg.type == 14) { // 退出直播间，但是没有结束直播
+
+				} else if (msg.type == 15) { // 继续直播
+
+				} else if (msg.type == 16) { // 回放生成成功
+
+				} else if (msg.type == 17) { // 回放生成失败
+
+				}
+                if (e != "") {
+					$("#chatmsg").append(e);
+				}
+             }catch(error){
+               console.error(error);
+             }
+        })
+        
         window.chat.join(function(msg){
             viewJoinleaveRoomInfo(msg,"join");
         })

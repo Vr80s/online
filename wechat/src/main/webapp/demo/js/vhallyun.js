@@ -327,14 +327,17 @@ function replaceEmoji(contents) {
     }
     str = contents;
     for (i = 0; i < content.length; i++) {
+    	var src = "";
         for (j = 0; j < emoji.length; j++) {
             if ("[" + emoji[j].text + "]" == content[i]) {
                 src = emoji[j].imgUrl;
                 break;
             }
         }
-        var imgBag = "<img src=" + src + " />";
-        str = str.replace(pattern2, imgBag);
+        if(src!=""){
+			var imgBag = "<img src="+src+" style='width:20px;' />";
+		    str = str.replace(pattern2, imgBag);
+		}
     }
     return str;
 }

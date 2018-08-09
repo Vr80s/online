@@ -92,10 +92,6 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper, OnlineUser> imp
         myInfoMapper.updateUserSetInfo(user);
     
         
-        /**
-         * 同步更新到微吼信息
-         */
-        MessageService.saveUserInfo(user.getId(), user.getName(), user.getSmallHeadPhoto());
     }
 
     @Override
