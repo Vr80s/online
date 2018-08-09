@@ -130,7 +130,8 @@ function elsBind(){
              msg = JSON.parse(msg);
              try{
              	var e="";
-             	$(".playback-rebroadcast").attr("type",msg.type);
+             	$(".playback").attr("type",msg.type);
+             	
                 if(msg.type ==10 ){//聊天
                     e+=liaotian(msg);
                 }else if(msg.type == 11){ //礼物
@@ -188,7 +189,7 @@ function elsBind(){
     },1000);	
       
     //  
-    $(".playback-rebroadcast").click(function() {
+    $(".playback").click(function() {
     	var type = $(this).attr("type");
     	if (type == 16 || type ==20) { // 回放生成成功   重播
 			setTimeout(function () {
