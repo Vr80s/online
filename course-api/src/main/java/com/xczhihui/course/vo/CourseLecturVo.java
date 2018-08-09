@@ -222,6 +222,11 @@ public class CourseLecturVo implements Serializable {
     private String recordId;
 
     private String vhallYunToken;
+    
+    /**
+     * 直播状况。1.正常直播 2.退出但不结束
+     */
+    private Integer liveCase;
 
     /**
      * 是否提交线下课报名表单
@@ -831,4 +836,14 @@ public class CourseLecturVo implements Serializable {
     public void setVhallYunToken(String vhallYunToken) {
         this.vhallYunToken = vhallYunToken;
     }
+
+	public Integer getLiveCase() {
+		return liveCase;
+	}
+
+	public void setLiveCase(Integer liveCase) {
+		this.liveCase = liveCase;
+	}
+    
+    
 }

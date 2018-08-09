@@ -470,6 +470,9 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
                     if(MultiUrlHelper.URL_TYPE_APP.equals(clientType)) {
                     	course.setLiveSourceType(true);
                     }
+                    //直播状况
+                    course.setLiveCase(LiveCaseType.NORMAL_LIVE.getCode());
+                    
                     break;
                 case "stop":
                     startOrEnd = "end_time";
@@ -521,5 +524,16 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
             e.printStackTrace();
         }
     }
+
+	@Override
+	public Integer updateCourseLiveCase(String channelId) {
+		List<Course> courses = iCourseMapper.selectByMap(ImmutableMap.of("channel_id", channelId));
+        if (courses == null || courses.isEmpty()) {
+            return null;
+        }
+        Course course = courses.get(0);
+        course.setLiveCase(LiveCaseType.EXIT_BUT_NOT_END.getCode());
+		return  iCourseMapper.updateById(course);
+	}
 
 }

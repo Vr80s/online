@@ -1331,8 +1331,11 @@
 	<!-- 点击回复出现删除复制开始 -->
 	<div class="remove_copy">
 		<div class="remove_copy_bg"></div>
-		<div class="remove_copy_main" style="height: 1rem;">
+		<div class="remove_copy_main" style="height: 0.8rem;">
 			<div class="remove">删除</div>
+		</div>
+		<div class="remove_copy_main_hide" style="height: 0.8rem;">
+			<div class="remove__hide">取消</div>
 		</div>
 	</div>
 	<!-- 点击回复出现删除复制结束 -->
@@ -1752,33 +1755,36 @@ $(window).bind("scroll", function() {
 	    });
 
 
-    // 点击发送开始
-    $(".comment h3").click(function(){
-    	$(".face").attr("src","/xcview/images/face.png");
-    	$("#page_emotion").css("bottom","-2.8rem");
-    	$(".comment").css("bottom","0");
-    	$(".comment").hide();
-	});
+	    // 点击发送开始
+	    $(".comment h3").click(function(){
+	    	$(".face").attr("src","/xcview/images/face.png");
+	    	$("#page_emotion").css("bottom","-2.8rem");
+	    	$(".comment").css("bottom","0");
+	    	$(".comment").hide();
+		});
 
-    // 点击其他内容区域隐藏评论区域
-	$(".comment_bg").click(function(){
-    	$(".face").attr("src","/xcview/images/face.png");
-    	$("#page_emotion").css("bottom","-2.8rem");
-    	$(".comment").hide();
-	});
+	    // 点击其他内容区域隐藏评论区域
+		$(".comment_bg").click(function(){
+	    	$(".face").attr("src","/xcview/images/face.png");
+	    	$("#page_emotion").css("bottom","-2.8rem");
+	    	$(".comment").hide();
+		});
 
-	// 点击默认说点什么
-	$(".article_main").click(function(){
-    	$("#page_emotion").css("bottom","-2.8rem");
-    	$(".article_main").hide();
-    	$("#form_article").focus();
-	});
-	
-	$(".weixin_ceng").click(function(){
-    	$(".weixin_ceng").hide();
-	});
+		// 点击默认说点什么
+		$(".article_main").click(function(){
+	    	$("#page_emotion").css("bottom","-2.8rem");
+	    	$(".article_main").hide();
+	    	$("#form_article").focus();
+		});
+		
+		$(".weixin_ceng").click(function(){
+	    	$(".weixin_ceng").hide();
+		});
 
-	
+		// 点击评论取消
+		$(".remove_copy_main_hide").click(function(){
+	    	$(".remove_copy").hide();
+		});
 
 	});
 
