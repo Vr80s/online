@@ -15,7 +15,7 @@ import java.util.Map;
 public enum CourseType {
 	
 	AUDIO_LIVE(6, "语音直播"),
-	IVE(3, "视频直播"),
+	LIVE(3, "视频直播"),
     VIDEO(1, "视频点播"),
     OFFLINE(4, "线下课程"),
     AUDIO(2, "音频课程");
