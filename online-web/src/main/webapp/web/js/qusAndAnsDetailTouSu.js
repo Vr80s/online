@@ -480,7 +480,8 @@ window.onload = function() {
 			$("#quxiaoshoucang .modalFooter .yesBtn").unbind().click(function() {
 				var id = $this.attr("data-id");
 				RequestService('/online/questionlist/deleteQuestionById', "POST", {
-					questionId: id
+					questionId: id,
+					ln:ln
 				}, function(data) {
 					$(".payment-modal-close").trigger("click");
 					if(data.resultObject=="操作成功！"){
