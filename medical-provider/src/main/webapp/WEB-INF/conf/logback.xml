@@ -11,30 +11,26 @@
         </encoder>
     </appender>
 
-    <appender name="file"
-              class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <File>${logPath}/medical_server.log</File>
         <encoder>
             <pattern>%n%msg%n%date [%level] [%thread] %logger{80} %line%n</pattern>
         </encoder>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>${logPath}/medical_server.log_%d{yyyy-MM-dd}</fileNamePattern>
+            <maxHistory>180</maxHistory>
         </rollingPolicy>
     </appender>
 
-    <logger name="com.xczhihui" additivity="false">
-        <level value="info"/>
-        <appender-ref ref="stdout_appender"/>
-    </logger>
+    <!--<logger name="org.springframework.jdbc.core" additivity="false">-->
+        <!--<level value="warn"/>&lt;!&ndash;debug print sql&ndash;&gt;-->
+        <!--<appender-ref ref="stdout_appender"/>-->
+    <!--</logger>-->
 
-    <logger name="org.springframework.jdbc.core" additivity="false">
-        <level value="warn"/><!--debug print sql-->
-        <appender-ref ref="stdout_appender"/>
+    <logger name="com" level="warn">
+        <appender-ref ref="stdout_appender" />
     </logger>
-
-    <root>
-        <level value="warn"/>
-        <appender-ref ref="stdout_appender"/>
+    <root level="info">
         <appender-ref ref="file"/>
     </root>
 

@@ -19,22 +19,24 @@
         </encoder>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>${logPath}/medical_server.log_%d{yyyy-MM-dd}</fileNamePattern>
+            <maxHistory>180</maxHistory>
         </rollingPolicy>
     </appender>
 
-    <logger name="com.xczhihui" additivity="false">
-        <level value="info"/>
-        <appender-ref ref="stdout_appender"/>
-    </logger>
+    <!--<logger name="com.xczhihui" additivity="false">-->
+        <!--<level value="info"/>-->
+        <!--<appender-ref ref="stdout_appender"/>-->
+    <!--</logger>-->
 
-    <logger name="org.springframework.jdbc.core" additivity="false">
-        <level value="warn"/><!--debug print sql-->
-        <appender-ref ref="stdout_appender"/>
-    </logger>
+    <!--<logger name="org.springframework.jdbc.core" additivity="false">-->
+        <!--<level value="warn"/>&lt;!&ndash;debug print sql&ndash;&gt;-->
+        <!--<appender-ref ref="stdout_appender"/>-->
+    <!--</logger>-->
 
-    <root>
-        <level value="warn"/>
-        <appender-ref ref="stdout_appender"/>
+    <logger name="com" level="warn">
+        <appender-ref ref="stdout_appender" />
+    </logger>
+    <root level="info">
         <appender-ref ref="file"/>
     </root>
 
