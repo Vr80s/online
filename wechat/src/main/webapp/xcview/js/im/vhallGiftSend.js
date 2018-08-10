@@ -23,48 +23,20 @@ if (sendTime == null) {
 	}, false)
 }
 
+
 function createGiftList(gift) {
 
 	if (gift.messageType == 5) { //回放生成失败
 
-		if (parseInt(sendTime) < parseInt(gift.sendTime)) {
-
-			$(".video_end_top0").hide();
-			$(".video_end_top2").hide();
-			$(".video_end_top1").hide();
-
-			$(".video_end_top").show();
-			console.info("回放生成失败");
-		}
+		
 	} else if (gift.messageType == 4) { //回放生成 成功
 
-		if (parseInt(sendTime) < parseInt(gift.sendTime)) {
-
-			$(".video_end_top0").hide();
-			$(".video_end_top2").hide();
-			$(".video_end_top1").show();
-
-			console.info("回放生成成功");
-		}
+	
 	} else if (gift.messageType == 2) { //直播开始了
-		//当前时间 
-		if (parseInt(sendTime) < parseInt(gift.sendTime)) {
-			console.log("开始直播了，建议再次刷新页面   >>>>");
-
-			$(".video_end_top0").hide();
-			$(".video_end_top2").hide();
-			//刷新页面 --》在观看
-			location.reload();
-		}
+		
 		return;
 	} else if (gift.messageType == 3) { //直播结束了
-		if (parseInt(sendTime) < parseInt(gift.sendTime)) {
-			console.log("直播结束了，去学习中心 >>>>");
-			$("#video").html("");
-			$(".video_end_top0").hide();
-			//生成回访中
-			$(".video_end_top2").show();
-		}
+		
 		return;
 	}
 	//if(gift.courseId!=course_id)return;   //ios传值

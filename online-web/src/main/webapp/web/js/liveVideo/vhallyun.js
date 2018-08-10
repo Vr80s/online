@@ -130,7 +130,8 @@ function elsBind(){
              msg = JSON.parse(msg);
              try{
              	var e="";
-             	$(".playback-rebroadcast").attr("type",msg.type);
+             	$(".playback").attr("type",msg.type);
+             	
                 if(msg.type ==10 ){//聊天
                     e+=liaotian(msg);
                 }else if(msg.type == 11){ //礼物
@@ -140,7 +141,10 @@ function elsBind(){
                 }else if(msg.type == 12){ // 开始直播啦
                 
                 	// 刷新页面 --》在观看
-                	location.reload();
+                	setTimeout(function () {
+                		location.reload();
+                	},2000)
+                	
                 }if(msg.type == 13){ //直播结束了  
                 
                 	$(".generate-replay").show();
@@ -185,10 +189,12 @@ function elsBind(){
     },1000);	
       
     //  
-    $(".playback-rebroadcast").click(function() {
+    $(".playback").click(function() {
     	var type = $(this).attr("type");
     	if (type == 16 || type ==20) { // 回放生成成功   重播
-			location.reload();
+			setTimeout(function () {
+        		location.reload();
+        	},2000)
 		}else if (msg.type == 17) { // 回放生成失败,点击去学习中心吧
 			location.href="/my";
 	    }
