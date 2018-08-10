@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.bean.OnlineUser;
@@ -97,8 +98,42 @@ public class VhallVideoController {
     public ResponseObject getMessageList(
             VhallMessageParamsVo vmpv) throws Exception {
 
-        return ResponseObject.newSuccessResponseObject(MessageService.getMessageList(vmpv));
+    	JSONObject  obj = (JSONObject) MessageService.getMessageList(vmpv);
+    	JSONArray arrayNew = new JSONArray();
+    	JSONArray arr = (JSONArray) obj.get("data");
+    	for (int i=arr.size()-1 ; i>=0; i--) {
+    		arrayNew.add(arr.get(i));
+    	}
+    	obj.put("data", arrayNew);
+        return ResponseObject.newSuccessResponseObject(obj);
     }
+    
+    /**
+     * 获取消息列表
+     * @param vmpv
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("vhallIOSYunMessageList")
+    @ResponseBody
+    public ResponseObject getIOSMessageList(
+            VhallMessageParamsVo vmpv) throws Exception {
+
+    	JSONObject  obj = (JSONObject) MessageService.getMessageList(vmpv);
+    	
+    	JSONArray arrayNew = new JSONArray();
+    	JSONArray  arr = (JSONArray) obj.get("data");
+    	for (int i=arr.size()-1 ; i>=0; i--) {
+    		JSONObject lal = (JSONObject)arr.get(i);
+    		String str = (String) JSON.parse(lal.get("data").toString());
+			lal.put("data", str);
+			arrayNew.add(lal);
+		}
+    	obj.put("data", arrayNew);
+    	
+        return ResponseObject.newSuccessResponseObject(obj);
+    }
+    
     
     /**
      * 微吼发送消息
