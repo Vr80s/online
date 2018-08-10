@@ -13,6 +13,8 @@ $(function () {
     var emojiReg = /\[.+?\]/g;
     var cameras = [];
     var mics = [];
+    var loadAnchorIn = false;
+    var loadAnchorOut = false;
     window.doc = null;
 
     window.Vhall.config({
@@ -65,13 +67,23 @@ $(function () {
             window.chat.join(function (msg) {
                 console.log(msg);
                 console.log("进入直播间");
-                viewJoinleaveRoomInfo(msg, "join");
+                if (!loadAnchorIn || msg.third_party_user_id != accountId) {
+                    if (msg.third_party_user_id == accountId) {
+                        loadAnchorIn = true;
+                    }
+                    viewJoinleaveRoomInfo(msg, "join");
+                }
                 //TODO 判断是否被禁言
             });
             window.chat.leave(function (msg) {
                 console.log(msg);
                 console.log("离开直播间");
-                viewJoinleaveRoomInfo(msg, "leave");
+                if (!loadAnchorOut || msg.third_party_user_id != accountId) {
+                    if (msg.third_party_user_id == accountId) {
+                        loadAnchorOut = true;
+                    }
+                    viewJoinleaveRoomInfo(msg, "leave");
+                }
             });
         });
         setTimeout(function () {
@@ -150,8 +162,9 @@ $(function () {
                     $this.data('status', 1);
                     console.log("推流成功");
                 },
-                fail: function () {
-                    console.log("推流失败");
+                fail: function (e) {
+                    console.log(e);
+                    showTip("直播未能开启");
                 }
             });
         } else {
@@ -244,7 +257,7 @@ $(function () {
     function renderStudentList() {
         $.ajax({
             method: 'GET',
-            url: '/vhallyun/roomJoinStudent',
+            url: '/vhallyun/roommJoinStudent',
             data: {'roomId': roomId, 'channelId': channelId, "anchorId": accountId},
             success: function (resp) {
                 var data = resp.resultObject;
@@ -261,7 +274,7 @@ $(function () {
         });
     }
 
-    renderStudentList();
+    // renderStudentList();
 
     function setBanStatus(accountId, status) {
         $.ajax({
@@ -406,6 +419,9 @@ $(function () {
             url: "/vhallyun/document/" + docId,
             success: function (resp) {
                 $parent.remove();
+                if ($('.hover-delect').length == 0) {
+                    $('.null-document').removeClass('hide');
+                }
             }
         })
     });
@@ -431,7 +447,7 @@ $(function () {
                                     '                    </div>');
                             }
                         } else if (status === 2) {
-                            $docItem.text("转化成功");
+                            $docItem.text("转换成功");
                         }
                     }
                 }
@@ -439,8 +455,9 @@ $(function () {
         })
     }, 30 * 1000);
 
-    $('#J_message_send').on('click', function () {
-        var message = $('#J_message_text').val();
+    function sendMessage() {
+        var $JMessageText = $('#J_message_text');
+        var message = $JMessageText.val();
         if (message) {
             var content = {
                 type: 10,
@@ -451,7 +468,7 @@ $(function () {
                     role: "host"           //发送人的角色    主播： host   普通用户： normal
                 }
             };
-            $('#J_message_text').val('');
+            $JMessageText.val('');
             $.ajax({
                 method: "POST",
                 url: "/vhallyun/message",
@@ -463,7 +480,15 @@ $(function () {
         } else {
             showTip("请输入聊天文字")
         }
+    }
+    $('#J_message_send').on('click', function () {
+        sendMessage();
     });
+    $('#J_message_text').keypress(function (event) {
+        if (event.keyCode == 13) {
+            sendMessage();
+        }
+    }) ;
 
 //------------------------------------------静态页面效果----------------------------------------------------------------
 
@@ -550,17 +575,14 @@ $(function () {
         $(".background-ask").addClass("hide");
         $(".modal-document").addClass("hide");
     })
-//  hover删除按钮显现
-    $(".hover-delect").hover(function () {
+
+    $('.file-list').on('mouseenter', '.hover-delect', function(){
         $(".hover-delect .delect-img").addClass("hide");
         $(this).find(".delect-img").removeClass("hide")
-    }, function () {
+    });
+    $('.file-list').on('mouseleave', '.hover-delect', function(){
         $(".hover-delect .delect-img").addClass("hide");
-    })
-//  点击删除
-//     $(".hover-delect .delect-img").click(function () {
-//         $(this).parent().remove();
-//     })
+    });
 //点击上传文件的URL
 
 //------------------------------------------文档左侧列表点击效果----------------------------------------------------------------	
@@ -696,12 +718,13 @@ $(function () {
                     '                <div class="doc-name doc-photo">' + obj.filename + '</div>\n' +
                     '                <div class="doc-time text-center">' + obj.createTime + '</div>\n' +
                     '                <div class="doc-progress text-center J-doc-item-text-' + obj.documentId +'">等待转换</div>\n' +
-                    '                <div class="delect-img hide"></div>\n' +
+                    '                <div class="delect-img hide J-doc-delete"></div>\n' +
                     '            </li>';
                 $('.J-doc-title').after(liHtml);
                 $fileInput.val('');
                 $('.document-upload').prop('disabled', '');
                 $('.document-upload').text('上传');
+                $('.null-document').hide();
             },
             error: function () {
                 $fileInput.val('');
