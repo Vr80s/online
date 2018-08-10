@@ -43,7 +43,7 @@ $(function() {
             "class" : "center",
             "sortable" : false,
             "data" : 'order_from',
-            "mRender":function(data,display,row){
+            "mRender":function(data){
                 if(data == 5)return "线下订单";
                 if(data == 6)return "工作人员";
                 if(data == 0)return "赠送";
@@ -56,7 +56,10 @@ $(function() {
 		"width" : "12%",
 		"class" : "center",
 		"sortable" : false,
-		"data" : 'create_time'
+		"data" : 'create_time',
+		"mRender":function(data){
+			return data.substring(0,19);
+		}
 	},{
 		"title" : "创建人",
 		"width" : "12%",
