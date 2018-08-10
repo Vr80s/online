@@ -259,9 +259,9 @@ function msgList(pos, limit) {
         if (data.success && data.resultObject.code == 200) {
             var res = data.resultObject;
             var e = "";
-            for (var i = res.data.length - 1; i >= 0; i--) {
-                var item = res.data[i].data;
-                e += chatLoad(JSON.parse(item), true);
+            for (var i = 0; i < res.data.length; i++) {
+            	 var item = res.data[i].data;
+                 e += chatLoad(JSON.parse(item), true);
             }
             if (e != "") {
                 $("#chatmsg").html(e);
@@ -352,7 +352,7 @@ function replaceEmoji(contents) {
     for (i = 0; i < content.length; i++) {
     	var src = "";
         for (j = 0; j < emoji.length; j++) {
-            if ("[" + emoji[j].text + "]" == content[i]) {
+            if (emoji[j].text == content[i]) {
                 src = emoji[j].imgUrl;
                 break;
             }
