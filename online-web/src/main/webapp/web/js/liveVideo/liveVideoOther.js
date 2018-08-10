@@ -7,61 +7,131 @@ var	description = "零基础也能学中医！许多学员推荐“古籍经典�
 var courseId = course_id;
 
 var startTime = "";
-	if(courseId == undefined) {
-		courseId = 1;
-	}
-	/**
-	 * 设置返回按钮
-	 * @returns
-	 */
-	$("#return").attr("href","/courses/"+course_id+"/info");
+if(courseId == undefined) {
+	courseId = 1;
+}
 
-	
-	//直播间访问量增加
-	RequestService("/online/live/updateBrowseSum", "get", {
-		courseId: courseId
-	}, function(data) {
-	});
-	
-	//获取直播间课程信息
-	RequestService("/online/live/getOpenCourseById", "GET", {
-		courseId: courseId,
-		planId: ""
-	}, function(data) {
+/**
+ * 设置返回按钮
+ */
+$("#return").attr("href","/courses/"+course_id+"/info");
 
-		//分享使用
-		courseName = data.resultObject.courseName;
-		smallImgPath = data.resultObject.smallImgPath;
-		description = data.resultObject.description;
-		teacherId = data.resultObject.teacherId;
-		teacherName = data.resultObject.teacherName;
-		//讲师名字
-		$(".headMess .name").html(data.resultObject.teacherName);
-		teacherName = data.resultObject.teacherName;
-		//鲜花数
+
+var loginUserId = "";
+var loginStatus = true;
+var smallHeadPhoto = "";
+var nickname = "";
+//判断有没有登录
+RequestService("/online/user/isAlive", "GET", null, function (data) {
+    if (data.success) {
+        loginUserId = data.resultObject.id;
+        smallHeadPhoto = data.resultObject.smallHeadPhoto;
+        nickname = data.resultObject.name;
+    }
+}, false)
+
+var vhallObj = {
+    appId: "27376e92",
+    accountId:loginUserId
+};
+
+RequestService("/vhallyun/vhallYunToken","get",{channelId:vhallObj.channelId,roomId:vhallObj.roomId},
+    function(data) {
+    if (data.success) {
+        vhallObj.token=data.resultObject;
+    }   
+},false); 
+
+//直播间访问量增加
+RequestService("/online/live/updateBrowseSum", "get", {
+	courseId: courseId
+}, function(data) {
+});
+
+//获取直播间课程信息
+RequestService("/online/live/getOpenCourseById", "GET", {
+	courseId: courseId,
+	planId: ""
+}, function(data) {
+	//分享使用
+	courseName = data.resultObject.courseName;
+	smallImgPath = data.resultObject.smallImgPath;
+	description = data.resultObject.description;
+	teacherId = data.resultObject.teacherId;
+	teacherName = data.resultObject.teacherName;
+	//讲师名字
+	$(".headMess .name").html(data.resultObject.teacherName);
+	teacherName = data.resultObject.teacherName;
+	//鲜花数
 //		$(".headMess .num").html(data.resultObject.flowers_number);
-		$(".headMess .learnd").html(data.resultObject.learn_count);
-		//课程名称
-		$("#courseName").html(data.resultObject.courseName);
-        $("#title-share").html(data.resultObject.courseName); 
-		$(".liveMess .lb span").html(data.resultObject.courseName);
-		//教师头像
-		$(".headImg img").attr("src", data.resultObject.head_img);
-		//开始结束时间
-		$(".liveMess .liveTime span").html('' + data.resultObject.start_time);
-		$(".liwu").html(data.resultObject.giftCount);
-		$(".dashang").html(data.resultObject.rewardTotal);
-		if(data.resultObject.broadcastState==1){
-			$("#liveStatus").html("【正在直播】");
-		}else if(data.resultObject.broadcastState==3){
-			$("#liveStatus").html("【直播回放】");
-		}
-		startTime = data.resultObject.startTime;
-		
-		$(".cover-plan-img").attr("src",data.resultObject.smallImgPath);
-		
-	},false);
+	$(".headMess .learnd").html(data.resultObject.learn_count);
+	//课程名称
+	$("#courseName").html(data.resultObject.courseName);
+    $("#title-share").html(data.resultObject.courseName); 
+	$(".liveMess .lb span").html(data.resultObject.courseName);
+	//教师头像
+	$(".headImg img").attr("src", data.resultObject.head_img);
+	//开始结束时间
+	$(".liveMess .liveTime span").html('' + data.resultObject.start_time);
+	$(".liwu").html(data.resultObject.giftCount);
+	$(".dashang").html(data.resultObject.rewardTotal);
+	if(data.resultObject.broadcastState==1){
+		$("#liveStatus").html("【正在直播】");
+	}else if(data.resultObject.broadcastState==3){
+		$("#liveStatus").html("【直播回放】");
+	}
+	startTime = data.resultObject.startTime;
+	
+	$(".cover-plan-img").attr("src",data.resultObject.smallImgPath);
+	
+	vhallObj.roomId = data.resultObject.direct_id;
+    vhallObj.channelId = data.resultObject.channel_id;
+    vhallObj.recordId = data.resultObject.record_id;
+	
+},false);
 
+	
+initChat();
+
+/**
+ * 初始化消息
+ */
+function initChat(){
+    /**
+     * 加载消息
+     */
+    setTimeout(function(){
+       window.Vhall.ready(function(){
+        window.chat = new VhallChat({
+           channelId:vhallObj.channelId //频道Id
+        });
+        /**
+         * 监听自定义消息
+         */
+        window.chat.onCustomMsg(function(msg){
+             msg = JSON.parse(msg);
+             try{
+                if(msg.type == 12){ // 开始直播啦
+                	// 刷新页面 --》在观看
+                	setTimeout(function () {
+                		location.reload();
+                	},3000)
+                }
+             }catch(error){
+               console.error(error);
+             }
+        })
+     });	
+     window.Vhall.config({
+          appId :vhallObj.appId,//应用 ID ,必填
+          accountId :vhallObj.accountId,//第三方用户唯一标识,必填
+          token:vhallObj.token//token必填
+     });
+    },1000);	
+      
+}	
+	
+	
 var fn = function(options, callback) {
     var setting = $.extend({
         element: null,
@@ -74,20 +144,9 @@ var fn = function(options, callback) {
     var endDate = startTime, 
     startDate = new Date(), 
     offset = 0;
-   
-    
     if (!endDate) {
         console.error("Incorrect endDate format, it should look like this, 2016-09-18 12:00:00.");
         return;
-    }
-    function NewDate(str) {
-        str = str.split(" ");
-        var date = new Date();
-        var date1 = str[0].split("-");
-        var date2 = str[1].split(":");
-        date.setUTCFullYear(date1[0], date1[1] - 1, date1[2]);
-        date.setUTCHours(date2[0], date2[1], date2[2], 0);
-        return date;
     }
     if (startDate) {
         offset = startDate.getTime() - new Date().getTime();
@@ -96,16 +155,13 @@ var fn = function(options, callback) {
         endDate = endDate.replace(/-/g, "/");
     }
     var container = setting.element;
-    var currentDate = function() {
-        var _date = new Date();
-        var _utc = _date.getTime() + offset + _date.getTimezoneOffset() * 6e4;
-        var _new_date = new Date(_utc + 36e5 * setting.offset);
-        return _new_date;
-    };
     function countDown() {
-        var _target_date = NewDate(endDate), 
-        _current_date = currentDate();
-        var _diff = _target_date - _current_date;
+        var endtime = new Date(endDate);
+        //设置当前时间
+        var now = new Date();
+        //得到结束与当前时间差 ： 毫秒
+        var _diff = endtime.getTime() - now.getTime();
+        
         if (_diff < 0) {
             clearInterval(interval);
             if (callback && typeof callback === "function") callback();

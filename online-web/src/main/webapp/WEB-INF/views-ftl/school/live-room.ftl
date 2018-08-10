@@ -59,7 +59,7 @@
             </li>
         </#list>
         </ul>
-        <div class="null-document hide">
+        <div class="null-document <#if (documents?size gt 0)>hide</#if>">
             <img src="/web/images/live-room/null-document.png" alt="无文件"/>
             <p>您还没有上传文档，快来上传吧~</p>
         </div>
