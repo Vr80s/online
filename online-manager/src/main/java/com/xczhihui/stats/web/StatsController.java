@@ -26,15 +26,15 @@ public class StatsController {
 
     @RequestMapping(value = "index", method = RequestMethod.GET)
     public ModelAndView indexPage() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         ModelAndView modelAndView = new ModelAndView("/stats/index");
         Calendar calendar = Calendar.getInstance();
         Date date = new Date();
         calendar.setTime(date);
         calendar.add(Calendar.MONTH, -1);
-        /*calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);*/
+        calendar.set(Calendar.SECOND, 0);
         Date startTime = calendar.getTime();
         modelAndView.addObject("startTime", simpleDateFormat.format(startTime));
         modelAndView.addObject("endTime", simpleDateFormat.format(date));
@@ -46,16 +46,34 @@ public class StatsController {
     public ResponseObject getData(@RequestParam(required = false) Date startTime, @RequestParam(required = false) Date endTime) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(startTime);
-        /*calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);*/
+        calendar.set(Calendar.SECOND, 0);
         startTime = calendar.getTime();
 
         calendar.setTime(endTime);
-        /*calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
         calendar.set(Calendar.MINUTE, 59);
-        calendar.set(Calendar.SECOND, 59);*/
+        calendar.set(Calendar.SECOND, 59);
         endTime = calendar.getTime();
         return ResponseObject.newSuccessResponseObject(statsService.getStatsData(startTime, endTime));
+    }
+
+    @RequestMapping(value = "dataLine", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseObject getDataLine(@RequestParam(required = false) Date startTime, @RequestParam(required = false) Date endTime) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(startTime);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        startTime = calendar.getTime();
+
+        calendar.setTime(endTime);
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 59);
+        endTime = calendar.getTime();
+        return ResponseObject.newSuccessResponseObject(statsService.getStatsDataLine(startTime, endTime));
     }
 }
