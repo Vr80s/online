@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 import com.xczhihui.medical.enrol.model.MedicalEnrollmentRegulations;
@@ -17,6 +18,7 @@ public class EnrollmentRegulationsBody implements Serializable {
     /**
      * 标题
      */
+    @Length(max = 50)
     @NotBlank
     private String title;
     /**
@@ -51,6 +53,7 @@ public class EnrollmentRegulationsBody implements Serializable {
     /**
      * 学习地址（省-市-区-详细地址）
      */
+    @Length(max = 100)
     @NotBlank
     private String studyAddress;
     /**
