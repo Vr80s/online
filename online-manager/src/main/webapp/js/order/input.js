@@ -34,7 +34,7 @@ $(function() {
             "data" : 'validity',
             "mRender":function(data,display,row){
                 if(data == '9999-01-01 00:00:00.0')return "永久";
-                return data;
+                return data == null ? "永久":data.substring(0,19);
             }
         }
         ,{
