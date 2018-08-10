@@ -185,10 +185,10 @@ $(function () {
                 var html = '';
                 var content = msg.message.content;
                 if (content) {
-                    content.replace(emojiReg, function (a, b) {
+                    content = content.replace(emojiReg, function (a, b) {
                         var imgUrl = emojiMap.get(a);
                         if (imgUrl) {
-                            a = '<img src="' + imgUrl + '">';
+                            a = '<img src="' + imgUrl + '" style="width: 20px;height: 20px">';
                         }
                         return a;
                     })
@@ -229,6 +229,7 @@ $(function () {
             }
         });
     }
+
     initMessage();
 
     function viewJoinleaveRoomInfo(msg, action) {
@@ -423,9 +424,8 @@ $(function () {
                     if (status != 0) {
                         var $docItem = $('.J-doc-item-text-' + documentId);
                         if (status === 1) {
-                            if ($docItem.text() === "转码中") {
-                                $docItem.text("转化成功");
-                                console.log("xxxxxx");
+                            if ($docItem.text() === "等待转换") {
+                                $docItem.text("转换成功");
                                 $docItem.after('<div class="doc-operation text-center J-doc-operation J-operation-' + documentId + '">\n' +
                                     '                        <p>演示</p>\n' +
                                     '                    </div>');
@@ -678,8 +678,14 @@ $(function () {
 
 
 //------------------------------------------文档转换----------------------------------------------------------------
-    var fileUrl;
+
+    $('.document-upload').on('click', function () {
+        $('#file-input').trigger('click');
+    });
     $('#file-input').change(function () {
+        $('.document-upload').text('上传中');
+        $('.document-upload').prop('disabled', 'disabled');
+        $fileInput = $('#file-input');
         $('#submitFile').ajaxSubmit({
             type: 'post',
             dataType: 'json',
@@ -689,16 +695,19 @@ $(function () {
                 var liHtml = ' <li class="doc-title hover-delect" data-did ="' + obj.documentId + '">\n' +
                     '                <div class="doc-name doc-photo">' + obj.filename + '</div>\n' +
                     '                <div class="doc-time text-center">' + obj.createTime + '</div>\n' +
-                    '                <div class="doc-progress text-center">转码中</div>\n' +
+                    '                <div class="doc-progress text-center J-doc-item-text-' + obj.documentId +'">等待转换</div>\n' +
                     '                <div class="delect-img hide"></div>\n' +
                     '            </li>';
                 $('.J-doc-title').after(liHtml);
-                $('#file-input').val('');
+                $fileInput.val('');
+                $('.document-upload').prop('disabled', '');
+                $('.document-upload').text('上传');
             },
             error: function () {
-                $('#file-input').val('');
+                $fileInput.val('');
+                $('.document-upload').prop('disabled', '');
+                $('.document-upload').text('上传');
             }
         });
     })
-})
-;
+});

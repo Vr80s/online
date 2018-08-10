@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -31,33 +32,44 @@ public class TimeUtil {
      * @author majian
      */
     public static String comparisonDate(Date date) {
+        Calendar instance = Calendar.getInstance();
         Date now = new Date();
-        long l = now.getTime() - date.getTime();
-        long day = l / (24 * 60 * 60 * 1000);
-        long hour = (l / (60 * 60 * 1000) - day * 24);
-        long min = ((l / (60 * 1000)) - day * 24 * 60 - hour * 60);
-        long s = (l / 1000 - day * 24 * 60 * 60 - hour * 60 * 60 - min * 60);
-        int dayTime = new Long(l).intValue();
-        //判断天
-        if (day < 1) {
-            if (hour <= 0) {
-                if (min > 0) {
-                    return min + "分钟前";
+        instance.setTime(now);
+        int curYear = instance.get(Calendar.YEAR);
+        int curDay = instance.get(Calendar.DAY_OF_YEAR);
+        int curHour = instance.get(Calendar.HOUR_OF_DAY);
+        int curMinute = instance.get(Calendar.MINUTE);
+
+        instance.setTime(date);
+        int cpYear = instance.get(Calendar.YEAR);
+        int cpDay = instance.get(Calendar.DAY_OF_YEAR);
+        int cpHour = instance.get(Calendar.HOUR_OF_DAY);
+        int cpMinute = instance.get(Calendar.MINUTE);
+
+        if (curYear == cpYear) {
+            int diffDay = curDay - cpDay;
+            if (diffDay == 0) {
+                int diffHour = curHour - cpHour;
+                if (diffHour < 5) {
+                    if (diffHour == 0) {
+                        if (curMinute - cpMinute > 0) {
+                            return (curMinute - cpMinute) + "分钟前";
+                        } else {
+                            return "刚刚";
+                        }
+                    } else {
+                        return diffHour + "小时前";
+                    }
                 } else {
-                    return "刚刚";
+                    return "今天";
                 }
-            } else if (hour > 0 && hour <= 5) {
-                return hour + "小时前";
-            } else {
-                return "今天";
+            } else if (diffDay == 1) {
+                return "昨天";
+            } else if (diffDay == 2) {
+                return "前天";
             }
-        } else if (day >= 1 && day < 2) {
-            return "昨天";
-        } else if (day >= 2 && day < 3) {
-            return "前天";
-        } else {
-            return FORMAT.format(date).toString();
         }
+        return FORMAT.format(date);
     }
 
     /**

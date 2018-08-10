@@ -439,8 +439,6 @@ $(function(){
         <div class="video" id="myVideo">
             
         </div>
-        
-        
         <!--即将开始提示-->
         <div class="video_end_top0" style="display: none;">
             <img src="" alt="" class="smallImgPath" />
@@ -452,7 +450,7 @@ $(function(){
         <!--添加视频读取失败后的提示-->
         <div class="video_end_top4" style="display: none;">
             <p>获取媒体数据过程中出错 </p>
-            <div class="initiation">点击刷新</div>
+            <div class="initiation" onclick="location.reload()">点击刷新</div>
         </div> 
         <!--添加视频读取失败后的提示-->
 
@@ -867,11 +865,6 @@ $(function(){
     window.onload = function(){
     	$(".document_ceneter img").click();
     	
-        $(".video_end_top1 .div img").click(function(){
-            location.reload();
-            $(".video_end_top1").hide();
-        });
-
         $("body").scrollTop($("body").scrollHeight);
         $(".chatmsg-box").scrollTop($(".chatmsg-box")[0].scrollHeight);
         /* $(".mCSB_dragger").scrollTop($(".mCSB_dragger")[0].scrollHeight); */

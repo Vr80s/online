@@ -6,22 +6,22 @@
         {
           "type": "view",
           "name": "医师中心",
-          "url": "http://test-wx.xczhihui.com/xcview/html/physician/index.html"
+          "url": "https://cs.m.xczhihui.com/xcview/html/physician/index.html"
         },
         {
           "type": "view",
           "name": "学堂中心",
-          "url": "http://test-wx.xczhihui.com/xcview/html/home_page.html"
+          "url": "https://cs.m.xczhihui.com/xcview/html/home_page.html"
         },
         {
           "type": "view",
           "name": "学习中心",
-          "url": "http://test-wx.xczhihui.com/xcview/html/my_study.html"
+          "url": "https://cs.m.xczhihui.com/xcview/html/my_study.html"
         },
         {
           "type": "view",
           "name": "个人中心",
-          "url": "http://test-wx.xczhihui.com/xcview/html/my_homepage.html"
+          "url": "https://cs.m.xczhihui.com/xcview/html/my_homepage.html"
         }
       ]
     },
@@ -31,17 +31,17 @@
         {
           "type": "view",
           "name": "脉诊大全",
-          "url": "http://test-wx.xczhihui.com//xcview/html/curriculum_table.html?menuType=200"
+          "url": "https://cs.m.xczhihui.com/xcview/html/curriculum_table.html?menuType=200"
         },
         {
           "type": "view",
           "name": "古籍经典",
-          "url": "http://test-wx.xczhihui.com//xcview/html/curriculum_table.html?menuType=205"
+          "url": "https://cs.m.xczhihui.com/xcview/html/curriculum_table.html?menuType=205"
         },
         {
           "type": "view",
           "name": "针灸课程",
-          "url": "http://test-wx.xczhihui.com//xcview/html/curriculum_table.html?menuType=201"
+          "url": "https://cs.m.xczhihui.com/xcview/html/curriculum_table.html?menuType=201"
         }
       ]
     },

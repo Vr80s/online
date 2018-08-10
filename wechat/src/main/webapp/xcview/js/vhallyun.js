@@ -24,6 +24,15 @@ requestGetService("/xczh/vhall/vhallYunToken", {
 
 
 
+ // 刷新页面 --》在观看
+$(".video_end_top1 .div img").click(function(){
+	setTimeout(function () {
+		location.reload();
+	},2000)
+});
+
+		
+
 // 直播状态1.直播中，2预告，3直播结束 4 即将直播
 if (lineState == 1 || lineState == 3) {
     // 初始化 微吼云播放器
@@ -46,13 +55,13 @@ function elsBind() {
         var liveType = (lineState == 1 ? "live" : "vod");
         var recordId = (lineState == 1 ? "" : vhallObj.recordId);
 
-        VhallPlayer.init({
+        VhallLive.init({
             roomId: roomId,
             type: liveType,
             recordId: recordId, // 回放Id，点播必填，直播不写
             videoNode: 'myVideo',
             complete: function () {
-                VhallPlayer.play();
+                VhallLive.play();
             }
         });
     }
@@ -68,26 +77,28 @@ function elsBind() {
 
     setTimeout(function () {
 
-        var md = document.getElementsByTagName("video")[0];
-        md.addEventListener("ended", function () {
-            console.log("播放结束了");
-        });
-        md.addEventListener("loadstart", function () {
-            console.log("浏览器开始在网上寻找媒体数据");
-        });
-        md.addEventListener("progress", function () {
-            console.log("浏览器正在获取媒体数据");
-        });
-        md.addEventListener("suspend", function () {
-            console.log("浏览器暂停获取媒体数据，但是下载过程并滑正常结束");
-        });
-        // 非正常结束直播，但是获取不到流数据
-        md.addEventListener("abort", function () {
-            console.log("浏览器在下载完全部媒体数据之前中止获取媒体数据，但是并不是由错误引起的");
-        });
-        md.addEventListener("error", function () {
-            console.log("	获取媒体数据过程中出错  ");
-        });
+    	try{
+    	
+    		    var md = document.getElementsByTagName("video")[0];
+		        md.addEventListener("ended", function () {
+		            console.log("播放结束了");
+		            
+		        });
+		        md.addEventListener("progress", function () {
+		            //console.log("浏览器正在获取媒体数据");
+		        });
+		        md.addEventListener("suspend", function () {
+		            $(".video_end_top4").show();
+		            console.log("浏览器暂停获取媒体数据，但是下载过程并滑正常结束");
+		        });
+		        md.addEventListener("error", function () {
+		        	$(".video_end_top4").show();
+		            console.log("获取媒体数据过程中出错");
+		        });
+    		
+    	}catch(error){
+    	  console.log(error);
+    	}
 
         window.Vhall.ready(function () {
             /**
@@ -127,8 +138,9 @@ function elsBind() {
 
                 } else if (msg.type == 12) { // 开始直播
 
-                    // 刷新页面 --》在观看
-                    location.reload();
+					setTimeout(function () {
+						location.reload();
+					},2000)
 
                 } else if (msg.type == 13) { // 结束直播  --》  生成点播
 
