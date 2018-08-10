@@ -217,11 +217,11 @@
 				<a href="javascript:;" style="margin-right: 10px;" onclick="jumpApp()">进入直播</a>
 			{{else}}
 				{{if course.liveStatus==1}}
-				<a href="javascript:;" style="margin-right: 10px;" onclick="startLive('{{course.webinarId}}', '{{course.channelId}}')">进入直播</a>
+				<a href="javascript:;" style="margin-right: 10px;" onclick="startLive('{{course.courseId}}', '{{course.channelId}}')">进入直播</a>
 				<!--<a href="javascript:;" onclick="startGuestLive({{course.webinarId}})">嘉宾进入</a>-->
 				<!--<a href="javascript:;" onclick="startLive('{{course.webinarId}}', '{{course.channelId}}')">直播预览</a>-->
 				{{else if course.liveStatus==2}}
-				<a href="javascript:;" style="margin-right: 10px;" onclick="startLive('{{course.webinarId}}', '{{course.channelId}}')">进入直播</a>
+				<a href="javascript:;" style="margin-right: 10px;" onclick="startLive('{{course.courseId}}', '{{course.channelId}}')">进入直播</a>
 				<!--<a href="javascript:;" onclick="startGuestLive({{course.webinarId}})">嘉宾进入</a>-->
 				<!--<a href="javascript:;" onclick="startLive('{{course.webinarId}}', '{{course.channelId}}')">直播预览</a>-->
 				{{else if course.liveStatus==0}}
@@ -856,9 +856,9 @@
 								<label>线下课
 									<input type="radio" value="3" name="course_form" onclick="showCourseAttribute(3)" />
 								<i></i></label>
-								<label>语音直播
+								<!--<label>语音直播
 									<input type="radio" value="4" name="course_form" onclick="showCourseAttribute(4)" />
-								<i></i></label>
+								<i></i></label>-->
 							</div>
 	
 							<div class="select">
@@ -1455,7 +1455,7 @@
 								</div>
 								<span class="uploadfinish" style="display:none;margin-left: 112px;display: block;top: 3px;"><em class="updataSuccess"></em>资源上传完成<span style="color: #999;">(记得点击保存哦)</span> </span>
 								<span style="float: left;display: none">选择视频：<input id="videofile" name="videofile" type="text" /></span>
-								<p class="warning warning1 hide">请先上传资源文件</p >
+								<p class="warning warning1 hide" style="margin-top: 20px;">请先上传资源文件</p >
 							</div>
 	
 							<div class="resource_uploading" style="display:none;">

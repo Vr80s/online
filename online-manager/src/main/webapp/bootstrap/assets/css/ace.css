@@ -5160,7 +5160,7 @@ body.mob-safari .sidebar.sidebar-fixed {
 .footer {
   padding-top: 75px;
   height: 0;
-  width: 100%;
+  /*width: 100%;*/
   background: #eceff5;
   margin-left: 190px;
 }

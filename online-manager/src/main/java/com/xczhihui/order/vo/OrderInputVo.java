@@ -155,4 +155,25 @@ public class OrderInputVo extends OnlineBaseVo {
     public void setExcelFile(MultipartFile excelFile) {
         this.excelFile = excelFile;
     }
+
+    @Override
+    public String toString() {
+        return "OrderInputVo{" +
+                "id='" + id + '\'' +
+                ", user_id='" + user_id + '\'' +
+                ", login_name='" + login_name + '\'' +
+                ", course_id='" + course_id + '\'' +
+                ", course_name='" + course_name + '\'' +
+                ", create_person='" + create_person + '\'' +
+                ", create_time='" + create_time + '\'' +
+                ", create_time_start='" + create_time_start + '\'' +
+                ", create_time_end='" + create_time_end + '\'' +
+                ", order_from=" + order_from +
+                ", actual_pay=" + actual_pay +
+                ", class_id='" + class_id + '\'' +
+                ", key_type='" + key_type + '\'' +
+                ", key_value='" + key_value + '\'' +
+                ", validity='" + validity + '\'' +
+                '}';
+    }
 }

@@ -32,7 +32,7 @@
 <script type="text/javascript" src="/web/js/live-streamin-document/jquery.js" ></script>
 <script type="text/javascript" src="/web/js/live-streamin-document/jqueryui.js" ></script>
 <script type="text/javascript" src="/web/js/live-streamin-document/jquery.iviewer.js" ></script>
-
+<link rel="stylesheet" href="https://static.vhallyun.com/jssdk/videojs.min.css?v=1.0.0">
 
 <script type="text/javascript">
     var $ = jQuery;
@@ -169,7 +169,7 @@
 		display: none;
 	}
 	/*====隱藏修改視頻后====*/
-	.vjs-control-bar{
+	/*.vjs-control-bar{
 		display: none;
 	}
 	.vjs-hidden{
@@ -183,7 +183,7 @@
 	}
 	.vjs-big-play-button{
 		display: none;
-	}
+	}*/
 	/*隱藏后結束*/
 
 	/*修改變動后的代碼--微吼云開始*/
@@ -214,10 +214,13 @@
 		height: 100% !important;
 	}
 	#myVideo div:first-child{
-		/*height: 87% !important;*/
+		height: 100% !important;
 		/*height: 100% !important;*/
     	width: 100%;
-    	background: #000;
+    	/*background: #000;*/
+	}
+	#myVideo video{
+		/*z-index: 9;*/
 	}
 	.player-container{
 		height: 100%;
@@ -260,6 +263,82 @@
 	.send-box{
 		/*background: red;*/
 	}
+	.player-container{
+		height: 87% !important;
+	}
+	.generate-replay{
+		width: 240px;
+	    height: 30px;
+	    line-height: 30px;
+	    font-size: 18px;
+	    text-align: center;
+	    border-radius: 4px;
+	    background: #ed4343;
+	    margin: 0 auto;
+	    position: absolute;
+	    top: 45%;
+	    left: 50%;
+	    margin-left: -120px;
+	    color: #fff;
+	}
+	.generate-replay{
+		width: 285px;
+	    height: 30px;
+	    line-height: 30px;
+	    font-size: 18px;
+	    text-align: center;
+	    border-radius: 4px;
+	    background: #ed4343;
+	    margin: 0 auto;
+	    position: absolute;
+	    top: 45%;
+	    left: 50%;
+	    margin-left: -142.5px;
+	    color: #fff;
+	}
+	.see-the-replay{
+		width: 200px;
+	    height: 30px;
+	    line-height: 30px;
+	    font-size: 18px;
+	    text-align: center;
+	    border-radius: 4px;
+	    background: #ed4343;
+	    margin: 0 auto;
+	    position: absolute;
+	    top: 45%;
+	    left: 50%;
+	    margin-left: -100px;
+	    color: #fff;
+	}
+	.learning-center{
+		width: 250px;
+	    height: 30px;
+	    line-height: 30px;
+	    font-size: 18px;
+	    text-align: center;
+	    border-radius: 4px;
+	    background: #ed4343;
+	    margin: 0 auto;
+	    position: absolute;
+	    top: 45%;
+	    left: 50%;
+	    margin-left: -125px;
+	    color: #fff;
+	}
+	
+	/*音量控制按钮*/
+	#myVideo .video-js .vjs-volume-bar{
+		height: 14px !important;
+		margin-top: 12px;
+	}
+	
+	/*进度条*/
+	.video-js .vjs-progress-control{
+		height: 14px !important;
+		margin-top: 12px;
+	}
+	
 </style>
 <script>
 	window.onload = function(){
@@ -355,7 +434,39 @@
     .send-face li img{
     	width: 30px;
     }
-
+    .playback{
+    	width: 100%;
+    	height: 100%;
+    	/*background: url(/web/images/2.jpg) no-repeat;
+    	background-size: 100% 100%;*/
+    	position: relative;
+    }
+    .playback-img{
+    	width: 100%;
+    	height: 100%;
+    	position: absolute;
+    	top: 0;
+    	left: 0;
+    }
+    .playback-rebroadcast{
+	    width: 100px;
+	    height: 30px;
+	    line-height: 30px;
+	    font-size: 18px;
+	    text-align: center;
+	    border-radius: 4px;
+	    background: #ed4343;
+	    margin: 0 auto;
+	    position: absolute;
+	    top: 45%;
+	    left: 50%;
+	    margin-left: -50px;
+	    color: #fff;
+    }
+    /*.playback-img{
+    	width
+    }
+*/
 </style>
 </head>
 
@@ -364,14 +475,9 @@
 	<!--  充值的时候余额不足提示框11 -->
 	<div class='mask3' style='padding: 0 20px; bottom: 65px; right: 85px; display: none; position: fixed; text-align: center; color: white; line-height: 60px; height: 60px; background: #000; opacity: 0.5; z-index: 1000; filter: alpha(opacity = 30);'></div>
 
-	
-
-
 	<!--   直播区域    -->
 	<div class="livePlayer" style="position: relative">
 
-
-	
 		<!--动画代码视频文档小框--右侧-->
 		<div class="animation">
 			<div class="animation-cut animation-cut-click"></div>
@@ -414,8 +520,8 @@
 					<li class="share_li1"><img src="/web/images/video2/weixin.png"
 						alt="" />
 					<div style="padding: 5px; background-color: #fff;"
-							class="share_li1_img">
-							<div id="qrcodeCanvas1"></div>
+															   class="share_li1_img">
+						<div id="qrcodeCanvas1"></div>
 						</div></li>
 					<li class="share_li2"><img src="/web/images/video2/quan.png"
 						alt="" />
@@ -434,8 +540,18 @@
 			</div>
 			<span class="liveTime">直播时间：<span></span></span>
 		</div>
-		
 		<div id="livePlayer">
+			<!--回放重播提示开始-->
+			<div class="playback" style="display:none;">
+				<img src="/web/images/2.jpg" alt="" class="playback-img" />
+				<div class="playback-rebroadcast">重播</div>
+				<div class="generate-replay" style="display:none;">直播结束，正在生成回放…</div>
+				<div class="leave" style="display:none;">主播要离开一会儿，稍等片刻哦~</div>
+				<div class="see-the-replay" style="display:none;">直播结束,点击查看回放</div>
+				<div class="learning-center" style="display:none;">直播结束，点击返回学习中心</div>
+			</div>
+			<!--回放重播提示结束-->
+				
 			 <!-- <iframe id="vhall-video" src="" width="100%" height="100%" style="border-width:0;"></iframe> -->
 		 	<div class=layer id=userCusEvent style="display:block !important">
 				<div class=layer id=userCusEvent style="display:none">
@@ -516,6 +632,10 @@
 						<div class="send-face-bg"></div>
 						<div class="send-face hide"></div>
 						<a id="filter-msg" href="javascript:;" class=lecturer style="left: 40px;"></a> 
+						
+<!-- 						<a id="startlive" href="javascript:;" class="" style="left: 70px;">开始</a>
+						<a id="endlive" href="javascript:;" class="" style="left: 70px;">暂停</a>  -->
+						
 						<a id="face" href="javascript:;" class="face"></a> 
 						<div class="chitchat">
 							<!-- <a id= href="javascript:;" class="send-chat">发送</a> -->
@@ -597,6 +717,8 @@
 						<div class="surprise-bottom"></div>
 					</div>
 				</div>
+				
+				
 				
 		</div>
 
@@ -750,6 +872,7 @@
 		</ul>
 
 		<!--禁言提示-->
+		
 		<!--模板引擎渲染礼物栏-->
 		<script type='text/template' id='gift_temp'>
 			{{each resultObject as item i}}
@@ -778,6 +901,18 @@
 <script src="/web/js/common/common.js" type="text/javascript" charset="utf-8"></script>
 <script src="/web/js/im/giftSend2.js?v=ipandatcm_1.3" type="text/javascript" charset="utf-8"></script>
 
+<!-- 微吼云 -->
+<script src="https://static.vhallyun.com/jssdk/vhall-jssdk-chat-1.0.0.js?v=201801121522"></script>
+<script src="https://static.vhallyun.com/jssdk/dvideo-plugin.js?v=0.3"></script>
+<script src="https://static.vhallyun.com/jssdk/vhall-jssdk-player-1.0.0.js"></script>
+<script src="https://static.vhallyun.com/jssdk/vhall-jssdk-doc-1.0.0.js?v=201806271657"></script>
+<script src="https://static.vhallyun.com/jssdk/vhall-jssdk-base-1.0.0.js?v=201806271657"></script>
+
+
+<script src="/web/js/liveVideo/liveVideo.js?v=ipandatcm_1.3"></script>
+<script src="/web/js/liveVideo/liveVideoSDK.js?v=ipandatcm_1.3"></script>
+<script src="/web/js/liveVideo/vhallyun.js?v=ipandatcm_1.3"></script>
+
 <script src="/web/js/common/video_share.js?v=ipandatcm_1.3"></script>
 <script src="/web/js/placeHolder.js"></script>
 <script src="/web/js/chongZhi.js?v=ipandatcm_1.3" type="text/javascript"
@@ -788,19 +923,6 @@
 		/* var html = template('',html) */
 	});
 </script>
-<!-- 微吼云 -->
-
-<script src="https://static.vhallyun.com/jssdk/vhall-jssdk-live-1.0.0.js?v=201806271657"></script>
-<script src="https://static.vhallyun.com/jssdk/vhall-jssdk-doc-1.0.0.js?v=201806271657"></script>
-<script src="https://static.vhallyun.com/jssdk/vhall-jssdk-chat-1.0.0.js?v=201801121522"></script>
-<script src="https://static.vhallyun.com/jssdk/dvideo-plugin.js?v=0.3"></script>
-<script src="https://static.vhallyun.com/jssdk/vhall-jssdk-base-1.0.0.js?v=201806271657"></script>
-
-
-<script src="/web/js/liveVideo/liveVideo.js?v=ipandatcm_1.3"></script>
-<script src="/web/js/liveVideo/liveVideoSDK.js?v=ipandatcm_1.3"></script>
-<script src="/web/js/liveVideo/vhallyun.js?v=ipandatcm_1.3"></script>
-
 </body>
 </html>
 

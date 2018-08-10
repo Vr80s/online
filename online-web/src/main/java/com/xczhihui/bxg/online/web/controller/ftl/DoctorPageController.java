@@ -5,6 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -118,12 +122,12 @@ public class DoctorPageController extends AbstractFtlController {
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
-    public ModelAndView details(@PathVariable String id) {
+    public ModelAndView details(HttpServletRequest request, HttpServletResponse response, @PathVariable String id) throws ServletException, IOException {
         ModelAndView view = new ModelAndView("doctor/details");
 
         MedicalDoctorVO doctor = medicalDoctorBusinessService.selectDoctorById(id);
         if (doctor == null) {
-            return to404();
+            return to404(request,response);
         }
 
         doctor.setWorkTime(XzStringUtils.workTimeScreen(doctor.getWorkTime()));

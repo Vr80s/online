@@ -6,13 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>文档 or 文档+看点播</title>
-    <script src="./styles/jquery-3.2.1.min.js"></script>
-    <link rel="stylesheet" href="./styles/bootstrap.min.css">
+    <script src="./js/jquery-3.2.1.min.js"></script>
+      <link rel="stylesheet" href="./css/bootstrap.min.css">
     
-    <script src="../../vhall-jssdk-doc-1.0.0.js?v=20180508"></script>
-    <script src="../../dvideo-plugin.js?v=0.3"></script>
-    <script src="../../vhall-jssdk-live-1.0.0.js?v=201803191957"></script>
-    <script src="../../vhall-jssdk-base-1.0.0.js?v=201803191957"></script>
+    <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-doc-1.0.0.js?v=20180508"></script>
+    <script src="https://static.vhallyun.com/jssdk/dvideo-plugin.js?v=0.3"></script>
+    <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-live-1.0.0.js?v=201803191957"></script>
+    <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-base-1.0.0.js?v=201803191957"></script>
     <style>
         #params-area{    
             background-color: #fff;
@@ -45,27 +45,11 @@
           ls.set('ipt-channelId');
           ls.set('ipt-docId');
           window.doc = new VhallDocPassive({
-            recordId:$('#ipt-recordId').val(),//房间ID,
             channelId:$('#ipt-channelId').val(), //频道Id
-            docId:$('#ipt-docId').val(),//jpg big
-            docNode:'my-doc-area',//文档显示节点div id
-            width:$('#ipt-width').val(),
-            height:$('#ipt-height').val()
+            docNode:'my-doc-area'//文档显示节点div id
           });
 
-        }
-        window.Vhall.ready(readyCallback);
-        ls.set('ipt-appId');
-        ls.set('ipt-token');
-        window.Vhall.config({
-             appId :$('#ipt-appId').val(),//应用 ID ,必填
-             accountId :'100001',//第三方用户唯一标识,必填
-             token: $('#ipt-token').val(),//token必填
-        });
-
-        setTimeout(function(){
-
-            if($('#ipt-recordId').val()){
+          if($('#ipt-recordId').val()){
 
               VhallLive.init({
                    recordId:$('#ipt-recordId').val(),
@@ -77,8 +61,34 @@
               });
 
             }
+          
+          
+        }
+        window.Vhall.ready(readyCallback);
+        ls.set('ipt-appId');
+        ls.set('ipt-token');
+        window.Vhall.config({
+             appId :$('#ipt-appId').val(),//应用 ID ,必填
+             accountId :'100001',//第三方用户唯一标识,必填
+             token: $('#ipt-token').val(),//token必填
+        });
 
-        },1000);
+        //setTimeout(function(){
+
+/*             if($('#ipt-recordId').val()){
+
+              VhallLive.init({
+                   recordId:$('#ipt-recordId').val(),
+                   type:'vod',
+                   videoNode:'myVideo',
+                   complete:function(){
+                      VhallLive.play();
+                   }
+              });
+
+            } */
+
+        //},1000);
 
 
     }
@@ -131,7 +141,7 @@
       }
 
    </script>
-<link rel="stylesheet" type="text/css" href="../../videojs.min.css">
+<link rel="stylesheet" type="text/css" href="./css/videojs.min.css">
 </head>
 
 <body style="background-color: snow;">
@@ -139,23 +149,23 @@
         <div class="navbar-form">
             <div class="row">
                 <label>token:</label>
-                <input value="vhall" id="ipt-token" type="text" class="form-control" placeholder="token">
+                <input value="access:27376e92:ea9bdbe161ad41e8" id="ipt-token" type="text" class="form-control" placeholder="token">
             </div>
             <div class="row">
                 <label>appId:</label>
-                <input value="a9701973" id="ipt-appId" type="text" class="form-control" placeholder="appId">
+                <input value="27376e92" id="ipt-appId" type="text" class="form-control" placeholder="appId">
             </div>
             <div class="row">
                 <label>recordId:</label>
-                <input value="lss_22b89748" id="ipt-recordId" type="text" class="form-control" placeholder="recordId">
+                <input value="b986c467" id="ipt-recordId" type="text" class="form-control" placeholder="recordId">
             </div>
             <div class="row">
                 <label>channelId:</label>
-                <input value="lss_22b89748" id="ipt-channelId" type="text" class="form-control" placeholder="channelId">
+                <input value="ch_aec0a316" id="ipt-channelId" type="text" class="form-control" placeholder="channelId">
             </div>
             <div class="row">
                 <label>docId:</label>
-                <input value="632a157f" id="ipt-docId" type="text" class="form-control" placeholder="docId">
+                <input value="f0adf726" id="ipt-docId" type="text" class="form-control" placeholder="docId">
             </div>
             <div class="row">
                 <label>文档区域宽:</label>

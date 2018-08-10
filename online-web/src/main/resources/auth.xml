@@ -56,5 +56,6 @@
     <uri>/course/courses/[0-9]{1,}</uri>
     <uri>/videoRes/updateCourseApplyResource</uri>
     <uri>/vhallyun/callback</uri>
+    <uri>/web/html/qusAndAnsDetailTouSu.html[*]{1}</uri>
 
 </openuris>

@@ -1,0 +1,139 @@
+/* reset */
+*{
+    margin: 0;
+    padding: 0;
+}
+li{
+    list-style: none;
+}
+img{
+    width: 100%;
+    border: none;
+}
+.imgBox{
+    width: 100%;
+    height: 100vh;
+    background: #333;
+    position: relative;
+}
+.slectBox{
+    width: 100%;
+    position: fixed;
+    z-index: 10;
+    bottom: 0;
+    left: 0;
+    background: #FFF;
+}
+
+.slectBox .content{
+    /*min-width: 200%;*/
+    width: 100%;
+    height: auto;
+    padding: 0.4rem 0;
+    font-size: 0;
+    display: flex;  
+}
+.slectBox li{
+    width: 1.2rem;
+    margin-right: .3rem;
+    margin-left: .2rem;
+    display: inline-block;
+}
+.slectBox li img{
+    border-radius: 15px;
+}
+.imgBoxWrapper{
+    width: 6rem;
+    position: absolute;
+    left: 50%;
+    top: .5rem;
+    transform: translate(-50%,0);
+    box-sizing: border-box;
+    font-size: .30rem;
+    background-repeat:repeat;
+}
+
+.imgBoxWrapper .avatar{
+    text-align: center;
+    
+}
+.imgBoxWrapper .avatar img{
+    width: 1.2rem;
+    display: inline-block;
+    border-radius: 50%;
+}
+.er{
+    width: 1.5rem;
+    margin: 0 auto;
+    font-size: .18rem;
+    padding-top: .2rem;
+    padding-bottom: .2rem;
+}
+.imgBoxWrapper  .des{
+    padding: 0 .4rem;
+}
+.mainIma1{
+    padding: 0 .4rem;
+    margin-top:.4rem;
+    margin-bottom: .4rem;
+}
+.tip{
+    color:#fff;
+    font-size: .20rem;
+}
+.mask{
+    font-size: .18rem;  
+    top: 0;
+    left: 0;
+    color: #fff;
+    height: 100vh;
+    width: 100%;
+    position: fixed;
+    background: rgba(0, 0, 0, .7);
+    z-index: 9;
+}
+.mask .c{
+    position: fixed;
+    top: 30%;
+    left: 50%;
+
+    transform: translateX(-50%);
+}
+.mask .c img{
+    margin-bottom: .4rem;
+    user-select: none;
+    -webkit-user-select: none;
+}
+.mask .c p{
+    text-align: center;
+}
+.er{
+    text-align: center;
+}
+
+.imgBoxWrapper2 .er{
+    float: left;
+}
+.imgBoxWrapper3 .er{
+    float: right;
+}
+.imgBoxWrapper{
+    display: none;
+}
+.active{
+    display: block
+}
+.imgBoxWrapperTop{
+    z-index: 10;
+    display: block
+}
+
+/*新加*/
+.slectBox li img{
+        width: 1rem;
+}
+.slectBox{
+    white-space: nowrap;
+    overflow-x:auto; 
+    overflow-y: hidden;
+}

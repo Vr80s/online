@@ -30,6 +30,7 @@ import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.WeihouInterfacesListUtil;
 import com.xczhihui.common.util.XzStringUtils;
 import com.xczhihui.common.util.enums.VCodeType;
+import com.xczhihui.common.util.vhallyun.MessageService;
 import com.xczhihui.course.service.IMyInfoService;
 import com.xczhihui.course.vo.OnlineUserVO;
 import com.xczhihui.online.api.service.CityService;
@@ -295,6 +296,13 @@ public class XzUserSetController {
         if (token != null) {
             userCenterService.updateTokenInfo(newUser.getId(), token);
         }
+        
+        /**
+         * 同步更新到微吼云信息
+         */
+        MessageService.saveUserInfo(newUser.getId(), 
+        		newUser.getName(), newUser.getSmallHeadPhoto());
+        
         return ResponseObject.newSuccessResponseObject(newUser);
     }
 
@@ -324,6 +332,13 @@ public class XzUserSetController {
          */
         String token = request.getParameter("token");
         OnlineUser newUser = onlineUserService.findUserById(user.getId());
+        
+        /**
+         * 同步更新到微吼云信息
+         */
+        MessageService.saveUserInfo(newUser.getId(), 
+        		newUser.getName(), newUser.getSmallHeadPhoto());
+        
         if (token != null) {
             userCenterService.updateTokenInfo(newUser.getId(), token);
         }
@@ -357,6 +372,12 @@ public class XzUserSetController {
          * 如果用户信息发生改变。那么就改变token的信息，也就是redsei里面的信息
          */
         OnlineUser newUser = onlineUserService.findUserByLoginName(account.getLoginName());
+        /**
+         * 同步更新到微吼云信息
+         */
+        MessageService.saveUserInfo(newUser.getId(), 
+        		newUser.getName(), newUser.getSmallHeadPhoto());
+        
         request.getSession().setAttribute("_user_", newUser);
 
         return ResponseObject.newSuccessResponseObject(user);

@@ -356,8 +356,6 @@ public class AskAnswerDao extends SimpleHibernateDao {
      */
     public String deleteAnswerById(OnlineUser u, String answerId, String questionId, User user) {
 
-        //查看当前用户是管理员否,不为空是管理员，否则，普通用户
-
         String deleteSql = "";
         // 删除某条回答信息及次回答下的所有评论信息
         if (!StringUtils.hasText(questionId)) {

@@ -26,7 +26,7 @@ public class DocumentService {
             params.put("document_id", docId);
             String result = VhallUtil.formUpload("http://api.yun.vhall.com/api/v1/document/get-document-info",params);
             return JsonPath.read(result, "$.data.page");
-        } catch (NoSuchAlgorithmException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return 1;

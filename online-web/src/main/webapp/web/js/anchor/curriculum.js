@@ -1020,6 +1020,7 @@ function xmx(begin, first, filemd5, ccid, metaurl, chunkUrl) {
 				var fileName = obj_file.name.substring(0, obj_file.name.lastIndexOf("."));
 				$("#ziyuan_bottom .resource_uploading").hide();
 				$("#mask").addClass('hide')
+				$('#ziyuan_bottom .warning1').addClass('hide');
 				$("#ziyuan_bottom .uploadfinish").show();
 				$("#ziyuan_bottom .updataSuccess").show();
 				var title = $("#ziyuan_bottom .zhuanlan_title").val();
@@ -1027,6 +1028,7 @@ function xmx(begin, first, filemd5, ccid, metaurl, chunkUrl) {
 					$("#ziyuan_bottom .zhuanlan_title").val(fileName);
 				}
 				uploadfinished = true;
+
 				//alert('上传完成!');
 				//告诉后台上传完成后合并文件                            //返回上传文件的存放路径
 				$(".propress-file").css({

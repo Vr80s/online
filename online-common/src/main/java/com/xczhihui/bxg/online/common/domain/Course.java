@@ -338,7 +338,9 @@ public class Course extends BasicEntity2 implements Serializable {
     @Column(name = "play_back_type")
     private Integer playBackType;
 
-
+    @Column(name = "live_case")
+    private Integer liveCase;
+    
     @Transient
     private String playCode;
     @Transient
@@ -963,4 +965,14 @@ public class Course extends BasicEntity2 implements Serializable {
     public void setRecordId(String recordId) {
         this.recordId = recordId;
     }
+
+	public Integer getLiveCase() {
+		return liveCase;
+	}
+
+	public void setLiveCase(Integer liveCase) {
+		this.liveCase = liveCase;
+	}
+    
+    
 }

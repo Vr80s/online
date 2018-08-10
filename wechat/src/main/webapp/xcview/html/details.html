@@ -214,7 +214,7 @@ $(function(){
         margin: 0 auto;
     }
 
-.video_end_top2 .smallImgPath{
+	.video_end_top2 .smallImgPath{
         width: 100%;
         height: 100%;
         position: absolute;
@@ -233,6 +233,54 @@ $(function(){
         left: 0;
         z-index: -1;
     }
+
+	.video_end_top3 {
+	    position: absolute;
+	    text-align: center;
+	    width: 100%;
+	    height: 4.24rem;
+	    top: 0;
+	    margin-top: 0.88rem;
+	    z-index: 1;
+	    background: rgba(0,0,0,0.80);
+	    /* display: none; */
+	}
+    .video_end_top3 .initiation{
+        font-size: 0.28rem;
+        color: #fff;
+        background: #00BC12;
+        border-radius: 8px;
+        padding: 0.1rem;
+        width: 1.44rem;
+        margin: 0 auto;
+    }
+
+	.video_end_top3 .smallImgPath{
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+    }
+
+    .video_end_top3 .video_end{
+        width: 100%;
+        height: 100%;
+        background: #000;
+        opacity: 0.5;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+    }
+    .video_end_top3 p {
+	    color: #fff;
+	    font-size: 0.32rem;
+	    margin-top: 1.5rem;
+	    margin-bottom: 0.4rem;
+	    text-align: center;
+	}
 
 .mCustomScrollBox{
     height: 100%;
@@ -294,7 +342,7 @@ $(function(){
 /* 新加文档 */
 .pinch-zoom-container{
     min-height: 4rem !important;
-    background: red;
+    /*background: red;*/
 }
 .pinch-zoom-container-addclass{
     display: block !important;
@@ -313,6 +361,42 @@ $(function(){
 }
 /* 新加文档 */
 
+/*隐藏迁移后--视频读取失败后--错误提示*/
+.vjs-error-displayP{
+	display: none;
+}
+
+/*添加视频读取失败后的提示*/
+	.video_end_top4 {
+	    position: absolute;
+	    text-align: center;
+	    width: 100%;
+	    height: 4.24rem;
+	    top: 0;
+	    margin-top: 0.88rem;
+	    z-index: 1;
+	    background: rgba(0,0,0,0.80);
+	    /* display: none; */
+	}
+    .video_end_top4 .initiation{
+        font-size: 0.28rem;
+        color: #fff;
+        background: #00BC12;
+        border-radius: 8px;
+        padding: 0.1rem;
+        width: 1.44rem;
+        margin: 0 auto;
+    }
+    .video_end_top4 p {
+	    color: #fff;
+	    font-size: 0.32rem;
+	    margin-top: 1.5rem;
+	    margin-bottom: 0.4rem;
+	    text-align: center;
+	}
+	#face{
+		display: none !important;
+	}
 </style>
 </head>
 <body style="background: #f8f8f8;overflow: hidden1;">
@@ -355,8 +439,6 @@ $(function(){
         <div class="video" id="myVideo">
             
         </div>
-        
-        
         <!--即将开始提示-->
         <div class="video_end_top0" style="display: none;">
             <img src="" alt="" class="smallImgPath" />
@@ -365,12 +447,20 @@ $(function(){
         </div>
         <!--即将开始提示-->
 
-        <!--直播结束查看回放提示-->
-<!--        <div class="video_end_top1" style="display: none;">
-            <p>直播结束，点击查看回放</p>
-            <div class="initiation">点击刷新</div>
-        </div> -->
-        <!--直播结束查看回放提示-->
+        <!--添加视频读取失败后的提示-->
+        <div class="video_end_top4" style="display: none;">
+            <p>获取媒体数据过程中出错 </p>
+            <div class="initiation" onclick="location.reload()">点击刷新</div>
+        </div> 
+        <!--添加视频读取失败后的提示-->
+
+		<!-- 主播要离开一会提示开始-->
+		<div class="video_end_top3" style="display: none;">
+            <img src="" alt="" class="smallImgPath" />
+            <div class="video_end"></div>
+            <p>主播要离开一会儿，稍等片刻哦~</p>
+        </div>
+		<!-- 主播要离开一会提示结束-->
 
         <!--直播结束，正在生成回放提示-->
         <div class="video_end_top2" style="display: none;">
@@ -753,13 +843,12 @@ $(function(){
 <!--这段meta代码需要加上，移动端自适应缩放用-->
 <!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
 
-<!-- <script src="/xcview/weihoujs/vhallSDK.js"></script> -->
 <script src="/xcview/weihoujs/jquery.mCustomScrollbar.concat.min.js"></script>
 <script src="/xcview/weihoujs/underscore-min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/common.js"></script>
 
 
-<script type="text/javascript" src="/demo/js/giftSend2.js"></script>
+<script type="text/javascript" src="/xcview/js/im/vhallGiftSend.js"></script>
 <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-live-1.0.0.js?v=201806271657"></script>
 <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-doc-1.0.0.js?v=201806271657"></script>
 <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-chat-1.0.0.js?v=201801121522"></script>
@@ -768,19 +857,14 @@ $(function(){
 
 <!-- 部分点击事件 -->
 <script type="text/javascript" src="/xcview/js/details_change.js"></script>
-<script type="text/javascript" src="/demo/js/details.js"></script>
-<script src="/demo/js/vhallyun.js"></script>
+<script type="text/javascript" src="/xcview/js/details.js"></script>
+<script type="text/javascript" src="/xcview/js/vhallyun.js"></script>
 
 
 <script type="text/javascript">
     window.onload = function(){
     	$(".document_ceneter img").click();
     	
-        $(".video_end_top1 .div img").click(function(){
-            location.reload();
-            $(".video_end_top1").hide();
-        });
-
         $("body").scrollTop($("body").scrollHeight);
         $(".chatmsg-box").scrollTop($(".chatmsg-box")[0].scrollHeight);
         /* $(".mCSB_dragger").scrollTop($(".mCSB_dragger")[0].scrollHeight); */
@@ -841,7 +925,6 @@ $(function(){
         });
 
         $(".li4").click(function(){
-            /* alert(111111); */
         	// 课件获取高度
             $(".pinch-zoom-container").addClass("pinch-zoom-container-addclass");
             var school_height=$(window).height()-$(".details_cen1").height();
@@ -850,10 +933,7 @@ $(function(){
             $("#doc").addClass("img_doc");
         });
         
-        
-        
         $(".click_li_four").click(function(){
-            /* alert(111111); */
             // 课件获取高度
             $(".pinch-zoom-container").addClass("pinch-zoom-container-addclass");
         });
@@ -861,17 +941,12 @@ $(function(){
         $("#doc img").click(function(){
             // 课件获取高度  img_doc
             $("#doc").removeClass("img_doc");
-            // $(".course_nav").addClass("hide");
         });
     };
 </script>
 <script>
-    //      聊天区高度footer_k
-    //var school_heights=$(window).height();
-//alert(school_heights);
-        var school_height=$(window).height()-$(".header").height()-$(".footer_ks").height();
-        $(".chatmsg-box").height(school_height);
-         //alert(school_height);
+     var school_height=$(window).height()-$(".header").height()-$(".footer_ks").height();
+     $(".chatmsg-box").height(school_height);
 </script>
 </html>
 

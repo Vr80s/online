@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/createImg.css">
+    <title>熊猫中医</title>
+    <!--手机嵌入模板-->
+    <!-- <script type="text/javascript" src="/xcview/js/common/layout.js"></script> -->
+    <script>
+    //loading and calc root font-size
+            (function pageLoading () {
+                var _bg = "#ffffff";//背景
+                var _color = "#2b99ff";//加载动画颜色
+                //加载样式
+                var _style = "<style type=\"text/css\" id=\"pageLoadingStyle\">#pageLoading{position:fixed;top:0px;right:0px;bottom:0px;left:0px;z-index:99999;background:" + _bg + "}.loadingCenter{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack: center;-webkit-justify-content: center;-ms-flex-pack: center;justify-content: center;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;-webkit-box-sizing:border-box;box-sizing:border-box;height:100%;width:100%;text-align:center;}.spinner{margin:0px auto;width:35px;height:50px;text-align:center;font-size:10px}.spinner>div{background-color:" + _color + ";height:100%;width:4px;margin-right:3px;display:inline-block;float:left;-webkit-animation:stretchdelay 1.2s infinite ease-in-out;animation:stretchdelay 1.2s infinite ease-in-out}.spinner .rect2{-webkit-animation-delay:-1.1s;animation-delay:-1.1s}.spinner .rect3{-webkit-animation-delay:-1s;animation-delay:-1s}.spinner .rect4{-webkit-animation-delay:-.9s;animation-delay:-.9s}.spinner .rect5{-webkit-animation-delay:-.8s;animation-delay:-.8s}@-webkit-keyframes stretchdelay{0%,40%,to{-webkit-transform:scaleY(.4)}20%{-webkit-transform:scaleY(1)}}@keyframes stretchdelay{0%,40%,to{transform:scaleY(.4);-webkit-transform:scaleY(.4)}20%{transform:scaleY(1);-webkit-transform:scaleY(1)}}</style>";
+                //页面加载html
+                var _html = "<div id=\"pageLoading\"><div class=\"loadingCenter\"><div class=\"spinner\"><div class=\"rect1\"></div><div class=\"rect2\"></div><div class=\"rect3\"></div><div class=\"rect4\"></div><div class=\"rect5\"></div></div></div></div>";
+                document.write(_style);
+                document.write(_html);
+            })()
+            ;(function (doc, win) {
+                var minWidth = 320, designWidth = 750;
+                if ("undefined" != typeof defaultHtmlWidth && !isNaN(defaultHtmlWidth)) {
+                    designWidth = defaultHtmlWidth;
+                }
+                var docEle = doc.documentElement,
+                    evt = "onorientationchange" in window ? "orientationchange" : "resize",
+                    fn = function () {
+                        var width = docEle.clientWidth;
+                        width = width < minWidth ? minWidth : width;
+                        width = width > designWidth ? designWidth : width;
+                        if (designWidth > 0)
+                            docEle.style.fontSize = 100 * (width / designWidth) + "px";
+                        setTimeout(function () {
+                            document.getElementById("pageLoading").style.display = "none";
+                        }, 300);
+                    };
+                win.addEventListener(evt, fn, false);
+                win.addEventListener("resize", fn, false);
+                doc.addEventListener("DOMContentLoaded", fn, false);
+            }(document, window));
+        </script>
+        <style>
+            /* .imgBoxWrapper .avatar{
+                padding-top: 0.5rem;
+            } */
+            /* .avatar .p1{
+                width: 4.3rem;
+                margin: 0 auto;
+                font-size: 0.28rem;
+            } */
+            /*隱藏手紋路*/
+            .mask{
+                display: none;
+            }
+        </style>
+        <script>
+            // alert(333);
+        </script>
+</head>
+<body>
+    <div class="imgBox">
+        <header>
+            <div class="header">
+                <div class="header_return" onclick="window.history.go(-1);">
+                    <img src="/xcview/images/backicon.png">
+                </div>
+                <div class="invitation_card">邀请卡</div>
+            </div>
+        </header>
+        <div class="imgBoxWrapper imgBoxWrapperTop" style="displays: none !important;">
+            
+        </div>
+        <div class="imgBoxWrapper  active">
+            <div class="sub_imgBoxWrapper1 sub_imgBoxWrapper">
+                <div class="img_cont" style="background-image: url(img/slect1bg.png);background-size: 100% 100%;">
+                    <div class="logo"><img src="img/logo.png" alt=""></div>
+                    <div class="avatar"><img src="/imgProxy?imgURL=http://test-file.ipandatcm.com/18727081951/a4ed5d8369e62170.jpg" alt="头像" crossOrigin="anonymous" /><p class="p1">酸酸甜甜柠檬水</p></div>
+                    <div class="size">给你推荐了一个很棒的中医课程</div>
+                    <div class="mainIma1"><img src="img/0.jpg" alt=""></div>
+                    <div class="des">
+                        <div class="title">我是一个标题我是一个标题我是一个标题我是一个标题我是一个标题</div>
+                        <div class="site">面试地址：北京市市朝阳区潘家园街道华威里26号广西大厦6层面试地址：北京市市朝阳区潘家园街道华威里26号</div>
+                    </div>
+                    <img src="img/200.png" alt="二维码" class="QR_code" />
+                    <div class="QR_code_fize">快来跟我一起学中医吧</div>
+                </div>
+            </div>
+        </div> 
+        <div class="imgBoxWrapper imgBoxWrapper2">   <!--对于第二个图片的div样式 -->
+            <div class="img_cont" style="background-image: url(img/slect2bg.png);background-size: 100% 100%;">
+                <div class="logo"><img src="img/logo.png" alt=""></div>
+                <div class="both"></div>
+                <div class="size">亲爱的朋友：</div>
+                <div class="size">我发现了一个很棒的中医课程推荐给你</div>
+                <div class="avatar"><img src="img/slect2.png" alt="头像"><p class="p1">全世界是你的世界</p><p class="p2">给你推荐一堂好课</p></div>
+                <div class="mainIma1"><img src="img/0.jpg" alt="中间大图"></div>
+                <div class="des">
+                    <div class="title" >（二）专栏</div>
+                    <div class="text">啊啊啊啊啊啊啊啊  啊啊啊啊啊啊啊啊啊啊啊啊啊 啊。</div>
+                </div>
+                <div class="er"><img src="img/200.png" alt="二维码" ><p>长按识别课程</p></div>
+            </div>
+        </div>
+        <div class="imgBoxWrapper imgBoxWrapper3">   <!--对于第3个图片的div样式 -->
+            <div class="img_cont" style=" background-image: url(img/slect3bg.png);background-size: 100% 100%;">
+                <div class="avatar"><img src="img/slect3.png" alt="头像"><p class="p1">全世界是你的世界</p><p class="p2">给你推荐一堂好课</p></div>
+                <div class="mainIma1"><img src="img/0.jpg" alt="中间大图"></div>
+                <div class="des">
+                    <div class="title" >（三）的专栏</div>
+                    <div class="text">嗯可以的  啊啊啊啊啊啊啊啊啊啊啊啊啊 啊。</div>
+                </div>
+                <div class="er"><img src="img/200.png" alt="二维码"><p>长按识别课程</p></div>
+            </div>
+        </div>
+
+        <div class="imgBoxWrapper imgBoxWrapper4"  >   <!--对于第3个图片的div样式 -->
+            <div class="img_cont" style=" background-image: url(img/slect4bg.png);background-size: 100% 100%;">
+                <div class="avatar"><img src="img/slect3.png" alt="头像"><p class="p1">全世界是你的世界</p><p class="p2">给你推荐一堂好课</p></div>
+                <div class="mainIma1"><img src="img/0.jpg" alt="中间大图"></div>
+                <div class="des">
+                    <div class="title" >（三）的专栏</div>
+                    <div class="text">嗯可以的  啊啊啊啊啊啊啊啊啊啊啊啊啊 啊。</div>
+                </div>
+                <div class="er"><img src="img/200.png" alt="二维码"><p>长按识别课程</p></div>
+            </div>
+        </div
+       
+        
+    </div>
+    <div class="slectBox">
+        <ul class="content">
+            <li data-bgImg="li1_bg.png" class="content_one"><img src="img/slect1.png"></li>
+            <li data-bgImg="li4_bg.png" class="content_two"><img src="img/slect2.png"></li>
+            <li data-bgImg="li3_bg.png" class="content_three"><img src="img/slect3.png"></li>
+            <li data-bgImg="li4_bg.png" class="content_four"><img src="img/slect4.png"></li>
+        </ul>
+    </div>
+     <!-- <div class="tip">长按保存图片，或发送给朋友</div> -->
+     <div class="mask">
+            <div class="c">
+                <img src="img/finger.png" alt="指纹" >
+                <p>点击生成邀请卡</p>
+                <p>或发送给朋友</p>
+            </div>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.js"></script>
+    <script src="js/canvas2image.js"></script>
+    <script src="js/html2canvas.js"></script>
+    <script>
+     window.onload=function(){
+            var iscreated = true;  
+            var index;
+            var activeHtmltemp;
+            // 处理底部滚动
+            /*var scroll = new BScroll('.slectBox',{
+                scrollX: true,
+                click: true
+            });*/
+            $(".content li").click(function(){
+                if(iscreated){
+                    iscreated = false
+                    index = $(this).index()
+                    $('.imgBoxWrapper').eq(index + 1 ).addClass('active').siblings().removeClass("active")
+                    //此处清自行添加此处也可以加一个loading  加个延迟 避免用户感觉到页面重绘 提升用户体验 
+                    setTimeout(function(){
+                        $(".imgBoxWrapperTop").html("")
+                        $(".imgBoxWrapperTop").html( $('.imgBoxWrapper').eq(index + 1 ).find('.sub_imgBoxWrapper'))
+                        
+                    },0)
+                    setTimeout(function(){
+                        convert2canvas()    
+                    },400)
+                }
+            })
+            function convert2canvas() {
+                var shareContent = document.getElementsByClassName("imgBoxWrapperTop")[0];//需要截图的包裹的（原生的）DOM 对象
+                var width = shareContent.offsetWidth; //获取dom 宽度
+                var offsetTop = shareContent.offsetTop; 
+                var height = shareContent.offsetHeight + offsetTop; //获取dom 高度
+                var canvas = document.createElement("canvas"); //创建一个canvas节点
+                var scale = 2; //定义任意放大倍数 支持小数
+                canvas.width = width * scale; //定义canvas 宽度 * 缩放
+                canvas.height = height * scale; //定义canvas高度 *缩放
+                canvas.getContext("2d").scale(scale,scale); //获取context,设置scale 
+                var opts = {
+                    scale:scale, // 添加的scale 参数
+                    canvas:canvas, //自定义 canvas
+                    //logging: true, //日志开关
+                    width:width, //dom 原始宽度
+                    height:height //dom 原始高度
+                };
+                html2canvas(shareContent, opts).then(function (canvas) {
+                     var img = Canvas2Image.convertToImage(canvas, canvas.width, canvas.height); 
+                    $(".imgBoxWrapperTop").html("")     //生成的图片替换生成前的div内容
+                    $(".imgBoxWrapperTop").html(img);
+                    iscreated = true
+                });
+            }
+
+            $(".content_one").click(function(){
+                $(".content_one").css("border","2px solid #CD533E");
+                $(".content_two").css("border","2px solid #fff");
+                $(".content_three").css("border","2px solid #fff");
+                $(".content_four").css("border","2px solid #fff");
+            });
+
+            $(".content_two").click(function(){
+                $(".content_two").css("border","2px solid #CD533E");
+                $(".content_one").css("border","2px solid #fff");
+                $(".content_three").css("border","2px solid #fff");
+                $(".content_four").css("border","2px solid #fff");
+            });
+
+            $(".content_three").click(function(){
+                $(".content_three").css("border","2px solid #CD533E");
+                $(".content_two").css("border","2px solid #fff");
+                $(".content_one").css("border","2px solid #fff");
+                $(".content_four").css("border","2px solid #fff");
+            });
+
+            $(".content_four").click(function(){
+                $(".content_four").css("border","2px solid #CD533E");
+                $(".content_two").css("border","2px solid #fff");
+                $(".content_three").css("border","2px solid #fff");
+                $(".content_one").css("border","2px solid #fff");
+            });
+
+            $(".content_one").click();
+            // $(".content_two").click();
+
+
+        }
+    </script>
+    </script>
+</body>
+</html>

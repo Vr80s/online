@@ -9,8 +9,12 @@ function getProblemAnswer() {
     requestService("/xczh/common/getProblems",{
     },function(data) {
         if(data.success==true){
-            $(".help_main").html(template('help_main',{items:data.resultObject}));
-
+            if (isBlank(data.resultObject)) {
+                $(".help").hide();
+            }else{
+                $(".help").show();
+                $(".help_mains").html(template('help_main',{items:data.resultObject}));
+            };
         }else{
             alert(data.errorMessage);
         }
@@ -21,3 +25,4 @@ function getProblemAnswer() {
 function problem(id){
     window.location.href="problem.html?problemId="+id+"";
 }
+

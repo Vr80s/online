@@ -101,7 +101,8 @@
         oc.direct_id webinarId,
         oc.`is_teaching` teaching,
         oc.channel_id channelId,
-        oc.`multimedia_type` multimediaType
+        oc.`multimedia_type` multimediaType,
+        oc.id as courseId
         FROM
         `course_apply_info` cai
         JOIN `oe_course` oc

@@ -996,12 +996,12 @@ function courseLiveList(current){
  * @author name：yuxin <br>email: yuruixin@ixincheng.com
  * @Date: 2018/2/3 0003 下午 8:46
  **/
-function startLive(roomId, channelId) {
+function startLive(courseId, channelId) {
     if (!channelId) {
         alert("该直播为老的直播数据，请重新创建直播");
         return false;
     } else {
-        location.href = "/courses/liveRoom?channelId=" + channelId + "&roomId=" + roomId;
+        location.href = "/courses/liveRoom?courseId=" + courseId;
     }
 }
 
