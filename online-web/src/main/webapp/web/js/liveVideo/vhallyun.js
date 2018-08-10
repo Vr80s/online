@@ -55,7 +55,6 @@ $("#filter-msg").on("click", function() {//只看主办方消息
 if(liveStatus == 1 || liveStatus == 3){
     //初始化 微吼云播放器 
     elsBind();
-    
     //初始化消息
     msgList(0,10);
 }  
@@ -167,7 +166,7 @@ function elsBind(){
 				}
                 if (e != "") {
 					$("#chatmsg").append(e);
-					$("#mywords").val();
+					$("#mywords").val("");
 				}
              }catch(error){
                console.error(error);

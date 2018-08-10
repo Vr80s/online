@@ -37,10 +37,19 @@ $(".video_end_top1 .div img").click(function(){
 if (lineState == 1 || lineState == 3) {
     // 初始化 微吼云播放器
     elsBind();
-    // 初始化消息
+    
+}
+
+if(lineState == 1 || lineState == 3 || lineState == 4){
+	initChat();
+	// 初始化消息
     msgList(0, 10);
 }
 
+
+/**
+ * 初始化视频播放器、文档
+ */
 function elsBind() {
     window.doc = {};
 
@@ -72,17 +81,24 @@ function elsBind() {
         appId: vhallObj.appId, // 应用 ID ,必填
         accountId: vhallObj.accountId, // 第三方用户唯一标识,必填
         token: vhallObj.token
-            // token必填
+        // token必填
     });
 
-    setTimeout(function () {
 
+}
+
+/**
+ * 初始化消息
+ */
+function initChat(){
+
+	
+	 setTimeout(function () {
     	try{
-    	
-    		    var md = document.getElementsByTagName("video")[0];
-		        md.addEventListener("ended", function () {
-		            console.log("播放结束了");
-		            
+		    var md = document.getElementsByTagName("video")[0];
+		    if(md){
+		    	md.addEventListener("ended", function () {
+	            	console.log("播放结束了");
 		        });
 		        md.addEventListener("progress", function () {
 		            //console.log("浏览器正在获取媒体数据");
@@ -95,7 +111,8 @@ function elsBind() {
 		        	$(".video_end_top4").show();
 		            console.log("获取媒体数据过程中出错");
 		        });
-    		
+		    }
+	       
     	}catch(error){
     	  console.log(error);
     	}
@@ -178,11 +195,12 @@ function elsBind() {
             appId: vhallObj.appId, // 应用 ID ,必填
             accountId: vhallObj.accountId, // 第三方用户唯一标识,必填
             token: vhallObj.token
-                // token必填
+            // token必填
         });
     }, 1000);
-
-    /**
+    
+    
+     /**
      * 发送聊天消息
      */
     $("#sendChat").click(function () {
@@ -211,7 +229,9 @@ function elsBind() {
             });
         }
     });
+    
 }
+
 
 /**
  * 获取消息列表
