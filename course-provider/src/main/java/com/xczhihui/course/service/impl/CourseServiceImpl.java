@@ -350,7 +350,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
                 userId);
         Map<String, Object> map1 = new HashMap<String, Object>();
         map1.put("text", "跟师直播");
-        map1.put("code", CourseType.APPRENTICE.getId());
+        map1.put("code", 5);
         map1.put("courseList", records);
         alllist.add(map1);
 
