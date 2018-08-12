@@ -67,22 +67,28 @@ $(function () {
             window.chat.join(function (msg) {
                 console.log(msg);
                 console.log("进入直播间");
-                if (!loadAnchorIn || msg.third_party_user_id != accountId) {
-                    if (msg.third_party_user_id == accountId) {
+                var userId = msg.third_party_user_id;
+                if (!loadAnchorIn || userId != accountId) {
+                    if (userId == accountId) {
                         loadAnchorIn = true;
                     }
                     viewJoinleaveRoomInfo(msg, "join");
+                    appendStudent(userId, msg.avatar, msg.nick_name);
+                    updateStudentLiveStatus(userId, 1);
                 }
                 //TODO 判断是否被禁言
             });
             window.chat.leave(function (msg) {
                 console.log(msg);
                 console.log("离开直播间");
-                if (!loadAnchorOut || msg.third_party_user_id != accountId) {
-                    if (msg.third_party_user_id == accountId) {
+                var userId = msg.third_party_user_id;
+                if (!loadAnchorOut || userId != accountId) {
+                    if (userId == accountId) {
                         loadAnchorOut = true;
                     }
                     viewJoinleaveRoomInfo(msg, "leave");
+                    removeStudent(userId);
+                    updateStudentLiveStatus(userId, 0);
                 }
             });
         });
@@ -232,7 +238,7 @@ $(function () {
             success: function (resp) {
                 if (resp.resultObject && resp.resultObject.data) {
                     var result = resp.resultObject.data;
-                    for (var i = result.length - 1; i >= 0; i--) {
+                    for (var i = 0; i < result.length; i++) {
                         try {
                             renderMsg(JSON.parse(JSON.parse(result[i].data)));
                         } catch (e) {
@@ -257,35 +263,73 @@ $(function () {
     function renderStudentList() {
         $.ajax({
             method: 'GET',
-            url: '/vhallyun/roommJoinStudent',
-            data: {'roomId': roomId, 'channelId': channelId, "anchorId": accountId},
+            url: '/vhallyun/roomJoinStudent',
+            data: {'channelId': channelId},
             success: function (resp) {
                 var data = resp.resultObject;
                 for (var i = 0; i < data.length; i++) {
-                    console.log(data[i]);
+                    appendStudent(data[i].id, data[i].smallHeadPhoto, data[i].name);
                 }
-                // $('.student-list').append('<li>\n' +
-                //     '                            <div class="head-portrait z">\n' +
-                //     '                                <img src="' + msg.avatar + '" alt="头像"/>\n' +
-                //     '                            </div>\n' +
-                //     '                            <span class="student-name z">我是超人</span>\n' +
-                //     '                        </li>')
             }
         });
     }
 
-    // renderStudentList();
+    function updateStudentLiveStatus(userId, status) {
+        $.ajax({
+            method: "POST",
+            url: '/vhallyun/online/status',
+            async: false,
+            data: {
+                channelId: channelId,
+                userId: userId,
+                status: status
+            },
+            success: function(resp) {
+            }
+        });
+    }
+
+    function appendStudent(userId, avatar, nickname) {
+        if (userId != accountId) {
+            if ($('.user-id-'+userId).length === 0) {
+                $.ajax({
+                    method: "GET",
+                    url: '/vhallyun/banStatus',
+                    data: {
+                        channelId: channelId,
+                        accountId: userId
+                    },
+                    success: function(resp) {
+                        removeStudent(userId);
+                        var ban = resp.resultObject;
+                        $('.student-list').append('<li>\n' +
+                            '                            <div class="head-portrait z ' + ' user-id-' + userId +'"' + ' data-id="' + userId + '">\n' +
+                            '                                <img src="' + avatar + '" alt="头像"/>\n' +
+                            '                            </div>\n' +
+                            '                            <span class="student-name z">' + nickname + '</span>\n' +
+                            ' <span class="select-ban y">' +
+                            (ban ? '<img src="/web/images/live-room/say-ban.png"/>' : '                                <img src="/web/images/live-room/say-icon.png" alt="选择禁言" title="禁言"/>\n' )+
+                            '                            </span>' +
+                            '                        </li>');
+                    }
+                });
+
+            }
+        }
+    }
+
+    function removeStudent(userId) {
+        console.log("remove userId: " + userId);
+        $('.user-id-' + userId).parent().remove();
+    }
+
+    renderStudentList();
 
     function setBanStatus(accountId, status) {
         $.ajax({
             method: 'POST',
             url: 'ban/' + channelId + '/' + accountId + '/' + status,
             success: function (resp) {
-                if (status === 1) {//禁言
-                    //TODO
-                } else {
-                    //TODO
-                }
             }
         })
     }
@@ -655,12 +699,14 @@ $(function () {
     });
 
 //选择禁言
-    $(".student-list .select-ban").click(function () {
+    $(".student-list").on('click', '.select-ban', function () {
         var that = $(this).find("img");
+        var userId = $(this).parent().find('.head-portrait').data('id');
         if (that.attr("src") == "/web/images/live-room/say-icon.png") {
-            // setBanStatus()
+            setBanStatus(userId, 1);
             that.attr({"src": "/web/images/live-room/say-ban.png", "title": "取消禁言"});
         } else {
+            setBanStatus(userId, 0);
             that.attr({"src": "/web/images/live-room/say-icon.png", "title": "禁言"});
         }
     });

@@ -1,5 +1,9 @@
 package com.xczhihui.user.center.mapper;
 
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -26,4 +30,13 @@ public interface OeUserMapper extends BaseMapper<OeUser> {
 
     @Select("SELECT * FROM `oe_user` where login_name = #{loginName}")
     OeUserVO getUserVOByLoginName(String loginName);
+
+    @Select({"<script> select id, name, small_head_photo as smallHeadPhoto" +
+            " from oe_user " +
+            " where id in " +
+            " <foreach item=\"id\" collection=\"ids\" separator=\",\" open=\"(\" close=\")\">\n" +
+            "        #{id}\n" +
+            "    </foreach>" +
+            " </script>"})
+    List<Map<String, String>> findByIds(@Param("ids") Set<String> ids);
 }
