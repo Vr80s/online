@@ -86,7 +86,7 @@ public class VhallyunController extends AbstractController {
         String userId = getUserId();
         Attachment attachment = attachmentCenterService.addAttachment(
                 userId, AttachmentType.KCENTER,
-                file.getOriginalFilename(),
+                file.getOriginalFilename().replace(" ", "-"),
                 file.getBytes(), file.getContentType());
         String documentId = DocumentService.create(attachment.getUrl());
         if (StringUtils.isNotBlank(documentId)) {
