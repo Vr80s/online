@@ -1,11 +1,10 @@
 package com.xczhihui.bxg.online.common.domain;
 
-import java.io.Serializable;
-import java.util.Date;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-
-import org.hibernate.annotations.Type;
+import java.io.Serializable;
+import java.util.Date;
 
 
 /**
@@ -98,6 +97,11 @@ public class MedicalDoctor implements Serializable {
     private String department;
     @Transient
     private String hospital;
+    /**
+     * 医师类型名
+     */
+    @Transient
+    private String typeName;
     @Transient
     private String loginName;
 
@@ -354,4 +358,11 @@ public class MedicalDoctor implements Serializable {
         this.sortUpdateTime = sortUpdateTime;
     }
 
+    public String getTypeName() {
+        return typeName;
+    }
+
+    public void setTypeName(String typeName) {
+        this.typeName = typeName;
+    }
 }

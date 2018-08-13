@@ -539,14 +539,20 @@
 			                    </td>
 			                    <td>
 			                       <div class="profile-info-value searchTr">
-			                            <select name="search_type" id="search_type" value="" class="propertyValue1" >
+			                            <%--<select name="search_type" id="search_type" value="" class="propertyValue1" >
 											<option value ="">所有中医</option>
 											<option value ="1">名青年中医</option>
 											<option value ="2">名老中医</option>
 											<option value="3">少数民族中医</option>
 											<option value="4">国医大师</option>
 											<option value="5">家传中医</option>
-						               </select>
+						               </select>--%>
+									   <select name="courseTypeId" id="search_scoreType_M" value="" class="propertyValue1" >
+										   <option value="">医师类别</option>
+										   <c:forEach var="doctorType" items="${doctorTypes}">
+											   <option value="${doctorType.id}">${doctorType.title}</option>
+										   </c:forEach>
+									   </select>
 			                            <input type="hidden" value="search_type" class="propertyName"/>
 			                        </div>
 			                    </td>
@@ -696,12 +702,18 @@
 		<div class="form-group"  style="margin-top: 18px;">
 			<label class="col-sm-3 control-label no-padding-right">医师类别: </label>
 			<div class="col-sm-6" >
-				<select name="type">
+				<%--<select name="type">
 					<option value ="1">名青年中医</option>
 					<option value ="2">名老中医</option>
 					<option value="3">少数民族中医</option>
 					<option value="4">国医大师</option>
 					<option value="5">家传中医</option>
+				</select>--%>
+				<select name="type"  value="" >
+					<option value="">医师类别</option>
+					<c:forEach var="doctorType" items="${doctorTypes}">
+						<option value="${doctorType.id}">${doctorType.title}</option>
+					</c:forEach>
 				</select>
 			</div>
 		</div>
@@ -835,13 +847,19 @@
 		<div class="form-group"  style="margin-top: 18px;" >
 			<label class="col-sm-3 control-label no-padding-right">医师类别: </label>
 			<div class="col-sm-6" >
-				<select name="type" id="edit_type">
+				<%--<select name="type" id="edit_type">
 					<option value ="0">请选择医师类型</option>
 					<option value ="1">名青年中医</option>
 					<option value ="2">名老中医</option>
 					<option value="3">少数民族中医</option>
 					<option value="4">国医大师</option>
 					<option value="5">家传中医</option>
+				</select>--%>
+				<select name="type" id="edit_type" value="" class="propertyValue1" >
+					<option value="">医师类别</option>
+					<c:forEach var="doctorType" items="${doctorTypes}">
+						<option value="${doctorType.id}">${doctorType.title}</option>
+					</c:forEach>
 				</select>
 			</div>
 		</div>
