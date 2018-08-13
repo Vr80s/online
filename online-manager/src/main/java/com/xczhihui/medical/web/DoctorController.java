@@ -1,11 +1,22 @@
 package com.xczhihui.medical.web;
 
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
+import com.xczhihui.bxg.online.common.domain.DoctorType;
+import com.xczhihui.bxg.online.common.domain.MedicalDoctor;
+import com.xczhihui.bxg.online.common.domain.MedicalDoctorAuthenticationInformation;
+import com.xczhihui.bxg.online.common.domain.MedicalHospital;
+import com.xczhihui.common.util.XzStringUtils;
+import com.xczhihui.common.util.bean.Page;
+import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.common.web.controller.AbstractController;
+import com.xczhihui.course.service.DoctorTypeService;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorSolrService;
+import com.xczhihui.medical.enums.MedicalExceptionEnum;
+import com.xczhihui.medical.exception.MedicalException;
+import com.xczhihui.medical.service.DoctorService;
+import com.xczhihui.utils.Group;
+import com.xczhihui.utils.Groups;
+import com.xczhihui.utils.TableVo;
+import com.xczhihui.utils.Tools;
 import org.apache.commons.lang.StringUtils;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,22 +27,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.xczhihui.bxg.online.common.domain.MedicalDoctor;
-import com.xczhihui.bxg.online.common.domain.MedicalDoctorAuthenticationInformation;
-import com.xczhihui.bxg.online.common.domain.MedicalHospital;
-import com.xczhihui.common.util.XzStringUtils;
-import com.xczhihui.common.util.bean.Page;
-import com.xczhihui.common.util.bean.ResponseObject;
-import com.xczhihui.common.web.controller.AbstractController;
-import com.xczhihui.medical.doctor.service.IMedicalDoctorSolrService;
-import com.xczhihui.medical.doctor.vo.MedicalDoctorSolrVO;
-import com.xczhihui.medical.enums.MedicalExceptionEnum;
-import com.xczhihui.medical.exception.MedicalException;
-import com.xczhihui.medical.service.DoctorService;
-import com.xczhihui.utils.Group;
-import com.xczhihui.utils.Groups;
-import com.xczhihui.utils.TableVo;
-import com.xczhihui.utils.Tools;
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 
 /**
  * 医师管理控制层实现类
@@ -47,12 +46,17 @@ public class DoctorController extends AbstractController {
     private DoctorService doctorService;
     @Autowired
     private IMedicalDoctorSolrService medicalDoctorSolrService;
+    @Autowired
+    private DoctorTypeService doctorTypeService;
  
     @Value("${web.url}")
     private String weburl;
 
     @RequestMapping(value = "index")
     public String index(HttpServletRequest request) {
+        List<DoctorType> doctorTypes = doctorTypeService.getDoctorTypeList();
+        request.setAttribute("doctorTypes", doctorTypes);
+
         return CLOUD_CLASS_PATH_PREFIX + "/doctor";
     }
 

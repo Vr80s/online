@@ -39,8 +39,7 @@ $(function(){
     	if(row.province==null)row.province=""
     	if(row.city==null)row.city=""
     	return row.province+"-"+row.city;
-    }}, { "title": "医师类别", "class":"center","width":"8%","sortable":false,"data": 'type','mRender':function(data){
-    	return doctorType(data);}},
+    }}, { "title": "医师类别", "class":"center","width":"8%","sortable":false,"data": 'typeName'},
 	{ "title": "创建日期", "class":"center","width":"8%","sortable":false,"data": 'createTime','mRender':function(data){
                 return getLocalTime(data);}
             },
@@ -151,8 +150,7 @@ $(function(){
         { "title": "所在地", "class":"center","width":"8%", "sortable":false,"data": 'detailedAddress',"visible":true,"mRender":function (data, display, row) {
 
             return row.province+"-"+row.city;
-        }}, { "title": "医师类别", "class":"center","width":"8%","sortable":false,"data": 'type','mRender':function(data){
-            return doctorType(data);}},
+        }}, { "title": "医师类别", "class":"center","width":"8%","sortable":false,"data": 'typeName'},
         // { "title": "创建日期", "class":"center","width":"8%","sortable":false,"data": 'createTime','mRender':function(data){
         //     return getLocalTime(data);}
         // },

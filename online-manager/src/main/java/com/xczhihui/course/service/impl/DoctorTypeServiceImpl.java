@@ -1,13 +1,16 @@
 package com.xczhihui.course.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.DoctorType;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.course.dao.DoctorTypeDao;
 import com.xczhihui.course.service.DoctorTypeService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 题库service实现类
@@ -112,6 +115,13 @@ public class DoctorTypeServiceImpl extends OnlineBaseServiceImpl implements
         DoctorType doctorPre = dao.findByHQLOne(hqlPre, new Object[]{title});
 		return doctorPre;
 	}
+
+    @Override
+    public List<DoctorType> getDoctorTypeList() {
+        Map<String, Object> params = new HashMap<String, Object>();
+        String sql = "SELECT id,title FROM doctor_type where is_delete = 0  and status=1 order by sort";
+        return dao.findEntitiesByJdbc(DoctorType.class, sql, params);
+    }
 
 
 }

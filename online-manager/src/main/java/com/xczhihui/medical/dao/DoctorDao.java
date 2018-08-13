@@ -1,15 +1,14 @@
 package com.xczhihui.medical.dao;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import com.xczhihui.bxg.online.common.domain.MedicalDoctor;
+import com.xczhihui.common.dao.HibernateDao;
+import com.xczhihui.common.util.bean.Page;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
-import com.xczhihui.bxg.online.common.domain.MedicalDoctor;
-import com.xczhihui.common.dao.HibernateDao;
-import com.xczhihui.common.util.bean.Page;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 医师管理DAO
@@ -21,16 +20,19 @@ public class DoctorDao extends HibernateDao<MedicalDoctor> {
     public Page<MedicalDoctor> findMedicalDoctorPage(
             MedicalDoctor medicalDoctor, int pageNumber, int pageSize) {
         Map<String, Object> paramMap = new HashMap<String, Object>();
-        StringBuilder sql = new StringBuilder("SELECT m.*, mh.`name` hospital,dpn.name as department" +
+        StringBuilder sql = new StringBuilder("SELECT m.*, mh.`name` hospital,dpn.name as department,dt.title as typeName " +
                 " FROM" +
                 " medical_doctor m " +
+                " LEFT JOIN doctor_type dt" +
+                " ON dt.`id`=m.`type` " +
                 " LEFT JOIN (select *  from `medical_hospital_doctor` where deleted = '0' ) mhd" +
                 " ON mhd.`doctor_id`=m.`id`" +
                 " LEFT JOIN `medical_hospital` mh" +
                 " ON mhd.`hospital_id`=mh.`id`" +
                 " LEFT JOIN (select  GROUP_CONCAT(md.`name`) as name, mdd.`doctor_id`  from `medical_doctor_department` mdd " +
                 " LEFT JOIN `medical_department` md " +
-                " ON mdd.`department_id` = md.id  where  (mdd.deleted is null OR mdd.deleted = false)" +
+                " ON mdd.`department_id` = md.id  " +
+                "where  (mdd.deleted is null OR mdd.deleted = false)" +
                 " group by mdd.`doctor_id`) dpn on m.`id` = dpn.doctor_id " +
                 " WHERE m.deleted = 0");
         if (medicalDoctor.getName() != null) {
