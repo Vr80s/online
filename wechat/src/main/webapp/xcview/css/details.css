@@ -359,7 +359,7 @@ i {
 
 /*排行版无排名时图片*/
 .no_git_pic{
-	    width: 1.5rem;
+	width: 1.6rem;
     height: 2.59rem;
     background: url(../images/no_git.png) no-repeat center;
     background-size: 100% 100%;
@@ -371,3 +371,27 @@ i {
 #mCSB_1_scrollbar_vertical{
 	opacity: 0;
 }
+
+/*無文檔*/
+.untitled_document{
+	width: 7.5rem;
+    /*background: #fff;*/
+    display: none;
+    margin: 0 auto;
+    display: none;
+    /*display: block !important;*/
+}
+.untitled_document .no_git{
+
+}
+.untitled_document .no_git .no_git_pic {
+    width: 1.6rem;
+    height: 2.41rem;
+    background: url(../images/no_class.png) no-repeat center;
+    background-size: 100% 100%;
+    margin: 4.5rem auto 0;
+}
+
+
+
+
