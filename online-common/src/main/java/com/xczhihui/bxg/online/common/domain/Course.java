@@ -228,6 +228,9 @@ public class Course extends BasicEntity2 implements Serializable {
     private String channelId;
     @Column(name = "record_id")
     private String recordId;
+
+    @Column(name = "is_record")
+    private Boolean record;
     /**
      * 外部链接
      */
@@ -375,6 +378,14 @@ public class Course extends BasicEntity2 implements Serializable {
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
+    }
+
+    public Boolean getRecord() {
+        return record;
+    }
+
+    public void setRecord(Boolean record) {
+        this.record = record;
     }
 
     public String getCourseMenu() {

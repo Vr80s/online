@@ -478,6 +478,9 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
             courseService.addCourseCity(course.getCity());
         } else if (course.getType() == CourseForm.LIVE.getCode()) {
             course.setStartTime(courseApply.getStartTime());
+            if (course.getRecord() == null) {
+                course.setRecord(true);
+            }
             if(course.getMultimediaType()==Multimedia.VIDEO.getCode()){
                 if (StringUtils.isBlank(course.getDirectId())) {
                     course.setDirectId(RoomService.create());
