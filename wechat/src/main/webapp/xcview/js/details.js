@@ -9,6 +9,7 @@ if (!is_weixin()) {
 h5PcConversions(true, course_id);
 
 
+
 /**
  * 视频id
  */
@@ -28,6 +29,7 @@ requestService("/xczh/course/liveDetails", {
     },
     function (data) {
         if (data.success) {
+        	
             // 修改title
             document.setTitle = function (t) {
                 document.title = t;
@@ -54,7 +56,9 @@ requestService("/xczh/course/liveDetails", {
             vhallObj.roomId = result.directId;
             vhallObj.channelId = result.channelId;
             vhallObj.recordId = result.recordId;
-
+            vhallObj.token =result.vhallYunToken;
+            
+            
             watchState = result.watchState;
             teacherId = result.userLecturerId; // 讲师Id
             teacherName = result.heir; // 上传人
@@ -128,9 +132,6 @@ requestService("/xczh/course/liveDetails", {
             if (playBackType == 0) {
                 $(".history_span").text("即将直播");
             }
-
-            lineState = result.lineState;
-
 
             /**
              * 直播状态1.直播中，2预告，3直播结束 4 即将直播
@@ -359,188 +360,4 @@ $(".add_follow").click(function () {
  */
 function userIndex() {
     location.href = "/xcview/html/live_personal.html?userLecturerId=" + teacherId;
-}
-
-
-// 微博分享  title :'中医好课程' + '《' + gradeName + '》',/*分享标题(可选)*/
-document.getElementById('qqShare0').onclick = function (e) {
-    var p = {
-        url: getServerHost() + "/wx_share.html?courseId=" + course_id,
-        /* 获取URL，可加上来自分享到QQ标识，方便统计 */
-        title: '中医好主播' + '《' + result.gradeName + '》',
-        /* 分享标题(可选) */
-        pic: result.smallImgPath
-            /* 分享图片(可选) */
-    };
-    var s = [];
-    for (var i in p) {
-        s.push(i + '=' + encodeURIComponent(p[i] || ''));
-    }
-    var _src = "http://service.weibo.com/share/share.php?" + s.join('&');
-    window.open(_src);
-};
-
-// qq分享
-document.getElementById('qqShare').onclick = function (e) {
-    var p = {
-        url: getServerHost() + "/wx_share.html?courseId=" + course_id,
-        /* 获取URL，可加上来自分享到QQ标识，方便统计 */
-        desc: '中医传承',
-        /* 分享理由(风格应模拟用户对话),支持多分享语随机展现（使用|分隔） */
-
-        title: '中医好主播' + '《' + result.gradeName + '》',
-        /* 分享标题(可选) */
-        summary: result.description.stripHTML(),
-        /* 分享描述(可选) */
-        pics: result.smallImgPath
-            /* 分享图片(可选) */
-    };
-    var s = [];
-    for (var i in p) {
-        s.push(i + '=' + encodeURIComponent(p[i] || ''));
-    }
-    var _src = "http://connect.qq.com/widget/shareqq/index.html?" + s.join('&');
-    window.open(_src);
-};
-
-// qq空间分享
-/*document.getElementById('qqShare1212').onclick = function(e) {
-	var p = {
-		url : getServerHost() + "/wx_share.html?courseId=" + course_id, 获取URL，可加上来自分享到QQ标识，方便统计 
-		desc : '中医传承',  分享理由(风格应模拟用户对话),支持多分享语随机展现（使用|分隔） 
-		title : result.gradeName, 分享标题(可选) 
-		summary : result.description.stripHTML(), 分享描述(可选) 
-		pics : result.smallImgPath
-	 分享图片(可选) 
-	};
-	var s = [];
-	for ( var i in p) {
-		s.push(i + '=' + encodeURIComponent(p[i] || ''));
-	}
-	var _src = "https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?"
-			+ s.join('&');
-	window.open(_src);
-};*/
-/** ************** 微信分享 ************************ */
-/*
- * 注意： 1. 所有的JS接口只能在公众号绑定的域名下调用，公众号开发者需要先登录微信公众平台进入“公众号设置”的“功能设置”里填写“JS接口安全域名”。
- * 2. 如果发现在 Android 不能分享自定义内容，请到官网下载最新的包覆盖安装，Android 自定义分享接口需升级至 6.0.2.58 版本及以上。
- * 3. 完整 JS-SDK
- * 文档地址：http://mp.weixin.qq.com/wiki/7/aaa137b55fb2e0456bf8dd9148dd613f.html
- *
- * 如有问题请通过以下渠道反馈： 邮箱地址：weixin-open@qq.com 邮件主题：【微信JS-SDK反馈】具体问题
- * 邮件内容说明：用简明的语言描述问题所在，并交代清楚遇到该问题的场景，可附上截屏图片，微信团队会尽快处理你的反馈。
- */
-/*
- * 如果是微信浏览器的话在进行加载这部分函数
- */
-if (is_weixin()) {
-    var ccontrollerAddress = "/xczh/wechatJssdk/certificationSign";
-    var urlparm = {
-        url: window.location.href
-    }
-    var signObj = "";
-    requestService(ccontrollerAddress, urlparm, function (data) {
-        if (data.success) {
-            signObj = data.resultObject;
-            console.log(JSON.stringify(signObj));
-        }
-    }, false)
-
-    wx.config({
-        debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-        appId: signObj.appId, // 必填，企业号的唯一标识，此处填写企业号corpid
-        timestamp: signObj.timestamp, // 必填，生成签名的时间戳
-        nonceStr: signObj.noncestr, // 必填，生成签名的随机串
-        signature: signObj.sign, // 必填，签名，见附录1
-        jsApiList: ['checkJsApi', 'onMenuShareTimeline',
-                'onMenuShareAppMessage', 'onMenuShareQQ', 'onMenuShareWeibo',
-                'onMenuShareQZone', 'hideMenuItems', 'showMenuItems'
-            ]
-            // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-    });
-    var domain = window.location.protocol + "//" + document.domain;
-
-    wx.ready(function () {
-
-        /*		console.log(result.gradeName);
-		console.log(result.description.stripHTML());
-		console.log(result.smallImgPath);
-		*/
-        // 发送到朋友
-        wx.onMenuShareAppMessage({
-            title: '中医好课程：' + result.gradeName, // 分享标题
-            desc: isNotBlank(result.description) ? result.description.stripHTML() : "", // 分享描述
-            link: domain + "/wx_share.html?shareType=1&shareId=" + course_id, // 分享链接
-            imgUrl: result.smallImgPath, // 分享图标
-            type: '', // 分享类型,music、video或link，不填默认为link
-            dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
-            success: function () {
-                    // 用户确认分享后执行的回调函数
-                    $(".weixin_ceng").hide();
-                    $(".share").hide();
-                },
-                cancel: function () {
-                    // 用户取消分享后执行的回调函数
-                    $(".weixin_ceng").hide();
-                    $(".share").hide();
-                }
-        });
-        // 发送到朋友圈
-        wx.onMenuShareTimeline({
-            title: '中医好课程：' + result.gradeName, // 分享标题
-            link: domain + "/wx_share.html?shareType=1&shareId=" + course_id, // 分享链接
-            imgUrl: result.smallImgPath, // 分享图标
-            success: function () {
-                    // 用户确认分享后执行的回调函数
-                    $(".weixin_ceng").hide();
-                    $(".share").hide();
-
-                },
-                cancel: function () {
-                    // 用户取消分享后执行的回调函数
-                    // alert("取消分享");
-                    $(".weixin_ceng").hide();
-                    $(".share").hide();
-                }
-        });
-        // 发送到qq
-        wx.onMenuShareQQ({
-            title: '中医好课程：' + result.gradeName, // 分享标题
-            desc: isNotBlank(result.description) ? result.description.stripHTML() : "", // 分享描述
-            link: domain + "/wx_share.html?shareType=1&shareId=" + course_id, // 分享链接
-            imgUrl: result.smallImgPath, // 分享图标
-            success: function () {
-                    // 用户确认分享后执行的回调函数
-                    $(".weixin_ceng").hide();
-                    $(".share").hide();
-                    // alert("分享成功");
-                },
-                cancel: function () {
-                    // 用户取消分享后执行的回调函数
-                    // /alert("取消分享");
-                    $(".weixin_ceng").hide();
-                    $(".share").hide();
-                }
-        });
-        //qq空间	
-        wx.onMenuShareQZone({
-            title: '中医好课程：' + result.gradeName, // 分享标题
-            desc: isNotBlank(result.description) ? result.description.stripHTML() : "", // 分享描述
-            link: domain + "/wx_share.html?shareType=1&shareId=" + course_id, // 分享链接
-            imgUrl: result.smallImgPath, // 分享图标
-            success: function () {
-                    // 用户确认分享后执行的回调函数
-                    $(".weixin_ceng").hide();
-                    $(".share").hide();
-                    //alert("分享成功");
-                },
-                cancel: function () {
-                    // 用户取消分享后执行的回调函数
-                    ///alert("取消分享");
-                    $(".weixin_ceng").hide();
-                    $(".share").hide();
-                }
-        });
-    })
 }

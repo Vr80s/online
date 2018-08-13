@@ -354,85 +354,28 @@ function() {
 
 	// 点击视频上部隐藏发送，展示礼物
 	$(".details_cen1").click(function() {
-
-		// 隐藏表情
-		/* $(".give_a01").hide(); */
-
-		// 改变input宽度值
-		/* $(".textarea02").css("width","11.9rem"); */
-
-		// 让input靠左
 		$(".poson").css("right", "0");
-
-		// 显示打赏
-		/* $(".give_a1_span02").show(); */
-
-		// 显示礼物
-		/* $(".give_a1_img").show(); */
 	});
 
 	// 点击视频上部隐藏发送，展示礼物 vhall-h5-player
 	$("#video").click(function() {
 
-		// 隐藏表情
-		/* $(".give_a01").hide(); */
-
-		// 改变input宽度值
-		/* $(".textarea02").css("width","11.9rem"); */
-
 		/* 底部为0 */
 		$(".coze_bottom").css("bottom", "0");
 
 		// 让input靠左
 		$(".poson").css("right", "0");
-
-		// 显示打赏
-		/* $(".give_a1_span02").show(); */
-
-		// 显示礼物
-		/* $(".give_a1_img").show(); */
 	});
 
 	$("#video video").click(function() {
-
-		// 隐藏表情
-		/* $(".give_a01").hide(); */
-
-		// 改变input宽度值
-		/* $(".textarea02").css("width","11.9rem"); */
-
 		/* 底部为0 */
 		$(".coze_bottom").css("bottom", "0");
-
-		// 让input靠左
-		// $(".poson").css("right","0");
-
-		// 显示打赏
-		/* $(".give_a1_span02").show(); */
-
-		// 显示礼物
-		/* $(".give_a1_img").show(); */
 	});
 
 	/* 点击视频区域 */
 	$(".chatmsg-box").click(function() {
-		// 隐藏表情
-		/* $(".give_a01").hide(); */
-
-		// 改变input宽度值
-		/* $(".textarea02").css("width","11.9rem"); */
-
 		/* 底部为0 */
 		$(".coze_bottom").css("bottom", "0");
-
-		// 让input靠左
-		// $(".poson").css("right","0");
-
-		// 显示打赏
-		/* $(".give_a1_span02").show(); */
-
-		// 显示礼物
-		/* $(".give_a1_img").show(); */
 	});
 
 	// 打赏
