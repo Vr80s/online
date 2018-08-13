@@ -38,8 +38,8 @@ $(function () {
             channelId: channelId, //频道Id
             docId: '',//jpg big
             docNode: 'J_doc_main',//文档显示节点div id
-            width: $('.video-main').width(),
-            height: $('.video-main').height()
+            width: width,
+            height: height
         });
         // window.doc.cancelPencil(false);
     }
@@ -61,11 +61,9 @@ $(function () {
             });
             window.chat.onCustomMsg(function (msg) {
                 msg = JSON.parse(msg);
-                console.log(msg);
                 renderMsg(msg)
             });
             window.chat.join(function (msg) {
-                console.log(msg);
                 console.log("进入直播间");
                 var userId = msg.third_party_user_id;
                 if (!loadAnchorIn || userId != accountId) {
@@ -79,7 +77,6 @@ $(function () {
                 //TODO 判断是否被禁言
             });
             window.chat.leave(function (msg) {
-                console.log(msg);
                 console.log("离开直播间");
                 var userId = msg.third_party_user_id;
                 if (!loadAnchorOut || userId != accountId) {
@@ -96,8 +93,6 @@ $(function () {
             cameras = window.Vhall.devices.cameras;
             mics = window.Vhall.devices.mics;
             initDevices(cameras, mics);
-            console.log(mics);
-            console.log(cameras);
         }, 3000);
     }
 
@@ -284,14 +279,14 @@ $(function () {
                 userId: userId,
                 status: status
             },
-            success: function(resp) {
+            success: function (resp) {
             }
         });
     }
 
     function appendStudent(userId, avatar, nickname) {
         if (userId != accountId) {
-            if ($('.user-id-'+userId).length === 0) {
+            if ($('.user-id-' + userId).length === 0) {
                 $.ajax({
                     method: "GET",
                     url: '/vhallyun/banStatus',
@@ -299,16 +294,16 @@ $(function () {
                         channelId: channelId,
                         accountId: userId
                     },
-                    success: function(resp) {
+                    success: function (resp) {
                         removeStudent(userId);
                         var ban = resp.resultObject;
                         $('.student-list').append('<li>\n' +
-                            '                            <div class="head-portrait z ' + ' user-id-' + userId +'"' + ' data-id="' + userId + '">\n' +
+                            '                            <div class="head-portrait z ' + ' user-id-' + userId + '"' + ' data-id="' + userId + '">\n' +
                             '                                <img src="' + avatar + '" alt="头像"/>\n' +
                             '                            </div>\n' +
                             '                            <span class="student-name z">' + nickname + '</span>\n' +
                             ' <span class="select-ban y">' +
-                            (ban ? '<img src="/web/images/live-room/say-ban.png"/>' : '                                <img src="/web/images/live-room/say-icon.png" alt="选择禁言" title="禁言"/>\n' )+
+                            (ban ? '<img src="/web/images/live-room/say-ban.png"/>' : '                                <img src="/web/images/live-room/say-icon.png" alt="选择禁言" title="禁言"/>\n' ) +
                             '                            </span>' +
                             '                        </li>');
                     }
@@ -319,7 +314,6 @@ $(function () {
     }
 
     function removeStudent(userId) {
-        console.log("remove userId: " + userId);
         $('.user-id-' + userId).parent().remove();
     }
 
@@ -360,7 +354,6 @@ $(function () {
     var timer = null;
 
     function updateLiveStatus(event) {
-        console.log("event:" + event);
         $.ajax({
             method: 'POST',
             url: '/course/updateLiveStatus',
@@ -378,18 +371,15 @@ $(function () {
             $('.video-main').css("background", "none");
             $('.J-close-doc').trigger("click");
             getImg();
+
         }, function (reason) {
             console.error(reason);
         });
     }
 
     function getImg() {
-        console.log("开始");
-        console.log("要打印缩略图了?");
         setTimeout(function () {
             var imgs = window.doc.getThumImgList(function (list) {
-                console.dir(list);
-                console.log("结束");
             });
             $('.J-thumImg').html('');
             page = imgs.length;
@@ -411,22 +401,22 @@ $(function () {
 
     $('.J-thumImg').on('click', '.J-page-img', function () {
         var p = $(this).find('span').text();
-        curPage = p;
+        curPage = parseInt(p);
         window.doc.gotoSlide(curPage);
         setPage(page, curPage);
     });
 
     $('.J-doc-prev').on('click', function () {
         if (window.doc && curPage > 1) {
-            console.log(window.doc.preSlide());
-            curPage = curPage - 1;
+            curPage = parseInt(curPage) - 1;
+            window.doc.preSlide();
             setPage(page, curPage);
         }
     });
     $('.J-doc-next').on('click', function () {
         if (window.doc && curPage < page) {
-            console.log(window.doc.nextSlide());
-            curPage = curPage + 1;
+            curPage = parseInt(curPage) + 1;
+            window.doc.nextSlide();
             setPage(page, curPage);
         }
     });
@@ -449,8 +439,6 @@ $(function () {
             page = 1;
         }
         curPage = 1;
-        console.log(docId);
-        console.log("channelId:" + channelId);
         reloadDoc();
         setPage(page, curPage);
     });
@@ -476,7 +464,6 @@ $(function () {
             method: "GET",
             url: "/vhallyun/document",
             success: function (resp) {
-                console.log(resp);
                 var docs = resp.resultObject;
                 for (var i = 0; i < docs.length; i++) {
                     var documentId = docs[i].documentId;
@@ -525,6 +512,7 @@ $(function () {
             showTip("请输入聊天文字")
         }
     }
+
     $('#J_message_send').on('click', function () {
         sendMessage();
     });
@@ -532,7 +520,7 @@ $(function () {
         if (event.keyCode == 13) {
             sendMessage();
         }
-    }) ;
+    });
 
 //------------------------------------------静态页面效果----------------------------------------------------------------
 
@@ -554,20 +542,20 @@ $(function () {
         $(".document-content").css({"width": documentWidth});
     }
 
+    function changeSlideDocumentWidth(isAdd) {
+        var documentWidth = 0;
+        if (isAdd) {
+            documentWidth = $(".video-width").width() - 70;
+        } else {
+            documentWidth = $(".video-width").width() - 170;
+        }
+        $(".document-content").css({"width": documentWidth});
+    }
+
     getWhiteHeight();
     $(window).resize(function () {
         getWhiteHeight();
-        // if (window.doc) {
-        //     // window.doc.loadDoc(docId, channelId, function (docId) {
-        //     // }, function (reason) {
-        //     //     console.error(reason);
-        //     // });
-        //     var width = $('.video-main').width();
-        //     var height = $(".video-main").height();
-        //     console.log("width:" + width);
-        //     console.log("height:" + height);
-        //     window.doc.reSizeBorad(width - 170, height);
-        // }
+        documentAreaReload();
     });
 //------------------------------------------工具栏----------------------------------------------------------------	
 
@@ -620,23 +608,30 @@ $(function () {
         $(".modal-document").addClass("hide");
     })
 
-    $('.file-list').on('mouseenter', '.hover-delect', function(){
+    $('.file-list').on('mouseenter', '.hover-delect', function () {
         $(".hover-delect .delect-img").addClass("hide");
         $(this).find(".delect-img").removeClass("hide")
     });
-    $('.file-list').on('mouseleave', '.hover-delect', function(){
+    $('.file-list').on('mouseleave', '.hover-delect', function () {
         $(".hover-delect .delect-img").addClass("hide");
     });
-//点击上传文件的URL
+
+    function documentAreaReload() {
+        window.doc.reSizeBorad($(".document-content").width(), $(".video-main").height());
+    }
 
 //------------------------------------------文档左侧列表点击效果----------------------------------------------------------------	
     $(".icon-right").click(function () {
         $(this).parent(".select-document-wrap").addClass("select-left");
         $(".video-main .icon-left").removeClass("hide");
+        changeSlideDocumentWidth(true);
+        documentAreaReload();
     })
     $(".icon-left").click(function () {
         $(this).siblings(".select-document-wrap").removeClass("select-left");
         $(".video-main .icon-left").addClass("hide");
+        changeSlideDocumentWidth(false)
+        documentAreaReload();
     })
     $(".modal-list li").each(function () {
         var index = $(this).index();
@@ -763,7 +758,7 @@ $(function () {
                 var liHtml = ' <li class="doc-title hover-delect" data-did ="' + obj.documentId + '">\n' +
                     '                <div class="doc-name doc-photo">' + obj.filename + '</div>\n' +
                     '                <div class="doc-time text-center">' + obj.createTime + '</div>\n' +
-                    '                <div class="doc-progress text-center J-doc-item-text-' + obj.documentId +'">等待转换</div>\n' +
+                    '                <div class="doc-progress text-center J-doc-item-text-' + obj.documentId + '">等待转换</div>\n' +
                     '                <div class="delect-img hide J-doc-delete"></div>\n' +
                     '            </li>';
                 $('.J-doc-title').after(liHtml);

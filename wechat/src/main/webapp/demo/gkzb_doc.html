@@ -8,10 +8,11 @@
     <title>文档 or 文档+看直播</title>
     <script src="./styles/jquery-3.2.1.min.js"></script>
     <link rel="stylesheet" href="./styles/bootstrap.min.css">
+    
     <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-chat-1.0.0.js?v=201801121522"></script>
     <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-doc-1.0.0.js?v=201806271657"></script>
     <script src="https://static.vhallyun.com/jssdk/dvideo-plugin.js?v=0.3"></script>
-    <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-live-1.0.0.js?v=201806271657"></script>
+    <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-player-1.0.0.js?v=201806271657"></script>
     <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-base-1.0.0.js?v=201806271657"></script>
     
     
@@ -51,20 +52,17 @@
         window.doc = {};
         var readyCallback = function(){
           ls.set('ipt-channelId');
+          
           window.doc = new VhallDocPassive({
-            // roomId:$('#ipt-roomId').val(),//房间ID,bi tian
-            channelId:$('#ipt-channelId').val(), //频道Id
-            // docId:$('#ipt-docId').val(),//jpg big
+            channelId:'ch_7414f7c2', //频道Id
             docNode:'my-doc-area',//文档显示节点div id
-            // width:$('#ipt-width').val(),
-            // height:$('#ipt-height').val()
           });
 
           /**
            * 初始化聊天对象ch_d260ab70
            */
           window.chat = new VhallChat({
-             channelId:'ch_d260ab70'//频道Id，必填
+             channelId:'ch_7414f7c2'//频道Id，必填
           });
           
           /**
@@ -82,12 +80,12 @@
           })
           
           
-           VhallLive.init({
+           VhallPlayer.init({
               roomId:$('#ipt-roomId').val(),
               type:'live',
               videoNode:'myVideo',
               complete:function(){
-                 VhallLive.play();
+                 VhallPlayer.play();
               }
            }); 
           
@@ -101,21 +99,20 @@
              accountId :'test_jssdk',//第三方用户唯一标识,必填
              token: $('#ipt-token').val(),//token必填
         });
-
-/*         setTimeout(function(){
+         setTimeout(function(){
+        	 
             if($('#ipt-roomId').val()){
-
-              VhallLive.init({
+              VhallPlayer.init({
                    roomId:$('#ipt-roomId').val(),
                    type:'live',
                    videoNode:'myVideo',
                    complete:function(){
-                      VhallLive.play();
+                      VhallPlayer.play();
                    }
               });
-
             }
-          },1000); */
+
+         },1000);
 
     }
 
@@ -125,7 +122,7 @@
           var isProd = window.location.href.indexOf('vhallyun.com') > -1;
           if(!isProd){
               $('#ipt-appId').val('27376e92');
-              $('#ipt-channelId').val('ch_d260ab70');
+              $('#ipt-channelId').val('ch_7414f7c2');
           }
 
           $('#btn-set-init').on('click',function(){
@@ -139,32 +136,26 @@
 
           $('#btn-player-start').on('click',function(){
 
-            VhallLive.init({
+            VhallPlayer.init({
                  roomId:$('#ipt-roomId').val(),
                  type:'live',
                  videoNode:'myVideo',
                  complete:function(){
-                    VhallLive.play();
+                    VhallPlayer.play();
                  }
             });
               
           });
 
-
-
           $('#btn-goto-phone').on('click',function(){
-
               location.href = './slave-live-h5.html?appId=' 
               + window.VhallEnv.appId 
               + '&channelId=' + window.VhallEnv.channelId 
               + '&token=' + window.VhallEnv.accessToken
               + '&accountId=' + window.VhallEnv.thirdPartyUserId
               + '&rd=' + (new Date().getTime());
-
           });
-
       })
-
 
       function Ls(){
         return {
@@ -197,7 +188,7 @@
         <div class="navbar-form">
             <div class="row">
                 <label>token:</label>
-                <input value="access:27376e92:7a190806fb6feb8b" id="ipt-token" type="text" class="form-control" placeholder="token">
+                <input value="access:27376e92:ff6711edcdb89209" id="ipt-token" type="text" class="form-control" placeholder="token">
             </div>
             <div class="row">
                 <label>appId:</label>
@@ -206,11 +197,11 @@
             <div class="row">
                 <label>roomId:</label>
                 <!-- <input value="lss_22b89748" id="ipt-roomId" type="text" class="form-control" placeholder="roomId"> -->
-                <input value="lss_508dc5c6" id="ipt-roomId" type="text" class="form-control" placeholder="roomId">
+                <input value="lss_4756cf02" id="ipt-roomId" type="text" class="form-control" placeholder="roomId">
             </div>
             <div class="row">
                 <label>channelId:</label>
-                <input value="ch_d260ab70" id="ipt-channelId" type="text" class="form-control" placeholder="channelId">
+                <input value="ch_7414f7c2" id="ipt-channelId" type="text" class="form-control" placeholder="channelId">
             </div>
             <div class="row">
                 <label>文档区域宽:</label>

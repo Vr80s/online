@@ -64,13 +64,20 @@ function elsBind() {
         var liveType = (lineState == 1 ? "live" : "vod");
         var recordId = (lineState == 1 ? "" : vhallObj.recordId);
 
-        VhallLive.init({
+        VhallPlayer.init({
             roomId: roomId,
             type: liveType,
             recordId: recordId, // 回放Id，点播必填，直播不写
             videoNode: 'myVideo',
             complete: function () {
-                VhallLive.play();
+            	//VhallPlayer.setFullScreen(false);
+            	VhallPlayer.play();
+            	//VhallPlayer.setFullScreen(false);
+//            	var isFull = VhallPlayer.isFullscreen();
+//            	if(isFull){
+//            		VhallPlayer.setFullScreen(false);
+//            	}
+                
             }
         });
     }
@@ -101,7 +108,7 @@ function initChat(){
 	            	console.log("播放结束了");
 		        });
 		        md.addEventListener("progress", function () {
-		            //console.log("浏览器正在获取媒体数据");
+		            console.log("浏览器正在获取媒体数据");
 		        });
 		        md.addEventListener("suspend", function () {
 		            $(".video_end_top4").show();
