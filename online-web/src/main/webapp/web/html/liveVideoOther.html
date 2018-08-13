@@ -23,8 +23,6 @@
 		<script src="/web/js/html5.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/web/js/jquery.qrcode.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/web/js/utf.js" type="text/javascript" charset="utf-8"></script>
-    	<script src="/web/js/im/strophe.js" type="text/javascript" charset="utf-8"></script>
-		<script src="/web/js/im/giftSend.js" type="text/javascript" charset="utf-8"></script> 
 		<style>
 			/*倒计时*/
 			.cover-plan{
@@ -84,6 +82,32 @@
 				text-align: center;
 				color: #fff;
 			}
+			
+			.bdsharebuttonbox {
+				float: left;
+			}
+			.bdsharebuttonbox a{
+				width: 30px;
+				height: 30px !important;
+				margin: 6px 4px !important;
+			}
+			.bdsharebuttonbox .bds_tsina{
+				background: url(/web/images/video2/weibo.png) no-repeat !important;
+				background-size: 100% 100%;
+			}
+			.bdsharebuttonbox .bds_sqq{
+				background: url(/web/images/video2/Qq.png) no-repeat !important;;
+				background-size: 100% 100%;
+			}
+			/*.bdsharebuttonbox .bds_qzone{
+				background: url(/web/images/video2/icon_qqkongjian_yellow.png) no-repeat !important;
+				background-size: 100% 100%;
+			}*/
+			.bdsharebuttonbox .bds_qzone img{
+				/*width: 26px;
+			    height: 26px;
+			    margin-left: -18px;*/
+			}
 		</style>
 	</head>
 	<body>
@@ -123,10 +147,17 @@
 						<li style="line-height:none;background:none;width:75px;">分享到：</li>
 						<li class="share_li1"><img src="/web/images/video2/weixin.png" alt="" /><div style="padding:5px;background-color: #fff;" class="share_li1_img"><div id="qrcodeCanvas1"></div></div></li>
 						<li class="share_li2"><img src="/web/images/video2/quan.png" alt="" /><div style="padding:5px;background-color: #fff;" class="share_li2_img"><div id="qrcodeCanvas2"></div></div></li>
-						<li style="background:none;"><a href="javascript:void(0)" id="weibo_share" target="_blank" ><img src="/web/images/video2/weibo.png" alt="" /></a></script></li>
-						<li style="background:none;"><a href="javascript:void(0)" id="qq_share" target="_blank" ><img src="/web/images/video2/Qq.png" alt="" /></a></li>
-				</ul>
+						<!--<li style="background:none;"><a href="javascript:void(0)" id="weibo_share" target="_blank" ><img src="/web/images/video2/weibo.png" alt="" /></a></script></li>
+						<li style="background:none;"><a href="javascript:void(0)" id="qq_share" target="_blank" ><img src="/web/images/video2/Qq.png" alt="" /></a></li>-->
+						<div class="bdsharebuttonbox" data-tag="share_1">
+							<a class="bds_tsina" data-cmd="tsina"></a>
+							<a class="bds_sqq" data-cmd="sqq"></a>
+							<!--<a class="bds_qzone" data-cmd="qzone" href="#"><img src="/web/images/video2/icon_qqkongjian_yellow.png"/></a>-->
+							<!--<a class="bds_qzone" data-cmd="qzone" href="#"></a>-->
+						</div>
+					</ul>
 				</div>
+				
 				<span class="liveTime">直播时间：<span></span></span>
 				<!-- <span class="liveMember"></span> -->
 				
@@ -151,6 +182,7 @@
 <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-chat-1.0.0.js?v=201801121522"></script>
 <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-base-1.0.0.js?v=201806271657"></script>
 <script src="/web/js/liveVideo/liveVideoOther.js"></script>
+
 <script src="/web/js/common/video_share.js?v=ipandatcm_1.3"></script>
 </body>
 	<script>
