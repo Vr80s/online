@@ -427,6 +427,9 @@
         for (var i = 0; i < data.userStatsDataLine[5].length; i++) {
             data6[i] =  data.userStatsDataLine[5][i].value;
         }
+        for (var i = 0; i < data.userStatsDataLine[6].length; i++) {
+            data7[i] =  data.userStatsDataLine[6][i].value;
+        }
         //课程来源数据
         var courseData1 = [],courseData2 = [],courseData3 = [],courseData4 = [],courseData5 = [],courseData6 = [],courseData7 = [];
         for (var i = 0; i < data.courseStatsDataLine[0].length; i++) {
@@ -531,7 +534,8 @@
                 trigger: 'axis'
             },
             legend: {
-                data:['未知','pc','h5','android','ios','导入']
+                left:'right',
+                data:['未知','pc','h5','android','ios','导入','其他']
             },
             grid: {
                 left: '3%',
@@ -589,6 +593,12 @@
                     type:'line',
                     stack: '总量',
                     data:data6
+                },
+                {
+                    name:'其他',
+                    type:'line',
+                    stack: '总量',
+                    data:data7
                 }
             ]
         };
@@ -601,6 +611,7 @@
                 trigger: 'axis'
             },
             legend: {
+                left:'right',
                 data:['未知','pc','h5','android','ios','其他']
             },
             grid: {
@@ -664,6 +675,7 @@
                 trigger: 'axis'
             },
             legend: {
+                left:'right',
                 data:['未知','pc','h5','android','ios','其他']
             },
             grid: {
@@ -727,6 +739,7 @@
                 trigger: 'axis'
             },
             legend: {
+                left:'right',
                 data:['其他','赠送','pc','h5','android','ios','线下','工作人员']
             },
             grid: {
@@ -802,6 +815,7 @@
                 trigger: 'axis'
             },
             legend: {
+                left:'right',
                 data:['其他','赠送','pc','h5','android','ios','线下','工作人员']
             },
             grid: {
