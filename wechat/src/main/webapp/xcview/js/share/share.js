@@ -48,6 +48,11 @@ function getShareIdAndType(){
 	if(viewHtml == "live_personal.html"){
 		obj.shareId = getQueryString("userLecturerId");
 		obj.shareType = 2;
+	}else if(viewHtml == "details.html"){
+	
+		obj.shareId = getQueryString("courseId");
+		obj.shareType = 1;
+		
 	}else if(viewHtml == "live_audio.html" || 
 			viewHtml == "live_play.html" ||
 			viewHtml == "live_class.html"){
