@@ -1,5 +1,4 @@
 ﻿
-
 if (!is_weixin()) {
     $(".weixin_li").remove();
 }
@@ -544,3 +543,34 @@ if (is_weixin()) {
         });
     })
 }
+
+
+//点播视频播放时禁止放大处理
+function on_cc_h5player_init(){
+    var oV = document.getElementsByTagName('video')[0];
+    //oV.setAttribute("x5-playsinline","");
+    oV.attr('x5-playsinline', '');
+    // alert(99999);
+}
+
+// on_cc_h5player_init();
+
+// alert(44444);
+
+//在手机上，添加video的一些属性
+
+
+
+/*$('video').attr('x5-video-player-type', 'h5');
+$('video').attr('x-webkit-airplay', true);
+$('video').attr('x5-video-player-fullscreen', true);
+$('video').attr('x5-video-ignore-metadata', true);
+$('video').attr('object-fit', 'fill');
+$('video').attr('object-position', 'center center');*/
+$('video').attr('x5-video-player-type', '');
+$('video').attr('x-webkit-airplay', '');
+$('video').attr('x5-video-player-fullscreen', '');
+$('video').attr('x5-video-ignore-metadata', '');
+/*$('video').attr('object-fit', 'fill');
+$('video').attr('object-position', 'center center');*/
+// alert(1111);

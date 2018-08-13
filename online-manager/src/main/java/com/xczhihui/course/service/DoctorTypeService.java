@@ -3,6 +3,8 @@ package com.xczhihui.course.service;
 import com.xczhihui.bxg.online.common.domain.DoctorType;
 import com.xczhihui.common.util.bean.Page;
 
+import java.util.List;
+
 public interface DoctorTypeService {
 
     public Page<DoctorType> findDoctorTypePage(DoctorType DoctorType, int currentPage,
@@ -27,5 +29,7 @@ public interface DoctorTypeService {
     public void updateSortDown(Integer id);
 
 	public DoctorType finddoctorTypeTypeByName(String title);
+
+    List<DoctorType> getDoctorTypeList();
 
 }
