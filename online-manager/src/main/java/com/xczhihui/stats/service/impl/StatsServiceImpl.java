@@ -193,6 +193,7 @@ public class StatsServiceImpl implements StatsService {
         List<Map<String, Object>> listUserAndroid = namedParameterJdbcTemplate.queryForList(getUserSql(3,"android"), param);
         List<Map<String, Object>> listUserIos = namedParameterJdbcTemplate.queryForList(getUserSql(4,"ios"), param);
         List<Map<String, Object>> listUserImport = namedParameterJdbcTemplate.queryForList(getUserSql(5,"导入"), param);
+        List<Map<String, Object>> listUserOther = namedParameterJdbcTemplate.queryForList(getUserSql(-1,"其他"), param);
         List<List<Map<String, Object>>> l = new ArrayList<>();
 
         l.add(listUserUnknown);
@@ -201,6 +202,7 @@ public class StatsServiceImpl implements StatsService {
         l.add(listUserAndroid);
         l.add(listUserIos);
         l.add(listUserImport);
+        l.add(listUserOther);
 
         return l;
     }
@@ -321,28 +323,5 @@ public class StatsServiceImpl implements StatsService {
     }
 
 
-    /**
-     * 获取某段时这里写代码片间内的所有日期
-     * @param dBegin
-     * @param dEnd
-     * @return
-     */
-    public static List<Date> findDates(Date dBegin, Date dEnd) {
-        List<Date> lDate = new ArrayList<Date>();
-        lDate.add(dBegin);
-        Calendar calBegin = Calendar.getInstance();
-        // 使用给定的 Date 设置此 Calendar 的时间
-        calBegin.setTime(dBegin);
-        Calendar calEnd = Calendar.getInstance();
-        // 使用给定的 Date 设置此 Calendar 的时间
-        calEnd.setTime(dEnd);
-        // 测试此日期是否在指定日期之后
-        while (dEnd.after(calBegin.getTime()))  {
-            // 根据日历的规则，为给定的日历字段添加或减去指定的时间量
-            calBegin.add(Calendar.DAY_OF_MONTH, 1);
-            lDate.add(calBegin.getTime());
-        }
-        return lDate;
-    }
 
 }
