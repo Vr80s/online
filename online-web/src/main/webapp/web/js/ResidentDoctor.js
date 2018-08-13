@@ -378,13 +378,17 @@ RequestService("/doctor/apply/listDepartment/0", "get", null, function(data) {
 })
 
 //上传图片调用的接口
-function picUpdown(baseurl, imgname) {
-	RequestService("/medical/common/upload", "post", {
-		image: baseurl,
-	}, function(data) {
-		console.log(data);
-		$('#doc_Distinguish .' + imgname + '').html('<img src="' + data.resultObject + '" >');
-	})
+function picUpdown(form, imgname) {
+    $.ajax({
+        type: 'post',
+        url: "/medical/common/upload",
+        data: form,
+        cache: false,
+        processData: false,
+        contentType: false,
+    }).success(function (data) {
+        $('#doc_Distinguish .' + imgname + '').html('<img src="' + data.resultObject + '" >');
+    });
 
 }
 
@@ -409,11 +413,13 @@ $('#idFont_pic_ipt').on('change', function() {
 		}, 2000)
 		return false;
 	}
+    var form = new FormData();
+    form.append("image", this.files[0]);
 	var reader = new FileReader();
 	reader.onload = function(e) {
 		//		console.log( reader.result);  //或者 e.target.result都是一样的，都是base64码
 		//		$('#img').attr('src',reader.result)
-		picUpdown(reader.result, 'idFont_pic');
+		picUpdown(form, 'idFont_pic');
 	}
 	reader.readAsDataURL(this.files[0])
 	//filses就是input[type=file]文件列表，files[0]就是第一个文件，这里就是将选择的第一个图片文件转化为base64的码
@@ -438,9 +444,11 @@ $('#idBack_pic_ipt').on('change', function() {
 		}, 2000)
 		return false;
 	}
+    var form = new FormData();
+    form.append("image", this.files[0]);
 	var reader = new FileReader();
 	reader.onload = function(e) {
-		picUpdown(reader.result, 'idBack_pic');
+		picUpdown(form, 'idBack_pic');
 	}
 	reader.readAsDataURL(this.files[0])
 })
@@ -463,9 +471,11 @@ $('#teacher_pic_ipt').on('change', function() {
 		}, 2000)
 		return false;
 	}
+    var form = new FormData();
+    form.append("image", this.files[0]);
 	var reader = new FileReader();
 	reader.onload = function(e) {
-		picUpdown(reader.result, 'teacher_pic');
+		picUpdown(form, 'teacher_pic');
 	}
 	reader.readAsDataURL(this.files[0])
 })
@@ -488,9 +498,11 @@ $('#zhiiye_pic_ipt').on('change', function() {
 		}, 2000)
 		return false;
 	}
+    var form = new FormData();
+    form.append("image", this.files[0]);
 	var reader = new FileReader();
 	reader.onload = function(e) {
-		picUpdown(reader.result, 'zhiye_pic');
+		picUpdown(form, 'zhiye_pic');
 	}
 	reader.readAsDataURL(this.files[0])
 })
@@ -513,9 +525,11 @@ $('#touxiang_pic_ipt').on('change', function() {
 		}, 2000)
 		return false;
 	}
+    var form = new FormData();
+    form.append("image", this.files[0]);
 	var reader = new FileReader();
 	reader.onload = function(e) {
-		picUpdown(reader.result, 'touxiang_pic');
+		picUpdown(form, 'touxiang_pic');
 	}
 	reader.readAsDataURL(this.files[0])
 })
@@ -538,9 +552,11 @@ $('#zhicheng_pic_ipt').on('change', function() {
 		}, 2000)
 		return false;
 	}
+    var form = new FormData();
+    form.append("image", this.files[0]);
 	var reader = new FileReader();
 	reader.onload = function(e) {
-		picUpdown(reader.result, 'zhicheng_pic');
+		picUpdown(form, 'zhicheng_pic');
 	}
 	reader.readAsDataURL(this.files[0])
 })
