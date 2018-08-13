@@ -179,14 +179,14 @@ public class VhallVideoController {
 
     @RequestMapping(value = "online/status", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseObject joinRoom(@RequestParam String channelId, @RequestParam String userId, @RequestParam boolean status) {
+    public ResponseObject joinRoom(@RequestParam String channelId, @Account String accountId, @RequestParam boolean status) {
         String channelKey = CHANNEL_ONLINE_KEY + channelId;
         if (status) {
-            if (!cacheService.isZsmember(channelKey, userId)) {
-                cacheService.zsadd(channelKey, userId, System.currentTimeMillis() / 1000);
+            if (!cacheService.isZsmember(channelKey, accountId)) {
+                cacheService.zsadd(channelKey, accountId, System.currentTimeMillis() / 1000);
             }
         } else {
-            cacheService.zsrem(channelKey, userId);
+            cacheService.zsrem(channelKey, accountId);
         }
         return ResponseObject.newSuccessResponseObject(null);
     }
