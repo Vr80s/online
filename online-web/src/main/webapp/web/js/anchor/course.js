@@ -1871,3 +1871,29 @@ $(function(){
     })
 })
 
+function openRecordSet(courseId,isRecord) {
+    $("#mask").removeClass("hide");
+    $(".history-live").removeClass("hide");
+    $(".record-course-id").val(courseId);
+    $(".radio-select li").find("em").removeClass("active");
+    $(".isrecord"+isRecord).addClass("active");
+}
+
+function closeRecordSet() {
+    $("#mask").addClass("hide");
+    $(".history-live").addClass("hide");
+}
+
+function saveRecordSet(){
+    var courseId = $(".record-course-id").val();
+    var isRecord = $(".isrecord.active").attr("data-record");
+    RequestService("/anchor/course/" + courseId + "/record/" + isRecord , "POST", null, function (data) {
+        if (data.success == true) {
+            showTip("操作成功");
+            courseLiveList(1);
+            closeRecordSet();
+        } else {
+            showTip("操作失败");
+        }
+    })
+}
