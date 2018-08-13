@@ -11,15 +11,15 @@
     content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <meta name="keywords" content="" />
 <meta name="description" content="" />
-<link rel="stylesheet" href="/xcview/css/css.css">
+<link rel="stylesheet" href="/xcview/css/css.css?version=5b17527bf7">
 
 
 <!--手机嵌入模板-->
-<script type="text/javascript" src="/xcview/js/common/layout.js"></script>
+<script type="text/javascript" src="/xcview/js/common/layout.js?version=e2b9d5cdbd"></script>
 <!-- 图片引入放大缩小 -->
 <script type="text/javascript" src="/xcview/js/common/jquery-1.7.2.min.js"></script>
-<script type="text/javascript" src="/xcview/js/common/underscore.js"></script>
-<script type="text/javascript" src="/xcview/js/common/pinchzoom.js"></script>
+<script type="text/javascript" src="/xcview/js/common/underscore.js?version=ae0a675e3e"></script>
+<script type="text/javascript" src="/xcview/js/common/pinchzoom.js?version=19465ea281"></script>
 
 
 <!-- 双击图片变大缩小 -->
@@ -33,13 +33,13 @@ $(function(){
 });
 </script>
 <link rel=stylesheet href="/xcview/css/jquery.mCustomScrollbar.min.css">
-<link rel="stylesheet" href="/xcview/css/details.css">
-<link rel="stylesheet" href="/xcview/css/style.css">
+<link rel="stylesheet" href="/xcview/css/details.css?version=b269f7fbe7">
+<link rel="stylesheet" href="/xcview/css/style.css?version=561d4b3eb9">
 
-<link rel="stylesheet" type="text/css" href="/xcview/css/details_style.css"/>
+<link rel="stylesheet" type="text/css" href="/xcview/css/details_style.css?version=49072bf268"/>
 
 <!--公用弹框 -->
-<link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
+<link rel="stylesheet" href="/xcview/css/alert/sharecss.css?version=f6e45d2a7e">
 
 <link rel="stylesheet" href="https://static.vhallyun.com/jssdk/videojs.min.css?v=1.0.0"><!--播放器默认样式，需要引用在包含在页面的head标签里-->
 <style>
@@ -651,7 +651,7 @@ $(function(){
     </div>
     <!--分享结束-->
 
-    <script src="/xcview/js/common/main.js"></script>
+    <script src="/xcview/js/common/main.js?version=68dc1a4040"></script>
     <!-- 直播分享页结束 -->
     <!-- 点击微信-->
     <div class="weixin_ceng">
@@ -836,29 +836,29 @@ $(function(){
     
 </body>
 <script src="/xcview/weihoujs/jquery.min.js"></script>
-<!-- <script type="text/JavaScript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script> -->
+<script type="text/JavaScript" src="//res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 <script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
 
-<script type="text/javascript" src="/xcview/js/common/alertPopShow.js"></script>
+<script type="text/javascript" src="/xcview/js/common/alertPopShow.js?version=3a4f24e3df"></script>
 <!--这段meta代码需要加上，移动端自适应缩放用-->
 <!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
 
 <script src="/xcview/weihoujs/jquery.mCustomScrollbar.concat.min.js"></script>
-<script src="/xcview/weihoujs/underscore-min.js"></script>
-<script type="text/javascript" src="/xcview/js/common/common.js"></script>
+<script src="/xcview/weihoujs/underscore-min.js?version=71eb8e1db7"></script>
+<script type="text/javascript" src="/xcview/js/common/common.js?version=c080f31fbd"></script>
 
 
-<script type="text/javascript" src="/xcview/js/im/vhallGiftSend.js"></script>
-<script src="https://static.vhallyun.com/jssdk/vhall-jssdk-live-1.0.0.js?v=201806271657"></script>
+<script type="text/javascript" src="/xcview/js/im/vhallGiftSend.js?version=4b423a83cf"></script>
+<script src="https://static.vhallyun.com/jssdk/vhall-jssdk-player-1.0.0.js?v=201806271657"></script>
 <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-doc-1.0.0.js?v=201806271657"></script>
 <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-chat-1.0.0.js?v=201801121522"></script>
 <script src="https://static.vhallyun.com/jssdk/dvideo-plugin.js?v=0.3"></script>
 <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-base-1.0.0.js?v=201806271657"></script>
 
 <!-- 部分点击事件 -->
-<script type="text/javascript" src="/xcview/js/details_change.js"></script>
-<script type="text/javascript" src="/xcview/js/details.js"></script>
-<script type="text/javascript" src="/xcview/js/vhallyun.js"></script>
+<script type="text/javascript" src="/xcview/js/details_change.js?version=67aff289a7"></script>
+<script type="text/javascript" src="/xcview/js/details.js?version=3febce2225"></script>
+<script type="text/javascript" src="/xcview/js/vhallyun.js?version=3c1bb3d5dd"></script>
 
 
 <script type="text/javascript">
@@ -947,8 +947,17 @@ $(function(){
 <script>
      var school_height=$(window).height()-$(".header").height()-$(".footer_ks").height();
      $(".chatmsg-box").height(school_height);
+
+     // 判斷文檔為空
+    /*var a = $(".pinch-zoom-container").css("display");
+	if (a == "block") {
+		alert(1111);
+	} else {
+		alert(2222);
+	}*/
 </script>
 </html>
+
 
 
 
