@@ -191,13 +191,13 @@
                     </td>
                     <td>
                         <div class="profile-info-value searchTr">
-                            <input type="text"   id="title" class="propertyValue1"  placeholder = "标题关键字"/>
+                            <input type="text"   id="title" class="propertyValue1" style="width: 100px;" placeholder = "标题关键字"/>
                             <input type="hidden" value="title" class="propertyName"/>
                         </div>
                     </td>
                     <td>
                         <div class="profile-info-value searchTr">
-                            <input type="text"   id="name" class="propertyValue1"  placeholder = "用户名"/>
+                            <input type="text"   id="name" class="propertyValue1" style="width: 100px;" placeholder = "用户名"/>
                             <input type="hidden" value="name" class="propertyName"/>
                         </div>
                     </td>
@@ -216,7 +216,7 @@
                     </td>
                     <td>
                         <div class="profile-info-value searchTr">
-                            <input type="text" class="datetime-picker"  id="startTime"  placeholder = "开始日期" />
+                            <input type="text" class="datetime-picker"  id="startTime" style="width: 100px;" placeholder = "开始日期" />
                             <input type="hidden" value="startTime" class="propertyValue1"/>
                         </div>
                     </td>
@@ -227,7 +227,7 @@
                     </td>
                     <td>
                         <div class="profile-info-value searchTr">
-                            <input type="text" class="datetime-picker"  id="stopTime"  placeholder = "结束日期"/>
+                            <input type="text" class="datetime-picker"  id="stopTime" style="width: 100px;" placeholder = "结束日期"/>
                             <input type="hidden" value="stopTime" class="propertyValue1"/>
                         </div>
                     </td>

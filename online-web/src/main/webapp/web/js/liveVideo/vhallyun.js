@@ -85,7 +85,7 @@ function elsBind(){
           console.log("当前是否为全屏："+falg);
           var quality =   VhallPlayer.getQualitys();
           console.log("清晰度数组："+quality);
-          VhallPlayer.setQuality(VhallPlayer.getQualitys()[0]);
+          //VhallPlayer.setQuality(VhallPlayer.getQualitys()[0]);
        }
      });    
     }
@@ -107,7 +107,9 @@ function elsBind(){
      */
     setInterval(function(){
     	var netWorkstate = VhallPlayer.getNetworkState();
-    	console.log("获取当前网络状态"+netWorkstate);
+    	if(netWorkstate ==3){
+    		
+    	}
     },2000)
     
     /**
@@ -116,15 +118,15 @@ function elsBind(){
     setTimeout(function(){
     	
     	try{
+    		
     		var md = document.getElementsByTagName("video")[0];
 		    md.addEventListener("ended",function(){
-		         console.log("结束");
 		         $(".playback-rebroadcast").attr("type",20);
 		         $(".playback-rebroadcast").text("重播");
 	             $(".playback").show();
 		    })	
 	        md.addEventListener("progress", function () {
-	            console.log("浏览器正在获取媒体数据");
+	            //console.log("浏览器正在获取媒体数据");
 	        });
 	        md.addEventListener("suspend", function () {
 	            console.log("浏览器暂停获取媒体数据，但是下载过程并滑正常结束");
@@ -138,15 +140,11 @@ function elsBind(){
 	        md.addEventListener("stalled", function () {
 	            console.log("浏览器尝试获取媒体数据失败");
 	        });
-	        
-	        
-	        
-	        
     	}catch(error){
     	   console.log(error);
     	}
     	
-       window.Vhall.ready(function(){
+      window.Vhall.ready(function(){
         window.chat = new VhallChat({
            channelId:vhallObj.channelId //频道Id
         });

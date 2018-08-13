@@ -102,13 +102,13 @@ header {
 }
 .imgBoxWrapper{
     width: 5rem;
-    height: 9rem;
+    height: 8.89rem;
     position: absolute;
     left: 50%;
     top: 1.5rem;
     transform: translate(-50%,0);
     box-sizing: border-box;
-    font-size: .30rem;
+    font-size: .3rem;
     background-repeat: repeat;
     /* background: red; */
     /* margin-top: 1.48rem; */
@@ -172,9 +172,6 @@ header {
     text-align: center;
 }
 
-.imgBoxWrapper2 .er{
-    float: left;
-}
 .imgBoxWrapper3 .er{
     float: right;
 }
@@ -283,15 +280,81 @@ header {
     margin-right: .4rem;
     margin-bottom: 0.3rem;
 }
-.imgBoxWrapper2 .size{
+.imgBoxWrapper2 .img_cont{
+    width: 5rem;
+    height: 8.89rem;
+}
+.imgBoxWrapper2 .img_cont .size{
     width: 4.2rem;
     margin: 0 auto;
     font-family: FZQKBYSJW--GB1-0;
     font-size: .22rem;
     color: #333333;
-    margin-bottom: 0.29rem;
+    margin-bottom: 0.28rem;
 }
-.imgBoxWrapper2 .logo{
+.imgBoxWrapper2 .img_cont .logo{
     float: right;
     margin-right: 0.4rem;
+    padding-top: 0.4rem;
+}
+.imgBoxWrapper2 .img_cont .mainIma1{
+    width: 4.2rem;
+    height: 2.35rem;
+    margin: 0 auto;
+    border: 2px solid #f0e3a6;
+    border-radius: 4px;
+    margin-bottom: .3rem;
+}
+.imgBoxWrapper2 .img_cont .mainIma1 img{
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+}
+.imgBoxWrapper2 .img_cont .des .title{
+    width: 4.2rem;
+    height: .68rem;
+    margin: 0 auto;
+    font-size: .2rem;
+    color: #333333;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+}
+.imgBoxWrapper2 .avatar img{
+    width: 0.7rem;
+    height: 0.7rem;
+    display: inline-block;
+    border-radius: 100px;
+    border: 2px solid #f0e3a6;
+    margin-bottom: .2rem;
+}
+.imgBoxWrapper2 .avatar .p1{
+    width: 3.4rem;
+    margin: 0 auto;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: .24rem;
+    color: #C2832A;
+    text-align: center;
+    margin-bottom: 0.22rem;
+}
+.imgBoxWrapper2 .er{
+    width: 0.8rem;
+    height: 0.8rem;
+    margin-bottom: .28rem;
+    padding: 0;
+}
+.imgBoxWrapper2 .img_cont .site{
+    width: 4.2rem;
+    margin: 0 auto;
+    font-size: .2rem;
+    color: #666666;
+    text-align: center;
+    padding-bottom: 0.25rem;
+}
+.imgBoxWrapper .img_cont{
+    width: 5rem;
+    height: 8.89rem;
 }
