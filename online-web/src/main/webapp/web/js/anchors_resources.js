@@ -575,6 +575,7 @@ var activityType;
             type: 'post',
             url: "/medical/common/upload",
             data: form,
+            async:false,
             cache: false,
             processData: false,
             contentType: false,
