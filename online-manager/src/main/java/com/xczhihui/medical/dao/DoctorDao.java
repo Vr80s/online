@@ -1,15 +1,14 @@
 package com.xczhihui.medical.dao;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import com.xczhihui.bxg.online.common.domain.MedicalDoctor;
+import com.xczhihui.common.dao.HibernateDao;
+import com.xczhihui.common.util.bean.Page;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
-import com.xczhihui.bxg.online.common.domain.MedicalDoctor;
-import com.xczhihui.common.dao.HibernateDao;
-import com.xczhihui.common.util.bean.Page;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 医师管理DAO
@@ -21,13 +20,16 @@ public class DoctorDao extends HibernateDao<MedicalDoctor> {
     public Page<MedicalDoctor> findMedicalDoctorPage(
             MedicalDoctor medicalDoctor, int pageNumber, int pageSize) {
         Map<String, Object> paramMap = new HashMap<String, Object>();
+
         StringBuilder sql = new StringBuilder("SELECT \n" +
                 "  m.*,\n" +
                 "  mh.`name` hospital,\n" +
                 "  dpn.name AS department, \n" +
-                "  ou.`login_name`\n" +
-                "FROM\n" +
+                "  ou.`login_name`, \n" +
+                "  dt.title as typeName\n" +
+                "  FROM\n" +
                 "  medical_doctor m \n" +
+                "  LEFT JOIN doctor_type dt ON dt.`id`=m.`type`\n" +
                 "  LEFT JOIN `medical_doctor_account` mda ON m.`id` = mda.`doctor_id`\n" +
                 "  LEFT JOIN `oe_user` ou ON ou.id = mda.`account_id`\n" +
                 "  LEFT JOIN (SELECT * FROM `medical_hospital_doctor` WHERE deleted = '0') mhd ON mhd.`doctor_id` = m.`id` \n" +

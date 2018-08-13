@@ -76,7 +76,7 @@ public class MedicalDoctorPostsServiceImpl extends ServiceImpl<MedicalDoctorPost
             } else if (hour>0 &&  hour<=12){
                 medicalDoctorPosts.setDateStr(hour+"小时前");
             } else {
-                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd HH:mm");
                 String dateString = formatter.format(createTime);
                 medicalDoctorPosts.setDateStr(dateString);
             }
