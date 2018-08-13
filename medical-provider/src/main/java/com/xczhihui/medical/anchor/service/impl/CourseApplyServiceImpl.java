@@ -632,17 +632,6 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
             }
         }
     }
-    
-    public static void main(String[] args) {
-        
-        
-        List<Integer> list = new ArrayList<Integer>();
-        list.add(1);
-        list.add(2);
-        list.add(3);
-        System.out.println(list.stream().map(DateUtil::getDayOfWeek).collect(Collectors.joining("")));
-        
-    }
 
     @Override
     public List<CourseApplyInfoVO> getCollectionNotExitCouse(String userId, Integer multimediaType,
@@ -677,5 +666,10 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         }
         return courseApplyInfoVOs;
     }
-    
+
+    @Override
+    public void saveCourseRecordStatus(int courseId, String userId, int record) {
+        courseApplyInfoMapper.saveCourseRecordStatus(courseId,userId,record);
+    }
+
 }

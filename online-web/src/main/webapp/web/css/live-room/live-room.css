@@ -396,8 +396,8 @@ input::-webkit-input-placeholder{
 }
 .select-document-wrap .modal-list{
 	padding-top: 1px;
-	/*overflow-y: auto;*/
-	/*overflow-x: hidden;*/
+	overflow-y: auto;
+	overflow-x: hidden;
 	height: 100%;
 }
 .select-document-wrap .modal-list li{

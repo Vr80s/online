@@ -70,14 +70,14 @@
                 <div class="invitation_card">邀请卡</div>
             </div>
         </header>
-        <div class="imgBoxWrapper imgBoxWrapperTop" style="displays: none !important;">
+        <div class="imgBoxWrapper imgBoxWrapperTop" style="display: none !important">
             
         </div>
         <div class="imgBoxWrapper  active">
             <div class="sub_imgBoxWrapper1 sub_imgBoxWrapper">
                 <div class="img_cont" style="background-image: url(img/slect1bg.png);background-size: 100% 100%;">
                     <div class="logo"><img src="img/logo.png" alt=""></div>
-                    <div class="avatar"><img src="/imgProxy?imgURL=http://test-file.ipandatcm.com/18727081951/a4ed5d8369e62170.jpg" alt="头像" crossOrigin="anonymous" /><p class="p1">酸酸甜甜柠檬水</p></div>
+                    <div class="avatar"><img src="/imgProxy?imgURL=http://test-file.ipandatcm.com/18727081951/a4ed5d8369e62170.jpg" alt="头像" crossOrigin="anonymous" /><p class="p1">酸酸甜甜柠檬水酸酸甜甜柠檬水酸酸甜甜柠檬水酸酸甜甜柠檬水</p></div>
                     <div class="size">给你推荐了一个很棒的中医课程</div>
                     <div class="mainIma1"><img src="img/0.jpg" alt=""></div>
                     <div class="des">
@@ -95,13 +95,14 @@
                 <div class="both"></div>
                 <div class="size">亲爱的朋友：</div>
                 <div class="size">我发现了一个很棒的中医课程推荐给你</div>
-                <div class="avatar"><img src="img/slect2.png" alt="头像"><p class="p1">全世界是你的世界</p><p class="p2">给你推荐一堂好课</p></div>
                 <div class="mainIma1"><img src="img/0.jpg" alt="中间大图"></div>
                 <div class="des">
-                    <div class="title" >（二）专栏</div>
-                    <div class="text">啊啊啊啊啊啊啊啊  啊啊啊啊啊啊啊啊啊啊啊啊啊 啊。</div>
+                    <div class="title" >我是個標題我是個標題我是個標題我是個標題我是個標題我是個標題我是個標題</div>
                 </div>
-                <div class="er"><img src="img/200.png" alt="二维码" ><p>长按识别课程</p></div>
+                <div class="avatar"><img src="img/slect2.png" alt="头像"><p class="p1">我是名字</p></div>
+                <div class="er"><img src="img/200.png" alt="二维码" ></div>
+                <div class="both"></div>
+                <div class="site">上课地址：北京市朝阳区潘家园街道华威里26号广西大厦6层</div>
             </div>
         </div>
         <div class="imgBoxWrapper imgBoxWrapper3">   <!--对于第3个图片的div样式 -->
@@ -164,16 +165,23 @@
                     iscreated = false
                     index = $(this).index()
                     $('.imgBoxWrapper').eq(index + 1 ).addClass('active').siblings().removeClass("active")
+                    var activeHtmltemp =  $('.imgBoxWrapper').eq(index + 1 ).html()
                     //此处清自行添加此处也可以加一个loading  加个延迟 避免用户感觉到页面重绘 提升用户体验 
                     setTimeout(function(){
                         $(".imgBoxWrapperTop").html("")
-                        $(".imgBoxWrapperTop").html( $('.imgBoxWrapper').eq(index + 1 ).find('.sub_imgBoxWrapper'))
-                        
+                        $(".imgBoxWrapperTop").html(activeHtmltemp)
                     },0)
                     setTimeout(function(){
                         convert2canvas()    
                     },400)
                 }
+               
+            })
+            $(".mask").click(function(){
+                $(".mask").fadeOut()
+                var activeHtmltemp =  $('.imgBoxWrapper').eq(1).html()
+                $(".imgBoxWrapperTop").html(activeHtmltemp)
+                convert2canvas() //点击生成图片
             })
             function convert2canvas() {
                 var shareContent = document.getElementsByClassName("imgBoxWrapperTop")[0];//需要截图的包裹的（原生的）DOM 对象
@@ -199,41 +207,41 @@
                     iscreated = true
                 });
             }
-
-            $(".content_one").click(function(){
-                $(".content_one").css("border","2px solid #CD533E");
-                $(".content_two").css("border","2px solid #fff");
-                $(".content_three").css("border","2px solid #fff");
-                $(".content_four").css("border","2px solid #fff");
-            });
-
-            $(".content_two").click(function(){
-                $(".content_two").css("border","2px solid #CD533E");
-                $(".content_one").css("border","2px solid #fff");
-                $(".content_three").css("border","2px solid #fff");
-                $(".content_four").css("border","2px solid #fff");
-            });
-
-            $(".content_three").click(function(){
-                $(".content_three").css("border","2px solid #CD533E");
-                $(".content_two").css("border","2px solid #fff");
-                $(".content_one").css("border","2px solid #fff");
-                $(".content_four").css("border","2px solid #fff");
-            });
-
-            $(".content_four").click(function(){
-                $(".content_four").css("border","2px solid #CD533E");
-                $(".content_two").css("border","2px solid #fff");
-                $(".content_three").css("border","2px solid #fff");
-                $(".content_one").css("border","2px solid #fff");
-            });
-
-            $(".content_one").click();
-            // $(".content_two").click();
-
-
         }
-    </script>
+
+        $(".content_one").click(function(){
+            $(".content_one").css("border","2px solid #CD533E");
+            $(".content_two").css("border","2px solid #fff");
+            $(".content_three").css("border","2px solid #fff");
+            $(".content_four").css("border","2px solid #fff");
+        });
+
+        $(".content_two").click(function(){
+            $(".content_two").css("border","2px solid #CD533E");
+            $(".content_one").css("border","2px solid #fff");
+            $(".content_three").css("border","2px solid #fff");
+            $(".content_four").css("border","2px solid #fff");
+        });
+
+        $(".content_three").click(function(){
+            $(".content_three").css("border","2px solid #CD533E");
+            $(".content_two").css("border","2px solid #fff");
+            $(".content_one").css("border","2px solid #fff");
+            $(".content_four").css("border","2px solid #fff");
+        });
+
+        $(".content_four").click(function(){
+            $(".content_four").css("border","2px solid #CD533E");
+            $(".content_two").css("border","2px solid #fff");
+            $(".content_three").css("border","2px solid #fff");
+            $(".content_one").css("border","2px solid #fff");
+        });
+
+        // $(".content_one").click();
+        // $(".content_two").click();
+        $(".content_three").click();
+        // $(".content_four").click();
+
     </script>
 </body>
 </html>

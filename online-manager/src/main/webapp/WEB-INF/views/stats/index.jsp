@@ -18,29 +18,6 @@
 
 
 <div class="mainrighttab tabresourse bordernone">
-    <%--<div class="searchDivClass" id="searchDiv">
-        <div class="profile-info-row">
-            <table frame=void>
-                <tr>
-                    <td>
-                        <div class="profile-info-value searchTr">
-                            <input type="date" name="startTime" id="startTime" maxlength="100"
-                                   value="${startTime}">
-                        </div>
-                    </td>
-                    <td>
-                        <div class="profile-info-value searchTr">
-                            <input type="date" name="endTime" id="endTime" maxlength="100"
-                                   value="${endTime}">
-                        </div>
-                    </td>
-                </tr>
-            </table>
-            <div>
-                <input type="button" class="J-button btn-primary" value="确定"/>
-            </div>
-        </div>
-    </div>--%>
 
         <div class="searchDivClass" id="searchDiv">
             <div class="profile-info-row" >
@@ -69,12 +46,14 @@
                                 <i class="ace-icon fa fa-search icon-on-right bigger-110"></i>
                             </button>
 
-                            <button type="button" class="btn btn-default btn-sm" onclick="showPie()">
+                            <%--<button type="button" class="btn btn-default btn-sm" onclick="showPie()">
                                 <span class="glyphicon glyphicon-plus"></span> 饼图
                             </button>
                             <button type="button" class="btn btn-default btn-sm" onclick="showLine()">
                                 <span class="glyphicon glyphicon-asterisk"></span> 折线
-                            </button>
+                            </button>--%>
+
+
                         </td>
                     </tr>
                 </table>
@@ -86,7 +65,9 @@
 </div>
 <div></div>
 </div>
-
+<div>
+    <i class="fa fa-line-chart fa-2x" style="color: #5c7a8c;float:right;width: 30px" onclick="showLine()"></i>
+    <i class="fa fa-pie-chart fa-2x" style="color: #A049EE;float:right;width: 30px" onclick="showPie()"></i></div>
 <div class="row">
     <div class="col-xs-12" id="user-chart" style="width: 400px;height: 400px;">
 
@@ -421,7 +402,6 @@
             },
             async:false,
             success: function (resp) {
-                debugger
                 data = resp.resultObject;
             }
         });
@@ -559,11 +539,12 @@
                 bottom: '3%',
                 containLabel: true
             },
-            toolbox: {
+            //保存图片
+            /*toolbox: {
                 feature: {
                     saveAsImage: {}
                 }
-            },
+            },*/
             xAxis: {
                 type: 'category',
                 boundaryGap: false,
@@ -628,11 +609,6 @@
                 bottom: '3%',
                 containLabel: true
             },
-            toolbox: {
-                feature: {
-                    saveAsImage: {}
-                }
-            },
             xAxis: {
                 type: 'category',
                 boundaryGap: false,
@@ -696,11 +672,6 @@
                 bottom: '3%',
                 containLabel: true
             },
-            toolbox: {
-                feature: {
-                    saveAsImage: {}
-                }
-            },
             xAxis: {
                 type: 'category',
                 boundaryGap: false,
@@ -763,11 +734,6 @@
                 right: '4%',
                 bottom: '3%',
                 containLabel: true
-            },
-            toolbox: {
-                feature: {
-                    saveAsImage: {}
-                }
             },
             xAxis: {
                 type: 'category',
@@ -843,11 +809,6 @@
                 right: '4%',
                 bottom: '3%',
                 containLabel: true
-            },
-            toolbox: {
-                feature: {
-                    saveAsImage: {}
-                }
             },
             xAxis: {
                 type: 'category',

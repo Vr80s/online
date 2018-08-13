@@ -329,6 +329,8 @@ public class Course extends Model<Course> {
     private String channelId;
     @TableField("record_id")
     private String recordId;
+    @TableField("is_record")
+    private Boolean record;
     
     /**
      * 1.正常直播 2.退出但不结束
@@ -339,6 +341,14 @@ public class Course extends Model<Course> {
     @Override
     protected Serializable pkVal() {
         return this.id;
+    }
+
+    public Boolean getRecord() {
+        return record;
+    }
+
+    public void setRecord(Boolean record) {
+        this.record = record;
     }
 
     public Boolean getDelete() {

@@ -475,7 +475,7 @@
 <div class="page-header">
   当前位置：云课堂管理 <small> <i class="ace-icon fa fa-angle-double-right"></i>
 </small>
-  <span> 课程专题管理 </span>
+  <span> 医师类别管理 </span>
 </div>
 
 <div style="height: 100%;" class="clearfix">
@@ -483,24 +483,12 @@
 	<!-- Tab panes -->
 	<div class="tab-content vertical-tab-content">
 		<!-- Nav tabs -->
-<!-- 	<ul class="nav nav-tab vertical-tab" role="tablist" id="vtab">
-		<li role="presentation" class="active">
-			<a href="#home" aria-controls="home" class="zykgl_bx" title="1"  role="tab"
-			   data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">推荐课程专题</a>
-		</li>
-		<li role="presentation">
-			<a href="#home" aria-controls="home" class="zykgl_bx" title="2" role="tab"
-			   data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">分类课程专题</a>
-		</li>
 	</ul> -->
 		<div role="tabpanel" class="tab-pane active" id="home">
 			<div class="mainrighttab tabresourse bordernone" id="courseDiv">
 				<p class="col-xs-4" style="padding: 0;">
 					<button class="btn btn-sm btn-success add_bx" title="新增">
 						<i class="glyphicon glyphicon-plus"></i> 新增
-					</button>
-					<button class="btn btn-sm btn-success dele_bx" title="批量删除">
-						<i class="glyphicon glyphicon-trash"></i> 批量删除
 					</button>
 				</p>
 				<div class="row">
@@ -512,49 +500,14 @@
 				</div>
 			</div>
 		</div>
-		<%--<div role="tabpanel" class="tab-pane active" id="box_m">
-			<div class="mainrighttab tabresourse bordernone" id="courseDiv_M" style="display:none">
-				<p class="col-xs-4" style="padding: 0;">
-					<button class="btn btn-sm btn-success add_M" title="新增课程">
-						<i class="glyphicon glyphicon-plus"></i> 新增微课
-					</button>
-					<button class="btn btn-sm btn-success dele_M" title="批量删除">
-						<i class="glyphicon glyphicon-trash"></i> 批量删除
-					</button>
-					<button class="btn btn-sm btn-success rec_M" title="设为推荐">
-						<i class="glyphicon glyphicon-cog"></i> 设为推荐
-					</button>
-				</p>
 
-				<div class="row">
-					<div class="col-xs-12">
-						<table id="courseTable_M"
-							   class="table table-striped table-bordered table-hover">
-							<colgroup>
-								<col width='5%'></col>
-								<col width='5%'></col>
-								<col width='10%'></col>
-								<col width='8%'></col>
-								<col width='8%'></col>
-								<col width='8%'></col>
-								<col width='9%'></col>
-								<col width='10%'></col>
-								<col width='8%'></col>
-								<col width='8%'></col>
-								<col width='14%'></col>
-							</colgroup>
-						</table>
-					</div>
-				</div>
-			</div>
-		</div>--%>
 	</div>
 </div>
 
 <!-- 增加form -->
 <div id="dialogAddBanner2Div"></div>
 <div id="addBanner2Dialog" class="hide">
-	<form id="addBanner2-form" class="form-horizontal"  method="post" action="" style="margin-top: 15px;">
+	<form id="addBanner2-form" class="form-horizontal"   autocomplete="off" method="post" action="" style="margin-top: 15px;">
 		<div class="form-group"  style="margin-top: 18px;" >
 			 <label class="col-sm-3 control-label no-padding-right" for="description"><font color="red">*</font>名称: </label>
 			 <div class="col-sm-6">
@@ -567,7 +520,7 @@
 <!-- 修改form -->
 <div id="dialogUpdateBanner2Div"></div>
 <div id="updateBanner2Dialog" class="hide">
-	<form id="updateBanner2-form" class="form-horizontal"  method="post" action="" style="margin-top: 15px;">
+	<form id="updateBanner2-form" class="form-horizontal" autocomplete="off" method="post" action="" style="margin-top: 15px;">
 		<input type="hidden" name="id" id="update_id">
 		<div class="form-group"  style="margin-top: 18px;" >
 			 <label class="col-sm-3 control-label no-padding-right" for="description"><font color="red">*</font>名称: </label>

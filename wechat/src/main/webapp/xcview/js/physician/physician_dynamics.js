@@ -383,7 +383,7 @@ function sendComment(){
             $("#"+getPostsIdByComment).find(".evaluate_main").show();
             if(postsCommentId==""){
                 $("."+evaluatePostsId+"").prepend("<div class='evaluateDiv' data-id="+getNewPostsCommentId+" data-postsId="+getPostsIdByComment+" data-userId="+loginUserId+" >" +
-                    "<span class='name'>"+loginUserName+"：</span><span class=\"evaluate_cen\">"+article+"</span></div><div class=\"both\"></div>");
+                    "<span class=\"evaluate_cen\"><span class='name'>"+loginUserName+"：</span>"+article+"</span></div><div class=\"both\"></div>");
                 $("."+evaluatePostsId+"").find("").attr("class");
                 $("div[data-id="+getNewPostsCommentId+"]").addClass(""+getNewPostsCommentId+"");
             }else {

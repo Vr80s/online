@@ -454,6 +454,12 @@ public class CourseApplyController extends AbstractController {
         return ResponseObject.newSuccessResponseObject("保存成功");
     }
 
+    @RequestMapping(value = "/{courseId}/record/{record}", method = RequestMethod.POST)
+    public ResponseObject saveCourseTeaching(@PathVariable int courseId,@PathVariable int record) {
+        courseApplyService.saveCourseRecordStatus(courseId,getUserId(),record);
+        return ResponseObject.newSuccessResponseObject("保存成功");
+    }
+
     /**
      * 课程上架给关注该主播的用户发送消息
      *
