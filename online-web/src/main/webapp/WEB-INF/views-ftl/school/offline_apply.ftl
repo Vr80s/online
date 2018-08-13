@@ -39,19 +39,19 @@
         <div class="name">
             <div class="xx">*</div>
             <div class="names">姓名</div>
-            <div class="input"><input type="text" id="J_realName" value="${realName}"/></div>
+            <div class="input"><input type="text" maxlength="20" id="J_realName" value="${realName}"/><span class="error-tip hide"></span></div>
         </div>
         <div class="both"></div>
         <div class="tel">
             <div class="xx">*</div>
             <div class="tels">手机号</div>
-            <div class="input"><input type="tel" id="J_mobile" value="${mobile}"/></div>
+            <div class="input"><input type="tel" id="J_mobile" value="${mobile}"/><span class="error-tip hide"></span></div>
         </div>
         <div class="both"></div>
         <div class="weixin">
             <div class="xx">*</div>
             <div class="weixins">微信号</div>
-            <div class="input"><input type="text" id="J_wechatNo" value="${wechatNo}"/></div>
+            <div class="input"><input type="text" id="J_wechatNo" value="${wechatNo}"/><span class="error-tip hide"></span></div>
         </div>
         <div class="both"></div>
         <div class="sex">
@@ -63,6 +63,7 @@
                     <option value="1" <#if sex=="1">selected</#if>>男</option>
                     <option value="0" <#if sex=="0">selected</#if>>女</option>
                 </select>
+                <span class="error-tip hide"></span>
             </div>
         </div>
         <!--右边展示-->

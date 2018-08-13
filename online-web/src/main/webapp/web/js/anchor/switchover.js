@@ -293,6 +293,20 @@ $(function () {
         }
         return null;
     }
+    
+//  是否选择回放按钮
+	$(".radio-select li").click(function(){
+		$(".radio-select li").find("em").removeClass("active");
+		$(this).find("em").addClass("active");
+	})
+
+//	关闭弹窗
+    $(".history-live").on("click",".close-live",function(){
+    	$(".history-live").addClass("hide");
+    	$("#mask").addClass("hide");
+    })
+    
+    
 });
 
 

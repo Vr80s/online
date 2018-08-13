@@ -45,34 +45,45 @@ $(function () {
                 }
             }
         },
+        // {
+        //     "title": "联系电话",
+        //     "class": "center",
+        //     "width": "6%",
+        //     "sortable": false,
+        //     "data": 'tel',
+        //     "visible": true,
+        //     "mRender": function (data, display, row) {
+        //         if (row.tel == null) {
+        //             return '暂无';
+        //         } else {
+        //             return row.tel;
+        //         }
+        //     }
+        // },
+        // {
+        //     "title": "email",
+        //     "class": "center",
+        //     "width": "6%",
+        //     "sortable": false,
+        //     "data": 'email',
+        //     "visible": true,
+        //     "mRender": function (data, display, row) {
+        //         if (row.email == null) {
+        //             return '暂无';
+        //         } else {
+        //             return row.email;
+        //         }
+        //     }
+        // },
         {
-            "title": "联系电话",
+            "title": "账号",
             "class": "center",
-            "width": "6%",
+            "width": "10%",
             "sortable": false,
-            "data": 'tel',
+            "data": 'loginName',
             "visible": true,
             "mRender": function (data, display, row) {
-                if (row.tel == null) {
-                    return '暂无';
-                } else {
-                    return row.tel;
-                }
-            }
-        },
-        {
-            "title": "email",
-            "class": "center",
-            "width": "6%",
-            "sortable": false,
-            "data": 'email',
-            "visible": true,
-            "mRender": function (data, display, row) {
-                if (row.email == null) {
-                    return '暂无';
-                } else {
-                    return row.email;
-                }
+                 return data == null ? "未绑定":data;
             }
         },
         {

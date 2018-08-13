@@ -216,6 +216,7 @@ var ue = UE.getEditor('about-introduce', {
         autoFloatEnabled: true,
         enableAutoSave: false,
         imagePopup: false,
+        autoFloatEnabled:false,
         maximumWords: 3000 //允许的最大字符数
     });
 
@@ -261,6 +262,7 @@ var ue = UE.getEditor('introduction-enrolment', {
         autoFloatEnabled: true,
         enableAutoSave: false,
         imagePopup: false,
+        autoFloatEnabled:false,
         maximumWords: 3000 //允许的最大字符数
     });
 

@@ -121,8 +121,18 @@ public class MedicalHospital implements Serializable {
 
     @Transient
     private Integer authenticationNum;
+    @Transient
+    private String loginName;
 
     public MedicalHospital() {
+    }
+
+    public String getLoginName() {
+        return loginName;
+    }
+
+    public void setLoginName(String loginName) {
+        this.loginName = loginName;
     }
 
     public Integer getClientType() {

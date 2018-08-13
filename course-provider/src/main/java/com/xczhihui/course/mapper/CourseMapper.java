@@ -225,4 +225,12 @@ public interface CourseMapper extends BaseMapper<Course> {
     @Insert({"insert into oe_live_time_record (course_id,live_id, start_time, end_time, record_count) values(#{courseId}, #{liveId}, #{startTime}, #{endTime}, #{recordCount})"})
     void insertRecordLiveTime(@Param("startTime") Date startTime, @Param("endTime") Date endTime,
                               @Param("courseId") Integer courseId, @Param("liveId") String liveId, @Param("recordCount") Integer recordCount);
+
+    /**
+     * 获取
+     * @param directId
+     * @return
+     */
+    @Select({"select live_status from oe_course where direct_id = #{directId}"})
+    Integer selectCourseLiveStatusByDirectId(@Param("directId") String directId);
 }

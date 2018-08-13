@@ -1519,6 +1519,7 @@ function btnColorReply(){
         autoFloatEnabled: true,
         enableAutoSave: false,
         imagePopup: false,
+        autoFloatEnabled:false,
         maximumWords: 3000 //允许的最大字符数
     });
     //	专栏部分
@@ -1864,6 +1865,7 @@ function btnColorReply(){
         autoFloatEnabled: true,
         enableAutoSave: false,
         imagePopup: false,
+        autoFloatEnabled:false,
         maximumWords: 3000 //允许的最大字符数
     });
 
@@ -2154,6 +2156,7 @@ function btnColorReply(){
         autoFloatEnabled: true,
         enableAutoSave: false,
         imagePopup: false,
+        autoFloatEnabled:false,
         maximumWords: 3000 //允许的最大字符数
     });
 

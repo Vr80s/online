@@ -13,12 +13,14 @@ import java.util.Map;
  * @CreateDate: 2018/5/10 15:10
  **/
 public enum CourseType {
-    VIDEO(1, "视频课程"),
-    AUDIO(2, "音频课程"),
-    LIVE(3, "视频直播"),
-    AUDIO_LIVE(6, "音频直播"),
+	
+	AUDIO_LIVE(6, "语音直播"),
+	LIVE(3, "视频直播"),
+    VIDEO(1, "视频点播"),
     OFFLINE(4, "线下课程"),
-    APPRENTICE(5, "师承直播");
+    AUDIO(2, "音频课程");
+   
+    //APPRENTICE(5, "师承直播")
 
     private int id;
     private String name;

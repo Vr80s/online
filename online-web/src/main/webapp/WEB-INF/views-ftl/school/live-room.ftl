@@ -59,7 +59,7 @@
             </li>
         </#list>
         </ul>
-        <div class="null-document hide">
+        <div class="null-document <#if (documents?size gt 0)>hide</#if>">
             <img src="/web/images/live-room/null-document.png" alt="无文件"/>
             <p>您还没有上传文档，快来上传吧~</p>
         </div>
@@ -241,7 +241,7 @@
                             <ul class="J-thumImg">
                             </ul>
                         </div>
-                        <div class="icon-right"></div>
+                        <div class="icon-right J-icon-right"></div>
                     </div>
                     <div class="icon-left hide"></div>
                     <!--pages分页-->

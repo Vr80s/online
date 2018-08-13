@@ -158,6 +158,50 @@ public class RedisCacheService implements CacheService {
     }
 
     @Override
+    public Set<String> zsrangeByScore(String key, String min, String max) {
+        Jedis jedis = null;
+        try {
+            jedis = getJedis();
+            return jedis.zrangeByScore(key, min, max);
+        } finally {
+            this.release(jedis);
+        }
+    }
+
+    @Override
+    public void zsadd(String key, String member, double score) {
+        Jedis jedis = null;
+        try {
+            jedis = getJedis();
+            jedis.zadd(key, score, member);
+        }finally {
+            this.release(jedis);
+        }
+    }
+
+    @Override
+    public void zsrem(String key, String member) {
+        Jedis jedis = null;
+        try {
+            jedis = getJedis();
+            jedis.zrem(key, member);
+        }finally {
+            this.release(jedis);
+        }
+    }
+
+    @Override
+    public Boolean isZsmember(String key, String member) {
+        Jedis jedis = null;
+        try {
+            jedis = getJedis();
+            return jedis.zscore(key, member) != null;
+        }finally {
+            this.release(jedis);
+        }
+    }
+
+    @Override
     @SuppressWarnings("unchecked")
     public <T extends Serializable> T get(String key) {
         Jedis jedis = null;
