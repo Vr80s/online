@@ -263,8 +263,17 @@
 	.send-box{
 		/*background: red;*/
 	}
-	.player-container{
+	.layer{
 		height: 87% !important;
+	}
+	.layers{
+		height: 100% !important;
+	}
+	.player-container{
+		height: 100% !important;
+	}
+	.viewer-imgs{
+		top: 0 !important;
 	}
 	.generate-replay{
 		width: 230px;
@@ -339,6 +348,12 @@
 		margin-top: 12px;
 	}
 	
+	/*回放按钮*/
+	.video-js .vjs-big-play-button{
+		top: 50% !important;
+    	left: 50% !important;
+	}
+	
 </style>
 <script>
 	window.onload = function(){
@@ -364,7 +379,12 @@
 
 				// 文檔按鈕隱藏
 				$(".iviewer_common").show();
-			}else{
+				$(".layer").addClass("layers");
+				$("#viewer2 img").removeClass("viewer-imgs");//缩小后的文档区域  文档高度
+//				alert(222);
+ 			}else{
+ 				$("#viewer2 img").addClass("viewer-imgs");//缩小后的文档区域  文档高度
+// 				alert(111);
 				$("#viewer2 img").addClass("viewer-img");
 				$("#viewer2").removeClass("company-introduce-one");
 				$("#viewer2").addClass("doc-img");
