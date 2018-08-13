@@ -430,6 +430,9 @@ $(function () {
     }
 
     $('.file-list').on('click', '.J-doc-operation', function () {
+        if (!isSlideOpen()) {
+            $(".icon-left").click();
+        }
         docId = $(this).parent().data('did');
         reloadDoc();
         if (!page) {
@@ -437,6 +440,10 @@ $(function () {
         }
         setPage(page, 1);
     });
+
+    function isSlideOpen() {
+        return !$(".icon-right").parent('.select-document-wrap').hasClass("select-left");
+    }
 
     $('.file-list').on('click', '.J-doc-delete', function () {
         var $parent = $(this).parent();
@@ -537,16 +544,6 @@ $(function () {
         $(".document-content").css({"width": documentWidth});
     }
 
-    function changeSlideDocumentWidth(isAdd) {
-        var documentWidth = 0;
-        if (isAdd) {
-            documentWidth = $(".video-width").width() - 70;
-        } else {
-            documentWidth = $(".video-width").width() - 170;
-        }
-        $(".document-content").css({"width": documentWidth});
-    }
-
     getWhiteHeight();
     $(window).resize(function () {
         getWhiteHeight();
@@ -612,33 +609,25 @@ $(function () {
     });
 
     function documentAreaReload() {
-        window.doc.reSizeBorad($(".document-content").width(), $(".video-main").height());
-        // window.doc.loadDoc(docId, channelId, function (docId) {
-        //     $('.video-main').css("background", "none");
-        //     $('.J-close-doc').trigger("click");
-        //     getImg(false);
-        // }, function (reason) {
-        //     console.error(reason);
-        // });
-        // setTimeout(function () {
-        //     console.log("执行了======")
-        //     window.doc.gotoSlide(curPage);
-        //     console.log("执行后======")
-        // }, 2000);
-        // initDoc();
+        var documentWidth = 0;
+        if (isSlideOpen()) {
+            documentWidth = $(".video-width").width() - 170;
+        } else {
+            documentWidth = $(".video-width").width() - 70;
+        }
+        $(".document-content").css({"width": documentWidth});
+        window.doc.reSizeBorad(documentWidth, $(".video-main").height());
     }
 
 //------------------------------------------文档左侧列表点击效果----------------------------------------------------------------	
     $(".icon-right").click(function () {
         $(this).parent(".select-document-wrap").addClass("select-left");
         $(".video-main .icon-left").removeClass("hide");
-        changeSlideDocumentWidth(true);
         documentAreaReload();
     })
     $(".icon-left").click(function () {
         $(this).siblings(".select-document-wrap").removeClass("select-left");
         $(".video-main .icon-left").addClass("hide");
-        changeSlideDocumentWidth(false)
         documentAreaReload();
     })
     $(".modal-list li").each(function () {

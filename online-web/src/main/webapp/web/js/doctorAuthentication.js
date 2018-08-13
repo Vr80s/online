@@ -7,7 +7,7 @@ $(function(){
 	$('#doc_Distinguish #AutList #submit').click(function(){
 	//姓名
 	var name = $.trim($('#AutList .doc_name').val());
-	var name_pass = /^[\u4E00-\u9FA5]{1,20}$/;;
+	var name_pass = /^[a-zA-Z\u4e00-\u9fa5]+$/;
 	var doc_Idnum = $.trim($('#AutList .doc_Idnum').val());
 	var doc_Idnum_pass = /(^\d{15}$)|(^\d{17}([0-9]|X)$)/;
 	var personInt = UE.getEditor('editor').getContent();
@@ -20,7 +20,7 @@ $(function(){
 			return false;
 		}else if(!name_pass.test(name)){
 			$('#AutList .doc_name').siblings('.name_warn').removeClass('hide');
-			$('#AutList .doc_name').siblings('.name_warn').text('姓名格式不正确');
+			$('#AutList .doc_name').siblings('.name_warn').text('请填写真实姓名');
 			$('#AutList .doc_name').addClass('borderColor');
 			return false;
 		}else {

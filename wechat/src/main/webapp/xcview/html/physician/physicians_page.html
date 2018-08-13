@@ -253,6 +253,7 @@
 
 	.evaluateDiv{
 		word-break:break-all;
+		overflow: hidden;
 	}
 	.course_nav_span .title{
 		margin-bottom: 0.2rem;
@@ -734,9 +735,7 @@
 							
 							<span class="evaluate_cen"><span class="name">{{postsComment.userName}}：</span>{{postsComment.content}}</span>
 							</div>
-							<div class="both"></div>
 							{{else}}
-							<div class="both"></div>
 							<div class="response evaluateDiv {{postsComment.id}}" data-id="{{postsComment.id}}" data-postsId="{{item.id}}" data-replyUserId="{{postsComment.replyUserId}}" data-userName="{{postsComment.replyUserName}}">
 								<span class="my">{{postsComment.replyUserName}}</span>
 								<span class="response_cen">回复</span>

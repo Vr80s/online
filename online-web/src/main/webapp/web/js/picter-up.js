@@ -1,9 +1,15 @@
-function columnUpdown(baseurl, wrapPicter) {
-		RequestService("/medical/common/upload", "post", {
-			image: baseurl,
-		}, function(data) {
-			$('.' + wrapPicter + '').html('<img src="' + data.resultObject + '" >');
-		})
+function columnUpdown(form, wrapPicter) {
+    $.ajax({
+        type: 'post',
+        url: "/medical/common/upload",
+        data: form,
+        cache: false,
+        processData: false,
+        contentType: false,
+    }).success(function (data) {
+        $('.' + wrapPicter + '').html('<img src="' + data.resultObject + '" >');
+    });
+
 	}
 
 
@@ -26,9 +32,11 @@ function pieterUp(downId,wrapPicter){
 			}, 2000)
 			return false;
 		}
+        var form = new FormData();
+        form.append("image", this.files[0]);
 		var reader = new FileReader();
 		reader.onload = function(e) {
-			columnUpdown(reader.result, wrapPicter);
+			columnUpdown(form, wrapPicter);
 		}
 		reader.readAsDataURL(this.files[0])
 	});

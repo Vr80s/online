@@ -132,6 +132,8 @@ requestService("/xczh/course/liveDetails", {
                 $(".history_span").text("即将直播");
             }
 
+             lineState = result.lineState;
+            
             /**
              * 直播状态1.直播中，2预告，3直播结束 4 即将直播
              */
