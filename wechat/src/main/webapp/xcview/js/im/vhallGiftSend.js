@@ -26,20 +26,6 @@ if (sendTime == null) {
 
 function createGiftList(gift) {
 
-	if (gift.messageType == 5) { //回放生成失败
-
-		
-	} else if (gift.messageType == 4) { //回放生成 成功
-
-	
-	} else if (gift.messageType == 2) { //直播开始了
-		
-		return;
-	} else if (gift.messageType == 3) { //直播结束了
-		
-		return;
-	}
-	//if(gift.courseId!=course_id)return;   //ios传值
 	if (gift.messageType == 0 || gift.messageType == 1) {
 
 		var data = gift;

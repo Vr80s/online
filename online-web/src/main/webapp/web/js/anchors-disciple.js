@@ -57,16 +57,20 @@ $(function(){
 		}
 	})
 //	跟师直播封面上传
- 	function classUpdown(baseurl, imgname) {
-        RequestService("/medical/common/upload", "post", {
-            image: baseurl,
-        }, function (data) {
-//          $('.class-fengmian  .' + imgname + '').html('<img src="' + data.resultObject + '?imageMogr2/thumbnail/!260x147r|imageMogr2/gravity/Center/crop/260x147" alt="课程封面">');
-        	var teacherCoverReset='<img src="' + data.resultObject + '?imageMogr2/thumbnail/!260x147r|imageMogr2/gravity/Center/crop/260x147" alt="课程封面">'+
-        						'<p class="teacher-reset-tip">点击图片重新上传</p>'
-        	$('.class-fengmian  .' + imgname + '').html(teacherCoverReset);
-        	
-        })
+ 	function classUpdown(form, imgname) {
+        $.ajax({
+            type: 'post',
+            url: "/medical/common/upload",
+            data: form,
+            cache: false,
+            processData: false,
+            contentType: false,
+        }).success(function (data) {
+            var teacherCoverReset='<img src="' + data.resultObject + '?imageMogr2/thumbnail/!260x147r|imageMogr2/gravity/Center/crop/260x147" alt="课程封面">'+
+                '<p class="teacher-reset-tip">点击图片重新上传</p>'
+            $('.class-fengmian  .' + imgname + '').html(teacherCoverReset);
+        });
+
     }
     $('#class_picIpt').on('change', function () {
         if (this.files[0].size > 2097152) {
@@ -86,9 +90,11 @@ $(function(){
             }, 2000)
             return false;
         }
+        var form = new FormData();
+        form.append("image", this.files[0]);
         var reader = new FileReader();
         reader.onload = function (e) {
-            classUpdown(reader.result, 'disciple-wrap-img');
+            classUpdown(form, 'disciple-wrap-img');
         }
         reader.readAsDataURL(this.files[0])
     });
@@ -139,15 +145,20 @@ $(function(){
 
 //	师承封面
 	
-	function manageUpdown(baseurl, imgname) {
-        RequestService("/medical/common/upload", "post", {
-            image: baseurl,
-        }, function (data) {
-//          $('.comment-set-rules  .' + imgname + '').html('<img src="' + data.resultObject + '?imageMogr2/thumbnail/!260x147r|imageMogr2/gravity/Center/crop/260x147" alt="课程封面">');
-        		var manageCoverReset='<img src="' + data.resultObject + '?imageMogr2/thumbnail/!260x147r|imageMogr2/gravity/Center/crop/260x147" alt="课程封面">'+
-        						'<p class="manage-reset-tip">点击图片重新上传</p>'
-        	$('.comment-set-rules  .' + imgname + '').html(manageCoverReset);
-        })
+	function manageUpdown(form, imgname) {
+        $.ajax({
+            type: 'post',
+            url: "/medical/common/upload",
+            data: form,
+            cache: false,
+            processData: false,
+            contentType: false,
+        }).success(function (data) {
+            var manageCoverReset='<img src="' + data.resultObject + '?imageMogr2/thumbnail/!260x147r|imageMogr2/gravity/Center/crop/260x147" alt="课程封面">'+
+                '<p class="manage-reset-tip">点击图片重新上传</p>'
+            $('.comment-set-rules  .' + imgname + '').html(manageCoverReset);
+        });
+
     }
     $('#manage_picIpt').on('change', function () {
         if (this.files[0].size > 2097152) {
@@ -167,9 +178,11 @@ $(function(){
             }, 2000)
             return false;
         }
+        var form = new FormData();
+        form.append("image", this.files[0]);
         var reader = new FileReader();
         reader.onload = function (e) {
-            manageUpdown(reader.result, 'mamage-wrap-img');
+            manageUpdown(form, 'mamage-wrap-img');
         }
         reader.readAsDataURL(this.files[0])
     });

@@ -13,14 +13,12 @@
 <meta name="description" content="" />
 <link rel="stylesheet" href="/xcview/css/css.css">
 
-
 <!--手机嵌入模板-->
 <script type="text/javascript" src="/xcview/js/common/layout.js"></script>
 <!-- 图片引入放大缩小 -->
 <script type="text/javascript" src="/xcview/js/common/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/underscore.js"></script>
 <script type="text/javascript" src="/xcview/js/common/pinchzoom.js"></script>
-
 
 <!-- 双击图片变大缩小 -->
 <script type="text/javascript">
@@ -40,7 +38,6 @@ $(function(){
 
 <!--公用弹框 -->
 <link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
-
 <link rel="stylesheet" href="https://static.vhallyun.com/jssdk/videojs.min.css?v=1.0.0"><!--播放器默认样式，需要引用在包含在页面的head标签里-->
 <style>
 
@@ -53,7 +50,12 @@ $(function(){
 .leaderboard .leaderboard_list:last-child{
     border-bottom: none;
 }
-
+.video-js .vjs-big-play-button{
+	top: 50% !important;
+    margin-top: -1em !important;
+    left: 50% !important;
+    margin-left: -1.5em !important;
+}
 
 /*  .cover{
     display: none !important;
@@ -838,7 +840,6 @@ $(function(){
 <script src="/xcview/weihoujs/jquery.min.js"></script>
 <script type="text/JavaScript" src="//res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 <script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
-
 <script type="text/javascript" src="/xcview/js/common/alertPopShow.js"></script>
 <!--这段meta代码需要加上，移动端自适应缩放用-->
 <!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
@@ -859,6 +860,7 @@ $(function(){
 <script type="text/javascript" src="/xcview/js/details_change.js"></script>
 <script type="text/javascript" src="/xcview/js/details.js"></script>
 <script type="text/javascript" src="/xcview/js/vhallyun.js"></script>
+<script type="text/javascript" src="/xcview/js/share/share.js"></script>
 
 
 <script type="text/javascript">

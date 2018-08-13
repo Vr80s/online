@@ -33,7 +33,7 @@
         <#elseif courseItem.lineState  == 4>
             <span class="classCategory">即将语音直播</span>
         <#else>
-            <p class="class-style">暂未开播</p>
+            <span class="classCategory">暂未开播</span>
         </#if>
     <#elseif courseItem.courseForm == 1 && courseItem.multimediaType == 2>
         <#if courseItem.lineState  == 1  >
@@ -45,7 +45,7 @@
         <#elseif courseItem.lineState  == 4>
             <span class="classCategory">即将语音直播</span>
         <#else>
-            <p class="class-style">暂未开播</p>
+            <span class="classCategory">暂未开播</span>
         </#if>
     <#elseif courseItem.courseForm == 3>
         <span class="classCategory">线下课程</span>
