@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +34,8 @@ import com.xczhihui.course.vo.OnlineCourseVo;
  */
 @Service
 public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements IOrderService {
+
+    Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private CourseMapper courseMapper;
@@ -70,6 +74,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         }
         String courseNames = getCourseNames(order);
         order.setCourseNames(courseNames);
+        logger.info(order.toString());
         return order;
     }
 

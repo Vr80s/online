@@ -114,6 +114,7 @@ public class OrderInputServiceImpl extends OnlineBaseServiceImpl implements Orde
 
     @Override
     public String addOrder(OrderInputVo vo) {
+        logger.info(vo.toString());
         OnlineUser user = onlineUserService.getUserByLoginName(vo.getLogin_name());
 
         // 查询条件
@@ -123,6 +124,7 @@ public class OrderInputServiceImpl extends OnlineBaseServiceImpl implements Orde
         Double coursePrice = getCoursePrice(courseId);
         //检验该用户是否已经购买过该课程
         hasCourse(userId, courseId, user.getLoginName());
+
         Integer orderFrom = vo.getOrder_from();
         String orderNo = orderServiceImpl.createOrder(user, courseId, coursePrice, orderFrom.toString());
         //保存订单导入记录

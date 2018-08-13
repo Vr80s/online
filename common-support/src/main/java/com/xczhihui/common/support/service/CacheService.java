@@ -106,4 +106,12 @@ public interface CacheService {
     Long srem(String key, String value);
 
     Set<String> smembers(String key);
+
+    Set<String> zsrangeByScore(String key, String min, String max);
+
+    void zsadd(String key, String member, double score);
+
+    void zsrem(String key, String member);
+
+    Boolean isZsmember(String key, String member);
 }

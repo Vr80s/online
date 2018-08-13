@@ -36,7 +36,11 @@
 	    }
 	}	
 </script>
-
+<style>
+	.help{
+		display: none;
+	}
+</style>
 </head>
 <body style="background:#efefef;">
 	<!-- 头部开始 -->
@@ -87,17 +91,6 @@
 	</div>
 	
 	<!-- 中间内容结束 -->
-	<script>
-		window.onload = function(){
-			var a = $(".help_main_one").css("display");
-			if (a == "block") {
-				$(".help").show();
-
-			} else {
-				$(".help").hide();
-			}
-		};
-	</script>
 
 </body>
 </html>

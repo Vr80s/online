@@ -214,7 +214,7 @@
 		height: 100% !important;
 	}
 	#myVideo div:first-child{
-		height: 87% !important;
+		height: 100% !important;
 		/*height: 100% !important;*/
     	width: 100%;
     	/*background: #000;*/
@@ -266,6 +266,79 @@
 	.player-container{
 		height: 87% !important;
 	}
+	.generate-replay{
+		width: 240px;
+	    height: 30px;
+	    line-height: 30px;
+	    font-size: 18px;
+	    text-align: center;
+	    border-radius: 4px;
+	    background: #ed4343;
+	    margin: 0 auto;
+	    position: absolute;
+	    top: 45%;
+	    left: 50%;
+	    margin-left: -120px;
+	    color: #fff;
+	}
+	.generate-replay{
+		width: 285px;
+	    height: 30px;
+	    line-height: 30px;
+	    font-size: 18px;
+	    text-align: center;
+	    border-radius: 4px;
+	    background: #ed4343;
+	    margin: 0 auto;
+	    position: absolute;
+	    top: 45%;
+	    left: 50%;
+	    margin-left: -142.5px;
+	    color: #fff;
+	}
+	.see-the-replay{
+		width: 200px;
+	    height: 30px;
+	    line-height: 30px;
+	    font-size: 18px;
+	    text-align: center;
+	    border-radius: 4px;
+	    background: #ed4343;
+	    margin: 0 auto;
+	    position: absolute;
+	    top: 45%;
+	    left: 50%;
+	    margin-left: -100px;
+	    color: #fff;
+	}
+	.learning-center{
+		width: 250px;
+	    height: 30px;
+	    line-height: 30px;
+	    font-size: 18px;
+	    text-align: center;
+	    border-radius: 4px;
+	    background: #ed4343;
+	    margin: 0 auto;
+	    position: absolute;
+	    top: 45%;
+	    left: 50%;
+	    margin-left: -125px;
+	    color: #fff;
+	}
+	
+	/*音量控制按钮*/
+	#myVideo .video-js .vjs-volume-bar{
+		height: 14px !important;
+		margin-top: 12px;
+	}
+	
+	/*进度条*/
+	.video-js .vjs-progress-control{
+		height: 14px !important;
+		margin-top: 12px;
+	}
+	
 </style>
 <script>
 	window.onload = function(){
@@ -467,13 +540,15 @@
 			</div>
 			<span class="liveTime">直播时间：<span></span></span>
 		</div>
-		
-		<div id="livePlayer">.playback-rebroadcast
-		
+		<div id="livePlayer">
 			<!--回放重播提示开始-->
 			<div class="playback" style="display:none;">
 				<img src="/web/images/2.jpg" alt="" class="playback-img" />
 				<div class="playback-rebroadcast">重播</div>
+				<div class="generate-replay" style="display:none;">直播结束，正在生成回放…</div>
+				<div class="leave" style="display:none;">主播要离开一会儿，稍等片刻哦~</div>
+				<div class="see-the-replay" style="display:none;">直播结束,点击查看回放</div>
+				<div class="learning-center" style="display:none;">直播结束，点击返回学习中心</div>
 			</div>
 			<!--回放重播提示结束-->
 				
@@ -827,10 +902,10 @@
 <script src="/web/js/im/giftSend2.js?v=ipandatcm_1.3" type="text/javascript" charset="utf-8"></script>
 
 <!-- 微吼云 -->
+<script src="https://static.vhallyun.com/jssdk/vhall-jssdk-chat-1.0.0.js?v=201801121522"></script>
 <script src="https://static.vhallyun.com/jssdk/dvideo-plugin.js?v=0.3"></script>
 <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-player-1.0.0.js"></script>
 <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-doc-1.0.0.js?v=201806271657"></script>
-<script src="https://static.vhallyun.com/jssdk/vhall-jssdk-chat-1.0.0.js?v=201801121522"></script>
 <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-base-1.0.0.js?v=201806271657"></script>
 
 

@@ -36,6 +36,8 @@ import com.xczhihui.course.vo.ShareInfoVo;
  */
 @Service
 public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> implements ICourseService {
+    public static final String START_EVENT = "start";
+    public static final String STOP_EVENT = "stop";
 
     @Autowired
     private CourseMapper iCourseMapper;
@@ -350,7 +352,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
                 userId);
         Map<String, Object> map1 = new HashMap<String, Object>();
         map1.put("text", "跟师直播");
-        map1.put("code", CourseType.APPRENTICE.getId());
+        map1.put("code", 5);
         map1.put("courseList", records);
         alllist.add(map1);
 
@@ -475,7 +477,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         Integer type = 0;
         if (course != null) {
             switch (event) {
-                case "start":
+                case START_EVENT:
                     startOrEnd = "start_time";
                     course.setLiveStatus(1);
                     type = VhallCustomMessageType.LIVE_START.getCode();
@@ -487,7 +489,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
                     course.setLiveCase(LiveCaseType.NORMAL_LIVE.getCode());
                     
                     break;
-                case "stop":
+                case STOP_EVENT:
                     startOrEnd = "end_time";
                     course.setLiveStatus(3);
                     type = VhallCustomMessageType.LIVE_END.getCode();
@@ -515,9 +517,9 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
                 maxRecord = maxRecord == null ? 1 : maxRecord + 1;
                 Date startTime = null;
                 Date endTime = null;
-                if (event.equals("start")) {
+                if (event.equals(LiveStatusEvent.START.getName())) {
                     startTime = new Date();
-                } else if (event.equals("stop")) {
+                } else if (event.equals(LiveStatusEvent.STOP.getName())) {
                     endTime = new Date();
                 }
                 iCourseMapper.insertRecordLiveTime(startTime, endTime, course.getId(), course.getDirectId(), maxRecord);
@@ -538,15 +540,19 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         }
     }
 
-	@Override
-	public Integer updateCourseLiveCase(String channelId) {
-		List<Course> courses = iCourseMapper.selectByMap(ImmutableMap.of("channel_id", channelId));
+    @Override
+    public Integer updateCourseLiveCase(String channelId) {
+        List<Course> courses = iCourseMapper.selectByMap(ImmutableMap.of("channel_id", channelId));
         if (courses == null || courses.isEmpty()) {
             return null;
         }
         Course course = courses.get(0);
         course.setLiveCase(LiveCaseType.EXIT_BUT_NOT_END.getCode());
-		return  iCourseMapper.updateById(course);
-	}
+        return iCourseMapper.updateById(course);
+    }
 
+    @Override
+    public Integer findLiveStatusByDirectId(String directId) {
+        return iCourseMapper.selectCourseLiveStatusByDirectId(directId);
+    }
 }

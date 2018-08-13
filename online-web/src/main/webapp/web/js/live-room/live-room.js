@@ -13,6 +13,8 @@ $(function () {
     var emojiReg = /\[.+?\]/g;
     var cameras = [];
     var mics = [];
+    var loadAnchorIn = false;
+    var loadAnchorOut = false;
     window.doc = null;
 
     window.Vhall.config({
@@ -65,13 +67,29 @@ $(function () {
             window.chat.join(function (msg) {
                 console.log(msg);
                 console.log("进入直播间");
-                viewJoinleaveRoomInfo(msg, "join");
+                var userId = msg.third_party_user_id;
+                if (!loadAnchorIn || userId != accountId) {
+                    if (userId == accountId) {
+                        loadAnchorIn = true;
+                    }
+                    viewJoinleaveRoomInfo(msg, "join");
+                    appendStudent(userId, msg.avatar, msg.nick_name);
+                    updateStudentLiveStatus(userId, 1);
+                }
                 //TODO 判断是否被禁言
             });
             window.chat.leave(function (msg) {
                 console.log(msg);
                 console.log("离开直播间");
-                viewJoinleaveRoomInfo(msg, "leave");
+                var userId = msg.third_party_user_id;
+                if (!loadAnchorOut || userId != accountId) {
+                    if (userId == accountId) {
+                        loadAnchorOut = true;
+                    }
+                    viewJoinleaveRoomInfo(msg, "leave");
+                    removeStudent(userId);
+                    updateStudentLiveStatus(userId, 0);
+                }
             });
         });
         setTimeout(function () {
@@ -150,8 +168,9 @@ $(function () {
                     $this.data('status', 1);
                     console.log("推流成功");
                 },
-                fail: function () {
-                    console.log("推流失败");
+                fail: function (e) {
+                    console.log(e);
+                    showTip("直播未能开启");
                 }
             });
         } else {
@@ -185,10 +204,10 @@ $(function () {
                 var html = '';
                 var content = msg.message.content;
                 if (content) {
-                    content.replace(emojiReg, function (a, b) {
+                    content = content.replace(emojiReg, function (a, b) {
                         var imgUrl = emojiMap.get(a);
                         if (imgUrl) {
-                            a = '<img src="' + imgUrl + '">';
+                            a = '<img src="' + imgUrl + '" style="width: 20px;height: 20px">';
                         }
                         return a;
                     })
@@ -219,7 +238,7 @@ $(function () {
             success: function (resp) {
                 if (resp.resultObject && resp.resultObject.data) {
                     var result = resp.resultObject.data;
-                    for (var i = result.length - 1; i >= 0; i--) {
+                    for (var i = 0; i < result.length; i++) {
                         try {
                             renderMsg(JSON.parse(JSON.parse(result[i].data)));
                         } catch (e) {
@@ -245,20 +264,63 @@ $(function () {
         $.ajax({
             method: 'GET',
             url: '/vhallyun/roomJoinStudent',
-            data: {'roomId': roomId, 'channelId': channelId, "anchorId": accountId},
+            data: {'channelId': channelId},
             success: function (resp) {
                 var data = resp.resultObject;
                 for (var i = 0; i < data.length; i++) {
-                    console.log(data[i]);
+                    appendStudent(data[i].id, data[i].smallHeadPhoto, data[i].name);
                 }
-                // $('.student-list').append('<li>\n' +
-                //     '                            <div class="head-portrait z">\n' +
-                //     '                                <img src="' + msg.avatar + '" alt="头像"/>\n' +
-                //     '                            </div>\n' +
-                //     '                            <span class="student-name z">我是超人</span>\n' +
-                //     '                        </li>')
             }
         });
+    }
+
+    function updateStudentLiveStatus(userId, status) {
+        $.ajax({
+            method: "POST",
+            url: '/vhallyun/online/status',
+            async: false,
+            data: {
+                channelId: channelId,
+                userId: userId,
+                status: status
+            },
+            success: function(resp) {
+            }
+        });
+    }
+
+    function appendStudent(userId, avatar, nickname) {
+        if (userId != accountId) {
+            if ($('.user-id-'+userId).length === 0) {
+                $.ajax({
+                    method: "GET",
+                    url: '/vhallyun/banStatus',
+                    data: {
+                        channelId: channelId,
+                        accountId: userId
+                    },
+                    success: function(resp) {
+                        removeStudent(userId);
+                        var ban = resp.resultObject;
+                        $('.student-list').append('<li>\n' +
+                            '                            <div class="head-portrait z ' + ' user-id-' + userId +'"' + ' data-id="' + userId + '">\n' +
+                            '                                <img src="' + avatar + '" alt="头像"/>\n' +
+                            '                            </div>\n' +
+                            '                            <span class="student-name z">' + nickname + '</span>\n' +
+                            ' <span class="select-ban y">' +
+                            (ban ? '<img src="/web/images/live-room/say-ban.png"/>' : '                                <img src="/web/images/live-room/say-icon.png" alt="选择禁言" title="禁言"/>\n' )+
+                            '                            </span>' +
+                            '                        </li>');
+                    }
+                });
+
+            }
+        }
+    }
+
+    function removeStudent(userId) {
+        console.log("remove userId: " + userId);
+        $('.user-id-' + userId).parent().remove();
     }
 
     renderStudentList();
@@ -268,11 +330,6 @@ $(function () {
             method: 'POST',
             url: 'ban/' + channelId + '/' + accountId + '/' + status,
             success: function (resp) {
-                if (status === 1) {//禁言
-                    //TODO
-                } else {
-                    //TODO
-                }
             }
         })
     }
@@ -406,6 +463,9 @@ $(function () {
             url: "/vhallyun/document/" + docId,
             success: function (resp) {
                 $parent.remove();
+                if ($('.hover-delect').length == 0) {
+                    $('.null-document').removeClass('hide');
+                }
             }
         })
     });
@@ -431,7 +491,7 @@ $(function () {
                                     '                    </div>');
                             }
                         } else if (status === 2) {
-                            $docItem.text("转化成功");
+                            $docItem.text("转换成功");
                         }
                     }
                 }
@@ -439,8 +499,9 @@ $(function () {
         })
     }, 30 * 1000);
 
-    $('#J_message_send').on('click', function () {
-        var message = $('#J_message_text').val();
+    function sendMessage() {
+        var $JMessageText = $('#J_message_text');
+        var message = $JMessageText.val();
         if (message) {
             var content = {
                 type: 10,
@@ -451,7 +512,7 @@ $(function () {
                     role: "host"           //发送人的角色    主播： host   普通用户： normal
                 }
             };
-            $('#J_message_text').val('');
+            $JMessageText.val('');
             $.ajax({
                 method: "POST",
                 url: "/vhallyun/message",
@@ -463,7 +524,15 @@ $(function () {
         } else {
             showTip("请输入聊天文字")
         }
+    }
+    $('#J_message_send').on('click', function () {
+        sendMessage();
     });
+    $('#J_message_text').keypress(function (event) {
+        if (event.keyCode == 13) {
+            sendMessage();
+        }
+    }) ;
 
 //------------------------------------------静态页面效果----------------------------------------------------------------
 
@@ -550,17 +619,14 @@ $(function () {
         $(".background-ask").addClass("hide");
         $(".modal-document").addClass("hide");
     })
-//  hover删除按钮显现
-    $(".hover-delect").hover(function () {
+
+    $('.file-list').on('mouseenter', '.hover-delect', function(){
         $(".hover-delect .delect-img").addClass("hide");
         $(this).find(".delect-img").removeClass("hide")
-    }, function () {
+    });
+    $('.file-list').on('mouseleave', '.hover-delect', function(){
         $(".hover-delect .delect-img").addClass("hide");
-    })
-//  点击删除
-//     $(".hover-delect .delect-img").click(function () {
-//         $(this).parent().remove();
-//     })
+    });
 //点击上传文件的URL
 
 //------------------------------------------文档左侧列表点击效果----------------------------------------------------------------	
@@ -633,12 +699,14 @@ $(function () {
     });
 
 //选择禁言
-    $(".student-list .select-ban").click(function () {
+    $(".student-list").on('click', '.select-ban', function () {
         var that = $(this).find("img");
+        var userId = $(this).parent().find('.head-portrait').data('id');
         if (that.attr("src") == "/web/images/live-room/say-icon.png") {
-            // setBanStatus()
+            setBanStatus(userId, 1);
             that.attr({"src": "/web/images/live-room/say-ban.png", "title": "取消禁言"});
         } else {
+            setBanStatus(userId, 0);
             that.attr({"src": "/web/images/live-room/say-icon.png", "title": "禁言"});
         }
     });
@@ -683,8 +751,8 @@ $(function () {
         $('#file-input').trigger('click');
     });
     $('#file-input').change(function () {
-        $(this).text('上传中');
-        $(this).prop('disabled', 'disabled');
+        $('.document-upload').text('上传中');
+        $('.document-upload').prop('disabled', 'disabled');
         $fileInput = $('#file-input');
         $('#submitFile').ajaxSubmit({
             type: 'post',
@@ -696,12 +764,13 @@ $(function () {
                     '                <div class="doc-name doc-photo">' + obj.filename + '</div>\n' +
                     '                <div class="doc-time text-center">' + obj.createTime + '</div>\n' +
                     '                <div class="doc-progress text-center J-doc-item-text-' + obj.documentId +'">等待转换</div>\n' +
-                    '                <div class="delect-img hide"></div>\n' +
+                    '                <div class="delect-img hide J-doc-delete"></div>\n' +
                     '            </li>';
                 $('.J-doc-title').after(liHtml);
                 $fileInput.val('');
                 $('.document-upload').prop('disabled', '');
                 $('.document-upload').text('上传');
+                $('.null-document').hide();
             },
             error: function () {
                 $fileInput.val('');

@@ -38,15 +38,10 @@ public class DoctorServiceImpl extends OnlineBaseServiceImpl implements
     @Value("${env.flag}")
     private String envFlag;
     
-    @Autowired
-    private IMedicalDoctorSolrService medicalDoctorSolrService;
-
 
     @Override
-    public Page<MedicalDoctor> findMedicalDoctorPage(
-            MedicalDoctor medicalDoctor, int pageNumber, int pageSize) {
-        Page<MedicalDoctor> page = doctorDao.findMedicalDoctorPage(
-                medicalDoctor, pageNumber, pageSize);
+    public Page<MedicalDoctor> findMedicalDoctorPage( MedicalDoctor medicalDoctor, int pageNumber, int pageSize) {
+        Page<MedicalDoctor> page = doctorDao.findMedicalDoctorPage( medicalDoctor, pageNumber, pageSize);
        
         List<MedicalDoctor> list = page.getItems();
         

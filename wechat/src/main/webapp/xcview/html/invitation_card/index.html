@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/createImg.css">
     <title>熊猫中医</title>
     <!--手机嵌入模板-->
-    <script type="text/javascript" src="/xcview/js/common/layout.js"></script>
+    <!-- <script type="text/javascript" src="/xcview/js/common/layout.js"></script> -->
     <script>
     //loading and calc root font-size
             (function pageLoading () {
@@ -70,31 +70,35 @@
                 <div class="invitation_card">邀请卡</div>
             </div>
         </header>
-        <div class="imgBoxWrapper imgBoxWrapperTop ">
+        <div class="imgBoxWrapper imgBoxWrapperTop" style="displays: none !important;">
             
         </div>
-        <div class="imgBoxWrapper imgBoxWrapper1 active">   <!--对于第一个图片的div样式 -->
-            <div class="img_cont" style="background-image: url(img/slect1bg.png);background-size: 100% 100%;">
-                <!-- img有图片跨域问题，canvas规则影响：生成base64图片 -->
-                <!-- <div class="avatar"><img src="http://test-wx.xczhihui.com/xcview/demo/img/00.jpg" alt="头像" crossOrigin="anonymous" /><p class="p1">能够看到就是最好的，可怕的是永远见不到</p></div> -->
-                <div class="logo"><img src="img/logo.png" alt=""></div>
-                <div class="avatar"><img src="http://test-file.ipandatcm.com/18727081951/a4ed5d8369e62170.jpg" alt="头像" crossOrigin="anonymous" /><p class="p1">酸酸甜甜柠檬水</p></div>
-                <div class="size">给你推荐了一个很棒的中医课程</div>
-                <div class="mainIma1"><img src="img/0.jpg" alt=""></div>
-                <div class="des">
-                    <div class="title">我是一个标题我是一个标题我是一个标题我是一个标题我是一个标题</div>
-                    <div class="site">面试地址：北京市市朝阳区潘家园街道华威里26号广西大厦6层面试地址：北京市市朝阳区潘家园街道华威里26号</div>
+        <div class="imgBoxWrapper  active">
+            <div class="sub_imgBoxWrapper1 sub_imgBoxWrapper">
+                <div class="img_cont" style="background-image: url(img/slect1bg.png);background-size: 100% 100%;">
+                    <div class="logo"><img src="img/logo.png" alt=""></div>
+                    <div class="avatar"><img src="/imgProxy?imgURL=http://test-file.ipandatcm.com/18727081951/a4ed5d8369e62170.jpg" alt="头像" crossOrigin="anonymous" /><p class="p1">酸酸甜甜柠檬水</p></div>
+                    <div class="size">给你推荐了一个很棒的中医课程</div>
+                    <div class="mainIma1"><img src="img/0.jpg" alt=""></div>
+                    <div class="des">
+                        <div class="title">我是一个标题我是一个标题我是一个标题我是一个标题我是一个标题</div>
+                        <div class="site">面试地址：北京市市朝阳区潘家园街道华威里26号广西大厦6层面试地址：北京市市朝阳区潘家园街道华威里26号</div>
+                    </div>
+                    <img src="img/200.png" alt="二维码" class="QR_code" />
+                    <div class="QR_code_fize">快来跟我一起学中医吧</div>
                 </div>
-                <img src="img/200.png" alt="二维码" class="QR_code" />
-                <div class="QR_code_fize">快来跟我一起学中医吧</div>
             </div>
-        </div>
+        </div> 
         <div class="imgBoxWrapper imgBoxWrapper2">   <!--对于第二个图片的div样式 -->
             <div class="img_cont" style="background-image: url(img/slect2bg.png);background-size: 100% 100%;">
+                <div class="logo"><img src="img/logo.png" alt=""></div>
+                <div class="both"></div>
+                <div class="size">亲爱的朋友：</div>
+                <div class="size">我发现了一个很棒的中医课程推荐给你</div>
                 <div class="avatar"><img src="img/slect2.png" alt="头像"><p class="p1">全世界是你的世界</p><p class="p2">给你推荐一堂好课</p></div>
                 <div class="mainIma1"><img src="img/0.jpg" alt="中间大图"></div>
                 <div class="des">
-                    <div class="title" >（二）狗子的专栏</div>
+                    <div class="title" >（二）专栏</div>
                     <div class="text">啊啊啊啊啊啊啊啊  啊啊啊啊啊啊啊啊啊啊啊啊啊 啊。</div>
                 </div>
                 <div class="er"><img src="img/200.png" alt="二维码" ><p>长按识别课程</p></div>
@@ -105,7 +109,7 @@
                 <div class="avatar"><img src="img/slect3.png" alt="头像"><p class="p1">全世界是你的世界</p><p class="p2">给你推荐一堂好课</p></div>
                 <div class="mainIma1"><img src="img/0.jpg" alt="中间大图"></div>
                 <div class="des">
-                    <div class="title" >（三）二狗子的专栏</div>
+                    <div class="title" >（三）的专栏</div>
                     <div class="text">嗯可以的  啊啊啊啊啊啊啊啊啊啊啊啊啊 啊。</div>
                 </div>
                 <div class="er"><img src="img/200.png" alt="二维码"><p>长按识别课程</p></div>
@@ -117,7 +121,7 @@
                 <div class="avatar"><img src="img/slect3.png" alt="头像"><p class="p1">全世界是你的世界</p><p class="p2">给你推荐一堂好课</p></div>
                 <div class="mainIma1"><img src="img/0.jpg" alt="中间大图"></div>
                 <div class="des">
-                    <div class="title" >（三）二狗子的专栏</div>
+                    <div class="title" >（三）的专栏</div>
                     <div class="text">嗯可以的  啊啊啊啊啊啊啊啊啊啊啊啊啊 啊。</div>
                 </div>
                 <div class="er"><img src="img/200.png" alt="二维码"><p>长按识别课程</p></div>
@@ -128,10 +132,10 @@
     </div>
     <div class="slectBox">
         <ul class="content">
-            <li data-bgImg="li1_bg.png"><img src="img/slect1.png"></li>
-            <li data-bgImg="li4_bg.png"><img src="img/slect2.png"></li>
-            <li data-bgImg="li3_bg.png"><img src="img/slect3.png"></li>
-            <li data-bgImg="li4_bg.png"><img src="img/slect4.png"></li>
+            <li data-bgImg="li1_bg.png" class="content_one"><img src="img/slect1.png"></li>
+            <li data-bgImg="li4_bg.png" class="content_two"><img src="img/slect2.png"></li>
+            <li data-bgImg="li3_bg.png" class="content_three"><img src="img/slect3.png"></li>
+            <li data-bgImg="li4_bg.png" class="content_four"><img src="img/slect4.png"></li>
         </ul>
     </div>
      <!-- <div class="tip">长按保存图片，或发送给朋友</div> -->
@@ -160,23 +164,16 @@
                     iscreated = false
                     index = $(this).index()
                     $('.imgBoxWrapper').eq(index + 1 ).addClass('active').siblings().removeClass("active")
-                    var activeHtmltemp =  $('.imgBoxWrapper').eq(index + 1 ).html()
                     //此处清自行添加此处也可以加一个loading  加个延迟 避免用户感觉到页面重绘 提升用户体验 
                     setTimeout(function(){
                         $(".imgBoxWrapperTop").html("")
-                        $(".imgBoxWrapperTop").html(activeHtmltemp)
+                        $(".imgBoxWrapperTop").html( $('.imgBoxWrapper').eq(index + 1 ).find('.sub_imgBoxWrapper'))
+                        
                     },0)
                     setTimeout(function(){
                         convert2canvas()    
                     },400)
                 }
-               
-            })
-            $(".mask").click(function(){
-                $(".mask").fadeOut()
-                var activeHtmltemp =  $('.imgBoxWrapper').eq(1).html()
-                $(".imgBoxWrapperTop").html(activeHtmltemp)
-                convert2canvas() //点击生成图片
             })
             function convert2canvas() {
                 var shareContent = document.getElementsByClassName("imgBoxWrapperTop")[0];//需要截图的包裹的（原生的）DOM 对象
@@ -202,6 +199,39 @@
                     iscreated = true
                 });
             }
+
+            $(".content_one").click(function(){
+                $(".content_one").css("border","2px solid #CD533E");
+                $(".content_two").css("border","2px solid #fff");
+                $(".content_three").css("border","2px solid #fff");
+                $(".content_four").css("border","2px solid #fff");
+            });
+
+            $(".content_two").click(function(){
+                $(".content_two").css("border","2px solid #CD533E");
+                $(".content_one").css("border","2px solid #fff");
+                $(".content_three").css("border","2px solid #fff");
+                $(".content_four").css("border","2px solid #fff");
+            });
+
+            $(".content_three").click(function(){
+                $(".content_three").css("border","2px solid #CD533E");
+                $(".content_two").css("border","2px solid #fff");
+                $(".content_one").css("border","2px solid #fff");
+                $(".content_four").css("border","2px solid #fff");
+            });
+
+            $(".content_four").click(function(){
+                $(".content_four").css("border","2px solid #CD533E");
+                $(".content_two").css("border","2px solid #fff");
+                $(".content_three").css("border","2px solid #fff");
+                $(".content_one").css("border","2px solid #fff");
+            });
+
+            $(".content_one").click();
+            // $(".content_two").click();
+
+
         }
     </script>
     </script>
