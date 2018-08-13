@@ -32,7 +32,7 @@ $(function () {
     function initDoc() {
         destroyDoc();
         var width = $('#J_doc_main').width();
-        var height = $('#J_doc_main').height();
+        var height = $(".video-main").height();
         window.doc = new VhallDoc({
             roomId: roomId,
             channelId: channelId, //频道Id
@@ -198,6 +198,7 @@ $(function () {
             if (msg.message) {
                 var html = '';
                 var content = msg.message.content;
+                var username = msg.message.username;
                 if (content) {
                     content = content.replace(emojiReg, function (a, b) {
                         var imgUrl = emojiMap.get(a);
@@ -207,22 +208,15 @@ $(function () {
                         return a;
                     })
                 }
-                if (msg.message.role == 'host') {
-                    html = '<li>\n' +
-                        '                            <span class="chat-status">主播</span>\n' +
-                        '                            <span class="chat-name">' + msg.message.username + ':</span>\n' +
-                        '                            <span class="chat-content">' + content + '</span>\n' +
-                        '                        </li>';
-                } else {
-                    html = '<li>\n' +
-                        '                            <span class="chat-name">' + msg.message.username + ':</span>\n' +
-                        '                            <span class="chat-content">' + content + '</span>\n' +
-                        '                        </li>';
-                }
+                html = '<li>\n' + ( msg.message.role == "host" ? '<span class="chat-status">主播</span>\n' : '') +
+                    '                            <span class="chat-name">' + username + ':</span>\n' +
+                    '                            <span class="chat-content">' + content + '</span>\n' +
+                    '                        </li>';
                 $('#J_message_list').append(html);
             }
         }
-        $('.chat-personal').scrollTop($('.chat-personal')[0].scrollHeight);
+        var $chatPersonal = $('.chat-personal');
+        $chatPersonal.scrollTop($chatPersonal[0].scrollHeight);
     }
 
     function initMessage() {
@@ -367,34 +361,36 @@ $(function () {
 
     function reloadDoc() {
         initDoc();
-        window.doc.loadDoc(docId, channelId, function (docId) {
-            $('.video-main').css("background", "none");
-            $('.J-close-doc').trigger("click");
-            getImg();
+        setTimeout(function () {
+            window.doc.loadDoc(docId, channelId, function (docId) {
+                $('.video-main').css("background", "none");
+                $('.J-close-doc').trigger("click");
+                getImg(true);
 
-        }, function (reason) {
-            console.error(reason);
-        });
+            }, function (reason) {
+                console.error(reason);
+            });
+        }, 200);
     }
 
-    function getImg() {
+    function getImg(changePage) {
         setTimeout(function () {
             var imgs = window.doc.getThumImgList(function (list) {
             });
             $('.J-thumImg').html('');
             page = imgs.length;
+            if (!page) {
+                page = 1;
+            }
+            if (changePage) {
+                curPage = 1;
+            }
+            setPage(page, curPage);
             for (var i = 0; i < imgs.length; i++) {
-                if (i === 0) {
-                    $('.J-thumImg').append('<li class="active J-page-img J-page-num-' + (i + 1) + '">\n' +
-                        '                                    <img src="' + imgs[i] + '"  class="" data-page="' + (i + 1) + '"/>\n' +
-                        '                                    <span>' + (i + 1) + '</span>\n' +
-                        '                                </li>');
-                } else {
-                    $('.J-thumImg').append('<li class="J-page-img J-page-num-' + (i + 1) + '">\n' +
-                        '                                    <img src="' + imgs[i] + '"/>\n' +
-                        '                                    <span >' + (i + 1) + '</span>\n' +
-                        '                                </li>');
-                }
+                $('.J-thumImg').append('<li class="' + (i + 1 === curPage ? "active" : "") + ' J-page-img J-page-num-' + (i + 1) + '">\n' +
+                    '                                    <img src="' + imgs[i] + '"/>\n' +
+                    '                                    <span>' + (i + 1) + '</span>\n' +
+                    '                                </li>');
             }
         }, 1000);
     }
@@ -402,6 +398,7 @@ $(function () {
     $('.J-thumImg').on('click', '.J-page-img', function () {
         var p = $(this).find('span').text();
         curPage = parseInt(p);
+        console.log(p);
         window.doc.gotoSlide(curPage);
         setPage(page, curPage);
     });
@@ -434,13 +431,11 @@ $(function () {
 
     $('.file-list').on('click', '.J-doc-operation', function () {
         docId = $(this).parent().data('did');
-        page = $(this).parent().data('page');
+        reloadDoc();
         if (!page) {
             page = 1;
         }
-        curPage = 1;
-        reloadDoc();
-        setPage(page, curPage);
+        setPage(page, 1);
     });
 
     $('.file-list').on('click', '.J-doc-delete', function () {
@@ -618,6 +613,19 @@ $(function () {
 
     function documentAreaReload() {
         window.doc.reSizeBorad($(".document-content").width(), $(".video-main").height());
+        // window.doc.loadDoc(docId, channelId, function (docId) {
+        //     $('.video-main').css("background", "none");
+        //     $('.J-close-doc').trigger("click");
+        //     getImg(false);
+        // }, function (reason) {
+        //     console.error(reason);
+        // });
+        // setTimeout(function () {
+        //     console.log("执行了======")
+        //     window.doc.gotoSlide(curPage);
+        //     console.log("执行后======")
+        // }, 2000);
+        // initDoc();
     }
 
 //------------------------------------------文档左侧列表点击效果----------------------------------------------------------------	
