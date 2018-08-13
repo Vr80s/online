@@ -241,7 +241,8 @@ if(is_weixn()){
 			'onMenuShareQZone',
 			'hideMenuItems',
 			'showMenuItems',
-			'closeWindow'
+			'closeWindow',
+		    'getNetworkType'
 	    ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
 	});
 	
@@ -348,6 +349,13 @@ if(is_weixn()){
 		    	
 			}
 		});
+		wx.getNetworkType({
+			success: function (res) {
+				var networkType = res.networkType; // 返回网络类型2g，3g，4g，wifi
+				//alert("networkType"+networkType);
+				//console.log("networkType"+networkType);
+			}
+	    });
 	})    
 }
 

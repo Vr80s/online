@@ -247,7 +247,7 @@ function elsBind(){
     $("#sendChat").click(function() {
         $(".coze_bottom").css("bottom", "0rem");  //这是输入框在最底部,添加到其他文件不起作用
         var text = $("#mywords").val();
-        if(text!=null){
+        if(text!=null && ""!=text && undefined!=text){
           var content = {
             type:10,                 //消息类型     1 聊天消息
             message:{
