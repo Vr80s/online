@@ -328,6 +328,7 @@ function initDecsription() {
         autoFloatEnabled: true,
         enableAutoSave: false,
         imagePopup: false,
+        autoFloatEnabled:false,
         maximumWords: 10000 //允许的最大字符数
     });
 }
