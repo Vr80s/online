@@ -23,8 +23,6 @@
 		<script src="/web/js/html5.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/web/js/jquery.qrcode.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/web/js/utf.js" type="text/javascript" charset="utf-8"></script>
-    	<script src="/web/js/im/strophe.js" type="text/javascript" charset="utf-8"></script>
-		<script src="/web/js/im/giftSend.js" type="text/javascript" charset="utf-8"></script> 
 		<style>
 			/*倒计时*/
 			.cover-plan{
@@ -118,6 +116,7 @@
 				 <span id="liveStatus"></span>
 				 <span id="courseName"></span>
 				 </span>
+				 
 				<div class="share">
 					<ul>
 						<li style="line-height:none;background:none;width:75px;">分享到：</li>
@@ -125,7 +124,12 @@
 						<li class="share_li2"><img src="/web/images/video2/quan.png" alt="" /><div style="padding:5px;background-color: #fff;" class="share_li2_img"><div id="qrcodeCanvas2"></div></div></li>
 						<li style="background:none;"><a href="javascript:void(0)" id="weibo_share" target="_blank" ><img src="/web/images/video2/weibo.png" alt="" /></a></script></li>
 						<li style="background:none;"><a href="javascript:void(0)" id="qq_share" target="_blank" ><img src="/web/images/video2/Qq.png" alt="" /></a></li>
-				</ul>
+					</ul>
+				</div>
+				<div class="bdsharebuttonbox" data-tag="share_1">
+					<a class="bds_tsina" data-cmd="tsina"></a>
+					<a class="bds_sqq" data-cmd="sqq"></a>
+					<a class="bds_qzone" data-cmd="qzone" href="#"></a>
 				</div>
 				<span class="liveTime">直播时间：<span></span></span>
 				<!-- <span class="liveMember"></span> -->
@@ -151,6 +155,7 @@
 <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-chat-1.0.0.js?v=201801121522"></script>
 <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-base-1.0.0.js?v=201806271657"></script>
 <script src="/web/js/liveVideo/liveVideoOther.js"></script>
+
 <script src="/web/js/common/video_share.js?v=ipandatcm_1.3"></script>
 </body>
 	<script>

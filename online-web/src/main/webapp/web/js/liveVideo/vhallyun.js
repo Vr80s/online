@@ -209,6 +209,9 @@ function elsBind(){
 					$("#chatmsg").append(e);
 					$("#mywords").val("");
 				}
+				
+				$(".chatmsg-box").mCustomScrollbar('update').mCustomScrollbar("scrollTo","bottom");
+				
              }catch(error){
                console.error(error);
              }
@@ -268,6 +271,9 @@ function elsBind(){
     });
 }
 
+
+$(".chatmsg-box").mCustomScrollbar();
+
 /**
  * 获取消息列表
  * @param {} pos   第几页
@@ -307,11 +313,12 @@ function msgList(pos,limit){
              }
              if(e!=""){
              	 $("#chatmsg").html(e);
+             	 $(".chatmsg-box").mCustomScrollbar('update').mCustomScrollbar("scrollTo","bottom");
              }
         } 	
   });      	
 }
-msgList(0,10);
+msgList(0,100);
 
 
 

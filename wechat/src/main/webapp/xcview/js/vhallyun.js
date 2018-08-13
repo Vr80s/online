@@ -20,7 +20,7 @@ if (lineState == 1 || lineState == 3) {
 if(lineState == 1 || lineState == 3 || lineState == 4){
 	initChat();
 	// 初始化消息
-    msgList(0, 50);
+    msgList(0,100);
 }
 
 /**
@@ -279,8 +279,8 @@ function viewJoinleaveRoomInfo(msg, joinOrLeave) {
  	 $(".chatmsg-box").mCustomScrollbar('update').mCustomScrollbar("scrollTo","99999");
 
     var learndCount = sessionStorage.getItem("learndCount");
-    if (isNotBlank(learndCount) && isNotBlank(msg.attend_count)) {
-        learndCount = parseInt(learndCount) + parseInt(msg.attend_count);
+    if (isNotBlank(learndCount) && isNotBlank(msg.connection_online_num)) {
+        learndCount = parseInt(learndCount) + parseInt(msg.connection_online_num);
     }
     $(".details_size span:eq(0)").html(learndCount);
 }
