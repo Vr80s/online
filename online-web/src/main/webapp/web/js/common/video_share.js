@@ -1,3 +1,5 @@
+
+
 var protocoltype =document.location.protocol;
 var documnetHost = document.location.host;
 
@@ -67,6 +69,33 @@ $("#qrcodeCanvas2").qrcode({
 });
 
 
+description =stripHTML(description);
+if(description!=null && description.length>40){
+	description =  description.substring(0,40);
+}
+
+/**
+ * 百度分享
+ * @type 
+ */
+window._bd_share_config = {
+	common : {
+		bdText : description,	
+		bdDesc : courseName,	
+		bdUrl : pc_url, 	
+		bdPic : smallImgPath
+	},
+	share : [{
+		"bdSize" : 16
+	}],
+	selectShare : [{  //微信	weixin
+		"bdselectMiniList" : ['tsina','sqq','qzone']
+	}]
+}
+with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+
+
+
 /**
  * 微博分享
  */
@@ -80,8 +109,11 @@ $("#weibo_share").click(function(){
     for (var i in p) {
         s.push(i + '=' + encodeURIComponent(p[i] || ''));
     }
-    var _src = "http://service.weibo.com/share/share.php?" + s.join('&') ;
-    window.open(_src);
+//    var _src = "http://service.weibo.com/share/share.php?" + s.join('&') ;
+//    window.open(_src,"_blank");
+    
+    var redirectWindow = window.open('http://google.com', '_blank');
+    redirectWindow.location;
 })
 /**
  * qq分享

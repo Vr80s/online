@@ -794,7 +794,7 @@
                     data:orderData6
                 },
                 {
-                    name:'导入',
+                    name:'线下',
                     type:'line',
                     stack: '总量',
                     data:orderData7
@@ -870,7 +870,7 @@
                     data:incomeData6
                 },
                 {
-                    name:'导入',
+                    name:'线下',
                     type:'line',
                     stack: '总量',
                     data:orderData7

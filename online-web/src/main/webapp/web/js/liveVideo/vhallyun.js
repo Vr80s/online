@@ -209,6 +209,9 @@ function elsBind(){
 					$("#chatmsg").append(e);
 					$("#mywords").val("");
 				}
+				
+				$(".chatmsg-box").mCustomScrollbar('update').mCustomScrollbar("scrollTo","bottom");
+				
              }catch(error){
                console.error(error);
              }
@@ -247,7 +250,7 @@ function elsBind(){
     $("#sendChat").click(function() {
         $(".coze_bottom").css("bottom", "0rem");  //这是输入框在最底部,添加到其他文件不起作用
         var text = $("#mywords").val();
-        if(text!=null){
+        if(text!=null && ""!=text && undefined!=text){
           var content = {
             type:10,                 //消息类型     1 聊天消息
             message:{
@@ -267,6 +270,9 @@ function elsBind(){
         }
     });
 }
+
+
+$(".chatmsg-box").mCustomScrollbar();
 
 /**
  * 获取消息列表
@@ -307,11 +313,12 @@ function msgList(pos,limit){
              }
              if(e!=""){
              	 $("#chatmsg").html(e);
+             	 $(".chatmsg-box").mCustomScrollbar('update').mCustomScrollbar("scrollTo","bottom");
              }
         } 	
   });      	
 }
-msgList(0,10);
+msgList(0,100);
 
 
 

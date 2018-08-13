@@ -569,20 +569,28 @@ var activityType;
 	
 
 //	上传动态图片
-    function activityUpPhoto(baseurl, imgname) {
-        RequestService("/medical/common/upload", "post", {
-            image: baseurl,
-        }, function (data) {
-        		$(".photo-wrap").removeClass("hide");
-        	  var addPhoto='<li>'+
-					'<img class="insertImg" src="' + data.resultObject + '?imageMogr2/thumbnail/!300x300r'+'|imageMogr2/gravity/Center/crop/300x300" alt="照片">'+
-					'<p><img class="img-number" src="/web/images/delete-img.png" alt="删除照片" title="删除照片" /></p>'+
-				'</li>';
-				$('.save-photo ul').append(addPhoto); 
-				photoNumber();
-				activityTabClass();
+    function activityUpPhoto(form) {
+
+        $.ajax({
+            type: 'post',
+            url: "/medical/common/upload",
+            data: form,
+            async:false,
+            cache: false,
+            processData: false,
+            contentType: false,
+        }).success(function (data) {
+            $(".photo-wrap").removeClass("hide");
+            var addPhoto='<li>'+
+                '<img class="insertImg" src="' + data.resultObject + '?imageMogr2/thumbnail/!300x300r'+'|imageMogr2/gravity/Center/crop/300x300" alt="照片">'+
+                '<p><img class="img-number" src="/web/images/delete-img.png" alt="删除照片" title="删除照片" /></p>'+
+                '</li>';
+            $('.save-photo ul').append(addPhoto);
+            photoNumber();
+            activityTabClass();
 //				pictureInfo("photo_picIpt","insertImg")
-        },false)
+        });
+
     }
     $('#photo_picIpt').on('change', function () {
     	if($(".save-photo .img-number").length==9){
@@ -605,9 +613,11 @@ var activityType;
             }, 2000)
             return false;
         }
+        form = new FormData();
+        form.append("image", this.files[0]);
         var reader = new FileReader();
         reader.onload = function (e) {
-            activityUpPhoto(reader.result, 'open-photo');
+            activityUpPhoto(form);
             var image = new Image();
             image.onload = function () {
                 var width = this.width;
@@ -639,15 +649,20 @@ var activityType;
 	})
 
 //	视频封面
- 	function videoUpdown(baseurl, imgname) {
-        RequestService("/medical/common/upload", "post", {
-            image: baseurl,
-        }, function (data) {
-        	var videoCoverReset='<img src="' + data.resultObject + '" >'+
-        						'<p class="video-reset-tip">点击图片重新上传</p>'
-        	$('.video-cover  .' + imgname + '').html(videoCoverReset);				
-//          $('.video-cover  .' + imgname + '').html('<img src="' + data.resultObject + '" >');
-        })
+ 	function videoUpdown(form, imgname) {
+        $.ajax({
+            type: 'post',
+            url: "/medical/common/upload",
+            data: form,
+            cache: false,
+            processData: false,
+            contentType: false,
+        }).success(function (data) {
+            var videoCoverReset='<img src="' + data.resultObject + '" >'+
+                '<p class="video-reset-tip">点击图片重新上传</p>'
+            $('.video-cover  .' + imgname + '').html(videoCoverReset);
+        });
+
     }
     $('#video_picIpt').on('change', function () {
         if (this.files[0].size > 2097152) {
@@ -667,9 +682,11 @@ var activityType;
             }, 2000)
             return false;
         }
+        var form = new FormData();
+        form.append("image", this.files[0]);
         var reader = new FileReader();
         reader.onload = function (e) {
-            videoUpdown(reader.result, 'video-cover-pic');
+            videoUpdown(form, 'video-cover-pic');
         }
         reader.readAsDataURL(this.files[0])
     });
@@ -1335,15 +1352,20 @@ function btnColorReply(){
 		})
 
 //	上传轮播图照片
-	 function bannerUpdown(baseurl, imgname) {
-	        RequestService("/medical/common/upload", "post", {
-	            image: baseurl,
-	        }, function (data) {
-	        	var videoCoverReset='<img src="' + data.resultObject + '" >'+
-        						'<p class="banner-reset-tip">点击图片重新上传</p>'
-        		$('.right-banner  .' + imgname + '').html(videoCoverReset);	
-//	            $('.right-banner  .' + imgname + '').html('<img src="' + data.resultObject + '" >');
-	        })
+	 function bannerUpdown(form, imgname) {
+         $.ajax({
+             type: 'post',
+             url: "/medical/common/upload",
+             data: form,
+             cache: false,
+             processData: false,
+             contentType: false,
+         }).success(function (data) {
+             var videoCoverReset='<img src="' + data.resultObject + '" >'+
+                 '<p class="banner-reset-tip">点击图片重新上传</p>'
+             $('.right-banner  .' + imgname + '').html(videoCoverReset);
+         });
+
 	    }
 	    $('#banner_picIpt').on('change', function () {
         if (this.files[0].size > 2097152) {
@@ -1363,9 +1385,11 @@ function btnColorReply(){
             }, 2000)
             return false;
         }
+            var form = new FormData();
+            form.append("image", this.files[0]);
         var reader = new FileReader();
         reader.onload = function (e) {
-            bannerUpdown(reader.result, 'banner-box');
+            bannerUpdown(form, 'banner-box');
         }
         reader.readAsDataURL(this.files[0])
     });
@@ -1591,15 +1615,20 @@ function btnColorReply(){
 
 
     //专栏部分，封面图上传
-    function columnUpdown(baseurl, imgname) {
-        RequestService("/medical/common/upload", "post", {
-            image: baseurl,
-        }, function (data) {
-//          $('#zhuanlan .zhuanlan_bottom  .' + imgname + '').html('<img src="' + data.resultObject + '" >');
-        var columnCoverReset='<img src="' + data.resultObject + '?imageMogr2/thumbnail/!260x147r|imageMogr2/gravity/Center/crop/260x147" alt="课程封面">'+
-        						'<p class="column-reset-tip">点击图片重新上传</p>'
-        	$('#zhuanlan .zhuanlan_bottom  .' + imgname + '').html(columnCoverReset);
-        })
+    function columnUpdown(form, imgname) {
+        $.ajax({
+            type: 'post',
+            url: "/medical/common/upload",
+            data: form,
+            cache: false,
+            processData: false,
+            contentType: false,
+        }).success(function (data) {
+            var columnCoverReset='<img src="' + data.resultObject + '?imageMogr2/thumbnail/!260x147r|imageMogr2/gravity/Center/crop/260x147" alt="课程封面">'+
+                '<p class="column-reset-tip">点击图片重新上传</p>'
+            $('#zhuanlan .zhuanlan_bottom  .' + imgname + '').html(columnCoverReset);
+        });
+
     }
 
     $('#zhuanlan_picIpt').on('change', function () {
@@ -1620,9 +1649,11 @@ function btnColorReply(){
             }, 2000)
             return false;
         }
+        var form = new FormData();
+        form.append("image", this.files[0]);
         var reader = new FileReader();
         reader.onload = function (e) {
-            columnUpdown(reader.result, 'column-picter');
+            columnUpdown(form, 'column-picter');
         }
         reader.readAsDataURL(this.files[0])
     });
@@ -1893,12 +1924,18 @@ function btnColorReply(){
     })
 
     //	著作部分,封面图上传
-    function workUpdown(baseurl, imgname) {
-        RequestService("/medical/common/upload", "post", {
-            image: baseurl,
-        }, function (data) {
+    function workUpdown(form, imgname) {
+        $.ajax({
+            type: 'post',
+            url: "/medical/common/upload",
+            data: form,
+            cache: false,
+            processData: false,
+            contentType: false,
+        }).success(function (data) {
             $('#zhuzuo .zhuzuo_bottom  .' + imgname + '').html('<img src="' + data.resultObject + '" >');
-        })
+        });
+
     }
 
     $('#zhuzuo_picIpt').on('change', function () {
@@ -1918,9 +1955,11 @@ function btnColorReply(){
             }, 2000)
             return false;
         }
+        var form = new FormData();
+        form.append("image", this.files[0]);
         var reader = new FileReader();
         reader.onload = function (e) {
-            workUpdown(reader.result, 'work-picter');
+            workUpdown(form, 'work-picter');
         }
         reader.readAsDataURL(this.files[0])
     })
@@ -2183,15 +2222,20 @@ function btnColorReply(){
     })
 
     //	媒体报道部分,封面图上传
-    function mediaUpdown(baseurl, imgname) {
-        RequestService("/medical/common/upload", "post", {
-            image: baseurl,
-        }, function (data) {
-//          $('#media_report .media_report_bottom  .' + imgname + '').html('<img src="' + data.resultObject + '" >');
-           var mediaCoverReset='<img src="' + data.resultObject + '?imageMogr2/thumbnail/!260x147r|imageMogr2/gravity/Center/crop/260x147" alt="课程封面">'+
-        						'<p class="media-reset-tip">点击图片重新上传</p>'
-        	$('#media_report .media_report_bottom  .' + imgname + '').html(mediaCoverReset);
-        })
+    function mediaUpdown(form, imgname) {
+        $.ajax({
+            type: 'post',
+            url: "/medical/common/upload",
+            data: form,
+            cache: false,
+            processData: false,
+            contentType: false,
+        }).success(function (data) {
+            var mediaCoverReset='<img src="' + data.resultObject + '?imageMogr2/thumbnail/!260x147r|imageMogr2/gravity/Center/crop/260x147" alt="课程封面">'+
+                '<p class="media-reset-tip">点击图片重新上传</p>'
+            $('#media_report .media_report_bottom  .' + imgname + '').html(mediaCoverReset);
+        });
+
     }
 
     $('#media_picIpt').on('change', function () {
@@ -2211,9 +2255,11 @@ function btnColorReply(){
             }, 2000)
             return false;
         }
+        var form = new FormData();
+        form.append("image", this.files[0]);
         var reader = new FileReader();
         reader.onload = function (e) {
-            mediaUpdown(reader.result, 'media-picter');
+            mediaUpdown(form, 'media-picter');
         }
         reader.readAsDataURL(this.files[0])
     })
@@ -2536,20 +2582,27 @@ function clearHosList() {
 }
 
 //医师-医馆封面上传图片调用的接口
-function picUpdown(baseurl, imgname) {
-    RequestService("/medical/common/upload", "post", {
-        image: baseurl,
-    }, function (data) {
-        console.log(data);
+function picUpdown(form, imgname) {
+    $.ajax({
+        type: 'post',
+        url: "/medical/common/upload",
+        data: form,
+        cache: false,
+        processData: false,
+        contentType: false,
+    }).success(function (data) {
         $('#hospital_bottom .' + imgname + '').html('<img src="' + data.resultObject + '" >');
-    })
+    });
+
 }
 
 //医馆封面上传
 $('#fengmian_picIpt').on('change', function () {
+    var form = new FormData();
+    form.append("image", this.files[0]);
     var reader = new FileReader();
     reader.onload = function (e) {
-        picUpdown(reader.result, 'fengmian_pic');
+        picUpdown(form, 'fengmian_pic');
     }
     reader.readAsDataURL(this.files[0])
 })

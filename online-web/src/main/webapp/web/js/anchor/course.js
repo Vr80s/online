@@ -1709,13 +1709,19 @@ function initVhallInfo(){
     });
 }
 //上传图片调用的接口
-function picUpdown(baseurl,imgname){
-    RequestService("/medical/common/upload", "post", {
-        image: baseurl
-    }, function(data) {
+function picUpdown(form,imgname){
+    $.ajax({
+        type: 'post',
+        url: "/medical/common/upload",
+        data: form,
+        cache: false,
+        processData: false,
+        contentType: false,
+    }).success(function (data) {
         $('#'+imgname+'').html('<img src="'+data.resultObject+'" style="width: 100%;height: 100%" >');
-    	$(".row_size").hide()
-    })
+        $(".row_size").hide()
+    });
+
 }
 
 $(function(){
@@ -1735,9 +1741,11 @@ $(function(){
     		showTip('图片格式不正确')
 			return false;
     	}
+        var form = new FormData();
+        form.append("image", this.files[0]);
         var reader=new FileReader();
         reader.onload=function(e){
-            picUpdown(reader.result,'courseImg');
+            picUpdown(form,'courseImg');
         }
         reader.readAsDataURL(this.files[0])
     })
@@ -1751,9 +1759,11 @@ $(function(){
     		showTip('图片格式不正确')
 			return false;
     	}
+        var form = new FormData();
+        form.append("image", this.files[0]);
         var reader=new FileReader();
         reader.onload=function(e){
-            picUpdown(reader.result,'collectionImg');
+            picUpdown(form,'collectionImg');
         }
         reader.readAsDataURL(this.files[0])
     })
@@ -1767,9 +1777,11 @@ $(function(){
     		showTip('图片格式不正确')
 			return false;
     	}
+        var form = new FormData();
+        form.append("image", this.files[0]);
         var reader=new FileReader();
         reader.onload=function(e){
-            picUpdown(reader.result,'cardPositiveImg');
+            picUpdown(form,'cardPositiveImg');
         }
         reader.readAsDataURL(this.files[0])
     })
@@ -1783,9 +1795,11 @@ $(function(){
     		showTip('图片格式不正确')
 			return false;
     	}
+        var form = new FormData();
+        form.append("image", this.files[0]);
         var reader=new FileReader();
         reader.onload=function(e){
-            picUpdown(reader.result,'cardNegativeImg');
+            picUpdown(form,'cardNegativeImg');
         }
         reader.readAsDataURL(this.files[0])
     })
@@ -1799,9 +1813,11 @@ $(function(){
     		showTip('图片格式不正确')
 			return false;
     	}
+        var form = new FormData();
+        form.append("image", this.files[0]);
         var reader=new FileReader();
         reader.onload=function(e){
-            picUpdown(reader.result,'qualificationCertificateImg');
+            picUpdown(form,'qualificationCertificateImg');
         }
         reader.readAsDataURL(this.files[0])
     })
@@ -1815,9 +1831,11 @@ $(function(){
     		showTip('图片格式不正确')
 			return false;
     	}
+        var form = new FormData();
+        form.append("image", this.files[0]);
         var reader=new FileReader();
         reader.onload=function(e){
-            picUpdown(reader.result,'professionalCertificateImg');
+            picUpdown(form,'professionalCertificateImg');
         }
         reader.readAsDataURL(this.files[0])
     })
@@ -1831,9 +1849,11 @@ $(function(){
     		showTip('图片格式不正确')
 			return false;
     	}
+        var form = new FormData();
+        form.append("image", this.files[0]);
         var reader=new FileReader();
         reader.onload=function(e){
-            picUpdown(reader.result,'businessLicensePictureImg');
+            picUpdown(form,'businessLicensePictureImg');
         }
         reader.readAsDataURL(this.files[0])
     })
@@ -1847,9 +1867,11 @@ $(function(){
     		showTip('图片格式不正确')
 			return false;
     	}
+        var form = new FormData();
+        form.append("image", this.files[0]);
         var reader=new FileReader();
         reader.onload=function(e){
-            picUpdown(reader.result,'licenseForPharmaceuticalTradingPictureImg');
+            picUpdown(form,'licenseForPharmaceuticalTradingPictureImg');
         }
         reader.readAsDataURL(this.files[0])
     })
@@ -1863,9 +1885,11 @@ $(function(){
     		showTip('图片格式不正确')
 			return false;
     	}
+        var form = new FormData();
+        form.append("image", this.files[0]);
         var reader=new FileReader();
         reader.onload=function(e){
-            picUpdown(reader.result,'profilePhotoImg');
+            picUpdown(form,'profilePhotoImg');
         }
         reader.readAsDataURL(this.files[0])
     })
