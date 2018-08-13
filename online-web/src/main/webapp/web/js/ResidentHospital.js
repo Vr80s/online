@@ -468,30 +468,45 @@ RequestService("/hospital/getFields/0", "get", null, function (data) {
 })
 
 //医馆基础信息上传图片调用的接口
-function picUpdown(baseurl, imgname) {
-    RequestService("/medical/common/upload", "post", {
-        image: baseurl,
-    }, function (data) {
+function picUpdown(form, imgname) {
+    $.ajax({
+        type: 'post',
+        url: "/medical/common/upload",
+        data: form,
+        cache: false,
+        processData: false,
+        contentType: false,
+    }).success(function (data) {
         $('#hos_Administration .hos_base_inf  .' + imgname + '').html('<img src="' + data.resultObject + '?imageView2/1/w/120/h/120' + '" >');
-    })
+    });
+
 }
 
 //医馆认证上传图片调用的接口
-function picUpdown3(baseurl, imgname) {
-    RequestService("/medical/common/upload", "post", {
-        image: baseurl,
-    }, function (data) {
+function picUpdown3(form, imgname) {
+    $.ajax({
+        type: 'post',
+        url: "/medical/common/upload",
+        data: form,
+        cache: false,
+        processData: false,
+        contentType: false,
+    }).success(function (data) {
         $('#hos_Administration .hos_renzheng_inf  .' + imgname + '').html('<img src="' + data.resultObject + '?imageMogr2/thumbnail/260x147<' + '" >');
+    });
 
-
-    })
 }
 
 //上传图片调用的接口
-function picUpdown2(baseurl, imgname) {
-    RequestService("/medical/common/upload", "post", {
-        image: baseurl,
-    }, function (data) {
+function picUpdown2(form, imgname) {
+    $.ajax({
+        type: 'post',
+        url: "/medical/common/upload",
+        data: form,
+        cache: false,
+        processData: false,
+        contentType: false,
+    }).success(function (data) {
         if ($('#hos_Administration .hos_base_inf  .' + imgname + ' img').length > 1) {
             $('#hos_Administration .hos_base_inf  .zhicheng_pic').css('padding-left', '110px')
             $('#hos_Administration .hos_base_inf  .' + imgname + '').css('float', 'left');
@@ -508,7 +523,8 @@ function picUpdown2(baseurl, imgname) {
             '<img src="' + data.resultObject + '?imageMogr2/thumbnail/260x147<' + '" >' +
             '</div>'
         $('#hos_Administration #hos_pic').append(picStr);
-    })
+    });
+
 }
 
 //删除医馆图片
@@ -540,10 +556,11 @@ $('#touxiang_pic_ipt').on('change', function () {
         }, 2000)
         return false;
     }
-
+    var form = new FormData();
+    form.append("image", this.files[0]);
     var reader = new FileReader();
     reader.onload = function (e) {
-        picUpdown(reader.result, 'touxiang_pic');
+        picUpdown(form, 'touxiang_pic');
     }
     reader.readAsDataURL(this.files[0])
 })
@@ -566,9 +583,11 @@ $('#zhicheng_pic_ipt').on('change', function () {
         }, 2000)
         return false;
     }
+    var form = new FormData();
+    form.append("image", this.files[0]);
     var reader = new FileReader();
     reader.onload = function (e) {
-        picUpdown2(reader.result, 'zhicheng_pic');
+        picUpdown2(form, 'zhicheng_pic');
     }
     reader.readAsDataURL(this.files[0])
 })
@@ -614,9 +633,11 @@ $('#zhizhao_pic_ipt').on('change', function () {
         }, 2000)
         return false;
     }
+    var form = new FormData();
+    form.append("image", this.files[0]);
     var reader = new FileReader();
     reader.onload = function (e) {
-        picUpdown3(reader.result, 'teacher_pic');
+        picUpdown3(form, 'teacher_pic');
     }
     reader.readAsDataURL(this.files[0])
 })
@@ -639,9 +660,11 @@ $('#xuke_pic_ipt').on('change', function () {
         }, 2000)
         return false;
     }
+    var form = new FormData();
+    form.append("image", this.files[0]);
     var reader = new FileReader();
     reader.onload = function (e) {
-        picUpdown3(reader.result, 'zhicheng_pic');
+        picUpdown3(form, 'zhicheng_pic');
     }
     reader.readAsDataURL(this.files[0])
 })
