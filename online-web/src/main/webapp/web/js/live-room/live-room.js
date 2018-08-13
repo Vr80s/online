@@ -430,6 +430,9 @@ $(function () {
     }
 
     $('.file-list').on('click', '.J-doc-operation', function () {
+        if ($(".icon-right").parent('.select-document-wrap').hasClass("select-left")) {
+            $(".icon-left").click();
+        }
         docId = $(this).parent().data('did');
         reloadDoc();
         if (!page) {
