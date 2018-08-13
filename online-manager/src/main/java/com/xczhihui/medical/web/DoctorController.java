@@ -130,8 +130,7 @@ public class DoctorController extends AbstractController {
                 searchVo.setStatus(false);
             }
         }
-        Page<MedicalDoctor> page = doctorService.findMedicalDoctorPage(
-                searchVo, currentPage, pageSize);
+        Page<MedicalDoctor> page = doctorService.findMedicalDoctorPage( searchVo, currentPage, pageSize);
         int total = page.getTotalCount();
         tableVo.setAaData(page.getItems());
         tableVo.setiTotalDisplayRecords(total);

@@ -1,6 +1,10 @@
 package com.xczhihui.user.center.service;
 
 
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import com.xczhihui.common.util.enums.ClientType;
 import com.xczhihui.common.util.enums.TokenExpires;
 import com.xczhihui.user.center.vo.OeUserVO;
@@ -105,4 +109,6 @@ public interface UserCenterService {
     Token login4visitor(String username);
 
     Token fastLogin(String loginName, String token, TokenExpires day);
+
+    List<Map<String, String>> findByIds(Set<String> ids);
 }

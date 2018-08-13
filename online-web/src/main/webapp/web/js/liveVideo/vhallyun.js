@@ -78,6 +78,14 @@ function elsBind(){
        videoNode:'myVideo',
        complete:function(){
           VhallPlayer.play();
+          var netWorkstate = VhallPlayer.getNetworkState();
+    	  console.log("获取当前网络状态"+netWorkstate);
+          VhallPlayer.setWidth("1500");
+          var falg =  VhallPlayer.isFullscreen();
+          console.log("当前是否为全屏："+falg);
+          var quality =   VhallPlayer.getQualitys();
+          console.log("清晰度数组："+quality);
+          VhallPlayer.setQuality(VhallPlayer.getQualitys()[0]);
        }
      });    
     }
@@ -88,20 +96,55 @@ function elsBind(){
          accountId :vhallObj.accountId,//第三方用户唯一标识,必填
          token:vhallObj.token//token必填
     });
+    
+    /**
+     * 获取当前网络状态
+     * 	@return {int}  
+     * 0:音频/视频尚未初始化,
+     * 1:音频/视频是活动的且已选取资源，但并未使用网络,
+     * 2:浏览器正在下载数据,
+     * 3:未找到音频/视频来源
+     */
+    setInterval(function(){
+    	var netWorkstate = VhallPlayer.getNetworkState();
+    	console.log("获取当前网络状态"+netWorkstate);
+    },2000)
+    
     /**
      * 加载消息
      */
     setTimeout(function(){
     	
-//      var video = document.getElementsByTagName("video")[0];
-//	    md.addEventListener("ended",function(){
-//	         console.log("结束");
-//	         
-//	         $(".playback-rebroadcast").attr("type",20);
-//	         $(".playback-rebroadcast").text("重播");
-//             $(".playback").show();
-//	    })	
-    	
+    	try{
+    		var md = document.getElementsByTagName("video")[0];
+		    md.addEventListener("ended",function(){
+		         console.log("结束");
+		         $(".playback-rebroadcast").attr("type",20);
+		         $(".playback-rebroadcast").text("重播");
+	             $(".playback").show();
+		    })	
+	        md.addEventListener("progress", function () {
+	            console.log("浏览器正在获取媒体数据");
+	        });
+	        md.addEventListener("suspend", function () {
+	            console.log("浏览器暂停获取媒体数据，但是下载过程并滑正常结束");
+	        });
+	        md.addEventListener("error", function () {
+	            console.log("获取媒体数据过程中出错");
+	        });
+	        md.addEventListener("loadstart", function () {
+	            console.log("浏览器开始在网上寻找媒体数据");
+	        });
+	        md.addEventListener("stalled", function () {
+	            console.log("浏览器尝试获取媒体数据失败");
+	        });
+	        
+	        
+	        
+	        
+    	}catch(error){
+    	   console.log(error);
+    	}
     	
        window.Vhall.ready(function(){
         window.chat = new VhallChat({

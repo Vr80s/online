@@ -102,8 +102,18 @@ public class MedicalDoctor implements Serializable {
      */
     @Transient
     private String typeName;
+    @Transient
+    private String loginName;
 
     public MedicalDoctor() {
+    }
+
+    public String getLoginName() {
+        return loginName;
+    }
+
+    public void setLoginName(String loginName) {
+        this.loginName = loginName;
     }
 
     public String getHospital() {

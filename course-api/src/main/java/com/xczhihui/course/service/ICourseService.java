@@ -2,7 +2,6 @@ package com.xczhihui.course.service;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.course.model.Course;
@@ -21,7 +20,7 @@ public interface ICourseService {
      * @return CourseLecturVo
      * @author name：yangxuan <br>email: 15936216273@163.com
      */
-    CourseLecturVo selectCourseDetailsById(String  userId,Integer courseId);
+    CourseLecturVo selectCourseDetailsById(String userId, Integer courseId);
 
 
     /**
@@ -76,7 +75,7 @@ public interface ICourseService {
     Page<CourseLecturVo> selectLecturerAllCourse(Page<CourseLecturVo> page, String lecturerId);
 
     Page<CourseLecturVo> selectLecturerAllCourseByType(Page<CourseLecturVo> page,
-                                                 String lecturerId, Integer type, boolean onlyFree);
+                                                       String lecturerId, Integer type, boolean onlyFree);
 
     /**
      * Description：查找用户控制台的课程数据
@@ -103,7 +102,7 @@ public interface ICourseService {
                                                   String id, Integer courseFrom, Integer multimediaType);
 
 
-    CourseLecturVo selectCourseMiddleDetailsById(String userId,Integer courseId);
+    CourseLecturVo selectCourseMiddleDetailsById(String userId, Integer courseId);
 
     /**
      * Description：查看主播控制台的---》直播间的分页
@@ -255,23 +254,26 @@ public interface ICourseService {
 
     /**
      * 获取所有上架课程
+     *
      * @return
      */
     List<Course> getAllCourseByStatus();
 
     /**
      * 查看医师的直播间的课程信息
+     *
      * @param lecturerId
      * @param userId
      * @param onlyFreee
      * @return
      */
-    List<Map<String, Object>> doctorCourseList(String lecturerId,String userId,boolean onlyFreee);
+    List<Map<String, Object>> doctorCourseList(String lecturerId, String userId, boolean onlyFreee);
 
     /**
      * 查询师承课程
+     *
      * @param userId userId
-     * @param page page
+     * @param page   page
      * @return
      */
     List<CourseLecturVo> selectTeachingCoursesByUserId(Page<CourseLecturVo> page, String lecturerId, String userId);
@@ -281,6 +283,7 @@ public interface ICourseService {
 
     /**
      * 查看医师直播间的最近一次直播课
+     *
      * @param userId
      * @param onlyFreee
      * @return
@@ -288,43 +291,51 @@ public interface ICourseService {
     CourseLecturVo selectDoctorLiveRoomRecentCourse(String userId, boolean onlyFreee);
 
     /**
-     * 
-    * @Title: updatePlayBackStatusByRecordId
-    * @Description: 通过回放id 更改回放状态
-    * @param @param recordId
-    * @param @param status    参数
-    * @return void    返回类型
-    * @author yangxuan
-    * @throws
+     * @param @param recordId
+     * @param @param status    参数
+     * @return void    返回类型
+     * @throws
+     * @Title: updatePlayBackStatusByRecordId
+     * @Description: 通过回放id 更改回放状态
+     * @author yangxuan
      */
-	void updatePlayBackStatusByRecordId(String recordId, Integer status);
+    void updatePlayBackStatusByRecordId(String recordId, Integer status);
 
-	/**
-	 * 更改回放状态，并且发送回放状态IM消息
-	 * 
-	* @param  recordId
-	* @param  status    参数
-	* @return void    返回类型
-	 */
-	void updatePlayBackStatusAndSendVahllYunMessageByRecordId(String recordId, Integer status) throws Exception;
+    /**
+     * 更改回放状态，并且发送回放状态IM消息
+     *
+     * @param recordId
+     * @param status   参数
+     * @return void    返回类型
+     */
+    void updatePlayBackStatusAndSendVahllYunMessageByRecordId(String recordId, Integer status) throws Exception;
 
     /**
      * 更新课程直播状态
+     *
      * @param event
      * @param roomId
      * @return
      */
-    Integer updateCourseLiveStatus(String event, String roomId,String clientType);
+    Integer updateCourseLiveStatus(String event, String roomId, String clientType);
 
 
     /**
-    * @Title: updateCourseLiveStatus
-    * @Description: 通过渠道id更改直播中的课程状况
-    * @param channelId
-    * @param   参数
-    * @return Integer    返回类型
-    * @author yangxuan
-    * @throws
+     * @param channelId
+     * @param 参数
+     * @return Integer    返回类型
+     * @throws
+     * @Title: updateCourseLiveStatus
+     * @Description: 通过渠道id更改直播中的课程状况
+     * @author yangxuan
      */
     Integer updateCourseLiveCase(String channelId);
+
+    /**
+     * 查询视频直播的直播状态
+     *
+     * @param directId 视频id
+     * @return
+     */
+    Integer findLiveStatusByDirectId(String directId);
 }

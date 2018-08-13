@@ -20,21 +20,25 @@ public class DoctorDao extends HibernateDao<MedicalDoctor> {
     public Page<MedicalDoctor> findMedicalDoctorPage(
             MedicalDoctor medicalDoctor, int pageNumber, int pageSize) {
         Map<String, Object> paramMap = new HashMap<String, Object>();
-        StringBuilder sql = new StringBuilder("SELECT m.*, mh.`name` hospital,dpn.name as department,dt.title as typeName " +
-                " FROM" +
-                " medical_doctor m " +
-                " LEFT JOIN doctor_type dt" +
-                " ON dt.`id`=m.`type` " +
-                " LEFT JOIN (select *  from `medical_hospital_doctor` where deleted = '0' ) mhd" +
-                " ON mhd.`doctor_id`=m.`id`" +
-                " LEFT JOIN `medical_hospital` mh" +
-                " ON mhd.`hospital_id`=mh.`id`" +
-                " LEFT JOIN (select  GROUP_CONCAT(md.`name`) as name, mdd.`doctor_id`  from `medical_doctor_department` mdd " +
-                " LEFT JOIN `medical_department` md " +
-                " ON mdd.`department_id` = md.id  " +
-                "where  (mdd.deleted is null OR mdd.deleted = false)" +
-                " group by mdd.`doctor_id`) dpn on m.`id` = dpn.doctor_id " +
-                " WHERE m.deleted = 0");
+
+        StringBuilder sql = new StringBuilder("SELECT \n" +
+                "  m.*,\n" +
+                "  mh.`name` hospital,\n" +
+                "  dpn.name AS department, \n" +
+                "  ou.`login_name`, \n" +
+                "  dt.title as typeName\n" +
+                "  FROM\n" +
+                "  medical_doctor m \n" +
+                "  LEFT JOIN doctor_type dt ON dt.`id`=m.`type`\n" +
+                "  LEFT JOIN `medical_doctor_account` mda ON m.`id` = mda.`doctor_id`\n" +
+                "  LEFT JOIN `oe_user` ou ON ou.id = mda.`account_id`\n" +
+                "  LEFT JOIN (SELECT * FROM `medical_hospital_doctor` WHERE deleted = '0') mhd ON mhd.`doctor_id` = m.`id` \n" +
+                "  LEFT JOIN `medical_hospital` mh ON mhd.`hospital_id` = mh.`id` \n" +
+                "  LEFT JOIN (SELECT GROUP_CONCAT(md.`name`) AS NAME, mdd.`doctor_id` FROM\n" +
+                "      `medical_doctor_department` mdd LEFT JOIN `medical_department` md ON mdd.`department_id` = md.id \n" +
+                "    WHERE (mdd.deleted IS NULL OR mdd.deleted = FALSE) GROUP BY mdd.`doctor_id`) dpn \n" +
+                "  ON m.`id` = dpn.doctor_id \n" +
+                "WHERE m.deleted = 0 ");
         if (medicalDoctor.getName() != null) {
             paramMap.put("name", "%" + medicalDoctor.getName() + "%");
             sql.append(" and m.name like :name ");

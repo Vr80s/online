@@ -2963,3 +2963,63 @@ left: 0px;
 	font-size: 12px;
 	margin: 15px 0 0;
 }
+/*是否开启直播回放弹窗*/
+.history-live{
+	width: 500px;
+	background: white;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	z-index: 999;
+	padding: 50px 130px 30px;
+	transform: translate(-50%,-50%);
+	-webkit-transform: translate(-50%,-50%);
+}
+.history-live .close-live{
+	position: absolute;
+	top: 10px;
+	right: 15px;
+	cursor: pointer;
+}
+.radio-select li{
+	float: left;
+	cursor: pointer;
+}
+.radio-select .live-tip-left{
+	font-size: 16px;
+}
+.radio-select li span{
+	font-size: 16px;
+	margin-right: 15px;
+}
+.radio-select p{
+	    width: 16px;
+    height: 16px;
+    border: 1px solid #dedede;
+    border-radius: 50%;
+    float: left;
+    margin: 4px 5px 0 0;
+}
+.radio-select p em{
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin: 0 auto;
+    margin-top: 2px;
+}
+.radio-select p .active{
+	background: #00bc12;
+
+}
+.sure-live{
+	width: 80px;
+    height: 30px;
+    background: #00bc12;
+    color: white;
+    text-align: center;
+    line-height: 30px;
+    float: right;
+    clear: both;
+    margin: 20px;
+    border-radius: 4px;
+}

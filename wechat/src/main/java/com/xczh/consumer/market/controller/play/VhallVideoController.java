@@ -1,5 +1,7 @@
 package com.xczh.consumer.market.controller.play;
 
+import static com.xczhihui.common.util.redis.key.RedisCacheKey.CHANNEL_ONLINE_KEY;
+
 import java.util.Date;
 import java.util.Map;
 import java.util.TreeMap;
@@ -41,13 +43,13 @@ public class VhallVideoController {
 
     private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(VhallVideoController.class);
 
-    
+
     @Autowired
     private CacheService cacheService;
-    
+
     @Autowired
     private ICourseService courseService;
-    
+
     /**
      * Description：微吼签名认证得到微吼的视频播放权
      *
@@ -60,8 +62,8 @@ public class VhallVideoController {
      */
     @RequestMapping("vhallJssdkVerify")
     @ResponseBody
-    public ResponseObject getWeihouSign(@RequestParam("video") String video, 
-            @Account OnlineUser account) throws Exception {
+    public ResponseObject getWeihouSign(@RequestParam("video") String video,
+                                        @Account OnlineUser account) throws Exception {
         String gvhallId = account.getVhallId();
         String email = account.getLoginName();
         if (email != null && email.indexOf("@") == -1) {
@@ -85,10 +87,11 @@ public class VhallVideoController {
         map.put("sign", WeihouInterfacesListUtil.getSign(map));
         return ResponseObject.newSuccessResponseObject(map);
     }
-    
-    
+
+
     /**
      * 获取消息列表
+     *
      * @param vmpv
      * @return
      * @throws Exception
@@ -107,7 +110,7 @@ public class VhallVideoController {
     	obj.put("data", arrayNew);
         return ResponseObject.newSuccessResponseObject(obj);
     }
-    
+
     /**
      * 获取消息列表
      * @param vmpv
@@ -137,6 +140,7 @@ public class VhallVideoController {
     
     /**
      * 微吼发送消息
+     *
      * @param type
      * @param body
      * @param channel_id
@@ -146,25 +150,25 @@ public class VhallVideoController {
     @RequestMapping("vhallYunSendMessage")
     @ResponseBody
     public ResponseObject sendMessage(@Account OnlineUser account,
-            String body,String channel_id) throws Exception {
-       
-       JSONObject jsonObject =  (JSONObject) JSON.parse(body);
-       if(jsonObject.get("type")!=null && Integer.parseInt(jsonObject.get("type").toString()) == VhallCustomMessageType.CHAT_MESSAGE.getCode()) {
-           Boolean isShutup =  cacheService.sismenber(RedisCacheKey.VHALLYUN_BAN_KEY + channel_id, account.getUserId());
-           if(isShutup) {
-               return ResponseObject.newErrorResponseObject("你被禁言了");
-           } 
-           //后台自动添加这几个参数
-           JSONObject message = (JSONObject) jsonObject.get("message");
-           message.put("userId", account.getUserId());
-           message.put("headImg", account.getSmallHeadPhoto());
-           message.put("username", account.getName());
-       }else if(jsonObject.get("type")!=null && Integer.parseInt(jsonObject.get("type").toString()) == VhallCustomMessageType.LIVE_EXIT_BUT_NOT_END.getCode()){
-    	   //更改直播中的状况
-    	   courseService.updateCourseLiveCase(channel_id);
-       }
-       
-       return ResponseObject.newSuccessResponseObject(MessageService.sendMessage(MessageService.CustomBroadcast,jsonObject.toJSONString(),channel_id));
+                                      String body, String channel_id) throws Exception {
+
+        JSONObject jsonObject = (JSONObject) JSON.parse(body);
+        if (jsonObject.get("type") != null && Integer.parseInt(jsonObject.get("type").toString()) == VhallCustomMessageType.CHAT_MESSAGE.getCode()) {
+            Boolean isShutup = cacheService.sismenber(RedisCacheKey.VHALLYUN_BAN_KEY + channel_id, account.getUserId());
+            if (isShutup) {
+                return ResponseObject.newErrorResponseObject("你被禁言了");
+            }
+            //后台自动添加这几个参数
+            JSONObject message = (JSONObject) jsonObject.get("message");
+            message.put("userId", account.getUserId());
+            message.put("headImg", account.getSmallHeadPhoto());
+            message.put("username", account.getName());
+        } else if (jsonObject.get("type") != null && Integer.parseInt(jsonObject.get("type").toString()) == VhallCustomMessageType.LIVE_EXIT_BUT_NOT_END.getCode()) {
+            //更改直播中的状况
+            courseService.updateCourseLiveCase(channel_id);
+        }
+
+        return ResponseObject.newSuccessResponseObject(MessageService.sendMessage(MessageService.CustomBroadcast, jsonObject.toJSONString(), channel_id));
     }
 
     @RequestMapping(value = "vhallYunToken", method = RequestMethod.GET)
@@ -172,7 +176,18 @@ public class VhallVideoController {
     public ResponseObject getAccessToken(@Account String accountId, @RequestParam String roomId, @RequestParam String channelId) throws Exception {
         return ResponseObject.newSuccessResponseObject(BaseService.createAccessToken4Live(accountId, roomId, channelId));
     }
-    
-    
-    
+
+    @RequestMapping(value = "online/status", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseObject joinRoom(@RequestParam String channelId, @Account String accountId, @RequestParam boolean status) {
+        String channelKey = CHANNEL_ONLINE_KEY + channelId;
+        if (status) {
+            if (!cacheService.isZsmember(channelKey, accountId)) {
+                cacheService.zsadd(channelKey, accountId, System.currentTimeMillis() / 1000);
+            }
+        } else {
+            cacheService.zsrem(channelKey, accountId);
+        }
+        return ResponseObject.newSuccessResponseObject(null);
+    }
 }

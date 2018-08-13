@@ -10,6 +10,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.medical.anchor.model.CourseApplyInfo;
 import com.xczhihui.medical.anchor.vo.CourseApplyInfoVO;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 /**
  * <p>
@@ -76,4 +77,8 @@ public interface CourseApplyInfoMapper extends BaseMapper<CourseApplyInfo> {
 
     @Select("SELECT COUNT(ct.id) FROM `course_teaching` ct WHERE ct.`deleted`=0 AND ct.`course_id`=#{courseId}")
     int getCourseTeachingCountByCourseId(@Param("courseId") Integer courseId);
+
+    @Update("UPDATE `oe_course` oc SET oc.`is_record` = #{record}" +
+            " WHERE oc.`user_lecturer_id` = #{userId} AND oc.`id`= #{courseId}")
+    void saveCourseRecordStatus(@Param("courseId") int courseId, @Param("userId") String userId, @Param("record") int record);
 }

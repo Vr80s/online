@@ -241,7 +241,7 @@
                             <ul class="J-thumImg">
                             </ul>
                         </div>
-                        <div class="icon-right"></div>
+                        <div class="icon-right J-icon-right"></div>
                     </div>
                     <div class="icon-left hide"></div>
                     <!--pages分页-->

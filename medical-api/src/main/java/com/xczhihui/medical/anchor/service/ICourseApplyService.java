@@ -118,4 +118,6 @@ public interface ICourseApplyService extends IService<CourseApplyInfo> {
 
     List<CourseApplyInfoVO> getCollectionNotExitCouse(String id, Integer multimediaType,
             Integer collectionId,Integer caiId);
+
+    void saveCourseRecordStatus(int courseId, String userId, int record);
 }

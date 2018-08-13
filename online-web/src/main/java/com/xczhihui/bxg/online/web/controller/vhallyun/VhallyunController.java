@@ -1,24 +1,19 @@
 package com.xczhihui.bxg.online.web.controller.vhallyun;
 
 
+import static com.xczhihui.common.util.redis.key.RedisCacheKey.CHANNEL_ONLINE_KEY;
 import static com.xczhihui.common.util.redis.key.RedisCacheKey.VHALLYUN_BAN_KEY;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSON;
@@ -30,7 +25,6 @@ import com.xczhihui.bxg.online.web.body.vhall.VhallCallbackBody;
 import com.xczhihui.bxg.online.web.controller.AbstractController;
 import com.xczhihui.bxg.online.web.service.OnlineUserCenterService;
 import com.xczhihui.common.support.domain.Attachment;
-import com.xczhihui.common.support.domain.BxgUser;
 import com.xczhihui.common.support.service.AttachmentCenterService;
 import com.xczhihui.common.support.service.AttachmentType;
 import com.xczhihui.common.support.service.CacheService;
@@ -41,9 +35,9 @@ import com.xczhihui.common.util.vhallyun.BaseService;
 import com.xczhihui.common.util.vhallyun.DocumentService;
 import com.xczhihui.common.util.vhallyun.MessageService;
 import com.xczhihui.common.util.vhallyun.VhallUtil;
-import com.xczhihui.common.util.vhallyun.*;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.medical.anchor.service.IAnchorInfoService;
+import com.xczhihui.user.center.service.UserCenterService;
 
 /**
  * 微吼云
@@ -65,6 +59,8 @@ public class VhallyunController extends AbstractController {
     private ICourseService courseService;
     @Autowired
     private OnlineUserCenterService onlineUserCenterService;
+    @Autowired
+    private UserCenterService userCenterService;
 
     @RequestMapping(value = "publishStream/accessToken", method = RequestMethod.GET)
     @ResponseBody
@@ -77,21 +73,20 @@ public class VhallyunController extends AbstractController {
     public ResponseObject getChatAccessToken(@RequestParam String channelId) throws Exception {
         return ResponseObject.newSuccessResponseObject(BaseService.createAccessToken4Live(getUserId(), null, channelId));
     }
-    
+
     @RequestMapping(value = "vhallYunToken", method = RequestMethod.GET)
     @ResponseBody
     public ResponseObject getAccessToken(@RequestParam String roomId, @RequestParam String channelId) throws Exception {
         return ResponseObject.newSuccessResponseObject(BaseService.createAccessToken4Live(getUserId(), roomId, channelId));
     }
-    
-    
+
     @RequestMapping(value = "documentId", method = RequestMethod.POST)
     @ResponseBody
     public ResponseObject createDocument(@RequestParam("document") MultipartFile file) throws Exception {
         String userId = getUserId();
         Attachment attachment = attachmentCenterService.addAttachment(
                 userId, AttachmentType.KCENTER,
-                file.getOriginalFilename(),
+                file.getOriginalFilename().replace(" ", "-"),
                 file.getBytes(), file.getContentType());
         String documentId = DocumentService.create(attachment.getUrl());
         if (StringUtils.isNotBlank(documentId)) {
@@ -185,41 +180,28 @@ public class VhallyunController extends AbstractController {
 
     @RequestMapping(value = "banStatus", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseObject getBanStatus(@RequestParam String channelId, @RequestParam String accountId){
+    public ResponseObject getBanStatus(@RequestParam String channelId, @RequestParam String accountId) {
         return ResponseObject.newSuccessResponseObject(cacheService.sismenber(VHALLYUN_BAN_KEY + channelId, accountId));
     }
 
     @RequestMapping(value = "roomJoinStudent", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseObject listStudent(@RequestParam String roomId, @RequestParam String channelId, @RequestParam String anchorId) {
-        int pos = 0;
-        List<Map<String, Object>> students = new ArrayList<>();
-        List<Map<String, Object>> result;
-        while(true) {
-            result = VideoService.getRoomJoinInfo(roomId, pos);
-            for (Map<String, Object> info : result) {
-                String accountId = info.get("uid").toString();
-                if (info.get("end_Time") == null && !anchorId.equals(accountId)) {
-                    info.put("banStatus", cacheService.sismenber(VHALLYUN_BAN_KEY + channelId, accountId));
-                    students.add(info);
-                }
-            }
-            if (result.size() < 1000) {
-                break;
-            } else {
-                pos ++;
-            }
+    public ResponseObject listStudent(@RequestParam String channelId) {
+        String channelKey = CHANNEL_ONLINE_KEY + channelId;
+        Set<String> userIds = cacheService.zsrangeByScore(channelKey, "-inf", "+inf");
+        if (userIds != null && !userIds.isEmpty()) {
+            return ResponseObject.newSuccessResponseObject(userCenterService.findByIds(userIds));
         }
-        return ResponseObject.newSuccessResponseObject(students);
+        return ResponseObject.newSuccessResponseObject(Collections.EMPTY_LIST);
     }
 
     @RequestMapping(value = "vhallYunSendMessage", method = RequestMethod.GET)
     @ResponseBody
     public ResponseObject customSendMessage(String body, String channel_id) throws Exception {
-    	OnlineUser ou = (OnlineUser) UserLoginUtil.getLoginUser();
-        
+        OnlineUser ou = (OnlineUser) UserLoginUtil.getLoginUser();
+
         JSONObject jsonObject = (JSONObject) JSON.parse(body);
-        if(jsonObject.get("type")!=null && Integer.parseInt(jsonObject.get("type").toString()) == VhallCustomMessageType.CHAT_MESSAGE.getCode()) {
+        if (jsonObject.get("type") != null && Integer.parseInt(jsonObject.get("type").toString()) == VhallCustomMessageType.CHAT_MESSAGE.getCode()) {
             Boolean isShutup = cacheService.sismenber(VHALLYUN_BAN_KEY + channel_id, ou.getId());
             if (isShutup) {
                 return ResponseObject.newErrorResponseObject("你被禁言了");
@@ -233,10 +215,17 @@ public class VhallyunController extends AbstractController {
         return ResponseObject.newSuccessResponseObject(MessageService.sendMessage(MessageService.CustomBroadcast, jsonObject.toJSONString(), channel_id));
     }
 
-    @RequestMapping(value = "join/{status}", method = RequestMethod.POST)
+    @RequestMapping(value = "online/status", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseObject joinRoom(@RequestParam String channelId, @RequestParam String userId, @PathVariable boolean status) {
-
+    public ResponseObject joinRoom(@RequestParam String channelId, @RequestParam String userId, @RequestParam Boolean status) {
+        String channelKey = CHANNEL_ONLINE_KEY + channelId;
+        if (status) {
+            if (!cacheService.isZsmember(channelKey, userId)) {
+                cacheService.zsadd(channelKey, userId, System.currentTimeMillis() / 1000);
+            }
+        } else {
+            cacheService.zsrem(channelKey, userId);
+        }
         return ResponseObject.newSuccessResponseObject();
     }
 }

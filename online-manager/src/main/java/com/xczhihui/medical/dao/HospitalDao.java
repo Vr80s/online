@@ -20,32 +20,34 @@ import com.xczhihui.common.util.bean.Page;
  */
 @Repository
 public class HospitalDao extends HibernateDao<MedicalHospital> {
-    public Page<MedicalHospital> findMedicalHospitalPage(
-            MedicalHospital medicalHospital, int pageNumber, int pageSize) {
+
+    public Page<MedicalHospital> findMedicalHospitalPage( MedicalHospital medicalHospital, int pageNumber, int pageSize) {
         Map<String, Object> paramMap = new HashMap<String, Object>();
         StringBuilder sql = new StringBuilder(
-                "select * from medical_hospital where deleted = 0 ");
+                "select mh.*,ou.`login_name` loginName FROM medical_hospital mh" +
+                        " LEFT JOIN `medical_hospital_account` mha ON mh.id=mha.`doctor_id` AND mha.`deleted`=0" +
+                        " LEFT JOIN `oe_user` ou ON ou.`id`=mha.`account_id` where mh.deleted = 0 ");
         if (medicalHospital.getName() != null) {
             paramMap.put("name", "%" + medicalHospital.getName() + "%");
-            sql.append("and name like :name ");
+            sql.append("and mh.name like :name ");
         }
         if (medicalHospital.getStatusnum() != null) {
             paramMap.put("status", medicalHospital.getStatus());
-            sql.append("and status = :status ");
+            sql.append("and mh.status = :status ");
         }
         if (medicalHospital.getAuthenticationNum() != null) {
             paramMap.put("authentication", medicalHospital.isAuthentication());
-            sql.append("and authentication = :authentication ");
+            sql.append("and mh.authentication = :authentication ");
         }
         if (medicalHospital.getScore() != null) {
             if (medicalHospital.getScore() == 0) {
-                sql.append("and score is null ");
+                sql.append("and mh.score is null ");
             } else {
                 paramMap.put("score", medicalHospital.getScore());
-                sql.append("and score = :score ");
+                sql.append("and mh.score = :score ");
             }
         }
-        sql.append(" order by authentication desc ,recommend_sort desc,score desc,enable_time desc");
+        sql.append(" order by mh.authentication desc ,mh.recommend_sort desc,mh.score desc,mh.enable_time desc");
 
         Page<MedicalHospital> medicalHospitals = this.findPageBySQL(
                 sql.toString(), paramMap, MedicalHospital.class, pageNumber,

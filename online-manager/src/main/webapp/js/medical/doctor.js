@@ -25,11 +25,14 @@ $(function(){
     // { "title": "医师ID", "class": "center","width":"5%","sortable": false,"data":"id" },
     { "title": "姓名", "class":"center","width":"9%","sortable":false,"data": 'name' },
     { "title": "职称", "class":"center","width":"8%","sortable":false,"data": 'title'},
-    { "title": "科室", "class":"center","width":"8%","sortable":false,"data": 'department',"mRender":function (data, display, row) {
-       if(data==null)return "";
-       return data;
+    // { "title": "科室", "class":"center","width":"8%","sortable":false,"data": 'department',"mRender":function (data, display, row) {
+    //    if(data==null)return "";
+    //    return data;
+    // }},
+    { "title": "账号", "class":"center","width":"8%","sortable":false,"data": 'loginName',"mRender":function (data) {
+        return data == null ? "未绑定":data;
     }},
-    { "title": "医馆", "class":"center","width":"8%","sortable":false,"data": 'hospital',"mRender":function (data, display, row) {
+    { "title": "医馆", "class":"center","width":"8%","sortable":false,"data": 'hospital',"mRender":function (data) {
         if(data==null)return "";
         return data;
     }},

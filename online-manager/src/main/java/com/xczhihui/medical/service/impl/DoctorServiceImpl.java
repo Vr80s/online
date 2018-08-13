@@ -1,28 +1,22 @@
 package com.xczhihui.medical.service.impl;
 
-import java.io.IOException;
-import java.util.*;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.solr.client.solrj.SolrServerException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-
 import com.alibaba.dubbo.common.utils.CollectionUtils;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.*;
-import com.xczhihui.common.solr.utils.SolrUtils;
 import com.xczhihui.common.util.DateUtil;
 import com.xczhihui.common.util.XzStringUtils;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.medical.dao.DoctorDao;
-import com.xczhihui.medical.doctor.service.IMedicalDoctorSolrService;
-import com.xczhihui.medical.doctor.vo.MedicalDoctorSolrVO;
 import com.xczhihui.medical.enums.MedicalExceptionEnum;
 import com.xczhihui.medical.exception.MedicalException;
 import com.xczhihui.medical.service.DoctorService;
 import com.xczhihui.support.shiro.ManagerUserUtil;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
+import java.util.*;
 
 /**
  * MedicalDoctorServiceImpl:医师业务层接口实现类
@@ -38,15 +32,10 @@ public class DoctorServiceImpl extends OnlineBaseServiceImpl implements
     @Value("${env.flag}")
     private String envFlag;
     
-    @Autowired
-    private IMedicalDoctorSolrService medicalDoctorSolrService;
-
 
     @Override
-    public Page<MedicalDoctor> findMedicalDoctorPage(
-            MedicalDoctor medicalDoctor, int pageNumber, int pageSize) {
-        Page<MedicalDoctor> page = doctorDao.findMedicalDoctorPage(
-                medicalDoctor, pageNumber, pageSize);
+    public Page<MedicalDoctor> findMedicalDoctorPage( MedicalDoctor medicalDoctor, int pageNumber, int pageSize) {
+        Page<MedicalDoctor> page = doctorDao.findMedicalDoctorPage( medicalDoctor, pageNumber, pageSize);
        
         List<MedicalDoctor> list = page.getItems();
         
