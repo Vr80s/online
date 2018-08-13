@@ -220,12 +220,12 @@
 			<!--{{/if}}-->
 		<!--</td>-->
 		<td>
-			{{if course.record}}
-			<a href="javascript:;" style="margin-right: 10px;" onclick="openRecordSet('{{course.courseId}}','1')">回放设置</a>
-			{{else}}
-			<a href="javascript:;" style="margin-right: 10px;" onclick="openRecordSet('{{course.courseId}}','0')">回放设置</a>
-			{{/if}}
 			{{if course.multimediaType == 2}}
+				{{if course.record}}
+				<a href="javascript:;" style="margin-right: 10px;" onclick="openRecordSet('{{course.courseId}}','1')">回放设置</a>
+				{{else}}
+				<a href="javascript:;" style="margin-right: 10px;" onclick="openRecordSet('{{course.courseId}}','0')">回放设置</a>
+				{{/if}}
 				<a href="javascript:;" style="margin-right: 10px;" onclick="jumpApp()">进入直播</a>
 			{{else}}
 				{{if course.liveStatus==1}}
