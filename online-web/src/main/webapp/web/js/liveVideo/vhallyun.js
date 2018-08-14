@@ -78,16 +78,16 @@ function elsBind(){
        videoNode:'myVideo',
        complete:function(){
           VhallPlayer.play();
-          var netWorkstate = VhallPlayer.getNetworkState();
-    	  console.log("获取当前网络状态"+netWorkstate);
-          VhallPlayer.setWidth("1500");
-          var falg =  VhallPlayer.isFullscreen();
-          console.log("当前是否为全屏："+falg);
-          var quality =   VhallPlayer.getQualitys();
-          console.log("清晰度数组："+quality);
+//          var netWorkstate = VhallPlayer.getNetworkState();
+//    	  console.log("获取当前网络状态"+netWorkstate);
+//          VhallPlayer.setWidth("1500");
+//          var falg =  VhallPlayer.isFullscreen();
+//          console.log("当前是否为全屏："+falg);
+//          var quality =   VhallPlayer.getQualitys();
+//          console.log("清晰度数组："+quality);
           //VhallPlayer.setQuality(VhallPlayer.getQualitys()[0]);
        }
-     });    
+     });   
     }
     window.Vhall.ready(readyCallback);
     //配置文档和直播
@@ -120,8 +120,10 @@ function elsBind(){
      */
     setTimeout(function(){
     	try{
-    		
     		var md = document.getElementsByTagName("video")[0];
+    		debugger;
+    		//开始播放
+    		md.play();
 		    md.addEventListener("ended",function(){
 		    	 $(".playback div").hide();
 		         $(".playback").attr("type",20);
