@@ -50,6 +50,8 @@ function loadOrderList(){
                 orderForm = "线下";
             }else if(data == 6){
                 orderForm = "工作人员";
+            }else if(data == -1){
+                orderForm = "其他";
             }
         	return orderForm;
         }},

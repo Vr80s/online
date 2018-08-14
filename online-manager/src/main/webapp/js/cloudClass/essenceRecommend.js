@@ -4,6 +4,7 @@ var searchCase;
 var seed=1;
 var searchCase = new Array();
 $(function(){
+    createDatePicker($(".datetime-picker"),"yy-mm-dd");
 	document.onkeydown=function(event){
 		if(event.keyCode==13){
 			return false
@@ -60,6 +61,8 @@ $(function(){
     		} },    
         { "title": "上传人", "class":"center","width":"8%","sortable":false,"data": 'lecturerName'},
         { "title": "主播", "class":"center","width":"8%","sortable":false,"data": 'lecturer'},
+        { "title": "课程来源", "class":"center","width":"8%","sortable":false,"data": 'clientName'},
+        { "title": "创建时间", "class":"center","width":"10%", "sortable":false,"data": 'createTime' },
         { "title": "发布时间", "class":"center","width":"10%", "sortable":false,"data": 'releaseTime' },
         { "title": "推荐时效", "class":"center","width":"10%","sortable":false,"data": 'sortUpdateTime',"mRender":function (data, display, row) {
             if(row.recommendSort == null||row.recommendSort == 0)return null;
@@ -130,8 +133,21 @@ $(function(){
  */
 $(".all_bx").click(function(){
 
+    var json = new Array();
+    var startTime = $("#startTime").val(); //开始时间
+    var stopTime = $("#stopTime").val(); //结束时间
+    if(startTime != "" || stopTime != "") {
+
+        if (startTime != "" && stopTime != "" && startTime > stopTime) {
+            alertInfo("开始日期不能大于结束日期");
+            return;
+        }
+        json.push('{"tempMatchType":"7","propertyName":"startTime","propertyValue1":"' + startTime + '","tempType":"String"}');
+        json.push('{"tempMatchType":"6","propertyName":"stopTime","propertyValue1":"' + stopTime + '","tempType":"String"}');
+    }
+
 	$(".all_recommend_course").show();
-    searchButton(scoreTypeTable);
+    searchButton(scoreTypeTable,json);
 });
 
 /**

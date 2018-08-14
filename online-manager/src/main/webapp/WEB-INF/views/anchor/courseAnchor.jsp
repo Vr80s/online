@@ -464,7 +464,6 @@
 										<input type="hidden" value="search_type" class="propertyName"/>
 									</div>
 								</td>
-								<%--
 								<td>
 									<div class="profile-info-value searchTr">
 										<input type="text" class="datetime-picker propertyValue1"  id="startTime" name="startTime" placeholder = "开始日期" style="width:130px"/>
@@ -481,7 +480,7 @@
 										<input type="text" class="datetime-picker propertyValue1"  id="stopTime" name="stopTime" placeholder = "结束日期" style="width:130px"/>
 										<input type="hidden" value="stopTime" class="propertyName"/>
 									</div>
-								</td>--%>
+								</td>
 			                    <td>
 			                        <button id="searchBtn" type="button" class="btn btn-sm  btn-primary "
 			                                onclick="search_P();">

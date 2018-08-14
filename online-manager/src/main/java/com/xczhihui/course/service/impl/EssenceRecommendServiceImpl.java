@@ -1,14 +1,14 @@
 package com.xczhihui.course.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.common.util.bean.Page;
+import com.xczhihui.common.util.enums.ClientType;
 import com.xczhihui.course.dao.EssenceRecommendDao;
 import com.xczhihui.course.service.EssenceRecommendService;
 import com.xczhihui.course.vo.CourseVo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 @Service("essenceRecommendServiceImpl")
 public class EssenceRecommendServiceImpl extends OnlineBaseServiceImpl
@@ -29,6 +29,16 @@ public class EssenceRecommendServiceImpl extends OnlineBaseServiceImpl
                                          int pageSize) {
         Page<CourseVo> page = essenceRecommendDao.findEssenceRecCoursePage(
                 courseVo, pageNumber, pageSize);
+        page.getItems().forEach(data -> {
+            Integer clientType = data.getClientType();
+            if(clientType != null){
+                String clientName = ClientType.getClientType(clientType).getText();
+                data.setClientName(clientName);
+            } else {
+                data.setClientName("未知");
+            }
+
+        });
         return page;
     }
 

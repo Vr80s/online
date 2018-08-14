@@ -22,6 +22,7 @@
   var k = '<%=request.getAttribute("k")%>';
   
   var vhallName = '<%=request.getAttribute("vhallName")%>';
+  var appid = '<%=request.getAttribute("appid")%>';
 
 </script>
-<%@include file="../../web/html/liveVideo2.html" %>
+<%@include file="../../web/html/liveVideo4Vhallyun.html" %>
