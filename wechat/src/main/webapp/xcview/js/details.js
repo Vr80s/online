@@ -56,7 +56,7 @@ requestService("/xczh/course/liveDetails", {
             vhallObj.channelId = result.channelId;
             vhallObj.recordId = result.recordId;
             vhallObj.token =result.vhallYunToken;
-            vhallObj.appid = result.appid;
+            vhallObj.appId = result.appid;
             
             
             watchState = result.watchState;

@@ -78,14 +78,6 @@ function elsBind(){
        videoNode:'myVideo',
        complete:function(){
           VhallPlayer.play();
-//          var netWorkstate = VhallPlayer.getNetworkState();
-//    	  console.log("获取当前网络状态"+netWorkstate);
-//          VhallPlayer.setWidth("1500");
-//          var falg =  VhallPlayer.isFullscreen();
-//          console.log("当前是否为全屏："+falg);
-//          var quality =   VhallPlayer.getQualitys();
-//          console.log("清晰度数组："+quality);
-          //VhallPlayer.setQuality(VhallPlayer.getQualitys()[0]);
        }
      });   
     }
@@ -106,13 +98,52 @@ function elsBind(){
      * 3:未找到音频/视频来源
      */
     setInterval(function(){
-    	var netWorkstate = VhallPlayer.getNetworkState();
-    	if(netWorkstate ==3){
-    		$(".playback").attr("type",21);
-    		$(".playback div").hide();
-        	$(".media-error").show();
-        	$(".playback").show();
+    	try{
+    		var netWorkstate = VhallPlayer.getNetworkState();
+	    	if(netWorkstate ==3){
+	    		$(".playback").attr("type",21);
+	    		$(".playback div").hide();
+	        	$(".media-error").show();
+	        	$(".playback").show();
+	    	}
+    		
+    	}catch(error){
+    	 	console.log(error);
+    	  
+    	 	//
+	    	window.doc = {};
+		    var readyCallback = function(){
+		      	
+		      window.doc = new VhallDocPassive({
+		        channelId:vhallObj.channelId, //频道Id
+		        docNode:'my-doc-area'//文档显示节点div id
+		      });
+		      var roomId = (liveStatus == 1 ? vhallObj.roomId : "");
+		      var liveType = (liveStatus == 1 ? "live" : "vod");
+		      var recordId = (liveStatus == 1 ? "" : vhallObj.recordId);
+		      //判断是回放呢，还是直播呢
+		      VhallPlayer.init({
+		       roomId:roomId,
+		       recordId:recordId, //回放Id，点播必填，直播不写
+		       type:liveType,
+		       videoNode:'myVideo',
+		       complete:function(){
+		          VhallPlayer.play();
+		       }
+		     });   
+		    }
+		    window.Vhall.ready(readyCallback);
+		    //配置文档和直播
+		    window.Vhall.config({
+		         appId :vhallObj.appId,//应用 ID ,必填
+		         accountId :vhallObj.accountId,//第三方用户唯一标识,必填
+		         token:vhallObj.token//token必填
+		    });
+    	  
+    	  
     	}
+    	
+    
     },2000)
     
     /**

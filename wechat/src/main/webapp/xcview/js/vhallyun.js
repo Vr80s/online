@@ -60,11 +60,15 @@ function elsBind() {
     });
 
     setInterval(function(){
-    	var netWorkstate = VhallPlayer.getNetworkState();
-    	if(netWorkstate ==3){
-    		$(".video_end_top4").show();
+    	try{
+    		var netWorkstate = VhallPlayer.getNetworkState();
+	    	if(netWorkstate ==3){
+	    		$(".video_end_top4").show();
+	    	}
+	    	//console.log("获取当前网络状态:"+netWorkstate);
+    	}catch(error){
+    		console.log(error);
     	}
-    	console.log("获取当前网络状态:"+netWorkstate);
     },2000)
     
     var videoFalg = 0;
@@ -72,9 +76,9 @@ function elsBind() {
     	 try{
     		var md = document.getElementsByTagName("video")[0];
     		if(md && videoFalg == 0){
-    			videoFalg++;
-	    		md.setAttribute("x5-playsinline","");
-			    md.attr('x5-playsinline', '');
+//    			videoFalg++;
+//	    		md.setAttribute("x5-playsinline","");
+//			    md.attr('x5-playsinline', '');
 			    md.addEventListener("ended", function () {
 		           console.log("播放结束了");
 			    });
