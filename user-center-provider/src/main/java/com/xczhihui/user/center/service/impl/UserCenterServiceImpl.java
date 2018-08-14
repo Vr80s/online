@@ -324,7 +324,7 @@ public class UserCenterServiceImpl implements UserCenterService {
     }
 
     @Override
-    public List<Map<String, String>> findByIds(Set<String> ids) {
+    public List<Map<String, Object>> findByIds(List<String> ids) {
         return oeUserMapper.findByIds(ids);
     }
 }
