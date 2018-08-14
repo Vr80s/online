@@ -59,14 +59,19 @@ if(liveStatus == 1 || liveStatus == 3){
     msgList(0,10);
 }  
 
-  
-function elsBind(){
-    window.doc = {};
+var initVideoFalg =  0;  
+function initVideo(){
+
+ 	window.doc = {};
     var readyCallback = function(){
+    	
+      initVideoFalg = 1;  	
+          	
       window.doc = new VhallDocPassive({
         channelId:vhallObj.channelId, //频道Id
         docNode:'my-doc-area'//文档显示节点div id
       });
+      
       var roomId = (liveStatus == 1 ? vhallObj.roomId : "");
       var liveType = (liveStatus == 1 ? "live" : "vod");
       var recordId = (liveStatus == 1 ? "" : vhallObj.recordId);
@@ -81,76 +86,49 @@ function elsBind(){
        }
      });   
     }
+    
     window.Vhall.ready(readyCallback);
-    //配置文档和直播
-    window.Vhall.config({
+	window.Vhall.config({
          appId :vhallObj.appId,//应用 ID ,必填
          accountId :vhallObj.accountId,//第三方用户唯一标识,必填
          token:vhallObj.token//token必填
     });
-    
-    /**
-     * 获取当前网络状态
-     * 	@return {int}  
-     * 0:音频/视频尚未初始化,
-     * 1:音频/视频是活动的且已选取资源，但并未使用网络,
-     * 2:浏览器正在下载数据,
-     * 3:未找到音频/视频来源
-     */
-    setInterval(function(){
-    	try{
-    		var netWorkstate = VhallPlayer.getNetworkState();
-	    	if(netWorkstate ==3){
-	    		$(".playback").attr("type",21);
-	    		$(".playback div").hide();
-	        	$(".media-error").show();
-	        	$(".playback").show();
-	    	}
-    		
-    	}catch(error){
-    	 	console.log(error);
-    	  
-    	 	//
-	    	window.doc = {};
-		    var readyCallback = function(){
-		      	
-		      window.doc = new VhallDocPassive({
-		        channelId:vhallObj.channelId, //频道Id
-		        docNode:'my-doc-area'//文档显示节点div id
-		      });
-		      var roomId = (liveStatus == 1 ? vhallObj.roomId : "");
-		      var liveType = (liveStatus == 1 ? "live" : "vod");
-		      var recordId = (liveStatus == 1 ? "" : vhallObj.recordId);
-		      //判断是回放呢，还是直播呢
-		      VhallPlayer.init({
-		       roomId:roomId,
-		       recordId:recordId, //回放Id，点播必填，直播不写
-		       type:liveType,
-		       videoNode:'myVideo',
-		       complete:function(){
-		          VhallPlayer.play();
-		       }
-		     });   
-		    }
-		    window.Vhall.ready(readyCallback);
-		    //配置文档和直播
-		    window.Vhall.config({
-		         appId :vhallObj.appId,//应用 ID ,必填
-		         accountId :vhallObj.accountId,//第三方用户唯一标识,必填
-		         token:vhallObj.token//token必填
-		    });
-    	  
-    	  
+}
+
+
+/**
+ * 获取当前网络状态
+ * 	@return {int}  
+ * 0:音频/视频尚未初始化,
+ * 1:音频/视频是活动的且已选取资源，但并未使用网络,
+ * 2:浏览器正在下载数据,
+ * 3:未找到音频/视频来源
+ */
+setInterval(function(){
+	try{
+		var netWorkstate = VhallPlayer.getNetworkState();
+    	if(netWorkstate ==3){
+    		$(".playback").attr("type",21);
+    		$(".playback div").hide();
+        	$(".media-error").show();
+        	$(".playback").show();
     	}
-    	
+	}catch(error){
+	 	console.log(error);
+	}
+},1000)
+
+
+function elsBind(){
     
-    },2000)
+	//初始化视频
+    initVideo();
     
     /**
      * 加载消息
      */
     setTimeout(function(){
-    	try{
+        try{
     		var md = document.getElementsByTagName("video")[0];
     		debugger;
     		//开始播放
@@ -265,24 +243,25 @@ function elsBind(){
 		}else if (type == 17) { // 回放生成失败,点击去学习中心吧
 			location.href="/my";
 	    }
-	    
     }) 
-    
     
     /**
      * 发送聊天消息
      */  
     $("#sendChat").click(function() {
+    	
         $(".coze_bottom").css("bottom", "0rem");  //这是输入框在最底部,添加到其他文件不起作用
         var text = $("#mywords").val();
         if(text!=null && ""!=text && undefined!=text){
           var content = {
-            type:10,                 //消息类型     1 聊天消息
-            message:{
-                content:text,   //发送的内容
-                role:"normal"           //发送人的角色    主播： host   普通用户： normal
-              } 
-          } 
+	            type:10,                 //消息类型     1 聊天消息
+	            message:{
+	                content:text,   //发送的内容
+	                role:"normal"           //发送人的角色    主播： host   普通用户： normal
+	          } 
+	      } 
+	      
+	      $("#mywords").val("");
          /**
           * 发送消息
           */ 

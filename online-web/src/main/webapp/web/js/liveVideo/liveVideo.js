@@ -27,7 +27,7 @@ var courseId = course_id;
 		courseId:courseId,
 		recordType:2
 	}, function(data) {
-		console.log("添加观看记录");
+		//console.log("添加观看记录");
 	});
 	
 	

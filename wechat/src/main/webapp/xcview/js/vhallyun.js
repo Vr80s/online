@@ -71,22 +71,6 @@ function elsBind() {
     	}
     },2000)
     
-    var videoFalg = 0;
-    setInterval(function(){
-    	 try{
-    		var md = document.getElementsByTagName("video")[0];
-    		if(md && videoFalg == 0){
-//    			videoFalg++;
-//	    		md.setAttribute("x5-playsinline","");
-//			    md.attr('x5-playsinline', '');
-			    md.addEventListener("ended", function () {
-		           console.log("播放结束了");
-			    });
-    		}
-    	}catch(error){
-    	  console.log(error);
-    	}
-    },1000)
 }
 
 /**
@@ -94,7 +78,19 @@ function elsBind() {
  */
 function initChat(){
 	 setTimeout(function () {
-	 	
+	 	 try{
+    		var md = document.getElementsByTagName("video")[0];
+    		if(md){
+    			//开始播放
+    			//md.play();
+    			//$("video").attr("poster",courseHead);
+			    md.addEventListener("ended", function () {
+		           console.log("播放结束了");
+			    });
+    		}
+    	}catch(error){
+    	  console.log(error);
+    	}
         window.Vhall.ready(function () {
             /**
              * 初始化聊天对象
