@@ -472,7 +472,7 @@ div.pinch-zoom,
     line-height: 0.98rem;
 }
 .send_gifts .gifts_div{
-    width: 1.5rem;
+    width: 1.35rem;
     /*height: 1.7rem;*/
 }
 
@@ -813,7 +813,13 @@ div.pinch-zoom,
     color: #999;
 }
 .send_gifts ul li a p{
-    font-size: 0.26rem !important;
+    /*font-size: 0.26rem !important;*/
+}
+.send_gifts ul li a .liwu{
+    font-size: 0.28rem !important;
+}
+.send_gifts ul li a .jiage{
+    font-size: 0.22rem !important;
 }
 /*添加礼物关闭按钮结束*/
 
