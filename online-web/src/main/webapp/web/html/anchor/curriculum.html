@@ -213,6 +213,13 @@
 			{{/if}}
 		</td>
 		<td>
+			{{if course.record==true}}
+			<span>开启</span>
+			{{else}}
+			<span>关闭</span>
+			{{/if}}
+		</td>
+		<td>
 			{{if course.multimediaType == 2}}
 				<a href="javascript:;" style="margin-right: 10px;" onclick="jumpApp()">进入直播</a>
 			{{else}}
@@ -221,6 +228,11 @@
 				<!--<a href="javascript:;" onclick="startGuestLive({{course.webinarId}})">嘉宾进入</a>-->
 				<!--<a href="javascript:;" onclick="startLive('{{course.webinarId}}', '{{course.channelId}}')">直播预览</a>-->
 				{{else if course.liveStatus==2}}
+					{{if course.record}}
+					<a href="javascript:;" style="margin-right: 10px;" onclick="openRecordSet('{{course.courseId}}','1')">回放设置</a>
+					{{else}}
+					<a href="javascript:;" style="margin-right: 10px;" onclick="openRecordSet('{{course.courseId}}','0')">回放设置</a>
+					{{/if}}
 				<a href="javascript:;" style="margin-right: 10px;" onclick="startLive('{{course.courseId}}', '{{course.channelId}}')">进入直播</a>
 				<!--<a href="javascript:;" onclick="startGuestLive({{course.webinarId}})">嘉宾进入</a>-->
 				<!--<a href="javascript:;" onclick="startLive('{{course.webinarId}}', '{{course.channelId}}')">直播预览</a>-->
@@ -695,18 +707,19 @@
 	<ul class="radio-select y">
 		<li>
 			<p>
-				<em></em>				
+				<em class="isrecord isrecord1" data-record="1"></em>
 			</p>
 			<span>是</span>
 		</li>
 		<li>
 			<p>
-				<em></em>
+				<em  class="isrecord isrecord0" data-record="0"></em>
 			</p>
 			<span>否</span>
 		</li>
 	</ul>
-	<p class="sure-live">确定</p>
+	<input type="hidden" class="record-course-id">
+	<p class="sure-live" onclick="saveRecordSet()">确定</p>
 </div>
 
 <div class="wp">
@@ -1334,6 +1347,7 @@
 								<td>直播类型</td>
 								<td>直播时间</td>
 								<td>直播状态</td>
+								<td>回放</td>
 								<td>操作</td>
 							</tr>
 							</thead>

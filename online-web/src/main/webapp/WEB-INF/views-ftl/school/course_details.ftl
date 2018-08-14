@@ -174,50 +174,51 @@
             <#elseif courseInfo.status == 0 && courseInfo.currentPrice lte 0 && courseInfo.learning != 1>
                  <button type="button" class="immediately-buy" style="background:#DEDEDE;">课程下架</button>     
             <#else>
-            
-                  <#if courseInfo.watchState == 1 || courseInfo.watchState == 2>
-                    <button type="button" class="immediately-buy  learning_immediately"
-                            data-watchState="${courseInfo.watchState}"
-                            data-type="${courseInfo.type}"
-                            data-courseForm="${courseInfo.courseForm}"
-                            data-multimediaType="${courseInfo.multimediaType}"
-                            data-realCourseId="${courseInfo.id}"
-                            data-learning="${courseInfo.learning}"
-                            data-cutoff="${courseInfo.cutoff}"
-                            data-collection="${courseInfo.collection?string("1","0")}"
-                            <#if courseInfo.watchState == 1  && courseInfo.courseForm == 3 && courseInfo.cutoff = 1>
-                               style="background:#DEDEDE;" 
-                            </#if>
-                            >
-                        <#if courseInfo.watchState == 2  && courseInfo.courseForm == 3>
-                               已报名
-                        <#elseif courseInfo.watchState == 1  && courseInfo.courseForm == 3>
-                            <#if courseInfo.learning == 1>
-                               已报名
-                            <#elseif courseInfo.cutoff = 1>                                                
-                                已结束报名
-                            <#else>
-                                立即报名
-                            </#if>
-                        <#else>
-                                开始学习
-                        </#if>
-                    </button>
-                <#elseif courseInfo.watchState == 0>
-                    <#if courseInfo.courseForm == 3 && courseInfo.cutoff = 1>
-                        <button type="button" class="immediately-buy" style="background:#DEDEDE;">已结束报名</button>
-                    <#else>
-                        <button type="button" class="immediately-buy J-course-buy"
-                                data-id="${courseInfo.id}"
+                <#if !courseInfo.record && courseInfo.lineState == 3 && courseInfo.courseForm==1>
+                    <span class="live-null-tip">本次直播没有回放，请随时关注讲师动态，避免错过下次直播</span>
+                <#else>
+                    <#if courseInfo.watchState == 1 || courseInfo.watchState == 2>
+                        <button type="button" class="immediately-buy  learning_immediately"
+                                data-watchState="${courseInfo.watchState}"
+                                data-type="${courseInfo.type}"
                                 data-courseForm="${courseInfo.courseForm}"
                                 data-multimediaType="${courseInfo.multimediaType}"
-                                data-type="${courseInfo.type}">
-                                                                            立即购买
+                                data-realCourseId="${courseInfo.id}"
+                                data-learning="${courseInfo.learning}"
+                                data-cutoff="${courseInfo.cutoff}"
+                                data-collection="${courseInfo.collection?string("1","0")}"
+                                <#if courseInfo.watchState == 1  && courseInfo.courseForm == 3 && courseInfo.cutoff = 1>
+                                   style="background:#DEDEDE;"
+                                </#if>
+                                >
+                            <#if courseInfo.watchState == 2  && courseInfo.courseForm == 3>
+                                   已报名
+                            <#elseif courseInfo.watchState == 1  && courseInfo.courseForm == 3>
+                                <#if courseInfo.learning == 1>
+                                   已报名
+                                <#elseif courseInfo.cutoff = 1>
+                                    已结束报名
+                                <#else>
+                                    立即报名
+                                </#if>
+                            <#else>
+                                    开始学习
+                            </#if>
                         </button>
+                    <#elseif courseInfo.watchState == 0>
+                        <#if courseInfo.courseForm == 3 && courseInfo.cutoff = 1>
+                            <button type="button" class="immediately-buy" style="background:#DEDEDE;">已结束报名</button>
+                        <#else>
+                            <button type="button" class="immediately-buy J-course-buy"
+                                    data-id="${courseInfo.id}"
+                                    data-courseForm="${courseInfo.courseForm}"
+                                    data-multimediaType="${courseInfo.multimediaType}"
+                                    data-type="${courseInfo.type}">立即购买
+                            </button>
+                        </#if>
                     </#if>
                 </#if>
-        
-                </#if>
+            </#if>
 
             <span class="remember-last hide">上次播放位置：<span>标幽赋的前世今生详解 </span></span>
         </div>
