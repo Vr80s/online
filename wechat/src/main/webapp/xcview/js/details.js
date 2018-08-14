@@ -2,6 +2,7 @@
 if (!is_weixin()) {
     $(".weixin_li").remove();
 }
+var course_id = getQueryString("courseId");
 /**
  * 判断是否需要跳转到pc网页
  */
@@ -21,7 +22,9 @@ var lineState = 1;
 var result = "";
 var playBackType = 1;
 
-
+var vhallObj = {
+	accountId: localStorage.getItem("userId")
+};
 // 统一提交的方法
 requestService("/xczh/course/liveDetails", {
         courseId: course_id
