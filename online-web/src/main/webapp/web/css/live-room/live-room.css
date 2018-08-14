@@ -400,6 +400,21 @@ input::-webkit-input-placeholder{
 	overflow-x: hidden;
 	height: 100%;
 }
+  /*滚动条样式*/
+.select-document-wrap .modal-list::-webkit-scrollbar {/*滚动条整体样式*/
+            width: 4px;     /*高宽分别对应横竖滚动条的尺寸*/
+            height: 4px;
+        }
+.select-document-wrap .modal-list::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+            border-radius: 5px;
+            -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.9);
+            background: rgba(165, 165, 165, 0.9);
+        }
+.select-document-wrap .modal-list::-webkit-scrollbar-track {/*滚动条里面轨道*/
+            -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+            border-radius: 0;
+            background: rgba(0,0,0,0.1);
+        }
 .select-document-wrap .modal-list li{
 	width: 100px;
 	height: 60px;
@@ -609,7 +624,7 @@ input::-webkit-input-placeholder{
 .video-wrap{
 	height: 232px;
 	width: 100%;
-	background: chartreuse;
+
 }
 .refresh-student{
 	height: 30px;

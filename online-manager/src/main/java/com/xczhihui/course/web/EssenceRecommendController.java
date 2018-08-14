@@ -1,16 +1,7 @@
 package com.xczhihui.course.web;
 
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.xczhihui.bxg.online.common.domain.Menu;
+import com.xczhihui.common.util.DateUtil;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.course.service.CourseService;
 import com.xczhihui.course.service.EssenceRecommendService;
@@ -19,6 +10,15 @@ import com.xczhihui.utils.Group;
 import com.xczhihui.utils.Groups;
 import com.xczhihui.utils.TableVo;
 import com.xczhihui.utils.Tools;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Calendar;
+import java.util.List;
 
 /**
  * 课程推荐列表管理控制层实现类
@@ -87,6 +87,21 @@ public class EssenceRecommendController {
         if (menuId != null) {
             searchVo.setMenuId(Integer.valueOf(menuId.getPropertyValue1().toString()));
         }
+        Group startTime = groups.findByName("startTime");
+        if (startTime != null) {
+            searchVo.setStartTime(DateUtil.parseDate(startTime.getPropertyValue1().toString(), "yyyy-MM-dd"));
+        }
+        Group stopTime = groups.findByName("stopTime");
+        if (stopTime != null) {
+            searchVo.setEndTime(DateUtil.parseDate(stopTime.getPropertyValue1().toString(), "yyyy-MM-dd"));
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(searchVo.getEndTime());
+            calendar.set(Calendar.HOUR_OF_DAY, 23);
+            calendar.set(Calendar.MINUTE, 59);
+            calendar.set(Calendar.SECOND, 59);
+            searchVo.setEndTime(calendar.getTime());
+        }
+
         Page<CourseVo> page = ssenceRecommenedService.findCoursePage(searchVo, currentPage, pageSize);
         int total = page.getTotalCount();
         tableVo.setAaData(page.getItems());

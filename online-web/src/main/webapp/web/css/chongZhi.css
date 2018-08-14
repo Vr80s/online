@@ -9,7 +9,7 @@
 			font-style: normal !important;
 		}
 		#main1{
-			width: 513px;
+			width: 703px;
 			position: fixed;
     		top: 50%;
     		left: 50%;
@@ -21,14 +21,14 @@
 		font-size: 13px;
 			width: 100%;
 			height: 400px;
-			padding:20px 30px 0px;
+			padding:14px 30px 0px;
 			border: 1px solid #000;
 			background-color: #fff;
 		}
 		.topbanner{
 			width: 100%;
 			height: 45px;
-			background-color: #000;
+			background: #3E3E3E;
 			line-height: 45px;
 		}
 		/*每一个模块的大小*/

@@ -1,14 +1,13 @@
 package com.xczhihui.course.dao;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.springframework.stereotype.Repository;
-
 import com.xczhihui.bxg.online.common.domain.Course;
 import com.xczhihui.common.dao.HibernateDao;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.course.vo.CourseVo;
+import org.springframework.stereotype.Repository;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Repository("essenceRecommendDao")
 public class EssenceRecommendDao extends HibernateDao<Course> {
@@ -44,6 +43,7 @@ public class EssenceRecommendDao extends HibernateDao<Course> {
                         + "  oc.user_lecturer_id AS userLecturerId,\n"
                         + "  ou.`name` lecturerName,\n"
                         + "  oc.`lecturer`,\n"
+                        + "  oc.`client_type` as clientType,\n"
                         +
                         " if(oc.live_status = 2,if(DATE_SUB(now(),INTERVAL 30 MINUTE)>=oc.start_time,6,if(  "
                         + "			    DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now() < oc.start_time,"
@@ -83,6 +83,16 @@ public class EssenceRecommendDao extends HibernateDao<Course> {
             paramMap.put("multimediaType", courseVo.getMultimediaType());
             sql.append("and oc.multimedia_type = :multimediaType ");
         }
+        if (courseVo.getStartTime() != null) {
+            sql.append(" and oc.create_time >=:startTime");
+            paramMap.put("startTime", courseVo.getStartTime());
+        }
+
+        if (courseVo.getEndTime() != null) {
+            sql.append(" and oc.create_time <=:stopTime");
+            paramMap.put("stopTime", courseVo.getEndTime());
+        }
+
         sql.append(" order by oc.status desc,recommendSort desc,oc.release_time desc ");
 
         Page<CourseVo> courseVos = this.findPageBySQL(sql.toString(), paramMap,

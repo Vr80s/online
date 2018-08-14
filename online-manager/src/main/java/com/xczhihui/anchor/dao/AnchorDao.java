@@ -1,23 +1,22 @@
 package com.xczhihui.anchor.dao;
 
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.Restrictions;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.stereotype.Repository;
-
 import com.xczhihui.anchor.vo.AnchorIncomeVO;
 import com.xczhihui.bxg.online.common.domain.CourseAnchor;
 import com.xczhihui.bxg.online.common.domain.CourseApplyInfo;
 import com.xczhihui.common.dao.HibernateDao;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.util.enums.CourseForm;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.stereotype.Repository;
+
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 云课堂课程管理DAO
@@ -34,6 +33,7 @@ public class AnchorDao extends HibernateDao<CourseAnchor> {
                 "SELECT ca.id,\n"
                         + "  ca.`name`,\n"
                         + "  ca.`client_type`,\n"
+                        + "  ca.`create_time` as createTime,\n"
                         + "  ca.`user_id` as userId,\n"
                         + "  ou.`login_name` loginName,\n"
                         + "  ca.`type`,\n"
@@ -66,6 +66,15 @@ public class AnchorDao extends HibernateDao<CourseAnchor> {
         if (courseAnchor.getType() != null) {
             paramMap.put("type", courseAnchor.getType());
             sql.append("and ca.type like :type ");
+        }
+        if (courseAnchor.getStartTime() != null) {
+            sql.append(" and ca.create_time >=:startTime");
+            paramMap.put("startTime", courseAnchor.getStartTime());
+        }
+
+        if (courseAnchor.getEndTime() != null) {
+            sql.append(" and ca.create_time <=:stopTime");
+            paramMap.put("stopTime", courseAnchor.getEndTime());
         }
         sql.append(" ORDER BY ca.`create_time` DESC");
 
