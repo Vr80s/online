@@ -103,6 +103,7 @@ public class CourseApplyInfoVO implements Serializable {
      * 是否为专辑
      */
     private Boolean collection;
+    private Boolean record;
     /**
      * 是否上架
      */
@@ -160,6 +161,14 @@ public class CourseApplyInfoVO implements Serializable {
      */
     private Integer selectedNumber;
     private Boolean teaching;
+
+    public Boolean getRecord() {
+        return record;
+    }
+
+    public void setRecord(Boolean record) {
+        this.record = record;
+    }
 
     public Boolean getTeaching() {
         return teaching;

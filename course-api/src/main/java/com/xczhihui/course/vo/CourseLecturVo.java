@@ -220,6 +220,7 @@ public class CourseLecturVo implements Serializable {
     private String channelId;
 
     private String recordId;
+    private Boolean record;
 
     private String vhallYunToken;
     
@@ -232,6 +233,14 @@ public class CourseLecturVo implements Serializable {
      * 是否提交线下课报名表单
      */
     private boolean submitted;
+
+    public Boolean getRecord() {
+        return record;
+    }
+
+    public void setRecord(Boolean record) {
+        this.record = record;
+    }
 
     public Integer getCourseForm() {
         return courseForm;
