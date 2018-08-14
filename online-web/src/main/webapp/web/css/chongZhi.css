@@ -33,15 +33,17 @@
 		}
 		/*每一个模块的大小*/
 		.item_title{
-			width: 476px;
-    		min-height: 36px;
+			width: 620px;
+		    min-height: 36px;
+		    overflow: hidden;
 		}
 
 		/*所有的标题长度*/
 		#pay .item_title p{
-			width: 76px;
+			width: 68px;
 			float: left;
-			
+			font-size: 12px;
+			color: #999;
 		}
 
 		.item_content{
@@ -57,6 +59,13 @@
 			height: 13px;
 			/* background:  url(/web/images/live/global.png) -264px -114px no-repeat; */
 		}
+		.content_two{
+			float: left;
+		}
+		.content_one{
+			float: left;
+			color: #999;
+		}
 		.content_one em{
 			color: orange;
 		}
@@ -68,17 +77,17 @@
 			float: left;
 		}
 		.content_two ul li,.content_three ul li  {
-			position: relative;
-    		float: left;
-    		min-width: 80px;
-    		height: 36px;
-    		line-height: 36px;
-    		margin: 0 9px 12px 0;
-    		text-align: center;
-    		border: 1px solid #e3e5ea;
-    		cursor: pointer;
-    		font-size: 12px;
-    		color: #666;
+		    position: relative;
+		    float: left;
+		    min-width: 99px;
+		    height: 37px;
+		    line-height: 37px;
+		    margin: 0 9px 12px 0;
+		    text-align: center;
+		    border: 1px solid #e3e5ea;
+		    cursor: pointer;
+		    font-size: 12px;
+		    color: #666;
 		}
 		.content_two ul li input {
 			display: block;
@@ -126,11 +135,14 @@
     			width: 100%;
 		}
 		.topbanner span,.topbanner b{
-			margin-left: 10px;
+			margin-left: 30px;
 			float: left;
 			color: white;
 			font-size: 12px;
 			font-weight: 400
+		}
+		.close{
+			font-weight: 400;
 		}
 		.topbanner i{
 			cursor: pointer;
@@ -139,7 +151,7 @@
     		height: 19px;
     		position: absolute;
     		right: 5px;
-    		top: 5px;
+    		top: 0px;
     		margin: 10px 10px 0 0;
     		/*background: url(/web/images/live/x.png);*/
     		color:white;
@@ -165,7 +177,7 @@
 		}
 		
 		.orange{
-			border-color: #FF8A00 !important; 
+			border-color: #F97B49 !important; 
 		}
 		.i-selector{
 			display: block;

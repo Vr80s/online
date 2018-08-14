@@ -6,6 +6,10 @@
     .dataTable > tbody > tr > td {
         white-space:normal;
     }
+    td  img{
+        width: 50px;
+        height: 50px;
+    }
 </style>
 <script type="text/javascript">
     try {
