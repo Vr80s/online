@@ -31,7 +31,7 @@ RequestService("/online/user/isAlive", "GET", null, function (data) {
 }, false)
 
 var vhallObj = {
-    appId: "27376e92",
+    appId: appid,
     accountId:loginUserId
 };
 
@@ -163,6 +163,11 @@ var fn = function(options, callback) {
         var _diff = endtime.getTime() - now.getTime();
         
         if (_diff < 0) {
+        	container.find(".days").text("00");
+            container.find(".hours").text("00");
+            container.find(".minutes").text("00");
+            container.find(".seconds").text("00");
+            
             clearInterval(interval);
             if (callback && typeof callback === "function") callback();
             return;

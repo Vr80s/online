@@ -6,7 +6,6 @@ var queue = new Queue();
 var course_id = getQueryString("courseId");
 
 var vhallObj = {
-	appId: "27376e92",
 	accountId: localStorage.getItem("userId")
 };
 

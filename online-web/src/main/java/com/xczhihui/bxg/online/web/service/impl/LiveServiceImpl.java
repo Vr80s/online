@@ -23,6 +23,7 @@ import com.xczhihui.bxg.online.web.dao.LiveDao;
 import com.xczhihui.bxg.online.web.service.LiveService;
 import com.xczhihui.bxg.online.web.vo.OpenCourseVo;
 import com.xczhihui.common.support.domain.BxgUser;
+import com.xczhihui.common.util.vhallyun.VhallUtil;
 
 /**
  * 公开直播课业务层接口实现类
@@ -154,12 +155,7 @@ public class LiveServiceImpl extends OnlineBaseServiceImpl implements LiveServic
         } else if (liveStatus == 2) {            //直播预告
             mv = new ModelAndView("live_success_other_page");
         }
-        
-        String vhallyun =  request.getParameter("vhallyun");
-        if(vhallyun!=null) {
-            mv = new ModelAndView("live_success_page2");
-        }
-        
+
         
         
         mv.addObject("lecturerId", course.get("userLecturerId"));
@@ -182,6 +178,7 @@ public class LiveServiceImpl extends OnlineBaseServiceImpl implements LiveServic
         mv.addObject("env", env);
         mv.addObject("host", host);
         mv.addObject("rate", rate);
+        mv.addObject("appid", VhallUtil.APP_ID);
 
         Map<String, String> map = new HashMap<String, String>();
         map.put("llala", "llal");

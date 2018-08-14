@@ -354,6 +354,32 @@
     	left: 50% !important;
 	}
 	
+	.bdsharebuttonbox {
+				float: left;
+			}
+			.bdsharebuttonbox a{
+				width: 30px;
+				height: 30px !important;
+				margin: 6px 4px !important;
+			}
+			.bdsharebuttonbox .bds_tsina{
+				background: url(/web/images/video2/weibo.png) no-repeat !important;
+				background-size: 100% 100%;
+			}
+			.bdsharebuttonbox .bds_sqq{
+				background: url(/web/images/video2/Qq.png) no-repeat !important;;
+				background-size: 100% 100%;
+			}
+			/*.bdsharebuttonbox .bds_qzone{
+				background: url(/web/images/video2/icon_qqkongjian_yellow.png) no-repeat !important;
+				background-size: 100% 100%;
+			}*/
+			.bdsharebuttonbox .bds_qzone img{
+				/*width: 26px;
+			    height: 26px;
+			    margin-left: -18px;*/
+			}
+	
 </style>
 <script>
 	window.onload = function(){
@@ -549,13 +575,18 @@
 							class="share_li2_img">
 							<div id="qrcodeCanvas2"></div>
 						</div></li>
-					<li style="background: none;"><a href="javascript:void(0)"
+					<!-- <li style="background: none;"><a href="javascript:void(0)"
 						id="weibo_share" target="_blank"><img
 							src="/web/images/video2/weibo.png" alt="" /></a>
 					</script></li>
 					<li style="background: none;"><a href="javascript:void(0)"
 						id="qq_share" target="_blank"><img
-							src="/web/images/video2/Qq.png" alt="" /></a></li>
+							src="/web/images/video2/Qq.png" alt="" /></a></li> -->
+					<div class="bdsharebuttonbox" data-tag="share_1">
+							<a class="bds_tsina" data-cmd="tsina"></a>
+							<a class="bds_sqq" data-cmd="sqq"></a>
+							<!--<a class="bds_qzone" data-cmd="qzone" href="#"></a>-->
+				    </div>
 				</ul>
 			</div>
 			<span class="liveTime">直播时间：<span></span></span>
@@ -563,12 +594,14 @@
 		<div id="livePlayer">
 			<!--回放重播提示开始-->
 			<div class="playback" style="display:none;">
-				<img src="/web/images/2.jpg" alt="" class="playback-img" />
+				<img src="" alt="" class="playback-img" />
 				<div class="playback-rebroadcast">重播</div>
 				<div class="generate-replay" style="display:none;">直播结束，正在生成回放…</div>
 				<div class="leave" style="display:none;">主播要离开一会儿，稍等片刻哦~</div>
-				<div class="see-the-replay" style="display:none;">直播结束,点击查看回放</div>
+				<div class="see-the-replay" style="display:none;">回放生成成功,点击查看</div>
 				<div class="learning-center" style="display:none;">直播结束，点击返回学习中心</div>
+				<div class="see-the-replay" style="display:none;">直播结束,点击查看回放</div>
+				<div class="media-error" style="display:none;">获取媒体数据过程中出错</div>
 			</div>
 			<!--回放重播提示结束-->
 				
@@ -919,7 +952,7 @@
 
 <!-- <script src="/web/js/im/strophe.js" type="text/javascript" charset="utf-8"></script> -->
 <script src="/web/js/common/common.js" type="text/javascript" charset="utf-8"></script>
-<script src="/web/js/im/giftSend2.js?v=ipandatcm_1.3" type="text/javascript" charset="utf-8"></script>
+<script src="/web/js/im/giftSend4Vhallyun.js?v=ipandatcm_1.3" type="text/javascript" charset="utf-8"></script>
 
 <!-- 微吼云 -->
 <script src="https://static.vhallyun.com/jssdk/dvideo-plugin.js?v=0.3"></script>

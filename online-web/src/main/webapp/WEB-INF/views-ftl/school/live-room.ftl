@@ -288,7 +288,7 @@
                 <!--刷新学员-->
                 <div class="refresh-student text-center">
                     <span>学员列表</span>
-                    <img src="/web/images/refresh.png" alt="刷新"/>
+                    <img src="/web/images/refresh.png" alt="刷新" class="J-refresh-list"/>
                 </div>
                 <!--学员列表-->
                 <div class="student-list">

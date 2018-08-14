@@ -44,6 +44,9 @@ var courseId = course_id;
 		smallImgPath = obj.smallImgPath;
 		description = obj.description;
 		
+		$(".playback-img").attr("src",smallImgPath);
+		
+		
 		teacherId = obj.teacherId;
 		teacherName = obj.teacherName;
 		//讲师名字

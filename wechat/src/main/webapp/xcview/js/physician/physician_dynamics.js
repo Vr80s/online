@@ -257,7 +257,7 @@ function doctorPostsList(pageNumber,downOrUp,doctorPostsType) {
 
         // 回复/删除
         $(".evaluateDiv").off("click");
-        $(".evaluateDiv").click(function(){
+        $(".evaluateDiv").bind("click",function(){
             postsCommentId = $(this).attr('data-id');
             postsCommentUserName = $(this).attr('data-userName');
             getPostsIdByComment = $(this).attr('data-postsId');
@@ -397,7 +397,7 @@ function sendComment(){
 
             // 回复/删除
             $(".evaluateDiv").unbind( "click" );
-            $(".evaluateDiv").click(function(){
+            $(".evaluateDiv").bind("click",function(){
                 postsCommentId = $(this).attr('data-id');
                 postsCommentUserName = $(this).attr('data-userName');
                 getPostsIdByComment = $(this).attr('data-postsId');
@@ -433,7 +433,7 @@ function sendComment(){
                     })
                 }
 
-            },false);
+            });
             webToast("评论成功","middle",1500);
         }else{
             webToast(data.resultObject,"middle",1500);
@@ -1298,3 +1298,6 @@ $(".li_prose_origin").click(function(){
 });
 
 //alert(111);
+
+
+

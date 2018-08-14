@@ -20,6 +20,7 @@ import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.CourseUtil;
 import com.xczhihui.common.util.XzStringUtils;
 import com.xczhihui.common.util.vhallyun.BaseService;
+import com.xczhihui.common.util.vhallyun.VhallUtil;
 import com.xczhihui.course.service.*;
 import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.medical.anchor.service.ICourseApplyService;
@@ -132,6 +133,7 @@ public class CourseController {
         cv = assignCommonData(cv,courseId);
         if (cv.getChannelId() != null && cv.getDirectId() != null) {
             cv.setVhallYunToken(BaseService.createAccessToken4Live(accountId, cv.getDirectId(), cv.getChannelId()));
+            cv.setAppid(VhallUtil.APP_ID);
         }
         return ResponseObject.newSuccessResponseObject(cv);
     }
