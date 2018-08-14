@@ -1,18 +1,5 @@
 package com.xczhihui.course.web;
 
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.xczhihui.bxg.online.common.domain.CourseApplyInfo;
 import com.xczhihui.bxg.online.common.domain.Menu;
 import com.xczhihui.bxg.online.common.domain.ScoreType;
@@ -33,6 +20,18 @@ import com.xczhihui.utils.Group;
 import com.xczhihui.utils.Groups;
 import com.xczhihui.utils.TableVo;
 import com.xczhihui.utils.Tools;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 课程管理控制层实现类
@@ -140,6 +139,12 @@ public class CourseApplyInfoController extends AbstractController {
         Group stopTime = groups.findByName("stopTime");
         if (stopTime != null) {
             searchVo.setEndTime(DateUtil.parseDate(stopTime.getPropertyValue1().toString(), "yyyy-MM-dd"));
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(searchVo.getEndTime());
+            calendar.set(Calendar.HOUR_OF_DAY, 23);
+            calendar.set(Calendar.MINUTE, 59);
+            calendar.set(Calendar.SECOND, 59);
+            searchVo.setEndTime(calendar.getTime());
         }
 
         Page<CourseApplyInfo> page = courseApplyService.findCoursePage(searchVo, currentPage, pageSize);

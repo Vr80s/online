@@ -1,13 +1,14 @@
 package com.xczhihui.bxg.online.common.domain;
 
-import static javax.persistence.GenerationType.IDENTITY;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.annotations.Type;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import javax.persistence.*;
-
-import org.hibernate.annotations.Type;
+import static javax.persistence.GenerationType.IDENTITY;
 
 
 /**
@@ -31,6 +32,7 @@ public class CourseAnchor implements java.io.Serializable {
     private Integer type;
 
     private String version;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
     private Date updateTime;
     private Boolean status;
@@ -68,6 +70,19 @@ public class CourseAnchor implements java.io.Serializable {
     
     @Transient
     private String doctorOrHospitalName;
+    /**
+     * 开始时间
+     */
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date startTime;
+    /**
+     * 结束时间
+     */
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date endTime;
 
     @Column(name = "default_count")
     public Integer getDefaultCount() {
@@ -323,7 +338,20 @@ public class CourseAnchor implements java.io.Serializable {
     public void setDoctorOrHospitalName(String doctorOrHospitalName) {
         this.doctorOrHospitalName = doctorOrHospitalName;
     }
+    @Transient
+    public Date getStartTime() {
+        return startTime;
+    }
 
-    
-    
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
+    }
+    @Transient
+    public Date getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
+    }
 }

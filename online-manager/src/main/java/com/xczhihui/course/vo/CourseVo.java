@@ -1,11 +1,10 @@
 package com.xczhihui.course.vo;
 
-import java.util.Date;
-
-import org.springframework.format.annotation.DateTimeFormat;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.xczhihui.bxg.online.common.base.vo.OnlineBaseVo;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.Date;
 
 /**
  * Created by admin on 2016/7/27.
@@ -277,6 +276,12 @@ public class CourseVo extends OnlineBaseVo {
      * 用于判断，是否存在公开详情了。如果存在公开详情呢，说明在app端、微信端可以展示了
      */
     private Integer isCourseDetails; // TODO 0 表示不展示 1 表示展示
+    /**
+     * 客户端来源：1.pc 2.h5 3.android 4.ios 5.其他
+     */
+    private Integer clientType;
+
+    private String clientName;
 
     public void setId(Integer id) {
         this.id = id;
@@ -974,5 +979,21 @@ public class CourseVo extends OnlineBaseVo {
 
     public void setSortUpdateTime(Date sortUpdateTime) {
         this.sortUpdateTime = sortUpdateTime;
+    }
+
+    public Integer getClientType() {
+        return clientType;
+    }
+
+    public void setClientType(Integer clientType) {
+        this.clientType = clientType;
+    }
+
+    public String getClientName() {
+        return clientName;
+    }
+
+    public void setClientName(String clientName) {
+        this.clientName = clientName;
     }
 }

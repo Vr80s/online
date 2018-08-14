@@ -49,6 +49,8 @@ $(function() {
             }else if(row.clientType==4){
                 return "ios";
             }else if(row.clientType==5){
+                return "导入";
+            }else if(row.clientType==-1){
                 return "其他";
             }
             return "-";
@@ -58,6 +60,7 @@ $(function() {
         {"title": "线下课分成(%)", "class": "center", "width": "8%", "sortable": false, "data": 'offlineDivide'},
         {"title": "礼物分成(%)", "class": "center", "width": "8%", "sortable": false, "data": 'giftDivide'},
         {"title": "课程数", "class": "center", "width": "8%", "sortable": false, "data": 'courseCount'},
+        {"title": "创建时间", "class": "center", "width": "10%", "sortable": false, "data": 'createTime'},
         {"title": "主播权限", "class": "center", "width": "6%", "sortable": false, "data": 'type',"mRender": function (data, display, row) {
             if(row.status){
                 return "已开启";

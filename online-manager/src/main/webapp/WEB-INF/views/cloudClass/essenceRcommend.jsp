@@ -510,6 +510,23 @@
 			                        </div>
 								</td>
 								<td>
+									<div class="profile-info-value searchTr">
+										<input type="text" class="datetime-picker propertyValue1"  id="startTime" name="startTime" placeholder = "开始日期" style="width:130px"/>
+										<input type="hidden" value="startTime" class="propertyName"/>
+									</div>
+								</td>
+								<td>
+									<div class="profile-info-value">
+										至
+									</div>
+								</td>
+								<td>
+									<div class="profile-info-value searchTr">
+										<input type="text" class="datetime-picker propertyValue1"  id="stopTime" name="stopTime" placeholder = "结束日期" style="width:130px"/>
+										<input type="hidden" value="stopTime" class="propertyName"/>
+									</div>
+								</td>
+								<td>
 									<button id="all_bx" type="button" class="btn btn-sm  btn-primary all_bx">
 										<i class="ace-icon fa fa-search icon-on-right bigger-110"></i>
 									</button>
