@@ -483,7 +483,6 @@
 	<!-- Tab panes -->
 	<div class="tab-content vertical-tab-content">
 		<!-- Nav tabs -->
-	</ul> -->
 		<div role="tabpanel" class="tab-pane active" id="home">
 			<div class="mainrighttab tabresourse bordernone" id="courseDiv">
 				<p class="col-xs-4" style="padding: 0;">

@@ -22,13 +22,7 @@
 
 <!-- 双击图片变大缩小 -->
 <script type="text/javascript">
-$(function(){
-   
-    $(".video_img").click(function(){
-        $("#vhall-h5-player").play();
-    });
-    $("#div").trigger('play');
-});
+
 </script>
 <link rel=stylesheet href="/xcview/css/jquery.mCustomScrollbar.min.css">
 <link rel="stylesheet" href="/xcview/css/details.css">
@@ -99,41 +93,8 @@ $(function(){
 </style>
 
 <script>
-    window.onload = function(){
-        
-        /*礼物模块其他区域隐藏*/
-        $("#video").click(function(){
-            $(".send_gifts").hide();
-        });
-        
-//      点击聊天区域展示内容   sendChat（发送按钮）
-        $(".coze").click(function(){
-            $(".send_gifts").hide();
-            $("#sendChat").hide();
-        });
-        
-        $(".grabble").click(function(){
-            $(".send_gifts").hide();
-        });
-        $(".details_footer").click(function(){
-            $(".send_gifts").hide();
-        });
-        
-//      点击排行榜
-        $(".leaderboard").click(function(){
-            $(".send_gifts").hide();
-        });
-        $(".details1").click(function(){
-            $(".send_gifts").hide();
-        });
+   
 
-        // 点击发送
-        $(".send_img").click(function(){
-            alert(123);
-            $(".coze_bottom").css("bottom", "0rem");
-        });
-        
-    };
 </script>
 <style type="text/css">
     .sr-bdimgshare{
@@ -805,7 +766,6 @@ $(function(){
     <div class="untitled_document" style="margin-top: 3.6rem;">
         <div class="no_git">
             <div class="no_git_pic">
-                
             </div>
             <p style="font-size: 0.24rem; color: #BBBBBB;padding: 0.2rem 0;text-align: center;">主播还没上传课件~</p>
         </div>
@@ -822,11 +782,7 @@ $(function(){
     
     
     <script type="text/javascript">
-        $(function () {
-            $('.document_ceneter').each(function () {
-                new RTP.PinchZoom($(this), {});
-            });
-        })
+
     </script>
     <!-- 测试图片放大缩小结束 -->
     
@@ -872,19 +828,9 @@ $(function(){
     
 </body>
 <script src="/xcview/weihoujs/jquery.min.js"></script>
-<script type="text/JavaScript" src="//res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 <script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/alertPopShow.js"></script>
-<!--这段meta代码需要加上，移动端自适应缩放用-->
-<!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
-
-<script src="/xcview/weihoujs/jquery.mCustomScrollbar.concat.min.js"></script>
-<script src="/xcview/weihoujs/underscore-min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/common.js"></script>
-
-
-<script type="text/javascript" src="/xcview/js/im/vhallGiftSend.js"></script>
-
 
 <script src="https://static.vhallyun.com/jssdk/dvideo-plugin.js?v=0.3"></script>
 <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-player-1.0.0.js"></script>
@@ -892,26 +838,75 @@ $(function(){
 <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-chat-1.0.0.js?v=201801121522"></script>
 <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-base-1.0.0.js?v=201806271657"></script>
 
-<!-- 部分点击事件 -->
-<script type="text/javascript" src="/xcview/js/details_change.js"></script>
 <script type="text/javascript" src="/xcview/js/details.js"></script>
+<script src="/xcview/weihoujs/jquery.mCustomScrollbar.concat.min.js"></script>
 <script type="text/javascript" src="/xcview/js/vhallyun.js"></script>
+<script type="text/javascript" src="/xcview/js/im/vhallGiftSend.js"></script>
+<script type="text/javascript" src="/xcview/js/details_change.js"></script>
+<script type="text/JavaScript" src="//res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 <script type="text/javascript" src="/xcview/js/share/share.js"></script>
 
 
 <script type="text/javascript">
+
+
+$(function(){
+    $(".video_img").click(function(){
+        $("#vhall-h5-player").play();
+    });
+    $("#div").trigger('play');
+    
+    $('.document_ceneter').each(function () {
+        new RTP.PinchZoom($(this), {});
+    });
+}); 
+ 
+window.onload = function(){
+    
+    /*礼物模块其他区域隐藏*/
+    $("#video").click(function(){
+        $(".send_gifts").hide();
+    });
+    
+//  点击聊天区域展示内容   sendChat（发送按钮）
+    $(".coze").click(function(){
+        $(".send_gifts").hide();
+        $("#sendChat").hide();
+    });
+    
+    $(".grabble").click(function(){
+        $(".send_gifts").hide();
+    });
+    $(".details_footer").click(function(){
+        $(".send_gifts").hide();
+    });
+    
+//  点击排行榜
+    $(".leaderboard").click(function(){
+        $(".send_gifts").hide();
+    });
+    $(".details1").click(function(){
+        $(".send_gifts").hide();
+    });
+
+    // 点击发送
+    $(".send_img").click(function(){
+        alert(123);
+        $(".coze_bottom").css("bottom", "0rem");
+    });
+    
+};
+
+
+
+
     window.onload = function(){
     	$(".document_ceneter img").click();
     	
         $("body").scrollTop($("body").scrollHeight);
         $(".chatmsg-box").scrollTop($(".chatmsg-box")[0].scrollHeight);
-        /* $(".mCSB_dragger").scrollTop($(".mCSB_dragger")[0].scrollHeight); */
         $(".coze").scrollTop($(".coze")[0].scrollHeight);
         $(".coze_center").scrollTop($(".coze_center")[0].scrollHeight);
-        /* $(".mCSB_container").scrollTop($(".mCSB_container")[0].scrollHeight); */
-        /*$(".mCSB_container").css("top","0");
-        $(".mCSB_container").css("bottom","0");*/
-        /* $(".mCSB_dragger_bar").scrollTop($(".mCSB_dragger_bar")[0].scrollHeight); */
 
 
         $(".chatmsg-box").scroll(function(){  
@@ -919,11 +914,7 @@ $(function(){
                  viewH =$(this).height(),//可见高度  
                  contentH =$(this).get(0).scrollHeight,//内容高度  
                  scrollTop =$(this).scrollTop();//滚动高度  
-                //if(contentH - viewH - scrollTop <= 100) { //到达底部100px时,加载新内容  
                 if(scrollTop/(contentH -viewH)>=0.95){ //到达底部100px时,加载新内容  
-                // 这里加载数据..  
-
-                // alert(132)
                 }  
              });  
 
@@ -980,13 +971,6 @@ $(function(){
             // 课件获取高度  img_doc
             $("#doc").removeClass("img_doc");
         });
-
-        /*var Document = $(".document_ceneter").html();
-        if (Document == !null) {
-        	alert(1111);
-        }else{
-        	alert(2222);
-        };*/
     };
 </script>
 <script>

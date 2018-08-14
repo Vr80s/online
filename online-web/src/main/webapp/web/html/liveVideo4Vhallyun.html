@@ -24,146 +24,11 @@
 <link rel=stylesheet href=//cnstatic01.e.vhall.com/3rdlibs/mCustomScrollbar/3.0.8/jquery.mCustomScrollbar.min.css>
 <link href="/web/js/vhall/nihao.css" rel="stylesheet" type="text/css" />
 
-<script src="/web/js/jquery.min.js" type="text/javascript"></script>
-<script src="/web/js/common_msg.js?version=ce867abddd" type="text/javascript"></script>
-
 <!-- 放大縮小文檔使用文件 -->
 <link rel="stylesheet" href="/web/js/live-streamin-document/jquery.iviewer.css">
-<script type="text/javascript" src="/web/js/live-streamin-document/jquery.js" ></script>
-<script type="text/javascript" src="/web/js/live-streamin-document/jqueryui.js" ></script>
-<script type="text/javascript" src="/web/js/live-streamin-document/jquery.iviewer.js" ></script>
 <link rel="stylesheet" href="https://static.vhallyun.com/jssdk/videojs.min.css?v=1.0.0">
-
-<script type="text/javascript">
-    var $ = jQuery;
-    $(document).ready(function(){
-          var iv2 = $("#viewer2").iviewer(
-          {
-              src: "https://file.xczhihui.com/18802142750/1a666a314bdc05a6.png"
-          });
-    });
-    
-    
-    
-</script>
-		<script type="text/javascript">
-		
-		function setCaret(){
-			 $this = $("#mywords")
-			 if (/msie/.test(navigator.userAgent.toLowerCase())) {
-	                var e = function() {
-	                        var e = $this.get(0);
-	                        e.caretPos = document.selection.createRange().duplicate()
-	                    };
-	                   $this.click(e).select(e).keyup(e)
-	         }
-		}
-		
-		function insertAtCaret(e){
-			$this = $("#mywords")
-			var t = $this.get(0);
-            if (document.all && t.createTextRange && t.caretPos) {
-                var i = t.caretPos;
-                i.text = "" === i.text.charAt(i.text.length - 1) ? e + "" : e
-            } else if (t.setSelectionRange) {
-                var n = t.selectionStart,
-                    a = t.selectionEnd,
-                    o = t.value.substring(0, n),
-                    s = t.value.substring(a);
-                t.value = o + e + s;
-                var c = e.length;
-                t.setSelectionRange(n + c, n + c), r ? $this.focus() : $this.blur()
-            } else t.value += e
-		}
-		
-		
-			$(function(){
-			    $(document).click(function() {
-			    	 $(".send-face").hide();
-			    });
-				
-				// 點擊表情開始
-			 	$("#face").click(function(e){
-			 		// alert(55555);
-			 		$(".send-face").removeClass("hide");
-			 		$(".send-face-bg").show();
-			 		$(".send-face").show();
-			 		e.stopPropagation();
-			 		var lis = $(".send-face").find("li");
-			 		if(lis.length<=0){
-			 			$.ajax({  
-				 			type:"get",
-				 			url:"/web/js/live-room/emoticon.json",
-				 			success:function(data){
-				 				var del="";
-				 				//<img width="24" src="//cnstatic01.e.vhall.com/static/img/arclist/Expression_55@2x.png" onclick="$('#mywords').setCaret();$('#mywords').insertAtCaret('[可怜]');">
-				 				for (var i=0; i<data.length;i++) {
-				 					del+= "<li><img  onclick=insertAtCaret('"+data[i].text+"') src="+data[i].imgUrl+"></li>"
-				 				}
-				 				$(".send-face").html(del);
-				 			}
-				 		});
-			 			
-			 		}
-			 	});
-			 	// 點擊表情結束
-
-			 	// 點擊隱藏表情
-			 	$(".send-face-bg").click(function(){  
-			 		$(".send-face").hide();
-			 		$(this).hide();
-			 	});
-
-
-			 	/*作用--点击img让最大的div显示出来,不添加的话点击img会隐藏最大块（这个区域的点击图片都得设置）*/
-		 		$(".video-bottom img").click(function(){  /*礼物图片*/
-			 		$("#userCusEvent").show();
-			 	});
-			 	/*排行榜图片--模板中点击img隐藏掉最大div，此代码让最大div显示*/
-			 	$(".billboard-float img").click(function(){  /*排行榜图片*/
-			 		$("#userCusEvent").show();
-			 	});
-			 	
-			 	/*鼠标礼物img上的效果开始*/
-			 	var aBtn=$('.surprise-top .surprise-mouseover-ul li');
-		        for(i=0;i<aBtn.length;i++){
-		            $(aBtn[i]).mouseover(function(){
-		              	for(i=0;i<aBtn.length;i++){
-		                	$(aBtn[i]).removeClass('surprise-top-li-border');
-		                	$(aBtn[i]).addClass('li-initial-border');
-		                	$(this).removeClass('li-initial-border');
-		                	$(this).addClass('surprise-top-li-border');
-		                	
-		                	$(this).find('.surprise-hide').show();
-		              	}
-		            });
-		            $(aBtn[i]).mouseout(function(){
-		              	for(i=0;i<aBtn.length;i++){
-		                	$(aBtn[i]).removeClass('surprise-top-li-border');
-		                	$(this).addClass('li-initial-border');
-		                	$(this).find('.surprise-hide').hide();
-		              	}
-		            });
-		        };
-			 	/*鼠标礼物img上的效果结束*/
-			 	
-			 	/*鼠标放排行榜上查看效果开始*/
-			 	$(".mouseover").mouseover(function(){
-			 		$(".toptenreviews-list").show();
-			 	});
-			 	$(".toptenreviews-list").mouseover(function(){
-			 		$(this).show();
-			 	});
-			 	$(".toptenreviews").mouseout(function(){
-			 		$(".toptenreviews-list").hide();
-			 	});
-			 	/*鼠标放排行榜上查看效果结束*/
-			});
-		</script>
 <!--新写直播间--css--替换引入微吼css-->
-<!--<lick rel="stylesheet" type="text/css" href="/web/css/live_streamings.css"></lick>-->
 <link rel="stylesheet" type="text/css" href="/web/css/live_streamings.css"/>
-
 <style>
 	.hide{
 		display: none;
@@ -381,51 +246,8 @@
 			}
 	
 </style>
-<script>
-	window.onload = function(){
-		// 文檔切換
-		var num = 1;
-		$(".animation-cut-click").click(function(){
-			num = -num;
-			if(num == -1){
-				$(".doc div").addClass("doc-img-div");
-				$(".doc canvas").addClass("canvas");
-				$(".doc").removeClass("company-introduces-one");
-				$(".doc").removeClass("doc-img");
-				$(".doc").addClass("company-introduce-one");
-				$(".video").removeClass("company-introduces-two");
-				$(".video").addClass("company-introduce-two");
-				src = $(".company-introduce-one div img").attr("src");
-		        $("#viewer2 img").attr("src",src);
-		        $(".doc").hide();
-		        $("#viewer2").removeClass("company-introduces-one");
-				$("#viewer2").removeClass("doc-img");
-				$("#viewer2").addClass("company-introduce-one");
-				$("#viewer2 img").removeClass("viewer-img");
-
-				// 文檔按鈕隱藏
-				$(".iviewer_common").show();
-				$(".layer").addClass("layers");
-				$("#viewer2 img").removeClass("viewer-imgs");//缩小后的文档区域  文档高度
-//				alert(222);
- 			}else{
- 				$("#viewer2 img").addClass("viewer-imgs");//缩小后的文档区域  文档高度
-// 				alert(111);
-				$("#viewer2 img").addClass("viewer-img");
-				$("#viewer2").removeClass("company-introduce-one");
-				$("#viewer2").addClass("doc-img");
-				$("#viewer2").addClass("company-introduces-one");
-				$(".doc").removeClass("company-introduce-one");
-				$(".doc").addClass("doc-img");
-				$(".doc").addClass("company-introduces-one");
-				$(".video").addClass("company-introduces-two");
-				$(".video").removeClass("company-introduce-two");
-				// 文檔按鈕隱藏
-				$(".iviewer_common").hide();
-			}
-		})
-	}
-</script>
+<script src="/web/js/jquery.min.js" type="text/javascript"></script>
+<script src="/web/js/common_msg.js?version=ce867abddd" type="text/javascript"></script>
 <style>
 
 	/*文檔變形*/
@@ -836,7 +658,7 @@
 		<div id='main1'>
 
 			<div class='topbanner'>
-				<span>熊猫币充值</span><i class="close" style="opacity: 1">X</i>
+				<span>熊猫币充值</span><i class="close" style="opacity: 1">×</i>
 			</div>
 			<div id='pay'>
 				<!-- 充值成功页面 -->
@@ -859,24 +681,27 @@
 				</div>
 				<div class='czym'>
 					<!-- 第一个 -->
-					<div class='item_title title_one'>
+					<!--<div class='item_title title_one'>
 						<p>剩余熊猫币</p>
 						<div class='item_content content_one'>
 							<i class="balanceTotal" id="balanceTotal"></i>
 						</div>
-					</div>
+					</div>-->
 					<!-- 第二个 -->
 					<div class='item_title title_two'>
 						<p>充值帐号</p>
-						<div class='item_content content_two'>
+						<div class=' content_two'>
 							<!-- <em>自己</em> -->
 							<span id="account"></span>
 						</div>
+						<div class=' content_one'>
+							（余额<i class="balanceTotal" id="balanceTotal"></i>熊猫币）
+						</div>
 					</div>
 					<!-- 第三个 -->
-					<div class='item_title title_two'>
+					<div class='item_title title_two' style="width: 640px;">
 						<p>充值数量</p>
-						<div class='item_content content_two'>
+						<div class='item_content content_two' style="width: 540px;">
 							<ul>
 							<!-- 	<li data-value='0.1' class="dian">0.1个 <i
 									class="ico i-selector"></i>
@@ -923,9 +748,7 @@
 
 		<ul id="chat-list" style="padding:0px;">
 		</ul>
-
 		<!--禁言提示-->
-		
 		<!--模板引擎渲染礼物栏-->
 		<script type='text/template' id='gift_temp'>
 			{{each resultObject as item i}}
@@ -940,20 +763,15 @@
 			</li>
 			{{/each}}
 		</script>
+		
+<script type="text/javascript" src="/web/js/live-streamin-document/jquery.js" ></script>
 <script src=//cnstatic01.e.vhall.com/3rdlibs/mCustomScrollbar/3.0.8/jquery.mCustomScrollbar.concat.min.js></script>
-<script src="/web/js/artTemplate.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- <script src="/web/js/artTemplate.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" src="/web/js/bootstrap.js"></script>
 <script src="/web/js/ajaxfileupload.js"></script>
 <script src="/web/js/jquery.form.min.js"></script>
-<script src="/web/js/html5.js" type="text/javascript" charset="utf-8"></script>
-<script src="/web/js/jquery.qrcode.js" type="text/javascript" charset="utf-8"></script>
-<script src="/web/js/utf.js" type="text/javascript" charset="utf-8"></script>
-
-
-<!-- <script src="/web/js/im/strophe.js" type="text/javascript" charset="utf-8"></script> -->
-<script src="/web/js/common/common.js" type="text/javascript" charset="utf-8"></script>
-<script src="/web/js/im/giftSend4Vhallyun.js?v=ipandatcm_1.3" type="text/javascript" charset="utf-8"></script>
-
+<script src="/web/js/html5.js" type="text/javascript" charset="utf-8"></script> -->
 <!-- 微吼云 -->
 <script src="https://static.vhallyun.com/jssdk/dvideo-plugin.js?v=0.3"></script>
 <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-player-1.0.0.js"></script>
@@ -961,22 +779,190 @@
 <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-chat-1.0.0.js?v=201801121522"></script>
 <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-base-1.0.0.js?v=201806271657"></script>
 
-
+<script src="/web/js/common/common.js" type="text/javascript" charset="utf-8"></script>
 <script src="/web/js/liveVideo/liveVideo.js?v=ipandatcm_1.3"></script>
-<script src="/web/js/liveVideo/liveVideoSDK.js?v=ipandatcm_1.3"></script>
 <script src="/web/js/liveVideo/vhallyun.js?v=ipandatcm_1.3"></script>
+<script src="/web/js/liveVideo/liveVideoSDK.js?v=ipandatcm_1.3"></script>
+<script src="/web/js/im/giftSend4Vhallyun.js?v=ipandatcm_1.3" type="text/javascript" charset="utf-8"></script>
 
+<script src="/web/js/jquery.qrcode.js" type="text/javascript" charset="utf-8"></script>
+<script src="/web/js/utf.js" type="text/javascript" charset="utf-8"></script>
 <script src="/web/js/common/video_share.js?v=ipandatcm_1.3"></script>
 <script src="/web/js/placeHolder.js"></script>
-<script src="/web/js/chongZhi.js?v=ipandatcm_1.3" type="text/javascript"
-	charset="utf-8"></script>
+<script src="/web/js/chongZhi.js?v=ipandatcm_1.3" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="/web/js/live-streamin-document/jqueryui.js" ></script>
+<script type="text/javascript" src="/web/js/live-streamin-document/jquery.iviewer.js" ></script>
+
 <script type="text/javascript">
+    var $ = jQuery;
+    $(document).ready(function(){
+          var iv2 = $("#viewer2").iviewer(
+          {
+              src: "https://file.xczhihui.com/18802142750/1a666a314bdc05a6.png"
+          });
+    });
+    
     $(function() {
 		$('input').placeholder();
-		/* var html = template('',html) */
+	});
+    
+	window.onload = function(){
+		// 文檔切換
+		var num = 1;
+		$(".animation-cut-click").click(function(){
+			num = -num;
+			if(num == -1){
+				$(".doc div").addClass("doc-img-div");
+				$(".doc canvas").addClass("canvas");
+				$(".doc").removeClass("company-introduces-one");
+				$(".doc").removeClass("doc-img");
+				$(".doc").addClass("company-introduce-one");
+				$(".video").removeClass("company-introduces-two");
+				$(".video").addClass("company-introduce-two");
+				src = $(".company-introduce-one div img").attr("src");
+		        $("#viewer2 img").attr("src",src);
+		        $(".doc").hide();
+		        $("#viewer2").removeClass("company-introduces-one");
+				$("#viewer2").removeClass("doc-img");
+				$("#viewer2").addClass("company-introduce-one");
+				$("#viewer2 img").removeClass("viewer-img");
+
+				// 文檔按鈕隱藏
+				$(".iviewer_common").show();
+				$(".layer").addClass("layers");
+				$("#viewer2 img").removeClass("viewer-imgs");//缩小后的文档区域  文档高度
+//				alert(222);
+ 			}else{
+ 				$("#viewer2 img").addClass("viewer-imgs");//缩小后的文档区域  文档高度
+// 				alert(111);
+				$("#viewer2 img").addClass("viewer-img");
+				$("#viewer2").removeClass("company-introduce-one");
+				$("#viewer2").addClass("doc-img");
+				$("#viewer2").addClass("company-introduces-one");
+				$(".doc").removeClass("company-introduce-one");
+				$(".doc").addClass("doc-img");
+				$(".doc").addClass("company-introduces-one");
+				$(".video").addClass("company-introduces-two");
+				$(".video").removeClass("company-introduce-two");
+				// 文檔按鈕隱藏
+				$(".iviewer_common").hide();
+			}
+		})
+	}
+</script>
+<script type="text/javascript">
+
+function setCaret(){
+	 $this = $("#mywords")
+	 if (/msie/.test(navigator.userAgent.toLowerCase())) {
+               var e = function() {
+                       var e = $this.get(0);
+                       e.caretPos = document.selection.createRange().duplicate()
+                   };
+                  $this.click(e).select(e).keyup(e)
+        }
+}
+
+function insertAtCaret(e){
+	$this = $("#mywords")
+	var t = $this.get(0);
+          if (document.all && t.createTextRange && t.caretPos) {
+              var i = t.caretPos;
+              i.text = "" === i.text.charAt(i.text.length - 1) ? e + "" : e
+          } else if (t.setSelectionRange) {
+              var n = t.selectionStart,
+                  a = t.selectionEnd,
+                  o = t.value.substring(0, n),
+                  s = t.value.substring(a);
+              t.value = o + e + s;
+              var c = e.length;
+              t.setSelectionRange(n + c, n + c), r ? $this.focus() : $this.blur()
+          } else t.value += e
+}
+
+
+	$(function(){
+	    $(document).click(function() {
+	    	 $(".send-face").hide();
+	    });
+		
+		// 點擊表情開始
+	 	$("#face").click(function(e){
+	 		// alert(55555);
+	 		$(".send-face").removeClass("hide");
+	 		$(".send-face-bg").show();
+	 		$(".send-face").show();
+	 		e.stopPropagation();
+	 		var lis = $(".send-face").find("li");
+	 		if(lis.length<=0){
+	 			$.ajax({  
+		 			type:"get",
+		 			url:"/web/js/live-room/emoticon.json",
+		 			success:function(data){
+		 				var del="";
+		 				//<img width="24" src="//cnstatic01.e.vhall.com/static/img/arclist/Expression_55@2x.png" onclick="$('#mywords').setCaret();$('#mywords').insertAtCaret('[可怜]');">
+		 				for (var i=0; i<data.length;i++) {
+		 					del+= "<li><img  onclick=insertAtCaret('"+data[i].text+"') src="+data[i].imgUrl+"></li>"
+		 				}
+		 				$(".send-face").html(del);
+		 			}
+		 		});
+	 			
+	 		}
+	 	});
+	 	// 點擊表情結束
+
+	 	// 點擊隱藏表情
+	 	$(".send-face-bg").click(function(){  
+	 		$(".send-face").hide();
+	 		$(this).hide();
+	 	});
+
+
+	 	/*作用--点击img让最大的div显示出来,不添加的话点击img会隐藏最大块（这个区域的点击图片都得设置）*/
+ 		$(".video-bottom img").click(function(){  /*礼物图片*/
+	 		$("#userCusEvent").show();
+	 	});
+	 	/*排行榜图片--模板中点击img隐藏掉最大div，此代码让最大div显示*/
+	 	$(".billboard-float img").click(function(){  /*排行榜图片*/
+	 		$("#userCusEvent").show();
+	 	});
+	 	
+	 	/*鼠标礼物img上的效果开始*/
+	 	var aBtn=$('.surprise-top .surprise-mouseover-ul li');
+        for(i=0;i<aBtn.length;i++){
+            $(aBtn[i]).mouseover(function(){
+              	for(i=0;i<aBtn.length;i++){
+                	$(aBtn[i]).removeClass('surprise-top-li-border');
+                	$(aBtn[i]).addClass('li-initial-border');
+                	$(this).removeClass('li-initial-border');
+                	$(this).addClass('surprise-top-li-border');
+                	
+                	$(this).find('.surprise-hide').show();
+              	}
+            });
+            $(aBtn[i]).mouseout(function(){
+              	for(i=0;i<aBtn.length;i++){
+                	$(aBtn[i]).removeClass('surprise-top-li-border');
+                	$(this).addClass('li-initial-border');
+                	$(this).find('.surprise-hide').hide();
+              	}
+            });
+        };
+	 	/*鼠标礼物img上的效果结束*/
+	 	
+	 	/*鼠标放排行榜上查看效果开始*/
+	 	$(".mouseover").mouseover(function(){
+	 		$(".toptenreviews-list").show();
+	 	});
+	 	$(".toptenreviews-list").mouseover(function(){
+	 		$(this).show();
+	 	});
+	 	$(".toptenreviews").mouseout(function(){
+	 		$(".toptenreviews-list").hide();
+	 	});
+	 	/*鼠标放排行榜上查看效果结束*/
 	});
 </script>
 </body>
 </html>
-
-

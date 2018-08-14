@@ -142,9 +142,35 @@ $(".concern-click").click(function(){
 
 
 
+function refreshBalance(){
+	//获取个人熊猫币余额
+	RequestService("/userCoin/balance", "GET", {
+	}, function(data) {
+		var balance = data.resultObject;
+		$(".balanceTotal").html(balance);
+		//熊猫币余额
+		$("#xmb_ye").html("熊猫币"+balance);
+		$("#account").html(balance);
+	});
+}
+refreshBalance();
 
 
+//直播间访问量增加
+RequestService("/online/live/updateBrowseSum", "get", {
+	courseId: courseId
+}, function(data) {
+});
 
+/**
+ * 增加/更新  观看记录
+ */
+RequestService("/learnWatch/add", "POST", {
+	courseId:courseId,
+	recordType:2
+}, function(data) {
+	//console.log("添加观看记录");
+});
 
 
 

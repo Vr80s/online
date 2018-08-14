@@ -1,6 +1,8 @@
 *{
 	margin: 0;
 	padding: 0;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+-webkit-tap-highlight-color: transparent; 
 }
 img{
 	border: none;
@@ -2339,7 +2341,7 @@ margin-top: 0.015rem;
 	margin: 0 auto;
 }
 .prose_origin_main_title{
-	width: 5.6rem;
+	width: 5.2rem;
 	font-size: 0.28rem;
 	color: #333333;
 	float: left;
@@ -3009,3 +3011,14 @@ margin-top: 0.015rem;
 	    background: #F8F8F8; */
     /*background: red;*/
 }
+
+.itransforms{
+	/*-webkit-tap-highlight-color:rgba(0,0,0,0);*/
+}
+.am-gallery-item .transform_a_img{
+	-webkit-tap-highlight-color:rgba(0,0,0,0);
+}
+/* 
+.am-gallery-item .transform_a_img img{
+	-webkit-tap-highlight-color:rgba(0,0,0,0);
+} */

@@ -7,26 +7,6 @@ var jid = "";
 var giftList;
 //初始化没有参数的队列
 var queue = new Queue();
-
-
-var loginUserId = "";
-var loginStatus = true;
-var smallHeadPhoto = "";
-var nickname = "";
-//判断有没有登录
-RequestService("/online/user/isAlive", "GET", null, function (data) {
-    if (data.success) {
-        loginUserId = data.resultObject.id;
-        smallHeadPhoto = data.resultObject.smallHeadPhoto;
-        nickname = data.resultObject.name;
-    }
-}, false)
-
-var vhallObj = {
-    appId: appid,
-    accountId:loginUserId
-};
-
 /**
  * 礼物列表血染
  * @returns
