@@ -1,10 +1,12 @@
 package com.xczhihui.bxg.online.web.controller.vhallyun;
 
 
-import static com.xczhihui.common.util.redis.key.RedisCacheKey.CHANNEL_ONLINE_KEY;
 import static com.xczhihui.common.util.redis.key.RedisCacheKey.VHALLYUN_BAN_KEY;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
@@ -212,19 +214,5 @@ public class VhallyunController extends AbstractController {
             message.put("username", ou.getName());
         }
         return ResponseObject.newSuccessResponseObject(MessageService.sendMessage(MessageService.CustomBroadcast, jsonObject.toJSONString(), channel_id));
-    }
-
-    @RequestMapping(value = "online/status", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseObject joinRoom(@RequestParam String channelId, @RequestParam String userId, @RequestParam Boolean status) {
-        String channelKey = CHANNEL_ONLINE_KEY + channelId;
-        if (status) {
-            if (!cacheService.isZsmember(channelKey, userId)) {
-                cacheService.zsadd(channelKey, userId, System.currentTimeMillis() / 1000);
-            }
-        } else {
-            cacheService.zsrem(channelKey, userId);
-        }
-        return ResponseObject.newSuccessResponseObject();
     }
 }
