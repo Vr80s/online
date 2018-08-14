@@ -884,6 +884,7 @@ var posts;
         	finishReply();		//完成回复按钮
         	btnColorReply();	//回复颜色按钮
         	deleteReply();		//删除回复按钮
+        	btnPhoto();
         })
 }
 //  视频
@@ -929,6 +930,23 @@ var posts;
 //			});
 //		});
 //	}
+//点击图片放大
+	function btnPhoto(){
+		$(".save-photo-wrap ul li").click(function(){
+			var height=$(window).height();
+			$(".wrap-photo-see").css({"height":height})
+			var see=$(this).find("img").attr("src").split("?")[0];
+			$(".wrap-photo-see img").attr("src",see);
+			$(".mask-photo").removeClass("hide");
+			$(".wrap-photo-see").removeClass("hide");
+		})
+		$(".mask-photo").click(function(){
+			$(".mask-photo").addClass("hide");
+			$(".wrap-photo-see").addClass("hide");
+		})
+	}
+
+
 //	是否置顶
 	function isZhiding(){
 	$(".host-top").click(function(){
