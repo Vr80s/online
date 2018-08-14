@@ -5,6 +5,7 @@ import com.xczhihui.bxg.online.web.base.utils.UserLoginUtil;
 import com.xczhihui.bxg.online.web.service.LiveService;
 import com.xczhihui.bxg.online.web.service.ManagerUserService;
 import com.xczhihui.common.support.domain.BxgUser;
+import com.xczhihui.common.util.vhallyun.VhallUtil;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.course.service.IWatchHistoryService;
 import com.xczhihui.course.vo.CourseLecturVo;
@@ -138,6 +139,7 @@ public class PageController {
                 mv.addObject("env", env);
                 mv.addObject("host", host);
                 mv.addObject("rate", rate);
+                mv.addObject("appid", VhallUtil.APP_ID);
 
 
             } else {

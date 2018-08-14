@@ -23,7 +23,7 @@ RequestService("/online/user/isAlive", "GET", null, function (data) {
 }, false)
 
 var vhallObj = {
-    appId: "27376e92",
+    appId: appid,
     accountId:loginUserId
 };
 
