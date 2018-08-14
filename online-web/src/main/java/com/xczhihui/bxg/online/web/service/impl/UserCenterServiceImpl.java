@@ -127,6 +127,7 @@ public class UserCenterServiceImpl extends OnlineBaseServiceImpl implements Onli
         Message message = new Message();
         message.setContext(describe);
         message.setUserId(userId);
+        message.setTitle(title);
         message.setType(2);
         message.setStatus((short) 1);
         message.setCreateTime(new Date());
