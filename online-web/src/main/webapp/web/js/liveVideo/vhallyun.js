@@ -61,12 +61,9 @@ if(liveStatus == 1 || liveStatus == 3){
 
 var initVideoFalg =  0;  
 function initVideo(){
-
  	window.doc = {};
     var readyCallback = function(){
-    	
       initVideoFalg = 1;  	
-          	
       window.doc = new VhallDocPassive({
         channelId:vhallObj.channelId, //频道Id
         docNode:'my-doc-area'//文档显示节点div id
