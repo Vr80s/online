@@ -169,6 +169,7 @@
         oc.address as address,
         oc.city as city,
         oc.direct_id as directId,
+        oc.is_record as record,
         oc.subtitle as subtitle,
         oc.current_price*10 as currentPrice,
 
