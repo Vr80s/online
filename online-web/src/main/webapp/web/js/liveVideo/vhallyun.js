@@ -108,7 +108,10 @@ function elsBind(){
     setInterval(function(){
     	var netWorkstate = VhallPlayer.getNetworkState();
     	if(netWorkstate ==3){
-    		
+    		$(".playback").attr("type",21);
+    		$(".playback div").hide();
+        	$(".media-error").show();
+        	$(".playback").show();
     	}
     },2000)
     
@@ -116,30 +119,15 @@ function elsBind(){
      * 加载消息
      */
     setTimeout(function(){
-    	
     	try{
     		
     		var md = document.getElementsByTagName("video")[0];
 		    md.addEventListener("ended",function(){
-		         $(".playback-rebroadcast").attr("type",20);
-		         $(".playback-rebroadcast").text("重播");
+		    	 $(".playback div").hide();
+		         $(".playback").attr("type",20);
+	             $(".playback-rebroadcast").show();
 	             $(".playback").show();
 		    })	
-	        md.addEventListener("progress", function () {
-	            //console.log("浏览器正在获取媒体数据");
-	        });
-	        md.addEventListener("suspend", function () {
-	            console.log("浏览器暂停获取媒体数据，但是下载过程并滑正常结束");
-	        });
-	        md.addEventListener("error", function () {
-	            console.log("获取媒体数据过程中出错");
-	        });
-	        md.addEventListener("loadstart", function () {
-	            console.log("浏览器开始在网上寻找媒体数据");
-	        });
-	        md.addEventListener("stalled", function () {
-	            console.log("浏览器尝试获取媒体数据失败");
-	        });
     	}catch(error){
     	   console.log(error);
     	}
@@ -170,6 +158,7 @@ function elsBind(){
              msg = JSON.parse(msg);
              try{
              	var e="";
+             	//20 重播  21 刷新页面
              	$(".playback").attr("type",msg.type);
              	
                 if(msg.type ==10 ){//聊天
@@ -179,29 +168,32 @@ function elsBind(){
                      //在礼物区域显示
                 	createGiftList(msg.message);
                 }else if(msg.type == 12){ // 开始直播啦
-                
                 	// 刷新页面 --》在观看
                 	setTimeout(function () {
-                		location.reload();
-                	},2000)
+                		  location.reload();
+                	},1000)
                 	
-                }if(msg.type == 13){ //直播结束了  
-                
+                }if(msg.type == 13){ //直播结束了
+                	
+                    $(".playback div").hide();
                 	$(".generate-replay").show();
                 	$(".playback").show();
                 	
                 } else if (msg.type == 14) { // 退出直播间，但是没有结束直播
-
+  					$(".playback div").hide();
                 	$(".leave").show();
                 	$(".playback").show();
                 	
 				} else if (msg.type == 16) { // 回放生成成功
-
-				    $(".see-the-replay").show();
-                	$(".playback").show();
+					
+					setTimeout(function () {
+        				$(".playback div").hide();
+				    	$(".see-the-replay").show();
+                		$(".playback").show();
+        			},2000)
 					
 				} else if (msg.type == 17) { // 回放生成失败
-
+					$(".playback div").hide();
 					$(".learning-center").show();
                 	$(".playback").show();
 				}
@@ -234,13 +226,13 @@ function elsBind(){
     //  
     $(".playback").click(function() {
     	var type = $(this).attr("type");
+    	location.href="/my";
     	if (type == 16 || type ==20) { // 回放生成成功   重播
-			setTimeout(function () {
-        		location.reload();
-        	},2000)
-		}else if (msg.type == 17) { // 回放生成失败,点击去学习中心吧
+        	location.reload();
+		}else if (type == 17) { // 回放生成失败,点击去学习中心吧
 			location.href="/my";
 	    }
+	    
     }) 
     
     
@@ -270,7 +262,6 @@ function elsBind(){
         }
     });
 }
-
 
 $(".chatmsg-box").mCustomScrollbar();
 
