@@ -212,13 +212,13 @@
 			<span>直播完成</span>
 			{{/if}}
 		</td>
-		<!--<td>-->
-			<!--{{if course.record}}-->
-			<!--<span>开启</span>-->
-			<!--{{else}}-->
-			<!--<span>关闭</span>-->
-			<!--{{/if}}-->
-		<!--</td>-->
+		<td>
+			{{if course.record==true}}
+			<span>开启</span>
+			{{else}}
+			<span>关闭</span>
+			{{/if}}
+		</td>
 		<td>
 			{{if course.multimediaType == 2}}
 				<a href="javascript:;" style="margin-right: 10px;" onclick="jumpApp()">进入直播</a>
@@ -1347,7 +1347,7 @@
 								<td>直播类型</td>
 								<td>直播时间</td>
 								<td>直播状态</td>
-								<!--<td>回放</td>-->
+								<td>回放</td>
 								<td>操作</td>
 							</tr>
 							</thead>

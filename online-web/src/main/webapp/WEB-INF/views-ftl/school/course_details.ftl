@@ -175,7 +175,7 @@
                  <button type="button" class="immediately-buy" style="background:#DEDEDE;">课程下架</button>     
             <#else>
                 <#if !courseInfo.record && courseInfo.lineState == 3 && courseInfo.courseForm==1>
-                    <span>本次直播没有回放，请随时关注讲师动态，避免错过下次直播</span>
+                    <span class="live-null-tip">本次直播没有回放，请随时关注讲师动态，避免错过下次直播</span>
                 <#else>
                     <#if courseInfo.watchState == 1 || courseInfo.watchState == 2>
                         <button type="button" class="immediately-buy  learning_immediately"
