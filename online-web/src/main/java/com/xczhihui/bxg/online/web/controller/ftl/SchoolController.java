@@ -421,7 +421,7 @@ public class SchoolController extends AbstractFtlController {
     public ModelAndView liveRoom(@RequestParam Integer courseId) throws Exception {
         String userId = getUserId();
         CourseLecturVo courseLecturVo = courseService.selectCourseMiddleDetailsById(userId, courseId);
-        if (courseLecturVo == null) {
+        if (courseLecturVo == null || !courseLecturVo.getUserLecturerId().equals(userId)) {
             return new ModelAndView("/courses/recommendation");
         }
         String channelId = courseLecturVo.getChannelId();

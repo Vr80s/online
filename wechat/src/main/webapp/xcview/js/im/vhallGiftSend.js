@@ -3,13 +3,6 @@ var giftList;
 var queue = new Queue();
 
 
-var course_id = getQueryString("courseId");
-
-var vhallObj = {
-	accountId: localStorage.getItem("userId")
-};
-
-
 String.prototype.replaceAll = function(FindText, RepText) {
 	regExp = new RegExp(FindText, "g");
 	return this.replace(regExp, RepText);

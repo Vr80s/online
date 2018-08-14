@@ -1,7 +1,5 @@
 package com.xczh.consumer.market.controller.play;
 
-import static com.xczhihui.common.util.redis.key.RedisCacheKey.CHANNEL_ONLINE_KEY;
-
 import java.util.Date;
 import java.util.Map;
 import java.util.TreeMap;
@@ -101,18 +99,19 @@ public class VhallVideoController {
     public ResponseObject getMessageList(
             VhallMessageParamsVo vmpv) throws Exception {
 
-    	JSONObject  obj = (JSONObject) MessageService.getMessageList(vmpv);
-    	JSONArray arrayNew = new JSONArray();
-    	JSONArray arr = (JSONArray) obj.get("data");
-    	for (int i=arr.size()-1 ; i>=0; i--) {
-    		arrayNew.add(arr.get(i));
-    	}
-    	obj.put("data", arrayNew);
+        JSONObject obj = (JSONObject) MessageService.getMessageList(vmpv);
+        JSONArray arrayNew = new JSONArray();
+        JSONArray arr = (JSONArray) obj.get("data");
+        for (int i = arr.size() - 1; i >= 0; i--) {
+            arrayNew.add(arr.get(i));
+        }
+        obj.put("data", arrayNew);
         return ResponseObject.newSuccessResponseObject(obj);
     }
 
     /**
      * 获取消息列表
+     *
      * @param vmpv
      * @return
      * @throws Exception
@@ -122,22 +121,22 @@ public class VhallVideoController {
     public ResponseObject getIOSMessageList(
             VhallMessageParamsVo vmpv) throws Exception {
 
-    	JSONObject  obj = (JSONObject) MessageService.getMessageList(vmpv);
-    	
-    	JSONArray arrayNew = new JSONArray();
-    	JSONArray  arr = (JSONArray) obj.get("data");
-    	for (int i=arr.size()-1 ; i>=0; i--) {
-    		JSONObject lal = (JSONObject)arr.get(i);
-    		String str = (String) JSON.parse(lal.get("data").toString());
-			lal.put("data", str);
-			arrayNew.add(lal);
-		}
-    	obj.put("data", arrayNew);
-    	
+        JSONObject obj = (JSONObject) MessageService.getMessageList(vmpv);
+
+        JSONArray arrayNew = new JSONArray();
+        JSONArray arr = (JSONArray) obj.get("data");
+        for (int i = arr.size() - 1; i >= 0; i--) {
+            JSONObject lal = (JSONObject) arr.get(i);
+            String str = (String) JSON.parse(lal.get("data").toString());
+            lal.put("data", str);
+            arrayNew.add(lal);
+        }
+        obj.put("data", arrayNew);
+
         return ResponseObject.newSuccessResponseObject(obj);
     }
-    
-    
+
+
     /**
      * 微吼发送消息
      *
@@ -175,19 +174,5 @@ public class VhallVideoController {
     @ResponseBody
     public ResponseObject getAccessToken(@Account String accountId, @RequestParam String roomId, @RequestParam String channelId) throws Exception {
         return ResponseObject.newSuccessResponseObject(BaseService.createAccessToken4Live(accountId, roomId, channelId));
-    }
-
-    @RequestMapping(value = "online/status", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseObject joinRoom(@RequestParam String channelId, @Account String accountId, @RequestParam boolean status) {
-        String channelKey = CHANNEL_ONLINE_KEY + channelId;
-        if (status) {
-            if (!cacheService.isZsmember(channelKey, accountId)) {
-                cacheService.zsadd(channelKey, accountId, System.currentTimeMillis() / 1000);
-            }
-        } else {
-            cacheService.zsrem(channelKey, accountId);
-        }
-        return ResponseObject.newSuccessResponseObject(null);
     }
 }

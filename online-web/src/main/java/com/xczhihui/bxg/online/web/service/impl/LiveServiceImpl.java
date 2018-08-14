@@ -109,7 +109,10 @@ public class LiveServiceImpl extends OnlineBaseServiceImpl implements LiveServic
                 }
             }
         }
-        return dao.getOpenCourseById(courseId);
+        
+        Map<String, Object> map = dao.getOpenCourseById(courseId);
+        map.put("userId", user.getId());
+        return map;
     }
 
     @Override
