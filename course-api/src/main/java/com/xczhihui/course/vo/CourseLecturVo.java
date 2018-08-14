@@ -223,7 +223,8 @@ public class CourseLecturVo implements Serializable {
     private Boolean record;
 
     private String vhallYunToken;
-    
+    private String appid;
+
     /**
      * 直播状况。1.正常直播 2.退出但不结束
      */
@@ -233,6 +234,14 @@ public class CourseLecturVo implements Serializable {
      * 是否提交线下课报名表单
      */
     private boolean submitted;
+
+    public String getAppid() {
+        return appid;
+    }
+
+    public void setAppid(String appid) {
+        this.appid = appid;
+    }
 
     public Boolean getRecord() {
         return record;

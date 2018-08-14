@@ -38,5 +38,5 @@ public interface OeUserMapper extends BaseMapper<OeUser> {
             "        #{id}\n" +
             "    </foreach>" +
             " </script>"})
-    List<Map<String, String>> findByIds(@Param("ids") Set<String> ids);
+    List<Map<String, Object>> findByIds(@Param("ids") List<String> ids);
 }

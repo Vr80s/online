@@ -71,8 +71,7 @@ $(function () {
                         loadAnchorIn = true;
                     }
                     viewJoinleaveRoomInfo(msg, "join");
-                    appendStudent(userId, msg.avatar, msg.nick_name);
-                    updateStudentLiveStatus(userId, 1);
+                    joindStudent(userId, msg.avatar, msg.nick_name);
                 }
                 //TODO 判断是否被禁言
             });
@@ -85,7 +84,6 @@ $(function () {
                     }
                     viewJoinleaveRoomInfo(msg, "leave");
                     removeStudent(userId);
-                    updateStudentLiveStatus(userId, 0);
                 }
             });
         });
@@ -253,32 +251,23 @@ $(function () {
         $.ajax({
             method: 'GET',
             url: '/vhallyun/roomJoinStudent',
-            data: {'channelId': channelId},
+            data: {'channelId': channelId, "pos" : 0, "limit" : 1000},
             success: function (resp) {
                 var data = resp.resultObject;
-                for (var i = 0; i < data.length; i++) {
-                    appendStudent(data[i].id, data[i].smallHeadPhoto, data[i].name);
+                for (var i = data.length - 1; i >= 0; i--) {
+                    if (data[i].id != accountId) {
+                        appendStudentList(data[i].id, data[i].name, data[i].smallHeadPhoto, data[i].ban);
+                    }
                 }
             }
         });
     }
 
-    function updateStudentLiveStatus(userId, status) {
-        $.ajax({
-            method: "POST",
-            url: '/vhallyun/online/status',
-            async: false,
-            data: {
-                channelId: channelId,
-                userId: userId,
-                status: status
-            },
-            success: function (resp) {
-            }
-        });
-    }
+    $('.J-refresh-list').on('click', function () {
+        renderStudentList();
+    });
 
-    function appendStudent(userId, avatar, nickname) {
+    function joindStudent(userId, avatar, nickname) {
         if (userId != accountId) {
             if ($('.user-id-' + userId).length === 0) {
                 $.ajax({
@@ -289,22 +278,25 @@ $(function () {
                         accountId: userId
                     },
                     success: function (resp) {
-                        removeStudent(userId);
-                        var ban = resp.resultObject;
-                        $('.student-list').append('<li>\n' +
-                            '                            <div class="head-portrait z ' + ' user-id-' + userId + '"' + ' data-id="' + userId + '">\n' +
-                            '                                <img src="' + avatar + '" alt="头像"/>\n' +
-                            '                            </div>\n' +
-                            '                            <span class="student-name z">' + nickname + '</span>\n' +
-                            ' <span class="select-ban y">' +
-                            (ban ? '<img src="/web/images/live-room/say-ban.png"/>' : '                                <img src="/web/images/live-room/say-icon.png" alt="选择禁言" title="禁言"/>\n' ) +
-                            '                            </span>' +
-                            '                        </li>');
+                        appendStudentList(userId, nickname, avatar, resp.resultObject)
                     }
                 });
 
             }
         }
+    }
+
+    function appendStudentList(userId, nickname, avatar, ban) {
+        removeStudent(userId);
+        $('.student-list').append('<li>\n' +
+            '                            <div class="head-portrait z ' + ' user-id-' + userId + '"' + ' data-id="' + userId + '">\n' +
+            '                                <img src="' + avatar + '" alt="头像"/>\n' +
+            '                            </div>\n' +
+            '                            <span class="student-name z">' + nickname + '</span>\n' +
+            ' <span class="select-ban y">' +
+            (ban ? '<img src="/web/images/live-room/say-ban.png"/>' : '                                <img src="/web/images/live-room/say-icon.png" alt="选择禁言" title="禁言"/>\n' ) +
+            '                            </span>' +
+            '                        </li>');
     }
 
     function removeStudent(userId) {

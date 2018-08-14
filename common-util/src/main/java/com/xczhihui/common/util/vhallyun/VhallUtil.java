@@ -5,24 +5,32 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 import javax.activation.MimetypesFileTypeMap;
 
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.Predicate;
+import com.xczhihui.common.util.EmailUtil;
 
 public class VhallUtil {
 
+    public static Properties pro = new Properties();
+    static {
+        try {
+            InputStream in = EmailUtil.class.getResource("/config.properties").openStream();
+            pro.load(in);
+            in.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * 由微吼云颁发，可通过控制台->设置->应用信息中获取
-     * 暂时写死
      */
-    public static String APP_ID = "27376e92";
-    public static String SECRET_KEY = "095e3b98521c697322a1f0ba4fa5d142";
+    public static String APP_ID = pro.getProperty("vhallyun.appid");
+    public static String SECRET_KEY = pro.getProperty("vhallyun.secretkey");
 
     /**
      * 计算签名

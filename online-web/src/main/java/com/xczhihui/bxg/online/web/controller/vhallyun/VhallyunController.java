@@ -4,9 +4,8 @@ package com.xczhihui.bxg.online.web.controller.vhallyun;
 import static com.xczhihui.common.util.redis.key.RedisCacheKey.CHANNEL_ONLINE_KEY;
 import static com.xczhihui.common.util.redis.key.RedisCacheKey.VHALLYUN_BAN_KEY;
 
-import java.util.Collections;
-import java.util.Date;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -31,10 +30,7 @@ import com.xczhihui.common.support.service.CacheService;
 import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.common.util.bean.VhallMessageParamsVo;
 import com.xczhihui.common.util.enums.VhallCustomMessageType;
-import com.xczhihui.common.util.vhallyun.BaseService;
-import com.xczhihui.common.util.vhallyun.DocumentService;
-import com.xczhihui.common.util.vhallyun.MessageService;
-import com.xczhihui.common.util.vhallyun.VhallUtil;
+import com.xczhihui.common.util.vhallyun.*;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.medical.anchor.service.IAnchorInfoService;
 import com.xczhihui.user.center.service.UserCenterService;
@@ -186,11 +182,14 @@ public class VhallyunController extends AbstractController {
 
     @RequestMapping(value = "roomJoinStudent", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseObject listStudent(@RequestParam String channelId) {
-        String channelKey = CHANNEL_ONLINE_KEY + channelId;
-        Set<String> userIds = cacheService.zsrangeByScore(channelKey, "-inf", "+inf");
+    public ResponseObject listStudent(@RequestParam String channelId, @RequestParam int pos, @RequestParam int limit) {
+        List<String> userIds = RoomService.listOnlineUsers(channelId, pos, limit);
         if (userIds != null && !userIds.isEmpty()) {
-            return ResponseObject.newSuccessResponseObject(userCenterService.findByIds(userIds));
+            List<Map<String, Object>> users = userCenterService.findByIds(userIds);
+            Map<String, Map<String, Object>> userMap = users.stream().collect(Collectors.toMap(user -> user.get("id").toString(), user -> user));
+            return ResponseObject.newSuccessResponseObject(userIds.stream().filter(userMap::containsKey).map(userMap::get)
+                    .peek(user -> user.put("ban", cacheService.sismenber(VHALLYUN_BAN_KEY + channelId, user.get("id").toString())))
+                    .collect(Collectors.toList()));
         }
         return ResponseObject.newSuccessResponseObject(Collections.EMPTY_LIST);
     }
