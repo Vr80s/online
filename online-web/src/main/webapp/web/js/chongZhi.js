@@ -34,7 +34,7 @@ function closeCz(){
 // 移动上去边框变色效果
 $('.content_two li').mouseover(function(){
 	$('.content_two li').css({'border-color':'#e3e5ea'})
-	$(this).css({'border-color':'#FF8A00'})
+	$(this).css({'border-color':'#F97B49'})
 })
 
 //移出复原

@@ -217,6 +217,7 @@
 	.video-js .vjs-big-play-button{
 		top: 50% !important;
     	left: 50% !important;
+    	display: none !important;
 	}
 	
 	.bdsharebuttonbox {
@@ -655,7 +656,7 @@
 		</div>
 
 		<!--充值部分 -->
-		<div id='main1'>
+		<div id='main1' style="displays: block !important;">
 
 			<div class='topbanner'>
 				<span>熊猫币充值</span><i class="close" style="opacity: 1">×</i>
@@ -706,20 +707,20 @@
 							<!-- 	<li data-value='0.1' class="dian">0.1个 <i
 									class="ico i-selector"></i>
 								</li> -->
-								<li data-value='5' class='orange dian'>50个 <i
-									class="ico i-selector show"></i>
+								<li data-value='5' class='orange dian'>50个 <!--<i
+									class="ico i-selector show"></i>-->
 								</li>
-								<li data-value='10' class="dian">100个 <i
-									class="ico i-selector"></i>
+								<li data-value='10' class="dian">100个 <!--<i
+									class="ico i-selector"></i>-->
 								</li>
-								<li data-value='20' class="dian">200个 <i
+								<li data-value='20' class="dian">200个 <!--<i
 									class="ico i-selector"></i>
+								</li>-->
+								<li data-value='50' class="dian">500个 <!--<i
+									class="ico i-selector"></i>-->
 								</li>
-								<li data-value='50' class="dian">500个 <i
-									class="ico i-selector"></i>
-								</li>
-								<li data-value='100' class="dian">1000个 <i
-									class="ico i-selector"></i>
+								<li data-value='100' class="dian">1000个 <!--<i
+									class="ico i-selector"></i>-->
 								</li>
 								
 							</ul>
@@ -727,11 +728,59 @@
 					</div>
 					<!-- 第五个 -->
 					<div class='item_title title_one'>
-						<p>应付金额</p>
+						<p style="font-size: ;">应付金额</p>
 						<div class='item_content content_one'>
-							<em class='number'>5</em> <span>元</span>
+							<span class='number'>15</span> <span>元</span>
 						</div>
 					</div>
+					<!--支付选项-->
+					<div class="payment-options">
+						<p class="p">支付方式</p>
+						<div class="payment-table">
+							<div class="payment-table-left">
+								<div class="alipay">
+									<img src="/web/images/130/zhifubao.png" alt="" />
+								</div>
+								<div class="weixin">
+									<img src="/web/images/130/weixin.png" alt="" />
+								</div>
+							</div>
+							<div class="payment-table-right">
+								<div class="alipay-er">
+									<img src="/web/images/sideWeibopng.jpg" />
+									<div class="alipay-er-fize">
+										<img src="/web/images/Android.png" alt="" />
+										<div class="alipay-er-fize-div">
+											<div class="">微信扫描二维码</div>
+											<div class="">以完成支付</div>
+										</div>
+									</div>
+								</div>
+								<div class="weixin-er" style="display: none;">
+									<img src="/web/images/sideWeibopng.jpg" />
+									<!--<div class="alipay-er-fize">
+										<img src="/web/images/Android.png" alt="" />
+										<div class="alipay-er-fize-div">
+											<div class="">微信扫描二维码</div>
+											<div class="">以完成支付</div>
+										</div>
+									</div>-->
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="pay-protocol">
+						<span class="pay-protocol-box">
+			                <em class="select"></em>
+			                <span class="pay-protocol-hint">我已经阅读并同意</span>
+						</span>
+						<div class="pay-protocolBox">
+							<span class="kuhao">《</span>
+							<a href="/web/html/payment_agree.html" target="_blank">熊猫中医用户付费协议</a><span class="kuhao">》</span>
+						</div>
+					</div>
+					
 					<!-- 支付 -->
 					<div class='item_title' style="text-align: center;">
 						<a href="javascript:;" class='goPay'>前往支付</a>
@@ -820,17 +869,17 @@
 				$(".video").removeClass("company-introduces-two");
 				$(".video").addClass("company-introduce-two");
 				src = $(".company-introduce-one div img").attr("src");
-		        $("#viewer2 img").attr("src",src);
+		        $("#viewer2 #00bc12").attr("src",src);
 		        $(".doc").hide();
 		        $("#viewer2").removeClass("company-introduces-one");
-				$("#viewer2").removeClass("doc-img");
+				$("#viewer2").removeClass("doc-#00bc12");
 				$("#viewer2").addClass("company-introduce-one");
-				$("#viewer2 img").removeClass("viewer-img");
+				$("#viewer2 #00bc12").removeClass("viewer-#00bc12");
 
 				// 文檔按鈕隱藏
 				$(".iviewer_common").show();
 				$(".layer").addClass("layers");
-				$("#viewer2 img").removeClass("viewer-imgs");//缩小后的文档区域  文档高度
+				$("#viewer2 #00bc12").removeClass("viewer-#00bc12s");//缩小后的文档区域  文档高度
 //				alert(222);
  			}else{
  				$("#viewer2 img").addClass("viewer-imgs");//缩小后的文档区域  文档高度
@@ -962,6 +1011,18 @@ function insertAtCaret(e){
 	 		$(".toptenreviews-list").hide();
 	 	});
 	 	/*鼠标放排行榜上查看效果结束*/
+	 	
+//	 	点击充值按钮
+		$(".alipay").click(function(){
+			$(".weixin-er").hide();
+			$(".alipay-er").show();
+		});
+		$(".weixin").click(function(){
+			$(".weixin-er").show();
+			$(".alipay-er").hide();
+		});
+		$(".alipay").click();
+	 	
 	});
 </script>
 </body>
