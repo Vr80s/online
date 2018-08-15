@@ -98,6 +98,8 @@ setInterval(function(){
     		$(".playback div").hide();
         	$(".media-error").show();
         	$(".playback").show();
+    	}else if(netWorkstate == 0){
+    	  alert(netWorkstate);
     	}
 	}catch(error){
 	 	console.log(error);
@@ -226,7 +228,7 @@ function elsBind(){
     //  
     $(".playback").click(function() {
     	var type = $(this).attr("type");
-    	if (type == 16 || type ==20) { // 回放生成成功   重播
+    	if (type == 16 || type ==20 || type == 21) { // 回放生成成功   重播  获取媒体资源有误
         	location.reload();
 		}else if (type == 17) { // 回放生成失败,点击去学习中心吧
 			location.href="/my";
