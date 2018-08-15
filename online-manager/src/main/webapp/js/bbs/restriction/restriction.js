@@ -86,24 +86,41 @@ $(function () {
             alertInfo("请至少选择一条数据");
             return false;
         }
-        confirmInfo('确认对选中的用户取消禁言？', function () {
-            mask();
+        if(ids.length > 0){
             $.ajax({
-                'url': basePath + "/bbs/restriction/changeGags",
+                'url': basePath + "/bbs/restriction/isGagsOrBlacklist",
                 'method': 'POST',
-                'data': {"userIds": ids.join(','), "gags": false},
+                'data': {"userIds": ids.join(','), "gagsOrBlacklist": 2},
                 'dataType': 'json',
+                'async': 'false',
                 'success': function (resp) {
-                    if (resp.success) {
-                        freshTable(restrictionTable);
-                        unmask();
+                    if(resp.resultObject){
+                        confirmInfo('确认对选中的用户取消禁言？', function () {
+                            mask();
+                            $.ajax({
+                                'url': basePath + "/bbs/restriction/changeGags",
+                                'method': 'POST',
+                                'data': {"userIds": ids.join(','), "gags": false},
+                                'dataType': 'json',
+                                'success': function (resp) {
+                                    if (resp.success) {
+                                        freshTable(restrictionTable);
+                                        unmask();
+                                    } else {
+                                        alertInfo(resp.errorMessage);
+                                        unmask();
+                                    }
+                                }
+                            })
+                        })
                     } else {
-                        alertInfo(resp.errorMessage);
+                        alertInfo("所选用户没有被禁言");
                         unmask();
                     }
                 }
             })
-        })
+        }
+
     });
 
     /**
@@ -150,24 +167,41 @@ $(function () {
             alertInfo("请至少选择一条数据");
             return false;
         }
-        confirmInfo('确认对选中的用户取消拉黑？', function () {
-            mask();
+        if(ids.length > 0){
             $.ajax({
-                'url': basePath + "/bbs/restriction/changeBlacklist",
+                'url': basePath + "/bbs/restriction/isGagsOrBlacklist",
                 'method': 'POST',
-                'data': {"userIds": ids.join(','), "blacklist": false},
+                'data': {"userIds": ids.join(','), "gagsOrBlacklist": 1},
                 'dataType': 'json',
+                'async': 'false',
                 'success': function (resp) {
-                    if (resp.success) {
-                        freshTable(restrictionTable);
-                        unmask();
+                    if(resp.resultObject){
+                        confirmInfo('确认对选中的用户取消拉黑？', function () {
+                            mask();
+                            $.ajax({
+                                'url': basePath + "/bbs/restriction/changeBlacklist",
+                                'method': 'POST',
+                                'data': {"userIds": ids.join(','), "blacklist": false},
+                                'dataType': 'json',
+                                'success': function (resp) {
+                                    if (resp.success) {
+                                        freshTable(restrictionTable);
+                                        unmask();
+                                    } else {
+                                        alertInfo(resp.errorMessage);
+                                        unmask();
+                                    }
+                                }
+                            })
+                        })
                     } else {
-                        alertInfo(resp.errorMessage);
+                        alertInfo("所选用户不在黑名单中");
                         unmask();
                     }
                 }
             })
-        })
+        }
+
     });
 });
 

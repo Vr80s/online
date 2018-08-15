@@ -34,7 +34,7 @@ function closeCz(){
 // 移动上去边框变色效果
 $('.content_two li').mouseover(function(){
 	$('.content_two li').css({'border-color':'#e3e5ea'})
-	$(this).css({'border-color':'#FF8A00'})
+	$(this).css({'border-color':'#F97B49'})
 })
 
 //移出复原
@@ -160,6 +160,33 @@ $('#pay-continue').click(function(){
 	$('.czym').removeClass('hide');
 	$('.pay-success').removeClass('show')
 })
+
+
+//  轮询
+
+RequestService("/userCoin/checkRechargeOrder", "GET", {
+     orderNo: $(".orderNumber").html()
+}, function (data) {
+    if (data.resultObject === true) {
+        window.clearInterval(c);
+        $(".zhezao").show();
+        $(".tank").show();
+        var m = 5;
+        window.setInterval(function () {
+            m--;
+            if (m === 0) {
+                //点击跳转充值记录
+                localStorage.setItem("personcenter", "mymoney ");
+                localStorage.setItem("findStyle", "profile ");
+                location.href = "/my#menu4"
+            }
+            $(".tank span").html(m + "s");
+        }, 1000);
+    } else {
+    }
+}, false);
+
+
 
 
 

@@ -43,6 +43,7 @@ public class PayServiceImpl implements PayService {
     public void aliPayBusiness(Map<String, String> params) throws Exception {
         AlipayPaymentRecord apr = paymentRecordService.saveAlipayPaymentRecord(params);
         String payMessageStr = params.get("passback_params");
+        
         PayMessage payMessage = PayMessage.getPayMessage(payMessageStr);
         if (apr != null) {
             if (SUCCESS.equals(apr.getTradeStatus())) {

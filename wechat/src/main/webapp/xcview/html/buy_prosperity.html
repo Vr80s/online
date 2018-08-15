@@ -120,6 +120,29 @@
 		text-align: right;
 		padding-right: 0.26rem;
 	}
+	.purchase_details_titles {
+	    color: #999;
+	    font-size: 0.22rem;
+	    margin-top: 0.1rem;
+	    display: inline-block;
+	    /*background: red;*/
+	}
+	.purchase_details_money{
+		font-size: 0.28rem;
+	    color: #333333;
+	    height: 0.4rem;
+	    /*background: red;*/
+	    line-height: 0.4rem;
+	}
+	.purchase_details_money .span{
+		vertical-align: middle;
+	}
+	.span_fize{
+		vertical-align: middle;
+	}
+	.purchase_details_titles{
+		margin-top: 0.05rem;
+	}
  </style>
 <body style="background: #F8F8F8;">
 	<!--头部搜索开始-->
@@ -149,14 +172,14 @@
 					<div class="purchase_details_main_cen">
 						<img src="../images/white.jpg" alt="" id="smallImgPath">
 						<div class="purchase_details_left">
-							<div class="purchase_details_title">
+							<div class="purchase_details_title ">
 								<span class="span1"></span>
 							</div>
-							<div class="purchase_details_title">
-								<span class="span0"></span>
+							<div class="purchase_details_title purchase_details_titles">
+								
 							</div>
 							<div class="both"></div>
-							<div class="purchase_details_money"><span class="span"></span><span class="span_fize">熊猫币</span></div>
+							<div class="purchase_details_money"><span class="span"></span>熊猫币<span class="span_fize"></span></div>
 							<div class="prosperity_play" onclick="jump()">查看详情</div>
 						</div>
 					</div>

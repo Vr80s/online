@@ -226,7 +226,6 @@ function elsBind(){
     //  
     $(".playback").click(function() {
     	var type = $(this).attr("type");
-    	location.href="/my";
     	if (type == 16 || type ==20) { // 回放生成成功   重播
         	location.reload();
 		}else if (type == 17) { // 回放生成失败,点击去学习中心吧

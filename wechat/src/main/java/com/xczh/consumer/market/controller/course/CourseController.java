@@ -285,8 +285,7 @@ public class CourseController {
         //专辑查看更新时间
         if (cv.getCollection()) {
             //已更新多少集，等于总集数
-            if(cv.getCourseNumber()!=null && cv.getDirtyNumber()!=null && 
-                    cv.getCourseNumber().equals(cv.getDirtyNumber())) {
+            if(cv.getCourseNumber()!=null && cv.getDirtyNumber()!=null && cv.getCourseNumber().equals(cv.getDirtyNumber())) {
                 cv.setDirtyDate(XzStringUtils.COLLECTION_UPDATE_FINISH);
             }else {
                 cv.setDirtyDate(courseApplyService.getCollectionUpdateDateText(courseId));
