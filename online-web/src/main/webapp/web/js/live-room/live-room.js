@@ -171,6 +171,7 @@ $(function () {
                 if (micAndCamerasLack()) {
                     showTip("请先安装并开启摄像头与麦克风");
                     initDevices();
+                    $this.removeAttr('disabled');
                     return false;
                 }
             }
