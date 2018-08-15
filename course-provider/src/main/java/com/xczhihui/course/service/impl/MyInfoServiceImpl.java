@@ -1,21 +1,9 @@
 package com.xczhihui.course.service.impl;
 
-import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.lang.StringUtils;
-import org.hibernate.cfg.SecondaryTableSecondPass;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xczhihui.common.util.XzStringUtils;
-import com.xczhihui.common.util.enums.AnchorType;
 import com.xczhihui.common.util.enums.UserSex;
-import com.xczhihui.common.util.vhallyun.MessageService;
 import com.xczhihui.course.exception.UserInfoException;
 import com.xczhihui.course.mapper.CourseMapper;
 import com.xczhihui.course.mapper.FocusMapper;
@@ -24,6 +12,14 @@ import com.xczhihui.course.model.OnlineUser;
 import com.xczhihui.course.service.IMyInfoService;
 import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.course.vo.OnlineUserVO;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -114,7 +110,7 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper, OnlineUser> imp
                 map.putAll(mapHeadProtrait);
             }
         }
-        return myInfoMapper.hostInfoRec();
+        return list;
     }
 
     @Override
