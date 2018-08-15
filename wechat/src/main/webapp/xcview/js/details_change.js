@@ -376,6 +376,7 @@ function() {
 	$(".chatmsg-box").click(function() {
 		/* 底部为0 */
 		$(".coze_bottom").css("bottom", "0");
+		$("#mywords").val("");  //點擊其他區域清空input值
 	});
 
 	// 打赏

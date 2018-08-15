@@ -15,15 +15,19 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import com.alibaba.fastjson.JSONObject;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.domain.AlipayTradeCloseModel;
 import com.alipay.api.domain.AlipayTradePagePayModel;
+import com.alipay.api.domain.AlipayTradePrecreateModel;
 import com.alipay.api.internal.util.AlipaySignature;
+import com.alipay.api.request.AlipayTradePrecreateRequest;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.base.utils.UserLoginUtil;
 import com.xczhihui.bxg.online.web.base.utils.WebUtil;
 import com.xczhihui.bxg.online.web.utils.alipay.AlipayConfig;
 import com.xczhihui.common.util.OrderNoUtil;
+import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.common.util.enums.OrderFrom;
 import com.xczhihui.common.util.enums.PayOrderType;
 import com.xczhihui.course.model.Order;
@@ -144,7 +148,48 @@ public class AliPayController extends AliPayApiController {
 
     }
 
+    @RequestMapping(value = "/alipay/rechargeQrCode/{price}", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseObject rechargeQrCode(HttpServletRequest request, HttpServletResponse response, 
+    		@PathVariable String price) throws IOException, AlipayApiException {
+    	
+        OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser();
+        if (loginUser == null) {
+            throw new RuntimeException("充值需登录后进行");
+        }
+        Double count = Double.valueOf(price) * rate;
+        if (!WebUtil.isIntegerForDouble(count)) {
+            throw new RuntimeException("充值金额" + price + "兑换的熊猫币" + count + "不为整数");
+        }
 
+        AlipayTradePrecreateModel model = new AlipayTradePrecreateModel();
+        String orderNo = OrderNoUtil.getCoinOrderNo();
+        model.setOutTradeNo(orderNo);
+        model.setTotalAmount(price);
+        model.setSubject(MessageFormat.format(BUY_COIN_TEXT, count));
+        //model.setStoreId(storeId);
+        model.setBody(MessageFormat.format(BUY_COIN_TEXT, count));
+        model.setTimeoutExpress(TIMEOUT_EXPRESS);
+        
+//        PayMessage payMessage = new PayMessage();
+//        payMessage.setType(PayOrderType.COIN_ORDER.getCode());
+//        payMessage.setUserId(loginUser.getId());
+//        payMessage.setValue(new BigDecimal(count));
+//        payMessage.setFrom(OrderFrom.PC.getCode());
+        
+        JSONObject obj = new JSONObject();
+        obj.put("type", PayOrderType.COIN_ORDER.getCode());
+        obj.put("userId", loginUser.getId());
+        obj.put("value", new BigDecimal(count));
+        obj.put("from", OrderFrom.PC.getCode());
+
+        model.setBusinessParams(obj.toString());
+        
+        String body = AliPayApi.tradePrecreatePay(model, weburl + AlipayConfig.notify_url);
+        return ResponseObject.newSuccessResponseObject(JSONObject.parse(body));
+    }
+    
+    
     /**
      * 关闭订单
      */
