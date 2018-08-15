@@ -1,576 +1,577 @@
 $(function () {
-    var roomId = $('#J_roomId').val();
-    var channelId = $('#J_channelId').val();
-    var appId = $('#J_appId').val();
-    var accountId = $('#J_accountId').val();
-    var token = $('#J_token').val();
-    var nickname = $('#J_nickname').val();
-    var headImg = $('#J_headImg').val();
-    var curPage = 1;
-    var page = 1;
-    var docId;
-    var emojiMap = new Map();
-    var emojiReg = /\[.+?\]/g;
-    var cameras = [];
-    var mics = [];
-    var loadAnchorIn = false;
-    var loadAnchorOut = false;
-    var transOverTimer;
-    window.doc = null;
-
-    window.Vhall.config({
-        appId: appId,//应用 ID ,必填
-        accountId: accountId,//第三方用户唯一标识,必填
-        token: token,//token必填
-        channelId: channelId
-    });
-
-    function destroyDoc() {
-        $('#J_doc_main').empty();
-        window.doc = null;
-    }
-
-    function initDoc() {
-        destroyDoc();
-        var width = $('#J_doc_main').width();
-        var height = $(".video-main").height();
-        window.doc = new VhallDoc({
-            roomId: roomId,
-            channelId: channelId, //频道Id
-            docId: '',//jpg big
-            docNode: 'J_doc_main',//文档显示节点div id
-            width: width,
-            height: height,
-            success: function () {
-                console.log("文档初始化成功");
-            },
-            complete: function () {
-                console.log("文档初始化完成");
-            },
-            slideChange: function (slideIndex, stepIndex) {
-            },
-            stepChange: function (slideIndex, stepIndex) {
-                curPage = slideIndex + 1;
-                setPage(page, curPage);
-            }
-        });
-    }
-
-    function init() {
-        setTimeout(function () {
-            initDoc();
-        }, 1000);
-        window.Vhall.ready(function () {
-            VHPublisher.init({
-                roomId: roomId,
-                videoNode: 'J_video_main',
-                complete: function () {
-                    console.log("初始化成功!")
-                }
-            });
-            window.chat = new VhallChat({
-                channelId: channelId //频道Id
-            });
-            window.chat.onCustomMsg(function (msg) {
-                msg = JSON.parse(msg);
-                renderMsg(msg)
-            });
-            window.chat.join(function (msg) {
-                console.log("进入直播间");
-                var userId = msg.third_party_user_id;
-                if (!loadAnchorIn || userId != accountId) {
-                    if (userId == accountId) {
-                        loadAnchorIn = true;
-                    }
-                    viewJoinleaveRoomInfo(msg, "join");
-                    joinStudent(userId, msg.avatar, msg.nick_name);
-                }
-            });
-            window.chat.leave(function (msg) {
-                console.log("离开直播间");
-                var userId = msg.third_party_user_id;
-                if (!loadAnchorOut || userId != accountId) {
-                    if (userId == accountId) {
-                        loadAnchorOut = true;
-                    }
-                    viewJoinleaveRoomInfo(msg, "leave");
-                    removeStudent(userId);
-                }
-            });
-        });
-        setTimeout(function () {
-            initDevices();
-        }, 3000);
-    }
-
-    init();
-
-    function initDevices() {
-        cameras = window.Vhall.devices.cameras;
-        mics = window.Vhall.devices.mics;
-        var $JCameras = $('.J-cameras');
-        var $JMics = $('.J-mics');
-        $JCameras.html('');
-        $JMics.html('');
-        for (var i = 0; i < cameras.length; i++) {
-            $JCameras.append('<option value="' + cameras[i] + '">' + cameras[i] + '</option>');
-        }
-        for (var i = 0; i < mics.length; i++) {
-            $JMics.append('<option value="' + mics[i] + '">' + mics[i] + '</option>');
-        }
-    }
-
-    $('#J_confirm_edit').on('click', function () {
-        if ($('#J_play').data('status') == 1) {
-            restartPlay();
-        }
-        $(".background-ask").addClass("hide");
-        $(".setup-modal").addClass("hide");
-    });
-
-    function restartPlay() {
-        // var width = $('.J-setup-width').val();
-        // var height = $('.J-setup-height').val();
-        // width = width ? width : 800;
-        // height = height ? height : 450;
-        VHPublisher.init({
-            roomId: roomId,
-            videoNode: 'J_video_main',
-            success: function () {
-                console.log('初始化成功==============');
-            },
-            complete: function (res) {
-                console.log("初始化完成=============");
-                console.log(res);
-                if (res && res.code == 2000) {
-                    VHPublisher.startPush({
-                        // width: width,
-                        // height: height,
-                        camera: $('.J-cameras').val(),
-                        mic: $('.J-mics').val(),
-                        success: function (res) {
-                            console.log('推流切换成功');
-                            console.log(res);
-                        }
-                    })
-                }
-            }
-        });
-    }
-
-    function micAndCamerasLack() {
-        return !cameras || cameras.length === 0 || !mics || mics.length === 0;
-    }
-
-    $('#J_play').on('click', function () {
-        var $this = $(this);
-        $this.prop('disabled', 'disabled');
-        if ($this.data('status') == 0) {
-            if (micAndCamerasLack()) {
-                initDevices();
-                if (micAndCamerasLack()) {
-                    showTip("请先安装并开启摄像头与麦克风");
-                    initDevices();
-                    return false;
-                }
-            }
-            VHPublisher.startPush({
-                width: 800,
-                height: 450,
-                success: function () {
-                    $('.play-time').text("00:00");
-                    var n = 0;
-                    timer = setInterval(function () {
-                        n++;
-                        var m = parseInt(n / 60);
-                        var s = parseInt(n % 60);
-                        $('.play-time').text(toDub(m) + ":" + toDub(s));
-                    }, 1000);
-                    updateLiveStatus("start");
-
-                    $this.text('结束直播');
-                    $this.css('background', "red");
-                    $this.data('status', 1);
-                    console.log("推流成功");
-                },
-                fail: function (e) {
-                    console.log(e);
-                    showTip("直播未能开启");
-                }
-            });
-        } else {
-            VHPublisher.stopPush({
-                complete: function () {
-                    $this.text('开始直播');
-                    $this.css('background', "#00BC12");
-                    $this.data('status', 0);
-                    clearInterval(timer);
-                    updateLiveStatus("stop");
-                }
-            });
-        }
-        $this.removeAttr('disabled');
-    });
-
-    function renderMsg(msg) {
-        if (msg.type == 11) { // 礼物
-            if (msg.message) {
-                var html = '<li>\n' +
-                    '                            <span class="chat-name">' + msg.message.senderInfo.userName + ':</span>\n' +
-                    '                            <span class="chat-content">送给主播</span>\n' +
-                    '                            <span class="chat-gift">一个' + msg.message.giftInfo.name + '</span>\n' +
-                    '                        </li>';
-
-                $('#J_message_list').append(html);
-            }
-
-        } else if (msg.type == 10) {
-            if (msg.message) {
-                var html = '';
-                var content = msg.message.content;
-                var username = msg.message.username;
-                if (content) {
-                    content = content.replace(emojiReg, function (a, b) {
-                        var imgUrl = emojiMap.get(a);
-                        if (imgUrl) {
-                            a = '<img src="' + imgUrl + '" style="width: 20px;height: 20px">';
-                        }
-                        return a;
-                    })
-                }
-                html = '<li>\n' + ( msg.message.role == "host" ? '<span class="chat-status">主播</span>\n' : '') +
-                    '                            <span class="chat-name">' + username + ':</span>\n' +
-                    '                            <span class="chat-content">' + content + '</span>\n' +
-                    '                        </li>';
-                $('#J_message_list').append(html);
-            }
-        }
-        var $chatPersonal = $('.chat-personal');
-        $chatPersonal.scrollTop($chatPersonal[0].scrollHeight);
-    }
-
-    function initMessage() {
-        $.ajax({
-            method: 'GET',
-            url: '/vhallyun/message',
-            data: {'channel_id': channelId, 'start_time': '2018/01/01', 'limit': '1000'},
-            success: function (resp) {
-                if (resp.resultObject && resp.resultObject.data) {
-                    var result = resp.resultObject.data;
-                    for (var i = 0; i < result.length; i++) {
-                        try {
-                            renderMsg(JSON.parse(JSON.parse(result[i].data)));
-                        } catch (e) {
-                        }
-                    }
-                }
-            }
-        });
-    }
-
-    initMessage();
-
-    function viewJoinleaveRoomInfo(msg, action) {
-        var html = '<li>\n' +
-            (msg.third_party_user_id === accountId ? '<span class="chat-status">主播</span>' : '') +
-            '                            <span class="chat-name">' + msg.nick_name + ':</span>\n' +
-            '                            <span class="chat-content">' + (action === 'join' ? '进入直播间' : '退出') + '</span>\n' +
-            '                        </li>';
-        $('#J_message_list').append(html);
-        $('.chat-personal').scrollTop($('.chat-personal')[0].scrollHeight);
-    }
-
-    function renderStudentList() {
-        $.ajax({
-            method: 'GET',
-            url: '/vhallyun/roomJoinStudent',
-            data: {'channelId': channelId, "pos": 0, "limit": 1000},
-            success: function (resp) {
-                var data = resp.resultObject;
-                for (var i = data.length - 1; i >= 0; i--) {
-                    if (data[i].id != accountId) {
-                        appendStudentList(data[i].id, data[i].name, data[i].smallHeadPhoto, data[i].ban);
-                    }
-                }
-                updatePersonNum();
-            }
-        });
-    }
-
-    function updatePersonNum() {
-        $('.J-person-num').text('(' + $('.student-list li').length + ')')
-    }
-
-    $('.J-refresh-list').on('click', function () {
-        renderStudentList();
-    });
-
-    function joinStudent(userId, avatar, nickname) {
-        if (userId != accountId) {
-            if ($('.user-id-' + userId).length === 0) {
-                $.ajax({
-                    method: "GET",
-                    url: '/vhallyun/banStatus',
-                    data: {
-                        channelId: channelId,
-                        accountId: userId
-                    },
-                    success: function (resp) {
-                        appendStudentList(userId, nickname, avatar, resp.resultObject)
-                    }
-                });
-            }
-        }
-    }
-
-    function appendStudentList(userId, nickname, avatar, ban) {
-        removeStudent(userId);
-        $('.student-list').append('<li>\n' +
-            '                            <div class="head-portrait z ' + ' user-id-' + userId + '"' + ' data-id="' + userId + '">\n' +
-            '                                <img src="' + avatar + '" alt="头像"/>\n' +
-            '                            </div>\n' +
-            '                            <span class="student-name z">' + nickname + '</span>\n' +
-            ' <span class="select-ban y">' +
-            (ban ? '<img src="/web/images/live-room/say-ban.png"/>' : '                                <img src="/web/images/live-room/say-icon.png" alt="选择禁言" title="禁言"/>\n' ) +
-            '                            </span>' +
-            '                        </li>');
-        updatePersonNum();
-    }
-
-    function removeStudent(userId) {
-        $('.user-id-' + userId).parent().remove();
-    }
-
-    renderStudentList();
-
-    function setBanStatus(accountId, status) {
-        $.ajax({
-            method: 'POST',
-            url: 'ban/' + channelId + '/' + accountId + '/' + status,
-            success: function (resp) {
-            }
-        })
-    }
-
-    $('.J-eraser').on('click', function () {
-        window.doc.setEraser(16);
-    });
-
-    $('.J-clear').on('click', function () {
-        window.doc.clear();
-    });
-    $(".comment-bg").on("click", function () {
-        var a = $(this).data("size");
-        window.doc.setSize(a);
-        window.doc.cancelPencil(false);
-    });
-
-    $(".comment-color").on("click", function () {
-        var a = $(this).data("color");
-        window.doc.setColor(a);
-        window.doc.cancelPencil(false);
-    });
-
-    function toDub(n) {
-        return n < 10 ? "0" + n : "" + n
-    }
-
-    var timer = null;
-
-    function updateLiveStatus(event) {
-        $.ajax({
-            method: 'POST',
-            url: '/course/updateLiveStatus',
-            data: {"roomId": roomId, "event": event},
-            async: false,
-            success: function (resp) {
-                console.log("调用后台更新状态成功");
-            }
-        });
-    }
-
-    function reloadDoc(changePage) {
-        initDoc();
-        window.doc.loadDoc(docId, channelId, function (docId) {
-            if (changePage) {
-                $('.video-main').css("background", "none");
-                $('.J-close-doc').trigger("click");
-                getImg();
-            } else {
-                window.doc.gotoSlide(curPage);
-            }
-        }, function (reason) {
-            console.error(reason);
-        });
-    }
-
-    function getImg() {
-        setTimeout(function () {
-            var imgs = window.doc.getThumImgList(function (list) {
-            });
-            $('.J-thumImg').html('');
-            page = imgs.length;
-            if (!page) {
-                page = 1;
-            }
-            curPage = 1;
-            setPage(page, curPage);
-            for (var i = 0; i < imgs.length; i++) {
-                $('.J-thumImg').append('<li class="' + (i + 1 === curPage ? "active" : "") + ' J-page-img J-page-num-' + (i + 1) + '">\n' +
-                    '                                    <img src="' + imgs[i] + '"/>\n' +
-                    '                                    <span>' + (i + 1) + '</span>\n' +
-                    '                                </li>');
-            }
-        }, 1000);
-    }
-
-    $('.J-thumImg').on('click', '.J-page-img', function () {
-        var p = $(this).find('span').text();
-        curPage = parseInt(p);
-        console.log(p);
-        window.doc.gotoSlide(curPage);
-        setPage(page, curPage);
-    });
-
-    $('.J-doc-prev').on('click', function () {
-        if (window.doc && curPage > 1) {
-            curPage = parseInt(curPage) - 1;
-            window.doc.preSlide();
-            setPage(page, curPage);
-        }
-    });
-    $('.J-doc-next').on('click', function () {
-        if (window.doc && curPage < page) {
-            curPage = parseInt(curPage) + 1;
-            window.doc.nextSlide();
-            setPage(page, curPage);
-        }
-    });
-
-    function setPage(page, curPage) {
-        $('.pages').removeClass("hide");
-        if (curPage <= 1) {
-            curPage = 1;
-        }
-        if (curPage === 1) {
-            $('.J-doc-prev').hide();
-        } else {
-            $('.J-doc-prev').show();
-        }
-        if (curPage === page) {
-            $('.J-doc-next').hide();
-        } else {
-            $('.J-doc-next').show();
-        }
-        $('.now-page').text(curPage);
-        $('.all-pages').text(page);
-        $(".modal-list li").removeClass("active");
-        $('.J-page-num-' + curPage).addClass('active');
-    }
-
-    $('.file-list').on('click', '.J-doc-operation', function () {
-        if (!isSlideOpen()) {
-            $(".icon-left").click();
-        }
-        docId = $(this).parent().data('did');
-        reloadDoc(true);
-        if (!page) {
-            page = 1;
-        }
-        setPage(page, 1);
-    });
-
-    function isSlideOpen() {
-        return !$(".icon-right").parent('.select-document-wrap').hasClass("select-left");
-    }
-
-    $('.file-list').on('click', '.J-doc-delete', function () {
-        var $parent = $(this).parent();
-        var docId = $parent.data('did');
-        $.ajax({
-            method: "DELETE",
-            url: "/vhallyun/document/" + docId,
-            success: function (resp) {
-                $parent.remove();
-                if ($('.hover-delect').length == 0) {
-                    $('.null-document').removeClass('hide');
-                }
-            }
-        })
-    });
-
-    transOverTimer = setInterval(changeTransOverStatus, 10 * 1000);
-//转码定时调用
-    function changeTransOverStatus() {
-        $.ajax({
-            method: "GET",
-            url: "/vhallyun/document",
-            success: function (resp) {
-                var docs = resp.resultObject;
-                var allFinishTransOver = true;
-                for (var i = 0; i < docs.length; i++) {
-                    var documentId = docs[i].documentId;
-                    var status = docs[i].transStatus;
-                    if (status != 0) {
-                        var $docItem = $('.J-doc-item-text-' + documentId);
-                        if (status === 1) {
-                            if ($docItem.text() === "等待转换") {
-                                $docItem.text("转换成功");
-                                $docItem.after('<div class="doc-operation text-center J-doc-operation J-operation-' + documentId + '">\n' +
-                                    '                        <p>演示</p>\n' +
-                                    '                    </div>');
-                            }
-                        } else if (status === 2) {
-                            $docItem.text("转换成功");
-                        }
-                    } else {
-                        allFinishTransOver = false;
-                    }
-                }
-
-                if (allFinishTransOver && transOverTimer) {
-                    clearInterval(transOverTimer);
-                    transOverTimer = null;
-                }
-            }
-        })
-    }
-
-    function sendMessage() {
-        var $JMessageText = $('#J_message_text');
-        var message = $JMessageText.val();
-        if (message) {
-            var content = {
-                type: 10,
-                message: {
-                    content: message,   //发送的内容
-                    headImg: headImg,       //发送的头像
-                    username: nickname,     //发送的用户名
-                    role: "host"           //发送人的角色    主播： host   普通用户： normal
-                }
-            };
-            $JMessageText.val('');
-            $.ajax({
-                method: "POST",
-                url: "/vhallyun/message",
-                data: {'body': JSON.stringify(content), 'channelId': channelId},
-                success: function (resp) {
-                    console.log("发送成功");
-                }
-            })
-        } else {
-            showTip("请输入聊天文字")
-        }
-    }
-
-    $('#J_message_send').on('click', function () {
-        sendMessage();
-    });
-    $('#J_message_text').keypress(function (event) {
-        if (event.keyCode == 13) {
-            sendMessage();
-        }
-    });
+//  var roomId = $('#J_roomId').val();
+//  var channelId = $('#J_channelId').val();
+//  var appId = $('#J_appId').val();
+//  var accountId = $('#J_accountId').val();
+//  var token = $('#J_token').val();
+//  var nickname = $('#J_nickname').val();
+//  var headImg = $('#J_headImg').val();
+//  var curPage = 1;
+//  var page = 1;
+//  var docId;
+//  var emojiMap = new Map();
+//  var emojiReg = /\[.+?\]/g;
+//  var cameras = [];
+//  var mics = [];
+//  var loadAnchorIn = false;
+//  var loadAnchorOut = false;
+//  var transOverTimer;
+//  window.doc = null;
+//
+//  window.Vhall.config({
+//      appId: appId,//应用 ID ,必填
+//      accountId: accountId,//第三方用户唯一标识,必填
+//      token: token,//token必填
+//      channelId: channelId
+//  });
+//
+//  function destroyDoc() {
+//      $('#J_doc_main').empty();
+//      window.doc = null;
+//  }
+//
+//  function initDoc() {
+//      destroyDoc();
+//      var width = $('#J_doc_main').width();
+//      var height = $(".video-main").height();
+//      window.doc = new VhallDoc({
+//          roomId: roomId,
+//          channelId: channelId, //频道Id
+//          docId: '',//jpg big
+//          docNode: 'J_doc_main',//文档显示节点div id
+//          width: width,
+//          height: height,
+//          success: function () {
+//              console.log("文档初始化成功");
+//          },
+//          complete: function () {
+//              console.log("文档初始化完成");
+//          },
+//          slideChange: function (slideIndex, stepIndex) {
+//          },
+//          stepChange: function (slideIndex, stepIndex) {
+//              curPage = slideIndex + 1;
+//              setPage(page, curPage);
+//          }
+//      });
+//  }
+//
+//  function init() {
+//      setTimeout(function () {
+//          initDoc();
+//      }, 1000);
+//      window.Vhall.ready(function () {
+//          VHPublisher.init({
+//              roomId: roomId,
+//              videoNode: 'J_video_main',
+//              complete: function () {
+//                  console.log("初始化成功!")
+//              }
+//          });
+//          window.chat = new VhallChat({
+//              channelId: channelId //频道Id
+//          });
+//          window.chat.onCustomMsg(function (msg) {
+//              msg = JSON.parse(msg);
+//              renderMsg(msg)
+//          });
+//          window.chat.join(function (msg) {
+//              console.log("进入直播间");
+//              var userId = msg.third_party_user_id;
+//              if (!loadAnchorIn || userId != accountId) {
+//                  if (userId == accountId) {
+//                      loadAnchorIn = true;
+//                  }
+//                  viewJoinleaveRoomInfo(msg, "join");
+//                  joinStudent(userId, msg.avatar, msg.nick_name);
+//              }
+//          });
+//          window.chat.leave(function (msg) {
+//              console.log("离开直播间");
+//              var userId = msg.third_party_user_id;
+//              if (!loadAnchorOut || userId != accountId) {
+//                  if (userId == accountId) {
+//                      loadAnchorOut = true;
+//                  }
+//                  viewJoinleaveRoomInfo(msg, "leave");
+//                  removeStudent(userId);
+//              }
+//          });
+//      });
+//      setTimeout(function () {
+//          initDevices();
+//      }, 3000);
+//  }
+//
+//  init();
+//
+//  function initDevices() {
+//      cameras = window.Vhall.devices.cameras;
+//      mics = window.Vhall.devices.mics;
+//      var $JCameras = $('.J-cameras');
+//      var $JMics = $('.J-mics');
+//      $JCameras.html('');
+//      $JMics.html('');
+//      for (var i = 0; i < cameras.length; i++) {
+//          $JCameras.append('<option value="' + cameras[i] + '">' + cameras[i] + '</option>');
+//      }
+//      for (var i = 0; i < mics.length; i++) {
+//          $JMics.append('<option value="' + mics[i] + '">' + mics[i] + '</option>');
+//      }
+//  }
+//
+//  $('#J_confirm_edit').on('click', function () {
+//      if ($('#J_play').data('status') == 1) {
+//          restartPlay();
+//      }
+//      $(".background-ask").addClass("hide");
+//      $(".setup-modal").addClass("hide");
+//  });
+//
+//  function restartPlay() {
+//      // var width = $('.J-setup-width').val();
+//      // var height = $('.J-setup-height').val();
+//      // width = width ? width : 800;
+//      // height = height ? height : 450;
+//      VHPublisher.init({
+//          roomId: roomId,
+//          videoNode: 'J_video_main',
+//          success: function () {
+//              console.log('初始化成功==============');
+//          },
+//          complete: function (res) {
+//              console.log("初始化完成=============");
+//              console.log(res);
+//              if (res && res.code == 2000) {
+//                  VHPublisher.startPush({
+//                      // width: width,
+//                      // height: height,
+//                      camera: $('.J-cameras').val(),
+//                      mic: $('.J-mics').val(),
+//                      success: function (res) {
+//                          console.log('推流切换成功');
+//                          console.log(res);
+//                      }
+//                  })
+//              }
+//          }
+//      });
+//  }
+//
+//  function micAndCamerasLack() {
+//      return !cameras || cameras.length === 0 || !mics || mics.length === 0;
+//  }
+//
+//  $('#J_play').on('click', function () {
+//      var $this = $(this);
+//      $this.prop('disabled', 'disabled');
+//      if ($this.data('status') == 0) {
+//          if (micAndCamerasLack()) {
+//              initDevices();
+//              if (micAndCamerasLack()) {
+//                     $(".noll-equipment").removeClass("hide");
+//   				   $(".background-ask").removeClass("hide");   
+//                  initDevices();
+//                  return false;
+//              }
+//          }
+//          VHPublisher.startPush({
+//              width: 800,
+//              height: 450,
+//              success: function () {
+//                  $('.play-time').text("00:00");
+//                  var n = 0;
+//                  timer = setInterval(function () {
+//                      n++;
+//                      var m = parseInt(n / 60);
+//                      var s = parseInt(n % 60);
+//                      $('.play-time').text(toDub(m) + ":" + toDub(s));
+//                  }, 1000);
+//                  updateLiveStatus("start");
+//
+//                  $this.text('结束直播');
+//                  $this.css('background', "red");
+//                  $this.data('status', 1);
+//                  console.log("推流成功");
+//              },
+//              fail: function (e) {
+//                  console.log(e);
+//                  showTip("直播未能开启");
+//              }
+//          });
+//      } else {
+//          VHPublisher.stopPush({
+//              complete: function () {
+//                  $this.text('开始直播');
+//                  $this.css('background', "#00BC12");
+//                  $this.data('status', 0);
+//                  clearInterval(timer);
+//                  updateLiveStatus("stop");
+//              }
+//          });
+//      }
+//      $this.removeAttr('disabled');
+//  });
+//
+//  function renderMsg(msg) {
+//      if (msg.type == 11) { // 礼物
+//          if (msg.message) {
+//              var html = '<li>\n' +
+//                  '                            <span class="chat-name">' + msg.message.senderInfo.userName + ':</span>\n' +
+//                  '                            <span class="chat-content">送给主播</span>\n' +
+//                  '                            <span class="chat-gift">一个' + msg.message.giftInfo.name + '</span>\n' +
+//                  '                        </li>';
+//
+//              $('#J_message_list').append(html);
+//          }
+//
+//      } else if (msg.type == 10) {
+//          if (msg.message) {
+//              var html = '';
+//              var content = msg.message.content;
+//              var username = msg.message.username;
+//              if (content) {
+//                  content = content.replace(emojiReg, function (a, b) {
+//                      var imgUrl = emojiMap.get(a);
+//                      if (imgUrl) {
+//                          a = '<img src="' + imgUrl + '" style="width: 20px;height: 20px">';
+//                      }
+//                      return a;
+//                  })
+//              }
+//              html = '<li>\n' + ( msg.message.role == "host" ? '<span class="chat-status">主播</span>\n' : '') +
+//                  '                            <span class="chat-name">' + username + ':</span>\n' +
+//                  '                            <span class="chat-content">' + content + '</span>\n' +
+//                  '                        </li>';
+//              $('#J_message_list').append(html);
+//          }
+//      }
+//      var $chatPersonal = $('.chat-personal');
+//      $chatPersonal.scrollTop($chatPersonal[0].scrollHeight);
+//  }
+//
+//  function initMessage() {
+//      $.ajax({
+//          method: 'GET',
+//          url: '/vhallyun/message',
+//          data: {'channel_id': channelId, 'start_time': '2018/01/01', 'limit': '1000'},
+//          success: function (resp) {
+//              if (resp.resultObject && resp.resultObject.data) {
+//                  var result = resp.resultObject.data;
+//                  for (var i = 0; i < result.length; i++) {
+//                      try {
+//                          renderMsg(JSON.parse(JSON.parse(result[i].data)));
+//                      } catch (e) {
+//                      }
+//                  }
+//              }
+//          }
+//      });
+//  }
+//
+//  initMessage();
+//
+//  function viewJoinleaveRoomInfo(msg, action) {
+//      var html = '<li>\n' +
+//          (msg.third_party_user_id === accountId ? '<span class="chat-status">主播</span>' : '') +
+//          '                            <span class="chat-name">' + msg.nick_name + ':</span>\n' +
+//          '                            <span class="chat-content">' + (action === 'join' ? '进入直播间' : '退出') + '</span>\n' +
+//          '                        </li>';
+//      $('#J_message_list').append(html);
+//      $('.chat-personal').scrollTop($('.chat-personal')[0].scrollHeight);
+//  }
+//
+//  function renderStudentList() {
+//      $.ajax({
+//          method: 'GET',
+//          url: '/vhallyun/roomJoinStudent',
+//          data: {'channelId': channelId, "pos": 0, "limit": 1000},
+//          success: function (resp) {
+//              var data = resp.resultObject;
+//              for (var i = data.length - 1; i >= 0; i--) {
+//                  if (data[i].id != accountId) {
+//                      appendStudentList(data[i].id, data[i].name, data[i].smallHeadPhoto, data[i].ban);
+//                  }
+//              }
+//              updatePersonNum();
+//          }
+//      });
+//  }
+//
+//  function updatePersonNum() {
+//      $('.J-person-num').text('(' + $('.student-list li').length + ')')
+//  }
+//
+//  $('.J-refresh-list').on('click', function () {
+//      renderStudentList();
+//  });
+//
+//  function joinStudent(userId, avatar, nickname) {
+//      if (userId != accountId) {
+//          if ($('.user-id-' + userId).length === 0) {
+//              $.ajax({
+//                  method: "GET",
+//                  url: '/vhallyun/banStatus',
+//                  data: {
+//                      channelId: channelId,
+//                      accountId: userId
+//                  },
+//                  success: function (resp) {
+//                      appendStudentList(userId, nickname, avatar, resp.resultObject)
+//                  }
+//              });
+//          }
+//      }
+//  }
+//
+//  function appendStudentList(userId, nickname, avatar, ban) {
+//      removeStudent(userId);
+//      $('.student-list').append('<li>\n' +
+//          '                            <div class="head-portrait z ' + ' user-id-' + userId + '"' + ' data-id="' + userId + '">\n' +
+//          '                                <img src="' + avatar + '" alt="头像"/>\n' +
+//          '                            </div>\n' +
+//          '                            <span class="student-name z">' + nickname + '</span>\n' +
+//          ' <span class="select-ban y">' +
+//          (ban ? '<img src="/web/images/live-room/say-ban.png"/>' : '                                <img src="/web/images/live-room/say-icon.png" alt="选择禁言" title="禁言"/>\n' ) +
+//          '                            </span>' +
+//          '                        </li>');
+//      updatePersonNum();
+//  }
+//
+//  function removeStudent(userId) {
+//      $('.user-id-' + userId).parent().remove();
+//  }
+//
+//  renderStudentList();
+//
+//  function setBanStatus(accountId, status) {
+//      $.ajax({
+//          method: 'POST',
+//          url: 'ban/' + channelId + '/' + accountId + '/' + status,
+//          success: function (resp) {
+//          }
+//      })
+//  }
+//
+//  $('.J-eraser').on('click', function () {
+//      window.doc.setEraser(16);
+//  });
+//
+//  $('.J-clear').on('click', function () {
+//      window.doc.clear();
+//  });
+//  $(".comment-bg").on("click", function () {
+//      var a = $(this).data("size");
+//      window.doc.setSize(a);
+//      window.doc.cancelPencil(false);
+//  });
+//
+//  $(".comment-color").on("click", function () {
+//      var a = $(this).data("color");
+//      window.doc.setColor(a);
+//      window.doc.cancelPencil(false);
+//  });
+//
+//  function toDub(n) {
+//      return n < 10 ? "0" + n : "" + n
+//  }
+//
+//  var timer = null;
+//
+//  function updateLiveStatus(event) {
+//      $.ajax({
+//          method: 'POST',
+//          url: '/course/updateLiveStatus',
+//          data: {"roomId": roomId, "event": event},
+//          async: false,
+//          success: function (resp) {
+//              console.log("调用后台更新状态成功");
+//          }
+//      });
+//  }
+//
+//  function reloadDoc(changePage) {
+//      initDoc();
+//      window.doc.loadDoc(docId, channelId, function (docId) {
+//          if (changePage) {
+//              $('.video-main').css("background", "none");
+//              $('.J-close-doc').trigger("click");
+//              getImg();
+//          } else {
+//              window.doc.gotoSlide(curPage);
+//          }
+//      }, function (reason) {
+//          console.error(reason);
+//      });
+//  }
+//
+//  function getImg() {
+//      setTimeout(function () {
+//          var imgs = window.doc.getThumImgList(function (list) {
+//          });
+//          $('.J-thumImg').html('');
+//          page = imgs.length;
+//          if (!page) {
+//              page = 1;
+//          }
+//          curPage = 1;
+//          setPage(page, curPage);
+//          for (var i = 0; i < imgs.length; i++) {
+//              $('.J-thumImg').append('<li class="' + (i + 1 === curPage ? "active" : "") + ' J-page-img J-page-num-' + (i + 1) + '">\n' +
+//                  '                                    <img src="' + imgs[i] + '"/>\n' +
+//                  '                                    <span>' + (i + 1) + '</span>\n' +
+//                  '                                </li>');
+//          }
+//      }, 1000);
+//  }
+//
+//  $('.J-thumImg').on('click', '.J-page-img', function () {
+//      var p = $(this).find('span').text();
+//      curPage = parseInt(p);
+//      console.log(p);
+//      window.doc.gotoSlide(curPage);
+//      setPage(page, curPage);
+//  });
+//
+//  $('.J-doc-prev').on('click', function () {
+//      if (window.doc && curPage > 1) {
+//          curPage = parseInt(curPage) - 1;
+//          window.doc.preSlide();
+//          setPage(page, curPage);
+//      }
+//  });
+//  $('.J-doc-next').on('click', function () {
+//      if (window.doc && curPage < page) {
+//          curPage = parseInt(curPage) + 1;
+//          window.doc.nextSlide();
+//          setPage(page, curPage);
+//      }
+//  });
+//
+//  function setPage(page, curPage) {
+//      $('.pages').removeClass("hide");
+//      if (curPage <= 1) {
+//          curPage = 1;
+//      }
+//      if (curPage === 1) {
+//          $('.J-doc-prev').hide();
+//      } else {
+//          $('.J-doc-prev').show();
+//      }
+//      if (curPage === page) {
+//          $('.J-doc-next').hide();
+//      } else {
+//          $('.J-doc-next').show();
+//      }
+//      $('.now-page').text(curPage);
+//      $('.all-pages').text(page);
+//      $(".modal-list li").removeClass("active");
+//      $('.J-page-num-' + curPage).addClass('active');
+//  }
+//
+//  $('.file-list').on('click', '.J-doc-operation', function () {
+//      if (!isSlideOpen()) {
+//          $(".icon-left").click();
+//      }
+//      docId = $(this).parent().data('did');
+//      reloadDoc(true);
+//      if (!page) {
+//          page = 1;
+//      }
+//      setPage(page, 1);
+//  });
+//
+//  function isSlideOpen() {
+//      return !$(".icon-right").parent('.select-document-wrap').hasClass("select-left");
+//  }
+//
+//  $('.file-list').on('click', '.J-doc-delete', function () {
+//      var $parent = $(this).parent();
+//      var docId = $parent.data('did');
+//      $.ajax({
+//          method: "DELETE",
+//          url: "/vhallyun/document/" + docId,
+//          success: function (resp) {
+//              $parent.remove();
+//              if ($('.hover-delect').length == 0) {
+//                  $('.null-document').removeClass('hide');
+//              }
+//          }
+//      })
+//  });
+//
+//  transOverTimer = setInterval(changeTransOverStatus, 10 * 1000);
+////转码定时调用
+//  function changeTransOverStatus() {
+//      $.ajax({
+//          method: "GET",
+//          url: "/vhallyun/document",
+//          success: function (resp) {
+//              var docs = resp.resultObject;
+//              var allFinishTransOver = true;
+//              for (var i = 0; i < docs.length; i++) {
+//                  var documentId = docs[i].documentId;
+//                  var status = docs[i].transStatus;
+//                  if (status != 0) {
+//                      var $docItem = $('.J-doc-item-text-' + documentId);
+//                      if (status === 1) {
+//                          if ($docItem.text() === "等待转换") {
+//                              $docItem.text("转换成功");
+//                              $docItem.after('<div class="doc-operation text-center J-doc-operation J-operation-' + documentId + '">\n' +
+//                                  '                        <p>演示</p>\n' +
+//                                  '                    </div>');
+//                          }
+//                      } else if (status === 2) {
+//                          $docItem.text("转换成功");
+//                      }
+//                  } else {
+//                      allFinishTransOver = false;
+//                  }
+//              }
+//
+//              if (allFinishTransOver && transOverTimer) {
+//                  clearInterval(transOverTimer);
+//                  transOverTimer = null;
+//              }
+//          }
+//      })
+//  }
+//
+//  function sendMessage() {
+//      var $JMessageText = $('#J_message_text');
+//      var message = $JMessageText.val();
+//      if (message) {
+//          var content = {
+//              type: 10,
+//              message: {
+//                  content: message,   //发送的内容
+//                  headImg: headImg,       //发送的头像
+//                  username: nickname,     //发送的用户名
+//                  role: "host"           //发送人的角色    主播： host   普通用户： normal
+//              }
+//          };
+//          $JMessageText.val('');
+//          $.ajax({
+//              method: "POST",
+//              url: "/vhallyun/message",
+//              data: {'body': JSON.stringify(content), 'channelId': channelId},
+//              success: function (resp) {
+//                  console.log("发送成功");
+//              }
+//          })
+//      } else {
+//          showTip("请输入聊天文字")
+//      }
+//  }
+//
+//  $('#J_message_send').on('click', function () {
+//      sendMessage();
+//  });
+//  $('#J_message_text').keypress(function (event) {
+//      if (event.keyCode == 13) {
+//          sendMessage();
+//      }
+//  });
 
 //------------------------------------------静态页面效果----------------------------------------------------------------
 
@@ -823,4 +824,12 @@ $(function () {
             }
         });
     })
+ 
+
+//------------------------------------------点击设备时关闭弹窗----------------------------------------------------------------
+	$(".equipment-close").click(function(){
+		$(".noll-equipment").addClass("hide");
+   $(".background-ask").addClass("hide");
+	})
+    
 });
