@@ -189,27 +189,39 @@
 															<img src="{{item.smallimgPath}}?imageMogr2/thumbnail/!215x120r|imageMogr2/gravity/Center/crop/215x120"/>
 														</div>
 											
-														{{if item.type == 1}}
+														{{if item.courseForm == 2 && item.multimediaType == 1}}
 															{{if item.collection == true}}
 															<span class="classCategory">视频专辑</span>
 															{{else}}
 															<span class="classCategory">视频</span>
 															{{/if}}
-														{{else if item.type == 2}}
+														{{else if item.courseForm == 2 && item.multimediaType == 2}}
 															{{if item.collection == true}}
 															<span class="classCategory">音频专辑</span>
 															{{else}}
 															<span class="classCategory">音频</span>
 															{{/if}}
-														{{else if item.type == 3 && item.lineState==1}}
-																<span class="classCategory">直播中</span>
-                                                        {{else if item.type == 3 && item.lineState==2}}
-                                                                <span class="classCategory">直播预告</span>    
-														{{else if item.type == 3 && item.lineState==3}}
-																<span class="classCategory">直播回放</span>
-														{{else if item.type == 3 && item.lineState==4}}
-																<span class="classCategory">即将直播</span>
-														{{else if item.type == 4}}
+														{{else if item.courseForm == 1 && item.multimediaType == 1}}
+															{{if item.lineState == 1}}
+																<span class="classCategory">视频直播中</span>
+															{{else if item.lineState == 2}}
+                                                                <span class="classCategory">视频直播预告</span>    
+															{{else if item.lineState == 3}}
+																<span class="classCategory">视频直播回放</span>
+															{{else if item.lineState == 4}}
+																<span class="classCategory">视频即将直播</span>
+															{{/if}}
+														{{else if item.courseForm == 1 && item.multimediaType == 2}}
+															{{if item.lineState == 1}}
+																<span class="classCategory">音频直播中</span>
+															{{else if item.lineState == 2}}
+                                                                <span class="classCategory">音频直播预告</span>    
+															{{else if item.lineState == 3}}
+																<span class="classCategory">音频直播回放</span>
+															{{else if item.lineState == 4}}
+																<span class="classCategory">音频即将直播</span>
+															{{/if}}
+														{{else if item.courseForm == 3}}
 														<span class="classCategory">线下课程</span>
 														{{/if}}
 														<div class="detail">
@@ -232,9 +244,14 @@
 																	{{if item.watchState==0}}
 																	<span class="price">{{item.currentPrice}}</span>
 																	<span>熊猫币</span>
-																	
+																		{{if item.originalCost != null && item.originalCost != 0}}
+																			<span class="cost-price">原价{{item.originalCost}}</span>
+																		{{/if}}
 																	{{else if item.watchState==1}}
 																	<span class="price">免费</span>
+																		{{if item.originalCost != null && item.originalCost != 0}}
+																			<span class="cost-price">原价{{item.originalCost}}</span>
+																		{{/if}}
 																	{{/if}}
 																</span>
 																<span class="stuCount">
@@ -286,27 +303,39 @@
 															<img src="{{item.smallImgPath}}?imageMogr2/thumbnail/!215x120r|imageMogr2/gravity/Center/crop/215x120">
 														</div>
 													
-														{{if item.type == 1}}
+														{{if item.courseForm == 2 && item.multimediaType == 1}}
 															{{if item.collection == true}}
 															<span class="classCategory">视频专辑</span>
 															{{else}}
 															<span class="classCategory">视频</span>
 															{{/if}}
-														{{else if item.type == 2}}
+														{{else if item.courseForm == 2 && item.multimediaType == 2}}
 															{{if item.collection == true}}
 															<span class="classCategory">音频专辑</span>
 															{{else}}
 															<span class="classCategory">音频</span>
 															{{/if}}
-														{{else if item.type == 3 && item.lineState==1}}
-																<span class="classCategory">直播中</span>
-                                                        {{else if item.type == 3 && item.lineState==2}}
-                                                                <span class="classCategory">直播预告</span> 
-														{{else if item.type == 3 && item.lineState==3}}
-																<span class="classCategory">直播回放</span>
-														{{else if item.type == 3 && item.lineState==4}}
-																<span class="classCategory">即将直播</span>
-														{{else if item.type == 4}}
+														{{else if item.courseForm == 1 && item.multimediaType == 1}}
+															{{if item.lineState == 1}}
+																<span class="classCategory">视频直播中</span>
+															{{else if item.lineState == 2}}
+                                                                <span class="classCategory">视频直播预告</span>    
+															{{else if item.lineState == 3}}
+																<span class="classCategory">视频直播回放</span>
+															{{else if item.lineState == 4}}
+																<span class="classCategory">视频即将直播</span>
+															{{/if}}
+														{{else if item.courseForm == 1 && item.multimediaType == 2}}
+															{{if item.lineState == 1}}
+																<span class="classCategory">音频直播中</span>
+															{{else if item.lineState == 2}}
+                                                                <span class="classCategory">音频直播预告</span>    
+															{{else if item.lineState == 3}}
+																<span class="classCategory">音频直播回放</span>
+															{{else if item.lineState == 4}}
+																<span class="classCategory">音频即将直播</span>
+															{{/if}}
+														{{else if item.courseForm == 3}}
 														<span class="classCategory">线下课程</span>
 														{{/if}}
 														<div class="detail">
@@ -332,9 +361,14 @@
 																	{{if item.watchState==0}}
 																	<span class="price">{{item.currentPrice}}</span>
 																	<span>熊猫币</span>
-																	
+																		{{if item.originalCost != null && item.originalCost != 0}}
+																			<span class="cost-price">原价{{item.originalCost}}</span>
+																		{{/if}}
 																	{{else if item.watchState==1}}
 																	<span class="price">免费</span>
+																		{{if item.originalCost != null && item.originalCost != 0}}
+																			<span class="cost-price">原价{{item.originalCost}}</span>
+																		{{/if}}
 																	{{/if}}
 																</span>
 																<span class="stuCount">
@@ -387,29 +421,40 @@
 														<div class="img">
 															<img src="{{item.smallImgPath}}?imageMogr2/thumbnail/!215x120r|imageMogr2/gravity/Center/crop/215x120">
 														</div>
-														{{if item.type == 1}}
+														{{if item.courseForm == 2 && item.multimediaType == 1}}
 															{{if item.collection == true}}
 															<span class="classCategory">视频专辑</span>
 															{{else}}
 															<span class="classCategory">视频</span>
 															{{/if}}
-														{{else if item.type == 2}}
+														{{else if item.courseForm == 2 && item.multimediaType == 2}}
 															{{if item.collection == true}}
 															<span class="classCategory">音频专辑</span>
 															{{else}}
 															<span class="classCategory">音频</span>
 															{{/if}}
-														{{else if item.type == 3 && item.lineState==1}}
-																<span class="classCategory">直播中</span>
-                                                        {{else if item.type == 3 && item.lineState==2}}
-                                                                <span class="classCategory">直播预告</span> 
-														{{else if item.type == 3 && item.lineState==3}}
-																<span class="classCategory">直播回放</span>
-														{{else if item.type == 3 && item.lineState==4}}
-																<span class="classCategory">即将直播</span>
-														{{else if item.type == 4}}
+														{{else if item.courseForm == 1 && item.multimediaType == 1}}
+															{{if item.lineState == 1}}
+																<span class="classCategory">视频直播中</span>
+															{{else if item.lineState == 2}}
+                                                                <span class="classCategory">视频直播预告</span>    
+															{{else if item.lineState == 3}}
+																<span class="classCategory">视频直播回放</span>
+															{{else if item.lineState == 4}}
+																<span class="classCategory">视频即将直播</span>
+															{{/if}}
+														{{else if item.courseForm == 1 && item.multimediaType == 2}}
+															{{if item.lineState == 1}}
+																<span class="classCategory">音频直播中</span>
+															{{else if item.lineState == 2}}
+                                                                <span class="classCategory">音频直播预告</span>    
+															{{else if item.lineState == 3}}
+																<span class="classCategory">音频直播回放</span>
+															{{else if item.lineState == 4}}
+																<span class="classCategory">音频即将直播</span>
+															{{/if}}
+														{{else if item.courseForm == 3}}
 														<span class="classCategory">线下课程</span>
-													
 														{{/if}}
 														<div class="detail">
 															<p class="title" title="{{item.gradeName}}">{{item.gradeName}}</p>
@@ -433,9 +478,14 @@
 																	{{if item.watchState==0}}
 																	<span class="price">{{item.currentPrice}}</span>
 																	<span>熊猫币</span>
-																	
+																		{{if item.originalCost != null && item.originalCost != 0}}
+																			<span class="cost-price">原价{{item.originalCost}}</span>
+																		{{/if}}
 																	{{else if item.watchState==1}}
 																	<span class="price">免费</span>
+																		{{if item.originalCost != null && item.originalCost != 0}}
+																			<span class="cost-price">原价{{item.originalCost}}</span>
+																		{{/if}}
 																	{{/if}}
 																</span>
 																<span class="stuCount">

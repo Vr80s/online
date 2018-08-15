@@ -58,11 +58,15 @@ function elsBind() {
 	});
 
 }
-
+var falgNetWorkstate  = 0;
 setInterval(function() {
 	try {
 		var netWorkstate = VhallPlayer.getNetworkState();
-		if (netWorkstate == 3) {
+		
+		if(netWorkstate ==3){
+			falgNetWorkstate++;
+		}
+    	if(falgNetWorkstate>2){
 			$(".video_end_top4").show();
 		}
 	} catch (error) {

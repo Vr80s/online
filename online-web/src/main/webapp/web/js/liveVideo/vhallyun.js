@@ -53,9 +53,12 @@ function initVideo(){
  	window.doc = {};
     var readyCallback = function(){
       initVideoFalg = 1;  	
+      var docNode = $('#my-doc-area').length > 0 ? "my-doc-area" : vhallObj.channelId;
       window.doc = new VhallDocPassive({
         channelId:vhallObj.channelId, //频道Id
-        docNode:'my-doc-area'//文档显示节点div id
+        docNode:docNode,//文档显示节点div id
+        width:800,
+        height:450
       });
       
       var roomId = (liveStatus == 1 ? vhallObj.roomId : "");
@@ -90,14 +93,28 @@ function initVideo(){
  * 2:浏览器正在下载数据,
  * 3:未找到音频/视频来源
  */
+var falgNetWorkstate  = 0;
+var falgNetWorkstateZero  = 0;
 setInterval(function(){
 	try{
 		var netWorkstate = VhallPlayer.getNetworkState();
-    	if(netWorkstate ==3){
+		if(netWorkstate ==3){
+			falgNetWorkstate++;
+		}
+		if(netWorkstate ==0){
+		
+		
+		}
+    	if(falgNetWorkstate>2){
     		$(".playback").attr("type",21);
     		$(".playback div").hide();
         	$(".media-error").show();
         	$(".playback").show();
+    	}else if(netWorkstate == 0){
+    		
+    		falgNetWorkstateZero++;
+    		
+    		console.error("netWorkstate："+netWorkstate);
     	}
 	}catch(error){
 	 	console.log(error);
@@ -226,7 +243,7 @@ function elsBind(){
     //  
     $(".playback").click(function() {
     	var type = $(this).attr("type");
-    	if (type == 16 || type ==20) { // 回放生成成功   重播
+    	if (type == 16 || type ==20 || type == 21) { // 回放生成成功   重播  获取媒体资源有误
         	location.reload();
 		}else if (type == 17) { // 回放生成失败,点击去学习中心吧
 			location.href="/my";

@@ -84,14 +84,14 @@
         <select name="" class="J-mics">
         </select>
     </div>
-    <div class="comment-setup">
-        <span>自定义尺寸:</span>
-        <span>宽</span>
-        <input type="text" onkeyup="value=value.replace(/[^\d]/g,'')" class="width-my J-setup-width" value="800" maxlength="4" />
-        <span>x高</span>
-        <input type="text" onkeyup="value=value.replace(/[^\d]/g,'')" class="height-my J-setup-height" value="450" maxlength="4" />
-        <p class="control-size hide" style="color: red; margin-left: 78px;"></p>
-    </div>
+    <#--<div class="comment-setup">-->
+        <#--<span>自定义尺寸:</span>-->
+        <#--<span>宽</span>-->
+        <#--<input type="text" onkeyup="value=value.replace(/[^\d]/g,'')" class="width-my J-setup-width" value="800" maxlength="4" />-->
+        <#--<span>x高</span>-->
+        <#--<input type="text" onkeyup="value=value.replace(/[^\d]/g,'')" class="height-my J-setup-height" value="450" maxlength="4" />-->
+        <#--<p class="control-size hide" style="color: red; margin-left: 78px;"></p>-->
+    <#--</div>-->
     <div class="comment-setup">
         <button class="sure" type="button" id="J_confirm_edit">确认</button>
         <button class="cancel" type="button">取消</button>
@@ -287,7 +287,7 @@
                 </div>
                 <!--刷新学员-->
                 <div class="refresh-student text-center">
-                    <span>学员列表</span>
+                    <span>成员列表<span class="J-person-num"></span></span>
                     <img src="/web/images/refresh.png" alt="刷新" class="J-refresh-list"/>
                 </div>
                 <!--学员列表-->

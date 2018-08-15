@@ -321,6 +321,11 @@ margin-left: 20px;
     font-size: 13px;
     color: #F97B49;
 }
+.save-class .course > a .detail .info .cost-price {
+	text-decoration: line-through;
+	font-size: 12px;
+	color: #999;
+}
 .save-class .course > a .detail span {
     color: #999;
 }

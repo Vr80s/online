@@ -99,11 +99,9 @@ public class VedioController extends AbstractController {
         if (collectionId != null && collectionId != 0) {
             cv = courseServiceImpl.selectUserCurrentCourseStatus(collectionId, loginUser.getId());
         } else {
-            cv = courseServiceImpl.selectUserCurrentCourseStatus(
-                    Integer.parseInt(courseId), loginUser.getId());
+            cv = courseServiceImpl.selectUserCurrentCourseStatus(Integer.parseInt(courseId), loginUser.getId());
         }
         if (cv != null && cv.getWatchState() == 0) {
-
             return ResponseObject.newErrorResponseObject("请先购买此课程哈!");
         }
 //		if(cv.getType()==2) { //multimediaType 1 视频 2 音频

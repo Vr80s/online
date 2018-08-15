@@ -162,9 +162,31 @@ $('#pay-continue').click(function(){
 })
 
 
-//  轮询
+//	 	点击充值按钮
+$(".alipay").click(function(){
+	$(".weixin-er").hide();
+	$(".alipay-er").show();
+	$(".alipay").css("background","#fff");
+	$(".weixin").css("background","none");
+	
+	
+	
+});
 
-RequestService("/userCoin/checkRechargeOrder", "GET", {
+$(".weixin").click(function(){
+	$(".weixin-er").show();
+	$(".alipay-er").hide();
+	$(".alipay").css("background","none");
+	$(".weixin").css("background","#fff");
+});
+$(".alipay").click();
+
+
+
+//轮询
+function lalala(){
+
+	RequestService("/userCoin/checkRechargeOrder", "GET", {
      orderNo: $(".orderNumber").html()
 }, function (data) {
     if (data.resultObject === true) {
@@ -175,16 +197,19 @@ RequestService("/userCoin/checkRechargeOrder", "GET", {
         window.setInterval(function () {
             m--;
             if (m === 0) {
-                //点击跳转充值记录
-                localStorage.setItem("personcenter", "mymoney ");
-                localStorage.setItem("findStyle", "profile ");
-                location.href = "/my#menu4"
+//                //点击跳转充值记录
+//                localStorage.setItem("personcenter", "mymoney ");
+//                localStorage.setItem("findStyle", "profile ");
+//                location.href = "/my#menu4"
             }
-            $(".tank span").html(m + "s");
+//            $(".tank span").html(m + "s");
         }, 1000);
     } else {
     }
 }, false);
+	
+}
+
 
 
 

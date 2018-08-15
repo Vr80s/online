@@ -47,9 +47,13 @@ import com.xczhihui.pay.ext.kit.HttpKit;
 import com.xczhihui.pay.ext.kit.IpKit;
 import com.xczhihui.pay.ext.kit.PaymentKit;
 import com.xczhihui.pay.ext.kit.StrKit;
-import com.xczhihui.pay.weixin.api.*;
+import com.xczhihui.pay.weixin.api.WxPay4PcBean;
+import com.xczhihui.pay.weixin.api.WxPayApi;
 import com.xczhihui.pay.weixin.api.WxPayApi.TradeType;
+import com.xczhihui.pay.weixin.api.WxPayApiConfig;
 import com.xczhihui.pay.weixin.api.WxPayApiConfig.PayModel;
+import com.xczhihui.pay.weixin.api.WxPayApiConfigKit;
+import com.xczhihui.pay.weixin.api.WxPayApiController;
 
 @Controller
 @RequestMapping("/web/wxPay")
@@ -224,7 +228,7 @@ public class WxPayController extends WxPayApiController {
     /**
      * 生成支付二维码并在页面上显示--充值
      */
-    @RequestMapping("/recharge/{price}")
+    @RequestMapping("/rechargeCode/{price}")
     @ResponseBody
     public ResponseObject scanCode4RechargeHtml(HttpServletRequest request, @PathVariable String price) throws WriterException {
     	

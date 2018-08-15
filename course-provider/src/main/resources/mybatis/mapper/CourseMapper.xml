@@ -419,6 +419,7 @@
         oc.status as status,
         if(now() > DATE_SUB(oc.start_time,INTERVAL 1 HOUR) and oc.start_time > now() ,1,0) as isLive,
         1 as applyStatus,
+        oc.live_case as liveCase,
         '直播间' as note
         FROM
         oe_course oc
@@ -446,6 +447,7 @@
         oc.status as status,
         '0' as isLive,
         1 as applyStatus,
+        oc.live_case as liveCase,
         '我的课程' as note
         FROM
         oe_course oc
@@ -464,6 +466,7 @@
         <include refid="relLearningCourseListByUserId"/>
         if(now() > DATE_SUB(oc.start_time,INTERVAL 1 HOUR) and oc.start_time > now() ,1,0) as isLive,
         oc.direct_id as directId,
+         oc.live_case as liveCase,
         '直播间' as note
         FROM
         oe_course oc
@@ -510,6 +513,7 @@
         oc.id as id,
         oc.status as status,
         oc.live_source_type as liveSourceType,
+        oc.live_case as liveCase,
         if(cai.course_form = 1 and oc.live_status is null,4,oc.live_status) as sortLineState,
         if(oc.id is not null,(select ca.name from course_anchor ca where ca.user_id = oc.user_lecturer_id),cai.lecturer)
         as name,

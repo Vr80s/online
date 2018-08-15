@@ -273,7 +273,7 @@ $(".add_bx").click(function () {
             }
         }
 
-        var imgPath = $('#imgPath_file').val();
+        var imgPath = $('#add_imgPath').val();
         if (!imgPath) {
             alertInfo("请上传图片");
             return false;

@@ -77,14 +77,12 @@
                                         <span class="price">${courseItem.currentPrice}</span>
 											 	 <span>熊猫币</span>
                                         <#if (courseItem.originalCost)?? && courseItem.originalCost != 0>
-                                             <span>原价</span>
-                                                     <span style="text-decoration: line-through">${courseItem.originalCost}</span>
+                                                     <span style="text-decoration: line-through;font-size: 12px;">原价${courseItem.originalCost}</span>
                                         </#if>
                                     <#else>
                                         <span class="price">免费</span>
-                                        <#if (courseItem.originalCost)?? && courseItem.originalCost != 0>
-                                             <span>原价</span>
-                                                     <span style="text-decoration: line-through">${courseItem.originalCost}</span>
+                                        <#if (courseItem.originalCost)?? && courseItem.originalCost != 0>                          
+                                                     <span style="text-decoration: line-through;font-size: 12px;">原价${courseItem.originalCost}</span>
                                         </#if>
                                     </#if>
 											</span><span class="stuCount"><img src="/web/images/studentCount.png"
