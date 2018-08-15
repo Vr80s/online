@@ -20,7 +20,7 @@
 		#pay{
 		font-size: 13px;
 			width: 100%;
-			height: 400px;
+			height: 453px;
 			padding:14px 30px 0px;
 			border: 1px solid #000;
 			background-color: #fff;
@@ -65,6 +65,7 @@
 		.content_one{
 			float: left;
 			color: #999;
+			font-size: 0.12rem;
 		}
 		.content_one em{
 			color: orange;
@@ -88,6 +89,7 @@
 		    cursor: pointer;
 		    font-size: 12px;
 		    color: #666;
+		    background: #FAFAFA !important;
 		}
 		.content_two ul li input {
 			display: block;
@@ -274,3 +276,139 @@
 		label{
 		font-weight:400;
 		}
+		
+.content_one .number{
+	font-size: 0.16rem;
+	color: #F97B49;
+	font-weight: 800;
+}
+
+/*支付选项*/
+.payment-options{
+	width: 643px;
+	height: 280px;
+	background: red;
+	margin-top: -6px;
+}
+.payment-options .p{
+	font-size: 12px;
+	color: #999999;
+	margin-bottom: 16px;
+}
+.payment-table{
+	width: 100%;
+	height: 246px;
+	background: #FFFFFF;
+	border: 1px solid #DEDEDE;
+}
+.payment-table-left{
+	float: left;
+	width: 94px;
+	height: 100%;
+	background: #EEEEEE;
+}
+.alipay img{
+	width: 94px;
+	height: 52px;
+	cursor: pointer;
+}
+.weixin img{
+	width: 94px;
+	height: 52px;
+	cursor: pointer;
+}
+.payment-table-right{
+	width: 140px;
+	height: 180px;
+	float: left;
+	margin-left: 199px;
+	background: #fff;
+}
+.alipay-er{
+	width: 140px;
+	height: 180px;
+	display: none;
+}
+.alipay-er img{
+	width: 140px;
+	height: 142px;
+}
+.alipay-er-fize{
+		
+}
+.alipay-er-fize img{
+	width: 20px;
+	height: 20px;
+	float: left;
+	margin-left: 10px;
+}
+.alipay-er-fize-div{
+	width: 90px;
+    font-size: 10px;
+    color: #333333;
+    float: left;
+    margin-left: 10px;
+}
+
+.weixin-er{
+	width: 140px;
+	height: 180px;
+	display: none;
+}
+.weixin-er img{
+	width: 140px;
+	height: 142px;
+}
+
+
+.pay-protocol{
+	margin-top: 10px;
+}
+
+#order-sucess-page .order-ways .pay-protocol {
+    margin-top: 15px;
+    margin-left: 30px;
+}
+.pay-protocol span {
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: -6px;
+    cursor: pointer;
+}
+
+
+.pay-protocol em {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+    background: url(/web/images/130/select14_normal.png) no-repeat center center;
+}
+
+#order-sucess-page .order-ways .pay-protocol em.select {
+    background: url(/web/images/130/select14_click.png) no-repeat center center;
+}
+
+#order-sucess-page .order-ways .pay-protocol span {
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: -6px;
+    cursor: pointer;
+}
+
+ .pay-protocolBox {
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: -7px;
+    margin-left: -5px;
+}
+
+.kuhao {
+    font-size: 12px;
+    color: #2cb82c;
+}
+
+.pay-protocolBox a{
+	font-size: 12px;
+	color: #0C0000;
+}
