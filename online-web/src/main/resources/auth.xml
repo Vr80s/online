@@ -30,6 +30,7 @@
     <uri>/courses/[0-9]{1,}/aq</uri>
     <uri>/courses/list</uri>
     <uri>/web/liveCoursePage/[0-9]{1,}</uri>
+    <uri>/web/livepage/[0-9]{1,}</uri>
     <uri>/anchors/[a-z0-9]{1,}/info</uri>
     <uri>/online/vedio/getVideoPlayCodeByVideoId</uri>
     <uri>/course/hotSearch</uri>

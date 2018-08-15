@@ -53,9 +53,12 @@ function initVideo(){
  	window.doc = {};
     var readyCallback = function(){
       initVideoFalg = 1;  	
+      var docNode = $('#my-doc-area').length > 0 ? "my-doc-area" : vhallObj.channelId;
       window.doc = new VhallDocPassive({
         channelId:vhallObj.channelId, //频道Id
-        docNode:'my-doc-area'//文档显示节点div id
+        docNode:docNode,//文档显示节点div id
+        width:800,
+        height:450
       });
       
       var roomId = (liveStatus == 1 ? vhallObj.roomId : "");
@@ -94,8 +97,11 @@ var falgNetWorkstate  = 0;
 setInterval(function(){
 	try{
 		var netWorkstate = VhallPlayer.getNetworkState();
-    	if(netWorkstate ==3 && falgNetWorkstate>5){
-    		falgNetWorkstate++;
+		if(netWorkstate ==3){
+			falgNetWorkstate++;
+		}
+		
+    	if(falgNetWorkstate>5){
     		$(".playback").attr("type",21);
     		$(".playback div").hide();
         	$(".media-error").show();
