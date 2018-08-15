@@ -129,10 +129,10 @@ $(function () {
     });
 
     function restartPlay() {
-        var width = $('.J-setup-width').val();
-        var height = $('.J-setup-height').val();
-        width = width ? width : 800;
-        height = height ? height : 450;
+        // var width = $('.J-setup-width').val();
+        // var height = $('.J-setup-height').val();
+        // width = width ? width : 800;
+        // height = height ? height : 450;
         VHPublisher.init({
             roomId: roomId,
             videoNode: 'J_video_main',
@@ -143,11 +143,9 @@ $(function () {
                 console.log("初始化完成=============");
                 console.log(res);
                 if (res && res.code == 2000) {
-                    console.log("width:" + width);
-                    console.log("height:" + height);
                     VHPublisher.startPush({
-                        width: width,
-                        height: height,
+                        // width: width,
+                        // height: height,
                         camera: $('.J-cameras').val(),
                         mic: $('.J-mics').val(),
                         success: function (res) {
