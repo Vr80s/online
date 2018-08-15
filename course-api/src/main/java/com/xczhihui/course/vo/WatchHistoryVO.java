@@ -39,6 +39,15 @@ public class WatchHistoryVO implements Serializable {
     private Date endTime;  //结束时间
     private String directId; //视频id
     private String type; //观看类型 1 直播 2 点播 3 音频
+    /**
+     * 多媒体类型   1 点播  2 音频
+     */
+    private Integer multimediaType;
+    private Integer courseForm;
+    /**
+     * 原价
+     */
+    private Double originalCost;
 
     public String getUserId() {
         return userId;
@@ -231,5 +240,29 @@ public class WatchHistoryVO implements Serializable {
 
     public void setStartDateStr(String startDateStr) {
         this.startDateStr = startDateStr;
+    }
+
+    public Integer getMultimediaType() {
+        return multimediaType;
+    }
+
+    public void setMultimediaType(Integer multimediaType) {
+        this.multimediaType = multimediaType;
+    }
+
+    public Integer getCourseForm() {
+        return courseForm;
+    }
+
+    public void setCourseForm(Integer courseForm) {
+        this.courseForm = courseForm;
+    }
+
+    public Double getOriginalCost() {
+        return originalCost;
+    }
+
+    public void setOriginalCost(Double originalCost) {
+        this.originalCost = originalCost;
     }
 }

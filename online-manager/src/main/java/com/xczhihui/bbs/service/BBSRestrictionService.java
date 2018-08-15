@@ -1,9 +1,9 @@
 package com.xczhihui.bbs.service;
 
-import java.util.List;
-
 import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.utils.TableVo;
+
+import java.util.List;
 
 /**
  * 用户禁言拉黑服务类
@@ -37,4 +37,13 @@ public interface BBSRestrictionService {
      * @return 操作结果
      */
     ResponseObject updateBlacklist(List<String> userIds, boolean blacklist);
+
+    /**
+     * 是否已取消拉黑/禁言
+     *
+     * @param userIds   用户id列表
+     * @param gagsOrBlacklist 1拉黑2禁言
+     * @return 操作结果
+     */
+    ResponseObject isGagsOrBlacklist(List<String> userIds, Integer gagsOrBlacklist);
 }
