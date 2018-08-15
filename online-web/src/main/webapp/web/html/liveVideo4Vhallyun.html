@@ -35,6 +35,10 @@
 <!--新写直播间--css--替换引入微吼css-->
 <link rel="stylesheet" type="text/css" href="/web/css/live_streamings.css"/>
 <style>
+	#qrcodeCanvas3 canvas{
+		margin: 7px auto;
+    	display: -webkit-box;
+	}
 	.hide{
 		display: none;
 	}
@@ -791,13 +795,16 @@
 							</div>
 							<div class="payment-table-right">
 								<div class="alipay-er">
-									<img id="ali_qrcode" src="/web/images/sideWeibopng.jpg" />
+									<!-- <img id="ali_qrcode" src="/web/images/sideWeibopng.jpg" /> -->
+									<div id="qrcodeCanvas3">
+										</div>
 									<div class="alipay-er-fize">
 										<img src="/web/images/chongZhi/43798792669526519.png" alt="" />
 										<div class="alipay-er-fize-div">
 											<div class="">打开手机支付宝</div>
 											<div class="">扫一扫继续付款</div>
 										</div>
+										
 									</div>
 								</div>
 								<div class="weixin-er" style="display: none;">

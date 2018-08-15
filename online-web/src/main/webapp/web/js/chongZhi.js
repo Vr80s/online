@@ -27,6 +27,8 @@ $(".weixin").click(function(){
 var out_trade_no="";
 var qr_code ="";
 $('.chongZhi').click(function(){
+	
+	
     RequestService("/userCoin/userDataForRecharge", "GET", {
     }, function (data) {
         rate = data.resultObject.rate;
@@ -85,7 +87,23 @@ function alipayMadeCode(){
 			if(data.success){ 
 				out_trade_no = data.resultObject.alipay_trade_precreate_response.out_trade_no;
     	 		qr_code = data.resultObject.alipay_trade_precreate_response.qr_code;
-				$("#ali_qrcode").attr("src",qr_code);
+				
+    	 		$("#qrcodeCanvas3").html("");
+    	 		//$("#ali_qrcode").attr("src",qr_code);
+				
+				$("#qrcodeCanvas3").qrcode({
+					render : "canvas",    //设置渲染方式，有table和canvas，使用canvas方式渲染性能相对来说比较好
+					text : qr_code,    //扫描了二维码后的内容显示,在这里也可以直接填一个网址，扫描二维码后
+					width : "130",               //二维码的宽度
+					height : "130",              //二维码的高度
+					background : "#ffffff",       //二维码的后景色
+					foreground : "#000000",        //二维码的前景色
+					foreground : "#000000",
+					src: '/web/images/yrx.png'             //二维码中间的图片
+				});
+				
+				//执行先试试微信的
+				executeLunxun();
     	 	}else{
     	 	   alert("做个容错处理");
     	 	}
@@ -108,7 +126,6 @@ function weixinpayMadeCode(){
 				out_trade_no = data.resultObject.orderNo;
     	 		qr_code = data.resultObject.codeimg;
     	 		$("#wx_qrcode").attr("src",qr_code);
-
     	 		//执行先试试微信的
 				executeLunxun();
     	 	}else{
