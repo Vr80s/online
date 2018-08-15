@@ -142,7 +142,8 @@ span,p{
 .purchase_details_money .span{
 	color: #F97B49;
     font-size: 0.36rem;
-    margin-top: -0.05rem;
+    /*font-size: 0.36rem;*/
+    /*margin-top: -0.05rem;*/
     display: inherit;
     float: left;
 }
