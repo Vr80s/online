@@ -452,6 +452,16 @@ $(function () {
         if (curPage <= 1) {
             curPage = 1;
         }
+        if (curPage === 1) {
+            $('.J-doc-prev').hide();
+        } else {
+            $('.J-doc-prev').show();
+        }
+        if (curPage === page) {
+            $('.J-doc-next').hide();
+        } else {
+            $('.J-doc-next').show();
+        }
         $('.now-page').text(curPage);
         $('.all-pages').text(page);
         $(".modal-list li").removeClass("active");
