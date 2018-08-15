@@ -99,20 +99,24 @@ $(function () {
             });
         });
         setTimeout(function () {
-            cameras = window.Vhall.devices.cameras;
-            mics = window.Vhall.devices.mics;
-            initDevices(cameras, mics);
+            initDevices();
         }, 3000);
     }
 
     init();
 
-    function initDevices(cameras, mics) {
+    function initDevices() {
+        cameras = window.Vhall.devices.cameras;
+        mics = window.Vhall.devices.mics;
+        var $JCameras = $('.J-cameras');
+        var $JMics = $('.J-mics');
+        $JCameras.html('');
+        $JMics.html('');
         for (var i = 0; i < cameras.length; i++) {
-            $('.J-cameras').append('<option value="' + cameras[i] + '">' + cameras[i] + '</option>');
+            $JCameras.append('<option value="' + cameras[i] + '">' + cameras[i] + '</option>');
         }
         for (var i = 0; i < mics.length; i++) {
-            $('.J-mics').append('<option value="' + mics[i] + '">' + mics[i] + '</option>');
+            $JMics.append('<option value="' + mics[i] + '">' + mics[i] + '</option>');
         }
     }
 
@@ -156,10 +160,22 @@ $(function () {
         });
     }
 
+    function micAndCamerasLack() {
+        return !cameras || cameras.length === 0 || !mics || mics.length === 0;
+    }
+
     $('#J_play').on('click', function () {
         var $this = $(this);
         $this.prop('disabled', 'disabled');
         if ($this.data('status') == 0) {
+            if (micAndCamerasLack()) {
+                initDevices();
+                if (micAndCamerasLack()) {
+                    showTip("请先安装并开启摄像头与麦克风");
+                    initDevices();
+                    return false;
+                }
+            }
             VHPublisher.startPush({
                 width: 800,
                 height: 450,
