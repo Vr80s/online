@@ -327,7 +327,7 @@ input::-webkit-input-placeholder{
     height: 30px;
     position: absolute;
     left: 50%;
-    margin-left: -50px;
+    margin-left: -45px;
     bottom: 20px;
     line-height: 30px;
     background: #6e6e6e;
@@ -664,6 +664,7 @@ input::-webkit-input-placeholder{
 	margin-bottom: 20px;
 	overflow: hidden;
 	padding-left: 10px;
+	list-style: none;
 }
 .student-name{
 	margin:8px 15px 0 10px;
