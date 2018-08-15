@@ -159,9 +159,11 @@ public class VhallVideoController {
             }
             //后台自动添加这几个参数
             JSONObject message = (JSONObject) jsonObject.get("message");
-            message.put("userId", account.getUserId());
-            message.put("headImg", account.getSmallHeadPhoto());
-            message.put("username", account.getName());
+            
+            message.put("userId", jsonObject.get("userId")!=null ? jsonObject.get("userId") : account.getUserId());
+            message.put("headImg", jsonObject.get("headImg")!=null ? jsonObject.get("headImg") : account.getSmallHeadPhoto());
+            message.put("username", jsonObject.get("username")!=null ? jsonObject.get("username") : account.getName());
+            
         } else if (jsonObject.get("type") != null && Integer.parseInt(jsonObject.get("type").toString()) == VhallCustomMessageType.LIVE_EXIT_BUT_NOT_END.getCode()) {
             //更改直播中的状况
             courseService.updateCourseLiveCase(channel_id);

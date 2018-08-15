@@ -1,6 +1,6 @@
 $(function () {
     initMenu();
-    initEditor();
+//  initEditor();
     $(".teachingTab").click(function(){courseList(1)});
     $(".course_search").click(function(){
         courseList(1);
@@ -30,9 +30,8 @@ $(function () {
 			$(".long-range-btn").click();
 		}
 	});
-
 });
-
+ 
 /**
  * Description：课程列表
  * creed: Talk is cheap,show me the code
@@ -208,7 +207,7 @@ function echoCourse(caiId, passEdit) {
     $('.course_start_time').val(course.startTime);
     return true;
 }
-function initEditor(){
+//function initEditor(){
     UE.getEditor('editor_lecturer', {
         toolbars: [['source', //源代码
             'undo', //撤销
@@ -295,7 +294,7 @@ function initEditor(){
         autoFloatEnabled:false,
         maximumWords: 3000       //允许的最大字符数
     });
-}
+//}
 function resetCourseForm(sp) {
     //时间插件调用
     var data = new Date();
@@ -308,7 +307,7 @@ function resetCourseForm(sp) {
         minDate: ""+year+"-"+month+"-"+day+" 00:00"
     });
 
-    initEditor()
+//  initEditor()
 
    $("#caiId").val("");
     $('.course_title').val("");
@@ -944,6 +943,96 @@ function cheackSelectAll(){
 		$(".namage-top button").text("返回");		//返回
 		$(".namage-top span").text("招生简章");
 	})
+	UE.getEditor('about-introduce', {
+        toolbars: [
+            [
+                'undo', //撤销
+                'redo', //重做
+                'bold', //加粗
+                'forecolor', //字体颜色
+                'backcolor', //背景色
+                'indent', //首行缩进
+                'removeformat', //清除格式
+                'formatmatch', //格式刷
+                'blockquote', //引用
+                'fontfamily', //字体
+                'fontsize', //字号
+                'paragraph', //段落格式
+                'italic', //斜体
+                'underline', //下划线
+                'strikethrough', //删除线
+                'superscript', //上标
+                'subscript', //下标
+                'touppercase', //字母大写
+                'tolowercase', //字母小写
+                'justifyleft', //居左对齐
+                'justifyright', //居右对齐
+                'justifycenter', //居中对齐
+                'justifyjustify', //两端对齐
+                'link', //超链接
+                'unlink', //取消链接
+                'simpleupload', //单图上传
+                // 'insertimage', //多图上传
+                //				'emotion', //表情
+                'fullscreen'
+            ]
+        ],
+        initialFrameWidth: 540,
+        initialFrameHeight: 220,
+        elementPathEnabled: false,
+        autoHeightEnabled: false,
+        autoFloatEnabled: true,
+        enableAutoSave: false,
+        imagePopup: false,
+        autoFloatEnabled:false,
+        maximumWords: 3000 //允许的最大字符数
+    });
+
+//	招生简介
+	UE.getEditor('introduction-enrolment', {
+        toolbars: [
+            [
+                'undo', //撤销
+                'redo', //重做
+                'bold', //加粗
+                'forecolor', //字体颜色
+                'backcolor', //背景色
+                'indent', //首行缩进
+                'removeformat', //清除格式
+                'formatmatch', //格式刷
+                'blockquote', //引用
+                'fontfamily', //字体
+                'fontsize', //字号
+                'paragraph', //段落格式
+                'italic', //斜体
+                'underline', //下划线
+                'strikethrough', //删除线
+                'superscript', //上标
+                'subscript', //下标
+                'touppercase', //字母大写
+                'tolowercase', //字母小写
+                'justifyleft', //居左对齐
+                'justifyright', //居右对齐
+                'justifycenter', //居中对齐
+                'justifyjustify', //两端对齐
+                'link', //超链接
+                'unlink', //取消链接
+                'simpleupload', //单图上传
+                // 'insertimage', //多图上传
+                //				'emotion', //表情
+                'fullscreen'
+            ]
+        ],
+        initialFrameWidth: 540,
+        initialFrameHeight: 220,
+        elementPathEnabled: false,
+        autoHeightEnabled: false,
+        autoFloatEnabled: true,
+        enableAutoSave: false,
+        imagePopup: false,
+        autoFloatEnabled:false,
+        maximumWords: 3000 //允许的最大字符数
+    });
 	function echoManage(index){
 		var echoManageData=manageData[index];
 		$("#save-manageId").val(echoManageData.id);
@@ -1011,8 +1100,8 @@ function cheackSelectAll(){
 			})
 		}
 	})
-
-
+//	相关介绍富文本
+	
 //	创建招生简章  校验
 	var addressText;     //学习详细地址
 	function testRecruit(establishDate){

@@ -90,16 +90,18 @@ function initVideo(){
  * 2:浏览器正在下载数据,
  * 3:未找到音频/视频来源
  */
+var falgNetWorkstate  = 0;
 setInterval(function(){
 	try{
 		var netWorkstate = VhallPlayer.getNetworkState();
-    	if(netWorkstate ==3){
+    	if(netWorkstate ==3 && falgNetWorkstate>5){
+    		falgNetWorkstate++;
     		$(".playback").attr("type",21);
     		$(".playback div").hide();
         	$(".media-error").show();
         	$(".playback").show();
     	}else if(netWorkstate == 0){
-    	  alert(netWorkstate);
+    		console.error("netWorkstate："+netWorkstate);
     	}
 	}catch(error){
 	 	console.log(error);
