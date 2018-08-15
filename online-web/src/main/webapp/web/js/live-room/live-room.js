@@ -15,6 +15,7 @@ $(function () {
     var mics = [];
     var loadAnchorIn = false;
     var loadAnchorOut = false;
+    var transOverTimer;
     window.doc = null;
 
     window.Vhall.config({
@@ -39,9 +40,20 @@ $(function () {
             docId: '',//jpg big
             docNode: 'J_doc_main',//文档显示节点div id
             width: width,
-            height: height
+            height: height,
+            success:function(){
+                console.log("文档初始化成功");
+            },
+            complete: function () {
+                console.log("文档初始化完成");
+            },
+            slideChange: function(slideIndex,stepIndex){
+            },
+            stepChange: function(slideIndex,stepIndex){
+                curPage = slideIndex + 1;
+                setPage(page, curPage);
+            }
         });
-        // window.doc.cancelPencil(false);
     }
 
     function init() {
@@ -71,9 +83,8 @@ $(function () {
                         loadAnchorIn = true;
                     }
                     viewJoinleaveRoomInfo(msg, "join");
-                    joindStudent(userId, msg.avatar, msg.nick_name);
+                    joinStudent(userId, msg.avatar, msg.nick_name);
                 }
-                //TODO 判断是否被禁言
             });
             window.chat.leave(function (msg) {
                 console.log("离开直播间");
@@ -114,28 +125,35 @@ $(function () {
     });
 
     function restartPlay() {
-        VHPublisher.stopPush({
-            complete: function () {
-                console.log('停止，切换推流参数');
-                startPlay();
-            }
-        })
-    }
-
-    function startPlay() {
         var width = $('.J-setup-width').val();
         var height = $('.J-setup-height').val();
         width = width ? width : 800;
         height = height ? height : 450;
-        VHPublisher.startPush({
-            width: width,
-            height: height,
-            camera: $('.J-cameras').val(),
-            mic: $('.J-mics').val(),
+        VHPublisher.init({
+            roomId: roomId,
+            videoNode: 'J_video_main',
             success: function () {
-                console.log('推流切换成功');
+                console.log('初始化成功==============');
+            },
+            complete: function (res) {
+                console.log("初始化完成=============");
+                console.log(res);
+                if (res && res.code == 2000) {
+                    console.log("width:" + width);
+                    console.log("height:" + height);
+                    VHPublisher.startPush({
+                        width: width,
+                        height: height,
+                        camera: $('.J-cameras').val(),
+                        mic: $('.J-mics').val(),
+                        success: function (res) {
+                            console.log('推流切换成功');
+                            console.log(res);
+                        }
+                    })
+                }
             }
-        })
+        });
     }
 
     $('#J_play').on('click', function () {
@@ -177,7 +195,7 @@ $(function () {
                 }
             });
         }
-        $this.prop('disabled', '');
+        $this.removeAttr('disabled');
     });
 
     function renderMsg(msg) {
@@ -240,6 +258,7 @@ $(function () {
 
     function viewJoinleaveRoomInfo(msg, action) {
         var html = '<li>\n' +
+            (msg.third_party_user_id === accountId ? '<span class="chat-status">主播</span>' : '') +
             '                            <span class="chat-name">' + msg.nick_name + ':</span>\n' +
             '                            <span class="chat-content">' + (action === 'join' ? '进入直播间' : '退出') + '</span>\n' +
             '                        </li>';
@@ -251,7 +270,7 @@ $(function () {
         $.ajax({
             method: 'GET',
             url: '/vhallyun/roomJoinStudent',
-            data: {'channelId': channelId, "pos" : 0, "limit" : 1000},
+            data: {'channelId': channelId, "pos": 0, "limit": 1000},
             success: function (resp) {
                 var data = resp.resultObject;
                 for (var i = data.length - 1; i >= 0; i--) {
@@ -259,15 +278,20 @@ $(function () {
                         appendStudentList(data[i].id, data[i].name, data[i].smallHeadPhoto, data[i].ban);
                     }
                 }
+                updatePersonNum();
             }
         });
+    }
+
+    function updatePersonNum() {
+        $('.J-person-num').text('(' + $('.student-list li').length + ')')
     }
 
     $('.J-refresh-list').on('click', function () {
         renderStudentList();
     });
 
-    function joindStudent(userId, avatar, nickname) {
+    function joinStudent(userId, avatar, nickname) {
         if (userId != accountId) {
             if ($('.user-id-' + userId).length === 0) {
                 $.ajax({
@@ -281,7 +305,6 @@ $(function () {
                         appendStudentList(userId, nickname, avatar, resp.resultObject)
                     }
                 });
-
             }
         }
     }
@@ -297,6 +320,7 @@ $(function () {
             (ban ? '<img src="/web/images/live-room/say-ban.png"/>' : '                                <img src="/web/images/live-room/say-icon.png" alt="选择禁言" title="禁言"/>\n' ) +
             '                            </span>' +
             '                        </li>');
+        updatePersonNum();
     }
 
     function removeStudent(userId) {
@@ -351,21 +375,22 @@ $(function () {
         });
     }
 
-    function reloadDoc() {
+    function reloadDoc(changePage) {
         initDoc();
-        setTimeout(function () {
-            window.doc.loadDoc(docId, channelId, function (docId) {
+        window.doc.loadDoc(docId, channelId, function (docId) {
+            if (changePage) {
                 $('.video-main').css("background", "none");
                 $('.J-close-doc').trigger("click");
-                getImg(true);
-
-            }, function (reason) {
-                console.error(reason);
-            });
-        }, 200);
+                getImg();
+            } else {
+                window.doc.gotoSlide(curPage);
+            }
+        }, function (reason) {
+            console.error(reason);
+        });
     }
 
-    function getImg(changePage) {
+    function getImg() {
         setTimeout(function () {
             var imgs = window.doc.getThumImgList(function (list) {
             });
@@ -374,9 +399,7 @@ $(function () {
             if (!page) {
                 page = 1;
             }
-            if (changePage) {
-                curPage = 1;
-            }
+            curPage = 1;
             setPage(page, curPage);
             for (var i = 0; i < imgs.length; i++) {
                 $('.J-thumImg').append('<li class="' + (i + 1 === curPage ? "active" : "") + ' J-page-img J-page-num-' + (i + 1) + '">\n' +
@@ -426,7 +449,7 @@ $(function () {
             $(".icon-left").click();
         }
         docId = $(this).parent().data('did');
-        reloadDoc();
+        reloadDoc(true);
         if (!page) {
             page = 1;
         }
@@ -453,7 +476,7 @@ $(function () {
     });
 
 //转码定时调用
-    var transOverTimer = setInterval(function () {
+    transOverTimer = setInterval(function () {
         $.ajax({
             method: "GET",
             url: "/vhallyun/document",
@@ -608,7 +631,7 @@ $(function () {
             documentWidth = $(".video-width").width() - 70;
         }
         $(".document-content").css({"width": documentWidth});
-        window.doc.reSizeBorad(documentWidth, $(".video-main").height());
+        window.doc.resize(documentWidth, $(".video-main").height());
     }
 
 //------------------------------------------文档左侧列表点击效果----------------------------------------------------------------	
