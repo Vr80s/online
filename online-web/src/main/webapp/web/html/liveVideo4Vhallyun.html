@@ -26,7 +26,12 @@
 
 <!-- 放大縮小文檔使用文件 -->
 <link rel="stylesheet" href="/web/js/live-streamin-document/jquery.iviewer.css">
-<link rel="stylesheet" href="https://static.vhallyun.com/jssdk/videojs.min.css?v=1.0.0">
+<script type="text/javascript" src="/web/js/live-streamin-document/jquery.js" ></script>
+<script type="text/javascript" src="/web/js/live-streamin-document/jqueryui.js" ></script>
+<script type="text/javascript" src="/web/js/live-streamin-document/jquery.iviewer.js" ></script>
+<link rel="stylesheet" href="https://static.vhallyun.com/jssdk/videojs.min.css">
+
+
 <!--新写直播间--css--替换引入微吼css-->
 <link rel="stylesheet" type="text/css" href="/web/css/live_streamings.css"/>
 <style>
@@ -261,6 +266,26 @@
 			    height: 26px;
 			    margin-left: -18px;*/
 			}
+
+	.doc-imgs{
+		display: block !important;
+	}
+	.doc-img-addclass{
+		width: 100% !important;
+		height: 100% !important;
+	}
+	.iframe-addclass{
+		width: 100% !important;
+		height: 100% !important;
+	}
+	.doc{
+		margin-top: 0 !important;
+		/*z-index: -1;*/
+	}
+	.vjs-tech{
+		/*z-index: 99999999999999;*/
+	}
+
 	
 </style>
 <script src="/web/js/jquery.min.js" type="text/javascript"></script>
@@ -855,8 +880,8 @@
 <script src="/web/js/common/video_share.js?v=ipandatcm_1.3"></script>
 <script src="/web/js/placeHolder.js"></script>
 <script src="/web/js/chongZhi.js?v=ipandatcm_1.3" type="text/javascript" charset="utf-8"></script>
-<script type="text/javascript" src="/web/js/live-streamin-document/jqueryui.js" ></script>
-<script type="text/javascript" src="/web/js/live-streamin-document/jquery.iviewer.js" ></script>
+<!-- <script type="text/javascript" src="/web/js/live-streamin-document/jqueryui.js" ></script>  <!-- 文档 --> -->
+<!-- <script type="text/javascript" src="/web/js/live-streamin-document/jquery.iviewer.js" ></script>   <!-- 文档 --> -->
 
 <script type="text/javascript">
     var $ = jQuery;
@@ -871,7 +896,7 @@
 		$('input').placeholder();
 	});
     
-	window.onload = function(){
+    window.onload = function(){
 		// 文檔切換
 		var num = 1;
 		$(".animation-cut-click").click(function(){
@@ -885,19 +910,35 @@
 				$(".video").removeClass("company-introduces-two");
 				$(".video").addClass("company-introduce-two");
 				src = $(".company-introduce-one div img").attr("src");
-		        $("#viewer2 #00bc12").attr("src",src);
+		        $("#viewer2 img").attr("src",src);
 		        $(".doc").hide();
 		        $("#viewer2").removeClass("company-introduces-one");
-				$("#viewer2").removeClass("doc-#00bc12");
+				$("#viewer2").removeClass("doc-img");
 				$("#viewer2").addClass("company-introduce-one");
-				$("#viewer2 #00bc12").removeClass("viewer-#00bc12");
+				$("#viewer2 img").removeClass("viewer-img");
 
 				// 文檔按鈕隱藏
 				$(".iviewer_common").show();
 				$(".layer").addClass("layers");
-				$("#viewer2 #00bc12").removeClass("viewer-#00bc12s");//缩小后的文档区域  文档高度
+				$("#viewer2 img").removeClass("viewer-imgs");//缩小后的文档区域  文档高度
 //				alert(222);
+				
+
+				$(".doc-img").addClass("doc-imgs");
+				$(".doc").css("z-index","-1");
+				$(".vjs-tech").css("z-index","999");
+				$(".doc-img").addClass("doc-img-addclass");
+				$(".doc-img").addClass("doc-img-addclass");
+				$("iframe").addClass("iframe-addclass");
+				$("iframe").addClass("iframe-addclass");
+				$(".company-introduce-one").addClass("doc-imgs");  //点击小区域显示 大文档
+	
  			}else{
+ 				
+ 				
+ 				$(".doc").css("z-index","9");
+				$(".vjs-tech").css("z-index","0");
+
  				$("#viewer2 img").addClass("viewer-imgs");//缩小后的文档区域  文档高度
 // 				alert(111);
 				$("#viewer2 img").addClass("viewer-img");
@@ -911,6 +952,20 @@
 				$(".video").removeClass("company-introduce-two");
 				// 文檔按鈕隱藏
 				$(".iviewer_common").hide();
+
+				$(".doc-img").addClass("doc-imgs");
+
+				$(".doc-img").removeClass("doc-img-addclass");
+				$(".doc-img").removeClass("doc-img-addclass");
+				$("iframe").removeClass("iframe-addclass");
+				$("iframe").removeClass("iframe-addclass");
+				$(".doc-img").css("width","320px");
+				$(".doc-img").css("height","180px");
+
+				$("iframe").css("width","320px");
+				$("iframe").css("height","180px");
+				
+
 			}
 		})
 	}
@@ -1028,24 +1083,8 @@ function insertAtCaret(e){
 	 	});
 	 	/*鼠标放排行榜上查看效果结束*/
 	 	
-//	 	点击充值按钮
-		$(".alipay").click(function(){
-			$(".weixin-er").hide();
-			$(".alipay-er").show();
-			$(".alipay").css("background","#fff");
-			$(".weixin").css("background","none");
-		});
-		$(".weixin").click(function(){
-			$(".weixin-er").show();
-			$(".alipay-er").hide();
-			$(".alipay").css("background","none");
-			$(".weixin").css("background","#fff");
-		});
-		$(".alipay").click();
-		
 //		判断排行榜为空
 		if($('.billboard-float').is('.hide')){
-			alert(111);
 		}
 	 	
 	});

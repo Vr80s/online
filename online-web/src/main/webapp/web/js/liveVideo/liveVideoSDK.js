@@ -70,7 +70,10 @@ function getRankingListByLiveId(){
 	}
 	RequestService("/gift/getRankingListByLiveId", "GET",params, function(data) {
 		if(data.success && data.resultObject!=null && data.resultObject.length>0){
+			$(".hide-size").hide();
             createRanking(data.resultObject);
+	     }else{
+			$(".hide-size").show();
 	     }
 	});
 }
