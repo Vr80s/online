@@ -94,19 +94,26 @@ function initVideo(){
  * 3:未找到音频/视频来源
  */
 var falgNetWorkstate  = 0;
+var falgNetWorkstateZero  = 0;
 setInterval(function(){
 	try{
 		var netWorkstate = VhallPlayer.getNetworkState();
 		if(netWorkstate ==3){
 			falgNetWorkstate++;
 		}
+		if(netWorkstate ==0){
 		
-    	if(falgNetWorkstate>5){
+		
+		}
+    	if(falgNetWorkstate>2){
     		$(".playback").attr("type",21);
     		$(".playback div").hide();
         	$(".media-error").show();
         	$(".playback").show();
     	}else if(netWorkstate == 0){
+    		
+    		falgNetWorkstateZero++;
+    		
     		console.error("netWorkstate："+netWorkstate);
     	}
 	}catch(error){

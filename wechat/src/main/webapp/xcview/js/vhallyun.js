@@ -66,7 +66,7 @@ setInterval(function() {
 		if(netWorkstate ==3){
 			falgNetWorkstate++;
 		}
-    	if(falgNetWorkstate>5){
+    	if(falgNetWorkstate>2){
 			$(".video_end_top4").show();
 		}
 	} catch (error) {
