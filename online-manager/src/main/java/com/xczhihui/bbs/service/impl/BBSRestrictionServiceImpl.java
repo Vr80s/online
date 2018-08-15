@@ -106,6 +106,26 @@ public class BBSRestrictionServiceImpl implements BBSRestrictionService {
         return ResponseObject.newSuccessResponseObject("操作成功");
     }
 
+    @Override
+    public ResponseObject isGagsOrBlacklist(List<String> userIds, Integer gagsOrBlacklist) {
+        for (String userId : userIds) {
+            BBSUserStatus bbsUserStatus = bbsUserStatusDao
+                    .findOneEntitiyByProperty(BBSUserStatus.class, "id", userId);
+            String blacklist = bbsUserStatus.getBlacklist();
+            String gag = bbsUserStatus.getGag();
+            if(gagsOrBlacklist == 1){
+                if(blacklist.equals("1")){
+                    return ResponseObject.newSuccessResponseObject(true);
+                }
+            } else {
+                if(gag.equals("1")){
+                    return ResponseObject.newSuccessResponseObject(true);
+                }
+            }
+        }
+        return ResponseObject.newSuccessResponseObject(false);
+    }
+
     private void checkUserStatus(String userId) {
         synchronized (CHECK_LOCK) {
             BBSUserStatus bbsUserStatus = bbsUserStatusDao
