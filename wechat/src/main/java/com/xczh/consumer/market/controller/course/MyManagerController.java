@@ -25,6 +25,7 @@ import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.XzStringUtils;
+import com.xczhihui.common.util.enums.ApplyStatus;
 import com.xczhihui.common.util.enums.OrderFrom;
 import com.xczhihui.common.util.enums.VCodeType;
 import com.xczhihui.course.service.ICourseService;
@@ -32,6 +33,7 @@ import com.xczhihui.course.service.IFocusService;
 import com.xczhihui.course.service.IMyInfoService;
 import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.medical.anchor.service.IAnchorInfoService;
+import com.xczhihui.medical.anchor.service.ICourseApplyService;
 import com.xczhihui.medical.anchor.service.IUserBankService;
 import com.xczhihui.medical.anchor.vo.UserBank;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorApplyService;
@@ -67,6 +69,10 @@ public class MyManagerController {
     private IMedicalDoctorApplyService medicalDoctorApplyService;
     @Autowired
     private VerificationCodeService verificationCodeService;
+    
+    @Autowired
+    private ICourseApplyService courseApplyService;
+    
     @Autowired
     @Qualifier("focusServiceRemote")
     private IFocusService focusServiceRemote;
@@ -354,8 +360,7 @@ public class MyManagerController {
                                                    Integer type, Integer courseFrom, Integer multimediaType, @Account String accountId) throws Exception {
 //        Integer courseFrom = null; // 课程类型：1.直播 2.点播 3.线下课
 //        Integer multimediaType = null; // 多媒体类型:1视频2音频
-
-        //type 查询类型：0 全部 1 直播音频 2 点播视频 3 线下课 4 点播音频 5.直播音频
+//		  type 查询类型：0 全部 1 直播音频 2 点播视频 3 线下课 4 点播音频 5.直播音频
         if(type!=null){
             if (type == 1) {
                 courseFrom = 1;
@@ -377,8 +382,18 @@ public class MyManagerController {
         page.setCurrent(pageNumber);
         page.setSize(pageSize);
 
-        return ResponseObject.newSuccessResponseObject(courseService
-                .selectAppCourseApplyPage(page, accountId, courseFrom, multimediaType));
+        page = courseService.selectAppCourseApplyPage(page, accountId, courseFrom, multimediaType);
+        for (CourseLecturVo cv : page.getRecords()) {
+            if (ApplyStatus.PASS.getCode() == cv.getApplyStatus() && cv.getCollection()) {
+                //已更新多少集，等于总集数
+                if(cv.getCourseNumber()!=null && cv.getDirtyNumber()!=null && cv.getCourseNumber().equals(cv.getDirtyNumber())) {
+                    cv.setDirtyDate(XzStringUtils.COLLECTION_UPDATE_FINISH);
+                }else {
+                    cv.setDirtyDate(courseApplyService.getCollectionUpdateDateText(cv.getId()));
+                }
+            }
+		}
+        return ResponseObject.newSuccessResponseObject(page);
     }
 
     /**

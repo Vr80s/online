@@ -36,6 +36,7 @@ import com.xczhihui.bxg.online.web.base.utils.WebUtil;
 import com.xczhihui.bxg.online.web.utils.MatrixToImageWriter;
 import com.xczhihui.common.util.IStringUtil;
 import com.xczhihui.common.util.OrderNoUtil;
+import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.common.util.enums.OrderFrom;
 import com.xczhihui.common.util.enums.PayOrderType;
 import com.xczhihui.course.model.Order;
@@ -219,6 +220,78 @@ public class WxPayController extends WxPayApiController {
         return m;
     }
 
+    
+    /**
+     * 生成支付二维码并在页面上显示--充值
+     */
+    @RequestMapping("/recharge/{price}")
+    @ResponseBody
+    public ResponseObject scanCode4RechargeHtml(HttpServletRequest request, @PathVariable String price) throws WriterException {
+    	
+        OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser();
+        if (loginUser == null) {
+            throw new RuntimeException("充值需登录后进行");
+        }
+        Double count = Double.valueOf(price) * rate;
+        if (!WebUtil.isIntegerForDouble(count)) {
+            throw new RuntimeException("充值金额" + price + "兑换的熊猫币" + count + "不为整数");
+        }
+
+        String ip = IpKit.getRealIp(request);
+        if (StrKit.isBlank(ip)) {
+            ip = "127.0.0.1";
+        }
+
+        PayMessage payMessage = new PayMessage();
+        payMessage.setType(PayOrderType.COIN_ORDER.getCode());
+        payMessage.setUserId(loginUser.getId());
+        payMessage.setValue(new BigDecimal(count));
+        payMessage.setFrom(OrderFrom.PC.getCode());
+
+        String orderNo = OrderNoUtil.getCoinOrderNo();
+        String attach = PayMessage.getPayMessage(payMessage);
+        Map<String, String> params = WxPayApiConfigKit.getWxPayApiConfig()
+                .setAttach(attach)
+                .setBody(MessageFormat.format(BUY_COIN_TEXT, count))
+                .setSpbillCreateIp(ip)
+                .setTotalFee((int) (Double.valueOf(price) * 100) + "")
+                .setTradeType(TradeType.NATIVE)
+                .setNotifyUrl(notify_url)
+                .setOutTradeNo(orderNo)
+                .build();
+
+        String xmlResult = WxPayApi.pushOrder(false, params);
+
+        log.info(xmlResult);
+        Map<String, String> resultMap = PaymentKit.xmlToMap(xmlResult);
+
+        String return_code = resultMap.get("return_code");
+        String return_msg = resultMap.get("return_msg");
+        
+        if (!PaymentKit.codeIsOK(return_code)) {
+            log.info(xmlResult);
+            return ResponseObject.newErrorResponseObject(return_msg);
+        }
+        String result_code = resultMap.get("result_code");
+        if (!PaymentKit.codeIsOK(result_code)) {
+            log.info(xmlResult);
+            return ResponseObject.newErrorResponseObject(return_msg);
+        }
+        //生成预付订单success
+        String qrCodeUrl = resultMap.get("code_url");
+
+        Map<String,Object> map = new HashMap<String,Object>();
+        map.put("codeimg", encodeQrcode(qrCodeUrl));
+        map.put("orderNo", encodeQrcode(qrCodeUrl));
+        map.put("courseName", encodeQrcode(qrCodeUrl));
+        map.put("price", encodeQrcode(qrCodeUrl));
+        
+        return ResponseObject.newSuccessResponseObject();
+    }
+    
+    
+    
+    
     private String getorderNo4Pay(String orderNo) {
         return orderNo + IStringUtil.getRandomString();
     }
