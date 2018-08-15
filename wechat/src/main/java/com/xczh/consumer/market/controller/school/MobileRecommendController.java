@@ -145,6 +145,9 @@ public class MobileRecommendController {
                 queryConditionVo.setCourseForm(CourseForm.LIVE.getCode());
             } else if (queryConditionVo.getCourseType().equals(CourseType.OFFLINE.getId())) {
                 queryConditionVo.setCourseForm(CourseForm.OFFLINE.getCode());
+            }else if(queryConditionVo.getCourseType().equals(CourseType.AUDIO_LIVE.getId())) { 
+            	 queryConditionVo.setCourseForm(CourseForm.LIVE.getCode());
+                 queryConditionVo.setMultimediaType(Multimedia.AUDIO.getCode());
             }
         }
         
