@@ -394,6 +394,9 @@ input::-webkit-input-placeholder{
 .video-main .icon-left:hover{
 	background-color: #282828 !important;
 }
+.document-content img {
+	width: auto!important;
+}
 .select-document-wrap .modal-list{
 	padding-top: 1px;
 	overflow-y: auto;
