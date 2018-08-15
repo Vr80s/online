@@ -35,6 +35,8 @@
         oc.is_free AS watchState,
         oc.live_source_type AS liveSourceType,
         oc.user_lecturer_id AS userId,
+        oc.type courseForm,
+        oc.multimedia_type multimediaType,
 
         IF(owh.collectionId IS NOT NULL AND owh.collectionId > 0,
         (SELECT direct_id FROM oe_course WHERE id = owh.course_id),
@@ -53,6 +55,7 @@
         0) learndCount,
         oc.smallimg_path AS smallimgPath,
         oc.current_price*10 AS currentPrice,
+        oc.original_cost*10 as originalCost,
         oc.is_free AS isFree
     </sql>
 
