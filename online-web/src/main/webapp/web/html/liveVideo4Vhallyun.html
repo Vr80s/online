@@ -744,11 +744,14 @@
 					<div class='item_title title_two' style="width: 640px;">
 						<p>充值数量</p>
 						<div class='item_content content_two' style="width: 540px;">
-							<ul>
-								<li data-value='1' class="dian">1个 <i
+							<ul id="money_item">
+							    <li data-value='0.1' class="orange dian">1个 <i
 									class="ico i-selector"></i>
 								</li>
-								<li data-value='5' class='orange dian'>50个 <!--<i
+								<li data-value='1' class="dian">10个 <i
+									class="ico i-selector"></i>
+								</li>
+								<li data-value='5' class='dian'>50个 <!--<i
 									class="ico i-selector show"></i>-->
 								</li>
 								<li data-value='10' class="dian">100个 <!--<i
@@ -789,7 +792,6 @@
 							<div class="payment-table-right">
 								<div class="alipay-er">
 									<img id="ali_qrcode" src="/web/images/sideWeibopng.jpg" />
-									<img id="wx_qrcode" style="display:none;" src="/web/images/sideWeibopng.jpg" />
 									<div class="alipay-er-fize">
 										<img src="/web/images/chongZhi/43798792669526519.png" alt="" />
 										<div class="alipay-er-fize-div">
@@ -799,7 +801,7 @@
 									</div>
 								</div>
 								<div class="weixin-er" style="display: none;">
-									<img src="/web/images/sideWeibopng.jpg" />
+									<img id="wx_qrcode" src="/web/images/sideWeibopng.jpg" />
 									<div class="weixin-er-fize">
 										<img src="/web/images/chongZhi/43798792669526519.png" alt="" />
 										<div class="weixin-er-fize-div">

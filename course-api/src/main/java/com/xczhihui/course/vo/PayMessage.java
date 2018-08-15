@@ -1,6 +1,7 @@
 package com.xczhihui.course.vo;
 
 import java.math.BigDecimal;
+import java.util.Map;
 
 import com.alibaba.fastjson.JSONObject;
 
@@ -25,6 +26,16 @@ public class PayMessage {
     private Integer from;
 
     public static PayMessage getPayMessage(String payMessage) {
+        return JSONObject.parseObject(payMessage.replace("|", "\""), PayMessage.class);
+    }
+    
+    
+    public static PayMessage getPayMessageType(Map<String, String> params) {
+    	String payMessage = params.get("passback_params");
+    	String subject = params.get("subject");
+    	if(subject!=null && subject.indexOf("支付宝扫码支付")!=-1) {
+    		payMessage = params.get("body");
+    	}
         return JSONObject.parseObject(payMessage.replace("|", "\""), PayMessage.class);
     }
 

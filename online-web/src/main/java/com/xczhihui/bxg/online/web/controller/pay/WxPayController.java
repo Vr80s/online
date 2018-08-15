@@ -286,11 +286,10 @@ public class WxPayController extends WxPayApiController {
 
         Map<String,Object> map = new HashMap<String,Object>();
         map.put("codeimg", encodeQrcode(qrCodeUrl));
-        map.put("orderNo", encodeQrcode(qrCodeUrl));
-        map.put("courseName", encodeQrcode(qrCodeUrl));
-        map.put("price", encodeQrcode(qrCodeUrl));
+        map.put("orderNo", orderNo);
+        map.put("price", price);
         
-        return ResponseObject.newSuccessResponseObject();
+        return ResponseObject.newSuccessResponseObject(map);
     }
     
     

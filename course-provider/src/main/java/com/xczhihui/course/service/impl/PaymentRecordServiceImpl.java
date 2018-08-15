@@ -62,7 +62,9 @@ public class PaymentRecordServiceImpl implements IPaymentRecordService {
 
         AlipayPaymentRecord alipayPaymentRecord = new AlipayPaymentRecord();
         String userId = null;
-        PayMessage payMessage = PayMessage.getPayMessage(params.get("passback_params"));
+        
+        
+        PayMessage payMessage = PayMessage.getPayMessageType(params);
 
         if (PayOrderType.COURSE_ORDER.getCode().equals(payMessage.getType())) {
             userId = payMessage.getUserId();

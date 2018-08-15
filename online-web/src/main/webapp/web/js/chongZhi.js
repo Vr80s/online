@@ -2,6 +2,30 @@ var price=5;
 var rate;
 var env;
 //var rate=10;//一元兑换10熊猫币
+var orderIsExit = "";
+
+//	 	点击充值按钮
+$(".alipay").click(function(){
+	$(".weixin-er").hide();
+	$(".alipay-er").show();
+	$(".alipay").css("background","#fff");
+	$(".weixin").css("background","none");
+	
+	
+	alipayMadeCode();
+});
+
+$(".weixin").click(function(){
+	$(".weixin-er").show();
+	$(".alipay-er").hide();
+	$(".alipay").css("background","none");
+	$(".weixin").css("background","#fff");
+	
+	weixinpayMadeCode();
+});
+
+var out_trade_no="";
+var qr_code ="";
 $('.chongZhi').click(function(){
     RequestService("/userCoin/userDataForRecharge", "GET", {
     }, function (data) {
@@ -11,6 +35,9 @@ $('.chongZhi').click(function(){
         env = data.resultObject.env;
         $("#account").html(account);
         $(".balanceTotal").html(balanceTotal);
+        
+        $(".alipay").click();
+        
     },false);
 	console.log(1)
 	// price=100/rate;//初始化为10元
@@ -18,9 +45,88 @@ $('.chongZhi').click(function(){
 	$('#main1').addClass('show')
 	$('.mask').css({'display':'block'})
 })
+
+
+//点击变色效果
+$('.content_two li').click(function(){
+	$('.content_two li').removeClass('orange')
+	$('.content_two li').find('.i-selector').removeClass('show')
+	$(this).addClass('orange')
+	$(this).find('.i-selector').addClass('show')
+	//选择对应的充值数下面对应变化数值
+    price = $(this).attr('data-value');
+	$('.number').text(price) ;
+	$('.erweima').animate({'display':'none'}).hide(100)
+	
+	
+	var payment = "alipay";
+	var alidisplay = $('.alipay-er').css('display')
+	var wxdisplay = $('.weixin-er').css('display')
+	if(alidisplay=="none" && wxdisplay=="block"){
+		payment = "weixipay";
+	}
+	
+	if(payment == "alipay"){
+
+		alipayMadeCode();
+	}else if(payment == "weixipay"){
+        weixinpayMadeCode();
+	}
+})
+
+/**
+ * 阿里支付-- 生成二维码
+ */
+function alipayMadeCode(){
+     var price = $("#money_item .orange").attr("data-value");
+     RequestService("/web/alipay/rechargeQrCode/"+price+"/", "GET", {
+	 }, function (data) {
+		try{
+			if(data.success){ 
+				out_trade_no = data.resultObject.alipay_trade_precreate_response.out_trade_no;
+    	 		qr_code = data.resultObject.alipay_trade_precreate_response.qr_code;
+				$("#ali_qrcode").attr("src",qr_code);
+    	 	}else{
+    	 	   alert("做个容错处理");
+    	 	}
+		}catch(error){
+		   alert("做个容错处理");
+		}
+	 })
+}
+
+/**
+ *  微信支付生成二维码
+ */
+function weixinpayMadeCode(){
+     var price = $("#money_item .orange").attr("data-value");
+     RequestService("/web/wxPay/rechargeCode/"+price+"/", "GET", {
+	 }, function (data) {
+	 	console.log(data);
+		try{
+			if(data.success){ 
+				out_trade_no = data.resultObject.orderNo;
+    	 		qr_code = data.resultObject.codeimg;
+    	 		$("#wx_qrcode").attr("src",qr_code);
+
+    	 		//执行先试试微信的
+				executeLunxun();
+    	 	}else{
+    	 	   alert("做个容错处理");
+    	 	}
+		}catch(error){
+		   alert("做个容错处理");
+		}
+	 })
+}
+
 //关闭
 $('.close').click(function(){
 	closeCz();
+	//清理轮询
+	if(orderIsExit!=""){
+		window.clearInterval(orderIsExit);
+	}
 })
 function closeCz(){
 	$('#main1').removeClass('show')
@@ -42,17 +148,6 @@ $('.content_two li').mouseout(function(){
 	$(this).css({'border-color':'#e3e5ea'})
 })
 
-//点击变色效果
-$('.content_two li').click(function(){
-	$('.content_two li').removeClass('orange')
-	$('.content_two li').find('.i-selector').removeClass('show')
-	$(this).addClass('orange')
-	$(this).find('.i-selector').addClass('show')
-	//选择对应的充值数下面对应变化数值
-    price = $(this).attr('data-value');
-	$('.number').text(price) ;
-	$('.erweima').animate({'display':'none'}).hide(100)
-})
 
 
 //微信支付宝移动边框变色
@@ -99,13 +194,13 @@ $('#editPayNum').keyup(function(){
 })
 
 //点及其余的四个
-$('.content_two li:nth-child(-n+8)').click(function(){
-//	$('.editPayNum').val('') 
-	$('.inputTips').css({'visibility':'hidden'})
-	$('.inTips').removeClass('hide')
-	$('#editPayNum').removeClass('show')
-	$('.baseNum').removeClass('show')
-})
+//$('.content_two li:nth-child(-n+8)').click(function(){
+////	$('.editPayNum').val('') 
+//	$('.inputTips').css({'visibility':'hidden'})
+//	$('.inTips').removeClass('hide')
+//	$('#editPayNum').removeClass('show')
+//	$('.baseNum').removeClass('show')
+//})
 
 //其他金额的li点击事件
 /*$('.content_two li:nth-child(5)').click(function(){
@@ -162,53 +257,38 @@ $('#pay-continue').click(function(){
 })
 
 
-//	 	点击充值按钮
-$(".alipay").click(function(){
-	$(".weixin-er").hide();
-	$(".alipay-er").show();
-	$(".alipay").css("background","#fff");
-	$(".weixin").css("background","none");
-	
-	
-	
-});
-
-$(".weixin").click(function(){
-	$(".weixin-er").show();
-	$(".alipay-er").hide();
-	$(".alipay").css("background","none");
-	$(".weixin").css("background","#fff");
-});
-$(".alipay").click();
-
-
-
-//轮询
-function lalala(){
-
-	RequestService("/userCoin/checkRechargeOrder", "GET", {
-     orderNo: $(".orderNumber").html()
-}, function (data) {
-    if (data.resultObject === true) {
-        window.clearInterval(c);
-        $(".zhezao").show();
-        $(".tank").show();
-        var m = 5;
-        window.setInterval(function () {
-            m--;
-            if (m === 0) {
-//                //点击跳转充值记录
-//                localStorage.setItem("personcenter", "mymoney ");
-//                localStorage.setItem("findStyle", "profile ");
-//                location.href = "/my#menu4"
-            }
-//            $(".tank span").html(m + "s");
-        }, 1000);
-    } else {
-    }
-}, false);
-	
+/**
+ * 执行轮询查看是否充值
+ */
+function executeLunxun(){
+	if(out_trade_no!=""){
+	    orderIsExit = setInterval(function() {
+			try {
+				console.log("out_trade_no:"+out_trade_no);
+				RequestService("/userCoin/checkRechargeOrder", "GET", {
+			     orderNo: out_trade_no
+				}, function (data) {
+				    if (data.resultObject === true) { //支付成功
+				    	alert("充值成功");
+				    	$('.close').click();
+				    	//刷新熊猫币余额
+				        refreshBalance();
+				    } else {
+				    	console.log("还没有去充值呢");
+				    }
+				}, false);
+				
+			} catch (error) {
+				console.log(error);
+			}
+	 	}, 3000)
+	}
 }
+
+
+
+
+
 
 
 
