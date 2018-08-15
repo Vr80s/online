@@ -871,7 +871,7 @@
 		$('input').placeholder();
 	});
     
-	window.onload = function(){
+    window.onload = function(){
 		// 文檔切換
 		var num = 1;
 		$(".animation-cut-click").click(function(){
@@ -885,17 +885,17 @@
 				$(".video").removeClass("company-introduces-two");
 				$(".video").addClass("company-introduce-two");
 				src = $(".company-introduce-one div img").attr("src");
-		        $("#viewer2 #00bc12").attr("src",src);
+		        $("#viewer2 img").attr("src",src);
 		        $(".doc").hide();
 		        $("#viewer2").removeClass("company-introduces-one");
-				$("#viewer2").removeClass("doc-#00bc12");
+				$("#viewer2").removeClass("doc-img");
 				$("#viewer2").addClass("company-introduce-one");
-				$("#viewer2 #00bc12").removeClass("viewer-#00bc12");
+				$("#viewer2 img").removeClass("viewer-img");
 
 				// 文檔按鈕隱藏
 				$(".iviewer_common").show();
 				$(".layer").addClass("layers");
-				$("#viewer2 #00bc12").removeClass("viewer-#00bc12s");//缩小后的文档区域  文档高度
+				$("#viewer2 img").removeClass("viewer-imgs");//缩小后的文档区域  文档高度
 //				alert(222);
  			}else{
  				$("#viewer2 img").addClass("viewer-imgs");//缩小后的文档区域  文档高度
@@ -1045,7 +1045,6 @@ function insertAtCaret(e){
 		
 //		判断排行榜为空
 		if($('.billboard-float').is('.hide')){
-			alert(111);
 		}
 	 	
 	});
