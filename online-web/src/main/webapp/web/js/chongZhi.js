@@ -162,6 +162,27 @@ $('#pay-continue').click(function(){
 })
 
 
+//	 	点击充值按钮
+$(".alipay").click(function(){
+	$(".weixin-er").hide();
+	$(".alipay-er").show();
+	$(".alipay").css("background","#fff");
+	$(".weixin").css("background","none");
+	
+	
+	
+});
+
+$(".weixin").click(function(){
+	$(".weixin-er").show();
+	$(".alipay-er").hide();
+	$(".alipay").css("background","none");
+	$(".weixin").css("background","#fff");
+});
+$(".alipay").click();
+
+
+
 //轮询
 function lalala(){
 
