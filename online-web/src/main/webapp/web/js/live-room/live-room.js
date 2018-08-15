@@ -99,20 +99,24 @@ $(function () {
             });
         });
         setTimeout(function () {
-            cameras = window.Vhall.devices.cameras;
-            mics = window.Vhall.devices.mics;
-            initDevices(cameras, mics);
+            initDevices();
         }, 3000);
     }
 
     init();
 
-    function initDevices(cameras, mics) {
+    function initDevices() {
+        cameras = window.Vhall.devices.cameras;
+        mics = window.Vhall.devices.mics;
+        var $JCameras = $('.J-cameras');
+        var $JMics = $('.J-mics');
+        $JCameras.html('');
+        $JMics.html('');
         for (var i = 0; i < cameras.length; i++) {
-            $('.J-cameras').append('<option value="' + cameras[i] + '">' + cameras[i] + '</option>');
+            $JCameras.append('<option value="' + cameras[i] + '">' + cameras[i] + '</option>');
         }
         for (var i = 0; i < mics.length; i++) {
-            $('.J-mics').append('<option value="' + mics[i] + '">' + mics[i] + '</option>');
+            $JMics.append('<option value="' + mics[i] + '">' + mics[i] + '</option>');
         }
     }
 
@@ -125,10 +129,10 @@ $(function () {
     });
 
     function restartPlay() {
-        var width = $('.J-setup-width').val();
-        var height = $('.J-setup-height').val();
-        width = width ? width : 800;
-        height = height ? height : 450;
+        // var width = $('.J-setup-width').val();
+        // var height = $('.J-setup-height').val();
+        // width = width ? width : 800;
+        // height = height ? height : 450;
         VHPublisher.init({
             roomId: roomId,
             videoNode: 'J_video_main',
@@ -139,11 +143,9 @@ $(function () {
                 console.log("初始化完成=============");
                 console.log(res);
                 if (res && res.code == 2000) {
-                    console.log("width:" + width);
-                    console.log("height:" + height);
                     VHPublisher.startPush({
-                        width: width,
-                        height: height,
+                        // width: width,
+                        // height: height,
                         camera: $('.J-cameras').val(),
                         mic: $('.J-mics').val(),
                         success: function (res) {
@@ -156,10 +158,22 @@ $(function () {
         });
     }
 
+    function micAndCamerasLack() {
+        return !cameras || cameras.length === 0 || !mics || mics.length === 0;
+    }
+
     $('#J_play').on('click', function () {
         var $this = $(this);
         $this.prop('disabled', 'disabled');
         if ($this.data('status') == 0) {
+            if (micAndCamerasLack()) {
+                initDevices();
+                if (micAndCamerasLack()) {
+                    showTip("请先安装并开启摄像头与麦克风");
+                    initDevices();
+                    return false;
+                }
+            }
             VHPublisher.startPush({
                 width: 800,
                 height: 450,
