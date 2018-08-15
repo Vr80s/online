@@ -20,7 +20,7 @@ requestService("/xczh/course/details",{courseId:courseId}, function(data) {
          // var results = data.watchState;
 
          $(".purchase_details_title").find(".span1").html(result.gradeName);
-         $(".purchase_details_title").find(".span0").html(result.name);
+         $(".purchase_details_titles").html(result.name);
 
 
          if(result.watchState==1){

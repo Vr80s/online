@@ -323,9 +323,10 @@ function autagain() {
 			//擅长
 			$('#AutList .doc_shanchang').val(result.field);
 			//个人介绍 editor
-//          UE.getEditor('editor').addListener('ready', function (editor) {
+			initEditor();
+            UE.getEditor('editor').addListener('ready', function (editor) {
                 UE.getEditor('editor').setContent(result.description);
-//          });
+            });
 
 			//省份
 			for(var i = 0 ;i < $('#AutList #choosePro option').length ;i++){
