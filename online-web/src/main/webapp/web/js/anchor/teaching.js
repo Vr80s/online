@@ -1,6 +1,6 @@
 $(function () {
     initMenu();
-    initEditor();
+//  initEditor();
     $(".teachingTab").click(function(){courseList(1)});
     $(".course_search").click(function(){
         courseList(1);
@@ -30,9 +30,8 @@ $(function () {
 			$(".long-range-btn").click();
 		}
 	});
-
 });
-
+ 
 /**
  * Description：课程列表
  * creed: Talk is cheap,show me the code
@@ -208,7 +207,7 @@ function echoCourse(caiId, passEdit) {
     $('.course_start_time').val(course.startTime);
     return true;
 }
-function initEditor(){
+//function initEditor(){
     UE.getEditor('editor_lecturer', {
         toolbars: [['source', //源代码
             'undo', //撤销
@@ -295,7 +294,7 @@ function initEditor(){
         autoFloatEnabled:false,
         maximumWords: 3000       //允许的最大字符数
     });
-}
+//}
 function resetCourseForm(sp) {
     //时间插件调用
     var data = new Date();
@@ -308,7 +307,7 @@ function resetCourseForm(sp) {
         minDate: ""+year+"-"+month+"-"+day+" 00:00"
     });
 
-    initEditor()
+//  initEditor()
 
    $("#caiId").val("");
     $('.course_title').val("");
@@ -944,75 +943,7 @@ function cheackSelectAll(){
 		$(".namage-top button").text("返回");		//返回
 		$(".namage-top span").text("招生简章");
 	})
-	function echoManage(index){
-		var echoManageData=manageData[index];
-		$("#save-manageId").val(echoManageData.id);
-		$(".recruit-students .recruit-title").val(echoManageData.title);
-		$(".recruit-students .mamage-wrap-img").html("<img src="+echoManageData.coverImg+"?imageMogr2/thumbnail/!260x147r|imageMogr2/gravity/Center/crop/260x147 /><p class='manage-reset-tip'>点击图片重新上传</p>")
-		$(".recruit-students .personal-number").val(echoManageData.countLimit);
-		$("#sign-up-time").val(echoManageData.deadline);
-		$("#study-start-time").val(echoManageData.startTime);
-		$("#study-end-time").val(echoManageData.endTime);
-	
-//		$(".recruit-students .address-text").val(echoManageData.endTime);
-		UE.getEditor('about-introduce').setContent(echoManageData.ceremonyAddress);
-		UE.getEditor('introduction-enrolment').setContent(echoManageData.regulations);		
-		$(".enclosure-text").html(echoManageData.attachmentName)
-		fileUrl=echoManageData.entryFormAttachment;
-//	省市区		
-		var  addressSplit= echoManageData.studyAddress.split("-");
-		var provinces = {
-                            province: addressSplit[0],
-                            city: addressSplit[1],
-                            district: addressSplit[2]
-        			};
-        $(".comment-right-float").iProvincesSelect("init",provinces);
-//  详细地址
-        var detailAddress=echoManageData.studyAddress.split("-")[3];
-		$(".address-text").val(detailAddress);
-	}
-
-//	编辑保存
-	$(".edit-save").click(function(){
-			saveFileName=$(".enclosure-text").text();
-			addressText=$.trim($(".address-text").val());			
-		var provinceName=$(".comment-right-float .province").val(),
-			cityName=$(".comment-right-float .city").val(),
-			districtName=$(".comment-right-float .district").val(),
-			id=$("#save-manageId").val();
-		var establishDate={
-			"title":$.trim($(".recruit-title").val()),			//标题
-			"coverImg":$(".mamage-wrap-img img").attr("src").split("?")[0],	//封面图
-			"tuition":0,
-			"countLimit":$.trim($(".personal-number").val()),	//招生人数
-			"deadline":$.trim($("#sign-up-time").val()),		//报名截止时间
-			"startTime":$.trim($("#study-start-time").val()),	//学习时间
-			"endTime":$.trim($("#study-end-time").val()),		//结束时间
-			"studyAddress":provinceName+"-"+cityName+"-"+districtName+"-"+addressText,
-			"ceremonyAddress":UE.getEditor('about-introduce').getContent(),  //相关介绍
-			"regulations":UE.getEditor('introduction-enrolment').getContent(), //招生简章
-			"entryFormAttachment":fileUrl,
-			"attachmentName":saveFileName	
-		}	
-		if(testRecruit(establishDate)){	
-			$(".edit-save").attr("disabled","disabled");
-			RequestJsonService("/doctor/enrollmentRegulations/"+id,"PUT",JSON.stringify(establishDate), function (data) {
-				if(data.success==true){
-					$(".edit-save").removeAttr("disabled");
-					showTip("保存成功");
-					clearRecruit();
-					setTimeout(function(){
-						$(".teaching-manage").click();
-					},2000);
-				}else{
-					showTip("保存失败");
-					$(".edit-save").removeAttr("disabled");
-				}
-			})
-		}
-	})
-//	相关介绍富文本
-	 UE.getEditor('about-introduce', {
+	UE.getEditor('about-introduce', {
         toolbars: [
             [
                 'undo', //撤销
@@ -1102,7 +1033,75 @@ function cheackSelectAll(){
         autoFloatEnabled:false,
         maximumWords: 3000 //允许的最大字符数
     });
+	function echoManage(index){
+		var echoManageData=manageData[index];
+		$("#save-manageId").val(echoManageData.id);
+		$(".recruit-students .recruit-title").val(echoManageData.title);
+		$(".recruit-students .mamage-wrap-img").html("<img src="+echoManageData.coverImg+"?imageMogr2/thumbnail/!260x147r|imageMogr2/gravity/Center/crop/260x147 /><p class='manage-reset-tip'>点击图片重新上传</p>")
+		$(".recruit-students .personal-number").val(echoManageData.countLimit);
+		$("#sign-up-time").val(echoManageData.deadline);
+		$("#study-start-time").val(echoManageData.startTime);
+		$("#study-end-time").val(echoManageData.endTime);
+	
+//		$(".recruit-students .address-text").val(echoManageData.endTime);
+		UE.getEditor('about-introduce').setContent(echoManageData.ceremonyAddress);
+		UE.getEditor('introduction-enrolment').setContent(echoManageData.regulations);		
+		$(".enclosure-text").html(echoManageData.attachmentName)
+		fileUrl=echoManageData.entryFormAttachment;
+//	省市区		
+		var  addressSplit= echoManageData.studyAddress.split("-");
+		var provinces = {
+                            province: addressSplit[0],
+                            city: addressSplit[1],
+                            district: addressSplit[2]
+        			};
+        $(".comment-right-float").iProvincesSelect("init",provinces);
+//  详细地址
+        var detailAddress=echoManageData.studyAddress.split("-")[3];
+		$(".address-text").val(detailAddress);
+	}
 
+//	编辑保存
+	$(".edit-save").click(function(){
+			saveFileName=$(".enclosure-text").text();
+			addressText=$.trim($(".address-text").val());			
+		var provinceName=$(".comment-right-float .province").val(),
+			cityName=$(".comment-right-float .city").val(),
+			districtName=$(".comment-right-float .district").val(),
+			id=$("#save-manageId").val();
+		var establishDate={
+			"title":$.trim($(".recruit-title").val()),			//标题
+			"coverImg":$(".mamage-wrap-img img").attr("src").split("?")[0],	//封面图
+			"tuition":0,
+			"countLimit":$.trim($(".personal-number").val()),	//招生人数
+			"deadline":$.trim($("#sign-up-time").val()),		//报名截止时间
+			"startTime":$.trim($("#study-start-time").val()),	//学习时间
+			"endTime":$.trim($("#study-end-time").val()),		//结束时间
+			"studyAddress":provinceName+"-"+cityName+"-"+districtName+"-"+addressText,
+			"ceremonyAddress":UE.getEditor('about-introduce').getContent(),  //相关介绍
+			"regulations":UE.getEditor('introduction-enrolment').getContent(), //招生简章
+			"entryFormAttachment":fileUrl,
+			"attachmentName":saveFileName	
+		}	
+		if(testRecruit(establishDate)){	
+			$(".edit-save").attr("disabled","disabled");
+			RequestJsonService("/doctor/enrollmentRegulations/"+id,"PUT",JSON.stringify(establishDate), function (data) {
+				if(data.success==true){
+					$(".edit-save").removeAttr("disabled");
+					showTip("保存成功");
+					clearRecruit();
+					setTimeout(function(){
+						$(".teaching-manage").click();
+					},2000);
+				}else{
+					showTip("保存失败");
+					$(".edit-save").removeAttr("disabled");
+				}
+			})
+		}
+	})
+//	相关介绍富文本
+	
 //	创建招生简章  校验
 	var addressText;     //学习详细地址
 	function testRecruit(establishDate){

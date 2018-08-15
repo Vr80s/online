@@ -21,12 +21,48 @@ input::-webkit-input-placeholder{
 }
 .z{float: left;}
 .y{float: right;}
+/*设备提示*/
+
 .background-ask{
 	width: 100%;
 	height: 100%;
 	background: rgba(0,0,0,.6);
 	position: fixed;
 	z-index: 20;
+}
+.noll-equipment{
+	position: fixed;
+	width: 423px;
+	height: 200px;
+	background: white;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	-webkit-transform: translate(-50%,-50%);
+	z-index: 100;
+}
+.noll-equipment p{
+	text-align: center;
+}
+.noll-equipment .equipment-title{
+	text-align: center;
+	font-size: 18px;
+	color: #999;
+	padding: 30px 0 20px;
+}
+.noll-equipment .equipment-content{
+	color: #666;
+}
+.noll-equipment .equipment-close{
+	width: 100px;
+    height: 30px;
+    background: #00bc12;
+    color: white;
+    line-height: 30px;
+    margin: 0 auto;
+    border-radius: 4px;
+    margin-top: 40px;
+    cursor: pointer;
 }
 .modal-document{
 	width: 786px;

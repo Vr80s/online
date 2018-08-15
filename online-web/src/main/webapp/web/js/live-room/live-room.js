@@ -1,4 +1,5 @@
 $(function () {
+
     var roomId = $('#J_roomId').val();
     var channelId = $('#J_channelId').val();
     var appId = $('#J_appId').val();
@@ -41,15 +42,15 @@ $(function () {
             docNode: 'J_doc_main',//文档显示节点div id
             width: width,
             height: height,
-            success:function(){
+            success: function () {
                 console.log("文档初始化成功");
             },
             complete: function () {
                 console.log("文档初始化完成");
             },
-            slideChange: function(slideIndex,stepIndex){
+            slideChange: function (slideIndex, stepIndex) {
             },
-            stepChange: function(slideIndex,stepIndex){
+            stepChange: function (slideIndex, stepIndex) {
                 curPage = slideIndex + 1;
                 setPage(page, curPage);
             }
@@ -169,7 +170,8 @@ $(function () {
             if (micAndCamerasLack()) {
                 initDevices();
                 if (micAndCamerasLack()) {
-                    showTip("请先安装并开启摄像头与麦克风");
+                       $(".noll-equipment").removeClass("hide");
+     				   $(".background-ask").removeClass("hide");   
                     initDevices();
                     return false;
                 }
@@ -499,13 +501,15 @@ $(function () {
         })
     });
 
+    transOverTimer = setInterval(changeTransOverStatus, 10 * 1000);
 //转码定时调用
-    transOverTimer = setInterval(function () {
+    function changeTransOverStatus() {
         $.ajax({
             method: "GET",
             url: "/vhallyun/document",
             success: function (resp) {
                 var docs = resp.resultObject;
+                var allFinishTransOver = true;
                 for (var i = 0; i < docs.length; i++) {
                     var documentId = docs[i].documentId;
                     var status = docs[i].transStatus;
@@ -521,11 +525,18 @@ $(function () {
                         } else if (status === 2) {
                             $docItem.text("转换成功");
                         }
+                    } else {
+                        allFinishTransOver = false;
                     }
+                }
+
+                if (allFinishTransOver && transOverTimer) {
+                    clearInterval(transOverTimer);
+                    transOverTimer = null;
                 }
             }
         })
-    }, 30 * 1000);
+    }
 
     function sendMessage() {
         var $JMessageText = $('#J_message_text');
@@ -562,7 +573,6 @@ $(function () {
             sendMessage();
         }
     });
-
 //------------------------------------------静态页面效果----------------------------------------------------------------
 
     function getWhiteHeight() {
@@ -802,6 +812,10 @@ $(function () {
                 $('.document-upload').prop('disabled', '');
                 $('.document-upload').text('上传');
                 $('.null-document').hide();
+                console.log(transOverTimer);
+                if (!transOverTimer) {
+                    transOverTimer = setInterval(changeTransOverStatus, 10 * 1000);
+                }
             },
             error: function () {
                 $fileInput.val('');
@@ -810,4 +824,12 @@ $(function () {
             }
         });
     })
+ 
+
+//------------------------------------------点击设备时关闭弹窗----------------------------------------------------------------
+	$(".equipment-close").click(function(){
+		$(".noll-equipment").addClass("hide");
+   $(".background-ask").addClass("hide");
+	})
+    
 });
