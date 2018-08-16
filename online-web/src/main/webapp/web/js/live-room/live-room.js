@@ -284,13 +284,17 @@ $(function () {
     initMessage();
 
     function viewJoinleaveRoomInfo(msg, action) {
-        var html = '<li>\n' +
-            (msg.third_party_user_id === accountId ? '<span class="chat-status">主播</span>' : '') +
-            '                            <span class="chat-name">' + msg.nick_name + ':</span>\n' +
-            '                            <span class="chat-content">' + (action === 'join' ? '进入直播间' : '退出') + '</span>\n' +
-            '                        </li>';
-        $('#J_message_list').append(html);
-        buttomMessageList();
+        var userId = msg.third_party_user_id;
+        var $JMessageList = $('#J_message_list');
+        if ($JMessageList.find('li').last().data('mid') !== (userId + '-' + action)) {
+            var html = '<li data-mid="' + msg.third_party_user_id + '-' + action + '">\n' +
+                (msg.third_party_user_id === accountId ? '<span class="chat-status">主播</span>' : '') +
+                '                            <span class="chat-name">' + msg.nick_name + ':</span>\n' +
+                '                            <span class="chat-content">' + (action === 'join' ? '进入直播间' : '退出') + '</span>\n' +
+                '                        </li>';
+            $JMessageList.append(html);
+            buttomMessageList();
+        }
     }
 
     function renderStudentList() {

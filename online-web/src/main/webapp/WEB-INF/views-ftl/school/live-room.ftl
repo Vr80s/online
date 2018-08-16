@@ -74,7 +74,7 @@
 
     <form action="/vhallyun/documentId" method="post" id="submitFile">
         <input type="file" id="file-input" name="document" enctype='multipart/form-data'
-               style="visibility: hidden;display: inline-block;width: 2px;position: fixed;left: -1000px;"/>
+               style="visibility: hidden;display: inline-block;width: 2px;position: fixed;left: -1000px;" accept=".xls,.doc,.txt,.pdf,.png, .jpeg, .gif, .jpg,.pptx,.xlsx,.docx"/>
     </form>
 </div>
 <!--文档弹窗结束-->
