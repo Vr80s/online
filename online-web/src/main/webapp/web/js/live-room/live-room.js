@@ -359,7 +359,7 @@ $(function () {
     function setBanStatus(accountId, status) {
         $.ajax({
             method: 'POST',
-            url: 'ban/' + channelId + '/' + accountId + '/' + status,
+            url: '/vhallyun/ban/' + channelId + '/' + accountId + '/' + status,
             success: function (resp) {
             }
         })
