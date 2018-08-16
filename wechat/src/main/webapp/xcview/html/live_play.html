@@ -107,12 +107,6 @@
 			<div class="video_prompt_open">
 				<img src="../images/play_btn.png"/>
 			</div>
-			{{else if lineState == 3}}
-			<!--<a href="javascript:;" class="btn_returned"></a>-->	
-			<a class="memory_lujin" data-memory="{{id}}" href="javascript:;"></a>
-			<div class="video_prompt_open">
-				<img src="../images/play_btn.png"/>
-			</div>
 			{{else if lineState == 4}}
 			<a class="memory_lujin" data-memory="{{id}}" href="javascript:;"></a>
 			<div class="video_prompt_open">
@@ -124,6 +118,12 @@
 			</div>
 			{{else if lineState == 3 && record==false}}
 				<div class="play_video_hide">当前直播无回放</div>
+			{{else if lineState == 3}}
+			<!--<a href="javascript:;" class="btn_returned"></a>-->	
+			<a class="memory_lujin" data-memory="{{id}}" href="javascript:;"></a>
+			<div class="video_prompt_open">
+				<img src="../images/play_btn.png"/>
+			</div>
 			{{/if}}
 		</script>
 	</div>
@@ -516,8 +516,8 @@
 <!--公用弹框 -->
 
 <script type="text/javascript" src="/xcview/js/common/alertPopShow.js"></script>
-<script type="text/javascript" src="../js/live_play.js"></script>
-<script type="text/javascript" src="../js/share/share.js?v=wechat_1.1.1"></script>
+<script type="text/javascript" src="/xcview/js/live_play.js"></script>
+<script type="text/javascript" src="/xcview/js/share/share.js?v=wechat_1.1.1"></script>
 <script>
 			
 

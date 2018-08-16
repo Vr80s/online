@@ -13,12 +13,14 @@
 <meta name="description" content="" />
 <link rel="stylesheet" href="/xcview/css/css.css">
 
+
 <!--手机嵌入模板-->
 <script type="text/javascript" src="/xcview/js/common/layout.js"></script>
 <!-- 图片引入放大缩小 -->
 <script type="text/javascript" src="/xcview/js/common/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/underscore.js"></script>
 <script type="text/javascript" src="/xcview/js/common/pinchzoom.js"></script>
+
 
 <!-- 双击图片变大缩小 -->
 <script type="text/javascript">
@@ -38,22 +40,10 @@ $(function(){
 
 <!--公用弹框 -->
 <link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
+
 <link rel="stylesheet" href="https://static.vhallyun.com/jssdk/videojs.min.css?v=1.0.0"><!--播放器默认样式，需要引用在包含在页面的head标签里-->
 <style>
-.send_gifts ul li{
-	width: 1.8rem !important;
-	height: 1.8rem !important;
-	margin-left: 0 !important;
-}
-.details_size{
-	min-width: 1.8rem !important;
-	text-indent: 0.1rem !important;
-}
-#liveGiftCount{
-	float: right;
-	text-indent: 0.1rem;
-    padding-right: 0.1rem;
-}
+
 /*免费礼物文字大小*/
 .web_toast{
     z-index: 999999 !important;
@@ -63,12 +53,7 @@ $(function(){
 .leaderboard .leaderboard_list:last-child{
     border-bottom: none;
 }
-.video-js .vjs-big-play-button{
-	top: 50% !important;
-    margin-top: -1em !important;
-    left: 50% !important;
-    margin-left: -1.5em !important;
-}
+
 
 /*  .cover{
     display: none !important;
@@ -95,15 +80,6 @@ $(function(){
  }
  #vhall-h5-player{
     height: 4.24rem !important;
- }
- .document_ceneters{
- 	transform: scale(1, 1) !important;
- 	transform: translate(-7.10543e-15px, 3.90799e-14px) !important;
- }
- .document_ceneter{
- 	background: url(/xcview/images/190673525877354982.png) no-repeat;
- 	background-size: 2.37rem 2.67rem;
- 	background-position: center center;
  }
 </style>
 
@@ -201,7 +177,7 @@ $(function(){
         position: absolute;
         top: 0;
         left: 0;
-        z-index: -2;
+        z-index: -1;
     }
 
     .video_end_top1 .initiation{
@@ -238,7 +214,7 @@ $(function(){
         margin: 0 auto;
     }
 
-	.video_end_top2 .smallImgPath{
+.video_end_top2 .smallImgPath{
         width: 100%;
         height: 100%;
         position: absolute;
@@ -257,54 +233,6 @@ $(function(){
         left: 0;
         z-index: -1;
     }
-
-	.video_end_top3 {
-	    position: absolute;
-	    text-align: center;
-	    width: 100%;
-	    height: 4.24rem;
-	    top: 0;
-	    margin-top: 0.88rem;
-	    z-index: 1;
-	    background: rgba(0,0,0,0.80);
-	    /* display: none; */
-	}
-    .video_end_top3 .initiation{
-        font-size: 0.28rem;
-        color: #fff;
-        background: #00BC12;
-        border-radius: 8px;
-        padding: 0.1rem;
-        width: 1.44rem;
-        margin: 0 auto;
-    }
-
-	.video_end_top3 .smallImgPath{
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: -1;
-    }
-
-    .video_end_top3 .video_end{
-        width: 100%;
-        height: 100%;
-        background: #000;
-        opacity: 0.5;
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: -1;
-    }
-    .video_end_top3 p {
-	    color: #fff;
-	    font-size: 0.32rem;
-	    margin-top: 1.5rem;
-	    margin-bottom: 0.4rem;
-	    text-align: center;
-	}
 
 .mCustomScrollBox{
     height: 100%;
@@ -363,82 +291,10 @@ $(function(){
     opacity: 1;
 }
 
-/* 新加文档 */
-.pinch-zoom-container{
-    min-height: 4rem !important;
-    /*background: red;*/
+/*直播按鈕*/
+.vjs-big-play-button{
+    display: none;
 }
-.pinch-zoom-container-addclass{
-    display: block !important;
-}
-.document_ceneter{
-    width:100% !important;
-    height: 100% !important;
-}
-/* .document_ceneter_width{
-    width:25% !important;
-    height: 25% !important; */
-}
-.document_ceneter img{
-    width:100% !important;
-    height: 100% !important;
-}
-.document_ceneter div{
-    width:100% !important;
-    height: 100% !important;
-}
-/* 新加文档 */
-
-/*隐藏迁移后--视频读取失败后--错误提示*/
-.vjs-error-displayP{
-	display: none;
-}
-
-/*添加视频读取失败后的提示*/
-	.video_end_top4 {
-	    position: absolute;
-	    text-align: center;
-	    width: 100%;
-	    height: 4.24rem;
-	    top: 0;
-	    margin-top: 0.88rem;
-	    z-index: 1;
-	    background: rgba(0,0,0,0.80);
-	    /* display: none; */
-	}
-    .video_end_top4 .initiation{
-        font-size: 0.28rem;
-        color: #fff;
-        background: #00BC12;
-        border-radius: 8px;
-        padding: 0.1rem;
-        width: 1.44rem;
-        margin: 0 auto;
-    }
-    .video_end_top4 p {
-	    color: #fff;
-	    font-size: 0.32rem;
-	    margin-top: 1.5rem;
-	    margin-bottom: 0.4rem;
-	    text-align: center;
-	}
-	#face{
-		display: none !important;
-	}
-	.video_end_top0 .video_end {
-		 width: 100%;
-		 height: 100%;
-		 background: #000;
-		 opacity: 0.5;
-		 position: absolute;
-		 top: 0;
-		 left: 0;
-		 z-index: -1;
-	}
-
-	.document_ceneter_width{
-		transform: scale(1, 1) translate(-7.10543e-15px, 3.90799e-14px) !important;
-	}
 </style>
 </head>
 <body style="background: #f8f8f8;overflow: hidden1;">
@@ -481,29 +337,22 @@ $(function(){
         <div class="video" id="myVideo">
             
         </div>
+        
+        
         <!--即将开始提示-->
         <div class="video_end_top0" style="display: none;">
-			<div class="video_end"></div>
             <img src="" alt="" class="smallImgPath" />
             <p>即将直播：<span id="initiation_gradename"></span></p>
             <div class="initiation">开播时间：<span class="initiation_span"></span></div>
         </div>
         <!--即将开始提示-->
 
-        <!--添加视频读取失败后的提示-->
-        <div class="video_end_top4" style="display: none;">
-            <p>获取媒体数据过程中出错 </p>
-            <div class="initiation" onclick="location.reload()">点击刷新</div>
-        </div> 
-        <!--添加视频读取失败后的提示-->
-
-		<!-- 主播要离开一会提示开始-->
-		<div class="video_end_top3" style="display: none;">
-            <img src="" alt="" class="smallImgPath" />
-            <div class="video_end"></div>
-            <p>主播要离开一会儿，稍等片刻哦~</p>
-        </div>
-		<!-- 主播要离开一会提示结束-->
+        <!--直播结束查看回放提示-->
+<!--        <div class="video_end_top1" style="display: none;">
+            <p>直播结束，点击查看回放</p>
+            <div class="initiation">点击刷新</div>
+        </div> -->
+        <!--直播结束查看回放提示-->
 
         <!--直播结束，正在生成回放提示-->
         <div class="video_end_top2" style="display: none;">
@@ -538,7 +387,7 @@ $(function(){
             <div class="details_size">
                 <img src="/xcview/images/shows.png" class="img0" /> 
                 <span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                <img src="/xcview/images/yanjing02.png" class="img1" /> <span id="liveGiftCount"></span>
+                <img src="/xcview/images/yanjing02.png" class="img1" /> <span id="liveGiftCount"></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 <!--<img src="/xcview/images/dashang.png" style="width: 0.64rem;margin-top: 0.1rem;" /> <span id="moneySum"></span>-->
             </div>
         </div>
@@ -549,7 +398,7 @@ $(function(){
                     <li><span class="li1">聊天</span></li>
                     <li><span class="li3">排行榜</span></li>
                     <li class="click_li"><span class="li2">主讲人</span></li>
-                    <li class="click_li_four"><span class="li4">课件</span></li> 
+                    <li><span class="li4">课件</span></li> 
                 </ul>
             </div>
         </div>
@@ -816,22 +665,14 @@ $(function(){
             <p style="font-size: 0.24rem; color: #BBBBBB;padding: 0.2rem 0;text-align: center;">没人送礼物？快去打赏主播吧~</p>
         </div>
     </div>
+    
     <!-- 排行榜结束 -->
-
-	<!-- 无文档开始 -->
-    <div class="untitled_document" style="margin-top: 3.6rem;">
-        <div class="no_git">
-            <div class="no_git_pic">
-                
-            </div>
-            <p style="font-size: 0.24rem; color: #BBBBBB;padding: 0.2rem 0;text-align: center;">主播还没上传课件~</p>
-        </div>
-    </div>
-    <!-- 无文档结束 -->
-
     <!-- 文档开始 -->
     <div class="document" style="margin-top: 3.74rem;">
-        <div class="document_ceneter" id="my-doc-area"></div>
+        <div class="document_ceneter" id="my-doc-area">
+            
+            <div class="both"></div>
+        </div>
         <div class="both"></div>
     </div>
     
@@ -887,46 +728,56 @@ $(function(){
     
 </body>
 <script src="/xcview/weihoujs/jquery.min.js"></script>
-<script type="text/JavaScript" src="//res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<!-- <script type="text/JavaScript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script> -->
 <script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
+
 <script type="text/javascript" src="/xcview/js/common/alertPopShow.js"></script>
+<!-- <link rel="stylesheet" href="/xcview/css/yangxuan.css"> -->
 <!--这段meta代码需要加上，移动端自适应缩放用-->
 <!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
 
+<!-- <script type="text/javascript" src="/xcview/js/common/jquery-1.8.3.min.js"></script> -->
+<script src="/xcview/weihoujs/vhallSDK.js"></script>
 <script src="/xcview/weihoujs/jquery.mCustomScrollbar.concat.min.js"></script>
 <script src="/xcview/weihoujs/underscore-min.js"></script>
+<!-- <script type="text/javascript" src="/xcview/js/common/weihoudetails.js"></script> -->
 <script type="text/javascript" src="/xcview/js/common/common.js"></script>
 
-
-<script type="text/javascript" src="/xcview/js/im/vhallGiftSend.js"></script>
-
-
-<script src="https://static.vhallyun.com/jssdk/vhall-jssdk-player-1.0.0.js?v=201806271657"></script>
-<script src="https://static.vhallyun.com/jssdk/vhall-jssdk-doc-1.0.0.js?v=201806271657"></script>
+<!-- <script type="text/javascript" src="/xcview/js/common/strophe.js"></script>
+<script type="text/javascript" src="/xcview/js/im/giftSend.js"></script> -->
+<!-- <script src="./styles/jquery-3.2.1.min.js"></script> -->
+<script type="text/javascript" src="/demo/js/giftSend2.js"></script>
 <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-chat-1.0.0.js?v=201801121522"></script>
+<script src="https://static.vhallyun.com/jssdk/vhall-jssdk-doc-1.0.0.js?v=201806271657"></script>
 <script src="https://static.vhallyun.com/jssdk/dvideo-plugin.js?v=0.3"></script>
+<script src="https://static.vhallyun.com/jssdk/vhall-jssdk-live-1.0.0.js?v=201806271657"></script>
 <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-base-1.0.0.js?v=201806271657"></script>
 
-<!-- 部分点击事件 -->
+
+<script src="/demo/js/vhallyun.js"></script>
+
 <script type="text/javascript" src="/xcview/js/details_change.js"></script>
 <script type="text/javascript" src="/xcview/js/details.js"></script>
-<script type="text/javascript" src="/xcview/js/vhallyun.js"></script>
-<script type="text/javascript" src="/xcview/js/share/share.js"></script>
+
 
 
 <script type="text/javascript">
     window.onload = function(){
-    	$(".document_ceneter img").click();
-    	
+
+        $(".video_end_top1 .div img").click(function(){
+            location.reload();
+            $(".video_end_top1").hide();
+        });
+
         $("body").scrollTop($("body").scrollHeight);
         $(".chatmsg-box").scrollTop($(".chatmsg-box")[0].scrollHeight);
-        /* $(".mCSB_dragger").scrollTop($(".mCSB_dragger")[0].scrollHeight); */
+        $(".mCSB_dragger").scrollTop($(".mCSB_dragger")[0].scrollHeight);
         $(".coze").scrollTop($(".coze")[0].scrollHeight);
         $(".coze_center").scrollTop($(".coze_center")[0].scrollHeight);
-        /* $(".mCSB_container").scrollTop($(".mCSB_container")[0].scrollHeight); */
+        $(".mCSB_container").scrollTop($(".mCSB_container")[0].scrollHeight);
         /*$(".mCSB_container").css("top","0");
         $(".mCSB_container").css("bottom","0");*/
-        /* $(".mCSB_dragger_bar").scrollTop($(".mCSB_dragger_bar")[0].scrollHeight); */
+        $(".mCSB_dragger_bar").scrollTop($(".mCSB_dragger_bar")[0].scrollHeight);
 
 
         $(".chatmsg-box").scroll(function(){  
@@ -978,50 +829,35 @@ $(function(){
         });
 
         $(".li4").click(function(){
-        	// 课件获取高度
-            $(".pinch-zoom-container").addClass("pinch-zoom-container-addclass");
+            $(".pinch-zoom-container").show();
+            // 课件获取高度
             var school_height=$(window).height()-$(".details_cen1").height();
             $(".pinch-zoom-container").height(school_height);
 
             $("#doc").addClass("img_doc");
         });
-        
-        $(".click_li_four").click(function(){
-            // 课件获取高度
-            $(".pinch-zoom-container").addClass("pinch-zoom-container-addclass");
-
-            $("#ch_ce0cee3a-iframe-div").dblclick();
-
-            $(".document_ceneter").addClass("document_ceneters");
-            // $(".document_ceneter").css("transform","scale(1, 1) translate(-7.10543e-15px, 3.90799e-14px)");
-
-            $(".document_ceneter").addClass("document_ceneter_width");
-
-        });
 
         $("#doc img").click(function(){
             // 课件获取高度  img_doc
             $("#doc").removeClass("img_doc");
+            // $(".course_nav").addClass("hide");
         });
-
-        /*var Document = $(".document_ceneter").html();
-        if (Document == !null) {
-        	alert(1111);
-        }else{
-        	alert(2222);
-        };*/
     };
 </script>
 <script>
-     var school_height=$(window).height()-$(".header").height()-$(".footer_ks").height();
-     $(".chatmsg-box").height(school_height);
+    //      聊天区高度footer_k
+    //var school_heights=$(window).height();
+//alert(school_heights);
+        var school_height=$(window).height()-$(".header").height()-$(".footer_ks").height();
+        $(".chatmsg-box").height(school_height);
+         //alert(school_height);
 
-     
-    $(".document").click(function(){
-    	$(".document_ceneter").removeClass("document_ceneter_width");
-    });
-
-    
+        // 判斷安卓ios
+        if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+            $(".vjs-big-play-button").show();
+        } else if (/(Android)/i.test(navigator.userAgent)) {
+            $(".vjs-big-play-button").hide();
+        }
 </script>
 </html>
 
