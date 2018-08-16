@@ -1,24 +1,5 @@
 package com.xczhihui.medical.doctor.service.impl;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.UUID;
-import java.util.stream.Collectors;
-
-import org.apache.commons.lang3.StringUtils;
-import org.apache.solr.client.solrj.SolrServerException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
-import org.springframework.stereotype.Service;
-
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.toolkit.CollectionUtils;
 import com.xczhihui.common.util.XzStringUtils;
@@ -26,24 +7,12 @@ import com.xczhihui.common.util.enums.HeadlineType;
 import com.xczhihui.medical.department.mapper.MedicalDepartmentMapper;
 import com.xczhihui.medical.department.model.MedicalDepartment;
 import com.xczhihui.medical.department.vo.MedicalDepartmentVO;
-import com.xczhihui.medical.doctor.mapper.DoctorTypeMapper;
-import com.xczhihui.medical.doctor.mapper.MedicalDoctorAccountMapper;
-import com.xczhihui.medical.doctor.mapper.MedicalDoctorAuthenticationInformationMapper;
-import com.xczhihui.medical.doctor.mapper.MedicalDoctorDepartmentMapper;
-import com.xczhihui.medical.doctor.mapper.MedicalDoctorMapper;
-import com.xczhihui.medical.doctor.model.DoctorType;
-import com.xczhihui.medical.doctor.model.MedicalDoctor;
-import com.xczhihui.medical.doctor.model.MedicalDoctorAccount;
-import com.xczhihui.medical.doctor.model.MedicalDoctorAuthenticationInformation;
-import com.xczhihui.medical.doctor.model.MedicalDoctorDepartment;
+import com.xczhihui.medical.doctor.mapper.*;
+import com.xczhihui.medical.doctor.model.*;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorDepartmentService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorSolrService;
-import com.xczhihui.medical.doctor.vo.DoctorQueryVo;
-import com.xczhihui.medical.doctor.vo.MedicalDoctorAuthenticationInformationVO;
-import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
-import com.xczhihui.medical.doctor.vo.MedicalWritingVO;
-import com.xczhihui.medical.doctor.vo.OeBxsArticleVO;
+import com.xczhihui.medical.doctor.vo.*;
 import com.xczhihui.medical.exception.MedicalException;
 import com.xczhihui.medical.field.vo.MedicalFieldVO;
 import com.xczhihui.medical.headline.mapper.OeBxsArticleMapper;
@@ -56,6 +25,18 @@ import com.xczhihui.medical.hospital.model.MedicalHospitalDoctor;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalApplyService;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalBusinessService;
 import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.solr.client.solrj.SolrServerException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+import org.springframework.stereotype.Service;
+
+import java.io.IOException;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * ClassName: MedicalDoctorBusinessServiceImpl.java <br>
@@ -765,6 +746,24 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
                 null, null, null, null);
         
         if (doctors0 != null && doctors0.size() > 0) {
+
+            doctors0.forEach(doctor -> {
+                String doctorId = doctor.getId();
+                // 根据医师id获取其所在的医馆
+                List<MedicalHospitalDoctor> hospitalDoctors = hospitalDoctorMapper.selectByDoctorId(doctorId);
+                String account = "";
+                if(hospitalDoctors.size()>0){
+                    String hospitalId = hospitalDoctors.get(0).getHospitalId();
+                    account = hospitalAccountMapper.getAccountIdByHospitalId(hospitalId);
+                }
+                if(account != null && !account.equals("")){
+                    doctor.setDoctorType(2);
+                    doctor.setUserId(account);
+                } else {
+                    doctor.setDoctorType(1);
+                }
+            });
+
             Map<String, Object> map = new HashMap<String, Object>();
             map.put("code", -1);
             map.put("text", "热门医师");
@@ -786,6 +785,23 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
                     code, null, null, null, null);
             if (doctors != null && doctors.size() > 0) {
 
+                doctors.forEach(doctor -> {
+                    String doctorId = doctor.getId();
+                    // 根据医师id获取其所在的医馆
+                    List<MedicalHospitalDoctor> hospitalDoctors = hospitalDoctorMapper.selectByDoctorId(doctorId);
+                    String account = "";
+                    if(hospitalDoctors.size()>0){
+                        String hospitalId = hospitalDoctors.get(0).getHospitalId();
+                        account = hospitalAccountMapper.getAccountIdByHospitalId(hospitalId);
+                    }
+                    if(account != null && !account.equals("")){
+                        doctor.setDoctorType(2);
+                        doctor.setUserId(account);
+                    } else {
+                        doctor.setDoctorType(1);
+                    }
+                });
+
                 Map<String, Object> map1 = new HashMap<String, Object>();
                 map1.put("code", code);
                 map1.put("text", text);
@@ -798,8 +814,25 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
 
     @Override
     public List<MedicalDoctorVO> selectHotInBatch(Page<MedicalDoctorVO> page) {
-        
-        return medicalDoctorMapper.selectHotInBatch(page);
+        List<MedicalDoctorVO> list = medicalDoctorMapper.selectHotInBatch(page);
+        list.forEach(doctor -> {
+            String doctorId = doctor.getId();
+            // 根据医师id获取其所在的医馆
+            List<MedicalHospitalDoctor> hospitalDoctors = hospitalDoctorMapper.selectByDoctorId(doctorId);
+            String account = "";
+            if(hospitalDoctors.size()>0){
+                String hospitalId = hospitalDoctors.get(0).getHospitalId();
+                account = hospitalAccountMapper.getAccountIdByHospitalId(hospitalId);
+            }
+            if(account != null && !account.equals("")){
+                doctor.setDoctorType(2);
+                doctor.setUserId(account);
+            } else {
+                doctor.setDoctorType(1);
+            }
+        });
+
+        return list;
     }
 
 	@Override

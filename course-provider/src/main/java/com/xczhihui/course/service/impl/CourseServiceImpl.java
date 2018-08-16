@@ -59,11 +59,9 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     public CourseLecturVo selectCourseDetailsById(String userId, Integer courseId) {
 
         CourseLecturVo cv = iCourseMapper.selectCourseDetailsById(courseId);
-
         if (cv == null) {
             throw new CourseException("获取课程详情有误");
         }
-
         /**
          * 这里需要判断是否购买过了
          */

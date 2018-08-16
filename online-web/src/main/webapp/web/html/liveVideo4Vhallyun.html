@@ -289,6 +289,10 @@
 	.vjs-tech{
 		/*z-index: 99999999999999;*/
 	}
+	.doc-img-div img{
+		max-width: 800px !important;
+		max-height: 450px !important;
+	}
 
 	
 </style>
@@ -381,6 +385,12 @@
     	width
     }
 */
+	.hide-size{
+		font-size: 14px;
+	    color: #fff;
+	    text-align: center;
+	    margin-top: 56px;
+	}
 </style>
 </head>
 
@@ -596,6 +606,7 @@
 								<p class="billboard-name"></p>
 								<p class="billboard-number">贡献 <span></span></p>
 							</div>
+							<div class="hide-size">暂无排行榜记录</div>
 							<div class="both"></div>
 						</div>
 					</div>
@@ -978,12 +989,20 @@ if(browser.versions.mobile || browser.versions.ios || browser.versions.android |
 				$("iframe").addClass("iframe-addclass");
 				$(".company-introduce-one").addClass("doc-imgs");  //点击小区域显示 大文档
 				
+				
+				/*$(".company-introduce-one").css("width","800px");
+				$(".company-introduce-one").css("height","450px");
+				
+				$(".doc-img-div img").css("width","800px");
+				$(".doc-img-div img").css("height","450px");*/
+				
+				
+				
 				$(".doc-img").css("width","800px");
 				$(".doc-img").css("height","450px");
 
 				$("iframe").css("width","800px");
 				$("iframe").css("height","450px");
-				alert(1111);
 	
  			}else{
  				
@@ -1011,6 +1030,13 @@ if(browser.versions.mobile || browser.versions.ios || browser.versions.android |
 				$(".doc-img").removeClass("doc-img-addclass");
 				$("iframe").removeClass("iframe-addclass");
 				$("iframe").removeClass("iframe-addclass");
+				
+				/*$(".company-introduce-one").css("width","320px");
+				$(".company-introduce-one").css("height","180px");
+				
+				$(".doc-img-div img").css("width","320px");
+				$(".doc-img-div img").css("height","180px");*/
+				
 				$(".doc-img").css("width","320px");
 				$(".doc-img").css("height","180px");
 

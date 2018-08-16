@@ -1,12 +1,12 @@
 package com.xczhihui.medical.doctor.vo;
 
-import java.io.Serializable;
-import java.util.List;
-
 import com.baomidou.mybatisplus.toolkit.StringUtils;
 import com.xczhihui.medical.department.model.MedicalDepartment;
 import com.xczhihui.medical.field.vo.MedicalFieldVO;
 import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
+
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * <p>
@@ -139,6 +139,11 @@ public class MedicalDoctorVO implements Serializable {
     private String courseId;
 
     private String hospitalAddress;
+
+    /**
+     * 1认证医师,2认证医馆下的医师，
+     */
+    private Integer doctorType;
 
     public String getDepartmentText() {
         return departmentText;
@@ -368,6 +373,14 @@ public class MedicalDoctorVO implements Serializable {
 
     public void setHospitalAddress(String hospitalAddress) {
         this.hospitalAddress = hospitalAddress;
+    }
+
+    public Integer getDoctorType() {
+        return doctorType;
+    }
+
+    public void setDoctorType(Integer doctorType) {
+        this.doctorType = doctorType;
     }
 
     @Override

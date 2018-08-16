@@ -286,7 +286,7 @@ function executeLunxun(){
 			     orderNo: out_trade_no
 				}, function (data) {
 				    if (data.resultObject === true) { //支付成功
-				    	alert("充值成功");
+				    	//alert("充值成功");
 				    	$('.close').click();
 				    	//刷新熊猫币余额
 				        refreshBalance();
