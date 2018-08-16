@@ -1,6 +1,7 @@
 package com.xczh.consumer.market.service.impl;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -155,4 +156,10 @@ public class OnlineUserServiceImpl implements OnlineUserService {
         tf.setHeadImg(StringUtils.isNotBlank(wxw.getHeadimgurl()) ? wxw.getHeadimgurl() : defaultHeadImg);
         return tf;
     }
+
+	@Override
+	public List<OnlineUser> selectAllUser() throws SQLException {
+		
+		return onlineUserDao.selectAllUser();
+	}
 }
