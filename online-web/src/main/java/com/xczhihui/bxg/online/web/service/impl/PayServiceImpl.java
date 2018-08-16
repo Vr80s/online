@@ -42,9 +42,15 @@ public class PayServiceImpl implements PayService {
     @Override
     public void aliPayBusiness(Map<String, String> params) throws Exception {
         AlipayPaymentRecord apr = paymentRecordService.saveAlipayPaymentRecord(params);
-        String payMessageStr = params.get("passback_params");
         
-        PayMessage payMessage = PayMessage.getPayMessage(payMessageStr);
+        String payMessageStr = params.get("passback_params");
+        String subject = params.get("subject");
+    	if(subject!=null && subject.indexOf("支付宝扫码支付")!=-1) {
+    		payMessageStr = params.get("body");
+    	}
+        
+        PayMessage payMessage = PayMessage.getPayMessageType(params);
+        
         if (apr != null) {
             if (SUCCESS.equals(apr.getTradeStatus())) {
                 String type = payMessage.getType();

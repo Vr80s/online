@@ -29,8 +29,8 @@ function elsBind() {
 			window.doc = new VhallDocPassive({
 				channelId: vhallObj.channelId,// 频道Id
 				docNode: 'my-doc-area', // 文档显示节点div id
-				width:480,
-	        	height:270
+				width:320,
+	        	height:180
 			});
 
 			var roomId = (lineState == 1 ? vhallObj.roomId : "");

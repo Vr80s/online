@@ -87,9 +87,6 @@ window._bd_share_config = {
 	},
 	share : [{
 		"bdSize" : 16
-	}],
-	selectShare : [{  //微信	weixin
-		"bdselectMiniList" : ['tsina','sqq','qzone']
 	}]
 }
 with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];

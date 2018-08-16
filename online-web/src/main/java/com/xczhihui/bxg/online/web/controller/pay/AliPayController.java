@@ -156,6 +156,20 @@ public class AliPayController extends AliPayApiController {
 
     }
 
+    /**
+     * 
+    * @Title: rechargeQrCode
+    * @Description:扫码支付
+    * @param @param request
+    * @param @param response
+    * @param @param price
+    * @param @return
+    * @param @throws IOException
+    * @param @throws AlipayApiException    参数
+    * @return ResponseObject    返回类型
+    * @author yangxuan
+    * @throws
+     */
     @RequestMapping(value = "/alipay/rechargeQrCode/{price}", method = RequestMethod.GET)
     @ResponseBody
     public ResponseObject rechargeQrCode(HttpServletRequest request, HttpServletResponse response, 
@@ -172,6 +186,7 @@ public class AliPayController extends AliPayApiController {
 
         PayMessage payMessage = new PayMessage();
         payMessage.setType(PayOrderType.COIN_ORDER.getCode());
+        
         payMessage.setUserId(loginUser.getId());
         payMessage.setValue(new BigDecimal(count));
         payMessage.setFrom(OrderFrom.PC.getCode());
@@ -180,7 +195,7 @@ public class AliPayController extends AliPayApiController {
         String orderNo = OrderNoUtil.getCoinOrderNo();
         model.setOutTradeNo(orderNo);
         model.setTotalAmount(price);
-        model.setSubject(MessageFormat.format(BUY_COIN_TEXT, count));
+        model.setSubject(MessageFormat.format(BUY_QRCODE_COIN_TEXT, count));
         model.setBody(PayMessage.getPayMessage(payMessage));
         model.setTimeoutExpress(TIMEOUT_EXPRESS);
         model.setQrCodeTimeoutExpress(TIMEOUT_EXPRESS);
@@ -224,7 +239,7 @@ public class AliPayController extends AliPayApiController {
             for (Map.Entry<String, String> entry : map.entrySet()) {
                 sb.append(entry.getKey() + " = " + entry.getValue() + ";");
             }
-            logger.warn("return_url 回调信息:{}", sb.toString());
+            logger.warn("warn   return_url 回调信息:{}", sb.toString());
 
             boolean verify_result = AlipaySignature.rsaCheckV1(map, aliPayBean.getPublicKey(), "UTF-8", "RSA2");
             if (verify_result) {
@@ -266,6 +281,7 @@ public class AliPayController extends AliPayApiController {
                     sb.append(entry.getKey() + " = " + entry.getValue() + ";");
                 }
                 logger.warn("notify_url 验证成功:{}", sb.toString());
+                logger.error("notify_url 验证成功:{}", sb.toString());
                 payService.aliPayBusiness(params);
                 return "success";
             } else {
