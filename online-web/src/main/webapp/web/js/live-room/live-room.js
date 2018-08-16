@@ -174,8 +174,9 @@ $(function () {
             if (micAndCamerasLack()) {
                 initDevices();
                 if (micAndCamerasLack()) {
-                       $(".noll-equipment").removeClass("hide");
-     				   $(".background-ask").removeClass("hide");   
+                    $(".noll-equipment").removeClass("hide");
+                    $(".background-ask").removeClass("hide");
+                    $this.removeAttr('disabled');
                     initDevices();
                     return false;
                 }
