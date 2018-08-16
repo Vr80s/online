@@ -94,26 +94,19 @@ function initVideo(){
  * 3:未找到音频/视频来源
  */
 var falgNetWorkstate  = 0;
-var falgNetWorkstateZero  = 0;
 setInterval(function(){
 	try{
 		var netWorkstate = VhallPlayer.getNetworkState();
-		if(netWorkstate ==3){
+		if(netWorkstate ==3 ){
 			falgNetWorkstate++;
-		}
-		if(netWorkstate ==0){
-		
-		
 		}
     	if(falgNetWorkstate>2){
     		$(".playback").attr("type",21);
     		$(".playback div").hide();
         	$(".media-error").show();
         	$(".playback").show();
-    	}else if(netWorkstate == 0){
-    		
-    		falgNetWorkstateZero++;
-    		
+    	}
+    	if(netWorkstate == 0){
     		console.error("netWorkstate："+netWorkstate);
     	}
 	}catch(error){
@@ -134,6 +127,7 @@ function elsBind(){
      * 加载消息
      */
     setTimeout(function(){
+    	
         try{
     		var md = document.getElementsByTagName("video")[0];
     		debugger;

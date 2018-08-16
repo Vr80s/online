@@ -36,8 +36,15 @@ window.onload = function(){
 		};
 		
 		$(".physician_cen").click(function(){
-			 var id = $(this).attr("data-id");
-			 window.location.href = "/xcview/html/physician/physicians_page.html?doctor=" + id + "";
+		    var id = $(this).attr("data-id");
+            var doctorType = $(this).attr("data-doctorType");
+            var userId = $(this).attr("data-userId");
+            if(doctorType == 1){
+                window.location.href = "/xcview/html/physician/physicians_page.html?doctor=" + id + "";
+            } else {
+                window.location.href = "/xcview/html/live_personal.html?userLecturerId=" + userId + "";
+            }
+
 		})
 		
 		// 点击title跳转
@@ -154,7 +161,14 @@ window.onload = function(){
                 // 详情跳转
                 $(".batch_main").click(function(){
                     var id = $(this).attr("data-ids");
-                    window.location.href = "/xcview/html/physician/physicians_page.html?doctor=" + id + "";
+                    var doctorType = $(this).attr("data-doctorType");
+                    var userId = $(this).attr("data-userId");
+                    if(doctorType == 1){
+                        window.location.href = "/xcview/html/physician/physicians_page.html?doctor=" + id + "";
+                    } else {
+                        window.location.href = "/xcview/html/live_personal.html?userLecturerId=" + userId + "";
+                    }
+
                 });
             }
         });
