@@ -152,6 +152,7 @@ public class VhallVideoController {
                                       String body, String channel_id) throws Exception {
 
         JSONObject jsonObject = (JSONObject) JSON.parse(body);
+        LOGGER.warn("进来=== jsonObject:"+jsonObject);
         if (jsonObject.get("type") != null && Integer.parseInt(jsonObject.get("type").toString()) == VhallCustomMessageType.CHAT_MESSAGE.getCode()) {
             Boolean isShutup = cacheService.sismenber(RedisCacheKey.VHALLYUN_BAN_KEY + channel_id, account.getUserId());
             if (isShutup) {
@@ -159,16 +160,16 @@ public class VhallVideoController {
             }
             //后台自动添加这几个参数
             JSONObject message = (JSONObject) jsonObject.get("message");
-            
-            message.put("userId", jsonObject.get("userId")!=null ? jsonObject.get("userId") : account.getUserId());
-            message.put("headImg", jsonObject.get("headImg")!=null ? jsonObject.get("headImg") : account.getSmallHeadPhoto());
-            message.put("username", jsonObject.get("username")!=null ? jsonObject.get("username") : account.getName());
-            
+            message.put("userId", message.get("userId")!=null ? message.get("userId") : account.getUserId());
+            message.put("headImg", message.get("headImg")!=null ? message.get("headImg") : account.getSmallHeadPhoto());
+            message.put("username", message.get("username")!=null ? message.get("username") : account.getName());
+
+            jsonObject.put("message", message);
         } else if (jsonObject.get("type") != null && Integer.parseInt(jsonObject.get("type").toString()) == VhallCustomMessageType.LIVE_EXIT_BUT_NOT_END.getCode()) {
             //更改直播中的状况
             courseService.updateCourseLiveCase(channel_id);
         }
-
+        LOGGER.warn("出去=== jsonObject:"+jsonObject);
         return ResponseObject.newSuccessResponseObject(MessageService.sendMessage(MessageService.CustomBroadcast, jsonObject.toJSONString(), channel_id));
     }
 

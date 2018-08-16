@@ -54,7 +54,9 @@ RequestService("/medical/common/isDoctorOrHospital", "GET", null, function(data)
     var hash = $.trim(window.location.hash);
 	//判断是否是重新认证
 	if(hash == "#update") {
-        autagain();
+        initEditor(autagain);
+	}else{
+        initEditor();
 	}
 
 });
@@ -324,10 +326,7 @@ function autagain() {
 			//擅长
 			$('#AutList .doc_shanchang').val(result.field);
 			//个人介绍 editor
-//			initEditor();
-//          UE.getEditor('editor').addListener('ready', function (editor) {
-                UE.getEditor('editor').setContent(result.description);
-//          });
+			UE.getEditor('editor').setContent(result.description);
 			//省份
 			for(var i = 0 ;i < $('#AutList #choosePro option').length ;i++){
 				if($('#AutList #choosePro option').eq(i).text() == result.province){

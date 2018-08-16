@@ -184,6 +184,8 @@ $(function () {
             VHPublisher.startPush({
                 width: 800,
                 height: 450,
+                camera: $('.J-cameras').val(),
+                mic: $('.J-mics').val(),
                 success: function () {
                     $('.play-time').text("00:00");
                     var n = 0;
@@ -219,6 +221,11 @@ $(function () {
         $this.removeAttr('disabled');
     });
 
+    function buttomMessageList() {
+        var $chatPersonal = $('.chat-personal');
+        $chatPersonal.scrollTop($chatPersonal[0].scrollHeight);
+    }
+
     function renderMsg(msg) {
         if (msg.type == 11) { // 礼物
             if (msg.message) {
@@ -252,8 +259,7 @@ $(function () {
                 $('#J_message_list').append(html);
             }
         }
-        var $chatPersonal = $('.chat-personal');
-        $chatPersonal.scrollTop($chatPersonal[0].scrollHeight);
+        buttomMessageList();
     }
 
     function initMessage() {
@@ -278,13 +284,17 @@ $(function () {
     initMessage();
 
     function viewJoinleaveRoomInfo(msg, action) {
-        var html = '<li>\n' +
-            (msg.third_party_user_id === accountId ? '<span class="chat-status">主播</span>' : '') +
-            '                            <span class="chat-name">' + msg.nick_name + ':</span>\n' +
-            '                            <span class="chat-content">' + (action === 'join' ? '进入直播间' : '退出') + '</span>\n' +
-            '                        </li>';
-        $('#J_message_list').append(html);
-        $('.chat-personal').scrollTop($('.chat-personal')[0].scrollHeight);
+        var userId = msg.third_party_user_id;
+        var $JMessageList = $('#J_message_list');
+        if ($JMessageList.find('li').last().data('mid') !== (userId + '-' + action)) {
+            var html = '<li data-mid="' + msg.third_party_user_id + '-' + action + '">\n' +
+                (msg.third_party_user_id === accountId ? '<span class="chat-status">主播</span>' : '') +
+                '                            <span class="chat-name">' + msg.nick_name + ':</span>\n' +
+                '                            <span class="chat-content">' + (action === 'join' ? '进入直播间' : '退出') + '</span>\n' +
+                '                        </li>';
+            $JMessageList.append(html);
+            buttomMessageList();
+        }
     }
 
     function renderStudentList() {
@@ -353,7 +363,7 @@ $(function () {
     function setBanStatus(accountId, status) {
         $.ajax({
             method: 'POST',
-            url: 'ban/' + channelId + '/' + accountId + '/' + status,
+            url: '/vhallyun/ban/' + channelId + '/' + accountId + '/' + status,
             success: function (resp) {
             }
         })

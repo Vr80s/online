@@ -28,9 +28,12 @@ var vhallObj = {
 // 统一提交的方法
 requestService("/xczh/course/liveDetails", {
         courseId: course_id
-    },
-    function (data) {
-        if (data.success) {
+    },function (data) {
+    	
+    	if(data.code == 300){
+    	    location.href=data.errorMessage;
+    		return;
+    	}if (data.success) {
             
             // 修改title
             document.setTitle = function (t) {

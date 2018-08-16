@@ -79,17 +79,14 @@ public class TimedTaskJob {
             }
         });
     }
-    
+
     /**
      * Description：医馆推荐值更新
      */
     @Scheduled(cron = "0 0/30 * * * ?")
     public void hospitalRecommendAging() {
-        
         hospitalService.updateDefaultSort();
     }
-    
-    
 
     @Scheduled(cron = "0 0/1 * * * ?")
     public void liveCourseMessage() throws ClientException {

@@ -15,12 +15,17 @@ import org.springframework.web.bind.annotation.*;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczh.consumer.market.auth.Account;
+import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.utils.APPUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.CourseUtil;
 import com.xczhihui.common.util.XzStringUtils;
+import com.xczhihui.common.util.enums.UserUnitedStateType;
+import com.xczhihui.common.util.enums.WatchStateType;
+import com.xczhihui.common.util.enums.WechatShareLinkType;
 import com.xczhihui.common.util.vhallyun.BaseService;
 import com.xczhihui.common.util.vhallyun.VhallUtil;
+import com.xczhihui.course.consts.MultiUrlHelper;
 import com.xczhihui.course.service.*;
 import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.medical.anchor.service.ICourseApplyService;
@@ -122,13 +127,19 @@ public class CourseController {
      * email: 15936216273@163.com
      */
     @RequestMapping("liveDetails")
-    public ResponseObject liveDetails(@Account String accountId, @RequestParam("courseId") Integer courseId) throws Exception {
+    public ResponseObject liveDetails(@Account String accountId, @RequestParam("courseId") Integer courseId,
+    		HttpServletRequest request) throws Exception {
 
         CourseLecturVo cv = courseServiceImpl.selectCourseDetailsById(accountId,courseId);
         if (cv == null) {
             return ResponseObject.newErrorResponseObject("获取课程有误");
         }
 
+        if(WatchStateType.PAY.getCode() ==  cv.getWatchState() && MultiUrlHelper.URL_TYPE_MOBILE.equals(APPUtil.getMobileSource(request))){
+        	 String page = this.coursePage(cv);
+        	 return ResponseObject.newErrorResponseObject(page,UserUnitedStateType.NO_PAY.getCode());
+        }
+        
         //赋值公共参数
         cv = assignCommonData(cv,courseId);
         if (cv.getChannelId() != null && cv.getDirectId() != null) {
@@ -295,4 +306,52 @@ public class CourseController {
         }
         return cv;
     }
+    
+    /**
+     * 
+    * @Title: coursePage
+    * @Description: 课程跳转
+    * @param 
+    * @param     参数
+    * @return String    返回类型
+    * @author yangxuan
+    * @throws
+     */
+    public String coursePage(CourseLecturVo cv) {
+    	
+        String coursePage = WechatShareLinkType.INDEX_PAGE.getLink();
+        
+        if (cv.getWatchState().equals(0) || cv.getWatchState().equals(1)) {
+        	
+            if (cv.getType().equals(1) || cv.getType().equals(2)) {
+                //视频音频购买
+                coursePage = WechatShareLinkType.SCHOOL_AUDIO.getLink();
+            } else if (cv.getType().equals(3)) {
+                //直播购买
+                coursePage = WechatShareLinkType.SCHOOL_PLAY.getLink();
+            } else {
+                //线下课购买
+                coursePage = WechatShareLinkType.SCHOOL_CLASS.getLink();
+            }
+        } else if (cv.getWatchState().equals(2)) {
+            
+            if (cv.getType().equals(1) || cv.getType().equals(2)) {
+                if (cv.getCollection()) {
+                    //专辑视频音频播放页
+                    coursePage = WechatShareLinkType.LIVE_SELECT_ALBUM.getLink();
+                } else {
+                    coursePage = WechatShareLinkType.LIVE_AUDIO.getLink();
+                }
+            } else if (cv.getType().equals(3)) {
+                //播放页面
+                coursePage = WechatShareLinkType.LIVE_PLAY.getLink();
+            } else {
+                //线下课页面
+                coursePage = WechatShareLinkType.LIVE_CLASS.getLink();
+            }
+        }
+        return returnOpenidUri + coursePage + cv.getId();
+    }
+
+
 }
