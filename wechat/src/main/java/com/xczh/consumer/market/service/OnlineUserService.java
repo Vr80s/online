@@ -1,6 +1,7 @@
 package com.xczh.consumer.market.service;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -85,4 +86,6 @@ public interface OnlineUserService {
      * @return
      */
     ThirdFlag buildThirdFlag(WxcpClientUserWxMapping wxw);
+
+	List<OnlineUser> selectAllUser()throws SQLException;
 }

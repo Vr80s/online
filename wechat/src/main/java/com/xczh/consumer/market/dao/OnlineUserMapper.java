@@ -1,10 +1,14 @@
 package com.xczh.consumer.market.dao;
 
+import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.MapHandler;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
@@ -193,4 +197,13 @@ public class OnlineUserMapper extends BasicSimpleDao {
             e.printStackTrace();
         }
     }
+
+	public List<OnlineUser> selectAllUser() throws SQLException {
+        StringBuffer sql = new StringBuffer();
+        sql.append(" select id,name,login_name as loginName,");
+        sql.append(" small_head_photo as smallHeadPhoto ");
+        sql.append(" from oe_user where  status = 0  and is_delete =0  ");
+        return this.queryPage(JdbcUtil.getCurrentConnection(), sql.toString(), 
+        		0,Integer.MAX_VALUE, OnlineUser.class, null);
+	}
 }
