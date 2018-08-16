@@ -1538,6 +1538,7 @@ outline: none;
     vertical-align: middle;
     position: relative;
     background: #f0f0f0;
+    overflow: hidden;
 }
 .class-fengmian{
 	width: 603px;

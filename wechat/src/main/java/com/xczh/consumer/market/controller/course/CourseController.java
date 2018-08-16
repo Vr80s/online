@@ -25,6 +25,7 @@ import com.xczhihui.common.util.enums.WatchStateType;
 import com.xczhihui.common.util.enums.WechatShareLinkType;
 import com.xczhihui.common.util.vhallyun.BaseService;
 import com.xczhihui.common.util.vhallyun.VhallUtil;
+import com.xczhihui.course.consts.MultiUrlHelper;
 import com.xczhihui.course.service.*;
 import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.medical.anchor.service.ICourseApplyService;
@@ -126,14 +127,15 @@ public class CourseController {
      * email: 15936216273@163.com
      */
     @RequestMapping("liveDetails")
-    public ResponseObject liveDetails(@Account String accountId, @RequestParam("courseId") Integer courseId) throws Exception {
+    public ResponseObject liveDetails(@Account String accountId, @RequestParam("courseId") Integer courseId,
+    		HttpServletRequest request) throws Exception {
 
         CourseLecturVo cv = courseServiceImpl.selectCourseDetailsById(accountId,courseId);
         if (cv == null) {
             return ResponseObject.newErrorResponseObject("获取课程有误");
         }
 
-        if(WatchStateType.PAY.getCode() ==  cv.getWatchState()){
+        if(WatchStateType.PAY.getCode() ==  cv.getWatchState() && MultiUrlHelper.URL_TYPE_MOBILE.equals(APPUtil.getMobileSource(request))){
         	 String page = this.coursePage(cv);
         	 return ResponseObject.newErrorResponseObject(page,UserUnitedStateType.NO_PAY.getCode());
         }
