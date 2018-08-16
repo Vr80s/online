@@ -23,7 +23,7 @@ var result = "";
 var playBackType = 1;
 
 var vhallObj = {
-	accountId: localStorage.getItem("userId")
+    accountId: localStorage.getItem("userId")
 };
 // 统一提交的方法
 requestService("/xczh/course/liveDetails", {
@@ -31,7 +31,7 @@ requestService("/xczh/course/liveDetails", {
     },
     function (data) {
         if (data.success) {
-        	
+            
             // 修改title
             document.setTitle = function (t) {
                 document.title = t;
@@ -101,7 +101,7 @@ requestService("/xczh/course/liveDetails", {
 
             $(".anchor_center").html(result.lecturerDescription); //主播简介
 
-            //	主播简介判断为空
+            //  主播简介判断为空
             if (data.resultObject.lecturerDescription == null || data.resultObject.lecturerDescription == '') {
                 $(".anchor_center01").hide();
                 $(".null_anchor").show();
@@ -169,7 +169,7 @@ requestService("/xczh/course/liveDetails", {
 
                 $(".give_a01").show();
 
-                //					点击输入框
+                //                  点击输入框
                 $("#mywords").click(function () {
                     $(".give_a1").hide();
                     $(".give_a1_img").hide();
@@ -186,7 +186,7 @@ requestService("/xczh/course/liveDetails", {
                 $("#sendChat").addClass('importants'); //发送
 
 
-                //					点击表情
+                //                  点击表情
                 $("#face").click(function () {
                     $(".coze_bottom").css('bottom', '7.1rem');
                 });
@@ -215,7 +215,7 @@ requestService("/xczh/course/liveDetails", {
                     $(".div_input").css("background", "none");
                 });
 
-                //		coze   点击其他区域，聊天区域
+                //      coze   点击其他区域，聊天区域
                 $(".coze").click(function () {
                     $(".send_gifts").hide(); /*礼物区域隐藏*/
                     $("#sendChat").hide(); /*发送按钮隐藏*/
@@ -224,7 +224,7 @@ requestService("/xczh/course/liveDetails", {
                     $(".give_a1").show(); /*礼物显示*/
                 });
 
-                //		点击课件之间的  发送 礼物切换
+                //      点击课件之间的  发送 礼物切换
                 $(".details_footer_width li").click(function () {
                     $(".send_gifts").hide(); /*礼物区域隐藏*/
                     $("#sendChat").hide(); /*发送按钮隐藏*/
@@ -271,7 +271,7 @@ requestService("/xczh/course/liveDetails", {
             
             var liveCase = result.liveCase;
             if(lineState ==1 && liveCase == 2){
-            	$(".video_end_top3").show();
+                $(".video_end_top3").show();
             }
         }
     }, false)
@@ -368,29 +368,4 @@ function userIndex() {
 }
 
 
-//点播视频播放时禁止放大处理
-function on_cc_h5player_init(){
-    var oV = document.getElementsByTagName('video')[0];
-    //oV.setAttribute("x5-playsinline","");
-    oV.attr('x5-playsinline', '');
-    // alert(99999);
-}
 
-// on_cc_h5player_init();
-
-// alert(44444);
-
-//在手机上，添加video的一些属性
-/*$('video').attr('x5-video-player-type', 'h5');
-$('video').attr('x-webkit-airplay', true);
-$('video').attr('x5-video-player-fullscreen', true);
-$('video').attr('x5-video-ignore-metadata', true);
-$('video').attr('object-fit', 'fill');
-$('video').attr('object-position', 'center center');*/
-$('video').attr('x5-video-player-type', '');
-$('video').attr('x-webkit-airplay', '');
-$('video').attr('x5-video-player-fullscreen', '');
-$('video').attr('x5-video-ignore-metadata', '');
-/*$('video').attr('object-fit', 'fill');
-$('video').attr('object-position', 'center center');*/
-// alert(1111);

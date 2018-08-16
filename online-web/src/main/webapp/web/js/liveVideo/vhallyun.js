@@ -57,8 +57,8 @@ function initVideo(){
       window.doc = new VhallDocPassive({
         channelId:vhallObj.channelId, //频道Id
         docNode:docNode,//文档显示节点div id
-        width:320,
-        height:180
+        width:800,
+        height:450
       });
       
       var roomId = (liveStatus == 1 ? vhallObj.roomId : "");
