@@ -304,7 +304,7 @@ $(function () {
     }
 
     function updatePersonNum() {
-        $('.J-person-num').text('(' + $('.student-list li').length + ')')
+        $('.J-person-num').text('(' + $('.student-list li').length + '人)')
     }
 
     $('.J-refresh-list').on('click', function () {
