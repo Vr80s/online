@@ -25,12 +25,14 @@ import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.controller.AbstractController;
 import com.xczhihui.bxg.online.web.service.CourseService;
 import com.xczhihui.bxg.online.web.service.OnlineUserCenterService;
+import com.xczhihui.common.support.service.CacheService;
 import com.xczhihui.common.util.TimeUtil;
 import com.xczhihui.common.util.VhallUtil;
 import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.common.util.enums.ClientType;
 import com.xczhihui.common.util.enums.MessageTypeEnum;
 import com.xczhihui.common.util.enums.RouteTypeEnum;
+import com.xczhihui.common.util.redis.key.RedisCacheKey;
 import com.xczhihui.course.params.BaseMessage;
 import com.xczhihui.course.service.ICommonMessageService;
 import com.xczhihui.course.service.ICourseSolrService;
@@ -85,6 +87,8 @@ public class CourseApplyController extends AbstractController {
     private EnrolService enrolService;
     @Autowired
     private IMedicalDoctorBusinessService medicalDoctorBusinessService;
+    @Autowired
+    private CacheService cacheService;
 
     /**
      * Description：分页获取课程申请列表
@@ -378,6 +382,7 @@ public class CourseApplyController extends AbstractController {
             medicalDoctorPostsService.addDoctorPosts(user.getId(),course.getId(),null,course.getGradeName(),course.getSubtitle());
             responseObj.setResultObject("上架成功");
         } else {
+            deleteRemindMessage(courseId);
             responseObj.setResultObject("下架成功");
         }
         try {
@@ -387,6 +392,11 @@ public class CourseApplyController extends AbstractController {
            return responseObj;
         }
         return responseObj;
+    }
+
+    private void deleteRemindMessage(Integer courseId) {
+        cacheService.delete(RedisCacheKey.OFFLINE_COURSE_REMIND_KEY + RedisCacheKey.REDIS_SPLIT_CHAR + courseId);
+        cacheService.delete(RedisCacheKey.LIVE_COURSE_REMIND_KEY + RedisCacheKey.REDIS_SPLIT_CHAR + courseId);
     }
 
     /**

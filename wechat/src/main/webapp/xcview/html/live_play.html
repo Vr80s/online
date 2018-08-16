@@ -40,6 +40,24 @@
 	    margin: 0.04rem 0rem 0 0.1rem;
 	    border-radius: 4px;
 	}
+	.play_video_hide{
+			width: 2rem;
+		    height: 0.5rem;
+		    line-height: 0.5rem;
+		    font-size: 0.22rem;
+		    color: #fff;
+		    text-align: center;
+		    background: #000;
+		    margin: 0 auto;
+		    /*display: none;*/
+		    position: absolute;
+		    top: 0;
+		    left: 50%;
+		    margin-left: -1rem;
+		    margin-top: 1.8rem;
+		    border-radius: 4px;
+		    opacity: 0.8;
+		}
 </style>
 </head>
 <body style="background:#F8F8F8;">
@@ -76,21 +94,19 @@
 	</div>
 	<!--视频暂未开播-->
 	<div class="play_video">
+
+		<!-- 直播课程状态 1直播中， 2预告，3直播结束 ， 4 即将直播 ，5 准备直播 ，6 异常直播   lineState -->
+		<!-- 是否免费 0：收费 1：免费 2：已购买    watchState  -->  
+		<!-- record== ture   有回放  -->
+
 		<script type="text/html" id="data_video">
 			<!--<img src="{{smallImgPath}}"/>-->
-			{{if lineState == 1}}
+			{{if lineState == 1 && record==ture}}
 			<!--视频开播-->
 			<a class="memory_lujin" data-memory="{{id}}"  href="javascript:;"></a>
 			<div class="video_prompt_open">
 				<img src="../images/play_btn.png"/>
 			</div>
-			{{else if lineState == 3}}
-			<!--<a href="javascript:;" class="btn_returned"></a>-->	
-			<a class="memory_lujin" data-memory="{{id}}" href="javascript:;"></a>
-			<div class="video_prompt_open">
-				<img src="../images/play_btn.png"/>
-			</div>
-
 			{{else if lineState == 4}}
 			<a class="memory_lujin" data-memory="{{id}}" href="javascript:;"></a>
 			<div class="video_prompt_open">
@@ -99,6 +115,14 @@
 			{{else if lineState == 2 || lineState == 5}}
 			<div class="video_prompt">
 				敬请期待
+			</div>
+			{{else if lineState == 3 && record==false}}
+				<div class="play_video_hide">当前直播无回放</div>
+			{{else if lineState == 3}}
+			<!--<a href="javascript:;" class="btn_returned"></a>-->	
+			<a class="memory_lujin" data-memory="{{id}}" href="javascript:;"></a>
+			<div class="video_prompt_open">
+				<img src="../images/play_btn.png"/>
 			</div>
 			{{/if}}
 		</script>
@@ -492,8 +516,8 @@
 <!--公用弹框 -->
 
 <script type="text/javascript" src="/xcview/js/common/alertPopShow.js"></script>
-<script type="text/javascript" src="../js/live_play.js"></script>
-<script type="text/javascript" src="../js/share/share.js?v=wechat_1.1.1"></script>
+<script type="text/javascript" src="/xcview/js/live_play.js"></script>
+<script type="text/javascript" src="/xcview/js/share/share.js?v=wechat_1.1.1"></script>
 <script>
 			
 

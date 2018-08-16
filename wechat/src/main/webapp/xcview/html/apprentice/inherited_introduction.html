@@ -226,11 +226,11 @@
 
 var back = document.referrer;
 if(isNotBlank(back) && back.indexOf("home_page.html") != -1){
-	sessionStorage.setItem("inherited_backFalg","home");
+    sessionStorage.setItem("inherited_backFalg","home");
 }else if(isNotBlank(back) && back.indexOf("physicians_page.html") != -1){
-	sessionStorage.setItem("inherited_backFalg","physicians_page");
+    sessionStorage.setItem("inherited_backFalg","physicians_page");
 }else if(isNotBlank(back) && back.indexOf("apprentice.html") != -1){ //
-	sessionStorage.setItem("inherited_backFalg","");
+    sessionStorage.setItem("inherited_backFalg","");
 } 
 
     // 控制手机物理键--返回
@@ -244,14 +244,14 @@ if(isNotBlank(back) && back.indexOf("home_page.html") != -1){
                 if (hashName !== '') {
                     var hash = window.location.hash;
                     if (hash === '') {
-                    	var back = document.referrer;
+                        var back = document.referrer;
                         var backFalg = sessionStorage.getItem("inherited_backFalg");
                         if(backFalg == "home"){
-                        	  window.location.href = "/xcview/html/home_page.html";
+                              window.location.href = "/xcview/html/home_page.html";
                               return;
                         }else if(backFalg == "physicians_page"){
-                        	  window.history.back();
-                        	  return;
+                              window.history.back();
+                              return;
                         }
                         location.href = '/xcview/html/apprentice/apprentice.html'
                     }
