@@ -6,7 +6,7 @@ var courseName = "中医传承平台";
 var smallImgPath = "https://file.ipandatcm.com/data/picture/online/2017/12/18/15/12db98e4fc674f1d9b1e5995d2c533d3.jpg";
 var description = "零基础也能学中医！许多学员推荐“古籍经典”系列以及【小宝中医带你快速入门学针灸】课程作为他们的入门必备。";
 var courseId = course_id;
-
+var record;
 var vhallObj = {
 	appId: appid
 };
@@ -34,6 +34,7 @@ RequestService("/online/live/getOpenCourseById", "GET", {
 	courseName = obj.courseName;
 	smallImgPath = obj.smallImgPath;
 	description = obj.description;
+    record = obj.record;
 
 	$(".playback-img").attr("src", smallImgPath);
 
