@@ -107,18 +107,22 @@ $(function () {
     init();
 
     function initDevices() {
-        cameras = window.Vhall.devices.cameras;
-        mics = window.Vhall.devices.mics;
-        var $JCameras = $('.J-cameras');
-        var $JMics = $('.J-mics');
-        $JCameras.html('');
-        $JMics.html('');
-        for (var i = 0; i < cameras.length; i++) {
-            $JCameras.append('<option value="' + cameras[i] + '">' + cameras[i] + '</option>');
+        try {
+            cameras = window.Vhall.devices.cameras;
+            mics = window.Vhall.devices.mics;
+            var $JCameras = $('.J-cameras');
+            var $JMics = $('.J-mics');
+            $JCameras.html('');
+            $JMics.html('');
+            for (var i = 0; i < cameras.length; i++) {
+                $JCameras.append('<option value="' + cameras[i] + '">' + cameras[i] + '</option>');
+            }
+            for (var i = 0; i < mics.length; i++) {
+                $JMics.append('<option value="' + mics[i] + '">' + mics[i] + '</option>');
+            }
+        } catch(e) {
         }
-        for (var i = 0; i < mics.length; i++) {
-            $JMics.append('<option value="' + mics[i] + '">' + mics[i] + '</option>');
-        }
+
     }
 
     $('#J_confirm_edit').on('click', function () {
@@ -170,8 +174,9 @@ $(function () {
             if (micAndCamerasLack()) {
                 initDevices();
                 if (micAndCamerasLack()) {
-                       $(".noll-equipment").removeClass("hide");
-     				   $(".background-ask").removeClass("hide");   
+                    $(".noll-equipment").removeClass("hide");
+                    $(".background-ask").removeClass("hide");
+                    $this.removeAttr('disabled');
                     initDevices();
                     return false;
                 }
@@ -300,7 +305,7 @@ $(function () {
     }
 
     function updatePersonNum() {
-        $('.J-person-num').text('(' + $('.student-list li').length + ')')
+        $('.J-person-num').text('(' + $('.student-list li').length + '人)')
     }
 
     $('.J-refresh-list').on('click', function () {
