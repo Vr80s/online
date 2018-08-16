@@ -18,7 +18,7 @@ public enum UserUnitedStateType {
     WITHDRAWAL(1003, "其他设备登录"),
     GO_TO_BIND(1005, "完善信息"),
     WEIXIN_AUTH(1006, "微信授权"),
-
+    
     //三方登录状态
     //200 已经绑定过，201 未绑定 202 数据异常
     BINDING(200, "第三方信息已绑定手机号。直接登录！"),
@@ -33,8 +33,11 @@ public enum UserUnitedStateType {
     //认证手机号是否绑定过了
     PNHONE_NOT_THERE_ARE(400, "未注册手机号,可进行判断操作"),
     PNHONE_IS_WRONG(401, "已注册手机号,但是未绑定,可进行判断操作"),
-    PNHONE_BINDING(402, "已经绑定过了,直接使用");
+    PNHONE_BINDING(402, "已经绑定过了,直接使用"),
 
+	
+	NO_PAY(300, "未购买此课程");
+	
     /**
      * 描述
      **/
