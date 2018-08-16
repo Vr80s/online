@@ -174,8 +174,9 @@ $(function () {
             if (micAndCamerasLack()) {
                 initDevices();
                 if (micAndCamerasLack()) {
-                       $(".noll-equipment").removeClass("hide");
-     				   $(".background-ask").removeClass("hide");   
+                    $(".noll-equipment").removeClass("hide");
+                    $(".background-ask").removeClass("hide");
+                    $this.removeAttr('disabled');
                     initDevices();
                     return false;
                 }
@@ -304,7 +305,7 @@ $(function () {
     }
 
     function updatePersonNum() {
-        $('.J-person-num').text('(' + $('.student-list li').length + ')')
+        $('.J-person-num').text('(' + $('.student-list li').length + '人)')
     }
 
     $('.J-refresh-list').on('click', function () {
