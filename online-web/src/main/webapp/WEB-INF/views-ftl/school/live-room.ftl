@@ -287,7 +287,7 @@
         <div class="col-md-2 comment-padding" style="height: 100%;">
             <div class="content-student">
                 <!--存放视频-->
-                <div style="height: 232px">
+                <div style="height: 232px;background-color: #0C0000">
                     <div class="video-wrap" id="J_video_main">
                     </div>
                 </div>
