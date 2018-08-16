@@ -97,7 +97,15 @@ $(function () {
 
         var school_img = document.createElement("img");
         school_img.src = data.resultObject.smallImgPath + '?imageView2/2/w/750';
-        $(".play_video").append(school_img)
+        $(".play_videos").append(school_img);
+
+        if (data.resultObject.record==false && data.resultObject.lineState==3) {
+            $(".play_video_hide").show();
+        }else{
+            $(".play_video_hide").hide();
+        };
+
+
         //获取讲师id
         LecturerId = data.resultObject.userLecturerId;
 //	课程名称/等级/评论
