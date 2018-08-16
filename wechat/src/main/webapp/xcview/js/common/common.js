@@ -219,7 +219,7 @@ function ajaxRequest(url, param,type, callback, ac) {
                 location.href = "/xcview/html/evpi.html";
             } else if (msg.code == USER_WEIXIN_AUTH) {
                 location.href = "/xczh/wxlogin/middle?url=" + getCurrentUrl();
-            } else {
+            }else {
                 if (callback) {
                     callback(msg);
                 }
