@@ -49,7 +49,7 @@
 		    text-align: center;
 		    background: #000;
 		    margin: 0 auto;
-		    display: none;
+		    /*display: none;*/
 		    position: absolute;
 		    top: 0;
 		    left: 50%;
@@ -101,7 +101,7 @@
 
 		<script type="text/html" id="data_video">
 			<!--<img src="{{smallImgPath}}"/>-->
-			{{if lineState == 1}}
+			{{if lineState == 1 && record==ture}}
 			<!--视频开播-->
 			<a class="memory_lujin" data-memory="{{id}}"  href="javascript:;"></a>
 			<div class="video_prompt_open">
