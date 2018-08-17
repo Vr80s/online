@@ -106,7 +106,7 @@ setInterval(function(){
         	$(".media-error").show();
         	$(".playback").show();
     	}
-    	if(netWorkstate == 0){
+    	if(netWorkstate != 2){
     		console.error("netWorkstate："+netWorkstate);
     	}
 	}catch(error){
