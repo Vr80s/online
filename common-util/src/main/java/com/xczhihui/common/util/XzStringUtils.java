@@ -21,7 +21,7 @@ public class XzStringUtils {
     public static  String COLLECTION_UPDATE_ALL = "每天更新";
     public static  String COLLECTION_UPDATE_FINISH = "已完成";
     
-    
+    public static  String HOST_COLLECTION_UPDATE_ALL = "今天需更新";
 
    private static  Map<String, String > mapWeek = new HashMap<String, String>(){{
            put("1","周一");    
@@ -414,6 +414,7 @@ public class XzStringUtils {
         map.put(7, "日");
     }
 
+    
     public static String updateTimeConverter(String updateTime) {
     	String week = getWeekOfDate();
         if(updateTime!=null && updateTime.indexOf(week)!=-1) {
