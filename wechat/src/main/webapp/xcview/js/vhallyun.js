@@ -71,10 +71,11 @@ setInterval(function() {
     	if(falgNetWorkstate>2){
 			$(".video_end_top4").show();
 		}
-		
+		if(netWorkstate != 2){
+    		console.error("falgNetWorkstate："+falgNetWorkstate);
+    	}
 	} catch (error) {
 		console.log(error);
-		
 		if(initVideoFalg !=1){
 	 		elsBind();
 	 	}
