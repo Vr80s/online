@@ -93,29 +93,29 @@ function initVideo(){
  * 2:浏览器正在下载数据,
  * 3:未找到音频/视频来源
  */
-var falgNetWorkstate  = 0;
-setInterval(function(){
-	try{
-		var netWorkstate = VhallPlayer.getNetworkState();
-		if(netWorkstate ==3 ){
-			falgNetWorkstate++;
-		}
-    	if(falgNetWorkstate>2){
-    		$(".playback").attr("type",21);
-    		$(".playback div").hide();
-        	$(".media-error").show();
-        	$(".playback").show();
-    	}
-    	if(netWorkstate != 2){
-    		console.error("netWorkstate："+netWorkstate);
-    	}
-	}catch(error){
-	 	console.log(error);
-	 	if(initVideoFalg !=1){
-	 		initVideo();
-	 	}
-	}
-},1000)
+//var falgNetWorkstate  = 0;
+//setInterval(function(){
+//	try{
+//		var netWorkstate = VhallPlayer.getNetworkState();
+//		if(netWorkstate ==3 ){
+//			falgNetWorkstate++;
+//		}
+//    	if(falgNetWorkstate>2){
+//    		$(".playback").attr("type",21);
+//    		$(".playback div").hide();
+//        	$(".media-error").show();
+//        	$(".playback").show();
+//    	}
+//    	if(netWorkstate != 2){
+//    		console.error("netWorkstate："+netWorkstate);
+//    	}
+//	}catch(error){
+//	 	console.log(error);
+//	 	if(initVideoFalg !=1){
+//	 		initVideo();
+//	 	}
+//	}
+//},1000)
 
 
 function elsBind(){

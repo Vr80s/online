@@ -765,33 +765,57 @@ function verifyCourse(course){
     return true;
 }
 
-
-function confirmCourseSale(state,courseApplyId,courseId){
+//获取当前时间
+function getNowFormatDate() {
+	    var date = new Date();
+	    var seperator1 = "-";
+	    var seperator2 = ":";
+	    var month = date.getMonth() + 1;
+	    var strDate = date.getDate();
+	    if (month >= 1 && month <= 9) {
+	        month = "0" + month;
+	    }
+	    if (strDate >= 0 && strDate <= 9) {
+	        strDate = "0" + strDate;
+	    }
+	    var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+	            + " " + date.getHours() + seperator2 + date.getMinutes()
+	            + seperator2 + date.getSeconds();
+	    return currentdate;    
+	}
+function confirmCourseSale(state,courseApplyId,courseId,courseForm,liveStatus,startTime){
     var title="课程上架";
     var content="确认上架该课程？";
+    var nowDate = new Date();
     if(state==0){
         title="课程下架";
         content="确认下架该课程？";
     }
-    confirmBox(title,content,function(closefn){
-        $.ajax({
-            type: "post",
-            url: bath + "/anchor/course/changeSaleState",
-            data:"courseApplyId="+courseApplyId+"&courseId="+courseId+"&state="+state,
-            async: false,
-            success: function(data) {
-                closefn();
-                console.log(data);
-                if(data.success == true) {
-//
-                    courseList(1);
-                    showTip(data.resultObject);
-                } else {
-                    showTip(data.errorMessage);
-                }
-            }
-        });
-    });
+    if(courseForm==1&&liveStatus==2&&startTime<getNowFormatDate()){
+    	showTip("该直播时间已经过期，无法上架,请修改再次操作上架。");
+    	return false;
+    }else{
+    	confirmBox(title,content,function(closefn){
+	        $.ajax({
+	            type: "post",
+	            url: bath + "/anchor/course/changeSaleState",
+	            data:"courseApplyId="+courseApplyId+"&courseId="+courseId+"&state="+state,
+	            async: false,
+	            success: function(data) {
+	                closefn();
+	                console.log(data);
+	                if(data.success == true) {
+	//
+	                    courseList(1);
+	                    showTip(data.resultObject);
+	                } else {
+	                    showTip(data.errorMessage);
+	                }
+	            }
+	        });
+    	});
+    }
+
 }
 function confirmCollection(state,courseApplyId,courseId){
     var title="专辑上架";
