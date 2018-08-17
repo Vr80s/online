@@ -166,6 +166,20 @@ $(function () {
     function micAndCamerasLack() {
         return !cameras || cameras.length === 0 || !mics || mics.length === 0;
     }
+    
+    function getPushStatus() {
+        var status = 0;
+        $.ajax({
+            url: '/anchor/course/pushStream/status?courseId=' + courseId,
+            method: 'GET',
+            async: false,
+            success: function (resp) {
+                console.log(resp);
+                status = resp.resultObject;
+            }
+        });
+        return status;
+    }
 
     $('#J_play').on('click', function () {
         var $this = $(this);
@@ -181,32 +195,36 @@ $(function () {
                     return false;
                 }
             }
-            VHPublisher.startPush({
-                width: 800,
-                height: 450,
-                camera: $('.J-cameras').val(),
-                mic: $('.J-mics').val(),
-                success: function () {
-                    $('.play-time').text("00:00");
-                    var n = 0;
-                    timer = setInterval(function () {
-                        n++;
-                        var m = parseInt(n / 60);
-                        var s = parseInt(n % 60);
-                        $('.play-time').text(toDub(m) + ":" + toDub(s));
-                    }, 1000);
-                    updateLiveStatus("start");
+            if (getPushStatus() === 0) {
+                VHPublisher.startPush({
+                    width: 800,
+                    height: 450,
+                    camera: $('.J-cameras').val(),
+                    mic: $('.J-mics').val(),
+                    success: function () {
+                        $('.play-time').text("00:00");
+                        var n = 0;
+                        timer = setInterval(function () {
+                            n++;
+                            var m = parseInt(n / 60);
+                            var s = parseInt(n % 60);
+                            $('.play-time').text(toDub(m) + ":" + toDub(s));
+                        }, 1000);
+                        updateLiveStatus("start");
 
-                    $this.text('结束直播');
-                    $this.css('background', "red");
-                    $this.data('status', 1);
-                    console.log("推流成功");
-                },
-                fail: function (e) {
-                    console.log(e);
-                    showTip("直播未能开启");
-                }
-            });
+                        $this.text('结束直播');
+                        $this.css('background', "red");
+                        $this.data('status', 1);
+                        console.log("推流成功");
+                    },
+                    fail: function (e) {
+                        console.log(e);
+                        showTip("直播未能开启");
+                    }
+                });
+            } else {
+                showTip("其他设备正在直播，请关闭后继续使用被设备进行直播");
+            }
         } else {
             VHPublisher.stopPush({
                 complete: function () {
@@ -356,6 +374,7 @@ $(function () {
 
     function removeStudent(userId) {
         $('.user-id-' + userId).parent().remove();
+        updatePersonNum();
     }
 
     renderStudentList();
@@ -588,6 +607,7 @@ $(function () {
             sendMessage();
         }
     });
+
 //------------------------------------------静态页面效果----------------------------------------------------------------
 
     function getWhiteHeight() {

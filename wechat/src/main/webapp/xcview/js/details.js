@@ -370,11 +370,11 @@ function userIndex() {
     location.href = "/xcview/html/live_personal.html?userLecturerId=" + teacherId;
 }
 
-if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+/*if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
     $(".vjs-big-play-button").addClass("vjs-big-play-buttons");
     alert(11111);
 } else if (/(Android)/i.test(navigator.userAgent)) {
     alert(222);
     $(".vjs-big-play-button").removeClass("vjs-big-play-buttons");
-}
+}*/
 
