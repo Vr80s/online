@@ -22,6 +22,8 @@ var lineState = 1;
 var result = "";
 var playBackType = 1;
 
+var record;
+
 var vhallObj = {
     accountId: localStorage.getItem("userId")
 };
@@ -35,6 +37,8 @@ requestService("/xczh/course/liveDetails", {
     		return;
     	}if (data.success) {
             
+            
+
             // 修改title
             document.setTitle = function (t) {
                 document.title = t;
@@ -53,6 +57,8 @@ requestService("/xczh/course/liveDetails", {
                 // alert(111);
             }, 1000);
 
+            // 这是回放视频
+            record = data.resultObject.record;
 
             result = data.resultObject;
             // 视频id

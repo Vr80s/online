@@ -194,8 +194,3 @@ function go_play_hos(type,collection,id){
 	}
 }
 //搜索历史播放结束
-
-
-
-
-
