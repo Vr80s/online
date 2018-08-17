@@ -147,8 +147,15 @@ function initChat() {
 					}, 4000)
 
 				} else if (msg.type == 13) { // 结束直播  --》  生成点播
+					
+					if (record == false) {
+						$(".video_end_top").show();
+					}else{
+						$(".video_end_top2").show();
+					};
 
-					$(".video_end_top2").show();
+					// $(".video_end_top2").show();
+					
 
 				} else if (msg.type == 14) { // 退出直播间，但是没有结束直播
 
@@ -156,9 +163,19 @@ function initChat() {
 
 				} else if (msg.type == 16) { // 回放生成成功
 
-					$(".video_end_top0").hide();
+					if (record == false) {
+						$(".video_end_top").show();
+					}else{
+						$(".video_end_top0").hide();
+						$(".video_end_top2").hide();
+						$(".video_end_top1").show();
+					}
+
+					/*$(".video_end_top0").hide();
 					$(".video_end_top2").hide();
-					$(".video_end_top1").show();
+					$(".video_end_top1").show();*/
+
+					
 
 				} else if (msg.type == 17) { // 回放生成失败
 
