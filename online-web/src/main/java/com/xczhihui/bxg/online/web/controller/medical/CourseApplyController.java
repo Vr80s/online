@@ -12,12 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.bxg.online.common.domain.Course;
@@ -107,7 +102,7 @@ public class CourseApplyController extends AbstractController {
         page.setCurrent(current);
         page.setSize(size);
         OnlineUser user = getCurrentUser();
-        return ResponseObject.newSuccessResponseObject(courseApplyService.selectCourseApplyPage(page, user.getId(), courseForm, multimediaType, title,teaching));
+        return ResponseObject.newSuccessResponseObject(courseApplyService.selectCourseApplyPage(page, user.getId(), courseForm, multimediaType, title, teaching));
     }
 
     /**
@@ -160,15 +155,15 @@ public class CourseApplyController extends AbstractController {
         OnlineUser user = getCurrentUser();
         return ResponseObject.newSuccessResponseObject(courseApplyService.selectAllCourses(user.getId(), multimediaType));
     }
-    
-    
+
+
     @RequestMapping(value = "/getCollectionNotExitCouse", method = RequestMethod.GET)
-    public ResponseObject getCollectionNotExitCouse(Integer multimediaType,Integer collectionId,Integer caiId) {
+    public ResponseObject getCollectionNotExitCouse(Integer multimediaType, Integer collectionId, Integer caiId) {
         OnlineUser user = getCurrentUser();
         return ResponseObject.newSuccessResponseObject(courseApplyService.getCollectionNotExitCouse(user.getId(),
-                multimediaType,collectionId,caiId));
+                multimediaType, collectionId, caiId));
     }
-    
+
 
     @RequestMapping(value = "/getCourseApplyById", method = RequestMethod.GET)
     public ResponseObject getCourseApplyById(Integer caiId) {
@@ -263,12 +258,13 @@ public class CourseApplyController extends AbstractController {
         courseApplyInfo.setTeaching(false);
         courseApplyInfo.setClientType(ClientType.PC.getCode());
         courseApplyService.saveCollectionApply(courseApplyInfo);
-        
+
         return ResponseObject.newSuccessResponseObject("保存成功");
     }
-    
+
     /**
      * 添加专辑下的课程
+     *
      * @param courseApplyInfo
      * @return
      */
@@ -279,10 +275,10 @@ public class CourseApplyController extends AbstractController {
         courseApplyInfo.setTeaching(false);
         courseApplyInfo.setClientType(ClientType.PC.getCode());
         //课程审核的id
-        courseService.saveCollectionCourse4Lock(user.getId(),courseApplyInfo);
+        courseService.saveCollectionCourse4Lock(user.getId(), courseApplyInfo);
         return ResponseObject.newSuccessResponseObject("保存成功");
     }
-    
+
 
     /**
      * Description：新增资源
@@ -379,7 +375,7 @@ public class CourseApplyController extends AbstractController {
             sendCourseOnlineMessage(courseApplyId, user);
             //添加医师动态
             Course course = courseService.findByApplyId(courseApplyId);
-            medicalDoctorPostsService.addDoctorPosts(user.getId(),course.getId(),null,course.getGradeName(),course.getSubtitle());
+            medicalDoctorPostsService.addDoctorPosts(user.getId(), course.getId(), null, course.getGradeName(), course.getSubtitle());
             responseObj.setResultObject("上架成功");
         } else {
             deleteRemindMessage(courseId);
@@ -388,8 +384,8 @@ public class CourseApplyController extends AbstractController {
         try {
             courseSolrService.initCourseSolrDataById(courseId);
         } catch (Exception e) {
-           e.printStackTrace();
-           return responseObj;
+            e.printStackTrace();
+            return responseObj;
         }
         return responseObj;
     }
@@ -458,16 +454,21 @@ public class CourseApplyController extends AbstractController {
     }
 
     @RequestMapping(value = "/teaching/apprentices/{courseId}", method = RequestMethod.POST)
-    public ResponseObject saveCourseTeaching(@PathVariable String courseId,String apprenticeIds) {
+    public ResponseObject saveCourseTeaching(@PathVariable String courseId, String apprenticeIds) {
         String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(getUserId());
-        enrolService.saveCourseTeaching(doctorId,courseId,apprenticeIds);
+        enrolService.saveCourseTeaching(doctorId, courseId, apprenticeIds);
         return ResponseObject.newSuccessResponseObject("保存成功");
     }
 
     @RequestMapping(value = "/{courseId}/record/{record}", method = RequestMethod.POST)
-    public ResponseObject saveCourseTeaching(@PathVariable int courseId,@PathVariable int record) {
-        courseApplyService.saveCourseRecordStatus(courseId,getUserId(),record);
+    public ResponseObject saveCourseTeaching(@PathVariable int courseId, @PathVariable int record) {
+        courseApplyService.saveCourseRecordStatus(courseId, getUserId(), record);
         return ResponseObject.newSuccessResponseObject("保存成功");
+    }
+
+    @RequestMapping(value = "/pushStream/status", method = RequestMethod.GET)
+    public ResponseObject getLivePushStreamStatus(@RequestParam Integer courseId) throws Exception {
+        return ResponseObject.newSuccessResponseObject(courseService.getCourseLivePushStreamStatus(courseId));
     }
 
     /**

@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczh.consumer.market.auth.Account;
-import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.utils.APPUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.CourseUtil;
@@ -107,13 +106,13 @@ public class CourseController {
     @RequestMapping("details")
     public ResponseObject details(@Account(optional = true) Optional<String> accountIdOpt, @RequestParam("courseId") Integer courseId) {
 
-        CourseLecturVo cv = courseServiceImpl.selectCourseMiddleDetailsById(accountIdOpt.isPresent()? accountIdOpt.get() : null,courseId);
-        
+        CourseLecturVo cv = courseServiceImpl.selectCourseMiddleDetailsById(accountIdOpt.isPresent() ? accountIdOpt.get() : null, courseId);
+
         if (cv == null) {
             return ResponseObject.newErrorResponseObject("课程信息有误");
         }
         //赋值公共参数
-        cv = assignCommonData(cv,courseId);
+        cv = assignCommonData(cv, courseId);
 
         return ResponseObject.newSuccessResponseObject(cv);
     }
@@ -128,25 +127,30 @@ public class CourseController {
      */
     @RequestMapping("liveDetails")
     public ResponseObject liveDetails(@Account String accountId, @RequestParam("courseId") Integer courseId,
-    		HttpServletRequest request) throws Exception {
+                                      HttpServletRequest request) throws Exception {
 
-        CourseLecturVo cv = courseServiceImpl.selectCourseDetailsById(accountId,courseId);
+        CourseLecturVo cv = courseServiceImpl.selectCourseDetailsById(accountId, courseId);
         if (cv == null) {
             return ResponseObject.newErrorResponseObject("获取课程有误");
         }
 
-        if(WatchStateType.PAY.getCode() ==  cv.getWatchState() && MultiUrlHelper.URL_TYPE_MOBILE.equals(APPUtil.getMobileSource(request))){
-        	 String page = this.coursePage(cv);
-        	 return ResponseObject.newErrorResponseObject(page,UserUnitedStateType.NO_PAY.getCode());
+        if (WatchStateType.PAY.getCode() == cv.getWatchState() && MultiUrlHelper.URL_TYPE_MOBILE.equals(APPUtil.getMobileSource(request))) {
+            String page = this.coursePage(cv);
+            return ResponseObject.newErrorResponseObject(page, UserUnitedStateType.NO_PAY.getCode());
         }
-        
+
         //赋值公共参数
-        cv = assignCommonData(cv,courseId);
+        cv = assignCommonData(cv, courseId);
         if (cv.getChannelId() != null && cv.getDirectId() != null) {
             cv.setVhallYunToken(BaseService.createAccessToken4Live(accountId, cv.getDirectId(), cv.getChannelId()));
             cv.setAppid(VhallUtil.APP_ID);
         }
         return ResponseObject.newSuccessResponseObject(cv);
+    }
+
+    @RequestMapping(value = "openLiveStatus", method = RequestMethod.GET)
+    public ResponseObject openLiveStatus(@RequestParam Integer courseId) throws Exception {
+        return ResponseObject.newSuccessResponseObject(courseServiceImpl.getCourseLivePushStreamStatus(courseId));
     }
 
     /**
@@ -172,7 +176,7 @@ public class CourseController {
      * email: 15936216273@163.com
      */
     @RequestMapping("guessYouLike")
-    public ResponseObject selectMenuTypeAndRandCourse( @RequestParam(value = "courseId") Integer courseId) {
+    public ResponseObject selectMenuTypeAndRandCourse(@RequestParam(value = "courseId") Integer courseId) {
         Page<CourseLecturVo> page = new Page<CourseLecturVo>();
         page.setCurrent(0);
         page.setSize(2);
@@ -191,7 +195,7 @@ public class CourseController {
      * email: 15936216273@163.com
      */
     @RequestMapping("unshelveCouserRecommen")
-    public ResponseObject unshelveCouserRecommen( @RequestParam(required = false, value = "pageSize") Integer pageSize) {
+    public ResponseObject unshelveCouserRecommen(@RequestParam(required = false, value = "pageSize") Integer pageSize) {
 
         if (pageSize == null || pageSize == 0) {
             pageSize = 8;
@@ -228,7 +232,7 @@ public class CourseController {
      * @throws Exception
      */
     @RequestMapping("courseTypeNumber")
-    public ResponseObject courseTypeNumber(@RequestParam(value = "userId") String userId, Integer type){
+    public ResponseObject courseTypeNumber(@RequestParam(value = "userId") String userId, Integer type) {
         Integer count = courseServiceImpl.selectLiveCountByUserIdAndType(userId, type);
         return ResponseObject.newSuccessResponseObject(count);
     }
@@ -253,7 +257,7 @@ public class CourseController {
     }
 
     @RequestMapping("teaching")
-    public ResponseObject teaching(@Account(optional = true) Optional<String> accountIdOpt,Integer pageSize,Integer pageNumber,@RequestParam("userId") String lecturerId) {
+    public ResponseObject teaching(@Account(optional = true) Optional<String> accountIdOpt, Integer pageSize, Integer pageNumber, @RequestParam("userId") String lecturerId) {
 
         pageSize = (pageSize == null ? 4 : pageSize);
         pageNumber = (pageNumber == null ? 1 : pageNumber);
@@ -262,14 +266,14 @@ public class CourseController {
         page.setCurrent(pageNumber);
         page.setSize(pageSize);
         String userId = accountIdOpt.isPresent() ? accountIdOpt.get() : null;
-        return ResponseObject.newSuccessResponseObject(courseServiceImpl.selectTeachingCoursesByUserId(page, lecturerId ,userId));
+        return ResponseObject.newSuccessResponseObject(courseServiceImpl.selectTeachingCoursesByUserId(page, lecturerId, userId));
     }
 
     @RequestMapping(value = "updateLiveStatus", method = RequestMethod.POST)
-    public ResponseObject updateLiveStatus(HttpServletRequest request,String event, String directId) throws IOException, SolrServerException {
-    	
-        Integer courseId = courseServiceImpl.updateCourseLiveStatus(event, directId,APPUtil.getMobileSource(request));
-        
+    public ResponseObject updateLiveStatus(HttpServletRequest request, String event, String directId) throws IOException, SolrServerException {
+
+        Integer courseId = courseServiceImpl.updateCourseLiveStatus(event, directId, APPUtil.getMobileSource(request));
+
         if (courseId != null) {
             try {
                 courseSolrService.initCourseSolrDataById(courseId);
@@ -282,12 +286,13 @@ public class CourseController {
 
     /**
      * 查看当前用户是否关注了主播以及是否购买了这个课程
+     *
      * @param cv
      * @param courseId
      * @return
      */
-    private CourseLecturVo assignCommonData(CourseLecturVo cv,Integer courseId) {
-        
+    private CourseLecturVo assignCommonData(CourseLecturVo cv, Integer courseId) {
+
         //设置星星级别
         cv.setStartLevel(CourseUtil.criticizeStartLevel(cv.getStartLevel()));
         cv.setRichCourseDetailsUrl(returnOpenidUri + "/xcview/html/person_fragment.html?type=1&typeId=" + courseId);
@@ -296,33 +301,32 @@ public class CourseController {
         //专辑查看更新时间
         if (cv.getCollection()) {
             //已更新多少集，等于总集数
-            if(cv.getCourseNumber()!=null && cv.getDirtyNumber()!=null && cv.getCourseNumber().equals(cv.getDirtyNumber())) {
+            if (cv.getCourseNumber() != null && cv.getDirtyNumber() != null && cv.getCourseNumber().equals(cv.getDirtyNumber())) {
                 cv.setDirtyDate(XzStringUtils.COLLECTION_UPDATE_FINISH);
-            }else {
+            } else {
                 cv.setDirtyDate(courseApplyService.getCollectionUpdateDateText(courseId));
             }
-            
+
             cv.setOutlineDetailsUrl(returnOpenidUri + "/xcview/html/outline_fragment.html?courseId=" + courseId);
         }
         return cv;
     }
-    
+
     /**
-     * 
-    * @Title: coursePage
-    * @Description: 课程跳转
-    * @param 
-    * @param     参数
-    * @return String    返回类型
-    * @author yangxuan
-    * @throws
+     * @param
+     * @param 参数
+     * @return String    返回类型
+     * @throws
+     * @Title: coursePage
+     * @Description: 课程跳转
+     * @author yangxuan
      */
     public String coursePage(CourseLecturVo cv) {
-    	
+
         String coursePage = WechatShareLinkType.INDEX_PAGE.getLink();
-        
+
         if (cv.getWatchState().equals(0) || cv.getWatchState().equals(1)) {
-        	
+
             if (cv.getType().equals(1) || cv.getType().equals(2)) {
                 //视频音频购买
                 coursePage = WechatShareLinkType.SCHOOL_AUDIO.getLink();
@@ -334,7 +338,7 @@ public class CourseController {
                 coursePage = WechatShareLinkType.SCHOOL_CLASS.getLink();
             }
         } else if (cv.getWatchState().equals(2)) {
-            
+
             if (cv.getType().equals(1) || cv.getType().equals(2)) {
                 if (cv.getCollection()) {
                     //专辑视频音频播放页

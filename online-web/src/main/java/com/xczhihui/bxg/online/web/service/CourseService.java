@@ -160,4 +160,6 @@ public interface CourseService {
 
 
     public void saveCollectionCourse4Lock(String userId, CourseApplyInfo courseApplyInfo);
+
+    Integer getCourseLivePushStreamStatus(Integer courseId) throws Exception;
 }
