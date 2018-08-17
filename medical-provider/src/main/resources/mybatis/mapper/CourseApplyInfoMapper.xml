@@ -110,6 +110,7 @@
         ON cai.`id` = oc.`apply_id`
         WHERE cai.`user_id` = #{userId}
         AND cai.`course_form` = 1
+        AND oc.status = 1
         <if test="title != null and title!=''">
             AND cai.`title` concat('%',#{title},'%')
         </if>
