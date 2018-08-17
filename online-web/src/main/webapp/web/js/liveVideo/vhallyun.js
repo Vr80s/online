@@ -56,7 +56,7 @@ function initVideo(){
       var docNode = $('#my-doc-area').length > 0 ? "my-doc-area" : vhallObj.channelId;
       window.doc = new VhallDocPassive({
         channelId:vhallObj.channelId, //频道Id
-        docNode:docNode,//文档显示节点div id
+        docNode:docNode//文档显示节点div id
         /*width:320,
         height:180*/
       });
@@ -199,7 +199,7 @@ function elsBind(){
                 	$(".leave").show();
                 	$(".playback").show();
                 	
-				} else if (msg.type == 16) { // 回放生成成功
+				} else if (record && msg.type == 16) { // 回放生成成功
 					
 					setTimeout(function () {
         				$(".playback div").hide();
@@ -207,7 +207,7 @@ function elsBind(){
                 		$(".playback").show();
         			},2000)
 					
-				} else if (msg.type == 17) { // 回放生成失败
+				} else if (!record || msg.type == 17) { // 回放生成失败
 					$(".playback div").hide();
 					$(".learning-center").show();
                 	$(".playback").show();
