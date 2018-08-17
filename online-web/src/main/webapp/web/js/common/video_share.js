@@ -106,12 +106,9 @@ $("#weibo_share").click(function(){
     for (var i in p) {
         s.push(i + '=' + encodeURIComponent(p[i] || ''));
     }
-//    var _src = "http://service.weibo.com/share/share.php?" + s.join('&') ;
-//    window.open(_src,"_blank");
-    
-    var redirectWindow = window.open('http://google.com', '_blank');
-    redirectWindow.location;
-})
+   var _src = "http://service.weibo.com/share/share.php?" + s.join('&') ;
+   window.open(_src,"_blank");
+});
 /**
  * qq分享
  */

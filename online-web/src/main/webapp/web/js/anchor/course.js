@@ -310,7 +310,7 @@ function getResourceList(){
  * @author name：yuxin <br>email: yuruixin@ixincheng.com
  * @Date: 2018/2/2 0002 下午 9:09
  **/
-
+var launchData;
 function courseList(current){
     var courseForm;
     var multimediaType;
@@ -339,7 +339,7 @@ function courseList(current){
     }
 //
     RequestService(url, "get", null, function(data) {
-
+			launchData=data.resultObject.records;
          if(!data.resultObject || !data.resultObject.records || data.resultObject.records.length == 0){
         $('#kecheng_list').html('<div style="padding-top:40px;text-align:center"><img src="/web/images/other_noResult.png" alt="" /><p style="font-size:16px;color:#999;margin-top:35px">暂无课程</p></div>');
         $('#kecheng_list').removeClass('hide')
@@ -783,15 +783,16 @@ function getNowFormatDate() {
 	            + seperator2 + date.getSeconds();
 	    return currentdate;    
 	}
-function confirmCourseSale(state,courseApplyId,courseId,courseForm,liveStatus,startTime){
+function confirmCourseSale(state,courseApplyId,courseId,index){
     var title="课程上架";
     var content="确认上架该课程？";
     var nowDate = new Date();
+    var launchUp=launchData[index]
     if(state==0){
         title="课程下架";
         content="确认下架该课程？";
     }
-    if(courseForm==1&&liveStatus==2&&startTime<getNowFormatDate()){
+    if(launchUp.courseForm==1&&launchUp.liveStatus==2&&launchUp.startTime<getNowFormatDate()){
     	showTip("该直播时间已经过期，无法上架,请修改再次操作上架。");
     	return false;
     }else{
@@ -1014,6 +1015,20 @@ function courseLiveList(current){
     });
 }
 
+function getPushStatus(courseId) {
+    var status = 0;
+    $.ajax({
+        url: '/anchor/course/pushStream/status?courseId=' + courseId,
+        method: 'GET',
+        async: false,
+        success: function (resp) {
+            console.log(resp);
+            status = resp.resultObject;
+        }
+    });
+    return status;
+}
+
 /**
  * Description：开始直播
  * creed: Talk is cheap,show me the code
@@ -1025,7 +1040,11 @@ function startLive(courseId, channelId) {
         alert("该直播为老的直播数据，请重新创建直播");
         return false;
     } else {
-        location.href = "/courses/liveRoom?courseId=" + courseId;
+        if (getPushStatus(courseId) === 0) {
+            location.href = "/courses/liveRoom?courseId=" + courseId;
+        } else {
+            showTip("其他设备正在直播，请关闭后继续使用被设备进行直播");
+        }
     }
 }
 

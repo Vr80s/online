@@ -553,4 +553,20 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     public Integer findLiveStatusByDirectId(String directId) {
         return iCourseMapper.selectCourseLiveStatusByDirectId(directId);
     }
+
+    @Override
+    public Integer getCourseLivePushStreamStatus(Integer courseId) {
+        Course course = iCourseMapper.selectById(courseId);
+        if (course == null) {
+            throw new CourseException("课程数据不存在");
+        }
+        try {
+            if (course.getDirectId() != null && !VideoService.isCanPushStream(course.getDirectId())) {
+                return LivePushStreamStatus.PUSH_STREAM_ING.getCode();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return LivePushStreamStatus.NON_PUSH_STREAM.getCode();
+    }
 }
