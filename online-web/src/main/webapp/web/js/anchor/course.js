@@ -1015,6 +1015,20 @@ function courseLiveList(current){
     });
 }
 
+function getPushStatus(courseId) {
+    var status = 0;
+    $.ajax({
+        url: '/anchor/course/pushStream/status?courseId=' + courseId,
+        method: 'GET',
+        async: false,
+        success: function (resp) {
+            console.log(resp);
+            status = resp.resultObject;
+        }
+    });
+    return status;
+}
+
 /**
  * Description：开始直播
  * creed: Talk is cheap,show me the code
@@ -1026,7 +1040,11 @@ function startLive(courseId, channelId) {
         alert("该直播为老的直播数据，请重新创建直播");
         return false;
     } else {
-        location.href = "/courses/liveRoom?courseId=" + courseId;
+        if (getPushStatus(courseId) === 0) {
+            location.href = "/courses/liveRoom?courseId=" + courseId;
+        } else {
+            showTip("其他设备正在直播，请关闭后继续使用被设备进行直播");
+        }
     }
 }
 

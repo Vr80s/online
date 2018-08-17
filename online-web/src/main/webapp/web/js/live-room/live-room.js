@@ -166,7 +166,7 @@ $(function () {
     function micAndCamerasLack() {
         return !cameras || cameras.length === 0 || !mics || mics.length === 0;
     }
-    
+
     function getPushStatus() {
         var status = 0;
         $.ajax({
