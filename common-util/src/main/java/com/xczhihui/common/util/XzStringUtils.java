@@ -2,6 +2,8 @@ package com.xczhihui.common.util;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -308,12 +310,6 @@ public class XzStringUtils {
         }
         return str;
     }
-    
-    public static void main(String[] args) {
-       
-        
-    }
-    
 
     public static String workTimeConverter(String str) {
 
@@ -419,9 +415,27 @@ public class XzStringUtils {
     }
 
     public static String updateTimeConverter(String updateTime) {
-        if(updateTime!=null) {
-            return "每周"+updateTime+"更新";
+    	String week = getWeekOfDate();
+        if(updateTime!=null && updateTime.indexOf(week)!=-1) {
+            return "今日需更新";
+        }else if(updateTime!=null){
+        	return "每周"+updateTime+"更新";
         }    
         return null;
     }
+    
+	public static String getWeekOfDate() {
+		String[] weekDays = {"日", "一", "二", "三", "四", "五", "六" };
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(new Date());
+		int w = cal.get(Calendar.DAY_OF_WEEK) - 1;
+		if (w < 0)
+			w = 0;
+		return weekDays[w];
+	}	
+		
+    public static void main(String[] args) {
+    	
+    	getWeekOfDate();
+	}
 }
