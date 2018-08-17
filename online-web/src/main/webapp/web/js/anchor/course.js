@@ -477,7 +477,7 @@ function echoCourse(caiId,passEdit){
     $('#caiId').val(caiId);
     $('.course_title').val(course.title);
     $('.course_subtitle').val(course.subtitle);
-    $('#courseImg').html('<img src="" style="width: 100%;height: 100%" >');
+    $('#courseImg').html('<img src="" style="width: 100%;height: 100%" >'+'<p>点击图片重新上传</p>');
     $('#courseImg img').attr('src',course.imgPath);
     $('.course_lecturer ').val(course.lecturer);
     if(course.lecturerDescription) {
@@ -1268,7 +1268,7 @@ function echoCollection(collectionId,passEdit){
     $('#collectionId').val(collection.id)
     $('.collection_title').val(collection.title);
     $('.collection_subtitle').val(collection.subtitle);
-    $('#collectionImg').html('<img src="" style="width: 100%;height: 100%" >');
+    $('#collectionImg').html('<img src="" style="width: 100%;height: 100%" >'+'<p>点击图片重新上传</p>');
     $('#collectionImg img').attr('src',collection.imgPath);
     $('.collection_lecturer ').val(collection.lecturer);
     UE.getEditor('editor_collection_lecturer_description').setContent(collection.lecturerDescription);
@@ -1718,8 +1718,8 @@ function picUpdown(form,imgname){
         processData: false,
         contentType: false,
     }).success(function (data) {
-        $('#'+imgname+'').html('<img src="'+data.resultObject+'" style="width: 100%;height: 100%" >');
-        $(".row_size").hide()
+        $('#'+imgname+'').html('<img src="'+data.resultObject+'" style="width: 100%;height: 100%" >'+'<p>点击图片重新上传</p>');
+        $(".row_size").hide();
     });
 
 }
@@ -1889,11 +1889,26 @@ $(function(){
         form.append("image", this.files[0]);
         var reader=new FileReader();
         reader.onload=function(e){
-            picUpdown(form,'profilePhotoImg');
+            picUpdownHead(form,'profilePhotoImg');
         }
         reader.readAsDataURL(this.files[0])
     })
 })
+//头像上传,为了不添加上传提示,单独拿出来
+function picUpdownHead(form,imgname){
+    $.ajax({
+        type: 'post',
+        url: "/medical/common/upload",
+        data: form,
+        cache: false,
+        processData: false,
+        contentType: false,
+    }).success(function (data) {
+        $('#'+imgname+'').html('<img src="'+data.resultObject+'" style="width: 100%;height: 100%" >');
+        $(".row_size").hide();
+    });
+
+}
 
 function openRecordSet(courseId,isRecord) {
     $("#mask").removeClass("hide");
