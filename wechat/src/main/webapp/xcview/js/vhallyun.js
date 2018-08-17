@@ -1,9 +1,35 @@
+Array.prototype.indexOf = function (val) {
+    for (var i = 0; i < this.length; i++) {
+        if (this[i] == val) return i;
+    }
+    return -1;
+};
+
+Array.prototype.remove = function (val) {
+    var index = this.indexOf(val);
+    if (index > -1) {
+        this.splice(index, 1);
+    }
+};
+
+function isInArray(arr,value){
+    for(var i = 0; i < arr.length; i++){
+        if(value === arr[i]){
+            return true;
+        }
+    }
+    return false;
+}
+
+
 // 刷新页面 --》在观看
 $(".video_end_top1 .div img").click(function() {
 	setTimeout(function() {
 		location.reload();
 	}, 2000)
 });
+
+
 
 
 // 直播状态1.直播中，2预告，3直播结束 4 即将直播
@@ -58,30 +84,7 @@ function elsBind() {
 		// 第三方用户唯一标识,必填
 		token: vhallObj.token // token必填
 	});
-
 }
-
-var falgNetWorkstate  = 0;
-setInterval(function() {
-	try {
-		var netWorkstate = VhallPlayer.getNetworkState();
-		if(netWorkstate ==3){
-			falgNetWorkstate++;
-		}
-    	if(falgNetWorkstate>2){
-			$(".video_end_top4").show();
-		}
-		if(netWorkstate != 2){
-    		console.error("falgNetWorkstate："+falgNetWorkstate);
-    	}
-	} catch (error) {
-		console.log(error);
-		if(initVideoFalg !=1){
-	 		elsBind();
-	 	}
-	}
-}, 1000)
-
 
 /**
  * 初始化消息
@@ -188,12 +191,18 @@ function initChat() {
 				$(".chatmsg-box").mCustomScrollbar('update').mCustomScrollbar("scrollTo", "bottom");
 			})
 
+			var userIdArray = [];
 			window.chat.join(function(msg) {
-				viewJoinleaveRoomInfo(msg, "join");
+				if(!isInArray(userIdArray,msg.third_party_user_id)){ //没有包含用户id
+					userIdArray.push(msg.third_party_user_id);
+					viewJoinleaveRoomInfo(msg, "join");
+				}
 			})
-
 			window.chat.leave(function(msg) {
-				viewJoinleaveRoomInfo(msg, "leave");
+				if(isInArray(userIdArray,msg.third_party_user_id)){ //包含有
+					userIdArray.remove(msg.third_party_user_id);
+					viewJoinleaveRoomInfo(msg, "leave");
+				}
 			})
 		});
 		// 在初始化一个消息的
@@ -206,8 +215,7 @@ function initChat() {
 			// token必填
 		});
 	}, 1000);
-
-
+	
 	/**
 	 * 发送聊天消息
 	 */
