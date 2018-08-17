@@ -40,6 +40,8 @@ import com.xczhihui.common.util.SmsUtil;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.common.util.enums.ApplyStatus;
+import com.xczhihui.common.util.enums.LivePushStreamStatus;
+import com.xczhihui.common.util.vhallyun.VideoService;
 import com.xczhihui.course.service.ICourseSolrService;
 import com.xczhihui.medical.anchor.model.CourseApplyInfo;
 import com.xczhihui.medical.anchor.service.ICourseApplyService;
@@ -533,5 +535,20 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
         //savecourseMessageReminding(course);
         return course;
     }
-    
+
+    @Override
+    public Integer getCourseLivePushStreamStatus(Integer courseId) throws Exception {
+        Course course = coursedao.getCourse(courseId);
+        if (course == null) {
+            throw new Exception("课程数据不存在");
+        }
+        try {
+            if (course.getDirectId() != null && !VideoService.isCanPushStream(course.getDirectId())) {
+                return LivePushStreamStatus.PUSH_STREAM_ING.getCode();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return LivePushStreamStatus.NON_PUSH_STREAM.getCode();
+    }
 }

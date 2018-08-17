@@ -9,9 +9,11 @@ import java.util.*;
 
 import javax.activation.MimetypesFileTypeMap;
 
+import com.alibaba.fastjson.JSONObject;
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.Predicate;
 import com.xczhihui.common.util.EmailUtil;
+import com.xczhihui.common.util.vhallyun.result.VhallYunResult;
 
 public class VhallUtil {
 
@@ -106,6 +108,11 @@ public class VhallUtil {
         } else {
             return result;
         }
+    }
+
+    public static VhallYunResult sendPostAndRetResult(String url, HashMap<String, String> params) {
+        String result = formUpload(url, params);
+        return JSONObject.parseObject(result, VhallYunResult.class);
     }
 
     public static String formUpload(String urlStr, Map<String, String> textMap) {
