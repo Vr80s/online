@@ -56,7 +56,7 @@ function initVideo(){
       var docNode = $('#my-doc-area').length > 0 ? "my-doc-area" : vhallObj.channelId;
       window.doc = new VhallDocPassive({
         channelId:vhallObj.channelId, //频道Id
-        docNode:docNode,//文档显示节点div id
+        docNode:docNode//文档显示节点div id
         /*width:320,
         height:180*/
       });
@@ -187,7 +187,11 @@ function elsBind(){
                 }if(msg.type == 13){ //直播结束了
                 	
                     $(".playback div").hide();
-                	$(".generate-replay").show();
+                    if(record){
+                        $(".generate-replay").show();
+                    }else{
+                        $(".learning-center").show();
+                    }
                 	$(".playback").show();
                 	
                 } else if (msg.type == 14) { // 退出直播间，但是没有结束直播
@@ -237,7 +241,9 @@ function elsBind(){
     //  
     $(".playback").click(function() {
     	var type = $(this).attr("type");
-    	if (type == 16 || type ==20 || type == 21) { // 回放生成成功   重播  获取媒体资源有误
+    	if(!record){
+            location.href="/my#menu1-1";
+        }else if (type == 16 || type ==20 || type == 21) { // 回放生成成功   重播  获取媒体资源有误
         	location.reload();
 		}else if (type == 17) { // 回放生成失败,点击去学习中心吧
 			location.href="/my";
