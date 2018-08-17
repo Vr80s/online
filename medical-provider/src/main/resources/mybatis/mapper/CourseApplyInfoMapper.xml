@@ -29,7 +29,9 @@
         cai.`course_form` courseForm,
         cai.`status` applyStatus,
         oc.`status`,
-        oc.id courseId
+        oc.id courseId,
+        oc.live_status liveStatus,
+        oc.start_time startTime
         FROM
         `course_apply_info` cai
         LEFT JOIN
