@@ -24,7 +24,7 @@ $(function () {
         return str.replace(reTag, "");
     }
 
-//	标签选中变色
+//  标签选中变色
     $(".select_lable li").click(function () {
         $(this).toggleClass("active_color");
     });
@@ -99,24 +99,29 @@ $(function () {
         school_img.src = data.resultObject.smallImgPath + '?imageView2/2/w/750';
         $(".play_videos").append(school_img);
 
-        if (data.resultObject.record==false && data.resultObject.lineState==3) {
+        if (data.resultObject.record==false && data.resultObject.lineState==3 && data.resultObject.watchState==0) {
             $(".play_video_hide").show();
+            // alert(111);
+        }else if (data.resultObject.record==false && data.resultObject.watchState==2){
+            $(".play_video_hide").hide();
+            // alert(222);
         }else{
             $(".play_video_hide").hide();
+            // alert(333);
         };
 
 
         //获取讲师id
         LecturerId = data.resultObject.userLecturerId;
-//	课程名称/等级/评论
+//  课程名称/等级/评论
         $("#speak_people").html(template('data_people', data.resultObject));
-//	直播时间/主播名字
+//  直播时间/主播名字
 
         data.resultObject.startTime = data.resultObject.startTime.replace(/-/g, ".");
         $("#wrap_playTime").html(template('data_name', data.resultObject));
-//	是否购买
+//  是否购买
         $("#sure_isBuy").html(template('data_isBuy', data.resultObject));
-//	简介/内容
+//  简介/内容
         if (data.resultObject.description == null || data.resultObject.description == '') {
             $(".no_data").show();
             $(".btn").hide()
@@ -124,7 +129,7 @@ $(function () {
         } else {
             $(".wrap p").html(data.resultObject.description)
         }
-//	主讲人
+//  主讲人
         if (data.resultObject.lecturerDescription == null || data.resultObject.lecturerDescription == '') {
             $(".no_data1").show();
             $(".btn1").hide();
@@ -139,7 +144,7 @@ $(function () {
             $(".btn1").show()
             $(".line_xian").hide()
 
-//			$(".wrap1").css({"height":"2rem","overflow":"hidden"})
+//          $(".wrap1").css({"height":"2rem","overflow":"hidden"})
         } else {
             $(".zhezhao1").hide()
             $(".btn1").hide()
@@ -149,7 +154,7 @@ $(function () {
         if (h2 > 200) {
             $(".zhezhao").hide()
             $(".btn").show()
-//			$(".wrap").css({"height":"2rem","overflow":"hidden"})
+//          $(".wrap").css({"height":"2rem","overflow":"hidden"})
         } else {
             $(".zhezhao").hide()
             $(".btn").hide()
@@ -170,16 +175,16 @@ function refresh() {
         pageSize: 6
     }, function (data) {
 
-//  	判断有无评论显示默认图片
+//      判断有无评论显示默认图片
         if (data.resultObject.items.length == 0) {
             $(".quie_pic").show()
         } else {
             $(".quie_pic").hide()
             $(".wrap_all_returned").css({"margin-bottom": "1.2rem"})
         }
-        //	课程名称/等级/评论
+        //  课程名称/等级/评论
         $(".wrap_all_returned").html(template('wrap_people_comment', {items: data.resultObject.items}));
-        //	回复弹窗
+        //  回复弹窗
         $(".wrap_returned_btn .btn_littleReturn").click(function () {
             //评论id
             criticize_id = this.id;
@@ -244,10 +249,10 @@ function reportComment() {
         courseId: course_id,
         userId: LecturerId
     }, function (data) {
-        //	课程名称/等级/评论
+        //  课程名称/等级/评论
 
         alert(data.resultObject);
-        //	直播时间/主播名字
+        //  直播时间/主播名字
         //$("#wrap_playTime").html(template('data_name',data.resultObject));
         $(".wrapAll_comment").hide();
         $(".bg_modal").hide();
@@ -269,10 +274,10 @@ function replyComment() {
         content: comment_detailed,
         criticizeId: criticize_id
     }, function (data) {
-        //	课程名称/等级/评论
+        //  课程名称/等级/评论
 
         alert(data.resultObject);
-        //	直播时间/主播名字
+        //  直播时间/主播名字
         $(".bg_userModal").hide();
         $(".wrapLittle_comment").hide();
         document.getElementById("littlt_return").value = "";
@@ -286,7 +291,7 @@ function updatePraise(id, isPraise) {
         praise: isPraise,
         criticizeId: id
     }, function (data) {
-        //	课程名称/等级/评论
+        //  课程名称/等级/评论
     });
 }
 
@@ -299,14 +304,14 @@ function btn_allComment() {
 //var courseId = getQueryString('course_id');
 //点击购买后的接口
 //function btn_buy(){
-//	requestService("/xczh/order/save",{
-//		courseId:courseId,
-//		orderFrom:2
-//	},function(data){
+//  requestService("/xczh/order/save",{
+//      courseId:courseId,
+//      orderFrom:2
+//  },function(data){
 //
-//		window.location.href="purchase.html?orderId="+data.resultObject.orderId+"";
-//	});
-//	
+//      window.location.href="purchase.html?orderId="+data.resultObject.orderId+"";
+//  });
+//  
 //}
 
 
