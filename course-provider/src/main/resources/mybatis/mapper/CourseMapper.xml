@@ -115,7 +115,8 @@
                      medical_doctor_account as mda where mda.account_id = oc.user_lecturer_id ),null) as doctorId,
         oc.channel_id as channelId,
         oc.record_id as recordId,
-        oc.live_case as liveCase
+        oc.live_case as liveCase,
+        oc.is_teaching teaching
         FROM
         oe_course as oc
         inner join course_anchor as ou on oc.user_lecturer_id = ou.user_id
@@ -210,7 +211,8 @@
                      medical_doctor_account as mda where mda.account_id = oc.user_lecturer_id ),null) as doctorId,
         oc.channel_id as channelId,
         oc.record_id as recordId,
-        oc.live_case as liveCase
+        oc.live_case as liveCase,
+        oc.is_teaching teaching
         FROM
         oe_course as oc
         inner join course_anchor as ou on oc.user_lecturer_id = ou.user_id
