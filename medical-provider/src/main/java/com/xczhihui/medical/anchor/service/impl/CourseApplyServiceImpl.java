@@ -436,9 +436,32 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         }else {
             updateTime = list.stream().map(DateUtil::getDayOfWeek).collect(Collectors.joining(""));
         }
-        return XzStringUtils.updateTimeConverter(updateTime);
+        if(updateTime!=null) {
+        	updateTime = "每周"+updateTime+"更新";
+        }
+        return updateTime;
     }
 
+    
+    @Override
+    public String getHostCollectionUpdateDateText(Integer collectionId) {
+        String updateTime ="";
+        List<Integer> list = collectionCourseApplyUpdateDateMapper.listDatesByCollectionId(collectionId);
+        if(list.size()  >= 7) {
+            return XzStringUtils.HOST_COLLECTION_UPDATE_ALL;
+        }else {
+        	updateTime = list.stream().map(DateUtil::getDayOfWeek).collect(Collectors.joining(""));
+        }
+        String week = XzStringUtils.getWeekOfDate();
+        if(updateTime!=null && updateTime.indexOf(week)!=-1) {
+        	updateTime = "今日需更新";
+        }else if(updateTime!=null){
+        	updateTime = "每周"+updateTime+"更新";
+        }    
+        return updateTime;
+    }
+    
+    
     /**
      * Description：新增资源校验
      * creed: Talk is cheap,show me the code
