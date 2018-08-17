@@ -61,26 +61,26 @@ function elsBind() {
 
 }
 
-var falgNetWorkstate  = 0;
-setInterval(function() {
-	try {
-		var netWorkstate = VhallPlayer.getNetworkState();
-		if(netWorkstate ==3){
-			falgNetWorkstate++;
-		}
-    	if(falgNetWorkstate>2){
-			$(".video_end_top4").show();
-		}
-		if(netWorkstate != 2){
-    		console.error("falgNetWorkstate："+falgNetWorkstate);
-    	}
-	} catch (error) {
-		console.log(error);
-		if(initVideoFalg !=1){
-	 		elsBind();
-	 	}
-	}
-}, 1000)
+//var falgNetWorkstate  = 0;
+//setInterval(function() {
+//	try {
+//		var netWorkstate = VhallPlayer.getNetworkState();
+//		if(netWorkstate ==3){
+//			falgNetWorkstate++;
+//		}
+//    	if(falgNetWorkstate>2){
+//			$(".video_end_top4").show();
+//		}
+//		if(netWorkstate != 2){
+//    		console.error("falgNetWorkstate："+netWorkstate);
+//    	}
+//	} catch (error) {
+//		console.log(error);
+//		if(initVideoFalg !=1){
+//	 		elsBind();
+//	 	}
+//	}
+//}, 1000)
 
 
 /**
@@ -148,6 +148,7 @@ function initChat() {
 
 				} else if (msg.type == 13) { // 结束直播  --》  生成点播
 
+					
 					$(".video_end_top2").show();
 
 				} else if (msg.type == 14) { // 退出直播间，但是没有结束直播
