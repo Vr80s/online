@@ -168,9 +168,9 @@
 		<td>
 			{{if course.applyStatus==1}}  <!-- 审核通过 -->
 			{{if course.status==1}}   <!-- 课程是否上架 -->
-			<a href="javascript:;" onclick="confirmCourseSale(0,{{course.id}},{{course.courseId}},{{courseForm}},{{liveStatus}},{{startTime}})">下架</a>
+			<a href="javascript:;" onclick="confirmCourseSale(0,{{course.id}},{{course.courseId}},{{course.courseForm}},{{course.liveStatus}},{{course.startTime}})">下架</a>
 			{{else}}
-			<a href="javascript:;" onclick="confirmCourseSale(1,{{course.id}},{{course.courseId}},{{courseForm}},{{liveStatus}},{{startTime}})">上架</a>
+			<a href="javascript:;" onclick="confirmCourseSale(1,{{course.id}},{{course.courseId}},{{course.courseForm}},{{course.liveStatus}},{{course.startTime}})">上架</a>
 			<a href="javascript:;" onclick="editCourse({{course.id}},true)">编辑</a>
 			{{/if}}
 			{{else if course.applyStatus==2}}
