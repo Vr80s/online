@@ -73,8 +73,6 @@ requestGetService("/xczh/enrol/enrollmentRegulations/"+merId,data,function(data)
                 }
             }
             setInterval(timer, 1000);
-            alert(222);
-        
         }
 
 
