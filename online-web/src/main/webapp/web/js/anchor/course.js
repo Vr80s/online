@@ -443,7 +443,7 @@ function deleteCourse(caiId,collection){
         title="删除";
         content="确认删除该专辑？";
     }
-    confirmBox(title,content,function(closefn){
+    confirmBox1(title,content,function(closefn){
         RequestService("/anchor/course/deleteCourseApplyById?caiId="+caiId, "get", null, function(data) {
             closefn();
             if(data.success){
@@ -796,7 +796,7 @@ function confirmCourseSale(state,courseApplyId,courseId,index){
     	showTip("该直播时间已经过期，无法上架,请修改再次操作上架。");
     	return false;
     }else{
-    	confirmBox(title,content,function(closefn){
+    	confirmBox1(title,content,function(closefn){
 	        $.ajax({
 	            type: "post",
 	            url: bath + "/anchor/course/changeSaleState",
@@ -825,7 +825,7 @@ function confirmCollection(state,courseApplyId,courseId){
         title="专辑下架";
         content="确认下架该专辑？";
     }
-    confirmBox(title,content,function(closefn){
+    confirmBox1(title,content,function(closefn){
         $.ajax({
             type: "post",
             url: bath + "/anchor/course/changeSaleState",
@@ -1594,7 +1594,7 @@ function courseResourceList(current){
 function deleteResource(resourceId){
     var title="删除";
     var content="确认删除该资源？";
-    confirmBox(title,content,function(closefn){
+    confirmBox1(title,content,function(closefn){
         $.ajax({
             type: "post",
             url: bath + "/anchor/course/deleteCourseResource",
