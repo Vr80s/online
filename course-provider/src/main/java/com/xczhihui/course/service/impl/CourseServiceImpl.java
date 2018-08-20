@@ -78,16 +78,6 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
                 if (falg > 0) {
                     cv.setWatchState(2);
                 }
-                
-                //如果是付费课程，如果不是专辑的话，那么就查看是否属于其中一个专辑。
-                
-                if(CourseType.VIDEO.getId() == cv.getType()
-                		|| CourseType.AUDIO.getId() == cv.getType()) {
-                	Map<String,Object> collectionHint = iCourseMapper.selectTheirCollection(courseId);
-                	
-                	cv.setCollectionHint(collectionHint);
-                }
-                
             } else if (cv.getWatchState() == 1) { // 免费课程    如果是免费的  判断是否学习过
                 if (falg > 0) {
                     cv.setLearning(1);
@@ -207,6 +197,14 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
                 if (falg > 0) {
                     cv.setWatchState(2);
                 }
+                //如果是付费课程，如果不是专辑的话，那么就查看是否属于其中一个专辑。
+                if(CourseType.VIDEO.getId() == cv.getType()
+                		|| CourseType.AUDIO.getId() == cv.getType()) {
+                	Map<String,Object> collectionHint = iCourseMapper.selectTheirCollection(courseId);
+                	
+                	cv.setCollectionHint(collectionHint);
+                }
+                
                 //如果是免费的  判断是否学习过
             } else if (cv.getWatchState() == 1) { // 免费课程
                 if (falg > 0) {
@@ -591,4 +589,17 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         }
         return LivePushStreamStatus.NON_PUSH_STREAM.getCode();
     }
+    
+    public static void main(String[] args) {
+		
+    	
+    	Integer a = 1;
+    	int b = 1;
+    	if(a == b) {
+    		System.out.println("456");
+    		
+    	}
+    	
+    	
+	}
 }

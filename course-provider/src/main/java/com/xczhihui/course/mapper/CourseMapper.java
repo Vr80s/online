@@ -243,7 +243,7 @@ public interface CourseMapper extends BaseMapper<Course> {
      * @param courseId
      * @return
      */
-    @Select({" select oc.grade_name,oc.id,oc.is_free,oc.smallimg_path as smallImgPath  from  collection_course  cc inner join  oe_course oc on cc.collection_id= oc.id " + 
+    @Select({" select oc.grade_name as gradeName,oc.id,oc.smallimg_path as smallImgPath  from  collection_course  cc inner join  oe_course oc on cc.collection_id= oc.id " + 
     		"   where cc.course_id = 582 and oc.is_free = 0 order by cc.create_time limit 0,1 "})
 	Map<String,Object> selectTheirCollection(@Param("directId")Integer courseId);
 }
