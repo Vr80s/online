@@ -6,7 +6,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,7 +20,6 @@ import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.XzStringUtils;
 import com.xczhihui.common.util.enums.TokenExpires;
 import com.xczhihui.common.util.enums.VCodeType;
-import com.xczhihui.common.util.vhallyun.MessageService;
 import com.xczhihui.user.center.service.UserCenterService;
 import com.xczhihui.user.center.service.VerificationCodeService;
 import com.xczhihui.user.center.utils.UCCookieUtil;
@@ -192,13 +190,8 @@ public class XzUserController {
         return ResponseObject.newSuccessResponseObject("验证成功");
     }
 
-    /**
-     * Description：校验手机号
-     * @param username 手机号
-     * @return ResponseObject
-     * @throws SQLException
-     * @author name：yangxuan <br>email: 15936216273@163.com
-     */
+
+    
     @RequestMapping(value = "synchronizationUserNameToVhallYun")
     @ResponseBody
     public ResponseObject synchronizationUserNameToVhallYun() throws SQLException {

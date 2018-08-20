@@ -72,13 +72,23 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
                 cv.setIsFocus(1);
             }
             Integer falg = criticizeMapper.hasCourse(courseId, userId);
+            
             //如果是付费课程，判断这个课程是否已经被购买了
-            if (cv.getWatchState() == 0) { // 付费课程
+            if (cv.getWatchState() == 0) { // 付费课程    
                 if (falg > 0) {
                     cv.setWatchState(2);
                 }
-                //如果是免费的  判断是否学习过
-            } else if (cv.getWatchState() == 1) { // 免费课程
+                
+                //如果是付费课程，如果不是专辑的话，那么就查看是否属于其中一个专辑。
+                
+                if(CourseType.VIDEO.getId() == cv.getType()
+                		|| CourseType.AUDIO.getId() == cv.getType()) {
+                	Map<String,Object> collectionHint = iCourseMapper.selectTheirCollection(courseId);
+                	
+                	cv.setCollectionHint(collectionHint);
+                }
+                
+            } else if (cv.getWatchState() == 1) { // 免费课程    如果是免费的  判断是否学习过
                 if (falg > 0) {
                     cv.setLearning(1);
                 }
@@ -193,7 +203,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
             }
             Integer falg = criticizeMapper.hasCourse(courseId, userId);
             //如果是付费课程，判断这个课程是否已经被购买了
-            if (cv.getWatchState() == 0) { // 付费课程
+            if (cv.getWatchState() == 0) { // 付费课程     
                 if (falg > 0) {
                     cv.setWatchState(2);
                 }
@@ -204,6 +214,10 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
                 }
             }
         }
+        
+        
+        
+        
         return cv;
     }
 
@@ -430,10 +444,14 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     @Override
     public void updatePlayBackStatusAndSendVahllYunMessageByRecordId(String recordId, Integer status) throws Exception {
 
-        iCourseMapper.updatePlayBackStatusByRecordId(recordId, status);
+    	/**
+    	 * 回放是否生成成功
+    	 */
+    	iCourseMapper.updatePlayBackStatusByRecordId(recordId, status);
+    	
+    	CourseLecturVo course = iCourseMapper.selectCourseByRecordId(recordId);
 
-        String channelId = iCourseMapper.selectChannelIdByRecordId(recordId);
-
+       
         Integer type = VhallCustomMessageType.PLAYBACK_GENERATION_SECCESS.getCode();
         String message = "回放生成成功";
         //发送im消息
@@ -443,7 +461,6 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         } else if (status.equals(PlayBackType.GENERATION_FAILURE.getCode())) {
             type = VhallCustomMessageType.PLAYBACK_GENERATION_FAILURE.getCode();
             message = "回放生成失败";
-            
             try {
             	String content = "未找到课程信息。";
                 List<Course> courses = iCourseMapper.selectByMap(ImmutableMap.of("record_id", recordId));
@@ -455,12 +472,17 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-            
         }
-        JSONObject job = new JSONObject();
-        job.put("type", type);
-        job.put("message", message);
-        MessageService.sendMessage(MessageService.CustomBroadcast, job.toJSONString(), channelId);
+        
+        /*
+         * 如果直播没有回放，不发送消息到客户端
+         */
+        if(!course.getRecord()) {
+            JSONObject job = new JSONObject();
+            job.put("type", type);
+            job.put("message", message);
+            MessageService.sendMessage(MessageService.CustomBroadcast, job.toJSONString(), course.getChannelId());
+        }
     }
 
     @Override

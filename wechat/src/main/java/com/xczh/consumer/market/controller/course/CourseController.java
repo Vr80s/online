@@ -72,7 +72,6 @@ public class CourseController {
      */
     @RequestMapping("userCurrentCourseStatus")
     public ResponseObject userCurrentCourseStatus(@Account(optional = true) Optional<String> accountIdOpt, @RequestParam("courseId") Integer courseId) {
-
         // 这里需要判断是否购买过了
         CourseLecturVo cv = null;
         if (accountIdOpt.isPresent()) {
@@ -107,7 +106,6 @@ public class CourseController {
     public ResponseObject details(@Account(optional = true) Optional<String> accountIdOpt, @RequestParam("courseId") Integer courseId) {
 
         CourseLecturVo cv = courseServiceImpl.selectCourseMiddleDetailsById(accountIdOpt.isPresent() ? accountIdOpt.get() : null, courseId);
-
         if (cv == null) {
             return ResponseObject.newErrorResponseObject("课程信息有误");
         }
