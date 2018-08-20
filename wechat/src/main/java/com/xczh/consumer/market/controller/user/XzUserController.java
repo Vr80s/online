@@ -1,11 +1,12 @@
 package com.xczh.consumer.market.controller.user;
 
 import java.sql.SQLException;
-import java.util.Optional;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,13 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.XzStringUtils;
 import com.xczhihui.common.util.enums.TokenExpires;
 import com.xczhihui.common.util.enums.VCodeType;
+import com.xczhihui.common.util.vhallyun.MessageService;
 import com.xczhihui.user.center.service.UserCenterService;
 import com.xczhihui.user.center.service.VerificationCodeService;
 import com.xczhihui.user.center.utils.UCCookieUtil;
@@ -176,7 +177,6 @@ public class XzUserController {
 
     /**
      * Description：校验手机号
-     *
      * @param username 手机号
      * @return ResponseObject
      * @throws SQLException
@@ -192,4 +192,35 @@ public class XzUserController {
         return ResponseObject.newSuccessResponseObject("验证成功");
     }
 
+    /**
+     * Description：校验手机号
+     * @param username 手机号
+     * @return ResponseObject
+     * @throws SQLException
+     * @author name：yangxuan <br>email: 15936216273@163.com
+     */
+    @RequestMapping(value = "synchronizationUserNameToVhallYun")
+    @ResponseBody
+    public ResponseObject synchronizationUserNameToVhallYun() throws SQLException {
+    	List<OnlineUser> list =  onlineUserService.selectAllUser();
+    	LOGGER.warn("===========================：");
+    	LOGGER.warn("一共多少条{}："+list.size());
+    	LOGGER.warn("===========================：");
+    	try {
+//        	for (OnlineUser onlineUser : list) {
+//        		if(StringUtils.isNotBlank(onlineUser.getId()) && StringUtils.isNotBlank(onlineUser.getName()) && 
+//        						StringUtils.isNotBlank(onlineUser.getSmallHeadPhoto()) ) {
+//        			
+//        			LOGGER.warn(onlineUser.getId()+"   "+onlineUser.getName() +"   "+onlineUser.getSmallHeadPhoto());
+//        			
+//        			MessageService.saveUserInfo(onlineUser.getId(), onlineUser.getName(), onlineUser.getSmallHeadPhoto());
+//        		}
+//    		}
+		} catch (Exception e) {
+			 e.printStackTrace();
+		}
+
+        return ResponseObject.newSuccessResponseObject("验证成功");
+    }
+    
 }

@@ -36,7 +36,7 @@ requestGetService("/xczh/enrol/enrollmentRegulations/"+merId,data,function(data)
             
              //兼容ios和安卓了
              var deadline = startStr.replace(/\-/g, "/");
-             setInterval(timer, 1000);
+             
              function timer() {
                 //设置结束的时间
                 var endtime = new Date(deadline);
@@ -61,7 +61,7 @@ requestGetService("/xczh/enrol/enrollmentRegulations/"+merId,data,function(data)
                 $(".bottom_fiexd").show();
 
                 } else {
-                    //clearInterval(timer); //这里可以添加倒计时结束后需要执行的事件 
+                    clearInterval(timer); //这里可以添加倒计时结束后需要执行的事件 
                     $("#box1").html("报名时间已结束");
                     $("#box1").hide();
                     // 底部修改--报名已结束
@@ -72,7 +72,7 @@ requestGetService("/xczh/enrol/enrollmentRegulations/"+merId,data,function(data)
                     $(".bottom_fiexd").show();
                 }
             }
-        
+            setInterval(timer, 1000);
         }
 
 
@@ -128,3 +128,4 @@ function share_back(){
         common_share_back();
     }
 }
+

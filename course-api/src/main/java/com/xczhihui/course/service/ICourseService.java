@@ -338,4 +338,6 @@ public interface ICourseService {
      * @return
      */
     Integer findLiveStatusByDirectId(String directId);
+
+    Integer getCourseLivePushStreamStatus(Integer courseId);
 }

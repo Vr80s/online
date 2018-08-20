@@ -1,4 +1,25 @@
+Array.prototype.indexOf = function (val) {
+    for (var i = 0; i < this.length; i++) {
+        if (this[i] == val) return i;
+    }
+    return -1;
+};
 
+Array.prototype.remove = function (val) {
+    var index = this.indexOf(val);
+    if (index > -1) {
+        this.splice(index, 1);
+    }
+};
+
+function isInArray(arr,value){
+    for(var i = 0; i < arr.length; i++){
+        if(value === arr[i]){
+            return true;
+        }
+    }
+    return false;
+}
 
 
 RequestService("/vhallyun/vhallYunToken","get",{channelId:vhallObj.channelId,roomId:vhallObj.roomId},
@@ -93,29 +114,29 @@ function initVideo(){
  * 2:浏览器正在下载数据,
  * 3:未找到音频/视频来源
  */
-var falgNetWorkstate  = 0;
-setInterval(function(){
-	try{
-		var netWorkstate = VhallPlayer.getNetworkState();
-		if(netWorkstate ==3 ){
-			falgNetWorkstate++;
-		}
-    	if(falgNetWorkstate>2){
-    		$(".playback").attr("type",21);
-    		$(".playback div").hide();
-        	$(".media-error").show();
-        	$(".playback").show();
-    	}
-    	if(netWorkstate == 0){
-    		console.error("netWorkstate："+netWorkstate);
-    	}
-	}catch(error){
-	 	console.log(error);
-	 	if(initVideoFalg !=1){
-	 		initVideo();
-	 	}
-	}
-},1000)
+//var falgNetWorkstate  = 0;
+//setInterval(function(){
+//	try{
+//		var netWorkstate = VhallPlayer.getNetworkState();
+//		if(netWorkstate ==3 ){
+//			falgNetWorkstate++;
+//		}
+//    	if(falgNetWorkstate>2){
+//    		$(".playback").attr("type",21);
+//    		$(".playback div").hide();
+//        	$(".media-error").show();
+//        	$(".playback").show();
+//    	}
+//    	if(netWorkstate != 2){
+//    		console.error("netWorkstate："+netWorkstate);
+//    	}
+//	}catch(error){
+//	 	console.log(error);
+//	 	if(initVideoFalg !=1){
+//	 		initVideo();
+//	 	}
+//	}
+//},1000)
 
 
 function elsBind(){
@@ -187,7 +208,11 @@ function elsBind(){
                 }if(msg.type == 13){ //直播结束了
                 	
                     $(".playback div").hide();
-                	$(".generate-replay").show();
+                    if(record){
+                        $(".generate-replay").show();
+                    }else{
+                        $(".learning-center").show();
+                    }
                 	$(".playback").show();
                 	
                 } else if (msg.type == 14) { // 退出直播间，但是没有结束直播
@@ -195,7 +220,7 @@ function elsBind(){
                 	$(".leave").show();
                 	$(".playback").show();
                 	
-				} else if (msg.type == 16) { // 回放生成成功
+				} else if (record && msg.type == 16) { // 回放生成成功
 					
 					setTimeout(function () {
         				$(".playback div").hide();
@@ -203,7 +228,7 @@ function elsBind(){
                 		$(".playback").show();
         			},2000)
 					
-				} else if (msg.type == 17) { // 回放生成失败
+				} else if (!record || msg.type == 17) { // 回放生成失败
 					$(".playback div").hide();
 					$(".learning-center").show();
                 	$(".playback").show();
@@ -220,12 +245,26 @@ function elsBind(){
              }
         })
         
-        window.chat.join(function(msg){
-            viewJoinleaveRoomInfo(msg,"join");
-        })
-        window.chat.leave(function(msg){
-            viewJoinleaveRoomInfo(msg,"leave");
-        })
+//        window.chat.join(function(msg){
+//            viewJoinleaveRoomInfo(msg,"join");
+//        })
+//        window.chat.leave(function(msg){
+//            viewJoinleaveRoomInfo(msg,"leave");
+//        })
+        
+        var userIdArray = [];
+		window.chat.join(function(msg) {
+			if(!isInArray(userIdArray,msg.third_party_user_id)){ //没有包含用户id
+				userIdArray.push(msg.third_party_user_id);
+				viewJoinleaveRoomInfo(msg, "join");
+			}
+		})
+		window.chat.leave(function(msg) {
+			if(isInArray(userIdArray,msg.third_party_user_id)){ //包含有
+				userIdArray.remove(msg.third_party_user_id);
+				viewJoinleaveRoomInfo(msg, "leave");
+			}
+		})
      });	
      window.Vhall.config({
           appId :vhallObj.appId,//应用 ID ,必填
@@ -237,7 +276,9 @@ function elsBind(){
     //  
     $(".playback").click(function() {
     	var type = $(this).attr("type");
-    	if (type == 16 || type ==20 || type == 21) { // 回放生成成功   重播  获取媒体资源有误
+    	if(!record){
+            location.href="/my#menu1-1";
+        }else if (type == 16 || type ==20 || type == 21) { // 回放生成成功   重播  获取媒体资源有误
         	location.reload();
 		}else if (type == 17) { // 回放生成失败,点击去学习中心吧
 			location.href="/my";

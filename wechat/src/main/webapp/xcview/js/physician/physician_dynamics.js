@@ -723,24 +723,6 @@ function createRecentlyLive(recentlyLive){
 
                 $('#teacher_hides').html(template('teacher_hide_ids', {items: apprenticeCourses}));
                 
-                // 判断日期---显示时间还是日历  $(".subscribe_btn_"+id)
-                // var dateTime = $(".more_people_times").html();
-                // var id =
-                /*var idTime=$(".wrap_vedio_btn_id").attr("data-id-time");
-
-                var dateTime = $(".wrap_vedio_btn_"+idTime).find(".more_people_times").html();
-                var d = new Date();  
-                var a = d.getDate();
-                if (dateTime == a) {
-                    $(".wrap_vedio_btn_"+idTime).find(".date_z").hide();
-                    $(".wrap_vedio_btn_"+idTime).find(".time_z").show();
-                }else{
-                    var dateTimes = $(".wrap_vedio_btn_"+idTime).find(".more_peoples_times").html();
-                    var dt = dateTimes.replace(/-/g,"."); 
-                    $(".wrap_vedio_btn_"+idTime).find(".more_peoples_times").html(dt);
-                    $(".wrap_vedio_btn_"+idTime).find(".time_z").hide();
-                    $(".wrap_vedio_btn_"+idTime).find(".date_z").show();
-                };*/
 
             }
         }

@@ -43,7 +43,9 @@ $('.chongZhi').click(function(){
     },false);
 	console.log(1)
 	// price=100/rate;//初始化为10元
-	$('.number').text(5);
+	//应付金额
+	var price = $("#money_item .orange").attr("data-value");
+	$('.number').text(price);
 	$('#main1').addClass('show')
 	$('.mask').css({'display':'block'})
 })
@@ -87,10 +89,8 @@ function alipayMadeCode(){
 			if(data.success){ 
 				out_trade_no = data.resultObject.alipay_trade_precreate_response.out_trade_no;
     	 		qr_code = data.resultObject.alipay_trade_precreate_response.qr_code;
-				
     	 		$("#qrcodeCanvas3").html("");
     	 		//$("#ali_qrcode").attr("src",qr_code);
-				
 				$("#qrcodeCanvas3").qrcode({
 					render : "canvas",    //设置渲染方式，有table和canvas，使用canvas方式渲染性能相对来说比较好
 					text : qr_code,    //扫描了二维码后的内容显示,在这里也可以直接填一个网址，扫描二维码后
@@ -101,14 +101,13 @@ function alipayMadeCode(){
 					foreground : "#000000",
 					src: '/web/images/yrx.png'             //二维码中间的图片
 				});
-				
 				//执行先试试微信的
 				executeLunxun();
     	 	}else{
-    	 	   alert("做个容错处理");
+    	 	  showTip("二维码生成失败");
     	 	}
 		}catch(error){
-		   alert("做个容错处理");
+		  showTip("二维码生成失败");
 		}
 	 })
 }
@@ -129,10 +128,10 @@ function weixinpayMadeCode(){
     	 		//执行先试试微信的
 				executeLunxun();
     	 	}else{
-    	 	   alert("做个容错处理");
+    	 		showTip("二维码生成失败");
     	 	}
 		}catch(error){
-		   alert("做个容错处理");
+			showTip("二维码生成失败");
 		}
 	 })
 }
@@ -286,7 +285,7 @@ function executeLunxun(){
 			     orderNo: out_trade_no
 				}, function (data) {
 				    if (data.resultObject === true) { //支付成功
-				    	//alert("充值成功");
+				    	showTip("充值成功");
 				    	$('.close').click();
 				    	//刷新熊猫币余额
 				        refreshBalance();

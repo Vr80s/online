@@ -34,6 +34,7 @@ public class ResponseObject implements Serializable {
         return res;
     }
 
+    
     /**
      * 构造一个错误响应对象带有code的
      *

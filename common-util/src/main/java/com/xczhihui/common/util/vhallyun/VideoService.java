@@ -1,10 +1,10 @@
 package com.xczhihui.common.util.vhallyun;
 
-import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 import com.jayway.jsonpath.JsonPath;
+import com.xczhihui.common.util.vhallyun.result.VhallYunResult;
 
 /**
  * 微吼云点播服务
@@ -15,6 +15,7 @@ public class VideoService {
 
     private static final SimpleDateFormat SDF = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     private static Date DEFAULT_START_TIME;
+
     static {
         Calendar calendar = Calendar.getInstance();
         calendar.set(2018, Calendar.JANUARY, 1);
@@ -54,5 +55,20 @@ public class VideoService {
         }
 
         return Collections.emptyList();
+    }
+
+    public static boolean isCanPushStream(String roomId) throws Exception {
+        HashMap<String, String> params = new HashMap<String, String>();
+        params.put("room_id", roomId);
+        params = VhallUtil.createRealParam(params);
+        VhallYunResult result = VhallUtil.sendPostAndRetResult("http://api.yun.vhall.com/api/v1/room/get-stream-msg", params);
+        //正在推流
+        if (result.isOk()) {
+            return false;
+        } else if ("20008".equals(result.getCode())) {
+            return true;
+        } else {
+            throw new Exception(result.getMsg());
+        }
     }
 }

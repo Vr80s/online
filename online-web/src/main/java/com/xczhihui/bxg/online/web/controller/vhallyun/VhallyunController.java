@@ -210,9 +210,11 @@ public class VhallyunController extends AbstractController {
             //后台自动添加这几个参数
             JSONObject message = (JSONObject) jsonObject.get("message");
             
-            message.put("userId", jsonObject.get("userId")!=null ? jsonObject.get("userId") : ou.getId());
-            message.put("headImg", jsonObject.get("headImg")!=null ? jsonObject.get("headImg") : ou.getSmallHeadPhoto());
-            message.put("username", jsonObject.get("username")!=null ? jsonObject.get("username") : ou.getName());
+            message.put("userId", message.get("userId")!=null ? message.get("userId") : ou.getId());
+            message.put("headImg", message.get("headImg")!=null ? message.get("headImg") : ou.getSmallHeadPhoto());
+            message.put("username", message.get("username")!=null ? message.get("username") : ou.getName());
+            
+            jsonObject.put("message", message);
         }
         return ResponseObject.newSuccessResponseObject(MessageService.sendMessage(MessageService.CustomBroadcast, jsonObject.toJSONString(), channel_id));
     }

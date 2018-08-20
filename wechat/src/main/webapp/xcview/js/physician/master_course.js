@@ -58,22 +58,6 @@ function apprenticeList(userId,pageNumber,downOrUp) {
                 });
 
                 $('#teacher_hides').html(template('teacher_hide_ids', {items: data.resultObject}));
-                
-                // 判断日期---显示时间还是日历
-                /*var dateTime = $(".more_people_times").html();
-                var d = new Date(); 
-                var a = d.getDate(); 
-                if (dateTime == a) {
-                    $(".date_z").hide();
-                    $(".time_z").show();
-                }else{
-                    var dateTimes = $(".more_peoples_times").html();
-                    var dt = dateTimes.replace(/-/g,"."); 
-                    $(".more_peoples_times").html(dt);
-                    $(".time_z").hide();
-                    $(".date_z").show();
-                };*/
-
 
                 
                 miniRefresh.endDownLoading(true);// 结束下拉刷新
@@ -188,8 +172,6 @@ function checkAuth(doctorId) {
     $(".learn_tips_audit_bg").click(function(){
         $(".learn_tips_audit").hide();
     });
-
-
 
 //刷新
 // 初始化页码

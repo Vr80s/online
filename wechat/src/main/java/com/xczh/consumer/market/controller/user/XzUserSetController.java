@@ -300,6 +300,7 @@ public class XzUserSetController {
         /**
          * 同步更新到微吼云信息
          */
+        LOGGER.warn("name:"+newUser.getName());
         MessageService.saveUserInfo(newUser.getId(), 
         		newUser.getName(), newUser.getSmallHeadPhoto());
         
@@ -323,6 +324,7 @@ public class XzUserSetController {
     public ResponseObject userInfoWechat(HttpServletRequest request,OnlineUserVO user) throws Exception {
     	
     	user = getOnlineUserAddress(user);
+    	
         /**
          * 更新信息
          */
@@ -336,6 +338,8 @@ public class XzUserSetController {
         /**
          * 同步更新到微吼云信息
          */
+        
+        LOGGER.warn("name:"+newUser.getName());
         MessageService.saveUserInfo(newUser.getId(), 
         		newUser.getName(), newUser.getSmallHeadPhoto());
         

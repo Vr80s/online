@@ -29,6 +29,24 @@
 		.wrap{
 			min-height: 1rem;
 		}
+		.play_video_hide{
+			width: 2rem;
+		    height: 0.5rem;
+		    line-height: 0.5rem;
+		    font-size: 0.22rem;
+		    color: #fff;
+		    text-align: center;
+		    background: #000;
+		    margin: 0 auto;
+		    display: none;
+		    position: absolute;
+		    top: 0;
+		    left: 50%;
+		    margin-left: -1rem;
+		    margin-top: 1.8rem;
+		    border-radius: 4px;
+		    opacity: 0.8;
+		}
     </style>
 <body style="background:#F8F8F8;">
 <div class="wp">
@@ -47,7 +65,8 @@
 	</div>
 	<!--视频封面-->
 	<div class="play_video">
-
+		<div class="play_videos"></div>
+		<div class="play_video_hide">当前直播无回放</div>
 	</div>
 	
 	
@@ -301,10 +320,15 @@
 	</div>
 <!--是否购买-->
 	<div id="sure_isBuy">	
+
+		<!-- 直播课程状态 1直播中， 2预告，3直播结束 ， 4 即将直播 ，5 准备直播 ，6 异常直播   lineState -->
+		<!-- 是否免费 0：收费 1：免费 2：已购买    watchState  -->  
+		<!-- record== ture   有回放  -->
 		<script type="text/html" id="data_isBuy">				
 			<!--底部购买价格-->
 			<div class="bot_price">
-				{{if watchState==0}}
+				
+				{{if watchState==0 && lineState== 4}}
 				<a class="left_price z" href="javascript:;">
 					<p><span>{{currentPrice}}</span>熊猫币
 					{{if originalCost != null && originalCost != 0}}
@@ -314,6 +338,17 @@
 				</a>
 				<a class="right_priceBtn y" href="javascript:;" onclick="btn_zj_mianfei()" data-zj="{{0}}">
 					购买
+				</a>
+				{{else if watchState== 0 && lineState==3 && record==false}}
+				<a class="left_price z" href="javascript:;">
+					<p><span>{{currentPrice}}</span>熊猫币
+					{{if originalCost != null && originalCost != 0}}
+					原价<span style="text-decoration: line-through;color:#787878">{{originalCost}}</span>
+					{{/if}}
+					</p>
+				</a>
+				<a class="right_priceBtn y" href="javascript:;" data-zj="{{0}}" style="background: #ccc;">
+					已结束
 				</a>
 				{{else if watchState==1}}
 				<a class="left_price z" href="javascript:;">
@@ -332,6 +367,17 @@
 					</a>
 					<a class="right_priceBtn y" href="javascript:;" onclick="btn_zj_mianfei()" data-zj="{{2}}">
 					进入学习
+					</a>
+				{{else  if watchState==0 && lineState== 1}}
+					<a class="left_price z" href="javascript:;">
+						<p><span>{{currentPrice}}</span>熊猫币
+						{{if originalCost != null && originalCost != 0}}
+						原价<span style="text-decoration: line-through;color:#787878">{{originalCost}}</span>
+						{{/if}}
+						</p>
+					</a>
+					<a class="right_priceBtn y" href="javascript:;" onclick="btn_zj_mianfei()" data-zj="{{0}}">
+						购买
 					</a>
 				{{/if}}
 			</div>

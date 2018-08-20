@@ -167,6 +167,20 @@ $(function () {
         return !cameras || cameras.length === 0 || !mics || mics.length === 0;
     }
 
+    function getPushStatus() {
+        var status = 0;
+        $.ajax({
+            url: '/anchor/course/pushStream/status?courseId=' + courseId,
+            method: 'GET',
+            async: false,
+            success: function (resp) {
+                console.log(resp);
+                status = resp.resultObject;
+            }
+        });
+        return status;
+    }
+
     $('#J_play').on('click', function () {
         var $this = $(this);
         $this.prop('disabled', 'disabled');
@@ -181,30 +195,36 @@ $(function () {
                     return false;
                 }
             }
-            VHPublisher.startPush({
-                width: 800,
-                height: 450,
-                success: function () {
-                    $('.play-time').text("00:00");
-                    var n = 0;
-                    timer = setInterval(function () {
-                        n++;
-                        var m = parseInt(n / 60);
-                        var s = parseInt(n % 60);
-                        $('.play-time').text(toDub(m) + ":" + toDub(s));
-                    }, 1000);
-                    updateLiveStatus("start");
+            if (getPushStatus() === 0) {
+                VHPublisher.startPush({
+                    width: 800,
+                    height: 450,
+                    camera: $('.J-cameras').val(),
+                    mic: $('.J-mics').val(),
+                    success: function () {
+                        $('.play-time').text("00:00");
+                        var n = 0;
+                        timer = setInterval(function () {
+                            n++;
+                            var m = parseInt(n / 60);
+                            var s = parseInt(n % 60);
+                            $('.play-time').text(toDub(m) + ":" + toDub(s));
+                        }, 1000);
+                        updateLiveStatus("start");
 
-                    $this.text('结束直播');
-                    $this.css('background', "red");
-                    $this.data('status', 1);
-                    console.log("推流成功");
-                },
-                fail: function (e) {
-                    console.log(e);
-                    showTip("直播未能开启");
-                }
-            });
+                        $this.text('结束直播');
+                        $this.css('background', "red");
+                        $this.data('status', 1);
+                        console.log("推流成功");
+                    },
+                    fail: function (e) {
+                        console.log(e);
+                        showTip("直播未能开启");
+                    }
+                });
+            } else {
+                showTip("其他设备正在直播，请关闭后继续使用被设备进行直播");
+            }
         } else {
             VHPublisher.stopPush({
                 complete: function () {
@@ -218,6 +238,11 @@ $(function () {
         }
         $this.removeAttr('disabled');
     });
+
+    function buttomMessageList() {
+        var $chatPersonal = $('.chat-personal');
+        $chatPersonal.scrollTop($chatPersonal[0].scrollHeight);
+    }
 
     function renderMsg(msg) {
         if (msg.type == 11) { // 礼物
@@ -252,8 +277,7 @@ $(function () {
                 $('#J_message_list').append(html);
             }
         }
-        var $chatPersonal = $('.chat-personal');
-        $chatPersonal.scrollTop($chatPersonal[0].scrollHeight);
+        buttomMessageList();
     }
 
     function initMessage() {
@@ -278,13 +302,17 @@ $(function () {
     initMessage();
 
     function viewJoinleaveRoomInfo(msg, action) {
-        var html = '<li>\n' +
-            (msg.third_party_user_id === accountId ? '<span class="chat-status">主播</span>' : '') +
-            '                            <span class="chat-name">' + msg.nick_name + ':</span>\n' +
-            '                            <span class="chat-content">' + (action === 'join' ? '进入直播间' : '退出') + '</span>\n' +
-            '                        </li>';
-        $('#J_message_list').append(html);
-        $('.chat-personal').scrollTop($('.chat-personal')[0].scrollHeight);
+        var userId = msg.third_party_user_id;
+        var $JMessageList = $('#J_message_list');
+        if ($JMessageList.find('li').last().data('mid') !== (userId + '-' + action)) {
+            var html = '<li data-mid="' + msg.third_party_user_id + '-' + action + '">\n' +
+                (msg.third_party_user_id === accountId ? '<span class="chat-status">主播</span>' : '') +
+                '                            <span class="chat-name">' + msg.nick_name + ':</span>\n' +
+                '                            <span class="chat-content">' + (action === 'join' ? '进入直播间' : '退出') + '</span>\n' +
+                '                        </li>';
+            $JMessageList.append(html);
+            buttomMessageList();
+        }
     }
 
     function renderStudentList() {
@@ -346,6 +374,7 @@ $(function () {
 
     function removeStudent(userId) {
         $('.user-id-' + userId).parent().remove();
+        updatePersonNum();
     }
 
     renderStudentList();
@@ -353,7 +382,7 @@ $(function () {
     function setBanStatus(accountId, status) {
         $.ajax({
             method: 'POST',
-            url: 'ban/' + channelId + '/' + accountId + '/' + status,
+            url: '/vhallyun/ban/' + channelId + '/' + accountId + '/' + status,
             success: function (resp) {
             }
         })
@@ -578,6 +607,7 @@ $(function () {
             sendMessage();
         }
     });
+
 //------------------------------------------静态页面效果----------------------------------------------------------------
 
     function getWhiteHeight() {

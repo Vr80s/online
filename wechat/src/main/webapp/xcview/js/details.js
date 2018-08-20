@@ -22,16 +22,23 @@ var lineState = 1;
 var result = "";
 var playBackType = 1;
 
+var record;
+
 var vhallObj = {
     accountId: localStorage.getItem("userId")
 };
 // 统一提交的方法
 requestService("/xczh/course/liveDetails", {
         courseId: course_id
-    },
-    function (data) {
-        if (data.success) {
+    },function (data) {
+    	
+    	if(data.code == 300){
+    	    location.href=data.errorMessage;
+    		return;
+    	}if (data.success) {
             
+            
+
             // 修改title
             document.setTitle = function (t) {
                 document.title = t;
@@ -50,6 +57,8 @@ requestService("/xczh/course/liveDetails", {
                 // alert(111);
             }, 1000);
 
+            // 这是回放视频
+            record = data.resultObject.record;
 
             result = data.resultObject;
             // 视频id
@@ -367,5 +376,11 @@ function userIndex() {
     location.href = "/xcview/html/live_personal.html?userLecturerId=" + teacherId;
 }
 
-
+/*if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+    $(".vjs-big-play-button").addClass("vjs-big-play-buttons");
+    alert(11111);
+} else if (/(Android)/i.test(navigator.userAgent)) {
+    alert(222);
+    $(".vjs-big-play-button").removeClass("vjs-big-play-buttons");
+}*/
 

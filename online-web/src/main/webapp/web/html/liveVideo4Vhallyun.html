@@ -42,6 +42,9 @@
 	.hide{
 		display: none;
 	}
+	.bdshare-button-style0-16{
+		margin-top: 5px;
+	}
 	/*====隱藏修改視頻后====*/
 	/*.vjs-control-bar{
 		display: none;
@@ -252,6 +255,7 @@
 				width: 30px;
 				height: 30px !important;
 				margin: 6px 4px !important;
+				margin-top: 0 !important;
 			}
 			.bdsharebuttonbox .bds_tsina{
 				background: url(/web/images/video2/weibo.png) no-repeat !important;
@@ -385,6 +389,12 @@
     	width
     }
 */
+	.hide-size{
+		font-size: 14px;
+	    color: #fff;
+	    text-align: center;
+	    margin-top: 56px;
+	}
 </style>
 </head>
 
@@ -600,6 +610,7 @@
 								<p class="billboard-name"></p>
 								<p class="billboard-number">贡献 <span></span></p>
 							</div>
+							<div class="hide-size">暂无排行榜记录</div>
 							<div class="both"></div>
 						</div>
 					</div>
@@ -801,7 +812,7 @@
 								<div class="alipay-er">
 									<!-- <img id="ali_qrcode" src="/web/images/sideWeibopng.jpg" /> -->
 									<div id="qrcodeCanvas3">
-										</div>
+									</div>
 									<div class="alipay-er-fize">
 										<img src="/web/images/chongZhi/43798792669526519.png" alt="" />
 										<div class="alipay-er-fize-div">
@@ -915,6 +926,8 @@ if(browser.versions.mobile || browser.versions.ios || browser.versions.android |
 <script src="https://static.vhallyun.com/jssdk/dvideo-plugin.js?v=0.3"></script>
 <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-player-1.0.0.js"></script>
 <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-doc-1.0.0.js?v=201806271657"></script>
+<script src="https://t-static01-open.e.vhall.com/jssdk/vhall-jssdk-doc-1.0.0.js?v=201806271657"></script>
+
 <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-chat-1.0.0.js?v=201801121522"></script>
 <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-base-1.0.0.js?v=201806271657"></script>
 
@@ -934,12 +947,12 @@ if(browser.versions.mobile || browser.versions.ios || browser.versions.android |
 
 <script type="text/javascript">
     var $ = jQuery;
-    $(document).ready(function(){
+/*     $(document).ready(function(){
           var iv2 = $("#viewer2").iviewer(
           {
               src: "https://file.xczhihui.com/18802142750/1a666a314bdc05a6.png"
           });
-    });
+    }); */
     
     $(function() {
 		$('input').placeholder();
@@ -971,8 +984,6 @@ if(browser.versions.mobile || browser.versions.ios || browser.versions.android |
 				$(".layer").addClass("layers");
 				$("#viewer2 img").removeClass("viewer-imgs");//缩小后的文档区域  文档高度
 //				alert(222);
-				
-
 				$(".doc-img").addClass("doc-imgs");
 				$(".doc").css("z-index","-1");
 				$(".vjs-tech").css("z-index","999");
@@ -981,16 +992,18 @@ if(browser.versions.mobile || browser.versions.ios || browser.versions.android |
 				$("iframe").addClass("iframe-addclass");
 				$("iframe").addClass("iframe-addclass");
 				$(".company-introduce-one").addClass("doc-imgs");  //点击小区域显示 大文档
+				/*$(".company-introduce-one").css("width","800px");
+				$(".company-introduce-one").css("height","450px");
 				
+				$(".doc-img-div img").css("width","800px");
+				$(".doc-img-div img").css("height","450px");*/
 				$(".doc-img").css("width","800px");
 				$(".doc-img").css("height","450px");
 
 				$("iframe").css("width","800px");
 				$("iframe").css("height","450px");
 	
- 			}else{
- 				
- 				
+ 		}else{
  				$(".doc").css("z-index","9");
 				$(".vjs-tech").css("z-index","0");
 
@@ -1014,6 +1027,13 @@ if(browser.versions.mobile || browser.versions.ios || browser.versions.android |
 				$(".doc-img").removeClass("doc-img-addclass");
 				$("iframe").removeClass("iframe-addclass");
 				$("iframe").removeClass("iframe-addclass");
+				
+				/*$(".company-introduce-one").css("width","320px");
+				$(".company-introduce-one").css("height","180px");
+				
+				$(".doc-img-div img").css("width","320px");
+				$(".doc-img-div img").css("height","180px");*/
+				
 				$(".doc-img").css("width","320px");
 				$(".doc-img").css("height","180px");
 
@@ -1142,10 +1162,28 @@ function insertAtCaret(e){
 		/*function isWeixin(){
 		    var ua = navigator.userAgent.toLowerCase();
 		    if(ua.match(/MicroMessenger/i)=='micromessenger'){
-			$(".bdsharebuttonbox a").css("margin-top","0");
-			alert(1111);
+				$(".bdsharebuttonbox a").css("margin-top","0");
+				alert(1111);
 		    }
 		}*/
+		
+		function isWeixin(){
+		    var ua = navigator.userAgent.toLowerCase();
+		    if(ua.match(/MicroMessenger/i)=='micromessenger'){
+		    	/*$(".bdsharebuttonbox a").css("margin-top","0");*/
+		    	$(".share ul li").css("margin-top","6px");
+		    	$(".share ul li").css("line-height","35px");
+		    	//alert(1111);
+		    	$(".livePlayer .liveMess").css("line-height","50px");
+		    	
+		        return true;
+		    }else{
+//		    	alert(222);
+		        return false;
+		    }
+		}
+		isWeixin();
+		
 	 	
 	});
 </script>

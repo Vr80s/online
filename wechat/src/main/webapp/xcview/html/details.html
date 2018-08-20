@@ -68,6 +68,10 @@ $(function(){
     margin-top: -1em !important;
     left: 50% !important;
     margin-left: -1.5em !important;
+    /*display: none !important;*/
+}
+.vjs-big-play-buttons{
+    /*display: block !important;*/
 }
 
 /*  .cover{
@@ -99,6 +103,11 @@ $(function(){
  .document_ceneters{
  	transform: scale(1, 1) !important;
  	transform: translate(-7.10543e-15px, 3.90799e-14px) !important;
+ }
+ .document_ceneter{
+ 	background: url(/xcview/images/190673525877354982.png) no-repeat;
+ 	background-size: 2.37rem 2.67rem;
+ 	background-position: center center;
  }
 </style>
 
@@ -133,7 +142,7 @@ $(function(){
 
         // 点击发送
         $(".send_img").click(function(){
-            alert(123);
+            // alert(123);
             $(".coze_bottom").css("bottom", "0rem");
         });
         
@@ -437,6 +446,9 @@ $(function(){
 </style>
 </head>
 <body style="background: #f8f8f8;overflow: hidden1;">
+    
+    <div class="divred"></div>
+
     <div class='vanish2 hide'><div class='vanish2_bg'></div><div class='vanish2_cen'><div class='vanish2_size'>熊猫币余额获取失败！请稍后再试</div></div></div>
     <div class='vanish4 hide'><div class='vanish4_bg'></div><div class='vanish4_cen'><div class='vanish4_size'>提交订单错误！请稍后再试！</div></div></div>
     
@@ -826,9 +838,7 @@ $(function(){
 
     <!-- 文档开始 -->
     <div class="document" style="margin-top: 3.74rem;">
-        <div class="document_ceneter" id="my-doc-area">
-            <div class="both"></div>
-        </div>
+        <div class="document_ceneter" id="my-doc-area"></div>
         <div class="both"></div>
     </div>
     
@@ -903,6 +913,7 @@ $(function(){
 <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-chat-1.0.0.js?v=201801121522"></script>
 <script src="https://static.vhallyun.com/jssdk/dvideo-plugin.js?v=0.3"></script>
 <script src="https://static.vhallyun.com/jssdk/vhall-jssdk-base-1.0.0.js?v=201806271657"></script>
+
 
 <!-- 部分点击事件 -->
 <script type="text/javascript" src="/xcview/js/details_change.js"></script>
@@ -1017,8 +1028,6 @@ $(function(){
     $(".document").click(function(){
     	$(".document_ceneter").removeClass("document_ceneter_width");
     });
-
-    
 </script>
 </html>
 

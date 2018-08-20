@@ -168,9 +168,9 @@
 		<td>
 			{{if course.applyStatus==1}}  <!-- 审核通过 -->
 			{{if course.status==1}}   <!-- 课程是否上架 -->
-			     <a href="javascript:;" onclick="confirmCourseSale(0,{{course.id}},{{course.courseId}})">下架</a>
+			<a href="javascript:;" onclick="confirmCourseSale(0,{{course.id}},{{course.courseId}},{{i}})">下架</a>
 			{{else}}
-			<a href="javascript:;" onclick="confirmCourseSale(1,{{course.id}},{{course.courseId}})">上架</a>
+			<a href="javascript:;" onclick="confirmCourseSale(1,{{course.id}},{{course.courseId}},{{i}})">上架</a>
 			<a href="javascript:;" onclick="editCourse({{course.id}},true)">编辑</a>
 			{{/if}}
 			{{else if course.applyStatus==2}}
@@ -2887,6 +2887,7 @@
 <script type="text/javascript" src="/web/js/MD5/browser-md5-file.js"></script>
 
 <script src="/web/js/anchor/tree-menu.js" type="text/javascript" charset="UTF-8"></script>
+<script src="/web/js/common_msg.js"></script>
 
 <script type="text/javascript">
     function numberCk(data) {

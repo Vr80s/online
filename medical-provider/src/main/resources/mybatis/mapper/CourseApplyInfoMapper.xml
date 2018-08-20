@@ -29,7 +29,9 @@
         cai.`course_form` courseForm,
         cai.`status` applyStatus,
         oc.`status`,
-        oc.id courseId
+        oc.id courseId,
+        oc.live_status liveStatus,
+        oc.start_time startTime
         FROM
         `course_apply_info` cai
         LEFT JOIN
@@ -110,6 +112,7 @@
         ON cai.`id` = oc.`apply_id`
         WHERE cai.`user_id` = #{userId}
         AND cai.`course_form` = 1
+        AND oc.status = 1
         <if test="title != null and title!=''">
             AND cai.`title` concat('%',#{title},'%')
         </if>

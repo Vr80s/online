@@ -310,7 +310,7 @@ function getResourceList(){
  * @author name：yuxin <br>email: yuruixin@ixincheng.com
  * @Date: 2018/2/2 0002 下午 9:09
  **/
-
+var launchData;
 function courseList(current){
     var courseForm;
     var multimediaType;
@@ -339,7 +339,7 @@ function courseList(current){
     }
 //
     RequestService(url, "get", null, function(data) {
-
+			launchData=data.resultObject.records;
          if(!data.resultObject || !data.resultObject.records || data.resultObject.records.length == 0){
         $('#kecheng_list').html('<div style="padding-top:40px;text-align:center"><img src="/web/images/other_noResult.png" alt="" /><p style="font-size:16px;color:#999;margin-top:35px">暂无课程</p></div>');
         $('#kecheng_list').removeClass('hide')
@@ -477,7 +477,7 @@ function echoCourse(caiId,passEdit){
     $('#caiId').val(caiId);
     $('.course_title').val(course.title);
     $('.course_subtitle').val(course.subtitle);
-    $('#courseImg').html('<img src="" style="width: 100%;height: 100%" >');
+    $('#courseImg').html('<img src="" style="width: 100%;height: 100%" >'+'<p>点击图片重新上传</p>');
     $('#courseImg img').attr('src',course.imgPath);
     $('.course_lecturer ').val(course.lecturer);
     if(course.lecturerDescription) {
@@ -765,33 +765,58 @@ function verifyCourse(course){
     return true;
 }
 
-
-function confirmCourseSale(state,courseApplyId,courseId){
+//获取当前时间
+function getNowFormatDate() {
+	    var date = new Date();
+	    var seperator1 = "-";
+	    var seperator2 = ":";
+	    var month = date.getMonth() + 1;
+	    var strDate = date.getDate();
+	    if (month >= 1 && month <= 9) {
+	        month = "0" + month;
+	    }
+	    if (strDate >= 0 && strDate <= 9) {
+	        strDate = "0" + strDate;
+	    }
+	    var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+	            + " " + date.getHours() + seperator2 + date.getMinutes()
+	            + seperator2 + date.getSeconds();
+	    return currentdate;    
+	}
+function confirmCourseSale(state,courseApplyId,courseId,index){
     var title="课程上架";
     var content="确认上架该课程？";
+    var nowDate = new Date();
+    var launchUp=launchData[index]
     if(state==0){
         title="课程下架";
         content="确认下架该课程？";
     }
-    confirmBox(title,content,function(closefn){
-        $.ajax({
-            type: "post",
-            url: bath + "/anchor/course/changeSaleState",
-            data:"courseApplyId="+courseApplyId+"&courseId="+courseId+"&state="+state,
-            async: false,
-            success: function(data) {
-                closefn();
-                console.log(data);
-                if(data.success == true) {
-//
-                    courseList(1);
-                    showTip(data.resultObject);
-                } else {
-                    showTip(data.errorMessage);
-                }
-            }
-        });
-    });
+    if(launchUp.courseForm==1&&launchUp.liveStatus==2&&launchUp.startTime<getNowFormatDate()){
+    	showTip("该直播时间已经过期，无法上架,请修改再次操作上架。");
+    	return false;
+    }else{
+    	confirmBox(title,content,function(closefn){
+	        $.ajax({
+	            type: "post",
+	            url: bath + "/anchor/course/changeSaleState",
+	            data:"courseApplyId="+courseApplyId+"&courseId="+courseId+"&state="+state,
+	            async: false,
+	            success: function(data) {
+	                closefn();
+	                console.log(data);
+	                if(data.success == true) {
+	//
+	                    courseList(1);
+	                    showTip(data.resultObject);
+	                } else {
+	                    showTip(data.errorMessage);
+	                }
+	            }
+	        });
+    	});
+    }
+
 }
 function confirmCollection(state,courseApplyId,courseId){
     var title="专辑上架";
@@ -990,6 +1015,20 @@ function courseLiveList(current){
     });
 }
 
+function getPushStatus(courseId) {
+    var status = 0;
+    $.ajax({
+        url: '/anchor/course/pushStream/status?courseId=' + courseId,
+        method: 'GET',
+        async: false,
+        success: function (resp) {
+            console.log(resp);
+            status = resp.resultObject;
+        }
+    });
+    return status;
+}
+
 /**
  * Description：开始直播
  * creed: Talk is cheap,show me the code
@@ -1001,7 +1040,11 @@ function startLive(courseId, channelId) {
         alert("该直播为老的直播数据，请重新创建直播");
         return false;
     } else {
-        location.href = "/courses/liveRoom?courseId=" + courseId;
+        if (getPushStatus(courseId) === 0) {
+            location.href = "/courses/liveRoom?courseId=" + courseId;
+        } else {
+            showTip("其他设备正在直播，请关闭后继续使用被设备进行直播");
+        }
     }
 }
 
@@ -1268,7 +1311,7 @@ function echoCollection(collectionId,passEdit){
     $('#collectionId').val(collection.id)
     $('.collection_title').val(collection.title);
     $('.collection_subtitle').val(collection.subtitle);
-    $('#collectionImg').html('<img src="" style="width: 100%;height: 100%" >');
+    $('#collectionImg').html('<img src="" style="width: 100%;height: 100%" >'+'<p>点击图片重新上传</p>');
     $('#collectionImg img').attr('src',collection.imgPath);
     $('.collection_lecturer ').val(collection.lecturer);
     UE.getEditor('editor_collection_lecturer_description').setContent(collection.lecturerDescription);
@@ -1718,8 +1761,8 @@ function picUpdown(form,imgname){
         processData: false,
         contentType: false,
     }).success(function (data) {
-        $('#'+imgname+'').html('<img src="'+data.resultObject+'" style="width: 100%;height: 100%" >');
-        $(".row_size").hide()
+        $('#'+imgname+'').html('<img src="'+data.resultObject+'" style="width: 100%;height: 100%" >'+'<p>点击图片重新上传</p>');
+        $(".row_size").hide();
     });
 
 }
@@ -1889,11 +1932,26 @@ $(function(){
         form.append("image", this.files[0]);
         var reader=new FileReader();
         reader.onload=function(e){
-            picUpdown(form,'profilePhotoImg');
+            picUpdownHead(form,'profilePhotoImg');
         }
         reader.readAsDataURL(this.files[0])
     })
 })
+//头像上传,为了不添加上传提示,单独拿出来
+function picUpdownHead(form,imgname){
+    $.ajax({
+        type: 'post',
+        url: "/medical/common/upload",
+        data: form,
+        cache: false,
+        processData: false,
+        contentType: false,
+    }).success(function (data) {
+        $('#'+imgname+'').html('<img src="'+data.resultObject+'" style="width: 100%;height: 100%" >');
+        $(".row_size").hide();
+    });
+
+}
 
 function openRecordSet(courseId,isRecord) {
     $("#mask").removeClass("hide");
