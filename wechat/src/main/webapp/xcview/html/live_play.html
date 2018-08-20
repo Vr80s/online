@@ -118,9 +118,11 @@
 			</div>
 			{{else if lineState == 3 && record==false}}
 				<div class="play_video_hide">当前直播无回放</div>
-			{{else if lineState == 3 || record==ture}}
-				<a href="javascript:;" class="btn_returned"></a>
-			
+			{{else if lineState == 3 || record==true}}
+				<a class="memory_lujin" data-memory="{{id}}"  href="javascript:;"></a>
+				<div class="video_prompt_open">
+					<img src="../images/play_btn.png"/>
+				</div>
 			{{/if}}
 		</script>
 	</div>

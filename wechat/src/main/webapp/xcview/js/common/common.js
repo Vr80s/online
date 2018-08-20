@@ -287,6 +287,16 @@ function common_share_backs() {
         sessionStorage.setItem("inherited_backFalg","home");
     }else if(isNotBlank(back) && back.indexOf("physician_list.html") != -1){
         sessionStorage.setItem("inherited_backFalg","physicians_page");
+    }else if(isNotBlank(back) && back.indexOf("live_audio.html") != -1){
+        sessionStorage.setItem("inherited_backFalg","physicians_page");
+    }else if(isNotBlank(back) && back.indexOf("live_play.html") != -1){
+        sessionStorage.setItem("inherited_backFalg","physicians_page");
+    }else if(isNotBlank(back) && back.indexOf("school_audio.html") != -1){
+        sessionStorage.setItem("inherited_backFalg","physicians_page");
+    }else if(isNotBlank(back) && back.indexOf("school_play.html") != -1){
+        sessionStorage.setItem("inherited_backFalg","physicians_page");
+    }else if(isNotBlank(back) && back.indexOf("school_class.html") != -1){
+        sessionStorage.setItem("inherited_backFalg","physicians_page");
     }else if(isNotBlank(back) && back.indexOf("index.html") != -1){
         sessionStorage.setItem("inherited_backFalg","index");
     }else{
