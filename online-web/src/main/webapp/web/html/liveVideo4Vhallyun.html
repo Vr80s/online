@@ -1088,6 +1088,11 @@ function insertAtCaret(e){
 		
 		// 點擊表情開始
 	 	$("#face").click(function(e){
+	 		
+	 		if(liveStatus == 3){
+	 			return;
+	 		}
+	 		
 	 		// alert(55555);
 	 		$(".send-face").removeClass("hide");
 	 		$(".send-face-bg").show();

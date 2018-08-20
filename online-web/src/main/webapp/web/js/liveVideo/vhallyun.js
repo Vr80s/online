@@ -289,6 +289,9 @@ function elsBind(){
      * 发送聊天消息
      */  
     $("#sendChat").click(function() {
+		if(liveStatus == 3){
+ 			return;
+ 		}
     	
         $(".coze_bottom").css("bottom", "0rem");  //这是输入框在最底部,添加到其他文件不起作用
         var text = $("#mywords").val();

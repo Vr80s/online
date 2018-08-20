@@ -22,6 +22,7 @@ import com.xczh.consumer.market.dao.OnlineUserMapper;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.wxpay.consts.WxPayConst;
+import com.xczhihui.common.util.enums.ApprenticeCheckStatus;
 import com.xczhihui.common.util.enums.ShareType;
 import com.xczhihui.common.util.enums.TokenExpires;
 import com.xczhihui.common.util.enums.WechatShareLinkType;
@@ -30,9 +31,12 @@ import com.xczhihui.course.service.ICriticizeService;
 import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.course.vo.ShareInfoVo;
 import com.xczhihui.medical.doctor.model.MedicalDoctor;
+import com.xczhihui.medical.doctor.model.MedicalDoctorAccount;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorAccountService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorArticleService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.vo.MobileArticleVO;
+import com.xczhihui.medical.enrol.service.EnrolService;
 import com.xczhihui.user.center.service.UserCenterService;
 import com.xczhihui.user.center.utils.UCCookieUtil;
 import com.xczhihui.user.center.vo.Token;
@@ -389,6 +393,12 @@ public class MobileShareController {
             return coursePage;
         }
         
+        /*
+         * 如果是师承直播的话，需要把判断有是不是弟子，有没有权限
+         */
+//        if(cv.getTeaching()) {
+//        }
+        
         //用户未登录去展示页
         if (ou == null) {
             if (cv.getType().equals(1) || cv.getType().equals(2)) {
@@ -435,4 +445,34 @@ public class MobileShareController {
         }
         return returnOpenidUri + coursePage + shareId;
     }
+
+    @Autowired
+    private IMedicalDoctorAccountService medicalDoctorAccountService;
+    
+    @Autowired
+    private EnrolService enrolService;
+    
+    
+    public Boolean checkAuth(String userId,String teacherId,Integer courseId) {
+    	
+        boolean auth = false;
+        int type = ApprenticeCheckStatus.DEFAULT.getVal();
+        MedicalDoctorAccount  mda  =  medicalDoctorAccountService.getByUserId(userId);
+        boolean apprentice = enrolService.isApprentice(mda.getDoctorId(),userId);
+        //师承直播的校验
+        if (courseId != null) {
+            auth = enrolService.checkAuthTeachingCourse(userId, courseId);
+        } else {
+            auth = apprentice;
+        }
+        if (!auth) {
+            if (apprentice) {
+                type = ApprenticeCheckStatus.APPRENTICE.getVal();
+            } else if (enrolService.apprenticeApplying(mda.getDoctorId(), userId)) {
+                type = ApprenticeCheckStatus.APPLYING.getVal();
+            }
+        }
+       return true;	
+    }
+
 }
