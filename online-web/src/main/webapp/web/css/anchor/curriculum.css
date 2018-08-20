@@ -1283,6 +1283,12 @@ width: 63px;
 	text-indent: 1em;
 	font-size: 14px;
 }
+.curriculum_one input{
+	border-color: #f0f0f0;
+}
+.curriculum_one .active-border{
+	border-color: #FF4012 !important;
+}
 .wrap_box  #curriculum .zhuanlan_bottom form .zhuanlan_title::-webkit-input-placeholder,
 .wrap_box  #curriculum .zhuanlan_bottom form .zhuanlan_title:-moz-placeholder,
 .wrap_box  #curriculum .zhuanlan_bottom form .zhuanlan_title::-moz-placeholder,

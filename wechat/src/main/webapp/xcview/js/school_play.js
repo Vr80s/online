@@ -318,6 +318,10 @@ function btn_allComment() {
 var courseId = getQueryString('course_id');
 
 function btn_zj_mianfei() {
+
+    
+
+    // 点击购买跳转
     checkAuth(courseId, 1);
     var data_zj = $(".right_priceBtn").attr("data-zj")
     if (data_zj == 0) {
@@ -339,6 +343,8 @@ function btn_zj_mianfei() {
     } else if (data_zj == 2) {
         window.location.href = "live_play.html?my_study=" + course_id + "";
     }
+
+
 }
 
 var courseId = getQueryString('course_id');

@@ -7,6 +7,10 @@ $(function () {
         $(".curriculum_two").hide();
         $(".curriculum_one").show();
         $(".row_size").show();//这是图片上传时的+和提示显示
+//      $(".curriculum_one input").removeClass("active-border");
+//		$(".curriculum_one textarea").removeClass("active-border");
+//		$(".curriculum_one .warning").addClass("hide");
+		clearWarning();
     });
     //点击课程  返回
     $(".curriculum_one .button").click(function () {

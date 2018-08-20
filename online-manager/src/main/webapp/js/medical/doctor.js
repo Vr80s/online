@@ -887,7 +887,7 @@ function toEdit(obj,status){
 		}
 
     	var edit_title="修改医师";
-    	var dialog = openDialog("EditCourseDialog","dialogEditCourseDiv",edit_title,580,650,true,"确定",function(){
+    	var dialog = openDialog("EditCourseDialog","dialogEditCourseDiv",edit_title,580,400,true,"确定",function(){
 
             $("#edit_realProvince").val($("#edit_province").find("option:selected").text());
             $("#edit_realCitys").val($("#edit_citys").find("option:selected").text());

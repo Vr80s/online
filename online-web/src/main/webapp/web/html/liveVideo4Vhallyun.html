@@ -42,6 +42,9 @@
 	.hide{
 		display: none;
 	}
+	.bdshare-button-style0-16{
+		margin-top: 5px;
+	}
 	/*====隱藏修改視頻后====*/
 	/*.vjs-control-bar{
 		display: none;
@@ -252,6 +255,7 @@
 				width: 30px;
 				height: 30px !important;
 				margin: 6px 4px !important;
+				margin-top: 0 !important;
 			}
 			.bdsharebuttonbox .bds_tsina{
 				background: url(/web/images/video2/weibo.png) no-repeat !important;
@@ -980,8 +984,6 @@ if(browser.versions.mobile || browser.versions.ios || browser.versions.android |
 				$(".layer").addClass("layers");
 				$("#viewer2 img").removeClass("viewer-imgs");//缩小后的文档区域  文档高度
 //				alert(222);
-				
-
 				$(".doc-img").addClass("doc-imgs");
 				$(".doc").css("z-index","-1");
 				$(".vjs-tech").css("z-index","999");
@@ -990,25 +992,18 @@ if(browser.versions.mobile || browser.versions.ios || browser.versions.android |
 				$("iframe").addClass("iframe-addclass");
 				$("iframe").addClass("iframe-addclass");
 				$(".company-introduce-one").addClass("doc-imgs");  //点击小区域显示 大文档
-				
-				
 				/*$(".company-introduce-one").css("width","800px");
 				$(".company-introduce-one").css("height","450px");
 				
 				$(".doc-img-div img").css("width","800px");
 				$(".doc-img-div img").css("height","450px");*/
-				
-				
-				
 				$(".doc-img").css("width","800px");
 				$(".doc-img").css("height","450px");
 
 				$("iframe").css("width","800px");
 				$("iframe").css("height","450px");
 	
- 			}else{
- 				
- 				
+ 		}else{
  				$(".doc").css("z-index","9");
 				$(".vjs-tech").css("z-index","0");
 
@@ -1172,10 +1167,25 @@ function insertAtCaret(e){
 		/*function isWeixin(){
 		    var ua = navigator.userAgent.toLowerCase();
 		    if(ua.match(/MicroMessenger/i)=='micromessenger'){
-			$(".bdsharebuttonbox a").css("margin-top","0");
-			alert(1111);
+				$(".bdsharebuttonbox a").css("margin-top","0");
+				alert(1111);
 		    }
 		}*/
+		
+		function isWeixin(){
+		    var ua = navigator.userAgent.toLowerCase();
+		    if(ua.match(/MicroMessenger/i)=='micromessenger'){
+		    	$(".share ul li").css("margin-top","6px");
+		    	$(".share ul li").css("line-height","25px");
+		    	$(".livePlayer .liveMess").css("line-height","65px");
+		        return true;
+		    }else{
+//		    	alert(222);
+		        return false;
+		    }
+		}
+		isWeixin();
+		
 	 	
 	});
 </script>
