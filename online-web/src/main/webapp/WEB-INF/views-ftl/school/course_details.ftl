@@ -177,6 +177,11 @@
                 <#if !courseInfo.record && courseInfo.lineState == 3 && courseInfo.courseForm==1>
                     <span class="live-null-tip">本次直播没有回放，请随时关注讲师动态，避免错过下次直播</span>
                 <#else>
+                	 <#if courseInfo.collectionHint??>
+                        <p class="contain-album">该课程专辑属于《斗破苍穹-萧炎成神大片》，购买专辑更全面划算哦~
+                        	<a href="${webUrl}/courses/${courseInfo.collectionHint.id}/info">查看详情&gt;&gt;</a></p>
+                     </#if>
+                
                     <#if courseInfo.watchState == 1 || courseInfo.watchState == 2>
                     	
                         <button type="button" class="immediately-buy  learning_immediately"
@@ -193,24 +198,23 @@
                                 </#if>
                                 >
                             <#if courseInfo.watchState == 2  && courseInfo.courseForm == 3>
-                                   已报名
+                                   		已报名
                             <#elseif courseInfo.watchState == 1  && courseInfo.courseForm == 3>
                                 <#if courseInfo.learning == 1>
-                                   已报名
+                                   		已报名
                                 <#elseif courseInfo.cutoff = 1>
-                                    已结束报名
+                                  		 已结束报名
                                 <#else>
-                                    立即报名
+                                    	立即报名
                                 </#if>
                             <#else>
-                                    开始学习
+                                		   开始学习
                             </#if>
                         </button>
                     <#elseif courseInfo.watchState == 0>
                         <#if courseInfo.courseForm == 3 && courseInfo.cutoff = 1>
                             <button type="button" class="immediately-buy" style="background:#DEDEDE;">已结束报名</button>
                         <#else>
-                        	<p class="contain-album">该课程专辑属于《斗破苍穹-萧炎成神大片》，购买专辑更全面划算哦~<a href="">查看详情&gt;&gt;</a></p>
                             <button type="button" class="immediately-buy J-course-buy"
                                     data-id="${courseInfo.id}"
                                     data-courseForm="${courseInfo.courseForm}"
