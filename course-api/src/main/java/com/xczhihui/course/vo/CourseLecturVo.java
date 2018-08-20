@@ -5,6 +5,7 @@ import com.xczhihui.common.util.XzStringUtils;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Map;
 
 
 /**
@@ -234,6 +235,11 @@ public class CourseLecturVo implements Serializable {
      * 是否提交线下课报名表单
      */
     private boolean submitted;
+    
+    /**
+     * 专辑提示。此付费课程是否包含在付费的专辑中，如果包含的话，做一个提示
+     */
+    private Map<String,Object> collectionHint;
 
     public String getAppid() {
         return appid;
@@ -862,6 +868,13 @@ public class CourseLecturVo implements Serializable {
 	public void setLiveCase(Integer liveCase) {
 		this.liveCase = liveCase;
 	}
-    
-    
+
+	public Map<String, Object> getCollectionHint() {
+		return collectionHint;
+	}
+
+	public void setCollectionHint(Map<String, Object> collectionHint) {
+		this.collectionHint = collectionHint;
+	}
+
 }

@@ -17,12 +17,13 @@ import com.xczhihui.course.vo.CourseSolrVO;
 import com.xczhihui.course.vo.ShareInfoVo;
 
 /**
- * <p>
- * Mapper 接口
- * </p>
- *
- * @author yuxin
- * @since 2017-12-09
+ * 
+* @ClassName: CourseMapper
+* @Description: 课程dao类
+* @author yangxuan
+* @email yangxuan@ixincheng.com
+* @date 2018年8月20日
+*
  */
 public interface CourseMapper extends BaseMapper<Course> {
 
@@ -216,8 +217,8 @@ public interface CourseMapper extends BaseMapper<Course> {
      * @param documentId 回放id
      * @param status     回放状态
      */
-    @Select({"select  channel_id from oe_course where record_id = #{recordId}"})
-    String selectChannelIdByRecordId(@Param("recordId") String recordId);
+    @Select({"select  channel_id as channelId,is_record record,id as id from oe_course where record_id = #{recordId}"})
+    CourseLecturVo selectCourseByRecordId(@Param("recordId") String recordId);
 
     @Select({"SELECT max(record_count) FROM oe_live_time_record WHERE live_id = #{liveId}"})
     Integer maxRecordCount(@Param("liveId") String liveId);
@@ -233,4 +234,16 @@ public interface CourseMapper extends BaseMapper<Course> {
      */
     @Select({"select live_status from oe_course where direct_id = #{directId}"})
     Integer selectCourseLiveStatusByDirectId(@Param("directId") String directId);
+
+    
+    /**
+     * 
+     * <p>Title: selectTheirCollection</p>  
+     * <p>Description: 如果是付费的音频或者视频判断其是否包含在某个付费的专辑中</p>  
+     * @param courseId
+     * @return
+     */
+    @Select({" select oc.grade_name as gradeName,oc.id,oc.smallimg_path as smallImgPath  from  collection_course  cc inner join  oe_course oc on cc.collection_id= oc.id " + 
+    		"   where cc.course_id = 582 and oc.is_free = 0 order by cc.create_time limit 0,1 "})
+	Map<String,Object> selectTheirCollection(@Param("directId")Integer courseId);
 }

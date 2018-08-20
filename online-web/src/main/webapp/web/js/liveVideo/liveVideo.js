@@ -71,8 +71,9 @@ RequestService("/online/live/getOpenCourseById", "GET", {
 
 	//主播暂时离开一下下啦
 	if (obj.live_case == 2) {
-		$(".playback-rebroadcast").text("主播要离开一会儿，稍等片刻哦~");
-		$(".playback").show();
+		$(".playback div").hide();
+    	$(".leave").show();
+    	$(".playback").show();
 	}
 }, false);
 
