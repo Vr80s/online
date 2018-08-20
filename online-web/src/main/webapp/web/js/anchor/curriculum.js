@@ -869,7 +869,7 @@ function showCourseAttribute(type) {
     }
 }
 
-function confirmBox(title, content, fn) {
+function confirmBox1(title, content, fn) {
     $(".confirm-title").html(title);
     $(".confirm-content").html(content);
     $(".confirm-sure").click(function () {
