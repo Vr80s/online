@@ -22,6 +22,7 @@ import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.course.service.IMyInfoService;
 import com.xczhihui.course.service.IWatchHistoryService;
 import com.xczhihui.course.vo.CourseLecturVo;
+import com.xczhihui.medical.enrol.service.EnrolService;
 
 /**
  * 通过课程id 重定向到前端指定的课程页面
@@ -42,6 +43,8 @@ public class PageController {
     private IMyInfoService myInfoService;
     @Autowired
     public IWatchHistoryService watchHistoryService;
+    @Autowired
+    private EnrolService enrolService;
     
     /**
      * 课程跳转重定向
@@ -143,7 +146,9 @@ public class PageController {
             coursePage = WechatShareLinkType.UNSHELVE.getLink();
             return coursePage;
         }
-
+        
+        
+        
         //用户未登录去展示页
         if (ou == null) {
             if (cv.getType().equals(1) || cv.getType().equals(0)) {
@@ -179,6 +184,23 @@ public class PageController {
 
     public String courseLivePage(CourseLecturVo cv, OnlineUser ou) {
         
+    	//回放状态，并且没有设置生成回访时。
+    	if(cv.getLineState().equals(3) && !cv.getRecord()) {
+    		return  WechatShareLinkType.SCHOOL_PLAY.getLink();    
+    	}
+    	
+        /*
+         * 如果是师承直播的话，需要把判断有是不是弟子，有没有权限
+         */
+        if(cv.getTeaching()) {
+        	Boolean falg = enrolService.checkAuthTeachingCourse(ou.getId(), cv.getId());	
+        	//	是否有权限操作 true：有 false: 否
+        	if(!falg) {
+        		return WechatShareLinkType.SCHOOL_PLAY.getLink();
+        	}
+        }
+    	
+    	
         String coursePage = WechatShareLinkType.INDEX_PAGE.getLink();
         //付费的
         if(cv.getWatchState().equals(0)) {

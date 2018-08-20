@@ -68,6 +68,10 @@ public class MobileShareController {
     private IMedicalDoctorBusinessService medicalDoctorBusinessService;
     @Autowired
     private IMedicalDoctorArticleService medicalDoctorArticleService;
+    
+    @Autowired
+    private EnrolService enrolService;
+    
     @Value("${webdomain}")
     private String webdomain;
     @Value("${returnOpenidUri}")
@@ -396,8 +400,18 @@ public class MobileShareController {
         /*
          * 如果是师承直播的话，需要把判断有是不是弟子，有没有权限
          */
-//        if(cv.getTeaching()) {
-//        }
+        if(cv.getTeaching()) {
+        	Boolean falg = enrolService.checkAuthTeachingCourse(ou.getId(), courseId);	
+        	//	是否有权限操作 true：有 false: 否
+        	if(!falg) {
+        		return returnOpenidUri + WechatShareLinkType.SCHOOL_PLAY.getLink();
+        	}
+        }
+        
+    	//回放状态，并且没有设置生成回访时。
+    	if(cv.getLineState().equals(3) && !cv.getRecord()) {
+    		return  WechatShareLinkType.SCHOOL_PLAY.getLink();    
+    	}
         
         //用户未登录去展示页
         if (ou == null) {
@@ -446,33 +460,5 @@ public class MobileShareController {
         return returnOpenidUri + coursePage + shareId;
     }
 
-    @Autowired
-    private IMedicalDoctorAccountService medicalDoctorAccountService;
     
-    @Autowired
-    private EnrolService enrolService;
-    
-    
-    public Boolean checkAuth(String userId,String teacherId,Integer courseId) {
-    	
-        boolean auth = false;
-        int type = ApprenticeCheckStatus.DEFAULT.getVal();
-        MedicalDoctorAccount  mda  =  medicalDoctorAccountService.getByUserId(userId);
-        boolean apprentice = enrolService.isApprentice(mda.getDoctorId(),userId);
-        //师承直播的校验
-        if (courseId != null) {
-            auth = enrolService.checkAuthTeachingCourse(userId, courseId);
-        } else {
-            auth = apprentice;
-        }
-        if (!auth) {
-            if (apprentice) {
-                type = ApprenticeCheckStatus.APPRENTICE.getVal();
-            } else if (enrolService.apprenticeApplying(mda.getDoctorId(), userId)) {
-                type = ApprenticeCheckStatus.APPLYING.getVal();
-            }
-        }
-       return true;	
-    }
-
 }
