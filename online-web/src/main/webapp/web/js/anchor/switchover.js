@@ -55,6 +55,7 @@ $(function () {
         $("#zhuanji_bottom2").hide();
         $("#zhuanji_bottom").show();
         $(".row_size").show();//这是图片上传时的+和提示显示
+        clearAlbumError()
     });
 
     //点击第二页返回--到第一页

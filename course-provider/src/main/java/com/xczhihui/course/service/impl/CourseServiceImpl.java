@@ -205,7 +205,6 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
                 	cv.setCollectionHint(collectionHint);
                 }
                 
-                
                 //如果是免费的  判断是否学习过
             } else if (cv.getWatchState() == 1) { // 免费课程
                 if (falg > 0) {
