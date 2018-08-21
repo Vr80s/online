@@ -431,9 +431,15 @@ function editCourse(caiId,passEdit){
     if(echoCourse(caiId,passEdit)){
         $(".curriculum_two").hide();
         $(".curriculum_one").show();
+        clearWarning();
     }else{
         showTip("课程发生变化了，请刷新列表");
     }
+}
+function clearWarning(){
+	$(".curriculum_one input").removeClass("active-border");
+	$(".curriculum_one textarea").removeClass("active-border");
+	$(".curriculum_one .warning").addClass("hide");
 }
 
 function deleteCourse(caiId,collection){
@@ -541,6 +547,7 @@ function resetCourseForm(sp){
     $("#citys").empty();
     showCourseAttribute(1);
     initResource(1);
+
     if(sp){
         showPersonInf();
     }
@@ -616,15 +623,19 @@ function getCourseData(){
  **/
 function verifyCourse(course){
     $(".warning").addClass('hide');
+	$(".curriculum_one input").removeClass("active-border");
+	$(".curriculum_one textarea").removeClass("active-border");
     //课程标题
     if(course.title == ''){
         $('.warning_course_title').removeClass('hide');
+		$('.warning_course_title').siblings("input").addClass("active-border");
         return false;
     }else{
         $('.warning_course_title').addClass('hide');
     }
     if(course.title.length>30){
         $('.warning_course_title_length').removeClass('hide');
+        $('.warning_course_title_length').siblings("input").addClass("active-border");
         return false;
     }else{
         $('.warning_course_title_length').addClass('hide');
@@ -632,12 +643,14 @@ function verifyCourse(course){
     //副标题
     if(course.subtitle == ''){
         $('.warning_course_subtitle').removeClass('hide');
+        $('.warning_course_subtitle').siblings("input").addClass("active-border");
         return false;
     }else{
         $('.warning_course_subtitle').addClass('hide');
     }
     if(course.subtitle.length>30){
         $('.warning_course_subtitle_length').removeClass('hide');
+        $('.warning_course_subtitle_length').siblings("input").addClass("active-border");
         return false;
     }else{
         $('.warning_course_subtitle_length').addClass('hide');
@@ -652,6 +665,7 @@ function verifyCourse(course){
     //主播姓名
     if(course.lecturer == ''){
         $('.warning_course_lecturer').removeClass('hide');
+        $('.warning_course_lecturer').siblings("input").addClass("active-border");
         return false;
     }else{
         $('.warning_course_lecturer').addClass('hide');
@@ -676,6 +690,7 @@ function verifyCourse(course){
     //请选择开课时间
     if(course.startTime == '' && (course.courseForm==1||course.courseForm==3)){
         $('.warning_course_start_time').removeClass('hide');
+        $('.warning_course_start_time').siblings("input").addClass("active-border");        
         return false;
     }else{
         $('.warning_course_start_time').addClass('hide');
@@ -692,6 +707,7 @@ function verifyCourse(course){
     //请选择结课时间
     if(course.endTime == '' && course.courseForm==3){
         $('.warning_course_end_time').removeClass('hide');
+        $('.warning_course_end_time').siblings("input").addClass("active-border");                
         return false;
     }else{
         $('.warning_course_end_time').addClass('hide');
@@ -709,6 +725,8 @@ function verifyCourse(course){
     //授课地址
     if(course.address == '' && course.courseForm==3){
         $('.warning_course_address').removeClass('hide');
+         $('.warning_course_address').siblings("textarea").addClass("active-border");                
+        
         return false;
     }else{
         $('.warning_course_address').addClass('hide');
@@ -716,6 +734,7 @@ function verifyCourse(course){
     //时长
     if(course.courseLength == '' && (course.courseForm==2||course.courseForm==3)){
         $('.warning_course_length').removeClass('hide');
+         $('.warning_course_length').siblings("input").addClass("active-border");                
         return false;
     }else{
         $('.warning_course_length').addClass('hide');
@@ -723,6 +742,8 @@ function verifyCourse(course){
     //时长数值校验
     if(!numberCk(course.courseLength) && (course.courseForm==2||course.courseForm==3)){
         $('.warning_course_length_Illegal').removeClass('hide');
+         $('.warning_course_length_Illegal').siblings("input").addClass("active-border");                
+        
         return false;
     }else{
         $('.warning_course_length_Illegal').addClass('hide');
@@ -730,6 +751,7 @@ function verifyCourse(course){
     //价格
     if(course.price == ''){
         $('.warning_course_price').removeClass('hide');
+        $('.warning_course_price').siblings("input").addClass("active-border");
         return false;
     }else{
         $('.warning_course_price').addClass('hide');
@@ -737,6 +759,7 @@ function verifyCourse(course){
     //价格数值校验
     if(!numberCk(course.price)){
         $('.warning_course_price_Illegal').removeClass('hide');
+        $('.warning_course_price_Illegal').siblings("input").addClass("active-border");
         return false;
     }else{
         $('.warning_course_price_Illegal').addClass('hide');
@@ -744,6 +767,7 @@ function verifyCourse(course){
     //原价
     if(course.originalCost != '' && parseInt(course.originalCost) < parseInt(course.price)){
         $('.warning_course_originalCost').removeClass('hide');
+        $('.warning_course_originalCost').siblings("input").addClass("active-border");
         return false;
     }else{
         $('.warning_course_originalCost').addClass('hide');
@@ -1304,9 +1328,14 @@ function editCollection(collectionId){
     if(echoCollection(collectionId)){
         $("#zhuanji_bottom2").hide();
         $("#zhuanji_bottom").show();
+        clearAlbumError()
     }else{
         showTip("专辑发生变化了，请刷新列表");
     }
+}
+function clearAlbumError(){
+	$("#zhuanji_bottom .warning").addClass("hide");
+	$("#zhuanji_bottom input").removeClass("active-border");
 }
 function echoCollection(collectionId,passEdit){
     var collection = getCollection4Update(collectionId);
@@ -1373,15 +1402,19 @@ function getWeekArr(){
 
 function verifyCollection(collection){
     $(".warning").addClass("hide");
+    $("#zhuanji_bottom input").removeClass("active-border")
     //课程标题
     if(collection.title == ''){
         $('.warning_collection_title').removeClass('hide');
+        $('.warning_collection_title').siblings("input").addClass("active-border");
         return false;
     }else{
         $('.warning_collection_title').addClass('hide');
     }
     if(collection.title.length>30){
         $('.warning_collection_title_length').removeClass('hide');
+        $('.warning_collection_title_length').siblings("input").addClass("active-border");
+        
         return false;
     }else{
         $('.warning_collection_title_length').addClass('hide');
@@ -1389,6 +1422,7 @@ function verifyCollection(collection){
     //副标题
     if(collection.subtitle == ''){
         $('.warning_collection_subtitle').removeClass('hide');
+        $('.warning_collection_subtitle').siblings("input").addClass("active-border");
         return false;
     }else{
         $('.warning_collection_subtitle').addClass('hide');
@@ -1396,6 +1430,7 @@ function verifyCollection(collection){
     //副标题
     if(collection.subtitle.length>30){
         $('.warning_collection_subtitle_length').removeClass('hide');
+        $('.warning_collection_subtitle_length').siblings("input").addClass("active-border");
         return false;
     }else{
         $('.warning_collection_subtitle_length').addClass('hide');
@@ -1410,12 +1445,14 @@ function verifyCollection(collection){
     //主播姓名
     if(collection.lecturer == ''){
         $('.warning_collection_lecturer').removeClass('hide');
+        $('.warning_collection_lecturer').siblings("input").addClass("active-border");
         return false;
     }else{
         $('.warning_collection_lecturer').addClass('hide');
     }
     if(collection.lecturer.substr(collection.lecturer.length-1,1)== "，"){
         $('.warning_collection_lecturer_length').removeClass('hide');
+        $('.warning_collection_lecturer_length').siblings("input").addClass("active-border");
         return false;
     }else{
         $('.warning_collection_lecturer_length').addClass('hide');
@@ -1437,6 +1474,7 @@ function verifyCollection(collection){
     //价格
     if(collection.price == ''){
         $('.warning_collection_price').removeClass('hide');
+        $('.warning_collection_price').siblings("input").addClass("active-border");
         return false;
     }else{
         $('.warning_collection_price').addClass('hide');
@@ -1444,6 +1482,7 @@ function verifyCollection(collection){
     //价格数值校验
     if(!numberCk(collection.price)){
         $('.warning_collection_price_Illegal').removeClass('hide');
+        $('.warning_collection_price_Illegal').siblings("input").addClass("active-border");
         return false;
     }else{
         $('.warning_collection_price_Illegal').addClass('hide');
@@ -1466,6 +1505,7 @@ function verifyCollection(collection){
     //总集数
     if(collection.courseNumber == ''){
         $('.warning_coursenumber').removeClass('hide');
+        $('.warning_coursenumber').siblings("input").addClass("active-border");
         return false;
     }else{
         $('.warning_coursenumber').addClass('hide');

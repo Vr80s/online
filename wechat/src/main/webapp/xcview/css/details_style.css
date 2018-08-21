@@ -480,7 +480,7 @@ div.pinch-zoom,
     float: left;
     color: #666;
     font-size: 0.28rem;
-    margin-left: 0.2rem;
+    /*margin-left: 0.2rem;*/
 }
 .coze_cen_bg_ri{
     position: relative;

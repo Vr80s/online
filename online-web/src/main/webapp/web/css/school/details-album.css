@@ -838,4 +838,10 @@ word-break:break-all;
 	font-size: 14px;
     
 }
-   
+.contain-album{
+	font-size: 14px;
+	margin: 7px 0;
+}
+.contain-album a{
+	color: #00bc12;
+}	

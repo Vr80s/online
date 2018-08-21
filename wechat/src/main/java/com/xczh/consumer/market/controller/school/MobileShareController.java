@@ -22,6 +22,7 @@ import com.xczh.consumer.market.dao.OnlineUserMapper;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.wxpay.consts.WxPayConst;
+import com.xczhihui.common.util.enums.ApprenticeCheckStatus;
 import com.xczhihui.common.util.enums.ShareType;
 import com.xczhihui.common.util.enums.TokenExpires;
 import com.xczhihui.common.util.enums.WechatShareLinkType;
@@ -30,9 +31,12 @@ import com.xczhihui.course.service.ICriticizeService;
 import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.course.vo.ShareInfoVo;
 import com.xczhihui.medical.doctor.model.MedicalDoctor;
+import com.xczhihui.medical.doctor.model.MedicalDoctorAccount;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorAccountService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorArticleService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.vo.MobileArticleVO;
+import com.xczhihui.medical.enrol.service.EnrolService;
 import com.xczhihui.user.center.service.UserCenterService;
 import com.xczhihui.user.center.utils.UCCookieUtil;
 import com.xczhihui.user.center.vo.Token;
@@ -64,6 +68,10 @@ public class MobileShareController {
     private IMedicalDoctorBusinessService medicalDoctorBusinessService;
     @Autowired
     private IMedicalDoctorArticleService medicalDoctorArticleService;
+    
+    @Autowired
+    private EnrolService enrolService;
+    
     @Value("${webdomain}")
     private String webdomain;
     @Value("${returnOpenidUri}")
@@ -389,6 +397,22 @@ public class MobileShareController {
             return coursePage;
         }
         
+        /*
+         * 如果是师承直播的话，需要把判断有是不是弟子，有没有权限
+         */
+        if(cv.getTeaching()) {
+        	Boolean falg = enrolService.checkAuthTeachingCourse(ou.getId(), courseId);	
+        	//	是否有权限操作 true：有 false: 否
+        	if(!falg) {
+        		return returnOpenidUri + WechatShareLinkType.SCHOOL_PLAY.getLink();
+        	}
+        }
+        
+    	//回放状态，并且没有设置生成回访时。
+    	if(cv.getLineState().equals(3) && !cv.getRecord()) {
+    		return  WechatShareLinkType.SCHOOL_PLAY.getLink();    
+    	}
+        
         //用户未登录去展示页
         if (ou == null) {
             if (cv.getType().equals(1) || cv.getType().equals(2)) {
@@ -435,4 +459,6 @@ public class MobileShareController {
         }
         return returnOpenidUri + coursePage + shareId;
     }
+
+    
 }
