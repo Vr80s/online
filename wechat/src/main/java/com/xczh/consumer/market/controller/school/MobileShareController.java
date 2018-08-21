@@ -410,7 +410,8 @@ public class MobileShareController {
         
     	//回放状态，并且没有设置生成回访时。
     	if(cv.getLineState().equals(3) && !cv.getRecord()) {
-    		return  WechatShareLinkType.SCHOOL_PLAY.getLink();    
+    		return  cv.getWatchState().equals(0) ? returnOpenidUri + WechatShareLinkType.SCHOOL_PLAY.getLink() : 
+    			returnOpenidUri +WechatShareLinkType.LIVE_PLAY.getLink();    
     	}
         
         //用户未登录去展示页

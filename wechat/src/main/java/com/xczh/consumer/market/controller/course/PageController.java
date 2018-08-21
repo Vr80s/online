@@ -147,8 +147,6 @@ public class PageController {
             return coursePage;
         }
         
-        
-        
         //用户未登录去展示页
         if (ou == null) {
             if (cv.getType().equals(1) || cv.getType().equals(0)) {
@@ -186,7 +184,7 @@ public class PageController {
         
     	//回放状态，并且没有设置生成回访时。
     	if(cv.getLineState().equals(3) && !cv.getRecord()) {
-    		return  WechatShareLinkType.SCHOOL_PLAY.getLink();    
+    		return cv.getWatchState().equals(0) ? WechatShareLinkType.SCHOOL_PLAY.getLink() : WechatShareLinkType.LIVE_PLAY.getLink();    
     	}
     	
         /*

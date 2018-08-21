@@ -331,12 +331,32 @@ public class Course extends Model<Course> {
     private String recordId;
     @TableField("is_record")
     private Boolean record;
-    
     /**
      * 1.正常直播 2.退出但不结束
      */
     @TableField("live_case")
     private Integer liveCase;
+ 
+    /**
+     * 预约信息id
+     */
+    @TableField("appointment_info_id")
+    private Integer appointmentInfoId;
+    
+    
+    @TableField("lecturer_description")
+    private String lecturerDescription;
+    
+    @TableField("lecturer")
+    private String lecturer;
+    
+
+    @TableField("client_type")
+    private Integer clientType;
+    
+    @TableField("inav_id")
+    private String inavId;
+    
 
     @Override
     protected Serializable pkVal() {
@@ -970,5 +990,37 @@ public class Course extends Model<Course> {
 	public void setLiveCase(Integer liveCase) {
 		this.liveCase = liveCase;
 	}
-    
+
+	public Boolean getIsDelete() {
+		return isDelete;
+	}
+
+	public void setIsDelete(Boolean isDelete) {
+		this.isDelete = isDelete;
+	}
+
+	public String getLecturerDescription() {
+		return lecturerDescription;
+	}
+
+	public void setLecturerDescription(String lecturerDescription) {
+		this.lecturerDescription = lecturerDescription;
+	}
+
+	public String getLecturer() {
+		return lecturer;
+	}
+
+	public void setLecturer(String lecturer) {
+		this.lecturer = lecturer;
+	}
+
+	public Integer getClientType() {
+		return clientType;
+	}
+
+	public void setClientType(Integer clientType) {
+		this.clientType = clientType;
+	}
+	
 }
