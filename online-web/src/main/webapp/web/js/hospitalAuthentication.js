@@ -362,7 +362,7 @@ $(function () {
             processData: false,
             contentType: false,
         }).success(function (data) {
-            $('#doc_Administration_bottom .' + imgname + '').html('<img src="' + data.resultObject + '" >');
+            $('#doc_Administration_bottom .' + imgname + '').html('<img src="' + data.resultObject + '?imageMogr2/thumbnail/!120x120r|imageMogr2/gravity/Center/crop/120x120" >');
         });
 
     }
@@ -379,14 +379,28 @@ $(function () {
         }
         reader.readAsDataURL(this.files[0])
     })
+    
+        //上传图片调用的接口
+    function picUpdownProfession(form, imgname) {
+        $.ajax({
+            type: 'post',
+            url: "/medical/common/upload",
+            data: form,
+            cache: false,
+            processData: false,
+            contentType: false,
+        }).success(function (data) {
+            $('#doc_Administration_bottom .' + imgname + '').html('<img src="' + data.resultObject + '?imageMogr2/thumbnail/!260x147r|imageMogr2/gravity/Center/crop/260x147" >'+'<p id="picture-tip-zhichen">点击图片重新上传<p>');
+        });
 
+    }
     //   职称证明
     $('#zhicheng_pic_ipt').on('change', function () {
         var form = new FormData();
         form.append("image", this.files[0]);
         var reader = new FileReader();
         reader.onload = function (e) {
-            picUpdown(form, 'zhicheng_pic');
+            picUpdownProfession(form, 'zhicheng_pic');
         }
         reader.readAsDataURL(this.files[0])
     })
@@ -394,8 +408,6 @@ $(function () {
 
     //医师管理保存功能
     $('#doc_Administration_bottom #submit').click(function () {
-
-
         //获取数据
         var name = $.trim($('#doc_Administration_bottom .doc_name').val());
         var name_pass = /^[\u4E00-\u9FA5]{1,20}$/;
@@ -403,8 +415,6 @@ $(function () {
         var doc_Idnum_pass = /(^\d{15}$)|(^\d{17}([0-9]|X)$)/;
         var description = UE.getEditor('editor').getContent();
         var field = $('#doc_Administration_bottom .doc_shanchangIpt').val();
-
-
         //姓名验证
         if (name == '') {
             $('#doc_Administration_bottom .doc_name').siblings('.name_warn').removeClass('hide');
@@ -473,10 +483,11 @@ $(function () {
 
 
         //通过了以上的所有验证之后重新获取所有的数据上传
+      
         var name = $.trim($('#doc_Administration_bottom .doc_name').val());
-        var headPortrait = $('#doc_Administration_bottom  .touxiang_pic img').attr('src');
+        var headPortrait = $('#doc_Administration_bottom  .touxiang_pic img').attr('src').split("?")[0];
         var title = $.trim($('#doc_Administration_bottom .doc_zhicheng').val());
-        var medicalDoctorAuthenticationInformation = $('#doc_Administration_bottom  .zhicheng_pic img').attr('src');
+        var medicalDoctorAuthenticationInformation = $('#doc_Administration_bottom  .zhicheng_pic img').attr('src').split("?")[0];
         var description = UE.getEditor('editor').getContent();
         var field = $('#doc_Administration_bottom .doc_shanchangIpt').val();
         //医师数据上传

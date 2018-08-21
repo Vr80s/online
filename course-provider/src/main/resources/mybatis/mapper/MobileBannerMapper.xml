@@ -267,7 +267,7 @@
         '正在直播' as note
         <include refid="commonCondition"/>
         <include refid="onlyFreeCondition"/>
-        and oc.type=1 and oc.live_status = 1 and oc.start_time >= DATE_SUB(now(),INTERVAL 1 DAY)
+        and oc.type=1 and oc.live_status = 1 
         order by recommendSort DESC,oc.start_time DESC LIMIT 0,#{pageSizeUp}
         )
         union all

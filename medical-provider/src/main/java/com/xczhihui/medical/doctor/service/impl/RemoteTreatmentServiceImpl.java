@@ -279,4 +279,11 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
                     + " " + DateUtil.getDayOfWeek(date) + " " + startTimeStr + "-" + endTimeStr);
         }
     }
+
+    
+	@Override
+	public TreatmentAppointmentInfo selectById(int id) {
+		
+		return  remoteTreatmentAppointmentInfoMapper.selectById(id);
+	}
 }

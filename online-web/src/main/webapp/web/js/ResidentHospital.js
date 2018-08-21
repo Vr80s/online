@@ -412,7 +412,7 @@ function baseInfrese1(headPortrait, name, medicalHospitalPictures, fields,
         medicalHospitalPictures.forEach(function (v, i) {
             hosPicStr +=
                 '<div style="position: relative;">' +
-                '<span style="position: absolute;top: 5px;right: 5px;color:red" class="hospic_del">X</span>' +
+                '<span style="position: absolute;top: 5px;right: 5px;color:red;z-index:10;" class="hospic_del">X</span>' +
                 '<img src="' + v.picture + '" >' +
                 '</div>'
 
@@ -477,7 +477,7 @@ function picUpdown(form, imgname) {
         processData: false,
         contentType: false,
     }).success(function (data) {
-        $('#hos_Administration .hos_base_inf  .' + imgname + '').html('<img src="' + data.resultObject + '?imageView2/1/w/120/h/120' + '" >');
+        $('#hos_Administration .hos_base_inf  .' + imgname + '').html('<img src="' + data.resultObject + '?imageMogr2/thumbnail/!120x120r|imageMogr2/gravity/Center/crop/120x120' + '" >');
     });
 
 }
@@ -519,10 +519,12 @@ function picUpdown2(form, imgname) {
         $('#hos_Administration #hos_pic').removeClass('hide');
         var picStr =
             '<div style="position: relative;">' +
-            '<span style="position: absolute;top: 5px;right: 5px;color:red;z-index:5;" class="hospic_del">X</span>' +
-            '<img src="' + data.resultObject + '?imageMogr2/thumbnail/260x147<' + '" >' +
+            '<span style="position: absolute; top: 5px;right: 5px; color:red; z-index:10;" class="hospic_del">X</span>' +
+            '<img src="' + data.resultObject + '?imageMogr2/thumbnail/!260x147r|imageMogr2/gravity/Center/crop/260x147' + '" >' +
             '</div>'
         $('#hos_Administration #hos_pic').append(picStr);
+        $("#zhicheng_pic_ipt").val("");
+        $("#picHospitalAll").addClass("hide");
     });
 
 }

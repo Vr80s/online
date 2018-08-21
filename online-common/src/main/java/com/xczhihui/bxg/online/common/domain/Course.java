@@ -4,7 +4,13 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Lob;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Type;
 
@@ -375,6 +381,17 @@ public class Course extends BasicEntity2 implements Serializable {
     private boolean liveSourceType;
     @Transient
     private List<Course> courseInfoList;
+    
+    
+    /**
+     * 预约信息id
+     */
+    @Column(name = "appointment_info_id")
+    private Integer appointmentInfoId;
+    
+    
+    @Column(name = "inav_id")
+    private String inavId;
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -984,6 +1001,22 @@ public class Course extends BasicEntity2 implements Serializable {
 	public void setLiveCase(Integer liveCase) {
 		this.liveCase = liveCase;
 	}
+
+	public Integer getAppointmentInfoId() {
+		return appointmentInfoId;
+	}
+
+	public void setAppointmentInfoId(Integer appointmentInfoId) {
+		this.appointmentInfoId = appointmentInfoId;
+	}
+
+	public String getInavId() {
+		return inavId;
+	}
+
+	public void setInavId(String inavId) {
+		this.inavId = inavId;
+	}
     
-    
+	
 }

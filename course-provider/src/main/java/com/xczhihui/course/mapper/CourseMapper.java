@@ -246,4 +246,34 @@ public interface CourseMapper extends BaseMapper<Course> {
     @Select({" select oc.grade_name as gradeName,oc.id,oc.smallimg_path as smallImgPath  from  collection_course  cc inner join  oe_course oc on cc.collection_id= oc.id " + 
     		"   where cc.course_id = 582 and oc.is_free = 0 order by cc.create_time limit 0,1 "})
 	Map<String,Object> selectTheirCollection(@Param("directId")Integer courseId);
+
+	/**  
+	 * <p>Title: selectTherapyLiveInfo</p>  
+	 * <p>Description: </p>  
+	 * @param id  
+	 */ 
+    @Select({"select mt.date as startTime,mt.doctor_id as doctorId,mt.create_person as userLecturerId,mtai.question as description,ca.detail as lecturerDescription,ca.name as heir,md.name as doctorName from medical_treatment mt " + 
+    		"    inner join medical_treatment_appointment_info mtai on mt.info_id = mtai.id " + 
+    		"	 inner join course_anchor ca on mt.create_person = ca.user_id  " + 
+    		"	 inner join medical_doctor md on mt.doctor_id = md.id  " + 
+    		"	 where mt.info_id =  #{infoId} "})
+    CourseLecturVo selectTherapyLiveInfo(@Param("infoId")Integer infoId);
+
+	/**  
+	 * <p>Title: selectDoctorCurrentDayTherapyNumber</p>  
+	 * <p>Description: </p>  
+	 * @return  
+	 */ 
+    @Select({" select if(char_length(grade_name) > 2,substring(grade_name,char_length(grade_name)-1),00) as number  from oe_course "
+    		+ " where appointment_info_Id 	is not null and to_days(start_time) = to_days(now()) "
+    		+ " and user_lecturer_id  = #{userLecturerId}  order by number desc limit 0,1 "})
+    String selectDoctorCurrentDayTherapyNumber(@Param("userLecturerId")String userLecturerId);
+
+	/**  
+	 * <p>Title: updateAppointmentInfoStatus</p>  
+	 * <p>Description: </p>  
+	 * @param id  
+	 */ 
+    @Update({" update medical_treatment_appointment_info set status = #{status}  where id = #{id} "})
+	Integer updateAppointmentInfoPass(@Param("id")Integer id,@Param("status")Integer status);
 }
