@@ -63,4 +63,5 @@ public class RemoteTreatmentAppointmentInfoController {
     public ResponseObject checkAppointmentInfoValid(@RequestParam int id, @Account String accountId) {
         return ResponseObject.newSuccessResponseObject(remoteTreatmentService.checkAppointment(id, accountId));
     }
+    
 }

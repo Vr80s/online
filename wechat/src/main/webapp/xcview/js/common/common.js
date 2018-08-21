@@ -202,6 +202,7 @@ function ajaxRequest(url, param,type, callback, ac) {
         url = "/apis"+url;
     }
     mui.ajax({
+    // jQuery.ajax({
         url: url,
         type: type,
         data: param,

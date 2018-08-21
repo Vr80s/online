@@ -184,7 +184,7 @@ function go_play_hos_collection(course_id,collection_id,obj){
  */
 function go_play_hos(type,collection,id){
 	if(type ==3){ //直播
-		location.href="/xczh/course/live/"+id
+		location.href="/page/course/"+id
 	}else if((type ==1 || type ==2) && !collection){ //课程页面
 		location.href="live_audio.html?my_study="+id
 	}else if(type ==4){								 //线下培训班

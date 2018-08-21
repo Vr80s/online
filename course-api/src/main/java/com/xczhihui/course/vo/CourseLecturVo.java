@@ -240,6 +240,11 @@ public class CourseLecturVo implements Serializable {
      * 专辑提示。此付费课程是否包含在付费的专辑中，如果包含的话，做一个提示
      */
     private Map<String,Object> collectionHint;
+    
+    /**
+     * 医师名字
+     */
+    private String doctorName; 
 
     public String getAppid() {
         return appid;
@@ -877,4 +882,12 @@ public class CourseLecturVo implements Serializable {
 		this.collectionHint = collectionHint;
 	}
 
+	public String getDoctorName() {
+		return doctorName;
+	}
+
+	public void setDoctorName(String doctorName) {
+		this.doctorName = doctorName;
+	}
+	
 }

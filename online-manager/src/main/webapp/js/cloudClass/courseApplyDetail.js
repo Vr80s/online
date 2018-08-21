@@ -1,4 +1,4 @@
-function pass(){
+function pass(){ 
 	var falg  = false;
 	if(!falg){
 		falg = true;

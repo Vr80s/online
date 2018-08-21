@@ -70,7 +70,7 @@ function elsBind() {
 				// 回放Id，点播必填，直播不写
 				videoNode: 'myVideo',
 				complete: function() {
-					VhallPlayer.play();
+					// VhallPlayer.play();
 				}
 			});
 	}
@@ -390,3 +390,6 @@ function replaceEmoji(contents) {
 	}
 	return str;
 }
+
+
+alert(1111);

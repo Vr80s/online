@@ -340,4 +340,12 @@ public interface ICourseService {
     Integer findLiveStatusByDirectId(String directId);
 
     Integer getCourseLivePushStreamStatus(Integer courseId);
+
+
+	/**  
+	 * <p>Title: createTherapyLive</p>  
+	 * <p>Description: </p>  
+	 * @param id  
+	 */ 
+	void createTherapyLive(Integer id,Integer clientType) throws Exception;
 }

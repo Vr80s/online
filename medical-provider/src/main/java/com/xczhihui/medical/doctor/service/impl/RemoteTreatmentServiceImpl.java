@@ -297,39 +297,9 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
         }
     }
 
-    public static void main(String[] args) throws ParseException {
-        SimpleDateFormat yearMonthDayDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat hourMinuteFormat = new SimpleDateFormat("HH:mm:ss");
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date date = yearMonthDayDateFormat.parse("2018-08-21");
-        Date startTime = hourMinuteFormat.parse("21:20:30");
-        String startTimeStr = hourMinuteFormat.format(startTime);
-        String s = yearMonthDayDateFormat.format(date) + " " + startTimeStr;
-        Date myDate1 = dateFormat.parse(s);
-        System.out.println(s);
-
-
-
-
-/*
-
-
-        DateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
-        Date myDate1 = dateFormat1.parse("2018-08-21");
-        Calendar c = Calendar.getInstance();
-        c.setTime(myDate1);
-
-        DateFormat dateFormat2 = new SimpleDateFormat("HH:mm:ss");
-        Date myDate2 = dateFormat2.parse("21:20:30");
-        Calendar c1 = Calendar.getInstance();
-        c1.setTime(myDate2);
-        c1.get(Calendar.HOUR);
-        c.set(Calendar.HOUR_OF_DAY,c1.get(Calendar.HOUR_OF_DAY));
-        c.set(Calendar.MINUTE,c1.get(Calendar.MINUTE));
-        c.set(Calendar.SECOND,c1.get(Calendar.SECOND));
-        System.out.println(c);
-        System.out.println(myDate2.getTime());
-
-        Date date = new Date();*/
-    }
+	@Override
+	public TreatmentAppointmentInfo selectById(int id) {
+		
+		return  remoteTreatmentAppointmentInfoMapper.selectById(id);
+	}
 }
