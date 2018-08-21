@@ -820,7 +820,7 @@ function confirmCourseSale(state,courseApplyId,courseId,index){
     var date = new Date(startTime);
     date.setMinutes (date.getMinutes () + 30);
     var nowDate = new Date();
-    if(launchUp.courseForm==1&&launchUp.liveStatus==2&&date<nowDate){
+    if(state == 1 && launchUp.courseForm==1&&launchUp.liveStatus==2&&date<nowDate){
     	showTip("该直播时间已经过期，无法上架,请修改再次操作上架。");
     	return false;
     }else{

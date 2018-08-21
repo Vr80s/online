@@ -336,7 +336,7 @@ function updateStatus(obj){
     var date = new Date(startTime);
     date.setMinutes (date.getMinutes () + 30);
     var nowDate = new Date();
-    if(row.type == 1 && (row.liveStatus ==2 || row.liveStatus ==6) && date<nowDate){
+    if(row.status ==1 && row.type == 1 && (row.liveStatus ==2 || row.liveStatus ==6) && date<nowDate){
         layer.msg("该直播时间已经过期，无法上架,请修改再次操作上架。");
         return false;
     }
