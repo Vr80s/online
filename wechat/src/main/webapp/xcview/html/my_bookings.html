@@ -1,0 +1,146 @@
+<!doctype html>
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+
+<head>
+<meta charset="utf-8">
+<!--<title>直播</title>-->
+<title>熊猫中医</title>
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<!--手机嵌入模板-->
+<script type="text/javascript" src="/xcview/js/common/layout.js"></script>
+
+<link rel="stylesheet" href="/xcview/css/my_bookings.css">
+<!-- 刷新引入js -->
+<script src="/xcview/js/common/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
+<!-- <script src="/xcviews/js/common/swiper.jquery.min-1.11.2.js" type="text/javascript" charset="utf-8"></script> -->
+<script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/common.js"></script>
+<script type="text/javascript" src="/xcview/js/common/template.js"></script>
+<script>
+	// 判断横屏展示时的状态
+	window.onorientationchange=function(){
+	    if(window.orientation==90||window.orientation==-90){
+	        window.location.reload();  /*横屏状态刷新*/
+	    }else{
+	        window.location.reload();  /*竖屏状态刷新*/
+	    }
+	}	
+</script>
+<style>
+
+</style>
+</head>
+<body style="background:#f0f0f0;">
+	<!-- 头部开始 -->
+	<header>
+		<div class="header">
+			<div class="return" id="home_img"></div>
+			<div class="header_return" onclick="window.history.go(-1);">
+				<img src="/xcview/images/back icon.png" />
+			</div>
+			<div class="header_title">我的预约</div>
+		</div>
+	</header>
+	<!-- 头部结束 -->
+
+	<!-- 中间内容开始 -->
+	<div class="my_bookings">
+		<div class="main">
+			<div class="main_center">
+				<div class="main_center_auto">
+					<div class="succeed">预约成功</div>
+					<div class="not_pass" style="display: none;">未通过</div>
+					<div class="audit" style="display: none;">审核中</div>
+					<div class="stocks" style="display: none;">已完成</div>
+					<div class="subject">
+						<div class="head_portrait">
+							<img src="/xcview/images/physician_pic.png" alt="">
+						</div>
+						<div class="name">我是名字我是名字</div>
+						<div class="professional_title">主任医师，国家级名老主任医师，国家级名老...</div>
+						<div class="starting_treatment">开始诊疗</div>
+						<div class="both"></div>
+					</div>
+					<div class="theme_bottom" >
+						<div class="time">2018年8月10日  12:00-13:00</div>
+						<div class="delete" style="display: none;">
+							<img src="/xcview/images/shanchu.png" alt="">删除
+						</div>
+						<div class="check">查看诊疗视频</div>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<!-- 中间内容结束 -->
+
+	<!-- 点击开始诊疗提示框开始 -->
+	<div class="tooltip">
+		<div class="tooltip_bg"></div>
+		<div class="tooltip_main">
+			<div class="tooltip_main_title">下载app开启远程诊疗</div>
+			<div class="tooltip_bottom">
+				<div class="call_off">取消</div>
+				<div class="determine">去下载</div>
+				<div class="both"></div>
+			</div>
+		</div>
+	</div>
+	<!-- 点击开始诊疗提示框结束 -->
+
+	<!-- 默认背景 -->
+	<div class="baseimagenumber">
+		<img src="/xcview/images/no_deal.png" alt="" />
+		<p>暂无预约记录，请前往医师师承页进行预约~</p>
+	</div>
+
+</body>
+<script>
+	// 点击开始诊疗
+	$(".starting_treatment").click(function(){
+		$(".tooltip").show();
+	});
+	// 点击取消
+	$(".call_off").click(function(){
+		$(".tooltip").hide();
+	});
+	// 点击去下载
+	$(".determine").click(function(){
+//			安卓路劲 
+		var androidURL ="http://sj.qq.com/myapp/detail.htm?apkName=com.bj.healthlive";  
+		var browser = {  
+       versions: function() {  
+             var u = navigator.userAgent,  
+                 app = navigator.appVersion;  
+             return {  
+                     android: u.indexOf("Android") > -1 || u.indexOf("Linux") >-1,  
+                     iPhone: u.indexOf("iPhone") > -1 ,  
+                     iPad: u.indexOf("iPad") >-1,  
+                     iPod: u.indexOf("iPod") > -1,  
+                   };  
+             } (),  
+        language: (navigator.browserLanguage || navigator.language).toLowerCase()  
+     }  
+
+     if (browser.versions.iPhone||browser.versions.iPad||browser.versions.iPod)  
+         { 
+            //如果是ios系統，直接跳轉至appstore該應用首頁，傳遞参數为該應用在appstroe的id號  
+//              window.location.href="itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=123456";  
+            window.location.href="itms-apps://itunes.apple.com/cn/app/id1279187788";
+//          	https://itunes.apple.com/cn/app/id1279187788
+         }
+         else if(browser.versions.android)  
+         {  
+            window.location.href = androidURL;  
+         }  
+			
+	});
+</script>
+</html>
