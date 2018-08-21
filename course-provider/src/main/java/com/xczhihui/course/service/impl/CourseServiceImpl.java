@@ -11,10 +11,14 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.google.common.collect.ImmutableMap;
+import com.xczhihui.common.util.DateUtil;
 import com.xczhihui.common.util.EmailUtil;
 import com.xczhihui.common.util.XzStringUtils;
 import com.xczhihui.common.util.enums.*;
+import com.xczhihui.common.util.vhallyun.ChannelService;
+import com.xczhihui.common.util.vhallyun.InteractionService;
 import com.xczhihui.common.util.vhallyun.MessageService;
+import com.xczhihui.common.util.vhallyun.RoomService;
 import com.xczhihui.common.util.vhallyun.VideoService;
 import com.xczhihui.course.consts.MultiUrlHelper;
 import com.xczhihui.course.exception.CourseException;
@@ -601,5 +605,93 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     	}
     	
     	
+	}
+
+	//需要医师名，需要诊疗时间
+    
+	@Override
+	public void createTherapyLive(Integer id,Integer clientType) throws Exception {
+		
+		/**
+		 * 查找生成诊疗直播的必要信息
+		 */
+		CourseLecturVo cv = iCourseMapper.selectTherapyLiveInfo(id);
+		
+		Course course = new Course();
+		//***医师的远程诊疗直播 yyyy/mm/dd 如有重复则加上编号（01,02,03….）。  
+		String gradeName = createTherapyGradeName(cv.getUserLecturerId(),cv.getDoctorName(),cv.getStartTime());
+        course.setGradeName(gradeName);
+        
+        //默认图
+        course.setSmallImgPath("https://file.xczhihui.com/18821120655/9db25c52561d-9754170cc93c4169996f3ddc86ea30f91534824415642.png");
+        //讲师的用户id
+        course.setUserLecturerId(cv.getUserLecturerId());
+        //媒体类型
+        course.setMultimediaType(Multimedia.VIDEO.getCode());
+        //直播课
+        course.setType(CourseForm.LIVE.getCode());
+        //回放
+        course.setRecord(true);
+        //常见问题了呗
+        course.setCourseDetail(cv.getDescription());
+        //讲师名字和讲师简介   --》默认把主播名字和主播介绍带过去
+        course.setLecturer(cv.getHeir());
+        course.setLecturerDescription(cv.getLecturerDescription());
+        //预约时间
+        course.setStartTime(cv.getStartTime());
+        //客户端类型
+        course.setClientType(clientType);
+//      //房间id
+//	    course.setDirectId(RoomService.create());
+//	    //渠道id
+//	    course.setChannelId(ChannelService.create());
+//	    //互动id
+//	    course.setChannelId(InteractionService.create()); 
+        
+	     // 将直播课设置为预告
+        course.setLiveStatus(2);	
+        course.setSort(0);
+        course.setStatus("0");
+        // 推荐值
+        course.setRecommendSort(0);
+        // 请填写一个基数，统计的时候加上这个基数
+        course.setLearndCount(0);
+        
+        /**
+         * 保存课程信息
+         */
+        iCourseMapper.insert(course);
+        
+        
+        /*
+         * 更改审核信息
+         */
+        Integer falg = iCourseMapper.updateAppointmentInfoPass(id,2);
+        
+        
+	}
+
+	/**  
+	 * <p>Title: createTherapyGradeName</p>  
+	 * <p>Description: </p>  
+	 * @param doctorName
+	 * @param startTime
+	 * @return  
+	 */ 
+	private String createTherapyGradeName(String userLecturerId,String doctorName, Date startTime) {
+		//***医师的远程诊疗直播 yyyy/mm/dd 如有重复则加上编号（01,02,03….）。  
+		String strGradeName = doctorName+"医师的远程诊疗直播"+DateUtil.formatDate(startTime,DateUtil.FORMAT_DAY);
+		try {
+			//编号
+			String  number  = iCourseMapper.selectDoctorCurrentDayTherapyNumber(userLecturerId);
+			if(Integer.parseInt(number) < 10) {
+				number = "0"+number;
+			}
+			strGradeName +=number;
+		} catch (Exception e) {
+			e.printStackTrace();
+			strGradeName +="01";
+		}
+		return strGradeName;
 	}
 }

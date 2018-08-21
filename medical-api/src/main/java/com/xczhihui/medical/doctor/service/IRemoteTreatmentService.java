@@ -105,4 +105,13 @@ public interface IRemoteTreatmentService {
      * @return
      */
     int checkAppointment(int id, String accountId);
+
+	/**  
+	 * <p>Title: selectById</p>  
+	 * <p>Description: </p>  
+	 * @param id
+	 * @return  
+	 */ 
+	TreatmentAppointmentInfo selectById(int id);
+
 }

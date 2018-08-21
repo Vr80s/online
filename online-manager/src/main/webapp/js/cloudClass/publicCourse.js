@@ -331,7 +331,16 @@ function updateStatus(obj){
 	
 	var oo = $(obj).parent().parent().parent();
 	var row = _courseTable.fnGetData(oo); // get datarow
-	ajaxRequest(basePath+"/cloudclass/course/updateStatus",{"id":row.id},function(data){
+    var startTime = row.startTime;
+    startTime = startTime.replace(/-/g,"/");
+    var date = new Date(startTime);
+    date.setMinutes (date.getMinutes () + 30);
+    var nowDate = new Date();
+    if(row.status ==1 && row.type == 1 && (row.liveStatus ==2 || row.liveStatus ==6) && date<nowDate){
+        layer.msg("该直播时间已经过期，无法上架,请修改再次操作上架。");
+        return false;
+    }
+	ajaxRequest(basePath+"/cloudclass/cours/updateSteatus",{"id":row.id},function(data){
 		console.log(data);
 		if(data.success==false){
 			layer.msg(data.errorMessage);

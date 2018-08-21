@@ -25,5 +25,29 @@ public class BaseService {
         }
         return createAccessToken(params);
     }
+    
+    public static String createAccessToken4InteractionLive(String thirdPartyUserId, String roomId,
+    		String channelId,String ivavId) throws Exception {
+    	
+        HashMap params = new HashMap();
+        params.put("third_party_user_id", thirdPartyUserId);
+        if(roomId != null){
+            params.put("publish_stream",roomId);
+        }
+        if(channelId != null){
+            params.put("chat",channelId);
+            params.put("operate_document",channelId);
+
+            params.put("kick_inav",ivavId);
+            params.put("publish_inav_stream",ivavId);
+            params.put("kick_inav_stream",ivavId);
+            params.put("askfor_publish_inav",ivavId);
+            params.put("audit_publish_inav",ivavId);
+
+            params.put("publish_inav_another",ivavId);
+            params.put("audit_publish_inav",ivavId);
+        }
+        return createAccessToken(params);
+    }
 
 }

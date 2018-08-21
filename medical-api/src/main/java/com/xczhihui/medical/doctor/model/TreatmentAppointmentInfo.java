@@ -34,6 +34,10 @@ public class TreatmentAppointmentInfo implements Serializable {
 
     @TableField("apprentice_id")
     private Integer apprenticeId;
+    
+    @TableField("status")
+    private Integer status;
+    
 
     public Integer getId() {
         return id;
@@ -98,4 +102,15 @@ public class TreatmentAppointmentInfo implements Serializable {
     public void setApprenticeId(Integer apprenticeId) {
         this.apprenticeId = apprenticeId;
     }
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+    
+    
+    
 }

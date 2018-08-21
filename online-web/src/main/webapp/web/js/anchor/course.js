@@ -795,49 +795,20 @@ function verifyCourse(course){
     return true;
 }
 
-//获取当前时间
-function getNowFormatDateCourse() {
-	    var date = new Date();
-	    var seperator1 = "-";
-	    var seperator2 = ":";
-	    var month = date.getMonth() + 1;
-	    var strDate = date.getDate();
-	    var strHours = date.getHours();
-    	var strMinutes = date.getMinutes();
-    	var strSeconds = date.getSeconds();
-	    if (month >= 1 && month <= 9) {
-	        month = "0" + month;
-	    }
-	    if (strDate >= 0 && strDate <= 9) {
-	        strDate = "0" + strDate;
-	    }
-	//  时
-	    if (strHours >= 0 && strHours <= 9) {
-	        strHours = "0" + strHours;
-	    }
-	//  分
-	     if (strMinutes >= 0 && strMinutes <= 9) {
-	        strMinutes = "0" + strMinutes;
-	    }
-	//  秒
-	    if (strSeconds >= 0 && strSeconds <= 9) {
-	        strSeconds = "0" + strSeconds;
-	    }
-	    var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
-	            + " " + strHours + seperator2 + strMinutes
-	            + seperator2 + strSeconds;
-	    return currentdate;    
-	}
 function confirmCourseSale(state,courseApplyId,courseId,index){
     var title="课程上架";
     var content="确认上架该课程？";
-    var nowDate = new Date();
     var launchUp=launchData[index]
     if(state==0){
         title="课程下架";
         content="确认下架该课程？";
     }
-    if(launchUp.courseForm==1&&launchUp.liveStatus==2&&launchUp.startTime<getNowFormatDateCourse()){
+    var startTime = launchUp.startTime;
+    startTime = startTime.replace(/-/g,"/");
+    var dateTime = new Date(startTime);
+    dateTime.setMinutes (dateTime.getMinutes () + 30);
+    var nowDate = new Date();
+    if(state == 1 && launchUp.courseForm==1&&launchUp.liveStatus==2&&dateTime<nowDate){
     	showTip("该直播时间已经过期，无法上架,请修改再次操作上架。");
     	return false;
     }else{

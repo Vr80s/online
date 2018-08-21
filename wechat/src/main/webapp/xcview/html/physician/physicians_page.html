@@ -419,6 +419,17 @@
 	.wrap_vedio{
 		max-height: 9.1rem;
 	}
+
+	.itransforms_li{
+		max-width: 4.26rem;
+    	max-height: 10.26rem;
+	}
+	.itransforms_li img{
+		/*transform: scale(1.2,1.3);*/
+	}
+	.pic_img_one{
+		max-width: 0.45rem !important;
+	}
 </style>
 
 </head>
@@ -565,10 +576,13 @@
 						<div class="paper_nav_cen comment_hide">
 							<ul data-am-widget="gallery" class="am-gallery am-avg-sm-2 am-avg-md-3 am-avg-lg-4 am-gallery-overlay" data-am-gallery="{ pureview: true }" >
 								{{each item.imgStr as pic }}
-								<li  class="itransform_{{item.id}} itransforms itransforms_li">
+								<li  class="itransform_{{item.id}} itransforms itransforms_li" style="margin-left: 0.28rem;">
 									<div class="am-gallery-item" data-itransform="{{item.id}}">
 										<a href="{{pic.imgUrl}}?imageView2/2/h/226" class="transform_a_img">
 											<!--<img src="{{pic.imgUrl}}?imageMogr2/thumbnail/!226x226r|imageMogr2/gravity/Center/crop/226x226" />-->
+
+											<!--<img src="{{pic.imgUrl}}?imageMogr2/thumbnail/!300x300r|imageMogr2/gravity/Center/crop/426x426" class="pic_img pic_img_one" />-->
+
 
 												<img src="{{pic.imgUrl}}" class="pic_img pic_img_one" />
 											
@@ -1167,7 +1181,7 @@
 					<div class="QA_solution">
 						<div class="QA_solution_main">
 							<!--<img src="/xcview/images/QA_solution..png" alt="" class="QA_solution_main_img" />-->
-							<span><img src="{{item.doctorImg}}" alt="" class="QA_solution_img" onerror="nofind()" />医师解答：</span>
+							<span><img src="{{item.doctorImg}}?imageMogr2/thumbnail/!40x40r|imageMogr2/gravity/Center/crop/40x40" alt="" class="QA_solution_img" onerror="nofind()" />医师解答：</span>
 							{{if item.answer == null || item.answer == ''}}
 								<span>暂未回答该问题</span>
 							{{else}}
