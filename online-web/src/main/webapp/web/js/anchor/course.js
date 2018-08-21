@@ -786,13 +786,17 @@ function getNowFormatDate() {
 function confirmCourseSale(state,courseApplyId,courseId,index){
     var title="课程上架";
     var content="确认上架该课程？";
-    var nowDate = new Date();
     var launchUp=launchData[index]
     if(state==0){
         title="课程下架";
         content="确认下架该课程？";
     }
-    if(launchUp.courseForm==1&&launchUp.liveStatus==2&&launchUp.startTime<getNowFormatDate()){
+    var startTime = launchUp.startTime;
+    startTime = startTime.replace(/-/g,"/");
+    var date = new Date(startTime);
+    date.setMinutes (date.getMinutes () + 30);
+    var nowDate = new Date();
+    if(launchUp.courseForm==1&&launchUp.liveStatus==2&&date<nowDate){
     	showTip("该直播时间已经过期，无法上架,请修改再次操作上架。");
     	return false;
     }else{
