@@ -209,15 +209,20 @@ function elsBind(){
                 	
                     $(".playback div").hide();
                     if(record){
+                        $(".generate-replay-bg").show();
+                        $(".generate-replay-bg-opacity").show();
                         $(".generate-replay").show();
+                        $(".generate-replay .onclick").show();
                     }else{
                         $(".learning-center").show();
+                        $(".generate-replay-bg-opacity").show();
                     }
                 	$(".playback").show();
                 	
                 } else if (msg.type == 14) { // 退出直播间，但是没有结束直播
   					$(".playback div").hide();
                 	$(".leave").show();
+                	$(".generate-replay-bg-opacity").show();
                 	$(".playback").show();
                 	
 				} else if (record && msg.type == 16) { // 回放生成成功
@@ -225,12 +230,14 @@ function elsBind(){
 					setTimeout(function () {
         				$(".playback div").hide();
 				    	$(".see-the-replay").show();
+				    	$(".generate-replay-bg-opacity").show();
                 		$(".playback").show();
         			},2000)
 					
 				} else if (!record || msg.type == 17) { // 回放生成失败
 					$(".playback div").hide();
 					$(".learning-center").show();
+					$(".generate-replay-bg-opacity").show();
                 	$(".playback").show();
 				}
                 if (e != "") {
@@ -283,6 +290,22 @@ function elsBind(){
 		}else if (type == 17) { // 回放生成失败,点击去学习中心吧
 			location.href="/my";
 	    }
+    }) 
+    
+    $(".generate-replay .onclick").click(function() {
+    	var type = $(this).attr("type");
+    	if(!record){
+            location.href="/my#menu1-1";
+        }else if (type == 16 || type ==20 || type == 21) { // 回放生成成功   重播  获取媒体资源有误
+        	location.reload();
+		}else if (type == 17) { // 回放生成失败,点击去学习中心吧
+			location.href="/my";
+	    }
+    }) 
+    $(".see-the-replay img").click(function() {
+    	setTimeout(function() {
+			location.reload();
+		}, 2000)
     }) 
     
     /**
