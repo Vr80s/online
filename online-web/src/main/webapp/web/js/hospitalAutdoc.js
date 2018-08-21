@@ -227,12 +227,12 @@ $('#deleteTip .confirm-sure').click(function(){
 		//姓名
 		$('#doc_Administration_bottom .doc_name').val(name);
 		//医师头像
-		var headPic = '<img src='+headPortrait+'>';
+		var headPic = '<img src='+headPortrait+'?imageMogr2/thumbnail/!120x120r|imageMogr2/gravity/Center/crop/120x120>';
 		$('#doc_Administration_bottom .touxiang_pic').html(headPic);
 		//医师职称
 		$('#doc_Administration_bottom .doc_zhicheng').val(title);
 		//职称证明
-		var zhichengStr = '<img src='+titleProve+'>';
+		var zhichengStr = '<img src='+titleProve+'?imageMogr2/thumbnail/!260x147r|imageMogr2/gravity/Center/crop/260x147>'+'<p id="picture-tip-zhichen">点击图片重新上传</p>';
 		$('#doc_Administration_bottom .zhicheng_pic').html(zhichengStr)
 		//科室不回显
 		var j;
@@ -382,9 +382,9 @@ $('#deleteTip .confirm-sure').click(function(){
 
 		//通过了以上的所有验证之后重新获取所有的数据上传
 		var name = $.trim($('#doc_Administration_bottom .doc_name').val());
-		var headPortrait = $('#doc_Administration_bottom  .touxiang_pic img').attr('src');
+		var headPortrait = $('#doc_Administration_bottom  .touxiang_pic img').attr('src').split("?")[0];
 		var title = $.trim($('#doc_Administration_bottom .doc_zhicheng').val());
-		var medicalDoctorAuthenticationInformation = $('#doc_Administration_bottom .zhicheng_pic img').attr('src');
+		var medicalDoctorAuthenticationInformation = $('#doc_Administration_bottom .zhicheng_pic img').attr('src').split("?")[0];
 		var description =  UE.getEditor('editor').getContent();
 		var field = $('#doc_Administration_bottom .doc_shanchangIpt').val();
 		//医师数据上传

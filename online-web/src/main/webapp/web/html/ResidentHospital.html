@@ -168,7 +168,7 @@
 										</span>
 
 										<input type="file" name="pic" id="zhicheng_pic_ipt" style="position: absolute;visibility: hidden;" accept="image/gif,image/jpeg,image/jpg,image/png"/>
-										<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传 医馆图片</p>
+										<p class="warning hide" id="picHospitalAll" style="margin-left:110px;padding-left: 0px;clear: both;">请上传 医馆图片</p>
 									</div>
 
 									<div class="keshi">
@@ -391,7 +391,7 @@
 
 									<div class="zhicheng_picUpdata">
 										<span style="vertical-align: top;"><em>*</em> 职称证明</span>
-										<span class="zhicheng_pic" style="padding-left: 0px !important;" onclick="$('#zhicheng_pic_ipt').click()">
+										<span class="zhicheng_pic" style="padding-left: 0px !important;position: relative;" onclick="$('#zhicheng_pic_ipt').click()">
 										<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>
 										<p style="text-align: center;color: #999;font-size: 14px;">点击上传职称证明图片</p>
 									</span>
@@ -941,7 +941,7 @@
 	{{each item as item i}}
 	<tr>
 		<td>
-			<img src={{item.headPortrait}} alt="" />
+			<img src={{item.headPortrait}}?imageMogr2/thumbnail/!60x60r|imageMogr2/gravity/Center/crop/60x60 alt="头像" />
 		</td>
 		<td>
 			{{item.name}}
