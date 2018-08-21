@@ -1,9 +1,9 @@
 package com.xczhihui.medical.doctor.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.util.Date;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * @author hejiwei
@@ -44,6 +44,9 @@ public class TreatmentVO implements Serializable {
     private Integer appointStatus;
 
     private Integer infoId;
+
+    //是否可点击开始远程诊疗
+    private Boolean isStart;
 
     @Override
     public String toString() {
@@ -184,5 +187,13 @@ public class TreatmentVO implements Serializable {
 
     public void setInfoId(Integer infoId) {
         this.infoId = infoId;
+    }
+
+    public Boolean getStart() {
+        return isStart;
+    }
+
+    public void setStart(Boolean start) {
+        isStart = start;
     }
 }

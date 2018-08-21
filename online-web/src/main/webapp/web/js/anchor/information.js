@@ -293,11 +293,18 @@ function saveAnchorInfo() {
 
 
 //获取的主播是医师的信息
+var doctopHeadhasUrl;
 function getAnchorInfo() {
+	var doctorHeadhas=$("#profilePhotoImg img");
+	if(doctorHeadhas.length != 0){
+		doctopHeadhasUrl=doctorHeadhas.attr("src").split("?")[0];
+	}else{
+		doctopHeadhasUrl="";
+	}
     var data = {};
     data.name = $("#u_nickname").val();
     data.resourceId = $("#speech_select").val();
-    data.profilePhoto = $("#profilePhotoImg img").attr('src');
+    data.profilePhoto = doctopHeadhasUrl;
     data.detail = UE.getEditor('anchor_details_editor').getContent();
     data.hospitalId = $("#speech_select1").val();
     data.workTime = getSitting();
@@ -310,11 +317,18 @@ function getAnchorInfo() {
 
 
 //获取的主播是医馆的信息
+var anchorsHeadhasUrl;
 function getAnchorInfo2() {
+	var doctorHeadhas=$("#profilePhotoImg img");
+	if(doctorHeadhas.length != 0){
+		anchorsHeadhasUrl=doctorHeadhas.attr("src").split("?")[0];
+	}else{
+		anchorsHeadhasUrl="";
+	}
     var data = {};
     data.name = $("#u_nickname").val();
     data.resourceId = $("#speech_select").val();
-    data.profilePhoto = $("#profilePhotoImg img").attr('src');
+    data.profilePhoto = anchorsHeadhasUrl;
     data.detail = UE.getEditor('anchor_details_editor').getContent();
     data.province = $("#demo1 .choosePro option:selected").text();
     data.city = $('#demo1 .chooseCity option:selected').text();
@@ -452,7 +466,7 @@ function showAnchorInfo() {
             $('#u_nickname').val(anchor.name);
             $('#nickname').text(anchor.name);
             $('#nickname').attr('title', '');
-            $('#profilePhoto').attr('src', anchor.profilePhoto);
+            $('#profilePhoto').attr('src', anchor.profilePhoto+'?imageMogr2/thumbnail/!120x120r|imageMogr2/gravity/Center/crop/120x120');
             if (anchor.hospitalName) {
                 $('#hospitalName').html(anchor.hospitalName);
             } else {

@@ -176,7 +176,7 @@ $(function () {
                 $('.account .message_return .anchor_nick_name').val(anchor.name);
 
                 if (anchor.profilePhoto) {
-                    $('.account .message_return #profilePhotoImg').html('<img id="imghead" border="0" src=' + anchor.profilePhoto + ' width="90" height="90" >')
+                    $('.account .message_return #profilePhotoImg').html('<img id="imghead" border="0" src=' + anchor.profilePhoto + '?imageMogr2/thumbnail/!120x120r|imageMogr2/gravity/Center/crop/120x120>')
                 }
 
                 if (anchor.detail == null) {

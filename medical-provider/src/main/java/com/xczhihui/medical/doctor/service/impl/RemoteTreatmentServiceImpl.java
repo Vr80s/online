@@ -1,15 +1,5 @@
 package com.xczhihui.medical.doctor.service.impl;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.common.util.DateUtil;
 import com.xczhihui.common.util.SmsUtil;
@@ -25,6 +15,13 @@ import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 import com.xczhihui.medical.doctor.vo.TreatmentVO;
 import com.xczhihui.medical.enrol.mapper.MedicalEntryInformationMapper;
 import com.xczhihui.medical.exception.MedicalException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * @author hejiwei
@@ -233,8 +230,28 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
     public TreatmentVO getInfo(int id) {
         TreatmentVO treatmentVO = remoteTreatmentMapper.findByInfoId(id);
         handleDate(treatmentVO);
+        //是否开启开始远程诊疗点击状态
+        SimpleDateFormat yearMonthDayDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat hourMinuteFormat = new SimpleDateFormat("HH:mm:ss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String startTimeStr = hourMinuteFormat.format(treatmentVO.getStartTime());
+        String s = yearMonthDayDateFormat.format(treatmentVO.getDate()) + " " + startTimeStr;
+        try {
+            Date startDate = dateFormat.parse(s);
+            Calendar nowTime = Calendar.getInstance();
+            nowTime.add(Calendar.MINUTE, 10);//10分钟后的时间
+            Date newDate = nowTime.getTime();
+            if(startDate.getTime()<=newDate.getTime()){
+                treatmentVO.setStart(true);
+            } else {
+                treatmentVO.setStart(false);
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         return treatmentVO;
     }
+
 
     @Override
     public boolean checkRepeatAppoint(int id, String accountId) {
@@ -280,7 +297,6 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
         }
     }
 
-    
 	@Override
 	public TreatmentAppointmentInfo selectById(int id) {
 		

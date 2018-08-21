@@ -1985,7 +1985,7 @@ function picUpdownHead(form,imgname){
         processData: false,
         contentType: false,
     }).success(function (data) {
-        $('#'+imgname+'').html('<img src="'+data.resultObject+'" style="width: 100%;height: 100%" >');
+        $('#'+imgname+'').html('<img src="'+data.resultObject+'?imageMogr2/thumbnail/!120x120r|imageMogr2/gravity/Center/crop/120x120" >');
         $(".row_size").hide();
     });
 
