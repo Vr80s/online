@@ -586,11 +586,15 @@
 										
 										<span>{{item.dateStr}}</span>
 										{{if item.courseId != null}}
-											{{if item.courseType == 4}}
+											{{if item.courseType == 3}}
 												<p>线下课</p>
-											{{else if item.courseType == 3}}
-												<p>直播课</p>
-											{{else if item.courseType == 1 || item.courseType == 2}}
+											{{else if item.courseType == 1}}
+												{{if item.multimediaType == 1}}
+												<p>视频直课</p>
+												{{else}}
+												<p>语音直播</p>
+												{{/if}}
+											{{else if item.courseType == 2}}
 												<p>线上课</p>
 											{{/if}}
 										{{/if}}

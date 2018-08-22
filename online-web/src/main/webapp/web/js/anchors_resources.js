@@ -2418,6 +2418,7 @@ function btnColorReply(){
     function initMedia() {
         //媒体报道部分,预览1335行
         //媒体报道部分,关闭预览弹窗
+        $("#media-table").unbind("click")
         $("#media-preview .media-preview-top img").click(function () {
             $("#media-preview").addClass("hide");
             $("#mask").addClass("hide");
