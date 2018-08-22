@@ -186,7 +186,12 @@
 						<td>
 							<span><em>*</em>封面图</span>
 						</td>
-						<td class="preview-work-picter"><img src="" style="width: 100px; height: 140px;"/></td>
+						<td class="preview-work-picter">
+							<div class="wrap-work-in">
+								<img src=""/>
+							</div>
+							
+						</td>
 					</tr>
 					<tr>
 						<td>
@@ -743,7 +748,7 @@
 									</tr>
 									{{each items as item i}}
 									<tr>
-										<td><img src="{{item.imgUrl}}"/></td>
+										<td><img src="{{item.imgUrl}}?imageMogr2/thumbnail/!160x60r|imageMogr2/gravity/Center/crop/106x60"/></td>
 										<td style="text-align: left;">{{item.linkDesc}}</td>
 										<td>{{item.startTime}}-{{item.endTime}}</td>
 										{{if item.status==true}}
@@ -2055,7 +2060,7 @@
 									{{each items as item i}}
 									<tr>
 										<td>
-											<img src="{{item.imgPath}}" alt="" />
+											<img src="{{item.imgPath}}?imageMogr2/thumbnail/!106x60r|imageMogr2/gravity/Center/crop/106x60" alt="" />
 										</td>
 										<td style="text-align: left; padding: 0 5px;">
 											{{item.title}}
@@ -2141,7 +2146,7 @@
 
 						<div class="fengmian">
 							<span style="vertical-align: top;"><em>*</em>封面图</span>
-							<span class="fengmian_pic work-picter"  onclick="$('#zhuzuo_picIpt').click()" style="width: 100px; height: 140px;">
+							<span class="fengmian_pic work-picter"  onclick="$('#zhuzuo_picIpt').click()" style="width: 120px; height: 120px;">
 								<p style="font-size: 56px;height: 75px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>
 								<p style="text-align: center;color: #999;font-size: 14px;">点击上传封面</p>
 							</span>
@@ -2166,9 +2171,9 @@
 
 						<div>
 							<span><em>*</em>购买链接</span>
-							<input type="text" placeholder="请以http://格式开头" class="zhuzuo_name work-link">
+							<input type="text" placeholder="以http://或https://格式开头" class="zhuzuo_name work-link">
 							<p class="warning hide work-link-warning">购买链接不能为空</p>
-							<p class="warning hide work-link2-warning">请以http://格式开头</p>
+							<p class="warning hide work-link2-warning">请以http://或https://格式开头</p>
 						</div>
 						<div class="baocun allWorkSave">
 							<button class="save-publish work-save-publish" type="submit" data-status="true">保存并发布</button>
@@ -2196,7 +2201,9 @@
 									{{each items as item i}}
 									<tr>
 										<td>
-											<img src="{{item.imgPath}}" alt="封面图" />
+											<div class="work-img-wrap">
+												<img src="{{item.imgPath}}" alt="封面图" />
+											</div>
 										</td>
 										<td style="text-align: left;padding: 0 5px;">
 											{{item.title}}
@@ -2300,9 +2307,9 @@
 
 						<div>
 							<span><em>*</em>来源URL</span>
-							<input type="text" placeholder="原文链接，请以http://格式开头" class="media_report_name media-link">
+							<input type="text" placeholder="原文链接，以http://或https://格式开头" class="media_report_name media-link">
 							<p class="warning hide media-url-warning">来源不能为空</p>
-							<p class="warning hide media-url2-warning">请以http://格式开头</p>
+							<p class="warning hide media-url2-warning">请以http://或https://格式开头</p>
 						</div>
 
 						<div class="baocun media-save-allwrap">
@@ -2330,7 +2337,7 @@
 									{{each items as item i}}
 										<tr>
 											<td>
-												<img src="{{item.imgPath}}" alt="" style="width: 106px; height: 60px;" />
+												<img src="{{item.imgPath}}?imageMogr2/thumbnail/!106x60r|imageMogr2/gravity/Center/crop/106x60" alt="" />
 											</td>
 											<td style="padding: 0 5px; text-align: left;">
 												{{item.title}}
