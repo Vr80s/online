@@ -396,7 +396,7 @@ var activityType;
 	var videoCover;
 	function getPostData(){
 		if($(".video-cover-pic img").length!=0){
-			videoCover=$(".video-cover-pic img").attr("src");
+			videoCover=$(".video-cover-pic img").attr("src").split("?")[0];
 		}else{
 			videoCover="";
 		}
@@ -658,7 +658,7 @@ var activityType;
             processData: false,
             contentType: false,
         }).success(function (data) {
-            var videoCoverReset='<img src="' + data.resultObject + '" >'+
+            var videoCoverReset='<img src="' + data.resultObject + '?imageMogr2/thumbnail/!280x157r|imageMogr2/gravity/Center/crop/280x157" >'+
                 '<p class="video-reset-tip">点击图片重新上传</p>'
             $('.video-cover  .' + imgname + '').html(videoCoverReset);
         });
@@ -1330,10 +1330,17 @@ function btnColorReply(){
 	}
 		
 //	创建轮播图
+	var hasbannerUrl;
 	$(".banner-submission-wrap button").click(function(){
 			var $this=$(this);
+			var isBanneHas=$(".right-banner .banner-box img");
+				if (isBanneHas.length != 0) {
+					hasbannerUrl=isBanneHas.attr("src").split("?")[0];
+				} else{
+					hasbannerUrl="";
+				}
 			var data={
-				"imgUrl":$(".right-banner .banner-box img").attr("src"),
+				"imgUrl":hasbannerUrl,
 				"type":$(".banner-link-wrap li .active").attr("data-type"),
 				"linkParam":$("#posts_resource_select").val(),
 				"startTime":$("#start-time").val(),
@@ -1379,7 +1386,7 @@ function btnColorReply(){
              processData: false,
              contentType: false,
          }).success(function (data) {
-             var videoCoverReset='<img src="' + data.resultObject + '" >'+
+             var videoCoverReset='<img src="' + data.resultObject + '?imageMogr2/thumbnail/!260x147r|imageMogr2/gravity/Center/crop/260x147" >'+
                  '<p class="banner-reset-tip">点击图片重新上传</p>'
              $('.right-banner  .' + imgname + '').html(videoCoverReset);
          });
