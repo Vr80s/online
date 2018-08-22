@@ -215,6 +215,7 @@ function elsBind(){
                         $(".generate-replay .onclick").show();
                     }else{
                         $(".learning-center").show();
+                        $(".learning-center .onclick").show();
                         $(".generate-replay-bg-opacity").show();
                     }
                 	$(".playback").show();
@@ -237,6 +238,7 @@ function elsBind(){
 				} else if (!record || msg.type == 17) { // 回放生成失败
 					$(".playback div").hide();
 					$(".learning-center").show();
+					$(".learning-center .onclick").show();
 					$(".generate-replay-bg-opacity").show();
                 	$(".playback").show();
 				}
