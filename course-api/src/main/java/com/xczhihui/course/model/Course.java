@@ -5,7 +5,9 @@ import java.util.Date;
 
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.IdType;
 
 /**
  * ClassName: Course.java <br>
@@ -22,6 +24,7 @@ public class Course extends Model<Course> {
 
     private static final long serialVersionUID = 1L;
 
+    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
     /**
      * 讲师	ID
@@ -358,6 +361,7 @@ public class Course extends Model<Course> {
     private String inavId;
     
 
+    
     @Override
     protected Serializable pkVal() {
         return this.id;
@@ -1021,6 +1025,22 @@ public class Course extends Model<Course> {
 
 	public void setClientType(Integer clientType) {
 		this.clientType = clientType;
+	}
+
+	public Integer getAppointmentInfoId() {
+		return appointmentInfoId;
+	}
+
+	public void setAppointmentInfoId(Integer appointmentInfoId) {
+		this.appointmentInfoId = appointmentInfoId;
+	}
+
+	public String getInavId() {
+		return inavId;
+	}
+
+	public void setInavId(String inavId) {
+		this.inavId = inavId;
 	}
 	
 }

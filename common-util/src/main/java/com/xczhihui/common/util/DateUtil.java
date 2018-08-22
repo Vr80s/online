@@ -29,7 +29,21 @@ public class DateUtil {
      * day的format形式，格式为为：2015年12月14日 05时15分31秒
      */
     public final static String FORMAT_CHINA_DAY_TIME = "yyyy年MM月dd日 HH时mm分ss秒";
+    
+    /**
+     * day的format形式，格式为为：2015年12月14日 05时15分
+     */
+    public final static String FORMAT_CHINA_MINUTE = "yyyy年MM月dd日 HH时mm分";
 
+    /**
+     * day的format形式，格式为为：05时15分
+     */
+    public final static String FORMAT_CHINA_HOUR_MINUTE = "HH时mm分";
+    
+    
+    public final static String  VERB= "至";
+    
+    
     static Map<Integer, String> dayMap;
 
     static {
@@ -223,6 +237,25 @@ public class DateUtil {
         }
         return null;
     }
+    
+    /**
+     * 
+     * <p>Title:获取诊疗时间段</p>  
+     * <p>Description: </p>  
+     * @param value
+     * @param format
+     * @return
+     * @throws Exception
+     */
+    public static String treatmentTime(Date startTime,Date endTime) throws Exception {
+    	String start = formatDate(startTime,FORMAT_CHINA_MINUTE);
+    	String end = formatDate(endTime,FORMAT_CHINA_HOUR_MINUTE);
+        return start+VERB+end;
+    }
+    
+//    public final static String FORMAT_CHINA_MINUTE = "yyyy年MM月dd日 HH时mm分";
+//    public final static String FORMAT_CHINA_HOUR_MINUTE = "HH时mm分";
+    
     
     public static void main(String[] args) throws Exception {
         

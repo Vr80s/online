@@ -347,5 +347,5 @@ public interface ICourseService {
 	 * <p>Description: </p>  
 	 * @param id  
 	 */ 
-	void createTherapyLive(Integer id,Integer clientType) throws Exception;
+	void createTherapyLive(Integer id,Integer clientType,String accountId) throws Exception;
 }

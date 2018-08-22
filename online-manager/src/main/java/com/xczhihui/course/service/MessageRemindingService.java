@@ -1,9 +1,5 @@
 package com.xczhihui.course.service;
 
-import java.util.List;
-
-import com.xczhihui.bxg.online.common.domain.Course;
-
 /**
  * Description: <br>
  *
@@ -11,11 +7,12 @@ import com.xczhihui.bxg.online.common.domain.Course;
  * Create Time:  2018/5/9 0009-下午 1:43<br>
  */
 public interface MessageRemindingService {
-    void saveCourseMessageReminding(Course course, String key);
-
-    void deleteCourseMessageReminding(Course course, String key);
-
-    List<Course> getCourseMessageRemindingList(String key);
+	
+//    void saveCourseMessageReminding(CouserMessagePushVo course, String key);
+//
+//    void deleteCourseMessageReminding(CouserMessagePushVo course, String key);
+//
+//    List<CouserMessagePushVo> getCourseMessageRemindingList(String key);
 
     void liveCourseMessageReminding();
 
