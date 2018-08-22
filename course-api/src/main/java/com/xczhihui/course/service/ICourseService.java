@@ -348,4 +348,13 @@ public interface ICourseService {
 	 * @param id  
 	 */ 
 	void createTherapyLive(Integer id,Integer clientType,String accountId) throws Exception;
+
+
+	/**  
+	 * <p>Title: updateTherapyLive</p>  
+	 * <p>Description: </p>  
+	 * @param id
+	 * @param accountId  
+	 */ 
+	void updateTherapyLive(int id, String accountId);
 }
