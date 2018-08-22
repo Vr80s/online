@@ -392,4 +392,3 @@ function replaceEmoji(contents) {
 }
 
 
-alert(1111);
