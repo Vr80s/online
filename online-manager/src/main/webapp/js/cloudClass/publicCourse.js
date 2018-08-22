@@ -340,7 +340,7 @@ function updateStatus(obj){
         layer.msg("该直播时间已经过期，无法上架,请修改再次操作上架。");
         return false;
     }
-	ajaxRequest(basePath+"/cloudclass/cours/updateSteatus",{"id":row.id},function(data){
+	ajaxRequest(basePath+"/cloudclass/course/updateStatus",{"id":row.id},function(data){
 		console.log(data);
 		if(data.success==false){
 			layer.msg(data.errorMessage);
