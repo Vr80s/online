@@ -121,4 +121,19 @@ public class RemoteTreatmentAppointmentInfoController {
         }
         return ResponseObject.newSuccessResponseObject(null);
     }
+    
+    @RequestMapping(value = "applyTest", method = RequestMethod.GET)
+    public ResponseObject applyTest(@Account String accountId, @RequestParam int infoId, @RequestParam boolean status) throws Exception {
+        TreatmentAppointmentInfo treatmentAppointmentInfo = remoteTreatmentService.selectById(infoId);
+        remoteTreatmentService.updateStatus(treatmentAppointmentInfo.getTreatmentId(), status);
+        if (status) {
+        	 System.out.println(status==true);
+            Integer courseId = courseService.createTherapyLive(infoId, HeaderInterceptor.getClientType().getCode(),
+            		accountId);
+            Course course = courseService.selectById(courseId);
+            medicalDoctorPostsService.addDoctorPosts(accountId, course.getId(), null, course.getGradeName(), course.getSubtitle(), course.getAppointmentInfoId());
+        }
+        return ResponseObject.newSuccessResponseObject(null);
+    }
+    
 }
