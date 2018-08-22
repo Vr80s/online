@@ -158,9 +158,10 @@ border-radius: 3px;
 /*暂无课程*/
 .no_class{
 	direction: down;
-	    text-align: center;
+	text-align: center;
 	margin-top: 3rem;
 	line-height: 0;
+	display: none;
 }
 .no_class img{
     width: 2.5rem;

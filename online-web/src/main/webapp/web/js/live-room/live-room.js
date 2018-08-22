@@ -247,13 +247,16 @@ $(function () {
                 showTip("其他设备正在直播，请关闭后继续使用被设备进行直播");
             }
         } else {
-            VHPublisher.stopPush({
-                complete: function () {
-                    liveStatus = 3;
-                    initStatus();
-                    clearInterval(timer);
-                    updateLiveStatus("stop");
-                }
+            confirmBox.open("提示", "确认结束当前直播吗?", function() {
+                VHPublisher.stopPush({
+                    complete: function () {
+                        liveStatus = 3;
+                        initStatus();
+                        clearInterval(timer);
+                        updateLiveStatus("stop");
+                    }
+                });
+                confirmBox.close();
             });
         }
         $this.removeAttr('disabled');

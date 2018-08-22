@@ -1011,7 +1011,13 @@
 										{{else if item.status==1}}
 										<td>待审核</td>
 										{{else if item.status==2}}
-										<td>预约成功</td>
+										<td>未开始</td>
+										{{else if item.status==3}}
+										<td>直播中</td>
+										{{else if item.status==4}}
+										<td>已完成</td>
+										{{else if item.status==5}}
+										<td>已过期</td>
 										{{/if}}
 										<td>
 											{{if item.status==0}}

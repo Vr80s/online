@@ -21,6 +21,7 @@ import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.google.common.collect.ImmutableMap;
 import com.xczhihui.common.support.domain.CouserMessagePushVo;
 import com.xczhihui.common.support.lock.Lock;
+import com.xczhihui.common.support.service.CacheService;
 import com.xczhihui.common.support.service.XcRedisCacheService;
 import com.xczhihui.common.support.service.impl.XcRedisCacheServiceImpl;
 import com.xczhihui.common.util.DateUtil;
@@ -81,6 +82,8 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     
     @Autowired
     private ICommonMessageService commonMessageService;
+    @Autowired
+    private CacheService cacheService;
 
     @Override
     public Page<CourseLecturVo> selectCoursePage(Page<CourseLecturVo> page) {
@@ -701,16 +704,12 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     	cmpv.setUserLecturerId(course.getUserLecturerId());
     	cmpv.setStartTime(course.getStartTime());
     	cmpv.setAppointmentInfoId(lockId);
-    	XcRedisCacheService xcRedisCacheService = new XcRedisCacheServiceImpl();
+//    	XcRedisCacheService xcRedisCacheService = new XcRedisCacheServiceImpl();
     	/**
     	 * 保存到redis缓存，开播前提醒
     	 */
-        xcRedisCacheService.saveCourseMessageReminding(cmpv, RedisCacheKey.LIVE_COURSE_REMIND_KEY);
-        /*
-         * 更改审核信息
-         */
-        Integer falg = iCourseMapper.updateAppointmentInfoPass(lockId, AppointmentStatus.WAIT_START.getVal());
-        
+//        xcRedisCacheService.saveCourseMessageReminding(cmpv, RedisCacheKey.LIVE_COURSE_REMIND_KEY);
+
         /**
          * 发送推送消息
          *  1、需要短信模板。后期在说，现提供接口在说吧。
@@ -722,6 +721,26 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     @Override
     public Course selectById(Integer courseId) {
         return iCourseMapper.selectById(courseId);
+    }
+
+    @Override
+    public int updateStatus(Integer id, Integer status) {
+        Course course = iCourseMapper.selectById(id);
+        if (course != null) {
+            course.setStatus(String.valueOf(status));
+            iCourseMapper.updateById(course);
+            if (status == 0) {
+                deleteCourseMessage(id);
+            }
+        }
+        return 0;
+    }
+
+    @Override
+    public void deleteCourseMessage(Integer courseId) {
+        cacheService.delete(RedisCacheKey.OFFLINE_COURSE_REMIND_KEY + RedisCacheKey.REDIS_SPLIT_CHAR + courseId);
+        cacheService.delete(RedisCacheKey.LIVE_COURSE_REMIND_KEY + RedisCacheKey.REDIS_SPLIT_CHAR + courseId);
+        cacheService.delete(RedisCacheKey.COLLECTION_COURSE_REMIND_KEY + RedisCacheKey.REDIS_SPLIT_CHAR + courseId);
     }
 
 
@@ -770,19 +789,5 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 			strGradeName +="01";
 		}
 		return strGradeName;
-	}
-
-
-	@Override
-	public void updateTherapyLive(int id, String accountId) {
-		
-		/**
-		 * 更改状态
-		 */
-	    Integer falg = iCourseMapper.updateAppointmentInfoPass(id,AppointmentStatus.ORIGIN.getVal());
-	    
-	    
-	    //发送消息
-	    //sendTherapyMessage(cv,accountId);
 	}
 }
