@@ -1,14 +1,20 @@
 package com.xczhihui.course.service.impl;
 
-import static com.xczhihui.common.util.redis.key.RedisCacheKey.LIVE_COURSE_REMIND_LAST_TIME_KEY;
 import static com.xczhihui.common.util.enums.RouteTypeEnum.COMMON_COURSE_DETAIL_PAGE;
 import static com.xczhihui.common.util.enums.RouteTypeEnum.COMMON_LEARNING_LIVE_COURSE_DETAIL_PAGE;
+import static com.xczhihui.common.util.redis.key.RedisCacheKey.LIVE_COURSE_REMIND_LAST_TIME_KEY;
 
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -18,16 +24,17 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.xczhihui.anchor.service.AnchorService;
-import com.xczhihui.bxg.online.common.domain.Course;
 import com.xczhihui.bxg.online.common.domain.CourseAnchor;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
+import com.xczhihui.common.support.domain.CouserMessagePushVo;
 import com.xczhihui.common.support.service.CacheService;
+import com.xczhihui.common.support.service.XcRedisCacheService;
 import com.xczhihui.common.support.service.impl.RedisCacheService;
 import com.xczhihui.common.util.DateUtil;
-import com.xczhihui.common.util.redis.key.RedisCacheKey;
 import com.xczhihui.common.util.TimeUtil;
 import com.xczhihui.common.util.enums.MessageTypeEnum;
 import com.xczhihui.common.util.enums.RouteTypeEnum;
+import com.xczhihui.common.util.redis.key.RedisCacheKey;
 import com.xczhihui.course.dao.CollectionCourseApplyUpdateDateDao;
 import com.xczhihui.course.dao.CourseDao;
 import com.xczhihui.course.params.BaseMessage;
@@ -70,7 +77,9 @@ public class MessageRemindingServiceImpl implements MessageRemindingService {
     private ICommonMessageService commonMessageService;
     @Autowired
     private AnchorService anchorService;
-
+    @Autowired
+    private XcRedisCacheService xcRedisCacheService;
+    
     @Value("${env.flag}")
     private String envFlag;
 
@@ -78,35 +87,35 @@ public class MessageRemindingServiceImpl implements MessageRemindingService {
         cacheService = new RedisCacheService();
     }
 
-    @Override
-    public void saveCourseMessageReminding(Course course, String redisKey) {
-        cacheService.set(redisKey + RedisCacheKey.REDIS_SPLIT_CHAR + course.getId(), course);
-    }
-
-    @Override
-    public void deleteCourseMessageReminding(Course course, String redisKey) {
-        cacheService.delete(redisKey + RedisCacheKey.REDIS_SPLIT_CHAR + course.getId());
-    }
-
-    @Override
-    public List<Course> getCourseMessageRemindingList(String redisKey) {
-        Set<String> keys = cacheService.getKeys(redisKey);
-        List<Course> courses = new ArrayList<>();
-        for (String key : keys) {
-            Course course = cacheService.get(key);
-            courses.add(course);
-        }
-        return courses;
-    }
+//    @Override
+//    public void saveCourseMessageReminding(CouserMessagePushVo course, String redisKey) {
+//        cacheService.set(redisKey + RedisCacheKey.REDIS_SPLIT_CHAR + course.getId(), course);
+//    }
+//
+//    @Override
+//    public void deleteCourseMessageReminding(CouserMessagePushVo course, String redisKey) {
+//        cacheService.delete(redisKey + RedisCacheKey.REDIS_SPLIT_CHAR + course.getId());
+//    }
+//
+//    @Override
+//    public List<CouserMessagePushVo> getCourseMessageRemindingList(String redisKey) {
+//        Set<String> keys = cacheService.getKeys(redisKey);
+//        List<CouserMessagePushVo> courses = new ArrayList<>();
+//        for (String key : keys) {
+//        	CouserMessagePushVo course = cacheService.get(key);
+//            courses.add(course);
+//        }
+//        return courses;
+//    }
 
     @Override
     public void offlineCourseMessageReminding() {
-        List<Course> courseMessageRemindingList = getCourseMessageRemindingList(RedisCacheKey.OFFLINE_COURSE_REMIND_KEY);
+        List<CouserMessagePushVo> courseMessageRemindingList = xcRedisCacheService.getCourseMessageRemindingList(RedisCacheKey.OFFLINE_COURSE_REMIND_KEY);
         Date today = new Date();
-        for (Course course : courseMessageRemindingList) {
+        for (CouserMessagePushVo course : courseMessageRemindingList) {
             //之前的课程未提醒,需移除掉
             if (course.getStartTime() != null && today.after(course.getStartTime())) {
-                deleteCourseMessageReminding(course, RedisCacheKey.OFFLINE_COURSE_REMIND_KEY);
+            	xcRedisCacheService.deleteCourseMessageReminding(course, RedisCacheKey.OFFLINE_COURSE_REMIND_KEY);
             } else {
                 //开始时间是明天
                 if (TimeUtil.isTomorrow(course.getStartTime())) {
@@ -142,17 +151,17 @@ public class MessageRemindingServiceImpl implements MessageRemindingService {
 
     @Override
     public void collectionUpdateRemind() {
-        List<Course> courseMessageRemindingList = getCourseMessageRemindingList(RedisCacheKey.COLLECTION_COURSE_REMIND_KEY);
+        List<CouserMessagePushVo> courseMessageRemindingList = xcRedisCacheService.getCourseMessageRemindingList(RedisCacheKey.COLLECTION_COURSE_REMIND_KEY);
         Date today = new Date();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(today);
         Integer day = calendar.get(Calendar.DAY_OF_WEEK);
         //周几
         day = day == 1 ? 7 : day - 1;
-        for (Course course : courseMessageRemindingList) {
+        for (CouserMessagePushVo course : courseMessageRemindingList) {
             List<Integer> dates = collectionCourseApplyUpdateDateDao.getUpdateDatesByCollectionId(course.getId());
             if (dates.isEmpty()) {
-                deleteCourseMessageReminding(course, RedisCacheKey.COLLECTION_COURSE_REMIND_KEY);
+            	xcRedisCacheService.deleteCourseMessageReminding(course, RedisCacheKey.COLLECTION_COURSE_REMIND_KEY);
             } else if (dates.contains(day)) {
                 String courseName = course.getGradeName();
                 String address = course.getAddress();
@@ -180,8 +189,9 @@ public class MessageRemindingServiceImpl implements MessageRemindingService {
 
     @Override
     public void liveCourseMessageReminding() {
-        List<Course> courseMessageRemindingList = getCourseMessageRemindingList(RedisCacheKey.LIVE_COURSE_REMIND_KEY);
-        for (Course course : courseMessageRemindingList) {
+        List<CouserMessagePushVo> courseMessageRemindingList = xcRedisCacheService.getCourseMessageRemindingList(RedisCacheKey.LIVE_COURSE_REMIND_KEY);
+        
+        for (CouserMessagePushVo course : courseMessageRemindingList) {
             if (course.getStartTime() != null) {
                 String time = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(course.getStartTime());
                 Instant startTime = course.getStartTime().toInstant();
@@ -192,7 +202,7 @@ public class MessageRemindingServiceImpl implements MessageRemindingService {
                 if (seconds <= (60 * 10 + 30)) {
                     long minute = (long) Math.ceil(seconds / 60.0);
                     if (minute <= 0) {
-                        deleteCourseMessageReminding(course, RedisCacheKey.LIVE_COURSE_REMIND_KEY);
+                    	xcRedisCacheService.deleteCourseMessageReminding(course, RedisCacheKey.LIVE_COURSE_REMIND_KEY);
                         cacheService.delete(key);
                     } else {
                         //发送提醒
@@ -210,30 +220,62 @@ public class MessageRemindingServiceImpl implements MessageRemindingService {
                         cacheService.set(key, new Date(), 24 * 60 * 60);
                         String courseName = course.getGradeName();
                         CourseAnchor courseAnchor = anchorService.findByUserId(course.getUserLecturerId());
-                        if (courseAnchor != null) {
-                            String lecturer = courseAnchor.getName();
-                            String commonContent = MessageFormat.format(WEB_LIVE_COURSE_REMIND, lecturer, courseName, minute);
-                            Map<String, String> params = new HashMap<>(4);
-                            params.put("courseName", courseName);
-                            params.put("lecture", lecturer);
-                            params.put("minute", String.valueOf(minute));
-                            params.put("code", String.valueOf(id) + " ");
-                            Map<String, String> weixinParams = new HashMap<>(4);
-                            weixinParams.put("first", TextStyleUtil.clearStyle(commonContent));
-                            weixinParams.put("keyword1", courseName);
-                            weixinParams.put("keyword2", time);
-                            weixinParams.put("remark", "");
-                            for (OnlineUser user : users) {
-                                loggger.info("推送给:{}", user.getName());
-                                commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.COURSE.getVal())
-                                        .buildWeb(commonContent)
-                                        .buildAppPush(MessageFormat.format(APP_PUSH_LIVE_COURSE_REMIND, lecturer, courseName, minute))
-                                        .buildWeixin(weixinTemplateMessageRemindCode, weixinParams)
-                                        .buildSms(sendLiveRemindCode, params)
-                                        .detailId(String.valueOf(id))
-                                        .build(user.getId(), COMMON_LEARNING_LIVE_COURSE_DETAIL_PAGE, null)
-                                );
+                        if(course.getAppointmentInfoId()==null) {
+                        	if (courseAnchor != null) {
+                            	String lecturer = courseAnchor.getName();
+                                String commonContent = MessageFormat.format(WEB_LIVE_COURSE_REMIND, lecturer, courseName, minute);
+                                Map<String, String> params = new HashMap<>(4);
+                                params.put("courseName", courseName);
+                                params.put("lecture", lecturer);
+                                params.put("minute", String.valueOf(minute));
+                                params.put("code", String.valueOf(id) + " ");
+                                Map<String, String> weixinParams = new HashMap<>(4);
+                                weixinParams.put("first", TextStyleUtil.clearStyle(commonContent));
+                                weixinParams.put("keyword1", courseName);
+                                weixinParams.put("keyword2", time);
+                                weixinParams.put("remark", "");
+                                for (OnlineUser user : users) {
+                                    loggger.info("推送给:{}", user.getName());
+                                    
+                                    commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.COURSE.getVal())
+                                            .buildWeb(commonContent)
+                                            .buildAppPush(MessageFormat.format(APP_PUSH_LIVE_COURSE_REMIND, lecturer, courseName, minute))
+                                            .buildWeixin(weixinTemplateMessageRemindCode, weixinParams)
+                                            .buildSms(sendLiveRemindCode, params)
+                                            .detailId(String.valueOf(id))
+                                            .build(user.getId(), COMMON_LEARNING_LIVE_COURSE_DETAIL_PAGE, null)
+                                    );
+                                }
                             }
+                        }else {
+                        	//预约消息提示
+//                        	if (courseAnchor != null) {
+//                            	String lecturer = courseAnchor.getName();
+//                                String commonContent = MessageFormat.format(WEB_LIVE_COURSE_REMIND, lecturer, courseName, minute);
+//                                Map<String, String> params = new HashMap<>(4);
+//                                params.put("courseName", courseName);
+//                                params.put("lecture", lecturer);
+//                                params.put("minute", String.valueOf(minute));
+//                                params.put("code", String.valueOf(id) + " ");
+//                                Map<String, String> weixinParams = new HashMap<>(4);
+//                                weixinParams.put("first", TextStyleUtil.clearStyle(commonContent));
+//                                weixinParams.put("keyword1", courseName);
+//                                weixinParams.put("keyword2", time);
+//                                weixinParams.put("remark", "");
+//                                for (OnlineUser user : users) {
+//                                    loggger.info("推送给:{}", user.getName());
+//                                    
+//                                    commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.COURSE.getVal())
+//                                            .buildWeb(commonContent)
+//                                            .buildAppPush(MessageFormat.format(APP_PUSH_LIVE_COURSE_REMIND, lecturer, courseName, minute))
+//                                            .buildWeixin(weixinTemplateMessageRemindCode, weixinParams)
+//                                            .buildSms(sendLiveRemindCode, params)
+//                                            .detailId(String.valueOf(id))
+//                                            .build(user.getId(), COMMON_LEARNING_LIVE_COURSE_DETAIL_PAGE, null)
+//                                    );
+//                                }
+//                            }
+                        	
                         }
                     }
                 }

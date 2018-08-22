@@ -48,7 +48,7 @@ public class MedicalDoctorArticleServiceImpl implements IMedicalDoctorArticleSer
         oeBxsArticleMapper.insert(oeBxsArticle);
         if(oeBxsArticle.getStatus() == 1){
             //更新动态
-            medicalDoctorPostsService.addDoctorPosts(oeBxsArticle.getCreatePerson(),null,oeBxsArticle.getId(),"","");
+            medicalDoctorPostsService.addDoctorPosts(oeBxsArticle.getCreatePerson(),null,oeBxsArticle.getId(),"","",null);
         }
         MedicalDoctorSpecialColumn medicalDoctorSpecialColumn = new MedicalDoctorSpecialColumn();
         medicalDoctorSpecialColumn.setArticleId(String.valueOf(oeBxsArticle.getId()));
@@ -119,7 +119,7 @@ public class MedicalDoctorArticleServiceImpl implements IMedicalDoctorArticleSer
         oeBxsArticleMapper.insert(oeBxsArticle);
         if(oeBxsArticle.getStatus() == 1){
             //更新动态
-            medicalDoctorPostsService.addDoctorPosts(oeBxsArticle.getCreatePerson(),null,oeBxsArticle.getId(),"","");
+            medicalDoctorPostsService.addDoctorPosts(oeBxsArticle.getCreatePerson(),null,oeBxsArticle.getId(),"","",null);
         }
         MedicalDoctorReport medicalDoctorReport = new MedicalDoctorReport();
         medicalDoctorReport.setArticleId(String.valueOf(oeBxsArticle.getId()));

@@ -83,6 +83,6 @@ public interface IMedicalDoctorPostsService {
      * @param subtitle 课程副标题
      * @return
      */
-    void addDoctorPosts(String userId,Integer courseId,Integer articleId,String courseName,String subtitle);
+    void addDoctorPosts(String userId,Integer courseId,Integer articleId,String courseName,String subtitle, Integer appointmentInfoId);
 
 }

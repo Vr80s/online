@@ -59,8 +59,6 @@ public class CommonMessageServiceImpl implements ICommonMessageService {
     @Autowired
     private WechatUserMapper wechatUserMapper;
     @Autowired
-    private CourseMapper courseMapper;
-    @Autowired
     private NoticeMapper noticeMapper;
     @Autowired
     private WxMpService wxMpService;

@@ -250,9 +250,9 @@ public interface CourseMapper extends BaseMapper<Course> {
 	/**  
 	 * <p>Title: selectTherapyLiveInfo</p>  
 	 * <p>Description: </p>  
-	 * @param id  
+	 * @param id   CONCAT(date," ",start_time) as startTime,CONCAT(date," ",end_time) as endTime 
 	 */ 
-    @Select({"select mt.date as startTime,mt.doctor_id as doctorId,mt.create_person as userLecturerId,mtai.question as description,ca.detail as lecturerDescription,ca.name as heir,md.name as doctorName from medical_treatment mt " + 
+    @Select({"select CONCAT(mt.date,' ',mt.start_time) as startTime,CONCAT(mt.date,' ',mt.end_time) as endTime ,mt.doctor_id as doctorId,mt.create_person as userLecturerId,mtai.question as description,ca.detail as lecturerDescription,ca.name as heir,md.name as doctorName from medical_treatment mt " + 
     		"    inner join medical_treatment_appointment_info mtai on mt.info_id = mtai.id " + 
     		"	 inner join course_anchor ca on mt.create_person = ca.user_id  " + 
     		"	 inner join medical_doctor md on mt.doctor_id = md.id  " + 

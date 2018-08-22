@@ -97,8 +97,8 @@ function initAuthentication() {
         $(".anchor_idCard").html(data.cardNum);
         $(".anchor_idCard_a").attr("src", data.cardPositive);
         $(".anchor_idCard_b").attr("src", data.cardNegative);
-        $(".anchor_qualification_certificate").attr("src", data.qualificationCertificate);
-        $(".anchor_professional_certificate").attr("src", data.professionalCertificate);
+        $(".anchor_qualification_certificate").attr("src", data.qualificationCertificate+"?imageMogr2/thumbnail/!260x147r|imageMogr2/gravity/Center/crop/260x147");
+        $(".anchor_professional_certificate").attr("src", data.professionalCertificate+"?imageMogr2/thumbnail/!260x147r|imageMogr2/gravity/Center/crop/260x147");
     });
 }
 
@@ -115,8 +115,8 @@ function initAuthenticationHos() {
         $(".account_one .licenseForPharmaceuticalTrading").text(data.licenseForPharmaceuticalTrading)
         $(".account_one .businessLicensePicture").attr("src", data.businessLicensePicture);
         $(".account_one .licenseForPharmaceuticalTradingPicture").attr("src", data.licenseForPharmaceuticalTradingPicture);
-        $(".anchor_qualification_certificate").attr("src", data.qualificationCertificate);
-        $(".anchor_professional_certificate").attr("src", data.professionalCertificate);
+        $(".anchor_qualification_certificate").attr("src", data.qualificationCertificate+"?imageMogr2/thumbnail/!260x147r|imageMogr2/gravity/Center/crop/260x147");
+        $(".anchor_professional_certificate").attr("src", data.professionalCertificate+"?imageMogr2/thumbnail/!260x147r|imageMogr2/gravity/Center/crop/260x147");
     });
 }
 

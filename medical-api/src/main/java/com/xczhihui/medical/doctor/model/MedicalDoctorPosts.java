@@ -200,6 +200,22 @@ public class MedicalDoctorPosts extends Model<MedicalDoctorPosts> {
      */
     @TableField(exist = false)
     private String writingsId;
+    /**
+     * 诊疗id
+     *
+     */
+    @TableField(exist = false)
+    private Integer treatmentId;
+    /**
+     * 诊疗弟子
+     */
+    @TableField(exist = false)
+    private String pupilName;
+    /**
+     * 审核状态：1未审核 2通过 3拒绝  3 取消
+     */
+    @TableField(exist = false)
+    private Integer treatmentStatus;
 
     @Override
     protected Serializable pkVal() {
@@ -492,6 +508,30 @@ public class MedicalDoctorPosts extends Model<MedicalDoctorPosts> {
 
     public void setMultimediaType(Integer multimediaType) {
         this.multimediaType = multimediaType;
+    }
+
+    public String getPupilName() {
+        return pupilName;
+    }
+
+    public void setPupilName(String pupilName) {
+        this.pupilName = pupilName;
+    }
+
+    public Integer getTreatmentId() {
+        return treatmentId;
+    }
+
+    public void setTreatmentId(Integer treatmentId) {
+        this.treatmentId = treatmentId;
+    }
+
+    public Integer getTreatmentStatus() {
+        return treatmentStatus;
+    }
+
+    public void setTreatmentStatus(Integer treatmentStatus) {
+        this.treatmentStatus = treatmentStatus;
     }
 
     @Override

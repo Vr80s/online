@@ -168,11 +168,20 @@ public class MultiUrlHelper {
             URL_TYPE_APP, "xczh://ipandatcm.com/" + APP_SPECIAL_COLUMN_DETAIL_TYPE + "?id={0}",
             URL_TYPE_WEB, "/headline/details/{0}",
             URL_TYPE_MOBILE, "/xcview/html/physician/consilia.html?consiliaId={0}");
+    
     private static Map<String, String> doctorCaseMap = ImmutableMap.of(
             URL_TYPE_APP, "xczh://ipandatcm.com/" + APP_DOCTOR_CASE_DETAIL_TYPE + "?id={0}",
             URL_TYPE_WEB, "/headline/details/{0}",
             URL_TYPE_MOBILE, "/xcview/html/physician/consilia.html?consiliaId={0}");
 
+    
+    private static Map<String, String> appointmentTreatmentInfoMap = ImmutableMap.of(
+            URL_TYPE_APP, "xczh://ipandatcm.com/appointmentTreatmentInfo?id={0}",
+            URL_TYPE_WEB, "/headline/details/{0}",
+            URL_TYPE_MOBILE, "/xcview/html/physician/consilia.html?consiliaId={0}");
+
+    
+    
     static {
         urlMap.put(RouteTypeEnum.DOCTOR_APPROVE_PAGE.name(), doctorApproveUrlMap);
         urlMap.put(RouteTypeEnum.HOSPITAL_APPROVE_PAGE.name(), hospitalApproveUrlMap);
@@ -213,6 +222,8 @@ public class MultiUrlHelper {
         urlMap.put(RouteTypeEnum.COMMON_LEARNING_AUDIO_COURSE_DETAIL_PAGE.name(), learningAudioCourseDetailUrlMap);
         urlMap.put(RouteTypeEnum.COMMON_LEARNING_OFFLINE_COURSE_DETAIL_PAGE.name(), learningOfflineCourseDetailUrlMap);
         //====================================================================
+        
+        urlMap.put(RouteTypeEnum.APPOINTMENT_TREATMENT_INFO_PAGE.name(), appointmentTreatmentInfoMap);
     }
 
     public static String getUrl(String routeType, String source, String detailId, String link) {
