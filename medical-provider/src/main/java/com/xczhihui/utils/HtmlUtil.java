@@ -7,6 +7,8 @@ package com.xczhihui.utils;
  * Create Time:  2018/3/27 0027-下午 2:13<br>
  */
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -25,7 +27,7 @@ public class HtmlUtil {
      * @Date: 2018/3/27 0027 下午 2:14
      **/
     public static String delHTMLTag(String htmlStr) {
-        if(htmlStr == null){
+        if(StringUtils.isBlank(htmlStr)){
             return "";
         }
         Matcher scriptMatch = SCRIPT_PATTERN.matcher(htmlStr);
