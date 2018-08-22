@@ -877,12 +877,10 @@ color: #888888;
 .all_list ul li p{
 	width: 2.67rem;
 	height: 1.11rem;
-    /*overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-	box-sizing: border-box;*/
-    
-    
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
 }
 .all_list_ul_li{
 	color: #F97B49;
