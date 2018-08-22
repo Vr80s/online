@@ -31,7 +31,7 @@
         <#elseif courseItem.lineState  == 3>
             <span class="classCategory">视频直播回放</span>
         <#elseif courseItem.lineState  == 4>
-            <span class="classCategory">即将语音直播</span>
+            <span class="classCategory">即将视频直播</span>
         <#else>
             <span class="classCategory">暂未开播</span>
         </#if>

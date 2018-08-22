@@ -34,13 +34,13 @@
     </#if>
 <#elseif courseItem.courseForm == 1 && courseItem.multimediaType == 2>
     <#if courseItem.lineState  == 1  >
-        <span class="classCategory">音频直播中</span>
+        <span class="classCategory">语音直播中</span>
     <#elseif courseItem.lineState  == 2>
-        <span class="classCategory">音频直播预告</span>
+        <span class="classCategory">语音直播预告</span>
     <#elseif courseItem.lineState  == 3>
-        <span class="classCategory">音频直播回放</span>
+        <span class="classCategory">语音直播回放</span>
     <#elseif courseItem.lineState  == 4>
-        <span class="classCategory">即将音频直播</span>
+        <span class="classCategory">即将语音直播</span>
     <#else>
         <span class="classCategory">暂未开播</span>
     </#if>
