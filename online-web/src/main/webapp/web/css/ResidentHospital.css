@@ -320,6 +320,7 @@ a {
 #hos_Administration .hos_base_inf .bottomContent >.touxiang_picUpdata .touxiang_pic_tip{
 	display: inline-block;
 	color: #999;
+	vertical-align: middle;
 }
 #hos_Administration .hos_base_inf .bottomContent >.touxiang_picUpdata .touxiang_pic_tip p{
 	font-size: 14px;
@@ -776,6 +777,7 @@ height: 100%;
 #doc_Administration .bottomContent >.touxiang_picUpdata .touxiang_pic_tip{
 	display: inline-block;
 	color: #999;
+	vertical-align: middle;
 }
 #doc_Administration .bottomContent >.touxiang_picUpdata .touxiang_pic_tip p{
 	font-size: 14px;
@@ -1718,4 +1720,15 @@ margin-right: 5px;
 #deleteTip button:hover{
 	background-color: #00BC12 ;
 	color: #fff;
+}
+#picture-tip-zhichen{
+position: absolute;
+margin: 0;
+bottom: 0;
+left: 0;
+background: rgba(0,0,0,.5);
+color: white;
+width: 100%;
+text-align: center;
+padding: 18px 0;
 }

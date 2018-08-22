@@ -378,7 +378,6 @@ function courseList(current){
  **/
 function saveCourse(){
     var course = getCourseData();
-//
     if(verifyCourse(course)) {
         if(course.id==null||course.id=='') {
             addCourse(course);
@@ -483,8 +482,8 @@ function echoCourse(caiId,passEdit){
     $('#caiId').val(caiId);
     $('.course_title').val(course.title);
     $('.course_subtitle').val(course.subtitle);
-    $('#courseImg').html('<img src="" style="width: 100%;height: 100%" >'+'<p>点击图片重新上传</p>');
-    $('#courseImg img').attr('src',course.imgPath);
+    $('#courseImg').html('<img src="">'+'<p>点击图片重新上传</p>');
+    $('#courseImg img').attr('src',course.imgPath+"?imageMogr2/thumbnail/!260x147r|imageMogr2/gravity/Center/crop/260x147");
     $('.course_lecturer ').val(course.lecturer);
     if(course.lecturerDescription) {
         UE.getEditor('editor').setContent(course.lecturerDescription);
@@ -573,13 +572,20 @@ function showPersonInf(){
  * @author name：yuxin <br>email: yuruixin@ixincheng.com
  * @Date: 2018/2/3 0003 下午 5:54
  **/
+var coursePicUrl;
 function getCourseData(){
     var course = {};
+    var imgCourseLength=$('#courseImg img');
+	if(imgCourseLength.length!=0){
+		coursePicUrl=imgCourseLength.attr("src").split("?")[0];
+	}else{
+		coursePicUrl="";
+	}
     course.id = $("#caiId").val();
     course.version = $("#course_version").val();
     course.title = $.trim($('.course_title').val());
     course.subtitle = $.trim($('.course_subtitle').val());
-    course.imgPath = $.trim($('#courseImg img').attr('src'));
+    course.imgPath = coursePicUrl;
     course.lecturer = $.trim($('.course_lecturer ').val());
     course.lecturerDescription = getLDContent();
     course.courseForm = $("input[name='course_form']:checked").val();
@@ -789,24 +795,6 @@ function verifyCourse(course){
     return true;
 }
 
-//获取当前时间
-function getNowFormatDate() {
-	    var date = new Date();
-	    var seperator1 = "-";
-	    var seperator2 = ":";
-	    var month = date.getMonth() + 1;
-	    var strDate = date.getDate();
-	    if (month >= 1 && month <= 9) {
-	        month = "0" + month;
-	    }
-	    if (strDate >= 0 && strDate <= 9) {
-	        strDate = "0" + strDate;
-	    }
-	    var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
-	            + " " + date.getHours() + seperator2 + date.getMinutes()
-	            + seperator2 + date.getSeconds();
-	    return currentdate;    
-	}
 function confirmCourseSale(state,courseApplyId,courseId,index){
     var title="课程上架";
     var content="确认上架该课程？";
@@ -817,10 +805,10 @@ function confirmCourseSale(state,courseApplyId,courseId,index){
     }
     var startTime = launchUp.startTime;
     startTime = startTime.replace(/-/g,"/");
-    var date = new Date(startTime);
-    date.setMinutes (date.getMinutes () + 30);
+    var dateTime = new Date(startTime);
+    dateTime.setMinutes (dateTime.getMinutes () + 30);
     var nowDate = new Date();
-    if(state == 1 && launchUp.courseForm==1&&launchUp.liveStatus==2&&date<nowDate){
+    if(state == 1 && launchUp.courseForm==1&&launchUp.liveStatus==2&&dateTime<nowDate){
     	showTip("该直播时间已经过期，无法上架,请修改再次操作上架。");
     	return false;
     }else{
@@ -1259,8 +1247,7 @@ function saveCollection(){
 		showTip("选中的选集数量大于总集数,请酌情更改!")
         return;
     }
-    
-    //
+
     if(verifyCollection(collection)){
         if($("#collectionId").val()==null||$("#collectionId").val()==''){
             addCollection(collection);
@@ -1344,8 +1331,8 @@ function echoCollection(collectionId,passEdit){
     $('#collectionId').val(collection.id)
     $('.collection_title').val(collection.title);
     $('.collection_subtitle').val(collection.subtitle);
-    $('#collectionImg').html('<img src="" style="width: 100%;height: 100%" >'+'<p>点击图片重新上传</p>');
-    $('#collectionImg img').attr('src',collection.imgPath);
+    $('#collectionImg').html('<img src="" >'+'<p>点击图片重新上传</p>');
+    $('#collectionImg img').attr('src',collection.imgPath+"?imageMogr2/thumbnail/!260x147r|imageMogr2/gravity/Center/crop/260x147");
     $('.collection_lecturer ').val(collection.lecturer);
     UE.getEditor('editor_collection_lecturer_description').setContent(collection.lecturerDescription);
     $('#menu_select_collection').val(collection.courseMenu);
@@ -1372,13 +1359,20 @@ function echoCollection(collectionId,passEdit){
     $(".collection_courses").html(template('collection_course_list_tpl', arr));
     return true;
 }
-function getCollectionData(){
+var albumPicUrl;
+function getCollectionData(){	
     var collection = {};
+    var imgAlbumLength=$('#collectionImg img');
+		if(imgAlbumLength.length!=0){
+    		albumPicUrl=imgAlbumLength.attr("src").split("?")[0];
+    	}else{
+    		albumPicUrl="";
+    	}
     collection.id = $.trim($('#collectionId').val());
     collection.version = $.trim($('#collection_version').val());
     collection.title = $.trim($('.collection_title').val());
     collection.subtitle = $.trim($('.collection_subtitle').val());
-    collection.imgPath = $.trim($('#collectionImg img').attr('src'));
+    collection.imgPath = albumPicUrl;
     collection.lecturer = $.trim($('.collection_lecturer ').val());
     collection.lecturerDescription = getCollectionLecturerDescription()
     collection.courseMenu = $.trim($('#menu_select_collection').val());
@@ -1805,7 +1799,7 @@ function picUpdown(form,imgname){
         processData: false,
         contentType: false,
     }).success(function (data) {
-        $('#'+imgname+'').html('<img src="'+data.resultObject+'" style="width: 100%;height: 100%" >'+'<p>点击图片重新上传</p>');
+        $('#'+imgname+'').html('<img src="'+data.resultObject+'?imageMogr2/thumbnail/!260x147r|imageMogr2/gravity/Center/crop/260x147" style="width: 100%;height: 100%" >'+'<p>点击图片重新上传</p>');
         $(".row_size").hide();
     });
 
@@ -1991,7 +1985,7 @@ function picUpdownHead(form,imgname){
         processData: false,
         contentType: false,
     }).success(function (data) {
-        $('#'+imgname+'').html('<img src="'+data.resultObject+'" style="width: 100%;height: 100%" >');
+        $('#'+imgname+'').html('<img src="'+data.resultObject+'?imageMogr2/thumbnail/!120x120r|imageMogr2/gravity/Center/crop/120x120" >');
         $(".row_size").hide();
     });
 
