@@ -154,7 +154,7 @@ header {
 .name{
 	float: left;
     min-width: 0.8rem;
-    max-width: 1.4rem;
+    max-width: 1.55rem;
     height: .9rem;
     line-height: .9rem;
     font-size: .3rem;
@@ -162,11 +162,11 @@ header {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    /* margin-right: 0.2rem; */
+     margin-right: 0.1rem; 
 }
 .professional_title{
 	float: left;
-	width: 2.6rem;
+	width: 2.4rem;
 	height: .9rem;
 	line-height: .9rem;
 	font-size: .24rem;
@@ -234,25 +234,25 @@ header {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 9;
+    z-index: 9;.
 }
 .tooltip_main{
 	width: 5.4rem;
-	height: 2.97rem;
-	background: #FFFFFF;
-	border-radius: 16px;
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	margin-top: -1.485rem;
-	margin-left: -2.7rem;
-	z-index: 9;
+    height: 2.57rem;
+    background: #FFFFFF;
+    border-radius: 16px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -1.286rem;
+    margin-left: -2.7rem;
+    z-index: 9;
 }
 .tooltip_main_title{
 	font-size: .32rem;
     color: #333333;
     text-align: center;
-    margin-top: 1rem;
+    margin-top: 0.6rem;
     margin-bottom: 0.65rem;
 }
 .tooltip_bottom{
