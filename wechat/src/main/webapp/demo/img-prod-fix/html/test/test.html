@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>熊猫中医</title>
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<!--手机嵌入模板-->
+<!-- <script type="text/javascript" src="/xcview/js/common/layout.js?version=e2b9d5cdbd"></script> -->
+
+<script type="text/javascript" src="http://test-wx.xczhihui.com/xcview/js/apprentice/jquery-3.2.0.min.js"></script>    
+<script type="text/javascript" src="http://test-wx.xczhihui.com/xcview/js/apprentice/html2canvas.js"></script>    
+<script type="text/javascript" src="http://test-wx.xczhihui.com/xcview/js/common/layout.js"></script>
+
+
+<script  type="text/javascript" >    
+    $(document).ready( function(){    
+        $(".example1").on("click", function(event) {    
+                event.preventDefault();    
+                html2canvas(document.getElementById("textArea"), {    
+                allowTaint: true,    
+                taintTest: false,    
+                onrendered: function(canvas) {    
+                    canvas.id = "mycanvas";    
+                    document.body.appendChild(canvas);    
+                    //生成base64图片数据    
+                   /* var dataUrl = canvas.toDataURL();    
+                    var newImg = document.createElement("img");    
+                    newImg.src =  dataUrl;    
+                    document.body.appendChild(newImg);    */
+                }    
+            });    
+        });     
+    });    
+</script>  
+<style>
+    #textArea{
+        font-size: 0.3rem;
+    }
+    .img{
+        width: 100px;
+        height: 100px;
+    }
+</style>
+
+<body>
+  <div class="" style="background-color: #abc;" id="textArea">    
+        计算机天堂测试html5页面截图    
+        <img src="9ed0246c806c9c8d.jpg" alt="" class="img" />
+    </div>    
+          
+    <input class="example1" type="button" value="button">    
+
+    <img src="" alt="" id="img" />
+</body>
+
+</html>

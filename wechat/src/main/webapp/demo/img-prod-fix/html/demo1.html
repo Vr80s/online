@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<!-- saved from url=(0047)http://cnstatic01.e.vhall.com/jssdk/dist/2.3.1/ -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport"
+	content="width=device-width,initial-scale=1, maximum-scale=1.0, user-scalable=no">
+<title>微吼demo update</title>
+<link rel="stylesheet"
+	href="//cnstatic01.e.vhall.com/3rdlibs/mCustomScrollbar/3.0.8/jquery.mCustomScrollbar.min.css">
+
+<link rel="stylesheet" href="css/weihoudemo.css" type="text/css" />
+</head>
+<body>
+	<div class="container">
+		<div class="header">
+			<a href="javascript:;" data-target="chatmsg-box" class="active">聊天</a><a
+				href="javascript:;" data-target="question-msg-box">问答</a>
+		</div>
+		<div
+			class="chatmsg-box tab-pane active mCustomScrollbar _mCS_1 mCS_no_scrollbar">
+			<div id="mCSB_1"
+				class="mCustomScrollBox mCS-light mCSB_vertical mCSB_inside"
+				tabindex="0">
+				<div id="mCSB_1_container"
+					class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y"
+					style="position: relative; top: 0; left: 0;" dir="ltr">
+					<div class="chatmsg" id="chatmsg"></div>
+				</div>
+				<div id="mCSB_1_scrollbar_vertical"
+					class="mCSB_scrollTools mCSB_1_scrollbar mCS-light mCSB_scrollTools_vertical"
+					style="display: none;">
+					<div class="mCSB_draggerContainer">
+						<div id="mCSB_1_dragger_vertical" class="mCSB_dragger"
+							style="position: absolute; min-height: 30px; top: 0px;"
+							oncontextmenu="return false;">
+							<div class="mCSB_dragger_bar" style="line-height: 30px;"></div>
+						</div>
+						<div class="mCSB_draggerRail"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div
+			class="question-msg-box tab-pane mCustomScrollbar _mCS_2 mCS_no_scrollbar">
+			<div id="mCSB_2"
+				class="mCustomScrollBox mCS-light mCSB_vertical mCSB_inside"
+				tabindex="0">
+				<div id="mCSB_2_container"
+					class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y"
+					style="position: relative; top: 0; left: 0;" dir="ltr">
+					<div class="question-msg" id="question-msg"></div>
+				</div>
+				<div id="mCSB_2_scrollbar_vertical"
+					class="mCSB_scrollTools mCSB_2_scrollbar mCS-light mCSB_scrollTools_vertical"
+					style="display: none;">
+					<div class="mCSB_draggerContainer">
+						<div id="mCSB_2_dragger_vertical" class="mCSB_dragger"
+							style="position: absolute; min-height: 30px; top: 0px;"
+							oncontextmenu="return false;">
+							<div class="mCSB_dragger_bar" style="line-height: 30px;"></div>
+						</div>
+						<div class="mCSB_draggerRail"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="send-box">
+			<a id="face" href="javascript:;" class="face"></a> <a id="sendChat"
+				href="javascript:;" class="send-chat">发送</a>
+			<textarea id="mywords"
+				onkeypress="if(event.keyCode == 13 &amp;&amp; !event.shiftKey){document.getElementById(&#39;sendChat&#39;).click();return false;}return true;"></textarea>
+		</div>
+		 <a href="javascript:;" class="hideVideo exchange" id="exchange">切换线或清晰度</a>
+		<a href="javascript:;" class="hideVideo" id="hideVideo">隐藏视频和文档</a>
+		<div class="video" id="video"></div>
+		<div class="doc" id="doc" style="display:none"></div>
+		<div class="modal" id="modal">
+			<ul id="lines"></ul>
+			<ul id="definitions"></ul>
+		</div>
+	</div>
+	<script type="text/javascript" src="jquery.min.js"></script>
+	<script
+		src="http://cnstatic01.e.vhall.com/3rdlibs/mCustomScrollbar/3.0.8/jquery.mCustomScrollbar.concat.min.js"></script>
+	<!--//static01.t.vhall.com-->
+	<script type="text/javascript"
+		src="http://cnstatic01.e.vhall.com/jssdk/dist/2.3.1/vhallSDK.js?v=20170113121"></script>
+	<script type="text/javascript"
+		src="http://apps.bdimg.com/libs/underscore.js/1.7.0/underscore-min.js"></script>
+
+   <script type="text/javascript"
+		src="custom_js/weihoudemo.js"></script>
+    
+    <script type="text/javascript"
+		src="custom_js/myself_custom.js"></script> 
+</body>
+</html>

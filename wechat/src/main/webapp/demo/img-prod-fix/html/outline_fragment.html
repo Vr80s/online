@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+	<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<head>
+<meta charset="UTF-8">
+<title>熊猫中医</title>
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
+<!--手机嵌入模板-->
+<script type="text/javascript" src="/xcviewssss/js/common/layout.js"></script>
+
+<script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script><!--滑动引入js-->
+<script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/common.js?version=b007cb5668"></script>
+<script type="text/javascript" src="/xcview/js/common/template.js?version=dd622e58c9"></script>
+<script type="text/javascript" src="/xcview/js/course_outline.js?version=cb4b3ebb98"></script>
+<script src="/xcview/js/course_outline.js?version=cb4b3ebb98"></script>
+<link rel="stylesheet" type="text/css" href="/xcview/css/course_outline.css?version=b27e1542b4" />
+<style>
+	*{
+	margin: 0;
+	padding: 0;
+}
+img{
+	border: 0;
+}
+li{
+	list-style: none;
+}
+a{
+	text-decoration: none;
+}
+.both{
+	clear: both;
+}
+
+/*头部开始*/
+header {
+    width: 7.5rem;
+    height: 0.88rem;
+    line-height: 0.88rem;
+    background: #fff;
+    position: fixed;
+    top: 0;
+    left: 50%;
+    margin-left: -3.75rem;
+    z-index: 9;
+    border-bottom: 1px solid #d8dde6;
+}
+.header {
+    width: 7.5rem;
+    height: 100%;
+    /*margin-left: 0.553rem;*/
+    /* padding-top: 0.298rem; */
+}
+.header_return {
+    width: 1.24rem;
+    height: 0.88rem;
+    line-height: 0.5rem;
+    /* background: red; */
+    margin-right: 0.362rem;
+    float: left;
+    position: absolute;
+    z-index: 10;
+    margin-left: 0.26rem;
+}
+.header_return img {
+    width: 0.24rem;
+    height: 0.42rem;
+}
+.header_title {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 0.36rem;
+    text-align: center;
+    color: #333;
+    z-index: 9;
+}
+
+/*头部结束*/
+
+/*中间内容开始*/
+.outline{
+	width: 7.5rem;
+    height: 100%;
+    background: #fff;
+    margin: 0 auto;
+    margin-top: 2.398rem;
+    margin-top: 1.1rem;
+}
+.outline_main{
+	margin-top: ;
+}
+.outline_title{
+	font-size: 0.32rem;
+	color: #333;
+	margin-bottom: 0.31rem;
+	text-align: center;
+    padding-top: 0.36rem;
+}
+.outline_cen{
+	width: 5.5rem;
+    margin: 0 auto;
+    margin-bottom: 0.32rem;
+}
+.outline_cen img{
+	width: 0.24rem;
+    height: 0.24rem;
+    float: left;
+    margin-top: 0.05rem;
+    margin-right: 0.1rem;
+}
+.outline_cen_left{
+	float: left;
+    font-size: 0.26rem;
+    color: #666666;
+    margin: 0 auto;
+    width: 2.98rem;
+}
+.outline_cen_right{
+	float: right;
+    font-size: 0.26rem;
+    color: #666666;
+}
+.outline_cen_border{
+	width: 100%;
+	border-bottom: 1px solid #f0f0f0;
+}
+.outline_list{
+	width: 6.98rem;
+    /* float: right; */
+    margin: 0 auto;
+    margin-top: 0.2rem;
+    margin-bottom: 0.2rem;
+}
+.outline_list_ul p{
+	font-size: 0.26rem;
+    color: #333333;
+    /*border-bottom: 1px solid #d8dde6;*/
+    /*padding: 0.3rem 0;*/
+    word-wrap: break-word;
+}
+.outline_list_ul img{
+    /*max-width: 15rem;*/
+}
+.top_show_height{
+	/* width: 7.5rem;
+	    height: 0.2rem; */
+}
+/*中间内容结束*/
+</style>
+
+</head>
+<!--手机嵌入模板-->
+<script>
+		// 整体代码响应式处理
+	var kk=document.documentElement.clientWidth;
+	if(kk>750){
+		kk=750
+	}
+	document.documentElement.style.fontSize=kk/7.5+"px";
+</script>
+<body style="background: #fff;">
+	<!--中间内容开始-->
+	<div class="outline" style="margin-top:0rem">
+		<div class="" style="width:7.5rem;margin: 0 auto;height: 0.2rem;background:#F8F8F8;"></div>
+		<div class="outline_main">
+			<script type="text/html" id="outline_main">
+			<div class="outline_title">{{gradeName}}</div>
+			<div class="outline_cen">
+				<div class="outline_cen_left">
+					<img src="../images/outline_bg.png" />
+					共{{courseNumber}}集，已更新{{dirtyNumber}}集 
+				</div>
+				<div class="outline_cen_right">
+					<img src="../images/time_bg0.png" />
+					{{dirtyDate}}
+				</div>
+				<div class="both"></div>
+			</div>
+			</script>
+		</div>	
+			<div class="outline_cen_border"></div>
+			<div class="outline_list">
+				<div class="outline_list_ul">
+				</div>
+			</div>
+			<div class="both"></div>
+	</div>
+	<div class="top_show_height"></div>
+	<!--中间内容结束-->
+	
+	<!--<div class="div0">
+		
+		<script type="text/html" id="div0">
+	    {{each items as item i}}	
+		<div class="">{{item.gradeName}}</div>
+		{{/each}}
+	    </script>
+	
+	</div>-->
+</body>
+<script>
+	/*var outline=$(window).height()-$(".top_show_height").height();
+    $(".outline").height(outline);*/
+</script>
+</html>

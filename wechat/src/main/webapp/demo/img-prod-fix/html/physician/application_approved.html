@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>熊猫中医</title>
+	<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<!-- 页面css引入 -->
+	<link rel="stylesheet" href="/xcview/css/physician/application_approved.css?version=3ff58d03e2">
+
+	<!--手机嵌入模板-->
+	<script type="text/javascript" src="/xcview/js/common/layout.js?version=e2b9d5cdbd"></script>
+</head>
+<body>
+<!-- 报名头部结束 -->
+<script id="entry_information_temp" type="text/html"> 
+	<!-- 弟子申请成功头部开始 -->
+	<header>
+		<div class="header">
+			<div class="return" onclick="location.href='/xcview/html/physician/physicians_page.html?doctor='+doctorId"><img src="/xcview/images/back%20icon.png" alt="" /></div>
+			<div class="apply_title">成为弟子申请</div>
+		</div>
+	</header>
+
+	<!-- 中间内容开始 -->
+	<div class="fiexd"></div>
+	<div class="reminder">
+		<div class="reminder_title">
+			<img src="/xcview/images/examine.png" alt="" />申请成功
+		</div>
+		<div class="reminder_dize">审核结果会以短信形式发送给您，请耐心等待</div>
+	</div>
+	<div class="main">
+		<div class="main_bg">
+			<div class="name">
+				姓名
+				<div class="size">{{name}}</div>
+				<div class="both"></div>
+			</div>
+			<div class="name">
+				手机号
+				<div class="size">{{tel}}</div>
+				<div class="both"></div>
+			</div>
+			<div class="age">
+				年龄
+				<div class="size">{{age}}</div>
+				<div class="both"></div>
+			</div>
+			<div class="sex">
+				性别
+				<div class="sex_hide" style="display:none;">
+					<img src="http://test-wx.xczhihui.com/xcview/images/right_jian.png" alt="" />
+				</div>
+				{{if sex == 1}}
+				<p class="sex_show">男</p>
+				{{else if sex == 0}}
+				<p class="sex_show">女</p>
+				{{/if}}
+				<div class="both"></div>
+			</div>
+			<div class="birthplace" style="border-bottom: 1px solid #f0f0f0;">
+				籍贯
+				<div class="size">{{nativePlace}}</div>
+				<div class="both"></div>
+			</div>
+			<div class="both"></div>
+			<div class="education">
+				学历
+				<p >{{education}}</p>
+				<div class="both"></div>
+			</div>
+			<div class="both"></div>
+		</div>
+		<div class="main_bg">
+			<div class="learning_experience">
+				<p>学习经历</p>
+				<div class="size" >{{educationExperience}}</div>
+				<div class="both"></div>
+			</div>
+			<div class="both"></div>
+		</div>
+		<div class="main_bg">
+			<div class="practice_medicine">
+				<p>行医经历</p>
+				<div class="size" >{{medicalExperience}}</div>
+				<div class="both"></div>
+			</div>
+			<div class="both"></div>
+		</div>
+		<div class="main_bg">
+			<div class="study">
+				<p>学中医目的</p>
+				<div class="size" >{{goal}}</div>
+				<div class="both"></div>
+			</div>
+			<div class="both"></div>
+		</div>
+		<div class="both"></div>
+		
+	</div>
+
+</script>
+
+</body>
+<!-- 中间内容结束 -->
+<script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/common.js?version=b007cb5668"></script>
+<script type="text/javascript" src="/xcview/js/common/template.js?version=dd622e58c9"></script>   <!--模板引入-->
+<!-- <script type="text/javascript" src="/xcview/js/apprentice/apprentice-common.js?version=934ffbca54"></script> -->
+<script type="text/javascript" src="/xcview/js/physician/application_approved.js?version=df9875edf8"></script>
+
+<script>
+/*window.onload = function(){
+	if(window.history && window.history.pushState) {  
+	    $(window).on('popstate', function() {  
+	        var hashLocation = location.hash;  
+	        var hashSplit = hashLocation.split("#!/");  
+	        var hashName = hashSplit[1];  
+	        if(hashName !== '') {  
+	            var hash = window.location.hash;  
+	            if(hash === '') {  
+	                location.href ='/xcview/html/apprentice/inherited_introduction.html'
+	            }  
+	        }  
+	    });  
+	    window.history.pushState('/xcview/html/apprentice/information_registration.html', null, './information_registration.html');  
+	}
+};*/
+</script>		
+</html>

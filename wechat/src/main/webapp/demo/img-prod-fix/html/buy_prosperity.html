@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>熊猫中医</title>
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link rel="stylesheet" type="text/css" href="/xcview/css/buy_prosperity.css?version=f87fc1b38c" />
+<!--手机嵌入模板-->
+<script type="text/javascript" src="/xcview/js/common/layout.js?version=e2b9d5cdbd"></script>
+<script>
+	// 判断横屏展示时的状态
+	window.onorientationchange=function(){
+	    if(window.orientation==90||window.orientation==-90){
+	        window.location.reload();  /*横屏状态刷新*/
+	    }else{
+	        window.location.reload();  /*竖屏状态刷新*/
+	    }
+	}	
+</script>
+ 
+ <style type="text/css">
+ 	.boutique_main_one_size .P1{
+ 		font-size: 0.22rem !important;
+ 	}
+ 	.boutique_main_one_size .P1 span{
+ 		font-size: 0.24rem !important;
+ 	}
+ 	.boutique_title{
+ 		margin-left: 0;
+ 	}
+ 	.hint{
+ 		width: 7.5rem;
+ 		height: 3.92rem;
+ 		background: #fff;
+ 		margin-top: 0.2rem;
+ 	}
+ 	.hint_main{
+ 		width: 7.24rem;
+ 		float: right;
+ 	}
+ 	.hint_name{
+	 	width: 100%;
+ 		height: 0.98rem;
+ 		line-height: 0.98rem;
+ 		border-bottom: 1px solid #f0f0f0;
+ 	}
+ 	.hint_name div{
+ 		width: 45%;
+		font-size: 0.28rem;
+		color: #333333;
+ 	}
+	.hint_name_left{
+		float: left;
+	}
+	.hint_name_right{
+		float: right;
+		text-align: right;
+		padding-right: 0.26rem;
+	}
+
+	.hint_tel{
+	 	width: 100%;
+ 		height: 0.98rem;
+ 		line-height: 0.98rem;
+ 		border-bottom: 1px solid #f0f0f0;
+ 	}
+ 	.hint_tel div{
+ 		width: 45%;
+		font-size: 0.28rem;
+		color: #333333;
+ 	}
+	.hint_tel_left{
+		float: left;
+	}
+	.hint_tel_right{
+		float: right;
+		text-align: right;
+		padding-right: 0.26rem;
+	}
+
+	.hint_wx{
+	 	width: 100%;
+ 		height: 0.98rem;
+ 		line-height: 0.98rem;
+ 		border-bottom: 1px solid #f0f0f0;
+ 	}
+ 	.hint_wx div{
+ 		width: 45%;
+		font-size: 0.28rem;
+		color: #333333;
+ 	}
+	.hint_wx_left{
+		float: left;
+	}
+	.hint_wx_right{
+		float: right;
+		text-align: right;
+		padding-right: 0.26rem;
+	}
+
+	.hint_sex{
+	 	width: 100%;
+ 		height: 0.98rem;
+ 		line-height: 0.98rem;
+ 	}
+ 	.hint_sex div{
+ 		width: 45%;
+		font-size: 0.28rem;
+		color: #333333;
+ 	}
+	.hint_sex_left{
+		float: left;
+	}
+	.hint_sex_right{
+		float: right;
+		text-align: right;
+		padding-right: 0.26rem;
+	}
+ </style>
+<body style="background: #F8F8F8;">
+	<!--头部搜索开始-->
+<div class="wp">
+	<div class="header-wrap">	
+		<div class="header">
+			<div class="header_return z">
+				<img src="/xcview/images/back icon.png">
+				<span>首页</span>
+			</div>
+			<p class="header_title">购买成功</p>
+		</div>	
+	</div>
+	<!--头部搜索结束-->
+	
+	<!--中间内容开始-->
+	<div class="prosperity">
+		<div class="buy_prosperity">
+			<div class="prosperity_title">
+				<div class="prosperity_yuan z">
+					<img src="../images/dui_img.png" />
+				</div>
+				<span class="msg_bug">购买成功</span>
+			</div>
+			<div class="purchase_details">
+				<div class="purchase_details_main">
+					<div class="purchase_details_main_cen">
+						<img src="../images/white.jpg" alt="" id="smallImgPath">
+						<div class="purchase_details_left">
+							<div class="purchase_details_title">
+								<span class="span1"></span>
+							</div>
+							<div class="purchase_details_title">
+								<span class="span0"></span>
+							</div>
+							<div class="both"></div>
+							<div class="purchase_details_money"><span class="span"></span><span class="span_fize">熊猫币</span></div>
+							<div class="prosperity_play" onclick="jump()">查看详情</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="prosperity_border"></div>
+			<div class="check_one">查看已购课程，请前往<span>学习中心</span></div>
+			<div class="check_two">继续寻找感兴趣的课程，请前往<span>学堂</span></div>
+		</div>
+
+		<div class="hint" style="display:none;">
+			<div class="hint_main">
+				<div class="hint_name">
+					<div class="hint_name_left">姓名</div>
+					<div class="hint_name_right"></div>
+					<div class="both"></div>
+				</div>
+				<div class="hint_tel">
+					<div class="hint_tel_left">手机号</div>
+					<div class="hint_tel_right"></div>
+					<div class="both"></div>
+				</div>
+				<div class="hint_wx">
+					<div class="hint_wx_left">微信号</div>
+					<div class="hint_wx_right"></div>
+					<div class="both"></div>
+				</div>
+				<div class="hint_sex">
+					<div class="hint_sex_left">性别</div>
+					<div class="hint_sex_right"></div>
+					<div class="both"></div>
+				</div>
+			</div>
+			<div class="both"></div>
+		</div>
+	
+
+		<!--猜你喜欢开始-->
+    	<div class="acupuncture">
+    		<div class="boutique_title">猜你喜欢</div>
+    		<div class="boutique_main">
+    			<ul>
+    				<!--视频-->
+    				<div class="lectures"></div>   				
+    				<script type="text/html" id="lectures">
+	                {{each items as item i}}
+    				<li>
+    					<a href="javascript: ;"  onclick="common_jump_all({{item.id}})">
+
+    						<div class="boutique_main_one">
+							<div class="boutique_one_img">
+    							<img src="{{item.smallImgPath}}?imageView2/2/w/339" alt="" />
+    						</div>			
+								{{if item.type == 1}}
+    								<img src="/xcview/images/tv_auto.png" alt="" class="boutique_main_one_img_type" />
+    							{{else if item.type == 2}}
+    								<img src="/xcview/images/frequency.png" alt="" class="boutique_main_one_img_type" />
+								{{else if item.type == 3}}
+    								<img src="/xcview/images/Sinatv_auto.png" alt="" class="boutique_main_one_img_type" />
+								{{else if item.type == 4}}
+    								<img src="/xcview/images/offline.png" alt="" class="boutique_main_one_img_type" />
+    							{{/if}}
+
+    						<div class="boutique_main_one_title">{{item.gradeName}}</div>
+    						<div class="boutique_main_one_author">{{item.name}}</div>
+							     {{if item.type == 1 || item.type == 2}}
+								   <div class="boutique_main_one_size">
+								 {{else if item.type == 3 }}
+								    <div class="boutique_main_two_size">
+								 {{else if item.type == 4}}
+								    <div class="boutique_main_four_size">
+		                         {{/if}}	
+
+								{{if item.watchState == 0 || item.watchState == 2 || item.watchState == 3}}
+								<p class="p1" style="margin-top: -0.01rem;"><span>{{item.currentPrice}}</span>熊猫币</p>
+								{{else}}
+    							<p class="p1"><span style="font-size: 0.24rem !important;">免费</span></p>
+								{{/if}}
+								
+    							<p class="p2"><img src="/xcview/images/population.png" alt="" /><span>{{item.learndCount}}</span></p>   						
+	                            {{if item.type == 3}}
+								   <p class="p3"><img src="/xcview/images/learn.png" alt="" /><span>{{item.startDateStr}}</span></p>
+								{{else if item.type == 4}}
+								   <p class="p3"><img src="/xcview/images/location_four.png" alt="" /><span>{{item.city}}</span></p>
+		                        {{/if}}							
+							</div>
+    					</div>
+    				</div>
+    			</div>
+
+    					</a>	
+    					
+    				</li>
+					{{/each}}
+					</script>
+    			
+    				<div class="both"></div>
+    			</ul>
+
+    		<div class="both"></div>
+
+    	<!--猜你喜欢结束-->
+	</div>
+	<!--中间内容结束-->
+	</div>
+</body>
+
+<script src="/xcview/js/common/jquery-1.8.3.min.js"></script><!--滑动引入js-->
+<script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/common.js?v=wechat_1.1.1&version=b007cb5668"></script>
+<script type="text/javascript" src="/xcview/js/common/template.js?version=dd622e58c9"></script>
+<script type="text/javascript" src="/xcview/js/buy_prosperity.js?v=wechat_1.1.1&version=e45bf46496"></script>
+<script type="text/javascript" src="/xcview/js/common/commonJumpPlay.js?v=wechat_1.1.111&version=5517f2545d"></script>
+
+<!--点击更多隐藏显示结束-->
+<script type="text/javascript">
+	window.onload = function(){
+//		点击详情
+		$("#li0").click(function(){
+			$(".container_main").show();
+			$(".course_detaiks_play").hide();
+			$(".li0").addClass("ul_li");
+			$(".li1").removeClass("ul_li");
+		});
+//		点击免费试听
+		$("#li1").click(function(){
+			$(".course_detaiks_play").show();
+			$(".container_main").hide();
+			$(".li1").addClass("ul_li");
+			$(".li0").removeClass("ul_li");
+		});
+		$("#li0").click();
+//		点击分享share
+		$(".header_share").click(function(){
+			$(".share").show();
+		});
+		
+		$(".share_cancel").click(function(){
+			$(".share").hide();
+		});
+		
+	};
+</script>
+</html>

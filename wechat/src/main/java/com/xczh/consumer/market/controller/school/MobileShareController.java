@@ -392,15 +392,19 @@ public class MobileShareController {
         } else {
             cv = courseServiceImpl.selectCurrentCourseStatus(courseId);
         }
-
+        
+       
+        LOGGER.warn("cv:"+cv+",ou:"+ou);
         if (cv == null) {
             return coursePage;
         }
         
+        LOGGER.warn("type:"+cv.getType()+",WatchState:"+cv.getWatchState()+",collection:"+cv.getCollection());
+     
         /*
          * 如果是师承直播的话，需要把判断有是不是弟子，有没有权限
          */
-        if(cv.getTeaching()) {
+        if(cv.getTeaching() && ou!=null ) {
         	Boolean falg = enrolService.checkAuthTeachingCourse(ou.getId(), courseId);	
         	//	是否有权限操作 true：有 false: 否
         	if(!falg) {
@@ -409,7 +413,8 @@ public class MobileShareController {
         }
         
     	//回放状态，并且没有设置生成回访时。
-    	if(cv.getLineState().equals(3) && !cv.getRecord()) {
+    	if(cv.getType().equals(3) && cv.getLineState().equals(3) && !cv.getRecord()) {
+    		
     		return  cv.getWatchState().equals(0) ? returnOpenidUri + WechatShareLinkType.SCHOOL_PLAY.getLink() + shareId : 
     			returnOpenidUri +WechatShareLinkType.LIVE_PLAY.getLink() +  shareId;    
     	}
@@ -430,6 +435,7 @@ public class MobileShareController {
         //用户登录 判断课程收费情况，或者是否购买    
         } else {
             if (cv.getWatchState().equals(0) || cv.getWatchState().equals(1)) {
+            	
                 if (cv.getType().equals(1) || cv.getType().equals(2)) {
                     //视频音频购买
                     coursePage = WechatShareLinkType.SCHOOL_AUDIO.getLink();
@@ -443,6 +449,7 @@ public class MobileShareController {
             } else if (cv.getWatchState().equals(2)) {
                 
                 if (cv.getType().equals(1) || cv.getType().equals(2)) {
+                	
                     if (cv.getCollection()) {
                         //专辑视频音频播放页
                         coursePage = WechatShareLinkType.LIVE_SELECT_ALBUM.getLink();

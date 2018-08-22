@@ -1,0 +1,144 @@
+<!doctype html>
+
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+
+<head>
+<meta charset="utf-8">
+<!--<title>更改邮箱</title>-->
+<title>熊猫中医</title>
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport"
+  content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<script>
+        (function(window){var setHtmlSize=function(w){var b=750/100;var c=window.innerWidth;if(w){c=w}var a=c/b;if(a<42){a=42}else if(a>60){a=60}document.querySelector("html").style.fontSize=a+"px";if(navigator.userAgent.indexOf("iPad")!=-1){document.querySelector("html").style.fontSize="60px"}};setHtmlSize();window.onresize=function(){var w=window.innerWidth;setHtmlSize(w)}}(window));
+</script>
+<!--手机嵌入模板-->
+<script type="text/javascript" src="/xcview/js/common/layout.js?version=e2b9d5cdbd"></script>
+<script>
+  // 判断横屏展示时的状态
+  window.onorientationchange=function(){
+      if(window.orientation==90||window.orientation==-90){
+          window.location.reload();  /*横屏状态刷新*/
+      }else{
+          window.location.reload();  /*竖屏状态刷新*/
+      }
+  } 
+</script>
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
+<!-- 网页自适应JS代码引入 -->
+<!--<script src="/xcview/js/common/js.js?version=3a0a82fe4c"></script>-->
+<link rel="stylesheet" href="/xcview/css/css.css?version=5b17527bf7">
+<link rel="stylesheet" href="/xcview/css/tailor.css?version=356a96e8a3">
+<link rel="stylesheet" href="/xcview/css/personCommon.css?version=434f673db3">
+<link rel="stylesheet" href="/xcview/css/vanish.css?version=34c2043536">
+<script type="text/javascript"  src="/xcview/js/common/jquery-1.8.3.min.js"></script>
+<!--公用弹框 -->
+<link rel="stylesheet" href="/xcview/css/alert/sharecss.css?version=f6e45d2a7e">
+<script type="text/javascript" src="/xcview/js/common/alertPopShow.js?version=3a4f24e3df"></script>
+
+<style type="text/css">
+body{
+    width: 7.5rem;
+    margin: 0 auto;
+    background: #fff;
+}
+.return {
+    background: url(../images/backicon.png) no-repeat;
+    background-size: 100% 100%;
+    width: 0.24rem;
+    height: 0.42rem;
+    margin-top: 0.22rem;
+    display: block;
+    margin-left: 0.26rem;
+}
+.web_toast{
+		/*font-size: 0.5rem !important;*/
+	}
+	
+	.dl{
+			position: fixed;
+			width: 7.5rem !important;
+			top: 0;
+			text-align: center;
+			z-index: 0;
+			pointer-events:none;
+		}
+</style>
+</head>
+
+<body>
+
+       <!-- 点击更改邮箱开始 -->
+<form id="form">       
+    <div class="mailbox" style="display: block;">
+      <div class="mailbox_top">
+        <div class="return" onclick="location.href ='persons.html'"></div>
+        <div class="dl">更改邮箱</div>
+        <div class="mailbox_right" style="margin-right: 0.26rem;">保存</div>
+        <div class="both"></div>
+      </div>
+      <div class="mailbox_put">
+        <input type="text" name="email" id="email" placeholder="请输入您的新邮箱" />
+      </div>
+      
+      <div style="text-align: center;color: red;margin-top: 20px;font-size: 14px;" id="errorMsg"></div>
+    </div>
+    <!-- 点击更改邮箱结束 -->
+ </form> 
+</body>
+<script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
+<script type="text/javascript"
+    src="/xcview/js/common/ajaxfileupload.js?version=d13e51c993"></script>
+<script type="text/javascript" src="/xcview/js/common/common.js?version=b007cb5668"></script>
+<script src="/xcview/js/common/jquery.min-2.1.1.js?version=d021c983bd" type="text/javascript"></script>
+<script>window.jQuery || document.write('<script src="/xcview/js/common/jquery-2.1.1.min.js"><\/script>')</script>
+<script src="/xcview/js/common/iscroll-zoom.js?version=c0ff33318d"></script>
+<script src="/xcview/js/common/hammer.js?version=88ee62d727"></script>
+<script type="text/javascript" src="/xcview/js/common/personCommon.js?version=17016eaf57"></script>
+<script>
+/**
+ * 	当前用户
+ */
+var username = localStorage.name;
+
+var cymYonghuInfo = $("#errorMsg");
+
+$(".mailbox_right").click(function(){
+	var regEmail = /^\w+([-+.]\w+)*@\w+([-.]\w{2,})*\.\w{2,}([-.]\w{2,})*$/;
+	var email =$("#email").val();
+	if(email == ""){
+           webToast("邮箱不能为空","middle",1500);
+		return false;
+	}else if (email.indexOf('@') == -1 && !regEmail.test(email)) {
+           webToast("请输入正确的邮箱!","middle",1500);
+           return false;
+    }else if (email.length < 5 || email.length > 32){
+           webToast("邮件长度在5-32之间","middle",1500);
+           return false;
+    }
+    var falg =setuserInfoWechat("email");
+    //验证名称的合法性
+  	if(falg){
+  	  location.href ='persons.html';	
+  	}
+    
+});
+			
+</script>
+<script>
+		function getQueryString(key){
+        var reg = new RegExp("(^|&)"+key+"=([^&]*)(&|$)");
+        var result = window.location.search.substr(1).match(reg);
+        return result?decodeURIComponent(result[2]):null;
+      }	
+      var username_id = getQueryString('username_mail');
+		username_id == "立即绑定" ? $("#email").val("") : $("#email").val(username_id)
+		
+</script>
+</html>
+

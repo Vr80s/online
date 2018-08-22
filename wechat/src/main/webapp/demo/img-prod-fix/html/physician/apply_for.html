@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>熊猫中医</title>
+	<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<!-- 页面css引入 -->
+	<link rel="stylesheet" href="/xcview/css/physician/apply_for.css?version=3890ac13fe">
+	<!--公用弹框 -->
+	<link rel="stylesheet" href="/xcview/css/alert/sharecss.css?version=f6e45d2a7e">
+	<!-- 籍贯引入css -->
+	<link href="/xcview/css/mui.picker.css?version=d4e0f60194" rel="stylesheet" />
+	<link href="/xcview/css/mui.poppicker.css?version=4dd3a1d2b5" rel="stylesheet" />
+
+	<!--手机嵌入模板-->
+	<script type="text/javascript" src="/xcview/js/common/layout.js?version=e2b9d5cdbd"></script>
+
+	<style>
+		.person_cen_top {
+		    width: 100%;
+		    margin: 0 auto;
+		    padding: 0.29rem 0;
+		    border-bottom: 1px solid #e5e5e5;
+		    /* margin-bottom: 0.4rem; */
+		}
+		.person_p1 {
+		    float: left;
+		    color: #666;
+		    font-size: 0.28rem;
+		}
+		.person_cen_right {
+		    float: right;
+		}
+		.person_cen_right p {
+		    font-size: 0.26rem;
+		    color: #666;
+		    float: left;
+		    overflow: hidden;
+		    white-space: nowrap;
+		    text-overflow: ellipsis;
+		    width: 5rem;
+		    text-align: right;
+		    /* background: #007AFF; */
+		}
+		.my_right_img {
+		    float: right;
+		    width: 3rem;
+		    text-align: right;
+		    margin-right: 0.26rem;
+		    margin-top: 0.03rem;
+    		width: 0.25rem;
+		}
+		.my_right_img img {
+		    width: 0.15rem;
+		    height: 100%;
+		    display: inline-block;
+		}
+	</style>
+</head>
+<body>
+	<!-- 报名头部开始 -->
+	<header>
+		<div class="header">
+			<div class="return" onclick="window.history.go(-1);"><img src="/xcview/images/back%20icon.png" alt="" /></div>
+			<div class="apply_title">成为弟子申请</div>
+		</div>
+	</header>
+	<!-- 报名头部结束 -->
+
+	<!-- 中间内容开始 -->
+	<div class="fiexd"></div>
+	<div class="main">
+		<div class="main_bg">
+
+			<!-- 地址选择地址  -->
+			<!-- <div class="person_cen_top" id="showCityPicker">
+				<p class="person_p1">选择地址</p>
+				<div class="person_cen_right">
+					<p id="xzdz"></p>
+					<div class="my_right_img"><img src="/xcview/images/right_jian.png"></div>
+				</div>
+				<div class="both"></div>
+			</div> -->
+
+
+			<div class="name">
+				姓名
+				<input type="text" placeholder="请输入" />
+				<div class="both"></div>
+			</div>
+			<div class="tel">
+				手机号
+				<input type="tel" placeholder="请输入"  maxlength="11" onkeyup="value=value.replace(/[^\d]/g,'')"/>
+				<div class="both"></div>
+			</div>
+			<div class="age">
+				年龄
+				<input type="tel" placeholder="请输入" maxlength="3" onkeyup="value=value.replace(/[^\d]/g,'')"/>
+				<div class="both"></div>
+			</div>
+			<div class="sex">
+				性别
+				<div class="sex_hide">
+					<img src="/xcview/images/right_jian.png" alt="" />
+				</div>
+				<p class="sex_show"></p>  <!-- 男女传值 -->
+				<div class="both"></div>
+			</div>
+			<div class="birthplace">
+				籍贯
+				<input type="text" placeholder="请输入" />
+				<div class="both"></div>
+			</div>
+			<div class="both"></div>
+			<div class="education">
+				学历
+				<div class="sex_hide">
+					<img src="/xcview/images/right_jian.png" alt="" />
+				</div>
+				<p class="education_show"></p>  <!-- 男女传值 -->
+				<div class="both"></div>
+			</div>
+			<div class="both"></div>
+		</div>
+		<div class="main_bg">
+			<div class="learning_experience">
+				<p>学习经历</p>
+				<!-- <input type="text" placeholder="请输入" /> -->
+				<textarea class="copyreader" contenteditable="true" placeholder="请输入" ></textarea>
+				<div class="both"></div>
+			</div>
+			<div class="both"></div>
+		</div>
+		<div class="main_bg">
+			<div class="practice_medicine">
+				<p>行医经历</p>
+				<!-- <input type="text" placeholder="请输入" /> -->
+				<textarea class="copyreader" contenteditable="true" placeholder="请输入" ></textarea>
+				<div class="both"></div>
+			</div>
+			<div class="both"></div>
+		</div>
+		<div class="main_bg">
+			<div class="study">
+				<p>学中医目的</p>
+				<!-- <input type="text" placeholder="请输入"  /> -->
+				<textarea class="copyreader" contenteditable="true" placeholder="请输入" ></textarea>
+				<div class="both"></div>
+			</div>
+			<div class="both"></div>
+		</div>
+		<div class="buttom opacity" data-able="1">提交弟子申请</div>
+		<!-- <div class="buttom opacity" onclick="location.href ='information_registration.html'">提交报名申请</div> -->
+		<!-- <div class="buttom opacity" onclick="reportComment()">提交报名申请</div> -->
+		<!-- <div class="" style="color: #f97b49;font-size: 0.26rem;width: 6.98rem;margin: 0 auto;margin-bottom: 0.2rem;">申请通过后，会有客服与您联系~请确保您的信息准确无误，保持电话畅通~</div>
+		<div class="both"></div> -->
+	</div>
+	<!-- 点击性别出现弹窗开始 -->
+		<div class="popup">
+			<div class="popup_bg"></div>
+			<div class="popup_sex">
+				<div class="man" id="man">男</div>
+				<div class="she" id="she">女</div>
+			</div>
+		</div>
+	<!-- 点击性别出现弹窗结束 -->
+
+	<!-- 点击学历出现弹窗开始 -->
+		<div class="education_background">
+			<div class="education_background_bg"></div>
+			<div class="education_background_sex">
+				<div class="man edu" data-id="5" id="undergraduate">本科</div>
+				<div class="she edu" data-id="6" id="master">硕士</div>
+				<div class="she edu" data-id="7" id="doctor">博士</div>
+				<div class="she edu" data-id="0" id="not_have">无</div>
+			</div>
+		</div>
+	<!-- 点击学历出现弹窗结束 -->
+	<!-- 中间内容结束 -->
+
+</body>
+<script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/common.js?v=wechat_1.1.1&version=b007cb5668"></script>
+<script type="text/javascript" src="/xcview/js/apprentice/apprentice-common.js?version=934ffbca54"></script>
+<script type="text/javascript" src="/xcview/js/common/alertPopShow.js?version=3a4f24e3df"></script>
+
+<!-- 增加籍贯选择引入开始 -->
+<script src="/xcview/js/city.js?version=1adafee3a0"></script>
+<script src="/xcview/js/common/picker.min.js"></script>
+<script src="/xcview/js/common/mui.picker.js?version=81933de995"></script>
+<script src="/xcview/js/common/mui.poppicker.js?version=bffdd65098"></script>
+<!-- 增加籍贯选择引入结束 -->
+<script type="text/javascript" src="/xcview/js/physician/apply_for.js?version=3a5c94b0a8"></script>
+<script> 
+	//省市区
+		var picker = new mui.PopPicker({
+	   	 	layer: 3
+		});
+		picker.setData(mucityData);
+		
+		//给这个省市区下拉框增加 默认值，如果有的情况下
+		
+		//countyName  cityName     provinceName
+		
+		var pervinceValue = localStorage.getItem("regionAreaId");
+		var cityValue = localStorage.getItem("regionCityId");
+		var disValue = localStorage.getItem("regionId");
+		
+		
+		function countMin(){
+			picker.pickers[0].setSelectedValue(3);
+			picker.pickers[3].setSelectedValue(6);
+			picker.pickers[6].setSelectedValue(2);
+		}
+		setTimeout(function(){
+			//这个就是mui的的多级选择。我的天
+			if(isNotBlank(pervinceValue) && isNotBlank(cityValue) && isNotBlank(disValue)){
+				picker.pickers[0].setSelectedValue(pervinceValue,0,function(){
+					picker.pickers[1].setSelectedValue(cityValue,0,function(){
+						picker.pickers[2].setSelectedValue(disValue);
+					});
+				});
+			}
+		},2000)
+		
+		
+		var showCityPicker = document.getElementById('showCityPicker');
+		var cityResult = document.getElementById('xzdz');
+		showCityPicker.addEventListener('tap', function(event) {
+			picker.show(function(items) {
+				var citysNames = "";
+				var citysIds ="";
+				for (var int = 0; int < items.length; int++) {
+					if(int == items.length){
+						citysNames +=items[int].text;
+						citysIds +=items[int].value;
+					}else{
+						citysNames +=items[int].text +" ";
+						citysIds +=items[int].value +" ";
+					}
+				}
+				if(items.length>=2){
+					picker.pickers[0].setSelectedValue(items[0].value);
+					picker.pickers[1].setSelectedValue(items[1].value);
+					picker.pickers[2].setSelectedValue(items[2].value);
+				}
+				cityResult.innerText = citysNames;
+				cityResult.className = citysIds;
+				setuserInfoWechat("provinceCityName");
+			});
+		}, false);
+</script>
+</html>

@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>熊猫中医</title>
+	<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<!-- 页面css引入 -->
+	<link rel="stylesheet" href="/xcview/css/line_class.css?version=3d97839d09">
+	<!--公用弹框 -->
+	<link rel="stylesheet" href="/xcview/css/alert/sharecss.css?version=f6e45d2a7e">
+	<!--手机嵌入模板-->
+	<script type="text/javascript" src="/xcview/js/common/layout.js?version=e2b9d5cdbd"></script>
+	<style>
+		.web_toasts{
+		    width: 3.8 !important;
+		    left: 50% !important;
+		    margin-left: -2rem !important;
+		}
+	</style>
+</head>
+<body>
+	<!-- 报名头部开始 -->
+	<header>
+		<div class="header">
+			<div class="return" onclick="window.history.go(-1);"><img src="/xcview/images/back icon.png" alt="" /></div>
+			<div class="apply_title">填写报名信息</div>
+		</div>
+	</header>
+	<!-- 报名头部结束 -->
+
+	<!-- 中间内容开始 -->
+	<div class="fiexd"></div>
+	
+	<div class="main">
+		<div class="main_hint">
+			<div class="main_hint_img"><img src="/xcview/images/line_class.png" alt="" /></div>
+			<div class="main_hint_size">为保障您的个人权益，请填写相应信息，便于活动提醒、入场时的身份确认、以及特殊通知的送达，以确保您能顺利进入会场，避免他人冒充。</div>
+		</div>
+		<div class="both"></div>
+		<div class="main_bg">
+			<div class="name">
+				姓名
+				<input type="text" placeholder="请输入" />
+				<div class="both"></div>
+			</div>
+			<div class="tel">
+				手机号
+				<input type="tel" placeholder="请输入" maxlength="11" />
+				<div class="both"></div>
+			</div>
+			<div class="age">
+				微信号
+				<input type="text" placeholder="请输入" />
+				<div class="both"></div>
+			</div>
+			<div class="sex">
+				性别
+				<div class="sex_hide">
+					<img src="/xcview/images/right_jian.png" alt="" />
+				</div>
+				<p class="sex_show"></p>  <!-- 男女传值 -->
+				<div class="both"></div>
+			</div>
+			
+			<div class="both"></div>
+		</div>
+		<div class="buttom opacity" data-able="1" style="opacity: 0.3;">提交</div>
+		<div class="both"></div>
+		<div class="weixin">
+			<div class="weixin_hint">如何获取您的微信号：<br />打开手机微信，选择我，在昵称下方即为您的微信号</div>
+			<div class="img"><img src="/xcview/images/weixin_hine.png" alt="" /></div>
+		</div>
+	</div>
+	<!-- 点击性别出现弹窗开始 -->
+		<div class="popup">
+			<div class="popup_bg"></div>
+			<div class="popup_sex">
+				<div class="man" id="man">男</div>
+				<div class="she" id="she">女</div>
+			</div>
+		</div>
+	<!-- 点击性别出现弹窗结束 -->
+
+	<!-- 中间内容结束 -->
+</body>
+<script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
+<!-- 弹框 -->
+<script type="text/javascript" src="/xcview/js/common/alertPopShow.js?version=3a4f24e3df"></script>
+<script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/common.js?v=wechat_1.1.1&version=b007cb5668"></script>
+<script type="text/javascript" src="/xcview/js/line_class.js?version=90e6f06633"></script>
+
+</html>
