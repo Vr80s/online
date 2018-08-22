@@ -551,7 +551,11 @@
 								{{if item.type==5}}
 								<div class="save-class-wrap">
 									{{if item.courseStatus==true}}
-									<a href="/courses/{{item.courseId}}/info" style="width: 100%;" target="_blank">
+										{{if item.treatmentStatus == 4}}
+											<a href="javascript:;" onclick="lowerFramezhenliao()" style="width: 100%;">
+											{{else}}
+											<a href="/courses/{{item.courseId}}/info" style="width: 100%;" target="_blank">
+										{{/if}}
 									{{else}}
 									<a href="javascript:;" onclick="lowerFrame()" style="width: 100%;">
 									{{/if}}

@@ -3158,7 +3158,9 @@ function echoMedia(index) {
 		showTip("该内容下架")
 	}
 
-
+	function lowerFramezhenliao(){
+		showTip("该直播取消")
+	}
 
 //轮播图设置====================
 var resetInputVal='<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>'+
