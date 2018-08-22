@@ -1,11 +1,11 @@
 package com.xczhihui.course.vo;
 
 
-import com.xczhihui.common.util.XzStringUtils;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Map;
+
+import com.xczhihui.common.util.XzStringUtils;
 
 
 /**
@@ -209,13 +209,13 @@ public class CourseLecturVo implements Serializable {
     private Integer dirtyNumber; //已更新多少集
 
     private String dirtyDate; //更新时间
-    
+
     private String outlineDetailsUrl;//富文本课程大纲的html片段url
-    
+
     private String doctorId; //医师id
-    
+
     private Integer hostType; //主播类型：type：1 医师主播    type:2 医馆主播
-    
+
     private Boolean teaching; //是否师承课程
 
     private String channelId;
@@ -235,16 +235,21 @@ public class CourseLecturVo implements Serializable {
      * 是否提交线下课报名表单
      */
     private boolean submitted;
-    
+
     /**
      * 专辑提示。此付费课程是否包含在付费的专辑中，如果包含的话，做一个提示
      */
-    private Map<String,Object> collectionHint;
-    
+    private Map<String, Object> collectionHint;
+
     /**
      * 医师名字
      */
-    private String doctorName; 
+    private String doctorName;
+
+
+    private String appointmentInfoId;
+
+    private Integer liveStatus;
 
     public String getAppid() {
         return appid;
@@ -866,28 +871,43 @@ public class CourseLecturVo implements Serializable {
         this.vhallYunToken = vhallYunToken;
     }
 
-	public Integer getLiveCase() {
-		return liveCase;
-	}
+    public Integer getLiveCase() {
+        return liveCase;
+    }
 
-	public void setLiveCase(Integer liveCase) {
-		this.liveCase = liveCase;
-	}
+    public void setLiveCase(Integer liveCase) {
+        this.liveCase = liveCase;
+    }
 
-	public Map<String, Object> getCollectionHint() {
-		return collectionHint;
-	}
+    public Map<String, Object> getCollectionHint() {
+        return collectionHint;
+    }
 
-	public void setCollectionHint(Map<String, Object> collectionHint) {
-		this.collectionHint = collectionHint;
-	}
+    public void setCollectionHint(Map<String, Object> collectionHint) {
+        this.collectionHint = collectionHint;
+    }
 
-	public String getDoctorName() {
-		return doctorName;
-	}
+    public String getDoctorName() {
+        return doctorName;
+    }
 
-	public void setDoctorName(String doctorName) {
-		this.doctorName = doctorName;
-	}
-	
+    public void setDoctorName(String doctorName) {
+        this.doctorName = doctorName;
+    }
+
+    public String getAppointmentInfoId() {
+        return appointmentInfoId;
+    }
+
+    public void setAppointmentInfoId(String appointmentInfoId) {
+        this.appointmentInfoId = appointmentInfoId;
+    }
+
+    public Integer getLiveStatus() {
+        return liveStatus;
+    }
+
+    public void setLiveStatus(Integer liveStatus) {
+        this.liveStatus = liveStatus;
+    }
 }

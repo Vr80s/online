@@ -145,6 +145,9 @@ public class MedicalDoctorSolrServiceImpl implements IMedicalDoctorSolrService {
     @Override
     public MedicalDoctorSolrVO selectDoctor4SolrById(String id) {
         List<MedicalDoctorSolrVO> medicalDoctorSolrVOs = medicalDoctorMapper.selectDoctorList4Solr(id);
+        if (medicalDoctorSolrVOs.size() == 0) {
+            return null;
+        }
         MedicalDoctorSolrVO medicalDoctorSolrVO = medicalDoctorSolrVOs.get(0);
         handleMedicalDoctorSolrVO(medicalDoctorSolrVO);
         return medicalDoctorSolrVO;

@@ -116,7 +116,8 @@
         oc.channel_id as channelId,
         oc.record_id as recordId,
         oc.live_case as liveCase,
-        oc.is_teaching teaching
+        oc.is_teaching teaching,
+        oc.live_status as liveStatus
         FROM
         oe_course as oc
         inner join course_anchor as ou on oc.user_lecturer_id = ou.user_id
@@ -539,8 +540,8 @@
         ( SELECT count(*) FROM `oe_course` soc JOIN `collection_course` cc
         ON soc.id = cc.`course_id` WHERE cc.`collection_id` = oc.id )
         ,0
-        ) as dirtyNumber
-        
+        ) as dirtyNumber,
+        oc.appointment_info_id as appointmentInfoId
         
         from
         course_apply_info cai

@@ -47,6 +47,9 @@ public class Treatment implements Serializable {
     @TableField("info_id")
     private Integer infoId;
 
+    @TableField("course_id")
+    private Integer courseId;
+
     public Integer getId() {
         return id;
     }
@@ -111,14 +114,6 @@ public class Treatment implements Serializable {
         this.deleted = deleted;
     }
 
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
     public Integer getInfoId() {
         return infoId;
     }
@@ -129,5 +124,17 @@ public class Treatment implements Serializable {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public Integer getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(Integer courseId) {
+        this.courseId = courseId;
     }
 }

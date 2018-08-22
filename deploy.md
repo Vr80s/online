@@ -188,9 +188,13 @@ dev-2.5
 	INSERT INTO `doctor_type` VALUES (3, '少数名族中医', NULL, 3, 'admin', '2018-08-07 15:01:46', b'0', 1, NULL);
 	INSERT INTO `doctor_type` VALUES (4, '国医大师', NULL, 4, 'admin', '2018-08-07 15:03:41', b'0', 1, NULL);
 	INSERT INTO `doctor_type` VALUES (5, '家传中医', NULL, 5, 'admin', '2018-08-07 15:04:05', b'0', 1, NULL);
-    
-    
+
     增加直播状况字段 
     ALTER TABLE `oe_course` ADD COLUMN `live_case` int(1) DEFAULT '1' COMMENT '直播状况。1.正常直播 2.退出但不结束' AFTER `live_status`; 
-    
-    
+
+    ALTER TABLE `medical_treatment_appointment_info` ADD `status` INT(11)  NULL  DEFAULT NULL  COMMENT '预约状态'  AFTER `apprentice_id`;
+    ALTER TABLE `medical_treatment_appointment_info` ADD `deleted` BIT(1)  NULL  DEFAULT 0  COMMENT '是否删除'  AFTER `apprentice_id`;
+    ALTER TABLE `medical_treatment` ADD `course_id` INT(11)  NULL  DEFAULT NULL  COMMENT '课程id';
+    update `medical_treatment_appointment_info` info set info.`status` = (select mt.status from medical_treatment mt where mt.`info_id` = info.id);
+    update medical_treatment_appointment_info set status = 3 where status is null;
+    update medical_treatment_appointment_info set deleted = 0 where deleted is null;

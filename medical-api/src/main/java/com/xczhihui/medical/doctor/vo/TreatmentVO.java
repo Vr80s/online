@@ -1,9 +1,9 @@
 package com.xczhihui.medical.doctor.vo;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.io.Serializable;
 import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * @author hejiwei
@@ -47,6 +47,17 @@ public class TreatmentVO implements Serializable {
 
     //是否可点击开始远程诊疗
     private Boolean isStart;
+
+    private String nickname;
+
+    private String avatar;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date treatmentTime;
+
+    private Integer courseId;
+
+    private Date sysDate = new Date();
 
     @Override
     public String toString() {
@@ -195,5 +206,45 @@ public class TreatmentVO implements Serializable {
 
     public void setStart(Boolean start) {
         isStart = start;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public Date getTreatmentTime() {
+        return treatmentTime;
+    }
+
+    public void setTreatmentTime(Date treatmentTime) {
+        this.treatmentTime = treatmentTime;
+    }
+
+    public Integer getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(Integer courseId) {
+        this.courseId = courseId;
+    }
+
+    public Date getSysDate() {
+        return sysDate;
+    }
+
+    public void setSysDate(Date sysDate) {
+        this.sysDate = sysDate;
     }
 }
