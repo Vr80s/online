@@ -1,21 +1,17 @@
 package com.xczh.consumer.market.controller.course;
 
+import com.xczh.consumer.market.auth.Account;
+import com.xczh.consumer.market.interceptor.HeaderInterceptor;
+import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczhihui.course.model.Course;
+import com.xczhihui.course.service.ICourseService;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsService;
+import com.xczhihui.medical.doctor.service.IRemoteTreatmentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.xczh.consumer.market.auth.Account;
-import com.xczh.consumer.market.interceptor.HeaderInterceptor;
-import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczhihui.common.util.enums.MessageTypeEnum;
-import com.xczhihui.common.util.enums.RouteTypeEnum;
-import com.xczhihui.course.params.BaseMessage;
-import com.xczhihui.course.service.ICourseService;
-import com.xczhihui.medical.doctor.model.TreatmentAppointmentInfo;
-import com.xczhihui.medical.doctor.service.IRemoteTreatmentService;
 
 /**
 * @ClassName: TherapyliveController
@@ -33,6 +29,10 @@ public class TherapyliveController {
 	@Autowired
 	private ICourseService courseService;
 
+    @Autowired
+    private IMedicalDoctorPostsService medicalDoctorPostsService;
+	
+
     //审核通过
     @RequestMapping(value = "pass", method = RequestMethod.GET)
     public ResponseObject pass(@RequestParam int id, @Account String accountId) throws Exception {
@@ -44,6 +44,11 @@ public class TherapyliveController {
     	
     	//3、医师动态生成新的直播动态
     	
+    	Integer courseId = courseService.createTherapyLive(id,clientType,accountId);
+    	
+    	//3、医师动态生成新的直播动态
+        Course course = courseService.selectById(courseId);
+        medicalDoctorPostsService.addDoctorPosts(accountId, course.getId(), null, course.getGradeName(), course.getSubtitle(), course.getAppointmentInfoId());
         return ResponseObject.newSuccessResponseObject("操作成功");
     }
 	

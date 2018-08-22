@@ -641,7 +641,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Lock(lockName = "createTherapyLive", waitTime = 5, effectiveTime = 8)
-	public void createTherapyLive(Integer lockId,Integer clientType,String accountId) throws Exception {
+	public Integer createTherapyLive(Integer lockId,Integer clientType,String accountId) throws Exception {
 		
 		/**
 		 * 查找生成诊疗直播的必要信息
@@ -728,10 +728,16 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
          *  1、需要短信模板。后期在说，现提供接口在说吧。
          */
         //sendTherapyMessage(cv,accountId);
+        return course.getId();
 	}
 
-	
-	public void sendTherapyMessage(CourseLecturVo cv,String userId) throws Exception {
+    @Override
+    public Course selectById(Integer courseId) {
+        return iCourseMapper.selectById(courseId);
+    }
+
+
+    public void sendTherapyMessage(CourseLecturVo cv,String userId) throws Exception {
 		
 		/*
     	 * 1、发送短信提示
