@@ -360,7 +360,8 @@ public class Course extends Model<Course> {
     @TableField("inav_id")
     private String inavId;
     
-
+    @TableField("create_time")
+    private Date createTime;
     
     @Override
     protected Serializable pkVal() {
@@ -1042,5 +1043,42 @@ public class Course extends Model<Course> {
 	public void setInavId(String inavId) {
 		this.inavId = inavId;
 	}
+
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+
+	@Override
+	public String toString() {
+		return "Course [id=" + id + ", lecturerId=" + lecturerId + ", userLecturerId=" + userLecturerId + ", gradeName="
+				+ gradeName + ", subtitle=" + subtitle + ", liveTime=" + liveTime + ", smallImgPath=" + smallImgPath
+				+ ", detailImgPath=" + detailImgPath + ", bigImgPath=" + bigImgPath + ", description=" + description
+				+ ", graduateTime=" + graduateTime + ", cloudClassroom=" + cloudClassroom + ", sort=" + sort
+				+ ", courseType=" + courseType + ", status=" + status + ", learndCount=" + learndCount
+				+ ", originalCost=" + originalCost + ", courseLength=" + courseLength + ", currentPrice=" + currentPrice
+				+ ", menuId=" + menuId + ", courseTypeId=" + courseTypeId + ", isFree=" + isFree + ", classTemplate="
+				+ classTemplate + ", courseDetail=" + courseDetail + ", courseOutline=" + courseOutline
+				+ ", commonProblem=" + commonProblem + ", isRecommend=" + isRecommend + ", recommendSort="
+				+ recommendSort + ", qqno=" + qqno + ", descriptionShow=" + descriptionShow + ", recImgPath="
+				+ recImgPath + ", startTime=" + startTime + ", endTime=" + endTime + ", assistantId=" + assistantId
+				+ ", directSeeding=" + directSeeding + ", directId=" + directId + ", externalLinks=" + externalLinks
+				+ ", flowersNumber=" + flowersNumber + ", pv=" + pv + ", highestNumberLine=" + highestNumberLine
+				+ ", endLineNumber=" + endLineNumber + ", type=" + type + ", serviceType=" + serviceType
+				+ ", classRatedNum=" + classRatedNum + ", teacherImgPath=" + teacherImgPath + ", gradeQQ=" + gradeQQ
+				+ ", defaultStudentCount=" + defaultStudentCount + ", isSent=" + isSent + ", version=" + version
+				+ ", address=" + address + ", liveStatus=" + liveStatus + ", multimediaType=" + multimediaType
+				+ ", liveSource=" + liveSource + ", examineId=" + examineId + ", city=" + city + ", liveSourceType="
+				+ liveSourceType + ", isDelete=" + isDelete + ", teaching=" + teaching + ", releaseTime=" + releaseTime
+				+ ", playBackType=" + playBackType + ", collection=" + collection + ", channelId=" + channelId
+				+ ", recordId=" + recordId + ", record=" + record + ", liveCase=" + liveCase + ", appointmentInfoId="
+				+ appointmentInfoId + ", lecturerDescription=" + lecturerDescription + ", lecturer=" + lecturer
+				+ ", clientType=" + clientType + ", inavId=" + inavId + ", createTime=" + createTime + "]";
+	}
+	
+	
 	
 }

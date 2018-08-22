@@ -422,7 +422,7 @@ public class SchoolController extends AbstractFtlController {
         String userId = getUserId();
         CourseLecturVo courseLecturVo = courseService.selectCourseMiddleDetailsById(userId, courseId);
         if (courseLecturVo == null || !courseLecturVo.getUserLecturerId().equals(userId)) {
-            return new ModelAndView("/courses/recommendation");
+            return new ModelAndView("redirect:/courses/recommendation");
         }
         String channelId = courseLecturVo.getChannelId();
         String roomId = courseLecturVo.getDirectId();
@@ -433,6 +433,7 @@ public class SchoolController extends AbstractFtlController {
         modelAndView.addObject("channelId", channelId);
         modelAndView.addObject("roomId", roomId);
         modelAndView.addObject("accountId", userId);
+        modelAndView.addObject("liveStatus", courseLecturVo.getLiveStatus());
         modelAndView.addObject("documents", anchorInfoService.listDocument(userId));
         modelAndView.addObject("token", BaseService.createAccessToken4Live(userId, roomId, channelId));
         modelAndView.addObject("appId", VhallUtil.APP_ID);

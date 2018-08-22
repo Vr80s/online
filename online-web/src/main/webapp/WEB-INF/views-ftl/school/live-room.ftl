@@ -15,6 +15,7 @@
 <input type="hidden" id="J_token" value="${token}"/>
 <input type="hidden" id="J_nickname" value="${anchor.name}"/>
 <input type="hidden" id="J_headImg" value="${anchor.smallHeadPhoto}"/>
+<input type="hidden" id="J_liveStatus" value="${liveStatus}"/>
 <script>
     var courseId = "${courseId}";
     var collectionId = "";

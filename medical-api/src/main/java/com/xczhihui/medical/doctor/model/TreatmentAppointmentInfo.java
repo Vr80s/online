@@ -37,7 +37,8 @@ public class TreatmentAppointmentInfo implements Serializable {
     
     @TableField("status")
     private Integer status;
-    
+
+    private Boolean deleted;
 
     public Integer getId() {
         return id;
@@ -103,14 +104,19 @@ public class TreatmentAppointmentInfo implements Serializable {
         this.apprenticeId = apprenticeId;
     }
 
-	public Integer getStatus() {
-		return status;
-	}
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
 
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
-    
-    
-    
+    public Integer getStatus() {
+        return status;
+    }
+
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
+    }
 }

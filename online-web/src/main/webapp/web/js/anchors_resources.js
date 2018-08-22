@@ -1992,6 +1992,7 @@ function btnColorReply(){
     //	著作部分,点击发布验证文本框
     function workValidate(workData) {
         var urlHttp = /^http:\/\//;
+        var urlHttps = /^https:\/\//;
         if (workData.title == "") {
             $(".work-book-warning").removeClass("hide");
             return false;
@@ -2023,7 +2024,7 @@ function btnColorReply(){
         } else {
             $(".work-link-warning").addClass("hide");
         }
-        if (!urlHttp.test(workData.buyLink)) {
+        if (!urlHttp.test(workData.buyLink) && !urlHttps.test(workData.buyLink)) {
             $(".work-link2-warning").removeClass("hide");
             return false;
         } else {
@@ -2292,6 +2293,7 @@ function btnColorReply(){
     //	媒体报道部分,点击发布验证文本框
     function mediaValidate(mediaData) {
     	var urlHttp = /^http:\/\//;
+    	var urlHttps= /^https:\/\//;
         if (mediaData.title == "") {
             $(".media-title-warning").removeClass("hide");
             return false;
@@ -2323,7 +2325,7 @@ function btnColorReply(){
         } else {
             $(".media-url-warning").addClass("hide");
         }
-        if (!urlHttp.test(mediaData.url)) {
+        if (!urlHttp.test(mediaData.url) && !urlHttps.test(mediaData.url)) {
             $(".media-url2-warning").removeClass("hide");
             return false;
         } else {
@@ -2727,27 +2729,32 @@ $('#docJoinHos').click(function () {
         if (data.success == true) {
             //入住过医馆
             //头像预览
-            $('#hospital_bottom .selectpicker').selectpicker('val', (data.resultObject.id));
-            if (data.resultObject.visitTime == null) return;
-            //坐诊时间渲染
-            var workArr = data.resultObject.visitTime.split(",");
-
+            if(data.resultObject!=null){
+            	$('#hospital_bottom .selectpicker').selectpicker('val', (data.resultObject.id));
+            
+            
+	            if (data.resultObject.visitTime == null) return;
+	            //坐诊时间渲染
+	            var workArr = data.resultObject.visitTime.split(",");
+	
+					
+				var selectTime;
+				var sureType=[];
+				var saveData;
 				
-			var selectTime;
-			var sureType=[];
-			var saveData;
-			
-			$('.hospital_worktime tr p img').each(function(){
-					selectTime=$(this).attr("data-type");
-					sureType.push(selectTime)
-			})
-			for (var i = 0; i < sureType.length; i++) {
-                for (j = 0; j < workArr.length; j++) {
-                    if (sureType[i] == workArr[j] && !$('.hospital_worktime tr p img').eq(i).hasClass("active")) {
-                        $('.hospital_worktime tr p').eq(i).click();
-                    }
-                }
-         	}				
+				$('.hospital_worktime tr p img').each(function(){
+						selectTime=$(this).attr("data-type");
+						sureType.push(selectTime)
+				})
+				for (var i = 0; i < sureType.length; i++) {
+	                for (j = 0; j < workArr.length; j++) {
+	                    if (sureType[i] == workArr[j] && !$('.hospital_worktime tr p img').eq(i).hasClass("active")) {
+	                        $('.hospital_worktime tr p').eq(i).click();
+	                    }
+	                }
+	         	}
+				
+			}
         }
 
     });
@@ -3180,7 +3187,7 @@ function resetBanner(){
 //	回显轮播图设置
 function eachBanner(index){
     var bannerSet=list[index];
-    $(".banner-box").html("<img src=" + bannerSet.imgUrl + " /><p class='banner-reset-tip'>点击图片重新上传</p>");
+    $(".banner-box").html('<img src="' + bannerSet.imgUrl + '?imageMogr2/thumbnail/!260x147r|imageMogr2/gravity/Center/crop/260x147" />'+'<p class="banner-reset-tip">点击图片重新上传</p>');
     $(".type"+bannerSet.type).click();
     $("#start-time").val(bannerSet.startTime);
     $("#end-time").val(bannerSet.endTime);

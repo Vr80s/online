@@ -1,9 +1,3 @@
-/**  
-* <p>Title: TherapyliveController.java</p>  
-* <p>Description: </p>  
-* @author yangxuan@ixincheng.com  
-* @date 2018年8月21日 
-*/  
 package com.xczh.consumer.market.controller.course;
 
 import com.xczh.consumer.market.auth.Account;
@@ -31,24 +25,25 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/xczh/therapy")
 public class TherapyliveController {
 
-//    @Value("${weixin.course.remind.code}")
-//    private String weixinTemplateMessageRemindCode;
 	
 	@Autowired
 	private ICourseService courseService;
 
-    @Autowired
-    private IRemoteTreatmentService remoteTreatmentService;
     @Autowired
     private IMedicalDoctorPostsService medicalDoctorPostsService;
 	
 
     //审核通过
     @RequestMapping(value = "pass", method = RequestMethod.GET)
-    public ResponseObject appointmentCheck(@RequestParam int id, @Account String accountId) throws Exception {
+    public ResponseObject pass(@RequestParam int id, @Account String accountId) throws Exception {
     	
     	//1、主播工作台生成新的待直播 、 发送短信、存放redis缓存 开播前10分钟推送消息
         Integer clientType = HeaderInterceptor.getClientTypeCode();
+        
+    	courseService.createTherapyLive(id,clientType,accountId);
+    	
+    	//3、医师动态生成新的直播动态
+    	
     	Integer courseId = courseService.createTherapyLive(id,clientType,accountId);
     	
     	//3、医师动态生成新的直播动态
@@ -57,6 +52,15 @@ public class TherapyliveController {
         return ResponseObject.newSuccessResponseObject("操作成功");
     }
 	
+    
+    //取消审核
+    @RequestMapping(value = "cancel", method = RequestMethod.GET)
+    public ResponseObject cancel(@RequestParam int id, @Account String accountId) throws Exception {
+    	
+    	courseService.updateTherapyLive(id,accountId);
+    	
+        return ResponseObject.newSuccessResponseObject("操作成功");
+    }
     
     
 	

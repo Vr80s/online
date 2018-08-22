@@ -1,5 +1,6 @@
 package com.xczhihui.bxg.online.config;
 
+import java.util.Calendar;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -14,7 +15,9 @@ import com.xczhihui.common.util.enums.LiveStatusEvent;
 import com.xczhihui.common.util.vhallyun.RoomService;
 import com.xczhihui.course.service.ICommonMessageService;
 import com.xczhihui.course.service.ICourseService;
+import com.xczhihui.medical.doctor.model.Treatment;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBannerService;
+import com.xczhihui.medical.doctor.service.IRemoteTreatmentService;
 
 /**
  * @author hejiwei
@@ -31,6 +34,8 @@ public class CronConfig {
     private ICommonMessageService commonMessageService;
     @Autowired
     private ICourseService courseService;
+    @Autowired
+    private IRemoteTreatmentService remoteTreatmentService;
 
     @Scheduled(fixedRate = 60000)
     private void updateStatusCronJob() {
@@ -46,5 +51,10 @@ public class CronConfig {
                 courseService.updateCourseLiveStatus(LiveStatusEvent.STOP.getName(), roomId, null);
             }
         }
+    }
+
+    @Scheduled(fixedRate = 30000)
+    private void updateTreatmentStatus() {
+        remoteTreatmentService.updateUpComingExpire();
     }
 }
