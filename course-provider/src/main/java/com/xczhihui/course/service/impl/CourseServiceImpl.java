@@ -633,15 +633,15 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Lock(lockName = "createTherapyLive", waitTime = 5, effectiveTime = 8)
 	public Integer createTherapyLive(Integer lockId,Integer clientType,String accountId) throws Exception {
-		
 		/**
 		 * 查找生成诊疗直播的必要信息
 		 */
+    	
 		CourseLecturVo cv = iCourseMapper.selectTherapyLiveInfo(lockId);
 		Course course = new Course();
 		//***医师的远程诊疗直播 yyyy/mm/dd 如有重复则加上编号（01,02,03….）。  
 		String gradeName = createTherapyGradeName(cv.getUserLecturerId(),cv.getDoctorName(),cv.getStartTime());
-        course.setGradeName(gradeName);
+		course.setGradeName(gradeName);
         course.setAppointmentInfoId(lockId);
         //默认图
         course.setSmallImgPath("https://file.xczhihui.com/18821120655/9db25c52561d-9754170cc93c4169996f3ddc86ea30f91534824415642.png");
@@ -777,16 +777,19 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 		try {
 			//编号
 			String  numberStr   = iCourseMapper.selectDoctorCurrentDayTherapyNumber(userLecturerId);
-			int number = Integer.parseInt(numberStr);
-			if(number < 9) {
-				numberStr = "0"+(number+1);
-			}else if(number == 9) {
-				numberStr = "10";
+			if(numberStr!=null && XzStringUtils.isNumeric(numberStr)) {
+				int number = Integer.parseInt(numberStr);
+				if(number < 9) {
+					numberStr = "0"+(number+1);
+				}else if(number == 9) {
+					numberStr = "10";
+				}
+				strGradeName +=numberStr;
+			}else {
+				strGradeName +="01";
 			}
-			strGradeName +=numberStr;
 		} catch (Exception e) {
 			e.printStackTrace();
-			strGradeName +="01";
 		}
 		return strGradeName;
 	}
