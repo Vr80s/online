@@ -404,14 +404,14 @@ public class MobileShareController {
         	Boolean falg = enrolService.checkAuthTeachingCourse(ou.getId(), courseId);	
         	//	是否有权限操作 true：有 false: 否
         	if(!falg) {
-        		return returnOpenidUri + WechatShareLinkType.SCHOOL_PLAY.getLink();
+        		return returnOpenidUri + WechatShareLinkType.SCHOOL_PLAY.getLink()  +  shareId;
         	}
         }
         
     	//回放状态，并且没有设置生成回访时。
     	if(cv.getLineState().equals(3) && !cv.getRecord()) {
-    		return  cv.getWatchState().equals(0) ? returnOpenidUri + WechatShareLinkType.SCHOOL_PLAY.getLink() : 
-    			returnOpenidUri +WechatShareLinkType.LIVE_PLAY.getLink();    
+    		return  cv.getWatchState().equals(0) ? returnOpenidUri + WechatShareLinkType.SCHOOL_PLAY.getLink() + shareId : 
+    			returnOpenidUri +WechatShareLinkType.LIVE_PLAY.getLink() +  shareId;    
     	}
         
         //用户未登录去展示页

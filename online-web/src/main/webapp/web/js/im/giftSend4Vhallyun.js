@@ -89,8 +89,15 @@ $(document).ready(function() {
                 
 					data.resultObject.courseId=course_id;
         			
-					//同步下排行榜
-					createRanking(data.resultObject.ranking);
+        			if(data.resultObject!=null && data.resultObject.ranking!=null 
+        				&& data.resultObject.ranking.length >0  ){
+        					
+        				$(".hide-size").hide();	
+        				//同步下排行榜 
+						createRanking(data.resultObject.ranking);
+        			}
+        			
+        			//createRanking(data.resultObject.ranking);
         			
         			refreshBalance();
 				}else{
