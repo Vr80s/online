@@ -1,0 +1,1760 @@
+<!DOCTYPE html>
+	<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<head>
+<meta charset="UTF-8">
+<title>熊猫中医</title>
+
+<!-- <meta http-equiv="pragma" content="no-cache">  
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">  
+<META http-equiv="expires" content="0">   -->
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+
+<link rel="stylesheet" type="text/css" href="/xcview/css/physician/physicians_page.css?v=wechat_1.1.1&version=e173995ae8&version=f682981880"/>
+<link rel="stylesheet" href="/xcview/css/physician/swiper-4.2.6.min.css" />
+<link rel="stylesheet" href="/xcview/html/physician/css/demo.css?version=d265f83c60&version=d265f83c60" />
+<link rel="stylesheet" href="/xcview/html/physician/css/demos.css?version=c4433ce522&version=7414fb6524" />
+	<!--手机嵌入模板-->
+<script type="text/javascript" src="/xcview/js/common/layout.js?version=e2b9d5cdbd&version=e2b9d5cdbd"></script>
+
+<!-- 轮播 -->
+<script src="/xcview/js/physician/zepto1.14.min.js"></script>
+<script src="/xcview/js/physician/swiper-4.2.6.min.js"></script>
+
+<script type="text/javascript" src="/xcview/js/common/jquery.min-2.1.1.js?version=d021c983bd&version=d021c983bd"></script>
+
+<!-- 介绍数据引入 -->
+<script type="text/javascript" src="/xcview/js/physician/referral.js?version=6743f0205e&version=6743f0205e"></script>
+
+<!--公用弹框 -->
+<link rel="stylesheet" href="/xcview/css/alert/sharecss.css?version=f6e45d2a7e&version=f6e45d2a7e">
+<script type="text/javascript" src="/xcview/js/common/alertPopShow.js?version=3a4f24e3df&version=3a4f24e3df"></script>
+<!--刷新 -->
+<link rel="stylesheet" href="/xcview/css/minirefresh/minirefresh.css?version=71e5ea2f95&version=71e5ea2f95">
+<script type="text/javascript" src="/xcview/js/minirefresh/minirefresh.js?version=db3081c0a1&version=db3081c0a1"></script>
+
+<!-- 表情包聊天引入 -->
+<link href="/xcview/html/physician/css/webiaoqing.css?version=495638f506&version=495638f506" rel="stylesheet" type="text/css">
+<script src="/xcview/html/physician/js/webiaoqin.js?version=9f3575a6d9&version=9f3575a6d9" ></script>
+<!-- 测试点击图片 -->
+
+	<style>
+	body{
+		/*background: red !important;*/
+	}
+		.middle-img {
+			position: absolute;
+			left: 259px;
+			top: 0px;
+			width: 40px;
+		}
+
+		.up-img {
+			position: absolute;
+			top: -40px;
+			left: 261px;
+			width: 40px;
+		}
+
+		.down-img {
+			position: absolute;
+			top: 40px;
+			left: 257px;
+			width: 40px;
+		}
+
+		.left-img {
+			position: absolute;
+			left: 218px;
+			width: 40px;
+		}
+
+		.right-img {
+			position: absolute;
+			left: 300px;
+			width: 40px;
+		}
+		@media screen and (max-width:450px) {
+			.middle-img {
+				position: absolute;
+				left: 259px;
+				top: 0px;
+				width: 40px;
+				display: none;
+			}
+
+			.up-img {
+				position: absolute;
+				top: -40px;
+				left: 261px;
+				width: 40px;
+				display: none;
+			}
+
+			.down-img {
+				position: absolute;
+				top: 40px;
+				left: 257px;
+				width: 40px;
+				display: none;
+			}
+
+			.left-img {
+				position: absolute;
+				left: 218px;
+				width: 40px;
+				display: none;
+			}
+
+			.right-img {
+				position: absolute;
+				left: 300px;
+				width: 40px;
+				display: none;
+			}
+
+			.rotate_jia{
+				display: none;
+			}.rotate_div{
+				 display: none;
+			 }.rotate_jian{
+				  display: none;
+			  }
+		}
+
+		.am-pureview-bar-active .am-pureview-actions, .am-pureview-bar-active .am-pureview-bar{
+			opacity: 0;
+		}
+		.minirefresh-theme-default .status-nomore .upwrap-tips{
+			padding: 0 !important;
+		}
+		.am-pureview{
+			z-index: 999999;
+		}
+		.ccH5playerBox video{
+			z-index: 1;
+		}
+		.the_dynamic{
+			overflow: hidden;
+		    width: 100%;
+		    height: 100%;
+		    /*background: red;*/
+		    /* position: fixed;
+		    top: 5.4rem; */
+		    /*top: 5.7rem;*/
+		}
+
+		.rests_nav{
+			/* position: fixed;
+					    top: 5.4rem; */
+		}
+
+		.minirefresh-wrap{
+			/*position: static !important;*/
+		}
+		
+		/*处理刷新*/
+		.minirefresh-wrap{
+			/*top: 5.3rem;*/
+		}
+		.minirefresh-theme-default .minirefresh-downwrap{
+			height: 1rem;
+			line-height: 1rem;
+		}
+		.minirefresh-theme-default .downwrap-content{
+			padding: 0;
+		}
+		.minirefresh-theme-default .minirefresh-upwrap{
+			height: 1rem;
+			max-height: 0.5rem;
+			line-height: 0.6rem;
+			padding: 0;
+			/*margin-top: -0.5rem;*/
+		}
+		.minirefresh-scroll{
+			background: none;
+		}
+
+		video::-webkit-media-controls-fullscreen-button {
+            display: none;
+        }
+	</style>
+
+
+
+<style>
+	.physicians_page_mains {
+		/* position: fixed;
+		top: 0;
+		left: 50%;
+		margin-left: -3.75rem; */
+	}
+	.mui-pull-bottom-pocket .mui-pull{
+		bottom: -0.8rem !important;
+	}
+
+	/*轮播开始*/
+	.swiper-container{
+		width: 7.5rem !important;
+		height: 3.02rem !important;
+	}
+	.swiper-slide{
+		 width: 7.5rem !important;
+	}
+	.swiper-slide img{
+		 width: 7.5rem;
+	}
+	.swiper-pagination {
+		text-align: right;
+	}
+	.swiper-container-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet:last-child{
+		margin-right: 0.26rem;
+		width: 0.22rem !important;
+	    border-radius: 8px !important;
+	    height: 0.06rem !important;
+	}
+	.swiper-slide img{
+		width: 100%;
+    	height: 100%;
+	}
+	.swiper-pagination-bullet-active{
+		background: #00bc12;
+	}
+	.swiper-container-horizontal>.swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction{
+		bottom: 0;
+	}
+	/*轮播结束*/
+	#recommended{
+		display: none;
+	}
+	 .stick_img img {
+		width: 0.21rem !important;
+		height: 0.24rem !important;
+		margin-right: 0.097rem !important;
+	}
+	.stick_img {
+		color: #F97B49 !important;
+	    float: left !important;
+	    display: -webkit-box !important;
+	    margin-right: 0.1rem !important;
+	    font-size: 0.24rem !important;
+	    border: 1px solid #f97b49;
+	    border-radius: 4px;
+	    padding: 0 0.1rem;
+	    line-height: 0.35rem;
+	}
+
+	.evaluateDiv{
+		word-break:break-all;
+	}
+	.course_nav_span .title{
+		margin-bottom: 0.2rem;
+	}
+
+	.stick_img_stick{
+		color: #F97B49;
+	    float: left;
+	    display: -webkit-box;
+	    margin-right: 0.1rem;
+	    font-size: 0.24rem;
+	    border: 1px solid #f97b49;
+	    border-radius: 4px;
+	    padding: 0 0.1rem;
+	    line-height: 0.35rem;
+	}
+	.stick_img_stick img {
+	    width: 0.21rem !important;
+	    height: 0.24rem !important;
+	    margin-right: 0.097rem !important;
+	}
+	.course_nav_span{
+		height: 100%;
+	}
+	/*课程*/
+	.course_hide{
+		background: #fff;
+	    padding: 0.3rem 0;
+	    margin: 0.2rem 0;
+	    margin-bottom: 0;
+	}
+	.comment_hide{
+		font-size: 0.3rem;
+    	color: #333333;
+	}
+
+	/*文章*/
+	.article_hide{
+		padding: 0.3rem 0;
+	    margin: 0.2rem 0;
+	    background: #fff;
+	    margin-bottom: 0;
+	    padding-bottom: 0;
+	}
+	.paper_nav_span{
+		width: 6.98rem;
+		height: 100%;
+		text-indent: 0.26rem;
+	}
+
+	/*动态图片*/
+	.trends_hide{
+		background: #fff;
+	    /*padding: 0.3rem 0;*/
+	    margin: 0.2rem 0;
+	    margin-bottom: 0;
+	}
+
+	/*普通动态*/
+	.panel_hide{
+		background: #fff;
+	    padding: 0.3rem 0;
+	    margin: 0.2rem 0;
+	    margin-bottom: 0;
+	}
+
+	.rests_nav{
+		background: none;
+	}
+	/*处理刷新效果*/
+	.mui-scroll-wrapper{
+		top: 1.1rem;
+
+	}
+	.mui-pull-top-pocket{
+		top: 0;
+	}
+	.mui-scroll-wrapper{
+		height: 100%;
+	    position: fixed;
+	    top: 5.4rem;
+	}
+	.mui-pull-bottom-pocket .mui-pull{
+		bottom: 1rem;
+	}
+	.bought_main{
+		padding-bottom: 0.6rem;
+	}
+	.mui-pull-bottom-pocket .mui-pull{
+		bottom: 0rem;
+		height: 40px;
+		line-height: 40px;
+	}
+	.mui-pull-bottom-pocket{
+		position: relative;
+		bottom: 1rem;
+		height: 40px;
+		line-height: 40px;
+	}
+	/*隐藏掉表情包后的处理*/
+	.article_main{
+		margin-left: 0;
+	    width: 6.15rem;
+	}
+	#form_article{
+		margin-left: 0;
+	    width: 6.15rem;
+	}
+
+	#form_article{
+		color: #333 !important;
+	}
+
+	/*收起*/
+	.show-text{
+		/*width: 6.98rem;*/
+		margin: 0 auto;
+		font-size: 0.3rem;
+	    color: #666;
+	    word-break: break-all;
+	    word-wrap: break-word;
+	    line-height: 0.4rem;
+	}
+	.show-text p{
+		margin: 0;
+	}
+	.opened {
+	    height: auto !important;
+	}
+	.toggle .closes,
+	.opened .toggle .opens {
+	  display: none;
+	  color: #2CB82C !important;
+	  font-size: 0.28rem;
+	  text-decoration: none;
+	}
+	.toggle .opened,.opened .toggle .closes {
+	  display: inline;
+	  color: #2CB82C;
+	  font-size: 0.28rem;
+	  text-decoration: none;
+	}
+	.opens{
+		font-size: 0.28rem;
+	}
+
+	.swiper-pagination-bullet{
+		border: none !important;
+	    width: 0.22rem !important;
+	    border-radius: 100px !important;
+	    height: 0.06rem !important;
+	}
+
+	.opacity_click{
+		position: absolute;
+	    width: 100%;
+	    height: 3.927rem;
+	    /*background: red;*/
+	    z-index: 9;
+	    opacity: 0;
+	}
+</style>
+
+</head>
+<body style="background: #F0f0f0;">
+	<div class="physicians_page_main comment_hide">
+		
+
+
+	<!-- 中间内容开始 -->
+	<div class="the_dynamic">
+		<!-- 其他一 -->
+		<div id="minirefresh" class="minirefresh-wrap">
+			<div class="minirefresh-scroll">
+
+<!-- 轮播开始 -->
+		<!--顶部轮播-->
+		<div class="top_details">
+			<script type="text/html" id="top_details">
+
+		<!-- 头部开始 -->
+		<div class="wrap-header" id="header">
+			<div class="header">		
+				<p>{{items.lecturerInfo.name}}</p>
+                <div class="arror_return" onclick="common_share_backs();"> 
+					<img src="/xcview/images/anchorj.png"/>
+				</div>
+				<div class="header_news" onclick="header_click()">
+					<img src="/xcview/images/anchorf.png" alt="">
+				</div>
+			</div>
+		</div>
+		<!-- 头部结束 -->
+		<div class="swiper-container top_swiper">
+		{{if items.banners !=null && items.banners !=""}}
+			<div class="swiper-wrapper">
+				{{each items.banners as item i}}
+				<div class="swiper-slide pic01" onclick="sowingDetails('{{item.url}}')">
+					<img src="{{item.imgUrl}}" alt="" />
+				</div>
+				{{/each}}
+			</div>
+			<div class="swiper-pagination"></div>
+			{{else}}
+			<img src="/xcview/images/physician.png" class="physician_img0" style="width: 7.5rem;" />
+        {{/if}}
+		</div>
+		<!-- 轮播结束 -->
+
+		<!-- 主播信息开始 -->
+		<div class="referral">
+			<div class="head_portrait">
+				<img src="{{items.lecturerInfo.small_head_photo}}" alt="" onerror="nofind();" />
+			</div>
+			<div class="message">
+				<div class="message_name">
+					<div class="name">{{items.lecturerInfo.name}}</div>
+					{{if items.apprentice}}
+					<div class="message_characteristic">我的师傅</div>
+                    {{else}}
+                    <div class="name" style="font-size: 0.24rem;color: #999999;margin-top: 0.06rem;">{{items.lecturerInfo.title}}</div>
+					{{/if}}
+					<div class="both"></div>
+				</div>
+				<div class="message_face">
+					<span class="disciple"><span class="disciple_fize">弟子</span><span style="margin-top: 0.015rem;">{{items.apprenticeCount}}</span></span>
+					{{if items.followHidden == false}}
+					<div class="fans" style="float:left;"><div class="fans_size">粉丝</div><div id="fansCount">{{items.fansCount}}</div></div>
+					{{/if}}
+					<div class="both"></div>
+				</div>
+				
+			</div>
+			{{if items.followHidden == false}}
+			{{if items.isFours == 0}}
+			<div class="attention" data-userId = "{{items.lecturerInfo.userId}}" >
+				<img src="/xcview/images/weigz.png" alt="" />
+				<div class="pay_attention">加关注</div>
+			</div>
+			{{else}}
+			<div class="attention" style="background: #bbb" data-userId = "{{items.lecturerInfo.userId}}" >
+				<img src="/xcview/images/yigz.png" alt="" />
+				<div class="pay_attention">已关注</div>
+			</div>
+			{{/if}}
+			{{/if}}
+			<div class="both"></div>
+		</div>
+			</script>
+		</div>
+		<!-- 主播信息结束 -->
+
+		<!-- 选项卡开始 -->
+		<div id="mainMenuBarAnchor"></div>
+		<div class="anchor_navigation" id="mainMenuBar">
+			<ul id="mainMenu">
+				<li class="li li_data" id="li-1"><span>全部</span>动态<img src="/xcview/images/drop_down.png" alt="" class="hide0" /></li>
+				<li class="li li_course" id="li-2">直播</li>
+				<li class="li li_prose_origin" id="li-3">师承</li>
+				<li class="li li_evaluate" id="li-4">介绍</li>
+				<div class="border" style="left: 1.04rem;"></div>
+				<div class="dynamic_opacity"></div>
+			</ul>
+			<div class="baseImagenumbers" style="display: none;">
+				<img src="/xcview/images/no_deal.png" />
+				<p>该医师暂未发布动态...</p>
+			</div>
+		</div>
+		<!-- 选项卡结束 -->
+
+		<div class="screen_show">
+			<div class="screen_show_bg"></div>
+			<div class="screen_show_main">
+				<ul>
+					<li class="filtrate_all" value="" onclick="postsType(this)">全部</li>
+					<li class="filtrate_sinatv" value="1" onclick="postsType(this)">直播</li>
+					<li class="filtrate_course" value="2" onclick="postsType(this)">课程</li>
+					<li class="filtrate_consilia" value="3" onclick="postsType(this)">医案</li>
+					<li class="filtrate_essay"value="4" onclick="postsType(this)">文章</li>
+					<li class="filtrate_rests"value="5" onclick="postsType(this)">其他</li>
+				</ul>
+			</div>
+		</div>
+		<!-- 点击全部动态=显示筛看结束 -->
+
+		<div class="rests_nav">
+
+			<script type="text/html" id="wrap_doctor_dynamics">
+				{{each items as item i}}
+				{{if item.type == 1}}
+				<!-- 普通动态-->
+				<div class="panel_hide">
+					<div class="essay_main comment_hide panels_essay_main show-text">{{if item.stick}}<span class="stick_img"><img src="/xcview/images/stick.png" alt="" />置顶</span>{{/if}}{{item.content}}</div>
+					<div class="both"></div>
+				</div>
+				
+				{{else if item.type == 2}}
+				<!-- 动态图片-->
+				<div class="trends_hide">
+					<div class="paper_nav_span comment_hide show-text">{{if item.stick}}<span class="stick_img_stick" style="text-align: left;text-indent: 0;"><img src="/xcview/images/stick.png" alt="" />置顶</span>{{/if}}{{item.content}}<div class="both"></div>
+					</div>
+					{{if item.imgStr !=null && item.imgStr.length>0}}
+					<div class="paper_nav_cen_div">
+						<div class="paper_nav_cen comment_hide">
+							<ul data-am-widget="gallery" class="am-gallery am-avg-sm-2 am-avg-md-3 am-avg-lg-4 am-gallery-overlay" data-am-gallery="{ pureview: true }" >
+								{{each item.imgStr as pic }}
+								<li  class="itransform_{{item.id}} itransforms">
+									<div class="am-gallery-item" data-itransform="{{item.id}}">
+										<a href="{{pic.imgUrl}}?imageView2/2/h/226" class="transform_a_img">
+											<!--<img src="{{pic.imgUrl}}?imageMogr2/thumbnail/!226x226r|imageMogr2/gravity/Center/crop/226x226" />-->
+
+												<img src="{{pic.imgUrl}}" class="ccc" />
+											
+
+										</a>
+									</div>
+								</li>
+								{{/each}}
+							</ul>
+
+							<div class="both"></div>
+						</div>
+					</div>
+				</div>
+				{{/if}}
+				<div class="both"></div>
+				{{else if item.type == 3}}
+				<!-- 视频-->
+				<div class="rests_nav_span comment_hide" style="padding-top: 0.2rem;">
+					{{if item.stick}}
+					<span class="stick_img" style="margin-left: 0.26rem;"><img src="/xcview/images/stick.png" alt="" />置顶</span>
+					{{/if}}
+					<span class="titles show-text">{{item.content}}</span>
+					<div class="both"></div>
+				</div>
+				<div class="ccvideo_div">
+					<div id="ccvideo{{item.id}}" data-id="{{item.id}}"class="comment_hide ccvideo">
+						
+					</div>
+					<img src="{{item.coverImg}}?imageMogr2/thumbnail/!699x394r|imageMogr2/gravity/Center/crop/699x394" class="ccvideo_img ccvideo{{item.id}}" />
+					<div class="both"></div>
+				</div>
+				
+				{{else if item.typeId != null && item.typeId != 8}}
+				<!-- 文章-->
+				<div class="article_hide" data-id="{{item.articleId}}" data-status="{{item.articleStatus}}" data-writingsId="{{item.writingsId}}">
+					<div class="article_nav_span comment_hide " style="overflow: hidden; ">{{if item.stick}}<span class="stick_img_stick"><img src="/xcview/images/stick.png" alt="" />置顶</span>{{/if}}<span class="title show-text">{{item.content}}</span><div class="both"></div>
+					</div>
+					{{if item.articleStatus == 1}}
+						<div class="article_nav_cen comment_hide">
+							<img src="{{item.articleImgPath}}?imageMogr2/thumbnail/!249x140r|imageMogr2/gravity/Center/crop/249x140" alt="" />
+							<div class="article_nav_cen_size">{{item.articleTitle}}</div>
+						</div>
+					{{else}}
+						<div style="font-size: 0.26rem;width: 6.98rem;height: 0.57rem;line-height: 0.57rem;
+						background: #f0f0f0;margin: 0 auto;background: #FAFAFA;border: 1px solid #F0F0F0;
+						border-radius: 4px;text-indent: 0.1rem;">抱歉，此文章已被作者删除。</div>
+					{{/if}}
+					<div class="both"></div>
+				</div>
+				{{else if item.type == 5}}
+				<!-- 课程-->
+				<div class="course_hide" data-id="{{item.courseId}}" data-status="{{item.courseStatus}}" data-teaching="{{item.teaching}}">
+					<div class="course_nav_span comment_hide" style="font-size: 0.3rem;color: #333333;">
+						{{if item.stick}}
+						<span class="stick_img_stick"><img src="/xcview/images/stick.png" alt="" />置顶</span>
+						{{/if}}
+						{{item.content}}
+
+						<div class="both"></div>
+					</div>
+					<div class="both"></div>
+					<div class="course_nav_cen comment_hide">
+						<img src="{{item.smallImgPath}}?imageMogr2/thumbnail/!249x140r|imageMogr2/gravity/Center/crop/249x140" alt="" />
+						<div class="course_nav_cen_size">{{item.gradeName}}</div>
+						{{if item.currentPrice==0}}
+						<div class="course_nav_rate" style="color: #F97B49;">免费</div>
+						{{else}}
+						<div class="course_nav_rate"><span>{{item.currentPrice}}</span>熊猫币</div>
+						{{/if}}
+						{{if item.courseType==3}}
+						<div class="course_nav_cen_size" style="margin-top: 0;">{{item.startTime}}</div>
+						{{/if}}
+						{{if item.courseType==4}}
+						<div class="course_nav_cen_size" style="margin-top: 0;"><img src="/xcview/images/location_four.png" style="width: 0.19rem;height: 0.24rem;float: left;margin-right: 0.1rem; margin-top: 0.06rem;margin-left:0.01rem;" />{{item.courseAddress}}</div>
+						{{/if}}
+
+					</div>
+					<div class="both"></div>
+				</div>
+				{{else if item.typeId != null && item.typeId == 8}}
+				<div class="consilia_nav_span_div">
+					<!-- 医案-->
+					<div class="consilia_nav_span comment_hide">
+						{{if item.stick}}
+						<span class="stick_img"><img src="/xcview/images/stick.png" alt="" />置顶</span>
+						{{/if}}<span class="title show-text">{{item.content}}</span>
+						<div class="both"></div>
+					</div>
+
+					<div class="both"></div>
+					{{if item.articleStatus == 1}}
+					<div class="consilia_nav_cen" data-id="{{item.articleId}}" data-status="{{item.articleStatus}}" style="display: block;">
+							<img src="{{item.articleImgPath}}?imageMogr2/thumbnail/!249x140r|imageMogr2/gravity/Center/crop/249x140" alt="" />
+							<div class="consilia_nav_cen_size">{{item.articleTitle}}</div>
+
+					</div>
+					{{else}}
+					<div style="font-size: 0.26rem;width: 6.98rem;height: 0.57rem;line-height: 0.57rem;margin: 0 auto;background: #FAFAFA;border: 1px solid #F0F0F0;border-radius: 4px;text-indent: 0.1rem;">抱歉，此医案已被作者删除。</div>
+					{{/if}}
+					<div class="both"></div>
+				</div>
+				<div class="both"></div>
+				{{/if}}
+				<div class="rests_nav_bottom ">
+
+					<span class="time">{{item.dateStr}}
+					{{if item.typeId==8}}
+						<span class="basis_tips">医案</span>
+					{{else if item.articleId!= null}}
+						<span class="basis_tips">文章</span>
+					{{else if item.courseId != null && item.courseType == 1}}
+						<span class="basis_tips">线上课</span>
+					{{else if item.courseId != null && item.courseType == 2}}
+						<span class="basis_tips">线上课</span>
+					{{else if item.courseId != null && item.courseType == 3}}
+						<span class="basis_tips">直播课</span>
+					{{else if item.courseId != null && item.courseType == 4}}
+						<span class="basis_tips">线下课</span>
+					{{/if}}
+					</span>
+
+					{{if item.isPraise}}
+					<span class="img"><img src="/xcview/images/zan001.png" alt="" class="zan_img" data-id="{{item.id}}"/><img src="/xcview/images/returned.png" alt="" class="evaluate_img" data-id="{{item.id}}"/></span>
+					{{else}}
+					<span class="img"><img src="/xcview/images/zan01.png" alt="" class="zan_img" data-id="{{item.id}}"/><img src="/xcview/images/returned.png" alt="" class="evaluate_img" data-id="{{item.id}}"/></span>
+					{{/if}}
+
+					<div class="both"></div>
+				</div>
+				<div class="number_people " style="margin-top1: 0.2rem;">
+					<div class="number_people_bg" id="{{item.id}}">
+						{{if item.isPraise}}
+						<div class="number_people_fize"><img src="/xcview/images/zan001.png" alt="" class="number_people_zan" /><span class="likes">{{item.likes}}</span></div>
+						{{else}}
+						<div class="number_people_fize"><img src="/xcview/images/zan01.png" alt="" class="number_people_zan" /><span class="likes">{{item.likes}}</span></div>
+						{{/if}}
+						<!-- 评价内容 -->
+						<div class="evaluate_main evaluate{{item.id}}">
+							{{if item.doctorPostsCommentList!==null&&item.doctorPostsCommentList.length>0}}
+							{{each item.doctorPostsCommentList as postsComment}}
+							{{if postsComment.commentId == null}}
+							<div class="evaluateDiv {{postsComment.id}}" data-id="{{postsComment.id}}" data-postsId="{{item.id}}" data-userId="{{postsComment.userId}}" data-userName="{{postsComment.userName}}">
+							
+							<span class="evaluate_cen"><span class="name">{{postsComment.userName}}：</span>{{postsComment.content}}</span>
+							</div>
+							<div class="both"></div>
+							{{else}}
+							<div class="both"></div>
+							<div class="response evaluateDiv {{postsComment.id}}" data-id="{{postsComment.id}}" data-postsId="{{item.id}}" data-replyUserId="{{postsComment.replyUserId}}" data-userName="{{postsComment.replyUserName}}">
+								<span class="my">{{postsComment.replyUserName}}</span>
+								<span class="response_cen">回复</span>
+								<span class="she">{{postsComment.userName}}：</span>
+								<span class="response_center">{{postsComment.content}}</span>
+							</div>
+							{{/if}}
+							{{/each}}
+							{{/if}}
+						</div>
+					</div>
+
+				</div>
+				{{/each}}
+			</script>
+		</div>
+
+
+
+		<!-- 直播间开始 -->
+	<div class="broadcastroom">
+		<div class="broadcastroom_video">
+			<!-- 直播中提示 -->
+			<div class="living_broadcastroom" id="living_broadcastroom">
+				<script type="text/html" id="living_broadcastroom_id">			
+				<!-- //封面图和背景色  //直播课程状态：lineState  1直播中， 2预告，3直播结束 ， 4 即将直播 ，5 准备直播 ，6 异常直播 -->
+
+					{{if items.lineState == 1}}
+						<div class="opacity_click" onclick="jumpTeachingCourse({{items.id}},{{items.teaching}})"></div>
+						<div class="fixation_reminder" onclick="jumpTeachingCourse({{items.id}},{{items.teaching}})">
+							<img src="{{items.smallImgPath}}" alt="" class="surface_plot" />
+							<div class="broadcastroom_bg"></div>
+						</div>
+
+						<img src="/xcview/images/play_btn.png" alt="" class="broadcastroom_button" onclick="jumpTeachingCourse({{items.id}},{{items.teaching}})" />
+						<div class="broadcastroom_hint" onclick="jumpTeachingCourse({{items.id}},{{items.teaching}})">
+							<div class="broadcastroom_hint_title">正在直播：{{items.gradeName}}</div>
+						</div>
+					{{else if items.lineState == 2 || items.lineState == 4 || items.lineState == 5}}
+						<div class="opacity_click" onclick="jumpTeachingCourse({{items.id}},{{items.teaching}})"></div>
+						<div class="fixation_reminder" onclick="jumpTeachingCourse({{items.id}},{{items.teaching}})">
+							<img src="{{items.smallImgPath}}" alt="" class="surface_plot" />
+							<div class="broadcastroom_bg"></div>
+						</div>
+
+						<div class="count_down">
+							<div class="count_down_title" style="margin-top: 0rem;margin-bottom:0.4rem;"><span class="count_down_title_span">即将直播：</span>{{items.gradeName}}</div>
+							<div id="box2" style="font-size: 0.3rem;color: #FFFFFF;text-align: center;"></div>
+							<div id="box1"></div>
+						</div>
+					{{else if items.lineState == 3}}
+						<div class="opacity_click" onclick="jumpTeachingCourse({{items.id}},{{items.teaching}})"></div>
+						<div class="fixation_reminder" onclick="jumpTeachingCourse({{items.id}},{{items.teaching}})">
+							<img src="{{items.smallImgPath}}" alt="" class="surface_plot" />
+							<div class="broadcastroom_bg"></div>
+						</div>
+
+						<img src="/xcview/images/play_btn.png" alt="" class="broadcastroom_button" onclick="jumpTeachingCourse({{items.id}},{{items.teaching}})" />
+						<div class="broadcastroom_hint" onclick="jumpTeachingCourse({{items.id}},{{items.teaching}})">
+							<div class="broadcastroom_hint_title">直播回放：{{items.gradeName}}</div>
+						</div>
+					{{/if}}
+
+
+	            </script>
+			</div>
+
+			<!-- 直播倒计时提示 -->
+			<div class="count_down" style="display: none;display1: block;">
+				<div id="box1"></div>
+				<div class="count_down_title">标幽赋的前世今生</div>
+			</div>
+
+			<!-- 暂无直播 -->
+			<div class="no_live" style="display: none;">
+				<img src="/xcview/images/soldout.png" alt="" class="no_live_img" />
+				<div class="no_live_hint">抱歉，该医师暂未发布直播</div>
+				<div class="no_live_click" onclick="location.href ='/xcview/html/home_page.html'">去学堂寻找感兴趣的课程</div>
+			</div>
+		</div>
+
+		<!-- 为您推荐课程开始 -->
+		<div class="wrap_vedio" style="padding-bottom: 0;" id="recommended">
+			<div class="">
+				<span style="font-size: 0.28rem;float: left;">为您推荐</span>
+				<div class="both"></div>
+			</div>
+
+			<ul class="wrap_vedio_btn" id="broadcastroom_course">	
+				<script type="text/html" id="broadcastroom_id">
+				{{each items as item i}} 
+				<li style="position: relative;">
+            		{{if item.type == 1 || item.type == 2 || item.type == 4}}
+	                					 
+                		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" 
+									onclick="common_jump_all({{item.id}})"></a>
+
+
+						<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" 
+								onclick="common_jump_school({{item.watchState}},{{item.type}},{{item.collection?1:0}},{{item.id}})"></a>
+            			
+            		{{else if item.type == 3}}
+            			
+					<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" 
+									onclick="common_jump_all({{item.id}})"></a>
+            			
+            			
+            			
+					{{/if}}
+
+
+            			
+					<p class="wrap_img_pic">
+						<img src="{{item.smallImgPath}}">  <!--大背景图-->
+
+						<!--watchState，1免费、0收费-视频、2-type，-音频、3-直播、4-线下培训班   collection:1-专辑   -->
+
+
+						{{if item.type == 1}}
+							<img src="/xcview/images/tv_auto.png" alt="" class="img_little" />
+						{{else if item.type == 2}}
+							<img src="/xcview/images/frequency.png" alt="" class="img_little" />
+						{{else if item.type == 3}}
+							<img src="/xcview/images/Sinatv_auto.png" alt="" class="img_little" />
+						{{else if item.type == 4}}
+							<img src="/xcview/images/offline.png" alt="" class="img_little" />
+						{{/if}}
+
+
+					</p>
+					<p class="speak_text">{{item.gradeName}}</p>
+					<p class="speak_name">{{item.name}}</p>
+
+
+					<div class="on_line_status">
+						{{if item.watchState == 1}}
+							<p class='money_status z' style="margin-top: -0.03rem;"><span style="color: #F97B49;">免费</span></p>
+							{{else}}
+							<p class='money_status z' style="margin-top1: 0.003rem;"><span>{{item.currentPrice}}</span>熊猫币</p>
+							{{/if}}
+							<p class="more_people z"><img src="/xcview/images/population.png" alt="" /><span style="margin-top:-0.04rem;">{{item.learndCount}}</span></p>                 						
+							{{if item.type == 3}}
+							   {{if item.lineState == 1}}
+							   <p class="zhibo_play">直播中</p>
+							   {{else if item.startDateStr.indexOf('.')==-1}}
+								<p class="p3 p4"><img src="/xcview/images/Sinatv_time.png" alt="" style="margin-right: 0.03rem;" /><span style="margin-top: -0.02rem;font-size: 0.24rem;">{{item.startDateStr}}</span></p              						   
+								{{else}}
+								<p class="p3 p4"><img src="/xcview/images/learn.png" alt="" style="margin-right: 0.03rem;" /><span style="float: left;font-size: 0.24rem;margin-top: -0.04rem;">{{item.startDateStr}}</span></p>
+								{{/if}}
+						
+						{{else if item.type == 4}}
+							<p class="p3"><img src="/xcview/images/location_four.png" alt="" style="margin-top: 0.04rem;width: 0.19rem;" /><span style="margin-top1: -0.03rem;font-size: 0.22rem;">{{item.city}}</span></p>
+						{{/if}}
+					</div>
+				</li>		
+				
+
+				{{/each}}
+            	</script>
+
+			</ul>
+		</div>
+		<!-- 为您推荐课程结束 -->
+
+		<!-- 直播间展示开始 -->
+		<div class="broadcastroom_show" style="display1:none;display: block;">
+			<!-- 跟师课程开始 -->
+			<div class="wrap_vedio_main">
+				<div class="wrap_vedio" style="padding-bottom: 0;" id="master_course">
+					<div class="" style="margin-top1: 0.2rem;">
+						<span class="border"></span>
+						<span style="font-size: 0.28rem;float: left;">跟师直播</span>
+						<span class="master_course_span">只有弟子能跟师直播学习</span>
+						<div class="both"></div>
+					</div>
+					<ul class="wrap_vedio_btn" id="teacher_hides">
+						<script type="text/html" id="teacher_hide_ids">
+						{{each items as item i}}			
+							<li style="position: relative;">
+						       <a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" onclick="jumpTeachingCourse({{item.id}},{{item.teaching}})"></a>
+						        {{if item.lineState == 1}}
+								    <p style="position: absolute;right: 0;top: 0;    border-radius: 0 0 0 3px;float: left;font-size: 0.22rem;padding: 0rem 0.1rem;color: #fff !important;margin-top: -0.02rem;background: #f97b49;z-index: 1;">直播中</p>
+								{{/if}}
+								<p class="wrap_img_pic">
+									
+									<img src="{{item.smallImgPath}}" /> 
+									<img src="/xcview/images/Sinatv_auto.png" alt="" class="img_little">
+								</p>
+								<p class="speak_text">{{item.gradeName}}</p>
+								<p class="speak_name">{{item.name}}</p>
+								<div class="on_line_status">
+									{{if item.watchState == 1}}
+										<p style="margin-top: -0.01rem;" class="money_status z"><span>免费</span></p>
+									
+									{{else}}
+										<p style="font-size: 0.22rem;margin-top: 0.03rem;" class="money_status z"><span>{{item.currentPrice}}</span>熊猫币</p>
+									{{/if}}
+
+									<p class="more_people z">
+										<img src="/xcview/images/Sinatv_time.png">
+										<span class="more_people_time">{{item.startTime.slice(0,16)}}</span>
+									</p>
+								</div>
+							</li>
+						{{/each}}
+						</script>
+
+					</ul>
+				</div> 
+			</div>
+			<!-- 跟师课程结束 -->
+
+
+<!-- 直播课程开始  live_lesson -->
+			<div class="wrap_vedio" style="padding-bottom: 0;" id="live_lesson">
+				<div class="">
+					<span class="border"></span>
+					<span style="font-size: 0.28rem;float: left;">直播课程</span>
+					<div class="both"></div>
+				</div>
+
+				<ul class="wrap_vedio_btn" id="live_streaming">	
+					<script type="text/html" id="live_streaming_id">
+					{{each items as item i}} 
+					<li style="position: relative;">
+	            		{{if item.type == 1 || item.type == 2 || item.type == 4}}
+	                		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" onclick="common_jump_all({{item.id}})"></a>
+							<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" onclick="common_jump_school({{item.watchState}},{{item.type}},{{item.collection?1:0}},{{item.id}})"></a>
+	            		{{else if item.type == 3}}
+						<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;display: block;width: 3.39rem;height: 3.25rem;display:inline-table;" onclick="common_jump_all({{item.id}})"></a>
+	            			
+						{{/if}}
+	            			
+						<p class="wrap_img_pic">
+							<img src="{{item.smallImgPath}}">  <!--大背景图-->
+
+							{{if item.type == 1}}
+								<img src="/xcview/images/tv_auto.png" alt="" class="img_little" />
+							{{else if item.type == 2}}
+								<img src="/xcview/images/frequency.png" alt="" class="img_little" />
+							{{else if item.type == 3}}
+								<img src="/xcview/images/Sinatv_auto.png" alt="" class="img_little" />
+							{{else if item.type == 4}}
+								<img src="/xcview/images/offline.png" alt="" class="img_little" />
+							{{/if}}
+
+						</p>
+						<p class="speak_text">{{item.gradeName}}</p>
+						<p class="speak_name">{{item.name}}</p>
+
+
+						<div class="on_line_status">
+							{{if item.watchState == 1}}
+								<p class='money_status z' style="margin-top: -0.03rem;"><span style="color: #F97B49;">免费</span></p>
+								{{else}}
+								<p class='money_status z' style="margin-top1: 0.003rem;"><span>{{item.currentPrice}}</span>熊猫币</p>
+								{{/if}}
+								<p class="more_people z"><img src="/xcview/images/population.png" alt="" /><span style="margin-top:-0.04rem;">{{item.learndCount}}</span></p>                 						
+								{{if item.type == 3}}
+								   {{if item.lineState == 1}}
+								   <p class="zhibo_play">直播中</p>
+								   {{else if item.startDateStr.indexOf('.')==-1}}
+									<p class="p3 p4"><img src="/xcview/images/Sinatv_time.png" alt="" style="margin-right: 0.03rem;" /><span style="float: left;font-size: 0.22rem;">{{item.startDateStr}}</span></p              						   
+									{{else}}
+									<p class="p3 p4"><img src="/xcview/images/learn.png" alt="" style="margin-right: 0.03rem;" /><span style="float: left;font-size: 0.22rem;margin-top: -0.02rem;">{{item.startDateStr}}</span></p>
+									{{/if}}
+							
+							{{else if item.type == 4}}
+								<p class="p3"><img src="/xcview/images/location_four.png" alt="" style="margin-top: 0.04rem;width: 0.19rem;" /><span style="margin-top1: -0.03rem;font-size: 0.22rem;">{{item.city}}</span></p>
+							{{/if}}
+						</div>
+					</li>		
+					
+
+					{{/each}}
+	            	</script>
+					<div class="both"></div>
+				</ul>
+				<div class="both"></div>
+				<div class="more_live_lesson"onclick="dortorCoursePage()">查看更多直播课</div>
+				<!-- <div class="more_live_lesson_no">点击收起</div> --> <!-- 直播课加载完后点击收起成开始状态 -->
+			</div>
+			<!-- 直播课程结束 -->		</div>
+		<!-- 直播间展示结束 -->
+
+	</div>
+	<!-- 直播间结束 -->
+
+	<!-- 师承开始 -->
+	<div class="prose_origin">
+		<div class="prose_origin_main">
+			<script type="text/html" id="prose_origin_main_id">
+			{{each items as item i}} 
+			<div class="prose_origin_details" data-ids="{{item.id}}">
+				<div class="prose_origin_details_center">
+					<img src="{{item.coverImg}}?imageMogr2/thumbnail/!698x396r|imageMogr2/gravity/Center/crop/698x396" alt="" />
+					<div class="prose_origin_main_fize">
+						<div class="prose_origin_main_title">{{item.title}}</div>
+						<div class="prose_origin_main_time">{{item.createTime}}</div>
+						<div class="both"></div>
+					</div>
+				</div>
+			</div>
+			{{/each}}
+	        </script>
+		</div>
+
+		<!-- 远程诊疗开始 -->
+		<div class="therapy">
+			<div class="therapy_title">
+				<span class="border"></span>
+				<span style="font-size: 0.28rem;float: left;">远程诊疗</span>
+				<span class="master_course_span">一个时段仅可一名弟子预约</span>
+				<div class="both"></div>
+			</div>
+			<div class="subscribe_id">
+				<script type="text/html" id="subscribe_id">
+				{{each items as item i}} 
+				<div class="subscribe">
+					<!--appointStatus: 0 -> 可预约 1->预约满 2->我的预约 infoId: 我的预约信息id-->
+					<div class="subscribe_time" data-id="{{item.id}}">{{item.indexDateText}}</div>
+					{{if item.appointStatus == 0}}
+						<div class="subscribe_btn" onclick="order('{{item.id}}')">可预约</div>
+					{{else if item.appointStatus == 1}}
+						<div class="subscribe_btns">预约满</div>
+					{{else if item.appointStatus == 2}}
+						<div class="subscribe_btns" onclick="orders('{{item.infoId}}')" style="background: #F9BD2C;">我的预约</div>
+					{{/if}}
+				</div>
+				{{/each}}
+			    </script>
+			</div>
+			
+		</div>
+		<!-- 远程诊疗结束 -->
+
+		<!-- 跟师课程开始 -->
+		<div class="wrap_vedio_main">
+			<div class="wrap_vedio" style="padding-bottom: 0;" id="master_course">
+				<div class="" style="margin-top1: 0.2rem;">
+					<span class="border"></span>
+					<span style="font-size: 0.28rem;float: left;">跟师直播</span>
+					<span class="master_course_span">只有弟子能跟师直播学习</span>
+					<div class="both"></div>
+				</div>
+				<ul class="wrap_vedio_btn" id="teacher_hide">
+					<script type="text/html" id="teacher_hide_id">
+					{{each items as item i}}			
+						<li style="position: relative;">
+					        
+					       <a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" onclick="jumpTeachingCourse({{item.id}},{{item.teaching}})"></a> 
+					        {{if item.lineState == 1}}
+								    <p style="position: absolute;right: 0;top: 0;    border-radius: 0 0 0 3px;float: left;font-size: 0.22rem;padding: 0rem 0.1rem;color: #fff !important;margin-top: -0.02rem;background: #f97b49;z-index: 1;">直播中</p>
+							{{/if}}
+							<p class="wrap_img_pic">
+								<img src="{{item.smallImgPath}}" /> 
+								<img src="/xcview/images/Sinatv_auto.png" alt="" class="img_little">
+							</p>
+							<p class="speak_text">{{item.gradeName}}</p>
+							<p class="speak_name">{{item.name}}</p>
+							<div class="on_line_status">
+								{{if item.watchState == 1}}
+									<p style="margin-top: -0.01rem;" class="money_status z"><span>免费</span></p>
+								
+								{{else}}
+									<p style="font-size: 0.22rem;margin-top: 0.03rem;" class="money_status z"><span>{{item.currentPrice}}</span>熊猫币</p>
+								{{/if}}
+
+								<p class="more_people z">
+									<img src="/xcview/images/Sinatv_time.png">
+									<span class="more_people_time">{{item.startTime.slice(0,16)}}</span>
+								</p>
+							</div>
+						</li>
+					{{/each}}
+					</script>
+
+				</ul>
+
+			</div> 
+
+		</div>
+		<!-- 跟师课程结束 -->
+
+		<!-- 老师解惑开始 -->
+		<div class="QA">
+			<div class="QA_title">
+				<span class="border"></span>
+				<span style="font-size: 0.28rem;float: left;">老师解惑</span>
+				<!-- <div class="QA_quiz" onclick="location.href ='/xcview/html/physician/quiz.html?doctor=' + doctorId"> -->
+				<div class="QA_quiz">
+					<img src="/xcview/images/doubt.png" alt="" />
+					我要提问
+				</div>
+				<div class="both"></div>
+			</div>
+			<!-- 提问开始 -->
+			<div class="QA_main">
+				<script type="text/html" id="QA_main_id">
+				{{each items as item i}} 
+				<div class="QA_center">
+					<div class="QA_doubt">
+						<!-- <img src="{{item.userImg}}" alt="" class="QA_doubt_img" />-->
+						<div class="QA_doubt_main">
+							<!--<span class="QA_doubt_main_asking">问</span><span class="QA_doubt_main_reply">{{item.question}}</span>-->
+							<span class="QA_doubt_main_asking">问</span><span class="QA_doubt_main_reply_{{item.id}}">{{item.question}}</span>
+						</div>
+						<div class="both"></div>
+					</div>
+					<div class="QA_solution">
+						<div class="QA_solution_main">
+							<!--<img src="/xcview/images/QA_solution..png" alt="" class="QA_solution_main_img" />-->
+							<span><img src="{{item.doctorImg}}?imageMogr2/thumbnail/!40x40r|imageMogr2/gravity/Center/crop/40x40" alt="" class="QA_solution_img" onerror="nofind()" />医师解答：</span>
+							{{if item.answer == null || item.answer == ''}}
+								<span>暂未回答该问题</span>
+							{{else}}
+								<span class="QA_doubt_main_replys">{{item.answer}}</span>
+							{{/if}}
+						</div>
+						<div class="both"></div>
+					</div>
+				</div>
+				{{/each}}
+	            </script>
+
+			</div>
+			<!-- 提问结束 -->
+		</div>
+		<!-- 老师解惑结束 -->
+		<!-- 在线弟子开始 -->
+		<div class="disciple_details">
+			<div class="disciple_title">
+				<span class="border"></span>
+				<span style="font-size: 0.28rem;">弟子：<span class="disciple_number">
+					<script type="text/html" id="disciple_number_id">
+					{{if items.apprenticeCount ==null && items.apprenticeCount ==""}}
+					<span>0</span>
+					{{else}}
+					<span>{{items.apprenticeCount}}</span>
+        			{{/if}}
+					</script>
+				</span>人</span>
+				<div class="both"></div>
+			</div>
+			<div class="disciple_main">
+	            <div class="disciple_main_id">
+	            	<script type="text/html" id="disciple_main_id">
+					{{each items as item i}} 
+						<img src="{{item}}" alt="" class="disciple_main_apprentices" />
+					{{/each}}
+		            </script>
+	            </div>
+				<div class="both"></div>
+			</div>
+			<!-- 如何成为弟子 -->
+			<div class="become_disciple">
+				<img src="/xcview/images/become_disciple.png" alt="" class="become_disciple_img" />
+				<div class="become_disciple_main">
+					<div class="become_disciple_title">如何成为弟子</div>
+					<div class="become_disciple_cen_id">
+						<div class="become_disciple_cen a_disciple"></div>
+					</div>
+					<div class="become_disciple_title" style="margin-top:0.1rem;">弟子福利</div>
+					<div class="become_disciple_cen_ids">
+						<div class="become_disciple_cen disciple_welfare">
+							<p class="disciple_welfare_one"></p>
+							<p class="disciple_welfare_two"></p>
+							<p class="disciple_welfare_three"></p>
+						</div>
+					</div>
+				
+				</div>
+			</div>
+			
+			
+			
+		</div>
+		
+		<!-- 在线弟子结束 -->
+	</div>
+	<!-- 师承结束 -->
+
+	<!-- 介绍开始 -->
+	<div class="message_referral" id="message_referral">
+		
+		<div class="message_referral_main_time">
+			<script type="text/html" id="message_referral_id">
+			<div class="wrap_synopsis_time">	
+				<div class="my_synopsis_time">
+					<ul>
+						<li class="border"></li>
+						<li>出诊医馆及时间<span>(<img src="/xcview/images/default.png" alt="" />为出诊)</span></li>
+					</ul>
+				</div>		
+			</div>
+			<div class="message_referral_center clinic">坐诊医馆：{{items.name}}</div>
+			<div class="message_referral_center tel">预约电话：<a href="tel:{{items.tel}}">{{items.tel}}</a></div>
+			<div class="message_referral_center house_address">医馆地址：{{items.detailedAddress}}</div>
+			<div class="both"></div>
+
+			<table border="1" align="center" bgcolor="" border="0" cellpadding="0" cellspacing="0" class="table">
+			    <tr>
+			    	<th></th>
+			    	<th>周一</th>
+			    	<th>周二</th>
+			    	<th>周三</th>
+			    	<th>周四</th>
+			    	<th>周五</th>
+			    	<th>周六</th>
+			    	<th>周日</th>
+			    </tr>
+			    <tr class="am">
+			        <th>上午</th>
+			        <td class="apm apm1_1 am_monday"><img src="/xcview/images/default.png" alt="" /></td>
+			        <td class="apm apm2_1 am_tuesday"><img src="/xcview/images/default.png" alt="" /></td>
+			        <td class="apm apm3_1 am_wednesday"><img src="/xcview/images/default.png" alt="" /></td>
+			        <td class="apm apm4_1 am_thursday"><img src="/xcview/images/default.png" alt="" /></td>
+			        <td class="apm apm5_1 am_friday"><img src="/xcview/images/default.png" alt="" /></td>
+			        <td class="apm apm6_1 am_saturday"><img src="/xcview/images/default.png" alt="" /></td>
+			        <td class="apm apm7_1 am_sunday"><img src="/xcview/images/default.png" alt="" /></td>
+			    </tr>
+			    <tr class="pm">
+			        <th>下午</th>
+			        <td class="apm apm1_2 pm_mondays"><img src="/xcview/images/default.png" alt="" /></td>
+			        <td class="apm apm2_2 pm_tuesdays"><img src="/xcview/images/default.png" alt="" /></td>
+			        <td class="apm apm3_2 pm_wednesdays"><img src="/xcview/images/default.png" alt="" /></td>
+			        <td class="apm apm4_2 pm_thursdays"><img src="/xcview/images/default.png" alt="" /></td>
+			        <td class="apm apm5_2 pm_fridays"><img src="/xcview/images/default.png" alt="" /></td>
+			        <td class="apm apm6_2 pm_saturdays"><img src="/xcview/images/default.png" alt="" /></td>
+			        <td class="apm apm7_2 pm_sundays"><img src="/xcview/images/default.png" alt="" /></td>
+			    </tr>
+			</table>
+			</script>
+		</div>
+
+		
+		<div class="self_introduction">
+			<div class="self_introduction_main">	
+				<div class="self_introduction_ul">
+					<ul>
+						<li class="border"></li>
+						<li>个人介绍</li>
+					</ul>
+				</div>		
+			</div>
+			<div class="self_introduction_cen_html">
+				<script type="text/html" id="self_introduction_cen_id">
+				   <div class="self_introduction_cen"></div>
+				</script>
+			</div>
+			
+			<div class="both"></div>
+		</div>
+		<div class="baseImagenumber" style="display: none;">
+			<img src="/xcview/images/no_deal.png" />
+			<p>暂无医师介绍...</p>
+		</div>
+
+	</div>
+	
+	<!-- 介绍结束 -->
+
+	</div>
+	<div class="commonality_height" style="width: 100%;height:0.9rem;"></div>
+	<!-- 点击全部动态=显示筛看开始 -->
+
+		</div>
+	</div>
+		
+	</div>
+	<!-- 中间内容结束 -->
+
+	<!-- 点击回复出现删除复制开始 -->
+	<div class="remove_copy">
+		<div class="remove_copy_bg"></div>
+		<div class="remove_copy_main" style="height: 1rem;">
+			<div class="remove">删除</div>
+		</div>
+	</div>
+	<!-- 点击回复出现删除复制结束 -->
+
+	<!-- 表情包开始 -->
+	<div class="comment">
+		<div class="comment_bg"></div>
+		<div class="comment_main">
+			<textarea id="form_article" contenteditable="true" onkeydown="myInput.listen(this, event);" placeholder=""></textarea>
+			<div class="article_main">说点什么...</div>
+			<h3 onclick="sendComment()">发送</h3>
+		</div>
+	</div>
+	
+	<div class="page_emotion box_swipe" id="page_emotion">
+		<dl id="list_emotion" class="list_emotion pt_10"></dl><!-- 表情框 -->
+		<dt><ol id="nav_emotion" class="nav_emotion"></ol></dt><!-- 分页提示点 -->
+	</div>
+	<!-- 表情包结束 -->
+	<div class="show_height" style="width:100%;height:0.25rem;display:none;"></div>
+	<div class="top_show_height" style="width:100%;height:5.2rem;display:none;"></div>
+
+	<div class="top_show_heights" style="width:100%;height:5.8rem;display:none;"></div>
+
+	<!-- 添加分享 -->
+	<div class="weixin_ceng">
+		<div class="weixin_ceng_bg"></div>
+		<div class="weixin_img"><img src="/xcview/images/fenxiang1.png" data-bd-imgshare-binded="1"></div>
+	</div>
+	<!-- 添加默认图 -->
+
+	<!-- 添加默认图 -->
+	<!-- 师承课程提示开始 -->
+	<div class="learn_tips">
+		<div class="learn_tips_bg"></div>
+		<div class="learn_tips_main">
+			<div class="learn_tips_close">×</div>
+			<div class="learn_tips_title">温馨提示</div>
+			<div class="learn_tips_cen">该课程为师承课程，成为弟子才能开启观看权限哦~</div>
+			<div class="learn_tips_submit" onclick="location.href ='/xcview/html/physician/apply_for.html?doctor='+doctorId">在线弟子 申请加入</div>
+		</div>
+	</div>
+
+	<!-- 审核中 -->
+	<div class="learn_tips_audit">
+		<div class="learn_tips_audit_bg"></div>
+		<div class="learn_tips_audit_main">
+			<div class="learn_tips_audit_close">×</div>
+			<div class="learn_tips_audit_title">温馨提示</div>
+			<div class="learn_tips_audit_cen">该课程为师承课程，成为弟子才能开启观看权限哦~~</div>
+			<div class="learn_tips_audit_submit">弟子审核中</div>
+		</div>
+	</div>
+
+	<!-- 部分 -->
+	<div class="learn_tips_part">
+		<div class="learn_tips_part_bg"></div>
+		<div class="learn_tips_part_main">
+			<!-- <div class="learn_tips_part_close">×</div> -->
+			<div class="learn_tips_part_title">温馨提示</div>
+			<div class="learn_tips_part_cen">只有部分弟子可学习该课程~</div>
+			<div class="learn_tips_part_submit">我知道了</div>
+		</div>
+	</div>
+
+	<!-- 师承课程提示结束 -->
+
+	<!-- 预约远程诊疗开始 -->
+	<div class="order_tips">
+		<div class="order_tips_bg"></div>
+		<div class="order_tips_main">
+			<div class="order_tips_close">×</div>
+			<div class="order_tips_title">温馨提示</div>
+			<div class="order_tips_cen">只有弟子可预约远程诊疗，成为弟子才能开启权限哦~~</div>
+			<div class="order_tips_submit" onclick="location.href ='/xcview/html/physician/apply_for.html?doctor='+doctorId">在线弟子 申请加入</div>
+		</div>
+	</div>
+
+	<div class="order_tips_no">
+		<div class="order_tips_no_bg"></div>
+		<div class="order_tips_no_main">
+			<div class="order_tips_no_close">×</div>
+			<div class="order_tips_no_title">温馨提示</div>
+			<div class="order_tips_no_cen">只有弟子可预约远程诊疗，成为弟子才能开启权限哦~~</div>
+			<div class="order_tips_no_submit">弟子审核中</div>
+		</div>
+	</div>
+
+
+	<!-- 预约远程诊疗结束 -->
+<div class="disciple_application_state">
+	<script type="text/html" id="disciple_application_state_id">
+		{{if items.onlineApprenticeStatus == 1 || items.onlineApprenticeStatus == 3}}
+		<div class="disciple_application_states">
+			<div class="disciple_application" onclick="location.href ='/xcview/html/physician/apply_for.html?doctor='+doctorId">在线弟子申请加入</div></div>
+		{{else if items.onlineApprenticeStatus == 2}}
+			<div class="disciple_application_states"><div class="disciple_application" onclick="location.href ='/xcview/html/physician/application_approved.html?doctor='+doctorId">申请已提交，查看信息</div></div>
+		{{else if items.onlineApprenticeStatus == 4}}
+			<!--<div class="disciple_application_states"><div class="disciple_application" styles="display: none;">申请已提交</div></div>-->
+		{{/if}}
+	</script>
+</div>
+
+
+<div class="both"></div>
+</body>
+<script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
+<script type="text/JavaScript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script src="/xcview/weihoujs/jquery.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/common.js?v=wechat_1.1.1&version=dfc1cfb838&version=b007cb5668"></script>
+<script type="text/javascript" src="/xcview/js/common/template.js?version=dd622e58c9&version=dd622e58c9"></script>    <!--数据模板引入-->
+
+<!-- 直播课跳转 -->
+<script type="text/javascript" src="/xcview/js/common/commonJumpPlay.js?version=8bcdb81554&version=5517f2545d"></script>
+
+<script type="text/javascript" src="/xcview/js/physician/physician_dynamics.js?version=216ff49d88&version=274718fe20"></script>    <!--全部动态引入-->
+
+<script type="text/javascript" src="/xcview/html/physician/js/jquery.dotdotdot.js?version=34985f15dd"></script>    <!--全部动态引入-->
+
+
+
+<script type="text/javascript" src="/xcview/js/share/share.js?v=wechat_1.1.1&version=5f659f1e41&version=6fd323d461"></script>
+<!-- 直播间数据引入 -->
+<script type="text/javascript" src="/xcview/js/physician/broadcastroom.js?version=d41d8cd98f&version=d41d8cd98f"></script>
+
+<!-- 导航渐变 -->
+<script>
+$(window).bind("scroll", function() {
+
+});
+</script>
+<!-- 头部固定开始 -->
+<!-- 头部固定结束 -->
+
+<script type="text/javascript">
+	// 导航  固定和点击切换事件
+	window.onload = function(){
+		// $(".transform_a_img img").addClass("transform_img");
+		// $(".transform_a_img img").addClass("transform_img");
+	    // 点击全部动态
+		$(".li_data").click(function(){
+			// $(".baseImagenumbers").show();
+			$(".anchor_navigation .border").css("left","1.04rem");
+			$(".li_data").addClass("li_color");
+			$(".physicians_page_main").addClass("physicians_page_mains");
+			$(".li_course").removeClass("li_color");
+			$(".li_prose_origin").removeClass("li_color");
+			$(".li_evaluate").removeClass("li_color");
+			$(".li_data_hide").removeClass("hide");
+			$(".li_course_hide").addClass("hide");
+			$(".li_evaluate_hide").addClass("hide");
+			$(".li_data img").removeClass("hide");
+			$(".dynamic_opacity").removeClass("hide");  /*移除点击全部动态筛选*/
+			$("body").removeClass("body");
+			$(".broadcastroom").hide();  //直播间隐藏
+			$(".rests_nav").show();   //全部动态隐藏
+			$(".message_referral").hide();   //介绍结束baseImagenumbers
+			$(".prose_origin").hide();   /*师承内容隐藏*/
+			$(".disciple_application_state").hide();  //底部按钮隐藏
+			$(".minirefresh-totop").css("bottom","30px");  //返回按钮
+			$(".commonality_height").hide();
+			$(".minirefresh-upwrap").show();  //底部没有数据--文字隐藏
+			// $(".baseImagenumbers").show();
+			
+			 sessionStorage.setItem("physiciansPage","li_data");
+		});
+	    
+	    	    
+		// 点击直播间
+		$(".li_course").click(function(){
+			$(".baseImagenumbers").hide();
+			$(".anchor_navigation .border").css("left","2.94rem");
+			$(".li_data").removeClass("li_color");
+			$(".li_course").addClass("li_color");
+			$(".li_prose_origin").removeClass("li_color");
+			$(".li_evaluate").removeClass("li_color");
+			$(".physicians_page_main").removeClass("physicians_page_mains");
+			$(".li_data_hide").addClass("hide");
+			$(".li_course_hide").removeClass("hide");
+			$(".li_evaluate_hide").addClass("hide");
+			$(".li_data img").addClass("hide");
+			$(".dynamic_opacity").addClass("hide");
+			$(".screen_show").hide();  /*隐藏筛选*/
+			$("body").removeClass("body");
+			$(".rests_nav").hide();  /*全部动态隐藏*/
+			$(".broadcastroom").show();   /*直播间打开*/
+			$(".message_referral").hide();  //介绍结束
+			// $(".broadcastroom").show();
+			$(".prose_origin").hide();   /*师承内容隐藏*/
+			$(".disciple_application_state").hide();  //底部按钮隐藏
+			$(".minirefresh-totop").css("bottom","30px");  //返回按钮
+			$(".commonality_height").hide();
+			$(".minirefresh-upwrap").hide();  //底部没有数据--文字隐藏
+			
+			sessionStorage.setItem("physiciansPage","li_course");
+		});
+
+		
+		// 点击师承
+		$(".li_prose_origin").click(function(){
+			$("#message_referral").hide();   //介绍结束
+			$(".baseImagenumbers").hide();
+			$(".anchor_navigation .border").css("left","4.59rem");
+			$(".li_data").removeClass("li_color");
+			$(".li_course").removeClass("li_color");
+			$(".li_prose_origin").addClass("li_color");
+			$(".li_evaluate").removeClass("li_color");
+			$(".physicians_page_main").removeClass("physicians_page_mains");
+			$(".li_data_hide").addClass("hide");
+			$(".li_course_hide").removeClass("hide");
+			$(".li_evaluate_hide").addClass("hide");
+			$(".li_data img").addClass("hide");
+			$(".dynamic_opacity").addClass("hide");
+			$(".screen_show").hide();  /*隐藏筛选*/
+			$("body").removeClass("body");
+			$(".rests_nav").hide();  /*全部动态隐藏*/
+			$(".broadcastroom").hide();   /*直播间打开*/
+			$(".prose_origin").show();   /*师承内容打开*/
+			$(".disciple_application_state").show();  //底部按钮显示
+			$(".minirefresh-totop").css("bottom","65px");  //返回按钮
+			$(".commonality_height").show();  /*公用高度*/
+			$(".minirefresh-upwrap").hide();  //底部没有数据--文字隐藏
+			
+			sessionStorage.setItem("physiciansPage","li_prose_origin");
+		});
+
+		// 点击介绍
+		$(".li_evaluate").click(function(){
+			$(".baseImagenumbers").hide();
+			$(".anchor_navigation .border").css("left","6.25rem");
+			$(".li_data").removeClass("li_color");
+			$(".li_course").removeClass("li_color");
+			$(".li_prose_origin").removeClass("li_color");
+			$(".li_evaluate").addClass("li_color");
+			$(".physicians_page_main").removeClass("physicians_page_mains");
+			$(".li_data_hide").addClass("hide");
+			$(".li_course_hide").addClass("hide");
+			$(".li_evaluate_hide").removeClass("hide");
+			$(".li_data img").addClass("hide");
+			$(".dynamic_opacity").addClass("hide");
+			$(".screen_show").hide();  /*隐藏筛选*/
+			$("body").removeClass("body");
+			$(".broadcastroom").hide();  //直播间隐藏
+			$(".rests_nav").hide();   //全部动态隐藏
+			$(".message_referral").show();  //介绍结束
+			$(".prose_origin").hide();   /*师承内容隐藏*/
+			$(".disciple_application_state").hide();  //底部按钮隐藏
+			$(".minirefresh-totop").css("bottom","30px");  //返回按钮
+			$(".commonality_height").hide();
+			$(".minirefresh-upwrap").hide();  //底部没有数据--文字隐藏
+			
+			sessionStorage.setItem("physiciansPage","li_evaluate");
+		});
+
+		
+		// 点击显示全部动态筛选  
+		$(".dynamic_opacity").click(function(){
+			$(".screen_show").show();
+			$("body").addClass("body");
+		});
+		$(".screen_show_bg").click(function(){
+			$(".screen_show").hide();
+			$("body").removeClass("body");
+		});
+
+		// 循环点击筛选全部动态
+		var aBtn=$('.screen_show_main ul li');
+		for(i=0;i<aBtn.length;i++){
+            $(aBtn[i]).click(function(){
+            	
+              for(i=0;i<aBtn.length;i++){
+                $(aBtn[i]).removeClass('active');
+                
+                if($(this).attr("value") == $(aBtn[i]).attr("value")){
+                	sessionStorage.setItem("li_data",i);
+                }
+              }
+              $(this).addClass('active');
+              $(".li_data span").html($(this).html());
+              $("body").removeClass("body");
+              	// 替换文字后，改变3角形的位置
+                var mobile = $(".li_data span").html();		
+				if(mobile.length<3){
+					$(".li_data img").css("left","1.9rem");
+				}else{
+					$(".li_data img").css("left","1.95rem");
+				};
+				$(".screen_show").hide();
+            })
+        };
+        
+        var physiciansPage = sessionStorage.getItem("physiciansPage");
+        
+      
+        
+        if("li_evaluate" == physiciansPage){
+            $(".li_evaluate").click();
+            page = 0;
+        }else if("li_course" == physiciansPage){
+            $(".li_course").click();
+            page = 0;
+        }else if("li_prose_origin" == physiciansPage){
+            $(".li_prose_origin").click();
+            page = 0;
+        }else{
+            $(".li_data").click();
+            // debugger;
+            var li_data = sessionStorage.getItem("li_data");
+            if(isNotBlank(li_data)){
+            	 $(aBtn[parseInt(li_data)]).click();
+            }else{
+            	 $(aBtn[0]).click();
+            }
+        }
+        
+
+        // 点击动态筛选里面的内容  
+        // 点击全部动态
+        $(".filtrate_all").click(function(){
+            //$(".rests_nav").removeClass("hide");  //其他1
+            $(".consilia_nav").removeClass("hide");  // 医案  
+            $(".essay_pack_up").removeClass("hide");  //其他2 
+            $(".article_nav").removeClass("hide");  //文章 
+            $(".rests_nav").removeClass("hide");  //其他3  
+            $(".course_nav").removeClass("hide");  //课程 
+            $(".sinatv_nav").removeClass("hide");  //直播 
+	    });	
+        //点击直播
+	    $(".filtrate_sinatv").click(function(){
+            //$(".rests_nav").addClass("hide");  //其他1
+            $(".consilia_nav").addClass("hide");  // 医案  
+            $(".essay_pack_up").addClass("hide");  //其他2 
+            $(".article_nav").addClass("hide");  //文章 
+            $(".paper_nav").addClass("hide");  //其他3  
+            $(".course_nav").addClass("hide");  //课程 
+            $(".sinatv_nav").removeClass("hide");  //直播 
+	    });
+	    //点击课程 
+	    $(".filtrate_course").click(function(){
+            //$(".rests_nav").addClass("hide");  //其他1
+            $(".consilia_nav").addClass("hide");  // 医案  
+            $(".essay_pack_up").addClass("hide");  //其他2 
+            $(".article_nav").addClass("hide");  //文章 
+            $(".paper_nav").addClass("hide");  //其他3  
+            $(".course_nav").removeClass("hide");  //课程 
+            $(".sinatv_nav").addClass("hide");  //直播 
+	    });	
+	    //点击医案
+	    $(".filtrate_consilia").click(function(){
+            //$(".rests_nav").addClass("hide");  //其他1
+            $(".consilia_nav").removeClass("hide");  // 医案  
+            $(".essay_pack_up").addClass("hide");  //其他2 
+            $(".article_nav").addClass("hide");  //文章 
+            $(".paper_nav").addClass("hide");  //其他3  
+            $(".course_nav").addClass("hide");  //课程 
+            $(".sinatv_nav").addClass("hide");  //直播 
+	    });	
+	    //点击文章 
+	    $(".filtrate_essay").click(function(){
+            //$(".rests_nav").addClass("hide");  //其他1
+            $(".consilia_nav").addClass("hide");  // 医案  
+            $(".essay_pack_up").addClass("hide");  //其他2 
+            $(".article_nav").removeClass("hide");  //文章 
+            $(".paper_nav").addClass("hide");  //其他3  
+            $(".course_nav").addClass("hide");  //课程 
+            $(".sinatv_nav").addClass("hide");  //直播 
+	    });	
+	    //点击其他
+	    $(".filtrate_rests").click(function(){
+            $(".rests_nav").removeClass("hide");  //其他1
+            $(".consilia_nav").addClass("hide");  // 医案  
+            $(".essay_pack_up").removeClass("hide");  //其他2 
+            $(".article_nav").addClass("hide");  //文章 
+            $(".paper_nav").removeClass("hide");  //其他3  
+            $(".course_nav").addClass("hide");  //课程 
+            $(".sinatv_nav").addClass("hide");  //直播 
+	    });
+
+        // 点赞 
+        $(".rests_nav .zan_img").click(function(){
+            $(this).attr('src','/xcview/images/zan001.png');
+	    });	
+	};
+</script>
+<script>
+	$(function(){
+		var say = '';
+		if ($("#form_article").html() === "") {
+			$("#form_article").html(say);
+		}
+		$("#form_article").click(function(){
+            if($("#form_article").html() == say){
+               	$("#form_article").html("");
+            }
+	    });
+	    $("#page_emotion dd").click(function(){
+            $("#form_article").html( $("#form_article").html().replace(say, '') );
+	    });
+
+
+    // 点击发送开始
+    $(".comment h3").click(function(){
+    	$(".face").attr("src","/xcview/images/face.png");
+    	$("#page_emotion").css("bottom","-2.8rem");
+    	$(".comment").css("bottom","0");
+    	$(".comment").hide();
+	});
+
+    // 点击其他内容区域隐藏评论区域
+	$(".comment_bg").click(function(){
+    	$(".face").attr("src","/xcview/images/face.png");
+    	$("#page_emotion").css("bottom","-2.8rem");
+    	$(".comment").hide();
+	});
+
+	// 点击默认说点什么
+	$(".article_main").click(function(){
+    	$("#page_emotion").css("bottom","-2.8rem");
+    	$(".article_main").hide();
+    	$("#form_article").focus();
+	});
+	
+	$(".weixin_ceng").click(function(){
+    	$(".weixin_ceng").hide();
+	});
+
+	
+
+	});
+
+function header_click(){
+	$(".weixin_ceng").show();
+}
+</script>
+
+<!-- 点击复制 -->
+<script type="text/javascript">
+    $(".remove_copy_bg").click(function(){
+    	$(".remove_copy").hide();
+    });
+</script>
+<script type="text/javascript">
+    //		处理底部高度
+    $(function(){
+        var school_height=$(window).height()-$(".top_show_height").height();
+        $("#refreshContainer").height(school_height);
+    });
+
+    // 处理介绍没有数据
+    var school_heights=$(window).height()-$(".top_show_height").height();
+    $(".baseImagenumber").height(school_heights);
+
+    // 处理点击全部动态
+    var school_heightss=$(window).height()-$(".top_show_height").height();
+    $(".screen_show_bg").height(school_heightss);
+
+    // 医师默认图
+    var baseImagenumbers=$(window).height()-$(".top_show_height").height();
+    $(".baseImagenumbers").height(baseImagenumbers);
+	
+
+    // 处理整体body区域高度，不让内容有滚动条
+    var body=$(window).height();
+    $("body").height(body);
+
+</script>
+<script type="text/javascript" src="/xcview/html/physician/js/amazeui.js?version=5bdfd7fbfe"></script>
+
+</html>
+
+

@@ -1,0 +1,866 @@
+<!doctype html>
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<head>
+<meta charset="utf-8">
+<!--<title></title>-->
+<title>熊猫中医</title>
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link rel="stylesheet" href="/xcview/css/css.css">
+
+<!--手机嵌入模板-->
+<script type="text/javascript" src="/xcview/js/common/layout.js"></script>
+<!-- 图片引入放大缩小 -->
+<script type="text/javascript" src="/xcview/js/common/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/underscore.js"></script>
+<script type="text/javascript" src="/xcview/js/common/pinchzoom.js"></script>
+
+
+<link rel=stylesheet href="/xcview/css/jquery.mCustomScrollbar.min.css">
+<link rel="stylesheet" href="/xcview/css/details.css">
+<link rel="stylesheet" href="/xcview/css/style.css">
+
+<link rel="stylesheet" type="text/css" href="/xcview/css/details_style.css"/>
+
+<!--公用弹框 -->
+<link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
+<link rel="stylesheet" href="https://static.vhallyun.com/jssdk/videojs.min.css?v=1.0.0"><!--播放器默认样式，需要引用在包含在页面的head标签里-->
+
+<link rel="stylesheet" type="text/css" href="/xcview/css/salon.css"/>  <!-- 手机端直播css -->
+<style>
+.send_gifts ul li{
+    width: 1.8rem !important;
+    height: 1.8rem !important;
+    margin-left: 0 !important;
+}
+.details_size{
+    min-width: 1.8rem !important;
+    text-indent: 0.1rem !important;
+}
+#liveGiftCount{
+    float: right;
+    text-indent: 0.1rem;
+    padding-right: 0.1rem;
+}
+/*免费礼物文字大小*/
+.web_toast{
+    z-index: 999999 !important;
+}
+
+.leaderboard .leaderboard_list:last-child{
+    border-bottom: none;
+}
+.video-js .vjs-big-play-button{
+    top: 50% !important;
+    margin-top: -1em !important;
+    left: 50% !important;
+    margin-left: -1.5em !important;
+}
+ .chatmsg-box{
+    overflow: scroll;
+    width: 7.5rem;
+    margin: 0 auto;
+ }
+ .mCSB_scrollTools .mCSB_dragger{
+    opacity: 0;
+ }
+ #vhall-h5-player{
+    height: 4.24rem !important;
+ }
+ .document_ceneters{
+    transform: scale(1, 1) !important;
+    transform: translate(-7.10543e-15px, 3.90799e-14px) !important;
+ }
+ .document_ceneter{
+    background: url(/xcview/images/190673525877354982.png) no-repeat;
+    background-size: 2.37rem 2.67rem;
+    background-position: center center;
+ }
+</style>
+
+<script>
+    window.onload = function(){
+        
+        /*礼物模块其他区域隐藏*/
+        $("#video").click(function(){
+            $(".send_gifts").hide();
+        });
+        
+//      点击聊天区域展示内容   sendChat（发送按钮）
+        $(".coze").click(function(){
+            $(".send_gifts").hide();
+            $("#sendChat").hide();
+        });
+        
+        $(".grabble").click(function(){
+            $(".send_gifts").hide();
+        });
+        $(".details_footer").click(function(){
+            $(".send_gifts").hide();
+        });
+        
+//      点击排行榜
+        $(".leaderboard").click(function(){
+            $(".send_gifts").hide();
+        });
+        $(".details1").click(function(){
+            $(".send_gifts").hide();
+        });
+
+        // 点击发送
+        $(".send_img").click(function(){
+            // alert(123);
+            $(".coze_bottom").css("bottom", "0rem");
+        });
+        
+    };
+</script>
+<style type="text/css">
+    .sr-bdimgshare{
+        display: none !important;
+    }
+    /*这是隐藏回放发送聊天层*/
+    .cover{
+        height: 0.98rem;
+        width: 100%;
+        /*background: red;*/
+        position: fixed;
+        bottom: 0;
+        z-index: 999999;
+        left: 0;
+        display: none;
+        opacity: 0;
+    }
+    /*聊天主播样式*/
+    .span_zhubo{
+        background: #00bc12;
+        padding: 0.01rem 0.23rem;
+        border-radius: 4px;
+        color: #fff;
+    }
+    
+    /*隐藏滚动条*/
+    #mCSB_1_scrollbar_vertical{
+        opacity: 1;
+        display: block !important;
+    }
+    
+    .animation{
+        left: 50% !important;
+        margin-left: -3.75rem;
+        z-index: 9999999999;
+    }
+    
+    .video_end_top0 .initiation{
+        font-size: 0.32rem;
+        color: #fff;
+    }
+    .video_end_top0 .video_end{
+        width: 100%;
+        height: 100%;
+        background: #000;
+        opacity: 0.5;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+    }
+    .video_end_top0 .smallImgPath{
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -2;
+    }
+
+    .video_end_top1 .initiation{
+        font-size: 0.68rem;
+        color: #fff;
+    }
+    .video_end_top1 .video_end{
+        width: 100%;
+        height: 100%;
+        background: #000;
+        opacity: 0.5;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+    }
+    .video_end_top1 .smallImgPath{
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+    }
+
+    .video_end_top2 .initiation{
+        font-size: 0.28rem;
+        color: #fff;
+        background: #00BC12;
+        border-radius: 8px;
+        padding: 0.1rem;
+        width: 1.44rem;
+        margin: 0 auto;
+    }
+
+    .video_end_top2 .smallImgPath{
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+    }
+
+    .video_end_top2 .video_end{
+        width: 100%;
+        height: 100%;
+        background: #000;
+        opacity: 0.5;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+    }
+
+    .video_end_top3 {
+        position: absolute;
+        text-align: center;
+        width: 100%;
+        height: 4.24rem;
+        top: 0;
+        margin-top: 0.88rem;
+        z-index: 1;
+        background: rgba(0,0,0,0.80);
+        /* display: none; */
+    }
+    .video_end_top3 .initiation{
+        font-size: 0.28rem;
+        color: #fff;
+        background: #00BC12;
+        border-radius: 8px;
+        padding: 0.1rem;
+        width: 1.44rem;
+        margin: 0 auto;
+    }
+
+    .video_end_top3 .smallImgPath{
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+    }
+
+    .video_end_top3 .video_end{
+        width: 100%;
+        height: 100%;
+        background: #000;
+        opacity: 0.5;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+    }
+    .video_end_top3 p {
+        color: #fff;
+        font-size: 0.32rem;
+        margin-top: 1.5rem;
+        margin-bottom: 0.4rem;
+        text-align: center;
+    }
+
+.mCustomScrollBox{
+    height: 100%;
+    max-width: 7.5rem;
+    left: 50%;
+    margin-left: -3.75rem;
+}
+.coze_bottom_hide{
+    display: none !important;
+}
+#chatmsg {
+    padding-top: 0.05rem;
+}
+.mCustomScrollbar{
+        padding-bottom1: 2.5rem;
+}
+.coze{
+    position: absolute;
+    top: 5.6rem;
+}
+ .coze_cen_ri:last-child{
+    margin-bottom: 0.98rem;
+} 
+.coze_cen_ris{
+    margin-bottom: 0rem !important;
+} 
+#video{
+    background: none;
+}
+.poson{
+    margin-left: 0 !important;
+}
+
+.facebox-mobile .qqFace-mobile{
+    max-width: 7.5rem;
+}
+.img_doc{
+    transform: scale(1, 1) translate(0px, 0px) !important;
+}
+
+.anchor_center p span {
+    font-size: 0.3rem !important;
+}
+.coze_bottom input{
+    line-height: 0.6rem;
+}
+.coze_bottom input{
+    color: #333;
+}
+
+#myVideo{
+    width: 100%;
+    height: 4.24rem;
+    margin-top: 0.88rem;
+    background: #000;
+    opacity: 1;
+}
+
+/* 新加文档 */
+.pinch-zoom-container{
+    min-height: 4rem !important;
+    /*background: red;*/
+}
+.pinch-zoom-container-addclass{
+    display: block !important;
+}
+.document_ceneter{
+    width:100% !important;
+    height: 100% !important;
+}
+.document_ceneter img{
+    width:100% !important;
+    height: 100% !important;
+}
+.document_ceneter div{
+    width:100% !important;
+    height: 100% !important;
+}
+/* 新加文档 */
+
+/*隐藏迁移后--视频读取失败后--错误提示*/
+.vjs-error-displayP{
+    display: none;
+}
+/*添加视频读取失败后的提示*/
+    .video_end_top4 {
+        position: absolute;
+        text-align: center;
+        width: 100%;
+        height: 4.24rem;
+        top: 0;
+        margin-top: 0.88rem;
+        z-index: 1;
+        background: rgba(0,0,0,0.80);
+        /* display: none; */
+    }
+    .video_end_top4 .initiation{
+        font-size: 0.28rem;
+        color: #fff;
+        background: #00BC12;
+        border-radius: 8px;
+        padding: 0.1rem;
+        width: 1.44rem;
+        margin: 0 auto;
+    }
+    .video_end_top4 p {
+        color: #fff;
+        font-size: 0.32rem;
+        margin-top: 1.5rem;
+        margin-bottom: 0.4rem;
+        text-align: center;
+    }
+    #face{
+        display: none !important;
+    }
+    .video_end_top0 .video_end {
+         width: 100%;
+         height: 100%;
+         background: #000;
+         opacity: 0.5;
+         position: absolute;
+         top: 0;
+         left: 0;
+         z-index: -1;
+    }
+
+    .document_ceneter_width{
+        transform: scale(1, 1) translate(-7.10543e-15px, 3.90799e-14px) !important;
+    }
+</style>
+</head>
+<body style="background: #f8f8f8;overflow: hidden1;">
+    
+    <div class="divred"></div>
+
+    <div class='vanish2 hide'><div class='vanish2_bg'></div><div class='vanish2_cen'><div class='vanish2_size'>熊猫币余额获取失败！请稍后再试</div></div></div>
+    <div class='vanish4 hide'><div class='vanish4_bg'></div><div class='vanish4_cen'><div class='vanish4_size'>提交订单错误！请稍后再试！</div></div></div>
+    
+    <!-- 如果视频id出现错误，弹框 -->
+    <div class="history_bg" style="display:none;">
+        <div class="history_bg_color"></div>
+        <div class="history_bg_cen"  style="top:0%;">
+            <!--<div class="history_bg_cen_size">此活动信息有误,请试试其他视频。错误码：<span id="error_code"></span></div>-->
+            <div class="history_bg_cen_size">视频迷路了，请试试其他视频。</div>
+            <div class="history_bg_bto">
+                <div class="history_bg_bto1" onclick="javascript:history.back(-1);">确定</div>
+                <!-- <div class="history_bg_bto2">取消</div> -->
+                <div class="both"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 头部开始 -->
+    <header style="padding-top: 0rem;" class="header">
+        <!-- <div class="grabble">
+            <div class="grabble_top">
+                
+                <div class="grabble_left" onclick="isLoginJump()">  onclick="isLoginJump()" ---这是上一版的返回点击事件 onclick="window.history.go(-1);" 这版   
+                    <div class="grabble_img"><img src="/xcview/images/back icon.png" alt="" /></div>
+                </div>
+        
+                <span class="history_span"></span>
+                <div class="history_img_right" id="share" style=""><div class="fx_bg"><img src="/xcview/images/share_img.png" alt="" /></div></div>
+            </div>
+        </div> -->
+    </header>
+    <div class="footer_k" style="height: 1.8rem;display: none;"></div>
+        
+    <!-- 头部结束 -->
+    <!-- 中间内容开始 -->
+    <div class="details_cen1">
+        <div class="video" id="myVideo">
+            
+        </div>
+        <!--即将开始提示-->
+        <div class="video_end_top0" style="display: none;">
+            <div class="video_end"></div>
+            <img src="" alt="" class="smallImgPath" />
+            <p>即将直播：<span id="initiation_gradename"></span></p>
+            <div class="initiation">开播时间：<span class="initiation_span"></span></div>
+        </div>
+        <!--即将开始提示-->
+
+        <!--添加视频读取失败后的提示-->
+        <div class="video_end_top4" style="display: none;">
+            <p>获取媒体数据过程中出错 </p>
+            <div class="initiation" onclick="location.reload()">点击刷新</div>
+        </div> 
+        <!--添加视频读取失败后的提示-->
+
+        <!-- 主播要离开一会提示开始-->
+        <div class="video_end_top3" style="display: none;">
+            <img src="" alt="" class="smallImgPath" />
+            <div class="video_end"></div>
+            <p>主播要离开一会儿，稍等片刻哦~</p>
+        </div>
+        <!-- 主播要离开一会提示结束-->
+
+        <!--直播结束，正在生成回放提示-->
+        <div class="video_end_top2" style="display: none;">
+            <img src="" alt="" class="smallImgPath" />
+            <div class="video_end"></div>
+            <p>直播结束，正在生成回放…</p>
+            <div class="initiation" onclick="location.href ='/xcview/html/my_study.html'">学习中心</div>
+        </div>
+        <!--直播结束，正在生成回放提示-->
+
+        <!--直播已结束提示-->
+        <div class="video_end_top" style="display: none;">
+            <div class="video_end"></div>
+            <p>直播结束，点击返回学习中心</p>
+            <div class="div" onclick="window.location='/xcview/html/my_study.html'">返回</div>
+        </div>
+        <!--直播已结束提示-->
+        
+        <!--直播结束查看回放-->
+        <div class="video_end_top1" style="display: none;">
+            <img src="" alt="" class="smallImgPath" />
+            <div class="video_end"></div>
+            <p>直播结束,点击查看回放</p>
+            <div class="div"><img src="/xcview/images/refurbish.png" alt=""></div>
+        </div>
+        <!--直播结束查看回放-->
+        
+        <!--暂时先隐藏掉，11/1-->
+        <div class="details_bottom">
+            <div class="details_size">
+                <img src="/xcview/images/shows.png" class="img0" /> 
+                <span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="/xcview/images/yanjing02.png" class="img1" /> <span id="liveGiftCount"></span>
+            </div>
+        </div>
+        <div class="details_footer">
+            <div class="details_footer_width" style="padding-bottom: 0rem;">
+                <ul>
+                    <li><span class="li1">聊天</span></li>
+                    <li><span class="li3">排行榜</span></li>
+                    <li class="click_li"><span class="li2">主讲人</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <input id="actualPayHide" type="hidden"/><input id="sid" type="hidden"/>
+    <div class="details_chat" style="top: 12.47rem;display: none;">
+        <div class="details_chat_center">
+            <img src="/xcview/images/touxiang.png" alt="" class="details_chat1" />
+            <div class="details_chat_attention" id="zhibopinglun">
+                <p class="p1"></p>
+                <p class="p2">
+                    播&nbsp;&nbsp;&nbsp;主：<span></span>
+                </p>
+            </div>
+            <div class="details_chat2"
+                style="width: 0; padding: 0; background: none;display: none;">
+                <img src="/xcview/images/guanzhu_03.png" alt=""
+                    style="margin-top: 0.28rem; margin-left: 0.19rem;" />
+                
+                <input id="teacherId" style="display: none;">
+            </div>
+            <div class="close">
+                <img src="/xcview/images/x.png" alt="" />
+            </div>
+        </div>
+        <div class="both"></div>
+    </div>
+    <div class="footer_k footer_ks" id="footer_ks" style="height: 5.2rem;"></div>
+    <!-- 详情聊天开始 -->
+    
+    
+    <div class="coze_bottom" style="padding: 0.3rem 0;">
+        <div class="coze_bottom_input" style="margin-right: 0;">
+            <div class="div_img">
+                <img src="/xcview/images/inp_retured.png" class="img_left" />
+            </div>
+            <div class="poson" style="margin-left: 0 !important;">
+                <div class="send_img" id="sendChat">发送 </div>
+                <div class="div_input">
+                    <input class="textarea02" id="mywords" placeholder="来点神聊"
+                    onkeypress='return!(13==event.keyCode&&!event.shiftKey)||(document.getElementById("sendChat").click(),!1)'  />
+                </div>
+            </div>
+            
+            <!-- 打赏 -->
+            <span class="face give_a1_span02" style="display: none;">
+            <img src="" style="margin-top: -0.2rem;" /></span>
+             <!-- 礼物 -->     
+            <a href="javascript: ;" class="give_a1"><img
+                src="/xcview/images/gaft.png" alt="" class="give_a1_img" style="" /></a>
+                <!-- 表情 -->
+            <div class="give_a01" style="">
+                <a id="face" href="javascript:;" class="face give_a1_span" style=""><div class="face_img01"></div></a>
+                <div class="both"></div>
+            </div>
+        </div>
+    </div>
+    <!-- 详情聊天结束 -->
+
+    <!--分享开始-->
+    <div class="share">
+        <div class="share_bg"></div>
+        <div class="share_main">
+            <div class="share_main_bg">
+                <ul>
+                    <div class="share_to">分享到</div>
+                    <li>
+                        <div class="" id="qqShare">
+                            <img src="/xcview/images/Qzone_share.png" />
+                            <p>qq空间</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="" id="qqShare0">
+                            <img src="/xcview/images/RSS_links.png" />
+                            <p>新浪微博</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="share_cancel">取消</div>
+        </div>
+    </div>
+    <div class="weixin_ceng" style="display1: block;display: none !important;">
+        <div class="weixin_ceng_bg"></div>
+        <div class="weixin_img"><img src="/xcview/images/fenxiang1.png" data-bd-imgshare-binded="1"></div>
+    </div>
+    <!--分享结束-->
+
+    <script src="/xcview/js/common/main.js"></script>
+    <!-- 直播分享页结束 -->
+
+    <!-- 点击微信-->
+    <div class="weixin_ceng">
+        <div class="weixin_ceng_bg"></div>
+        <div class="weixin_img">
+            <img src="/xcview/images/fenxiang1.png" />
+        </div>
+    </div>
+    <!-- 直播送礼物开始 -->
+    <div class="send_gifts" style="display: block1 !important;">
+        <div class="send_gifts_div0">
+            <!--<p class="send_gifts_p">送礼物</p>-->
+            
+            <!--礼物关闭按钮ui变更暂时去掉-->
+            <!--<p class="send_gifts_p1">关闭</p>-->
+            
+            
+        </div>
+        <div class="both"></div>
+
+        <div class="send_gifts_ul">
+            <div class="div">
+                <span class="span0">礼物</span>
+                <span class="span1">×</span>
+            </div>
+            <ul class="gift_ul_li">
+            </ul>
+        </div>
+
+        <div class="both"></div>
+
+        <div class="balance">
+            <div class="balance_size" onclick="location.href ='recharges.html'">
+                熊猫币<span id="xmbShowSpan" style="color: #F97B49;font-size: 0.36rem;">加载中...</span> <img src="/xcview/images/top_up_rights.png" alt="" style="margin-top: 0.37rem;float: right;width: 0.15rem;margin-left: 0.08rem;" />
+            </div>
+            <div class="count" style="display: none !important;">
+                <div class="count_cen" style="width:5rem;margin-left: 0.4rem;">
+                    <div class="count_cen_size">礼物数量：</div>
+                    <div id="import">
+                        <div class="import_div"><input text="tel" id="giftCoun" class="import" value="1" ></div>
+                        <div class="import_hide">
+                            <!-- <div class="import4">其他数量</div> -->
+                            <div class="import1">100</div>
+                            <div class="import2">50</div>
+                            <div class="import3">10</div>
+                            <div class="import5">1</div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="balance_send">发送</div>
+        </div>
+    </div>
+    
+    <!-- 直播送礼物结束 -->
+
+
+    <!-- 详情主播开始 -->
+    <div class="details1">
+        <!--关注开始-->
+        <div class="attention">
+            <div class="main_img">
+                <img src="" alt="" class="guanz_headImg"/>
+            </div>
+            <div class="main_title" style="width: 4.3rem;">
+                <p class="p0">测试（主播名）</p>
+                <p class="p1">
+                    <span class="span0">关注<span class="n_guanzhu">0</span></span>
+                    <span class="span1">粉丝<span class="n_fensi">0</span></span>
+                </p>
+            </div>
+            <div class="add_follow add_follow00" id="add_follow1" data-lecturerid="23908ae85dad4541ba7ecf53fc52aab2">
+                <img src="/xcview/images//weigz.png">
+                <p>加关注</p>
+            </div>
+            
+        </div>
+        <!--关注结束-->
+        
+        
+        <!--关注开始-->
+        <div class="attention" style="display: none;">
+            <div class="main_img">
+                <img src="" alt="" id=""/>
+            </div>
+            <div class="main_title" style="width: 8.45rem;">
+                <p class="p0">测试（主播名）</p>
+                <p class="p1">
+                    <span class="span0">关注<span>0</span></span>
+                    <span class="span1">粉丝<span>0</span></span>
+                </p>
+            </div>
+            <div class="add_follow">
+                <img src="/xcview/images/weigz.png">
+                <p>加关注</p>
+            </div>
+        </div>
+        <!--关注结束-->
+
+        
+    </div>
+    <div class="both"></div>
+    <!-- 详情主播结束 -->
+
+    <!-- 排行榜开始 -->
+    <div class="leaderboard" id="phbList" style="margin-top: 3.6rem;">
+        
+        <div class="no_git" style="display: none;">
+            <div class="no_git_pic">
+                
+            </div>
+            <p style="font-size: 0.24rem; color: #BBBBBB;padding: 0.2rem 0;text-align: center;">没人送礼物？快去打赏主播吧~</p>
+        </div>
+    </div>
+    <!-- 排行榜结束 -->
+
+</body>
+<script src="/xcview/weihoujs/jquery.min.js"></script>
+<script type="text/JavaScript" src="//res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/alertPopShow.js"></script>
+
+
+<script src="/xcview/weihoujs/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="/xcview/weihoujs/underscore-min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/common.js"></script>
+
+
+<script type="text/javascript" src="/xcview/js/im/vhallGiftSend.js"></script>
+
+
+<script src="https://static.vhallyun.com/jssdk/vhall-jssdk-player-1.0.0.js?v=201806271657"></script>
+<script src="https://static.vhallyun.com/jssdk/vhall-jssdk-doc-1.0.0.js?v=201806271657"></script>
+<script src="https://static.vhallyun.com/jssdk/vhall-jssdk-chat-1.0.0.js?v=201801121522"></script>
+<script src="https://static.vhallyun.com/jssdk/dvideo-plugin.js?v=0.3"></script>
+<script src="https://static.vhallyun.com/jssdk/vhall-jssdk-base-1.0.0.js?v=201806271657"></script>
+
+
+<!-- 部分点击事件 -->
+<script type="text/javascript" src="/xcview/js/details_change.js"></script>
+<script type="text/javascript" src="/xcview/js/details.js"></script>
+<script type="text/javascript" src="/xcview/js/vhallyun.js"></script>
+<script type="text/javascript" src="/xcview/js/share/share.js"></script>
+
+
+<script type="text/javascript">
+    window.onload = function(){
+        $(".document_ceneter img").click();
+        
+        $("body").scrollTop($("body").scrollHeight);
+        $(".chatmsg-box").scrollTop($(".chatmsg-box")[0].scrollHeight);
+        /* $(".mCSB_dragger").scrollTop($(".mCSB_dragger")[0].scrollHeight); */
+        $(".coze").scrollTop($(".coze")[0].scrollHeight);
+        $(".coze_center").scrollTop($(".coze_center")[0].scrollHeight);
+        /* $(".mCSB_container").scrollTop($(".mCSB_container")[0].scrollHeight); */
+        /*$(".mCSB_container").css("top","0");
+        $(".mCSB_container").css("bottom","0");*/
+        /* $(".mCSB_dragger_bar").scrollTop($(".mCSB_dragger_bar")[0].scrollHeight); */
+
+
+        $(".chatmsg-box").scroll(function(){  
+            var $this =$(this),  
+            viewH =$(this).height(),//可见高度  
+            contentH =$(this).get(0).scrollHeight,//内容高度  
+            scrollTop =$(this).scrollTop();//滚动高度  
+            //if(contentH - viewH - scrollTop <= 100) { //到达底部100px时,加载新内容  
+            if(scrollTop/(contentH -viewH)>=0.95){ //到达底部100px时,加载新内容  
+            // 这里加载数据..  
+
+            // alert(132)
+            }  
+        });  
+
+//      点击输入框,表情显示,礼物隐藏   删除后，影响效果
+        $("#mywords").click(function(){
+            $(".give_a1").hide();  /*这是礼物*/
+            $(".give_a01").show();  /*这是表情*/
+            $("#sendChat").show();  /*发送文字按钮*/
+            $(".div_input").css("background","none");  /*input背景色隐藏*/
+        });
+
+        $(".gift_ul_li li:first-child").click();
+        
+        
+//      点击关注关闭
+        $(".attention .close").click(function(){
+            $("#attention").hide();
+        });
+
+//      关注几秒后隐藏
+        setTimeout(function(){document.getElementById("attention").style.display="none";},10000);
+        
+//      <!--点击礼物关闭按钮-->
+        $(".send_gifts_ul .div .span1").click(function(){
+            $(".send_gifts").hide();
+        });
+        
+
+        if( $('#doc img').attr('src') ){
+            $("#doc").css("display","black");
+        }else{
+            $("#doc").css("display","none");
+        }
+
+        $(".give_a1").click(function(){
+            $("#attention").hide();
+        });
+
+        $(".li4").click(function(){
+            // 课件获取高度
+            $(".pinch-zoom-container").addClass("pinch-zoom-container-addclass");
+            var school_height=$(window).height()-$(".details_cen1").height();
+            $(".pinch-zoom-container").height(school_height);
+
+            $("#doc").addClass("img_doc");
+        });
+        
+        $(".click_li_four").click(function(){
+            // 课件获取高度
+            $(".pinch-zoom-container").addClass("pinch-zoom-container-addclass");
+
+            $("#ch_ce0cee3a-iframe-div").dblclick();
+
+            $(".document_ceneter").addClass("document_ceneters");
+            // $(".document_ceneter").css("transform","scale(1, 1) translate(-7.10543e-15px, 3.90799e-14px)");
+
+            $(".document_ceneter").addClass("document_ceneter_width");
+
+        });
+
+        $("#doc img").click(function(){
+            // 课件获取高度  img_doc
+            $("#doc").removeClass("img_doc");
+        });
+
+        /*var Document = $(".document_ceneter").html();
+        if (Document == !null) {
+            alert(1111);
+        }else{
+            alert(2222);
+        };*/
+    };
+</script>
+<script>
+     var school_height=$(window).height()-$(".header").height()-$(".footer_ks").height();
+     $(".chatmsg-box").height(school_height);
+
+     
+    $(".document").click(function(){
+        $(".document_ceneter").removeClass("document_ceneter_width");
+    });
+</script>
+</html>
+
+
+

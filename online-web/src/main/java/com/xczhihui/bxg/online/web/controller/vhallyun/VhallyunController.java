@@ -110,8 +110,7 @@ public class VhallyunController extends AbstractController {
     @ResponseBody
     public String callback(@RequestBody VhallCallbackBody vhallCallbackBody) throws Exception {
 
-        LOGGER.info("into 点播生成回调 callback ");
-        LOGGER.info("vhallCallbackBody：" + vhallCallbackBody.toString());
+        LOGGER.warn("into 点播生成回调 callback ");
 
         String signature = vhallCallbackBody.getSignature();
         if (StringUtils.isBlank(signature)) {
