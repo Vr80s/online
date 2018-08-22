@@ -18,6 +18,7 @@ import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.*;
 import com.xczhihui.common.support.cc.util.CCUtils;
 import com.xczhihui.common.support.service.CacheService;
+import com.xczhihui.common.support.service.XcRedisCacheService;
 import com.xczhihui.common.util.redis.key.RedisCacheKey;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.util.enums.*;
@@ -114,7 +115,9 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
     private EnrolService enrolService;
     @Value("${vhall.user.id}")
     private String liveVhallUserId;
-
+    @Autowired
+    private XcRedisCacheService xcRedisCacheService;
+    
     @Override
     public Page<CourseApplyInfo> findCoursePage(
             CourseApplyInfo courseApplyInfo, int pageNumber, int pageSize) {
@@ -179,9 +182,10 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
             //如果专辑课程已经更新完，需要标识
             if (course.getCourseNumber() != null && Integer.compare(courseApplyInfos.size(), course.getCourseNumber()) >= 0) {
                 courseDao.update(course);
-                messageRemindingService.deleteCourseMessageReminding(course, RedisCacheKey.COLLECTION_COURSE_REMIND_KEY);
+                
+                xcRedisCacheService.deleteCourseMessageReminding(course.buildCourseMessage(), RedisCacheKey.COLLECTION_COURSE_REMIND_KEY);
             } else {
-                messageRemindingService.saveCourseMessageReminding(course, RedisCacheKey.COLLECTION_COURSE_REMIND_KEY);
+            	xcRedisCacheService.saveCourseMessageReminding(course.buildCourseMessage(), RedisCacheKey.COLLECTION_COURSE_REMIND_KEY);
             }
             saveCollectionUpdateCollectionId(courseApplyId, course.getId());
         }
@@ -246,6 +250,7 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
             weixinParams.put("keyword1", title);
             weixinParams.put("keyword2", "审核通过");
             weixinParams.put("remark", "");
+            
             commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.COURSE.getVal())
                     .buildWeb(content)
                     .buildAppPush(MessageFormat.format(isLiveCourse ? APP_PUSH_LIVE_COURSE_APPLY_SUCCESS_MESSAGE_TIPS : APP_PUSH_NOT_LIVE_COURSE_APPLY_SUCCESS_MESSAGE_TIPS, typeText, title))
@@ -610,10 +615,12 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
     }
 
     void savecourseMessageReminding(Course course) {
+    	System.out.println(xcRedisCacheService);
         if (course.getType().equals(CourseForm.LIVE.getCode())) {
-            messageRemindingService.saveCourseMessageReminding(course, RedisCacheKey.LIVE_COURSE_REMIND_KEY);
+        	course.buildCourseMessage();
+        	xcRedisCacheService.saveCourseMessageReminding(course.buildCourseMessage(), RedisCacheKey.LIVE_COURSE_REMIND_KEY);
         } else if (course.getType().equals(CourseForm.OFFLINE.getCode())) {
-            messageRemindingService.saveCourseMessageReminding(course, RedisCacheKey.OFFLINE_COURSE_REMIND_KEY);
+        	xcRedisCacheService.saveCourseMessageReminding(course.buildCourseMessage(), RedisCacheKey.OFFLINE_COURSE_REMIND_KEY);
         }
     }
 }

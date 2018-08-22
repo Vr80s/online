@@ -1,9 +1,16 @@
 package com.xczhihui.course.service.impl;
 
-import java.util.*;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,14 +18,26 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.google.common.collect.ImmutableMap;
+import com.xczhihui.common.support.domain.CouserMessagePushVo;
+import com.xczhihui.common.support.service.XcRedisCacheService;
+import com.xczhihui.common.support.service.impl.XcRedisCacheServiceImpl;
 import com.xczhihui.common.util.DateUtil;
 import com.xczhihui.common.util.EmailUtil;
 import com.xczhihui.common.util.XzStringUtils;
-import com.xczhihui.common.util.enums.*;
-import com.xczhihui.common.util.vhallyun.ChannelService;
-import com.xczhihui.common.util.vhallyun.InteractionService;
+import com.xczhihui.common.util.enums.CourseForm;
+import com.xczhihui.common.util.enums.CourseType;
+import com.xczhihui.common.util.enums.LiveCaseType;
+import com.xczhihui.common.util.enums.LivePushStreamStatus;
+import com.xczhihui.common.util.enums.LiveStatus;
+import com.xczhihui.common.util.enums.LiveStatusEvent;
+import com.xczhihui.common.util.enums.MessageTypeEnum;
+import com.xczhihui.common.util.enums.Multimedia;
+import com.xczhihui.common.util.enums.PayStatus;
+import com.xczhihui.common.util.enums.PlayBackType;
+import com.xczhihui.common.util.enums.RouteTypeEnum;
+import com.xczhihui.common.util.enums.VhallCustomMessageType;
+import com.xczhihui.common.util.redis.key.RedisCacheKey;
 import com.xczhihui.common.util.vhallyun.MessageService;
-import com.xczhihui.common.util.vhallyun.RoomService;
 import com.xczhihui.common.util.vhallyun.VideoService;
 import com.xczhihui.course.consts.MultiUrlHelper;
 import com.xczhihui.course.exception.CourseException;
@@ -26,6 +45,8 @@ import com.xczhihui.course.mapper.CourseMapper;
 import com.xczhihui.course.mapper.CriticizeMapper;
 import com.xczhihui.course.mapper.FocusMapper;
 import com.xczhihui.course.model.Course;
+import com.xczhihui.course.params.BaseMessage;
+import com.xczhihui.course.service.ICommonMessageService;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.course.vo.ShareInfoVo;
@@ -43,6 +64,15 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     public static final String START_EVENT = "start";
     public static final String STOP_EVENT = "stop";
 
+    
+
+	private static final String WEB_TREATMENT_MESSAGE_TIPS = 
+			"【熊猫中医】您已成功预约{0}医师{1}的远程诊疗，请做好诊前准备并及时登录熊猫中医平台以便{2}老师进行远程协助诊疗。";
+	
+	private static final String APP_TREATMENT_MESSAGE_TIPS = 
+			"【熊猫中医】您已成功预约{0}医师{1}的远程诊疗，请做好诊前准备。";
+    
+    
     @Autowired
     private CourseMapper iCourseMapper;
 
@@ -51,7 +81,12 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 
     @Autowired
     private FocusMapper focusMapper;
-
+    
+    @Value("${weixin.course.remind.code}")
+    private String weixinTemplateMessageRemindCode;
+    
+    @Autowired
+    private ICommonMessageService commonMessageService;
 
     @Override
     public Page<CourseLecturVo> selectCoursePage(Page<CourseLecturVo> page) {
@@ -610,7 +645,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 	//需要医师名，需要诊疗时间
     
 	@Override
-	public void createTherapyLive(Integer id,Integer clientType) throws Exception {
+	public void createTherapyLive(Integer id,Integer clientType,String accountId) throws Exception {
 		
 		/**
 		 * 查找生成诊疗直播的必要信息
@@ -622,6 +657,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 		String gradeName = createTherapyGradeName(cv.getUserLecturerId(),cv.getDoctorName(),cv.getStartTime());
         course.setGradeName(gradeName);
         
+        course.setAppointmentInfoId(id);
         //默认图
         course.setSmallImgPath("https://file.xczhihui.com/18821120655/9db25c52561d-9754170cc93c4169996f3ddc86ea30f91534824415642.png");
         //讲师的用户id
@@ -637,8 +673,12 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         //讲师名字和讲师简介   --》默认把主播名字和主播介绍带过去
         course.setLecturer(cv.getHeir());
         course.setLecturerDescription(cv.getLecturerDescription());
+        
         //预约时间
         course.setStartTime(cv.getStartTime());
+        //结束时间
+        course.setEndTime(cv.getEndTime());
+        
         //客户端类型
         course.setClientType(clientType);
 //      //房间id
@@ -656,21 +696,60 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         course.setRecommendSort(0);
         // 请填写一个基数，统计的时候加上这个基数
         course.setLearndCount(0);
-        
+        course.setCurrentPrice(0d);
         /**
          * 保存课程信息
          */
         iCourseMapper.insert(course);
         
         
+    	CouserMessagePushVo  cmpv = new CouserMessagePushVo();
+    	cmpv.setGradeName(course.getGradeName());
+    	cmpv.setId(course.getId());
+    	cmpv.setUserLecturerId(course.getUserLecturerId());
+    	cmpv.setStartTime(course.getStartTime());
+    	cmpv.setAppointmentInfoId(id);
+        
+    	
+    	XcRedisCacheService xcRedisCacheService = new XcRedisCacheServiceImpl();
+    	/**
+    	 * 保存到redis缓存，开播前提醒
+    	 */
+        xcRedisCacheService.saveCourseMessageReminding(cmpv, RedisCacheKey.LIVE_COURSE_REMIND_KEY);
+        
         /*
          * 更改审核信息
          */
         Integer falg = iCourseMapper.updateAppointmentInfoPass(id,2);
-        
-        
+    	
+        /**
+         * 发送推送消息
+         */
+        //sendTherapyMessage(cv,accountId);
 	}
 
+	
+	public void sendTherapyMessage(CourseLecturVo cv,String userId) throws Exception {
+		
+		/*
+    	 * 1、发送短信提示
+    	 */
+        String content = MessageFormat.format(WEB_TREATMENT_MESSAGE_TIPS,cv.getDoctorName(),
+        		DateUtil.treatmentTime(cv.getStartTime(), cv.getEndTime()), cv.getDoctorName());
+
+        Map<String, String> params = new HashMap<>();
+//        params.put("type", typeText);
+//        params.put("courseName", title);
+        
+        
+        commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.SYSYTEM.getVal())
+                 .buildAppPush(APP_TREATMENT_MESSAGE_TIPS)
+                 .buildWeb(content)
+                  //.buildSms(code, params) 需要配置下短信模板
+                 .detailId(String.valueOf(cv.getId()))
+                 .build(userId, RouteTypeEnum.APPOINTMENT_TREATMENT_INFO_PAGE, cv.getUserLecturerId()));
+	}
+	
 	/**  
 	 * <p>Title: createTherapyGradeName</p>  
 	 * <p>Description: </p>  
