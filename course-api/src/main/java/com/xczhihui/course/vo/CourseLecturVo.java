@@ -245,6 +245,9 @@ public class CourseLecturVo implements Serializable {
      * 医师名字
      */
     private String doctorName; 
+    
+    
+    private String appointmentInfoId;
 
     public String getAppid() {
         return appid;
@@ -888,6 +891,14 @@ public class CourseLecturVo implements Serializable {
 
 	public void setDoctorName(String doctorName) {
 		this.doctorName = doctorName;
+	}
+
+	public String getAppointmentInfoId() {
+		return appointmentInfoId;
+	}
+
+	public void setAppointmentInfoId(String appointmentInfoId) {
+		this.appointmentInfoId = appointmentInfoId;
 	}
 	
 }

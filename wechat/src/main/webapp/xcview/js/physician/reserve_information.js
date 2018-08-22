@@ -85,12 +85,28 @@ $(function(){
             return false;
         }
 
+
+
         var question = $(".textarea").val(); //请简单描述您的问题
         if (isBlank(question)) {
 
             jqtoast("诊疗问题不能为空");
             return false;
         }
+
+        /*var agreementchecked = document.getElementById("checkbox1").checked;
+        if (!agreementchecked) {
+            jqtoast("请同意协议内容");
+            return false;
+        }*/
+
+        if(!$('#checkbox1').is(':checked')) {
+            jqtoast("请同意协议内容");
+            return false;
+        }/*else{
+            
+            alert(21222);
+        }*/
 
         requestService("/doctor/treatment/appointmentInfo",{
             treatmentId:treatmentId,

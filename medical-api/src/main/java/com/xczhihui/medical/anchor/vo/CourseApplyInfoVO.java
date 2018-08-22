@@ -161,6 +161,12 @@ public class CourseApplyInfoVO implements Serializable {
      */
     private Integer selectedNumber;
     private Boolean teaching;
+    
+    /**
+     * 诊疗信息id
+     */
+    private String appointmentInfoId;
+    
 
     public Boolean getRecord() {
         return record;
@@ -506,8 +512,17 @@ public class CourseApplyInfoVO implements Serializable {
     public void setChannelId(String channelId) {
         this.channelId = channelId;
     }
+    
+    
+    public String getAppointmentInfoId() {
+		return appointmentInfoId;
+	}
 
-    @Override
+	public void setAppointmentInfoId(String appointmentInfoId) {
+		this.appointmentInfoId = appointmentInfoId;
+	}
+
+	@Override
     public String toString() {
         return "CourseApplyInfo{" +
                 ", id=" + id +

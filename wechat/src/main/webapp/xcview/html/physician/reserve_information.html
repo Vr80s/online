@@ -79,10 +79,26 @@
 	</div>
 
 	<div class="handler_btn">申请预约</div>
+
+	<!-- <div class="protocol">
+		<input type="text">
+	</div> -->
+
+	<div class="other_means">
+			<div class="other_means_ru">
+				<input type="checkbox" name="check" checked="checked" id="checkbox1">
+			</div>
+			我已阅读并同意<span class="check01_a" onclick="window.location='/xcview/html/broadcast_protocol.html'">《远程诊疗直播协议》</span>
+	</div>
+
+
 	<div class="handler_reminder">
-		<span>提交申请后，我们会以短信形式告知审核结果；</span>
-		<span>申请成功后，医师将通过您预留的联系方式进行远程诊疗，请在预约时间做好准备事项。</span>
-		
+		<span>提示：</span>
+		<ul>
+			<li><span>提交申请后，我们会以短信形式告知审核结果；</span></li>
+			<li><span>申请成功后，医师可在预约时间前10分钟开始视频诊疗，请等待医师发起视频；</span></li>
+			<li><span>诊疗结束后，可前往<span style="color: #00bc12;">我的预约</span>页面观看诊疗历史视频</span></li>
+		</ul>
 	</div>
 	<!-- 中间内容结束 -->
 	<!-- 点击出现弹出框开始 -->
@@ -134,4 +150,18 @@
 <script type="text/javascript" src="/xcview/js/common/popups.js"></script>  <!-- 公用弹框 -->
 <script type="text/javascript" src="/xcview/js/common/template.js"></script>    <!--数据模板引入--> 
 <script type="text/javascript" src="/xcview/js/physician/reserve_information.js"></script>
+
+<script>
+	
+	$("#checkbox1").click(function(){
+        if($('#checkbox1').is(':checked')) {
+            $(".other_means_ru").css("background","url(/xcview/images/agree.png) no-repeat");
+            $(".other_means_ru").css("background-size","100% 100%");
+        }else{
+            $(".other_means_ru").css("background","url(/xcview/images/agrees.png) no-repeat");
+            $(".other_means_ru").css("background-size","100% 100%");
+        }
+    })
+
+</script>
 </html>

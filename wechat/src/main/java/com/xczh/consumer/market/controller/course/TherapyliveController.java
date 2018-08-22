@@ -48,13 +48,11 @@ public class TherapyliveController {
     }
 	
     
-    //审核通过
+    //取消审核
     @RequestMapping(value = "cancel", method = RequestMethod.GET)
     public ResponseObject cancel(@RequestParam int id, @Account String accountId) throws Exception {
     	
-        
     	courseService.updateTherapyLive(id,accountId);
-    	
     	
         return ResponseObject.newSuccessResponseObject("操作成功");
     }

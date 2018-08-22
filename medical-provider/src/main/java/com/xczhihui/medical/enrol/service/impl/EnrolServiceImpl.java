@@ -1,17 +1,5 @@
 package com.xczhihui.medical.enrol.service.impl;
 
-import static com.xczhihui.common.util.enums.EntryInformationType.ONLINE_APPLY;
-
-import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.common.util.SmsUtil;
 import com.xczhihui.common.util.enums.ApprenticeStatus;
@@ -30,6 +18,17 @@ import com.xczhihui.medical.enrol.vo.MedicalEnrollmenRtegulationsCardInfoVO;
 import com.xczhihui.medical.enrol.vo.MedicalEntryInformationVO;
 import com.xczhihui.medical.exception.MedicalException;
 import com.xczhihui.medical.headline.vo.SimpleUserVO;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import static com.xczhihui.common.util.enums.EntryInformationType.ONLINE_APPLY;
 
 /**
  * Description: <br>
@@ -377,6 +376,9 @@ public class EnrolServiceImpl implements EnrolService {
     public void saveCourseTeaching4Init(Integer courseId, String doctorAccountId) {
         medicalEntryInformationMapper.deleteCourseTeachingByCourseId(courseId.toString());
         List<String> apprenticeIds = medicalEntryInformationMapper.getApprenticeIdsByDoctorAccountId(doctorAccountId);
+        if(apprenticeIds.size() == 0) {
+            return;
+        }
         medicalEntryInformationMapper.saveCourseTeaching(courseId.toString(), apprenticeIds);
     }
 

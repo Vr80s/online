@@ -504,7 +504,7 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
         }
         if(course.getStatus().equals("1")){
             //更新动态
-            medicalDoctorPostsService.addDoctorPosts(course.getUserLecturerId(),course.getId(),null,course.getGradeName(),course.getSubtitle());
+            medicalDoctorPostsService.addDoctorPosts(course.getUserLecturerId(),course.getId(),null,course.getGradeName(),course.getSubtitle(), course.getAppointmentInfoId());
         }
         dao.update(course);
         return status;

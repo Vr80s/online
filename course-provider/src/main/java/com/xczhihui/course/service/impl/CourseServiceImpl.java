@@ -12,6 +12,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSONObject;
@@ -19,6 +20,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.google.common.collect.ImmutableMap;
 import com.xczhihui.common.support.domain.CouserMessagePushVo;
+import com.xczhihui.common.support.lock.Lock;
 import com.xczhihui.common.support.service.XcRedisCacheService;
 import com.xczhihui.common.support.service.impl.XcRedisCacheServiceImpl;
 import com.xczhihui.common.util.DateUtil;
@@ -636,20 +638,20 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 
 	//需要医师名，需要诊疗时间
     
-	@Override
-	public void createTherapyLive(Integer id,Integer clientType,String accountId) throws Exception {
+    @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Lock(lockName = "createTherapyLive", waitTime = 5, effectiveTime = 8)
+	public void createTherapyLive(Integer lockId,Integer clientType,String accountId) throws Exception {
 		
 		/**
 		 * 查找生成诊疗直播的必要信息
 		 */
-		CourseLecturVo cv = iCourseMapper.selectTherapyLiveInfo(id);
-		
-		
+		CourseLecturVo cv = iCourseMapper.selectTherapyLiveInfo(lockId);
 		Course course = new Course();
 		//***医师的远程诊疗直播 yyyy/mm/dd 如有重复则加上编号（01,02,03….）。  
 		String gradeName = createTherapyGradeName(cv.getUserLecturerId(),cv.getDoctorName(),cv.getStartTime());
         course.setGradeName(gradeName);
-        course.setAppointmentInfoId(id);
+        course.setAppointmentInfoId(lockId);
         //默认图
         course.setSmallImgPath("https://file.xczhihui.com/18821120655/9db25c52561d-9754170cc93c4169996f3ddc86ea30f91534824415642.png");
         //讲师的用户id
@@ -660,7 +662,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         course.setType(CourseForm.LIVE.getCode());
         //回放
         course.setRecord(true);
-        //常见问题了呗
+        //常
         course.setCourseDetail(cv.getDescription());
         //讲师名字和讲师简介   --》默认把主播名字和主播介绍带过去
         course.setLecturer(cv.getHeir());
@@ -690,29 +692,27 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         course.setLearndCount(0);
         course.setCurrentPrice(0d);
         course.setCreateTime(new Date());
+        course.setDelete(false);
         
         /*
 		 * 保存审核信息
 		 */
 		iCourseMapper.insertCouserApplyInfo(course);
 		
-		System.out.println("tostring:"+course.toString());
-		System.out.println("审核的id:"+course.getExamineId());
         /**
          * 保存课程信息
          */
         iCourseMapper.insert(course);
         
         /**
-         * 课程审核表中增加数据
+         * redis 缓存中增加数据，开播10分钟提醒。
          */
     	CouserMessagePushVo  cmpv = new CouserMessagePushVo();
     	cmpv.setGradeName(course.getGradeName());
     	cmpv.setId(course.getId());
     	cmpv.setUserLecturerId(course.getUserLecturerId());
     	cmpv.setStartTime(course.getStartTime());
-    	cmpv.setAppointmentInfoId(id);
-        
+    	cmpv.setAppointmentInfoId(lockId);
     	XcRedisCacheService xcRedisCacheService = new XcRedisCacheServiceImpl();
     	/**
     	 * 保存到redis缓存，开播前提醒
@@ -721,8 +721,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         /*
          * 更改审核信息
          */
-        Integer falg = iCourseMapper.updateAppointmentInfoPass(id,TreatmentInfoAppointmentType.PASS.getCode());
-        
+        Integer falg = iCourseMapper.updateAppointmentInfoPass(lockId,TreatmentInfoAppointmentType.PASS.getCode());
         
         /**
          * 发送推送消息
@@ -743,7 +742,6 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         Map<String, String> params = new HashMap<>();
 //        params.put("type", typeText);
 //        params.put("courseName", title);
-        
         
         commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.SYSYTEM.getVal())
                  .buildAppPush(APP_TREATMENT_MESSAGE_TIPS)
@@ -789,8 +787,8 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 		 */
 	    Integer falg = iCourseMapper.updateAppointmentInfoPass(id,TreatmentInfoAppointmentType.CANCEL.getCode());
 	    
-	    //发送消息
 	    
+	    //发送消息
 	    //sendTherapyMessage(cv,accountId);
 	}
 }
