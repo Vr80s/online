@@ -139,8 +139,17 @@ public class CourseController {
 
         //赋值公共参数
         cv = assignCommonData(cv, courseId);
-        if (cv.getChannelId() != null && cv.getDirectId() != null) {
-            cv.setVhallYunToken(BaseService.createAccessToken4Live(accountId, cv.getDirectId(), cv.getChannelId()));
+        
+        
+        if (cv.getChannelId() != null && cv.getDirectId() != null && cv.getInavId()!=null) {
+        	
+        	cv.setVhallYunToken(BaseService.createAccessToken4InteractionLive(accountId, cv.getDirectId(),
+        			cv.getChannelId(),cv.getInavId()));
+        	
+            cv.setAppid(VhallUtil.APP_ID);
+        }else if(cv.getChannelId() != null && cv.getDirectId() != null) {
+        	
+        	cv.setVhallYunToken(BaseService.createAccessToken4Live(accountId, cv.getDirectId(), cv.getChannelId()));
             cv.setAppid(VhallUtil.APP_ID);
         }
         return ResponseObject.newSuccessResponseObject(cv);
