@@ -2418,6 +2418,7 @@ function btnColorReply(){
     function initMedia() {
         //媒体报道部分,预览1335行
         //媒体报道部分,关闭预览弹窗
+        $("#media-table").unbind("click")
         $("#media-preview .media-preview-top img").click(function () {
             $("#media-preview").addClass("hide");
             $("#mask").addClass("hide");
@@ -3157,7 +3158,9 @@ function echoMedia(index) {
 		showTip("该内容下架")
 	}
 
-
+	function lowerFramezhenliao(){
+		showTip("该直播取消")
+	}
 
 //轮播图设置====================
 var resetInputVal='<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>'+

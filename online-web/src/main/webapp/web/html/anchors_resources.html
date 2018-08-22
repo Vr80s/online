@@ -551,7 +551,11 @@
 								{{if item.type==5}}
 								<div class="save-class-wrap">
 									{{if item.courseStatus==true}}
-									<a href="/courses/{{item.courseId}}/info" style="width: 100%;" target="_blank">
+										{{if item.treatmentStatus == 4}}
+											<a href="javascript:;" onclick="lowerFramezhenliao()" style="width: 100%;">
+											{{else}}
+											<a href="/courses/{{item.courseId}}/info" style="width: 100%;" target="_blank">
+										{{/if}}
 									{{else}}
 									<a href="javascript:;" onclick="lowerFrame()" style="width: 100%;">
 									{{/if}}
@@ -586,11 +590,15 @@
 										
 										<span>{{item.dateStr}}</span>
 										{{if item.courseId != null}}
-											{{if item.courseType == 4}}
+											{{if item.courseType == 3}}
 												<p>线下课</p>
-											{{else if item.courseType == 3}}
-												<p>直播课</p>
-											{{else if item.courseType == 1 || item.courseType == 2}}
+											{{else if item.courseType == 1}}
+												{{if item.multimediaType == 1}}
+												<p>视频直课</p>
+												{{else}}
+												<p>语音直播</p>
+												{{/if}}
+											{{else if item.courseType == 2}}
 												<p>线上课</p>
 											{{/if}}
 										{{/if}}
