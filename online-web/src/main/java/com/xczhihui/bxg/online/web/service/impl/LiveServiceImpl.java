@@ -102,10 +102,10 @@ public class LiveServiceImpl extends OnlineBaseServiceImpl implements LiveServic
                 List<Map<String, Object>> selfCourse = dao.getNamedParameterJdbcTemplate().queryForList("SELECT id FROM `oe_course` oc WHERE oc.id = :courseId AND oc.`user_lecturer_id`=:userId", paramMap);
                 if (selfCourse.size() == 0) {
                     ApplyGradeCourse applyGradeCourse = applyGradeCourseDao.findCollectionCourseByCourseIdAndUserId(courseId, user.getId());
-                    if (applyGradeCourse == null) {
-                        logger.info("用户{}未购买该课程{}", user.getId(), courseId);
-                        throw new RuntimeException("用户未购买该课程");
-                    }
+//                    if (applyGradeCourse == null) {
+//                        logger.info("用户{}未购买该课程{}", user.getId(), courseId);
+//                        throw new RuntimeException("用户未购买该课程");
+//                    }
                 }
             }
         }
@@ -128,9 +128,9 @@ public class LiveServiceImpl extends OnlineBaseServiceImpl implements LiveServic
             List<Map<String, Object>> argc = dao.getNamedParameterJdbcTemplate().queryForList("SELECT id FROM `apply_r_grade_course` argc WHERE argc.course_id = :courseId AND argc.`user_id`=:userId AND argc.`validity`>NOW()", paramMap);
             if (argc.size() == 0) {
                 ApplyGradeCourse applyGradeCourse = applyGradeCourseDao.findCollectionCourseByCourseIdAndUserId(courseId, user.getId());
-                if (applyGradeCourse == null) {
-                    return new ModelAndView("redirect:/courses/" + courseId + "/info");
-                }
+//                if (applyGradeCourse == null) {
+//                    return new ModelAndView("redirect:/courses/" + courseId + "/info");
+//                }
             }
         }
 

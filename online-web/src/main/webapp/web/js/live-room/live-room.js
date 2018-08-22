@@ -18,6 +18,7 @@ $(function () {
     var loadAnchorOut = false;
     var transOverTimer;
     window.doc = null;
+    var liveStatus = $('#J_liveStatus').val();
 
     window.Vhall.config({
         appId: appId,//应用 ID ,必填
@@ -57,7 +58,18 @@ $(function () {
         });
     }
 
+    function initStatus() {
+        if (liveStatus == 3) {
+            var $JPlay = $('#J_play');
+            $JPlay.prop('disabled', 'disabled');
+            $JPlay.text('直播已结束');
+            $JPlay.css('background', "#00BC12");
+            disableMessageSend();
+        }
+    }
+
     function init() {
+        initStatus();
         setTimeout(function () {
             initDoc();
         }, 1000);
@@ -181,10 +193,19 @@ $(function () {
         return status;
     }
 
+    function disableMessageSend() {
+        $('#J_message_send').prop('disabled', 'disabled');
+        $('#J_message_text').prop('readonly', true);
+    }
+
     $('#J_play').on('click', function () {
         var $this = $(this);
         $this.prop('disabled', 'disabled');
         if ($this.data('status') == 0) {
+            if (liveStatus == 3) {
+                showTip("直播已经结束");
+                return false;
+            }
             if (micAndCamerasLack()) {
                 initDevices();
                 if (micAndCamerasLack()) {
@@ -228,9 +249,8 @@ $(function () {
         } else {
             VHPublisher.stopPush({
                 complete: function () {
-                    $this.text('开始直播');
-                    $this.css('background', "#00BC12");
-                    $this.data('status', 0);
+                    liveStatus = 3;
+                    initStatus();
                     clearInterval(timer);
                     updateLiveStatus("stop");
                 }
@@ -394,7 +414,7 @@ $(function () {
 
     $('.J-clear').on('click', function () {
         window.doc.clear();
-    });
+    });9
     $(".comment-bg").on("click", function () {
         var a = $(this).data("size");
         window.doc.setSize(a);
@@ -603,7 +623,7 @@ $(function () {
         sendMessage();
     });
     $('#J_message_text').keypress(function (event) {
-        if (event.keyCode == 13) {
+        if (event.keyCode == 13 && liveStatus != 3) {
             sendMessage();
         }
     });

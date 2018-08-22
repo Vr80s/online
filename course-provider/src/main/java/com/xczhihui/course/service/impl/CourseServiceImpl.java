@@ -26,19 +26,7 @@ import com.xczhihui.common.support.service.impl.XcRedisCacheServiceImpl;
 import com.xczhihui.common.util.DateUtil;
 import com.xczhihui.common.util.EmailUtil;
 import com.xczhihui.common.util.XzStringUtils;
-import com.xczhihui.common.util.enums.CourseForm;
-import com.xczhihui.common.util.enums.CourseType;
-import com.xczhihui.common.util.enums.LiveCaseType;
-import com.xczhihui.common.util.enums.LivePushStreamStatus;
-import com.xczhihui.common.util.enums.LiveStatus;
-import com.xczhihui.common.util.enums.LiveStatusEvent;
-import com.xczhihui.common.util.enums.MessageTypeEnum;
-import com.xczhihui.common.util.enums.Multimedia;
-import com.xczhihui.common.util.enums.PayStatus;
-import com.xczhihui.common.util.enums.PlayBackType;
-import com.xczhihui.common.util.enums.RouteTypeEnum;
-import com.xczhihui.common.util.enums.TreatmentInfoAppointmentType;
-import com.xczhihui.common.util.enums.VhallCustomMessageType;
+import com.xczhihui.common.util.enums.*;
 import com.xczhihui.common.util.redis.key.RedisCacheKey;
 import com.xczhihui.common.util.vhallyun.ChannelService;
 import com.xczhihui.common.util.vhallyun.InteractionService;
@@ -721,7 +709,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         /*
          * 更改审核信息
          */
-        Integer falg = iCourseMapper.updateAppointmentInfoPass(lockId,TreatmentInfoAppointmentType.PASS.getCode());
+        Integer falg = iCourseMapper.updateAppointmentInfoPass(lockId, AppointmentStatus.WAIT_START.getVal());
         
         /**
          * 发送推送消息
@@ -791,7 +779,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 		/**
 		 * 更改状态
 		 */
-	    Integer falg = iCourseMapper.updateAppointmentInfoPass(id,TreatmentInfoAppointmentType.CANCEL.getCode());
+	    Integer falg = iCourseMapper.updateAppointmentInfoPass(id,AppointmentStatus.ORIGIN.getVal());
 	    
 	    
 	    //发送消息

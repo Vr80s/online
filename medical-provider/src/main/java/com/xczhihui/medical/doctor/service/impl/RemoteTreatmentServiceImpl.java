@@ -1,10 +1,19 @@
 package com.xczhihui.medical.doctor.service.impl;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.common.util.DateUtil;
 import com.xczhihui.common.util.SmsUtil;
 import com.xczhihui.common.util.enums.AppointmentStatus;
 import com.xczhihui.common.util.enums.IndexAppointmentStatus;
+import com.xczhihui.common.util.enums.TreatmentInfoApplyStatus;
 import com.xczhihui.medical.doctor.mapper.RemoteTreatmentAppointmentInfoMapper;
 import com.xczhihui.medical.doctor.mapper.RemoteTreatmentMapper;
 import com.xczhihui.medical.doctor.model.Treatment;
@@ -15,13 +24,6 @@ import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 import com.xczhihui.medical.doctor.vo.TreatmentVO;
 import com.xczhihui.medical.enrol.mapper.MedicalEntryInformationMapper;
 import com.xczhihui.medical.exception.MedicalException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
 
 /**
  * @author hejiwei
@@ -31,6 +33,7 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
 
     private static final Object LOCK = new Object();
 
+    private static final int START_TREATMENT_MINUTE = 10;
     @Value("${online.treatment.apply.success.sms.code}")
     private String treatmentApplySuccessCode;
     @Value("${online.treatment.apply.fail.sms.code}")
@@ -86,7 +89,8 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
             if (waitUpdateTreatment == null || (waitUpdateTreatment.getDeleted() != null && waitUpdateTreatment.getDeleted())) {
                 throw new MedicalException("预约时间已被删除");
             }
-            if (waitUpdateTreatment.getStatus() == AppointmentStatus.APPOINTMENT_SUCCESS.getVal()) {
+            int status = waitUpdateTreatment.getStatus();
+            if (status != AppointmentStatus.ORIGIN.getVal() || status != AppointmentStatus.WAIT_APPLY.getVal()) {
                 throw new MedicalException("已预约成功, 不能被删除");
             }
             waitUpdateTreatment.setDeleted(true);
@@ -108,6 +112,7 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
 //            if (checkRepeatAppoint(treatmentId, treatmentAppointmentInfo.getUserId())) {
 //                throw new MedicalException("该日期您已经有预约申请，请选择其他日期进行申请");
 //            }
+            treatmentAppointmentInfo.setStatus(TreatmentInfoApplyStatus.WAIT_DOCTOR_APPLY.getVal());
             remoteTreatmentAppointmentInfoMapper.insert(treatmentAppointmentInfo);
             treatment.setInfoId(treatmentAppointmentInfo.getId());
             treatment.setStatus(AppointmentStatus.WAIT_APPLY.getVal());
@@ -151,13 +156,17 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
             if (treatment.getStatus() != AppointmentStatus.WAIT_APPLY.getVal()) {
                 throw new MedicalException("当前状态不支持审核");
             }
+            TreatmentAppointmentInfo treatmentAppointmentInfo = remoteTreatmentAppointmentInfoMapper.selectById(infoId);
             if (status) {
-                treatment.setStatus(AppointmentStatus.APPOINTMENT_SUCCESS.getVal());
+                treatmentAppointmentInfo.setStatus(TreatmentInfoApplyStatus.APPLY_PASSED.getVal());
+                treatment.setStatus(AppointmentStatus.WAIT_START.getVal());
             } else {
+                treatmentAppointmentInfo.setStatus(TreatmentInfoApplyStatus.APPLY_NOT_PASSED.getVal());
                 treatment.setStatus(AppointmentStatus.ORIGIN.getVal());
                 treatment.setInfoId(null);
             }
             remoteTreatmentMapper.updateAllColumnById(treatment);
+            remoteTreatmentAppointmentInfoMapper.updateById(treatmentAppointmentInfo);
             sendSms(treatment, status, infoId);
         }
     }
@@ -191,10 +200,15 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
             if (treatment == null || (treatment.getDeleted() != null && treatment.getDeleted())) {
                 throw new MedicalException("预约时间已被删除");
             }
-            if (treatment.getStatus() != AppointmentStatus.APPOINTMENT_SUCCESS.getVal()) {
+            if (treatment.getStatus() != AppointmentStatus.WAIT_START.getVal()) {
                 throw new MedicalException("当前状态不支持取消");
             }
             Integer infoId = treatment.getInfoId();
+            TreatmentAppointmentInfo treatmentAppointmentInfo = remoteTreatmentAppointmentInfoMapper.selectById(infoId);
+            //更新为用户的预约信息为未通过
+            treatmentAppointmentInfo.setStatus(TreatmentInfoApplyStatus.APPLY_NOT_PASSED.getVal());
+            remoteTreatmentAppointmentInfoMapper.updateById(treatmentAppointmentInfo);
+
             treatment.setStatus(AppointmentStatus.ORIGIN.getVal());
             treatment.setInfoId(null);
             remoteTreatmentMapper.updateAllColumnById(treatment);
@@ -241,7 +255,7 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
             Calendar nowTime = Calendar.getInstance();
             nowTime.add(Calendar.MINUTE, 10);//10分钟后的时间
             Date newDate = nowTime.getTime();
-            if(startDate.getTime()<=newDate.getTime()){
+            if (startDate.getTime() <= newDate.getTime()) {
                 treatmentVO.setStart(true);
             } else {
                 treatmentVO.setStart(false);
@@ -281,10 +295,117 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
         return 0;
     }
 
+    @Override
+    public void deleteAppointmentInfo(int infoId) {
+        TreatmentAppointmentInfo treatmentAppointmentInfo = remoteTreatmentAppointmentInfoMapper.selectById(infoId);
+        if (treatmentAppointmentInfo == null) {
+            throw new MedicalException("预约id参数错误");
+        }
+        treatmentAppointmentInfo.setDeleted(true);
+        remoteTreatmentAppointmentInfoMapper.updateById(treatmentAppointmentInfo);
+    }
+
+    @Override
+    public int updateTreatmentStartStatus(int id, int status) {
+        synchronized (LOCK) {
+            Treatment treatment = remoteTreatmentMapper.selectById(id);
+            if (treatment == null || (treatment.getDeleted() != null && treatment.getDeleted())) {
+                throw new MedicalException("诊疗id参数错误");
+            }
+            Integer treatmentStatus = treatment.getStatus();
+            if (status != AppointmentStatus.STARTED.getVal() && status != AppointmentStatus.FINISHED.getVal()) {
+                throw new MedicalException("status 参数错误");
+            }
+//            if (treatmentStatus != AppointmentStatus.WAIT_START.getVal() && treatmentStatus != AppointmentStatus.STARTED.getVal()) {
+//                throw new MedicalException("status 参数错误");
+//            }
+            Integer infoId = treatment.getInfoId();
+            TreatmentAppointmentInfo treatmentAppointmentInfo = remoteTreatmentAppointmentInfoMapper.selectById(infoId);
+            //开始诊疗
+            if (treatmentStatus == AppointmentStatus.WAIT_START.getVal() && status == AppointmentStatus.STARTED.getVal()) {
+                treatment.setStatus(status);
+                //结束诊疗
+            } else if (treatmentStatus == AppointmentStatus.STARTED.getVal() && status == AppointmentStatus.FINISHED.getVal()) {
+                treatmentAppointmentInfo.setStatus(TreatmentInfoApplyStatus.FINISHED.getVal());
+                treatment.setStatus(status);
+            }
+            remoteTreatmentMapper.updateById(treatment);
+            remoteTreatmentAppointmentInfoMapper.updateById(treatmentAppointmentInfo);
+            return 0;
+        }
+    }
+
+    @Override
+    public List<TreatmentVO> listByDoctorId(String doctorId) {
+        List<TreatmentVO> results = new ArrayList<>();
+        List<TreatmentVO> expiredTreatments = remoteTreatmentMapper.selectExpiredByDoctorId(doctorId);
+        List<TreatmentVO> unExpiredTreatments = remoteTreatmentMapper.selectUnExpiredByDoctorId(doctorId);
+
+        for (TreatmentVO treatmentVO : unExpiredTreatments) {
+            if (treatmentVO.getStatus() == AppointmentStatus.STARTED.getVal()) {
+                if (isCanStartLive(getTreatmentTime(treatmentVO.getDate(), treatmentVO.getStartTime()))) {
+                    results.add(treatmentVO);
+                    treatmentVO.setStart(true);
+                }
+                unExpiredTreatments.remove(treatmentVO);
+            }
+        }
+        results.addAll(unExpiredTreatments);
+        results.addAll(expiredTreatments);
+        results.forEach(treatmentVO -> {
+            treatmentVO.setTreatmentTime(getTreatmentTime(treatmentVO.getDate(), treatmentVO.getStartTime()));
+            handleDate(treatmentVO);
+        });
+        return results;
+    }
+
+    @Override
+    public List<TreatmentVO> listByUserId(String userId) {
+        List<TreatmentVO> results = new ArrayList<>();
+        List<TreatmentVO> unExpiredUserAppointmentInfoVOS = remoteTreatmentMapper.selectUnExpiredByUserId(userId);
+        List<TreatmentVO> topAppointmentInfoList = new ArrayList<>();
+        for (TreatmentVO treatmentVO : unExpiredUserAppointmentInfoVOS) {
+            if (treatmentVO.getStatus() == TreatmentInfoApplyStatus.APPLY_PASSED.getVal()) {
+                if (isCanStartLive(getTreatmentTime(treatmentVO.getDate(), treatmentVO.getStartTime()))) {
+                    topAppointmentInfoList.add(treatmentVO);
+                    treatmentVO.setStart(true);
+                }
+                unExpiredUserAppointmentInfoVOS.remove(treatmentVO);
+            }
+        }
+        List<TreatmentVO> expiredTreatmentVOS = remoteTreatmentMapper.selectExpiredByUserId(userId);
+        results.addAll(topAppointmentInfoList);
+        results.addAll(unExpiredUserAppointmentInfoVOS);
+        results.addAll(expiredTreatmentVOS);
+        results.forEach(treatmentVO -> {
+            treatmentVO.setTreatmentTime(getTreatmentTime(treatmentVO.getDate(), treatmentVO.getStartTime()));
+            handleDate(treatmentVO);
+        });
+        return results;
+    }
+
+    @Override
+    public void updateUpComingExpire() {
+        List<Treatment> treatments = remoteTreatmentMapper.selectUpcomingExpire();
+        for (Treatment treatment : treatments) {
+            if (isExpired(treatment.getDate(), treatment.getEndTime())) {
+                treatment.setStatus(AppointmentStatus.EXPIRED.getVal());
+                remoteTreatmentMapper.updateById(treatment);
+                if (treatment.getInfoId() != null) {
+                    remoteTreatmentAppointmentInfoMapper.updateRemoteTreatmentAppointmentInfoExpired(treatment.getInfoId());
+                }
+                if (treatment.getCourseId() != null) {
+                    //TODO 将课程下架
+                }
+            }
+        }
+        return;
+    }
+
     private void handleDate(TreatmentVO treatmentVO) {
-        SimpleDateFormat yearMonthDayDateFormat = new SimpleDateFormat("yyyy年M月dd日");
+        SimpleDateFormat yearMonthDayDateFormat = new SimpleDateFormat("yyyy年M月d日");
         SimpleDateFormat hourMinuteFormat = new SimpleDateFormat("HH:mm");
-        SimpleDateFormat monthDayDateFormat = new SimpleDateFormat("M月dd日");
+        SimpleDateFormat monthDayDateFormat = new SimpleDateFormat("M月d日");
         Date date = treatmentVO.getDate();
         Date startTime = treatmentVO.getStartTime();
         Date endTime = treatmentVO.getEndTime();
@@ -297,9 +418,56 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
         }
     }
 
-	@Override
-	public TreatmentAppointmentInfo selectById(int id) {
-		
-		return  remoteTreatmentAppointmentInfoMapper.selectById(id);
-	}
+    @Override
+    public TreatmentAppointmentInfo selectById(int id) {
+        return remoteTreatmentAppointmentInfoMapper.selectById(id);
+    }
+
+    private Date getTreatmentTime(Date date, Date startTime) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(startTime);
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
+        calendar.setTime(date);
+        calendar.set(Calendar.HOUR_OF_DAY, hour);
+        calendar.set(Calendar.MINUTE, minute);
+        return calendar.getTime();
+    }
+
+    private boolean isCanStartLive(Date treatmentTime) {
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int dayOfYear = calendar.get(Calendar.DAY_OF_YEAR);
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
+
+        calendar.setTime(treatmentTime);
+        if (calendar.get(Calendar.YEAR) == year) {
+            if (calendar.get(Calendar.DAY_OF_YEAR) == dayOfYear) {
+                if (calendar.get(Calendar.HOUR_OF_DAY) == hour) {
+                    int appointmentMinute = calendar.get(Calendar.MINUTE);
+                    if (appointmentMinute - minute <= START_TREATMENT_MINUTE) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean isExpired(Date date, Date endTime) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(endTime);
+        int endTimeHour = calendar.get(Calendar.HOUR_OF_DAY);
+        int endTimeMinute = calendar.get(Calendar.MINUTE);
+        calendar.setTime(date);
+        calendar.set(Calendar.HOUR_OF_DAY, endTimeHour);
+        calendar.set(Calendar.MINUTE, endTimeMinute);
+
+        Date treatmentEndTime = calendar.getTime();
+        Calendar now = Calendar.getInstance();
+        now.set(Calendar.MINUTE, -30);
+
+        return now.getTime().after(treatmentEndTime);
+    }
 }
