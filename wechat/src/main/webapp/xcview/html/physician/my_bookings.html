@@ -1,39 +1,39 @@
 <!DOCTYPE html>
-	<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+	<!--html��ǩ����Ҫ���趨font-size��ֵ������ı䴰�ڳߴ��С��ʱ��JS�ᶯ̬�ı����ֵ��ʵ��rem���ֵ�ĸı䡣-->
 <html lang="en" style="font-size: 84.3125px;">
-<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<!--html��ǩ����Ҫ���趨font-size��ֵ������ı䴰�ڳߴ��С��ʱ��JS�ᶯ̬�ı����ֵ��ʵ��rem���ֵ�ĸı䡣-->
 <head>
 <meta charset="UTF-8">
-<title>熊猫中医</title>
+<title>��è��ҽ</title>
 
-<!--这段meta代码需要加上，移动端自适应缩放用-->
+<!--���meta������Ҫ���ϣ��ƶ�������Ӧ������-->
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <meta name="keywords" content="" />
 
 <link rel="stylesheet" type="text/css" href="/xcview/css/physician/my_bookings.css"/>
 <!-- <link rel="stylesheet" type="text/css" href="/xcview/css/alert/sharecss.css"/> -->
 
-<!-- 弹框 -->
+<!-- ���� -->
 <link rel="stylesheet" type="text/css" href="/xcview/css/popups.css"/>
 
-<!--手机嵌入模板-->
+<!--�ֻ�Ƕ��ģ��-->
 <script type="text/javascript" src="/xcview/js/common/layout.js"></script>
 <script>
-	// 判断横屏展示时的状态
+	// �жϺ���չʾʱ��״̬
 	window.onorientationchange=function(){
 	    if(window.orientation==90||window.orientation==-90){
-	        window.location.reload();  /*横屏状态刷新*/
+	        window.location.reload();  /*����״̬ˢ��*/
 	    }else{
-	        window.location.reload();  /*竖屏状态刷新*/
+	        window.location.reload();  /*����״̬ˢ��*/
 	    }
 	}	
 </script>
 </head>
 <body style="background: #F8F8F8;">
-	<!--头部开始-->
+	<!--ͷ����ʼ-->
 	<div class="header">
 		<div class="headers">
-				<p>我的预约</p>
+				<p>ԤԼ����</p>
 			</div>
 			<div class="arror_return" onclick="javascript:window.history.back();return false;">
             <!-- <div class="arror_return" onclick="common_share_back();"> -->
@@ -45,23 +45,23 @@
 		</div>
 	</header>
 	<div class="opacity_heights"></div>
-	<!--头部结束-->
+	<!--ͷ������-->
 	
-	<!-- 中间内容开始 -->
+	<!-- �м����ݿ�ʼ -->
 	<div class="main">
 		<script type="text/html" id="main_id">
 			<input type="hidden" value="{{items.apprenticeId}}" id="J_apprenticeId"/>
-		<div class="booking_person">预约人：<span class="booking_person_span">{{items.name}}</span></div>
+		<div class="booking_person">ԤԼ�ˣ�<span class="booking_person_span">{{items.name}}</span></div>
 		<div class="handler ">
 			<div class="handler_cen handler_time_click">
-				<div class="handler_fize">预约时间</div>
+				<div class="handler_fize">ԤԼʱ��</div>
 				<div class="handler_time">{{items.dateText}}</div>
 			</div>
 		</div>
 		<div class="both"></div>
 		<div class="handler">
 			<div class="handler_cen">
-				<div class="handler_fize">预留电话</div>  <!-- 默认弟子报名时预留的电话 -->
+				<div class="handler_fize">Ԥ���绰</div>  <!-- Ĭ�ϵ��ӱ���ʱԤ���ĵ绰 -->
 				<div class="handler_tel">{{items.tel}}</div>
 			</div>
 		</div>
@@ -69,31 +69,35 @@
 
 		<div class="problem_description">
 			<div class="problem_description_main">
-				<div class="problem_description_title">诊疗问题</div>
+				<div class="problem_description_title">��������</div>
 				{{items.question}}
 			</div>
 		</div>
 		<div class="both"></div>
 	    </script>
-
-		
-
 	</div>
+	
+	<div class="handler_btn">��ʼԶ������</div>
+	<div class="handler_btns" style="display: none;">��ʼԶ������</div>
+	<div class="check_btn" style="display: none;">�鿴������Ƶ</div>
 
-	<!-- <div class="handler_btn">申请预约</div> -->
+	<!-- <div class="handler_btn">����ԤԼ</div> -->
 	<div class="handler_reminder">
-		<span>提交申请后，我们会以短信形式告知审核结果；</span>
-		<span>申请成功后，医师将通过您预留的联系方式进行远程诊疗，请在预约时间做好准备事项。</span>
-		
+		<span>��ʾ��</span>
+		<ul>
+			<li><span>�ύ��������ǻ��Զ�����ʽ��֪��˽����</span></li>
+			<li><span>����ɹ���ҽʦ����ԤԼʱ��ǰ10���ӿ�ʼ��Ƶ���ƣ���ȴ�ҽʦ������Ƶ��</span></li>
+			<li><span>���ƽ����󣬿�ǰ��<span style="color: #00bc12;">�ҵ�ԤԼ</span>ҳ��ۿ�������ʷ��Ƶ</span></li>
+		</ul>
 	</div>
-	<!-- 中间内容结束 -->
-	<!-- 点击出现弹出框开始 -->
-	<!-- 点击预约时间 -->
+	<!-- �м����ݽ��� -->
+	<!-- ������ֵ�����ʼ -->
+	<!-- ���ԤԼʱ�� -->
 	<div class="time_popout">
 		<div class="time_popout_bg"></div>
 		<div class="time_popout_main">
 			<ul class="time_popout_main_ul">
-				<!-- 开始对号先隐藏 -->
+				<!-- ��ʼ�Ժ������� -->
 				<script type="text/html" id="time_popout_main_ul_id">
 				{{each items as item i}} 
 				<li class="zhengliao_{{item.id}}"><span data-ids="{{item.id}}">{{item.dateText}}</span><img src="/xcview/images/pigeon.png" alt="" class="zhengliao_img" /></li>
@@ -103,37 +107,37 @@
 		</div>
 	</div>
 
-	<!-- 点击申请成功 -->
+	<!-- �������ɹ� -->
 	<div class="prosperity_popout">
 		<div class="prosperity_popout_bg"></div>
 		<div class="prosperity_popout_main">
 			<div class="prosperity_popout_title">
-				<img src="/xcview/images/examine.png" alt="" />申请完成
+				<img src="/xcview/images/examine.png" alt="" />�������
 			</div>
-			<div class="prosperity_cen">医师审核完成后，我们会将审核结果以短信形式发送给您，请耐心等待</div>
-			<div class="prosperity_popout_hide">我知道了</div>
+			<div class="prosperity_cen">ҽʦ�����ɺ����ǻὫ��˽���Զ�����ʽ���͸����������ĵȴ�</div>
+			<div class="prosperity_popout_hide">��֪����</div>
 		</div>
 	</div>
 
-	<!-- 点击申请失败 -->
+	<!-- �������ʧ�� -->
 	<div class="failure_popout">
 		<div class="failure_popout_bg"></div>
 		<div class="failure_popout_main">
 			<div class="failure_popout_title">
-				<img src="/xcview/images/failure.png" alt="" />申请失败
+				<img src="/xcview/images/failure.png" alt="" />����ʧ��
 			</div>
-			<div class="failure_cen">抱歉~该时间段已被预约，请重新选择预约时间</div>
-			<div class="failure_popout_hide">我知道了</div>
+			<div class="failure_cen">��Ǹ~��ʱ����ѱ�ԤԼ��������ѡ��ԤԼʱ��</div>
+			<div class="failure_popout_hide">��֪����</div>
 		</div>
 	</div>
-	<!-- 点击出现弹出框结束 -->
+	<!-- ������ֵ�������� -->
 </body>
 <script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/common.js"></script> 
-<!-- 公用弹框 -->
+<!-- ���õ��� -->
 <!-- <script type="text/javascript" src="/xcview/js/common/alertPopShow.js"></script> -->
 <script type="text/javascript" src="/xcview/js/common/popups.js"></script>
-<script type="text/javascript" src="/xcview/js/common/template.js"></script>    <!--数据模板引入--> 
+<script type="text/javascript" src="/xcview/js/common/template.js"></script>    <!--����ģ������--> 
 <script type="text/javascript" src="/xcview/js/physician/my_bookings.js"></script>
 </html>

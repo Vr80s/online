@@ -185,9 +185,18 @@ header{
     margin: 0 auto;
     font-size: 0.26rem;
     color: #999999;
+    margin-top: 1.09rem;
+    position: fixed;
+    bottom: 0.6rem;
+    left: 50%;
+    margin-left: -3.49rem;
+}
+.handler_reminder ul li{
+    list-style: disc;
+    margin-left: 0.4rem;
 }
 .handler_reminder span{
-    display: block;
+    /*display: block;*/
 }
 /*中间内容结束*/
 
@@ -368,4 +377,43 @@ header{
 }
 /*点击申请失败结束*/
 
+
+.handler_btn {
+    width: 6.98rem;
+    height: 0.72rem;
+    line-height: 0.72rem;
+    background: #ccc;
+    border-radius: 100px;
+    font-size: 0.3rem;
+    color: #FFFFFF;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 0.29rem;
+}
+
+.handler_btns {
+    width: 6.98rem;
+    height: 0.72rem;
+    line-height: 0.72rem;
+    background: #00bc12;
+    border-radius: 100px;
+    font-size: 0.3rem;
+    color: #FFFFFF;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 0.29rem;
+}
+
+.check_btn {
+    width: 6.98rem;
+    height: 0.72rem;
+    line-height: 0.72rem;
+    background: #00bc12;
+    border-radius: 100px;
+    font-size: 0.3rem;
+    color: #FFFFFF;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 0.29rem;
+}
 
