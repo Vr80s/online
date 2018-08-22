@@ -1,19 +1,5 @@
 package com.xczhihui.course.service.impl;
 
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
@@ -24,18 +10,7 @@ import com.xczhihui.common.support.service.impl.XcRedisCacheServiceImpl;
 import com.xczhihui.common.util.DateUtil;
 import com.xczhihui.common.util.EmailUtil;
 import com.xczhihui.common.util.XzStringUtils;
-import com.xczhihui.common.util.enums.CourseForm;
-import com.xczhihui.common.util.enums.CourseType;
-import com.xczhihui.common.util.enums.LiveCaseType;
-import com.xczhihui.common.util.enums.LivePushStreamStatus;
-import com.xczhihui.common.util.enums.LiveStatus;
-import com.xczhihui.common.util.enums.LiveStatusEvent;
-import com.xczhihui.common.util.enums.MessageTypeEnum;
-import com.xczhihui.common.util.enums.Multimedia;
-import com.xczhihui.common.util.enums.PayStatus;
-import com.xczhihui.common.util.enums.PlayBackType;
-import com.xczhihui.common.util.enums.RouteTypeEnum;
-import com.xczhihui.common.util.enums.VhallCustomMessageType;
+import com.xczhihui.common.util.enums.*;
 import com.xczhihui.common.util.redis.key.RedisCacheKey;
 import com.xczhihui.common.util.vhallyun.MessageService;
 import com.xczhihui.common.util.vhallyun.VideoService;
@@ -50,6 +25,14 @@ import com.xczhihui.course.service.ICommonMessageService;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.course.vo.ShareInfoVo;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.text.MessageFormat;
+import java.util.*;
 
 /**
  * <p>
@@ -645,7 +628,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 	//需要医师名，需要诊疗时间
     
 	@Override
-	public void createTherapyLive(Integer id,Integer clientType,String accountId) throws Exception {
+	public Integer createTherapyLive(Integer id,Integer clientType,String accountId) throws Exception {
 		
 		/**
 		 * 查找生成诊疗直播的必要信息
@@ -726,10 +709,16 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
          * 发送推送消息
          */
         //sendTherapyMessage(cv,accountId);
+        return course.getId();
 	}
 
-	
-	public void sendTherapyMessage(CourseLecturVo cv,String userId) throws Exception {
+    @Override
+    public Course selectById(Integer courseId) {
+        return iCourseMapper.selectById(courseId);
+    }
+
+
+    public void sendTherapyMessage(CourseLecturVo cv,String userId) throws Exception {
 		
 		/*
     	 * 1、发送短信提示

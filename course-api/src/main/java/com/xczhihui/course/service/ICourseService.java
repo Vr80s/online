@@ -346,6 +346,14 @@ public interface ICourseService {
 	 * <p>Title: createTherapyLive</p>  
 	 * <p>Description: </p>  
 	 * @param id  
-	 */ 
-	void createTherapyLive(Integer id,Integer clientType,String accountId) throws Exception;
+	 */
+    Integer createTherapyLive(Integer id,Integer clientType,String accountId) throws Exception;
+
+    /**
+     * 通过课程id查询课程
+     *
+     * @param courseId 课程id
+     * @return
+     */
+    Course selectById(Integer courseId);
 }
