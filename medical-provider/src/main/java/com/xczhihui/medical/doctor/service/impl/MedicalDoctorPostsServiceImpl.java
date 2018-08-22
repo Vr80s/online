@@ -7,12 +7,10 @@ import com.xczhihui.common.util.enums.DoctorPostsType;
 import com.xczhihui.medical.common.bean.PictureSpecification;
 import com.xczhihui.medical.doctor.mapper.MedicalDoctorPostsLikeMapper;
 import com.xczhihui.medical.doctor.mapper.MedicalDoctorPostsMapper;
-import com.xczhihui.medical.doctor.model.MedicalDoctorAccount;
-import com.xczhihui.medical.doctor.model.MedicalDoctorPosts;
-import com.xczhihui.medical.doctor.model.MedicalDoctorPostsComment;
-import com.xczhihui.medical.doctor.model.MedicalDoctorPostsLike;
+import com.xczhihui.medical.doctor.model.*;
 import com.xczhihui.medical.doctor.service.*;
 import com.xczhihui.medical.doctor.vo.OeBxsArticleVO;
+import com.xczhihui.medical.enrol.service.EnrolService;
 import com.xczhihui.utils.HtmlUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,6 +40,11 @@ public class MedicalDoctorPostsServiceImpl extends ServiceImpl<MedicalDoctorPost
     private IMedicalDoctorBusinessService medicalDoctorBusinessService;
     @Autowired
     private IMedicalDoctorArticleService medicalDoctorArticleService;
+    @Autowired
+    private IRemoteTreatmentService remoteTreatmentService;
+    @Autowired
+    private EnrolService enrolService;
+
 
     @Override
     public Page<MedicalDoctorPosts> selectMedicalDoctorPostsPage(Page<MedicalDoctorPosts> page, Integer type, String doctorId, String accountId) {
@@ -211,15 +214,21 @@ public class MedicalDoctorPostsServiceImpl extends ServiceImpl<MedicalDoctorPost
     }
 
     @Override
-    public void addDoctorPosts(String userId, Integer courseId, Integer articleId, String courseName, String subtitle) {
+    public void addDoctorPosts(String userId, Integer courseId, Integer articleId, String courseName, String subtitle, Integer appointmentInfoId) {
         MedicalDoctorAccount mha = medicalDoctorAccountService.getByUserId(userId);
         if(mha != null){
             MedicalDoctorPosts mdp = new MedicalDoctorPosts();
             if(courseId != null){
-                if(subtitle == null || subtitle.equals("")){
-                    mdp.setContent(courseName);
-                }else {
-                    mdp.setContent(courseName+","+subtitle);
+                //远程诊疗直播课
+                if(appointmentInfoId != null){
+                    TreatmentAppointmentInfo treatmentAppointmentInfo = remoteTreatmentService.selectById(appointmentInfoId);
+                    mdp.setContent(courseName+", 诊疗弟子"+treatmentAppointmentInfo.getName());
+                } else {
+                    if(subtitle == null || subtitle.equals("")){
+                        mdp.setContent(courseName);
+                    }else {
+                        mdp.setContent(courseName+","+subtitle);
+                    }
                 }
                 mdp.setType(DoctorPostsType.COURSEPOSTS.getCode());
                 mdp.setTitle(courseName);

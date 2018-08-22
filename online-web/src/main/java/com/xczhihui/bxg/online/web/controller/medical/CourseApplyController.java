@@ -375,7 +375,7 @@ public class CourseApplyController extends AbstractController {
             sendCourseOnlineMessage(courseApplyId, user);
             //添加医师动态
             Course course = courseService.findByApplyId(courseApplyId);
-            medicalDoctorPostsService.addDoctorPosts(user.getId(), course.getId(), null, course.getGradeName(), course.getSubtitle());
+            medicalDoctorPostsService.addDoctorPosts(user.getId(), course.getId(), null, course.getGradeName(), course.getSubtitle(), course.getAppointmentInfoId());
             responseObj.setResultObject("上架成功");
         } else {
             deleteRemindMessage(courseId);

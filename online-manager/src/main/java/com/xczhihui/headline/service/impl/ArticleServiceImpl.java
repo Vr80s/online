@@ -165,7 +165,7 @@ public class ArticleServiceImpl implements ArticleService {
         } else {
             vo.setStatus(1);
             //更新动态
-            medicalDoctorPostsService.addDoctorPosts(vo.getCreatePerson(),null,id,"","");
+            medicalDoctorPostsService.addDoctorPosts(vo.getCreatePerson(),null,id,"","",null);
         }
 
         String sql = "UPDATE oe_bxs_article SET status =:status  WHERE id =:id";

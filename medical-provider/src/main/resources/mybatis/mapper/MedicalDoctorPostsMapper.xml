@@ -20,7 +20,10 @@
         oba.status as articleStatus,
         mw.id as writingsId,
         oc.type as courseType,
-        oc.is_teaching teaching
+        oc.is_teaching teaching,
+        mtai.id as treatmentId,
+        mtai.status as treatmentStatus,
+        mtai.name as pupilName
         FROM medical_doctor_posts mdp
         LEFT JOIN oe_course oc
         ON oc.id = mdp.course_id
@@ -28,6 +31,9 @@
         ON mw.article_id = mdp.article_id
         LEFT JOIN oe_bxs_article oba
         ON oba.id = mdp.article_id
+        LEFT JOIN medical_treatment_appointment_info mtai
+        ON mtai.id = oc.appointment_info_id
+
         WHERE mdp.deleted = 0 and mdp.status = 1 and mdp.doctor_id=#{doctorId}
         <if test="type == 1">
             and oc.type = 1 and oc.multimedia_type != 2

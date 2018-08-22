@@ -91,7 +91,7 @@ public class DoctorArticleController extends AbstractFtlController {
                 String userId = getUserId();
                 Integer articleId = Integer.valueOf(id);
                 //更新动态
-                medicalDoctorPostsService.addDoctorPosts(userId,null,articleId,"","");
+                medicalDoctorPostsService.addDoctorPosts(userId,null,articleId,"","",null);
             }
             return ResponseObject.newSuccessResponseObject("操作成功");
         } else {
@@ -152,7 +152,7 @@ public class DoctorArticleController extends AbstractFtlController {
         if (medicalDoctorArticleService.updateReportStatus(id, status)) {
             if(status ==1){
                 //更新动态
-                medicalDoctorPostsService.addDoctorPosts(userId,null,Integer.valueOf(id),"","");
+                medicalDoctorPostsService.addDoctorPosts(userId,null,Integer.valueOf(id),"","",null);
             }
             return ResponseObject.newSuccessResponseObject("操作成功");
         } else {
