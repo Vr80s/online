@@ -1,0 +1,659 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<!--<title>消费明细</title>-->
+<title></title>
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link rel="stylesheet" href="/xcview/css/animate.css?version=c9aec60cc9" />
+<link rel="stylesheet" href="/xcview/css/live_album.css?version=59efaf018a" />
+<link rel="stylesheet" href="/xcview/css/share/share.css?version=3a083b8106" />
+<link rel="stylesheet" href="/xcview/css/alert/sharecss.css?version=f6e45d2a7e">
+<script src="/xcview/js/common/jquery-1.8.3.min.js"></script>
+<!--手机嵌入模板-->
+<script type="text/javascript" src="/xcview/js/common/layout.js?version=e2b9d5cdbd"></script>
+
+<script>
+	//修改title
+	document.setTitle = function(t) {
+        document.title = t;
+        var i = document.createElement('iframe');
+        // i.src = '//m.baidu.com/favicon.ico';
+        i.style.display = 'none';
+        i.onload = function() {
+          setTimeout(function(){
+            i.remove();
+          }, 9)
+        }
+        document.body.appendChild(i);
+      }
+      setTimeout(function(){
+        document.setTitle(gradeName);
+      }, 1000);
+
+
+	function goBack(){
+		//html获取链接上面的参数
+		function getQueryString(name){
+		    var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+		    var r = window.location.search.substr(1).match(reg);
+		    if (r!=null) return r[2];else return'';
+		}
+		var type = getQueryString('type');
+/* 		if(type=='1'){
+			location.replace("/xcview/html/my_study.html");
+		}else if(type=='2'){
+			//location.replace("/xcview/html/live_select_album.html?course_id="+collectionId);
+			location.href = "/xcview/html/live_select_album.html?course_id="+collectionId;
+		}else{
+			//location.replace("/xcview/html/live_select_album.html?course_id="+collectionId);
+			location.href = "/xcview/html/live_select_album.html?course_id="+collectionId;
+		} */
+		//getQueryString('name');
+		
+		window.history.back();
+	};
+
+</script>
+<style>
+	.all_list ul li:nth-last-child(1) p{
+		border-bottom: 0;
+	}
+	.video_prompt_open{
+		display:none;
+	}
+	.ccH5AudioBg{
+		display: none !important;
+	}
+	.play_video img{
+		width: 7.5rem;
+	    height: 4.24rem;
+	    position: absolute;
+	    top: 0;
+	    z-index: 9;
+	}
+	.videos{
+		width: 7.5rem !important;
+    	height: 4.24rem !important;
+	}
+</style>
+<style type="text/css">
+	.ccH5playerBox{
+	    height: 4.24rem !important;
+	}
+	.ccH5playerBox section{
+ 		/*background: red;*/
+	    bottom: -1rem;
+	    z-index: 999999;
+	    opacity: 1;
+ 	}
+ 	.ccH5playerBox{
+ 		overflow: auto;
+ 	}
+ 	.ccH5AudioBg img{
+ 		display: block !important;
+ 	}
+ 	#video_vs .ccH5playerBox video{
+ 		opacity: 0;
+    	z-index: -1;
+    	display: none;
+ 	}
+ 	#video_vs .ccH5playerBox{
+ 		background: none;
+ 	}
+ 	.hide{
+		display: none !important;
+	}
+	.play_video img{
+		/*z-index: 1;*/
+	}
+</style>
+
+</head>
+    
+<body style="background:#F8F8F8;">
+<div class="wp">
+	<div class="wrap-header">
+		<div class="header">		
+			<p>专辑课程</p>
+			<div class="arror_return z" onclick="goBack()">
+			<!-- <div class="arror_return z" onclick="getQueryString()"> -->
+			<!-- <div class="arror_return z" onclick="window.history.go(-1)"> -->
+			<!-- <div class="arror_return z" onclick="javascript:history.go(-1);"> -->
+			<!-- <div class="arror_return z" onclick="gotoLiveSelectAlbum();"> -->
+			<!-- <div class="arror_return z" onclick="common_share_back();"> -->
+				<img src="../images/back icon.png"/>
+			</div>
+			<div class="header_news">
+				<img src="/xcview/images/share_img.png" alt="">
+			</div>
+		</div>
+	</div>
+	<!--视频-->
+	<div class="play_video_fiexd">
+		<div class="play_video">
+			<div id="video_box"></div>
+			<div class="video_prompt_open">
+				<img src="../images/play_btn.png"/>
+			</div>
+		</div>
+	</div>
+	<div class="hide_height"></div>
+	<!--主讲人-->
+	<div class="speak_people" id="speak_people">
+		<script type="text/html" id="data_people">	
+			<p class="speak_title">{{gradeName}}</p>
+			<p class="speak-text">{{subtitle}}</p>
+			<div class="wrap_grade" onclick="btn_allComment()">
+				<ul class="grade_pic">
+					<li>
+						{{if startLevel == 0 || startLevel == null}}
+						<img src="../images/xing0.png"/>
+						{{else if startLevel == 0.5}}
+						<img src="../images/xing0_5.png"/>
+						{{else if startLevel == 1}}
+						<img src="../images/xing1_0.png"/>
+						{{else if startLevel == 1.5}}
+						<img src="../images/xing1_5.png"/>
+						{{else if startLevel == 2}}
+						<img src="../images/xing2.png"/>
+						{{else if startLevel == 2.5}}
+						<img src="../images/xing2_5.png"/>
+						{{else if startLevel == 3}}
+						<img src="../images/xing3.png"/>
+						{{else if startLevel == 3.5}}
+						<img src="../images/xing3_5.png"/>
+						{{else if startLevel == 4}}
+						<img src="../images/xing4_0.png"/>
+						{{else if startLevel == 4.5}}
+						<img src="../images/xing4_5.png"/>
+						{{else if startLevel == 5}}
+						<img src="../images/xing5.png"/>
+					
+						{{/if}}
+						<a href="javascript:;">共<span id="criticizeCountId">{{criticizeCount}}</span>条评价</a>
+					</li>
+				</ul>
+				
+			</div>	 
+			
+				    {{if hostType == 1}}
+                        <ul class="playTime playTimes z" style="border-bottom: 0;" 
+                              onclick="window.location='/xcview/html/physician/physicians_page.html?doctor={{doctorId}}'">                        
+                    {{else if hostType == 2}}
+                       <ul class="playTime playTimes z" style="border-bottom: 0;" 
+                             onclick="window.location='live_personal.html?userLecturerId={{userLecturerId}}'">
+                    {{/if}}
+                
+                    
+
+                <li><img src="{{headImg}}" style="width:0.6rem;height:0.6rem;border-radius: 60px;"/><span style="margin-top: 0.15rem;">{{heir}}</span></li>
+				<li>
+					<a href="javascript: ;">
+						<img src="../images/video_review.png" style="width: 0.15rem; height: 0.25rem; margin-right: 0rem;margin-top: 0.15rem;"  />
+					</a>
+				</li>
+			</ul>
+			<div class="both"></div>
+		</script>	
+	</div>
+			
+	<!--主播/时间-->
+	
+	<!--专辑列表弹出框-->	
+	<div class="wrap_select_list">
+		<div class="all_list">
+			<ul class="all_list_ul">
+				<script type="text/html" id="all_list_ul">
+				{{each items as item i}}
+				
+			        <li data-myvideo="{{item.directId}}" data-courseId="{{item.id}}" data-courseName="{{item.gradeName}}">
+						<p class='all_list_ul_li_p'>{{item.gradeName}}</p>
+					</li>
+				
+				{{/each}}
+	            </script>
+			</ul>
+			<div class="both"></div>
+		</div>
+	</div>
+<!--详情开始-->
+	<!-- <p class="my_details">详情</p> -->
+	<!--简介-->
+	<div class="wrap_synopsis">	
+		<div class="my_synopsis">
+			<ul>
+				<li class="border"></li>
+				<li>课程介绍</li>
+			</ul>
+		</div>		
+	</div>
+		
+	<!--内容-->
+		<div class="wrap">
+			<p></p>
+			<div class="no_data">暂无课程介绍..</div>
+			<div class="zhezhao" style="display: none;">
+				<img src="../images/op_bg.png"/>	
+			</div>     
+			
+		</div>
+		<!-- 点击收起隐藏 -->
+		<!-- <div class="btn" style="display: none;">
+			<img src="../images/top.png"/>
+		</div> -->
+			<!-- <div class="line_xian" style="width: 100%; height: 1px;border-top: 1px solid #f0f0f0;">
+			
+					</div> -->
+	<!--主讲人-->
+		<div class="wrap_speak">		
+			<div class="main_speak">
+				<p class="border"></p>
+				<p>主讲人</p>
+			</div>		
+		</div>
+	<!--内容-->
+		<div class="wrap1">
+			<p></p> 
+			<div class="no_data1">暂无主讲人介绍...</div>
+			<div class="zhezhao1" style="display: none;">
+				<img src="../images/op_bg.png"/>	
+			</div>     
+		</div>
+		<!-- 点击收起隐藏 -->
+		<!-- <div class="btn1" style="display: none;">
+			<img src="../images/top.png"/>
+		</div> -->
+<!--详情结束-->
+	<!--评价-->
+	<div class="wrap_comment_title" onclick="btn_allComment()">
+		<p class="border"></p>
+		<p>评价</p>
+		<span>
+			<img src="../images/video_review.png"/>
+		</span>
+	</div>
+	<div class="wrap_all_returned">  <!--渲染存放盒子-->
+		<script type="text/html" id="wrap_people_comment">
+			{{each items as item i}}
+			<div class="wrap_people_comment">
+				<div class="wrap_comment_text">
+					<!--头像-->
+					<div class="user_header">
+						<img src="{{item.onlineUser.smallHeadPhoto}}"/>
+					</div>
+					<!--右边评价-->
+					<div class="user_text">
+						<div class="wrap_userName">
+							<p class="z">{{item.onlineUser.name}}</p>
+							<!--购买者显示-->
+							{{if item.isBuy  }}
+							<div class="wrap_purchaser">
+								<p>已购</p>
+							</div>
+							{{/if}}
+							{{if item.starLevel == 1}}
+							<img class="z" src="../images/xing1_0.png"/>
+							{{else if item.starLevel == 1.5}}
+							<img class="z" src="../images/xing1_5.png"/>
+							{{else if item.starLevel == 2}}
+							<img class="z" src="../images/xing2.png"/>
+							{{else if item.starLevel == 2.5}}
+							<img class="z" src="../images/xing2_5.png"/>
+							{{else if item.starLevel == 3}}
+							<img class="z" src="../images/xing3.png"/>
+							{{else if item.starLevel == 3.5}}
+							<img class="z" src="../images/xing3_5.png"/>
+							{{else if item.starLevel == 4}}
+							<img class="z" src="../images/xing4_0.png"/>
+							{{else if item.starLevel == 4.5}}
+							<img class="z" src="../images/xing4_5.png"/>
+							{{else if item.starLevel == 5}}
+							<img class="z" src="../images/xing5.png"/>
+							{{/if}}
+
+						</div>
+						
+					</div>
+
+					<!--很赞/干货很多-->
+						<div class="uesr_lable">
+							{{if item.criticizeLable !=null}}
+							<ul>
+								{{if item.criticizeLable.indexOf('1')>-1}}
+								<li>很赞</li>
+								{{/if}}
+								{{if item.criticizeLable.indexOf('2')>-1}}
+								<li>干货很多</li>
+								{{/if}}
+								{{if item.criticizeLable.indexOf('3')>-1}}
+								<li>超值推荐</li>
+								{{/if}}
+								{{if item.criticizeLable.indexOf('4')>-1}}
+								<li>喜欢</li>
+								{{/if}}
+								{{if item.criticizeLable.indexOf('5')>-1}}
+								<li>买对了</li>
+								{{/if}}
+							</ul>
+							{{/if}}
+						</div>
+						<!--回复的内容-->
+						<p class="write_text">
+							{{item.content}}
+						</p>
+						<!--被回复的内容灰色部分-->
+						{{if item.reply.length > 0}}
+						<div class="uesr_returned">
+							<p class="returned_id z">{{item.reply[0].onlineUser.name}}：<span style="color: #333;">{{item.reply[0].replyContent}}</span></p>
+							<!--<p class="returned_text"></p>-->
+						</div>
+						{{/if}}
+						<!--回复时间/点赞/评价按钮-->
+						<div class="wrap_returned_btn">
+							<ul>
+								<li>{{item.createTime.slice(0,16)}}</li>
+								<li class="btn_littleReturn " style="margin-left: 0.3rem;" id="{{item.id}}" >
+									<img src="../images/returned.png"/>
+								</li>
+								<li class="btn_click_zan"  data-id ="{{item.id}}"  >
+									{{if item.isPraise }}
+									<img src="../images/zan001.png"/>&nbsp;<span id="zan001">{{item.praiseSum}}</span>
+									{{else}}
+									<img src="../images/zan01.png"/>&nbsp;<span id="zan01">{{item.praiseSum}}</span>
+									{{/if}}
+								</li>
+
+							</ul>
+						</div>
+					
+				</div>
+
+			</div>
+			{{/each}}
+		</script>
+	</div>
+	<!--无评价显示的图片-->
+	<div class="quie_pic">
+		<img src="../images/no_comment.png"/>	
+		<p>还没有评价？快来抢沙发呀~</p>
+		<!-- <span onclick="btn_allComment()">去评价</span> -->
+	</div>
+	
+	<div class="" style="max-width:7.5rem;height:1.2rem;opcity:0;"></div>
+	
+	<!--底下评价输入框-->
+	<div class="wrap_user_input">
+		<div class="wrap_input z">
+			<img src="../images/inp_retured.png"/>
+			<span>来点神聊</span>
+		</div>
+		
+	</div>
+	<!--评价用户弹出框-->
+	<div class="bg_userModal"></div>
+	<div class="wrapLittle_comment">
+		<p class="detailed_comments little_comment">详细评价</p>
+		<div class="text_write_box">
+			<textarea id="littlt_return" name="" rows="" cols="" placeholder=""></textarea>
+		</div>
+		<!--表情/提交评价-->
+		<ul class="brow_btn">
+			<li style="display: none;">
+				<img src="../images/brow.png"/>
+			</li>
+			<li onclick="replyComment()">发表评价</li>
+		</ul>
+	</div>
+	<!--评价弹出框-->
+	<div class="bg_modal"></div>
+
+	<div class="wrapAll_comment">
+		<script type="text/html" id="id_show_xingxing">
+			<p class="set_title">发布评价</p>
+			{{if items==1}}
+			<!--星星五星好评-->
+			<div class="my_impression1 cl mar_bot">
+				<p>总体印象</p>
+				<img src="../images/xing1.png"/>
+				<img src="../images/xing1.png"/>
+				<img src="../images/xing1.png"/>
+				<img src="../images/xing1.png"/>
+				<img src="../images/xing1.png"/>
+				<span></span>
+			</div>
+			<!--节目内容好评-->
+			<div class="my_impression3 mar_bot cl">
+				<p>节目内容</p>
+				<img src="../images/face0.png"/>
+				<img src="../images/face0.png"/>
+				<img src="../images/face0.png"/>
+				<img src="../images/face0.png"/>
+				<img src="../images/face0.png"/>
+				<span></span>
+			</div>
+			<!--主播演绎好评-->
+			<div class="my_impression2 cl mar_bot">
+				<p>主播演绎</p>
+				<img src="../images/face0.png"/>
+				<img src="../images/face0.png"/>
+				<img src="../images/face0.png"/>
+				<img src="../images/face0.png"/>
+				<img src="../images/face0.png"/>
+				<span></span>
+			</div>
+			
+			<!--标签-->
+			<ul class="select_lable">
+				<li value="1">很赞</li>
+				<li value="2">干货很多</li>
+				<li value="3">超值推荐</li>
+				<li value="4">喜欢</li>
+				<li value="5">买对了</li>
+			</ul>
+			<p class="detailed_comments">详细评价</p>
+			{{/if}}
+			<div class="text_write_box">
+				<textarea name="" id="comment_detailed" rows="" cols="" placeholder=""></textarea>
+			</div>
+			<!--表情/提交评价-->
+			<ul class="brow_btn">
+				<li style="display: none;">
+					<img src="../images/brow.png"/>
+				</li>
+				<li class="report_btn" onclick="reportComment()">发表评价</li>
+			</ul>
+		</script>
+	</div>
+
+</div>
+	
+	<!--分享开始-->
+	<div class="share">
+		<div class="share_bg"></div>
+		<div class="share_main">
+			<div class="share_main_bg">
+				<ul>
+					<div class="share_to">分享到</div>
+					<li class="share_to_one">
+						<div class="">
+							<img src="../images/ShareSDK.png" />
+							<p>微信</p>
+						</div>
+					</li>
+					<li class="share_to_one">
+						<div class="">
+							<img src="../images/Friends.png" />
+							<p>朋友圈</p>
+						</div>
+					</li>
+					<li id="qqShare0">
+						<div class="" id="qqShare">
+							<img src="../images/Qzone_share.png" />
+							<p>qq空间</p>
+						</div>
+					</li>
+					<li id="weiboShare">
+						<div class="" id="qqShare0">
+							<img src="../images/RSS_links.png" />
+							<p>新浪微博</p>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="share_cancel">取消</div>
+		</div>
+	</div>
+	<div class="weixin_ceng" style="display1: block;">
+		<div class="weixin_ceng_bg"></div>
+		<div class="weixin_img"><img src="/xcview/images/fenxiang1.png" data-bd-imgshare-binded="1"></div>
+	</div>
+	<!--分享结束-->
+</body>
+<!-- <script src="/xcview/js/jquery-2.1.1.min.js"></script> -->
+<script type="text/javascript" src="../js/common/jquery.min-2.1.1.js"></script>  <!-- 测试专辑分享引入jq -->
+<script type="text/JavaScript" src="//res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/common.js?version=b007cb5668"></script>
+<script type="text/javascript" src="/xcview/js/common/template.js?version=dd622e58c9"></script>
+<script type="text/javascript" src="../js/live_album.js"></script>
+<!--公用弹框 -->
+<script type="text/javascript" src="/xcview/js/common/alertPopShow.js?version=3a4f24e3df"></script>
+<script type="text/javascript" src="../js/share/share.js"></script>
+<script>
+
+	//由于jq  1.9  以上版本删除了toggle ,加以下代码兼容	
+$.fn.toggle = function( fn, fn2 ) {
+    var args = arguments,guid = fn.guid || $.guid++,i=0,
+    toggle = function( event ) {
+      var lastToggle = ( $._data( this, "lastToggle" + fn.guid ) || 0 ) % i;
+      $._data( this, "lastToggle" + fn.guid, lastToggle + 1 );
+      event.preventDefault();
+      return args[ lastToggle ].apply( this, arguments ) || false;
+    };
+    toggle.guid = guid;
+    while ( i < args.length ) {
+      args[ i++ ].guid = guid;
+    }
+    return this.click( toggle );
+  };
+</script>
+<!--详情点击隐藏和显示-->
+<script>
+		$(function(){
+//			简介内容
+			$('.btn').prepend('<a href="#">点击收起</a>');
+			  $(".btn").toggle(function(){
+			    $(".btn a").html('展开全部');
+			    $(".wrap").addClass("pp");
+			    $(".wrap").removeAttr("style");
+			    $(".zhezhao").show();
+			    $(".btn img").attr("src","../images/bot0.png")  
+			  },function(){
+			  	$(".zhezhao").hide();
+			    $(".btn img").attr("src","../images/top.png")			    
+			    $(".btn a").html('点击收起');
+			     $(".wrap").removeClass("pp");
+//			     $(".wrap").attr("style");
+			 })
+//			主讲人内容
+		  $('.btn1').prepend('<a href="#">点击收起</a>');
+			  $(".btn1").toggle(function(){
+			    $(".btn1 a").html('展开全部');
+			    $(".wrap1").addClass("pp1");
+			    $(".wrap1").removeAttr("style");
+			    $(".zhezhao1").show();
+			    $(".btn1 img").attr("src","../images/bot0.png")  
+			  },function(){
+			  	$(".zhezhao1").hide();
+			    $(".btn1 img").attr("src","../images/top.png")			    
+			    $(".btn1 a").html('点击收起');
+			     $(".wrap1").removeClass("pp1");
+//			     $(".wrap1").attr("style");
+			 })
+		 })
+		
+		
+		//			点击视频或音频按钮
+//			$("#video_v").click(function(){
+//				$(".play_video img").css("display","none");
+//			});
+	</script>
+	
+	<script>
+		window.onload = function(){
+			//判断是否微信登陆
+			function isWeiXin() {
+			var ua = window.navigator.userAgent.toLowerCase();
+			console.log(ua);//mozilla/5.0 (iphone; cpu iphone os 9_1 like mac os x) applewebkit/601.1.46 (khtml, like gecko)version/9.0 mobile/13b143 safari/601.1
+			if (ua.match(/MicroMessenger/i) == 'micromessenger') {
+			return true;
+			} else {
+			return false;
+			}
+			}
+			if(isWeiXin()){
+				alert(123);
+				$(".ccH5playerBox video").addClass("videos");
+			}
+		};
+	</script>
+
+<script>
+    window.onload = function(){
+      //根据class名称获取元素,此案例中之所以要用class获取元素名称,是为了可以控制多个元素( text,text1 )的字符串度.  注释：文字开头必须紧贴div
+      function getByClass(oParent, sClass) {
+      if (oParent.getElementsByClassName) {
+      return oParent.getElementsByClassName(sClass);
+      } else { //IE 8 7 6
+      var arr = [];
+      var reg = new RegExp('\\b' + sClass + '\\b');
+      var aEle = oParent.getElementsByTagName('*');
+      for (var i = 0; i < aEle.length; i++) {
+      if (reg.test(aEle[i].className)) {
+      arr.push(aEle[i]);
+      }
+      }
+      return arr;
+      }
+      }
+      function testAuto() {
+      var textName = getByClass(document, 'all_list_ul_li_p');
+      for (var i = 0; i < textName.length; i++) {
+      var nowLeng = textName[i].innerHTML.length;
+      if ( nowLeng > 80 ) {   //80 可以为0
+      var nowWord = textName[i].innerHTML.substr(0, 26) + '······';   //10是显示多少个字符以后出现...
+      textName[i].innerHTML = nowWord;
+      }
+      }
+      }
+      testAuto();
+    };
+</script>
+
+<script> 
+// 控制手机物理键--返回
+/* window.onload = function(){
+  if(window.history && window.history.pushState) {  
+      $(window).on('popstate', function() {  
+          var hashLocation = location.hash;  
+          var hashSplit = hashLocation.split("#!/");  
+          var hashName = hashSplit[1];  
+          if(hashName !== '') {  
+              var hash = window.location.hash;  
+              if(hash === '') {  
+            	  location.replace('/xcview/html/live_select_album.html?course_id=' + collectionId);
+              }  
+          }  
+      });  
+	var urlstr = window.location.href;
+    window.history.pushState('forward', null,urlstr);    
+  }
+}; */
+</script> 
+
+
+
