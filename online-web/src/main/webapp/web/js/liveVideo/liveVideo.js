@@ -68,9 +68,8 @@ RequestService("/online/live/getOpenCourseById", "GET", {
 	vhallObj.recordId = obj.record_id;
 	vhallObj.accountId = obj.userId;
 
-
-	//主播暂时离开一下下啦
-	if (obj.live_case == 2) {
+	//直播中时主播暂时离开一下下啦
+	if (liveStatus == 1 && obj.live_case == 2) {
 		$(".playback div").hide();
     	$(".leave").show();
     	$(".playback").show();

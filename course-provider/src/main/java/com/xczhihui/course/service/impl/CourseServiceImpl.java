@@ -508,7 +508,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         /*
          * 如果直播没有回放，不发送消息到客户端
          */
-        if(!course.getRecord()) {
+        if(course.getRecord()) {
             JSONObject job = new JSONObject();
             job.put("type", type);
             job.put("message", message);

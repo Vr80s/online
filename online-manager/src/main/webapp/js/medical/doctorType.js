@@ -176,13 +176,9 @@ function updateBanner2(obj){
 	var oo = $(obj).parent().parent().parent();
 	var row = banner2Table.fnGetData(oo); // get datarow
 	$("#updateCourse-form").resetForm();
-	$("#update_description").val(row.name);
-	$("#update_imgPath").val(row.icon);
+	$("#update_description").val(row.title);
 	$("#update_id").val(row.id);
-    $("#update_linkCondition").val(row.linkCondition);
 
-
-	reviewImage("update_imgPath_file",row.icon);
 	$(".remove").hide();
 	
  	var dialog = openDialog("updateBanner2Dialog","dialogUpdateBanner2Div","修改医师类别",500,330,true,"确定",function(){

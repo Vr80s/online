@@ -109,7 +109,7 @@ $(".check_one span").click(function(){
  */
 $(".check_two span,.header_return").click(function(){
 	  sessionStorage.setItem("school_index",1);	
-	location.href="/xcview/html/physician/index.html";
+	location.href="/xcview/html/home_page.html";
 })
 
 
