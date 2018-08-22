@@ -25,7 +25,7 @@ function balance() {
             //$(".header_img").html(template('userInfo',data.resultObject.user));
             if (isNotBlank(data.resultObject.user)) {
                 var item = data.resultObject.user;
-                $("#smallHeadPhoto").attr("src", item.smallHeadPhoto + '?imageView2/2/w/160');
+                $("#smallHeadPhoto").attr("src", item.smallHeadPhoto + '?imageMogr2/thumbnail/!160x160r|imageMogr2/gravity/Center/crop/160x160');
                 $("#p_name").html(item.name);
 
             }

@@ -82,7 +82,7 @@ requestService("/xczh/course/liveDetails",{
 				 * 为详情页面添加数据
 				 */
 				$(".headImg").attr("src", result.headImg);
-				$(".guanz_headImg").attr("src", result.headImg);
+				$(".guanz_headImg").attr("src", result.headImg + '?imageMogr2/thumbnail/!80x80r|imageMogr2/gravity/Center/crop/80x80');
 				$(".smallImgPath").attr("src", result.smallImgPath);
 				$(".main_title").find('.p0').html(result.heir);
 				

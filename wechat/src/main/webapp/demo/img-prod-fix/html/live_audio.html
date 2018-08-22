@@ -156,7 +156,7 @@
                                onclick="window.location='live_personal.html?userLecturerId={{userLecturerId}}'">
                     {{/if}}
     
-                <li><img src="{{headImg}}" style="width:0.6rem;height:0.6rem;border-radius: 60px;"/><span style="margin-top: 0.15rem;">{{heir}}</span></li>
+                <li><img src="{{headImg}}?imageMogr2/thumbnail/!60x60r|imageMogr2/gravity/Center/crop/60x60" style="width:0.6rem;height:0.6rem;border-radius: 60px;"/><span style="margin-top: 0.15rem;">{{heir}}</span></li>
 				<li style="margin-top: 0.18rem;float:right;">
 					<!--<a href="live_personal.html?userLecturerId={{userLecturerId}}">-->
 					<a href="javascript: ;">
@@ -253,7 +253,7 @@
 			<div class="wrap_comment_text">
 				<!--头像-->
 				<div class="user_header">
-					<img src="{{item.onlineUser.smallHeadPhoto}}"/>
+					<img src="{{item.onlineUser.smallHeadPhoto}}?imageMogr2/thumbnail/!98x98r|imageMogr2/gravity/Center/crop/98x98"/>
 				</div>
 				<!--右边评价-->
 				<div class="user_text">
