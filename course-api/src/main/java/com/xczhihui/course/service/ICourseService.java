@@ -350,13 +350,6 @@ public interface ICourseService {
     Integer createTherapyLive(Integer id,Integer clientType,String accountId) throws Exception;
 
 
-	/**  
-	 * <p>Title: updateTherapyLive</p>  
-	 * <p>Description: </p>  
-	 * @param id
-	 * @param accountId  
-	 */ 
-	void updateTherapyLive(int id, String accountId);
     /**
      * 通过课程id查询课程
      *
@@ -364,4 +357,8 @@ public interface ICourseService {
      * @return
      */
     Course selectById(Integer courseId);
+
+    int updateStatus(Integer id, Integer status);
+
+    void deleteCourseMessage(Integer courseId);
 }

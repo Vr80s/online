@@ -92,7 +92,7 @@ public interface RemoteTreatmentMapper extends BaseMapper<Treatment> {
      * @param doctorId doctorId
      * @return
      */
-    @Select({"select mt.status, mt.date as date, mt.start_time as startTime, mt.end_time as endTime, ou.name as nickname,ou.`small_head_photo` avatar, mt.id " +
+    @Select({"select mt.status, mt.date as date, mt.start_time as startTime, mt.end_time as endTime, ou.name as nickname,ou.`small_head_photo` avatar, mt.id, mt.id, mt.info_id as infoId " +
             " from medical_treatment_appointment_info mtai join medical_treatment mt on mtai.id = mt.info_id join oe_user ou on mtai.user_id = ou.id" +
             " where mt.doctor_id = #{doctorId} and mt.status = 5 and mtai.deleted is false and mt.deleted is false" +
             " order by mt.date asc, mt.start_time asc"})
@@ -104,7 +104,7 @@ public interface RemoteTreatmentMapper extends BaseMapper<Treatment> {
      * @param doctorId doctorId
      * @return
      */
-    @Select({"select mt.status, mt.date as date, mt.start_time as startTime, mt.end_time as endTime, ou.name as nickname,ou.`small_head_photo` avatar, mt.id " +
+    @Select({"select mt.status, mt.date as date, mt.start_time as startTime, mt.end_time as endTime, ou.name as nickname,ou.`small_head_photo` avatar, mt.id, mt.info_id as infoId " +
             " from medical_treatment_appointment_info mtai join medical_treatment mt on mtai.id = mt.info_id join oe_user ou on mtai.user_id = ou.id" +
             " where mt.doctor_id = #{doctorId} and mt.status != 5 and mtai.deleted is false and mt.deleted is false" +
             " order by mt.date asc, mt.start_time asc"})

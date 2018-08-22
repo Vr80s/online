@@ -46,7 +46,7 @@ public class TreatmentVO implements Serializable {
     private Integer infoId;
 
     //是否可点击开始远程诊疗
-    private Boolean isStart;
+    private Boolean isStart = false;
 
     private String nickname;
 
