@@ -116,7 +116,8 @@
         oc.channel_id as channelId,
         oc.record_id as recordId,
         oc.live_case as liveCase,
-        oc.is_teaching teaching
+        oc.is_teaching teaching,
+        oc.live_status as liveStatus
         FROM
         oe_course as oc
         inner join course_anchor as ou on oc.user_lecturer_id = ou.user_id

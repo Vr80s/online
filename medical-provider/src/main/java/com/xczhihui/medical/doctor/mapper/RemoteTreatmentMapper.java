@@ -48,7 +48,7 @@ public interface RemoteTreatmentMapper extends BaseMapper<Treatment> {
             "   and mt.deleted = false" +
             "</script>"})
     Integer countUserAppointRepeatByDate(@Param("date") Date date, @Param("startTime") Date startTime,
-                              @Param("endTime") Date endTime, @Param("userId") String userId);
+                                         @Param("endTime") Date endTime, @Param("userId") String userId);
 
     /**
      * 查找医师可预约的诊疗
@@ -85,4 +85,64 @@ public interface RemoteTreatmentMapper extends BaseMapper<Treatment> {
             " from medical_treatment_appointment_info mtai left join medical_treatment mt on mt.info_id = mtai.id" +
             " where mtai.id = #{infoId}"})
     TreatmentVO findByInfoId(@Param("infoId") Integer infoId);
+
+    /**
+     * 通过医师查询诊疗
+     *
+     * @param doctorId doctorId
+     * @return
+     */
+    @Select({"select mt.status, mt.date as date, mt.start_time as startTime, mt.end_time as endTime, ou.name as nickname,ou.`small_head_photo` avatar, mt.id " +
+            " from medical_treatment_appointment_info mtai join medical_treatment mt on mtai.id = mt.info_id join oe_user ou on mtai.user_id = ou.id" +
+            " where mt.doctor_id = #{doctorId} and mt.status = 5 and mtai.deleted is false and mt.deleted is false" +
+            " order by mt.date asc, mt.start_time asc"})
+    List<TreatmentVO> selectExpiredByDoctorId(@Param("doctorId") String doctorId);
+
+    /**
+     * 通过医师查询诊疗
+     *
+     * @param doctorId doctorId
+     * @return
+     */
+    @Select({"select mt.status, mt.date as date, mt.start_time as startTime, mt.end_time as endTime, ou.name as nickname,ou.`small_head_photo` avatar, mt.id " +
+            " from medical_treatment_appointment_info mtai join medical_treatment mt on mtai.id = mt.info_id join oe_user ou on mtai.user_id = ou.id" +
+            " where mt.doctor_id = #{doctorId} and mt.status != 5 and mtai.deleted is false and mt.deleted is false" +
+            " order by mt.date asc, mt.start_time asc"})
+    List<TreatmentVO> selectUnExpiredByDoctorId(@Param("doctorId") String doctorId);
+
+    /**
+     * 通过用户查询未过期的诊疗预约
+     *
+     * @param userId userId
+     * @return
+     */
+    @Select({"select mtai.status, mt.date as date, mt.start_time as startTime, mt.end_time as endTime, doctor.name as nickname,doctor.`avatar` avatar, mtai.id, mt.course_id as courseId \n" +
+            "             from medical_treatment_appointment_info mtai\n" +
+            "               join medical_treatment mt \n" +
+            "                   on mtai.id = mt.info_id\n" +
+            "               join (select md.id, md.name, mdai.`head_portrait` as avatar from medical_doctor md join medical_doctor_authentication_information mdai on md.`authentication_information_id` = mdai.id) as doctor on doctor.id = mt.doctor_id\n" +
+            "            where mtai.user_id = #{userId} and mt.status != 5 and mtai.deleted is false and mt.deleted is false" +
+            "            order by mt.date asc, mt.start_time asc"})
+    List<TreatmentVO> selectUnExpiredByUserId(@Param("userId") String userId);
+
+    /**
+     * 通过用户查询已过期的诊疗预约
+     *
+     * @param userId userId
+     * @return
+     */
+    @Select({"select mtai.status, mt.date as date, mt.start_time as startTime, mt.end_time as endTime, doctor.name as nickname,doctor.`avatar` avatar, mtai.id, mt.course_id as courseId \n" +
+            "             from medical_treatment_appointment_info mtai\n" +
+            "               join medical_treatment mt \n" +
+            "                   on mtai.id = mt.info_id\n" +
+            "               join" +
+            "                    (select md.id, md.name, mdai.`head_portrait` as avatar from medical_doctor md join medical_doctor_authentication_information mdai" +
+            "                        on md.`authentication_information_id` = mdai.id) as doctor" +
+            "                   on doctor.id = mt.doctor_id\n" +
+            "            where mtai.user_id = #{userId} and mt.status = 5 and mtai.deleted is false and mt.deleted is false" +
+            "            order by mt.date desc, mt.start_time desc"})
+    List<TreatmentVO> selectExpiredByUserId(@Param("userId") String userId);
+
+    @Select({"select * from medical_treatment where (status = 0 OR status = 1 OR status = 2) and date <= curdate() and deleted is false"})
+    List<Treatment> selectUpcomingExpire();
 }
