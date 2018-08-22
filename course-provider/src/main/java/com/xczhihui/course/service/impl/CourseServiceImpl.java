@@ -689,7 +689,6 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 		 * 保存审核信息
 		 */
 		iCourseMapper.insertCouserApplyInfo(course);
-		
         /**
          * 保存课程信息
          */
@@ -777,6 +776,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 		try {
 			//编号
 			String  numberStr   = iCourseMapper.selectDoctorCurrentDayTherapyNumber(userLecturerId);
+			System.out.println(numberStr);
 			if(numberStr!=null && XzStringUtils.isNumeric(numberStr)) {
 				int number = Integer.parseInt(numberStr);
 				if(number < 9) {
@@ -793,4 +793,6 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 		}
 		return strGradeName;
 	}
+	
+
 }

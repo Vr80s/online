@@ -199,10 +199,13 @@ public class CourseApplyInfo extends Model<CourseApplyInfo> {
 
     @TableField(exist = false)
     private List<Integer> updateDates;
-
+    
     private String city;
 
     private String version;
+    
+    @TableField(exist = false)
+    private Integer  appointmentInfoId;
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -541,7 +544,17 @@ public class CourseApplyInfo extends Model<CourseApplyInfo> {
         return this.id;
     }
 
-    @Override
+    
+    
+    public Integer getAppointmentInfoId() {
+		return appointmentInfoId;
+	}
+
+	public void setAppointmentInfoId(Integer appointmentInfoId) {
+		this.appointmentInfoId = appointmentInfoId;
+	}
+
+	@Override
     public String toString() {
         return "CourseApplyInfo{" +
                 ", id=" + id +
