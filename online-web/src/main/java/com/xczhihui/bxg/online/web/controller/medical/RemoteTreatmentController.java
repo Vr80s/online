@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import com.xczhihui.bxg.online.web.body.doctor.TreatmentBody;
 import com.xczhihui.bxg.online.web.controller.AbstractController;
 import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.course.service.ICourseService;
+import com.xczhihui.medical.doctor.model.Treatment;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.service.IRemoteTreatmentService;
 
@@ -23,6 +25,8 @@ public class RemoteTreatmentController extends AbstractController {
     private IMedicalDoctorBusinessService medicalDoctorBusinessService;
     @Autowired
     private IRemoteTreatmentService remoteTreatmentService;
+    @Autowired
+    private ICourseService courseService;
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseObject list(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10") int size) {
@@ -61,6 +65,10 @@ public class RemoteTreatmentController extends AbstractController {
 
     @RequestMapping(value = "cancel/{id}", method = RequestMethod.PUT)
     public ResponseObject updateAppointmentStatusForCancel(@PathVariable Integer id) {
+        Treatment treatment = remoteTreatmentService.selectTreatmentById(id);
+        if (treatment != null && treatment.getCourseId() != null) {
+            courseService.updateStatus(treatment.getCourseId(), 0);
+        }
         remoteTreatmentService.updateAppointmentForCancel(id);
         return ResponseObject.newSuccessResponseObject();
     }

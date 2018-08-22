@@ -152,5 +152,22 @@ public interface IRemoteTreatmentService {
      *
      * @return
      */
-    void updateUpComingExpire();
+    List<Treatment> selectUpcomingExpire();
+
+    /**
+     * 将课程id更新至诊疗数据中
+     *
+     * @param id       id
+     * @param courseId courseId
+     */
+    void updateTreatmentCourseId(int id, int courseId);
+
+    /**
+     * 标记为过期
+     *
+     * @param treatment treatment
+     */
+    boolean markExpired(Treatment treatment);
+
+    Treatment selectTreatmentById(int id);
 }

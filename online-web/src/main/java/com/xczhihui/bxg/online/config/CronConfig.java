@@ -1,6 +1,5 @@
 package com.xczhihui.bxg.online.config;
 
-import java.util.Calendar;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -10,8 +9,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
+import com.xczhihui.common.support.service.CacheService;
 import com.xczhihui.common.util.enums.LiveStatus;
 import com.xczhihui.common.util.enums.LiveStatusEvent;
+import com.xczhihui.common.util.redis.key.RedisCacheKey;
 import com.xczhihui.common.util.vhallyun.RoomService;
 import com.xczhihui.course.service.ICommonMessageService;
 import com.xczhihui.course.service.ICourseService;
@@ -36,6 +37,8 @@ public class CronConfig {
     private ICourseService courseService;
     @Autowired
     private IRemoteTreatmentService remoteTreatmentService;
+    @Autowired
+    private CacheService cacheService;
 
     @Scheduled(fixedRate = 60000)
     private void updateStatusCronJob() {
@@ -45,7 +48,7 @@ public class CronConfig {
     @Scheduled(cron = "0 0 2 * * ?")
     private void updateLiveCourseStatus() {
         List<String> roomIds = RoomService.listLiveOpening();
-        for(String roomId : roomIds) {
+        for (String roomId : roomIds) {
             Integer liveStatus = courseService.findLiveStatusByDirectId(roomId);
             if (liveStatus != null && liveStatus == LiveStatus.LIVEING.getId()) {
                 courseService.updateCourseLiveStatus(LiveStatusEvent.STOP.getName(), roomId, null);
@@ -53,8 +56,16 @@ public class CronConfig {
         }
     }
 
-    @Scheduled(fixedRate = 30000)
+    @Scheduled(fixedRate = 60000)
     private void updateTreatmentStatus() {
-        remoteTreatmentService.updateUpComingExpire();
+        List<Treatment> treatments = remoteTreatmentService.selectUpcomingExpire();
+        for (Treatment treatment : treatments) {
+            if (remoteTreatmentService.markExpired(treatment)) {
+                Integer courseId = treatment.getCourseId();
+                if (courseId != null) {
+                    courseService.updateStatus(courseId, 0);
+                }
+            }
+        }
     }
 }

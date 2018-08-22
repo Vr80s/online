@@ -10,9 +10,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.body.treatment.TreatmentAppointmentInfoBody;
+import com.xczh.consumer.market.interceptor.HeaderInterceptor;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.enums.ResultCode;
+import com.xczhihui.course.model.Course;
+import com.xczhihui.course.service.ICourseService;
+import com.xczhihui.medical.doctor.model.Treatment;
+import com.xczhihui.medical.doctor.model.TreatmentAppointmentInfo;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsService;
 import com.xczhihui.medical.doctor.service.IRemoteTreatmentService;
 import com.xczhihui.medical.enrol.service.EnrolService;
 
@@ -30,7 +36,11 @@ public class RemoteTreatmentAppointmentInfoController {
     @Autowired
     private EnrolService enrolService;
     @Autowired
+    private ICourseService courseService;
+    @Autowired
     private IMedicalDoctorBusinessService medicalDoctorBusinessService;
+    @Autowired
+    private IMedicalDoctorPostsService medicalDoctorPostsService;
 
     @RequestMapping(value = "appointmentInfo", method = RequestMethod.POST)
     public ResponseObject save(TreatmentAppointmentInfoBody treatmentAppointmentInfoBody, @Account String accountId) {
@@ -85,20 +95,30 @@ public class RemoteTreatmentAppointmentInfoController {
     }
 
     @RequestMapping(value = "operation/status", method = RequestMethod.POST)
-    public ResponseObject treatmentStatusUpdate(@Account String accountId, @RequestParam int id, @RequestParam int status) {
-        remoteTreatmentService.updateTreatmentStartStatus(id, status);
+    public ResponseObject treatmentStatusUpdate(@Account String accountId, @RequestParam int infoId, @RequestParam int status) {
+        remoteTreatmentService.updateTreatmentStartStatus(infoId, status);
         return ResponseObject.newSuccessResponseObject(null);
     }
 
     @RequestMapping(value = "cancel/appointment", method = RequestMethod.POST)
     public ResponseObject cancelAppointment(@Account String accountId, @RequestParam int id) {
         remoteTreatmentService.updateAppointmentForCancel(id);
+        Treatment treatment = remoteTreatmentService.selectTreatmentById(id);
+        if (treatment != null && treatment.getCourseId() != null) {
+            courseService.updateStatus(treatment.getCourseId(), 0);
+        }
         return ResponseObject.newSuccessResponseObject(null);
     }
 
     @RequestMapping(value = "apply", method = RequestMethod.POST)
-    public ResponseObject updateTreatmentStatus(@Account String accountId, @RequestParam int id, @RequestParam boolean status) {
-        remoteTreatmentService.updateStatus(id, status);
+    public ResponseObject updateTreatmentStatus(@Account String accountId, @RequestParam int infoId, @RequestParam boolean status) throws Exception {
+        TreatmentAppointmentInfo treatmentAppointmentInfo = remoteTreatmentService.selectById(infoId);
+        remoteTreatmentService.updateStatus(treatmentAppointmentInfo.getTreatmentId(), status);
+        if (status) {
+            Integer courseId = courseService.createTherapyLive(infoId, HeaderInterceptor.getClientType().getCode(), accountId);
+            Course course = courseService.selectById(courseId);
+            medicalDoctorPostsService.addDoctorPosts(accountId, course.getId(), null, course.getGradeName(), course.getSubtitle(), course.getAppointmentInfoId());
+        }
         return ResponseObject.newSuccessResponseObject(null);
     }
 }
