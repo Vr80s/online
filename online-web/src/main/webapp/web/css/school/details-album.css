@@ -48,7 +48,7 @@ outline: none;
 }
 .right-details{
 	width: 677px;
-	height: 260px;
+	min-height: 260px;
 	position: relative;
 }
 .right-details h4{
@@ -840,7 +840,7 @@ word-break:break-all;
 }
 .contain-album{
 	font-size: 14px;
-	margin: 7px 0;
+	margin: 7px 0 50px;
 }
 .contain-album a{
 	color: #00bc12;
