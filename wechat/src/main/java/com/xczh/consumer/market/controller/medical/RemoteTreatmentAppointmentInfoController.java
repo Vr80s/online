@@ -12,6 +12,7 @@ import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.body.treatment.TreatmentAppointmentInfoBody;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.enums.ResultCode;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.service.IRemoteTreatmentService;
 import com.xczhihui.medical.enrol.service.EnrolService;
 
@@ -28,6 +29,8 @@ public class RemoteTreatmentAppointmentInfoController {
     private IRemoteTreatmentService remoteTreatmentService;
     @Autowired
     private EnrolService enrolService;
+    @Autowired
+    private IMedicalDoctorBusinessService medicalDoctorBusinessService;
 
     @RequestMapping(value = "appointmentInfo", method = RequestMethod.POST)
     public ResponseObject save(TreatmentAppointmentInfoBody treatmentAppointmentInfoBody, @Account String accountId) {
@@ -63,5 +66,39 @@ public class RemoteTreatmentAppointmentInfoController {
     public ResponseObject checkAppointmentInfoValid(@RequestParam int id, @Account String accountId) {
         return ResponseObject.newSuccessResponseObject(remoteTreatmentService.checkAppointment(id, accountId));
     }
-    
+
+    @RequestMapping(value = "user/appointment", method = RequestMethod.GET)
+    public ResponseObject userAppointment(@Account String accountId) {
+        return ResponseObject.newSuccessResponseObject(remoteTreatmentService.listByUserId(accountId));
+    }
+
+    @RequestMapping(value = "user/appointment/delete", method = RequestMethod.POST)
+    public ResponseObject userAppointmentDelete(@Account String accountId, @RequestParam int id) {
+        remoteTreatmentService.deleteAppointmentInfo(id);
+        return ResponseObject.newSuccessResponseObject(null);
+    }
+
+    @RequestMapping(value = "list", method = RequestMethod.GET)
+    public ResponseObject doctorTreatment(@Account String accountId) {
+        String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(accountId);
+        return ResponseObject.newSuccessResponseObject(remoteTreatmentService.listByDoctorId(doctorId));
+    }
+
+    @RequestMapping(value = "operation/status", method = RequestMethod.POST)
+    public ResponseObject treatmentStatusUpdate(@Account String accountId, @RequestParam int id, @RequestParam int status) {
+        remoteTreatmentService.updateTreatmentStartStatus(id, status);
+        return ResponseObject.newSuccessResponseObject(null);
+    }
+
+    @RequestMapping(value = "cancel/appointment", method = RequestMethod.POST)
+    public ResponseObject cancelAppointment(@Account String accountId, @RequestParam int id) {
+        remoteTreatmentService.updateAppointmentForCancel(id);
+        return ResponseObject.newSuccessResponseObject(null);
+    }
+
+    @RequestMapping(value = "apply", method = RequestMethod.POST)
+    public ResponseObject updateTreatmentStatus(@Account String accountId, @RequestParam int id, @RequestParam boolean status) {
+        remoteTreatmentService.updateStatus(id, status);
+        return ResponseObject.newSuccessResponseObject(null);
+    }
 }

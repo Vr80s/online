@@ -100,18 +100,57 @@ public interface IRemoteTreatmentService {
     /**
      * 校验预约状态
      *
-     * @param id id
+     * @param id        id
      * @param accountId accountId
      * @return
      */
     int checkAppointment(int id, String accountId);
 
-	/**  
-	 * <p>Title: selectById</p>  
-	 * <p>Description: </p>  
-	 * @param id
-	 * @return  
-	 */ 
-	TreatmentAppointmentInfo selectById(int id);
+    /**
+     * <p>Title: selectById</p>
+     * <p>Description: </p>
+     *
+     * @param id
+     * @return
+     */
+    TreatmentAppointmentInfo selectById(int id);
 
+    /**
+     * 删除诊疗预约信息
+     *
+     * @param infoId infoId
+     */
+    void deleteAppointmentInfo(int infoId);
+
+    /**
+     * 更新诊疗直播状态
+     *
+     * @param id     id
+     * @param status status
+     * @return
+     */
+    int updateTreatmentStartStatus(int id, int status);
+
+    /**
+     * 分页获取医师远程诊疗
+     *
+     * @param doctorId doctorId
+     * @return
+     */
+    List<TreatmentVO> listByDoctorId(String doctorId);
+
+    /**
+     * 分页获取用户的诊疗预约
+     *
+     * @param userId userId
+     * @return
+     */
+    List<TreatmentVO> listByUserId(String userId);
+
+    /**
+     * 查询出时间已过期的预约
+     *
+     * @return
+     */
+    void updateUpComingExpire();
 }

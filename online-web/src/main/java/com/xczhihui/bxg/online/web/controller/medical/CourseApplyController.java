@@ -375,7 +375,7 @@ public class CourseApplyController extends AbstractController {
             sendCourseOnlineMessage(courseApplyId, user);
             //添加医师动态
             Course course = courseService.findByApplyId(courseApplyId);
-            medicalDoctorPostsService.addDoctorPosts(user.getId(), course.getId(), null, course.getGradeName(), course.getSubtitle());
+            medicalDoctorPostsService.addDoctorPosts(user.getId(), course.getId(), null, course.getGradeName(), course.getSubtitle(), course.getAppointmentInfoId());
             responseObj.setResultObject("上架成功");
         } else {
             deleteRemindMessage(courseId);
@@ -393,6 +393,7 @@ public class CourseApplyController extends AbstractController {
     private void deleteRemindMessage(Integer courseId) {
         cacheService.delete(RedisCacheKey.OFFLINE_COURSE_REMIND_KEY + RedisCacheKey.REDIS_SPLIT_CHAR + courseId);
         cacheService.delete(RedisCacheKey.LIVE_COURSE_REMIND_KEY + RedisCacheKey.REDIS_SPLIT_CHAR + courseId);
+        cacheService.delete(RedisCacheKey.COLLECTION_COURSE_REMIND_KEY + RedisCacheKey.REDIS_SPLIT_CHAR + courseId);
     }
 
     /**
@@ -514,5 +515,21 @@ public class CourseApplyController extends AbstractController {
         }
     }
 
+//    /**
+//     *  更改诊疗直播的信息
+//     * <p>Title: </p>  
+//     * <p>Description: </p>  
+//     * @param courseId
+//     * @return
+//     * @throws Exception
+//     */
+//    @RequestMapping(value = "/update/status", method = RequestMethod.GET)
+//    public ResponseObject getLivePushStreamStatus(@RequestParam Integer courseId) throws Exception {
+//    	
+//    	
+//        
+//    	return ResponseObject.newSuccessResponseObject(courseService.getCourseLivePushStreamStatus(courseId));
+//    }
+    
 
 }

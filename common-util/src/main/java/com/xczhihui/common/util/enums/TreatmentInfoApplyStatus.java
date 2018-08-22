@@ -1,20 +1,16 @@
 package com.xczhihui.common.util.enums;
 
 /**
- * 远程诊疗状态
- *
  * @author hejiwei
  */
-public enum AppointmentStatus {
+public enum TreatmentInfoApplyStatus {
 
-    //初始状态
-    ORIGIN(0),
     //待审核
-    WAIT_APPLY(1),
+    WAIT_DOCTOR_APPLY(1),
     //待开始
-    WAIT_START(2),
-    //已开始
-    STARTED(3),
+    APPLY_PASSED(2),
+    //审核不通过
+    APPLY_NOT_PASSED(3),
     //已完成
     FINISHED(4),
     //已过期
@@ -22,7 +18,7 @@ public enum AppointmentStatus {
 
     private int val;
 
-    AppointmentStatus(int val) {
+    TreatmentInfoApplyStatus(int val) {
         this.val = val;
     }
 
