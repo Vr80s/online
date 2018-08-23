@@ -432,7 +432,7 @@ color: #999999;
 	-webkit-box-orient: vertical;
 	-webkit-line-clamp: 2;
 	overflow: hidden;
-
+	line-height: 0.4rem;
 }
 .wrap_vedio_btn li .speak_name{
 	    overflow: hidden;

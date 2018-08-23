@@ -65,24 +65,38 @@
 	<div class="wrap-header">
 		<div class="header">	
 			<div class="headers">
+				<!-- 直播课程状态 1直播中， 2预告，3直播结束 ， 4 即将直播 ，5 准备直播 ，6 异常直播 -->
 				<script type="text/html" id="headers">
+
 					{{if lineState == 1}}
 						<p>直播课程</p>
-					{{/if}}
-					{{if lineState == 2}}
-						<p>直播预告</p>
-					{{/if}}
-					{{if lineState == 4}}
-						<p>直播预告</p>
-					{{/if}}
-					{{if lineState == 3}}
+					{{else if lineState == 2 || lineState == 4 || lineState == 5}}
+						{{if appointmentInfoId !=null}}
+							<p>远程诊疗直播预告</p>
+							{{else}}
+							<p>直播预告</p>
+						{{/if}}
+					{{else if lineState == 3}}
 						<p>直播回放</p>
 					{{/if}}
-					{{if lineState == 5}}
-						<p>直播预告</p>
-					{{/if}}
+
 				</script>
 			</div>
+			<!-- {{if lineState == 1}}
+				<p>直播课程</p>
+			{{/if}}
+			{{if lineState == 2 || lineState == 4 || lineState == 5}}
+				<p>直播预告</p>
+			{{/if}}
+			{{if lineState == 4}}
+				<p>直播预告</p>
+			{{/if}}
+			{{if lineState == 3}}
+				<p>直播回放</p>
+			{{/if}}
+			{{if lineState == 5}}
+				<p>直播预告</p>
+			{{/if}} -->
 			<!-- <div class="arror_return z" onclick="javascript:history.go(-1);"> -->
 			<div class="arror_return z" onclick="common_share_back();">
 				<img src="../images/back icon.png"/>

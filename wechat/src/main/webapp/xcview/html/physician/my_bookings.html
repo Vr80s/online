@@ -1,39 +1,39 @@
-<!DOCTYPE html>
-	<!--html��ǩ����Ҫ���趨font-size��ֵ������ı䴰�ڳߴ��С��ʱ��JS�ᶯ̬�ı����ֵ��ʵ��rem���ֵ�ĸı䡣-->
+﻿<!DOCTYPE html>
+	<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
 <html lang="en" style="font-size: 84.3125px;">
-<!--html��ǩ����Ҫ���趨font-size��ֵ������ı䴰�ڳߴ��С��ʱ��JS�ᶯ̬�ı����ֵ��ʵ��rem���ֵ�ĸı䡣-->
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
 <head>
 <meta charset="UTF-8">
-<title>��è��ҽ</title>
+<title>熊猫中医</title>
 
-<!--���meta������Ҫ���ϣ��ƶ�������Ӧ������-->
+<!--这段meta代码需要加上，移动端自适应缩放用-->
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <meta name="keywords" content="" />
 
 <link rel="stylesheet" type="text/css" href="/xcview/css/physician/my_bookings.css"/>
 <!-- <link rel="stylesheet" type="text/css" href="/xcview/css/alert/sharecss.css"/> -->
 
-<!-- ���� -->
+<!-- 弹框 -->
 <link rel="stylesheet" type="text/css" href="/xcview/css/popups.css"/>
 
-<!--�ֻ�Ƕ��ģ��-->
+<!--手机嵌入模板-->
 <script type="text/javascript" src="/xcview/js/common/layout.js"></script>
 <script>
-	// �жϺ���չʾʱ��״̬
+	// 判断横屏展示时的状态
 	window.onorientationchange=function(){
 	    if(window.orientation==90||window.orientation==-90){
-	        window.location.reload();  /*����״̬ˢ��*/
+	        window.location.reload();  /*横屏状态刷新*/
 	    }else{
-	        window.location.reload();  /*����״̬ˢ��*/
+	        window.location.reload();  /*竖屏状态刷新*/
 	    }
 	}	
 </script>
 </head>
 <body style="background: #F8F8F8;">
-	<!--ͷ����ʼ-->
+	<!--头部开始-->
 	<div class="header">
 		<div class="headers">
-				<p>ԤԼ����</p>
+				<p>预约详情</p>
 			</div>
 			<div class="arror_return" onclick="javascript:window.history.back();return false;">
             <!-- <div class="arror_return" onclick="common_share_back();"> -->
@@ -43,25 +43,24 @@
 				<img src="/xcview/images/share_img.png" alt="" />
 			</div> -->
 		</div>
-	</header>
 	<div class="opacity_heights"></div>
-	<!--ͷ������-->
+	<!--头部结束-->
 	
-	<!-- �м����ݿ�ʼ -->
+	<!-- 中间内容开始 -->
 	<div class="main">
 		<script type="text/html" id="main_id">
 			<input type="hidden" value="{{items.apprenticeId}}" id="J_apprenticeId"/>
-		<div class="booking_person">ԤԼ�ˣ�<span class="booking_person_span">{{items.name}}</span></div>
+		<div class="booking_person">预约人：<span class="booking_person_span">{{items.name}}</span></div>
 		<div class="handler ">
 			<div class="handler_cen handler_time_click">
-				<div class="handler_fize">ԤԼʱ��</div>
+				<div class="handler_fize">预约时间</div>
 				<div class="handler_time">{{items.dateText}}</div>
 			</div>
 		</div>
 		<div class="both"></div>
 		<div class="handler">
 			<div class="handler_cen">
-				<div class="handler_fize">Ԥ���绰</div>  <!-- Ĭ�ϵ��ӱ���ʱԤ���ĵ绰 -->
+				<div class="handler_fize">预留电话</div>  <!-- 默认弟子报名时预留的电话 -->
 				<div class="handler_tel">{{items.tel}}</div>
 			</div>
 		</div>
@@ -69,35 +68,43 @@
 
 		<div class="problem_description">
 			<div class="problem_description_main">
-				<div class="problem_description_title">��������</div>
+				<div class="problem_description_title">诊疗问题</div>
 				{{items.question}}
 			</div>
 		</div>
 		<div class="both"></div>
+
+		<!--{{if start == true}}
+			
+		{{else}}
+			
+		{{/if}}-->
+		
+
 	    </script>
 	</div>
 	
-	<div class="handler_btn">��ʼԶ������</div>
-	<div class="handler_btns" style="display: none;">��ʼԶ������</div>
-	<div class="check_btn" style="display: none;">�鿴������Ƶ</div>
+	<div class="handler_btns" style="display: none;">开始远程诊疗</div>
+	<div class="handler_btn" style="display: none;">开始远程诊疗</div>
+	<div class="check_btn" style="display: none;">查看诊疗视频</div>
 
-	<!-- <div class="handler_btn">����ԤԼ</div> -->
+	<!-- <div class="handler_btn">申请预约</div> -->
 	<div class="handler_reminder">
-		<span>��ʾ��</span>
+		<span>提示：</span>
 		<ul>
-			<li><span>�ύ��������ǻ��Զ�����ʽ��֪��˽����</span></li>
-			<li><span>����ɹ���ҽʦ����ԤԼʱ��ǰ10���ӿ�ʼ��Ƶ���ƣ���ȴ�ҽʦ������Ƶ��</span></li>
-			<li><span>���ƽ����󣬿�ǰ��<span style="color: #00bc12;">�ҵ�ԤԼ</span>ҳ��ۿ�������ʷ��Ƶ</span></li>
+			<li><span>提交申请后，我们会以短信形式告知审核结果；</span></li>
+			<li><span>申请成功后，医师可在预约时间前10分钟开始视频诊疗，请等待医师发起视频；</span></li>
+			<li><span>诊疗结束后，可前往<span style="color: #00bc12;" onclick="location.href ='/xcview/html/my_reservation.html'">我的预约</span>页面观看诊疗历史视频</span></li>
 		</ul>
 	</div>
-	<!-- �м����ݽ��� -->
-	<!-- ������ֵ�����ʼ -->
-	<!-- ���ԤԼʱ�� -->
+	<!-- 中间内容结束 -->
+	<!-- 点击出现弹出框开始 -->
+	<!-- 点击预约时间 -->
 	<div class="time_popout">
 		<div class="time_popout_bg"></div>
 		<div class="time_popout_main">
 			<ul class="time_popout_main_ul">
-				<!-- ��ʼ�Ժ������� -->
+				<!-- 开始对号先隐藏 -->
 				<script type="text/html" id="time_popout_main_ul_id">
 				{{each items as item i}} 
 				<li class="zhengliao_{{item.id}}"><span data-ids="{{item.id}}">{{item.dateText}}</span><img src="/xcview/images/pigeon.png" alt="" class="zhengliao_img" /></li>
@@ -107,37 +114,57 @@
 		</div>
 	</div>
 
-	<!-- �������ɹ� -->
+	<!-- 点击申请成功 -->
 	<div class="prosperity_popout">
 		<div class="prosperity_popout_bg"></div>
 		<div class="prosperity_popout_main">
 			<div class="prosperity_popout_title">
-				<img src="/xcview/images/examine.png" alt="" />�������
+				<img src="/xcview/images/examine.png" alt="" />申请完成
 			</div>
-			<div class="prosperity_cen">ҽʦ�����ɺ����ǻὫ��˽���Զ�����ʽ���͸����������ĵȴ�</div>
-			<div class="prosperity_popout_hide">��֪����</div>
+			<div class="prosperity_cen">医师审核完成后，我们会将审核结果以短信形式发送给您，请耐心等待</div>
+			<div class="prosperity_popout_hide">我知道了</div>
 		</div>
 	</div>
 
-	<!-- �������ʧ�� -->
+	<!-- 点击申请失败 -->
 	<div class="failure_popout">
 		<div class="failure_popout_bg"></div>
 		<div class="failure_popout_main">
 			<div class="failure_popout_title">
-				<img src="/xcview/images/failure.png" alt="" />����ʧ��
+				<img src="/xcview/images/failure.png" alt="" />申请失败
 			</div>
-			<div class="failure_cen">��Ǹ~��ʱ����ѱ�ԤԼ��������ѡ��ԤԼʱ��</div>
-			<div class="failure_popout_hide">��֪����</div>
+			<div class="failure_cen">抱歉~该时间段已被预约，请重新选择预约时间</div>
+			<div class="failure_popout_hide">我知道了</div>
 		</div>
 	</div>
-	<!-- ������ֵ�������� -->
+	<!-- 点击出现弹出框结束 -->
+
+	<!-- 点击开始远程诊疗开始 -->
+	<div class="tooltip" style="displays: block;">
+		<div class="tooltip_bg"></div>
+		<div class="tooltip_main">
+			<div class="tooltip_main_title">下载app开启远程诊疗</div>
+			<div class="tooltip_bottom">
+				<div class="call_off">取消</div>
+				<div class="determine">去下载</div>
+				<div class="both"></div>
+			</div>
+		</div>
+	</div>
+	<!-- 点击开始远程诊疗结束 -->
 </body>
 <script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/common.js"></script> 
-<!-- ���õ��� -->
+<!-- 公用弹框 -->
 <!-- <script type="text/javascript" src="/xcview/js/common/alertPopShow.js"></script> -->
 <script type="text/javascript" src="/xcview/js/common/popups.js"></script>
-<script type="text/javascript" src="/xcview/js/common/template.js"></script>    <!--����ģ������--> 
+<script type="text/javascript" src="/xcview/js/common/template.js"></script>    <!--数据模板引入--> 
 <script type="text/javascript" src="/xcview/js/physician/my_bookings.js"></script>
+
+
+<script>
+	
+	
+</script>
 </html>

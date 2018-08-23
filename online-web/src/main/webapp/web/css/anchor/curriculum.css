@@ -3058,7 +3058,7 @@ left: 0px;
     height: 36px;
     border: 1px solid #F0F0F0;
     outline: none;
-    text-indent: 1em;
+    padding: 0 5px;
     font-size: 14px;
 }
 .introduce-medical{

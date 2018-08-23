@@ -14,13 +14,18 @@
 <!--手机嵌入模板-->
 <script type="text/javascript" src="/xcview/js/common/layout.js"></script>
 
-<link rel="stylesheet" href="/xcview/css/my_bookings.css">
+<link rel="stylesheet" href="/xcview/css/my_reservation.css">
 <!-- 刷新引入js -->
 <script src="/xcview/js/common/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
-<!-- <script src="/xcviews/js/common/swiper.jquery.min-1.11.2.js" type="text/javascript" charset="utf-8"></script> -->
 <script type="text/javascript" src="/xcview/js/common/mui.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/common.js"></script>
 <script type="text/javascript" src="/xcview/js/common/template.js"></script>
+
+<!-- 渲染js -->
+<script type="text/javascript" src="/xcview/js/my_reservation.js"></script>
+
+<script type="text/javascript" src="/xcview/js/common/popups.js"></script>  <!-- 公用弹框 -->
+<link rel="stylesheet" type="text/css" href="/xcview/css/popups.css"/> <!-- 公用弹框 -->
 <script>
 	// 判断横屏展示时的状态
 	window.onorientationchange=function(){
@@ -50,34 +55,56 @@
 
 	<!-- 中间内容开始 -->
 	<div class="my_bookings">
-		<div class="main">
+		<script type="text/html" id="my_bookings">
+		{{each items as item i}}
+		<div class="main main_{{item.id}}" data-deletes="{{item.id}}">
 			<div class="main_center">
 				<div class="main_center_auto">
-					<div class="succeed">预约成功</div>
-					<div class="not_pass" style="display: none;">未通过</div>
-					<div class="audit" style="display: none;">审核中</div>
-					<div class="stocks" style="display: none;">已完成</div>
+					<!--status  1->待审核 2->预约成功 4->已完成 5->已过期 6->审核不通过-->
+					{{if item.status == 1}}
+						<div class="audit">审核中</div>
+					{{else if item.status == 2}}
+						<div class="succeed">预约成功</div>
+					{{else if item.status == 6}}
+						<div class="not_pass">未通过</div>
+					{{else if item.status == 5}}
+						<div class="not_pass">已过期</div>
+					{{else if item.status == 4}}
+						<div class="stocks">已完成</div>
+					{{/if}}
+					
 					<div class="subject">
 						<div class="head_portrait">
-							<img src="/xcview/images/physician_pic.png" alt="">
+							<img src="{{item.avatar}}" alt="">
 						</div>
-						<div class="name">我是名字我是名字</div>
-						<div class="professional_title">主任医师，国家级名老主任医师，国家级名老...</div>
-						<div class="starting_treatment">开始诊疗</div>
+						<div class="name">{{item.nickname}}</div>
+						<div class="professional_title">{{item.title}}</div>
+						{{if item.status == 2}}
+							{{if item.start == true}}
+								<div class="starting_treatment">开始诊疗</div>
+							{{/if}}
+						{{/if}}
+						
 						<div class="both"></div>
 					</div>
 					<div class="theme_bottom" >
-						<div class="time">2018年8月10日  12:00-13:00</div>
-						<div class="delete" style="display: none;">
-							<img src="/xcview/images/shanchu.png" alt="">删除
-						</div>
-						<div class="check">查看诊疗视频</div>
+						<div class="time">{{item.dateText}}</div>
+
+						{{if item.status == 4}}
+							<div class="check">查看诊疗视频</div>
+						{{else if item.status == 6 || item.status == 5}}
+							<div class="delete delete_{{item.id}}" data-id="{{item.id}}">
+								<img src="/xcview/images/shanchu.png" alt="">删除
+							</div>
+						{{/if}}
+
 					</div>
 
 				</div>
 			</div>
-
 		</div>
+		{{/each}}
+		</script>
 	</div>
 	<!-- 中间内容结束 -->
 
@@ -103,44 +130,6 @@
 
 </body>
 <script>
-	// 点击开始诊疗
-	$(".starting_treatment").click(function(){
-		$(".tooltip").show();
-	});
-	// 点击取消
-	$(".call_off").click(function(){
-		$(".tooltip").hide();
-	});
-	// 点击去下载
-	$(".determine").click(function(){
-//			安卓路劲 
-		var androidURL ="http://sj.qq.com/myapp/detail.htm?apkName=com.bj.healthlive";  
-		var browser = {  
-       versions: function() {  
-             var u = navigator.userAgent,  
-                 app = navigator.appVersion;  
-             return {  
-                     android: u.indexOf("Android") > -1 || u.indexOf("Linux") >-1,  
-                     iPhone: u.indexOf("iPhone") > -1 ,  
-                     iPad: u.indexOf("iPad") >-1,  
-                     iPod: u.indexOf("iPod") > -1,  
-                   };  
-             } (),  
-        language: (navigator.browserLanguage || navigator.language).toLowerCase()  
-     }  
-
-     if (browser.versions.iPhone||browser.versions.iPad||browser.versions.iPod)  
-         { 
-            //如果是ios系統，直接跳轉至appstore該應用首頁，傳遞参數为該應用在appstroe的id號  
-//              window.location.href="itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=123456";  
-            window.location.href="itms-apps://itunes.apple.com/cn/app/id1279187788";
-//          	https://itunes.apple.com/cn/app/id1279187788
-         }
-         else if(browser.versions.android)  
-         {  
-            window.location.href = androidURL;  
-         }  
-			
-	});
+	
 </script>
 </html>
