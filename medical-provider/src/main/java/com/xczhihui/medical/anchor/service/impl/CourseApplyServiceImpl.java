@@ -368,18 +368,6 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         if (cai == null) {
             throw new AnchorWorkException("课程申请不存在");
         }
-        if (courseApplyInfo.getPrice() == 0 && cai.getPrice() > 0) {
-            throw new AnchorWorkException("课程不可由付费变为免费");
-        }
-        if (courseApplyInfo.getPrice() > 0 && cai.getPrice() == 0) {
-            throw new AnchorWorkException("课程不可由免费变为付费");
-        }
-        if (cai.getStatus() == ApplyStatus.PASS.getCode()) {
-            String status = courseApplyInfoMapper.selectCourseStastusByApplyId(courseApplyInfo.getId());
-            if ("1".equals(status)) {
-                throw new AnchorWorkException("课程上架状态下，不能进行修改操作");
-            }
-        }
         
         if(courseApplyInfo.getAppointmentInfoId()!=null) {
         	//更改审核信息
@@ -392,6 +380,19 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         	//更改课程
         	courseApplyInfoMapper.updateCourseByApplyId(courseApplyInfo);
         }else {
+        	
+            if (courseApplyInfo.getPrice() == 0 && cai.getPrice() > 0) {
+                throw new AnchorWorkException("课程不可由付费变为免费");
+            }
+            if (courseApplyInfo.getPrice() > 0 && cai.getPrice() == 0) {
+                throw new AnchorWorkException("课程不可由免费变为付费");
+            }
+            if (cai.getStatus() == ApplyStatus.PASS.getCode()) {
+                String status = courseApplyInfoMapper.selectCourseStastusByApplyId(courseApplyInfo.getId());
+                if ("1".equals(status)) {
+                    throw new AnchorWorkException("课程上架状态下，不能进行修改操作");
+                }
+            }
         	
         	 //删除之前申请
             courseApplyInfoMapper.deleteCourseApplyById(courseApplyInfo.getId());

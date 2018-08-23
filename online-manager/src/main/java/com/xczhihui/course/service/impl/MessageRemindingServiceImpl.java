@@ -30,6 +30,7 @@ import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.common.support.service.CacheService;
 import com.xczhihui.common.support.service.impl.RedisCacheService;
 import com.xczhihui.common.util.DateUtil;
+import com.xczhihui.common.util.SmsUtil;
 import com.xczhihui.common.util.TimeUtil;
 import com.xczhihui.common.util.bean.MinuteTaskMessageVo;
 import com.xczhihui.common.util.enums.MessageTypeEnum;
@@ -273,73 +274,45 @@ public class MessageRemindingServiceImpl implements MessageRemindingService {
 	public void minuteTaskMessage() {
 
 		List<MinuteTaskMessageVo> listMinuteTaskMessageVo =   getCommonMinuteRemindingList(RedisCacheKey.COMMON_MINUTE_REMIND_KEY);
-        
         for (MinuteTaskMessageVo mv : listMinuteTaskMessageVo) {
-        	
         	//远程诊疗提醒
         	if(RedisCacheKey.TREATMENT_MINUTE_TYPE.equals(mv.getMessageType())) {
-        		
-        		
                 if (mv.getStartTime() != null) {
-                    String time = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(mv.getStartTime());
                     Instant startTime = mv.getStartTime().toInstant();
                     Instant now = Instant.now();
                     long seconds = Duration.between(now, startTime).getSeconds();
-                  
-//                    String key = LIVE_COURSE_REMIND_LAST_TIME_KEY + RedisCacheKey.REDIS_SPLIT_CHAR + id;
-//                    
-//                    if (seconds <= (60 * 10 + 30)) {
-//                        long minute = (long) Math.ceil(seconds / 60.0);
-//                        if (minute <= 0) {
-//                        	messageRemindingService.deleteCourseMessageReminding(course, RedisCacheKey.LIVE_COURSE_REMIND_KEY);
-//                            cacheService.delete(key);
-//                        } else {
-//                            //发送提醒
-//                            Date lastTime = cacheService.get(key);
-//                            List<OnlineUser> users;
-//                            //还没推送过
-//                            if (lastTime == null) {
-//                                users = getUsersByCourseId(id, null);
-//                            } else {
-//                                users = getUsersByCourseId(id, lastTime);
-//                            }
-//                            if (users.isEmpty()) {
-//                                continue;
-//                            }
-//                            cacheService.set(key, new Date(), 24 * 60 * 60);
-//                            String courseName = course.getGradeName();
-//                            
-//                            CourseAnchor courseAnchor = anchorService.findByUserId(course.getUserLecturerId());
-//                            
-//                            //预约消息提示
-//                        	if (courseAnchor != null) {
-//                            	String lecturer = courseAnchor.getName();
-//                                String commonContent = MessageFormat.format(WEB_LIVE_COURSE_REMIND, lecturer, courseName, minute);
-//                                Map<String, String> params = new HashMap<>(4);
-//                                params.put("courseName", courseName);
-//                                params.put("lecture", lecturer);
-//                                params.put("minute", String.valueOf(minute));
-//                                params.put("code", String.valueOf(id) + " ");
-//                                Map<String, String> weixinParams = new HashMap<>(4);
-//                                weixinParams.put("first", TextStyleUtil.clearStyle(commonContent));
-//                                weixinParams.put("keyword1", courseName);
-//                                weixinParams.put("keyword2", time);
-//                                weixinParams.put("remark", "");
-//                                for (OnlineUser user : users) {
-//                                    loggger.info("推送给:{}", user.getName());
-//                                    
-//                                    commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.COURSE.getVal())
-//                                            .buildWeb(commonContent)
-//                                            .buildAppPush(MessageFormat.format(APP_PUSH_LIVE_COURSE_REMIND, lecturer, courseName, minute))
-//                                            .buildWeixin(weixinTemplateMessageRemindCode, weixinParams)
-//                                            .buildSms(sendLiveRemindCode, params)
-//                                            .detailId(String.valueOf(id))
-//                                            .build(user.getId(), COMMON_LEARNING_LIVE_COURSE_DETAIL_PAGE, null)
-//                                    );
-//                                }
-//                            }
-//                        }
-//                    }
+                    String key = RedisCacheKey.COMMON_MINUTE_REMIND_KEY +
+                    				RedisCacheKey.REDIS_SPLIT_CHAR +
+                    		RedisCacheKey.TREATMENT_MINUTE_TYPE +
+                    			    RedisCacheKey.REDIS_SPLIT_CHAR +
+                    		mv.getTypeUnique();
+                    if (seconds <= (60 * 10 + 30)) {
+                        long minute = (long) Math.ceil(seconds / 60.0);
+                        if (minute <= 0) {
+                        	cacheService.delete(key);
+                        } else {
+         
+                        	String strStartTime =  "";
+                        	String strEndTime =  "";
+                        	
+                            // 数据准备
+                        	
+                            Map<String, String> userParams = new HashMap<>(2);
+                            userParams.put("startTime", strStartTime);
+                            userParams.put("endTime", strEndTime);
+                            
+                            Map<String, String> doctorParams = new HashMap<>(3);
+                            doctorParams.put("name", mv.getDoctorName());
+                            doctorParams.putAll(userParams);
+                            
+                            //给弟子发送	
+                            SmsUtil.sendSMS("", userParams, "");
+                            //给医师发送
+                            SmsUtil.sendSMS("", doctorParams, "");
+                                
+                            cacheService.delete(key);
+                        }
+                    }
                 }
         		
         	}
