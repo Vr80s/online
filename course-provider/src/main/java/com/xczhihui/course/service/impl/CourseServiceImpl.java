@@ -776,7 +776,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 		String strGradeName = doctorName+"医师的远程诊疗直播"+DateUtil.formatDate(startTime,DateUtil.FORMAT_DAY);
 		try {
 			//编号
-			String  numberStr   = iCourseMapper.selectDoctorCurrentDayTherapyNumber(userLecturerId);
+			String  numberStr   = iCourseMapper.selectDoctorCurrentDayTherapyNumber(startTime,userLecturerId);
 			System.out.println(numberStr);
 			if(numberStr!=null && XzStringUtils.isNumeric(numberStr)) {
 				int number = Integer.parseInt(numberStr);

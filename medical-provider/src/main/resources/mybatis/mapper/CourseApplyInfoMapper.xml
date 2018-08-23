@@ -109,11 +109,7 @@
         oc.channel_id channelId,
         oc.`multimedia_type` multimediaType,
         oc.is_record record ,
-        oc.id as courseId,
-        oc.appointment_info_id as appointmentInfoId,
-      	if(oc.appointment_info_id is not null,
-				(select mtai.status from medical_treatment_appointment_info mtai where mtai.id = oc.appointment_info_id),null) 
-	    as appointmentStatus
+        oc.id as courseId
 
         FROM
         `course_apply_info` cai
@@ -122,6 +118,7 @@
         WHERE cai.`user_id` = #{userId}
         AND cai.`course_form` = 1
         AND oc.status = 1
+        and oc.appointment_info_id is null
         <if test="title != null and title!=''">
             AND cai.`title` concat('%',#{title},'%')
         </if>
