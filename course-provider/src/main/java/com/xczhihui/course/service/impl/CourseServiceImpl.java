@@ -684,6 +684,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         course.setCurrentPrice(0d);
         course.setCreateTime(new Date());
         course.setDelete(false);
+        course.setFree(true); //免费
         
         /*
 		 * 保存审核信息
