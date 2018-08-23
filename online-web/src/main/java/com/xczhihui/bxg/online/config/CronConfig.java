@@ -60,7 +60,7 @@ public class CronConfig {
     private void updateTreatmentStatus() {
         List<Treatment> treatments = remoteTreatmentService.selectUpcomingExpire();
         for (Treatment treatment : treatments) {
-            if (remoteTreatmentService.markExpired(treatment)) {
+            if (remoteTreatmentService.updateExpired(treatment)) {
                 Integer courseId = treatment.getCourseId();
                 if (courseId != null) {
                     courseService.updateStatus(courseId, 0);

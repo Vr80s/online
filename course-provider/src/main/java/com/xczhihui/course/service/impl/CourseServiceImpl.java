@@ -676,7 +676,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 	     // 将直播课设置为预告
         course.setLiveStatus(2);	
         course.setSort(0);
-        course.setStatus("0");
+        course.setStatus("1");
         // 推荐值
         course.setRecommendSort(0);
         // 请填写一个基数，统计的时候加上这个基数
@@ -684,6 +684,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         course.setCurrentPrice(0d);
         course.setCreateTime(new Date());
         course.setDelete(false);
+        course.setFree(true); //免费
         
         /*
 		 * 保存审核信息
