@@ -87,7 +87,17 @@ public interface CourseApplyInfoMapper extends BaseMapper<CourseApplyInfo> {
 	 * <p>Description: </p>  
 	 * @param cai  
 	 */ 
-    @Update("UPDATE `oe_course` oc SET oc.`smallimg_path` = #{cai.imgPath},oc.'title' = #{cai.title}  " +
+    @Update("UPDATE `oe_course` oc SET oc.`smallimg_path` = #{cai.imgPath},oc.'title' = #{cai.title},"
+    		+ " oc.'course_description' = #{cai.courseDescription},oc.'course_detail' = #{cai.courseDetail}  " +
             " WHERE oc.`apply_id` = #{cai.id} ")
-	void updateCourse(@Param("cai")CourseApplyInfo cai);
+	void updateCourseByApplyId(@Param("cai")CourseApplyInfo cai);
+    
+    /**
+     *
+     * <p>Title: 删除审核信息，通过课程id</p>  
+     * <p>Description: </p>  
+     * @param id
+     */
+    @Update(" update course_apply_info set is_delete = 1 where id = (select apply_id from oe_course where id =#{courseId} ) ")
+    void deleteCourseApplyByCouserId(@Param("courseId")Integer courseId);
 }

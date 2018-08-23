@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
@@ -146,4 +147,13 @@ public interface RemoteTreatmentMapper extends BaseMapper<Treatment> {
 
     @Select({"select * from medical_treatment where (status = 0 OR status = 1 OR status = 2) and date <= curdate() and deleted is false"})
     List<Treatment> selectUpcomingExpire();
+
+	/**  
+	 * <p>Title: 取消远程诊疗后，禁用这个课程</p>  
+	 * <p>Description: </p>  
+	 * @param infoId  
+	 */ 
+    @Update({" update oe_course set status = 0 where id = #{courseId} "})
+	void updateCourseStatus(@Param("courseId")Integer courseId);
+
 }

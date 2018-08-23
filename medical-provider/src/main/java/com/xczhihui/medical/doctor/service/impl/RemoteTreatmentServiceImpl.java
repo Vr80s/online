@@ -16,6 +16,7 @@ import com.xczhihui.common.util.enums.AppointmentStatus;
 import com.xczhihui.common.util.enums.IndexAppointmentStatus;
 import com.xczhihui.common.util.enums.TreatmentInfoApplyStatus;
 import com.xczhihui.common.util.redis.key.RedisCacheKey;
+import com.xczhihui.medical.anchor.mapper.CourseApplyInfoMapper;
 import com.xczhihui.medical.doctor.mapper.RemoteTreatmentAppointmentInfoMapper;
 import com.xczhihui.medical.doctor.mapper.RemoteTreatmentMapper;
 import com.xczhihui.medical.doctor.model.Treatment;
@@ -53,6 +54,8 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
     private MedicalEntryInformationMapper medicalEntryInformationMapper;
     @Autowired
     private CacheService cacheService;
+    @Autowired
+    private CourseApplyInfoMapper courseApplyInfoMapper;
 
     @Override
     public void save(Treatment treatment) {
@@ -210,6 +213,14 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
             if (treatment.getStatus() != AppointmentStatus.WAIT_START.getVal()) {
                 throw new MedicalException("当前状态不支持取消");
             }
+            
+            //取消远程诊疗后，禁用这个课程
+            remoteTreatmentMapper.updateCourseStatus(treatment.getCourseId());
+            /*
+             * 取消远程诊疗后，逻辑删除课程审核信息表中的数据
+             */
+            courseApplyInfoMapper.deleteCourseApplyByCouserId(treatment.getCourseId());
+            
             Integer infoId = treatment.getInfoId();
             TreatmentAppointmentInfo treatmentAppointmentInfo = remoteTreatmentAppointmentInfoMapper.selectById(infoId);
             //更新为用户的预约信息为未通过
