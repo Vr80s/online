@@ -32,7 +32,10 @@
         oc.id courseId,
         oc.live_status liveStatus,
         oc.start_time startTime,
-        oc.appointment_info_id as appointmentInfoId
+        oc.appointment_info_id as appointmentInfoId,
+        if(oc.appointment_info_id is not null,
+			(select mtai.status from medical_treatment_appointment_info mtai where mtai.id = oc.appointment_info_id),null) 
+	    as appointmentStatus
         FROM
         `course_apply_info` cai
         LEFT JOIN
@@ -107,6 +110,7 @@
         oc.`multimedia_type` multimediaType,
         oc.is_record record ,
         oc.id as courseId
+
         FROM
         `course_apply_info` cai
         JOIN `oe_course` oc
@@ -114,6 +118,7 @@
         WHERE cai.`user_id` = #{userId}
         AND cai.`course_form` = 1
         AND oc.status = 1
+        and oc.appointment_info_id is null
         <if test="title != null and title!=''">
             AND cai.`title` concat('%',#{title},'%')
         </if>

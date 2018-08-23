@@ -1,0 +1,725 @@
+
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>互动直播demo</title>
+    <style>
+      body{
+        padding-top: 20px;
+      }
+      #enterDiv{
+        width:520px;
+        height:100px;
+        margin:160px auto 20px auto;
+      }
+      .btn1{
+        height:80px;
+        width:250px;
+        font-size:20px;
+        font-family: 黑体,serif;
+        position: relative;
+      }
+      #roomContainerTable td{
+        padding: 1px 2px;
+      }
+      .streamdiv{
+        width: 320px; height: 240px;float:left;padding-bottom:30px;
+      }
+      .stream_btn{
+        position: absolute;
+        bottom:0;
+      }
+      .online{
+        background: greenyellow;
+      }
+      .offline{
+        background: darkred;
+      }
+      select{
+        margin-left: 6px;
+      }
+      label{
+        line-height: 30px;
+      }
+      .inputs{
+        width:100%;
+        text-align: center;
+      }
+      .actions{
+        width: 100%;
+        text-align:center;
+        clear: both;
+        margin-top:20px;
+      }
+      input[type=button],button{
+        min-width: 80px;
+        height: 34px;
+        padding: 7px 10px;
+        border: 1px solid #d2d2d2;
+        border-radius: 4px;
+        outline: none;
+      }
+      button{
+        min-width:50px;
+        height: 22px;
+        padding: 2px 4px;
+      }
+      input[type=text]{
+        height: 34px;
+        width: 128px;
+        padding: 10px 8px;
+        border: 1px solid #d2d2d2;
+        border-radius: 4px;
+        outline: none;
+      }
+
+
+      .confs-title{
+        display: inline-block;
+        text-align: right;
+      }
+      .confs-title .confs-title-item{
+        height: 60px;
+      }
+      .confs-info{
+        display: inline-block;
+        width: 500px;
+        margin-left: 10px;
+      }
+      .confs-info .confs-info-item{
+        height: 60px;
+      }
+      .action-box{
+        text-align: center;
+      }
+      .btn-small{
+        width: 50px !important;
+        height: 26px;
+        padding: 2px 6px;
+      }
+      .btn-white,.btn-white:hover,.btn-white:visited,.btn-white:active{
+        background-color: #fff;
+        color:#666;
+        border:1px solid #666;
+        border-radius: 3px;
+      }
+      .settings{
+        display: none;
+        position: absolute;
+        border: 1px solid #d2d2d2;
+        padding-top: 40px;
+        padding-left: 40px;
+        padding-right: 40px;
+        padding-bottom: 40px;
+        text-align: center;
+        width: auto;
+        vertical-align: middle;
+        margin-top: -432px;
+        margin-left: 498px;
+        background-color: #fff;
+        border-radius: 5px;
+      }
+      .settings .confs-info{
+        text-align: left;
+        width: 200px;
+      }
+      .settings-action-btn{
+        margin-top: 0px;
+      }
+      .settings-action-btn div{
+        width: 30%;
+        display: inline-block;
+        text-align: center;
+      }
+      .settings-action-btn button{
+          margin-top: 0px;
+      }
+      select{
+        max-width: 180px;
+        height: 34px;
+        padding: 6px 12px;
+      }
+    </style>
+  </head>
+
+
+  <body>
+
+    <div class="inputs">
+      <input id="appId" type="text" name="appId" value="fbc17706" placeholder="这里填写appId">
+      <input id="inavId" type="text" name="inavId" value="inav_7cbece55" placeholder="这里填写互动房间ID">
+      <input id="token" type="text" name="token" value="access:fbc17706:8facecd00cebc2e7" placeholder="token">
+      <input onclick="init()" type="button"  value="开始互动">
+    </div>
+    <div id="my-interaction" style="margin: 0 auto;border: 1px solid #d2d2d2;margin-top:20px;"></div>
+    <div id="my-local-video" style="margin: 0 auto;border: 1px solid #d2d2d2;margin-top:20px;"></div>
+    <div style="margin-top: 10px;text-align: center;">
+      <div id="settings" class="settings">
+        
+      </div>
+      <button onclick="setSettings();">设置</button>
+    </div>
+    <div class="actions">
+      <!-- <button onclick="leave();">申请上麦</button> -->
+      <input type="button" value="进入房间" onclick="enter();">
+      <input type="button" value="下麦" onclick="leave();">
+      <input type="button" value="上麦" onclick="join();">
+      <input type="button" value="关闭声音" onclick="muteAudio(this);">
+      <input type="button" value="关闭画面" onclick="muteVideo(this);">
+      <input type="button" value="打开旁路直播" onclick="setBroadCast(true);">
+      <input type="button" value="关闭旁路直播" onclick="setBroadCast(false);">
+      <input type="button" value="退出房间" onclick="window.interaction.exit();">
+    </div>
+    <table style="width: 500px;margin: 0 auto;margin-top: 30px;">
+      <thead>
+        <tr>
+          <td colspan="3" style="text-align: center;height: 50px;font-size: 20px;">用户列表</td>
+        </tr>
+        <tr>
+          <td>用户Id</td>
+          <td>状态</td>
+          <td>操作</td>
+        </tr>
+      </thead>
+      <tbody id="user-list">
+      </tbody>
+    </table>
+
+    <table style="width: 500px;margin: 0 auto;margin-top: 30px;">
+      <thead>
+        <tr>
+          <td colspan="3" style="text-align: center;height: 50px;font-size: 20px;">被踢用户列表</td>
+        </tr>
+        <tr>
+          <td>用户Id</td>
+          <td>状态</td>
+          <td>操作</td>
+        </tr>
+      </thead>
+      <tbody id="black-list">
+      </tbody>
+    </table>
+    <div id="my-remote-video" style="margin:0 auto;border: 1px solid #d2d2d2;margin-top:20px;"></div>
+  </body>
+  <script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script type="text/javascript" src="https://static.vhallyun.com/jssdk/vhallILSSDK.js"></script>
+<!--   <script type="text/javascript" src="../../vhallILSSDK.js"></script> -->
+  <script type="text/javascript" src="https://static.vhallyun.com/jssdk/vhall-jssdk-interaction-1.0.0.js?v=2018060142016"></script>
+<!--   <script type="text/javascript" src="../../vhall-jssdk-interaction-1.0.0.js?v=2018060142016"></script> -->
+  <script type="text/javascript" src="https://static.vhallyun.com/jssdk/vhall-jssdk-base-1.0.0.js?v=2018060142016"></script>
+<!--   <script type="text/javascript" src="../../vhall-jssdk-base-1.0.0.js?v=2018060142016"></script> -->
+  
+  <script type="text/javascript" src="./js/layer.js"></script>
+  <script>
+
+    var alert = function(msg){
+      layer.msg(msg,{
+        time:2000
+      });
+    }
+
+    var users = [
+    {userId:'100026',username:'张三'},
+    {userId:'100027',username:'李四'},
+    {userId:'100028',username:'王五'},
+    {userId:'100029',username:'赵四'},
+    {userId:'100030',username:'小沈阳'},
+    {userId:'100031',username:'郭德纲'},
+    {userId:'100032',username:'于谦'},
+    {userId:'100033',username:'岳云鹏'},
+    {userId:'100034',username:'孙悦'},
+    {userId:'100035',username:'范伟'},
+    {userId:'100036',username:'冯巩'},
+    {userId:'100037',username:'潘长江'},
+    ]
+
+    var us = {
+      100026:'张三',
+      100027:'李四',
+      100028:'王五',
+      100029:'赵四',
+      100030:'小沈阳',
+      100031:'郭德纲',
+      100032:'于谦',
+      100033:'岳云鹏',
+      100034:'孙悦',
+      100035:'范伟',
+      100036:'冯巩',
+      100037:'潘长江',
+      Master:'Master'
+    }
+  </script>
+  <script type="text/javascript">
+      window.interaction = {};
+      //获取URL传参
+      function getParameterByName(name) {
+          name = name.replace(/[\[]/, '\\\[').replace(/[\]]/, '\\\]');
+          var regex = new RegExp('[\\?&]' + name + '=([^&#]*)'),
+              results = regex.exec(location.search);
+          return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+      }
+
+      window.onload = function () {
+
+          if(window.location.href.indexOf('vhallyun.com') == -1){
+            $('#appId').val('fbc17706');
+            $('#inavId').val('inav_7cbece55');
+          }
+
+      }
+
+      function invite(userId){
+
+        window.interaction.invite({
+          userId: userId,
+          consent: function(userId){
+            // alert('恭喜你，你邀请'+ userId +'上麦, Ta答应啦！');
+          },
+          reject: function(userId){
+            alert('非常遗憾，你邀请'+ userId +'上麦,被Ta拒绝了！');
+          },
+          fail: function(userId){
+            alert('非常遗憾，你的邀请没有送达！');
+          }
+        });
+
+      }
+
+      //下麦
+      function leave(){
+        window.interaction.unpublish();
+      }
+
+      //上麦
+      function join(){
+        window.interaction.publish();
+      }
+
+      //踢出
+      function delUser(userId){
+        window.interaction.deleteUser({
+          userId: userId,
+          success:function(res){
+            // alert('恭喜你，成功把'+ userId +'踢出!');
+          },
+          fail: function(reason){
+            alert(reason);
+          }
+        });
+      }
+
+      //取消踢出(移除黑名单？)
+      function unDeleteUser(userId){
+        window.interaction.unDeleteUser({
+          userId:userId,
+          success: function(res){
+            showBlackList();
+          },
+          fail: function(reason){
+
+          }
+        });
+      }
+
+      function statusMapping(v){
+        var status = {
+          '1':'推流中',
+          '2':'观看中',
+          '3':'受邀中',
+          '4':'申请中',
+          '5':'被踢出'
+        }
+        return status[v];
+      }
+
+      function switchButton(status,userId){
+          var buttons = '';
+          switch(status){
+            case 1:
+              buttons += '<button onclick="delUser(\''+ userId +'\');">踢出</button>'
+            break;
+            case 2:
+              buttons += '<button onclick="invite(\''+userId +'\');">邀请</button>'
+              buttons += '<button onclick="delUser(\''+ userId +'\');">踢出</button>'
+            break;
+            case 3:
+               buttons += '<button onclick="delUser(\''+ userId +'\');">踢出</button>'
+            break;
+
+            case 4:
+              buttons += '<button onclick="window.interaction.consentApply(\''+userId +'\');">批准</button>';
+              buttons += '<button onclick="window.interaction.rejectApply(\''+userId +'\');">拒绝</button>';
+            break;
+
+            case 5:
+              buttons += '<button onclick="window.interaction.unDeleteUser(\''+ userId +'\');">取消踢出</button>'
+            break
+
+            default:
+          }
+          return buttons;
+      }
+
+      function showUserList(){
+        window.interaction.getUsersList({
+          success: function(users){
+              var sHTML = '';
+              for(var i = 0; i < users.length; i++){
+                sHTML += '<tr>\
+                  <td>'+  users[i].third_party_user_id +'</td>\
+                  <td>'+ statusMapping(users[i].status) +'</td>\
+                  <td>'+ switchButton(users[i].status,users[i].third_party_user_id) +'</td>\
+                </tr>';
+              }
+              $('#user-list').html(sHTML);
+          },
+          update: showUserList
+        })
+      }
+
+      function showBlackList(){
+        window.interaction.getBlackList({
+          success: function(list){
+
+            var sHTML = '';
+            for(var i = 0; i < list.length; i++){
+              sHTML += '<tr>\
+                <td>'+  list[i] +'</td>\
+                <td>被踢出</td>\
+                <td><button onclick="unDeleteUser(\''+ list[i] +'\');">取消踢出</button></td>\
+              </tr>';
+            }
+            $('#black-list').html(sHTML);
+
+          },
+          fail: function(reason){
+
+          },
+          update: showBlackList
+        });
+      }
+
+      function setBroadCast(b){
+          layer.prompt({title: '请输入直播房间ID',value:'lss_2de8530c', formType: 3}, function(roomId, index){
+            if(roomId){
+              if(b){
+                window.interaction.startBroadCast(roomId);
+              }else{
+                window.interaction.stopBroadCast(roomId);
+              }
+            }
+            layer.close(index);
+          });
+      }
+
+      function init(){
+        if(window.interaction.getStreamId && window.interaction.getStreamId()){
+          alert('你已经在互动！');
+          return
+        }
+        /**
+         *  注册ready事件
+         */
+         Vhall.ready(function(){
+
+           //TODO
+           
+           //1.最简单调用
+           window.interaction = new VhallInteraction({
+              //互动房间Id
+              inavId:$('#inavId').val(),
+              //互动容器
+              videoNode:'my-interaction'
+           });
+
+           // //2.带回调调用
+           // window.interaction = new VhallInteraction({
+           //    //互动房间Id
+           //    inavId:$('#inavId').val(),
+           //    //互动容器
+           //    videoNode:'my-interaction',
+           //    success: function(){
+           //      alert('启动互动直播成功！');
+           //    },
+           //    fail: function(reason){
+           //      alert(reason);
+           //    }
+           // });
+
+           //3.指定互动窗口大小
+           // window.interaction = new VhallInteraction({
+           //    //互动房间Id
+           //    inavId:$('#inavId').val(),
+           //    //互动容器
+           //    videoNode:'my-interaction',
+           //    success: function(){
+
+           //    },
+           //    fail: function(reason){
+           //      alert(reason);
+           //    },
+           //    localVideoWidth:"960px",
+           //    localVideoHeight:"540px",
+           //    remoteVideoWidth:"160px",
+           //    remoteVideoHeight:"90px"
+           // });
+
+           //4.指定模版并指定视频显示窗口大小
+           // window.interaction = new VhallInteraction({
+           //    //互动房间Id
+           //    inavId:$('#inavId').val(),
+           //    //互动容器
+           //    videoNode:'my-interaction',
+           //    success: function(){
+
+           //    },
+           //    fail: function(reason){
+           //      alert(reason);
+           //    },
+           //    //本地视频占大屏，远程视频显示在本地视频上部，且居中
+           //    template:'localMainScreenRemoteTopCenter',
+           //    localVideoWidth:"960px",
+           //    localVideoHeight:"540px",
+           //    remoteVideoWidth:"160px",
+           //    remoteVideoHeight:"90px"
+           // });
+
+           // //5.自定义模版，默认视频窗口大小
+           // window.interaction = new VhallInteraction({
+           //    //互动房间Id
+           //    inavId:$('#inavId').val(),
+           //    //互动容器
+           //    videoNode:{
+           //      //显示本地视频容器
+           //      local:'my-local-video',
+           //      //显示远程视频容器
+           //      remote:'my-remote-video'
+           //    },
+           //    success: function(){
+
+           //    },
+           //    fail: function(reason){
+           //      alert(reason);
+           //    },
+           //    template:'custom'
+           // });
+
+           // //6.自定义模版&自定义视频窗口大小
+           // window.interaction = new VhallInteraction({
+           //    //互动房间Id
+           //    inavId:$('#inavId').val(),
+           //    //互动容器
+           //    videoNode:{
+           //      local:'my-local-video',
+           //      remote:'my-remote-video'
+           //    },
+           //    //互动容器
+           //    success: function(){
+
+           //    },
+           //    fail: function(reason){
+           //      alert(reason);
+           //    },
+           //    template:'custom',
+           //    localVideoWidth:"960px",
+           //    localVideoHeight:"540px",
+           //    remoteVideoWidth:"160px",
+           //    remoteVideoHeight:"90px"
+           // });
+
+
+           window.interaction.onEnter(function(userId){
+              alert('用户[' + userId + ']进入房间');
+           });
+
+           window.interaction.onQuit(function(userId){
+              alert('用户[' + userId + ']离开房间');
+           });
+
+           /**
+            * 监听用户申请上麦事件，处理方式一，调对话框，把选择权给用户
+            * @param  {object} event 回调事件参数，包含一个属性userId,和两个方法：consent 、 reject
+            */
+           window.interaction.onApply(function(event){
+              layer.confirm('用户：[' + event.userId + ']申请上麦，同意吗？',{
+                btn: ['同意','拒绝','忽略']
+              },function(index){
+                event.consent();
+                layer.close(index);
+              },function(){
+                event.reject();
+              });
+           }); 
+
+            //监听用户申请上麦事件，处理方式二, 直接上麦
+           // window.interaction.onApply(function(event){
+           //      event.consent();
+           // });
+
+           //显示用户列表
+           showUserList();
+           //显示黑名单列表（被踢出用户列表）
+           showBlackList();
+           
+         });
+         
+        /**
+         * 初始化SDK配置
+         */
+          Vhall.config({
+            appId : $('#appId').val(),//应用 ID ,必填
+            accountId :'Master',//第三方用户唯一标识,必填
+            token:$('#token').val()?$('#token').val():'vhall',//token必填
+          });  
+      }
+
+      function muteAudio(obj){
+
+        window.interaction.muteAudio();
+        console.info(window.interaction.isAudioMuted());
+        if(window.interaction.isAudioMuted()){
+          obj.value = '打开声音';
+        }else{
+          obj.value = '关闭声音';
+        }
+        
+      }
+
+      function muteVideo(obj){
+        window.interaction.muteVideo();
+        console.info(window.interaction.isVideoMuted());
+        if(window.interaction.isVideoMuted()){
+          obj.value = '打开画面';
+        }else{
+          obj.value = '关闭画面';
+        }
+      }
+
+      function start(){
+        if(window.interaction){
+          window.interaction.exit();
+          setTimeout(function(){
+             init();
+           },3000);
+         
+        }
+      }
+
+      function enter(){
+        window.interaction.enter(function(){},function(reason){
+          alert(reason);
+        });
+      }
+
+      function setSettings(){
+
+        window.interaction.getDevices(function(devices){
+          var mics = devices.mics,
+              cameras = devices.cameras;
+              var html = '\
+                      <div class="confs-title">\
+                        <div class="confs-title-item">摄像头:</div>\
+                        <div class="confs-title-item">麦克风:</div>\
+                        <div class="confs-title-item">分辨率:</div>\
+                        <div class="confs-title-item">帧率:</div>\
+                      </div>\
+                      <div class="confs-info">\
+                        <div class="confs-info-item">\
+                          <select class="form-control" id="camera"  >\
+                            {{cameras}}\
+                            <option value="">不使用摄像头</option>\
+                          </select>\
+                        </div>\
+                        <div class="confs-info-item">\
+                          <select class="form-control" id="mic"  >\
+                            {{mics}}\
+                            <option value="">不使用麦克风</option>\
+                          </select>\
+                        </div>\
+                        <div class="confs-info-item">\
+                          <select class="form-control" id="sizes"  >\
+                            {{sizes}}\
+                          </select>\
+                        </div>\
+                        <div class="confs-info-item">\
+                          <select class="form-control" id="rates" >\
+                            {{rates}}\
+                          </select>\
+                        </div>\
+                      </div>\
+                      <div class="settings-action-btn">\
+                        <div><button id="btn-settings-ok" class="btn btn-primary btn-small">确定</button></div>\
+                        <div><button id="btn-settings-cancel" class="btn-small btn-white">取消</button></div>\
+                      </div>';
+
+              var camerasOption = '', 
+                  micsOption = '' ,
+                  sizesOption = '',
+                  ratesOption = '',
+                  selected = '';
+              var sizes = window.interaction.getVideoSize(),
+                  rates =window.interaction.getVideoFrameRate();
+              for(var i = 0; i < cameras.length; i++){
+                if(i==0){
+                  selected = 'selected="selected"';
+                }
+                camerasOption += '<option  value="'+ cameras[i].deviceId +'">'+ cameras[i].label +'</option>';
+              }
+              for(var j = 0; j < mics.length; j++){
+                if(i==0){
+                  selected = 'selected="selected"';
+                }
+                micsOption += '<option  value="'+ mics[j].deviceId +'">'+ mics[j].label +'</option>';
+              }
+              for(var x = 0; x < sizes.length; x++){
+                if(i==0){
+                  selected = 'selected="selected"';
+                }
+                sizesOption += '<option value="'+ JSON.stringify( sizes[x].size ) +'">'+ sizes[x].discription +'</option>';
+              }
+              for(var y = 0; y < rates.length; y++){
+                if(i==0){
+                  selected = 'selected="selected"';
+                }
+                ratesOption += '<option value="'+ JSON.stringify( rates[y].rate )+'">'+ rates[y].discription +'</option>';
+              }
+              html = html.replace(/{{cameras}}/g,camerasOption);
+              html = html.replace(/{{mics}}/g,micsOption);
+              html = html.replace(/{{sizes}}/g,sizesOption);
+              html = html.replace(/{{rates}}/g,ratesOption);
+              var isEmpty = $('#settings').html().trim().length == 0;
+              if(isEmpty){
+                 $('#settings').html(html);
+              }
+              $('#settings').show();
+              $('#btn-settings-ok').off('click');
+              $('#btn-settings-ok').on('click',function(){
+                changeSettings();
+                $('#settings').hide();
+              });
+              //设置按钮
+              $('#btn-settings-cancel').off('click');
+              $('#btn-settings-cancel').on('click',function(){
+                $('#settings').hide();
+              });
+
+        });
+      }
+
+
+      function changeSettings(){
+        var conf = window.interaction.getSetting();
+        var v = $('#camera').val();
+        var a = $('#mic').val();
+        conf.video = v ? { deviceId: v } : false;
+        conf.audio = a ? { deviceId: a } : false;
+        conf.videoSize =  JSON.parse($('#sizes').val());
+        conf.videoFrameRate =  JSON.parse($('#rates').val());
+        console.dir(conf);
+        window.interaction.changeSetting({
+          conf:conf
+        });
+      }
+
+  </script>
+</html>

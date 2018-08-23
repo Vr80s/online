@@ -9,13 +9,17 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.xczhihui.common.support.service.CacheService;
 import com.xczhihui.common.util.DateUtil;
 import com.xczhihui.common.util.SmsUtil;
 import com.xczhihui.common.util.enums.AppointmentStatus;
 import com.xczhihui.common.util.enums.IndexAppointmentStatus;
 import com.xczhihui.common.util.enums.TreatmentInfoApplyStatus;
+import com.xczhihui.common.util.redis.key.RedisCacheKey;
+import com.xczhihui.medical.anchor.mapper.CourseApplyInfoMapper;
 import com.xczhihui.medical.doctor.mapper.RemoteTreatmentAppointmentInfoMapper;
 import com.xczhihui.medical.doctor.mapper.RemoteTreatmentMapper;
+import com.xczhihui.medical.doctor.model.MedicalDoctorAccount;
 import com.xczhihui.medical.doctor.model.Treatment;
 import com.xczhihui.medical.doctor.model.TreatmentAppointmentInfo;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
@@ -49,6 +53,10 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
     private IMedicalDoctorBusinessService medicalDoctorBusinessService;
     @Autowired
     private MedicalEntryInformationMapper medicalEntryInformationMapper;
+    @Autowired
+    private CacheService cacheService;
+    @Autowired
+    private CourseApplyInfoMapper courseApplyInfoMapper;
 
     @Override
     public void save(Treatment treatment) {
@@ -90,8 +98,8 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
                 throw new MedicalException("预约时间已被删除");
             }
             int status = waitUpdateTreatment.getStatus();
-            if (status != AppointmentStatus.ORIGIN.getVal() || status != AppointmentStatus.WAIT_APPLY.getVal()) {
-                throw new MedicalException("已预约成功, 不能被删除");
+            if (status != AppointmentStatus.ORIGIN.getVal() || status != AppointmentStatus.WAIT_APPLY.getVal() || status != AppointmentStatus.EXPIRED.getVal()) {
+                throw new MedicalException("该状态下不能被删除");
             }
             waitUpdateTreatment.setDeleted(true);
             remoteTreatmentMapper.updateById(waitUpdateTreatment);
@@ -112,10 +120,15 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
 //            if (checkRepeatAppoint(treatmentId, treatmentAppointmentInfo.getUserId())) {
 //                throw new MedicalException("该日期您已经有预约申请，请选择其他日期进行申请");
 //            }
+            MedicalDoctorAccount medicalDoctorAccount = medicalDoctorBusinessService.getByDoctorId(treatment.getDoctorId());
+            if (medicalDoctorAccount != null && medicalDoctorAccount.getAccountId().equals(treatmentAppointmentInfo.getUserId())) {
+                throw new MedicalException("抱歉，您不可以预约自己的诊疗");
+            }
             treatmentAppointmentInfo.setStatus(TreatmentInfoApplyStatus.WAIT_DOCTOR_APPLY.getVal());
             remoteTreatmentAppointmentInfoMapper.insert(treatmentAppointmentInfo);
             treatment.setInfoId(treatmentAppointmentInfo.getId());
             treatment.setStatus(AppointmentStatus.WAIT_APPLY.getVal());
+            updateStatusChange(treatment, treatmentAppointmentInfo);
             remoteTreatmentMapper.updateById(treatment);
         }
         return 1;
@@ -167,6 +180,8 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
             }
             remoteTreatmentMapper.updateAllColumnById(treatment);
             remoteTreatmentAppointmentInfoMapper.updateById(treatmentAppointmentInfo);
+            updateStatusChange(treatment, treatmentAppointmentInfo);
+
             sendSms(treatment, status, infoId);
         }
     }
@@ -203,12 +218,20 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
             if (treatment.getStatus() != AppointmentStatus.WAIT_START.getVal()) {
                 throw new MedicalException("当前状态不支持取消");
             }
+            
+            //取消远程诊疗后，禁用这个课程
+            remoteTreatmentMapper.updateCourseStatus(treatment.getCourseId());
+            /*
+             * 取消远程诊疗后，逻辑删除课程审核信息表中的数据
+             */
+            courseApplyInfoMapper.deleteCourseApplyByCouserId(treatment.getCourseId());
+            
             Integer infoId = treatment.getInfoId();
             TreatmentAppointmentInfo treatmentAppointmentInfo = remoteTreatmentAppointmentInfoMapper.selectById(infoId);
             //更新为用户的预约信息为未通过
             treatmentAppointmentInfo.setStatus(TreatmentInfoApplyStatus.APPLY_NOT_PASSED.getVal());
             remoteTreatmentAppointmentInfoMapper.updateById(treatmentAppointmentInfo);
-
+            updateStatusChange(treatment, treatmentAppointmentInfo);
             treatment.setStatus(AppointmentStatus.ORIGIN.getVal());
             treatment.setInfoId(null);
             remoteTreatmentMapper.updateAllColumnById(treatment);
@@ -301,12 +324,16 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
         if (treatmentAppointmentInfo == null) {
             throw new MedicalException("预约id参数错误");
         }
+        if (treatmentAppointmentInfo.getStatus() != TreatmentInfoApplyStatus.APPLY_NOT_PASSED.getVal() && treatmentAppointmentInfo.getStatus() != TreatmentInfoApplyStatus.EXPIRED.getVal()) {
+            throw new MedicalException("仅审核不通过与已过期的数据可删除");
+        }
         treatmentAppointmentInfo.setDeleted(true);
         remoteTreatmentAppointmentInfoMapper.updateById(treatmentAppointmentInfo);
     }
 
     @Override
-    public int updateTreatmentStartStatus(int infoId, int status) {
+    public Map<String, Object> updateTreatmentStartStatus(int infoId, int status) {
+        Map<String, Object> result = new HashMap<>();
         synchronized (LOCK) {
             TreatmentAppointmentInfo treatmentAppointmentInfo = remoteTreatmentAppointmentInfoMapper.selectById(infoId);
             if (treatmentAppointmentInfo == null) {
@@ -317,23 +344,34 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
                 throw new MedicalException("诊疗id参数错误");
             }
             Integer treatmentStatus = treatment.getStatus();
+            if (treatmentStatus == AppointmentStatus.EXPIRED.getVal()) {
+                throw new MedicalException("该诊疗直播已过期");
+            }
+            if (treatmentStatus == AppointmentStatus.FINISHED.getVal()) {
+                throw new MedicalException("该诊疗直播已结束");
+            }
             if (status != AppointmentStatus.STARTED.getVal() && status != AppointmentStatus.FINISHED.getVal()) {
                 throw new MedicalException("status 参数错误");
             }
-//            if (treatmentStatus != AppointmentStatus.WAIT_START.getVal() && treatmentStatus != AppointmentStatus.STARTED.getVal()) {
-//                throw new MedicalException("status 参数错误");
-//            }
             //开始诊疗
             if (treatmentStatus == AppointmentStatus.WAIT_START.getVal() && status == AppointmentStatus.STARTED.getVal()) {
                 treatment.setStatus(status);
+                updateStatusChange(treatment, treatmentAppointmentInfo);
+            //继续诊疗
+            } else if (treatmentStatus == AppointmentStatus.STARTED.getVal() && status == AppointmentStatus.STARTED.getVal()) {
                 //结束诊疗
             } else if (treatmentStatus == AppointmentStatus.STARTED.getVal() && status == AppointmentStatus.FINISHED.getVal()) {
                 treatmentAppointmentInfo.setStatus(TreatmentInfoApplyStatus.FINISHED.getVal());
                 treatment.setStatus(status);
+                updateStatusChange(treatment, treatmentAppointmentInfo);
+            } else {
+                throw new MedicalException("参数错误");
             }
             remoteTreatmentMapper.updateById(treatment);
             remoteTreatmentAppointmentInfoMapper.updateById(treatmentAppointmentInfo);
-            return 0;
+            result.put("courseId", treatment.getCourseId());
+            result.put("userId", treatmentAppointmentInfo.getUserId());
+            return result;
         }
     }
 
@@ -360,6 +398,7 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
             treatmentVO.setTreatmentTime(getTreatmentTime(treatmentVO.getDate(), treatmentVO.getStartTime()));
             handleDate(treatmentVO);
         });
+        cacheService.delete(RedisCacheKey.DOCTOR_TREATMENT_STATUS_CNT_KEY + doctorId);
         return results;
     }
 
@@ -387,6 +426,7 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
             treatmentVO.setTreatmentTime(getTreatmentTime(treatmentVO.getDate(), treatmentVO.getStartTime()));
             handleDate(treatmentVO);
         });
+        cacheService.delete(RedisCacheKey.USER_TREATMENT_STATUS_CNT_KEY + userId);
         return results;
     }
 
@@ -467,20 +507,24 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
         calendar.set(Calendar.MINUTE, endTimeMinute);
 
         Date treatmentEndTime = calendar.getTime();
-        Calendar now = Calendar.getInstance();
-        now.set(Calendar.MINUTE, -30);
-
-        return now.getTime().after(treatmentEndTime);
+        calendar.setTime(new Date());
+        calendar.add(Calendar.MINUTE, -30);
+        System.out.println(calendar.getTime());
+        return calendar.getTime().after(treatmentEndTime);
     }
 
     @Override
-    public boolean markExpired(Treatment treatment) {
+    public boolean updateExpired(Treatment treatment) {
         if (isExpired(treatment.getDate(), treatment.getEndTime())) {
             treatment.setStatus(AppointmentStatus.EXPIRED.getVal());
             remoteTreatmentMapper.updateById(treatment);
-            if (treatment.getInfoId() != null) {
-                remoteTreatmentAppointmentInfoMapper.updateRemoteTreatmentAppointmentInfoExpired(treatment.getInfoId());
+            Integer infoId = treatment.getInfoId();
+            TreatmentAppointmentInfo treatmentAppointmentInfo = null;
+            if (infoId != null) {
+                treatmentAppointmentInfo = remoteTreatmentAppointmentInfoMapper.selectById(infoId);
+                remoteTreatmentAppointmentInfoMapper.updateRemoteTreatmentAppointmentInfoExpired(infoId);
             }
+            updateStatusChange(treatment, treatmentAppointmentInfo);
             return true;
         }
         return false;
@@ -489,5 +533,15 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
     @Override
     public Treatment selectTreatmentById(int id) {
         return remoteTreatmentMapper.selectById(id);
+    }
+
+    @Override
+    public void updateStatusChange(Treatment treatment, TreatmentAppointmentInfo info) {
+        if (info != null) {
+            cacheService.sadd(RedisCacheKey.USER_TREATMENT_STATUS_CNT_KEY + info.getUserId(), String.valueOf(info.getId()));
+        }
+        if (treatment != null) {
+            cacheService.sadd(RedisCacheKey.DOCTOR_TREATMENT_STATUS_CNT_KEY + treatment.getDoctorId(), String.valueOf(treatment.getId()));
+        }
     }
 }

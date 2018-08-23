@@ -28,7 +28,10 @@ public class RedisCacheKey {
     public static final String LIVE_COURSE_REMIND_KEY = "course:remind:live";
     public static final String OFFLINE_COURSE_REMIND_KEY = "course:remind:offline";
     public static final String COLLECTION_COURSE_REMIND_KEY = "course:remind:collection";
-
+    
+    public static final String COMMON_MINUTE_REMIND_KEY = "common:minute:remind";
+    public static final String TREATMENT_MINUTE_TYPE = "treatmentlive";
+    
     public static final String LIVE_COURSE_REMIND_LAST_TIME_KEY = "course:live:lastTime";
 
 
@@ -41,6 +44,10 @@ public class RedisCacheKey {
     public static final String VHALLYUN_BAN_KEY = "vhallyun:ban:key:";
 
     public static final String CHANNEL_ONLINE_KEY = "channel:online:key:";
+
+    public static final String USER_TREATMENT_STATUS_CNT_KEY = "user:treatment:cnt:";
+
+    public static final String DOCTOR_TREATMENT_STATUS_CNT_KEY = "doctor:treatment:cnt:";
 
     public static String getGiftCacheKey(String str) {
         return GIFT_CACHE__PREFIX + REDIS_SPLIT_CHAR + str;

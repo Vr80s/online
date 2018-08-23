@@ -118,7 +118,8 @@
         oc.live_case as liveCase,
         oc.is_teaching teaching,
         oc.live_status as liveStatus,
-        oc.inav_id as inavId
+        oc.inav_id as inavId,
+        oc.appointment_info_id as appointmentInfoId
         FROM
         oe_course as oc
         inner join course_anchor as ou on oc.user_lecturer_id = ou.user_id
@@ -211,14 +212,23 @@
         ou.type as hostType,
         if(ou.type = 1,(select mda.doctor_id from 
                      medical_doctor_account as mda where mda.account_id = oc.user_lecturer_id ),null) as doctorId,
+        if(ou.type = 1,(select md.name from
+         medical_doctor as md left join medical_doctor_account mda on mda.doctor_id = md.id where mda.account_id = oc.user_lecturer_id ),null) as doctorName,
         oc.channel_id as channelId,
         oc.record_id as recordId,
         oc.live_case as liveCase,
         oc.is_teaching teaching,
-        oc.inav_id as inavId
+        oc.inav_id as inavId,
+        oc.appointment_info_id as appointmentInfoId,
+        mtai.name as  discipleName,
+        oeu.small_head_photo as  discipleHeadPhoto,
+        oeu1.small_head_photo as  doctorHeadPhoto
         FROM
         oe_course as oc
         inner join course_anchor as ou on oc.user_lecturer_id = ou.user_id
+        left join medical_treatment_appointment_info mtai on oc.appointment_info_id = mtai.id
+        left join oe_user oeu on mtai.user_id = oeu.id
+        left join oe_user oeu1 on oc.user_lecturer_id = oeu1.id
         where oc.id = #{courseId} and oc.is_delete=0
     </select>
 

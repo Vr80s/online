@@ -57,7 +57,13 @@ public class TreatmentVO implements Serializable {
 
     private Integer courseId;
 
+    private Integer treatmentStatus;
+
+    private Integer infoStatus;
+
     private Date sysDate = new Date();
+
+    private String title;
 
     @Override
     public String toString() {
@@ -246,5 +252,29 @@ public class TreatmentVO implements Serializable {
 
     public void setSysDate(Date sysDate) {
         this.sysDate = sysDate;
+    }
+
+    public Integer getTreatmentStatus() {
+        return treatmentStatus;
+    }
+
+    public void setTreatmentStatus(Integer treatmentStatus) {
+        this.treatmentStatus = treatmentStatus;
+    }
+
+    public Integer getInfoStatus() {
+        return infoStatus;
+    }
+
+    public void setInfoStatus(Integer infoStatus) {
+        this.infoStatus = infoStatus;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

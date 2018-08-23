@@ -3,14 +3,22 @@ package com.xczhihui.bxg.online.web.controller.medical;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.xczhihui.bxg.online.web.body.doctor.TreatmentBody;
 import com.xczhihui.bxg.online.web.controller.AbstractController;
 import com.xczhihui.common.util.bean.ResponseObject;
+import com.xczhihui.common.util.enums.ClientType;
+import com.xczhihui.course.model.Course;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.medical.doctor.model.Treatment;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsService;
 import com.xczhihui.medical.doctor.service.IRemoteTreatmentService;
 
 /**
@@ -27,6 +35,8 @@ public class RemoteTreatmentController extends AbstractController {
     private IRemoteTreatmentService remoteTreatmentService;
     @Autowired
     private ICourseService courseService;
+    @Autowired
+    private IMedicalDoctorPostsService medicalDoctorPostsService;
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseObject list(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10") int size) {
@@ -58,8 +68,18 @@ public class RemoteTreatmentController extends AbstractController {
     }
 
     @RequestMapping(value = "{id}/{status}", method = RequestMethod.PUT)
-    public ResponseObject updateStatus(@PathVariable Integer id, @PathVariable boolean status) {
+    public ResponseObject updateStatus(@PathVariable Integer id, @PathVariable boolean status) throws Exception {
+        
+    	Treatment treatment = remoteTreatmentService.selectTreatmentById(id);
         remoteTreatmentService.updateStatus(id, status);
+        if (status) {
+        	String userId = getUserId();
+            Integer courseId = courseService.createTherapyLive(treatment.getInfoId(), ClientType.PC.getCode(), userId);
+            remoteTreatmentService.updateTreatmentCourseId(id, courseId);
+            Course course = courseService.selectById(courseId);
+            medicalDoctorPostsService.addDoctorPosts(userId, course.getId(), null, course.getGradeName(), 
+            		course.getSubtitle(), course.getAppointmentInfoId());
+        }
         return ResponseObject.newSuccessResponseObject();
     }
 

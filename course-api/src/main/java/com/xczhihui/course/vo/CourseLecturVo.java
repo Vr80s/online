@@ -1,11 +1,11 @@
 package com.xczhihui.course.vo;
 
 
+import com.xczhihui.common.util.XzStringUtils;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Map;
-
-import com.xczhihui.common.util.XzStringUtils;
 
 
 /**
@@ -252,6 +252,19 @@ public class CourseLecturVo implements Serializable {
     private Integer liveStatus;
     
     private String  inavId;
+
+    /**
+     * 弟子名字
+     */
+    private String discipleName;
+    /**
+     * 弟子头像
+     */
+    private String discipleHeadPhoto;
+    /**
+     * 医师头像
+     */
+    private String doctorHeadPhoto;
 
     public String getAppid() {
         return appid;
@@ -921,5 +934,28 @@ public class CourseLecturVo implements Serializable {
 	public void setInavId(String inavId) {
 		this.inavId = inavId;
 	}
-    
+
+    public String getDiscipleName() {
+        return discipleName;
+    }
+
+    public void setDiscipleName(String discipleName) {
+        this.discipleName = discipleName;
+    }
+
+    public String getDiscipleHeadPhoto() {
+        return discipleHeadPhoto;
+    }
+
+    public void setDiscipleHeadPhoto(String discipleHeadPhoto) {
+        this.discipleHeadPhoto = discipleHeadPhoto;
+    }
+
+    public String getDoctorHeadPhoto() {
+        return doctorHeadPhoto;
+    }
+
+    public void setDoctorHeadPhoto(String doctorHeadPhoto) {
+        this.doctorHeadPhoto = doctorHeadPhoto;
+    }
 }

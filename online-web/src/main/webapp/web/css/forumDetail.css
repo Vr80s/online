@@ -1022,28 +1022,46 @@ overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
 }
-
+.wrap-form-img{
+	float: left;
+	width: 120px;
+	height: 120px;
+	position: relative;
+}
 .writing-author-info {
        float: right;
     margin-top: 45px;
+        width: 660px;
 }
 .writing-buy-link img {
-    width: 100px;
-    height:140px;
+    /*width: 100px;
+    height:140px;*/
+   position: absolute;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    /*margin: auto;*/
 }
 .writing-author-name {
-        width: 610px;
-    padding-left: 20px;
+        width: 560px;
+    /*padding-left: 20px;*/
     float: left;
 }
 .writing-author-name .title {
     font-size: 16px;
     font-weight: bold;
     line-height: 21px;
+    word-break: break-word;
 }
 .writing-author-name .name {
     font-size: 14px;
     line-height: 19px;
+    word-break: break-word;
 }
 .writing-author-info .writing-go-buy {
    float: right;

@@ -15,7 +15,6 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.Type;
 
 import com.xczhihui.common.support.domain.BasicEntity2;
-import com.xczhihui.common.support.domain.CouserMessagePushVo;
 
 /**
  * 课程实体类
@@ -394,15 +393,6 @@ public class Course extends BasicEntity2 implements Serializable {
     @Column(name = "inav_id")
     private String inavId;
 
-    
-    public  CouserMessagePushVo buildCourseMessage() {
-    	CouserMessagePushVo  cmpv = new CouserMessagePushVo();
-    	cmpv.setGradeName(this.getGradeName());
-    	cmpv.setId(this.getId());
-    	cmpv.setUserLecturerId(this.getUserLecturerId());
-    	cmpv.setAddress(this.address);
-    	return cmpv;
-    }
     
     public static long getSerialVersionUID() {
         return serialVersionUID;

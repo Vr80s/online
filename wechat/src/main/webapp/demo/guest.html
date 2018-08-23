@@ -1,0 +1,467 @@
+
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>微吼实时直播系统</title>
+    <style>
+      body{
+        padding-top: 20px;
+      }
+      #enterDiv{
+        width:520px;
+        height:100px;
+        margin:160px auto 20px auto;
+      }
+      .btn1{
+        height:80px;
+        width:250px;
+        font-size:20px;
+        font-family: 黑体,serif;
+        position: relative;
+      }
+      #roomContainerTable td{
+        padding: 1px 2px;
+      }
+      .streamdiv{
+        width: 320px; height: 240px;float:left;padding-bottom:30px;
+      }
+      .stream_btn{
+        position: absolute;
+        bottom:0;
+      }
+      .online{
+        background: greenyellow;
+      }
+      .offline{
+        background: darkred;
+      }
+      select{
+        margin-left: 6px;
+      }
+      label{
+        line-height: 30px;
+      }
+      .inputs{
+        width:100%;
+        text-align: center;
+      }
+      .actions{
+        width: 100%;
+        text-align:center;
+        clear: both;
+        margin-top:20px;
+      }
+      input[type=button],button{
+        min-width: 80px;
+        height: 34px;
+        padding: 7px 10px;
+        border: 1px solid #d2d2d2;
+        border-radius: 4px;
+        outline: none;
+      }
+      button{
+        min-width:50px;
+        height: 22px;
+        padding: 2px 4px;
+      }
+      input[type=text]{
+        height: 34px;
+        width: 128px;
+        padding: 10px 8px;
+        border: 1px solid #d2d2d2;
+        border-radius: 4px;
+        outline: none;
+      }
+
+
+      .confs-title{
+        display: inline-block;
+        text-align: right;
+      }
+      .confs-title .confs-title-item{
+        height: 60px;
+      }
+      .confs-info{
+        display: inline-block;
+        width: 500px;
+        margin-left: 10px;
+      }
+      .confs-info .confs-info-item{
+        height: 60px;
+      }
+      .action-box{
+        text-align: center;
+      }
+      .btn-small{
+        width: 50px !important;
+        height: 26px;
+        padding: 2px 6px;
+      }
+      .btn-white,.btn-white:hover,.btn-white:visited,.btn-white:active{
+        background-color: #fff;
+        color:#666;
+        border:1px solid #666;
+        border-radius: 3px;
+      }
+      .settings{
+        display: none;
+        position: absolute;
+        border: 1px solid #d2d2d2;
+        padding-top: 40px;
+        padding-left: 40px;
+        padding-right: 40px;
+        padding-bottom: 40px;
+        text-align: center;
+        width: auto;
+        vertical-align: middle;
+        margin-top: -432px;
+        margin-left: 498px;
+        background-color: #fff;
+        border-radius: 5px;
+      }
+      .settings .confs-info{
+        text-align: left;
+        width: 200px;
+      }
+      .settings-action-btn{
+        margin-top: 0px;
+      }
+      .settings-action-btn div{
+        width: 30%;
+        display: inline-block;
+        text-align: center;
+      }
+      .settings-action-btn button{
+          margin-top: 0px;
+      }
+      select{
+        max-width: 180px;
+        height: 34px;
+        padding: 6px 12px;
+      }
+    </style>
+    <!--<script src="http://172.16.11.196:8080/target/target-script-min.js#anonymous"></script>-->
+
+  </head>
+
+  <body>
+    <h1 id="user-id" style="margin: 0 auto;margin-top: 30px;text-align: center;"></h1>
+    <div class="inputs">
+      <input id="appId" type="text" name="appId" value="fbc17706">
+      <input id="inavId" type="text" name="inavId" value="inav_7cbece55">
+      <input onclick="init()" type="button"  value="开始互动">
+    </div>
+    <div id="my-interaction" style="width: 853px;height: 480px;margin: 0 auto;border: 1px solid #d2d2d2;margin-top:20px;"></div>
+    <div style="margin-top: 10px;text-align: center;">
+      <div id="settings" class="settings">
+        
+      </div>
+      <button onclick="setSettings();">设置</button>
+    </div>
+    <div class="actions">
+      <!-- <button onclick="cancelStreamPush();">不看第三个了</button> -->
+      <input type="button" value="进入房间" onclick="enter();">
+      <input type="button" value="下麦"  onclick="leave();">
+      <input type="button" value="上麦"  onclick="join();">
+      <input type="button" value="请求上麦"  onclick="apply();">
+      <input type="button" value="关闭声音" onclick="muteAudio(this);">
+      <input type="button" value="关闭画面" onclick="muteVideo(this);">
+      <input type="button" value="退出房间"  onclick="window.interaction.exit();">
+    </div>
+  </body>
+  <script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script type="text/javascript" src="https://static.vhallyun.com/jssdk/vhallILSSDK.js"></script>
+<!--   <script type="text/javascript" src="../../vhallILSSDK.js"></script> -->
+  <script type="text/javascript" src="https://static.vhallyun.com/jssdk/vhall-jssdk-interaction-1.0.0.js?v=2018060142016"></script>
+<!--   <script type="text/javascript" src="../../vhall-jssdk-interaction-1.0.0.js?v=2018060142016"></script> -->
+  <script type="text/javascript" src="https://static.vhallyun.com/jssdk/vhall-jssdk-base-1.0.0.js?v=2018060142016"></script>
+<!--   <script type="text/javascript" src="../../vhall-jssdk-base-1.0.0.js?v=2018060142016"></script> -->
+  
+  <script type="text/javascript" src="./js/layer.js"></script>
+  <script>
+
+    var alert = function(msg){
+      layer.msg(msg,{
+        time:2000
+      });
+    }
+
+    var users = [
+    {userId:'100026',userName:'张三'},
+    {userId:'100027',userName:'李四'},
+    {userId:'100028',userName:'王五'},
+    {userId:'100029',userName:'赵四'},
+    {userId:'100030',userName:'小沈阳'},
+    {userId:'100031',userName:'郭德纲'},
+    {userId:'100032',userName:'于谦'},
+    {userId:'100033',userName:'岳云鹏'},
+    {userId:'100034',userName:'孙悦'},
+    {userId:'100035',userName:'范伟'},
+    {userId:'100036',userName:'冯巩'},
+    {userId:'100037',userName:'潘长江'},
+    {userId:'100038',userName:'三八'},
+    ]
+
+  </script>
+  <script type="text/javascript">
+
+      var user = users[Math.floor(Math.random()*(12))];
+          // user = users[12];
+      var userId = user.userId;
+
+      window.interaction = {};
+
+      //获取URL传参
+      function getParameterByName(name) {
+          name = name.replace(/[\[]/, '\\\[').replace(/[\]]/, '\\\]');
+          var regex = new RegExp('[\\?&]' + name + '=([^&#]*)'),
+              results = regex.exec(location.search);
+          return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+      }
+
+      function apply(){
+        window.interaction.apply({
+          consent:function(userId){
+            // alert('恭喜你，你刚才的请求上麦，通过啦！');
+          },
+          reject: function(userId){
+            alert('非常遗憾，你刚才的请求上麦，被拒绝了');
+          },
+          fail: function(reason){
+            alert('非常遗憾，你刚才的请求上麦，请求失败了，原因是:' + reason);
+          }
+        });
+      }
+
+      function leave(){
+        window.interaction.unpublish();
+        // window.interaction.close();
+        // location.reload();
+      }
+
+      function join(){
+        window.interaction.publish({
+          success:function(){
+
+          },
+          fail:function(reason){
+            alert('上麦失败：' + reason);
+          }
+        });
+      }
+
+      window.onload = function () {
+          document.getElementById('user-id').innerText = user.userName + '(' + user.userId + ')';
+          if(window.location.href.indexOf('vhallyun.com') == -1){
+            $('#appId').val('fbc17706');
+            $('#inavId').val('inav_7cbece55');
+          }
+      }
+
+
+      function init(){
+        if(window.interaction.getStreamId && window.interaction.getStreamId()){
+          alert('你已经在互动！');
+          return
+        }
+        /**
+         *  注册ready事件
+         */
+         Vhall.ready(function(){
+            //TODO
+            window.interaction = new VhallInteractionGuest({
+               //互动房间Id
+               inavId:$('#inavId').val(),
+               //互动容器
+               videoNode:"my-interaction",
+               success: function(){
+
+               },
+               fail: function(reason){
+                 alert(reason);
+               }
+            });
+
+
+           window.interaction.onEnter(function(userId){
+              alert('用户' + userId + '进入房间');
+           });
+
+           window.interaction.onQuit(function(userId){
+              alert('用户' + userId + '离开房间');
+           });
+
+           //监听被邀请上麦事件
+           window.interaction.onInvite(function(event){
+              layer.confirm('主持人喊你上麦，答应Ta吗？',{
+                btn:['同意','拒绝','忽略']
+              },function(index){
+                event.consent();
+                layer.close(index);
+              },function(){
+                event.reject();
+              })
+           });
+
+           window.onEnter(function(userId){
+              alert('用户[' + userId + ']进入房间啦！');
+           });
+
+           window.onQuit(function(userId){
+              alert('用户[' + userId + ']离开房间啦！');
+           });
+
+         });
+         
+        /**
+         * 初始化SDK配置
+         */
+          Vhall.config({
+            appId : $('#appId').val(),//应用 ID ,必填
+            accountId :user.userId,//第三方用户唯一标识,必填
+            token:'access:fbc17706:8facecd00cebc2e7',//token必填
+          }); 
+      }
+
+      function muteAudio(obj){
+        window.interaction.muteAudio();
+        console.info(window.interaction.isAudioMuted());
+        if(window.interaction.isAudioMuted()){
+          obj.value = '打开声音';
+        }else{
+          obj.value = '关闭声音';
+        }
+      }
+
+      function muteVideo(obj){
+        window.interaction.muteVideo();
+        console.info(window.interaction.isVideoMuted());
+        if(window.interaction.isVideoMuted()){
+          obj.value = '打开画面';
+        }else{
+          obj.value = '关闭画面';
+        }
+      }
+
+
+      function enter(){
+        window.interaction.enter(function(){},function(reason){
+          alert(reason);
+        });
+      }
+
+
+
+      function setSettings(){
+
+        window.interaction.getDevices(function(devices){
+          var mics = devices.mics,
+              cameras = devices.cameras;
+              var html = '\
+                      <div class="confs-title">\
+                        <div class="confs-title-item">摄像头:</div>\
+                        <div class="confs-title-item">麦克风:</div>\
+                        <div class="confs-title-item">分辨率:</div>\
+                        <div class="confs-title-item">帧率:</div>\
+                      </div>\
+                      <div class="confs-info">\
+                        <div class="confs-info-item">\
+                          <select class="form-control" id="camera"  >\
+                            {{cameras}}\
+                            <option value="">不使用摄像头</option>\
+                          </select>\
+                        </div>\
+                        <div class="confs-info-item">\
+                          <select class="form-control" id="mic"  >\
+                            {{mics}}\
+                            <option value="">不使用麦克风</option>\
+                          </select>\
+                        </div>\
+                        <div class="confs-info-item">\
+                          <select class="form-control" id="sizes"  >\
+                            {{sizes}}\
+                          </select>\
+                        </div>\
+                        <div class="confs-info-item">\
+                          <select class="form-control" id="rates" >\
+                            {{rates}}\
+                          </select>\
+                        </div>\
+                      </div>\
+                      <div class="settings-action-btn">\
+                        <div><button id="btn-settings-ok" class="btn btn-primary btn-small">确定</button></div>\
+                        <div><button id="btn-settings-cancel" class="btn-small btn-white">取消</button></div>\
+                      </div>';
+
+              var camerasOption = '', 
+                  micsOption = '' ,
+                  sizesOption = '',
+                  ratesOption = '',
+                  selected = '';
+              var sizes = window.interaction.getVideoSize(),
+                  rates =window.interaction.getVideoFrameRate();
+              for(var i = 0; i < cameras.length; i++){
+                if(i==0){
+                  selected = 'selected="selected"';
+                }
+                camerasOption += '<option  value="'+ cameras[i].deviceId +'">'+ cameras[i].label +'</option>';
+              }
+              for(var j = 0; j < mics.length; j++){
+                if(i==0){
+                  selected = 'selected="selected"';
+                }
+                micsOption += '<option  value="'+ mics[j].deviceId +'">'+ mics[j].label +'</option>';
+              }
+              for(var x = 0; x < sizes.length; x++){
+                if(i==0){
+                  selected = 'selected="selected"';
+                }
+                sizesOption += '<option value="'+ JSON.stringify( sizes[x].size ) +'">'+ sizes[x].discription +'</option>';
+              }
+              for(var y = 0; y < rates.length; y++){
+                if(i==0){
+                  selected = 'selected="selected"';
+                }
+                ratesOption += '<option value="'+ JSON.stringify( rates[y].rate )+'">'+ rates[y].discription +'</option>';
+              }
+              html = html.replace(/{{cameras}}/g,camerasOption);
+              html = html.replace(/{{mics}}/g,micsOption);
+              html = html.replace(/{{sizes}}/g,sizesOption);
+              html = html.replace(/{{rates}}/g,ratesOption);
+              var isEmpty = $('#settings').html().trim().length == 0;
+              if(isEmpty){
+                 $('#settings').html(html);
+              }
+              $('#settings').show();
+              $('#btn-settings-ok').off('click');
+              $('#btn-settings-ok').on('click',function(){
+                changeSettings();
+                $('#settings').hide();
+              });
+              //设置按钮
+              $('#btn-settings-cancel').off('click');
+              $('#btn-settings-cancel').on('click',function(){
+                $('#settings').hide();
+              });
+
+        });
+      }
+
+
+      function changeSettings(){
+        var conf = window.interaction.getSetting();
+        var v = $('#camera').val();
+        var a = $('#mic').val();
+        conf.video = v ? { deviceId: v } : false;
+        conf.audio = a ? { deviceId: a } : false;
+        conf.videoSize =  JSON.parse($('#sizes').val());
+        conf.videoFrameRate =  JSON.parse($('#rates').val());
+        console.dir(conf);
+        window.interaction.changeSetting({
+          conf:conf
+        });
+      }
+      
+
+  </script>
+</html>

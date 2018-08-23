@@ -18,7 +18,6 @@ import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.*;
 import com.xczhihui.common.support.cc.util.CCUtils;
 import com.xczhihui.common.support.service.CacheService;
-import com.xczhihui.common.support.service.XcRedisCacheService;
 import com.xczhihui.common.util.redis.key.RedisCacheKey;
 import com.xczhihui.common.util.bean.Page;
 import com.xczhihui.common.util.enums.*;
@@ -115,8 +114,6 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
     private EnrolService enrolService;
     @Value("${vhall.user.id}")
     private String liveVhallUserId;
-    @Autowired
-    private XcRedisCacheService xcRedisCacheService;
     
     @Override
     public Page<CourseApplyInfo> findCoursePage(
@@ -183,9 +180,9 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
             if (course.getCourseNumber() != null && Integer.compare(courseApplyInfos.size(), course.getCourseNumber()) >= 0) {
                 courseDao.update(course);
                 
-                xcRedisCacheService.deleteCourseMessageReminding(course.buildCourseMessage(), RedisCacheKey.COLLECTION_COURSE_REMIND_KEY);
+                messageRemindingService.deleteCourseMessageReminding(course, RedisCacheKey.COLLECTION_COURSE_REMIND_KEY);
             } else {
-            	xcRedisCacheService.saveCourseMessageReminding(course.buildCourseMessage(), RedisCacheKey.COLLECTION_COURSE_REMIND_KEY);
+            	messageRemindingService.saveCourseMessageReminding(course, RedisCacheKey.COLLECTION_COURSE_REMIND_KEY);
             }
             saveCollectionUpdateCollectionId(courseApplyId, course.getId());
         }
@@ -615,12 +612,10 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
     }
 
     void savecourseMessageReminding(Course course) {
-    	System.out.println(xcRedisCacheService);
         if (course.getType().equals(CourseForm.LIVE.getCode())) {
-        	course.buildCourseMessage();
-        	xcRedisCacheService.saveCourseMessageReminding(course.buildCourseMessage(), RedisCacheKey.LIVE_COURSE_REMIND_KEY);
+        	messageRemindingService.saveCourseMessageReminding(course, RedisCacheKey.LIVE_COURSE_REMIND_KEY);
         } else if (course.getType().equals(CourseForm.OFFLINE.getCode())) {
-        	xcRedisCacheService.saveCourseMessageReminding(course.buildCourseMessage(), RedisCacheKey.OFFLINE_COURSE_REMIND_KEY);
+        	messageRemindingService.saveCourseMessageReminding(course, RedisCacheKey.OFFLINE_COURSE_REMIND_KEY);
         }
     }
 }
