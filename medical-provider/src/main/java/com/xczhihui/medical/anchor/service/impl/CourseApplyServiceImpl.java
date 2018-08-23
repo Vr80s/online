@@ -1,5 +1,6 @@
 package com.xczhihui.medical.anchor.service.impl;
 
+import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xczhihui.common.support.cc.util.CCUtils;
@@ -379,12 +380,22 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
                 throw new AnchorWorkException("课程上架状态下，不能进行修改操作");
             }
         }
-        //删除之前申请
-        courseApplyInfoMapper.deleteCourseApplyById(courseApplyInfo.getId());
-        //记录原申请id
-        courseApplyInfo.setOldApplyInfoId(courseApplyInfo.getId());
-        courseApplyInfo.setId(null);
-        saveCourseApply(courseApplyInfo);
+        
+        if(courseApplyInfo.getAppointmentInfoId()!=null) {
+        	//更改审核信息
+        	cai.setImgPath(courseApplyInfo.getImgPath());
+        	courseApplyInfoMapper.updateById(cai);
+        	//更改课程
+        	courseApplyInfoMapper.updateCourse(courseApplyInfo);
+        }else {
+        	
+        	 //删除之前申请
+            courseApplyInfoMapper.deleteCourseApplyById(courseApplyInfo.getId());
+            //记录原申请id
+            courseApplyInfo.setOldApplyInfoId(courseApplyInfo.getId());
+            courseApplyInfo.setId(null);
+            saveCourseApply(courseApplyInfo);
+        }
     }
 
     @Override

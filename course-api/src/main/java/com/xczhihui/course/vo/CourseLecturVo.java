@@ -247,9 +247,11 @@ public class CourseLecturVo implements Serializable {
     private String doctorName;
 
 
-    private String appointmentInfoId;
+    private Integer appointmentInfoId;
 
     private Integer liveStatus;
+    
+    private String  inavId;
 
     public String getAppid() {
         return appid;
@@ -895,19 +897,29 @@ public class CourseLecturVo implements Serializable {
         this.doctorName = doctorName;
     }
 
-    public String getAppointmentInfoId() {
-        return appointmentInfoId;
-    }
 
-    public void setAppointmentInfoId(String appointmentInfoId) {
-        this.appointmentInfoId = appointmentInfoId;
-    }
+    public Integer getAppointmentInfoId() {
+		return appointmentInfoId;
+	}
 
-    public Integer getLiveStatus() {
+	public void setAppointmentInfoId(Integer appointmentInfoId) {
+		this.appointmentInfoId = appointmentInfoId;
+	}
+
+	public Integer getLiveStatus() {
         return liveStatus;
     }
 
     public void setLiveStatus(Integer liveStatus) {
         this.liveStatus = liveStatus;
     }
+
+	public String getInavId() {
+		return inavId;
+	}
+
+	public void setInavId(String inavId) {
+		this.inavId = inavId;
+	}
+    
 }

@@ -27,7 +27,7 @@ public class BaseService {
     }
     
     public static String createAccessToken4InteractionLive(String thirdPartyUserId, String roomId,
-    		String channelId,String ivavId) throws Exception {
+    		String channelId,String inavId) throws Exception {
     	
         HashMap params = new HashMap();
         params.put("third_party_user_id", thirdPartyUserId);
@@ -37,17 +37,16 @@ public class BaseService {
         if(channelId != null){
             params.put("chat",channelId);
             params.put("operate_document",channelId);
-
-            params.put("kick_inav",ivavId);
-            params.put("publish_inav_stream",ivavId);
-            params.put("kick_inav_stream",ivavId);
-            params.put("askfor_publish_inav",ivavId);
-            params.put("audit_publish_inav",ivavId);
-
-            params.put("publish_inav_another",ivavId);
-            params.put("audit_publish_inav",ivavId);
+        }
+        if(inavId!=null) {
+        	 params.put("kick_inav",inavId);
+             params.put("publish_inav_stream",inavId);
+             params.put("kick_inav_stream",inavId);
+             params.put("askfor_publish_inav",inavId);
+             params.put("audit_publish_inav",inavId);
+             params.put("publish_inav_another",inavId);
+             params.put("audit_publish_inav",inavId);
         }
         return createAccessToken(params);
     }
-
 }

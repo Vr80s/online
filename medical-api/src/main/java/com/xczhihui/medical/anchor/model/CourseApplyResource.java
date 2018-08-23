@@ -67,6 +67,8 @@ public class CourseApplyResource extends Model<CourseApplyResource> {
     private Integer sourceType;
 
     private String length;
+    
+    
 
     public String getLength() {
         return length;

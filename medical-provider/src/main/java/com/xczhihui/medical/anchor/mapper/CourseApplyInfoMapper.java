@@ -81,4 +81,13 @@ public interface CourseApplyInfoMapper extends BaseMapper<CourseApplyInfo> {
     @Update("UPDATE `oe_course` oc SET oc.`is_record` = #{record}" +
             " WHERE oc.`user_lecturer_id` = #{userId} AND oc.`id`= #{courseId}")
     void saveCourseRecordStatus(@Param("courseId") int courseId, @Param("userId") String userId, @Param("record") int record);
+
+	/**  
+	 * <p>Title: 更改诊疗直播的课程信息</p>  
+	 * <p>Description: </p>  
+	 * @param cai  
+	 */ 
+    @Update("UPDATE `oe_course` oc SET oc.`smallimg_path` = #{cai.imgPath}" +
+            " WHERE oc.`apply_id` = #{cai.id} ")
+	void updateCourse(CourseApplyInfo cai);
 }
