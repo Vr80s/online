@@ -2037,7 +2037,7 @@ $(function(){
         form.append("image", this.files[0]);
         var reader=new FileReader();
         reader.onload=function(e){
-            picUpdown(form,'medical-mg');
+            picUpdown(form,'medical-img');
         }
         reader.readAsDataURL(this.files[0])
     })
@@ -2104,8 +2104,87 @@ function saveRecordSet(){
     })
 }
 //诊疗直播
-function editMedical(appointId,index){
-	var medical=launchData[index]
+function getMedicalData(courseId){
+    var medical;
+    RequestService("/anchor/course/getCourseApplyById?caiId="+courseId, "get", null, function(data) {
+        medical = data.resultObject;
+    },false);
+    return medical;
+}
+//诊疗回显
+function editMedical(courseId,appointId,index){
+	clearMedical()
+	var medical=getMedicalData(courseId);
+	$(".medical-edit-name input").val(medical.title);
+	$('#medical-img').html('<img src="">'+'<p>点击图片重新上传</p>');
+    $('#medical-img img').attr('src',medical.imgPath+"?imageMogr2/thumbnail/!260x147r|imageMogr2/gravity/Center/crop/260x147");
+    UE.getEditor('editor-medical').setContent(medical.courseDetail);
+	$(".save-appointId").val(appointId);
+	$(".save-courseId").val(courseId);
+//	页面打开
 	$(".curriculum_two").hide();
 	$(".curriculum_three").show();
+	$(".medical-save button").removeAttr("disabled");
 }
+//清空诊疗直播数据
+function clearMedical(){
+	$(".medical-edit-name input").val("");
+	$("#medical-img").html("");
+	UE.getEditor('editor-medical').setContent('');
+	$(".save-appointId").val("");
+	$(".save-courseId").val("");
+}
+
+
+//校验诊疗编辑数据
+function checkMedical(medicalData){
+	$(".warning").addClass("hide");
+	if(medicalData.title==""){
+		$(".warning_medical_title").removeClass("hide");
+		return false;
+	}else if($('#medical-img img').length == 0){
+		$(".warning_medical_img").removeClass("hide");
+		return false;
+	}else if(medicalData.lecturerDescription==""){
+		$(".warning_medical_introduce").removeClass("hide");
+		return false;
+	}
+	return true;
+}
+
+//保存诊疗编辑
+function btnMedical(){
+	var appointId=$(".save-appointId").val();
+	var	courseId=$(".save-courseId").val();
+    var imgMedicalLength=$('#medical-img img');
+    var medicalPicUrl;
+	if(imgMedicalLength.length!=0){
+		medicalPicUrl=imgMedicalLength.attr("src").split("?")[0];
+	}else{
+		medicalPicUrl="";
+	}
+	var medicalData={};
+	medicalData.title=$.trim($(".medical-edit-name input").val());
+	medicalData.imgPath=medicalPicUrl;
+	medicalData.courseDetail=UE.getEditor('editor-medical').getContent();
+	medicalData.appointmentInfoId=appointId;
+	medicalData.id=courseId;	
+	if(checkMedical(medicalData)){ 
+		$(".medical-save button").attr("disabled","disabled");
+		RequestJsonService("/anchor/course/updateCourseApply","post",JSON.stringify(medicalData) , function (data) {
+        	  if(data.success === true) {
+	                showTip(data.resultObject);
+	                setTimeout(function(){ getCourseList()  }, 2000);
+	            } else {
+	                showTip(data.errorMessage);
+	                $(".medical-save button").removeAttr("disabled");
+	            }
+        })	    	    
+	}
+}
+
+
+
+
+
+

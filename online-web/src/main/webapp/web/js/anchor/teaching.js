@@ -1464,6 +1464,16 @@ var appointmentStatus,
 		$(".see-disciple-scroll .see-appointment-question").html(eachDiscipleData.question);
 		discipleInformation(eachDiscipleData.apprenticeId);
 }	
+//	开始诊疗
+	$(".long-range-table").on("click",".star-inf-medical",function(){
+		$("#video-cover").removeClass("hide");
+		$(".video-live").removeClass("hide");
+	})
+	$("#video-cover").click(function(){
+		$("#video-cover").addClass("hide");
+		$(".video-live").addClass("hide");
+	})
+	
 //	取消预约
 	var reservationId;
 	$(".long-range-table").on("click",".cancel-reservation",function(){
