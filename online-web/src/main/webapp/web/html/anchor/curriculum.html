@@ -124,7 +124,12 @@
 		<td>
 			{{if course.courseForm==1}}
 				{{if course.multimediaType==1}}
-				<span>直播</span>
+					{{if course.appointmentInfoId != null}}
+						<span>诊疗直播</span>
+						{{else}}
+						<span>直播</span>
+					{{/if}}
+				
 				{{else if course.multimediaType==2}}
 				<span>语音直播</span>
 				{{/if}}
@@ -167,18 +172,31 @@
 		</td>
 		<td>
 			{{if course.applyStatus==1}}  <!-- 审核通过 -->
-			{{if course.status==1}}   <!-- 课程是否上架 -->
-			<a href="javascript:;" onclick="confirmCourseSale(0,{{course.id}},{{course.courseId}},{{i}})">下架</a>
-			{{else}}
-			<a href="javascript:;" onclick="confirmCourseSale(1,{{course.id}},{{course.courseId}},{{i}})">上架</a>
-			<a href="javascript:;" onclick="editCourse({{course.id}},true)">编辑</a>
-			{{/if}}
+				{{ if course.appointmentInfoId != null && course.appointmentStatus != 4}}<!--appointmentStatus：  1未审核 2通过 3拒绝 4已完成 5已过期-->
+				    <a href="javascript:;" onclick="editMedical({{course.appointmentInfoId}},{{i}})">编辑</a>
+				{{else if course.appointmentInfoId != null && course.appointmentStatus == 4}}
+						{{if course.status==1}}
+							<a href="javascript:;" onclick="aaa()">下架</a>
+						{{else}}
+							<a href="javascript:;" onclick="aaa()">上架</a>
+							<a href="javascript:;" onclick="editMedical({{course.appointmentInfoId}},{{i}})">编辑</a>
+						{{/if}}
+				{{else}}
+					{{if course.status==1}}   <!-- 课程是否上架 -->
+					<a href="javascript:;" onclick="confirmCourseSale(0,{{course.id}},{{course.courseId}},{{i}})">下架</a>
+					{{else}}
+					<a href="javascript:;" onclick="confirmCourseSale(1,{{course.id}},{{course.courseId}},{{i}})">上架</a>
+					<a href="javascript:;" onclick="editCourse({{course.id}},true)">编辑</a>
+					{{/if}}
+				{{/if}}
+				
 			{{else if course.applyStatus==2}}
-			<a href="javascript:;" onclick="editCourse({{course.id}},false)">编辑</a>
-			<a href="javascript:;" onclick="deleteCourse({{course.id}})">删除</a>
+				<a href="javascript:;" onclick="editCourse({{course.id}},false)">编辑</a>
+				<a href="javascript:;" onclick="deleteCourse({{course.id}})">删除</a>
 			{{else if course.applyStatus==0}}
-			<a href="javascript:;" onclick="editCourse({{course.id}},false)">编辑</a>
-			<a href="javascript:;" onclick="deleteCourse({{course.id}})">删除</a>
+				<a href="javascript:;" onclick="editCourse({{course.id}},false)">编辑</a>
+				<a href="javascript:;" onclick="deleteCourse({{course.id}})">删除</a>
+			
 			{{/if}}
 		</td>
 	</tr>
@@ -816,7 +834,7 @@
 			<!--课程-->
 			<div class="little_box " id="curriculum">
 	
-				<!--第二页-->
+				<!--第二页 课程编辑-->
 				<div class="curriculum_one">
 					<div class="zhuanlan_top">
 						<span class="title">课程</span>
@@ -982,7 +1000,7 @@
 	
 				</div>
 	
-				<!--第一页-->
+				<!--第一页 课程列表-->
 				<div class="curriculum_two">
 					<div class="zhuanlan_bottom2 course_content" id="kecheng_bottom2" style="margin-bottom: 30px;">
 						<div class="zhuanlan_top">
@@ -1051,6 +1069,69 @@
 						</div>
 					</div>
 				</div>
+				
+					
+				<!--第三页 编辑诊疗直播封面-->
+				<div class="curriculum_three" style="display: none;">
+					<div class="zhuanlan_top">
+						<span class="title">课程</span>
+						<button class="button">返回</button>
+					</div>
+					<hr style="margin-left: -30px;margin-right: -30px;margin-top: 0px !important;margin-bottom: 30px !important;color:#f0f0f0 !important;">
+				
+					<div class="medical-edit-name">
+						<span class="medical-left-title"><em>*</em>课程名称</span>
+						<input type="text" maxlength="30" />
+					</div>
+					
+					<!--封面-->
+					<div class="certification physician_span">
+						<span class="medical-left-title"><em>*</em>封面图</span>
+						<div class="input-group">
+							<div class="row_size">
+								<div class="one">+</div>
+								<div class="two">点击上传封面图</div>
+							</div>
+							<div class="col-sm-9 big-photo">
+								<div class="preview" id="medical-mg" style="width: 100%;height: 147px">
+									<!--<img id="imghead6" border="0" src="../../images/3.jpg" width="90" height="90" onclick="$('#previewImg6').click();">-->
+								</div>
+								<input type="file" id="medicalImgPath" accept="image/gif,image/jpeg,image/jpg,image/png" />
+							</div>
+						</div>
+						<div class="hint">
+							<div class="">推荐使用尺寸620x343</div>
+							<div class="">文件小于2M</div>
+							<div class="">支持JPG/PNG等格式图片</div>
+						</div>
+						<div class="both"></div>
+						<p class="warning hide">请上传封面图</p>
+					</div>
+					<!--介绍-->
+					<div class="introduce-medical">
+						<span class="medical-left-title" style="vertical-align: top;"><em>*</em>课程介绍</span>
+						<div class="" style="display: inline-block">						
+							<script id="editor-medical" type="text/plain" style="width:540px;height:160px;"></script>
+						</div>
+					</div>
+					
+					<div class="medical-save">
+						<button type="button">保存</button>
+					</div>
+				
+				
+				</div>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
 				<!--点击选择资源弹框开始-->
 				<div class="a_resource">
 					<div class="a_resource_bg"></div>
