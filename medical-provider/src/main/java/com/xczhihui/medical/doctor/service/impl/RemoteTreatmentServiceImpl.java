@@ -19,6 +19,7 @@ import com.xczhihui.common.util.redis.key.RedisCacheKey;
 import com.xczhihui.medical.anchor.mapper.CourseApplyInfoMapper;
 import com.xczhihui.medical.doctor.mapper.RemoteTreatmentAppointmentInfoMapper;
 import com.xczhihui.medical.doctor.mapper.RemoteTreatmentMapper;
+import com.xczhihui.medical.doctor.model.MedicalDoctorAccount;
 import com.xczhihui.medical.doctor.model.Treatment;
 import com.xczhihui.medical.doctor.model.TreatmentAppointmentInfo;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
@@ -119,6 +120,10 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
 //            if (checkRepeatAppoint(treatmentId, treatmentAppointmentInfo.getUserId())) {
 //                throw new MedicalException("该日期您已经有预约申请，请选择其他日期进行申请");
 //            }
+            MedicalDoctorAccount medicalDoctorAccount = medicalDoctorBusinessService.getByDoctorId(treatment.getDoctorId());
+            if (medicalDoctorAccount != null && medicalDoctorAccount.getAccountId().equals(treatmentAppointmentInfo.getUserId())) {
+                throw new MedicalException("抱歉，您不可以预约自己的诊疗");
+            }
             treatmentAppointmentInfo.setStatus(TreatmentInfoApplyStatus.WAIT_DOCTOR_APPLY.getVal());
             remoteTreatmentAppointmentInfoMapper.insert(treatmentAppointmentInfo);
             treatment.setInfoId(treatmentAppointmentInfo.getId());
@@ -327,7 +332,8 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
     }
 
     @Override
-    public int updateTreatmentStartStatus(int infoId, int status) {
+    public Map<String, Object> updateTreatmentStartStatus(int infoId, int status) {
+        Map<String, Object> result = new HashMap<>();
         synchronized (LOCK) {
             TreatmentAppointmentInfo treatmentAppointmentInfo = remoteTreatmentAppointmentInfoMapper.selectById(infoId);
             if (treatmentAppointmentInfo == null) {
@@ -338,29 +344,34 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
                 throw new MedicalException("诊疗id参数错误");
             }
             Integer treatmentStatus = treatment.getStatus();
+            if (treatmentStatus == AppointmentStatus.EXPIRED.getVal()) {
+                throw new MedicalException("该诊疗直播已过期");
+            }
+            if (treatmentStatus == AppointmentStatus.FINISHED.getVal()) {
+                throw new MedicalException("该诊疗直播已结束");
+            }
             if (status != AppointmentStatus.STARTED.getVal() && status != AppointmentStatus.FINISHED.getVal()) {
                 throw new MedicalException("status 参数错误");
             }
-//            if (treatmentStatus != AppointmentStatus.WAIT_START.getVal() && treatmentStatus != AppointmentStatus.STARTED.getVal()) {
-//                throw new MedicalException("status 参数错误");
-//            }
             //开始诊疗
             if (treatmentStatus == AppointmentStatus.WAIT_START.getVal() && status == AppointmentStatus.STARTED.getVal()) {
                 treatment.setStatus(status);
                 updateStatusChange(treatment, treatmentAppointmentInfo);
             //继续诊疗
             } else if (treatmentStatus == AppointmentStatus.STARTED.getVal() && status == AppointmentStatus.STARTED.getVal()) {
-
                 //结束诊疗
             } else if (treatmentStatus == AppointmentStatus.STARTED.getVal() && status == AppointmentStatus.FINISHED.getVal()) {
                 treatmentAppointmentInfo.setStatus(TreatmentInfoApplyStatus.FINISHED.getVal());
                 treatment.setStatus(status);
-
                 updateStatusChange(treatment, treatmentAppointmentInfo);
+            } else {
+                throw new MedicalException("参数错误");
             }
             remoteTreatmentMapper.updateById(treatment);
             remoteTreatmentAppointmentInfoMapper.updateById(treatmentAppointmentInfo);
-            return 0;
+            result.put("courseId", treatment.getCourseId());
+            result.put("userId", treatmentAppointmentInfo.getUserId());
+            return result;
         }
     }
 

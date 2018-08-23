@@ -65,6 +65,9 @@ public interface RemoteTreatmentMapper extends BaseMapper<Treatment> {
             " <if test='onlyUnAppointment'>" +
             " and mt.status = 0" +
             " </if>" +
+            " <if test='!onlyUnAppointment'>" +
+            " and mt.status != 5" +
+            " </if>" +
             " order by mt.date, mt.start_time" +
             " </script>"})
     List<TreatmentVO> listByDoctorId(@Param("doctorId") String doctorId, @Param("onlyUnAppointment") boolean onlyUnAppointment);

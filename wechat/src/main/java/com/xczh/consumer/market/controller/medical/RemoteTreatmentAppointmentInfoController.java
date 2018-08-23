@@ -1,5 +1,8 @@
 package com.xczh.consumer.market.controller.medical;
 
+import static com.xczhihui.common.util.enums.CommunicationMessageType.*;
+
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +15,13 @@ import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.body.treatment.TreatmentAppointmentInfoBody;
 import com.xczh.consumer.market.interceptor.HeaderInterceptor;
 import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczhihui.common.util.enums.AppointmentStatus;
+import com.xczhihui.common.util.enums.MessageTypeEnum;
 import com.xczhihui.common.util.enums.ResultCode;
+import com.xczhihui.common.util.enums.RouteTypeEnum;
 import com.xczhihui.course.model.Course;
+import com.xczhihui.course.params.BaseMessage;
+import com.xczhihui.course.service.ICommonMessageService;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.medical.doctor.model.Treatment;
 import com.xczhihui.medical.doctor.model.TreatmentAppointmentInfo;
@@ -21,6 +29,8 @@ import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorPostsService;
 import com.xczhihui.medical.doctor.service.IRemoteTreatmentService;
 import com.xczhihui.medical.enrol.service.EnrolService;
+import com.xczhihui.medical.exception.MedicalException;
+import com.xczhihui.user.center.service.UserCenterService;
 
 /**
  * 远程诊疗
@@ -41,6 +51,10 @@ public class RemoteTreatmentAppointmentInfoController {
     private IMedicalDoctorBusinessService medicalDoctorBusinessService;
     @Autowired
     private IMedicalDoctorPostsService medicalDoctorPostsService;
+    @Autowired
+    private ICommonMessageService commonMessageService;
+    @Autowired
+    private UserCenterService userCenterService;
 
     @RequestMapping(value = "appointmentInfo", method = RequestMethod.POST)
     public ResponseObject save(TreatmentAppointmentInfoBody treatmentAppointmentInfoBody, @Account String accountId) {
@@ -100,9 +114,38 @@ public class RemoteTreatmentAppointmentInfoController {
         return ResponseObject.newSuccessResponseObject(remoteTreatmentService.listByDoctorId(doctorId));
     }
 
-    @RequestMapping(value = "operation/status", method = RequestMethod.POST)
-    public ResponseObject treatmentStatusUpdate(@Account String accountId, @RequestParam int infoId, @RequestParam int status) {
-        remoteTreatmentService.updateTreatmentStartStatus(infoId, status);
+    @RequestMapping(value = "send/message", method = RequestMethod.POST)
+    public ResponseObject sendMessage(@Account String accountId, @RequestParam int infoId, @RequestParam int type) {
+        TreatmentAppointmentInfo treatmentAppointmentInfo = remoteTreatmentService.selectById(infoId);
+        if (treatmentAppointmentInfo == null || treatmentAppointmentInfo.getTreatmentId() == null) {
+            throw new MedicalException("参数错误");
+        }
+        Treatment treatment = remoteTreatmentService.selectTreatmentById(treatmentAppointmentInfo.getTreatmentId());
+        Map<String, Object> params = new HashMap<>();
+        Integer courseId = treatment.getCourseId();
+        params.put("courseId", courseId);
+        params.put("infoId", infoId);
+        params.put("show", false);
+        String targetUserId = null;
+        String doctorId = treatment.getDoctorId();
+
+        if (type == USER_TREATMENT_START.getVal() || type == USER_TREATMENT_REFUSE.getVal()) {
+            params.put("user", userCenterService.findSimpleInfoByUserId(accountId));
+            targetUserId = medicalDoctorBusinessService.getByDoctorId(doctorId).getAccountId();
+        } else if (type == DOCTOR_TREATMENT_START.getVal() || type == DOCTOR_TREATMENT_STOP.getVal() || type == DOCTOR_TREATMENT_REFUSE.getVal()) {
+            targetUserId = treatmentAppointmentInfo.getUserId();
+            Map<String, Object> doctorInfo = medicalDoctorBusinessService.getDoctorInfoByDoctorId(doctorId);
+            params.put("doctor", doctorInfo);
+        } else {
+            throw new MedicalException("参数错误");
+        }
+        params.put("type", type);
+
+        if (type == DOCTOR_TREATMENT_START.getVal() || type == DOCTOR_TREATMENT_STOP.getVal()) {
+            remoteTreatmentService.updateTreatmentStartStatus(infoId, type == DOCTOR_TREATMENT_START.getVal() ? AppointmentStatus.STARTED.getVal() : AppointmentStatus.FINISHED.getVal());
+            courseService.updateCourseLiveStatus(type == DOCTOR_TREATMENT_START.getVal() ? "start" : "stop", courseService.selectById(courseId).getDirectId(), String.valueOf(HeaderInterceptor.getClientTypeCode()));
+        }
+        commonMessageService.pushAppMessage(new BaseMessage.Builder(MessageTypeEnum.SYSYTEM.getVal()).buildAppPushWithParams(null, params).build(targetUserId, RouteTypeEnum.NONE, null));
         return ResponseObject.newSuccessResponseObject(null);
     }
 
@@ -128,18 +171,4 @@ public class RemoteTreatmentAppointmentInfoController {
         }
         return ResponseObject.newSuccessResponseObject(null);
     }
-    
-    @RequestMapping(value = "applyTest", method = RequestMethod.GET)
-    public ResponseObject applyTest(@Account String accountId, @RequestParam int infoId, @RequestParam boolean status) throws Exception {
-        TreatmentAppointmentInfo treatmentAppointmentInfo = remoteTreatmentService.selectById(infoId);
-        remoteTreatmentService.updateStatus(treatmentAppointmentInfo.getTreatmentId(), status);
-        if (status) {
-            Integer courseId = courseService.createTherapyLive(infoId, HeaderInterceptor.getClientType().getCode(),
-            		accountId);
-            Course course = courseService.selectById(courseId);
-            medicalDoctorPostsService.addDoctorPosts(accountId, course.getId(), null, course.getGradeName(), course.getSubtitle(), course.getAppointmentInfoId());
-        }
-        return ResponseObject.newSuccessResponseObject(null);
-    }
-    
 }
