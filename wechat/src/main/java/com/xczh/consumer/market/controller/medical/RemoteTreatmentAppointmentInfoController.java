@@ -123,6 +123,9 @@ public class RemoteTreatmentAppointmentInfoController {
         if (status) {
             Integer courseId = courseService.createTherapyLive(infoId, HeaderInterceptor.getClientType().getCode(), accountId);
             remoteTreatmentService.updateTreatmentCourseId(treatmentAppointmentInfo.getTreatmentId(), courseId);
+            
+            com.xczhihui.bxg.online.common.domain.Course  course1 = new  com.xczhihui.bxg.online.common.domain.Course();
+            
             Course course = courseService.selectById(courseId);
             medicalDoctorPostsService.addDoctorPosts(accountId, course.getId(), null, course.getGradeName(), course.getSubtitle(), course.getAppointmentInfoId());
         }
