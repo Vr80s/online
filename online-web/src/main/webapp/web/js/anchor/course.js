@@ -803,14 +803,16 @@ function confirmCourseSale(state,courseApplyId,courseId,index){
         title="课程下架";
         content="确认下架该课程？";
     }
-    var startTime = launchUp.startTime;
-    startTime = startTime.replace(/-/g,"/");
-    var dateTime = new Date(startTime);
-    dateTime.setMinutes (dateTime.getMinutes () + 30);
-    var nowDate = new Date();
-    if(state == 1 && launchUp.courseForm==1&&launchUp.liveStatus==2&&dateTime<nowDate){
-    	showTip("该直播时间已经过期，无法上架,请修改再次操作上架。");
-    	return false;
+    if(launchUp.courseForm==1){
+    	var startTime = launchUp.startTime;
+	    startTime = startTime.replace(/-/g,"/");
+	    var dateTime = new Date(startTime);
+	    dateTime.setMinutes (dateTime.getMinutes () + 30);
+	    var nowDate = new Date();
+	    if(state == 1 && launchUp.courseForm==1&&launchUp.liveStatus==2&&dateTime<nowDate){
+	    	showTip("该直播时间已经过期，无法上架,请修改再次操作上架。");
+	    	return false;
+    	}
     }else{
     	confirmBox1(title,content,function(closefn){
 	        $.ajax({
@@ -832,6 +834,8 @@ function confirmCourseSale(state,courseApplyId,courseId,index){
 	        });
     	});
     }
+   
+
 
 }
 function confirmCollection(state,courseApplyId,courseId){

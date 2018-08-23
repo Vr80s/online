@@ -52,7 +52,7 @@
         <#if writing??>
             <div class="forum-detailInfo">
                 <div class="writing-buy-link">
-                    <div style="float: left;">
+                    <div class="wrap-form-img" style="float: left;">
                         <img src="${writing.imgPath}">
                     </div>
                     <div class="writing-author-info">
