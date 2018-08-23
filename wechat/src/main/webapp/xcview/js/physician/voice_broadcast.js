@@ -3,18 +3,18 @@ courseId = 814;
 var barrageData = [];
 var SixHide = 0;
 var cuurentDate = getNowFormatDate();
+var pageNumber = 1;
 $(function(){
 
-    //getcontentList();
+    //getcontentList(pageNumber);
 
 });
 
 //获取讨论内容列表
-function getcontentList() {
+function getcontentList(pageNumber) {
     requestGetService("/xczh/course/live/audio/courseLiveAudioContent/"+courseId,{
         courseId:courseId,
-        pageNumber:1,
-        endTime:cuurentDate
+        pageNumber:pageNumber
     },function (data) {
         if (data.success == true) {
             barrageData = data.resultObject.records;
@@ -76,27 +76,30 @@ function init(){
 // 發送內容后移除前面的內容
 function biubiubiu(){
     if(barrageData == ''){
-        return
-    }
-    for(var i=0;i<barrageData.length;i++){
-        if($(".msgCont .msgItem").length > 2){
-            $(".msgCont .msgItem").eq(0).remove()
-            var _tempText =  barrageData[i]; //出栈 最新的 后加入进来的弹幕
-            showList(_tempText)
-        }else{
-            var _tempText =  barrageData[i];
-            showList(_tempText)
-        }
-        if(barrageData.length == i+1){
-            cuurentDate = barrageData[i].createTime;
-            barrageData.length = 0;
-            getcontentList();
+        getcontentList(pageNumber);
+    } else {
+        for(var i=0;i<barrageData.length;i++){
+            if($(".msgCont .msgItem").length > 2){
+                $(".msgCont .msgItem").eq(0).remove()
+                var _tempText =  barrageData[i]; //出栈 最新的 后加入进来的弹幕
+                showList(_tempText)
+            }else{
+                var _tempText =  barrageData[i];
+                showList(_tempText)
+            }
+            if(barrageData.length == i+1){
+                cuurentDate = barrageData[i].createTime;
+                barrageData.length = 0;
+                pageNumber++
+                getcontentList(pageNumber);
 
+            }
         }
     }
-    if(barrageData.length <=0){
+
+    /*if(barrageData.length <=0){
         getcontentList();
-    }
+    }*/
 
 
 }

@@ -217,10 +217,12 @@
         oc.live_case as liveCase,
         oc.is_teaching teaching,
         oc.inav_id as inavId,
-        oc.appointment_info_id as appointmentInfoId
+        oc.appointment_info_id as appointmentInfoId,
+        mtai.name as  discipleName
         FROM
         oe_course as oc
         inner join course_anchor as ou on oc.user_lecturer_id = ou.user_id
+        left join medical_treatment_appointment_info mtai on oc.appointment_info_id = mtai.id
         where oc.id = #{courseId} and oc.is_delete=0
     </select>
 
