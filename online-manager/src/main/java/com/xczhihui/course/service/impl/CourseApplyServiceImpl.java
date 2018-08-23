@@ -615,7 +615,6 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements
     }
 
     void savecourseMessageReminding(Course course) {
-    	System.out.println(xcRedisCacheService);
         if (course.getType().equals(CourseForm.LIVE.getCode())) {
         	course.buildCourseMessage();
         	xcRedisCacheService.saveCourseMessageReminding(course.buildCourseMessage(), RedisCacheKey.LIVE_COURSE_REMIND_KEY);
