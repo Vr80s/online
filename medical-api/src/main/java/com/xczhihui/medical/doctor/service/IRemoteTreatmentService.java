@@ -167,7 +167,15 @@ public interface IRemoteTreatmentService {
      *
      * @param treatment treatment
      */
-    boolean markExpired(Treatment treatment);
+    boolean updateExpired(Treatment treatment);
 
     Treatment selectTreatmentById(int id);
+
+    /**
+     * 更新诊疗状态变更
+     *
+     * @param treatment treatment
+     * @param info info
+     */
+    void updateStatusChange(Treatment treatment, TreatmentAppointmentInfo info);
 }

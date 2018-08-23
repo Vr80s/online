@@ -42,6 +42,10 @@ public class RedisCacheKey {
 
     public static final String CHANNEL_ONLINE_KEY = "channel:online:key:";
 
+    public static final String USER_TREATMENT_STATUS_CNT_KEY = "user:treatment:cnt:";
+
+    public static final String DOCTOR_TREATMENT_STATUS_CNT_KEY = "doctor:treatment:cnt:";
+
     public static String getGiftCacheKey(String str) {
         return GIFT_CACHE__PREFIX + REDIS_SPLIT_CHAR + str;
     }

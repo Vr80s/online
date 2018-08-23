@@ -88,6 +88,12 @@ public class RemoteTreatmentAppointmentInfoController {
         return ResponseObject.newSuccessResponseObject(null);
     }
 
+    @RequestMapping(value = "list/delete", method = RequestMethod.POST)
+    public ResponseObject listDelete(@Account String accountId, @RequestParam int id) {
+        remoteTreatmentService.delete(id, accountId);
+        return ResponseObject.newSuccessResponseObject(null);
+    }
+
     @RequestMapping(value = "list", method = RequestMethod.GET)
     public ResponseObject doctorTreatment(@Account String accountId) {
         String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(accountId);
@@ -116,6 +122,7 @@ public class RemoteTreatmentAppointmentInfoController {
         remoteTreatmentService.updateStatus(treatmentAppointmentInfo.getTreatmentId(), status);
         if (status) {
             Integer courseId = courseService.createTherapyLive(infoId, HeaderInterceptor.getClientType().getCode(), accountId);
+            remoteTreatmentService.updateTreatmentCourseId(treatmentAppointmentInfo.getTreatmentId(), courseId);
             Course course = courseService.selectById(courseId);
             medicalDoctorPostsService.addDoctorPosts(accountId, course.getId(), null, course.getGradeName(), course.getSubtitle(), course.getAppointmentInfoId());
         }

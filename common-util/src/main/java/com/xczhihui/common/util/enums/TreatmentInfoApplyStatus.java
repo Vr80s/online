@@ -10,7 +10,7 @@ public enum TreatmentInfoApplyStatus {
     //待开始
     APPLY_PASSED(2),
     //审核不通过
-    APPLY_NOT_PASSED(3),
+    APPLY_NOT_PASSED(6),
     //已完成
     FINISHED(4),
     //已过期
