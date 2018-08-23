@@ -81,7 +81,8 @@ public interface RemoteTreatmentMapper extends BaseMapper<Treatment> {
      * @param infoId infoId
      * @return
      */
-    @Select({"select mtai.name, mtai.tel, mtai.question, mt.date as date, mt.start_time as startTime, mt.end_time as endTime" +
+    @Select({"select mtai.name, mtai.tel, mtai.question, mt.date as date, mt.start_time as startTime, mt.end_time as endTime," +
+            " mt.status as treatmentStatus, mtai.status as infoStatus, mt.course_id as courseId" +
             " from medical_treatment_appointment_info mtai left join medical_treatment mt on mt.info_id = mtai.id" +
             " where mtai.id = #{infoId}"})
     TreatmentVO findByInfoId(@Param("infoId") Integer infoId);
@@ -116,7 +117,7 @@ public interface RemoteTreatmentMapper extends BaseMapper<Treatment> {
      * @param userId userId
      * @return
      */
-    @Select({"select mtai.status, mt.date as date, mt.start_time as startTime, mt.end_time as endTime, doctor.name as nickname,doctor.`avatar` avatar, mtai.id, mt.course_id as courseId \n" +
+    @Select({"select mtai.status, mt.date as date, mt.start_time as startTime, mt.end_time as endTime, doctor.name as nickname,doctor.`avatar` avatar, mtai.id, mt.course_id as courseId, mtai.id as infoId \n" +
             "             from medical_treatment_appointment_info mtai\n" +
             "               join medical_treatment mt \n" +
             "                   on mtai.id = mt.info_id\n" +
@@ -131,7 +132,7 @@ public interface RemoteTreatmentMapper extends BaseMapper<Treatment> {
      * @param userId userId
      * @return
      */
-    @Select({"select mtai.status, mt.date as date, mt.start_time as startTime, mt.end_time as endTime, doctor.name as nickname,doctor.`avatar` avatar, mtai.id, mt.course_id as courseId \n" +
+    @Select({"select mtai.status, mt.date as date, mt.start_time as startTime, mt.end_time as endTime, doctor.name as nickname,doctor.`avatar` avatar, mtai.id, mt.course_id as courseId, mtai.id as infoId \n" +
             "             from medical_treatment_appointment_info mtai\n" +
             "               join medical_treatment mt \n" +
             "                   on mtai.id = mt.info_id\n" +

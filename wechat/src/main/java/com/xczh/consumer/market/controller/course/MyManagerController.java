@@ -1,11 +1,7 @@
 package com.xczh.consumer.market.controller.course;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -24,10 +20,12 @@ import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczhihui.common.support.service.CacheService;
 import com.xczhihui.common.util.XzStringUtils;
 import com.xczhihui.common.util.enums.ApplyStatus;
 import com.xczhihui.common.util.enums.OrderFrom;
 import com.xczhihui.common.util.enums.VCodeType;
+import com.xczhihui.common.util.redis.key.RedisCacheKey;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.course.service.IFocusService;
 import com.xczhihui.course.service.IMyInfoService;
@@ -36,7 +34,9 @@ import com.xczhihui.medical.anchor.service.IAnchorInfoService;
 import com.xczhihui.medical.anchor.service.ICourseApplyService;
 import com.xczhihui.medical.anchor.service.IUserBankService;
 import com.xczhihui.medical.anchor.vo.UserBank;
+import com.xczhihui.medical.doctor.model.MedicalDoctorApply;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorApplyService;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.online.api.service.EnchashmentService;
 import com.xczhihui.online.api.service.UserCoinService;
 import com.xczhihui.user.center.service.VerificationCodeService;
@@ -69,6 +69,8 @@ public class MyManagerController {
     private IMedicalDoctorApplyService medicalDoctorApplyService;
     @Autowired
     private VerificationCodeService verificationCodeService;
+    @Autowired
+    private IMedicalDoctorBusinessService medicalDoctorBusinessService;
     
     @Autowired
     private ICourseApplyService courseApplyService;
@@ -78,6 +80,8 @@ public class MyManagerController {
     private IFocusService focusServiceRemote;
     @Autowired
     private IAnchorInfoService anchorInfoService;
+    @Autowired
+    private CacheService cacheService;
     @Value("${rate}")
     private int rate;
 
@@ -121,8 +125,14 @@ public class MyManagerController {
             map.put("hostPermissions", hostPermissions);
             if (hostPermissions != null && hostPermissions == 1) {
                 //申请的医师信息
-                map.put("medicalDoctor", medicalDoctorApplyService.getLastOne(userId));
+                MedicalDoctorApply lastOne = medicalDoctorApplyService.getLastOne(userId);
+                map.put("medicalDoctor", lastOne);
+                String doctorIdByUserId = medicalDoctorBusinessService.getDoctorIdByUserId(userId);
+                if (doctorIdByUserId != null) {
+                    map.put("treatmentStatusChangeCnt", Optional.ofNullable(cacheService.smembers(RedisCacheKey.DOCTOR_TREATMENT_STATUS_CNT_KEY + doctorIdByUserId)).map(Set::size).orElse(0));
+                }
             }
+            map.put("appointmentStatusChangeCnt", Optional.ofNullable(cacheService.smembers(RedisCacheKey.USER_TREATMENT_STATUS_CNT_KEY + userId)).map(Set::size).orElse(0));
 
             map.put("tokenVaild", 1);
             //新增关注数和粉丝数的显示
