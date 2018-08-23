@@ -128,7 +128,7 @@ public class MessageRemindingServiceImpl implements MessageRemindingService {
         for (Course course : courseMessageRemindingList) {
             //之前的课程未提醒,需移除掉
             if (course.getStartTime() != null && today.after(course.getStartTime())) {
-            	messageRemindingService.deleteCourseMessageReminding(course, RedisCacheKey.OFFLINE_COURSE_REMIND_KEY);
+            	deleteCourseMessageReminding(course, RedisCacheKey.OFFLINE_COURSE_REMIND_KEY);
             } else {
                 //开始时间是明天
                 if (TimeUtil.isTomorrow(course.getStartTime())) {
@@ -174,7 +174,7 @@ public class MessageRemindingServiceImpl implements MessageRemindingService {
         for (Course course : courseMessageRemindingList) {
             List<Integer> dates = collectionCourseApplyUpdateDateDao.getUpdateDatesByCollectionId(course.getId());
             if (dates.isEmpty()) {
-            	messageRemindingService.deleteCourseMessageReminding(course, RedisCacheKey.COLLECTION_COURSE_REMIND_KEY);
+            	deleteCourseMessageReminding(course, RedisCacheKey.COLLECTION_COURSE_REMIND_KEY);
             } else if (dates.contains(day)) {
                 String courseName = course.getGradeName();
                 String address = course.getAddress();
@@ -214,7 +214,7 @@ public class MessageRemindingServiceImpl implements MessageRemindingService {
                 if (seconds <= (60 * 10 + 30)) {
                     long minute = (long) Math.ceil(seconds / 60.0);
                     if (minute <= 0) {
-                    	messageRemindingService.deleteCourseMessageReminding(course, RedisCacheKey.LIVE_COURSE_REMIND_KEY);
+                    	deleteCourseMessageReminding(course, RedisCacheKey.LIVE_COURSE_REMIND_KEY);
                         cacheService.delete(key);
                     } else {
                         //发送提醒
