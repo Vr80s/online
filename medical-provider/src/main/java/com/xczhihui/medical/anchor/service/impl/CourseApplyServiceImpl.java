@@ -384,6 +384,8 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         if(courseApplyInfo.getAppointmentInfoId()!=null) {
         	//更改审核信息
         	cai.setImgPath(courseApplyInfo.getImgPath());
+        	cai.setTitle(courseApplyInfo.getTitle());
+        	
         	courseApplyInfoMapper.updateById(cai);
         	//更改课程
         	courseApplyInfoMapper.updateCourse(courseApplyInfo);

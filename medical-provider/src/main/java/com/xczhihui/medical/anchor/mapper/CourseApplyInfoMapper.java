@@ -87,7 +87,7 @@ public interface CourseApplyInfoMapper extends BaseMapper<CourseApplyInfo> {
 	 * <p>Description: </p>  
 	 * @param cai  
 	 */ 
-    @Update("UPDATE `oe_course` oc SET oc.`smallimg_path` = #{cai.imgPath}" +
+    @Update("UPDATE `oe_course` oc SET oc.`smallimg_path` = #{cai.imgPath},oc.'title' = #{cai.title}  " +
             " WHERE oc.`apply_id` = #{cai.id} ")
-	void updateCourse(CourseApplyInfo cai);
+	void updateCourse(@Param("cai")CourseApplyInfo cai);
 }

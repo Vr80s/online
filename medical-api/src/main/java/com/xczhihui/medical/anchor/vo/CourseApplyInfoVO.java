@@ -167,6 +167,10 @@ public class CourseApplyInfoVO implements Serializable {
      */
     private String appointmentInfoId;
     
+    /**
+     * 诊疗直播状态
+     */
+    private Integer appointmentStatus;
 
     public Boolean getRecord() {
         return record;
@@ -520,6 +524,15 @@ public class CourseApplyInfoVO implements Serializable {
 
 	public void setAppointmentInfoId(String appointmentInfoId) {
 		this.appointmentInfoId = appointmentInfoId;
+	}
+
+	
+	public Integer getAppointmentStatus() {
+		return appointmentStatus;
+	}
+
+	public void setAppointmentStatus(Integer appointmentStatus) {
+		this.appointmentStatus = appointmentStatus;
 	}
 
 	@Override
