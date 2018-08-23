@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
@@ -121,7 +122,7 @@ public interface RemoteTreatmentMapper extends BaseMapper<Treatment> {
             "             from medical_treatment_appointment_info mtai\n" +
             "               join medical_treatment mt \n" +
             "                   on mtai.id = mt.info_id\n" +
-            "               join (select md.id, md.name, mdai.`head_portrait` as avatar from medical_doctor md join medical_doctor_authentication_information mdai on md.`authentication_information_id` = mdai.id) as doctor on doctor.id = mt.doctor_id\n" +
+            "               join (select md.id, md.name, mdai.`head_portrait` as avatar, md.title from medical_doctor md join medical_doctor_authentication_information mdai on md.`authentication_information_id` = mdai.id) as doctor on doctor.id = mt.doctor_id\n" +
             "            where mtai.user_id = #{userId} and mt.status != 5 and mtai.deleted is false and mt.deleted is false" +
             "            order by mt.date asc, mt.start_time asc"})
     List<TreatmentVO> selectUnExpiredByUserId(@Param("userId") String userId);
@@ -137,7 +138,7 @@ public interface RemoteTreatmentMapper extends BaseMapper<Treatment> {
             "               join medical_treatment mt \n" +
             "                   on mtai.id = mt.info_id\n" +
             "               join" +
-            "                    (select md.id, md.name, mdai.`head_portrait` as avatar from medical_doctor md join medical_doctor_authentication_information mdai" +
+            "                    (select md.id, md.name, mdai.`head_portrait` as avatar, md.title from medical_doctor md join medical_doctor_authentication_information mdai" +
             "                        on md.`authentication_information_id` = mdai.id) as doctor" +
             "                   on doctor.id = mt.doctor_id\n" +
             "            where mtai.user_id = #{userId} and mt.status = 5 and mtai.deleted is false and mt.deleted is false" +
@@ -146,4 +147,13 @@ public interface RemoteTreatmentMapper extends BaseMapper<Treatment> {
 
     @Select({"select * from medical_treatment where (status = 0 OR status = 1 OR status = 2) and date <= curdate() and deleted is false"})
     List<Treatment> selectUpcomingExpire();
+
+	/**  
+	 * <p>Title: 取消远程诊疗后，禁用这个课程</p>  
+	 * <p>Description: </p>  
+	 * @param infoId  
+	 */ 
+    @Update({" update oe_course set status = 0 where id = #{courseId} "})
+	void updateCourseStatus(@Param("courseId")Integer courseId);
+
 }

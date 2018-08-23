@@ -3036,3 +3036,47 @@ left: 0px;
     border-radius: 4px;
     cursor: pointer;
 }
+/*诊疗直播*/
+.curriculum_three em{
+	    color: #f40;
+    display: inline;
+}
+.curriculum_three .medical-left-title{
+	display: inline-block;
+    width: 89px;
+    text-align: right;
+    font-size: 14px;
+    color: #2A2A2A;
+    line-height: 19px;
+    margin-right: 35px;
+}
+.medical-edit-name{
+	margin-bottom: 20px;
+}
+.medical-edit-name input{
+	width: 280px;
+    height: 36px;
+    border: 1px solid #F0F0F0;
+    outline: none;
+    text-indent: 1em;
+    font-size: 14px;
+}
+.introduce-medical{
+	margin-top: 20px
+}    
+.medical-save{
+	margin: 20px 0 50px;
+	padding-left: 130px;
+}
+.medical-save button{
+	display: inline-block;
+    width: 120px;
+    height: 36px;
+    background: #00BC12;
+    border-radius: 4px;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-size: 14px;
+    margin-right: 20px;
+}

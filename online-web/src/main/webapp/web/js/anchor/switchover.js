@@ -17,7 +17,11 @@ $(function () {
         $(".curriculum_one").hide();
         $(".curriculum_two").show();
     });
-
+     $(".curriculum_three .button").click(function () {
+        $(".curriculum_three").hide();
+        $(".curriculum_two").show();
+    });
+	
     //点击学堂隐藏
     $(".school").click(function () {
         $(".account_main_alter").hide();

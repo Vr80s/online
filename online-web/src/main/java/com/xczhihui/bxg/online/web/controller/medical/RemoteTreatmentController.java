@@ -75,6 +75,7 @@ public class RemoteTreatmentController extends AbstractController {
         if (status) {
         	String userId = getUserId();
             Integer courseId = courseService.createTherapyLive(treatment.getInfoId(), ClientType.PC.getCode(), userId);
+            remoteTreatmentService.updateTreatmentCourseId(id, courseId);
             Course course = courseService.selectById(courseId);
             medicalDoctorPostsService.addDoctorPosts(userId, course.getId(), null, course.getGradeName(), 
             		course.getSubtitle(), course.getAppointmentInfoId());

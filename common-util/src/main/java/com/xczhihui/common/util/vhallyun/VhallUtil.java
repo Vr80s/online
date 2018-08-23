@@ -18,15 +18,15 @@ import com.xczhihui.common.util.vhallyun.result.VhallYunResult;
 public class VhallUtil {
 
     public static Properties pro = new Properties();
-//    static {
-//        try {
-//            InputStream in = EmailUtil.class.getResource("/config.properties").openStream();
-//            pro.load(in);
-//            in.close();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
+    static {
+        try {
+            InputStream in = EmailUtil.class.getResource("/config.properties").openStream();
+            pro.load(in);
+            in.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * 由微吼云颁发，可通过控制台->设置->应用信息中获取

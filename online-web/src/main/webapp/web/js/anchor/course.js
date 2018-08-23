@@ -141,6 +141,50 @@ function isNotBlank(str) {
             autoFloatEnabled:false,
             maximumWords:3000       //允许的最大字符数
         });
+//      诊疗直播
+		var ue_zl = UE.getEditor('editor-medical',{
+            toolbars:[['source', //源代码
+                'undo', //撤销
+                'redo', //重做
+                'bold', //加粗
+                'forecolor', //字体颜色
+                'backcolor', //背景色
+                'indent', //首行缩进
+                'removeformat',//清除格式
+                'formatmatch', //格式刷
+                'blockquote', //引用
+                'fontfamily', //字体
+                'fontsize', //字号
+                'paragraph', //段落格式
+                'italic', //斜体
+                'underline', //下划线
+                'strikethrough', //删除线
+                'superscript', //上标
+                'subscript', //下标
+                'touppercase', //字母大写
+                'tolowercase', //字母小写
+                'justifyleft', //居左对齐
+                'justifyright', //居右对齐
+                'justifycenter', //居中对齐
+                'justifyjustify',//两端对齐
+                'link', //超链接
+                'unlink', //取消链接
+                'simpleupload', //单图上传
+                // 'insertimage', //多图上传
+                'emotion', //表情
+                'lineheight', //行距
+                'fullscreen'
+            ] ],
+              initialFrameWidth: 540,
+        	initialFrameHeight:220,
+            elementPathEnabled:false,
+            autoHeightEnabled: false,
+            autoFloatEnabled: true,
+            enableAutoSave:false,
+            imagePopup:false,
+            autoFloatEnabled:false,
+            maximumWords:3000       //允许的最大字符数
+        });
     }
     
     
@@ -812,6 +856,26 @@ function confirmCourseSale(state,courseApplyId,courseId,index){
 	    if(state == 1 && launchUp.courseForm==1&&launchUp.liveStatus==2&&dateTime<nowDate){
 	    	showTip("该直播时间已经过期，无法上架,请修改再次操作上架。");
 	    	return false;
+    	}else{
+	    	confirmBox1(title,content,function(closefn){
+		        $.ajax({
+		            type: "post",
+		            url: bath + "/anchor/course/changeSaleState",
+		            data:"courseApplyId="+courseApplyId+"&courseId="+courseId+"&state="+state,
+		            async: false,
+		            success: function(data) {
+		                closefn();
+		                console.log(data);
+		                if(data.success == true) {
+		//
+		                    courseList(1);
+		                    showTip(data.resultObject);
+		                } else {
+		                    showTip(data.errorMessage);
+		                }
+		            }
+		        });
+	    	});
     	}
     }else{
     	confirmBox1(title,content,function(closefn){
@@ -833,11 +897,9 @@ function confirmCourseSale(state,courseApplyId,courseId,index){
 	            }
 	        });
     	});
-    }
-   
-
-
+    }   
 }
+
 function confirmCollection(state,courseApplyId,courseId){
     var title="专辑上架";
     var content="确认上架该专辑？";
@@ -1960,6 +2022,26 @@ $(function(){
         }
         reader.readAsDataURL(this.files[0])
     })
+//  诊疗直播
+	$('#medicalImgPath').on('change',function(){
+        //
+        if(this.files[0].size > 2097152){
+			showTip('上传图片不能大于2M')
+			return false;
+		}
+        if(!(this.files[0].type.indexOf('image')==0 && this.files[0].type && /\.(?:jpg|png|gif)$/.test(this.files[0].name))){
+    		showTip('图片格式不正确')
+			return false;
+    	}
+        var form = new FormData();
+        form.append("image", this.files[0]);
+        var reader=new FileReader();
+        reader.onload=function(e){
+            picUpdown(form,'medical-mg');
+        }
+        reader.readAsDataURL(this.files[0])
+    })
+//  头像
     $('#profilePhotoImgPath').on('change',function(){
         //
         if(this.files[0].size > 2097152){
@@ -2020,4 +2102,10 @@ function saveRecordSet(){
             showTip("操作失败");
         }
     })
+}
+//诊疗直播
+function editMedical(appointId,index){
+	var medical=launchData[index]
+	$(".curriculum_two").hide();
+	$(".curriculum_three").show();
 }

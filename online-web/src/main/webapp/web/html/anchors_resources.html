@@ -551,7 +551,7 @@
 								{{if item.type==5}}
 								<div class="save-class-wrap">
 									{{if item.courseStatus==true}}
-										{{if item.treatmentStatus == 4}}
+										{{if item.treatmentStatus == 5 || item.treatmentStatus == 6}}
 											<a href="javascript:;" onclick="lowerFramezhenliao()" style="width: 100%;">
 											{{else}}
 											<a href="/courses/{{item.courseId}}/info" style="width: 100%;" target="_blank">
