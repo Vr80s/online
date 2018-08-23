@@ -1,6 +1,7 @@
 package com.xczhihui.medical.doctor.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.medical.doctor.model.Treatment;
@@ -129,7 +130,7 @@ public interface IRemoteTreatmentService {
      * @param status status
      * @return
      */
-    int updateTreatmentStartStatus(int id, int status);
+    Map<String, Object> updateTreatmentStartStatus(int id, int status);
 
     /**
      * 分页获取医师远程诊疗

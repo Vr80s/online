@@ -266,9 +266,9 @@ public interface CourseMapper extends BaseMapper<Course> {
 	 * @return  
 	 */ 
     @Select({" select if(char_length(grade_name) > 2,substring(grade_name,char_length(grade_name)-1),00) as number  from oe_course "
-    		+ " where appointment_info_Id 	is not null and to_days(start_time) = to_days(now()) "
+    		+ " where appointment_info_Id 	is not null and to_days(start_time) = to_days(#{startTime}) "
     		+ " and user_lecturer_id  = #{userLecturerId}  order by number desc limit 0,1 "})
-    String selectDoctorCurrentDayTherapyNumber(@Param("userLecturerId")String userLecturerId);
+    String selectDoctorCurrentDayTherapyNumber(@Param("startTime")Date startTime,@Param("userLecturerId")String userLecturerId);
 
 	/**  
 	 * <p>Title: updateAppointmentInfoStatus</p>  

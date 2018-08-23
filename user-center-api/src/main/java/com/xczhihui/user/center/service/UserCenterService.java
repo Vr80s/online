@@ -111,4 +111,6 @@ public interface UserCenterService {
     Token fastLogin(String loginName, String token, TokenExpires day);
 
     List<Map<String, Object>> findByIds(List<String> ids);
+
+    Map<String, Object> findSimpleInfoByUserId(String id);
 }

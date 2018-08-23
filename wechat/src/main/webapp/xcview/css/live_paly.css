@@ -102,13 +102,16 @@ textarea::-webkit-input-placeholder {
 	text-align: center;
 	line-height: 0.56rem;
 	background: #DEDEDE;
-box-shadow: 0 0 12px 0 rgba(0,0,0,0.50);
-border-radius: 4px;
-position: absolute;
-left: 50%;
-top: 50%;
-margin-left: -0.88rem;
-margin-top: -0.28rem;
+	box-shadow: 0 0 12px 0 rgba(0,0,0,0.50);
+	border-radius: 4px;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-left: -0.88rem;
+	margin-top: -0.28rem;
+	background: rgba(0,0,0,0.80);
+box-shadow: 0 0 12px 0 rgba(0,0,0,0.60);
+color: #fff;
 }
 /*视频开播*/
 .video_prompt_open{

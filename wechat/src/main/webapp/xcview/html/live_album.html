@@ -14,7 +14,41 @@
 <link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
 <script src="/xcview/js/common/jquery-1.8.3.min.js"></script>
 <!--手机嵌入模板-->
-<script type="text/javascript" src="/xcview/js/common/layout.js"></script>
+<!-- <script type="text/javascript" src="/xcview/js/common/layout.js"></script> -->
+<!-- 为了处理点击观看横屏幕专辑时，代码响应，做了2套处理响应式代码，一套解决进当前页面不会出现先小到大的加载，一套解决横屏看视频返回时横屏代码 -->
+<script>
+		// 整体代码响应式处理
+	var kk=document.documentElement.clientWidth;
+	if(kk>750){
+		kk=750
+	}
+	document.documentElement.style.fontSize=kk/7.5+"px";
+
+</script>
+<script>
+    //loading and calc root font-size
+    (function (doc, win) {
+        var minWidth = 320, designWidth = 750;
+        if ("undefined" != typeof defaultHtmlWidth && !isNaN(defaultHtmlWidth)) {
+            designWidth = defaultHtmlWidth;
+        }
+        var docEle = doc.documentElement,
+            evt = "onorientationchange" in window ? "orientationchange" : "resize",
+            fn = function () {
+                var width = docEle.clientWidth;
+                width = width < minWidth ? minWidth : width;
+                width = width > designWidth ? designWidth : width;
+                if (designWidth > 0)
+                    docEle.style.fontSize = 100 * (width / designWidth) + "px";
+                setTimeout(function () {
+                    document.getElementById("pageLoading").style.display = "none";
+                }, 300);
+            };
+        win.addEventListener(evt, fn, false);
+        win.addEventListener("resize", fn, false);
+        doc.addEventListener("DOMContentLoaded", fn, false);
+    }(document, window));
+</script>
 
 <script>
 	//修改title
@@ -659,5 +693,7 @@ $.fn.toggle = function( fn, fn2 ) {
   }
 }; */
 </script> 
+
+
 
 

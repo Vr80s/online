@@ -1,10 +1,7 @@
 package com.xczhihui.user.center.service.impl;
 
 import java.math.BigDecimal;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -326,5 +323,15 @@ public class UserCenterServiceImpl implements UserCenterService {
     @Override
     public List<Map<String, Object>> findByIds(List<String> ids) {
         return oeUserMapper.findByIds(ids);
+    }
+
+    @Override
+    public Map<String, Object> findSimpleInfoByUserId(String id) {
+        OeUser oeUser = oeUserMapper.selectById(id);
+        Map<String, Object> info = new HashMap<>(3);
+        info.put("id", id);
+        info.put("name", oeUser.getName());
+        info.put("avatar", oeUser.getSmallHeadPhoto());
+        return info;
     }
 }
