@@ -35,7 +35,7 @@ $(function(){
     course_id = courseId;
 	//传ID courseId为接口的课程ID
 	requestService("/xczh/course/liveDetails",{
-		courseId : courseId	
+		courseId : courseId
 	},function(data) {
 			//分享的信息展示
 		gradeName = data.resultObject.gradeName;

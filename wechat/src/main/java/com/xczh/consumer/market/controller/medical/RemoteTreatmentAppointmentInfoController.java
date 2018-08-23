@@ -127,7 +127,6 @@ public class RemoteTreatmentAppointmentInfoController {
         TreatmentAppointmentInfo treatmentAppointmentInfo = remoteTreatmentService.selectById(infoId);
         remoteTreatmentService.updateStatus(treatmentAppointmentInfo.getTreatmentId(), status);
         if (status) {
-        	 System.out.println(status==true);
             Integer courseId = courseService.createTherapyLive(infoId, HeaderInterceptor.getClientType().getCode(),
             		accountId);
             Course course = courseService.selectById(courseId);
