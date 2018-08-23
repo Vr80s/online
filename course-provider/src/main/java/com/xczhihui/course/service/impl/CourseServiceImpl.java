@@ -541,19 +541,14 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         if (course != null) {
             switch (event) {
                 case START_EVENT:
-                    startOrEnd = "start_time";
                     course.setLiveStatus(1);
                     type = VhallCustomMessageType.LIVE_START.getCode();
                     // -- 》app端发起的直播
                     if(MultiUrlHelper.URL_TYPE_APP.equals(clientType)) {
                     	course.setLiveSourceType(true);
                     }
-                    //直播状况
-                    course.setLiveCase(LiveCaseType.NORMAL_LIVE.getCode());
-                    
                     break;
                 case STOP_EVENT:
-                    startOrEnd = "end_time";
                     course.setLiveStatus(3);
                     type = VhallCustomMessageType.LIVE_END.getCode();
                     Date startTime = course.getStartTime();
@@ -574,19 +569,6 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
             iCourseMapper.updateById(course);
             // 发送直播开始通知广播
             liveStatusUpdateNotice(course.getChannelId(), type);
-
-            if (StringUtils.isNotBlank(startOrEnd)) {
-                Integer maxRecord = iCourseMapper.maxRecordCount(course.getDirectId());
-                maxRecord = maxRecord == null ? 1 : maxRecord + 1;
-                Date startTime = null;
-                Date endTime = null;
-                if (event.equals(LiveStatusEvent.START.getName())) {
-                    startTime = new Date();
-                } else if (event.equals(LiveStatusEvent.STOP.getName())) {
-                    endTime = new Date();
-                }
-                iCourseMapper.insertRecordLiveTime(startTime, endTime, course.getId(), course.getDirectId(), maxRecord);
-            }
             return course.getId();
         }
         return null;

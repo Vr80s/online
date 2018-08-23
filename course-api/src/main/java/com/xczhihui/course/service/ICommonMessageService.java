@@ -75,8 +75,14 @@ public interface ICommonMessageService {
 
     /**
      * 解除用户id与信鸽id的关系
-     * @param userId id
+     *
+     * @param userId      id
      * @param xgAccountId xgAccountId
      */
     void unBindXgAccountId(String userId, String xgAccountId);
+
+    /**
+     * @param baseMessage baseMessage
+     */
+    void pushAppMessage(BaseMessage baseMessage);
 }

@@ -169,7 +169,8 @@ public class CommonMessageServiceImpl implements ICommonMessageService {
         }
     }
 
-    private void pushAppMessage(BaseMessage baseMessage) {
+    @Override
+    public void pushAppMessage(BaseMessage baseMessage) {
         SubMessage appPushMessage = baseMessage.getAppPushMessage();
         String userId = baseMessage.getUserId();
         String detailId = baseMessage.getDetailId();
@@ -193,9 +194,15 @@ public class CommonMessageServiceImpl implements ICommonMessageService {
         if (StringUtils.isBlank(url)) {
             url = MultiUrlHelper.getUrl(RouteTypeEnum.MESSAGE_LIST.name(), MultiUrlHelper.URL_TYPE_APP, null, null);
         }
-        Map<String, Object> customParams = new HashMap<>(1);
+        Map<String, Object> customParams = baseMessage.getAppPushMessage().getCustomParams();
+        if (customParams == null) {
+            customParams = new HashMap<>(2);
+        }
         customParams.put("url", url);
-
+        //默认显示
+        if (!customParams.containsKey("show")) {
+            customParams.put("show", true);
+        }
 
         int firstIndex = 0;
         int endIndex = V2_LIMIT > xgAccountIds.size() ? xgAccountIds.size() : V2_LIMIT;

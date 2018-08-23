@@ -104,4 +104,9 @@ public interface MedicalDoctorMapper extends BaseMapper<MedicalDoctor> {
 
     List<MedicalDoctorVO> selectHotInBatch(@Param("page")Page<MedicalDoctorVO> page);
 
+    @Select({"select mda.account_id as id, mdai.head_portrait avatar, md.name\n" +
+            "             FROM medical_doctor md join medical_doctor_account mda on md.`id` = mda.`doctor_id`\n" +
+            "             LEFT JOIN `medical_doctor_authentication_information` mdai\n" +
+            "             on md.`authentication_information_id` = mdai.`id` where md.id = #{doctorId}"})
+    Map<String, Object> selectUserByDoctorId(@Param("doctorId") String doctorId);
 }

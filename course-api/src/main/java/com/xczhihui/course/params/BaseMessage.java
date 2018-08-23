@@ -114,6 +114,16 @@ public class BaseMessage implements Serializable {
             return this;
         }
 
+        public Builder buildAppPushWithParams(String content, Map<String, Object> customParams) {
+            if (content == null) {
+                content = "用户APP与服务端的通信交互，APP不展示";
+            }
+            SubMessage subMessage = new SubMessage(content);
+            subMessage.setCustomParams(customParams);
+            this.baseMessage.appPushMessage = subMessage;
+            return this;
+        }
+
 //
 //        public Builder buildApp(String content) {
 //            this.baseMessage.setAppMessage(new SubMessage(content));
