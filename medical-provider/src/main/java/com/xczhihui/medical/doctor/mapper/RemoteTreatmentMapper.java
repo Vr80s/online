@@ -121,7 +121,7 @@ public interface RemoteTreatmentMapper extends BaseMapper<Treatment> {
             "             from medical_treatment_appointment_info mtai\n" +
             "               join medical_treatment mt \n" +
             "                   on mtai.id = mt.info_id\n" +
-            "               join (select md.id, md.name, mdai.`head_portrait` as avatar from medical_doctor md join medical_doctor_authentication_information mdai on md.`authentication_information_id` = mdai.id) as doctor on doctor.id = mt.doctor_id\n" +
+            "               join (select md.id, md.name, mdai.`head_portrait` as avatar, md.title from medical_doctor md join medical_doctor_authentication_information mdai on md.`authentication_information_id` = mdai.id) as doctor on doctor.id = mt.doctor_id\n" +
             "            where mtai.user_id = #{userId} and mt.status != 5 and mtai.deleted is false and mt.deleted is false" +
             "            order by mt.date asc, mt.start_time asc"})
     List<TreatmentVO> selectUnExpiredByUserId(@Param("userId") String userId);
@@ -137,7 +137,7 @@ public interface RemoteTreatmentMapper extends BaseMapper<Treatment> {
             "               join medical_treatment mt \n" +
             "                   on mtai.id = mt.info_id\n" +
             "               join" +
-            "                    (select md.id, md.name, mdai.`head_portrait` as avatar from medical_doctor md join medical_doctor_authentication_information mdai" +
+            "                    (select md.id, md.name, mdai.`head_portrait` as avatar, md.title from medical_doctor md join medical_doctor_authentication_information mdai" +
             "                        on md.`authentication_information_id` = mdai.id) as doctor" +
             "                   on doctor.id = mt.doctor_id\n" +
             "            where mtai.user_id = #{userId} and mt.status = 5 and mtai.deleted is false and mt.deleted is false" +

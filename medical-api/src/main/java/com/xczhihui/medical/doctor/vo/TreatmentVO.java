@@ -63,6 +63,8 @@ public class TreatmentVO implements Serializable {
 
     private Date sysDate = new Date();
 
+    private String title;
+
     @Override
     public String toString() {
         return "TreatmentVO{" +
@@ -266,5 +268,13 @@ public class TreatmentVO implements Serializable {
 
     public void setInfoStatus(Integer infoStatus) {
         this.infoStatus = infoStatus;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }
