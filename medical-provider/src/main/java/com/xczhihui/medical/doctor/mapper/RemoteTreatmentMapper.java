@@ -132,7 +132,7 @@ public interface RemoteTreatmentMapper extends BaseMapper<Treatment> {
      * @param page   page
      * @return
      */
-    @Select({"(select mtai.status, mtai.date as date, mtai.start_time as startTime, mtai.end_time as endTime, doctor.name as nickname,doctor.`avatar` avatar, mtai.id, mt.course_id as courseId, mtai.id as infoId\n" +
+    @Select({"(select mtai.status, mtai.date as date, mtai.start_time as startTime, mtai.end_time as endTime, doctor.name as nickname,doctor.`avatar` avatar, doctor.title as title, mtai.id, mt.course_id as courseId, mtai.id as infoId\n" +
             "                        from medical_treatment_appointment_info mtai\n" +
             "                           join medical_treatment mt \n" +
             "                               on mtai.treatment_id = mt.id\n" +
@@ -140,7 +140,7 @@ public interface RemoteTreatmentMapper extends BaseMapper<Treatment> {
             "                        where  mtai.user_id = #{userId} and mtai.status = 2 and mtai.deleted is false \n" +
             "                        order by mtai.date asc, mtai.start_time asc)\n" +
             "             union all\n" +
-            "         ( select mtai.status, mtai.date as date, mtai.start_time as startTime, mtai.end_time as endTime, doctor.name as nickname,doctor.`avatar` avatar, mtai.id, mt.course_id as courseId, mtai.id as infoId\n" +
+            "         ( select mtai.status, mtai.date as date, mtai.start_time as startTime, mtai.end_time as endTime, doctor.name as nickname,doctor.`avatar` avatar, doctor.title as title,mtai.id, mt.course_id as courseId, mtai.id as infoId\n" +
             "                        from medical_treatment_appointment_info mtai\n" +
             "                           join medical_treatment mt \n" +
             "                               on mtai.treatment_id = mt.id\n" +
@@ -149,7 +149,7 @@ public interface RemoteTreatmentMapper extends BaseMapper<Treatment> {
             "                        order by mtai.date asc, mtai.start_time asc\n" +
             "         ) \n" +
             "         union all (\n" +
-            "         \t select mtai.status, mtai.date as date, mtai.start_time as startTime, mtai.end_time as endTime, doctor.name as nickname,doctor.`avatar` avatar, mtai.id, mt.course_id as courseId, mtai.id as infoId\n" +
+            "         \t select mtai.status, mtai.date as date, mtai.start_time as startTime, mtai.end_time as endTime, doctor.name as nickname,doctor.`avatar` avatar, doctor.title as title,mtai.id, mt.course_id as courseId, mtai.id as infoId\n" +
             "                        from medical_treatment_appointment_info mtai\n" +
             "                           join medical_treatment mt \n" +
             "                               on mtai.treatment_id = mt.id\n" +
@@ -158,7 +158,7 @@ public interface RemoteTreatmentMapper extends BaseMapper<Treatment> {
             "                        order by mtai.date asc, mtai.start_time asc\n" +
             "         )\n" +
             "         union all (\n" +
-            "         \t select mtai.status, mtai.date as date, mtai.start_time as startTime, mtai.end_time as endTime, doctor.name as nickname,doctor.`avatar` avatar, mtai.id, mt.course_id as courseId, mtai.id as infoId\n" +
+            "         \t select mtai.status, mtai.date as date, mtai.start_time as startTime, mtai.end_time as endTime, doctor.name as nickname,doctor.`avatar` avatar,doctor.title as title, mtai.id, mt.course_id as courseId, mtai.id as infoId\n" +
             "                        from medical_treatment_appointment_info mtai\n" +
             "                           join medical_treatment mt \n" +
             "                               on mtai.treatment_id = mt.id\n" +
@@ -167,7 +167,7 @@ public interface RemoteTreatmentMapper extends BaseMapper<Treatment> {
             "                        order by mtai.date desc, mtai.start_time desc\n" +
             "         )\n" +
             "         union all (\n" +
-            "         \t select mtai.status, mtai.date as date, mtai.start_time as startTime, mtai.end_time as endTime, doctor.name as nickname,doctor.`avatar` avatar, mtai.id, mt.course_id as courseId, mtai.id as infoId\n" +
+            "         \t select mtai.status, mtai.date as date, mtai.start_time as startTime, mtai.end_time as endTime, doctor.name as nickname,doctor.`avatar` avatar, doctor.title as title, mtai.id, mt.course_id as courseId, mtai.id as infoId\n" +
             "                        from medical_treatment_appointment_info mtai\n" +
             "                           join medical_treatment mt \n" +
             "                               on mtai.treatment_id = mt.id\n" +
