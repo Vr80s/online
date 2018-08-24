@@ -1,12 +1,10 @@
 package com.xczhihui.medical.doctor.service.impl;
 
-
 import static com.xczhihui.common.util.enums.TreatmentInfoApplyStatus.APPLY_PASSED;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -293,7 +291,7 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
             Calendar nowTime = Calendar.getInstance();
             nowTime.add(Calendar.MINUTE, 10);//10分钟后的时间
             Date newDate = nowTime.getTime();
-            if (startDate.getTime() <= newDate.getTime()) {
+            if (startDate.getTime() <= newDate.getTime() && treatmentVO.getStatus() == 2) {
                 treatmentVO.setStart(true);
             } else {
                 treatmentVO.setStart(false);
@@ -391,67 +389,52 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
     }
 
     @Override
-    public List<TreatmentVO> listByDoctorId(String doctorId) {
+    public List<TreatmentVO> listByDoctorId(String doctorId, int page, int size) {
         List<TreatmentVO> results = new ArrayList<>();
-        List<TreatmentVO> expiredAndFinishedTreatments = remoteTreatmentMapper.selectExpiredAndFinishedByDoctorId(doctorId);
-        List<TreatmentVO> unExpiredAndUnFinishedTreatments = remoteTreatmentMapper.selectUnExpiredAndUnFinishedByDoctorId(doctorId);
 
-        results.addAll(unExpiredAndUnFinishedTreatments.stream()
-                .filter(treatmentVO -> treatmentVO.getStatus() == AppointmentStatus.WAIT_START.getVal() && isCanStartLive(getTreatmentTime(treatmentVO.getDate(), treatmentVO.getStartTime())))
-                .collect(Collectors.toList()));
-        results.addAll(unExpiredAndUnFinishedTreatments.stream()
-                .filter(treatmentVO -> treatmentVO.getStatus() == AppointmentStatus.STARTED.getVal())
-                .collect(Collectors.toList()));
-        results.addAll((unExpiredAndUnFinishedTreatments.stream()
-                .filter(treatmentVO -> treatmentVO.getStatus() == AppointmentStatus.WAIT_START.getVal() && !isCanStartLive(getTreatmentTime(treatmentVO.getDate(), treatmentVO.getStartTime())))
-                .collect(Collectors.toList())));
-        results.addAll(unExpiredAndUnFinishedTreatments.stream()
-                .filter(treatmentVO -> treatmentVO.getStatus() == AppointmentStatus.WAIT_APPLY.getVal())
-                .collect(Collectors.toList()));
+        List<TreatmentVO> treatmentVOS = remoteTreatmentMapper.selectTreatmentByDoctorId(doctorId, new Page<>(page, size));
 
-        results.addAll(expiredAndFinishedTreatments.stream()
-                .filter(treatmentVO -> treatmentVO.getStatus() == AppointmentStatus.EXPIRED.getVal())
-                .collect(Collectors.toList()));
-        results.addAll(expiredAndFinishedTreatments.stream()
-                .filter(treatmentVO -> treatmentVO.getStatus() == AppointmentStatus.FINISHED.getVal())
-                .collect(Collectors.toList()));
+        Iterator<TreatmentVO> iterator = treatmentVOS.iterator();
+        while (iterator.hasNext()) {
+            TreatmentVO treatmentVO = iterator.next();
+            if (treatmentVO.getStatus() == AppointmentStatus.WAIT_START.getVal() && isCanStartLive(getTreatmentTime(treatmentVO.getDate(), treatmentVO.getStartTime()))) {
+                treatmentVO.setStart(true);
+                results.add(treatmentVO);
+                iterator.remove();
+            }
+        }
+        results.addAll(treatmentVOS);
         results.forEach(treatmentVO -> {
             treatmentVO.setTreatmentTime(getTreatmentTime(treatmentVO.getDate(), treatmentVO.getStartTime()));
             handleDate(treatmentVO);
         });
-        cacheService.delete(RedisCacheKey.DOCTOR_TREATMENT_STATUS_CNT_KEY + doctorId);
+        if (page == 1) {
+            cacheService.delete(RedisCacheKey.DOCTOR_TREATMENT_STATUS_CNT_KEY + doctorId);
+        }
         return results;
     }
 
     @Override
-    public List<TreatmentVO> listByUserId(String userId) {
+    public List<TreatmentVO> listByUserId(String userId, int page, int size) {
         List<TreatmentVO> results = new ArrayList<>();
-        List<TreatmentVO> unExpiredAndUnFinishedAppointmentInfoVOS = remoteTreatmentMapper.selectUnExpiredAndUnFinishedByUserId(userId);
-        results.addAll(unExpiredAndUnFinishedAppointmentInfoVOS.stream()
-                .filter(treatmentVO -> (treatmentVO.getStatus() == APPLY_PASSED.getVal() && isCanStartLive(getTreatmentTime(treatmentVO.getDate(), treatmentVO.getStartTime()))))
-                .collect(Collectors.toList()));
-        results.addAll(unExpiredAndUnFinishedAppointmentInfoVOS.stream()
-                .filter(treatmentVO -> (treatmentVO.getStatus() == APPLY_PASSED.getVal() && !isCanStartLive(getTreatmentTime(treatmentVO.getDate(), treatmentVO.getStartTime()))))
-                .collect(Collectors.toList()));
-        results.addAll(unExpiredAndUnFinishedAppointmentInfoVOS.stream()
-                .filter(treatmentVO -> treatmentVO.getStatus() == TreatmentInfoApplyStatus.APPLY_NOT_PASSED.getVal())
-                .collect(Collectors.toList()));
-        results.addAll(unExpiredAndUnFinishedAppointmentInfoVOS.stream()
-                .filter(treatmentVO -> treatmentVO.getStatus() == TreatmentInfoApplyStatus.WAIT_DOCTOR_APPLY.getVal())
-                .collect(Collectors.toList()));
-
-        List<TreatmentVO> expiredAndFinishedTreatmentVOS = remoteTreatmentMapper.selectExpiredAndFinishedByUserId(userId);
-        results.addAll(expiredAndFinishedTreatmentVOS.stream()
-                .filter(treatmentVO -> treatmentVO.getStatus() == TreatmentInfoApplyStatus.EXPIRED.getVal())
-                .collect(Collectors.toList()));
-        results.addAll(expiredAndFinishedTreatmentVOS.stream().filter(treatmentVO -> treatmentVO.getStatus() == TreatmentInfoApplyStatus.FINISHED.getVal())
-                .collect(Collectors.toList()));
-
+        List<TreatmentVO> treatmentVOS = remoteTreatmentMapper.selectTreatmentByUserId(userId, new Page<>(page, size));
+        Iterator<TreatmentVO> iterator = treatmentVOS.iterator();
+        while (iterator.hasNext()) {
+            TreatmentVO treatmentVO = iterator.next();
+            if (treatmentVO.getStatus() == APPLY_PASSED.getVal() && isCanStartLive(getTreatmentTime(treatmentVO.getDate(), treatmentVO.getStartTime()))) {
+                treatmentVO.setStart(true);
+                results.add(treatmentVO);
+                iterator.remove();
+            }
+        }
+        results.addAll(treatmentVOS);
         results.forEach(treatmentVO -> {
             treatmentVO.setTreatmentTime(getTreatmentTime(treatmentVO.getDate(), treatmentVO.getStartTime()));
             handleDate(treatmentVO);
         });
-        cacheService.delete(RedisCacheKey.USER_TREATMENT_STATUS_CNT_KEY + userId);
+        if (page == 1) {
+            cacheService.delete(RedisCacheKey.USER_TREATMENT_STATUS_CNT_KEY + userId);
+        }
         return results;
     }
 

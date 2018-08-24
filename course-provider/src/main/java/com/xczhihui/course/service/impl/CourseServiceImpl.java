@@ -25,6 +25,7 @@ import com.xczhihui.common.util.DateUtil;
 import com.xczhihui.common.util.EmailUtil;
 import com.xczhihui.common.util.SmsUtil;
 import com.xczhihui.common.util.XzStringUtils;
+import com.xczhihui.common.util.bean.MinuteTaskMessageVo;
 import com.xczhihui.common.util.enums.CourseForm;
 import com.xczhihui.common.util.enums.CourseType;
 import com.xczhihui.common.util.enums.LiveCaseType;
@@ -89,8 +90,6 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     @Value("${weixin.course.remind.code}")
     private String weixinTemplateMessageRemindCode;
     
-    @Autowired
-    private ICommonMessageService commonMessageService;
     @Autowired
     private CacheService cacheService;
 
@@ -243,8 +242,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
                     cv.setWatchState(2);
                 }
                 //如果是付费课程，如果不是专辑的话，那么就查看是否属于其中一个专辑。
-                if(CourseType.VIDEO.getId() == cv.getType()
-                		|| CourseType.AUDIO.getId() == cv.getType()) {
+                if(CourseType.VIDEO.getId() == cv.getType() || CourseType.AUDIO.getId() == cv.getType()) {
                 	Map<String,Object> collectionHint = iCourseMapper.selectTheirCollection(courseId);
                 	
                 	cv.setCollectionHint(collectionHint);
@@ -623,7 +621,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Lock(lockName = "createTherapyLive", waitTime = 5, effectiveTime = 8)
-	public Integer createTherapyLive(Integer lockId,Integer clientType,String accountId1) throws Exception {
+	public Integer createTherapyLive(Integer lockId,Integer clientType,String accountId) throws Exception {
 		
     	//查看诊疗必要信息
 		CourseLecturVo cv = iCourseMapper.selectTherapyLiveInfo(lockId);
@@ -692,8 +690,23 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         /**
          * redis 缓存中增加数据，开播10分钟提醒。
          */
-    	
-
+        MinuteTaskMessageVo mtv = new MinuteTaskMessageVo();
+        mtv.setDoctorName(cv.getDoctorName());
+        mtv.setDoctorUserId(cv.getUserLecturerId());
+        mtv.setUserId(accountId);
+        mtv.setStartTime(cv.getStartTime());
+        mtv.setEndTime(cv.getEndTime());
+        
+        mtv.setMessageType(RedisCacheKey.TREATMENT_MINUTE_TYPE);
+        mtv.setTypeUnique(course.getId()+"");
+        
+        //存放redis
+        cacheService.set(RedisCacheKey.COMMON_MINUTE_REMIND_KEY +
+									RedisCacheKey.REDIS_SPLIT_CHAR +
+						RedisCacheKey.TREATMENT_MINUTE_TYPE +
+									RedisCacheKey.REDIS_SPLIT_CHAR + 
+						course.getId(), mtv);
+        
         return course.getId();
 	}
 
@@ -709,7 +722,12 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         cacheService.delete(RedisCacheKey.COLLECTION_COURSE_REMIND_KEY + RedisCacheKey.REDIS_SPLIT_CHAR + courseId);
     }
 
-	
+    @Override
+    public List<Course> listLiving() {
+        return iCourseMapper.selectLivingCourse();
+    }
+
+
 	/**  
 	 * <p>Title: createTherapyGradeName</p>  
 	 * <p>Description: </p>  

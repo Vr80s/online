@@ -34,6 +34,8 @@ public class UserDao extends HibernateDao<User> {
      * @return
      */
     public int deleteUserRolesByUserId(String userId) {
+    	
+    	
         String sql = "DELETE FROM user_role WHERE user_id=?";
         return this.getNamedParameterJdbcTemplate().getJdbcOperations()
                 .update(sql, userId);

@@ -228,6 +228,7 @@
         `course_apply_info` cai
         WHERE cai.`collection` = 0
         AND cai.`is_delete` = 0
+        AND cai.course_form = 2
         AND cai.`user_id` = #{userId}
         AND cai.`multimedia_type` =#{multimediaType}
     </select>
