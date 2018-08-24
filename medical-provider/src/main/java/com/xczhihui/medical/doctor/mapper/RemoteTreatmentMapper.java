@@ -85,7 +85,7 @@ public interface RemoteTreatmentMapper extends BaseMapper<Treatment> {
      * @param infoId infoId
      * @return
      */
-    @Select({"select mtai.name, mtai.tel, mtai.question, mt.date as date, mt.start_time as startTime, mt.end_time as endTime," +
+    @Select({"select mtai.name, mtai.tel, mtai.question, mtai.date as date, mtai.start_time as startTime, mtai.end_time as endTime," +
             " mt.status as treatmentStatus, mtai.status, mtai.status as infoStatus, mt.course_id as courseId" +
             " from medical_treatment_appointment_info mtai left join medical_treatment mt on mt.info_id = mtai.id" +
             " where mtai.id = #{infoId}"})
@@ -97,7 +97,7 @@ public interface RemoteTreatmentMapper extends BaseMapper<Treatment> {
      * @param doctorId doctorId
      * @return
      */
-    @Select({"select mt.status, mt.date as date, mt.start_time as startTime, mt.end_time as endTime, ou.name as nickname,ou.`small_head_photo` avatar, mt.id, mt.id, mt.info_id as infoId " +
+    @Select({"select mt.status, mt.date as date, mt.start_time as startTime, mt.end_time as endTime, ou.name as nickname,ou.`small_head_photo` avatar, mt.id, mt.info_id as infoId " +
             " from medical_treatment_appointment_info mtai join medical_treatment mt on mtai.id = mt.info_id join oe_user ou on mtai.user_id = ou.id" +
             " where mt.doctor_id = #{doctorId} and (mt.status = 5 OR mt.status = 4) and mtai.deleted is false and mt.deleted is false" +
             " order by mt.date asc, mt.start_time asc"})
@@ -121,7 +121,7 @@ public interface RemoteTreatmentMapper extends BaseMapper<Treatment> {
      * @param userId userId
      * @return
      */
-    @Select({"select mtai.status, mt.date as date, mt.start_time as startTime, mt.end_time as endTime, doctor.name as nickname,doctor.`avatar` avatar, mtai.id, mt.course_id as courseId, mtai.id as infoId \n" +
+    @Select({"select mtai.status, mtai.date as date, mtai.start_time as startTime, mtai.end_time as endTime, doctor.name as nickname,doctor.`avatar` avatar, mtai.id, mt.course_id as courseId, mtai.id as infoId \n" +
             "             from medical_treatment_appointment_info mtai\n" +
             "               join medical_treatment mt \n" +
             "                   on mtai.treatment_id = mt.id\n" +
@@ -136,7 +136,7 @@ public interface RemoteTreatmentMapper extends BaseMapper<Treatment> {
      * @param userId userId
      * @return
      */
-    @Select({"select mtai.status, mt.date as date, mt.start_time as startTime, mt.end_time as endTime, doctor.name as nickname,doctor.`avatar` avatar, mtai.id, mt.course_id as courseId, mtai.id as infoId \n" +
+    @Select({"select mtai.status, mtai.date as date, mtai.start_time as startTime, mtai.end_time as endTime, doctor.name as nickname,doctor.`avatar` avatar, mtai.id, mt.course_id as courseId, mtai.id as infoId \n" +
             "             from medical_treatment_appointment_info mtai\n" +
             "               join medical_treatment mt \n" +
             "                   on mtai.treatment_id = mt.id\n" +
@@ -157,6 +157,6 @@ public interface RemoteTreatmentMapper extends BaseMapper<Treatment> {
 	 * @param courseId
 	 */ 
     @Update({" update oe_course set status = 0 where id = #{courseId} "})
-	void updateCourseStatus(@Param("courseId")Integer courseId);
+	void updateCourseStatusForDisable(@Param("courseId")Integer courseId);
 
 }

@@ -185,14 +185,14 @@
 						{{if item.type == 1}}
 							<li onclick="location.href='/xcview/html/physician/physicians_page.html?doctor={{item.doctorId}}'">
 								<div class="img_people">
-									<img src="{{item.smallHeadPhoto}}?imageView2/2/w/100" onerror="nofind();"  />
+									<img src="{{item.smallHeadPhoto}}?imageMogr2/thumbnail/!100x100r|imageMogr2/gravity/Center/crop/100x100" onerror="nofind();"  />
 								</div>
 								<p>{{item.name}}</p>
 							</li>
 						{{else if item.type == 2}}
 							<li onclick="location.href='live_personal.html?userLecturerId={{item.userId}}'">
 								<div class="img_people">
-									<img src="{{item.smallHeadPhoto}}?imageView2/2/w/100" onerror="nofind();"  />
+									<img src="{{item.smallHeadPhoto}}" onerror="nofind();"  />
 								</div>
 								<p>{{item.name}}</p>
 							</li>

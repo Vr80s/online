@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * @author hejiwei
@@ -39,6 +40,17 @@ public class TreatmentAppointmentInfo implements Serializable {
     private Integer status;
 
     private Boolean deleted;
+
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    private Date date;
+
+    @TableField(value = "start_time")
+    @JsonFormat(pattern = "HH:mm", timezone = "GMT+8")
+    private Date startTime;
+
+    @TableField(value = "end_time")
+    @JsonFormat(pattern = "HH:mm", timezone = "GMT+8")
+    private Date endTime;
 
     public Integer getId() {
         return id;
@@ -118,5 +130,29 @@ public class TreatmentAppointmentInfo implements Serializable {
 
     public void setDeleted(Boolean deleted) {
         this.deleted = deleted;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public Date getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
+    }
+
+    public Date getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
     }
 }

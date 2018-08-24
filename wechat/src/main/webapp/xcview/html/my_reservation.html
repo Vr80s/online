@@ -37,10 +37,12 @@
 	}	
 </script>
 <style>
-
+	body{
+		background:#f0f0f0;
+	}
 </style>
 </head>
-<body style="background:#f0f0f0;">
+<body style="">
 	<!-- 头部开始 -->
 	<header>
 		<div class="header">
@@ -74,11 +76,11 @@
 					{{/if}}
 					
 					<div class="subject">
-						<div class="head_portrait">
-							<img src="{{item.avatar}}" alt="">
+						<div class="head_portrait" data-id="{{item.id}}" onclick="orders('{{item.id}}')">
+							<img src="{{item.avatar}}?imageMogr2/thumbnail/!90x90r|imageMogr2/gravity/Center/crop/90x90" alt="">
 						</div>
-						<div class="name">{{item.nickname}}</div>
-						<div class="professional_title">{{item.title}}</div>
+						<div class="name" data-id="{{item.id}}" onclick="orders('{{item.id}}')">{{item.nickname}}</div>
+						<div class="professional_title" data-id="{{item.id}}" onclick="orders('{{item.id}}')">{{item.title}}</div>
 						{{if item.status == 2}}
 							{{if item.start == true}}
 								<div class="starting_treatment">开始诊疗</div>

@@ -186,4 +186,11 @@ public interface IRemoteTreatmentService {
      * @param  inavId
      */
     String inavUserList(String inavId) throws Exception;
+
+    /**
+     * 更新课程状态
+     * @param id id
+     * @param status status
+     */
+    void updateCourseStatus(int id, int status);
 }

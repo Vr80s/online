@@ -358,7 +358,5 @@ public interface ICourseService {
      */
     Course selectById(Integer courseId);
 
-    int updateStatus(Integer id, Integer status);
-
     void deleteCourseMessage(Integer courseId);
 }
