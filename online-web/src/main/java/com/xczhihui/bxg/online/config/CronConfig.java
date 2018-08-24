@@ -63,7 +63,7 @@ public class CronConfig {
             if (remoteTreatmentService.updateExpired(treatment)) {
                 Integer courseId = treatment.getCourseId();
                 if (courseId != null) {
-                    courseService.updateStatus(courseId, 0);
+                    remoteTreatmentService.updateCourseStatus(courseId, 0);
                 }
             }
         }
