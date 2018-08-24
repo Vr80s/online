@@ -1,14 +1,7 @@
 package com.xczhihui.medical.doctor.service.impl;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-
 import com.baomidou.mybatisplus.plugins.Page;
+import com.jayway.jsonpath.JsonPath;
 import com.xczhihui.common.support.service.CacheService;
 import com.xczhihui.common.util.DateUtil;
 import com.xczhihui.common.util.SmsUtil;
@@ -16,6 +9,7 @@ import com.xczhihui.common.util.enums.AppointmentStatus;
 import com.xczhihui.common.util.enums.IndexAppointmentStatus;
 import com.xczhihui.common.util.enums.TreatmentInfoApplyStatus;
 import com.xczhihui.common.util.redis.key.RedisCacheKey;
+import com.xczhihui.common.util.vhallyun.VhallUtil;
 import com.xczhihui.medical.anchor.mapper.CourseApplyInfoMapper;
 import com.xczhihui.medical.doctor.mapper.RemoteTreatmentAppointmentInfoMapper;
 import com.xczhihui.medical.doctor.mapper.RemoteTreatmentMapper;
@@ -27,6 +21,13 @@ import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 import com.xczhihui.medical.doctor.vo.TreatmentVO;
 import com.xczhihui.medical.enrol.mapper.MedicalEntryInformationMapper;
 import com.xczhihui.medical.exception.MedicalException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * @author hejiwei
@@ -532,5 +533,16 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
         if (treatment != null) {
             cacheService.sadd(RedisCacheKey.DOCTOR_TREATMENT_STATUS_CNT_KEY + treatment.getDoctorId(), String.valueOf(treatment.getId()));
         }
+    }
+
+    @Override
+    public String inavUserList(String inavId) throws Exception {
+
+        HashMap<String, String> params = new HashMap<String, String>();
+        params.put("inav_id", inavId);
+        params = VhallUtil.createRealParam(params);
+        String result = VhallUtil.sendPost("http://api.yun.vhall.com/api/v1/inav/inav-user-list", params);
+        String recordId = JsonPath.read(result, "$.data");
+        return null;
     }
 }

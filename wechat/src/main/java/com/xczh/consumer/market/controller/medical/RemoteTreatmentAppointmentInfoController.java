@@ -141,5 +141,11 @@ public class RemoteTreatmentAppointmentInfoController {
         }
         return ResponseObject.newSuccessResponseObject(null);
     }
+
+    @RequestMapping(value = "inavUserList", method = RequestMethod.GET)
+    public ResponseObject inavUserList( @RequestParam String inavId) throws Exception {
+         remoteTreatmentService.inavUserList(inavId);
+        return ResponseObject.newSuccessResponseObject(null);
+    }
     
 }
