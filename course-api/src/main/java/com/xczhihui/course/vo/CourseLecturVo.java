@@ -33,9 +33,7 @@ public class CourseLecturVo implements Serializable {
      */
     private String smallImgPath;
 
-    /**
-     * 讲师id
-     */
+
     private String userId;
     /**
      * 主播名字

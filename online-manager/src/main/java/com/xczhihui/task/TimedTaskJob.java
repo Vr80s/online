@@ -99,10 +99,10 @@ public class TimedTaskJob {
      * <p>Description: </p>  
      * @throws ClientException
      */
-//    @Scheduled(cron = "0 0/1 * * * ?")
-//    public void minuteTaskMessage() throws ClientException {
-//        messageRemindingService.minuteTaskMessage();
-//    }
+    @Scheduled(cron = "0 0/1 * * * ?")
+    public void minuteTaskMessage() throws ClientException {
+        messageRemindingService.minuteTaskMessage();
+    }
 
     @Scheduled(cron = "0 0 8 * * ?")
     public void offlineCourseMessage() throws ClientException {

@@ -92,8 +92,8 @@ public class RemoteTreatmentAppointmentInfoController {
     }
 
     @RequestMapping(value = "user/appointment", method = RequestMethod.GET)
-    public ResponseObject userAppointment(@Account String accountId) {
-        return ResponseObject.newSuccessResponseObject(remoteTreatmentService.listByUserId(accountId));
+    public ResponseObject userAppointment(@Account String accountId, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10") int size) {
+        return ResponseObject.newSuccessResponseObject(remoteTreatmentService.listByUserId(accountId, page, size));
     }
 
     @RequestMapping(value = "user/appointment/delete", method = RequestMethod.POST)
@@ -109,9 +109,9 @@ public class RemoteTreatmentAppointmentInfoController {
     }
 
     @RequestMapping(value = "list", method = RequestMethod.GET)
-    public ResponseObject doctorTreatment(@Account String accountId) {
+    public ResponseObject doctorTreatment(@Account String accountId, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10") int size) {
         String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(accountId);
-        return ResponseObject.newSuccessResponseObject(remoteTreatmentService.listByDoctorId(doctorId));
+        return ResponseObject.newSuccessResponseObject(remoteTreatmentService.listByDoctorId(doctorId, page, size));
     }
 
     @RequestMapping(value = "send/message", method = RequestMethod.POST)
@@ -152,10 +152,6 @@ public class RemoteTreatmentAppointmentInfoController {
     @RequestMapping(value = "cancel/appointment", method = RequestMethod.POST)
     public ResponseObject cancelAppointment(@Account String accountId, @RequestParam int id) {
         remoteTreatmentService.updateAppointmentForCancel(id);
-        Treatment treatment = remoteTreatmentService.selectTreatmentById(id);
-        if (treatment != null && treatment.getCourseId() != null) {
-            courseService.updateStatus(treatment.getCourseId(), 0);
-        }
         return ResponseObject.newSuccessResponseObject(null);
     }
 
@@ -166,12 +162,15 @@ public class RemoteTreatmentAppointmentInfoController {
         if (status) {
             Integer courseId = courseService.createTherapyLive(infoId, HeaderInterceptor.getClientType().getCode(), accountId);
             remoteTreatmentService.updateTreatmentCourseId(treatmentAppointmentInfo.getTreatmentId(), courseId);
-            
-            com.xczhihui.bxg.online.common.domain.Course  course1 = new  com.xczhihui.bxg.online.common.domain.Course();
-            
             Course course = courseService.selectById(courseId);
             medicalDoctorPostsService.addDoctorPosts(accountId, course.getId(), null, course.getGradeName(), course.getSubtitle(), course.getAppointmentInfoId());
         }
+        return ResponseObject.newSuccessResponseObject(null);
+    }
+
+    @RequestMapping(value = "inavUserList", method = RequestMethod.GET)
+    public ResponseObject inavUserList(@RequestParam String inavId) throws Exception {
+        remoteTreatmentService.inavUserList(inavId);
         return ResponseObject.newSuccessResponseObject(null);
     }
 }

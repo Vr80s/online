@@ -30,13 +30,11 @@ public class MinuteTaskMessageVo implements  Serializable{
 	private Date startTime;
 	private Date endTime;
 	
-	/*******  诊疗直播提示     ********/
+	private String doctorUserId;
+	private String userId;
 	
-	private String doctorPhone;
-	private String userPhone;
 	private String doctorName;
 	
-	/*******  诊疗直播提示     ********/
 	
 	public Date getStartTime() {
 		return startTime;
@@ -50,26 +48,14 @@ public class MinuteTaskMessageVo implements  Serializable{
 	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
 	}
-	public String getDoctorPhone() {
-		return doctorPhone;
-	}
-	public void setDoctorPhone(String doctorPhone) {
-		this.doctorPhone = doctorPhone;
-	}
-	public String getUserPhone() {
-		return userPhone;
-	}
-	public void setUserPhone(String userPhone) {
-		this.userPhone = userPhone;
-	}
-	public String getDoctorName() {
-		return doctorName;
-	}
-	public void setDoctorName(String doctorName) {
-		this.doctorName = doctorName;
-	}
 
-	
+
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 	public String getMessageType() {
 		return messageType;
 	}
@@ -83,10 +69,23 @@ public class MinuteTaskMessageVo implements  Serializable{
 	public void setTypeUnique(String typeUnique) {
 		this.typeUnique = typeUnique;
 	}
+	public String getDoctorUserId() {
+		return doctorUserId;
+	}
+	public void setDoctorUserId(String doctorUserId) {
+		this.doctorUserId = doctorUserId;
+	}
+	public String getDoctorName() {
+		return doctorName;
+	}
+	public void setDoctorName(String doctorName) {
+		this.doctorName = doctorName;
+	}
 	@Override
 	public String toString() {
-		return "MinuteTaskMessageVo [messageType=" + messageType + ", startTime=" + startTime + ", endTime=" + endTime
-				+ ", doctorPhone=" + doctorPhone + ", userPhone=" + userPhone + ", doctorName=" + doctorName + "]";
+		return "MinuteTaskMessageVo [messageType=" + messageType + ", typeUnique=" + typeUnique + ", startTime="
+				+ startTime + ", endTime=" + endTime + ", doctorUserId=" + doctorUserId + ", userId=" + userId
+				+ ", doctorName=" + doctorName + "]";
 	}
 	
 	

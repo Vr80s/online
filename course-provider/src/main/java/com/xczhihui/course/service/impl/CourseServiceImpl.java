@@ -25,6 +25,7 @@ import com.xczhihui.common.util.DateUtil;
 import com.xczhihui.common.util.EmailUtil;
 import com.xczhihui.common.util.SmsUtil;
 import com.xczhihui.common.util.XzStringUtils;
+import com.xczhihui.common.util.bean.MinuteTaskMessageVo;
 import com.xczhihui.common.util.enums.CourseForm;
 import com.xczhihui.common.util.enums.CourseType;
 import com.xczhihui.common.util.enums.LiveCaseType;
@@ -89,8 +90,6 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     @Value("${weixin.course.remind.code}")
     private String weixinTemplateMessageRemindCode;
     
-    @Autowired
-    private ICommonMessageService commonMessageService;
     @Autowired
     private CacheService cacheService;
 
@@ -243,8 +242,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
                     cv.setWatchState(2);
                 }
                 //如果是付费课程，如果不是专辑的话，那么就查看是否属于其中一个专辑。
-                if(CourseType.VIDEO.getId() == cv.getType()
-                		|| CourseType.AUDIO.getId() == cv.getType()) {
+                if(CourseType.VIDEO.getId() == cv.getType() || CourseType.AUDIO.getId() == cv.getType()) {
                 	Map<String,Object> collectionHint = iCourseMapper.selectTheirCollection(courseId);
                 	
                 	cv.setCollectionHint(collectionHint);
@@ -624,13 +622,16 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Lock(lockName = "createTherapyLive", waitTime = 5, effectiveTime = 8)
 	public Integer createTherapyLive(Integer lockId,Integer clientType,String accountId) throws Exception {
-		/**
-		 * 查找生成诊疗直播的必要信息
-		 */
-    	
+		
+    	//查看诊疗必要信息
 		CourseLecturVo cv = iCourseMapper.selectTherapyLiveInfo(lockId);
+		if(cv == null) {
+			 throw new CourseException("课程数据有误");
+		}
+		
 		Course course = new Course();
-		//***医师的远程诊疗直播 yyyy/mm/dd 如有重复则加上编号（01,02,03….）。  
+		//***医师的远程诊疗直播 yyyy/mm/dd 如有重复则加上编号（01,02,03….）。
+		
 		String gradeName = createTherapyGradeName(cv.getUserLecturerId(),cv.getDoctorName(),cv.getStartTime());
 		course.setGradeName(gradeName);
         course.setAppointmentInfoId(lockId);
@@ -689,8 +690,23 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         /**
          * redis 缓存中增加数据，开播10分钟提醒。
          */
-    	
-
+        MinuteTaskMessageVo mtv = new MinuteTaskMessageVo();
+        mtv.setDoctorName(cv.getDoctorName());
+        mtv.setDoctorUserId(cv.getUserLecturerId());
+        mtv.setUserId(accountId);
+        mtv.setStartTime(cv.getStartTime());
+        mtv.setEndTime(cv.getEndTime());
+        
+        mtv.setMessageType(RedisCacheKey.TREATMENT_MINUTE_TYPE);
+        mtv.setTypeUnique(course.getId()+"");
+        
+        //存放redis
+        cacheService.set(RedisCacheKey.COMMON_MINUTE_REMIND_KEY +
+									RedisCacheKey.REDIS_SPLIT_CHAR +
+						RedisCacheKey.TREATMENT_MINUTE_TYPE +
+									RedisCacheKey.REDIS_SPLIT_CHAR + 
+						course.getId(), mtv);
+        
         return course.getId();
 	}
 
@@ -700,58 +716,18 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     }
 
     @Override
-    public int updateStatus(Integer id, Integer status) {
-        Course course = iCourseMapper.selectById(id);
-        if (course != null) {
-            course.setStatus(String.valueOf(status));
-            iCourseMapper.updateById(course);
-            if (status == 0) {
-                deleteCourseMessage(id);
-            }
-        }
-        return 0;
-    }
-
-    @Override
     public void deleteCourseMessage(Integer courseId) {
         cacheService.delete(RedisCacheKey.OFFLINE_COURSE_REMIND_KEY + RedisCacheKey.REDIS_SPLIT_CHAR + courseId);
         cacheService.delete(RedisCacheKey.LIVE_COURSE_REMIND_KEY + RedisCacheKey.REDIS_SPLIT_CHAR + courseId);
         cacheService.delete(RedisCacheKey.COLLECTION_COURSE_REMIND_KEY + RedisCacheKey.REDIS_SPLIT_CHAR + courseId);
     }
 
+    @Override
+    public List<Course> listLiving() {
+        return iCourseMapper.selectLivingCourse();
+    }
 
-    public void sendTherapyMessage(CourseLecturVo cv,String userId) throws Exception {
-		
-		/*
-    	 * 1、发送短信提示
-    	 */
-        String content = MessageFormat.format(WEB_TREATMENT_MESSAGE_TIPS,cv.getDoctorName(),
-        		DateUtil.treatmentTime(cv.getStartTime(), cv.getEndTime()), cv.getDoctorName());
 
-        Map<String, String> params = new HashMap<>();
-//        params.put("type", typeText);
-//        params.put("courseName", title);
-        
-        
-        commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.SYSYTEM.getVal())
-                 .buildAppPush(APP_TREATMENT_MESSAGE_TIPS)
-                 .buildWeb(content)
-                 //.buildSms(code, params) 需要配置下短信模板
-                 .detailId(String.valueOf(cv.getId()))
-                 .build(userId, RouteTypeEnum.APPOINTMENT_TREATMENT_INFO_PAGE, cv.getUserLecturerId()));
-	}
-	
-    public static void main(String[] args) {
-    	/**
-    	 * lalal
-    	 */
-        Map<String, String> params = new HashMap<>();
-        params.put("name", "杨宣");
-        params.put("startTime", "8/23");
-        params.put("endTime", "8/25");
-    	SmsUtil.sendSMS("SMS_142616840",params, "15936216273");
-	}
-    
 	/**  
 	 * <p>Title: createTherapyGradeName</p>  
 	 * <p>Description: </p>  

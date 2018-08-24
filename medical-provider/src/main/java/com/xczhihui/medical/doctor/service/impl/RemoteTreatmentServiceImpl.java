@@ -5,13 +5,13 @@ import static com.xczhihui.common.util.enums.TreatmentInfoApplyStatus.APPLY_PASS
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.jayway.jsonpath.JsonPath;
 import com.xczhihui.common.support.service.CacheService;
 import com.xczhihui.common.util.DateUtil;
 import com.xczhihui.common.util.SmsUtil;
@@ -19,6 +19,7 @@ import com.xczhihui.common.util.enums.AppointmentStatus;
 import com.xczhihui.common.util.enums.IndexAppointmentStatus;
 import com.xczhihui.common.util.enums.TreatmentInfoApplyStatus;
 import com.xczhihui.common.util.redis.key.RedisCacheKey;
+import com.xczhihui.common.util.vhallyun.VhallUtil;
 import com.xczhihui.medical.anchor.mapper.CourseApplyInfoMapper;
 import com.xczhihui.medical.doctor.mapper.RemoteTreatmentAppointmentInfoMapper;
 import com.xczhihui.medical.doctor.mapper.RemoteTreatmentMapper;
@@ -101,11 +102,23 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
                 throw new MedicalException("预约时间已被删除");
             }
             int status = waitUpdateTreatment.getStatus();
-            if (status != AppointmentStatus.ORIGIN.getVal() || status != AppointmentStatus.WAIT_APPLY.getVal() || status != AppointmentStatus.EXPIRED.getVal()) {
+            if (status != AppointmentStatus.ORIGIN.getVal() && status != AppointmentStatus.WAIT_APPLY.getVal() && status != AppointmentStatus.EXPIRED.getVal()) {
                 throw new MedicalException("该状态下不能被删除");
             }
             waitUpdateTreatment.setDeleted(true);
             remoteTreatmentMapper.updateById(waitUpdateTreatment);
+            Integer infoId = waitUpdateTreatment.getInfoId();
+            if (infoId != null) {
+                TreatmentAppointmentInfo treatmentAppointmentInfo = remoteTreatmentAppointmentInfoMapper.selectById(infoId);
+                if (treatmentAppointmentInfo != null) {
+                    treatmentAppointmentInfo.setStatus(TreatmentInfoApplyStatus.APPLY_NOT_PASSED.getVal());
+                    remoteTreatmentAppointmentInfoMapper.updateById(treatmentAppointmentInfo);
+                }
+            }
+            Integer courseId = waitUpdateTreatment.getCourseId();
+            if (courseId != null) {
+                updateCourseStatus(courseId, 0);
+            }
         }
     }
 
@@ -127,6 +140,9 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
             if (medicalDoctorAccount != null && medicalDoctorAccount.getAccountId().equals(treatmentAppointmentInfo.getUserId())) {
                 throw new MedicalException("抱歉，您不可以预约自己的诊疗");
             }
+            treatmentAppointmentInfo.setDate(treatment.getDate());
+            treatmentAppointmentInfo.setStartTime(treatment.getStartTime());
+            treatmentAppointmentInfo.setEndTime(treatment.getEndTime());
             treatmentAppointmentInfo.setStatus(TreatmentInfoApplyStatus.WAIT_DOCTOR_APPLY.getVal());
             remoteTreatmentAppointmentInfoMapper.insert(treatmentAppointmentInfo);
             treatment.setInfoId(treatmentAppointmentInfo.getId());
@@ -221,13 +237,7 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
             if (treatment.getStatus() != AppointmentStatus.WAIT_START.getVal()) {
                 throw new MedicalException("当前状态不支持取消");
             }
-
-            //取消远程诊疗后，禁用这个课程
-            remoteTreatmentMapper.updateCourseStatus(treatment.getCourseId());
-            /*
-             * 取消远程诊疗后，逻辑删除课程审核信息表中的数据
-             */
-            courseApplyInfoMapper.deleteCourseApplyByCouserId(treatment.getCourseId());
+            updateCourseStatus(treatment.getCourseId(), 0);
 
             Integer infoId = treatment.getInfoId();
             TreatmentAppointmentInfo treatmentAppointmentInfo = remoteTreatmentAppointmentInfoMapper.selectById(infoId);
@@ -281,7 +291,7 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
             Calendar nowTime = Calendar.getInstance();
             nowTime.add(Calendar.MINUTE, 10);//10分钟后的时间
             Date newDate = nowTime.getTime();
-            if (startDate.getTime() <= newDate.getTime()) {
+            if (startDate.getTime() <= newDate.getTime() && treatmentVO.getStatus() == 2) {
                 treatmentVO.setStart(true);
             } else {
                 treatmentVO.setStart(false);
@@ -379,67 +389,52 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
     }
 
     @Override
-    public List<TreatmentVO> listByDoctorId(String doctorId) {
+    public List<TreatmentVO> listByDoctorId(String doctorId, int page, int size) {
         List<TreatmentVO> results = new ArrayList<>();
-        List<TreatmentVO> expiredAndFinishedTreatments = remoteTreatmentMapper.selectExpiredAndFinishedByDoctorId(doctorId);
-        List<TreatmentVO> unExpiredAndUnFinishedTreatments = remoteTreatmentMapper.selectUnExpiredAndUnFinishedByDoctorId(doctorId);
 
-        results.addAll(unExpiredAndUnFinishedTreatments.stream()
-                .filter(treatmentVO -> treatmentVO.getStatus() == AppointmentStatus.WAIT_START.getVal() && isCanStartLive(getTreatmentTime(treatmentVO.getDate(), treatmentVO.getStartTime())))
-                .collect(Collectors.toList()));
-        results.addAll(unExpiredAndUnFinishedTreatments.stream()
-                .filter(treatmentVO -> treatmentVO.getStatus() == AppointmentStatus.STARTED.getVal())
-                .collect(Collectors.toList()));
-        results.addAll((unExpiredAndUnFinishedTreatments.stream()
-                .filter(treatmentVO -> treatmentVO.getStatus() == AppointmentStatus.WAIT_START.getVal() && !isCanStartLive(getTreatmentTime(treatmentVO.getDate(), treatmentVO.getStartTime())))
-                .collect(Collectors.toList())));
-        results.addAll(unExpiredAndUnFinishedTreatments.stream()
-                .filter(treatmentVO -> treatmentVO.getStatus() == AppointmentStatus.WAIT_APPLY.getVal())
-                .collect(Collectors.toList()));
+        List<TreatmentVO> treatmentVOS = remoteTreatmentMapper.selectTreatmentByDoctorId(doctorId, new Page<>(page, size));
 
-        results.addAll(expiredAndFinishedTreatments.stream()
-                .filter(treatmentVO -> treatmentVO.getStatus() == AppointmentStatus.EXPIRED.getVal())
-                .collect(Collectors.toList()));
-        results.addAll(expiredAndFinishedTreatments.stream()
-                .filter(treatmentVO -> treatmentVO.getStatus() == AppointmentStatus.FINISHED.getVal())
-                .collect(Collectors.toList()));
+        Iterator<TreatmentVO> iterator = treatmentVOS.iterator();
+        while (iterator.hasNext()) {
+            TreatmentVO treatmentVO = iterator.next();
+            if (treatmentVO.getStatus() == AppointmentStatus.WAIT_START.getVal() && isCanStartLive(getTreatmentTime(treatmentVO.getDate(), treatmentVO.getStartTime()))) {
+                treatmentVO.setStart(true);
+                results.add(treatmentVO);
+                iterator.remove();
+            }
+        }
+        results.addAll(treatmentVOS);
         results.forEach(treatmentVO -> {
             treatmentVO.setTreatmentTime(getTreatmentTime(treatmentVO.getDate(), treatmentVO.getStartTime()));
             handleDate(treatmentVO);
         });
-        cacheService.delete(RedisCacheKey.DOCTOR_TREATMENT_STATUS_CNT_KEY + doctorId);
+        if (page == 1) {
+            cacheService.delete(RedisCacheKey.DOCTOR_TREATMENT_STATUS_CNT_KEY + doctorId);
+        }
         return results;
     }
 
     @Override
-    public List<TreatmentVO> listByUserId(String userId) {
+    public List<TreatmentVO> listByUserId(String userId, int page, int size) {
         List<TreatmentVO> results = new ArrayList<>();
-        List<TreatmentVO> unExpiredAndUnFinishedAppointmentInfoVOS = remoteTreatmentMapper.selectUnExpiredAndUnFinishedByUserId(userId);
-        results.addAll(unExpiredAndUnFinishedAppointmentInfoVOS.stream()
-                .filter(treatmentVO -> (treatmentVO.getStatus() == APPLY_PASSED.getVal() && isCanStartLive(getTreatmentTime(treatmentVO.getDate(), treatmentVO.getStartTime()))))
-                .collect(Collectors.toList()));
-        results.addAll(unExpiredAndUnFinishedAppointmentInfoVOS.stream()
-                .filter(treatmentVO -> (treatmentVO.getStatus() == APPLY_PASSED.getVal() && !isCanStartLive(getTreatmentTime(treatmentVO.getDate(), treatmentVO.getStartTime()))))
-                .collect(Collectors.toList()));
-        results.addAll(unExpiredAndUnFinishedAppointmentInfoVOS.stream()
-                .filter(treatmentVO -> treatmentVO.getStatus() == TreatmentInfoApplyStatus.APPLY_NOT_PASSED.getVal())
-                .collect(Collectors.toList()));
-        results.addAll(unExpiredAndUnFinishedAppointmentInfoVOS.stream()
-                .filter(treatmentVO -> treatmentVO.getStatus() == TreatmentInfoApplyStatus.WAIT_DOCTOR_APPLY.getVal())
-                .collect(Collectors.toList()));
-
-        List<TreatmentVO> expiredAndFinishedTreatmentVOS = remoteTreatmentMapper.selectExpiredAndFinishedByUserId(userId);
-        results.addAll(expiredAndFinishedTreatmentVOS.stream()
-                .filter(treatmentVO -> treatmentVO.getStatus() == TreatmentInfoApplyStatus.EXPIRED.getVal())
-                .collect(Collectors.toList()));
-        results.addAll(expiredAndFinishedTreatmentVOS.stream().filter(treatmentVO -> treatmentVO.getStatus() == TreatmentInfoApplyStatus.FINISHED.getVal())
-                .collect(Collectors.toList()));
-
+        List<TreatmentVO> treatmentVOS = remoteTreatmentMapper.selectTreatmentByUserId(userId, new Page<>(page, size));
+        Iterator<TreatmentVO> iterator = treatmentVOS.iterator();
+        while (iterator.hasNext()) {
+            TreatmentVO treatmentVO = iterator.next();
+            if (treatmentVO.getStatus() == APPLY_PASSED.getVal() && isCanStartLive(getTreatmentTime(treatmentVO.getDate(), treatmentVO.getStartTime()))) {
+                treatmentVO.setStart(true);
+                results.add(treatmentVO);
+                iterator.remove();
+            }
+        }
+        results.addAll(treatmentVOS);
         results.forEach(treatmentVO -> {
             treatmentVO.setTreatmentTime(getTreatmentTime(treatmentVO.getDate(), treatmentVO.getStartTime()));
             handleDate(treatmentVO);
         });
-        cacheService.delete(RedisCacheKey.USER_TREATMENT_STATUS_CNT_KEY + userId);
+        if (page == 1) {
+            cacheService.delete(RedisCacheKey.USER_TREATMENT_STATUS_CNT_KEY + userId);
+        }
         return results;
     }
 
@@ -522,7 +517,6 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
         Date treatmentEndTime = calendar.getTime();
         calendar.setTime(new Date());
         calendar.add(Calendar.MINUTE, -30);
-        System.out.println(calendar.getTime());
         return calendar.getTime().after(treatmentEndTime);
     }
 
@@ -556,5 +550,35 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
         if (treatment != null) {
             cacheService.sadd(RedisCacheKey.DOCTOR_TREATMENT_STATUS_CNT_KEY + treatment.getDoctorId(), String.valueOf(treatment.getId()));
         }
+    }
+
+    @Override
+    public String inavUserList(String inavId) throws Exception {
+
+        HashMap<String, String> params = new HashMap<String, String>();
+        params.put("inav_id", inavId);
+        params = VhallUtil.createRealParam(params);
+        String result = VhallUtil.sendPost("http://api.yun.vhall.com/api/v1/inav/inav-user-list", params);
+        String recordId = JsonPath.read(result, "$.data");
+        return null;
+    }
+
+    @Override
+    public void updateCourseStatus(int id, int status) {
+        if (status == 0) {
+            //取消远程诊疗后，禁用这个课程
+            remoteTreatmentMapper.updateCourseStatusForDisable(id);
+            /*
+             * 取消远程诊疗后，逻辑删除课程审核信息表中的数据
+             */
+            courseApplyInfoMapper.deleteCourseApplyByCouserId(id);
+            deleteMessage(id);
+        }
+    }
+
+    private void deleteMessage(int courseId) {
+        cacheService.delete(RedisCacheKey.OFFLINE_COURSE_REMIND_KEY + RedisCacheKey.REDIS_SPLIT_CHAR + courseId);
+        cacheService.delete(RedisCacheKey.LIVE_COURSE_REMIND_KEY + RedisCacheKey.REDIS_SPLIT_CHAR + courseId);
+        cacheService.delete(RedisCacheKey.COLLECTION_COURSE_REMIND_KEY + RedisCacheKey.REDIS_SPLIT_CHAR + courseId);
     }
 }

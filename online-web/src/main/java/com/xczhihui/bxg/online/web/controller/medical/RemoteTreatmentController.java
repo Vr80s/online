@@ -3,12 +3,7 @@ package com.xczhihui.bxg.online.web.controller.medical;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.xczhihui.bxg.online.web.body.doctor.TreatmentBody;
 import com.xczhihui.bxg.online.web.controller.AbstractController;
@@ -70,25 +65,21 @@ public class RemoteTreatmentController extends AbstractController {
     @RequestMapping(value = "{id}/{status}", method = RequestMethod.PUT)
     public ResponseObject updateStatus(@PathVariable Integer id, @PathVariable boolean status) throws Exception {
 
-    	Treatment treatment = remoteTreatmentService.selectTreatmentById(id);
+        Treatment treatment = remoteTreatmentService.selectTreatmentById(id);
         remoteTreatmentService.updateStatus(id, status);
         if (status) {
-        	String userId = getUserId();
+            String userId = getUserId();
             Integer courseId = courseService.createTherapyLive(treatment.getInfoId(), ClientType.PC.getCode(), userId);
             remoteTreatmentService.updateTreatmentCourseId(id, courseId);
             Course course = courseService.selectById(courseId);
             medicalDoctorPostsService.addDoctorPosts(userId, course.getId(), null, course.getGradeName(),
-            		course.getSubtitle(), course.getAppointmentInfoId());
+                    course.getSubtitle(), course.getAppointmentInfoId());
         }
         return ResponseObject.newSuccessResponseObject();
     }
 
     @RequestMapping(value = "cancel/{id}", method = RequestMethod.PUT)
     public ResponseObject updateAppointmentStatusForCancel(@PathVariable Integer id) {
-        Treatment treatment = remoteTreatmentService.selectTreatmentById(id);
-        if (treatment != null && treatment.getCourseId() != null) {
-            courseService.updateStatus(treatment.getCourseId(), 0);
-        }
         remoteTreatmentService.updateAppointmentForCancel(id);
         return ResponseObject.newSuccessResponseObject();
     }

@@ -10,10 +10,9 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
 import com.xczhihui.common.support.service.CacheService;
-import com.xczhihui.common.util.enums.LiveStatus;
 import com.xczhihui.common.util.enums.LiveStatusEvent;
-import com.xczhihui.common.util.redis.key.RedisCacheKey;
 import com.xczhihui.common.util.vhallyun.RoomService;
+import com.xczhihui.course.model.Course;
 import com.xczhihui.course.service.ICommonMessageService;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.medical.doctor.model.Treatment;
@@ -48,9 +47,10 @@ public class CronConfig {
     @Scheduled(cron = "0 0 2 * * ?")
     private void updateLiveCourseStatus() {
         List<String> roomIds = RoomService.listLiveOpening();
-        for (String roomId : roomIds) {
-            Integer liveStatus = courseService.findLiveStatusByDirectId(roomId);
-            if (liveStatus != null && liveStatus == LiveStatus.LIVEING.getId()) {
+        List<Course> courses = courseService.listLiving();
+        for (Course course : courses) {
+            String roomId = course.getDirectId();
+            if (roomIds == null || roomIds.isEmpty() || roomId == null || !roomIds.contains(roomId)) {
                 courseService.updateCourseLiveStatus(LiveStatusEvent.STOP.getName(), roomId, null);
             }
         }
@@ -63,7 +63,7 @@ public class CronConfig {
             if (remoteTreatmentService.updateExpired(treatment)) {
                 Integer courseId = treatment.getCourseId();
                 if (courseId != null) {
-                    courseService.updateStatus(courseId, 0);
+                    remoteTreatmentService.updateCourseStatus(courseId, 0);
                 }
             }
         }

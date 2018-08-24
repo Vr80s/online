@@ -3,7 +3,11 @@ package com.xczhihui.course.service.impl;
 import static com.xczhihui.common.util.redis.key.RedisCacheKey.LIVE_COURSE_REMIND_LAST_TIME_KEY;
 
 import java.text.MessageFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.criterion.DetachedCriteria;
@@ -15,12 +19,21 @@ import org.springframework.stereotype.Service;
 
 import com.xczhihui.anchor.service.AnchorService;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
-import com.xczhihui.bxg.online.common.domain.*;
+import com.xczhihui.bxg.online.common.domain.Course;
+import com.xczhihui.bxg.online.common.domain.CourseAnchor;
+import com.xczhihui.bxg.online.common.domain.CourseApplyInfo;
+import com.xczhihui.bxg.online.common.domain.CourseApplyResource;
+import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.common.support.cc.util.CCUtils;
 import com.xczhihui.common.support.service.CacheService;
-import com.xczhihui.common.util.redis.key.RedisCacheKey;
 import com.xczhihui.common.util.bean.Page;
-import com.xczhihui.common.util.enums.*;
+import com.xczhihui.common.util.enums.ApplyStatus;
+import com.xczhihui.common.util.enums.CourseDismissal;
+import com.xczhihui.common.util.enums.CourseForm;
+import com.xczhihui.common.util.enums.MessageTypeEnum;
+import com.xczhihui.common.util.enums.Multimedia;
+import com.xczhihui.common.util.enums.RouteTypeEnum;
+import com.xczhihui.common.util.redis.key.RedisCacheKey;
 import com.xczhihui.common.util.vhallyun.ChannelService;
 import com.xczhihui.common.util.vhallyun.RoomService;
 import com.xczhihui.course.dao.CourseApplyDao;

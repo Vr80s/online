@@ -358,7 +358,11 @@ public interface ICourseService {
      */
     Course selectById(Integer courseId);
 
-    int updateStatus(Integer id, Integer status);
-
     void deleteCourseMessage(Integer courseId);
+
+    /**
+     * 直播中的课程
+     * @return
+     */
+    List<Course> listLiving();
 }

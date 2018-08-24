@@ -152,7 +152,9 @@
 <script type="text/javascript" src="/xcview/js/physician/reserve_information.js"></script>
 
 <script>
+window.onload = function(){
 	
+
 	$("#checkbox1").click(function(){
         if($('#checkbox1').is(':checked')) {
             $(".other_means_ru").css("background","url(/xcview/images/agree.png) no-repeat");
@@ -162,6 +164,6 @@
             $(".other_means_ru").css("background-size","100% 100%");
         }
     })
-
+}
 </script>
 </html>

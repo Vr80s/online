@@ -1,5 +1,18 @@
 //requestService
-$(function(){
+// $(function(){
+
+    function orders(id){
+        // var id=$(this).attr("data-id");
+
+        requestGetService("/doctor/treatment/user/appointment",{id:id},function (data) {
+            if (data.success == true) {
+               
+                location.href ='/xcview/html/physician/my_bookings.html?id='+id;
+
+            }
+        });
+    };
+
 
     // var id = "";
     requestGetService("/doctor/treatment/user/appointment",null,function (data) {
@@ -12,11 +25,19 @@ $(function(){
             }else{
                 $(".my_bookings").show();
                 $(".baseimagenumber").show();
+                $("body").css("background","#fff");
             };
 
+            // 点击我的预约
+
+            /*$(".head_portrait").click(function(){
+                alert(11111);
+            });*/
+    
+
+
+
              // 点击删除按钮
-             
-            
             $(".delete").click(function(){
 
                 var id=$(this).attr("data-id");
@@ -89,7 +110,7 @@ $(function(){
 
     
 
-});
+// });
 
 
 
