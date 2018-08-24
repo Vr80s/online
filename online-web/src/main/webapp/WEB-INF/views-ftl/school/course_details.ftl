@@ -178,7 +178,7 @@
                     <span class="live-null-tip">当前直播无回放，请随时关注讲师动态，避免错过下次直播</span>
                 <#else>
                 	 <#if courseInfo.collectionHint??>
-                        <p class="contain-album">该课程专辑属于《斗破苍穹-萧炎成神大片》，购买专辑更全面划算哦~
+                        <p class="contain-album">该课程属于专辑《${courseInfo.collectionHint.id}》，购买专辑更全面划算哦~
                         	<a href="${webUrl}/courses/${courseInfo.collectionHint.id}/info">查看详情&gt;&gt;</a></p>
                      </#if>
                 

@@ -236,6 +236,13 @@ public interface CourseMapper extends BaseMapper<Course> {
     @Select({"select live_status from oe_course where direct_id = #{directId}"})
     Integer selectCourseLiveStatusByDirectId(@Param("directId") String directId);
 
+    /**
+     * 正在直播中的课程
+     * @return
+     */
+    @Select({"select id, direct_id as directId from oe_course where live_status = 1 and is_delete is false and status = 1 and type = 1"})
+    List<Course> selectLivingCourse();
+
     
     /**
      * 
@@ -245,8 +252,8 @@ public interface CourseMapper extends BaseMapper<Course> {
      * @return
      */
     @Select({" select oc.grade_name as gradeName,oc.id,oc.smallimg_path as smallImgPath  from  collection_course  cc inner join  oe_course oc on cc.collection_id= oc.id " + 
-    		"   where cc.course_id = 582 and oc.is_free = 0 order by cc.create_time limit 0,1 "})
-	Map<String,Object> selectTheirCollection(@Param("directId")Integer courseId);
+    		"   where cc.course_id = ${courseId} and oc.is_free = 0 order by cc.create_time limit 0,1 "})
+	Map<String,Object> selectTheirCollection(@Param("courseId")Integer courseId);
 
 	/**  
 	 * <p>Title: selectTherapyLiveInfo</p>  

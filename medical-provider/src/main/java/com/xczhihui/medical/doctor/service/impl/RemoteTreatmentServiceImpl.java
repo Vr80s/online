@@ -1,17 +1,6 @@
 package com.xczhihui.medical.doctor.service.impl;
 
 
-import static com.xczhihui.common.util.enums.TreatmentInfoApplyStatus.APPLY_PASSED;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
-import java.util.stream.Collectors;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-
 import com.baomidou.mybatisplus.plugins.Page;
 import com.jayway.jsonpath.JsonPath;
 import com.xczhihui.common.support.service.CacheService;
@@ -34,6 +23,16 @@ import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 import com.xczhihui.medical.doctor.vo.TreatmentVO;
 import com.xczhihui.medical.enrol.mapper.MedicalEntryInformationMapper;
 import com.xczhihui.medical.exception.MedicalException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.stream.Collectors;
+
+import static com.xczhihui.common.util.enums.TreatmentInfoApplyStatus.APPLY_PASSED;
 
 /**
  * @author hejiwei
@@ -293,7 +292,7 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
             Calendar nowTime = Calendar.getInstance();
             nowTime.add(Calendar.MINUTE, 10);//10分钟后的时间
             Date newDate = nowTime.getTime();
-            if (startDate.getTime() <= newDate.getTime()) {
+            if (startDate.getTime() <= newDate.getTime() && treatmentVO.getStatus() == 2) {
                 treatmentVO.setStart(true);
             } else {
                 treatmentVO.setStart(false);

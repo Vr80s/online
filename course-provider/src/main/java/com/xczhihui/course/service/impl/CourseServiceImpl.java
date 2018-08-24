@@ -723,7 +723,12 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         cacheService.delete(RedisCacheKey.COLLECTION_COURSE_REMIND_KEY + RedisCacheKey.REDIS_SPLIT_CHAR + courseId);
     }
 
-	
+    @Override
+    public List<Course> listLiving() {
+        return iCourseMapper.selectLivingCourse();
+    }
+
+
 	/**  
 	 * <p>Title: createTherapyGradeName</p>  
 	 * <p>Description: </p>  
