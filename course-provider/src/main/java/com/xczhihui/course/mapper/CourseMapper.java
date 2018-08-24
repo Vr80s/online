@@ -236,6 +236,13 @@ public interface CourseMapper extends BaseMapper<Course> {
     @Select({"select live_status from oe_course where direct_id = #{directId}"})
     Integer selectCourseLiveStatusByDirectId(@Param("directId") String directId);
 
+    /**
+     * 正在直播中的课程
+     * @return
+     */
+    @Select({"select id, direct_id as directId from oe_course where live_status = 1 and is_delete is false and status = 1 and type = 1"})
+    List<Course> selectLivingCourse();
+
     
     /**
      * 

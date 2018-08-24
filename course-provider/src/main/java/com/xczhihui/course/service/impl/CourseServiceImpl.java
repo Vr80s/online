@@ -709,7 +709,32 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         cacheService.delete(RedisCacheKey.COLLECTION_COURSE_REMIND_KEY + RedisCacheKey.REDIS_SPLIT_CHAR + courseId);
     }
 
-	
+    @Override
+    public List<Course> listLiving() {
+        return iCourseMapper.selectLivingCourse();
+    }
+
+    public void sendTherapyMessage(CourseLecturVo cv,String userId) throws Exception {
+		
+		/*
+    	 * 1、发送短信提示
+    	 */
+        String content = MessageFormat.format(WEB_TREATMENT_MESSAGE_TIPS,cv.getDoctorName(),
+        		DateUtil.treatmentTime(cv.getStartTime(), cv.getEndTime()), cv.getDoctorName());
+
+        Map<String, String> params = new HashMap<>();
+//        params.put("type", typeText);
+//        params.put("courseName", title);
+        
+        
+        commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.SYSYTEM.getVal())
+                 .buildAppPush(APP_TREATMENT_MESSAGE_TIPS)
+                 .buildWeb(content)
+                 //.buildSms(code, params) 需要配置下短信模板
+                 .detailId(String.valueOf(cv.getId()))
+                 .build(userId, RouteTypeEnum.APPOINTMENT_TREATMENT_INFO_PAGE, cv.getUserLecturerId()));
+	}
+
 	/**  
 	 * <p>Title: createTherapyGradeName</p>  
 	 * <p>Description: </p>  

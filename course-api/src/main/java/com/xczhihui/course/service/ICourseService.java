@@ -359,4 +359,10 @@ public interface ICourseService {
     Course selectById(Integer courseId);
 
     void deleteCourseMessage(Integer courseId);
+
+    /**
+     * 直播中的课程
+     * @return
+     */
+    List<Course> listLiving();
 }
