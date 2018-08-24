@@ -3,7 +3,7 @@
 
     function orders(id){
         // var id=$(this).attr("data-id");
-        
+
         requestGetService("/doctor/treatment/user/appointment",{id:id},function (data) {
             if (data.success == true) {
                
@@ -25,6 +25,7 @@
             }else{
                 $(".my_bookings").show();
                 $(".baseimagenumber").show();
+                $("body").css("background","#fff");
             };
 
             // 点击我的预约
