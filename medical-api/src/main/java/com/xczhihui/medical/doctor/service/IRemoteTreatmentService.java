@@ -138,7 +138,7 @@ public interface IRemoteTreatmentService {
      * @param doctorId doctorId
      * @return
      */
-    List<TreatmentVO> listByDoctorId(String doctorId);
+    List<TreatmentVO> listByDoctorId(String doctorId, int page, int size);
 
     /**
      * 分页获取用户的诊疗预约
@@ -146,7 +146,7 @@ public interface IRemoteTreatmentService {
      * @param userId userId
      * @return
      */
-    List<TreatmentVO> listByUserId(String userId);
+    List<TreatmentVO> listByUserId(String userId, int page, int size);
 
     /**
      * 查询出时间已过期的预约

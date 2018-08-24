@@ -92,8 +92,8 @@ public class RemoteTreatmentAppointmentInfoController {
     }
 
     @RequestMapping(value = "user/appointment", method = RequestMethod.GET)
-    public ResponseObject userAppointment(@Account String accountId) {
-        return ResponseObject.newSuccessResponseObject(remoteTreatmentService.listByUserId(accountId));
+    public ResponseObject userAppointment(@Account String accountId, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10") int size) {
+        return ResponseObject.newSuccessResponseObject(remoteTreatmentService.listByUserId(accountId, page, size));
     }
 
     @RequestMapping(value = "user/appointment/delete", method = RequestMethod.POST)
@@ -109,9 +109,9 @@ public class RemoteTreatmentAppointmentInfoController {
     }
 
     @RequestMapping(value = "list", method = RequestMethod.GET)
-    public ResponseObject doctorTreatment(@Account String accountId) {
+    public ResponseObject doctorTreatment(@Account String accountId, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10") int size) {
         String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(accountId);
-        return ResponseObject.newSuccessResponseObject(remoteTreatmentService.listByDoctorId(doctorId));
+        return ResponseObject.newSuccessResponseObject(remoteTreatmentService.listByDoctorId(doctorId, page, size));
     }
 
     @RequestMapping(value = "send/message", method = RequestMethod.POST)
