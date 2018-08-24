@@ -354,6 +354,7 @@ function postsType(obj) {
         page = 1;
         doctorPostsList(1,"down",doctorPostsType);
     }
+    // $(".span_hide").hide();
 }
 /**
  * 评论

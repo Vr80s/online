@@ -15,7 +15,7 @@
 
 
     // var id = "";
-    requestGetService("/doctor/treatment/user/appointment",null,function (data) {
+    requestGetService("/doctor/treatment/user/appointment",{page:1,size:10},function (data) {
         if (data.success == true) {
 
             if (isNotBlank(data.resultObject)) {

@@ -21,6 +21,15 @@ function balance() {
             $("#courseNumber").text(baseInfo.courseCount);
             $("#attentionid").html(baseInfo.focusCount);
             $("#fansid").html(baseInfo.fansCount);
+
+            if (baseInfo.appointmentStatusChangeCnt == 0) {
+                $(".number_span").hide();
+            }else{
+                $(".number_span").show();
+                $(".number_span").text(baseInfo.appointmentStatusChangeCnt);
+            };
+            
+
             //用户头像
             //$(".header_img").html(template('userInfo',data.resultObject.user));
             if (isNotBlank(data.resultObject.user)) {
@@ -35,6 +44,13 @@ function balance() {
         }
     });
 }
+
+/*requestService("/xczh/manager/home", {}, function (data) {
+    if (data.success == true) {
+        var baseInfo = data.resultObject;
+        $(".number_span").text(baseInfo.appointmentStatusChangeCnt);
+    }
+});*/
 
 //判断是否为游客并跳转登录界面
 var isNouser = '<div class="header_img_right y">主播工作台 &nbsp;></div>' +
