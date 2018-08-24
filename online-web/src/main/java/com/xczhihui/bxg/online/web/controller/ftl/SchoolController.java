@@ -28,6 +28,7 @@ import com.xczhihui.bxg.online.web.service.OnlineUserCenterService;
 import com.xczhihui.bxg.online.web.utils.HtmlUtil;
 import com.xczhihui.bxg.online.web.utils.ftl.ReplaceUrl;
 import com.xczhihui.common.util.CourseUtil;
+import com.xczhihui.common.util.XzStringUtils;
 import com.xczhihui.common.util.bean.ResponseObject;
 import com.xczhihui.common.util.bean.VhallMessageParamsVo;
 import com.xczhihui.common.util.enums.*;
@@ -329,10 +330,16 @@ public class SchoolController extends AbstractFtlController {
         //获取相关信息
         if (clv.getCollection()) {
 
+    	   if (clv.getCourseNumber() != null && clv.getDirtyNumber() != null && clv.getCourseNumber().equals(clv.getDirtyNumber())) {
+    		   view.addObject("updateDateText", XzStringUtils.COLLECTION_UPDATE_FINISH);
+           } else {
+        	   view.addObject("updateDateText", courseApplyService.getCollectionUpdateDateText(clv.getId()));
+           }
+        	
             List<CourseLecturVo> courses = courseService.selectCoursesByCollectionId(clv.getId());
             view.addObject("collectionList", courses);
             view.addObject("collectionListSize", courses.size());
-            view.addObject("updateDateText", courseApplyService.getCollectionUpdateDateText(clv.getId()));
+           
         }
 
 

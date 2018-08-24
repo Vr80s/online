@@ -242,8 +242,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
                     cv.setWatchState(2);
                 }
                 //如果是付费课程，如果不是专辑的话，那么就查看是否属于其中一个专辑。
-                if(CourseType.VIDEO.getId() == cv.getType()
-                		|| CourseType.AUDIO.getId() == cv.getType()) {
+                if(CourseType.VIDEO.getId() == cv.getType() || CourseType.AUDIO.getId() == cv.getType()) {
                 	Map<String,Object> collectionHint = iCourseMapper.selectTheirCollection(courseId);
                 	
                 	cv.setCollectionHint(collectionHint);
