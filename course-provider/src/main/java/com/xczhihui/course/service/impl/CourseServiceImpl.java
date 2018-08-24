@@ -623,14 +623,17 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Lock(lockName = "createTherapyLive", waitTime = 5, effectiveTime = 8)
-	public Integer createTherapyLive(Integer lockId,Integer clientType,String accountId) throws Exception {
-		/**
-		 * 查找生成诊疗直播的必要信息
-		 */
-    	
+	public Integer createTherapyLive(Integer lockId,Integer clientType,String accountId1) throws Exception {
+		
+    	//查看诊疗必要信息
 		CourseLecturVo cv = iCourseMapper.selectTherapyLiveInfo(lockId);
+		if(cv == null) {
+			 throw new CourseException("课程数据有误");
+		}
+		
 		Course course = new Course();
-		//***医师的远程诊疗直播 yyyy/mm/dd 如有重复则加上编号（01,02,03….）。  
+		//***医师的远程诊疗直播 yyyy/mm/dd 如有重复则加上编号（01,02,03….）。
+		
 		String gradeName = createTherapyGradeName(cv.getUserLecturerId(),cv.getDoctorName(),cv.getStartTime());
 		course.setGradeName(gradeName);
         course.setAppointmentInfoId(lockId);
@@ -706,39 +709,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         cacheService.delete(RedisCacheKey.COLLECTION_COURSE_REMIND_KEY + RedisCacheKey.REDIS_SPLIT_CHAR + courseId);
     }
 
-
-    public void sendTherapyMessage(CourseLecturVo cv,String userId) throws Exception {
-		
-		/*
-    	 * 1、发送短信提示
-    	 */
-        String content = MessageFormat.format(WEB_TREATMENT_MESSAGE_TIPS,cv.getDoctorName(),
-        		DateUtil.treatmentTime(cv.getStartTime(), cv.getEndTime()), cv.getDoctorName());
-
-        Map<String, String> params = new HashMap<>();
-//        params.put("type", typeText);
-//        params.put("courseName", title);
-        
-        
-        commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.SYSYTEM.getVal())
-                 .buildAppPush(APP_TREATMENT_MESSAGE_TIPS)
-                 .buildWeb(content)
-                 //.buildSms(code, params) 需要配置下短信模板
-                 .detailId(String.valueOf(cv.getId()))
-                 .build(userId, RouteTypeEnum.APPOINTMENT_TREATMENT_INFO_PAGE, cv.getUserLecturerId()));
-	}
 	
-    public static void main(String[] args) {
-    	/**
-    	 * lalal
-    	 */
-        Map<String, String> params = new HashMap<>();
-        params.put("name", "杨宣");
-        params.put("startTime", "8/23");
-        params.put("endTime", "8/25");
-    	SmsUtil.sendSMS("SMS_142616840",params, "15936216273");
-	}
-    
 	/**  
 	 * <p>Title: createTherapyGradeName</p>  
 	 * <p>Description: </p>  
