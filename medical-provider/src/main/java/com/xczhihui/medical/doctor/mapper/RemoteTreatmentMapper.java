@@ -65,6 +65,9 @@ public interface RemoteTreatmentMapper extends BaseMapper<Treatment> {
             " <if test='onlyUnAppointment'>" +
             " and mt.status = 0" +
             " </if>" +
+            " <if test='!onlyUnAppointment'>" +
+            " and mt.status != 5" +
+            " </if>" +
             " order by mt.date, mt.start_time" +
             " </script>"})
     List<TreatmentVO> listByDoctorId(@Param("doctorId") String doctorId, @Param("onlyUnAppointment") boolean onlyUnAppointment);
@@ -96,9 +99,9 @@ public interface RemoteTreatmentMapper extends BaseMapper<Treatment> {
      */
     @Select({"select mt.status, mt.date as date, mt.start_time as startTime, mt.end_time as endTime, ou.name as nickname,ou.`small_head_photo` avatar, mt.id, mt.id, mt.info_id as infoId " +
             " from medical_treatment_appointment_info mtai join medical_treatment mt on mtai.id = mt.info_id join oe_user ou on mtai.user_id = ou.id" +
-            " where mt.doctor_id = #{doctorId} and mt.status = 5 and mtai.deleted is false and mt.deleted is false" +
+            " where mt.doctor_id = #{doctorId} and (mt.status = 5 OR mt.status = 4) and mtai.deleted is false and mt.deleted is false" +
             " order by mt.date asc, mt.start_time asc"})
-    List<TreatmentVO> selectExpiredByDoctorId(@Param("doctorId") String doctorId);
+    List<TreatmentVO> selectExpiredAndFinishedByDoctorId(@Param("doctorId") String doctorId);
 
     /**
      * 通过医师查询诊疗
@@ -108,9 +111,9 @@ public interface RemoteTreatmentMapper extends BaseMapper<Treatment> {
      */
     @Select({"select mt.status, mt.date as date, mt.start_time as startTime, mt.end_time as endTime, ou.name as nickname,ou.`small_head_photo` avatar, mt.id, mt.info_id as infoId " +
             " from medical_treatment_appointment_info mtai join medical_treatment mt on mtai.id = mt.info_id join oe_user ou on mtai.user_id = ou.id" +
-            " where mt.doctor_id = #{doctorId} and mt.status != 5 and mtai.deleted is false and mt.deleted is false" +
+            " where mt.doctor_id = #{doctorId} and mt.status != 5 and mt.status != 4 and mtai.deleted is false and mt.deleted is false" +
             " order by mt.date asc, mt.start_time asc"})
-    List<TreatmentVO> selectUnExpiredByDoctorId(@Param("doctorId") String doctorId);
+    List<TreatmentVO> selectUnExpiredAndUnFinishedByDoctorId(@Param("doctorId") String doctorId);
 
     /**
      * 通过用户查询未过期的诊疗预约
@@ -123,12 +126,12 @@ public interface RemoteTreatmentMapper extends BaseMapper<Treatment> {
             "               join medical_treatment mt \n" +
             "                   on mtai.treatment_id = mt.id\n" +
             "               join (select md.id, md.name, mdai.`head_portrait` as avatar, md.title from medical_doctor md join medical_doctor_authentication_information mdai on md.`authentication_information_id` = mdai.id) as doctor on doctor.id = mt.doctor_id\n" +
-            "            where mtai.user_id = #{userId} and mt.status != 5 and mtai.deleted is false and mt.deleted is false" +
+            "            where mtai.user_id = #{userId} and mt.status != 5 and mt.status != 4 and mtai.deleted is false and mt.deleted is false" +
             "            order by mt.date asc, mt.start_time asc"})
-    List<TreatmentVO> selectUnExpiredByUserId(@Param("userId") String userId);
+    List<TreatmentVO> selectUnExpiredAndUnFinishedByUserId(@Param("userId") String userId);
 
     /**
-     * 通过用户查询已过期的诊疗预约
+     * 通过用户查询已过期与已完成的诊疗预约
      *
      * @param userId userId
      * @return
@@ -141,9 +144,9 @@ public interface RemoteTreatmentMapper extends BaseMapper<Treatment> {
             "                    (select md.id, md.name, mdai.`head_portrait` as avatar, md.title from medical_doctor md join medical_doctor_authentication_information mdai" +
             "                        on md.`authentication_information_id` = mdai.id) as doctor" +
             "                   on doctor.id = mt.doctor_id\n" +
-            "            where mtai.user_id = #{userId} and mt.status = 5 and mtai.deleted is false and mt.deleted is false" +
+            "            where mtai.user_id = #{userId} and (mt.status = 5 OR mt.status = 4) and mtai.deleted is false and mt.deleted is false" +
             "            order by mt.date desc, mt.start_time desc"})
-    List<TreatmentVO> selectExpiredByUserId(@Param("userId") String userId);
+    List<TreatmentVO> selectExpiredAndFinishedByUserId(@Param("userId") String userId);
 
     @Select({"select * from medical_treatment where (status = 0 OR status = 1 OR status = 2) and date <= curdate() and deleted is false"})
     List<Treatment> selectUpcomingExpire();
@@ -151,7 +154,7 @@ public interface RemoteTreatmentMapper extends BaseMapper<Treatment> {
 	/**  
 	 * <p>Title: 取消远程诊疗后，禁用这个课程</p>  
 	 * <p>Description: </p>  
-	 * @param infoId  
+	 * @param courseId
 	 */ 
     @Update({" update oe_course set status = 0 where id = #{courseId} "})
 	void updateCourseStatus(@Param("courseId")Integer courseId);

@@ -173,13 +173,13 @@
 		<td>
 			{{if course.applyStatus==1}}  <!-- 审核通过 -->
 				{{ if course.appointmentInfoId != null && course.appointmentStatus != 4}}<!--appointmentStatus：  1未审核 2通过 3拒绝 4已完成 5已过期-->
-				    <a href="javascript:;" onclick="editMedical({{course.appointmentInfoId}},{{i}})">编辑</a>
+				    <a href="javascript:;" onclick="editMedical({{course.id}},{{course.appointmentInfoId}},{{i}})">编辑</a>
 				{{else if course.appointmentInfoId != null && course.appointmentStatus == 4}}
 						{{if course.status==1}}
-							<a href="javascript:;" onclick="aaa()">下架</a>
+							<a href="javascript:;" onclick="confirmCourseSale(0,{{course.id}},{{course.courseId}},{{i}})">下架</a>
 						{{else}}
-							<a href="javascript:;" onclick="aaa()">上架</a>
-							<a href="javascript:;" onclick="editMedical({{course.appointmentInfoId}},{{i}})">编辑</a>
+							<a href="javascript:;" onclick="confirmCourseSale(1,{{course.id}},{{course.courseId}},{{i}})">上架</a>
+							<a href="javascript:;" onclick="editMedical({{course.id}},{{course.appointmentInfoId}},{{i}})">编辑</a>
 						{{/if}}
 				{{else}}
 					{{if course.status==1}}   <!-- 课程是否上架 -->
@@ -1082,6 +1082,7 @@
 					<div class="medical-edit-name">
 						<span class="medical-left-title"><em>*</em>课程名称</span>
 						<input type="text" maxlength="30" />
+						<p class="warning warning_medical_title hide" style="margin-left: 130px;">课程标题不能为空</p>
 					</div>
 					
 					<!--封面-->
@@ -1093,7 +1094,7 @@
 								<div class="two">点击上传封面图</div>
 							</div>
 							<div class="col-sm-9 big-photo">
-								<div class="preview" id="medical-mg" style="width: 100%;height: 147px">
+								<div class="preview" id="medical-img" style="width: 100%;height: 147px">
 									<!--<img id="imghead6" border="0" src="../../images/3.jpg" width="90" height="90" onclick="$('#previewImg6').click();">-->
 								</div>
 								<input type="file" id="medicalImgPath" accept="image/gif,image/jpeg,image/jpg,image/png" />
@@ -1105,7 +1106,8 @@
 							<div class="">支持JPG/PNG等格式图片</div>
 						</div>
 						<div class="both"></div>
-						<p class="warning hide">请上传封面图</p>
+						<p class="warning warning_medical_img hide" style="margin-left: 130px;">请上传封面</p>
+					
 					</div>
 					<!--介绍-->
 					<div class="introduce-medical">
@@ -1113,10 +1115,15 @@
 						<div class="" style="display: inline-block">						
 							<script id="editor-medical" type="text/plain" style="width:540px;height:160px;"></script>
 						</div>
+						<p class="warning warning_medical_introduce hide" style="margin-left: 130px;">课程介绍不能为空</p>
+					
 					</div>
 					
 					<div class="medical-save">
-						<button type="button">保存</button>
+						<!--存放编辑appointId-->
+						<input class="save-appointId" type="hidden" /> 
+						<input class="save-courseId" type="hidden" />
+						<button type="button" onclick="btnMedical()">保存</button>
 					</div>
 				
 				

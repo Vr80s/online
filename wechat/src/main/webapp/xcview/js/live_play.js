@@ -118,8 +118,12 @@ requestService("/xczh/course/liveDetails",{
 		{courseId:memory_data,recordType:2},function(data) {
 			
 		})	
-		
-		window.location.href="details.html?courseId="+course_id;
+		if (resultObject.lecturerDescription.appointmentInfoId !=null) {
+            window.location.href="salon.html?courseId="+course_id;
+        }else{
+            window.location.href="details.html?courseId="+course_id;
+        };
+		// window.location.href="details.html?courseId="+course_id;
 	})
 
 

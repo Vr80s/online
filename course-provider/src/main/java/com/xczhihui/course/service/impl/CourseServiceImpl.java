@@ -19,15 +19,24 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.google.common.collect.ImmutableMap;
-import com.xczhihui.common.support.domain.CouserMessagePushVo;
 import com.xczhihui.common.support.lock.Lock;
 import com.xczhihui.common.support.service.CacheService;
-import com.xczhihui.common.support.service.XcRedisCacheService;
-import com.xczhihui.common.support.service.impl.XcRedisCacheServiceImpl;
 import com.xczhihui.common.util.DateUtil;
 import com.xczhihui.common.util.EmailUtil;
+import com.xczhihui.common.util.SmsUtil;
 import com.xczhihui.common.util.XzStringUtils;
-import com.xczhihui.common.util.enums.*;
+import com.xczhihui.common.util.enums.CourseForm;
+import com.xczhihui.common.util.enums.CourseType;
+import com.xczhihui.common.util.enums.LiveCaseType;
+import com.xczhihui.common.util.enums.LivePushStreamStatus;
+import com.xczhihui.common.util.enums.LiveStatus;
+import com.xczhihui.common.util.enums.LiveStatusEvent;
+import com.xczhihui.common.util.enums.MessageTypeEnum;
+import com.xczhihui.common.util.enums.Multimedia;
+import com.xczhihui.common.util.enums.PayStatus;
+import com.xczhihui.common.util.enums.PlayBackType;
+import com.xczhihui.common.util.enums.RouteTypeEnum;
+import com.xczhihui.common.util.enums.VhallCustomMessageType;
 import com.xczhihui.common.util.redis.key.RedisCacheKey;
 import com.xczhihui.common.util.vhallyun.ChannelService;
 import com.xczhihui.common.util.vhallyun.InteractionService;
@@ -532,19 +541,14 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         if (course != null) {
             switch (event) {
                 case START_EVENT:
-                    startOrEnd = "start_time";
                     course.setLiveStatus(1);
                     type = VhallCustomMessageType.LIVE_START.getCode();
                     // -- 》app端发起的直播
                     if(MultiUrlHelper.URL_TYPE_APP.equals(clientType)) {
                     	course.setLiveSourceType(true);
                     }
-                    //直播状况
-                    course.setLiveCase(LiveCaseType.NORMAL_LIVE.getCode());
-                    
                     break;
                 case STOP_EVENT:
-                    startOrEnd = "end_time";
                     course.setLiveStatus(3);
                     type = VhallCustomMessageType.LIVE_END.getCode();
                     Date startTime = course.getStartTime();
@@ -565,19 +569,6 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
             iCourseMapper.updateById(course);
             // 发送直播开始通知广播
             liveStatusUpdateNotice(course.getChannelId(), type);
-
-            if (StringUtils.isNotBlank(startOrEnd)) {
-                Integer maxRecord = iCourseMapper.maxRecordCount(course.getDirectId());
-                maxRecord = maxRecord == null ? 1 : maxRecord + 1;
-                Date startTime = null;
-                Date endTime = null;
-                if (event.equals(LiveStatusEvent.START.getName())) {
-                    startTime = new Date();
-                } else if (event.equals(LiveStatusEvent.STOP.getName())) {
-                    endTime = new Date();
-                }
-                iCourseMapper.insertRecordLiveTime(startTime, endTime, course.getId(), course.getDirectId(), maxRecord);
-            }
             return course.getId();
         }
         return null;
@@ -698,23 +689,8 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         /**
          * redis 缓存中增加数据，开播10分钟提醒。
          */
-    	CouserMessagePushVo  cmpv = new CouserMessagePushVo();
-    	cmpv.setGradeName(course.getGradeName());
-    	cmpv.setId(course.getId());
-    	cmpv.setUserLecturerId(course.getUserLecturerId());
-    	cmpv.setStartTime(course.getStartTime());
-    	cmpv.setAppointmentInfoId(lockId);
-//    	XcRedisCacheService xcRedisCacheService = new XcRedisCacheServiceImpl();
-    	/**
-    	 * 保存到redis缓存，开播前提醒
-    	 */
-//        xcRedisCacheService.saveCourseMessageReminding(cmpv, RedisCacheKey.LIVE_COURSE_REMIND_KEY);
+    	
 
-        /**
-         * 发送推送消息
-         *  1、需要短信模板。后期在说，现提供接口在说吧。
-         */
-        //sendTherapyMessage(cv,accountId);
         return course.getId();
 	}
 
@@ -756,14 +732,26 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 //        params.put("type", typeText);
 //        params.put("courseName", title);
         
+        
         commonMessageService.saveMessage(new BaseMessage.Builder(MessageTypeEnum.SYSYTEM.getVal())
                  .buildAppPush(APP_TREATMENT_MESSAGE_TIPS)
                  .buildWeb(content)
-                  //.buildSms(code, params) 需要配置下短信模板
+                 //.buildSms(code, params) 需要配置下短信模板
                  .detailId(String.valueOf(cv.getId()))
                  .build(userId, RouteTypeEnum.APPOINTMENT_TREATMENT_INFO_PAGE, cv.getUserLecturerId()));
 	}
 	
+    public static void main(String[] args) {
+    	/**
+    	 * lalal
+    	 */
+        Map<String, String> params = new HashMap<>();
+        params.put("name", "杨宣");
+        params.put("startTime", "8/23");
+        params.put("endTime", "8/25");
+    	SmsUtil.sendSMS("SMS_142616840",params, "15936216273");
+	}
+    
 	/**  
 	 * <p>Title: createTherapyGradeName</p>  
 	 * <p>Description: </p>  

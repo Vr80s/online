@@ -1,5 +1,6 @@
 package com.xczhihui.medical.doctor.service.impl;
 
+
 import com.baomidou.mybatisplus.plugins.Page;
 import com.jayway.jsonpath.JsonPath;
 import com.xczhihui.common.support.service.CacheService;
@@ -13,6 +14,7 @@ import com.xczhihui.common.util.vhallyun.VhallUtil;
 import com.xczhihui.medical.anchor.mapper.CourseApplyInfoMapper;
 import com.xczhihui.medical.doctor.mapper.RemoteTreatmentAppointmentInfoMapper;
 import com.xczhihui.medical.doctor.mapper.RemoteTreatmentMapper;
+import com.xczhihui.medical.doctor.model.MedicalDoctorAccount;
 import com.xczhihui.medical.doctor.model.Treatment;
 import com.xczhihui.medical.doctor.model.TreatmentAppointmentInfo;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
@@ -28,6 +30,9 @@ import org.springframework.stereotype.Service;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
+
+import static com.xczhihui.common.util.enums.TreatmentInfoApplyStatus.APPLY_PASSED;
 
 /**
  * @author hejiwei
@@ -120,6 +125,10 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
 //            if (checkRepeatAppoint(treatmentId, treatmentAppointmentInfo.getUserId())) {
 //                throw new MedicalException("该日期您已经有预约申请，请选择其他日期进行申请");
 //            }
+            MedicalDoctorAccount medicalDoctorAccount = medicalDoctorBusinessService.getByDoctorId(treatment.getDoctorId());
+            if (medicalDoctorAccount != null && medicalDoctorAccount.getAccountId().equals(treatmentAppointmentInfo.getUserId())) {
+                throw new MedicalException("抱歉，您不可以预约自己的诊疗");
+            }
             treatmentAppointmentInfo.setStatus(TreatmentInfoApplyStatus.WAIT_DOCTOR_APPLY.getVal());
             remoteTreatmentAppointmentInfoMapper.insert(treatmentAppointmentInfo);
             treatment.setInfoId(treatmentAppointmentInfo.getId());
@@ -167,7 +176,7 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
             }
             TreatmentAppointmentInfo treatmentAppointmentInfo = remoteTreatmentAppointmentInfoMapper.selectById(infoId);
             if (status) {
-                treatmentAppointmentInfo.setStatus(TreatmentInfoApplyStatus.APPLY_PASSED.getVal());
+                treatmentAppointmentInfo.setStatus(APPLY_PASSED.getVal());
                 treatment.setStatus(AppointmentStatus.WAIT_START.getVal());
             } else {
                 treatmentAppointmentInfo.setStatus(TreatmentInfoApplyStatus.APPLY_NOT_PASSED.getVal());
@@ -214,14 +223,14 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
             if (treatment.getStatus() != AppointmentStatus.WAIT_START.getVal()) {
                 throw new MedicalException("当前状态不支持取消");
             }
-            
+
             //取消远程诊疗后，禁用这个课程
             remoteTreatmentMapper.updateCourseStatus(treatment.getCourseId());
             /*
              * 取消远程诊疗后，逻辑删除课程审核信息表中的数据
              */
             courseApplyInfoMapper.deleteCourseApplyByCouserId(treatment.getCourseId());
-            
+
             Integer infoId = treatment.getInfoId();
             TreatmentAppointmentInfo treatmentAppointmentInfo = remoteTreatmentAppointmentInfoMapper.selectById(infoId);
             //更新为用户的预约信息为未通过
@@ -328,7 +337,8 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
     }
 
     @Override
-    public int updateTreatmentStartStatus(int infoId, int status) {
+    public Map<String, Object> updateTreatmentStartStatus(int infoId, int status) {
+        Map<String, Object> result = new HashMap<>();
         synchronized (LOCK) {
             TreatmentAppointmentInfo treatmentAppointmentInfo = remoteTreatmentAppointmentInfoMapper.selectById(infoId);
             if (treatmentAppointmentInfo == null) {
@@ -339,51 +349,62 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
                 throw new MedicalException("诊疗id参数错误");
             }
             Integer treatmentStatus = treatment.getStatus();
+            if (treatmentStatus == AppointmentStatus.EXPIRED.getVal()) {
+                throw new MedicalException("该诊疗直播已过期");
+            }
+            if (treatmentStatus == AppointmentStatus.FINISHED.getVal()) {
+                throw new MedicalException("该诊疗直播已结束");
+            }
             if (status != AppointmentStatus.STARTED.getVal() && status != AppointmentStatus.FINISHED.getVal()) {
                 throw new MedicalException("status 参数错误");
             }
-//            if (treatmentStatus != AppointmentStatus.WAIT_START.getVal() && treatmentStatus != AppointmentStatus.STARTED.getVal()) {
-//                throw new MedicalException("status 参数错误");
-//            }
             //开始诊疗
             if (treatmentStatus == AppointmentStatus.WAIT_START.getVal() && status == AppointmentStatus.STARTED.getVal()) {
                 treatment.setStatus(status);
                 updateStatusChange(treatment, treatmentAppointmentInfo);
-            //继续诊疗
+                //继续诊疗
             } else if (treatmentStatus == AppointmentStatus.STARTED.getVal() && status == AppointmentStatus.STARTED.getVal()) {
-
                 //结束诊疗
             } else if (treatmentStatus == AppointmentStatus.STARTED.getVal() && status == AppointmentStatus.FINISHED.getVal()) {
                 treatmentAppointmentInfo.setStatus(TreatmentInfoApplyStatus.FINISHED.getVal());
                 treatment.setStatus(status);
-
                 updateStatusChange(treatment, treatmentAppointmentInfo);
+            } else {
+                throw new MedicalException("参数错误");
             }
             remoteTreatmentMapper.updateById(treatment);
             remoteTreatmentAppointmentInfoMapper.updateById(treatmentAppointmentInfo);
-            return 0;
+            result.put("courseId", treatment.getCourseId());
+            result.put("userId", treatmentAppointmentInfo.getUserId());
+            return result;
         }
     }
 
     @Override
     public List<TreatmentVO> listByDoctorId(String doctorId) {
         List<TreatmentVO> results = new ArrayList<>();
-        List<TreatmentVO> expiredTreatments = remoteTreatmentMapper.selectExpiredByDoctorId(doctorId);
-        List<TreatmentVO> unExpiredTreatments = remoteTreatmentMapper.selectUnExpiredByDoctorId(doctorId);
+        List<TreatmentVO> expiredAndFinishedTreatments = remoteTreatmentMapper.selectExpiredAndFinishedByDoctorId(doctorId);
+        List<TreatmentVO> unExpiredAndUnFinishedTreatments = remoteTreatmentMapper.selectUnExpiredAndUnFinishedByDoctorId(doctorId);
 
-        Iterator<TreatmentVO> iterator = unExpiredTreatments.iterator();
-        while (iterator.hasNext()) {
-            TreatmentVO treatmentVO = iterator.next();
-            if (treatmentVO.getStatus() == AppointmentStatus.STARTED.getVal()) {
-                if (isCanStartLive(getTreatmentTime(treatmentVO.getDate(), treatmentVO.getStartTime()))) {
-                    results.add(treatmentVO);
-                    treatmentVO.setStart(true);
-                    iterator.remove();
-                }
-            }
-        }
-        results.addAll(unExpiredTreatments);
-        results.addAll(expiredTreatments);
+        results.addAll(unExpiredAndUnFinishedTreatments.stream()
+                .filter(treatmentVO -> treatmentVO.getStatus() == AppointmentStatus.WAIT_START.getVal() && isCanStartLive(getTreatmentTime(treatmentVO.getDate(), treatmentVO.getStartTime())))
+                .collect(Collectors.toList()));
+        results.addAll(unExpiredAndUnFinishedTreatments.stream()
+                .filter(treatmentVO -> treatmentVO.getStatus() == AppointmentStatus.STARTED.getVal())
+                .collect(Collectors.toList()));
+        results.addAll((unExpiredAndUnFinishedTreatments.stream()
+                .filter(treatmentVO -> treatmentVO.getStatus() == AppointmentStatus.WAIT_START.getVal() && !isCanStartLive(getTreatmentTime(treatmentVO.getDate(), treatmentVO.getStartTime())))
+                .collect(Collectors.toList())));
+        results.addAll(unExpiredAndUnFinishedTreatments.stream()
+                .filter(treatmentVO -> treatmentVO.getStatus() == AppointmentStatus.WAIT_APPLY.getVal())
+                .collect(Collectors.toList()));
+
+        results.addAll(expiredAndFinishedTreatments.stream()
+                .filter(treatmentVO -> treatmentVO.getStatus() == AppointmentStatus.EXPIRED.getVal())
+                .collect(Collectors.toList()));
+        results.addAll(expiredAndFinishedTreatments.stream()
+                .filter(treatmentVO -> treatmentVO.getStatus() == AppointmentStatus.FINISHED.getVal())
+                .collect(Collectors.toList()));
         results.forEach(treatmentVO -> {
             treatmentVO.setTreatmentTime(getTreatmentTime(treatmentVO.getDate(), treatmentVO.getStartTime()));
             handleDate(treatmentVO);
@@ -395,23 +416,27 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
     @Override
     public List<TreatmentVO> listByUserId(String userId) {
         List<TreatmentVO> results = new ArrayList<>();
-        List<TreatmentVO> unExpiredUserAppointmentInfoVOS = remoteTreatmentMapper.selectUnExpiredByUserId(userId);
-        List<TreatmentVO> topAppointmentInfoList = new ArrayList<>();
-        Iterator<TreatmentVO> iterator = unExpiredUserAppointmentInfoVOS.iterator();
-        while (iterator.hasNext()) {
-            TreatmentVO treatmentVO = iterator.next();
-            if (treatmentVO.getStatus() == TreatmentInfoApplyStatus.APPLY_PASSED.getVal()) {
-                if (isCanStartLive(getTreatmentTime(treatmentVO.getDate(), treatmentVO.getStartTime()))) {
-                    topAppointmentInfoList.add(treatmentVO);
-                    treatmentVO.setStart(true);
-                    iterator.remove();
-                }
-            }
-        }
-        List<TreatmentVO> expiredTreatmentVOS = remoteTreatmentMapper.selectExpiredByUserId(userId);
-        results.addAll(topAppointmentInfoList);
-        results.addAll(unExpiredUserAppointmentInfoVOS);
-        results.addAll(expiredTreatmentVOS);
+        List<TreatmentVO> unExpiredAndUnFinishedAppointmentInfoVOS = remoteTreatmentMapper.selectUnExpiredAndUnFinishedByUserId(userId);
+        results.addAll(unExpiredAndUnFinishedAppointmentInfoVOS.stream()
+                .filter(treatmentVO -> (treatmentVO.getStatus() == APPLY_PASSED.getVal() && isCanStartLive(getTreatmentTime(treatmentVO.getDate(), treatmentVO.getStartTime()))))
+                .collect(Collectors.toList()));
+        results.addAll(unExpiredAndUnFinishedAppointmentInfoVOS.stream()
+                .filter(treatmentVO -> (treatmentVO.getStatus() == APPLY_PASSED.getVal() && !isCanStartLive(getTreatmentTime(treatmentVO.getDate(), treatmentVO.getStartTime()))))
+                .collect(Collectors.toList()));
+        results.addAll(unExpiredAndUnFinishedAppointmentInfoVOS.stream()
+                .filter(treatmentVO -> treatmentVO.getStatus() == TreatmentInfoApplyStatus.APPLY_NOT_PASSED.getVal())
+                .collect(Collectors.toList()));
+        results.addAll(unExpiredAndUnFinishedAppointmentInfoVOS.stream()
+                .filter(treatmentVO -> treatmentVO.getStatus() == TreatmentInfoApplyStatus.WAIT_DOCTOR_APPLY.getVal())
+                .collect(Collectors.toList()));
+
+        List<TreatmentVO> expiredAndFinishedTreatmentVOS = remoteTreatmentMapper.selectExpiredAndFinishedByUserId(userId);
+        results.addAll(expiredAndFinishedTreatmentVOS.stream()
+                .filter(treatmentVO -> treatmentVO.getStatus() == TreatmentInfoApplyStatus.EXPIRED.getVal())
+                .collect(Collectors.toList()));
+        results.addAll(expiredAndFinishedTreatmentVOS.stream().filter(treatmentVO -> treatmentVO.getStatus() == TreatmentInfoApplyStatus.FINISHED.getVal())
+                .collect(Collectors.toList()));
+
         results.forEach(treatmentVO -> {
             treatmentVO.setTreatmentTime(getTreatmentTime(treatmentVO.getDate(), treatmentVO.getStartTime()));
             handleDate(treatmentVO);

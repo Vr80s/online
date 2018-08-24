@@ -259,6 +259,14 @@
 		</div>
 		
 		
+		<!--诊疗直播弹窗-->
+		<div id="video-cover" class="hide" style="position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; background: rgb(0, 0, 0); opacity: 0.3; z-index: 888;"></div>
+		<div class="video-live hide">
+			<p class="video-top">语音直播</p>
+			<img src="/webview/images/usershow/ERWEIMA-ICON2.png"/>
+			<p class="video-tip">扫描二维码下载熊猫中医APP，在客户端进行直播</p>
+		</div>
+		
 		
 		<!--删除提示弹窗-->
 		<!--<div id="deleteTip" class="hide">
@@ -1036,7 +1044,15 @@
 											<span class="appointment-delete" data-id="{{item.id}}" data-index="{{i}}">删除</span>
 											{{else if item.status==2}}
 											<span class="see-inf-modal" data-index="{{i}}">查看</span>
+											<span class="star-inf-medical">开始诊疗</span>
 											<span class="cancel-reservation" data-id="{{item.id}}">取消预约</span>
+											{{else if item.status==3}}
+											<span class="see-inf-modal" data-index="{{i}}">查看</span>
+											{{else if item.status==4}}
+											<span class="see-inf-modal" data-index="{{i}}">查看</span>
+											<span>视频诊疗</span>
+											{{else if item.status==5}}
+											<span class="appointment-delete" data-id="{{item.id}}" data-index="{{i}}">删除</span>
 											{{/if}}
 										</td>
 									</tr>

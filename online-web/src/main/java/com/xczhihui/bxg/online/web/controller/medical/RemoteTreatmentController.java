@@ -69,7 +69,7 @@ public class RemoteTreatmentController extends AbstractController {
 
     @RequestMapping(value = "{id}/{status}", method = RequestMethod.PUT)
     public ResponseObject updateStatus(@PathVariable Integer id, @PathVariable boolean status) throws Exception {
-        
+
     	Treatment treatment = remoteTreatmentService.selectTreatmentById(id);
         remoteTreatmentService.updateStatus(id, status);
         if (status) {
@@ -77,7 +77,7 @@ public class RemoteTreatmentController extends AbstractController {
             Integer courseId = courseService.createTherapyLive(treatment.getInfoId(), ClientType.PC.getCode(), userId);
             remoteTreatmentService.updateTreatmentCourseId(id, courseId);
             Course course = courseService.selectById(courseId);
-            medicalDoctorPostsService.addDoctorPosts(userId, course.getId(), null, course.getGradeName(), 
+            medicalDoctorPostsService.addDoctorPosts(userId, course.getId(), null, course.getGradeName(),
             		course.getSubtitle(), course.getAppointmentInfoId());
         }
         return ResponseObject.newSuccessResponseObject();

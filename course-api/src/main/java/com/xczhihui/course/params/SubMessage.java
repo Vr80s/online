@@ -14,6 +14,8 @@ public class SubMessage implements Serializable {
 
     private Map<String, String> params;
 
+    private Map<String, Object> customParams;
+
     public SubMessage(String code, Map<String, String> params) {
         this.code = code;
         this.params = params;
@@ -45,5 +47,13 @@ public class SubMessage implements Serializable {
 
     public void setParams(Map<String, String> params) {
         this.params = params;
+    }
+
+    public Map<String, Object> getCustomParams() {
+        return customParams;
+    }
+
+    public void setCustomParams(Map<String, Object> customParams) {
+        this.customParams = customParams;
     }
 }

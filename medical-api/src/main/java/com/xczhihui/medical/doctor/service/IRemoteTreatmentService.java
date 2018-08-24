@@ -6,6 +6,7 @@ import com.xczhihui.medical.doctor.model.TreatmentAppointmentInfo;
 import com.xczhihui.medical.doctor.vo.TreatmentVO;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 远程诊疗服务
@@ -129,7 +130,7 @@ public interface IRemoteTreatmentService {
      * @param status status
      * @return
      */
-    int updateTreatmentStartStatus(int id, int status);
+    Map<String, Object> updateTreatmentStartStatus(int id, int status);
 
     /**
      * 分页获取医师远程诊疗

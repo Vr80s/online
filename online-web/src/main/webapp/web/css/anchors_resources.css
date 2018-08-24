@@ -1079,7 +1079,7 @@ outline: none;
     border: 1px solid #dedede;
 } 
 .long-range-table table th:nth-child(1) {
-    width: 236px;
+    width: 216px;
 } 
 .long-range-table table th:nth-child(2) {
     width: 103px;
@@ -1091,7 +1091,7 @@ outline: none;
     width: 96px;
 } 
 .long-range-table table th:nth-child(5) {
-    width:177px;
+    width:197px;
 } 
 .long-range-table table td {
     border: 1px solid #dedede;
@@ -1113,8 +1113,11 @@ outline: none;
 	cursor: pointer;
 }
 .long-range-table table td span:nth-child(1){
-	margin-left: 30px;
-	float: left;
+	/*margin-left: 30px;
+	float: left;*/
+}
+.star-inf-medical{
+	margin: 0 7px
 }
 .long-range-question{
 	width: 100%;
@@ -3904,4 +3907,35 @@ white-space: normal;
     color: #999;
     margin-top: 38px;
 }
-
+/*诊疗直播弹窗*/
+/*语音直播弹窗*/
+.video-live{
+	width: 300px;
+	height: 300px;
+	background: white;
+	position: fixed;
+	z-index: 999;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	-webkit-transform: translate(-50%,-50%);
+}
+.video-top{
+	width: 100%;
+	height: 86px;
+	background: #E2B95A;
+	text-align: center;
+	line-height: 86px;
+	color: white;
+	font-size: 20px;
+	margin-bottom: 20px;
+}
+.video-live img{
+	display: block;
+	margin: 0 auto;
+}
+.video-live .video-tip{
+	text-align: center;
+	font-size: 12px;
+	margin: 15px 0 0;
+}
