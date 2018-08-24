@@ -159,6 +159,12 @@
     $(".handler_btn").click(function(){
 
 
+    	    var name = $(".booking_person_span").html(); //预约人
+    var time = $(".handler_time_span").html();   //时间
+    var tel = $(".handler_tel_put").val(); //预留电话
+    var apprenticeId = $('#J_apprenticeId').val();
+    var question = $(".textarea").val(); //请简单描述您的问题
+    	
         
         if (!(/^1[346578]\d{9}$/.test(tel))) {
             jqtoast("请输入正确的手机号");
