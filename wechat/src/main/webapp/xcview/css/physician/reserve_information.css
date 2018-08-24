@@ -81,6 +81,7 @@ header{
     width: 7.5rem;
     height: 100%;
     margin: 0 auto;
+    margin-top: 0.88rem
 }
 .booking_person{
     width: 6.98rem;
@@ -177,11 +178,12 @@ header{
     text-align: center;
     margin: 0 auto;
     margin-bottom: 0.3rem;
+    opacity: 0.5;
 }
 
 
 .other_means {
-    width: 4.35rem;
+    width: 4.6rem;
     height: 0.4rem;
     line-height: 0.4rem;
     margin: 0 auto;
@@ -211,7 +213,7 @@ header{
 }
 
 .other_means span {
-    font-size: 0.22rem;
+    font-size: 0.24rem;
     color: #00bc12;
 }
 
@@ -222,11 +224,11 @@ header{
     margin: 0 auto;
     font-size: 0.26rem;
     color: #999999;
-    margin-top: 1.09rem;
-    position: fixed;
+    margin-top: 0.8rem;
+    /* position: fixed;
     bottom: 0.6rem;
     left: 50%;
-    margin-left: -3.49rem;
+    margin-left: -3.49rem; */
 }
 .handler_reminder ul li{
     list-style: disc;

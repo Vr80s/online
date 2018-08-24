@@ -186,10 +186,10 @@ header{
     font-size: 0.26rem;
     color: #999999;
     margin-top: 1.09rem;
-    position: fixed;
+    /* position: fixed;
     bottom: 0.6rem;
     left: 50%;
-    margin-left: -3.49rem;
+    margin-left: -3.49rem; */
 }
 .handler_reminder ul li{
     list-style: disc;

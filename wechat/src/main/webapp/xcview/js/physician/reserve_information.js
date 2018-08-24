@@ -74,20 +74,56 @@ $(function(){
         }
     });
 
+    
+
+
+    
+
+    $('.textarea').keyup(function(){
+        var tel = $(".handler_tel_put").val(); //预留电话
+        var question = $(".textarea").val(); //请简单描述您的问题
+        
+        if(tel != '' && question != ''){
+            $(".handler_btn").css("opacity","1");
+        }else{
+            $(".handler_btn").css("opacity","0.5");  
+        }
+    })
+
+    $('.handler_tel_put').keyup(function(){
+        var tel = $(".handler_tel_put").val(); //预留电话
+        var question = $(".textarea").val(); //请简单描述您的问题
+        
+        if(tel != '' && question != ''){
+            $(".handler_btn").css("opacity","1");
+        }else{
+            $(".handler_btn").css("opacity","0.5");  
+        }
+    })
+    
+
+    /*if (name == null && tel == null && question == null) {
+        $(".handler_btn").css("opacity","0.5");
+    }else{
+        $(".handler_btn").css("opacity","1");
+    };*/
+
+
+
     // 点击提交表单按钮
     $(".handler_btn").click(function(){
-        // var Id=$(".handler_time_span").attr("data-ids"); //预约时间
+
         var name = $(".booking_person_span").html(); //预约人
         var tel = $(".handler_tel_put").val(); //预留电话
         var apprenticeId = $('#J_apprenticeId').val();
+        var question = $(".textarea").val(); //请简单描述您的问题
+        
         if (!(/^1[346578]\d{9}$/.test(tel))) {
             jqtoast("请输入正确的手机号");
             return false;
         }
 
-
-
-        var question = $(".textarea").val(); //请简单描述您的问题
+        
         if (isBlank(question)) {
 
             jqtoast("诊疗问题不能为空");
@@ -103,10 +139,7 @@ $(function(){
         if(!$('#checkbox1').is(':checked')) {
             jqtoast("请同意协议内容");
             return false;
-        }/*else{
-            
-            alert(21222);
-        }*/
+        }
 
         requestService("/doctor/treatment/appointmentInfo",{
             treatmentId:treatmentId,
