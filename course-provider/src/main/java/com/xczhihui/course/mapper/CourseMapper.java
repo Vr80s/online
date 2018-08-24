@@ -288,7 +288,7 @@ public interface CourseMapper extends BaseMapper<Course> {
     		+ " course_form,course_menu,start_time, price, course_description,course_detail,"
     		+ " multimedia_type,sale,status,create_time,update_time,client_type) "
     		+ " values(#{course.gradeName}, #{course.gradeName},#{course.userLecturerId}, #{course.smallImgPath}, #{course.lecturer}, #{course.lecturerDescription},"
-    		+ "	#{course.type},'', #{course.startTime}, #{course.currentPrice}, #{course.description}, #{course.description},"
+    		+ "	#{course.type},'', #{course.startTime}, #{course.currentPrice}, #{course.courseDetail}, #{course.courseDetail},"
     		+ "	1, 1,1, now(), now(),#{course.clientType}) "})
     @Options(useGeneratedKeys=true, keyProperty="course.examineId", keyColumn="id")
     void insertCouserApplyInfo(@Param("course")Course course);
