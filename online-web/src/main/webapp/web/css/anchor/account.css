@@ -594,6 +594,9 @@
     text-indent: 1em;
     font-size: 14px;
 }
+.message_return form .name .active-error{
+	border-color: #FF4012;
+}
 .message_return form .name .span{
 	font-size: 14px;
 	color: #188EEE;
