@@ -703,19 +703,6 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     }
 
     @Override
-    public int updateStatus(Integer id, Integer status) {
-        Course course = iCourseMapper.selectById(id);
-        if (course != null) {
-            course.setStatus(String.valueOf(status));
-            iCourseMapper.updateById(course);
-            if (status == 0) {
-                deleteCourseMessage(id);
-            }
-        }
-        return 0;
-    }
-
-    @Override
     public void deleteCourseMessage(Integer courseId) {
         cacheService.delete(RedisCacheKey.OFFLINE_COURSE_REMIND_KEY + RedisCacheKey.REDIS_SPLIT_CHAR + courseId);
         cacheService.delete(RedisCacheKey.LIVE_COURSE_REMIND_KEY + RedisCacheKey.REDIS_SPLIT_CHAR + courseId);
