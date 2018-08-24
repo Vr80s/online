@@ -198,3 +198,13 @@ dev-2.5
     update `medical_treatment_appointment_info` info set info.`status` = (select mt.status from medical_treatment mt where mt.`info_id` = info.id);
     update medical_treatment_appointment_info set status = 3 where status is null;
     update medical_treatment_appointment_info set deleted = 0 where deleted is null;
+
+    ALTER TABLE `medical_treatment_appointment_info` ADD `date` DATE  NULL  AFTER `deleted`;
+    ALTER TABLE `medical_treatment_appointment_info` ADD `start_time` TIME  NULL  AFTER `date`;
+    ALTER TABLE `medical_treatment_appointment_info` ADD `end_time` TIME  NULL  AFTER `start_time`;
+
+    update `medical_treatment_appointment_info` info set info.date = (select mt.date from medical_treatment mt where info.`treatment_id` = mt.id);
+
+    update `medical_treatment_appointment_info` info set info.start_time = (select mt.start_time from medical_treatment mt where info.`treatment_id` = mt.id);
+
+    update `medical_treatment_appointment_info` info set info.end_time = (select mt.end_time from medical_treatment mt where info.`treatment_id` = mt.id);

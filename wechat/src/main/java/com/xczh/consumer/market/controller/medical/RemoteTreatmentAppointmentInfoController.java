@@ -152,10 +152,6 @@ public class RemoteTreatmentAppointmentInfoController {
     @RequestMapping(value = "cancel/appointment", method = RequestMethod.POST)
     public ResponseObject cancelAppointment(@Account String accountId, @RequestParam int id) {
         remoteTreatmentService.updateAppointmentForCancel(id);
-        Treatment treatment = remoteTreatmentService.selectTreatmentById(id);
-        if (treatment != null && treatment.getCourseId() != null) {
-            courseService.updateStatus(treatment.getCourseId(), 0);
-        }
         return ResponseObject.newSuccessResponseObject(null);
     }
 
@@ -166,12 +162,15 @@ public class RemoteTreatmentAppointmentInfoController {
         if (status) {
             Integer courseId = courseService.createTherapyLive(infoId, HeaderInterceptor.getClientType().getCode(), accountId);
             remoteTreatmentService.updateTreatmentCourseId(treatmentAppointmentInfo.getTreatmentId(), courseId);
-            
-            com.xczhihui.bxg.online.common.domain.Course  course1 = new  com.xczhihui.bxg.online.common.domain.Course();
-            
             Course course = courseService.selectById(courseId);
             medicalDoctorPostsService.addDoctorPosts(accountId, course.getId(), null, course.getGradeName(), course.getSubtitle(), course.getAppointmentInfoId());
         }
+        return ResponseObject.newSuccessResponseObject(null);
+    }
+
+    @RequestMapping(value = "inavUserList", method = RequestMethod.GET)
+    public ResponseObject inavUserList(@RequestParam String inavId) throws Exception {
+        remoteTreatmentService.inavUserList(inavId);
         return ResponseObject.newSuccessResponseObject(null);
     }
 }

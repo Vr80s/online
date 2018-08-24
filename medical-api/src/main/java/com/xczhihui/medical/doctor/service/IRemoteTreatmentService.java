@@ -1,12 +1,12 @@
 package com.xczhihui.medical.doctor.service;
 
-import java.util.List;
-import java.util.Map;
-
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.medical.doctor.model.Treatment;
 import com.xczhihui.medical.doctor.model.TreatmentAppointmentInfo;
 import com.xczhihui.medical.doctor.vo.TreatmentVO;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * 远程诊疗服务
@@ -179,4 +179,18 @@ public interface IRemoteTreatmentService {
      * @param info info
      */
     void updateStatusChange(Treatment treatment, TreatmentAppointmentInfo info);
+
+    /**
+     * 获取正在直播中的互动房间内的用户列表
+     *
+     * @param  inavId
+     */
+    String inavUserList(String inavId) throws Exception;
+
+    /**
+     * 更新课程状态
+     * @param id id
+     * @param status status
+     */
+    void updateCourseStatus(int id, int status);
 }
