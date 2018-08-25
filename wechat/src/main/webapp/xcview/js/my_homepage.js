@@ -22,11 +22,20 @@ function balance() {
             $("#attentionid").html(baseInfo.focusCount);
             $("#fansid").html(baseInfo.fansCount);
 
+            // 我的预约未读数字
             if (baseInfo.appointmentStatusChangeCnt == 0) {
                 $(".number_span").hide();
             }else{
                 $(".number_span").show();
                 $(".number_span").text(baseInfo.appointmentStatusChangeCnt);
+            };
+
+            // 远程诊疗未读数字
+            if (baseInfo.treatmentStatusChangeCnt == 0) {
+                $(".treatment_number_span").hide();
+            }else{
+                $(".treatment_number_span").show();
+                $(".treatment_number_span").html(baseInfo.treatmentStatusChangeCnt);
             };
             
 

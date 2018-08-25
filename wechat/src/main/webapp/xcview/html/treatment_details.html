@@ -28,6 +28,14 @@
 	    }
 	}	
 </script>
+<style>
+	.handler_reminder{
+		position: fixed;
+	    bottom: 0.6rem;
+	    left: 50%;
+	    margin-left: -3.49rem;
+	}
+</style>
 </head>
 <body style="background: #F8F8F8;">
 	<!--头部开始-->
@@ -74,23 +82,25 @@
 		</div>
 		<div class="both"></div>
 
-		<!--{{if start == true}}
-			
-		{{else}}
-			
-		{{/if}}-->
 		
 
 	    </script>
 	</div>
 	
-	<div class="handler_btns" style="display: block !important;">审核通过</div>
-	<div class="handler_btn" style="display: block !important;">拒绝</div>
-	<div class="check_btn" style="display: none;">查看诊疗视频</div>
+	<!-- <div class="button" style="width: 6.98rem;margin: 0 auto;">
+		<script type="text/html" id="button">
+		<div class="handler_btn" data-infoId="{{item.infoId}}" style="display: block !important;width: 3.09rem;float: left;background: #FF4012;">拒绝</div>
+		<div class="handler_btns" style="display: block !important;width: 3.09rem;float: right;">审核通过</div>
+		<div class="both"></div>
+		</script>
+	</div> -->
 
-
-
-
+	<div class="button" style="width: 6.98rem;margin: 0 auto;">
+		<div class="handler_btn" style="display: block !important;width: 3.09rem;float: left;background: #FF4012;">拒绝</div>
+		<div class="handler_btns" style="display: block !important;width: 3.09rem;float: right;">审核通过</div>
+		<div class="both"></div>
+	</div>
+	<!-- <div class="check_btn" style="display: none;">查看诊疗视频</div> -->
 
 
 	<!-- <div class="handler_btn">申请预约</div> -->
@@ -121,7 +131,7 @@
 	</div>
 
 	<!-- 点击申请成功 -->
-	<div class="prosperity_popout">
+	<!-- <div class="prosperity_popout">
 		<div class="prosperity_popout_bg"></div>
 		<div class="prosperity_popout_main">
 			<div class="prosperity_popout_title">
@@ -130,10 +140,10 @@
 			<div class="prosperity_cen">医师审核完成后，我们会将审核结果以短信形式发送给您，请耐心等待</div>
 			<div class="prosperity_popout_hide">我知道了</div>
 		</div>
-	</div>
+	</div> -->
 
 	<!-- 点击申请失败 -->
-	<div class="failure_popout">
+	<!-- <div class="failure_popout">
 		<div class="failure_popout_bg"></div>
 		<div class="failure_popout_main">
 			<div class="failure_popout_title">
@@ -142,11 +152,11 @@
 			<div class="failure_cen">抱歉~该时间段已被预约，请重新选择预约时间</div>
 			<div class="failure_popout_hide">我知道了</div>
 		</div>
-	</div>
+	</div> -->
 	<!-- 点击出现弹出框结束 -->
 
 	<!-- 点击开始远程诊疗开始 -->
-	<div class="tooltip" style="displays: block;">
+	<!-- <div class="tooltip" style="displays: block;">
 		<div class="tooltip_bg"></div>
 		<div class="tooltip_main">
 			<div class="tooltip_main_title">下载app开启远程诊疗</div>
@@ -156,7 +166,7 @@
 				<div class="both"></div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 	<!-- 点击开始远程诊疗结束 -->
 </body>
 <script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>

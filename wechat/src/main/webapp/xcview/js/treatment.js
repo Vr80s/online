@@ -1,16 +1,16 @@
 //requestService
 // $(function(){
 
-    function orders(id){
+    function orders(infoId){
         // var id=$(this).attr("data-id");
 
-        requestGetService("/doctor/treatment/user/appointment",{id:id},function (data) {
+        requestGetService("/doctor/treatment/list",{infoId:infoId},function (data) {
             if (data.success == true) {
                
-                location.href ='/xcview/html/treatment_details.html?id='+id;
-
+                location.href ='/xcview/html/treatment_details.html?infoId='+infoId;
             }
         });
+
     };
 
 
@@ -33,9 +33,9 @@
                 alert(11111);
             });*/
     
-             // 点击删除按钮
+             // 点击取消预约按钮
             $(".delete").click(function(){
-
+                // alert(12312);
                 var id=$(this).attr("data-id");
 
                 requestService("/doctor/treatment/cancel/appointment",{id:id},function (data) {
