@@ -30,6 +30,8 @@ function balance() {
                 $(".number_span").text(baseInfo.appointmentStatusChangeCnt);
             };
 
+
+
             // 远程诊疗未读数字
             if (baseInfo.treatmentStatusChangeCnt == 0) {
                 $(".treatment_number_span").hide();
@@ -37,6 +39,17 @@ function balance() {
                 $(".treatment_number_span").show();
                 $(".treatment_number_span").html(baseInfo.treatmentStatusChangeCnt);
             };
+
+
+            requestService("/xczh/manager/home",null,function (data) {
+                if (data.success == true) {
+                    if (data.resultObject.hostPermissions == 1) {
+                        $(".treatment").show();
+                    }else{
+                        $(".treatment").hide();
+                    };
+                }
+            });
             
 
             //用户头像
