@@ -117,10 +117,12 @@
 							<div class="check">查看诊疗视频</div>
 						{{else if item.status == 2}}
 							{{if item.start == false}}
-								<div class="delete call_offs delete_{{item.id}}" data-id="{{item.id}}"><img src="/xcview/images/dian_03.png" />取消预约</div>
+								<div class="delete delete_btn call_offs delete_{{item.id}}" data-id="{{item.id}}"><img src="/xcview/images/dian_03.png" />取消预约</div>
 							{{/if}}
 						{{else if item.status == 1}}
 							<div class="check" data-id="{{item.infoId}}" onclick="orders('{{item.infoId}}')">去审核</div>
+						{{else if item.status == 5}}
+							<div class="delete delete_delete call_offs delete_{{item.id}}" data-id="{{item.id}}">删除</div>
 						{{/if}}
 
 					</div>

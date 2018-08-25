@@ -34,7 +34,7 @@
             });*/
     
              // 点击取消预约按钮
-            $(".delete").click(function(){
+            $(".delete_btn").click(function(){
                 // alert(12312);
                 var id=$(this).attr("data-id");
 
@@ -53,6 +53,29 @@
                 });
 
             });
+
+
+            $(".delete_delete").click(function(){
+                // alert(12312);
+                var id=$(this).attr("data-id");
+
+                requestService("/doctor/treatment/list/delete",{id:id},function (data) {
+                    if (data.success == true) {
+
+                        var deletes=$(".delete_"+id);
+
+                        deletes.parent().parent().parent().parent(".main").remove();
+                        
+
+                        jqtoast("删除成功");
+                    }else{
+                        jqtoast(data.resultObject.errorMessage);
+                    }
+                });
+
+            });
+
+
 
             // 点击开始诊疗
             $(".starting_treatment").click(function(){
