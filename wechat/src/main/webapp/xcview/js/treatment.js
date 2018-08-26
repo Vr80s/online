@@ -1,9 +1,8 @@
 //requestService
 // $(function(){
 
+    // 点击去审核跳转详情
     function orders(infoId){
-        // var id=$(this).attr("data-id");
-
         requestGetService("/doctor/treatment/list",{infoId:infoId},function (data) {
             if (data.success == true) {
                
@@ -14,7 +13,8 @@
     };
 
 
-    requestGetService("/doctor/treatment/list",{page:1,size:10},function (data) {
+    // 列表
+    requestGetService("/doctor/treatment/list",{page:1,size:1000},function (data) {
         if (data.success == true) {
 
             if (isNotBlank(data.resultObject)) {
@@ -26,12 +26,6 @@
                 $(".baseimagenumber").show();
                 $("body").css("background","#fff");
             };
-
-            // 点击我的预约
-
-            /*$(".head_portrait").click(function(){
-                alert(11111);
-            });*/
     
              // 点击取消预约按钮
             $(".delete_btn").click(function(){
@@ -65,8 +59,6 @@
                         var deletes=$(".delete_"+id);
 
                         deletes.parent().parent().parent().parent(".main").remove();
-                        
-
                         jqtoast("删除成功");
                     }else{
                         jqtoast(data.resultObject.errorMessage);
@@ -74,7 +66,6 @@
                 });
 
             });
-
 
 
             // 点击开始诊疗
@@ -106,7 +97,7 @@
 
              if (browser.versions.iPhone||browser.versions.iPad||browser.versions.iPod)  
                  { 
-                    //如果是ios系統，直接跳轉至appstore該應用首頁，傳遞参數为該應用在appstroe的id號  
+                    //如果是ios系統，直接跳转至appstore该应用首頁，传递参数为该应用在appstroe的id号  
         //              window.location.href="itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=123456";  
                     window.location.href="itms-apps://itunes.apple.com/cn/app/id1279187788";
         //              https://itunes.apple.com/cn/app/id1279187788
@@ -117,14 +108,33 @@
                  }  
                     
             });
-
-
         	
         }
     });
 
 
-   
+//刷新
+// 初始化页码
+var page = 1;
+
+// miniRefresh 对象
+var miniRefresh = new MiniRefresh({
+    container: '#minirefresh',
+    down: {
+        //isLock: true,//是否禁用下拉刷新
+        callback: function () {
+                page = 1;
+            doctorStatus(page,'down');
+        }
+    },
+    up: {
+        isAuto: false,
+        callback: function () {
+                page++;
+            doctorStatus(page,'up');
+        }
+    }
+});
 
     
 

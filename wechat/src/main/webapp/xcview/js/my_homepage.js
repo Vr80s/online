@@ -40,8 +40,14 @@ function balance() {
                 $(".treatment_number_span").html(baseInfo.treatmentStatusChangeCnt);
             };
 
+            if (data.resultObject.hostPermissions == 1) {
+                $(".treatment").show();
+            }else{
+                $(".treatment").hide();
+            };
 
-            requestService("/xczh/manager/home",null,function (data) {
+
+            /*requestService("/xczh/manager/home",null,function (data) {
                 if (data.success == true) {
                     if (data.resultObject.hostPermissions == 1) {
                         $(".treatment").show();
@@ -49,7 +55,7 @@ function balance() {
                         $(".treatment").hide();
                     };
                 }
-            });
+            });*/
             
 
             //用户头像

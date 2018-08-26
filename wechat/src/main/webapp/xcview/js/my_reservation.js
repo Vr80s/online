@@ -1,41 +1,29 @@
 //requestService
 // $(function(){
 
+    // 点击头像区域跳转到查看详情
     function orders(id){
-        // var id=$(this).attr("data-id");
-
         requestGetService("/doctor/treatment/user/appointment",{id:id},function (data) {
             if (data.success == true) {
                
                 location.href ='/xcview/html/physician/my_bookings.html?id='+id;
-
             }
         });
     };
 
-
-    // var id = "";
-    requestGetService("/doctor/treatment/user/appointment",{page:1,size:10},function (data) {
+    //列表展示内容
+    requestGetService("/doctor/treatment/user/appointment",{page:1,size:10000},function (data) {
         if (data.success == true) {
 
             if (isNotBlank(data.resultObject)) {
                 // 预约列表
                 $(".baseimagenumber").hide();
-                $('.my_bookings').html(template('my_bookings', {items: data.resultObject}));
+                $('.my_bookings_main').html(template('my_bookings', {items: data.resultObject}));
             }else{
                 $(".my_bookings").show();
                 $(".baseimagenumber").show();
                 $("body").css("background","#fff");
             };
-
-            // 点击我的预约
-
-            /*$(".head_portrait").click(function(){
-                alert(11111);
-            });*/
-    
-
-
 
              // 点击删除按钮
             $(".delete").click(function(){
@@ -70,7 +58,7 @@
             
         	// 点击去下载
             $(".determine").click(function(){
-        //          安卓路劲 
+        //          安卓路径
                 var androidURL ="http://sj.qq.com/myapp/detail.htm?apkName=com.bj.healthlive";  
                 var browser = {  
                versions: function() {  
@@ -88,7 +76,7 @@
 
              if (browser.versions.iPhone||browser.versions.iPad||browser.versions.iPod)  
                  { 
-                    //如果是ios系統，直接跳轉至appstore該應用首頁，傳遞参數为該應用在appstroe的id號  
+                    //如果是ios系統，直接跳转至appstore该应用首頁，传递参数为该应用在appstroe的id号  
         //              window.location.href="itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=123456";  
                     window.location.href="itms-apps://itunes.apple.com/cn/app/id1279187788";
         //              https://itunes.apple.com/cn/app/id1279187788
@@ -106,7 +94,28 @@
     });
 
 
-   
+//刷新
+// 初始化页码
+var page = 1;
+
+// miniRefresh 对象
+var miniRefresh = new MiniRefresh({
+    container: '#minirefresh',
+    down: {
+        //isLock: true,//是否禁用下拉刷新
+        callback: function () {
+                page = 1;
+            doctorStatus(page,'down');
+        }
+    },
+    up: {
+        isAuto: false,
+        callback: function () {
+                page++;
+            doctorStatus(page,'up');
+        }
+    }
+});
 
     
 

@@ -24,7 +24,7 @@
 <link rel="stylesheet" href="/xcview/css/details.css">
 <link rel="stylesheet" href="/xcview/css/style.css">
 
-<link rel="stylesheet" type="text/css" href="/xcview/css/details_style.css"/>
+<link rel="stylesheet" type="text/css" href="/xcview/css/salon_style.css"/>
 
 <!--公用弹框 -->
 <link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
@@ -80,6 +80,10 @@
     background-size: 2.37rem 2.67rem;
     background-position: center center;
  }
+
+ #sendCha{
+    /*display: block !important;*/
+ }
 </style>
 
 <script>
@@ -93,7 +97,7 @@
 //      点击聊天区域展示内容   sendChat（发送按钮）
         $(".coze").click(function(){
             $(".send_gifts").hide();
-            $("#sendChat").hide();
+            // $("#sendChat").hide();
         });
         
         $(".grabble").click(function(){
@@ -517,7 +521,6 @@
         </div>
         <!--直播结束查看回放-->
         
-        
         <!--<div class="video_img"><img src="/xcview/images/play_back.png" /></div>-->
         <!--暂时先隐藏掉，11/1-->
       
@@ -571,33 +574,26 @@
         </div>
     </div>
 
-
-
-
      <div class="cover"></div>   <!--回放时加的遮盖层-->
     <div class="coze_bottom" style="padding: 0.3rem 0;">
         <div class="coze_bottom_input" style="margin-right: 0;">
             <div class="div_img">
                 <img src="/xcview/images/inp_retured.png" class="img_left" />
             </div>
-            
-
             <div class="poson" style="margin-left: 0 !important;">
-                <div class="send_img" id="sendChat"><!--<img src="/xcview/images/jiantou02.jpg" style="width: 1rem;margin-top: 0.2rem;" />-->发送 </div>
-    
+                <div class="send_img" id="sendChat">发送 </div>
                 <div class="div_input">
                     <input class="textarea02" id="mywords" placeholder="来点神聊"
                     onkeypress='return!(13==event.keyCode&&!event.shiftKey)||(document.getElementById("sendChat").click(),!1)'  />
                 </div>
-            
             </div>
             
             <!-- 打赏 -->
             <span class="face give_a1_span02" style="display: none;">
             <img src="" style="margin-top: -0.2rem;" /></span>
              <!-- 礼物 -->     
-            <a href="javascript: ;" class="give_a1"><img
-                src="/xcview/images/gaft.png" alt="" class="give_a1_img" style="" /></a>
+            <!-- <a href="javascript: ;" class="give_a1"><img
+                src="/xcview/images/gaft.png" alt="" class="give_a1_img" style="" /></a> -->
                 <!-- 表情 -->
             <div class="give_a01" style="">
                 <a id="face" href="javascript:;" class="face give_a1_span" style=""><div class="face_img01"></div><!-- <img src="/xcview/images/face.png" style="margin-top: -0.1rem;width:1.1rem;" class="face_img01" /> --></a>
@@ -669,7 +665,6 @@
             <!--礼物关闭按钮ui变更暂时去掉-->
             <!--<p class="send_gifts_p1">关闭</p>-->
             
-            
         </div>
         <div class="both"></div>
 
@@ -723,72 +718,18 @@
     </div>
     <!-- 排行榜结束 -->
 
-    <!-- 无文档开始 -->
-    <div class="untitled_document" style="margin-top: 3.6rem;">
-        <div class="no_git">
-            <div class="no_git_pic">
-                
-            </div>
-            <p style="font-size: 0.24rem; color: #BBBBBB;padding: 0.2rem 0;text-align: center;">主播还没上传课件~</p>
-        </div>
-    </div>
-    <!-- 无文档结束 -->
 
-    <!-- 文档开始 -->
-    <div class="document" style="margin-top: 3.74rem;">
-        <div class="document_ceneter" id="my-doc-area"></div>
+    <!-- 底部点击按钮开始 -->
+    <div class="click_button">
+        <div class="chat_bg div_float"></div>
+        <div class="ranking_list_bg div_float"></div>
+        <div class="gift_bg give_a1 div_float"></div>
         <div class="both"></div>
     </div>
-    
-    
-    <script type="text/javascript">
-        $(function () {
-            $('.document_ceneter').each(function () {
-                new RTP.PinchZoom($(this), {});
-            });
-        })
-    </script>
-    <!-- 测试图片放大缩小结束 -->
-    
-    
-    
-    <!-- 文档结束 -->
+    <!-- 底部点击按钮结束 -->
 
-    <!-- 底部购买开始 -->
-    <div class="buy_bottom_bg" id="buyDiv" style="display: none">
-        <div class="buy_bg" id="bug_bg"></div>
-        <footer>
-            <div class="base buy_bottom">
-                <ul>
-                    <li class="buy_left"><p class="buy_bottom_p1">
-                            ￥<span id="buyPirce"></span>
-                        </p>
-                        <p class="buy_bottom_p2">该视频为付费视频</p></li>
-                    <li class="buy_right" id="buy_right"><a href="javascript: ;"
-                        onclick="goPay()">购买</a></li>
-                </ul>
-            </div>
-        </footer>
-    </div>
 
-    
-    <!-- 底部购买结束 -->
-
-    <!-- 密码开始 -->
-    <div class="buy_bottom_bg" id="passwordDiv" style="display: none;">
-        <div class="buy_bg"></div>
-        <div class="buy_center buy1_center">
-            <div class="look_main">
-                <p>该视频需要密码播放！</p>
-                <div class="look_put">
-                    <input type="password" placeholder="请在此处输入密码" id="password" />
-                    <button onclick="enterPassword()" style="height: 1.32rem;">观看</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- 观看登录结束 -->
-    
+   
     
 </body>
 <script src="/xcview/weihoujs/jquery.min.js"></script>
@@ -813,8 +754,8 @@
 
 
 <!-- 部分点击事件 -->
-<script type="text/javascript" src="/xcview/js/details_change.js"></script>
-<script type="text/javascript" src="/xcview/js/details.js"></script>
+<script type="text/javascript" src="/xcview/js/salon_change.js"></script>
+<script type="text/javascript" src="/xcview/js/salon.js"></script>
 <script type="text/javascript" src="/xcview/js/vhallyun.js"></script>
 <script type="text/javascript" src="/xcview/js/share/share.js"></script>
 
@@ -825,13 +766,8 @@
         
         $("body").scrollTop($("body").scrollHeight);
         $(".chatmsg-box").scrollTop($(".chatmsg-box")[0].scrollHeight);
-        /* $(".mCSB_dragger").scrollTop($(".mCSB_dragger")[0].scrollHeight); */
         $(".coze").scrollTop($(".coze")[0].scrollHeight);
         $(".coze_center").scrollTop($(".coze_center")[0].scrollHeight);
-        /* $(".mCSB_container").scrollTop($(".mCSB_container")[0].scrollHeight); */
-        /*$(".mCSB_container").css("top","0");
-        $(".mCSB_container").css("bottom","0");*/
-        /* $(".mCSB_dragger_bar").scrollTop($(".mCSB_dragger_bar")[0].scrollHeight); */
 
 
         $(".chatmsg-box").scroll(function(){  
@@ -849,9 +785,8 @@
 
 //      点击输入框,表情显示,礼物隐藏   删除后，影响效果
         $("#mywords").click(function(){
-            $(".give_a1").hide();  /*这是礼物*/
+            // $(".give_a1").hide();  /*这是礼物*/
             $(".give_a01").show();  /*这是表情*/
-            $("#sendChat").show();  /*发送文字按钮*/
             $(".div_input").css("background","none");  /*input背景色隐藏*/
         });
 
@@ -864,7 +799,9 @@
         });
 
 //      关注几秒后隐藏
-        setTimeout(function(){document.getElementById("attention").style.display="none";},10000);
+        setTimeout(function(){
+            document.getElementById("attention").style.display="none";
+        },10000);
         
 //      <!--点击礼物关闭按钮-->
         $(".send_gifts_ul .div .span1").click(function(){
@@ -872,49 +809,11 @@
         });
         
 
-        if( $('#doc img').attr('src') ){
-            $("#doc").css("display","black");
-        }else{
-            $("#doc").css("display","none");
-        }
-
         $(".give_a1").click(function(){
             $("#attention").hide();
         });
 
-        $(".li4").click(function(){
-            // 课件获取高度
-            $(".pinch-zoom-container").addClass("pinch-zoom-container-addclass");
-            var school_height=$(window).height()-$(".details_cen1").height();
-            $(".pinch-zoom-container").height(school_height);
-
-            $("#doc").addClass("img_doc");
-        });
         
-        $(".click_li_four").click(function(){
-            // 课件获取高度
-            $(".pinch-zoom-container").addClass("pinch-zoom-container-addclass");
-
-            $("#ch_ce0cee3a-iframe-div").dblclick();
-
-            $(".document_ceneter").addClass("document_ceneters");
-            // $(".document_ceneter").css("transform","scale(1, 1) translate(-7.10543e-15px, 3.90799e-14px)");
-
-            $(".document_ceneter").addClass("document_ceneter_width");
-
-        });
-
-        $("#doc img").click(function(){
-            // 课件获取高度  img_doc
-            $("#doc").removeClass("img_doc");
-        });
-
-        /*var Document = $(".document_ceneter").html();
-        if (Document == !null) {
-            alert(1111);
-        }else{
-            alert(2222);
-        };*/
     };
 </script>
 <script>
