@@ -24,6 +24,9 @@
 <!-- 渲染js -->
 <script type="text/javascript" src="/xcview/js/my_reservation.js"></script>
 
+
+<script type="text/javascript" src="/xcview/js/common/commonJumpPlay.js"></script>
+
 <script type="text/javascript" src="/xcview/js/common/popups.js"></script>  <!-- 公用弹框 -->
 <link rel="stylesheet" type="text/css" href="/xcview/css/popups.css"/> <!-- 公用弹框 -->
 
@@ -129,9 +132,9 @@
 					</div>
 					<div class="theme_bottom" >
 						<div class="time">{{item.dateText}}</div>
-
+							
 						{{if item.status == 4}}
-							<div class="check">查看诊疗视频</div>
+							<div class="check" onclick="foreshow('{{item.courseId}}')">查看诊疗视频</div>
 						{{else if item.status == 6 || item.status == 5}}
 							<div class="delete delete_{{item.id}}" data-id="{{item.id}}">
 								<img src="/xcview/images/shanchu.png" alt="">删除

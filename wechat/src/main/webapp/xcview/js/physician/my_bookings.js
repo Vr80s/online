@@ -1,5 +1,22 @@
 //requestService
 $(function(){
+
+	/*function foreshow(id){
+        requestGetService("/doctor/treatment/user/appointment",{id:id},function (data) {
+            if (data.success == true) {
+               
+                location.href ='/xcview/html/live_play.html?my_study='+id;
+            }
+        });
+    };*/
+
+    /*requestGetService("/doctor/treatment/user/appointment",{id:id},function (data) {
+        if (data.success == true) {
+           
+            location.href ='/xcview/html/live_play.html?my_study='+id;
+        }
+    });*/
+
     var id = getQueryString("id");
     requestGetService("/doctor/treatment/appointmentInfo",{id:id},function (data) {
         if (data.success == true) {
@@ -15,6 +32,22 @@ $(function(){
 	        		$(".handler_btn").show();
 	        	};
         	};
+
+        	$(".check_btn").click(function(){
+        		var courseId = $(".check_btn").attr("data-courseId");
+        		location.href ='/xcview/html/live_play.html?my_study='+courseId;
+        	
+        	});
+
+        	/*function foreshow(id){
+		        requestGetService("/doctor/treatment/user/appointment",{id:id},function (data) {
+		            if (data.success == true) {
+		               location.href ='/xcview/html/live_play.html?my_study='+id;
+		                
+		            }
+		        });
+		    };*/
+
         	
 
         	// 预约信息状态1->待审核 2->预约成功 4->已完成 5->已过期 6->审核不通过
@@ -30,6 +63,10 @@ $(function(){
 
         	<!-- 点击开始诊疗按钮 -->
 			$(".handler_btns").click(function(){
+				$(".tooltip").show();
+			});
+
+			$(".handler_btn").click(function(){
 				$(".tooltip").show();
 			});
 

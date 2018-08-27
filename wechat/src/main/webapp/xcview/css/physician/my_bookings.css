@@ -382,7 +382,7 @@ header{
     width: 6.98rem;
     height: 0.72rem;
     line-height: 0.72rem;
-    background: #ccc;
+    /*background: #ccc;*/
     border-radius: 100px;
     font-size: 0.3rem;
     color: #FFFFFF;

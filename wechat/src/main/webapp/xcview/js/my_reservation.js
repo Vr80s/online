@@ -11,6 +11,16 @@
         });
     };
 
+
+    function foreshow(id){
+        requestGetService("/doctor/treatment/user/appointment",{id:id},function (data) {
+            if (data.success == true) {
+               
+                location.href ='/xcview/html/live_play.html?my_study='+id;
+            }
+        });
+    };
+
     //列表展示内容
     requestGetService("/doctor/treatment/user/appointment",{page:1,size:10000},function (data) {
         if (data.success == true) {
