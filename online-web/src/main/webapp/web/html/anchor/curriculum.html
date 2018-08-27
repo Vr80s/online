@@ -847,14 +847,14 @@
 							<input type="hidden" name="version" id="course_version">
 							<div>
 								<span><em>*</em>课程标题</span>
-								<input type="text" placeholder="请填写您的课程标题" class="zhuanlan_title course_title"/>
+								<input type="text" placeholder="请填写您的课程标题" maxlength="30" class="zhuanlan_title course_title"/>
 								<p class="warning warning_course_title hide">课程标题不能为空</p>
 								<p class="warning warning_course_title_length hide">课程标题最多30字</p>
 							</div>
 	
 							<div>
 								<span><em>*</em>副标题</span>
-								<input type="text" placeholder="请填写课程副标题" class="zhuanlan_title zhuanlan_title0 course_subtitle"/>
+								<input type="text" placeholder="请填写课程副标题" maxlength="30" class="zhuanlan_title zhuanlan_title0 course_subtitle"/>
 								<p class="warning warning_course_subtitle hide">副标题不能为空</p>
 								<p class="warning warning_course_subtitle_length hide">副标题最多30字</p>
 							</div>
@@ -1236,14 +1236,14 @@
 						<input type="hidden" name="version" id="collection_version">
 						<div>
 							<span><em>*</em>专辑标题</span>
-							<input type="text" placeholder="请填写您的专题标题" class="zhuanlan_title collection_title"/>
+							<input type="text" placeholder="请填写您的专题标题" maxlength="30" class="zhuanlan_title collection_title"/>
 							<p class="warning hide warning_collection_title">专题标题不能为空</p>
 							<p class="warning hide warning_collection_title_length">专题标题最多30字</p>
 						</div>
 	
 						<div>
 							<span><em>*</em>副标题</span>
-							<input type="text" placeholder="请填写课程副标题" class="zhuanlan_title zhuanlan_title0 collection_subtitle"/>
+							<input type="text" placeholder="请填写课程副标题" maxlength="30" class="zhuanlan_title zhuanlan_title0 collection_subtitle"/>
 							<p class="warning warning1 hide warning_collection_subtitle">副标题不能为空</p>
 							<p class="warning warning1 hide warning_collection_subtitle_length">副标题最多30字</p>
 						</div>
@@ -1327,6 +1327,7 @@
 							<input type="text" placeholder="" class="zhuanlan_title zhuanlan_title03 course_number" onkeyup="value=value.replace(/[^\d]/g,'') " style="width: 120px;" />
 							<span>集</span>
 							<p class="warning warning_coursenumber hide">总集数不能为空</p>
+							<p class="warning warning_coursenumber_Illegal hide">总集数不符合规范</p>
 						</div>
 	
 	
@@ -3324,14 +3325,26 @@ $(function(){
 }
 	 
 })
-
+//专辑总集数失去焦点判断
 $(".course_number").blur(function(){
 	var qq=$(this).val();
 	var aabb=/[a-zA-Z]+$/;
+	$(".warning_coursenumber_Illegal").addClass("hide");
+	$(".warning_coursenumber").addClass("hide");
+	$('.warning_coursenumber_Illegal').siblings("input").removeClass("active-border");	
 	if(aabb.test(qq)){
 		var uu =qq.replace(/[^\d]/g,'') 
 		$(".course_number").val(uu)
-
+	}else if($.trim(qq)==""){
+		$(".warning_coursenumber").removeClass("hide");
+		$('.warning_coursenumber').siblings("input").addClass("active-border");	
+	}else if(!numberCk(qq)){
+		$(".warning_coursenumber_Illegal").removeClass("hide");
+		$('.warning_coursenumber_Illegal').siblings("input").addClass("active-border");	
+	}else{
+			$(".warning_coursenumber_Illegal").addClass("hide");
+		$('.warning_coursenumber_Illegal').siblings("input").removeClass("active-border");	
+	
 	}
 })
 

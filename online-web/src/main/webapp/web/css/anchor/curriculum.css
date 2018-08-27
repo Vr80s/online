@@ -1289,6 +1289,9 @@ width: 63px;
 .curriculum_one .active-border{
 	border-color: #FF4012 !important;
 }
+.active-border{
+	border-color: #FF4012 !important;
+}
 .wrap_box  #curriculum .zhuanlan_bottom form .zhuanlan_title::-webkit-input-placeholder,
 .wrap_box  #curriculum .zhuanlan_bottom form .zhuanlan_title:-moz-placeholder,
 .wrap_box  #curriculum .zhuanlan_bottom form .zhuanlan_title::-moz-placeholder,

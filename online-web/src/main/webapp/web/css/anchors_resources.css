@@ -927,6 +927,11 @@ outline: none;
 	width: 260px;
 	height: 147px;
 }
+.banner-size-tip{
+	margin-top: 35px;
+    margin-left: 40px;
+    color: #999999;
+}
 .banner-box{
 	    display: inline-block;
     width: 260px;
