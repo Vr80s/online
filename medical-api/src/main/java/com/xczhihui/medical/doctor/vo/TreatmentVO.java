@@ -46,7 +46,7 @@ public class TreatmentVO implements Serializable {
     private Integer infoId;
 
     //是否可点击开始远程诊疗
-    private Boolean isStart = false;
+    private Boolean start = false;
 
     private String nickname;
 
@@ -207,11 +207,11 @@ public class TreatmentVO implements Serializable {
     }
 
     public Boolean getStart() {
-        return isStart;
+        return start;
     }
 
     public void setStart(Boolean start) {
-        isStart = start;
+        this.start = start;
     }
 
     public String getNickname() {

@@ -1,17 +1,6 @@
 package com.xczhihui.medical.doctor.service.impl;
 
-import static com.xczhihui.common.util.enums.TreatmentInfoApplyStatus.APPLY_PASSED;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-
 import com.baomidou.mybatisplus.plugins.Page;
-import com.jayway.jsonpath.JsonPath;
 import com.xczhihui.common.support.service.CacheService;
 import com.xczhihui.common.util.DateUtil;
 import com.xczhihui.common.util.SmsUtil;
@@ -19,7 +8,6 @@ import com.xczhihui.common.util.enums.AppointmentStatus;
 import com.xczhihui.common.util.enums.IndexAppointmentStatus;
 import com.xczhihui.common.util.enums.TreatmentInfoApplyStatus;
 import com.xczhihui.common.util.redis.key.RedisCacheKey;
-import com.xczhihui.common.util.vhallyun.VhallUtil;
 import com.xczhihui.medical.anchor.mapper.CourseApplyInfoMapper;
 import com.xczhihui.medical.doctor.mapper.RemoteTreatmentAppointmentInfoMapper;
 import com.xczhihui.medical.doctor.mapper.RemoteTreatmentMapper;
@@ -32,6 +20,16 @@ import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 import com.xczhihui.medical.doctor.vo.TreatmentVO;
 import com.xczhihui.medical.enrol.mapper.MedicalEntryInformationMapper;
 import com.xczhihui.medical.exception.MedicalException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+
+import static com.xczhihui.common.util.enums.TreatmentInfoApplyStatus.APPLY_PASSED;
+
 
 /**
  * @author hejiwei
@@ -62,6 +60,7 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
     @Autowired
     private CourseApplyInfoMapper courseApplyInfoMapper;
 
+
     @Override
     public void save(Treatment treatment) {
         synchronized (LOCK) {
@@ -69,6 +68,7 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
             if (cnt > 0) {
                 throw new MedicalException("预约时间重合, 请重新选择时间");
             }
+            treatment.setTreatmentStartTime(getTreatmentTime(treatment.getDate(), treatment.getStartTime()));
             remoteTreatmentMapper.insert(treatment);
         }
     }
@@ -90,6 +90,7 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
             waitUpdateTreatment.setEndTime(treatment.getEndTime());
             waitUpdateTreatment.setStartTime(treatment.getStartTime());
             waitUpdateTreatment.setDate(treatment.getDate());
+            waitUpdateTreatment.setTreatmentStartTime(getTreatmentTime(treatment.getDate(), treatment.getStartTime()));
             remoteTreatmentMapper.updateById(waitUpdateTreatment);
         }
     }
@@ -382,36 +383,26 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
             }
             remoteTreatmentMapper.updateById(treatment);
             remoteTreatmentAppointmentInfoMapper.updateById(treatmentAppointmentInfo);
-            result.put("courseId", treatment.getCourseId());
-            result.put("userId", treatmentAppointmentInfo.getUserId());
             return result;
         }
     }
 
     @Override
     public List<TreatmentVO> listByDoctorId(String doctorId, int page, int size) {
-        List<TreatmentVO> results = new ArrayList<>();
-
         List<TreatmentVO> treatmentVOS = remoteTreatmentMapper.selectTreatmentByDoctorId(doctorId, new Page<>(page, size));
-
-        Iterator<TreatmentVO> iterator = treatmentVOS.iterator();
-        while (iterator.hasNext()) {
-            TreatmentVO treatmentVO = iterator.next();
+        for (TreatmentVO treatmentVO : treatmentVOS) {
             if (treatmentVO.getStatus() == AppointmentStatus.WAIT_START.getVal() && isCanStartLive(getTreatmentTime(treatmentVO.getDate(), treatmentVO.getStartTime()))) {
                 treatmentVO.setStart(true);
-                results.add(treatmentVO);
-                iterator.remove();
             }
         }
-        results.addAll(treatmentVOS);
-        results.forEach(treatmentVO -> {
+        treatmentVOS.forEach(treatmentVO -> {
             treatmentVO.setTreatmentTime(getTreatmentTime(treatmentVO.getDate(), treatmentVO.getStartTime()));
             handleDate(treatmentVO);
         });
         if (page == 1) {
             cacheService.delete(RedisCacheKey.DOCTOR_TREATMENT_STATUS_CNT_KEY + doctorId);
         }
-        return results;
+        return treatmentVOS;
     }
 
     @Override
@@ -553,17 +544,6 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
     }
 
     @Override
-    public String inavUserList(String inavId) throws Exception {
-
-        HashMap<String, String> params = new HashMap<String, String>();
-        params.put("inav_id", inavId);
-        params = VhallUtil.createRealParam(params);
-        String result = VhallUtil.sendPost("http://api.yun.vhall.com/api/v1/inav/inav-user-list", params);
-        String recordId = JsonPath.read(result, "$.data");
-        return null;
-    }
-
-    @Override
     public void updateCourseStatus(int id, int status) {
         if (status == 0) {
             //取消远程诊疗后，禁用这个课程
@@ -573,6 +553,15 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
              */
             courseApplyInfoMapper.deleteCourseApplyByCouserId(id);
             deleteMessage(id);
+        }
+    }
+
+    @Override
+    public void updateTreatmentStartTime() {
+        List<Treatment> treatments = remoteTreatmentMapper.listAll();
+        for (Treatment treatment : treatments) {
+            treatment.setTreatmentStartTime(getTreatmentTime(treatment.getDate(), treatment.getStartTime()));
+            remoteTreatmentMapper.updateById(treatment);
         }
     }
 

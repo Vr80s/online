@@ -208,9 +208,13 @@ dev-2.5
     update `medical_treatment_appointment_info` info set info.start_time = (select mt.start_time from medical_treatment mt where info.`treatment_id` = mt.id);
 
     update `medical_treatment_appointment_info` info set info.end_time = (select mt.end_time from medical_treatment mt where info.`treatment_id` = mt.id);
-    
-    课程表新增互动id，和预约审核详细信息id   	    
-    ALTER TABLE `oe_course` ADD COLUMN `inav_id` varchar(100) null COMMENT '微吼互动id' AFTER `is_record`; 
-    ALTER TABLE `oe_course` ADD COLUMN `appointment_info_id` int(11) null COMMENT '预约信息id' AFTER `is_teaching`; 
-    
-    
+
+    课程表新增互动id，和预约审核详细信息id
+    ALTER TABLE `oe_course` ADD COLUMN `inav_id` varchar(100) null COMMENT '微吼互动id' AFTER `is_record`;
+    ALTER TABLE `oe_course` ADD COLUMN `appointment_info_id` int(11) null COMMENT '预约信息id' AFTER `is_teaching`;
+
+    ALTER TABLE `medical_treatment` ADD `treatment_start_time` DATETIME  NULL AFTER `deleted`;
+
+    POST 方式调用: 
+        测试环境: https://cs.xczhihui.com/doctor/treatment/reset/startTime
+        正式环境: http://www.ipandatcm.com/doctor/treatment/reset/startTime 
