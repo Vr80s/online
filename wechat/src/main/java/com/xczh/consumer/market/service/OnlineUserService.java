@@ -88,5 +88,4 @@ public interface OnlineUserService {
 
 	List<OnlineUser> selectAllUser()throws SQLException;
 
-    List<OnlineUser> getUserListByIds(List<String> userIds)throws SQLException;
 }

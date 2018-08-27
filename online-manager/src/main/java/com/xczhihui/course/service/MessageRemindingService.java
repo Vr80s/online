@@ -22,4 +22,10 @@ public interface MessageRemindingService {
     void offlineCourseMessageReminding();
 
     void collectionUpdateRemind();
+
+	/**  
+	 * <p>Title: minuteTaskMessage</p>  
+	 * <p>Description: </p>    
+	 */ 
+	void minuteTaskMessage();
 }

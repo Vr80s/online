@@ -1,7 +1,5 @@
 package com.xczhihui.medical.doctor.service.impl;
 
-
-import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.common.support.service.CacheService;
 import com.xczhihui.common.util.DateUtil;
@@ -10,7 +8,6 @@ import com.xczhihui.common.util.enums.AppointmentStatus;
 import com.xczhihui.common.util.enums.IndexAppointmentStatus;
 import com.xczhihui.common.util.enums.TreatmentInfoApplyStatus;
 import com.xczhihui.common.util.redis.key.RedisCacheKey;
-import com.xczhihui.common.util.vhallyun.VhallUtil;
 import com.xczhihui.medical.anchor.mapper.CourseApplyInfoMapper;
 import com.xczhihui.medical.doctor.mapper.RemoteTreatmentAppointmentInfoMapper;
 import com.xczhihui.medical.doctor.mapper.RemoteTreatmentMapper;
@@ -23,8 +20,6 @@ import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 import com.xczhihui.medical.doctor.vo.TreatmentVO;
 import com.xczhihui.medical.enrol.mapper.MedicalEntryInformationMapper;
 import com.xczhihui.medical.exception.MedicalException;
-import net.minidev.json.JSONValue;
-import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -32,9 +27,9 @@ import org.springframework.stereotype.Service;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static com.xczhihui.common.util.enums.TreatmentInfoApplyStatus.APPLY_PASSED;
+
 
 /**
  * @author hejiwei
@@ -393,67 +388,52 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
     }
 
     @Override
-    public List<TreatmentVO> listByDoctorId(String doctorId) {
+    public List<TreatmentVO> listByDoctorId(String doctorId, int page, int size) {
         List<TreatmentVO> results = new ArrayList<>();
-        List<TreatmentVO> expiredAndFinishedTreatments = remoteTreatmentMapper.selectExpiredAndFinishedByDoctorId(doctorId);
-        List<TreatmentVO> unExpiredAndUnFinishedTreatments = remoteTreatmentMapper.selectUnExpiredAndUnFinishedByDoctorId(doctorId);
 
-        results.addAll(unExpiredAndUnFinishedTreatments.stream()
-                .filter(treatmentVO -> treatmentVO.getStatus() == AppointmentStatus.WAIT_START.getVal() && isCanStartLive(getTreatmentTime(treatmentVO.getDate(), treatmentVO.getStartTime())))
-                .collect(Collectors.toList()));
-        results.addAll(unExpiredAndUnFinishedTreatments.stream()
-                .filter(treatmentVO -> treatmentVO.getStatus() == AppointmentStatus.STARTED.getVal())
-                .collect(Collectors.toList()));
-        results.addAll((unExpiredAndUnFinishedTreatments.stream()
-                .filter(treatmentVO -> treatmentVO.getStatus() == AppointmentStatus.WAIT_START.getVal() && !isCanStartLive(getTreatmentTime(treatmentVO.getDate(), treatmentVO.getStartTime())))
-                .collect(Collectors.toList())));
-        results.addAll(unExpiredAndUnFinishedTreatments.stream()
-                .filter(treatmentVO -> treatmentVO.getStatus() == AppointmentStatus.WAIT_APPLY.getVal())
-                .collect(Collectors.toList()));
+        List<TreatmentVO> treatmentVOS = remoteTreatmentMapper.selectTreatmentByDoctorId(doctorId, new Page<>(page, size));
 
-        results.addAll(expiredAndFinishedTreatments.stream()
-                .filter(treatmentVO -> treatmentVO.getStatus() == AppointmentStatus.EXPIRED.getVal())
-                .collect(Collectors.toList()));
-        results.addAll(expiredAndFinishedTreatments.stream()
-                .filter(treatmentVO -> treatmentVO.getStatus() == AppointmentStatus.FINISHED.getVal())
-                .collect(Collectors.toList()));
+        Iterator<TreatmentVO> iterator = treatmentVOS.iterator();
+        while (iterator.hasNext()) {
+            TreatmentVO treatmentVO = iterator.next();
+            if (treatmentVO.getStatus() == AppointmentStatus.WAIT_START.getVal() && isCanStartLive(getTreatmentTime(treatmentVO.getDate(), treatmentVO.getStartTime()))) {
+                treatmentVO.setStart(true);
+                results.add(treatmentVO);
+                iterator.remove();
+            }
+        }
+        results.addAll(treatmentVOS);
         results.forEach(treatmentVO -> {
             treatmentVO.setTreatmentTime(getTreatmentTime(treatmentVO.getDate(), treatmentVO.getStartTime()));
             handleDate(treatmentVO);
         });
-        cacheService.delete(RedisCacheKey.DOCTOR_TREATMENT_STATUS_CNT_KEY + doctorId);
+        if (page == 1) {
+            cacheService.delete(RedisCacheKey.DOCTOR_TREATMENT_STATUS_CNT_KEY + doctorId);
+        }
         return results;
     }
 
     @Override
-    public List<TreatmentVO> listByUserId(String userId) {
+    public List<TreatmentVO> listByUserId(String userId, int page, int size) {
         List<TreatmentVO> results = new ArrayList<>();
-        List<TreatmentVO> unExpiredAndUnFinishedAppointmentInfoVOS = remoteTreatmentMapper.selectUnExpiredAndUnFinishedByUserId(userId);
-        results.addAll(unExpiredAndUnFinishedAppointmentInfoVOS.stream()
-                .filter(treatmentVO -> (treatmentVO.getStatus() == APPLY_PASSED.getVal() && isCanStartLive(getTreatmentTime(treatmentVO.getDate(), treatmentVO.getStartTime()))))
-                .collect(Collectors.toList()));
-        results.addAll(unExpiredAndUnFinishedAppointmentInfoVOS.stream()
-                .filter(treatmentVO -> (treatmentVO.getStatus() == APPLY_PASSED.getVal() && !isCanStartLive(getTreatmentTime(treatmentVO.getDate(), treatmentVO.getStartTime()))))
-                .collect(Collectors.toList()));
-        results.addAll(unExpiredAndUnFinishedAppointmentInfoVOS.stream()
-                .filter(treatmentVO -> treatmentVO.getStatus() == TreatmentInfoApplyStatus.APPLY_NOT_PASSED.getVal())
-                .collect(Collectors.toList()));
-        results.addAll(unExpiredAndUnFinishedAppointmentInfoVOS.stream()
-                .filter(treatmentVO -> treatmentVO.getStatus() == TreatmentInfoApplyStatus.WAIT_DOCTOR_APPLY.getVal())
-                .collect(Collectors.toList()));
-
-        List<TreatmentVO> expiredAndFinishedTreatmentVOS = remoteTreatmentMapper.selectExpiredAndFinishedByUserId(userId);
-        results.addAll(expiredAndFinishedTreatmentVOS.stream()
-                .filter(treatmentVO -> treatmentVO.getStatus() == TreatmentInfoApplyStatus.EXPIRED.getVal())
-                .collect(Collectors.toList()));
-        results.addAll(expiredAndFinishedTreatmentVOS.stream().filter(treatmentVO -> treatmentVO.getStatus() == TreatmentInfoApplyStatus.FINISHED.getVal())
-                .collect(Collectors.toList()));
-
+        List<TreatmentVO> treatmentVOS = remoteTreatmentMapper.selectTreatmentByUserId(userId, new Page<>(page, size));
+        Iterator<TreatmentVO> iterator = treatmentVOS.iterator();
+        while (iterator.hasNext()) {
+            TreatmentVO treatmentVO = iterator.next();
+            if (treatmentVO.getStatus() == APPLY_PASSED.getVal() && isCanStartLive(getTreatmentTime(treatmentVO.getDate(), treatmentVO.getStartTime()))) {
+                treatmentVO.setStart(true);
+                results.add(treatmentVO);
+                iterator.remove();
+            }
+        }
+        results.addAll(treatmentVOS);
         results.forEach(treatmentVO -> {
             treatmentVO.setTreatmentTime(getTreatmentTime(treatmentVO.getDate(), treatmentVO.getStartTime()));
             handleDate(treatmentVO);
         });
-        cacheService.delete(RedisCacheKey.USER_TREATMENT_STATUS_CNT_KEY + userId);
+        if (page == 1) {
+            cacheService.delete(RedisCacheKey.USER_TREATMENT_STATUS_CNT_KEY + userId);
+        }
         return results;
     }
 
@@ -569,32 +549,6 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
         if (treatment != null) {
             cacheService.sadd(RedisCacheKey.DOCTOR_TREATMENT_STATUS_CNT_KEY + treatment.getDoctorId(), String.valueOf(treatment.getId()));
         }
-    }
-
-    @Override
-    public List<String> inavUserList(String inavId) throws Exception {
-
-        List<String> ids = new ArrayList<>();
-        HashMap<String, String> params = new HashMap<String, String>();
-        params.put("inav_id", inavId);
-        params = VhallUtil.createRealParam(params);
-        String result = VhallUtil.sendPost("http://api.yun.vhall.com/api/v1/inav/inav-user-list", params);
-        //String recordId = JsonPath.read(result, "$.data");
-        Object obj= JSONValue.parse(result);
-        JSONObject srbJson = JSONObject.parseObject(result);
-        String belong = srbJson.get("data")
-                .toString();
-        JSONArray jsonArr = JSONArray.fromObject(belong);
-        if(jsonArr.size()>0) {
-            for (int i = 0; i < jsonArr.size(); i++) {
-                net.sf.json.JSONObject job = jsonArr.getJSONObject(i);  // 遍历 jsonarray 数组，把每一个对象转成 json 对象
-                System.out.println(job.get("status") + "=");  // 得到 每个对象中的属性值
-                if(job.get("status").toString().equals("2")){
-                    ids.add(job.get("third_party_user_id").toString());
-                }
-            }
-        }
-        return ids;
     }
 
     @Override

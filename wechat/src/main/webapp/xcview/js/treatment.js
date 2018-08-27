@@ -1,36 +1,38 @@
 //requestService
 // $(function(){
 
-    // 点击头像区域跳转到查看详情
-    function orders(id){
-        requestGetService("/doctor/treatment/user/appointment",{id:id},function (data) {
+    // 点击去审核跳转详情
+    function orders(infoId){
+        requestGetService("/doctor/treatment/list",{infoId:infoId},function (data) {
             if (data.success == true) {
                
-                location.href ='/xcview/html/physician/my_bookings.html?id='+id;
+                location.href ='/xcview/html/treatment_details.html?infoId='+infoId;
             }
         });
+
     };
 
-    //列表展示内容
-    requestGetService("/doctor/treatment/user/appointment",{page:1,size:10000},function (data) {
+
+    // 列表
+    requestGetService("/doctor/treatment/list",{page:1,size:1000},function (data) {
         if (data.success == true) {
 
             if (isNotBlank(data.resultObject)) {
                 // 预约列表
                 $(".baseimagenumber").hide();
-                $('.my_bookings_main').html(template('my_bookings', {items: data.resultObject}));
+                $('.my_bookings').html(template('my_bookings', {items: data.resultObject}));
             }else{
                 $(".my_bookings").show();
                 $(".baseimagenumber").show();
                 $("body").css("background","#fff");
             };
-
-             // 点击删除按钮
-            $(".delete").click(function(){
-
+    
+             // 点击取消预约按钮
+            $(".delete_btn").click(function(){
+                // alert(12312);
                 var id=$(this).attr("data-id");
 
-                requestService("/doctor/treatment/user/appointment/delete",{id:id},function (data) {
+                requestService("/doctor/treatment/cancel/appointment",{id:id},function (data) {
                     if (data.success == true) {
 
                         var deletes=$(".delete_"+id);
@@ -38,6 +40,25 @@
                         deletes.parent().parent().parent().parent(".main").remove();
                         
 
+                        jqtoast("取消成功");
+                    }else{
+                        jqtoast(data.resultObject.errorMessage);
+                    }
+                });
+
+            });
+
+
+            $(".delete_delete").click(function(){
+                // alert(12312);
+                var id=$(this).attr("data-id");
+
+                requestService("/doctor/treatment/list/delete",{id:id},function (data) {
+                    if (data.success == true) {
+
+                        var deletes=$(".delete_"+id);
+
+                        deletes.parent().parent().parent().parent(".main").remove();
                         jqtoast("删除成功");
                     }else{
                         jqtoast(data.resultObject.errorMessage);
@@ -58,7 +79,7 @@
             
         	// 点击去下载
             $(".determine").click(function(){
-        //          安卓路径
+        //          安卓路径 
                 var androidURL ="http://sj.qq.com/myapp/detail.htm?apkName=com.bj.healthlive";  
                 var browser = {  
                versions: function() {  
@@ -87,8 +108,6 @@
                  }  
                     
             });
-
-
         	
         }
     });

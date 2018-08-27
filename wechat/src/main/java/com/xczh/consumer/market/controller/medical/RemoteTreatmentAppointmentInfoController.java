@@ -1,7 +1,7 @@
 package com.xczh.consumer.market.controller.medical;
 
+
 import com.xczh.consumer.market.auth.Account;
-import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.body.treatment.TreatmentAppointmentInfoBody;
 import com.xczh.consumer.market.interceptor.HeaderInterceptor;
 import com.xczh.consumer.market.service.OnlineUserService;
@@ -10,6 +10,7 @@ import com.xczhihui.common.util.enums.AppointmentStatus;
 import com.xczhihui.common.util.enums.MessageTypeEnum;
 import com.xczhihui.common.util.enums.ResultCode;
 import com.xczhihui.common.util.enums.RouteTypeEnum;
+import com.xczhihui.common.util.vhallyun.InteractionService;
 import com.xczhihui.course.model.Course;
 import com.xczhihui.course.params.BaseMessage;
 import com.xczhihui.course.service.ICommonMessageService;
@@ -28,7 +29,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -58,8 +58,6 @@ public class RemoteTreatmentAppointmentInfoController {
     private ICommonMessageService commonMessageService;
     @Autowired
     private UserCenterService userCenterService;
-    @Autowired
-    private OnlineUserService onlineUserService;
 
     @RequestMapping(value = "appointmentInfo", method = RequestMethod.POST)
     public ResponseObject save(TreatmentAppointmentInfoBody treatmentAppointmentInfoBody, @Account String accountId) {
@@ -97,8 +95,8 @@ public class RemoteTreatmentAppointmentInfoController {
     }
 
     @RequestMapping(value = "user/appointment", method = RequestMethod.GET)
-    public ResponseObject userAppointment(@Account String accountId) {
-        return ResponseObject.newSuccessResponseObject(remoteTreatmentService.listByUserId(accountId));
+    public ResponseObject userAppointment(@Account String accountId, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10") int size) {
+        return ResponseObject.newSuccessResponseObject(remoteTreatmentService.listByUserId(accountId, page, size));
     }
 
     @RequestMapping(value = "user/appointment/delete", method = RequestMethod.POST)
@@ -114,9 +112,9 @@ public class RemoteTreatmentAppointmentInfoController {
     }
 
     @RequestMapping(value = "list", method = RequestMethod.GET)
-    public ResponseObject doctorTreatment(@Account String accountId) {
+    public ResponseObject doctorTreatment(@Account String accountId, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10") int size) {
         String doctorId = medicalDoctorBusinessService.getDoctorIdByUserId(accountId);
-        return ResponseObject.newSuccessResponseObject(remoteTreatmentService.listByDoctorId(doctorId));
+        return ResponseObject.newSuccessResponseObject(remoteTreatmentService.listByDoctorId(doctorId, page, size));
     }
 
     @RequestMapping(value = "send/message", method = RequestMethod.POST)
@@ -175,11 +173,7 @@ public class RemoteTreatmentAppointmentInfoController {
 
     @RequestMapping(value = "inavUserList", method = RequestMethod.GET)
     public ResponseObject inavUserList(@RequestParam String inavId) throws Exception {
-        List<String> ids = remoteTreatmentService.inavUserList(inavId);
-        List<OnlineUser> userList = new ArrayList<>();
-        if(ids.size()>0){
-            userList = onlineUserService.getUserListByIds(ids);
-        }
-        return ResponseObject.newSuccessResponseObject(userList);
+        List<String> inavUserList = InteractionService.getInavUserList(inavId);
+        return ResponseObject.newSuccessResponseObject(userCenterService.findByIds(inavUserList));
     }
 }

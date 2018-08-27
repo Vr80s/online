@@ -6,11 +6,26 @@ $(function(){
             // 提交预约信息
             $('.main').html(template('main_id', {items: data.resultObject}));
         	
-        	if (data.resultObject.start == true) {
-        		$(".handler_btns").show();
-        	}else{
-        		$(".handler_btn").show();
+
+        	if (data.resultObject.status == 2) {
+        		// 按钮是否可点击
+	        	if (data.resultObject.start == true) {
+	        		$(".handler_btns").show();
+	        	}else{
+	        		$(".handler_btn").show();
+	        	};
         	};
+        	
+
+        	// 预约信息状态1->待审核 2->预约成功 4->已完成 5->已过期 6->审核不通过
+        	if (data.resultObject.status == 4) {
+        		$(".check_btn").show();
+        	};
+
+        	// 点击查看视频跳转
+        	/*$(".check_btn").click(function(){
+				$(".tooltip").show();
+			});*/
 
 
         	<!-- 点击取消 -->

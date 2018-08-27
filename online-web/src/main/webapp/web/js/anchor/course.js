@@ -14,7 +14,7 @@ $(function(){
     });
     
     
-  
+   
    
     $("input[name='collection_multimedia_type']").change(function(){
         $(".collection_courses").html("");
@@ -982,7 +982,7 @@ function quicklyAddAlbumCourse(){
 	
 	var csArr = $("#select-add").val();
 	if(csArr ==null || csArr == undefined ||  csArr.length<=0){
-		alert("请选择课程");
+		showTip("请选择课程");
 		return;
 	}
 	
@@ -1637,7 +1637,7 @@ function initCourseSelect(){
     var courseNumer = $('.course_number').val();
     if(isNotBlank(courseNumer) && isNotBlank(courseArr) &&
         courseArr.length >= courseNumer && !isAddOrUpdate){
-        alert("此专辑已更新完毕(选集数等于总集数)！请酌情修改");
+        showTip("此专辑已更新完毕(选集数等于总集数)！请酌情修改");
         return;
     }
     

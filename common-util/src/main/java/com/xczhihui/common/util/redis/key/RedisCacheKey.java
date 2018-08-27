@@ -29,7 +29,8 @@ public class RedisCacheKey {
     public static final String OFFLINE_COURSE_REMIND_KEY = "course:remind:offline";
     public static final String COLLECTION_COURSE_REMIND_KEY = "course:remind:collection";
     
-    public static final String COMMON_MINUTE_REMIND_KEY = "common:minute:remind";
+    public static final String COMMON_MINUTE_REMIND_KEY = "common:minute";
+    
     public static final String TREATMENT_MINUTE_TYPE = "treatmentlive";
     
     public static final String LIVE_COURSE_REMIND_LAST_TIME_KEY = "course:live:lastTime";

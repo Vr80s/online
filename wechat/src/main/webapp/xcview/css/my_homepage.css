@@ -154,6 +154,65 @@ header{
 	margin-right: 0.2rem;
     margin-top: 0.38rem;
 }
+.my_order{
+	width: 7.5rem;
+    height: 0.98rem;
+    background: #fff;
+    margin: 0 auto;
+    margin-top: 0.2rem;
+}
+
+.treatment{
+	width: 7.5rem;
+    height: 0.98rem;
+    background: #fff;
+    margin: 0 auto;
+    margin-top: 0.2rem;
+    position: relative;
+}
+	
+.treatment_main{
+	width: 7.24rem;
+	height: 0.98rem;
+	line-height: 0.98rem;
+	float: right;
+	font-size: 0.28rem;
+	color: #333333;
+	border-bottom: 1px solid #f0f0f0;
+}
+.treatment_main .img0{
+	width: 0.36rem;
+	height: 0.36rem;
+    margin-top: 0.25rem;
+    margin-right: 0.2rem;
+}
+.treatment_main .img1{
+	width: 0.15rem;
+	height: 0.25rem;
+	margin-right: 0.2rem;
+    margin-top: 0.38rem;
+}
+.treatment_number_span{
+	padding: 0.1rem 0.2rem;
+	margin-top: 0.25rem;
+	background: #ff4012;
+	border-radius: 100px;
+	margin-right: 0.26rem;
+	/*display:none;*/
+	position: absolute;
+    top: 0;
+    right: 0.26rem;
+}
+.treatment .img1{
+	width: 0.15rem;
+    height: 0.25rem;
+    margin-right: 0.2rem;
+    margin-top: 0.38rem;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+    
 
 /*我的消息*/
 .my_news{

@@ -1,6 +1,5 @@
 package com.xczh.consumer.market.dao;
 
-import com.google.common.base.Joiner;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.utils.JdbcUtil;
 import org.apache.commons.dbutils.handlers.BeanHandler;
@@ -204,15 +203,4 @@ public class OnlineUserMapper extends BasicSimpleDao {
         		0,Integer.MAX_VALUE, OnlineUser.class, null);
 	}
 
-    public List<OnlineUser> getUserListByIds(List<String> userIds) throws SQLException {
-        String s = String.join( ",",userIds);
-
-        String str = Joiner.on(",").join(userIds);
-        str = this.getInParamter(str,",",true);
-        StringBuffer sql = new StringBuffer();
-        sql.append(" select name,small_head_photo ");
-        sql.append(" from oe_user where  id in ( "+str+")");
-        return this.queryPage(JdbcUtil.getCurrentConnection(), sql.toString(),
-                0,Integer.MAX_VALUE, OnlineUser.class, null);
-    }
 }

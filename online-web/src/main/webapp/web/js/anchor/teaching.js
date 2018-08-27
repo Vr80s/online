@@ -1289,11 +1289,11 @@ function cheackSelectAll(){
  * @author name：牛男 <br>email: wangxingchuan@ixincheng.com
  * @Date: 2018/7/20 0003 上午 09:52
  **/	
- rangeList(1)
+   rangeList(1)
  var rangeData;
 function rangeList(pages){	
 	RequestService("/doctor/treatment","GET",{
-		"pages":pages,
+		"page":pages,
 		"size":10
 	}, function (data) {
 		if (data.success==true) {
@@ -1472,6 +1472,10 @@ var appointmentStatus,
 	$("#video-cover").click(function(){
 		$("#video-cover").addClass("hide");
 		$(".video-live").addClass("hide");
+	})
+	$(".long-range-tip span").click(function(){
+		$("#video-cover").removeClass("hide");
+		$(".video-live").removeClass("hide");
 	})
 	
 //	取消预约

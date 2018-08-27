@@ -340,8 +340,11 @@ function getAnchorInfo2() {
 
 //主播是医师的信息验证
 function verifyAnchorInfo(data) {
+	$(".warning").addClass("hide");
+	$('.warning_anchor_name').siblings("input").removeClass("active-error");
     if (data.name == '') {
         $('.warning_anchor_name').removeClass('hide');
+        $('.warning_anchor_name').siblings("input").addClass("active-error");
         return false;
     } else {
         $('.warning_anchor_name').addClass('hide');

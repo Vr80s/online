@@ -7,8 +7,10 @@ header{
     height: 0.6rem;
     background: #000;
     border-radius: 100px;
-    margin-top: 0.1rem;
+    margin-top: 0.16rem;
     margin-left: 0.08rem;
+    background: url(/xcview/images/salon_return.png) no-repeat;
+    background-size: 100% 100%;
 }
 .history_span{
 	height: .72rem;
@@ -17,7 +19,7 @@ header{
 	height: .72rem;
 }
 .details_bottom{
-	top: 0;
+	top: 0.1rem;
 }
 .details_size{
 	bottom: -0.65rem;
@@ -39,6 +41,7 @@ header{
     background: rgba(0,0,0,0.50);
     border-radius: 100px;
     max-width: 4rem;
+    margin-top: 0.09rem;
 }
 .attentions .main_title{
 	height: 0.72rem;
@@ -78,3 +81,44 @@ header{
 #myVideo{
 	height: 6.66rem;
 }
+
+
+
+/*底部点击按钮开始*/
+.click_button{
+    width: 4rem;
+    height: .8rem;
+    margin-left: 0.26rem;
+    background: red;
+    position: fixed;
+    bottom: 0.1rem;
+    z-index: 99999;
+}
+.click_button .div_float{
+    width: .8rem;
+    height: .8rem;
+    border-radius: 100px;
+    float: left;
+    margin-right: .32rem;
+    /*background: #000;*/
+}
+.chat_bg{
+    width: .8rem;
+    height: .8rem;
+    background: url(/xcview/images/chat_bg.png) no-repeat;
+    background-size: 100% 100%;
+}
+.ranking_list_bg{
+    width: .8rem;
+    height: .8rem;
+    background: url(/xcview/images/ranking_list_bg.png) no-repeat;
+    background-size: 100% 100%;
+}
+.gift_bg{
+    width: .8rem;
+    height: .8rem;
+    background: url(/xcview/images/gaft.png) no-repeat;
+    background-size: 100% 100%;
+}
+
+/*底部点击按钮结束*/
