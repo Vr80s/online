@@ -14,7 +14,7 @@ $(function(){
     });
     
     
-  
+   
    
     $("input[name='collection_multimedia_type']").change(function(){
         $(".collection_courses").html("");
