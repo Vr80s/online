@@ -196,8 +196,9 @@ dev-2.5
     ALTER TABLE `medical_treatment_appointment_info` ADD `deleted` BIT(1)  NULL  DEFAULT 0  COMMENT '是否删除'  AFTER `apprentice_id`;
     ALTER TABLE `medical_treatment` ADD `course_id` INT(11)  NULL  DEFAULT NULL  COMMENT '课程id';
     update `medical_treatment_appointment_info` info set info.`status` = (select mt.status from medical_treatment mt where mt.`info_id` = info.id);
-    update medical_treatment_appointment_info set status = 3 where status is null;
     update medical_treatment_appointment_info set deleted = 0 where deleted is null;
+    update `medical_treatment_appointment_info` set status = 6  where id in (select info_id from medical_treatment where deleted = 1 and info_id is not null);
+    update medical_treatment_appointment_info set status = 6 where status is null;
 
     ALTER TABLE `medical_treatment_appointment_info` ADD `date` DATE  NULL  AFTER `deleted`;
     ALTER TABLE `medical_treatment_appointment_info` ADD `start_time` TIME  NULL  AFTER `date`;
