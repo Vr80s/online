@@ -85,7 +85,7 @@ public interface RemoteTreatmentMapper extends BaseMapper<Treatment> {
      * @param infoId infoId
      * @return
      */
-    @Select({"select mtai.name, mtai.tel, mtai.question, mtai.date as date, mtai.start_time as startTime, mtai.end_time as endTime," +
+    @Select({"select mtai.name, mtai.tel, mtai.question, mtai.date as date, mtai.start_time as startTime, mtai.end_time as endTime, mtai.id as infoId, " +
             " mt.status as treatmentStatus, mtai.status, mtai.status as infoStatus, mt.course_id as courseId" +
             " from medical_treatment_appointment_info mtai left join medical_treatment mt on mt.info_id = mtai.id" +
             " where mtai.id = #{infoId}"})
