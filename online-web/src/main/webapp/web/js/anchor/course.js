@@ -13,9 +13,168 @@ $(function(){
         saveCourse();
     });
     
-    
-   
-   
+
+//  新课程以及专辑校验
+function initCourde(sibling){
+	$('.'+sibling).addClass('hide');
+	$('.'+sibling).siblings("input").removeClass("active-border");
+}
+	var courseVerification = {
+//		课程标题
+		course_title : function(){
+			initCourde("warning_course_title");
+			if ($.trim($(".course_title").val())== "") {
+				$('.warning_course_title').removeClass('hide');
+				$('.warning_course_title').siblings("input").addClass("active-border");
+			}
+		},
+//		副标题
+		course_subtitle : function(){			
+			$('.warning_course_subtitle').addClass('hide');
+			initCourde("warning_course_subtitle_length");
+			if ($.trim($(".course_subtitle").val())== "") {
+				$('.warning_course_subtitle').removeClass('hide');
+				$('.warning_course_subtitle').siblings("input").addClass("active-border");
+				return false;
+			}else if($.trim($(".course_subtitle").val()).length > 30){
+				$('.warning_course_subtitle_length').removeClass('hide');
+				$('.warning_course_subtitle_length').siblings("input").addClass("active-border");
+			}
+			
+		},
+//		主讲人
+		course_lecturer : function(){
+			initCourde("warning_course_lecturer");
+			if ($.trim($(".course_lecturer").val())== "") {
+				$('.warning_course_lecturer').removeClass('hide');
+        		$('.warning_course_lecturer').siblings("input").addClass("active-border");
+			}
+			
+		},
+//		价格
+		course_pride : function(){			
+			initCourde("warning_course_price");
+			$('.warning_course_price_Illegal').addClass('hide');
+			if ($.trim($(".course_price").val())== "") {
+				$('.warning_course_price').removeClass('hide');
+        		$('.warning_course_price').siblings("input").addClass("active-border");
+				return false;
+			}else if(!numberCk($.trim($(".course_price").val()))){
+				$('.warning_course_price_Illegal').removeClass('hide');
+				$('.warning_course_price_Illegal').siblings("input").addClass("active-border");
+			}
+			
+		},
+//		时长
+		course_duration : function(){			
+			initCourde("warning_course_length");
+			$('.warning_course_length_Illegal').addClass('hide');
+			if ($.trim($(".course_length").val())== "") {
+				$('.warning_course_length').removeClass('hide');
+        		$('.warning_course_length').siblings("input").addClass("active-border");
+				return false;
+			}else if(!numberCk($.trim($(".course_length").val()))){
+				$('.warning_course_length_Illegal').removeClass('hide');
+				$('.warning_course_length_Illegal').siblings("input").addClass("active-border");
+			}
+			
+		},
+//		详细地址
+		course_address : function(){	
+			$('.warning_course_address').addClass('hide');
+        	$('.warning_course_address').siblings("textarea").removeClass("active-border");
+			if ($.trim($(".course_address").val())== "") {
+				$('.warning_course_address').removeClass('hide');
+        		$('.warning_course_address').siblings("textarea").addClass("active-border");
+			}
+			
+		},
+//		专辑校验开始 
+//		专辑标题
+		course_collection : function(){
+			initCourde("warning_collection_title");
+			if ($.trim($(".collection_title").val())== "") {
+				$('.warning_collection_title').removeClass('hide');
+				$('.warning_collection_title').siblings("input").addClass("active-border");
+			}
+		},
+//		专辑副标题
+		collection_subtitle : function(){			
+			initCourde("warning_collection_subtitle");
+			if ($.trim($(".collection_subtitle").val())== "") {
+				$('.warning_collection_subtitle').removeClass('hide');
+				$('.warning_collection_subtitle').siblings("input").addClass("active-border");
+				return false;
+			}	
+		},
+//		主播姓名
+		collection_lecturer: function(){			
+			initCourde("warning_collection_lecturer");
+			if ($.trim($(".collection_lecturer").val())== "") {
+				$('.warning_collection_lecturer').removeClass('hide');
+				$('.warning_collection_lecturer').siblings("input").addClass("active-border");
+			}	
+		},
+//		专辑总价
+		collection_price: function(){			
+			initCourde("warning_collection_price");
+			$(".warning_collection_price_Illegal").addClass("hide");
+			if ($.trim($(".collection_price").val())== "") {
+				$('.warning_collection_price').removeClass('hide');
+				$('.warning_collection_price').siblings("input").addClass("active-border");
+				return false;
+			}else if(!numberCk($(".collection_price").val())){
+				$('.warning_collection_price_Illegal').removeClass('hide');
+        		$('.warning_collection_price_Illegal').siblings("input").addClass("active-border");
+			}
+		},
+//		主播信息		
+		collection_nickname: function(){			
+			initCourde("warning_anchor_name");
+			if ($.trim($("#u_nickname").val())== "") {
+				$('.warning_anchor_name').removeClass('hide');
+				$('.warning_anchor_name').siblings("input").addClass("active-border");
+			}
+		}
+	}
+//	课程
+    $(".course_title").blur(function(){
+		courseVerification.course_title();
+	})
+    $(".course_subtitle").blur(function(){
+		courseVerification.course_subtitle();
+	})
+   	$(".course_lecturer").blur(function(){
+		courseVerification.course_lecturer();
+	})
+    $(".course_price").blur(function(){
+		courseVerification.course_pride();
+	})
+    $(".course_length").blur(function(){
+		courseVerification.course_duration();
+	})
+  	$(".course_address").blur(function(){
+		courseVerification.course_address();
+	})
+// 专辑 	
+	$(".collection_title").blur(function(){
+		courseVerification.course_collection();
+	})
+	$(".collection_subtitle").blur(function(){
+		courseVerification.collection_subtitle();
+	})
+	$(".collection_lecturer").blur(function(){
+		courseVerification.collection_lecturer();
+	})
+	$(".collection_price").blur(function(){
+		courseVerification.collection_price();
+	})
+	$("#u_nickname").blur(function(){
+		courseVerification.collection_nickname();
+	})
+
+ //  新课程以及专辑校验结束  
+
     $("input[name='collection_multimedia_type']").change(function(){
         $(".collection_courses").html("");
         courseArr=[];
@@ -420,6 +579,8 @@ function courseList(current){
  * @author name：yuxin <br>email: yuruixin@ixincheng.com
  * @Date: 2018/2/3 0003 下午 5:56
  **/
+//失去焦点校验
+
 function saveCourse(){
     var course = getCourseData();
     if(verifyCourse(course)) {
