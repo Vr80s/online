@@ -1,24 +1,16 @@
 package com.xczh.consumer.market.controller.medical;
 
-import static com.xczhihui.common.util.enums.CommunicationMessageType.*;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.xczh.consumer.market.auth.Account;
 import com.xczh.consumer.market.body.treatment.TreatmentAppointmentInfoBody;
 import com.xczh.consumer.market.interceptor.HeaderInterceptor;
+import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.common.util.enums.AppointmentStatus;
 import com.xczhihui.common.util.enums.MessageTypeEnum;
 import com.xczhihui.common.util.enums.ResultCode;
 import com.xczhihui.common.util.enums.RouteTypeEnum;
+import com.xczhihui.common.util.vhallyun.InteractionService;
 import com.xczhihui.course.model.Course;
 import com.xczhihui.course.params.BaseMessage;
 import com.xczhihui.course.service.ICommonMessageService;
@@ -31,6 +23,17 @@ import com.xczhihui.medical.doctor.service.IRemoteTreatmentService;
 import com.xczhihui.medical.enrol.service.EnrolService;
 import com.xczhihui.medical.exception.MedicalException;
 import com.xczhihui.user.center.service.UserCenterService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static com.xczhihui.common.util.enums.CommunicationMessageType.*;
 
 /**
  * 远程诊疗
@@ -170,7 +173,7 @@ public class RemoteTreatmentAppointmentInfoController {
 
     @RequestMapping(value = "inavUserList", method = RequestMethod.GET)
     public ResponseObject inavUserList(@RequestParam String inavId) throws Exception {
-        remoteTreatmentService.inavUserList(inavId);
-        return ResponseObject.newSuccessResponseObject(null);
+        List<String> inavUserList = InteractionService.getInavUserList(inavId);
+        return ResponseObject.newSuccessResponseObject(userCenterService.findByIds(inavUserList));
     }
 }

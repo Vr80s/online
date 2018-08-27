@@ -162,4 +162,5 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		
 		return onlineUserDao.selectAllUser();
 	}
+
 }

@@ -14,7 +14,7 @@ $(function(){
     });
     
     
-  
+   
    
     $("input[name='collection_multimedia_type']").change(function(){
         $(".collection_courses").html("");
@@ -1751,7 +1751,7 @@ function saveResource(){
                 console.log(data);
                 if(data.success === true) {
                     //更新时长
-                    RequestService("/videoRes/ifUploaded", "GET",{ccId:resourceIdData,}, function(data) {
+                    RequestService("/videoRes/ifUploaded", "GET",{ccId:resourceIdData}, function(data) {
 
                     })
                     showTip(data.resultObject);
@@ -1863,7 +1863,7 @@ function picUpdown(form,imgname){
         data: form,
         cache: false,
         processData: false,
-        contentType: false,
+        contentType: false
     }).success(function (data) {
         $('#'+imgname+'').html('<img src="'+data.resultObject+'?imageMogr2/thumbnail/!260x147r|imageMogr2/gravity/Center/crop/260x147" style="width: 100%;height: 100%" >'+'<p>点击图片重新上传</p>');
         $(".row_size").hide();
@@ -2069,7 +2069,7 @@ function picUpdownHead(form,imgname){
         data: form,
         cache: false,
         processData: false,
-        contentType: false,
+        contentType: false
     }).success(function (data) {
         $('#'+imgname+'').html('<img src="'+data.resultObject+'?imageMogr2/thumbnail/!120x120r|imageMogr2/gravity/Center/crop/120x120" >');
         $(".row_size").hide();

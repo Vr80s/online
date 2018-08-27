@@ -93,10 +93,10 @@ public class CourseDao extends HibernateDao<Course> {
             paramMap.put("courseType", courseVo.getCourseType());
             sql.append("and oc.courseType = :courseType ");
         }
-        if (courseVo.getServiceType() != null) {
-            paramMap.put("serviceType", courseVo.getServiceType());
-            sql.append("and oc.course_type = :serviceType ");
-        }
+//        if (courseVo.getServiceType() != null) {
+//            paramMap.put("serviceType", courseVo.getServiceType());
+//            sql.append("and oc.course_type = :serviceType ");
+//        }
         if (courseVo.getStatus() != null) {
             paramMap.put("status", courseVo.getStatus());
             sql.append("and oc.status = :status ");
