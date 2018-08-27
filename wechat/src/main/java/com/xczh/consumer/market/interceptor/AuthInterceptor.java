@@ -72,7 +72,7 @@ public class AuthInterceptor implements HandlerInterceptor, HandlerMethodArgumen
             "/xczh/course/unshelveCouserRecommen", "/xczh/course/live/*", "/xczh/course/courseTypeNumber","/xczh/course/recommendSortAndRand",
             "/xczh/doctors/**","/xczh/enrol/enrollmentRegulations", "/xczh/myinfo/showWallet", "/xczh/article/view", "/xczh/article/appraise/list",
             "/doctor/posts","/xczh/live/onlineLive","/xczh/share/courseShare",
-            "/xczh/enrol/enrollmentRegulations/*","/page/*","/xczh/question/doctorQuestion","/xczh/set/getAllProvinces","/imgProxy","/xczh/advertisement","/doctor/treatment/inavUserList");
+            "/xczh/enrol/enrollmentRegulations/*","/page/*","/xczh/question/doctorQuestion","/xczh/set/getAllProvinces","/imgProxy","/xczh/advertisement");
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     private PathMatcher pathMatcher;
