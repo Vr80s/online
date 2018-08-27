@@ -185,7 +185,7 @@ public interface IRemoteTreatmentService {
      *
      * @param  inavId
      */
-    String inavUserList(String inavId) throws Exception;
+    List<String> inavUserList(String inavId) throws Exception;
 
     /**
      * 更新课程状态

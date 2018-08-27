@@ -1,8 +1,8 @@
 package com.xczhihui.medical.doctor.service.impl;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.plugins.Page;
-import com.jayway.jsonpath.JsonPath;
 import com.xczhihui.common.support.service.CacheService;
 import com.xczhihui.common.util.DateUtil;
 import com.xczhihui.common.util.SmsUtil;
@@ -23,6 +23,8 @@ import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 import com.xczhihui.medical.doctor.vo.TreatmentVO;
 import com.xczhihui.medical.enrol.mapper.MedicalEntryInformationMapper;
 import com.xczhihui.medical.exception.MedicalException;
+import net.minidev.json.JSONValue;
+import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -62,6 +64,7 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
     private CacheService cacheService;
     @Autowired
     private CourseApplyInfoMapper courseApplyInfoMapper;
+
 
     @Override
     public void save(Treatment treatment) {
@@ -569,14 +572,29 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
     }
 
     @Override
-    public String inavUserList(String inavId) throws Exception {
+    public List<String> inavUserList(String inavId) throws Exception {
 
+        List<String> ids = new ArrayList<>();
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("inav_id", inavId);
         params = VhallUtil.createRealParam(params);
         String result = VhallUtil.sendPost("http://api.yun.vhall.com/api/v1/inav/inav-user-list", params);
-        String recordId = JsonPath.read(result, "$.data");
-        return null;
+        //String recordId = JsonPath.read(result, "$.data");
+        Object obj= JSONValue.parse(result);
+        JSONObject srbJson = JSONObject.parseObject(result);
+        String belong = srbJson.get("data")
+                .toString();
+        JSONArray jsonArr = JSONArray.fromObject(belong);
+        if(jsonArr.size()>0) {
+            for (int i = 0; i < jsonArr.size(); i++) {
+                net.sf.json.JSONObject job = jsonArr.getJSONObject(i);  // 遍历 jsonarray 数组，把每一个对象转成 json 对象
+                System.out.println(job.get("status") + "=");  // 得到 每个对象中的属性值
+                if(job.get("status").toString().equals("2")){
+                    ids.add(job.get("third_party_user_id").toString());
+                }
+            }
+        }
+        return ids;
     }
 
     @Override

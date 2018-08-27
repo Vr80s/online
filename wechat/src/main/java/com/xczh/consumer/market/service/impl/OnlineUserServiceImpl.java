@@ -162,4 +162,9 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		
 		return onlineUserDao.selectAllUser();
 	}
+
+    @Override
+    public List<OnlineUser> getUserListByIds(List<String> userIds) throws SQLException {
+        return onlineUserDao.getUserListByIds(userIds);
+    }
 }
