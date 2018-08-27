@@ -28,7 +28,7 @@ $(function(){
 			});*/
 
 
-        	<!-- 点击取消 -->
+        	<!-- 点击开始诊疗按钮 -->
 			$(".handler_btns").click(function(){
 				$(".tooltip").show();
 			});

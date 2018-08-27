@@ -234,7 +234,7 @@ div.pinch-zoom,
     font-size: 0.4rem;
     position: absolute;
     top: 0;
-    /*display: none;*/
+    display: none;
     /* margin-top: 0.35rem; */
     height: 0.95rem;
     line-height: 0.95rem;
@@ -386,9 +386,9 @@ div.pinch-zoom,
     display: block;
 }
 .give_a1{
-    /* float: right;
+    float: right;
     position: absolute;
-    right: -3.5rem; */
+    right: -3.5rem;
 }
 .give_a1 .give_a1_img{
     margin-left: -4.17rem;

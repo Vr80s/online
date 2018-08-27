@@ -116,10 +116,14 @@
 						<div class="name" data-id="{{item.id}}" onclick="orders('{{item.id}}')">{{item.nickname}}</div>
 						<div class="professional_title" data-id="{{item.id}}" onclick="orders('{{item.id}}')">{{item.title}}</div>
 						{{if item.status == 2}}
+								<div class="starting_treatment">开始诊疗</div>
+						{{/if}}
+						<!--预约成功后时间判断--需求改变-->
+						<!--{{if item.status == 2}}
 							{{if item.start == true}}
 								<div class="starting_treatment">开始诊疗</div>
 							{{/if}}
-						{{/if}}
+						{{/if}}-->
 						
 						<div class="both"></div>
 					</div>
