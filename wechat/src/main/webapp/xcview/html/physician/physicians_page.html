@@ -529,7 +529,7 @@
 		<div id="mainMenuBarAnchor"></div>
 		<div class="anchor_navigation" id="mainMenuBar">
 			<ul id="mainMenu">
-				<li class="li li_data" id="li-1"><span class="span"></span><span class="span_hide" style="displays:none;"></span><img src="/xcview/images/drop_down.png" alt="" class="hide0" /></li>
+				<li class="li li_data" id="li-1"><span class="span"></span><span class="span_hide" style="displays:none;">动态</span><img src="/xcview/images/drop_down.png" alt="" class="hide0" /></li>
 				<li class="li li_course" id="li-2">直播</li>
 				<li class="li li_prose_origin" id="li-3" onclick="apprenticeInfo()">师承</li>
 				<li class="li li_evaluate" id="li-4">介绍</li>
@@ -547,7 +547,7 @@
 			<div class="screen_show_bg"></div>
 			<div class="screen_show_main">
 				<ul>
-					<li class="filtrate_all" value="" onclick="postsType(this)">全部<span class='three'>动态</span></li>
+					<li class="filtrate_all" value="" onclick="postsType(this)">全部</li>
 					<li class="filtrate_sinatv" value="1" onclick="postsType(this)">视频直播</li>
 					<li class="filtrate_sinatv1" value="6" onclick="postsType(this)">语音直播</li>
 					<li class="filtrate_course" value="2" onclick="postsType(this)">课程</li>
@@ -1492,6 +1492,14 @@ $(window).bind("scroll", function() {
 <script type="text/javascript">
 	// 导航  固定和点击切换事件
 	window.onload = function(){
+
+		/*function ceshi(){
+			if($('.filtrate_sinatv1').is('.active')){
+	            alert(11111);
+	      	}
+		}
+		ceshi();
+*/
 		// $(".transform_a_img img").addClass("transform_img");
 		// $(".transform_a_img img").addClass("transform_img");
 	    // 点击全部动态
@@ -1612,7 +1620,6 @@ $(window).bind("scroll", function() {
 		
 		// 点击显示全部动态筛选  
 		$(".dynamic_opacity").click(function(){
-			$(".filtrate_all .three").hide();
 			$(".screen_show").show();
 			$("body").addClass("body");
 		});
@@ -1679,8 +1686,8 @@ $(window).bind("scroll", function() {
         // 点击全部动态
         $(".filtrate_all").click(function(){
         	$(".span_hide").show();   //显示--动态文字
-        	$(".li_data .span_hide").empty();
-        	$(".li_data .span").append("<span class='three'>动态</span>");
+
+        	// $(".ceshi").append("<span class='three'>我是子元素append</span>");
         	// $(".span_hide").css("display","block");
             //$(".rests_nav").removeClass("hide");  //其他1
             $(".consilia_nav").removeClass("hide");  // 医案  
@@ -1689,10 +1696,10 @@ $(window).bind("scroll", function() {
             $(".rests_nav").removeClass("hide");  //其他3  
             $(".course_nav").removeClass("hide");  //课程 
             $(".sinatv_nav").removeClass("hide");  //直播
-	    });	
+	    });
+
         //点击直播
 	    $(".filtrate_sinatv").click(function(){
-	    	$(".li_data .span_hide").empty();
 	    	$(".span_hide").hide();   //隐藏--动态文字
 	    	$(".span_hide").css("display","none");
             //$(".rests_nav").addClass("hide");  //其他1
@@ -1705,7 +1712,6 @@ $(window).bind("scroll", function() {
 	    });
         //点击语音直播
         $(".filtrate_sinatv1").click(function(){
-        	$(".li_data .span_hide").empty();
         	$(".span_hide").hide();   //隐藏--动态文字
             //$(".rests_nav").addClass("hide");  //其他1
             $(".consilia_nav").addClass("hide");  // 医案
@@ -1714,11 +1720,11 @@ $(window).bind("scroll", function() {
             $(".paper_nav").addClass("hide");  //其他3
             $(".course_nav").addClass("hide");  //课程
             $(".sinatv_nav").removeClass("hide");  //直播
+
+
         });
 	    //点击课程 
 	    $(".filtrate_course").click(function(){
-	    	$(".li_data .span_hide").empty();
-	    	$(".li_data .span").append("<span class='three'>动态</span>");
 	    	$(".span_hide").show();   //显示--动态文字
             //$(".rests_nav").addClass("hide");  //其他1
             $(".consilia_nav").addClass("hide");  // 医案  
@@ -1730,8 +1736,6 @@ $(window).bind("scroll", function() {
 	    });	
 	    //点击医案
 	    $(".filtrate_consilia").click(function(){
-	    	$(".li_data .span_hide").empty();
-	    	$(".li_data .span").append("<span class='three'>动态</span>");
 	    	$(".span_hide").show();   //显示--动态文字
             //$(".rests_nav").addClass("hide");  //其他1
             $(".consilia_nav").removeClass("hide");  // 医案  
@@ -1743,8 +1747,6 @@ $(window).bind("scroll", function() {
 	    });	
 	    //点击文章 
 	    $(".filtrate_essay").click(function(){
-	    	$(".li_data .span_hide").empty();
-	    	$(".li_data .span").append("<span class='three'>动态</span>");
 	    	$(".span_hide").show();   //显示--动态文字
             //$(".rests_nav").addClass("hide");  //其他1
             $(".consilia_nav").addClass("hide");  // 医案  
@@ -1756,8 +1758,6 @@ $(window).bind("scroll", function() {
 	    });	
 	    //点击其他
 	    $(".filtrate_rests").click(function(){
-	    	$(".li_data .span_hide").empty();
-	    	$(".li_data .span").append("<span class='three'>动态</span>");
 	    	$(".span_hide").show();   //显示--动态文字
             $(".rests_nav").removeClass("hide");  //其他1
             $(".consilia_nav").addClass("hide");  // 医案  
@@ -1772,8 +1772,6 @@ $(window).bind("scroll", function() {
         $(".rests_nav .zan_img").click(function(){
             $(this).attr('src','/xcview/images/zan001.png');
 	    });	
-
-	    // $(".filtrate_all").click();
 	};
 </script>
 <script>
