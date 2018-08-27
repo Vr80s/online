@@ -917,6 +917,39 @@ function apprenticeInfo() {
                 $('.QA_doubt_main_reply'+id).html(txts);*/     
             }
 
+            function getFlagStatus() {
+                var falg = USER_NORMAL;
+                var user_cookie = cookie.get("_ipandatcm_user_");
+                var third_party_cookie = cookie.get("_third_ipandatcm_user_");
+                if (isBlank(user_cookie)) {
+                    falg = USER_UN_LOGIN;
+                    if (isNotBlank(third_party_cookie)) {
+                        falg = USER_UN_BIND;
+                    }
+                }
+                return falg;
+            }
+
+
+            var USER_UN_BIND = 1005;//用户用微信登录的但是没有绑定注册信息
+
+            $(".disciple_application").click(function(){
+                // alert(2112111);
+
+                var flag = getFlagStatus();
+
+                if (flag === USER_UN_BIND) {
+                    location.href = "/xcview/html/evpi.html";
+                }else{
+                    location.href ='/xcview/html/physician/apply_for.html?doctor='+doctorId
+                }
+            });
+            /*function orderss(){
+                alert(111);
+               
+            };*/
+
+
             // 判断预约
             if (isBlank(data.resultObject.treatments)) {
                 $(".therapy").hide();
@@ -1151,6 +1184,11 @@ function order(id){
         }
     });
 };
+
+
+
+
+
 
 // 点击我的预约
 function orders(id){
