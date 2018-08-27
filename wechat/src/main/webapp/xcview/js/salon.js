@@ -31,11 +31,11 @@ var vhallObj = {
 requestService("/xczh/course/liveDetails", {
         courseId: course_id
     },function (data) {
-    	
-    	if(data.code == 300){
-    	    location.href=data.errorMessage;
-    		return;
-    	}if (data.success) {
+        
+        if(data.code == 300){
+            location.href=data.errorMessage;
+            return;
+        }if (data.success) {
             
             
 
@@ -167,7 +167,7 @@ requestService("/xczh/course/liveDetails", {
 
                 $("title").text("熊猫中医");
 
-                // $(".give_a1_img").hide();
+                $(".give_a1_img").hide();
                 $(".give_a1_span02").hide();
                 $(".poson").css('right', '0rem');
                 $(".poson").css('margin-left', '0.4rem');
@@ -180,8 +180,8 @@ requestService("/xczh/course/liveDetails", {
 
                 //                  点击输入框
                 $("#mywords").click(function () {
-                    $(".give_a1").show();
-                    $(".give_a1_img").show();
+                    $(".give_a1").hide();
+                    $(".give_a1_img").hide();
                     $(".div_input").css("background", "none");
 
                 });
@@ -202,8 +202,8 @@ requestService("/xczh/course/liveDetails", {
 
                 /* 点击发送 */
                 $("#sendChat").click(function () {
-                    // $(".give_a1").hide(); /* 礼物隐藏 */
-                    // $(".give_a1").css("display", "none"); /* 礼物隐藏 */
+                    $(".give_a1").hide(); /* 礼物隐藏 */
+                    $(".give_a1").css("display", "none"); /* 礼物隐藏 */
                     $(".coze_bottom").css("bottom", "0"); /* 最底部区域到最下方 */
                     $(".face_img01").css('background', 'url(/xcview/images/face.png) no-repeat');
                     $(".face_img01").css("background-size", "100% 100%");
@@ -227,7 +227,7 @@ requestService("/xczh/course/liveDetails", {
                 //      coze   点击其他区域，聊天区域
                 $(".coze").click(function () {
                     $(".send_gifts").hide(); /*礼物区域隐藏*/
-                    // $("#sendChat").hide(); /*发送按钮隐藏*/
+                    $("#sendChat").hide(); /*发送按钮隐藏*/
                     $(".give_a01").hide(); /*表情隐藏*/
                     $(".coze_bottom input").css("width", "6rem"); /*改变聊天input长度*/
                     $(".give_a1").show(); /*礼物显示*/
@@ -236,7 +236,7 @@ requestService("/xczh/course/liveDetails", {
                 //      点击课件之间的  发送 礼物切换
                 $(".details_footer_width li").click(function () {
                     $(".send_gifts").hide(); /*礼物区域隐藏*/
-                    // $("#sendChat").hide(); /*发送按钮隐藏*/
+                    $("#sendChat").hide(); /*发送按钮隐藏*/
                     $(".give_a01").hide(); /*表情隐藏*/
                     $(".coze_bottom input").css("width", "6rem"); /*改变聊天input长度*/
                     $(".give_a1").show(); /*礼物显示*/
@@ -262,7 +262,7 @@ requestService("/xczh/course/liveDetails", {
                 // 点击发送
                 $("#sendChat").click(function () {
                     $(".give_a01").hide(); /* 表情隐藏 */
-                    // $(this).hide(); /* 当前发送按钮隐藏 */
+                    $(this).hide(); /* 当前发送按钮隐藏 */
                     $(".coze_bottom input").css("width", "6rem");
                     $(".give_a1").show(); /* 礼物显示 */
 

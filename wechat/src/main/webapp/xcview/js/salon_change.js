@@ -86,8 +86,33 @@ function() {
 			$(".chatmsg-box").mCustomScrollbar("scrollTo", "bottom", "0");
 		}, 50);
 	});
-	
-	$(".li3").click(function() {
+	$(".li2").click(
+
+	function() {
+		$(this).addClass('details');
+		$(".li1").removeClass('details');
+		$(".li3").removeClass('details');
+		$(".li4").removeClass('details');
+		$(this).parent().addClass('details01');
+		$(".li1").parent().removeClass('details01');
+		$(".li3").parent().removeClass('details01');
+		$(".li4").parent().removeClass('details01');
+		$(".details1").show();
+		$(".coze").hide();
+		$(".document").hide();
+		$(".leaderboard").hide();
+		$(".details_chat").hide();
+		$(".coze_bottom").hide();
+		$(".coze_bottom").css("bottom", "0");
+		$(".facebox-mobile").hide();
+		$(".face_img01").css("background", "url(/xcview/images/face.png) no-repeat");
+		$(".face_img01").css("background-size", "100% 100%");
+
+		$("#footer_ks").css("height", "5.4rem");
+	});
+	$(".li3").click(
+
+	function() {
 		$(this).addClass('details');
 		$(".li1").removeClass('details');
 		$(".li2").removeClass('details');
@@ -97,7 +122,7 @@ function() {
 		$(".li1").parent().removeClass('details01');
 		$(".li4").parent().removeClass('details01');
 		$(".leaderboard").show();
-		$(".coze").show();  /*聊天区*/
+		$(".coze").hide();
 		$(".details1").hide();
 		$(".document").hide();
 		$(".details_chat").hide();
