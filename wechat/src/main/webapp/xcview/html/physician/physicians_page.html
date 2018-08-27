@@ -529,7 +529,7 @@
 		<div id="mainMenuBarAnchor"></div>
 		<div class="anchor_navigation" id="mainMenuBar">
 			<ul id="mainMenu">
-				<li class="li li_data" id="li-1"><span class="span">全部</span><span class="span_hide">动态</span><img src="/xcview/images/drop_down.png" alt="" class="hide0" /></li>
+				<li class="li li_data" id="li-1"><span class="span"></span><span class="span_hide" style="displays:none;">动态</span><img src="/xcview/images/drop_down.png" alt="" class="hide0" /></li>
 				<li class="li li_course" id="li-2">直播</li>
 				<li class="li li_prose_origin" id="li-3" onclick="apprenticeInfo()">师承</li>
 				<li class="li li_evaluate" id="li-4">介绍</li>
@@ -1076,7 +1076,7 @@
 			<div class="therapy_title">
 				<span class="border"></span>
 				<span style="font-size: 0.28rem;float: left;">远程诊疗</span>
-				<span class="master_course_span">一个时段仅可一名弟子预约</span>
+				<span class="master_course_span">诊疗过程将以直播形式开展，仅弟子可预约</span>
 				<div class="both"></div>
 			</div>
 			<div class="subscribe_id">
@@ -1668,6 +1668,8 @@ $(window).bind("scroll", function() {
             	 $(aBtn[parseInt(li_data)]).click();
             }else{
             	 $(aBtn[0]).click();
+
+            	 // $(".span_hide").show();
             }
         }
         
@@ -1676,6 +1678,7 @@ $(window).bind("scroll", function() {
         // 点击全部动态
         $(".filtrate_all").click(function(){
         	$(".span_hide").show();   //显示--动态文字
+        	// $(".span_hide").css("display","block");
             //$(".rests_nav").removeClass("hide");  //其他1
             $(".consilia_nav").removeClass("hide");  // 医案  
             $(".essay_pack_up").removeClass("hide");  //其他2 
@@ -1687,6 +1690,7 @@ $(window).bind("scroll", function() {
         //点击直播
 	    $(".filtrate_sinatv").click(function(){
 	    	$(".span_hide").hide();   //隐藏--动态文字
+	    	$(".span_hide").css("display","none");
             //$(".rests_nav").addClass("hide");  //其他1
             $(".consilia_nav").addClass("hide");  // 医案  
             $(".essay_pack_up").addClass("hide");  //其他2 

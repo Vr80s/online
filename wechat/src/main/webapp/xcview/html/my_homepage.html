@@ -28,12 +28,23 @@
 	}	
 </script>
 <style>
-	.my_order{
-		width: 7.5rem;
-	    height: 0.98rem;
-	    background: #fff;
-	    margin: 0 auto;
-	    margin-top: 0.2rem;
+	.treatment_number_span{
+		display: none;
+		color: #fff;
+	}
+	.treatment{
+		display: none;
+		color: #fff;
+	}
+	.number_span{
+		padding: 0.1rem 0.2rem;
+		margin-top: 0.25rem;
+		background: #ff4012;
+		border-radius: 100px;
+		float: right;
+		margin-right: 0.26rem;
+		display:none;
+		color: #fff;
 	}
 </style>
 </head>
@@ -103,7 +114,7 @@
 		</div>
 	</div>-->
 	<!--去下载页面-->
-	<div class="my_anchor">
+	<div class="my_anchor" style="margin-bottom: 0.2rem;">
 		<div class="anchor_main">
 			<img src="../images/my_anchor.png" class="img0 z" />
 			我要当主播
@@ -111,12 +122,25 @@
 		</div>
 	</div>
 
-	<div class="my_order" onclick="location.href ='my_reservation.html'">
-		<div class="anchor_main">
+	<div class="treatment" onclick="location.href ='treatment.html'" style="margin-top: 0;">
+		<div class="treatment_main" style="float: left;margin-left: 0.26rem;">
+			<img src="../images/therapy.png" class="img0 z" style="margin-top: 0.28rem;" />
+			远程诊疗
+		</div>
+		<img src="../images/account05.png" class="img1 y" />
+		<span class="treatment_number_span"></span>
+		
+	</div>
+	<div class="my_order" onclick="location.href ='my_reservation.html'" style="margin-top: 0;">
+		<div class="anchor_main" style="float: left;width: 5.8rem;margin-left: 0.26rem;">
 			<img src="../images/my_order.png" class="img0 z" style="margin-top: 0.28rem;" />
 			我的预约
-			<img src="../images/account05.png" class="img1 y" />
+
+			
 		</div>
+		<img src="../images/account05.png" class="img1 y" style="width: 0.15rem;height: 0.25rem;margin-right: 0.2rem;margin-top: 0.38rem;" />
+		<span class="number_span" style=""></span>
+		
 	</div>
 	
 	<!--我的消息-->

@@ -35,7 +35,7 @@
 	*{
 		margin: 0 auto;
 	}
-	.header {
+	.protocol_header {
 	    width: 7.5rem;
 	    height: 0.88rem;
 	    margin: 0 auto;
@@ -46,7 +46,7 @@
 	    left: 50%;
 	    margin-left: -3.75rem;
 	}
-	.headers {
+	.protocol_header .headers {
 	    width: 7.5rem;
 	    height: 0.88rem;
 	    text-align: center;
@@ -57,13 +57,13 @@
 	    background: white;
 	    z-index: 999999;
 	}
-	.header_title {
+	.protocol_header  .header_title {
 	    font-size: 0.36rem;
 	    color: #333333;
 	    text-align: center;
 	    line-height: 0.88rem;
 	}
-	.header_return {
+	.protocol_header  .header_return {
 	    width: 0.24rem;
 	    height: 0.42rem;
 	    position: absolute;
@@ -71,7 +71,7 @@
 	    top: 0.23rem;
 	    z-index: 999999;
 	}
-	.header_return img {
+	.protocol_header  .header_return img {
 	    width: 100%;
 	    height: 100%;
 	    display: block;
@@ -105,30 +105,33 @@
 </style>
 </head>
 <body style="background:#f0f0f0;">
-	<!-- 头部开始 -->
-	<header>
-		<div class="header">
-			<div class="return" id="home_img"></div>
-			<div class="header_return" onclick="window.history.go(-1);">
-				<img src="/xcview/images/back icon.png" />
+	<div class="protocol">
+		<!-- 头部开始 -->
+		<header>
+			<div class="protocol_header">
+				<div class="return" id="home_img"></div>
+				<div class="header_return" onclick="window.history.go(-1);">
+					<img src="/xcview/images/back icon.png" />
+				</div>
+				<div class="header_title">远程诊疗直播协议</div>
 			</div>
-			<div class="header_title">远程诊疗直播协议</div>
-		</div>
-	</header>
-	<!-- 头部结束 -->
+		</header>
+		<!-- 头部结束 -->
 
-	<!-- 中间内容开始 -->
-	<div class="main">
-		<div class="fize"><div class="number">1.</div><div class="center">远程诊疗将以直播的形式展开，诊疗过程将会供平台其他用户观摩学习，请注意保护个人及患者的隐私。</div></div>
-		<div class="fize"><div class="number">2.</div><div class="center">申请远程诊疗预约的用户，应当向患者说明诊疗程序，并征得患者同意，在患者不具备完全民事行为能力时，应征得其亲属或监护人同意后方可进行远程诊疗预约。</div></div>
-		<div class="fize"><div class="number">3.</div><div class="center">申请人要本着严谨、认真、负责的态度开展诊疗工作。严格遵守医师道德行为规范，认真对待每一位诊疗患者。诊疗前仔细核对患者资料，认真听取远程诊疗医师对病情的分析。</div></div>
-		<div class="fize"><div class="number">4.</div><div class="center">远程诊疗仅为医师辅助诊疗，请结合患者实际情况，进一步规范展开诊疗。</div></div>
-		<div class="fize"><div class="number">5.</div><div class="center">诊疗直播回放视频，将保存在预约管理中，供申请人、医师和平台用户查看。</div></div>
-		<div class="fize"><div class="number">6.</div><div class="center">请在远程诊疗开始前，请保持手机网络畅通，做好患者及诊疗前期准备工作。</div></div>
-		<div class="fize"><div class="number">7.</div><div class="center">远程诊疗结束后，如有更多诊疗问题，可以继续预约医师进行远程诊疗。</div></div>
-		<div class="both"></div>
+		<!-- 中间内容开始 -->
+		<div class="main">
+			<div class="fize"><div class="number">1.</div><div class="center">远程诊疗将以直播的形式展开，诊疗过程将会供平台其他用户观摩学习，请注意保护个人及患者的隐私。</div></div>
+			<div class="fize"><div class="number">2.</div><div class="center">申请远程诊疗预约的用户，应当向患者说明诊疗程序，并征得患者同意，在患者不具备完全民事行为能力时，应征得其亲属或监护人同意后方可进行远程诊疗预约。</div></div>
+			<div class="fize"><div class="number">3.</div><div class="center">申请人要本着严谨、认真、负责的态度开展诊疗工作。严格遵守医师道德行为规范，认真对待每一位诊疗患者。诊疗前仔细核对患者资料，认真听取远程诊疗医师对病情的分析。</div></div>
+			<div class="fize"><div class="number">4.</div><div class="center">远程诊疗仅为医师辅助诊疗，请结合患者实际情况，进一步规范展开诊疗。</div></div>
+			<div class="fize"><div class="number">5.</div><div class="center">诊疗直播回放视频，将保存在预约管理中，供申请人、医师和平台用户查看。</div></div>
+			<div class="fize"><div class="number">6.</div><div class="center">请在远程诊疗开始前，请保持手机网络畅通，做好患者及诊疗前期准备工作。</div></div>
+			<div class="fize"><div class="number">7.</div><div class="center">远程诊疗结束后，如有更多诊疗问题，可以继续预约医师进行远程诊疗。</div></div>
+			<div class="both"></div>
+		</div>
+		<!-- 中间内容结束 -->
 	</div>
-	<!-- 中间内容结束 -->
+	
 
 
 </body>

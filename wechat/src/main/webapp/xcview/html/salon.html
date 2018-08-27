@@ -19,9 +19,19 @@
 <script type="text/javascript" src="/xcview/js/common/underscore.js"></script>
 <script type="text/javascript" src="/xcview/js/common/pinchzoom.js"></script>
 
-
+<!-- 双击图片变大缩小 -->
+<script type="text/javascript">
+$(function(){
+   
+    $(".video_img").click(function(){
+        $("#vhall-h5-player").play();
+    });
+    $("#div").trigger('play');
+});
+</script>
 <link rel=stylesheet href="/xcview/css/jquery.mCustomScrollbar.min.css">
 <link rel="stylesheet" href="/xcview/css/details.css">
+<link rel="stylesheet" href="/xcview/css/salon.css">
 <link rel="stylesheet" href="/xcview/css/style.css">
 
 <link rel="stylesheet" type="text/css" href="/xcview/css/details_style.css"/>
@@ -29,8 +39,6 @@
 <!--公用弹框 -->
 <link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
 <link rel="stylesheet" href="https://static.vhallyun.com/jssdk/videojs.min.css?v=1.0.0"><!--播放器默认样式，需要引用在包含在页面的head标签里-->
-
-<link rel="stylesheet" type="text/css" href="/xcview/css/salon.css"/>  <!-- 手机端直播css -->
 <style>
 .send_gifts ul li{
     width: 1.8rem !important;
@@ -51,6 +59,7 @@
     z-index: 999999 !important;
 }
 
+
 .leaderboard .leaderboard_list:last-child{
     border-bottom: none;
 }
@@ -59,7 +68,27 @@
     margin-top: -1em !important;
     left: 50% !important;
     margin-left: -1.5em !important;
+    /*display: none !important;*/
 }
+.vjs-big-play-buttons{
+    /*display: block !important;*/
+}
+
+/*  .cover{
+    display: none !important;
+} 
+.coze_bottom{
+    display: none !important;
+} 
+.coze_center{
+    background: indianred;
+}
+.mCustomScrollBox{
+    background: mediumvioletred;
+} */
+ /* .details_cen1{
+    display: none;
+ }  */
  .chatmsg-box{
     overflow: scroll;
     width: 7.5rem;
@@ -149,6 +178,7 @@
         display: block !important;
     }
     
+    
     .animation{
         left: 50% !important;
         margin-left: -3.75rem;
@@ -200,6 +230,7 @@
         left: 0;
         z-index: -1;
     }
+
 
     .video_end_top2 .initiation{
         font-size: 0.28rem;
@@ -330,7 +361,7 @@
 
 #myVideo{
     width: 100%;
-    height: 4.32rem;
+    height: 4.24rem;
     margin-top: 0.88rem;
     background: #000;
     opacity: 1;
@@ -348,6 +379,10 @@
     width:100% !important;
     height: 100% !important;
 }
+/* .document_ceneter_width{
+    width:25% !important;
+    height: 25% !important; */
+}
 .document_ceneter img{
     width:100% !important;
     height: 100% !important;
@@ -362,6 +397,7 @@
 .vjs-error-displayP{
     display: none;
 }
+
 /*添加视频读取失败后的提示*/
     .video_end_top4 {
         position: absolute;
@@ -407,8 +443,12 @@
     .document_ceneter_width{
         transform: scale(1, 1) translate(-7.10543e-15px, 3.90799e-14px) !important;
     }
+
+    /*处理选项卡区域*/
+    .details_footer_width ul li{
+        margin-left: 1.34rem;
+    }
 </style>
-</head>
 </head>
 <body style="background: #f8f8f8;overflow: hidden1;">
     
@@ -418,44 +458,30 @@
     <div class='vanish4 hide'><div class='vanish4_bg'></div><div class='vanish4_cen'><div class='vanish4_size'>提交订单错误！请稍后再试！</div></div></div>
     
     <!-- 如果视频id出现错误，弹框 -->
-    <!-- <div class="history_bg" style="display:none;">
+    <div class="history_bg" style="display:none;">
         <div class="history_bg_color"></div>
         <div class="history_bg_cen"  style="top:0%;">
-            <div class="history_bg_cen_size">此活动信息有误,请试试其他视频。错误码：<span id="error_code"></span></div>
+            <!--<div class="history_bg_cen_size">此活动信息有误,请试试其他视频。错误码：<span id="error_code"></span></div>-->
             <div class="history_bg_cen_size">视频迷路了，请试试其他视频。</div>
             <div class="history_bg_bto">
                 <div class="history_bg_bto1" onclick="javascript:history.back(-1);">确定</div>
-                <div class="history_bg_bto2">取消</div>
+                <!-- <div class="history_bg_bto2">取消</div> -->
                 <div class="both"></div>
             </div>
         </div>
-    </div> -->
+    </div>
 
     <!-- 头部开始 -->
     <header style="padding-top: 0rem;" class="header">
-        <div class="header_return"></div>
-        <div class="details1">
-            <!--关注开始-->
-            <div class="attentions">
-                <div class="main_img">
-                    <img src="" alt="" class="guanz_headImg"/>
-                </div>
-                <div class="main_title">
-                    <p class="p0"></p>
-                </div>
-                <div class="add_follow add_follow00" id="add_follow1" data-lecturerid="23908ae85dad4541ba7ecf53fc52aab2">
-                    <p>加关注</p>
-                </div>
+        <div class="grabble">
+            <div class="grabble_top">
                 
-            </div>
-            <!--关注结束-->
-        </div>
-        <div class="both"></div>
-        <div class="details_bottom">
-            <div class="details_size">
-                <img src="/xcview/images/shows.png" class="img0" /> 
-                <span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                <img src="/xcview/images/yanjing02.png" class="img1" /> <span id="liveGiftCount"></span>
+                <div class="grabble_left" onclick="isLoginJump()">  <!--onclick="isLoginJump()" ---这是上一版的返回点击事件   --> <!-- onclick="window.history.go(-1);" 这版 -->   
+                    <div class="grabble_img"><img src="/xcview/images/back icon.png" alt="" /></div>
+                </div>
+
+                <span class="history_span"></span>
+                <div class="history_img_right" id="share" style=""><div class="fx_bg"><img src="/xcview/images/share_img.png" alt="" /></div></div>
             </div>
         </div>
     </header>
@@ -520,12 +546,21 @@
         
         <!--<div class="video_img"><img src="/xcview/images/play_back.png" /></div>-->
         <!--暂时先隐藏掉，11/1-->
-      
+        <div class="details_bottom">
+            <div class="details_size">
+                <img src="/xcview/images/shows.png" class="img0" /> 
+                <span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="/xcview/images/yanjing02.png" class="img1" /> <span id="liveGiftCount"></span>
+                <!--<img src="/xcview/images/dashang.png" style="width: 0.64rem;margin-top: 0.1rem;" /> <span id="moneySum"></span>-->
+            </div>
+        </div>
         <div class="details_footer">
             <div class="details_footer_width" style="padding-bottom: 0rem;">
                 <ul>
                     <li><span class="li1">聊天</span></li>
                     <li><span class="li3">排行榜</span></li>
+                    <li class="click_li"><span class="li2">主讲人</span></li>
+                    <!-- <li class="click_li_four"><span class="li4">课件</span></li>  -->
                 </ul>
             </div>
         </div>
@@ -562,18 +597,36 @@
     <div class="footer_k footer_ks" id="footer_ks" style="height: 5.2rem;"></div>
     <!-- 详情聊天开始 -->
     
-    <div class="coze" style="height1: 14rem;display: none;">
+    <div class="coze" style="height1: 14rem">
+        <!--关注开始-->
+        <div class="attention" id="attention">
+            <div class="main_img">
+                <img src="" alt="" class="guanz_headImg"/>
+            </div>
+            <div class="main_title">
+                <p class="p0">测试（主播名）</p>
+                <p class="p1">
+                    <span class="span0">关注<span class="n_guanzhu">0</span></span>
+                    <span class="span1">粉丝<span class="n_fensi">0</span></span>
+                </p>
+            </div>
+            <div class="add_follow add_follow00" id="add_follow" data-lecturerid="23908ae85dad4541ba7ecf53fc52aab2">
+                <img src="/xcview/images/weigz.png">
+                <p>加关注</p>
+            </div>
+            <div class="close">×</div>
+        </div>
+        <!--关注结束-->
+        
+        
+        <div class=""></div>
         <div style="height: 0rem;"></div>
-        <div class="chatmsg-box" style="margin-top: 0.25rem;">
+        <div class="chatmsg-box" style="height1: 14rem;margin-top: 0.25rem;">
             <div class="coze_center" id="chatmsg" style="overflow: auto;">
                 <!-- <div class="footer_k" style="height: 3.6rem;"></div> -->
             </div>
         </div>
     </div>
-
-
-
-
      <div class="cover"></div>   <!--回放时加的遮盖层-->
     <div class="coze_bottom" style="padding: 0.3rem 0;">
         <div class="coze_bottom_input" style="margin-right: 0;">
@@ -711,6 +764,59 @@
     <!-- 直播送礼物结束 -->
 
 
+    <!-- 详情主播开始 -->
+    <div class="details1">
+        <!--关注开始-->
+        <div class="attention">
+            <div class="main_img">
+                <img src="" alt="" class="guanz_headImg"/>
+            </div>
+            <div class="main_title" style="width: 4.3rem;">
+                <p class="p0">测试（主播名）</p>
+                <p class="p1">
+                    <span class="span0">关注<span class="n_guanzhu">0</span></span>
+                    <span class="span1">粉丝<span class="n_fensi">0</span></span>
+                </p>
+            </div>
+            <div class="add_follow add_follow00" id="add_follow1" data-lecturerid="23908ae85dad4541ba7ecf53fc52aab2">
+                <img src="/xcview/images//weigz.png">
+                <p>加关注</p>
+            </div>
+            
+        </div>
+        <!--关注结束-->
+        
+        
+        <!--关注开始-->
+        <div class="attention" style="display: none;">
+            
+            <div class="main_img">
+                <img src="" alt="" id=""/>
+            </div>
+            <div class="main_title" style="width: 8.45rem;">
+                <p class="p0">测试（主播名）</p>
+                <p class="p1">
+                    <span class="span0">关注<span>0</span></span>
+                    <span class="span1">粉丝<span>0</span></span>
+                </p>
+            </div>
+            <div class="add_follow">
+                <img src="/xcview/images/weigz.png">
+                <p>加关注</p>
+            </div>
+        </div>
+        <!--关注结束-->
+
+        <div class="null_anchor" style="font-size: 0.24rem;display: none;background: #fff;margin-top: 1.7rem;padding: 0.2rem 0;text-indent: 0.6rem;">暂无主讲人介绍</div>
+        <div class="anchor_center01" style="margin-top: 2.1rem;">
+            <div class="anchor_center">
+                
+            </div>
+        </div>
+    </div>
+    <div class="both"></div>
+    <!-- 详情主播结束 -->
+
     <!-- 排行榜开始 -->
     <div class="leaderboard" id="phbList" style="margin-top: 3.6rem;">
         
@@ -724,21 +830,21 @@
     <!-- 排行榜结束 -->
 
     <!-- 无文档开始 -->
-    <div class="untitled_document" style="margin-top: 3.6rem;">
+    <!-- <div class="untitled_document" style="margin-top: 3.6rem;">
         <div class="no_git">
             <div class="no_git_pic">
                 
             </div>
             <p style="font-size: 0.24rem; color: #BBBBBB;padding: 0.2rem 0;text-align: center;">主播还没上传课件~</p>
         </div>
-    </div>
+    </div> -->
     <!-- 无文档结束 -->
 
     <!-- 文档开始 -->
-    <div class="document" style="margin-top: 3.74rem;">
+    <!-- <div class="document" style="margin-top: 3.74rem;">
         <div class="document_ceneter" id="my-doc-area"></div>
         <div class="both"></div>
-    </div>
+    </div> -->
     
     
     <script type="text/javascript">
@@ -813,9 +919,9 @@
 
 
 <!-- 部分点击事件 -->
-<script type="text/javascript" src="/xcview/js/details_change.js"></script>
-<script type="text/javascript" src="/xcview/js/details.js"></script>
-<script type="text/javascript" src="/xcview/js/vhallyun.js"></script>
+<script type="text/javascript" src="/xcview/js/salon_change.js"></script>
+<script type="text/javascript" src="/xcview/js/salon.js"></script>
+<script type="text/javascript" src="/xcview/js/vhallyun_salon.js"></script>
 <script type="text/javascript" src="/xcview/js/share/share.js"></script>
 
 

@@ -10,7 +10,7 @@
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <meta name="keywords" content="" />
 
-<link rel="stylesheet" type="text/css" href="/xcview/css/physician/my_bookings.css"/>
+<link rel="stylesheet" type="text/css" href="/xcview/css/treatment_details.css"/>
 <!-- <link rel="stylesheet" type="text/css" href="/xcview/css/alert/sharecss.css"/> -->
 
 <!-- 弹框 -->
@@ -28,6 +28,14 @@
 	    }
 	}	
 </script>
+<style>
+	.handler_reminder{
+		position: fixed;
+	    bottom: 0.6rem;
+	    left: 50%;
+	    margin-left: -3.49rem;
+	}
+</style>
 </head>
 <body style="background: #F8F8F8;">
 	<!--头部开始-->
@@ -74,27 +82,35 @@
 		</div>
 		<div class="both"></div>
 
-		<!--{{if start == true}}
-			
-		{{else}}
-			
-		{{/if}}-->
 		
 
 	    </script>
 	</div>
 	
-	<div class="handler_btns" style="display: none;">开始远程诊疗</div>
-	<div class="handler_btns" style="display: none;">开始远程诊疗</div>
-	<div class="check_btn" style="display: none;">查看诊疗视频</div>
+	<!-- <div class="button" style="width: 6.98rem;margin: 0 auto;">
+		<script type="text/html" id="button">
+		<div class="handler_btn" data-infoId="{{item.infoId}}" style="display: block !important;width: 3.09rem;float: left;background: #FF4012;">拒绝</div>
+		<div class="handler_btns" style="display: block !important;width: 3.09rem;float: right;">审核通过</div>
+		<div class="both"></div>
+		</script>
+	</div> -->
+
+	<div class="button" style="width: 6.98rem;margin: 0 auto;">
+		<div class="handler_btn" style="display: block !important;width: 3.09rem;float: left;background: #FF4012;">拒绝</div>
+		<div class="handler_btns" style="display: block !important;width: 3.09rem;float: right;">审核通过</div>
+		<div class="both"></div>
+	</div>
+	<!-- <div class="check_btn" style="display: none;">查看诊疗视频</div> -->
+
 
 	<!-- <div class="handler_btn">申请预约</div> -->
 	<div class="handler_reminder">
 		<span>提示：</span>
 		<ul>
-			<li><span>提交申请后，我们会以短信形式告知审核结果；</span></li>
-			<li><span>申请成功后，医师可在预约时间前10分钟开始视频诊疗，请等待医师发起视频；</span></li>
-			<li><span>诊疗结束后，可前往<span style="color: #00bc12;" onclick="location.href ='/xcview/html/my_reservation.html'">我的预约</span>页面观看诊疗历史视频</span></li>
+			<li><span>审核通过后，可在预约时间发起远程诊疗直播；</span></li>
+			<li style="list-style: none;"><span>方式一：个人中心-远程诊疗-开始诊疗</span></li>
+			<li style="list-style: none;"><span>方式二：主播工作台-开始诊疗</span></li>
+			<li><span>医师可在主播工作台对直播进行管理。<span style="color: #00bc12;" onclick="location.href ='/xcview/html/my_reservation.html'"></span></span></li>
 		</ul>
 	</div>
 	<!-- 中间内容结束 -->
@@ -115,7 +131,7 @@
 	</div>
 
 	<!-- 点击申请成功 -->
-	<div class="prosperity_popout">
+	<!-- <div class="prosperity_popout">
 		<div class="prosperity_popout_bg"></div>
 		<div class="prosperity_popout_main">
 			<div class="prosperity_popout_title">
@@ -124,10 +140,10 @@
 			<div class="prosperity_cen">医师审核完成后，我们会将审核结果以短信形式发送给您，请耐心等待</div>
 			<div class="prosperity_popout_hide">我知道了</div>
 		</div>
-	</div>
+	</div> -->
 
 	<!-- 点击申请失败 -->
-	<div class="failure_popout">
+	<!-- <div class="failure_popout">
 		<div class="failure_popout_bg"></div>
 		<div class="failure_popout_main">
 			<div class="failure_popout_title">
@@ -136,11 +152,11 @@
 			<div class="failure_cen">抱歉~该时间段已被预约，请重新选择预约时间</div>
 			<div class="failure_popout_hide">我知道了</div>
 		</div>
-	</div>
+	</div> -->
 	<!-- 点击出现弹出框结束 -->
 
 	<!-- 点击开始远程诊疗开始 -->
-	<div class="tooltip" style="displays: block;">
+	<!-- <div class="tooltip" style="displays: block;">
 		<div class="tooltip_bg"></div>
 		<div class="tooltip_main">
 			<div class="tooltip_main_title">下载app开启远程诊疗</div>
@@ -150,7 +166,7 @@
 				<div class="both"></div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 	<!-- 点击开始远程诊疗结束 -->
 </body>
 <script type="text/javascript" src="/xcview/js/common/jquery-2.1.1.min.js"></script>
@@ -160,7 +176,7 @@
 <!-- <script type="text/javascript" src="/xcview/js/common/alertPopShow.js"></script> -->
 <script type="text/javascript" src="/xcview/js/common/popups.js"></script>
 <script type="text/javascript" src="/xcview/js/common/template.js"></script>    <!--数据模板引入--> 
-<script type="text/javascript" src="/xcview/js/physician/my_bookings.js"></script>
+<script type="text/javascript" src="/xcview/js/treatment_details.js"></script>
 
 
 <script>

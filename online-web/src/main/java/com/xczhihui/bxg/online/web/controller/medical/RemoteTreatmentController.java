@@ -83,4 +83,10 @@ public class RemoteTreatmentController extends AbstractController {
         remoteTreatmentService.updateAppointmentForCancel(id);
         return ResponseObject.newSuccessResponseObject();
     }
+
+    @RequestMapping(value = "reset/startTime", method = RequestMethod.POST)
+    public ResponseObject updateStartTreatmentTime() {
+        remoteTreatmentService.updateTreatmentStartTime();
+        return ResponseObject.newSuccessResponseObject();
+    }
 }

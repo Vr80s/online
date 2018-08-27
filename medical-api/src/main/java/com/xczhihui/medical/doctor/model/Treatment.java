@@ -50,6 +50,10 @@ public class Treatment implements Serializable {
     @TableField("course_id")
     private Integer courseId;
 
+    @TableField("treatment_start_time")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date treatmentStartTime;
+
     public Integer getId() {
         return id;
     }
@@ -136,5 +140,13 @@ public class Treatment implements Serializable {
 
     public void setCourseId(Integer courseId) {
         this.courseId = courseId;
+    }
+
+    public Date getTreatmentStartTime() {
+        return treatmentStartTime;
+    }
+
+    public void setTreatmentStartTime(Date treatmentStartTime) {
+        this.treatmentStartTime = treatmentStartTime;
     }
 }

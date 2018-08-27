@@ -1,19 +1,15 @@
 package com.xczh.consumer.market.dao;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.dbutils.ResultSetHandler;
+import com.xczh.consumer.market.bean.OnlineUser;
+import com.xczh.consumer.market.utils.JdbcUtil;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.MapHandler;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
-import com.xczh.consumer.market.bean.OnlineUser;
-import com.xczh.consumer.market.utils.JdbcUtil;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 用户操作dao
@@ -206,4 +202,5 @@ public class OnlineUserMapper extends BasicSimpleDao {
         return this.queryPage(JdbcUtil.getCurrentConnection(), sql.toString(), 
         		0,Integer.MAX_VALUE, OnlineUser.class, null);
 	}
+
 }
