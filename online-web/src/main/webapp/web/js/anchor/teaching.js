@@ -105,6 +105,14 @@ $(function () {
 				$(".personal-alb-null").removeClass("hide");
 				$(".personal-alb-null").siblings("input").addClass("active-border");
 			}
+		},
+//		学习地址
+		address_text : function(){
+			$(".studyAddress-null").siblings("textarea").removeClass("active-border");
+			if($.trim($(".address-text").val())==""){
+				$(".studyAddress-null").removeClass("hide");
+				$(".studyAddress-null").siblings("textarea").addClass("active-border");
+			}
 		}
 	}
 	
@@ -1401,6 +1409,7 @@ function cheackSelectAll(){
 		$('#file-input').val(""); 
 		$(".warning-manage").addClass("hide");
 		$(".recruit-students input").removeClass("active-border");
+		$(".recruit-students textarea").removeClass("active-border");
 	}
 /**
  * Description：远程诊疗

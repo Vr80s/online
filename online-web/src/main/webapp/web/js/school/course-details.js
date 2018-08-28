@@ -127,14 +127,20 @@ $(function () {
 
 //	点击立即学习时，需要判断是否登录了
     $(".learning_immediately").click(function () {
-        var $this = $(this);
-        var watchState = $this.attr("data-watchState");
-        var type = $this.attr("data-type");
-        var collection = $this.attr("data-collection");
-        var realCourseId = $this.attr("data-realCourseId");
-        var learning = $this.attr("data-learning");
-        var cutoff = $this.attr("data-cutoff");
-        
+//      var $this = $(this);
+//      var watchState = $this.attr("data-watchState");
+//      var type = $this.attr("data-type");
+//      var collection = $this.attr("data-collection");
+//      var realCourseId = $this.attr("data-realCourseId");
+//      var learning = $this.attr("data-learning");
+//      var cutoff = $this.attr("data-cutoff");
+        var watchState;
+        var type;
+        var collection;
+        var realCourseId;
+        var learning;
+        var cutoff;
+        var status;
         /**
          * 判断是否登录了
          */
@@ -142,7 +148,24 @@ $(function () {
             if (!data.success) {
                 $('#login').modal('show');
             } else {
-                if (courseForm == 3) {
+            	 RequestService("/courses/courseStatus?courseId="+courseId, "GET", null, function (data) {
+		         	if (data.success==true) {
+		         		watchState=data.resultObject.watchState;
+		         		type=data.resultObject.type;
+		         		collection=data.resultObject.collection ? 0 : 1;
+		         		realCourseId=data.resultObject.id;
+						learning=data.resultObject.learning;
+						cutoff=data.resultObject.cutoff;
+						status=data.resultObject.status;
+		         	}
+		         },false)
+            	
+            	if(status==0){
+            		showTip("该课程已下架")
+            		return false;
+            	}
+            	 
+                if (courseForm == 3) {      //线下课
                 	//已购买   或者 免费以学习   或者  报名截止的
                     if (watchState == 2 || (watchState == 1 && learning == 1) || cutoff == 1) {
                         return;
