@@ -1735,3 +1735,14 @@ padding: 18px 0;
 .border_hide_null{
 	border-color: #FF4012 !important;
 }
+.img-agin-tip{
+	position: absolute;
+	text-align: center;
+	background: rgba(0,0,0,.4);
+	color: white;
+	  height: 50px;
+    bottom: 0;
+    width: 100%;
+    line-height: 50px;
+    font-size: 16px;
+}
