@@ -1,6 +1,5 @@
 package com.xczhihui.course.service.impl;
 
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -8,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -23,7 +21,6 @@ import com.xczhihui.common.support.lock.Lock;
 import com.xczhihui.common.support.service.CacheService;
 import com.xczhihui.common.util.DateUtil;
 import com.xczhihui.common.util.EmailUtil;
-import com.xczhihui.common.util.SmsUtil;
 import com.xczhihui.common.util.XzStringUtils;
 import com.xczhihui.common.util.bean.MinuteTaskMessageVo;
 import com.xczhihui.common.util.enums.CourseForm;
@@ -31,12 +28,9 @@ import com.xczhihui.common.util.enums.CourseType;
 import com.xczhihui.common.util.enums.LiveCaseType;
 import com.xczhihui.common.util.enums.LivePushStreamStatus;
 import com.xczhihui.common.util.enums.LiveStatus;
-import com.xczhihui.common.util.enums.LiveStatusEvent;
-import com.xczhihui.common.util.enums.MessageTypeEnum;
 import com.xczhihui.common.util.enums.Multimedia;
 import com.xczhihui.common.util.enums.PayStatus;
 import com.xczhihui.common.util.enums.PlayBackType;
-import com.xczhihui.common.util.enums.RouteTypeEnum;
 import com.xczhihui.common.util.enums.VhallCustomMessageType;
 import com.xczhihui.common.util.redis.key.RedisCacheKey;
 import com.xczhihui.common.util.vhallyun.ChannelService;
@@ -50,8 +44,6 @@ import com.xczhihui.course.mapper.CourseMapper;
 import com.xczhihui.course.mapper.CriticizeMapper;
 import com.xczhihui.course.mapper.FocusMapper;
 import com.xczhihui.course.model.Course;
-import com.xczhihui.course.params.BaseMessage;
-import com.xczhihui.course.service.ICommonMessageService;
 import com.xczhihui.course.service.ICourseService;
 import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.course.vo.ShareInfoVo;
@@ -622,7 +614,6 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Lock(lockName = "createTherapyLive", waitTime = 5, effectiveTime = 8)
 	public Integer createTherapyLive(Integer lockId,Integer clientType,String accountId) throws Exception {
-		
     	//查看诊疗必要信息
 		CourseLecturVo cv = iCourseMapper.selectTherapyLiveInfo(lockId);
 		if(cv == null) {

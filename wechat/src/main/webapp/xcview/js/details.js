@@ -137,15 +137,20 @@ requestService("/xczh/course/liveDetails", {
                 $(".add_follow").removeClass("add_follows1");
             }
 
-            // 0表示生成中，1表示生成成功，2表示生成失败 3 直播状态不是已结束
+            // 0表示生成中，1表示生成成功，2表示生成失败 
             // 判断结束状态--提示
             playBackType = result.playBackType;
 
             if (playBackType == 0) {
                 $(".history_span").text("即将直播");
+            }else if(playBackType == 2){
+            	$(".video_end_top0").hide();
+				$(".video_end_top2").hide();
+				$(".video_end_top1").hide();
+				$(".video_end_top").show();
             }
 
-             lineState = result.lineState;
+            lineState = result.lineState;
             
             /**
              * 直播状态1.直播中，2预告，3直播结束 4 即将直播
