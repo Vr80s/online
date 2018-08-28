@@ -22,8 +22,6 @@ $(function () {
         var WeChatPatt = /^[a-zA-Z\d_-]{5,}$/;
         var email = $.trim($('.hos_base_inf .doc_hospital').val());
         var emailPatt = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-
-
         var telVal = $.trim($('.hos_base_inf .doc_tel').val());
         var tel = /^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/;
         var mobile = /^1[345678]\d{9}$/;

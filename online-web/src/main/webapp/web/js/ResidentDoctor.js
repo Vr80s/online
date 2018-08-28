@@ -297,9 +297,9 @@ function autagain() {
 			//身份证号码
 			$('#AutList .doc_Idnum').val(result.cardNum);
 			//医师资格证
-			$('#AutList .teacher_pic').html("<img src="+result.qualificationCertificate+">");
+			$('#AutList .teacher_pic').html('<img src="'+result.qualificationCertificate+'"><p class="img-agin-tip">点击图片重新上传</p>');
 			//执业资格证
-			$('#AutList .zhiye_pic').html("<img src="+result.professionalCertificate+">");
+			$('#AutList .zhiye_pic').html('<img src="'+result.professionalCertificate+'"><p class="img-agin-tip">点击图片重新上传</p>');
 			// 真实头像
 			if(result.headPortrait==null || result.headPortrait==""){
 				$('#AutList .touxiang_pic').html(nullHead);
@@ -312,7 +312,7 @@ function autagain() {
 			if(result.titleProve==null || result.titleProve==""){
 				$('#AutList .zhicheng_pic').html(nullZhichen);				
 			}else{
-				$('#AutList .zhicheng_pic').html("<img src="+result.titleProve+">");
+				$('#AutList .zhicheng_pic').html('<img src="'+result.titleProve+'"><p class="img-agin-tip">点击图片重新上传</p>');
 			}
 			//科室
 			var j;
@@ -381,7 +381,8 @@ function picUpdown(form, imgname) {
         processData: false,
         contentType: false,
     }).success(function (data) {
-        $('#doc_Distinguish .' + imgname + '').html('<img src="' + data.resultObject + '" >');
+        $('#doc_Distinguish .' + imgname + '').html('<img src="' + data.resultObject + '" ><p class="img-agin-tip">点击图片重新上传</p>');
+    
     });
 
 }
@@ -523,7 +524,7 @@ $('#touxiang_pic_ipt').on('change', function() {
     form.append("image", this.files[0]);
 	var reader = new FileReader();
 	reader.onload = function(e) {
-		picUpdown(form, 'touxiang_pic');
+		picUpdownHeader(form, 'touxiang_pic');
 	}
 	reader.readAsDataURL(this.files[0])
 })
@@ -554,3 +555,19 @@ $('#zhicheng_pic_ipt').on('change', function() {
 	}
 	reader.readAsDataURL(this.files[0])
 })
+
+
+//头像
+function picUpdownHeader(form, imgname) {
+    $.ajax({
+        type: 'post',
+        url: "/medical/common/upload",
+        data: form,
+        cache: false,
+        processData: false,
+        contentType: false,
+    }).success(function (data) {
+        $('#doc_Distinguish .' + imgname + '').html('<img src="' + data.resultObject + '" >');
+    });
+
+}

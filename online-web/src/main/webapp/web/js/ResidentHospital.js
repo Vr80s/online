@@ -492,7 +492,7 @@ function picUpdown3(form, imgname) {
         processData: false,
         contentType: false,
     }).success(function (data) {
-        $('#hos_Administration .hos_renzheng_inf  .' + imgname + '').html('<img src="' + data.resultObject + '?imageMogr2/thumbnail/260x147<' + '" >');
+        $('#hos_Administration .hos_renzheng_inf  .' + imgname + '').html('<img src="' + data.resultObject + '" ><p class="img-agin-tip">点击图片重新上传</p>');
     });
 
 }

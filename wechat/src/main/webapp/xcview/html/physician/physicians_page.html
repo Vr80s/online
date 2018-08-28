@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>熊猫中医</title>
-
+ 
 <!-- <meta http-equiv="pragma" content="no-cache">  
 <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">  
 <META http-equiv="expires" content="0">   -->
@@ -1698,15 +1698,14 @@ $(window).bind("scroll", function() {
             $(".li_data").click();
             // debugger;
         }
-
-        // 这是判断的  全部里面的每一个
+        
         var li_data = sessionStorage.getItem("li_data");
         if(isNotBlank(li_data)){
         	 $(aBtn[parseInt(li_data)]).click();
         }else{
         	 $(aBtn[0]).click();
+        	 // $(".span_hide").show();
         }
-        
 
         // 点击动态筛选里面的内容  
         // 点击全部动态
