@@ -1,6 +1,5 @@
 package com.xczhihui.medical.anchor.service.impl;
 
-import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xczhihui.common.support.cc.util.CCUtils;
@@ -625,6 +624,9 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         }
         if (courseApplyInfo.getPrice() < 0) {
             throw new AnchorWorkException("课程单价不可小于0");
+        }
+        if (courseApplyInfo.getPrice() > 7) {
+            throw new AnchorWorkException("课程单价不可大于10000000");
         }
         if (courseApplyInfo.getPrice() != courseApplyInfo.getPrice().intValue()) {
             throw new AnchorWorkException("课程单价必须为整数");
