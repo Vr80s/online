@@ -731,9 +731,10 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 		String strGradeName = doctorName+"医师的远程诊疗直播"+DateUtil.formatDate(startTime,DateUtil.FORMAT_DAY);
 		try {
 			//编号
-			String  numberStr   = iCourseMapper.selectDoctorCurrentDayTherapyNumber(startTime,userLecturerId);
-			System.out.println(numberStr);
-			if(numberStr!=null && XzStringUtils.isNumeric(numberStr)) {
+			List<String>  numberList   = iCourseMapper.selectDoctorCurrentDayTherapyNumber(startTime,userLecturerId);
+			if(numberList!=null && numberList.size()>1) {
+				String numberStr = numberList.get(0);
+				numberStr = numberStr.substring(numberStr.length()-2, numberStr.length());
 				int number = Integer.parseInt(numberStr);
 				if(number < 9) {
 					numberStr = "0"+(number+1);
@@ -741,13 +742,33 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 					numberStr = "10";
 				}
 				strGradeName +=numberStr;
-			}else {
+			}else if(numberList!=null && numberList.size()==1){
 				strGradeName +="01";
 			}
+			
+//			if(numberStr!=null && XzStringUtils.isNumeric(numberStr)) {
+//				int number = Integer.parseInt(numberStr);
+//				if(number < 9) {
+//					numberStr = "0"+(number+1);
+//				}else if(number == 9) {
+//					numberStr = "10";
+//				}
+//				strGradeName +=numberStr;
+//			}else if(numberStr!=null  && !XzStringUtils.isNumeric(numberStr)) {
+//				strGradeName +="01";
+//			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return strGradeName;
+	}
+	
+	public static void main(String[] args) {
+		
+		String numberStr = "123";
+		
+		System.out.println(numberStr.substring(numberStr.length()-2, numberStr.length()));
+		
 	}
 	
 
