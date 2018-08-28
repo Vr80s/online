@@ -261,24 +261,38 @@ function elsBind(){
 //        window.chat.join(function(msg){
 //            viewJoinleaveRoomInfo(msg,"join");
 //        })
-//        window.chat.leave(function(msg){
+//        window.chat.leave(function(msg){ 
 //            viewJoinleaveRoomInfo(msg,"leave");
 //        })
         
         var userIdArray = [];
 		window.chat.join(function(msg) {
-			if(!isInArray(userIdArray,msg.third_party_user_id)){ //没有包含用户id
+			if(!isInArray(userIdArray,msg.third_party_user_id)  && liveStatus == 1){ //没有包含用户id
 				userIdArray.push(msg.third_party_user_id);
 				viewJoinleaveRoomInfo(msg, "join");
 			}
 		})
 		window.chat.leave(function(msg) {
-			if(isInArray(userIdArray,msg.third_party_user_id)){ //包含有
+			if(isInArray(userIdArray,msg.third_party_user_id)  && liveStatus == 1){ //包含有
 				userIdArray.remove(msg.third_party_user_id);
 				viewJoinleaveRoomInfo(msg, "leave");
 			}
 		})
-     });	
+	
+//        window.chat.join(function(msg) {
+//			if(!isInArray(userIdArray,msg.third_party_user_id)){ //没有包含用户id
+//				userIdArray.push(msg.third_party_user_id);
+//				viewJoinleaveRoomInfo(msg, "join");
+//			}
+//		})
+//		window.chat.leave(function(msg) {
+//			if(isInArray(userIdArray,msg.third_party_user_id)){ //包含有
+//				userIdArray.remove(msg.third_party_user_id);
+//				viewJoinleaveRoomInfo(msg, "leave");
+//			}
+//		})
+        
+        });	
      window.Vhall.config({
           appId :vhallObj.appId,//应用 ID ,必填
           accountId :vhallObj.accountId,//第三方用户唯一标识,必填
