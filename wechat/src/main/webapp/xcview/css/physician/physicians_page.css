@@ -1926,11 +1926,11 @@ p{
 }
 .self_introduction_cen img{
 	max-width: 6.98rem;
-	margin: 0 auto;
+	/*margin: 0 auto;*/
 }
 .self_introduction_cen p img{
 	max-width: 6.98rem;
-	margin: 0 auto;
+	/*margin: 0 auto;*/
 	display: list-item;
     margin-bottom: 0.2rem;
     margin-top: 0.2rem;

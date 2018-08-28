@@ -42,7 +42,7 @@
 
                         jqtoast("取消成功");
                     }else{
-                        jqtoast(data.resultObject.errorMessage);
+                        jqtoast(data.errorMessage);
                     }
                 });
 
@@ -61,7 +61,7 @@
                         deletes.parent().parent().parent().parent(".main").remove();
                         jqtoast("删除成功");
                     }else{
-                        jqtoast(data.resultObject.errorMessage);
+                        jqtoast(data.errorMessage);
                     }
                 });
 
@@ -109,6 +109,9 @@
                     
             });
         	
+        }else{
+            jqtoast("这个弹框出现了说下");
+            jqtoast(data.errorMessage);
         }
     });
 

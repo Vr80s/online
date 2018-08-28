@@ -17,7 +17,7 @@
 <link rel="stylesheet" type="text/css" href="/xcview/css/physician/physicians_page.css?v=wechat_1.1.1&version=e173995ae8&version=3aef4edb9d&version=864be6c6c7"/>
 <link rel="stylesheet" href="/xcview/css/physician/swiper-4.2.6.min.css" />
 <link rel="stylesheet" href="/xcview/html/physician/css/demo.css?version=d265f83c60&version=d265f83c60&version=d265f83c60" />
-<link rel="stylesheet" href="/xcview/html/physician/css/demos.css?version=c4433ce522&version=7414fb6524&version=a2ae6abdea" />
+<!-- <link rel="stylesheet" href="/xcview/html/physician/css/demos.css?version=c4433ce522&version=7414fb6524&version=a2ae6abdea" /> -->
 	<!--手机嵌入模板-->
 <script type="text/javascript" src="/xcview/js/common/layout.js?version=e2b9d5cdbd&version=e2b9d5cdbd&version=e2b9d5cdbd"></script>
 
@@ -31,13 +31,12 @@
 <script type="text/javascript" src="/xcview/js/physician/referral.js?version=6743f0205e&version=6743f0205e&version=6743f0205e"></script>
 
 <!--公用弹框 -->
-<!-- <link rel="stylesheet" href="/xcview/css/alert/sharecss.css?version=f6e45d2a7e&version=f6e45d2a7e&version=f6e45d2a7e">
-<script type="text/javascript" src="/xcview/js/common/alertPopShow.js?version=3a4f24e3df&version=3a4f24e3df&version=3a4f24e3df"></script> -->
+<link rel="stylesheet" href="/xcview/css/alert/sharecss.css?version=f6e45d2a7e&version=f6e45d2a7e&version=f6e45d2a7e">
+<!-- <script type="text/javascript" src="/xcview/js/common/alertPopShow.js?version=3a4f24e3df&version=3a4f24e3df&version=3a4f24e3df"></script> -->
 
 <!-- 新公用弹框 -->
 <script type="text/javascript" src="/xcview/js/common/popups.js"></script>  <!-- 公用弹框 -->
 <link rel="stylesheet" type="text/css" href="/xcview/css/popups.css"/> <!-- 公用弹框 -->
-
 
 <!--刷新 -->
 <link rel="stylesheet" href="/xcview/css/minirefresh/minirefresh.css?version=71e5ea2f95&version=71e5ea2f95&version=71e5ea2f95">
@@ -1291,7 +1290,7 @@
 			</div>
 			<div class="message_referral_center clinic">坐诊医馆：{{items.name}}</div>
 			<div class="message_referral_center tel">预约电话：<a href="tel:{{items.tel}}">{{items.tel}}</a></div>
-			<div class="message_referral_center house_address">医馆地址：{{items.detailedAddress}}</div>
+			<div class="message_referral_center house_address">医馆地址：{{items.city}}{{items.province}}{{items.detailedAddress}}</div>
 			<div class="both"></div>
 
 			<table border="1" align="center" bgcolor="" border="0" cellpadding="0" cellspacing="0" class="table">
