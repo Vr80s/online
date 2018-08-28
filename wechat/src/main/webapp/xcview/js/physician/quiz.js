@@ -5,8 +5,8 @@
  *   全部/直播间/师承/介绍
  *   li_datal/li_course/li_evaluate//li_prose_origin
  */
-sessionStorage.setItem("physiciansPage","")
-sessionStorage.setItem("li_data","");
+/*sessionStorage.setItem("physiciansPage","")
+sessionStorage.setItem("li_data","");*/
 
 
 

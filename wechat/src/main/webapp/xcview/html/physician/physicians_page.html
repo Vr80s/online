@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>熊猫中医</title>
-
+ 
 <!-- <meta http-equiv="pragma" content="no-cache">  
 <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">  
 <META http-equiv="expires" content="0">   -->
@@ -548,7 +548,7 @@
 		<div id="mainMenuBarAnchor"></div>
 		<div class="anchor_navigation" id="mainMenuBar">
 			<ul id="mainMenu">
-				<li class="li li_data" id="li-1"><span class="span"></span><!-- <span class="span_hide" style="displays:none;">动态</span> --><img src="/xcview/images/drop_down.png" alt="" class="hide0" /></li>
+				<li class="li li_data" id="li-1" style="width:1.13rem;"><span class="span"></span><!-- <span class="span_hide" style="displays:none;">动态</span> --><img src="/xcview/images/drop_down.png" alt="" class="hide0" /></li>
 				<li class="li li_course" id="li-2">直播</li>
 				<li class="li li_prose_origin" id="li-3" onclick="apprenticeInfo()">师承</li>
 				<li class="li li_evaluate" id="li-4">介绍</li>
@@ -1697,16 +1697,15 @@ $(window).bind("scroll", function() {
         }else{
             $(".li_data").click();
             // debugger;
-            var li_data = sessionStorage.getItem("li_data");
-            if(isNotBlank(li_data)){
-            	 $(aBtn[parseInt(li_data)]).click();
-            }else{
-            	 $(aBtn[0]).click();
-
-            	 // $(".span_hide").show();
-            }
         }
         
+        var li_data = sessionStorage.getItem("li_data");
+        if(isNotBlank(li_data)){
+        	 $(aBtn[parseInt(li_data)]).click();
+        }else{
+        	 $(aBtn[0]).click();
+        	 // $(".span_hide").show();
+        }
 
         // 点击动态筛选里面的内容  
         // 点击全部动态
