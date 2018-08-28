@@ -46,7 +46,6 @@
 
                         deletes.parent().parent().parent().parent(".main").remove();
                         
-
                         jqtoast("删除成功");
                     }else{
                         jqtoast(data.errorMessage);
@@ -98,7 +97,6 @@
             });
         	
         }else{
-            alert(456);
             jqtoast(data.errorMessage);
         }
     });

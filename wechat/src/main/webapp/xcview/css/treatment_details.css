@@ -437,23 +437,24 @@ header{
 
 .tooltip_main {
     width: 5.4rem;
-    height: 2.57rem;
+    height: 2.9rem;
     background: #FFFFFF;
     border-radius: 16px;
     position: fixed;
     top: 50%;
     left: 50%;
-    margin-top: -1.286rem;
+    margin-top: -1.55rem;
     margin-left: -2.7rem;
     z-index: 9;
+    padding: 0.2rem 0;
 }
 
 .tooltip_main_title {
     font-size: .32rem;
     color: #333333;
     text-align: center;
-    margin-top: 0.6rem;
-    margin-bottom: 0.65rem;
+    margin-top: 0.1rem;
+    margin-bottom: 0.35rem;
 }
 .tooltip_bottom {
     width: 100%;
@@ -467,7 +468,7 @@ header{
     font-size: .3rem;
     color: #333333;
     float: left;
-    border-right: 1px solid #f0f0f0;
+    /*border-right: 1px solid #f0f0f0;*/
 }
 .determine {
     width: 48%;
@@ -475,5 +476,6 @@ header{
     color: #00BC12;
     text-align: center;
     float: left;
+    border-right: 1px solid #f0f0f0;
 }
 

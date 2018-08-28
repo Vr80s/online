@@ -111,7 +111,7 @@ public interface RemoteTreatmentMapper extends BaseMapper<Treatment> {
             "             union all \n" +
             "(select * from (select mt.status, mt.date as date, mt.start_time as startTime, mt.end_time as endTime, mtai.name as nickname,ou.`small_head_photo` avatar, mt.id, mt.info_id as infoId \n" +
             "             from medical_treatment_appointment_info mtai join medical_treatment mt on mtai.id = mt.info_id join oe_user ou on mtai.user_id = ou.id \n" +
-            "             where mt.doctor_id = #{doctorId} and mt.status = 2 and mtai.deleted is false and mt.deleted is false\n" +
+            "             where mt.doctor_id = #{doctorId} and mt.status = 2 and mtai.deleted is false and mt.deleted is false and (CURRENT_TIMESTAMP < mt.treatment_start_time - INTERVAL 10 MINUTE OR CURRENT_TIMESTAMP > mt.treatment_start_time) \n" +
             "             order by mt.date desc, mt.start_time desc) as result2) \n" +
             " union all \n" +
             "(select * from (select mt.status, mt.date as date, mt.start_time as startTime, mt.end_time as endTime, mtai.name as nickname,ou.`small_head_photo` avatar, mt.id, mt.info_id as infoId \n" +
