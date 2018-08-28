@@ -74,6 +74,21 @@ RequestService("/online/live/getOpenCourseById", "GET", {
     	$(".leave").show();
     	$(".playback").show();
 	}
+	
+	// playBackType
+	// 回放状态：0表示生成中，1表示生成成功，2表示生成失败
+	if(playBackType == 2){
+	    $("#my_study_center").text("哎呀，回放生成失败了...");
+		
+		$(".playback div").hide();
+		$(".learning-center").show();
+		$(".learning-center .onclick").show();
+		$(".generate-replay-bg-opacity").show();
+		$(".playback").show();
+	}
+					
+
+	
 }, false);
 
 

@@ -236,10 +236,14 @@ function elsBind(){
         			},2000)
 					
 				} else if (!record || msg.type == 17) { // 回放生成失败
+					
+					$("#my_study_center").text("哎呀，回放生成失败了...");
+					
 					$(".playback div").hide();
 					$(".learning-center").show();
 					$(".learning-center .onclick").show();
 					$(".generate-replay-bg-opacity").show();
+					
                 	$(".playback").show();
 				}
                 if (e != "") {

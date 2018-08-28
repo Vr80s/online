@@ -142,7 +142,7 @@ $(function () {
             if (!data.success) {
                 $('#login').modal('show');
             } else {
-                if (courseForm == 3) {
+                if (courseForm == 3) { 
                 	//已购买   或者 免费以学习   或者  报名截止的
                     if (watchState == 2 || (watchState == 1 && learning == 1) || cutoff == 1) {
                         return;

@@ -4,7 +4,11 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +22,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.baomidou.mybatisplus.plugins.Page;
@@ -30,21 +38,34 @@ import com.xczhihui.bxg.online.web.utils.ftl.ReplaceUrl;
 import com.xczhihui.common.util.CourseUtil;
 import com.xczhihui.common.util.XzStringUtils;
 import com.xczhihui.common.util.bean.ResponseObject;
-import com.xczhihui.common.util.bean.VhallMessageParamsVo;
-import com.xczhihui.common.util.enums.*;
+import com.xczhihui.common.util.enums.BannerType;
+import com.xczhihui.common.util.enums.CourseForm;
+import com.xczhihui.common.util.enums.CourseType;
+import com.xczhihui.common.util.enums.LiveStatus;
+import com.xczhihui.common.util.enums.Multimedia;
+import com.xczhihui.common.util.enums.PagingFixedType;
+import com.xczhihui.common.util.enums.PayStatus;
+import com.xczhihui.common.util.enums.ProjectType;
+import com.xczhihui.common.util.enums.SearchType;
 import com.xczhihui.common.util.vhallyun.BaseService;
-import com.xczhihui.common.util.vhallyun.MessageService;
 import com.xczhihui.common.util.vhallyun.VhallUtil;
 import com.xczhihui.course.consts.MultiUrlHelper;
 import com.xczhihui.course.model.OfflineCity;
-import com.xczhihui.course.service.*;
+import com.xczhihui.course.service.ICourseService;
+import com.xczhihui.course.service.ICourseSolrService;
+import com.xczhihui.course.service.ICriticizeService;
+import com.xczhihui.course.service.ILineApplyService;
+import com.xczhihui.course.service.IMobileBannerService;
+import com.xczhihui.course.service.IMobileHotSearchService;
+import com.xczhihui.course.service.IMobileProjectService;
+import com.xczhihui.course.service.IMyInfoService;
+import com.xczhihui.course.service.IOfflineCityService;
 import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.course.vo.CourseSolrVO;
 import com.xczhihui.course.vo.MenuVo;
 import com.xczhihui.course.vo.QueryConditionVo;
 import com.xczhihui.medical.anchor.service.IAnchorInfoService;
 import com.xczhihui.medical.anchor.service.ICourseApplyService;
-import com.xczhihui.user.center.service.UserCenterService;
 
 @Controller
 @RequestMapping(value = "/courses")
@@ -486,5 +507,37 @@ public class SchoolController extends AbstractFtlController {
                 queryConditionVo.setMultimediaType(Multimedia.AUDIO.getCode());
             }
         }
+    }
+    
+    
+    
+    
+    /**
+     * Description：用户当前课程状态   User current course status.
+     * 用户判断用户是否购买了这个课程
+     * @return ResponseObject
+     * @throws Exception
+     * @author name：yangxuan <br>
+     * email: 15936216273@163.com
+     */
+    @RequestMapping("courseStatus")
+    @ResponseBody
+    public ResponseObject userCurrentCourseStatus(@RequestParam("courseId") Integer courseId) {
+	    OnlineUser user = getCurrentUser();
+        String userId = user == null ? "" : user.getId();
+    	// 这里需要判断是否购买过了
+        CourseLecturVo cv = null;
+        if (userId!=null) {
+            cv = courseService.selectUserCurrentCourseStatus(courseId, userId);
+            if (cv != null && cv.getWatchState() == 1) { // 免费课程
+                Integer falg = criticizeService.hasCourse(userId, courseId);
+                if (falg > 0) { // 如果购买过返回true 如果没有购买返回false
+                    cv.setLearning(1);
+                }
+            }
+        } else {
+            cv = courseService.selectCurrentCourseStatus(courseId);
+        }
+        return ResponseObject.newSuccessResponseObject(cv);
     }
 }

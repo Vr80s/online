@@ -974,6 +974,8 @@ header{
     width: 3.39rem;
     height: 1.92rem;
     /*margin-bottom: 0.1rem;*/
+    border-radius: 8px;
+    overflow: hidden;
 }
 .boutique_one_img img{
     width: 3.39rem;
@@ -1084,6 +1086,7 @@ header{
     top: 0;
     right: 0;
     background: #f97b49;
+    border-radius: 4px;
 }
 .boutique_main_one_size .p3{
     overflow: hidden;
@@ -1270,6 +1273,8 @@ header{
     width: 3.358rem;
     height: 1.92rem;
     /*margin-bottom: 0.16rem;*/
+    border-radius: 8px;
+    overflow: hidden;
 }
 .boutique_four_img img{
     width: 3.39rem;
@@ -1478,6 +1483,8 @@ header{
     width: 3.39rem;
     height: 1.92rem;
     /*margin-bottom: 0.1rem;*/
+    border-radius: 8px;
+    overflow: hidden;
 }
 .newest_two_img img{
     width: 3.39rem;
@@ -1762,6 +1769,8 @@ header{
     width: 3.39rem;
     height: 1.92rem;
     /*margin-bottom: 0.1rem;*/
+    border-radius: 8px;
+    overflow: hidden;
 }
 .lectures_one_img img{
     width: 3.39rem;

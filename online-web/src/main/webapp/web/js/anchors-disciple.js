@@ -50,6 +50,7 @@ $(function(){
 			$(this).text("返回");
             resetCourseForm(true);
             $("#class_picIpt").val("");
+            clearCourseErrorNews()
 		}else{
 			$(".disciple-list-wrap").removeClass("hide");
 			$(".disciple-set-wrap").addClass("hide");	

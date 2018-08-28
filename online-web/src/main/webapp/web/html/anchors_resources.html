@@ -814,6 +814,11 @@
 								</span>
 								<input type="file" style="visibility: hidden;display: inline-block;" id="banner_picIpt" />
 							</div>
+							<span class="banner-size-tip z">
+								<p>文件小于2M</p>
+								<p>支持JPG/PNG等格式图片</p>
+								<p>( 推荐上传规格：260x147 )</p>
+							</span>
 							<p class="banner-all-tip banner-fengmian hide">请上传封面图！</p>
 						</div>
 						<!--链接类型-->
@@ -1378,7 +1383,7 @@
 									<p>支持JPG/PNG等格式图片</p>
 									<p>( 推荐上传规格：260x147 )</p>
 								</span>
-									<input type="file" placeholder="请上传封面图" style="visibility: hidden;display: inline-block;" id="class_picIpt" />
+									<input type="file" placeholder="请上传封面图" style="visibility: hidden;display: inline-block;display: none;" id="class_picIpt" />
 								<p class="warning_course_imgPath warning hide">请上传封面图</p>
 							</div>
 							<!--主播姓名-->
@@ -1848,7 +1853,7 @@
 							<!--招生标题-->
 							<div class="comment-set-rules">
 								<span class="comment-left-rules"><em>*</em>招生标题</span>
-								<input type="text" class="recruit-title" maxlength="15" placeholder="请填写招生标题" />
+								<input type="text" class="recruit-title" maxlength="30" placeholder="请填写招生标题" />
 								<p class="warning-manage title-null hide">标题不能为空</p>	
 							</div>
 							<!--封面图-->
@@ -1872,7 +1877,7 @@
 								<span class="comment-left-rules"><em>*</em>招生人数</span>
 								<input type="text" class="personal-number"  onkeyup='this.value=this.value.replace(/\D/gi,"")' />
 								<p class="warning-manage personal-null hide">请填写招生人数</p>	
-								<p class="warning-manage personal-alb-null hide">请输入阿拉伯数字</p>	
+								<p class="warning-manage personal-alb-null hide">请输入阿拉伯数字并注意规范</p>	
 							</div>
 							<!--报名截止时间-->
 							<div class="comment-set-rules">

@@ -344,7 +344,7 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
            
             
             //查找最小的排序字段
-            String sqlCCs = "select ifnull(min(collection_course_sort),0) from collection_course_apply where "
+            String sqlCCs = "select ifnull(max(collection_course_sort),0) from collection_course_apply where "
                     + " collection_apply_id = ? ";
             int i = dao.queryForInt(sqlCCs, new Object[]{courseApplyInfo.getId()});//最大的排序
             
@@ -357,7 +357,7 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
             Map<String, Integer> paramMapCai = new HashMap<String, Integer>();
             paramMapCai.put("collectionApplyId", courseApplyInfo.getId());
             paramMapCai.put("courseApplyId", applyInfo.getId());
-            paramMapCai.put("collectionCourseSort", i-1);
+            paramMapCai.put("collectionCourseSort", i+1);
             dao.getNamedParameterJdbcTemplate().update(sqlCai, paramMapCai);
             
             /**
@@ -387,7 +387,7 @@ public class CourseServiceImpl extends OnlineBaseServiceImpl implements CourseSe
             Map<String, Integer> paramMap = new HashMap<String, Integer>();
             paramMap.put("cId", collection.getId());
             paramMap.put("courseId", course.getId());
-            paramMap.put("collectionCourseSort",  i-1);
+            paramMap.put("collectionCourseSort", i+1);
             dao.getNamedParameterJdbcTemplate().update(sql, paramMap);
             
         }

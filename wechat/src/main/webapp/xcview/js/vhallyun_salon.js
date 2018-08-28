@@ -33,13 +33,13 @@ $(".video_end_top1 .div img").click(function() {
 
 
 // 直播状态1.直播中，2预告，3直播结束 4 即将直播
-if (lineState == 1 || (lineState == 3 && playBackType == 1)) {
+if (lineState == 1 || lineState == 3) {
 	// 初始化 微吼云播放器
 	elsBind();
 
 }
 
-if (lineState == 1 || (lineState == 3 && playBackType == 1) || lineState == 4) {
+if (lineState == 1 || lineState == 3 || lineState == 4) {
 	initChat();
 	// 初始化消息
 	msgList(0, 100);

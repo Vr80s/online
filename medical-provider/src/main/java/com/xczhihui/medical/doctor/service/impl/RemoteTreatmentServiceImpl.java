@@ -68,6 +68,7 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
             if (cnt > 0) {
                 throw new MedicalException("预约时间重合, 请重新选择时间");
             }
+            treatment.setTreatmentStartTime(getTreatmentTime(treatment.getDate(), treatment.getStartTime()));
             remoteTreatmentMapper.insert(treatment);
         }
     }
@@ -89,6 +90,7 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
             waitUpdateTreatment.setEndTime(treatment.getEndTime());
             waitUpdateTreatment.setStartTime(treatment.getStartTime());
             waitUpdateTreatment.setDate(treatment.getDate());
+            waitUpdateTreatment.setTreatmentStartTime(getTreatmentTime(treatment.getDate(), treatment.getStartTime()));
             remoteTreatmentMapper.updateById(waitUpdateTreatment);
         }
     }
@@ -381,36 +383,26 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
             }
             remoteTreatmentMapper.updateById(treatment);
             remoteTreatmentAppointmentInfoMapper.updateById(treatmentAppointmentInfo);
-            result.put("courseId", treatment.getCourseId());
-            result.put("userId", treatmentAppointmentInfo.getUserId());
             return result;
         }
     }
 
     @Override
     public List<TreatmentVO> listByDoctorId(String doctorId, int page, int size) {
-        List<TreatmentVO> results = new ArrayList<>();
-
         List<TreatmentVO> treatmentVOS = remoteTreatmentMapper.selectTreatmentByDoctorId(doctorId, new Page<>(page, size));
-
-        Iterator<TreatmentVO> iterator = treatmentVOS.iterator();
-        while (iterator.hasNext()) {
-            TreatmentVO treatmentVO = iterator.next();
+        for (TreatmentVO treatmentVO : treatmentVOS) {
             if (treatmentVO.getStatus() == AppointmentStatus.WAIT_START.getVal() && isCanStartLive(getTreatmentTime(treatmentVO.getDate(), treatmentVO.getStartTime()))) {
                 treatmentVO.setStart(true);
-                results.add(treatmentVO);
-                iterator.remove();
             }
         }
-        results.addAll(treatmentVOS);
-        results.forEach(treatmentVO -> {
+        treatmentVOS.forEach(treatmentVO -> {
             treatmentVO.setTreatmentTime(getTreatmentTime(treatmentVO.getDate(), treatmentVO.getStartTime()));
             handleDate(treatmentVO);
         });
         if (page == 1) {
             cacheService.delete(RedisCacheKey.DOCTOR_TREATMENT_STATUS_CNT_KEY + doctorId);
         }
-        return results;
+        return treatmentVOS;
     }
 
     @Override
@@ -561,6 +553,15 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
              */
             courseApplyInfoMapper.deleteCourseApplyByCouserId(id);
             deleteMessage(id);
+        }
+    }
+
+    @Override
+    public void updateTreatmentStartTime() {
+        List<Treatment> treatments = remoteTreatmentMapper.listAll();
+        for (Treatment treatment : treatments) {
+            treatment.setTreatmentStartTime(getTreatmentTime(treatment.getDate(), treatment.getStartTime()));
+            remoteTreatmentMapper.updateById(treatment);
         }
     }
 

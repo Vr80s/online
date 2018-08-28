@@ -288,9 +288,9 @@ function doctorPostsList(pageNumber,downOrUp,doctorPostsType) {
                             }else if(!$("#"+data_postsId).children(".number_people_fize").children("span").is(":empty") && data.resultObject.length==0){
                                 $("#"+data_postsId).find(".evaluate_main").hide();
                             }
-                            webToast("删除成功","middle",1500);
+                            jqtoast("删除成功");
                         }else{
-                            webToast("删除失败","middle",1500);
+                            jqtoast("删除失败");
                         }
                     });
                 })
@@ -354,6 +354,15 @@ function postsType(obj) {
         page = 1;
         doctorPostsList(1,"down",doctorPostsType);
     }
+
+    // 判断视频语音包含，就隐藏动态
+    if($('.filtrate_sinatv').is('.active')){
+        $(".span_hide").hide();
+    }
+
+    if($('.filtrate_sinatv1').is('.active')){
+        $(".span_hide").hide();
+    }
     // $(".span_hide").hide();
 }
 /**
@@ -362,7 +371,7 @@ function postsType(obj) {
 function sendComment(){
     var article = $("#form_article").val();
     if($("#form_article").val()==""){
-        webToast("内容不能为空","middle",1500);
+        jqtoast("内容不能为空");
         return false;
     }
     requestService("/doctor/posts/"+getPostsIdByComment+"/comment",{
@@ -426,18 +435,18 @@ function sendComment(){
                                 }else if(!$("#"+getPostsIdByComment).children(".number_people_fize").children("span").is(":empty") && data.resultObject.length==0){
                                     $("#"+getPostsIdByComment).find(".evaluate_main").hide();
                                 }
-                                webToast("删除成功","middle",1500);
+                                jqtoast("删除成功");
                             }else{
-                                webToast("删除失败","middle",1500);
+                                jqtoast("删除失败");
                             }
                         });
                     })
                 }
 
             });
-            webToast("评论成功","middle",1500);
+            jqtoast("评论成功");
         }else{
-            webToast(data.resultObject,"middle",1500);
+            jqtoast(data.resultObject);
         }
     });
 }
@@ -461,7 +470,7 @@ function postsLike(obj,postsId) {
 
             getPostsLikeList(postsId,data.resultObject.list);
         }else{
-            webToast(data.resultObject,"middle",1500);
+            jqtoast(data.resultObject);
         }
     });
 }
@@ -483,7 +492,7 @@ function delPostsLike(obj,postsId) {
                 $("#"+postsId).find(".number_people_fize").hide();
             }
         }else{
-            webToast(data.resultObject,"middle",1500);
+            jqtoast(data.resultObject);
         }
     });
 }
@@ -917,6 +926,35 @@ function apprenticeInfo() {
                 $('.QA_doubt_main_reply'+id).html(txts);*/     
             }
 
+            function getFlagStatus() {
+                var falg = USER_NORMAL;
+                var user_cookie = cookie.get("_ipandatcm_user_");
+                var third_party_cookie = cookie.get("_third_ipandatcm_user_");
+                if (isBlank(user_cookie)) {
+                    falg = USER_UN_LOGIN;
+                    if (isNotBlank(third_party_cookie)) {
+                        falg = USER_UN_BIND;
+                    }
+                }
+                return falg;
+            }
+
+
+            var USER_UN_BIND = 1005;//用户用微信登录的但是没有绑定注册信息
+
+            $(".disciple_application").click(function(){
+                // alert(2112111);
+
+                var flag = getFlagStatus();
+
+                if (flag === USER_UN_BIND) {
+                    location.href = "/xcview/html/evpi.html";
+                }else{
+                    location.href ='/xcview/html/physician/apply_for.html?doctor='+doctorId
+                }
+            });
+            
+
             // 判断预约
             if (isBlank(data.resultObject.treatments)) {
                 $(".therapy").hide();
@@ -1131,8 +1169,9 @@ function order(id){
                requestGetService("/doctor/treatment/check",{id:id},function (data) {
                     if (data.success == true) {
                         // 0 -> 正常可预约 1 -> 已被预约 2-> 该时间段重复预约
-                        if (data.resultObject == 0) {
-                            // alert(0);
+                        if (data.resultObject == 2) {
+                           jqtoast("该时间段您已经有预约申请，请选择其他时段进行申请"); 
+                        }else if (data.resultObject == 0) {
                             location.href ='/xcview/html/physician/reserve_information.html?doctor='+doctorId+'&dataId='+id+''
                         // }else if (data.resultObject == 1 || data.resultObject == 2){
                         }else if (data.resultObject == 1){
@@ -1151,6 +1190,11 @@ function order(id){
         }
     });
 };
+
+
+
+
+
 
 // 点击我的预约
 function orders(id){
