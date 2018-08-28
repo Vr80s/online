@@ -434,6 +434,20 @@
 	.course_nav_span{
 		margin-bottom: 0.1rem !important;
 	}
+
+	.disciple_applications{
+		width: 6.98rem;
+	    height: 0.72rem;
+	    line-height: 0.72rem;
+	    margin: 0 auto;
+	    margin-bottom: 0.3rem;
+	    font-size: 0.3rem;
+	    color: #FFFFFF;
+	    text-align: center;
+	    background: #00BC12;
+	    border-radius: 100px;
+	    margin-bottom: 0;
+	}
 </style>
 
 </head>
@@ -1450,7 +1464,7 @@
 		<div class="disciple_application_states">
 			<div class="disciple_application">在线弟子申请加入</div></div>
 		{{else if items.onlineApprenticeStatus == 2}}
-			<div class="disciple_application_states"><div class="disciple_application" onclick="location.href ='/xcview/html/physician/application_approved.html?doctor='+doctorId">申请已提交，查看信息</div></div>
+			<div class="disciple_application_states"><div class="disciple_applications" onclick="location.href ='/xcview/html/physician/application_approved.html?doctor='+doctorId">申请已提交，查看信息</div></div>
 		{{else if items.onlineApprenticeStatus == 4}}
 			<!--<div class="disciple_application_states"><div class="disciple_application" styles="display: none;">申请已提交</div></div>-->
 		{{/if}}

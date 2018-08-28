@@ -953,11 +953,7 @@ function apprenticeInfo() {
                     location.href ='/xcview/html/physician/apply_for.html?doctor='+doctorId
                 }
             });
-            /*function orderss(){
-                alert(111);
-               
-            };*/
-
+            
 
             // 判断预约
             if (isBlank(data.resultObject.treatments)) {
