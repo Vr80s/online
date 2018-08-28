@@ -30,6 +30,104 @@ $(function () {
 			$(".long-range-btn").click();
 		}
 	});
+//	师承直播失焦验证
+	function clearDisciple(dom){
+		$("."+dom).addClass("hide");
+		$("."+dom).siblings("input").removeClass("active-border");
+	}
+	var checkDiscipleInput = {
+//		师承直播
+//		课程标题
+		course_title : function(){
+			clearDisciple("warning_course_title");
+			$(".warning_course_title_length").addClass("hide");
+			if($.trim($(".course_title").val())==""){
+				$(".warning_course_title").removeClass("hide");
+				$(".warning_course_title").siblings("input").addClass("active-border");
+				return false;
+			}else if($.trim($(".course_title").val()).length > 30){
+				$(".warning_course_title_length").removeClass("hide");
+				$(".warning_course_title_length").siblings("input").addClass("active-border");
+			}
+		},
+//		课程副标题
+		course_subtitle : function(){
+			clearDisciple("warning_course_subtitle");
+			$(".warning_course_subtitle_length").addClass("hide");
+			if($.trim($(".course_subtitle").val())==""){
+				$(".warning_course_subtitle").removeClass("hide");
+				$(".warning_course_subtitle").siblings("input").addClass("active-border");
+				return false;
+			}else if($.trim($(".course_subtitle").val()).length > 30){
+				$(".warning_course_subtitle_length").removeClass("hide");
+				$(".warning_course_subtitle_length").siblings("input").addClass("active-border");
+			}
+		},
+//		主讲人
+		course_lecturer : function(){
+			clearDisciple("warning_course_lecturer");
+			if($.trim($(".course_lecturer").val())==""){
+				$(".warning_course_lecturer").removeClass("hide");
+				$(".warning_course_lecturer").siblings("input").addClass("active-border");
+			}
+		},
+//		价格
+		course_price : function(){
+			clearDisciple("warning_course_price");
+			$(".warning_course_price_Illegal").addClass("hide");
+			if($.trim($(".course_price").val())==""){
+				$(".warning_course_price").removeClass("hide");
+				$(".warning_course_price").siblings("input").addClass("active-border");
+				return false;
+			}else if(!numberCk($.trim($(".course_price").val()))){
+				$(".warning_course_price_Illegal").removeClass("hide");
+				$(".warning_course_price_Illegal").siblings("input").addClass("active-border");
+			}
+		},
+//		师承管理
+//		招生标题
+		recruit_title : function(){
+			clearDisciple("title-null");
+			if($.trim($(".recruit-title").val())==""){
+				$(".title-null").removeClass("hide");
+				$(".title-null").siblings("input").addClass("active-border");
+			}
+		},
+//		招生人数
+		personal_number : function(){
+			clearDisciple("personal-null");
+			$(".personal-alb-null").addClass("hide");
+			if($.trim($(".personal-number").val())==""){
+				$(".personal-null").removeClass("hide");
+				$(".personal-null").siblings("input").addClass("active-border");
+				return false;
+			}else if(!numberCk($.trim($(".personal-number").val()))){
+				$(".personal-alb-null").removeClass("hide");
+				$(".personal-alb-null").siblings("input").addClass("active-border");
+			}
+		}
+	}
+	
+	$(".course_title").blur(function(){
+		checkDiscipleInput.course_title();
+	})
+	$(".course_subtitle").blur(function(){
+		checkDiscipleInput.course_subtitle();
+	})
+	$(".course_lecturer").blur(function(){
+		checkDiscipleInput.course_lecturer();
+	})
+	$(".course_price").blur(function(){
+		checkDiscipleInput.course_price();
+	})
+//	师承管理
+	$(".recruit-title").blur(function(){
+		checkDiscipleInput.recruit_title();
+	})
+	$(".personal-number").blur(function(){
+		checkDiscipleInput.personal_number();
+	})
+	
 });
  
 /**
@@ -148,11 +246,17 @@ function updateCourse(course) {
     });
 }
 
+function clearCourseErrorNews(){
+	$(".comment-style input").removeClass("active-border");
+	$(".disciple-set-wrap .warning").addClass("hide");
+}
+
 function editCourse(caiId, passEdit) {
     $(".change-status").click();
     if (echoCourse(caiId, passEdit)) {
         $(".curriculum_two").hide();
         $(".curriculum_one").show();
+        clearCourseErrorNews();
     } else {
         showTip("课程发生变化了，请刷新列表");
     }
@@ -373,24 +477,32 @@ function getCourseData() {
  * @author name：yuxin <br>email: yuruixin@ixincheng.com
  * @Date: 2018/2/2 0002 下午 9:36
  **/
+function addActiveBorder(dom){
+	$("."+dom).siblings("input").addClass("active-border")
+}
 function verifyCourse(course) {
     $(".warning").addClass('hide');
+    $(".disciple-set-wrap input").removeClass("active-border")
     //课程标题
     if (course.title == '') {
         $('.warning_course_title').removeClass('hide');
+        addActiveBorder("warning_course_title");
         return false;
     }
     if (course.title.length > 30) {
         $('.warning_course_title_length').removeClass('hide');
+        addActiveBorder("warning_course_title_length");
         return false;
     }
     //副标题
     if (course.subtitle == '') {
         $('.warning_course_subtitle').removeClass('hide');
+        addActiveBorder("warning_course_subtitle");
         return false;
     }
     if (course.subtitle.length > 30) {
         $('.warning_course_subtitle_length').removeClass('hide');
+        addActiveBorder("warning_course_subtitle_length");
         return false;
     }
     //封面图
@@ -401,6 +513,7 @@ function verifyCourse(course) {
     //主播姓名
     if (course.lecturer == '') {
         $('.warning_course_lecturer').removeClass('hide');
+        addActiveBorder("warning_course_lecturer");
         return false;
     }
     //主播介绍
@@ -411,21 +524,25 @@ function verifyCourse(course) {
     //请选择开课时间
     if (course.startTime == '') {
         $('.warning_course_start_time').removeClass('hide');
+        addActiveBorder("warning_course_start_time");
         return false;
     }
     //价格
     if (course.price == '') {
         $('.warning_course_price').removeClass('hide');
+        addActiveBorder("warning_course_price");
         return false;
     }
     //价格数值校验
     if (!numberCk(course.price)) {
         $('.warning_course_price_Illegal').removeClass('hide');
+        addActiveBorder("warning_course_price_Illegal");
         return false;
     }
     //原价
     if (course.originalCost != '' && parseInt(course.originalCost) < parseInt(course.price)) {
         $('.warning_course_originalCost').removeClass('hide');
+        addActiveBorder("warning_course_originalCost");
         return false;
     }
     //课程详情
@@ -933,6 +1050,7 @@ function cheackSelectAll(){
 //	编辑
 	$(".namage-list-table").on("click",".edit-manage",function(){
 		var index=$(this).attr("data-index");
+		clearRecruit();
 		echoManage(index);					//回显
 		$(".edit-save").removeClass("hide");//保存按钮显示
 		
@@ -1282,6 +1400,7 @@ function cheackSelectAll(){
 		$("#manage_picIpt").val("");
 		$('#file-input').val(""); 
 		$(".warning-manage").addClass("hide");
+		$(".recruit-students input").removeClass("active-border");
 	}
 /**
  * Description：远程诊疗
