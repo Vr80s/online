@@ -34,8 +34,9 @@ a {
 	font-size: 14px;
     color: #FF4012;
     line-height: 30px;
-    text-indent: 20px;
-    background: url(../images/icons/tanhao.png) no-repeat left center;
+    /*text-indent: 20px;*/
+    margin-left: 112px;
+    background: url(/web/images/icons/tanhao.png) no-repeat left center;
     padding-left: 20px;
 }
 .container {

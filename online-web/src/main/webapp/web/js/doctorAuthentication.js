@@ -190,19 +190,32 @@ $(function(){
 	
 	//姓名失去焦点
 	$(".doc_name").blur(function(){
-		if($(".doc_name").val() == ""){
+		var reg=/^[a-zA-Z\u4e00-\u9fa5]+$/;
+		if($.trim($(".doc_name").val())== ""){
 			$(".name_warn").removeClass("hide");
+			$('#AutList .doc_name').siblings('.name_warn').text('姓名不能为空');
 			$('#AutList .doc_name').addClass('borderColor');
+			return false;
+		}else if(!reg.test($(".doc_name").val())){
+			$('#AutList .doc_name').siblings('.name_warn').removeClass('hide');
+			$('#AutList .doc_name').siblings('.name_warn').text('请填写真实姓名');
+			$('#AutList .doc_name').addClass('borderColor');
+			return false;
 		}else{
 			$(".name_warn").addClass("hide");
 			$('#AutList .doc_name').removeClass('borderColor');
 		};
 	});
-	
 //	身份证号失去焦点
 	$(".doc_Idnum").blur(function(){
-		if($(".doc_Idnum").val() == ""){
+		var doc_Idnum_pass = /(^\d{15}$)|(^\d{17}([0-9]|X)$)/;
+		if($.trim($(".doc_Idnum").val()) == ""){
 			$(".idCard_warn").removeClass("hide");
+			$('#AutList .doc_Idnum').siblings('.idCard_warn').text('身份证号不能为空');
+			$('#AutList .doc_Idnum').addClass('borderColor');
+		}else if(!doc_Idnum_pass.test($.trim($('#AutList .doc_Idnum').val()))){
+			$('#AutList .doc_Idnum').siblings('.idCard_warn').removeClass('hide');
+			$('#AutList .doc_Idnum').siblings('.idCard_warn').text('身份证号格式不正确');
 			$('#AutList .doc_Idnum').addClass('borderColor');
 		}else{
 			$(".idCard_warn").addClass("hide");
@@ -210,9 +223,9 @@ $(function(){
 		};
 	});
 	
-//	昵称失去焦点
+//	职称失去焦点
 	$(".doc_zhicheng").blur(function(){
-		if($(".doc_zhicheng").val() == ""){
+		if($.trim($(".doc_zhicheng").val()) == ""){
 			$(".doc_zhicheng_null").removeClass("hide");
 			$('#AutList .doc_zhicheng').addClass('borderColor');
 		}else{
@@ -223,7 +236,7 @@ $(function(){
 	
 //	擅长失去焦点	
 	$(".doc_shanchang").blur(function(){
-		if($(".doc_shanchang").val() == ""){
+		if($.trim($(".doc_shanchang").val())== ""){
 			$(".doc_shanchang_null").removeClass("hide");
 			$('#AutList .doc_shanchang').addClass('borderColor');
 		}else{
