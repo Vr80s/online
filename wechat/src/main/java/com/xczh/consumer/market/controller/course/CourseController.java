@@ -64,7 +64,6 @@ public class CourseController {
     /**
      * Description：用户当前课程状态   User current course status.
      * 用户判断用户是否购买了这个课程
-     *
      * @return ResponseObject
      * @throws Exception
      * @author name：yangxuan <br>

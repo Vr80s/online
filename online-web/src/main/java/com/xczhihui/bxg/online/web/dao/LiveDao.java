@@ -153,6 +153,7 @@ public class LiveDao extends SimpleHibernateDao {
                 "  c.direct_id," +
                 "  c.channel_id," +
                 "  c.is_record record," +
+                "  c.play_back_type playBackType," +
                 "  c.record_id,"+
                 "  c.live_case," +
                 "  c.is_free, \n" +
