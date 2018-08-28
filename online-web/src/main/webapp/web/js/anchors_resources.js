@@ -1652,6 +1652,7 @@ function btnColorReply(){
             var columnCoverReset='<img src="' + data.resultObject + '?imageMogr2/thumbnail/!260x147r|imageMogr2/gravity/Center/crop/260x147" alt="课程封面">'+
                 '<p class="column-reset-tip">点击图片重新上传</p>'
             $('#zhuanlan .zhuanlan_bottom  .' + imgname + '').html(columnCoverReset);
+            $(".column-picter-warning").addClass("hide");
         });
 
     }
@@ -1685,23 +1686,20 @@ function btnColorReply(){
 
     //点击专栏的发布和保存
     function columnRecruit(data) {
+    	$("#zhuanlan_bottom .warning").addClass("hide");
+    	 $("#zhuanlan_bottom input").removeClass("active-border");
         if (data.title == "") {
             $(".column-title-warning").removeClass("hide");
+            $(".column-title-warning").siblings("input").addClass("active-border");
             return false;
-        } else {
-            $(".column-title-warning").addClass("hide");
         }
         if ($(".column-picter img").length == 0) {
             $(".column-picter-warning").removeClass("hide");
             return false;
-        } else {
-            $(".column-picter-warning").addClass("hide");
         }
         if (data.content == "") {
             $(".column-text-warning").removeClass("hide");
             return false;
-        } else {
-            $(".column-text-warning").addClass("hide");
         }
         return true;
     }
@@ -1959,6 +1957,7 @@ function btnColorReply(){
             contentType: false,
         }).success(function (data) {
             $('#zhuzuo .zhuzuo_bottom  .' + imgname + '').html('<img src="' + data.resultObject + '" >');
+        	$(".work-picter-warning").addClass("hide");
         });
 
     }
@@ -1993,44 +1992,36 @@ function btnColorReply(){
     function workValidate(workData) {
         var urlHttp = /^http:\/\//;
         var urlHttps = /^https:\/\//;
+        $(".zhuzuo_bottom .warning").addClass("hide");
+        $(".zhuzuo_bottom input").removeClass("active-border");
         if (workData.title == "") {
             $(".work-book-warning").removeClass("hide");
+            $(".work-book-warning").siblings("input").addClass("active-border");
             return false;
-        } else {
-            $(".work-book-warning").addClass("hide");
         }
         if (workData.author == "") {
             $(".work-author-warning").removeClass("hide");
+            $(".work-author-warning").siblings("input").addClass("active-border");
             return false;
-        } else {
-            $(".work-author-warning").addClass("hide");
         }
         if ($(".work-picter img").length == "0") {
             $(".work-picter-warning").removeClass("hide");
             return false;
-        } else {
-            $(".work-picter-warning").addClass("hide");
         }
         if (workData.remark == "") {
             $(".work-text-warning").removeClass("hide");
             return false;
-        } else {
-            $(".work-text-warning").addClass("hide");
-        }
+        } 
         if (workData.buyLink == "") {
             $(".work-link-warning").removeClass("hide");
-            $(".work-link2-warning").addClass("hide");
+            $(".work-link-warning").siblings("input").addClass("active-border");
             return false;
-        } else {
-            $(".work-link-warning").addClass("hide");
-        }
+        } 
         if (!urlHttp.test(workData.buyLink) && !urlHttps.test(workData.buyLink)) {
             $(".work-link2-warning").removeClass("hide");
+            $(".work-link2-warning").siblings("input").addClass("active-border");
             return false;
-        } else {
-            $(".work-link2-warning").addClass("hide");
-
-        }
+        } 
         return true;
     }
 
@@ -2260,6 +2251,7 @@ function btnColorReply(){
             var mediaCoverReset='<img src="' + data.resultObject + '?imageMogr2/thumbnail/!260x147r|imageMogr2/gravity/Center/crop/260x147" alt="课程封面">'+
                 '<p class="media-reset-tip">点击图片重新上传</p>'
             $('#media_report .media_report_bottom  .' + imgname + '').html(mediaCoverReset);
+            $(".media-picter-warning").addClass("hide");
         });
 
     }
@@ -2294,43 +2286,35 @@ function btnColorReply(){
     function mediaValidate(mediaData) {
     	var urlHttp = /^http:\/\//;
     	var urlHttps= /^https:\/\//;
+    	$(".media_report_bottom .warning").addClass("hide");
+    	$(".media_report_bottom input").removeClass("active-border");
         if (mediaData.title == "") {
             $(".media-title-warning").removeClass("hide");
+            $(".media-title-warning").siblings("input").addClass("active-border");
             return false;
-        } else {
-            $(".media-title-warning").addClass("hide");
         }
         if (mediaData.author == "") {
             $(".media-author-warning").removeClass("hide");
+            $(".media-author-warning").siblings("input").addClass("active-border");
             return false;
-        } else {
-            $(".media-author-warning").addClass("hide");
         }
         if ($(".media-picter img").length == "0") {
             $(".media-picter-warning").removeClass("hide");
             return false;
-        } else {
-            $(".media-picter-warning").addClass("hide");
         }
         if (mediaData.content == "") {
             $(".media-text-warning").removeClass("hide");
             return false;
-        } else {
-            $(".media-text-warning").addClass("hide");
         }
         if (mediaData.url == "") {
             $(".media-url-warning").removeClass("hide");
-            $(".media-url2-warning").addClass("hide");
+            $(".media-url-warning").siblings("input").addClass("active-border");
             return false;
-        } else {
-            $(".media-url-warning").addClass("hide");
         }
         if (!urlHttp.test(mediaData.url) && !urlHttps.test(mediaData.url)) {
             $(".media-url2-warning").removeClass("hide");
+            $(".media-url2-warning").siblings("input").addClass("active-border");
             return false;
-        } else {
-            $(".media-url2-warning").addClass("hide");
-
         }
         return true;
     }
@@ -2345,11 +2329,11 @@ function btnColorReply(){
 					isImgLength="";
 			}
         var mediaData = {
-                "title": $(".media-title").val(),
-                "author": $(".media-author").val(),
+                "title": $.trim($(".media-title").val()),
+                "author": $.trim($(".media-author").val()),
                 "imgPath": isImgLength,
                 "content": UE.getEditor('media-context').getContent(),
-                "url": $(".media-link").val(),
+                "url": $.trim($(".media-link").val()),
                 "status": mediaSaveId
            };
         if (mediaValidate(mediaData)) {
@@ -2457,11 +2441,11 @@ function btnColorReply(){
         $(".media-only-save").click(function () {
             var mediaEditId = $("#mediaId").val(),
                 editDataMedia = {
-                    "title": $(".media-title").val(),
-                    "author": $(".media-author").val(),
+                    "title": $.trim($(".media-title").val()),
+                    "author": $.trim($(".media-author").val()),
                     "imgPath": $(".media-picter img").attr("src").split("?")[0],
                     "content": UE.getEditor('media-context').getContent(),
-                    "url": $(".media-link").val(),
+                    "url": $.trim($(".media-link").val()),
                 };
             if (mediaValidate(editDataMedia)) {
                 $(".media-only-save").attr("disabled", "disabled");
@@ -2804,6 +2788,7 @@ function resetColumn(index) {
     $(".column-text").val("");
     $(".warning").addClass("hide");
     UE.getEditor('column-content').setContent("");
+    $("#zhuanlan_bottom input").removeClass("active-border")
 }
 
 function echoColumn(index) {
@@ -2864,6 +2849,8 @@ function resetWork(index) {
         $(".work-link").val("");
     $(".warning").addClass("hide");
     $(".only-save-work").removeAttr("disabled");
+    $(".warning").addClass("hide");
+    $(".zhuzuo_bottom input").removeClass("active-border");
 };
 
 function echoWork(index) {
@@ -2915,7 +2902,8 @@ function resetMedia(index) {
     UE.getEditor('media-context').setContent(""),
         $(".media-link").val("");
     $(".warning").addClass("hide");
-    $(".media-only-save").removeAttr("disabled");
+    $(".media-only-save").removeAttr("disabled");   
+    $(".media_report_bottom input").removeClass("active-border");
 }
 
 function echoMedia(index) {

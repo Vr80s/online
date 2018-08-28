@@ -109,9 +109,82 @@ $(function () {
 //		学习地址
 		address_text : function(){
 			$(".studyAddress-null").siblings("textarea").removeClass("active-border");
+			$(".studyAddress-null").addClass("hide");
 			if($.trim($(".address-text").val())==""){
 				$(".studyAddress-null").removeClass("hide");
 				$(".studyAddress-null").siblings("textarea").addClass("active-border");
+			}
+		},
+//		医案专栏
+//		标题
+		column_title : function(){
+			clearDisciple("column-title-warning");
+			if($.trim($(".column-title").val())==""){
+				$(".column-title-warning").removeClass("hide");
+				$(".column-title-warning").siblings("input").addClass("active-border");
+			}
+		},
+//		著作
+//		书名
+		work_title : function(){
+			clearDisciple("work-book-warning");
+			if($.trim($(".work-title").val())==""){
+				$(".work-book-warning").removeClass("hide");
+				$(".work-book-warning").siblings("input").addClass("active-border");
+			}
+		},
+//		作者
+		work_author : function(){
+			clearDisciple("work-author-warning");
+			if($.trim($(".work-author").val())==""){
+				$(".work-author-warning").removeClass("hide");
+				$(".work-author-warning").siblings("input").addClass("active-border");
+			}
+		},
+//		购买链接
+		work_link : function(){
+			 var urlHttp = /^http:\/\//;
+       	 	var urlHttps = /^https:\/\//;
+			clearDisciple("work-link-warning");
+			$(".work-link2-warning").addClass("hide");
+			if($.trim($(".work-link").val())==""){
+				$(".work-link-warning").removeClass("hide");
+				$(".work-link-warning").siblings("input").addClass("active-border");
+				return false;
+			}else if(!urlHttp.test($.trim($(".work-link").val())) && !urlHttps.test($.trim($(".work-link").val()))){
+				$(".work-link2-warning").removeClass("hide");
+				$(".work-link2-warning").siblings("input").addClass("active-border");
+			}
+		},
+//		媒体报道	
+		media_title : function(){
+			clearDisciple("media-title-warning");
+			if($.trim($(".media-title").val())==""){
+				$(".media-title-warning").removeClass("hide");
+				$(".media-title-warning").siblings("input").addClass("active-border");
+			}
+		},
+//		作者
+		media_author : function(){
+			clearDisciple("media-author-warning");
+			if($.trim($(".media-author").val())==""){
+				$(".media-author-warning").removeClass("hide");
+				$(".media-author-warning").siblings("input").addClass("active-border");
+			}
+		},
+//		购买链接
+		media_link : function(){
+			 var urlHttp = /^http:\/\//;
+       	 	var urlHttps = /^https:\/\//;
+			clearDisciple("media-url-warning");
+			$(".media-url2-warning").addClass("hide");
+			if($.trim($(".media-link").val())==""){
+				$(".media-url-warning").removeClass("hide");
+				$(".media-url-warning").siblings("input").addClass("active-border");
+				return false;
+			}else if(!urlHttp.test($.trim($(".media-link").val())) && !urlHttps.test($.trim($(".media-link").val()))){
+				$(".media-url2-warning").removeClass("hide");
+				$(".media-url2-warning").siblings("input").addClass("active-border");
 			}
 		}
 	}
@@ -135,7 +208,41 @@ $(function () {
 	$(".personal-number").blur(function(){
 		checkDiscipleInput.personal_number();
 	})
-	
+	$(".address-text").blur(function(){
+		checkDiscipleInput.address_text();
+	})
+//	医案专栏
+//	标题
+	$(".column-title").blur(function(){
+		checkDiscipleInput.column_title();
+	})
+//	著作
+//	书名
+	$(".work-title").blur(function(){
+		checkDiscipleInput.work_title();
+	})
+//	作者
+	$(".work-author").blur(function(){
+		checkDiscipleInput.work_author();
+	})
+//	购买链接
+	$(".work-link").blur(function(){
+		checkDiscipleInput.work_link();
+	})
+//	媒体报道
+//	标题
+	$(".media-title").blur(function(){
+		checkDiscipleInput.media_title();
+	})
+//	作者
+	$(".media-author").blur(function(){
+		checkDiscipleInput.media_author();
+	})
+//	购买链接
+	$(".media-link").blur(function(){
+		checkDiscipleInput.media_link();
+	})
+
 });
  
 /**
@@ -1232,46 +1339,43 @@ function cheackSelectAll(){
 	var addressText;     //学习详细地址
 	function testRecruit(establishDate){
 		var reg = /^[0-9]+.?[0-9]*$/;
+		$(".recruit-students .warning-manage").addClass("hide");
+		$(".recruit-students input").removeClass("active-border");
+		$(".recruit-students textarea").removeClass("active-border");
+		$(".recruit-students .enclosure-text").removeClass("active-border");
 //	标题
 	if(establishDate.title==""){
 		$(".title-null").removeClass("hide");
+		$(".title-null").siblings("input").addClass("active-border");
 		return false;
-	}else{
-		$(".title-null").addClass("hide");
 	}
 //	封面图
 	if($(".mamage-wrap-img img").length==0){
 		$(".fengmian-null").removeClass("hide");
 		return false;
-	}else{
-		$(".fengmian-null").addClass("hide");
 	}
 //	招生人数	
 	if(establishDate.countLimit==""){
 		$(".personal-null").removeClass("hide");
+		$(".personal-null").siblings("input").addClass("active-border");
 		return false;
-	}else{
-		$(".personal-null").addClass("hide");
 	}
 	if(reg.test(establishDate.countLimit)==false){
 		$(".personal-alb-null").removeClass("hide");
+		$(".personal-alb-null").siblings("input").addClass("active-border");
 		return false;
-	}else{
-		$(".personal-alb-null").addClass("hide");
 	}
 //	报名截止时间	
 	if(establishDate.deadline==""){
 		$(".sign-up-null").removeClass("hide");
+		$(".sign-up-null").siblings("input").addClass("active-border");
 		return false;
-	}else{
-		$(".sign-up-null").addClass("hide");
 	}
 //	学习时间	
 	if(establishDate.startTime=="" || establishDate.endTime==""){
 		$(".studyTime-null").removeClass("hide");
+		$(".studyTime-null").siblings("input").addClass("active-border");
 		return false;
-	}else{
-		$(".studyTime-null").addClass("hide");
 	}	
 //	开始时间不能大于结束时间
 	if(establishDate.startTime>establishDate.endTime){
@@ -1286,30 +1390,24 @@ function cheackSelectAll(){
 //  学习地址
 	if($.trim($(".address-text").val())==""){
 		$(".studyAddress-null").removeClass("hide");
+		$(".studyAddress-null").siblings("textarea").addClass("active-border");
 		return false;			
-	}else{				
-		$(".studyAddress-null").addClass("hide");
 	}
 //	相关介绍	
 	if(establishDate.ceremonyAddress==""){
 		$(".about-introduce-null").removeClass("hide");
 		return false;
-	}else{
-		$(".about-introduce-null").addClass("hide");
-	}	
+	}
 //	招生简介
 	if(establishDate.regulations==""){
 		$(".introduction-null").removeClass("hide");
 		return false;
-	}else{
-		$(".introduction-null").addClass("hide");
 	}
 //	招生简章附件
 	if($(".enclosure-text").text()==""){
 		$(".enclosure-null").removeClass("hide");
+		$(".enclosure-null").siblings(".enclosure-text").addClass("active-border");
 		return false;
-	}else{
-		$(".enclosure-null").addClass("hide");
 	}
 	return true;
 }
@@ -1410,6 +1508,7 @@ function cheackSelectAll(){
 		$(".warning-manage").addClass("hide");
 		$(".recruit-students input").removeClass("active-border");
 		$(".recruit-students textarea").removeClass("active-border");
+		$(".recruit-students .enclosure-text").removeClass("active-border");
 	}
 /**
  * Description：远程诊疗
