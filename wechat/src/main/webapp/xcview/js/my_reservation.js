@@ -1,6 +1,5 @@
 //requestService
 // $(function(){
-
     // 点击头像区域跳转到查看详情
     function orders(id){
         requestGetService("/doctor/treatment/user/appointment",{id:id},function (data) {
@@ -50,7 +49,7 @@
 
                         jqtoast("删除成功");
                     }else{
-                        jqtoast(data.resultObject.errorMessage);
+                        jqtoast(data.errorMessage);
                     }
                 });
 
@@ -97,16 +96,17 @@
                  }  
                     
             });
-
-
         	
+        }else{
+            alert(456);
+            jqtoast(data.errorMessage);
         }
     });
 
 
 //刷新
 // 初始化页码
-var page = 1;
+/*var page = 1;
 
 // miniRefresh 对象
 var miniRefresh = new MiniRefresh({
@@ -125,11 +125,13 @@ var miniRefresh = new MiniRefresh({
             doctorStatus(page,'up');
         }
     }
-});
+});*/
 
     
 
 // });
+
+
 
 
 

@@ -288,9 +288,9 @@ function doctorPostsList(pageNumber,downOrUp,doctorPostsType) {
                             }else if(!$("#"+data_postsId).children(".number_people_fize").children("span").is(":empty") && data.resultObject.length==0){
                                 $("#"+data_postsId).find(".evaluate_main").hide();
                             }
-                            webToast("删除成功","middle",1500);
+                            jqtoast("删除成功");
                         }else{
-                            webToast("删除失败","middle",1500);
+                            jqtoast("删除失败");
                         }
                     });
                 })
@@ -371,7 +371,7 @@ function postsType(obj) {
 function sendComment(){
     var article = $("#form_article").val();
     if($("#form_article").val()==""){
-        webToast("内容不能为空","middle",1500);
+        jqtoast("内容不能为空");
         return false;
     }
     requestService("/doctor/posts/"+getPostsIdByComment+"/comment",{
@@ -435,18 +435,18 @@ function sendComment(){
                                 }else if(!$("#"+getPostsIdByComment).children(".number_people_fize").children("span").is(":empty") && data.resultObject.length==0){
                                     $("#"+getPostsIdByComment).find(".evaluate_main").hide();
                                 }
-                                webToast("删除成功","middle",1500);
+                                jqtoast("删除成功");
                             }else{
-                                webToast("删除失败","middle",1500);
+                                jqtoast("删除失败");
                             }
                         });
                     })
                 }
 
             });
-            webToast("评论成功","middle",1500);
+            jqtoast("评论成功");
         }else{
-            webToast(data.resultObject,"middle",1500);
+            jqtoast(data.resultObject);
         }
     });
 }
@@ -470,7 +470,7 @@ function postsLike(obj,postsId) {
 
             getPostsLikeList(postsId,data.resultObject.list);
         }else{
-            webToast(data.resultObject,"middle",1500);
+            jqtoast(data.resultObject);
         }
     });
 }
@@ -492,7 +492,7 @@ function delPostsLike(obj,postsId) {
                 $("#"+postsId).find(".number_people_fize").hide();
             }
         }else{
-            webToast(data.resultObject,"middle",1500);
+            jqtoast(data.resultObject);
         }
     });
 }
@@ -1169,8 +1169,9 @@ function order(id){
                requestGetService("/doctor/treatment/check",{id:id},function (data) {
                     if (data.success == true) {
                         // 0 -> 正常可预约 1 -> 已被预约 2-> 该时间段重复预约
-                        if (data.resultObject == 0) {
-                            // alert(0);
+                        if (data.resultObject == 2) {
+                           jqtoast("该时间段您已经有预约申请，请选择其他时段进行申请"); 
+                        }else if (data.resultObject == 0) {
                             location.href ='/xcview/html/physician/reserve_information.html?doctor='+doctorId+'&dataId='+id+''
                         // }else if (data.resultObject == 1 || data.resultObject == 2){
                         }else if (data.resultObject == 1){
