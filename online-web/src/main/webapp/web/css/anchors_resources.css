@@ -1605,7 +1605,9 @@ outline: none;
     float: right;
     margin-top: 37px;
 }
-
+.active-border{
+	border-color: #FF4012 !important;
+}
 .comment-style .introduce-text{
 	width: 540px;
 	height: 160px;
