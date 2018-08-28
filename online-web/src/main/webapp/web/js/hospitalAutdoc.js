@@ -444,17 +444,25 @@ $('#deleteTip .confirm-sure').click(function(){
 	});
 	
 //	药品经营许可证失焦
-	$(".doc_zhichengs").blur(function(){
-		if($(".doc_zhichengs").val() == ""){
+//	$(".doc_zhichengs").blur(function(){
+//		if($(".doc_zhichengs").val() == ""){
+//			$(".xukeNum_warn").removeClass("hide");
+//			$(".doc_zhichengs").addClass("border_hide_null");
+//		}else{
+//			$(".xukeNum_warn").addClass("hide");
+//			$(".doc_zhichengs").removeClass("border_hide_null");
+//		};
+//	});
+	
+	$(".doc_zhichengss").blur(function(){
+		if($(".doc_zhichengss").val() == ""){
 			$(".xukeNum_warn").removeClass("hide");
-			$(".doc_zhichengs").addClass("border_hide_null");
+			$(".doc_zhichengss").addClass("border_hide_null");
 		}else{
 			$(".xukeNum_warn").addClass("hide");
-			$(".doc_zhichengs").removeClass("border_hide_null");
+			$(".doc_zhichengss").removeClass("border_hide_null");
 		};
 	});
-	
-	
 	
 
 	// 可是我点击验证效果

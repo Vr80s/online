@@ -68,7 +68,7 @@ a {
 	font-size: 14px;
     color: #FF4012;
     line-height: 30px;
-    text-indent: 20px;
+    /*text-indent: 20px;*/
     background: url(../images/icons/tanhao.png) no-repeat left center;
     padding-left: 20px;
 }
@@ -1041,7 +1041,7 @@ height: 100%;
 	font-size: 14px;
     color: #FF4012;
     line-height: 30px;
-    text-indent: 20px;
+    /*text-indent: 20px;*/
     background: url(../images/icons/tanhao.png) no-repeat left center;
      margin-left: 120px;
 }
@@ -1731,4 +1731,7 @@ color: white;
 width: 100%;
 text-align: center;
 padding: 18px 0;
+}
+.border_hide_null{
+	border-color: #FF4012 !important;
 }
