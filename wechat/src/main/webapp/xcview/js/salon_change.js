@@ -310,12 +310,6 @@ function() {
 	}
 
 
-
-
-
-
-
-
 	$(".gift_ul_li").on("click", "li", function() {
 		$(this).addClass('gift_ul_li_li').siblings().removeClass('gift_ul_li_li');
 	});
