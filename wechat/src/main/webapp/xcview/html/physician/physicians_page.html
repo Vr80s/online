@@ -1697,14 +1697,14 @@ $(window).bind("scroll", function() {
         }else{
             $(".li_data").click();
             // debugger;
-            var li_data = sessionStorage.getItem("li_data");
-            if(isNotBlank(li_data)){
-            	 $(aBtn[parseInt(li_data)]).click();
-            }else{
-            	 $(aBtn[0]).click();
+        }
 
-            	 // $(".span_hide").show();
-            }
+        // 这是判断的  全部里面的每一个
+        var li_data = sessionStorage.getItem("li_data");
+        if(isNotBlank(li_data)){
+        	 $(aBtn[parseInt(li_data)]).click();
+        }else{
+        	 $(aBtn[0]).click();
         }
         
 
