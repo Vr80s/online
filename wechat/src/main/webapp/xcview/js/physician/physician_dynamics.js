@@ -356,13 +356,13 @@ function postsType(obj) {
     }
 
     // 判断视频语音包含，就隐藏动态
-    if($('.filtrate_sinatv').is('.active')){
+    /*if($('.filtrate_sinatv').is('.active')){
         $(".span_hide").hide();
     }
 
     if($('.filtrate_sinatv1').is('.active')){
         $(".span_hide").hide();
-    }
+    }*/
     // $(".span_hide").hide();
 }
 /**
