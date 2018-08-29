@@ -327,14 +327,19 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         /**
          * 更改这个课程的时长
          */
+        
+        //课程表
         List<Integer> list = courseApplyResourceMapper.selectCourseListByVideoRecourse(ccId);
         if (list.size() > 0) {
             courseApplyResourceMapper.updateBatchCourseLength(duration, list);
         }
-        /**
-         * 通过这个视频Id查找这个对应的课程
-         */
+        
+        //视频资源表
         courseApplyResourceMapper.updateCourseLengthByResource(duration,ccId);
+        
+        //课程信息审核表
+        courseApplyResourceMapper.updateCourseApplyInfoLengthByResource(duration,ccId);
+        
     }
 
     @Override

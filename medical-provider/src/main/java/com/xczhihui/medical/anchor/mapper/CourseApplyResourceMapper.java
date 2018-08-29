@@ -33,4 +33,13 @@ public interface CourseApplyResourceMapper extends BaseMapper<CourseApplyResourc
                                  @Param("list") List<Integer> list);
     void updateCourseLengthByResource(@Param("videoLength") String videoLength,
                                  @Param("ResourceId") String ResourceId);
+
+	/**  
+	 * <p>Title: updateCourseApplyInfoLengthByResource</p>  
+	 * <p>Description: </p>  
+	 * @param duration
+	 * @param ccId  
+	 */ 
+	void updateCourseApplyInfoLengthByResource(@Param("videoLength")String duration, 
+			@Param("ResourceId")String ccId);
 }

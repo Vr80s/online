@@ -70,5 +70,11 @@
         update course_apply_resource set length = #{videoLength}
         where resource = #{ResourceId}
     </update>
+    
+    <!--   根据资源id更新时长     -->
+    <update id="updateCourseApplyInfoLengthByResource" parameterType="java.util.List">
+        update course_apply_info set course_length = #{videoLength}
+        where course_resource = #{ResourceId}
+    </update>
 
 </mapper>
