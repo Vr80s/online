@@ -25,6 +25,7 @@ public class DateUtil {
         hour = seconds / 3600;
         min = (seconds - hour * 3600) / 60;
         second = seconds - hour * 3600 - min * 60;
+        
         if (hour < 10) {
             result += "0" + hour + ":";
         } else {
@@ -45,4 +46,5 @@ public class DateUtil {
 
     }
 
+    
 }

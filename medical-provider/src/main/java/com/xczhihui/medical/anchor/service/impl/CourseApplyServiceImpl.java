@@ -169,6 +169,10 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
             //将资源放入课程
             courseApplyInfo.setResourceId(courseApplyResource.getId());
             courseApplyInfo.setCourseResource(courseApplyResource.getResource());
+            if(courseApplyResource.getLength()!=null && 
+            		!"".equals(courseApplyResource.getLength())) {
+            	 courseApplyInfo.setCourseLength(courseApplyResource.getLength());
+            }
         }
         courseApplyInfo.setCreateTime(new Date());
         courseApplyInfoMapper.insert(courseApplyInfo);

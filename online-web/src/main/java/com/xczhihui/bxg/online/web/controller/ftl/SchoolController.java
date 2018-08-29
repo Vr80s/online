@@ -60,6 +60,7 @@ import com.xczhihui.course.service.IMobileHotSearchService;
 import com.xczhihui.course.service.IMobileProjectService;
 import com.xczhihui.course.service.IMyInfoService;
 import com.xczhihui.course.service.IOfflineCityService;
+import com.xczhihui.course.vo.CollectionCoursesVo;
 import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.course.vo.CourseSolrVO;
 import com.xczhihui.course.vo.MenuVo;
@@ -357,7 +358,7 @@ public class SchoolController extends AbstractFtlController {
         	   view.addObject("updateDateText", courseApplyService.getCollectionUpdateDateText(clv.getId()));
            }
         	
-            List<CourseLecturVo> courses = courseService.selectCoursesByCollectionId(clv.getId());
+            List<CollectionCoursesVo> courses = courseService.selectCoursesByCollectionId(clv.getId());
             view.addObject("collectionList", courses);
             view.addObject("collectionListSize", courses.size());
            

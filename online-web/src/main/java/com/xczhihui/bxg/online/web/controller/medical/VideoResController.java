@@ -246,7 +246,11 @@ public class VideoResController extends AbstractController {
      */
     @RequestMapping(value = "updateCourseApplyResource", method = RequestMethod.GET)
     public void updateCourseApplyResource(HttpServletResponse res, String videoid) throws IOException {
-        courseApplyService.updateCourseApplyResource(videoid);
+
+    	System.out.println("updateCourseApplyResource  + videoId:"+ videoid);
+    	
+    	courseApplyService.updateCourseApplyResource(videoid);
+        
         res.setCharacterEncoding("UTF-8");
         res.setContentType("text/xml; charset=utf-8");
         res.getWriter().write("<?xml version=\"1.0\" encoding=\"UTF-8\"?><video>OK</video>");

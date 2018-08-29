@@ -13,6 +13,7 @@ import org.apache.ibatis.annotations.Update;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.course.model.Course;
+import com.xczhihui.course.vo.CollectionCoursesVo;
 import com.xczhihui.course.vo.CourseLecturVo;
 import com.xczhihui.course.vo.CourseSolrVO;
 import com.xczhihui.course.vo.ShareInfoVo;
@@ -42,7 +43,7 @@ public interface CourseMapper extends BaseMapper<Course> {
 
     List<CourseLecturVo> selectMyPurchasedCourseList(@Param("page") Page<CourseLecturVo> page, @Param("userId") String id);
 
-    List<CourseLecturVo> selectCoursesByCollectionId(Integer collectionId);
+    List<CollectionCoursesVo> selectCoursesByCollectionId(Integer collectionId);
 
     CourseLecturVo selectLecturerRecentCourse(@Param("userId") String userId, @Param("onlyFree") boolean onlyFree);
 

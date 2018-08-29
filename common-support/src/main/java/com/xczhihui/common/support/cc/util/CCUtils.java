@@ -143,6 +143,8 @@ public class CCUtils {
         return null;
     }
 
+    
+    
     public String getVideoLength(String videoid) {
         Map<String, String> paramsMap = new HashMap<String, String>();
         paramsMap.put("userid", onlineConfig.ccuserId);
@@ -157,8 +159,15 @@ public class CCUtils {
         if(obj == null){
             return "";
         }
+        
         String duration = obj.get("duration").toString();
-        return String.valueOf(Double.valueOf(duration).intValue() / 60);
+        try {
+        	 double minutes = Double.parseDouble(duration) / 60; 
+             BigDecimal   b   =   new   BigDecimal(minutes);  
+             return  b.setScale(3,   BigDecimal.ROUND_HALF_UP).toString();
+		} catch (Exception e) {
+			 return String.valueOf(Double.valueOf(duration).intValue() / 60);
+		}
     }
 
     public String getPlayCode(String videoId, String audioStr) {
