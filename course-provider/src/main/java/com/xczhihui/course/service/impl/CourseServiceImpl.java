@@ -718,7 +718,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 	 */ 
 	private String createTherapyGradeName(String userLecturerId,String doctorName, Date startTime) {
 		//***医师的远程诊疗直播 yyyy/mm/dd 如有重复则加上编号（01,02,03….）。  
-		String strGradeName = doctorName+"医师的远程诊疗直播"+DateUtil.formatDate(startTime,DateUtil.FORMAT_DAY);
+		String strGradeName = doctorName+"医师的远程诊疗直播"+DateUtil.formatDate(startTime,"yyyyMMdd");
 		try {
 			//编号
 			List<String>  numberList   = iCourseMapper.selectDoctorCurrentDayTherapyNumber(startTime,userLecturerId);
