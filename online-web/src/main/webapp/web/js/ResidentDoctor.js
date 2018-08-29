@@ -32,7 +32,7 @@ RequestService("/medical/common/isDoctorOrHospital", "GET", null, function(data)
 				//认证中
 				seeAutStatus();
 				$('#docAut_tip').removeClass('hide');
-			} else if(isDoctorOrHospital == 7) {
+			} else if(isDoctorOrHospital == 7 || isDoctorOrHospital == 6) {
 				//拒绝情况
 				RequestService("/doctor/apply/getLastOne", "get", null, function(data) {
 					if(data.resultObject.status == 0){

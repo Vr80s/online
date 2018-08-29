@@ -226,12 +226,12 @@ $(function () {
         data.city = $('#hos_Administration .hos_base_inf  #citys option:selected').text();
         data.county = $('#hos_Administration .hos_base_inf  #county option:selected').text();
         data.wechat = $('#hos_Administration .hos_base_inf  .hos_weixin').val();
-        data.headPortrait = $('.hos_base_inf   .touxiang_pic img').attr('src');
+        data.headPortrait = $('.hos_base_inf   .touxiang_pic img').attr('src').split("?")[0];
         data.description = UE.getEditor('editor2').getContent();
         data.detailedAddress = $.trim($('#hos_Administration .hos_base_inf .doc_address textarea').val());
         var hoslist = [];
         for (var i = 0; i < $('#hos_pic img').length; i++) {
-            hoslist.push($('#hos_pic img').eq(i).attr('src'));
+            hoslist.push($('#hos_pic img').eq(i).attr('src').split("?")[0]);
         }
         var fieldIds = [];
         for (var i = 0; i < $('.hos_base_inf .keshi .keshiColor').length; i++) {
@@ -485,26 +485,88 @@ $(function () {
     })
 
 
+//	医师管理保存失焦验证
+	function claerPhysicianBlur(dom){
+		$('.'+dom).addClass('hide');
+        $('.'+dom).siblings('input').removeClass("border_hide_null");
+            	
+	}
+	var physicianCheckBlur={
+		doc_name : function(){
+			var name_pass = /^[a-zA-Z\u4e00-\u9fa5]+$/;
+			var name = $.trim($('#doc_Administration_bottom .doc_name_manage').val());
+			claerPhysicianBlur("name_warn");
+			if (name == '') {
+				$('#doc_Administration_bottom .name_warn').removeClass('hide');
+            	$('#doc_Administration_bottom .name_warn').text('姓名不能为空');
+            	$('#doc_Administration_bottom .name_warn').siblings('input').addClass("border_hide_null");
+            	return false;
+			}else if (!name_pass.test(name)) {
+	            $('#doc_Administration_bottom .name_warn').removeClass('hide');
+	            $('#doc_Administration_bottom .name_warn').text('请填写真实姓名');
+	            $('#doc_Administration_bottom .name_warn').siblings('input').addClass("border_hide_null");
+	            return false;
+        	} 
+		},
+//		职称
+		doc_zhicheng_manage : function(){
+			 var doc_zhicheng = $.trim($('#doc_Administration_bottom .doc_zhicheng').val());
+				claerPhysicianBlur("zhicheng_name_error");
+			if (doc_zhicheng == '') {
+				$('#doc_Administration_bottom .zhicheng_name_error').removeClass('hide');
+            	$('#doc_Administration_bottom .zhicheng_name_error').siblings('input').addClass("border_hide_null");
+			}
+		},
+//		擅长		
+		doc_shanchangIpt : function(){
+			 var doc_shanchangIpt = $.trim($('#doc_Administration_bottom .doc_shanchangIpt').val());
+				claerPhysicianBlur("doc_shanchangIpt_error");
+			if (doc_shanchangIpt == '') {
+				$('#doc_Administration_bottom .doc_shanchangIpt_error').removeClass('hide');
+            	$('#doc_Administration_bottom .doc_shanchangIpt_error').siblings('input').addClass("border_hide_null");
+			}
+		}
+		
+		
+		
+		
+		
+	}
+	
+	
+	$("#doc_Administration_bottom .doc_name_manage").blur(function(){
+		physicianCheckBlur.doc_name();
+	})
+	$("#doc_Administration_bottom .doc_zhicheng_manage").blur(function(){
+		physicianCheckBlur.doc_zhicheng_manage();
+	})
+	$("#doc_Administration_bottom .doc_shanchangIpt").blur(function(){
+		physicianCheckBlur.doc_shanchangIpt();
+	})
+
+
     //医师管理保存功能
     $('#doc_Administration_bottom #submit').click(function () {
         //获取数据
-        var name = $.trim($('#doc_Administration_bottom .doc_name').val());
-        var name_pass = /^[\u4E00-\u9FA5]{1,20}$/;
+        var name = $.trim($('#doc_Administration_bottom .doc_name_manage').val());
+        var name_pass = /^[a-zA-Z\u4e00-\u9fa5]+$/;
         var doc_zhicheng = $.trim($('#doc_Administration_bottom .doc_zhicheng').val());
         var doc_Idnum_pass = /(^\d{15}$)|(^\d{17}([0-9]|X)$)/;
         var description = UE.getEditor('editor').getContent();
         var field = $('#doc_Administration_bottom .doc_shanchangIpt').val();
+        $("#doc_Administration_bottom .warning").addClass("hide");
+        $("#doc_Administration_bottom input").removeClass("border_hide_null");
         //姓名验证
         if (name == '') {
-            $('#doc_Administration_bottom .doc_name').siblings('.name_warn').removeClass('hide');
-            $('#doc_Administration_bottom .doc_name').siblings('.name_warn').text('姓名不能为空');
+            	$('#doc_Administration_bottom .name_warn').removeClass('hide');
+            	$('#doc_Administration_bottom .name_warn').text('姓名不能为空');
+            	$('#doc_Administration_bottom .name_warn').siblings('input').addClass("border_hide_null");
             return false;
         } else if (!name_pass.test(name)) {
-            $('#doc_Administration_bottom .doc_name').siblings('.name_warn').removeClass('hide');
-            $('#doc_Administration_bottom .doc_name').siblings('.name_warn').text('姓名格式不正确');
+             	$('#doc_Administration_bottom .name_warn').removeClass('hide');
+	            $('#doc_Administration_bottom .name_warn').text('请填写真实姓名');
+	            $('#doc_Administration_bottom .name_warn').siblings('input').addClass("border_hide_null");
             return false;
-        } else {
-            $('#doc_Administration_bottom .doc_name').siblings('.name_warn').addClass('hide');
         }
 
 
@@ -519,10 +581,9 @@ $(function () {
 
         //职称验证
         if (doc_zhicheng == '') {
-            $('#doc_Administration_bottom .zhicheng_name .warning').removeClass('hide');
-            return false;
-        } else {
-            $('#doc_Administration_bottom .zhicheng_name .warning').addClass('hide');
+            $('#doc_Administration_bottom .zhicheng_name_error').removeClass('hide');
+           	$('#doc_Administration_bottom .zhicheng_name_error').siblings('input').addClass("border_hide_null");			
+           return false;
         }
 
 
@@ -545,10 +606,9 @@ $(function () {
 
         //擅长验证
         if (field == '') {
-            $('#doc_Administration_bottom .shanchang_name .warning').removeClass('hide');
-            return false;
-        } else {
-            $('#doc_Administration_bottom .shanchang_name .warning').addClass('hide');
+            $('#doc_Administration_bottom .doc_shanchangIpt_error').removeClass('hide');
+           	$('#doc_Administration_bottom .doc_shanchangIpt_error').siblings('input').addClass("border_hide_null");			
+           return false;
         }
 
 
@@ -563,7 +623,7 @@ $(function () {
 
         //通过了以上的所有验证之后重新获取所有的数据上传
       
-        var name = $.trim($('#doc_Administration_bottom .doc_name').val());
+        var name = $.trim($('#doc_Administration_bottom .doc_name_manage').val());
         var headPortrait = $('#doc_Administration_bottom  .touxiang_pic img').attr('src').split("?")[0];
         var title = $.trim($('#doc_Administration_bottom .doc_zhicheng').val());
         var medicalDoctorAuthenticationInformation = $('#doc_Administration_bottom  .zhicheng_pic img').attr('src').split("?")[0];
