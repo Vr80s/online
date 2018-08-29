@@ -154,7 +154,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         List<CollectionCoursesVo> courses = iCourseMapper.selectCoursesByCollectionId(collectionId);
         for (CollectionCoursesVo courseLecturVo : courses) {
         	Double d = Double.valueOf(courseLecturVo.getCourseLength()) * 60;
-        	courseLecturVo.setDuration(
+        	courseLecturVo.setCourseLength(
         			com.xczhihui.common.support.cc.util.DateUtil.
         			turnSecondsToTimestring(d.intValue()));
 		}

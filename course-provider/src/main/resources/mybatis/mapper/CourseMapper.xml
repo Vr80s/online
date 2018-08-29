@@ -331,6 +331,7 @@
         oc.subtitle as subtitle,
         oc.`grade_name` gradeName,
         oc.`course_length` courseLength,
+        oc.`course_length` Duration,
         oc.`direct_id` directId,
         oc.lecturer as name
         FROM

@@ -12,7 +12,7 @@
         AND car.`is_delete` = 0
         ORDER BY car.`create_time` DESC
     </select>
-
+ 
     <select id="selectCourseResourceByPage" resultType="com.xczhihui.medical.anchor.vo.CourseApplyResourceVO">
         SELECT
         car.*,
