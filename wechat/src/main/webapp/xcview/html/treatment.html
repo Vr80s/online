@@ -110,6 +110,7 @@
 			<div class="main_center">
 				<div class="main_center_auto">
 					<!--status  1->待审核 2->未开始 3->已开始 4->已完成 5->已过期 6->审核不通过-->
+					<!--当status 是2时，start用于判断是否显示开始预约按钮-->
 					{{if item.status == 1}}
 						<div class="audit">审核中</div>
 					{{else if item.status == 2}}
