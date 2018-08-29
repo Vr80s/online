@@ -1,11 +1,6 @@
 package com.xczhihui.course.service.impl;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,21 +18,9 @@ import com.xczhihui.common.util.DateUtil;
 import com.xczhihui.common.util.EmailUtil;
 import com.xczhihui.common.util.XzStringUtils;
 import com.xczhihui.common.util.bean.MinuteTaskMessageVo;
-import com.xczhihui.common.util.enums.CourseForm;
-import com.xczhihui.common.util.enums.CourseType;
-import com.xczhihui.common.util.enums.LiveCaseType;
-import com.xczhihui.common.util.enums.LivePushStreamStatus;
-import com.xczhihui.common.util.enums.LiveStatus;
-import com.xczhihui.common.util.enums.Multimedia;
-import com.xczhihui.common.util.enums.PayStatus;
-import com.xczhihui.common.util.enums.PlayBackType;
-import com.xczhihui.common.util.enums.VhallCustomMessageType;
+import com.xczhihui.common.util.enums.*;
 import com.xczhihui.common.util.redis.key.RedisCacheKey;
-import com.xczhihui.common.util.vhallyun.ChannelService;
-import com.xczhihui.common.util.vhallyun.InteractionService;
-import com.xczhihui.common.util.vhallyun.MessageService;
-import com.xczhihui.common.util.vhallyun.RoomService;
-import com.xczhihui.common.util.vhallyun.VideoService;
+import com.xczhihui.common.util.vhallyun.*;
 import com.xczhihui.course.consts.MultiUrlHelper;
 import com.xczhihui.course.exception.CourseException;
 import com.xczhihui.course.mapper.CourseMapper;
