@@ -629,11 +629,11 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         if (courseApplyInfo.getPrice() < 0) {
             throw new AnchorWorkException("课程单价不可小于0");
         }
-        if (courseApplyInfo.getPrice() > 6) {
-            throw new AnchorWorkException("课程单价不可大于1000000");
+        if (courseApplyInfo.getPrice() > 999999) {
+            throw new AnchorWorkException("课程单价不可大于999999");
         }
-        if (courseApplyInfo.getOriginalCost() > 6) {
-            throw new AnchorWorkException("课程原价不可大于1000000");
+        if (courseApplyInfo.getOriginalCost() != null &&courseApplyInfo.getOriginalCost() > 999999) {
+            throw new AnchorWorkException("课程原价不可大于999999");
         }
         if (courseApplyInfo.getPrice() != courseApplyInfo.getPrice().intValue()) {
             throw new AnchorWorkException("课程单价必须为整数");
