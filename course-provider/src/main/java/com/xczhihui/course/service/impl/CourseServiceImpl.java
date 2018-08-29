@@ -606,6 +606,10 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 		//***医师的远程诊疗直播 yyyy/mm/dd 如有重复则加上编号（01,02,03….）。
 		
 		String gradeName = createTherapyGradeName(cv.getUserLecturerId(),cv.getDoctorName(),cv.getStartTime());
+		
+		//默认即学即用
+		course.setMenuId(210);
+		
 		course.setGradeName(gradeName);
         course.setAppointmentInfoId(lockId);
         //默认图
