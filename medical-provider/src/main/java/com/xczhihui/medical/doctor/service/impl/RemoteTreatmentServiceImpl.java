@@ -1,5 +1,15 @@
 package com.xczhihui.medical.doctor.service.impl;
 
+import static com.xczhihui.common.util.enums.TreatmentInfoApplyStatus.APPLY_PASSED;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.common.support.service.CacheService;
 import com.xczhihui.common.util.DateUtil;
@@ -20,15 +30,6 @@ import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 import com.xczhihui.medical.doctor.vo.TreatmentVO;
 import com.xczhihui.medical.enrol.mapper.MedicalEntryInformationMapper;
 import com.xczhihui.medical.exception.MedicalException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
-
-import static com.xczhihui.common.util.enums.TreatmentInfoApplyStatus.APPLY_PASSED;
 
 
 /**
@@ -145,6 +146,7 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
             treatmentAppointmentInfo.setStartTime(treatment.getStartTime());
             treatmentAppointmentInfo.setEndTime(treatment.getEndTime());
             treatmentAppointmentInfo.setStatus(TreatmentInfoApplyStatus.WAIT_DOCTOR_APPLY.getVal());
+            treatmentAppointmentInfo.setTreatmentStartTime(getTreatmentTime(treatment.getDate(), treatment.getStartTime()));
             remoteTreatmentAppointmentInfoMapper.insert(treatmentAppointmentInfo);
             treatment.setInfoId(treatmentAppointmentInfo.getId());
             treatment.setStatus(AppointmentStatus.WAIT_APPLY.getVal());
@@ -390,11 +392,6 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
     @Override
     public List<TreatmentVO> listByDoctorId(String doctorId, int page, int size) {
         List<TreatmentVO> treatmentVOS = remoteTreatmentMapper.selectTreatmentByDoctorId(doctorId, new Page<>(page, size));
-        for (TreatmentVO treatmentVO : treatmentVOS) {
-            if (treatmentVO.getStatus() == AppointmentStatus.WAIT_START.getVal() && isCanStartLive(getTreatmentTime(treatmentVO.getDate(), treatmentVO.getStartTime()))) {
-                treatmentVO.setStart(true);
-            }
-        }
         treatmentVOS.forEach(treatmentVO -> {
             treatmentVO.setTreatmentTime(getTreatmentTime(treatmentVO.getDate(), treatmentVO.getStartTime()));
             handleDate(treatmentVO);
@@ -407,26 +404,15 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
 
     @Override
     public List<TreatmentVO> listByUserId(String userId, int page, int size) {
-        List<TreatmentVO> results = new ArrayList<>();
         List<TreatmentVO> treatmentVOS = remoteTreatmentMapper.selectTreatmentByUserId(userId, new Page<>(page, size));
-        Iterator<TreatmentVO> iterator = treatmentVOS.iterator();
-        while (iterator.hasNext()) {
-            TreatmentVO treatmentVO = iterator.next();
-            if (treatmentVO.getStatus() == APPLY_PASSED.getVal() && isCanStartLive(getTreatmentTime(treatmentVO.getDate(), treatmentVO.getStartTime()))) {
-                treatmentVO.setStart(true);
-                results.add(treatmentVO);
-                iterator.remove();
-            }
-        }
-        results.addAll(treatmentVOS);
-        results.forEach(treatmentVO -> {
+        treatmentVOS.forEach(treatmentVO -> {
             treatmentVO.setTreatmentTime(getTreatmentTime(treatmentVO.getDate(), treatmentVO.getStartTime()));
             handleDate(treatmentVO);
         });
         if (page == 1) {
             cacheService.delete(RedisCacheKey.USER_TREATMENT_STATUS_CNT_KEY + userId);
         }
-        return results;
+        return treatmentVOS;
     }
 
     @Override
@@ -559,9 +545,14 @@ public class RemoteTreatmentServiceImpl implements IRemoteTreatmentService {
     @Override
     public void updateTreatmentStartTime() {
         List<Treatment> treatments = remoteTreatmentMapper.listAll();
+        List<TreatmentAppointmentInfo> treatmentAppointmentInfos = remoteTreatmentMapper.listAllAppointmentInfo();
         for (Treatment treatment : treatments) {
             treatment.setTreatmentStartTime(getTreatmentTime(treatment.getDate(), treatment.getStartTime()));
             remoteTreatmentMapper.updateById(treatment);
+        }
+        for (TreatmentAppointmentInfo treatmentAppointmentInfo : treatmentAppointmentInfos) {
+            treatmentAppointmentInfo.setTreatmentStartTime(getTreatmentTime(treatmentAppointmentInfo.getDate(), treatmentAppointmentInfo.getStartTime()));
+            remoteTreatmentAppointmentInfoMapper.updateById(treatmentAppointmentInfo);
         }
     }
 

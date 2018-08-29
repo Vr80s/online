@@ -215,6 +215,7 @@ dev-2.5
     ALTER TABLE `oe_course` ADD COLUMN `appointment_info_id` int(11) null COMMENT '预约信息id' AFTER `is_teaching`;
 
     ALTER TABLE `medical_treatment` ADD `treatment_start_time` DATETIME  NULL AFTER `deleted`;
+    ALTER TABLE `medical_treatment_appointment_info` ADD `treatment_start_time` DATETIME  NULL AFTER `deleted`;
 
     POST 方式调用: 
         测试环境: https://cs.xczhihui.com/doctor/treatment/reset/startTime
