@@ -10,14 +10,88 @@ $(function () {
         $('.forum').css('color', '#000');
         $('.path .hospital').addClass('select');
     }
-
-
+//	医馆基础信息失去焦点验证
+	function hideHospitalWarning(dom){
+		$("."+dom).addClass("hide");
+		$("."+dom).siblings("input").removeClass("border_hide_null");
+            	
+	}
+	var hospitalInfCheck={
+		doc_shanchang : function(){
+			var name = $.trim($('.hos_base_inf .doc_shanchang').val());
+			var name_pass = /^[a-zA-Z\u4e00-\u9fa5]+$/;
+			hideHospitalWarning("contant_name_warn")
+			if (name == "") {
+				$('.contant_name_warn').removeClass('hide');
+            	$('.contant_name_warn').text('姓名不能为空');
+            	$('.contant_name_warn').siblings("input").addClass("border_hide_null");
+            	return false;
+			} else if(!name_pass.test(name)){
+				$('.contant_name_warn').removeClass('hide');
+            	$('.contant_name_warn').text('请填写真实姓名');
+            	$('.contant_name_warn').siblings("input").addClass("border_hide_null");
+			}
+		},
+//		电话
+		doc_tel : function(){
+			var telVal = $.trim($('.hos_base_inf .doc_tel').val());
+			var tel = /^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/;
+			hideHospitalWarning("mobile_name_warn")
+			if (telVal == "") {
+				$('.mobile_name_warn').removeClass('hide');
+            	$('.mobile_name_warn').text('号码不能为空');
+            	$('.mobile_name_warn').siblings("input").addClass("border_hide_null");
+            	return false;
+			} else if(!tel.test(telVal)){
+				$('.mobile_name_warn').removeClass('hide');
+            	$('.mobile_name_warn').text('号码格式不正确');
+            	$('.mobile_name_warn').siblings("input").addClass("border_hide_null");
+			}
+		},
+//		邮箱
+		doc_hospital : function(){
+			 var email = $.trim($('.hos_base_inf .doc_hospital').val());
+			var emailPatt = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+			hideHospitalWarning("email_warn")
+			if (email != "" && !emailPatt.test(email)) {
+				$('.email_warn').removeClass('hide');
+            	$('.email_warn').siblings("input").addClass("border_hide_null");
+            	return false;
+			}
+		},
+//		微信
+		hos_weixin : function(){
+			var WeChat = $.trim($('.hos_base_inf .hos_weixin').val());
+        	var WeChatPatt = /^[a-zA-Z\d_-]{5,}$/;
+			hideHospitalWarning("WeChat_warn")
+			if (WeChat != "" && !WeChatPatt.test(WeChat)) {
+				$('.WeChat_warn').removeClass('hide');
+            	$('.WeChat_warn').siblings("input").addClass("border_hide_null");
+            	return false;
+			}
+		}
+	}
+	$(".doc_shanchang").blur(function(){
+		hospitalInfCheck.doc_shanchang()
+	})
+	$(".doc_tel").blur(function(){
+		hospitalInfCheck.doc_tel()
+	})
+	$(".doc_hospital").blur(function(){
+		hospitalInfCheck.doc_hospital()
+	})
+	$(".hos_weixin").blur(function(){
+		hospitalInfCheck.hos_weixin()
+	})
+	
+	
+	
     $('#hos_Administration .hos_base_inf #submit').click(function () {
 
         var hosName = $.trim($('.hos_base_inf .doc_zhicheng').val());
         var hosIntroduct = $.trim($('.hos_base_inf .personIntroduct textarea').val());
         var name = $.trim($('.hos_base_inf .doc_shanchang').val());
-        var name_pass = /^[\u4E00-\u9FA5]{1,20}$/;
+        var name_pass = /^[a-zA-Z\u4e00-\u9fa5]+$/;
         var WeChat = $.trim($('.hos_base_inf .hos_weixin').val());
         var WeChatPatt = /^[a-zA-Z\d_-]{5,}$/;
         var email = $.trim($('.hos_base_inf .doc_hospital').val());
@@ -26,13 +100,12 @@ $(function () {
         var tel = /^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/;
         var mobile = /^1[345678]\d{9}$/;
 
-
+		$("#hospital-inf-write .warning").addClass("hide");
+		$("#hospital-inf-write input").removeClass("border_hide_null");
         //医馆头像判断
         if ($('.hos_base_inf   .touxiang_pic:has(img)').length < 1) {
             $('.hos_base_inf .touxiang_picUpdata .warning ').removeClass('hide');
             return false;
-        } else {
-            $('.hos_base_inf .touxiang_picUpdata .warning ').addClass('hide');
         }
 
 
@@ -51,8 +124,6 @@ $(function () {
         if ($('.hos_base_inf  .zhicheng_pic:has(img)').length < 1) {
             $('.hos_base_inf .zhicheng_picUpdata .warning ').removeClass('hide');
             return false;
-        } else {
-            $('.hos_base_inf .zhicheng_picUpdata .warning ').addClass('hide');
         }
 
 
@@ -60,8 +131,6 @@ $(function () {
         if ($('.hos_base_inf .keshi .keshiColor').length == 0) {
             $('.hos_base_inf .keshi .warning ').removeClass('hide');
             return false;
-        } else {
-            $('.hos_base_inf .keshi .warning ').addClass('hide');
         }
 
 
@@ -69,8 +138,6 @@ $(function () {
         if ($('.hos_base_inf .personIntroduct textarea').val() == '') {
             $('.hos_base_inf .personIntroduct .warning').removeClass('hide');
             return false;
-        } else {
-            $('.hos_base_inf .personIntroduct .warning').addClass('hide');
         }
 
 
@@ -78,41 +145,42 @@ $(function () {
         if (name == '') {
             $('.contant_name_warn').removeClass('hide');
             $('.contant_name_warn').text('姓名不能为空');
+            $('.contant_name_warn').siblings("input").addClass("border_hide_null");
             return false;
         } else if (!name_pass.test(name)) {
             $('.contant_name_warn').removeClass('hide');
-            $('.contant_name_warn').text('姓名格式不正确');
+            $('.contant_name_warn').text('请填写真实姓名');
+            $('.contant_name_warn').siblings("input").addClass("border_hide_null");          
             return false;
-        } else {
-            $('.contant_name_warn').addClass('hide');
         }
 
         //电话判断
         if (telVal == '') {
             $('.hos_base_inf .mobile_name_warn').removeClass('hide');
+            $('.hos_base_inf .mobile_name_warn').text('号码不能为空');
+            $('.mobile_name_warn').siblings("input").addClass("border_hide_null");
             return false;
-        } else if (telVal !== '' && !tel.test(telVal) && !mobile.test(telVal)) {
+        } else if (telVal != '' && !tel.test(telVal) && !mobile.test(telVal)) {
             $('.hos_base_inf .mobile_name_warn').removeClass('hide');
+            $('.hos_base_inf .mobile_name_warn').text('号码格式不正确');
+            $('.mobile_name_warn').siblings("input").addClass("border_hide_null");       
             return false;
-        } else {
-            $('.hos_base_inf .mobile_name_warn').addClass('hide');
         }
 
 
         //邮箱判断
-        if (email !== '' && !emailPatt.test(email)) {
+        if (email != '' && !emailPatt.test(email)) {
             $('.hos_base_inf .email_warn').removeClass('hide');
+            $('.email_warn').siblings("input").addClass("border_hide_null");
             return false;
-        } else {
-            $('.hos_base_inf .email_warn').addClass('hide');
         }
 
         //微信
-        if (WeChat !== '' && !WeChatPatt.test(WeChat)) {
+        if (WeChat != '' && !WeChatPatt.test(WeChat)) {
             $('.hos_base_inf .WeChat_warn').removeClass('hide');
+             $('.WeChat_warn').siblings("input").addClass("border_hide_null");
+            
             return false;
-        } else {
-            $('.hos_base_inf .WeChat_warn').addClass('hide');
         }
 
 
